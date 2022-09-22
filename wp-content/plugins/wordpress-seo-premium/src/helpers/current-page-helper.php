@@ -42,16 +42,16 @@ class Current_Page_Helper {
 	 * @return string The post type.
 	 */
 	public function get_current_post_type() {
-		$post = filter_input( INPUT_GET, 'post', FILTER_SANITIZE_STRING );
+		$post = \filter_input( \INPUT_GET, 'post', \FILTER_SANITIZE_STRING );
 
 		if ( $post ) {
-			return get_post_type( get_post( $post ) );
+			return \get_post_type( \get_post( $post ) );
 		}
 
-		return filter_input(
-			INPUT_GET,
+		return \filter_input(
+			\INPUT_GET,
 			'post_type',
-			FILTER_SANITIZE_STRING,
+			\FILTER_SANITIZE_STRING,
 			[
 				'options' => [
 					'default' => 'post',
@@ -69,22 +69,22 @@ class Current_Page_Helper {
 	 */
 	public function get_current_taxonomy() {
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash -- doing a strict in_array check should be sufficient.
-		if ( ! isset( $_SERVER['REQUEST_METHOD'] ) || ! in_array( $_SERVER['REQUEST_METHOD'], [ 'GET', 'POST' ], true ) ) {
+		if ( ! isset( $_SERVER['REQUEST_METHOD'] ) || ! \in_array( $_SERVER['REQUEST_METHOD'], [ 'GET', 'POST' ], true ) ) {
 			return '';
 		}
 
 		if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
-			return (string) filter_input(
-				INPUT_POST,
+			return (string) \filter_input(
+				\INPUT_POST,
 				'taxonomy',
-				FILTER_SANITIZE_STRING
+				\FILTER_SANITIZE_STRING
 			);
 		}
 
-		return (string) filter_input(
-			INPUT_GET,
+		return (string) \filter_input(
+			\INPUT_GET,
 			'taxonomy',
-			FILTER_SANITIZE_STRING
+			\FILTER_SANITIZE_STRING
 		);
 	}
 }

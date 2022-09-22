@@ -47,9 +47,16 @@ class WPSEO_WooCommerce_Slack {
 			}
 
 			if ( $show_price ) {
-				$price = \wp_strip_all_tags( $product->get_price_html() );
+				// We're recreating the WC_Product::get_price_html() but with the logic of the products on sale removed.
+				if ( $product->get_price() === '' ) {
+					// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals -- Using WooCommerce hook.
+					$price = apply_filters( 'woocommerce_empty_price_html', '', $product );
+				}
+				else {
+					$price = \wc_price( \wc_get_price_to_display( $product ) ) . $product->get_price_suffix();
+				}
 
-				$data[ __( 'Price', 'yoast-woo-seo' ) ] = $price;
+				$data[ __( 'Price', 'yoast-woo-seo' ) ] = \wp_strip_all_tags( $price );
 			}
 			$data[ __( 'Availability', 'yoast-woo-seo' ) ] = $availability;
 		}

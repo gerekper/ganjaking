@@ -65,7 +65,7 @@ class THEMECOMPLETE_EPO_FIELDS_select extends THEMECOMPLETE_EPO_FIELDS {
 		} elseif ( empty( $this->post_data ) && isset( $_REQUEST[ 'tmcp_' . $args['name_inc'] ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$selected_value = wp_unslash( $_REQUEST[ 'tmcp_' . $args['name_inc'] ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
 		} elseif ( THEMECOMPLETE_EPO()->is_quick_view() || ( empty( $this->post_data ) || ( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] ) ) || 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add || ( isset( $args['posted_name'] ) && ! empty( $this->post_data ) && ! isset( $_REQUEST[ $args['posted_name'] ] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			$selected_value = - 1;
+			$selected_value = -1;
 		}
 
 		$selected_value = apply_filters( 'wc_epo_default_value', $selected_value, $element );

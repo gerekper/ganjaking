@@ -253,7 +253,7 @@ function wc_box_office_ticket_description_list_formatter( $ticket_id, $ticket_fi
 	}
 
 	if ( ! empty( $ticket_description ) ) {
-		$ticket_description = '<ul>' . $ticket_description . '</ul>';
+		$ticket_description = '<ul style="clear:both;">' . $ticket_description . '</ul>';
 	}
 
 	return $ticket_description;
@@ -365,9 +365,10 @@ function wc_box_office_get_tickets_by_user( $user_id = 0, $amount = 'all', $page
 /**
  * Get all ticket products in database.
  *
+ * @param bool $include_variation Optional parameter whether to include variation data per product or not.
  * @return array Product posts
  */
-function wc_box_office_get_all_ticket_products() {
+function wc_box_office_get_all_ticket_products( $include_variation = false ) {
 	$args = array(
 		'post_type'      => 'product',
 		'post_status'    => 'publish',
@@ -381,7 +382,28 @@ function wc_box_office_get_all_ticket_products() {
 		),
 	);
 
-	return get_posts( $args );
+	$ticket_products = get_posts( $args );
+
+	if ( $include_variation ) {
+		foreach ( $ticket_products as $index => $product ) {
+			$ticket_products[ $index ]->variations = array();
+			$product                               = wc_get_product( $product->ID );
+
+			if ( ! $product->is_type( 'variable' ) ) {
+				continue;
+			}
+
+			$variations = $product->get_available_variations();
+			foreach ( $variations as $variation ) {
+				$ticket_products[ $index ]->variations[] = (object) array(
+					'ID'              => $variation['variation_id'],
+					'variation_title' => get_the_title( $variation['variation_id'] )
+				);
+			}
+		}
+	}
+
+	return $ticket_products;
 }
 
 /**
@@ -451,7 +473,12 @@ function wc_box_office_send_ticket_email( $ticket_id = 0, $address = '', $subjec
  */
 function wc_box_office_send_mail( $to, $subject, $message ) {
 	// Set email headers.
-	$headers = "Content-Type: text/html\r\n";
+	$headers = array(
+		'Content-Type:text/html',
+		'Reply-To:' . wc_box_office_get_email_from_address(),
+	);
+
+	$header_string = implode( "\n", $headers ) . "\n";
 
 	// Filters for the email.
 	add_filter( 'wp_mail_from', 'wc_box_office_get_email_from_address' );
@@ -459,7 +486,7 @@ function wc_box_office_send_mail( $to, $subject, $message ) {
 	add_filter( 'wp_mail_content_type', 'wc_box_office_get_email_content_type' );
 
 	// Send email.
-	$result = wp_mail( $to, $subject, $message, $headers );
+	$result = wp_mail( $to, $subject, $message, $header_string );
 
 	// Unhook filters.
 	remove_filter( 'wp_mail_from', 'wc_box_office_get_email_from_address' );
@@ -531,7 +558,7 @@ function wc_box_office_get_parsed_ticket_content( $ticket_id, $content ) {
 			: $ticket_product->post->post_content;
 
 		$post_vars = array(
-			'{post_title}'   => $ticket_product->get_title(),
+			'{post_title}'   => get_the_title( $ticket_id ),
 			'{post_content}' => $description,
 		);
 		foreach ( $post_vars as $var => $value ) {
@@ -809,4 +836,18 @@ function is_ticket_editable( $object ) {
 	}
 
 	return get_post_meta( $product_id, '_disable_edit_tickets', true ) === 'yes' ? false : true;
+}
+
+/**
+ * Prepare ticket title prefix
+ * 
+ * @return string Ticket title prefix
+ */
+function wcbo_get_ticket_title_prefix() {
+	$ticket_prefix = get_option( 'box_office_ticket_title_prefix', '' );
+	if ( empty( $ticket_prefix ) ) {
+		$ticket_prefix = __( 'Ticket #', 'woocommerce-box-office' );
+	}
+	
+	return esc_html( $ticket_prefix );
 }

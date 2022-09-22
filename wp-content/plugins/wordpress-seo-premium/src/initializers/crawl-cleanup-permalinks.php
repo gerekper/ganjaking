@@ -157,7 +157,7 @@ class Crawl_Cleanup_Permalinks implements Initializer_Interface {
 		 *
 		 * @since 19.2.0
 		 *
-		 * @param array The list of the allowed vars (empty by default).
+		 * @param array $allowed_extravars The list of the allowed vars (empty by default).
 		 */
 		$allowed_extravars = \apply_filters( 'Yoast\WP\SEO\allowlist_permalink_vars', [] );
 
@@ -168,20 +168,20 @@ class Crawl_Cleanup_Permalinks implements Initializer_Interface {
 		$allowed_query = [];
 
 		// @todo parse_str changes spaces in param names into `_`, we should find a better way to support them.
-		\wp_parse_str( \wp_parse_url( $current_url, PHP_URL_QUERY ), $query );
+		\wp_parse_str( \wp_parse_url( $current_url, \PHP_URL_QUERY ), $query );
 
 		if ( ! empty( $allowed_extravars ) ) {
 			foreach ( $allowed_extravars as $get ) {
 				$get = \trim( $get );
 				if ( isset( $query[ $get ] ) ) {
-					$allowed_query[ $get ] = rawurlencode_deep( $query[ $get ] );
+					$allowed_query[ $get ] = \rawurlencode_deep( $query[ $get ] );
 					unset( $query[ $get ] );
 				}
 			}
 		}
 
 		// If we had only allowed params, let's just bail out, no further processing needed.
-		if ( count( $query ) === 0 ) {
+		if ( \count( $query ) === 0 ) {
 			return;
 		}
 
@@ -254,7 +254,7 @@ class Crawl_Cleanup_Permalinks implements Initializer_Interface {
 		}
 		if ( ! empty( $proper_url ) && $wp_query->query_vars['paged'] !== 0 && $wp_query->post_count !== 0 ) {
 			if ( \is_search() ) {
-				$proper_url = \get_bloginfo( 'url' ) . '/page/' . $wp_query->query_vars['paged'] . '/?s=' . \rawurlencode( get_search_query() );
+				$proper_url = \get_bloginfo( 'url' ) . '/page/' . $wp_query->query_vars['paged'] . '/?s=' . \rawurlencode( \get_search_query() );
 			}
 			else {
 				$proper_url = \user_trailingslashit( \trailingslashit( $proper_url ) . 'page/' . $wp_query->query_vars['paged'] );

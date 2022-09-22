@@ -57,18 +57,18 @@ class WC_AF_Rule_Detect_Proxy extends WC_AF_Rule {
 				if (array_key_exists('proxy', $array_data)) {
 
 					if ('yes' == $res->$ip->proxy) {
-
+						
 						$risk = true;						
 					}
 				}
 				
-				// Here we can create a log entry in future, whenever required. We can write the complete $res object in that log.
 				Af_Logger::debug(print_r($res, true));	
 			}			    
 			
 		}
 		Af_Logger::debug('detect proxy rule risk : ' . ( true === $risk ? 'true' : 'false' ));
 		return $risk;
+		// Here we can create a log entry in future, whenever required. We can write the complete $res object in that log.
 	}
 	
 	//Enable rule check
@@ -78,5 +78,6 @@ class WC_AF_Rule_Detect_Proxy extends WC_AF_Rule {
 		}
 		return false; 
 	}
+	
+	
 }
-

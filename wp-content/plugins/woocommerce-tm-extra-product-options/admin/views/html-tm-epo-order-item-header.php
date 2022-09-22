@@ -11,7 +11,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$tax_data  = empty( $legacy_order ) && wc_tax_enabled() ? maybe_unserialize( isset( $item['line_tax_data'] ) ? $item['line_tax_data'] : '' ) : false;
+$tax_data  = empty( $legacy_order ) && wc_tax_enabled() ? themecomplete_maybe_unserialize( isset( $item['line_tax_data'] ) ? $item['line_tax_data'] : '' ) : false;
 $row_class = apply_filters( 'woocommerce_admin_html_order_item_class', isset( $class ) && ! empty( $class ) ? $class : '', $item, $order );
 ?>
 <tr class="tm-order-line <?php echo esc_attr( $row_class ); ?>" data-order_item_id="<?php echo esc_attr( $item_id ); ?>">

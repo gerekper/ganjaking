@@ -51,6 +51,7 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_UPLOAD extends THEMECOMPLETE_EPO_BUILDER
 				'enabled',
 				'required',
 				'price_type5',
+				'lookuptable',
 				'price',
 				'sale_price',
 				'fee',

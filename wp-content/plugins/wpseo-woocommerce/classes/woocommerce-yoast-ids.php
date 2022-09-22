@@ -34,9 +34,9 @@ class WPSEO_WooCommerce_Yoast_Ids {
 	/**
 	 * Add global identifiers text fields to a variation description.
 	 *
-	 * @param int     $loop The iteration number.
+	 * @param int     $loop           The iteration number.
 	 * @param array   $variation_data Data related to the variation.
-	 * @param WP_Post $variation The variation object.
+	 * @param WP_Post $variation      The variation object.
 	 *
 	 * @return void
 	 */
@@ -102,11 +102,11 @@ class WPSEO_WooCommerce_Yoast_Ids {
 	/**
 	 * Displays an input field for an identifier.
 	 *
-	 * @param string $variation_id  The id of the variation.
-	 * @param string $type          Type of identifier, used for input name.
-	 * @param string $label         Label for the identifier input.
-	 * @param string $value         Current value of the identifier.
-	 * @param bool   $is_left        Wether the field is on the left or not.
+	 * @param string $variation_id The id of the variation.
+	 * @param string $type         Type of identifier, used for input name.
+	 * @param string $label        Label for the identifier input.
+	 * @param string $value        Current value of the identifier.
+	 * @param bool   $is_left      Wether the field is on the left or not.
 	 *
 	 * @return void
 	 */
@@ -115,8 +115,8 @@ class WPSEO_WooCommerce_Yoast_Ids {
 		// Ignoring escaping because it would mangle the double quotes.
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '<p ', $style, '>';
-		echo '<label for="yoast_variation_identifier[', esc_attr( $variation_id ), '][', esc_attr( $type ), ']" style="display: block;">', esc_html( $label ), '</label>';
-		echo '<input class="short" type="text" style="margin: 2px 0 0; line-height: 2.75; width: 100%;" id="yoast_variation_identifier[', esc_attr( $variation_id ), '][', esc_attr( $type ), ']" name="yoast_seo_variation[',esc_attr( $variation_id ), '][', esc_attr( $type ), ']" value="', esc_attr( $value ), '"/>';
+		echo '<label for="', esc_attr( 'yoast_variation_identifier[' . $variation_id . '][' . $type . ']' ), '" style="display: block;">', esc_html( $label ), '</label>';
+		echo '<input class="short" type="text" style="margin: 2px 0 0; line-height: 2.75; width: 100%;" id="', esc_attr( 'yoast_variation_identifier[' . $variation_id . '][' . $type . ']' ), '" name="', esc_attr( 'yoast_seo_variation[' . $variation_id . '][' . $type . ']' ), '" value="', esc_attr( $value ), '"/>';
 		echo '</p>';
 	}
 }

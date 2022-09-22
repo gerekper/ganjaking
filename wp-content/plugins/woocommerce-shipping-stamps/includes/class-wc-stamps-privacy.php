@@ -37,7 +37,7 @@ class WC_Stamps_Privacy extends WC_Abstract_Privacy {
 		);
 
 		if ( $user instanceof WP_User ) {
-			$order_query['customer_id'] = (int) $user->ID;
+			$order_query['customer_id'] = $user->ID;
 		} else {
 			$order_query['billing_email'] = $email_address;
 		}
@@ -62,11 +62,9 @@ class WC_Stamps_Privacy extends WC_Abstract_Privacy {
 	 * @return array
 	 */
 	public function order_data_exporter( $email_address, $page = 1 ) {
-		$done           = false;
-		$data_to_export = array();
-
 		$orders = $this->get_orders( $email_address, (int) $page );
 
+		$data_to_export = array();
 		$done = true;
 
 		if ( 0 < count( $orders ) ) {
@@ -78,19 +76,19 @@ class WC_Stamps_Privacy extends WC_Abstract_Privacy {
 					'data'        => array(
 						array(
 							'name'  => __( 'Stamps last label tx id', 'woocommerce-shipping-stamps' ),
-							'value' => get_post_meta( $order->get_id(), '_last_label_tx_id', true ),
+							'value' => $order->get_meta( '_last_label_tx_id' ),
 						),
 						array(
 							'name'  => __( 'Stamps response', 'woocommerce-shipping-stamps' ),
-							'value' => get_post_meta( $order->get_id(), '_stamps_response', true ),
+							'value' => $order->get_meta( '_stamps_response' ),
 						),
 						array(
 							'name'  => __( 'Stamps hash', 'woocommerce-shipping-stamps' ),
-							'value' => get_post_meta( $order->get_id(), '_stamps_hash', true ),
+							'value' => $order->get_meta( '_stamps_hash' ),
 						),
 						array(
 							'name'  => __( 'Stamps verified address hash', 'woocommerce-shipping-stamps' ),
-							'value' => get_post_meta( $order->get_id(), '_stamps_verified_address_hash', true ),
+							'value' => $order->get_meta( '_stamps_verified_address_hash' ),
 						),
 					),
 				);
@@ -143,23 +141,25 @@ class WC_Stamps_Privacy extends WC_Abstract_Privacy {
 	 * Handle eraser of data tied to Orders
 	 *
 	 * @param WC_Order $order
+	 *
 	 * @return array
 	 */
 	protected function maybe_handle_order( $order ) {
-		$order_id     = $order->get_id();
-		$label_tx_id  = get_post_meta( $order_id, '_last_label_tx_id', true );
-		$response     = get_post_meta( $order_id, '_stamps_response', true );
-		$hash         = get_post_meta( $order_id, '_stamps_hash', true );
-		$address_hash = get_post_meta( $order_id, '_stamps_verified_address_hash', true );
+		$label_tx_id  = $order->get_meta( '_last_label_tx_id' );
+		$response     = $order->get_meta( '_stamps_response' );
+		$hash         = $order->get_meta( '_stamps_hash' );
+		$address_hash = $order->get_meta( '_stamps_verified_address_hash' );
 
 		if ( empty( $label_tx_id ) && empty( $response ) && empty( $hash ) && empty( $address_hash ) ) {
 			return array( false, false, array() );
 		}
 
-		delete_post_meta( $order_id, '_last_label_tx_id' );
-		delete_post_meta( $order_id, '_stamps_response' );
-		delete_post_meta( $order_id, '_stamps_hash' );
-		delete_post_meta( $order_id, '_stamps_verified_address_hash' );
+		$order->delete_meta_data( '_last_label_tx_id' );
+		$order->delete_meta_data( '_stamps_response' );
+		$order->delete_meta_data( '_stamps_hash' );
+		$order->delete_meta_data( '_stamps_verified_address_hash' );
+
+		$order->save();
 
 		return array( true, false, array() );
 	}
@@ -189,7 +189,6 @@ class WC_Stamps_Privacy extends WC_Abstract_Privacy {
 	 * @return array
 	 */
 	public function label_data_exporter( $email_address, $page = 1 ) {
-		$done           = false;
 		$data_to_export = array();
 
 		$orders = $this->get_orders( $email_address, (int) $page );

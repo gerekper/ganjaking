@@ -477,9 +477,9 @@ class THEMECOMPLETE_EPO_Scripts {
 				wp_register_script( 'themecomplete-epo-product', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/tm-epo-product' . $ext . '.js', [ 'jquery' ], THEMECOMPLETE_EPO_VERSION, true );
 			}
 
-			$dependencies[]        = 'themecomplete-math-expression-evaluator';
-			$this->defered_files[] = THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/math-expression-evaluator' . $ext . '.js';
-			wp_register_script( 'themecomplete-math-expression-evaluator', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/math-expression-evaluator' . $ext . '.js', [ 'jquery' ], '1.12.17', true );
+			$dependencies[]        = 'themecomplete-tm-math';
+			$this->defered_files[] = THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/tm-math' . $ext . '.js';
+			wp_register_script( 'themecomplete-tm-math', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/tm-math' . $ext . '.js', [ 'jquery' ], THEMECOMPLETE_EPO_VERSION, true );
 
 			$dependencies          = array_unique( $dependencies );
 			$dependencies          = apply_filters( 'wc_epo_script_dependencies', $dependencies );
@@ -495,6 +495,9 @@ class THEMECOMPLETE_EPO_Scripts {
 			wp_register_script( 'themecomplete-epo', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/epo.min.js', $dependencies, THEMECOMPLETE_EPO_VERSION, true );
 			wp_enqueue_script( 'themecomplete-epo' );
 		}
+
+		// constants.
+		$constants = THEMECOMPLETE_EPO()->tm_epo_math;
 
 		$extra_fee = 0;
 		global $wp_locale;
@@ -523,6 +526,9 @@ class THEMECOMPLETE_EPO_Scripts {
 			'i18n_uploading_files'                        => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_uploading_files_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_uploading_files_text ) : esc_html__( 'Uploading files', 'woocommerce-tm-extra-product-options' ),
 			'i18n_uploading_message'                      => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_uploading_message_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_uploading_message_text ) : esc_html__( 'Your files are being uploaded', 'woocommerce-tm-extra-product-options' ),
 
+			'i18n_file'                                   => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_uploading_message_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_uploading_num_file ) : esc_html__( 'file', 'woocommerce-tm-extra-product-options' ),
+			'i18n_files'                                  => ( ! empty( THEMECOMPLETE_EPO()->tm_epo_uploading_message_text ) ) ? esc_html( THEMECOMPLETE_EPO()->tm_epo_uploading_num_files ) : esc_html__( 'files', 'woocommerce-tm-extra-product-options' ),
+
 			'currency_format_num_decimals'                => apply_filters( 'wc_epo_price_decimals', esc_attr( wc_get_price_decimals() ) ),
 			'currency_format_symbol'                      => esc_attr( get_woocommerce_currency_symbol() ),
 			'currency_format_decimal_sep'                 => esc_attr( stripslashes_deep( get_option( 'woocommerce_price_decimal_sep' ) ) ),
@@ -536,6 +542,7 @@ class THEMECOMPLETE_EPO_Scripts {
 			'tm_epo_preload_lightbox_image'               => THEMECOMPLETE_EPO()->tm_epo_preload_lightbox_image,
 			'tm_epo_show_only_active_quantities'          => THEMECOMPLETE_EPO()->tm_epo_show_only_active_quantities,
 			'tm_epo_hide_add_cart_button'                 => THEMECOMPLETE_EPO()->tm_epo_hide_add_cart_button,
+			'tm_epo_hide_all_add_cart_button'             => THEMECOMPLETE_EPO()->tm_epo_hide_all_add_cart_button,
 			'tm_epo_auto_hide_price_if_zero'              => THEMECOMPLETE_EPO()->tm_epo_auto_hide_price_if_zero,
 			'tm_epo_show_price_inside_option'             => THEMECOMPLETE_EPO()->tm_epo_show_price_inside_option,
 			'tm_epo_show_price_inside_option_hidden_even' => THEMECOMPLETE_EPO()->tm_epo_show_price_inside_option_hidden_even,
@@ -618,7 +625,7 @@ class THEMECOMPLETE_EPO_Scripts {
 			'tm_epo_enable_in_shop'                       => THEMECOMPLETE_EPO()->tm_epo_enable_in_shop,
 			'tm_epo_disable_error_scroll'                 => THEMECOMPLETE_EPO()->tm_epo_disable_error_scroll,
 			'tm_epo_global_options_price_sign'            => THEMECOMPLETE_EPO()->tm_epo_global_options_price_sign,
-			'tm_epo_math'                                 => THEMECOMPLETE_EPO()->tm_epo_math,
+			'tm_epo_math'                                 => $constants,
 
 			'minus_sign'                                  => apply_filters( 'wc_epo_get_price_for_cart_minus_sign', "<span class='tc-minus-sign'>-</span>" ),
 			'plus_sign'                                   => apply_filters( 'wc_epo_get_price_for_cart_plus_sign', "<span class='tc-minus-sign'>+</span>" ),
@@ -637,6 +644,9 @@ class THEMECOMPLETE_EPO_Scripts {
 			'quickview_array'                             => esc_html( wp_json_encode( apply_filters( 'wc_epo_get_quickview_containers', [] ) ) ),
 			'tax_display_mode'                            => get_option( 'woocommerce_tax_display_shop' ),
 			'prices_include_tax'                          => wc_prices_include_tax(),
+
+			'lookupTables'                                => wp_json_encode( THEMECOMPLETE_EPO()->lookup_tables ),
+			'WP_DEBUG'                                    => defined( 'WP_DEBUG' ) && WP_DEBUG,
 		];
 
 		$args = apply_filters( 'wc_epo_script_args', $args, $this );

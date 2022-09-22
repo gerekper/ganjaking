@@ -1,0 +1,905 @@
+# Copyright (C) 2022 WooCommerce
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Stamps.com API integration 1.8.0\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/woocommerce-shipping-stamps\n"
+"POT-Creation-Date: 2022-09-15 10:01:54+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: node-wp-i18n 1.2.3\n"
+
+#: includes/class-wc-stamps-api.php:93
+msgid "Stamps.com hidden postage"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:95
+msgid "Stamps.com insurance"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:97
+msgid "Stamps.com insurance for registered mail"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:99
+msgid "Certified mail"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:101
+msgid "Collect on delivery"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:103
+msgid "Delivery confirmation"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:105
+msgid "Express sunday/holiday guaranteed"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:107
+msgid "USPS insurance"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:109
+msgid "No delivery on saturdays"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:111
+msgid "Restricted delivery"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:113
+msgid "Registered mail"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:115
+msgid "Return reciept requested"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:117
+msgid "Return reciept for merchandise"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:119
+msgid "Signature confirmation"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:121
+msgid "Fragile"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:123
+msgid "Perishable"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:125
+msgid "Waive delivery signature"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:127
+msgid "Signature required"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:129
+msgid "Notice of non-delivery"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:131
+msgid "Electronic return reciept"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:133
+msgid "Live animal no surcharge"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:135
+msgid "Live animal with surcharge"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:137
+msgid "Hazardous materials"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:139
+msgid "Cremated remains"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:141
+msgid "Deliver priority mail express by 10:30am"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:143
+msgid "Adult signature required"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:145
+msgid "Adult signature restricted delivery"
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:586
+msgid ""
+"No rates were returned for the selected package type, weight and "
+"dimensions. Please select a different package type and try again."
+msgstr ""
+
+#: includes/class-wc-stamps-api.php:710
+msgid "Cannot create a label for the package with the requested service."
+msgstr ""
+
+#: includes/class-wc-stamps-balance.php:86
+msgid "API Error"
+msgstr ""
+
+#: includes/class-wc-stamps-balance.php:104
+msgid "Top-up Balance"
+msgstr ""
+
+#: includes/class-wc-stamps-balance.php:110
+msgid "My profile"
+msgstr ""
+
+#: includes/class-wc-stamps-balance.php:111
+msgid "Stamps payment methods"
+msgstr ""
+
+#: includes/class-wc-stamps-balance.php:112
+msgid "Online claim form"
+msgstr ""
+
+#: includes/class-wc-stamps-balance.php:113
+msgid "Online SCAN form"
+msgstr ""
+
+#: includes/class-wc-stamps-balance.php:114
+msgid "Schedule a pickup"
+msgstr ""
+
+#: includes/class-wc-stamps-balance.php:115
+msgid "Refunds"
+msgstr ""
+
+#: includes/class-wc-stamps-balance.php:116
+msgid "History"
+msgstr ""
+
+#: includes/class-wc-stamps-balance.php:142
+msgid "Stamps.com balance top-up"
+msgstr ""
+
+#: includes/class-wc-stamps-balance.php:142
+msgid "Stamps.com top-up"
+msgstr ""
+
+#: includes/class-wc-stamps-balance.php:285
+#: includes/class-wc-stamps-balance.php:322
+msgid "Stamps.com top-up failure"
+msgstr ""
+
+#: includes/class-wc-stamps-balance.php:438
+msgid "Top-up request sent. Your balance should appear shortly if successful."
+msgstr ""
+
+#: includes/class-wc-stamps-balance.php:442
+msgid "Add Stamps.com Balance"
+msgstr ""
+
+#: includes/class-wc-stamps-balance.php:443
+msgid ""
+"Enter the amount of postage (in dollars) you wish to purchase. It can take "
+"a few minutes for this postage to show up in your account."
+msgstr ""
+
+#: includes/class-wc-stamps-balance.php:448
+msgid "Amount"
+msgstr ""
+
+#: includes/class-wc-stamps-balance.php:451
+msgid ""
+"How much balance you wish to purchase in whole dollars e.g. "
+"<code>100</code>."
+msgstr ""
+
+#: includes/class-wc-stamps-balance.php:457
+msgid "Purchase postage"
+msgstr ""
+
+#: includes/class-wc-stamps-order.php:64
+msgid ""
+"Large envelope or flat. Has one dimension that is between 11 1/2\" and 15\" "
+"long, 6 1/8\" and 12\" high, or 1/4\" and 3/4 thick."
+msgstr ""
+
+#: includes/class-wc-stamps-order.php:68
+msgid "Thick envelope. Envelopes or flats greater than 3/4\" at the thickest point."
+msgstr ""
+
+#: includes/class-wc-stamps-order.php:72
+msgid ""
+"Package. Longest side plus the distance around the thickest part is less "
+"than or equal to 84\""
+msgstr ""
+
+#: includes/class-wc-stamps-order.php:76
+msgid ""
+"USPS small flat rate box. A special 8-5/8\" x 5-3/8\" x 1-5/8\" USPS box "
+"that clearly indicates \"Small Flat Rate Box\"."
+msgstr ""
+
+#: includes/class-wc-stamps-order.php:80
+msgid ""
+"USPS medium flat rate box. A special 11\" x 8 1/2\" x 5 1/2\" or 14\" x "
+"3.5\" x 12\" USPS box that clearly indicates \"Medium Flat Rate Box\""
+msgstr ""
+
+#: includes/class-wc-stamps-order.php:84
+msgid ""
+"USPS large flat rate box. A special 12\" x 12\" x 6\" USPS box that clearly "
+"indicates \"Large Flat Rate Box\"."
+msgstr ""
+
+#: includes/class-wc-stamps-order.php:88
+msgid ""
+"USPS flat rate envelope. A special cardboard envelope provided by the USPS "
+"that clearly indicates \"Flat Rate\"."
+msgstr ""
+
+#: includes/class-wc-stamps-order.php:92 includes/class-wc-stamps-order.php:112
+msgid "USPS flat rate padded envelope."
+msgstr ""
+
+#: includes/class-wc-stamps-order.php:96
+msgid ""
+"Large package. Longest side plus the distance around the thickest part is "
+"over 84\" and less than or equal to 108\"."
+msgstr ""
+
+#: includes/class-wc-stamps-order.php:100
+msgid ""
+"Oversized package. Longest side plus the distance around the thickest part "
+"is over 108\" and less than or equal to 130\"."
+msgstr ""
+
+#: includes/class-wc-stamps-order.php:104
+msgid ""
+"USPS regional rate box A. A special 10 15/16\" x 2 3/8\" x 12 13/ 16\" or "
+"10\" x 7\" x 4 3/4\" USPS box that clearly indicates \"Regional Rate Box "
+"A\". 15 lbs maximum weight."
+msgstr ""
+
+#: includes/class-wc-stamps-order.php:108
+msgid ""
+"USPS regional rate box B. A special 14 3/8\" x 2 2/8\" x 15 7/8\" or 12\" x "
+"10 1/4\" x 5\" USPS box that clearly indicates \"Regional Rate Box B\". 20 "
+"lbs maximum weight."
+msgstr ""
+
+#: includes/class-wc-stamps-order.php:139
+msgid "Please press Ctrl/Cmd+C to copy."
+msgstr ""
+
+#: includes/class-wc-stamps-order.php:148
+msgid "Shipping Labels"
+msgstr ""
+
+#: includes/class-wc-stamps-order.php:486
+msgid ""
+"The label was refunded. Refund requests are generally processed within 1 to "
+"2 weeks."
+msgstr ""
+
+#: includes/class-wc-stamps-order.php:725
+msgid "Try again"
+msgstr ""
+
+#: includes/class-wc-stamps-order.php:728
+msgid "View all labels"
+msgstr ""
+
+#: includes/class-wc-stamps-privacy.php:12
+msgid "Stamps"
+msgstr ""
+
+#: includes/class-wc-stamps-privacy.php:14
+msgid "WooCommerce Stamps Order Data"
+msgstr ""
+
+#: includes/class-wc-stamps-privacy.php:16
+msgid "WooCommerce Stamps Data"
+msgstr ""
+
+#: includes/class-wc-stamps-privacy.php:18
+#: includes/class-wc-stamps-privacy.php:20
+msgid "WooCommerce Stamps Label Data"
+msgstr ""
+
+#: includes/class-wc-stamps-privacy.php:53
+msgid ""
+"By using this extension, you may be storing personal data or sharing data "
+"with an external service. <a href=\"%s\" target=\"_blank\">Learn more about "
+"how this works, including what you may want to include in your privacy "
+"policy.</a>"
+msgstr ""
+
+#: includes/class-wc-stamps-privacy.php:74
+msgid "Orders"
+msgstr ""
+
+#: includes/class-wc-stamps-privacy.php:78
+msgid "Stamps last label tx id"
+msgstr ""
+
+#: includes/class-wc-stamps-privacy.php:82
+msgid "Stamps response"
+msgstr ""
+
+#: includes/class-wc-stamps-privacy.php:86
+msgid "Stamps hash"
+msgstr ""
+
+#: includes/class-wc-stamps-privacy.php:90
+msgid "Stamps verified address hash"
+msgstr ""
+
+#: includes/class-wc-stamps-privacy.php:206
+msgid "Stamps Label"
+msgstr ""
+
+#: includes/class-wc-stamps-privacy.php:210
+msgid "Stamps label tx id"
+msgstr ""
+
+#: includes/class-wc-stamps-privacy.php:280
+msgid "Stamps personal data erased."
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:55
+msgid "Stamps.com account"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:57
+msgid ""
+"Input your Stamps.com account details so that the plugin can make requests "
+"on your behalf."
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:61
+msgid "Username"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:63
+#: includes/class-wc-stamps-settings.php:72
+msgid "Use your Stamps.com credentials."
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:70
+msgid "Password"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:79
+msgid "Logging"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:81
+msgid "Enable logging, for debugging."
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:82
+msgid ""
+"Note: this may log personal information. We recommend using this for "
+"debugging purposes only and deleting the logs when finished."
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:90
+msgid "Automatic funding"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:92
+msgid ""
+"These settings let you automatically purchase postage when your balance "
+"reaches a certain threshold."
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:96
+msgid "Threshold"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:97
+msgid "n/a"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:100
+msgid "Top up when balance goes below this amount. Leave blank to disable."
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:106
+msgid "Purchase amount"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:110
+msgid ""
+"Purchase this much postage when the threshold is reached. Enter whole "
+"amount (integer) in dollars. E.g. <code>100</code>. Minimum purchase is 10 "
+"dollars. Maximum purchase is 500 dollars."
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:123
+msgid "Label settings"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:129
+msgid "Default shipping date"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:133
+msgid "Specifies the default shipping date when printing a label."
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:138
+msgid "Same Day"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:139
+msgid "Next Day"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:140
+msgid "Two Days Later"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:141
+msgid "Three Days Later"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:145
+msgid "Image type"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:147
+msgid "Specifies the image type for the returned label."
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:154
+msgid "Default format; PNG for domestic, PDF for international"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:155
+msgid "EPL"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:156
+msgid "GIF"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:157
+msgid "JPG"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:158
+msgid "PDF"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:159
+msgid "PNG"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:160
+msgid "ZPL"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:164
+msgid "Paper size (for PDF)"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:166
+msgid "Specifies the page size of PDF labels. This value only applies to PDF."
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:173
+msgid "Use default page size."
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:174
+msgid "Use letter page size."
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:175
+msgid "The page size is same as label size."
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:179
+msgid "Print layout (for PDF)"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:181
+msgid "Specifies the print layout for labels. This value only applies to PDF."
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:188
+msgid "Default"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:189
+msgid "4x6 label generated on the left side of the page."
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:190
+msgid "4x6 label generated on the right side of the page."
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:191
+msgid "4x6 label generated on a 4x6 page."
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:192
+msgid "6x4 label generated on a 6x4 page."
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:193
+msgid "7.5x2 label generated on a 7.5x2 page."
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:194
+msgid "4x6 3⁄4 doc-tab will be generated."
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:198
+msgid "Samples only"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:200
+msgid "Enable create samples only."
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:201
+msgid ""
+"This will create sample labels which cannot be used for posting items. No "
+"payments will be taken."
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:209
+msgid "Shipping return address"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:211
+msgid ""
+"This address is used for the \"from\" address when getting rates from "
+"Stamps.com."
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:215
+msgid "Full name"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:223
+msgid "Company"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:231
+msgid "Address line 1"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:239
+msgid "Address line 2"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:247
+msgid "City"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:255
+msgid "State"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:265
+msgid "ZIP code"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:277
+msgid "Phone number"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:336
+msgid "Stamps.com"
+msgstr ""
+
+#: includes/class-wc-stamps-settings.php:349
+#. translators: 1) opening anchor tag 2) closing anchor tag
+msgid ""
+"Shipping Return Address: Zip code is a required field. Please enter it on "
+"the %1$sStamps.com settings page%2$s."
+msgstr ""
+
+#: includes/views/html-address-verification-result.php:12
+msgid "Stamps.com matched the following address:"
+msgstr ""
+
+#: includes/views/html-address-verification-result.php:15
+msgid "Accept"
+msgstr ""
+
+#: includes/views/html-address-verification-result.php:16
+msgid "Continue without changes"
+msgstr ""
+
+#: includes/views/html-address-verification-result.php:21
+msgid "Stamps.com could not find an exact match for the shipping address."
+msgstr ""
+
+#: includes/views/html-address-verification-result.php:22
+msgid "Continue anyway"
+msgstr ""
+
+#: includes/views/html-address-verification-result.php:26
+msgid ""
+"Invalid shipping address - a label cannot be generated. Please correct the "
+"shipping address manually."
+msgstr ""
+
+#: includes/views/html-address-verification.php:10
+msgid "Before printing a label the shipping address needs to be verified with USPS."
+msgstr ""
+
+#: includes/views/html-address-verification.php:11
+msgid "Continue"
+msgstr ""
+
+#: includes/views/html-customs-item.php:13
+msgid "Description"
+msgstr ""
+
+#: includes/views/html-customs-item.php:17
+msgid "Quantity"
+msgstr ""
+
+#: includes/views/html-customs-item.php:21
+msgid "Value ($)"
+msgstr ""
+
+#: includes/views/html-customs-item.php:25
+msgid "Weight (lbs)"
+msgstr ""
+
+#: includes/views/html-customs-item.php:29
+msgid "HS Tariff"
+msgstr ""
+
+#: includes/views/html-customs-item.php:30
+#: includes/views/html-customs-item.php:34 includes/views/html-customs.php:36
+#: includes/views/html-customs.php:42 includes/views/html-customs.php:48
+msgid "optional"
+msgstr ""
+
+#: includes/views/html-customs-item.php:33
+msgid "Country (code) of origin"
+msgstr ""
+
+#: includes/views/html-customs-item.php:37
+msgid "Remove line"
+msgstr ""
+
+#: includes/views/html-customs.php:12 includes/views/html-meta-box.php:14
+msgid "Customs"
+msgstr ""
+
+#: includes/views/html-customs.php:15
+msgid "Content type"
+msgstr ""
+
+#: includes/views/html-customs.php:18
+msgid "Merchandise"
+msgstr ""
+
+#: includes/views/html-customs.php:19
+msgid "Commercial Sample"
+msgstr ""
+
+#: includes/views/html-customs.php:20
+msgid "Gift"
+msgstr ""
+
+#: includes/views/html-customs.php:21
+msgid "Document"
+msgstr ""
+
+#: includes/views/html-customs.php:22
+msgid "Returned Goods"
+msgstr ""
+
+#: includes/views/html-customs.php:23
+msgid "Humanitarian Donation"
+msgstr ""
+
+#: includes/views/html-customs.php:24
+msgid "Dangerous Goods"
+msgstr ""
+
+#: includes/views/html-customs.php:25
+msgid "Other"
+msgstr ""
+
+#: includes/views/html-customs.php:29
+msgid "Other description"
+msgstr ""
+
+#: includes/views/html-customs.php:34
+msgid "Comments"
+msgstr ""
+
+#: includes/views/html-customs.php:40
+msgid "License Number"
+msgstr ""
+
+#: includes/views/html-customs.php:46
+msgid "Certificate Number"
+msgstr ""
+
+#: includes/views/html-customs.php:53
+msgid "Customs line items"
+msgstr ""
+
+#: includes/views/html-customs.php:53
+msgid "Add line"
+msgstr ""
+
+#: includes/views/html-customs.php:54
+msgid "Add line items for the customs form here."
+msgstr ""
+
+#: includes/views/html-customs.php:83 includes/views/html-rates.php:40
+msgid "Request label"
+msgstr ""
+
+#: includes/views/html-customs.php:84
+msgid "Cancel"
+msgstr ""
+
+#: includes/views/html-label.php:15
+msgid "View"
+msgstr ""
+
+#: includes/views/html-label.php:19
+msgid "Invalid label"
+msgstr ""
+
+#: includes/views/html-labels.php:34
+msgid "Are you sure you want to cancel this label? This action cannot be undone."
+msgstr ""
+
+#: includes/views/html-labels.php:35
+msgid "Refund"
+msgstr ""
+
+#: includes/views/html-labels.php:41
+msgid "Are you sure you want to delete this label? This action cannot be undone."
+msgstr ""
+
+#: includes/views/html-labels.php:42
+msgid "Delete"
+msgstr ""
+
+#: includes/views/html-labels.php:47
+msgid "Copy tracking number to clipboard."
+msgstr ""
+
+#: includes/views/html-labels.php:48
+msgid "Copied!"
+msgstr ""
+
+#: includes/views/html-labels.php:50
+msgid "Copy"
+msgstr ""
+
+#: includes/views/html-labels.php:60
+msgid "Request another label"
+msgstr ""
+
+#: includes/views/html-meta-box.php:11
+msgid "Address"
+msgstr ""
+
+#: includes/views/html-meta-box.php:12
+msgid "Rate"
+msgstr ""
+
+#: includes/views/html-meta-box.php:16
+msgid "Label"
+msgstr ""
+
+#: includes/views/html-package.php:10
+msgid ""
+"Enter the weight and dimensions for the package being shipped. Dimensions "
+"are optional, but may be required for more accurate rating."
+msgstr ""
+
+#: includes/views/html-package.php:14
+msgid "Package type"
+msgstr ""
+
+#: includes/views/html-package.php:17
+msgid "Any (return all options)"
+msgstr ""
+
+#: includes/views/html-package.php:27
+msgid "Ship date"
+msgstr ""
+
+#: includes/views/html-package.php:31
+msgid "Weight"
+msgstr ""
+
+#: includes/views/html-package.php:35
+msgid "Value"
+msgstr ""
+
+#: includes/views/html-package.php:39
+msgid "Length"
+msgstr ""
+
+#: includes/views/html-package.php:45
+msgid "Width"
+msgstr ""
+
+#: includes/views/html-package.php:51
+msgid "Height"
+msgstr ""
+
+#: includes/views/html-package.php:58
+msgid "Get rates"
+msgstr ""
+
+#: includes/views/html-rates.php:9
+msgid "Choose a rate to generate a shipping label:"
+msgstr ""
+
+#: includes/views/html-rates.php:38
+msgid "Enter customs information"
+msgstr ""
+
+#: includes/views/html-rates.php:42
+msgid "Back"
+msgstr ""
+
+#: woocommerce-shipping-stamps.php:36
+#. translators: %s WC download URL link.
+msgid ""
+"Stamps requires WooCommerce to be installed and active. You can download %s "
+"here."
+msgstr ""
+
+#: woocommerce-shipping-stamps.php:103
+msgid "Settings"
+msgstr ""
+
+#: woocommerce-shipping-stamps.php:104
+msgid "Support"
+msgstr ""
+
+#: woocommerce-shipping-stamps.php:105
+msgid "Docs"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Stamps.com API integration"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://woocommerce.com/products/woocommerce-shipping-stamps/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Stamps.com API integration for label printing. Requires server SOAP support."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WooCommerce"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://woocommerce.com/"
+msgstr ""

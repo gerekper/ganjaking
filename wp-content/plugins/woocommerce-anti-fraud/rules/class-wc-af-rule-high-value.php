@@ -58,7 +58,7 @@ class WC_AF_Rule_High_Value extends WC_AF_Rule {
  			FROM $wpdb->postmeta PM
  			INNER JOIN $wpdb->posts P ON P.`ID` = PM.`post_id`
  			WHERE PM.`meta_key` = '_order_total' AND PM.`meta_value` > 0 AND P.`post_type` = 'shop_order'
-		AND P.`post_status` IN  ( '%s' ) ", $statuses ) );
+		AND P.`post_status` IN  ( 'wc-completed', 'wc-processing', 'wc-on-hold' ) ", $statuses ) );
 
 		Af_Logger::debug('Average order total : ' . print_r($avg_order_total, true));
 

@@ -44,6 +44,9 @@ jQuery( function( $ ) {
 		this.$default_qty                    = this.$content.find( '.quantity_default' );
 		this.$default_qty_input              = this.$default_qty.find( 'input.item_quantity' );
 
+		this.$optional_checkbox              = this.$content.find( 'div.optional' );
+		this.$optional_checkbox_input        = this.$optional_checkbox.find( 'input.checkbox' );
+
 		this.max_qty_prev                    = this.$max_qty_input.val();
 		this.default_qty_prev                = this.$default_qty_input.val();
 
@@ -65,6 +68,20 @@ jQuery( function( $ ) {
 		this.remove_error_tip = function( $target ) {
 
 			$target.parent().find( '.wc_error_tip' ).fadeOut( '100', function() { $( this ).remove(); } );
+		};
+
+		this.maybe_hide_optional_checkbox = function( target ) {
+
+			if ( 'min' === target ) {
+				var min = self.$min_qty_input.val();
+				if ( min > 0 ) {
+					self.$optional_checkbox.show();
+					self.$optional_checkbox_input.prop( 'disabled', false );
+				} else if ( self.$optional_checkbox.data( 'is_optional_qty_zero' ) && 'no' === self.$optional_checkbox.data( 'is_optional_qty_zero' ) ) {
+					self.$optional_checkbox.hide();
+					self.$optional_checkbox_input.prop( 'disabled', true );
+				}
+			}
 		};
 
 		this.validate_quantity = function( target, context ) {
@@ -547,6 +564,8 @@ jQuery( function( $ ) {
 						}
 
 						bundled_product.default_qty_prev = def;
+
+						bundled_product.maybe_hide_optional_checkbox( changed );
 					}
 				}
 			} )

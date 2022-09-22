@@ -6,9 +6,9 @@ if (!defined('ABSPATH')) exit;
 
 
 use DateTimeImmutable;
+use MailPoet\API\REST\Request;
+use MailPoet\API\REST\Response;
 use MailPoet\Automation\Engine\API\Endpoint;
-use MailPoet\Automation\Engine\API\Request;
-use MailPoet\Automation\Engine\API\Response;
 use MailPoet\Automation\Engine\Data\Workflow;
 use MailPoet\Automation\Engine\Storage\WorkflowStorage;
 use MailPoet\Validator\Builder;

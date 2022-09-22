@@ -1,7 +1,7 @@
 <h2><?php echo apply_filters( 'woocommerce_box_office_order_tickets_title', __( 'Order Tickets', 'woocommerce-box-office' ) ); ?></h2>
 
 <p class="ticket-list-description">
-	<?php echo apply_filters( 'woocommerce_box_office_order_tickets_description', __( 'Edit each of your purchased tickets using the links below.', 'woocommerce-box-office' ) ); ?>
+	<?php echo apply_filters( 'woocommerce_box_office_order_tickets_description', __( 'View or edit each of your purchased tickets using the links below.', 'woocommerce-box-office' ) ); ?>
 </p>
 
 <dl class="purchased-tickets">

@@ -23,7 +23,7 @@ class DatePublished extends AC\Column\Post\DatePublished
 	}
 
 	public function search() {
-		return new Search\Comparison\Post\Date\PostDate();
+		return new Search\Comparison\Post\Date\PostPublished();
 	}
 
 	public function editing() {

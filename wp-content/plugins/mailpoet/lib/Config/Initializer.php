@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\API\JSON\API;
+use MailPoet\API\REST\API as RestApi;
 use MailPoet\AutomaticEmails\AutomaticEmails;
 use MailPoet\Automation\Engine\Engine;
 use MailPoet\Automation\Engine\Hooks as AutomationHooks;
@@ -39,6 +40,9 @@ class Initializer {
 
   /** @var API */
   private $api;
+
+  /** @var RestApi */
+  private $restApi;
 
   /** @var Activator */
   private $activator;
@@ -118,6 +122,7 @@ class Initializer {
     RendererFactory $rendererFactory,
     AccessControl $accessControl,
     API $api,
+    RestApi $restApi,
     Activator $activator,
     SettingsController $settings,
     Router\Router $router,
@@ -146,6 +151,7 @@ class Initializer {
     $this->rendererFactory = $rendererFactory;
     $this->accessControl = $accessControl;
     $this->api = $api;
+    $this->restApi = $restApi;
     $this->activator = $activator;
     $this->settings = $settings;
     $this->router = $router;
@@ -386,6 +392,7 @@ class Initializer {
     if (!defined(self::INITIALIZED)) return;
     try {
       $this->api->init();
+      $this->restApi->init();
       $this->router->init();
       $this->setupUserLocale();
     } catch (\Exception $e) {

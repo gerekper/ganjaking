@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MailPoet\Premium\Automation\Integrations\MailPoetPremium;
 
@@ -6,16 +6,16 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Automation\Engine\Data\WorkflowTemplate;
-use MailPoet\Automation\Integrations\Core\Actions\DelayAction;
-use MailPoet\Automation\Integrations\MailPoet\Actions\SendEmailAction;
 use MailPoet\Automation\Integrations\MailPoet\Templates\WorkflowBuilder;
-use MailPoet\Automation\Integrations\MailPoet\Triggers\SegmentSubscribedTrigger;
 
-class PremiumWorkflowTemplates
-{
+class PremiumWorkflowTemplates {
+
 
   private $builder;
-  public function __construct(WorkflowBuilder $builder) {
+
+  public function __construct(
+    WorkflowBuilder $builder
+  ) {
     $this->builder = $builder;
   }
 
@@ -23,14 +23,14 @@ class PremiumWorkflowTemplates
    * @param WorkflowTemplate[] $templates
    * @return WorkflowTemplate[]
    */
-  public function integrate(array $templates) : array {
+  public function integrate(array $templates): array {
     return array_merge($templates, $this->templates());
   }
 
   /**
    * @return WorkflowTemplate[]
    */
-  public function templates() : array {
+  public function templates(): array {
 
     $welcomeEmailSequence = new WorkflowTemplate(
       'welcome-email-sequence',

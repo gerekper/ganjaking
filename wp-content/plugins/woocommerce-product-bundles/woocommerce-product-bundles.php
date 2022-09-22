@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Product Bundles
 * Plugin URI: https://woocommerce.com/products/product-bundles/
 * Description: Offer product bundles, bulk discount packages, and assembled products.
-* Version: 6.16.1
+* Version: 6.17.0
 * Author: WooCommerce
 * Author URI: https://somewherewarm.com/
 *
@@ -12,13 +12,13 @@
 * Text Domain: woocommerce-product-bundles
 * Domain Path: /languages/
 *
-* Requires PHP: 5.6
+* Requires PHP: 7.0
 *
 * Requires at least: 4.4
 * Tested up to: 6.0
 *
 * WC requires at least: 3.9
-* WC tested up to: 6.8
+* WC tested up to: 6.9
 *
 * License: GNU General Public License v3.0
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -33,11 +33,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Main plugin class.
  *
  * @class    WC_Bundles
- * @version  6.16.1
+ * @version  6.17.0
  */
 class WC_Bundles {
 
-	public $version  = '6.16.1';
+	public $version  = '6.17.0';
 	public $required = '3.9.0';
 
 	/**
@@ -191,9 +191,9 @@ class WC_Bundles {
 		}
 
 		// PHP version check.
-		if ( ! function_exists( 'phpversion' ) || version_compare( phpversion(), '5.6.20', '<' ) ) {
+		if ( ! function_exists( 'phpversion' ) || version_compare( phpversion(), '7.0.0', '<' ) ) {
 			/* translators: %1$s: Version %, %2$s: Update PHP doc URL */
-			$notice = sprintf( __( 'WooCommerce Product Bundles requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-product-bundles' ), '5.6.20', $this->get_resource_url( 'update-php' ) );
+			$notice = sprintf( __( 'WooCommerce Product Bundles requires at least PHP <strong>%1$s</strong>. Learn <a href="%2$s">how to update PHP</a>.', 'woocommerce-product-bundles' ), '7.0.0', $this->get_resource_url( 'update-php' ) );
 			require_once( WC_PB_ABSPATH . 'includes/admin/class-wc-pb-admin-notices.php' );
 			WC_PB_Admin_Notices::add_notice( $notice, 'error' );
 			return false;

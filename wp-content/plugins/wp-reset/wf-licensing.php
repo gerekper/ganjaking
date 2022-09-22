@@ -383,7 +383,6 @@ if (false === class_exists('WF_Licensing_WPR')) {
          */
         function is_active($feature = '', $force_check = false)
         {
-            return true;
             $last_check = get_transient('wf_licensing_wpr_last_check');
             if ($force_check || $last_check === false){
                 $this->log('auto recheck license');
@@ -508,6 +507,8 @@ if (false === class_exists('WF_Licensing_WPR')) {
                 $license_key = $license['license_key'];
             }
 
+
+
             $out = array(
                 'license_key' => $license_key,
                 'access_key' => $license['access_key'],
@@ -629,7 +630,7 @@ if (false === class_exists('WF_Licensing_WPR')) {
         {
             $license = $this->get_license();
             
-            $request_params = array('sslverify' => false, 'timeout' => 25, 'redirection' => 2);
+            $request_params = array('sslverify' => false, 'timeout' => 15, 'redirection' => 2);
             $default_data = array(
                 'action' => '',
                 'license_key' => $license['license_key'],

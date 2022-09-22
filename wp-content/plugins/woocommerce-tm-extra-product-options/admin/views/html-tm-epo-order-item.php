@@ -15,7 +15,7 @@ $input_type = ( is_callable( [ $order, 'is_editable' ] ) && $order->is_editable(
 
 $product_link  = $_product ? admin_url( 'post.php?post=' . absint( themecomplete_get_id( $_product ) ) . '&action=edit' ) : '';
 $thumbnail     = '';
-$tax_data      = empty( $legacy_order ) && wc_tax_enabled() ? maybe_unserialize( isset( $item['line_tax_data'] ) ? $item['line_tax_data'] : '' ) : false;
+$tax_data      = empty( $legacy_order ) && wc_tax_enabled() ? themecomplete_maybe_unserialize( isset( $item['line_tax_data'] ) ? $item['line_tax_data'] : '' ) : false;
 $item_total    = ( isset( $item['line_total'] ) ) ? esc_attr( wc_format_localized_price( $item['line_total'] ) ) : '';
 $item_subtotal = ( isset( $item['line_subtotal'] ) ) ? esc_attr( wc_format_localized_price( $item['line_subtotal'] ) ) : '';
 

@@ -296,6 +296,21 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	public $associated_product_counter = false;
 
 	/**
+	 * The associated product form prefix when adding more than one product
+	 * in the same product element.
+	 *
+	 * @var int|null
+	 */
+	public $associated_product_formprefix = false;
+
+	/**
+	 * Holds all of the lookup tables.
+	 *
+	 * @var array
+	 */
+	public $lookup_tables = [];
+
+	/**
 	 * The single instance of the class
 	 *
 	 * @var THEMECOMPLETE_Extra_Product_Options|null
@@ -358,6 +373,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		THEMECOMPLETE_EPO_COMPATIBILITY();
 
 		add_action( 'plugins_loaded', [ $this, 'plugin_loaded' ], 3 );
+		add_action( 'wp_loaded', [ $this, 'wp_loaded' ] );
 		add_action( 'plugins_loaded', [ $this, 'tm_epo_add_elements' ], 12 );
 
 	}
@@ -425,6 +441,15 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 		THEMECOMPLETE_EPO_ASSOCIATED_PRODUCTS();
 
+	}
+
+	/**
+	 * Setup the plugin
+	 *
+	 * @since 6.1
+	 */
+	public function wp_loaded() {
+		$this->generate_lookuptables();
 	}
 
 	/**
@@ -514,7 +539,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		if ( '' !== $this->tm_epo_global_image_max_width || '' !== $this->tm_epo_global_image_max_height ) {
 			$image_css = '.woocommerce #content table.cart img.epo-upload-image, .woocommerce table.cart img.epo-upload-image, .woocommerce-page #content table.cart img.epo-upload-image, .woocommerce-page table.cart img.epo-upload-image, .epo-upload-image {';
 			if ( '' !== $this->tm_epo_global_image_max_width ) {
-				$image_css .= 'max-width: ' . esc_attr( $this->tm_epo_global_image_max_width ) . ' !important;';
+				$image_css .= 'max-width: calc(' . esc_attr( $this->tm_epo_global_image_max_width ) . ' - 0.5em)  !important;';
 			}
 			if ( '' !== $this->tm_epo_global_image_max_height ) {
 				$image_css .= 'max-height: ' . esc_attr( $this->tm_epo_global_image_max_height ) . ' !important;';
@@ -1595,7 +1620,10 @@ final class THEMECOMPLETE_Extra_Product_Options {
 						: ( function_exists( 'wc_get_price_html_from_text' ) ? wc_get_price_html_from_text() : $product->get_price_html_from_text() ) . themecomplete_price( $min_regular_price ) )
 					: themecomplete_price( $min_regular_price );
 				$regular_price = '<del>' . $regular_price . '</del>';
-				$price         = ( ! $use_from ? ( $regular_price . ' <ins>' . $price . '</ins>' ) : $price ) . $product->get_price_suffix();
+				if ( $min_price === $max_price && $min_regular_price === $max_regular_price ) {
+					$price = themecomplete_price( $max_price );
+				}
+				$price = ( ! $use_from ? ( $regular_price . ' <ins>' . $price . '</ins>' ) : $price ) . $product->get_price_suffix();
 
 			} elseif ( $is_free ) {
 				$price = apply_filters( 'woocommerce_variable_free_price_html', $free_text, $product );
@@ -1688,9 +1716,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		}
 
 		// SSL support.
-		if ( is_ssl() ) {
-			$url = preg_replace( '/^http:/i', 'https:', $url );
-		}
+		$url = THEMECOMPLETE_EPO_HELPER()->to_ssl( $url );
 
 		return $url;
 
@@ -1802,6 +1828,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				'product' === get_post_type( $post_id ) ||
 				$this->wc_vars['is_product'] ||
 				$this->wc_vars['is_shop'] ||
+				$this->wc_vars['is_cart'] ||
 				$this->wc_vars['is_product_category'] ||
 				$this->wc_vars['is_product_tag']
 			) ||
@@ -1883,7 +1910,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			if ( THEMECOMPLETE_EPO_API()->is_valid_options( $has_epo ) ) {
 				$classes[] = 'tm-has-options';
 
-				// Product doens't have extra options but the final total box is enabled for all products.
+				// Product doesn't have extra options but the final total box is enabled for all products.
 			} elseif ( 'yes' === $this->tm_epo_enable_final_total_box_all ) {
 
 				$classes[] = 'tm-no-options-pxq';
@@ -2344,14 +2371,14 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		if ( false !== $this->associated_element_uniqid && isset( $post_data['tc_form_prefix_assoc'] ) && isset( $post_data['tc_form_prefix_assoc'][ $this->associated_element_uniqid ] ) ) {
 			$form_prefix = $post_data['tc_form_prefix_assoc'][ $this->associated_element_uniqid ];
 			if ( is_array( $form_prefix ) ) {
-				$form_prefix = array_values( $form_prefix );
-				$form_prefix = $form_prefix[ THEMECOMPLETE_EPO()->associated_product_counter ];
+				$form_prefix = THEMECOMPLETE_EPO()->associated_product_formprefix;
 			}
 		}
 		if ( '' !== $form_prefix ) {
 			$form_prefix = str_replace( '_', '', $form_prefix );
 			$form_prefix = '_' . $form_prefix;
 		}
+
 		$current_id         = $element['uniqid'] . $form_prefix;
 		$current_attributes = THEMECOMPLETE_EPO_CART()->element_id_array[ $current_id ]['name_inc'];
 		if ( $current_attributes && ! is_array( $current_attributes ) ) {
@@ -2365,7 +2392,11 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		if ( is_array( $constants ) ) {
 			foreach ( $constants as $constant ) {
 				if ( '' !== $constant['name'] && '' !== $constant['value'] ) {
-					$formula = str_replace( '{' . $constant['name'] . '}', sprintf( '%0.20f', floatval( $constant['value'] ) ), $formula );
+					if ( THEMECOMPLETE_EPO_HELPER()->str_startswith( $constant['value'], '{' ) ) {
+						$formula = str_replace( '{' . $constant['name'] . '}', $constant['value'], $formula );
+					} else {
+						$formula = str_replace( '{' . $constant['name'] . '}', sprintf( '%0.20f', floatval( themecomplete_convert_local_numbers( $constant['value'] ) ) ), $formula );
+					}
 				}
 			}
 		}
@@ -2451,14 +2482,14 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 		$formula = str_replace( '{product_price}', sprintf( '%0.20f', floatval( $product_price ) ), $formula );
 
-		preg_match_all( '/\{(\s)*?field\.([^}]*)}/', $_price, $matches );
+		preg_match_all( '/\{(\s)*?field\.([^}]*)}/', $formula, $matches );
 
 		if ( is_array( $matches ) && isset( $matches[2] ) && is_array( $matches[2] ) ) {
 
 			foreach ( $matches[2] as $matchkey => $match ) {
-				$val = 0;
-
-				$pos = strrpos( $match, '.' );
+				$val  = 0;
+				$type = '';
+				$pos  = strrpos( $match, '.' );
 
 				if ( false !== $pos ) {
 
@@ -2470,6 +2501,9 @@ final class THEMECOMPLETE_Extra_Product_Options {
 					}
 					$id   = $id . $form_prefix;
 					$type = substr( $match, $pos + 1 );
+					if ( 'text' === $type || 'rawvalue' === $type ) {
+						$val = '';
+					}
 
 					$thiselement = isset( THEMECOMPLETE_EPO_CART()->element_id_array[ $id ] ) ? THEMECOMPLETE_EPO_CART()->element_id_array[ $id ] : null;
 					if ( $thiselement ) {
@@ -2495,7 +2529,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 								}
 								$thiskey = $post_data[ $thisattribute ];
 
-								if ( in_array( $type, [ 'price', 'value', 'value.length', 'quantity' ], true ) ) {
+								if ( in_array( $type, [ 'price', 'value', 'value.length', 'rawvalue', 'text', 'text.length', 'quantity' ], true ) ) {
 									switch ( $type ) {
 										case 'price':
 											$_price_type = $this->get_element_price_type( '', $thiselement, $thiskey, $per_product_pricing, $variation_id );
@@ -2517,6 +2551,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 											}
 											break;
 										case 'value':
+										case 'text':
+										case 'rawvalue':
 											if ( is_array( $thiskey ) ) {
 												foreach ( $thiskey as $thiskey_id => $thiskey_value ) {
 													if ( ! is_array( $thiskey_value ) ) {
@@ -2524,21 +2560,41 @@ final class THEMECOMPLETE_Extra_Product_Options {
 													}
 													foreach ( $thiskey_value as $thiskeyvalue_id => $thiskeyvalue_value ) {
 														if ( isset( $thiselement['options'] ) && isset( $thiselement['options'][ $thiskeyvalue_value ] ) ) {
-															$val += floatval( $thiselement['options'][ $thiskeyvalue_value ] );
+															if ( 'text' === $type || 'rawvalue' === $type ) {
+																$val .= $thiselement['options'][ $thiskeyvalue_value ];
+															} else {
+																$val += THEMECOMPLETE_EPO_HELPER()->unformat( $thiselement['options'][ $thiskeyvalue_value ] );
+															}
 														} else {
-															$val += floatval( $thiskeyvalue_value );
+															if ( 'text' === $type || 'rawvalue' === $type ) {
+																$val .= $thiskeyvalue_value;
+															} else {
+																$val += THEMECOMPLETE_EPO_HELPER()->unformat( $thiskeyvalue_value );
+															}
 														}
 													}
 												}
 											} else {
 												if ( isset( $thiselement['options'] ) && isset( $thiselement['options'][ $thiskey ] ) ) {
-													$val += floatval( $thiselement['options'][ $thiskey ] );
+													if ( 'text' === $type || 'rawvalue' === $type ) {
+														$val .= $thiselement['options'][ $thiskey ];
+													} else {
+														$val += THEMECOMPLETE_EPO_HELPER()->unformat( $thiselement['options'][ $thiskey ] );
+													}
 												} else {
-													$val += floatval( $thiskey );
+													if ( 'select' === $thiselement['type'] ) {
+														$thiskey = THEMECOMPLETE_EPO_HELPER()->reverse_strrchr( $thiskey, '_' );
+													}
+													if ( 'text' === $type || 'rawvalue' === $type ) {
+														$val .= $thiskey;
+													} else {
+														$val += THEMECOMPLETE_EPO_HELPER()->unformat( $thiskey );
+													}
 												}
 											}
 											break;
 										case 'value.length':
+										case 'text.length':
 											if ( is_array( $thiskey ) ) {
 												foreach ( $thiskey as $thiskey_id => $thiskey_value ) {
 													if ( ! is_array( $thiskey_value ) ) {
@@ -2596,11 +2652,12 @@ final class THEMECOMPLETE_Extra_Product_Options {
 						}
 					}
 				}
-
-				$val = sprintf( '%0.20f', $val );
-
-				$formula = str_replace( $matches[0][ $matchkey ], $val, $formula );
-
+				if ( ! is_numeric( $val ) && ( 'text' === $type || 'rawvalue' === $type ) ) {
+					$formula = str_replace( $matches[0][ $matchkey ], $val, $formula );
+				} else {
+					$val     = sprintf( '%0.20f', $val );
+					$formula = str_replace( $matches[0][ $matchkey ], $val, $formula );
+				}
 			}
 		}
 
@@ -2951,7 +3008,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		$_price_type = $this->get_element_price_type( '', $element, $key, $per_product_pricing, $variation_id );
 		$_price      = $this->get_element_price( $price_default_value, $_price_type, $element, $key, $per_product_pricing, $variation_id, $price_per_currencies, $currency );
 		if ( is_array( $_price ) ) {
-			if ( false === $_price['price'] ) {
+			if ( false === $_price['currency'] ) {
 				$currency = false;
 			}
 			$_price = $_price['price'];
@@ -3217,6 +3274,67 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 	}
 
+	/**
+	 * Get all lookup tables
+	 *
+	 * @since 6.1
+	 */
+	public function fetch_all_lookuptables() {
+		$meta_array = THEMECOMPLETE_EPO_HELPER()->build_meta_query( 'OR', 'lookuptable_meta', '', '!=', 'NOT EXISTS' );
+
+		$meta_query_args = [
+			'relation' => 'AND',
+			$meta_array,
+			[
+				[
+					'key'     => 'lookuptable_meta',
+					'compare' => 'EXISTS',
+				],
+			],
+		];
+
+		$args = [
+			'post_type'        => THEMECOMPLETE_EPO_LOOKUPTABLE_POST_TYPE,
+			'post_status'      => [ 'publish' ],
+			'numberposts'      => -1,
+			'orderby'          => 'ID',
+			'order'            => 'asc',
+			'meta_query'       => $meta_query_args, // phpcs:ignore WordPress.DB.SlowDBQuery
+			'suppress_filters' => false,
+		];
+
+		$lookuptables = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args );
+
+		return $lookuptables;
+	}
+
+	/**
+	 * Generate all lookup tables
+	 * and save them in $this->lookup_tables
+	 *
+	 * @since 6.1
+	 */
+	public function generate_lookuptables() {
+
+		$lookuptables = $this->fetch_all_lookuptables();
+		if ( $lookuptables ) {
+			foreach ( $lookuptables as $table ) {
+				$meta = themecomplete_get_post_meta( $table->ID, 'lookuptable_meta', true );
+
+				if ( ! is_array( $meta ) ) {
+					$meta = [];
+				}
+
+				foreach ( $meta as $table_name => $table_data ) {
+					$index = 0;
+					if ( isset( $this->lookup_tables[ $table_name ] ) ) {
+						$index = count( $this->lookup_tables[ $table_name ] );
+					}
+					$this->lookup_tables[ $table_name ][ $index ]['data'] = $table_data;
+				}
+			}
+		}
+	}
 	/**
 	 * Conditional logic (checks if an element is visible)
 	 *
@@ -3572,10 +3690,26 @@ final class THEMECOMPLETE_Extra_Product_Options {
 								$all_checked = $all_checked && 0 === (int) $checkbox_checked_length;
 							}
 							break;
-						case 'select':
-						case 'textarea':
-						case 'textfield':
-						case 'color':
+
+						case 'selectmultiple':
+							$element_to_check .= $form_prefix;
+							if ( isset( $_REQUEST[ $element_to_check ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+								$posted_value = wp_unslash( $_REQUEST[ $element_to_check ] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+								$posted_value = stripslashes_deep( $posted_value );
+								$val          = [];
+								if ( is_array( $posted_value ) ) {
+									foreach ( $posted_value as $copy ) {
+										foreach ( $copy as $i => $option ) {
+											$option    = THEMECOMPLETE_EPO_HELPER()->encode_uri_component( $option );
+											$option    = THEMECOMPLETE_EPO_HELPER()->reverse_strrchr( $option, '_' );
+											$val[ $i ] = $option;
+										}
+									}
+								}
+								$posted_value = $val;
+							}
+							break;
+						default:
 							$element_to_check .= $form_prefix;
 							if ( isset( $_REQUEST[ $element_to_check ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 								$posted_value = wp_unslash( $_REQUEST[ $element_to_check ] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -3587,7 +3721,16 @@ final class THEMECOMPLETE_Extra_Product_Options {
 							}
 							break;
 					}
-					$all_checked = $all_checked && $this->tm_check_match( $posted_value, '', $operator );
+					if ( is_array( $posted_value ) ) {
+						$all_checked = $all_checked && THEMECOMPLETE_EPO_HELPER()->array_some(
+							$posted_value,
+							function( $item ) use ( $operator ) {
+								return $this->tm_check_match( $item, '', $operator );
+							}
+						);
+					} else {
+						$all_checked = $all_checked && $this->tm_check_match( $posted_value, '', $operator );
+					}
 				}
 			}
 		}
@@ -4060,7 +4203,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		$this->set_tm_meta( $post_id );
 
 		$in_cat = [];
-		$in_tag = [];
+		$in_tax = [];
 
 		$tmglobalprices                   = [];
 		$variations_for_conditional_logic = [];
@@ -4072,32 +4215,27 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			}
 		}
 
-		$terms = get_the_terms( $post_id, 'product_tag' );
-		if ( $terms ) {
-			foreach ( $terms as $term ) {
-				$in_tag[] = $term->slug;
+		$custom_product_taxonomies = get_object_taxonomies( 'product' );
+		if ( is_array( $custom_product_taxonomies ) && count( $custom_product_taxonomies ) > 0 ) {
+			foreach ( $custom_product_taxonomies as $tax ) {
+				if ( 'product_cat' === $tax ) {
+					continue;
+				}
+				$terms = get_the_terms( $post_id, $tax );
+				if ( $terms ) {
+					$in_tax[ $tax ] = [];
+					foreach ( $terms as $term ) {
+						$in_tax[ $tax ][] = $term->slug;
+					}
+				}
 			}
-		}
-
-		// Get all categories (no matter the language).
-		$_all_categories = THEMECOMPLETE_EPO_WPML()->get_terms(
-			null,
-			'product_cat',
-			[
-				'fields'     => 'ids',
-				'hide_empty' => false,
-			]
-		);
-
-		if ( ! $_all_categories ) {
-			$_all_categories = [];
 		}
 
 		// Get Normal (Local) options.
 		$args = [
 			'post_type'        => THEMECOMPLETE_EPO_LOCAL_POST_TYPE,
 			'post_status'      => [ 'publish' ], // get only enabled extra options.
-			'numberposts'      => - 1,
+			'numberposts'      => -1,
 			'orderby'          => 'menu_order',
 			'order'            => 'asc',
 			'suppress_filters' => true,
@@ -4122,8 +4260,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			 * that apply to all products or
 			 * specific product categories.
 			 */
-			$meta_array = THEMECOMPLETE_EPO_HELPER()->build_meta_query( 'OR', 'tm_meta_disable_categories', 1, '!=', 'NOT EXISTS' );
-
+			$meta_array  = THEMECOMPLETE_EPO_HELPER()->build_meta_query( 'OR', 'tm_meta_disable_categories', 1, '!=', 'NOT EXISTS' );
 			$meta_array2 = THEMECOMPLETE_EPO_HELPER()->build_meta_query( 'OR', 'tm_meta_product_exclude_ids', '"' . $post_id . '";', 'NOT LIKE', 'NOT EXISTS' );
 
 			$meta_query_args = [
@@ -4135,7 +4272,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			$args = [
 				'post_type'   => THEMECOMPLETE_EPO_GLOBAL_POST_TYPE,
 				'post_status' => [ 'publish' ], // get only enabled global extra options.
-				'numberposts' => - 1,
+				'numberposts' => -1,
 				'orderby'     => 'date',
 				'order'       => 'asc',
 				'meta_query'  => $meta_query_args, // phpcs:ignore WordPress.DB.SlowDBQuery
@@ -4154,39 +4291,36 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				],
 				// Get Global options that have no catergory set (they apply to all products).
 				[
-					'taxonomy'         => 'product_cat',
-					'field'            => 'term_id',
-					'terms'            => $_all_categories,
-					'operator'         => 'NOT IN',
-					'include_children' => false,
-				],
-				[
-					'taxonomy'         => 'product_cat',
-					'field'            => 'term_id',
-					'operator'         => 'NOT EXISTS',
-					'include_children' => false,
+					'taxonomy' => 'product_cat',
+					'operator' => 'NOT EXISTS',
 				],
 			];
 
 			THEMECOMPLETE_EPO_WPML()->remove_sql_filter();
 			THEMECOMPLETE_EPO_WPML()->remove_term_filters();
 			$tmp_tmglobalprices = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args );
-			$args_tag           = $args;
-			unset( $args_tag['meta_query'] );
-			// phpcs:ignore WordPress.DB.SlowDBQuery
-			$args_tag['tax_query']  = [
-				// Get Global options that belong to the product tag.
-				[
-					'taxonomy'         => 'product_tag',
-					'field'            => 'slug',
-					'terms'            => $in_tag,
-					'operator'         => 'IN',
-					'include_children' => false,
-				],
-			];
-			$tmp_tmglobalprices_tag = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args_tag );
-			$tmp_tmglobalprices     = array_merge( $tmp_tmglobalprices, $tmp_tmglobalprices_tag );
-			$tmp_tmglobalprices     = array_unique( $tmp_tmglobalprices, SORT_REGULAR );
+
+			foreach ( $in_tax as $tax => $tax_temrs ) {
+
+				$args_tax = $args;
+				unset( $args_tax['meta_query'] );
+				// phpcs:ignore WordPress.DB.SlowDBQuery
+				$args_tax['tax_query']  = [
+					// Get Global options that belong to the product tag.
+					[
+						'taxonomy'         => $tax,
+						'field'            => 'slug',
+						'terms'            => $tax_temrs,
+						'operator'         => 'IN',
+						'include_children' => false,
+					],
+				];
+				$tmp_tmglobalprices_tax = THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args_tax );
+				$tmp_tmglobalprices     = array_merge( $tmp_tmglobalprices, $tmp_tmglobalprices_tax );
+				$tmp_tmglobalprices     = array_unique( $tmp_tmglobalprices, SORT_REGULAR );
+
+			}
+
 			THEMECOMPLETE_EPO_WPML()->restore_term_filters();
 			THEMECOMPLETE_EPO_WPML()->restore_sql_filter();
 
@@ -4196,20 +4330,29 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				foreach ( $tmp_tmglobalprices as $price ) {
 
 					if ( THEMECOMPLETE_EPO_WPML()->is_active() ) {
-						$price_meta_lang                 = get_post_meta( $price->ID, THEMECOMPLETE_EPO_WPML_LANG_META, true );
+						$price_meta_lang                 = themecomplete_get_post_meta( $price->ID, THEMECOMPLETE_EPO_WPML_LANG_META, true );
 						$original_product_id             = floatval( THEMECOMPLETE_EPO_WPML()->get_original_id( $price->ID, $price->post_type ) );
-						$double_check_disable_categories = get_post_meta( $original_product_id, 'tm_meta_disable_categories', true );
+						$double_check_disable_categories = themecomplete_get_post_meta( $original_product_id, 'tm_meta_disable_categories', true );
 						THEMECOMPLETE_EPO_WPML()->remove_sql_filter();
 						THEMECOMPLETE_EPO_WPML()->remove_term_filters();
-						$double_check_tags = get_tags(
-							[
-								'taxonomy'   => 'product_tag',
-								'object_ids' => $price->ID,
-							]
-						);
+
+						$double_check_terms = false;
+						foreach ( $in_tax as $tax => $tax_temrs ) {
+							$double_check_terms = get_terms(
+								[
+									'taxonomy'   => $tax,
+									'object_ids' => $price->ID,
+								]
+							);
+
+							if ( $double_check_terms ) {
+								break;
+							}
+						}
+
 						THEMECOMPLETE_EPO_WPML()->restore_term_filters();
 						THEMECOMPLETE_EPO_WPML()->restore_sql_filter();
-						if ( ! $double_check_disable_categories || $double_check_tags ) {
+						if ( ! $double_check_disable_categories || $double_check_terms ) {
 
 							if ( THEMECOMPLETE_EPO_WPML()->get_lang() === $price_meta_lang
 								|| ( '' === $price_meta_lang && THEMECOMPLETE_EPO_WPML()->get_lang() === THEMECOMPLETE_EPO_WPML()->get_default_lang() )
@@ -4250,7 +4393,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			$args = [
 				'post_type'   => THEMECOMPLETE_EPO_GLOBAL_POST_TYPE,
 				'post_status' => [ 'publish' ], // get only enabled global extra options.
-				'numberposts' => - 1,
+				'numberposts' => -1,
 				'orderby'     => 'date',
 				'order'       => 'asc',
 				// phpcs:ignore WordPress.DB.SlowDBQuery
@@ -4298,7 +4441,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				foreach ( $tmglobalprices_products as $price ) {
 
 					if ( THEMECOMPLETE_EPO_WPML()->is_active() ) {
-						$price_meta_lang     = get_post_meta( $price->ID, THEMECOMPLETE_EPO_WPML_LANG_META, true );
+						$price_meta_lang     = themecomplete_get_post_meta( $price->ID, THEMECOMPLETE_EPO_WPML_LANG_META, true );
 						$original_product_id = floatval( THEMECOMPLETE_EPO_WPML()->get_original_id( $price->ID, $price->post_type ) );
 
 						if ( THEMECOMPLETE_EPO_WPML()->get_lang() === $price_meta_lang
@@ -4349,7 +4492,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				$args = [
 					'post_type'   => THEMECOMPLETE_EPO_GLOBAL_POST_TYPE,
 					'post_status' => [ 'publish' ], // get only enabled global extra options.
-					'numberposts' => - 1,
+					'numberposts' => -1,
 					'orderby'     => 'date',
 					'order'       => 'asc',
 					// phpcs:ignore WordPress.DB.SlowDBQuery
@@ -4386,7 +4529,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 					foreach ( $tmglobalprices_products as $price ) {
 
 						if ( THEMECOMPLETE_EPO_WPML()->is_active() ) {
-							$price_meta_lang     = get_post_meta( $price->ID, THEMECOMPLETE_EPO_WPML_LANG_META, true );
+							$price_meta_lang     = themecomplete_get_post_meta( $price->ID, THEMECOMPLETE_EPO_WPML_LANG_META, true );
 							$original_product_id = floatval( THEMECOMPLETE_EPO_WPML()->get_original_id( $price->ID, $price->post_type ) );
 
 							if ( THEMECOMPLETE_EPO_WPML()->get_lang() === $price_meta_lang
@@ -4424,7 +4567,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 										[
 											'post_type'   => THEMECOMPLETE_EPO_GLOBAL_POST_TYPE,
 											'post_status' => [ 'publish' ],
-											'numberposts' => - 1,
+											'numberposts' => -1,
 											'posts_per_page' => -1,
 											'orderby'     => 'date',
 											'order'       => 'asc',
@@ -4464,13 +4607,14 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 			/**
 			 * Support for conditional logic based on variations
+			 * on translated products
 			 */
 			if ( floatval( $post_id ) !== $post_original_id ) {
 				// Get Global options that apply to the product.
 				$args = [
 					'post_type'   => THEMECOMPLETE_EPO_GLOBAL_POST_TYPE,
 					'post_status' => [ 'publish' ], // get only enabled global extra options.
-					'numberposts' => - 1,
+					'numberposts' => -1,
 					'orderby'     => 'date',
 					'order'       => 'asc',
 					// phpcs:ignore WordPress.DB.SlowDBQuery
@@ -4533,7 +4677,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			if ( ! in_array( $value, $tm_meta_cpf_global_forms_added, true ) ) {
 				if ( THEMECOMPLETE_EPO_WPML()->is_active() ) {
 
-					$tm_meta_lang = get_post_meta( $value, THEMECOMPLETE_EPO_WPML_LANG_META, true );
+					$tm_meta_lang = themecomplete_get_post_meta( $value, THEMECOMPLETE_EPO_WPML_LANG_META, true );
 					if ( empty( $tm_meta_lang ) ) {
 						$tm_meta_lang = THEMECOMPLETE_EPO_WPML()->get_default_lang();
 					}
@@ -4548,7 +4692,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 						[
 							'post_type'      => THEMECOMPLETE_EPO_GLOBAL_POST_TYPE,
 							'post_status'    => [ 'publish' ],
-							'numberposts'    => - 1,
+							'numberposts'    => -1,
 							'posts_per_page' => -1,
 							'orderby'        => 'date',
 							'order'          => 'asc',
@@ -4560,7 +4704,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 						if ( $query->post_count > 1 ) {
 
 							foreach ( $query->posts as $current_post ) {
-								$metalang = get_post_meta( $current_post->ID, THEMECOMPLETE_EPO_WPML_LANG_META, true );
+								$metalang = themecomplete_get_post_meta( $current_post->ID, THEMECOMPLETE_EPO_WPML_LANG_META, true );
 
 								if ( THEMECOMPLETE_EPO_WPML()->get_lang() === $metalang ) {
 									$tmglobalprices[] = get_post( $current_post->ID );
@@ -4644,7 +4788,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 				$tmcp_id = absint( $price->ID );
 
-				$n = get_post_meta( $tmcp_id, 'tmcp_attribute', true );
+				$n = themecomplete_get_post_meta( $tmcp_id, 'tmcp_attribute', true );
 				if ( ! isset( $attributes[ $n ] ) ) {
 					continue;
 				}
@@ -4653,17 +4797,17 @@ final class THEMECOMPLETE_Extra_Product_Options {
 					continue;
 				}
 
-				$tmcp_required                           = get_post_meta( $tmcp_id, 'tmcp_required', true );
-				$tmcp_hide_price                         = get_post_meta( $tmcp_id, 'tmcp_hide_price', true );
-				$tmcp_limit                              = get_post_meta( $tmcp_id, 'tmcp_limit', true );
+				$tmcp_required                           = themecomplete_get_post_meta( $tmcp_id, 'tmcp_required', true );
+				$tmcp_hide_price                         = themecomplete_get_post_meta( $tmcp_id, 'tmcp_hide_price', true );
+				$tmcp_limit                              = themecomplete_get_post_meta( $tmcp_id, 'tmcp_limit', true );
 				$product_epos[ $tmcp_id ]['is_form']     = 0;
 				$product_epos[ $tmcp_id ]['required']    = empty( $tmcp_required ) ? 0 : 1;
 				$product_epos[ $tmcp_id ]['hide_price']  = empty( $tmcp_hide_price ) ? 0 : 1;
 				$product_epos[ $tmcp_id ]['limit']       = empty( $tmcp_limit ) ? '' : $tmcp_limit;
-				$product_epos[ $tmcp_id ]['name']        = get_post_meta( $tmcp_id, 'tmcp_attribute', true );
-				$product_epos[ $tmcp_id ]['is_taxonomy'] = get_post_meta( $tmcp_id, 'tmcp_attribute_is_taxonomy', true );
+				$product_epos[ $tmcp_id ]['name']        = themecomplete_get_post_meta( $tmcp_id, 'tmcp_attribute', true );
+				$product_epos[ $tmcp_id ]['is_taxonomy'] = themecomplete_get_post_meta( $tmcp_id, 'tmcp_attribute_is_taxonomy', true );
 				$product_epos[ $tmcp_id ]['label']       = wc_attribute_label( $product_epos[ $tmcp_id ]['name'] );
-				$product_epos[ $tmcp_id ]['type']        = get_post_meta( $tmcp_id, 'tmcp_type', true );
+				$product_epos[ $tmcp_id ]['type']        = themecomplete_get_post_meta( $tmcp_id, 'tmcp_type', true );
 				$product_epos_uniqids[]                  = $product_epos[ $tmcp_id ]['name'];
 
 				// Retrieve attributes.
@@ -4727,8 +4871,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				}
 
 				// Retrieve price rules.
-				$_regular_price                    = get_post_meta( $tmcp_id, '_regular_price', true );
-				$_regular_price_type               = get_post_meta( $tmcp_id, '_regular_price_type', true );
+				$_regular_price                    = themecomplete_get_post_meta( $tmcp_id, '_regular_price', true );
+				$_regular_price_type               = themecomplete_get_post_meta( $tmcp_id, '_regular_price_type', true );
 				$product_epos[ $tmcp_id ]['rules'] = $_regular_price;
 
 				$_regular_price_filtered                    = THEMECOMPLETE_EPO_HELPER()->array_map_deep( $_regular_price, $_regular_price_type, [ $this, 'tm_epo_price_filtered' ] );
@@ -4783,6 +4927,12 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		$extra_section_logic      = [];
 		$extra_section_hide_logic = [];
 		$raw_epos                 = [];
+
+		$not_isset_global_post = false;
+		if ( ! isset( $GLOBALS['post'] ) ) {
+			$not_isset_global_post = true;
+			$GLOBALS['post']       = $post_id; // phpcs:ignore WordPress.WP.GlobalVariablesOverride
+		}
 
 		$post_original_id = floatval( THEMECOMPLETE_EPO_WPML()->get_original_id( $post_id ) );
 
@@ -4978,7 +5128,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 							$this->current_option_features[] = 'section' . $this->get_builder_element( 'sections_type', $builder, $current_builder, $_s, '', 'sections', '', $_sections_uniqid );
 
-							$element_no_in_section = - 1;
+							$element_no_in_section = -1;
 							$section_slides        = $global_epos[ $priority ][ $tmcp_id ]['sections'][ $_s ]['sections_slides'];
 							if ( '' !== $section_slides && 'slider' === $global_epos[ $priority ][ $tmcp_id ]['sections'][ $_s ]['sections_type'] ) {
 								$section_slides = explode( ',', $section_slides );
@@ -5113,9 +5263,17 @@ final class THEMECOMPLETE_Extra_Product_Options {
 											if ( empty( $templateids ) ) {
 												continue;
 											}
-											$templateglobalprices   = [];
-											$templateglobalprices[] = get_post( $templateids );
-											$template_elements      = $this->generate_global_epos( $templateglobalprices, $post_id, $tm_original_builder_elements, $variations_for_conditional_logic, $no_cache, $no_disabled );
+											$templateglobalprices = get_post( $templateids );
+											if ( $templateglobalprices ) {
+												if ( 'publish' !== $templateglobalprices->post_status ) {
+													continue;
+												}
+											} else {
+												continue;
+											}
+											$templateglobalprices = [ $templateglobalprices ];
+											$template_elements    = $this->generate_global_epos( $templateglobalprices, $post_id, $tm_original_builder_elements, $variations_for_conditional_logic, $no_cache, $no_disabled );
+
 											// Add template elements
 											// Each foreach loop should produce only 1 result!
 											if ( isset( $template_elements['global'] ) ) {
@@ -5123,15 +5281,19 @@ final class THEMECOMPLETE_Extra_Product_Options {
 												foreach ( $template_elements['global'] as $pid_element ) {
 													foreach ( $pid_element as $id_element ) {
 														foreach ( $id_element['sections'] as $id_sections ) {
-															foreach ( $id_sections['elements'] as $added_element ) {
-																$added_element_uniqid     = $added_element['uniqid'];
-																$added_element['size']    = $_div_size[ $k0 ];
-																$added_element['enabled'] = $is_enabled;
-																$added_element['uniqid']  = $element_uniqueid;
-																$added_element['clogic']  = $this->get_builder_element( $_prefix . 'clogic', $builder, $current_builder, $current_counter, false, $current_element, '', $element_uniqueid );
-																$added_element['logic']   = $this->get_builder_element( $_prefix . 'logic', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid );
-																$global_epos[ $priority ][ $tmcp_id ]['sections'][ $_s ]['elements'][] = $added_element;
-																$this->cpf_single[ $element_uniqueid ]                                 = $added_element;
+															if ( isset( $id_sections['elements'] ) ) {
+																foreach ( $id_sections['elements'] as $added_element ) {
+																	$added_element_uniqid  = $added_element['uniqid'];
+																	$added_element['size'] = $_div_size[ $k0 ];
+																	if ( ! $is_enabled ) {
+																		$added_element['enabled'] = $is_enabled;
+																	}
+																	$added_element['uniqid'] = $element_uniqueid;
+																	$added_element['clogic'] = $this->get_builder_element( $_prefix . 'clogic', $builder, $current_builder, $current_counter, false, $current_element, '', $element_uniqueid );
+																	$added_element['logic']  = $this->get_builder_element( $_prefix . 'logic', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid );
+																	$global_epos[ $priority ][ $tmcp_id ]['sections'][ $_s ]['elements'][] = $added_element;
+																	$this->cpf_single[ $element_uniqueid ]                                 = $added_element;
+																}
 															}
 														}
 													}
@@ -5177,7 +5339,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 												$_price = $this->get_builder_element( $_prefix . 'sale_price', $builder, $current_builder, $current_counter, $_price, $current_element, 'wc_epo_option_sale_price', $element_uniqueid );
 											}
 
-											$_price = apply_filters( 'wc_epo_apply_discount', $_price, $_original_regular_price_filtered, $post_id );
+											$_price                           = apply_filters( 'wc_epo_apply_discount', $_price, $_original_regular_price_filtered, $post_id );
+											$_original_regular_price_filtered = apply_filters( 'wc_epo_enable_shortocde', $_original_regular_price_filtered, $_original_regular_price_filtered, $post_id );
 
 											$this_price_type = '';
 
@@ -5188,6 +5351,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 											if ( isset( $builder[ $current_element . '_price_type' ][ $current_counter ] ) ) {
 												$_regular_price_type = $builder[ $current_element . '_price_type' ][ $current_counter ];
 												$this_price_type     = $_regular_price_type;
+
 												switch ( $_regular_price_type ) {
 													case 'fee':
 														$_regular_price_type = '';
@@ -5204,10 +5368,9 @@ final class THEMECOMPLETE_Extra_Product_Options {
 												}
 												$_for_filter_price_type = $_regular_price_type;
 												$_regular_price_type    = [ [ $_regular_price_type ] ];
-
 											}
 
-											if ( 'math' === $this_price_type ) {
+											if ( 'math' === $this_price_type || 'lookuptable' === $this_price_type ) {
 												$_regular_price = [ [ $_price ] ];
 											} else {
 												$_regular_price = [ [ wc_format_decimal( $_price, false, true ) ] ];
@@ -5264,7 +5427,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 																		$args                 = [
 																			'post_type'   => $basetype,
 																			'post_status' => [ 'publish', 'draft' ], // get only enabled global extra options.
-																			'numberposts' => - 1,
+																			'numberposts' => -1,
 																			'orderby'     => 'date',
 																			'order'       => 'asc',
 																		];
@@ -5323,7 +5486,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 															}
 														}
 
-														if ( 'math' === $this_price_type ) {
+														if ( 'math' === $this_price_type || 'lookuptable' === $this_price_type ) {
 															$price_per_currencies_original[ $currency ] = [ [ $_current_currency_price ] ];
 														} else {
 															$price_per_currencies_original[ $currency ] = [ [ wc_format_decimal( $_current_currency_price, false, true ) ] ];
@@ -5338,7 +5501,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 														}
 														$_current_currency_price = apply_filters( 'wc_epo_apply_discount', $_current_currency_price, $_original_current_currency_price, $post_id );
 
-														if ( 'math' === $this_price_type ) {
+														if ( 'math' === $this_price_type || 'lookuptable' === $this_price_type ) {
 															$price_per_currencies[ $currency ] = [ [ $_current_currency_price ] ];
 														} else {
 															$price_per_currencies[ $currency ] = [ [ wc_format_decimal( $_current_currency_price, false, true ) ] ];
@@ -5365,7 +5528,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 													}
 
 													if ( '' !== $_original_current_currency_price ) {
-														if ( 'math' === $this_price_type ) {
+														if ( 'math' === $this_price_type || 'lookuptable' === $this_price_type ) {
 															$price_per_currencies_original[ $currency ] = [ [ $_original_current_currency_price ] ];
 														} else {
 															$price_per_currencies_original[ $currency ] = [ [ wc_format_decimal( $_original_current_currency_price, false, true ) ] ];
@@ -5373,7 +5536,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 													}
 
 													if ( '' !== $_current_currency_price ) {
-														if ( 'math' === $this_price_type ) {
+														if ( 'math' === $this_price_type || 'lookuptable' === $this_price_type ) {
 															$price_per_currencies[ $currency ] = [ [ $_current_currency_price ] ];
 														} else {
 															$price_per_currencies[ $currency ] = [ [ wc_format_decimal( $_current_currency_price, false, true ) ] ];
@@ -5391,13 +5554,13 @@ final class THEMECOMPLETE_Extra_Product_Options {
 											if ( THEMECOMPLETE_EPO_WPML()->is_active() && THEMECOMPLETE_EPO_WPML()->is_multi_currency() ) {
 												if ( '' === $_current_currency_original_price && $mt_prefix !== $woocommerce_wpml->multi_currency->get_default_currency() ) {
 													$_current_currency_original_price = isset( $price_per_currencies_original[ $woocommerce_wpml->multi_currency->get_default_currency() ] ) ? $price_per_currencies_original[ $woocommerce_wpml->multi_currency->get_default_currency() ][0][0] : '';
-													if ( '' !== $_current_currency_original_price && 'math' !== $this_price_type ) {
+													if ( '' !== $_current_currency_original_price && 'math' !== $this_price_type && 'lookuptable' !== $this_price_type ) {
 														$_current_currency_original_price = apply_filters( 'wc_epo_get_current_currency_price', $_current_currency_original_price, $this_price_type );
 													}
 												}
 												if ( '' === $_current_currency_price && $mt_prefix !== $woocommerce_wpml->multi_currency->get_default_currency() ) {
 													$_current_currency_price = isset( $price_per_currencies[ $woocommerce_wpml->multi_currency->get_default_currency() ] ) ? $price_per_currencies[ $woocommerce_wpml->multi_currency->get_default_currency() ][0][0] : '';
-													if ( '' !== $_current_currency_price && 'math' !== $this_price_type ) {
+													if ( '' !== $_current_currency_price && 'math' !== $this_price_type && 'lookuptable' !== $this_price_type ) {
 														$_current_currency_price = apply_filters( 'wc_epo_get_current_currency_price', $_current_currency_price, $this_price_type );
 													}
 												}
@@ -5433,6 +5596,41 @@ final class THEMECOMPLETE_Extra_Product_Options {
 												$_max_price  = $_min_price;
 												$_min_price0 = 0;
 											}
+
+											$lookuptable   = $this->get_builder_element( $_prefix . 'lookuptable', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid );
+											$lookuptable_x = $this->get_builder_element( $_prefix . 'lookuptable_x', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid );
+											$lookuptable_y = $this->get_builder_element( $_prefix . 'lookuptable_y', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid );
+											if ( 'lookuptable' === $this_price_type ) {
+												$table     = trim( THEMECOMPLETE_EPO_HELPER()->reverse_strrchr( $lookuptable, '|' ) );
+												$table_num = trim( substr( $lookuptable, ( 0 - ( strlen( strrchr( $lookuptable, '|' ) ) - 1 ) ) ) );
+
+												$xy            = '0';
+												$lookuptable_x = trim( $lookuptable_x );
+												$lookuptable_y = trim( $lookuptable_y );
+												if ( ! empty( $lookuptable_x ) ) {
+													if ( ! THEMECOMPLETE_EPO_HELPER()->str_startswith( $lookuptable_x, '{' ) ) {
+														$lookuptable_x = '{field.' . $lookuptable_x . '.text}';
+													}
+												}
+												if ( ! empty( $lookuptable_y ) ) {
+													if ( ! THEMECOMPLETE_EPO_HELPER()->str_startswith( $lookuptable_y, '{' ) ) {
+														$lookuptable_y = '{field.' . $lookuptable_y . '.text}';
+													}
+												}
+												if ( ! empty( $lookuptable_x ) && ! empty( $lookuptable_y ) ) {
+													$xy = '[' . $lookuptable_x . ', ' . $lookuptable_y . ']';
+												} elseif ( ! empty( $lookuptable_x ) ) {
+													$xy = $lookuptable_x;
+												} elseif ( ! empty( $lookuptable_x ) ) {
+													$xy = $lookuptable_y;
+												}
+												$this_price_type                  = 'math';
+												$_regular_price_type              = [ [ $this_price_type ] ];
+												$_price                           = 'lookuptable(' . $xy . ', ["' . $table . '", ' . $table_num . '])';
+												$_original_regular_price_filtered = $_price;
+												$_regular_price                   = [ [ $_price ] ];
+											}
+
 											if ( 'math' === $this_price_type ) {
 												$_regular_price_filtered          = [ [ $_price ] ];
 												$_original_regular_price_filtered = [ [ $_original_regular_price_filtered ] ];
@@ -5464,14 +5662,9 @@ final class THEMECOMPLETE_Extra_Product_Options {
 													$_sale_prices = $this->get_builder_element( 'multiple_' . $current_element . '_sale_prices', $builder, $current_builder, $current_counter, $_sale_prices, $current_element, 'wc_epo_multiple_sale_prices', $element_uniqueid );
 												}
 												$_prices = THEMECOMPLETE_EPO_HELPER()->merge_price_array( $_prices, $_sale_prices );
-
 												$_prices = apply_filters( 'wc_epo_apply_discount', $_prices, $_original_prices, $post_id );
 
-												$mt_prefix                         = THEMECOMPLETE_EPO_HELPER()->get_currency_price_prefix();
-												$_current_currency_prices          = $this->get_builder_element( 'multiple_' . $current_element . '_options_price' . $mt_prefix, $builder, $current_builder, $current_counter, [], $current_element, 'wc_epo_multiple_prices' . $mt_prefix, $element_uniqueid );
-												$_original_current_currency_prices = $_current_currency_prices;
-												$_current_currency_sale_prices     = $this->get_builder_element( 'multiple_' . $current_element . '_options_sale_price' . $mt_prefix, $builder, $current_builder, $current_counter, [], $current_element, 'wc_epo_multiple_sale_prices' . $mt_prefix, $element_uniqueid );
-												$_current_currency_prices          = THEMECOMPLETE_EPO_HELPER()->merge_price_array( $_current_currency_prices, $_current_currency_sale_prices );
+												$_original_prices = apply_filters( 'wc_epo_enable_shortocde', $_original_prices, $_original_prices, $post_id );
 
 												$_values      = $this->get_builder_element( 'multiple_' . $current_element . '_options_value', $builder, $current_builder, $current_counter, [], $current_element, 'wc_epo_multiple_values', $element_uniqueid );
 												$_titles      = $this->get_builder_element( 'multiple_' . $current_element . '_options_title', $builder, $current_builder, $current_counter, [], $current_element, 'wc_epo_multiple_titles', $element_uniqueid );
@@ -5558,7 +5751,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 																			$args                 = [
 																				'post_type'   => $basetype,
 																				'post_status' => [ 'publish', 'draft' ], // get only enabled global extra options.
-																				'numberposts' => - 1,
+																				'numberposts' => -1,
 																				'orderby'     => 'date',
 																				'order'       => 'asc',
 																			];
@@ -5631,6 +5824,11 @@ final class THEMECOMPLETE_Extra_Product_Options {
 															}
 															$_current_currency_price = apply_filters( 'wc_epo_apply_discount', $_current_currency_price, $_original_current_currency_price, $post_id );
 
+															$price_per_currencies_original[ $currency ] = $_original_current_currency_price;
+															if ( ! is_array( $price_per_currencies_original[ $currency ] ) ) {
+																$price_per_currencies_original[ $currency ] = [];
+															}
+
 															$price_per_currencies[ $currency ] = $_current_currency_price;
 															if ( ! is_array( $price_per_currencies[ $currency ] ) ) {
 																$price_per_currencies[ $currency ] = [];
@@ -5640,6 +5838,17 @@ final class THEMECOMPLETE_Extra_Product_Options {
 																if ( ! isset( $_prices_type[ $_n ] ) ) {
 																	continue;
 																}
+
+																$to_price = '';
+																if ( is_array( $_original_current_currency_price ) && isset( $_original_current_currency_price[ $_n ] ) ) {
+																	$to_price = $_original_current_currency_price[ $_n ];
+																}
+																if ( 'math' === $_prices_type[ $_n ] ) {
+																	$price_per_currencies_original[ $currency ][ esc_attr( ( $_values[ $_n ] ) ) . '_' . $_n ] = [ $to_price ];
+																} else {
+																	$price_per_currencies_original[ $currency ][ esc_attr( ( $_values[ $_n ] ) ) . '_' . $_n ] = [ wc_format_decimal( $to_price, false, true ) ];
+																}
+
 																$to_price = '';
 																if ( is_array( $_current_currency_price ) && isset( $_current_currency_price[ $_n ] ) ) {
 																	$to_price = $_current_currency_price[ $_n ];
@@ -5657,7 +5866,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 														$mt_prefix = THEMECOMPLETE_EPO_HELPER()->get_currency_price_prefix( $currency );
 
 														if ( '' === $mt_prefix ) {
-															$_current_currency_price = $_prices;
+															$_current_currency_price          = $_prices;
+															$_original_current_currency_price = $_current_currency_price;
 														} else {
 															$_current_currency_price          = $this->get_builder_element( 'multiple_' . $current_element . '_options_price' . $mt_prefix, $builder, $current_builder, $current_counter, [], $current_element, 'wc_epo_multiple_prices' . $mt_prefix, $element_uniqueid );
 															$_current_currency_sale_price     = $this->get_builder_element( 'multiple_' . $current_element . '_options_sale_price' . $mt_prefix, $builder, $current_builder, $current_counter, [], $current_element, 'wc_epo_multiple_sale_prices' . $mt_prefix, $element_uniqueid );
@@ -5668,6 +5878,10 @@ final class THEMECOMPLETE_Extra_Product_Options {
 															$_current_currency_price = apply_filters( 'wc_epo_apply_discount', $_current_currency_price, $_original_current_currency_price, $post_id );
 														}
 
+														$price_per_currencies_original[ $currency ] = $_original_current_currency_price;
+														if ( ! is_array( $price_per_currencies_original[ $currency ] ) ) {
+															$price_per_currencies_original[ $currency ] = [];
+														}
 														$price_per_currencies[ $currency ] = $_current_currency_price;
 														if ( ! is_array( $price_per_currencies[ $currency ] ) ) {
 															$price_per_currencies[ $currency ] = [];
@@ -5675,6 +5889,15 @@ final class THEMECOMPLETE_Extra_Product_Options {
 														foreach ( $_prices as $_n => $_price ) {
 															if ( ! isset( $_prices_type[ $_n ] ) ) {
 																continue;
+															}
+															$to_price = '';
+															if ( is_array( $_original_current_currency_price ) && isset( $_original_current_currency_price[ $_n ] ) ) {
+																$to_price = $_original_current_currency_price[ $_n ];
+															}
+															if ( 'math' === $_prices_type[ $_n ] ) {
+																$price_per_currencies_original[ $currency ][ esc_attr( ( $_values[ $_n ] ) ) . '_' . $_n ] = [ $to_price ];
+															} else {
+																$price_per_currencies_original[ $currency ][ esc_attr( ( $_values[ $_n ] ) ) . '_' . $_n ] = [ wc_format_decimal( $to_price, false, true ) ];
 															}
 															$to_price = '';
 															if ( is_array( $_current_currency_price ) && isset( $_current_currency_price[ $_n ] ) ) {
@@ -5688,6 +5911,10 @@ final class THEMECOMPLETE_Extra_Product_Options {
 														}
 													}
 												}
+
+												$mt_prefix                         = THEMECOMPLETE_EPO_HELPER()->get_currency_price_prefix( true, '' );
+												$_original_current_currency_prices = $price_per_currencies_original[ $mt_prefix ];
+												$_current_currency_prices          = $price_per_currencies[ $mt_prefix ];
 
 												// Backwards compatibility.
 												if ( '' === $_replacement_mode ) {
@@ -5818,6 +6045,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 														$_original_prices[ $_n ] = $_original_current_currency_prices[ $_n ];
 														$_regular_currencies[ esc_attr( ( $_values[ $_n ] ) ) . '_' . $_n ] = [ themecomplete_get_woocommerce_currency() ];
 													}
+
 													if ( 'math' === $_prices_type[ $_n ] ) {
 														$_f_price = $_price;
 													} else {
@@ -5840,7 +6068,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 														$_original_regular_price_filtered [ esc_attr( ( $_values[ $_n ] ) ) . '_' . $_n ] = [ $_original_prices[ $_n ] ];
 													} else {
 														$_f_price = wc_format_decimal( $_price, false, true );
-														$_regular_price_filtered[ esc_attr( ( $_values[ $_n ] ) ) . '_' . $_n ]           = [ wc_format_decimal( $_price, false, true ) ];
+														$_regular_price_filtered[ esc_attr( ( $_values[ $_n ] ) ) . '_' . $_n ]           = [ $_f_price ];
 														$_original_regular_price_filtered [ esc_attr( ( $_values[ $_n ] ) ) . '_' . $_n ] = [ wc_format_decimal( $_original_prices[ $_n ], false, true ) ];
 													}
 
@@ -6052,59 +6280,11 @@ final class THEMECOMPLETE_Extra_Product_Options {
 										$_max_price = wc_format_localized_price( $_max_price );
 									}
 
-									// Fix for getting right results for dates even if the users enters wrong format.
-									$format = $this->get_builder_element( $_prefix . 'format', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid );
-									switch ( $format ) {
-										case '0':
-											$date_format = 'd/m/Y';
-											$sep         = '/';
-											break;
-										case '1':
-											$date_format = 'm/d/Y';
-											$sep         = '/';
-											break;
-										case '2':
-											$date_format = 'd.m.Y';
-											$sep         = '.';
-											break;
-										case '3':
-											$date_format = 'm.d.Y';
-											$sep         = '.';
-											break;
-										case '4':
-											$date_format = 'd-m-Y';
-											$sep         = '-';
-											break;
-										case '5':
-											$date_format = 'm-d-Y';
-											$sep         = '-';
-											break;
-
-										case '6':
-											$date_format = 'Y/m/d';
-											$sep         = '/';
-											break;
-										case '7':
-											$date_format = 'Y/d/m';
-											$sep         = '/';
-											break;
-										case '8':
-											$date_format = 'Y.m.d';
-											$sep         = '.';
-											break;
-										case '9':
-											$date_format = 'Y.d.m';
-											$sep         = '.';
-											break;
-										case '10':
-											$date_format = 'Y-m-d';
-											$sep         = '-';
-											break;
-										case '11':
-											$date_format = 'Y-d-m';
-											$sep         = '-';
-											break;
-									}
+									// Fix for getting right results for dates even if the user enters wrong format.
+									$format         = $this->get_builder_element( $_prefix . 'format', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid );
+									$data           = $this->get_date_format( $format );
+									$date_format    = $data['date_format'];
+									$sep            = $data['sep'];
 									$disabled_dates = $this->get_builder_element( $_prefix . 'disabled_dates', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid );
 									if ( $disabled_dates ) {
 										$disabled_dates = explode( ',', $disabled_dates );
@@ -6177,6 +6357,12 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 									if ( $is_enabled ) {
 										$this->current_option_features[] = $current_element;
+									}
+
+									$repeater  = $this->get_builder_element( $_prefix . 'repeater', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid );
+									$connector = $this->get_builder_element( $_prefix . 'connector', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid );
+									if ( '' !== $connector ) {
+										$repeater = '';
 									}
 
 									if ( 'header' !== $current_element && 'divider' !== $current_element ) {
@@ -6265,6 +6451,9 @@ final class THEMECOMPLETE_Extra_Product_Options {
 													'rules_type' => $_rules_type,
 													'currencies' => $_regular_currencies,
 													'price_per_currencies' => $price_per_currencies,
+													'lookuptable' => $this->get_builder_element( $_prefix . 'lookuptable', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),
+													'lookuptable_x' => $this->get_builder_element( $_prefix . 'lookuptable_x', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),
+													'lookuptable_y' => $this->get_builder_element( $_prefix . 'lookuptable_y', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),
 													'images' => isset( $_images ) ? $_images : '',
 													'imagesc' => isset( $_imagesc ) ? $_imagesc : '',
 													'imagesp' => isset( $_imagesp ) ? $_imagesp : '',
@@ -6354,11 +6543,12 @@ final class THEMECOMPLETE_Extra_Product_Options {
 													'show_meta' => $this->get_builder_element( $_prefix . 'show_meta', $builder, $current_builder, $current_counter, '1', $current_element, '', $element_uniqueid ),
 													'show_image' => $this->get_builder_element( $_prefix . 'show_image', $builder, $current_builder, $current_counter, '1', $current_element, '', $element_uniqueid ),
 
-													'repeater' => $this->get_builder_element( $_prefix . 'repeater', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),
+													'repeater' => $repeater,
 													'repeater_quantity' => $this->get_builder_element( $_prefix . 'repeater_quantity', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),
 													'repeater_min_rows' => $this->get_builder_element( $_prefix . 'repeater_min_rows', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),
 													'repeater_max_rows' => $this->get_builder_element( $_prefix . 'repeater_max_rows', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),
 													'repeater_button_label' => $this->get_builder_element( $_prefix . 'repeater_button_label', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),
+													'connector' => $connector,
 
 													'validation1' => $this->get_builder_element( $_prefix . 'validation1', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),
 												]
@@ -6700,6 +6890,10 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			}
 		}
 
+		if ( $not_isset_global_post ) {
+			unset( $GLOBALS['post'] );
+		}
+
 		return [
 			'global'               => $global_epos,
 			'price'                => $epos_prices,
@@ -6710,6 +6904,122 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			'product_epos_uniqids' => $product_epos_uniqids,
 			'product_epos_choices' => $product_epos_choices,
 		];
+	}
+
+	/**
+	 * Return date format data for the date element
+	 *
+	 * @param string $format The format code.
+	 *
+	 * @since 6.1
+	 * @return array
+	 */
+	public function get_date_format( $format = '0' ) {
+
+		$date_format         = 'd/m/Y';
+		$sep                 = '/';
+		$element_date_format = 'dd/mm/yy';
+		$date_placeholder    = 'dd/mm/yyyy';
+		$date_mask           = '00/00/0000';
+
+		switch ( $format ) {
+			case '0':
+				$date_format         = 'd/m/Y';
+				$sep                 = '/';
+				$element_date_format = 'dd/mm/yy';
+				$date_placeholder    = 'dd/mm/yyyy';
+				$date_mask           = '00/00/0000';
+				break;
+			case '1':
+				$date_format         = 'm/d/Y';
+				$sep                 = '/';
+				$element_date_format = 'mm/dd/yy';
+				$date_placeholder    = 'mm/dd/yyyy';
+				$date_mask           = '00/00/0000';
+				break;
+			case '2':
+				$date_format         = 'd.m.Y';
+				$sep                 = '.';
+				$element_date_format = 'dd.mm.yy';
+				$date_placeholder    = 'dd.mm.yyyy';
+				$date_mask           = '00.00.0000';
+				break;
+			case '3':
+				$date_format         = 'm.d.Y';
+				$sep                 = '.';
+				$element_date_format = 'mm.dd.yy';
+				$date_placeholder    = 'mm.dd.yyyy';
+				$date_mask           = '00.00.0000';
+				break;
+			case '4':
+				$date_format         = 'd-m-Y';
+				$sep                 = '-';
+				$element_date_format = 'dd-mm-yy';
+				$date_placeholder    = 'dd-mm-yyyy';
+				$date_mask           = '00-00-0000';
+				break;
+			case '5':
+				$date_format         = 'm-d-Y';
+				$sep                 = '-';
+				$element_date_format = 'mm-dd-yy';
+				$date_placeholder    = 'mm-dd-yyyy';
+				$date_mask           = '00-00-0000';
+				break;
+
+			case '6':
+				$date_format         = 'Y/m/d';
+				$sep                 = '/';
+				$element_date_format = 'yy/mm/dd';
+				$date_placeholder    = 'yyyy/mm/dd';
+				$date_mask           = '0000/00/00';
+				break;
+			case '7':
+				$date_format         = 'Y/d/m';
+				$sep                 = '/';
+				$element_date_format = 'yy/dd/mm';
+				$date_placeholder    = 'yyyy/dd/mm';
+				$date_mask           = '0000/00/00';
+				break;
+			case '8':
+				$date_format         = 'Y.m.d';
+				$sep                 = '.';
+				$element_date_format = 'yy.mm.dd';
+				$date_placeholder    = 'yyyy.mm.dd';
+				$date_mask           = '0000.00.00';
+				break;
+			case '9':
+				$date_format         = 'Y.d.m';
+				$sep                 = '.';
+				$element_date_format = 'yy.dd.mm';
+				$date_placeholder    = 'yyyy.dd.mm';
+				$date_mask           = '0000.00.00';
+				break;
+			case '10':
+				$date_format         = 'Y-m-d';
+				$sep                 = '-';
+				$element_date_format = 'yy-mm-dd';
+				$date_placeholder    = 'yyyyy-mm-dd';
+				$date_mask           = '0000-00-00';
+				break;
+			case '11':
+				$date_format         = 'Y-d-m';
+				$sep                 = '-';
+				$element_date_format = 'yy-dd-mm';
+				$date_placeholder    = 'yyyy-dd-mm';
+				$date_mask           = '0000-00-00';
+				break;
+		}
+
+		$data = [
+			'date_format'         => $date_format,
+			'sep'                 => $sep,
+			'element_date_format' => $element_date_format,
+			'date_placeholder'    => $date_placeholder,
+			'date_mask'           => $date_mask,
+		];
+
+		return $data;
+
 	}
 
 	/**
@@ -6812,6 +7122,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		$unit_counter    = 0;
 		$field_counter   = 0;
 		$element_counter = 0;
+		$connectors      = [];
 
 		// global options before local.
 		foreach ( $global_prices['before'] as $priority => $priorities ) {
@@ -6822,6 +7133,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 					'unit_counter'    => $unit_counter,
 					'field_counter'   => $field_counter,
 					'element_counter' => $element_counter,
+					'connectors'      => $connectors,
 				];
 				$_return = $this->fill_builder_display( $global_epos, $field, 'before', $args, $form_prefix, $add_identifier );
 
@@ -6829,6 +7141,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				$unit_counter    = $_return['unit_counter'];
 				$field_counter   = $_return['field_counter'];
 				$element_counter = $_return['element_counter'];
+				$connectors      = $_return['connectors'];
 
 			}
 		}
@@ -6877,6 +7190,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 					'unit_counter'    => $unit_counter,
 					'field_counter'   => $field_counter,
 					'element_counter' => $element_counter,
+					'connectors'      => $connectors,
 				];
 				$_return = $this->fill_builder_display( $global_epos, $field, 'after', $args, $form_prefix, $add_identifier );
 
@@ -6884,6 +7198,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				$unit_counter    = $_return['unit_counter'];
 				$field_counter   = $_return['field_counter'];
 				$element_counter = $_return['element_counter'];
+				$connectors      = $_return['connectors'];
 
 			}
 		}
@@ -6911,6 +7226,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		$unit_counter    = $args['unit_counter'];
 		$field_counter   = $args['field_counter'];
 		$element_counter = $args['element_counter'];
+		$connectors      = $args['connectors'];
 
 		$element_type_counter = [];
 
@@ -6932,7 +7248,38 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 							$element_object = $this->tm_builder_elements[ $element['type'] ];
 
-							if ( 'multipleall' === $element_object->type || 'multiple' === $element_object->type ) {
+							$c_element_counter = $element_counter;
+							if ( isset( $element['connector'] ) && isset( $connectors[ 'c-' . sanitize_key( $element['connector'] ) ] ) ) {
+								$c_element_counter = $connectors[ 'c-' . sanitize_key( $element['connector'] ) ];
+							}
+
+							if ( 'single' === $element_object->type || 'multipleallsingle' === $element_object->type || 'multiplesingle' === $element_object->type || 'singlemultiple' === $element_object->type ) {
+
+								if ( ! isset( $element_type_counter[ $element['type'] ] ) ) {
+									$element_type_counter[ $element['type'] ] = 0;
+								}
+
+								$name_inc      = $element_object->post_name_prefix . '_' . $c_element_counter;
+								$base_name_inc = $name_inc;
+
+								$is_cart_fee = ! empty( $element['is_cart_fee'] );
+								if ( $is_cart_fee ) {
+									$name_inc = $cart_fee_name . $name_inc;
+								}
+
+								$name_inc = apply_filters( 'wc_epo_name_inc', $name_inc, $base_name_inc, $element, false, false, $element_type_counter[ $element['type'] ] );
+
+								$global_epos[ $priority ][ $pid ]['sections'][ $_s ]['elements'][ $arr_element_counter ]['raw_name_inc']        = $name_inc;
+								$global_epos[ $priority ][ $pid ]['sections'][ $_s ]['elements'][ $arr_element_counter ]['raw_name_inc_prefix'] = ( '' !== $form_prefix ) ? '_' . str_replace( '_', '', $form_prefix ) : '';
+
+								$name_inc = 'tmcp_' . $name_inc . ( ( '' !== $form_prefix ) ? '_' . str_replace( '_', '', $form_prefix ) : '' );
+								$global_epos[ $priority ][ $pid ]['sections'][ $_s ]['elements'][ $arr_element_counter ]['name_inc']    = $name_inc;
+								$global_epos[ $priority ][ $pid ]['sections'][ $_s ]['elements'][ $arr_element_counter ]['is_cart_fee'] = $is_cart_fee;
+
+								$global_epos = apply_filters( 'global_epos_fill_builder_display', $global_epos, $priority, $pid, $_s, $arr_element_counter, $element, false, false, false );
+
+								$element_type_counter[ $element['type'] ] ++;
+							} elseif ( 'multipleall' === $element_object->type || 'multiple' === $element_object->type ) {
 
 								$choice_counter = 0;
 
@@ -6943,9 +7290,9 @@ final class THEMECOMPLETE_Extra_Product_Options {
 								foreach ( $element['options'] as $value => $label ) {
 
 									if ( 'multipleall' === $element_object->type ) {
-										$name_inc = $element_object->post_name_prefix . '_' . $element_counter . '_' . $field_counter;
+										$name_inc = $element_object->post_name_prefix . '_' . $c_element_counter . '_' . $field_counter;
 									} else {
-										$name_inc = $element_object->post_name_prefix . '_' . $element_counter;
+										$name_inc = $element_object->post_name_prefix . '_' . $c_element_counter;
 									}
 
 									$base_name_inc = $name_inc;
@@ -6960,6 +7307,9 @@ final class THEMECOMPLETE_Extra_Product_Options {
 									}
 
 									$name_inc = apply_filters( 'wc_epo_name_inc', $name_inc, $base_name_inc, $element, $value, $choice_counter, $element_type_counter[ $element['type'] ] );
+
+									$global_epos[ $priority ][ $pid ]['sections'][ $_s ]['elements'][ $arr_element_counter ]['raw_name_inc'][ $field_counter ]        = $name_inc;
+									$global_epos[ $priority ][ $pid ]['sections'][ $_s ]['elements'][ $arr_element_counter ]['raw_name_inc_prefix'][ $field_counter ] = ( '' !== $form_prefix ) ? '_' . str_replace( '_', '', $form_prefix ) : '';
 
 									$name_inc = 'tmcp_' . $name_inc . ( ( '' !== $form_prefix ) ? '_' . str_replace( '_', '', $form_prefix ) : '' );
 									$global_epos[ $priority ][ $pid ]['sections'][ $_s ]['elements'][ $arr_element_counter ]['name_inc'][] = $name_inc;
@@ -6976,31 +7326,15 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 								$element_type_counter[ $element['type'] ] ++;
 
-							} elseif ( 'single' === $element_object->type || 'multipleallsingle' === $element_object->type || 'multiplesingle' === $element_object->type || 'singlemultiple' === $element_object->type ) {
-
-								if ( ! isset( $element_type_counter[ $element['type'] ] ) ) {
-									$element_type_counter[ $element['type'] ] = 0;
-								}
-
-								$name_inc      = $element_object->post_name_prefix . '_' . $element_counter;
-								$base_name_inc = $name_inc;
-
-								$is_cart_fee = ! empty( $element['is_cart_fee'] );
-								if ( $is_cart_fee ) {
-									$name_inc = $cart_fee_name . $name_inc;
-								}
-
-								$name_inc = apply_filters( 'wc_epo_name_inc', $name_inc, $base_name_inc, $element, false, false, false );
-
-								$name_inc = 'tmcp_' . $name_inc . ( ( '' !== $form_prefix ) ? '_' . str_replace( '_', '', $form_prefix ) : '' );
-								$global_epos[ $priority ][ $pid ]['sections'][ $_s ]['elements'][ $arr_element_counter ]['name_inc']    = $name_inc;
-								$global_epos[ $priority ][ $pid ]['sections'][ $_s ]['elements'][ $arr_element_counter ]['is_cart_fee'] = $is_cart_fee;
-
-								$global_epos = apply_filters( 'global_epos_fill_builder_display', $global_epos, $priority, $pid, $_s, $arr_element_counter, $element, false, false, false );
-
-								$element_type_counter[ $element['type'] ] ++;
 							}
-							$element_counter ++;
+							if ( isset( $element['connector'] ) && '' !== $element['connector'] ) {
+								if ( ! isset( $connectors[ 'c-' . sanitize_key( $element['connector'] ) ] ) ) {
+									$element_counter ++;
+								}
+								$connectors[ 'c-' . sanitize_key( $element['connector'] ) ] = $c_element_counter;
+							} else {
+								$element_counter ++;
+							}
 						}
 					}
 				}
@@ -7013,6 +7347,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			'unit_counter'    => $unit_counter,
 			'field_counter'   => $field_counter,
 			'element_counter' => $element_counter,
+			'connectors'      => $connectors,
 		];
 
 	}

@@ -485,7 +485,24 @@ class WooCommerce_Product_Search_Filter {
 		);
 
 		$safex_inline_script .= sprintf(
-			'jQuery("#%s").on("input", function() {' .
+			'jQuery( document ).on( "DOMNodeInserted", function( event ) {' .
+			'jQuery( event.target ).find( "#%s" ).typeWatch( {' .
+			'callback: function (value) { ixwpsf.productFilter(value, %s, %s); },' .
+			'wait: %d,' .
+			'highlight: true,' .
+			'captureLength: %d' .
+			'} );' .
+			'} );'
+			,
+			esc_attr( $field_id ),
+			$containers,
+			$js_args,
+			$params['delay'],
+			$params['characters']
+		);
+
+		$safex_inline_script .= sprintf(
+			'jQuery( document ).on("input", "#%s", function() {' .
 			'var query = jQuery(this).val();' .
 			'if ((query.length < %d) && (jQuery.trim(query) == "")) {' .
 			'ixwpsf.productFilter("", %s, %s);' .
@@ -498,7 +515,7 @@ class WooCommerce_Product_Search_Filter {
 		);
 
 		$safex_inline_script .= sprintf(
-			'jQuery("#%s").on("ixTermFilter", function(e,term,taxonomy,action,origin_id) {' .
+			'jQuery( document ).on("ixTermFilter", "#%s", function(e,term,taxonomy,action,origin_id) {' .
 			'var query = jQuery(this).val();' .
 			'switch( action ) {' .
 			'case "replace":' .
@@ -516,7 +533,7 @@ class WooCommerce_Product_Search_Filter {
 		);
 
 		$safex_inline_script .= sprintf(
-			'jQuery("#%s").on("ixPriceFilter", function(e,min_price,max_price) {' .
+			'jQuery( document ).on("ixPriceFilter", "#%s", function(e,min_price,max_price) {' .
 			'var query = jQuery(this).val();' .
 			'ixwpsf.productFilter(query, %s, jQuery.extend({},%s,{min_price:min_price,max_price:max_price}));' .
 			'} );',
@@ -526,7 +543,7 @@ class WooCommerce_Product_Search_Filter {
 		);
 
 		$safex_inline_script .= sprintf(
-			'jQuery("#%s").on("ixExtraFilter", function(e,extras) {' .
+			'jQuery( document ).on("ixExtraFilter", "#%s", function(e,extras) {' .
 			'var query = jQuery(this).val();' .
 			'ixwpsf.productFilter(query, %s, jQuery.extend({},%s,extras));' .
 			'} );',
@@ -536,7 +553,7 @@ class WooCommerce_Product_Search_Filter {
 		);
 
 		$safex_inline_script .= sprintf(
-			'jQuery("#%s").on("ixFilterReset", function(e) {' .
+			'jQuery( document ).on("ixFilterReset", "#%s", function(e) {' .
 			'var query = jQuery(this).val();' .
 			'ixwpsf.productFilter(query, %s, jQuery.extend({},%s,{reset:true,reset_url:"%s"}));' .
 			'} );',

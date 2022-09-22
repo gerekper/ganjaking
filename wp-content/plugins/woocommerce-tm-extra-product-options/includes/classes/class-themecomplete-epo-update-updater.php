@@ -190,7 +190,7 @@ final class THEMECOMPLETE_EPO_UPDATE_Updater {
 
 		if ( ! is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) === 200 ) {
 
-			$data = maybe_unserialize( ( $request['body'] ) );
+			$data = themecomplete_maybe_unserialize( ( $request['body'] ) );
 			if ( false === $data && isset( $request['body'] ) ) {
 				$data = $request['body'];
 			}
@@ -352,7 +352,7 @@ final class THEMECOMPLETE_EPO_UPDATE_Manager {
 		);
 
 		if ( ! is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) === 200 ) {
-			return ( $is_serialized ) ? maybe_unserialize( ( $request['body'] ) ) : $request['body'];
+			return ( $is_serialized ) ? themecomplete_maybe_unserialize( ( $request['body'] ) ) : $request['body'];
 		}
 
 		return false;

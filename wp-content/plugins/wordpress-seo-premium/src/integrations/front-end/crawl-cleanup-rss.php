@@ -23,9 +23,7 @@ class Crawl_Cleanup_Rss implements Integration_Interface {
 	 *
 	 * @param Options_Helper $options_helper The option helper.
 	 */
-	public function __construct(
-		Options_Helper $options_helper
-	) {
+	public function __construct( Options_Helper $options_helper ) {
 		$this->options_helper = $options_helper;
 	}
 
@@ -51,7 +49,7 @@ class Crawl_Cleanup_Rss implements Integration_Interface {
 		}
 
 		\add_action( 'wp', [ $this, 'maybe_disable_feeds' ] );
-		\add_action( 'wp', [ $this, 'maybe_redirect_feeds' ], - 10000 );
+		\add_action( 'wp', [ $this, 'maybe_redirect_feeds' ], -10000 );
 	}
 
 	/**
@@ -160,7 +158,7 @@ class Crawl_Cleanup_Rss implements Integration_Interface {
 		\header_remove( 'Content-Type' );
 		\header_remove( 'Last-Modified' );
 
-		$this->cache_control_header( 7 * DAY_IN_SECONDS );
+		$this->cache_control_header( 7 * \DAY_IN_SECONDS );
 
 		\wp_safe_redirect( $url, 301, 'Yoast SEO: ' . $reason );
 		exit;

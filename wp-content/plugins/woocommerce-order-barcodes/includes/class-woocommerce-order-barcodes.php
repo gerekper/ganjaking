@@ -6,7 +6,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 use \Milon\Barcode\DNS1D;
 use \Milon\Barcode\DNS2D;
 
+use WooCommerce\OrderBarcodes\Order_Util;
+
 class WooCommerce_Order_Barcodes {
+	use Order_Util;
 
 	/**
 	 * The single instance of WooCommerce_Order_Barcodes.
@@ -133,7 +136,7 @@ class WooCommerce_Order_Barcodes {
 		add_action( 'woocommerce_order_details_after_order_table', array( $this, 'get_display_barcode' ), 1, 1 );
 
 		// Display barcode on order edit screen.
-		add_action( 'add_meta_boxes', array( $this, 'add_order_metabox' ), 30 );
+		add_action( 'add_meta_boxes', array( $this, 'add_order_metabox' ), 30, 2 );
 
 		// Generate and save barcode as order meta.
 		add_action( 'woocommerce_new_order', array( $this, 'generate_barcode' ), 1, 1 );
@@ -165,7 +168,14 @@ class WooCommerce_Order_Barcodes {
 		}
 
 		add_action( 'init', array( $this, 'get_barcode_image' ), 10, 0 );
-		add_filter( 'woocommerce_order_data_store_cpt_get_orders_query', array( $this, 'modify_get_orders_query' ), 10, 2 );
+
+		// If OrderUtil does not exists, then use old filter.
+		if ( $this->custom_orders_table_usage_is_enabled() ) {
+			add_filter( 'woocommerce_order_query_args', array( $this, 'modify_get_orders_query_cot' ), 10, 1 );
+		} else {
+			add_filter( 'woocommerce_order_data_store_cpt_get_orders_query', array( $this, 'modify_get_orders_query' ), 10, 2 );
+		}
+
 		add_filter( 'woocommerce_debug_tools', array( $this, 'add_new_tools_action' ), 10, 1 );
 	}
 
@@ -194,29 +204,29 @@ class WooCommerce_Order_Barcodes {
 	 * @return  void
 	 */
 	public function update_order_meta( $order_id = 0 ) {
-		// Only run if barcodes are enabled
+		// Only run if barcodes are enabled.
 		if ( 'yes' !== $this->barcode_enable ) {
 			return;
 		}
 
 		// Add barcode text to order
 		if ( isset( $_POST['order_barcode_text'] ) && ! empty( $_POST['order_barcode_text'] ) ) {
-			update_post_meta( $order_id, '_barcode_text', $_POST['order_barcode_text'] );
+			$this->save_order_meta( $order_id, '_barcode_text', $_POST['order_barcode_text'] );
 		}
 	}
 
 	/**
 	 * Generate unique barcode.
 	 *
-	 * @since   1.0.0
-	 * @return  void
+	 * @since  1.0.0
+	 * @param  int $order_id The ID of the order post.
+	 * @return void
 	 */
 	public function generate_barcode( $order_id ) {
-		
+
 		if ( empty( $order_id ) ) {
 			return;
 		}
-		
 
 		if ( 'yes' !== $this->barcode_enable ) {
 			return;
@@ -225,11 +235,12 @@ class WooCommerce_Order_Barcodes {
 		// Get unqiue barcode string.
 		$barcode_string = $this->get_barcode_string();
 
-		update_post_meta( $order_id, '_barcode_text', $barcode_string );
+		$this->save_order_meta( $order_id, '_barcode_text', $barcode_string );
 	}
 
 	/**
-	 * Save barcode via ajax
+	 * Save barcode via ajax.
+	 *
 	 * @access  public
 	 * @since   1.0.0
 	 * @return  void
@@ -336,40 +347,50 @@ class WooCommerce_Order_Barcodes {
 
 	/**
 	 * Add barcode meta box to order edit screen
+	 *
 	 * @access  public
 	 * @since   1.0.0
+	 * @param   String           $post_type Current post type.
+	 * @param   WP_Post|WC_Order $post_or_order_object Either Post object or Order object.
 	 * @return  void
 	 */
-	public function add_order_metabox () {
-		global $post;
-		$barcode_text = get_post_meta( $post->ID, '_barcode_text', true );
-		if( 'yes' == $this->barcode_enable || $barcode_text ) {
-			add_meta_box( 'woocommerce-order-barcode', __( 'Order Barcode', 'woocommerce-order-barcodes' ), array( $this, 'get_metabox_barcode' ), 'shop_order', 'side', 'default' );
+	public function add_order_metabox( $post_type, $post_or_order_object ) {
+		if ( ! $this->is_order_or_post( $post_or_order_object ) ) {
+			return;
+		}
+
+		$screen       = $this->get_order_admin_screen();
+		$order        = $this->init_theorder_object( $post_or_order_object );
+		$barcode_text = $this->get_order_meta( $order->get_id(), '_barcode_text' );
+
+		if ( 'yes' === $this->barcode_enable || $barcode_text ) {
+			add_meta_box( 'woocommerce-order-barcode', __( 'Order Barcode', 'woocommerce-order-barcodes' ), array( $this, 'get_metabox_barcode' ), $screen, 'side', 'default' );
 		}
 	}
 
 	/**
 	 * Get barcode for display in the order metabox
-	 * @since   1.0.0
-	 * @param   object $order Order post object
-	 * @return  void
+	 *
+	 * @since  1.0.0
+	 * @param  object $post_or_order_object Order post object.
+	 * @return void
 	 */
-	public function get_metabox_barcode( $order ) {
-
-		if ( ! $order ) {
+	public function get_metabox_barcode( $post_or_order_object ) {
+		if ( ! $this->is_order_or_post( $post_or_order_object ) ) {
 			return;
 		}
 
-		$barcode_text = get_post_meta( $order->ID, '_barcode_text', true );
+		$order        = $this->init_theorder_object( $post_or_order_object );
+		$barcode_text = $this->get_order_meta( $order->get_id(), '_barcode_text' );
 
 		wp_enqueue_style( $this->_token . '-admin' );
 
 		if ( ! $barcode_text ) {
-			$this->generate_barcode( $order->ID );
+			$this->generate_barcode( $order->get_id() );
 		}
 
 		echo '<div class="woocommerce-order-barcodes-container" style="text-align:center;">';	
-		echo $this->display_barcode( $order->ID, true );
+		echo $this->display_barcode( $order->get_id(), true );
 		echo '</div>';
 	}
 
@@ -388,7 +409,7 @@ class WooCommerce_Order_Barcodes {
 		}
 
 		// Get barcode text.
-		$barcode_text = get_post_meta( $order_id, '_barcode_text', true );
+		$barcode_text = $this->get_order_meta( $order_id, '_barcode_text' );
 
 		if ( ! $barcode_text ) {
 			return;
@@ -450,16 +471,17 @@ class WooCommerce_Order_Barcodes {
 		}
 
 		// Get barcode text.
-		$barcode_text = get_post_meta( $order_id, '_barcode_text', true );
+		$barcode_text = $this->get_order_meta( $order_id, '_barcode_text' );
 		return trailingslashit( get_site_url() ) . '?wc_barcode=' . $barcode_text;
 	}
 
 	/**
 	 * Form for scanning barcodes
-	 * @param  array  $params Shortcode parameters
-	 * @return string         Form markup
+	 *
+	 * @param array $params Shortcode parameters.
+	 * @return string Form markup
 	 */
-	public function barcode_scan_form ( $params = array() ) {
+	public function barcode_scan_form( $params = array() ) {
 
 		// Check if user has barcode scanning permissions
 		$can_scan = apply_filters( $this->_token . '_scan_permission', current_user_can( 'manage_woocommerce' ), 0 );
@@ -507,34 +529,35 @@ class WooCommerce_Order_Barcodes {
 
 	/**
 	 * Process scanning/input of barcode
+	 *
 	 * @return void
 	 */
-	public function scan_barcode () {
-		// Security check
+	public function scan_barcode() {
+		// Security check.
 		$do_nonce_check = apply_filters( $this->_token . '_do_nonce_check', true );
-		if( $do_nonce_check && ! wp_verify_nonce( $_POST[ $this->_token . '_scan_nonce' ], 'scan-barcode' ) ) {
+		if ( $do_nonce_check && ! wp_verify_nonce( $_POST[ $this->_token . '_scan_nonce' ], 'scan-barcode' ) ) {
 			$this->display_notice( __( 'Permission denied: Security check failed', 'woocommerce-order-barcodes' ), 'error' );
 			exit;
 		}
 
-		// Retrieve order ID from barcode
+		// Retrieve order ID from barcode.
 		$order_id = $this->get_barcode_order( $_POST['barcode_input'] );
-		if( ! $order_id ) {
+		if ( ! $order_id ) {
 			$this->display_notice( __( 'Invalid barcode', 'woocommerce-order-barcodes' ), 'error' );
 			exit;
 		}
 
-		// Check if user has barcode scanning permissions
+		// Check if user has barcode scanning permissions.
 		$can_scan = apply_filters( $this->_token . '_scan_permission', current_user_can( 'manage_woocommerce' ), $order_id );
-		if( ! $can_scan ) {
+		if ( ! $can_scan ) {
 			$this->display_notice( __( 'Permission denied: You do not have sufficient permissions to scan barcodes', 'woocommerce-order-barcodes' ), 'error' );
 			exit;
 		}
 
 		// Get order object
-		$order = new WC_Order( $order_id );
+		$order = wc_get_order( $order_id );
 
-		if( ! is_a( $order, 'WC_Order' ) || is_wp_error( $order ) ) {
+		if ( ! is_a( $order, 'WC_Order' ) || is_wp_error( $order ) ) {
 			$this->display_notice( __( 'Invalid order ID', 'woocommerce-order-barcodes' ), 'error' );
 			exit;
 		}
@@ -561,21 +584,21 @@ class WooCommerce_Order_Barcodes {
 			break;
 
 			case 'checkin':
-				if ( 'yes' === get_post_meta( $order_id, '_checked_in', true ) ) {
+				if ( 'yes' === $this->get_order_meta( $order_id, '_checked_in' ) ) {
 					$response      = __( 'Customer already checked in', 'woocommerce-order-barcodes' );
 					$response_type = 'notice';
 				} else {
-					update_post_meta( $order_id, '_checked_in', 'yes' );
+					$this->save_order_meta( $order_id, '_checked_in', 'yes' );
 					$response = __( 'Customer has checked in', 'woocommerce-order-barcodes' );
 				}
 			break;
 
 			case 'checkout':
-				if ( 'no' === get_post_meta( $order_id, '_checked_in', true ) ) {
+				if ( 'no' === $this->get_order_meta( $order_id, '_checked_in' ) ) {
 					$response      = __( 'Customer already checked out', 'woocommerce-order-barcodes' );
 					$response_type = 'notice';
 				} else {
-					update_post_meta( $order_id, '_checked_in', 'no' );
+					$this->save_order_meta( $order_id, '_checked_in', 'no' );
 					$response = __( 'Customer has checked out', 'woocommerce-order-barcodes' );
 				}
 			break;
@@ -600,8 +623,8 @@ class WooCommerce_Order_Barcodes {
 			exit;
 		}
 
-		// Display check-in status if set
-		$checked_in = get_post_meta( $order_id, '_checked_in', true );
+		// Display check-in status if set.
+		$checked_in = $this->get_order_meta( $order_id, '_checked_in' );
 		if ( $checked_in ) {
 			$checkin_status = ( 'yes' === $checked_in ) ? __( 'Checked in', 'woocommerce-order-barcodes' ) : __( 'Checked out', 'woocommerce-order-barcodes' );
 			echo '<h3 class="checked_in ' . esc_attr( $checked_in ) . '">' . $checkin_status . '</h3>';
@@ -635,34 +658,73 @@ class WooCommerce_Order_Barcodes {
 	}
 
 	/**
-	 * Retrieve order ID from barcode
-	 * @param  string  $barcode Scanned barcode
-	 * @return integer        	Order ID
+	 * Retrieve order ID from barcode.
+	 *
+	 * @param string $barcode Scanned barcode.
+	 *
+	 * @return integer Order ID
 	 */
-	public function get_barcode_order ( $barcode = '' ) {
+	public function get_barcode_order_before_wc_310( $barcode = '' ) {
 
-		if( ! $barcode ) return 0;
-
-		// Set up query
-		$args = array(
-			'post_type' => 'shop_order',
-			'posts_per_page' => 1,
-			'meta_key' => '_barcode_text',
-			'meta_value' => $barcode,
-		);
-
-		if( version_compare( WC()->version, 2.2, ">=" ) ) {
-			$args['post_status'] = array_keys( wc_get_order_statuses() );
+		if ( ! $barcode ) {
+			return 0;
 		}
+
+		// Set up query.
+		$args = array(
+			'post_type'      => 'shop_order',
+			'posts_per_page' => 1,
+			'meta_key'       => '_barcode_text',
+			'meta_value'     => $barcode,
+			'post_status'    => array_keys( wc_get_order_statuses() ),
+		);
 
 		// Get orders
 		$orders = get_posts( $args );
 
 		// Get order ID
 		$order_id = 0;
-		if( 0 < count( $orders ) ) {
-			foreach( $orders as $order ) {
+		if ( 0 < count( $orders ) ) {
+			foreach ( $orders as $order ) {
 				$order_id = $order->ID;
+				break;
+			}
+		}
+
+		return $order_id;
+
+	} // End get_barcode_order ()
+
+	/**
+	 * Retrieve order ID from barcode.
+	 *
+	 * @param string $barcode Scanned barcode.
+	 *
+	 * @return integer Order ID
+	 */
+	public function get_barcode_order( $barcode = '' ) {
+
+		if ( ! $barcode ) {
+			return 0;
+		}
+
+		if ( version_compare( WC()->version, '3.1.0', '<' ) ) {
+			return $this->get_barcode_order_before_wc_310( $barcode );
+		}
+
+		$args = array(
+			'get_barcode_text' => $barcode,
+			'limit'            => 1,
+		);
+
+		// Get orders.
+		$orders = wc_get_orders( $args );
+
+		// Get order ID.
+		$order_id = 0;
+		if ( 0 < count( $orders ) ) {
+			foreach ( $orders as $order ) {
+				$order_id = $order->get_id();
 				break;
 			}
 		}
@@ -678,16 +740,11 @@ class WooCommerce_Order_Barcodes {
 	 * @param   object $order Order object
 	 * @return  void
 	 */
-	public function checkin_status_edit_field ( $order ) {
-		if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) {
-			$order_id = $order->get_id();
-		} else {
-			$order_id = $order->id;
-		}
+	public function checkin_status_edit_field( $order ) {
+		$order_id   = $order->get_id();
+		$checked_in = $this->get_order_meta( $order_id, '_checked_in' );
 
-		$checked_in = get_post_meta( $order_id, '_checked_in', true );
-
-		if( $checked_in ) {
+		if ( $checked_in ) {
 			?>
 			<p class="form-field form-field-wide"><label for="checkin_status"><?php _e( 'Check in status:', 'woocommerce-order-barcodes' ) ?></label>
 			<select id="checkin_status" name="checkin_status">
@@ -708,7 +765,7 @@ class WooCommerce_Order_Barcodes {
 	 */
 	public function checkin_status_edit_save ( $post_id, $post ) {
 		if( isset( $_POST['checkin_status'] ) && $_POST['checkin_status'] ) {
-			update_post_meta( $post_id, '_checked_in', $_POST['checkin_status'] );
+			$this->save_order_meta( $post_id, '_checked_in', $_POST['checkin_status'] );
 		}
 	} // End checkin_status_edit_save ()
 
@@ -924,7 +981,7 @@ class WooCommerce_Order_Barcodes {
 	public function add_new_tools_action( $tools ) {
 		$tools['generate_barcode_orders'] = array(
 			'name'     => esc_html__( 'Generate Barcodes', 'woocommerce-order-barcodes' ),
-			'button'   => esc_html__( 'Generate!', 'woocommerce-order-barcodes' ),
+			'button'   => esc_html__( 'Generate', 'woocommerce-order-barcodes' ),
 			'desc'     => esc_html__( 'Generate the barcode for existing orders.', 'woocommerce-order-barcodes' ),
 			'callback' => array( $this, 'generate_barcode_for_existing_orders' ),
 		);
@@ -933,9 +990,77 @@ class WooCommerce_Order_Barcodes {
 	}
 
 	/**
+	 * Save Order meta.
+	 *
+	 * @param int    $order_id The ID of the order post.
+	 * @param String $meta_name The name of the meta.
+	 * @param Mixed  $meta_value The value of the meta.
+	 */
+	public function save_order_meta( $order_id, $meta_name, $meta_value ) {
+		$order = wc_get_order( $order_id );
+
+		if ( ! is_a( $order, 'WC_Order' ) ) {
+			return false;
+		}
+
+		$order->update_meta_data( $meta_name, $meta_value );
+		$order->save();
+	}
+
+	/**
+	 * Get Order meta value.
+	 *
+	 * @param int    $order_id The ID of the order post.
+	 * @param String $meta_name The name of the meta.
+	 */
+	public function get_order_meta( $order_id, $meta_name ) {
+		$order = wc_get_order( $order_id );
+
+		if ( ! is_a( $order, 'WC_Order' ) ) {
+			return false;
+		}
+
+		return $order->get_meta( $meta_name );
+	}
+
+	/**
+	 * Generate barcode for existing orders before WC version 3.1.0.
+	 */
+	public function generate_barcode_for_existing_orders_before_wc_310() {
+		// Set up query.
+		$args = array(
+			'post_type'      => 'shop_order',
+			'posts_per_page' => -1,
+			'meta_query'     => array(
+				array(
+					'key'     => '_barcode_text',
+					'compare' => 'NOT EXISTS',
+				),
+			),
+			'post_status'    => array_keys( wc_get_order_statuses() ),
+		);
+
+		// Get orders.
+		$orders = get_posts( $args );
+
+		// Get order ID.
+		$order_id = 0;
+		if ( ! empty( $orders ) ) {
+			foreach ( $orders as $order ) {
+				$this->generate_barcode( $order->ID );
+			}
+		}
+	}
+
+	/**
 	 * Generate barcode for existing orders.
 	 */
 	public function generate_barcode_for_existing_orders() {
+		if ( version_compare( WC_VERSION, '3.1.0', '<' ) ) {
+			$this->generate_barcode_for_existing_orders_before_wc_310();
+			return;
+		}
+
 		$result = wc_get_orders(
 			array(
 				'barcode_not_exists' => true,
@@ -953,7 +1078,32 @@ class WooCommerce_Order_Barcodes {
 	/**
 	 * Modify the wc_get_orders query.
 	 *
-	 * @param array $query WC Order query.
+	 * @param array $query_vars Query variable.
+	 *
+	 * @return array
+	 */
+	public function modify_get_orders_query_cot( $query_vars ) {
+		if ( ! empty( $query_vars['barcode_not_exists'] ) ) {
+			$query_vars['meta_query'][] = array(
+				'key'     => '_barcode_text',
+				'compare' => 'NOT EXISTS',
+			);
+		}
+
+		if ( ! empty( $query_vars['get_barcode_text'] ) ) {
+			$query_vars['meta_query'][] = array(
+				'key'   => '_barcode_text',
+				'value' => esc_attr( $query_vars['get_barcode_text'] ),
+			);
+		}
+
+		return $query_vars;
+	}
+
+	/**
+	 * Modify the wc_get_orders query.
+	 *
+	 * @param array $query Query variable.
 	 * @param array $query_vars Query variable.
 	 *
 	 * @return array
@@ -963,6 +1113,13 @@ class WooCommerce_Order_Barcodes {
 			$query['meta_query'][] = array(
 				'key'     => '_barcode_text',
 				'compare' => 'NOT EXISTS',
+			);
+		}
+
+		if ( ! empty( $query_vars['get_barcode_text'] ) ) {
+			$query['meta_query'][] = array(
+				'key'   => '_barcode_text',
+				'value' => esc_attr( $query_vars['get_barcode_text'] ),
 			);
 		}
 

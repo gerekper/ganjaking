@@ -480,6 +480,7 @@ $loop->the_post();
 			}
 
 			$order_limit_enabled = get_option('wc_af_limit_order_count', 'no');
+			$is_update_status_active = get_option('wc_af_fraud_update_state');
 
 			Af_Logger::debug('Order Limit enabled :' . print_r($order_limit_enabled, true));
 
@@ -488,7 +489,7 @@ $loop->the_post();
 				$orders_allowed_limit = get_option('wc_af_allowed_order_limit');
 				$limit_time_start = get_option('wc_af_limit_time_start');
 				$limit_time_end = get_option('wc_af_limit_time_end');
-				$is_update_status_active = get_option('wc_af_fraud_update_state');
+				// $is_update_status_active = get_option('wc_af_fraud_update_state');
 
 				$start_time =  new DateTime($limit_time_start, wp_timezone(  ));
 				$end_time =  new DateTime($limit_time_end, wp_timezone(  ));

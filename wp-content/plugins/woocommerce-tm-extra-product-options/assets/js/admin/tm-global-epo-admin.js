@@ -75,30 +75,6 @@
 		return retId;
 	}
 
-	// https://medium.com/javascript-in-plain-english/how-to-deep-copy-objects-and-arrays-in-javascript-7c911359b089
-	function deepCopyArray( inObject ) {
-		var outObject;
-		var value;
-
-		if ( typeof inObject !== 'object' || inObject === null ) {
-			return inObject; // Return the value if inObject is not an object
-		}
-
-		// Create an array or object to hold the values
-		outObject = Array.isArray( inObject ) ? [] : {};
-
-		Object.keys( inObject ).forEach( function( key ) {
-			if ( inObject ) {
-				value = inObject[ key ];
-
-				// Recursively (deep) copy for nested objects, including arrays
-				outObject[ key ] = typeof value === 'object' && value !== null ? deepCopyArray( value ) : value;
-			}
-		} );
-
-		return outObject;
-	}
-
 	$.tmEPOAdmin = {
 		addEventsDone: 0,
 		variationsCheckForChanges: 0,
@@ -434,6 +410,10 @@
 					$( '.tc-progress-bar' ).removeClass( 'tc-notice' ).addClass( 'tc-error' );
 					$( '.tc-progress-info-content' ).removeClass( 'tc-color-success' ).addClass( 'tc-color-error' );
 					$( '.flasho' ).removeClass( 'tc-color-notice tc-color-success' ).addClass( 'tc-color-error' );
+					if ( ! data && response && response.response ) {
+						$( '.tc-progress-info-content' ).addClass( 'tc-normal-font' ).html( response.response );
+					}
+					toastr.error( TMEPOGLOBALADMINJS.i18n_invalid_request, TMEPOGLOBALADMINJS.i18n_epo );
 				}
 			} );
 
@@ -725,7 +705,9 @@
 						caretPos = caretPos + txtToAdd.length;
 						txtarea.selectionStart = caretPos;
 						txtarea.selectionEnd = caretPos;
-						$txt.trigger( ' focus' );
+						setTimeout( function() {
+							$txt.trigger( ' focus' );
+						}, 100 );
 						txtarea.scrollTop = scrollPos;
 					} );
 
@@ -3328,7 +3310,7 @@
 			if ( rules.rules === undefined ) {
 				rules.rules = [];
 			}
-			copy = deepCopyArray( rules );
+			copy = $.epoAPI.util.deepCopyArray( rules );
 			_logic = $.tmEPOAdmin.sectionLogicObject;
 
 			$.each( rules.rules, function( i, _rule ) {
@@ -3358,7 +3340,7 @@
 			if ( rules.rules === undefined ) {
 				rules.rules = [];
 			}
-			copy = deepCopyArray( rules );
+			copy = $.epoAPI.util.deepCopyArray( rules );
 			_logic = $.tmEPOAdmin.elementLogicObject;
 			$.each( rules.rules, function( i, _rule ) {
 				if ( ! ( ( _logic[ _rule.section ] !== undefined && _logic[ _rule.section ].values[ _rule.element ] !== undefined ) || _rule.section === _rule.element ) ) {
@@ -3602,7 +3584,7 @@
 					// Getting here means that an element from another section
 					// is being dragged on this section
 					$.each( section_rules.rules, function( i, rule ) {
-						copy = deepCopyArray( rule );
+						copy = $.epoAPI.util.deepCopyArray( rule );
 						if ( rule.element > l.start.element && rule.secion === l.start.section ) {
 							copy.element = parseInt( copy.element, 10 ) - 1;
 							copy_rules[ i ] = $.tmEPOAdmin.validate_rule( copy, sectionIndex );
@@ -3622,7 +3604,7 @@
 					// Getting here means that an element from another section
 					// is being dragged on another section that is not the current section
 					$.each( section_rules.rules, function( i, rule ) {
-						copy = deepCopyArray( rule );
+						copy = $.epoAPI.util.deepCopyArray( rule );
 						if ( l.start.section !== 'check' ) {
 							// Element is not changing sections
 							if ( rule.section === l.start.section && rule.section === l.end.section ) {
@@ -3704,7 +3686,7 @@
 					}
 
 					$.each( element_rules.rules, function( i, rule ) {
-						copy = deepCopyArray( rule );
+						copy = $.epoAPI.util.deepCopyArray( rule );
 						if ( rule.element === undefined ) {
 							return true;
 						}
@@ -3717,11 +3699,13 @@
 								if ( rule.element === l.start.element ) {
 									//copy.section=l.end.section;
 									copy.element = l.end.element;
-								} else if ( parseInt( rule.element, 10 ) > parseInt( l.start.element, 10 ) && parseInt( rule.element, 10 ) <= parseInt( l.end.element, 10 ) ) {
+								// rule.section !== rule.element means that we only want to alter elements, not sections
+								} else if ( rule.section !== rule.element && parseInt( rule.element, 10 ) > parseInt( l.start.element, 10 ) && parseInt( rule.element, 10 ) <= parseInt( l.end.element, 10 ) ) {
 									// Element not belonging to a rule is being dragged
 									// and breaks the rule
 									copy.element = parseInt( copy.element, 10 ) - 1;
-								} else if ( parseInt( rule.element, 10 ) < parseInt( l.start.element, 10 ) && parseInt( rule.element, 10 ) >= parseInt( l.end.element, 10 ) ) {
+								} else if ( rule.section !== rule.element && parseInt( rule.element, 10 ) < parseInt( l.start.element, 10 ) && parseInt( rule.element, 10 ) >= parseInt( l.end.element, 10 ) ) {
+									// rule.section !== rule.element means that we only want to alter elements, not sections
 									copy.element = parseInt( copy.element, 10 ) + 1;
 								}
 							} else if ( rule.section === l.start.section && rule.section !== l.end.section ) { // Element is getting dragged off its section
@@ -3729,13 +3713,15 @@
 								if ( rule.element === l.start.element ) {
 									copy.section = l.end.section;
 									copy.element = l.end.element;
-								} else if ( ! $.tmEPOAdmin.builderItemsSortableObj.start.disabled && parseInt( rule.element, 10 ) > parseInt( l.start.element, 10 ) ) {
+								// rule.section !== rule.element means that we only want to alter elements, not sections
+								} else if ( rule.section !== rule.element && ! $.tmEPOAdmin.builderItemsSortableObj.start.disabled && parseInt( rule.element, 10 ) > parseInt( l.start.element, 10 ) ) {
 									// Element not belonging to a rule is being dragged
 									// and breaks the rule
 									copy.element = parseInt( copy.element, 10 ) - 1;
 								}
+							// rule.section !== rule.element means that we only want to alter elements, not sections
 							} else if ( rule.section !== l.start.section && rule.section === l.end.section ) { // Element is getting dragged on this rule's section
-								if ( parseInt( rule.element, 10 ) >= parseInt( l.end.element, 10 ) ) {
+								if ( rule.section !== rule.element && parseInt( rule.element, 10 ) >= parseInt( l.end.element, 10 ) ) {
 									copy.element = parseInt( copy.element, 10 ) + 1;
 								}
 							}
@@ -4383,7 +4369,7 @@
 						Object.keys( builder[ i ].multiple[ ii ] ).forEach( function( iii ) {
 							name = builder[ i ].multiple[ ii ][ iii ].tags.name;
 							name = name.replace( '[]', '' );
-							name = name.substr( 0, name.lastIndexOf( '[' ) );
+							name = name.substring( 0, name.lastIndexOf( '[' ) );
 							value = builder[ i ].multiple[ ii ][ iii ].default;
 							element = content
 								.find( '.options-wrap' )
@@ -4806,7 +4792,7 @@
 				rules.rules = [];
 			}
 
-			copy = deepCopyArray( rules );
+			copy = $.epoAPI.util.deepCopyArray( rules );
 
 			true_field_index = parseInt( true_field_index, 10 );
 			new_field_index = parseInt( new_field_index, 10 );
@@ -5165,7 +5151,7 @@
 				}
 
 				_bitem_field_index = $.tmEPOAdmin.find_index( _bitem, _bitem );
-				TCBUILDER[ sectionIndex ].fields.splice( _bitem_field_index, 0, deepCopyArray( TCBUILDER[ sectionIndex ].fields[ _bitem_field_index ] ) );
+				TCBUILDER[ sectionIndex ].fields.splice( _bitem_field_index, 0, $.epoAPI.util.deepCopyArray( TCBUILDER[ sectionIndex ].fields[ _bitem_field_index ] ) );
 				$.tmEPOAdmin.setFieldValue( sectionIndex, field_index, 'uniqid', tcCreateUniqid( '', true ), true );
 				$.tmEPOAdmin.builder_reorder_multiple();
 				$.tmEPOAdmin.builderItemsSortableObj.start.section = 'clone';
@@ -5205,7 +5191,7 @@
 				} );
 				builderWrapper.after( _clone );
 				_clonesectionIndex = builderWrapper.index();
-				TCBUILDER.splice( sectionIndex, 0, deepCopyArray( TCBUILDER[ sectionIndex ] ) );
+				TCBUILDER.splice( sectionIndex, 0, $.epoAPI.util.deepCopyArray( TCBUILDER[ sectionIndex ] ) );
 				TCBUILDER[ _clonesectionIndex ].section.sections_uniqid.default = tcCreateUniqid( '', true );
 
 				_clone.find( '.bitem' ).each( function( i, el ) {
@@ -5680,7 +5666,7 @@
 								if ( $( s ).attr( 'id' ) ) {
 									aid = $( s ).attr( 'id' );
 									l = aid.length;
-									mode = aid.substr( l - 4 );
+									mode = aid.substring( l - 4 );
 									$( s ).attr( 'id', id + '-' + mode );
 									$( s ).attr( 'data-wp-editor-id', id );
 								}
@@ -5874,6 +5860,7 @@
 			var tm_option_image;
 			var tm_option_imagep;
 			var tm_upload_imagep_img;
+			var emptyImage = 'data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=';
 
 			tm_upload.hide();
 			tm_upload_image.hide();
@@ -5968,17 +5955,17 @@
 				.find( '.tm_option_image' )
 				.not( '.tm_option_imagec, .tm_option_imagep, .tm_option_imagel' )
 				.each( function( i ) {
-					$this.find( '.tm_upload_image' ).not( '.tm_upload_imagec, .tm_upload_imagep, .tm_upload_imagel' ).eq( i ).find( '.tm_upload_image_img' ).attr( 'src', $( this ).val() );
+					$this.find( '.tm_upload_image' ).not( '.tm_upload_imagec, .tm_upload_imagep, .tm_upload_imagel' ).eq( i ).find( '.tm_upload_image_img' ).attr( 'src', $( this ).val() || emptyImage );
 				} );
 
 			$this.find( '.tm_option_imagec' ).each( function( i ) {
-				$this.find( '.tm_upload_imagec' ).eq( i ).find( '.tm_upload_image_img' ).attr( 'src', $( this ).val() );
+				$this.find( '.tm_upload_imagec' ).eq( i ).find( '.tm_upload_image_img' ).attr( 'src', $( this ).val() || emptyImage );
 			} );
 			$this.find( '.tm_option_imagep' ).each( function( i ) {
-				$this.find( '.tm_upload_imagep' ).eq( i ).find( '.tm_upload_image_img' ).attr( 'src', $( this ).val() );
+				$this.find( '.tm_upload_imagep' ).eq( i ).find( '.tm_upload_image_img' ).attr( 'src', $( this ).val() || emptyImage );
 			} );
 			$this.find( '.tm_option_imagel' ).each( function( i ) {
-				$this.find( '.tm_upload_imagel' ).eq( i ).find( '.tm_upload_image_img' ).attr( 'src', $( this ).val() );
+				$this.find( '.tm_upload_imagel' ).eq( i ).find( '.tm_upload_image_img' ).attr( 'src', $( this ).val() || emptyImage );
 			} );
 		},
 
@@ -6266,7 +6253,7 @@
 		},
 
 		populatePriceVariables: function( obj ) {
-			var ids = deepCopyArray(
+			var ids = $.epoAPI.util.deepCopyArray(
 				TCBUILDER.map( function( x, sectionIndex ) {
 					return x.fields.map( function( y, fieldIndex ) {
 						var type = y.find( function( z ) {
@@ -6301,10 +6288,10 @@
 			var value1;
 			var value2;
 
-			// global variables
-			list = $( '<h4 class="tc-var-header">' + TMEPOGLOBALADMINJS.i18n_formula_global_variables + '</h4>' );
+			// product variables
+			list = $( '<h4 class="tc-var-header">' + TMEPOGLOBALADMINJS.i18n_formula_product_variables + '</h4>' );
 			obj.append( list );
-			list = $( '<ul class="tc-var-list"></ul>' );
+			list = $( '<ul class="tc-var-list product"></ul>' );
 			obj.append( list );
 			list.append( '<li class="tc-var-field" data-value="{quantity}"><span>' + TMEPOGLOBALADMINJS.i18n_formula_quantity + '</span></li>' );
 			list.append( '<li class="tc-var-field" data-value="{product_price}"><span>' + TMEPOGLOBALADMINJS.i18n_formula_product_price + '</span></li>' );
@@ -6312,7 +6299,7 @@
 			// this element
 			list = $( '<h4 class="tc-var-header">' + TMEPOGLOBALADMINJS.i18n_formula_this_element + '</h4>' );
 			obj.append( list );
-			list = $( '<ul class="tc-var-list"></ul>' );
+			list = $( '<ul class="tc-var-list this"></ul>' );
 			obj.append( list );
 			list.append( '<li class="tc-var-field" data-value="{this.value}"><span>' + TMEPOGLOBALADMINJS.i18n_formula_this_value + '</span></li>' );
 			list.append( '<li class="tc-var-field" data-value="{this.value.length}"><span>' + TMEPOGLOBALADMINJS.i18n_formula_this_value_length + '</span></li>' );
@@ -6326,15 +6313,33 @@
 				obj.append( list );
 
 				list = $(
-					'<div class="tc-clearfix tm-epo-switch-wrapper"><div class="formula-field-mode-selector"><input checked="checked" name="formulamode" class="formula-field-mode" id="formulafieldmode0" value="price" type="radio"><label for="formulafieldmode0"><span class="tc-radio-text">' +
-						TMEPOGLOBALADMINJS.i18n_formula_field_price +
-						'</span></label><input name="formulamode" class="formula-field-mode" id="formulafieldmode1" value="value" type="radio"><label for="formulafieldmode1"><span class="tc-radio-text">' +
-						TMEPOGLOBALADMINJS.i18n_formula_field_value +
-						'</span></label><input name="formulamode" class="formula-field-mode" id="formulafieldmode2"  value="quantity" type="radio"><label for="formulafieldmode2"><span class="tc-radio-text">' +
-						TMEPOGLOBALADMINJS.i18n_formula_field_quantity +
-						'</span></label><input name="formulamode" class="formula-field-mode" id="formulafieldmode3" value="count" type="radio"><label for="formulafieldmode3"><span class="tc-radio-text">' +
-						TMEPOGLOBALADMINJS.i18n_formula_field_count +
-						'</span></label></div></div>'
+					'<div class="tc-clearfix tm-epo-switch-wrapper">' +
+					'<div class="formula-field-mode-selector">' +
+					'<input checked="checked" name="formulamode" class="formula-field-mode" id="formulafieldmode0" value="price" type="radio">' +
+					'<label for="formulafieldmode0">' +
+					'<span title="' + TMEPOGLOBALADMINJS.i18n_formula_field_price_tip + '" class="tm-tooltip tc-radio-text">' + TMEPOGLOBALADMINJS.i18n_formula_field_price + '</span>' +
+					'</label>' +
+					'<input name="formulamode" class="formula-field-mode" id="formulafieldmode1" value="value" type="radio">' +
+					'<label for="formulafieldmode1">' +
+					'<span title="' + TMEPOGLOBALADMINJS.i18n_formula_field_value_tip + '" class="tm-tooltip tc-radio-text">' + TMEPOGLOBALADMINJS.i18n_formula_field_value + '</span>' +
+					'</label>' +
+					'<input name="formulamode" class="formula-field-mode" id="formulafieldmode4" value="text" type="radio">' +
+					'<label for="formulafieldmode4">' +
+					'<span title="' + TMEPOGLOBALADMINJS.i18n_formula_field_text_tip + '" class="tm-tooltip tc-radio-text">' + TMEPOGLOBALADMINJS.i18n_formula_field_text + '</span>' +
+					'</label>' +
+					'<input name="formulamode" class="formula-field-mode" id="formulafieldmode5" value="text.length" type="radio">' +
+					'<label for="formulafieldmode5">' +
+					'<span title="' + TMEPOGLOBALADMINJS.i18n_formula_field_text_length_tip + '" class="tm-tooltip tc-radio-text">' + TMEPOGLOBALADMINJS.i18n_formula_field_text_length + '</span>' +
+					'</label>' +
+					'<input name="formulamode" class="formula-field-mode" id="formulafieldmode2"  value="quantity" type="radio">' +
+					'<label for="formulafieldmode2">' +
+					'<span title="' + TMEPOGLOBALADMINJS.i18n_formula_field_quantity_tip + '" class="tm-tooltip tc-radio-text">' + TMEPOGLOBALADMINJS.i18n_formula_field_quantity + '</span>' +
+					'</label>' +
+					'<input name="formulamode" class="formula-field-mode" id="formulafieldmode3" value="count" type="radio">' +
+					'<label for="formulafieldmode3">' +
+					'<span title="' + TMEPOGLOBALADMINJS.i18n_formula_field_count_tip + '" class="tm-tooltip tc-radio-text">' + TMEPOGLOBALADMINJS.i18n_formula_field_count + '</span>' +
+					'</label>' +
+					'</div></div>'
 				);
 				obj.append( list );
 
@@ -6362,6 +6367,7 @@
 					} );
 				} );
 			}
+			$.tcToolTip( obj.find( '.tm-tooltip' ) );
 		}
 	};
 
@@ -6379,7 +6385,7 @@
 		wcEnhancedSelectParams = window.wc_enhanced_select_params;
 
 		// deep cloning the array
-		TCBUILDER = deepCopyArray( TMEPOOPTIONSJS );
+		TCBUILDER = $.epoAPI.util.deepCopyArray( TMEPOOPTIONSJS );
 		if ( TCBUILDER === undefined || ! TCBUILDER ) {
 			TCBUILDER = [];
 		}

@@ -34,11 +34,14 @@
         <key name="tm_epo_global_date_timezone"/>
         <key name="tm_epo_popup_section_button_text"/>
         <key name="tm_epo_vat_options_total_text"/>
+        <key name="tm_epo_uploading_num_file"/>
+        <key name="tm_epo_uploading_num_files"/>
     </admin-texts>
     <custom-types>
         <custom-type translate="0">tm_global_cp</custom-type>
         <custom-type translate="0">tm_product_cp</custom-type>
         <custom-type translate="0">tm_template_cp</custom-type>
+        <custom-type translate="2" display-as-translated="1">tm_lookuptable_cp</custom-type>
     </custom-types>
     <custom-fields>
         <custom-field action="copy">tmcp_attribute</custom-field>
@@ -57,5 +60,6 @@
         <custom-field action="ignore">tm_meta_enabled_roles</custom-field>
         <custom-field action="ignore">tm_meta_disabled_roles</custom-field>
         <custom-field action="ignore">tm_meta_wpml</custom-field>
+        <custom-field action="copy-once">lookuptable_meta</custom-field>
     </custom-fields>
 </wpml-config>

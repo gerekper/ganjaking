@@ -534,11 +534,6 @@ msgstr "Sla het formulier op voordat u opties importeert!"
 msgid "Please save the product before importing options!"
 msgstr "Sla het product op voordat u opties importeert!"
 
-#: admin/class-themecomplete-epo-admin-global-base.php:1544
-#: admin/class-themecomplete-epo-admin-global-base.php:1550
-msgid "There are no options"
-msgstr "Er zijn geen opties"
-
 #: admin/class-themecomplete-epo-admin-global-base.php:1546
 msgid "Start adding elements"
 msgstr "Begin met het toevoegen van onderdelen"
@@ -2721,49 +2716,49 @@ msgstr "Procent van de oorspronkelijke prijs per woord (geen n-th teken)"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:785
 #: includes/classes/class-themecomplete-epo-builder-base.php:897
-msgid "Price per char"
+msgid "Price per character"
 msgstr "Prijs per teken"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:789
 #: includes/classes/class-themecomplete-epo-builder-base.php:901
-msgid "Percent of the original price per char"
+msgid "Percent of the original price per character"
 msgstr "Procent van de oorspronkelijke prijs per teken"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:793
 #: includes/classes/class-themecomplete-epo-builder-base.php:905
-msgid "Price per char (no first char)"
+msgid "Price per character (no first char)"
 msgstr "Prijs per teken (geen eerste teken)"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:797
 #: includes/classes/class-themecomplete-epo-builder-base.php:909
-msgid "Price per char (no n-th char)"
+msgid "Price per character (no n-th char)"
 msgstr "Prijs per teken (geen n-th teken)"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:801
 #: includes/classes/class-themecomplete-epo-builder-base.php:913
-msgid "Price per char (no n-th char and no spaces)"
+msgid "Price per character (no n-th char and no spaces)"
 msgstr "Prijs per teken (geen n-th teken en geen spaties)"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:805
 #: includes/classes/class-themecomplete-epo-builder-base.php:917
-msgid "Percent of the original price per char (no first char)"
+msgid "Percent of the original price per character (no first char)"
 msgstr "Procent van de oorspronkelijke prijs per teken (geen eerste teken)"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:809
 #: includes/classes/class-themecomplete-epo-builder-base.php:921
-msgid "Percent of the original price per char (no n-th char)"
+msgid "Percent of the original price per character (no n-th char)"
 msgstr "Procent van de oorspronkelijke prijs per teken (geen n-th teken)"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:813
 #: includes/classes/class-themecomplete-epo-builder-base.php:925
-msgid "Percent of the original price per char (no n-th char and no spaces)"
+msgid "Percent of the original price per character (no n-th char and no spaces)"
 msgstr ""
 "Procent van de oorspronkelijke prijs per teken (geen n-th teken en geen "
 "spaties)"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:817
 #: includes/classes/class-themecomplete-epo-builder-base.php:929
-msgid "Price per char (no spaces)"
+msgid "Price per character (no spaces)"
 msgstr "Prijs per teken (geen spaties)"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:821
@@ -2819,11 +2814,11 @@ msgstr ""
 "hoeveelheid."
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:1011
-msgid "Free chars"
+msgid "Free characters"
 msgstr "Gratis tekens"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:1012
-msgid "Enter the number of free chars."
+msgid "Enter the number of Free characters."
 msgstr "Voer het aantal gratis tekens in."
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:1141
@@ -3802,8 +3797,8 @@ msgstr "Algemeen Formulier"
 
 #: includes/classes/class-themecomplete-epo-post-types.php:96
 msgctxt "post type general name"
-msgid "TM Global Product Options"
-msgstr "TM Product Opties"
+msgid "Global Forms"
+msgstr ""
 
 #: includes/classes/class-themecomplete-epo-post-types.php:97
 msgid "Add Global Form"
@@ -4540,7 +4535,7 @@ msgstr ""
 "Controleer de hoeveelheidkiezer alleen tonen voor onderdelen met een waarde."
 
 #: includes/classes/class-themecomplete-epo-settings-base.php:545
-msgid "Hide add-to-cart button until an option is chosen"
+msgid "Hide add-to-cart button until an element is chosen"
 msgstr ""
 "Knop voor toevoegen aan winkelwagentje verbergen totdat een optie is gekozen"
 

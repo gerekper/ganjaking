@@ -58,18 +58,14 @@ class WC_Deposits_Cart_Manager {
 
 
 		// Add WC3.2 Coupons upgrade compatibility
-		if( version_compare( WC_VERSION, '3.2', '>=' ) ){
-			add_filter( 'woocommerce_coupon_get_discount_amount', array( $this, 'get_discount_amount' ), 10, 5 );
-			add_filter( 'woocommerce_cart_tax_totals' , array( $this, 'cart_totals_order_taxes' ), 10, 2 );
-			add_filter( 'woocommerce_order_get_tax_totals' , array( $this, 'order_totals_order_taxes' ), 10, 2 );
-			add_action( 'woocommerce_after_calculate_totals', array( $this, 'adjust_cart_totals' ), 10, 1 );
-			add_action( 'woocommerce_coupon_validate_minimum_amount', array( $this, 'check_coupon_minimum_amount' ), 10, 3 );
-			add_action( 'woocommerce_order_status_partial-payment', 'wc_update_coupon_usage_counts' );
-			// Update order totals as late as possible, so deposit totals are recalculated before saving.
-			add_action( 'woocommerce_checkout_create_order', array( $this, 'update_order_totals' ), 999, 2 );
-		} else {
-			add_filter( 'woocommerce_coupon_get_discount_amount', array( $this, 'get_discount_amount_legacy' ), 10, 5 );
-		}
+		add_filter( 'woocommerce_coupon_get_discount_amount', array( $this, 'get_discount_amount' ), 10, 5 );
+		add_filter( 'woocommerce_cart_tax_totals' , array( $this, 'cart_totals_order_taxes' ), 10, 2 );
+		add_filter( 'woocommerce_order_get_tax_totals' , array( $this, 'order_totals_order_taxes' ), 10, 2 );
+		add_action( 'woocommerce_after_calculate_totals', array( $this, 'adjust_cart_totals' ), 10, 1 );
+		add_action( 'woocommerce_coupon_validate_minimum_amount', array( $this, 'check_coupon_minimum_amount' ), 10, 3 );
+		add_action( 'woocommerce_order_status_partial-payment', 'wc_update_coupon_usage_counts' );
+		// Update order totals as late as possible, so deposit totals are recalculated before saving.
+		add_action( 'woocommerce_checkout_create_order', array( $this, 'update_order_totals' ), 999, 2 );
 
 		add_filter( 'woocommerce_get_item_data', array( $this, 'get_item_data' ), 10, 2 );
 		add_filter( 'woocommerce_cart_item_price', array( $this, 'display_item_price' ), 10, 3 );
@@ -80,11 +76,7 @@ class WC_Deposits_Cart_Manager {
 		add_action( 'woocommerce_review_order_after_order_total', array( $this, 'display_cart_totals_after' ), 1 );
 		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'disable_gateways' ) );
 
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			add_action( 'woocommerce_add_order_item_meta', array( $this, 'add_order_item_meta_legacy' ), 50, 2 );
-		} else {
-			add_action( 'woocommerce_checkout_create_order_line_item', array( $this, 'add_order_item_meta' ), 50, 3 );
-		}
+		add_action( 'woocommerce_checkout_create_order_line_item', array( $this, 'add_order_item_meta' ), 50, 3 );
 
 		// Change button/cart URLs
 		add_filter( 'add_to_cart_text', array( $this, 'add_to_cart_text' ), 15 );
@@ -270,15 +262,32 @@ class WC_Deposits_Cart_Manager {
 	/**
 	 * Checks if a parameter exist in $_POST or $_GET.
 	 *
+	 * @deprecated 1.6.1
 	 * @param string $name a key/parameter.
 	 *
 	 * @return mixed|null
 	 */
 	public static function check_global_param_exist( $name ) {
-		$value = filter_input( INPUT_POST, $name, FILTER_SANITIZE_STRING );
-		if ( null === $value || false === $value ) {
-			$value = filter_input( INPUT_GET, $name, FILTER_SANITIZE_STRING );
+		wc_deprecated_function( __FUNCTION__, '1.6.1', 'get_global_param' );
+		return self::get_global_param( $name );
+	}
+
+	/**
+	 * Checks if a parameter exist in $_POST or $_GET.
+	 *
+	 * @param string $name a key/parameter.
+	 *
+	 * @return mixed|null
+	 */
+	public static function get_global_param( $name ) {
+		$value = null;
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
+		if ( isset( $_POST[ $name ] ) && ! empty( $_POST[ $name ] ) ) {
+			$value = sanitize_text_field( wp_unslash( $_POST[ $name ] ) );
+		} elseif ( isset( $_GET[ $name ] ) && ! empty( $_GET[ $name ] ) ) {
+			$value = sanitize_text_field( wp_unslash( $_GET[ $name ] ) );
 		}
+		// phpcs:enable
 
 		return $value;
 	}
@@ -376,14 +385,28 @@ class WC_Deposits_Cart_Manager {
 			return $passed;
 		}
 
-		$wc_deposit_option       = self::check_global_param_exist( 'wc_deposit_option' );
-		$wc_deposit_payment_plan = self::check_global_param_exist( 'wc_deposit_payment_plan' );
+		$wc_deposit_option       = self::get_global_param( 'wc_deposit_option' );
+		$wc_deposit_payment_plan = self::get_global_param( 'wc_deposit_payment_plan' );
 
 		// Validate chosen plan
 		if ( ( 'yes' === $wc_deposit_option || WC_Deposits_Product_Manager::deposits_forced( $product_id ) ) && 'plan' === WC_Deposits_Product_Manager::get_deposit_type( $product_id ) ) {
 			if ( ! in_array( $wc_deposit_payment_plan, WC_Deposits_Plans_Manager::get_plan_ids_for_product( $product_id ) ) ) {
 				wc_add_notice( __( 'Please select a valid payment plan', 'woocommerce-deposits' ), 'error' );
 				return false;
+			}
+		}
+
+		// Validate sold individually.
+		$product = wc_get_product( $product_id );
+
+		if ( $product->is_sold_individually() ) {
+			foreach ( WC()->cart->get_cart() as $cart_item ) {
+				if ( $cart_item['product_id'] === $product_id ) {
+					/* translators: %s: product name */
+					$message = sprintf( __( 'You cannot add another "%s" to your cart.', 'woocommerce' ), $product->get_name() );
+					wc_add_notice( $message, 'error' );
+					return false;
+				}
 			}
 		}
 
@@ -402,8 +425,8 @@ class WC_Deposits_Cart_Manager {
 			return $cart_item_meta;
 		}
 
-		$wc_deposit_option       = self::check_global_param_exist( 'wc_deposit_option' );
-		$wc_deposit_payment_plan = self::check_global_param_exist( 'wc_deposit_payment_plan' );
+		$wc_deposit_option       = self::get_global_param( 'wc_deposit_option' );
+		$wc_deposit_payment_plan = self::get_global_param( 'wc_deposit_payment_plan' );
 
 		if ( 'yes' === $wc_deposit_option || WC_Deposits_Product_Manager::deposits_forced( $product_id ) ) {
 			$cart_item_meta['is_deposit'] = true;
@@ -485,11 +508,6 @@ class WC_Deposits_Cart_Manager {
 					$cart_item['full_amount'] = $cart_item['data']->get_price();
 				}
 			}
-
-			// Pre WC 3.2 uses first payment as item price.
-			if( version_compare( WC_VERSION, '3.2', '<' ) ) {
-				$cart_item['data']->set_price( $cart_item['deposit_amount'] );
-			}
 		}
 
 		return $cart_item;
@@ -504,113 +522,8 @@ class WC_Deposits_Cart_Manager {
 	 */
 	public function clear_deferred_discounts() {
 		WC()->session->set( 'deposits_deferred_discounts', array() );
-		if( version_compare( WC_VERSION, '3.2', '>=' ) ) {
-			WC()->session->set( 'deposits_present_discounts', array() );
-			WC()->session->set( 'deposits_discount_tax', array() );
-		}
-	}
-
-	/**
-	 * Control how coupons apply to products including a deposit or payment plan
-	 * Filters woocommerce_coupon_get_discount_amount (WC_Coupons get_discount_amount)
-	 *
-	 * @since 1.1.11
-	 *
-	 * @param float $discount
-	 * @param float $discounting_amount Amount the coupon is being applied to
-	 * @param array|null $cart_item Cart item being discounted if applicable
-	 * @param boolean $single True if discounting a single qty item, false if its the line (always true in core)
-	 * @param WC_Coupon coupon
-	 *
-	 * @return float Amount this coupon has discounted
-	 */
-	public function get_discount_amount_legacy( $discount, $discounting_amount, $cart_item, $single, $coupon ) {
-		if ( ! empty( $cart_item['is_deposit'] ) ) {
-			$old_wc = version_compare( WC_VERSION, '3.0', '<' );
-			$coupon_type = $old_wc ? $coupon->type : $coupon->get_discount_type(); // fixed_cart or fixed_product or percent or percent_product
-			$coupon_id = $old_wc ? $coupon->id : $coupon->get_id();
-			$deposit_type = WC_Deposits_Product_Manager::get_deposit_type( $cart_item['product_id'] ); // fixed or percent or plan
-
-			// Initialize default condition
-			$present_discount_amount = floatval( $discount );
-			$deferred_discount_amount = 0.0;
-
-			// For fixed coupons (fixed_cart or fixed_product)
-			// For products with payment plans, discount a proportional amount of the fixed discount now, the rest defer for later
-			// For products with fixed deposits, defer the entire fixed discount
-			// For products with percentage based deposits, defer the entire fixed discount
-			if ( in_array( $coupon_type, array( 'fixed_cart', 'fixed_product' ) ) ) {
-				if ( 'plan' === $deposit_type ) {
-					$full_amount = floatval( $cart_item['full_amount'] );
-					$deposit_amount = floatval( $cart_item['deposit_amount'] );
-
-					// Core has a LB set between the discount and discounting amount.
-					// See https://github.com/woocommerce/woocommerce-deposits/issues/160#issuecomment-322428071.
-					if ( $deposit_amount < $discount ) {
-						$discount = $coupon->get_amount();
-					}
-
-					// Calculate proportion due now, avoiding (unlikely) division by zero
-					if ( $full_amount > 0 ) {
-						$present_proportion = $deposit_amount / $full_amount;
-					} else {
-						$present_proportion = 1.0;
-					}
-					// Present discount amount is always for quantity 1
-					$present_discount_amount = round( $discount * $present_proportion, 2 );
-					// Deferred discount amount is always for the line quantity
-					$deferred_discount_amount = round( $discount * $cart_item['quantity'] * ( 1 - $present_proportion ), 2 );
-				} else if ( in_array( $deposit_type, array( 'percent', 'fixed' ) ) ) {
-					$present_discount_amount = 0;
-					$deferred_discount_amount = round( $discount * $cart_item['quantity'], 2 ); // total for (line) quantity, not just unit
-				}
-			}
-
-			// For percentage based coupons (percent or percent_product)
-			// For products with payment plans, pass through the provided discount AND scale and defer it for later
-			// For products with fixed deposits, defer the entire discount
-			// For products with percentage based deposits, pass through the provided discount AND scale and defer it for later
-			if ( in_array( $coupon_type, array( 'percent', 'percent_product' ) ) ) {
-				$full_amount = floatval( $cart_item['full_amount'] );
-				$deposit_amount = floatval( $cart_item['deposit_amount'] );
-				if ( in_array( $deposit_type, array( 'plan', 'percent' ) ) ) {
-					// Applies discount toward future amounts to ensure complete discount is not lost
-					if ( $deposit_amount > 0 ) {
-						$deferred_scaler = ( $full_amount - $deposit_amount ) / $deposit_amount;
-						$deferred_discount_amount = round( $discount * $cart_item['quantity'] * $deferred_scaler, 2 );
-					}
-				} else if( 'fixed' === $deposit_type ) {
-					// First, zero the present discount
-					$present_discount_amount = 0;
-					// Then scale and defer the entire discount
-					if ( $deposit_amount > 0 ) {
-						$deferred_scaler = $full_amount / $deposit_amount;
-						$deferred_discount_amount = round( $discount * $cart_item['quantity'] * $deferred_scaler, 2 );
-					}
-				}
-			}
-
-			if ( $deferred_discount_amount > 0 ) {
-				// Save the discount to be applied toward the future amount due
-				$search_key = self::generate_cart_id( $cart_item );
-				$deferred_discounts = WC()->session->get( 'deposits_deferred_discounts', array() );
-				$deferred_discounts[ $search_key ][ $coupon_id ] = $deferred_discount_amount;
-				WC()->session->set( 'deposits_deferred_discounts', $deferred_discounts );
-			}
-
-			// If future payments amount are less than 0 (i.e. the coupon has
-			// higher discount than the value of the payment), apply the
-			// remaining of the coupon amount to the present amount.
-			if ( $this->get_future_payments_amount() < 0 ) {
-				$present_discount_amount += absint( $this->get_future_payments_amount() );
-			}
-
-			// Return the discount to be applied now
-			return $present_discount_amount;
-		}
-
-		// Otherwise, just pass through the original amount
-		return $discount;
+		WC()->session->set( 'deposits_present_discounts', array() );
+		WC()->session->set( 'deposits_discount_tax', array() );
 	}
 
 	/**
@@ -756,7 +669,7 @@ class WC_Deposits_Cart_Manager {
 		}
 
 		if( ! is_null( $coupon ) ) {
-			$coupon_id = version_compare( WC_VERSION, '3.0', '<' ) ? $coupon->id : $coupon->get_id();
+			$coupon_id = $coupon->get_id();
 		}
 
 		if( ! is_null( $cart_item ) ) {
@@ -1029,15 +942,33 @@ class WC_Deposits_Cart_Manager {
 			if ( 'excl' === WC()->cart->get_tax_price_display_mode() ) {
 				$full_amount    = $this->get_price_excluding_tax( $_product, array( 'qty' => $quantity, 'price' => $full_amount ) );
 				$deposit_amount = $this->get_price_excluding_tax( $_product, array( 'qty' => $quantity, 'price' => $deposit_amount ) );
+				$output = wc_price( $deposit_amount );
+
+				/**
+				 * Optionally add (ex. tax) suffix.
+				 *
+				 * @see WC_Cart::get_product_subtotal
+				 */
+				if ( wc_prices_include_tax() && WC()->cart->get_subtotal_tax() > 0 ) {
+					$output .= ' <small class="tax_label">' . WC()->countries->ex_tax_or_vat() . '</small>';
+				}
 			} else {
 				$full_amount    = $this->get_price_including_tax( $_product, array( 'qty' => $quantity, 'price' => $full_amount ) );
 				$deposit_amount = $this->get_price_including_tax( $_product, array( 'qty' => $quantity, 'price' => $deposit_amount ) );
+				$output = wc_price( $deposit_amount );
+
+				/**
+				 * Optionally add (incl. tax) suffix.
+				 *
+				 * @see WC_Cart::get_product_subtotal
+				 */
+				if ( ! wc_prices_include_tax() && WC()->cart->get_subtotal_tax() > 0 ) {
+					$output .= ' <small class="tax_label">' . WC()->countries->inc_tax_or_vat() . '</small>';
+				}
 			}
 
 			// Adding this to be compatible with WC3.2 changes. Allow further modification by other plugins.
-			if( version_compare( WC_VERSION, '3.2', '>=' ) ) {
-				$output = apply_filters( 'woocommerce_cart_product_price', wc_price( $deposit_amount ), $_product );
-			}
+			$output = apply_filters( 'woocommerce_cart_product_price', $output, $_product );
 
 			if ( ! empty( $cart_item['payment_plan'] ) ) {
 				$plan = new WC_Deposits_Plan( $cart_item['payment_plan'] );
@@ -1227,28 +1158,20 @@ class WC_Deposits_Cart_Manager {
 	 * After the main total.
 	 */
 	public function display_cart_totals_after() {
-		$_WC32plus = version_compare( WC_VERSION, '3.2', '>=' );
-
-		if ( $_WC32plus ) {
-			$future_payment_amount = self::get_future_payments_amount_with_discount();
-		} else {
-			$future_payment_amount = self::get_future_payments_amount();
-		}
+		$future_payment_amount = self::get_future_payments_amount_with_discount();
 
 		$is_tax_included = wc_tax_enabled() && 'excl' != WC()->cart->get_tax_price_display_mode();
 		$tax_message     = $is_tax_included ? __( '(includes tax)', 'woocommerce-deposits' ) : __( '(excludes tax)', 'woocommerce-deposits' );
 		$tax_element     = wc_tax_enabled() && ! empty( WC()->cart->get_tax_totals() ) ? ' <small class="tax_label">' . $tax_message . '</small>' : '';
 		$deferred_discount_tax = 0;
-		if ( $_WC32plus ) {
-			$tax = $this->calculate_deferred_and_present_discount_tax();
-			if ( 'no' === get_option( 'woocommerce_prices_include_tax' ) ) {
-				if ( $is_tax_included ) {
-					$deferred_discount_tax = round( $tax['deferred'], wc_get_price_decimals());
-				}
-			} else {
-				if ( ! $is_tax_included ) {
-					$deferred_discount_tax = -round($tax['deferred'], wc_get_price_decimals());
-				}
+		$tax = $this->calculate_deferred_and_present_discount_tax();
+		if ( 'no' === get_option( 'woocommerce_prices_include_tax' ) ) {
+			if ( $is_tax_included ) {
+				$deferred_discount_tax = round( $tax['deferred'], wc_get_price_decimals());
+			}
+		} else {
+			if ( ! $is_tax_included ) {
+				$deferred_discount_tax = -round($tax['deferred'], wc_get_price_decimals());
 			}
 		}
 
@@ -1265,7 +1188,7 @@ class WC_Deposits_Cart_Manager {
 		?>
 		<tr class="order-total">
 			<th><?php _e( 'Due Today', 'woocommerce-deposits' ); ?></th>
-			<td data-title="<?php esc_attr_e( 'Due Today', 'woocommerce-deposits' ); ?>"><?php $_WC32plus ? $this->cart_totals_order_total_html() : wc_cart_totals_order_total_html(); ?></td>
+			<td data-title="<?php esc_attr_e( 'Due Today', 'woocommerce-deposits' ); ?>"><?php $this->cart_totals_order_total_html(); ?></td>
 		</tr>
 		<?php
 		if ( $deferred_discount_amount > 0 ) {
@@ -1285,59 +1208,6 @@ class WC_Deposits_Cart_Manager {
 
 	/**
 	 * Store cart info inside new orders.
-	 * Runs on 2.6 and older.
-	 * Hooked on woocommerce_add_order_item_meta action
-	 *
-	 * @version 1.2.0
-	 *
-	 * @param mixed $item_id
-	 * @param mixed $cart_item
-	 */
-	public function add_order_item_meta_legacy( $item_id, $cart_item ) {
-		if ( ! empty( $cart_item['is_deposit'] ) ) {
-			// Note: This code is called for the INITIAL order created from carts containing products
-			// with fixed deposits, percentage based deposits or payment plans. HOWEVER, this
-			// code is NOT used when WC_Deposits_Scheduled_Order_Manager::schedule_orders_for_plan
-			// creates orders for the remaining payments for a payment plan product NOR when
-			// the merchant invoices the customer for the remaining balance.
-
-			// First, calculate the full amount (before deposits/payments)
-			// Note that this is for the entire line quantity, not just a unit
-			$full_amount_including_tax = $cart_item['data']->get_price_including_tax( $cart_item['quantity'], $cart_item['full_amount'] );
-			$full_amount_excluding_tax = $cart_item['data']->get_price_excluding_tax( $cart_item['quantity'], $cart_item['full_amount'] );
-
-			// Next, for fixed or percentage based deposits, calculate the initial deposit, prior to tax, regardless of discounts
-			// so that WC_Deposits_Order_Manager::order_action_handler invoice_remaining_balance can calculate the correct amount to charge
-			$deposit_amount = apply_filters( 'woocommerce_deposits_get_deposit_amount', $cart_item['deposit_amount'], $cart_item['data'] );
-			$deposit_amount_excluding_tax = $this->get_price_excluding_tax( $cart_item['data'], array( 'qty' => $cart_item['quantity'], 'price' => $deposit_amount ) );
-
-			// Next, add up any deferred discounts for the item
-			// Note: $deferred_discount_amount is total for (line) quantity, not just unit
-			$deferred_discount_amount = 0;
-			$search_key = self::generate_cart_id( $cart_item );
-			$deferred_discounts = WC()->session->get( 'deposits_deferred_discounts', array() );
-			if ( array_key_exists( $search_key, $deferred_discounts ) ) {
-				foreach ( $deferred_discounts[ $search_key ] as $coupon_id => $discount_amount ) {
-					$deferred_discount_amount += $discount_amount;
-				}
-			}
-
-			// Lastly, decorate the order item with this information so we can calculate future payment(s) later
-			// in WC_Deposits_Order_Manager::order_action_handler for invoice_remaining_balance
-			wc_add_order_item_meta( $item_id, '_is_deposit', 'yes' );
-			wc_add_order_item_meta( $item_id, '_deposit_full_amount', $full_amount_including_tax ); // line quantity, not just a unit
-			wc_add_order_item_meta( $item_id, '_deposit_full_amount_ex_tax', $full_amount_excluding_tax );
-			wc_add_order_item_meta( $item_id, '_deposit_deposit_amount_ex_tax', $deposit_amount_excluding_tax );
-			wc_add_order_item_meta( $item_id, '_deposit_deferred_discount', $deferred_discount_amount ); // total for (line) quantity, not just unit
-
-			if ( ! empty( $cart_item['payment_plan'] ) ) {
-				wc_add_order_item_meta( $item_id, '_payment_plan', $cart_item['payment_plan'] );
-			}
-		}
-	}
-
-	/**
-	 * Store cart info inside new orders.
 	 *
 	 * @param WC_Order_Item $item
 	 * @param string        $cart_item_key
@@ -1346,32 +1216,18 @@ class WC_Deposits_Cart_Manager {
 	public function add_order_item_meta( $item, $cart_item_key, $values ) {
 		$cart      = WC()->cart->get_cart();
 		$cart_item = $cart[ $cart_item_key ];
-		$_WC32plus = version_compare( WC_VERSION, '3.2', '>=' );
 
 		if ( ! empty( $cart_item['is_deposit'] ) ) {
-			if( $_WC32plus ) {
-				// First, calculate the full amount (before deposits/payments)
-				// Note that this is for the entire line quantity, not just a unit
-				$full_amount_including_tax = $this->get_price_including_tax_no_round( $cart_item['data'], array( 'qty' => $cart_item['quantity'], 'price' => $cart_item['full_amount'] ) );
-				$full_amount_excluding_tax = $this->get_price_excluding_tax_no_round( $cart_item['data'], array( 'qty' => $cart_item['quantity'], 'price' => $cart_item['full_amount'] ) );
+			// First, calculate the full amount (before deposits/payments)
+			// Note that this is for the entire line quantity, not just a unit
+			$full_amount_including_tax = $this->get_price_including_tax_no_round( $cart_item['data'], array( 'qty' => $cart_item['quantity'], 'price' => $cart_item['full_amount'] ) );
+			$full_amount_excluding_tax = $this->get_price_excluding_tax_no_round( $cart_item['data'], array( 'qty' => $cart_item['quantity'], 'price' => $cart_item['full_amount'] ) );
 
-				// Next, for fixed or percentage based deposits, calculate the initial deposit, prior to tax, regardless of discounts
-				// so that WC_Deposits_Order_Manager::order_action_handler invoice_remaining_balance can calculate the correct amount to charge
-				$deposit_amount = apply_filters( 'woocommerce_deposits_get_deposit_amount', $cart_item['deposit_amount'], $cart_item['data'] );
-				$deposit_amount_excluding_tax = $this->get_price_excluding_tax_no_round( $cart_item['data'], array( 'qty' => $cart_item['quantity'], 'price' => $deposit_amount ) );
-				$deposit_amount_including_tax = $this->get_price_including_tax_no_round( $cart_item['data'], array( 'qty' => $cart_item['quantity'], 'price' => $deposit_amount ) );
-			} else {
-				// First, calculate the full amount (before deposits/payments)
- 			    // Note that this is for the entire line quantity, not just a unit
-			    $full_amount_including_tax = $this->get_price_including_tax( $cart_item['data'], array( 'qty' => $cart_item['quantity'], 'price' => $cart_item['full_amount'] ) );
-			    $full_amount_excluding_tax = $this->get_price_excluding_tax( $cart_item['data'], array( 'qty' => $cart_item['quantity'], 'price' => $cart_item['full_amount'] ) );
-
-				// Next, for fixed or percentage based deposits, calculate the initial deposit, prior to tax, regardless of discounts
- 				// so that WC_Deposits_Order_Manager::order_action_handler invoice_remaining_balance can calculate the correct amount to charge
- 				$deposit_amount = apply_filters( 'woocommerce_deposits_get_deposit_amount', $cart_item['deposit_amount'], $cart_item['data'] );
-				$deposit_amount_excluding_tax = $this->get_price_excluding_tax( $cart_item['data'], array( 'qty' => $cart_item['quantity'], 'price' => $deposit_amount ) );
-				$deposit_amount_including_tax = $this->get_price_including_tax( $cart_item['data'], array( 'qty' => $cart_item['quantity'], 'price' => $deposit_amount ) );
-			}
+			// Next, for fixed or percentage based deposits, calculate the initial deposit, prior to tax, regardless of discounts
+			// so that WC_Deposits_Order_Manager::order_action_handler invoice_remaining_balance can calculate the correct amount to charge
+			$deposit_amount = apply_filters( 'woocommerce_deposits_get_deposit_amount', $cart_item['deposit_amount'], $cart_item['data'] );
+			$deposit_amount_excluding_tax = $this->get_price_excluding_tax_no_round( $cart_item['data'], array( 'qty' => $cart_item['quantity'], 'price' => $deposit_amount ) );
+			$deposit_amount_including_tax = $this->get_price_including_tax_no_round( $cart_item['data'], array( 'qty' => $cart_item['quantity'], 'price' => $deposit_amount ) );
 
 			// We cannot use the cart_item_key provided since it differs from the one we use to store the discount.
 			$search_key = self::generate_cart_id( $cart_item );
@@ -1383,26 +1239,24 @@ class WC_Deposits_Cart_Manager {
 			$present_discount_amount  = isset( $present_discounts[ $search_key ] ) ? array_sum( $present_discounts[ $search_key ] ) : 0;
 
 			// Adjust values to represent proper total and subtotal after applied discounts.
-			if ( $_WC32plus ) {
-				$discount_tax = $this->calculate_deferred_and_present_discount_tax( $search_key );
-				$deferred_discount_tax_amount = $discount_tax['deferred'];
+			$discount_tax = $this->calculate_deferred_and_present_discount_tax( $search_key );
+			$deferred_discount_tax_amount = $discount_tax['deferred'];
 
-				if ( 'no' === get_option( 'woocommerce_prices_include_tax' ) ) {
-					$deferred_discount_amount_excluding_tax = $deferred_discount_amount;
-					$deferred_discount_amount              += $deferred_discount_tax_amount;
-				} else {
-					$deferred_discount_amount_excluding_tax = $deferred_discount_amount - $deferred_discount_tax_amount;
-				}
-
-				$deposit_ratio = $deposit_amount_including_tax / $full_amount_including_tax;
-				$item->set_total( ( $values['line_subtotal'] * $deposit_ratio ) - $present_discount_amount );
-				$item->set_subtotal( $values['line_subtotal'] * $deposit_ratio );
-				$taxes             = $item->get_taxes();
-				$scale             = function ( $tax ) use ( $deposit_ratio ) { return $tax * $deposit_ratio; };
-				$taxes['subtotal'] = array_map( $scale, $taxes['subtotal'] );
-				$taxes['total']    = array_map( $scale, $taxes['total'] );
-				$item->set_taxes( $taxes );
+			if ( 'no' === get_option( 'woocommerce_prices_include_tax' ) ) {
+				$deferred_discount_amount_excluding_tax = $deferred_discount_amount;
+				$deferred_discount_amount              += $deferred_discount_tax_amount;
+			} else {
+				$deferred_discount_amount_excluding_tax = $deferred_discount_amount - $deferred_discount_tax_amount;
 			}
+
+			$deposit_ratio = $deposit_amount_including_tax / $full_amount_including_tax;
+			$item->set_total( ( $values['line_subtotal'] * $deposit_ratio ) - $present_discount_amount );
+			$item->set_subtotal( $values['line_subtotal'] * $deposit_ratio );
+			$taxes             = $item->get_taxes();
+			$scale             = function ( $tax ) use ( $deposit_ratio ) { return $tax * $deposit_ratio; };
+			$taxes['subtotal'] = array_map( $scale, $taxes['subtotal'] );
+			$taxes['total']    = array_map( $scale, $taxes['total'] );
+			$item->set_taxes( $taxes );
 
 			$item->add_meta_data( '_is_deposit', 'yes' );
 			$item->add_meta_data( '_deposit_full_amount', $full_amount_including_tax ); // line quantity, not just a unit
@@ -1410,9 +1264,7 @@ class WC_Deposits_Cart_Manager {
 			$item->add_meta_data( '_deposit_deposit_amount_ex_tax', $deposit_amount_excluding_tax );
 			if ( $deferred_discount_amount > 0 ) {
 				$item->add_meta_data( '_deposit_deferred_discount', $deferred_discount_amount ); // line quantity, not just a unit
-				if( $_WC32plus ) {
-					$item->add_meta_data( '_deposit_deferred_discount_ex_tax', $deferred_discount_amount_excluding_tax ); // line quantity, not just a unit
-				}
+				$item->add_meta_data( '_deposit_deferred_discount_ex_tax', $deferred_discount_amount_excluding_tax ); // line quantity, not just a unit
 			}
 
 			if ( ! empty( $cart_item['payment_plan'] ) ) {
@@ -1537,15 +1389,7 @@ class WC_Deposits_Cart_Manager {
 	 * @return float
 	 */
 	private function get_price_including_tax( $product, $args ) {
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			$args = wp_parse_args( $args, array(
-				'qty'   => '',
-				'price' => '',
-			) );
-			return $product->get_price_including_tax( $args['qty'], $args['price'] );
-		} else {
-			return wc_get_price_including_tax( $product, $args );
-		}
+		return wc_get_price_including_tax( $product, $args );
 	}
 
 	private function get_price_excluding_tax_no_round( $product, $args ) {
@@ -1616,15 +1460,7 @@ class WC_Deposits_Cart_Manager {
 	 * @return float
 	 */
 	private function get_price_excluding_tax( $product, $args ) {
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			$args = wp_parse_args( $args, array(
-				'qty'   => '',
-				'price' => '',
-			) );
-			return $product->get_price_excluding_tax( $args['qty'], $args['price'] );
-		} else {
-			return wc_get_price_excluding_tax( $product, $args );
-		}
+		return wc_get_price_excluding_tax( $product, $args );
 	}
 
 	/**

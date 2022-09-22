@@ -147,7 +147,7 @@ class WooCommerce_Widget_Currency_Converter extends WP_Widget {
 		<p>
 			<label for="<?php echo $this->get_field_id( 'disable_location' ); ?>"><?php _e( 'Disable location detection:', 'woocommerce-currency-converter-widget' ) ?></label>
 			<input type="checkbox" class="" id="<?php echo esc_attr( $this->get_field_id( 'disable_location' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'disable_location' ) ); ?>" value="1" <?php if ( isset( $instance['disable_location'] ) ) checked( $instance['disable_location'], 1 ); ?> />
-			<p class="description"><?php esc_html_e( "The currency converter widget will default to the currency for a user's currenct location. Check this box to disable location detection and default to the store's currency.", 'woocommerce-currency-converter-widget' ); ?></p>
+			<p class="description"><?php esc_html_e( "The currency converter widget will default to the currency for a user's current location. Check this box to disable location detection and default to the store's currency.", 'woocommerce-currency-converter-widget' ); ?></p>
 		</p>
 		<?php
 	}

@@ -68,7 +68,7 @@ class Index_Now_Ping implements Integration_Interface {
 		 *
 		 * @since 18.8
 		 *
-		 * @param string The IndexNow endpoint URL.
+		 * @param string $endpoint The IndexNow endpoint URL.
 		 */
 		$this->endpoint = \apply_filters( 'Yoast\WP\SEO\indexnow_endpoint', 'https://api.indexnow.org/indexnow' );
 	}
@@ -115,7 +115,7 @@ class Index_Now_Ping implements Integration_Interface {
 			return;
 		}
 
-		if ( ! $post instanceof \WP_Post ) {
+		if ( ! $post instanceof WP_Post ) {
 			return;
 		}
 
@@ -146,7 +146,7 @@ class Index_Now_Ping implements Integration_Interface {
 		}
 
 		$content = (object) [
-			'host'        => \wp_parse_url( \get_home_url(), PHP_URL_HOST ),
+			'host'        => \wp_parse_url( \get_home_url(), \PHP_URL_HOST ),
 			'key'         => $key,
 			'keyLocation' => $key_location,
 			'urlList'     => $urls,
@@ -157,26 +157,26 @@ class Index_Now_Ping implements Integration_Interface {
 		$request_args = [
 			'headers' => [
 				'content-type'  => 'application/json; charset=utf-8',
-				'x-source-info' => 'https://yoast.com/wordpress/plugins/seo-premium/' . WPSEO_PREMIUM_VERSION . '/false',
+				'x-source-info' => 'https://yoast.com/wordpress/plugins/seo-premium/' . \WPSEO_PREMIUM_VERSION . '/false',
 			],
 		];
 
-		$request = new \WPSEO_Remote_Request( $this->endpoint, $request_args );
+		$request = new WPSEO_Remote_Request( $this->endpoint, $request_args );
 		// phpcs:ignore Yoast.Yoast.AlternativeFunctions.json_encode_wp_json_encode -- This is being sent to an API, not displayed.
 		$request->set_body( \wp_json_encode( $content ) );
 		$request->send();
 
-		\update_post_meta( $post->ID, '_yoast_indexnow_last_ping', time() );
+		\update_post_meta( $post->ID, '_yoast_indexnow_last_ping', \time() );
 	}
 
 	/**
 	 * Determines the (former) permalink for a post.
 	 *
-	 * @param \WP_Post $post Post object.
+	 * @param WP_Post $post Post object.
 	 *
 	 * @return string Permalink.
 	 */
-	private function get_permalink( \WP_Post $post ) {
+	private function get_permalink( WP_Post $post ) {
 		if ( \in_array( $post->post_status, [ 'trash', 'draft', 'pending', 'future' ], true ) ) {
 			if ( $post->post_status === 'trash' ) {
 				// Fix the post_name.

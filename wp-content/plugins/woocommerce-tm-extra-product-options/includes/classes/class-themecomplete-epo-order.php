@@ -155,7 +155,7 @@ class THEMECOMPLETE_EPO_Order {
 		}
 		if ( $_backup_cart && is_array( $_backup_cart ) && isset( $_backup_cart[0] ) ) {
 			if ( is_string( $_backup_cart[0] ) ) {
-				$_backup_cart = maybe_unserialize( $_backup_cart[0] );
+				$_backup_cart = themecomplete_maybe_unserialize( $_backup_cart[0] );
 			}
 			$cart_item_meta['tmcartepo'] = $_backup_cart;
 		}
@@ -166,7 +166,7 @@ class THEMECOMPLETE_EPO_Order {
 		}
 		if ( $_backup_cart && is_array( $_backup_cart ) && isset( $_backup_cart[0] ) ) {
 			if ( is_string( $_backup_cart[0] ) ) {
-				$_backup_cart = maybe_unserialize( $_backup_cart[0] );
+				$_backup_cart = themecomplete_maybe_unserialize( $_backup_cart[0] );
 			}
 			$cart_item_meta['tmcartfee'] = $_backup_cart[0];
 		}
@@ -177,9 +177,24 @@ class THEMECOMPLETE_EPO_Order {
 		}
 		if ( $_backup_cart && is_array( $_backup_cart ) && isset( $_backup_cart[0] ) ) {
 			if ( is_string( $_backup_cart[0] ) ) {
-				$_backup_cart = maybe_unserialize( $_backup_cart[0] );
+				$_backup_cart = themecomplete_maybe_unserialize( $_backup_cart[0] );
 			}
 			$cart_item_meta['tmdata'] = $_backup_cart[0];
+		}
+
+		$_backup_cart = isset( $item['item_meta']['tmpost_data'] ) ? $item['item_meta']['tmpost_data'] : false;
+		if ( ! $_backup_cart ) {
+			$_backup_cart = isset( $item['item_meta']['_tmpost_data'] ) ? $item['item_meta']['_tmpost_data'] : false;
+		}
+		if ( $_backup_cart && is_array( $_backup_cart ) && isset( $_backup_cart[0] ) ) {
+			if ( is_string( $_backup_cart[0] ) ) {
+				$_backup_cart = themecomplete_maybe_unserialize( $_backup_cart[0] );
+			}
+			$cart_item_meta['tmpost_data'] = $_backup_cart[0];
+		}
+
+		if ( ! isset( $cart_item_meta['tmpost_data'] ) && isset( $cart_item_meta['tmdata']['tmcp_post_fields'] ) ) {
+			$cart_item_meta['tmpost_data'] = $cart_item_meta['tmdata']['tmcp_post_fields'];
 		}
 
 		$cart_item_meta = apply_filters( 'wc_epo_woocommerce_order_again_cart_item_data', $cart_item_meta, $item );
@@ -226,7 +241,7 @@ class THEMECOMPLETE_EPO_Order {
 		$has_epo_fee = isset( $item_meta ) && isset( $item_meta['_tmcartfee_data'] ) && isset( $item_meta['_tmcartfee_data'][0] );
 
 		if ( $has_epo ) {
-			$epos = maybe_unserialize( $item_meta['_tmcartepo_data'][0] );
+			$epos = themecomplete_maybe_unserialize( $item_meta['_tmcartepo_data'][0] );
 			if ( ! is_array( $epos ) ) {
 				return $image;
 			}
@@ -252,7 +267,7 @@ class THEMECOMPLETE_EPO_Order {
 
 		if ( 0 === count( $_image ) ) {
 			if ( $has_epo_fee ) {
-				$epos = maybe_unserialize( $item_meta['_tmcartfee_data'][0] );
+				$epos = themecomplete_maybe_unserialize( $item_meta['_tmcartfee_data'][0] );
 				if ( ! is_array( $epos ) ) {
 					return $image;
 				}
@@ -356,6 +371,7 @@ class THEMECOMPLETE_EPO_Order {
 		if ( ! empty( $values['tmcartepo'] ) ) {
 			$item->add_meta_data( '_tmcartepo_data', $values['tmcartepo'] );
 			$item->add_meta_data( '_tm_epo_product_original_price', [ $values['tm_epo_product_original_price'] ] );
+			$item->add_meta_data( '_tm_epo_options_prices', [ $values['tm_epo_options_prices'] ] );
 			$item->add_meta_data( '_tm_epo', [ 1 ] );
 		}
 		if ( ! empty( $values['tmcartfee'] ) ) {
@@ -363,6 +379,9 @@ class THEMECOMPLETE_EPO_Order {
 		}
 		if ( ! empty( $values['tmdata'] ) ) {
 			$item->add_meta_data( '_tmdata', [ $values['tmdata'] ] );
+		}
+		if ( ! empty( $values['tmpost_data'] ) ) {
+			$item->add_meta_data( '_tmpost_data', [ $values['tmpost_data'] ] );
 		}
 		do_action( 'wc_epo_order_item_meta', $item, $cart_item_key, $values );
 
@@ -439,7 +458,7 @@ class THEMECOMPLETE_EPO_Order {
 		$has_epo = is_array( $item_meta ) && isset( $item_meta['_tmcartepo_data'] ) && isset( $item_meta['_tmcartepo_data'][0] );
 
 		if ( $has_epo ) {
-			$epos = maybe_unserialize( $item_meta['_tmcartepo_data'][0] );
+			$epos = themecomplete_maybe_unserialize( $item_meta['_tmcartepo_data'][0] );
 			if ( ! is_array( $epos ) ) {
 				return $formatted_meta;
 			}
@@ -777,7 +796,7 @@ class THEMECOMPLETE_EPO_Order {
 			$has_epo = is_array( $item_meta ) && isset( $item_meta['_tmcartepo_data'] ) && isset( $item_meta['_tmcartepo_data'][0] );
 
 			if ( $has_epo ) {
-				$epos = maybe_unserialize( $item_meta['_tmcartepo_data'][0] );
+				$epos = themecomplete_maybe_unserialize( $item_meta['_tmcartepo_data'][0] );
 				if ( ! is_array( $epos ) ) {
 					return $items;
 				}
@@ -1271,7 +1290,7 @@ class THEMECOMPLETE_EPO_Order {
 				$has_epo = is_array( $item_meta ) && isset( $item_meta['_tmcartepo_data'] ) && isset( $item_meta['_tmcartepo_data'][0] );
 
 				if ( $has_epo ) {
-					$epos = maybe_unserialize( $item_meta['_tmcartepo_data'][0] );
+					$epos = themecomplete_maybe_unserialize( $item_meta['_tmcartepo_data'][0] );
 					if ( is_array( $epos ) ) {
 						foreach ( $epos as $key => $epo ) {
 							if ( $epo && is_array( $epo ) && isset( $epo['section'] ) ) {
@@ -1288,7 +1307,7 @@ class THEMECOMPLETE_EPO_Order {
 				$has_fee = is_array( $item_meta ) && isset( $item_meta['_tmcartfee_data'] ) && isset( $item_meta['_tmcartfee_data'][0] );
 
 				if ( $has_fee ) {
-					$epos = maybe_unserialize( $item_meta['_tmcartfee_data'][0] );
+					$epos = themecomplete_maybe_unserialize( $item_meta['_tmcartfee_data'][0] );
 					if ( is_array( $epos ) && isset( $epos[0] ) && is_array( $epos[0] ) ) {
 						$epos = $epos[0];
 						foreach ( $epos as $key => $epo ) {

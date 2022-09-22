@@ -44,21 +44,21 @@ class THEMECOMPLETE_EPO_MATH {
 	 *
 	 * @var array<string, float|string>
 	 */
-	protected $variables = [];
+	public $variables = [];
 
 	/**
 	 * Variable not found handler.
 	 *
 	 * @var callable|null
 	 */
-	protected $on_var_not_found = null;
+	public $on_var_not_found = null;
 
 	/**
 	 * Validation method that will be invoked when a variable is set using set_var.
 	 *
 	 * @var callable|null
 	 */
-	protected $on_var_validation = null;
+	public $on_var_validation = null;
 
 	/**
 	 * Operators array (default and custom)
@@ -67,14 +67,14 @@ class THEMECOMPLETE_EPO_MATH {
 	 *
 	 * @var THEMECOMPLETE_EPO_MATH_Operator[]
 	 */
-	protected $operators = [];
+	public $operators = [];
 
 	/**
 	 * Array of custom functions.
 	 *
 	 * @var array<string, THEMECOMPLETE_EPO_MATH_CustomFunction>
 	 */
-	protected $functions = [];
+	public $functions = [];
 
 	/**
 	 * Token cache.
@@ -149,7 +149,13 @@ class THEMECOMPLETE_EPO_MATH {
 
 		$calculator = new THEMECOMPLETE_EPO_MATH_Calculator( $this->functions, $this->operators );
 
-		return $calculator->calculate( $tokens, $this->variables, $this->on_var_not_found );
+		$result = $calculator->calculate( $tokens, $this->variables, $this->on_var_not_found, $this );
+
+		if ( ! is_numeric( $result ) ) {
+			$result = 0;
+		}
+
+		return $result;
 	}
 
 	/**
@@ -563,14 +569,14 @@ class THEMECOMPLETE_EPO_MATH {
 			],
 			'=='   => [
 				static function( $a, $b ) {
-					return is_string( $a ) || is_string( $b ) ? 0 == strcmp( $a, $b ) : $a == $b; // phpcs:ignore WordPress.PHP.StrictComparisons
+					return ( is_numeric( $a ) && is_numeric( $b ) ) ? sprintf( '%0.20f', $a ) === sprintf( '%0.20f', $b ) : ( is_string( $a ) || is_string( $b ) ? 0 == strcmp( $a, $b ) : $a == $b ); // phpcs:ignore WordPress.PHP.StrictComparisons
 				},
 				140,
 				false,
 			],
 			'!='   => [
 				static function( $a, $b ) {
-					return is_string( $a ) || is_string( $b ) ? 0 != strcmp( $a, $b ) : $a != $b; // phpcs:ignore WordPress.PHP.StrictComparisons
+					return ( is_numeric( $a ) && is_numeric( $b ) ) ? sprintf( '%0.20f', $a ) !== sprintf( '%0.20f', $b ) : ( is_string( $a ) || is_string( $b ) ? 0 != strcmp( $a, $b ) : $a != $b ); // phpcs:ignore WordPress.PHP.StrictComparisons
 				},
 				140,
 				false,
@@ -614,64 +620,64 @@ class THEMECOMPLETE_EPO_MATH {
 	 */
 	protected function default_functions() : array {
 		return [
-			'abs'      => static function( $arg ) {
+			'abs'         => static function( $arg ) {
 				return abs( $arg );
 			},
-			'acos'     => static function( $arg ) {
+			'acos'        => static function( $arg ) {
 				return acos( $arg );
 			},
-			'acosh'    => static function( $arg ) {
+			'acosh'       => static function( $arg ) {
 				return acosh( $arg );
 			},
-			'arcsin'   => static function( $arg ) {
+			'arcsin'      => static function( $arg ) {
 				return asin( $arg );
 			},
-			'arcctg'   => static function( $arg ) {
+			'arcctg'      => static function( $arg ) {
 				return M_PI / 2 - atan( $arg );
 			},
-			'arccot'   => static function( $arg ) {
+			'arccot'      => static function( $arg ) {
 				return M_PI / 2 - atan( $arg );
 			},
-			'arccotan' => static function( $arg ) {
+			'arccotan'    => static function( $arg ) {
 				return M_PI / 2 - atan( $arg );
 			},
-			'arcsec'   => static function( $arg ) {
+			'arcsec'      => static function( $arg ) {
 				return acos( 1 / $arg );
 			},
-			'arccosec' => static function( $arg ) {
+			'arccosec'    => static function( $arg ) {
 				return asin( 1 / $arg );
 			},
-			'arccsc'   => static function( $arg ) {
+			'arccsc'      => static function( $arg ) {
 				return asin( 1 / $arg );
 			},
-			'arccos'   => static function( $arg ) {
+			'arccos'      => static function( $arg ) {
 				return acos( $arg );
 			},
-			'arctan'   => static function( $arg ) {
+			'arctan'      => static function( $arg ) {
 				return atan( $arg );
 			},
-			'arctg'    => static function( $arg ) {
+			'arctg'       => static function( $arg ) {
 				return atan( $arg );
 			},
-			'array'    => static function( ...$args ) {
+			'array'       => static function( ...$args ) {
 				return $args;
 			},
-			'asin'     => static function( $arg ) {
+			'asin'        => static function( $arg ) {
 				return asin( $arg );
 			},
-			'atan'     => static function( $arg ) {
+			'atan'        => static function( $arg ) {
 				return atan( $arg );
 			},
-			'atan2'    => static function( $arg1, $arg2 ) {
+			'atan2'       => static function( $arg1, $arg2 ) {
 				return atan2( $arg1, $arg2 );
 			},
-			'atanh'    => static function( $arg ) {
+			'atanh'       => static function( $arg ) {
 				return atanh( $arg );
 			},
-			'atn'      => static function( $arg ) {
+			'atn'         => static function( $arg ) {
 				return atan( $arg );
 			},
-			'avg'      => static function( $arg1, ...$args ) {
+			'avg'         => static function( $arg1, ...$args ) {
 				if ( is_array( $arg1 ) ) {
 					if ( 0 === count( $arg1 ) ) {
 						return THEMECOMPLETE_EPO_MATH_Error::trigger( 'Array must contain at least one element!', 'InvalidArgumentError', 0 );
@@ -684,71 +690,71 @@ class THEMECOMPLETE_EPO_MATH {
 
 				return array_sum( $args ) / count( $args );
 			},
-			'bindec'   => static function( $arg ) {
+			'bindec'      => static function( $arg ) {
 				return bindec( $arg );
 			},
-			'ceil'     => static function( $arg ) {
+			'ceil'        => static function( $arg ) {
 				return ceil( $arg );
 			},
-			'cos'      => static function( $arg ) {
+			'cos'         => static function( $arg ) {
 				return cos( $arg );
 			},
-			'cosec'    => static function( $arg ) {
+			'cosec'       => static function( $arg ) {
 				return 1 / sin( $arg );
 			},
-			'csc'      => static function( $arg ) {
+			'csc'         => static function( $arg ) {
 				return 1 / sin( $arg );
 			},
-			'cosh'     => static function( $arg ) {
+			'cosh'        => static function( $arg ) {
 				return cosh( $arg );
 			},
-			'ctg'      => static function( $arg ) {
+			'ctg'         => static function( $arg ) {
 				return cos( $arg ) / sin( $arg );
 			},
-			'cot'      => static function( $arg ) {
+			'cot'         => static function( $arg ) {
 				return cos( $arg ) / sin( $arg );},
-			'cotan'    => static function( $arg ) {
+			'cotan'       => static function( $arg ) {
 				return cos( $arg ) / sin( $arg );
 			},
-			'cotg'     => static function( $arg ) {
+			'cotg'        => static function( $arg ) {
 				return cos( $arg ) / sin( $arg );
 			},
-			'ctn'      => static function( $arg ) {
+			'ctn'         => static function( $arg ) {
 				return cos( $arg ) / sin( $arg );},
-			'decbin'   => static function( $arg ) {
+			'decbin'      => static function( $arg ) {
 				return decbin( $arg );
 			},
-			'dechex'   => static function( $arg ) {
+			'dechex'      => static function( $arg ) {
 				return dechex( $arg );
 			},
-			'decoct'   => static function( $arg ) {
+			'decoct'      => static function( $arg ) {
 				return decoct( $arg );
 			},
-			'deg2rad'  => static function( $arg ) {
+			'deg2rad'     => static function( $arg ) {
 				return deg2rad( $arg );
 			},
-			'exp'      => static function( $arg ) {
+			'exp'         => static function( $arg ) {
 				return exp( $arg );
 			},
-			'expm1'    => static function( $arg ) {
+			'expm1'       => static function( $arg ) {
 				return expm1( $arg );
 			},
-			'floor'    => static function( $arg ) {
+			'floor'       => static function( $arg ) {
 				return floor( $arg );
 			},
-			'int'      => static function( $arg ) {
+			'int'         => static function( $arg ) {
 				return floor( $arg );
 			},
-			'fmod'     => static function( $arg1, $arg2 ) {
+			'fmod'        => static function( $arg1, $arg2 ) {
 				return fmod( $arg1, $arg2 );
 			},
-			'hexdec'   => static function( $arg ) {
+			'hexdec'      => static function( $arg ) {
 				return hexdec( $arg );
 			},
-			'hypot'    => static function( $arg1, $arg2 ) {
+			'hypot'       => static function( $arg1, $arg2 ) {
 				return hypot( $arg1, $arg2 );
 			},
-			'if'       => function( $expr, $trueval, $falseval ) {
+			'if'          => function( $expr, $trueval, $falseval ) {
 				if ( true === $expr || false === $expr ) {
 					$exres = $expr;
 				} else {
@@ -761,78 +767,186 @@ class THEMECOMPLETE_EPO_MATH {
 
 				return $this->execute( $falseval );
 			},
-			'intdiv'   => static function( $arg1, $arg2 ) {
+			'intdiv'      => static function( $arg1, $arg2 ) {
 				return intdiv( $arg1, $arg2 );
 			},
-			'ln'       => static function( $arg ) {
+			'ln'          => static function( $arg ) {
 				return log( $arg );
 			},
-			'lg'       => static function( $arg ) {
+			'lg'          => static function( $arg ) {
 				return log10( $arg );
 			},
-			'log'      => static function( $arg ) {
+			'log'         => static function( $arg ) {
 				return log( $arg );
 			},
-			'log10'    => static function( $arg ) {
+			'log10'       => static function( $arg ) {
 				return log10( $arg );
 			},
-			'log1p'    => static function( $arg ) {
+			'log1p'       => static function( $arg ) {
 				return log1p( $arg );
 			},
-			'max'      => static function( $arg1, ...$args ) {
+			'max'         => static function( $arg1, ...$args ) {
 				if ( is_array( $arg1 ) && 0 === count( $arg1 ) ) {
 					return THEMECOMPLETE_EPO_MATH_Error::trigger( 'Array must contain at least one element!', 'InvalidArgumentError', 0 );
 				}
+				$array = is_array( $arg1 ) ? $arg1 : [ $arg1, ...$args ];
+				$array = array_map( 'floatval', $array );
 
-				return max( is_array( $arg1 ) ? $arg1 : [ $arg1, ...$args ] );
+				return max( $array );
 			},
-			'min'      => static function( $arg1, ...$args ) {
+			'min'         => static function( $arg1, ...$args ) {
 				if ( is_array( $arg1 ) && 0 === count( $arg1 ) ) {
 					return THEMECOMPLETE_EPO_MATH_Error::trigger( 'Array must contain at least one element!', 'InvalidArgumentError', 0 );
 				}
+				$array = is_array( $arg1 ) ? $arg1 : [ $arg1, ...$args ];
+				$array = array_map( 'floatval', $array );
 
-				return min( is_array( $arg1 ) ? $arg1 : [ $arg1, ...$args ] );
+				return min( $array );
 			},
-			'octdec'   => static function( $arg ) {
+			'octdec'      => static function( $arg ) {
 				return octdec( $arg );
 			},
-			'pi'       => static function() {
+			'pi'          => static function() {
 				return M_PI;
 			},
-			'pow'      => static function( $arg1, $arg2 ) {
+			'pow'         => static function( $arg1, $arg2 ) {
 				return $arg1 ** $arg2;
 			},
-			'rad2deg'  => static function( $arg ) {
+			'rad2deg'     => static function( $arg ) {
 				return rad2deg( $arg );
 			},
-			'round'    => static function( $num, int $precision = 0 ) {
+			'round'       => static function( $num, int $precision = 0 ) {
 				return round( $num, $precision );
 			},
-			'sin'      => static function( $arg ) {
+			'sin'         => static function( $arg ) {
 				return sin( $arg );
 			},
-			'sinh'     => static function( $arg ) {
+			'sinh'        => static function( $arg ) {
 				return sinh( $arg );
 			},
-			'sec'      => static function( $arg ) {
+			'sec'         => static function( $arg ) {
 				return 1 / cos( $arg );
 			},
-			'sqrt'     => static function( $arg ) {
+			'sqrt'        => static function( $arg ) {
 				return sqrt( $arg );
 			},
-			'tan'      => static function( $arg ) {
+			'tan'         => static function( $arg ) {
 				return tan( $arg );
 			},
-			'tanh'     => static function( $arg ) {
+			'tanh'        => static function( $arg ) {
 				return tanh( $arg );
 			},
-			'tn'       => static function( $arg ) {
+			'tn'          => static function( $arg ) {
 				return tan( $arg );
 			},
-			'tg'       => static function( $arg ) {
+			'tg'          => static function( $arg ) {
 				return tan( $arg );
+			},
+			'lookuptable' => function( $field, $lookup_table_id ) {
+				$lookup_tables = THEMECOMPLETE_EPO()->lookup_tables;
+				$price         = 0;
+				$table_num     = 0;
+				if ( $lookup_tables ) {
+					if ( is_array( $lookup_table_id ) ) {
+						$table_num       = (int) $lookup_table_id[1];
+						$lookup_table_id = $lookup_table_id[0];
+					}
+					if ( ! $lookup_table_id ) {
+						return 0;
+					}
+					if ( ! $table_num ) {
+						$table_num = 0;
+					}
+					if ( is_array( $field ) ) {
+						$x = $field[0];
+						$y = $field[1];
+					} else {
+						$x = $field;
+						$y = '';
+					}
+					$table = $lookup_tables[ $lookup_table_id ];
+					if ( $table ) {
+						$table = $table[ $table_num ];
+						if ( $table ) {
+							$table = $table['data'];
+							$x     = (float) $x;
+							$y     = (float) $y;
+							$x_row = false;
+							if ( ! isset( $table[ $x ] ) ) {
+								if ( ( (int) 0 === (int) $x ) ) {
+									$x_row = $table[ array_keys( $table )[0] ];
+								} elseif ( $x ) {
+									$x = $this->find_lookup_table_index( $x, $table );
+									if ( $x ) {
+										$x_row = $table[ $x ];
+									}
+								}
+							} else {
+								$x_row = $table[ $x ];
+							}
+							if ( $x_row && is_array( $x_row ) ) {
+								if ( $y ) {
+									$y = $this->find_lookup_table_index( $y, $x_row );
+								} else {
+									$y = array_keys( $x_row );
+									$y = $y[0];
+								}
+
+								if ( 'max' === $y ) {
+									$price = (float) $x_row[ array_keys( $x_row )[ count( array_keys( $x_row ) ) - 1 ] ];
+								} else {
+									$price = (float) $x_row[ $y ];
+								}
+							}
+						}
+					}
+				}
+				return $price;
 			},
 		];
+	}
+
+	/**
+	 * Find the closest index on the provided $table
+	 *
+	 * @param mixed $value The value to check.
+	 * @param array $table The table check the value against.
+	 */
+	protected function find_lookup_table_index( $value, $table ) {
+		$value = (float) $value;
+		$table = array_keys( $table );
+		$table = array_map(
+			function( $n ) {
+				return 'max' === $n ? $n : (float) $n;
+			},
+			$table
+		);
+
+		return array_reduce(
+			$table,
+			function( $a, $b ) use ( $value ) {
+				if ( 'max' === $b && $value > $a ) {
+					return $b;
+				}
+				if ( 'max' === $a && $value > $b ) {
+					return $a;
+				}
+				if ( $a < $b ) {
+					if ( $value > $a && $value <= $b ) {
+						return $b;
+					}
+				} else {
+					if ( ( $value > $b && $value <= $a ) || ( $value > $a || 'max' === $b ) ) {
+						return $a;
+					}
+					return $b;
+				}
+				if ( $value > $b ) {
+					return $b;
+				}
+				return $a;
+			}
+		);
 	}
 
 	/**
@@ -1019,10 +1133,12 @@ class THEMECOMPLETE_EPO_MATH_Tokenizer {
 					continue 2;
 
 				case ' ' === $ch || "\n" === $ch || "\r" === $ch || "\t" === $ch:
-					$this->empty_number_buffer_as_literal();
-					$this->empty_str_buffer_as_variable();
-					$this->tokens[] = new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::SPACE, '' );
-
+					/**
+					 * In case those tokens must not be ingored use the following
+					 * $this->empty_number_buffer_as_literal();
+					 * $this->empty_str_buffer_as_variable();
+					 * $this->tokens[] = new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::SPACE, '' );
+					 */
 					continue 2;
 
 				case $this->is_number( $ch ):
@@ -1136,6 +1252,17 @@ class THEMECOMPLETE_EPO_MATH_Tokenizer {
 		$this->empty_number_buffer_as_literal();
 		$this->empty_str_buffer_as_variable();
 
+		$token_test = [];
+		foreach ( $this->tokens as $key => $token ) {
+			$token_test[ $key ] = $token->type;
+		}
+		foreach ( $token_test as $key => $type ) {
+			if ( $key > 0 && THEMECOMPLETE_EPO_MATH_Token::SPACE === $type && THEMECOMPLETE_EPO_MATH_Token::VARIABLE === $token_test[ $key + 1 ] && THEMECOMPLETE_EPO_MATH_Token::VARIABLE === $token_test[ $key - 1 ] ) {
+				unset( $this->tokens[ $key - 1 ] );
+				unset( $this->tokens[ $key + 1 ] );
+				$this->tokens[ $key ] = new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::LITERAL, 0 );
+			}
+		}
 		return $this;
 	}
 
@@ -1150,91 +1277,96 @@ class THEMECOMPLETE_EPO_MATH_Tokenizer {
 		$param_counter = new SplStack();
 
 		foreach ( $this->tokens as $token ) {
-			switch ( $token->type ) {
-				case THEMECOMPLETE_EPO_MATH_Token::LITERAL:
-				case THEMECOMPLETE_EPO_MATH_Token::VARIABLE:
-				case THEMECOMPLETE_EPO_MATH_Token::STRING:
-					$tokens[] = $token;
+			try {
+				switch ( $token->type ) {
+					case THEMECOMPLETE_EPO_MATH_Token::LITERAL:
+					case THEMECOMPLETE_EPO_MATH_Token::VARIABLE:
+					case THEMECOMPLETE_EPO_MATH_Token::STRING:
+						$tokens[] = $token;
 
-					if ( $param_counter->count() > 0 && 0 === $param_counter->top() ) {
-						$param_counter->push( $param_counter->pop() + 1 );
-					}
-
-					break;
-
-				case THEMECOMPLETE_EPO_MATH_Token::FUNCTION:
-					if ( $param_counter->count() > 0 && 0 === $param_counter->top() ) {
-						$param_counter->push( $param_counter->pop() + 1 );
-					}
-					$stack->push( $token );
-					$param_counter->push( 0 );
-
-					break;
-
-				case THEMECOMPLETE_EPO_MATH_Token::LEFTPARENTHESIS:
-					$stack->push( $token );
-
-					break;
-
-				case THEMECOMPLETE_EPO_MATH_Token::PARAMSEPARATOR:
-					while ( THEMECOMPLETE_EPO_MATH_Token::LEFTPARENTHESIS !== $stack->top()->type ) {
-						if ( 0 === $stack->count() ) {
-							return THEMECOMPLETE_EPO_MATH_Error::trigger( 'Incorrect Brackets', 'IncorrectBracketsError', $tokens );
-						}
-						$tokens[] = $stack->pop();
-					}
-					$param_counter->push( $param_counter->pop() + 1 );
-
-					break;
-
-				case THEMECOMPLETE_EPO_MATH_Token::OPERATOR:
-					if ( ! array_key_exists( $token->value, $this->operators ) ) {
-						return THEMECOMPLETE_EPO_MATH_Error::trigger( $token->value, 'UnknownOperatorError', $tokens );
-					}
-					$op1 = $this->operators[ $token->value ];
-
-					while ( $stack->count() > 0 && THEMECOMPLETE_EPO_MATH_Token::OPERATOR === $stack->top()->type ) {
-						if ( ! array_key_exists( $stack->top()->value, $this->operators ) ) {
-							return THEMECOMPLETE_EPO_MATH_Error::trigger( $stack->top()->value, 'UnknownOperatorError', $tokens );
-						}
-						$op2 = $this->operators[ $stack->top()->value ];
-
-						if ( $op2->priority >= $op1->priority ) {
-							$tokens[] = $stack->pop();
-
-							continue;
+						if ( $param_counter->count() > 0 && 0 === $param_counter->top() ) {
+							$param_counter->push( $param_counter->pop() + 1 );
 						}
 
 						break;
-					}
-					$stack->push( $token );
 
-					break;
-
-				case THEMECOMPLETE_EPO_MATH_Token::RIGHTPARENTHESIS:
-					while ( true ) {
-						try {
-							$ctoken = $stack->pop();
-
-							if ( THEMECOMPLETE_EPO_MATH_Token::LEFTPARENTHESIS === $ctoken->type ) {
-								break;
-							}
-							$tokens[] = $ctoken;
-						} catch ( RuntimeException $e ) {
-							return THEMECOMPLETE_EPO_MATH_Error::trigger( 'Incorrect Brackets', 'IncorrectBracketsError', $tokens );
+					case THEMECOMPLETE_EPO_MATH_Token::FUNCTION:
+						if ( $param_counter->count() > 0 && 0 === $param_counter->top() ) {
+							$param_counter->push( $param_counter->pop() + 1 );
 						}
-					}
+						$stack->push( $token );
+						$param_counter->push( 0 );
 
-					if ( $stack->count() > 0 && THEMECOMPLETE_EPO_MATH_Token::FUNCTION == $stack->top()->type ) { // phpcs:ignore WordPress.PHP.StrictComparisons
-						$f              = $stack->pop();
-						$f->param_count = $param_counter->pop();
-						$tokens[]       = $f;
-					}
+						break;
 
-					break;
+					case THEMECOMPLETE_EPO_MATH_Token::LEFTPARENTHESIS:
+						$stack->push( $token );
 
-				case THEMECOMPLETE_EPO_MATH_Token::SPACE:
-					// do nothing.
+						break;
+
+					case THEMECOMPLETE_EPO_MATH_Token::PARAMSEPARATOR:
+						while ( THEMECOMPLETE_EPO_MATH_Token::LEFTPARENTHESIS !== $stack->top()->type ) {
+							if ( 0 === $stack->count() ) {
+								return THEMECOMPLETE_EPO_MATH_Error::trigger( 'Incorrect Brackets', 'IncorrectBracketsError', $tokens );
+							}
+							$tokens[] = $stack->pop();
+						}
+						$param_counter->push( $param_counter->pop() + 1 );
+
+						break;
+
+					case THEMECOMPLETE_EPO_MATH_Token::OPERATOR:
+						if ( ! array_key_exists( $token->value, $this->operators ) ) {
+							return THEMECOMPLETE_EPO_MATH_Error::trigger( $token->value, 'UnknownOperatorError', $tokens );
+						}
+						$op1 = $this->operators[ $token->value ];
+
+						while ( $stack->count() > 0 && THEMECOMPLETE_EPO_MATH_Token::OPERATOR === $stack->top()->type ) {
+							if ( ! array_key_exists( $stack->top()->value, $this->operators ) ) {
+								return THEMECOMPLETE_EPO_MATH_Error::trigger( $stack->top()->value, 'UnknownOperatorError', $tokens );
+							}
+							$op2 = $this->operators[ $stack->top()->value ];
+
+							if ( $op2->priority >= $op1->priority ) {
+								$tokens[] = $stack->pop();
+
+								continue;
+							}
+
+							break;
+						}
+						$stack->push( $token );
+
+						break;
+
+					case THEMECOMPLETE_EPO_MATH_Token::RIGHTPARENTHESIS:
+						while ( true ) {
+							try {
+								$ctoken = $stack->pop();
+
+								if ( THEMECOMPLETE_EPO_MATH_Token::LEFTPARENTHESIS === $ctoken->type ) {
+									break;
+								}
+								$tokens[] = $ctoken;
+							} catch ( RuntimeException $e ) {
+								return THEMECOMPLETE_EPO_MATH_Error::trigger( 'Incorrect Brackets', 'IncorrectBracketsError', $tokens );
+							}
+						}
+
+						if ( $stack->count() > 0 && THEMECOMPLETE_EPO_MATH_Token::FUNCTION == $stack->top()->type ) { // phpcs:ignore WordPress.PHP.StrictComparisons
+							$f              = $stack->pop();
+							$f->param_count = $param_counter->pop();
+							$tokens[]       = $f;
+						}
+
+						break;
+
+					case THEMECOMPLETE_EPO_MATH_Token::SPACE:
+						// do nothing.
+				}
+			} catch ( Exception $e ) {
+				$tokens = [];
+				return $tokens;
 			}
 		}
 
@@ -1526,15 +1658,27 @@ class THEMECOMPLETE_EPO_MATH_CustomFunction {
 	 * @param int   $param_count_in_stack The function paramter count.
 	 */
 	public function execute( array &$stack, int $param_count_in_stack ) : THEMECOMPLETE_EPO_MATH_Token {
+
+		if ( $param_count_in_stack < $this->required_param_count ) {
+			$param_count_in_stack = $this->required_param_count;
+		}
+
+		// We skip this section.
 		if ( $param_count_in_stack < $this->required_param_count ) {
 			$stack = [];
 			return THEMECOMPLETE_EPO_MATH_Error::trigger( $this->name, 'IncorrectNumberOfFunctionParametersError', new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::LITERAL, 0 ) );
 		}
-		$args = [];
 
+		$args = [];
 		if ( $param_count_in_stack > 0 ) {
 			for ( $i = 0; $i < $param_count_in_stack; $i++ ) {
-				array_unshift( $args, array_pop( $stack )->value );
+				$argument = array_pop( $stack )->value;
+				if ( null === $argument ) {
+					$argument = '0';
+					array_push( $args, $argument );
+				} else {
+					array_unshift( $args, $argument );
+				}
 			}
 		}
 
@@ -1583,10 +1727,16 @@ class THEMECOMPLETE_EPO_MATH_Calculator {
 	 * @param array<THEMECOMPLETE_EPO_MATH_Token> $tokens Array of tokens.
 	 * @param array<string, float|string>         $variables Array of variables.
 	 * @param callable|null                       $on_var_not_found Variable not found handler.
+	 * @param mixed                               $math_object The math class.
 	 *
 	 * @return int|float|string|null
 	 */
-	public function calculate( array $tokens, array $variables, ?callable $on_var_not_found = null ) {
+	public function calculate( array $tokens, array $variables, ?callable $on_var_not_found = null, $math_object = false ) {
+
+		if ( empty( $tokens ) ) {
+			return 0;
+		}
+
 		/** Array of THEMECOMPLETE_EPO_MATH_Token */
 		$stack = [];
 
@@ -1603,13 +1753,25 @@ class THEMECOMPLETE_EPO_MATH_Calculator {
 				} elseif ( $on_var_not_found ) {
 					$value = call_user_func( $on_var_not_found, $variable );
 				} else {
-					return THEMECOMPLETE_EPO_MATH_Error::trigger( $variable, 'UnknownVariableError', 0 );
+					$value                               = $variable;
+					$math_object->variables[ $variable ] = $value;
+					$variables[ $variable ]              = $value;
 				}
-
 				$stack[] = new THEMECOMPLETE_EPO_MATH_Token( THEMECOMPLETE_EPO_MATH_Token::LITERAL, $value, $variable );
 			} elseif ( THEMECOMPLETE_EPO_MATH_Token::FUNCTION === $token->type ) {
 				if ( ! array_key_exists( $token->value, $this->functions ) ) {
-					return THEMECOMPLETE_EPO_MATH_Error::trigger( $token->value, 'UnknownFunctionError', 0 );
+					$math_object->add_function(
+						$token->value,
+						function() {
+							return 0;
+						}
+					);
+					$this->functions = $math_object->functions;
+					if ( ! array_key_exists( $token->value, $this->functions ) ) {
+						return THEMECOMPLETE_EPO_MATH_Error::trigger( $token->value, 'UnknownFunctionError', 0 );
+					} else {
+						THEMECOMPLETE_EPO_MATH_Error::trigger( $token->value, 'UnknownFunctionError', 0 );
+					}
 				}
 				$stack[] = $this->functions[ $token->value ]->execute( $stack, $token->param_count );
 			} elseif ( THEMECOMPLETE_EPO_MATH_Token::OPERATOR === $token->type ) {

@@ -65,7 +65,7 @@ class Zapier implements Integration_Interface {
 	 */
 	public function register_hooks() {
 		// Add the Zapier toggle to the Integrations tab in the admin.
-		\add_filter( 'Yoast\WP\SEO\admin_integration_after', [ $this, 'toggle_after' ] );
+		\add_action( 'Yoast\WP\SEO\admin_integration_after', [ $this, 'toggle_after' ] );
 		\add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
 		\add_filter( 'wpseo_premium_integrations_page_data', [ $this, 'enhance_integrations_page_data' ] );
 	}

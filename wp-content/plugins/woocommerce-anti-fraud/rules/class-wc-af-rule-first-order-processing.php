@@ -14,7 +14,7 @@ class WC_AF_Rule_First_Order_Processing extends WC_AF_Rule {
 	public function __construct() {
 		$this->is_enabled  = get_option('wc_af_first_order_custom');
 		$this->rule_weight = get_option('wc_settings_anti_fraud_first_order_custom_weight');
-		parent::__construct( 'first_order', 'This is the customer&apos;s first order with this billing details.', $this->rule_weight );
+		parent::__construct( 'first_order', 'This is the customer\'s first order with this billing details.', $this->rule_weight );
 	}
 
 	/**
@@ -44,7 +44,7 @@ class WC_AF_Rule_First_Order_Processing extends WC_AF_Rule {
  			FROM $wpdb->postmeta PM
  			INNER JOIN $wpdb->posts P ON P.ID = PM.post_id
  			WHERE PM.meta_key = '_billing_email' AND PM.meta_value = %s AND P.post_type = 'shop_order'
-			AND P.post_status IN ( %s )", $order->get_billing_email(), $statuses )); 
+			AND P.post_status IN ('wc-completed', 'wc-processing' )", $order->get_billing_email() )); 
 
 			Af_Logger::debug('order AMount : ' . print_r($order_amount, true));
 			
@@ -58,10 +58,9 @@ class WC_AF_Rule_First_Order_Processing extends WC_AF_Rule {
 		$order_count =  $wpdb->get_var($wpdb->prepare( "SELECT COUNT(P.ID)
  			FROM $wpdb->postmeta PM
  			INNER JOIN $wpdb->posts P ON P.ID = PM.post_id
- 			WHERE PM.meta_key = '_billing_email' AND PM.meta_value = %s AND P.post_type = 'shop_order'
-			AND P.post_status IN ( %s )", $order->get_billing_email(), $statuses )); 
+ 			WHERE PM.meta_key = '_billing_email' AND PM.meta_value = %s AND P.post_type = 'shop_order'", $order->get_billing_email() )); 
 			
-			Af_Logger::debug('order AMount count : ' . print_r($order_count, true));
+			Af_Logger::debug('order Amount count : ' . print_r($order_count, true));
 			
 		// Risk is true if order amount is smaller than 2
 		if ( ( $order_amount < 1 ) && ( 1 == $order_count )) {

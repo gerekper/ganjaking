@@ -152,20 +152,7 @@ class WC_Shipment_Tracking_Order_REST_API_Controller extends WC_REST_Controller 
 	 * @since 1.6.4
 	 */
 	public function is_valid_order_id( $order_id ) {
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			$order = get_post( $order_id );
-			if ( empty( $order->post_type ) || $this->post_type !== $order->post_type ) {
-				return false;
-			}
-		} else {
-			$order = wc_get_order( $order_id );
-			// in 3.0 the order factor will return false if the order class
-			// throws an exception or the class doesn't exist.
-			if ( false === $order ) {
-				return false;
-			}
-		}
-		return true;
+		return false !== wc_get_order( $order_id );
 	}
 
 	/**
@@ -216,7 +203,7 @@ class WC_Shipment_Tracking_Order_REST_API_Controller extends WC_REST_Controller 
 	 */
 	public function create_item( $request ) {
 		if ( ! empty( $request['tracking_id'] ) ) {
-			return new WP_Error( 'woocommerce_rest_shop_order_shipment_tracking_exists', __( 'Cannot create existing order shipment tracking.', 'woocommerce-shipment-tracking' ), array( 'status' => 400 ) );
+			return new WP_Error( 'woocommerce_rest_order_shipment_tracking_exists', __( 'Cannot create existing order shipment tracking.', 'woocommerce-shipment-tracking' ), array( 'status' => 400 ) );
 		}
 
 		$order_id = (int) $request['order_id'];

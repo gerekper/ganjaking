@@ -1,4 +1,17 @@
 *** Currency Converter Changelog ***
+
+2022-09-19 - version 1.7.0
+* Tweak - Check the minimum requirements before initializing the extension.
+* Tweak - Added missing descriptions to the translatable strings.
+* Tweak - Tested compatibility up to WC 6.9.
+* Fix - Fixed a typo in the widget texts.
+* Dev - Updated the minimum requirements to WC 3.5, WP 4.7, and PHP 5.4.
+
+2022-09-06 - version 1.6.29
+* Fix - 'Choose a Currency' label not translatable.
+* Update - PHP, WordPress and WC minimum required version updated.
+* Add - PHP Compatibility GitHub Action.
+
 2022-06-13 - version 1.6.28
 * Tweak - WP tested up to 6.0.
 * Tweak - WC tested up to 6.5.

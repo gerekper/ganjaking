@@ -26,7 +26,10 @@ $google_fonts_str = seedprod_pro_construct_font_str( $settings );
 		</title>
 	<?php endif; ?>
 
-	<?php if ( ! empty( $google_fonts_str ) ) : ?>
+	<?php 
+	// old way of doing google fonts
+	if ( 1 == 0 &&  ! empty( $google_fonts_str ) ) : 
+	?>
 	<!-- Google Font -->
 	<link rel="stylesheet" href="<?php echo esc_url( $google_fonts_str ); ?>"> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet ?>
 	<?php endif; ?>

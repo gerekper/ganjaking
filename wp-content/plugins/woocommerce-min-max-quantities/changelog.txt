@@ -1,5 +1,11 @@
 *** WooCommerce Min/Max Quantities Changelog ***
 
+2022-09-15 - version 3.0.2
+* Fix - Add missing minified scripts.
+
+2022-09-13 - version 3.0.1
+* Ensure that variation level Min/Max settings are only visible when the Min/Max rules checkbox is checked.
+
 2022-08-25 - version 3.0.0
 * Add - Added compatibility with the Cart and Checkout blocks.
 * Improvement - Add admin validation when filling in, changing and saving Minimum, Maximum and Group of quantity values.

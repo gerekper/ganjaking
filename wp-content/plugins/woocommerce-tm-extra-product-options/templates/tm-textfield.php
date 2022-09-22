@@ -52,11 +52,12 @@ defined( 'ABSPATH' ) || exit;
 		if ( 'number' === $input_type || 'decimal' === $input_type ) {
 			$input_args['tags']['step'] = 'any';
 			if ( 'decimal' === $input_type ) {
-				$input_args['tags']['pattern'] = '[0-9]*';
+				$input_args['tags']['pattern']   = '[0-9]*';
+				$input_args['tags']['inputmode'] = 'decimal';
 			} else {
-				$input_args['tags']['pattern'] = '[0-9]';
+				$input_args['tags']['pattern']   = '[0-9]';
+				$input_args['tags']['inputmode'] = 'numeric';
 			}
-			$input_args['tags']['inputmode'] = 'numeric';
 			if ( isset( $min ) && '' !== $min ) {
 				$input_args['tags']['min'] = $min;
 			}

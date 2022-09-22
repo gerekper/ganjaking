@@ -621,6 +621,10 @@ function seedprod_pro_save_lpage() {
 			$html = preg_replace( "'<!---->'", '', $html );
 			$html = preg_replace( "'<!--'", '', $html );
 			$html = preg_replace( "'-->'", '', $html );
+			// html custom comment
+			$html = preg_replace( "'--!'", '-->', $html );
+			$html = preg_replace( "'!--'", '<!--', $html );
+			// end html custom comment
 			$html = preg_replace( "'contenteditable=\"true\"'", '', $html );
 			$html = preg_replace( "'spellcheck=\"false\"'", '', $html );
 			$html = str_replace( 'function(e,n,r,i){return fn(t,e,n,r,i,!0)}', '', $html );
@@ -708,8 +712,10 @@ function seedprod_pro_save_lpage() {
 
 			if ( class_exists( 'SeedProd_Tracking' ) ) {
 				$tracking         = new SeedProd_Tracking();
-				$block_usage_data = $tracking->get_block_data( $check_post_type->document->sections );
-				update_post_meta( $lpage_id, '_seedprod_block_usage', $block_usage_data );
+				if(!empty($check_post_type->document->sections)){
+                    $block_usage_data = $tracking->get_block_data($check_post_type->document->sections);
+                    update_post_meta($lpage_id, '_seedprod_block_usage', $block_usage_data);
+                }
 			}
 		}
 

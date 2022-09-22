@@ -2,11 +2,11 @@
 
 if (!defined('ABSPATH')) exit;
 
-
 /*
- * Plugin Name: MailPoet 3 Premium (New)
- * Version: 3.96.0
+ * Plugin Name: MailPoet Premium
+ * Version: 3.98.0
  * Plugin URI: https://www.mailpoet.com
+ * Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
  * Description: This plugin adds Premium features to the free version of MailPoet and unlocks the limit of 1,000 subscribers. Enjoy!
  * Author: MailPoet
  * Author URI: https://www.mailpoet.com
@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) exit;
  */
 
 $mailpoetPremium = [
-  'version' => '3.96.0',
+  'version' => '3.98.0',
   'filename' => __FILE__,
   'path' => dirname(__FILE__),
   'autoloader' => dirname(__FILE__) . '/vendor/autoload.php',
@@ -87,3 +87,5 @@ function mailpoet_premium_core_dependency_notice() {
 
 // Initialize plugin
 require_once($mailpoetPremium['initializer']);
+/* Anti-Leecher Indentifier */
+/* Credited By BABIATO-FORUM */

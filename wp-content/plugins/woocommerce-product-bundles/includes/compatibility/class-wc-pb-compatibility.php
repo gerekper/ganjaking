@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles compatibility with other WC extensions.
  *
  * @class    WC_PB_Compatibility
- * @version  6.16.1
+ * @version  6.17.0
  */
 class WC_PB_Compatibility {
 
@@ -241,7 +241,7 @@ class WC_PB_Compatibility {
 		}
 
 		// Min Max Quantities integration.
-		if ( class_exists( 'WC_Min_Max_Quantities' ) ) {
+		if ( class_exists( 'WC_Min_Max_Quantities' ) && defined( 'WC_MIN_MAX_QUANTITIES' ) && version_compare( WC_MIN_MAX_QUANTITIES, $this->required[ 'mmq' ] ) >= 0 ) {
 			$module_paths[ 'min_max_quantities' ] = WC_PB_ABSPATH . 'includes/compatibility/modules/class-wc-pb-min-max-compatibility.php';
 		}
 

@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) || exit;
 		<span class="cpf-upload-wrap">
 		<?php
 		if ( ! empty( $upload_text ) ) {
-			echo '<span>' . esc_html( $upload_text ) . '</span>';
+			echo '<span class="cpf-upload-text">' . esc_html( $upload_text ) . '</span>';
 		}
 		$input_args = [
 			'nodiv'   => 1,
@@ -35,7 +35,6 @@ defined( 'ABSPATH' ) || exit;
 				'data-rules'          => $rules,
 				'data-original-rules' => $original_rules,
 				'data-rulestype'      => $rules_type,
-				'data-filename'       => basename( $saved_value ),
 				'data-file'           => $saved_value,
 				'accept'              => $allowed_mimes,
 			],

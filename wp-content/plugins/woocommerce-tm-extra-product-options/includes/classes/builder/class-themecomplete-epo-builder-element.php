@@ -1173,17 +1173,23 @@ abstract class THEMECOMPLETE_EPO_BUILDER_ELEMENT {
 				'wc_epo_admin_element_repeater_settings',
 				[
 					[
-						'id'      => $name . '_repeater',
-						'default' => '',
-						'type'    => 'checkbox',
-						'tags'    => [
+						'id'       => $name . '_repeater',
+						'default'  => '',
+						'type'     => 'checkbox',
+						'tags'     => [
 							'class' => 'c activate-element-repeater',
 							'id'    => 'builder_' . $name . '_repeater',
 							'name'  => 'tm_meta[tmfbuilder][' . $name . '_repeater][]',
 							'value' => '1',
 						],
-						'label'   => esc_html__( 'Enable repeater', 'woocommerce-tm-extra-product-options' ),
-						'desc'    => esc_html__( 'This will make this element repeatable.', 'woocommerce-tm-extra-product-options' ),
+						'label'    => esc_html__( 'Enable repeater', 'woocommerce-tm-extra-product-options' ),
+						'desc'     => esc_html__( 'This will make this element repeatable.', 'woocommerce-tm-extra-product-options' ),
+						'required' => [
+							'.element-connector' => [
+								'operator' => 'is',
+								'value'    => '',
+							],
+						],
 					],
 					[
 						'id'       => $name . '_repeater_quantity',
@@ -1200,6 +1206,10 @@ abstract class THEMECOMPLETE_EPO_BUILDER_ELEMENT {
 						'required' => [
 							'.activate-element-repeater' => [
 								'operator' => 'isnot',
+								'value'    => '',
+							],
+							'.element-connector'         => [
+								'operator' => 'is',
 								'value'    => '',
 							],
 						],
@@ -1223,6 +1233,10 @@ abstract class THEMECOMPLETE_EPO_BUILDER_ELEMENT {
 								'operator' => 'isnot',
 								'value'    => '',
 							],
+							'.element-connector'         => [
+								'operator' => 'is',
+								'value'    => '',
+							],
 						],
 					],
 					[
@@ -1244,6 +1258,10 @@ abstract class THEMECOMPLETE_EPO_BUILDER_ELEMENT {
 								'operator' => 'isnot',
 								'value'    => '',
 							],
+							'.element-connector'         => [
+								'operator' => 'is',
+								'value'    => '',
+							],
 						],
 					],
 					[
@@ -1261,6 +1279,35 @@ abstract class THEMECOMPLETE_EPO_BUILDER_ELEMENT {
 						'required' => [
 							'.activate-element-repeater' => [
 								'operator' => 'isnot',
+								'value'    => '',
+							],
+							'.element-connector'         => [
+								'operator' => 'is',
+								'value'    => '',
+							],
+						],
+					],
+				]
+			) : [],
+			// Radio buttons connector setting.
+			'radiobuttons' === $name && ! empty( $tabs_override['repeater_settings'] ) ? apply_filters(
+				'wc_epo_admin_element_connector_settings',
+				[
+					[
+						'id'       => $name . '_connector',
+						'default'  => '',
+						'type'     => 'text',
+						'tags'     => [
+							'class' => 't element-connector',
+							'id'    => 'builder_' . $name . '_connector',
+							'name'  => 'tm_meta[tmfbuilder][' . $name . '_connector][]',
+							'value' => '',
+						],
+						'label'    => esc_html__( 'Radio Button Connector ID', 'woocommerce-tm-extra-product-options' ),
+						'desc'     => esc_html__( 'Enter a custom id to connect different radio button elements.', 'woocommerce-tm-extra-product-options' ),
+						'required' => [
+							'.activate-element-repeater' => [
+								'operator' => 'is',
 								'value'    => '',
 							],
 						],

@@ -164,6 +164,14 @@ class WC_Deposits_Product_Manager {
 		}
 
 		if ( ! $percentage ) {
+			/**
+			 * Filters fixed amount deposit value.
+			 * This filter is used by "WooCommerce Multi-Currency" plugin to convert deposit amount to specific currency.
+			 *
+			 * @param float      $amount  Fixed amount deposit value.
+			 * @param WC_Product $product WC_Product object.
+			 */
+			$amount = apply_filters( 'woocommerce_deposits_fixed_deposit_amount', $amount, $product );
 			return wc_price( self::get_price( $product, $amount ) );
 		} else {
 			return $amount . '%';
@@ -215,6 +223,15 @@ class WC_Deposits_Product_Manager {
 		if ( $percentage ) {
 			$product_price = is_null( $product_price ) ? $product->get_price() : $product_price;
 			$amount        = ( $product_price / 100 ) * $amount;
+		} else {
+			/**
+			 * Filters fixed amount deposit value.
+			 * This filter is used by "WooCommerce Multi-Currency" plugin to convert deposit amount to specific currency.
+			 *
+			 * @param float      $amount  Fixed amount deposit value.
+			 * @param WC_Product $product WC_Product object.
+			 */
+			$amount = apply_filters( 'woocommerce_deposits_fixed_deposit_amount', $amount, $product );
 		}
 
 		$price = 'display' === $context ? self::get_price( $product, $amount ) : $amount;
@@ -230,11 +247,6 @@ class WC_Deposits_Product_Manager {
 	 * @return float
 	 */
 	protected static function get_price( $product, $amount ) {
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			$tax_display_mode = get_option( 'woocommerce_tax_display_shop' );
-			return 'incl' === $tax_display_mode ? $product->get_price_including_tax( 1, $amount ) : $product->get_price_excluding_tax( 1, $amount );
-		} else {
-			return wc_get_price_to_display( $product, array( 'qty' => 1, 'price' => $amount ) );
-		}
+		return wc_get_price_to_display( $product, array( 'qty' => 1, 'price' => $amount ) );
 	}
 }

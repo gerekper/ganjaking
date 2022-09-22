@@ -166,9 +166,13 @@ defined( 'ABSPATH' ) || exit;
 	<div class="float-editbox" id="tc-floatbox-content">
 		<div class="tc-upload-messages">
 			<div class="tc-upload-message">{{{ data.message }}}</div>
-			<# for (var i in data.files) {
-				if (data.files.hasOwnProperty(i)) {#>
-				<div class="tc-upload-files">{{{ data.files[i] }}}</div>
+			<# for (var id in data.files) {
+				if (data.files.hasOwnProperty(id)) {#>
+					<# for (var i in id) {
+						if (data.files[id].hasOwnProperty(i)) {#>
+						<div class="tc-upload-files">{{{ data.files[id][i] }}}</div>
+						<# }
+					}#>
 				<# }
 			}#>
 		</div>

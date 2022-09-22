@@ -81,6 +81,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 		add_action( 'woocommerce_saved_order_items', [ $this, 'tm_woocommerce_saved_order_items' ], 10, 2 );
 
 		// For settings page.
+		add_action( 'woocommerce_admin_settings_sanitize_option_tm_epo_math', [ $this, 'tm_return_raw' ], 10, 3 );
 		add_action( 'woocommerce_admin_settings_sanitize_option_tm_epo_css_code', [ $this, 'tm_return_raw' ], 10, 3 );
 		add_action( 'woocommerce_admin_settings_sanitize_option_tm_epo_js_code', [ $this, 'tm_return_raw' ], 10, 3 );
 		add_action( 'woocommerce_admin_settings_sanitize_option_tm_epo_separator_cart_text', [ $this, 'tm_return_raw' ], 10, 3 );
@@ -195,7 +196,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 				$saved_epos          = false;
 				$original_saved_epos = false;
 				if ( $has_epo || $has_fee ) {
-					$saved_epos          = maybe_unserialize( $item_meta['_tmcartepo_data'][0] );
+					$saved_epos          = themecomplete_maybe_unserialize( $item_meta['_tmcartepo_data'][0] );
 					$original_saved_epos = $saved_epos;
 				}
 
@@ -406,7 +407,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 	 */
 	public function order_get_tax_price( $price, $price_has_tax, $prices_include_tax, $order, $order_taxes, $order_items, $item_id ) {
 
-		$tax_data  = wc_tax_enabled() ? maybe_unserialize( isset( $order_items[ $item_id ]['line_tax_data'] ) ? $order_items[ $item_id ]['line_tax_data'] : '' ) : false;
+		$tax_data  = wc_tax_enabled() ? themecomplete_maybe_unserialize( isset( $order_items[ $item_id ]['line_tax_data'] ) ? $order_items[ $item_id ]['line_tax_data'] : '' ) : false;
 		$tax_price = 0;
 
 		if ( ! empty( $tax_data ) && $prices_include_tax ) {
@@ -513,7 +514,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 
 		if ( $has_epo ) {
 
-			$epos = maybe_unserialize( $item_meta['_tmcartepo_data'][0] );
+			$epos = themecomplete_maybe_unserialize( $item_meta['_tmcartepo_data'][0] );
 
 			if ( $epos && is_array( $epos ) ) {
 
@@ -648,7 +649,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 
 		if ( $has_fee ) {
 
-			$epos = maybe_unserialize( $item_meta['_tmcartfee_data'][0] );
+			$epos = themecomplete_maybe_unserialize( $item_meta['_tmcartfee_data'][0] );
 
 			if ( isset( $epos[0] ) ) {
 				$epos = $epos[0];
@@ -1036,7 +1037,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 
 								foreach ( $new_rules_ids as $rule_id ) {
 
-									$_regular_price    = get_post_meta( $rule_id, '_regular_price', true );
+									$_regular_price    = themecomplete_get_post_meta( $rule_id, '_regular_price', true );
 									$new_regular_price = [];
 
 									/*
@@ -1151,15 +1152,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 
 		$wc_screen_id = sanitize_title( esc_attr__( 'WooCommerce', 'woocommerce' ) );
 		$screen       = get_current_screen();
-		$wcsids       = wc_get_screen_ids();
-
-		if ( is_array( $wcsids ) && isset( $wcsids[3] ) && isset( $wcsids[2] ) && $wcsids[2] === $wc_screen_id . '_page_wc-shipping' ) {
-			$wcsids = $wcsids[3];
-		} elseif ( is_array( $wcsids ) && isset( $wcsids[2] ) ) {
-			$wcsids = $wcsids[2];
-		} else {
-			$wcsids = $wc_screen_id . '_page_wc-settings';
-		}
+		$wcsids       = $wc_screen_id . '_page_wc-settings';
 
 		if ( isset( $_GET['tab'] ) && THEMECOMPLETE_EPO_ADMIN_SETTINGS_ID === $_GET['tab'] && in_array( $screen->id, [ $wcsids ], true ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			return true;
@@ -1203,7 +1196,6 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 			wp_enqueue_style( 'themecomplete-epo-admin-font', THEMECOMPLETE_EPO_ADMIN_GLOBAL()->admin_font_url(), [], '1.0.0' );
 			wp_enqueue_style( 'themecomplete-epo-admin-settings', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/admin/tm-epo-admin-settings' . $ext . '.css', false, THEMECOMPLETE_EPO_VERSION );
 		}
-
 	}
 
 	/**
@@ -1442,7 +1434,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 			$args = [
 				'post_type'   => THEMECOMPLETE_EPO_LOCAL_POST_TYPE,
 				'post_status' => [ 'private', 'publish' ],
-				'numberposts' => - 1,
+				'numberposts' => -1,
 				'orderby'     => 'menu_order',
 				'order'       => 'asc',
 				'post_parent' => $post_id,
@@ -1478,7 +1470,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 				update_post_meta( $tmcp_id, 'tmcp_attribute', $att_id );
 				update_post_meta( $tmcp_id, 'tmcp_attribute_is_taxonomy', $attributes[ $att_id ]['is_taxonomy'] );
 				$tmcp_post_status = 'publish';
-				$tmcp_data        = get_post_meta( $tmcp_id );
+				$tmcp_data        = themecomplete_get_post_meta( $tmcp_id );
 				$tmcp_required    = 0;
 				$tmcp_hide_price  = 0;
 				$tmcp_limit       = '';
@@ -1496,7 +1488,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 				$args       = [
 					'post_type'   => 'product_variation',
 					'post_status' => [ 'private', 'publish' ],
-					'numberposts' => - 1,
+					'numberposts' => -1,
 					'orderby'     => 'menu_order',
 					'order'       => 'asc',
 					'post_parent' => $post_id,
@@ -1564,9 +1556,9 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 
 					if ( ! empty( $tm_metas ) && is_array( $tm_metas ) && isset( $tm_metas['tm_meta'] ) && is_array( $tm_metas['tm_meta'] ) ) {
 						$tm_meta = $tm_metas['tm_meta'];
-						THEMECOMPLETE_EPO_ADMIN_GLOBAL()->tm_save_meta( $post_id, $tm_meta, $old_data, 'tm_meta' );
+						themecomplete_save_post_meta( $post_id, $tm_meta, $old_data, 'tm_meta' );
 					} else {
-						THEMECOMPLETE_EPO_ADMIN_GLOBAL()->tm_save_meta( $post_id, false, $old_data, 'tm_meta' );
+						themecomplete_save_post_meta( $post_id, false, $old_data, 'tm_meta' );
 					}
 				}
 			} elseif ( isset( $_POST['tm_meta_serialized_wpml'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
@@ -1580,9 +1572,9 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 
 					if ( ! empty( $tm_metas ) && is_array( $tm_metas ) && isset( $tm_metas['tm_meta'] ) && is_array( $tm_metas['tm_meta'] ) ) {
 						$tm_meta = $tm_metas['tm_meta'];
-						THEMECOMPLETE_EPO_ADMIN_GLOBAL()->tm_save_meta( $post_id, $tm_meta, $old_data, 'tm_meta_wpml' );
+						themecomplete_save_post_meta( $post_id, $tm_meta, $old_data, 'tm_meta_wpml' );
 					} else {
-						THEMECOMPLETE_EPO_ADMIN_GLOBAL()->tm_save_meta( $post_id, false, $old_data, 'tm_meta_wpml' );
+						themecomplete_save_post_meta( $post_id, false, $old_data, 'tm_meta_wpml' );
 					}
 				}
 			}

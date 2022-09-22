@@ -31,6 +31,13 @@ class THEMECOMPLETE_EPO_POST_TYPES {
 	public static $template_type;
 
 	/**
+	 * The lookup table post type
+	 *
+	 * @var string
+	 */
+	public static $lookuptable_type;
+
+	/**
 	 * The single instance of the class
 	 *
 	 * @var THEMECOMPLETE_EPO_POST_TYPES|null
@@ -93,7 +100,7 @@ class THEMECOMPLETE_EPO_POST_TYPES {
 				'labels'              => [
 					'name'               => esc_html__( 'Global Forms', 'woocommerce-tm-extra-product-options' ),
 					'singular_name'      => esc_html__( 'Global Form', 'woocommerce-tm-extra-product-options' ),
-					'menu_name'          => esc_html_x( 'TM Global Product Options', 'post type general name', 'woocommerce-tm-extra-product-options' ),
+					'menu_name'          => esc_html_x( 'Global Forms', 'post type general name', 'woocommerce-tm-extra-product-options' ),
 					'add_new'            => esc_html__( 'Add Global Form', 'woocommerce-tm-extra-product-options' ),
 					'add_new_item'       => esc_html__( 'Add New Global Form', 'woocommerce-tm-extra-product-options' ),
 					'edit'               => esc_html__( 'Edit', 'woocommerce-tm-extra-product-options' ),
@@ -123,8 +130,12 @@ class THEMECOMPLETE_EPO_POST_TYPES {
 			]
 		);
 
-		register_taxonomy_for_object_type( 'product_cat', THEMECOMPLETE_EPO_GLOBAL_POST_TYPE );
-		register_taxonomy_for_object_type( 'product_tag', THEMECOMPLETE_EPO_GLOBAL_POST_TYPE );
+		$custom_product_taxonomies = get_object_taxonomies( 'product' );
+		if ( is_array( $custom_product_taxonomies ) && count( $custom_product_taxonomies ) > 0 ) {
+			foreach ( $custom_product_taxonomies as $tax ) {
+				register_taxonomy_for_object_type( $tax, THEMECOMPLETE_EPO_GLOBAL_POST_TYPE );
+			}
+		}
 
 	}
 
@@ -177,6 +188,53 @@ class THEMECOMPLETE_EPO_POST_TYPES {
 	}
 
 	/**
+	 * Register lookup table post type
+	 *
+	 * @since 6.1
+	 */
+	public static function register_lookuptable_post_type() {
+
+		register_post_type(
+			THEMECOMPLETE_EPO_LOOKUPTABLE_POST_TYPE,
+			[
+				'labels'               => [
+					'name'               => esc_html__( 'Lookup tables', 'woocommerce-tm-extra-product-options' ),
+					'singular_name'      => esc_html__( 'Lookup table', 'woocommerce-tm-extra-product-options' ),
+					'menu_name'          => esc_html_x( 'Lookup tables', 'post type general name', 'woocommerce-tm-extra-product-options' ),
+					'add_new'            => esc_html__( 'Add Lookup table', 'woocommerce-tm-extra-product-options' ),
+					'add_new_item'       => esc_html__( 'Add New Lookup table', 'woocommerce-tm-extra-product-options' ),
+					'edit'               => esc_html__( 'Edit', 'woocommerce-tm-extra-product-options' ),
+					'edit_item'          => esc_html__( 'Edit Lookup table', 'woocommerce-tm-extra-product-options' ),
+					'new_item'           => esc_html__( 'New Lookup table', 'woocommerce-tm-extra-product-options' ),
+					'view'               => esc_html__( 'View Lookup table', 'woocommerce-tm-extra-product-options' ),
+					'view_item'          => esc_html__( 'View Lookup table', 'woocommerce-tm-extra-product-options' ),
+					'search_items'       => esc_html__( 'Search Lookup table', 'woocommerce-tm-extra-product-options' ),
+					'not_found'          => esc_html__( 'No Lookup table found', 'woocommerce-tm-extra-product-options' ),
+					'not_found_in_trash' => esc_html__( 'No Lookup table found in trash', 'woocommerce-tm-extra-product-options' ),
+					'parent'             => esc_html__( 'Parent Lookup table', 'woocommerce-tm-extra-product-options' ),
+				],
+				'description'          => esc_attr__( 'This is where you can add new lookup tables.', 'woocommerce' ),
+				'public'               => false,
+				'show_ui'              => true,
+				'show_in_menu'         => 'tcepo',
+				'capability_type'      => 'product',
+				'map_meta_cap'         => true,
+				'publicly_queryable'   => false,
+				'exclude_from_search'  => true,
+				'hierarchical'         => false,
+				'rewrite'              => false,
+				'query_var'            => false,
+				'supports'             => [ 'title' ],
+				'has_archive'          => false,
+				'show_in_nav_menus'    => false,
+				'register_meta_box_cb' => [ THEMECOMPLETE_EPO_ADMIN_LOOKUPTABLE(), 'preload_lookuptable_settings' ],
+				'_edit_link'           => 'post.php?post=%d', // WordPress 4.4 fix.
+			]
+		);
+
+	}
+
+	/**
 	 * Register post types
 	 *
 	 * @since 4.8
@@ -186,9 +244,11 @@ class THEMECOMPLETE_EPO_POST_TYPES {
 		self::register_local_post_type();
 		self::register_global_post_type();
 		self::register_template_post_type();
+		self::register_lookuptable_post_type();
 
-		self::$global_type   = get_post_type_object( THEMECOMPLETE_EPO_GLOBAL_POST_TYPE );
-		self::$template_type = get_post_type_object( THEMECOMPLETE_EPO_TEMPLATE_POST_TYPE );
+		self::$global_type      = get_post_type_object( THEMECOMPLETE_EPO_GLOBAL_POST_TYPE );
+		self::$template_type    = get_post_type_object( THEMECOMPLETE_EPO_TEMPLATE_POST_TYPE );
+		self::$lookuptable_type = get_post_type_object( THEMECOMPLETE_EPO_LOOKUPTABLE_POST_TYPE );
 
 	}
 

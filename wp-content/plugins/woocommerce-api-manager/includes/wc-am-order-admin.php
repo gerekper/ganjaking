@@ -313,17 +313,18 @@ class WC_AM_Order_Admin {
 		 *
 		 * @since 2.1.7
 		 */
-		WC_AM_SMART_CACHE()->delete_cache(
-			wc_clean( array(
-				          'admin_resources' => array(
-					          'instance'      => $_POST[ 'instance' ],
-					          'order_id' => $_POST[ 'order_id' ],
-					          'sub_parent_id' => $_POST[ 'sub_parent_id' ],
-					          'api_key'       => $_POST[ 'api_key' ],
-					          'product_id'    => $_POST[ 'product_id' ],
-					          'user_id'       => $_POST[ 'user_id' ]
-				          )
-			          ) ), true );
+		$admin_resources = array(
+			'instance'      => $_POST[ 'instance' ],
+			'order_id'      => $_POST[ 'order_id' ],
+			'sub_parent_id' => $_POST[ 'sub_parent_id' ],
+			'api_key'       => $_POST[ 'api_key' ],
+			'product_id'    => $_POST[ 'product_id' ],
+			'user_id'       => $_POST[ 'user_id' ]
+		);
+
+		WC_AM_SMART_CACHE()->delete_cache( wc_clean( array(
+			                                             'admin_resources' => $admin_resources
+		                                             ) ), true );
 		wp_die();
 	}
 
@@ -340,11 +341,11 @@ class WC_AM_Order_Admin {
 	public function save( $post_id, $post ) {
 		global $wpdb;
 
-		if ( isset( $_POST[ 'activations_purchased_total' ] ) && isset( $_POST[ 'product_id' ] ) && isset( $_POST[ 'product_order_api_key' ] ) && isset( $_POST[ 'access_expires' ] ) ) {
-			$product_order_api_key       = $_POST[ 'product_order_api_key' ];
-			$activations_purchased_total = $_POST[ 'activations_purchased_total' ];
-			$access_expires              = $_POST[ 'access_expires' ];
-			$max_loop                    = max( array_keys( $product_order_api_key ) );
+		if ( isset( $_POST[ 'activations_purchased_total' ] ) && isset( $_POST[ 'product_id' ] ) && isset( $_POST[ 'product_order_api_key' ] ) && isset( $_POST[ 'current_activations_purchased_total' ] ) ) {
+			$product_order_api_key               = $_POST[ 'product_order_api_key' ];
+			$activations_purchased_total         = $_POST[ 'activations_purchased_total' ];
+			$current_activations_purchased_total = $_POST[ 'current_activations_purchased_total' ];
+			$max_loop                            = max( array_keys( $product_order_api_key ) );
 
 			for ( $i = 0; $i <= $max_loop; $i ++ ) {
 				if ( ! isset( $product_order_api_key[ $i ] ) ) {
@@ -353,63 +354,67 @@ class WC_AM_Order_Admin {
 
 				$product_id = (int) $_POST[ 'product_id' ][ $i ];
 
-				$data = array(
-					'activations_purchased_total' => ! empty( $activations_purchased_total[ $i ] ) ? (int) $activations_purchased_total[ $i ] : apply_filters( 'wc_api_manager_custom_default_api_activations', 1, $product_id )
-				);
+				if ( $activations_purchased_total[ $i ] > $current_activations_purchased_total[ $i ] ) {
+					//$item_quanity_and_refund_quantity = WC_AM_API_RESOURCE_DATA_STORE()->get_item_quantity_and_refund_quantity_by_order_id_and_product_id( $post_id, $product_id );
+					//$quanity_total                    = absint( $item_quanity_and_refund_quantity->item_qty - $item_quanity_and_refund_quantity->refund_qty );
 
-				$where = array(
-					'order_id'   => $post_id,
-					'product_id' => $product_id
-				);
+					$data = array(
+						'activations_purchased'       => ! empty( $activations_purchased_total[ $i ] ) ? $activations_purchased_total[ $i ] : apply_filters( 'wc_api_manager_custom_default_api_activations', 1, $product_id ),
+						'activations_purchased_total' => ! empty( $activations_purchased_total[ $i ] ) ? $activations_purchased_total[ $i ] : apply_filters( 'wc_api_manager_custom_default_api_activations', 1, $product_id )
+					);
 
-				$data_format = array(
-					'%d'
-				);
+					$where = array(
+						'order_id'   => $post_id,
+						'product_id' => $product_id
+					);
 
-				$where_format = array(
-					'%d',
-					'%d'
-				);
+					$data_format = array(
+						'%d',
+						'%d'
+					);
 
-				$wpdb->update( $wpdb->prefix . WC_AM_USER()->get_api_resource_table_name(), $data, $where, $data_format, $where_format );
+					$where_format = array(
+						'%d',
+						'%d'
+					);
 
-				/**
-				 * Update access_expires
-				 */
-				// Value set on Product edit for API Access Expires.
-				$product_access_expires = absint( WC_AM_PRODUCT_DATA_STORE()->get_meta( $product_id, '_access_expires' ) );
-				// Time when order created.
-				$order_created_time       = WC_AM_ORDER_DATA_STORE()->get_order_time_to_epoch_time_stamp( $post_id );
-				$line_item_access_expires = empty( $product_access_expires ) ? 0 : absint( ( (int) $product_access_expires * DAY_IN_SECONDS ) + $order_created_time );
-
-				if ( $line_item_access_expires != (int) $access_expires[ $i ] ) {
-					$datediff       = absint( (int) strtotime( (string) $access_expires[ $i ] ) - WC_AM_ORDER_DATA_STORE()->get_current_time_stamp() );
-					$new_access_expires = absint( $datediff + $line_item_access_expires );
-				} else {
-					$new_access_expires = absint( $access_expires[ $i ] );
+					$wpdb->update( $wpdb->prefix . WC_AM_USER()->get_api_resource_table_name(), $data, $where, $data_format, $where_format );
 				}
 
-				$data = array(
-					'access_expires' => $new_access_expires
-				);
+				/*
+				 * Update access_expires
+				 *
+				 * @since 2.4
+				 */
+				if ( isset( $_POST[ 'access_expires' ] ) && isset( $_POST[ 'current_access_expires' ] ) && ! empty( $_POST[ 'current_access_expires' ][ $i ] ) ) {
+					$new_access_expires               = WC_AM_FORMAT()->date_to_unix_timestamp_with_timezone_offset( $_POST[ 'access_expires' ][ $i ] );
+					$current_access_expires_timestamp = WC_AM_FORMAT()->date_to_unix_timestamp_with_timezone_offset( WC_AM_FORMAT()->unix_timestamp_to_date_i18n( $_POST[ 'current_access_expires' ][ $i ] ) );
+					$order_created_time               = WC_AM_ORDER_DATA_STORE()->get_order_time_to_epoch_time_stamp( $post_id );
 
-				$where = array(
-					'order_id'   => $post_id,
-					'product_id' => $product_id,
-					'sub_id'     => 0
-				);
+					if ( $current_access_expires_timestamp != $order_created_time && $new_access_expires != $current_access_expires_timestamp ) {
+						$data = array(
+							'access_expires' => $new_access_expires
+						);
 
-				$data_format = array(
-					'%d'
-				);
+						$where = array(
+							'order_id'   => $post_id,
+							'product_id' => $product_id,
+							'sub_id'     => 0
+						);
 
-				$where_format = array(
-					'%d',
-					'%d',
-					'%d'
-				);
+						$data_format = array(
+							'%d'
+						);
 
-				$wpdb->update( $wpdb->prefix . WC_AM_USER()->get_api_resource_table_name(), $data, $where, $data_format, $where_format );
+						$where_format = array(
+							'%d',
+							'%d',
+							'%d'
+						);
+
+						$wpdb->update( $wpdb->prefix . WC_AM_USER()->get_api_resource_table_name(), $data, $where, $data_format, $where_format );
+					}
+				}
 			}
 
 			WC_AM_SMART_CACHE()->refresh_cache_by_order_id( $post_id );

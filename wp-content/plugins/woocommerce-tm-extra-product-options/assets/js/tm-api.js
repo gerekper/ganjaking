@@ -16,83 +16,6 @@
  */
 ( function() {
 	'use strict';
-	/**
-	 * Number.isFinite
-	 *
-	 * The Number.isFinite() method determines whether the passed value is a finite number.
-	 *
-	 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isFinite
-	 */
-	if ( Number.isFinite === undefined ) {
-		Number.isFinite = function( value ) {
-			return typeof value === 'number' && isFinite( value );
-		};
-	}
-
-	/**
-	 * Number.isInteger
-	 *
-	 * The Number.isInteger() method determines whether the passed value is an integer.
-	 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isInteger
-	 *
-	 * @param {any} value the value to check
-	 */
-	Number.isInteger =
-		Number.isInteger ||
-		function( value ) {
-			return typeof value === 'number' && isFinite( value ) && Math.floor( value ) === value;
-		};
-
-	/**
-	 * Number.isNaN
-	 *
-	 * The Number.isNaN() method determines whether the passed value is NaN and its type is Number.
-	 * It is a more robust version of the original, global isNaN().
-	 *
-	 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN
-	 */
-	if ( Number.isNaN === undefined ) {
-		/* eslint-disable no-self-compare */
-		Number.isNaN = function( value ) {
-			return value !== value;
-		};
-		/* eslint-disable no-self-compare */
-	}
-
-	/**
-	 * String.prototype.startsWith()
-	 *
-	 * The startsWith() method determines whether a string begins with
-	 * the characters of a specified string, returning true or false as appropriate.
-	 *
-	 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith
-	 */
-	if ( ! String.prototype.startsWith ) {
-		Object.defineProperty( String.prototype, 'startsWith', {
-			value: function( search, pos ) {
-				return this.substr( ! pos || pos < 0 ? 0 : +pos, search.length ) === search;
-			}
-		} );
-	}
-
-	/**
-	 * String.prototype.endsWith()
-	 *
-	 * The endsWith() method determines whether a string ends with
-	 * the characters of a specified string, returning true or false as appropriate.
-	 *
-	 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith
-	 */
-	if ( ! String.prototype.endsWith ) {
-		Object.defineProperty( String.prototype, 'endsWith', {
-			value: function( search, this_len ) {
-				if ( this_len === undefined || this_len > this.length ) {
-					this_len = this.length;
-				}
-				return this.substring( this_len - search.length, this_len ) === search;
-			}
-		} );
-	}
 
 	/**
 	 * String.prototype.isNumeric()
@@ -107,205 +30,6 @@
 				return ! isNaN( parseFloat( this ) ) && isFinite( this );
 			}
 		} );
-	}
-
-	/**
-	 * Object.assign()
-	 *
-	 * The Object.assign() method is used to copy the values of all enumerable own properties
-	 * from one or more source objects to a target object. It will return the target object.
-	 *
-	 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
-	 */
-	if ( typeof Object.assign !== 'function' ) {
-		/* eslint-disable no-unused-vars */
-		// Must be writable: true, enumerable: false, configurable: true
-		Object.defineProperty( Object, 'assign', {
-			value: function assign( target, varArgs ) {
-				// .length of function is 2
-				var to;
-				var index;
-				var nextSource;
-				var nextKey;
-
-				if ( target === undefined || target === null ) {
-					// TypeError if undefined or null
-					throw new TypeError( 'Cannot convert undefined or null to object' );
-				}
-
-				to = Object( target );
-
-				for ( index = 1; index < arguments.length; index += 1 ) {
-					nextSource = arguments[ index ];
-
-					if ( nextSource !== undefined && nextSource !== null ) {
-						// Skip over if undefined or null
-						for ( nextKey in nextSource ) {
-							// Avoid bugs when hasOwnProperty is shadowed
-							if ( Object.prototype.hasOwnProperty.call( nextSource, nextKey ) ) {
-								to[ nextKey ] = nextSource[ nextKey ];
-							}
-						}
-					}
-				}
-				return to;
-			},
-			writable: true,
-			configurable: true
-		} );
-		/* eslint-enable no-unused-vars */
-	}
-
-	/**
-	 * Array.find()
-	 *
-	 * The find() method returns the value of the first element in the provided array that satisfies
-	 * the provided testing function.
-	 *
-	 * https://tc39.github.io/ecma262/#sec-array.prototype.find
-	 */
-
-	if ( ! Array.prototype.find ) {
-		Object.defineProperty( Array.prototype, 'find', {
-			value: function( predicate ) {
-				var o;
-				var len;
-				var thisArg;
-				var k;
-				var kValue;
-
-				// 1. Let O be ? ToObject(this value).
-				if ( this === null || this === undefined || this === false ) {
-					throw TypeError( '"this" is null or not defined' );
-				}
-
-				o = Object( this );
-
-				// 2. Let len be ? ToLength(? Get(O, "length")).
-				// eslint-disable-next-line no-bitwise
-				len = o.length >>> 0;
-
-				// 3. If IsCallable(predicate) is false, throw a TypeError exception.
-				if ( typeof predicate !== 'function' ) {
-					throw TypeError( 'predicate must be a function' );
-				}
-
-				// 4. If thisArg was supplied, let T be thisArg; else let T be undefined.
-				thisArg = arguments[ 1 ];
-
-				// 5. Let k be 0.
-				k = 0;
-
-				// 6. Repeat, while k < len
-				while ( k < len ) {
-					// a. Let Pk be ! ToString(k).
-					// b. Let kValue be ? Get(O, Pk).
-					// c. Let testResult be ToBoolean(? Call(predicate, T, « kValue, k, O »)).
-					// d. If testResult is true, return kValue.
-					kValue = o[ k ];
-					if ( predicate.call( thisArg, kValue, k, o ) ) {
-						return kValue;
-					}
-					// e. Increase k by 1.
-					k++;
-				}
-
-				// 7. Return undefined.
-				return undefined;
-			},
-			configurable: true,
-			writable: true
-		} );
-	}
-
-	/**
-	 * Array.findIndex()
-	 *
-	 * The findIndex() method returns the index of the first element in the array that satisfies the
-	 * provided testing function. Otherwise, it returns -1, indicating that no element passed the test.
-	 *
-	 * https://tc39.github.io/ecma262/#sec-array.prototype.findindex
-	 */
-
-	if ( ! Array.prototype.findIndex ) {
-		Object.defineProperty( Array.prototype, 'findIndex', {
-			value: function( predicate ) {
-				var o;
-				var len;
-				var thisArg;
-				var k;
-				var kValue;
-
-				// 1. Let O be ? ToObject(this value).
-				if ( this === null || this === undefined || this === false ) {
-					throw new TypeError( '"this" is null or not defined' );
-				}
-
-				o = Object( this );
-
-				// 2. Let len be ? ToLength(? Get(O, "length")).
-				// eslint-disable-next-line no-bitwise
-				len = o.length >>> 0;
-
-				// 3. If IsCallable(predicate) is false, throw a TypeError exception.
-				if ( typeof predicate !== 'function' ) {
-					throw new TypeError( 'predicate must be a function' );
-				}
-
-				// 4. If thisArg was supplied, let T be thisArg; else let T be undefined.
-				thisArg = arguments[ 1 ];
-
-				// 5. Let k be 0.
-				k = 0;
-
-				// 6. Repeat, while k < len
-				while ( k < len ) {
-					// a. Let Pk be ! ToString(k).
-					// b. Let kValue be ? Get(O, Pk).
-					// c. Let testResult be ToBoolean(? Call(predicate, T, « kValue, k, O »)).
-					// d. If testResult is true, return k.
-					kValue = o[ k ];
-					if ( predicate.call( thisArg, kValue, k, o ) ) {
-						return k;
-					}
-					// e. Increase k by 1.
-					k++;
-				}
-
-				// 7. Return -1.
-				return -1;
-			},
-			configurable: true,
-			writable: true
-		} );
-	}
-
-	/**
-	 * Function.prototype.bind()
-	 *
-	 * The bind() method creates a new function that, when called, has its this keyword set to the
-	 * provided value, with a given sequence of arguments preceding any provided when the new function is called.
-	 *
-	 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
-	 */
-	if ( ! Function.prototype.bind ) {
-		( function() {
-			var ArrayPrototypeSlice = Array.prototype.slice;
-			Function.prototype.bind = function() {
-				var thatFunc = this;
-				var thatArg = arguments[ 0 ];
-				var args = ArrayPrototypeSlice.call( arguments, 1 );
-				if ( typeof thatFunc !== 'function' ) {
-					// closest thing possible to the ECMAScript 5
-					// internal IsCallable function
-					throw new TypeError( 'Function.prototype.bind - ' + 'what is trying to be bound is not callable' );
-				}
-				return function() {
-					args.push.apply( args, arguments );
-					return thatFunc.apply( thatArg, args );
-				};
-			};
-		}() );
 	}
 }() );
 
@@ -578,6 +302,34 @@ window.jQuery.jMaskGlobals = {
 		}
 	};
 
+	$.epoAPI.util.basename = function( path ) {
+		return path.replace( /.*\//, '' );
+	};
+
+	// https://medium.com/javascript-in-plain-english/how-to-deep-copy-objects-and-arrays-in-javascript-7c911359b089
+	$.epoAPI.util.deepCopyArray = function( inObject ) {
+		var outObject;
+		var value;
+
+		if ( typeof inObject !== 'object' || inObject === null ) {
+			return inObject; // Return the value if inObject is not an object
+		}
+
+		// Create an array or object to hold the values
+		outObject = Array.isArray( inObject ) ? [] : {};
+
+		Object.keys( inObject ).forEach( function( key ) {
+			if ( inObject ) {
+				value = inObject[ key ];
+
+				// Recursively (deep) copy for nested objects, including arrays
+				outObject[ key ] = typeof value === 'object' && value !== null ? $.epoAPI.util.deepCopyArray( value ) : value;
+			}
+		} );
+
+		return outObject;
+	};
+
 	$.epoAPI.locale.getSystemDecimalSeparator = function() {
 		var n = 1.1;
 
@@ -725,7 +477,6 @@ window.jQuery.jMaskGlobals = {
 		regex = new RegExp( '[^0-9-' + decimal + ']', [ 'g' ] );
 		unformatted = parseFloat(
 			( '' + value )
-				.replace( /\((?=\d+)(.*)\)/, '-$1' ) // replace bracketed values with negatives
 				.replace( regex, '' ) // strip out any cruft
 				.replace( decimal, '.' ) // make sure decimal point is standard
 		);
@@ -748,11 +499,15 @@ window.jQuery.jMaskGlobals = {
 		var rounded;
 		var finalResult;
 
+		if ( ! Number.isFinite( value ) ) {
+			return '-';
+		}
+
 		precision = checkPrecision( precision, 2 );
 
-		exponentialForm = Number( unformat( value ) + 'e' + precision );
+		exponentialForm = Number( unformat( value ) * Math.pow( 10, precision ) );
 		rounded = Math.round( exponentialForm );
-		finalResult = Number( rounded + 'e-' + precision ).toFixed( precision );
+		finalResult = Number( rounded / Math.pow( 10, precision ) ).toFixed( precision );
 		return finalResult;
 	}
 
@@ -818,13 +573,16 @@ window.jQuery.jMaskGlobals = {
 
 			// Format number
 		} else {
+			if ( ! Number.isFinite( number ) ) {
+				return '-';
+			}
 			// Do some calc:
 			negative = number < 0 ? '-' : '';
 			base = parseInt( toFixed( Math.abs( number || 0 ), opts.precision ), 10 ) + '';
 			mod = base.length > 3 ? base.length % 3 : 0;
 
 			// Format the number:
-			number = negative + ( mod ? base.substr( 0, mod ) + opts.thousand : '' ) + base.substr( mod ).replace( /(\d{3})(?=\d)/g, '$1' + opts.thousand ) + ( opts.precision ? opts.decimal + toFixed( Math.abs( number ), opts.precision ).split( '.' )[ 1 ] : '' );
+			number = negative + ( mod ? base.substring( 0, mod ) + opts.thousand : '' ) + base.substring( mod ).replace( /(\d{3})(?=\d)/g, '$1' + opts.thousand ) + ( opts.precision ? opts.decimal + toFixed( Math.abs( number ), opts.precision ).split( '.' )[ 1 ] : '' );
 		}
 
 		return number;

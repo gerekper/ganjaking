@@ -2,7 +2,7 @@
 	<h2><?php echo esc_html( apply_filters( 'woocommerce_box_office_my_account_tickets_title', $title ) ); ?></h2>
 <?php endif; ?>
 
-<?php $description = apply_filters( 'woocommerce_box_office_user_tickets_description', __( 'Edit each of your purchased tickets using the links below.', 'woocommerce-box-office' ) ); ?>
+<?php $description = apply_filters( 'woocommerce_box_office_user_tickets_description', __( 'View or edit each of your purchased tickets using the links below.', 'woocommerce-box-office' ) ); ?>
 
 <?php if ( $description ) : ?>
 	<p class="ticket-list-description"><?php echo esc_html( $description ); ?></p>

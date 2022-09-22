@@ -301,20 +301,18 @@ class WC_Product_Booking_Rule_Manager {
 		$index = 1;
 		// Go through rules
 		foreach ( $rules as $key => $fields ) {
-			if ( empty( $fields['cost'] ) && empty( $fields['base_cost'] ) && empty( $fields['override_block'] ) ) {
+			if ( empty( $fields['cost'] ) && empty( $fields['base_cost'] ) ) {
 				continue;
 			}
 
-			$cost           = apply_filters( 'woocommerce_bookings_process_cost_rules_cost', $fields['cost'], $fields, $key );
-			$modifier       = $fields['modifier'];
-			$base_cost      = apply_filters( 'woocommerce_bookings_process_cost_rules_base_cost', $fields['base_cost'], $fields, $key );
-			$base_modifier  = $fields['base_modifier'];
-			$override_block = apply_filters_deprecated( 'woocommerce_bookings_process_cost_rules_override_block', array( ( isset( $fields['override_block'] ) ? $fields['override_block'] : '' ), $fields, $key ), '1.15.61' );
+			$cost          = apply_filters( 'woocommerce_bookings_process_cost_rules_cost', $fields['cost'], $fields, $key );
+			$modifier      = $fields['modifier'];
+			$base_cost     = apply_filters( 'woocommerce_bookings_process_cost_rules_base_cost', $fields['base_cost'], $fields, $key );
+			$base_modifier = $fields['base_modifier'];
 
 			$cost_array = array(
-				'base'     => array( $base_modifier, $base_cost ),
-				'block'    => array( $modifier, $cost ),
-				'override' => $override_block,
+				'base'  => array( $base_modifier, $base_cost ),
+				'block' => array( $modifier, $cost ),
 			);
 
 			// Updating end time 00:00 to 24:00, so that user can book slots till next midnight.

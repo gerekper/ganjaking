@@ -1,5 +1,17 @@
 *** WooCommerce Box Office Changelog ***
 
+2022-09-13 - version 1.1.40
+* Add - Coupon code column to attendee export CSV file.
+* Fix - Broken email formatting.
+* Fix - Default subject added for ticket confirmation email.
+* Fix - Ensure custom ticket prefix is used on order details page and emails.
+* Fix - No email address is set as 'reply-to'.
+* Fix - Update ticket list description to avoid confusion.
+* Fix - Updated the description for "Disable Ticket Editing" checkbox.
+* Fix - WooCommerce not showing messages in My Ticket page.
+* Tweak - Include variation details in ticket title of email/print ticket.
+* Update - Ensure tickets can be exported from specific variation.
+
 2022-08-08 - version 1.1.39
 * Fixed - Deprecation notice.
 * Fixed: Add better validation for required ticket fields.

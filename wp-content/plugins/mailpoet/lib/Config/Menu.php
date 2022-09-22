@@ -7,6 +7,7 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\AdminPages\Pages\Automation;
 use MailPoet\AdminPages\Pages\AutomationEditor;
+use MailPoet\AdminPages\Pages\AutomationTemplates;
 use MailPoet\AdminPages\Pages\ExperimentalFeatures;
 use MailPoet\AdminPages\Pages\FormEditor;
 use MailPoet\AdminPages\Pages\Forms;
@@ -431,6 +432,16 @@ class Menu {
         [$this, 'automationEditor']
       );
 
+      // Automation templates
+      $this->wp->addSubmenuPage(
+        true,
+        $this->setPageTitle('Automation Templates'),
+        'Automation Templates',
+        AccessControl::PERMISSION_MANAGE_AUTOMATIONS,
+        'mailpoet-automation-templates',
+        [$this, 'automationTemplates']
+      );
+
       // add body class for automation editor page
       $this->wp->addAction('load-' . $automationEditorPage, function() {
         $this->wp->addAction('admin_body_class', function ($classes) {
@@ -467,6 +478,10 @@ class Menu {
 
   public function automation() {
     $this->container->get(Automation::class)->render();
+  }
+
+  public function automationTemplates() {
+    $this->container->get(AutomationTemplates::class)->render();
   }
 
   public function automationEditor() {

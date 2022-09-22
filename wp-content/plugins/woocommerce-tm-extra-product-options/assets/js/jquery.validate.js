@@ -731,21 +731,21 @@
 
 				if ( type === 'file' ) {
 					// Modern browser (chrome & safari)
-					if ( val.substr( 0, 12 ) === 'C:\\fakepath\\' ) {
-						return val.substr( 12 );
+					if ( val.substring( 0, 12 ) === 'C:\\fakepath\\' ) {
+						return val.substring( 12 );
 					}
 
 					// Legacy browsers
 					// Unix-based path
 					idx = val.lastIndexOf( '/' );
 					if ( idx >= 0 ) {
-						return val.substr( idx + 1 );
+						return val.substring( idx + 1 );
 					}
 
 					// Windows-based path
 					idx = val.lastIndexOf( '\\' );
 					if ( idx >= 0 ) {
-						return val.substr( idx + 1 );
+						return val.substring( idx + 1 );
 					}
 
 					// Just the file name

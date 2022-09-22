@@ -532,12 +532,12 @@ class SubscriberEntity extends \MailPoet\Entities\SubscriberEntity implements \M
     /**
      * {@inheritDoc}
      */
-    public function getSubscriberSegments()
+    public function getSubscriberSegments(string $status = NULL)
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSubscriberSegments', []);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getSubscriberSegments', [$status]);
 
-        return parent::getSubscriberSegments();
+        return parent::getSubscriberSegments($status);
     }
 
     /**

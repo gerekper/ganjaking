@@ -461,6 +461,8 @@ function seedprod_pro_update_theme_template_conditions() {
 		$data['template_priority']   = $template_priority;
 		$data['template_conditions'] = $template_conditions;
 		if ( ! empty( $template_id ) ) {
+			// remove action so they don't conflict with the save. Yoast SEO was trying to analytize this content.
+			remove_all_actions( 'wp_insert_post' );
 			wp_update_post(
 				array(
 					'ID'         => $data['template_id'],

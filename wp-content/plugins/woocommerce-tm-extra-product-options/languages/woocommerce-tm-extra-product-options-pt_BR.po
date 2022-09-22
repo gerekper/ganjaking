@@ -563,11 +563,6 @@ msgstr ""
 msgid "Please save the product before importing options!"
 msgstr ""
 
-#: admin/class-themecomplete-epo-admin-global-base.php:1544
-#: admin/class-themecomplete-epo-admin-global-base.php:1550
-msgid "There are no options"
-msgstr ""
-
 #: admin/class-themecomplete-epo-admin-global-base.php:1546
 msgid "Start adding elements"
 msgstr ""
@@ -2861,48 +2856,48 @@ msgstr ""
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:785
 #: includes/classes/class-themecomplete-epo-builder-base.php:897
-msgid "Price per char"
+msgid "Price per character"
 msgstr "Preço por caractere"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:789
 #: includes/classes/class-themecomplete-epo-builder-base.php:901
-msgid "Percent of the original price per char"
+msgid "Percent of the original price per character"
 msgstr "Porcentagem do preço original por caractere"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:793
 #: includes/classes/class-themecomplete-epo-builder-base.php:905
-msgid "Price per char (no first char)"
+msgid "Price per character (no first char)"
 msgstr "Preço por caractere (sem primeiro caractere)"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:797
 #: includes/classes/class-themecomplete-epo-builder-base.php:909
-msgid "Price per char (no n-th char)"
+msgid "Price per character (no n-th char)"
 msgstr "Preço por caractere  (no n-th char)"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:801
 #: includes/classes/class-themecomplete-epo-builder-base.php:913
-msgid "Price per char (no n-th char and no spaces)"
+msgid "Price per character (no n-th char and no spaces)"
 msgstr "Preço por caractere (no n-th char and no spaces)"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:805
 #: includes/classes/class-themecomplete-epo-builder-base.php:917
-msgid "Percent of the original price per char (no first char)"
+msgid "Percent of the original price per character (no first char)"
 msgstr "Porcentagem do preço original por caractere (no first char)"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:809
 #: includes/classes/class-themecomplete-epo-builder-base.php:921
-msgid "Percent of the original price per char (no n-th char)"
+msgid "Percent of the original price per character (no n-th char)"
 msgstr "Porcentagem do preço original por caractere (no n-th char)"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:813
 #: includes/classes/class-themecomplete-epo-builder-base.php:925
-msgid "Percent of the original price per char (no n-th char and no spaces)"
+msgid "Percent of the original price per character (no n-th char and no spaces)"
 msgstr ""
 "Porcentagem do preço original por caractere (no n-th char and no spaces)"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:817
 #: includes/classes/class-themecomplete-epo-builder-base.php:929
-msgid "Price per char (no spaces)"
+msgid "Price per character (no spaces)"
 msgstr "Preço por caractere (sem espaços)"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:821
@@ -2961,11 +2956,11 @@ msgstr ""
 "do produto."
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:1011
-msgid "Free chars"
+msgid "Free characters"
 msgstr "Caracteres grátis"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:1012
-msgid "Enter the number of free chars."
+msgid "Enter the number of Free characters."
 msgstr "Insira o número de caracteres gratis."
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:1141
@@ -3952,8 +3947,8 @@ msgstr ""
 # @ tm-extra-product-options
 #: includes/classes/class-themecomplete-epo-post-types.php:96
 msgctxt "post type general name"
-msgid "TM Global Product Options"
-msgstr "TM Global Product Options"
+msgid "Global Forms"
+msgstr ""
 
 #: includes/classes/class-themecomplete-epo-post-types.php:97
 msgid "Add Global Form"
@@ -4681,7 +4676,7 @@ msgstr ""
 "Marque para mostrar seletor de quantidade somente para elementos com valor."
 
 #: includes/classes/class-themecomplete-epo-settings-base.php:545
-msgid "Hide add-to-cart button until an option is chosen"
+msgid "Hide add-to-cart button until an element is chosen"
 msgstr ""
 "Esconder o Botão Adicionar ao Carrinho enquanto nenhuma opção for escolhida"
 

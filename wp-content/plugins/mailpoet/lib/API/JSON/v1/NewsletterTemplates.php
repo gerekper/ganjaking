@@ -12,7 +12,6 @@ use MailPoet\Config\AccessControl;
 use MailPoet\Newsletter\ApiDataSanitizer;
 use MailPoet\NewsletterTemplates\NewsletterTemplatesRepository;
 use MailPoet\NewsletterTemplates\ThumbnailSaver;
-use MailPoet\WP\Functions as WPFunctions;
 
 class NewsletterTemplates extends APIEndpoint {
   public $permissions = [

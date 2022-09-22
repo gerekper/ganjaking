@@ -32,7 +32,7 @@ class THEMECOMPLETE_EPO_FIELDS_textfield extends THEMECOMPLETE_EPO_FIELDS {
 		$input_type = isset( $price_rules_type[0] ) && isset( $price_rules_type[0][0] )
 		? (
 			in_array( $price_rules_type[0][0], [ 'step', 'currentstep' ], true ) || ( 'number' === $validation1 || 'digits' === $validation1 )
-			? ( 'number' === $validation1 ? 'decimal' : 'number' )
+			? ( 'digits' === $validation1 ? 'number' : 'decimal' )
 			: 'text'
 			)
 		: 'text';

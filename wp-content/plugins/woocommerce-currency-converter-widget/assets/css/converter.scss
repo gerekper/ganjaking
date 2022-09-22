@@ -3,21 +3,22 @@ ul.currency_switcher {
 	zoom: 1;
 	list-style: none outside;
 }
+
 ul.currency_switcher li {
 	float: left;
 	margin: 0 4px 4px 0;
 	list-style: none outside;
 }
+
 ul.currency_switcher li a {
 	float: left;
 	padding: 3px 5px;
 	border: 1px solid #ccc;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	-khtml-border-radius: 3px;
 	border-radius: 3px;
 }
-ul.currency_switcher li a.active, ul.currency_switcher li a:hover {
+
+ul.currency_switcher li a.active,
+ul.currency_switcher li a:hover {
 	background: #ddd;
 }
 

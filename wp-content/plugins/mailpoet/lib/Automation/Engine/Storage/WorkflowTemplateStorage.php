@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace MailPoet\Automation\Engine\Storage;
 
@@ -7,14 +7,11 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Automation\Engine\Data\WorkflowTemplate;
 use MailPoet\Automation\Engine\Hooks;
-use MailPoet\Automation\Integrations\Core\Actions\DelayAction;
-use MailPoet\Automation\Integrations\MailPoet\Actions\SendEmailAction;
 use MailPoet\Automation\Integrations\MailPoet\Templates\WorkflowBuilder;
-use MailPoet\Automation\Integrations\MailPoet\Triggers\SegmentSubscribedTrigger;
 use MailPoet\WP\Functions as WPFunctions;
 
-class WorkflowTemplateStorage
-{
+class WorkflowTemplateStorage {
+
 
   /** @var WorkflowTemplate[]  */
   private $templates = [];
@@ -25,13 +22,16 @@ class WorkflowTemplateStorage
   /** @var WPFunctions  */
   private $wp;
 
-  public function __construct(WorkflowBuilder $builder, WPFunctions $wp) {
+  public function __construct(
+    WorkflowBuilder $builder,
+    WPFunctions $wp
+  ) {
     $this->builder = $builder;
     $this->wp = $wp;
     $this->templates = $this->createTemplates();
   }
 
-  public function getTemplateBySlug(string $slug) : ?WorkflowTemplate {
+  public function getTemplateBySlug(string $slug): ?WorkflowTemplate {
     foreach ($this->templates as $template) {
       if ($template->getSlug() === $slug) {
         return $template;
@@ -41,21 +41,21 @@ class WorkflowTemplateStorage
   }
 
   /** @return WorkflowTemplate[] */
-  public function getTemplates(int $category = null) : array {
-    if (! $category) {
+  public function getTemplates(int $category = null): array {
+    if (!$category) {
       return $this->templates;
     }
     return array_values(
       array_filter(
         $this->templates,
-        function(WorkflowTemplate $template) use ($category) : bool {
+        function(WorkflowTemplate $template) use ($category): bool {
             return $template->getCategory() === $category;
         }
     )
     );
   }
 
-  private function createTemplates() : array {
+  private function createTemplates(): array {
     $simpleWelcomeEmail = new WorkflowTemplate(
       'simple-welcome-email',
       WorkflowTemplate::CATEGORY_WELCOME,
@@ -70,9 +70,9 @@ class WorkflowTemplateStorage
       )
     );
 
-    $templates = $this->wp->applyFilters(Hooks::WORKFLOW_TEMPLATES,[
+    $templates = $this->wp->applyFilters(Hooks::WORKFLOW_TEMPLATES, [
       $simpleWelcomeEmail,
     ]);
-    return is_array($templates)?$templates:[];
+    return is_array($templates) ? $templates : [];
   }
 }

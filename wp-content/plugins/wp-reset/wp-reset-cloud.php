@@ -14,7 +14,7 @@ class WP_Reset_Cloud
 {
     public $cloud_url = 'http://dashboard.wpreset.com/cloud/v1/';
     public $cloud_timeout = 60;
-    public $stream_size = 2500000;
+    public $stream_size = 5000000;
     public $cloud_service = 'wpreset';
     public $snapshots;
     private $dropbox = false;
@@ -931,7 +931,8 @@ class WP_Reset_Cloud
 
         $part = fread($file, $this->stream_size);
         $file_size = filesize($snapshot_file);
-
+        
+        sleep(5);
         $response = $this->query_cloud_server(
             array(
                 'cloud_action' => 'put_part',

@@ -2,7 +2,6 @@
 
 namespace Yoast\WP\SEO\Premium\Actions;
 
-use Yoast\WP\SEO\Helpers\Options_Helper;
 use Yoast\WP\SEO\Premium\Helpers\Zapier_Helper;
 use Yoast\WP\SEO\Repositories\Indexable_Repository;
 
@@ -31,10 +30,7 @@ class Zapier_Action {
 	 * @param Zapier_Helper        $zapier_helper        The Zapier helper.
 	 * @param Indexable_Repository $indexable_repository The Indexable repository.
 	 */
-	public function __construct(
-		Zapier_Helper $zapier_helper,
-		Indexable_Repository $indexable_repository
-	) {
+	public function __construct( Zapier_Helper $zapier_helper, Indexable_Repository $indexable_repository ) {
 		$this->zapier_helper        = $zapier_helper;
 		$this->indexable_repository = $indexable_repository;
 	}

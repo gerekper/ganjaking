@@ -282,7 +282,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 				) {
 					return (float) $_GET['tmparentpostid']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				} else {
-					$tm_meta_parent_post_id = get_post_meta( $id, THEMECOMPLETE_EPO_WPML_PARENT_POSTID, true );
+					$tm_meta_parent_post_id = themecomplete_get_post_meta( $id, THEMECOMPLETE_EPO_WPML_PARENT_POSTID, true );
 					if ( $tm_meta_parent_post_id && (float) $tm_meta_parent_post_id !== (float) $id ) {
 						return $tm_meta_parent_post_id;
 					}
@@ -394,7 +394,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 				) {
 					$is_original = false;
 				} else {
-					$tm_meta_parent_post_id = absint( get_post_meta( $product_id, THEMECOMPLETE_EPO_WPML_PARENT_POSTID, true ) );
+					$tm_meta_parent_post_id = absint( themecomplete_get_post_meta( $product_id, THEMECOMPLETE_EPO_WPML_PARENT_POSTID, true ) );
 					if ( $tm_meta_parent_post_id && $tm_meta_parent_post_id !== $product_id ) {
 						$is_original = false;
 					} else {
@@ -817,8 +817,8 @@ class THEMECOMPLETE_EPO_WPML_Base {
 
 				if ( ! empty( $post_id ) ) {
 
-					$meta_lang              = get_post_meta( $post_id, THEMECOMPLETE_EPO_WPML_LANG_META, true );
-					$tm_meta_parent_post_id = get_post_meta( $post_id, THEMECOMPLETE_EPO_WPML_PARENT_POSTID, true );
+					$meta_lang              = themecomplete_get_post_meta( $post_id, THEMECOMPLETE_EPO_WPML_LANG_META, true );
+					$tm_meta_parent_post_id = themecomplete_get_post_meta( $post_id, THEMECOMPLETE_EPO_WPML_PARENT_POSTID, true );
 
 					if ( (
 							( empty( $tm_meta_parent_post_id ) && empty( $meta_lang ) )
@@ -836,7 +836,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 							$args                 = [
 								'post_type'   => $basetype,
 								'post_status' => [ 'publish' ], // get only enabled global extra options.
-								'numberposts' => - 1,
+								'numberposts' => -1,
 								'orderby'     => 'date',
 								'order'       => 'asc',
 								'meta_query'  => THEMECOMPLETE_EPO_HELPER()->build_meta_query( 'AND', THEMECOMPLETE_EPO_WPML_LANG_META, sanitize_text_field( wp_unslash( $_GET['lang'] ) ), '=', 'EXISTS' ), // phpcs:ignore WordPress.DB.SlowDBQuery, WordPress.Security.NonceVerification.Recommended
@@ -884,7 +884,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 				$args = [
 					'post_type'   => $basetype,
 					'post_status' => [ 'publish' ], // get only enabled global extra options.
-					'numberposts' => - 1,
+					'numberposts' => -1,
 					'orderby'     => 'date',
 					'order'       => 'asc',
 				];
@@ -1095,8 +1095,8 @@ class THEMECOMPLETE_EPO_WPML_Base {
 			$tmparentpostid         = 0;
 			$tmaddlang              = '';
 			$post_id                = absint( $post->ID );
-			$tm_meta_lang           = get_post_meta( $post_id, THEMECOMPLETE_EPO_WPML_LANG_META, true );
-			$tm_meta_parent_post_id = absint( get_post_meta( $post_id, THEMECOMPLETE_EPO_WPML_PARENT_POSTID, true ) );
+			$tm_meta_lang           = themecomplete_get_post_meta( $post_id, THEMECOMPLETE_EPO_WPML_LANG_META, true );
+			$tm_meta_parent_post_id = absint( themecomplete_get_post_meta( $post_id, THEMECOMPLETE_EPO_WPML_PARENT_POSTID, true ) );
 			$is_original            = false;
 			$is_added_translation   = false;
 			$is_original_lang       = '';
@@ -1119,7 +1119,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 				$tmparentpostid       = (int) $_GET['tmparentpostid']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$tmaddlang            = sanitize_text_field( wp_unslash( $_GET['tmaddlang'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$is_added_translation = true;
-				$is_original_lang     = get_post_meta( $tmparentpostid, THEMECOMPLETE_EPO_WPML_LANG_META, true );
+				$is_original_lang     = themecomplete_get_post_meta( $tmparentpostid, THEMECOMPLETE_EPO_WPML_LANG_META, true );
 				if ( empty( $is_original_lang ) ) {
 					$is_original_lang = $this->get_default_lang();
 				}
@@ -1151,7 +1151,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 			}
 
 			if ( ! $is_original && empty( $is_original_lang ) && ! empty( $tm_meta_parent_post_id ) ) {
-				$is_original_lang = get_post_meta( $tm_meta_parent_post_id, THEMECOMPLETE_EPO_WPML_LANG_META, true );
+				$is_original_lang = themecomplete_get_post_meta( $tm_meta_parent_post_id, THEMECOMPLETE_EPO_WPML_LANG_META, true );
 				if ( empty( $is_original_lang ) ) {
 					$is_original_lang = $this->get_default_lang();
 				}
@@ -1224,7 +1224,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 				$args = [
 					'post_type'   => $basetype,
 					'post_status' => [ 'publish' ], // get only enabled global extra options.
-					'numberposts' => - 1,
+					'numberposts' => -1,
 					'orderby'     => 'date',
 					'order'       => 'asc',
 				];
@@ -1260,7 +1260,7 @@ class THEMECOMPLETE_EPO_WPML_Base {
 				$args = [
 					'post_type'   => $basetype,
 					'post_status' => [ 'publish', 'draft' ], // get only enabled global extra options.
-					'numberposts' => - 1,
+					'numberposts' => -1,
 					'orderby'     => 'date',
 					'order'       => 'asc',
 				];

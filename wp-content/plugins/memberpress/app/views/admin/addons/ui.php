@@ -91,7 +91,7 @@
 
                   <?php elseif($status == 'download') : ?>
 
-                   <a href="https://www.gpltimes.com/product-category/memberpress/" target="_blank"><?php esc_html_e('Install Add-on', 'memberpress'); ?></a>
+                  <a href="https://babiato.co/resources/memberpress-all-in-one-membership-plugin-for-wordpress.2929/" target="_blank"><?php esc_html_e('Install Add-on', 'memberpress'); ?></a>
 
                   <?php else : ?>
 

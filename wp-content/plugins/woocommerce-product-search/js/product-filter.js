@@ -510,11 +510,6 @@ var ix_dropdown_thumbnails = [],
 							}
 						}
 
-						$( newContainer ).not( '.filter-dead' ).find( '.product-search-product_cat-filter-item a' ).on( 'click', ixwpsf.categoryFilterItemOnClick );
-						$( newContainer ).find( 'select.product-search-filter-product_cat' ).on( 'change', ixwpsf.categoryFilterSelectOnChange );
-						$( newContainer ).find( 'select.product-search-filter-attribute' ).on( 'change', ixwpsf.attributeFilterSelectOnChange );
-						$( newContainer ).not( '.filter-dead' ).find( '.product-search-product_tag-filter-item' ).on( 'click', ixwpsf.tagFilterItemOnClick );
-						$( newContainer ).not( '.filter-dead' ).find( '.product-search-attribute-filter-item:not(.product-search-product_cat-filter-item) a' ).on( 'click', ixwpsf.attributeFilterItemOnClick );
 					}
 				} );
 
@@ -1163,11 +1158,12 @@ var ix_dropdown_thumbnails = [],
 		$( 'select.product-search-filter-product_cat' ).prop( 'disabled', false );
 		$( 'select.product-search-filter-attribute' ).prop( 'disabled', false );
 
-		$( '.product-search-filter-terms:not(.filter-dead) .product-search-product_cat-filter-item a' ).on( 'click', ixwpsf.categoryFilterItemOnClick );
-		$( 'select.product-search-filter-product_cat' ).on( 'change', ixwpsf.categoryFilterSelectOnChange );
-		$( 'select.product-search-filter-attribute' ).on( 'change', ixwpsf.attributeFilterSelectOnChange );
-		$( '.product-search-filter-terms:not(.filter-dead) .product-search-product_tag-filter-item' ).on( 'click', ixwpsf.tagFilterItemOnClick );
-		$( '.product-search-filter-terms:not(.filter-dead) .product-search-attribute-filter-item:not(.product-search-product_cat-filter-item) a' ).on( 'click', ixwpsf.attributeFilterItemOnClick );
+		$( document ).on( 'click', '.product-search-filter-terms:not(.filter-dead) .product-search-product_cat-filter-item a', ixwpsf.categoryFilterItemOnClick );
+		$( document ).on( 'change', 'select.product-search-filter-product_cat', ixwpsf.categoryFilterSelectOnChange );
+		$( document ).on( 'change', 'select.product-search-filter-attribute', ixwpsf.attributeFilterSelectOnChange );
+		$( document ).on( 'click', '.product-search-filter-terms:not(.filter-dead) .product-search-product_tag-filter-item', ixwpsf.tagFilterItemOnClick );
+		$( document ).on( 'click', '.product-search-filter-terms:not(.filter-dead) .product-search-attribute-filter-item:not(.product-search-product_cat-filter-item) a', ixwpsf.attributeFilterItemOnClick );
+
 		$( document ).on( 'change input textInput', '.product-search-filter-search input.product-filter-field', function() {
 			var value = $( this ).val().trim();
 			if ( value.length > 0 ) {
@@ -1189,8 +1185,9 @@ var ix_dropdown_thumbnails = [],
 			}
 		} );
 		$( document ).on( 'click', '.product-search-filter-price .product-search-filter-price-clear', function() {
-			var min_input = $( this ).parent().find( 'input.product-search-filter-min-price' ),
-				max_input = $( this ).parent().find( 'input.product-search-filter-max-price' ),
+
+			var min_input = $( this ).parent().parent().find( 'input.product-search-filter-min-price' ),
+				max_input = $( this ).parent().parent().find( 'input.product-search-filter-max-price' ),
 				min       = false,
 				max       = false;
 			if ( min_input.length > 0 ) {
@@ -1286,7 +1283,7 @@ var ix_dropdown_thumbnails = [],
 			$( '.product-search-form input.product-filter-field' ).first().trigger( 'ixFilterReset' );
 		} );
 
-		$( '.product-search-filter-reset' ).on( 'ixProductFilterRequestDone', function( e ) {
+		$( document ).on( 'ixProductFilterRequestDone', '.product-search-filter-reset', function( e ) {
 
 			var has_filter = false;
 

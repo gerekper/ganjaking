@@ -71,6 +71,21 @@ final class THEMECOMPLETE_EPO_CP_Composite {
 		add_filter( 'wc_epo_tm_post_class_no_options', [ $this, 'wc_epo_tm_post_class_no_options' ], 10, 2 );
 		add_filter( 'wc_epo_options_min_price', [ $this, 'wc_epo_options_min_price' ], 10, 2 );
 		add_filter( 'wc_epo_options_max_price', [ $this, 'wc_epo_options_max_price' ], 10, 2 );
+		add_filter( 'wc_epo_woocommerce_available_variation_check', [ $this, 'wc_epo_woocommerce_available_variation_check' ], 10, 1 );
+	}
+
+	/**
+	 * Override woocommerce_available_variation check
+	 *
+	 * @param bool $ret To run the check or not.
+	 * @since 6.1
+	 */
+	public function wc_epo_woocommerce_available_variation_check( $ret = true ) {
+		if ( isset( $_REQUEST['wc-ajax'] ) && 'woocommerce_show_composited_product' === $_REQUEST['wc-ajax'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$ret = false;
+		}
+
+		return $ret;
 	}
 
 	/**

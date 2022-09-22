@@ -1,10 +1,10 @@
-# Copyright (C) 2022 MailPoet 3 (New)
-# This file is distributed under the same license as the MailPoet 3 (New) package.
+# Copyright (C) 2022 MailPoet
+# This file is distributed under the same license as the MailPoet package.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet 3 (New) 3.96.1\n"
+"Project-Id-Version: MailPoet 3.98.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
-"POT-Creation-Date: 2022-08-31 10:03:40+00:00\n"
+"POT-Creation-Date: 2022-09-19 14:15:07+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -50,7 +50,7 @@ msgid "You do not have the required permissions."
 msgstr ""
 
 #: lib/API/JSON/Endpoint.php:29 lib/API/JSON/ErrorHandler.php:14
-#: lib/API/JSON/ErrorResponse.php:25 lib/Automation/Engine/API/API.php:84
+#: lib/API/JSON/ErrorResponse.php:25 lib/API/REST/API.php:84
 msgid "An unknown error occurred."
 msgstr ""
 
@@ -95,12 +95,12 @@ msgstr ""
 msgid "This segment does not exist."
 msgstr ""
 
-#: lib/API/JSON/v1/DynamicSegments.php:116 lib/API/JSON/v1/ImportExport.php:114
+#: lib/API/JSON/v1/DynamicSegments.php:116 lib/API/JSON/v1/ImportExport.php:120
 #: lib/API/JSON/v1/Segments.php:129
 msgid "Another record already exists. Please specify a different \"name\"."
 msgstr ""
 
-#: lib/API/JSON/v1/DynamicSegments.php:120 lib/API/JSON/v1/ImportExport.php:110
+#: lib/API/JSON/v1/DynamicSegments.php:120 lib/API/JSON/v1/ImportExport.php:116
 #: lib/API/JSON/v1/Segments.php:125 lib/Models/CustomField.php:26
 #: lib/Models/NewsletterOptionField.php:22 lib/Models/Segment.php:28
 #: views/form/templatesLegacy/settings/field_form.hbs:53
@@ -209,8 +209,8 @@ msgstr ""
 msgid "The email could not be sent: %s"
 msgstr ""
 
-#: lib/API/JSON/v1/NewsletterTemplates.php:54
-#: lib/API/JSON/v1/NewsletterTemplates.php:94
+#: lib/API/JSON/v1/NewsletterTemplates.php:53
+#: lib/API/JSON/v1/NewsletterTemplates.php:93
 msgid "This template does not exist."
 msgstr ""
 
@@ -467,7 +467,7 @@ msgstr ""
 
 #: lib/API/MP/v1/CustomFields.php:27
 #: lib/Form/Templates/Templates/InitialForm.php:22
-#: lib/Subscribers/ImportExport/ImportExportFactory.php:54
+#: lib/Subscribers/ImportExport/ImportExportFactory.php:60
 #: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:70
 #: views/form/editor.html:166 views/help.html:71
 #: views/newsletter/editor.html:1128 views/newsletter/editor.html:1129
@@ -476,14 +476,14 @@ msgid "Email"
 msgstr ""
 
 #: lib/API/MP/v1/CustomFields.php:35
-#: lib/Subscribers/ImportExport/ImportExportFactory.php:55
+#: lib/Subscribers/ImportExport/ImportExportFactory.php:61
 #: lib/Subscription/ManageSubscriptionFormRenderer.php:163
 #: views/form/editor.html:157 views/subscribers/subscribers.html:66
 msgid "First name"
 msgstr ""
 
 #: lib/API/MP/v1/CustomFields.php:43
-#: lib/Subscribers/ImportExport/ImportExportFactory.php:56
+#: lib/Subscribers/ImportExport/ImportExportFactory.php:62
 #: lib/Subscription/ManageSubscriptionFormRenderer.php:172
 #: views/form/editor.html:159 views/subscribers/subscribers.html:67
 msgid "Last name"
@@ -588,7 +588,7 @@ msgid_plural "Lists with IDs %s do not exist."
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/AdminPages/Pages/AutomationEditor.php:40
+#: lib/AdminPages/Pages/AutomationEditor.php:47
 msgid "Workflow not found."
 msgstr ""
 
@@ -745,8 +745,12 @@ msgstr ""
 
 #. translators: %s is the status.
 
-#: lib/Automation/Engine/Builder/UpdateWorkflowController.php:72
+#: lib/Automation/Engine/Builder/UpdateWorkflowController.php:73
 msgid "Invalid status: %s"
+msgstr ""
+
+#: lib/Automation/Engine/Control/RootStep.php:14
+msgid "Root step"
 msgstr ""
 
 #. translators: %s is the error message.
@@ -793,10 +797,10 @@ msgstr ""
 msgid "Workflow run with ID '%d' not found."
 msgstr ""
 
-#. translators: %s is the ID of the workflow step.
+#. translators: %s is the key of the workflow step.
 
 #: lib/Automation/Engine/Exceptions.php:92
-msgid "Workflow step with ID '%s' not found."
+msgid "Workflow step with key '%s' not found."
 msgstr ""
 
 #. translators: %1$s is the key, %2$d is the workflow ID.
@@ -891,7 +895,7 @@ msgstr ""
 #: lib/Automation/Integrations/MailPoet/Subjects/SubscriberSubject.php:56
 #: lib/Subscribers/SubscriberListingRepository.php:205
 #: lib/Subscription/ManageSubscriptionFormRenderer.php:186
-#: views/segments.html:53 views/subscribers/importExport/import.html:128
+#: views/segments.html:53 views/subscribers/importExport/import.html:129
 #: views/subscribers/subscribers.html:70
 msgid "Subscribed"
 msgstr ""
@@ -905,7 +909,7 @@ msgstr ""
 #: lib/Automation/Integrations/MailPoet/Subjects/SubscriberSubject.php:58
 #: lib/Subscribers/SubscriberListingRepository.php:215
 #: lib/Subscription/ManageSubscriptionFormRenderer.php:194
-#: views/segments.html:55 views/subscribers/importExport/import.html:129
+#: views/segments.html:55 views/subscribers/importExport/import.html:130
 #: views/subscribers/subscribers.html:71
 msgid "Unsubscribed"
 msgstr ""
@@ -913,7 +917,7 @@ msgstr ""
 #: lib/Automation/Integrations/MailPoet/Subjects/SubscriberSubject.php:59
 #: lib/Subscribers/SubscriberListingRepository.php:220
 #: lib/Subscription/ManageSubscriptionFormRenderer.php:214
-#: views/segments.html:56 views/subscribers/importExport/import.html:130
+#: views/segments.html:56 views/subscribers/importExport/import.html:131
 #: views/subscribers/subscribers.html:72
 msgid "Inactive"
 msgstr ""
@@ -975,7 +979,7 @@ msgstr ""
 msgid "MailPoet version update is in progress, please refresh the page in a minute."
 msgstr ""
 
-#: lib/Config/Capabilities.php:80 lib/Config/Menu.php:520
+#: lib/Config/Capabilities.php:80 lib/Config/Menu.php:535
 #: lib/Config/PrivacyPolicy.php:12
 msgid "MailPoet"
 msgstr ""
@@ -988,100 +992,100 @@ msgstr ""
 msgid "View MailPoet settings"
 msgstr ""
 
-#: lib/Config/Hooks.php:433 lib/Config/Menu.php:327 lib/Config/Menu.php:328
+#: lib/Config/Hooks.php:433 lib/Config/Menu.php:328 lib/Config/Menu.php:329
 #: views/newsletters.html:136 views/settings.html:33
 msgid "Settings"
 msgstr ""
 
-#: lib/Config/Initializer.php:183
+#: lib/Config/Initializer.php:189
 msgid "Unable to connect to the database (the database is unable to open a file or folder), the connection is likely not configured correctly. Please read our [link] Knowledge Base article [/link] for steps how to resolve it."
 msgstr ""
 
-#: lib/Config/Menu.php:147 lib/Config/Menu.php:148 views/newsletters.html:69
+#: lib/Config/Menu.php:148 lib/Config/Menu.php:149 views/newsletters.html:69
 msgid "Emails"
 msgstr ""
 
-#: lib/Config/Menu.php:160
+#: lib/Config/Menu.php:161
 msgctxt "newsletters per page (screen options)"
 msgid "Number of newsletters per page"
 msgstr ""
 
-#: lib/Config/Menu.php:172 lib/Newsletter/Shortcodes/ShortcodesHelper.php:42
+#: lib/Config/Menu.php:173 lib/Newsletter/Shortcodes/ShortcodesHelper.php:42
 #: views/newsletter/editor.html:371 views/newsletters.html:71
 #: views/newsletters.html:211
 msgid "Newsletter"
 msgstr ""
 
-#: lib/Config/Menu.php:173 views/newsletter/editor.html:328
+#: lib/Config/Menu.php:174 views/newsletter/editor.html:328
 msgid "Newsletter Editor"
 msgstr ""
 
-#: lib/Config/Menu.php:185 lib/Config/Menu.php:186 views/forms.html:44
+#: lib/Config/Menu.php:186 lib/Config/Menu.php:187 views/forms.html:44
 msgid "Forms"
 msgstr ""
 
-#: lib/Config/Menu.php:198
+#: lib/Config/Menu.php:199
 msgctxt "forms per page (screen options)"
 msgid "Number of forms per page"
 msgstr ""
 
-#: lib/Config/Menu.php:210 lib/Config/Menu.php:211
+#: lib/Config/Menu.php:211 lib/Config/Menu.php:212
 msgid "Form Editor"
 msgstr ""
 
-#: lib/Config/Menu.php:230 lib/Config/Menu.php:231
+#: lib/Config/Menu.php:231 lib/Config/Menu.php:232
 msgid "Select Form Template"
 msgstr ""
 
-#: lib/Config/Menu.php:251 lib/Config/Menu.php:252
+#: lib/Config/Menu.php:252 lib/Config/Menu.php:253
 #: views/subscribers/subscribers.html:26
 msgid "Subscribers"
 msgstr ""
 
-#: lib/Config/Menu.php:264
+#: lib/Config/Menu.php:265
 msgctxt "subscribers per page (screen options)"
 msgid "Number of subscribers per page"
 msgstr ""
 
-#: lib/Config/Menu.php:276 lib/Config/Menu.php:277
+#: lib/Config/Menu.php:277 lib/Config/Menu.php:278
 #: views/subscribers/importExport/import.html:6
-#: views/subscribers/importExport/import.html:99
+#: views/subscribers/importExport/import.html:100
 #: views/subscribers/subscribers.html:127
 msgid "Import"
 msgstr ""
 
-#: lib/Config/Menu.php:289 lib/Config/Menu.php:290
+#: lib/Config/Menu.php:290 lib/Config/Menu.php:291
 #: views/subscribers/importExport/export.html:6
 #: views/subscribers/importExport/export.html:80
 #: views/subscribers/subscribers.html:128
 msgid "Export"
 msgstr ""
 
-#: lib/Config/Menu.php:302 lib/Config/Menu.php:303 views/forms.html:78
+#: lib/Config/Menu.php:303 lib/Config/Menu.php:304 views/forms.html:78
 #: views/newsletters.html:135 views/newsletters.html:276 views/segments.html:36
 #: views/subscribers/subscribers.html:87
 msgid "Lists"
 msgstr ""
 
-#: lib/Config/Menu.php:315
+#: lib/Config/Menu.php:316
 msgctxt "segments per page (screen options)"
 msgid "Number of segments per page"
 msgstr ""
 
-#: lib/Config/Menu.php:340 lib/Config/Menu.php:341
+#: lib/Config/Menu.php:341 lib/Config/Menu.php:342
 msgid "Help"
 msgstr ""
 
-#: lib/Config/Menu.php:354 lib/Config/Menu.php:355 views/newsletters.html:411
+#: lib/Config/Menu.php:355 lib/Config/Menu.php:356 views/newsletters.html:409
 #: views/segments.html:246 views/subscribers/subscribers.html:136
 msgid "Upgrade"
 msgstr ""
 
-#: lib/Config/Menu.php:367 lib/Config/Menu.php:368
+#: lib/Config/Menu.php:368 lib/Config/Menu.php:369
 msgid "Welcome Wizard"
 msgstr ""
 
-#: lib/Config/Menu.php:380 lib/Config/Menu.php:381
+#: lib/Config/Menu.php:381 lib/Config/Menu.php:382
 msgid "WooCommerce Setup"
 msgstr ""
 
@@ -2521,7 +2525,7 @@ msgstr ""
 msgid "Value cannot be empty"
 msgstr ""
 
-#: lib/Form/AssetsController.php:90
+#: lib/Form/AssetsController.php:94
 msgid "An error has happened while performing a request, please try again later."
 msgstr ""
 
@@ -2600,62 +2604,62 @@ msgid "Month (January, February,...)"
 msgstr ""
 
 #: lib/Form/Block/Date.php:119 views/layout.html:189
-#: views/subscribers/importExport/import.html:58
+#: views/subscribers/importExport/import.html:59
 msgid "January"
 msgstr ""
 
 #: lib/Form/Block/Date.php:119 views/layout.html:190
-#: views/subscribers/importExport/import.html:59
+#: views/subscribers/importExport/import.html:60
 msgid "February"
 msgstr ""
 
 #: lib/Form/Block/Date.php:119 views/layout.html:191
-#: views/subscribers/importExport/import.html:60
+#: views/subscribers/importExport/import.html:61
 msgid "March"
 msgstr ""
 
 #: lib/Form/Block/Date.php:119 views/layout.html:192
-#: views/subscribers/importExport/import.html:61
+#: views/subscribers/importExport/import.html:62
 msgid "April"
 msgstr ""
 
 #: lib/Form/Block/Date.php:120 views/layout.html:193 views/layout.html:205
-#: views/subscribers/importExport/import.html:62
+#: views/subscribers/importExport/import.html:63
 msgid "May"
 msgstr ""
 
 #: lib/Form/Block/Date.php:120 views/layout.html:194
-#: views/subscribers/importExport/import.html:63
+#: views/subscribers/importExport/import.html:64
 msgid "June"
 msgstr ""
 
 #: lib/Form/Block/Date.php:120 views/layout.html:195
-#: views/subscribers/importExport/import.html:64
+#: views/subscribers/importExport/import.html:65
 msgid "July"
 msgstr ""
 
 #: lib/Form/Block/Date.php:120 views/layout.html:196
-#: views/subscribers/importExport/import.html:65
+#: views/subscribers/importExport/import.html:66
 msgid "August"
 msgstr ""
 
 #: lib/Form/Block/Date.php:120 views/layout.html:197
-#: views/subscribers/importExport/import.html:66
+#: views/subscribers/importExport/import.html:67
 msgid "September"
 msgstr ""
 
 #: lib/Form/Block/Date.php:121 views/layout.html:198
-#: views/subscribers/importExport/import.html:67
+#: views/subscribers/importExport/import.html:68
 msgid "October"
 msgstr ""
 
 #: lib/Form/Block/Date.php:121 views/layout.html:199
-#: views/subscribers/importExport/import.html:68
+#: views/subscribers/importExport/import.html:69
 msgid "November"
 msgstr ""
 
 #: lib/Form/Block/Date.php:121 views/layout.html:200
-#: views/subscribers/importExport/import.html:69
+#: views/subscribers/importExport/import.html:70
 msgid "December"
 msgstr ""
 
@@ -3391,7 +3395,7 @@ msgid "END Scripts"
 msgstr ""
 
 #: lib/Form/Widget.php:34
-msgid "MailPoet 3 Form"
+msgid "MailPoet Form"
 msgstr ""
 
 #: lib/Form/Widget.php:35
@@ -3464,46 +3468,50 @@ msgstr ""
 msgid "%s has returned an unknown error."
 msgstr ""
 
-#: lib/Mailer/Methods/ErrorMappers/MailPoetMapper.php:60
+#: lib/Mailer/Methods/ErrorMappers/MailPoetMapper.php:62
 msgid "MailPoet API key is invalid!"
 msgstr ""
 
-#: lib/Mailer/Methods/ErrorMappers/MailPoetMapper.php:73
+#: lib/Mailer/Methods/ErrorMappers/MailPoetMapper.php:75
 msgid "JSON input is not an array"
 msgstr ""
 
-#: lib/Mailer/Methods/ErrorMappers/MailPoetMapper.php:77
+#: lib/Mailer/Methods/ErrorMappers/MailPoetMapper.php:79
 msgid "Error while sending."
 msgstr ""
 
-#: lib/Mailer/Methods/ErrorMappers/MailPoetMapper.php:93
+#: lib/Mailer/Methods/ErrorMappers/MailPoetMapper.php:99
 msgid "Email service is temporarily not available, please try again in a few minutes."
 msgstr ""
 
-#: lib/Mailer/Methods/ErrorMappers/MailPoetMapper.php:111
+#: lib/Mailer/Methods/ErrorMappers/MailPoetMapper.php:117
 msgid "Invalid MSS response format."
 msgstr ""
 
-#: lib/Mailer/Methods/ErrorMappers/MailPoetMapper.php:126
+#: lib/Mailer/Methods/ErrorMappers/MailPoetMapper.php:132
 msgid "Unknown address"
 msgstr ""
 
-#: lib/Mailer/Methods/ErrorMappers/MailPoetMapper.php:134
+#: lib/Mailer/Methods/ErrorMappers/MailPoetMapper.php:140
 msgid "You have reached the subscriber limit of your plan. Please [link1]upgrade your plan[/link1], or [link2]contact our support team[/link2] if you have any questions."
 msgstr ""
 
-#: lib/Mailer/Methods/ErrorMappers/MailPoetMapper.php:158
+#: lib/Mailer/Methods/ErrorMappers/MailPoetMapper.php:164
 msgid "MailPoet Sending Service has been temporarily suspended for your site due to [link1]degraded email deliverability[/link1]. Please [link2]contact our support team[/link2] to resolve the issue."
+msgstr ""
+
+#: lib/Mailer/Methods/ErrorMappers/MailPoetMapper.php:188
+msgid "[link1]Click here to start the authentication[/link1]."
 msgstr ""
 
 #. translators: %1$s is email volume limit and %2$s the date when you can
 #. resume sending.
 
-#: lib/Mailer/Methods/ErrorMappers/MailPoetMapper.php:187
+#: lib/Mailer/Methods/ErrorMappers/MailPoetMapper.php:212
 msgid "You have sent more emails this month than your MailPoet plan includes (%1$s), and sending has been temporarily paused. To continue sending with MailPoet Sending Service please [link]upgrade your plan[/link], or wait until sending is automatically resumed on <b>%2$s</b>."
 msgstr ""
 
-#: lib/Mailer/Methods/ErrorMappers/MailPoetMapper.php:204
+#: lib/Mailer/Methods/ErrorMappers/MailPoetMapper.php:229
 msgid "Your subscription is currently [link]pending approval[/link]. You’ll soon be able to send once our team reviews your account. In the meantime, you can send previews to your authorized emails."
 msgstr ""
 
@@ -3557,7 +3565,7 @@ msgstr ""
 
 #: lib/Models/Subscriber.php:163
 #: lib/Newsletter/Listing/NewsletterListingRepository.php:62
-#: lib/Subscribers/SubscriberListingRepository.php:271
+#: lib/Subscribers/SubscriberListingRepository.php:269
 msgid "All Lists"
 msgstr ""
 
@@ -3606,17 +3614,17 @@ msgid "Not active"
 msgstr ""
 
 #: lib/Newsletter/NewsletterValidator.php:47 views/newsletter/editor.html:386
-#: views/newsletters.html:427
+#: views/newsletters.html:425
 msgid "All emails must include an \"Unsubscribe\" link. Add a footer widget to your email to continue."
 msgstr ""
 
 #: lib/Newsletter/NewsletterValidator.php:52 views/newsletter/editor.html:388
-#: views/newsletters.html:429
+#: views/newsletters.html:427
 msgid "Poet, please add prose to your masterpiece before you send it to your followers."
 msgstr ""
 
 #: lib/Newsletter/NewsletterValidator.php:71 views/newsletter/editor.html:387
-#: views/newsletters.html:428
+#: views/newsletters.html:426
 msgid "A re-engagement email must include a link with [link:subscription_re_engage_url] shortcode."
 msgstr ""
 
@@ -3625,7 +3633,7 @@ msgid "Re-engagement emails are disabled because open and click tracking is disa
 msgstr ""
 
 #: lib/Newsletter/NewsletterValidator.php:88 views/newsletter/editor.html:390
-#: views/newsletters.html:430
+#: views/newsletters.html:428
 msgctxt "(Please reuse the current translation used for the string “Automatic Latest Content”) This Error message is displayed when a user tries to send a “Post Notification” email without any “Automatic Latest Content” widget inside"
 msgid "Please add an “Automatic Latest Content” widget to the email from the right sidebar."
 msgstr ""
@@ -3647,7 +3655,7 @@ msgstr ""
 #: lib/Newsletter/Shortcodes/ShortcodesHelper.php:20
 #: lib/Newsletter/Shortcodes/ShortcodesHelper.php:117
 #: lib/Newsletter/Shortcodes/ShortcodesHelper.php:118
-#: views/newsletters.html:382 views/segments.html:114
+#: views/newsletters.html:380 views/segments.html:114
 #: views/subscribers/subscribers.html:85
 msgid "Subscriber"
 msgstr ""
@@ -3692,7 +3700,7 @@ msgstr ""
 
 #: lib/Newsletter/Shortcodes/ShortcodesHelper.php:62 views/form/editor.html:138
 #: views/form/templatesLegacy/settings/field_form.hbs:41
-#: views/newsletters.html:394
+#: views/newsletters.html:392
 msgid "Date"
 msgstr ""
 
@@ -3751,7 +3759,7 @@ msgstr ""
 msgid "MailPoet Subscription Form"
 msgstr ""
 
-#: lib/PostEditorBlocks/WooCommerceBlocksIntegration.php:127
+#: lib/PostEditorBlocks/WooCommerceBlocksIntegration.php:126
 msgid "Subscribe to marketing opt-in."
 msgstr ""
 
@@ -3828,15 +3836,15 @@ msgstr ""
 msgid "Failed opening file for export."
 msgstr ""
 
-#: lib/Subscribers/ImportExport/Import/Import.php:122
+#: lib/Subscribers/ImportExport/Import/Import.php:133
 msgid "Missing or invalid import data."
 msgstr ""
 
-#: lib/Subscribers/ImportExport/Import/Import.php:134
+#: lib/Subscribers/ImportExport/Import/Import.php:145
 msgid "No valid subscribers were found."
 msgstr ""
 
-#: lib/Subscribers/ImportExport/Import/Import.php:185
+#: lib/Subscribers/ImportExport/Import/Import.php:196
 msgid "Unable to save imported subscribers."
 msgstr ""
 
@@ -3860,65 +3868,65 @@ msgstr ""
 msgid "Did not find any valid lists."
 msgstr ""
 
-#: lib/Subscribers/ImportExport/ImportExportFactory.php:57
+#: lib/Subscribers/ImportExport/ImportExportFactory.php:63
 msgid "Subscription IP"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/ImportExportFactory.php:58
+#: lib/Subscribers/ImportExport/ImportExportFactory.php:64
 msgid "Subscription time"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/ImportExportFactory.php:59
+#: lib/Subscribers/ImportExport/ImportExportFactory.php:65
 msgid "Confirmation time"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/ImportExportFactory.php:60
+#: lib/Subscribers/ImportExport/ImportExportFactory.php:66
 msgid "Confirmation IP"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/ImportExportFactory.php:66
+#: lib/Subscribers/ImportExport/ImportExportFactory.php:72
 msgctxt "Subscription status"
 msgid "List status"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/ImportExportFactory.php:67
+#: lib/Subscribers/ImportExport/ImportExportFactory.php:73
 msgctxt "Subscription status"
 msgid "Global status"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/ImportExportFactory.php:111
-#: lib/Subscribers/ImportExport/ImportExportFactory.php:112
+#: lib/Subscribers/ImportExport/ImportExportFactory.php:117
+#: lib/Subscribers/ImportExport/ImportExportFactory.php:118
 msgid "Ignore field..."
 msgstr ""
 
-#: lib/Subscribers/ImportExport/ImportExportFactory.php:116
-#: lib/Subscribers/ImportExport/ImportExportFactory.php:117
+#: lib/Subscribers/ImportExport/ImportExportFactory.php:122
+#: lib/Subscribers/ImportExport/ImportExportFactory.php:123
 msgid "Create new field..."
 msgstr ""
 
-#: lib/Subscribers/ImportExport/ImportExportFactory.php:123
-#: lib/Subscribers/ImportExport/ImportExportFactory.php:124
-msgid "Select all..."
-msgstr ""
-
-#: lib/Subscribers/ImportExport/ImportExportFactory.php:128
 #: lib/Subscribers/ImportExport/ImportExportFactory.php:129
-msgid "Deselect all..."
+#: lib/Subscribers/ImportExport/ImportExportFactory.php:130
+msgid "Select all..."
 msgstr ""
 
 #: lib/Subscribers/ImportExport/ImportExportFactory.php:134
 #: lib/Subscribers/ImportExport/ImportExportFactory.php:135
+msgid "Deselect all..."
+msgstr ""
+
+#: lib/Subscribers/ImportExport/ImportExportFactory.php:140
+#: lib/Subscribers/ImportExport/ImportExportFactory.php:141
 msgid "Actions"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/ImportExportFactory.php:139
-#: lib/Subscribers/ImportExport/ImportExportFactory.php:140
+#: lib/Subscribers/ImportExport/ImportExportFactory.php:145
+#: lib/Subscribers/ImportExport/ImportExportFactory.php:146
 msgid "System fields"
 msgstr ""
 
-#: lib/Subscribers/ImportExport/ImportExportFactory.php:146
-#: lib/Subscribers/ImportExport/ImportExportFactory.php:147
-#: views/subscribers/importExport/import.html:54
+#: lib/Subscribers/ImportExport/ImportExportFactory.php:152
+#: lib/Subscribers/ImportExport/ImportExportFactory.php:153
+#: views/subscribers/importExport/import.html:55
 msgid "User fields"
 msgstr ""
 
@@ -4001,7 +4009,7 @@ msgstr ""
 #: views/newsletter/templates/blocks/products/settingsDisplayOptions.hbs:79
 #: views/newsletter/templates/blocks/products/settingsDisplayOptions.hbs:174
 #: views/newsletter/templates/blocks/products/settingsDisplayOptions.hbs:218
-#: views/settings.html:87 views/subscribers/importExport/import.html:110
+#: views/settings.html:87 views/subscribers/importExport/import.html:111
 msgid "No"
 msgstr ""
 
@@ -4061,7 +4069,7 @@ msgid "Subscription via a MailPoet subscription form"
 msgstr ""
 
 #: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:136
-msgid "Added by a 3rd party via MailPoet 3 API"
+msgid "Added by a 3rd party via MailPoet API"
 msgstr ""
 
 #: lib/Subscribers/ImportExport/PersonalDataExporters/SubscriberExporter.php:138
@@ -4084,7 +4092,7 @@ msgstr ""
 msgid "Missing value for custom field \"%s\""
 msgstr ""
 
-#: lib/Subscribers/SubscriberListingRepository.php:310
+#: lib/Subscribers/SubscriberListingRepository.php:312
 msgid "All Tags"
 msgstr ""
 
@@ -4133,19 +4141,19 @@ msgstr ""
 msgid "Confirm you’re not a robot"
 msgstr ""
 
-#: lib/Subscription/CaptchaRenderer.php:57
+#: lib/Subscription/CaptchaRenderer.php:75
 msgid "Type in the characters you see in the picture above:"
 msgstr ""
 
-#: lib/Subscription/CaptchaRenderer.php:71
+#: lib/Subscription/CaptchaRenderer.php:83
 msgid "Subscribe"
 msgstr ""
 
-#: lib/Subscription/CaptchaRenderer.php:120
+#: lib/Subscription/CaptchaRenderer.php:121
 msgid "Click to refresh the CAPTCHA"
 msgstr ""
 
-#: lib/Subscription/CaptchaRenderer.php:143
+#: lib/Subscription/CaptchaRenderer.php:144
 msgid "The characters you entered did not match the CAPTCHA image. Please try again with this new image."
 msgstr ""
 
@@ -4371,7 +4379,7 @@ msgstr ""
 msgid "Use a different email address"
 msgstr ""
 
-#: lib/Util/Notices/UnauthorizedEmailNotice.php:78 views/newsletters.html:346
+#: lib/Util/Notices/UnauthorizedEmailNotice.php:78 views/newsletters.html:344
 msgid "Resume sending"
 msgstr ""
 
@@ -4526,7 +4534,7 @@ msgstr ""
 msgid "The changes you made may not be saved"
 msgstr ""
 
-#: views/form/editor.html:53 views/newsletters.html:392 views/segments.html:97
+#: views/form/editor.html:53 views/newsletters.html:390 views/segments.html:97
 #: views/subscribers/subscribers.html:130
 msgid "Back"
 msgstr ""
@@ -4772,7 +4780,7 @@ msgstr ""
 msgid "Select list(s):"
 msgstr ""
 
-#: views/form/editor.html:164 views/subscribers/importExport/import.html:50
+#: views/form/editor.html:164 views/subscribers/importExport/import.html:51
 msgid "Please select at least one list"
 msgstr ""
 
@@ -5281,7 +5289,7 @@ msgstr ""
 #: views/form/template_selection.html:41 views/newsletters.html:195
 #: views/subscribers/importExport/export.html:31
 #: views/subscribers/importExport/export.html:49
-#: views/subscribers/importExport/import.html:118
+#: views/subscribers/importExport/import.html:119
 msgctxt "Verb"
 msgid "Select"
 msgstr ""
@@ -5308,7 +5316,7 @@ msgstr ""
 #: views/newsletter/templates/blocks/posts/settingsDisplayOptions.hbs:251
 #: views/newsletter/templates/blocks/products/settingsDisplayOptions.hbs:73
 #: views/newsletter/templates/blocks/products/settingsDisplayOptions.hbs:212
-#: views/settings.html:86 views/subscribers/importExport/import.html:109
+#: views/settings.html:86 views/subscribers/importExport/import.html:110
 msgid "Yes"
 msgstr ""
 
@@ -5898,7 +5906,7 @@ msgstr ""
 msgid "I’ve upgraded my subscription, refresh subscriber limit"
 msgstr ""
 
-#: views/layout.html:137 views/subscribers/importExport/import.html:102
+#: views/layout.html:137 views/subscribers/importExport/import.html:103
 msgid "View subscribers"
 msgstr ""
 
@@ -6399,7 +6407,7 @@ msgstr ""
 msgid "The email could not be saved. Please, clear browser cache and reload the page. If the problem persists, duplicate the email and try again."
 msgstr ""
 
-#: views/newsletter/editor.html:389 views/newsletters.html:431
+#: views/newsletter/editor.html:389 views/newsletters.html:429
 msgid "This email has already been sent. It can be edited, but not sent again. Duplicate this email if you want to send it again."
 msgstr ""
 
@@ -6411,19 +6419,19 @@ msgstr ""
 msgid "The email could not be sent due to a technical issue with %1$s"
 msgstr ""
 
-#: views/newsletter/editor.html:394 views/newsletters.html:340
+#: views/newsletter/editor.html:394 views/newsletters.html:338
 msgid "Please check your sending method configuration, you may need to consult with your hosting company."
 msgstr ""
 
-#: views/newsletter/editor.html:395 views/newsletters.html:341
+#: views/newsletter/editor.html:395 views/newsletters.html:339
 msgid "The easy alternative is to <b>send emails with MailPoet Sending Service</b> instead, like thousands of other users do."
 msgstr ""
 
-#: views/newsletter/editor.html:396 views/newsletters.html:342
+#: views/newsletter/editor.html:396 views/newsletters.html:340
 msgid "Sign up for free in minutes"
 msgstr ""
 
-#: views/newsletter/editor.html:397 views/newsletters.html:345
+#: views/newsletter/editor.html:397 views/newsletters.html:343
 msgid "Check your [link]sending method settings[/link]."
 msgstr ""
 
@@ -7022,7 +7030,7 @@ msgid "Cancel deletion"
 msgstr ""
 
 #: views/newsletter/templates/blocks/base/toolsGeneric.hbs:18
-#: views/newsletters.html:351
+#: views/newsletters.html:349
 #: views/subscribers/importExport/import/step_data_manipulation.html:28
 msgid "Cancel"
 msgstr ""
@@ -7508,7 +7516,7 @@ msgid "Didn’t receive the test email? Read our [link]quick guide[/link] to sen
 msgstr ""
 
 #: views/newsletter/templates/components/newsletterPreview.hbs:61
-#: views/newsletters.html:293
+#: views/newsletters.html:294
 msgid "You’ll soon be able to send once our team reviews your account. In the meantime, you can send previews to [link]your authorized emails[/link]."
 msgstr ""
 
@@ -7532,12 +7540,12 @@ msgstr ""
 
 #: views/newsletter/templates/components/save.hbs:21
 #: views/newsletter/templates/components/save.hbs:24 views/newsletters.html:196
-#: views/newsletters.html:357 views/newsletters.html:393 views/settings.html:62
+#: views/newsletters.html:355 views/newsletters.html:391 views/settings.html:62
 msgid "Preview"
 msgstr ""
 
-#: views/newsletter/templates/components/save.hbs:25 views/newsletters.html:302
-#: views/subscribers/importExport/import.html:96
+#: views/newsletter/templates/components/save.hbs:25 views/newsletters.html:303
+#: views/subscribers/importExport/import.html:97
 msgid "Next"
 msgstr ""
 
@@ -7656,8 +7664,8 @@ msgstr ""
 msgid "%d emails were permanently deleted."
 msgstr ""
 
-#: views/newsletters.html:113 views/subscribers/importExport/import.html:49
-#: views/subscribers/importExport/import.html:120
+#: views/newsletters.html:113 views/subscribers/importExport/import.html:50
+#: views/subscribers/importExport/import.html:121
 #: views/subscribers/subscribers.html:48
 msgid "Show more details"
 msgstr ""
@@ -7805,7 +7813,7 @@ msgid "Select a .json file to upload"
 msgstr ""
 
 #: views/newsletters.html:190
-msgid "You can only upload .json templates that were originally created with MailPoet 3."
+msgid "You can only upload .json templates that were originally created with MailPoet."
 msgstr ""
 
 #: views/newsletters.html:191
@@ -7947,7 +7955,7 @@ msgstr ""
 msgid "Monthly every..."
 msgstr ""
 
-#: views/newsletters.html:236 views/newsletters.html:328
+#: views/newsletters.html:236 views/newsletters.html:326
 msgid "Immediately"
 msgstr ""
 
@@ -8052,90 +8060,94 @@ msgid "Select a list"
 msgstr ""
 
 #: views/newsletters.html:280
-msgid "Sender"
+msgid "Please select a list with subscribers."
 msgstr ""
 
 #: views/newsletters.html:281
+msgid "Sender"
+msgstr ""
+
+#: views/newsletters.html:282
 msgid "Your name and email"
 msgstr ""
 
-#: views/newsletters.html:282 views/newsletters.html:286
+#: views/newsletters.html:283 views/newsletters.html:287
 msgid "John Doe"
 msgstr ""
 
-#: views/newsletters.html:283 views/newsletters.html:287
+#: views/newsletters.html:284 views/newsletters.html:288
 msgid "john.doe@email.com"
 msgstr ""
 
-#: views/newsletters.html:284 views/newsletters.html:397 views/settings.html:48
+#: views/newsletters.html:285 views/newsletters.html:395 views/settings.html:48
 msgid "Reply-to"
 msgstr ""
 
-#: views/newsletters.html:285
+#: views/newsletters.html:286
 msgid "When your subscribers reply to your emails, their emails will go to this address."
 msgstr ""
 
-#: views/newsletters.html:288
+#: views/newsletters.html:289
 msgid "Email was updated successfully!"
 msgstr ""
 
-#: views/newsletters.html:289
+#: views/newsletters.html:290
 msgid "Email was added successfully!"
 msgstr ""
 
-#: views/newsletters.html:290
+#: views/newsletters.html:291
 msgid "An error occurred while trying to send. <a href=\"%1$s\">Please check your settings</a>."
 msgstr ""
 
-#: views/newsletters.html:291
+#: views/newsletters.html:292
 msgid "Final Step: Last Details"
 msgstr ""
 
-#: views/newsletters.html:292
+#: views/newsletters.html:293
 msgid "Save as draft and close"
 msgstr ""
 
-#: views/newsletters.html:294
+#: views/newsletters.html:295
 msgid "or simply"
 msgstr ""
 
-#: views/newsletters.html:295
+#: views/newsletters.html:296
 msgid "go back to the Design page"
 msgstr ""
 
-#: views/newsletters.html:296
+#: views/newsletters.html:297
 msgid "Your website’s time is"
 msgstr ""
 
-#: views/newsletters.html:297
+#: views/newsletters.html:298
 msgid "Please enter the scheduled date."
 msgstr ""
 
-#: views/newsletters.html:298
+#: views/newsletters.html:299
 msgid "Schedule"
 msgstr ""
 
-#: views/newsletters.html:299 views/settings.html:100
-msgid "You need to authorize the email address [email] to be able to send with it."
+#: views/newsletters.html:300 views/settings.html:100
+msgid "Not an authorized sender email address. [link]Authorize it now.[/link]"
 msgstr ""
 
-#: views/newsletters.html:300 views/settings.html:101
+#: views/newsletters.html:301 views/settings.html:101
 msgid "Authorize my email address"
 msgstr ""
 
-#: views/newsletters.html:303
+#: views/newsletters.html:304
 msgid "Previous"
 msgstr ""
 
-#: views/newsletters.html:304
+#: views/newsletters.html:305
 msgid "The newsletter is being sent..."
 msgstr ""
 
-#: views/newsletters.html:305
+#: views/newsletters.html:306
 msgid "The newsletter has been scheduled."
 msgstr ""
 
-#: views/newsletters.html:306
+#: views/newsletters.html:307
 msgid "The newsletter sending has been resumed."
 msgstr ""
 
@@ -8164,302 +8176,294 @@ msgid "Your Post Notification could not be activated, check the settings."
 msgstr ""
 
 #: views/newsletters.html:314
-msgid "Sent when someone subscribes to the list: \"%1$s\"."
-msgstr ""
-
-#: views/newsletters.html:315
 msgid "Sent when someone subscribes to the list: %1$s."
 msgstr ""
 
-#: views/newsletters.html:316
+#: views/newsletters.html:315
 msgid "Sent when a new WordPress user is added to your site."
 msgstr ""
 
-#: views/newsletters.html:317
-msgid "Sent when a new WordPress user with the role \"%1$s\" is added to your site."
-msgstr ""
-
-#: views/newsletters.html:318
+#: views/newsletters.html:316
 msgid "Sent when a new WordPress user with the role %1$s is added to your site."
 msgstr ""
 
-#: views/newsletters.html:319
+#: views/newsletters.html:317
 msgid "%1$d minute(s) later"
 msgstr ""
 
-#: views/newsletters.html:320
+#: views/newsletters.html:318
 msgid "%1$d hour(s) later"
 msgstr ""
 
-#: views/newsletters.html:321
+#: views/newsletters.html:319
 msgid "%1$d day(s) later"
 msgstr ""
 
-#: views/newsletters.html:322
+#: views/newsletters.html:320
 msgid "%1$d week(s) later"
 msgstr ""
 
-#: views/newsletters.html:323
+#: views/newsletters.html:321
 msgid "Invalid sending delay."
 msgstr ""
 
-#: views/newsletters.html:324
+#: views/newsletters.html:322
 msgid "Daily at %1$s"
 msgstr ""
 
-#: views/newsletters.html:325
+#: views/newsletters.html:323
 msgid "Weekly on %1$s at %2$s"
 msgstr ""
 
-#: views/newsletters.html:326
+#: views/newsletters.html:324
 msgid "Monthly on the %1$s at %2$s"
 msgstr ""
 
-#: views/newsletters.html:327
+#: views/newsletters.html:325
 msgid "Every %1$s %2$s of the month at %3$s"
 msgstr ""
 
-#: views/newsletters.html:329
+#: views/newsletters.html:327
 msgid "Send to %1$s"
 msgstr ""
 
-#: views/newsletters.html:330
+#: views/newsletters.html:328
 msgid "You need to select a list to send to."
 msgstr ""
 
-#: views/newsletters.html:332
+#: views/newsletters.html:330
 msgid "Back to Post notifications"
 msgstr ""
 
-#: views/newsletters.html:333
+#: views/newsletters.html:331
 msgid "No subscribers!"
 msgstr ""
 
-#: views/newsletters.html:335
+#: views/newsletters.html:333
 msgid "Good news! MailPoet can now send your website’s emails too"
 msgstr ""
 
-#: views/newsletters.html:336
+#: views/newsletters.html:334
 msgid "All of your WordPress and WooCommerce emails are sent with your hosting company, unless you have an SMTP plugin. Would you like such emails to be delivered with MailPoet’s active sending method for better deliverability?"
 msgstr ""
 
-#: views/newsletters.html:339
+#: views/newsletters.html:337
 msgid "Sending has been paused due to a technical issue with %1$s"
 msgstr ""
 
-#: views/newsletters.html:343
+#: views/newsletters.html:341
 msgid "Sending is paused because the following connection issue prevents MailPoet from delivering emails"
 msgstr ""
 
-#: views/newsletters.html:344
+#: views/newsletters.html:342
 msgid "Error code: %1$s"
 msgstr ""
 
-#: views/newsletters.html:347
+#: views/newsletters.html:345
 msgid "I have upgraded my subscription, resume sending"
 msgstr ""
 
-#: views/newsletters.html:348
+#: views/newsletters.html:346
 msgid "Sending is in progress. Do you want to pause sending and edit the newsletter?"
 msgstr ""
 
-#: views/newsletters.html:349
+#: views/newsletters.html:347
 msgid "Confirm to proceed"
 msgstr ""
 
-#: views/newsletters.html:350
+#: views/newsletters.html:348
 msgid "Confirm"
 msgstr ""
 
-#: views/newsletters.html:352
+#: views/newsletters.html:350
 msgid "To edit this email, it needs to be deactivated. You can activate it again after you make the changes."
 msgstr ""
 
-#: views/newsletters.html:354
+#: views/newsletters.html:352
 msgid "Recently sent"
 msgstr ""
 
-#: views/newsletters.html:355
+#: views/newsletters.html:353
 msgid "Your saved templates"
 msgstr ""
 
-#: views/newsletters.html:356
+#: views/newsletters.html:354
 msgid "Template preview"
 msgstr ""
 
-#: views/newsletters.html:359
+#: views/newsletters.html:357
 msgid "This category does not contain any template yet!"
 msgstr ""
 
-#: views/newsletters.html:361
+#: views/newsletters.html:359
 msgid "Soon"
 msgstr ""
 
-#: views/newsletters.html:362
+#: views/newsletters.html:360
 msgid "Beta"
 msgstr ""
 
-#: views/newsletters.html:363
+#: views/newsletters.html:361
 msgid "An error occurred while saving the template in \"Recently sent\""
 msgstr ""
 
-#: views/newsletters.html:364
+#: views/newsletters.html:362
 msgid "Oops! There seems to be an issue with the sending on your website. [link]See our guide[/link] to solve this yourself."
 msgstr ""
 
-#: views/newsletters.html:365
+#: views/newsletters.html:363
 msgid "Congratulations!"
 msgstr ""
 
-#: views/newsletters.html:366
+#: views/newsletters.html:364
 msgid "Your newsletter is being sent!"
 msgstr ""
 
-#: views/newsletters.html:367
+#: views/newsletters.html:365
 msgid "Your newsletter is scheduled to be sent."
 msgstr ""
 
-#: views/newsletters.html:368
+#: views/newsletters.html:366
 msgid "Your WooCommerce email has been activated."
 msgstr ""
 
-#: views/newsletters.html:369
+#: views/newsletters.html:367
 msgid "Your Post Notification is now active."
 msgstr ""
 
-#: views/newsletters.html:370
+#: views/newsletters.html:368
 msgid "Your Welcome Email is now active."
 msgstr ""
 
-#: views/newsletters.html:372
+#: views/newsletters.html:370
 msgid "Oops! We can’t send your newsletter"
 msgstr ""
 
-#: views/newsletters.html:373
+#: views/newsletters.html:371
 msgid "Rest assured, this is fairly common and is usually fixed quickly. [link]See our quick guide[/link] to help you solve this and get your website sending."
 msgstr ""
 
-#: views/newsletters.html:374
+#: views/newsletters.html:372
 msgid "Verification"
 msgstr ""
 
-#: views/newsletters.html:375
+#: views/newsletters.html:373
 msgid "Congrats, you’re sending your first newsletter! We’re doing a quick verification to make sure everything works fine."
 msgstr ""
 
-#: views/newsletters.html:377
+#: views/newsletters.html:375
 msgid "Your email has been sent!"
 msgstr ""
 
-#: views/newsletters.html:378
+#: views/newsletters.html:376
 msgid "You are all set up and ready to go!"
 msgstr ""
 
-#: views/newsletters.html:379
+#: views/newsletters.html:377
 msgid "What’s next? Sign up to the MailPoet Starter plan for fast and reliable email delivery"
 msgstr ""
 
-#: views/newsletters.html:384
+#: views/newsletters.html:382
 msgid "Failure reason (if applicable)"
 msgstr ""
 
-#: views/newsletters.html:385
+#: views/newsletters.html:383
 msgid "Resend"
 msgstr ""
 
-#: views/newsletters.html:389
+#: views/newsletters.html:387
 msgid "No sending task found."
 msgstr ""
 
-#: views/newsletters.html:391
+#: views/newsletters.html:389
 msgid "Loading..."
 msgstr ""
 
-#: views/newsletters.html:395 views/settings.html:46
+#: views/newsletters.html:393 views/settings.html:46
 msgid "From"
 msgstr ""
 
-#: views/newsletters.html:396
+#: views/newsletters.html:394
 msgid "To"
 msgstr ""
 
-#: views/newsletters.html:398
+#: views/newsletters.html:396
 msgid "Sent to"
 msgstr ""
 
-#: views/newsletters.html:401 views/subscribers/subscribers.html:117
+#: views/newsletters.html:399 views/subscribers/subscribers.html:117
 msgid "A machine-opened email is an email opened by a computer in the background without the user’s explicit request or knowledge. [link]Read more[/link]"
 msgstr ""
 
-#: views/newsletters.html:405
+#: views/newsletters.html:403
 msgid "Read more on stats."
 msgstr ""
 
-#: views/newsletters.html:406
+#: views/newsletters.html:404
 msgid "Clicked Links"
 msgstr ""
 
-#: views/newsletters.html:407
+#: views/newsletters.html:405
 msgid "Subscriber Engagement"
 msgstr ""
 
-#: views/newsletters.html:408
+#: views/newsletters.html:406
 msgid "GA campaign"
 msgstr ""
 
-#: views/newsletters.html:413
+#: views/newsletters.html:411
 msgid "Google Analytics Campaign"
 msgstr ""
 
-#: views/newsletters.html:414
+#: views/newsletters.html:412
 msgid "For example, “Spring email”. [link]Read the guide.[/link]"
 msgstr ""
 
-#: views/newsletters.html:416
+#: views/newsletters.html:414
 msgid "Automatic Email"
 msgstr ""
 
-#: views/newsletters.html:417 views/subscribers/subscribers.html:121
+#: views/newsletters.html:415 views/subscribers/subscribers.html:121
 msgid "Tip:"
 msgstr ""
 
-#: views/newsletters.html:418
+#: views/newsletters.html:416
 msgid "Select %1s events conditions"
 msgstr ""
 
-#: views/newsletters.html:419
+#: views/newsletters.html:417
 msgid "Send this %1s Automatic Email when..."
 msgstr ""
 
-#: views/newsletters.html:420
+#: views/newsletters.html:418
 msgid "Your %1s Automatic Email is now activated!"
 msgstr ""
 
-#: views/newsletters.html:421
+#: views/newsletters.html:419
 msgid "Your %1s Automatic Email could not be activated, please check the settings."
 msgstr ""
 
-#: views/newsletters.html:422
+#: views/newsletters.html:420
 msgid "You need to configure email options before this email can be sent."
 msgstr ""
 
-#: views/newsletters.html:423
+#: views/newsletters.html:421
 msgid "Sent to %1$d customers"
 msgstr ""
 
-#: views/newsletters.html:424
+#: views/newsletters.html:422
 msgid "WooCommerce emails won’t be sent to new customers because the opt-in on checkout is disabled. Enable it so they can immediately get your emails after their first purchase."
 msgstr ""
 
-#: views/newsletters.html:425
+#: views/newsletters.html:423
 msgid "Edit WooCommerce settings"
 msgstr ""
 
-#: views/newsletters.html:426
+#: views/newsletters.html:424
 msgid "Re-engagement emails are disabled because [link]open and click tracking[/link] is disabled."
 msgstr ""
 
-#: views/newsletters.html:432
+#: views/newsletters.html:430
 msgid "An email can only be scheduled up to 5 years in the future. Please choose a shorter period."
 msgstr ""
 
@@ -8538,77 +8542,72 @@ msgctxt "weeks in the sentence \"5 weeks after inactivity\""
 msgid "weeks"
 msgstr ""
 
-#: views/newsletters.html:307
-msgctxt "Users need to confirm that they own the email address they want to use to send their newsletter"
-msgid "You need to authorize the email address <i>%1$s</i> to be able to send with it. [link]Authorize my email address[/link]"
-msgstr ""
-
-#: views/newsletters.html:337
+#: views/newsletters.html:335
 msgctxt "This is a link that leads to more information about transactional emails"
 msgid "Read more."
 msgstr ""
 
-#: views/newsletters.html:338
+#: views/newsletters.html:336
 msgctxt "Button, after clicking it we will enable transactional emails"
 msgid "Enable"
 msgstr ""
 
-#: views/newsletters.html:358
+#: views/newsletters.html:356
 msgctxt "Importing template tab title"
 msgid "Import"
 msgstr ""
 
-#: views/newsletters.html:381
+#: views/newsletters.html:379
 msgctxt "Page title. This page displays a list of emails along with their sending status: unprocessed, sent or failed."
 msgid "Sending status"
 msgstr ""
 
-#: views/newsletters.html:383
+#: views/newsletters.html:381
 msgctxt "an email sending status: unprocessed, sent or failed."
 msgid "Sending status"
 msgstr ""
 
-#: views/newsletters.html:386
+#: views/newsletters.html:384
 msgctxt "status when the sending of a newsletter has not been processed"
 msgid "Unprocessed"
 msgstr ""
 
-#: views/newsletters.html:387
+#: views/newsletters.html:385
 msgctxt "status when a newsletter has been sent"
 msgid "Sent"
 msgstr ""
 
-#: views/newsletters.html:388
+#: views/newsletters.html:386
 msgctxt "status when the sending of a newsletter has failed"
 msgid "Failed"
 msgstr ""
 
-#: views/newsletters.html:399
+#: views/newsletters.html:397
 msgctxt "Percentage of subscribers that opened a newsletter link"
 msgid "opened"
 msgstr ""
 
-#: views/newsletters.html:400
+#: views/newsletters.html:398
 msgctxt "Percentage of newsletters that were opened by a machine"
 msgid "machine-opened"
 msgstr ""
 
-#: views/newsletters.html:402
+#: views/newsletters.html:400
 msgctxt "Percentage of subscribers that clicked a newsletter link"
 msgid "clicked"
 msgstr ""
 
-#: views/newsletters.html:403
+#: views/newsletters.html:401
 msgctxt "Percentage of subscribers that unsubscribed from a newsletter"
 msgid "unsubscribed"
 msgstr ""
 
-#: views/newsletters.html:404
+#: views/newsletters.html:402
 msgctxt "Percentage of subscribers that bounced from a newsletter"
 msgid "bounced"
 msgstr ""
 
-#: views/newsletters.html:409
+#: views/newsletters.html:407
 msgctxt "A tab title for the list of bounces (w.wiki/45Qc)"
 msgid "Bounces"
 msgstr ""
@@ -9618,7 +9617,7 @@ msgstr ""
 msgid "Please specify a license key before validating it."
 msgstr ""
 
-#: views/settings.html:184 views/subscribers/importExport/import.html:116
+#: views/settings.html:184 views/subscribers/importExport/import.html:117
 msgid "Verify"
 msgstr ""
 
@@ -10123,7 +10122,7 @@ msgid "ZIP extension is required to create Excel files. Please refer to the [lin
 msgstr ""
 
 #: views/subscribers/importExport/export.html:99
-#: views/subscribers/importExport/import.html:38
+#: views/subscribers/importExport/import.html:39
 msgid "Server error:"
 msgstr ""
 
@@ -10135,303 +10134,316 @@ msgstr ""
 msgid "This file needs to be formatted in a CSV style (comma-separated-values). Look at some [link]examples on our support site[/link]."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:37
+#: views/subscribers/importExport/import.html:38
 msgid "No active lists found"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:39
+#: views/subscribers/importExport/import.html:40
 msgid "Select"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:40
+#: views/subscribers/importExport/import.html:41
 msgid "Only comma-separated (CSV) file formats are supported."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:41
+#: views/subscribers/importExport/import.html:42
 msgid "Your CSV is over %s and is too big to process. Please split the file into two or more sections."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:42
+#: views/subscribers/importExport/import.html:43
 msgid "Your data could not be processed. Please make sure it is in the correct format."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:43
+#: views/subscribers/importExport/import.html:44
 msgid "No valid records were found. This file needs to be formatted in a CSV style (comma-separated). Look at some [link]examples on our support site.[/link]"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:44
+#: views/subscribers/importExport/import.html:45
 msgid "%1$s records had issues and were skipped."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:45
+#: views/subscribers/importExport/import.html:46
 msgid "%1$s emails are not valid: %2$s"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:47
+#: views/subscribers/importExport/import.html:48
 msgid "%1$s emails appear more than once in your file: %2$s"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:48
+#: views/subscribers/importExport/import.html:49
 msgid "Hide details"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:51
-#: views/subscribers/importExport/import.html:53
+#: views/subscribers/importExport/import.html:52
+#: views/subscribers/importExport/import.html:54
 msgid "Add new list"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:52
+#: views/subscribers/importExport/import.html:53
 msgid "Add new field"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:55
+#: views/subscribers/importExport/import.html:56
 msgid "The selected value is already matched to another field."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:56
+#: views/subscribers/importExport/import.html:57
 msgid "Confirm that this field corresponds to the selected field."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:57
+#: views/subscribers/importExport/import.html:58
 msgid "One of the fields contains an invalid email. Please fix it before continuing."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:70
+#: views/subscribers/importExport/import.html:71
 msgid "Do not match as a 'date field' if most of the rows for that field return the same error."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:71
+#: views/subscribers/importExport/import.html:72
 msgid "First row date cannot be empty."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:72
+#: views/subscribers/importExport/import.html:73
 msgid "Verify that the date in blue matches the original date."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:73
+#: views/subscribers/importExport/import.html:74
 msgid "PM"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:74
+#: views/subscribers/importExport/import.html:75
 msgid "AM"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:75
+#: views/subscribers/importExport/import.html:76
 msgid "Error matching date"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:76
+#: views/subscribers/importExport/import.html:77
 msgid "One of the fields contains an invalid date. Please fix before continuing."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:77
+#: views/subscribers/importExport/import.html:78
 msgid "Error adding a new list:"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:78
+#: views/subscribers/importExport/import.html:79
 msgid "One of the fields contains an invalid email. Please fix before continuing."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:79
+#: views/subscribers/importExport/import.html:80
 msgid "Custom field could not be created"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:80
+#: views/subscribers/importExport/import.html:81
 msgid "%1$s subscribers added to %2$s."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:81
+#: views/subscribers/importExport/import.html:82
 msgid "%1$s existing subscribers were updated and added to %2$s."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:82
+#: views/subscribers/importExport/import.html:83
 msgid "No subscribers were added or updated."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:83
+#: views/subscribers/importExport/import.html:84
 msgid "Note: Imported subscribers will not receive any Welcome Emails"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:84
+#: views/subscribers/importExport/import.html:85
 msgid "Read the support article."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:92
+#: views/subscribers/importExport/import.html:93
 msgid "Over 2 years ago"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:93
+#: views/subscribers/importExport/import.html:94
 msgid "Between 1 and 2 years ago"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:94
+#: views/subscribers/importExport/import.html:95
 msgid "Within the last year"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:95
+#: views/subscribers/importExport/import.html:96
 msgid "Within the last 3 months"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:97
+#: views/subscribers/importExport/import.html:98
 msgid "Previous step"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:98
+#: views/subscribers/importExport/import.html:99
 msgid "Next step"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:100
+#: views/subscribers/importExport/import.html:101
 msgid " See video guide"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:101
+#: views/subscribers/importExport/import.html:102
 msgid "Import again"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:103
+#: views/subscribers/importExport/import.html:104
 msgid "Paste the data into a text box"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:104
+#: views/subscribers/importExport/import.html:105
 msgid "Pick one or more list(s)"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:105
+#: views/subscribers/importExport/import.html:106
 msgid "Pick the list that you want to import these subscribers to."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:107
+#: views/subscribers/importExport/import.html:108
 msgid "Create a new list"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:108
+#: views/subscribers/importExport/import.html:109
 msgid "Update existing subscribers’ information, like first name, last name, etc."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:111
+#: views/subscribers/importExport/import.html:112
 msgid " To add subscribers to a mailing segment, [link]create a list[/link]."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:112
+#: views/subscribers/importExport/import.html:113
 msgid "Upload a file"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:113
+#: views/subscribers/importExport/import.html:114
 msgid "Import from MailChimp"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:114
+#: views/subscribers/importExport/import.html:115
 msgid "Enter your MailChimp API key"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:115
+#: views/subscribers/importExport/import.html:116
 msgid "Find your MailChimp API key in our [link]documentation[/link]."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:117
+#: views/subscribers/importExport/import.html:118
 msgid "Select list(s)"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:119
+#: views/subscribers/importExport/import.html:120
 msgid "Match data"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:121
+#: views/subscribers/importExport/import.html:122
 msgid "Copy and paste your subscribers from Excel/Spreadsheets"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:122
+#: views/subscribers/importExport/import.html:123
 msgid "This file needs to be formatted in a CSV style (comma-separated-values.) Look at some [link]examples on our support site[/link]."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:123
+#: views/subscribers/importExport/import.html:124
 msgid "How would you like to import subscribers?"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:124
+#: views/subscribers/importExport/import.html:125
 msgid "We highly recommend cleaning your lists before importing them to MailPoet."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:125
+#: views/subscribers/importExport/import.html:126
 msgid "Lists can have up to 20% of invalid addresses after a year because people change jobs and stop using their addresses. If you send with MailPoet, we will pause your sending and ask you to clean your list if we detect over 10% of invalid addresses."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:132
+#: views/subscribers/importExport/import.html:133
 msgid "Set new subscribers’ status to"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:133
+#: views/subscribers/importExport/import.html:134
 msgid "Choose “Subscribed” only if you have explicit consent to send them bulk or marketing emails. [link]Why is consent important?[/link]"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:134
+#: views/subscribers/importExport/import.html:135
 msgid "Congratulations, you’ve imported your subscribers!"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:135
+#: views/subscribers/importExport/import.html:136
 msgid "Are you importing subscribers from another marketing service provider? You may need to separately import the list of bad or previously unsubscribed addresses to avoid contacting them. [link]See how to import a suppression list.[/link]"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:136
+#: views/subscribers/importExport/import.html:137
 msgid "Update existing subscribers’ status to"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:46
+#: views/subscribers/importExport/import.html:138
+msgid "Assign tags"
+msgstr ""
+
+#: views/subscribers/importExport/import.html:139
+msgid "Pick a tag or create a new one to assign to these subscribers."
+msgstr ""
+
+#: views/subscribers/importExport/import.html:140
+#: views/subscribers/subscribers.html:163
+msgid "Add new tag"
+msgstr ""
+
+#: views/subscribers/importExport/import.html:47
 msgctxt "Error message when importing addresses like postmaster@domain.com"
 msgid "%1$s [link]role-based addresses[/link] are not permitted: %2$s"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:85
+#: views/subscribers/importExport/import.html:86
 msgctxt "Question for importing subscribers into MailPoet"
 msgid "Are you importing an existing list or contacts from your address book?"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:86
+#: views/subscribers/importExport/import.html:87
 msgctxt "User choice to import an existing email list"
 msgid "Existing list"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:87
+#: views/subscribers/importExport/import.html:88
 msgctxt "User choice to import his address book contacts"
 msgid "Contacts from my address book"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:88
+#: views/subscribers/importExport/import.html:89
 msgctxt "Paragraph explaining the user what to do when importing his contacts."
 msgid "You will need to ask your contacts to join your list instead of importing them. This is a standard practice to ensure good email deliverability."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:89
+#: views/subscribers/importExport/import.html:90
 msgctxt "Paragraph warning what happens if user imports his contacts and sends with MailPoet"
 msgid "If you send with MailPoet, we will detect if you import subscribers without their explicit consent and suspend your account."
 msgstr ""
 
-#: views/subscribers/importExport/import.html:90
+#: views/subscribers/importExport/import.html:91
 msgctxt "Button to visit a support article"
 msgid "How to ask your contacts to join your list"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:91
+#: views/subscribers/importExport/import.html:92
 msgctxt "Question for users importing their list"
 msgid "When did you last send an email to this list?"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:106
+#: views/subscribers/importExport/import.html:107
 msgctxt " Verb"
 msgid "Select"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:126
+#: views/subscribers/importExport/import.html:127
 msgctxt "CTA button label"
 msgid "How can I clean my list?"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:127
+#: views/subscribers/importExport/import.html:128
 msgctxt "Text in a link"
 msgid "Got it, I’ll proceed to import"
 msgstr ""
 
-#: views/subscribers/importExport/import.html:131
+#: views/subscribers/importExport/import.html:132
 msgctxt "This is a value in a select box for \"Set new subscribers’ status to\""
 msgid "Don’t update"
 msgstr ""
@@ -10634,10 +10646,6 @@ msgstr ""
 
 #: views/subscribers/subscribers.html:162
 msgid "Tags"
-msgstr ""
-
-#: views/subscribers/subscribers.html:163
-msgid "Add new tag"
 msgstr ""
 
 #: views/subscribers/subscribers.html:50

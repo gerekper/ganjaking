@@ -191,6 +191,8 @@ class THEMECOMPLETE_EPO_FIELDS_upload extends THEMECOMPLETE_EPO_FIELDS {
 			}
 		}
 
+		$value = THEMECOMPLETE_EPO_HELPER()->to_ssl( $value );
+
 		if ( $can_be_added ) {
 			return apply_filters(
 				'wc_epo_add_cart_item_data_single',

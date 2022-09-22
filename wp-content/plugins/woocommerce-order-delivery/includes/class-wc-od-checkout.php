@@ -61,7 +61,7 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 			add_action( 'woocommerce_cart_emptied', array( $this, 'cart_emptied' ) );
 			add_action( 'woocommerce_before_calculate_totals', array( $this, 'before_calculate_totals' ) );
 			add_action( 'woocommerce_cart_calculate_fees', array( $this, 'cart_calculate_fees' ) );
-			add_action( 'woocommerce_after_checkout_validation', array( $this, 'checkout_validation' ) );
+			add_action( 'woocommerce_after_checkout_validation', array( $this, 'checkout_validation' ), 10, 2 );
 			add_action( 'woocommerce_checkout_create_order_fee_item', array( $this, 'create_order_fee_item' ), 10, 2 );
 			add_action( 'woocommerce_checkout_create_order', array( $this, 'update_order_meta' ) );
 		}
@@ -625,21 +625,24 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		/**
 		 * Validates the delivery fields on the checkout process.
 		 *
-		 * TODO: Use the $data and $errors parameters when the minimum WC version is 3.0+.
-		 *
 		 * @since 1.5.0
+		 * @since 2.2.2 Added parameters `$data` and `$errors`.
+		 *
+		 * @param  array    $data   An array of posted data.
+		 * @param  WP_Error $errors Validation errors.
 		 */
-		public function checkout_validation() {
+		public function checkout_validation( $data, $errors ) {
 			if ( ! $this->has_available_dates() ) {
 				return;
 			}
 
-			$checkout = WC()->checkout();
-			$fields   = $checkout->get_checkout_fields( 'delivery' );
+			$fields = WC()->checkout()->get_checkout_fields( 'delivery' );
 
 			foreach ( $fields as $field_id => $field ) {
 				/**
 				 * Filters the callback used to validate the checkout field.
+				 *
+				 * The dynamic portion of the hook name refers to the field ID.
 				 *
 				 * @since 1.5.0
 				 *
@@ -648,8 +651,13 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 				 */
 				$callback = apply_filters( "wc_od_checkout_{$field_id}_validation_callback", array( $this, 'validate_' . $field_id ), $field );
 
-				if ( is_callable( $callback ) ) {
-					call_user_func( $callback, $checkout->get_value( $field_id ), $field );
+				// Check the returned value is exactly 'false' to disambiguate legacy callbacks returning nothing.
+				if ( is_callable( $callback ) && false === call_user_func( $callback, $data[ $field_id ], $field ) ) {
+					$errors->add(
+						$field_id,
+						/* translators: %s: field label */
+						sprintf( __( '%s is not valid.', 'woocommerce-order-delivery' ), '<strong>' . esc_html( $field['label'] ) . '</strong>' )
+					);
 				}
 			}
 		}
@@ -659,38 +667,37 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		 *
 		 * @since 1.0.0
 		 * @since 1.5.0 Added `$value` and `$field` parameters.
+		 * @since 2.2.2 Returns a boolean value.
 		 *
 		 * @param mixed $value The field value.
 		 * @param array $field The field data.
+		 * @return bool
 		 */
 		public function validate_delivery_date( $value, $field ) {
+			// The required field validation is done by WooCommerce. So, an empty value is allowed at this point.
 			if ( ! $value ) {
-				return;
+				return true;
 			}
 
 			// The delivery days statuses haven't been processed with the shipping method.
 			$args = $this->get_delivery_date_args();
 			unset( $args['delivery_days'] );
 
-			if ( ! wc_od_validate_delivery_date( $value, $args, 'checkout' ) ) {
-				/* translators: %s: field label */
-				wc_add_notice( sprintf( __( '%s is not valid.', 'woocommerce-order-delivery' ), '<strong>' . esc_html( $field['label'] ) . '</strong>' ), 'error' );
-			}
+			return wc_od_validate_delivery_date( $value, $args, 'checkout' );
 		}
 
 		/**
 		 * Validates the delivery time frame field.
 		 *
 		 * @since 1.5.0
+		 * @since 2.2.2 Returns a boolean value.
 		 *
 		 * @param mixed $value The field value.
 		 * @param array $field The field data.
+		 * @return bool
 		 */
 		public function validate_delivery_time_frame( $value, $field ) {
-			if ( $value && ! in_array( $value, array_keys( $field['options'] ) ) ) { // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
-				/* translators: %s: field label */
-				wc_add_notice( sprintf( __( '%s is not valid.', 'woocommerce-order-delivery' ), '<strong>' . esc_html( $field['label'] ) . '</strong>' ), 'error' );
-			}
+			return in_array( $value, array_keys( $field['options'] ) ); // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
 		}
 
 		/**

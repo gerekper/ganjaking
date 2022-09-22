@@ -44,6 +44,13 @@ class Crawl_Settings_Integration implements Integration_Interface {
 	private $search_cleanup_settings;
 
 	/**
+	 * Holds the settings + labels for unused resources settings.
+	 *
+	 * @var array
+	 */
+	private $unused_resources_settings;
+
+	/**
 	 * The shortlinker.
 	 *
 	 * @var WPSEO_Shortlinker
@@ -72,10 +79,7 @@ class Crawl_Settings_Integration implements Integration_Interface {
 	 * @param Options_Helper    $options_helper The options helper.
 	 * @param WPSEO_Shortlinker $shortlinker    The shortlinker.
 	 */
-	public function __construct(
-		Options_Helper $options_helper,
-		WPSEO_Shortlinker $shortlinker
-	) {
+	public function __construct( Options_Helper $options_helper, WPSEO_Shortlinker $shortlinker ) {
 		$this->options_helper = $options_helper;
 		$this->shortlinker    = $shortlinker;
 	}
@@ -128,7 +132,6 @@ class Crawl_Settings_Integration implements Integration_Interface {
 			'remove_rsd_wlw_links'     => \__( 'RSD / WLW links', 'wordpress-seo-premium' ),
 			'remove_oembed_links'      => \__( 'oEmbed links', 'wordpress-seo-premium' ),
 			'remove_generator'         => \__( 'Generator tag', 'wordpress-seo-premium' ),
-			'remove_emoji_scripts'     => \__( 'Emoji scripts', 'wordpress-seo-premium' ),
 			'remove_pingback_header'   => \__( 'Pingback HTTP header', 'wordpress-seo-premium' ),
 			'remove_powered_by_header' => \__( 'Powered by HTTP header', 'wordpress-seo-premium' ),
 		];
@@ -142,6 +145,12 @@ class Crawl_Settings_Integration implements Integration_Interface {
 			'search_cleanup'          => \__( 'Filter search terms', 'wordpress-seo-premium' ),
 			'search_cleanup_emoji'    => \__( 'Filter searches with emojis and other special characters', 'wordpress-seo-premium' ),
 			'search_cleanup_patterns' => \__( 'Filter searches with common spam patterns', 'wordpress-seo-premium' ),
+			'deny_search_crawling'    => \__( 'Prevent search engines from crawling site search URLs', 'wordpress-seo-premium' ),
+		];
+
+		$this->unused_resources_settings = [
+			'remove_emoji_scripts'  => \__( 'Emoji scripts', 'wordpress-seo-premium' ),
+			'deny_wp_json_crawling' => \__( 'Prevent search engines from crawling /wp-json/', 'wordpress-seo-premium' ),
 		];
 	}
 
@@ -167,7 +176,7 @@ class Crawl_Settings_Integration implements Integration_Interface {
 	 * Print the settings sections.
 	 *
 	 * @param Yoast_Form $yform      The Yoast form class.
-	 * @param boolean    $is_network Whether we're on the network site.
+	 * @param bool       $is_network Whether we're on the network site.
 	 *
 	 * @return void
 	 */
@@ -175,6 +184,7 @@ class Crawl_Settings_Integration implements Integration_Interface {
 		$this->print_toggles( $this->basic_settings, $yform, $is_network, \__( 'Basic crawl settings', 'wordpress-seo-premium' ), \__( 'Remove links added by WordPress to the header and &lt;head&gt;.', 'wordpress-seo-premium' ) );
 
 		$this->print_toggles( $this->feed_settings, $yform, $is_network, \__( 'Feed crawl settings', 'wordpress-seo-premium' ), \__( "Remove feed links added by WordPress that aren't needed for this site.", 'wordpress-seo-premium' ) );
+		$this->print_toggles( $this->unused_resources_settings, $yform, $is_network, \__( 'Remove unused resources', 'wordpress-seo-premium' ), \__( 'WordPress loads lots of resources, some of which your site might not need. If you’re not using these, removing them can speed up your pages and save resources.', 'wordpress-seo-premium' ) );
 
 		$first_search_setting    = \array_slice( $this->search_cleanup_settings, 0, 1 );
 		$rest_search_settings    = \array_slice( $this->search_cleanup_settings, 1 );
@@ -201,7 +211,7 @@ class Crawl_Settings_Integration implements Integration_Interface {
 		$this->print_toggles( $rest_search_settings, $yform, $is_network, '', '', $search_settings_toggles );
 
 		$permalink_warning = \sprintf(
-			/* Translators: %1$s expands to an opening anchor tag for a link leading to the Yoast SEO page of the Permalink Cleanup features, %2$s expands to a closing anchor tag. */
+		/* Translators: %1$s expands to an opening anchor tag for a link leading to the Yoast SEO page of the Permalink Cleanup features, %2$s expands to a closing anchor tag. */
 			\esc_html__(
 				'These are expert features, so make sure you know what you\'re doing before removing the parameters. %1$sRead more about how your site can be affected%2$s.',
 				'wordpress-seo-premium'
@@ -217,7 +227,7 @@ class Crawl_Settings_Integration implements Integration_Interface {
 			echo '<div id="clean_permalinks_extra_variables_container" class="yoast-crawl-single-setting">';
 			$yform->textinput( 'clean_permalinks_extra_variables', \__( 'Additional URL parameters to allow', 'wordpress-seo-premium' ) );
 			echo '<p class="desc label yoast-extra-variables-label">';
-			esc_html_e( 'Please use a comma to separate multiple URL parameters.', 'wordpress-seo-premium' );
+			\esc_html_e( 'Please use a comma to separate multiple URL parameters.', 'wordpress-seo-premium' );
 			echo '</p>';
 			echo '</div>';
 		}
@@ -230,13 +240,13 @@ class Crawl_Settings_Integration implements Integration_Interface {
 	/**
 	 * Prints a list of toggles for an array of settings with labels.
 	 *
-	 * @param array      $settings     The settings being displayed.
-	 * @param Yoast_Form $yform        The Yoast form class.
-	 * @param boolean    $is_network   Whether we're on the network site.
-	 * @param string     $title        Optional title for the settings being displayed.
-	 * @param string     $description  Optional description of the settings being displayed.
-	 * @param array      $toggles      Optional naming of the toggle buttons.
-	 * @param string     $warning      Optional warning to be displayed above the toggles.
+	 * @param array      $settings    The settings being displayed.
+	 * @param Yoast_Form $yform       The Yoast form class.
+	 * @param bool       $is_network  Whether we're on the network site.
+	 * @param string     $title       Optional title for the settings being displayed.
+	 * @param string     $description Optional description of the settings being displayed.
+	 * @param array      $toggles     Optional naming of the toggle buttons.
+	 * @param string     $warning     Optional warning to be displayed above the toggles.
 	 *
 	 * @return void
 	 */
@@ -275,7 +285,7 @@ class Crawl_Settings_Integration implements Integration_Interface {
 			$attr     = [];
 			$variable = $setting_prefix . $setting;
 
-			if ( $this->should_feature_be_disabled( $setting, $is_network ) ) {
+			if ( $this->should_feature_be_disabled_permalink( $setting, $is_network ) ) {
 				$attr     = [
 					'disabled' => true,
 				];
@@ -283,6 +293,12 @@ class Crawl_Settings_Integration implements Integration_Interface {
 
 				// Also add the original option as hidden, so as not to lose any values if it's disabled and the form is saved.
 				$yform->hidden( $setting_prefix . $setting, $setting_prefix . $setting );
+			}
+			elseif ( $this->should_feature_be_disabled_multisite( $setting ) ) {
+				$attr = [
+					'disabled'                => true,
+					'preserve_disabled_value' => false,
+				];
 			}
 
 			$yform->toggle_switch(
@@ -297,13 +313,13 @@ class Crawl_Settings_Integration implements Integration_Interface {
 				echo \esc_html__( 'By removing Global comments feed, Post comments feeds will be removed too.', 'wordpress-seo-premium' );
 				echo '</p>';
 			}
-			if ( $this->should_feature_be_disabled( $setting, $is_network ) ) {
+			if ( $this->should_feature_be_disabled_permalink( $setting, $is_network ) ) {
 				echo '<p class="yoast-crawl-settings-help">';
 				if ( \current_user_can( 'manage_options' ) ) {
 					echo \sprintf(
-						/* translators: 1: Link start tag to the Permalinks settings page, 2: Link closing tag. */
+					/* translators: 1: Link start tag to the Permalinks settings page, 2: Link closing tag. */
 						\esc_html__( 'This feature is disabled when your site is not using %1$spretty permalinks%2$s.', 'wordpress-seo-premium' ),
-						'<a href="' . \esc_attr( \admin_url( 'options-permalink.php' ) ) . '">',
+						'<a href="' . \esc_url( \admin_url( 'options-permalink.php' ) ) . '">',
 						'</a>'
 					);
 				}
@@ -312,23 +328,42 @@ class Crawl_Settings_Integration implements Integration_Interface {
 				}
 				echo '</p>';
 			}
+			elseif ( $this->should_feature_be_disabled_multisite( $setting ) ) {
+				echo '<p>';
+				\esc_html_e( 'This feature is not available for multisites.', 'wordpress-seo-premium' );
+				echo '</p>';
+			}
 		}
 	}
 
 	/**
 	 * Checks if the feature should be disabled due to non-pretty permalinks.
 	 *
-	 * @param string  $setting     The setting to be displayed.
-	 * @param boolean $is_network  Whether we're on the network site.
+	 * @param string $setting    The setting to be displayed.
+	 * @param bool   $is_network Whether we're on the network site.
 	 *
 	 * @return bool
 	 */
-	protected function should_feature_be_disabled( $setting, $is_network ) {
+	protected function should_feature_be_disabled_permalink( $setting, $is_network ) {
 		return (
 			\in_array( $setting, [ 'clean_permalinks', 'clean_campaign_tracking_urls' ], true )
 			&& ! $is_network
 			&& empty( \get_option( 'permalink_structure' ) )
 			&& ! $this->is_control_disabled( $setting )
+		);
+	}
+
+	/**
+	 * Checks if the feature should be disabled due to the site being a multisite.
+	 *
+	 * @param string $setting The setting to be displayed.
+	 *
+	 * @return bool
+	 */
+	protected function should_feature_be_disabled_multisite( $setting ) {
+		return (
+			\in_array( $setting, [ 'deny_search_crawling', 'deny_wp_json_crawling' ], true )
+			&& \is_multisite()
 		);
 	}
 

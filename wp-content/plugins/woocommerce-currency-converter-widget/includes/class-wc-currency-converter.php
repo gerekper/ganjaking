@@ -247,7 +247,7 @@ class WC_Currency_Converter {
 			$this->currencies_in_page = array_merge( $this->currencies_in_page, $currencies );
 
 			if ( ! empty( $instance['currency_display'] ) && 'select' === $instance['currency_display'] ) {
-				$html .= '<label for="currency_switcher" class="currency_switcher_label">Choose a Currency</label>';
+				$html .= '<label for="currency_switcher" class="currency_switcher_label">' . esc_html__( 'Choose a Currency', 'woocommerce-currency-converter-widget' ) . '</label>';
 				$html .= '<select id="currency_switcher" class="currency_switcher select" data-default="' . get_woocommerce_currency() . '">';
 
 				foreach ( $currencies as $currency ) {

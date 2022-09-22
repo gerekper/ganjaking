@@ -176,7 +176,6 @@ class Yoast_WooCommerce_SEO {
 			return $presenters;
 		}
 
-		$presenters[] = new WPSEO_WooCommerce_Product_OpenGraph_Deprecation_Presenter( $product );
 		$presenters[] = new WPSEO_WooCommerce_Product_Brand_Presenter( $product );
 
 		if ( $this->should_show_price() ) {
@@ -479,6 +478,7 @@ class Yoast_WooCommerce_SEO {
 		Yoast_Form::get_instance()->select( 'woo_schema_manufacturer', esc_html__( 'Manufacturer', 'yoast-woo-seo' ), $taxonomies );
 		Yoast_Form::get_instance()->select( 'woo_schema_brand', esc_html__( 'Brand', 'yoast-woo-seo' ), $taxonomies );
 		Yoast_Form::get_instance()->select( 'woo_schema_color', esc_html__( 'Color', 'yoast-woo-seo' ), $taxonomies );
+		Yoast_Form::get_instance()->select( 'woo_schema_pattern', esc_html__( 'Pattern', 'yoast-woo-seo' ), $taxonomies );
 
 		if ( WPSEO_Options::get( 'breadcrumbs-enable' ) === true ) {
 			echo '<h2>' . esc_html__( 'Breadcrumbs', 'yoast-woo-seo' ) . '</h2>';
@@ -602,6 +602,39 @@ class Yoast_WooCommerce_SEO {
 
 		update_user_option( $user_id, 'manageedit-productcolumnshidden', $hidden_columns, true );
 		update_user_option( $user_id, 'wpseo_woo_columns_hidden_default', '1', true );
+	}
+
+	/**
+	 * Gets the variants with the right key as an option.
+	 *
+	 * @param array  $variations           All testable variations.
+	 * @param string $variation_key        The key to search for.
+	 * @param array  $available_variations List of already defined available variations.
+	 *
+	 * @return array
+	 */
+	private function get_applicable_variations( $variations, $variation_key, array $available_variations ) {
+		$variation_ids     = wp_list_pluck( $variations, 'variation_id' );
+		$variation_options = wp_list_pluck( $variations, $variation_key );
+		foreach ( $variation_options as $key => $variation_option ) {
+			if ( ! empty( $variation_option ) ) {
+				$available_variations[] = $variation_ids[ $key ];
+			}
+		}
+
+		return $available_variations;
+	}
+
+	/**
+	 * Gets the variant identifier from the post meta.
+	 *
+	 * @param int    $variation_id   The post ID for the specific variation.
+	 * @param string $identifier_key The meta key that defines the needed identifier.
+	 *
+	 * @return mixed
+	 */
+	private function get_variant_identifier( $variation_id, $identifier_key ) {
+		return get_post_meta( $variation_id, $identifier_key, true );
 	}
 
 	/**
@@ -911,9 +944,12 @@ class Yoast_WooCommerce_SEO {
 
 		wp_enqueue_script( 'wp-seo-woo', plugins_url( 'js/dist/yoastseo-woo-plugin-' . $version . '.js', WPSEO_WOO_PLUGIN_FILE ), [], WPSEO_VERSION, true );
 		wp_enqueue_script( 'wp-seo-woo-replacevars', plugins_url( 'js/dist/yoastseo-woo-replacevars-' . $version . '.js', WPSEO_WOO_PLUGIN_FILE ), [], WPSEO_VERSION, true );
+		wp_enqueue_script( 'wp-seo-woo-identifiers', plugins_url( 'js/dist/yoastseo-woo-identifiers-' . $version . '.js', WPSEO_WOO_PLUGIN_FILE ), [], WPSEO_VERSION, true );
 
 		wp_localize_script( 'wp-seo-woo', 'wpseoWooL10n', $this->localize_woo_script() );
 		wp_localize_script( 'wp-seo-woo-replacevars', 'wpseoWooReplaceVarsL10n', $this->localize_woo_replacevars_script() );
+		wp_localize_script( 'wp-seo-woo-identifiers', 'wpseoWooIdentifiers', $this->localize_woo_identifiers() );
+		wp_localize_script( 'wp-seo-woo-identifiers', 'wpseoWooSKU', $this->localize_woo_skus() );
 	}
 
 	/**
@@ -1303,6 +1339,86 @@ class Yoast_WooCommerce_SEO {
 	}
 
 	/**
+	 * Localizes identifiers for the wooplugin.
+	 *
+	 * @return array
+	 */
+	private function localize_woo_identifiers() {
+		$product              = $this->get_product();
+		$product_id           = $product->get_id();
+		$available_variations = [];
+		$identifiers          = [
+			'global_identifier_values' => get_post_meta( $product_id, 'wpseo_global_identifier_values', true ),
+			'variations'               => new stdClass(),
+			'available_variations'     => $available_variations,
+		];
+
+		if ( WPSEO_WooCommerce_Utils::get_product_type( $product ) === 'variable' ) {
+			add_filter( 'woocommerce_hide_invisible_variations', [ $this, 'hide_invisible_variations' ] );
+			$variations = $product->get_available_variations();
+			remove_filter( 'woocommerce_hide_invisible_variations', [ $this, 'hide_invisible_variations' ] );
+
+			if ( ! empty( $variations ) ) {
+				$variation_ids                       = wp_list_pluck( $variations, 'variation_id' );
+				$identifiers['available_variations'] = $this->get_applicable_variations( $variations, 'display_price', $available_variations );
+
+				$identifiers_variations = [];
+				foreach ( $variation_ids as $variation_id ) {
+					$variation_identifiers                   = $this->get_variant_identifier( $variation_id, 'wpseo_variation_global_identifiers_values' );
+					$identifiers_variations[ $variation_id ] = ! empty( $variation_identifiers ) ? $variation_identifiers : new stdClass();
+				}
+				$identifiers['variations'] = (object) $identifiers_variations;
+			}
+		}
+
+		return $identifiers;
+	}
+
+	/**
+	 * Localizes skus for the wooplugin.
+	 *
+	 * @return array
+	 */
+	private function localize_woo_skus() {
+		$product              = $this->get_product();
+		$product_id           = $product->get_id();
+		$available_variations = [];
+		$identifiers          = [
+			'global_sku'           => get_post_meta( $product_id, '_sku', true ),
+			'variations'           => new stdClass(),
+			'available_variations' => $available_variations,
+		];
+
+		if ( WPSEO_WooCommerce_Utils::get_product_type( $product ) === 'variable' ) {
+			add_filter( 'woocommerce_hide_invisible_variations', [ $this, 'hide_invisible_variations' ] );
+			$variations = $product->get_available_variations();
+			remove_filter( 'woocommerce_hide_invisible_variations', [ $this, 'hide_invisible_variations' ] );
+
+			if ( ! empty( $variations ) ) {
+				$variation_ids                       = wp_list_pluck( $variations, 'variation_id' );
+				$identifiers['available_variations'] = $this->get_applicable_variations( $variations, 'display_price', $available_variations );
+
+				$identifiers_variations = [];
+				foreach ( $variation_ids as $variation_id ) {
+					$identifiers_variations[ $variation_id ] = $this->get_variant_identifier( $variation_id, '_sku' );
+				}
+				$identifiers['variations'] = (object) $identifiers_variations;
+			}
+		}
+
+		return $identifiers;
+	}
+
+	/**
+	 * To be used in a filter, halting hiding invisible variations.
+	 *
+	 * @return bool False.
+	 */
+	public function hide_invisible_variations() {
+		return false;
+	}
+
+	/**
 	 * Handles the WooCommerce breadcrumbs replacements.
 	 *
 	 * @return void
@@ -1327,55 +1443,11 @@ class Yoast_WooCommerce_SEO {
 	}
 
 	/**
-	 * Refresh the options property on add/update of the option to ensure it's always current.
-	 *
-	 * @deprecated 12.5
-	 * @codeCoverageIgnore
-	 */
-	public function refresh_options_property() {
-		_deprecated_function( __METHOD__, 'WPSEO Woo 12.5' );
-	}
-
-	/**
-	 * Perform upgrade procedures to the settings.
-	 *
-	 * @deprecated 12.5
-	 * @codeCoverageIgnore
-	 */
-	public function upgrade() {
-		_deprecated_function( __METHOD__, 'WPSEO Woo 12.5' );
-	}
-
-	/**
-	 * Simple helper function to show a checkbox.
-	 *
-	 * @deprecated 12.5
-	 * @codeCoverageIgnore
-	 */
-	public function checkbox() {
-		_deprecated_function( __METHOD__, 'WPSEO Woo 12.5' );
-	}
-
-	/**
 	 * Determines if the price should be shown.
 	 *
 	 * @return bool True when the price should be shown.
 	 */
 	private function should_show_price() {
-		/**
-		 * Filter: wpseo_woocommerce_og_price - Allow developers to prevent the output of the price in the OpenGraph tags.
-		 *
-		 * @deprecated 12.5.0. Use the {@see 'Yoast\WP\Woocommerce\og_price'} filter instead.
-		 *
-		 * @api bool unsigned Defaults to true.
-		 */
-		$show_price = apply_filters_deprecated(
-			'wpseo_woocommerce_og_price',
-			[ true ],
-			'Yoast WooCommerce 12.5.0',
-			'Yoast\WP\Woocommerce\og_price'
-		);
-
 		/**
 		 * Filter: Yoast\WP\Woocommerce\og_price - Allow developers to prevent the output of the price in the OpenGraph tags.
 		 *
@@ -1383,7 +1455,7 @@ class Yoast_WooCommerce_SEO {
 		 *
 		 * @api bool unsigned Defaults to true.
 		 */
-		$show_price = apply_filters( 'Yoast\WP\Woocommerce\og_price', $show_price );
+		$show_price = apply_filters( 'Yoast\WP\Woocommerce\og_price', true );
 
 		if ( is_bool( $show_price ) ) {
 			return $show_price;

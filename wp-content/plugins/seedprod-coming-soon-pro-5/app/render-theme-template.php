@@ -231,9 +231,22 @@ function seedprod_template_include_override( $template ) {
 		$is_excluded_page_type = true;
 	}
 
+	// know post types to exclude
+	$excluded_posttypes = array( 'mpcs-course', 'mpcs-lesson', 'mpcs-quiz' );
+
+	// filter to exclude post types
+	$excluded_posttypes = apply_filters( 'seedprod_excluded_posttypes', $excluded_posttypes );
+
 	if ( false === $is_excluded_page_type ) {
-		$template = SEEDPROD_PRO_PLUGIN_PATH . 'resources/theme-template-views/canvas.php';
-	}elseif( true === $is_excluded_page_type && is_search( ) ){
+		    $compare_post_type = '';
+			if (! empty($post->post_type)) {
+				$compare_post_type = $post->post_type;
+			}
+            if (! in_array($compare_post_type, $excluded_posttypes)) {
+                $template = SEEDPROD_PRO_PLUGIN_PATH . 'resources/theme-template-views/canvas.php';
+            }
+        
+	} elseif ( true === $is_excluded_page_type && is_search() ) {
 		// add for landing page search
 		$template = SEEDPROD_PRO_PLUGIN_PATH . 'resources/theme-template-views/canvas.php';
 	}
@@ -291,7 +304,7 @@ function seedprod_pro_deregister_theme_styles() {
 			wp_dequeue_style( $handle );
 			wp_deregister_style( $handle );
 		}
-		if ( $wp_styles->registered[ $handle ]->handle == 'woocommerce-general' ) {
+		if ( 'woocommerce-general' == $wp_styles->registered[ $handle ]->handle ) {
 			// var_dump($wp_styles->registered[$handle]->src);
 			wp_dequeue_style( $handle );
 			wp_deregister_style( $handle );
@@ -478,7 +491,7 @@ function seedprod_pro_get_theme_template_by_type_condition( $type, $id = false, 
 				}
 
 				// switch out is_product if id is passed in.
-				if($cond_func == 'is_product' && !empty($values)){
+				if ( 'is_product' == $cond_func && ! empty( $values ) ) {
 					$cond_func = 'is_single';
 				}
 
@@ -519,7 +532,7 @@ function seedprod_pro_get_theme_template_by_type_condition( $type, $id = false, 
 				}
 
 				// switch out is_product if id is passed in.
-				if($cond_func == 'is_product' && !empty($values)){
+				if ( 'is_product' == $cond_func && ! empty( $values ) ) {
 					$cond_func = 'is_single';
 				}
 
@@ -753,17 +766,17 @@ function seedprod_pro_theme_template_enqueue_styles() {
 		$global_css_page_timestamp = $wpdb->get_var( $safe_sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 		$css_dir                   = trailingslashit( wp_upload_dir()['baseurl'] ) . 'seedprod-css/';
 		// do not render global css if landing pages
-		$current_post_id = get_the_ID();
+		$current_post_id   = get_the_ID();
 		$landing_page_type = get_post_meta( $current_post_id, '_seedprod_page_template_type', true );
-		$lps_to_exclude = array('lp','cs','mm','p404','loginp');
-		if( ! in_array( $landing_page_type , $lps_to_exclude ) ){
-            wp_enqueue_style(
-                'seedprod-css-global',
-                $css_dir . 'style-global.css',
-                false,
-                strtotime($global_css_page_timestamp)
-            );
-        }
+		$lps_to_exclude    = array( 'lp', 'cs', 'mm', 'p404', 'loginp' );
+		if ( ! in_array( $landing_page_type, $lps_to_exclude ) ) {
+			wp_enqueue_style(
+				'seedprod-css-global',
+				$css_dir . 'style-global.css',
+				false,
+				strtotime( $global_css_page_timestamp )
+			);
+		}
 
 		// page css
 		$current_post_type       = get_post_type();
@@ -777,6 +790,9 @@ function seedprod_pro_theme_template_enqueue_styles() {
 			);
 		}
 
+		// part ids to check for google fonts
+		$part_ids_google_fonts = array( $current_post_id, $global_css_page_id );
+
 		// get theme parts
 		foreach ( $seedprod_theme_requirements as $k => $v ) {
 			if ( strpos( $v, 'css:' ) === 0 ) {
@@ -784,20 +800,40 @@ function seedprod_pro_theme_template_enqueue_styles() {
 				if ( ! empty( $css_files[1] ) ) {
 					$css_files_arr = explode( ',', $css_files[1] );
 					foreach ( $css_files_arr as $k1 => $v1 ) {
-						$css_files_parts = explode( '|', $v1 );
-						wp_enqueue_style(
-							'seedprod-css-' . $css_files_parts[0],
-							$css_dir . 'style-' . $css_files_parts[0] . '.css',
-							false,
-							$css_files_parts[1]
-						);
+						$css_files_parts         = explode( '|', $v1 );
+						$part_ids_google_fonts[] = $css_files_parts[0];
+						if( ! empty( $css_files_parts[0] ) ) {
+                            wp_enqueue_style(
+                                'seedprod-css-' . $css_files_parts[0],
+                                $css_dir . 'style-' . $css_files_parts[0] . '.css',
+                                false,
+                                $css_files_parts[1]
+                            );
+                        }
 					}
 				}
 			}
 		}
 
+		// check if post or theme parts need to enqueue google fonts
+		$allow_google_fonts = apply_filters( 'seedprod_allow_google_fonts', true );
+		if ( $allow_google_fonts ) {
+			foreach ( $part_ids_google_fonts as $part_id ) {
+				// get settings
+				$tablename         = $wpdb->prefix . 'posts';
+				$sql               = "SELECT post_content_filtered FROM $tablename WHERE id = %d";
+				$safe_sql          = $wpdb->prepare( $sql, absint( $part_id ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+				$goog_page_setting = $wpdb->get_var( $safe_sql );
+				if ( ! empty( $goog_page_setting ) ) {
+					$goog_page_setting = json_decode( $goog_page_setting, true );
+					$google_fonts_str  = seedprod_pro_construct_font_str( $goog_page_setting );
+					wp_enqueue_style( 'seedprod-google-fonts-' . $part_id, $google_fonts_str, false );
+				}
+			}
+		}
+
 		if ( in_array( 'lightboxmedia', $seedprod_theme_requirements ) ) {
-			
+
 			wp_enqueue_script(
 				'seedprod-lightbox-js',
 				SEEDPROD_PRO_PLUGIN_URL . 'public/js/lightbox.min.js',
@@ -1146,19 +1182,43 @@ function seedprod_pro_is_child_of( $pid ) {
 	} // we're elsewhere
 };
 
+
+/**
+ * get block settings at current page
+ */
+function seedprod_pro_get_theme_template_js_css_block_files() {
+	global $post, $wpdb;
+	$post_id          = get_the_ID();
+	$all_settings     = '';
+	$tablename        = $wpdb->prefix . 'posts';
+	$sql              = "SELECT post_content_filtered,post_modified FROM $tablename WHERE ID = %d";
+	$safe_sql         = $wpdb->prepare( $sql, absint( $post_id ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$all_settings_row = $wpdb->get_row( $safe_sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	if ( ! empty( $all_settings_row->post_content_filtered ) ) {
+		$all_settings                     = json_decode( $all_settings_row->post_content_filtered );
+		if( ! empty( $all_settings )){
+            $all_settings->post_id            = $post_id;
+            $all_settings->modified_timestamp = strtotime($all_settings_row->post_modified);
+        }
+	}
+	return $all_settings;
+}
+
 /**
  * Get Requirements for a Theme.
  */
 function get_the_theme_parts_requirements() {
-	$header = seedprod_pro_get_theme_template_by_type_condition( 'header', false, true );
-	$page   = seedprod_pro_get_theme_template_by_type_condition( 'page', false, true );
-	$footer = seedprod_pro_get_theme_template_by_type_condition( 'footer', false, true );
+	$header       = seedprod_pro_get_theme_template_by_type_condition( 'header', false, true );
+	$page         = seedprod_pro_get_theme_template_by_type_condition( 'page', false, true );
+	$footer       = seedprod_pro_get_theme_template_by_type_condition( 'footer', false, true );
+	$main_content = seedprod_pro_get_theme_template_js_css_block_files();
 
-	$all_settings           = array();
-	$all_settings['header'] = wp_json_encode( $header );
-	$all_settings['page']   = wp_json_encode( $page );
-	$all_settings['footer'] = wp_json_encode( $footer );
-	$all_settings['all']    = $all_settings['header'] . $all_settings['page'] . $all_settings['footer'];
+	$all_settings                 = array();
+	$all_settings['header']       = wp_json_encode( $header );
+	$all_settings['page']         = wp_json_encode( $page );
+	$all_settings['main_content'] = wp_json_encode( $main_content );
+	$all_settings['footer']       = wp_json_encode( $footer );
+	$all_settings['all']          = $all_settings['header'] . $all_settings['page'] . $all_settings['main_content'] . $all_settings['footer'];
 
 	// look for theme requirements
 	global $seedprod_theme_requirements;
@@ -1210,7 +1270,7 @@ function get_the_theme_parts_requirements() {
 	if ( strpos( $settings_str, 'animatedheadline' ) !== false ) {
 		$seedprod_theme_requirements[] = 'animatedheadline';
 	}
-	
+
 	// seedprod gallery blocks
 	if ( strpos( $settings_str, 'seedprodgallery' ) !== false ) {
 		$seedprod_theme_requirements[] = 'seedprodgallery';

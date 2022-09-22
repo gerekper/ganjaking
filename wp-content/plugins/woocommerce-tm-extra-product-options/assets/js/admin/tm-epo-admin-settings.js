@@ -304,8 +304,8 @@
 
 				if ( name !== '' || value !== '' ) {
 					mathArray[ 'm' + i ] = {
-						name: name,
-						value: value
+						name: String( name ),
+						value: String( value )
 					};
 				}
 			} );

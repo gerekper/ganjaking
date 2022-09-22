@@ -5,10 +5,10 @@
  * Uses https://github.com/A5hleyRich/wp-background-processing to handle DB
  * updates in the background.
  *
- * @package     WooCommerce API Manager/Background Updater
+ * @since       2.0
  * @author      Todd Lahman LLC
  * @copyright   Copyright (c) Todd Lahman LLC
- * @since       2.0
+ * @package     WooCommerce API Manager/Background Updater
  */
 defined( 'ABSPATH' ) || exit;
 
@@ -33,10 +33,9 @@ class WCAM_Background_API_Product_Updater extends WP_Background_Process {
 	 */
 	public function dispatch() {
 		$dispatched = parent::dispatch();
-		$logger     = wc_get_logger();
 
 		if ( is_wp_error( $dispatched ) ) {
-			$logger->error( sprintf( 'Unable to dispatch WooCommerce API Manager API Product updater: %s', $dispatched->get_error_message() ), array( 'source' => 'wc_am_api_products_update' ) );
+			WC_AM_LOG()->log_error( esc_html__( 'Unable to dispatch WooCommerce API Manager API Product updater: ', 'woocommerce-api-manager' ) . $dispatched->get_error_message(), 'api-products-update' );
 		}
 	}
 
@@ -98,8 +97,7 @@ class WCAM_Background_API_Product_Updater extends WP_Background_Process {
 		$order_id   = absint( $item[ 'product_order' ] );
 		$product_id = absint( $item[ 'product_id' ] );
 
-		$logger = wc_get_logger();
-		$logger->info( 'API Product order update started for product ID# ' . $product_id . ' on order# ' . $order_id, array( 'source' => 'wc_am_api_products_update' ) );
+		WC_AM_LOG()->log_info( esc_html__( 'API Product update started for Product ID# ', 'woocommerce-api-manager' ) . absint( $product_id ) . esc_html__( ' on Order ID# ', 'woocommerce-api-manager' ) . absint( $order_id ), 'api-products-update' );
 
 		WC_AM_ORDER()->update_order( $order_id );
 
@@ -113,8 +111,7 @@ class WCAM_Background_API_Product_Updater extends WP_Background_Process {
 	 * performed, or, call parent::complete().
 	 */
 	protected function complete() {
-		$logger = wc_get_logger();
-		$logger->info( 'API Product order update completed.', array( 'source' => 'wc_am_api_products_update' ) );
+		WC_AM_LOG()->log_info( esc_html__( 'API Product update completed.', 'woocommerce-api-manager' ), 'api-products-update' );
 
 		parent::complete();
 	}

@@ -112,12 +112,12 @@ class Prominent_Words_Repository {
 			$query = $query->where_not_in( 'id', $excluded_ids );
 		}
 
-		if ( ! empty( $post_type ) && is_array( $post_type ) ) {
-			$query = $query->where_in( 'object_type', $post_type );
+		if ( ! empty( $post_type ) && \is_array( $post_type ) ) {
+			$query = $query->where_in( 'object_sub_type', $post_type );
 		}
 
 		if ( $only_include_public ) {
-			$query = $query->where_raw( 'i.is_public = 1 OR i.is_public is null' );
+			$query = $query->where_raw( '(i.is_public = 1 OR i.is_public is null)' );
 		}
 
 		$results = $query->find_array();

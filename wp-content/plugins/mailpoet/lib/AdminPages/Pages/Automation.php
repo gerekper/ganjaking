@@ -30,7 +30,6 @@ class Automation {
   }
 
   public function render() {
-    $this->wp->wpEnqueueStyle('wp-components');
 
     if (!$this->migrator->hasSchema()) {
       $this->migrator->createSchema();

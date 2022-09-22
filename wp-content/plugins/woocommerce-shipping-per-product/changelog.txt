@@ -1,5 +1,9 @@
 *** Shipping Per Product Changelog ***
 
+2022-09-07 - version 2.3.19
+* Fix   - Exclude unnecessary files from plugin zip file.
+* Tweak - WC 6.6 and WP 6.0 compatibility.
+
 2022-03-17 - version 2.3.18
 * Fix - Format product shipping cost decimals properly.
 * Fix - Removed irrelevant settings link from plugin's action links.

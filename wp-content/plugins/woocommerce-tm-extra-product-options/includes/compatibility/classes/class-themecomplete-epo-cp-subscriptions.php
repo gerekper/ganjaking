@@ -213,6 +213,23 @@ final class THEMECOMPLETE_EPO_CP_Subscriptions {
 		// Add the variable subscription product type to plugin checks.
 		add_filter( 'wc_epo_variable_product_type', [ $this, 'wc_epo_variable_product_type' ], 10, 1 );
 
+		// Flag renewals.
+		add_filter( 'woocommerce_order_again_cart_item_data', [ $this, 'woocommerce_order_again_cart_item_data' ], 50, 3 );
+	}
+
+	/**
+	 * Flag renewals
+	 *
+	 * @param array  $cart_item_meta The cart item meta.
+	 * @param array  $item The order item.
+	 * @param object $order The order object.
+	 * @since 6.1
+	 */
+	public function woocommerce_order_again_cart_item_data( $cart_item_meta, $item, $order ) {
+		if ( ! defined( 'THEMECOMPLETE_IS_SUBSCRIPTIONS_RENEWAL' ) ) {
+			define( 'THEMECOMPLETE_IS_SUBSCRIPTIONS_RENEWAL', 1 );
+		}
+		return $cart_item_meta;
 	}
 
 	/**
@@ -1344,7 +1361,7 @@ final class THEMECOMPLETE_EPO_CP_Subscriptions {
 		}
 		if ( $_backup_cart && is_array( $_backup_cart ) && isset( $_backup_cart[0] ) ) {
 			if ( is_string( $_backup_cart[0] ) ) {
-				$_backup_cart = maybe_unserialize( $_backup_cart[0] );
+				$_backup_cart = themecomplete_maybe_unserialize( $_backup_cart[0] );
 			}
 			$cart_item_meta['tmsubscriptionfee'] = $_backup_cart[0];
 		}

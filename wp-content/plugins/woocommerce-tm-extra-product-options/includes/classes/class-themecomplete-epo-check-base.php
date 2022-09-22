@@ -68,6 +68,22 @@ final class THEMECOMPLETE_EPO_CHECK_Base {
 	 */
 	public function stop_plugin() {
 
+		/**
+		 * Disable plugin for Themify - WooCommerce Product Filter ajax
+		 * https://wordpress.org/plugins/themify-wc-product-filter/
+		 */
+		if ( isset( $_REQUEST['wpf_ajax'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			return true;
+		}
+
+		/**
+		 * Disable plugin for Product X builder
+		 * https://www.wpxpo.com/productx/
+		 */
+		if ( isset( $_REQUEST['post_type'] ) && 'wopb_builder' === $_REQUEST['post_type'] ) { // phpcs:ignore WordPress.Security.NonceVerification
+			return true;
+		}
+
 		if ( apply_filters( 'wc_epo_stop_plugin', false ) ) {
 			return true;
 		}

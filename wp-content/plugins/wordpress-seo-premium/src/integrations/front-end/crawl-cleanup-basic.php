@@ -23,9 +23,7 @@ class Crawl_Cleanup_Basic implements Integration_Interface {
 	 *
 	 * @param Options_Helper $options_helper The option helper.
 	 */
-	public function __construct(
-		Options_Helper $options_helper
-	) {
+	public function __construct( Options_Helper $options_helper ) {
 		$this->options_helper = $options_helper;
 	}
 

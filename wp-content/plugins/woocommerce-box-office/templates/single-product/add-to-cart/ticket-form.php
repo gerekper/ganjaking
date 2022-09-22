@@ -11,18 +11,19 @@ global $product;
 if ( ! $product->is_purchasable() ) {
 	return;
 }
-
 ?>
 
 <noscript><?php _e( 'Your browser must support JavaScript in order to purchase ticket(s).', 'woocommerce-box-office' ); ?></noscript>
 
 <div class="wc-box-office-ticket-form">
 
-	<?php do_action( 'woocommerce_before_ticket_fields' ); ?>
+	<?php 
+		do_action( 'woocommerce_before_ticket_fields' ); 
+	?>
 
 	<div class="wc-box-office-ticket-fields" data-index="0" style="display: none">
 		<h3 class="wc-box-office-ticket-fields-title">
-			<a href="#"><?php _e( 'Ticket #1', 'woocommerce-box-office' ); ?></a>
+			<a href="#"><?php echo wcbo_get_ticket_title_prefix() . '1'; ?></a>
 		</h3>
 		<div class="wc-box-office-ticket-fields-body">
 			<?php

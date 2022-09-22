@@ -40,10 +40,10 @@ $separator = THEMECOMPLETE_EPO()->tm_epo_separator_cart_text;
 		if ( ! isset( $data['display'] ) && isset( $data['value'] ) ) {
 			$data['display'] = $data['value'];
 		}
-		if ( '' === $is_epo && $data['key'] ) {
+		if ( $is_epo && '' === $data['key'] ) {
 			$show_dt = false;
 		}
-		if ( '' === $is_epo && $data['display'] ) {
+		if ( $is_epo && '' === $data['display'] ) {
 			$show_dd = false;
 		}
 		if ( ( 'link' === THEMECOMPLETE_EPO()->tm_epo_cart_field_display && isset( $data['popuplink'] ) ) || ! $show_dd ) {

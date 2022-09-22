@@ -24,13 +24,14 @@
 		var args;
 
 		this_epo_totals_container.each( function() {
-			tc_totals_ob = $( this ).data( 'tc_totals_ob' );
-			cart_id = $( this ).attr( 'data-cart-id' );
+			var $this = $( this );
+			tc_totals_ob = $this.data( 'tc_totals_ob' );
+			cart_id = $this.attr( 'data-cart-id' );
 			$cart = main_product.find( '.tm-extra-product-options.tm-cart-' + cart_id );
-			subscription_period = $( this ).data( 'subscription-period' );
-			variations_subscription_period = $( this ).data( 'variations-subscription-period' );
+			subscription_period = $this.data( 'subscription-period' );
+			variations_subscription_period = $this.data( 'variations-subscription-period' );
 			base = $cart.find( '.tmcp-field' ).closest( '.tmcp-field-wrap' );
-			is_subscription = $( this ).data( 'is-subscription' );
+			is_subscription = $this.data( 'is-subscription' );
 
 			if ( is_subscription ) {
 				base.find( '.tmperiod' ).remove();
@@ -43,7 +44,7 @@
 				}
 
 				variation_id_selector = "input[name^='variation_id']";
-				$_cart = $( this ).data( 'tm_for_cart' );
+				$_cart = $this.data( 'tm_for_cart' );
 
 				if ( $_cart ) {
 					if ( $_cart.find( 'input.variation_id' ).length > 0 ) {
@@ -60,13 +61,13 @@
 
 				base.find( '.amount' ).after( '<span class="tmperiod' + is_hidden + '">' + subscription_period + '</span>' );
 
-				$( this ).find( '.tmperiod' ).remove();
-				$( this )
+				$this.find( '.tmperiod' ).remove();
+				$this
 					.find( '.amount.options' )
-					.after( '<span class="tmperiod">' + subscription_period + '</span>' );
-				$( this )
+					.after( '<span class="tmperiod">' + '&nbsp;' + subscription_period + '</span>' );
+				$this
 					.find( '.amount.final' )
-					.after( '<span class="tmperiod">' + subscription_period + '</span>' );
+					.after( '<span class="tmperiod">' + '&nbsp;' + subscription_period + '</span>' );
 
 				if ( tcAPI ) {
 					if ( tc_totals_ob ) {

@@ -409,7 +409,7 @@ msgstr ""
 msgid "User"
 msgstr ""
 
-#: admin-columns-pro/templates/admin/list-screens-sidebar.php:112, admin-columns-pro/classes/Column/Taxonomy/ID.php:17, admin-columns-pro/classes/Migrate/Admin/Table/Export.php:109
+#: admin-columns-pro/templates/admin/list-screens-sidebar.php:112, admin-columns-pro/classes/Column/Taxonomy/ID.php:17, admin-columns-pro/classes/Migrate/Admin/Table/Export.php:109, ac-addon-buddypress/classes/Column/Group/Id.php:11
 msgid "ID"
 msgstr ""
 
@@ -1068,7 +1068,7 @@ msgstr ""
 msgid "Post"
 msgstr ""
 
-#: admin-columns-pro/classes/Settings/Column/FeaturedImage.php:72, admin-columns-pro/classes/Settings/Column/Gutenberg.php:30, ac-addon-events-calendar/classes/Settings/OrganizerDisplay.php:74, ac-addon-woocommerce/classes/Settings/Address.php:36, ac-addon-woocommerce/classes/Settings/DateType.php:40, admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:25, ac-addon-acf/classes/Settings/Column/FlexibleContent.php:34, ac-addon-woocommerce/classes/Settings/ProductVariation/Variation.php:38, ac-addon-woocommerce/classes/Settings/ShopCoupon/Limit.php:34, ac-addon-woocommerce/classes/Settings/ShopOrder/IP.php:33, ac-addon-woocommerce/classes/Settings/ShopOrder/Notes.php:37, ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:30, ac-addon-woocommerce/classes/Settings/User/AddressType.php:51, ac-addon-woocommerce/classes/Settings/User/Country.php:50, ac-addon-woocommerce/classes/Settings/User/Order.php:49, ac-addon-woocommerce/classes/Settings/User/Products.php:35, ac-addon-woocommerce/classes/Settings/User/Ratings.php:33
+#: admin-columns-pro/classes/Settings/Column/FeaturedImage.php:72, admin-columns-pro/classes/Settings/Column/Gutenberg.php:30, ac-addon-buddypress/classes/Settings/Group.php:56, ac-addon-events-calendar/classes/Settings/OrganizerDisplay.php:74, ac-addon-woocommerce/classes/Settings/Address.php:36, ac-addon-woocommerce/classes/Settings/DateType.php:40, admin-columns-pro/classes/Settings/Column/NetworkSite/Theme.php:25, ac-addon-acf/classes/Settings/Column/FlexibleContent.php:32, ac-addon-woocommerce/classes/Settings/ProductVariation/Variation.php:38, ac-addon-woocommerce/classes/Settings/ShopCoupon/Limit.php:34, ac-addon-woocommerce/classes/Settings/ShopOrder/IP.php:33, ac-addon-woocommerce/classes/Settings/ShopOrder/Notes.php:37, ac-addon-woocommerce/classes/Settings/ShopOrder/Totals.php:30, ac-addon-woocommerce/classes/Settings/User/AddressType.php:51, ac-addon-woocommerce/classes/Settings/User/Country.php:50, ac-addon-woocommerce/classes/Settings/User/Order.php:49, ac-addon-woocommerce/classes/Settings/User/Products.php:35, ac-addon-woocommerce/classes/Settings/User/Ratings.php:33
 msgid "Display"
 msgstr ""
 
@@ -1201,7 +1201,7 @@ msgstr ""
 msgid "bbPress"
 msgstr ""
 
-#: admin-columns-pro/classes/ThirdParty/BeaverBuilder/Addon.php:25
+#: admin-columns-pro/classes/ThirdParty/BeaverBuilder/Addon.php:29
 msgid "Beaver Builder"
 msgstr ""
 
@@ -1255,6 +1255,50 @@ msgstr ""
 
 #: ac-addon-acf/classes/Service/LegacyColumnMapper.php:39
 msgid "You can automatically update these columns to the latest version."
+msgstr ""
+
+#: ac-addon-buddypress/classes/ListScreen/Group.php:19
+msgid "Groups"
+msgstr ""
+
+#: ac-addon-buddypress/classes/Settings/ActivityType.php:35
+msgid "Activity Type"
+msgstr ""
+
+#: ac-addon-buddypress/classes/Settings/Date.php:16
+msgid "BuddyPress Difference"
+msgstr ""
+
+#: ac-addon-buddypress/classes/Settings/Date.php:19
+msgid "The difference is returned in a human readable format."
+msgstr ""
+
+#: ac-addon-buddypress/classes/Settings/Date.php:19
+msgid "For example: %s."
+msgstr ""
+
+#: ac-addon-buddypress/classes/Settings/GroupLink.php:49
+msgid "Link To"
+msgstr ""
+
+#: ac-addon-buddypress/classes/Settings/Profile.php:29, ac-addon-pods/classes/Setting/Field.php:30, ac-addon-types/classes/Settings/Field.php:31
+msgid "No %s fields available."
+msgstr ""
+
+#: ac-addon-buddypress/classes/Settings/Profile.php:29
+msgid "BuddyPress"
+msgstr ""
+
+#: ac-addon-buddypress/classes/Settings/Profile.php:35, ac-addon-pods/classes/Setting/Field.php:40, ac-addon-types/classes/Settings/Field.php:37
+msgid "Field"
+msgstr ""
+
+#: ac-addon-buddypress/classes/Settings/Profile.php:36, ac-addon-types/classes/Settings/Field.php:38
+msgid "Select your %s field."
+msgstr ""
+
+#: ac-addon-buddypress/classes/Settings/Profile.php:36
+msgid "BuddyPress profile"
 msgstr ""
 
 #: ac-addon-events-calendar/classes/Column/UpcomingEvent.php:15
@@ -1357,16 +1401,8 @@ msgstr ""
 msgid "ZIP"
 msgstr ""
 
-#: ac-addon-pods/classes/Setting/Field.php:30, ac-addon-types/classes/Settings/Field.php:31
-msgid "No %s fields available."
-msgstr ""
-
 #: ac-addon-pods/classes/Setting/Field.php:31
 msgid "Create your first %s field."
-msgstr ""
-
-#: ac-addon-pods/classes/Setting/Field.php:40, ac-addon-types/classes/Settings/Field.php:37
-msgid "Field"
 msgstr ""
 
 #: ac-addon-pods/classes/Setting/Field.php:89
@@ -1379,10 +1415,6 @@ msgstr ""
 
 #: ac-addon-types/classes/Settings/Field.php:31, ac-addon-types/classes/Settings/Field.php:38
 msgid "Types"
-msgstr ""
-
-#: ac-addon-types/classes/Settings/Field.php:38
-msgid "Select your %s field."
 msgstr ""
 
 #: ac-addon-types/classes/Settings/IntermediaryRelationship.php:23, ac-addon-types/classes/Settings/Relationship.php:27
@@ -1967,11 +1999,11 @@ msgstr ""
 msgid "%s uses the %s from it's field settings."
 msgstr ""
 
-#: ac-addon-acf/classes/Settings/Column/FlexibleContent.php:29
+#: ac-addon-acf/classes/Settings/Column/FlexibleContent.php:27
 msgid "Layout Type Count"
 msgstr ""
 
-#: ac-addon-acf/classes/Settings/Column/FlexibleContent.php:30
+#: ac-addon-acf/classes/Settings/Column/FlexibleContent.php:28
 msgid "Layout Structure"
 msgstr ""
 
@@ -1995,6 +2027,34 @@ msgstr ""
 msgid "Invalid attachment"
 msgstr ""
 
+#: ac-addon-buddypress/classes/Column/Group/Avatar.php:11
+msgid "Avatar"
+msgstr ""
+
+#: ac-addon-buddypress/classes/Column/Group/Creator.php:12
+msgid "Creator"
+msgstr ""
+
+#: ac-addon-buddypress/classes/Column/Group/NameOnly.php:14
+msgid "Name Only"
+msgstr ""
+
+#: ac-addon-buddypress/classes/Column/User/ActivityUpdates.php:17
+msgid "Activity Updates"
+msgstr ""
+
+#: ac-addon-buddypress/classes/Column/User/LastActivity.php:15
+msgid "Last Activity"
+msgstr ""
+
+#: ac-addon-buddypress/classes/Column/User/LastSeen.php:16
+msgid "Last Seen"
+msgstr ""
+
+#: ac-addon-buddypress/classes/Filtering/User/Groups.php:51
+msgid "Group"
+msgstr ""
+
 #: ac-addon-events-calendar/classes/Column/Event/Costs.php:14
 msgid "Costs"
 msgstr ""
@@ -2015,7 +2075,7 @@ msgstr ""
 msgid "Organizer"
 msgstr ""
 
-#: ac-addon-events-calendar/classes/Column/Event/Sticky.php:16
+#: ac-addon-events-calendar/classes/Column/Event/Sticky.php:17
 msgid "Sticky in Month View"
 msgstr ""
 
@@ -2111,11 +2171,11 @@ msgstr ""
 msgid "Height"
 msgstr ""
 
-#: ac-addon-woocommerce/classes/Column/Product/LowOnStock.php:15
+#: ac-addon-woocommerce/classes/Column/Product/LowOnStock.php:14
 msgid "Low on Stock"
 msgstr ""
 
-#: ac-addon-woocommerce/classes/Column/Product/LowOnStock.php:36
+#: ac-addon-woocommerce/classes/Column/Product/LowOnStock.php:35
 msgid "Current stock of %s is lower than the set threshold of  %s"
 msgstr ""
 
@@ -2169,7 +2229,7 @@ msgstr ""
 msgid "Catalog Visibility"
 msgstr ""
 
-#: ac-addon-woocommerce/classes/Column/ProductSubscription/Period.php:21
+#: ac-addon-woocommerce/classes/Column/ProductSubscription/Period.php:20
 msgid "Price Period"
 msgstr ""
 
@@ -2269,7 +2329,7 @@ msgstr ""
 msgid "Paid Amount"
 msgstr ""
 
-#: ac-addon-woocommerce/classes/Column/ShopOrder/PaymentMethod.php:16, ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterSubscriptionPayment.php:12
+#: ac-addon-woocommerce/classes/Column/ShopOrder/PaymentMethod.php:17, ac-addon-woocommerce/classes/Settings/HideOnScreen/FilterSubscriptionPayment.php:12
 msgid "Payment Method"
 msgstr ""
 
@@ -2315,7 +2375,7 @@ msgstr ""
 msgid "Auto Renewal"
 msgstr ""
 
-#: ac-addon-woocommerce/classes/Column/User/Address.php:58, ac-addon-woocommerce/classes/Editing/Comment/Rating.php:26, ac-addon-woocommerce/classes/Editing/ShopOrder/AddressFactory.php:23
+#: ac-addon-woocommerce/classes/Column/User/Address.php:58, ac-addon-woocommerce/classes/Editing/Comment/Rating.php:23, ac-addon-woocommerce/classes/Editing/ShopOrder/AddressFactory.php:23
 msgid "None"
 msgstr ""
 
@@ -2343,12 +2403,32 @@ msgstr ""
 msgid "Total Sales"
 msgstr ""
 
-#: ac-addon-woocommerce/classes/Editing/Product/Attributes.php:56
-msgid "Non existing attribute."
+#: ac-addon-woocommerce/classes/Editing/Comment/Rating.php:18
+msgid "Item is not a rating."
 msgstr ""
 
-#: ac-addon-woocommerce/classes/Editing/Product/Price.php:30
+#: ac-addon-woocommerce/classes/Editing/Comment/Rating.php:41
+msgid "Maximum rating is %s"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Editing/Product/BackordersAllowed.php:18
+msgid "Backorder value could not be changed."
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Editing/Product/BackordersAllowed.php:18
+msgid "Only product that have \"%s\" can have back orders"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Editing/Product/BackordersAllowed.php:18
+msgid "manage stock enabled"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Editing/Product/Dimensions.php:25, ac-addon-woocommerce/classes/Editing/Product/ProductNotSupportedReasonTrait.php:15
 msgid "%s can not be edited."
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Editing/Product/ShippingClass.php:17
+msgid "Product does not have a shipping class."
 msgstr ""
 
 #: ac-addon-woocommerce/classes/Editing/Product/ShippingClass.php:21
@@ -2359,15 +2439,15 @@ msgstr ""
 msgid "Standard"
 msgstr ""
 
-#: ac-addon-woocommerce/classes/Editing/ProductSubscription/Period.php:37
-msgid "Product Type not supported"
+#: ac-addon-woocommerce/classes/Editing/Product/Weight.php:18
+msgid "Virtual product can not be edited."
 msgstr ""
 
-#: ac-addon-woocommerce/classes/Editing/ProductVariation/ShippingClass.php:12
+#: ac-addon-woocommerce/classes/Editing/ProductVariation/ShippingClass.php:15
 msgid "Use Product Shipping Class"
 msgstr ""
 
-#: ac-addon-woocommerce/classes/Editing/ProductVariation/TaxClass.php:28
+#: ac-addon-woocommerce/classes/Editing/ProductVariation/TaxClass.php:21
 msgid "Use Product Tax Class"
 msgstr ""
 
@@ -2444,7 +2524,7 @@ msgstr ""
 msgid "Is not featured"
 msgstr ""
 
-#: ac-addon-woocommerce/classes/Search/ShopOrder/PaymentMethod.php:33
+#: ac-addon-woocommerce/classes/Search/ShopOrder/PaymentMethod.php:32
 msgid "disabled"
 msgstr ""
 
@@ -2596,7 +2676,7 @@ msgstr ""
 msgid "Shipping Method Type"
 msgstr ""
 
-#: ac-addon-woocommerce/classes/Settings/ShopOrder/Status.php:20
+#: ac-addon-woocommerce/classes/Settings/ShopOrder/Status.php:27
 msgid "Order Status"
 msgstr ""
 
@@ -2650,6 +2730,10 @@ msgstr ""
 
 #: ac-addon-woocommerce/classes/Column/ShopOrder/Address/Shipping.php:16
 msgid "Shipping Address"
+msgstr ""
+
+#: ac-addon-woocommerce/classes/Editing/Storage/Product/Attributes.php:40
+msgid "Non existing attribute."
 msgstr ""
 
 #: ac-addon-woocommerce/classes/Editing/StorageModel/Product/Price.php:40

@@ -1,5 +1,8 @@
 *** WooCommerce All Products For Subscriptions ***
 
+2022.09.19 - version 4.0.1
+* Fix - Fixed error that prevented category-specific Global Subscription Plans from applying to variations.
+
 2022.08.31 - version 4.0.0
 * Important - Cart Subscription Plans are no longer supported. If you previously offered Cart Subscription Plans in your store, be aware that these plans are now still inherited by all products in your catalog as Global Subscription Plans.
 * Important - Dropped the 'Default to' option. All products with optional plans now default to the one-time purchase option. To customize this from now on, please use the 'wcsatt_default_subscription_scheme_key' filter.

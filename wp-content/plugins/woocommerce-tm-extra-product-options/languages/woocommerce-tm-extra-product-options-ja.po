@@ -593,12 +593,6 @@ msgstr ""
 msgid "Please save the product before importing options!"
 msgstr ""
 
-#: admin/class-themecomplete-epo-admin-global-base.php:1544
-#: admin/class-themecomplete-epo-admin-global-base.php:1550
-#, fuzzy
-msgid "There are no options"
-msgstr "オプションがありません "
-
 #: admin/class-themecomplete-epo-admin-global-base.php:1546
 #, fuzzy
 msgid "Start adding elements"
@@ -3078,44 +3072,44 @@ msgstr ""
 #: includes/classes/class-themecomplete-epo-builder-base.php:785
 #: includes/classes/class-themecomplete-epo-builder-base.php:897
 #, fuzzy
-msgid "Price per char"
+msgid "Price per character"
 msgstr "1文字ごとに設定金額を課金"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:789
 #: includes/classes/class-themecomplete-epo-builder-base.php:901
 #, fuzzy
-msgid "Percent of the original price per char"
+msgid "Percent of the original price per character"
 msgstr "1文字ごとに元の価格×上の価格の設定数値÷100（パーセント）"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:793
 #: includes/classes/class-themecomplete-epo-builder-base.php:905
 #, fuzzy
-msgid "Price per char (no first char)"
+msgid "Price per character (no first char)"
 msgstr "1文字ごとに設定金額を課金（1文字目を除く）"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:797
 #: includes/classes/class-themecomplete-epo-builder-base.php:909
 #, fuzzy
-msgid "Price per char (no n-th char)"
+msgid "Price per character (no n-th char)"
 msgstr "1文字ごとに設定金額を課金（設定桁数まではカウントしない）"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:801
 #: includes/classes/class-themecomplete-epo-builder-base.php:913
 #, fuzzy
-msgid "Price per char (no n-th char and no spaces)"
+msgid "Price per character (no n-th char and no spaces)"
 msgstr "1文字ごとに設定金額を課金（設定桁数までとスペースはカウントしない）"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:805
 #: includes/classes/class-themecomplete-epo-builder-base.php:917
 #, fuzzy
-msgid "Percent of the original price per char (no first char)"
+msgid "Percent of the original price per character (no first char)"
 msgstr ""
 "1文字ごとに元の価格×上の価格の設定数値÷100（パーセント）（最初の文字を除く）"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:809
 #: includes/classes/class-themecomplete-epo-builder-base.php:921
 #, fuzzy
-msgid "Percent of the original price per char (no n-th char)"
+msgid "Percent of the original price per character (no n-th char)"
 msgstr ""
 "1文字ごとに元の価格×上の価格の設定数値÷100（パーセント）（設定桁数まではカウ"
 "ントしない）"
@@ -3123,7 +3117,7 @@ msgstr ""
 #: includes/classes/class-themecomplete-epo-builder-base.php:813
 #: includes/classes/class-themecomplete-epo-builder-base.php:925
 #, fuzzy
-msgid "Percent of the original price per char (no n-th char and no spaces)"
+msgid "Percent of the original price per character (no n-th char and no spaces)"
 msgstr ""
 "1文字ごとに元の価格×上の価格の設定数値÷100（パーセント）（設定桁数までとス"
 "ペースはカウントしない）"
@@ -3131,7 +3125,7 @@ msgstr ""
 #: includes/classes/class-themecomplete-epo-builder-base.php:817
 #: includes/classes/class-themecomplete-epo-builder-base.php:929
 #, fuzzy
-msgid "Price per char (no spaces)"
+msgid "Price per character (no spaces)"
 msgstr "1文字ごとに設定金額を課金（スペースはカウントしない）"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:821
@@ -3191,12 +3185,12 @@ msgstr ""
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:1011
 #, fuzzy
-msgid "Free chars"
+msgid "Free characters"
 msgstr "無料の文字数"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:1012
 #, fuzzy
-msgid "Enter the number of free chars."
+msgid "Enter the number of Free characters."
 msgstr "無料の文字数を入力"
 
 #: includes/classes/class-themecomplete-epo-builder-base.php:1141
@@ -4280,8 +4274,8 @@ msgstr ""
 #: includes/classes/class-themecomplete-epo-post-types.php:96
 #, fuzzy
 msgctxt "post type general name"
-msgid "TM Global Product Options"
-msgstr "TM Global Product Options"
+msgid "Global Forms"
+msgstr ""
 
 #: includes/classes/class-themecomplete-epo-post-types.php:97
 #, fuzzy
@@ -5098,7 +5092,7 @@ msgstr "数量セレクターを値が入力されているエレメントのみ
 
 #: includes/classes/class-themecomplete-epo-settings-base.php:545
 #, fuzzy
-msgid "Hide add-to-cart button until an option is chosen"
+msgid "Hide add-to-cart button until an element is chosen"
 msgstr "カートに追加ボタンをオプションが選択されるまで非表示"
 
 #: includes/classes/class-themecomplete-epo-settings-base.php:546

@@ -246,6 +246,7 @@ class WooCommerce_Product_Search_Filter_Price {
 
 		$min_price   = isset( $_REQUEST['min_price'] ) ? WooCommerce_Product_Search_Service::to_float( $_REQUEST['min_price'] ) : '';
 		$max_price   = isset( $_REQUEST['max_price'] ) ? WooCommerce_Product_Search_Service::to_float( $_REQUEST['max_price'] ) : '';
+
 		if ( $min_price === null ) {
 			$min_price = '';
 		}
@@ -297,15 +298,16 @@ class WooCommerce_Product_Search_Filter_Price {
 		$max_field_id = 'product-search-filter-max-price-' . $n;
 		$form_id      = 'product-search-filter-price-form-' . $n;
 		$slider_id    = 'product-search-filter-price-slider-' . $n;
-		$slider_range_id = 'product-search-filter-price-slider-range-' . $n;
 
 		$min_max = WooCommerce_Product_Search_Service::get_min_max_price();
+
 		WooCommerce_Product_Search_Service::min_max_price_adjust_for_display( $min_max['min_price'], $min_max['max_price'] );
 
 		if ( $min_price !== '' && $min_price < $min_max['min_price'] ) {
 			$min_price = $min_max['min_price'];
 		}
-		if ( $max_price !== '' && $max_price > $min_max['max_price'] ) {
+
+		if ( $max_price !== '' && $min_max['max_price'] !== '' && $max_price > $min_max['max_price'] ) {
 			$max_price = $min_max['max_price'];
 		}
 
@@ -326,6 +328,21 @@ class WooCommerce_Product_Search_Filter_Price {
 				$max_price,
 				self::get_decimals()
 			);
+
+			$inline_script .= 'jQuery( document ).on( "DOMNodeInserted", function( event ) {';
+			$inline_script .= sprintf( 'jQuery( event.target ).find( "#%s" ).each( function( index ) {', $slider_id );
+			$inline_script .= sprintf(
+				'wps_price_slider.create( "%s", %d, %d, %d, %d, %d );',
+				'#' . $slider_id,
+				$min_max['min_price'],
+				$min_max['max_price'],
+				$min_price,
+				$max_price,
+				self::get_decimals()
+			);
+			$inline_script .= '} );';
+			$inline_script .= '} );';
+
 			$inline_script .= '}';
 			$inline_script .= '}';
 
@@ -448,8 +465,10 @@ class WooCommerce_Product_Search_Filter_Price {
 
 		$safex_inline_script = 'if ( typeof jQuery !== "undefined" ) {';
 		$safex_inline_script .= 'if ( typeof jQuery().typeWatch !== "undefined" ) {';
-		$safex_inline_script .= sprintf(
-			'jQuery(".product-search-filter-price-field").typeWatch( {' .
+		$selector_callback = sprintf( 'jQuery("#%s .product-search-filter-price-field").typeWatch(', esc_js( $container_id ) );
+		$safex_inline_script .= $selector_callback;
+		$callback_params = sprintf(
+			'{' .
 			'callback: function (value) {' .
 			'var ' .
 				'min_price = jQuery(this).parent().find(".product-search-filter-min-price").first().val().trim(),' .
@@ -491,10 +510,13 @@ class WooCommerce_Product_Search_Filter_Price {
 			'wait: %d,' .
 			'highlight: true,' .
 			'captureLength: %d' .
-			'} );',
+			'}',
 			$params['delay'],
 			0
 		);
+		$safex_inline_script .= $callback_params;
+		$safex_inline_script .= ');';
+
 		$safex_inline_script .= '} else {';
 		$safex_inline_script .= 'if ( typeof console !== "undefined" && typeof console.log !== "undefined" ) {';
 		$safex_inline_script .= sprintf(
@@ -510,9 +532,22 @@ class WooCommerce_Product_Search_Filter_Price {
 		$safex_inline_script .= 'console.log("A conflict is preventing required resources to be loaded.");';
 		$safex_inline_script .= '}';
 		$safex_inline_script .= '}';
+
 		$safex_inline_script .= '}';
 
 		$inline_script .= woocommerce_product_search_safex( $safex_inline_script );
+
+		$dynamic_script = 'jQuery( document ).on( "DOMNodeInserted", function( event ) {';
+		$dynamic_script .= sprintf( 'jQuery( event.target ).find( "#%s .product-search-filter-price-field" ).each( function( index ) {', esc_js( $container_id ) );
+		$dynamic_script .= str_replace(
+			$selector_callback,
+			'jQuery(this).typeWatch(',
+			$safex_inline_script
+		);
+		$dynamic_script .= '} );';
+		$dynamic_script .= '} );';
+		$inline_script .= woocommerce_product_search_safex( $dynamic_script );
+
 		wp_add_inline_script( 'product-filter', $inline_script );
 
 		WooCommerce_Product_Search_Filter::filter_added();

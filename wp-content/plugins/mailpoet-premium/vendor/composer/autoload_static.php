@@ -7,7 +7,7 @@ namespace Composer\Autoload;
 if (!defined('ABSPATH')) exit;
 
 
-class ComposerStaticInitdadef28948142847ec57e7f39dee9cc5
+class ComposerStaticInitae071e41239994377625ef06bd2028ce
 {
     public static $prefixLengthsPsr4 = array (
         'M' => 
@@ -37,14 +37,14 @@ class ComposerStaticInitdadef28948142847ec57e7f39dee9cc5
         'MailPoet\\Premium\\API\\JSON\\v1\\Stats' => __DIR__ . '/../..' . '/lib/API/JSON/v1/Stats.php',
         'MailPoet\\Premium\\API\\JSON\\v1\\SubscriberDetailedStats' => __DIR__ . '/../..' . '/lib/API/JSON/v1/SubscriberDetailedStats.php',
         'MailPoet\\Premium\\Automation\\Engine\\Builder\\CreateWorkflowController' => __DIR__ . '/../..' . '/lib/Automation/Engine/Builder/CreateWorkflowController.php',
-        'MailPoet\\Premium\\Automation\\Engine\\Control\\Steps\\ConditionalStepRunner' => __DIR__ . '/../..' . '/lib/Automation/Engine/Control/Steps/ConditionalStepRunner.php',
+        'MailPoet\\Premium\\Automation\\Engine\\Builder\\UpdateWorkflowController' => __DIR__ . '/../..' . '/lib/Automation/Engine/Builder/UpdateWorkflowController.php',
         'MailPoet\\Premium\\Automation\\Engine\\Endpoints\\Workflows\\WorkflowsPostEndpoint' => __DIR__ . '/../..' . '/lib/Automation/Engine/Endpoints/Workflows/WorkflowsPostEndpoint.php',
-        'MailPoet\\Premium\\Automation\\Engine\\Workflows\\ConditionalStep' => __DIR__ . '/../..' . '/lib/Automation/Engine/Workflows/ConditionalStep.php',
+        'MailPoet\\Premium\\Automation\\Engine\\Endpoints\\Workflows\\WorkflowsPutEndpoint' => __DIR__ . '/../..' . '/lib/Automation/Engine/Endpoints/Workflows/WorkflowsPutEndpoint.php',
+        'MailPoet\\Premium\\Automation\\Engine\\Engine' => __DIR__ . '/../..' . '/lib/Automation/Engine/Engine.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UnsubscribeAction' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Actions/UnsubscribeAction.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/MailPoetPremiumIntegration.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\PremiumWorkflowTemplates' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/PremiumWorkflowTemplates.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\UserRegistrationTrigger' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Triggers/UserRegistrationTrigger.php',
-        'MailPoet\\Premium\\Config\\Automation' => __DIR__ . '/../..' . '/lib/Config/Automation.php',
         'MailPoet\\Premium\\Config\\Env' => __DIR__ . '/../..' . '/lib/Config/Env.php',
         'MailPoet\\Premium\\Config\\Hooks' => __DIR__ . '/../..' . '/lib/Config/Hooks.php',
         'MailPoet\\Premium\\Config\\Initializer' => __DIR__ . '/../..' . '/lib/Config/Initializer.php',
@@ -66,9 +66,9 @@ class ComposerStaticInitdadef28948142847ec57e7f39dee9cc5
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitdadef28948142847ec57e7f39dee9cc5::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitdadef28948142847ec57e7f39dee9cc5::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitdadef28948142847ec57e7f39dee9cc5::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitae071e41239994377625ef06bd2028ce::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitae071e41239994377625ef06bd2028ce::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitae071e41239994377625ef06bd2028ce::$classMap;
 
         }, null, ClassLoader::class);
     }

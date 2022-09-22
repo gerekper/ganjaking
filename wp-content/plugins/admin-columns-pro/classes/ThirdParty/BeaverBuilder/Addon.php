@@ -10,6 +10,10 @@ use ACP\ThirdParty\BeaverBuilder\ListScreen;
 class Addon implements Registrable {
 
 	public function register() {
+		if ( ! class_exists( 'FLBuilderLoader' ) ) {
+			return;
+		}
+
 		add_filter( 'ac/post_types', [ $this, 'deregister_global_post_type' ] );
 		add_action( 'ac/list_screen_groups', [ $this, 'register_beaver_builder_group' ] );
 		add_action( 'ac/list_screens', [ $this, 'register_list_screens' ] );

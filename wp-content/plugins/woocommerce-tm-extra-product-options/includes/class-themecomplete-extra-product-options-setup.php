@@ -140,6 +140,7 @@ final class Themecomplete_Extra_Product_Options_Setup {
 		$this->define( 'THEMECOMPLETE_EPO_GLOBAL_POST_TYPE', 'tm_global_cp' );
 		$this->define( 'THEMECOMPLETE_EPO_GLOBAL_POST_TYPE_PAGE_HOOK', 'tm-global-epo' );
 		$this->define( 'THEMECOMPLETE_EPO_TEMPLATE_POST_TYPE', 'tm_template_cp' );
+		$this->define( 'THEMECOMPLETE_EPO_LOOKUPTABLE_POST_TYPE', 'tm_lookuptable_cp' );
 		$this->define( 'THEMECOMPLETE_EPO_WPML_LANG_META', 'tm_meta_lang' );
 		$this->define( 'THEMECOMPLETE_EPO_WPML_PARENT_POSTID', 'tm_meta_parent_post_id' );
 		$this->define( 'THEMECOMPLETE_EPO_PLUGIN_PATH', untrailingslashit( plugin_dir_path( THEMECOMPLETE_EPO_PLUGIN_FILE ) ) );
@@ -203,9 +204,15 @@ final class Themecomplete_Extra_Product_Options_Setup {
 		// Load plugin textdomain.
 		add_action( 'plugins_loaded', [ $this, 'load_textdomain' ], 10 );
 
-		// Register post types
-		// The priority is 100 for compatibility with JetWooBuilder Custom Taxonomy Template.
-		add_action( 'init', [ 'THEMECOMPLETE_EPO_POST_TYPES', 'register' ], 100 );
+		// Register post types.
+		$priority = get_option( 'tm_epo_post_type_hook_priority' );
+		if ( ! is_numeric( $priority ) ) {
+			// The priority is 100 for compatibility with JetWooBuilder Custom Taxonomy Template.
+			$priority = 100;
+		} else {
+			$priority = (int) $priority;
+		}
+		add_action( 'init', [ 'THEMECOMPLETE_EPO_POST_TYPES', 'register' ], $priority );
 
 		// Load admin interface.
 		if ( $this->is_request( 'admin' ) ) {
@@ -221,6 +228,9 @@ final class Themecomplete_Extra_Product_Options_Setup {
 
 			// Admin Interface.
 			THEMECOMPLETE_EPO_ADMIN();
+
+			// Admin Lookup Table Interface.
+			THEMECOMPLETE_EPO_ADMIN_LOOKUPTABLE();
 
 		} else {
 

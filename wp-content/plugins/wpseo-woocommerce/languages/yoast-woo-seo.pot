@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Yoast SEO: WooCommerce package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Yoast SEO: WooCommerce 15.1\n"
+"Project-Id-Version: Yoast SEO: WooCommerce 15.2\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-woocommerce/issues\n"
-"POT-Creation-Date: 2022-08-09 09:44:41+00:00\n"
+"POT-Creation-Date: 2022-09-20 09:10:47+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -50,32 +50,36 @@ msgid ""
 "module to work."
 msgstr ""
 
-#: classes/woocommerce-seo.php:428
+#: classes/woocommerce-seo.php:427
 #. translators: %1$s resolves to WooCommerce SEO
 msgid "%1$s Settings"
 msgstr ""
 
-#: classes/woocommerce-seo.php:476
+#: classes/woocommerce-seo.php:475
 msgid "Schema & OpenGraph additions"
 msgstr ""
 
-#: classes/woocommerce-seo.php:477
+#: classes/woocommerce-seo.php:476
 msgid ""
 "If you have product attributes for the following types, select them here, "
 "the plugin will make sure they're used for the appropriate Schema.org and "
 "OpenGraph markup."
 msgstr ""
 
-#: classes/woocommerce-seo.php:479
+#: classes/woocommerce-seo.php:478
 msgid "Manufacturer"
 msgstr ""
 
-#: classes/woocommerce-seo.php:480
+#: classes/woocommerce-seo.php:479
 msgid "Brand"
 msgstr ""
 
-#: classes/woocommerce-seo.php:481
+#: classes/woocommerce-seo.php:480
 msgid "Color"
+msgstr ""
+
+#: classes/woocommerce-seo.php:481
+msgid "Pattern"
 msgstr ""
 
 #: classes/woocommerce-seo.php:484
@@ -114,19 +118,19 @@ msgstr ""
 msgid "Move %1$s up"
 msgstr ""
 
-#: classes/woocommerce-seo.php:1297
+#: classes/woocommerce-seo.php:1333
 msgid "You should write a short description for this product."
 msgstr ""
 
-#: classes/woocommerce-seo.php:1298
+#: classes/woocommerce-seo.php:1334
 msgid "The short description for this product is too short."
 msgstr ""
 
-#: classes/woocommerce-seo.php:1299
+#: classes/woocommerce-seo.php:1335
 msgid "Your short description has a good length."
 msgstr ""
 
-#: classes/woocommerce-seo.php:1300
+#: classes/woocommerce-seo.php:1336
 msgid "The short description for this product is too long."
 msgstr ""
 
@@ -142,11 +146,11 @@ msgstr ""
 msgid "On backorder"
 msgstr ""
 
-#: classes/woocommerce-slack.php:52
+#: classes/woocommerce-slack.php:59
 msgid "Price"
 msgstr ""
 
-#: classes/woocommerce-slack.php:54
+#: classes/woocommerce-slack.php:61
 msgid "Availability"
 msgstr ""
 

@@ -34,9 +34,7 @@ class Crawl_Cleanup_Searches implements Integration_Interface {
 	 *
 	 * @param Options_Helper $options_helper The option helper.
 	 */
-	public function __construct(
-		Options_Helper $options_helper
-	) {
+	public function __construct( Options_Helper $options_helper ) {
 		$this->options_helper = $options_helper;
 	}
 
@@ -137,15 +135,15 @@ class Crawl_Cleanup_Searches implements Integration_Interface {
 	}
 
 	/**
-	 * Determines if a string contains an emoji or not.
+	 * Determines if a text string contains an emoji or not.
 	 *
-	 * @param string $string The string to detect emoji in.
+	 * @param string $text The text string to detect emoji in.
 	 *
 	 * @return bool
 	 */
-	private function has_emoji( $string ) {
+	private function has_emoji( $text ) {
 		$emojis_regex = '/([^-\p{L}\x00-\x7F]+)/u';
-		\preg_match( $emojis_regex, $string, $matches );
+		\preg_match( $emojis_regex, $text, $matches );
 		return ! empty( $matches );
 	}
 }

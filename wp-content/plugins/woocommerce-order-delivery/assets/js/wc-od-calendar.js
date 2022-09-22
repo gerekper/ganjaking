@@ -147,7 +147,11 @@ jQuery(function( $ ) {
 				uiDialogInteraction = $.ui.dialog.prototype._allowInteraction;
 
 				$.ui.dialog.prototype._allowInteraction = function( event ) {
-					return ( $( event.target ).closest( '.select2-dropdown' ).length || uiDialogInteraction( event ) );
+					if ( $( event.target ).closest( '.select2-dropdown' ).length ) {
+						return true;
+					}
+
+					return uiDialogInteraction.apply( this, arguments );
 				};
 			}
 

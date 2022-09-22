@@ -5,10 +5,10 @@
  * Uses https://github.com/A5hleyRich/wp-background-processing to handle DB
  * updates in the background.
  *
- * @package     WooCommerce API Manager/Background Updater
+ * @since       2.0
  * @author      Todd Lahman LLC
  * @copyright   Copyright (c) Todd Lahman LLC
- * @since       2.0
+ * @package     WooCommerce API Manager/Background Updater
  */
 defined( 'ABSPATH' ) || exit;
 
@@ -33,10 +33,9 @@ class WCAM_Background_API_Resource_Activations_Updater extends WP_Background_Pro
 	 */
 	public function dispatch() {
 		$dispatched = parent::dispatch();
-		$logger     = wc_get_logger();
 
 		if ( is_wp_error( $dispatched ) ) {
-			$logger->error( sprintf( 'Unable to dispatch WooCommerce API Manager API Resource Activations updater: %s', $dispatched->get_error_message() ), array( 'source' => 'wc_am_api_resource_activations_update' ) );
+			WC_AM_LOG()->log_error( esc_html__( 'Unable to dispatch WooCommerce API Manager API Resource Activations updater: ', 'woocommerce-api-manager' ) . $dispatched->get_error_message(), 'api-resource-activations-update' );
 		}
 	}
 
@@ -91,33 +90,38 @@ class WCAM_Background_API_Resource_Activations_Updater extends WP_Background_Pro
 	 * @return false
 	 */
 	protected function task( $item ) {
-		if ( ! is_array( $item ) && ! isset( $item[ 'product_id' ] ) ) {
+		if ( ! is_array( $item ) && ! isset( $item[ 'product_id' ] ) && ! isset( $item[ 'order_id' ] ) ) {
 			return false;
 		}
 
-		$product_id = absint( $item[ 'product_id' ] );
-
-		$logger = wc_get_logger();
-		$logger->info( 'API Resource Activations update started for product ID# ' . $product_id, array( 'source' => 'wc_am_api_resource_activations_update' ) );
-
 		global $wpdb;
 
-		$current_activations = WC_AM_PRODUCT_DATA_STORE()->get_meta( $product_id, '_api_activations' );
-		$current_activations = ! empty( $current_activations ) ? $current_activations : 0;
+		$product_id = absint( $item[ 'product_id' ] );
+		$order_id   = absint( $item[ 'order_id' ] );
+
+		WC_AM_LOG()->log_info( esc_html__( 'API Resource Activations update started for Product ID# ', 'woocommerce-api-manager' ) . absint( $product_id ) . esc_html__( ' on Order ID# ', 'woocommerce-api-manager' ) . absint( $order_id ), 'api-resource-activations-update' );
+
+		$current_product_activations      = WC_AM_PRODUCT_DATA_STORE()->get_api_activations( $product_id );
+		$item_quanity_and_refund_quantity = WC_AM_API_RESOURCE_DATA_STORE()->get_item_quantity_and_refund_quantity_by_order_id_and_product_id( $order_id, $product_id );
+		$activations_purchased_total      = $current_product_activations * absint( $item_quanity_and_refund_quantity->item_qty - $item_quanity_and_refund_quantity->refund_qty );
 
 		$data = array(
-			'activations_purchased_total' => $current_activations
+			'activations_purchased'       => $current_product_activations,
+			'activations_purchased_total' => $activations_purchased_total
 		);
 
 		$where = array(
+			'order_id'   => $order_id,
 			'product_id' => $product_id
 		);
 
 		$data_format = array(
+			'%d',
 			'%d'
 		);
 
 		$where_format = array(
+			'%d',
 			'%d'
 		);
 
@@ -133,8 +137,7 @@ class WCAM_Background_API_Resource_Activations_Updater extends WP_Background_Pro
 	 * performed, or, call parent::complete().
 	 */
 	protected function complete() {
-		$logger = wc_get_logger();
-		$logger->info( 'API Resource Activations update completed.', array( 'source' => 'wc_am_api_resource_activations_update' ) );
+		WC_AM_LOG()->log_info( esc_html__( 'API Resource Activations update completed.', 'woocommerce-api-manager' ), 'api-resource-activations-update' );
 
 		parent::complete();
 	}

@@ -29,7 +29,7 @@ if ( THEMECOMPLETE_EPO()->tm_epo_global_hide_product_settings !== 'yes' && THEME
 $args   = [
 	'post_type'   => THEMECOMPLETE_EPO_LOCAL_POST_TYPE,
 	'post_status' => [ 'private', 'publish' ],
-	'numberposts' => - 1,
+	'numberposts' => -1,
 	'orderby'     => 'menu_order',
 	'order'       => 'asc',
 	'post_parent' => $post_id,
@@ -85,7 +85,7 @@ $tmepos = $post_id ? THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args ) : fal
 				$args               = [
 					'post_type'   => THEMECOMPLETE_EPO_GLOBAL_POST_TYPE,
 					'post_status' => [ 'publish' ], // get only enabled global extra options.
-					'numberposts' => - 1,
+					'numberposts' => -1,
 					'orderby'     => 'title',
 					'order'       => 'asc',
 				];

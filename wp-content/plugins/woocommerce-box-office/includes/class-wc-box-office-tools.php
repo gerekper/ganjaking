@@ -197,10 +197,21 @@ class WC_Box_Office_Tools {
 			'purchase_date' => __( 'Purchase date', 'woocommerce-box-office' ),
 			'order_id'      => __( 'Order ID', 'woocommerce-box-office' ),
 			'order_status'  => __( 'Order status', 'woocommerce-box-office' ),
+			'coupon_code'   => __( 'Coupon Code', 'woocommerce-box-office' ),
 			'user_id'       => __( 'User ID', 'woocommerce-box-office' ),
 		);
 
+		$queryable_product_ids = array();
 		foreach ( $products as $product_id ) {
+			if ( get_post_type( $product_id ) === 'product_variation' ) {
+				$product_id = wp_get_post_parent_id( $product_id );
+			}
+
+			// Avoid duplicate entry in case of multiple variations of same product.
+			if ( in_array( $product_id, $queryable_product_ids, true ) ) {
+				continue;
+			}
+			$queryable_product_ids[] = $product_id;
 
 			// Get available ticket fields.
 			$ticket_fields = get_post_meta( $product_id, '_ticket_fields', true );
@@ -226,7 +237,7 @@ class WC_Box_Office_Tools {
 			'meta_query' => array(
 				array(
 					'key' => '_product',
-					'value' => $products,
+					'value' => $queryable_product_ids,
 					'compare' => 'IN',
 				),
 			),
@@ -234,11 +245,17 @@ class WC_Box_Office_Tools {
 
 			foreach ( $tickets as $ticket ) {
 
-				// Get ticket ID.
-				$ticket_id = $ticket->ID;
+				// Ticket and linked product info.
+				$ticket_id     = $ticket->ID;
+				$product_id    = get_post_meta( $ticket_id, '_product', true );
+				$order_item_id = get_post_meta( $ticket_id, '_ticket_order_item_id', true );
+				$variation_id  = wc_get_order_item_meta( $order_item_id, '_variation_id', true );
 
-				// Get product ID.
-				$product_id = get_post_meta( $ticket_id, '_product', true );
+				// Include ticket if either the product id passed directly or only variation id.
+				$include_ticket = in_array( $product_id, $products ) || ( $variation_id && in_array( $variation_id, $products ) );
+				if ( ! $include_ticket ) {
+					continue;
+				}
 
 				$product = wc_get_product( $product_id );
 
@@ -247,16 +264,20 @@ class WC_Box_Office_Tools {
 
 				// Get order info.
 				$order_id = get_post_meta( $ticket_id, '_order', true );
-				$order = get_post( $order_id );
+				$order = wc_get_order( $order_id );
 
 				$ticket_url = wcbo_get_my_ticket_url( $ticket_id );
 
 				// Get order date.
-				if ( ! $order || ( $order && '0000-00-00 00:00:00' === $order->post_date ) ) {
+				if ( ! $order || ( $order && '0000-00-00 00:00:00' === $order->get_date_created() ) ) {
 					$purchase_time = __( 'N/A', 'woocommerce-box-office' );
 				} else {
 					$purchase_time = get_the_time( __( 'Y/m/d g:i:s A', 'woocommerce-box-office' ), $order_id );
 				}
+
+				// Get Coupon information
+				$coupons      = $order->get_coupon_codes();
+				$coupon_codes = is_array( $coupons ) ? implode( ', ', $coupons ) : '';
 
 				// Add basic ticket data to export.
 				$data = array(
@@ -268,6 +289,7 @@ class WC_Box_Office_Tools {
 					'purchase_date' => $purchase_time,
 					'order_id'      => $order_id,
 					'order_status'  => wc_get_order_status_name( get_post_status( $order_id ) ),
+					'coupon_code'   => $coupon_codes,
 					'user_id'       => $user_id,
 				);
 

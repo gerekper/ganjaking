@@ -299,7 +299,7 @@ class WC_Box_Office_Ticket {
 
 		// Replace {post_title} and {post_content}.
 		$post_vars = array(
-			'{post_title}'   => $post->post_title,
+			'{post_title}'   => $this->title,
 			'{post_content}' => $post->post_content,
 			'{ticket_id}'    => $this->id,
 		);

@@ -1,5 +1,8 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2022-09-13 - version 1.7.13
+* Fix - Coupon notice in checkout appearing at the beginning of the page.
+
 2022-09-02 - version 1.7.12
 * Dev - Add branch-labels GH workflow.
 * Dev - GH release config and the new PR template.

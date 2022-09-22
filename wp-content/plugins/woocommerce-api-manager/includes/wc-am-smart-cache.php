@@ -272,25 +272,25 @@ class WC_AM_Smart_Cache {
 						try {
 							WC_AM_API_RESOURCE_DATA_STORE()->get_all_api_resources_for_order_id( $resource->order_id );
 						} catch ( Exception $e ) {
-							WC_AM_Log()->log_error( PHP_EOL . esc_html__( 'Details from refresh_cache() method, get_all_api_resources_for_order_id() error.', 'woocommerce-api-manager' ) . PHP_EOL . $e );
+							WC_AM_LOG()->log_error( PHP_EOL . esc_html__( 'Details from refresh_cache() method, get_all_api_resources_for_order_id() error.', 'woocommerce-api-manager' ) . PHP_EOL . $e, 'refresh_cache' );
 						}
 
 						try {
 							WC_AM_API_RESOURCE_DATA_STORE()->get_all_api_resources_for_sub_parent_id( $sub_parent_id );
 						} catch ( Exception $e ) {
-							WC_AM_Log()->log_error( PHP_EOL . esc_html__( 'Details from refresh_cache() method, get_all_api_resources_for_sub_parent_id() error.', 'woocommerce-api-manager' ) . PHP_EOL . $e );
+							WC_AM_LOG()->log_error( PHP_EOL . esc_html__( 'Details from refresh_cache() method, get_all_api_resources_for_sub_parent_id() error.', 'woocommerce-api-manager' ) . PHP_EOL . $e, 'refresh_cache' );
 						}
 
 						try {
 							WC_AM_API_RESOURCE_DATA_STORE()->get_all_api_non_wc_subscription_resources_for_order_id( $resource->order_id );
 						} catch ( Exception $e ) {
-							WC_AM_Log()->log_error( PHP_EOL . esc_html__( 'Details from refresh_cache() method, get_all_api_non_wc_subscription_resources_for_order_id() error.', 'woocommerce-api-manager' ) . PHP_EOL . $e );
+							WC_AM_LOG()->log_error( PHP_EOL . esc_html__( 'Details from refresh_cache() method, get_all_api_non_wc_subscription_resources_for_order_id() error.', 'woocommerce-api-manager' ) . PHP_EOL . $e, 'refresh_cache' );
 						}
 
 						try {
 							WC_AM_API_RESOURCE_DATA_STORE()->get_api_resources_for_user_id_sort_by_product_title( $resource->user_id );
 						} catch ( Exception $e ) {
-							WC_AM_Log()->log_error( PHP_EOL . esc_html__( 'Details from refresh_cache() method, get_api_resources_for_user_id_sort_by_product_title() error.', 'woocommerce-api-manager' ) . PHP_EOL . $e );
+							WC_AM_LOG()->log_error( PHP_EOL . esc_html__( 'Details from refresh_cache() method, get_api_resources_for_user_id_sort_by_product_title() error.', 'woocommerce-api-manager' ) . PHP_EOL . $e, 'refresh_cache' );
 						}
 					}
 				}
@@ -321,25 +321,25 @@ class WC_AM_Smart_Cache {
 			try {
 				WC_AM_API_RESOURCE_DATA_STORE()->get_all_api_resources_for_order_id( $data[ 'admin_resources' ][ 'order_id' ] );
 			} catch ( Exception $e ) {
-				WC_AM_Log()->log_error( PHP_EOL . esc_html__( 'Details from refresh_cache() method, get_all_api_resources_for_order_id() error.', 'woocommerce-api-manager' ) . PHP_EOL . $e );
+				WC_AM_LOG()->log_error( PHP_EOL . esc_html__( 'Details from refresh_cache() method, get_all_api_resources_for_order_id() error.', 'woocommerce-api-manager' ) . PHP_EOL . $e, 'refresh_cache' );
 			}
 
 			try {
 				WC_AM_API_RESOURCE_DATA_STORE()->get_all_api_resources_for_sub_parent_id( $sub_parent_id );
 			} catch ( Exception $e ) {
-				WC_AM_Log()->log_error( PHP_EOL . esc_html__( 'Details from refresh_cache() method, get_all_api_resources_for_sub_parent_id() error.', 'woocommerce-api-manager' ) . PHP_EOL . $e );
+				WC_AM_LOG()->log_error( PHP_EOL . esc_html__( 'Details from refresh_cache() method, get_all_api_resources_for_sub_parent_id() error.', 'woocommerce-api-manager' ) . PHP_EOL . $e, 'refresh_cache' );
 			}
 
 			try {
 				WC_AM_API_RESOURCE_DATA_STORE()->get_all_api_non_wc_subscription_resources_for_order_id( $data[ 'admin_resources' ][ 'order_id' ] );
 			} catch ( Exception $e ) {
-				WC_AM_Log()->log_error( PHP_EOL . esc_html__( 'Details from refresh_cache() method, get_all_api_non_wc_subscription_resources_for_order_id() error.', 'woocommerce-api-manager' ) . PHP_EOL . $e );
+				WC_AM_LOG()->log_error( PHP_EOL . esc_html__( 'Details from refresh_cache() method, get_all_api_non_wc_subscription_resources_for_order_id() error.', 'woocommerce-api-manager' ) . PHP_EOL . $e, 'refresh_cache' );
 			}
 
 			try {
 				WC_AM_API_RESOURCE_DATA_STORE()->get_api_resources_for_user_id_sort_by_product_title( $data[ 'admin_resources' ][ 'user_id' ] );
 			} catch ( Exception $e ) {
-				WC_AM_Log()->log_error( PHP_EOL . esc_html__( 'Details from refresh_cache() method, get_api_resources_for_user_id_sort_by_product_title() error.', 'woocommerce-api-manager' ) . PHP_EOL . $e );
+				WC_AM_LOG()->log_error( PHP_EOL . esc_html__( 'Details from refresh_cache() method, get_api_resources_for_user_id_sort_by_product_title() error.', 'woocommerce-api-manager' ) . PHP_EOL . $e, 'refresh_cache' );
 			}
 		}
 	}
@@ -373,6 +373,8 @@ class WC_AM_Smart_Cache {
 						$transients_for_deletion = array(
 							'wc_am_get_ar_for_mac_' . $mac,
 							'wc_am_get_ar_for_mac_ar_' . $mac,
+							'wc_am_get_ar_for_mac_and_poak_' . $data[ 'api_key' ],
+							'wc_am_get_ar_for_mac_and_poak_ar_' . $data[ 'api_key' ],
 							'wc_am_get_api_resources_for_user_id_' . $resource->user_id,
 							'wc_am_get_api_resources_for_user_id_ar_' . $resource->user_id,
 							'wc_am_get_all_api_resources_for_order_id_' . $resource->order_id,
@@ -386,7 +388,7 @@ class WC_AM_Smart_Cache {
 						);
 
 						$this->delete_transients( $transients_for_deletion );
-						$this->queue_delete_transient( $transients_for_deletion );
+						// $this->queue_delete_transient( $transients_for_deletion );
 					}
 				}
 
@@ -394,7 +396,7 @@ class WC_AM_Smart_Cache {
 					try {
 						$this->queue_set_transient( array( (string) random_int( 1, 99999 ) => $data ) );
 					} catch ( Exception $e ) {
-						WC_AM_Log()->log_error( PHP_EOL . esc_html__( 'Details from delete_cache() method, random_int() error.', 'woocommerce-api-manager' ) . PHP_EOL . $e );
+						WC_AM_LOG()->log_error( PHP_EOL . esc_html__( 'Details from delete_cache() method, random_int() error.', 'woocommerce-api-manager' ) . PHP_EOL . $e, 'delete_cache' );
 					}
 				}
 			}
@@ -435,13 +437,22 @@ class WC_AM_Smart_Cache {
 			);
 
 			$this->delete_transients( $transient_order_keys );
-			$this->queue_delete_transient( $transient_order_keys );
+			// $this->queue_delete_transient( $transient_order_keys );
+
+			if ( ! empty( $data[ 'admin_resources' ][ 'api_key' ] ) ) {
+				$transient_order_keys = array(
+					'wc_am_get_ar_for_mac_and_poak_' . $data[ 'admin_resources' ][ 'api_key' ],
+					'wc_am_get_ar_for_mac_and_poak_ar_' . $data[ 'admin_resources' ][ 'api_key' ]
+				);
+
+				$this->delete_transients( $transient_order_keys );
+			}
 
 			if ( $refresh ) {
 				try {
 					$this->queue_set_transient( array( (string) random_int( 1, 99999 ) => $data ) );
 				} catch ( Exception $e ) {
-					WC_AM_Log()->log_error( PHP_EOL . esc_html__( 'Details from delete_cache() method, random_int() error.', 'woocommerce-api-manager' ) . PHP_EOL . $e );
+					WC_AM_LOG()->log_error( PHP_EOL . esc_html__( 'Details from delete_cache() method, random_int() error.', 'woocommerce-api-manager' ) . PHP_EOL . $e, 'delete_cache' );
 				}
 			}
 		}
@@ -473,7 +484,7 @@ class WC_AM_Smart_Cache {
 			);
 
 			$this->delete_transients( $trans_keys_status );
-			$this->queue_delete_transient( $trans_keys_status );
+			// $this->queue_delete_transient( $trans_keys_status );
 		}
 
 		if ( ! empty( $trans_hash_info_and_update ) ) {
@@ -487,7 +498,19 @@ class WC_AM_Smart_Cache {
 			);
 
 			$this->delete_transients( $trans_keys_info_and_update );
-			$this->queue_delete_transient( $trans_keys_info_and_update );
+			// $this->queue_delete_transient( $trans_keys_info_and_update );
+		}
+
+		// product_list() cache.
+		if ( ! empty( $args[ 'api_key' ] ) && ! empty( $args[ 'instance' ] ) ) {
+			$trans_hash_product_list = md5( $args[ 'api_key' ] . 'product_list' . $args[ 'instance' ] );
+
+			$trans_keys_product_list = array(
+				'wc_am_api_product_list_func_data_' . $trans_hash_product_list,
+				'wc_am_api_product_list_func_top_level_data_' . $trans_hash_product_list,
+			);
+
+			$this->delete_transients( $trans_keys_product_list );
 		}
 	}
 
@@ -509,7 +532,7 @@ class WC_AM_Smart_Cache {
 		);
 
 		$this->delete_transients( $trans_keys );
-		$this->queue_delete_transient( $trans_keys );
+		// $this->queue_delete_transient( $trans_keys );
 	}
 
 	/**

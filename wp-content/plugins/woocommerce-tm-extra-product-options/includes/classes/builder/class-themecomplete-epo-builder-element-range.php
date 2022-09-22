@@ -51,6 +51,7 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_RANGE extends THEMECOMPLETE_EPO_BUILDER_
 				'enabled',
 				'required',
 				'price_type7',
+				'lookuptable',
 				'price',
 				'sale_price',
 				'fee',

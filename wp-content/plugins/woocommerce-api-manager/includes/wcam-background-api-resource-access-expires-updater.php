@@ -35,10 +35,9 @@ class WCAM_Background_API_Resource_Access_Expires_Updater extends WP_Background_
 	 */
 	public function dispatch() {
 		$dispatched = parent::dispatch();
-		$logger     = wc_get_logger();
 
 		if ( is_wp_error( $dispatched ) ) {
-			$logger->error( sprintf( 'Unable to dispatch WooCommerce API Manager API Resource Access Expires updater: %s', $dispatched->get_error_message() ), array( 'source' => 'wc_am_api_resource_access_expires_updater' ) );
+			WC_AM_LOG()->log_error( esc_html__( 'Unable to dispatch WooCommerce API Manager API Resource Access Expires updater: ', 'woocommerce-api-manager' ) . $dispatched->get_error_message(), 'api-resource-access-expires-update' );
 		}
 	}
 
@@ -102,9 +101,8 @@ class WCAM_Background_API_Resource_Access_Expires_Updater extends WP_Background_
 		$product_id             = absint( $item[ 'product_id' ] );
 		$order_id               = absint( $item[ 'order_id' ] );
 		$product_access_expires = $item[ 'product_access_expires' ];
-		$logger                 = wc_get_logger();
 
-		$logger->info( 'API Resource Access Expires update started for Product ID # ' . $product_id . ' on order # ' . $order_id, array( 'source' => 'wc_am_api_resource_access_expires_updater' ) );
+		WC_AM_LOG()->log_info( esc_html__( 'API Resource Access Expires update started for Product ID# ', 'woocommerce-api-manager' ) . absint( $product_id ) . esc_html__( ' on Order ID# ', 'woocommerce-api-manager' ) . absint( $order_id ), 'api-resource-access-expires-update' );
 
 		// Time when order created.
 		$order_created_time = WC_AM_ORDER_DATA_STORE()->get_order_time_to_epoch_time_stamp( $order_id );
@@ -143,8 +141,7 @@ class WCAM_Background_API_Resource_Access_Expires_Updater extends WP_Background_
 	 * performed, or, call parent::complete().
 	 */
 	protected function complete() {
-		$logger = wc_get_logger();
-		$logger->info( 'API Resource Access Expires update completed.', array( 'source' => 'wc_am_api_resource_access_expires_updater' ) );
+		WC_AM_LOG()->log_info( esc_html__( 'API Resource Access Expires update completed.', 'woocommerce-api-manager' ), 'api-resource-access-expires-update' );
 
 		parent::complete();
 	}

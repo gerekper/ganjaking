@@ -56,11 +56,83 @@ class WC_AM_Format {
 			// translators: placeholder is human time diff (e.g. "3 weeks")
 			$date_to_display = sprintf( __( '%s ago', 'woocommerce-api-manager' ), human_time_diff( $current_time, $timestamp_gmt ) );
 		} else {
-			$timestamp_site  = $this->date_to_time( get_date_from_gmt( gmdate( 'Y-m-d H:i:s', $timestamp_gmt ) ) );
-			$date_to_display = date_i18n( $this->date_format(), $timestamp_site ) . ' ' . date_i18n( $this->time_format(), $timestamp_site );
+			$date_to_display = $this->unix_timestamp_to_date_i18n( $timestamp_gmt );
 		}
 
 		return $date_to_display;
+	}
+
+	/**
+	 * Determines the difference between two timestamps.
+	 *
+	 * The difference is returned in seconds.
+	 *
+	 * @since 2.4.4
+	 *
+	 * @param int $from Unix timestamp from which the difference begins.
+	 * @param int $to   Optional. Unix timestamp to end the time difference. Default becomes time() if not set.
+	 *
+	 * @return string Number of seconds of time difference.
+	 */
+	function find_time_diff( $from, $to = 0 ) {
+		if ( empty( $to ) ) {
+			$to = time();
+		}
+
+		$diff = (int) abs( $to - $from );
+
+		if ( $diff < MINUTE_IN_SECONDS ) {
+			$secs = $diff;
+			if ( $secs <= 1 ) {
+				$secs = 1;
+			}
+
+			return $secs . ' secs';
+		} elseif ( $diff < HOUR_IN_SECONDS && $diff >= MINUTE_IN_SECONDS ) {
+			$mins = $diff / MINUTE_IN_SECONDS;
+			if ( $mins <= 1 ) {
+				$mins = 1;
+			}
+
+			return $mins * MINUTE_IN_SECONDS . ' mins';
+		} elseif ( $diff < DAY_IN_SECONDS && $diff >= HOUR_IN_SECONDS ) {
+			$hours = $diff / HOUR_IN_SECONDS;
+			if ( $hours <= 1 ) {
+				$hours = 1;
+			}
+
+			return $hours * HOUR_IN_SECONDS . ' hours';
+		} elseif ( $diff < WEEK_IN_SECONDS && $diff >= DAY_IN_SECONDS ) {
+			$days = $diff / DAY_IN_SECONDS;
+			if ( $days <= 1 ) {
+				$days = 1;
+			}
+
+			return $days * DAY_IN_SECONDS . ' days';
+		} elseif ( $diff < MONTH_IN_SECONDS && $diff >= WEEK_IN_SECONDS ) {
+			$weeks = $diff / WEEK_IN_SECONDS;
+			if ( $weeks <= 1 ) {
+				$weeks = 1;
+			}
+
+			return $weeks * WEEK_IN_SECONDS . ' weeks';
+		} elseif ( $diff < YEAR_IN_SECONDS && $diff >= MONTH_IN_SECONDS ) {
+			$months = $diff / MONTH_IN_SECONDS;
+			if ( $months <= 1 ) {
+				$months = 1;
+			}
+
+			return $months * MONTH_IN_SECONDS . ' months';
+		} elseif ( $diff >= YEAR_IN_SECONDS ) {
+			$years = $diff / YEAR_IN_SECONDS;
+			if ( $years <= 1 ) {
+				$years = 1;
+			}
+
+			return $years * YEAR_IN_SECONDS . ' years';
+		}
+
+		return 0;
 	}
 
 	/**
@@ -92,29 +164,51 @@ class WC_AM_Format {
 
 		$date_time = new WC_DateTime( $date_string, new DateTimeZone( 'UTC' ) );
 
-		return intval( $date_time->getTimestamp() );
+		return intval( $date_time->getOffsetTimestamp() );
 	}
 
 	/**
-	 * WooCommerce Date Format - Allows to change date format for everything WooCommerce.
+	 * WooCommerce API Manager Date Format - Allows to change date format for everything WooCommerce.
 	 *
 	 * @since 2.0
 	 *
 	 * @return string
 	 */
 	function date_format() {
-		return apply_filters( 'woocommerce_date_format', get_option( 'date_format' ) );
+		return apply_filters( 'wc_am_date_format', get_option( 'date_format' ) );
 	}
 
 	/**
-	 * WooCommerce Time Format - Allows to change time format for everything WooCommerce.
+	 * WooCommerce API Manager Time Format - Allows to change time format for everything WooCommerce.
 	 *
 	 * @since 2.0
 	 *
 	 * @return string
 	 */
 	function time_format() {
-		return apply_filters( 'woocommerce_time_format', get_option( 'time_format' ) );
+		return apply_filters( 'wc_am_time_format', get_option( 'time_format' ) );
+	}
+
+	/**
+	 * Take a date and convert it into an epoch/unix timestamp with the correctly locallized timezone offset.
+	 *
+	 * @since 2.4.4
+	 *
+	 * @param $datetime_string
+	 *
+	 * @return int
+	 * @throws \Exception
+	 */
+	function date_to_unix_timestamp_with_timezone_offset( $datetime_string ) {
+		return wc_string_to_timestamp( $datetime_string );
+
+		//try {
+		//	$datetime = new DateTime( $datetime_string, new DateTimeZone( wc_timezone_string() ) );
+		//
+		//	return (int) $datetime->format( 'U' );
+		//} catch ( Exception $e ) {
+		//	WC_AM_LOG()->log_error( esc_html__( 'Details from date_to_unix_timestamp_with_timezone_offset() method.', 'woocommerce-api-manager' ) . PHP_EOL . $e, 'date_to_unix_timestamp_with_timezone_offset' );
+		//}
 	}
 
 	/**
@@ -142,7 +236,7 @@ class WC_AM_Format {
 	 * @throws \Exception
 	 */
 	public function unix_timestamp_to_date_i18n( $timestamp ) {
-		$timestamp_site  = $this->date_to_time( get_date_from_gmt( gmdate( 'Y-m-d H:i:s', $timestamp ) ) );
+		$timestamp_site  = $this->date_to_time( gmdate( 'Y-m-d H:i:s', $timestamp ) );
 		$date_to_display = date_i18n( $this->date_format(), $timestamp_site ) . ' ' . date_i18n( $this->time_format(), $timestamp_site );
 
 		return $date_to_display;
@@ -159,7 +253,7 @@ class WC_AM_Format {
 	 * @throws \Exception
 	 */
 	public function unix_timestamp_to_calendar_date_i18n( $timestamp ) {
-		$timestamp_site  = $this->date_to_time( get_date_from_gmt( gmdate( 'Y-m-d', $timestamp ) ) );
+		$timestamp_site  = $this->date_to_time( gmdate( 'Y-m-d', $timestamp ) );
 		$date_to_display = date_i18n( 'Y-m-d', $timestamp_site );
 
 		return $date_to_display;
@@ -188,6 +282,7 @@ class WC_AM_Format {
 	 *
 	 * @since   2.2.1
 	 * @updated 2.4.1
+	 * @updated 2.4.4
 	 *
 	 * @param $var
 	 *
@@ -204,9 +299,19 @@ class WC_AM_Format {
 		 * @updated 2.4.1
 		 * PHP 8.1 started throwing error
 		 * CRITICAL Uncaught TypeError: json_decode(): Argument #1 ($json) must be of type string, stdClass given in ...
+		 * return is_object( $var ) ? empty( @json_decode( $var, true ) ) : empty( $var );
+		 *
 		 * If is_object == true then cast $var to (array) before checking with empty() function.
+		 *
+		 * @updated 2.4.4
+		 * Error: Array to string conversion.
+		 * // return is_object( $var ) ? empty( (array) $var ) : empty( $var );
 		 */
-		return is_object( $var ) ? empty( (array) $var ) : empty( $var );
+		if ( is_array( $var ) || is_string( $var ) ) {
+			return empty( $var );
+		}
+
+		return is_object( $var ) ? empty( json_decode( json_encode( $var ), true ) ) : empty( $var );
 	}
 
 }

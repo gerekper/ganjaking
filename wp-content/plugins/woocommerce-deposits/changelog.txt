@@ -1,5 +1,24 @@
 *** WooCommerce Deposits Changelog ***
 
+2022-09-14 - version 2.0.1
+* Add - Compatibility with the "One Page Checkout" extension.
+* Add - Compatibility with the "WooCommerce Multi-Currency" extension.
+
+2022-08-31 - version 2.0.0
+* Add - Support for the new Cart and Checkout blocks in WooCommerce Blocks.
+* Add - woocommerce_deposits_plan_amount_decimals filter for payment plan amount decimals.
+* Add - new filter 'woocommerce_deposits_parent_status_on_payment' to change the parent order status on all deposits paid.
+* Fix - Payment plan amount rounding precision issue.
+* Fix - Tax calculation for orders with Local Pickup shipping.
+* Fix - Display tax suffix consistently for deposits cart items.
+* Fix - Respect "Sold Individually" setting for deposits.
+* Fix - Saving Payment Plan with Empty Payment Amount Causes Fatal Error.
+* Fix - "Discount Applied Toward Future Payments" does not show when resending emails, "Future Payments" in resent email is incorrect.
+* Tweak - Bump minimum WP version to 5.6.
+* Tweak - Bump minimum PHP version to 7.0.
+* Tweak - Bump minimum WC version to 6.0.
+* Tweak - Make check_global_param_exist method name to be semantically correct.
+
 2022-08-09 - version 1.6.1
 * Tweak - Bump tested up to WooCommerce version 6.8.
 

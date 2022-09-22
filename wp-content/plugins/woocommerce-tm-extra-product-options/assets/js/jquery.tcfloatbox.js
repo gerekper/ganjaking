@@ -47,7 +47,7 @@
 				}
 
 				if ( settings._ovl ) {
-					settings._ovl.unbind();
+					settings._ovl.off();
 					settings._ovl.remove();
 					delete settings._ovl;
 				}

@@ -797,6 +797,7 @@ return array (
   'ACP\\Search\\Comparison\\Post\\Date' => $dir . '/classes/Search/Comparison/Post/Date.php',
   'ACP\\Search\\Comparison\\Post\\Date\\PostDate' => $dir . '/classes/Search/Comparison/Post/Date/PostDate.php',
   'ACP\\Search\\Comparison\\Post\\Date\\PostModified' => $dir . '/classes/Search/Comparison/Post/Date/PostModified.php',
+  'ACP\\Search\\Comparison\\Post\\Date\\PostPublished' => $dir . '/classes/Search/Comparison/Post/Date/PostPublished.php',
   'ACP\\Search\\Comparison\\Post\\Excerpt' => $dir . '/classes/Search/Comparison/Post/Excerpt.php',
   'ACP\\Search\\Comparison\\Post\\FeaturedImage' => $dir . '/classes/Search/Comparison/Post/FeaturedImage.php',
   'ACP\\Search\\Comparison\\Post\\Formats' => $dir . '/classes/Search/Comparison/Post/Formats.php',

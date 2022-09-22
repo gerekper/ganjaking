@@ -149,7 +149,7 @@ class Newsletter {
         $renderedNewsletter,
         $newsletter
       );
-      $renderedNewsletter = $this->gaTracking->applyGATracking($renderedNewsletter, $newsletter);
+      $renderedNewsletter = $this->gaTracking->applyGATracking($renderedNewsletter, $newsletterEntity);
       // hash and save all links
       $renderedNewsletter = $this->linksTask->process($renderedNewsletter, $newsletter, $sendingTask);
     } else {
@@ -160,7 +160,7 @@ class Newsletter {
         $renderedNewsletter,
         $newsletter
       );
-      $renderedNewsletter = $this->gaTracking->applyGATracking($renderedNewsletter, $newsletter);
+      $renderedNewsletter = $this->gaTracking->applyGATracking($renderedNewsletter, $newsletterEntity);
     }
     // check if this is a post notification and if it contains at least 1 ALC post
     if (

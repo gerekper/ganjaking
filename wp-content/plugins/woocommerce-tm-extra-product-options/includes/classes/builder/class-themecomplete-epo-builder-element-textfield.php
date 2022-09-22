@@ -51,6 +51,7 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_TEXTFIELD extends THEMECOMPLETE_EPO_BUIL
 				'enabled',
 				'required',
 				'price_type2',
+				'lookuptable',
 				'freechars',
 				'price',
 				'sale_price',

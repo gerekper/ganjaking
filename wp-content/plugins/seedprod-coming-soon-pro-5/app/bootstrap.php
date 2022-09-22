@@ -235,7 +235,10 @@ function seedprod_pro_admin_enqueue_scripts( $hook_suffix ) {
 			);
 		}
 
-		wp_enqueue_style( 'seedprod-google-fonts', 'https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&display=swap', false ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
+		$allow_google_fonts = apply_filters( 'seedprod_allow_google_fonts', true );
+		if( $allow_google_fonts ) {
+        	wp_enqueue_style('seedprod-google-fonts', 'https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&display=swap', false); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
+        }
 
 		wp_enqueue_style(
 			'seedprod-fontawesome',

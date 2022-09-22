@@ -282,7 +282,11 @@
 						if ( target.attr( 'data-original' ) !== undefined ) {
 							get_img_src = target.attr( 'data-original' );
 						} else if ( target.attr( 'src' ) !== undefined ) {
-							get_img_src = target.attr( 'src' );
+							if ( target.attr( 'data-src' ) !== undefined ) {
+								get_img_src = target.attr( 'data-src' );
+							} else {
+								get_img_src = target.attr( 'src' );
+							}
 						} else {
 							get_img_src = target[ 0 ].src;
 						}

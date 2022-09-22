@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit82603693d8dfae6085051c788a273f3e
+class ComposerStaticInit469639611d5089a2c682f9188ceb96f6
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -132,7 +132,6 @@ class ComposerStaticInit82603693d8dfae6085051c788a273f3e
         'WPSEO_WooCommerce_Product_Availability_Presenter' => __DIR__ . '/../..' . '/classes/presenters/woocommerce-product-availability-presenter.php',
         'WPSEO_WooCommerce_Product_Brand_Presenter' => __DIR__ . '/../..' . '/classes/presenters/woocommerce-product-brand-presenter.php',
         'WPSEO_WooCommerce_Product_Condition_Presenter' => __DIR__ . '/../..' . '/classes/presenters/woocommerce-product-condition-presenter.php',
-        'WPSEO_WooCommerce_Product_OpenGraph_Deprecation_Presenter' => __DIR__ . '/../..' . '/classes/presenters/woocommerce-product-opengraph-deprecation-presenter.php',
         'WPSEO_WooCommerce_Product_Price_Amount_Presenter' => __DIR__ . '/../..' . '/classes/presenters/woocommerce-product-price-amount-presenter.php',
         'WPSEO_WooCommerce_Product_Price_Currency_Presenter' => __DIR__ . '/../..' . '/classes/presenters/woocommerce-product-price-currency-presenter.php',
         'WPSEO_WooCommerce_Product_Retailer_Item_ID_Presenter' => __DIR__ . '/../..' . '/classes/presenters/woocommerce-product-retailer-item-id-presenter.php',
@@ -143,7 +142,6 @@ class ComposerStaticInit82603693d8dfae6085051c788a273f3e
         'WPSEO_WooCommerce_Utils' => __DIR__ . '/../..' . '/classes/woocommerce-utils.php',
         'WPSEO_WooCommerce_Yoast_Ids' => __DIR__ . '/../..' . '/classes/woocommerce-yoast-ids.php',
         'WPSEO_WooCommerce_Yoast_Tab' => __DIR__ . '/../..' . '/classes/woocommerce-yoast-tab.php',
-        'WPSEO_Woocommerce_Permalink_Watcher' => __DIR__ . '/../..' . '/classes/woocommerce-permalink-watcher.php',
         'Yoast_I18n_WordPressOrg_v3' => __DIR__ . '/..' . '/yoast/i18n-module/src/i18n-wordpressorg-v3.php',
         'Yoast_I18n_v3' => __DIR__ . '/..' . '/yoast/i18n-module/src/i18n-v3.php',
         'Yoast_WooCommerce_Dependencies' => __DIR__ . '/../..' . '/classes/woocommerce-dependencies.php',
@@ -153,9 +151,9 @@ class ComposerStaticInit82603693d8dfae6085051c788a273f3e
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit82603693d8dfae6085051c788a273f3e::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit82603693d8dfae6085051c788a273f3e::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit82603693d8dfae6085051c788a273f3e::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit469639611d5089a2c682f9188ceb96f6::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit469639611d5089a2c682f9188ceb96f6::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit469639611d5089a2c682f9188ceb96f6::$classMap;
 
         }, null, ClassLoader::class);
     }

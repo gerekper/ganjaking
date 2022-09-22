@@ -42,7 +42,7 @@ class Replacement_Variables_Integration implements Integration_Interface {
 		 *
 		 * @since 19.0
 		 *
-		 * @param bool Whether to load the emoji picker.
+		 * @param bool $load Whether to load the emoji picker.
 		 */
 		if ( ! \apply_filters( 'wpseo_premium_load_emoji_picker', true ) ) {
 			return;
@@ -72,7 +72,7 @@ class Replacement_Variables_Integration implements Integration_Interface {
 				'yoast-seo-premium-commons',
 				WPSEO_Admin_Asset_Manager::PREFIX . 'search-metadata-previews',
 			],
-			WPSEO_PREMIUM_VERSION,
+			\WPSEO_PREMIUM_VERSION,
 			false
 		);
 	}
@@ -99,7 +99,7 @@ class Replacement_Variables_Integration implements Integration_Interface {
 		}
 
 		// Make sure ajax integrations are loaded.
-		return wp_doing_ajax();
+		return \wp_doing_ajax();
 	}
 
 	/**

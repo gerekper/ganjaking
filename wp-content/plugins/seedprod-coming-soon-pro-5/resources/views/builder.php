@@ -109,6 +109,12 @@ if ( ! in_array( $settings['page_type'], $landing_page_types, true ) ) {
 // get post types
 $post_types = get_post_types();
 
+// get seedprod setting tp check special pages states
+$seedprod_settings = get_option( 'seedprod_settings' );
+if ( ! empty( $seedprod_settings ) ) {
+	$seedprod_settings = json_decode( stripslashes( $seedprod_settings ) );
+}
+
 
 // get global css settings
 $global_css_settings = array();
@@ -443,6 +449,7 @@ if ( count( $seedprod_theme_parts ) > 0 ) {
 var seedprod_data = 
 <?php
 $seedprod_data = array(
+	'seedprod_settings'                => $seedprod_settings,
 	'mixed_content'                    => $mixed_content,
 	'is_landing_page'                  => $is_landing_page,
 	'edited_with_seedprod'             => $edited_with_seedprod,

@@ -1,6 +1,6 @@
 <?php
 /**
- * Order items HTML for meta box.
+ * Order API Key Activations HTML for meta box.
  *
  * @package WooCommerce API Manager/Admin/Meta boxes
  */

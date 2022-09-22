@@ -84,12 +84,12 @@ class Frontend_Inspector implements Integration_Interface {
 	 * Enqueue the workouts app.
 	 */
 	public function enqueue_assets() {
-		if ( ! is_admin_bar_showing() || ! WPSEO_Options::get( 'enable_admin_bar_menu' ) ) {
+		if ( ! \is_admin_bar_showing() || ! WPSEO_Options::get( 'enable_admin_bar_menu' ) ) {
 			return;
 		}
 
 		// If the current user can't write posts, this is all of no use, so let's not output an admin menu.
-		if ( ! current_user_can( 'edit_posts' ) ) {
+		if ( ! \current_user_can( 'edit_posts' ) ) {
 			return;
 		}
 

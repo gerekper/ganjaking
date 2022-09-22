@@ -154,6 +154,15 @@ function THEMECOMPLETE_EPO_ADMIN() {
 }
 
 /**
+ * Admin Lookup Table Interface.
+ *
+ * @return THEMECOMPLETE_EPO_Admin_LookupTable_Base
+ */
+function THEMECOMPLETE_EPO_ADMIN_LOOKUPTABLE() {
+	return THEMECOMPLETE_EPO_Admin_LookupTable_Base::instance();
+}
+
+/**
  * Settings Interface.
  *
  * @return THEMECOMPLETE_EPO_SETTINGS_Base
@@ -184,13 +193,13 @@ if ( ! function_exists( 'themecomplete_convert_local_numbers' ) ) {
 		$decimals = [ wc_get_price_decimal_separator(), $locale['decimal_point'], $locale['mon_decimal_point'] ];
 
 		// Remove whitespace from string.
-		$input = preg_replace( '/\s+/', '', $input );
+		$input = preg_replace( '/\B\s+|\s+\B/', '', $input );
 
 		// Remove locale from string.
 		foreach ( $decimals as $decimal ) {
 			if ( '.' !== $decimal && '' !== $decimal ) {
 				$input = preg_replace_callback(
-					'~if\(.*?\)(*SKIP)(*F)|min\(.*?\)(*SKIP)(*F)|max\(.*?\)(*SKIP)(*F)|{[^{}]*}(*SKIP)(*F)|\d+\\' . $decimal . '+\d*~',
+					'~if\(.*?\)(*SKIP)(*F)|lookuptable\(.*?\)(*SKIP)(*F)|min\(.*?\)(*SKIP)(*F)|max\(.*?\)(*SKIP)(*F)|{[^{}]*}(*SKIP)(*F)|\d+\\' . $decimal . '+\d*~',
 					function ( $m ) use ( $decimal ) {
 						return str_replace( $decimal, '.', $m[0] );
 					},

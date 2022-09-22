@@ -1,10 +1,10 @@
-# Copyright (C) 2022 MailPoet 3 Premium (New)
-# This file is distributed under the same license as the MailPoet 3 Premium (New) package.
+# Copyright (C) 2022 MailPoet Premium
+# This file is distributed under the same license as the MailPoet Premium package.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet 3 Premium (New) 3.96.0\n"
+"Project-Id-Version: MailPoet Premium 3.98.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
-"POT-Creation-Date: 2022-08-29 15:33:05+00:00\n"
+"POT-Creation-Date: 2022-09-19 14:43:51+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"

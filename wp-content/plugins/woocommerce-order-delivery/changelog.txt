@@ -1,5 +1,9 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2022-09-12 - version 2.2.2
+* Tweak - Improved the validation of the delivery fields during checkout.
+* Fix - Fixed the 'State' selector field in the delivery calendar dialog.
+
 2022-09-01 - version 2.2.1
 * Tweak - Tested compatibility with WC 6.9.
 * Fix - Fixed delivery date validation during checkout after selecting a shipping method that invalidates the previously entered date.

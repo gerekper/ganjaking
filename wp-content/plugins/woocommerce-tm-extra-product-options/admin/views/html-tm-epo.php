@@ -46,7 +46,7 @@ if ( ! $attributes || ! $non_variation_attribute_found ) : ?>
 				$args   = [
 					'post_type'   => THEMECOMPLETE_EPO_LOCAL_POST_TYPE,
 					'post_status' => [ 'private', 'publish' ],
-					'numberposts' => - 1,
+					'numberposts' => -1,
 					'orderby'     => 'menu_order',
 					'order'       => 'asc',
 					'post_parent' => $post_id,
@@ -59,7 +59,7 @@ if ( ! $attributes || ! $non_variation_attribute_found ) : ?>
 			$args       = [
 				'post_type'   => 'product_variation',
 				'post_status' => [ 'private', 'publish' ],
-				'numberposts' => - 1,
+				'numberposts' => -1,
 				'orderby'     => 'menu_order',
 				'order'       => 'asc',
 				'post_parent' => $post_id,
@@ -69,7 +69,7 @@ if ( ! $attributes || ! $non_variation_attribute_found ) : ?>
 			foreach ( $tmepos as $price ) {
 				$tmcp_id          = absint( $price->ID );
 				$tmcp_post_status = esc_attr( $price->post_status );
-				$tmcp_data        = get_post_meta( $tmcp_id );
+				$tmcp_data        = themecomplete_get_post_meta( $tmcp_id );
 				$variation_fields = [
 					'_regular_price',
 					'tmcp_required',
@@ -78,7 +78,7 @@ if ( ! $attributes || ! $non_variation_attribute_found ) : ?>
 					'_regular_price_type',
 				];
 				foreach ( $variation_fields as $field ) {
-					$$field = isset( $tmcp_data[ $field ][0] ) ? maybe_unserialize( $tmcp_data[ $field ][0] ) : '';
+					$$field = isset( $tmcp_data[ $field ][0] ) ? themecomplete_maybe_unserialize( $tmcp_data[ $field ][0] ) : '';
 
 				}
 				/**

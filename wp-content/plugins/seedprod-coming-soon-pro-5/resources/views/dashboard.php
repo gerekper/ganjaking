@@ -136,6 +136,30 @@ $mmp_id    = get_option( 'seedprod_maintenance_mode_page_id' );
 $p404_id   = get_option( 'seedprod_404_page_id' );
 $loginp_id = get_option( 'seedprod_login_page_id' );
 $seedprod_theme_id = get_option( 'seedprod_theme_id' );
+if( empty( $seedprod_theme_id ) ){
+	$seedprod_theme_id = '';
+}
+
+// get page setup status
+$csp_id_setup_status = false;
+if ( !empty( get_the_content( null, false, intval( $csp_id ) ) ) ){ 
+	$csp_id_setup_status = true;
+}
+
+$mmp_id_setup_status = false;
+if ( !empty( get_the_content( null, false, intval( $mmp_id ) ) ) ){ 
+	$mmp_id_setup_status = true;
+}
+
+$p404_id_setup_status = false;
+if ( !empty( get_the_content( null, false, intval( $p404_id ) ) ) ){ 
+	$p404_id_setup_status = true;
+}
+
+$loginp_id_setup_status = false;
+if ( !empty( get_the_content( null, false, intval( $loginp_id ) ) ) ){ 
+	$loginp_id_setup_status = true;
+}
 
 $csp_uuid                = get_post_meta( $csp_id, '_seedprod_page_uuid', true );
 $mmp_uuid                = get_post_meta( $mmp_id, '_seedprod_page_uuid', true );
@@ -225,7 +249,6 @@ if ( ! empty( $seedprod_theme_enabled ) ) {
 
 ?>
 
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet ?>
 <div id="seedprod-vue-app"></div>
 <script>
 var seedprod_remote_api = "<?php echo esc_url( SEEDPROD_PRO_API_URL ); ?>";
@@ -418,15 +441,19 @@ var seedprod_data_admin =
 			'csp_id'                       => $csp_id,
 			'csp_uuid'                     => $csp_uuid,
 			'csp_preview_url'              => $csp_preview_url,
+			'csp_id_setup_status'          => $csp_id_setup_status,
 			'mmp_id'                       => $mmp_id,
 			'mmp_uuid'                     => $mmp_uuid,
 			'mmp_preview_url'              => $mmp_preview_url,
+			'mmp_id_setup_status'          => $mmp_id_setup_status,
 			'p404_id'                      => $p404_id,
 			'p404_uuid'                    => $p404_uuid,
 			'p404_preview_url'             => $p404_preview_url,
+			'p404_id_setup_status'         => $p404_id_setup_status,
 			'loginp_id'                    => $loginp_id,
 			'loginp_uuid'                  => $loginp_uuid,
 			'loginp_preview_url'           => $loginp_preview_url,
+			'loginp_id_setup_status'         => $loginp_id_setup_status,
 			'api_token'                    => $seedprod_api_token,
 			'license_key'                  => $license_key,
 			'license_name'                 => $license_name,

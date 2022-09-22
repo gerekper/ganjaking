@@ -17,7 +17,7 @@
 				<option value="year">' . esc_html__( 'Years', 'woocommerce-deposits' ) . '</option>
 				';
 			$row = '<tr>
-					<td class="cell-amount"><input type="number" placeholder="0" step="0.1" min="0" name="plan_amount[]" class="plan_amount" /></td>
+					<td class="cell-amount"><input type="number" placeholder="0" step="any" min="0" name="plan_amount[]" class="plan_amount" /></td>
 					<td class="cell-percent">%</td>
 					<td class="cell-after">' . esc_html__( 'After', 'woocommerce-deposits' ) . '</td>
 					<td class="cell-interval-amount"><input type="number" name="plan_interval_amount[]" class="plan_interval_amount" min="0" value="1" step="1" /></td>
@@ -45,7 +45,7 @@
 							$index = $schedule->schedule_index;
 						} ?>
 						<tr>
-							<td class="cell-amount"><input type="number" placeholder="0" step="0.1" min="0" name="plan_amount[]" class="plan_amount" value="<?php echo esc_attr( $schedule->amount ); ?>" /></td>
+							<td class="cell-amount"><input type="number" placeholder="0" step="any" min="0" name="plan_amount[]" class="plan_amount" value="<?php echo esc_attr( $schedule->amount ); ?>" /></td>
 							<td class="cell-percent">%</td>
 							<?php if ( 0 === $index ) : ?>
 								<td colspan="3">

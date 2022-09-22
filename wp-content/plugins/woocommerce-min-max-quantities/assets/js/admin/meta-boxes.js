@@ -21,15 +21,21 @@
 		} );
 
 		$( '#woocommerce-product-data' ).on( 'woocommerce_variations_loaded', function() {
-			var min_max_rules_options = $( '.checkbox.min_max_rules' ).parents( '.woocommerce_variable_attributes' ).find( '.min_max_rules_options' ),
-				$min_quantities       = $( 'input.variation_minimum_allowed_quantity' ),
-				$max_quantities       = $( 'input.variation_maximum_allowed_quantity' );
+			var $min_max_rules_options = $( '.checkbox.min_max_rules' ).parents( '.woocommerce_variable_attributes' ).find( '.min_max_rules_options' ),
+				$min_quantities        = $( 'input.variation_minimum_allowed_quantity' ),
+				$max_quantities        = $( 'input.variation_maximum_allowed_quantity' );
 
-			if ( $( '.checkbox.min_max_rules' ).is( ':checked' ) ) {
-				min_max_rules_options.show();
-			} else {
-				min_max_rules_options.hide();
-			}
+			// Determine whether to show variation Min/Max rules based on the value of the Min/Max rules checkbox.
+			$min_max_rules_options.each( function() {
+				var $checkbox = $(this).closest(  '.woocommerce_variation .data' ).find( '.checkbox.min_max_rules' );
+
+				if ( $checkbox.is( ':checked' ) ) {
+					$(this).show();
+				} else {
+					$(this).hide();
+				}
+
+			} );
 
 			// If the Minimum Quantity changes, validate its new value.
 			$min_quantities.each( function() {

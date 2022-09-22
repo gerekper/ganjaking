@@ -196,34 +196,10 @@ class Controller_AJAX {
 		define('WORDFENCE_LS_AUTHENTICATION_CHECK', true); //Prevents our auth filter from recursing
 		$user = wp_authenticate($username, $password);
 		if (is_object($user) && ($user instanceof \WP_User)) {
-			$captcha = array();
-			if (defined('WORDFENCE_LS_CAPTCHA_CACHE')) {
-				$captcha = array('captcha' => WORDFENCE_LS_CAPTCHA_CACHE);
+			if (!Controller_Users::shared()->has_2fa_active($user) || Controller_Whitelist::shared()->is_whitelisted(Model_Request::current()->ip()) || Controller_Users::shared()->has_remembered_2fa($user) || defined('WORDFENCE_LS_COMBINED_IS_VALID')) { //Not enabled for this user, is whitelisted, has a valid remembered cookie, or has already provided a 2FA code via the password field pass the credentials on to the normal login flow
+				self::send_json(array('login' => 1));
 			}
-			
-			if (!Controller_Users::shared()->has_2fa_active($user) || Controller_Whitelist::shared()->is_whitelisted(Model_Request::current()->ip()) || Controller_Users::shared()->has_remembered_2fa($user)) { //Not enabled for this user, is whitelisted, or has a valid remembered cookie, pass the credentials on to the normal login flow
-				self::send_json(array_merge($captcha, array('login' => 1)));
-			}
-			
-			$encrypted = Model_Symmetric::encrypt((string) $user->ID);
-			if (!$encrypted) { //Can't generate payload due to host failure, pass the credentials on to the normal login flow
-				self::send_json(array_merge($captcha, array('login' => 1)));
-			}
-			
-			if (defined('WORDFENCE_LS_COMBINED_IS_VALID') && WORDFENCE_LS_COMBINED_IS_VALID) {
-				$nonce = Model_Crypto::random_bytes(32);
-				$encrypted_nonce = Model_Symmetric::encrypt($nonce);
-				if (!$encrypted_nonce) { //Can't generate payload due to host failure, pass the credentials on to the normal login flow
-					self::send_json(array('login' => 1));
-				}
-				
-				update_user_meta($user->ID, 'wfls-nonce', json_encode(array('nonce' => bin2hex($nonce), 'expiration' => Controller_Time::time() + 30)));
-				$jwt = new Model_JWT(array('user' => $encrypted, 'nonce' => $encrypted_nonce), Controller_Time::time() + 30);
-				self::send_json(array_merge($captcha, array('login' => 1, 'jwt' => (string) $jwt, 'combined' => 1)));
-			}
-			
-			$jwt = new Model_JWT(array('user' => $encrypted), Controller_Time::time() + 300);
-			self::send_json(array_merge($captcha, array('login' => 1, 'jwt' => (string) $jwt)));
+			self::send_json(array('login' => 1, 'two_factor_required' => true));
 		}
 		else if (is_wp_error($user)) {
 			$errors = array();

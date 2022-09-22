@@ -61,6 +61,8 @@ class THEMECOMPLETE_EPO_Associated_Products {
 
 		// Modify cart.
 		add_filter( 'woocommerce_add_cart_item', [ $this, 'woocommerce_add_cart_item' ], 11, 1 );
+		// Modifies the cart item.
+		add_filter( 'woocommerce_before_calculate_totals', [ $this, 'woocommerce_before_calculate_totals' ], 10, 1 );
 		// Modify option prices for discounts.
 		add_filter( 'associated_tmcp_static_prices', [ $this, 'associated_tmcp_static_prices' ], 10, 2 );
 		// Load cart data on every page load.
@@ -120,9 +122,6 @@ class THEMECOMPLETE_EPO_Associated_Products {
 		add_filter( 'woocommerce_order_item_quantity_html', [ $this, 'woocommerce_order_item_quantity_html' ], 10, 2 );
 		// Filter order item count removing associated products.
 		add_filter( 'woocommerce_get_item_count', [ $this, 'woocommerce_get_item_count' ], 10, 3 );
-
-		// Add associated product weights to the main product.
-		add_filter( 'woocommerce_cart_shipping_packages', [ $this, 'woocommerce_cart_shipping_packages' ], 5 );
 
 		// Hook for displaying extra options.
 		add_action( 'wc_epo_associated_product_display', [ $this, 'wc_epo_associated_product_display' ], 10, 7 );
@@ -366,6 +365,17 @@ class THEMECOMPLETE_EPO_Associated_Products {
 				$this->discount_type = $discount_type;
 				add_filter( 'wc_epo_apply_discount', [ $this, 'wc_epo_apply_discount' ], 10, 2 );
 			}
+
+			$not_isset_global_post = false;
+			$isset_global_post     = false;
+			if ( ! isset( $GLOBALS['post'] ) ) {
+				$not_isset_global_post = true;
+				$GLOBALS['post']       = $product_id; // phpcs:ignore WordPress.WP.GlobalVariablesOverride
+			} elseif ( isset( $GLOBALS['post'] ) ) {
+				$isset_global_post = $GLOBALS['post'];
+				$GLOBALS['post']   = $product_id; // phpcs:ignore WordPress.WP.GlobalVariablesOverride
+			}
+
 			THEMECOMPLETE_EPO()->associated_type                = $product->get_type();
 			THEMECOMPLETE_EPO()->is_associated                  = true;
 			THEMECOMPLETE_EPO()->associated_per_product_pricing = $per_product_pricing;
@@ -390,109 +400,18 @@ class THEMECOMPLETE_EPO_Associated_Products {
 				$this->discount_type = '';
 				remove_filter( 'wc_epo_apply_discount', [ $this, 'wc_epo_apply_discount' ], 10 );
 			}
+
+			if ( $not_isset_global_post ) {
+				unset( $GLOBALS['post'] );
+			}
+			if ( $isset_global_post ) {
+				$GLOBALS['post'] = $isset_global_post; // phpcs:ignore WordPress.WP.GlobalVariablesOverride
+			}
+
 			?>
 			</div>
 			<?php
 		}
-	}
-
-	/**
-	 * Add associated product weights to the main product
-	 *
-	 * @param array $packages The shipping packages.
-	 * @since 5.0
-	 */
-	public function woocommerce_cart_shipping_packages( $packages ) {
-
-		if ( ! empty( $packages ) ) {
-
-			foreach ( $packages as $package_key => $package ) {
-
-				if ( ! empty( $package['contents'] ) ) {
-
-					foreach ( $package['contents'] as $cart_item_key => $cart_item_data ) {
-
-						if ( isset( $cart_item_data['associated_products'] ) && ! empty( $cart_item_data['associated_products'] ) ) {
-
-							$main_product     = clone $cart_item_data['data'];
-							$main_product_qty = $cart_item_data['quantity'];
-
-							if ( $main_product->needs_shipping() ) {
-
-								$associated_weight = 0.0;
-								$associated_value  = 0.0;
-
-								if ( ! isset( $cart_item_data['line_subtotal'] ) ) {
-									continue;
-								}
-
-								$main_product_totals = [
-									'line_subtotal'     => $cart_item_data['line_subtotal'],
-									'line_total'        => $cart_item_data['line_total'],
-									'line_subtotal_tax' => $cart_item_data['line_subtotal_tax'],
-									'line_tax'          => $cart_item_data['line_tax'],
-									'line_tax_data'     => $cart_item_data['line_tax_data'],
-								];
-
-								$associated_cart_keys = $this->get_associated_cart_keys( $cart_item_data, WC()->cart->cart_contents );
-
-								foreach ( $associated_cart_keys as $associated_cart_key ) {
-
-									$associated_cart_data      = WC()->cart->cart_contents[ $associated_cart_key ];
-									$associated_product        = $associated_cart_data['data'];
-									$associated_product_qty    = $associated_cart_data['quantity'];
-									$associated_product_value  = isset( $associated_product->associated_value ) ? $associated_product->associated_value : 0.0;
-									$associated_product_weight = isset( $associated_product->associated_weight ) ? $associated_product->associated_weight : 0.0;
-
-									if ( $associated_product_value ) {
-
-										$associated_value += $associated_product_value * $associated_product_qty;
-
-										$main_product_totals['line_subtotal']     += $associated_cart_data['line_subtotal'];
-										$main_product_totals['line_total']        += $associated_cart_data['line_total'];
-										$main_product_totals['line_subtotal_tax'] += $associated_cart_data['line_subtotal_tax'];
-										$main_product_totals['line_tax']          += $associated_cart_data['line_tax'];
-
-										$packages[ $package_key ]['contents_cost'] += $associated_cart_data['line_total'];
-
-										$associated_line_tax_data = $associated_cart_data['line_tax_data'];
-										if ( $associated_line_tax_data ) {
-											$main_product_totals['line_tax_data']['total']    = array_merge( $main_product_totals['line_tax_data']['total'], $associated_line_tax_data['total'] );
-											$main_product_totals['line_tax_data']['subtotal'] = array_merge( $main_product_totals['line_tax_data']['subtotal'], $associated_line_tax_data['subtotal'] );
-										}
-									}
-
-									if ( $associated_product_weight ) {
-										$associated_weight += (float) $associated_product_weight * (float) $associated_product_qty;
-									}
-								}
-
-								if ( $associated_value > 0 ) {
-									$main_product_price = $main_product->get_price( 'edit' );
-									$main_product->set_price( (float) $main_product_price + $associated_value / $main_product_qty );
-								}
-
-								$packages[ $package_key ]['contents'][ $cart_item_key ] = array_merge( $cart_item_data, $main_product_totals );
-
-								if ( $associated_weight > 0 ) {
-									$main_product_weight = $main_product->get_weight();
-									$assoc_weight        = (float) $main_product_weight + $associated_weight / $main_product_qty;
-									$main_product->set_weight( $assoc_weight );
-									$cart_item_data['data']->set_weight( $assoc_weight );
-									if ( isset( WC()->cart->cart_contents[ $cart_item_key ]['data'] ) ) {
-										WC()->cart->cart_contents[ $cart_item_key ]['data']->set_weight( $assoc_weight, 'edit' );
-									}
-								}
-
-								$packages[ $package_key ]['contents'][ $cart_item_key ]['data'] = $main_product;
-							}
-						}
-					}
-				}
-			}
-		}
-
-		return $packages;
 	}
 
 	/**
@@ -717,6 +636,59 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	}
 
 	/**
+	 * Modifies the cart item
+	 * Add associated product weights to the main product
+	 *
+	 * @param array $cart_object The cart object.
+	 *
+	 * @since 6.1
+	 */
+	public function woocommerce_before_calculate_totals( $cart_object ) {
+		if ( is_admin() && ! defined( 'DOING_AJAX' ) ) {
+			return;
+		}
+		if ( did_action( 'woocommerce_before_calculate_totals' ) >= 2 ) {
+			return;
+		}
+
+		if ( method_exists( $cart_object, 'get_cart' ) ) {
+			$cart_contents = $cart_object->get_cart();
+		} else {
+			$cart_contents = $cart_object->cart_contents;
+		}
+
+		foreach ( $cart_contents as $cart_key => $cart_item ) {
+			if ( ! isset( $cart_item['associated_parent'] ) && isset( $cart_item['associated_products'] ) ) {
+				$associated_weight = 0.0;
+				foreach ( $cart_item['associated_products'] as $associated_cart_key ) {
+					if ( is_array( WC()->cart->cart_contents ) && isset( WC()->cart->cart_contents[ $associated_cart_key ] ) ) {
+						$associated_product_weight = isset( WC()->cart->cart_contents[ $associated_cart_key ]['associated_weight'] ) ? WC()->cart->cart_contents[ $associated_cart_key ]['associated_weight'] : 0.0;
+						if ( $associated_product_weight ) {
+							$associated_product_qty = WC()->cart->cart_contents[ $associated_cart_key ]['quantity'];
+							$associated_weight     += (float) $associated_product_weight * (float) $associated_product_qty;
+						}
+						if ( $associated_weight > 0 ) {
+							$main_product_weight = $cart_item['data']->get_weight();
+							$main_product_qty    = $cart_item['quantity'];
+							$assoc_weight        = (float) $main_product_weight + $associated_weight / $main_product_qty;
+							$cart_item['data']->set_weight( $assoc_weight );
+							WC()->cart->cart_contents[ $cart_key ]['data']->set_weight( $assoc_weight, 'edit' );
+						}
+					}
+				}
+			}
+			$cart_contents[ $cart_key ] = $cart_item;
+		}
+
+		if ( method_exists( $cart_object, 'set_cart_contents' ) ) {
+			$cart_object->set_cart_contents( $cart_contents );
+		} else {
+			$cart_object->cart_contents = $cart_contents;
+		}
+
+	}
+
+	/**
 	 * Make sure products marked as associated have a parent
 	 *
 	 * @param object $cart The cart object.
@@ -742,32 +714,6 @@ class THEMECOMPLETE_EPO_Associated_Products {
 						! is_array( $parent['associated_products'] ) ||
 						! in_array( $key, $parent['associated_products'], true ) ) {
 						unset( WC()->cart->cart_contents[ $key ] );
-					}
-				}
-			}
-
-			foreach ( $cart_contents as $key => $value ) {
-
-				if ( ! isset( $value['associated_parent'] ) && isset( $value['associated_products'] ) ) {
-					$associated_weight = 0.0;
-					foreach ( $value['associated_products'] as $associated_cart_key ) {
-						if ( is_array( WC()->cart->cart_contents ) && isset( WC()->cart->cart_contents[ $associated_cart_key ] ) ) {
-							$associated_product = WC()->cart->cart_contents[ $associated_cart_key ]['data'];
-
-							$associated_product_weight = isset( $associated_product->associated_weight ) ? $associated_product->associated_weight : 0.0;
-							if ( $associated_product_weight ) {
-								$associated_product_qty = WC()->cart->cart_contents[ $associated_cart_key ]['quantity'];
-								$associated_weight     += (float) $associated_product_weight * (float) $associated_product_qty;
-							}
-							if ( $associated_weight > 0 ) {
-								$main_product        = $value['data'];
-								$main_product_weight = $main_product->get_weight();
-								$main_product_qty    = $value['quantity'];
-								$assoc_weight        = (float) $main_product_weight + $associated_weight / $main_product_qty;
-								$main_product->set_weight( $assoc_weight );
-								WC()->cart->cart_contents[ $key ]['data']->set_weight( $assoc_weight, 'edit' );
-							}
-						}
 					}
 				}
 			}
@@ -1324,7 +1270,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 				}
 
 				// Only allow simple or variable products.
-				if ( ! ( $associated_product->is_type( 'simple' ) || $associated_product->is_type( 'variable' ) || $associated_product->is_type( 'variation' ) ) ) {
+				if ( apply_filters( 'wc_epo_associated_add_to_cart', true, $associated_product, $associated_item_cart_data ) && ( ! ( $associated_product->is_type( 'simple' ) || $associated_product->is_type( 'variable' ) || $associated_product->is_type( 'variation' ) ) ) ) {
 					continue;
 				}
 
@@ -1343,16 +1289,28 @@ class THEMECOMPLETE_EPO_Associated_Products {
 					continue;
 				}
 
-				if ( $associated_product->is_type( 'variable' ) ) {
+				if ( $associated_product->is_type( 'variable' ) || $associated_product->is_type( 'variation' ) ) {
 
-					$variation_id = (int) $associated_data['variation_id'];
-					$associated_item_cart_data['associated_variation_id'] = $associated_data['variation_id'];
-					$variations = $associated_data['attributes'];
+					if ( $associated_product->is_type( 'variation' ) ) {
+						$variation_id = (int) $associated_data['product_id'];
+						$associated_item_cart_data['associated_variation_id'] = $variation_id;
+						$variations           = [];
+						$parent_data          = wc_get_product( $associated_product->get_parent_id() );
+						$variation_attributes = $associated_product->get_variation_attributes();
+						// Filter out 'any' variations, which are empty, as they need to be explicitly specified while adding to cart.
+						$variation_attributes = array_filter( $variation_attributes );
+					} else {
+						$variation_id = (int) $associated_data['variation_id'];
+						$associated_item_cart_data['associated_variation_id'] = $variation_id;
+						$variations           = $associated_data['attributes'];
+						$parent_data          = $associated_product;
+						$variation_attributes = [];
+					}
 
 					if ( $variation_id ) {
 						$variation_data = wc_get_product_variation_attributes( $variation_id );
 
-						foreach ( $associated_product->get_attributes() as $attribute ) {
+						foreach ( $parent_data->get_attributes() as $attribute ) {
 							if ( ! $attribute['is_variation'] ) {
 								continue;
 							}
@@ -1360,22 +1318,30 @@ class THEMECOMPLETE_EPO_Associated_Products {
 							// Get valid value from variation data.
 							$attribute_key = 'attribute_' . sanitize_title( $attribute['name'] );
 							$valid_value   = isset( $variation_data[ $attribute_key ] ) ? $variation_data[ $attribute_key ] : '';
-
+							$value         = false;
 							/**
 							 * If the attribute value was posted, check if it's valid.
 							 *
 							 * If no attribute was posted, only error if the variation has an 'any' attribute which requires a value.
 							 */
-							if ( isset( $cart_item_data['tmpost_data'][ $associated_data['element_name'] . '_' . $attribute_key ] ) ) {
-								$value = $cart_item_data['tmpost_data'][ $associated_data['element_name'] . '_' . $attribute_key ];
-
-								// Allow if valid or show error.
-								if ( $valid_value === $value ) {
-									$variations[ $attribute_key ] = $value;
-								} elseif ( '' === $valid_value && in_array( $value, $attribute->get_slugs(), true ) ) {
-									// If valid values are empty, this is an 'any' variation so get all possible values.
-									$variations[ $attribute_key ] = $value;
+							if ( $associated_product->is_type( 'variation' ) ) {
+								if ( isset( $variation_attributes[ $attribute_key ] ) ) {
+									$value = $variation_attributes[ $attribute_key ];
 								}
+							} else {
+								if ( isset( $cart_item_data['tmpost_data'][ $associated_data['element_name'] . '_' . $attribute_key ] ) ) {
+									$value = $cart_item_data['tmpost_data'][ $associated_data['element_name'] . '_' . $attribute_key ];
+								}
+							}
+							if ( false === $value ) {
+								continue;
+							}
+							// Allow if valid or show error.
+							if ( $valid_value === $value ) {
+								$variations[ $attribute_key ] = $value;
+							} elseif ( '' === $valid_value && in_array( $value, $attribute->get_slugs(), true ) ) {
+								// If valid values are empty, this is an 'any' variation so get all possible values.
+								$variations[ $attribute_key ] = $value;
 							}
 						}
 					} else {
@@ -1383,11 +1349,13 @@ class THEMECOMPLETE_EPO_Associated_Products {
 					}
 				}
 
-				THEMECOMPLETE_EPO()->associated_element_uniqid  = $associated_item_cart_data['associated_uniqid'];
-				THEMECOMPLETE_EPO()->associated_product_counter = $key;
-				$associated_item_cart_key                       = $this->add_associated_to_cart( $parent_id, $associated_product, $quantity, $variation_id, $variations, $associated_item_cart_data );
-				THEMECOMPLETE_EPO()->associated_element_uniqid  = false;
-				THEMECOMPLETE_EPO()->associated_product_counter = false;
+				THEMECOMPLETE_EPO()->associated_element_uniqid     = $associated_item_cart_data['associated_uniqid'];
+				THEMECOMPLETE_EPO()->associated_product_counter    = $key;
+				THEMECOMPLETE_EPO()->associated_product_formprefix = $associated_item_cart_data['associated_formprefix'];
+				$associated_item_cart_key                          = $this->add_associated_to_cart( $parent_id, $associated_product, $quantity, $variation_id, $variations, $associated_item_cart_data );
+				THEMECOMPLETE_EPO()->associated_element_uniqid     = false;
+				THEMECOMPLETE_EPO()->associated_product_counter    = false;
+				THEMECOMPLETE_EPO()->associated_product_formprefix = false;
 
 				if ( ! isset( WC()->cart->cart_contents[ $parent_cart_key ]['associated_products'] ) ) {
 					WC()->cart->cart_contents[ $parent_cart_key ]['associated_products'] = [];
@@ -1559,12 +1527,11 @@ class THEMECOMPLETE_EPO_Associated_Products {
 						$cart_item_weight = $cart_item['data']->get_weight( 'edit' );
 
 						if ( $cart_item['data']->is_type( 'variation' ) && '' === $cart_item_weight ) {
-
 							$parent_data      = $cart_item['data']->get_parent_data();
 							$cart_item_weight = $parent_data['weight'];
 						}
 
-						$cart_item['data']->associated_weight = $cart_item_weight;
+						$cart_item['associated_weight'] = $cart_item_weight;
 
 					}
 

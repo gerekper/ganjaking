@@ -368,7 +368,6 @@
 }
 
 .noui-show-tooltip .noui-tooltip,
-.noui-show-tooltip .noui-handle:hover .noui-tooltip,
 .noui-show-tooltip .noui-active .noui-tooltip {
 	display: block;
 }
@@ -386,3 +385,8 @@
 	top: auto;
 	right: 28px;
 }
+
+.noui-show-tooltip .noui-handle:hover .noui-tooltip {
+	display: block;
+}
+

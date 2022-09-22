@@ -42,11 +42,7 @@ class Migration_Runner_Premium extends New_Migration_Runner_Premium {
 	 * @param Loader           $loader           The loader.
 	 * @param Adapter          $adapter          The migrations adapter.
 	 */
-	public function __construct(
-		Migration_Status $migration_status,
-		Loader $loader,
-		Adapter $adapter
-	) {
+	public function __construct( Migration_Status $migration_status, Loader $loader, Adapter $adapter ) {
 		\_deprecated_function( __METHOD__, 'Yoast SEO Premium 16.3', '\Yoast\WP\SEO\Premium\Database\Migration_Runner_Premium' );
 		parent::__construct( $migration_status, $loader, $adapter );
 	}

@@ -22,7 +22,7 @@ class Integrations_Page implements Integration_Interface {
 	/**
 	 * The Zapier helper.
 	 *
-	 * @var \Yoast\WP\SEO\Premium\Helpers\Zapier_Helper
+	 * @var Zapier_Helper
 	 */
 	private $zapier_helper;
 
@@ -39,10 +39,7 @@ class Integrations_Page implements Integration_Interface {
 	 * @param Options_Helper $options_helper The options helper.
 	 * @param Zapier_Helper  $zapier_helper  The Zapier helper.
 	 */
-	public function __construct(
-		Options_Helper $options_helper,
-		Zapier_Helper $zapier_helper
-	) {
+	public function __construct( Options_Helper $options_helper, Zapier_Helper $zapier_helper ) {
 		$this->options_helper = $options_helper;
 		$this->zapier_helper  = $zapier_helper;
 	}

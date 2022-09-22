@@ -443,7 +443,7 @@ class WC_AM_Product_Admin {
 								                           'placeholder'       => esc_html__( '1', 'woocommerce-api-manager' ),
 								                           'value'             => ( ! empty( $act_parent ) && is_numeric( $act_parent ) ) ? absint( $act_parent ) : '',
 								                           'type'              => 'number',
-								                           'description'       => esc_html__( 'Limits the number of activations. Default is 1 when left empty. If the product activation limit is increased, all API resources with the product will have the activation limit increased to match.', 'woocommerce-api-manager' ),
+								                           'description'       => esc_html__( 'Limits the number of API Key activations. Default is 1 when left empty. Caution: Changing this value will cause all existing API Resources/purchases with this Product ID to match the new value.', 'woocommerce-api-manager' ),
 								                           'desc_tip'          => true,
 								                           'custom_attributes' => array(
 									                           'step' => '1',
@@ -474,7 +474,7 @@ class WC_AM_Product_Admin {
 									                           'placeholder'       => esc_html__( 'Never', 'woocommerce-api-manager' ),
 									                           'value'             => ( ! empty( $access_expires ) && is_numeric( $access_expires ) ) ? absint( $access_expires ) : '',
 									                           'type'              => 'number',
-									                           'description'       => esc_html__( 'Caution: Changing this value will cause all existing API Resources/purchases to recalculate using this new value. Enter the number of days before API access expires, or leave blank to never expire.', 'woocommerce-api-manager' ),
+									                           'description'       => esc_html__( 'Enter the number of days before API access expires, or leave blank to never expire. Caution: Changing this value will cause all existing API Resources/purchases with this Product ID to recalculate using this new value.', 'woocommerce-api-manager' ),
 									                           'desc_tip'          => true,
 									                           'custom_attributes' => array(
 										                           'step' => '1',
@@ -792,7 +792,7 @@ class WC_AM_Product_Admin {
             <div id="api_override_chkbx<?php echo $loop; ?>">
                 <p class="form-row form-row-first" id="_api_activations_var<?php echo $loop; ?>">
                     <label><?php esc_html_e( 'Activation Limit:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-                                                                                                        data-tip="<?php esc_html_e( 'Limits the number of activations. Default is 1 when left empty. If the product activation limit is increased, all API resources with the product will have the activation limit increased to match.', 'woocommerce-api-manager' ); ?>"
+                                                                                                        data-tip="<?php esc_html_e( 'Limits the number of API Key activations. Default is 1 when left empty. Caution: Changing this value will cause all existing API Resources/purchases with this Product ID to match the new value.', 'woocommerce-api-manager' ); ?>"
                         </span></label>
                     <input type="number" name="_api_activations_var[<?php echo $loop; ?>]" step="1" min="1"
                            value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_activations' ) ); ?>"
@@ -810,33 +810,33 @@ class WC_AM_Product_Admin {
                            readonly/>
                 </p>
 
-	            <?php
+				<?php
 
-	            $is_wc_sub = false;
+				$is_wc_sub = false;
 
-	            if ( WCAM()->get_wc_subs_exist() ) {
-		            $is_wc_sub = WCAM()->is_wc_subscriptions_active() && WC_AM_SUBSCRIPTION()->is_wc_subscription( $variation->ID );
-	            }
+				if ( WCAM()->get_wc_subs_exist() ) {
+					$is_wc_sub = WCAM()->is_wc_subscriptions_active() && WC_AM_SUBSCRIPTION()->is_wc_subscription( $variation->ID );
+				}
 
-	            if ( ! in_array( $product_type, array(
-			            'subscription',
-			            'simple-subscription',
-			            'variable-subscription',
-			            'subscription_variation'
-		            ) ) && ! $is_wc_sub ) :
-		            $expires = WC_AM_PRODUCT_DATA_STORE()->get_api_access_expires( $variation->ID );
-		            ?>
+				if ( ! in_array( $product_type, array(
+						'subscription',
+						'simple-subscription',
+						'variable-subscription',
+						'subscription_variation'
+					) ) && ! $is_wc_sub ) :
+					$expires = WC_AM_PRODUCT_DATA_STORE()->get_api_access_expires( $variation->ID );
+					?>
                     <p class="form-row form-row-first">
                         <label><?php esc_html_e( 'API Access Expires:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-                                                                                                              data-tip="<?php esc_html_e( 'Caution: Changing this value will cause all existing API Resources/purchases to recalculate using this new value. Enter the number of days before API access expires, or leave blank to never expire.', 'woocommerce-api-manager' ); ?>"
+                                                                                                              data-tip="<?php esc_html_e( 'Enter the number of days before API access expires, or leave blank to never expire. Caution: Changing this value will cause all existing API Resources/purchases with this Product ID to recalculate using this new value.', 'woocommerce-api-manager' ); ?>"
                             </span></label>
                         <input type="number" name="_access_expires_var[<?php echo $loop; ?>]" step="1" min="1"
                                value="<?php ! empty( $expires ) ? esc_attr_e( $expires ) : esc_html_e( 'Never', 'woocommerce-api-manager' ); ?>"
                                placeholder="<?php esc_html_e( 'Never', 'woocommerce-api-manager' ); ?>"/>
                     </p>
-	            <?php
-	            endif;
-	            ?>
+				<?php
+				endif;
+				?>
 
                 <p class="form-row form-row-last show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
                     <label><?php esc_html_e( 'Upgrade Notice:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
@@ -858,7 +858,7 @@ class WC_AM_Product_Admin {
 
                 <p class="form-row form-row-last show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
                     <label><?php esc_html_e( 'Version Required:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-                                                                                                           data-tip="<?php esc_html_e( 'The minimum version of platform/framework, such as WordPress, required to run the software.', 'woocommerce-api-manager' ); ?>"
+                                                                                                        data-tip="<?php esc_html_e( 'The minimum version of platform/framework, such as WordPress, required to run the software.', 'woocommerce-api-manager' ); ?>"
                         </span></label>
                     <input type="text" name="_api_version_required_var[<?php echo $loop; ?>]"
                            value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_version_required' ) ); ?>"
@@ -867,7 +867,7 @@ class WC_AM_Product_Admin {
 
                 <p class="form-row form-row-first show_if_api_global_data_set_var<?php echo $loop; ?> api_global_data_set_hide_onload_var<?php echo $loop; ?>">
                     <label><?php esc_html_e( 'Version Tested Up To:', 'woocommerce-api-manager' ); ?> <span class="woocommerce-help-tip"
-                                                                                                               data-tip="<?php esc_html_e( 'The highest version of platform/framework, such as WordPress, the software has been tested on.', 'woocommerce-api-manager' ); ?>"
+                                                                                                            data-tip="<?php esc_html_e( 'The highest version of platform/framework, such as WordPress, the software has been tested on.', 'woocommerce-api-manager' ); ?>"
                         </span></label>
                     <input type="text" name="_api_tested_up_to_var[<?php echo $loop; ?>]"
                            value="<?php echo esc_attr( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation->ID, '_api_tested_up_to' ) ); ?>"
@@ -1204,10 +1204,9 @@ class WC_AM_Product_Admin {
 				 * @since 2.0.1
 				 */
 				$update_product_orders = false;
-				$current_activations   = WC_AM_PRODUCT_DATA_STORE()->get_meta( $post_id, '_api_activations' );
-				$current_activations   = ! empty( $current_activations ) ? $current_activations : 0;
+				$current_activations   = absint( WC_AM_PRODUCT_DATA_STORE()->get_meta( $post_id, '_api_activations' ) );
 
-				if ( isset( $_POST[ '_api_activations' ] ) && (int) $current_activations < (int) $_POST[ '_api_activations' ] ) {
+				if ( isset( $_POST[ '_api_activations' ] ) && $current_activations != (int) $_POST[ '_api_activations' ] ) {
 					$update_product_orders = true;
 				}
 
@@ -1231,8 +1230,8 @@ class WC_AM_Product_Admin {
 			 */
 			$update_access_expires = false;
 
-			$expires_value = WC_AM_PRODUCT_DATA_STORE()->get_meta( $post_id, '_access_expires' );
-			$expires_value = empty( $expires_value ) ? 0 : absint( $expires_value );
+			$expires_value      = WC_AM_PRODUCT_DATA_STORE()->get_meta( $post_id, '_access_expires' );
+			$expires_value      = empty( $expires_value ) ? 0 : absint( $expires_value );
 			$expires_post_value = ! empty( $_POST[ '_access_expires' ] ) ? absint( $_POST[ '_access_expires' ] ) : 0;
 
 			if ( $expires_value < $expires_post_value || $expires_value > $expires_post_value ) {
@@ -1401,10 +1400,9 @@ class WC_AM_Product_Admin {
 				 * @since 2.0.1
 				 */
 				$update_product_orders = false;
-				$current_activations   = WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation_id, '_api_activations' );
-				$current_activations   = ! empty( $current_activations ) ? $current_activations : 0;
+				$current_activations   = absint( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation_id, '_api_activations' ) );
 
-				if ( isset( $post[ '_api_activations_var' ] ) && (int) $current_activations < (int) $post[ '_api_activations_var' ][ $i ] ) {
+				if ( isset( $post[ '_api_activations_var' ] ) && $current_activations != (int) $post[ '_api_activations_var' ][ $i ] ) {
 					$update_product_orders = true;
 				}
 
@@ -1415,8 +1413,8 @@ class WC_AM_Product_Admin {
 				 */
 				$update_access_expires = false;
 
-				$expires_value = WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation_id, '_access_expires' );
-				$expires_value = empty( $expires_value ) ? 0 : absint( $expires_value );
+				$expires_value      = WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation_id, '_access_expires' );
+				$expires_value      = empty( $expires_value ) ? 0 : absint( $expires_value );
 				$expires_post_value = ! empty( $post[ '_access_expires_var' ][ $i ] ) ? absint( $post[ '_access_expires_var' ][ $i ] ) : 0;
 
 				if ( $expires_value < $expires_post_value || $expires_value > $expires_post_value ) {
@@ -1479,13 +1477,12 @@ class WC_AM_Product_Admin {
 
 					/**
 					 * Update the API Resource access_expires value when the product API Access Expires value is set to a value greater than 0.
-                     *
-                     * @since 2.4
+					 *
+					 * @since 2.4
 					 */
 					if ( $update_access_expires ) {
 						WC_AM_ORDER()->update_api_resource_access_expires_for_product( $variation_id );
 					}
-
 				} else { // Use API Tab global settings for variable products, and data that is not on the API Tab or displayed with the "Set API options for this variable product only." checkbox.
 					/**
 					 * If current activations are less than the new activations, then update all API resources with the increased activations.
@@ -1493,10 +1490,9 @@ class WC_AM_Product_Admin {
 					 * @since 2.0.1
 					 */
 					$update_product_orders = false;
-					$current_activations   = WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation_id, '_api_activations' );
-					$current_activations   = ! empty( $current_activations ) ? $current_activations : 0;
+					$current_activations   = absint( WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation_id, '_api_activations' ) );
 
-					if ( isset( $post[ '_api_activations_var' ] ) && (int) $current_activations < (int) $post[ '_api_activations_var' ][ $i ] ) {
+					if ( isset( $post[ '_api_activations_var' ] ) && $current_activations != (int) $post[ '_api_activations_var' ][ $i ] ) {
 						$update_product_orders = true;
 					}
 
@@ -1521,8 +1517,8 @@ class WC_AM_Product_Admin {
 					 */
 					$update_access_expires = false;
 
-                    $expires_value = WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation_id, '_access_expires' );
-					$expires_value = empty( $expires_value ) ? 0 : absint( $expires_value );
+					$expires_value      = WC_AM_PRODUCT_DATA_STORE()->get_meta( $variation_id, '_access_expires' );
+					$expires_value      = empty( $expires_value ) ? 0 : absint( $expires_value );
 					$expires_post_value = ! empty( $post[ '_access_expires_var' ][ $i ] ) ? absint( $post[ '_access_expires_var' ][ $i ] ) : 0;
 
 					if ( $expires_value < $expires_post_value || $expires_value > $expires_post_value ) {

@@ -51,6 +51,7 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_COLOR extends THEMECOMPLETE_EPO_BUILDER_
 				'enabled',
 				'required',
 				'price_type6',
+				'lookuptable',
 				'price',
 				'sale_price',
 				'fee',

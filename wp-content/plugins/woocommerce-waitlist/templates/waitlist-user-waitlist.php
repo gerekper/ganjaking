@@ -49,7 +49,7 @@ $user = get_user_by( 'id', get_current_user_id() );
 				<div class="waitlist-single-product">
 					<a href="<?php echo esc_url( $product->get_permalink() ); ?>">
 						<h4 class="waitlist-title-link"><?php echo esc_html( $title ); ?></h4>
-						<span class="waitlist-thumbnail"><?php echo esc_html( apply_filters( 'wcwl_shortcode_thumbnail', $product->get_image(), $product ) ); ?></span>
+						<span class="waitlist-thumbnail"><?php echo apply_filters( 'wcwl_shortcode_thumbnail', $product->get_image(), $product ) ; ?></span>
 					</a>
 					<p style="text-align: center">
 						<a href="#" rel="nofollow" class="wcwl_remove_product" data-nonce="<?php echo esc_attr( wp_create_nonce( 'wcwl-ajax-remove-user-nonce' ) ); ?>" data-product-id="<?php echo esc_attr( $product->get_id() ); ?>" data-url="<?php echo esc_url( Pie_WCWL_Frontend_User_Waitlist::get_remove_link( $product ) ); ?>">
@@ -63,7 +63,7 @@ $user = get_user_by( 'id', get_current_user_id() );
 		</div>
 	<?php } else { ?>
 		<p><?php echo esc_html( apply_filters( 'wcwl_shortcode_no_waitlists_text', __( 'You have not yet joined the waitlist for any products.', 'woocommerce-waitlist' ) ) ); ?></p>
-		<p><?php echo esc_html( apply_filters( 'wcwl_shortcode_visit_shop_text', sprintf( __( '%1$sVisit shop now!%2$s', 'woocommerce-waitlist' ), '<a href="' . wc_get_page_permalink( 'shop' ) . '">', '</a>' ) ) ); ?></p>
+		<p><a href="<?php echo wc_get_page_permalink('shop');?>"><?php echo esc_html(apply_filters('wcwl_shortcode_visit_shop_text', __('Visit shop now!', 'woocommerce-waitlist'))); ?></a></p>
 		<hr>
 	<?php } ?>
 </div>

@@ -41,10 +41,6 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 		$defaultdate = isset( $element['default_value'] ) ? $element['default_value'] : '';
 		$format      = ! empty( $element['format'] ) ? $element['format'] : 0;
 
-		$date_format      = 'dd/mm/yy';
-		$date_placeholder = 'dd/mm/yyyy';
-		$date_mask        = '00/00/0000';
-
 		$end_year   = ! empty( $element['end_year'] ) ? $element['end_year'] : ( gmdate( 'Y' ) + 10 );
 		$start_year = ! empty( $element['start_year'] ) ? $element['start_year'] : 1900;
 		$end_year   = absint( $end_year );
@@ -54,69 +50,10 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 			$end_year = $start_year;
 		}
 
-		switch ( $format ) {
-			case '0':
-				$date_format      = 'dd/mm/yy';
-				$date_placeholder = 'dd/mm/yyyy';
-				$date_mask        = '00/00/0000';
-				break;
-			case '1':
-				$date_format      = 'mm/dd/yy';
-				$date_placeholder = 'mm/dd/yyyy';
-				$date_mask        = '00/00/0000';
-				break;
-			case '2':
-				$date_format      = 'dd.mm.yy';
-				$date_placeholder = 'dd.mm.yyyy';
-				$date_mask        = '00.00.0000';
-				break;
-			case '3':
-				$date_format      = 'mm.dd.yy';
-				$date_placeholder = 'mm.dd.yyyy';
-				$date_mask        = '00.00.0000';
-				break;
-			case '4':
-				$date_format      = 'dd-mm-yy';
-				$date_placeholder = 'dd-mm-yyyy';
-				$date_mask        = '00-00-0000';
-				break;
-			case '5':
-				$date_format      = 'mm-dd-yy';
-				$date_placeholder = 'mm-dd-yyyy';
-				$date_mask        = '00-00-0000';
-				break;
-
-			case '6':
-				$date_format      = 'yy/mm/dd';
-				$date_placeholder = 'yyyy/mm/dd';
-				$date_mask        = '0000/00/00';
-				break;
-			case '7':
-				$date_format      = 'yy/dd/mm';
-				$date_placeholder = 'yyyy/dd/mm';
-				$date_mask        = '0000/00/00';
-				break;
-			case '8':
-				$date_format      = 'yy.mm.dd';
-				$date_placeholder = 'yyyy.mm.dd';
-				$date_mask        = '0000.00.00';
-				break;
-			case '9':
-				$date_format      = 'yy.dd.mm';
-				$date_placeholder = 'yyyy.dd.mm';
-				$date_mask        = '0000.00.00';
-				break;
-			case '10':
-				$date_format      = 'yy-mm-dd';
-				$date_placeholder = 'yyyyy-mm-dd';
-				$date_mask        = '0000-00-00';
-				break;
-			case '11':
-				$date_format      = 'yy-dd-mm';
-				$date_placeholder = 'yyyy-dd-mm';
-				$date_mask        = '0000-00-00';
-				break;
-		}
+		$data             = THEMECOMPLETE_EPO()->get_date_format( $format );
+		$date_format      = $data['element_date_format'];
+		$date_placeholder = $data['date_placeholder'];
+		$date_mask        = $data['date_mask'];
 
 		if ( apply_filters( 'wc_epo_display_rtl', is_rtl() ) ) {
 			$date_format      = strrev( $date_format );
@@ -345,58 +282,10 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 	 */
 	public function validate() {
 
-		$format = $this->element['format'];
-		switch ( $format ) {
-			case '0':
-				$date_format = 'd/m/Y H:i:s';
-				$sep         = '/';
-				break;
-			case '1':
-				$date_format = 'm/d/Y H:i:s';
-				$sep         = '/';
-				break;
-			case '2':
-				$date_format = 'd.m.Y H:i:s';
-				$sep         = '.';
-				break;
-			case '3':
-				$date_format = 'm.d.Y H:i:s';
-				$sep         = '.';
-				break;
-			case '4':
-				$date_format = 'd-m-Y H:i:s';
-				$sep         = '-';
-				break;
-			case '5':
-				$date_format = 'm-d-Y H:i:s';
-				$sep         = '-';
-				break;
-
-			case '6':
-				$date_format = 'Y/m/d H:i:s';
-				$sep         = '/';
-				break;
-			case '7':
-				$date_format = 'Y/d/m H:i:s';
-				$sep         = '/';
-				break;
-			case '8':
-				$date_format = 'Y.m.d H:i:s';
-				$sep         = '.';
-				break;
-			case '9':
-				$date_format = 'Y.d.m H:i:s';
-				$sep         = '.';
-				break;
-			case '10':
-				$date_format = 'Y-m-d H:i:s';
-				$sep         = '-';
-				break;
-			case '11':
-				$date_format = 'Y-d-m H:i:s';
-				$sep         = '-';
-				break;
-		}
+		$format      = $this->element['format'];
+		$data        = THEMECOMPLETE_EPO()->get_date_format( $format );
+		$date_format = $data['date_format'] . ' H:i:s';
+		$sep         = $data['sep'];
 
 		$passed  = true;
 		$message = [];
@@ -439,9 +328,10 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 							$posted_date = $posted_date_arr[2] . $sep . $posted_date_arr[1] . $sep . $posted_date_arr[0];
 						}
 					}
-					$date = DateTime::createFromFormat( $date_format, $posted_date . ' 00:00:00' );
 					if ( ! empty( THEMECOMPLETE_EPO()->tm_epo_global_date_timezone ) ) {
 						$date = DateTime::createFromFormat( $date_format, $posted_date . ' 00:00:00', new DateTimeZone( THEMECOMPLETE_EPO()->tm_epo_global_date_timezone ) );
+					} else {
+						$date = DateTime::createFromFormat( $date_format, $posted_date . ' 00:00:00' );
 					}
 					$date_errors = DateTime::getLastErrors();
 

@@ -220,7 +220,7 @@ function WC_AM_HASH() {
  *
  * @return \WC_AM_Log
  */
-function WC_AM_Log() {
+function WC_AM_LOG() {
 	return WC_AM_Log::instance();
 }
 

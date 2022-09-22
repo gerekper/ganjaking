@@ -53,6 +53,14 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 	public $extra_multiple_options = [];
 
 	/**
+	 * The properties of the choices
+	 * This doesn't include the default value
+	 *
+	 * @var array
+	 */
+	public $multiple_properties = [];
+
+	/**
 	 * Default option attributes
 	 *
 	 * @var array
@@ -110,6 +118,24 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 
 		// Set internal element names.
 		$this->set_internal_element_names();
+
+		// Init the properties of choices.
+		$this->multiple_properties = [
+			'title',
+			'value',
+			'price',
+			'sale_price',
+			'image',
+			'imagec',
+			'imagep',
+			'imagel',
+			'price_type',
+			'url',
+			'description',
+			'enabled',
+			'color',
+			'fee',
+		];
 
 		// extra multiple type options.
 		$this->extra_multiple_options = apply_filters( 'wc_epo_extra_multiple_choices', [] );
@@ -667,6 +693,10 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 					'operator' => 'isnot',
 					'value'    => 'currentstep',
 				],
+				'.tm-pricetype-selector' => [
+					'operator' => 'isnot',
+					'value'    => 'lookuptable',
+				],
 			],
 		];
 	}
@@ -695,6 +725,10 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 				'.tm-pricetype-selector' => [
 					'operator' => 'isnot',
 					'value'    => 'currentstep',
+				],
+				'.tm-pricetype-selector' => [
+					'operator' => 'isnot',
+					'value'    => 'lookuptable',
 				],
 			],
 		];
@@ -782,39 +816,39 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 				'value' => 'wordpercentnon',
 			],
 			[
-				'text'  => esc_html__( 'Price per char', 'woocommerce-tm-extra-product-options' ),
+				'text'  => esc_html__( 'Price per character', 'woocommerce-tm-extra-product-options' ),
 				'value' => 'char',
 			],
 			[
-				'text'  => esc_html__( 'Percent of the original price per char', 'woocommerce-tm-extra-product-options' ),
+				'text'  => esc_html__( 'Percent of the original price per character', 'woocommerce-tm-extra-product-options' ),
 				'value' => 'charpercent',
 			],
 			[
-				'text'  => esc_html__( 'Price per char (no first char)', 'woocommerce-tm-extra-product-options' ),
+				'text'  => esc_html__( 'Price per character (no first char)', 'woocommerce-tm-extra-product-options' ),
 				'value' => 'charnofirst',
 			],
 			[
-				'text'  => esc_html__( 'Price per char (no n-th char)', 'woocommerce-tm-extra-product-options' ),
+				'text'  => esc_html__( 'Price per character (no n-th char)', 'woocommerce-tm-extra-product-options' ),
 				'value' => 'charnon',
 			],
 			[
-				'text'  => esc_html__( 'Price per char (no n-th char and no spaces)', 'woocommerce-tm-extra-product-options' ),
+				'text'  => esc_html__( 'Price per character (no n-th char and no spaces)', 'woocommerce-tm-extra-product-options' ),
 				'value' => 'charnonnospaces',
 			],
 			[
-				'text'  => esc_html__( 'Percent of the original price per char (no first char)', 'woocommerce-tm-extra-product-options' ),
+				'text'  => esc_html__( 'Percent of the original price per character (no first char)', 'woocommerce-tm-extra-product-options' ),
 				'value' => 'charpercentnofirst',
 			],
 			[
-				'text'  => esc_html__( 'Percent of the original price per char (no n-th char)', 'woocommerce-tm-extra-product-options' ),
+				'text'  => esc_html__( 'Percent of the original price per character (no n-th char)', 'woocommerce-tm-extra-product-options' ),
 				'value' => 'charpercentnon',
 			],
 			[
-				'text'  => esc_html__( 'Percent of the original price per char (no n-th char and no spaces)', 'woocommerce-tm-extra-product-options' ),
+				'text'  => esc_html__( 'Percent of the original price per character (no n-th char and no spaces)', 'woocommerce-tm-extra-product-options' ),
 				'value' => 'charpercentnonnospaces',
 			],
 			[
-				'text'  => esc_html__( 'Price per char (no spaces)', 'woocommerce-tm-extra-product-options' ),
+				'text'  => esc_html__( 'Price per character (no spaces)', 'woocommerce-tm-extra-product-options' ),
 				'value' => 'charnospaces',
 			],
 			[
@@ -828,6 +862,10 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 			[
 				'text'  => esc_html__( 'Fixed amount + options', 'woocommerce-tm-extra-product-options' ),
 				'value' => 'fixedcurrenttotal',
+			],
+			[
+				'text'  => esc_html__( 'Lookup table', 'woocommerce-tm-extra-product-options' ),
+				'value' => 'lookuptable',
 			],
 		];
 
@@ -894,39 +932,39 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 				'value' => 'wordpercentnon',
 			],
 			[
-				'text'  => esc_html__( 'Price per char', 'woocommerce-tm-extra-product-options' ),
+				'text'  => esc_html__( 'Price per character', 'woocommerce-tm-extra-product-options' ),
 				'value' => 'char',
 			],
 			[
-				'text'  => esc_html__( 'Percent of the original price per char', 'woocommerce-tm-extra-product-options' ),
+				'text'  => esc_html__( 'Percent of the original price per character', 'woocommerce-tm-extra-product-options' ),
 				'value' => 'charpercent',
 			],
 			[
-				'text'  => esc_html__( 'Price per char (no first char)', 'woocommerce-tm-extra-product-options' ),
+				'text'  => esc_html__( 'Price per character (no first char)', 'woocommerce-tm-extra-product-options' ),
 				'value' => 'charnofirst',
 			],
 			[
-				'text'  => esc_html__( 'Price per char (no n-th char)', 'woocommerce-tm-extra-product-options' ),
+				'text'  => esc_html__( 'Price per character (no n-th char)', 'woocommerce-tm-extra-product-options' ),
 				'value' => 'charnon',
 			],
 			[
-				'text'  => esc_html__( 'Price per char (no n-th char and no spaces)', 'woocommerce-tm-extra-product-options' ),
+				'text'  => esc_html__( 'Price per character (no n-th char and no spaces)', 'woocommerce-tm-extra-product-options' ),
 				'value' => 'charnonnospaces',
 			],
 			[
-				'text'  => esc_html__( 'Percent of the original price per char (no first char)', 'woocommerce-tm-extra-product-options' ),
+				'text'  => esc_html__( 'Percent of the original price per character (no first char)', 'woocommerce-tm-extra-product-options' ),
 				'value' => 'charpercentnofirst',
 			],
 			[
-				'text'  => esc_html__( 'Percent of the original price per char (no n-th char)', 'woocommerce-tm-extra-product-options' ),
+				'text'  => esc_html__( 'Percent of the original price per character (no n-th char)', 'woocommerce-tm-extra-product-options' ),
 				'value' => 'charpercentnon',
 			],
 			[
-				'text'  => esc_html__( 'Percent of the original price per char (no n-th char and no spaces)', 'woocommerce-tm-extra-product-options' ),
+				'text'  => esc_html__( 'Percent of the original price per character (no n-th char and no spaces)', 'woocommerce-tm-extra-product-options' ),
 				'value' => 'charpercentnonnospaces',
 			],
 			[
-				'text'  => esc_html__( 'Price per char (no spaces)', 'woocommerce-tm-extra-product-options' ),
+				'text'  => esc_html__( 'Price per character (no spaces)', 'woocommerce-tm-extra-product-options' ),
 				'value' => 'charnospaces',
 			],
 			[
@@ -936,6 +974,10 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 			[
 				'text'  => esc_html__( 'Fixed amount + options', 'woocommerce-tm-extra-product-options' ),
 				'value' => 'fixedcurrenttotal',
+			],
+			[
+				'text'  => esc_html__( 'Lookup table', 'woocommerce-tm-extra-product-options' ),
+				'value' => 'lookuptable',
 			],
 		];
 
@@ -954,78 +996,6 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 			'options'     => $options,
 			'label'       => esc_html__( 'Price type', 'woocommerce-tm-extra-product-options' ),
 		];
-	}
-
-	/**
-	 * Fee setting
-	 *
-	 * @param string $name Element name.
-	 * @param array  $args Array of arguments.
-	 * @since 5.0
-	 */
-	public function add_setting_fee( $name = '', $args = [] ) {
-		$setting = array_merge(
-			[
-				'id'          => $name . '_fee',
-				'wpmldisable' => 1,
-				'default'     => '',
-				'type'        => 'checkbox',
-				'tags'        => [
-					'class' => 'c tc-element-setting-fee',
-					'id'    => 'builder_' . $name . '_fee',
-					'name'  => 'tm_meta[tmfbuilder][' . $name . '_fee][]',
-					'value' => '1',
-				],
-				'label'       => esc_html__( 'Set to Fee', 'woocommerce-tm-extra-product-options' ),
-				'desc'        => esc_html__( 'Attach the price to the order making it independent of the product quantity.', 'woocommerce-tm-extra-product-options' ),
-			],
-			$args
-		);
-
-		$setting = apply_filters( 'wc_epo_add_setting_fee', $setting, $name, $args );
-
-		return $setting;
-	}
-
-	/**
-	 * Free chars setting
-	 *
-	 * @param string $name Element name.
-	 * @param array  $args Array of arguments.
-	 * @since 1.0
-	 */
-	public function add_setting_freechars( $name = '', $args = [] ) {
-		return array_merge(
-			[
-				'id'          => $name . '_freechars',
-				'wpmldisable' => 1,
-				'default'     => '',
-				'type'        => 'number',
-				'tags'        => [
-					'class' => 'n',
-					'id'    => 'builder_' . $name . '_freechars',
-					'name'  => 'tm_meta[tmfbuilder][' . $name . '_freechars][]',
-					'value' => '',
-					'step'  => '1',
-				],
-				'label'       => esc_html__( 'Free chars', 'woocommerce-tm-extra-product-options' ),
-				'desc'        => esc_html__( 'Enter the number of free chars.', 'woocommerce-tm-extra-product-options' ),
-				'required'    => [
-					'.tm-pricetype-selector' => [
-						'operator' => 'is',
-						'value'    => [
-							'wordnon',
-							'wordpercentnon',
-							'charnon',
-							'charnonnospaces',
-							'charpercentnon',
-							'charpercentnonnospaces',
-						],
-					],
-				],
-			],
-			$args
-		);
 	}
 
 	/**
@@ -1056,6 +1026,10 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 			[
 				'text'  => esc_html__( 'Fixed amount + options', 'woocommerce-tm-extra-product-options' ),
 				'value' => 'fixedcurrenttotal',
+			],
+			[
+				'text'  => esc_html__( 'Lookup table', 'woocommerce-tm-extra-product-options' ),
+				'value' => 'lookuptable',
 			],
 		];
 
@@ -1104,6 +1078,10 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 			[
 				'text'  => esc_html__( 'Fixed amount + options', 'woocommerce-tm-extra-product-options' ),
 				'value' => 'fixedcurrenttotal',
+			],
+			[
+				'text'  => esc_html__( 'Lookup table', 'woocommerce-tm-extra-product-options' ),
+				'value' => 'lookuptable',
 			],
 		];
 
@@ -1165,6 +1143,10 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 				'text'  => esc_html__( 'Fixed amount + options', 'woocommerce-tm-extra-product-options' ),
 				'value' => 'fixedcurrenttotal',
 			],
+			[
+				'text'  => esc_html__( 'Lookup table', 'woocommerce-tm-extra-product-options' ),
+				'value' => 'lookuptable',
+			],
 		];
 
 		$options = apply_filters( 'wc_epo_add_setting_price_type', $options, $name );
@@ -1182,6 +1164,175 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 			'options'     => $options,
 			'label'       => esc_html__( 'Price type', 'woocommerce-tm-extra-product-options' ),
 		];
+	}
+
+	/**
+	 * Lookuptable setting
+	 *
+	 * @param string $name Element name.
+	 * @since 1.0
+	 */
+	public function add_setting_lookuptable( $name = '' ) {
+
+		$options = [
+			[
+				'text'  => esc_html__( 'None', 'woocommerce-tm-extra-product-options' ),
+				'value' => '',
+			],
+		];
+
+		$lookup_tables = THEMECOMPLETE_EPO()->lookup_tables;
+		if ( $lookup_tables ) {
+			foreach ( $lookup_tables as $table => $tables ) {
+				if ( is_array( $tables ) ) {
+					$show_num = count( $tables ) > 1;
+					foreach ( $tables as $table_num => $data ) {
+						$options[] = [
+							'text'  => $table . ( $show_num ? ' (' . $table_num . ')' : '' ),
+							'value' => $table . '|' . $table_num,
+						];
+					}
+				}
+			}
+		}
+
+		$options = apply_filters( 'wc_epo_add_setting_lookuptable', $options, $name );
+
+		return [
+			'_multiple_values' => [
+				[
+					'id'          => $name . '_lookuptable',
+					'wpmldisable' => 1,
+					'default'     => '',
+					'type'        => 'select',
+					'tags'        => [
+						'class' => 'tm-lookuptable-selector',
+						'id'    => 'builder_' . $name . '_lookuptable',
+						'name'  => 'tm_meta[tmfbuilder][' . $name . '_lookuptable][]',
+					],
+					'options'     => $options,
+					'label'       => esc_html__( 'Lookup table', 'woocommerce-tm-extra-product-options' ),
+					'required'    => [
+						'.tm-pricetype-selector' => [
+							'operator' => 'is',
+							'value'    => 'lookuptable',
+						],
+					],
+				],
+				[
+					'id'       => $name . '_lookuptable_x',
+					'default'  => '',
+					'type'     => 'text',
+					'tags'     => [
+						'class' => 't tm-lookuptable-x-selector',
+						'id'    => 'builder_' . $name . '_lookuptable_x',
+						'name'  => 'tm_meta[tmfbuilder][' . $name . '_lookuptable_x][]',
+						'value' => '',
+						'step'  => 'any',
+					],
+					'label'    => esc_html__( 'Element ID for x', 'woocommerce-tm-extra-product-options' ),
+					'desc'     => esc_html__( 'Enter the element id to use for the x column.', 'woocommerce-tm-extra-product-options' ),
+					'required' => [
+						'.tm-pricetype-selector' => [
+							'operator' => 'is',
+							'value'    => 'lookuptable',
+						],
+					],
+				],
+				[
+					'id'       => $name . '_lookuptable_y',
+					'default'  => '',
+					'type'     => 'text',
+					'tags'     => [
+						'class' => 't tm-lookuptable-y-selector',
+						'id'    => 'builder_' . $name . '_lookuptable_y',
+						'name'  => 'tm_meta[tmfbuilder][' . $name . '_lookuptable_y][]',
+						'value' => '',
+						'step'  => 'any',
+					],
+					'label'    => esc_html__( 'Element ID for y', 'woocommerce-tm-extra-product-options' ),
+					'desc'     => esc_html__( 'Enter the element id to use for the y column.', 'woocommerce-tm-extra-product-options' ),
+					'required' => [
+						'.tm-pricetype-selector' => [
+							'operator' => 'is',
+							'value'    => 'lookuptable',
+						],
+					],
+				],
+			],
+		];
+	}
+
+	/**
+	 * Fee setting
+	 *
+	 * @param string $name Element name.
+	 * @param array  $args Array of arguments.
+	 * @since 5.0
+	 */
+	public function add_setting_fee( $name = '', $args = [] ) {
+		$setting = array_merge(
+			[
+				'id'          => $name . '_fee',
+				'wpmldisable' => 1,
+				'default'     => '',
+				'type'        => 'checkbox',
+				'tags'        => [
+					'class' => 'c tc-element-setting-fee',
+					'id'    => 'builder_' . $name . '_fee',
+					'name'  => 'tm_meta[tmfbuilder][' . $name . '_fee][]',
+					'value' => '1',
+				],
+				'label'       => esc_html__( 'Set to Fee', 'woocommerce-tm-extra-product-options' ),
+				'desc'        => esc_html__( 'Attach the price to the order making it independent of the product quantity.', 'woocommerce-tm-extra-product-options' ),
+			],
+			$args
+		);
+
+		$setting = apply_filters( 'wc_epo_add_setting_fee', $setting, $name, $args );
+
+		return $setting;
+	}
+
+	/**
+	 * Free characters setting
+	 *
+	 * @param string $name Element name.
+	 * @param array  $args Array of arguments.
+	 * @since 1.0
+	 */
+	public function add_setting_freechars( $name = '', $args = [] ) {
+		return array_merge(
+			[
+				'id'          => $name . '_freechars',
+				'wpmldisable' => 1,
+				'default'     => '',
+				'type'        => 'number',
+				'tags'        => [
+					'class' => 'n',
+					'id'    => 'builder_' . $name . '_freechars',
+					'name'  => 'tm_meta[tmfbuilder][' . $name . '_freechars][]',
+					'value' => '',
+					'step'  => '1',
+				],
+				'label'       => esc_html__( 'Free characters', 'woocommerce-tm-extra-product-options' ),
+				'desc'        => esc_html__( 'Enter the number of Free characters.', 'woocommerce-tm-extra-product-options' ),
+				'required'    => [
+					'.tm-pricetype-selector' => [
+						'operator' => 'is',
+						'value'    => [
+							'wordnon',
+							'wordpercentnon',
+							'charnon',
+							'charnonnospaces',
+							'charpercentnon',
+							'charpercentnonnospaces',
+						],
+					],
+				],
+			],
+			$args
+		);
 	}
 
 	/**
@@ -3502,87 +3653,32 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 										$_default_value = isset( $builder[ 'multiple_' . $_vid . '_default_value' ] ) ? $builder[ 'multiple_' . $_vid . '_default_value' ] : null;
 
 										if ( is_null( $t[ $_vid ] ) ) {
-											// needed for WPML.
-											$_titles_base = isset( $builder[ 'multiple_' . $_vid . '_title' ] )
-												? $builder[ 'multiple_' . $_vid . '_title' ]
-												: null;
-											$_titles      = isset( $builder[ 'multiple_' . $_vid . '_title' ] )
-												? isset( $current_builder[ 'multiple_' . $_vid . '_title' ] )
-													? $current_builder[ 'multiple_' . $_vid . '_title' ]
-													: $builder[ 'multiple_' . $_vid . '_title' ]
+											$null_array = [
+												'base'    => null,
+												'current' => null,
+											];
+											$properties = [];
+
+											foreach ( $this->multiple_properties as $property ) {
+												$properties[ $property ] = $null_array;
+											}
+
+											foreach ( $properties as $property => $property_value ) {
+												$properties[ $property ]['base'] = isset( $builder[ 'multiple_' . $_vid . '_' . $property ] )
+												? $builder[ 'multiple_' . $_vid . '_' . $property ]
 												: null;
 
-											$_values_base = isset( $builder[ 'multiple_' . $_vid . '_value' ] )
-												? $builder[ 'multiple_' . $_vid . '_value' ]
+												$properties[ $property ]['current'] = isset( $builder[ 'multiple_' . $_vid . '_' . $property ] )
+												? isset( $current_builder[ 'multiple_' . $_vid . '_' . $property ] )
+													? $current_builder[ 'multiple_' . $_vid . '_' . $property ]
+													: $builder[ 'multiple_' . $_vid . '_' . $property ]
 												: null;
-											$_values      = isset( $builder[ 'multiple_' . $_vid . '_value' ] )
-												? isset( $current_builder[ 'multiple_' . $_vid . '_value' ] )
-													? $current_builder[ 'multiple_' . $_vid . '_value' ]
-													: $builder[ 'multiple_' . $_vid . '_value' ]
-												: null;
+											}
 
-											$_prices_base = isset( $builder[ 'multiple_' . $_vid . '_price' ] )
-												? $builder[ 'multiple_' . $_vid . '_price' ]
-												: null;
-											$_prices      = isset( $builder[ 'multiple_' . $_vid . '_price' ] )
-												? isset( $current_builder[ 'multiple_' . $_vid . '_price' ] )
-													? $current_builder[ 'multiple_' . $_vid . '_price' ]
-													: $builder[ 'multiple_' . $_vid . '_price' ]
-												: null;
-
-											$_images_base = isset( $builder[ 'multiple_' . $_vid . '_image' ] )
-												? $builder[ 'multiple_' . $_vid . '_image' ]
-												: null;
-											$_images      = isset( $builder[ 'multiple_' . $_vid . '_image' ] )
-												? isset( $current_builder[ 'multiple_' . $_vid . '_image' ] )
-													? $current_builder[ 'multiple_' . $_vid . '_image' ]
-													: $builder[ 'multiple_' . $_vid . '_image' ]
-												: null;
-
-											$_imagesc_base = isset( $builder[ 'multiple_' . $_vid . '_imagec' ] )
-												? $builder[ 'multiple_' . $_vid . '_imagec' ]
-												: null;
-											$_imagesc      = isset( $builder[ 'multiple_' . $_vid . '_imagec' ] )
-												? isset( $current_builder[ 'multiple_' . $_vid . '_imagec' ] )
-													? $current_builder[ 'multiple_' . $_vid . '_imagec' ]
-													: $builder[ 'multiple_' . $_vid . '_imagec' ]
-												: null;
-
-											$_imagesp_base = isset( $builder[ 'multiple_' . $_vid . '_imagep' ] )
-												? $builder[ 'multiple_' . $_vid . '_imagep' ]
-												: null;
-											$_imagesp      = isset( $builder[ 'multiple_' . $_vid . '_imagep' ] )
-												? isset( $current_builder[ 'multiple_' . $_vid . '_imagep' ] )
-													? $current_builder[ 'multiple_' . $_vid . '_imagep' ]
-													: $builder[ 'multiple_' . $_vid . '_imagep' ]
-												: null;
-
-											$_imagesl_base = isset( $builder[ 'multiple_' . $_vid . '_imagel' ] )
-												? $builder[ 'multiple_' . $_vid . '_imagel' ]
-												: null;
-											$_imagesl      = isset( $builder[ 'multiple_' . $_vid . '_imagel' ] )
-												? isset( $current_builder[ 'multiple_' . $_vid . '_imagel' ] )
-													? $current_builder[ 'multiple_' . $_vid . '_imagel' ]
-													: $builder[ 'multiple_' . $_vid . '_imagel' ]
-												: null;
-
-											$_prices_type_base = isset( $builder[ 'multiple_' . $_vid . '_price_type' ] )
-												? $builder[ 'multiple_' . $_vid . '_price_type' ]
-												: null;
-											$_prices_type      = isset( $builder[ 'multiple_' . $_vid . '_price_type' ] )
-												? isset( $current_builder[ 'multiple_' . $_vid . '_price_type' ] )
-													? $current_builder[ 'multiple_' . $_vid . '_price_type' ]
-													: $builder[ 'multiple_' . $_vid . '_price_type' ]
-												: null;
-
-											$_sale_prices_base = isset( $builder[ 'multiple_' . $_vid . '_sale_price' ] )
-												? $builder[ 'multiple_' . $_vid . '_sale_price' ]
-												: null;
-											$_sale_prices      = isset( $builder[ 'multiple_' . $_vid . '_sale_price' ] )
-												? isset( $current_builder[ 'multiple_' . $_vid . '_sale_price' ] )
-													? $current_builder[ 'multiple_' . $_vid . '_sale_price' ]
-													: $builder[ 'multiple_' . $_vid . '_sale_price' ]
-												: null;
+											$_titles_base = $properties['title']['base'];
+											$_titles      = $properties['title']['current'];
+											$_values_base = $properties['value']['base'];
+											$_prices_base = $properties['price']['base'];
 
 											$c_prices_base      = [];
 											$c_prices           = [];
@@ -3610,51 +3706,6 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 												}
 											}
 
-											$_url_base = isset( $builder[ 'multiple_' . $_vid . '_url' ] )
-												? $builder[ 'multiple_' . $_vid . '_url' ]
-												: null;
-											$_url      = isset( $builder[ 'multiple_' . $_vid . '_url' ] )
-												? isset( $current_builder[ 'multiple_' . $_vid . '_url' ] )
-													? $current_builder[ 'multiple_' . $_vid . '_url' ]
-													: $builder[ 'multiple_' . $_vid . '_url' ]
-												: null;
-
-											$_description_base = isset( $builder[ 'multiple_' . $_vid . '_description' ] )
-												? $builder[ 'multiple_' . $_vid . '_description' ]
-												: null;
-											$_description      = isset( $builder[ 'multiple_' . $_vid . '_description' ] )
-												? isset( $current_builder[ 'multiple_' . $_vid . '_description' ] )
-													? $current_builder[ 'multiple_' . $_vid . '_description' ]
-													: $builder[ 'multiple_' . $_vid . '_description' ]
-												: null;
-
-											$_enabled_base = isset( $builder[ 'multiple_' . $_vid . '_enabled' ] )
-												? $builder[ 'multiple_' . $_vid . '_enabled' ]
-												: null;
-											$_enabled      = isset( $builder[ 'multiple_' . $_vid . '_enabled' ] )
-												? isset( $current_builder[ 'multiple_' . $_vid . '_enabled' ] )
-													? $current_builder[ 'multiple_' . $_vid . '_enabled' ]
-													: $builder[ 'multiple_' . $_vid . '_enabled' ]
-												: null;
-
-											$_color_base = isset( $builder[ 'multiple_' . $_vid . '_color' ] )
-												? $builder[ 'multiple_' . $_vid . '_color' ]
-												: null;
-											$_color      = isset( $builder[ 'multiple_' . $_vid . '_color' ] )
-												? isset( $current_builder[ 'multiple_' . $_vid . '_color' ] )
-													? $current_builder[ 'multiple_' . $_vid . '_color' ]
-													: $builder[ 'multiple_' . $_vid . '_color' ]
-												: null;
-
-											$_fee_base = isset( $builder[ 'multiple_' . $_vid . '_fee' ] )
-												? $builder[ 'multiple_' . $_vid . '_fee' ]
-												: null;
-											$_fee      = isset( $builder[ 'multiple_' . $_vid . '_fee' ] )
-												? isset( $current_builder[ 'multiple_' . $_vid . '_fee' ] )
-													? $current_builder[ 'multiple_' . $_vid . '_fee' ]
-													: $builder[ 'multiple_' . $_vid . '_fee' ]
-												: null;
-
 											$_extra_options = $this->extra_multiple_options;
 
 											$_extra_base = [];
@@ -3679,27 +3730,23 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 												$t[ $_vid ] = [];
 												// backwards combatility.
 
-												if ( is_null( $_titles ) ) {
-													$_titles = $_titles_base;
-												}
-												if ( is_null( $_values ) ) {
-													$_values = $_values_base;
-												}
-												if ( is_null( $_prices ) ) {
-													$_prices = $_prices_base;
-												}
-												if ( is_null( $_sale_prices_base ) ) {
-													$_sale_prices_base = array_map(
-														[
-															$this,
-															'clear_array_values',
-														],
-														$_titles_base
-													);
-												}
-
-												if ( is_null( $_sale_prices ) ) {
-													$_sale_prices = $_sale_prices_base;
+												foreach ( $properties as $property => $property_value ) {
+													if ( is_null( $property_value['base'] ) ) {
+														$func = 'clear_array_values';
+														if ( 'enabled' === $property ) {
+															$func = 'return_false_array_values';
+														}
+														$properties[ $property ]['base'] = array_map(
+															[
+																$this,
+																$func,
+															],
+															$_titles_base
+														);
+													}
+													if ( is_null( $property_value['current'] ) ) {
+														$properties[ $property ]['current'] = $properties[ $property ]['base'];
+													}
 												}
 
 												foreach ( $c_prices as $ckey => $cvalue ) {
@@ -3712,133 +3759,6 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 													if ( is_null( $cvalue ) ) {
 														$c_sale_prices[ $ckey ] = $c_sale_prices_base[ $ckey ];
 													}
-												}
-
-												if ( is_null( $_images_base ) ) {
-													$_images_base = array_map(
-														[
-															$this,
-															'clear_array_values',
-														],
-														$_titles_base
-													);
-												}
-												if ( is_null( $_images ) ) {
-													$_images = $_images_base;
-												}
-
-												if ( is_null( $_imagesc_base ) ) {
-													$_imagesp_base = array_map(
-														[
-															$this,
-															'clear_array_values',
-														],
-														$_titles_base
-													);
-												}
-												if ( is_null( $_imagesc ) ) {
-													$_imagesc = $_imagesc_base;
-												}
-
-												if ( is_null( $_imagesp_base ) ) {
-													$_imagesp_base = array_map(
-														[
-															$this,
-															'clear_array_values',
-														],
-														$_titles_base
-													);
-												}
-												if ( is_null( $_imagesp ) ) {
-													$_imagesp = $_imagesp_base;
-												}
-
-												if ( is_null( $_imagesl_base ) ) {
-													$_imagesl_base = array_map(
-														[
-															$this,
-															'clear_array_values',
-														],
-														$_titles_base
-													);
-												}
-												if ( is_null( $_imagesl ) ) {
-													$_imagesl = $_imagesl_base;
-												}
-
-												if ( is_null( $_prices_type_base ) ) {
-													$_prices_type_base = array_map(
-														[
-															$this,
-															'clear_array_values',
-														],
-														$_prices_base
-													);
-												}
-												if ( is_null( $_prices_type ) ) {
-													$_prices_type = $_prices_type_base;
-												}
-
-												if ( is_null( $_url_base ) ) {
-													$_url_base = array_map(
-														[
-															$this,
-															'clear_array_values',
-														],
-														$_titles_base
-													);
-												}
-												if ( is_null( $_url ) ) {
-													$_url = $_url_base;
-												}
-												if ( is_null( $_description_base ) ) {
-													$_description_base = array_map(
-														[
-															$this,
-															'clear_array_values',
-														],
-														$_titles_base
-													);
-												}
-												if ( is_null( $_description ) ) {
-													$_description = $_description_base;
-												}
-												if ( is_null( $_enabled_base ) ) {
-													$_enabled_base = array_map(
-														[
-															$this,
-															'return_false_array_values',
-														],
-														$_titles_base
-													);
-												}
-												if ( is_null( $_enabled ) ) {
-													$_enabled = $_enabled_base;
-												}
-												if ( is_null( $_color_base ) ) {
-													$_color_base = array_map(
-														[
-															$this,
-															'clear_array_values',
-														],
-														$_titles_base
-													);
-												}
-												if ( is_null( $_color ) ) {
-													$_color = $_color_base;
-												}
-
-												if ( is_null( $_fee_base ) ) {
-													$_fee_base = array_map(
-														[
-															$this,
-															'clear_array_values',
-														],
-														$_titles_base
-													);
-												}
-												if ( is_null( $_fee ) ) {
-													$_fee = $_fee_base;
 												}
 
 												foreach ( $_extra_base as $_extra_base_key => $_extra_base_value ) {
@@ -3885,160 +3805,29 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 														continue;
 													}
 
-													if ( ! isset( $_imagesc[ $_option_key ] ) ) {
-														$_imagesc[ $_option_key ] = array_map(
-															[
-																$this,
-																'clear_array_values',
-															],
-															$_titles_base[ $_option_key ]
-														);
-													}
-													if ( ! isset( $_imagesc_base[ $_option_key ] ) ) {
-														$_imagesc_base[ $_option_key ] = array_map(
-															[
-																$this,
-																'clear_array_values',
-															],
-															$_titles_base[ $_option_key ]
-														);
-													}
-
-													if ( ! isset( $_imagesp[ $_option_key ] ) ) {
-														$_imagesp[ $_option_key ] = array_map(
-															[
-																$this,
-																'clear_array_values',
-															],
-															$_titles_base[ $_option_key ]
-														);
-													}
-													if ( ! isset( $_imagesp_base[ $_option_key ] ) ) {
-														$_imagesp_base[ $_option_key ] = array_map(
-															[
-																$this,
-																'clear_array_values',
-															],
-															$_titles_base[ $_option_key ]
-														);
-													}
-
-													if ( ! isset( $_imagesl[ $_option_key ] ) ) {
-														$_imagesl[ $_option_key ] = array_map(
-															[
-																$this,
-																'clear_array_values',
-															],
-															$_titles_base[ $_option_key ]
-														);
-													}
-													if ( ! isset( $_imagesl_base[ $_option_key ] ) ) {
-														$_imagesl_base[ $_option_key ] = array_map(
-															[
-																$this,
-																'clear_array_values',
-															],
-															$_titles_base[ $_option_key ]
-														);
-													}
-
-													if ( ! isset( $_sale_prices_base[ $_option_key ] ) ) {
-														$_sale_prices_base[ $_option_key ] = array_map(
-															[
-																$this,
-																'clear_array_values',
-															],
-															$_titles_base[ $_option_key ]
-														);
-													}
-
-													if ( ! isset( $_sale_prices[ $_option_key ] ) ) {
-														$_sale_prices[ $_option_key ] = array_map(
-															[
-																$this,
-																'clear_array_values',
-															],
-															$_titles_base[ $_option_key ]
-														);
-													}
-
-													if ( ! isset( $_description_base[ $_option_key ] ) ) {
-														$_description_base[ $_option_key ] = array_map(
-															[
-																$this,
-																'clear_array_values',
-															],
-															$_titles_base[ $_option_key ]
-														);
-													}
-
-													if ( ! isset( $_description[ $_option_key ] ) ) {
-														$_description[ $_option_key ] = array_map(
-															[
-																$this,
-																'clear_array_values',
-															],
-															$_titles_base[ $_option_key ]
-														);
-													}
-
-													if ( ! isset( $_enabled_base[ $_option_key ] ) ) {
-														$_enabled_base[ $_option_key ] = array_map(
-															[
-																$this,
-																'return_false_array_values',
-															],
-															$_titles_base[ $_option_key ]
-														);
-													}
-
-													if ( ! isset( $_enabled[ $_option_key ] ) ) {
-														$_enabled[ $_option_key ] = array_map(
-															[
-																$this,
-																'return_false_array_values',
-															],
-															$_titles_base[ $_option_key ]
-														);
-													}
-
-													if ( ! isset( $_color[ $_option_key ] ) ) {
-														$_color[ $_option_key ] = array_map(
-															[
-																$this,
-																'clear_array_values',
-															],
-															$_titles_base[ $_option_key ]
-														);
-													}
-													if ( ! isset( $_color_base[ $_option_key ] ) ) {
-														$_color_base[ $_option_key ] = array_map(
-															[
-																$this,
-																'clear_array_values',
-															],
-															$_titles_base[ $_option_key ]
-														);
-													}
-
-													if ( ! isset( $_fee_base[ $_option_key ] ) ) {
-														$_fee_base[ $_option_key ] = array_map(
-															[
-																$this,
-																'clear_array_values',
-															],
-															$_titles_base[ $_option_key ]
-														);
-													}
-
-													if ( ! isset( $_fee[ $_option_key ] ) ) {
-														$_fee[ $_option_key ] = array_map(
-															[
-																$this,
-																'clear_array_values',
-															],
-															$_titles_base[ $_option_key ]
-														);
+													foreach ( $properties as $property => $property_value ) {
+														$func = 'clear_array_values';
+														if ( 'enabled' === $property ) {
+															$func = 'return_false_array_values';
+														}
+														if ( ! isset( $property_value['base'][ $_option_key ] ) ) {
+															$properties[ $property ]['base'] = array_map(
+																[
+																	$this,
+																	$func,
+																],
+																$_titles_base[ $_option_key ]
+															);
+														}
+														if ( ! isset( $property_value['current'][ $_option_key ] ) ) {
+															$properties[ $property ]['current'] = array_map(
+																[
+																	$this,
+																	$func,
+																],
+																$_titles_base[ $_option_key ]
+															);
+														}
 													}
 
 													foreach ( $_extra_base as $_extra_base_key => $_extra_base_value ) {
@@ -4065,60 +3854,48 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 													}
 
 													// backwards compatibility.
-													foreach ( $_enabled_base as $_extra_key => $_extra_value ) {
+													foreach ( $properties['enabled']['base'] as $_extra_key => $_extra_value ) {
 														foreach ( $_extra_value as $__key => $__value ) {
 															if ( '0' === $__value ) {
-																$_enabled_base[ $_extra_key ][ $__key ] = '';
+																$properties['enabled']['base'][ $_extra_key ][ $__key ] = '';
 															}
 														}
 													}
-													foreach ( $_enabled as $_extra_key => $_extra_value ) {
+													foreach ( $properties['enabled']['current'] as $_extra_key => $_extra_value ) {
 														foreach ( $_extra_value as $__key => $__value ) {
 															if ( '0' === $__value ) {
-																$_enabled[ $_extra_key ][ $__key ] = '';
+																$properties['enabled']['current'][ $_extra_key ][ $__key ] = '';
 															}
 														}
 													}
-													foreach ( $_prices_type_base as $_extra_key => $_extra_value ) {
+													foreach ( $properties['price_type']['base'] as $_extra_key => $_extra_value ) {
 														foreach ( $_extra_value as $__key => $__value ) {
 															if ( 'fee' === $__value ) {
 																if ( 'checkboxes' === $_elements[ $k0 ] ) {
 																	$_fee_base[ $_extra_key ][ $__key ] = '1';
 																}
 
-																$_prices_type_base[ $_extra_key ][ $__key ] = '';
+																$properties['price_type']['base'][ $_extra_key ][ $__key ] = '';
 															}
 														}
 													}
-													foreach ( $_prices_type as $_extra_key => $_extra_value ) {
+													foreach ( $properties['price_type']['current'] as $_extra_key => $_extra_value ) {
 														foreach ( $_extra_value as $__key => $__value ) {
 															if ( 'fee' === $__value ) {
 																if ( 'checkboxes' === $_elements[ $k0 ] ) {
 																	$_fee[ $_extra_key ][ $__key ] = '1';
 																}
 
-																$_prices_type[ $_extra_key ][ $__key ] = '';
+																$properties['price_type']['current'][ $_extra_key ][ $__key ] = '';
 															}
 														}
 													}
 
 													if ( $use_original_builder ) {
-														$obvalues = [
-															'title'       => $_titles_base[ $_option_key ],
-															'value'       => $_values_base[ $_option_key ],
-															'price'       => $_prices_base[ $_option_key ],
-															'sale_price'  => $_sale_prices_base[ $_option_key ],
-															'image'       => $_images_base[ $_option_key ],
-															'imagec'      => $_imagesc_base[ $_option_key ],
-															'imagep'      => $_imagesp_base[ $_option_key ],
-															'imagel'      => $_imagesl_base[ $_option_key ],
-															'price_type'  => $_prices_type_base[ $_option_key ],
-															'url'         => $_url_base[ $_option_key ],
-															'description' => $_description_base[ $_option_key ],
-															'enabled'     => $_enabled_base[ $_option_key ],
-															'color'       => $_color_base[ $_option_key ],
-															'fee'         => $_fee_base[ $_option_key ],
-														];
+														$obvalues = [];
+														foreach ( $properties as $property => $property_value ) {
+															$obvalues[ $property ] = $property_value['base'][ $_option_key ];
+														}
 														$obvalues = apply_filters( 'wc_epo_obvalues', $obvalues, $builder, $value, $current_builder, $_titles_base, $_option_key );
 														foreach ( $c_prices_base as $ckey => $cvalue ) {
 															$mt_prefix = THEMECOMPLETE_EPO_HELPER()->get_currency_price_prefix( $ckey );
@@ -4137,45 +3914,30 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 														}
 														$t[ $_vid ][] = $obvalues;
 													} else {
-														$cbvalues = [
-															'title'       => THEMECOMPLETE_EPO_HELPER()->build_array( $_titles[ $_option_key ], $_titles_base[ $option_key ] ),
-															'value'       => THEMECOMPLETE_EPO_HELPER()->build_array( $_values[ $_option_key ], $_values_base[ $option_key ] ),
-															'price'       => THEMECOMPLETE_EPO_HELPER()->build_array( $_prices[ $_option_key ], $_prices_base[ $option_key ] ),
-															'sale_price'  => THEMECOMPLETE_EPO_HELPER()->build_array( $_sale_prices[ $_option_key ], $_sale_prices_base[ $option_key ] ),
-															'image'       => THEMECOMPLETE_EPO_HELPER()->build_array( $_images[ $_option_key ], $_images_base[ $option_key ] ),
-															'imagec'      => THEMECOMPLETE_EPO_HELPER()->build_array( $_imagesc[ $_option_key ], $_imagesc_base[ $option_key ] ),
-															'imagep'      => THEMECOMPLETE_EPO_HELPER()->build_array( $_imagesp[ $_option_key ], $_imagesp_base[ $option_key ] ),
-															'imagel'      => THEMECOMPLETE_EPO_HELPER()->build_array( $_imagesl[ $_option_key ], $_imagesl_base[ $option_key ] ),
-															'price_type'  => THEMECOMPLETE_EPO_HELPER()->build_array( $_prices_type[ $_option_key ], $_prices_type_base[ $option_key ] ),
-															'url'         => THEMECOMPLETE_EPO_HELPER()->build_array( $_url[ $_option_key ], $_url_base[ $option_key ] ),
-															'description' => THEMECOMPLETE_EPO_HELPER()->build_array( $_description[ $_option_key ], $_description_base[ $option_key ] ),
-															'enabled'     => THEMECOMPLETE_EPO_HELPER()->build_array( $_enabled[ $_option_key ], $_enabled_base[ $option_key ] ),
-															'color'       => THEMECOMPLETE_EPO_HELPER()->build_array( $_color[ $_option_key ], $_color_base[ $option_key ] ),
-															'fee'         => THEMECOMPLETE_EPO_HELPER()->build_array( $_fee[ $_option_key ], $_fee_base[ $option_key ] ),
-														];
+														$cbvalues = [];
+														foreach ( $properties as $property => $property_value ) {
+															$cbvalues[ $property ] = THEMECOMPLETE_EPO_HELPER()->build_array( $property_value['current'][ $_option_key ], $property_value['base'][ $_option_key ] );
+														}
 														$cbvalues = apply_filters( 'wc_epo_cbvalues', $cbvalues, $builder, $value, $current_builder, $_titles_base, $_option_key, $option_key );
 														foreach ( $c_prices as $ckey => $cvalue ) {
 															$mt_prefix = THEMECOMPLETE_EPO_HELPER()->get_currency_price_prefix( $ckey );
-															if ( ! isset( $cvalue[ $_option_key ] ) ) {
-																continue;
+															if ( isset( $cvalue[ $_option_key ] ) ) {
+																$cbvalues[ 'price' . $mt_prefix ] = THEMECOMPLETE_EPO_HELPER()->build_array(
+																	$cvalue[ $_option_key ],
+																	$c_prices_base[ $ckey ][ $option_key ]
+																);
 															}
-															$cbvalues[ 'price' . $mt_prefix ] = THEMECOMPLETE_EPO_HELPER()->build_array(
-																$cvalue[ $_option_key ],
-																$c_prices_base[ $ckey ][ $option_key ]
-															);
 														}
 														foreach ( $c_sale_prices as $ckey => $cvalue ) {
 															$mt_prefix = THEMECOMPLETE_EPO_HELPER()->get_currency_price_prefix( $ckey );
-															if ( ! isset( $cvalue[ $_option_key ] ) ) {
-																continue;
+															if ( isset( $cvalue[ $_option_key ] ) ) {
+																$cbvalues[ 'sale_price' . $mt_prefix ] = THEMECOMPLETE_EPO_HELPER()->build_array(
+																	$cvalue[ $_option_key ],
+																	$c_sale_prices_base[ $ckey ][ $option_key ]
+																);
 															}
-															$cbvalues[ 'sale_price' . $mt_prefix ] = THEMECOMPLETE_EPO_HELPER()->build_array(
-																$cvalue[ $_option_key ],
-																$c_sale_prices_base[ $ckey ][ $option_key ]
-															);
 														}
 														foreach ( $_extra_base as $_extra_base_key => $_extra_base_value ) {
-
 															$cbvalues[ $_extra_options[ $_extra_keys[ $_extra_base_key ] ]['name'] ] = $_extra_base_value[ $_option_key ];
 														}
 														$t[ $_vid ][] = $cbvalues;
@@ -4340,6 +4102,10 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 					[
 						'text'  => esc_html__( 'Color swatches', 'woocommerce-tm-extra-product-options' ),
 						'value' => 'color',
+					],
+					[
+						'text'  => esc_html__( 'Text swatches', 'woocommerce-tm-extra-product-options' ),
+						'value' => 'text',
 					],
 				],
 				'label'   => esc_html__( 'Display as', 'woocommerce-tm-extra-product-options' ),
@@ -5107,22 +4873,14 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 		}
 
 		if ( ! $options ) {
-			$options = [
-				'title'       => [ false ],
-				'value'       => [],
-				'price'       => [],
-				'sale_price'  => [],
-				'image'       => [],
-				'imagec'      => [],
-				'imagep'      => [],
-				'imagel'      => [],
-				'price_type'  => [],
-				'url'         => [],
-				'description' => [],
-				'enabled'     => [],
-				'color'       => [],
-				'fee'         => [],
-			];
+			$options = [];
+			foreach ( $this->multiple_properties as $property ) {
+				$property_value = [];
+				if ( 'title' === $property ) {
+					$property_value = [ false ];
+				}
+				$options[ $property ] = $property_value;
+			}
 			foreach ( $_extra_options as $__key => $__name ) {
 				if ( 'multiple_' . $__name['type'] . '_options' === $name ) {
 					$options[ $__name['name'] ] = [ '' ];
@@ -5148,169 +4906,103 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 			$class   = ' withupload';
 		}
 
-		$o['title']      = [
-			'id'      => $name . '_title',
-			'default' => '',
-			'type'    => 'text',
-			'nodiv'   => 1,
-			'tags'    => [
-				'class' => 't tm_option_title',
-				'id'    => $name . '_title',
-				'name'  => $name . '_title',
-				'value' => '',
-			],
-		];
-		$o['value']      = [
-			'id'      => $name . '_value',
-			'default' => '',
-			'type'    => 'text',
-			'nodiv'   => 1,
-			'tags'    => [
-				'class' => 't tm_option_value',
-				'id'    => $name . '_value',
-				'name'  => $name . '_value',
-			],
-		];
-		$o['price']      = [
-			'id'      => $name . '_price',
-			'default' => '',
-			'type'    => 'text',
-			'nodiv'   => 1,
-			'tags'    => [
-				'class' => 't tm_option_price',
-				'id'    => $name . '_price',
-				'name'  => $name . '_price',
-			],
-		];
-		$o['sale_price'] = [
-			'id'      => $name . '_sale_price',
-			'default' => '',
-			'type'    => 'text',
-			'nodiv'   => 1,
-			'tags'    => [
-				'class' => 't tm_option_sale_price',
-				'id'    => $name . '_price',
-				'name'  => $name . '_price',
-			],
-		];
-		$o['image']      = [
-			'id'      => $name . '_image',
-			'default' => '',
-			'type'    => 'hidden',
-			'nodiv'   => 1,
-			'tags'    => [
-				'class' => 't tm_option_image tc-option-image' . $class,
-				'id'    => $name . '_image',
-				'name'  => $name . '_image',
-			],
-			'extra'   => [ [ $this, 'builder_sub_options_image_helper' ], [ $name ] ],
-			'method'  => 'builder_sub_options_image_helper',
-		];
-		$o['imagec']     = [
-			'id'      => $name . '_imagec',
-			'default' => '',
-			'type'    => 'hidden',
-			'nodiv'   => 1,
-			'tags'    => [
-				'class' => 't tm_option_image tm_option_imagec tc-option-imagec' . $class,
-				'id'    => $name . '_imagec',
-				'name'  => $name . '_imagec',
-			],
-		];
-		$o['imagep']     = [
-			'id'      => $name . '_imagep',
-			'default' => '',
-			'type'    => 'hidden',
-			'nodiv'   => 1,
-			'tags'    => [
-				'class' => 't tm_option_image tm_option_imagep tc-option-imagep' . $class,
-				'id'    => $name . '_imagep',
-				'name'  => $name . '_imagep',
-			],
-		];
-		$o['imagel']     = [
-			'id'      => $name . '_imagel',
-			'default' => '',
-			'type'    => 'hidden',
-			'nodiv'   => 1,
-			'tags'    => [
-				'class' => 't tm_option_image tm_option_imagel tc-option-imagel' . $class,
-				'id'    => $name . '_imagel',
-				'name'  => $name . '_imagel',
-			],
+		foreach ( $options as $property => $property_value ) {
+			$o[ $property ] = [
+				'id'      => $name . '_' . $property,
+				'default' => '',
+				'nodiv'   => 1,
+				'tags'    => [
+					'id'   => $name . '_' . $property,
+					'name' => $name . '_' . $property,
+				],
+			];
+		}
+
+		$o['title']['type'] = 'text';
+		$o['title']['tags'] = [
+			'class' => 't tm_option_title',
+			'value' => '',
 		];
 
-		$o['price_type']  = [
-			'id'      => $name . '_price_type',
-			'default' => '',
-			'type'    => 'select',
-			'options' => $price_type_options,
-			'nodiv'   => 1,
-			'tags'    => [
-				'class' => 't tm_option_price_type ' . $name,
-				'id'    => $name . '_price_type',
-				'name'  => $name . '_price_type',
-			],
+		$o['value']['type'] = 'text';
+		$o['value']['tags'] = [
+			'class' => 't tm_option_value',
+			'value' => '',
 		];
-		$o['url']         = [
-			'id'      => $name . '_url',
-			'default' => '',
-			'type'    => 'text',
-			'nodiv'   => 1,
-			'tags'    => [
-				'class' => 't tm_option_url',
-				'id'    => $name . '_url',
-				'name'  => $name . '_url',
-				'value' => '',
-			],
+
+		$o['price']['type'] = 'text';
+		$o['price']['tags'] = [
+			'class' => 't tm_option_price',
+			'value' => '',
 		];
-		$o['description'] = [
-			'id'      => $name . '_description',
-			'default' => '',
-			'type'    => 'text',
-			'nodiv'   => 1,
-			'tags'    => [
-				'class' => 't tm_option_description',
-				'id'    => $name . '_description',
-				'name'  => $name . '_description',
-				'value' => '',
-			],
+
+		$o['sale_price']['type'] = 'text';
+		$o['sale_price']['tags'] = [
+			'class' => 't tm_option_sale_price',
+			'value' => '',
 		];
-		$o['enabled']     = [
-			'id'      => $name . '_enabled',
-			'default' => '1',
-			'type'    => 'checkbox',
-			'nodiv'   => 1,
-			'tags'    => [
-				'class' => 'c tm_option_enabled ' . $name,
-				'id'    => $name . '_enabled',
-				'name'  => $name . '_enabled',
-				'value' => '1',
-			],
+
+		$o['image']['type']   = 'hidden';
+		$o['image']['tags']   = [
+			'class' => 't tm_option_image tc-option-image' . $class,
+			'value' => '',
 		];
-		$o['color']       = [
-			'id'      => $name . '_color',
-			'default' => '',
-			'type'    => 'text',
-			'nodiv'   => 1,
-			'tags'    => [
-				'class' => 'tm-color-picker',
-				'id'    => $name . '_color',
-				'name'  => $name . '_color',
-				'value' => '',
-			],
+		$o['image']['extra']  = [ [ $this, 'builder_sub_options_image_helper' ], [ $name ] ];
+		$o['image']['method'] = 'builder_sub_options_image_helper';
+
+		$o['imagec']['type'] = 'hidden';
+		$o['imagec']['tags'] = [
+			'class' => 't tm_option_image tm_option_imagec tc-option-imagec' . $class,
+			'value' => '',
 		];
-		$o['fee']         = [
-			'id'      => $name . '_fee',
-			'default' => '',
-			'type'    => 'checkbox',
-			'nodiv'   => 1,
-			'tags'    => [
-				'class' => 'c',
-				'id'    => $name . '_fee',
-				'name'  => $name . '_fee',
-				'value' => '1',
-			],
+
+		$o['imagep']['type'] = 'hidden';
+		$o['imagep']['tags'] = [
+			'class' => 't tm_option_image tm_option_imagep tc-option-imagep' . $class,
+			'value' => '',
+		];
+
+		$o['imagel']['type'] = 'hidden';
+		$o['imagel']['tags'] = [
+			'class' => 't tm_option_image tm_option_imagel tc-option-imagel' . $class,
+			'value' => '',
+		];
+
+		$o['price_type']['type']    = 'select';
+		$o['price_type']['options'] = $price_type_options;
+		$o['price_type']['tags']    = [
+			'class' => 't tm_option_price_type ' . $name,
+		];
+
+		$o['url']['type'] = 'text';
+		$o['url']['tags'] = [
+			'class' => 't tm_option_url',
+			'value' => '',
+		];
+
+		$o['description']['type'] = 'text';
+		$o['description']['tags'] = [
+			'class' => 't tm_option_description',
+			'value' => '',
+		];
+
+		$o['enabled']['type']    = 'checkbox';
+		$o['enabled']['default'] = '1';
+		$o['enabled']['tags']    = [
+			'class' => 'c tm_option_enabled ' . $name,
+			'value' => '1',
+		];
+
+		$o['color']['type'] = 'text';
+		$o['color']['tags'] = [
+			'class' => 'tm-color-picker',
+			'value' => '',
+		];
+
+		$o['fee']['type'] = 'checkbox';
+		$o['fee']['tags'] = [
+			'class' => 'c',
+			'value' => '1',
 		];
 
 		foreach ( $_extra_options as $__key => $__name ) {
@@ -5470,126 +5162,32 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 
 			$options = apply_filters( 'wc_epo_builder_element_array_in_loop_before', $options, $o, $ar, $name, $counter );
 
-			$o['title']['default']      = $options['title'][ $ar ];// label.
-			$o['title']['tags']['name'] = 'tm_meta[tmfbuilder][' . $name . '_title][' . ( is_null( $counter ) ? 0 : $counter ) . '][]';
-			$o['title']['tags']['id']   = str_replace( [ '[', ']' ], '', $o['title']['tags']['name'] ) . '_' . $ar;
-
-			$o['value']['default']      = $options['value'][ $ar ];// value.
-			$o['value']['tags']['name'] = 'tm_meta[tmfbuilder][' . $name . '_value][' . ( is_null( $counter ) ? 0 : $counter ) . '][]';
-			$o['value']['tags']['id']   = str_replace( [ '[', ']' ], '', $o['value']['tags']['name'] ) . '_' . $ar;
-
-			$o['price']['default']      = themecomplete_convert_local_numbers( $options['price'][ $ar ] );// price.
-			$o['price']['tags']['name'] = 'tm_meta[tmfbuilder][' . $name . '_price][' . ( is_null( $counter ) ? 0 : $counter ) . '][]';
-			$o['price']['tags']['id']   = str_replace( [ '[', ']' ], '', $o['price']['tags']['name'] ) . '_' . $ar;
-
-			$o['sale_price']['default']      = themecomplete_convert_local_numbers( $options['sale_price'][ $ar ] );// sale_price.
-			$o['sale_price']['tags']['name'] = 'tm_meta[tmfbuilder][' . $name . '_sale_price][' . ( is_null( $counter ) ? 0 : $counter ) . '][]';
-			$o['sale_price']['tags']['id']   = str_replace(
-				[
-					'[',
-					']',
-				],
-				'',
-				$o['sale_price']['tags']['name']
-			) . '_' . $ar;
-
-			$o['image']['default']      = $options['image'][ $ar ];// image.
-			$o['image']['tags']['name'] = 'tm_meta[tmfbuilder][' . $name . '_image][' . ( is_null( $counter ) ? 0 : $counter ) . '][]';
-			$o['image']['tags']['id']   = str_replace( [ '[', ']' ], '', $o['image']['tags']['name'] ) . '_' . $ar;
-			$o['image']['extra']        = [
+			foreach ( $o as $o_property => $o_value ) {
+				if ( isset( $options[ $o_property ] ) ) {
+					$o[ $o_property ]['default'] = $options[ $o_property ][ $ar ];
+					if ( 'price' === $o_property || 'sale_price' === $o_property ) {
+						$o[ $o_property ]['default'] = themecomplete_convert_local_numbers( $o[ $o_property ]['default'] );
+					}
+					$o[ $o_property ]['tags']['name'] = 'tm_meta[tmfbuilder][' . $name . '_' . $o_property . '][' . ( is_null( $counter ) ? 0 : $counter ) . '][]';
+					$o[ $o_property ]['tags']['id']   = str_replace( [ '[', ']' ], '', $o[ $o_property ]['tags']['name'] ) . '_' . $ar;
+				}
+			}
+			$o['image']['extra']  = [
 				[ $this, 'builder_sub_options_image_helper' ],
 				[ $name, $options['image'][ $ar ] ],
 			];
-
-			$o['imagec']['default']      = $options['imagec'][ $ar ];// imagec.
-			$o['imagec']['tags']['name'] = 'tm_meta[tmfbuilder][' . $name . '_imagec][' . ( is_null( $counter ) ? 0 : $counter ) . '][]';
-			$o['imagec']['tags']['id']   = str_replace(
-				[
-					'[',
-					']',
-				],
-				'',
-				$o['imagec']['tags']['name']
-			) . '_' . $ar;
-			$o['imagec']['extra']        = [
+			$o['imagec']['extra'] = [
 				[ $this, 'builder_sub_options_imagec_helper' ],
 				[ $name, $options['imagec'][ $ar ] ],
 			];
-
-			$o['imagep']['default']      = $options['imagep'][ $ar ];// imagep.
-			$o['imagep']['tags']['name'] = 'tm_meta[tmfbuilder][' . $name . '_imagep][' . ( is_null( $counter ) ? 0 : $counter ) . '][]';
-			$o['imagep']['tags']['id']   = str_replace(
-				[
-					'[',
-					']',
-				],
-				'',
-				$o['imagep']['tags']['name']
-			) . '_' . $ar;
-			$o['imagep']['extra']        = [
+			$o['imagep']['extra'] = [
 				[ $this, 'builder_sub_options_imagep_helper' ],
 				[ $name, $options['imagep'][ $ar ] ],
 			];
-
-			$o['imagel']['default']      = $options['imagel'][ $ar ];// imagel.
-			$o['imagel']['tags']['name'] = 'tm_meta[tmfbuilder][' . $name . '_imagel][' . ( is_null( $counter ) ? 0 : $counter ) . '][]';
-			$o['imagel']['tags']['id']   = str_replace(
-				[
-					'[',
-					']',
-				],
-				'',
-				$o['imagel']['tags']['name']
-			) . '_' . $ar;
-			$o['imagel']['extra']        = [
+			$o['imagel']['extra'] = [
 				[ $this, 'builder_sub_options_imagel_helper' ],
 				[ $name, $options['imagel'][ $ar ] ],
 			];
-
-			$o['price_type']['default']      = $options['price_type'][ $ar ];// price type.
-			$o['price_type']['tags']['name'] = 'tm_meta[tmfbuilder][' . $name . '_price_type][' . ( is_null( $counter ) ? 0 : $counter ) . '][]';
-			$o['price_type']['tags']['id']   = str_replace(
-				[
-					'[',
-					']',
-				],
-				'',
-				$o['price_type']['tags']['name']
-			) . '_' . $ar;
-
-			$o['url']['default']      = $options['url'][ $ar ];// url.
-			$o['url']['tags']['name'] = 'tm_meta[tmfbuilder][' . $name . '_url][' . ( is_null( $counter ) ? 0 : $counter ) . '][]';
-			$o['url']['tags']['id']   = str_replace( [ '[', ']' ], '', $o['url']['tags']['name'] ) . '_' . $ar;
-
-			$o['description']['default']      = $options['description'][ $ar ];// description.
-			$o['description']['tags']['name'] = 'tm_meta[tmfbuilder][' . $name . '_description][' . ( is_null( $counter ) ? 0 : $counter ) . '][]';
-			$o['description']['tags']['id']   = str_replace(
-				[
-					'[',
-					']',
-				],
-				'',
-				$o['description']['tags']['name']
-			) . '_' . $ar;
-
-			$o['enabled']['default']      = $options['enabled'][ $ar ];// enabled.
-			$o['enabled']['tags']['name'] = 'tm_meta[tmfbuilder][' . $name . '_enabled][' . ( is_null( $counter ) ? 0 : $counter ) . '][]';
-			$o['enabled']['tags']['id']   = str_replace(
-				[
-					'[',
-					']',
-				],
-				'',
-				$o['enabled']['tags']['name']
-			) . '_' . $ar;
-
-			$o['color']['default']      = $options['color'][ $ar ];// color.
-			$o['color']['tags']['name'] = 'tm_meta[tmfbuilder][' . $name . '_color][' . ( is_null( $counter ) ? 0 : $counter ) . '][]';
-			$o['color']['tags']['id']   = str_replace( [ '[', ']' ], '', $o['color']['tags']['name'] ) . '_' . $ar;
-
-			$o['fee']['default']      = $options['fee'][ $ar ];// fee.
-			$o['fee']['tags']['name'] = 'tm_meta[tmfbuilder][' . $name . '_fee][' . ( is_null( $counter ) ? 0 : $counter ) . '][]';
-			$o['fee']['tags']['id']   = str_replace( [ '[', ']' ], '', $o['fee']['tags']['name'] ) . '_' . $ar;
 
 			foreach ( $_extra_options as $__key => $__name ) {
 				if ( 'multiple_' . $__name['type'] . '_options' === $name ) {
@@ -5759,7 +5357,7 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 			if ( ! empty( $additional_currencies ) && is_array( $additional_currencies ) ) {
 				$_copy_value                          = $o['price'];
 				$_sale_copy_value                     = $o['sale_price'];
-				$o['price']['html_before_field']      = '<span class="tm-choice-currency">' . THEMECOMPLETE_EPO_HELPER()->wc_base_currency() . '</span>';
+				$o['price']['html_before_field']      = '<span class="tm-choice-currency">' . THEMECOMPLETE_EPO_HELPER()->wc_base_currency() . '</span><span class="tm-choice-regular">' . esc_html__( 'Regular', 'woocommerce-tm-extra-product-options' ) . '</span>';
 				$o['sale_price']['html_before_field'] = '<span class="tm-choice-currency">' . THEMECOMPLETE_EPO_HELPER()->wc_base_currency() . '</span><span class="tm-choice-sale">' . esc_html__( 'Sale', 'woocommerce-tm-extra-product-options' ) . '</span>';
 				if ( empty( $return_js ) ) {
 					THEMECOMPLETE_EPO_HTML()->create_field( $o['price'], 1 );
@@ -5774,7 +5372,7 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 					$copy_value['default'] = isset( $options[ 'price_' . $currency ][ $ar ] ) ? $options[ 'price' . $mt_prefix ][ $ar ] : '';
 					$copy_value['id']     .= $mt_prefix;
 
-					$copy_value['html_before_field'] = '<span class="tm-choice-currency">' . $currency . '</span>';
+					$copy_value['html_before_field'] = '<span class="tm-choice-currency">' . $currency . '</span><span class="tm-choice-regular">' . esc_html__( 'Regular', 'woocommerce-tm-extra-product-options' ) . '</span>';
 					$copy_value['tags']['name']      = 'tm_meta[tmfbuilder][' . $name . '_price' . $mt_prefix . '][' . ( is_null( $counter ) ? 0 : $counter ) . '][]';
 					$copy_value['tags']['id']        = str_replace(
 						[

@@ -32,7 +32,7 @@ $needs_customs = $this->needs_customs_step( $order );
 </div>
 <script type="text/javascript">
 	jQuery(function() {
-		var stamps_package_types = JSON.parse( decodeURIComponent( '<?php echo rawurlencode( wp_json_encode( array_map( 'esc_js', $this->package_types ) ) ); ?>' ) );
+		var stamps_package_types = JSON.parse( decodeURIComponent( '<?php echo rawurlencode( wp_json_encode( $this->package_types ) ); ?>' ) );
 
 		jQuery('#wc_stamps_get_label')
 			.on( 'click', '.stamps-action', function() {
@@ -46,7 +46,7 @@ $needs_customs = $this->needs_customs_step( $order );
 
 				var action = jQuery(this).data( 'stamps_action' );
 				var data   = {
-					order_id:  <?php echo $post->ID; ?>,
+					order_id:  <?php echo $order->get_id(); ?>,
 					action:    'wc_stamps_' + action,
 					security:  '<?php echo wp_create_nonce( "stamps" ); ?>',
 					data:      jQuery('#wc_stamps_get_label').find('input, select').serialize(),

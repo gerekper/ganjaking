@@ -15,7 +15,10 @@ class ValidationException extends \RuntimeException {
   /** @var ConstraintViolationListInterface|ConstraintViolationInterface[] */
   private $violations;
 
-  public function __construct($resourceName, ConstraintViolationListInterface $violations) {
+  public function __construct(
+    $resourceName,
+    ConstraintViolationListInterface $violations
+  ) {
     $this->resourceName = $resourceName;
     $this->violations = $violations;
 

@@ -39,7 +39,7 @@ function seedprod_pro_subscribers_datatable() {
 
 		// Get records
 
-		$sql = "SELECT *
+		$sql = "SELECT *, UNIX_TIMESTAMP(created) as created_timestamp
              FROM $tablename 
              ";
 
@@ -67,8 +67,8 @@ function seedprod_pro_subscribers_datatable() {
 		$data = array();
 		foreach ( $results as $v ) {
 
-				// Format Date
-			$created_at = gmdate( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $v->created ) );
+			// Format created timestamp to site timezone & format.
+			$created_at = get_date_from_gmt( gmdate( 'Y-m-d H:i:s', $v->created_timestamp ), get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) );
 
 			// Load Data
 			$data[] = array(
@@ -231,12 +231,12 @@ function seedprod_pro_update_subscriber_count() {
 function seedprod_pro_delete_subscribers() {
 	if ( check_ajax_referer( 'seedprod_pro_delete_subscribers' ) ) {
 		if ( current_user_can( apply_filters( 'seedprod_delete_subscriber_capability', 'list_users' ) ) && ! empty( $_POST['items'] ) ) {
-			$dids = sanitize_text_field( wp_unslash( $_POST['items'] ) );
+			$dids = wp_unslash( $_POST['items'] );
 			if ( is_array( $dids ) && ! empty( $dids ) ) {
 				global $wpdb;
 				$tablename = $wpdb->prefix . 'csp3_subscribers';
 				$sql       = "SELECT id FROM $tablename";
-				$sql      .= ' WHERE id IN ( ' . esc_sql( implode( ',', $dids ) ) . ' )';
+				$sql      .= ' WHERE id IN ( ' . esc_sql( sanitize_text_field( implode( ',', $dids ) ) ) . ' )';
 				$ids       = $wpdb->get_col( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
 				$how_many     = count( $ids );

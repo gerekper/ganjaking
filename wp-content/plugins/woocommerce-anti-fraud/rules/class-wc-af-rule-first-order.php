@@ -13,7 +13,7 @@ class WC_AF_Rule_First_Order extends WC_AF_Rule {
 	public function __construct() {
 		$this->is_enabled  = get_option('wc_af_first_order');
 		$this->rule_weight = get_option('wc_settings_anti_fraud_first_order_weight');
-		parent::__construct( 'first_order', 'This is the customer&apos;s first order with this billing details.', $this->rule_weight );
+		parent::__construct( 'first_order', 'This is the customer\'s first order with this billing details.', $this->rule_weight );
 	}
 
 	/**
@@ -46,7 +46,7 @@ class WC_AF_Rule_First_Order extends WC_AF_Rule {
  			FROM $wpdb->postmeta PM
  			INNER JOIN $wpdb->posts P ON P.ID = PM.post_id
  			WHERE PM.meta_key = '_billing_email' AND PM.meta_value = %s AND P.post_type = 'shop_order'
-			AND P.post_status IN ( %s )", $order->get_billing_email(), $statuses )); 
+			AND P.post_status IN ( 'wc-completed' )", $order->get_billing_email() )); 
 
 			Af_Logger::debug('first order amount: ' . print_r($order_amount, true));
 			
@@ -55,15 +55,14 @@ class WC_AF_Rule_First_Order extends WC_AF_Rule {
 			 * 
 			 * @since  1.0.0
 			 */
-			$statuses = "'wc-" . implode("','wc", apply_filters( 'wc_af_high_value_value_order_statuses', array('completed', 'processing', 'pending','on-hold') )) . "'";
+			$statuses = "'wc-" . implode("','wc-", apply_filters( 'wc_af_high_value_value_order_statuses', array('completed', 'processing', 'pending','on-hold') )) . "'";
 
 		Af_Logger::debug('first order rule status 1 ' . print_r($statuses, true));
 			
 			$order_count =  $wpdb->get_var($wpdb->prepare( "SELECT COUNT(P.ID)
  			FROM $wpdb->postmeta PM
  			INNER JOIN $wpdb->posts P ON P.ID = PM.post_id
- 			WHERE PM.meta_key = '_billing_email' AND PM.meta_value = %s AND P.post_type = 'shop_order'
-			AND P.post_status IN ( %s )", $order->get_billing_email(), $statuses )); 		
+ 			WHERE PM.meta_key = '_billing_email' AND PM.meta_value = %s AND P.post_type = 'shop_order'", $order->get_billing_email() )); 		
 			
 			Af_Logger::debug('first order count: ' . print_r($order_count, true));
 

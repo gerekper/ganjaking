@@ -770,7 +770,7 @@ class WC_AM_Product_Data_Store {
 	public function is_api_product_unlimited_activations( $product_id ) {
 		$is_unlimited = $this->get_meta( $product_id, '_api_activations_unlimited' );
 
-		return ! empty( $is_unlimited ) && $is_unlimited == 'yes' ? true : false;
+		return ! empty( $is_unlimited ) && $is_unlimited == 'yes';
 	}
 
 	/**

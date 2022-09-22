@@ -1,5 +1,10 @@
 *** WooCommerce Product Bundles ***
 
+2022.09.13 - version 6.17.0
+* Important - PHP 7.0 is now required.
+* Tweak - Prevent the 'Optional' box from being checked when the Minimum Quantity is zero.
+* Fix - Fixed a fatal error that was triggered by the Min/Max Quantities integration when an old version of the extension was in use.
+
 2022.08.29 - version 6.16.1
 * Important - The Min/Max Quantities integration requires Min/Max Quantities v3+.
 * Fix - Fixed fatal error that was triggered when trying to add a Bundle with invalid configuration to an order.

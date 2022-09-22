@@ -1,5 +1,27 @@
 *** WooCommerce Stamps.com shipping and API integration ***
 
+2022-09-15 - version 1.8.0
+* Tweak - WC Custom Order Tables compatibility.
+
+2022-09-07 - version 1.7.2
+* Fix - Exclude unnecessary files from plugin zip file.
+
+
+2022-07-18 - version 1.7.1
+* Tweak - WC 6.6 and WP 6.0 compatibility.
+* Tweak - Transition version numbering to WordPress versioning.
+* Fix   - Change Top-up page permission to use 'manage_woocommerce' to let Shop Manager access the page.
+
+2022-05-25 - version 1.3.26
+* Fix   - Use correct name for transient.
+
+2022-01-05 - version 1.3.25
+* Fix   - Missing Languages folder and .pot file in release-ready zip file.
+
+2021-09-13 - version 1.3.24
+* Fix - Error when requesting rate for USPS Medium Flat Rate Box.
+* Fix - USPS Box weight is not being calculated in total weight.
+
 2021-08-19 - version 1.3.23
 * Tweak - Changed label for USPS Medium Flat Rate Box.
 
@@ -52,7 +74,7 @@
 * Fix   - Plugin crashes dashboard when SoapClient isn't present.
 
 2018-09-26 - version 1.3.7
-* Fix   - Fixed rounding issue with control totals for top ups. 
+* Fix   - Fixed rounding issue with control totals for top ups.
 * Update - WC tested up to 3.5
 
 2018-05-23 - version 1.3.6

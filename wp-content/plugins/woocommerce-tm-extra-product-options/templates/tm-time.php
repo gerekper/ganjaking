@@ -42,6 +42,7 @@ defined( 'ABSPATH' ) || exit;
 			'data-tranlation-hour'     => $tranlation_hour,
 			'data-tranlation-minute'   => $tranlation_minute,
 			'data-tranlation-second'   => $tranlation_second,
+			'inputmode'                => 'none',
 		],
 	];
 	if ( isset( $required ) && ! empty( $required ) ) {

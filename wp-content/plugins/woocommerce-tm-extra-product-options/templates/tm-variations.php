@@ -422,6 +422,7 @@ if (
 					case 'radioend':
 					case 'image':
 					case 'color':
+					case 'text':
 						if ( 'color' === $variations_display_as ) {
 							$images = [];
 						}
@@ -458,6 +459,9 @@ if (
 									break;
 								case 'color':
 									$replacement_mode = 'color';
+									break;
+								case 'text':
+									$replacement_mode = 'text';
 									break;
 								case 'radiostart':
 									$replacement_mode = 'image';

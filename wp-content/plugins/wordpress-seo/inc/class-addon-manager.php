@@ -368,7 +368,7 @@ class WPSEO_Addon_Manager {
 		if ( $subscription && $this->has_subscription_expired( $subscription ) ) {
 			echo '<br><br>';
 			/* translators: %1$s is the plugin name, %2$s and %3$s are a link. */
-			echo '<strong><span class="wp-ui-text-notification alert dashicons dashicons-warning"></span> ' . sprintf( esc_html__( 'A new version of %1$s is available. %2$sRenew your subscription%3$s if you want to update to the latest version.', 'wordpress-seo' ), esc_html( $plugin_data['name'] ), '<a href="' . esc_attr( WPSEO_Shortlinker::get( 'https://yoa.st/4ey' ) ) . '">', '</a>' ) . '</strong>';
+			echo '<strong><span class="wp-ui-text-notification alert dashicons dashicons-warning"></span> ' . sprintf( esc_html__( 'A new version of %1$s is available. %2$sRenew your subscription%3$s if you want to update to the latest version.', 'wordpress-seo' ), esc_html( $plugin_data['name'] ), '<a href="' . esc_url( WPSEO_Shortlinker::get( 'https://yoa.st/4ey' ) ) . '">', '</a>' ) . '</strong>';
 		}
 	}
 
@@ -780,12 +780,12 @@ class WPSEO_Addon_Manager {
 		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Not our properties.
 		return (object) [
 			'renewal_url' => 'yoast.com',
-			'expiry_date' => '31/08/2027',
+			'expiry_date' => '20/09/2027',
 			'product'     => (object) [
-				'version'      => '19.2.1',
+				'version'      => '19.3.0',
 				'name'         => 'Yoast SEO Premium',
 				'slug'         => 'wordpress-seo-premium',
-				'last_updated' => '31/08/2022',
+				'last_updated' => '20/09/2027',
 				'store_url'    => 'yoast.com',
 				// Ternary operator is necessary because download can be undefined.
 				'download'     => 'yoast.com',

@@ -40,29 +40,27 @@ class WC_Shipment_Tracking_Updater_1_6_5 extends WC_Shipment_Tracking_Updater {
 	private function convert_old_meta_in_order( $order_id ) {
 		$this->log_debug( sprintf( 'Updating legacy meta in order #%s.', $order_id ) );
 
-		$tracking_provider        = get_post_meta( $order_id, '_tracking_provider', true );
-		$custom_tracking_provider = get_post_meta( $order_id, '_custom_tracking_provider', true );
-		$tracking_number          = get_post_meta( $order_id, '_tracking_number', true );
-		$custom_tracking_link     = get_post_meta( $order_id, '_custom_tracking_link', true );
-		$date_shipped             = get_post_meta( $order_id, '_date_shipped', true );
+		$order = wc_get_order( $order_id );
+
+		$tracking_provider        = $order->get_meta( '_tracking_provider' );
+		$custom_tracking_provider = $order->get_meta( '_custom_tracking_provider' );
+		$tracking_number          = $order->get_meta( '_tracking_number' );
+		$custom_tracking_link     = $order->get_meta( '_custom_tracking_link' );
+		$date_shipped             = $order->get_meta( '_date_shipped' );
 
 		if ( empty( $tracking_provider ) && ! empty( $custom_tracking_provider ) ) {
 			$tracking_provider = $custom_tracking_provider;
 		}
 
-		wc_st_add_tracking_number(
-			$order_id,
-			$tracking_number,
-			$tracking_provider,
-			$date_shipped,
-			$custom_tracking_link
-		);
+		wc_st_add_tracking_number( $order_id, $tracking_number, $tracking_provider, $date_shipped, $custom_tracking_link );
 
-		delete_post_meta( $order_id, '_tracking_number' );
-		delete_post_meta( $order_id, '_tracking_provider' );
-		delete_post_meta( $order_id, '_custom_tracking_provider' );
-		delete_post_meta( $order_id, '_custom_tracking_link' );
-		delete_post_meta( $order_id, '_date_shipped' );
+		$order->delete_meta_data( '_tracking_number' );
+		$order->delete_meta_data( '_tracking_provider' );
+		$order->delete_meta_data( '_custom_tracking_provider' );
+		$order->delete_meta_data( '_custom_tracking_link' );
+		$order->delete_meta_data( '_date_shipped' );
+
+		$order->save();
 	}
 
 	/**

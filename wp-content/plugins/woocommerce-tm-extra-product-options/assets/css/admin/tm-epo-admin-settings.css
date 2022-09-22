@@ -460,7 +460,7 @@
 	padding: 8px 16px !important;
 	line-height: 36px;
 	font-size: 13px;
-	height: auto !important;
+	height: auto;
 	color: #727a92 !important;
 	margin: 1px;
 	outline: none;
@@ -539,16 +539,22 @@
 	position: absolute;
 	border: 0;
 	top: 9px;
-	right: 16px;
+	right: 17px;
+	-webkit-box-pack: flex-end;
+	-webkit-justify-content: flex-end;
+	-ms-flex-pack: flex-end;
+	justify-content: flex-end;
+	align-items: center;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
 }
 
 .woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default .select2-selection--single .select2-selection__arrow::after {
 	font-weight: 900;
 	font-family: tc-fontawesome, Arial, Helvetica, sans-serif;
 	content: "\f107";
-	top: -1px;
-	right: 16px;
-	position: absolute;
 }
 
 .woocommerce .tc-wrapper table.form-table .select2-container.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow::after {
@@ -568,7 +574,7 @@
 	border: 1px solid #4732f9 !important;
 	margin-top: 0;
 	margin-left: 1px;
-	padding: 8px 16px;
+	padding: 16px;
 	-webkit-box-shadow: none !important;
 	-moz-box-shadow: none !important;
 	box-shadow: none !important;
@@ -1105,6 +1111,10 @@
 	border-image: linear-gradient(to right, transparent, #fff 22%, #00f, #ee82ee, #fff 96%, transparent) 25 25 stretch;
 }
 
+.tm-settings-wrap .tm-footer.full {
+	border-image: linear-gradient(to right, transparent, #fff 6%, #00f, #ee82ee, #fff 96%, transparent) 25 25 stretch;
+}
+
 /*****************/
 .tm-sidebar-head {
 	text-align: left;
@@ -1475,6 +1485,10 @@ body.tc-hide-nav {
 	width: 100% !important;
 }
 
+.tm-mn-wrap-heading,
+.tm-mn-wrap-file,
+.tm-mn-wrap-dir,
+.tm-mn-op,
 .constant-value-wrap,
 .tc-constant-delete {
 	display: -webkit-box;
@@ -1485,6 +1499,16 @@ body.tc-hide-nav {
 
 	align-items: center;
 	justify-content: center;
+}
+
+.tm-mn-name,
+.tm-mn-size {
+	flex: 0 1 50%;
+}
+
+.tm-mn-op {
+	flex: 0 1 40px;
+	justify-content: flex-end;
 }
 
 .tc-constant-delete {

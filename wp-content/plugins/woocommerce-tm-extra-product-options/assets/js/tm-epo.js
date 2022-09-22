@@ -531,25 +531,14 @@
 		};
 	}
 
-	tcmexp.addToken( [
-		{
-			type: 12,
-			token: 'if',
-			show: 'if',
-			value: function( a, b, c ) {
-				var max;
-				var a2 = tcmexp.eval( a + '' );
-				var b2 = tcmexp.eval( b + '' );
-				max = c.postfixEval( { n: a } );
-				max = tcmexp.eval( max + '' );
+	function readableFileSize( a, b, c, d, e ) {
+		b = Math;
+		c = b.log;
+		d = 1024;
+		e = c( a ) / c( d ) | 0; //eslint-disable-line no-bitwise
 
-				if ( a2 ) {
-					return b2;
-				}
-				return max;
-			}
-		}
-	] );
+		return ( ( a / b.pow( d, e ) ).toFixed( e ? 2 : 0 ) ) + ' ' + ( e ? 'KMGTPEZY'[ --e ] + 'B' : 'bytes' );
+	}
 
 	function toggleState( thisProductContainerWrap, disabled ) {
 		thisProductContainerWrap.toArray().forEach( function( setter ) {
@@ -1569,7 +1558,7 @@
 	}
 
 	function getCurrentQty( currentCart ) {
-		return parseFloat( getQtyElement( currentCart ).val() );
+		return $.epoAPI.math.toFloat( getQtyElement( currentCart ).val() );
 	}
 
 	function add_variation_event( name, selector, func ) {
@@ -1581,12 +1570,35 @@
 	}
 
 	function field_is_active( field, nochecks, single ) {
+		var ret = true;
+		var insideProductCheck = false;
+		var productElement;
+		field = $( field );
+		productElement = field.filter( '.tc-epo-field-product' );
+		if ( productElement.length && productElement.data( 'islogicinit' ) === undefined ) {
+			insideProductCheck = true;
+		}
+		field.each( function( j, element ) {
+			if ( ! ret && field.has( '.tc-epo-field-product' ).length ) {
+				if ( insideProductCheck || productElement.is( '.tcdisabled' ) ) {
+					field_check_active( element, nochecks, single );
+				}
+			} else {
+				ret = field_check_active( element, nochecks, single ) && ret;
+			}
+		} );
+
+		return ret;
+	}
+
+	function field_check_active( field, nochecks, single ) {
 		var hideElement;
 		var singleField;
 		var ul;
 		var isInsideProductElement;
 		var productElementActive;
 		var productElementSectionActive;
+		var productElementQty;
 
 		field = $( field );
 		if ( field.is( '.cpf-element' ) ) {
@@ -1602,9 +1614,21 @@
 			ul = hideElement;
 		}
 
+		if ( field.is( '.tc-epo-field-product' ) && field.data( 'islogicinit' ) === undefined ) {
+			field.data( 'islogicinit', 1 );
+		}
+
 		isInsideProductElement = hideElement.closest( '.cpf-type-product' );
 
-		if ( isInsideProductElement ) {
+		if ( isInsideProductElement.length ) {
+			productElementQty = isInsideProductElement.find( tcAPI.associateQtySelector );
+			if ( $.epoAPI.math.toFloat( productElementQty.val() ) > 0 ) {
+				field.removeClass( 'ignore' );
+				productElementQty.removeClass( 'ignore' );
+			} else {
+				field.addClass( 'ignore' );
+				productElementQty.addClass( 'ignore' );
+			}
 			productElementActive = isInsideProductElement.data( 'isactive' );
 			isInsideProductElement = isInsideProductElement.closest( '.cpf-section' );
 			productElementSectionActive = isInsideProductElement.data( 'isactive' );
@@ -1916,20 +1940,8 @@
 							}
 							break;
 
-						case 'cpf-type-textarea':
-							val = element.find( 'textarea.tm-epo-field.tmcp-textarea' + elementToCheck ).val();
-							break;
-
-						case 'cpf-type-textfield':
-							val = element.find( 'input.tm-epo-field.tmcp-textfield' + elementToCheck ).val();
-							break;
-
-						case 'cpf-type-color':
-							val = element.find( 'input.tm-epo-field.tm-color-picker' + elementToCheck ).val();
-							break;
-
-						case 'cpf-type-range':
-							val = element.find( 'input.tm-epo-field.tmcp-range' + elementToCheck ).val();
+						default:
+							val = element.find( 'input.tm-epo-field' + elementToCheck ).val();
 							break;
 					}
 					if ( Array.isArray( val ) ) {
@@ -2063,24 +2075,12 @@
 					}
 					break;
 
-				case 'cpf-type-textarea':
-					val = element.find( 'textarea.tm-epo-field.tmcp-textarea' + elementToCheck ).val();
-					break;
-
-				case 'cpf-type-textfield':
-					val = element.find( 'input.tm-epo-field.tmcp-textfield' + elementToCheck ).val();
-					break;
-
-				case 'cpf-type-color':
-					val = element.find( 'input.tm-epo-field.tm-color-picker' + elementToCheck ).val();
-					break;
-
-				case 'cpf-type-range':
-					val = element.find( 'input.tm-epo-field.tmcp-range' + elementToCheck ).val();
-					break;
-
 				case 'cpf-type-variations':
 					return tm_variation_check_match( element, value, operator );
+
+				default:
+					val = element.find( 'input.tm-epo-field' + elementToCheck ).val();
+					break;
 			}
 			if ( Array.isArray( val ) ) {
 				return val.some( function( item ) {
@@ -2549,7 +2549,7 @@
 			tax_display_mode = _cart.attr( 'data-tax-display-mode' );
 			prices_include_tax = _cart.attr( 'data-prices-include-tax' );
 			if ( taxable ) {
-				if ( variation && variation.tc_tax_rate.toString() === '0' ) {
+				if ( variation && variation.tc_tax_rate && String( variation.tc_tax_rate ) === '0' ) {
 					return value;
 				}
 				if ( prices_include_tax === '1' ) {
@@ -2699,7 +2699,12 @@
 		var check_if_all_are_not_set = [];
 		var formSettings = get_variation_current_settings( form, epoObject );
 		var redo_check = true;
+		var variationId = form.find( getVariationIdSelector( form ) ).val();
+		variationId = ( variationId !== '0' && variationId !== '' ) || form.find( '.cpf-type-variations' ).find( '.tm-epo-variation-element:checked' ).length > 0;
 
+		if ( ! variationId ) {
+			return;
+		}
 		form.find( '.cpf-type-variations' ).each( function( i, el ) {
 			var t = $( el ).find( '.tm-epo-variation-element' );
 			var id;
@@ -2753,19 +2758,22 @@
 
 					is_in_stock = variation && 'is_in_stock' in variation && variation.is_in_stock;
 
-					if ( ! variation || ! is_in_stock ) {
+					if ( ! is_in_stock ) {
+						if ( ! input.is( ':checked' ) && ! is_in_stock ) {
+							li.addClass( 'pointereventsoff' );
+						} else {
+							li.removeClass( 'pointereventsoff' );
+						}
+
 						o.attr( 'disabled', 'disabled' ).addClass( 'tm-disabled' );
 
 						input.attr( 'disabled', 'disabled' );
 						input.attr( 'data-tm-disabled', 'disabled' );
 
 						li.addClass( 'tm-attribute-disabled' ).fadeTo( 'fast', 0.5 );
-						if ( ! is_in_stock ) {
-							li.find( 'label' ).off();
-						}
 					} else {
 						o.prop( 'disabled', false ).removeClass( 'tm-disabled' );
-						li.removeClass( 'tm-attribute-disabled' ).fadeTo( 'fast', 1, function() {
+						li.removeClass( 'pointereventsoff tm-attribute-disabled' ).fadeTo( 'fast', 1, function() {
 							$( this ).css( 'opacity', '' );
 						} );
 						input.prop( 'disabled', false );
@@ -2969,10 +2977,14 @@
 		$.tcFloatingTotalsBox( this_epo_totals_container, is_quickview, main_cart );
 	}
 
-	function tm_show_hide_add_to_cart_button( main_product, epoObject, one_option_is_selected ) {
+	function tm_show_hide_add_to_cart_button( main_product, epoObject, one_option_is_selected, currentEpoObject ) {
 		var button;
+		var qty;
 		var has_epo;
 		var this_epo_container;
+		var epos;
+		var allElementsAreSelected;
+		var showHide = true;
 
 		if ( typeof epoObject === 'object' ) {
 			has_epo = epoObject.has_epo;
@@ -2982,13 +2994,112 @@
 			has_epo = epoObject;
 		}
 
-		// Hide cart button check
-		if ( has_epo && TMEPOJS.tm_epo_hide_add_cart_button === 'yes' ) {
+		if ( has_epo && ( TMEPOJS.tm_epo_hide_add_cart_button === 'yes' || TMEPOJS.tm_epo_hide_all_add_cart_button === 'yes' ) ) {
 			button = main_product.find( tcAPI.addToCartButtonSelector ).first();
-			if ( one_option_is_selected ) {
+			qty = main_product.find( tcAPI.qtySelector ).first();
+
+			// Hide cart button until an elements is chosen
+			if ( TMEPOJS.tm_epo_hide_add_cart_button === 'yes' ) {
+				showHide = one_option_is_selected;
+				if ( one_option_is_selected ) {
+					button.removeClass( 'tc-hide-add-to-cart-button' );
+					qty.removeClass( 'tc-hide-add-to-cart-button' );
+				} else {
+					button.addClass( 'tc-hide-add-to-cart-button' );
+					qty.addClass( 'tc-hide-add-to-cart-button' );
+				}
+			}
+
+			// Hide cart button until all elements are chosen
+			if ( TMEPOJS.tm_epo_hide_all_add_cart_button === 'yes' ) {
+				epos = currentEpoObject.this_epo_container.find( '.cpf-element' ).not( '.cpf-type-variations' ).filter( '.tc-container-enabled' );
+				allElementsAreSelected = epos.toArray().every( function( element ) {
+					var elementToCheck = '';
+					var _class;
+					var noSplit = false;
+					var radio_checked;
+					var checkbox_checked;
+					var val;
+
+					element = $( element );
+					if ( element.is( '.cpf-type-product' ) ) {
+						elementToCheck = ':not(.tc-extra-product-options-inline .tm-epo-field)';
+					}
+					_class = element
+						.attr( 'class' )
+						.split( ' ' )
+						.map( function( cls ) {
+							if ( cls.indexOf( 'cpf-type-', 0 ) !== -1 ) {
+								return cls;
+							}
+							return null;
+						} )
+						.filter( function( v ) {
+							if ( v !== null && v !== undefined ) {
+								return v;
+							}
+							return null;
+						} );
+
+					if ( _class.length > 0 ) {
+						_class = _class[ 0 ];
+						if ( _class === 'cpf-type-product' ) {
+							noSplit = true;
+							if ( element.is( '.cpf-type-product-mode-product' ) || element.is( '.cpf-type-product-checkbox' ) || element.is( '.cpf-type-product-thumbnailmultiple' ) ) {
+								_class = 'cpf-type-checkbox';
+							} else if ( element.is( '.cpf-type-product-dropdown' ) ) {
+								_class = 'cpf-type-select';
+							} else {
+								_class = 'cpf-type-radio';
+							}
+						}
+						switch ( _class ) {
+							case 'cpf-type-radio':
+								radio_checked = element.find( 'input.tm-epo-field.tmcp-radio:checked' + elementToCheck );
+								return radio_checked.length > 0;
+
+							case 'cpf-type-checkbox':
+								checkbox_checked = element.find( 'input.tm-epo-field.tmcp-checkbox:checked' + elementToCheck );
+								return checkbox_checked.length > 0;
+
+							case 'cpf-type-select':
+								val = element.find( 'select.tm-epo-field.tmcp-select' + elementToCheck ).val();
+								if ( val && ! noSplit ) {
+									val = val.slice( 0, val.lastIndexOf( '_' ) );
+								}
+								break;
+
+							case 'cpf-type-selectmultiple':
+								val = element.find( 'select.tm-epo-field.tmcp-selectmultiple' + elementToCheck ).val();
+								if ( val && ! noSplit ) {
+									val.forEach( function( option, i ) {
+										val[ i ] = option.slice( 0, option.lastIndexOf( '_' ) );
+									} );
+								}
+								break;
+
+							default:
+								val = element.find( 'input.tm-epo-field' + elementToCheck ).val();
+								break;
+						}
+						if ( Array.isArray( val ) ) {
+							return val.some( function( item ) {
+								return item !== '';
+							} );
+						}
+						return val !== '';
+					}
+					return false;
+				} );
+				showHide = allElementsAreSelected;
+			}
+
+			if ( showHide ) {
 				button.removeClass( 'tc-hide-add-to-cart-button' );
+				qty.removeClass( 'tc-hide-add-to-cart-button' );
 			} else {
 				button.addClass( 'tc-hide-add-to-cart-button' );
+				qty.addClass( 'tc-hide-add-to-cart-button' );
 			}
 		}
 	}
@@ -3439,7 +3550,7 @@
 			thisElementIndex = 0;
 		}
 
-		if ( ! noevents && ! thisElement.data( 'addedtcEpoBeforeOptionPriceCalculation' ) ) {
+		if ( ! thisElement.is( '.tcdisabled' ) && ! noevents && ! thisElement.data( 'addedtcEpoBeforeOptionPriceCalculation' ) ) {
 			jWindow.on( 'tcEpoBeforeOptionPriceCalculation.math' + thisElementId, function() {
 				tm_element_epo_rules( epoObject, thisElement, undefined, undefined, undefined, true );
 			} );
@@ -3448,6 +3559,8 @@
 				thisElement.data( 'fetchOptionPrices-forced', false );
 				thisElement.data( 'fetchOptionPrices-fee', false );
 				thisElement.data( 'fetchOptionPrices-fee-forced', false );
+				thisElement.data( 'fetchOptionPrices-sub-fee', false );
+				thisElement.data( 'fetchOptionPrices-sub-fee-forced', false );
 			} );
 			thisElement.data( 'addedtcEpoBeforeOptionPriceCalculation', 1 );
 		}
@@ -3472,6 +3585,16 @@
 				thisElement.data( 'fetchOptionPrices-fee', thisVal );
 				thisElement.data( 'fetchOptionPrices-fee-forced', thisValForced );
 			}
+		} else if ( thisElement.is( '.tmcp-sub-fee-field' ) ) {
+			if ( thisElement.data( 'fetchOptionPrices-sub-fee' ) ) {
+				thisVal = thisElement.data( 'fetchOptionPrices-sub-fee' );
+				thisValForced = thisElement.data( 'fetchOptionPrices-sub-fee-forced' );
+			} else {
+				thisVal = fetchOptionPrices( epoObject, thisElementWrap, '.tmcp-sub-fee-field', 0, 0, [], true );
+				thisValForced = fetchOptionPrices( epoObject, thisElementWrap, '.tmcp-sub-fee-field', 0, 0, [], true, true );
+				thisElement.data( 'fetchOptionPrices-sub-fee', thisVal );
+				thisElement.data( 'fetchOptionPrices-sub-fee-forced', thisValForced );
+			}
 		}
 
 		Object.keys( constants ).forEach( function( key ) {
@@ -3481,8 +3604,11 @@
 			if ( constants[ key ].name !== '' && constants[ key ].value !== '' ) {
 				name = new RegExp( '{' + constants[ key ].name + '}', 'g' );
 				value = constants[ key ].value;
-
-				formula = formula.replace( name, $.epoAPI.math.unformat( value, tcAPI.localInputDecimalSeparator ) );
+				if ( value.startsWith( '{' ) ) {
+					formula = formula.replace( name, value );
+				} else {
+					formula = formula.replace( name, $.epoAPI.math.unformat( value, tcAPI.localInputDecimalSeparator ) );
+				}
 			}
 		} );
 
@@ -3503,21 +3629,41 @@
 		}
 
 		if ( thisValForced.floatingBoxData !== undefined && thisValForced.floatingBoxData[ thisElementIndexForced ] !== undefined ) {
-			// the option/element value
+			// the option/element value to float
 			if ( thisValForced.floatingBoxData[ thisElementIndexForced ].input_type === 'number' ) {
 				formula = formula
-					.replace( /{this.value}/g, $.epoAPI.math.unformat( thisValForced.floatingBoxData[ thisElementIndexForced ].valueText ) );
+					.replace( /{this.value}/g, $.epoAPI.math.toFloat( $.epoAPI.math.unformat( thisValForced.floatingBoxData[ thisElementIndexForced ].valueText ) ) );
 			} else {
 				formula = formula
-					.replace( /{this.value}/g, $.epoAPI.math.unformat( thisValForced.floatingBoxData[ thisElementIndexForced ].valueText, tcAPI.localDecimalSeparator ) );
+					.replace( /{this.value}/g, $.epoAPI.math.toFloat( $.epoAPI.math.unformat( thisValForced.floatingBoxData[ thisElementIndexForced ].valueText, tcAPI.localDecimalSeparator ) ) );
 			}
+			// the option/element raw value
+			if ( thisValForced.floatingBoxData[ thisElementIndexForced ].input_type === 'number' ) {
+				formula = formula
+					.replace( /{this.rawvalue}/g, $.epoAPI.math.unformat( thisValForced.floatingBoxData[ thisElementIndexForced ].valueText ) );
+			} else {
+				formula = formula
+					.replace( /{this.rawvalue}/g, $.epoAPI.math.unformat( thisValForced.floatingBoxData[ thisElementIndexForced ].valueText, tcAPI.localDecimalSeparator ) );
+			}
+			// the option/element raw value
+			if ( thisValForced.floatingBoxData[ thisElementIndexForced ].input_type === 'number' ) {
+				formula = formula
+					.replace( /{this.text}/g, $.epoAPI.math.unformat( thisValForced.floatingBoxData[ thisElementIndexForced ].valueText ) );
+			} else {
+				formula = formula
+					.replace( /{this.text}/g, $.epoAPI.math.unformat( thisValForced.floatingBoxData[ thisElementIndexForced ].valueText, tcAPI.localDecimalSeparator ) );
+			}
+			// the option/element value length
 			formula = formula
-				// the option/element value length
 				.replace( /{this.value.length}/g, thisValForced.floatingBoxData[ thisElementIndexForced ].valueText.length );
 		} else {
 			formula = formula
-				// the option/element value
-				.replace( /{this.value}/g, '' )
+				// the option/element value to float
+				.replace( /{this.value}/g, 0 )
+				// the option/element raw value
+				.replace( /{this.rawvalue}/g, '' )
+				// the option/element raw value
+				.replace( /{this.text}/g, '' )
 				// the option/element value length
 				.replace( /{this.value.length}/g, 0 );
 		}
@@ -3549,12 +3695,12 @@
 						id = match[ 2 ].substring( 0, pos );
 						type = match[ 2 ].substring( pos + 1 );
 
-						if ( $.inArray( type, [ 'price', 'value', 'value.length', 'quantity', 'count', 'count.quantity' ] ) !== -1 ) {
+						if ( $.inArray( type, [ 'price', 'value', 'value.length', 'rawvalue', 'text', 'text.length', 'quantity', 'count', 'count.quantity' ] ) !== -1 ) {
 							elementWrap = this_epo_container.find( "[data-uniqid='" + $.epoAPI.util.escapeSelector( id ) + "']" );
 							if ( elementWrap.length ) {
 								element = elementWrap.find( '.tmcp-field, .tmcp-fee-field' );
 
-								if ( ! noevents && ! thisElement.data( 'addedfieldtcEpoBeforeOptionPriceCalculation' ) ) {
+								if ( ! thisElement.is( '.tcdisabled' ) && ! noevents && ! thisElement.data( 'addedfieldtcEpoBeforeOptionPriceCalculation' ) ) {
 									jWindow.on( 'tcEpoBeforeOptionPriceCalculation.math' + thisElementId, function() {
 										tm_element_epo_rules( epoObject, thisElement, undefined, undefined, undefined, true );
 										thisElement.trigger( 'tm-math-select-change-html-all' );
@@ -3580,22 +3726,34 @@
 
 										// element value
 										case 'value':
+										case 'text':
+										case 'rawvalue':
 											if ( val.floatingBoxData ) {
 												val = val.floatingBoxData
 													.map( function( x ) {
 														if ( x.input_type === 'number' ) {
+															if ( type === 'text' || type === 'rawvalue' ) {
+																return x.valueText;
+															}
 															return $.epoAPI.math.unformat( x.valueText );
+														}
+														if ( type === 'text' || type === 'rawvalue' ) {
+															return x.valueText;
 														}
 														return $.epoAPI.math.unformat( x.valueText, tcAPI.localInputDecimalSeparator );
 													} )
 													.reduce( function( acc, thisval ) {
+														if ( type === 'text' || type === 'rawvalue' ) {
+															return acc + thisval;
+														}
 														return $.epoAPI.math.toFloat( acc ) + $.epoAPI.math.toFloat( thisval );
-													}, 0 );
+													}, ( type === 'text' || type === 'rawvalue' ) ? '' : 0 );
 											}
 											break;
 
 										// element value length
 										case 'value.length':
+										case 'text.length':
 											if ( val.floatingBoxData ) {
 												val = val.floatingBoxData
 													.map( function( x ) {
@@ -3629,17 +3787,22 @@
 											}
 											break;
 									}
-									val = $.epoAPI.math.toFloat( val );
-									if ( ! Number.isFinite( val ) ) {
-										val = 0;
+									if ( type !== 'text' && type !== 'rawvalue' ) {
+										val = $.epoAPI.math.toFloat( val );
+										if ( ! Number.isFinite( val ) ) {
+											val = 0;
+										}
 									}
 								}
 							} else {
 								val = 0;
 							}
-
 							reg = new RegExp( match[ 0 ] );
-							formula = ! Number.isFinite( val ) ? formula.replace( reg, "'" + val + "'" ) : formula.replace( reg, val );
+							if ( type === 'text' || type === 'rawvalue' ) {
+								formula = formula.replace( reg, val );
+							} else {
+								formula = ! Number.isFinite( val ) ? formula.replace( reg, "'" + val + "'" ) : formula.replace( reg, val );
+							}
 						}
 					}
 				}
@@ -3647,7 +3810,7 @@
 		}
 
 		try {
-			elementPrice = tcmexp.eval( formula );
+			elementPrice = tcmexp.evaluate( formula );
 		} catch ( e ) {
 			elementPrice = 0;
 		}
@@ -5036,20 +5199,37 @@
 		try {
 			selector
 				.not( tcAPI.epoSelector + ' ' + tcAPI.associatedEpoSelector + ' .tm-epo-field.tmcp-upload' )
-				.not( '.tm-multiple-file-upload' )
 				.toArray()
 				.forEach( function( el ) {
+					var dataFiles;
+					var dataFilename;
+					file = [];
 					field = $( el );
+					if ( field.attr( 'data-file' ) === '' ) {
+						return false;
+					}
+					dataFiles = field.attr( 'data-file' ).split( '|' );
+					if ( dataFiles.length === 0 ) {
+						return false;
+					}
 					if ( ClipboardEvent || DataTransfer ) {
 						dT = new ClipboardEvent( '' ).clipboardData || new DataTransfer();
-						dT.items.add( new File( [ field.attr( 'data-file' ) ], field.attr( 'data-filename' ) ) );
+					}
+					dataFiles.forEach( function( dataFile ) {
+						dataFilename = $.epoAPI.util.basename( dataFile );
+						if ( ClipboardEvent || DataTransfer ) {
+							dT.items.add( new File( [ dataFile ], dataFilename ) );
+						}
+						file.push( dataFile );
+					} );
+					if ( dT ) {
 						el.files = dT.files;
 					}
+					file = file.join( '|' );
 					name = field.attr( 'name' );
-					file = field.attr( 'data-file' );
-					field.trigger( 'change.tcupload' );
+					field.trigger( 'tcupload' );
 					field.after( '<input type="hidden" class="tmcp-upload-hidden" name="' + name + '" value="' + file + '">' );
-					field.removeAttr( 'data-file data-filename' );
+					field.removeAttr( 'data-file' );
 				} );
 		} catch ( err ) {
 			window.console.log( err );
@@ -7789,6 +7969,15 @@
 			}
 		} );
 
+		if ( currentCart.is( 'form' ) ) {
+			currentCart.on( 'reset', function() {
+				var form = $( this );
+				setTimeout( function() {
+					$( form.data( 'epo_id_selector' ) ).find( '.tm-epo-field' ).trigger( 'change' );
+				}, 1 );
+			} );
+		}
+
 		tm_epo_rules( epoObject, currentCart );
 
 		epoFieldAll = epoHolder.find( '.tm-epo-field' );
@@ -8266,11 +8455,19 @@
 				var is_li = field.closest( '.tmcp-field-wrap' );
 				var is_ul = field.closest( '.tmcp-ul-wrap' );
 				var is_replace;
+				var connector = is_ul.attr( 'data-tm-connector' );
 
 				if ( field.is( ':checkbox, :radio' ) ) {
 					if ( field.is( ':radio' ) ) {
 						if ( ! data ) {
-							is_ul.find( '.tmcp-field-wrap' ).removeClass( 'tc-active' );
+							if ( connector !== undefined ) {
+								$( '[data-tm-connector="' + connector + '"]' ).find( '.tmcp-field-wrap' ).removeClass( 'tc-active' );
+							} else {
+								is_ul.find( '.tmcp-field-wrap' ).removeClass( 'tc-active' );
+							}
+						}
+						if ( connector !== undefined ) {
+							$( '[data-tm-connector="' + connector + '"]' ).find( '.tmcp-field-wrap' ).removeClass( 'tc-active' );
 						}
 					}
 					if ( field.is( ':checked' ) ) {
@@ -8405,20 +8602,22 @@
 		}
 
 		epoFieldUpload
-			.off( 'change.cpfv change.tcupload' )
-			.on( 'change.cpfv change.tcupload', function() {
+			.off( 'change.cpfv tcupload' )
+			.on( 'change.cpfv tcupload', function() {
 				var field = $( this );
 				var label = field.closest( 'label' );
 				var li = field.closest( '.tmcp-field-wrap' );
 				var cpfUploadContainer = li.find( '.cpf-upload-container' );
 				var name = li.find( '.tm-filename' );
 				var val = field.val().replace( 'C:\\fakepath\\', '' );
-				var valHidden = field.attr( 'data-file' );
+				var valHidden = [];
 				var num_uploads;
 				var windowURL = window.URL || window.webkitURL;
-				var file = this.files[ 0 ];
+				var files;
 				var image;
 				var uploadPreview = li.find( '.tc-upload-preview' );
+				var addImage;
+				var uniqid;
 
 				if ( cpfUploadContainer.length && name.length <= 0 ) {
 					name = $( '<span class="tm-filename"></span>' );
@@ -8427,36 +8626,179 @@
 				if ( val === undefined || val === 'undefined' ) {
 					val = '';
 				}
-				name.html( val );
+
+				field.next( '.tmcp-upload-hidden' ).remove();
+
+				valHidden = field.attr( 'data-file' );
+				valHidden = valHidden ? valHidden.split( '|' ) : [];
+				if ( this.files ) {
+					files = Array.from( this.files );
+				} else if ( valHidden.length > 0 ) {
+					files = valHidden;
+				}
+
+				if ( files.length > 1 ) {
+					name.html( '' + files.length + ' ' + ( files.length === 1 ? TMEPOJS.i18n_file : TMEPOJS.i18n_files ) );
+				} else if ( files.length === 1 ) {
+					name.html( val );
+				} else {
+					name.empty();
+				}
+				if ( ! uploadPreview.length ) {
+					uploadPreview = $( '<div class="tc-upload-preview tc-hidden"></div>' );
+					li.append( uploadPreview );
+				}
+
+				uploadPreview.empty();
+
 				num_uploads = epoHolder.data( 'num_uploads' );
 				if ( ! num_uploads ) {
 					num_uploads = [];
 				}
-				if ( val !== '' ) {
-					num_uploads[ field.closest( '.cpf-element' ).attr( 'data-uniqid' ) ] = val;
+				uniqid = field.closest( '.cpf-element' ).attr( 'data-uniqid' );
+				if ( ! num_uploads[ uniqid ] ) {
+					num_uploads[ uniqid ] = [];
 				}
-				epoHolder.data( 'num_uploads', num_uploads );
-				field.next( '.tmcp-upload-hidden' ).remove();
 
-				if ( ( val || valHidden ) && TMEPOJS.tm_epo_upload_inline_image_preview === 'yes' && windowURL && windowURL.createObjectURL && file ) {
-					if ( ! uploadPreview.length ) {
-						uploadPreview = $( '<div class="tc-upload-preview"></div>' );
-						li.find( 'label.tm-epo-field-label' ).append( uploadPreview );
-					}
-					uploadPreview.empty();
-					image = new Image();
-					image.onload = function() {
-						var src = this.src;
-						uploadPreview.html( '<img src="' + src + '">' );
-					};
-					if ( valHidden ) {
-						image.src = valHidden;
+				if ( ( val || files.length > 0 ) && TMEPOJS.tm_epo_upload_inline_image_preview === 'yes' && windowURL && windowURL.createObjectURL ) {
+					if ( files.length > 1 ) {
+						uploadPreview.addClass( 'multiple' );
 					} else {
-						image.src = windowURL.createObjectURL( file );
-						windowURL.revokeObjectURL( file );
+						uploadPreview.removeClass( 'multiple' );
 					}
+					uploadPreview.removeClass( 'tc-hidden' );
+					addImage = function( dataFile, src, i, fileHolder, ext ) {
+						var size = field[ 0 ].files && field[ 0 ].files[ i ] && field[ 0 ].files[ i ].size ? field[ 0 ].files[ i ].size : 0;
+						var imageHTML = '<div class="tc-upload-image">';
+						if ( src ) {
+							imageHTML = imageHTML + '<img src="' + src + '">';
+						} else {
+							imageHTML = imageHTML + '<div class="tc-file-ext-overlay"></div>';
+						}
+						imageHTML = imageHTML + '<div class="tc-file-name">' + dataFile.name + '</div>';
+						if ( ClipboardEvent || DataTransfer ) {
+							imageHTML = imageHTML + '<button type="button" class="tc-upload-remove"><svg width="26" height="26" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg"><path d="M11.586 13l-2.293 2.293a1 1 0 0 0 1.414 1.414L13 14.414l2.293 2.293a1 1 0 0 0 1.414-1.414L14.414 13l2.293-2.293a1 1 0 0 0-1.414-1.414L13 11.586l-2.293-2.293a1 1 0 0 0-1.414 1.414L11.586 13z" fill="currentColor" fill-rule="nonzero"/></svg></button>';
+						}
+						if ( ext ) {
+							imageHTML = imageHTML + '<div class="tc-file-ext">' + ext + '</div>';
+						}
+						imageHTML = imageHTML + '<div class="tc-file-size">' + readableFileSize( size ) + '</div>';
+						imageHTML = imageHTML + '</div>';
+						fileHolder.append( imageHTML );
+					};
+
+					files.forEach( function( dataFile, i ) {
+						var fileHolder = $( '<div class="tc-upload-file"></div>' );
+						uploadPreview.append( fileHolder );
+						image = new Image();
+						image.onload = function() {
+							addImage( dataFile, this.src, i, fileHolder );
+						};
+						image.onerror = function() {
+							addImage( dataFile, false, i, fileHolder, dataFile.name.split( '.' ).pop() );
+						};
+						if ( valHidden.length > 0 ) {
+							image.src = valHidden[ i ];
+						} else {
+							image.src = windowURL.createObjectURL( dataFile );
+							windowURL.revokeObjectURL( dataFile );
+						}
+						num_uploads[ uniqid ].push( dataFile.name );
+					} );
+					epoHolder.data( 'num_uploads', num_uploads );
+				} else {
+					delete num_uploads[ uniqid ];
+				}
+				if ( num_uploads[ uniqid ] && num_uploads[ uniqid ].length === 0 ) {
+					delete num_uploads[ uniqid ];
 				}
 			} );
+
+		$( document ).on( 'click', '.tc-upload-remove', function() {
+			var $this = $( this );
+			var val;
+			var cpfElement;
+			var input;
+			var fileWrap;
+			var li;
+			var uploadPreview;
+			var name;
+			var index;
+			var files;
+			var dT;
+			var num_uploads;
+			var uniqid;
+			var uploadHidden;
+			var dataFiles;
+
+			if ( ClipboardEvent || DataTransfer ) {
+				cpfElement = $this.closest( '.cpf-element' );
+				input = cpfElement.find( '.tm-epo-field' );
+				fileWrap = $this.closest( '.tc-upload-file' );
+				li = $this.closest( '.tmcp-field-wrap' );
+				uploadPreview = li.find( '.tc-upload-preview' );
+				name = li.find( '.tm-filename' );
+				index = fileWrap.index();
+				val = input.val().replace( 'C:\\fakepath\\', '' );
+				if ( val === undefined || val === 'undefined' ) {
+					val = '';
+				}
+
+				files = Array.from( input[ 0 ].files );
+				files.splice( index, 1 );
+				dT = new ClipboardEvent( '' ).clipboardData || new DataTransfer();
+
+				files.forEach( function( dataFile ) {
+					dT.items.add( dataFile );
+				} );
+
+				if ( files.length > 1 ) {
+					uploadPreview.addClass( 'multiple' );
+				} else {
+					uploadPreview.removeClass( 'multiple' );
+				}
+
+				input[ 0 ].files = dT.files;
+				fileWrap.remove();
+				if ( dT.files.length > 1 ) {
+					name.html( '' + dT.files.length + ' ' + ( dT.files.length === 1 ? TMEPOJS.i18n_file : TMEPOJS.i18n_files ) );
+				} else if ( dT.files.length === 1 ) {
+					name.html( val );
+				} else {
+					name.empty();
+				}
+
+				num_uploads = epoHolder.data( 'num_uploads' );
+				if ( ! num_uploads ) {
+					num_uploads = [];
+				}
+				uniqid = cpfElement.closest( '.cpf-element' ).attr( 'data-uniqid' );
+				if ( ! num_uploads[ uniqid ] ) {
+					num_uploads[ uniqid ] = [];
+				}
+
+				num_uploads[ uniqid ].splice( index, 1 );
+				if ( num_uploads[ uniqid ].length === 0 ) {
+					delete num_uploads[ uniqid ];
+					input.val( '' );
+				}
+
+				uploadHidden = input.next( '.tmcp-upload-hidden' );
+				if ( uploadHidden.length ) {
+					dataFiles = uploadHidden.val().split( '|' );
+					if ( dataFiles.length > 0 ) {
+						dataFiles.splice( index, 1 );
+					}
+					if ( dataFiles.length === 0 ) {
+						uploadHidden.remove();
+					} else {
+						uploadHidden.val( dataFiles.join( '|' ) );
+					}
+				}
+
+				epoHolder.data( 'num_uploads', num_uploads );
+			}
+		} );
 
 		qtyElement
 			.off( 'change.cpf input.cpf' )
@@ -8733,6 +9075,12 @@
 				if ( $this.data( 'inittriggeredonce' ) ) {
 					if ( isAdd ) {
 						productContainerWraps.addClass( 'tc-active-product' );
+						if ( qtyalt.attr( 'data-min' ) !== '0' && qtyalt.attr( 'data-min' ) !== '' ) {
+							qtyalt.attr( 'min', qtyalt.attr( 'data-min' ) );
+						}
+						if ( qtyalt.attr( 'data-max' ) !== '0' && qtyalt.attr( 'data-max' ) !== '' ) {
+							qtyalt.attr( 'max', qtyalt.attr( 'data-max' ) );
+						}
 						if ( qtyalt.val() === '0' ) {
 							if ( qtyalt.attr( 'min' ) === '0' ) {
 								qtyalt.val( 1 ).trigger( 'change' );
@@ -8746,7 +9094,10 @@
 						qtyalt.val( 0 ).trigger( 'change' );
 						qtyalt.closest( '.tm-quantity-alt' ).removeClass( 'tm-hidden' );
 						$this.addClass( 'alt' ).text( $this.attr( 'data-add' ) );
+						qtyalt.removeAttr( 'min max' );
 					}
+				} else if ( isAdd ) {
+					qtyalt.removeAttr( 'min max' );
 				}
 
 				$this.data( 'inittriggeredonce', 1 );
@@ -8764,6 +9115,7 @@
 				var qty;
 				var qtyMin;
 				var qtyMax;
+				var associatedEpoCart;
 
 				qtyMin = $.epoAPI.math.toInt( $this.attr( 'min' ) );
 				qtyMax = $.epoAPI.math.toInt( $this.attr( 'max' ) );
@@ -8796,9 +9148,18 @@
 				if ( qtyMax ) {
 					qty.attr( 'max', qtyMax );
 				}
+				associatedEpoCart = $this.closest( '.tc-epo-element-product-container' ).find( tcAPI.associatedEpoCart );
+				associatedEpoCart.trigger( 'tm-epo-update' );
 
-				$this.closest( '.tc-epo-element-product-container' ).find( tcAPI.associatedEpoCart ).trigger( 'tm-epo-update' );
 				qty.val( $this.val() );
+
+				if ( $.epoAPI.math.toFloat( $this.val() ) > 0 ) {
+					associatedEpoCart.find( '.tm-epo-field.tcenabled' ).removeClass( 'ignore' );
+					$this.removeClass( 'ignore' );
+				} else {
+					associatedEpoCart.find( '.tm-epo-field.tcenabled' ).addClass( 'ignore' );
+					$this.addClass( 'ignore' );
+				}
 				epoField.trigger( 'change.cpfproduct', { forced: 2 } );
 				if ( addButton.data( 'inittriggeredonce' ) ) {
 					if ( $this.val() === '0' ) {
@@ -9096,7 +9457,7 @@
 			} );
 
 			$.tcepo.oneOptionIsSelected[ epoEventId ] = showTotal;
-			tm_show_hide_add_to_cart_button( main_product, elementsLength, $.tcepo.oneOptionIsSelected[ epoEventId ] );
+			tm_show_hide_add_to_cart_button( main_product, elementsLength, $.tcepo.oneOptionIsSelected[ epoEventId ], currentEpoObject );
 
 			showTotal = $.epoAPI.applyFilter( 'tcFinalTotalsBoxVisibility', showTotal, {
 				epo: currentEpoObject,
@@ -10567,7 +10928,7 @@
 		if ( ! is_associated ) {
 			tm_floating_totals( this_epo_totals_container, is_quickview, main_cart );
 			tm_form_submit_event( epo_object );
-			tm_show_hide_add_to_cart_button( main_product, epo_object, $.tcepo.oneOptionIsSelected[ epoEventId ] );
+			tm_show_hide_add_to_cart_button( main_product, epo_object, $.tcepo.oneOptionIsSelected[ epoEventId ], epo_object );
 		}
 
 		jWindow.trigger( 'tm-epo-init-end', { epo: epo_object } );

@@ -7,9 +7,11 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Cron\Workers\StatsNotifications\Worker;
 use MailPoet\DI\ContainerWrapper;
+use MailPoet\Premium\Automation\Engine\Engine;
 use MailPoet\Premium\Config\Hooks as ConfigHooks;
 use MailPoet\Premium\Segments\DynamicSegments\Filters\SubscriberTag;
 use MailPoet\Premium\Segments\DynamicSegments\SegmentCombinations;
+use MailPoet\Util\License\Features\Subscribers;
 use MailPoet\WP\Functions as WPFunctions;
 
 class Initializer {
@@ -29,8 +31,11 @@ class Initializer {
   /** @var SubscriberTag */
   private $subscriberTag;
 
-  /** @var Automation */
-  private $automation;
+  /** @var Engine */
+  private $automationEngine;
+
+  /** @var Subscribers */
+  private $subscribers;
 
   const INITIALIZED = 'MAILPOET_PREMIUM_INITIALIZED';
 
@@ -39,13 +44,15 @@ class Initializer {
     ConfigHooks $hooks,
     SegmentCombinations $segmentCombinations,
     SubscriberTag $subscriberTag,
-    Automation $automation
+    Engine $automationEngine,
+    Subscribers $subscribers
   ) {
     $this->wp = $wp;
     $this->hooks = $hooks;
     $this->segmentCombinations = $segmentCombinations;
     $this->subscriberTag = $subscriberTag;
-    $this->automation = $automation;
+    $this->automationEngine = $automationEngine;
+    $this->subscribers = $subscribers;
   }
 
   public function init($params = [
@@ -79,8 +86,14 @@ class Initializer {
     $this->setupSegmentCombinations();
     $this->setupSegmentFilters();
 
-     $this->hooks->init();
-     $this->automation->init();
+    $this->hooks->init();
+
+    // automation
+    $subscriberLimitReached = $this->subscribers->check();
+    $premiumFeaturesEnabled = $this->subscribers->hasValidPremiumKey() && !$subscriberLimitReached;
+    if ($premiumFeaturesEnabled) {
+      $this->automationEngine->initialize();
+    }
 
     if (!defined(self::INITIALIZED)) {
       define(self::INITIALIZED, true);

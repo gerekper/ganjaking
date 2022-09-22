@@ -251,5 +251,8 @@ if ( $do_start ) {
 		<?php if ( ! empty( $tm_validation ) ) : ?>
 		data-tm-validation="<?php echo esc_attr( $tm_validation ); ?>" 
 		<?php endif; ?>
+		<?php if ( isset( $tm_element_settings ) && isset( $tm_element_settings['connector'] ) && '' !== $tm_element_settings['connector'] ) : ?>
+		data-tm-connector="<?php echo esc_attr( $tm_element_settings['connector'] ); ?>" 
+		<?php endif; ?>
 		class="tmcp-ul-wrap tmcp-elements tm-extra-product-options-<?php echo esc_attr( $type . $use . $ulclass . $limit . $exactlimit . $minimumlimit ); ?>">
 <?php endif; ?>

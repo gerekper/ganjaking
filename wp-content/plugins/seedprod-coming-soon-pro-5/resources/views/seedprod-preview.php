@@ -248,12 +248,12 @@ if ( ! empty( $settings ) ) {
 		<?php
 	}
 	?>
-	<?php if ( empty( $settings->no_conflict_mode ) ) : ?>
-		<?php
+<?php if ( empty( $settings->no_conflict_mode ) ) : ?>
+<?php
 		$sp_title = wp_title( '&raquo;', false );
 		if ( ! empty( $sp_title ) ) {
+			//remove extra title tag
 			?>
-<title><?php wp_title(); ?></title>
 <?php } ?>
 <?php endif; ?>
 <meta charset="UTF-8">
@@ -475,6 +475,9 @@ var seeprod_enable_recaptcha = <?php echo (int) $settings->enable_recaptcha; ?>;
 	$actual_link        = rawurlencode( ( isset( $_SERVER['HTTPS'] ) && 'on' === $_SERVER['HTTPS'] ? 'https' : 'http' ) . "://$server_http_host$server_request_uri" );
 	$content            = str_replace( 'the_link', $actual_link, $content );
 	$content            = do_shortcode( $content );
+	if( empty($content) ){
+		$content = '<h1 style="margin-top:80px; text-align:center; font-size: 22px">The content for this page is empty or has not been saved. Please edit this page and "Save" the contents in the builder.</h1>';
+	}
 	echo apply_filters( 'seedprod_lpage_content', $content );
 
 	// TODO: Add a way to run content in the loop

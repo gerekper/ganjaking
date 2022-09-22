@@ -202,11 +202,6 @@ class WC_Box_Office_Ticket_Form {
 			true
 		);
 
-		$ticket_title_prefix = get_option( 'box_office_ticket_title_prefix', '' );
-		if ( empty( $ticket_title_prefix ) ) {
-			$ticket_title_prefix = __( 'Ticket #', 'woocommerce-box-office' );
-		}
-
 		$add_to_cart_singular = get_option( 'box_office_add_to_cart_singular', '' );
 		if ( empty( $add_to_cart_singular ) ) {
 			$add_to_cart_singular = __( 'Buy Ticket Now', 'woocommerce-box-office' );
@@ -221,7 +216,7 @@ class WC_Box_Office_Ticket_Form {
 			'ajax_url'                  => WC()->ajax_url(),
 			'field_name_prefix'         => $this->field_name_prefix,
 			'posted_data'               => $this->_posted_data,
-			'i18n_ticket_title_prefix'  => $ticket_title_prefix,
+			'i18n_ticket_title_prefix'  => wcbo_get_ticket_title_prefix(),
 			'i18n_fields_required'      => __( 'Fields are required', 'woocommerce-box-office' ),
 			'i18n_add_to_cart_singular' => $add_to_cart_singular,
 			'i18n_add_to_cart_plural'   => $add_to_cart_plural,

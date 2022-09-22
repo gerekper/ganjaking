@@ -1,5 +1,11 @@
 *** WooCommerce Product Search ***
 
+2022.09.05 - version 4.8.0
+* WordPress 6.0 compatible.
+* WooCommerce 6.9 compatible.
+* Fixed an issue where certain inline scripts were dropped on subsequent wp_enqueue_scripts invocations, thus live search and filtering would not work, observed with block-based themes.
+* Fixed inappropriate price limits obtained in certain execution flows where the post_status for the product post type was inadequate for the $wp_query.
+
 2022.07.12 - version 4.7.0
 * WordPress 6.0 compatible.
 * WooCommerce 6.7 compatible.

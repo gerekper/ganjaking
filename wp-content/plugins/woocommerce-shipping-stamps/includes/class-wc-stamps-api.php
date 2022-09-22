@@ -55,38 +55,29 @@ class WC_Stamps_API {
 		switch ( $type ) {
 			case 'US-FC' :
 				return 'First-Class Mail';
-			break;
 			case 'US-MM' :
 				return 'Media Mail';
-			break;
 			case 'US-PP' :
 				return 'Parcel Post';
-			break;
 			case 'US-PM' :
 				return 'Priority Mail';
-			break;
 			case 'US-XM' :
 				return 'Priority Mail Express';
-			break;
 			case 'US-EMI' :
 				return 'Priority Mail Express International';
-			break;
 			case 'US-PMI' :
 				return 'Priority Mail International';
-			break;
 			case 'US-FCI' :
 				return 'First Class Mail International';
-			break;
 			case 'US-CM' :
 				return 'Critical Mail';
-			break;
 			case 'US-PS' :
 				return 'Parcel Select';
-			break;
 			case 'US-LM' :
 				return 'Library Mail';
-			break;
 		}
+
+		return '';
 	}
 
 	/**
@@ -100,98 +91,68 @@ class WC_Stamps_API {
 		switch ( $type ) {
 			case 'SC-A-HP' :
 				return __( 'Stamps.com hidden postage', 'woocommerce-shipping-stamps' );
-			break;
 			case 'SC-A-INS' :
 				return __( 'Stamps.com insurance', 'woocommerce-shipping-stamps' );
-			break;
 			case 'SC-A-INSRM' :
 				return __( 'Stamps.com insurance for registered mail', 'woocommerce-shipping-stamps' );
-			break;
 			case 'US-A-CM' :
 				return __( 'Certified mail', 'woocommerce-shipping-stamps' );
-			break;
 			case 'US-A-COD' :
 				return __( 'Collect on delivery', 'woocommerce-shipping-stamps' );
-			break;
 			case 'US-A-DC' :
 				return __( 'Delivery confirmation', 'woocommerce-shipping-stamps' );
-			break;
 			case 'US-A-ESH' :
 				return __( 'Express sunday/holiday guaranteed', 'woocommerce-shipping-stamps' );
-			break;
 			case 'US-A-INS' :
 				return __( 'USPS insurance', 'woocommerce-shipping-stamps' );
-			break;
 			case 'US-A-NDW' :
 				return __( 'No delivery on saturdays', 'woocommerce-shipping-stamps' );
-			break;
 			case 'US-A-RD' :
 				return __( 'Restricted delivery', 'woocommerce-shipping-stamps' );
-			break;
 			case 'US-A-REG' :
 				return __( 'Registered mail', 'woocommerce-shipping-stamps' );
-			break;
 			case 'US-A-RR' :
 				return __( 'Return reciept requested', 'woocommerce-shipping-stamps' );
-			break;
 			case 'US-A-RRM' :
 				return __( 'Return reciept for merchandise', 'woocommerce-shipping-stamps' );
-			break;
 			case 'US-A-SC' :
 				return __( 'Signature confirmation', 'woocommerce-shipping-stamps' );
-			break;
 			case 'US-A-SH' :
 				return __( 'Fragile', 'woocommerce-shipping-stamps' );
-			break;
 			case 'US-A-PR' :
 				return __( 'Perishable', 'woocommerce-shipping-stamps' );
-			break;
 			case 'US-A-WDS' :
 				return __( 'Waive delivery signature', 'woocommerce-shipping-stamps' );
-			break;
 			case 'US-A-SR' :
 				return __( 'Signature required', 'woocommerce-shipping-stamps' );
-			break;
-			case 'US-A-NDW' :
-				return __( 'Do not deliver on saturday', 'woocommerce-shipping-stamps' );
-			break;
-			case 'US-A-ESH' :
-				return __( 'Sunday/holiday guaranteed', 'woocommerce-shipping-stamps' );
-			break;
 			case 'US-A-NND' :
 				return __( 'Notice of non-delivery', 'woocommerce-shipping-stamps' );
-			break;
 			case 'US-A-RRE' :
 				return __( 'Electronic return reciept', 'woocommerce-shipping-stamps' );
-			break;
 			case 'US-A-LANS' :
 				return __( 'Live animal no surcharge', 'woocommerce-shipping-stamps' );
-			break;
 			case 'US-A-LAWS' :
 				return __( 'Live animal with surcharge', 'woocommerce-shipping-stamps' );
-			break;
 			case 'US-A-HM' :
 				return __( 'Hazardous materials', 'woocommerce-shipping-stamps' );
-			break;
 			case 'US-A-CR' :
 				return __( 'Cremated remains', 'woocommerce-shipping-stamps' );
-			break;
 			case 'US-A-1030' :
 				return __( 'Deliver priority mail express by 10:30am', 'woocommerce-shipping-stamps' );
-			break;
 			case 'US-A-ASR' :
 				return __( 'Adult signature required', 'woocommerce-shipping-stamps' );
-			break;
 			case 'US-A-ASRD' :
 				return __( 'Adult signature restricted delivery', 'woocommerce-shipping-stamps' );
-			break;
 		}
+
+		return '';
 	}
 
 	/**
 	 * Get SOAP client for Stamps service.
 	 *
 	 * @return SoapClient
+	 * @throws \SoapFault
 	 */
 	public static function get_client() {
 		if ( ! self::$client ) {
@@ -294,7 +255,7 @@ class WC_Stamps_API {
 			);
 
 			$obfuscated_request = array_merge( $request, array_intersect_key( $mask, $request ) );
-			self::log( "Endpoint {$endpoint} Request: " . wc_print_r( $obfuscated_request, true ) );
+			self::log( "Endpoint $endpoint Request: " . wc_print_r( $obfuscated_request, true ) );
 
 			$client   = self::get_client();
 			$response = $client->$endpoint( $request );
@@ -315,7 +276,7 @@ class WC_Stamps_API {
 			);
 
 			$obfuscated_response = array_merge( (array) $response, array_intersect_key( $mask, (array) $response ) );
-			self::log( "Endpoint {$endpoint} Response: " . print_r( $obfuscated_response, true ) );
+			self::log( "Endpoint $endpoint Response: " . print_r( $obfuscated_response, true ) );
 
 			self::update_authenticator( $response );
 			self::update_balance( $response );
@@ -376,7 +337,7 @@ class WC_Stamps_API {
 	public static function get_authenticator() {
 		if ( self::$authenticator ) {
 			return self::$authenticator;
-		} elseif ( ( $authenticator = get_transient( 'stamps_authenticator_v50' ) ) ) {
+		} elseif ( ( $authenticator = get_transient( 'stamps_authenticator' ) ) ) {
 			return $authenticator;
 		} else {
 			$authenticator = self::authenticate();
@@ -476,29 +437,28 @@ class WC_Stamps_API {
 			'PR',
 		);
 
-		return in_array( $country, $list, true ) ? true : false;
+		return in_array( $country, $list, true );
 	}
 
 	/**
 	 * Verify an address.
 	 *
-	 * @param  WC_Order $order Order object.
+	 * @param WC_Order $order Order object.
+	 *
 	 * @return array
 	 */
 	public static function verify_address( $order ) {
-		$pre_wc_30 = version_compare( WC_VERSION, '3.0', '<' );
-
 		$address = array(
-			'FullName' => $pre_wc_30 ? $order->shipping_first_name . ' ' . $order->shipping_last_name : $order->get_shipping_first_name() . ' ' . $order->get_shipping_last_name(),
-			'Company'  => $pre_wc_30 ? $order->shipping_company : $order->get_shipping_company(),
-			'Address1' => $pre_wc_30 ? $order->shipping_address_1 : $order->get_shipping_address_1(),
-			'Address2' => $pre_wc_30 ? $order->shipping_address_2 : $order->get_shipping_address_2(),
-			'City'     => $pre_wc_30 ? $order->shipping_city : $order->get_shipping_city(),
+			'FullName' => $order->get_shipping_first_name() . ' ' . $order->get_shipping_last_name(),
+			'Company'  => $order->get_shipping_company(),
+			'Address1' => $order->get_shipping_address_1(),
+			'Address2' => $order->get_shipping_address_2(),
+			'City'     => $order->get_shipping_city(),
 		);
 
-		$shipping_country = $pre_wc_30 ? $order->shipping_country : $order->get_shipping_country();
-		$state            = $pre_wc_30 ? $order->shipping_state : $order->get_shipping_state();
-		$postcode         = $pre_wc_30 ? $order->shipping_postcode : $order->get_shipping_postcode();
+		$shipping_country = $order->get_shipping_country();
+		$state            = $order->get_shipping_state();
+		$postcode         = $order->get_shipping_postcode();
 		$is_us_territory  = self::is_us_territory( $shipping_country );
 
 		if ( 'US' === $shipping_country || $is_us_territory ) {
@@ -541,7 +501,7 @@ class WC_Stamps_API {
 			}
 
 			// Return address in our own format.
-			$matched_result = array(
+			return array(
 				'matched'      => true,
 				'matched_zip'  => true,
 				'hash'         => $result->Address->CleanseHash,
@@ -557,10 +517,9 @@ class WC_Stamps_API {
 					'country'   => isset( $result->Address->Country ) ? $result->Address->Country : '',
 				),
 			);
-			return $matched_result;
 		}
 
-		if ( 'US' === ( $pre_wc_30 ? $order->shipping_country : $order->get_shipping_country() ) ) {
+		if ( 'US' === $order->get_shipping_country() ) {
 			// User can proceed anyway.
 			if ( $result->CityStateZipOK ) {
 				return array(
@@ -572,8 +531,8 @@ class WC_Stamps_API {
 		}
 
 		return array(
-			'matched'      => false,
-			'matched_zip'  => false,
+			'matched'     => false,
+			'matched_zip' => false,
 		);
 	}
 
@@ -582,11 +541,11 @@ class WC_Stamps_API {
 	 *
 	 * @param  WC_Order $order Order object.
 	 * @param  array    $args  Request args.
-	 * @return array
+	 *
+	 * @return array|bool|string|\WP_Error
 	 */
 	public static function get_rates( $order, $args ) {
-		$pre_wc_30        = version_compare( WC_VERSION, '3.0', '<' );
-		$shipping_country = $pre_wc_30 ? $order->shipping_country : $order->get_shipping_country();
+		$shipping_country = $order->get_shipping_country();
 		$is_us_territory  = self::is_us_territory( $shipping_country );
 
 		$request = array(
@@ -607,7 +566,7 @@ class WC_Stamps_API {
 			),
 		);
 
-		$postcode = $pre_wc_30 ? $order->shipping_postcode : $order->get_shipping_postcode();
+		$postcode = $order->get_shipping_postcode();
 
 		if ( ! empty( $postcode ) ) {
 			$request['Rate']['ToZIPCode'] = $postcode;
@@ -633,6 +592,7 @@ class WC_Stamps_API {
 			$api_rates = $result->Rates->Rate;
 		}
 
+		$rates = array();
 		foreach ( $api_rates as $rate ) {
 			$rates[] = (object) array(
 				'cost'          => $rate->Amount,
@@ -650,31 +610,23 @@ class WC_Stamps_API {
 	/**
 	 * Get (purchase) label for a rate.
 	 *
+	 * @param \WC_Order $order Order object.
+	 * @param array $args Request args.
+	 *
+	 * @return array|bool|int|string|\WC_Stamps_Label|\WP_Error
 	 * @version 1.3.2
-	 *
-	 * @todo The name for this should be `purchase_label` as `get_something`
-	 *       should refers to a method to retrieve something that's already
-	 *       stored / purchased.
-	 *
-	 * @param  WC_Order $order Order object.
-	 * @param  array    $args Request args.
-	 * @return array
 	 */
-	public static function get_label( $order, $args ) {
-		$pre_wc_30        = version_compare( WC_VERSION, '3.0', '<' );
-		$shipping_country = $pre_wc_30 ? $order->shipping_country : $order->get_shipping_country();
+	public static function purchase_label( $order, $args ) {
+		$shipping_country = $order->get_shipping_country();
 		$is_us_territory  = self::is_us_territory( $shipping_country );
 
-		$order_id = $pre_wc_30 ? $order->id : $order->get_id();
+		$order_id = $order->get_id();
 		$rate     = $args['rate'];
 		$customs  = $args['customs'];
 		$tx_id    = uniqid( 'wc_' . $order_id . '_' );
 
-		if ( $pre_wc_30 ) {
-			update_post_meta( $order_id, '_last_label_tx_id', $tx_id );
-		} else {
-			$order->update_meta_data( '_last_label_tx_id', $tx_id );
-		}
+		$order->update_meta_data( '_last_label_tx_id', $tx_id );
+		$order->save();
 
 		$request = array(
 			'IntegratorTxID' => $tx_id,
@@ -696,11 +648,11 @@ class WC_Stamps_API {
 		);
 
 		$request['To'] = array(
-			'FullName'    => $pre_wc_30 ? $order->shipping_first_name . ' ' . $order->shipping_last_name : $order->get_shipping_first_name() . ' ' . $order->get_shipping_last_name(),
-			'Company'     => $pre_wc_30 ? $order->shipping_company : $order->get_shipping_company(),
-			'Address1'    => $pre_wc_30 ? $order->shipping_address_1 : $order->get_shipping_address_1(),
-			'Address2'    => $pre_wc_30 ? $order->shipping_address_2 : $order->get_shipping_address_2(),
-			'City'        => $pre_wc_30 ? $order->shipping_city : $order->get_shipping_city(),
+			'FullName'    => $order->get_shipping_first_name() . ' ' . $order->get_shipping_last_name(),
+			'Company'     => $order->get_shipping_company(),
+			'Address1'    => $order->get_shipping_address_1(),
+			'Address2'    => $order->get_shipping_address_2(),
+			'City'        => $order->get_shipping_city(),
 			'Country'     => ( $is_us_territory ) ? 'US' : $shipping_country,
 		);
 
@@ -708,8 +660,8 @@ class WC_Stamps_API {
 		// 'CleanseHash' if the merchant accepted stamps.com's changes to the To Address or
 		// 'OverrideHash' if the merchant selected to "continue without changes" to the To Address
 		// See also WC_Stamps_Order::ajax_override_address.
-		$cleanse_hash = $pre_wc_30 ? get_post_meta( $order_id, '_stamps_hash', true ) : $order->get_meta( '_stamps_hash', true );
-		$override_hash = $pre_wc_30 ? get_post_meta( $order_id, '_stamps_override_hash', true ) : $order->get_meta( '_stamps_override_hash', true );
+		$cleanse_hash = $order->get_meta( '_stamps_hash' );
+		$override_hash = $order->get_meta( '_stamps_override_hash' );
 		if ( $cleanse_hash === $override_hash ) {
 			$request['To'] += array(
 				'OverrideHash' => $override_hash,
@@ -720,8 +672,8 @@ class WC_Stamps_API {
 			);
 		}
 
-		$postcode = $pre_wc_30 ? $order->shipping_postcode : $order->get_shipping_postcode();
-		$state    = $pre_wc_30 ? $order->shipping_state : $order->get_shipping_state();
+		$postcode = $order->get_shipping_postcode();
+		$state    = $order->get_shipping_state();
 
 		if ( 'US' === $shipping_country || $is_us_territory ) {
 			$postcode_pieces = explode( '-', $postcode );
@@ -742,7 +694,7 @@ class WC_Stamps_API {
 			$request['To'] += array(
 				'Province'    => $state,
 				'PostalCode'  => $postcode,
-				'PhoneNumber' => $pre_wc_30 ? $order->billing_phone : $order->get_billing_phone(),
+				'PhoneNumber' => $order->get_billing_phone(),
 			);
 		}
 
@@ -770,8 +722,9 @@ class WC_Stamps_API {
 	/**
 	 * Cancel a label.
 	 *
-	 * @param  WC_Order $order Order object.
-	 * @param  string   $tx_id Transaction ID.
+	 * @param WC_Order $order Order object.
+	 * @param string $tx_id Transaction ID.
+	 *
 	 * @return bool|WP_Error true on success.
 	 */
 	public static function cancel_label( $order, $tx_id ) {

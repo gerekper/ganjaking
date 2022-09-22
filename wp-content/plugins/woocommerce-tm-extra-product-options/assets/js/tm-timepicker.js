@@ -592,7 +592,7 @@
 				// Create the markup
 				for ( i = 0, l = this.units.length; i < l; i += 1 ) {
 					litem = this.units[ i ];
-					uitem = litem.substr( 0, 1 ).toUpperCase() + litem.substr( 1 );
+					uitem = litem.substring( 0, 1 ).toUpperCase() + litem.substring( 1 );
 					show = o[ 'show' + uitem ] !== null ? o[ 'show' + uitem ] : this.support[ litem ];
 
 					// Added by Peter Medeiros:
@@ -657,7 +657,7 @@
 				// add sliders, adjust grids, add events
 				for ( i = 0, l = tp_inst.units.length; i < l; i += 1 ) {
 					litem = tp_inst.units[ i ];
-					uitem = litem.substr( 0, 1 ).toUpperCase() + litem.substr( 1 );
+					uitem = litem.substring( 0, 1 ).toUpperCase() + litem.substring( 1 );
 					show = o[ 'show' + uitem ] !== null ? o[ 'show' + uitem ] : this.support[ litem ];
 
 					// add the slider
@@ -2268,9 +2268,9 @@
 		}
 
 		return (
-			( normalized.substr( 0, 1 ) === '-' ? -1 : 1 ) * // plus or minus
-			( ( parseInt( normalized.substr( 1, 2 ), 10 ) * 60 ) + // hours (converted to minutes)
-				parseInt( normalized.substr( 3, 2 ), 10 ) )
+			( normalized.substring( 0, 1 ) === '-' ? -1 : 1 ) * // plus or minus
+			( ( parseInt( normalized.substring( 1, 3 ), 10 ) * 60 ) + // hours (converted to minutes)
+				parseInt( normalized.substring( 3, 5 ), 10 ) )
 		); // minutes
 	};
 

@@ -57,7 +57,7 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_TEMPLATE extends THEMECOMPLETE_EPO_BUILD
 		$args = [
 			'post_type'   => THEMECOMPLETE_EPO_TEMPLATE_POST_TYPE,
 			'post_status' => [ 'publish' ], // get only enabled global extra options.
-			'numberposts' => - 1,
+			'numberposts' => -1,
 			'orderby'     => 'date',
 			'order'       => 'asc',
 		];

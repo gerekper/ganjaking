@@ -131,7 +131,7 @@ class WC_Box_Office_Settings {
 				'name'    => __( 'Disable Ticket Editing', 'woocommerce-box-office' ),
 				'type'    => 'checkbox',
 				'default' => 'no',
-				'desc'    => __( 'This will disable customers to edit their purchased tickets.', 'woocommerce-box-office' ),
+				'desc'    => __( 'This will prevent customers from editing their purchased tickets.', 'woocommerce-box-office' ),
 				'id'      => 'box_office_disable_edit_tickets',
 			),
 			array( 'type' => 'sectionend', 'id' => 'box_office_default_product_settings_title' ),

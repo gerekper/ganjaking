@@ -81,7 +81,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 		$a = explode( '|', $a );
 		$r = [];
 		foreach ( $a as $key => $value ) {
-			$r[] = maybe_unserialize( $value );
+			$r[] = themecomplete_maybe_unserialize( $value );
 		}
 
 		return $r;
@@ -198,7 +198,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 * @since 4.8.5
 	 */
 	public function generate_recreate_element_ids( $meta = [] ) {
-		$meta          = maybe_unserialize( $meta );
+		$meta          = themecomplete_maybe_unserialize( $meta );
 		$builder       = $meta;
 		$original_meta = false;
 		$parsed_meta   = false;
@@ -243,7 +243,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 * @since 1.0
 	 */
 	public function recreate_element_ids( $meta = [], $new_ids = false ) {
-		$meta          = maybe_unserialize( $meta );
+		$meta          = themecomplete_maybe_unserialize( $meta );
 		$builder       = $meta;
 		$original_meta = false;
 		$parsed_meta   = false;
@@ -285,6 +285,9 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 
 			foreach ( $logics as $lx => $logicelement ) {
 				foreach ( $logicelement as $ly => $logic ) {
+					if ( 'string' !== gettype( $logic ) ) {
+						$logic = wp_json_encode( $logic );
+					}
 					$logic                = str_replace( array_keys( $new_ids ), array_values( $new_ids ), $logic );
 					$logics[ $lx ][ $ly ] = $logic;
 				}
@@ -292,15 +295,29 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 
 			foreach ( $math_price as $lx => $priceelement ) {
 				foreach ( $priceelement as $ly => $price ) {
-					$price                    = str_replace( array_keys( $new_ids ), array_values( $new_ids ), $price );
-					$math_price[ $lx ][ $ly ] = $price;
+					$dojson = false;
+					if ( 'string' !== gettype( $price ) ) {
+						$dojson = true;
+						$price  = wp_json_encode( $price );
+					}
+					$price = str_replace( array_keys( $new_ids ), array_values( $new_ids ), $price );
+					if ( $dojson ) {
+						$math_price[ $lx ][ $ly ] = json_decode( $price );
+					}
 				}
 			}
 
 			foreach ( $math_sale_price as $lx => $priceelement ) {
 				foreach ( $priceelement as $ly => $price ) {
-					$price                         = str_replace( array_keys( $new_ids ), array_values( $new_ids ), $price );
-					$math_sale_price[ $lx ][ $ly ] = $price;
+					$dojson = false;
+					if ( 'string' !== gettype( $price ) ) {
+						$dojson = true;
+						$price  = wp_json_encode( $price );
+					}
+					$price = str_replace( array_keys( $new_ids ), array_values( $new_ids ), $price );
+					if ( $dojson ) {
+						$math_sale_price[ $lx ][ $ly ] = json_decode( $price );
+					}
 				}
 			}
 
@@ -915,6 +932,25 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	}
 
 	/**
+	 * Applies the callback to the elements of the given arrays, recursively
+	 *
+	 * @param  callable $callback Callback function to run for each element in each array.
+	 * @param  array    $array    An array to run through the callback function.
+	 * @return array Applies the callback to the elements of the given array.
+	 */
+	public function array_map_recursive( $callback, $array ) {
+		if ( is_array( $array ) ) {
+			return array_map(
+				function ( $array ) use ( $callback ) {
+					return $this->array_map_recursive( $callback, $array );
+				},
+				$array
+			);
+		}
+		return $callback( $array );
+	}
+
+	/**
 	 * Gets the site domain
 	 *
 	 * @since 5.1
@@ -1205,8 +1241,8 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 * @since 1.0
 	 */
 	public function get_currency_price_prefix( $currency = null, $prefix = '_' ) {
-		if ( null === $currency ) {
-			if ( $this->wc_num_enabled_currencies() > 0 ) {
+		if ( true === $currency || null === $currency ) {
+			if ( true === $currency || $this->wc_num_enabled_currencies() > 0 ) {
 				$to_currency = themecomplete_get_woocommerce_currency();
 
 				return $prefix . $to_currency;
@@ -1807,6 +1843,118 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 		}
 
 		return $post_list;
+	}
+
+	/**
+	 * Takes a string/array of strings, removes all formatting/cruft
+	 * and returns the raw float value.
+	 *
+	 * @param mixed $value the value to unformat.
+	 * @param mixed $decimal the decimal point.
+	 *
+	 * @return mixed Unformatted value or 0.
+	 */
+	public function unformat( $value = '', $decimal = false ) {
+		$unformatted = '';
+
+		// Recursively unformat arrays.
+		if ( is_array( $value ) ) {
+			return array_map(
+				function ( $item ) use ( $decimal ) {
+					return $this->unformat( $item, $decimal );
+				},
+				$value
+			);
+		}
+
+		// Return the value as-is if it's already a number.
+		if ( 'integer' === gettype( $value ) || 'double' === gettype( $value ) ) {
+			return $value;
+		}
+
+		if ( 'string' !== gettype( $value ) ) {
+			return 0;
+		}
+
+		// Get local decimal point.
+		if ( false === $decimal ) {
+			$tm_epo_global_input_decimal_separator = THEMECOMPLETE_EPO()->tm_epo_global_input_decimal_separator;
+			if ( '' === $tm_epo_global_input_decimal_separator ) {
+				// currency_format_decimal_sep.
+				$decimal = stripslashes_deep( get_option( 'woocommerce_price_decimal_sep' ) );
+			} elseif ( class_exists( 'NumberFormatter' ) ) {
+				$locale = get_locale();
+				if ( isset( $_SERVER ) && isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
+					$locale = explode( ',', wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+					$locale = $locale[0];
+					$locale = str_replace( '-', '_', $locale );
+				}
+				$fmt     = new NumberFormatter( $locale, NumberFormatter::DECIMAL );
+				$n       = $fmt->format( 1.1 );
+				$matches = [];
+				preg_match( '/^1(.+)1$/', $n, $matches );
+				if ( isset( $matches[1] ) ) {
+					$decimal = $matches[1];
+				}
+			}
+		}
+		if ( false === $decimal || true === $decimal ) {
+			$decimal = '.';
+		}
+
+		// Strip out everything except digits, decimal point and minus sign.
+		$unformatted = preg_replace( '/[^0-9-' . $decimal . ']/', '', $value );
+		// Make sure decimal point is standard.
+		$unformatted = str_replace( $decimal, '.', $unformatted );
+
+		$unformatted = (float) $unformatted;
+
+		if ( 'integer' === gettype( $unformatted ) || 'double' === gettype( $unformatted ) ) {
+			return $unformatted;
+		}
+
+		return 0;
+	}
+
+	/**
+	 * Convert url to ssl if it applies
+	 *
+	 * @param string $url The url.
+	 * @since 6.1
+	 */
+	public function to_ssl( $url = '' ) {
+
+		if ( is_ssl() ) {
+			if ( is_array( $url ) ) {
+				foreach ( $url as $url_key => $url_value ) {
+					if ( ! is_array( $url_value ) ) {
+						$url[ $url_key ] = $this->to_ssl( $url_value );
+					}
+				}
+			} else {
+				$url = preg_replace( '/^http:/i', 'https:', $url );
+			}
+		}
+
+		return $url;
+	}
+
+	/**
+	 * Array some functionality
+	 *
+	 * @param array    $array The array.
+	 * @param callable $fn The callable function.
+	 * @since 6.1
+	 */
+	public function array_some( $array, $fn ) {
+		if ( is_array( $array ) && $fn ) {
+			foreach ( $array as $value ) {
+				if ( $fn( $value ) ) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 }

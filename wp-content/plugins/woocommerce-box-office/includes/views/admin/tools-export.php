@@ -7,8 +7,11 @@
 	<p><?php _e( 'Export attendee data for the following chosen tickets:', 'woocommerce-box-office' ); ?></p>
 
 	<select name="tickets[]" class="chosen_select ticket-product-select" style="width:300px" required multiple>
-		<?php foreach ( wc_box_office_get_all_ticket_products() as $product ) : ?>
+		<?php foreach ( wc_box_office_get_all_ticket_products( true ) as $product ) : ?>
 			<option value="<?php echo esc_attr( $product->ID ); ?>"><?php echo esc_html( $product->post_title ); ?></option>
+			<?php foreach ( $product->variations as $variation ): ?>
+				<option value="<?php echo esc_attr( $variation->ID ); ?>"><?php echo esc_html( $variation->variation_title ); ?></option>
+			<?php endforeach; ?>
 		<?php endforeach ?>
 	</select>
 

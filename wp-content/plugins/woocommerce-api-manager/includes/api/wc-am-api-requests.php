@@ -94,7 +94,7 @@ class WC_AM_API_Requests {
 			if ( ! empty( $this->trusted_sources ) ) {
 				if ( empty( $this->request[ 'ip_address' ] ) || ! $this->is_ip_address( $this->request[ 'ip_address' ] ) ) {
 					if ( $this->error_log ) {
-						WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Error in __construct() method. Error message is "Error code 100. The source did not send a required IP address."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
+						WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in __construct() method. Error message is "Error code 100. The source did not send a required IP address."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
 					}
 
 					$this->error_response( '100', esc_html__( 'The source did not send a required IP address.', 'woocommerce-api-manager' ) );
@@ -107,18 +107,18 @@ class WC_AM_API_Requests {
 						if ( $source == $this->request[ 'ip_address' ] && $source == $this->request[ 'user_ip' ] ) {
 							$found = true;
 						} else {
-							WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Error in __construct() method. Error message is "Error code 100. The source did not send a required IP address."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( 'The request IP address sent in the request query was ' . $this->request[ 'ip_address' ] . '. The real IP Address from the request was ' . $this->request[ 'user_ip' ] . '.', true ) );
+							WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in __construct() method. Error message is "Error code 100. The source did not send a required IP address."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( 'The request IP address sent in the request query was ' . $this->request[ 'ip_address' ] . '. The real IP Address from the request was ' . $this->request[ 'user_ip' ] . '.', true ) );
 						}
 					} else {
 						if ( $this->error_log ) {
-							WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Error in __construct() method. Error message is "Error code 100. The trusted source list does not contain a valid IP address."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
+							WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in __construct() method. Error message is "Error code 100. The trusted source list does not contain a valid IP address."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
 						}
 					}
 				}
 
 				if ( ! $found ) {
 					if ( $this->error_log ) {
-						WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Error in __construct() method. Error message is "Error code 100. The source is not trusted."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
+						WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in __construct() method. Error message is "Error code 100. The source is not trusted."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
 					}
 
 					$this->error_response( '100', esc_html__( 'The source is not trusted.', 'woocommerce-api-manager' ) );
@@ -128,7 +128,7 @@ class WC_AM_API_Requests {
 			$this->route_request();
 		} else {
 			if ( $this->error_log ) {
-				WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Error in __construct() method. Error message is "Error code 100. No request value received."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
+				WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in __construct() method. Error message is "Error code 100. No request value received."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
 			}
 
 			$this->error_response( '100', esc_html__( 'No request value received.', 'woocommerce-api-manager' ) );
@@ -236,9 +236,12 @@ class WC_AM_API_Requests {
 			case 'pluginupdatecheck':
 				$this->update( 'serialize' );
 				break;
+			case 'product_list':
+				$this->product_list();
+				break;
 			default:
 				if ( $this->error_log ) {
-					WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Error in route_request() method. Error message is "Error code 100. Request value does not exist."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
+					WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in route_request() method. Error message is "Error code 100. Request value does not exist."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
 				}
 
 				$this->error_response( '100', esc_html__( 'Request value does not exist.', 'woocommerce-api-manager' ) );
@@ -254,7 +257,7 @@ class WC_AM_API_Requests {
 	private function verify_user() {
 		if ( empty( $this->request[ 'api_key' ] ) ) {
 			if ( $this->error_log ) {
-				WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Error in verify_user() method. Error message is "Error code 100. An empty API Key was sent."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
+				WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in verify_user() method. Error message is "Error code 100. An empty API Key was sent."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
 			}
 
 			$this->error_response( '100', esc_html__( 'An empty API Key was sent.', 'woocommerce-api-manager' ) );
@@ -266,7 +269,7 @@ class WC_AM_API_Requests {
 
 		if ( ! $user_object ) {
 			if ( $this->error_log ) {
-				WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Error in verify_user() method. Error message is "Error code 100. A customer account does not exist for this API Key."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
+				WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in verify_user() method. Error message is "Error code 100. A customer account does not exist for this API Key."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
 			}
 
 			$this->error_response( '100', esc_html__( 'A customer account does not exist for this API Key.', 'woocommerce-api-manager' ) );
@@ -286,13 +289,13 @@ class WC_AM_API_Requests {
 				WC_AM_USER()->set_registration_master_key_and_status( $this->user_id );
 
 				if ( $this->error_log ) {
-					WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Error in verify_user() method. Error message is "Error code 100. A Master API Key did not exist for this customer, and all customers are required to have a Master API Key, so a Master API Key has been created."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( array( 'User ID' => $this->user_id ), true ) );
+					WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in verify_user() method. Error message is "Error code 100. A Master API Key did not exist for this customer, and all customers are required to have a Master API Key, so a Master API Key has been created."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( array( 'User ID' => $this->user_id ), true ) );
 				}
 
 				$this->error_response( '100', esc_html__( 'A Master API Key did not exist for this account, but is required, so a A Master API Key was created. Please try your request again, or contact support.', 'woocommerce-api-manager' ) );
 			} else {
 				if ( $this->error_log ) {
-					WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Error in verify_user() method. Error message is "Error code 100. The API access for this API Key has been disabled, or an API Key was sent that does not exist on this store."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
+					WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in verify_user() method. Error message is "Error code 100. The API access for this API Key has been disabled, or an API Key was sent that does not exist on this store."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
 				}
 
 				$this->error_response( '100', esc_html__( 'The API access for this API Key has been disabled, or an API Key was sent that does not exist on this store.', 'woocommerce-api-manager' ) );
@@ -300,7 +303,7 @@ class WC_AM_API_Requests {
 		}
 
 		if ( $this->debug_log ) {
-			WC_AM_Log()->api_debug_log( PHP_EOL . esc_html__( 'Details from verify_user() method.', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) . PHP_EOL . 'User ID' . PHP_EOL . wc_print_r( $this->user_id, true ) );
+			WC_AM_LOG()->api_debug_log( PHP_EOL . esc_html__( 'Details from verify_user() method.', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) . PHP_EOL . 'User ID' . PHP_EOL . wc_print_r( $this->user_id, true ) );
 		}
 	}
 
@@ -322,7 +325,7 @@ class WC_AM_API_Requests {
 
 		if ( $missing ) {
 			if ( $this->error_log ) {
-				WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Error in required() method. Error message is "Error code 100. The following required query string data is missing:"', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( join( ', ', $missing ), true ) );
+				WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in required() method. Error message is "Error code 100. The following required query string data is missing:"', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( join( ', ', $missing ), true ) );
 			}
 
 			$this->error_response( '100', esc_html__( 'The following required query string data is missing', 'woocommerce-api-manager' ) . ': ' . join( ', ', $missing ) );
@@ -338,16 +341,16 @@ class WC_AM_API_Requests {
 		try {
 			$resources = WC_AM_API_RESOURCE_DATA_STORE()->get_active_api_resources( $this->request[ 'api_key' ], $this->request[ 'product_id' ] );
 
-			if ( empty( $resources ) ) {
+			if ( WC_AM_FORMAT()->empty( $resources ) ) {
 				if ( $this->error_log ) {
-					WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Error in get_resources() method. Error message is "Error code 100. No API resources exist. Verify there are activations remaining, and the API Key and Product ID are correct."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
+					WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in get_resources() method. Error message is "Error code 100. No API resources exist. Verify there are activations remaining, and the API Key and Product ID are correct."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
 				}
 
 				$this->error_response( '100', sprintf( __( 'No API resources exist. Login to %sMy Account%s to verify there are activations remaining, and the API Key and Product ID are correct.', 'woocommerce-api-manager' ), '<a href="' . esc_url( WC_AM_API_ACTIVATION_DATA_STORE()->get_api_keys_url() ) . '" target="blank">', '</a>' ) );
 			}
 
 			if ( $this->debug_log ) {
-				WC_AM_Log()->api_debug_log( PHP_EOL . esc_html__( 'Details from get_resources() method.', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $resources, true ) );
+				WC_AM_LOG()->api_debug_log( PHP_EOL . esc_html__( 'Details from get_resources() method.', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $resources, true ) );
 			}
 
 			$this->resources = $resources;
@@ -355,7 +358,7 @@ class WC_AM_API_Requests {
 			$this->error_response( '100', esc_html__( 'There was an error getting API resources', 'woocommerce-api-manager' ) . ': ' . $exception );
 
 			if ( $this->debug_log ) {
-				WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Details from get_resources() method.', 'woocommerce-api-manager' ) . PHP_EOL . $exception );
+				WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Details from get_resources() method.', 'woocommerce-api-manager' ) . PHP_EOL . $exception );
 			}
 		}
 	}
@@ -397,7 +400,7 @@ class WC_AM_API_Requests {
 			do_action( 'wc_api_manager_activate_api_key_already_activated_error', false, $this->resources, $this->request, $this->user_id );
 
 			if ( $this->error_log ) {
-				WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Error in activate() method. Error message is "Error code 100. Cannot activate API Key. The API Key has already been activated with the same unique instance ID sent with this request."', 'woocommerce-api-manager' ) . PHP_EOL . esc_html__( 'Resources available:', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->resources, true ) . PHP_EOL . esc_html__( 'Request data received:', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
+				WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in activate() method. Error message is "Error code 100. Cannot activate API Key. The API Key has already been activated with the same unique instance ID sent with this request."', 'woocommerce-api-manager' ) . PHP_EOL . esc_html__( 'Resources available:', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->resources, true ) . PHP_EOL . esc_html__( 'Request data received:', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
 			}
 
 			$this->error_response( '100', esc_html__( 'Cannot activate API Key. The API Key has already been activated with the same unique instance ID sent with this request.', 'woocommerce-api-manager' ) );
@@ -434,14 +437,14 @@ class WC_AM_API_Requests {
 			do_action( 'wc_api_manager_activate_no_api_resources_available_error', false, $this->resources, $this->request, $this->user_id );
 
 			if ( $this->error_log ) {
-				WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Error in activate() method. Error message is "Error code 100. Cannot activate API Key. No API resources available."', 'woocommerce-api-manager' ) . PHP_EOL . esc_html__( 'Resources available:', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->resources, true ) . PHP_EOL . esc_html__( 'Request data received:', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
+				WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in activate() method. Error message is "Error code 100. Cannot activate API Key. No API resources available."', 'woocommerce-api-manager' ) . PHP_EOL . esc_html__( 'Resources available:', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->resources, true ) . PHP_EOL . esc_html__( 'Request data received:', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
 			}
 
 			$this->error_response( '100', esc_html__( 'Cannot activate API Key. No API resources available.', 'woocommerce-api-manager' ) );
 		}
 
 		if ( $this->debug_log ) {
-			WC_AM_Log()->api_debug_log( PHP_EOL . esc_html__( 'Details from activate() method.', 'woocommerce-api-manager' ) . PHP_EOL . 'Resources:' . PHP_EOL . wc_print_r( $this->resources, true ) . PHP_EOL . 'Request:' . PHP_EOL . wc_print_r( $this->request, true ) );
+			WC_AM_LOG()->api_debug_log( PHP_EOL . esc_html__( 'Details from activate() method.', 'woocommerce-api-manager' ) . PHP_EOL . 'Resources:' . PHP_EOL . wc_print_r( $this->resources, true ) . PHP_EOL . 'Request:' . PHP_EOL . wc_print_r( $this->request, true ) );
 		}
 
 		if ( $this->send_response_data ) {
@@ -450,7 +453,7 @@ class WC_AM_API_Requests {
 				$data[ 'resources' ] = WC_AM_API_RESOURCE_DATA_STORE()->get_active_api_resources( $this->request[ 'api_key' ], $this->request[ 'product_id' ] );
 			} catch ( Exception $exception ) {
 				if ( $this->debug_log ) {
-					WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Details from activate() method.', 'woocommerce-api-manager' ) . PHP_EOL . $exception );
+					WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Details from activate() method.', 'woocommerce-api-manager' ) . PHP_EOL . $exception );
 				}
 
 				$this->error_response( '100', esc_html__( 'There was an error getting API resources in activate()', 'woocommerce-api-manager' ) . ': ' . $exception );
@@ -541,7 +544,7 @@ class WC_AM_API_Requests {
 		}
 
 		if ( $this->debug_log ) {
-			WC_AM_Log()->api_debug_log( PHP_EOL . esc_html__( 'Details from deactivate() method.', 'woocommerce-api-manager' ) . PHP_EOL . 'Resources:' . PHP_EOL . wc_print_r( $this->resources, true ) . PHP_EOL . 'Request:' . PHP_EOL . wc_print_r( $this->request, true ) );
+			WC_AM_LOG()->api_debug_log( PHP_EOL . esc_html__( 'Details from deactivate() method.', 'woocommerce-api-manager' ) . PHP_EOL . 'Resources:' . PHP_EOL . wc_print_r( $this->resources, true ) . PHP_EOL . 'Request:' . PHP_EOL . wc_print_r( $this->request, true ) );
 		}
 
 		if ( $this->send_response_data ) {
@@ -550,7 +553,7 @@ class WC_AM_API_Requests {
 				$data[ 'resources' ] = WC_AM_API_RESOURCE_DATA_STORE()->get_active_api_resources( $this->request[ 'api_key' ], $this->request[ 'product_id' ] );
 			} catch ( Exception $exception ) {
 				if ( $this->debug_log ) {
-					WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Details from deactivate() method.', 'woocommerce-api-manager' ) . PHP_EOL . $exception );
+					WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Details from deactivate() method.', 'woocommerce-api-manager' ) . PHP_EOL . $exception );
 				}
 
 				$this->error_response( '100', esc_html__( 'There was an error getting API resources in deactivate()', 'woocommerce-api-manager' ) . ': ' . $exception );
@@ -621,7 +624,7 @@ class WC_AM_API_Requests {
 		$this->get_resources();
 
 		if ( $this->debug_log ) {
-			WC_AM_Log()->api_debug_log( PHP_EOL . esc_html__( 'Details from status() method.', 'woocommerce-api-manager' ) . PHP_EOL . 'Resources:' . PHP_EOL . wc_print_r( $data, true ) . PHP_EOL . 'Request:' . PHP_EOL . wc_print_r( $this->request, true ) );
+			WC_AM_LOG()->api_debug_log( PHP_EOL . esc_html__( 'Details from status() method.', 'woocommerce-api-manager' ) . PHP_EOL . 'Resources:' . PHP_EOL . wc_print_r( $data, true ) . PHP_EOL . 'Request:' . PHP_EOL . wc_print_r( $this->request, true ) );
 		}
 
 		if ( $this->send_response_data ) {
@@ -632,7 +635,7 @@ class WC_AM_API_Requests {
 				$this->error_response( '100', esc_html__( 'There was an error getting API resources in status()', 'woocommerce-api-manager' ) . ': ' . $exception );
 
 				if ( $this->debug_log ) {
-					WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Details from status() method.', 'woocommerce-api-manager' ) . PHP_EOL . $exception );
+					WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Details from status() method.', 'woocommerce-api-manager' ) . PHP_EOL . $exception );
 				}
 			}
 		} else {
@@ -666,11 +669,11 @@ class WC_AM_API_Requests {
 						if ( $this->error_log ) {
 							// Refresh resources.
 							$this->get_resources();
-							WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Error in status() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API resources. The API Key activation has been deleted as it should no longer exist without an authorized API resource."', 'woocommerce-api-manager' ) );
+							WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in status() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API resources. The API Key activation has been deleted as it should no longer exist without an authorized API resource."', 'woocommerce-api-manager' ) );
 						}
 					} else {
 						if ( $this->error_log ) {
-							WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Error in status() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API resources. The API Key activation with Instance ID ' . wc_print_r( $this->request[ 'instance' ] ) . ' could not be deleted automatically."', 'woocommerce-api-manager' ) );
+							WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in status() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API resources. The API Key activation with Instance ID ' . wc_print_r( $this->request[ 'instance' ] ) . ' could not be deleted automatically."', 'woocommerce-api-manager' ) );
 						}
 					}
 				}
@@ -681,11 +684,14 @@ class WC_AM_API_Requests {
 			}
 		}
 
-		$data[ 'unlimited_activations' ]       = WC_AM_PRODUCT_DATA_STORE()->is_api_product_unlimited_activations( $product_id ); // since 2.2
+		$unlimited_activations = WC_AM_PRODUCT_DATA_STORE()->is_api_product_unlimited_activations( $product_id );
+
+		$data[ 'unlimited_activations' ]       = $unlimited_activations; // since 2.2
 		$data[ 'total_activations_purchased' ] = $total_activations_purchased = WC_AM_API_RESOURCE_DATA_STORE()->get_total_activations_purchased( $this->resources );
 		$data[ 'total_activations' ]           = $total_activations = WC_AM_API_RESOURCE_DATA_STORE()->get_total_activations( $this->resources );
 		$data[ 'activations_remaining' ]       = $total_activations_purchased - $total_activations;
 		$data[ 'activated' ]                   = $is_active;
+		$data[ 'api_key_expirations' ]         = WC_AM_API_RESOURCE_DATA_STORE()->get_access_api_key_expirations( $this->resources, $unlimited_activations );
 
 		// Legacy API Manager < 2.0, and API Manager PHP Library <= 1.2.
 		$top_level_data[ 'status_check' ] = $is_active ? 'active' : 'inactive';
@@ -701,12 +707,12 @@ class WC_AM_API_Requests {
 		}
 
 		/**
-		 * Status success.
+		 * Status success action hook.
 		 *
 		 * @since 2.1.7
 		 *
 		 * @param boolean Default false. Not intended for return value.
-		 * @param Array ( $this->resources ). Array of customer API Resources.
+		 * @param Object ( $this->resources ). Object of customer API Resources.
 		 * @param Array ( $this->request ). Array of customer API request data.
 		 * @param Array $top_level_data
 		 * @param Array $data
@@ -721,7 +727,7 @@ class WC_AM_API_Requests {
 		 *
 		 * @param Array $top_level_data
 		 * @param Array $data
-		 * @param Array ( $this->resources ). Array of customer API Resources.
+		 * @param Object ( $this->resources ). Object of customer API Resources.
 		 * @param Array ( $this->request ). Array of customer API request data.
 		 * @param int ( $this->user_id )
 		 */
@@ -761,7 +767,7 @@ class WC_AM_API_Requests {
 
 		if ( ! $product_id ) {
 			if ( $this->error_log ) {
-				WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Error in information() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' could not be found in this store."', 'woocommerce-api-manager' ) );
+				WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in information() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' could not be found in this store."', 'woocommerce-api-manager' ) );
 			}
 
 			if ( $type == 'serialize' ) {
@@ -853,9 +859,9 @@ class WC_AM_API_Requests {
 
 				if ( $this->error_log ) {
 					if ( $delete_api_key_activation ) {
-						WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Error in information() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API resources. The API Key activation has been deleted as it should no longer exist without an authorized API resource."', 'woocommerce-api-manager' ) );
+						WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in information() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API resources. The API Key activation has been deleted as it should no longer exist without an authorized API resource."', 'woocommerce-api-manager' ) );
 					} else {
-						WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Error in information() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API resources. The API Key activation with Instance ID ' . wc_print_r( $this->request[ 'instance' ] ) . ' could not be deleted automatically."', 'woocommerce-api-manager' ) );
+						WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in information() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API resources. The API Key activation with Instance ID ' . wc_print_r( $this->request[ 'instance' ] ) . ' could not be deleted automatically."', 'woocommerce-api-manager' ) );
 					}
 				}
 
@@ -906,7 +912,7 @@ class WC_AM_API_Requests {
 		$response->name = $data[ 'info' ][ 'name' ] = $product_object->get_title();
 
 		if ( $this->debug_log ) {
-			WC_AM_Log()->api_debug_log( PHP_EOL . esc_html__( 'Details from information() method.', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $product_id, true ) . PHP_EOL . wc_print_r( $this->request, true ) . PHP_EOL . wc_print_r( $product_data, true ) );
+			WC_AM_LOG()->api_debug_log( PHP_EOL . esc_html__( 'Details from information() method.', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $product_id, true ) . PHP_EOL . wc_print_r( $this->request, true ) . PHP_EOL . wc_print_r( $product_data, true ) );
 		}
 
 		// Correct incorrectly formatted slug.
@@ -1023,7 +1029,7 @@ class WC_AM_API_Requests {
 			do_action( 'wc_api_manager_update_product_id_not_found_error', false, $this->resources, $this->request );
 
 			if ( $this->error_log ) {
-				WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Error in update() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' could not be found in this store."', 'woocommerce-api-manager' ) );
+				WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in update() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' could not be found in this store."', 'woocommerce-api-manager' ) );
 			}
 
 			// Legacy API Manager < 2.0, and API Manager PHP Library <= 1.2.
@@ -1149,9 +1155,9 @@ class WC_AM_API_Requests {
 
 				if ( $this->error_log ) {
 					if ( $delete_api_key_activation ) {
-						WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Error in update() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API resources. The API Key activation has been deleted as it should no longer exist without an authorized API resource."', 'woocommerce-api-manager' ) );
+						WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in update() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API resources. The API Key activation has been deleted as it should no longer exist without an authorized API resource."', 'woocommerce-api-manager' ) );
 					} else {
-						WC_AM_Log()->api_error_log( PHP_EOL . esc_html__( 'Error in update() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API resources. The API Key activation with Instance ID ' . wc_print_r( $this->request[ 'instance' ] ) . ' could not be deleted automatically."', 'woocommerce-api-manager' ) );
+						WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in update() method. Error message is "The product ID ' . wc_print_r( $this->request[ 'product_id' ], true ) . ' has an activated API Key, but it does not exist in your API resources. The API Key activation with Instance ID ' . wc_print_r( $this->request[ 'instance' ] ) . ' could not be deleted automatically."', 'woocommerce-api-manager' ) );
 					}
 				}
 
@@ -1184,7 +1190,7 @@ class WC_AM_API_Requests {
 		}
 
 		if ( $this->debug_log ) {
-			WC_AM_Log()->api_debug_log( PHP_EOL . esc_html__( 'Details from update() method.', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $product_id, true ) . PHP_EOL . wc_print_r( $this->request, true ) . PHP_EOL . wc_print_r( $product_data, true ) );
+			WC_AM_LOG()->api_debug_log( PHP_EOL . esc_html__( 'Details from update() method.', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $product_id, true ) . PHP_EOL . wc_print_r( $this->request, true ) . PHP_EOL . wc_print_r( $product_data, true ) );
 		}
 
 		// Correct incorrectly formatted slug.
@@ -1304,6 +1310,99 @@ class WC_AM_API_Requests {
 	}
 
 	/**
+	 * Returns a list of product by Title and Product ID using the API Key.
+	 *
+	 * @since 2.4.6
+	 */
+	private function product_list() {
+		$resources                 = array();
+		$data                      = array();
+		$top_level_data            = array();
+		$trans_data_name           = '';
+		$trans_top_level_data_name = '';
+
+		$this->required( array( 'api_key', 'instance' ) );
+
+		if ( WCAM()->get_db_cache() ) {
+			/**
+			 * Data Cache
+			 */
+			$trans_hash                = md5( $this->request[ 'api_key' ] . 'product_list' . $this->request[ 'instance' ] );
+			$trans_data_name           = 'wc_am_api_product_list_func_data_' . $trans_hash;
+			$trans_top_level_data_name = 'wc_am_api_product_list_func_top_level_data_' . $trans_hash;
+			$data_trans                = WC_AM_SMART_CACHE()->set_or_get_cache( $trans_data_name );
+			$top_level_data_trans      = WC_AM_SMART_CACHE()->set_or_get_cache( $trans_top_level_data_name );
+
+			if ( $data_trans !== false ) {
+				$this->success_response( apply_filters( 'wc_api_manager_product_list_top_level_data', $top_level_data_trans !== false ? $top_level_data_trans : $top_level_data ), apply_filters( 'wc_api_manager_product_list_data', $data_trans ) );
+			}
+		}
+
+		// Verify the user account exists before proceeding.
+		$this->verify_user();
+
+		try {
+			$resources = WC_AM_API_RESOURCE_DATA_STORE()->get_api_resources_for_master_api_key_or_product_order_api_key( $this->request[ 'api_key' ] );
+
+			if ( WC_AM_FORMAT()->empty( $resources ) ) {
+				if ( $this->error_log ) {
+					WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Error in get_api_resources_for_master_api_key_or_product_order_api_key() method. Error message is "Error code 100. No API resources exist. Verify there are activations remaining, and the API Key is correct."', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $this->request, true ) );
+				}
+
+				$this->error_response( '100', sprintf( __( 'No API resources exist. Login to %sMy Account%s to verify there are activations remaining, and the API Key is correct.', 'woocommerce-api-manager' ), '<a href="' . esc_url( WC_AM_API_ACTIVATION_DATA_STORE()->get_api_keys_url() ) . '" target="blank">', '</a>' ) );
+			}
+
+			if ( $this->debug_log ) {
+				WC_AM_LOG()->api_debug_log( PHP_EOL . esc_html__( 'Details from get_api_resources_for_master_api_key_or_product_order_api_key() method.', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $resources, true ) );
+			}
+		} catch ( Exception $exception ) {
+			$this->error_response( '100', esc_html__( 'There was an error getting API resources', 'woocommerce-api-manager' ) . ': ' . $exception );
+
+			if ( $this->debug_log ) {
+				WC_AM_LOG()->api_error_log( PHP_EOL . esc_html__( 'Details from get_api_resources_for_master_api_key_or_product_order_api_key() method.', 'woocommerce-api-manager' ) . PHP_EOL . $exception );
+			}
+		}
+
+		if ( $this->debug_log ) {
+			WC_AM_LOG()->api_debug_log( PHP_EOL . esc_html__( 'Details from product_list() method.', 'woocommerce-api-manager' ) . PHP_EOL . 'Resources:' . PHP_EOL . wc_print_r( $data, true ) . PHP_EOL . 'Request:' . PHP_EOL . wc_print_r( $this->request, true ) );
+		}
+
+		$data[ 'product_list' ] = WC_AM_API_RESOURCE_DATA_STORE()->get_titles_and_products_ids_from_api_using_api_key( $resources, $this->request[ 'api_key' ] );
+
+		/**
+		 * Data Cache
+		 */
+		if ( WCAM()->get_db_cache() ) {
+			WC_AM_SMART_CACHE()->set_or_get_cache( $trans_data_name, apply_filters( 'wc_api_manager_product_list_data', $data ), WCAM()->get_api_cache_expires() * MINUTE_IN_SECONDS );
+			WC_AM_SMART_CACHE()->set_or_get_cache( $trans_top_level_data_name, apply_filters( 'wc_api_manager_product_list_top_level_data', $top_level_data ), WCAM()->get_api_cache_expires() * MINUTE_IN_SECONDS );
+		}
+
+		/**
+		 * product_list success action hook.
+		 *
+		 * @param boolean Default false. Not intended for return value.
+		 * @param Object ( $resources ). Object of customer API Resources.
+		 * @param Array ( $this->request ). Array of customer API request data.
+		 * @param Array $top_level_data
+		 * @param Array $data
+		 * @param int ($this->user_id)
+		 */
+		do_action( 'wc_api_manager_product_list_success', false, $resources, $this->request, $top_level_data, $data, $this->user_id );
+
+		/**
+		 * product_list success response.
+		 *
+		 * @param Array $top_level_data
+		 * @param Array $data
+		 * @param Object ( $resources ). Object of customer API Resources.
+		 * @param Array ( $this->request ). Array of customer API request data.
+		 * @param int ( $this->user_id )
+		 */
+
+		$this->success_response( apply_filters( 'wc_api_manager_product_list_top_level_data', $top_level_data ), apply_filters( 'wc_api_manager_product_list_data', $data, $resources, $this->request, $this->user_id ) );
+	}
+
+	/**
 	 * Send a JSON response back to an API request, indicating success, and data if set.
 	 *
 	 * @since 2.0
@@ -1327,7 +1426,7 @@ class WC_AM_API_Requests {
 		$response[ 'api_call_execution_time' ] = round( microtime( true ) - $this->time_start, 6 ) . ' seconds';
 
 		if ( $this->response_log ) {
-			WC_AM_Log()->api_response_log( PHP_EOL . esc_html__( 'Details from success_response() method. This is the success response from the API:', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $response, true ) );
+			WC_AM_LOG()->api_response_log( PHP_EOL . esc_html__( 'Details from success_response() method. This is the success response from the API:', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $response, true ) );
 		}
 
 		wp_send_json( $response, $status_code );
@@ -1377,7 +1476,7 @@ class WC_AM_API_Requests {
 		$response[ 'api_call_execution_time' ] = round( microtime( true ) - $this->time_start, 6 ) . ' seconds';
 
 		if ( $this->response_log ) {
-			WC_AM_Log()->api_response_log( PHP_EOL . esc_html__( 'Details from error_response() method. This is the error response from the API:', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $response, true ) );
+			WC_AM_LOG()->api_response_log( PHP_EOL . esc_html__( 'Details from error_response() method. This is the error response from the API:', 'woocommerce-api-manager' ) . PHP_EOL . wc_print_r( $response, true ) );
 		}
 
 		wp_send_json( $response, $status_code );

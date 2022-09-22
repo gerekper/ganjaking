@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Shipment Tracking
  * Plugin URI: https://woocommerce.com/products/shipment-tracking/
  * Description: Add tracking numbers to orders allowing customers to track their orders via a link. Supports many shipping providers, as well as custom ones if neccessary via a regular link.
- * Version: 1.7.2
+ * Version: 1.8.0
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-shipment-tracking
  * Domain Path: /languages
- * WC requires at least: 2.6
- * WC tested up to: 6.6
+ * WC requires at least: 3.0
+ * WC tested up to: 6.8
  * Tested up to: 6.0
  *
  * Copyright: © 2022 WooCommerce
@@ -40,7 +40,7 @@ function woocommerce_shipment_tracking_missing_wc_notice() {
  * WC_Shipment_Tracking class
  */
 if ( ! class_exists( 'WC_Shipment_Tracking' ) ) :
-	define( 'WC_SHIPMENT_TRACKING_VERSION', '1.7.2' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_SHIPMENT_TRACKING_VERSION', '1.8.0' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Plugin's main class.
@@ -108,8 +108,10 @@ if ( ! class_exists( 'WC_Shipment_Tracking' ) ) :
 			add_action( 'woocommerce_email_before_order_table', array( $this->actions, 'email_display' ), 0, 4 );
 
 			// Custom tracking column in admin orders list.
-			add_filter( 'manage_shop_order_posts_columns', array( $this->actions, 'shop_order_columns' ), 99 );
-			add_action( 'manage_shop_order_posts_custom_column', array( $this->actions, 'render_shop_order_columns' ) );
+			add_filter( 'manage_shop_order_posts_columns', array( $this->actions, 'add_wc_orders_list_columns' ), 99 );
+			add_action( 'manage_shop_order_posts_custom_column', array( $this->actions, 'render_shop_order_columns' ), 10, 2 );
+			add_filter( 'manage_woocommerce_page_wc-orders_columns', array( $this->actions, 'add_wc_orders_list_columns' ), 99 );
+			add_action( 'manage_woocommerce_page_wc-orders_custom_column', array( $this->actions, 'render_wc_orders_list_columns' ), 10, 2 );
 
 			// Order page metabox actions.
 			add_action( 'wp_ajax_wc_shipment_tracking_delete_item', array( $this->actions, 'meta_box_delete_tracking' ) );

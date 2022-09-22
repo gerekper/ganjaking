@@ -65,7 +65,8 @@ class WC_Deposits_Plans_Admin {
 		wp_enqueue_script( 'woocommerce-deposits-payment-plans' );
 
 		if ( ! empty( $_POST ) ) {
-			$result = $this->maybe_save_plan();
+			$plan_amounts = filter_input( INPUT_POST, 'plan_amount', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+			$result       = $this->validate_plan_amounts( $plan_amounts ) ? $this->maybe_save_plan() : false;
 
 			if ( is_wp_error( $result ) ) {
 				echo '<div class="error"><p>' . $result->get_error_message() . '</p></div>';
@@ -112,6 +113,25 @@ class WC_Deposits_Plans_Admin {
 	}
 
 	/**
+	 * Validate plan amounts. Decline empty or 0.
+	 *
+	 * @param array $plan_amounts Plan amounts.
+	 *
+	 * @return bool valid or invalid.
+	 */
+	public function validate_plan_amounts( $plan_amounts = array() ) {
+		if ( count( $plan_amounts ) ) {
+			if ( in_array( '', $plan_amounts, true ) || in_array( '0', $plan_amounts, true ) ) {
+				echo '<div class="notice error is-dismissible"><p>' . esc_html__( 'Please enter a valid amount', 'woocommerce-deposits' ) . '</p></div>';
+
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
 	 * Save a posted plan.
 	 */
 	public function maybe_save_plan() {
@@ -128,14 +148,22 @@ class WC_Deposits_Plans_Admin {
 				return new WP_Error( 'error', __( 'Unable to save payment plan - please try again', 'woocommerce-deposits' ) );
 			}
 
-			$abs_round_1 = function ( $value ) {
-				return round( abs( $value ), 1 );
+			$abs_round = function ( $value ) {
+				/**
+				 * Filters deposits payment plan amount decimals.
+				 *
+				 * @since 1.5.9
+				 *
+				 * @param string Plan amount decimals.
+				 */
+				$amount_decimals = apply_filters( 'woocommerce_deposits_plan_amount_decimals', 4 );
+				return round( abs( $value ), absint( $amount_decimals ) );
 			};
 
 			$plan_id               = $editing;
 			$plan_name             = empty( $_POST['plan_name'] ) ? __( 'Payment Plan', 'woocommerce-deposits' ) : sanitize_text_field( $_POST['plan_name'] );
 			$plan_description      = empty( $_POST['plan_description'] ) ? '' : wp_kses_post( $_POST['plan_description'] );
-			$plan_amounts          = array_map( $abs_round_1, $_POST['plan_amount'] );
+			$plan_amounts          = array_map( $abs_round, $_POST['plan_amount'] );
 			$plan_interval_amounts = array_map( 'absint', $_POST['plan_interval_amount'] );
 			$plan_interval_units   = array_map( 'sanitize_text_field', $_POST['plan_interval_unit'] );
 			$payment_schedule      = array();

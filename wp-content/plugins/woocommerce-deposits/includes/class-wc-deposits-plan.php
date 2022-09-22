@@ -92,7 +92,7 @@ class WC_Deposits_Plan {
 	 * @param  string $amount Optionaly define the amount being paid (if used when displaying a product)
 	 * @return string
 	 */
-	public function get_formatted_schedule( $amount = '' ) {
+	public function get_formatted_schedule( $amount = '', $currency = '' ) {
 		$schedule      = $this->get_schedule();
 		$total_percent = $this->get_total_percent();
 		$total_days    = 0;
@@ -120,7 +120,7 @@ class WC_Deposits_Plan {
 		if ( ! $amount ) {
 			$amount = $total_percent . '%';
 		} else {
-			$amount = wc_price( $amount );
+			$amount = wc_price( $amount, array( 'currency' => $currency ) );
 		}
 
 		if ( $total_years ) {

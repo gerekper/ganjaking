@@ -290,10 +290,10 @@ class THEMECOMPLETE_EPO_Display {
 		if ( ! empty( $element['validation1'] ) ) {
 			$rules[ $element['validation1'] ] = true;
 		}
-		if ( ! empty( $element['repeater_min_rows'] ) ) {
+		if ( ! empty( $element['repeater'] ) && ! empty( $element['repeater_min_rows'] ) ) {
 			$rules['repeaterminrows'] = $element['repeater_min_rows'];
 		}
-		if ( ! empty( $element['repeater_max_rows'] ) ) {
+		if ( ! empty( $element['repeater'] ) && ! empty( $element['repeater_max_rows'] ) ) {
 			$rules['repeatermaxrows'] = $element['repeater_max_rows'];
 		}
 
@@ -312,7 +312,7 @@ class THEMECOMPLETE_EPO_Display {
 	 */
 	public function woocommerce_available_variation( $array, $class, $variation ) {
 
-		if ( ! THEMECOMPLETE_EPO()->can_load_scripts() && ! ( isset( $_REQUEST['wc-ajax'] ) && 'get_variation' === $_REQUEST['wc-ajax'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( apply_filters( 'wc_epo_woocommerce_available_variation_check', true ) && ! THEMECOMPLETE_EPO()->can_load_scripts() && ! ( isset( $_REQUEST['wc-ajax'] ) && 'get_variation' === $_REQUEST['wc-ajax'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			return $array;
 		}
 
@@ -324,7 +324,7 @@ class THEMECOMPLETE_EPO_Display {
 			$base_taxes_of_one   = 0;
 			$modded_taxes_of_one = 0;
 
-			$non_base_location_prices = - 1;
+			$non_base_location_prices = -1;
 			$base_tax_rate            = $tax_rate;
 
 			if ( class_exists( 'WC_Tax' ) && version_compare( get_option( 'woocommerce_version' ), '2.4', '>=' ) ) {
@@ -579,7 +579,7 @@ class THEMECOMPLETE_EPO_Display {
 	 *
 	 * @param integer $product_id The product id.
 	 * @param string  $form_prefix The form prefix.
-	 * @param boolean $dummy_prefix If we should uset the form prefix.
+	 * @param boolean $dummy_prefix If we should use the form prefix.
 	 */
 	public function frontend_display( $product_id = 0, $form_prefix = '', $dummy_prefix = false ) {
 
@@ -608,7 +608,7 @@ class THEMECOMPLETE_EPO_Display {
 	 * Batch add plugin options
 	 *
 	 * @param string  $form_prefix The form prefix.
-	 * @param boolean $dummy_prefix If we should uset the form prefix.
+	 * @param boolean $dummy_prefix If we should use the form prefix.
 	 */
 	private function tm_epo_fields_batch( $form_prefix = '', $dummy_prefix = false ) {
 
@@ -646,7 +646,7 @@ class THEMECOMPLETE_EPO_Display {
 	 * @param integer $product_id The product id.
 	 * @param string  $form_prefix The form prefix.
 	 * @param boolean $is_from_shortcode If we are in a shortcode.
-	 * @param boolean $dummy_prefix If we should uset the form prefix.
+	 * @param boolean $dummy_prefix If we should use the form prefix.
 	 */
 	public function tm_epo_fields( $product_id = 0, $form_prefix = '', $is_from_shortcode = false, $dummy_prefix = false ) {
 
@@ -711,7 +711,7 @@ class THEMECOMPLETE_EPO_Display {
 
 		$post_id = $product_id;
 
-		$cpf_price_array = THEMECOMPLETE_EPO()->get_product_tm_epos( $post_id );
+		$cpf_price_array = THEMECOMPLETE_EPO()->get_product_tm_epos( $post_id, $form_prefix );
 
 		if ( ! $cpf_price_array ) {
 			return;
@@ -933,7 +933,7 @@ class THEMECOMPLETE_EPO_Display {
 	 * @param string  $where The field placement 'before' or 'after'.
 	 * @param array   $args The variable arguemnts..
 	 * @param string  $form_prefix The form prefix.
-	 * @param boolean $dummy_prefix If we should uset the form prefix.
+	 * @param boolean $dummy_prefix If we should use the form prefix.
 	 * @since 1.0
 	 */
 	public function get_builder_display( $post_id, $field, $where, $args, $form_prefix = '', $dummy_prefix = false ) {
@@ -1287,20 +1287,12 @@ class THEMECOMPLETE_EPO_Display {
 
 									if ( 'single' === $element_object->type || 'multipleallsingle' === $element_object->type || 'multiplesingle' === $element_object->type || 'singlemultiple' === $element_object->type ) {
 
-										$name_inc      = $element_object->post_name_prefix . '_' . $element_counter . ( $dummy_prefix ? '' : ( ( '' !== $form_prefix ) ? '_' . str_replace( '_', '', $form_prefix ) : '' ) );
-										$base_name_inc = $name_inc;
-
+										$name_inc    = $element['raw_name_inc'] . ( $dummy_prefix ? '' : $element['raw_name_inc_prefix'] );
 										$is_cart_fee = ! empty( $element['is_cart_fee'] );
-
-										if ( $is_cart_fee ) {
-											$name_inc = $cart_fee_name . $base_name_inc;
-										}
 
 										if ( ! isset( $element_type_counter[ $element['type'] ] ) ) {
 											$element_type_counter[ $element['type'] ] = 0;
 										}
-
-										$name_inc = apply_filters( 'wc_epo_name_inc', $name_inc, $base_name_inc, $element, false, false, $element_type_counter[ $element['type'] ] );
 
 										$posted_name = 'tmcp_' . $name_inc;
 
@@ -1310,6 +1302,10 @@ class THEMECOMPLETE_EPO_Display {
 											if ( ! is_array( $get_posted_name ) ) {
 												$get_posted_name = [ $get_posted_name ];
 											}
+										}
+
+										if ( count( $get_posted_name ) > 1 && 'multipleallsingle' === $element_object->type ) {
+											$get_posted_name = [ $get_posted_name[0] ];
 										}
 
 										do_action( 'wc_epo_get_builder_display_single', $element, $name_inc, null );
@@ -1331,12 +1327,12 @@ class THEMECOMPLETE_EPO_Display {
 										$args['get_posted_key_count'] = count( $get_posted_name );
 
 										foreach ( $get_posted_name as $get_posted_key => $get_posted_value ) {
-											$html_name          = 'tmcp_' . $name_inc . ( ! empty( $repeater ) ? '[' . $get_posted_key . ']' : '' );
-											$html_quantity_name = 'tmcp_' . $name_inc . '_quantity' . ( ! empty( $repeater ) ? '[' . $get_posted_key . ']' : '' );
+											$html_name          = $posted_name . ( ! empty( $repeater ) ? '[' . $get_posted_key . ']' : '' );
+											$html_quantity_name = $posted_name . '_quantity' . ( ! empty( $repeater ) ? '[' . $get_posted_key . ']' : '' );
 											if ( 'singlemultiple' === $element_object->type ) {
 												if ( empty( $repeater ) ) {
-													$html_name          = 'tmcp_' . $name_inc . '[0][]';
-													$html_quantity_name = 'tmcp_' . $name_inc . '_quantity[0]';
+													$html_name          = $posted_name . '[0][]';
+													$html_quantity_name = $posted_name . '_quantity[0]';
 												} else {
 													$html_name .= '[]';
 												}
@@ -1519,19 +1515,9 @@ class THEMECOMPLETE_EPO_Display {
 											$_field_counter = 0;
 											foreach ( $element['options'] as $value => $label ) {
 
-												if ( 'multipleall' === $element_object->type ) {
-													$name_inc = $element_object->post_name_prefix . '_' . $element_counter . '_' . $_field_counter . ( $dummy_prefix ? '' : ( ( '' !== $form_prefix ) ? '_' . str_replace( '_', '', $form_prefix ) : '' ) );
-												} else {
-													$name_inc = $element_object->post_name_prefix . '_' . $element_counter . ( $dummy_prefix ? '' : ( ( '' !== $form_prefix ) ? '_' . str_replace( '_', '', $form_prefix ) : '' ) );
-												}
-												$base_name_inc = $name_inc;
+												$name_inc = $element['raw_name_inc'][ $_field_counter ] . ( $dummy_prefix ? '' : $element['raw_name_inc_prefix'][ $_field_counter ] );
 
 												$is_cart_fee = ! empty( $element['is_cart_fee_multiple'][ $_field_counter ] );
-												if ( $is_cart_fee ) {
-													$name_inc = $cart_fee_name . $name_inc;
-												}
-
-												$name_inc = apply_filters( 'wc_epo_name_inc', $name_inc, $base_name_inc, $element, $value, 0, $element_type_counter[ $element['type'] ] );
 
 												$posted_name = 'tmcp_' . $name_inc;
 
@@ -1552,15 +1538,10 @@ class THEMECOMPLETE_EPO_Display {
 
 											}
 										} else {
-											$name_inc      = $element_object->post_name_prefix . '_' . $element_counter . ( $dummy_prefix ? '' : ( ( '' !== $form_prefix ) ? '_' . str_replace( '_', '', $form_prefix ) : '' ) );
-											$base_name_inc = $name_inc;
+											$name_inc = $element['raw_name_inc'][0] . ( $dummy_prefix ? '' : $element['raw_name_inc_prefix'][0] );
 
 											$is_cart_fee = ! empty( $element['is_cart_fee_multiple'][0] );
-											if ( $is_cart_fee ) {
-												$name_inc = $cart_fee_name . $name_inc;
-											}
 
-											$name_inc    = apply_filters( 'wc_epo_name_inc', $name_inc, $base_name_inc, $element, '', 0, $element_type_counter[ $element['type'] ] );
 											$posted_name = 'tmcp_' . $name_inc;
 
 											if ( isset( $_REQUEST[ $posted_name ] ) && is_array( $_REQUEST[ $posted_name ] ) ) {
@@ -1615,24 +1596,16 @@ class THEMECOMPLETE_EPO_Display {
 											foreach ( $element['options'] as $value => $label ) {
 
 												$tabindex ++;
-												if ( 'multipleall' === $element_object->type ) {
-													$name_inc = $element_object->post_name_prefix . '_' . $element_counter . '_' . $field_counter . ( $dummy_prefix ? '' : ( ( '' !== $form_prefix ) ? '_' . str_replace( '_', '', $form_prefix ) : '' ) );
-												} else {
-													$name_inc = $element_object->post_name_prefix . '_' . $element_counter . ( $dummy_prefix ? '' : ( ( '' !== $form_prefix ) ? '_' . str_replace( '_', '', $form_prefix ) : '' ) );
-												}
-												$base_name_inc = $name_inc;
+
+												$name_inc = $element['raw_name_inc'][ $field_counter ] . ( $dummy_prefix ? '' : $element['raw_name_inc_prefix'][ $field_counter ] );
 
 												$is_cart_fee = ! empty( $element['is_cart_fee_multiple'][ $field_counter ] );
-												if ( $is_cart_fee ) {
-													$name_inc = $cart_fee_name . $name_inc;
-												}
 
-												$name_inc    = apply_filters( 'wc_epo_name_inc', $name_inc, $base_name_inc, $element, $value, $choice_counter, $element_type_counter[ $element['type'] ] );
 												$posted_name = 'tmcp_' . $name_inc;
 												do_action( 'wc_epo_get_builder_display_single', $element, $name_inc, $value );
 
-												$html_name          = 'tmcp_' . $name_inc . ( ! empty( $repeater ) ? '[' . $get_posted_key . ']' : '' );
-												$html_quantity_name = 'tmcp_' . $name_inc . '_quantity' . ( ! empty( $repeater ) ? '[' . $get_posted_key . ']' : '' );
+												$html_name          = $posted_name . ( ! empty( $repeater ) ? '[' . $get_posted_key . ']' : '' );
+												$html_quantity_name = $posted_name . '_quantity' . ( ! empty( $repeater ) ? '[' . $get_posted_key . ']' : '' );
 
 												if ( ! empty( THEMECOMPLETE_EPO()->cart_edit_key ) && isset( $_GET['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'tm-edit' ) ) {
 													$_cart = WC()->cart;
@@ -1979,7 +1952,7 @@ class THEMECOMPLETE_EPO_Display {
 	 * @param array   $local_price_array The normal options array.
 	 * @param array   $args The variable arguemnts..
 	 * @param string  $form_prefix The form prefix.
-	 * @param boolean $dummy_prefix If we should uset the form prefix.
+	 * @param boolean $dummy_prefix If we should use the form prefix.
 	 * @since 4.8
 	 */
 	public function get_normal_display( $local_price_array = [], $args = [], $form_prefix = null, $dummy_prefix = null ) {
@@ -2230,10 +2203,10 @@ class THEMECOMPLETE_EPO_Display {
 														} elseif ( empty( $_POST ) && isset( $_REQUEST[ $name ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification
 															$selected_value = wp_unslash( $_REQUEST[ $name ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
 														} elseif ( empty( $_POST ) || ! isset( $_POST[ $name ] ) || 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add ) { // phpcs:ignore WordPress.Security.NonceVerification
-															$selected_value = - 1;
+															$selected_value = -1;
 														}
 
-														$checked = - 1 !== $selected_value && esc_attr( stripcslashes( $selected_value ) ) === esc_attr( $value );
+														$checked = -1 !== $selected_value && esc_attr( stripcslashes( $selected_value ) ) === esc_attr( $value );
 														break;
 
 													case 'checkbox':
@@ -2244,10 +2217,10 @@ class THEMECOMPLETE_EPO_Display {
 														} elseif ( empty( $_POST ) && isset( $_REQUEST[ $name ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification
 															$selected_value = wp_unslash( $_REQUEST[ $name ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
 														} elseif ( ( ( THEMECOMPLETE_EPO()->is_quick_view() || empty( $_POST ) ) && empty( THEMECOMPLETE_EPO()->cart_edit_key ) ) || 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add ) { // phpcs:ignore WordPress.Security.NonceVerification
-															$selected_value = - 1;
+															$selected_value = -1;
 														}
 
-														$checked = - 1 !== $selected_value && esc_attr( stripcslashes( $selected_value ) ) === esc_attr( $value );
+														$checked = -1 !== $selected_value && esc_attr( stripcslashes( $selected_value ) ) === esc_attr( $value );
 														break;
 												}
 												$args = [
@@ -2412,10 +2385,10 @@ class THEMECOMPLETE_EPO_Display {
 												} elseif ( empty( $_POST ) && isset( $_REQUEST[ $name ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 													$selected_value = wp_unslash( $_REQUEST[ $name ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
 												} elseif ( empty( $_POST ) || ! isset( $_POST[ $name ] ) || 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add ) { // phpcs:ignore WordPress.Security.NonceVerification
-													$selected_value = - 1;
+													$selected_value = -1;
 												}
 
-												$checked = - 1 !== $selected_value && esc_attr( stripcslashes( $selected_value ) ) === esc_attr( $value );
+												$checked = -1 !== $selected_value && esc_attr( stripcslashes( $selected_value ) ) === esc_attr( $value );
 												break;
 
 											case 'checkbox':
@@ -2426,10 +2399,10 @@ class THEMECOMPLETE_EPO_Display {
 												} elseif ( empty( $_POST ) && isset( $_REQUEST[ $name ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 													$selected_value = wp_unslash( $_REQUEST[ $name ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
 												} elseif ( ( ( THEMECOMPLETE_EPO()->is_quick_view() || empty( $_POST ) ) && empty( THEMECOMPLETE_EPO()->cart_edit_key ) ) || 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add ) { // phpcs:ignore WordPress.Security.NonceVerification
-													$selected_value = - 1;
+													$selected_value = -1;
 												}
 
-												$checked = - 1 !== $selected_value && esc_attr( stripcslashes( $selected_value ) ) === esc_attr( $value );
+												$checked = -1 !== $selected_value && esc_attr( stripcslashes( $selected_value ) ) === esc_attr( $value );
 												break;
 										}
 
@@ -2616,7 +2589,7 @@ class THEMECOMPLETE_EPO_Display {
 			return;
 		}
 
-		$cpf_price_array = THEMECOMPLETE_EPO()->get_product_tm_epos( $product_id, '', false, true );
+		$cpf_price_array = THEMECOMPLETE_EPO()->get_product_tm_epos( $product_id, $form_prefix, false, true );
 		if ( ! $cpf_price_array ) {
 			return;
 		}
@@ -2810,8 +2783,8 @@ class THEMECOMPLETE_EPO_Display {
 		$base_taxes_of_one   = 0;
 		$modded_taxes_of_one = 0;
 
-		$is_vat_exempt            = - 1;
-		$non_base_location_prices = - 1;
+		$is_vat_exempt            = -1;
+		$non_base_location_prices = -1;
 		$base_tax_rate            = $tax_rate;
 		if ( class_exists( 'WC_Tax' ) && version_compare( get_option( 'woocommerce_version' ), '2.4', '>=' ) ) {
 			$tax_rates      = WC_Tax::get_rates( themecomplete_get_tax_class( $product ) );
@@ -2868,7 +2841,7 @@ class THEMECOMPLETE_EPO_Display {
 		}
 
 		$tm_epo_final_total_box = ( empty( THEMECOMPLETE_EPO()->tm_meta_cpf['override_final_total_box'] ) ) ? THEMECOMPLETE_EPO()->tm_epo_final_total_box : THEMECOMPLETE_EPO()->tm_meta_cpf['override_final_total_box'];
-		if ( THEMECOMPLETE_EPO()->is_associated === true && 'no' === THEMECOMPLETE_EPO()->tm_epo_enable_final_total_box_all ) {
+		if ( THEMECOMPLETE_EPO()->is_associated === true && ! THEMECOMPLETE_EPO_API()->has_options( $product_id ) ) {
 			$tm_epo_final_total_box = 'disable';
 		}
 

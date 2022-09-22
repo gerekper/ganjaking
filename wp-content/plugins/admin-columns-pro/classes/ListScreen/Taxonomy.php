@@ -112,7 +112,7 @@ class Taxonomy extends AC\ListScreenWP
 		$post_type = null;
 
 		if ( $object_type = $this->get_taxonomy_var( 'object_type' ) ) {
-			if ( post_type_exists( $object_type[0] ) ) {
+			if ( post_type_exists( reset( $object_type ) ) ) {
 				$post_type = $object_type[0];
 			}
 		}

@@ -80,6 +80,7 @@ class WC_Box_Office_Ticket_Shortcode {
 		);
 
 		ob_start();
+		wc_print_notices();
 		wc_get_template( 'my-ticket.php', $template_vars, 'woocommerce-box-office', WCBO()->dir . 'templates/' );
 		return ob_get_clean();
 

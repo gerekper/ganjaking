@@ -451,6 +451,76 @@ class WC_AM_API_Resource_Data_Store {
 	}
 
 	/**
+	 * Return all API resources matching the Master API Key or Product Order API Key.
+	 *
+	 * @since 2.4.6
+	 *
+	 * @param string $api_key Master API Key or Product Order API Key
+	 *
+	 * @return array
+	 * @throws \Exception
+	 *
+	 */
+	public function get_api_resources_for_master_api_key_or_product_order_api_key( $api_key ) {
+		global $wpdb;
+
+		if ( ! WCAM()->get_db_cache() ) {
+			$sql = "
+				SELECT *
+				FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+				WHERE master_api_key = %s
+				OR product_order_api_key = %s
+				ORDER BY product_id
+				ASC
+			";
+
+			$resources = $wpdb->get_results( $wpdb->prepare( $sql, $api_key, $api_key ) );
+
+			return $this->get_active_resources( $resources );
+		} else {
+			$trans_name_sql                   = 'wc_am_get_ar_for_mac_and_poak_' . $api_key;
+			$trans_name_active_resources      = 'wc_am_get_ar_for_mac_and_poak_ar_' . $api_key;
+			$resources_sql_trans              = WC_AM_SMART_CACHE()->set_or_get_cache( $trans_name_sql );
+			$resources_active_resources_trans = WC_AM_SMART_CACHE()->set_or_get_cache( $trans_name_active_resources );
+
+			if ( $resources_active_resources_trans !== false ) {
+				$resources = $resources_active_resources_trans;
+			} else {
+				if ( $resources_sql_trans === false ) {
+					$sql = "
+						SELECT *
+						FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+						WHERE master_api_key = %s
+						OR product_order_api_key = %s
+						ORDER BY product_id
+						ASC
+					";
+
+					// Get the API resource order items for this user.
+					$resources_sql = $wpdb->get_results( $wpdb->prepare( $sql, $api_key, $api_key ) );
+
+					if ( ! empty( $resources_sql ) ) {
+						WC_AM_SMART_CACHE()->set_or_get_cache( $trans_name_sql, $resources_sql, WCAM()->get_db_cache_expires() * MINUTE_IN_SECONDS );
+					} else {
+						WC_AM_SMART_CACHE()->queue_delete_transient( $trans_name_sql );
+					}
+				}
+
+				// Only return the active API resources.
+				$resources = $this->get_active_resources( ! empty( $resources_sql ) ? $resources_sql : $resources_sql_trans );
+
+				if ( ! empty( $resources ) ) {
+					WC_AM_SMART_CACHE()->set_or_get_cache( $trans_name_active_resources, $resources, WCAM()->get_db_cache_expires() * MINUTE_IN_SECONDS );
+				} else {
+					WC_AM_SMART_CACHE()->queue_delete_transient( $trans_name_active_resources );
+				}
+			}
+
+			return $resources;
+		}
+	}
+
+	/**
 	 * Return all API resource order item rows matching the Product Order API Key.
 	 *
 	 * @since 2.0
@@ -810,7 +880,7 @@ class WC_AM_API_Resource_Data_Store {
 		$active_resources = array();
 		$is_wc_sub        = false;
 
-		if ( $resources ) {
+		if ( ! WC_AM_FORMAT()->empty( $resources ) ) {
 			foreach ( $resources as $resource ) {
 				/**
 				 * Update activations_purchased_total if product is set for Unlimited Activations, then refresh the cache.
@@ -888,7 +958,7 @@ class WC_AM_API_Resource_Data_Store {
 		$active_resources = array();
 		$is_wc_sub        = false;
 
-		if ( $resources && $product_id ) {
+		if ( ! WC_AM_FORMAT()->empty( $resources ) && $product_id ) {
 			foreach ( $resources as $resource ) {
 				if ( $product_id == $resource->product_id ) {
 					/**
@@ -1112,6 +1182,121 @@ class WC_AM_API_Resource_Data_Store {
 		$total_activations = (int) array_sum( wp_list_pluck( $resources, 'activations_total' ) );
 
 		return $total_activations ? $total_activations : 0;
+	}
+
+	/**
+	 * Get the item quanity for the line item row.
+	 *
+	 * @since 2.4.5
+	 *
+	 * @param int $order_id
+	 * @param int $product_id
+	 *
+	 * @return false|int
+	 */
+	public function get_item_quantity_and_refund_quantity_by_order_id_and_product_id( $order_id, $product_id ) {
+		global $wpdb;
+
+		$item_quantity = $wpdb->get_row( $wpdb->prepare( "
+			SELECT 		*
+			FROM {$wpdb->prefix}" . WC_AM_USER()->get_api_resource_table_name() . "
+			WHERE 		product_id = %d
+			AND 		order_id = %d
+		", $product_id, $order_id ) );
+
+		return ! WC_AM_FORMAT()->empty( $item_quantity ) ? $item_quantity : false;
+	}
+
+	/**
+	 * Return the API Key expiration dates and the number of activations expiring for a product.
+	 *
+	 * @since 2.4.4
+	 *
+	 * @param object $resources
+	 * @param bool   $unlimited_activations
+	 *
+	 * @return array
+	 * @throws \Exception
+	 */
+	public function get_access_api_key_expirations( $resources, $unlimited_activations ) {
+		$results = array();
+
+		foreach ( $resources as $resource ) {
+			if ( $resource->sub_id == 0 ) {
+				$results[ 'non_wc_subs_resources' ][] = array(
+					'friendly_api_key_expiration_date' => ! empty( $resource->access_expires ) ? WC_AM_FORMAT()->unix_timestamp_to_date_i18n( $resource->access_expires ) : 'Not yet ended',
+					'number_of_expiring_activations'   => $unlimited_activations == false ? $resource->activations_purchased_total : 'Unlimited activations',
+					'product_title'                    => $resource->product_title,
+					'order_id'                         => $resource->order_id,
+					'product_id'                       => $resource->product_id
+				);
+			} else {
+				$results[ 'wc_subs_resources' ][] = array(
+					'friendly_api_key_expiration_date' => WC_AM_SUBSCRIPTION()->get_subscription_end_date_to_display( $resource->order_id, $resource->product_id ),
+					'number_of_expiring_activations'   => $unlimited_activations == false ? $resource->activations_purchased_total : 'Unlimited activations',
+					'product_title'                    => $resource->product_title,
+					'order_id'                         => $resource->order_id,
+					'sub_id'                           => $resource->sub_id,
+					'product_id'                       => $resource->product_id
+				);
+			}
+		}
+
+		$results[ 'non_wc_subs_resources_total' ] = ! empty( $results[ 'non_wc_subs_resources' ] ) ? count( $results[ 'non_wc_subs_resources' ] ) : 0;
+		$results[ 'wc_subs_resources_total' ]     = ! empty( $results[ 'wc_subs_resources' ] ) ? count( $results[ 'wc_subs_resources' ] ) : 0;
+
+		return $results;
+	}
+
+	/**
+	 * Get active API Resource Titles and matching Product IDs from an API request using the API Key.
+	 * No duplicate Product IDs returned.
+	 *
+	 * @since 2.4.6
+	 *
+	 * @param object $resources
+	 * @param string $api_key
+	 *
+	 * @return array
+	 * @throws \Exception
+	 */
+	public function get_titles_and_products_ids_from_api_using_api_key( $resources, $api_key ) {
+		$results     = array();
+		$product_ids = array();
+
+		foreach ( $resources as $resource ) {
+			if ( $resource->master_api_key == $api_key || $resource->product_order_api_key == $api_key ) {
+				/**
+				 * Skip duplicate Product IDs.
+				 */
+				$product_ids[]     = $resource->product_id;
+				$total_product_ids = array_count_values( $product_ids );
+
+				if ( is_array( $product_ids ) && in_array( $resource->product_id, $product_ids ) && $total_product_ids[ $resource->product_id ] > 1 ) {
+					continue; // Skip duplicates.
+				}
+
+				if ( $resource->sub_id == 0 ) {
+					$results[ 'non_wc_subs_resources' ][] = array(
+						'product_title' => $resource->product_title,
+						'order_id'      => $resource->order_id,
+						'product_id'    => $resource->product_id,
+					);
+				} else {
+					$results[ 'wc_subs_resources' ][] = array(
+						'product_title' => $resource->product_title,
+						'order_id'      => $resource->order_id,
+						'sub_id'        => $resource->sub_id,
+						'product_id'    => $resource->product_id,
+					);
+				}
+			}
+		}
+
+		$results[ 'non_wc_subs_resources_total' ] = ! empty( $results[ 'non_wc_subs_resources' ] ) ? count( $results[ 'non_wc_subs_resources' ] ) : 0;
+		$results[ 'wc_subs_resources_total' ]     = ! empty( $results[ 'wc_subs_resources' ] ) ? count( $results[ 'wc_subs_resources' ] ) : 0;
+
+		return $results;
 	}
 
 	/**

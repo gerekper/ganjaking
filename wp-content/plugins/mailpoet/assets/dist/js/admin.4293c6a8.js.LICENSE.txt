@@ -1,0 +1,22 @@
+/* @license
+Papa Parse
+v5.3.2
+https://github.com/mholt/PapaParse
+License: MIT
+*/
+
+/*!
+ * Select2 4.1.0-rc.0
+ * https://select2.github.io
+ *
+ * Released under the MIT license
+ * https://github.com/select2/select2/blob/master/LICENSE.md
+ */
+
+/*!
+ * jQuery Mousewheel 3.1.13
+ *
+ * Copyright jQuery Foundation and other contributors
+ * Released under the MIT license
+ * http://jquery.org/license
+ */

@@ -75,6 +75,7 @@ defined( 'ABSPATH' ) || exit;
 			'data-date-theme'          => $date_theme,
 			'data-date-theme-size'     => $date_theme_size,
 			'data-date-theme-position' => $date_theme_position,
+			'inputmode'                => 'none',
 		],
 	];
 	if ( isset( $required ) && ! empty( $required ) ) {

@@ -2896,6 +2896,10 @@ to{opacity:0;-webkit-filter:blur(10px);filter:blur(10px)}
 .sp-mobile-view .sp-w-full{width:100% !important}
 .sp-mobile-view .sp-optinform-field,.sp-mobile-view .sp-optinform-btn{display:block !important;width:100% !important}
 .sp-mobile-view .sp-wccustomproductsgrid-wrapper li.product{float:none !important;width:100% !important}
+.sp-text-block-style p:not(:last-child){margin-bottom:20px}
+.sp-text-block-style ul{display:block;list-style-type:disc;list-style-position:outside;margin:0;padding:0;margin-left:2rem;margin-bottom:20px}
+.sp-text-block-style ol{display:block;list-style-position:outside;margin:0;padding:0;margin-left:2rem;margin-bottom:20px}
+.sp-text-block-style li{padding-left:.5rem;padding-right:.5rem}
 .sp-postcontent p:not(:last-child){margin-bottom:20px}
 .sp-postcontent dl{margin:0;padding:0;margin-left:1rem;margin-bottom:20px}
 .sp-postcontent ul{display:block;list-style-type:disc;list-style-position:outside;margin:0;padding:0;margin-left:2rem;margin-bottom:20px}
@@ -3267,8 +3271,6 @@ ul.seedprod-menu-list{display:inline-block;width:100%;text-align:left}
 .sp-add-to-cart-wrapper form.variations_form div.single_variation_wrap .quantity{float:left;margin-right:.5rem}
 .sp-add-to-cart-wrapper form.variations_form table td{border:1px solid;padding:10px}
 .sp-add-to-cart-wrapper form.variations_form table{border-collapse:collapse;background-color:inherit;margin:10px 0;min-width:240px;width:100%}
-.sp-product-data-tabs-wrapper .woocommerce-tabs ul.tabs li{display:inline-flex !important;display:-webkit-inline-box !important}
-.sp-product-data-tabs-wrapper .woocommerce-tabs ul.tabs li a{padding:10px 10px}
 .sp-layoutnav-current-section{background:#7036bb !important;color:#fff !important}
 .sp-layoutnav-current-row{background:#3f5fd1 !important;color:#fff !important}
 .sp-layoutnav-current-col{background:#3f5fd1 !important;color:#fff !important}
@@ -3286,6 +3288,8 @@ ul.seedprod-menu-list{display:inline-block;width:100%;text-align:left}
 .sp-upsells-wrapper .up-sells ul.products,.sp-product-related-wrapper .related ul.products{list-style:none;pointer-events:none}
 .sp-upsells-wrapper .up-sells .onsale,.sp-product-related-wrapper .related .onsale{min-width:50px !important;min-height:50px !important;font-size:13px}
 .sp-product-rating-wrapper .woocommerce.woocommerce-product-rating{margin:0;align-items:center;display:flex}
+.sp-product-data-tabs-wrapper .woocommerce-tabs ul.tabs li{display:inline-flex !important;display:-webkit-inline-box !important}
+.sp-product-data-tabs-wrapper .woocommerce-tabs ul.tabs li a{padding:10px 10px}
 .wc-tabs li{background:#f8f8f8;padding:6px;border-radius-bottom-right:0 !important;border-radius-bottom-left:0 !important}
 .wc-tabs li.active{background:#f7f6f7}
 .wc-tabs{margin-bottom:10px}
@@ -3326,6 +3330,11 @@ ul.seedprod-menu-list{display:inline-block;width:100%;text-align:left}
 .sp-tabbedlayout-vertical ul li a{border-width:1px;border-color:rgb(222 226 230 / 60%);cursor:pointer;padding:3px 16px;width:100%;border-right:0}
 .sp-tabbedlayout-vertical ul li a.sp-active-tab{border-width:1px;border-color:#dee2e6;background:#eee}
 .sp-tabbedlayout-vertical .tab-content-area{border:1px solid rgb(222 226 230 / 60%);padding:5px 10px;flex-grow:1}
+.sp-divider-wrapper .sp-divider.sp-divider-with-icon{display:flex}
+.sp-divider-wrapper .sp-divider .sp-divider-separator{display:flex;align-items:center;flex-direction:row;width:100%}
+.sp-divider-wrapper .sp-divider .sp-divider-separator::after,.sp-divider-wrapper .sp-divider .sp-divider-separator::before{flex-grow:1;-webkit-box-flex:1}
+.sp-divider-wrapper .sp-divider .sp-divider-text-block{padding:0 10px}
+.sp-divider-wrapper .sp-divider .sp-divider-text-block .sp-divider-text{font-size:15px}
 @media(min-width:640px){.sm\:sp-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
 .sm\:sp-not-sr-only{position:static;width:auto;height:auto;padding:0;margin:0;overflow:visible;clip:auto;white-space:normal}
 .sm\:focus\:sp-sr-only:focus{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}

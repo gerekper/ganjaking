@@ -106,12 +106,14 @@ class WC_AM_Order_Data_Store {
 				return WC_AM_ARRAY()->flatten_array( get_post_meta( $order->get_id(), '', false ) );
 			}
 
-			return array_merge( array(
-				                    'id'     => $order->get_id(),
-				                    'number' => $order->get_order_number(),
-			                    ), $order->get_data(), array(
-				                    'meta_data' => WC_AM_ARRAY()->flatten_meta_object( $order->get_meta_data() ),
-			                    ) );
+			$args = array(
+				'id'     => $order->get_id(),
+				'number' => $order->get_order_number(),
+			);
+
+			return array_merge( $args, $order->get_data(), array(
+				'meta_data' => WC_AM_ARRAY()->flatten_meta_object( $order->get_meta_data() ),
+			) );
 		}
 
 		return false;
@@ -655,20 +657,7 @@ class WC_AM_Order_Data_Store {
 		$order = $this->get_order_object( $order_id );
 
 		if ( is_object( $order ) ) {
-			// $order_time = $order->get_date_created()->date( 'Y-m-d H:i:s' );
-			$order_time = gmdate( 'Y-m-d H:i:s', $order->get_date_created()->getOffsetTimestamp() );
-
-			if ( ! empty( $order_time ) ) {
-				try {
-					$date = new DateTime( $order_time );
-
-					return (int) $date->format( 'U' );
-				} catch ( Exception $exception ) {
-					$order_time =  $this->get_current_time_stamp();
-				}
-			}
-
-			return (int) $order_time;
+			return strtotime( gmdate( 'Y-m-d H:i:s', $order->get_date_created()->getTimestamp() ) );
 		}
 
 		return $this->get_current_time_stamp();

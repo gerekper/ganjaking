@@ -1,5 +1,9 @@
 *** WooCommerce Order Barcodes Changelog ***
 
+2022-09-15 - version 1.5.0
+* Tweak - Custom Order Tables (COT) compatibility.
+* Fix   - Exclude unnecessary files from plugin zip file.
+
 2022-08-15 - version 1.4.0
 * Add   - Add bulk generate barcode tools for the order before the plugin being installed.
 * Tweak - Transition version numbering to WordPress versioning.

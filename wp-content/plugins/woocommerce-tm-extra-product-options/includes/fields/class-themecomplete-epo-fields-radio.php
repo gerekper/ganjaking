@@ -220,7 +220,7 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 			} elseif ( empty( $this->post_data ) && isset( $_REQUEST[ $name ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$selected_value = wp_unslash( $_REQUEST[ $name ] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
 			} elseif ( ( empty( $this->post_data ) || ( isset( $this->post_data['action'] ) && 'wc_epo_get_associated_product_html' === $this->post_data['action'] ) ) || ! isset( $this->post_data[ $name ] ) || 'yes' === THEMECOMPLETE_EPO()->tm_epo_global_reset_options_after_add || ( isset( $args['posted_name'] ) && ! empty( $this->post_data ) && ! isset( $_REQUEST[ $args['posted_name'] ] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-				$selected_value = - 1;
+				$selected_value = -1;
 			}
 		}
 
@@ -237,7 +237,7 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 
 		$checked = false;
 
-		if ( - 1 === $selected_value ) {
+		if ( -1 === $selected_value ) {
 			if ( ( empty( $this->post_data ) || ( ! empty( $this->post_data ) && ( ! isset( $this->post_data['quantity'] ) || ( isset( $args['posted_name'] ) && ! isset( $_REQUEST[ $args['posted_name'] ] ) ) ) ) ) && isset( $default_value ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				if ( $default_value ) {
 					$checked = true;

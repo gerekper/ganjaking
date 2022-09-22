@@ -287,7 +287,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 		if ( is_array( $order_flag ) && count( $order_flag ) > 0 ) {
 			$order_flag = $order_flag[0];
 		}
-		$order_flag = maybe_unserialize( $order_flag );
+		$order_flag = themecomplete_maybe_unserialize( $order_flag );
 		if ( is_array( $order_flag ) && count( $order_flag ) > 0 ) {
 			$order_flag = $order_flag[0];
 		}

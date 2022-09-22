@@ -5,6 +5,10 @@
  * @package WC_Stamps_Integration
  */
 
+include_once 'trait-order-util.php';
+
+use WooCommerce\Stamps\Order_Util;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -16,6 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * address verification.
  */
 class WC_Stamps_Order {
+
+	use Order_Util;
 
 	/**
 	 * Package types.
@@ -45,21 +51,66 @@ class WC_Stamps_Order {
 		add_action( 'wp_ajax_wc_stamps_delete_label', array( $this, 'ajax_delete_label' ) );
 
 		$this->package_types = array(
-			'Postcard'                  => '',
-			'Letter'                    => '',
-			'Large Envelope or Flat'    => __( 'Large envelope or flat. Has one dimension that is between 11 1/2" and 15" long, 6 1/8" and 12" high, or 1/4" and 3/4 thick.', 'woocommerce-shipping-stamps' ),
-			'Thick Envelope'            => __( 'Thick envelope. Envelopes or flats greater than 3/4" at the thickest point.', 'woocommerce-shipping-stamps' ),
-			'Package'                   => __( 'Package. Longest side plus the distance around the thickest part is less than or equal to 84"', 'woocommerce-shipping-stamps' ),
-			'Small Flat Rate Box'       => __( 'USPS small flat rate box. A special 8-5/8" x 5-3/8" x 1-5/8" USPS box that clearly indicates "Small Flat Rate Box".', 'woocommerce-shipping-stamps' ),
-			'Medium Flat Rate Box'      => __( 'USPS medium flat rate box. A special 11" x 8 1/2" x 5 1/2" or 14" x 3.5" x 12" USPS box that clearly indicates "Medium Flat Rate Box"', 'woocommerce-shipping-stamps' ),
-			'Large Flat Rate Box'       => __( 'USPS large flat rate box. A special 12" x 12" x 6" USPS box that clearly indicates "Large Flat Rate Box".', 'woocommerce-shipping-stamps' ),
-			'Flat Rate Envelope'        => __( 'USPS flat rate envelope. A special cardboard envelope provided by the USPS that clearly indicates "Flat Rate".', 'woocommerce-shipping-stamps' ),
-			'Flat Rate Padded Envelope' => __( 'USPS flat rate padded envelope.', 'woocommerce-shipping-stamps' ),
-			'Large Package'             => __( 'Large package. Longest side plus the distance around the thickest part is over 84" and less than or equal to 108".', 'woocommerce-shipping-stamps' ),
-			'Oversized Package'         => __( 'Oversized package. Longest side plus the distance around the thickest part is over 108" and less than or equal to 130".', 'woocommerce-shipping-stamps' ),
-			'Regional Rate Box A'       => __( 'USPS regional rate box A. A special 10 15/16" x 2 3/8" x 12 13/ 16" or 10" x 7" x 4 3/4" USPS box that clearly indicates "Regional Rate Box A". 15 lbs maximum weight.', 'woocommerce-shipping-stamps' ),
-			'Regional Rate Box B'       => __( 'USPS regional rate box B. A special 14 3/8" x 2 2/8" x 15 7/8" or 12" x 10 1/4" x 5" USPS box that clearly indicates "Regional Rate Box B". 20 lbs maximum weight.', 'woocommerce-shipping-stamps' ),
-			'Legal Flat Rate Envelope'  => __( 'USPS flat rate padded envelope.', 'woocommerce-shipping-stamps' ),
+			'Postcard'                  => array( 
+                'name'        => 'Postcard', 
+                'description' => ''
+            ),
+			'Letter'                    => array(
+                'name'        => 'Letter', 
+                'description' => ''
+            ),
+			'Large Envelope or Flat'    => array(
+                'name'        => 'Large Envelope or Flat', 
+                'description' => __( 'Large envelope or flat. Has one dimension that is between 11 1/2" and 15" long, 6 1/8" and 12" high, or 1/4" and 3/4 thick.', 'woocommerce-shipping-stamps' )
+            ),
+			'Thick Envelope'            => array(
+                'name'        => 'Thick Envelope', 
+                'description' => __( 'Thick envelope. Envelopes or flats greater than 3/4" at the thickest point.', 'woocommerce-shipping-stamps' )
+            ),
+			'Package'                   => array(
+                'name'        => 'Package', 
+                'description' => __( 'Package. Longest side plus the distance around the thickest part is less than or equal to 84"', 'woocommerce-shipping-stamps' )
+            ),
+			'Small Flat Rate Box'       => array(
+                'name'        => 'Small Flat Rate Box', 
+                'description' => __( 'USPS small flat rate box. A special 8-5/8" x 5-3/8" x 1-5/8" USPS box that clearly indicates "Small Flat Rate Box".', 'woocommerce-shipping-stamps' )
+            ),
+			'Flat Rate Box'             => array(
+                'name'        => 'Medium Flat Rate Box', 
+                'description' => __( 'USPS medium flat rate box. A special 11" x 8 1/2" x 5 1/2" or 14" x 3.5" x 12" USPS box that clearly indicates "Medium Flat Rate Box"', 'woocommerce-shipping-stamps' )
+            ),
+			'Large Flat Rate Box'       => array(
+                'name'        => 'Large Flat Rate Box', 
+                'description' => __( 'USPS large flat rate box. A special 12" x 12" x 6" USPS box that clearly indicates "Large Flat Rate Box".', 'woocommerce-shipping-stamps' )
+            ),
+			'Flat Rate Envelope'        => array(
+                'name'        => 'Flat Rate Envelope', 
+                'description' => __( 'USPS flat rate envelope. A special cardboard envelope provided by the USPS that clearly indicates "Flat Rate".', 'woocommerce-shipping-stamps' )
+            ),
+			'Flat Rate Padded Envelope' => array(
+                'name'        => 'Flat Rate Padded Envelope', 
+                'description' => __( 'USPS flat rate padded envelope.', 'woocommerce-shipping-stamps' )
+            ),
+			'Large Package'             => array(
+                'name'        => 'Large Package', 
+                'description' => __( 'Large package. Longest side plus the distance around the thickest part is over 84" and less than or equal to 108".', 'woocommerce-shipping-stamps' )
+            ),
+			'Oversized Package'         => array(
+                'name'        => 'Oversized Package', 
+                'description' => __( 'Oversized package. Longest side plus the distance around the thickest part is over 108" and less than or equal to 130".', 'woocommerce-shipping-stamps' )
+            ),
+			'Regional Rate Box A'       => array(
+                'name'        => 'Regional Rate Box A', 
+                'description' => __( 'USPS regional rate box A. A special 10 15/16" x 2 3/8" x 12 13/ 16" or 10" x 7" x 4 3/4" USPS box that clearly indicates "Regional Rate Box A". 15 lbs maximum weight.', 'woocommerce-shipping-stamps' )
+            ),
+			'Regional Rate Box B'       => array(
+                'name'        => 'Regional Rate Box B', 
+                'description' => __( 'USPS regional rate box B. A special 14 3/8" x 2 2/8" x 15 7/8" or 12" x 10 1/4" x 5" USPS box that clearly indicates "Regional Rate Box B". 20 lbs maximum weight.', 'woocommerce-shipping-stamps' )
+            ),
+			'Legal Flat Rate Envelope'  => array(
+                'name'        => 'Legal Flat Rate Envelope', 
+                'description' => __( 'USPS flat rate padded envelope.', 'woocommerce-shipping-stamps' )
+            ),
 		);
 	}
 
@@ -94,7 +145,7 @@ class WC_Stamps_Order {
 	 * Add meta boxes.
 	 */
 	public function add_meta_boxes() {
-		add_meta_box( 'wc_stamps_get_label', __( 'Shipping Labels', 'woocommerce-shipping-stamps' ), array( $this, 'output' ), 'shop_order', 'side' );
+		add_meta_box( 'wc_stamps_get_label', __( 'Shipping Labels', 'woocommerce-shipping-stamps' ), array( $this, 'output' ), $this->get_order_admin_screen(), 'side' );
 	}
 
 	/**
@@ -109,8 +160,6 @@ class WC_Stamps_Order {
 
 		$order  = wc_get_order( absint( $_POST['order_id'] ) );
 		$result = WC_Stamps_API::verify_address( $order );
-		$old_wc = version_compare( WC_VERSION, '3.0', '<' );
-		$order_id = $old_wc ? $order->id : $order->get_id();
 
 		if ( is_wp_error( $result ) ) {
 			wp_send_json( array( 'error' => $result->get_error_message() ) );
@@ -118,19 +167,10 @@ class WC_Stamps_Order {
 			$result_hash  = isset( $result['hash'] ) ? $result['hash'] : '';
 			$overide_hash = isset( $result['overide_hash'] ) ? $result['overide_hash'] : '';
 
-			if ( $old_wc ) {
-				update_post_meta( $order_id, '_stamps_response', $result );
-				update_post_meta( $order_id, '_stamps_hash', $result_hash );
-				update_post_meta( $order_id, '_stamps_override_hash', $overide_hash );
-			} else {
-				$order->update_meta_data( '_stamps_response', $result );
-				$order->update_meta_data( '_stamps_hash', $result_hash );
-				$order->update_meta_data( '_stamps_override_hash', $overide_hash );
-
-				// To ensure get_address_verification_result_html uses the latest
-				// meta.
-				$order->save_meta_data();
-			}
+			$order->update_meta_data( '_stamps_response', $result );
+			$order->update_meta_data( '_stamps_hash', $result_hash );
+			$order->update_meta_data( '_stamps_override_hash', $overide_hash );
+			$order->save();
 
 			wp_send_json( array( 'html' => $this->get_address_verification_result_html( $result ) ) );
 		}
@@ -147,26 +187,19 @@ class WC_Stamps_Order {
 		}
 
 		$order = wc_get_order( absint( $_POST['order_id'] ) );
-		$old_wc = version_compare( WC_VERSION, '3.0', '<' );
-		$order_id = $old_wc ? $order->id : $order->get_id();
 
 		// To indicate that the merchant has elected to "continue without changes"
 		// we will overwrite the CleanseHash (if any) in _stamps_hash with the
 		// OverrideHash.
 		//
-		// Then, in WC_Stamps_API::get_label, we'll see that has happened and we will
+		// Then, in WC_Stamps_API::purchase_label, we'll see that has happened and we will
 		// send the OverrideHash field in the request instead of CleanseHash.
-		if ( $old_wc ) {
-			update_post_meta( $order_id, '_stamps_hash', get_post_meta( $order_id, '_stamps_override_hash', true ) );
-			update_post_meta( $order_id, '_stamps_verified_address_hash', md5( $order->get_formatted_shipping_address() ) );
-		} else {
-			$overide_hash = $order->get_meta( '_stamps_override_hash', true );
-			$order->update_meta_data( '_stamps_hash', $overide_hash );
-			$order->save_meta_data();
-			$verified_address_hash = md5( $order->get_formatted_shipping_address() );
-			$order->update_meta_data( '_stamps_verified_address_hash', $verified_address_hash );
-			$order->save_meta_data();
-		}
+		$overide_hash          = $order->get_meta( '_stamps_override_hash' );
+		$verified_address_hash = md5( $order->get_formatted_shipping_address() );
+
+		$order->update_meta_data( '_stamps_hash', $overide_hash );
+		$order->update_meta_data( '_stamps_verified_address_hash', $verified_address_hash );
+		$order->save();
 
 		wp_send_json( array( 'reload' => true ) );
 	}
@@ -183,55 +216,32 @@ class WC_Stamps_Order {
 			die();
 		}
 
-		$order    = wc_get_order( absint( $_POST['order_id'] ) );
-		$old_wc   = version_compare( WC_VERSION, '3.0', '<' );
-		$order_id = $old_wc ? $order->id : $order->get_id();
+		$order = wc_get_order( absint( $_POST['order_id'] ) );
 
 		// Update address to stamps version.
-		if ( $old_wc ) {
-			$result = get_post_meta( $order_id, '_stamps_response', true );
-		} else {
-			$result = $order->get_meta( '_stamps_response', true );
-		}
-		$shipping_name  = explode( ' ' , $result['address']['full_name'] );
+		$result = $order->get_meta( '_stamps_response' );
+
+		$shipping_name  = explode( ' ', $result['address']['full_name'] );
 		$shipping_last  = array_pop( $shipping_name );
 		$shipping_first = implode( ' ', $shipping_name );
 
-		if ( $old_wc ) {
-			update_post_meta( $order_id, '_shipping_first_name', $shipping_first );
-			update_post_meta( $order_id, '_shipping_last_name', $shipping_last );
-			update_post_meta( $order_id, '_shipping_company', $result['address']['company'] );
-			update_post_meta( $order_id, '_shipping_address_1', $result['address']['address_1'] );
-			update_post_meta( $order_id, '_shipping_address_2', $result['address']['address_2'] );
-			update_post_meta( $order_id, '_shipping_city', $result['address']['city'] );
-			update_post_meta( $order_id, '_shipping_state', $result['address']['state'] );
-			update_post_meta( $order_id, '_shipping_postcode', $result['address']['postcode'] );
-			if ( ! empty( $result['address']['country'] ) ) {
-				update_post_meta( $order_id, '_shipping_country', $result['address']['country'] );
-			}
-		} else {
-			$order->set_shipping_first_name( $shipping_first );
-			$order->set_shipping_last_name( $shipping_last );
-			$order->set_shipping_company( $result['address']['company'] );
-			$order->set_shipping_address_1( $result['address']['address_1'] );
-			$order->set_shipping_address_2( $result['address']['address_2'] );
-			$order->set_shipping_city( $result['address']['city'] );
-			$order->set_shipping_state( $result['address']['state'] );
-			$order->set_shipping_postcode( $result['address']['postcode'] );
-			if ( ! empty( $result['address']['country'] ) ) {
-				$order->set_shipping_country( $result['address']['country'] );
-			}
-			$order->save();
+		$order->set_shipping_first_name( $shipping_first );
+		$order->set_shipping_last_name( $shipping_last );
+		$order->set_shipping_company( $result['address']['company'] );
+		$order->set_shipping_address_1( $result['address']['address_1'] );
+		$order->set_shipping_address_2( $result['address']['address_2'] );
+		$order->set_shipping_city( $result['address']['city'] );
+		$order->set_shipping_state( $result['address']['state'] );
+		$order->set_shipping_postcode( $result['address']['postcode'] );
+
+		if ( ! empty( $result['address']['country'] ) ) {
+			$order->set_shipping_country( $result['address']['country'] );
 		}
 
 		$formatted_shipping_address_hash = md5( $order->get_formatted_shipping_address() );
 
-		if ( $old_wc ) {
-			update_post_meta( $order_id, '_stamps_verified_address_hash', $formatted_shipping_address_hash );
-		} else {
-			$order->update_meta_data( '_stamps_verified_address_hash', $formatted_shipping_address_hash );
-			$order->save_meta_data();
-		}
+		$order->update_meta_data( '_stamps_verified_address_hash', $formatted_shipping_address_hash );
+		$order->save();
 
 		wp_send_json( array( 'reload' => true ) );
 	}
@@ -248,7 +258,7 @@ class WC_Stamps_Order {
 			die();
 		}
 
-		$order  = wc_get_order( absint( $_POST['order_id'] ) );
+		$order = wc_get_order( absint( $_POST['order_id'] ) );
 		wp_send_json( array( 'html' => $this->get_packages_html( $order ), 'step' => 'rates' ) );
 	}
 
@@ -290,7 +300,7 @@ class WC_Stamps_Order {
 	 *
 	 * @param array $posted Posted data.
 	 *
-	 * @return array Stamps Rate in array format.
+	 * @return array|false Stamps Rate in array format.
 	 */
 	public function get_posted_rate( $posted ) {
 		if ( ! empty( $posted['stamps_rate'] ) ) {
@@ -378,7 +388,6 @@ class WC_Stamps_Order {
 
 		$order  = wc_get_order( absint( $_POST['order_id'] ) );
 		$params = array();
-		$label  = '';
 		parse_str( stripslashes( $_POST['data'] ), $params );
 
 		if ( ! empty( $params['stamps_customs_content_type'] ) ) {
@@ -417,7 +426,7 @@ class WC_Stamps_Order {
 
 		$rate = $this->get_posted_rate( $params );
 		if ( $rate ) {
-			$label = WC_Stamps_API::get_label( $order, array( 'rate' => $rate, 'customs' => $customs ) );
+			$label = WC_Stamps_API::purchase_label( $order, array( 'rate' => $rate, 'customs' => $customs ) );
 		} else {
 			$label = new WP_Error( 'stamps', 'No rate posted' );
 		}
@@ -442,7 +451,7 @@ class WC_Stamps_Order {
 		}
 
 		$order  = wc_get_order( absint( $_POST['order_id'] ) );
-		$order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
+		$order_id = $order->get_id();
 		$labels = WC_Stamps_Labels::get_order_labels( $order_id );
 
 		wp_send_json( array( 'html' => $this->get_labels_html( $labels ), 'step' => 'labels' ) );
@@ -472,8 +481,7 @@ class WC_Stamps_Order {
 			wp_send_json( array( 'error' => $cancel->get_error_message() ) );
 		} else {
 			WC_Stamps_Labels::delete_label( $label_id );
-			$order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
-			$labels = WC_Stamps_Labels::get_order_labels( $order_id );
+			$labels = WC_Stamps_Labels::get_order_labels( $order->get_id() );
 			ob_start();
 			echo '<div class="success updated"><p>' . __( 'The label was refunded. Refund requests are generally processed within 1 to 2 weeks.', 'woocommerce-shipping-stamps' ) . '</p></div>';
 			echo $this->get_labels_html( $labels );
@@ -494,11 +502,10 @@ class WC_Stamps_Order {
 		}
 
 		$order    = wc_get_order( absint( $_POST['order_id'] ) );
-		$order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
 		$label_id = absint( $_POST['action_id'] );
 
 		WC_Stamps_Labels::delete_label( $label_id );
-		$labels = WC_Stamps_Labels::get_order_labels( $order_id );
+		$labels = WC_Stamps_Labels::get_order_labels( $order->get_id() );
 		wp_send_json( array( 'html' => $this->get_labels_html( $labels ), 'step' => 'labels' ) );
 	}
 
@@ -539,6 +546,19 @@ class WC_Stamps_Order {
 		$total_weight = 0;
 		$total_cost   = 0;
 
+		// Calculate the package weight from shipping item meta.
+		foreach ( $order->get_items( 'shipping' ) as $item_id => $item ) {
+			if ( ! empty( $item->get_meta( '_package_weight' ) ) ) {
+				$package_weights = json_decode( $item->get_meta( '_package_weight' ), true );
+				
+				foreach ( $package_weights as $package_name => $weight ) {
+					$total_weight += floatval( $weight );
+				}
+			}
+		}
+
+		$products_weight = 0;
+
 		foreach ( $order->get_items() as $item_id => $item ) {
 			if ( is_callable( array( $item, 'get_product' ) ) ) {
 				$product = $item->get_product();
@@ -564,9 +584,15 @@ class WC_Stamps_Order {
 				$weight = $product->get_weight();
 			}
 
-			$total_weight += $weight * $item['qty'];
-			$total_cost   += $product->get_price() * $item['qty'];
+			$products_weight += $weight * $item['qty'];
+			$total_cost      += $item->get_subtotal();
 		}
+
+		// Use product weight if _package_weight cannot be found in order item shipping.
+		if ( empty( $total_weight ) ) {
+			$total_weight = $products_weight;
+		}
+
 		$num_days = absint( get_option( 'wc_settings_stamps_shipping_date', 1 ) );
 		$ship_date = date( "Y-m-d", current_time( 'timestamp' ) + ( $num_days * DAY_IN_SECONDS ) );
 
@@ -720,23 +746,22 @@ class WC_Stamps_Order {
 
 	/**
 	 * Output the meta box.
+	 *
+	 * @param $post_or_order_object
+	 *
+	 * @return void
 	 */
-	public function output() {
-		global $post;
+	public function output( $post_or_order_object ) {
+		$order = $this->init_theorder_object( $post_or_order_object );
 
 		$step         = 'address';
-		$order        = wc_get_order( $post->ID );
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			$address_hash = get_post_meta( $post->ID, '_stamps_verified_address_hash', true );
-		} else {
-			$address_hash = $order->get_meta( '_stamps_verified_address_hash', true );
-		}
+		$address_hash = $order->get_meta( '_stamps_verified_address_hash' );
 
 		if ( $address_hash && md5( $order->get_formatted_shipping_address() ) === $address_hash ) {
 			$step = 'rates';
 		}
 
-		$labels = WC_Stamps_Labels::get_order_labels( $post->ID );
+		$labels = WC_Stamps_Labels::get_order_labels( $order->get_id() );
 		if ( $labels && sizeof( $labels ) > 0 ) {
 			$step = 'labels';
 		}
@@ -747,30 +772,23 @@ class WC_Stamps_Order {
 	/**
 	 * Check whether a given order needs customs step to print label.
 	 *
-	 * @since 1.3.3
-	 * @version 1.3.3
-	 *
-	 * @see https://github.com/woocommerce/woocommerce-shipping-stamps/issues/73.
-	 *
 	 * @param WC_Order $order Order object.
 	 *
 	 * @return bool Returns true if given country and/or state in an order needs custom step.
+	 * @see https://github.com/woocommerce/woocommerce-shipping-stamps/issues/73.
+	 *
+	 * @version 1.3.3
+	 *
+	 * @since 1.3.3
 	 */
 	public function needs_customs_step( $order ) {
-		$shipping_country = version_compare( WC_VERSION, '3.0', '<' )
-			? $order->shipping_country
-			: $order->get_shipping_country();
-
 		// Non US countries will require customs step.
-		if ( 'US' !== $shipping_country ) {
+		if ( 'US' !== $order->get_shipping_country() ) {
 			return true;
 		}
 
 		// Army address will require customs step.
-		$shipping_state = version_compare( WC_VERSION, '3.0', '<' )
-			? $order->shipping_state
-			: $order->get_shipping_state();
-		if ( in_array( $shipping_state, array( 'AA', 'AE', 'AP' ) ) ) {
+		if ( in_array( $order->get_shipping_state(), array( 'AA', 'AE', 'AP' ) ) ) {
 			return true;
 		}
 

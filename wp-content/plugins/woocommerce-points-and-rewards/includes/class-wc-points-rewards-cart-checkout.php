@@ -361,10 +361,7 @@ class WC_Points_Rewards_Cart_Checkout {
 			return;
 		}
 
-		// Prepare for rendering by wrapping in div.
-		$message = '<div class="woocommerce-info wc_points_rewards_earn_points">' . $message . '</div>';
-
-		echo apply_filters( 'wc_points_rewards_earn_points_message', $message, $points_earned );
+		wc_add_notice( apply_filters( 'wc_points_rewards_earn_points_message', $message, $points_earned ), 'notice' );
 
 		if ( is_checkout() ) {
 			wc_enqueue_js(

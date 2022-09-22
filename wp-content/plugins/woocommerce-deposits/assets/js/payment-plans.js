@@ -28,7 +28,7 @@ jQuery(function($){
 			$table.find('.plan_amount').each(function(){
 				total = total + parseFloat( ( $(this).val() || 0 ) );
 			});
-			total = Math.round( total * 10) / 10;
+			total = Math.round( total * 100) / 100;
 			$table.find('.total_percent').text( total );
 		})
 		.on( 'change input', '.plan_interval_amount, .plan_interval_unit', function() {

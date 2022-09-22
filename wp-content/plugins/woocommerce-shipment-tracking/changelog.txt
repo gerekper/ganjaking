@@ -1,12 +1,15 @@
 *** Shipment Tracking Changelog ***
 
+2022-09-15 - version 1.8.0
+* Tweak - WC Custom Order Tables compatibility.
+
 2022-09-06 - version 1.7.2
 * Fix - Exclude unnecessary files from plugin zip file.
 
 2022-07-18 - version 1.7.1
+* Add   - add 'wc_shipment_tracking_provider_url_values' filter for manipulating the provider url value.
 * Tweak - WC 6.6 and WP 6.0 compatibility.
 * Tweak - Transition version numbering to WordPress versioning.
-* Add   - add 'wc_shipment_tracking_provider_url_values' filter for manipulating the provider url value.
 
 2022-03-28 - version 1.7.0
 * Fix   - Support for Subscriptions with WooCommerce Payments.

@@ -88,7 +88,7 @@ class WC_Shipment_Tracking_Privacy extends WC_Abstract_Privacy {
 
 		if ( 0 < count( $orders ) ) {
 			foreach ( $orders as $order ) {
-				$tracking_items = get_post_meta( $order->get_id(), '_wc_shipment_tracking_items', true );
+				$tracking_items = $order->get_meta( '_wc_shipment_tracking_items' );
 
 				if ( ! empty( $tracking_items ) ) {
 					$data = $this->prepare_data( $tracking_items );
@@ -155,14 +155,14 @@ class WC_Shipment_Tracking_Privacy extends WC_Abstract_Privacy {
 	 * @return array
 	 */
 	protected function maybe_handle_order( $order ) {
-		$order_id       = $order->get_id();
-		$tracking_items = get_post_meta( $order_id, '_wc_shipment_tracking_items', true );
+		$tracking_items = $order->get_meta( '_wc_shipment_tracking_items' );
 
 		if ( empty( $tracking_items ) ) {
 			return array( false, false, array() );
 		}
 
-		delete_post_meta( $order_id, '_wc_shipment_tracking_items' );
+		$order->delete_meta_data( '_wc_shipment_tracking_items' );
+		$order->save();
 
 		return array( true, false, array() );
 	}

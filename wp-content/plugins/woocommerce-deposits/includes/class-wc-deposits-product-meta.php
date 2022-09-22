@@ -35,24 +35,18 @@ class WC_Deposits_Product_Meta {
 			return null;
 		}
 
-		$is_pre_wc_30 = version_compare( WC_VERSION, '3.0', '<' );
-
 		// For variation, meta is stored in parent product.
 		if ( $product->is_type( 'variation' ) ) {
-			$product_id = $is_pre_wc_30 ? $product->id : $product->get_parent_id();
+			$product_id = $product->get_parent_id();
 		} else {
 			$product_id = $product->get_id();
 		}
 
-		if ( $is_pre_wc_30 ) {
-			return get_post_meta( $product_id, $meta_key, true );
-		} else {
-			// Retrieve parent product instance.
-			if ( $product->is_type( 'variation' ) ) {
-				$product = wc_get_product( $product_id );
-			}
-			return $product->get_meta( $meta_key, true );
+		// Retrieve parent product instance.
+		if ( $product->is_type( 'variation' ) ) {
+			$product = wc_get_product( $product_id );
 		}
+		return $product->get_meta( $meta_key, true );
 	}
 
 	/**
@@ -70,12 +64,8 @@ class WC_Deposits_Product_Meta {
 			return;
 		}
 
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			update_post_meta( $product->get_id(), $meta_key, $meta_value );
-		} else {
-			$product->update_meta_data( $meta_key, $meta_value );
-			$product->save();
-		}
+		$product->update_meta_data( $meta_key, $meta_value );
+		$product->save();
 	}
 }
 

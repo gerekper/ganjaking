@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * API for working with the subscription schemes of subscription-enabled product objects.
  *
  * @class    WCS_ATT_Product_Schemes
- * @version  3.2.1
+ * @version  4.0.1
  */
 class WCS_ATT_Product_Schemes {
 
@@ -183,8 +183,20 @@ class WCS_ATT_Product_Schemes {
 							$origin       = 'global';
 
 							if ( ! empty( $global_schemes_cats ) && is_array( $global_schemes_cats ) ) {
+
+								if ( $product->is_type( 'variation' ) ) {
+
+									if ( ! is_object( $parent ) ) {
+										$parent = wc_get_product( $product->get_parent_id() );
+									}
+									
+									$category_ids = $parent->get_category_ids();
+								} else {
+									$category_ids = $product->get_category_ids();
+								}
+
 								// Product category not eligible?
-								if ( empty( array_intersect( $product->get_category_ids(), $global_schemes_cats ) ) ) {
+								if ( empty( array_intersect( $category_ids, $global_schemes_cats ) ) ) {
 									$schemes_data = false;
 								}
 							}

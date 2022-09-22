@@ -394,18 +394,20 @@ class WC_AM_Subscription {
 	/**
 	 * Get the subscription end date to display as human readable.
 	 *
-	 * @since 2.0
+	 * @since   2.0
+	 * @updated 2.4.4
 	 *
 	 * @param Object|int $order
 	 * @param int        $product_id
+	 * @param String     $date_type 'date_created', 'trial_end', 'next_payment', 'last_order_date_created', 'end' or 'end_of_prepaid_term'
 	 *
 	 * @return bool|mixed
 	 */
-	public function get_subscription_end_date_to_display( $order, $product_id ) {
+	public function get_subscription_end_date_to_display( $order, $product_id, $date_type = 'end' ) {
 		$sub_id       = $this->get_subscription_id( $order );
 		$subscription = $this->get_subscription_object( $sub_id );
 
-		return is_object( $subscription ) ? $subscription->get_date_to_display( 'end' ) : false;
+		return is_object( $subscription ) ? $subscription->get_date_to_display( $date_type ) : false;
 	}
 
 	/**

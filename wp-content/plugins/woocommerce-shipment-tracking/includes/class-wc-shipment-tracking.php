@@ -1,4 +1,9 @@
 <?php
+
+include_once 'trait-order-util.php';
+
+use WooCommerce\ShipmentTracking\Order_Util;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -9,6 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since 1.4.0
  */
 class WC_Shipment_Tracking_Actions {
+
+	use Order_Util;
 
 	/**
 	 * Instance of this class.
@@ -31,7 +38,7 @@ class WC_Shipment_Tracking_Actions {
 	}
 
 	/**
-	 * Get shiping providers.
+	 * Get shipping providers.
 	 *
 	 * @return array
 	 */
@@ -161,29 +168,46 @@ class WC_Shipment_Tracking_Actions {
 	/**
 	 * Define shipment tracking column in admin orders list.
 	 *
-	 * @since 1.6.1
-	 *
 	 * @param array $columns Existing columns
 	 *
 	 * @return array Altered columns
+	 * @since 1.8.0
+	 *
 	 */
-	public function shop_order_columns( $columns ) {
+	public function add_wc_orders_list_columns( $columns ) {
 		$columns['shipment_tracking'] = __( 'Shipment Tracking', 'woocommerce-shipment-tracking' );
+
 		return $columns;
 	}
 
 	/**
 	 * Render shipment tracking in custom column.
 	 *
+	 * @param string $column_name The name of the column to display.
+	 * @param int $post_id The current post ID.
+	 *
 	 * @since 1.6.1
 	 *
-	 * @param string $column Current column
 	 */
-	public function render_shop_order_columns( $column ) {
-		global $post;
+	public function render_shop_order_columns( $column_name, $post_id ) {
+		if ( 'shipment_tracking' === $column_name ) {
+			echo $this->get_shipment_tracking_column( $post_id );
+		}
+	}
 
-		if ( 'shipment_tracking' === $column ) {
-			echo $this->get_shipment_tracking_column( $post->ID );
+	/**
+	 * Render shipment tracking in custom column on WC Orders page (when using Custom Order Tables).
+	 *
+	 * @param string $column_name Identifier for the custom column.
+	 * @param \WC_Order $order Current WooCommerce order object.
+	 *
+	 * @return void
+	 * @since 1.8.0
+	 *
+	 */
+	public function render_wc_orders_list_columns( $column_name, $order ) {
+		if ( 'shipment_tracking' === $column_name ) {
+			echo $this->get_shipment_tracking_column( $order->get_id() );
 		}
 	}
 
@@ -224,7 +248,7 @@ class WC_Shipment_Tracking_Actions {
 	 * Add the meta box for shipment info on the order page
 	 */
 	public function add_meta_box() {
-		add_meta_box( 'woocommerce-shipment-tracking', __( 'Shipment Tracking', 'woocommerce-shipment-tracking' ), array( $this, 'meta_box' ), 'shop_order', 'side', 'high' );
+		add_meta_box( 'woocommerce-shipment-tracking', __( 'Shipment Tracking', 'woocommerce-shipment-tracking' ), array( $this, 'meta_box' ), $this->get_order_admin_screen(), 'side', 'high' );
 	}
 
 	/**
@@ -254,16 +278,16 @@ class WC_Shipment_Tracking_Actions {
 	/**
 	 * Show the meta box for shipment info on the order page
 	 */
-	public function meta_box() {
-		global $post;
+	public function meta_box( $post_or_order_object   ) {
+		$order = $this->init_theorder_object( $post_or_order_object );
 
-		$tracking_items = $this->get_tracking_items( $post->ID );
+		$tracking_items = $this->get_tracking_items( $order->get_id() );
 
 		echo '<div id="tracking-items">';
 
 		if ( count( $tracking_items ) > 0 ) {
 			foreach ( $tracking_items as $tracking_item ) {
-				$this->display_html_tracking_item_for_meta_box( $post->ID, $tracking_item );
+				$this->display_html_tracking_item_for_meta_box( $order->get_id(), $tracking_item );
 			}
 		}
 
@@ -521,11 +545,10 @@ class WC_Shipment_Tracking_Actions {
 			return;
 		}
 
-		$order_id = is_callable( array( $order, 'get_id' ) ) ? $order->get_id() : $order->id;
 		if ( true === $plain_text ) {
-			wc_get_template( 'email/plain/tracking-info.php', array( 'tracking_items' => $this->get_tracking_items( $order_id, true ) ), 'woocommerce-shipment-tracking/', $this->get_plugin_path() . '/templates/' );
+			wc_get_template( 'email/plain/tracking-info.php', array( 'tracking_items' => $this->get_tracking_items( $order->get_id(), true ) ), 'woocommerce-shipment-tracking/', $this->get_plugin_path() . '/templates/' );
 		} else {
-			wc_get_template( 'email/tracking-info.php', array( 'tracking_items' => $this->get_tracking_items( $order_id, true ) ), 'woocommerce-shipment-tracking/', $this->get_plugin_path() . '/templates/' );
+			wc_get_template( 'email/tracking-info.php', array( 'tracking_items' => $this->get_tracking_items( $order->get_id(), true ) ), 'woocommerce-shipment-tracking/', $this->get_plugin_path() . '/templates/' );
 		}
 	}
 
@@ -542,27 +565,20 @@ class WC_Shipment_Tracking_Actions {
 	 *
 	*/
 	public function get_formatted_tracking_item( $order_id, $tracking_item ) {
-		$formatted = array();
+		$order = wc_get_order( $order_id );
 
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			$postcode = get_post_meta( $order_id, '_shipping_postcode', true );
-			$country_code = get_post_meta( $order_id, '_shipping_country', true);
-		} else {
-			$order    = new WC_Order( $order_id );
-			$postcode = $order->get_shipping_postcode();
-			$country_code = $order->get_shipping_country();
-		}
+		$postcode = ! empty( $order->get_shipping_postcode() ) ? $order->get_shipping_postcode() : $order->get_billing_postcode();
+
+		$country_code = $order->get_shipping_country();
+
+		$formatted = array();
 
 		$formatted['formatted_tracking_provider'] = '';
 		$formatted['formatted_tracking_link']     = '';
 
-		if ( empty( $postcode ) ) {
-			$postcode = get_post_meta( $order_id, '_shipping_postcode', true );
-		}
-
 		if ( $tracking_item['custom_tracking_provider'] ) {
 			$formatted['formatted_tracking_provider'] = $tracking_item['custom_tracking_provider'];
-			$formatted['formatted_tracking_link'] = $tracking_item['custom_tracking_link'];
+			$formatted['formatted_tracking_link']     = $tracking_item['custom_tracking_link'];
 		} else {
 
 			$link_format = '';
@@ -600,7 +616,7 @@ class WC_Shipment_Tracking_Actions {
 	}
 
 	/**
-	 * Deletes a tracking item from post_meta array
+	 * Deletes a tracking item from order meta array
 	 *
 	 * @param int    $order_id    Order ID
 	 * @param string $tracking_id Tracking ID
@@ -627,7 +643,7 @@ class WC_Shipment_Tracking_Actions {
 	}
 
 	/*
-	 * Adds a tracking item to the post_meta array
+	 * Adds a tracking item to the order meta array
 	 *
 	 * @param int   $order_id    Order ID
 	 * @param array $tracking_items List of tracking item
@@ -662,30 +678,27 @@ class WC_Shipment_Tracking_Actions {
 	}
 
 	/**
-	 * Saves the tracking items array to post_meta.
+	 * Saves the tracking items array to order meta.
 	 *
 	 * @param int   $order_id       Order ID
 	 * @param array $tracking_items List of tracking item
 	 */
 	public function save_tracking_items( $order_id, $tracking_items ) {
-        // Always re-index the array
-        $tracking_items = array_values( $tracking_items );
+		$order = wc_get_order( $order_id );
 
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			update_post_meta( $order_id, '_wc_shipment_tracking_items', $tracking_items );
-		} else {
-			$order = new WC_Order( $order_id );
-			$order->update_meta_data( '_wc_shipment_tracking_items', $tracking_items );
-			$order->save_meta_data();
-		}
+		// Always re-index the array
+		$tracking_items = array_values( $tracking_items );
+
+		$order->update_meta_data( '_wc_shipment_tracking_items', $tracking_items );
+		$order->save();
 	}
 
 	/**
-	 * Gets a single tracking item from the post_meta array for an order.
+	 * Gets a single tracking item from the order meta array for an order.
 	 *
 	 * @param int    $order_id    Order ID
 	 * @param string $tracking_id Tracking ID
-	 * @param bool   $formatted   Wether or not to reslove the final tracking
+	 * @param bool   $formatted   Whether to resolve the final tracking
 	 *                            link and provider in the returned tracking item.
 	 *                            Default to false.
 	 *
@@ -706,24 +719,19 @@ class WC_Shipment_Tracking_Actions {
 	}
 
 	/*
-	 * Gets all tracking itesm fron the post meta array for an order
+	 * Gets all tracking items from the post meta array for an order
 	 *
 	 * @param int  $order_id  Order ID
-	 * @param bool $formatted Wether or not to reslove the final tracking link
+	 * @param bool $formatted Whether to resolve the final tracking link
 	 *                        and provider in the returned tracking item.
 	 *                        Default to false.
 	 *
 	 * @return array List of tracking items
 	 */
 	public function get_tracking_items( $order_id, $formatted = false ) {
-		global $wpdb;
+		$order = wc_get_order( $order_id );
 
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			$tracking_items = get_post_meta( $order_id, '_wc_shipment_tracking_items', true );
-		} else {
-			$order          = new WC_Order( $order_id );
-			$tracking_items = $order->get_meta( '_wc_shipment_tracking_items', true );
-		}
+		$tracking_items = $order->get_meta( '_wc_shipment_tracking_items' );
 
 		if ( is_array( $tracking_items ) ) {
 			if ( $formatted ) {
@@ -732,6 +740,7 @@ class WC_Shipment_Tracking_Actions {
 					$item           = array_merge( $item, $formatted_item );
 				}
 			}
+
 			return $tracking_items;
 		} else {
 			return array();

@@ -337,13 +337,13 @@ class WC_Box_Office_Ticket_Create_Admin {
 
 			$tickets[] = $ticket;
 
-			if ( $item_id ) {
+			if ( $item_id ) {	
 				wc_add_order_item_meta(
 					$item_id,
 					// wp_kses_post removed data attribute, so we use class to
 					// store ticket-id. This span will be turned into link to
 					// edit ticket in edit order.
-					sprintf( '<span class="order-item-meta-ticket ticket-id-%d">' . __( 'Ticket #%d', 'woocommerce-box-office' ) . '</span>', $ticket->id, $index + 1 ),
+					sprintf( '<span class="order-item-meta-ticket ticket-id-%d">%s%d</span>', $ticket->id, wcbo_get_ticket_title_prefix(), $index + 1 ),
 					wc_box_office_get_ticket_description( $ticket->id, 'list' )
 				);
 			}

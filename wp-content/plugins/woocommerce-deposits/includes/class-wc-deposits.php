@@ -35,6 +35,7 @@ class WC_Deposits {
 
 		define( 'WC_DEPOSITS_PLUGIN_URL', untrailingslashit( plugins_url( '', WC_DEPOSITS_FILE ) ) );
 		define( 'WC_DEPOSITS_TEMPLATE_PATH', untrailingslashit( plugin_dir_path( __DIR__ ) ) . '/templates/' );
+		define( 'WC_DEPOSITS_ABSPATH', trailingslashit( plugin_dir_path( __DIR__ ) ) );
 
 		register_deactivation_hook( WC_DEPOSITS_FILE, array( $this, 'deactivate' ) );
 
@@ -48,6 +49,9 @@ class WC_Deposits {
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		add_action( 'plugins_loaded', array( $this, 'includes' ) );
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
+
+		// Multicurrency Support (https://woocommerce.com/products/multi-currency/).
+		add_filter( 'woocommerce_multicurrency_get_props_filters', array( $this, 'deposits_multicurrency_get_props_filters' ) );
 	}
 
 	/**
@@ -78,6 +82,8 @@ class WC_Deposits {
 		require_once __DIR__ . '/class-wc-deposits-product-manager.php';
 		require_once __DIR__ . '/class-wc-deposits-plan.php';
 		require_once __DIR__ . '/class-wc-deposits-my-account.php';
+		require_once __DIR__ . '/compatibility/core/class-wc-deposits-core-compatibility.php';
+		require_once __DIR__ . '/class-wc-deposits-blocks-compatibility.php';
 	}
 
 	/**
@@ -170,5 +176,18 @@ class WC_Deposits {
 
 		// Update version.
 		update_option( 'wc_deposits_version', WC_DEPOSITS_VERSION );
+	}
+
+	/**
+	 * Add deposits filter in multicurrency get props filters to Convert fixed deposit amount.
+	 *
+	 * @param string[] $filter_tags The array of filter tags (the filter names).
+	 *
+	 * @return string[]
+	 */
+	public function deposits_multicurrency_get_props_filters( $filter_tags ) {
+		$filter_tags[] = 'woocommerce_deposits_fixed_deposit_amount';
+
+		return $filter_tags;
 	}
 }

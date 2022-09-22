@@ -270,9 +270,9 @@ final class THEMECOMPLETE_EPO_CP_WOOCS {
 
 		$main_price = floatval( $main_price );
 
-		$get_value = floatval( get_post_meta( $product_id, '_' . $type . '_price', true ) );
+		$get_value = floatval( themecomplete_get_post_meta( $product_id, '_' . $type . '_price', true ) );
 
-		$get_sale_value = floatval( get_post_meta( $product_id, '_sale_price', true ) );
+		$get_sale_value = floatval( themecomplete_get_post_meta( $product_id, '_sale_price', true ) );
 
 		if ( $main_price === $get_value ) {
 			return $fixed_price;

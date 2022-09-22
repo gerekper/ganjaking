@@ -43,7 +43,7 @@ class WC_AM_Log {
 	public function api_debug_log( $message ) {
 		$logger = wc_get_logger();
 
-		$logger->debug( $message . PHP_EOL, array( 'source' => 'wc-am-api-query-log' ) );
+		$logger->debug( $message, array( 'source' => 'wc-am-api-query-log' ) );
 	}
 
 	/**
@@ -56,7 +56,7 @@ class WC_AM_Log {
 	public function api_error_log( $message ) {
 		$logger = wc_get_logger();
 
-		$logger->error( $message . PHP_EOL, array( 'source' => 'wc-am-api-error-log' ) );
+		$logger->error( $message, array( 'source' => 'wc-am-api-error-log' ) );
 	}
 
 	/**
@@ -69,33 +69,39 @@ class WC_AM_Log {
 	public function api_response_log( $message ) {
 		$logger = wc_get_logger();
 
-		$logger->info( $message . PHP_EOL, array( 'source' => 'wc-am-api-response-log' ) );
+		$logger->info( $message, array( 'source' => 'wc-am-api-response-log' ) );
 	}
 
 	/**
 	 * Logs any error.
 	 *
-	 * @since 2.3.2
+	 * @since   2.3.2
+	 * @updated 2.4.5 with added $source parameter
 	 *
 	 * @param string $message
+	 * @param string $source
 	 */
-	public function log_error( $message ) {
+	public function log_error( $message, $source = '' ) {
 		$logger = wc_get_logger();
+		$value  = 'wc-am-error-' . $source . '-log';
 
-		$logger->error( $message . PHP_EOL, array( 'source' => 'wc-am-error-log' ) );
+		$logger->error( $message, array( 'source' => $value ) );
 	}
 
 	/**
 	 * Logs any info.
 	 *
-	 * @since 2.3.2
+	 * @since   2.3.2
+	 * @updated 2.4.5 with added $source parameter
 	 *
 	 * @param string $message
+	 * @param string $source
 	 */
-	public function log_info( $message ) {
+	public function log_info( $message, $source = '' ) {
 		$logger = wc_get_logger();
+		$value  = 'wc-am-info-' . $source . '-log';
 
-		$logger->info( $message . PHP_EOL, array( 'source' => 'wc-am-info-log' ) );
+		$logger->info( $message, array( 'source' => $value ) );
 	}
 
 	/**
@@ -108,7 +114,7 @@ class WC_AM_Log {
 	public function test_log( $message ) {
 		$logger = wc_get_logger();
 
-		$logger->info( $message . PHP_EOL, array( 'source' => 'wc-am-api-test-log' ) );
+		$logger->info( $message, array( 'source' => 'wc-am-api-test-log' ) );
 	}
 
 }

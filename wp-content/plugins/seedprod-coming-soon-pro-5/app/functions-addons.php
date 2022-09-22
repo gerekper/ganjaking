@@ -63,6 +63,12 @@ function seedprod_pro_install_addon() {
 		$installer = new Plugin_Upgrader( new SeedProd_Skin() );
 		$installer->install( $download_url );
 
+		// Set referrer if one exists
+		if(!empty($_POST['referrer'])){
+			$referrer = sanitize_text_field( wp_unslash( $_POST['referrer'] ) );
+			update_option('optinmonster_referred_by', $referrer );
+		}
+
 		// Flush the cache and return the newly installed plugin basename.
 		wp_cache_flush();
 		if ( $installer->plugin_info() ) {
@@ -70,6 +76,8 @@ function seedprod_pro_install_addon() {
 			echo wp_json_encode( array( 'plugin' => $plugin_basename ) );
 			wp_die();
 		}
+
+
 	}
 
 	// Send back a response.

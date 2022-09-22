@@ -33,33 +33,36 @@ class Scripts implements Registrable {
 	}
 
 	public function register() {
-		add_action( 'ac/admin_scripts', function () {
-			array_map( [ $this, 'enqueue' ], $this->get_enqueables() );
-		} );
+		add_action( 'ac/admin_scripts', [ $this, 'register_usage_limiter' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'register_daily_license_check' ] );
 	}
 
-	private function get_enqueables() {
-		$enqueables = [];
-
-		if ( ! $this->permission_storage->retrieve()->has_usage_permission() ) {
-			$enqueables[] = new Asset\Style( 'acp-usage-limiter', $this->location->with_suffix( 'assets/core/css/usage-limiter.css' ) );
-			$enqueables[] = new Asset\Script( 'acp-usage-limiter', $this->location->with_suffix( 'assets/core/js/usage-limiter.js' ) );
+	public function register_usage_limiter() {
+		if ( $this->permission_storage->retrieve()->has_usage_permission() ) {
+			return;
 		}
 
-		// Daily license update
+		$assets = [
+			new Asset\Style( 'acp-usage-limiter', $this->location->with_suffix( 'assets/core/css/usage-limiter.css' ) ),
+			new Asset\Script( 'acp-usage-limiter', $this->location->with_suffix( 'assets/core/js/usage-limiter.js' ) ),
+		];
+
+		array_map( [ $this, 'enqueue' ], $assets );
+	}
+
+	public function register_daily_license_check() {
 		$transient = new LicenseCheckTransient( $this->network_active );
 
 		if ( $transient->is_expired() ) {
-			$enqueables[] = new Script\LicenseCheck( $this->location->with_suffix( 'assets/core/js/license-check.js' ) );
+			$script = new Script\LicenseCheck( $this->location->with_suffix( 'assets/core/js/license-check.js' ) );
+			$script->enqueue();
 
 			$transient->save( DAY_IN_SECONDS );
 		}
-
-		return $enqueables;
 	}
 
-	private function enqueue( Enqueueable $enqueueable ) {
-		$enqueueable->enqueue();
+	private function enqueue( Enqueueable $assets ) {
+		$assets->enqueue();
 	}
 
 }

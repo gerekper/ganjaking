@@ -16,8 +16,8 @@
 			<select name="stamps_package_type">
 				<option value=""><?php _e( 'Any (return all options)', 'woocommerce-shipping-stamps' ); ?></option>
 				<?php
-				foreach ( $this->package_types as $package_type => $package_description ) {
-					echo '<option value="' . esc_attr( $package_type ) . '">' . esc_html( $package_type ) . '</option>';
+				foreach ( $this->package_types as $package_type => $package_info ) {
+					echo '<option value="' . esc_attr( $package_type ) . '">' . esc_html( $package_info['name'] ) . '</option>';
 				}
 				?>
 			</select> <span class="description"></span>

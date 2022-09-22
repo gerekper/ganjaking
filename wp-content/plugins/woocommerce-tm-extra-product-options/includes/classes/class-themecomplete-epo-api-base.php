@@ -162,7 +162,7 @@ final class THEMECOMPLETE_EPO_API_Base {
 	public function get_epos( $item = [], $item_meta = [], $option_id = 'all', $_product = false, $mt_prefix = '' ) {
 
 		$all_epos = [];
-		$epos     = maybe_unserialize( $item_meta['_tmcartepo_data'][0] );
+		$epos     = themecomplete_maybe_unserialize( $item_meta['_tmcartepo_data'][0] );
 
 		if ( $epos && is_array( $epos ) ) {
 
@@ -336,7 +336,7 @@ final class THEMECOMPLETE_EPO_API_Base {
 			}
 
 			if ( $has_fee ) {
-				$epos = maybe_unserialize( $item_meta['_tmcartfee_data'][0] );
+				$epos = themecomplete_maybe_unserialize( $item_meta['_tmcartfee_data'][0] );
 				if ( isset( $epos[0] ) ) {
 					$epos = $epos[0];
 				} else {

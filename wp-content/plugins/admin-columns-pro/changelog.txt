@@ -1,5 +1,15 @@
 == Changelog ==
 
+= 5.7.4 =
+Release Date: September 13th, 2022
+
+* [Fixed] Taxonomy ListScreen could give a PHP warning when the default taxonomies were unregistered
+* [Fixed] Beaver Builder integration support was always initiated
+* [Fixed] Expired licenses were not updated correctly when it was expired and re-activated or renewed
+* [Fixed] Suppress more PHP 8.1 warnings
+* [Fixed] JS null checks that could lead to JS errors
+* [Improved] Smart Filtering for the Date Publish column now only filters dates for published posts
+
 = 5.7.3 =
 Release Date: July 4th, 2022
 

@@ -45,10 +45,10 @@ class WC_Deposits_Order_Manager {
 		add_filter( 'request', array( $this, 'request_query' ) );
 		add_action( 'woocommerce_ajax_add_order_item_meta', array( $this, 'ajax_add_order_item_meta' ), 10, 2 );
 		add_filter( 'woocommerce_order_formatted_line_subtotal', array( $this, 'display_item_total_payable' ), 10, 3 );
+
 		// Add WC3.2 Coupons upgrade compatibility
-		if( version_compare( WC_VERSION, '3.2', '>=' ) ) {
-			add_filter( 'woocommerce_order_item_display_meta_value', array( $this, 'deposits_order_item_display_meta_value' ), 10, 2 );
-		}
+		add_filter( 'woocommerce_order_item_display_meta_value', array( $this, 'deposits_order_item_display_meta_value' ), 10, 2 );
+
 		// Stock management
 		add_filter( 'woocommerce_payment_complete_reduce_order_stock', array( $this, 'allow_reduce_order_stock' ), 10, 2 );
 		add_filter( 'woocommerce_can_reduce_order_stock', array( $this, 'allow_reduce_order_stock' ), 10, 2 );
@@ -72,6 +72,9 @@ class WC_Deposits_Order_Manager {
 		// Send WooCommerce emails on custom status transitions
 		add_filter( 'woocommerce_email_actions', array( $this, 'register_status_transitions_for_core_emails' ), 10, 1 );
 		add_action( 'woocommerce_email', array( $this, 'send_core_emails_on_status_changes' ), 10, 1 );
+
+		// Fix order tax location for local pickup orders.
+		add_filter( 'woocommerce_order_get_tax_location', array( $this, 'order_tax_location' ), 10, 2 );
 	}
 
 	/**
@@ -96,6 +99,34 @@ class WC_Deposits_Order_Manager {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * Check if the order is follow up
+	 *
+	 * @param  int|WC_Order $order Order ID or object.
+	 * @return boolean
+	 */
+	public static function is_follow_up_order( $order ) {
+		if ( is_numeric( $order ) ) {
+			$order = wc_get_order( $order );
+		}
+
+		if ( ! $order ) {
+			return false;
+		}
+
+		$parent_order_id = $order->get_parent_id();
+
+		$is_follow_up = $parent_order_id && self::has_deposit( $parent_order_id );
+
+		/**
+		 * Filter is follow up order.
+		 * 
+		 * @param bool     $is_follow_up Flag order as Follow Up.
+		 * @param WC_Order $order Order.
+		 */
+		return apply_filters( 'woocommerce_deposits_is_follow_up_order', $is_follow_up, $order );
 	}
 
 	/**
@@ -246,13 +277,9 @@ class WC_Deposits_Order_Manager {
 	 * @param  array $query
 	 */
 	public function woocommerce_my_account_my_orders_query( $query ) {
-		if ( version_compare( WC_VERSION, '2.6.0', '>=' ) ) {
-			$statuses = wc_get_order_statuses();
-			unset( $statuses['wc-scheduled-payment'] );
-			$query['status'] = array_keys( $statuses );
-		} else {
-			$query['post_status'] = array_diff( $query['post_status'], array( 'wc-scheduled-payment' ) );
-		}
+		$statuses = wc_get_order_statuses();
+		unset( $statuses['wc-scheduled-payment'] );
+		$query['status'] = array_keys( $statuses );
 
 		return $query;
 	}
@@ -299,8 +326,23 @@ class WC_Deposits_Order_Manager {
 				}
 
 				if ( $paid ) {
+
+					/**
+					 * Filter to update the new status for parent after all deposits paid.
+					 *
+					 * When all deposits are paid by the customer, the linked parent
+					 * order status changes to 'completed' by default. This filter
+					 * allows users to change this behaviour and set their required
+					 * status to the parent order after all deposits paid.
+					 *
+					 * @param string the status of the parent order.
+					 *
+					 * @since 1.5.9
+					 */
+					$parent_new_status = apply_filters( 'woocommerce_deposits_parent_status_on_payment', 'completed' );
+
 					// Update the parent order
-					$parent_order->update_status( 'completed', __( 'All deposit items fully paid', 'woocommerce-deposits' ) );
+					$parent_order->update_status( esc_html( $parent_new_status ), __( 'All deposit items fully paid', 'woocommerce-deposits' ) );
 				}
 
 			}
@@ -318,11 +360,6 @@ class WC_Deposits_Order_Manager {
 	 * @return id
 	 */
 	public static function create_order( $payment_date, $original_order_id, $payment_number, $item, $status = '' ) {
-		// Handle backwards compat.
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			return self::create_order_legacy( $payment_date, $original_order_id, $payment_number, $item, $status );
-		}
-
 		$original_order = wc_get_order( $original_order_id );
 
 		try {
@@ -331,6 +368,7 @@ class WC_Deposits_Order_Manager {
 				'status'              => $status,
 				'customer_id'         => $original_order->get_user_id(),
 				'customer_note'       => $original_order->get_customer_note(),
+				'currency'            => $original_order->get_currency(),
 				'created_via'         => 'wc_deposits',
 				'billing_first_name'  => $original_order->get_billing_first_name(),
 				'billing_last_name'   => $original_order->get_billing_last_name(),
@@ -383,6 +421,37 @@ class WC_Deposits_Order_Manager {
 		$new_order->set_parent_id( $original_order_id );
 		$new_order->set_date_created( date( 'Y-m-d H:i:s', $payment_date ) );
 
+		// Add local pickup as shipping method for the follow-up order before totals calculation.
+		if ( self::is_local_pickup( $original_order ) ) {
+			$shipping_methods = $original_order->get_shipping_methods();
+
+			/**
+			 * Woocommerce Local Pickup method IDs
+			 *
+			 * @see WC_Customer::get_taxable_address()
+			 */
+			$local_pickup_methods = apply_filters( 'woocommerce_local_pickup_methods', array( 'legacy_local_pickup', 'local_pickup' ) );
+
+			foreach ( $shipping_methods as $method ) {
+				// Match the original order shipping method is Local Pickup.
+				if ( in_array( $method->get_method_id(), $local_pickup_methods, true ) ) {
+
+					$shipping_item = new WC_Order_Item_Shipping();
+					$shipping_item->set_order_id( $new_order->get_id() );
+					$shipping_item->set_method_title( $method->get_method_title( 'edit' ) );
+					$shipping_item->set_method_id( $method->get_method_id() );
+					// Set total to 0 to prevent duplicate charging of already paid local pickup.
+					$shipping_item->set_total( 0 );
+
+					// Add Local Pickup shipping item to the new order.
+					$new_order->add_item( $shipping_item );
+
+					// Follow up order only needs one local pickup method to calculate tax.
+					break;
+				}
+			}
+		}
+
 		// (WC_Abstract_Order) Calculate totals by looking at the contents of the order. Stores the totals and returns the orders final total.
 		$new_order->calculate_totals( wc_tax_enabled() );
 		$new_order->save();
@@ -394,82 +463,6 @@ class WC_Deposits_Order_Manager {
 
 		do_action( 'woocommerce_deposits_create_order', $new_order->get_id() );
 		return $new_order->get_id();
-	}
-
-	/**
-	 * Create a scheduled order (for WC 2.6 and below).
-	 *
-	 * @param  string $payment_date
-	 * @param  int    $original_order_id
-	 * @param  int    $payment_number
-	 * @param  array  $item
-	 * @param  string $status
-	 * @return id
-	 */
-	public static function create_order_legacy( $payment_date, $original_order_id, $payment_number, $item, $status = '' ) {
-		$original_order = wc_get_order( $original_order_id );
-		$new_order      = wc_create_order( array(
-			'status'        => $status,
-			'customer_id'   => $original_order->get_user_id(),
-			'customer_note' => $original_order->customer_note,
-			'created_via'   => 'wc_deposits',
-		) );
-		if ( is_wp_error( $new_order ) ) {
-			$original_order->add_order_note( sprintf( __( 'Error: Unable to create follow up payment (%s)', 'woocommerce-deposits' ), $scheduled_order->get_error_message() ) );
-		} else {
-			$new_order->set_address( array(
-				'first_name' => $original_order->billing_first_name,
-				'last_name'  => $original_order->billing_last_name,
-				'company'    => $original_order->billing_company,
-				'address_1'  => $original_order->billing_address_1,
-				'address_2'  => $original_order->billing_address_2,
-				'city'       => $original_order->billing_city,
-				'state'      => $original_order->billing_state,
-				'postcode'   => $original_order->billing_postcode,
-				'country'    => $original_order->billing_country,
-				'email'      => $original_order->billing_email,
-				'phone'      => $original_order->billing_phone,
-			), 'billing' );
-			$new_order->set_address( array(
-				'first_name' => $original_order->shipping_first_name,
-				'last_name'  => $original_order->shipping_last_name,
-				'company'    => $original_order->shipping_company,
-				'address_1'  => $original_order->shipping_address_1,
-				'address_2'  => $original_order->shipping_address_2,
-				'city'       => $original_order->shipping_city,
-				'state'      => $original_order->shipping_state,
-				'postcode'   => $original_order->shipping_postcode,
-				'country'    => $original_order->shipping_country,
-			), 'shipping' );
-
-			// Handle items
-			$item_id = $new_order->add_product( $item['product'], $item['qty'], array(
-				'totals' => array(
-					'subtotal'     => $item['subtotal'], // cost before discount (for line quantity, not just unit)
-					'total'        => $item['total'], // item cost (after discount) (for line quantity, not just unit)
-					'subtotal_tax' => 0, // calculated within (WC_Abstract_Order) $new_order->calculate_totals
-					'tax'          => 0, // calculated within (WC_Abstract_Order) $new_order->calculate_totals
-				)
-			) );
-			wc_add_order_item_meta( $item_id, '_original_order_id', $original_order_id );
-
-			/* translators: Payment number for product's title */
-			wc_update_order_item( $item_id, array( 'order_item_name' => sprintf( __( 'Payment #%d for %s', 'woocommerce-deposits' ), $payment_number, $item['product']->get_title() ) ) );
-
-			// (WC_Abstract_Order) Calculate totals by looking at the contents of the order. Stores the totals and returns the orders final total.
-			$new_order->calculate_totals( wc_tax_enabled() );
-
-			// Set future date and parent
-			$new_order_post = array(
-				'ID'          => $new_order->id,
-				'post_date'   => date( 'Y-m-d H:i:s', $payment_date ),
-				'post_parent' => $original_order_id,
-			);
-			wp_update_post( $new_order_post );
-
-			do_action( 'woocommerce_deposits_create_order', $new_order->id );
-			return $new_order->id;
-		}
 	}
 
 	public function deposits_order_item_display_meta_value( $display_value, $meta ) {
@@ -551,16 +544,9 @@ class WC_Deposits_Order_Manager {
 	public function woocommerce_after_order_itemmeta( $item_id, $item, $_product ) {
 		if ( WC_Deposits_Order_Item_Manager::is_deposit( $item ) ) {
 
-			if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-				global $wpdb;
-				$order_id = $wpdb->get_var( $wpdb->prepare( "SELECT order_id FROM {$wpdb->prefix}woocommerce_order_items WHERE order_item_id = %d", $item_id ) );
-				$order    = wc_get_order( $order_id );
-				$currency = $order->get_order_currency();
-			} else {
-				$order_id = $item->get_order_id();
-				$order    = wc_get_order( $order_id );
-				$currency = $order->get_currency();
-			}
+			$order_id = $item->get_order_id();
+			$order    = wc_get_order( $order_id );
+			$currency = $order->get_currency();
 
 			// Plans
 			if ( $payment_plan = WC_Deposits_Order_Item_Manager::get_payment_plan( $item ) ) {
@@ -617,13 +603,7 @@ class WC_Deposits_Order_Manager {
 			return;
 		}
 
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			$order_id = $wpdb->get_var( $wpdb->prepare( "SELECT order_id FROM {$wpdb->prefix}woocommerce_order_items WHERE order_item_id = %d", $item_id ) );
-		} else {
-			$order_id = wc_get_order_id_by_order_item_id( $item_id );
-		}
-
-		$order_id = $wpdb->get_var( $wpdb->prepare( "SELECT order_id FROM {$wpdb->prefix}woocommerce_order_items WHERE order_item_id = %d", $item_id ) );
+		$order_id = wc_get_order_id_by_order_item_id( $item_id );
 		$order    = wc_get_order( $order_id );
 		$item     = false;
 
@@ -662,14 +642,10 @@ class WC_Deposits_Order_Manager {
 				$subtotal = $full_amount_excl_tax - $amount_already_paid;
 
 				// Add WC3.2 Coupons upgrade compatibility
-				if( version_compare( WC_VERSION, '3.2', '>=' ) ){
-					// Lastly, subtract the deferred discount from the subtotal to get the total to be used to create the order
-					$discount_excl_tax = isset($item['deposit_deferred_discount_ex_tax']) ? floatval( $item['deposit_deferred_discount_ex_tax'] ) : 0;
-					$total = $subtotal - $discount_excl_tax;
-				} else {
-					$discount = floatval( $item['deposit_deferred_discount'] );
-					$total = empty( $discount ) ? $subtotal : $subtotal - $discount;
-				}
+				// Lastly, subtract the deferred discount from the subtotal to get the total to be used to create the order
+				$discount_excl_tax = isset($item['deposit_deferred_discount_ex_tax']) ? floatval( $item['deposit_deferred_discount_ex_tax'] ) : 0;
+				$total = $subtotal - $discount_excl_tax;
+
 				// And then create an order with this item
 				$create_item = array(
 					'product'   => $item->get_product(),
@@ -699,6 +675,63 @@ class WC_Deposits_Order_Manager {
 				wp_redirect( admin_url( 'post.php?post=' . absint( $new_order_id ) . '&action=edit' ) );
 				exit;
 		}
+	}
+
+	/**
+	 * Update tax location for order to store base in case of local pickup shipping method
+	 *
+	 * @param array    $args Tax location array.
+	 * @param WC_Order $order Current order.
+	 * @return array
+	 */
+	public function order_tax_location( $args, $order ) {
+		/**
+		 * Apply Woocommerce core filter to override Base tax for Local Pickup
+		 *
+		 * @see WC_Customer::get_taxable_address()
+		 */
+		$apply_base_tax = true === apply_filters( 'woocommerce_apply_base_tax_for_local_pickup', true );
+
+		$is_local_pickup = self::is_local_pickup( $order );
+
+		// Change tax location to store base address for Local Pickup and Deposits (main or follow up order).
+		if ( $is_local_pickup && $apply_base_tax && ( self::has_deposit( $order ) || self::is_follow_up_order( $order ) ) ) {
+			$args['country']  = WC()->countries->get_base_country();
+			$args['state']    = WC()->countries->get_base_state();
+			$args['postcode'] = WC()->countries->get_base_postcode();
+			$args['city']     = WC()->countries->get_base_city();
+		}
+
+		return $args;
+	}
+
+	/**
+	 * Detect Local Pickup shipping method from order
+	 *
+	 * @param WC_Order $order Order.
+	 * @return boolean
+	 */
+	public static function is_local_pickup( $order ) {
+		/**
+		 * Woocommerce Local Pickup method IDs
+		 *
+		 * @see WC_Customer::get_taxable_address()
+		 */
+		$local_pickup_methods   = apply_filters( 'woocommerce_local_pickup_methods', array( 'legacy_local_pickup', 'local_pickup' ) );
+		$order_shipping_methods = $order->get_shipping_methods();
+
+		// Extract order shipping methods IDs.
+		$shipping_method_ids = array_map(
+			function ( $method ) {
+				return $method->get_method_id();
+			},
+			$order_shipping_methods
+		);
+
+		// Check if one of order shipping methods match known local pickup methods.
+		$is_local_pickup = count( array_intersect( $shipping_method_ids, $local_pickup_methods ) ) > 0;
+
+		return $is_local_pickup;
 	}
 
 	/**
@@ -780,13 +813,18 @@ class WC_Deposits_Order_Manager {
 			$remaining                = 0;
 			$paid                     = 0;
 			$total_payable            = 0;
+			$currency                 = $order->get_currency();
 			$is_tax_included          = wc_tax_enabled() && 'excl' !== get_option( 'woocommerce_tax_display_cart' );
-			$deferred_discount_amount = ! empty( WC_Deposits_Cart_Manager::get_deferred_discount_amount() ) ? WC_Deposits_Cart_Manager::get_deferred_discount_amount() : 0;
-			$deferred_discount_tax = ! empty( WC_Deposits_Cart_Manager::calculate_deferred_and_present_discount_tax() ) ? WC_Deposits_Cart_Manager::calculate_deferred_and_present_discount_tax()['deferred'] : 0;
+			$deferred_discount_amount = 0;
 
 			foreach ( $order->get_items() as $item ) {
 				if ( WC_Deposits_Order_Item_Manager::is_deposit( $item ) ) {
 					$total_payable += $item['deposit_full_amount_ex_tax'];
+					if ( $is_tax_included ) {
+						$deferred_discount_amount += (float) $item->get_meta( '_deposit_deferred_discount' );
+					} else {
+						$deferred_discount_amount += (float) $item->get_meta( '_deposit_deferred_discount_ex_tax' );
+					}
 
 					if ( ! WC_Deposits_Order_Item_Manager::get_payment_plan( $item ) ) {
 						$remaining_balance_order_id = ! empty( $item['remaining_balance_order_id'] ) ? absint( $item['remaining_balance_order_id'] ) : 0;
@@ -827,24 +865,10 @@ class WC_Deposits_Order_Manager {
 			$tax_message = $is_tax_included ? __( '(includes tax)', 'woocommerce-deposits' ) : __( '(excludes tax)', 'woocommerce-deposits' ) ;
 			$tax_element = wc_tax_enabled() ? ' <small class="tax_label">' . $tax_message . '</small>' : '';
 
-			// Add WC3.2 Coupons upgrade compatibility
-			if( version_compare( WC_VERSION, '3.2', '>=' ) ){
-				$deferred_discount_tax = ! empty( WC_Deposits_Cart_Manager::calculate_deferred_and_present_discount_tax() ) ? WC_Deposits_Cart_Manager::calculate_deferred_and_present_discount_tax()['deferred'] : 0;
-				if( $is_tax_included ) {
-					if( 'no' === get_option( 'woocommerce_prices_include_tax' ) ) {
-						$deferred_discount_amount += $deferred_discount_tax;
-					}
-				} else {
-					if( 'yes' === get_option( 'woocommerce_prices_include_tax' ) ) {
-						$deferred_discount_amount -= $deferred_discount_tax;
-					}
-				}
-			}
-
 			if ( 0 < $deferred_discount_amount ) {
 				$total_rows['deferred_discount'] = array(
 					'label' => __( 'Discount Applied Toward Future Payments', 'woocommerce-deposits' ),
-					'value'	=> wc_price( -$deferred_discount_amount ),
+					'value' => wc_price( -$deferred_discount_amount, array( 'currency' => $currency ) ),
 				);
 			}
 
@@ -856,12 +880,12 @@ class WC_Deposits_Order_Manager {
 			if ( $remaining && $paid ) {
 				$total_rows['future'] = array(
 					'label' => __( 'Future Payments', 'woocommerce-deposits' ),
-					'value'	=> '<del>' . wc_price( $remaining + $paid ) . '</del> <ins>' . wc_price( $remaining ) . $tax_element . '</ins>',
+					'value' => '<del>' . wc_price( $remaining + $paid, array( 'currency' => $currency ) ) . '</del> <ins>' . wc_price( $remaining, array( 'currency' => $currency ) ) . $tax_element . '</ins>',
 				);
 			} elseif ( $remaining ) {
 				$total_rows['future'] = array(
 					'label' => __( 'Future Payments', 'woocommerce-deposits' ),
-					'value'	=> wc_price( $remaining ) . $tax_element,
+					'value' => wc_price( $remaining, array( 'currency' => $currency ) ) . $tax_element,
 				);
 			}
 
@@ -940,13 +964,14 @@ class WC_Deposits_Order_Manager {
 		if ( ! empty( $item['is_deposit'] ) ) {
 			$_product    = wc_get_product( $item['product_id'] );
 			$quantity    = $item['qty'];
+			$currency    = $order->get_currency();
 			$full_amount = 'excl' === get_option( 'woocommerce_tax_display_cart' ) ? $item['deposit_full_amount_ex_tax'] : $item['deposit_full_amount'];
 
 			if ( ! empty( $item['payment_plan'] ) ) {
 				$plan = new WC_Deposits_Plan( $item['payment_plan'] );
-				$subtotal .= '<br/><small>' . $plan->get_formatted_schedule( $full_amount ) . '</small>';
+				$subtotal .= '<br/><small>' . $plan->get_formatted_schedule( $full_amount, $currency ) . '</small>';
 			} else {
-				$subtotal .= '<br/><small>' . sprintf( __( '%s payable in total', 'woocommerce-deposits' ), wc_price( $full_amount ) ) . '</small>';
+				$subtotal .= '<br/><small>' . sprintf( __( '%s payable in total', 'woocommerce-deposits' ), wc_price( $full_amount, array( 'currency' => $currency ) ) ) . '</small>';
 			}
 		}
 
@@ -1046,11 +1071,6 @@ class WC_Deposits_Order_Manager {
 			return $manage_stock;
 		}
 
-		// This only needed with WC 3.5+
-		if ( version_compare( WC_VERSION, '3.5', '<' ) ) {
-			return $manage_stock;
-		}
-
 		$product = $this->disable_manage_stock_for_product_variation( $product );
 
 		// We use the same logic for bypassing manage stock as stock status but we need to inverse the result.
@@ -1090,11 +1110,6 @@ class WC_Deposits_Order_Manager {
 	public function maybe_bypass_stock_status( $in_stock, $product ) {
 		// Bail if not pay for order page.
 		if ( ! isset( $_GET['pay_for_order'], $_GET['key'] ) ) {
-			return $in_stock;
-		}
-
-		// This only works with WC 3.0+
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
 			return $in_stock;
 		}
 

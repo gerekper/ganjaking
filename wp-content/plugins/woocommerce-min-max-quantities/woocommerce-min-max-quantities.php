@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Min/Max Quantities
  * Plugin URI: https://woocommerce.com/products/minmax-quantities/
  * Description: Define minimum/maximum allowed quantities for products, variations and orders.
- * Version: 3.0.0
+ * Version: 3.0.2
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Requires at least: 4.0
@@ -25,7 +25,7 @@
 if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 
 
-	define( 'WC_MIN_MAX_QUANTITIES', '3.0.0' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_MIN_MAX_QUANTITIES', '3.0.2' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Min Max Quantities class.

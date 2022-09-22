@@ -245,6 +245,31 @@ if ( ! function_exists( 'themecomplete_get_woocommerce_currency' ) ) {
 	}
 }
 
+if ( ! function_exists( 'themecomplete_maybe_unserialize' ) ) {
+	/**
+	 * UnSerialize String Fixer
+	 * https://stackoverflow.com/questions/3148712/regex-code-to-fix-corrupt-serialized-php-data
+	 *
+	 * @param string $serialized_string The stringto fix.
+	 * @return string
+	 */
+	function themecomplete_maybe_unserialize( $serialized_string = '' ) {
+		// at first, check if "fixing" is really needed at all. After that, security checkup.
+		$unserialized_string = maybe_unserialize( $serialized_string );
+		if ( false === $unserialized_string && preg_match( '/^[aOs]:/', $serialized_string ) ) {
+			$serialized_string = preg_replace_callback(
+				'/s\:(\d+)\:\"(.*?)\";/s',
+				function( $matches ) {
+					return 's:' . strlen( $matches[2] ) . ':"' . $matches[2] . '";';
+				},
+				$serialized_string
+			);
+
+			$unserialized_string = maybe_unserialize( $serialized_string );
+		}
+		return $unserialized_string;
+	}
+}
 if ( ! function_exists( 'themecomplete_get_post_meta' ) ) {
 
 	/**
@@ -261,25 +286,44 @@ if ( ! function_exists( 'themecomplete_get_post_meta' ) ) {
 
 		if ( $post_id instanceof WC_PRODUCT ) {
 			return $post_id->get_meta( $meta_key, $single );
-		}
+		} elseif ( $post_id instanceof WP_Post || ( is_object( $post_id ) && isset( $post_id->ID ) && isset( $post_id->post_type ) && 'product' !== $post_id->post_type ) ) {
+			$meta = get_post_meta( $post_id->ID, $meta_key, $single );
 
-		if ( $post_id instanceof WP_Post || ( is_object( $post_id ) && isset( $post_id->ID ) && isset( $post_id->post_type ) && 'product' !== $post_id->post_type ) ) {
-			return get_post_meta( $post_id->ID, $meta_key, $single );
-		}
-
-		if ( function_exists( 'wc_get_product' ) && is_numeric( $post_id ) ) {
+			if ( false === $meta ) {
+				$meta = get_post_meta( $post_id->ID );
+				if ( is_array( $meta ) && isset( $meta[ $meta_key ] ) ) {
+					$meta = $meta[ $meta_key ];
+					if ( $single && isset( $meta[0] ) ) {
+						$meta = $meta[0];
+					}
+				} else {
+					$meta = false;
+				}
+			}
+		} elseif ( did_action( 'woocommerce_init' ) && function_exists( 'wc_get_product' ) && is_numeric( $post_id ) ) {
 			$product = wc_get_product( $post_id );
 			if ( is_object( $product ) ) {
 				$meta = $product->get_meta( $meta_key, $single );
 			} else {
 				$meta = get_post_meta( $post_id, $meta_key, $single );
 			}
+			if ( false === $meta ) {
+				$meta = get_post_meta( $post_id );
+				if ( is_array( $meta ) && isset( $meta[ $meta_key ] ) ) {
+					$meta = $meta[ $meta_key ];
+					if ( $single && isset( $meta[0] ) ) {
+						$meta = $meta[0];
+					}
+				} else {
+					$meta = false;
+				}
+			}
 		} else {
 			$meta = get_post_meta( $post_id, $meta_key, $single );
 		}
 		// needed in some rare occassions where WordPress doesn't unserialize the data.
 		if ( $single ) {
-			$meta = maybe_unserialize( $meta );
+			$meta = themecomplete_maybe_unserialize( $meta );
 		}
 
 		return $meta;
@@ -382,6 +426,40 @@ if ( ! function_exists( 'themecomplete_add_post_meta' ) ) {
 	}
 }
 
+if ( ! function_exists( 'themecomplete_save_post_meta' ) ) {
+
+	/**
+	 * Save meta data
+	 *
+	 * @param integer $post_id The post id.
+	 * @param mixed   $new_data The new meta data.
+	 * @param mixed   $old_data The old meta data.
+	 * @param string  $meta_name The meta name.
+	 * @since 6.1
+	 *
+	 * @return int|bool Meta ID if the key didn't exist, true on successful update,
+	 *                  false on failure or if the value passed to the function
+	 *                  is the same as the one that is already in the database.
+	 */
+	function themecomplete_save_post_meta( $post_id = 0, $new_data = false, $old_data = false, $meta_name = '' ) {
+
+		$save = false;
+		if ( empty( $old_data ) && '' === $old_data ) {
+			$save = themecomplete_add_post_meta( $post_id, $meta_name, $new_data, true );
+			if ( ! $save ) {
+				$save = themecomplete_update_post_meta( $post_id, $meta_name, $new_data, $old_data );
+			}
+		} elseif ( false === $new_data || ( is_array( $new_data ) && ! $new_data ) ) {
+			$save = themecomplete_delete_post_meta( $post_id, $meta_name );
+		} elseif ( $new_data !== $old_data ) {
+			$save = themecomplete_update_post_meta( $post_id, $meta_name, $new_data, $old_data );
+		}
+
+		return $save;
+
+	}
+}
+
 if ( ! function_exists( 'themecomplete_get_attributes' ) ) {
 
 	/**
@@ -401,7 +479,7 @@ if ( ! function_exists( 'themecomplete_get_attributes' ) ) {
 		if ( is_object( $product ) && is_callable( [ $product, 'get_attributes' ] ) ) {
 			$attributes = $product->get_attributes();
 		} else {
-			$attributes = maybe_unserialize( themecomplete_get_post_meta( $post_id, '_product_attributes', true ) );
+			$attributes = themecomplete_maybe_unserialize( themecomplete_get_post_meta( $post_id, '_product_attributes', true ) );
 		}
 
 		return $attributes;
@@ -494,7 +572,7 @@ if ( ! function_exists( 'themecomplete_order_get_price_excluding_tax' ) ) {
 			return $price;
 		}
 
-		$tax_data  = empty( $legacy_order ) && wc_tax_enabled() ? maybe_unserialize( isset( $order_items[ $item_id ]['line_tax_data'] ) ? $order_items[ $item_id ]['line_tax_data'] : '' ) : false;
+		$tax_data  = empty( $legacy_order ) && wc_tax_enabled() ? themecomplete_maybe_unserialize( isset( $order_items[ $item_id ]['line_tax_data'] ) ? $order_items[ $item_id ]['line_tax_data'] : '' ) : false;
 		$tax_price = 0;
 		if ( ! empty( $tax_data ) && $prices_include_tax ) {
 			$tax_based_on = get_option( 'woocommerce_tax_based_on' );

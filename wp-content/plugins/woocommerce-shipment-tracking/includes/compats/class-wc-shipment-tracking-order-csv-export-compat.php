@@ -72,8 +72,7 @@ class WC_Shipment_Tracking_Order_CSV_Export_Compat {
 	 * @return array Column data.
 	 */
 	public function add_tracking_info_to_csv_export_column_data( $order_data, $order, $csv_generator ) {
-		$order_id                     = is_callable( array( $order, 'get_id' ) ) ? $order->get_id() : $order->id;
-		$tracking_items               = wc_shipment_tracking()->actions->get_tracking_items( $order_id, true );
+		$tracking_items               = wc_shipment_tracking()->actions->get_tracking_items( $order->get_id(), true );
 		$new_order_data               = array();
 		$one_row_per_item             = false;
 		$shipment_tracking_csv_output = '';

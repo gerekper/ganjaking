@@ -6,8 +6,8 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoetVendor\Carbon\Carbon;
-use MailPoetVendor\Doctrine\DBAL\Types\DateTimeTzType;
 use MailPoetVendor\Doctrine\DBAL\Platforms\AbstractPlatform;
+use MailPoetVendor\Doctrine\DBAL\Types\DateTimeTzType;
 
 class DateTimeTzToStringType extends DateTimeTzType {
   const NAME = 'datetimetz_to_string';

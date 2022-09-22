@@ -251,7 +251,7 @@
 					var $tab;
 					$tab = t.find( '.' + ui.item.closest( '.tm-box' ).find( options.header ).attr( options.dataattribute ) );
 					ohp = ui.item.index();
-					ohpid = ui.item.find( options.header ).attr( 'data-id' );
+					ohpid = ui.item.find( options.header ).attr( options.dataopenattribute );
 
 					initialIndex = $.tmEPOAdmin.find_index( true, $tab.find( '.bitem' ).first() );
 
@@ -272,7 +272,7 @@
 					} );
 					original_item = t.find( '.tm-slider-wizard-tab.' + ohpid );
 					new_index = t
-						.find( options.headers + ' ' + options.header + "[data-id='" + ohpid + "']" )
+						.find( options.headers + ' ' + options.header + '[' + options.dataopenattribute + '=\'' + ohpid + '\']' )
 						.parent()
 						.index();
 					replaced_item = t.find( '.tm-slider-wizard-tab' ).eq( new_index );
@@ -336,6 +336,9 @@
 				}
 				if ( vars.selected_tab !== undefined ) {
 					_selected_tab = vars.selected_tab;
+				}
+				if ( vars.menu !== undefined ) {
+					_selected_tab = vars.menu;
 				}
 				if ( _selected_tab === undefined || _selected_tab === null ) {
 					_selected_tab = $( options.header ).eq( 0 ).attr( options.dataopenattribute );

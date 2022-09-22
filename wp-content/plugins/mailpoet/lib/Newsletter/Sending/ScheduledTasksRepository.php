@@ -14,12 +14,26 @@ use MailPoet\Entities\ScheduledTaskSubscriberEntity;
 use MailPoet\Entities\SendingQueueEntity;
 use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Carbon\Carbon;
+use MailPoetVendor\Carbon\CarbonImmutable;
+use MailPoetVendor\Doctrine\DBAL\Connection;
+use MailPoetVendor\Doctrine\ORM\EntityManager;
 use MailPoetVendor\Doctrine\ORM\Query\Expr\Join;
 
 /**
  * @extends Repository<ScheduledTaskEntity>
  */
 class ScheduledTasksRepository extends Repository {
+  /** @var WPFunctions */
+  private $wp;
+
+  public function __construct(
+    EntityManager $entityManager,
+    WPFunctions $wp
+  ) {
+    $this->wp = $wp;
+    parent::__construct($entityManager);
+  }
+
   /**
    * @param NewsletterEntity $newsletter
    * @return ScheduledTaskEntity[]
@@ -213,6 +227,39 @@ class ScheduledTasksRepository extends Repository {
       ->getResult();
   }
 
+  public function touchAllByIds(array $ids): void {
+    $now = CarbonImmutable::createFromTimestamp((int)$this->wp->currentTime('timestamp'));
+    $this->entityManager->createQueryBuilder()
+      ->update(ScheduledTaskEntity::class, 'st')
+      ->set('st.updatedAt', ':updatedAt')
+      ->setParameter('updatedAt', $now)
+      ->where('st.id IN (:ids)')
+      ->setParameter('ids', $ids, Connection::PARAM_INT_ARRAY)
+      ->getQuery()
+      ->execute();
+  }
+
+  /**
+   * @return ScheduledTaskEntity[]
+   */
+  public function findScheduledSendingTasks(?int $limit = null): array {
+    $now = Carbon::createFromTimestamp($this->wp->currentTime('timestamp'));
+    return $this->doctrineRepository->createQueryBuilder('st')
+      ->select('st')
+      ->join('st.sendingQueue', 'sq')
+      ->where('st.deletedAt IS NULL')
+      ->andWhere('st.status = :status')
+      ->andWhere('st.scheduledAt <= :now')
+      ->andWhere('st.type = :type')
+      ->orderBy('st.updatedAt', 'ASC')
+      ->setMaxResults($limit)
+      ->setParameter('status', ScheduledTaskEntity::STATUS_SCHEDULED)
+      ->setParameter('now', $now)
+      ->setParameter('type', SendingQueue::TASK_TYPE)
+      ->getQuery()
+      ->getResult();
+  }
+
   protected function findByTypeAndStatus($type, $status, $limit = null, $future = false) {
     $queryBuilder = $this->doctrineRepository->createQueryBuilder('st')
       ->select('st')
@@ -234,7 +281,7 @@ class ScheduledTasksRepository extends Repository {
       $queryBuilder->andWhere('st.scheduledAt <= :now');
     }
 
-    $now = Carbon::createFromTimestamp(WPFunctions::get()->currentTime('timestamp'));
+    $now = Carbon::createFromTimestamp($this->wp->currentTime('timestamp'));
     $queryBuilder->setParameter('now', $now);
 
     if ($limit) {

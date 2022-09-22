@@ -86,14 +86,10 @@ class WC_Deposits_Scheduled_Order_Manager {
 	private static function _get_normalized_price_before_plan( $plan, $item ) {
 		$total_percent = $plan->get_total_percent();
 
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			$price_excluding_tax = $item['product']->get_price_excluding_tax( $item['qty'] );
-		} else {
-			$price_excluding_tax = wc_get_price_excluding_tax( $item['product'], array( 'qty' => $item['qty'] ) );
-		}
+		$price_excluding_tax = wc_get_price_excluding_tax( $item['product'], array( 'qty' => $item['qty'] ) );
+		$price_after_plan    = ! empty( $item['price_excluding_tax'] ) ? $item['price_excluding_tax'] : $price_excluding_tax;
 
-		$price_after_plan = ! empty( $item['price_excluding_tax'] ) ? $item['price_excluding_tax'] : $price_excluding_tax;
-		$line_price       = ( $price_after_plan * 100 ) / $total_percent;
+		$line_price = ( $price_after_plan * 100 ) / $total_percent;
 
 		return $line_price;
 	}
@@ -108,18 +104,7 @@ class WC_Deposits_Scheduled_Order_Manager {
 		$mailer = WC_Emails::instance();
 		$date   = date( "Y-m-d H:i:s", current_time( 'timestamp' ) );
 
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			global $wpdb;
-			$due_orders = $wpdb->get_col( $wpdb->prepare( "
-				SELECT 	posts.ID
-				FROM 	{$wpdb->posts} AS posts
-				WHERE 	posts.post_type = 'shop_order'
-				AND 	posts.post_status = 'wc-scheduled-payment'
-				AND 	posts.post_date < %s
-			", $date ) );
-		} else {
-			$due_orders = wc_get_orders( array( 'date_before' => $date, 'status' => 'wc-scheduled-payment', 'return' => 'ids' ) );
-		}
+		$due_orders = wc_get_orders( array( 'date_before' => $date, 'status' => 'wc-scheduled-payment', 'return' => 'ids' ) );
 
 		if ( $due_orders ) {
 			foreach ( $due_orders as $due_order ) {
@@ -170,20 +155,12 @@ class WC_Deposits_Scheduled_Order_Manager {
 			'posts_per_page' => -1,
 		) );
 
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			foreach ( $found_orders as $found_order ) {
-				if ( 'wc_deposits' === $found_order->created_via ) {
-					$order_ids[] = $found_order->id;
-				}
+		foreach ( $found_orders as $found_order ) {
+			if ( is_a( $found_order, 'WC_Order_Refund' ) ) {
+				continue;
 			}
-		} else {
-			foreach ( $found_orders as $found_order ) {
-				if ( is_a( $found_order, 'WC_Order_Refund' ) ) {
-					continue;
-				}
-				if ( 'wc_deposits' === $found_order->get_created_via() ) {
-					$order_ids[] = $found_order->get_id();
-				}
+			if ( 'wc_deposits' === $found_order->get_created_via() ) {
+				$order_ids[] = $found_order->get_id();
 			}
 		}
 

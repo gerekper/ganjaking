@@ -5,7 +5,7 @@
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'cf415dba4dcb9681e10e965a47e8efee0dc5f1ef',
+        'reference' => '3e5b51dde8c8dc2ced29a310407e71164be16232',
         'name' => 'yoast/wordpress-seo-premium',
         'dev' => true,
     ),
@@ -123,9 +123,6 @@
             'aliases' => array(),
             'reference' => '776f831124e9c62e1a2c601ecc52e776d8bb7220',
             'dev_requirement' => true,
-            'replaced' => array(
-                0 => '1.10.2',
-            ),
         ),
         'php-parallel-lint/php-console-color' => array(
             'pretty_version' => 'v1.0.1',
@@ -383,12 +380,12 @@
             ),
         ),
         'squizlabs/php_codesniffer' => array(
-            'pretty_version' => '3.6.2',
-            'version' => '3.6.2.0',
+            'pretty_version' => '3.7.1',
+            'version' => '3.7.1.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../squizlabs/php_codesniffer',
             'aliases' => array(),
-            'reference' => '5e4e71592f69da17871dba6e80dd51bce74a351a',
+            'reference' => '1359e176e9307e906dc3d890bcc9603ff6d90619',
             'dev_requirement' => true,
         ),
         'symfony/polyfill-ctype' => array(
@@ -446,12 +443,12 @@
             'dev_requirement' => true,
         ),
         'yoast/wordpress-seo' => array(
-            'pretty_version' => '19.6.1',
-            'version' => '19.6.1.0',
+            'pretty_version' => '19.7',
+            'version' => '19.7.0.0',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../yoast/wordpress-seo',
             'aliases' => array(),
-            'reference' => 'd426555ad10031e48da24ce5e6f2c63195030691',
+            'reference' => '553941f2159cae670f23dbb9ff05e6845932e374',
             'dev_requirement' => false,
         ),
         'yoast/wordpress-seo-premium' => array(
@@ -460,7 +457,7 @@
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'cf415dba4dcb9681e10e965a47e8efee0dc5f1ef',
+            'reference' => '3e5b51dde8c8dc2ced29a310407e71164be16232',
             'dev_requirement' => false,
         ),
         'yoast/wp-test-utils' => array(

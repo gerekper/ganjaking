@@ -98,6 +98,152 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 	}
 
 	/**
+	 * Import option data
+	 *
+	 * @since 6.1
+	 */
+	public function do_options_import() {
+		$import  = $this->check_for_import();
+		$message = $import['message'];
+		$data    = [];
+
+		if ( isset( $import['data']['file'] ) ) {
+			$file        = $import['data']['file'];
+			$enc         = $import['data']['enc'];
+			$parsed_data = [];
+			$raw_headers = [];
+
+			$handle = fopen( $file['tmp_name'], 'r' ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+			if ( false !== $handle ) {
+				$csv = new THEMECOMPLETE_CONVERT_ARRAY_TO_CSV();
+
+				while ( ( $header = fgetcsv( $handle, 0, $csv->delimiter ) ) !== false ) { // phpcs:ignore WordPress.CodeAnalysis.AssignmentInCondition
+					$header = $this->remove_utf8_bom( $header );
+
+					$position = ftell( $handle );
+
+					if ( ! empty( $header[0] ) ) {
+						$start_pos = $position;
+						break;
+					}
+				}
+
+				if ( (int) 0 !== (int) $start_pos ) {
+					fseek( $handle, $start_pos );
+				}
+
+				while ( ( $postmeta = fgetcsv( $handle, 0, $csv->delimiter ) ) !== false ) { // phpcs:ignore WordPress.CodeAnalysis.AssignmentInCondition
+					$row = [];
+					foreach ( $header as $key => $heading ) {
+						$heading   = strtolower( $this->remove_utf8_bom( trim( $heading ) ) );
+						$s_heading = $heading;
+						$s_heading = $this->format_data_from_csv( $s_heading, $enc );
+
+						if ( '' === $s_heading ) {
+							continue;
+						}
+						$row[ $s_heading ]         = ( isset( $postmeta[ $key ] ) ) ? $this->format_data_from_csv( $postmeta[ $key ], $enc ) : '';
+						$raw_headers[ $s_heading ] = $heading;
+					}
+
+					$parsed_data[] = $row;
+					unset( $postmeta, $row );
+				}
+				fclose( $handle ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+			}
+
+			$data = $parsed_data;
+		}
+
+		return [
+			'data'    => $data,
+			'message' => $message,
+		];
+	}
+
+	/**
+	 * Import lookup table data
+	 *
+	 * @since 6.1
+	 */
+	public function do_lookuptable_import() {
+		$import  = $this->check_for_import();
+		$message = $import['message'];
+		$data    = [];
+
+		if ( isset( $import['data']['file'] ) ) {
+			$file        = $import['data']['file'];
+			$enc         = $import['data']['enc'];
+			$parsed_data = [];
+			$raw_data    = [];
+			$headers     = [];
+
+			$handle = fopen( $file['tmp_name'], 'r' ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+			if ( false !== $handle ) {
+				$csv        = new THEMECOMPLETE_CONVERT_ARRAY_TO_CSV();
+				$table_name = '';
+				while ( ( $header = fgetcsv( $handle, 0, $csv->delimiter ) ) !== false ) { // phpcs:ignore WordPress.CodeAnalysis.AssignmentInCondition
+					$header = $this->remove_utf8_bom( $header );
+					if ( ! empty( $header[0] ) && ! is_numeric( $header[0] ) && 'max' !== strtolower( $header[0] ) ) {
+						$table_name = $this->remove_utf8_bom( trim( $header[0] ) );
+						$table_name = $this->format_data_from_csv( $table_name, $enc );
+					}
+					if ( $table_name ) {
+						$row = [];
+						foreach ( $header as $key => $heading ) {
+							$heading = $this->remove_utf8_bom( trim( $heading ) );
+							$heading = $this->format_data_from_csv( $heading, $enc );
+							if ( 'max' !== $heading && $table_name !== $heading ) {
+								$heading = wc_format_decimal( $heading, false, true );
+							}
+							$row[ $key ] = $heading;
+						}
+						$raw_data[ $table_name ][] = $row;
+					}
+				}
+
+				foreach ( $raw_data as $raw_name => $data ) {
+					foreach ( $data[0] as $x ) {
+						if ( '' === $x || ( ! is_numeric( $x ) && 'max' !== $x ) ) {
+							continue;
+						}
+						$headers[ $raw_name ][] = $x;
+					}
+				}
+
+				foreach ( $raw_data as $raw_name => $data ) {
+					unset( $data[0] );
+					foreach ( $headers[ $raw_name ] as $ckey => $column_data ) {
+						foreach ( $data as $xline ) {
+							$key = $xline[0];
+							if ( '' === $key ) {
+								continue;
+							}
+							foreach ( $xline as $xkey => $x ) {
+								if ( 0 === $xkey ) {
+									continue;
+								}
+								if ( $xkey === $ckey + 1 ) {
+									$parsed_data[ $raw_name ][ $column_data ][ $key ] = $x;
+								}
+							}
+						}
+					}
+				}
+
+				fclose( $handle ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+			}
+
+			$data = $parsed_data;
+		}
+
+		return [
+			'data'    => $data,
+			'message' => $message,
+		];
+	}
+
+	/**
 	 * Check if there is data to be imported
 	 *
 	 * @since 1.0
@@ -143,7 +289,6 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 			if ( $passed ) {
 
 				$start_pos = 0;
-				$end_pos   = null;
 				$enc       = mb_detect_encoding( $file['tmp_name'], 'UTF-8, ISO-8859-1', true );
 
 				if ( $enc ) {
@@ -151,85 +296,8 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 				}
 				ini_set( 'auto_detect_line_endings', true );
 
-				$parsed_data = [];
-				$raw_headers = [];
-
-				$handle = fopen( $file['tmp_name'], 'r' ); // phpcs:ignore WordPress.WP.AlternativeFunctions
-				if ( false !== $handle ) {
-					$csv = new THEMECOMPLETE_CONVERT_ARRAY_TO_CSV();
-
-					while ( ( $header = fgetcsv( $handle, 0, $csv->delimiter ) ) !== false ) { // phpcs:ignore WordPress.CodeAnalysis.AssignmentInCondition
-						$header = $this->remove_utf8_bom( $header );
-
-						$position = ftell( $handle );
-
-						if ( ! empty( $header[0] ) ) {
-							$start_pos = $position;
-							break;
-						}
-					}
-
-					if ( (int) 0 !== (int) $start_pos ) {
-						fseek( $handle, $start_pos );
-					}
-
-					while ( ( $postmeta = fgetcsv( $handle, 0, $csv->delimiter ) ) !== false ) { // phpcs:ignore WordPress.CodeAnalysis.AssignmentInCondition
-						$row = [];
-						foreach ( $header as $key => $heading ) {
-							$heading   = strtolower( $this->remove_utf8_bom( trim( $heading ) ) );
-							$s_heading = $heading;
-							$s_heading = $this->format_data_from_csv( $s_heading, $enc );
-
-							if ( '' === $s_heading ) {
-								continue;
-							}
-							$row[ $s_heading ]         = ( isset( $postmeta[ $key ] ) ) ? $this->format_data_from_csv( $postmeta[ $key ], $enc ) : '';
-							$raw_headers[ $s_heading ] = $heading;
-						}
-
-						$parsed_data[] = $row;
-						unset( $postmeta, $row );
-						$position = ftell( $handle );
-						if ( $end_pos && $position >= $end_pos ) {
-							break;
-						}
-					}
-					fclose( $handle ); // phpcs:ignore WordPress.WP.AlternativeFunctions
-				}
-
-				foreach ( $parsed_data as $key => $value ) {
-					foreach ( $value as $k => $v ) {
-						$k = trim( $k );
-						$k = $this->remove_utf8_bom( $k );
-						if ( strpos( $k, 'multiple_' ) === 0 ) {
-							$v = THEMECOMPLETE_EPO_HELPER()->array_unserialize( $v );
-
-							if ( THEMECOMPLETE_EPO_HELPER()->str_endsswith( $k, 'checkboxes_options_default_value' ) && is_array( $v ) ) {
-								$data[ $k ][] = $v;
-							} elseif ( THEMECOMPLETE_EPO_HELPER()->str_endsswith( $k, 'options_default_value' ) && is_array( $v ) ) {
-								$data[ $k ][] = $v[0];
-							} else {
-								$data[ $k ][] = $v;
-							}
-						} elseif ( strpos( $k, 'variations_options' ) === 0 ) {
-							$v = maybe_unserialize( $v );
-							if ( is_array( $v ) ) {
-								foreach ( $v as $ok => $ov ) {
-									$data[ $k ][ $ok ] = $ov;
-								}
-							}
-						} else {
-							if ( 'product_productids' === $k && false !== strpos( $v, '|' ) ) {
-								$v = explode( '|', $v );
-							}
-							$data[ $k ][] = $v;
-						}
-					}
-
-					if ( $data ) {
-						$message = esc_html__( 'File imported.', 'woocommerce-tm-extra-product-options' );
-					}
-				}
+				$data['file'] = $file;
+				$data['enc']  = $enc;
 			}
 		} else {
 			$message = esc_html__( 'Invalid import method used.', 'woocommerce-tm-extra-product-options' );
@@ -238,6 +306,106 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 		return [
 			'data'    => $data,
 			'message' => $message,
+		];
+	}
+
+	/**
+	 * Parse imported data (for options)
+	 *
+	 * @since 6.1
+	 */
+	public function parse_imported_data() {
+
+		$parsed_data = [];
+		$import      = $this->do_options_import();
+		$message     = $import['message'];
+		$import      = $import['data'];
+		$data        = [];
+
+		if ( ! empty( $import ) ) {
+			$parsed_data = $import;
+
+			foreach ( $parsed_data as $key => $value ) {
+				foreach ( $value as $k => $v ) {
+					$k = trim( $k );
+					$k = $this->remove_utf8_bom( $k );
+					if ( strpos( $k, 'multiple_' ) === 0 ) {
+						$v = THEMECOMPLETE_EPO_HELPER()->array_unserialize( $v );
+
+						if ( THEMECOMPLETE_EPO_HELPER()->str_endsswith( $k, 'checkboxes_options_default_value' ) && is_array( $v ) ) {
+							$data[ $k ][] = $v;
+						} elseif ( THEMECOMPLETE_EPO_HELPER()->str_endsswith( $k, 'options_default_value' ) && is_array( $v ) ) {
+							$data[ $k ][] = $v[0];
+						} else {
+							$data[ $k ][] = $v;
+						}
+					} elseif ( strpos( $k, 'variations_options' ) === 0 ) {
+						$v = themecomplete_maybe_unserialize( $v );
+						if ( is_array( $v ) ) {
+							foreach ( $v as $ok => $ov ) {
+								$data[ $k ][ $ok ] = $ov;
+							}
+						}
+					} else {
+						if ( 'product_productids' === $k && false !== strpos( $v, '|' ) ) {
+							$v = explode( '|', $v );
+						}
+						$data[ $k ][] = $v;
+					}
+				}
+
+				if ( $data ) {
+					$message = esc_html__( 'File imported.', 'woocommerce-tm-extra-product-options' );
+				}
+			}
+		}
+
+		return [
+			'data'    => $data,
+			'message' => $message,
+		];
+	}
+
+	/**
+	 * Parse imported data (for options)
+	 *
+	 * @since 6.1
+	 */
+	public function parse_imported_lookuptable() {
+
+		$parsed_data = [];
+		$import      = $this->do_lookuptable_import();
+		$message     = $import['message'];
+		$import      = $import['data'];
+		$data        = [];
+		$table_names = [];
+
+		if ( ! empty( $import ) ) {
+			$parsed_data = $import;
+
+			$parsed_headers = [];
+
+			foreach ( $parsed_data as $key => $value ) {
+				$table_names[] = $key;
+				foreach ( $value as $k => $v ) {
+					if ( is_numeric( $k ) || 'max' === $k ) {
+						$data = true;
+						break;
+					}
+				}
+			}
+
+			if ( $data ) {
+				$message = esc_html__( 'File imported.', 'woocommerce-tm-extra-product-options' );
+			}
+		} else {
+			$message = esc_html__( 'The CSV file is invalid!', 'woocommerce-tm-extra-product-options' );
+		}
+
+		return [
+			'table_names' => $table_names,
+			'data'        => $parsed_data,
+			'message'     => $message,
 		];
 	}
 
@@ -305,31 +473,13 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 	 */
 	public function import() {
 		check_ajax_referer( 'import-nonce', 'security' );
-
-		$this->check_if_active( 'import' );
-
-		$message  = '';
-		$post_max = ini_get( 'post_max_size' );
-
-		// post_max_size debug.
-		if ( empty( $_FILES )
-			&& empty( $_POST )
-			&& isset( $_SERVER['REQUEST_METHOD'] )
-			&& strtolower( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) === 'post' // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-			&& isset( $_SERVER['CONTENT_LENGTH'] )
-			&& (float) $_SERVER['CONTENT_LENGTH'] > $post_max
-			&& ( ! isset( $_GET ) || ( isset( $_GET ) && isset( $_GET['post_type'] ) && isset( $_GET['action'] ) && ! THEMECOMPLETE_EPO_HELPER()->str_startswith( sanitize_text_field( wp_unslash( $_GET['post_type'] ) ), 'ct_template' ) && ! THEMECOMPLETE_EPO_HELPER()->str_startswith( sanitize_text_field( wp_unslash( $_GET['action'] ) ), 'oxy_render_' ) ) )
-		) {
-			/* translators: post max size  */
-			$message = sprintf( esc_html__( 'Trying to upload files larger than %s is not allowed!', 'woocommerce-tm-extra-product-options' ), $post_max );
-		}
-
-		$import  = $this->check_for_import();
-		$message = $import['message'];
-		$import  = $import['data'];
+		$message        = $this->debug_post_max_size();
+		$import         = $this->parse_imported_data();
+		$import_message = $import['message'];
+		$import         = $import['data'];
 
 		if ( ! empty( $import ) ) {
-
+			$message = $import_message;
 			if ( ! isset( $_REQUEST['is_original_post'] ) || ! empty( $_REQUEST['is_original_post'] ) ) {
 				$import = $this->clean_csv_data( $import );
 				$import = THEMECOMPLETE_EPO_HELPER()->recreate_element_ids( $import );
@@ -362,6 +512,140 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 				wp_send_json( $json_result );
 			} else {
 				$message = esc_html__( 'Invalid CSV file!', 'woocommerce-tm-extra-product-options' );
+			}
+		}
+		// $message is escaped
+		wp_send_json(
+			[
+				'result'  => 0,
+				'message' => $message,
+			]
+		);
+
+	}
+
+	/**
+	 * Debug post_max_size
+	 *
+	 * @since 6.1
+	 */
+	public function debug_post_max_size() {
+		check_ajax_referer( 'import-nonce', 'security' );
+		$this->check_if_active( 'import' );
+
+		$message  = '';
+		$post_max = ini_get( 'post_max_size' );
+
+		if ( empty( $_FILES )
+			&& empty( $_POST )
+			&& isset( $_SERVER['REQUEST_METHOD'] )
+			&& 'post' === strtolower( wp_unslash( $_SERVER['REQUEST_METHOD'] ) ) // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			&& isset( $_SERVER['CONTENT_LENGTH'] )
+			&& (float) $_SERVER['CONTENT_LENGTH'] > $post_max
+			&& (
+				! isset( $_GET ) ||
+				(
+					isset( $_GET ) &&
+					isset( $_GET['post_type'] )
+					&& isset( $_GET['action'] )
+					&& ! THEMECOMPLETE_EPO_HELPER()->str_startswith( sanitize_text_field( wp_unslash( $_GET['post_type'] ) ), 'ct_template' )
+					&& ! THEMECOMPLETE_EPO_HELPER()->str_startswith( sanitize_text_field( wp_unslash( $_GET['action'] ) ), 'oxy_render_' )
+				)
+			)
+		) {
+			/* translators: post max size  */
+			$message = sprintf( esc_html__( 'Trying to upload files larger than %s is not allowed!', 'woocommerce-tm-extra-product-options' ), $post_max );
+		}
+		return $message;
+	}
+
+	/**
+	 * Import lookup table csv
+	 *
+	 * @since 6.1
+	 */
+	public function lookuptable_import() {
+		check_ajax_referer( 'import-nonce', 'security' );
+
+		if ( isset( $_REQUEST['import_override'] ) ) {
+			$import_override = absint( wp_unslash( $_REQUEST['import_override'] ) );
+			if ( 1 === $import_override ) {
+				if ( isset( $_REQUEST['post_id'] ) ) {
+					$post_id = absint( wp_unslash( $_REQUEST['post_id'] ) );
+					$import  = get_transient( 'tc_lookuptable_import_csv_' . $post_id );
+					if ( ! empty( $import ) ) {
+						// save_imported_csv returns internal HTML code.
+						// already escaped where needed.
+						ob_start();
+						THEMECOMPLETE_EPO_ADMIN_LOOKUPTABLE()->save_imported_csv( $post_id );
+						$table = ob_get_clean();
+
+						$json_result = [
+							'result'   => 1,
+							'message'  => esc_html__( 'File imported with new tables.', 'woocommerce-tm-extra-product-options' ),
+							'jsobject' => [ $import ],
+						];
+						if ( $table ) {
+							$json_result['table'] = $table;
+						}
+					}
+					wp_send_json( $json_result );
+				}
+			}
+		}
+
+		$message        = $this->debug_post_max_size();
+		$import         = $this->parse_imported_lookuptable();
+		$table_names    = $import['table_names'];
+		$import_message = $import['message'];
+		$import         = $import['data'];
+
+		if ( ! empty( $import ) ) {
+			$message = $import_message;
+			$table   = false;
+			if ( isset( $_REQUEST['post_id'] ) ) {
+				$post_id = absint( wp_unslash( $_REQUEST['post_id'] ) );
+				set_transient( 'tc_lookuptable_import_csv_' . $post_id, $import, DAY_IN_SECONDS );
+
+				$builder = themecomplete_get_post_meta( $post_id, 'lookuptable_meta', true );
+				if ( is_array( $builder ) ) {
+					$builder_table_names = [];
+					foreach ( $builder as $table_name => $data ) {
+						$builder_table_names[] = $table_name;
+					}
+					foreach ( $builder_table_names as $key => $name ) {
+						if ( isset( $table_names[ $key ] ) && $name !== $table_names[ $key ] ) {
+							$json_result = [
+								'result'    => 1,
+								'different' => 1,
+								'message'   => esc_html__( 'Table names are different. Do you want to override the tables?', 'woocommerce-tm-extra-product-options' ),
+							];
+							wp_send_json( $json_result );
+						}
+					}
+				}
+
+				// save_imported_csv returns internal HTML code.
+				// already escaped where needed.
+				ob_start();
+				THEMECOMPLETE_EPO_ADMIN_LOOKUPTABLE()->save_imported_csv( $post_id );
+				$table = ob_get_clean();
+			}
+
+			$json_result = [
+				'result'   => 1,
+				'message'  => $message,
+				'jsobject' => [ $import ],
+			];
+
+			if ( $table ) {
+				$json_result['table'] = $table;
+			}
+
+			wp_send_json( $json_result );
+		} else {
+			if ( empty( $message ) ) {
+				$message = $import_message;
 			}
 		}
 		// $message is escaped

@@ -98,9 +98,20 @@ class Scheduler {
     // abort if execution limit is reached
     $this->cronHelper->enforceExecutionLimit($timer);
 
-    $scheduledQueues = self::getScheduledQueues();
-    if (!count($scheduledQueues)) return false;
-    $this->updateTasks($scheduledQueues);
+    $scheduledTasks = $this->getScheduledSendingTasks();
+    if (!count($scheduledTasks)) return false;
+
+    // To prevent big changes we convert ScheduledTaskEntity to old model
+    $scheduledQueues = [];
+    foreach ($scheduledTasks as $scheduledTask) {
+      $task = ScheduledTask::findOne($scheduledTask->getId());
+      if (!$task) continue;
+      $scheduledQueue = SendingTask::createFromScheduledTask($task);
+      if (!$scheduledQueue) continue;
+      $scheduledQueues[] = $scheduledQueue;
+    }
+
+    $this->updateTasks($scheduledTasks);
     foreach ($scheduledQueues as $i => $queue) {
       $newsletter = Newsletter::findOneWithOptions($queue->newsletterId);
       if (!$newsletter || $newsletter->deletedAt !== null) {
@@ -117,6 +128,8 @@ class Scheduler {
         $this->processScheduledAutomaticEmail($newsletter, $queue);
       } elseif ($newsletter->type === NewsletterEntity::TYPE_RE_ENGAGEMENT) {
         $this->processReEngagementEmail($queue);
+      } elseif ($newsletter->type === NewsletterEntity::TYPE_AUTOMATION) {
+        $this->processScheduledAutomationEmail($queue);
       }
       $this->cronHelper->enforceExecutionLimit($timer);
     }
@@ -227,6 +240,22 @@ class Scheduler {
       if ($this->verifySubscriber($subscriber, $queue) === false) {
         return false;
       }
+    }
+
+    $queue->status = null;
+    $queue->save();
+    return true;
+  }
+
+  public function processScheduledAutomationEmail($queue): bool {
+    $subscribers = $queue->getSubscribers();
+    $subscriber = (!empty($subscribers) && is_array($subscribers)) ? Subscriber::findOne($subscribers[0]) : null;
+    if (!$subscriber) {
+      $queue->delete();
+      return false;
+    }
+    if (!$this->verifySubscriber($subscriber, $queue)) {
+      return false;
     }
 
     $queue->status = null;
@@ -366,14 +395,21 @@ class Scheduler {
     return $notificationHistory;
   }
 
-  private function updateTasks(array $scheduledQueues) {
-    $ids = array_map(function ($queue) {
-      return $queue->taskId;
-    }, $scheduledQueues);
-    ScheduledTask::touchAllByIds($ids);
+  /**
+   * @param ScheduledTaskEntity[] $scheduledTasks
+   */
+  private function updateTasks(array $scheduledTasks): void {
+    $ids = array_map(function (ScheduledTaskEntity $scheduledTask): ?int {
+      return $scheduledTask->getId();
+    }, $scheduledTasks);
+    $ids = array_filter($ids);
+    $this->scheduledTasksRepository->touchAllByIds($ids);
   }
 
-  public static function getScheduledQueues() {
-    return SendingTask::getScheduledQueues(self::TASK_BATCH_SIZE);
+  /**
+   * @return ScheduledTaskEntity[]
+   */
+  public function getScheduledSendingTasks(): array {
+    return $this->scheduledTasksRepository->findScheduledSendingTasks(self::TASK_BATCH_SIZE);
   }
 }

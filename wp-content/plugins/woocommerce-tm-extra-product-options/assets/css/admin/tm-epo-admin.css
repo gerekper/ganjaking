@@ -181,7 +181,7 @@
 	border: 0 none !important;
 	font-size: 15px !important;
 	font-weight: 400;
-	height: 61px !important;
+	height: 60px !important;
 	line-height: 60px !important;
 	margin: 0 !important;
 	width: 20% !important;
@@ -272,7 +272,7 @@
 	font-weight: 700;
 }
 
-.form-row > label {
+.woocommerce-tmcp-attributes .form-row > label {
 	font-weight: 700;
 }
 

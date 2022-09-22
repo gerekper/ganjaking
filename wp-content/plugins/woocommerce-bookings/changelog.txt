@@ -1,5 +1,8 @@
 *** WooCommerce Bookings Changelog ***
 
+2022-09-13 - version 1.15.62
+* Tweak - Removed unwanted legacy code related to overriding block cost.
+
 2022-08-24 - version 1.15.61
 * Tweak - Deprecated "woocommerce_bookings_process_cost_rules_override_block" filter hook.
 * Tweak - WC 6.8.0 compatibility.

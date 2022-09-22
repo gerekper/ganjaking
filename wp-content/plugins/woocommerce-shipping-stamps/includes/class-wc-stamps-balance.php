@@ -139,7 +139,7 @@ class WC_Stamps_Balance {
 		}
 		switch ( $_GET['page'] ) {
 			case 'wc-stamps-topup' :
-				$page = add_dashboard_page( __( 'Stamps.com balance top-up', 'woocommerce-shipping-stamps' ), __( 'Stamps.com top-up', 'woocommerce-shipping-stamps' ), 'manage_options', 'wc-stamps-topup', array( $this, 'topup_screen' ) );
+				$page = add_dashboard_page( __( 'Stamps.com balance top-up', 'woocommerce-shipping-stamps' ), __( 'Stamps.com top-up', 'woocommerce-shipping-stamps' ), 'manage_woocommerce', 'wc-stamps-topup', array( $this, 'topup_screen' ) );
 			break;
 		}
 	}

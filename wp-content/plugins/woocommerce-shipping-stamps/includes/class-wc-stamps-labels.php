@@ -29,7 +29,7 @@ class WC_Stamps_Labels {
 		$label['ping_status']   = 'closed';
 		$label['post_author']   = 1;
 		$label['post_password'] = uniqid( 'label_' );
-		$label['post_parent']   = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
+		$label['post_parent']   = $order->get_id();
 		$label['post_title']    = isset( $label_result->TrackingNumber ) ? $label_result->TrackingNumber : '';
 		$label['post_content']  = isset( $label_result->URL ) ? $label_result->URL : '';
 		$label_id               = wp_insert_post( $label, true );

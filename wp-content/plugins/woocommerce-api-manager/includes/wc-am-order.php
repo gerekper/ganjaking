@@ -553,10 +553,25 @@ class WC_AM_Order {
 	 * @param int $product_id
 	 */
 	public function update_api_resource_activations_for_product( $product_id ) {
-		$this->api_resource_activations_updater->push_to_queue( array( 'product_id' => $product_id ) );
+		$order_ids = WC_AM_API_RESOURCE_DATA_STORE()->get_all_order_ids_with_rows_containing_product_id( $product_id );
+		$queued    = false;
 
-		// Lets dispatch the queue to start processing.
-		$this->api_resource_activations_updater->save()->dispatch();
+		if ( is_array( $order_ids ) && ! empty( $order_ids ) ) {
+			foreach ( $order_ids as $order_id ) {
+				if ( ! empty( $order_id ) ) {
+					WC_AM_SMART_CACHE()->refresh_cache_by_order_id( $order_id, false );
+
+					$this->api_resource_activations_updater->push_to_queue( array( 'product_id' => $product_id, 'order_id' => $order_id ) );
+
+					$queued = true;
+				}
+			}
+
+			if ( $queued ) {
+				// Lets dispatch the queue to start processing.
+				$this->api_resource_activations_updater->save()->dispatch();
+			}
+		}
 	}
 
 	/**

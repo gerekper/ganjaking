@@ -1,10 +1,29 @@
 *** WooCommerce API Manager Changelog ***
 
+2022.09.14 - version 2.4.6
+ * Feature: Added a product_list API endpoint which returns a unique list of product data such as Titles and Product IDs with no authentication required.
+ * Fix: get_human_time_diff() method returned slightly incorrect time for date.
+ * Fix: Order edit API Resources meta box > Activation Expires field displays only a date now rather than friendly messages such as "4 days", as friendly messages broke updates using a value that was not recognized as valid.
+ * Fix: Order edit API Resources meta box > Activation Expires help tip was displayed for WooCommerce Subscription when it should be hidden.
+ * Fix: Order edit API Resources meta box > Activation Expires field was updated when the Update button was clicked without changing the value manually. No update should have occurred.
+ * Tweak: Prevent Order edit API Resources meta box > Activation Expires field from being set to value less than current value.
+
+2022.09.12 - version 2.4.5
+ * Fix: When the Product edit > API > Activation Limit field is updated both the activations_purchased and activations_purchased_total values are now calculated with regards to quantity and refunds for all API Resources containing the Product.
+ * Tweak: Added $source parameter to error and info log methods to allow for custom log file names.
+ * Tweak: Other visual and tip improvements.
+
+2022.09.11 - version 2.4.4
+ * Fix: Access Expires value edit in the Order > API Resources > Access Expires meta box field did not have correctly localized date and time when updated.
+ * Fix: Error: Array to string conversion for WC_AM_Format->empty() method.
+ * Tweak: Added $date_type parameter to get_subscription_end_date_to_display() method.
+ * Tweak: Added api_key_expirations data to the API Status endpoint.
+
 2022.09.04 - version 2.4.3
- * Tweak: Add boolean parameter to refresh_cache_by_order_id() method in SmartCache class.
- * Add: Add constant WC_AM_PLUGIN_FILE before plugin object instantiated.
- * Add: WC_AM_Background_Process class to improve background processing of large batches.
- * Fix: Delete API Resource data from SmartCache bfore updating Access Expires values for all API Resources, so current values can be displayed immediately.
+ * Tweak: Added boolean parameter to refresh_cache_by_order_id() method in SmartCache class.
+ * Tweak: Added constant WC_AM_PLUGIN_FILE before plugin object instantiated.
+ * Tweak: WC_AM_Background_Process class to improve background processing of large batches.
+ * Fix: Delete API Resource data from SmartCache before updating Access Expires values for all API Resources, so current values can be displayed immediately.
 
 2022.08.30 - version 2.4.1
  * Tweak: Faster SmartCache entry deletions for faster cache updates.
@@ -17,7 +36,7 @@
  * Feature: The Access Expires value in the Order > API Resources meta box can now be edited to increase the Access Expire time per Non WC Subscription products.
 
 2022.07.14 - version 2.3.14
- * Fix: Changed conflicting CSS ID for API Activations metabox.
+ * Fix: Changed conflicting CSS ID for API Activations meta box.
  * Fix: Removed CSS previously added to fix WP 3.8 that now causes misaligned checkboxes on Dashboard > Updates screen.
 
 2022.07.13 - version 2.3.13
@@ -61,8 +80,8 @@
 2020.05.27 - version 2.3.2
  * Tweak: API Status requests are now uniquely cached, with individual expire times, if the Instance ID is sent in the request.
  * Tweak: Auto log SmartCache errors.
- * Add: Added log_error() method to WC_AM_Log() class.
- * Add: Added log_info() method to WC_AM_Log() class.
+ * Tweak: Added log_error() method to WC_AM_Log() class.
+ * Tweak: Added log_info() method to WC_AM_Log() class.
 
 2020.04.05 - version 2.3.1
  * Fix: URL expire time for local downloads was calculated incorrectly.
@@ -129,7 +148,7 @@
 2019.08.17 - version 2.1.7
  * Enhancement: Added 'wc_api_manager_status_success' action hook.
  * Enhancement: Refresh Product specific cached data upon API Key Activation or Deactivation.
- * Enhancement: Refresh Order specific cached data for a specific Product upon API Key deletion from the Order screen > API Resource Activations metabox.
+ * Enhancement: Refresh Order specific cached data for a specific Product upon API Key deletion from the Order screen > API Resource Activations meta box.
  * Enhancement: Refresh Order specific cached data when specific order changes are made.
  * Tweak: Expanded API activate(), deactivate(), and update() hook arguments.
 
@@ -138,11 +157,11 @@
 
 2019.08.13 - version 2.1.5
  * Enhancement: Added Link to API Manager settings screen on WooCommerce > Status > API Manager section if Amazon S3 region has no value.
- * Enhancement: Added Product ID section Link, represented by Dashicon, to product in Order screen > API Resources metabox.
- * Enhancement: Added Product ID section Link, represented by Dashicon, to product in Order screen > API Resource Activations metabox.
+ * Enhancement: Added Product ID section Link, represented by Dashicon, to product in Order screen > API Resources meta box.
+ * Enhancement: Added Product ID section Link, represented by Dashicon, to product in Order screen > API Resource Activations meta box.
  * Enhancement: Added tooltip to display if order has API Key activations on WooCommerce Orders admin screen contains an API Product column.
  * Tweak: Replaced 'edit' text Link with Link represented by Dashicon on Product edit > API tab, and Product eidt > Variations > variation > API section.
- * Tweak: Reformatted WooCommmerce > Orders > API Resource Activations metabox for proper display.
+ * Tweak: Reformatted WooCommmerce > Orders > API Resource Activations meta box for proper display.
  * Tweak: Do not display Software Title on Product edit > API tab, or Variable > variation API Manager section, if field has no value.
  * Fix: PHP warning if timestamp parameter for get_human_time_diff() was a string rather than an integer.
  * Fix: Display errors on WooCommerce > Status > API Manager section.

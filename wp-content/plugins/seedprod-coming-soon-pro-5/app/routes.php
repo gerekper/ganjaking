@@ -73,16 +73,16 @@ function seedprod_pro_create_menus() {
 		'seedprod_pro_setup_page'
 	);
 
-	if ( 'lite' === SEEDPROD_PRO_BUILD ) {
-		add_submenu_page(
-			'seedprod_pro',
-			__( 'Templates', 'seedprod-pro' ),
-			__( 'Templates', 'seedprod-pro' ),
-			apply_filters( 'seedprod_templates_menu_capability', 'edit_others_posts' ),
-			'seedprod_pro_templates',
-			'seedprod_pro_templates_page'
-		);
-	}
+	//if ( 'lite' === SEEDPROD_PRO_BUILD ) {
+		// add_submenu_page(
+		// 	'seedprod_pro',
+		// 	__( 'Templates', 'seedprod-pro' ),
+		// 	__( 'Templates', 'seedprod-pro' ),
+		// 	apply_filters( 'seedprod_templates_menu_capability', 'edit_others_posts' ),
+		// 	'seedprod_pro_templates',
+		// 	'seedprod_pro_templates_page'
+		// );
+	//}
 
 	add_submenu_page(
 		'seedprod_pro',
@@ -92,6 +92,17 @@ function seedprod_pro_create_menus() {
 		'seedprod_pro_subscribers',
 		'seedprod_pro_subscribers_page'
 	);
+
+    //if ('lite' === SEEDPROD_PRO_BUILD) {
+        add_submenu_page(
+            'seedprod_pro',
+            __('Pop-ups', 'seedprod-pro'),
+            __('Pop-ups', 'seedprod-pro'),
+            apply_filters('seedprod_popup_menu_capability', 'edit_others_posts'),
+            'seedprod_pro_popup',
+            'seedprod_pro_popup_page'
+        );
+    //}
 
 	add_submenu_page(
 		'seedprod_pro',
@@ -260,6 +271,16 @@ function seedprod_pro_update_selected_page_in_submenu() {
 				jQuery( "a[href^='admin.php?page=seedprod_<?php echo esc_attr( SEEDPROD_PRO_BUILD ); ?>']" ).parent().removeClass('current');
 				jQuery( "a[href^='admin.php?page=seedprod_<?php echo esc_attr( SEEDPROD_PRO_BUILD ); ?>_theme_templates']" ).parent().addClass('current');
 			}
+			// Theme Chooser
+			if(location.hash.indexOf('#/theme-chooser') >= 0){
+				jQuery( "a[href^='admin.php?page=seedprod_<?php echo esc_attr( SEEDPROD_PRO_BUILD ); ?>']" ).parent().removeClass('current');
+				jQuery( "a[href^='admin.php?page=seedprod_<?php echo esc_attr( SEEDPROD_PRO_BUILD ); ?>_theme_templates']" ).parent().addClass('current');
+			}
+			// Popups
+			if(location.hash.indexOf('#/popups') >= 0){
+				jQuery( "a[href^='admin.php?page=seedprod_<?php echo esc_attr( SEEDPROD_PRO_BUILD ); ?>']" ).parent().removeClass('current');
+				jQuery( "a[href^='admin.php?page=seedprod_<?php echo esc_attr( SEEDPROD_PRO_BUILD ); ?>_popup']" ).parent().addClass('current');
+			}
 			// Templates
 			if(location.hash.indexOf('#/template') >= 0){
 				jQuery( "a[href^='admin.php?page=seedprod_<?php echo esc_attr( SEEDPROD_PRO_BUILD ); ?>']" ).parent().removeClass('current');
@@ -376,6 +397,12 @@ function seedprod_pro_redirect_to_site() {
 			exit();
 		}
 
+	}
+
+	//  popups
+	if ( isset( $_GET['page'] ) && 'seedprod_pro_popup' === $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		wp_safe_redirect( 'admin.php?page=seedprod_pro&sp_om=1#/popups' );
+		exit();
 	}
 
 	// feature request page
@@ -818,3 +845,19 @@ return $res;
 } // add_plugin_featured
 
 
+
+add_filter( 'admin_body_class', 'seedprod_pro_admin_body_class' );
+
+/**
+ * Adds one or more classes to the body tag in the dashboard.
+ *
+ * @link https://wordpress.stackexchange.com/a/154951/17187
+ * @param  String $classes Current body classes.
+ * @return String          Altered body classes.
+ */
+function seedprod_pro_admin_body_class( $classes ) {
+	if( !empty( $_GET['sp_om'] ) &&  $_GET['sp_om'] == 1){
+		return "$classes sp_om";
+	}
+	return $classes;
+}

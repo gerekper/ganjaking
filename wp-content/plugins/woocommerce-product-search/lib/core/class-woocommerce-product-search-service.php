@@ -107,6 +107,10 @@ class WooCommerce_Product_Search_Service {
 
 	private static $maybe_record_hit = true;
 
+	private static $scripts_registered = false;
+
+	private static $styles_registered = false;
+
 	/**
 	 * Adds several filters and actions.
 	 */
@@ -325,66 +329,131 @@ class WooCommerce_Product_Search_Service {
 	 */
 	public static function wp_enqueue_scripts() {
 
-		foreach ( array(
-			'typewatch',
-			'product-search',
-			'product-filter',
-			'wps-price-slider',
-			'selectize',
-			'selectize-ix'
-		) as $script ) {
-			if ( wp_script_is( $script, 'registered' ) ) {
-				wp_deregister_script( $script );
+		if ( !self::$scripts_registered ) {
+			$scripts = array(
+				'typewatch' => array(
+					'src' => WOO_PS_PLUGIN_URL . ( WPS_DEBUG_SCRIPTS ? '/js/jquery.ix.typewatch.js' : '/js/jquery.ix.typewatch.min.js' ),
+					'deps' => array( 'jquery' )
+				),
+				'product-search' => array(
+					'src' => WOO_PS_PLUGIN_URL . ( WPS_DEBUG_SCRIPTS ? '/js/product-search.js' : '/js/product-search.min.js' ),
+					'deps' => array( 'jquery', 'typewatch' )
+				),
+				'wps-price-slider' => array(
+					'src' => WOO_PS_PLUGIN_URL . ( WPS_DEBUG_SCRIPTS ? '/js/price-slider.js' : '/js/price-slider.min.js' ),
+					'deps' => array( 'jquery', 'jquery-ui-slider' )
+				),
+				'selectize' => array(
+					'src' => WOO_PS_PLUGIN_URL . ( WPS_DEBUG_SCRIPTS ? '/js/selectize/selectize.js' : '/js/selectize/selectize.min.js' ),
+					'deps' =>  array( 'jquery' )
+				),
+				'selectize-ix' => array(
+					'src' => WOO_PS_PLUGIN_URL . ( WPS_DEBUG_SCRIPTS ? '/js/selectize.ix.js' : '/js/selectize.ix.min.js' ),
+					'deps' => array( 'jquery', 'selectize' )
+				),
+				'product-filter' => array(
+					'src' => WOO_PS_PLUGIN_URL . ( WPS_DEBUG_SCRIPTS ? '/js/product-filter.js' : '/js/product-filter.min.js' ),
+					'deps' => array( 'jquery', 'typewatch', 'selectize', 'selectize-ix' )
+				)
+			);
+			$scripts_registered = 0;
+			foreach ( $scripts as $handle => $script ) {
+				if ( wp_script_is( $handle, 'registered' ) ) {
+					$wp_scripts = wp_scripts();
+					if (
+						is_object( $wp_scripts ) &&
+						$wp_scripts instanceof WP_Scripts &&
+						property_exists( $wp_scripts, 'registered' ) &&
+						isset( $wp_scripts->registered[$handle] ) &&
+						is_object( $wp_scripts->registered[$handle] ) &&
+						property_exists( $wp_scripts->registered[$handle], 'src' ) &&
+						in_array( 'src', get_class_vars( get_class( $wp_scripts->registered[$handle] ) ) ) &&
+						$wp_scripts->registered[$handle]->src !== $script['src']
+					) {
+						wps_log_warning( sprintf( 'Conflicting script %s will be replaced.', $handle ) );
+						wp_deregister_script( $handle );
+					}
+				}
+
+				if ( !wp_script_is( $handle, 'registered' ) ) {
+					$script_registered = wp_register_script( $handle, $script['src'], $script['deps'], WOO_PS_PLUGIN_VERSION, true );
+					if ( !$script_registered ) {
+						wps_log_error( sprintf( 'Script %s could not be registered.', $handle ) );
+					} else {
+						$scripts_registered++;
+					}
+				}
+			}
+			if ( $scripts_registered === count( $scripts ) ) {
+				self::$scripts_registered = true;
+			}
+
+			wp_localize_script(
+				'selectize-ix',
+				'selectize_ix',
+				array(
+					'clear' => __( 'Clear', 'woocommerce-product-search' )
+				)
+			);
+		}
+
+		if ( !self::$styles_registered ) {
+			$selectize_css = apply_filters( 'woocommerce_product_search_selectize_css', 'selectize' );
+			switch( $selectize_css ) {
+				case 'selectize' :
+				case 'selectize.default' :
+				case 'selectize.bootstrap2' :
+				case 'selectize.bootstrap3' :
+				case 'selectize.legacy' :
+					break;
+				default :
+					$selectize_css = 'selectize';
+			}
+			$styles = array(
+				'wps-price-slider' => array(
+					'src' => WOO_PS_PLUGIN_URL . ( WPS_DEBUG_STYLES ? '/css/price-slider.css' : '/css/price-slider.min.css' ),
+					'deps' => array()
+				),
+				'selectize' => array(
+					'src' => WOO_PS_PLUGIN_URL . ( WPS_DEBUG_STYLES ? '/css/selectize/' . $selectize_css . '.css' : '/css/selectize/' . $selectize_css . '.min.css' ),
+					'deps' => array()
+				),
+				'product-search' => array(
+					'src' => WOO_PS_PLUGIN_URL . ( WPS_DEBUG_STYLES ? '/css/product-search.css' : '/css/product-search.min.css' ),
+					'deps' => array( 'selectize', 'wps-price-slider' )
+				)
+			);
+			$styles_registered = 0;
+			foreach ( $styles as $handle => $style ) {
+				if ( wp_style_is( $handle, 'registered' ) ) {
+					$wp_styles = wp_styles();
+					if (
+						is_object( $wp_styles ) &&
+						$wp_styles instanceof WP_Styles &&
+						property_exists( $wp_styles, 'registered' ) &&
+						isset( $wp_styles->registered[$handle] ) &&
+						is_object( $wp_styles->registered[$handle] ) &&
+						property_exists( $wp_styles->registered[$handle], 'src' ) &&
+						in_array( 'src', get_class_vars( get_class( $wp_styles->registered[$handle] ) ) ) &&
+						$wp_styles->registered[$handle]->src !== $style['src']
+					) {
+						wps_log_warning( sprintf( 'Conflicting style %s will be replaced.', $handle ) );
+						wp_deregister_style( $handle );
+					}
+				}
+				if ( !wp_style_is( $handle, 'registered' ) ) {
+					$style_registered = wp_register_style( $handle, $style['src'], $style['deps'], WOO_PS_PLUGIN_VERSION );
+					if ( !$style_registered ) {
+						wps_log_error( sprintf( 'Style %s could not be registered.', $handle ) );
+					} else {
+						$styles_registered++;
+					}
+				}
+			}
+			if ( $styles_registered === count( $styles ) ) {
+				self::$styles_registered = true;
 			}
 		}
-		wp_register_script( 'typewatch', WOO_PS_PLUGIN_URL . ( WPS_DEBUG_SCRIPTS ? '/js/jquery.ix.typewatch.js' : '/js/jquery.ix.typewatch.min.js' ), array( 'jquery' ), WOO_PS_PLUGIN_VERSION, true );
-		wp_register_script( 'product-search', WOO_PS_PLUGIN_URL . ( WPS_DEBUG_SCRIPTS ? '/js/product-search.js' : '/js/product-search.min.js' ), array( 'jquery', 'typewatch' ), WOO_PS_PLUGIN_VERSION, true );
-
-		wp_register_script( 'wps-price-slider', WOO_PS_PLUGIN_URL . ( WPS_DEBUG_SCRIPTS ? '/js/price-slider.js' : '/js/price-slider.min.js' ), array( 'jquery', 'jquery-ui-slider' ), WOO_PS_PLUGIN_VERSION, true );
-		wp_register_script( 'selectize', WOO_PS_PLUGIN_URL . ( WPS_DEBUG_SCRIPTS ? '/js/selectize/selectize.js' : '/js/selectize/selectize.min.js' ), array( 'jquery' ), WOO_PS_PLUGIN_VERSION, true );
-		wp_register_script( 'selectize-ix', WOO_PS_PLUGIN_URL . ( WPS_DEBUG_SCRIPTS ? '/js/selectize.ix.js' : '/js/selectize.ix.min.js' ), array( 'jquery', 'selectize' ), WOO_PS_PLUGIN_VERSION, true );
-
-		wp_register_script( 'product-filter', WOO_PS_PLUGIN_URL . ( WPS_DEBUG_SCRIPTS ? '/js/product-filter.js' : '/js/product-filter.min.js' ), array( 'jquery', 'typewatch', 'selectize', 'selectize-ix' ), WOO_PS_PLUGIN_VERSION, true );
-
-		foreach ( array(
-			'product-search',
-			'wps-price-slider',
-			'selectize'
-		) as $style ) {
-			if ( wp_style_is( $style, 'registered' ) ) {
-				wp_deregister_style( $style );
-			}
-		}
-
-		wp_register_style( 'wps-price-slider', WOO_PS_PLUGIN_URL . ( WPS_DEBUG_STYLES ? '/css/price-slider.css' : '/css/price-slider.min.css' ), array(), WOO_PS_PLUGIN_VERSION );
-		$selectize_css = apply_filters( 'woocommerce_product_search_selectize_css', 'selectize' );
-		switch( $selectize_css ) {
-			case 'selectize' :
-			case 'selectize.default' :
-			case 'selectize.bootstrap2' :
-			case 'selectize.bootstrap3' :
-			case 'selectize.legacy' :
-				break;
-			default :
-				$selectize_css = 'selectize';
-		}
-
-		wp_register_style( 'selectize', WOO_PS_PLUGIN_URL . ( WPS_DEBUG_STYLES ? '/css/selectize/' . $selectize_css . '.css' : '/css/selectize/' . $selectize_css . '.min.css' ), array(), WOO_PS_PLUGIN_VERSION );
-
-		wp_localize_script(
-			'selectize-ix',
-			'selectize_ix',
-			array(
-				'clear' => __( 'Clear', 'woocommerce-product-search' )
-			)
-		);
-
-		wp_register_style(
-			'product-search',
-			WOO_PS_PLUGIN_URL . ( WPS_DEBUG_STYLES ? '/css/product-search.css' : '/css/product-search.min.css' ),
-			array( 'selectize', 'wps-price-slider' ),
-			WOO_PS_PLUGIN_VERSION
-		);
 	}
 
 	/**
@@ -2262,6 +2331,15 @@ class WooCommerce_Product_Search_Service {
 				unset( $wps_process_query_vars['post__in'] );
 			}
 
+			$post_status = null;
+			$unset_post_status = false;
+			if ( isset( $wps_process_query_vars['post_status'] ) ) {
+				$post_status = $wps_process_query_vars['post_status'];
+				$wps_process_query_vars['post_status'] = 'publish';
+			} else {
+				$unset_post_status = true;
+			}
+
 			$cache_key = self::get_cache_key( array( json_encode( $wps_process_query_vars ) ) );
 			$cached_min_max = wps_cache_get( $cache_key, self::MIN_MAX_PRICE_CACHE_GROUP );
 			if ( $cached_min_max !== false ) {
@@ -2345,6 +2423,12 @@ class WooCommerce_Product_Search_Service {
 			}
 			if ( $post__in !== null ) {
 				$wps_process_query_vars['post__in'] = $post__in;
+			}
+
+			if ( $unset_post_status ) {
+				unset( $wps_process_query_vars['post_status'] );
+			} else {
+				$wps_process_query_vars['post_status'] = $post_status;
 			}
 
 			if ( $unset_wps_process_query_vars ) {

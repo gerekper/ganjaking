@@ -1,5 +1,15 @@
 *** WooCommerce Anti Fraud ***
 
+2022-09-13 - version 4.6
+* PLUGINS-1598 - Fix check for customer's first purchase rule.
+* PLUGINS-1614 - Fix issue in formatting after whitelisting an email using the 'Unblock' button.
+* PLUGINS-1593 - Improve settings layout.
+* PLUGINS-1590 - New Alerts tab for email notification.
+* PLUGINS-1595 - Update Settings Rules layout.
+
+2022-08-02 - version 4.5
+* PLUGINS-1657 - Update minFraud links.
+
 2022-07-26 - version 4.4
 * PLUGINS-1582 - Add cancel fraud queue check and reschedule.
 * PLUGINS-1279 - Fix JavaScript files still being loaded even the reCaptcha option is disabled.
