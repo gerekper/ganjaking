@@ -10,7 +10,7 @@
 ?>
 
 <?php if ( $show_title ) : ?>
-	<h2><?php echo esc_html__( 'My Pre-Orders', 'wc-pre-orders' ); ?></h2>
+	<h2><?php echo esc_html__( 'My pre-orders', 'wc-pre-orders' ); ?></h2>
 <?php endif; ?>
 
 <?php if ( ! empty( $items ) ) : ?>
@@ -21,7 +21,7 @@
 				<th class="pre-order-order-number"><span class="nobr"><?php echo esc_html__( 'Order', 'wc-pre-orders' ); ?></span></th>
 				<th class="pre-order-title"><span class="nobr"><?php echo esc_html__( 'Product', 'wc-pre-orders' ); ?></span></th>
 				<th class="pre-order-status"><span class="nobr"><?php echo esc_html__( 'Status', 'wc-pre-orders' ); ?></span></th>
-				<th class="pre-order-release-date"><span class="nobr"><?php echo esc_html__( 'Release Date', 'wc-pre-orders' ); ?></span></th>
+				<th class="pre-order-release-date"><span class="nobr"><?php echo esc_html__( 'Release date', 'wc-pre-orders' ); ?></span></th>
 				<th class="pre-order-actions"></th>
 			</tr>
 		</thead>
@@ -57,7 +57,7 @@
 						);
 						?>
 					</td>
-					<td class="pre-order-release-date" data-title="<?php echo esc_attr__( 'Release Date', 'wc-pre-orders' ); ?>">
+					<td class="pre-order-release-date" data-title="<?php echo esc_attr__( 'Release date', 'wc-pre-orders' ); ?>">
 						<?php
 						echo esc_html(
 							WC_Pre_Orders_Product::get_localized_availability_date( $data['product_id'] )
@@ -77,7 +77,7 @@
 
 <?php else : ?>
 
-	<p><?php esc_html__( 'You have no pre-orders.', 'wc-pre-orders' ); ?></p>
+	<p><?php esc_html_e( 'You have no pre-orders.', 'wc-pre-orders' ); ?></p>
 
 	<?php
 endif;

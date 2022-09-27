@@ -14,7 +14,7 @@ class WC_XR_Line_Item_Manager {
 	/**
 	 * WC_XR_Line_Item_Manager constructor.
 	 *
-	 * @param WC_XR_Settings $settings
+	 * @param WC_XR_Settings $settings Xero settings object.
 	 */
 	public function __construct( WC_XR_Settings $settings ) {
 		$this->settings = $settings;
@@ -23,38 +23,38 @@ class WC_XR_Line_Item_Manager {
 	/**
 	 * Build product line items
 	 *
-	 * @param WC_Order $order
+	 * @param WC_Order $order WC Order object.
 	 *
 	 * @return array<WC_XR_Line_Item>
 	 */
 	public function build_products( $order ) {
-		$items = $order->get_items();
+		$items       = $order->get_items();
 		$this->order = $order;
 
-		// The line items
+		// The line items.
 		$line_items = array();
 
-		// Check if there are any order items
+		// Check if there are any order items.
 		if ( count( $items ) > 0 ) {
 
-			// Get the sales account
+			// Get the sales account.
 			$sales_account = $this->settings->get_option( 'sales_account' );
-			// Check we need to send sku's
+			// Check we need to send sku's.
 			$send_inventory = ( ( 'on' === $this->settings->get_option( 'send_inventory' ) ) ? true : false );
 			// Check if need to send prices inclusive of tax.
 			$prices_inc_tax = $this->settings->send_tax_inclusive_prices();
 
-			// Add order items as line items
+			// Add order items as line items.
 			foreach ( $items as $item ) {
 
-				// Get the product
+				// Get the product.
 				$product = $item->get_product();
 
-				// Create Line Item object
-				$line_item = new WC_XR_Line_Item( $this->settings );
+				// Create Line Item object.
+				$line_item   = new WC_XR_Line_Item( $this->settings );
 				$description = self::detexturize( $item['name'] );
-				// Variation? Add attribute data to the description
-				if ( 'WC_Product_Variation' === get_class( $product )  || 'WC_Product_Subscription_Variation' === get_class( $product ) ) {
+				// Variation? Add attribute data to the description.
+				if ( 'WC_Product_Variation' === get_class( $product ) || 'WC_Product_Subscription_Variation' === get_class( $product ) ) {
 					$attributes = array();
 
 					foreach ( $item['item_meta_array'] as $meta_id => $meta ) {
@@ -62,18 +62,17 @@ class WC_XR_Line_Item_Manager {
 							continue;
 						}
 
-						$attributes[] = $meta->key . ": " . $meta->value;
+						$attributes[] = $meta->key . ': ' . $meta->value;
 
 					}
 
 					if ( 0 < count( $attributes ) ) {
-						$description .= " (" . implode( ', ', $attributes ) . ")";
+						$description .= ' (' . implode( ', ', $attributes ) . ')';
 					}
-
 				}
 				$line_item->set_description( $description );
 
-				// Set account code
+				// Set account code.
 				$line_item->set_account_code( $sales_account );
 
 				// Send SKU?
@@ -104,7 +103,7 @@ class WC_XR_Line_Item_Manager {
 				$line_item->set_tax_amount( $item['line_tax'] );
 
 				// Tax Rate.
-				$item_tax_status   = $product ? $product->get_tax_status() : 'taxable';
+				$item_tax_status = $product ? $product->get_tax_status() : 'taxable';
 				if ( 'taxable' === $item_tax_status ) {
 					add_filter( 'woocommerce_get_tax_location', array( $this, 'set_tax_location' ), 10, 2 );
 					$rates = WC_Tax::get_rates( $item['tax_class'] );
@@ -131,7 +130,7 @@ class WC_XR_Line_Item_Manager {
 	/**
 	 * Replace specific html entities with XML safe substitutes, strip everything else
 	 *
-	 * @param  string $string
+	 * @param  string $string String to be detexturize.
 	 *
 	 * @return string
 	 */
@@ -139,15 +138,21 @@ class WC_XR_Line_Item_Manager {
 		$string = strip_tags( $string );
 
 		$replacements = array(
-			'&#8211;' => '-',  '&ndash;' => '-',
-			'&#8212;' => '-',  '&mdash;' => '-',
-			'&#8216;' => '\'', '&lsquo;' => '\'',
-			'&#8217;' => '\'', '&rsquo;' => '\'',
-			'&#8220;' => '"',  '&ldquo;' => '"',
-			'&#8221;' => '"',  '&rdquo;' => '"',
+			'&#8211;' => '-',
+			'&ndash;' => '-',
+			'&#8212;' => '-',
+			'&mdash;' => '-',
+			'&#8216;' => '\'',
+			'&lsquo;' => '\'',
+			'&#8217;' => '\'',
+			'&rsquo;' => '\'',
+			'&#8220;' => '"',
+			'&ldquo;' => '"',
+			'&#8221;' => '"',
+			'&rdquo;' => '"',
 		);
 
-		foreach( $replacements as $needle => $replacement ) {
+		foreach ( $replacements as $needle => $replacement ) {
 			$string = str_replace( $needle, $replacement, $string );
 		}
 
@@ -204,7 +209,7 @@ class WC_XR_Line_Item_Manager {
 	 *
 	 * @since 1.6.0
 	 * @version 1.7.7
-	 * @param WC_Order $order
+	 * @param WC_Order $order WC Order object.
 	 * @return WC_XR_Line_Item
 	 */
 	public function build_shipping( $order ) {
@@ -247,17 +252,30 @@ class WC_XR_Line_Item_Manager {
 					$tax_rate_id = array_search( max( $shipping_taxes['total'] ), $shipping_taxes['total'] );
 				}
 				// Now that we have the tax rate ID, look up the rate.
-				$tax_rate = floatval( WC_Tax::get_rate_percent( $tax_rate_id ) );
+				$tax_rate  = floatval( WC_Tax::get_rate_percent( $tax_rate_id ) );
+				$tax_label = WC_Tax::get_rate_label( $tax_rate_id );
 
-				$line_item->set_tax_rate(
+				/**
+				 * Filters shipping line item's Tax rate data.
+				 *
+				 * @since 1.7.45
+				 *
+				 * @param array $tax_rate_data Tax rate data array.
+				 * @param int   $tax_rate_id   Tax rate id.
+				 */
+				$tax_rate_data = apply_filters(
+					'woocommerce_xero_line_item_shipping_tax_rate_data',
 					array(
 						'rate'                  => $tax_rate,
+						'label'                 => $tax_label,
 						'shipping'              => true,  // Whether or not this tax rate also gets applied to shipping.
 						'compound'              => true, // Compound rates are applied on top of other tax rates.
 						'is_shipping_line_item' => true, // Make sure WC_XR_Line_Item can encode this special entry properly when needed, e.g. for AU, NZ, GB.
-					)
+					),
+					$tax_rate_id
 				);
 
+				$line_item->set_tax_rate( $tax_rate_data );
 				$line_items[] = $line_item;
 			}
 			return $line_items;
@@ -267,8 +285,7 @@ class WC_XR_Line_Item_Manager {
 	/**
 	 * Build fee line items.
 	 *
-	 * @param WC_Order $order
-	 * @param WC_XR_Line_Item[] $line_items
+	 * @param WC_Order $order WC Order object.
 	 *
 	 * @return <array>WC_XR_Line_Item
 	 */
@@ -319,7 +336,7 @@ class WC_XR_Line_Item_Manager {
 			$line_item->set_tax_amount( $fee->get_total_tax() );
 
 			// Add Tax Rate.
-			$item_tax_status   = $fee->get_tax_status();
+			$item_tax_status = $fee->get_tax_status();
 			if ( 'taxable' === $item_tax_status ) {
 				add_filter( 'woocommerce_get_tax_location', array( $this, 'set_tax_location' ), 10, 2 );
 				$rates = WC_Tax::get_rates( $fee->get_tax_class() );
@@ -353,30 +370,30 @@ class WC_XR_Line_Item_Manager {
 	/**
 	 * Build a correction line if needed
 	 *
-	 * @param WC_Order $order
-	 * @param WC_XR_Line_Item[] $line_items
+	 * @param WC_Order          $order      WC Order object.
+	 * @param WC_XR_Line_Item[] $line_items Array of line items.
 	 *
 	 * @return WC_XR_Line_Item
 	 */
 	public function build_correction( $order, $line_items ) {
 
-		// Line Item
+		// Line Item.
 		$correction_line = null;
 
-		// The line item total in cents
+		// The line item total in cents.
 		$line_total = 0;
 
-		// Invoice precision
+		// Invoice precision.
 		$precision = 'on' === $this->settings->get_option( 'four_decimals' ) ? 4 : 2;
 		// Check if need to send prices inclusive of tax.
 		$prices_inc_tax = $this->settings->send_tax_inclusive_prices();
 
-		// Get a sum of the amount and tax of all line items
+		// Get a sum of the amount and tax of all line items.
 		if ( count( $line_items ) > 0 ) {
 
 			foreach ( $line_items as $line_item ) {
-				$line_val    = round( $line_item->get_unit_amount(), $precision ) * $line_item->get_quantity() - $line_item->get_discount_amount();
-				$line_tax    = round( $line_item->get_tax_amount(), $precision );
+				$line_val = round( $line_item->get_unit_amount(), $precision ) * $line_item->get_quantity() - $line_item->get_discount_amount();
+				$line_tax = round( $line_item->get_tax_amount(), $precision );
 				if ( $prices_inc_tax ) {
 					$line_total += $line_val;
 				} else {
@@ -385,40 +402,40 @@ class WC_XR_Line_Item_Manager {
 			}
 		}
 
-		// Line total in cents
+		// Line total in cents.
 		$line_total = round( $line_total, 2 );
 
-		// Order total in cents
+		// Order total in cents.
 		$order_total = round( $order->get_total(), 2 );
 
-		// Check if there's a difference
+		// Check if there's a difference.
 		if ( $order_total !== $line_total ) {
 
-			// Calculate difference
+			// Calculate difference.
 			$diff = $order_total - $line_total;
 
-			// Get rounding account code
+			// Get rounding account code.
 			$account_code = $this->settings->get_option( 'rounding_account' );
 
-			// Check rounding account code
+			// Check rounding account code.
 			if ( '' !== $account_code ) {
 
-				// Create correction line item
+				// Create correction line item.
 				$correction_line = new WC_XR_Line_Item( $this->settings );
 
-				// Correction description
+				// Correction description.
 				$correction_line->set_description( 'Rounding adjustment' );
 
-				// Correction quantity
+				// Correction quantity.
 				$correction_line->set_quantity( 1 );
 
-				// Correction amount
+				// Correction amount.
 				$correction_line->set_unit_amount( $diff );
 
 				$correction_line->set_account_code( $account_code );
 			} else {
 
-				// There's a rounding difference but no rounding account
+				// There's a rounding difference but no rounding account.
 				$logger = new WC_XR_Logger( $this->settings );
 				$logger->write( "There's a rounding difference but no rounding account set in XERO settings." );
 			}
@@ -430,7 +447,7 @@ class WC_XR_Line_Item_Manager {
 	/**
 	 * Build line items
 	 *
-	 * @param WC_Order $order
+	 * @param WC_Order $order WC Order object.
 	 *
 	 * @return array<WC_XR_Line_Item>
 	 */
@@ -440,7 +457,7 @@ class WC_XR_Line_Item_Manager {
 		$products = $this->build_products( $order );
 
 		// Grab all fees.
-		$fees     = $this->build_fees( $order );
+		$fees = $this->build_fees( $order );
 
 		// Merge $line_items with products and fees.
 		$line_items = array_merge( $products, $fees );

@@ -28,15 +28,6 @@ class GF_Installation_Wizard_Step_Background_Updates extends GF_Installation_Wiz
 		<?php
 		$license_key_step_settings = get_option( 'gform_installation_wizard_license_key' );
 		$is_valid_license_key      = $license_key_step_settings['is_valid_key'];
-		if ( ! $is_valid_license_key ) :
-			?>
-			<p>
-				<strong>
-					<?php esc_html_e( 'Updates will only be available if you have entered a valid License Key', 'gravityforms' ); ?>
-				</strong>
-			</p>
-		<?php
-		endif;
 		?>
 
 

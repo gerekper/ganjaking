@@ -34,7 +34,7 @@ class WC_Address_Validation extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.8.2';
+	const VERSION = '2.8.3';
 
 	/** @var \WC_Address_Validation single instance of this plugin */
 	protected static $instance;
@@ -201,6 +201,27 @@ class WC_Address_Validation extends Framework\SV_WC_Plugin {
 				array(
 					'always_show_on_settings' => false,
 					'notice_class'            => 'updated'
+				)
+			);
+		}
+
+		if ( $this->get_handler_instance()->get_active_provider() && 'smartystreets' === $this->get_handler_instance()->get_active_provider()->id ){
+
+			//add notice instructing SmartyStreets users to migrate their integration
+			$this->get_admin_notice_handler()->add_admin_notice(
+				sprintf(
+				/* translators: Placeholders: %1$s, %3$s, %5$s - opening <a> tag, %2$s, %4$s, %6$s- closing </a> tag */
+				__( 'SmartyStreets integration is retiring October 4, 2022. US stores must set up Loqate to continue using the WooCommerce Address Validation plugin. See our %1$sLoqate setup guide%2$s. %7$s %3$sSet up Loqate%4$s %5$sLearn More%6$s', 'woocommerce-address-validation' ),
+					'<a href="https://docs.woocommerce.com/document/address-validation/#section-11" target="_blank">', '</a>',
+					'<a class="button button-primary" href="'.$this->get_settings_url().'">', '</a>',
+					'<a class="button" href="https://woocommerce.com/document/address-validation/#faq-smartystreets-integration-retirement" target="_blank">', '</a>',
+					'<br>'
+				),
+				'smarty-pre-retirement-notice',
+				array(
+					'always_show_on_settings' => false,
+					'notice_class'            => 'notice-warning',
+					'dismissible'             => false
 				)
 			);
 		}

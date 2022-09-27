@@ -1,5 +1,9 @@
 *** WooCommerce Product Bundles ***
 
+2022.09.23 - version 6.17.1
+* Tweak - Hook into 'woocommerce_add_to_cart' with priority '9' instead '9.9'. 
+* Fix - Fixed fatal errors triggered when activating/deactivating the plugin via WP cli.
+
 2022.09.13 - version 6.17.0
 * Important - PHP 7.0 is now required.
 * Tweak - Prevent the 'Optional' box from being checked when the Minimum Quantity is zero.

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles installation and updating tasks.
  *
  * @class    WC_PB_Install
- * @version  6.16.0
+ * @version  6.17.1
  */
 class WC_PB_Install {
 
@@ -182,7 +182,11 @@ class WC_PB_Install {
 		$db_version_target  = end( $db_update_versions );
 
 		if ( is_null( self::$current_db_version ) ) {
-			return WC_PB_DB::query_bundled_items( array( 'return' => 'count' ) ) === 0;
+			/*
+			 * Back in the old days, PB didn't store its DB version at all. When updating from an ancient version like that, the DB version will be null but a DB upgrade will be needed.
+			 * A DB upgrade will be needed if bundles exist in the posts table, but no items exist in the bundled items table.
+			 */
+			return 0 === WC_PB_DB::query_bundled_items( array( 'return' => 'count' ) ) && ! empty( wc_get_products( array( 'type' => 'bundle', 'return' => 'ids', 'limit' => 1 ) ) );
 		} else {
 			return version_compare( self::$current_db_version, $db_version_target, '<' );
 		}

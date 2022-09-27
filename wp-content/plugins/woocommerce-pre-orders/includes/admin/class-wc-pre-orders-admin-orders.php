@@ -65,7 +65,7 @@ class WC_Pre_Orders_Admin_Orders {
 			foreach ( $mails as $mail ) {
 				if ( in_array( $mail->id, $emails ) && 'no' !== $mail->enabled ) {
 					/* translators: %s: email title */
-					$new_emails[ 'send_email_' . esc_attr( $mail->id ) ] = sprintf( __( 'Resend %s', 'woocommerce-pre-orders' ), esc_html( $mail->title ) );
+					$new_emails[ 'send_email_' . esc_attr( $mail->id ) ] = sprintf( __( 'Resend %s', 'wc-pre-orders' ), esc_html( $mail->title ) );
 				}
 			}
 

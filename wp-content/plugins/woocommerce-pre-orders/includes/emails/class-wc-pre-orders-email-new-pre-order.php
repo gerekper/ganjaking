@@ -158,7 +158,7 @@ class WC_Pre_Orders_Email_New_Pre_Order extends WC_Email {
 				'default'     => '',
 			),
 			'heading'    => array(
-				'title'       => __( 'Email Heading', 'wc-pre-orders' ),
+				'title'       => __( 'Email heading', 'wc-pre-orders' ),
 				'type'        => 'text',
 				/* translators: %s: email heading */
 				'description' => sprintf( __( 'This controls the main heading contained within the email notification. Leave blank to use the default heading: <code>%s</code>.', 'wc-pre-orders' ), $this->heading ),

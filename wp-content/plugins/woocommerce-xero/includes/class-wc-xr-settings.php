@@ -548,7 +548,7 @@ class WC_XR_Settings {
 
 			update_option( 'xero_branding_themes', $branding_themes );
 		} catch ( \Exception $e ) {
-			wp_die( $e->getMessage() );
+			add_action( 'admin_notices', array( $this, 'branding_themes_connection_notice' ) );
 		}
 	}
 
@@ -1035,6 +1035,21 @@ class WC_XR_Settings {
 			</div>
 			<?php
 		}
+	}
+
+	/**
+	 * Notify users that the branding themes connection failed.
+	 *
+	 * @since 1.7.47
+	 *
+	 * @return void
+	 */
+	public function branding_themes_connection_notice() {
+		?>
+		<div class="notice notice-error">
+			<p><?php echo esc_html( __( 'Unable to fetch the Branding Theme details. Please ensure your Xero connection is properly authenticated.', 'woocommerce-xero' ) ); ?></p>
+		</div>
+		<?php
 	}
 
 	/**

@@ -212,7 +212,7 @@ class WC_Pre_Orders_Cart {
 		return apply_filters(
 			'wc_pre_orders_fee',
 			array(
-				'label'      => __( 'Pre-Order Fee', 'wc-pre-orders' ),
+				'label'      => __( 'Pre-order fee', 'wc-pre-orders' ),
 				'amount'     => $amount,
 				'tax_status' => WC_Pre_Orders_Product::get_pre_order_fee_tax_status( $product ), // pre order fee inherits tax status of product
 			)

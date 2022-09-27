@@ -1,5 +1,14 @@
 *** WooCommerce Pre-Orders Plugin ***
 
+2022-09-20 - version 1.7.3
+* Fix - My Account > Pre-Orders template change to display text when customer has no pre-orders. PR#336.
+* Fix - Ensure all pre-orders don't show up when filtering by a product without pre-orders.
+* Update - Function load_block_classes() was renamed to woocommerce_pre_orders_load_block_classes() on the root file of the plugin.
+* Fix - Fatal Error in Pre-orders listing page which occurred when a filtered product is deleted and page reloaded.
+* Fix - Translation of plugin strings/texts.
+* Fix - Title, label, description strings are written in sentence case.
+* Fix - Strings are being translated using the wrong domain.
+
 2022-06-27 - version 1.7.2
 * Tweak – Bump supported WC Version.
 * Tweak - Bump tested up to WP Version.

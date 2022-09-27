@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle cart functions and filters.
  *
  * @class    WC_PB_Cart
- * @version  6.15.3
+ * @version  6.17.1
  */
 class WC_PB_Cart {
 
@@ -104,7 +104,7 @@ class WC_PB_Cart {
 		add_filter( 'woocommerce_add_cart_item_data', array( $this, 'add_cart_item_data' ), 10, 2 );
 
 		// Add bundled items to the cart.
-		add_action( 'woocommerce_add_to_cart', array( $this, 'bundle_add_to_cart' ), 9.9, 6 );
+		add_action( 'woocommerce_add_to_cart', array( $this, 'bundle_add_to_cart' ), 9, 6 );
 
 		// Modify cart items for bundled shipping strategy.
 		add_filter( 'woocommerce_add_cart_item', array( $this, 'add_cart_item_filter' ), 10, 2 );

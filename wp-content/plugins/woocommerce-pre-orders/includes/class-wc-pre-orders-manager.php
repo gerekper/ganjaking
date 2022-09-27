@@ -748,7 +748,7 @@ class WC_Pre_Orders_Manager {
 
 			// Add 'release date changed' order note for admins.
 			/* translators: %s: Availability date */
-			$order->add_order_note( sprintf( __( 'Pre-Order Release Date Changed to %s', 'wc-pre-orders' ), WC_Pre_Orders_Product::get_localized_availability_date( $product, __( 'N/A', 'wc-pre-orders' ) ) ) );
+			$order->add_order_note( sprintf( __( 'Pre-order release date changed to %s', 'wc-pre-orders' ), WC_Pre_Orders_Product::get_localized_availability_date( $product, __( 'N/A', 'wc-pre-orders' ) ) ) );
 
 			do_action(
 				'wc_pre_orders_pre_order_date_changed',
@@ -937,7 +937,7 @@ class WC_Pre_Orders_Manager {
 		WC_Pre_Orders_Order::update_pre_order_status( $order, 'cancelled', $message );
 
 		// add 'cancelled' order note for admins
-		$order->add_order_note( __( 'Pre-Order Cancelled', 'wc-pre-orders' ) );
+		$order->add_order_note( __( 'Pre-order cancelled', 'wc-pre-orders' ) );
 
 		// update the order status
 		$order->update_status( 'cancelled' );

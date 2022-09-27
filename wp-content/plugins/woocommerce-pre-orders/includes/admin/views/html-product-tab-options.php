@@ -26,7 +26,7 @@ global $post, $woocommerce;
 		woocommerce_wp_checkbox(
 			array(
 				'id'          => '_wc_pre_orders_enabled',
-				'label'       => __( 'Enable Pre-Orders', 'wc-pre-orders' ),
+				'label'       => __( 'Enable pre-orders', 'wc-pre-orders' ),
 				'description' => __( 'Enable pre-orders for this product.', 'wc-pre-orders' ),
 			)
 		);
@@ -35,7 +35,7 @@ global $post, $woocommerce;
 		$availability_timestamp = WC_Pre_Orders_Product::get_localized_availability_datetime_timestamp( $post->ID );
 		?>
 		<p class="form-field _wc_pre_orders_availability_datetime_field ">
-			<label for="_wc_pre_orders_availability_datetime"><?php esc_html_e( 'Availability Date/Time', 'wc-pre-orders' ); ?></label>
+			<label for="_wc_pre_orders_availability_datetime"><?php esc_html_e( 'Availability date/time', 'wc-pre-orders' ); ?></label>
 			<input type="text" class="short" name="_wc_pre_orders_availability_datetime" id="_wc_pre_orders_availability_datetime" value="<?php echo esc_attr( ( 0 === $availability_timestamp ) ? '' : date( 'Y-m-d H:i', $availability_timestamp ) ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date ?>" placeholder="YYYY-MM-DD HH:MM"  />
 			<img class="help_tip" data-tip="<?php echo wc_sanitize_tooltip( sprintf( __( 'Set the date & time that this pre-order will be available. The product will behave as a normal product when this date/time is reached.', 'wc-pre-orders' ) ) ); ?>" src="<?php echo esc_url( $woocommerce->plugin_url() . '/assets/images/help.png' ); ?>" height="16" width="16" />
 		</p>
@@ -45,7 +45,7 @@ global $post, $woocommerce;
 		woocommerce_wp_text_input(
 			array(
 				'id'          => '_wc_pre_orders_fee',
-				'label'       => __( 'Pre-Order Fee', 'wc-pre-orders' ) . ' (' . get_woocommerce_currency_symbol() . ') ',
+				'label'       => __( 'Pre-order Fee', 'wc-pre-orders' ) . ' (' . get_woocommerce_currency_symbol() . ') ',
 				'description' => __( 'Set a fee to be charged when a pre-order is placed. Leave blank to not charge a pre-order fee.', 'wc-pre-orders' ),
 				'desc_tip'    => true,
 			)
@@ -59,7 +59,7 @@ global $post, $woocommerce;
 				'desc_tip'    => true,
 				'default'     => 'upon_release',
 				'options'     => array(
-					'upon_release' => __( 'Upon Release', 'wc-pre-orders' ),
+					'upon_release' => __( 'Upon release', 'wc-pre-orders' ),
 					'upfront'      => __( 'Upfront', 'wc-pre-orders' ),
 				),
 			)

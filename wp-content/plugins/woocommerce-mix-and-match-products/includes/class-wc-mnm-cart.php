@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Cart
  * @since    1.0.0
- * @version  2.0.7
+ * @version  2.1.3
  */
 
 // Exit if accessed directly.
@@ -615,7 +615,7 @@ class WC_Mix_and_Match_Cart {
 					foreach ( $child_items as $child_item_id => $child_item ) {
 
 						$child_product    = $child_item->get_product();
-						$child_product_id = $child_product->get_id();
+						$child_product_id = $child_item->get_variation_id() ? $child_item->get_variation_id() : $child_item->get_product_id();
 
 						// Check that a product has been selected.
 						if ( isset( $configuration[ $child_product_id ] ) && $configuration[ $child_product_id ] !== '' ) {
@@ -623,6 +623,11 @@ class WC_Mix_and_Match_Cart {
 							// If the ID isn't in the posted data something is rotten in Denmark.
 						} else {
 							continue;
+						}
+
+						if ( ! $child_product ) {
+							$notice = sprintf( _x( 'The configuration you have selected cannot be added to the cart since an item that was originally added to this container no longer exists.', '[Frontend]', 'woocommerce-mix-and-match-products' ), $max_quantity, $child_product->get_title() );
+							throw new Exception( $notice ); 
 						}
 
 						// Total quantity in single container.

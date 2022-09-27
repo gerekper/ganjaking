@@ -2,9 +2,9 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Mix and Match Products 2.1.2\n"
+"Project-Id-Version: WooCommerce Mix and Match Products 2.1.3\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/tickets/\n"
-"POT-Creation-Date: 2022-08-31 15:30:59+00:00\n"
+"POT-Creation-Date: 2022-09-05 20:40:51+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -554,7 +554,7 @@ msgid "Child variation ID."
 msgstr ""
 
 #: includes/api/class-wc-mnm-rest-api.php:145
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:943
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:938
 msgid "Minimum container size."
 msgstr ""
 
@@ -695,7 +695,7 @@ msgid ""
 "function. Please upgrade or activate WooCommerce."
 msgstr ""
 
-#: includes/class-wc-mnm-cart.php:705
+#: includes/class-wc-mnm-cart.php:710
 #. translators: %1$d is the maximum container quantity. %2$s is the container
 #. product title.
 msgid ""
@@ -707,7 +707,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-mnm-cart.php:712
+#: includes/class-wc-mnm-cart.php:717
 #. translators: %1$d is the minimum container quantity. %2$s is the container
 #. product title.
 msgid ""
@@ -904,144 +904,147 @@ msgstr ""
 msgid "Missing product data to validate. Please try again!"
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:387
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:378
 msgid "This container has no child items."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:412
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:426
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:410
 msgid "An item that was originally added to this container no longer exists."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:618
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:421
+msgid "There is not enough stock to purchase this many containers."
+msgstr ""
+
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:613
 msgid "Mix and Match Product Configuration."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:623
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:618
 msgid "Unique identifier for the product in the configuration."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:629
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:624
 msgid "Unique identifier for the variation in the configuration."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:635
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:630
 msgid "Quantity of this item in the configuration."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:641
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:636
 msgid "Chosen attributes (for variations)."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:649
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:644
 msgid "Variation attribute slug."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:655
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:650
 msgid "Variation attribute value."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:848
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:843
 msgid "Mix and Match Product Data."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:853
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:848
 msgid "Base raw price."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:859
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:854
 msgid "Base raw regular price."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:865
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:860
 msgid "Base raw sale price."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:871
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:866
 msgid "Base price."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:877
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:872
 msgid "Base regular price."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:883
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:878
 msgid "Base sale price."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:889
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:884
 msgid "Product has discount?"
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:895
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:890
 msgid "Minimum raw price."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:901
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:896
 msgid "Minimum raw regular_price."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:907
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:902
 msgid "Maximum raw price."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:913
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:908
 msgid "Maximum raw regular price."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:919
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:914
 msgid "Minimum price."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:925
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:920
 msgid "Minimum regular price."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:931
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:926
 msgid "Maximum price."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:937
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:932
 msgid "Maximum regular price."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:949
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:944
 msgid "Maximum container size."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:955
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:950
 msgid "Products available for this container."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:961
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:956
 msgid "Pricing per product."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:967
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:962
 msgid "Discount per product."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:973
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:968
 msgid "Deprecated: Shipping per product, use packing mode instead."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:978
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:973
 msgid "Has product-specific layouts that override global setting."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:984
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:979
 msgid "Single-product layout."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:990
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:985
 msgid "Single-product add to cart form location."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:996
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:991
 msgid "Packing mode."
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:1001
+#: includes/compatibility/modules/class-wc-mnm-cocart-compatibility.php:996
 msgid "Shipping weight is cumulative."
 msgstr ""
 
@@ -1229,7 +1232,14 @@ msgid ""
 "cart and try again."
 msgstr ""
 
-#: includes/class-wc-mnm-cart.php:637
+#: includes/class-wc-mnm-cart.php:629
+msgctxt "[Frontend]"
+msgid ""
+"The configuration you have selected cannot be added to the cart since an "
+"item that was originally added to this container no longer exists."
+msgstr ""
+
+#: includes/class-wc-mnm-cart.php:642
 #. translators: %s is the product title.
 msgctxt "[Frontend]"
 msgid ""
@@ -1237,7 +1247,7 @@ msgid ""
 "&quot;%s&quot; cannot be purchased."
 msgstr ""
 
-#: includes/class-wc-mnm-cart.php:648
+#: includes/class-wc-mnm-cart.php:653
 #. translators: %1ds is the maximum quantity of the child product. %2$s is the
 #. product title.
 msgctxt "[Frontend]"
@@ -1246,7 +1256,7 @@ msgid ""
 "cannot select more than %1$d of &quot;%2$s&quot;."
 msgstr ""
 
-#: includes/class-wc-mnm-cart.php:652
+#: includes/class-wc-mnm-cart.php:657
 #. translators: %1$d is the minimum quantity of the child product. %2$s is the
 #. product title.
 msgctxt "[Frontend]"
@@ -1255,7 +1265,7 @@ msgid ""
 "must select at least %1$d of &quot;%2$s&quot;."
 msgstr ""
 
-#: includes/class-wc-mnm-cart.php:656
+#: includes/class-wc-mnm-cart.php:661
 #. translators: %1$s is the product title. %2$d is the step quantity of the
 #. child product.
 msgctxt "[Frontend]"
@@ -1264,7 +1274,7 @@ msgid ""
 "must select &quot;%1$s&quot; in quantities of %2$d."
 msgstr ""
 
-#: includes/class-wc-mnm-cart.php:815
+#: includes/class-wc-mnm-cart.php:820
 msgctxt "[Frontend]"
 msgid "Cart updated."
 msgstr ""

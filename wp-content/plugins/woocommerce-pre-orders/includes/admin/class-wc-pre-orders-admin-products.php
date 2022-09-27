@@ -58,7 +58,7 @@ class WC_Pre_Orders_Admin_Products {
 		}
 
 		$tabs['pre_orders'] = array(
-			'label'  => __( 'Pre-Orders', 'wc-pre-orders' ),
+			'label'  => __( 'Pre-orders', 'wc-pre-orders' ),
 			'target' => 'wc_pre_orders_data',
 			'class'  => $classes,
 		);

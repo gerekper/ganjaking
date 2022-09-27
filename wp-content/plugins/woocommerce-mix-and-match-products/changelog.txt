@@ -1,6 +1,10 @@
 *** WooCommerce Mix and Match Products Changelog***
 
-2022.08.11 - version 2.1.2
+2022.09.05 - version 2.1.3
+* Fix: Fatal error in update cart validation via CoCart
+* Tweak: Add check that product still exists in update cart validation.
+
+2022.08.31 - version 2.1.2
 * New: Child item step validation on the front-end.
 * Fix: Quantity input should default to child minimum if one exists.
 * Fix: Add aria-live="polite" on status message.

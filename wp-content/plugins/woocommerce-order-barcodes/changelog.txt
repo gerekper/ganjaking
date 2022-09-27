@@ -1,5 +1,9 @@
 *** WooCommerce Order Barcodes Changelog ***
 
+2022-09-22 - version 1.5.1
+* Fix   - Prevent adding order meta box to other post types.
+* Tweak - WC 6.9 compatibility.
+
 2022-09-15 - version 1.5.0
 * Tweak - Custom Order Tables (COT) compatibility.
 * Fix   - Exclude unnecessary files from plugin zip file.

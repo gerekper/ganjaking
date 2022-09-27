@@ -4,7 +4,7 @@
 import { registerPaymentMethod } from '@woocommerce/blocks-registry';
 import { getSetting } from '@woocommerce/settings';
 import { __experimentalRegisterCheckoutFilters } from '@woocommerce/blocks-checkout';
-import { __, sprintf } from '@wordpress/i18n';
+import { __, _x, sprintf } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -82,7 +82,7 @@ __experimentalRegisterCheckoutFilters( 'woocommerce-pre-order', {
 				cart
 			);
 			return sprintf(
-				__( '%1$s %2$s', 'woocommerce-pre-order' ),
+				_x( '%1$s %2$s', 'label and additional info', 'wc-pre-orders' ),
 				label,
 				additionalInformation
 			);

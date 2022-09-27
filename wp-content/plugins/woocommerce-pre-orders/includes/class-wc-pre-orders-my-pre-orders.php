@@ -74,7 +74,7 @@ class WC_Pre_Orders_My_Pre_Orders {
 	 */
 	public function endpoint_title( $title ) {
 		if ( $this->is_pre_orders_endpoint() ) {
-			$title = __( 'Pre-Orders', 'wc-pre-orders' );
+			$title = __( 'Pre-orders', 'wc-pre-orders' );
 			remove_filter( 'the_title', array( $this, 'endpoint_title' ) );
 		}
 
@@ -111,7 +111,7 @@ class WC_Pre_Orders_My_Pre_Orders {
 	public function menu_items( $items ) {
 		// Insert Pre-Orders menu.
 		$new_items               = array();
-		$new_items['pre-orders'] = __( 'Pre-Orders', 'wc-pre-orders' );
+		$new_items['pre-orders'] = __( 'Pre-orders', 'wc-pre-orders' );
 
 		return $this->_insert_new_items_after( $items, $new_items, 'dashboard' );
 	}

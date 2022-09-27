@@ -2,9 +2,8 @@
 /*
 Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
-Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.6.6.1
+Version: 2.6.7
 Requires at least: 4.0
 Requires PHP: 5.6
 Author: Gravity Forms
@@ -37,7 +36,7 @@ use Gravity_Forms\Gravity_Forms\Libraries\Dom_Parser;
 //---------- Gravity Forms License Key -----------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
 // If you hardcode a Gravity Forms License Key here, it will automatically populate on activation.
-$gf_license_key = '3Bs4AzdB-e9I6-12A4-dmT5-57Ot4crw7qiP';
+$gf_license_key = '';
 
 //-- OR ---//
 
@@ -237,7 +236,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.6.6.1';
+	public static $version = '2.6.7';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -302,8 +301,9 @@ class GFForms {
 		$container->add_provider( new \Gravity_Forms\Gravity_Forms\Form_Editor\GF_Form_Editor_Service_Provider() );
 		$container->add_provider( new \Gravity_Forms\Gravity_Forms\Splash_Page\GF_Splash_Page_Service_Provider() );
 		$container->add_provider( new \Gravity_Forms\Gravity_Forms\Query\Batch_Processing\GF_Batch_Operations_Service_Provider() );
-        $container->add_provider( new \Gravity_Forms\Gravity_Forms\Settings\GF_Settings_Service_Provider() );
+		$container->add_provider( new \Gravity_Forms\Gravity_Forms\Settings\GF_Settings_Service_Provider() );
 		$container->add_provider( new \Gravity_Forms\Gravity_Forms\Assets\GF_Asset_Service_Provider() );
+		$container->add_provider( new \Gravity_Forms\Gravity_Forms\Environment_Config\GF_Environment_Config_Service_Provider() );
 	}
 
 	/**
@@ -326,6 +326,7 @@ class GFForms {
 		require_once GF_PLUGIN_DIR_PATH . 'includes/merge-tags/class-gf-merge-tags-service-provider.php';
 		require_once GF_PLUGIN_DIR_PATH . 'includes/settings/class-gf-settings-service-provider.php';
 		require_once GF_PLUGIN_DIR_PATH . 'includes/assets/class-gf-asset-service-provider.php';
+		require_once GF_PLUGIN_DIR_PATH . 'includes/environment-config/class-gf-environment-config-service-provider.php';
 
 		if ( ! empty( self::$container ) ) {
 			return self::$container;
@@ -2299,7 +2300,7 @@ class GFForms {
 			$version_info = rgars( GFCommon::get_version_info(), 'offerings/' . $slug );
 		}
 
-		$valid_key = rgar( GFCommon::get_version_info(), 'is_valid_key' );
+		$valid_key = true;
 
 		$message       = '';
 		// Display the message only for a multisite network. A single site install doesn't need it (WP handles it).
@@ -2348,11 +2349,6 @@ class GFForms {
 			}
 		}
 
-		if ( ! $valid_key ) {
-			return;
-			$message .= sprintf( esc_html__( '%sRegister%s your copy of Gravity Forms to receive access to automatic upgrades and support. Need a license key? %sPurchase one now%s.', 'gravityforms' ), '<a href="' . admin_url() . 'admin.php?page=gf_settings">', '</a>', '<a href="https://www.gravityforms.com">', '</a>' );
-		}
-
 		if ( ! empty( $message ) ) {
 			if ( is_network_admin() ) {
 				$active_class = is_plugin_active_for_network( $plugin_name ) ? ' active' : '';
@@ -2376,8 +2372,8 @@ class GFForms {
 
 			// Apply the class "update" to the plugin row to get rid of the ugly border.
 			echo "
-				<script type='text/javascript'>
-					jQuery('#$slug-update').prev('tr').addClass('update');
+				<script type='text/javascript'> 
+					jQuery('#$slug-update').prev('tr').addClass('update'); 
 				</script>
 				";
 		}
@@ -2478,7 +2474,7 @@ class GFForms {
 		$raw_response = GFCommon::post_to_manager( 'changelog.php', $params, $options );
 
 		if ( is_wp_error( $raw_response ) || 200 != $raw_response['response']['code'] ) {
-			$page_text = sprintf( esc_html__( 'Oops!! Something went wrong. %sPlease try again or %scontact us%s.', 'gravityforms' ), '<br/>', "<a href='https://www.gravityforms.com/support/'>", '</a>' );
+			$page_text = sprintf( esc_html__( 'Oops!! Something went wrong. %sPlease try again or %scontact us%s.', 'gravityforms' ), '<br/>', "<a href='" . esc_attr( GFCommon::get_support_url() ) . "'>", '</a>' );
 		} else {
 			$page_text = $raw_response['body'];
 			if ( substr( $page_text, 0, 10 ) != '<!--GFM-->' ) {
@@ -6209,7 +6205,7 @@ class GFForms {
 						}
 						container.html( '<p>' + response.data + '</p>' );
 					}
-				} );
+				} );             	
 			} );
 		</script>";
 
@@ -7122,5 +7118,3 @@ if ( ! function_exists( 'gf_has_action' ) ) {
 		return gf_has_filters( $action, $function_to_check );
 	}
 }
-/* Anti-Leecher Identifier */
-/* Credited By BABIATO-FORUM */

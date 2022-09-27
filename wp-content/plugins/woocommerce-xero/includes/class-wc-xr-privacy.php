@@ -1,12 +1,22 @@
 <?php
+/**
+ * Privacy data cleanup code.
+ *
+ * @package WooCommerce Xero/Privacy
+ */
+
 if ( ! class_exists( 'WC_Abstract_Privacy' ) ) {
 	return;
 }
 
+/**
+ * Class WC_XR_Privacy
+ *
+ * Handles export and removal of privacy-related customer data.
+ */
 class WC_XR_Privacy extends WC_Abstract_Privacy {
 	/**
 	 * Constructor
-	 *
 	 */
 	public function __construct() {
 		parent::__construct( __( 'Xero', 'woocommerce-xero' ) );
@@ -23,17 +33,17 @@ class WC_XR_Privacy extends WC_Abstract_Privacy {
 	/**
 	 * Returns a list of orders.
 	 *
-	 * @param string  $email_address
-	 * @param int     $page
+	 * @param string $email_address Email address whose orders are returned.
+	 * @param int    $page Page of orders to return.
 	 *
 	 * @return array WP_Post
 	 */
 	protected function get_orders( $email_address, $page ) {
 		$user = get_user_by( 'email', $email_address ); // Check if user has an ID in the DB to load stored personal data.
 
-		$order_query    = array(
-			'limit'          => 10,
-			'page'           => $page,
+		$order_query = array(
+			'limit' => 10,
+			'page'  => $page,
 		);
 
 		if ( $user instanceof WP_User ) {
@@ -47,9 +57,9 @@ class WC_XR_Privacy extends WC_Abstract_Privacy {
 
 	/**
 	 * Gets the message of the privacy to display.
-	 *
 	 */
 	public function get_privacy_message() {
+		/* translators: %s: URL to privacy page on woocommerce.com */
 		return wpautop( sprintf( __( 'By using this extension, you may be storing personal data or sharing data with an external service. <a href="%s" target="_blank">Learn more about how this works, including what you may want to include in your privacy policy.</a>', 'woocommerce-xero' ), 'https://docs.woocommerce.com/document/marketplace-privacy/#woocommerce-xero' ) );
 	}
 
@@ -78,11 +88,11 @@ class WC_XR_Privacy extends WC_Abstract_Privacy {
 					'data'        => array(
 						array(
 							'name'  => __( 'Xero payment id', 'woocommerce-xero' ),
-							'value' => get_post_meta( $order->get_id(), '_xero_payment_id', true ),
+							'value' => $order->get_meta( '_xero_payment_id' ),
 						),
 						array(
 							'name'  => __( 'Xero invoice id', 'woocommerce-xero' ),
-							'value' => get_post_meta( $order->get_id(), '_xero_invoice_id', true ),
+							'value' => $order->get_meta( '_xero_invoice_id' ),
 						),
 					),
 				);
@@ -118,10 +128,10 @@ class WC_XR_Privacy extends WC_Abstract_Privacy {
 			),
 		);
 
-		$subscription_query    = array(
-			'posts_per_page'  => 10,
-			'page'            => $page,
-			'meta_query'      => $meta_query,
+		$subscription_query = array(
+			'posts_per_page' => 10,
+			'page'           => $page,
+			'meta_query'     => $meta_query,
 		);
 
 		$subscriptions = wcs_get_subscriptions( $subscription_query );
@@ -137,11 +147,11 @@ class WC_XR_Privacy extends WC_Abstract_Privacy {
 					'data'        => array(
 						array(
 							'name'  => __( 'Xero payment id', 'woocommerce-xero' ),
-							'value' => get_post_meta( $subscription->get_id(), '_xero_payment_id', true ),
+							'value' => $subscription->get_meta( '_xero_payment_id' ),
 						),
 						array(
 							'name'  => __( 'Xero invoice id', 'woocommerce-xero' ),
-							'value' => get_post_meta( $subscription->get_id(), '_xero_invoice_id', true ),
+							'value' => $subscription->get_meta( '_xero_invoice_id' ),
 						),
 					),
 				);
@@ -174,17 +184,17 @@ class WC_XR_Privacy extends WC_Abstract_Privacy {
 			$order = wc_get_order( $order->get_id() );
 
 			list( $removed, $retained, $msgs ) = $this->maybe_handle_order( $order );
-			$items_removed  |= $removed;
-			$items_retained |= $retained;
-			$messages        = array_merge( $messages, $msgs );
+			$items_removed                    |= $removed;
+			$items_retained                   |= $retained;
+			$messages                          = array_merge( $messages, $msgs );
 
 			list( $removed, $retained, $msgs ) = $this->maybe_handle_subscription( $order );
-			$items_removed  |= $removed;
-			$items_retained |= $retained;
-			$messages        = array_merge( $messages, $msgs );
+			$items_removed                    |= $removed;
+			$items_retained                   |= $retained;
+			$messages                          = array_merge( $messages, $msgs );
 		}
 
-		// Tell core if we have more orders to work on still
+		// Tell core if we have more orders to work on still.
 		$done = count( $orders ) < 10;
 
 		return array(
@@ -198,7 +208,7 @@ class WC_XR_Privacy extends WC_Abstract_Privacy {
 	/**
 	 * Handle eraser of data tied to Subscriptions
 	 *
-	 * @param WC_Order $order
+	 * @param WC_Subscription $order Subscription to handle.
 	 * @return array
 	 */
 	protected function maybe_handle_subscription( $order ) {
@@ -211,29 +221,34 @@ class WC_XR_Privacy extends WC_Abstract_Privacy {
 		}
 
 		$subscription    = current( wcs_get_subscriptions_for_order( $order->get_id() ) );
-		$subscription_id = $subscription->get_id();
-
-		$xero_payment_id = get_post_meta( $subscription_id, '_xero_payment_id', true );
+		$xero_payment_id = $subscription->get_meta( '_xero_payment_id' );
 
 		if ( empty( $xero_payment_id ) ) {
 			return array( false, false, array() );
 		}
 
-		$order_age = strtotime( 'now' ) - $order->get_date_created()->getTimestamp();
-
+		/**
+		 * Filter Subscription statuses for which the Xero meta data will be erased.
+		 *
+		 * @since 1.7.11
+		 * @param array(string) List of Order/Subscription statuses.
+		 */
 		if ( $subscription->has_status( apply_filters( 'wc_xero_privacy_eraser_subs_statuses', array( 'on-hold', 'active' ) ) ) ) {
+			/* translators: %d: Order id  */
 			return array( false, true, array( sprintf( __( 'Order ID %d contains an active Subscription' ), $order->get_id() ) ) );
 		}
 
 		$renewal_orders = WC_Subscriptions_Renewal_Order::get_renewal_orders( $order->get_id() );
 
 		foreach ( $renewal_orders as $renewal_order_id ) {
+			// TODO: this might need an update based on how Subscriptions handle COT migration.
 			delete_post_meta( $renewal_order_id, '_xero_payment_id' );
 			delete_post_meta( $renewal_order_id, '_xero_invoice_id' );
 		}
 
-		delete_post_meta( $subscription_id, '_xero_payment_id' );
-		delete_post_meta( $subscription_id, '_xero_invoice_id' );
+		$subscription->delete_meta_data( '_xero_payment_id' );
+		$subscription->delete_meta_data( '_xero_invoice_id' );
+		$subscription->save_meta_data();
 
 		return array( true, false, array( __( 'Xero Subscription Data Erased.', 'woocommerce-xero' ) ) );
 	}
@@ -241,20 +256,20 @@ class WC_XR_Privacy extends WC_Abstract_Privacy {
 	/**
 	 * Handle eraser of data tied to Orders
 	 *
-	 * @param WC_Order $order
+	 * @param WC_Order $order Order to handle.
 	 * @return array
 	 */
 	protected function maybe_handle_order( $order ) {
-		$order_id        = $order->get_id();
-		$xero_payment_id = get_post_meta( $order_id, '_xero_payment_id', true );
-		$xero_invoice_id = get_post_meta( $order_id, '_xero_invoice_id', true );
+		$xero_payment_id = $order->get_meta( '_xero_payment_id' );
+		$xero_invoice_id = $order->get_meta( '_xero_invoice_id' );
 
 		if ( empty( $xero_payment_id ) && empty( $xero_invoice_id ) && empty( $xero_currencyrate ) ) {
 			return array( false, false, array() );
 		}
 
-		delete_post_meta( $order_id, '_xero_payment_id' );
-		delete_post_meta( $order_id, '_xero_invoice_id' );
+		$order->delete_meta_data( '_xero_payment_id' );
+		$order->delete_meta_data( '_xero_invoice_id' );
+		$order->save_meta_data();
 
 		return array( true, false, array( __( 'Xero personal data erased.', 'woocommerce-xero' ) ) );
 	}

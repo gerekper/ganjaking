@@ -183,7 +183,6 @@ class WC_XR_Payment_Manager {
 	 */
 	public function get_payment_by_order( $order ) {
 		// Get the XERO invoice ID.
-		$order_id   = $order->get_id();
 		$invoice_id = $order->get_meta( '_xero_invoice_id', true );
 
 		// Get the XERO currency rate.

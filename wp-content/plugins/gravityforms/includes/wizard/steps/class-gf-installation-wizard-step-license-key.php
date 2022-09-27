@@ -6,7 +6,7 @@ class GF_Installation_Wizard_Step_License_Key extends GF_Installation_Wizard_Ste
 	protected $_name = 'license_key';
 
 	public $defaults = array(
-		'license_key' => '3Bs4AzdB-e9I6-12A4-dmT5-57Ot4crw7qiP',
+		'license_key' => 'Gravity Forms',
 		'accept_terms' => true,
 	);
 
@@ -22,7 +22,7 @@ class GF_Installation_Wizard_Step_License_Key extends GF_Installation_Wizard_Ste
 
 		</p>
 		<div>
-			<input type="text" class="regular-text" id="license_key" name="license_key" readonly="readonly" value="3Bs4AzdB-e9I6-12A4-dmT5-57Ot4crw7qiP" placeholder="3Bs4AzdB-e9I6-12A4-dmT5-57Ot4crw7qiP"/>
+			<input type="text" class="regular-text" id="license_key" value="Gravity Forms" name="license_key" placeholder="Gravity Forms"/>
 			<?php
 			$key_error = $this->validation_message( 'license_key', false );
 			if ( $key_error ) {
@@ -54,29 +54,7 @@ class GF_Installation_Wizard_Step_License_Key extends GF_Installation_Wizard_Ste
 	}
 
 	function validate() {
-
-		$this->is_valid_key = true;
-		$license_key = $this->license_key;
-
-		if ( empty ( $license_key ) ) {
-			$message = esc_html__( 'Please enter a valid license key.', 'gravityforms' ) . '</span>';
-			$this->set_field_validation_result( 'license_key', $message );
-			$this->is_valid_key = false;
-		} else {
-			$key_info = GFCommon::get_key_info( $license_key );
-			if ( empty( $key_info ) || ( ! $key_info['is_active'] ) ){
-				$message = "&nbsp;<i class='fa fa-times gf_keystatus_invalid'></i> <span class='gf_keystatus_invalid_text'>" . __( 'Invalid or Expired Key : Please make sure you have entered the correct value and that your key is not expired.', 'gravityforms' ) . '</span>';
-				$this->set_field_validation_result( 'license_key', $message );
-				$this->is_valid_key = false;
-			}
-		}
-
-		if ( ! $this->is_valid_key && ! $this->accept_terms ) {
-			$this->set_field_validation_result( 'accept_terms', __( 'Please accept the terms', 'gravityforms' ) );
-		}
-
-		$valid = $this->is_valid_key || ( ! $this->is_valid_key && $this->accept_terms );
-		return $valid;
+		return true;
 	}
 
 	function install() {

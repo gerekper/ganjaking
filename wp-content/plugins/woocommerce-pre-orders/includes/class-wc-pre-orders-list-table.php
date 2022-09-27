@@ -43,8 +43,8 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 
 		parent::__construct(
 			array(
-				'singular' => __( 'Pre-Order', 'wc-pre-orders' ),
-				'plural'   => __( 'Pre-Orders', 'wc-pre-orders' ),
+				'singular' => __( 'Pre-order', 'wc-pre-orders' ),
+				'plural'   => __( 'Pre-orders', 'wc-pre-orders' ),
 				'ajax'     => false,
 			)
 		);
@@ -63,7 +63,7 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 		$actions = array(
 			'cancel'   => __( 'Cancel', 'wc-pre-orders' ),
 			'complete' => __( 'Complete', 'wc-pre-orders' ),
-			'message'  => __( 'Customer Message', 'wc-pre-orders' ),
+			'message'  => __( 'Customer message', 'wc-pre-orders' ),
 		);
 
 		return $actions;
@@ -174,8 +174,8 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 			'customer'          => __( 'Customer', 'wc-pre-orders' ),
 			'product'           => __( 'Product', 'wc-pre-orders' ),
 			'order'             => __( 'Order', 'wc-pre-orders' ),
-			'order_date'        => __( 'Order Date', 'wc-pre-orders' ),
-			'availability_date' => __( 'Availability Date', 'wc-pre-orders' ),
+			'order_date'        => __( 'Order date', 'wc-pre-orders' ),
+			'availability_date' => __( 'Availability date', 'wc-pre-orders' ),
 		);
 
 		return $columns;
@@ -450,7 +450,7 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 				)
 			);
 
-			$args['post__in'] = $post_ids;
+			$args['post__in'] = ! empty( $post_ids ) ? $post_ids : array( 0 );
 		}
 
 		return $args;
@@ -576,7 +576,7 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 		if ( isset( $_REQUEST['s'] ) ) : ?>
 			<p><?php _e( 'No pre-orders found', 'wc-pre-orders' ); ?></p>
 		<?php else : ?>
-			<p><?php _e( 'Pre-Orders will appear here for you to view and manage once purchased by a customer.', 'wc-pre-orders' ); ?></p>
+			<p><?php _e( 'Pre-orders will appear here for you to view and manage once purchased by a customer.', 'wc-pre-orders' ); ?></p>
 			<p><?php printf( __( '%1$sLearn more about managing pre-orders%2$s', 'wc-pre-orders' ), '<a href="http://docs.woothemes.com/document/pre-orders/#section-6" target="_blank">', ' &raquo;</a>' ); ?></p>
 			<p><?php printf( __( '%1$sSetup a product to allow pre-orders%2$s', 'wc-pre-orders' ), '<a href="' . admin_url( 'post-new.php?post_type=product' ) . '">', ' &raquo;</a>' ); ?></p>
 			<?php
@@ -613,7 +613,7 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 			</select>
 
 			<select id="dropdown_products" name="_product">
-				<option value=""><?php _e( 'Show all Products', 'wc-pre-orders' ); ?></option>
+				<option value=""><?php _e( 'Show all products', 'wc-pre-orders' ); ?></option>
 				<?php
 				if ( ! empty( $_GET['_product'] ) ) {
 					$product      = wc_get_product( absint( $_GET['_product'] ) );
@@ -640,7 +640,7 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 				if ( ! empty( $_GET['_product'] ) ) {
 					$product_id   = absint( $_GET['_product'] );
 					$product      = wc_get_product( $product_id );
-					$product_name = $product->get_formatted_name();
+					$product_name = ! empty( $product ) ? $product->get_formatted_name() : '';
 				}
 
 				if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) {
@@ -673,7 +673,7 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 
 			$this->render_availability_dates_dropdown();
 
-			submit_button( __( 'Filter' ), 'button', false, false, array( 'id' => 'post-query-submit' ) );
+			submit_button( __( 'Filter', 'wc-pre-orders' ), 'button', false, false, array( 'id' => 'post-query-submit' ) );
 			echo '</div>';
 
 			// Bulk action fields
@@ -797,7 +797,7 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 		$availability_date = isset( $_GET['availability_date'] ) ? (int) $_GET['availability_date'] : 0;
 		?>
 		<select id="dropdown_availability_dates" name="availability_date" class="wc-enhanced-select" style="width: 250px;">
-			<option<?php selected( $availability_date, 0 ); ?> value='0'><?php esc_html_e( 'Show all Availability Dates', 'wc-pre-orders' ); ?></option>
+			<option<?php selected( $availability_date, 0 ); ?> value='0'><?php esc_html_e( 'Show all availability dates', 'wc-pre-orders' ); ?></option>
 			<?php
 			foreach ( $months as $arc_row ) {
 				if ( 0 == $arc_row->year ) {

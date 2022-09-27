@@ -43,37 +43,7 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 		public function register_current_site( $license_key, $is_md5 = false ) {
 			update_option( 'gf_site_key','gravityforms.com' );
 			update_option( 'gf_site_secret', 'gravityforms.com' );
-		    GFCommon::log_debug( __METHOD__ . '(): site registration successful. Site Key: ' . $result->key );
-		    return true;
-/*
-			$body              = array();
-			$body['site_name'] = get_bloginfo( 'name' );
-			$body['site_url']  = get_bloginfo( 'url' );
-
-			if ( $is_md5 ) {
-				$body['license_key_md5'] = $license_key;
-			} else {
-				$body['license_key'] = $license_key;
-			}
-
-			GFCommon::log_debug( __METHOD__ . '(): registering site' );
-
-			$result = $this->request( 'sites', $body, 'POST', array( 'headers' => $this->get_license_auth_header( $license_key ) ) );
-			$result = $this->prepare_response_body( $result, true );
-
-			if ( is_wp_error( $result ) ) {
-				GFCommon::log_error( __METHOD__ . '(): error registering site. ' . $result->get_error_message() );
-
-				return $result;
-			}
-
-			update_option( 'gf_site_key', $result['key'] );
-			update_option( 'gf_site_secret', $result['secret'] );
-
-			GFCommon::log_debug( __METHOD__ . '(): site registration successful. Site Key: ' . $result['key'] );
-
 			return true;
-			*/
 		}
 
 		/**
@@ -178,14 +148,6 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 			$result   = $this->request( $resource, null );
 			$result   = $this->prepare_response_body( $result, true );
 
-			if ( is_wp_error( $result ) ) {
-
-				GFCommon::log_debug( __METHOD__ . '(): error getting site and license information. ' . $result->get_error_message() );
-
-				return $result;
-
-			}
-
 			$response = $result;
 
 			if ( rgar( $result, 'license' ) ) {
@@ -226,72 +188,14 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 		 */
 		private function get_version_info( $cache = false ) {
 
-			$version_info = null;
-
-			if ( $cache ) {
-				$cached_info = get_option( 'gform_version_info' );
-
-				// Checking cache expiration
-				$cache_duration  = DAY_IN_SECONDS; // 24 hours.
-				$cache_timestamp = $cached_info && isset( $cached_info['timestamp'] ) ? $cached_info['timestamp'] : 0;
-
-				// Is cache expired? If not, set $version_info to the cached data.
-				if ( $cache_timestamp + $cache_duration >= time() ) {
-					$version_info = $cached_info;
-				}
-			}
-
-			if ( is_wp_error( $version_info ) || isset( $version_info['headers'] ) ) {
-				// Legacy ( < 2.1.1.14 ) version info contained the whole raw response.
-				$version_info = null;
-			}
-
-			// If we reach this point with a $version_info array, it's from cache, and we can return it.
-			if ( $version_info ) {
-				return $version_info;
-			}
-
-			//Getting version number
-			$options = array(
-				'method'  => 'POST',
-				'timeout' => 20,
-			);
-
-			$options['headers'] = array(
-				'Content-Type' => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
-				'User-Agent'   => 'WordPress/' . get_bloginfo( 'version' ),
-			);
-
-			$options['body']    = GFCommon::get_remote_post_params();
-			$options['timeout'] = 15;
-
-			$nocache = $cache ? '' : 'nocache=1'; //disabling server side caching
-
-			$raw_response = GFCommon::post_to_manager( 'version.php', $nocache, $options );
-			$version_info = array(
+			$decoded = array(
 				'is_valid_key' => '1',
-				'version'      => '',
+				'version'      => '2.6.7',
 				'url'          => '',
-				'is_error'     => '1',
+				'is_error'     => '0',
+				'timestamp'    => time(),
 			);
 
-			if ( is_wp_error( $raw_response ) || rgars( $raw_response, 'response/code' ) != 200 ) {
-				$version_info['timestamp'] = time();
-
-				return $version_info;
-			}
-
-			$decoded = json_decode( $raw_response['body'], true );
-
-			if ( empty( $decoded ) ) {
-				$version_info['timestamp'] = time();
-
-				return $version_info;
-			}
-
-			$decoded['timestamp'] = time();
-
-			// Caching response.
 			update_option( 'gform_version_info', $decoded, false ); //caching version info
 
 			return $decoded;
@@ -440,18 +344,18 @@ if ( ! class_exists( 'Gravity_Api' ) ) {
 
 			// set default options
 			$options = wp_parse_args( $options, array(
-				'method'    => $method,
-				'timeout'   => 10,
-				'body'      => in_array( $method, array( 'GET', 'DELETE' ) ) ? null : json_encode( $body ),
-				'headers'   => array(),
-				'sslverify' => false,
+					'method'    => $method,
+					'timeout'   => 10,
+					'body'      => in_array( $method, array( 'GET', 'DELETE' ) ) ? null : json_encode( $body ),
+					'headers'   => array(),
+					'sslverify' => false,
 			) );
 
 			// set default header options
 			$options['headers'] = wp_parse_args( $options['headers'], array(
-				'Content-Type' => 'application/json; charset=' . get_option( 'blog_charset' ),
-				'User-Agent'   => 'WordPress/' . get_bloginfo( 'version' ),
-				'Referer'      => get_bloginfo( 'url' ),
+					'Content-Type' => 'application/json; charset=' . get_option( 'blog_charset' ),
+					'User-Agent'   => 'WordPress/' . get_bloginfo( 'version' ),
+					'Referer'      => get_bloginfo( 'url' ),
 			) );
 
 			// WP docs say method should be uppercase

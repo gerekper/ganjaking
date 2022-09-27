@@ -1,5 +1,12 @@
 *** Xero Integration ***
 
+2022-09-20 - version 1.7.48
+* Fix - Switched direct postmeta calls to CRUD calls to prepare for COT.
+
+2022-09-13 - version 1.7.47
+* Fix - Authentication failed notice when fetching Branding Themes.
+* Fix - Ensure shipping tax rates are assigned correctly in the Xero invoice.
+
 2022-08-24 - version 1.7.46
 * Add - A new setting to select a Xero Branded Theme template to attach with invoices is introduced.
 * Fix - Localization to use 'woocommerce-xero'.

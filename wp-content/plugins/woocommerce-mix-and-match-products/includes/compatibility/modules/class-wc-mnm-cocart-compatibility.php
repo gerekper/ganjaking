@@ -6,7 +6,7 @@
  *
  * @package WooCommerce Mix and Match Products/Compatibility
  * @since   1.10.0
- * @version 2.2.0
+ * @version 2.1.3
  */
 
 // Exit if accessed directly.
@@ -366,36 +366,37 @@ class WC_MNM_COCART_Compatibility {
 			$product = $values['data'];
 
 			if ( ! $product ) {
-				throw new CoCart_Data_Exception( 'wc_mnm_cocart_update_cart_validation_missing', __( 'Missing product data to validate. Please try again!', 'cart-rest-api-for-woocommerce', 'woocommerce-mix-and-match-products' ), 404, array( 'plugin' => 'woocommerce-mix-and-match' ) );
+				throw new CoCart_Data_Exception( 'wc_mnm_cocart_update_cart_validation_missing', __( 'Missing product data to validate. Please try again!', 'woocommerce-mix-and-match-products' ), 404, array( 'plugin' => 'woocommerce-mix-and-match' ) );
 			}
-
-			if ( ! $container->has_child_items() ) {
-				return false;
-			}
-
-			$child_product    = $child_item->get_product();
-			$child_product_id = $child_product->get_id();
-
-			// Grab child items.
-			$mnm_items = $product->get_children();
 
 			if ( $product->is_type( 'mix-and-match' ) && wc_mnm_is_container_cart_item( $values ) ) {
+				
 				// Grab child items.
 				$child_items = $product->get_child_items();
 
 				if ( empty( $child_items ) ) {
-					throw new CoCart_Data_Exception( 'wc_mnm_cocart_container_no_child_items', __( 'This container has no child items.', 'cart-rest-api-for-woocommerce', 'woocommerce-mix-and-match-products' ), 404, array( 'plugin' => 'woocommerce-mix-and-match' ) );
+					throw new CoCart_Data_Exception( 'wc_mnm_cocart_container_no_child_items', __( 'This container has no child items.', 'woocommerce-mix-and-match-products' ), 404, array( 'plugin' => 'woocommerce-mix-and-match' ) );
 				}
 
 				// If a stock-managed product / variation exists in the container multiple times, its stock will be checked only once for the sum of all child quantities.
 				// The stock manager class keeps a record of stock-managed product / variation ids.
 				$mnm_stock = new WC_Mix_and_Match_Stock_Manager( $product );
 
+				$configuration = $values['mnm_config'];
+
 				// Loop through the items.
-				foreach ( $values['mnm_config'] as $id => $data ) {
-					// Double check it is an allowed item - is this needed? Wasn't it checked on its way into the cart?
-					if ( ! $product->is_allowed_child_product( $child_product_id ) ) {
-						return false;
+				foreach ( $child_items as $child_item_id => $child_item ) {
+
+					// Get the child product/variation.
+					$child_product    = $child_item->get_product();
+					$child_product_id = $child_item->get_variation_id() ? $child_item->get_variation_id() : $child_item->get_product_id();
+
+					// Check that a product has been selected.
+					if ( isset( $configuration[ $child_product_id ] ) && $configuration[ $child_product_id ] !== '' ) {
+						$item_quantity = $configuration[ $child_product_id ]['quantity'];
+						// If the ID isn't in the posted data something is rotten in Denmark.
+					} else {
+						continue;
 					}
 
 					// Quantity per container.
@@ -404,26 +405,20 @@ class WC_MNM_COCART_Compatibility {
 					// Total quantity.
 					$quantity = $item_quantity * $additional_quantity;
 
-					// Get the child product/variation.
-					$child_item = wc_get_product( $data['product_id'] );
-
 					// Product could not be found. Either deleted or was never created.
-					if ( ! $child_item ) {
-						throw new CoCart_Data_Exception( 'wc_mnm_cocart_child_item_not_exist', __( 'An item that was originally added to this container no longer exists.', 'cart-rest-api-for-woocommerce', 'woocommerce-mix-and-match-products' ), 404, array( 'plugin' => 'woocommerce-mix-and-match' ) );
+					if ( ! $child_product ) {
+						throw new CoCart_Data_Exception( 'wc_mnm_cocart_child_item_not_exist', __( 'An item that was originally added to this container no longer exists.', 'woocommerce-mix-and-match-products' ), 404, array( 'plugin' => 'woocommerce-mix-and-match' ) );
 					}
 
 					// Stock management.
-					if ( $child_item->is_type( 'variation' ) ) {
-						$mnm_stock->add_item( $child_item->get_parent_id(), $data['product_id'], $quantity );
-					} else {
-						$mnm_stock->add_item( $data['product_id'], false, $quantity );
-					}
+					$mnm_stock->add_item( $child_item->get_product_id(), $child_item->get_variation_id(), $quantity );
+
 				} // End foreach.
 
 				// Check stock for stock-managed child items.
 				// If out of stock, don't proceed.
 				if ( ! $mnm_stock->validate_stock( true ) ) {
-					throw new CoCart_Data_Exception( 'wc_mnm_cocart_child_item_not_exist', __( 'An item that was originally added to this container no longer exists.', 'cart-rest-api-for-woocommerce', 'woocommerce-mix-and-match-products' ), 404, array( 'plugin' => 'woocommerce-mix-and-match' ) );
+					throw new CoCart_Data_Exception( 'wc_mnm_cocart_child_item_not_exist', __( 'There is not enough stock to purchase this many containers.', 'woocommerce-mix-and-match-products' ), 404, array( 'plugin' => 'woocommerce-mix-and-match' ) );
 					return false;
 				}
 			}

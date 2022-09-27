@@ -9,7 +9,7 @@ class WC_Pre_Orders_Privacy extends WC_Abstract_Privacy {
 	 *
 	 */
 	public function __construct() {
-		parent::__construct( __( 'Pre-Orders', 'wc-pre-orders' ) );
+		parent::__construct( __( 'Pre-orders', 'wc-pre-orders' ) );
 	}
 
 	/**

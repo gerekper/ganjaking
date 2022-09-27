@@ -2,8 +2,8 @@
 /**
  * WooCommerce Pre-Orders Extend Store API.
  *
- * A class to extend the store public API with subscription related data
- * for each pre-order product item.
+ * A class to extend the store public API with pre-order product type
+ * related data for each pre-order product item.
  *
  * @package WooCommerce Pre-orders
  */
@@ -59,7 +59,7 @@ class WC_Pre_Orders_Extend_Store_API {
 	}
 
 	/**
-	 * Register subscription product data into cart/items endpoint.
+	 * Register pre-order product type data into cart/items endpoint.
 	 *
 	 * @param array $cart_item Current cart item data.
 	 *
@@ -85,26 +85,26 @@ class WC_Pre_Orders_Extend_Store_API {
 	}
 
 	/**
-	 * Register subscription product schema into cart/items endpoint.
+	 * Register pre-order product type schema into cart/items endpoint.
 	 *
 	 * @return array Registered schema.
 	 */
 	public static function extend_cart_item_schema() {
 		return array(
 			'availability'      => array(
-				'description' => __( 'Availability date for product.', 'woocommerce-pre-orders' ),
+				'description' => __( 'Availability date for product.', 'wc-pre-orders' ),
 				'type'        => array( 'string', 'null' ),
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'charged_upon_release'    => array(
-				'description' => __( 'Indicates if customer is going to be charged only when product is released.', 'woocommerce-subscriptions' ),
+				'description' => __( 'Indicates if customer is going to be charged only when product is released.', 'wc-pre-orders' ),
 				'type'        => array( 'boolean', 'null' ),
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,
 			),
 			'charged_upfront'    => array(
-				'description' => __( 'Indicates if customer is going to be charged upfront.', 'woocommerce-subscriptions' ),
+				'description' => __( 'Indicates if customer is going to be charged upfront.', 'wc-pre-orders' ),
 				'type'        => array( 'boolean', 'null' ),
 				'context'     => array( 'view', 'edit' ),
 				'readonly'    => true,

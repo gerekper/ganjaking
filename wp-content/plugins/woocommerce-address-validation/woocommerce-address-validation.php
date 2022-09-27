@@ -6,7 +6,7 @@
  * Description: Adds Address Validation and Postcode Lookup to WooCommerce via Loqate, SmartyStreets, and more!
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 2.8.2
+ * Version: 2.8.3
  * Text Domain: woocommerce-address-validation
  * Domain Path: /i18n/languages/
  *
@@ -23,7 +23,7 @@
  *
  * Woo: 182775:d65b52fcfbf887386516007aed10451d
  * WC requires at least: 3.9.4
- * WC tested up to: 6.8.0
+ * WC tested up to: 6.9.3
  */
 
 defined( 'ABSPATH' ) or exit;

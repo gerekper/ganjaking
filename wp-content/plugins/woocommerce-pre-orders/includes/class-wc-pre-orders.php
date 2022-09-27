@@ -122,7 +122,7 @@ class WC_Pre_Orders {
 		$mail->trigger( $order->get_id() );
 
 		/* translators: %s: email title */
-		$order->add_order_note( sprintf( __( '%s email notification manually sent.', 'woocommerce-pre-orders' ), $mail->title ), false, true );
+		$order->add_order_note( sprintf( __( '%s email notification manually sent.', 'wc-pre-orders' ), $mail->title ), false, true );
 	}
 
 	/**
@@ -304,7 +304,7 @@ class WC_Pre_Orders {
 	public function plugin_action_links( $actions ) {
 		$plugin_actions = array(
 			'settings' => sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'admin.php?page=wc-settings&tab=pre_orders' ) ), __( 'Settings', 'wc-pre-orders' ) ),
-			'manage'   => sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'admin.php?page=wc_pre_orders' ) ), __( 'Manage Pre-Orders', 'wc-pre-orders' ) ),
+			'manage'   => sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'admin.php?page=wc_pre_orders' ) ), __( 'Manage pre-orders', 'wc-pre-orders' ) ),
 			'support'  => '<a href="https://woocommerce.com/my-account/create-a-ticket/">' . __( 'Support', 'wc-pre-orders' ) . '</a>',
 			'docs'     => '<a href="https://docs.woocommerce.com/document/pre-orders/">' . __( 'Docs', 'wc-pre-orders' ) . '</a>',
 		);

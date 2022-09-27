@@ -355,7 +355,7 @@ class WooCommerce_Order_Barcodes {
 	 * @return  void
 	 */
 	public function add_order_metabox( $post_type, $post_or_order_object ) {
-		if ( ! $this->is_order_or_post( $post_or_order_object ) ) {
+		if ( ! ( 'shop_order' === $post_type || 'woocommerce_page_wc-orders' === $post_type ) || ! $this->is_order_or_post( $post_or_order_object ) ) {
 			return;
 		}
 
@@ -389,7 +389,7 @@ class WooCommerce_Order_Barcodes {
 			$this->generate_barcode( $order->get_id() );
 		}
 
-		echo '<div class="woocommerce-order-barcodes-container" style="text-align:center;">';	
+		echo '<div class="woocommerce-order-barcodes-container" style="text-align:center;">';
 		echo $this->display_barcode( $order->get_id(), true );
 		echo '</div>';
 	}
@@ -803,7 +803,7 @@ class WooCommerce_Order_Barcodes {
 	public function add_barcode_url_in_api_response ( $response, $object, $request ) {
 		if ( is_a( $response, 'WP_REST_Response' ) && is_a( $object, 'WC_Order' ) ) {
 			$barcode_url = $this->barcode_url( $object->get_id() );
-			
+
 			if ( ! empty( $barcode_url ) ) {
 				$response->data['barcode_url'] = $barcode_url;
 			}
