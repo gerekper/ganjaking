@@ -25,9 +25,9 @@ if ($settings['listview-show-description'] == true) {
 }
 if ($settings['show_count'] == true) {
     if ($term->count == 1) {
-        echo wp_sprintf('<span>%s %s</span>', $term->count, __('article', 'betterdocs'));
+        echo wp_sprintf('<span>%s %s</span>', $term->count, __('article', 'betterdocs-pro'));
     } else {
-        echo wp_sprintf('<span>%s %s</span>', $term->count, __('articles', 'betterdocs'));
+        echo wp_sprintf('<span>%s %s</span>', $term->count, __('articles', 'betterdocs-pro'));
     }
 }
 echo '</div>

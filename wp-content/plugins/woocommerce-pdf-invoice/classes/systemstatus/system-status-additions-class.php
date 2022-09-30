@@ -24,6 +24,7 @@
 
 			$pdf_generator 	= isset( $settings['pdf_generator'] ) ? $settings['pdf_generator'] : NULL;
 			$create_invoice = isset( $settings['create_invoice'] ) ? $settings['create_invoice'] : NULL;
+			$setchroot 		= isset( $settings['setchroot'] ) ? $settings['setchroot'] : NULL;
 			$enable_remote 	= isset( $settings['enable_remote'] ) ? $settings['enable_remote'] : NULL;
 			$pdf_date 		= isset( $settings['pdf_date'] ) ? $settings['pdf_date'] : NULL;
 			$pdf_creation 	= isset( $settings['pdf_creation'] ) ? $settings['pdf_creation'] : NULL;
@@ -103,6 +104,13 @@
 				'success' => isset( $create_invoice ) ? 1 : 0,
 			);
 
+			$debug_data['setchroot'] = array(
+				'name'    => _x( 'Set Resources Folder', 'woocommerce-pdf-invoice' ),
+				'tip'     => _x( 'Is the ESet Resources Folder set to Yes or No?', 'woocommerce-pdf-invoice' ),
+				'note'    => ucwords( $setchroot ),
+				'success' => $setchroot ? 1 : 0,
+			);
+
 			$debug_data['enable_remote'] = array(
 				'name'    => _x( 'Remote Logo', 'woocommerce-pdf-invoice' ),
 				'tip'     => _x( 'Is the Enable Remote Logo set to Yes or No?', 'woocommerce-pdf-invoice' ),
@@ -129,7 +137,7 @@
 
 				$settings = $email_template->settings;
 				
-				$template  = isset( $settings['pdf_invoice_template_pdf_invoice'] ) ? 
+				$template  = isset( $settings['pdf_invoice_attach_pdf_invoice'] ) && $settings['pdf_invoice_attach_pdf_invoice'] === 'yes' ? 
 				sprintf( _x( 'Yes, using template file %s.', 'woocommerce-pdf-invoice' ), ucwords( $settings['pdf_invoice_template_pdf_invoice'] ) ) : __( 'No.', 'woocommerce-pdf-invoice' );
 
 				$recipiant = isset( $email_template->recipient ) ? sprintf( _x( ' Recipient : %s', 'woocommerce-pdf-invoice' ), $email_template->recipient ) : _x( ' Recipient : customer', 'woocommerce-pdf-invoice' ); 
@@ -138,7 +146,7 @@
 					'name'    => $email_template->title . _x( ' email ', 'woocommerce-pdf-invoice' ),
 					'tip'     => _x( 'If an invoice is available, is it attached to this email?', 'woocommerce-pdf-invoice' ),
 					'note'    => $template . $recipiant,
-					'success' => isset( $settings['pdf_invoice_attach_pdf_invoice'] ) ? 1 : 0,
+					'success' => isset( $settings['pdf_invoice_attach_pdf_invoice'] )  && $settings['pdf_invoice_attach_pdf_invoice'] === 'yes' ? 1 : 0,
 				);
 
 			}

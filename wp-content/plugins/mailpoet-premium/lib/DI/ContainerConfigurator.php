@@ -29,6 +29,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $this->registerFreeService($container, \MailPoet\Automation\Engine\Builder\UpdateWorkflowController::class);
     $this->registerFreeService($container, \MailPoet\Automation\Engine\Storage\WorkflowStorage::class);
     $this->registerFreeService($container, \MailPoet\Automation\Engine\Hooks::class);
+    $this->registerFreeService($container, \MailPoet\Automation\Engine\Validation\WorkflowValidator::class);
     $this->registerFreeService($container, \MailPoet\Automation\Integrations\MailPoet\Subjects\SubscriberSubject::class);
     $this->registerFreeService($container, \MailPoet\Config\AccessControl::class);
     $this->registerFreeService($container, \MailPoet\Config\Renderer::class);
@@ -70,7 +71,6 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\MailPoetPremiumIntegration::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\PremiumWorkflowTemplates::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\UnsubscribeAction::class)->setPublic(true);
-    $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Triggers\UserRegistrationTrigger::class)->setPublic(true);
     // Config
     $container->autowire(\MailPoet\Premium\Config\Hooks::class);
     $container->autowire(\MailPoet\Premium\Config\Initializer::class)->setPublic(true);

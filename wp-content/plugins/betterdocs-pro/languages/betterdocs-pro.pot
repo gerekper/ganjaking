@@ -8,14 +8,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-01-25 05:45+0000\n"
+"POT-Creation-Date: 2022-09-22 04:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: Loco https://localise.biz/\n"
 "X-Domain: betterdocs-pro\n"
 "Language: \n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;"
 
-#: admin/includes/class-betterdocs-analytics.php:142
+#: admin/includes/class-betterdocs-analytics.php:146
 msgid " views"
 msgstr ""
 
@@ -30,137 +30,158 @@ msgid ""
 "pro&tab=search&type=term\" target=\"_blank\">BetterDocs PRO</a> first."
 msgstr ""
 
-#: includes/class-multiple-kb.php:82
+#: includes/class-multiple-kb.php:83
 msgid ""
 "<strong>Note:</strong> if you disable root slug for KB Archives, your "
-"individual knowledge base URL will be like this: https://example."
-"com/knowledgebase-1"
+"individual knowledge base URL will be like this: <b><i>https://example."
+"com/knowledgebase-1</i></b>"
 msgstr ""
 
-#: admin/includes/class-betterdocs-role-management.php:94
-msgid ""
-"<strong>Note:</strong> Only selected User Roles will be able to view your "
-"Knowledge Base"
-msgstr ""
-
-#: admin/includes/class-betterdocs-role-management.php:112
-msgid "<strong>Note:</strong> Selected Docs categories will be restricted "
-msgstr ""
-
-#: admin/includes/class-betterdocs-role-management.php:103
-msgid "<strong>Note:</strong> Selected Docs pages will be restricted"
-msgstr ""
-
-#: includes/class-multiple-kb.php:93
+#: includes/class-multiple-kb.php:94
 msgid "<strong>Note:</strong> Selected Knowledge Bases will be restricted  "
 msgstr ""
 
-#: admin/includes/class-betterdocs-role-management.php:121
+#: includes/class-multiple-kb.php:136
 msgid ""
-"<strong>Note:</strong> Set a custom URL to redirect users without "
-"permissions when they try to access internal knowledge base. By default, "
-"restricted content will redirect to the \"404 not found\" page"
+"<strong>You can use:</strong> [betterdocs_category_box_2 column=\"\" "
+"nested_subcategory=\"\" terms=\"\" terms_orderby=\"\" kb_slug=\"\" "
+"multiple_knowledge_base=\"false\" disable_customizer_style=\"false\" "
+"title_tag=\"h2\"]"
 msgstr ""
 
-#: includes/class-multiple-kb.php:121
-msgid ""
-"<strong>You can use:</strong> [betterdocs_category_box_2 column=\"3\" "
-"terms=\"term_ID, term_ID\"]"
-msgstr ""
-
-#: includes/class-multiple-kb.php:130
+#: includes/class-multiple-kb.php:145
 msgid ""
 "<strong>You can use:</strong> [betterdocs_category_grid_2 "
-"nested_subcategory=\"true\" terms=\"term_ID, term_ID\"]"
+"sidebar_list=\"false\" orderby=\"\" order=\"\" count=\"true\" icon=\"\" "
+"masonry=\"\" column=\"\" posts=\"\" nested_subcategory=\"\" terms=\"\" "
+"kb_slug=\"\" terms_orderby=\"\" terms_order=\"\" "
+"multiple_knowledge_base=\"false\" disable_customizer_style=\"false\" "
+"title_tag=\"h2\"]"
 msgstr ""
 
-#: includes/class-multiple-kb.php:139
+#: includes/class-multiple-kb.php:154
 msgid ""
-"<strong>You can use:</strong> [betterdocs_multiple_kb column=\"3\" "
-"terms=\"term_ID, term_ID\"]"
+"<strong>You can use:</strong> [betterdocs_multiple_kb column=\"\" terms=\"\" "
+"disable_customizer_style=\"false\" title_tag=\"h2\"]"
 msgstr ""
 
-#: includes/class-multiple-kb.php:148
+#: includes/class-multiple-kb.php:163
 msgid ""
-"<strong>You can use:</strong> [betterdocs_multiple_kb_2 column=\"3\" "
-"terms=\"term_ID, term_ID\"]"
+"<strong>You can use:</strong> [betterdocs_multiple_kb_2 column=\"\" "
+"terms=\"\" disable_customizer_style=\"false\" title_tag=\"h2\"]"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:948
+#: public/class-betterdocs-pro-public.php:349
+msgid "Abstract Layout"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:971
 msgid "Accent Color"
 msgstr ""
 
-#: betterdocs-pro.php:103
+#: admin/includes/licensing/class-betterdocs-licensing.php:213
+msgid "Activate License"
+msgstr ""
+
+#: betterdocs-pro.php:146
 msgid "Activate Now!"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:372
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:577
+#: admin/customizer/customizer.php:4818
+msgid "Active Background Border Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:4798
+msgid "Active Background Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:5908
+msgid "Active List Item Color"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:381
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:586
 msgid "Active Tab Font Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:518
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:345
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:550
+#: admin/customizer/customizer.php:522
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:354
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:559
 msgid "Active Tab List Background Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:495
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:363
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:568
+#: admin/customizer/customizer.php:499
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:372
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:577
 msgid "Active Tab List Font Color"
 msgstr ""
 
-#: includes/class-multiple-kb.php:766 includes/class-multiple-kb.php:817
+#: admin/customizer/customizer.php:5193
+msgid "Active Title Background Color"
+msgstr ""
+
+#: includes/class-multiple-kb.php:772 includes/class-multiple-kb.php:825
+#: admin/class-betterdocs-pro-admin.php:319
+#: admin/class-betterdocs-pro-admin.php:347
 msgid "Add Image"
 msgstr ""
 
-#: admin/class-betterdocs-pro-admin-screen.php:19
-msgid "Add New Doc"
-msgstr ""
-
-#: includes/class-multiple-kb.php:342
+#: includes/class-multiple-kb.php:349
 msgid "Add New Knowledge Base"
 msgstr ""
 
-#: includes/class-multiple-kb.php:344
+#: includes/class-multiple-kb.php:351
 msgid "Add or reomve Knowledge Base"
 msgstr ""
 
-#: includes/elementor/class-betterdocs-pro-elementor.php:117
+#: includes/elementor/class-betterdocs-pro-elementor.php:118
 msgid "Advanced Search"
 msgstr ""
 
-#: admin/partials/betterdocs-pro-admin-analytics-display.php:194
-msgid "All"
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1285
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1427
+msgid "All Boxes Border"
 msgstr ""
 
-#: admin/class-betterdocs-pro-admin-screen.php:87
+#: public/class-betterdocs-pro-public.php:487
+msgid "All Categories"
+msgstr ""
+
+#: admin/class-betterdocs-pro-admin-screen.php:37
 msgid "All KBs"
 msgstr ""
 
-#: includes/class-multiple-kb.php:336
-#: admin/class-betterdocs-pro-admin-screen.php:22
+#: includes/class-multiple-kb.php:343
+#: admin/class-betterdocs-pro-admin-screen.php:15
 msgid "All Knowledge Base"
 msgstr ""
 
-#: admin/includes/class-betterdocs-analytics.php:106
-#: admin/includes/class-betterdocs-analytics.php:536
+#: admin/includes/class-betterdocs-analytics.php:112
+#: admin/includes/class-betterdocs-analytics.php:113
+#: admin/includes/class-betterdocs-analytics.php:482
 msgid "Analytics"
 msgstr ""
 
-#: admin/includes/class-betterdocs-analytics.php:540
+#: admin/includes/class-betterdocs-analytics.php:486
 msgid "Analytics From"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:281
-#: admin/includes/class-betterdocs-pro-instant-answer.php:757
+#: admin/includes/class-betterdocs-pro-instant-answer.php:283
+#: admin/includes/class-betterdocs-pro-instant-answer.php:780
 msgid "Answer"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:682
-#: admin/includes/class-betterdocs-pro-instant-answer.php:687
+#: admin/includes/class-betterdocs-pro-instant-answer.php:705
+#: admin/includes/class-betterdocs-pro-instant-answer.php:710
 msgid "Appearance Settings"
+msgstr ""
+
+#: admin/customizer/customizer.php:6903
+msgid "Archive Description Margin"
+msgstr ""
+
+#: admin/customizer/customizer.php:6756
+msgid "Archive Title Margin"
 msgstr ""
 
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:417
@@ -173,64 +194,93 @@ msgstr ""
 msgid "Area Size"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:847
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1010
+#: admin/customizer/customizer.php:4736
+msgid "Arrow Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:4675
+msgid "Arrow Height"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:856
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1019
 msgid "Arrow Margin"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:829
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:992
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:838
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1001
 msgid "Arrow Size"
 msgstr ""
 
-#: public/betterdocs-shortcodes.php:149 public/betterdocs-shortcodes.php:228
-#: public/betterdocs-shortcodes.php:538 public/betterdocs-shortcodes.php:633
-#: public/betterdocs-shortcodes.php:716 public/betterdocs-shortcodes.php:830
+#: admin/customizer/customizer.php:4707
+msgid "Arrow Width"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1736
+msgid "Article"
+msgstr ""
+
+#: public/betterdocs-shortcodes.php:155 public/betterdocs-shortcodes.php:236
+#: public/betterdocs-shortcodes.php:560 public/betterdocs-shortcodes.php:655
+#: public/betterdocs-shortcodes.php:747 public/betterdocs-shortcodes.php:863
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:223
+#: includes/elementor/Template/Multiple-Kb/Layout_3.php:28
+#: includes/elementor/Template/Category-Box/Layout_3.php:28
 msgid "article"
 msgstr ""
 
-#: public/betterdocs-shortcodes.php:151 public/betterdocs-shortcodes.php:230
-#: public/betterdocs-shortcodes.php:540 public/betterdocs-shortcodes.php:635
-#: public/betterdocs-shortcodes.php:718 public/betterdocs-shortcodes.php:832
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1757
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1806
+msgid "Article Color"
+msgstr ""
+
+#: public/betterdocs-shortcodes.php:157 public/betterdocs-shortcodes.php:238
+#: public/betterdocs-shortcodes.php:562 public/betterdocs-shortcodes.php:657
+#: public/betterdocs-shortcodes.php:749 public/betterdocs-shortcodes.php:865
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:209
+#: includes/elementor/Template/Multiple-Kb/Layout_3.php:30
+#: includes/elementor/Template/Category-Box/Layout_3.php:30
 msgid "articles"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:283
-#: admin/includes/class-betterdocs-pro-instant-answer.php:799
+#: public/class-betterdocs-pro-public.php:345
+msgid "Artisan Layout"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:285
+#: admin/includes/class-betterdocs-pro-instant-answer.php:822
 msgid "Ask"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1058
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1081
 msgid "Ask Form Input BG Color"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1063
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1086
 msgid "Ask Form Input Text Color"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1078
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1101
 msgid "Ask Send Button Background"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1083
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1106
 msgid "Ask Send Button Hover Background"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1068
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1091
 msgid "Ask Send Disabled Button Background"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1073
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1096
 msgid "Ask Send Disabled Button Hover Background"
 msgstr ""
 
-#: admin/customizer/customizer.php:203
+#: admin/customizer/customizer.php:207
 msgid "Attachment"
 msgstr ""
 
-#: admin/customizer/customizer.php:153
+#: admin/customizer/customizer.php:157
 msgid "auto"
 msgstr ""
 
@@ -238,36 +288,49 @@ msgstr ""
 msgid "Auto Update"
 msgstr ""
 
-#: includes/elementor/class-betterdocs-pro-elementor.php:179
+#: includes/elementor/class-betterdocs-pro-elementor.php:180
+#: admin/customizer/customizer.php:4777 admin/customizer/customizer.php:11171
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1205
 #: includes/elementor/widgets/betterdocs-elementor-reactions.php:262
 msgid "Background Color"
 msgstr ""
 
-#: includes/elementor/class-betterdocs-pro-elementor.php:190
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:248
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1348
+msgid "Background Color Hover"
+msgstr ""
+
+#: includes/elementor/class-betterdocs-pro-elementor.php:191
+#: admin/customizer/customizer.php:11190
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:249
 msgid "Background Hover Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:107
+#: admin/customizer/customizer.php:111
 msgid "Background Image"
 msgstr ""
 
-#: admin/customizer/customizer.php:126
+#: admin/customizer/customizer.php:130
 msgid "Background Property"
 msgstr ""
 
-#: betterdocs-pro.php:108 admin/class-betterdocs-pro-admin-screen.php:16
-#: public/partials/template-single/layout-3.php:165
-#: public/partials/template-single/layout-2.php:150
+#: betterdocs-pro.php:151 public/partials/template-single/layout-6.php:15
+#: public/partials/template-single/layout-3.php:156
+#: public/partials/template-single/layout-2.php:143
 msgid "BetterDocs"
+msgstr ""
+
+#: betterdocs-pro.php:161
+msgid "BetterDocs Analytics Migration"
+msgstr ""
+
+#: betterdocs-pro.php:162
+msgid ""
+"BetterDocs is migrating the analytics data in the background. The migration "
+"process may take a little while, so please be patient."
 msgstr ""
 
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:24
 msgid "BetterDocs Multiple KB"
-msgstr ""
-
-#: public/class-betterdocs-pro-public.php:408
-msgid "BetterDocs Order"
 msgstr ""
 
 #: includes/elementor/widgets/betterdocs-elementor-popular-view.php:16
@@ -275,7 +338,7 @@ msgid "Betterdocs Popular Docs"
 msgstr ""
 
 #. Name of the plugin
-#: betterdocs-pro.php:108
+#: betterdocs-pro.php:151
 msgid "BetterDocs Pro"
 msgstr ""
 
@@ -283,21 +346,31 @@ msgstr ""
 msgid "Betterdocs Tab View List"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:411
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:617
+#: includes/elementor/class-betterdocs-pro-elementor.php:318
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:420
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:626
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:297
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:365
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:491
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:567
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:872
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:977
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1233
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1376
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1533
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1595
 #: includes/elementor/widgets/betterdocs-elementor-reactions.php:150
 msgid "Border"
 msgstr ""
 
-#: includes/elementor/class-betterdocs-pro-elementor.php:201
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:333
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:538
+#: admin/customizer/customizer.php:5674
+msgid "Border Color"
+msgstr ""
+
+#: includes/elementor/class-betterdocs-pro-elementor.php:202
+#: admin/customizer/customizer.php:11211
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:342
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:547
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:305
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:373
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:499
@@ -308,61 +381,115 @@ msgstr ""
 msgid "Border Radius"
 msgstr ""
 
-#: admin/customizer/customizer.php:323 admin/customizer/customizer.php:631
-#: admin/customizer/customizer.php:734 admin/customizer/customizer.php:1058
-#: admin/customizer/customizer.php:1636 admin/customizer/customizer.php:1904
-#: admin/customizer/customizer.php:2334 admin/customizer/customizer.php:2436
-#: admin/customizer/customizer.php:2748 admin/customizer/customizer.php:2849
-#: admin/customizer/customizer.php:2950 admin/customizer/customizer.php:3051
+#: admin/customizer/customizer.php:327 admin/customizer/customizer.php:635
+#: admin/customizer/customizer.php:738 admin/customizer/customizer.php:1062
+#: admin/customizer/customizer.php:1640 admin/customizer/customizer.php:1908
+#: admin/customizer/customizer.php:2338 admin/customizer/customizer.php:2440
+#: admin/customizer/customizer.php:2744 admin/customizer/customizer.php:2985
+#: admin/customizer/customizer.php:3103 admin/customizer/customizer.php:3488
+#: admin/customizer/customizer.php:3683 admin/customizer/customizer.php:3800
+#: admin/customizer/customizer.php:3950 admin/customizer/customizer.php:4505
+#: admin/customizer/customizer.php:4623 admin/customizer/customizer.php:4900
+#: admin/customizer/customizer.php:5003 admin/customizer/customizer.php:5397
+#: admin/customizer/customizer.php:5499 admin/customizer/customizer.php:5634
+#: admin/customizer/customizer.php:5868 admin/customizer/customizer.php:6289
+#: admin/customizer/customizer.php:6391 admin/customizer/customizer.php:6567
+#: admin/customizer/customizer.php:6670 admin/customizer/customizer.php:6818
+#: admin/customizer/customizer.php:6966 admin/customizer/customizer.php:7147
+#: admin/customizer/customizer.php:7291 admin/customizer/customizer.php:7518
+#: admin/customizer/customizer.php:7752 admin/customizer/customizer.php:7960
+#: admin/customizer/customizer.php:8063 admin/customizer/customizer.php:8389
+#: admin/customizer/customizer.php:8498 admin/customizer/customizer.php:8847
+#: admin/customizer/customizer.php:8950 admin/customizer/customizer.php:9300
+#: admin/customizer/customizer.php:9401 admin/customizer/customizer.php:9969
+#: admin/customizer/customizer.php:10283 admin/customizer/customizer.php:10384
+#: admin/customizer/customizer.php:10485 admin/customizer/customizer.php:10586
+#: admin/customizer/customizer.php:11374 admin/customizer/customizer.php:11492
+#: admin/customizer/customizer.php:11736 admin/customizer/customizer.php:11978
+#: admin/customizer/customizer.php:12082
 msgid "Bottom"
 msgstr ""
 
-#: admin/customizer/customizer.php:861 admin/customizer/customizer.php:1205
-#: admin/customizer/customizer.php:2026
+#: admin/customizer/customizer.php:865 admin/customizer/customizer.php:1209
+#: admin/customizer/customizer.php:2030 admin/customizer/customizer.php:2888
+#: admin/customizer/customizer.php:5125 admin/customizer/customizer.php:8305
+#: admin/customizer/customizer.php:9886
 msgid "Bottom Left"
 msgstr ""
 
-#: admin/customizer/customizer.php:841 admin/customizer/customizer.php:1185
-#: admin/customizer/customizer.php:2006
+#: admin/customizer/customizer.php:845 admin/customizer/customizer.php:1189
+#: admin/customizer/customizer.php:2010 admin/customizer/customizer.php:2863
+#: admin/customizer/customizer.php:5105 admin/customizer/customizer.php:6181
+#: admin/customizer/customizer.php:6205 admin/customizer/customizer.php:8284
+#: admin/customizer/customizer.php:9199 admin/customizer/customizer.php:9219
+#: admin/customizer/customizer.php:9866
 msgid "Bottom Right"
 msgstr ""
 
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:241
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1159
 msgid "Box"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:764
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:926
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:773
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:935
 msgid "Box Background Color"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:782
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:792
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:945
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:955
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1159
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1252
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:791
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:801
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:954
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:964
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1168
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1261
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1223
 msgid "Box Border"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1366
+msgid "Box Border Hover"
 msgstr ""
 
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:93
 msgid "Box Column"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1275
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1284
 msgid "Box Icon"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:740
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:902
+#: admin/customizer/customizer.php:61
+msgid "Box Layout"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:749
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:911
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1181
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1260
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1324
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1401
 msgid "Box Margin"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:752
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:914
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:761
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:923
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:267
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1193
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1272
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1336
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1413
 #: includes/elementor/widgets/betterdocs-elementor-reactions.php:137
 msgid "Box Padding"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1242
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1305
+msgid "Box Shadow"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1385
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1445
+msgid "Box Shadow Hover"
 msgstr ""
 
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:255
@@ -374,201 +501,257 @@ msgstr ""
 msgid "Box Style"
 msgstr ""
 
-#: admin/customizer/customizer.php:1694
+#: admin/customizer/customizer.php:1698 admin/customizer/customizer.php:9671
 msgid "Button Background Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:1756
+#: admin/customizer/customizer.php:1760 admin/customizer/customizer.php:9690
 msgid "Button Background Hover Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:1736
+#: admin/customizer/customizer.php:1740
 msgid "Button Border Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:1796
+#: admin/customizer/customizer.php:1800
 msgid "Button Border Hover Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:1946
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1122
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1213
+#: admin/customizer/customizer.php:1950 admin/customizer/customizer.php:9804
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1131
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1222
 msgid "Button Border Radius"
 msgstr ""
 
-#: admin/customizer/customizer.php:1818
+#: admin/customizer/customizer.php:9651
+msgid "Button Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:1822 admin/customizer/customizer.php:9747
 msgid "Button Font Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:1844
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1134
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1225
+#: admin/customizer/customizer.php:9713
+msgid "Button Font Weight"
+msgstr ""
+
+#: admin/customizer/customizer.php:1848 admin/customizer/customizer.php:9908
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1143
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1234
 msgid "Button Padding"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1146
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1237
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1155
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1246
 msgid "Button Positioning"
 msgstr ""
 
-#: admin/customizer/customizer.php:1715
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1103
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1194
+#: admin/customizer/customizer.php:1719
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1112
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1203
 msgid "Button Text Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:1776
+#: admin/customizer/customizer.php:1780
 msgid "Button Text Hover Color"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:724
+#: admin/customizer/customizer.php:65
+msgid "Card Layout"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:733
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1251
 msgid "Category Box"
 msgstr ""
 
-#: includes/class-multiple-kb.php:116
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1392
+msgid "Category Box Hover"
+msgstr ""
+
+#: includes/class-multiple-kb.php:131
 msgid "Category Box- Layout 3"
 msgstr ""
 
-#: admin/customizer/customizer.php:1488
+#: admin/customizer/customizer.php:1492
 msgid "Category Column List"
 msgstr ""
 
-#: admin/customizer/customizer.php:881
+#: admin/customizer/customizer.php:885
 msgid "Category Column Settings"
 msgstr ""
 
-#: includes/class-multiple-kb.php:125
+#: admin/class-betterdocs-pro-admin.php:311
+#: admin/class-betterdocs-pro-admin.php:333
+msgid "Category Cover Image for Handbook Layout"
+msgstr ""
+
+#: admin/customizer/customizer.php:3273
+msgid "Category Description"
+msgstr ""
+
+#: includes/class-multiple-kb.php:140
 msgid "Category Grid- Layout 4"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1374
+#: admin/customizer/customizer.php:2481
+msgid "Category Image"
+msgstr ""
+
+#: admin/customizer/customizer.php:8098
+msgid "Category Item Count"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1383
 msgid "Category List"
 msgstr ""
 
-#: includes/elementor/class-betterdocs-pro-elementor.php:125
+#: includes/elementor/class-betterdocs-pro-elementor.php:126
 msgid "Category Search"
 msgstr ""
 
-#: admin/customizer/customizer.php:900
+#: admin/customizer/customizer.php:10900
+msgid "Category Select Settings"
+msgstr ""
+
+#: admin/customizer/customizer.php:2529
+msgid "Category Title Font Size"
+msgstr ""
+
+#: admin/customizer/customizer.php:2504
+msgid "Category Title Padding Bottom"
+msgstr ""
+
+#: admin/customizer/customizer.php:904 admin/customizer/customizer.php:5144
+#: admin/customizer/customizer.php:6432
 msgid "Category Title Tag"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1312
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1350
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1321
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1359
 msgid "Category Title Typography"
 msgstr ""
 
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:689
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:209
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:210
 msgid "Center"
 msgstr ""
 
-#: admin/customizer/customizer.php:244
+#: admin/customizer/customizer.php:248
 msgid "center bottom"
 msgstr ""
 
-#: admin/customizer/customizer.php:243
+#: admin/customizer/customizer.php:247
 msgid "center center"
 msgstr ""
 
-#: admin/customizer/customizer.php:242
+#: admin/customizer/customizer.php:246
 msgid "center top"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:646
-#: admin/includes/class-betterdocs-pro-instant-answer.php:651
+#: admin/includes/class-betterdocs-pro-instant-answer.php:669
+#: admin/includes/class-betterdocs-pro-instant-answer.php:674
 msgid "Chat Settings"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:803
+#: admin/includes/class-betterdocs-pro-instant-answer.php:826
 msgid "Chat Tab Subtitle One"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:809
+#: admin/includes/class-betterdocs-pro-instant-answer.php:832
 msgid "Chat Tab Subtitle Two"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:494
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:700
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1391
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:503
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:709
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1400
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:718
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:751
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:859
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:952
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1293
 #: includes/elementor/widgets/betterdocs-elementor-reactions.php:197
 #: includes/elementor/widgets/betterdocs-elementor-reactions.php:284
 msgid "Color"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:943
+#: admin/includes/class-betterdocs-pro-instant-answer.php:966
 msgid "Color Settings"
 msgstr ""
 
-#: admin/customizer/customizer.php:956
+#: admin/customizer/customizer.php:960
 msgid "Column Background Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:976
+#: admin/customizer/customizer.php:980
 msgid "Column Background Hover Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:1125
+#: admin/customizer/customizer.php:1129
 msgid "Column Border Radius"
 msgstr ""
 
-#: admin/customizer/customizer.php:998
+#: admin/customizer/customizer.php:1002
 msgid "Column Padding"
 msgstr ""
 
-#: admin/partials/betterdocs-pro-admin-analytics-display.php:222
-msgid "Comparison Factor"
-msgstr ""
-
-#: admin/customizer/customizer.php:156
+#: admin/customizer/customizer.php:160
 msgid "contain"
 msgstr ""
 
-#: admin/customizer/customizer.php:87
+#: admin/customizer/customizer.php:91
 msgid "Content Area Background Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:390
+#: admin/customizer/customizer.php:394
 msgid "Content Area Maximum Width"
 msgstr ""
 
-#: admin/customizer/customizer.php:262
+#: admin/customizer/customizer.php:266
 msgid "Content Area Padding"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1088
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1111
 msgid "Content Area Settings"
 msgstr ""
 
-#: admin/customizer/customizer.php:366
+#: admin/customizer/customizer.php:370
 msgid "Content Area Width"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1135
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1158
 msgid "Content Font Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:3093
+#: admin/customizer/customizer.php:6608
+msgid "Content Image Margin"
+msgstr ""
+
+#: admin/customizer/customizer.php:6506
+msgid "Content Image Padding"
+msgstr ""
+
+#: admin/customizer/customizer.php:6482
+msgid "Content Image Size"
+msgstr ""
+
+#: admin/customizer/customizer.php:10628
 msgid "Content Overlap"
 msgstr ""
 
-#: admin/customizer/customizer.php:1392
+#: admin/customizer/customizer.php:1396
 msgid "Content Space Between"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:568
+#: admin/includes/class-betterdocs-pro-instant-answer.php:591
 msgid "Content Type"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1561
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1608
 msgid "Copy Snippet"
 msgstr ""
 
-#: betterdocs-pro.php:108
+#: betterdocs-pro.php:151
 msgid "core plugin to be installed. Please get the plugin now!"
 msgstr ""
 
@@ -576,64 +759,157 @@ msgstr ""
 msgid "Count"
 msgstr ""
 
-#: admin/customizer/customizer.php:1472
+#: admin/customizer/customizer.php:6089 admin/customizer/customizer.php:8560
+#: admin/customizer/customizer.php:9010
+msgid "Count Background Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:9029
+msgid "Count Background Hover Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:8540
+msgid "Count Border Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:6110 admin/customizer/customizer.php:8221
+#: admin/customizer/customizer.php:9138
+msgid "Count Border Radius"
+msgstr ""
+
+#: admin/customizer/customizer.php:5928
+msgid "Count Border Style"
+msgstr ""
+
+#: admin/customizer/customizer.php:5961
+msgid "Count Border Width"
+msgstr ""
+
+#: admin/customizer/customizer.php:8990
+msgid "Count Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:6069 admin/customizer/customizer.php:8200
+msgid "Count Font Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:6045 admin/customizer/customizer.php:8176
+msgid "Count Font Line Height"
+msgstr ""
+
+#: admin/customizer/customizer.php:5986 admin/customizer/customizer.php:8151
+#: admin/customizer/customizer.php:9114
+msgid "Count Font Size"
+msgstr ""
+
+#: admin/customizer/customizer.php:6011 admin/customizer/customizer.php:8117
+msgid "Count Font Weight"
+msgstr ""
+
+#: admin/customizer/customizer.php:9055
+msgid "Count Line Height"
+msgstr ""
+
+#: admin/customizer/customizer.php:6330 admin/customizer/customizer.php:8326
+#: admin/customizer/customizer.php:9340
+msgid "Count Margin"
+msgstr ""
+
+#: admin/customizer/customizer.php:6228 admin/customizer/customizer.php:8431
+#: admin/customizer/customizer.php:9239
+msgid "Count Padding"
+msgstr ""
+
+#: admin/customizer/customizer.php:1476
 msgid "Counter"
 msgstr ""
 
-#: admin/customizer/customizer.php:155
+#: admin/customizer/customizer.php:159
 msgid "cover"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1152
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1175
 msgid "Cross Domain Integration Snippet"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1142
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1147
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1165
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1170
 msgid "Cross Domain Settings"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:656
+#: admin/includes/class-betterdocs-pro-instant-answer.php:679
 msgid "Custom Subject"
 msgstr ""
 
-#: admin/customizer/customizer.php:1452
+#: admin/includes/licensing/class-betterdocs-licensing.php:210
+msgid "Deactivate License"
+msgstr ""
+
+#: admin/customizer/customizer.php:1456
 msgid "Description"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:727
+#: admin/customizer/customizer.php:3295 admin/customizer/customizer.php:6858
+#: admin/customizer/customizer.php:9441
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1776
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1826
+msgid "Description Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:3390 admin/customizer/customizer.php:9524
+msgid "Description Font Line Height"
+msgstr ""
+
+#: admin/customizer/customizer.php:3321 admin/customizer/customizer.php:6879
+#: admin/customizer/customizer.php:9494
+msgid "Description Font Size"
+msgstr ""
+
+#: admin/customizer/customizer.php:3350 admin/customizer/customizer.php:9461
+msgid "Description Font Weight"
+msgstr ""
+
+#: admin/customizer/customizer.php:3417
+msgid "Description Margin"
+msgstr ""
+
+#: admin/customizer/customizer.php:9550
+msgid "Description Padding"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:750
 msgid "Disable Answer Tab"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:894
+#: admin/includes/class-betterdocs-pro-instant-answer.php:917
 msgid "Disable Branding"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:767
+#: admin/includes/class-betterdocs-pro-instant-answer.php:790
 msgid "Disable Chat Tab"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:815
+#: admin/includes/class-betterdocs-pro-instant-answer.php:838
 msgid "Disable Reaction"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:854
+#: admin/includes/class-betterdocs-pro-instant-answer.php:877
 msgid "Disable Response"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:889
+#: admin/includes/class-betterdocs-pro-instant-answer.php:912
 msgid "Disable Response Icon"
 msgstr ""
 
-#: includes/class-multiple-kb.php:80
+#: includes/class-multiple-kb.php:81
 msgid "Disable Root slug for KB Archives"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:702
+#: admin/includes/class-betterdocs-pro-instant-answer.php:725
 msgid "Disable Search"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:533
+#: admin/includes/class-betterdocs-pro-instant-answer.php:556
 msgid ""
 "Display a list of articles or categories in a chat-like widget to give your "
 "visitors a chance of self-learning about your website."
@@ -643,163 +919,185 @@ msgstr ""
 msgid "Div"
 msgstr ""
 
+#: admin/customizer/customizer.php:3150
+msgid "Doc List"
+msgstr ""
+
 #: includes/elementor/widgets/betterdocs-elementor-reactions.php:23
 msgid "Doc Reactions"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:573
+#: admin/includes/class-betterdocs-pro-instant-answer.php:596
 msgid "Docs"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:993
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1016
 msgid "Docs Card Background"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:574
+#: admin/includes/class-betterdocs-pro-instant-answer.php:597
 msgid "Docs Categories"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1013
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1036
 msgid "Docs Content Color"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1008
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1031
 msgid "Docs Content Font Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:1508
+#: admin/customizer/customizer.php:7689
+msgid "Docs List Arrow Margin"
+msgstr ""
+
+#: admin/customizer/customizer.php:1512
 msgid "Docs List Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:1550
+#: admin/customizer/customizer.php:1554
 msgid "Docs List Font Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:1528
+#: admin/customizer/customizer.php:1532
 msgid "Docs List Hover Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:1576
+#: admin/customizer/customizer.php:1580 admin/customizer/customizer.php:7455
 msgid "Docs List Margin"
 msgstr ""
 
-#: admin/customizer/customizer.php:3142
+#: admin/customizer/customizer.php:10677
 msgid "Docs List Title Font Size"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:915
-#: admin/includes/class-betterdocs-pro-instant-answer.php:921
+#: admin/includes/class-betterdocs-pro-instant-answer.php:938
+#: admin/includes/class-betterdocs-pro-instant-answer.php:944
 msgid "Docs not Found"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1003
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1026
 msgid "Docs Title Color"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:998
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1093
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1021
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1116
 msgid "Docs Title Font Size"
 msgstr ""
 
-#: admin/class-betterdocs-pro-admin-screen.php:187
-#: admin/class-betterdocs-pro-admin-screen.php:242
-#: admin/partials/betterdocs-pro-admin-sorting-display.php:83
-#: admin/partials/betterdocs-pro-admin-sorting-display.php:138
-msgid "Draft"
-msgstr ""
-
-#: includes/class-multiple-kb.php:339
+#: includes/class-multiple-kb.php:346
 msgid "Edit Knowledge Base"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:400
-#: admin/includes/class-betterdocs-pro-instant-answer.php:663
+#: admin/includes/class-betterdocs-pro-instant-answer.php:402
+#: admin/includes/class-betterdocs-pro-instant-answer.php:686
 msgid "Email Address"
 msgstr ""
 
-#: public/class-betterdocs-pro-public.php:421
+#: public/class-betterdocs-pro-public.php:408
 msgid "Enable Advanced Search"
 msgstr ""
 
-#: includes/elementor/class-betterdocs-pro-elementor.php:77
-#: admin/customizer/customizer.php:3318
+#: includes/elementor/class-betterdocs-pro-elementor.php:78
+#: admin/customizer/customizer.php:10853
 msgid "Enable Category Search"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:549
+#: admin/includes/class-betterdocs-pro-instant-answer.php:572
 msgid "Enable IA Live Preview"
 msgstr ""
 
-#: includes/class-multiple-kb.php:69
+#: includes/class-multiple-kb.php:70
 msgid "Enable Multiple Knowledge Base"
 msgstr ""
 
-#: includes/elementor/class-betterdocs-pro-elementor.php:101
+#: includes/elementor/class-betterdocs-pro-elementor.php:102
+#: admin/customizer/customizer.php:10885
 msgid "Enable Popular Search"
 msgstr ""
 
-#: admin/customizer/customizer.php:3177
+#: admin/customizer/customizer.php:10712
 msgid "Enable Reactions?"
 msgstr ""
 
-#: includes/elementor/class-betterdocs-pro-elementor.php:89
+#: includes/elementor/class-betterdocs-pro-elementor.php:90
+#: admin/customizer/customizer.php:10869
 msgid "Enable Search Button"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:538
-#: admin/includes/class-betterdocs-role-management.php:83
+#: admin/includes/class-betterdocs-pro-instant-answer.php:561
 msgid "Enable/Disable"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:522
-#: admin/includes/class-betterdocs-pro-instant-answer.php:527
+#: admin/includes/class-betterdocs-pro-instant-answer.php:545
+#: admin/includes/class-betterdocs-pro-instant-answer.php:550
 msgid "Enable/Disable Instant Answer"
 msgstr ""
 
-#: admin/partials/betterdocs-pro-admin-analytics-display.php:218
-#: admin/partials/betterdocs-pro-admin-analytics-display.php:219
-msgid "End Date"
-msgstr ""
-
-#: admin/includes/class-betterdocs-analytics.php:542
+#: admin/includes/class-betterdocs-analytics.php:488
 msgid "Everyone"
 msgstr ""
 
-#: admin/includes/class-betterdocs-analytics.php:551
+#: admin/customizer/customizer.php:7876
+msgid "Excerpt Font Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:7827
+msgid "Excerpt Font Size"
+msgstr ""
+
+#: admin/customizer/customizer.php:7793
+msgid "Excerpt Font Weight"
+msgstr ""
+
+#: admin/customizer/customizer.php:7852
+msgid "Excerpt Line Height"
+msgstr ""
+
+#: admin/customizer/customizer.php:7897
+msgid "Excerpt Margin"
+msgstr ""
+
+#: admin/customizer/customizer.php:8002
+msgid "Excerpt Padding"
+msgstr ""
+
+#: admin/includes/class-betterdocs-analytics.php:497
 msgid "Exclude Bot Analytics"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:238
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1069
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:247
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1078
 msgid "Explore Button"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:274
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:283
 msgid "Explore Button Text"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1085
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1176
+#: public/betterdocs-shortcodes.php:964 admin/customizer/customizer.php:4291
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1094
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1185
 msgid "Explore More"
 msgstr ""
 
-#: admin/customizer/customizer.php:1674
+#: admin/customizer/customizer.php:1678
 msgid "Explore More Button"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1033
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1056
 msgid "Feedback Icon Color"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1028
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1051
 msgid "Feedback Icon Size"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1023
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1046
 msgid "Feedback Title Color"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1018
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1041
 msgid "Feedback Title Size"
 msgstr ""
 
@@ -807,101 +1105,125 @@ msgstr ""
 msgid "File Not Found"
 msgstr ""
 
-#: admin/customizer/customizer.php:212
+#: admin/customizer/customizer.php:216
 msgid "fixed"
 msgstr ""
 
-#: includes/elementor/class-betterdocs-pro-elementor.php:141
-#: includes/elementor/class-betterdocs-pro-elementor.php:168
+#: includes/elementor/class-betterdocs-pro-elementor.php:142
+#: includes/elementor/class-betterdocs-pro-elementor.php:169
+#: admin/customizer/customizer.php:4379 admin/customizer/customizer.php:11006
 msgid "Font Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:1328
+#: admin/customizer/customizer.php:11066
+msgid "Font Letter Spacing"
+msgstr ""
+
+#: admin/customizer/customizer.php:1332 admin/customizer/customizer.php:4318
+#: admin/customizer/customizer.php:10920 admin/customizer/customizer.php:11041
 msgid "Font Size"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:285
-#: admin/includes/class-betterdocs-pro-instant-answer.php:811
+#: admin/customizer/customizer.php:10977 admin/customizer/customizer.php:11122
+msgid "Font Text Transform"
+msgstr ""
+
+#: admin/customizer/customizer.php:4399 admin/customizer/customizer.php:9081
+#: admin/customizer/customizer.php:10944 admin/customizer/customizer.php:11090
+msgid "Font Weight"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:287
+#: admin/includes/class-betterdocs-pro-instant-answer.php:834
 msgid "Generally, we reply within 24-48 hours."
 msgstr ""
 
-#: admin/includes/class-betterdocs-analytics.php:543
+#: admin/customizer/customizer.php:57
+msgid "Grid Layout"
+msgstr ""
+
+#: admin/includes/class-betterdocs-analytics.php:489
 msgid "Guests Only"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:225
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:234
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:147
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:160
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:161
 msgid "H1"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1099
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1122
 msgid "H1 Font Size"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:226
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:235
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:148
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:161
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:162
 msgid "H2"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1105
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1128
 msgid "H2 Font Size"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:227
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:236
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:149
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:162
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:163
 msgid "H3"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1111
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1134
 msgid "H3 Font Size"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:228
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:237
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:150
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:163
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:164
 msgid "H4"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1117
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1140
 msgid "H4 Font Size"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:229
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:238
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:151
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:164
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:165
 msgid "H5"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1123
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1146
 msgid "H5 Font Size"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:230
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:239
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:152
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:165
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:166
 msgid "H6"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1129
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1152
 msgid "H6 Font Size"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:963
+#: admin/includes/class-betterdocs-pro-instant-answer.php:986
 msgid "Heading Color"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:958
+#: admin/includes/class-betterdocs-pro-instant-answer.php:981
 msgid "Heading Font Size"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:810
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:973
+#: admin/customizer/customizer.php:8593
+msgid "Heading Text"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:819
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:982
 msgid "Heading Text Color"
 msgstr ""
 
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1477
 #: includes/elementor/widgets/betterdocs-elementor-reactions.php:98
 msgid "Height"
 msgstr ""
@@ -913,23 +1235,28 @@ msgid ""
 "& many more!"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:241
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:253
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:265
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:250
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:262
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:274
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:122
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:134
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:169
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:181
 msgid "Hide"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:508
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:896
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1170
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1324
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:517
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:905
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1179
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1333
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:327
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:550
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:745
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:946
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1317
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1557
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1684
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1799
 msgid "Hover"
 msgstr ""
 
@@ -937,18 +1264,18 @@ msgstr ""
 msgid "Hover Background Color"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1402
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1411
 #: includes/elementor/widgets/betterdocs-elementor-reactions.php:295
 msgid "Hover Color"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:402
+#: admin/includes/class-betterdocs-pro-instant-answer.php:404
 msgid "How can we help?"
 msgstr ""
 
-#: public/class-betterdocs-pro-public.php:129
-#: admin/includes/class-betterdocs-pro-instant-answer.php:367
-#: admin/includes/class-betterdocs-pro-instant-answer.php:850
+#: public/class-betterdocs-pro-public.php:151
+#: admin/includes/class-betterdocs-pro-instant-answer.php:369
+#: admin/includes/class-betterdocs-pro-instant-answer.php:873
 msgid "How did you feel?"
 msgstr ""
 
@@ -960,214 +1287,322 @@ msgstr ""
 msgid "https:/betterdocs.co"
 msgstr ""
 
-#: admin/customizer/customizer.php:1412
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1440
+#: admin/customizer/customizer.php:1416
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1449
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:403
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:443
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1466
 #: includes/elementor/widgets/betterdocs-elementor-reactions.php:218
 msgid "Icon"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1293
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1331
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1502
+msgid "Icon Background Color"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1564
+msgid "Icon Background Hover Color"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1302
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1340
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1523
 msgid "Icon Border"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1301
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1339
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1450
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:397
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1585
+msgid "Icon Border Hover"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1541
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1604
+msgid "Icon Border Radius"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1310
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1348
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1459
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:398
 msgid "Icon Color"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1461
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1470
 msgid "Icon Hover Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:1099
+#: admin/customizer/customizer.php:1103
 #: includes/elementor/widgets/betterdocs-elementor-reactions.php:244
 msgid "Icon Size"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:431
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:432
 msgid "Icon Spacing"
 msgstr ""
 
-#: admin/customizer/customizer.php:158 admin/customizer/customizer.php:183
-#: admin/customizer/customizer.php:210
+#: admin/customizer/customizer.php:8760
+msgid "Image Size"
+msgstr ""
+
+#: admin/customizer/customizer.php:162 admin/customizer/customizer.php:187
+#: admin/customizer/customizer.php:214
 msgid "inherit"
 msgstr ""
 
-#: admin/customizer/customizer.php:157 admin/customizer/customizer.php:182
-#: admin/customizer/customizer.php:209
+#: admin/customizer/customizer.php:161 admin/customizer/customizer.php:186
+#: admin/customizer/customizer.php:213
 msgid "initial"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:559
-#: admin/includes/class-betterdocs-pro-instant-answer.php:564
+#: admin/includes/class-betterdocs-pro-instant-answer.php:582
+#: admin/includes/class-betterdocs-pro-instant-answer.php:587
 msgid "Initial Content Settings"
 msgstr ""
 
-#: betterdocs-pro.php:103
+#: admin/customizer/customizer.php:6461
+msgid "Inner Content Background Color"
+msgstr ""
+
+#: betterdocs-pro.php:146
 msgid "Install Now!"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:282
-#: admin/includes/class-betterdocs-pro-instant-answer.php:517
-#: admin/includes/class-betterdocs-pro-instant-answer.php:763
+#: admin/includes/class-betterdocs-pro-instant-answer.php:284
+#: admin/includes/class-betterdocs-pro-instant-answer.php:540
+#: admin/includes/class-betterdocs-pro-instant-answer.php:786
 msgid "Instant Answer"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:697
+#: admin/includes/class-betterdocs-pro-instant-answer.php:720
 msgid "Instant Answer Close Icon"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:692
+#: admin/includes/class-betterdocs-pro-instant-answer.php:715
 msgid "Instant Answer Open Icon"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:555
+#: admin/includes/class-betterdocs-pro-instant-answer.php:578
 msgid "Instant Answer Settings"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:750
+#: admin/includes/class-betterdocs-pro-instant-answer.php:773
 msgid "Instant Answer Tab Icon"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:761
+#: admin/includes/class-betterdocs-pro-instant-answer.php:784
 msgid "Instant Answer Tab Subtitle"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:755
+#: admin/includes/class-betterdocs-pro-instant-answer.php:778
 msgid "Instant Answer Tab Title"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:792
+#: admin/includes/class-betterdocs-pro-instant-answer.php:815
 msgid "Instant Chat Tab Icon"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:797
+#: admin/includes/class-betterdocs-pro-instant-answer.php:820
 msgid "Instant Chat Tab Title"
 msgstr ""
 
-#: admin/includes/class-betterdocs-role-management.php:72
-#: admin/includes/class-betterdocs-role-management.php:77
-msgid "Internal Knowledge Base"
+#: admin/customizer/customizer.php:2600
+msgid "Item Count Background Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:1287
+#: admin/customizer/customizer.php:2652
+msgid "Item Count Border Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:2791
+msgid "Item Count Border Radius"
+msgstr ""
+
+#: admin/customizer/customizer.php:2620
+msgid "Item Count Border Style"
+msgstr ""
+
+#: admin/customizer/customizer.php:2673
+msgid "Item Count Border Width"
+msgstr ""
+
+#: admin/customizer/customizer.php:1291 admin/customizer/customizer.php:2579
 msgid "Item Count Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:1305
+#: admin/customizer/customizer.php:2554
+msgid "Item Count Font Size"
+msgstr ""
+
+#: admin/customizer/customizer.php:1309
 msgid "Item Count Hover Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:2911
+msgid "Item Count Margin"
+msgstr ""
+
+#: admin/customizer/customizer.php:3032
+msgid "Item Count Padding"
 msgstr ""
 
 #: admin/includes/licensing/class-betterdocs-licensing.php:147
 msgid "Just one more step to go!"
 msgstr ""
 
-#: admin/customizer/customizer.php:1349
+#: admin/customizer/customizer.php:1353
 msgid "KB Description"
 msgstr ""
 
-#: admin/customizer/customizer.php:1370
+#: admin/customizer/customizer.php:1374
 msgid "KB Description Color"
 msgstr ""
 
-#: includes/class-multiple-kb.php:760 includes/class-multiple-kb.php:804
+#: includes/class-multiple-kb.php:766 includes/class-multiple-kb.php:812
 msgid "KB Icon"
 msgstr ""
 
-#: includes/elementor/class-betterdocs-pro-elementor.php:271
+#: includes/elementor/class-betterdocs-pro-elementor.php:272
+#: admin/customizer/customizer.php:11775
 msgid "Keyword Background Color"
 msgstr ""
 
-#: includes/elementor/class-betterdocs-pro-elementor.php:282
+#: includes/elementor/class-betterdocs-pro-elementor.php:283
 msgid "Keyword Background Hover Color"
 msgstr ""
 
-#: includes/elementor/class-betterdocs-pro-elementor.php:328
+#: admin/customizer/customizer.php:11651
+msgid "Keyword Border Color"
+msgstr ""
+
+#: includes/elementor/class-betterdocs-pro-elementor.php:343
+#: admin/customizer/customizer.php:11816
+msgid "Keyword Border Radius"
+msgstr ""
+
+#: admin/customizer/customizer.php:11622
+msgid "Keyword Border Type"
+msgstr ""
+
+#: admin/customizer/customizer.php:11672
+msgid "Keyword Border Width"
+msgstr ""
+
+#: admin/customizer/customizer.php:11598
+msgid "Keyword Font Size"
+msgstr ""
+
+#: includes/elementor/class-betterdocs-pro-elementor.php:367
+#: admin/customizer/customizer.php:12018
 msgid "Keyword Margin"
 msgstr ""
 
-#: includes/elementor/class-betterdocs-pro-elementor.php:316
+#: includes/elementor/class-betterdocs-pro-elementor.php:355
+#: admin/customizer/customizer.php:11914
 msgid "Keyword Padding"
 msgstr ""
 
-#: includes/elementor/class-betterdocs-pro-elementor.php:293
+#: includes/elementor/class-betterdocs-pro-elementor.php:294
+#: admin/customizer/customizer.php:11795
 msgid "Keyword Text Color"
 msgstr ""
 
-#: includes/elementor/class-betterdocs-pro-elementor.php:262
+#: includes/elementor/class-betterdocs-pro-elementor.php:263
 msgid "Keyword Typography"
 msgstr ""
 
-#: includes/class-multiple-kb.php:1019
+#: includes/class-multiple-kb.php:1027
 msgid "Knowledge Bas"
 msgstr ""
 
-#: includes/class-multiple-kb.php:333 includes/class-multiple-kb.php:334
-#: includes/class-multiple-kb.php:345 includes/class-multiple-kb.php:714
-#: includes/class-multiple-kb.php:735
+#: includes/class-multiple-kb.php:340 includes/class-multiple-kb.php:341
+#: includes/class-multiple-kb.php:352 includes/class-multiple-kb.php:720
+#: includes/class-multiple-kb.php:741
 msgid "Knowledge Base"
 msgstr ""
 
-#: admin/customizer/customizer.php:410
+#: admin/customizer/customizer.php:414
 msgid "Knowledge Base Tab List"
 msgstr ""
 
-#: includes/class-multiple-kb.php:1021
+#: includes/class-multiple-kb.php:1029
 msgid "knowledge_base (already used in permalink structure)"
 msgstr ""
 
-#: includes/class-multiple-kb.php:1020
+#: includes/class-multiple-kb.php:1028
 msgid "knowledge_base added to permalink structure"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:933
+#: admin/includes/class-betterdocs-pro-instant-answer.php:956
 msgid "Launcher Background Color"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:938
+#: admin/includes/class-betterdocs-pro-instant-answer.php:961
 msgid "Launcher Hover Background Color"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:214
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:223
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:75
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:149
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:150
 msgid "Layout Options"
 msgstr ""
 
-#: admin/class-betterdocs-pro-admin-screen.php:101
+#: admin/class-betterdocs-pro-admin-screen.php:51
 msgid "Least Viewed"
 msgstr ""
 
-#: admin/customizer/customizer.php:343 admin/customizer/customizer.php:650
-#: admin/customizer/customizer.php:754 admin/customizer/customizer.php:1078
-#: admin/customizer/customizer.php:1656 admin/customizer/customizer.php:1924
-#: admin/customizer/customizer.php:2354 admin/customizer/customizer.php:2456
-#: admin/customizer/customizer.php:2768 admin/customizer/customizer.php:2869
-#: admin/customizer/customizer.php:2970 admin/customizer/customizer.php:3071
-#: admin/includes/class-betterdocs-pro-instant-answer.php:903
+#: admin/customizer/customizer.php:347 admin/customizer/customizer.php:654
+#: admin/customizer/customizer.php:758 admin/customizer/customizer.php:1082
+#: admin/customizer/customizer.php:1660 admin/customizer/customizer.php:1928
+#: admin/customizer/customizer.php:2358 admin/customizer/customizer.php:2460
+#: admin/customizer/customizer.php:2768 admin/customizer/customizer.php:3009
+#: admin/customizer/customizer.php:3127 admin/customizer/customizer.php:3512
+#: admin/customizer/customizer.php:3707 admin/customizer/customizer.php:3824
+#: admin/customizer/customizer.php:3974 admin/customizer/customizer.php:4088
+#: admin/customizer/customizer.php:4529 admin/customizer/customizer.php:4647
+#: admin/customizer/customizer.php:4921 admin/customizer/customizer.php:5023
+#: admin/customizer/customizer.php:5417 admin/customizer/customizer.php:5520
+#: admin/customizer/customizer.php:5654 admin/customizer/customizer.php:5888
+#: admin/customizer/customizer.php:6309 admin/customizer/customizer.php:6411
+#: admin/customizer/customizer.php:6587 admin/customizer/customizer.php:6690
+#: admin/customizer/customizer.php:6838 admin/customizer/customizer.php:6987
+#: admin/customizer/customizer.php:7167 admin/customizer/customizer.php:7315
+#: admin/customizer/customizer.php:7539 admin/customizer/customizer.php:7773
+#: admin/customizer/customizer.php:7981 admin/customizer/customizer.php:8083
+#: admin/customizer/customizer.php:8410 admin/customizer/customizer.php:8520
+#: admin/customizer/customizer.php:8868 admin/customizer/customizer.php:8970
+#: admin/customizer/customizer.php:9320 admin/customizer/customizer.php:9421
+#: admin/customizer/customizer.php:9631 admin/customizer/customizer.php:9989
+#: admin/customizer/customizer.php:10303 admin/customizer/customizer.php:10404
+#: admin/customizer/customizer.php:10505 admin/customizer/customizer.php:10606
+#: admin/customizer/customizer.php:11393 admin/customizer/customizer.php:11511
+#: admin/customizer/customizer.php:11755 admin/customizer/customizer.php:11997
+#: admin/customizer/customizer.php:12101
+#: admin/includes/class-betterdocs-pro-instant-answer.php:926
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:685
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:208
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:209
 msgid "Left"
 msgstr ""
 
-#: admin/customizer/customizer.php:238
+#: admin/customizer/customizer.php:11269 admin/customizer/customizer.php:11874
+msgid "Left Bottom"
+msgstr ""
+
+#: admin/customizer/customizer.php:242
 msgid "left bottom"
 msgstr ""
 
-#: admin/customizer/customizer.php:237
+#: admin/customizer/customizer.php:241
 msgid "left center"
 msgstr ""
 
-#: admin/customizer/customizer.php:236
+#: admin/customizer/customizer.php:11231 admin/customizer/customizer.php:11836
+msgid "Left Top"
+msgstr ""
+
+#: admin/customizer/customizer.php:240
 msgid "left top"
 msgstr ""
 
-#: admin/customizer/customizer.php:154
+#: admin/customizer/customizer.php:158
 msgid "length"
 msgstr ""
 
@@ -1175,105 +1610,266 @@ msgstr ""
 msgid "License"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1426
+#: admin/customizer/customizer.php:4350
+msgid "Line Height"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1435
 msgid "List Area Padding"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:329
+#: admin/customizer/customizer.php:4270
+msgid "List Arrow Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:4209
+msgid "List Arrow Height"
+msgstr ""
+
+#: admin/customizer/customizer.php:4241
+msgid "List Arrow Width"
+msgstr ""
+
+#: admin/customizer/customizer.php:3591 admin/customizer/customizer.php:7065
+msgid "List Background Border Color Hover"
+msgstr ""
+
+#: admin/customizer/customizer.php:3572 admin/customizer/customizer.php:7046
+msgid "List Background Color Hover"
+msgstr ""
+
+#: admin/customizer/customizer.php:4160 admin/customizer/customizer.php:7386
+msgid "List Border Color Bottom"
+msgstr ""
+
+#: admin/customizer/customizer.php:4183 admin/customizer/customizer.php:7409
+msgid "List Border Color Left"
+msgstr ""
+
+#: admin/customizer/customizer.php:4137 admin/customizer/customizer.php:7363
+msgid "List Border Color Right"
+msgstr ""
+
+#: admin/customizer/customizer.php:4114 admin/customizer/customizer.php:7340
+msgid "List Border Color Top"
+msgstr ""
+
+#: admin/customizer/customizer.php:3846 admin/customizer/customizer.php:7187
+msgid "List Border Style"
+msgstr ""
+
+#: admin/customizer/customizer.php:3879 admin/customizer/customizer.php:7220
+msgid "List Border Width"
+msgstr ""
+
+#: admin/customizer/customizer.php:3997
+msgid "List Border Width Hover"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:330
 msgid "List Color"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:340
+#: admin/customizer/customizer.php:3534
+msgid "List Font Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:3553
+msgid "List Font Color Hover"
+msgstr ""
+
+#: admin/customizer/customizer.php:3209 admin/customizer/customizer.php:9777
+msgid "List Font Line Height"
+msgstr ""
+
+#: admin/customizer/customizer.php:3177
+msgid "List Font Size"
+msgstr ""
+
+#: admin/customizer/customizer.php:3238 admin/customizer/customizer.php:7559
+msgid "List Font Weight"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:341
 msgid "List Hover Color"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1413
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:351
+#: admin/customizer/customizer.php:5761
+msgid "List Icon Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:7668
+msgid "List Item Arrow Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:7618
+msgid "List Item Arrow Height"
+msgstr ""
+
+#: admin/customizer/customizer.php:7644
+msgid "List Item Arrow Width"
+msgstr ""
+
+#: admin/customizer/customizer.php:7086
+msgid "List Item Border Width Hover"
+msgstr ""
+
+#: admin/customizer/customizer.php:5695 admin/customizer/customizer.php:7008
+msgid "List Item Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:5715
+msgid "List Item Color Hover"
+msgstr ""
+
+#: admin/customizer/customizer.php:5736 admin/customizer/customizer.php:7430
+msgid "List Item Font Size"
+msgstr ""
+
+#: admin/customizer/customizer.php:7027
+msgid "List Item Hover Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:5782
+msgid "List Item Icon Size"
+msgstr ""
+
+#: admin/customizer/customizer.php:7593
+msgid "List Item Line Height"
+msgstr ""
+
+#: admin/customizer/customizer.php:5807
+msgid "List Item Padding"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1422
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:352
 msgid "List Item Spacing"
 msgstr ""
 
-#: admin/customizer/customizer.php:213
+#: admin/customizer/customizer.php:3612
+msgid "List Margin"
+msgstr ""
+
+#: admin/customizer/customizer.php:3729
+msgid "List Padding"
+msgstr ""
+
+#: public/betterdocs-shortcodes.php:1227
+msgid "Load More"
+msgstr ""
+
+#: admin/customizer/customizer.php:8614
+msgid "Load More Text"
+msgstr ""
+
+#: admin/customizer/customizer.php:217
 msgid "local"
 msgstr ""
 
-#: public/class-betterdocs-pro-public.php:442
+#: admin/customizer/customizer.php:4552
+msgid "Margin"
+msgstr ""
+
+#: public/class-betterdocs-pro-public.php:341
+msgid "Minimalist Layout"
+msgstr ""
+
+#: public/class-betterdocs-pro-public.php:434
 msgid "Minimum amount of Keywords Search"
 msgstr ""
 
-#: admin/class-betterdocs-pro-admin-screen.php:100
+#: public/class-betterdocs-pro-public.php:353
+msgid "Modern Layout"
+msgstr ""
+
+#: admin/class-betterdocs-pro-admin-screen.php:50
 msgid "Most Viewed"
 msgstr ""
 
-#: admin/class-betterdocs-pro-admin.php:188 admin/customizer/customizer.php:33
+#: admin/class-betterdocs-pro-admin.php:158
+#: admin/class-betterdocs-pro-admin.php:159 admin/customizer/customizer.php:33
 msgid "Multiple KB"
 msgstr ""
 
-#: includes/class-multiple-kb.php:134
+#: includes/class-multiple-kb.php:149
 msgid "Multiple KB- Layout 1"
 msgstr ""
 
-#: includes/class-multiple-kb.php:143
+#: includes/class-multiple-kb.php:158
 msgid "Multiple KB- Layout 2"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:399
+#: admin/includes/class-betterdocs-pro-instant-answer.php:401
 msgid "Name"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:800
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:963
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:809
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:972
 msgid "Nested Subcategory"
 msgstr ""
 
-#: includes/class-multiple-kb.php:343
+#: includes/class-multiple-kb.php:350
 msgid "New Knowledge Base Name"
 msgstr ""
 
-#: includes/class-multiple-kb.php:716 includes/class-multiple-kb.php:739
+#: includes/class-multiple-kb.php:722 includes/class-multiple-kb.php:745
 msgid "No Knowledge Base"
 msgstr ""
 
-#: includes/class-multiple-kb.php:341
+#: includes/class-multiple-kb.php:348
 msgid "No Knowledge Base found."
 msgstr ""
 
-#: admin/customizer/customizer.php:181
+#: public/betterdocs-shortcodes.php:1272
+msgid "No Other Categories"
+msgstr ""
+
+#: admin/customizer/customizer.php:185
 msgid "no-repeat"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:303
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:734
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1079
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1285
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:312
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:743
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1088
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1294
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:281
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:472
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:712
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:853
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1174
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1496
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1642
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1750
 msgid "Normal"
+msgstr ""
+
+#: public/class-betterdocs-pro-public.php:426
+msgid "Note: This setting is not applicable for handbook layout."
 msgstr ""
 
 #: includes/elementor/widgets/betterdocs-elementor-popular-view.php:73
 msgid "Number Of Posts"
 msgstr ""
 
-#: includes/elementor/class-betterdocs-pro-elementor.php:80
-#: includes/elementor/class-betterdocs-pro-elementor.php:92
-#: includes/elementor/class-betterdocs-pro-elementor.php:104
+#: includes/elementor/class-betterdocs-pro-elementor.php:81
+#: includes/elementor/class-betterdocs-pro-elementor.php:93
+#: includes/elementor/class-betterdocs-pro-elementor.php:105
 msgid "Off"
 msgstr ""
 
-#: includes/elementor/class-betterdocs-pro-elementor.php:79
-#: includes/elementor/class-betterdocs-pro-elementor.php:91
-#: includes/elementor/class-betterdocs-pro-elementor.php:103
+#: includes/elementor/class-betterdocs-pro-elementor.php:80
+#: includes/elementor/class-betterdocs-pro-elementor.php:92
+#: includes/elementor/class-betterdocs-pro-elementor.php:104
 msgid "On"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:403
+#: admin/includes/class-betterdocs-pro-instant-answer.php:405
 msgid "Only supports .jpg, .png, .jpeg, .gif files"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:317
-#: admin/includes/class-betterdocs-pro-instant-answer.php:917
+#: admin/includes/class-betterdocs-pro-instant-answer.php:319
+#: admin/includes/class-betterdocs-pro-instant-answer.php:940
 msgid "Oops..."
 msgstr ""
 
@@ -1282,149 +1878,163 @@ msgstr ""
 msgid "option disabled. Make sure to enable this option from your"
 msgstr ""
 
+#: public/betterdocs-shortcodes.php:1226 admin/customizer/customizer.php:8575
+msgid "Other Categories"
+msgstr ""
+
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:154
 msgid "P"
 msgstr ""
 
-#: includes/elementor/class-betterdocs-pro-elementor.php:213
+#: includes/elementor/class-betterdocs-pro-elementor.php:214
+#: admin/customizer/customizer.php:4433 admin/customizer/customizer.php:11309
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:514
 msgid "Padding"
 msgstr ""
 
-#: public/class-betterdocs-pro-public.php:366
-#: public/class-betterdocs-pro-public.php:373
-#: public/class-betterdocs-pro-public.php:389
-#: public/betterdocs-shortcodes.php:406 admin/customizer/customizer.php:2044
+#: public/class-betterdocs-pro-public.php:364
+#: public/class-betterdocs-pro-public.php:371
+#: public/class-betterdocs-pro-public.php:387
+#: public/betterdocs-shortcodes.php:427 admin/customizer/customizer.php:2048
 msgid "Popular Docs"
 msgstr ""
 
-#: admin/customizer/customizer.php:2080 admin/customizer/customizer.php:2492
+#: admin/customizer/customizer.php:2084 admin/customizer/customizer.php:10027
 msgid "Popular Docs Background Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:2100 admin/customizer/customizer.php:2513
+#: admin/customizer/customizer.php:2104 admin/customizer/customizer.php:10048
 msgid "Popular Docs List Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:2140 admin/customizer/customizer.php:2552
+#: admin/customizer/customizer.php:2144 admin/customizer/customizer.php:10087
 msgid "Popular Docs List Font Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:2119 admin/customizer/customizer.php:2532
+#: admin/customizer/customizer.php:2123 admin/customizer/customizer.php:10067
 msgid "Popular Docs List Hover Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:2274 admin/customizer/customizer.php:2789
+#: admin/customizer/customizer.php:2278 admin/customizer/customizer.php:10324
 msgid "Popular Docs List Margin"
 msgstr ""
 
-#: admin/customizer/customizer.php:2890 admin/customizer/customizer.php:2991
+#: admin/customizer/customizer.php:10425 admin/customizer/customizer.php:10526
 msgid "Popular Docs Padding"
 msgstr ""
 
-#: admin/customizer/customizer.php:2059 admin/customizer/customizer.php:2472
+#: admin/customizer/customizer.php:2063 admin/customizer/customizer.php:10007
 msgid "Popular Docs Show"
 msgstr ""
 
-#: public/class-betterdocs-pro-public.php:372
+#: public/class-betterdocs-pro-public.php:370
 #: includes/elementor/widgets/betterdocs-elementor-popular-view.php:82
 msgid "Popular Docs Text"
 msgstr ""
 
-#: admin/customizer/customizer.php:2376 admin/customizer/customizer.php:2688
+#: admin/customizer/customizer.php:2380 admin/customizer/customizer.php:10223
 msgid "Popular Docs Title Margin"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:310
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:311
 msgid "Popular List"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:231
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:232
 msgid "Popular List Background"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:388
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:389
 msgid "Popular List Icon"
 msgstr ""
 
-#: admin/customizer/customizer.php:2228 admin/customizer/customizer.php:2642
+#: admin/customizer/customizer.php:2232 admin/customizer/customizer.php:10177
 msgid "Popular List Icon Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:2249 admin/customizer/customizer.php:2663
+#: admin/customizer/customizer.php:2253 admin/customizer/customizer.php:10198
 msgid "Popular List Icon Font Size"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:376
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:377
 msgid "Popular List Margin"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:363
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:364
 msgid "Popular List Padding"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:269
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:270
 msgid "Popular List Style"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:319
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:320
 msgid "Popular List Typography"
 msgstr ""
 
-#: public/class-betterdocs-pro-public.php:379
+#: public/class-betterdocs-pro-public.php:377
 msgid "Popular Posts Number"
 msgstr ""
 
-#: includes/elementor/class-betterdocs-pro-elementor.php:225
-#: includes/elementor/class-betterdocs-pro-elementor.php:235
+#: includes/elementor/class-betterdocs-pro-elementor.php:226
+#: includes/elementor/class-betterdocs-pro-elementor.php:236
 msgid "Popular Search"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:277
+#: admin/customizer/customizer.php:11428
+msgid "Popular Search Margin"
+msgstr ""
+
+#: admin/customizer/customizer.php:11408
+msgid "Popular Search Settings"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:278
 msgid "Popular Title"
 msgstr ""
 
-#: admin/customizer/customizer.php:2189 admin/customizer/customizer.php:2601
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:182
+#: admin/customizer/customizer.php:2193 admin/customizer/customizer.php:10136
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:183
 msgid "Popular Title Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:2208
+#: admin/customizer/customizer.php:2212
 msgid "Popular Title Color Hover"
 msgstr ""
 
-#: admin/customizer/customizer.php:2165 admin/customizer/customizer.php:2577
+#: admin/customizer/customizer.php:2169 admin/customizer/customizer.php:10112
 msgid "Popular Title Font Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:2621
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:193
+#: admin/customizer/customizer.php:10156
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:194
 msgid "Popular Title Hover Color"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:298
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:299
 msgid "Popular Title Margin"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:286
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:287
 msgid "Popular Title Padding"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:156
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:157
 msgid "Popular Title Tag"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:173
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:174
 msgid "Popular Title Typography"
 msgstr ""
 
-#: admin/customizer/customizer.php:230
-#: admin/includes/class-betterdocs-pro-instant-answer.php:899
+#: admin/customizer/customizer.php:234
+#: admin/includes/class-betterdocs-pro-instant-answer.php:922
 msgid "Position"
 msgstr ""
 
-#: public/partials/template-single/layout-3.php:165
-#: public/partials/template-single/layout-2.php:150
+#: public/partials/template-single/layout-6.php:15
+#: public/partials/template-single/layout-3.php:156
+#: public/partials/template-single/layout-2.php:143
 msgid "Powered by "
 msgstr ""
 
@@ -1440,178 +2050,198 @@ msgstr ""
 msgid "Query"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:848
+#: admin/includes/class-betterdocs-pro-instant-answer.php:871
 msgid "Reaction Title"
 msgstr ""
 
-#: admin/customizer/customizer.php:3161
+#: admin/customizer/customizer.php:10696
 msgid "Reactions"
 msgstr ""
 
-#: admin/customizer/customizer.php:3239
+#: admin/customizer/customizer.php:10774
 msgid "Reactions Icon Background Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:3258
+#: admin/customizer/customizer.php:10793
 msgid "Reactions Icon Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:3276
+#: admin/customizer/customizer.php:10811
 msgid "Reactions Icon Hover Background Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:3294
+#: admin/customizer/customizer.php:10829
 msgid "Reactions Icon Hover Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:3218
+#: admin/customizer/customizer.php:10753
 msgid "Reactions Text Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:3195
+#: admin/customizer/customizer.php:10730
 msgid "Reactions Title"
 msgstr ""
 
-#: admin/includes/class-betterdocs-role-management.php:120
-msgid "Redirect URL"
-msgstr ""
-
-#: admin/includes/class-betterdocs-analytics.php:544
+#: admin/includes/class-betterdocs-analytics.php:490
 msgid "Registered Users Only"
 msgstr ""
 
-#: includes/class-multiple-kb.php:767 includes/class-multiple-kb.php:818
+#: includes/class-multiple-kb.php:773 includes/class-multiple-kb.php:826
+#: admin/class-betterdocs-pro-admin.php:322
+#: admin/class-betterdocs-pro-admin.php:348
 msgid "Remove Image"
 msgstr ""
 
-#: admin/customizer/customizer.php:175
+#: admin/customizer/customizer.php:179
 msgid "Repeat"
 msgstr ""
 
-#: admin/customizer/customizer.php:184
+#: admin/customizer/customizer.php:188
 msgid "repeat"
 msgstr ""
 
-#: admin/customizer/customizer.php:185
+#: admin/customizer/customizer.php:189
 msgid "repeat-x"
 msgstr ""
 
-#: admin/customizer/customizer.php:186
+#: admin/customizer/customizer.php:190
 msgid "repeat-y"
 msgstr ""
 
-#: betterdocs-pro.php:108
+#: betterdocs-pro.php:151
 msgid "requires"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1043
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1066
 msgid "Response Icon Color"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1038
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1061
 msgid "Response Icon Size"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:883
+#: admin/includes/class-betterdocs-pro-instant-answer.php:906
 msgid "Response Title"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1053
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1076
 msgid "Response Title Color"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1048
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1071
 msgid "Response Title Size"
 msgstr ""
 
-#: admin/includes/class-betterdocs-role-management.php:93
-msgid "Restrict Access to"
-msgstr ""
-
-#: admin/includes/class-betterdocs-role-management.php:102
-msgid "Restriction on Docs"
-msgstr ""
-
-#: admin/includes/class-betterdocs-role-management.php:111
-msgid "Restriction on Docs Categories"
-msgstr ""
-
-#: includes/class-multiple-kb.php:92
+#: includes/class-multiple-kb.php:93
 msgid "Restriction on Knowledge Bases"
 msgstr ""
 
-#: admin/customizer/customizer.php:303 admin/customizer/customizer.php:611
-#: admin/customizer/customizer.php:714 admin/customizer/customizer.php:1038
-#: admin/customizer/customizer.php:1616 admin/customizer/customizer.php:1884
-#: admin/customizer/customizer.php:2314 admin/customizer/customizer.php:2416
-#: admin/customizer/customizer.php:2728 admin/customizer/customizer.php:2829
-#: admin/customizer/customizer.php:2930 admin/customizer/customizer.php:3031
-#: admin/includes/class-betterdocs-pro-instant-answer.php:904
+#: admin/customizer/customizer.php:307 admin/customizer/customizer.php:615
+#: admin/customizer/customizer.php:718 admin/customizer/customizer.php:1042
+#: admin/customizer/customizer.php:1620 admin/customizer/customizer.php:1888
+#: admin/customizer/customizer.php:2318 admin/customizer/customizer.php:2420
+#: admin/customizer/customizer.php:2720 admin/customizer/customizer.php:2960
+#: admin/customizer/customizer.php:3079 admin/customizer/customizer.php:3464
+#: admin/customizer/customizer.php:3659 admin/customizer/customizer.php:3776
+#: admin/customizer/customizer.php:3926 admin/customizer/customizer.php:4042
+#: admin/customizer/customizer.php:4065 admin/customizer/customizer.php:4481
+#: admin/customizer/customizer.php:4599 admin/customizer/customizer.php:4880
+#: admin/customizer/customizer.php:4983 admin/customizer/customizer.php:5377
+#: admin/customizer/customizer.php:5479 admin/customizer/customizer.php:5614
+#: admin/customizer/customizer.php:5848 admin/customizer/customizer.php:6269
+#: admin/customizer/customizer.php:6371 admin/customizer/customizer.php:6547
+#: admin/customizer/customizer.php:6650 admin/customizer/customizer.php:6798
+#: admin/customizer/customizer.php:6945 admin/customizer/customizer.php:7127
+#: admin/customizer/customizer.php:7267 admin/customizer/customizer.php:7497
+#: admin/customizer/customizer.php:7731 admin/customizer/customizer.php:7939
+#: admin/customizer/customizer.php:8043 admin/customizer/customizer.php:8368
+#: admin/customizer/customizer.php:8476 admin/customizer/customizer.php:8827
+#: admin/customizer/customizer.php:8930 admin/customizer/customizer.php:9280
+#: admin/customizer/customizer.php:9381 admin/customizer/customizer.php:9591
+#: admin/customizer/customizer.php:9611 admin/customizer/customizer.php:9949
+#: admin/customizer/customizer.php:10263 admin/customizer/customizer.php:10364
+#: admin/customizer/customizer.php:10465 admin/customizer/customizer.php:10566
+#: admin/customizer/customizer.php:11353 admin/customizer/customizer.php:11471
+#: admin/customizer/customizer.php:11715 admin/customizer/customizer.php:11957
+#: admin/customizer/customizer.php:12061
+#: admin/includes/class-betterdocs-pro-instant-answer.php:927
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:693
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:210
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:211
 msgid "Right"
 msgstr ""
 
-#: admin/customizer/customizer.php:241
+#: admin/customizer/customizer.php:11288 admin/customizer/customizer.php:11893
+msgid "Right Bottom"
+msgstr ""
+
+#: admin/customizer/customizer.php:245
 msgid "right bottom"
 msgstr ""
 
-#: admin/customizer/customizer.php:240
+#: admin/customizer/customizer.php:244
 msgid "right center"
 msgstr ""
 
-#: admin/customizer/customizer.php:239
+#: admin/customizer/customizer.php:11250 admin/customizer/customizer.php:11855
+msgid "Right Top"
+msgstr ""
+
+#: admin/customizer/customizer.php:243
 msgid "right top"
 msgstr ""
 
-#: admin/includes/class-betterdocs-role-management.php:36
-#: admin/includes/class-betterdocs-role-management.php:41
+#: admin/includes/class-betterdocs-role-management.php:40
+#: admin/includes/class-betterdocs-role-management.php:45
 msgid "Role Management"
 msgstr ""
 
-#: admin/customizer/customizer.php:211
+#: admin/customizer/customizer.php:215
 msgid "scroll"
 msgstr ""
 
-#: public/class-betterdocs-pro-public.php:391
-#: public/class-betterdocs-pro-public.php:433
+#: public/class-betterdocs-pro-public.php:389
+#: public/class-betterdocs-pro-public.php:420
 msgid "Search"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:978
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1001
 msgid "Search Box Background Color"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:988
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1011
 msgid "Search Box Foreground Color"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:983
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1006
 msgid "Search Box Icon Color"
 msgstr ""
 
-#: includes/elementor/class-betterdocs-pro-elementor.php:152
+#: includes/elementor/class-betterdocs-pro-elementor.php:153
 msgid "Search Button"
 msgstr ""
 
-#: public/class-betterdocs-pro-public.php:431
+#: admin/customizer/customizer.php:11021
+msgid "Search Button Settings"
+msgstr ""
+
+#: public/class-betterdocs-pro-public.php:418
 msgid "Search Button Text"
 msgstr ""
 
-#: includes/class-multiple-kb.php:335
+#: includes/class-multiple-kb.php:342
 msgid "Search Knowledge Base"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:721
+#: admin/includes/class-betterdocs-pro-instant-answer.php:744
 msgid "Search Placeholder"
 msgstr ""
 
-#: includes/class-multiple-kb.php:106
+#: includes/class-multiple-kb.php:121
 msgid "Search Result based on Knowledge Base"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:314
-#: admin/includes/class-betterdocs-pro-instant-answer.php:723
+#: admin/includes/class-betterdocs-pro-instant-answer.php:316
+#: admin/includes/class-betterdocs-pro-instant-answer.php:746
 msgid "Search..."
 msgstr ""
 
@@ -1619,16 +2249,15 @@ msgstr ""
 msgid "Select"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:594
-#: admin/partials/betterdocs-pro-admin-analytics-display.php:180
+#: admin/includes/class-betterdocs-pro-instant-answer.php:617
 msgid "Select Docs"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:601
+#: admin/includes/class-betterdocs-pro-instant-answer.php:624
 msgid "Select Docs Categories"
 msgstr ""
 
-#: admin/includes/class-betterdocs-analytics.php:554
+#: admin/includes/class-betterdocs-analytics.php:500
 msgid "Select if you want to exclude bot analytics."
 msgstr ""
 
@@ -1640,25 +2269,27 @@ msgstr ""
 msgid "Select Tag"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:405
+#: admin/includes/class-betterdocs-pro-instant-answer.php:407
 msgid "Send"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:404
+#: admin/includes/class-betterdocs-pro-instant-answer.php:406
 msgid "Sending"
 msgstr ""
 
-#: public/partials/template-single/layout-3.php:130
-#: public/partials/template-single/layout-2.php:117
+#: public/partials/template-single/layout-6.php:68
+#: public/partials/template-single/layout-3.php:121
+#: public/partials/template-single/layout-2.php:110
 msgid "Share This Article :"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:240
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:252
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:264
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:249
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:261
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:273
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:121
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:133
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:168
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:180
 msgid "Show"
 msgstr ""
 
@@ -1666,39 +2297,59 @@ msgstr ""
 msgid "Show Count"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:250
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:259
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:119
 msgid "Show Icon"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:618
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:178
+msgid "Show MKB Description"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:641
 msgid "Show on Archive Templates"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:609
+#: admin/includes/class-betterdocs-pro-instant-answer.php:632
 msgid "Show on Pages"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:636
+#: admin/includes/class-betterdocs-pro-instant-answer.php:659
 msgid "Show on Single Pages"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:627
+#: admin/includes/class-betterdocs-pro-instant-answer.php:650
 msgid "Show on Texonomy Templates"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:262
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:271
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:131
 msgid "Show Title"
 msgstr ""
 
-#: admin/customizer/customizer.php:147
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1472
+#: admin/customizer/customizer.php:4754
+msgid "Sidebar Bohemian Layout"
+msgstr ""
+
+#: admin/customizer/customizer.php:5044
+msgid "Sidebar Border Radius"
+msgstr ""
+
+#: admin/customizer/customizer.php:4942
+msgid "Sidebar Margin"
+msgstr ""
+
+#: admin/customizer/customizer.php:4839
+msgid "Sidebar Padding"
+msgstr ""
+
+#: admin/customizer/customizer.php:151
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1481
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:425
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:452
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:819
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:909
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:409
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:410
 msgid "Size"
 msgstr ""
 
@@ -1706,21 +2357,21 @@ msgstr ""
 msgid "Sort Articles"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:457
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:663
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:466
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:672
 msgid "Space Between Tab And Box"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:467
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:673
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1490
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:476
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:682
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1499
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:529
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:730
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:929
 msgid "Spacing"
 msgstr ""
 
-#: admin/customizer/customizer.php:931
+#: admin/customizer/customizer.php:935
 msgid "Spacing Between Columns"
 msgstr ""
 
@@ -1728,45 +2379,40 @@ msgstr ""
 msgid "Span"
 msgstr ""
 
-#: admin/partials/betterdocs-pro-admin-analytics-display.php:214
-#: admin/partials/betterdocs-pro-admin-analytics-display.php:215
-msgid "Start Date"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:284
-#: admin/includes/class-betterdocs-pro-instant-answer.php:805
+#: admin/includes/class-betterdocs-pro-instant-answer.php:286
+#: admin/includes/class-betterdocs-pro-instant-answer.php:828
 msgid "Stuck with something? Send us a message."
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:928
+#: admin/includes/class-betterdocs-pro-instant-answer.php:951
 msgid "Style Settings"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:953
+#: admin/includes/class-betterdocs-pro-instant-answer.php:976
 msgid "Sub Accent Color"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:973
+#: admin/customizer/customizer.php:11529
+msgid "Sub Heading"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:996
 msgid "Sub Heading Color"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:968
+#: admin/includes/class-betterdocs-pro-instant-answer.php:991
 msgid "Sub Heading Size"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:401
+#: admin/includes/class-betterdocs-pro-instant-answer.php:403
 msgid "Subject"
 msgstr ""
 
-#: admin/partials/betterdocs-pro-admin-analytics-display.php:240
-msgid "Submit"
-msgstr ""
-
-#: admin/includes/class-betterdocs-pro-instant-answer.php:675
+#: admin/includes/class-betterdocs-pro-instant-answer.php:698
 msgid "Success Message Text"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:669
+#: admin/includes/class-betterdocs-pro-instant-answer.php:692
 msgid "Success Message Title"
 msgstr ""
 
@@ -1782,88 +2428,96 @@ msgstr ""
 msgid "Supported by professional and courteous staff."
 msgstr ""
 
-#: admin/class-betterdocs-pro-admin.php:174
+#: admin/class-betterdocs-pro-admin.php:145
 msgid "Switch to BetterDocs UI"
 msgstr ""
 
-#: admin/class-betterdocs-pro-admin-screen.php:18
-msgid "Switch to Classic UI"
-msgstr ""
-
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:293
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:302
 msgid "Tab"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:383
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:589
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:392
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:598
 msgid "Tab Background Color"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:401
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:607
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:410
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:616
 msgid "Tab Border"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:445
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:652
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:454
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:661
 msgid "Tab Font Color"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:428
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:635
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:437
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:644
 msgid "Tab Font Typography"
 msgstr ""
 
-#: admin/customizer/customizer.php:429
+#: admin/customizer/customizer.php:433
 msgid "Tab List Background Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:449
+#: admin/customizer/customizer.php:453
 msgid "Tab List Background Hover Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:778
+#: admin/customizer/customizer.php:782
 msgid "Tab List Border Radius"
 msgstr ""
 
-#: admin/customizer/customizer.php:472
+#: admin/customizer/customizer.php:476
 msgid "Tab List Font Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:544
+#: admin/customizer/customizer.php:548
 msgid "Tab List Font Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:674
+#: admin/customizer/customizer.php:678
 msgid "Tab List Margin"
 msgstr ""
 
-#: admin/customizer/customizer.php:572
+#: admin/customizer/customizer.php:576
 msgid "Tab List Padding"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:309
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:514
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:318
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:523
 msgid "Tab Margin"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:321
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:526
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:330
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:535
 msgid "Tab Padding"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:420
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:626
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:429
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:635
 msgid "Tab Shadow"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:221
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:230
 msgid "Tab Title Tag"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:485
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:691
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:494
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:700
 msgid "Tab Whole Box Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:69
+msgid "Tabbed Layout"
+msgstr ""
+
+#: admin/customizer/customizer.php:5540
+msgid "Term List Border Type"
+msgstr ""
+
+#: admin/customizer/customizer.php:5573
+msgid "Term List Border Width"
 msgstr ""
 
 #: includes/elementor/widgets/betterdocs-elementor-reactions.php:188
@@ -1874,75 +2528,143 @@ msgstr ""
 msgid "Text Alignment"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:671
+#: admin/customizer/customizer.php:11151
+msgid "Text Color"
+msgstr ""
+
+#: admin/includes/class-betterdocs-pro-instant-answer.php:694
 msgid "Thanks"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:350
-#: admin/includes/class-betterdocs-pro-instant-answer.php:885
+#: admin/includes/class-betterdocs-pro-instant-answer.php:352
+#: admin/includes/class-betterdocs-pro-instant-answer.php:908
 msgid "Thanks for the feedback"
 msgstr ""
 
-#: public/class-betterdocs-pro-public.php:130
-#: admin/includes/class-betterdocs-pro-instant-answer.php:393
+#: public/class-betterdocs-pro-public.php:152
+#: admin/includes/class-betterdocs-pro-instant-answer.php:395
 msgid "Thanks for your feedback"
 msgstr ""
 
-#: admin/customizer/customizer.php:1432
+#: admin/customizer/customizer.php:1436
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:628
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1628
 #: includes/elementor/widgets/betterdocs-elementor-reactions.php:180
 msgid "Title"
 msgstr ""
 
-#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:205
+#: includes/elementor/widgets/betterdocs-elementor-popular-view.php:206
 msgid "Title Alignment"
 msgstr ""
 
-#: includes/elementor/class-betterdocs-pro-elementor.php:242
-#: admin/customizer/customizer.php:1250
+#: admin/customizer/customizer.php:5173
+msgid "Title Background Color"
+msgstr ""
+
+#: includes/elementor/class-betterdocs-pro-elementor.php:243
+#: admin/customizer/customizer.php:1254 admin/customizer/customizer.php:5213
+#: admin/customizer/customizer.php:6711 admin/customizer/customizer.php:8636
+#: admin/customizer/customizer.php:11551
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1649
 msgid "Title Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:1227
+#: admin/customizer/customizer.php:5278
+msgid "Title Font Line Height"
+msgstr ""
+
+#: admin/customizer/customizer.php:1231 admin/customizer/customizer.php:5253
+#: admin/customizer/customizer.php:6732 admin/customizer/customizer.php:8712
+#: admin/customizer/customizer.php:11573
 msgid "Title Font Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:1268
+#: admin/customizer/customizer.php:5302 admin/customizer/customizer.php:8678
+msgid "Title Font Weight"
+msgstr ""
+
+#: admin/customizer/customizer.php:1272 admin/customizer/customizer.php:5232
+#: admin/customizer/customizer.php:8655
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1691
 msgid "Title Hover Color"
 msgstr ""
 
-#: includes/elementor/class-betterdocs-pro-elementor.php:304
+#: admin/customizer/customizer.php:8736
+msgid "Title Line Height"
+msgstr ""
+
+#: includes/elementor/class-betterdocs-pro-elementor.php:305
+#: admin/customizer/customizer.php:5438 admin/customizer/customizer.php:8889
 msgid "Title Margin"
 msgstr ""
 
-#: includes/elementor/class-betterdocs-pro-elementor.php:233
+#: admin/customizer/customizer.php:5336 admin/customizer/customizer.php:8785
+msgid "Title Padding"
+msgstr ""
+
+#: includes/elementor/class-betterdocs-pro-elementor.php:234
 msgid "Title Placeholder"
 msgstr ""
 
-#: includes/elementor/class-betterdocs-pro-elementor.php:253
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1668
+msgid "Title Spacing"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1710
+msgid "Title Spacing Hover"
+msgstr ""
+
+#: includes/elementor/class-betterdocs-pro-elementor.php:254
 msgid "Title Typography"
 msgstr ""
 
-#: admin/customizer/customizer.php:283 admin/customizer/customizer.php:592
-#: admin/customizer/customizer.php:694 admin/customizer/customizer.php:1018
-#: admin/customizer/customizer.php:1596 admin/customizer/customizer.php:1864
-#: admin/customizer/customizer.php:2294 admin/customizer/customizer.php:2396
-#: admin/customizer/customizer.php:2708 admin/customizer/customizer.php:2809
-#: admin/customizer/customizer.php:2910 admin/customizer/customizer.php:3011
+#: admin/customizer/customizer.php:287 admin/customizer/customizer.php:596
+#: admin/customizer/customizer.php:698 admin/customizer/customizer.php:1022
+#: admin/customizer/customizer.php:1600 admin/customizer/customizer.php:1868
+#: admin/customizer/customizer.php:2298 admin/customizer/customizer.php:2400
+#: admin/customizer/customizer.php:2696 admin/customizer/customizer.php:2935
+#: admin/customizer/customizer.php:3055 admin/customizer/customizer.php:3440
+#: admin/customizer/customizer.php:3635 admin/customizer/customizer.php:3752
+#: admin/customizer/customizer.php:3902 admin/customizer/customizer.php:4019
+#: admin/customizer/customizer.php:4457 admin/customizer/customizer.php:4575
+#: admin/customizer/customizer.php:4860 admin/customizer/customizer.php:4963
+#: admin/customizer/customizer.php:5357 admin/customizer/customizer.php:5459
+#: admin/customizer/customizer.php:5594 admin/customizer/customizer.php:5828
+#: admin/customizer/customizer.php:6249 admin/customizer/customizer.php:6351
+#: admin/customizer/customizer.php:6527 admin/customizer/customizer.php:6630
+#: admin/customizer/customizer.php:6777 admin/customizer/customizer.php:6924
+#: admin/customizer/customizer.php:7107 admin/customizer/customizer.php:7243
+#: admin/customizer/customizer.php:7476 admin/customizer/customizer.php:7710
+#: admin/customizer/customizer.php:7918 admin/customizer/customizer.php:8023
+#: admin/customizer/customizer.php:8347 admin/customizer/customizer.php:8454
+#: admin/customizer/customizer.php:8807 admin/customizer/customizer.php:8910
+#: admin/customizer/customizer.php:9260 admin/customizer/customizer.php:9361
+#: admin/customizer/customizer.php:9571 admin/customizer/customizer.php:9929
+#: admin/customizer/customizer.php:10243 admin/customizer/customizer.php:10344
+#: admin/customizer/customizer.php:10445 admin/customizer/customizer.php:10546
+#: admin/customizer/customizer.php:11332 admin/customizer/customizer.php:11450
+#: admin/customizer/customizer.php:11694 admin/customizer/customizer.php:11936
+#: admin/customizer/customizer.php:12040
 msgid "Top"
 msgstr ""
 
-#: admin/customizer/customizer.php:3117
+#: admin/customizer/customizer.php:10652
 msgid "Top Box Icon Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:801 admin/customizer/customizer.php:1145
-#: admin/customizer/customizer.php:1966
+#: admin/customizer/customizer.php:805 admin/customizer/customizer.php:1149
+#: admin/customizer/customizer.php:1970 admin/customizer/customizer.php:2814
+#: admin/customizer/customizer.php:5065 admin/customizer/customizer.php:6133
+#: admin/customizer/customizer.php:8242 admin/customizer/customizer.php:9159
+#: admin/customizer/customizer.php:9826
 msgid "Top Left"
 msgstr ""
 
-#: admin/customizer/customizer.php:821 admin/customizer/customizer.php:1165
-#: admin/customizer/customizer.php:1986
+#: admin/customizer/customizer.php:825 admin/customizer/customizer.php:1169
+#: admin/customizer/customizer.php:1990 admin/customizer/customizer.php:2839
+#: admin/customizer/customizer.php:5085 admin/customizer/customizer.php:6157
+#: admin/customizer/customizer.php:8263 admin/customizer/customizer.php:9179
+#: admin/customizer/customizer.php:9846
 msgid "Top Right"
 msgstr ""
 
@@ -1953,12 +2675,7 @@ msgstr ""
 msgid "Transition"
 msgstr ""
 
-#: admin/class-betterdocs-pro-admin-screen.php:232
-#: admin/partials/betterdocs-pro-admin-sorting-display.php:128
-msgid "Uncategorized"
-msgstr ""
-
-#: includes/class-multiple-kb.php:340
+#: includes/class-multiple-kb.php:347
 msgid "Update Knowledge Base"
 msgstr ""
 
@@ -1966,8 +2683,8 @@ msgstr ""
 msgid "Update the plugin right from your WordPress Dashboard."
 msgstr ""
 
-#: admin/class-betterdocs-pro-admin-screen.php:99
-#: admin/includes/class-betterdocs-analytics.php:62
+#: admin/class-betterdocs-pro-admin-screen.php:49
+#: admin/includes/class-betterdocs-analytics.php:70
 msgid "Views"
 msgstr ""
 
@@ -1975,8 +2692,8 @@ msgstr ""
 msgid "Warning!"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:318
-#: admin/includes/class-betterdocs-pro-instant-answer.php:923
+#: admin/includes/class-betterdocs-pro-instant-answer.php:320
+#: admin/includes/class-betterdocs-pro-instant-answer.php:946
 msgid ""
 "We couldn’t find any articles that match your search. Try searching for a "
 "new term."
@@ -1991,30 +2708,30 @@ msgstr ""
 msgid "What are your feelings"
 msgstr ""
 
-#: admin/includes/class-betterdocs-role-management.php:62
+#: admin/includes/class-betterdocs-role-management.php:66
 msgid "Who Can Check Analytics?"
 msgstr ""
 
-#: admin/includes/class-betterdocs-role-management.php:54
+#: admin/includes/class-betterdocs-role-management.php:58
 msgid "Who Can Edit Settings?"
 msgstr ""
 
-#: admin/includes/class-betterdocs-role-management.php:46
+#: admin/includes/class-betterdocs-role-management.php:50
 msgid "Who Can Write Docs?"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:877
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1040
+msgid "Whole Box Color"
+msgstr ""
+
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:889
+#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1051
+msgid "Whole Box Padding"
 msgstr ""
 
 #: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:868
 #: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1031
-msgid "Whole Box Color"
-msgstr ""
-
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:880
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1042
-msgid "Whole Box Padding"
-msgstr ""
-
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:859
-#: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1022
 msgid "Whole Category Box"
 msgstr ""
 
@@ -2036,11 +2753,11 @@ msgstr ""
 msgid "WPDeveloper"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:677
+#: admin/includes/class-betterdocs-pro-instant-answer.php:700
 msgid "Your Message Has Been Sent Successfully"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:909
+#: admin/includes/class-betterdocs-pro-instant-answer.php:932
 msgid "Z-index"
 msgstr ""
 

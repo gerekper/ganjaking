@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.4.0
+ * @version     2.5.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -71,6 +71,8 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 			add_action( 'wc_ajax_wc_sc_get_attached_coupons', array( $this, 'ajax_get_attached_coupons' ) );
 
 			add_filter( 'safecss_filter_attr_allow_css', array( $this, 'check_safecss' ), 20, 2 );
+
+			add_filter( 'woocommerce_demo_store', array( $this, 'maybe_change_store_notice' ), 10, 2 );
 
 		}
 
@@ -381,10 +383,10 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 			}
 
 			if ( $this->is_wc_gte_26() ) {
-				add_filter( 'query_vars', array( $this, 'sc_add_query_vars' ), 0 );
+				add_filter( 'woocommerce_get_query_vars', array( $this, 'sc_add_query_vars' ) );
 				// Change the My Account page title.
 				add_filter( 'the_title', array( $this, 'sc_endpoint_title' ) );
-				// Insering our new tab/page into the My Account page.
+				// Inserting our new tab/page into the My Account page.
 				add_filter( 'woocommerce_account_menu_items', array( $this, 'sc_new_menu_items' ) );
 				add_action( 'woocommerce_account_' . self::$endpoint . '_endpoint', array( $this, 'sc_endpoint_content' ) );
 			} else {
@@ -769,9 +771,9 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 		 * @param array $vars The query vars.
 		 * @return array
 		 */
-		public function sc_add_query_vars( $vars ) {
+		public function sc_add_query_vars( $vars = array() ) {
 
-			$vars[] = self::$endpoint;
+			$vars[ self::$endpoint ] = self::$endpoint;
 			return $vars;
 		}
 
@@ -1447,6 +1449,31 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 		 */
 		public function frontend_styles_and_scripts( $args = array() ) {
 
+			if ( is_account_page() ) {
+				$show_myaccount_menu_icon = apply_filters(
+					'wc_sc_show_myaccount_menu_icon',
+					$this->sc_get_option( 'wc_sc_show_myaccount_menu_icon' ),
+					array(
+						'source' => $this,
+						'args'   => $args,
+					)
+				);
+
+				if ( 'yes' === $show_myaccount_menu_icon ) {
+					if ( empty( self::$endpoint ) ) {
+						self::$endpoint = self::get_endpoint();
+					}
+					?>
+					<style type="text/css">
+						.woocommerce-MyAccount-navigation ul li.woocommerce-MyAccount-navigation-link--<?php echo esc_html( self::$endpoint ); ?> a:before {
+							font-family: "dashicons";
+							content: "\f524";
+						}
+					</style>
+					<?php
+				}
+			}
+
 			if ( empty( $args['page'] ) ) {
 				return;
 			}
@@ -1490,10 +1517,35 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 
 						jQuery('div#invalid_coupons_list div#all_coupon_container .sc-coupon').removeClass('apply_coupons_credits');
 
+						function wc_sc_update_checkout() {
+							jQuery( document.body ).trigger('update_checkout');
+						}
+
 					";
 
 			if ( is_checkout() ) {
+				$is_wc_session_get = function_exists( 'WC' ) && isset( WC()->session ) && is_object( WC()->session ) && is_callable( array( WC()->session, 'get' ) );
+				if ( true === $is_wc_session_get ) {
+					$is_reload = WC()->session->get( 'wc_sc_reload_payment_method' );
+					if ( 'yes' === $is_reload ) {
+						$js .= "
+								jQuery(document.body).off('change', 'input[name=payment_method]', wc_sc_update_checkout);
+								jQuery(document.body).on('change', 'input[name=payment_method]', wc_sc_update_checkout);
+								";
+					} else {
+						$js .= "
+								jQuery(document.body).off('change', 'input[name=payment_method]', wc_sc_update_checkout);
+								";
+					}
+				}
 				$js .= "
+						jQuery(document.body).on('applied_coupon_in_checkout', function( e, data ){
+							if ( jQuery('.woocommerce .woocommerce-message').length ) {
+								jQuery(document.body).off('change', 'input[name=payment_method]', wc_sc_update_checkout);
+							} else {
+								jQuery(document.body).on('change', 'input[name=payment_method]', wc_sc_update_checkout);
+							}
+						});
 						jQuery(document.body).on('updated_checkout', function( e, data ){
 							try {
 								if ( data.fragments.wc_sc_available_coupons ) {
@@ -2267,6 +2319,34 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 					update_option( 'woocommerce_demo_store', 'no' );
 				}
 			}
+		}
+
+		/**
+		 * Check if the store notice needs any change & apply the change if required
+		 *
+		 * @param string $displayed_notice The notice to be displayed.
+		 * @param string $raw_notice The raw notice.
+		 * @return string
+		 */
+		public function maybe_change_store_notice( $displayed_notice = '', $raw_notice = '' ) {
+			$current_currency = get_woocommerce_currency();
+			$base_currency    = get_option( 'woocommerce_currency' );
+			if ( $base_currency !== $current_currency ) {
+				$storewide_offer_coupon_code = get_option( 'smart_coupons_storewide_offer_coupon_code' );
+				if ( ! empty( $storewide_offer_coupon_code ) && false !== stripos( $raw_notice, '<code>' . $storewide_offer_coupon_code . '</code>' ) ) {
+					if ( ! empty( $this->sc_coupon_exists( $storewide_offer_coupon_code ) ) ) {
+						$coupon     = new WC_Coupon( $storewide_offer_coupon_code );
+						$is_percent = $this->is_percent_coupon( array( 'coupon_object' => $coupon ) );
+						if ( false === $is_percent ) {
+							$coupon_amount    = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_amount' ) ) ) ? $coupon->get_amount( 'edit' ) : 0;
+							$search           = get_woocommerce_currency_symbol( $base_currency ) . $coupon_amount;
+							$replace          = get_woocommerce_currency_symbol( $current_currency ) . $this->convert_price( $coupon_amount, $current_currency, $base_currency );
+							$displayed_notice = str_replace( $search, $replace, $displayed_notice );
+						}
+					}
+				}
+			}
+			return $displayed_notice;
 		}
 
 	}

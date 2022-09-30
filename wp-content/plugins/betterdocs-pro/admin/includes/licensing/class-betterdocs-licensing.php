@@ -207,10 +207,10 @@ class BetterDocs_Licensing {
 							<?php wp_nonce_field( $this->product_slug . '_license_nonce', $this->product_slug . '_license_nonce' ); ?>
 							<?php if( $status !== false && $status == 'valid' ) { ?>
 								<input type="hidden" name="<?php echo $this->product_slug; ?>_license_deactivate" />
-								<?php submit_button( __( 'Deactivate License', $this->text_domain ), 'betterdocs-license-deactivation-btn', 'submit', false, array( 'class' => 'button button-primary' ) ); ?>
+								<?php submit_button( __( 'Deactivate License', 'betterdocs-pro' ), 'betterdocs-license-deactivation-btn', 'submit', false, array( 'class' => 'button button-primary' ) ); ?>
 							<?php } else { ?>
 								<input type="hidden" name="<?php echo $this->product_slug; ?>_license_activate" />
-								<?php submit_button( __( 'Activate License', $this->text_domain ), 'betterdocs-license-activation-btn', 'submit', false, array( 'class' => 'button button-primary' ) ); ?>
+								<?php submit_button( __( 'Activate License', 'betterdocs-pro' ), 'betterdocs-license-activation-btn', 'submit', false, array( 'class' => 'button button-primary' ) ); ?>
 							<?php } ?>
 						</div>
 					</div>

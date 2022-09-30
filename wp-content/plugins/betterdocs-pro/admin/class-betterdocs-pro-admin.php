@@ -53,15 +53,11 @@ class Betterdocs_Pro_Admin
 		if (BetterDocs_Multiple_Kb::$enable == 1) {
 			add_filter('betterdocs_admin_menu', array($this, 'add_multiple_kb_menu'), 10, 1);
 		}
-		add_action('wp_ajax_update_doc_cat_order', array($this, 'update_doc_cat_order'));
-		add_action('wp_ajax_update_doc_order_by_category', array($this, 'update_doc_order_by_category'));
-		add_action('wp_ajax_update_docs_term', array($this, 'update_docs_term'));
-		add_action('save_post_docs', array($this, 'update_new_post_doc_order_by_category'));
 		add_action('betterdocs_single_post_nav', array($this, 'single_post_nav'));
         add_filter('betterdocs_highlight_admin_menu', array($this, 'highlight_admin_menu'), 1);
         add_filter('betterdocs_highlight_admin_submenu', array($this, 'highlight_admin_submenu'), 1);
-		add_filter('betterdocs_articles_args', array($this, 'docs_args'), 11, 2);
-		add_action('new_to_auto-draft', array($this, 'auto_add_category'));
+		add_action('betterdocs_doc_category_add_form_after', array($this, 'add_categoey_thumb'));
+		add_action('betterdocs_doc_category_update_form_after', array($this, 'update_categoey_thumb'), 10, 1);
 		add_filter('betterdocs_advanced_settings_sections', array( $this, 'enable_internal_kb_fields' ), 10, 1 );
 	}
 
@@ -70,27 +66,6 @@ class Betterdocs_Pro_Admin
         $classes .= 'betterdocs-pro';
         return $classes;
     }
-
-	/**
-	 * Auto Add in Category, Adding from Sorting
-	 *
-	 * @param WP_Post $post
-	 * @return void
-	 */
-	public function auto_add_category($post)
-	{
-		if (!strpos($_SERVER['REQUEST_URI'], 'wp-admin/post-new.php')) {
-			return;
-		}
-		if (empty($_GET['cat'])) {
-			return;
-		}
-		$cat = wp_unslash($_GET['cat']);
-		if (false === ($cat = get_term_by('term_id', $cat, 'doc_category'))) {
-			return;
-		}
-		wp_set_post_terms($post->ID, array($cat->term_id), 'doc_category', false);
-	}
 
 	/**
 	 * Register the stylesheets for the admin area.
@@ -180,9 +155,8 @@ class Betterdocs_Pro_Admin
 	public function add_multiple_kb_menu($pages) {
 		$pages['mkb'] = array(
 			'parent_slug' => 'betterdocs-admin',
-			'page_title'  => 'Multiple KB',
-			'menu_title'  => 'Multiple KB',
-			'text_domain' => 'betterdocs-pro',
+			'page_title'  => __('Multiple KB', 'betterdocs-pro'),
+			'menu_title'  => __('Multiple KB', 'betterdocs-pro'),
 			'capability'  => 'manage_knowledge_base_terms',
 			'menu_slug'   => 'edit-tags.php?taxonomy=knowledge_base&post_type=docs',
 			'callback'    => ''
@@ -246,90 +220,6 @@ class Betterdocs_Pro_Admin
 	}
 
 
-
-	/**
-	 *
-	 * AJAX Handler to update terms' tax position.
-	 *
-	 */
-	public function update_doc_cat_order()
-	{
-		if (!check_ajax_referer('doc_cat_order_nonce', 'doc_cat_order_nonce', false)) {
-			wp_send_json_error();
-		}
-
-		$taxonomy_ordering_data = filter_var_array(wp_unslash($_POST['taxonomy_ordering_data']), FILTER_SANITIZE_NUMBER_INT);
-		$base_index             = filter_var(wp_unslash($_POST['base_index']), FILTER_SANITIZE_NUMBER_INT);
-
-		foreach ($taxonomy_ordering_data as $order_data) {
-			if ($base_index > 0) {
-				$current_position = get_term_meta($order_data['term_id'], 'doc_category_order', true);
-
-				if ((int) $current_position < (int) $base_index) {
-					continue;
-				}
-			}
-			update_term_meta($order_data['term_id'], 'doc_category_order', ((int) $order_data['order'] + (int) $base_index));
-		}
-		wp_send_json_success();
-	}
-
-	/**
-	 * AJAX Handler to update docs position.
-	 */
-	public function update_doc_order_by_category()
-	{
-		if (!check_ajax_referer('doc_cat_order_nonce', 'doc_cat_order_nonce', false)) {
-			wp_send_json_error();
-		}
-
-		$docs_ordering_data = filter_var_array(wp_unslash($_POST['docs_ordering_data']), FILTER_SANITIZE_NUMBER_INT);
-		$term_id = intval($_POST['list_term_id']);
-
-		if (!$term_id) {
-			wp_send_json_error();
-		}
-
-		if (update_term_meta($term_id, '_docs_order', implode(',', $docs_ordering_data))) {
-			wp_send_json_success();
-		}
-	}
-
-	/**
-	 * AJAX Handler to update docs position.
-	 */
-	public function update_docs_term()
-	{
-		if (!check_ajax_referer('doc_cat_order_nonce', 'doc_cat_order_nonce', false)) {
-			wp_send_json_error();
-		}
-
-		$object_id = intval($_POST['object_id']);
-		$term_id = intval($_POST['list_term_id']);
-		$prev_term_id = intval(isset($_POST['prev_term_id']) ? $_POST['prev_term_id'] : 0);
-
-		if (!$term_id || !$object_id) {
-
-			wp_send_json_error();
-		}
-
-		global $wpdb;
-
-		if ($prev_term_id) {
-
-			wp_remove_object_terms($object_id, $prev_term_id, 'doc_category');
-		}
-
-		$terms_added = wp_set_object_terms($object_id, $term_id, 'doc_category');
-
-		if (!is_wp_error($terms_added)) {
-
-			wp_send_json_success();
-		}
-
-		wp_send_json_error();
-	}
-
 	public function enable_internal_kb_fields( $settings ) {
 		unset( $settings['internal_kb_section']['fields']['enable_content_restriction']['disable'] );
 		unset( $settings['internal_kb_section']['fields']['content_visibility']['disable'] );
@@ -339,84 +229,13 @@ class Betterdocs_Pro_Admin
 		return $settings;
 	}
 
-	/**
-	 * Update docs_term meta when new post created
-	 */
-
-	public function update_new_post_doc_order_by_category($post_id)
-	{
-		$term_list = wp_get_post_terms($post_id, 'doc_category', array('fields' => 'ids'));
-
-		if (!empty($term_list)) {
-			foreach ($term_list as $term_id) {
-				$term = get_term($term_id, 'doc_category');
-				$term_slug = $term->slug;
-				$term_meta = get_term_meta($term_id, '_docs_order');
-				if (!empty($term_meta)) {
-					$term_meta_arr = explode(",", $term_meta[0]);
-
-					if (!in_array($post_id, $term_meta_arr)) {
-						array_unshift($term_meta_arr, $post_id);
-						$docs_ordering_data = filter_var_array(wp_unslash($term_meta_arr), FILTER_SANITIZE_NUMBER_INT);
-						$val = implode(',', $docs_ordering_data);
-						update_term_meta($term_id, '_docs_order', implode(',', $docs_ordering_data));
-					}
-				}
-			}
-		}
-	}
-
-	/**
-	 *
-	 * Update docs query arguments
-	 *
-	 */
-
-	public function docs_args($args, $term_id = null)
-	{
-		if (is_null($term_id) || isset($args['orderby'])) {
-			return $args;
-		}
-
-		$docs_order = get_term_meta($term_id, '_docs_order', true);
-
-		global $wpdb;
-
-		if (!empty($docs_order)) {
-
-			$docs_order = explode(',', $docs_order);
-
-			$new_ids = [];
-			$results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}term_relationships WHERE term_taxonomy_id = $term_id");
-
-			if (!is_null($results) && !empty($results) && is_array($results)) {
-
-				$object_ids = array_filter($results, function ($value) use ($docs_order) {
-					return !in_array($value->object_id, $docs_order);
-				});
-
-				if (!empty($object_ids)) {
-
-					array_walk($object_ids, function ($value) use (&$new_ids) {
-						$new_ids[] = $value->object_id;
-					});
-				}
-			}
-
-			$args['orderby'] = 'post__in';
-			$args['post__in'] = array_merge($new_ids, $docs_order);
-		}
-
-		return $args;
-	}
-
 	public function get_prev($array, $key)
 	{
 		$currentKey = array_search($key, $array);
 		if ($currentKey > 0 || $currentKey != 0) {
 			$nextKey = $currentKey - 1;
 			$prev_post = $array[$nextKey];
-			$nav = '<a rel="prev" class="next-post" href="' . get_post_permalink($prev_post) . '"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="42px" viewBox="0 0 50 50" version="1.1"><g id="surface1"><path style=" " d="M 11.957031 13.988281 C 11.699219 14.003906 11.457031 14.117188 11.28125 14.308594 L 1.015625 25 L 11.28125 35.691406 C 11.527344 35.953125 11.894531 36.0625 12.242188 35.976563 C 12.589844 35.890625 12.867188 35.625 12.964844 35.28125 C 13.066406 34.933594 12.972656 34.5625 12.71875 34.308594 L 4.746094 26 L 48 26 C 48.359375 26.003906 48.695313 25.816406 48.878906 25.503906 C 49.058594 25.191406 49.058594 24.808594 48.878906 24.496094 C 48.695313 24.183594 48.359375 23.996094 48 24 L 4.746094 24 L 12.71875 15.691406 C 13.011719 15.398438 13.09375 14.957031 12.921875 14.582031 C 12.753906 14.203125 12.371094 13.96875 11.957031 13.988281 Z "></path></g></svg>' . esc_html(get_the_title($prev_post)) . '</a>';
+			$nav = '<a rel="prev" class="next-post" href="' . get_post_permalink($prev_post) . '"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="42px" viewBox="0 0 50 50" version="1.1"><g id="surface1"><path style=" " d="M 11.957031 13.988281 C 11.699219 14.003906 11.457031 14.117188 11.28125 14.308594 L 1.015625 25 L 11.28125 35.691406 C 11.527344 35.953125 11.894531 36.0625 12.242188 35.976563 C 12.589844 35.890625 12.867188 35.625 12.964844 35.28125 C 13.066406 34.933594 12.972656 34.5625 12.71875 34.308594 L 4.746094 26 L 48 26 C 48.359375 26.003906 48.695313 25.816406 48.878906 25.503906 C 49.058594 25.191406 49.058594 24.808594 48.878906 24.496094 C 48.695313 24.183594 48.359375 23.996094 48 24 L 4.746094 24 L 12.71875 15.691406 C 13.011719 15.398438 13.09375 14.957031 12.921875 14.582031 C 12.753906 14.203125 12.371094 13.96875 11.957031 13.988281 Z "></path></g></svg>' . wp_kses(get_the_title($prev_post), BETTERDOCS_PRO_KSES_ALLOWED_HTML) . '</a>';
 		} else {
 			$nav = '';
 		}
@@ -429,7 +248,7 @@ class Betterdocs_Pro_Admin
 		if (!empty($array) && end($array) != $array[$currentKey]) {
 			$nextKey = $currentKey + 1;
 			$next_post = $array[$nextKey];
-			$nav = '<a rel="next" class="next-post" href="' . get_post_permalink($next_post) . '">' . esc_html(get_the_title($next_post)) . '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="42px" viewBox="0 0 50 50" version="1.1"><g id="surface1"><path style=" " d="M 38.035156 13.988281 C 37.628906 13.980469 37.257813 14.222656 37.09375 14.59375 C 36.933594 14.96875 37.015625 15.402344 37.300781 15.691406 L 45.277344 24 L 2.023438 24 C 1.664063 23.996094 1.328125 24.183594 1.148438 24.496094 C 0.964844 24.808594 0.964844 25.191406 1.148438 25.503906 C 1.328125 25.816406 1.664063 26.003906 2.023438 26 L 45.277344 26 L 37.300781 34.308594 C 36.917969 34.707031 36.933594 35.339844 37.332031 35.722656 C 37.730469 36.105469 38.363281 36.09375 38.746094 35.691406 L 49.011719 25 L 38.746094 14.308594 C 38.5625 14.109375 38.304688 13.996094 38.035156 13.988281 Z "></path></g></svg></a>';
+			$nav = '<a rel="next" class="next-post" href="' . get_post_permalink($next_post) . '">' . wp_kses(get_the_title($next_post), BETTERDOCS_PRO_KSES_ALLOWED_HTML) . '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="42px" viewBox="0 0 50 50" version="1.1"><g id="surface1"><path style=" " d="M 38.035156 13.988281 C 37.628906 13.980469 37.257813 14.222656 37.09375 14.59375 C 36.933594 14.96875 37.015625 15.402344 37.300781 15.691406 L 45.277344 24 L 2.023438 24 C 1.664063 23.996094 1.328125 24.183594 1.148438 24.496094 C 0.964844 24.808594 0.964844 25.191406 1.148438 25.503906 C 1.328125 25.816406 1.664063 26.003906 2.023438 26 L 45.277344 26 L 37.300781 34.308594 C 36.917969 34.707031 36.933594 35.339844 37.332031 35.722656 C 37.730469 36.105469 38.363281 36.09375 38.746094 35.691406 L 49.011719 25 L 38.746094 14.308594 C 38.5625 14.109375 38.304688 13.996094 38.035156 13.988281 Z "></path></g></svg></a>';
 		} else {
 			$nav = '';
 		}
@@ -485,4 +304,50 @@ class Betterdocs_Pro_Admin
 		}
 		echo $nav;
 	}
+
+    public function add_categoey_thumb()
+    {
+        echo '<div class="form-field term-group">
+            <label for="doc-category-image-thumb">' . esc_html__('Category Cover Image for Handbook Layout', 'betterdocs-pro') . '</label>
+            <input type="hidden" class="doc-category-image-id" name="term_meta[thumb-id]" value="">
+            <div class="doc-category-image-wrapper betterdocs-category-thumb">
+                <img width="100" src="' . BETTERDOCS_PRO_ADMIN_URL . 'assets/img/cat-grid-2.png" alt="">
+            </div>
+            <p>
+                <input type="button" class="button button-secondary betterdocs_tax_media_button"
+                    id="betterdocs_cat_thumb_button" name="betterdocs_cat_thumb_button"
+                    value="' . esc_html__('Add Image', 'betterdocs-pro') . '" />
+                <input type="button" class="button button-secondary doc_tax_media_remove" id="doc_cat_thumb_remove"
+                    name="doc_cat_thumb_remove"
+                    value="' . esc_html__('Remove Image', 'betterdocs-pro') . '" />
+            </p>
+        </div>';
+    }
+
+    public function update_categoey_thumb($term)
+    {
+        $cat_thumb_id = get_term_meta($term->term_id, 'doc_category_thumb-id', true);
+    ?>
+        <tr class="form-field term-group-wrap batterdocs-cat-media-upload">
+            <th scope="row">
+                <label><?php esc_html_e('Category Cover Image for Handbook Layout', 'betterdocs-pro'); ?></label>
+            </th>
+            <td>
+                <input type="hidden" class="doc-category-image-id" name="term_meta[thumb-id]" value="<?php echo esc_attr($cat_thumb_id); ?>">
+                <div class="doc-category-image-wrapper betterdocs-category-thumb">
+                    <?php
+                    if ($cat_thumb_id) {
+                        echo wp_get_attachment_image($cat_thumb_id, 'thumbnail');
+                    } else {
+                        echo '<img width="100" src="' . BETTERDOCS_PRO_ADMIN_URL . 'assets/img/cat-grid-2.png" alt="">';
+                    }
+                    ?>
+                </div>
+                <p>
+                    <input type="button" class="button button-secondary betterdocs_tax_media_button" id="betterdocs_tax_media_button" name="betterdocs_tax_media_button" value="<?php esc_html_e('Add Image', 'betterdocs-pro'); ?>" />
+                    <input type="button" class="button button-secondary doc_tax_media_remove" id="doc_tax_media_remove" name="doc_tax_media_remove" value="<?php esc_html_e('Remove Image', 'betterdocs-pro'); ?>" />
+                </p>
+            </td>
+        </tr>
+    <?php }
 }

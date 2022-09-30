@@ -165,7 +165,7 @@ Class BetterDocs_Elementor_Tab_View extends Widget_Base{
                                                 echo '<ul>';
                                                 while ($post_query->have_posts()) : $post_query->the_post();
                                                     $attr = ['href="' . get_the_permalink() . '"'];
-                                                    echo '<li>' . BetterDocs_Helper::list_svg() . '<a ' . implode(' ', $attr) . '>' . esc_html(get_the_title()) . '</a></li>';
+                                                    echo '<li>' . BetterDocs_Helper::list_svg() . '<a ' . implode(' ', $attr) . '>' .  wp_kses(get_the_title(), BETTERDOCS_PRO_KSES_ALLOWED_HTML) . '</a></li>';
                                                 endwhile;
                                                 echo '</ul>';
                                             endif;

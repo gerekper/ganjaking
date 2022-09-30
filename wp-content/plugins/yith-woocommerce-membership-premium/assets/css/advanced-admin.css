@@ -1,0 +1,59 @@
+/**
+ * Advanced Admin style
+ *
+ * @author Leanza Francesco
+ * @version 1.0.0
+ */
+
+#yith-wcmbs-advanced-membership-administration label {
+    width       : 200px;
+    display     : inline-block;
+    font-weight : 600;
+}
+
+#yith-wcmbs-advanced-membership-administration .yith-wcmbs-advanced-admin-section-field,
+#yith-wcmbs-advanced-membership-administration .yith-plugin-fw-onoff-container {
+    width   : 250px;
+    display : inline-block;
+}
+
+#yith-wcmbs-advanced-membership-administration .yith-wcmbs-advanced-admin-section-field:disabled {
+    background : #ffffff;
+}
+
+#yith-wcmbs-advanced-membership-administration .yith-wcmbs-advanced-set-unlimited {
+    margin-left : 10px;
+}
+
+.yith-wcmbs-advanced-admin__notice {
+    padding       : 12px 18px;
+    border-radius : 5px;
+    font-weight   : 600;
+    font-size     : 14px;
+    background    : #fff2e5;
+    border        : 1px solid #e18e1644;
+    color         : #c27111;
+}
+
+.yith-wcmbs-advanced-admin-section {
+    margin : 15px 0;
+}
+
+
+
+#yith-wcmbs-advanced-admin__content .yith-plugin-fw-field-wrapper:not(.yith-plugin-fw-title-field-wrapper){
+    max-width: 400px;
+    position: relative;
+    display: inline-block;
+}
+
+#yith-wcmbs-advanced-admin__content .yith-plugin-fw-datepicker-field-wrapper:after{
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    font-family: 'yith-icon' !important;
+    font-size: 20px;
+    content: "\e904";
+    color: #757575;
+    transform: translateY(-50%);
+}

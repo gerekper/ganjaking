@@ -72,7 +72,7 @@ class WC_MMQ_Store_API {
 					$value = absint( apply_filters( 'wc_min_max_quantity_minimum_allowed_quantity', $value, $product->get_id(), $cart_item[ 'key' ], $cart_item ) );
 				}
 			} else {
-				$allow_combination = 'yes' === get_post_meta( $product->get_id(), 'allow_combination', true );
+				$allow_combination = 'yes' === get_post_meta( $product->get_parent_id(), 'allow_combination', true );
 
 				// Do not automatically update the min cart item quantity, if allow combination is enabled.
 				if ( ! $allow_combination ) {
@@ -116,14 +116,10 @@ class WC_MMQ_Store_API {
 					$max_quantity = absint( apply_filters( 'wc_min_max_quantity_maximum_allowed_quantity', $max_quantity, $product->get_id(), $cart_item[ 'key' ], $cart_item ) );
 				}
 			} else {
-				$allow_combination = 'yes' === get_post_meta( $product->get_id(), 'allow_combination', true );
 
-				// Do not automatically update the max cart item quantity, if allow combination is enabled.
-				if ( ! $allow_combination ) {
-					$max_quantity = absint( get_post_meta( $product->get_parent_id(), 'maximum_allowed_quantity', true ) );
-					if ( ! is_null( $cart_item ) ) {
-						$max_quantity = absint( apply_filters( 'wc_min_max_quantity_maximum_allowed_quantity', $max_quantity, $cart_item[ 'product_id' ], $cart_item[ 'key' ], $cart_item ) );
-					}
+				$max_quantity = absint( get_post_meta( $product->get_parent_id(), 'maximum_allowed_quantity', true ) );
+				if ( ! is_null( $cart_item ) ) {
+					$max_quantity = absint( apply_filters( 'wc_min_max_quantity_maximum_allowed_quantity', $max_quantity, $cart_item[ 'product_id' ], $cart_item[ 'key' ], $cart_item ) );
 				}
 			}
 		} else {
@@ -161,9 +157,13 @@ class WC_MMQ_Store_API {
 					$group_of_quantity = absint( apply_filters( 'wc_min_max_quantity_group_of_quantity', $group_of_quantity, $product->get_id(), $cart_item[ 'key' ], $cart_item ) );
 				}
 			} else {
-				$group_of_quantity = absint( get_post_meta( $product->get_parent_id(), 'group_of_quantity', true ) );
-				if ( ! is_null( $cart_item ) ) {
-					$group_of_quantity = absint( apply_filters( 'wc_min_max_quantity_group_of_quantity', $group_of_quantity,$product->get_id(), $cart_item[ 'key' ], $cart_item ) );
+				$allow_combination = 'yes' === get_post_meta( $product->get_parent_id(), 'allow_combination', true );
+
+				if ( ! $allow_combination ) {
+					$group_of_quantity = absint( get_post_meta( $product->get_parent_id(), 'group_of_quantity', true ) );
+					if ( ! is_null( $cart_item ) ) {
+						$group_of_quantity = absint( apply_filters( 'wc_min_max_quantity_group_of_quantity', $group_of_quantity, $product->get_id(), $cart_item[ 'key' ], $cart_item ) );
+					}
 				}
 			}
 		} else {

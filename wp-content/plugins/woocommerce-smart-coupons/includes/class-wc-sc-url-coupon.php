@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.8.0
+ * @version     1.9.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -96,17 +96,15 @@ if ( ! class_exists( 'WC_SC_URL_Coupon' ) ) {
 			parse_str( wp_unslash( $_SERVER['QUERY_STRING'] ), $coupon_args ); // phpcs:ignore
 			$coupon_args = wc_clean( $coupon_args );
 
-			if ( isset( $coupon_args['coupon-code'] ) && ! empty( $coupon_args['coupon-code'] ) ) {
+			if ( ! empty( $coupon_args['coupon-code'] ) ) {
+				$coupons_data = array();
 
 				$coupon_args['coupon-code'] = urldecode( $coupon_args['coupon-code'] );
 
 				$coupon_codes = explode( ',', $coupon_args['coupon-code'] );
-
 				$coupon_codes = array_filter( $coupon_codes ); // Remove empty coupon codes if any.
 
 				$cart = ( is_object( WC() ) && isset( WC()->cart ) ) ? WC()->cart : null;
-
-				$coupons_data = array();
 
 				foreach ( $coupon_codes as $coupon_index => $coupon_code ) {
 					// Process only first five coupons to avoid GET request parameter limit.
@@ -123,7 +121,9 @@ if ( ! class_exists( 'WC_SC_URL_Coupon' ) ) {
 					);
 				}
 
-				if ( empty( $cart ) || WC()->cart->is_empty() ) {
+				$is_cart_empty = is_a( $cart, 'WC_Cart' ) && is_callable( array( $cart, 'is_empty' ) ) && $cart->is_empty();
+
+				if ( true === $is_cart_empty ) {
 					$is_hold = apply_filters(
 						'wc_sc_hold_applied_coupons',
 						true,
@@ -146,42 +146,80 @@ if ( ! class_exists( 'WC_SC_URL_Coupon' ) ) {
 					}
 				}
 
+				if ( ! empty( $coupon_args['add-to-cart'] ) ) {
+					add_filter( 'woocommerce_add_to_cart_redirect', array( $this, 'add_to_cart_redirect' ), 20, 2 );
+					return; // Redirection handed over to WooCommerce.
+				}
+
 				if ( empty( $coupon_args['sc-page'] ) ) {
 					return;
 				}
 
-				$redirect_url = '';
-
-				if ( in_array( $coupon_args['sc-page'], array( 'shop', 'cart', 'checkout', 'myaccount' ), true ) ) {
-					if ( $this->is_wc_gte_30() ) {
-						$page_id = wc_get_page_id( $coupon_args['sc-page'] );
-					} else {
-						$page_id = woocommerce_get_page_id( $coupon_args['sc-page'] );
-					}
-					$redirect_url = get_permalink( $page_id );
-				} elseif ( is_string( $coupon_args['sc-page'] ) ) {
-					if ( is_numeric( $coupon_args['sc-page'] ) && ! is_float( $coupon_args['sc-page'] ) ) {
-						$page = $coupon_args['sc-page'];
-					} else {
-						$page = ( function_exists( 'wpcom_vip_get_page_by_path' ) ) ? wpcom_vip_get_page_by_path( $coupon_args['sc-page'], OBJECT, get_post_types() ) : get_page_by_path( $coupon_args['sc-page'], OBJECT, get_post_types() ); // phpcs:ignore
-					}
-					$redirect_url = get_permalink( $page );
-				} elseif ( is_numeric( $coupon_args['sc-page'] ) && ! is_float( $coupon_args['sc-page'] ) ) {
-					$redirect_url = get_permalink( $coupon_args['sc-page'] );
-				}
-
-				if ( empty( $redirect_url ) ) {
-					$redirect_url = home_url();
-				}
-
-				$redirect_url = $this->get_redirect_url_after_smart_coupons_process( $redirect_url );
-
+				$redirect_url = $this->get_sc_redirect_url( $coupon_args );
 				wp_safe_redirect( $redirect_url );
-
 				exit;
 
 			}
 
+		}
+
+		/**
+		 * Get Smart Coupons redirect url
+		 *
+		 * @param array $coupon_args Coupon args.
+		 * @return string
+		 */
+		public function get_sc_redirect_url( $coupon_args = array() ) {
+			$redirect_url = '';
+
+			if ( in_array( $coupon_args['sc-page'], array( 'shop', 'cart', 'checkout', 'myaccount' ), true ) ) {
+				if ( $this->is_wc_gte_30() ) {
+					$page_id = wc_get_page_id( $coupon_args['sc-page'] );
+				} else {
+					$page_id = woocommerce_get_page_id( $coupon_args['sc-page'] );
+				}
+				$redirect_url = get_permalink( $page_id );
+			} elseif ( is_string( $coupon_args['sc-page'] ) ) {
+				if ( is_numeric( $coupon_args['sc-page'] ) && ! is_float( $coupon_args['sc-page'] ) ) {
+					$page = $coupon_args['sc-page'];
+				} else {
+                    $page = ( function_exists( 'wpcom_vip_get_page_by_path' ) ) ? wpcom_vip_get_page_by_path( $coupon_args['sc-page'], OBJECT, get_post_types() ) : get_page_by_path( $coupon_args['sc-page'], OBJECT, get_post_types() ); // phpcs:ignore
+				}
+				$redirect_url = get_permalink( $page );
+			} elseif ( is_numeric( $coupon_args['sc-page'] ) && ! is_float( $coupon_args['sc-page'] ) ) {
+				$redirect_url = get_permalink( $coupon_args['sc-page'] );
+			}
+
+			if ( empty( $redirect_url ) ) {
+				$redirect_url = home_url();
+			}
+
+			return $this->get_redirect_url_after_smart_coupons_process( $redirect_url );
+		}
+
+		/**
+		 * WooCommerce handles add to cart redirect.
+		 *
+		 * @param string     $url The redirect URL.
+		 * @param WC_Product $product Product.
+		 * @return string
+		 */
+		public function add_to_cart_redirect( $url = '', $product = null ) {
+
+			remove_filter( 'woocommerce_add_to_cart_redirect', array( $this, 'add_to_cart_redirect' ), 20 );
+
+			if ( empty( $_SERVER['QUERY_STRING'] ) ) {
+				return $url;
+			}
+
+            parse_str( wp_unslash( $_SERVER['QUERY_STRING'] ), $coupon_args ); // phpcs:ignore
+			$coupon_args = wc_clean( $coupon_args );
+
+			if ( ! empty( $coupon_args['sc-page'] ) ) {
+				return $this->get_sc_redirect_url( $coupon_args );
+			}
+
+			return $url;
 		}
 
 		/**
@@ -373,14 +411,19 @@ if ( ! class_exists( 'WC_SC_URL_Coupon' ) ) {
 				return $url;
 			}
 
-			$query_string = ( ! empty( $_SERVER['QUERY_STRING'] ) ) ? wc_clean( wp_unslash( $_SERVER['QUERY_STRING'] ) ) : array(); // phpcs:ignore
+            $query_string = ( ! empty( $_SERVER['QUERY_STRING'] ) ) ? wc_clean( wp_unslash( $_SERVER['QUERY_STRING'] ) ) : array(); // phpcs:ignore
 
 			parse_str( $query_string, $url_args );
 
-			$sc_params  = array( 'coupon-code', 'sc-page' );
+			$sc_params = array( 'coupon-code', 'sc-page' );
+
 			$url_params = array_diff_key( $url_args, array_flip( $sc_params ) );
 
-			$redirect_url = apply_filters( 'wc_sc_redirect_url_after_smart_coupons_process', add_query_arg( $url_params, $url ), array( 'source' => $this ) );
+			if ( empty( $url_params['add-to-cart'] ) ) {
+				$redirect_url = apply_filters( 'wc_sc_redirect_url_after_smart_coupons_process', add_query_arg( $url_params, $url ), array( 'source' => $this ) );
+			} else {
+				$redirect_url = apply_filters( 'wc_sc_redirect_url_after_smart_coupons_process', $url, array( 'source' => $this ) );
+			}
 
 			return $redirect_url;
 		}

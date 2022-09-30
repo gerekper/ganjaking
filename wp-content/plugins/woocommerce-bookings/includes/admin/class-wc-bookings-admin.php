@@ -383,6 +383,13 @@ class WC_Bookings_Admin {
 				'show_if_booking',
 			),
 		);
+		$tabs['bookings_export'] = array(
+			'label'  => __( 'Export', 'woocommerce-bookings' ),
+			'target' => 'bookings_export',
+			'class'  => array(
+				'show_if_booking',
+			),
+		);
 		return $tabs;
 	}
 
@@ -603,6 +610,7 @@ class WC_Bookings_Admin {
 		include 'views/html-booking-availability.php';
 		include 'views/html-booking-pricing.php';
 		include 'views/html-booking-persons.php';
+		include 'views/html-booking-export.php';
 	}
 
 	/**
@@ -694,12 +702,12 @@ class WC_Bookings_Admin {
 		);
 
 		wp_localize_script( 'wc_bookings_admin_edit_booking_js', 'wc_bookings_admin_edit_booking_params', $params );
-		
+
 		$params = array(
 			'wc_bookings_invalid_min_duration'  => esc_html__( 'Minimum duration needs to be less than or equal to maximum duration.', 'woocommerce-bookings' ),
 			'wc_bookings_invalid_max_duration'  => esc_html__( 'Maximum duration needs to be greater than or equal to the minimum duration.', 'woocommerce-bookings' ),
 		);
-		
+
 		wp_localize_script( 'wc_bookings_admin_edit_bookable_product_js', 'wc_bookings_admin_edit_booking_params', $params );
 	}
 

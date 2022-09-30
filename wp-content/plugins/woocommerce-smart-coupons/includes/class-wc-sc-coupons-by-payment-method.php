@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.1.0
+ * @version     1.2.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -34,7 +34,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Payment_Method' ) ) {
 
 			add_action( 'woocommerce_coupon_options_usage_restriction', array( $this, 'usage_restriction' ), 10, 2 );
 			add_action( 'save_post', array( $this, 'process_meta' ), 10, 2 );
-			add_filter( 'woocommerce_coupon_is_valid', array( $this, 'validate' ), 11, 2 );
+			add_filter( 'woocommerce_coupon_is_valid', array( $this, 'validate' ), 11, 3 );
 			add_filter( 'wc_smart_coupons_export_headers', array( $this, 'export_headers' ) );
 			add_filter( 'wc_sc_export_coupon_meta', array( $this, 'export_coupon_meta_data' ), 10, 2 );
 			add_filter( 'smart_coupons_parser_postmeta_defaults', array( $this, 'postmeta_defaults' ) );
@@ -156,26 +156,56 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Payment_Method' ) ) {
 		/**
 		 * Validate the coupon based on payment method
 		 *
-		 * @param  boolean   $valid  Is valid or not.
-		 * @param  WC_Coupon $coupon The coupon object.
+		 * @param  boolean      $valid  Is valid or not.
+		 * @param  WC_Coupon    $coupon The coupon object.
+		 * @param  WC_Discounts $discounts The discount object.
 		 *
 		 * @throws Exception If the coupon is invalid.
 		 * @return boolean           Is valid or not
 		 */
-		public function validate( $valid = false, $coupon = object ) {
+		public function validate( $valid = false, $coupon = object, $discounts = object ) {
 
 			// If coupon is already invalid, no need for further checks.
 			if ( false === $valid ) {
 				return $valid;
 			}
 
-			$coupon_id          = ( $this->is_wc_gte_30() ) ? $coupon->get_id() : $coupon->id;
-			$payment_method_ids = get_post_meta( $coupon_id, 'wc_sc_payment_method_ids', true );
+			if ( ! is_a( $coupon, 'WC_Coupon' ) ) {
+				return $valid;
+			}
+
+			if ( ! is_a( $discounts, 'WC_Discounts' ) ) {
+				return $valid;
+			}
+
+			if ( $this->is_wc_gte_30() ) {
+				$coupon_id   = ( ! empty( $coupon ) && is_callable( array( $coupon, 'get_id' ) ) ) ? $coupon->get_id() : 0;
+				$coupon_code = ( ! empty( $coupon ) && is_callable( array( $coupon, 'get_code' ) ) ) ? $coupon->get_code() : '';
+			} else {
+				$coupon_id   = ( ! empty( $coupon->id ) ) ? $coupon->id : 0;
+				$coupon_code = ( ! empty( $coupon->code ) ) ? $coupon->code : '';
+			}
+			$payment_method_ids   = get_post_meta( $coupon_id, 'wc_sc_payment_method_ids', true );
+			$cart_or_order_object = is_callable( array( $discounts, 'get_object' ) ) ? $discounts->get_object() : null;
+			$is_wc_session        = is_a( $cart_or_order_object, 'WC_Cart' ) && function_exists( 'WC' ) && isset( WC()->session ) && is_object( WC()->session );
 
 			if ( is_array( $payment_method_ids ) && ! empty( $payment_method_ids ) ) {
-				$chosen_payment_method = WC()->session->__isset( 'chosen_payment_method' ) ? WC()->session->get( 'chosen_payment_method' ) : '';
+				$payment_titles        = $this->get_payment_method_titles_by_ids( $payment_method_ids );
+				$chosen_payment_method = '';
+				if ( is_a( $cart_or_order_object, 'WC_Order' ) ) {
+					$chosen_payment_method = is_callable( array( $cart_or_order_object, 'get_payment_method' ) ) ? $cart_or_order_object->get_payment_method() : '';
+				} elseif ( true === $is_wc_session ) {
+					$chosen_payment_method = ( WC()->session->__isset( 'chosen_payment_method' ) ) ? WC()->session->get( 'chosen_payment_method' ) : '';
+				}
 				if ( ! in_array( $chosen_payment_method, $payment_method_ids, true ) ) {
-					throw new Exception( __( 'This coupon is not valid for selected payment method.', 'woocommerce-smart-coupons' ) );
+					if ( true === $is_wc_session && is_callable( array( WC()->session, 'set' ) ) ) {
+						WC()->session->set( 'wc_sc_reload_payment_method', 'yes' );
+					}
+					/* translators: 1. The coupon code 2. The text 'payment method/s' 3. List of payment method names 4. Link to the checkout page */
+					throw new Exception( sprintf( __( 'Coupon code %1$s is valid only for %2$s: %3$s. You can change payment method from the %4$s page.', 'woocommerce-smart-coupons' ), '<code>' . $coupon_code . '</code>', _n( 'payment method', 'payment methods', count( $payment_titles ), 'woocommerce-smart-coupons' ), '<strong>"' . implode( '", "', $payment_titles ) . '"</strong>', '<a href="' . esc_url( wc_get_checkout_url() ) . '"><strong>' . __( 'Checkout', 'woocommerce-smart-coupons' ) . '</strong></a>' ) );
+				}
+				if ( true === $is_wc_session && is_callable( array( WC()->session, 'set' ) ) ) {
+					WC()->session->set( 'wc_sc_reload_payment_method', 'no' );
 				}
 			}
 
@@ -305,7 +335,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Payment_Method' ) ) {
 							foreach ( $available_payment_methods as $payment_method ) {
 								$method_title = is_callable( array( $payment_method, 'get_title' ) ) ? $payment_method->get_title() : '';
 								if ( $method_title === $payment_method_title && ! empty( $payment_method->id ) ) {
-									$meta_value[ $index ] = $payment_method->id; // Replace payment method title with it's repective id.
+									$meta_value[ $index ] = $payment_method->id; // Replace payment method title with it's respective id.
 								}
 							}
 						}

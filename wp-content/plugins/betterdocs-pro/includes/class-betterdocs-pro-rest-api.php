@@ -112,7 +112,7 @@ class BetterDocs_Pro_Rest_Api
                 $loop->the_post();
                 $docs                       = array();
                 $docs['id']                 = get_the_ID();
-                $docs['title']['rendered']  = esc_html(get_the_title(get_the_ID()));
+                $docs['title']['rendered']  =  wp_kses(get_the_title(get_the_ID()), BETTERDOCS_PRO_KSES_ALLOWED_HTML);
                 $docs['permalink']          = get_permalink();
                 $data[] = $docs;
             }

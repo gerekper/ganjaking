@@ -1200,7 +1200,7 @@ class BetterDocs_Pro_IA {
 
         if( ! empty( $_docs ) ) {
             foreach( $_docs as $doc ) {
-                $docs[ $doc->ID ] = esc_html($doc->post_title);
+                $docs[ $doc->ID ] = wp_kses($doc->post_title, BETTERDOCS_PRO_KSES_ALLOWED_HTML);
             }
         }
 
@@ -1232,7 +1232,7 @@ class BetterDocs_Pro_IA {
         if($allpages ) {
             $page_list[ 'all' ] = 'All';
             foreach( $allpages as $page ) {
-                $page_list[ $page->ID ] = esc_html($page->post_title);
+                $page_list[ $page->ID ] = wp_kses($page->post_title, BETTERDOCS_PRO_KSES_ALLOWED_HTML);
             }
         }
         return $page_list;

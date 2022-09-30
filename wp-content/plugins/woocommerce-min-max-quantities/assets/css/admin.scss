@@ -1,0 +1,54 @@
+
+.options_group.mmq_previous_section {
+	border-bottom: 0px;
+}
+
+.min_max_rules_options .form-row label.variation_group_of_quantity_label, .min_max_rules_options .form-row label.variation_maximum_allowed_quantity_label, .min_max_rules_options .form-row label.variation_minimum_allowed_quantity_label   {
+	display: block;
+}
+
+#min_max_settings {
+
+	.woocommerce-help-tip {
+		vertical-align: text-top;
+	}
+
+	.hr-section {
+
+		display: flex;
+		flex-basis: 100%;
+		align-items: center;
+		font-size: 10.5px;
+		letter-spacing: 1px;
+		font-weight: 300;
+		text-transform: uppercase;
+		position: relative;
+		top: 8px;
+		padding-bottom: 10px;
+
+		&:before, &:after {
+			content: "";
+			flex-grow: 1;
+			background: #eee;
+			height: 1px;
+			font-size: 0px;
+			line-height: 0px;
+		}
+
+		&:before {
+			margin: 0 16px 0 0;
+		}
+
+		&:after {
+			margin: 0 0 0 16px;
+		}
+	}
+
+	.exclude_checkbox_wrapper {
+		display: block;
+
+		.labelspan {
+			margin: 0 0 0 7px;
+		}
+	}
+}

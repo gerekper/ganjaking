@@ -1,7 +1,8 @@
 <?php
 
-if (!defined('ABSPATH'))
+if (!defined('ABSPATH')) {
 	exit; // Exit if accessed directly
+}
 
 if (!class_exists('PDF_Invoice_Test_Invoice')) :
 	

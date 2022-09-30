@@ -635,8 +635,8 @@ class WC_Brands {
 	/**
 	 * Adds the taxonomy query to the WooCommerce products shortcode query arguments
 	 *
-	 * @param array $query_args
-	 * @param array $attributes
+	 * @param array  $query_args
+	 * @param array  $attributes
 	 * @param string $type
 	 *
 	 * @return array
@@ -647,14 +647,12 @@ class WC_Brands {
 			return $query_args;
 		}
 
-		$query_args['tax_query'] = array(
-			array(
-				'taxonomy' => 'product_brand',
-				'terms'    => array_map( 'sanitize_title', explode( ',', $attributes['brand'] ) ),
-				'field'    => 'slug',
-				'operator' => 'IN',
-			)
-		);
+		$query_args['tax_query'][] = [
+			'taxonomy' => 'product_brand',
+			'terms'    => array_map( 'sanitize_title', explode( ',', $attributes['brand'] ) ),
+			'field'    => 'slug',
+			'operator' => 'IN',
+		];
 
 		return $query_args;
 	}

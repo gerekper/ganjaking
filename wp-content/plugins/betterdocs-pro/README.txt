@@ -4,7 +4,7 @@ Donate link: https://wpdeveloper.com
 Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, table of content, TOC, knowledgebase, faqs, doc page, best documentation plugin, support, customer support
 Requires at least: 4.0
 Tested up to: 6.0
-Stable tag: 2.1.4
+Stable tag: 2.2.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -90,6 +90,11 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 2.2.0 - 25/09/2022 = 
+
+- Added: New Handbook Layout for Docs, Archive & Single Docs page
+- Few minor bug fixes & improvements
 
 = 2.1.4 - 22/08/2022 = 
 

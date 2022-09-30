@@ -1,5 +1,8 @@
 *** WooCommerce Bookings Changelog ***
 
+2022-09-26 - version 1.15.63
+* Add - Bookings Helper integration (Export button on a product page).
+
 2022-09-13 - version 1.15.62
 * Tweak - Removed unwanted legacy code related to overriding block cost.
 

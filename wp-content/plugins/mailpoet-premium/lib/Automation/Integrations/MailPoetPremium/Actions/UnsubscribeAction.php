@@ -6,10 +6,12 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Automation\Engine\Data\Step;
+use MailPoet\Automation\Engine\Data\StepRunArgs;
 use MailPoet\Automation\Engine\Data\Workflow;
-use MailPoet\Automation\Engine\Data\WorkflowRun;
 use MailPoet\Automation\Engine\Workflows\Action;
+use MailPoet\Automation\Engine\Workflows\Payload;
 use MailPoet\Automation\Engine\Workflows\Subject;
+use MailPoet\Automation\Integrations\MailPoet\Payloads\SubscriberPayload;
 use MailPoet\Automation\Integrations\MailPoet\Subjects\SubscriberSubject;
 use MailPoet\Entities\StatisticsUnsubscribeEntity;
 use MailPoet\Entities\SubscriberEntity;
@@ -58,8 +60,12 @@ class UnsubscribeAction implements Action {
     return Builder::object();
   }
 
+  public function getSubjectKeys(): array {
+    return ['mailpoet:subscriber'];
+  }
+
   /**
-   * @param Subject[] $subjects
+   * @param Subject<Payload>[] $subjects
    */
   public function isValid(array $subjects, Step $step, Workflow $workflow): bool {
     $subscriberSubjects = array_filter($subjects, function (Subject $subject) {
@@ -69,9 +75,12 @@ class UnsubscribeAction implements Action {
     return count($subscriberSubjects) === 1;
   }
 
-  public function run(Workflow $workflow, WorkflowRun $workflowRun, Step $step): void {
-    $subscriberSubject = $workflowRun->requireSingleSubject(SubscriberSubject::class);
-    $subscriber = $subscriberSubject->getSubscriber();
+  public function run(StepRunArgs $args): void {
+    $subscriberId = $args->getSinglePayloadByClass(SubscriberPayload::class)->getId();
+    $subscriber = $this->subscribersRepository->findOneById($subscriberId);
+    if (!$subscriber) {
+      throw new InvalidStateException();
+    }
 
     if ($subscriber->getStatus() !== SubscriberEntity::STATUS_SUBSCRIBED) {
       throw InvalidStateException::create()->withMessage(sprintf("Cannot unsubscribe subscriber ID '%s' because their status is '%s'.", $subscriber->getId(), $subscriber->getStatus()));
@@ -79,9 +88,9 @@ class UnsubscribeAction implements Action {
 
     if ($this->trackingConfig->isEmailTrackingEnabled()) {
       $meta = json_encode([
-        'workflow' => $workflow->getId(),
-        'workflow_run' => $workflowRun->getId(),
-        'step' => $step->getId(),
+        'workflow' => $args->getWorkflow()->getId(),
+        'workflow_run' => $args->getWorkflowRun()->getId(),
+        'step' => $args->getStep()->getId(),
       ]);
       $this->unsubscribesTracker->track(
         (int)$subscriber->getId(),

@@ -1,5 +1,31 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2022.09.26 - version 6.2.0
+* New: Display store credit original amount in the coupon's admin dashboard
+* New: Setting & hook 'wc_sc_show_myaccount_menu_icon' to show or hide icon for coupons menu/tab on My account page
+* Fix: The coupon in which 'Disable email restriction?' is enabled under Usage restrictions, those coupons don't show up under the drop-down for 'Enable store notice for the coupon'
+* Fix: Unable to identify Smart Coupons' endpoint under My account using function is_wc_endpoint_url
+* Fix: Coupon URL feature not working correctly with URL param 'add-to-cart'
+* Fix: Setting Free shipping is not working correctly with the discount type store credit
+* Fix: Usage restrictions > Payment methods are not validating correctly when the coupon is used in creating/updating an order via REST API
+* Fix: Auto-generating a percentage discount coupon is also converting the percentage amount of the coupon [Aelia Currency Switcher for WooCommerce]
+* Fix: Incorrectly converting store credit original amount during auto-generation [Aelia Currency Switcher for WooCommerce]
+* Fix: Coupon amount is not geting converted in store notice for coupon [Aelia Currency Switcher for WooCommerce]
+* Fix: User experience when applying a coupon with Payment method restriction on the cart & the checkout page
+* Fix: Uncaught TypeError: Cannot access offset of type string on string - $this->locations_lookup_in['address']
+* Fix: Hard-coded table prefix in query, replaced with $wpdb->prefix
+* Fix: Unnecessarily logging a lot of messages in the log file during refund process [Admin]
+* Fix: Spelling mistake in 'You have scheduled to sent…' to 'You have scheduled to send…'
+* Fix: A few minor spelling mistakes
+* Update: POT file
+
+2022.09.12 - version 6.1.1
+* Fix: Applied store credit is displaying incorrect amount in order edit page [admin]
+* Fix: Incorrect amount getting restored in store credit which is applied to an order & that order is refunded [admin]
+* Fix: Store credit of fixed but variable amount generating store credit with an incorrect amount
+* Fix: Incorrect currency conversion in auto-generated coupons or credits when the amount is defined in the coupon & pick product price is disabled
+* Update: POT file
+
 2022.09.02 - version 6.1.0
 * New: Compatibility with Aelia Currency Switcher for WooCommerce
 * Update: POT file
@@ -12,8 +38,8 @@
 2022.08.10 - version 6.0.0
 * Fix: Fatal error stalling subscription renewal in a few cases
 * Update: Minor change related to WooCommerce Subscriptions 4.0.0
-* Update: Translation for French language
-* Update: Spell checks & a few clean up
+* Update: Translation for the French language
+* Update: Spell checks & a few cleanup
 * Update: POT file
 
 2022.08.03 - version 5.9.0

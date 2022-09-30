@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.7.0
+ * @version     1.8.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -49,6 +49,9 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 
 			add_filter( 'woocommerce_navigation_is_connected_page', array( $this, 'woocommerce_navigation_is_connected_page' ), 10, 2 );
 			add_filter( 'woocommerce_navigation_get_breadcrumbs', array( $this, 'woocommerce_navigation_breadcrumbs' ), 10, 2 );
+
+			add_filter( 'manage_edit-shop_coupon_columns', array( $this, 'add_original_amount_column' ) );
+			add_action( 'manage_shop_coupon_posts_custom_column', array( $this, 'add_original_amount_column_value' ), 10, 2 );
 
 		}
 
@@ -1563,6 +1566,36 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 				__( 'Coupons', 'woocommerce-smart-coupons' ),
 			);
 			return $breadcrumbs;
+		}
+
+		/**
+		 * Function to add a column to display original amount for store credit to coupons list
+		 *
+		 * @param array $columns The columns.
+		 * @return array
+		 */
+		public function add_original_amount_column( $columns = array() ) {
+			if ( ! array_key_exists( 'wc_sc_original_amount', $columns ) ) {
+				$columns['wc_sc_original_amount'] = __( 'Original amount', 'woocommerce-smart-coupons' );
+			}
+			return $columns;
+		}
+
+		/**
+		 * Function to add value to the column to display original amount
+		 *
+		 * @param string  $column The column id.
+		 * @param integer $post_id The post id.
+		 */
+		public function add_original_amount_column_value( $column = '', $post_id = 0 ) {
+			if ( 'wc_sc_original_amount' === $column ) {
+				$column_value = get_post_meta( $post_id, $column, true );
+				if ( ! empty( $column_value ) ) {
+					echo esc_html( $column_value );
+				} else {
+					echo esc_html( '' );
+				}
+			}
 		}
 
 	}

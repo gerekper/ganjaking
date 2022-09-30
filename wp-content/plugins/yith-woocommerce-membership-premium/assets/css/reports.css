@@ -1,0 +1,368 @@
+/**
+ * Reports
+ *
+ * @author Leanza Francesco
+ */
+
+.yith-wcmbs-reports-metabox {
+    border        : 1px solid #d8d8d8;
+    padding       : 5px;
+    margin-bottom : 20px;
+}
+
+#yith-wcmbs-reports-tab > h2:first-child {
+    font-size   : 15px;
+    font-weight : 600;
+    padding-top : 0;
+}
+
+
+#yith-wcmbs-membership-reports .yith-wcmbs-reports-metabox {
+    width        : 280px;
+    float        : left;
+    margin-right : 20px;
+}
+
+#yith-wcmbs-membership-reports .chosen-container {
+    width : auto !important;
+}
+
+.yith-wcmbs-reports-filters {
+    padding        : 10px 0 20px;
+    vertical-align : middle;
+    line-height    : 34px;
+    float          : left;
+}
+
+.wp-core-ui .yith-plugin-ui #yith-wcmbs-reports-tab .button {
+    padding     : 0 18px;
+    line-height : 34px;
+}
+
+.wp-core-ui .yith-plugin-ui #yith-wcmbs-reports-tab .yith-wcmbs-ajax-table-per-page {
+    vertical-align : middle;
+    height         : 36px;
+    line-height    : 34px;
+}
+
+.yith-wcmbs-reports-metabox h2 {
+    border : none;
+}
+
+.yith-wcmbs-reports-big-number {
+    text-align : center;
+    font-size  : 60px;
+    margin     : 10px 0;
+}
+
+.yith-wcmbs-reports-content {
+    padding : 10px;
+}
+
+.yith-wcmbs-reports-content .yith-wcmbs-membership-status-text {
+    display       : block;
+    margin-bottom : 7px;
+}
+
+.yith-wcmbs-reports-subtitle {
+    padding     : 0;
+    margin      : 0;
+    font-size   : 11px;
+    font-weight : 700;
+    text-align  : center;
+    color       : #777;
+}
+
+.yith-wcmbs-reports-table-membership * {
+    text-align : left;
+}
+
+.yith-wcmbs-reports-table-membership {
+    width           : 100%;
+    border-collapse : collapse;
+}
+
+.yith-wcmbs-reports-table-membership th, .yith-wcmbs-reports-table-membership td {
+    padding : 10px 0;
+}
+
+.yith-wcmbs-reports-table-membership th,
+.yith-wcmbs-reports-table-membership td {
+    font-weight   : 600;
+    border-bottom : 1px solid #e5e5e5;
+}
+
+.yith-wcmbs-reports-table-membership tr:last-child th,
+.yith-wcmbs-reports-table-membership tr:last-child td {
+    border-bottom : none;
+}
+
+.yith-wcmbs-reports-table-membership td {
+
+    text-align : center;
+}
+
+.yith-wcmbs-reports-table-downloads {
+    border-spacing : 0;
+    width          : 100%;
+    clear          : both;
+    margin         : 0;
+    border         : 1px solid #ddd;
+    font-weight    : 600;
+}
+
+.yith-wcmbs-reports-table-downloads th,
+.yith-wcmbs-reports-table-downloads td {
+    padding        : 15px;
+    vertical-align : top;
+}
+
+.yith-wcmbs-reports-table-downloads th {
+    text-align : left;
+}
+
+.yith-wcmbs-reports-table-downloads .row-actions {
+    padding-top : 7px;
+    font-weight : 400;
+}
+
+.yith-wcmbs-reports-table-downloads a {
+    text-decoration : none;
+}
+
+.yith-wcmbs-reports-table-downloads td.title-col a {
+    margin-right : 5px;
+}
+
+.yith-wcmbs-reports-table-downloads th a {
+    cursor : pointer;
+}
+
+.yith-wcmbs-reports-table-downloads th a:focus {
+    box-shadow : none;
+}
+
+.yith-wcmbs-reports-table-downloads th a:hover {
+    text-shadow : none;
+}
+
+.yith-wcmbs-reports-table-downloads th a span {
+    vertical-align : middle !important;
+}
+
+ul.yith-wcmbs-reports-downloads-menu li {
+    display      : inline-block;
+    margin       : 0;
+    padding      : 0;
+    white-space  : nowrap;
+    margin-right : 3px;
+}
+
+ul.yith-wcmbs-reports-downloads-menu li:after {
+    content : ' |';
+}
+
+ul.yith-wcmbs-reports-downloads-menu li a {
+    box-shadow : none !important;
+}
+
+ul.yith-wcmbs-reports-downloads-menu li a.active {
+    color           : #000;
+    text-decoration : none;
+}
+
+ul.yith-wcmbs-reports-downloads-menu li span.close {
+    color       : #900;
+    cursor      : pointer;
+    line-height : 0.7;
+}
+
+.yith-wcmbs-reports-downloads-table-date {
+    width : 100%;
+}
+
+.yith-wcmbs-reports-downloads-table-date td {
+    height : 150px;
+    width  : 8.33%;
+}
+
+.yith-wcmbs-reports-downloads-table-date th {
+    font-size   : 10px;
+    color       : #555;
+    font-weight : 400;
+}
+
+.yith-wcmbs-reports-downloads-table-date td {
+    vertical-align : bottom;
+    position       : relative;
+}
+
+.yith-wcmbs-reports-downloads-table-date-grafic {
+    background    : #999;
+    width         : 70%;
+    margin        : 0 auto;
+    border-bottom : 1px solid #999;
+    position      : absolute;
+    bottom        : 0;
+    left          : 15%;
+}
+
+.yith-wcmbs-tabs {
+    border-radius : 0 !important;
+    border        : 0 none !important;
+    background    : transparent !important;
+}
+
+.yith-wcmbs-tabs ul li {
+    border-radius : 0px;
+    border        : 0 none;
+}
+
+.yith-wcmbs-tabs ul li.ui-state-default {
+    border-radius : 0px;
+    border        : 0 none;
+    background    : #e9e9e9;
+    color         : #555;
+}
+
+.yith-wcmbs-tabs ul li.ui-state-default a {
+    color : #555;
+}
+
+.yith-wcmbs-tabs ul li.ui-state-active {
+    border-radius : 0px;
+    border        : 0 none;
+    background    : #f9f9f9;
+    color         : #555;
+}
+
+.yith-wcmbs-tabs ul li.ui-state-active a {
+    color : #555;
+}
+
+.yith-wcmbs-tabs ul {
+    padding       : 0 !important;
+    border-radius : 0;
+    border        : 0 none;
+    background    : transparent;
+}
+
+.yith-wcmbs-tabs .ui-tabs-panel {
+    padding       : 5px !important;
+    background    : #f9f9f9 !important;
+    border-radius : 0 !important;
+}
+
+.yith-wcmbs-tabs a:focus {
+    box-shadow : none !important;
+}
+
+p.yith-wcmbs-reports-downloads-max {
+    margin : 5px 10px 15px 10px;
+}
+
+.yith_wcmbs_download_reports_details_by_user .column-product_id {
+    width : 110px;
+}
+
+.yith_wcmbs_download_reports_details_by_user .column-ip_address {
+    width : 120px;
+}
+
+.yith_wcmbs_download_reports_by_user .column-report_actions {
+    width : 120px;
+}
+
+#yith-wcmbs-download-reports-downloads-details-by-user-search {
+    float   : right;
+    padding : 10px 0 20px;
+}
+
+.yith-wcmbs-download-reports-downloads-details-by-user-totals {
+    text-align : center;
+}
+
+.yith-wcmbs-download-reports-downloads-details-by-user-totals table {
+    text-align     : left;
+    margin         : 0 auto;
+    border-spacing : 0;
+    border-radius  : 4px;
+    overflow       : hidden;
+    border         : 1px solid #d8d8d8;
+}
+
+.yith-wcmbs-download-reports-downloads-details-by-user-totals table td, .yith-wcmbs-download-reports-downloads-details-by-user-totals table th {
+    padding : 10px 15px;
+}
+
+.yith-wcmbs-download-reports-downloads-details-by-user-totals-user-details {
+    width      : 100%;
+    padding    : 10px 15px 15px 15px;
+    box-sizing : border-box;
+}
+
+.yith-wcmbs-download-reports-downloads-details-by-user-totals-user-details h1 {
+    padding : 0 0 20px 0;
+}
+
+.yith-wcmbs-download-reports-downloads-details-by-user-graphics, .yith-wcmbs-download-reports-downloads-details-by-user-membership-info {
+    width : 50%;
+    float : left;
+}
+
+.yith-wcmbs-download-reports-downloads-details-by-user-membership-info-single-membership td.membership-title {
+    font-size : 12px;
+}
+
+.yith-wcmbs-download-reports-downloads-details-by-user-membership-info-single-membership td.membership-id {
+    width : 10px;
+}
+
+.yith-wcmbs-download-reports-downloads-details-by-user-membership-info h3 {
+    margin      : 10px 0 10px 0;
+    padding     : 0 3px;
+    font-weight : 200;
+}
+
+.yith-wcmbs-download-reports-downloads-details-by-user-membership-info .yith-wcmbs-download-reports-downloads-details-by-user-membership-info-table-wrapper {
+    max-height : 218px;
+    overflow-y : auto;
+    border     : 1px solid #e7e7e7;
+}
+
+.yith-wcmbs-download-reports-downloads-details-by-user-membership-info .yith-wcmbs-download-reports-downloads-details-by-user-membership-info-table-wrapper table {
+    border : none !important;
+}
+
+.yith-wcmbs-reports-download-reports-table .column-membership_info .yith-wcmbs-users-membership-info {
+    margin : 3px;
+}
+
+.yith-wcmbs-reports-metabox__blank-state {
+    padding    : 30px 30px 0;
+    text-align : center;
+}
+
+.yith-wcmbs-reports-metabox__blank-state > * {
+    margin-bottom : 40px;
+}
+
+.yith-wcmbs-reports-metabox__blank-state__icon {
+    font-size : 50px;
+    display   : block;
+    width     : auto;
+    height    : auto;
+    margin    : 0 auto 20px;
+}
+
+.yith-wcmbs-reports-metabox__blank-state__message {
+    font-size : 1.4em;
+}
+
+
+@media only screen and (max-width : 580px) {
+    .yith-wcmbs-download-reports-downloads-details-by-user-graphics, .yith-wcmbs-download-reports-downloads-details-by-user-membership-info {
+        width : 100%;
+        clear : both;
+    }
+}

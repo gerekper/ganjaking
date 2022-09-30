@@ -5,9 +5,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div class="options_group show_if_booking">
 	<?php
-		$duration_type = $bookable_product->get_duration_type( 'edit' );
-		$duration      = 0 === $bookable_product->get_duration( 'edit' ) ? 1 : $bookable_product->get_duration( 'edit' );
-		$duration_unit = $bookable_product->get_duration_unit( 'edit' );
+	$product_id    = $bookable_product->get_ID();
+	$duration_type = $bookable_product->get_duration_type( 'edit' );
+	$duration      = 0 === $bookable_product->get_duration( 'edit' ) ? 1 : $bookable_product->get_duration( 'edit' );
+	$duration_unit = $bookable_product->get_duration_unit( 'edit' );
 	?>
 	<p class="form-field">
 		<label for="_wc_booking_duration_type"><?php esc_html_e( 'Booking duration', 'woocommerce-bookings' ); ?></label>

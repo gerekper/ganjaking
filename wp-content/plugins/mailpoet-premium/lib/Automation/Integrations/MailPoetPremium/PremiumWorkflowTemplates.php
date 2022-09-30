@@ -39,7 +39,7 @@ class PremiumWorkflowTemplates {
       $this->builder->createFromSequence(
         __('Welcome email sequence', 'mailpoet'),
         [
-          'mailpoet:segment:subscribed',
+          'mailpoet:someone-subscribes',
           'core:delay',
           'mailpoet:send-email',
           'core:delay',
@@ -54,7 +54,7 @@ class PremiumWorkflowTemplates {
       $this->builder->createFromSequence(
         __('Advanced welcome email sequence', 'mailpoet'),
         [
-          'mailpoet:segment:subscribed',
+          'mailpoet:someone-subscribes',
           'core:delay',
           'mailpoet:send-email',
           'core:delay',

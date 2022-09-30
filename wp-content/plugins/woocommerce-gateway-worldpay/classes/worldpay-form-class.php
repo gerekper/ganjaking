@@ -987,10 +987,10 @@
 	    		$api_request = array();
 
 				if ( self::status() == 'testing' ) :
-					$curlurl = 'https://secure-test.worldpay.com/wcc/authorise';
+					$curlurl = 'https://secure-test.worldpay.com/wcc/itransaction';
 					$api_request['testMode'] = '100';
 				else :
-					$curlurl = 'https://secure.worldpay.com/wcc/authorise';
+					$curlurl = 'https://secure.worldpay.com/wcc/itransaction';
 					$api_request['testMode'] = '0';
 				endif;
 
@@ -1003,56 +1003,40 @@
 				$api_request['currency'] 			= $order->get_currency();
 				$api_request['op'] 					= 'refund-partial';
 
-				// Debugging
-				if ( $this->debug == true ) {
-	   				$this->log->add( $this->id, __('WorldPay Refund Request', 'woocommerce_worlday') . '');
-	   				$this->log->add( $this->id, '====================================' );
-	   				$this->log->add( $this->id, print_r( str_replace( '<br />',"\n", $api_request ), TRUE ) );
-	   				$this->log->add( $this->id, '====================================' );
-	   			}
-
 				$headers = array(
 				    'Accept' 		=> 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
 				    'Cache-Control' => 'no-cache',
 				    'Content-Type' 	=> 'application/x-www-form-urlencoded; charset=utf-8'
 				);
-/*
-				$cancel_array = array(
-									//	'method' 		=> 'POST',
-									//	'timeout' 		=> 45,
-									//	'httpversion' 	=> '1.1',
-									//	'sslverify'   	=> true,
-										'headers' 		=> $headers,
-									//	'User-Agent' 	=> $_SERVER['HTTP_USER_AGENT'],
-										'body' 			=> $api_request,
-	    							);
-*/
 
 				$args = array(
-                    'timeout'     => 150,
-                    'redirection' => 5,
-                    'httpversion' => '1.0',
-                    'user-agent'  => 'WordPress/; ' . home_url(),
-                    'blocking'    => true,
-                    'headers'     => $headers,
-                    'cookies'     => array(),
-                    'body'        => $api_request,
-                    'compress'    => false,
-                    'decompress'  => true,
-                    'sslverify'   => false,
-                    'stream'      => false,
-                    'filename'    => null
-                );
+									'method' 		=> 'POST',
+									'timeout' 		=> 45,
+									'redirection' 	=> 5,
+									'httpversion' 	=> '1.0',
+									'blocking' 		=> true,
+									'headers' 		=> array(),
+									'body' 			=> $api_request,
+									'cookies' 		=> array()
 
+    							);
+				// Debugging
+				if ( $this->debug == true ) {
+	   				$this->log->add( $this->id, __('WorldPay Refund Request', 'woocommerce_worlday') . '');
+	   				$this->log->add( $this->id, '====================================' );
+	   				$this->log->add( $this->id, print_r( str_replace( '<br />',"\n", $api_request ), TRUE ) );
+	   				$this->log->add( $this->id, print_r( $args, TRUE ) );
+	   				$this->log->add( $this->id, '====================================' );
+	   			}
 
-
-				$this->log->add( $this->id, print_r( $args, TRUE ) );
-
-				$result = wp_remote_post( $curlurl, $cancel_array );
+				$result = wp_remote_post( $curlurl, $args );
 
 				if( is_wp_error( $result ) ) {
 
 					$error = $result->get_error_message();
+
+					$order->add_order_note( __( 'There was a problem with the API when processing this refund : ' . print_r( $error, TRUE ), 'woocommerce_worlday' ) );
+
 					throw new Exception( __( 'There was a problem with the API when processing this refund : ' . print_r( $error, TRUE ), 'woocommerce_worlday' ) );
 
 				} elseif ( $this->startsWith( $result['body'], 'A' ) ) {
@@ -1073,11 +1057,15 @@
 				}
 
    			} catch( Exception $e ) {
+   					
+   				if ( $this->debug == true ) {
 
-   				$this->log->add( $this->id, __('WorldPay Refund Response', 'woocommerce_worlday') . '');
-   				$this->log->add( $this->id, '====================================' );
-   				$this->log->add( $this->id, print_r( str_replace( '<br />',"\n", $e->getMessage() ), TRUE ) );
-   				$this->log->add( $this->id, '====================================' );
+	   				$this->log->add( $this->id, __('WorldPay Refund Failed', 'woocommerce_worlday') . '');
+	   				$this->log->add( $this->id, '====================================' );
+	   				$this->log->add( $this->id, print_r( str_replace( '<br />',"\n", $e->getMessage() ), TRUE ) );
+	   				$this->log->add( $this->id, '====================================' );
+
+   				}
 
    				return new WP_Error( 'error', __('Refund failed ', 'woocommerce_worlday') . $e->getMessage() );
 

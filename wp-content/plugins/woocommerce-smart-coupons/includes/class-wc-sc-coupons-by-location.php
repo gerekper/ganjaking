@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.4.0
+ * @version     1.5.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -173,7 +173,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Location' ) ) {
 			}
 
 			$this->locations_lookup_in = get_post_meta( $post->ID, 'sa_cbl_locations_lookup_in', true );
-			if ( empty( $this->locations_lookup_in ) ) {
+			if ( ! is_array( $this->locations_lookup_in ) || empty( $this->locations_lookup_in ) ) {
 				$this->locations_lookup_in = array( 'address' => 'billing' );
 				update_post_meta( $post->ID, 'sa_cbl_locations_lookup_in', $this->locations_lookup_in );
 			}

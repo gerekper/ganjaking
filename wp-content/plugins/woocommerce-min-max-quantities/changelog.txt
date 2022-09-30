@@ -1,5 +1,23 @@
 *** WooCommerce Min/Max Quantities Changelog ***
 
+2022-09-26 - version 4.0.1
+* Fix - Fixed "Exclude" checkboxes styles.
+
+2022-09-26 - version 4.0.0
+* Important - WooCommerce 3.9+ and PHP 7.0+ are now required.
+* Important - Refactored the 'Combine variations' option. When enabled, the quantities of all variations are combined to check the Minimum/Maximum quantity and 'Group of' rules of a Variable Product.
+* Important - Prevented the use of 'Combine variations' together with variation-level quantity rules. Variation-level quantity rules are ignored when 'Combine variations' is active.
+* Important - Dropped support for the 'Order rules: Do not count option'. To prevent the quantity or price of products/variations from being counted towards Minimum/Maximum order quantity/value rules, it is necessary to use the 'wc_min_max_quantity_minmax_do_not_count' filter.
+* Tweak - Removed Minimum/Maximum quantity and Group of validation messages on Add to Cart when 'Combine variations' is active.
+* Tweak - Removed cart validation notices from the single product page.
+* Tweak - Renamed the variation-level 'Min/Max rules' checkbox to 'Quantity rules'.
+* Tweak - UI facelift. Added title above Min/Max Quantities settings, fixed styling issues, and added new tooltips.
+* Tweak - Renamed product/variation-level exclude settings.
+* Tweak - Prevented users from increasing the quantity of a variation cart item above the Variable Product’s Maximum Quantity when 'Combine variations' is active.
+* Tweak - Updated plugin strings.
+* Fix - Prevented negative ‘Group of’ values from being saved when creating a new category.
+* Fix - Ensured that category-level Group of rules can apply to variations.
+
 2022-09-15 - version 3.0.2
 * Fix - Add missing minified scripts.
 

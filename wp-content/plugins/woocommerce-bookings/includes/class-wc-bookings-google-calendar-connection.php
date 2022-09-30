@@ -1653,6 +1653,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 				 */
 				$range_type = $availability->get_range_type();
 
+				$event_end_date = '';
 				if ( 'custom' === $range_type ) {
 					$event_end_date = $availability->get_to_range();
 				} else if ( 'custom:daterange' === $range_type ) {

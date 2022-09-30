@@ -1,4 +1,12 @@
 *** WooCommerce PDF Invoice Changelog ***
+2022.09.26 - version 4.16.2
+ * Add "Set Resources Folder" to System Status
+
+2022.08.30 - version 4.16.1
+ * Fix - System Status is PDF attached notice
+ * Fix - Add is_null check to maybe_send_admin_email_on_creation
+ * Fix - Make sure PDF_Invoice_Admin_PDF_Invoice is loaded before tigger()
+
 2022.08.16 - version 4.16.0
  * Fix - Unsupported operand types: string + int
  * Fix - Fix for defaults before settings saved

@@ -1,4 +1,9 @@
 <?php
+
+	if ( ! defined( 'ABSPATH' ) ) {
+		exit; // Exit if accessed directly
+	}
+
     class WC_pdf_database {
 
         public function __construct() {

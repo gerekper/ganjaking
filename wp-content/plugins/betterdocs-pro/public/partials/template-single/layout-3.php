@@ -39,25 +39,9 @@ $htags = implode(',', $supported_tag);
 		<?php
 		$enable_sidebar_cat_list = BetterDocs_DB::get_settings('enable_sidebar_cat_list');
 		if($enable_sidebar_cat_list == 1){
+			include BETTERDOCS_PRO_PUBLIC_PATH . 'partials/sidebars/sidebar-3.php';
+		} 
 		?>
-        <aside  id="betterdocs-sidebar-left" class="betterdocs-full-sidebar-left">
-            <div data-simplebar class="betterdocs-sidebar-content betterdocs-category-sidebar">
-				<?php
-                    $output = betterdocs_generate_output();
-                    $terms_orderby = BetterDocs_DB::get_settings('terms_orderby');
-					$terms_order   = BetterDocs_DB::get_settings('terms_order');
-                    if (BetterDocs_DB::get_settings('alphabetically_order_term') == 1) {
-						$terms_orderby = 'name';
-                    }
-					if ( BetterDocs_Multiple_Kb::$enable == 1 ) {
-						echo do_shortcode( '[betterdocs_category_grid terms_order="'.$terms_order.'" terms_orderby="'.esc_html($terms_orderby).'" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_sidebar_title_tag']).'" icon=0 post_counter=0 sidebar_list="true" posts_per_grid="-1" multiple_knowledge_base=true]' );
-					} else {
-						echo do_shortcode( '[betterdocs_category_grid terms_order="'.$terms_order.'" terms_orderby="'.esc_html($terms_orderby).'" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_sidebar_title_tag']).'" icon=0 post_counter=0 sidebar_list="true" posts_per_grid="-1"]' );
-					}
-                ?>
-			</div>
-		</aside><!-- #sidebar -->
-		<?php } ?>
 
 		<div id="betterdocs-single-main" class="docs-single-main docs-content-full-main">
 			<div class="doc-single-content-wrapper">
@@ -77,7 +61,7 @@ $htags = implode(',', $supported_tag);
 							if ( is_single() ) {
                                 $output = betterdocs_generate_output();
                                 echo '<'.BetterDocs_Helper::html_tag($output['betterdocs_post_title_tag']).' id="betterdocs-entry-title" class="betterdocs-entry-title">';
-                                echo esc_html(get_the_title());
+                                echo wp_kses(get_the_title(), BETTERDOCS_PRO_KSES_ALLOWED_HTML);
                                 echo '</'.BetterDocs_Helper::html_tag($output['betterdocs_post_title_tag']).'>';
 							}
 							?>
@@ -174,9 +158,15 @@ $htags = implode(',', $supported_tag);
 				<?php } 
 				$enable_comment = BetterDocs_DB::get_settings('enable_comment');
 				if ($enable_comment == 1) {
-					if ( comments_open() || get_comments_number() ) :
-						comments_template();
-					endif;
+					if (function_exists('wp_is_block_theme') && wp_is_block_theme()) { 
+						if( comments_open() || get_comments_number() ) {
+							echo do_blocks('<!-- wp:post-comments /-->');
+						}
+					} else {
+						if ( comments_open() || get_comments_number() ){
+							comments_template();
+						}
+					}
 				}
 				?>
 			</div>

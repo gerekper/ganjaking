@@ -1,0 +1,20 @@
+/**
+ * Hide Custom post type parts
+ *
+ * @author Leanza Francesco
+ * @version 1.0.0
+ */
+
+/*
+    Hide preview button
+*/
+#minor-publishing-actions{
+    display: none;
+}
+
+/*
+    Hide edit slug box
+*/
+#edit-slug-box{
+    display: none;
+}

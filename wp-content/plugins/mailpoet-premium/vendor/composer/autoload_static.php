@@ -7,7 +7,7 @@ namespace Composer\Autoload;
 if (!defined('ABSPATH')) exit;
 
 
-class ComposerStaticInitae071e41239994377625ef06bd2028ce
+class ComposerStaticInit37d45b6873a346d217fc3a0f2d349c20
 {
     public static $prefixLengthsPsr4 = array (
         'M' => 
@@ -44,7 +44,6 @@ class ComposerStaticInitae071e41239994377625ef06bd2028ce
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UnsubscribeAction' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Actions/UnsubscribeAction.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/MailPoetPremiumIntegration.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\PremiumWorkflowTemplates' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/PremiumWorkflowTemplates.php',
-        'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Triggers\\UserRegistrationTrigger' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Triggers/UserRegistrationTrigger.php',
         'MailPoet\\Premium\\Config\\Env' => __DIR__ . '/../..' . '/lib/Config/Env.php',
         'MailPoet\\Premium\\Config\\Hooks' => __DIR__ . '/../..' . '/lib/Config/Hooks.php',
         'MailPoet\\Premium\\Config\\Initializer' => __DIR__ . '/../..' . '/lib/Config/Initializer.php',
@@ -66,9 +65,9 @@ class ComposerStaticInitae071e41239994377625ef06bd2028ce
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitae071e41239994377625ef06bd2028ce::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitae071e41239994377625ef06bd2028ce::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitae071e41239994377625ef06bd2028ce::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit37d45b6873a346d217fc3a0f2d349c20::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit37d45b6873a346d217fc3a0f2d349c20::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit37d45b6873a346d217fc3a0f2d349c20::$classMap;
 
         }, null, ClassLoader::class);
     }

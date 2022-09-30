@@ -109,9 +109,8 @@ class BetterDocsPro_Analytics {
     public function add_analytics_menu( $pages ) {
         $pages['analytics'] =    array(
 			'parent_slug' => 'betterdocs-admin',
-			'page_title'  => 'Analytics',
-			'menu_title'  => 'Analytics',
-			'text_domain' => 'betterdocs-pro',
+			'page_title'  => __('Analytics', 'betterdocs-pro'),
+			'menu_title'  => __('Analytics', 'betterdocs-pro'),
 			'capability'  => 'read_docs_analytics',
 			'menu_slug'   => 'betterdocs-analytics',
 			'callback'    => array( $this, 'page_outputs')

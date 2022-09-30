@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     4.2.0
+ * @version     4.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1479,7 +1479,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		 */
 		public function generate_storewide_offer_coupon_description( $args = array() ) {
 			$coupon        = ( ! empty( $args['coupon_object'] ) ) ? $args['coupon_object'] : false;
-			$coupon_amount = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_amount' ) ) ) ? $coupon->get_amount() : 0;
+			$coupon_amount = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_amount' ) ) ) ? $coupon->get_amount( 'edit' ) : 0;
 			$coupon_code   = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_code' ) ) ) ? $coupon->get_code() : '';
 
 			if ( empty( $coupon_amount ) || empty( $coupon_code ) ) {
@@ -1500,7 +1500,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					__( 'Limited Time Offer!', 'woocommerce-smart-coupons' ),
 					__( 'This Week Only!', 'woocommerce-smart-coupons' ),
 					__( 'Attention!', 'woocommerce-smart-coupons' ),
-					__( 'You don’t want to miss this...', 'woocommerce-smart-coupons' ),
+					__( 'You don\'t want to miss this...', 'woocommerce-smart-coupons' ),
 					__( 'This will be over soon! Hurry.', 'woocommerce-smart-coupons' ),
 					__( 'Act before the offer expires.', 'woocommerce-smart-coupons' ),
 					__( 'Don&#39;t Miss Out.', 'woocommerce-smart-coupons' ),
@@ -3313,7 +3313,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				update_post_meta( $smart_coupon_id, 'discount_type', $type );
 
 				if ( 'smart_coupon' === $type ) {
-					$this->update_post_meta( $smart_coupon_id, 'wc_sc_original_amount', $amount, true, $order );
+					$this->update_post_meta( $smart_coupon_id, 'wc_sc_original_amount', $amount, false, $order );
 				}
 
 				update_post_meta( $smart_coupon_id, 'coupon_amount', $amount );
@@ -4999,12 +4999,12 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					if ( 'smart_coupon' === $discount_type ) {
 						$has_smart_coupon      = true;
 						$coupon_usable_amount += $this->get_amount( $coupon, true );
-						if ( in_array( $free_shipping_condition, array( 'coupon', 'either', 'both' ), true ) ) {
-							$coupon_is_valid          = ( is_object( $coupon ) && is_callable( array( $coupon, 'is_valid' ) ) ) ? $coupon->is_valid() : '';
-							$coupon_get_free_shipping = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_free_shipping' ) ) ) ? $coupon->get_free_shipping() : '';
-							if ( true === $coupon_is_valid && true === $coupon_get_free_shipping ) {
-								$has_coupon = true;
-							}
+					}
+					if ( in_array( $free_shipping_condition, array( 'coupon', 'either', 'both' ), true ) ) {
+						$coupon_is_valid          = ( is_object( $coupon ) && is_callable( array( $coupon, 'is_valid' ) ) ) ? $coupon->is_valid() : false;
+						$coupon_get_free_shipping = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_free_shipping' ) ) ) ? $coupon->get_free_shipping() : false;
+						if ( true === $coupon_is_valid && true === $coupon_get_free_shipping ) {
+							$has_coupon = true;
 						}
 					}
 				}
@@ -5348,7 +5348,18 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					$current_currency = ( ! is_null( $order_currency ) ) ? $order_currency : get_woocommerce_currency();
 					$base_currency    = get_option( 'woocommerce_currency' );
 					if ( $base_currency !== $current_currency ) {
-						$meta_value = $this->convert_price( $meta_value, $current_currency, $base_currency );
+						if ( is_scalar( $meta_value ) ) {
+							$meta_value = $this->convert_price( $meta_value, $current_currency, $base_currency );
+						} elseif ( is_array( $meta_value ) ) {
+							array_walk(
+								$meta_value,
+								array( $this, 'array_convert_price' ),
+								array(
+									'to_currency'   => $current_currency,
+									'from_currency' => $base_currency,
+								)
+							);
+						}
 					}
 				}
 				return apply_filters(
@@ -5404,7 +5415,18 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 					$current_currency = ( ! is_null( $order_currency ) ) ? $order_currency : get_woocommerce_currency();
 					$base_currency    = get_option( 'woocommerce_currency' );
 					if ( $base_currency !== $current_currency ) {
-						$meta_value = $this->convert_price( $meta_value, $base_currency, $current_currency );
+						if ( is_scalar( $meta_value ) ) {
+							$meta_value = $this->convert_price( $meta_value, $base_currency, $current_currency );
+						} elseif ( is_array( $meta_value ) ) {
+							array_walk(
+								$meta_value,
+								array( $this, 'array_convert_price' ),
+								array(
+									'to_currency'   => $base_currency,
+									'from_currency' => $current_currency,
+								)
+							);
+						}
 					}
 				}
 				$meta_value = apply_filters(

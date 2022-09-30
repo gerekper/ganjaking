@@ -7,7 +7,7 @@
 
 $term_permalink = BetterDocs_Helper::term_permalink('knowledge_base', $term->slug);
 echo '<a href="' . esc_url($term_permalink) . '" class="docs-single-cat-wrap">';
-$cat_icon_id = get_term_meta($term->term_id, 'doc_category_image-id', true);
+$cat_icon_id = get_term_meta($term->term_id, 'knowledge_base_image-id', true);
 if($settings['show_icon']){
     if ($cat_icon_id) {
         echo wp_get_attachment_image($cat_icon_id, 'thumbnail');
@@ -25,9 +25,9 @@ if ($settings['listview-show-description'] == true) {
 }
 if ($settings['show_count'] == true) {
     if ($term->count == 1) {
-        echo wp_sprintf('<span>%s %s</span>', $term->count, __('article', 'betterdocs'));
+        echo wp_sprintf('<span>%s %s</span>', $term->count, __('article', 'betterdocs-pro'));
     } else {
-        echo wp_sprintf('<span>%s %s</span>', $term->count, __('articles', 'betterdocs'));
+        echo wp_sprintf('<span>%s %s</span>', $term->count, __('articles', 'betterdocs-pro'));
     }
 }
 echo '</div>

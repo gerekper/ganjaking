@@ -1,0 +1,85 @@
+/**
+ * Shortcodes Tab
+ *
+ * @author Leanza Francesco
+ */
+
+#yith-wcmbs-admin-shortcodes-tab-container {
+    border     : 1px solid #d8d8d8;
+    border-top : 0;
+    background : #fff;
+    padding    : 0 20px 20px;
+}
+
+#yith-wcmbs-admin-shortcodes-tab-container h2 {
+    border        : none;
+    padding-left  : 0;
+    padding-right : 0;
+}
+
+.yith-wcmbs-admin-shortcode-container {
+    width         : 100%;
+    padding       : 20px;
+    margin-right  : 20px;
+    box-sizing    : border-box;
+    background    : #fff;
+    margin-bottom : 20px;
+    border        : 1px solid #d9d9d9;
+    border-radius : 4px;
+}
+
+.yith-wcmbs-admin-shortcode-container h3 {
+    margin-top     : 0;
+    margin-bottom  : 30px;
+    color          : #2a8db0;
+    text-transform : uppercase;
+    font-size      : 1.2em;
+}
+
+.yith-wcmbs-admin-shortcode-container h4 {
+    margin-top     : 20px;
+    margin-bottom  : 0;
+    text-transform : uppercase;
+}
+
+#yith-wcmbs-admin-shortcodes-tab-container code {
+    padding       : 6px 12px;
+    display       : inline-block;
+    border-radius : 4px;
+    background    : #f1f1f3;
+}
+
+.yith-wcmbs-admin-shortcode-container p.description {
+    font-style : italic;
+}
+
+.yith-wcmbs-admin-shortcode-container table.arguments {
+    margin          : 10px 0;
+    border-collapse : collapse;
+    border-radius   : 0px;
+    overflow        : hidden;
+    max-width       : 700px;
+}
+
+.yith-wcmbs-admin-shortcode-container table.arguments td {
+    padding       : 15px;
+    border-bottom : 2px solid #f1f1f3;
+    border-right  : 0;
+    background    : #fff;
+    color         : #556;
+}
+
+.yith-wcmbs-admin-shortcode-container table.arguments tr:last-child td {
+    border : none;
+}
+
+.yith-wcmbs-admin-shortcode-container table.arguments td.argument-id {
+    padding     : 5px;
+    background  : #fff;
+    font-weight : 700;
+    width       : 80px;
+}
+
+.yith-wcmbs-admin-shortcode-container table.arguments td.argument-desc {
+    text-align : justify;
+}

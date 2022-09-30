@@ -182,35 +182,7 @@
     min-height: 57px;
     height: 100%;
 }
-.taxonomy-doc_category #the-list tr:hover {
-    cursor: -webkit-grab; 
-    cursor: -moz-grab;
-}
-
-.taxonomy-doc_category #the-list tr.ui-sortable-helper:hover {
-    display: table;
-    cursor: -webkit-grabbing; 
-    cursor: -moz-grabbing;
-}
-
-.taxonomy-doc_category #the-list tr.no-items:hover {
-    cursor: default;
-}
 
 .betterdocs-cat-tax-preloader {
     margin: 0 0 0 8px;
-}
-
-.betterdocs-tab-content {
-    display: none;
-}
-.betterdocs-tab-content.active {
-    display: block;
-}
-.betterdocs-list-grid-icon {
-    display: flex;
-    margin-left: auto;
-}
-body.betterdocs-pro .betterdocs-switch-mode {
-    margin-left: 10px;
 }

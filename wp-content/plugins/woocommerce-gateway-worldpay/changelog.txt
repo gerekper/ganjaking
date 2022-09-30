@@ -1,4 +1,8 @@
 *** WorldPay Changelog ***
+2022.09.20 - version 5.0.2
+ * Fix - undefined array for unsaved widget
+ * Fix - PHP Fatal error:  Uncaught Error: Call to a member function add()
+
 2022-06-30 - version 5.0.1
  * Fix - Worldpay not showing as disabled in WooCommerce Payments Gateway list.
 

@@ -10,7 +10,7 @@
  * Plugin Name:       BetterDocs Pro
  * Plugin URI:        https:/betterdocs.co
  * Description:       Help your customers browse the docs and find instant answers through BetterDocs Instant Answers. Get access to Multiple KB, Insightful Analytics & many more!
- * Version:           2.1.4
+ * Version:           2.2.0
  * Author:            WPDeveloper
  * Author URI:        https://wpdeveloper.com
  * License:           GPL-3.0+
@@ -27,7 +27,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Currently plugin version.
  */
-define( 'BETTERDOCS_PRO_VERSION', '2.1.4' );
+define( 'BETTERDOCS_PRO_VERSION', '2.2.0' );
 define('BETTERDOCS_PRO_DB_VERSION', '1.0');
 define( 'BETTERDOCS_PRO_URL', plugin_dir_url( __FILE__ ) );
 define( 'BETTERDOCS_PRO_PUBLIC_URL', BETTERDOCS_PRO_URL . 'public/' );
@@ -38,12 +38,43 @@ define( 'BETTERDOCS_PRO_ROOT_DIR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'BETTERDOCS_PRO_ADMIN_DIR_PATH', BETTERDOCS_PRO_ROOT_DIR_PATH . 'admin/' );
 define( 'BETTERDOCS_PRO_PUBLIC_PATH', BETTERDOCS_PRO_ROOT_DIR_PATH . 'public/' );
 
+define(
+	'BETTERDOCS_PRO_KSES_ALLOWED_HTML',
+	array(
+		'span' => array(
+			'class' => array(),
+			'style' => array()
+		),
+		'p' => array(
+			'class' => array(),
+			'style' => array()
+		),
+		'strong' => array(),
+		'a' => array(
+			'href' => array(),
+			'title' => array()
+		),
+		'h1' => array(),
+		'h2' => array(),
+		'h3' => array(),
+		'h4' => array(),
+		'h5' => array(),
+		'h6' => array(),
+		'div' => array(
+			'class' => array(),
+			'style' => array()
+		)
+	)
+);
+
 // Licensing
 define( 'BETTERDOCS_PRO_STORE_URL', 'https://api.wpdeveloper.com/' );
 define( 'BETTERDOCS_PRO_SL_ITEM_ID', 342422 );
 define( 'BETTERDOCS_PRO_SL_ITEM_SLUG', 'betterdocs-pro' );
 define( 'BETTERDOCS_PRO_SL_ITEM_NAME', 'BetterDocs Pro' );
 define( 'BETTERDOCS_FREE_PLUGIN', BETTERDOCS_PRO_ADMIN_DIR_PATH . 'library/betterdocs.zip' );
+
+add_image_size( 'betterdocs-category-thumb', 360, 512 );
 
 global $migration_Process;
 

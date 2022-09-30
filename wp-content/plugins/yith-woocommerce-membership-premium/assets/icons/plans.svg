@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11.49 10.18">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: currentColor;
+        stroke-miterlimit: 10;
+        stroke-width: 0.44px;
+      }
+    </style>
+  </defs>
+  <g id="Livello_2" data-name="Livello 2">
+    <g id="_ÎÓÈ_1" data-name="—ÎÓÈ_1">
+      <g>
+        <rect class="cls-1" x="0.22" y="2.22" width="2.82" height="7.74"/>
+        <polyline class="cls-1" points="1.07 7.39 1.07 3.23 2.18 3.23"/>
+        <path class="cls-1" d="M2.18,8.64a.54.54,0,0,1-.55.52.54.54,0,0,1-.56-.52.55.55,0,0,1,.56-.52A.54.54,0,0,1,2.18,8.64Z"/>
+      </g>
+      <g>
+        <rect class="cls-1" x="4.34" y="0.22" width="2.82" height="7.74"/>
+        <polyline class="cls-1" points="5.19 5.39 5.19 1.23 6.3 1.23"/>
+        <path class="cls-1" d="M6.3,6.64a.56.56,0,0,1-1.11,0,.56.56,0,0,1,1.11,0Z"/>
+      </g>
+      <g>
+        <rect class="cls-1" x="8.46" y="2.22" width="2.82" height="7.74"/>
+        <polyline class="cls-1" points="9.31 7.39 9.31 3.23 10.42 3.23"/>
+        <path class="cls-1" d="M10.42,8.64a.56.56,0,1,1-.56-.52A.55.55,0,0,1,10.42,8.64Z"/>
+      </g>
+    </g>
+  </g>
+</svg>

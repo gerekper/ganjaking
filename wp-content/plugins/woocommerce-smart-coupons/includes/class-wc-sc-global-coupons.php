@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.3.0
+ * @version     1.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -121,7 +121,7 @@ if ( ! class_exists( 'WC_SC_Global_Coupons' ) ) {
 								SET option_value = (SELECT IFNULL(GROUP_CONCAT(DISTINCT pm.post_id SEPARATOR ','), '')
 													FROM {$wpdb->prefix}postmeta AS pm
 													WHERE ( ( pm.meta_key = %s AND CAST(pm.meta_value AS CHAR) = %s )
-													  OR NOT EXISTS( SELECT 1 FROM wp_postmeta AS pm1 WHERE pm1.meta_key = %s AND pm.post_id = pm1.post_id  ) ) 
+													  OR NOT EXISTS( SELECT 1 FROM {$wpdb->prefix}postmeta AS pm1 WHERE pm1.meta_key = %s AND pm.post_id = pm1.post_id  ) ) 
 													  AND FIND_IN_SET(pm.post_id, (SELECT option_value FROM (SELECT option_value FROM {$wpdb->prefix}options WHERE option_name = %s) as temp )) > 0 )
 								WHERE option_name = %s",
 							'customer_email',

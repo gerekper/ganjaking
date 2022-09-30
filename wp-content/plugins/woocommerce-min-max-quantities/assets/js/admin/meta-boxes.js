@@ -3,24 +3,83 @@
 
 	$( function() {
 
-		var allow_combination_field = $( '.allow_combination_field' ),
-			max_qty_prev            = $( 'input#maximum_allowed_quantity' ).val();
+		var $combine_variations_field    = $( '.allow_combination_field' ),
+			$combine_variations_checkbox = $( '.options_group #allow_combination' ),
+			max_qty_prev                 = $( 'input#maximum_allowed_quantity' ).val(),
+			$previous_section            = $( '#min_max_settings' ).prevAll( '.options_group:visible:first' );
 
 		if ( 'variable' === $( '#product-type' ).val() ) {
-			allow_combination_field.show();
+			$combine_variations_field.show();
 		} else {
-			allow_combination_field.hide();
+			$combine_variations_field.hide();
+		}
+
+		// Hide the border for the previous section to display custom border with embedded section title.
+		$previous_section.addClass( 'mmq_previous_section' );
+
+		// Select the target node.
+		var target = document.querySelector( '#general_product_data' );
+
+		// Create an observer instance.
+		var observer = new MutationObserver( function( mutations) {
+			$previous_section.removeClass( 'mmq_previous_section' );
+			$previous_section = $( '#min_max_settings' ).prevAll( '.options_group:visible:first' );
+			$previous_section.addClass( 'mmq_previous_section' );
+		});
+
+		if ( target !== null ) {
+			// Pass in the target node, as well as the observer options.
+			observer.observe( target, {
+				attributes:    true,
+				childList:     true,
+				characterData: true
+			});
 		}
 
 		$( document.body ).on( 'woocommerce-product-type-change', function( evt, value, variation ) {
 			if ( 'variable' === value ) {
-				allow_combination_field.show();
+				$combine_variations_field.show();
 			} else {
-				allow_combination_field.hide();
+				$combine_variations_field.hide();
 			}
 		} );
 
-		$( '#woocommerce-product-data' ).on( 'woocommerce_variations_loaded', function() {
+		// When the Combine Variations checkbox is active, hide variation level Min/Max rules.
+		$combine_variations_checkbox.on( 'change', function() {
+			var $min_max_rules_options = $( '.checkbox.min_max_rules' ).parents( '.woocommerce_variable_attributes' ).find( '.min_max_rules_options' );
+
+			$min_max_rules_options.each( function() {
+				var $checkbox = $( this ).closest( '.woocommerce_variation .data' ).find( '.checkbox.min_max_rules' );
+
+					if ( $combine_variations_checkbox.is( ':checked' ) ) {
+
+						// Grey out Min/Max rules checkbox.
+						$checkbox.prop( 'disabled', true );
+
+						// Uncheck checked Min/Max rules checkboxes. Keep track of previously active checkboxes to revert them.
+						if ( $checkbox.is( ':checked' ) ) {
+							$checkbox.prop( 'checked', false );
+							$checkbox.data( "prev-checked", true );
+						}
+
+						// Hide Min/Max Rules fields.
+						$( this ).hide();
+
+					} else {
+
+						// Enable grey-out checkboxes.
+						$checkbox.prop( 'disabled', false );
+
+						// Check previously active checkboxes and display Min/Max Rules fields.
+						if ( $checkbox.data( "prev-checked" ) ) {
+							$checkbox.prop( 'checked', true );
+							$( this ).show();
+						}
+					}
+			} );
+		} );
+
+		$( '#woocommerce-product-data' ).on( 'woocommerce_variations_loaded woocommerce_variations_added', function() {
 			var $min_max_rules_options = $( '.checkbox.min_max_rules' ).parents( '.woocommerce_variable_attributes' ).find( '.min_max_rules_options' ),
 				$min_quantities        = $( 'input.variation_minimum_allowed_quantity' ),
 				$max_quantities        = $( 'input.variation_maximum_allowed_quantity' );
@@ -29,7 +88,26 @@
 			$min_max_rules_options.each( function() {
 				var $checkbox = $(this).closest(  '.woocommerce_variation .data' ).find( '.checkbox.min_max_rules' );
 
-				if ( $checkbox.is( ':checked' ) ) {
+				// If Combine Variations is enabled, disable unchecked Min/Max Rules checkboxes.
+				if ( $combine_variations_checkbox.is( ':checked' ) ) {
+					$checkbox.prop( 'disabled', true );
+
+					if ( $checkbox.is( ':checked' ) ) {
+						$checkbox.prop( 'checked', false );
+						$checkbox.data( "prev-checked", true );
+					}
+
+				} else {
+					$checkbox.prop( 'disabled', false );
+
+					if ( $checkbox.data( "prev-checked" ) ) {
+						$checkbox.prop( 'checked', true );
+					}
+				}
+
+
+				// Hide variation level Min/Max fields if the Min/Max Rules field is unchecked or disabled.
+				if ( $checkbox.is( ':checked' ) && ! $checkbox.is( ':disabled' ) ) {
 					$(this).show();
 				} else {
 					$(this).hide();
@@ -248,7 +326,6 @@
 
 			return is_valid;
 		}
-
 	} );
 
 } )( jQuery, document, window );

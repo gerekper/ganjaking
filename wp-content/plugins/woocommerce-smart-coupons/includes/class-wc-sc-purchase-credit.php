@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.1.0
+ * @version     2.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -980,7 +980,10 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 				if ( 'yes' === $sell_sc_at_less_price ) {
 					// For gift certificate of any amount.
 					if ( isset( $values->legacy_values['credit_amount'] ) && ! empty( $values->legacy_values['credit_amount'] ) ) {
-						$product_price = floatval( $values->legacy_values['credit_amount'] ) * $qty;
+						$order_id      = ( ! empty( $item_id ) ) ? wc_get_order_id_by_order_item_id( $item_id ) : 0;
+						$order         = ( ! empty( $order_id ) ) ? wc_get_order( $order_id ) : null;
+						$credit_amount = $this->read_price( $values->legacy_values['credit_amount'], true, $order );
+						$product_price = floatval( $credit_amount ) * $qty;
 					} else {
 						// For gift certificate of fixed price.
 						$product_price = ( is_callable( array( $product, 'get_regular_price' ) ) ) ? floatval( $product->get_regular_price() ) * $qty : 0;

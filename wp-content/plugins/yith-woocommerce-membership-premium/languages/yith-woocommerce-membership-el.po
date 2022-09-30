@@ -1,0 +1,2613 @@
+# Translation of YITH WooCommerce Membership in Greek
+# This file is distributed under the same license as the YITH WooCommerce Membership package.
+msgid ""
+msgstr ""
+"Project-Id-Version: YITH WooCommerce Membership\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
+"membership\n"
+"POT-Creation-Date: 2022-07-18T09:04:10+02:00\n"
+"PO-Revision-Date: 2020-11-11 09:53:57+0000\n"
+"Language: el_GR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+
+#. Plugin Name of the plugin
+msgid "YITH WooCommerce Membership Premium"
+msgstr "YITH WooCommerce Membership Premium"
+
+#. Plugin URI of the plugin
+msgid "https://yithemes.com/themes/plugins/yith-woocommerce-membership"
+msgstr "https://yithemes.com/themes/plugins/yith-woocommerce-membership"
+
+#. Description of the plugin
+msgid ""
+"<code><strong>YITH WooCommerce Membership</strong></code> allows creating "
+"dedicated areas on your website/store where you can manage reserved access "
+"to your contents depending on what you want to show. Excellent to create "
+"online courses, study plans, paid areas, etc. <a href=\"https://yithemes.com/"
+"\" target=\"_blank\">Get more plugins for your e-commerce shop on "
+"<strong>YITH</strong></a>"
+msgstr ""
+"Το <code><strong>YITH WooCommerce Membership</strong></code> επιτρέπει την "
+"δημιουργία ειδικών περιοχών στον ιστότοπο/κατάστημά σας όπου μπορείτε να "
+"διαχειρίζεστε την πρόσβαση των περιεχομένων σας υπό κράτηση, βάσει του τι "
+"θέλετε να εμφανίζετε. Ιδανικό για την δημιουργία online μαθημάτων, "
+"προγραμμάτων σπουδών, υπό πληρωμή περιοχών, κλπ. <a href=\"https://yithemes."
+"com/\" target=\"_blank\">Βρείτε περισσότερα πρόσθετα για το ηλεκτρονικό σας "
+"κατάστημα στο <strong>YITH</strong></a>"
+
+#. Author of the plugin
+msgid "YITH"
+msgstr "YITH"
+
+#. Author URI of the plugin
+msgid "https://yithemes.com/"
+msgstr "https://yithemes.com/"
+
+#: includes/admin/class.yith-wcmbs-admin-profile-premium.php:63
+msgid "Filter by membership plan"
+msgstr "Ταξινόμηση κατα πρόγραμμα συν. μέλους"
+
+#: includes/admin/class.yith-wcmbs-admin-profile-premium.php:92
+msgid "Membership bulk editing"
+msgstr "Μαζική επεξεργασία συν. μέλους"
+
+#: includes/admin/class.yith-wcmbs-admin-profile-premium.php:93
+msgid "Cancel membership"
+msgstr "Ακύρωση συνδρομής μέλους"
+
+#: includes/admin/class.yith-wcmbs-admin-profile-premium.php:94
+msgid "New membership"
+msgstr "Νέα συνδρομή μέλους"
+
+#: includes/admin/class.yith-wcmbs-admin-profile-premium.php:95
+msgid "Delete history"
+msgstr "Διαγραφή ιστορικού"
+
+#: includes/admin/class.yith-wcmbs-admin-profile-premium.php:99
+msgid "Select membership plan"
+msgstr "Επιλογή προγράμματος συν. μέλους"
+
+#: includes/admin/class.yith-wcmbs-admin-profile-premium.php:204
+msgid "Membership plan history:"
+msgstr "Ιστορικό προγράμματος συν. μέλους:"
+
+#: includes/admin/class.yith-wcmbs-admin-profile-premium.php:208
+msgid "This user doesn't have any membership plan."
+msgstr "Αυτός ο χρήστης δεν έχει κανένα πρόγραμμα συν. μέλους."
+
+#: includes/admin/class.yith-wcmbs-admin-profile-premium.php:228
+#: includes/class.yith-wcmbs-admin.php:636
+msgid "ID"
+msgstr "ID"
+
+#: includes/admin/class.yith-wcmbs-admin-profile-premium.php:229
+#: includes/class.yith-wcmbs-admin.php:640
+#: includes/class.yith-wcmbs-advanced-administration.php:186
+#: includes/class.yith-wcmbs-membership.php:589
+#: templates/premium/membership/membership-plans.php:33
+#: views/metaboxes/membership_info_content.php:26
+msgid "Starting Date"
+msgstr "Ημερομηνία Έναρξης"
+
+#: includes/admin/class.yith-wcmbs-admin-profile-premium.php:230
+#: includes/class.yith-wcmbs-admin.php:641
+#: includes/class.yith-wcmbs-advanced-administration.php:196
+#: includes/class.yith-wcmbs-membership.php:590
+#: templates/premium/membership/membership-plans.php:37
+#: views/metaboxes/membership_info_content.php:30
+msgid "Expiration Date"
+msgstr "Ημερομηνία Λήξης"
+
+#: includes/admin/class.yith-wcmbs-admin-profile-premium.php:231
+#: includes/class.yith-wcmbs-advanced-administration.php:201
+#: views/metaboxes/membership_info_content.php:34
+msgid "Order ID"
+msgstr "ID Παραγγελίας"
+
+#: includes/admin/class.yith-wcmbs-admin-profile-premium.php:232
+#: includes/class.yith-wcmbs-admin.php:637
+#: includes/class.yith-wcmbs-advanced-administration.php:213
+#: includes/class.yith-wcmbs-membership.php:604
+#: templates/premium/membership/membership-plans.php:41
+#: templates/premium/membership/membership-plans.php:108
+#: views/metaboxes/membership_info_content.php:106
+msgid "Status"
+msgstr "Κατάσταση"
+
+#: includes/admin/class.yith-wcmbs-admin-profile-premium.php:233
+msgid "Last Update"
+msgstr "Τελευταία Ενημέρωση"
+
+#: includes/admin/class.yith-wcmbs-admin-profile.php:63
+#: includes/class.yith-wcmbs-endpoints.php:100
+#: includes/compatibility/multivendor-utils/class.yith-wcmbs-members-list-table.php:43
+msgid "Membership Plans"
+msgstr "Προγράμματα Συνδρομής Μέλους"
+
+#: includes/builders/elementor/widgets/class.yith-wcmbs-elementor-members-only-content-start-widget.php:31
+msgctxt "Elementor Widget - title"
+msgid "Members-only content start"
+msgstr "Ξεκίνημα περιεχομένου μόνο για μέλη"
+
+#: includes/builders/elementor/widgets/class.yith-wcmbs-elementor-members-only-content-start-widget.php:62
+msgctxt "Elementor Widget - section title"
+msgid "Options"
+msgstr "Επιλογές"
+
+#: includes/builders/elementor/widgets/class.yith-wcmbs-elementor-members-only-content-start-widget.php:71
+msgctxt "Elementor Widget"
+msgid ""
+"Note: This widget will work only if the alternative content is enabled in "
+"\"YITH > Membership > General Options\"."
+msgstr ""
+"Σημείωση: Αυτή η μικροεφαρμογή θα λειτουργήσει μόνο αν έχει ενεργοποιηθεί το "
+"εναλλακτικό περιεχόμενο στο “YITH > Membership > Γενικές Ρυθμίσεις”."
+
+#: includes/builders/elementor/widgets/class.yith-wcmbs-elementor-members-only-content-start-widget.php:79
+msgctxt "Elementor Widget - option label"
+msgid "Hide the alternative content"
+msgstr "Απόκρυψη εναλλακτικού περιεχομένου"
+
+#: includes/builders/elementor/widgets/class.yith-wcmbs-elementor-members-only-content-start-widget.php:137
+msgctxt "Elementor Widget"
+msgid "Members-only content starts here"
+msgstr "Το περιεχόμενο μόνο για μέλη ξεκινά εδώ"
+
+#: includes/class.yith-wcmbs-admin-assets.php:93
+msgid "Upload File"
+msgstr "Ανέβασμα Αρχείου"
+
+#: includes/class.yith-wcmbs-admin-assets.php:94
+msgid "Use this file"
+msgstr "Χρησιμοποιήστε αυτό το αρχείο"
+
+#: includes/class.yith-wcmbs-admin-meta-boxes.php:65
+#: includes/class.yith-wcmbs-legacy-elements.php:229
+msgid "Membership options"
+msgstr "Επιλογές συνδρομής μέλους"
+
+#: includes/class.yith-wcmbs-admin-meta-boxes.php:72
+msgid "Plan Options"
+msgstr "Επιλογές Προγράμματος"
+
+#: includes/class.yith-wcmbs-admin-meta-boxes.php:79
+#: includes/reports/class.yith-wcmbs-download-reports-by-user-table.php:39
+msgid "Membership Info"
+msgstr "Στοιχεία Συν. Μέλους"
+
+#: includes/class.yith-wcmbs-admin-meta-boxes.php:86
+msgid "Membership Actions"
+msgstr "Ενέργειες Συν. Μέλους"
+
+#. translators: %s is the name of the menu to back to (example Back to Membership Plans)
+#: includes/class.yith-wcmbs-admin.php:140
+msgid "Back to %s"
+msgstr "Πίσω στo %s"
+
+#: includes/class.yith-wcmbs-admin.php:188
+msgid "Included in memberships"
+msgstr "Περιλαμβάνονται στις συν. μέλους"
+
+#: includes/class.yith-wcmbs-admin.php:246
+msgctxt "Tab title in plugin settings panel"
+msgid "Membership"
+msgstr "Συνδρομή Μέλους"
+
+#: includes/class.yith-wcmbs-admin.php:247
+msgctxt "Tab title in plugin settings panel"
+msgid "General Options"
+msgstr "Γενικές Επιλογές"
+
+#: includes/class.yith-wcmbs-admin.php:266
+msgctxt "Help tab - Video title"
+msgid ""
+"Check this video to learn how to <b>create a site with content reserved to "
+"members:</b>"
+msgstr ""
+
+#: includes/class.yith-wcmbs-admin.php:443
+#: includes/class.yith-wcmbs-products-manager.php:302
+msgid "Error"
+msgstr "Σφάλμα"
+
+#: includes/class.yith-wcmbs-admin.php:529
+msgid "Duplicate"
+msgstr "Δημιουργία αντιγράφου"
+
+#: includes/class.yith-wcmbs-admin.php:554
+msgid "Copy"
+msgstr "Αντιγραφή"
+
+#: includes/class.yith-wcmbs-admin.php:596
+msgid "Membership Item Shortcode"
+msgstr "Μικροκώδικας Αντικειμένου Συν. Μέλους"
+
+#: includes/class.yith-wcmbs-admin.php:619
+msgid "Copy to clipboard"
+msgstr "Αντιγραφή σε πρόχειρο"
+
+#: includes/class.yith-wcmbs-admin.php:638
+#: includes/class.yith-wcmbs-messages-manager-admin.php:374
+#: includes/reports/class.yith-wcmbs-download-reports-by-user-table.php:32
+#: views/metaboxes/membership_info_content.php:50
+msgid "User"
+msgstr "Χρήστης"
+
+#: includes/class.yith-wcmbs-admin.php:639
+msgid "Order"
+msgstr "Παραγγελία"
+
+#: includes/class.yith-wcmbs-admin.php:817
+msgid "%s [Order not found]"
+msgstr "%s [Παραγγελία δεν βρέθηκε]"
+
+#: includes/class.yith-wcmbs-admin.php:827
+msgid "created by Admin"
+msgstr "δημιουργήθηκε από Διαχειριστή"
+
+#: includes/class.yith-wcmbs-admin.php:881
+msgid "You have no membership yet!"
+msgstr "Δεν έχετε κάποια συνδρομή μέλους ακόμη!"
+
+#: includes/class.yith-wcmbs-admin.php:887
+msgid "You have no membership plan yet!"
+msgstr "Δεν έχετε κάποια συνδρομή μέλους ακόμη!"
+
+#: includes/class.yith-wcmbs-admin.php:888
+msgid "Create a new membership plan"
+msgstr "Δημιουργία νέου προγράμματος συνδ. μέλους"
+
+#: includes/class.yith-wcmbs-admin.php:893
+msgid "You have no message yet!"
+msgstr "Δεν έχετε λάβει κάποιο μήνυμα ακόμη!"
+
+#: includes/class.yith-wcmbs-admin.php:893
+msgid "Here you will see messages sent by members"
+msgstr "Εδώ θα βλέπετε τα μηνύματα που στέλνονται από τα μέλη"
+
+#: includes/class.yith-wcmbs-admin.php:899
+msgid "You have no alternative content block yet!"
+msgstr "Δεν έχετε τμήμα εναλλακτικού περιεχομένου ακόμη!"
+
+#: includes/class.yith-wcmbs-admin.php:900
+msgid "Create new alternative content block"
+msgstr "Δημιουργία τμήματος νέου εναλλακτικού περιεχομένου"
+
+#: includes/class.yith-wcmbs-advanced-administration.php:73
+msgid "Advanced Administration"
+msgstr "Προηγμένη Διαχείριση"
+
+#: includes/class.yith-wcmbs-advanced-administration.php:182
+msgid "Plan ID"
+msgstr "ID προγράμματος"
+
+#: includes/class.yith-wcmbs-advanced-administration.php:191
+msgid "Set an expiration date"
+msgstr "Ορισμός ημερομηνίας λήξης"
+
+#: includes/class.yith-wcmbs-advanced-administration.php:205
+msgid "Order Item ID"
+msgstr "ID αντικειμένου παραγγελίας"
+
+#: includes/class.yith-wcmbs-advanced-administration.php:209
+msgid "User ID"
+msgstr "ID Χρήστη"
+
+#: includes/class.yith-wcmbs-advanced-administration.php:218
+msgid "Paused days"
+msgstr "Μέρες σε παύση"
+
+#: includes/class.yith-wcmbs-advanced-administration.php:222
+msgid "Enable credits"
+msgstr "Ενεργοποίηση πιστώσεων"
+
+#: includes/class.yith-wcmbs-advanced-administration.php:227
+#: templates/premium/membership/membership-plans.php:49
+#: views/metaboxes/membership_info_content.php:68
+msgid "Remaining Credits"
+msgstr "Εναπομείνασες Πιστώσεις"
+
+#: includes/class.yith-wcmbs-advanced-administration.php:231
+msgid "Last Credit Update"
+msgstr "Τελευταία Ενημέρωση Πίστωσης"
+
+#: includes/class.yith-wcmbs-advanced-administration.php:236
+msgid "Next Credit Update"
+msgstr "Επόμενη Ενημέρωση Πίστωσης"
+
+#: includes/class.yith-wcmbs-advanced-administration.php:244
+#: views/metaboxes/plan-options.php:200
+msgid "Give a discount"
+msgstr "Προσφέρετε έκπτωση"
+
+#: includes/class.yith-wcmbs-advanced-administration.php:249
+#: views/metaboxes/plan-options.php:207
+msgid "Discount on all products (%)"
+msgstr "Έκπτωση σε όλα τα προϊόντα (%)"
+
+#: includes/class.yith-wcmbs-ajax.php:145
+msgid "Error: invalid plan"
+msgstr "Σφάλμα: μη έγκυρο πρόγραμμα"
+
+#: includes/class.yith-wcmbs-ajax.php:153
+msgid "Error: missing membership ID parameter"
+msgstr "Σφάλμα: λείπει παράμετρος ID συνδ. μέλους"
+
+#: includes/class.yith-wcmbs-ajax.php:158
+msgid "Error: invalid membership"
+msgstr "Σφάλμα: μη έγκυρη συνδ. μέλους"
+
+#: includes/class.yith-wcmbs-ajax.php:164
+#: includes/class.yith-wcmbs-ajax.php:168
+msgid "Error: invalid membership and plan"
+msgstr "Σφάλμα: μη έγκυρη συνδ. μέλους και πρόγραμμα"
+
+#: includes/class.yith-wcmbs-endpoints.php:123
+msgctxt "My Account Endpoint title"
+msgid "Memberships"
+msgstr "Συνδρομές Μέλους"
+
+#: includes/class.yith-wcmbs-endpoints.php:142
+msgid "Membership endpoints"
+msgstr "Τελικά σημεία συνδρομής μέλους"
+
+#: includes/class.yith-wcmbs-endpoints.php:148 views/reports/reports.php:9
+msgid "Memberships"
+msgstr "Συνδρομές Μέλους"
+
+#: includes/class.yith-wcmbs-endpoints.php:149
+msgid "Endpoint for the \"My Account &rarr; Memberships\" page"
+msgstr ""
+"Τελικό σημείο για την σελίδα “Συνδρομές Μέλους &rarr; Ο Λογαριασμός Μου”"
+
+#: includes/class.yith-wcmbs-frontend.php:464
+msgid "You cannot purchase \"%s\". To do it, you need a membership plan"
+msgstr ""
+"Η αγορά του “%s” δεν είναι δυνατή. Για να την ολοκληρώσετε, χρειάζεστε "
+"πρόγραμμα συν. μέλους"
+
+#: includes/class.yith-wcmbs-legacy-elements.php:77
+#: includes/class.yith-wcmbs-legacy-elements.php:78
+#: includes/class.yith-wcmbs-post-types.php:66
+#: includes/class.yith-wcmbs-post-types.php:68
+#: includes/class.yith-wcmbs-post-types.php:70 views/metaboxes/user_info.php:25
+msgid "Membership"
+msgstr "Συνδρομή Μέλους"
+
+#. translators: 1. plugin version; 2. plugin name; 3. menu name with link.
+#: includes/class.yith-wcmbs-legacy-elements.php:133
+msgid ""
+"Since version %1$s of %2$s we moved all membership settings to a new panel "
+"that you can find in %3$s, so you can access to all plugin settings from "
+"there."
+msgstr ""
+"Από την έκδοση %1$s του %2$s μετακινήσαμε όλες τις ρυθμίσεις συνδ. μέλους σε "
+"νέο πάνελ που μπορείτε να βρείτε στο %3$s, έτσι έχετε πρόσβαση σε όλες τις "
+"ρυθμίσεις του πρόσθετου από εκεί."
+
+#: includes/class.yith-wcmbs-legacy-elements.php:140
+msgid "Go to the new panel"
+msgstr "Μετάβαση σε νέο πάνελ"
+
+#: includes/class.yith-wcmbs-legacy-elements.php:163
+msgid "Set access"
+msgstr "Ορισμός πρόσβασης"
+
+#. translators: 1. plugin version; 2. plugin name; 3. box name.
+#: includes/class.yith-wcmbs-legacy-elements.php:226
+msgid ""
+"Since version %1$s of %2$s we moved the options of the \"Set access\" box to "
+"the new \"%3$s\" box."
+msgstr ""
+"Από την έκδοση %1$s του %2$s μετακινήσαμε τις επιλογές του κουτιού “Ορισμός "
+"πρόσβασης” στο νέο κουτί “%3$s”."
+
+#: includes/class.yith-wcmbs-legacy-elements.php:232
+msgid "Go to \"Membership options\""
+msgstr "Μετάβαση σε “Επιλογές συνδρομής μέλους”"
+
+#: includes/class.yith-wcmbs-member.php:160
+#: includes/class.yith-wcmbs-orders.php:103
+msgctxt "Default value for Membership Plan Name"
+msgid "Membership"
+msgstr "Συνδρομή Μέλους"
+
+#: includes/class.yith-wcmbs-membership.php:162
+msgid "Membership successfully created."
+msgstr "Η συν. μέλους δημιουργήθηκε επιτυχώς."
+
+#: includes/class.yith-wcmbs-membership.php:221
+msgid "Membership has now been activated."
+msgstr "Η συν. μέλους μόλις ενεργοποιήθηκε."
+
+#: includes/class.yith-wcmbs-membership.php:231
+msgid "Membership paused."
+msgstr "Η συν. μέλους τέθηκε σε παύση."
+
+#: includes/class.yith-wcmbs-membership.php:245
+msgid "Membership resumed."
+msgstr "Η συν. μέλους επαναφέρθηκε."
+
+#. translators: %s is the new expiration date.
+#: includes/class.yith-wcmbs-membership.php:261
+#: includes/compatibility/class.yith-wcmbs-subscription-compatibility.php:143
+#: includes/compatibility/class.yith-wcmbs-subscription-compatibility.php:318
+msgid "Expiration date set to %s."
+msgstr "Ημερομηνία λήξης ορίστηκε σε %s."
+
+#. translators: %s is the new "next credits update" date.
+#: includes/class.yith-wcmbs-membership.php:270
+msgid "\"Next credits update\" date set to %s."
+msgstr ""
+
+#: includes/class.yith-wcmbs-membership.php:285
+#: includes/class.yith-wcmbs-membership.php:291
+msgid "Membership status updated to %s."
+msgstr "Η κατάσταση συν. μέλους ενημερώθηκε σε %s."
+
+#: includes/class.yith-wcmbs-membership.php:663
+#: templates/premium/membership/membership-plans.php:28
+msgid "Unlimited"
+msgstr "Απεριόριστο"
+
+#: includes/class.yith-wcmbs-messages-manager-admin.php:83
+msgid "User Info"
+msgstr "Στοιχεία Χρήστη"
+
+#: includes/class.yith-wcmbs-messages-manager-admin.php:84
+#: includes/class.yith-wcmbs-messages-widget.php:35
+#: includes/class.yith-wcmbs-post-types.php:101
+#: includes/class.yith-wcmbs-post-types.php:102
+msgid "Messages"
+msgstr "Μηνύματα"
+
+#: includes/class.yith-wcmbs-messages-manager-admin.php:85
+#: includes/class.yith-wcmbs-messages-manager-admin.php:352
+msgid "Send Message"
+msgstr "Αποστολή Μηνύματος"
+
+#: includes/class.yith-wcmbs-messages-manager-admin.php:109
+msgid "This user doesn't have any active membership plan!"
+msgstr "Αυτός ο χρήστης δεν έχει κανένα ενεργό πρόγραμμα συν. μέλους!"
+
+#: includes/class.yith-wcmbs-messages-manager-admin.php:137
+#: includes/class.yith-wcmbs-messages-widget.php:63
+msgid "Get older messages"
+msgstr "Δείτε παλιότερα μηνύματα"
+
+#: includes/class.yith-wcmbs-messages-manager-admin.php:329
+msgid "An error occurred while sending the message"
+msgstr "Παρουσιάστηκε σφάλμα κατά την αποστολή μηνύματος"
+
+#: includes/class.yith-wcmbs-messages-manager-admin.php:376
+msgid "Last answer by"
+msgstr "Τελευταία απάντηση από"
+
+#: includes/class.yith-wcmbs-messages-manager-admin.php:377
+msgid "Last date"
+msgstr "Τελευταία ημερομηνία"
+
+#: includes/class.yith-wcmbs-messages-manager-admin.php:439
+msgid "Delete this item permanently"
+msgstr "Μόνιμη διαγραφή αντικειμένου"
+
+#: includes/class.yith-wcmbs-messages-manager-admin.php:439
+msgid "Delete Thread"
+msgstr "Διαγραφή Νήματος"
+
+#: includes/class.yith-wcmbs-messages-widget.php:28
+msgid "Display message widget for members."
+msgstr "Προβολή μικροεφαρμογής μηνυμάτων για μέλη."
+
+#: includes/class.yith-wcmbs-messages-widget.php:30
+msgid "YITH Membership - Messages"
+msgstr "YITH Membership - Μηνύματα"
+
+#: includes/class.yith-wcmbs-messages-widget.php:36
+#: includes/shipping/class.wc-shipping-membership-flat-rate.php:71
+#: includes/shipping/class.wc-shipping-membership-free-shipping.php:62
+msgid "Title"
+msgstr "Τίτλος"
+
+#: includes/class.yith-wcmbs-messages-widget.php:74
+#: views/metaboxes/send_message.php:10
+msgid "Send"
+msgstr "Αποστολή"
+
+#: includes/class.yith-wcmbs-orders.php:61
+msgid "Reason: Order #%s status changed from %s to %s"
+msgstr "Αιτία: Η κατάσταση παραγγελίας #%s άλλαξε από %s σε %s"
+
+#: includes/class.yith-wcmbs-post-types.php:63
+#: includes/class.yith-wcmbs-post-types.php:64
+#: includes/class.yith-wcmbs-post-types.php:65
+msgid "All Memberships"
+msgstr "Όλες οι Συνδρομές Μέλους"
+
+#: includes/class.yith-wcmbs-post-types.php:67
+#: includes/class.yith-wcmbs-post-types.php:69
+msgid "New Membership"
+msgstr "Νέα Συν. Μέλους"
+
+#: includes/class.yith-wcmbs-post-types.php:71
+#: includes/class.yith-wcmbs-post-types.php:72
+msgid "View Membership"
+msgstr "Προβολή Συν. Μέλους"
+
+#: includes/class.yith-wcmbs-post-types.php:73
+msgid "Search Memberships"
+msgstr "Αναζήτησή Συν. Μέλους"
+
+#: includes/class.yith-wcmbs-post-types.php:74
+msgid "Membership not found"
+msgstr "Η συν. μέλους δεν βρέθηκε"
+
+#: includes/class.yith-wcmbs-post-types.php:75
+msgid "Membership not found in trash"
+msgstr "Η συν. μέλους δεν βρέθηκε στον κάδο ανακύκλωσης"
+
+#: includes/class.yith-wcmbs-post-types.php:103
+#: includes/class.yith-wcmbs-post-types.php:106
+msgid "Message"
+msgstr "Μήνυμα"
+
+#: includes/class.yith-wcmbs-post-types.php:104
+msgid "Add Message"
+msgstr "Προσθήκη Μηνύματος"
+
+#: includes/class.yith-wcmbs-post-types.php:105
+msgid "New Message"
+msgstr "Νέο Μήνυμα"
+
+#: includes/class.yith-wcmbs-post-types.php:107
+msgid "View Message"
+msgstr "Εμφάνιση Μηνύματος"
+
+#: includes/class.yith-wcmbs-post-types.php:108
+msgid "Search Messages"
+msgstr "Αναζήτηση Μηνυμάτων"
+
+#: includes/class.yith-wcmbs-post-types.php:109
+msgid "Message not found"
+msgstr "Το μήνυμα δεν βρέθηκε"
+
+#: includes/class.yith-wcmbs-post-types.php:110
+msgid "Message not found in trash"
+msgstr "Το μήνυμα δεν βρέθηκε στον κάδο ανακύκλωσης"
+
+#: includes/class.yith-wcmbs-post-types.php:134
+#: includes/class.yith-wcmbs-post-types.php:135
+#: includes/class.yith-wcmbs-post-types.php:136
+msgid "Membership plans"
+msgstr "Προγράμματα συνδ. μέλους"
+
+#: includes/class.yith-wcmbs-post-types.php:137
+msgid "Membership plan"
+msgstr "Πρόγραμμα συνδρομής μέλους"
+
+#: includes/class.yith-wcmbs-post-types.php:138
+msgid "Add new plan"
+msgstr "Προσθήκη νέου προγράμματος"
+
+#: includes/class.yith-wcmbs-post-types.php:139
+msgid "New Plan"
+msgstr "Νέο Πρόγραμμα"
+
+#: includes/class.yith-wcmbs-post-types.php:140
+msgid "Edit Plan"
+msgstr "Επεξεργασία Προγράμματος"
+
+#: includes/class.yith-wcmbs-post-types.php:141
+msgid "View Plan"
+msgstr "Προβολή Προγράμματος"
+
+#: includes/class.yith-wcmbs-post-types.php:142
+msgid "Search Plans"
+msgstr "Αναζήτηση Προγραμμάτων"
+
+#: includes/class.yith-wcmbs-post-types.php:143
+msgid "Membership plan not found"
+msgstr "Το πρόγραμμα συνδ. μέλους δεν βρέθηκε"
+
+#: includes/class.yith-wcmbs-post-types.php:144
+msgid "Membership plan not found in trash"
+msgstr "Το πρόγραμμα συνδ. μέλους δεν βρέθηκε στον κάδο ανακύκλωσης"
+
+#: includes/class.yith-wcmbs-post-types.php:167
+#: includes/class.yith-wcmbs-post-types.php:168
+#: includes/class.yith-wcmbs-post-types.php:169
+msgid "Alternative content blocks"
+msgstr "Τμήματα εναλλακτικού περιεχομένου"
+
+#: includes/class.yith-wcmbs-post-types.php:170
+msgid "Alternative content block"
+msgstr "Τμήμα εναλλακτικού περιεχομένου"
+
+#: includes/class.yith-wcmbs-post-types.php:171
+msgid "Add new block"
+msgstr "Προσθήκη νέου τμήματος"
+
+#: includes/class.yith-wcmbs-post-types.php:172
+msgid "New alternative content block"
+msgstr "Νέο τμήμα εναλλακτικού περιεχομένου"
+
+#: includes/class.yith-wcmbs-post-types.php:173
+msgid "Edit block"
+msgstr "Επεξεργασία τμήματος"
+
+#: includes/class.yith-wcmbs-post-types.php:174
+msgid "View block"
+msgstr "Προβολή τμήματος"
+
+#: includes/class.yith-wcmbs-post-types.php:175
+msgid "Search blocks"
+msgstr "Αναζήτηση τμημάτων"
+
+#: includes/class.yith-wcmbs-post-types.php:176
+msgid "Alternative content block not found"
+msgstr "Δεν βρέθηκε τμήμα εναλλακτικού περιεχομένου"
+
+#: includes/class.yith-wcmbs-post-types.php:177
+msgid "Alternative content block not found in trash"
+msgstr "Το τμήμα εναλλακτικού περιεχομένου δεν βρέθηκε στον κάδο ανακύκλωσης"
+
+#: includes/class.yith-wcmbs-privacy.php:17
+msgctxt "Privacy Policy Content"
+msgid "YITH WooCommerce Membership"
+msgstr "YITH WooCommerce Membership"
+
+#: includes/class.yith-wcmbs-products-manager.php:168
+msgid "You can't access to this content. You don't have enough credits."
+msgstr ""
+"Δεν έχετε πρόσβαση σε αυτό το περιεχόμενο. Δεν έχετε αρκετές πιστώσεις."
+
+#: includes/class.yith-wcmbs-products-manager.php:170
+msgid "This product needs one credit,"
+msgid_plural "This product needs %s credits,"
+msgstr[0] "Αυτό το προϊόν χρειάζεται μια πίστωση,"
+msgstr[1] "Αυτό το προϊόν χρειάζεται %s πιστώσεις,"
+
+#: includes/class.yith-wcmbs-products-manager.php:171
+msgid "but you have only one credit!"
+msgid_plural "but you have only %s credits!"
+msgstr[0] "μα έχετε μόνο μια πίστωση!"
+msgstr[1] "μα έχετε μόνο %s πιστώσεις!"
+
+#: includes/class.yith-wcmbs-products-manager.php:173
+#: includes/class.yith-wcmbs-products-manager.php:305
+#: includes/class.yith-wcmbs-protected-links.php:83
+#: includes/class.yith-wcmbs-protected-media.php:141
+msgid "Restricted Access."
+msgstr "Περιορισμένη Πρόσβαση."
+
+#: includes/class.yith-wcmbs-products-manager.php:302
+msgid "Error while downloading file"
+msgstr "Σφάλμα κατα το κατέβασμα αρχείου"
+
+#: includes/class.yith-wcmbs-products-manager.php:305
+msgid "You can't access to this content"
+msgstr "Δεν έχετε πρόσβαση σε αυτό το περιεχόμενο"
+
+#: includes/class.yith-wcmbs-products-manager.php:358
+#: views/reports/download-reports-table.php:52
+#: views/reports/download-reports.php:9 views/reports/reports.php:10
+msgid "Downloads"
+msgstr "Κατεβάσματα"
+
+#: includes/class.yith-wcmbs-protected-links.php:83
+#: includes/class.yith-wcmbs-protected-media.php:141
+msgid "You can't access to this content."
+msgstr "Δεν έχετε πρόσβαση σε αυτό το περιεχόμενο."
+
+#: includes/class.yith-wcmbs-protected-media.php:74
+msgid "Allow access"
+msgstr "Παραχώρηση πρόσβασης"
+
+#: includes/class.yith-wcmbs-reports.php:116
+#: views/reports/download-reports.php:17
+msgid "Membership download reports"
+msgstr "Αναφορές κατεβασμάτων συν. μέλους"
+
+#: includes/class.yith-wcmbs-shortcodes.php:83
+msgid "Shortcodes"
+msgstr "Μικροκώδικες"
+
+#. translators: %s the number of credits
+#: includes/class.yith-wcmbs-shortcodes.php:348
+msgid "1 credit"
+msgid_plural "%s credits"
+msgstr[0] "1 πίστωση"
+msgstr[1] "%s πιστώσεις"
+
+#: includes/class.yith-wcmbs-shortcodes.php:361
+#: templates/premium/frontend/membership-product-download-box.php:21
+msgid "You don't have enough credits to download this product!"
+msgstr "Δεν έχετε αρκετές πιστώσεις για να κατεβάσετε αυτό το προϊόν!"
+
+#: includes/class.yith-wcmbs-shortcodes.php:500
+msgid "You don't have any membership without a subscription plan yet."
+msgstr "Δεν έχετε κάποια συν. μέλους χωρίς πρόγραμμα απλής συνδρομής ακόμη."
+
+#: includes/class.yith-wcmbs-shortcodes.php:508
+msgid "You don't have any membership with a subscription plan yet."
+msgstr "Δεν έχετε κάποια συν. μέλους με πρόγραμμα απλής συνδρομής ακόμη."
+
+#: includes/class.yith-wcmbs-shortcodes.php:511
+msgid "You don't have any membership yet."
+msgstr "Δεν έχετε κάποια συνδρομή μέλους ακόμη."
+
+#: includes/compatibility/class.yith-wcmbs-dynamic-pricing-compatibility.php:81
+#: includes/compatibility/class.yith-wcmbs-dynamic-pricing-compatibility.php:193
+#: includes/compatibility/class.yith-wcmbs-dynamic-pricing-compatibility.php:250
+msgid "Include users with membership plans"
+msgstr "Να περιλαμβάνονται χρήστες με προγράμματα συν. μέλους"
+
+#: includes/compatibility/class.yith-wcmbs-dynamic-pricing-compatibility.php:82
+#: includes/compatibility/class.yith-wcmbs-dynamic-pricing-compatibility.php:194
+msgid "Exclude users with membership plans"
+msgstr "Απόκλιση χρηστών με προγράμματα συν. μέλους"
+
+#: includes/compatibility/class.yith-wcmbs-dynamic-pricing-compatibility.php:121
+#: includes/compatibility/class.yith-wcmbs-dynamic-pricing-compatibility.php:207
+#: includes/compatibility/class.yith-wcmbs-dynamic-pricing-compatibility.php:222
+msgid "Select plans"
+msgstr "Επιλέξτε προγράμματα"
+
+#: includes/compatibility/class.yith-wcmbs-dynamic-pricing-compatibility.php:142
+msgid "Apply discount to users of this membership"
+msgstr "Εφαρμόστε μια έκπτωση στους χρήστες αυτής της συνδ. μέλους"
+
+#: includes/compatibility/class.yith-wcmbs-dynamic-pricing-compatibility.php:146
+#: includes/compatibility/class.yith-wcmbs-dynamic-pricing-compatibility.php:172
+#: includes/compatibility/class.yith-wcmbs-dynamic-pricing-compatibility.php:298
+#: includes/compatibility/class.yith-wcmbs-dynamic-pricing-compatibility.php:330
+msgid "Search for a membership"
+msgstr "Αναζήτηση συνδ. μέλους"
+
+#: includes/compatibility/class.yith-wcmbs-dynamic-pricing-compatibility.php:151
+msgid "Choose which membership plan will provide users with this discount"
+msgstr ""
+"Επιλέξτε ποιο πρόγραμμα συνδ. μέλους θα παραχωρεί στους χρήστες αυτή την "
+"έκπτωση"
+
+#: includes/compatibility/class.yith-wcmbs-dynamic-pricing-compatibility.php:168
+msgid "Users memberships excluded"
+msgstr "Αποκλείονται συνδρομές μέλους χρηστών"
+
+#: includes/compatibility/class.yith-wcmbs-dynamic-pricing-compatibility.php:177
+msgid "Choose which memberships to exclude from this discount"
+msgstr "Επιλέξτε ποιες συνδ. μέλους να αποκλείονται από αυτή την έκπτωση"
+
+#: includes/compatibility/class.yith-wcmbs-dynamic-pricing-compatibility.php:201
+msgid "Select plans to include"
+msgstr "Επιλέξτε προγράμματα που να περιλαμβάνονται"
+
+#: includes/compatibility/class.yith-wcmbs-dynamic-pricing-compatibility.php:216
+msgid "Select plans to exclude"
+msgstr "Επιλέξτε προγράμματα για απόκλιση"
+
+#: includes/compatibility/class.yith-wcmbs-dynamic-pricing-compatibility.php:265
+msgid "Only to users with membership plans"
+msgstr "Μόνο σε χρήστες με προγράμματα συν. μέλους"
+
+#: includes/compatibility/class.yith-wcmbs-dynamic-pricing-compatibility.php:279
+msgid "Specific users with the following membership plans"
+msgstr "Συγκεκριμένοι χρήστες με τα ακόλουθα προγράμματα συν. μέλους"
+
+#: includes/compatibility/class.yith-wcmbs-dynamic-pricing-compatibility.php:294
+msgid "Membership plans included"
+msgstr "Προγράμματα συνδ. μέλους που περιλαμβάνονται"
+
+#: includes/compatibility/class.yith-wcmbs-dynamic-pricing-compatibility.php:311
+msgid "Choose which memberships to include with this discount"
+msgstr "Επιλέξτε ποιες συνδ. μέλους να περιλαμβάνονται σε αυτή την έκπτωση"
+
+#: includes/compatibility/class.yith-wcmbs-dynamic-pricing-compatibility.php:326
+msgid "Choose membership plans to exclude"
+msgstr "Επιλέξτε τα προγράμματα συνδ. μέλους που να αποκλείονται"
+
+#: includes/compatibility/class.yith-wcmbs-dynamic-pricing-compatibility.php:352
+msgid "Choose memberships plans to exclude from this discount"
+msgstr ""
+"Επιλέξτε τα προγράμματα συνδ. μέλους που να αποκλείονται από αυτή την έκπτωση"
+
+#: includes/compatibility/class.yith-wcmbs-mailchimp-compatibility.php:137
+msgid "Mailchimp"
+msgstr "Mailchimp"
+
+#: includes/compatibility/class.yith-wcmbs-mailchimp-compatibility.php:149
+msgid "Add user email to the following lists when they become members:"
+msgstr "Προσθήκη email χρήστη στις ακόλουθες λίστες όταν γίνονται μέλη:"
+
+#: includes/compatibility/class.yith-wcmbs-mailchimp-compatibility.php:161
+msgid "Unsubscribe when expired or cancelled"
+msgstr "Απεγγραφή κατά την λήξη ή ακύρωση"
+
+#: includes/compatibility/class.yith-wcmbs-multivendor-compatibility.php:471
+msgctxt "Tab title in plugin settings panel"
+msgid "Membership plans"
+msgstr "Προγράμματα συνδ. μέλους"
+
+#: includes/compatibility/class.yith-wcmbs-multivendor-compatibility.php:472
+msgctxt "Tab title in vendor plugin settings panel"
+msgid "Members"
+msgstr "Μέλη"
+
+#: includes/compatibility/class.yith-wcmbs-multivendor-compatibility.php:552
+msgid "Members"
+msgstr "Μέλη"
+
+#: includes/compatibility/class.yith-wcmbs-subscription-compatibility.php:89
+msgid "Related Subscription:"
+msgstr "Σχετική Συνδρομή:"
+
+#: includes/compatibility/class.yith-wcmbs-subscription-compatibility.php:95
+msgid "Subscription Cancelled Date:"
+msgstr "Ημερομηνία Ακύρωσης Συνδρομής:"
+
+#: includes/compatibility/class.yith-wcmbs-subscription-compatibility.php:111
+#: includes/compatibility/class.yith-wcmbs-subscription-compatibility.php:205
+msgid "Subscription ID"
+msgstr "ID Συνδρομής"
+
+#: includes/compatibility/class.yith-wcmbs-subscription-compatibility.php:144
+#: includes/compatibility/class.yith-wcmbs-subscription-compatibility.php:319
+msgid "Reason: subscription cancelled."
+msgstr "Αιτία: η συνδρομή ακυρώθηκε."
+
+#: includes/compatibility/class.yith-wcmbs-subscription-compatibility.php:164
+msgid "Memberships with subscription"
+msgstr "Συνδρομές μέλους μαζί με απλή συνδρομή"
+
+#: includes/compatibility/class.yith-wcmbs-subscription-compatibility.php:179
+msgid "Reason: subscription #%d deleted."
+msgstr "Αιτία: η συνδρομή #%d διεγράφη."
+
+#: includes/compatibility/class.yith-wcmbs-subscription-compatibility.php:203
+msgid "Subscription details"
+msgstr "Στοιχεία συνδρομής"
+
+#: includes/compatibility/class.yith-wcmbs-subscription-compatibility.php:350
+msgid "Subscription"
+msgstr "Συνδρομή"
+
+#: includes/compatibility/class.yith-wcmbs-wpml-compatibility.php:83
+msgid "WPML Traslations"
+msgstr "Μεταφράσεις WPML"
+
+#: includes/compatibility/class.yith-wcmbs-wpml-compatibility.php:104
+msgid "Title (%s)"
+msgstr "Τίτλος (%s)"
+
+#: includes/compatibility/multivendor-utils/class.yith-wcmbs-members-list-table.php:42
+msgid "Member"
+msgstr "Μέλος"
+
+#: includes/compatibility/multivendor-utils/mv-plan-metabox-options.php:5
+msgctxt "Plan option section title"
+msgid "Multi Vendor"
+msgstr "Multi Vendor"
+
+#: includes/compatibility/multivendor-utils/mv-plan-metabox-options.php:8
+msgid "Override Multi Vendor settings"
+msgstr "Παράκαμψη ρυθμίσεων Multi Vendor"
+
+#: includes/compatibility/multivendor-utils/mv-plan-metabox-options.php:14
+msgid "Enable product amount limit"
+msgstr "Ενεργοποίηση ορίου ποσού προϊόντος"
+
+#: includes/compatibility/multivendor-utils/mv-plan-metabox-options.php:15
+msgid "Limit product amount for each vendor"
+msgstr "Περιορίστε το ποσό προϊόντος για κάθε πωλητή"
+
+#: includes/compatibility/multivendor-utils/mv-plan-metabox-options.php:25
+msgid "Product amount limit"
+msgstr "Όριο ποσού προϊόντος"
+
+#: includes/compatibility/multivendor-utils/mv-plan-metabox-options.php:28
+msgid "Set a maximum number of products that each vendor can publish"
+msgstr ""
+"Ορίστε έναν μέγιστο αριθμό προϊόντων που μπορεί να δημοσιεύσει κάθε πωλητής"
+
+#. translators: %s is a comma-separated list of available placeholders
+#: includes/emails/abstract.yith-wcmbs-email.php:181
+msgid "Available placeholders: %s"
+msgstr "Διαθέσιμα placeholders: %s"
+
+#: includes/emails/abstract.yith-wcmbs-email.php:193
+msgid "Custom Message"
+msgstr "Προσαρμοσμένο Μήνυμα"
+
+#: includes/emails/class.yith-wcmbs-cancelled-email.php:15
+msgid "Cancelled Membership"
+msgstr "Ακυρωμένη Συν. Μέλους"
+
+#: includes/emails/class.yith-wcmbs-cancelled-email.php:16
+msgid ""
+"Cancelled Membership email is sent when a customer membership is cancelled."
+msgstr ""
+"Το email ακυρωμένης Συν. Μέλους στέλνεται όταν μια συν. μέλους πελάτη "
+"ακυρώνεται."
+
+#: includes/emails/class.yith-wcmbs-cancelled-email.php:22
+#: includes/emails/class.yith-wcmbs-cancelled-email.php:23
+msgid "Membership {membership_name} cancelled"
+msgstr "Η συνδρομή μέλους {membership_name} ακυρώθηκε"
+
+#: includes/emails/class.yith-wcmbs-cancelled-email.php:26
+msgid ""
+"Dear {firstname} {lastname},\n"
+"\n"
+"your membership to <b>{membership_name}</b> has been cancelled.\n"
+"\n"
+"Regards,\n"
+"\n"
+"Staff of {site_title}"
+msgstr ""
+"Αγαπητέ/ή {firstname} {lastname},\n"
+"\n"
+" η συνδρομή μέλους σας <b>{membership_name}</b> ακυρώθηκε.\n"
+"\n"
+"Με εκτίμηση,\n"
+"\n"
+"Προσωπικό του {site_title}"
+
+#: includes/emails/class.yith-wcmbs-expired-email.php:15
+msgid "Expired Membership"
+msgstr "Συν. Μέλους που Έληξε"
+
+#: includes/emails/class.yith-wcmbs-expired-email.php:16
+msgid "Expired Membership email is sent when a membership is expired."
+msgstr "Το email λήξης της Συν. Μέλους στέλνεται όταν η συν. μέλους λήγει."
+
+#: includes/emails/class.yith-wcmbs-expired-email.php:22
+#: includes/emails/class.yith-wcmbs-expired-email.php:23
+msgid "Membership {membership_name} is expired"
+msgstr "Η συνδρομή μέλους {membership_name} έληξε"
+
+#: includes/emails/class.yith-wcmbs-expired-email.php:26
+msgid ""
+"Dear {firstname} {lastname},\n"
+"\n"
+"your membership to <b>{membership_name}</b> has expired.\n"
+"\n"
+"Regards,\n"
+"\n"
+"Staff of {site_title}"
+msgstr ""
+"Αγαπητέ/ή {firstname} {lastname},\n"
+"\n"
+" η συνδρομή μέλους σας <b>{membership_name}</b> έληξε.\n"
+"\n"
+"Με εκτίμηση\n"
+"\n"
+"Προσωπικό του {site_title}"
+
+#: includes/emails/class.yith-wcmbs-expiring-email.php:15
+msgid "Expiring Membership"
+msgstr "Συν. Μέλους που Λήγει"
+
+#: includes/emails/class.yith-wcmbs-expiring-email.php:16
+msgid "Expiring Membership email is sent when a membership is expiring."
+msgstr ""
+"Το email επικείμενης λήξης της Συν. Μέλους στέλνεται όταν η συν. μέλους "
+"λήγει."
+
+#: includes/emails/class.yith-wcmbs-expiring-email.php:22
+#: includes/emails/class.yith-wcmbs-expiring-email.php:23
+msgid "Membership {membership_name} is expiring"
+msgstr "Η συνδρομή μέλους {membership_name} λήγει"
+
+#: includes/emails/class.yith-wcmbs-expiring-email.php:26
+msgid ""
+"Dear {firstname} {lastname},\n"
+"\n"
+"your membership to <b>{membership_name}</b> will expire on "
+"{membership_expire_date}.\n"
+"\n"
+"Regards,\n"
+"\n"
+"Staff of {site_title}"
+msgstr ""
+"Αγαπητέ/ή {firstname} {lastname},\n"
+"\n"
+"η συνδρομή μέλους σας <b>{membership_name}</b> θα λήξει στις "
+"{membership_expire_date}.\n"
+"\n"
+"Με εκτίμηση,\n"
+"\n"
+"Προσωπικό του {site_title}"
+
+#: includes/emails/class.yith-wcmbs-welcome-email.php:15
+msgid "Membership - Welcome"
+msgstr "Συν. Μέλους - Καλωσόρισμα"
+
+#: includes/emails/class.yith-wcmbs-welcome-email.php:16
+msgid "The welcome email is sent when a customer becomes member."
+msgstr "Το email καλωσορίσματος στέλνεται όταν ένας πελάτης γίνεται μέλος."
+
+#: includes/emails/class.yith-wcmbs-welcome-email.php:22
+#: includes/emails/class.yith-wcmbs-welcome-email.php:23
+msgid "Welcome to membership {membership_name}"
+msgstr "Καλώς ήρθατε στη συνδρομή μέλους {membership_name}"
+
+#: includes/emails/class.yith-wcmbs-welcome-email.php:26
+msgid ""
+"Dear {firstname} {lastname},\n"
+"\n"
+"welcome to your membership to <b>{membership_name}.</b>\n"
+"\n"
+"We are glad to have you with us! :)\n"
+"\n"
+"Regards,\n"
+"\n"
+"Staff of {site_title}"
+msgstr ""
+"Αγαπητέ/ή {firstname} {lastname}, \n"
+"\n"
+"καλώς ήρθατε στη συνδρομή μέλους σας <b>{membership_name}.</b>\n"
+"\n"
+"Ευχαριστούμε για την εμπιστοσύνη! :)\n"
+"\n"
+"Με εκτίμηση,\n"
+"\n"
+"Προσωπικό του {site_title}"
+
+#: includes/functions.yith-wcmbs.php:33
+msgid "active"
+msgstr "ενεργό"
+
+#: includes/functions.yith-wcmbs.php:34
+msgid "paused"
+msgstr "σε παύση"
+
+#: includes/functions.yith-wcmbs.php:35
+msgid "suspended"
+msgstr "σε αναστολή"
+
+#: includes/functions.yith-wcmbs.php:36
+msgid "resumed"
+msgstr "επαναφέρθηκε"
+
+#: includes/functions.yith-wcmbs.php:37
+msgid "expiring"
+msgstr "λήγει"
+
+#: includes/functions.yith-wcmbs.php:38
+msgid "cancelled"
+msgstr "ακυρώθηκε"
+
+#: includes/functions.yith-wcmbs.php:39
+msgid "expired"
+msgstr "έληξε"
+
+#: includes/functions.yith-wcmbs.php:324
+msgid "You cannot access this content!"
+msgstr "Δεν έχετε πρόσβαση σε αυτό το περιεχόμενο!"
+
+#: includes/functions.yith-wcmbs.php:633
+msgctxt "Default download text for protected files"
+msgid "Download"
+msgstr "Κατέβασμα"
+
+#: includes/reports/class.yith-wcmbs-download-reports-by-user-table.php:33
+#: views/reports/download-reports-downloads-details-by-user.php:47
+msgid "Total Downloads"
+msgstr "Συνολικά Κατεβάσματα"
+
+#: includes/reports/class.yith-wcmbs-download-reports-by-user-table.php:34
+#: views/reports/download-reports-downloads-details-by-user.php:47
+msgid "Unique Downloads"
+msgstr "Μοναδικά Κατεβάσματα"
+
+#: includes/reports/class.yith-wcmbs-download-reports-by-user-table.php:101
+msgctxt "Download reports table: user id"
+msgid "#%s"
+msgstr "#%s"
+
+#: includes/reports/class.yith-wcmbs-download-reports-by-user-table.php:122
+msgctxt "Download reports table title: user id"
+msgid "User #%s"
+msgstr "Χρήστης #%s"
+
+#: includes/reports/class.yith-wcmbs-download-reports-by-user-table.php:130
+msgid "Show details"
+msgstr "Εμφάνιση στοιχείων"
+
+#: includes/reports/class.yith-wcmbs-download-reports-details-by-user-table.php:32
+msgid "Product ID"
+msgstr "ID Προϊόντος"
+
+#: includes/reports/class.yith-wcmbs-download-reports-details-by-user-table.php:33
+#: templates/premium/frontend/downloaded-product-links.php:42
+#: views/reports/download-reports-table.php:48
+#: views/reports/download-reports-table.php:68
+msgid "Product"
+msgstr "Προϊόν"
+
+#: includes/reports/class.yith-wcmbs-download-reports-details-by-user-table.php:34
+msgid "IP Address"
+msgstr "Διεύθυνση IP"
+
+#: includes/reports/class.yith-wcmbs-download-reports-details-by-user-table.php:35
+msgid "Date"
+msgstr "Ημερομηνία"
+
+#: includes/shipping/class.wc-shipping-membership-flat-rate.php:37
+msgid "Membership Flat Rate"
+msgstr "Σταθερή Τιμή Συν. Μέλους"
+
+#: includes/shipping/class.wc-shipping-membership-flat-rate.php:38
+msgid ""
+"Membership Flat Rate is a special method enabled only for members in the "
+"plan specified below."
+msgstr ""
+"Η Σταθερή Τιμή Συν. Μέλους είναι μια ξεχωριστή μέθοδος ενεργή μόνο για μέλη "
+"του προγράμματος όπως ορίζονται παρακάτω."
+
+#: includes/shipping/class.wc-shipping-membership-flat-rate.php:64
+#: includes/shipping/class.wc-shipping-membership-free-shipping.php:55
+msgid "an active membership plan"
+msgstr "ένα ενεργό πρόγραμμα συν. μέλους"
+
+#: includes/shipping/class.wc-shipping-membership-flat-rate.php:73
+#: includes/shipping/class.wc-shipping-membership-free-shipping.php:64
+msgid "This is the shipping method title shown to users in checkout page."
+msgstr ""
+"Αυτός είναι ο τίτλος μεθόδου αποστολής που εμφανίζεται στους χρήστες στη "
+"σελίδα ταμείου."
+
+#: includes/shipping/class.wc-shipping-membership-flat-rate.php:78
+msgid "Membership Flat Rate requires..."
+msgstr "Η Σταθερή Τιμή Συνδ. Μέλους απαιτεί…"
+
+#: includes/shipping/class.wc-shipping-membership-free-shipping.php:26
+msgid "Membership Free Shipping"
+msgstr "Δωρεάν Αποστολή Συν. Μέλους"
+
+#: includes/shipping/class.wc-shipping-membership-free-shipping.php:27
+msgid ""
+"Membership Free Shipping is a special method enabled only for members in the "
+"plan specified below."
+msgstr ""
+"Η Δωρεάν Αποστολή Συν. Μέλους είναι μια ξεχωριστή μέθοδος ενεργή μόνο για "
+"μέλη του προγράμματος όπως ορίζονται παρακάτω."
+
+#: includes/shipping/class.wc-shipping-membership-free-shipping.php:69
+msgid "Membership Free Shipping requires..."
+msgstr "Δωρεάν Αποστολή Συν. Μέλους απαιτεί…"
+
+#: init.php:37
+msgid ""
+"YITH WooCommerce Membership Premium is enabled but not effective. It "
+"requires WooCommerce in order to work."
+msgstr ""
+"Το YITH WooCommerce Membership Premium είναι ενεργοποιημένο αλλά μη "
+"αποτελεσματικό. Για σωστή λειτουργία, απαιτείται WooCommerce."
+
+#: languages/yith-woocommerce-membership.php:6 dist/gutenberg/index.js:1
+#: includes/builders/gutenberg/src/blocks/members-only-content-start/edit.js:15
+msgid "The alternative content is hidden."
+msgstr "Έχει γίνει απόκρυψη εναλλακτικού περιεχομένου."
+
+#: languages/yith-woocommerce-membership.php:9 dist/gutenberg/index.js:1
+#: includes/builders/gutenberg/src/blocks/members-only-content-start/edit.js:16
+msgid "The alternative content is visible."
+msgstr "Το εναλλακτικό περιεχόμενο είναι ορατό."
+
+#: languages/yith-woocommerce-membership.php:12 dist/gutenberg/index.js:1
+#: includes/builders/gutenberg/src/blocks/members-only-content-start/edit.js:22
+msgid "Hide the alternative content"
+msgstr "Απόκρυψη εναλλακτικού περιεχομένου"
+
+#: languages/yith-woocommerce-membership.php:15 dist/gutenberg/index.js:1
+#: includes/builders/gutenberg/src/blocks/members-only-content-start/edit.js:30
+msgctxt "Block title"
+msgid "Members-only content starts here"
+msgstr "Το περιεχόμενο μόνο για μέλη ξεκινά εδώ"
+
+#: languages/yith-woocommerce-membership.php:18 dist/gutenberg/index.js:1
+#: includes/builders/gutenberg/src/blocks/members-only-content-start/index.js:9
+msgctxt "Block name"
+msgid "Members-only content start"
+msgstr "Ξεκίνημα περιεχομένου μόνο για μέλη"
+
+#: plugin-options/membership-options.php:7
+msgctxt "Tab title in plugin settings panel"
+msgid "All Memberships"
+msgstr "Όλες οι Συνδρομές Μέλους"
+
+#: plugin-options/membership-options.php:10
+msgctxt "Tab title in plugin settings panel"
+msgid "Membership Plans"
+msgstr "Προγράμματα Συνδρομής Μέλους"
+
+#: plugin-options/membership-options.php:13
+msgctxt "Tab title in plugin settings panel"
+msgid "Messages"
+msgstr "Μηνύματα"
+
+#. translators: %s is the text (with link) of the "YITH > Membership > Alternative Content Blocks" menu
+#: plugin-options/membership-options.php:16
+#: plugin-options/settings-options.php:104
+#: views/metaboxes/membership-options.php:72
+msgctxt "Tab title in plugin settings panel"
+msgid "Alternative Content Blocks"
+msgstr "Τμήματα Εναλλακτικού Περιεχομένου"
+
+#: plugin-options/membership-options.php:19
+msgctxt "Tab title in plugin settings panel"
+msgid "Reports"
+msgstr "Αναφορές"
+
+#: plugin-options/settings-options.php:10
+msgid "General Options"
+msgstr "Γενικές Επιλογές"
+
+#: plugin-options/settings-options.php:17
+msgid "Automatically assign new users to specific membership plan(s)"
+msgstr ""
+"Αυτόματη ανάθεση νέων χρηστών σε συγκεκριμένο πρόγραμμα(τα) συνδ. μέλους"
+
+#: plugin-options/settings-options.php:20
+msgid ""
+"Enable if you want to automatically assign all newly registered users to one "
+"or more specific plans."
+msgstr ""
+"Ενεργοποιήστε αν θέλετε να γίνεται αυτόματη ανάθεση όλων των νέων "
+"εγγεγραμμένων χρηστών για ένα ή περισσότερα συγκεκριμένα προγράμματα."
+
+#: plugin-options/settings-options.php:26
+msgid "Choose which plan(s) will be assigned to all new customers"
+msgstr "Επιλέξτε ποιο πρόγραμμα(ατα) θα ανατίθεται σε όλους τους νέους πελάτες"
+
+#: plugin-options/settings-options.php:31
+msgid "Search plans..."
+msgstr "Αναζήτηση προγραμμάτων…"
+
+#: plugin-options/settings-options.php:39
+msgid ""
+"Choose the membership plan(s) that will automatically be assigned to all "
+"newly registered users."
+msgstr ""
+"Επιλέξτε το πρόγραμμα(ατα) συνδ. μέλους που θα ανατίθεται αυτόματα σε όλους "
+"τους νέους εγγεγραμμένους χρήστες."
+
+#: plugin-options/settings-options.php:45
+msgid "How to manage access to restricted content"
+msgstr "Πως να διαχειριστείτε την πρόσβαση σε περιορισμένο περιεχόμενο"
+
+#: plugin-options/settings-options.php:49
+msgid ""
+"Hide content - Members will view the restricted contents, non-members will "
+"be redirected to a 404 page."
+msgstr ""
+"Απόκρυψη περιεχομένου - Τα μέλη θα μπορούν να δουν τα περιορισμένα "
+"περιεχόμενα, τα μη μέλη θα ανακατευθύνονται σε σελίδα 404."
+
+#: plugin-options/settings-options.php:50
+msgid ""
+"Show items and redirect - Non-members will be able to see the items on "
+"archive pages, but will be redirected to a specific URL when trying to open "
+"them and see the full content."
+msgstr ""
+
+#: plugin-options/settings-options.php:51
+msgid ""
+"Show alternative content - The full content will be accessible to members "
+"only and you can set alternative content for non-members."
+msgstr ""
+"Εμφάνιση εναλλακτικού περιεχομένου - Το πλήρες περιεχόμενο θα είναι "
+"προσβάσιμο μόνο σε μέλη, αλλά μπορείτε επίσης να ορίσετε εναλλακτικό "
+"περιεχόμενο για μη μέλη."
+
+#: plugin-options/settings-options.php:54
+msgid ""
+"Choose how to manage access to restricted content for members and non-"
+"members."
+msgstr ""
+"Επιλέξτε πως να διαχειρίζεστε την πρόσβαση σε περιορισμένο περιεχόμενο για "
+"μέλη και μη μέλη."
+
+#: plugin-options/settings-options.php:59
+msgid "Default alternative content for non-members"
+msgstr "Προεπιλεγμένο εναλλακτικό περιεχόμενο για μη μέλη"
+
+#: plugin-options/settings-options.php:63
+msgid "Set an alternative content here"
+msgstr "Ορίστε ένα εναλλακτικό περιεχόμενο εδώ"
+
+#: plugin-options/settings-options.php:64
+#: views/metaboxes/membership-options.php:78
+msgid "Load an alternative content block"
+msgstr "Φόρτωση τμήματος εναλλακτικού περιεχομένου"
+
+#: plugin-options/settings-options.php:73
+#: views/metaboxes/membership-options.php:67
+msgid "Choose which alternative content will be shown for non-members."
+msgstr "Επιλέξτε ποιο εναλλακτικό περιεχόμενο να εμφανίζεται για τα μη μέλη."
+
+#: plugin-options/settings-options.php:74
+msgid ""
+"You can enter a custom one in the editor below or choose a previously "
+"created alternative content block to load."
+msgstr ""
+"Μπορείτε να εισάγετε ένα προσαρμοσμένο στον ακόλουθο επεξεργαστή ή να "
+"επιλέξετε ένα προηγουμένως δημιουργημένο τμήμα εναλλακτικού περιεχομένου για "
+"φόρτωση."
+
+#: plugin-options/settings-options.php:80
+msgid "Default Alternative Content"
+msgstr "Προεπιλεγμένο Εναλλακτικό Περιεχόμενο"
+
+#: plugin-options/settings-options.php:84
+msgid "Set a default alternative content for all contents."
+msgstr ""
+"Ορίστε ένα προεπιλεγμένο εναλλακτικό περιεχόμενο για όλα τα περιεχόμενα."
+
+#: plugin-options/settings-options.php:89
+msgid "Default Alternative Content Block"
+msgstr "Προεπιλεγμένο Τμήμα Εναλλακτικού Περιεχομένου"
+
+#: plugin-options/settings-options.php:93
+#: views/metaboxes/membership-options.php:101
+msgid "Search Alternative Content Block"
+msgstr "Αναζήτηση Τμήματος Εναλλακτικού Περιεχομένου"
+
+#: plugin-options/settings-options.php:100
+#: views/metaboxes/membership-options.php:98
+msgid "Choose the alternative content block to be shown to non-members."
+msgstr "Επιλέξτε το τμήμα εναλλακτικού περιεχομένου να εμφανίζεται σε μη μέλη."
+
+#. translators: %s is the text (with link) of the "YITH > Membership > Alternative Content Blocks" menu
+#: plugin-options/settings-options.php:103
+#: views/metaboxes/membership-options.php:71
+msgid "You can create alternative content blocks in \"%s\"."
+msgstr "Μπορείτε να δημιουργήσετε τμήματα εναλλακτικού περιεχομένου σε \"%s\"."
+
+#: plugin-options/settings-options.php:112
+msgid "By default, redirect non-members to"
+msgstr "Προεπιλεγμένα, να γίνεται ανακατεύθυνση μη μελών σε"
+
+#: plugin-options/settings-options.php:121
+msgid ""
+"Enter the URL where to redirect non-member users. You can set a different "
+"URL in each post/page/product."
+msgstr ""
+"Εισάγετε το URL στο οποίο να γίνεται ανακατεύθυνση στους χρήστες μη μέλη. "
+"Μπορείτε να ορίσετε ένα διαφορετικό URL σε κάθε άρθρο/σελίδα/προϊόν."
+
+#: plugin-options/settings-options.php:126
+msgid "Show Memberships menu in My Account page"
+msgstr "Εμφάνιση μενού Συν. μέλους στη σελίδα Ο Λογαριασμός Μου"
+
+#: plugin-options/settings-options.php:130
+msgid ""
+"Enable to show the Memberships menu in the \"My Account\" page, of your "
+"customers."
+msgstr ""
+"Ενεργοποίηση εμφάνισης μενού Συνδ. μέλους στη σελίδα “Ο Λογαριασμός Μου”, "
+"των πελατών σας."
+
+#: plugin-options/settings-options.php:138
+msgid "Shop Options"
+msgstr "Επιλογές Καταστήματος"
+
+#: plugin-options/settings-options.php:145
+msgid "Allow guests to buy products linked to a membership plan"
+msgstr ""
+"Επιτρέψτε στους επισκέπτες την αγορά προϊόντων σχετικών με το πρόγραμμα "
+"συνδ. μέλους"
+
+#: plugin-options/settings-options.php:149
+msgid ""
+"Allow guest users to purchase a product linked to a membership without "
+"creating an account. Note: these guests won't have access to the membership "
+"plan linked to the product."
+msgstr ""
+"Επιτρέψτε την αγορά ενός προϊόντος συνδεδεμένου με συν. μέλους σε επισκέπτες "
+"χωρίς την δημιουργία λογαριασμού. Σημείωση: οι επισκέπτες δεν θα έχουν "
+"πρόσβαση στο πρόγραμμα συν. μέλους συνδεδεμένου στο προϊόν."
+
+#: plugin-options/settings-options.php:154
+msgid "How to manage access to restricted products"
+msgstr "Πως να διαχειριστείτε την πρόσβαση σε περιορισμένα προϊόντα"
+
+#: plugin-options/settings-options.php:158
+msgid "Only members can view products"
+msgstr "Μόνο τα μέλη μπορούν να δουν τα προϊόντα"
+
+#: plugin-options/settings-options.php:159
+msgid ""
+"Everybody can view products, but only members can download them (for free or "
+"by using credits)"
+msgstr ""
+"Όλοι μπορούν να δουν τα προϊόντα, αλλά μόνο τα μέλη μπορούν να τα κατεβάσουν "
+"(δωρεάν ή χρησιμοποιώντας πιστώσεις)"
+
+#: plugin-options/settings-options.php:162
+msgid ""
+"Choose how to manage access to restricted products for members and non-"
+"members."
+msgstr ""
+"Επιλέξτε πως να διαχειρίζεστε την πρόσβαση σε περιορισμένα προϊόντα για μέλη "
+"και μη μέλη."
+
+#: plugin-options/settings-options.php:167
+msgid "Download link position"
+msgstr "Θέση συνδέσμου για κατέβασμα"
+
+#: plugin-options/settings-options.php:170
+msgid ""
+"Choose where you want to show the download link in single product page or "
+"use the shortcode %s."
+msgstr ""
+"Επιλέξτε πού θέλετε να εμφανίζεται ο σύνδεσμος για κατέβασμα στη σελίδα "
+"απλού προϊόντος ή χρησιμοποιήστε τον μικροκώδικα %s."
+
+#: plugin-options/settings-options.php:172
+msgid "Download Tab"
+msgstr "Καρτέλα Για Κατέβασμα"
+
+#: plugin-options/settings-options.php:173
+msgid "Before summary"
+msgstr "Πριν από σύνοψη"
+
+#: plugin-options/settings-options.php:174
+msgid "Before description"
+msgstr "Πριν από περιγραφή"
+
+#: plugin-options/settings-options.php:175
+msgid "After description"
+msgstr "Μετά από περιγραφή"
+
+#: plugin-options/settings-options.php:176
+msgid "After \"Add to Cart\" Button"
+msgstr "Μετά από Κουμπί “Προσθήκη στο Καλάθι”"
+
+#: plugin-options/settings-options.php:177
+msgid "After summary"
+msgstr "Μετά από σύνοψη"
+
+#: plugin-options/settings-options.php:178
+msgid "Use Shortcode"
+msgstr "Χρησιμοποιήστε Μικροκώδικα"
+
+#: plugin-options/settings-options.php:190
+msgid "If you use a credit plan, by default, each product download equals to"
+msgstr ""
+"Αν χρησιμοποιείτε πρόγραμμα πίστωσης, προεπιλεγμένα κάθε κατέβασμα προϊόντος "
+"ισοδυναμεί με"
+
+#: plugin-options/settings-options.php:193
+msgid ""
+"Set how many credits will be decreased for each product download. You can "
+"override this value in each product."
+msgstr ""
+"Ορίστε πόσες πιστώσεις θα μειώνονται για κάθε κατέβασμα προϊόντος. Μπορείτε "
+"να παρακάμψετε αυτή την αξία σε κάθε προϊόν."
+
+#: plugin-options/settings-options.php:197
+msgctxt "Text after numeric field"
+msgid "credits"
+msgstr "πιστώσεις"
+
+#: plugin-options/settings-options.php:207
+msgid "Hide price and add to cart buttons for members"
+msgstr "Απόκρυψη τιμής και κουμπιών προσθήκης στο καλάθι για μέλη"
+
+#: plugin-options/settings-options.php:210
+msgid ""
+"Enable to hide prices and add to cart buttons for members that can download "
+"the products."
+msgstr ""
+"Ενεργοποίηση απόκρυψης τιμών και κουμπιών προσθήκης στο καλάθι για μέλη που "
+"μπορούν να κατεβάσουν τα προϊόντα."
+
+#: plugin-options/settings-options.php:216
+msgid "Discounts applied are"
+msgstr "Οι εκπτώσεις που έχουν εφαρμοστεί είναι"
+
+#: plugin-options/settings-options.php:220
+msgid "Choose how to handle discounts for members."
+msgstr "Επιλέξτε πώς να διαχειρίζεστε τις εκπτώσεις για μέλη."
+
+#: plugin-options/settings-options.php:221
+msgid ""
+"This is useful, for instance, when you edit the discount percentage of a "
+"plan after a while: you will be able to choose whether the members will "
+"benefit of the original discount (the one of when they bought the plan) or "
+"the new percentage that you've set up later."
+msgstr ""
+"Αυτό είναι χρήσιμο όταν, για παράδειγμα, επεξεργάζεστε το ποσοστό έκπτωσης "
+"ενός προγράμματος. Στη συνέχεια, θα μπορείτε να επιλέξετε αν τα μέλη θα "
+"επωφελούνται απο την αρχική έκπτωση (όταν αγόρασαν το πρόγραμμα) ή απο το "
+"νέο ποσοστό που ορίσατε αργότερα. "
+
+#: plugin-options/settings-options.php:224
+msgid "discounts set when the customer purchases the membership plan."
+msgstr ""
+"οι εκπτώσεις εφαρμόζονται όταν ο πελάτης αγοράζει το πρόγραμμα συνδ. μέλους."
+
+#: plugin-options/settings-options.php:225
+msgid "discounts currently set in the membership plan."
+msgstr ""
+"οι εκπτώσεις που έχουν εφαρμοστεί αυτή τη στιγμή στο πρόγραμμα συν. μέλους."
+
+#: plugin-options/settings-options.php:236
+msgid "Reports"
+msgstr "Αναφορές"
+
+#: plugin-options/settings-options.php:242
+msgid "Show Membership info in Reports"
+msgstr "Εμφάνιση στοιχείων Συνδρομής Μέλους στις Αναφορές"
+
+#: plugin-options/settings-options.php:245
+msgid "Enable to show Membership info column in \"downloads by user\" reports."
+msgstr ""
+"Ενεργοποίηση εμφάνισης στήλης στοιχείων Συνδρομής Μέλους στις αναφορές "
+"“κατεβάσματα ανά χρήστη”."
+
+#: plugin-options/settings-options.php:251
+msgid "Use external services to get user IP Address"
+msgstr ""
+"Χρησιμοποιήστε εξωτερικές υπηρεσίες για να λάβετε την Διεύθυνση IP χρήστη"
+
+#: plugin-options/settings-options.php:254
+msgid "Enable to get user IP Address using external services."
+msgstr ""
+"Eνεργοποιήστε να λαμβάνετε την Διεύθυνση IP χρήστη χρησιμοποιώντας "
+"εξωτερικές υπηρεσίες."
+
+#: plugin-options/settings-options.php:267
+msgid "Custom Post Types"
+msgstr "Προσαρμοσμένοι τύποι Άρθρου"
+
+#: plugin-options/settings-options.php:273
+msgid "Membership Restricted Custom Post types"
+msgstr "Περιορισμένοι Προσαρμοσμένοι τύποι Άρθρου Συνδρομής Μέλους"
+
+#: plugin-options/settings-options.php:275
+msgid "Select the custom post types you want enable for Membership"
+msgstr ""
+"Επιλέξτε τους προσαρμοσμένους τύπους άρθρου που θέλετε να ενεργοποιήσετε για "
+"τη Συνδρομή Μέλους"
+
+#: templates/premium/bulk/bulk-edit-memberhsip-access.php:3
+msgid "Set Access"
+msgstr "Ορισμός Πρόσβασης"
+
+#: templates/premium/compatibility/multivendor/edit-product-vendors-taxonomy.php:9
+msgid "Manage membership plans"
+msgstr "Διαχείριση προγραμμάτων συνδρομής μέλους"
+
+#: templates/premium/compatibility/multivendor/edit-product-vendors-taxonomy.php:15
+msgid "Allow vendors to manage membership plans"
+msgstr "Επιτρέψτε στους πωλητές να διαχειρίζονται προγράμματα συνδρομής μέλους"
+
+#: templates/premium/frontend/downloaded-product-links.php:43
+#: templates/premium/frontend/downloaded-product-links.php:58
+msgid "Download"
+msgstr "Κατέβασμα"
+
+#: templates/premium/frontend/membership-product-download-box.php:16
+msgid "Download this product FOR FREE!"
+msgstr "ΔΩΡΕΑΝ κατέβασμα προϊόντος!"
+
+#. translators: %s i the number of credits.
+#: templates/premium/frontend/membership-product-download-box.php:18
+msgid "Download this product for 1 credit"
+msgid_plural "Download this product for %s credits"
+msgstr[0] "Κατεβάσματα προϊόντος για 1 πίστωση"
+msgstr[1] "Κατεβάσματα προϊόντος για %s πιστώσεις"
+
+#. translators: %s i the number of credits.
+#: templates/premium/frontend/membership-product-download-box.php:19
+msgid "Your credits"
+msgstr "Οι πιστώσεις σας"
+
+#: templates/premium/frontend/membership-product-download-box.php:20
+msgid "Credits after this download"
+msgstr "Πιστώσεις μετά από αυτό το κατέβασμα"
+
+#: templates/premium/frontend/message.php:21 views/metaboxes/message.php:20
+msgid "sent on %1$s at %2$s"
+msgstr "εστάλη στις %1$s στο %2$s"
+
+#: templates/premium/membership/membership-plan-post-type-items.php:31
+msgid "Included Posts"
+msgstr "Άρθρα που έχουν περιληφθεί"
+
+#: templates/premium/membership/membership-plan-post-type-items.php:32
+msgid "Included Pages"
+msgstr "Σελίδες που έχουν περιληφθεί"
+
+#: templates/premium/membership/membership-plan-post-type-items.php:33
+msgid "Included Products"
+msgstr "Προϊόντα που έχουν περιληφθεί"
+
+#: templates/premium/membership/membership-plan-post-type-items.php:84
+msgid "Availability date: %s "
+msgstr "Ημερομηνία διαθεσιμότητας: %s "
+
+#: templates/premium/membership/membership-plan-post-type-items.php:86
+msgid "available after %s day since the beginning of the membership"
+msgid_plural "available after %s days since the beginning of the membership"
+msgstr[0] "διαθέσιμο μετά από %s μέρα από το ξεκίνημα της συνδρομής μέλους"
+msgstr[1] "διαθέσιμο μετά από %s μέρες από το ξεκίνημα της συνδρομής μέλους"
+
+#. translators: 1. the current page number; 2. number of total pages; (eg. 2 of 12).
+#: templates/premium/membership/membership-plan-post-type-items.php:140
+msgctxt "Pagination"
+msgid "%1$s of %2$s"
+msgstr "%1$s του %2$s"
+
+#: templates/premium/membership/membership-plans.php:54
+msgid "Next credits update"
+msgstr "Επόμενη ενημέρωση πιστώσεων"
+
+#: templates/premium/membership/membership-plans.php:61
+#: views/metaboxes/membership_info_content.php:88
+msgid "Shop Discount"
+msgstr "Έκπτωση Καταστήματος"
+
+#: templates/premium/membership/membership-plans.php:90
+msgid "History"
+msgstr "Ιστορικό"
+
+#: templates/premium/membership/membership-plans.php:94
+msgid "Contents"
+msgstr "Περιεχόμενα"
+
+#: templates/premium/membership/membership-plans.php:109
+#: views/metaboxes/membership_info_content.php:107
+msgid "Update"
+msgstr "Ενημέρωση"
+
+#: templates/premium/membership/membership-plans.php:110
+#: views/metaboxes/membership_info_content.php:108
+msgid "Note"
+msgstr "Σημείωση"
+
+#: templates/premium/privacy/html-policy-content-collect_and_store.php:1
+msgctxt "Privacy Policy Content"
+msgid "While you visit our site, we’ll track:"
+msgstr "Κατά την επίσκεψή σας στη σελίδα μας, θα καταγράφουμε:"
+
+#: templates/premium/privacy/html-policy-content-collect_and_store.php:2
+#: templates/premium/privacy/html-policy-content-has_access.php:1
+msgctxt "Privacy Policy Content"
+msgid "Information about memberships users belong to."
+msgstr "Στοιχεία για τις συνδρομές μέλους και σε ποιους χρήστες ανήκουν."
+
+#: templates/premium/privacy/html-policy-content-collect_and_store.php:3
+#: templates/premium/privacy/html-policy-content-has_access.php:2
+msgctxt "Privacy Policy Content"
+msgid ""
+"The report of the memberships and the products in them downloaded by the "
+"user."
+msgstr ""
+"Η αναφορά των συνδρομών μέλους και τα προϊόντα αυτών, που έχουν κατεβαστεί "
+"από τον χρήστη."
+
+#: templates/premium/tabs/shortcodes.php:9
+msgid "Membership protected links"
+msgstr "Προστατευμένοι σύνδεσμοι συνδρομής μέλους"
+
+#: templates/premium/tabs/shortcodes.php:11
+msgid "Prints the protected links set into a post, a page or a product"
+msgstr ""
+"Εκτυπώνει τους προστατευμένους συνδέσμους που έχουν οριστεί για ένα άρθρο, "
+"σελίδα ή προϊόν"
+
+#: templates/premium/tabs/shortcodes.php:13
+msgid ""
+"The ID of the post, the page or the product that contains the protected "
+"links. If not set, it uses global post ID"
+msgstr ""
+"Το ID του άρθρου, της σελίδας ή του προϊόντος που περιλαμβάνει τους "
+"προστατευμένους συνδέσμους. Αν δεν οριστεί, χρησιμοποιεί το ID γενικού άρθρο"
+
+#: templates/premium/tabs/shortcodes.php:14
+msgid "The CSS class of download links"
+msgstr "Η κλάση CSS των συνδέσμων για κατέβασμα"
+
+#: templates/premium/tabs/shortcodes.php:25
+msgid "Membership protected content"
+msgstr "Προστατευμένο περιεχόμενο συνδρομής μέλους"
+
+#: templates/premium/tabs/shortcodes.php:27
+msgid "Show the content in base of membership plan"
+msgstr "Εμφάνιση περιεχομένου με βάση το πρόγραμμα συνδρομής μέλους"
+
+#: templates/premium/tabs/shortcodes.php:29
+msgid ""
+"The ID of the allowed plans, separed with commas. If not set, it shows the "
+"content to members with any plan"
+msgstr ""
+"Το ID των επιτρεπόμενων προγραμμάτων, διαχωρίζοντας το με κόμμα. Αν δεν "
+"οριστεί, εμφανίζει το περιεχόμενο στα μέλη με οποιοδήποτε πρόγραμμα"
+
+#: templates/premium/tabs/shortcodes.php:30
+msgid ""
+"The type of user that can view the content. Possible values: member, non-"
+"member, guest, logged. Default: member"
+msgstr ""
+"Ο τύπος χρήστη που μπορεί να δει το περιεχόμενο. Πιθανές αξίες: μέλος, μη "
+"μέλος, επισκέπτης, συνδεδεμένος. Προεπιλεγμένο: μέλος"
+
+#: templates/premium/tabs/shortcodes.php:33
+msgid "Content visible to all members"
+msgstr "Ορατό περιεχόμενο για όλα τα μέλη"
+
+#: templates/premium/tabs/shortcodes.php:34
+msgid "Content visible to members of plan with ID 123"
+msgstr "Ορατό περιεχόμενο για μέλη προγραμμάτων με ID 123"
+
+#: templates/premium/tabs/shortcodes.php:35
+msgid "Content visible to members of plans with ID 12 or 45"
+msgstr "Ορατό περιεχόμενο για μέλη προγραμμάτων με ID 12 ή 45"
+
+#: templates/premium/tabs/shortcodes.php:36
+msgid "Content visible to all users except for members of plan with ID 12"
+msgstr "Ορατό περιεχόμενο για όλα τα μέλη εκτός από μέλη προγράμματος με ID 12"
+
+#: templates/premium/tabs/shortcodes.php:37
+msgid "Content visible to guest users"
+msgstr "Περιεχόμενο ορατό σε επισκέπτες"
+
+#: templates/premium/tabs/shortcodes.php:38
+msgid "Content visible to logged-in users"
+msgstr "Περιεχόμενο ορατό σε συνδεδεμένους χρήστες"
+
+#: templates/premium/tabs/shortcodes.php:42
+msgid "Protected Media"
+msgstr "Προστατευμένα Πολυμέσα"
+
+#: templates/premium/tabs/shortcodes.php:44
+msgid ""
+"Print protected media link. Please note: media should be set as protected "
+"before printing the link"
+msgstr ""
+"Εκτύπωση συνδέσμου προστατευμένων πολυμέσων. Παρακαλώ σημειώστε: τα πολυμέσα "
+"πρέπει να τεθούν ως προστατευμένα πριν την εκτύπωση συνδέσμου"
+
+#: templates/premium/tabs/shortcodes.php:46
+msgid "ID of the protected media"
+msgstr "ID προστατευμένων πολυμέσων"
+
+#: templates/premium/tabs/shortcodes.php:47
+msgid "Linked text"
+msgstr "Συνδεδεμένο κείμενο"
+
+#: templates/premium/tabs/shortcodes.php:51
+msgid "Membership Level Items"
+msgstr "Αντικείμενα Επιπέδου Συνδρομής Μέλους"
+
+#: templates/premium/tabs/shortcodes.php:53
+msgid "Print the list of items included in a membership plan"
+msgstr ""
+"Εκτύπωση λίστας αντικειμένων που περιλαμβάνονται σε πρόγραμμα συνδρομής "
+"μέλους"
+
+#: templates/premium/tabs/shortcodes.php:55
+msgid "ID of the membership plan"
+msgstr "ID του προγράμματος συνδρομής μέλους"
+
+#: templates/premium/tabs/shortcodes.php:56
+msgid "Sort retrieved items by parameter. Possible values: %s"
+msgstr ""
+"Ταξινόμηση αντικειμένων που έχουν ανακτηθεί κατα παράμετρο. Πιθανές αξίες: %s"
+
+#: templates/premium/tabs/shortcodes.php:57
+msgid "Set ASC for ascending order or DESC for descending one (default: ASC)"
+msgstr ""
+"Ορίστε ASC για αύξουσα παραγγελία ή DESC για φθίνουσα (προεπιλεγμένο: ASC)"
+
+#: templates/premium/tabs/shortcodes.php:58
+msgid ""
+"If style is set to \"default\", shortcode style is the same as in membership "
+"plan list; else, if it is not set, shortcode style can be set within "
+"membership plan"
+msgstr ""
+"Αν το στυλ είναι ορισμένο σε “προεπιλεγμένο”, το στυλ μικροκώδικα είναι το "
+"ίδιο με αυτό της λίστας προγράμματος συνδρομής μέλους. Διαφορετικά, αν δεν "
+"οριστεί, το στυλ μικροκώδικα μπορεί να οριστεί μέσω του προγράμματος "
+"συνδρομής μέλους"
+
+#: templates/premium/tabs/shortcodes.php:67
+msgid "Product download links"
+msgstr "Σύνδεσμοι για κατέβασμα προϊόντος"
+
+#: templates/premium/tabs/shortcodes.php:69
+msgid "Print product download links"
+msgstr "Εκτύπωση συνδέσμων για κατέβασμα προϊόντος"
+
+#: templates/premium/tabs/shortcodes.php:71
+msgid "Product ID. If not specified, it prints current product download links"
+msgstr ""
+"ID Προϊόντος. Αν δεν οριστεί, εκτυπώνει συνδέσμους για κατέβασμα τρέχοντος "
+"προϊόντος"
+
+#: templates/premium/tabs/shortcodes.php:72
+msgid "The css class of download links"
+msgstr "Η κλάση CSS των συνδέσμων για κατέβασμα"
+
+#: templates/premium/tabs/shortcodes.php:73
+msgid ""
+"Button text. If it is not set, the button text will be the name of the file "
+"set in the product"
+msgstr ""
+"Κείμενο κουμπιού. Αν δεν οριστεί, το κείμενο κουμπιού θα είναι το όνομα του "
+"αρχείου που έχει οριστεί στο προϊόν"
+
+#: templates/premium/tabs/shortcodes.php:78
+msgid "Membership history"
+msgstr "Ιστορικό συνδρομής μέλους"
+
+#: templates/premium/tabs/shortcodes.php:80
+msgid "Print the list of every membership plan ever joined by current user"
+msgstr ""
+"Εκτύπωση ολόκληρης της λίστας προγραμμάτων συνδρομής μέλους στα οποία έχει "
+"εγγραφεί ο τρέχον χρήστης"
+
+#: templates/premium/tabs/shortcodes.php:82
+msgid ""
+"Membership ID. If specified, it prints details of the membership associated "
+"to this ID. Else, it prints the list of every membership plan ever joined by "
+"current user"
+msgstr ""
+"ID Συνδρομής Μέλους. Αν οριστεί, εκτυπώνει στοιχεία της συνδρομής μέλους "
+"συνδεδεμένα με αυτό το ID. Αν όχι, εκτυπώνει τη λίστα όλων των προγραμμάτων "
+"συνδρομής μέλους στα οποία έχει εγγραφεί ο τρέχον χρήστης"
+
+#: templates/premium/tabs/shortcodes.php:83
+msgid "You can set a title for this section"
+msgstr "Μπορείτε να ορίσετε έναν τίτλο για αυτή την ενότητα"
+
+#: templates/premium/tabs/shortcodes.php:84
+msgid ""
+"You can use this attribute when premium YITH WooCommerce Subscription plugin "
+"is enabled. Set it to \"membership\" to show only memberships not associated "
+"to any subscription plan; set it to \"subscription\" to show memberships "
+"associated to a subscription plan; don't use it if you want to show all "
+"memberships."
+msgstr ""
+"Μπορείτε να χρησιμοποιήσετε αυτό το χαρακτηριστικό κατα την ενεργοποίηση του "
+"προσθέτου YITH WooCommerce Subscription Premium. Ορίστε το σε “membership” "
+"για να εμφανίζετε μόνο συνδρομές μέλους που δεν είναι συνδεδεμένες με κάποιο "
+"πρόγραμμα συνδρομής. Ορίστε το σε “subscription” για να εμφανίζετε συνδρομές "
+"μέλους συνδεδεμένες με πρόγραμμα συνδρομής. Μην το χρησιμοποιήσετε αν θέλετε "
+"να εμφανίζετε όλες τις συνδρομές μέλους."
+
+#: templates/premium/tabs/shortcodes.php:95
+msgid "Membership downloaded product links"
+msgstr "Σύνδεσμοι κατεβασμένων προϊόντων συνδρομής μέλους"
+
+#: templates/premium/tabs/shortcodes.php:97
+msgid "Prints a table with links to downloaded products"
+msgstr "Εκτυπώνει έναν πίνακα με συνδέσμους για προϊόντα προς κατέβασμα"
+
+#: templates/premium/tabs/shortcodes.php:100
+msgid "Login Form"
+msgstr "Φόρμα Σύνδεσης"
+
+#: templates/premium/tabs/shortcodes.php:102
+msgid "Print WooCommerce Login Form"
+msgstr "Εκτύπωση Φόρμας Σύνδεσης WooCommerce"
+
+#: templates/premium/tabs/shortcodes.php:115
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: templates/premium/tabs/shortcodes.php:120
+msgid "Shortcode attributes"
+msgstr "Χαρακτηριστικά Μικροκώδικα"
+
+#: templates/premium/tabs/shortcodes.php:131
+msgid "Examples"
+msgstr "Παραδείγματα"
+
+#: views/media/restrict_access.php:12
+msgid "Include this item in a membership"
+msgstr "Περιλαμβάνετε αυτό το αντικείμενο σε συνδρομή μέλους"
+
+#: views/metaboxes/fields/parts/protected-link.php:20
+msgid "Enter file name"
+msgstr "Εισαγωγή ονόματος αρχείου"
+
+#: views/metaboxes/fields/parts/protected-link.php:31
+msgid "Enter file URL or %s"
+msgstr "Εισαγωγή URL αρχείου ή %s"
+
+#: views/metaboxes/fields/parts/protected-link.php:32
+msgid "Upload it"
+msgstr "Ανεβάστε το"
+
+#: views/metaboxes/fields/parts/protected-link.php:43
+msgid "Available to members of plans"
+msgstr "Διαθέσιμο σε μέλη προγραμμάτων"
+
+#: views/metaboxes/fields/parts/single-plan-delay.php:24
+msgid "For the \"%s\" plan, make it available"
+msgstr "Ορίστε ως διαθέσιμο, για πρόγραμμα “%s”"
+
+#: views/metaboxes/fields/parts/single-plan-delay.php:33
+msgid "Immediately"
+msgstr "Άμεσα"
+
+#: views/metaboxes/fields/parts/single-plan-delay.php:34
+msgid "After %s days from signup"
+msgstr "Μετά από %s μέρες από την εγγραφή"
+
+#: views/metaboxes/fields/protected-links.php:36
+msgid "Add file"
+msgstr "Προσθήκη αρχείου"
+
+#: views/metaboxes/membership-advanced-administration.php:11
+msgid "Enable Editing"
+msgstr "Ενεργοποίηση Επεξεργασίας"
+
+#: views/metaboxes/membership-advanced-administration.php:28
+msgid ""
+"Please pay attention when editing these fields, as any modification will not "
+"be reversible!"
+msgstr ""
+"Παρακαλώ προσέξτε κατα την επεξεργασία αυτών των πεδίων, καθώς οποιαδήποτε "
+"αλλαγή δεν μπορεί να αλλάξει!"
+
+#: views/metaboxes/membership-options.php:24
+msgid "Include this content in the following plans"
+msgstr "Να περιλαμβάνεται αυτό το περιεχόμενο στα ακόλουθα προγράμματα"
+
+#: views/metaboxes/membership-options.php:30
+msgid "Choose plans to include this content in."
+msgstr ""
+"Επιλέξτε τα προγράμματα στα οποία να περιλαμβάνεται αυτό το περιεχόμενο."
+
+#: views/metaboxes/membership-options.php:42
+#: views/metaboxes/membership_info_content.php:67
+msgid "Credits"
+msgstr "Πιστώσεις"
+
+#: views/metaboxes/membership-options.php:46
+msgid ""
+"Set the number of credits the user needs to spend to download the product."
+msgstr ""
+"Ορισμός αριθμού πιστώσεων που χρειάζεται να ξοδέψει ο χρήστης για να "
+"κατεβάσει το προϊόν."
+
+#: views/metaboxes/membership-options.php:56
+msgid "Redirect non-members to"
+msgstr "Ανακατεύθυνση μη μελών σε"
+
+#: views/metaboxes/membership-options.php:57
+msgid "Enter the URL where to redirect non-member users."
+msgstr ""
+"Εισάγετε το URL στο οποίο θα γίνεται ανακατεύθυνση στους χρήστες μη μέλη."
+
+#: views/metaboxes/membership-options.php:65
+msgid "Alternative content for non-members"
+msgstr "Εναλλακτικό περιεχόμενο για μη μέλη"
+
+#: views/metaboxes/membership-options.php:68
+msgid ""
+"You can enter a custom one in the editor of this page or choose a previously "
+"created alternative content block to load."
+msgstr ""
+"Μπορείτε να εισάγετε ένα προσαρμοσμένο στον επεξεργαστή αυτής της σελίδας ή "
+"να επιλέξετε ένα προηγουμένως δημιουργημένο τμήμα εναλλακτικού περιεχομένου "
+"για φόρτωση."
+
+#: views/metaboxes/membership-options.php:77
+msgid "Enter alternative content text"
+msgstr "Εισάγετε κείμενο εναλλακτικού περιεχομένου"
+
+#: views/metaboxes/membership-options.php:85
+msgid "Alternative Content"
+msgstr "Εναλλακτικό Περιεχόμενο"
+
+#: views/metaboxes/membership-options.php:86
+msgid "Enter the alternative content to be shown to non-members."
+msgstr "Εισάγετε το εναλλακτικό περιεχόμενο που θα εμφανίζεται στα μη μέλη."
+
+#: views/metaboxes/membership-options.php:97
+msgid "Alternative Content Block"
+msgstr "Τμήμα Εναλλακτικού Περιεχομένου"
+
+#: views/metaboxes/membership-options.php:114
+msgid "Add protected files"
+msgstr "Προσθήκη προστατευμένων αρχείων"
+
+#: views/metaboxes/membership-options.php:116
+msgid "Enable if you want to add files that only members can download."
+msgstr ""
+"Ενεργοποιήστε αν θέλετε να προσθέσετε αρχεία τα οποία μπορούν να κατεβάσουν "
+"μόνο τα μέλη."
+
+#: views/metaboxes/membership-options.php:117
+msgid "Use the following shortcode to show protected links: %s"
+msgstr ""
+"Χρησιμοποιήστε τον ακόλουθο μικροκώδικα για να εμφανίσετε προστατευμένους "
+"συνδέσμους: %s"
+
+#: views/metaboxes/membership-options.php:125
+msgid "Protected files"
+msgstr "Προστατευμένα αρχεία"
+
+#: views/metaboxes/membership_actions.php:3
+msgid "Actions"
+msgstr "Ενέργειες"
+
+#: views/metaboxes/membership_actions.php:5
+msgid "Pause Membership"
+msgstr "Παύση Συνδρομής Μέλους"
+
+#: views/metaboxes/membership_actions.php:8
+msgid "Resume Membership"
+msgstr "Επαναφορά Συνδρομής Μέλους"
+
+#: views/metaboxes/membership_actions.php:11
+msgid "Cancel Membership"
+msgstr "Ακύρωση Συνδρομής Μέλους"
+
+#: views/metaboxes/membership_actions.php:17
+msgid "Save Membership"
+msgstr "Αποθήκευση Συνδρομής Μέλους"
+
+#: views/metaboxes/membership_info_content.php:9
+msgid "Membership #%d details"
+msgstr "Στοιχεία συνδρομής #%d"
+
+#: views/metaboxes/membership_info_content.php:19
+msgid "Membership Plan: %s"
+msgstr "Πρόγραμμα Συνδρομής Μέλους: %s"
+
+#: views/metaboxes/membership_info_content.php:24
+msgid "General Details"
+msgstr "Γενικά Στοιχεία"
+
+#: views/metaboxes/membership_info_content.php:41
+#: views/reports/download-reports-downloads-details-by-user.php:84
+msgid "Created by Admin"
+msgstr "Δημιουργήθηκε από Διαχειριστή"
+
+#: views/metaboxes/membership_info_content.php:48
+msgid "User Details"
+msgstr "Στοιχεία Χρήστη"
+
+#: views/metaboxes/membership_info_content.php:59
+#: views/reports/download-reports-downloads-by-user.php:27
+msgid "Search user..."
+msgstr "Αναζήτηση χρήστη…"
+
+#: views/metaboxes/membership_info_content.php:73
+msgid "Last update"
+msgstr "Τελευταία ενημέρωση"
+
+#: views/metaboxes/membership_info_content.php:78
+msgid "Next update"
+msgstr "Επόμενη ενημέρωση"
+
+#: views/metaboxes/membership_info_content.php:87
+msgid "Discounts"
+msgstr "Εκπτώσεις"
+
+#: views/metaboxes/membership_info_content.php:103
+msgid "Membership History"
+msgstr "Ιστορικό Συνδρομής Μέλους"
+
+#: views/metaboxes/plan-options.php:9
+msgctxt "Plan option section title"
+msgid "Options"
+msgstr "Επιλογές"
+
+#: views/metaboxes/plan-options.php:14
+msgid "Allow access to this plan after purchasing a specific product"
+msgstr ""
+"Επιτρέψτε την πρόσβαση σε αυτό το πρόγραμμα μετά την αγορά ενός "
+"συγκεκριμένου προϊόντος"
+
+#: views/metaboxes/plan-options.php:15
+msgid ""
+"Enable if the user has to buy a specific product to get access to this "
+"membership plan."
+msgstr ""
+"Ενεργοποιήστε αν ο χρήστης πρέπει να αγοράσει ένα συγκεκριμένο προϊόν για να "
+"αποκτήσει πρόσβαση σε αυτό το πρόγραμμα συνδ. μέλους."
+
+#: views/metaboxes/plan-options.php:20
+msgid "Choose the products to link to this plan"
+msgstr "Επιλέξτε τα προϊόντα που θέλετε να αντιστοιχήσετε σε αυτό το πρόγραμμα"
+
+#: views/metaboxes/plan-options.php:21
+msgid ""
+"Choose which product(s) a user can buy, in order to get access to this plan."
+msgstr ""
+"Επιλέξτε ποιο προϊόν(τα) μπορεί να αγοράσει ο χρήστης για να αποκτήσει "
+"πρόσβαση σε αυτό το πρόγραμμα."
+
+#: views/metaboxes/plan-options.php:36
+msgid "Set an end time for this membership"
+msgstr "Ορίστε χρόνο λήξης για αυτή τη συνδ. μέλους"
+
+#: views/metaboxes/plan-options.php:37
+msgid ""
+"Enable if you want to set an end time for this plan. If disabled, the plan "
+"will be unlimited or life-time."
+msgstr ""
+"Ενεργοποιήστε αν θέλετε να ορίσετε συνδρομή μέλους για αυτό το πρόγραμμα. Αν "
+"απενεργοποιηθεί, το πρόγραμμα θα γίνει απεριόριστο ή ισόβιο."
+
+#: views/metaboxes/plan-options.php:41
+msgid "Membership ends after"
+msgstr "Η συνδ. μέλους τελειώνει μετά από"
+
+#: views/metaboxes/plan-options.php:42
+msgid "Set after how many days this membership will end."
+msgstr "Ορίστε πόσες μέρες μετά θα λήξει αυτή η συνδ. μέλους."
+
+#. translators: %s is the numeric input field of the duration
+#: views/metaboxes/plan-options.php:46
+msgctxt "Text with inline field"
+msgid "%s days"
+msgstr "%s μέρες"
+
+#: views/metaboxes/plan-options.php:68
+msgid "Show contents in membership details"
+msgstr "Εμφάνιση περιεχομένων στα στοιχεία συνδ. μέλους"
+
+#: views/metaboxes/plan-options.php:69
+msgid ""
+"Enable if you want to show what content is included in this plan, in "
+"membership details."
+msgstr ""
+"Ενεργοποιήστε αν θέλετε να εμφανίζετε το περιεχόμενο που περιλαμβάνεται σε "
+"αυτό το πρόγραμμα, στα στοιχεία συνδ. μέλους."
+
+#: views/metaboxes/plan-options.php:74
+msgid "Include contents of other plans"
+msgstr "Να περιλαμβάνονται περιεχόμενα άλλων προγραμμάτων"
+
+#: views/metaboxes/plan-options.php:75
+msgid "Enable if you want to include contents of other plans in this plan."
+msgstr ""
+"Ενεργοποιήστε αν θέλετε να περιλαμβάνονται περιεχόμενα άλλων προγραμμάτων σε "
+"αυτό το πρόγραμμα."
+
+#: views/metaboxes/plan-options.php:82
+msgid "Search Membership Plans"
+msgstr "Αναζήτηση Προγραμμάτων Συν. Μέλους"
+
+#: views/metaboxes/plan-options.php:85
+msgid "Include contents of these plans"
+msgstr "Να περιλαμβάνονται περιεχόμενα αυτών των προγραμμάτων"
+
+#: views/metaboxes/plan-options.php:86
+msgid ""
+"Select which plans to add. Add other plans to this one, so that their "
+"content is also visible under this membership plan."
+msgstr ""
+"Επιλέξτε ποια προγράμματα να προσθέσετε. Προσθέστε σε αυτό το πρόγραμμα άλλα "
+"προγράμματα, ούτως ώστε το περιεχόμενό τους να είναι ορατό κάτω από το "
+"συγκεκριμένο πρόγραμμα συνδ. μέλους."
+
+#: views/metaboxes/plan-options.php:95
+msgid "Users can download"
+msgstr "Οι χρήστες μπορούν να κατεβάσουν"
+
+#: views/metaboxes/plan-options.php:96
+msgid ""
+"Choose if users of this plan can download products without any limit or if "
+"you want to setup download permissions based on credits."
+msgstr ""
+"Επιλέξτε αν χρήστες αυτού του προγράμματος μπορούν να κατεβάσουν προϊόντα "
+"χωρίς όριο ή αν θέλετε να ορίσετε άδειες για κατέβασμα βάσει πιστώσεων."
+
+#: views/metaboxes/plan-options.php:98
+msgid "All downloadable products without any limit"
+msgstr "Όλα τα προϊόντα για κατέβασμα χωρίς όριο"
+
+#: views/metaboxes/plan-options.php:99
+msgid "Using credits associated to products to download"
+msgstr "Χρησιμοποιούνται πιστώσεις συνδεδεμένες με προϊόντα για κατέβασμα"
+
+#: views/metaboxes/plan-options.php:105
+msgid "Credits availability"
+msgstr "Διαθεσιμότητα πιστώσεων"
+
+#: views/metaboxes/plan-options.php:106
+msgid ""
+"Set how many credits to assign to all members of this plans, for how much "
+"time these credits will be available and how to manage unused credits."
+msgstr ""
+"Ορίστε πόσες πιστώσεις να ανατίθενται σε όλα τα μέλη αυτού του προγράμματος, "
+"για ποσό καιρό αυτές οι πιστώσεις θα είναι διαθέσιμες και πως να "
+"διαχειριστείτε τις πιστώσεις που δεν έχουν χρησιμοποιηθεί."
+
+#. translators: 1. is the numeric input field of the number of credits; 2. is the numeric input field of the duration; 3. is the select field of the duration unit; 4. is the select field of the option; Example: Users of this plan will get "50" credits. Each "10" "days" credits will be restored and unused credits "will be accumulated"
+#: views/metaboxes/plan-options.php:110
+msgctxt "Text with inline fields"
+msgid ""
+"Users of this plan will get %1$s credits. Every %2$s %3$s credits will be "
+"restored and unused credits %4$s"
+msgstr ""
+"Τα μέλη αυτού του προγράμματος θα λαμβάνουν %1$s πιστώσεις. Κάθε %2$s %3$s "
+"πιστώσεις θα επαναφέρονται και οι πιστώσεις που δεν έχουν χρησιμοποιηθεί %4$s"
+
+#: views/metaboxes/plan-options.php:142
+msgid "days"
+msgstr "μέρες"
+
+#: views/metaboxes/plan-options.php:143
+msgid "weeks"
+msgstr "εβδομάδες"
+
+#: views/metaboxes/plan-options.php:144
+msgid "months"
+msgstr "μήνες"
+
+#: views/metaboxes/plan-options.php:145
+msgid "years"
+msgstr "έτη"
+
+#: views/metaboxes/plan-options.php:159
+msgid "will be accumulated"
+msgstr "θα συγκεντρώνονται"
+
+#: views/metaboxes/plan-options.php:160
+msgid "will be lost"
+msgstr "θα χάνονται"
+
+#: views/metaboxes/plan-options.php:177
+msgid "Set a different credits availability for first time"
+msgstr "Ορίστε διαφορετική διαθεσιμότητα πιστώσεων για την πρώτη φορά"
+
+#: views/metaboxes/plan-options.php:178
+msgid ""
+"Enable if you want to assign a different number of credits for the first "
+"time, when the user becomes a member."
+msgstr ""
+"Ενεργοποιήστε αν θέλετε να ανατίθεται διαφορετικός αριθμός πιστώσεων για την "
+"πρώτη φορά, που ο χρήστης γίνεται μέλος."
+
+#: views/metaboxes/plan-options.php:189
+msgid "Credits availability for the first time"
+msgstr "Διαθεσιμότητα πιστώσεων για την πρώτη φορά"
+
+#: views/metaboxes/plan-options.php:190
+msgid "Set how many credits to assign to new members for the first time."
+msgstr "Ορίστε πόσες πιστώσεις να ανατίθενται στα νέα μέλη την πρώτη φορά."
+
+#: views/metaboxes/plan-options.php:201
+msgid "Enable if you want to give a discount on all products for members."
+msgstr ""
+"Ενεργοποιήστε αν θέλετε να παραχωρείτε μια έκπτωση σε όλα τα προϊόντα για τα "
+"μέλη."
+
+#: views/metaboxes/plan-options.php:208
+msgid "Set the percentage discount for all products."
+msgstr "Ορίστε το ποσοστό έκπτωσης για όλα τα προϊόντα."
+
+#: views/metaboxes/plan-options.php:217
+msgctxt "Plan option section title"
+msgid "Permissions"
+msgstr "Άδειες"
+
+#: views/metaboxes/plan-options.php:218
+msgid ""
+"Set which content will be restricted and accessible only to members of this "
+"plan."
+msgstr ""
+"Ορίστε ποιο περιεχόμενο θα είναι περιορισμένο και προσβάσιμο μόνο σε μέλη "
+"αυτού του προγράμματος."
+
+#: views/metaboxes/plan-options.php:223
+msgctxt "Plan option section title"
+msgid "Pages"
+msgstr "Σελίδες"
+
+#: views/metaboxes/plan-options.php:230
+msgid "Search Pages"
+msgstr "Αναζήτηση Σελίδων"
+
+#: views/metaboxes/plan-options.php:233
+msgid "Pages accessible with this plan"
+msgstr "Προσβάσιμες σελίδες με αυτό το πρόγραμμα"
+
+#: views/metaboxes/plan-options.php:234
+msgid "Choose which pages will be accessible to members of this plan."
+msgstr ""
+"Επιλέξτε ποιες σελίδες θα είναι προσβάσιμες στα μέλη αυτού του προγράμματος."
+
+#: views/metaboxes/plan-options.php:238
+msgid "Page sorting"
+msgstr "Ταξινόμηση σελίδας"
+
+#: views/metaboxes/plan-options.php:239
+msgid "Choose how to sort visible pages to members."
+msgstr "Επιλέξτε πως να ταξινομούνται οι ορατές σελίδες στα μέλη."
+
+#: views/metaboxes/plan-options.php:242 views/metaboxes/plan-options.php:311
+#: views/metaboxes/plan-options.php:380
+msgid "Alphabetically ascending"
+msgstr "Ανεβαίνει αλφαβητικά"
+
+#: views/metaboxes/plan-options.php:243 views/metaboxes/plan-options.php:312
+#: views/metaboxes/plan-options.php:381
+msgid "Alphabetically descending"
+msgstr "Κατεβαίνει αλφαβητικά"
+
+#: views/metaboxes/plan-options.php:244 views/metaboxes/plan-options.php:313
+#: views/metaboxes/plan-options.php:382
+msgid "Date ascending"
+msgstr "Ανεβαίνει βάσει ημερομηνίας"
+
+#: views/metaboxes/plan-options.php:245 views/metaboxes/plan-options.php:314
+#: views/metaboxes/plan-options.php:383
+msgid "Date descending"
+msgstr "Κατεβαίνει βάσει ημερομηνίας"
+
+#: views/metaboxes/plan-options.php:251
+msgctxt "Plan option section title"
+msgid "Posts"
+msgstr "Άρθρα"
+
+#: views/metaboxes/plan-options.php:256
+msgid "Select posts to include"
+msgstr "Επιλέξτε τα άρθρα που θέλετε να συμπεριλάβετε"
+
+#: views/metaboxes/plan-options.php:258
+msgid "All posts"
+msgstr "Όλα τα άρθρα"
+
+#: views/metaboxes/plan-options.php:259
+msgid "Specific posts / post categories / post tags"
+msgstr "Συγκεκριμένα άρθρα / κατηγορίες άρθρων / ετικέτες άρθρων"
+
+#: views/metaboxes/plan-options.php:266
+msgid "Posts accessible with this plan"
+msgstr "Προσβάσιμα άρθρα με αυτό το πρόγραμμα"
+
+#: views/metaboxes/plan-options.php:267
+msgid "Choose which posts will be accessible to members of this plan."
+msgstr ""
+"Επιλέξτε ποια άρθρα θα είναι προσβάσιμα στα μέλη αυτού του προγράμματος."
+
+#: views/metaboxes/plan-options.php:278
+msgid "Search Post Categories"
+msgstr "Αναζήτηση Κατηγοριών Άρθρων"
+
+#: views/metaboxes/plan-options.php:282
+msgid "Post categories accessible with this plan"
+msgstr "Κατηγορίες άρθρων προσβάσιμες με αυτό το πρόγραμμα"
+
+#: views/metaboxes/plan-options.php:283
+msgid ""
+"Choose which post categories will be accessible to members of this plan."
+msgstr ""
+"Επιλέξτε ποιες κατηγορίες άρθρων θα είναι προσβάσιμες στα μέλη αυτού του "
+"προγράμματος."
+
+#: views/metaboxes/plan-options.php:294
+msgid "Search Post Tags"
+msgstr "Αναζήτηση Ετικετών Άρθρων"
+
+#: views/metaboxes/plan-options.php:298
+msgid "Post tags accessible with this plan"
+msgstr "Ετικέτες άρθρων προσβάσιμες με αυτό το πρόγραμμα"
+
+#: views/metaboxes/plan-options.php:299
+msgid "Choose which post tags will be accessible to members of this plan."
+msgstr ""
+"Επιλέξτε ποιες ετικέτες άρθρων θα είναι προσβάσιμες στα μέλη αυτού του "
+"προγράμματος."
+
+#: views/metaboxes/plan-options.php:307
+msgid "Post sorting"
+msgstr "Ταξινόμηση άρθρου"
+
+#: views/metaboxes/plan-options.php:308
+msgid "Choose how to sort visible posts to members."
+msgstr "Επιλέξτε πως να ταξινομούνται τα ορατά άρθρα στα μέλη."
+
+#: views/metaboxes/plan-options.php:320
+msgctxt "Plan option section title"
+msgid "Products"
+msgstr "Προϊόντα"
+
+#: views/metaboxes/plan-options.php:325
+msgid "Select products to include"
+msgstr "Επιλέξτε τα προϊόντα που θέλετε να συμπεριλάβετε"
+
+#: views/metaboxes/plan-options.php:327
+msgid "All products"
+msgstr "Όλα τα προϊόντα"
+
+#: views/metaboxes/plan-options.php:328
+msgid "Specific products / product categories / product tags"
+msgstr "Συγκεκριμένα προϊόντα / κατηγορίες προϊόντων / ετικέτες προϊόντων"
+
+#: views/metaboxes/plan-options.php:335
+msgid "Products accessible with this plan"
+msgstr "Προϊόντα προσβάσιμα με αυτό το πρόγραμμα"
+
+#: views/metaboxes/plan-options.php:336
+msgid "Choose which products will be accessible to members of this plan."
+msgstr ""
+"Επιλέξτε ποια προϊόντα θα είναι προσβάσιμα στα μέλη αυτού του προγράμματος."
+
+#: views/metaboxes/plan-options.php:347
+msgid "Search Product Categories"
+msgstr "Αναζήτηση Κατηγοριών Προϊόντων"
+
+#: views/metaboxes/plan-options.php:351
+msgid "Product categories accessible with this plan"
+msgstr "Κατηγορίες προϊόντων προσβάσιμες με αυτό το πρόγραμμα"
+
+#: views/metaboxes/plan-options.php:352
+msgid ""
+"Choose which product categories will be accessible to members of this plan."
+msgstr ""
+"Επιλέξτε ποιες κατηγορίες προϊόντων θα είναι προσβάσιμες στα μέλη αυτού του "
+"προγράμματος."
+
+#: views/metaboxes/plan-options.php:363
+msgid "Search Product Tags"
+msgstr "Αναζήτηση Ετικετών Προϊόντων"
+
+#: views/metaboxes/plan-options.php:367
+msgid "Product tags accessible with this plan"
+msgstr "Ετικέτες προϊόντων προσβάσιμες με αυτό το πρόγραμμα"
+
+#: views/metaboxes/plan-options.php:368
+msgid "Choose which product tags will be accessible to members of this plan."
+msgstr ""
+"Επιλέξτε ποιες ετικέτες προϊόντων θα είναι προσβάσιμες στα μέλη αυτού του "
+"προγράμματος."
+
+#: views/metaboxes/plan-options.php:376
+msgid "Product sorting"
+msgstr "Ταξινόμηση προϊόντος"
+
+#: views/metaboxes/plan-options.php:377
+msgid "Choose how to sort visible products to members."
+msgstr "Επιλέξτε πως να ταξινομούνται τα ορατά προϊόντα στα μέλη."
+
+#: views/reports/download-reports-downloads-by-product.php:9
+msgid "Filter by user"
+msgstr "Ταξινόμηση ανά χρήστη"
+
+#: views/reports/download-reports-downloads-by-product.php:11
+msgid "Filter"
+msgstr "Ταξινόμηση"
+
+#: views/reports/download-reports-downloads-by-product.php:12
+msgid "Reset Filters"
+msgstr "Επαναφορά Ταξινομήσεων"
+
+#: views/reports/download-reports-downloads-by-user.php:18
+#: views/reports/download-reports-downloads-details-by-user.php:106
+msgid "Items per page"
+msgstr "Αντικείμενα ανά σελίδα"
+
+#: views/reports/download-reports-downloads-by-user.php:20
+#: views/reports/download-reports-downloads-details-by-user.php:108
+msgctxt "Download reports: apply button"
+msgid "Apply"
+msgstr "Εφαρμογή"
+
+#: views/reports/download-reports-downloads-by-user.php:31
+msgid "Show Details"
+msgstr "Εμφάνιση Στοιχείων"
+
+#: views/reports/download-reports-downloads-details-by-user.php:30
+msgctxt "Download reports table: user id"
+msgid "User #%s"
+msgstr "Χρήστης #%s"
+
+#: views/reports/download-reports-downloads-details-by-user.php:37
+msgctxt "full name between parentheses"
+msgid "(%1$s %2$s)"
+msgstr "(%1$s %2$s)"
+
+#: views/reports/download-reports-downloads-details-by-user.php:63
+msgid "User Membership Plans"
+msgstr "Προγράμματα Συνδρομών Μέλους Χρηστών"
+
+#: views/reports/download-reports-downloads-details-by-user.php:80
+msgid "Order #%s"
+msgstr "Παραγγελία #%s"
+
+#: views/reports/download-reports-graphics.php:183
+msgid "10 days"
+msgstr "10 μέρες"
+
+#: views/reports/download-reports-graphics.php:184
+msgid "12 months"
+msgstr "12 μήνες"
+
+#: views/reports/download-reports-graphics.php:188
+#: views/reports/download-reports-graphics.php:199
+msgid "Max downloads: %s"
+msgstr "Μέγιστα κατεβάσματα: %s"
+
+#: views/reports/download-reports-table.php:71
+msgid "View"
+msgstr "Προβολή"
+
+#: views/reports/download-reports-table.php:73
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+#: views/reports/download-reports-table.php:87
+msgid "No downloads for user %s"
+msgstr "Δεν υπάρχουν κατεβάσματα για τον χρήστη %s"
+
+#: views/reports/download-reports-table.php:90
+msgid "No downloads"
+msgstr "Δεν υπάρχουν κατεβάσματα"
+
+#: views/reports/download-reports.php:22
+msgid "Downloads by product"
+msgstr "Κατεβάσματα ανά προϊόν"
+
+#: views/reports/download-reports.php:23
+msgid "Downloads by user"
+msgstr "Κατεβάσματα ανά χρήστη"
+
+#: views/reports/download-reports.php:41
+msgid "No downloads yet"
+msgstr "Δεν υπάρχουν κατεβάσματα ακόμη"
+
+#: views/reports/membership-reports.php:7
+msgid "Active memberships"
+msgstr "Ενεργές συνδρομές μέλους"
+
+#: views/reports/membership-reports.php:35
+msgid "Last actived memberships"
+msgstr "Τελευταίες ενεργές συνδρομές μέλους"
+
+#: views/reports/membership-reports.php:40
+msgid "Today"
+msgstr "Σήμερα"
+
+#: views/reports/membership-reports.php:44
+msgid "Yesterday"
+msgstr "Χτες"
+
+#: views/reports/membership-reports.php:48
+msgid "7 days"
+msgstr "7 ημέρες"
+
+#: views/reports/membership-reports.php:52
+msgid "This month"
+msgstr "Αυτό τον μήνα"
+
+#: views/reports/membership-reports.php:56
+msgid "Last month"
+msgstr "Τον προηγούμενο μήνα"
+
+#: views/reports/membership-reports.php:60
+msgid "This year"
+msgstr "Αυτό τον χρόνο"
+
+#: views/reports/membership-reports.php:67
+msgid "Total membership (ever)"
+msgstr "Συνολικές συνδρομές μέλους (γενικά)"
+
+#: views/reports/membership-with-subscription-reports.php:12
+msgid "Membership with Subscription"
+msgstr "Συνδρομές Μέλους και Συνδρομές"
+
+#: views/reports/membership-with-subscription-reports.php:20
+msgid "active + resumed"
+msgstr "ενεργή + που επαναφέρθηκε"
+
+#: views/reports/reports.php:7
+msgid "Reports of"
+msgstr "Αναφορές για"

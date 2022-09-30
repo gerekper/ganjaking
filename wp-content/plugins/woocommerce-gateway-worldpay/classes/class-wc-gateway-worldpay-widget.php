@@ -16,9 +16,13 @@ class WorldPayHosted_Logo_Widget extends WP_Widget {
 
 		$woocommerce_worldpay_settings  = get_option('woocommerce_worldpay_settings');
 
-		$title 			= apply_filters( 'worldpay_logo_widget_title', $instance[ 'title' ] );
-		$worldpaylogo 	= $this->get_wplogo( $instance[ 'worldpaylogo' ] );
-		$cardlogo	 	= $this->get_cardlogos( $instance[ 'cardlogo' ], $woocommerce_worldpay_settings['cardtypes'] );
+		$title 			= ! empty( $instance['title'] ) ? $instance['title'] : __('Payments Powered By WorldPay', 'woocommerce_worlday');
+		$worldpaylogo 	= ! empty( $instance['worldpaylogo'] ) ? $instance['worldpaylogo'] : '';
+		$cardlogo 		= ! empty( $instance['cardlogo'] ) ? $instance['cardlogo'] : ''; 
+
+		$title 			= apply_filters( 'worldpay_logo_widget_title', $title );
+		$worldpaylogo 	= $this->get_wplogo( $worldpaylogo );
+		$cardlogo	 	= $this->get_cardlogos( $cardlogo, $woocommerce_worldpay_settings['cardtypes'] );
 
 		echo $args['before_widget'];
 

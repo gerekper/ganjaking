@@ -318,7 +318,7 @@ class BetterDocs_REST_Controller {
             foreach ($docs as $key=>$value) {
                 $docs_arr[$key] = [
                     'post_id' => $value->post_id,
-                    'post_title' => esc_html($value->post_title),
+                    'post_title' => wp_kses($value->post_title, BETTERDOCS_PRO_KSES_ALLOWED_HTML),
                     'happy' => $value->happy,
                     'normal' => $value->normal,
                     'sad' => $value->sad,
@@ -547,7 +547,7 @@ class BetterDocs_REST_Controller {
         }
 
         if ( isset( $request->post_title ) ) {
-            $prepared_post->title = esc_html($request->post_title);
+            $prepared_post->title = wp_kses($request->post_title, BETTERDOCS_PRO_KSES_ALLOWED_HTML);
         }
 
         if ( isset( $request->total_views ) ) {

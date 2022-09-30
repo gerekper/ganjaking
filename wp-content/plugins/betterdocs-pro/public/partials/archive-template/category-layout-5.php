@@ -9,7 +9,7 @@
  * @subpackage BetterDocs/public
  */
 
-get_header(); 
+get_header();
 
 echo '<div class="betterdocs-wraper betterdocs-main-wraper">';
 	$live_search = BetterDocs_DB::get_settings('live_search');

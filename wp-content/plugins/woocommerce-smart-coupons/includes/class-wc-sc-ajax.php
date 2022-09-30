@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.3.0
+ * @version     1.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -170,7 +170,7 @@ if ( ! class_exists( 'WC_SC_Ajax' ) ) {
 								pm.meta_value
 							FROM {$wpdb->posts} AS p
 								JOIN {$wpdb->postmeta} AS pm
-									ON (p.ID = pm.post_id AND pm.meta_key IN (%s,%s,%s,%s,%s,%s,%s))
+									ON (p.ID = pm.post_id AND pm.meta_key IN (%s,%s,%s,%s,%s,%s))
 							WHERE p.post_type = %s
 								AND p.post_title LIKE %s
 								AND p.post_status = %s",
@@ -179,7 +179,6 @@ if ( ! class_exists( 'WC_SC_Ajax' ) ) {
 						'date_expires',
 						'auto_generate_coupon',
 						'customer_email',
-						'sc_disable_email_restriction',
 						'wc_sc_expiry_time',
 						'shop_coupon',
 						$wpdb->esc_like( $term ) . '%',
@@ -208,7 +207,6 @@ if ( ! class_exists( 'WC_SC_Ajax' ) ) {
 						case 'coupon_amount':
 						case 'date_expires':
 						case 'auto_generate_coupon':
-						case 'sc_disable_email_restriction':
 						case 'wc_sc_expiry_time':
 							$coupon_posts[ $post_id ][ $post['meta_key'] ] = $post['meta_value']; // phpcs:ignore
 							break;
@@ -223,13 +221,12 @@ if ( ! class_exists( 'WC_SC_Ajax' ) ) {
 
 			if ( ! empty( $coupon_posts ) ) {
 				foreach ( $coupon_posts as $post_id => $coupon_post ) {
-					$discount_type                = ( ! empty( $coupon_post['discount_type'] ) ) ? $coupon_post['discount_type'] : '';
-					$coupon_amount                = ( ! empty( $coupon_post['coupon_amount'] ) ) ? $coupon_post['coupon_amount'] : 0;
-					$date_expires                 = ( ! empty( $coupon_post['date_expires'] ) ) ? absint( $coupon_post['date_expires'] ) : 0;
-					$wc_sc_expiry_time            = ( ! empty( $coupon_post['wc_sc_expiry_time'] ) ) ? absint( $coupon_post['wc_sc_expiry_time'] ) : 0;
-					$auto_generate_coupon         = ( ! empty( $coupon_post['auto_generate_coupon'] ) ) ? $coupon_post['auto_generate_coupon'] : '';
-					$sc_disable_email_restriction = ( ! empty( $coupon_post['sc_disable_email_restriction'] ) ) ? $coupon_post['sc_disable_email_restriction'] : '';
-					$customer_email               = ( ! empty( $coupon_post['customer_email'] ) ) ? $coupon_post['customer_email'] : array();
+					$discount_type        = ( ! empty( $coupon_post['discount_type'] ) ) ? $coupon_post['discount_type'] : '';
+					$coupon_amount        = ( ! empty( $coupon_post['coupon_amount'] ) ) ? $coupon_post['coupon_amount'] : 0;
+					$date_expires         = ( ! empty( $coupon_post['date_expires'] ) ) ? absint( $coupon_post['date_expires'] ) : 0;
+					$wc_sc_expiry_time    = ( ! empty( $coupon_post['wc_sc_expiry_time'] ) ) ? absint( $coupon_post['wc_sc_expiry_time'] ) : 0;
+					$auto_generate_coupon = ( ! empty( $coupon_post['auto_generate_coupon'] ) ) ? $coupon_post['auto_generate_coupon'] : '';
+					$customer_email       = ( ! empty( $coupon_post['customer_email'] ) ) ? $coupon_post['customer_email'] : array();
 
 					if ( empty( $discount_type ) || 'smart_coupon' === $discount_type ) {
 						continue;
@@ -244,9 +241,6 @@ if ( ! class_exists( 'WC_SC_Ajax' ) ) {
 						}
 					}
 					if ( 'yes' === $auto_generate_coupon ) {
-						continue;
-					}
-					if ( 'yes' === $sc_disable_email_restriction ) {
 						continue;
 					}
 					if ( ! empty( $customer_email ) ) {

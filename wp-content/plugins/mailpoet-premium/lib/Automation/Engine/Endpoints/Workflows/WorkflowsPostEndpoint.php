@@ -5,16 +5,16 @@ namespace MailPoet\Premium\Automation\Engine\Endpoints\Workflows;
 if (!defined('ABSPATH')) exit;
 
 
+use DateTimeImmutable;
 use MailPoet\API\REST\Request;
 use MailPoet\API\REST\Response;
 use MailPoet\Automation\Engine\API\Endpoint;
 use MailPoet\Automation\Engine\Data\NextStep;
 use MailPoet\Automation\Engine\Data\Step;
 use MailPoet\Automation\Engine\Data\Workflow;
-use MailPoet\Automation\Engine\Validators\WorkflowSchema;
+use MailPoet\Automation\Engine\Validation\WorkflowSchema;
 use MailPoet\Premium\Automation\Engine\Builder\CreateWorkflowController;
 use MailPoet\Validator\Builder;
-use MailPoetVendor\Monolog\DateTimeImmutable;
 
 class WorkflowsPostEndpoint extends Endpoint {
   /** @var CreateWorkflowController */

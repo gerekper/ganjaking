@@ -5,6 +5,8 @@
     <admin-texts>
         <key name="theme_mods_*">
             <key name="betterdocs_post_reactions_text" />
+            <key name="betterdocs_archive_other_categories_heading_text" />
+            <key name="betterdocs_archive_other_categories_load_more_text" />
         </key>
         <key name="betterdocs_settings">
             <key name="ask_thanks_title" />

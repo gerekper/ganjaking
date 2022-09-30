@@ -1589,8 +1589,22 @@
          * { item_description }
          */
         public static function maybe_send_admin_email_on_creation( $order_id ) {
-        	$order = new WC_Order( $order_id );
-        	WC()->mailer()->emails['PDF_Invoice_Admin_PDF_Invoice']->trigger( $order_id, $order );
+        	
+        	if( isset( $order_id) && !is_null( $order_id ) ) {
+
+        		// Test PDF_Invoice_Admin_PDF_Invoice is loaded
+        		$mailer = WC()->mailer();
+				$emails = $mailer->get_emails();
+
+				$email_classes = array_keys($emails);
+
+				if( in_array( 'PDF_Invoice_Admin_PDF_Invoice', $email_classes ) ) {
+					$order = wc_get_order( $order_id );
+        			WC()->mailer()->emails['PDF_Invoice_Admin_PDF_Invoice']->trigger( $order_id, $order );
+				}
+       		
+        	}
+
         }
 
         public static function get_option( $option ) {

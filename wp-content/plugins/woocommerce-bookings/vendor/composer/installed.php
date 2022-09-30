@@ -3,7 +3,7 @@
         'name' => 'woocommerce/woocommerce-bookings',
         'pretty_version' => 'dev-trunk',
         'version' => 'dev-trunk',
-        'reference' => 'db8498b4168ba492588ae0d16a85e75cde27cc8a',
+        'reference' => '0435c9501cab8139a279d5d26b391a3f4cc9e365',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -235,7 +235,7 @@
         'woocommerce/woocommerce-bookings' => array(
             'pretty_version' => 'dev-trunk',
             'version' => 'dev-trunk',
-            'reference' => 'db8498b4168ba492588ae0d16a85e75cde27cc8a',
+            'reference' => '0435c9501cab8139a279d5d26b391a3f4cc9e365',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

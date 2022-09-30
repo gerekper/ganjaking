@@ -3,7 +3,7 @@
  * Acknowledgement Email Content
  *
  * @author      StoreApps
- * @version     1.1.0
+ * @version     1.2.0
  * @package     woocommerce-smart-coupons/templates/plain/
  */
 
@@ -24,7 +24,7 @@ if ( empty( $email_scheduled_details ) ) {
 	$message = __( 'You have successfully sent %1$d %2$s to %3$s (%4$s)', 'woocommerce-smart-coupons' );
 } else {
 	/* translators: 1. Receiver's count 2. Gift Card/s 3. Receiver name 4. Receiver details */
-	$message         = __( 'You have scheduled to sent %1$d %2$s to %3$s (%4$s)', 'woocommerce-smart-coupons' );
+	$message         = __( 'You have scheduled to send %1$d %2$s to %3$s (%4$s)', 'woocommerce-smart-coupons' );
 	$receivers_email = array_map(
 		function( $email ) use ( $email_scheduled_details ) {
 			// Filter for time format of acknowledgement email.

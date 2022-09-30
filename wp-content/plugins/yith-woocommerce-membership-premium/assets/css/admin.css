@@ -1,0 +1,981 @@
+/**
+ * Admin style
+ *
+ * @author Leanza Francesco
+ * @version 1.0.0
+ */
+
+.yith-wcmbs-full-width {
+    width : 100%;
+}
+
+
+.yith-wcmbs-clearfix::after {
+    content : "";
+    clear   : both;
+    display : table;
+}
+
+/*
+    Restrict Access Metabox
+*/
+
+#yith-wcmbs-restrict-access-metabox select {
+    width : 100%;
+}
+
+.yith-wcmbs-delay-time-box {
+    padding    : 5px 0;
+    border-top : 1px solid #eee;
+    margin-top : 5px;
+}
+
+.yith-wcmbs-delay-actions-add {
+    padding    : 10px;
+    margin-top : 10px;
+    background : #f7f7f7;
+    text-align : center;
+}
+
+.yith-wcmbs-delay-actions-add input {
+    margin-top : 10px !important;
+}
+
+table#yith-wcmbs-delay-time-for-plans-container {
+    border-collapse : collapse;
+    margin-top      : 10px;
+    width           : 100%;
+}
+
+table#yith-wcmbs-delay-time-for-plans-container tr th {
+    text-align : left;
+    padding    : 5px;
+    background : #f1f1f1;
+}
+
+table#yith-wcmbs-delay-time-for-plans-container tr td {
+    padding       : 5px;
+    border-top    : 1px solid #eee;
+    border-bottom : 1px solid #eee;
+}
+
+table#yith-wcmbs-delay-time-for-plans-container tr td:nth-child(2n+0) {
+    width : 80px;
+}
+
+table#yith-wcmbs-delay-time-for-plans-container input {
+    width : 100%;
+}
+
+.yith-wcmbs-admin-plans-delay .yith-plugin-fw-radio > .yith-plugin-fw-radio__row:nth-child(2) label::before,
+.yith-wcmbs-admin-plans-delay .yith-plugin-fw-radio > .yith-plugin-fw-radio__row:nth-child(2) label::after {
+    margin-top : 8px;
+}
+
+
+/*
+    WP List Table Product
+*/
+th#yith_wcmbs_restrict_access, td.yith_wcmbs_restrict_access {
+    width : 30px;
+}
+
+.woocommerce_options_panel .yith-wcmbs-product-field-wrapper .description {
+    display : block;
+    clear   : both;
+    margin  : 0;
+}
+
+/*
+    CHOOSEN
+*/
+.chosen-container-multi .chosen-choices li.search-field input[type="text"] {
+    min-height : 30px;
+}
+
+/*
+    ADMIN PROFILE
+*/
+
+table.yith-wcmbs-admin-table {
+    padding         : 0;
+    border-collapse : collapse;
+    border          : 1px solid #d8d8d8;
+    background      : #fff;
+}
+
+table.yith-wcmbs-admin-table tr, table.yith-wcmbs-admin-table td, table.yith-wcmbs-admin-table th {
+    margin     : 0;
+    padding    : 15px;
+    text-align : center;
+
+}
+
+table.yith-wcmbs-admin-table th {
+    text-transform : uppercase;
+    font-size      : 11px;
+    padding        : 10px 15px;
+    border-bottom  : 1px solid #d8d8d8;
+}
+
+table.yith-wcmbs-admin-table th.mini-width {
+    width : 80px;
+}
+
+table.yith-wcmbs-admin-table th {
+    background-color : #fff;
+    color            : #336374;
+}
+
+
+table.yith-wcmbs-admin-table input[type=text], table.yith-wcmbs-admin-table input[type=date], table.yith-wcmbs-admin-table select {
+    width : 100%;
+}
+
+table.yith-wcmbs-admin-table .status-indicator {
+    width   : 3px !important;
+    padding : 0 !important;
+    margin  : 0 !important;
+}
+
+table.yith-wcmbs-admin-table td.active, table.yith-wcmbs-admin-table td.resumed {
+    background : #a6be21 !important;
+}
+
+table.yith-wcmbs-admin-table td.expired, table.yith-wcmbs-admin-table td.cancelled {
+    background : #bd0d2e !important;
+}
+
+table.yith-wcmbs-admin-table td.expiring {
+    background : #e2821f !important;
+}
+
+/*
+    ADMIN Wp List Users
+*/
+
+span.yith-wcmbs-users-membership-info {
+    margin        : 5px;
+    border-radius : 2px;
+    padding       : 4px 7px 4px 12px;
+    display       : inline-block;
+    background    : #7e8188;
+    color         : #fff;
+    cursor        : default !important;
+}
+
+span.yith-wcmbs-users-membership-info.active, span.yith-wcmbs-users-membership-info.resumed {
+    background : #a6be21;
+}
+
+span.yith-wcmbs-users-membership-info.expired, span.yith-wcmbs-users-membership-info.cancelled {
+    background : #bd0d2e;
+}
+
+span.yith-wcmbs-users-membership-info.expiring {
+    background : #e2821f;
+}
+
+span.yith-wcmbs-users-membership-info a {
+    color      : inherit;
+    box-shadow : none !important;
+}
+
+span.yith-wcmbs-users-membership-info .dashicons {
+    font-size   : 18px;
+    color       : inherit;
+    margin-left : 5px;
+    width       : 18px;
+    height      : 18px;
+}
+
+/*
+    Alternative content Metabox
+*/
+#alternative-content .textarea-editor {
+    margin : 20px 0 0 0 !important;
+}
+
+/*
+    Messages Metabox USER INFO
+*/
+table.yith-wcmbs-message-user-info {
+    width   : 100%;
+    display : block;
+}
+
+table.yith-wcmbs-message-user-info * {
+    width   : 100%;
+    display : block;
+}
+
+table.yith-wcmbs-message-user-info th {
+    text-align : left;
+}
+
+table.yith-wcmbs-message-user-info td {
+    text-align : left;
+    word-wrap  : break-word;
+}
+
+/*
+    Messages Metabox SEND MESSAGE
+*/
+#yith-wcmbs-send-message-editor {
+    overflow : auto;
+}
+
+#yith-wcmbs-message-to-send {
+    height : 100px;
+}
+
+/*
+    Messages List
+*/
+#yith-wcmbs-messages div.inside {
+    overflow-y : auto;
+    margin     : 10px 0px;
+    max-height : 500px;
+}
+
+ul.yith-wcmbs-messages-list li {
+    overflow : auto;
+}
+
+div.yith-wcmbs-message-container {
+    padding       : 10px;
+    background    : #eee;
+    width         : 50%;
+    margin-left   : 50%;
+    margin-bottom : 20px;
+    box-sizing    : border-box;
+    position      : relative;
+    text-align    : right;
+}
+
+div.yith-wcmbs-message-container::after {
+    content     : ' ';
+    position    : absolute;
+    border-top  : 15px solid #eee;
+    border-left : 15px solid transparent;
+    bottom      : -12px;
+    right       : 0;
+}
+
+div.yith-wcmbs-message-container .exact-date {
+    font-size : 10px;
+}
+
+div.yith-wcmbs-message-sent-by-user {
+    background  : #ccf0ff;
+    margin-left : 0;
+    text-align  : left;
+}
+
+div.yith-wcmbs-message-container.yith-wcmbs-message-sent-by-user::after {
+    border-top   : 15px solid #ccf0ff;
+    border-right : 15px solid transparent;
+    border-left  : 0;
+    right        : auto;
+    left         : 0;
+}
+
+/*
+    Thread WP List
+*/
+
+th#messages_count {
+    width      : 150px;
+    text-align : center;
+}
+
+td.messages_count, th.column-messages_count {
+    text-align : center;
+}
+
+.yith-wcmbs-messages-count {
+    box-sizing       : border-box;
+    padding          : 5px 10px;
+    min-width        : 24px;
+    height           : 2em;
+    border-radius    : 5px;
+    background-color : #72777c;
+    color            : #fff;
+    font-size        : 11px;
+    line-height      : 21px;
+    text-align       : center;
+}
+
+/*
+    MEDIA restricted access
+*/
+
+.compat-field-yith_wcmbs_restrict_access th {
+    margin : 0 !important;
+}
+
+.compat-field-yith_wcmbs_restrict_access select {
+    width : 100%;
+}
+
+.compat-field-yith_wcmbs_restrict_access p {
+    margin : 0 !important;
+}
+
+/*
+    Metabox Plan Item Order
+*/
+div#yith-wcmbs-plan-item-order-metabox-left {
+    width        : 600px;
+    float        : left;
+    margin-right : 50px;
+}
+
+div#yith-wcmbs-plan-item-order-metabox-right {
+    width : 600px;
+    float : left;
+}
+
+ul#yith-wcmbs-plan-item-order-container {
+    width      : 600px;
+    background : #eee;
+    border-top : 1px solid #ccc;
+    cursor     : move;
+}
+
+li.yith-wcmbs-plan-item {
+    width      : 100%;
+    padding    : 10px;
+    box-sizing : border-box;
+    border     : 1px solid #ccc;
+    border-top : 1px solid #fff;
+    margin     : 0;
+    background : #eee;
+    overflow   : auto;
+}
+
+li.yith-wcmbs-plan-item span {
+    margin-left  : 2px;
+    margin-right : 3px;
+}
+
+li.yith-wcmbs-plan-item-text {
+    width      : 600px;
+    padding    : 10px;
+    box-sizing : border-box;
+    border     : 1px solid #ccc;
+    border-top : 1px solid #fff;
+    margin     : 0;
+    background : #eee;
+    cursor     : move;
+    position   : relative;
+}
+
+li.yith-wcmbs-plan-item-text input {
+    width       : 95%;
+    border      : 0 none;
+    box-shadow  : none;
+    border-left : 3px solid #555;
+    font-size   : 13px;
+}
+
+li.yith-wcmbs-plan-item-text input:focus {
+    border-color : #2470ff;
+    box-shadow   : none;
+}
+
+li.yith-wcmbs-plan-item-text span {
+    font-size : 30px;
+    cursor    : pointer;
+}
+
+li.yith-wcmbs-plan-item-text span:hover {
+    color : #e10000;
+}
+
+li.yith-wcmbs-plan-item-text span.yith-wcmbs-plan-item-text-description {
+    font-size     : 11px;
+    color         : #585858;
+    position      : absolute;
+    bottom        : 5px;
+    right         : 5px;
+    padding       : 0px 7px;
+    background    : #d2d2d2;
+    border-radius : 3px;
+    font-style    : italic;
+    cursor        : inherit;
+}
+
+li.yith-wcmbs-plan-item-text span.yith-wcmbs-plan-item-text-description:hover, li.yith-wcmbs-plan-item-text:hover span.yith-wcmbs-plan-item-text-description {
+    color      : #0174ca;
+    background : #d8d8d8;
+}
+
+.yith-wcmbs-delete-from-plan {
+    font-size   : 30px;
+    cursor      : pointer;
+    line-height : 70%;
+}
+
+.yith-wcmbs-delete-from-plan:hover {
+    color : #e10000;
+}
+
+.yith-wcmbs-plan-item-delay, .yith-wcmbs-plan-item-cats-and-tags-label {
+    font-size     : 11px;
+    color         : #585858;
+    padding       : 0px 7px;
+    background    : #d2d2d2;
+    border-radius : 3px;
+    font-style    : italic;
+    cursor        : inherit;
+    float         : right;
+    margin        : 0 5px;
+}
+
+.yith-wcmbs-plan-item-cats-and-tags-label {
+    color  : #fff;
+    margin : 0 2px;
+
+}
+
+.orange-bg {
+    background : #d25600;
+}
+
+.blue-bg {
+    background : #389ed2;
+}
+
+.yellow-bg {
+    background : #cac944;
+}
+
+.green-bg {
+    background : #28d25c;
+}
+
+.violet-bg {
+    background : #9852d2;
+}
+
+.yith-wcmbs-hide-show-item {
+    cursor   : pointer;
+    overflow : hidden;
+}
+
+.yith-wcmbs-hide-show-item * {
+    font-size : 10px;
+}
+
+.yith-wcmbs-hide-show-item.dashicons-visibility {
+    color : #009b4e;
+}
+
+.yith-wcmbs-hide-show-item.dashicons-visibility:hover {
+    color : #00c366;
+}
+
+.yith-wcmbs-hide-show-item.dashicons-hidden {
+    color : #d10000;
+}
+
+.yith-wcmbs-hide-show-item.dashicons-hidden:hover {
+    color : #f00;
+}
+
+/* ------ Style Settings for plans ------ */
+#yith-wcmbs-plan-item-order .iris-picker {
+    position : absolute;
+    z-index  : 10;
+}
+
+div#yith-wcmbs-custom-list-style-settings {
+    padding    : 0px;
+    border     : 1px solid #ccc;
+    background : #f1f1f1;
+    width      : 50%;
+    min-width  : 300px;
+}
+
+div#yith-wcmbs-custom-list-style-settings table {
+    padding : 10px;
+}
+
+div#yith-wcmbs-custom-list-style-settings h2 {
+    margin-top : 0;
+}
+
+div#yith-wcmbs-custom-list-style-settings h3 {
+    padding          : 5px 9px;
+    background-color : #ddd;
+    margin           : 0;
+}
+
+/* ---------- Membership INFO ------- */
+
+body.post-php.post-type-ywcmbs-membership div#post-body-content {
+    margin : 0;
+}
+
+body.post-php.post-type-ywcmbs-membership h1.wp-heading-inline {
+    display : none;
+}
+
+#yith-wcmbs-membership-info .handlediv, #yith-wcmbs-membership-info .hndle,
+#yith-wcmbs-membership-info .postbox-header {
+    display : none;
+}
+
+
+#membership-data {
+    padding : 20px;
+}
+
+#membership-data span.status {
+    border-radius    : 3px;
+    padding          : 1px 6px;
+    font-size        : 12px;
+    background-color : #7e8188;
+    color            : #fff;
+}
+
+#membership-data h2 {
+    margin      : 0;
+    font-size   : 21px;
+    line-height : 1.2;
+    padding     : 0;
+}
+
+#membership-data p.membership_title {
+    margin    : 0;
+    font-size : 16px;
+    color     : #7e8188;
+}
+
+#membership-data p.membership_title a {
+    color : #7e8188;
+}
+
+#membership-data span.status.active, #membership-data span.status.resumed {
+    background : #a6be21 !important;
+}
+
+#membership-data span.status.expired, #membership-data span.status.cancelled {
+    background : #bd0d2e !important;
+}
+
+#membership-data span.status.expiring {
+    background : #e2821f !important;
+}
+
+#membership-data h5 {
+    font-size : 15px;
+}
+
+#membership-data .field_info {
+    color : #7e8188;
+}
+
+#membership-data .field_info label {
+    display : block;
+}
+
+#membership-data .membership_data_column {
+    width        : 49%;
+    margin-right : 1%;
+    float        : left;
+}
+
+.clear {
+    clear : both;
+}
+
+/* ---------- Membership ACTIONS ------- */
+#yith-wcmbs-membership-actions .inside {
+    padding : 0;
+}
+
+#yith-wcmbs-membership-actions div.membership-actions-footer {
+    padding    : 10px;
+    clear      : both;
+    border-top : 1px solid #ddd;
+    background : #f5f5f5;
+    text-align : right;
+}
+
+#membership-actions {
+    padding : 10px;
+}
+
+#membership-actions select {
+    width : 100%;
+}
+
+#membership-actions .membership-actions-btn {
+    border-radius : 3px;
+    padding       : 4px 10px;
+    background    : #7e8188;
+    color         : #fff;
+    margin        : 0 5px;
+}
+
+#membership-actions .membership-actions-btn.pause {
+    background : #7e8188 !important;
+}
+
+#membership-actions .membership-actions-btn.resume {
+    background : #a6be21 !important;
+}
+
+#membership-actions .membership-actions-btn.cancel {
+    background : #e2821f !important;
+}
+
+a.yith-wcmbs-edit-post-link {
+    text-decoration : none;
+    margin-left     : 5px;
+}
+
+.yith-wcmbs-right {
+    float : right;
+}
+
+/* ----------- Metabox Plugin FW Membership Options -------- */
+#yith-wcmbs-metabox-settings .desc {
+    width   : 100%;
+    display : inline-block;
+}
+
+#yith-wcmbs-metabox-settings .chosen .desc {
+    display : block;
+    clear   : both;
+}
+
+#yith-wcmbs-metabox-settings .chosen .select_wrapper {
+    margin-bottom : 0 !important;
+}
+
+#yith-wcmbs-metabox-settings .checkbox .desc {
+    display : inline-block;
+}
+
+#yith-wcmbs-metabox-settings .chosen .select_wrapper .chosen-container span {
+    position : relative !important;
+}
+
+#yith-wcmbs-metabox-settings .chosen .select_wrapper .chosen-container, .yith-wcmbs-ajax-products .chosen-container, .yith-wcmbs-ajax-products .chosen-container input {
+    width : 400px !important;
+}
+
+/* Copy to clipboard */
+.yith-wcmbs-copy-to-clipboard {
+    cursor     : pointer !important;
+    transition : all 0.6s ease;
+
+}
+
+.yith-wcmbs-copy-to-clipboard:active {
+    transition-duration : 0s;
+    color               : #009ad2;
+    transform           : scale(1.5);
+}
+
+/* Settings Table */
+.yith-wcmbs-admin-settings-table {
+    width          : 100%;
+    border-spacing : 0;
+}
+
+.yith-wcmbs-admin-bottom-actions {
+    text-align  : right;
+    padding-top : 20px;
+}
+
+.yith-wcmbs-admin-bottom-actions .description {
+    float      : left;
+    text-align : left;
+}
+
+.yith-wcmbs-admin-settings-table-default-row {
+    display : none;
+}
+
+.yith-wcmbs-select2-and-buttons-select-wrapper {
+    width        : 100%;
+    max-width    : 400px;
+    float        : left;
+    margin-right : 10px;
+}
+
+.yith-wcmbs-select2-and-buttons-buttons-wrapper {
+    float : left;
+}
+
+/**
+ Protected Links
+ */
+
+.yith-wcmbs-admin-protected-links {
+    margin-bottom : 10px;
+}
+
+.yith-wcmbs-admin-protected-link {
+    display       : flex;
+    width         : 100%;
+    margin-bottom : 20px;
+}
+
+.yith-wcmbs-admin-protected-link > *:not(:last-child) {
+    margin-right : 20px;
+    flex         : 1;
+}
+
+.yith-wcmbs-admin-protected-link__name-field,
+.yith-wcmbs-admin-protected-link__url-field {
+    width         : 100% !important;
+    line-height   : 47px !important;
+    height        : 47px !important;
+    border-radius : 4px !important;
+}
+
+.yith-wcmbs-admin-protected-link__label {
+    margin-bottom : 5px;
+}
+
+.yith-wcmbs-admin-protected-link__action__delete {
+    font-size     : 23px;
+    width         : 30px;
+    height        : 30px;
+    cursor        : pointer;
+    line-height   : 30px;
+    display       : block;
+    text-align    : center;
+    margin        : 35px 10px 0 -5px;
+    transition    : all .3s ease-in-out;
+    background    : transparent;
+    border-radius : 50%;
+    box-shadow    : 0 0 0 20px rgba(0, 0, 0, 0);
+}
+
+.yith-wcmbs-admin-protected-link__action__delete:before {
+    font-family : 'yith-icon' !important;
+    content     : "\e90d";
+}
+
+.yith-wcmbs-admin-protected-link__action__delete:hover {
+    background : rgba(0, 0, 0, 0.03);
+    box-shadow : 0 0 0 10px rgba(0, 0, 0, 0.025);
+    color      : #e7004f;
+}
+
+
+.yith-wcmbs-admin-protected-link__upload {
+    color           : #00a9ef;
+    cursor          : pointer;
+    text-decoration : underline;
+}
+
+#yith-wcmbs-admin-protected-links__add-link {
+    color       : #00a9ef;
+    font-weight : 600;
+    cursor      : pointer;
+}
+
+#yith-wcmbs-admin-protected-links__add-link:before {
+    content : '+ ';
+}
+
+/**
+    Membership List
+ */
+.edit-php.post-type-ywcmbs-membership .column-order small.email {
+    display : block;
+}
+
+/**
+ * Membership Plan
+ */
+#yith-wcmbs-plan-options {
+    border : none;
+}
+
+#yith-wcmbs-plan-options .handlediv, #yith-wcmbs-plan-options .hndle, #yith-wcmbs-plan-options .postbox-header {
+    display : none;
+}
+
+#yith-wcmbs-plan-options .inside {
+    padding : 0;
+}
+
+
+/**
+ * Metabox form
+ */
+
+.yith-wcbms-form-group-title {
+    color          : #2a8db0;
+    font-size      : 15px;
+    text-transform : uppercase;
+    font-weight    : 600;
+}
+
+.yith-wcbms-form-group-title.yith-wcbms-form-group-title--secondary {
+    color     : inherit;
+    font-size : 13px;
+}
+
+.yith-wcmbs-form-field {
+    position    : relative;
+    padding     : 0 0 0 250px !important;
+    margin      : 30px 0;
+    line-height : 24px;
+    font-size   : 12px;
+}
+
+label.yith-wcmbs-form-field__label {
+    position    : absolute;
+    width       : 230px !important;
+    padding     : 0 !important;
+    margin      : 0 0 0 -250px !important;
+    font-weight : 500;
+}
+
+.yith-wcmbs-form-field__content::after {
+    content : "";
+    clear   : both;
+    display : table;
+}
+
+.yith-wcmbs-form-field__content label {
+    width  : auto !important;
+    margin : 0 !important;
+    float  : none !important;
+}
+
+.yith-wcmbs-form-field__description {
+    display     : block;
+    padding     : 0;
+    font-size   : 12px;
+    font-style  : italic;
+    clear       : both;
+    line-height : 1.4em;
+    margin-top  : 5px;
+    color       : #777;
+}
+
+.yith-wcmbs-form-field__content input[type=text],
+.yith-wcmbs-form-field__content input[type=number],
+.yith-wcmbs-form-field__content textarea:not(.wp-editor-area) {
+    width     : 100%;
+    max-width : 400px;
+}
+
+.yith-wcmbs-form-field__content select + select {
+    margin-left : 10px;
+}
+
+.yith-wcmbs-form-field__content .select2-search__field {
+    width : 100% !important;
+}
+
+.yith-wcmbs-short-inline-field {
+    display   : inline-block;
+    width     : 60px !important;
+    float     : none !important;
+    margin    : 0 7px !important;
+    min-width : 60px !important;
+}
+
+select.yith-wcmbs-short-inline-field {
+    width     : auto !important;
+    min-width : 0 !important;
+}
+
+.yith-wcmbs-plan-options__options #duration.yith-wcmbs-short-inline-field,
+.yith-wcmbs-plan-options__options #post_order_by.yith-wcmbs-short-inline-field,
+#yith-wcmbs-default-credits-for-product.yith-wcmbs-short-inline-field {
+    margin-left : 0 !important;
+}
+
+.yith-wcmbs-after-field-text {
+    line-height    : 38px;
+    vertical-align : middle;
+}
+
+/**
+ * WP List Blank State
+ */
+
+.yith-wcmbs-list-table-blank-state {
+    padding    : 30px 30px 0;
+    text-align : center;
+}
+
+.yith-wcmbs-list-table-blank-state > * {
+    margin-bottom : 30px;
+}
+
+.yith-wcmbs-list-table-blank-state__icon {
+    width  : 100px;
+    margin : 0 auto 30px;
+}
+
+.yith-wcmbs-list-table-blank-state__message {
+    font-size   : 1.4em;
+    line-height : 1.5;
+}
+
+.yith-wcmbs-list-table-blank-state__cta {
+    border-radius    : 3px;
+    text-transform   : uppercase;
+    box-shadow       : none;
+    font-weight      : 700;
+    font-size        : 15px;
+    padding          : 20px 50px;
+    outline          : none;
+    height           : auto;
+    transition       : all ease 0.3s;
+    background-color : #007694;
+    color            : #fff;
+    text-shadow      : none;
+    vertical-align   : middle;
+    line-height      : 26px;
+    display          : inline-block;
+    text-decoration  : none;
+    cursor           : pointer;
+}
+
+.yith-wcmbs-list-table-blank-state__cta:hover,
+.yith-wcmbs-list-table-blank-state__cta:focus,
+.yith-wcmbs-list-table-blank-state__cta:active {
+    background-color : #375f6b;
+    color            : #fff;
+}
+
+/**
+ * Back to WP List
+ */
+
+#yith-wcmbs-back-to-wp-list__wrapper {
+    margin : -5px 0 15px;
+}
+
+a#yith-wcmbs-back-to-wp-list {
+    text-decoration : none;
+    font-weight     : 600;
+    text-transform  : uppercase;
+}
+
+a#yith-wcmbs-back-to-wp-list:before {
+    content : '< ';
+}
+
+
+.yith-wcmbs-short-inline-field {
+    display   : inline-block;
+    width     : 60px !important;
+    float     : none !important;
+    margin    : 0 7px !important;
+    min-width : 60px !important;
+}

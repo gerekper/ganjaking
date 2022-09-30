@@ -129,7 +129,7 @@ class Betterdocs_Elementor_Popular_View extends Widget_Base{
                    <path d="M15.9236 0H9.00231H2.07639C0.927455 0 0 0.988377 0 2.21279V19.7872C0 21.0116 0.927455 22 2.07639 22H9.00231H15.9282C17.0772 22 18.0046 21.0116 18.0046 19.7872V2.21279C18 0.988377 17.0725 0 15.9236 0ZM16.6157 19.7872C16.6157 20.1954 16.3066 20.5248 15.9236 20.5248H9.00231H2.07639C1.69341 20.5248 1.38426 20.1954 1.38426 19.7872V2.21279C1.38426 1.80465 1.69341 1.47519 2.07639 1.47519H6.9213H9.00231H11.0833H15.9282C16.3112 1.47519 16.6204 1.80465 16.6204 2.21279V19.7872H16.6157Z"/>
                    </g>
                    </svg>';
-                echo '<li>'.$icon.'<a href="' . get_the_permalink() . '">' . esc_html(get_the_title()) . '</a></li>';
+                echo '<li>'.$icon.'<a href="' . get_the_permalink() . '">' .  wp_kses(get_the_title(), BETTERDOCS_PRO_KSES_ALLOWED_HTML) . '</a></li>';
             endwhile;
             echo '</ul>';
         endif;

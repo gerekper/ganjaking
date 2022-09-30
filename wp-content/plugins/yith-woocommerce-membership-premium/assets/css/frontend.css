@@ -1,0 +1,850 @@
+/**
+ * Frontend style
+ *
+ * @author Leanza Francesco
+ * @version 1.0.0
+ */
+
+/*
+    My Account Membership Table
+*/
+table.yith-wcmbs-my-account-membership-table, table.yith-wcmbs-my-account-membership-table tr, table.yith-wcmbs-my-account-membership-table th, table.yith-wcmbs-my-account-membership-table td {
+    padding         : 0;
+    border-collapse : collapse;
+    border          : 0;
+}
+
+table.yith-wcmbs-my-account-membership-table-content {
+    width         : 100%;
+    margin-bottom : 15px;
+    padding       : 0;
+    box-shadow    : 1px 1px 3px 0px rgba(0, 0, 0, 0.1);
+    border        : 1px solid rgb(220, 220, 220);
+}
+
+table.yith-wcmbs-my-account-membership-table-content tr, table.yith-wcmbs-my-account-membership-table-content td, table.yith-wcmbs-my-account-membership-table-content th {
+    margin           : 0;
+    padding          : 13px 10px;
+    text-align       : center;
+    background-color : #fff;
+    font-size        : 13px;
+    border           : 0 none;
+}
+
+table.yith-wcmbs-my-account-membership-table-content th {
+    background-color : #f7f4f4 !important;
+    color            : #313131 !important;
+    text-transform   : uppercase !important;
+    letter-spacing   : 0.07em !important;
+    font-size        : 11px !important;
+    font-weight      : 800 !important;
+}
+
+table.yith-wcmbs-my-account-membership-table-content th.mini-width {
+    width : 100px;
+}
+
+table.yith-wcmbs-my-account-membership-table-content tr:nth-child(2n+1) td {
+    background-color : #f7f4f4;
+}
+
+table.yith-wcmbs-my-account-membership-table-content-info {
+    width         : 100%;
+    margin-bottom : 15px;
+    padding       : 0;
+    box-shadow    : 1px 1px 3px 0px rgba(0, 0, 0, 0.1);
+    border        : 1px solid rgb(220, 220, 220);
+}
+
+table.yith-wcmbs-my-account-membership-table-content-info tr, table.yith-wcmbs-my-account-membership-table-content-info td, table.yith-wcmbs-my-account-membership-table-content-info th {
+    margin           : 0;
+    padding          : 13px 10px;
+    text-align       : left;
+    background-color : #fff;
+    font-size        : 13px;
+    border           : 0 none;
+}
+
+table.yith-wcmbs-my-account-membership-table-content-info th {
+    background-color : #f7f4f4 !important;
+    color            : #313131 !important;
+    text-transform   : uppercase !important;
+    letter-spacing   : 0.07em !important;
+    font-size        : 11px !important;
+    font-weight      : 800 !important;
+}
+
+table.yith-wcmbs-my-account-membership-table-content-info th.mini-width {
+    width : 100px;
+}
+
+.yith-wcmbs-my-account-membership-container {
+    padding       : 0 !important;
+    border-radius : 0 0 2px 2px !important;
+    border        : 1px solid rgba(0, 0, 0, 0.07) !important;
+    border-top    : 0 none !important;
+    width         : 100%;
+    margin-top    : -2px;
+    background    : #fff;
+    box-shadow    : 1px 1px 7px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+.yith-wcmbs-my-account-accordion .yith-wcmbs-my-account-membership-container {
+    box-shadow : 0 -8px 0px -1px #fff, 1px 1px 7px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+.yith-wcmbs-my-account-membership-container .yith-wcmbs-membership-details {
+    padding : 20px;
+}
+
+.yith-wcmbs-membership-details {
+    display               : grid;
+    grid-template-columns : 1fr 1fr 1fr;
+    grid-gap              : 20px;
+}
+
+.yith-wcmbs-membership-detail {
+    padding    : 20px;
+    background : #f4f4f4;
+}
+
+.yith-wcmbs-membership-detail:nth-child(3n + 2) {
+    background : #eeeeee;
+}
+
+.yith-wcmbs-membership-detail:nth-child(3n + 3) {
+    background : #dcdcdc;
+}
+
+.yith-wcmbs-membership-detail__title {
+    font-size      : 0.85em;
+    text-transform : uppercase;
+    font-weight    : 600;
+    margin-bottom  : 10px;
+}
+
+.yith-wcmbs-membership-detail__value {
+    font-weight : 700;
+}
+
+.yith-wcmbs-membership-detail--status .yith-wcmbs-membership-detail__value {
+    text-transform : uppercase;
+}
+
+.yith-wcmbs-membership-detail.yith-wcmbs-membership-detail--status--active,
+.yith-wcmbs-membership-detail.yith-wcmbs-membership-detail--status--resumed {
+    background : #f2f1dc;
+}
+
+.yith-wcmbs-membership-detail--status--active .yith-wcmbs-membership-detail__value,
+.yith-wcmbs-membership-detail--status--resumed .yith-wcmbs-membership-detail__value {
+    color : #98a506;
+}
+
+.yith-wcmbs-membership-detail.yith-wcmbs-membership-detail--status--expiring {
+    background : #fbeedd;
+}
+
+.yith-wcmbs-membership-detail--status--expiring .yith-wcmbs-membership-detail__value {
+    color : #ef8a04;
+}
+
+
+.yith-wcmbs-membership-detail.yith-wcmbs-membership-detail--status--cancelled,
+.yith-wcmbs-membership-detail.yith-wcmbs-membership-detail--status--expired {
+    background : #ffe4e0;
+}
+
+.yith-wcmbs-membership-detail--status--cancelled .yith-wcmbs-membership-detail__value,
+.yith-wcmbs-membership-detail--status--expired .yith-wcmbs-membership-detail__value {
+    color : red;
+}
+
+.yith-wcmbs-my-account-membership-container .ui-tabs-panel {
+    margin-top : 20px;
+}
+
+.yith-wcmbs-my-account-accordion h3 {
+    width          : 100% !important;
+    font-size      : 14px !important;
+    text-transform : uppercase !important;
+    font-weight    : 600 !important;
+    color          : #313131 !important;
+    padding        : 15px 20px 15px 10px !important;
+    border         : 1px solid rgba(0, 0, 0, 0.07) !important;
+    background     : #ffffff !important;
+    margin         : 15px 0 0 0 !important;
+    cursor         : pointer !important;
+    box-shadow     : 1px 1px 7px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+.yith-wcmbs-my-account-accordion h3:focus {
+    outline : none;
+}
+
+.yith-wcmbs-my-account-accordion .ui-icon-triangle-1-s, .yith-wcmbs-my-account-accordion .ui-icon-triangle-1-e {
+    width          : 25px !important;
+    height         : 26px !important;
+    vertical-align : middle !important;
+    display        : inline-block !important;
+    font-family    : "dashicons" !important;
+    background     : url('') transparent !important;
+    position       : relative !important;
+    left           : 0 !important;
+    margin         : 0 10px 0 7px !important;
+    line-height    : 25px;
+}
+
+.yith-wcmbs-my-account-accordion .ui-icon-triangle-1-s::after, .yith-wcmbs-my-account-accordion .ui-icon-triangle-1-e::after {
+    content     : "\f347" !important;
+    display     : block !important;
+    font-size   : 20px !important;
+    color       : inherit !important;
+    text-align  : center !important;
+    text-indent : 0 !important;
+    font-weight : 400;
+    transition  : transform .3s;
+}
+
+.yith-wcmbs-my-account-accordion .ui-icon-triangle-1-s::after {
+    transform : rotateZ(180deg) !important;
+}
+
+.yith-wcmbs-my-account-accordion h3.ui-accordion-header-active {
+    background : #fff;
+}
+
+.yith-wcmbs-my-account-accordion h3.ui-corner-top {
+    border-radius : 2px 2px 0 0 !important;
+}
+
+.yith-wcmbs-my-account-accordion h3.ui-corner-all {
+    border-radius : 2px !important;
+}
+
+.yith-wcmbs-my-account-accordion h3 .ui-accordion-header-icon {
+}
+
+div.yith-wcmbs-tabs {
+    border        : 0 !important;
+    border-radius : 0 !important;
+    background    : transparent !important;
+    padding       : 20px;
+    padding-top   : 0;
+    border-color  : #dedede;
+}
+
+div.yith-wcmbs-tabs ul.ui-tabs-nav {
+    list-style    : none;
+    border-radius : 0 !important;
+    border        : 0 !important;;
+    background    : transparent !important;
+    padding       : 0px !important;
+}
+
+div.yith-wcmbs-tabs ul.ui-tabs-nav::after {
+    content       : ' ';
+    width         : 100%;
+    display       : block;
+    border-bottom : 1px solid #dedede;
+    background    : #00f;
+    position      : relative;
+    z-index       : 0;
+    top           : -1px;
+}
+
+div.yith-wcmbs-tabs .ui-tabs-panel {
+    padding : 0 !important;
+}
+
+div.yith-wcmbs-tabs li {
+    list-style : none;
+}
+
+div.yith-wcmbs-tabs ul.ui-tabs-nav li {
+    border         : 1px solid #e4e4e4 !important;
+    display        : inline-block !important;
+    z-index        : 0;
+    position       : relative;
+    background     : #fff !important;
+    height         : 43px;
+    border-radius  : 0 0 !important;
+    vertical-align : middle;
+    text-align     : center;
+    margin-right   : 5px;
+}
+
+div.yith-wcmbs-tabs ul.ui-tabs-nav li.ui-state-default {
+    border-bottom : 0 !important;
+}
+
+div.yith-wcmbs-tabs ul.ui-tabs-nav li.ui-state-active {
+    border-bottom : 1px solid #fff !important;
+    z-index       : 1 !important;
+}
+
+div.yith-wcmbs-tabs ul.ui-tabs-nav li > a {
+    padding         : 0px 25px !important;
+    font-size       : 13px !important;
+    text-transform  : uppercase !important;
+    font-weight     : 700 !important;
+    color           : #a4a3a3 !important;
+    line-height     : 43px;
+    height          : 43px;
+    display         : block;
+    text-decoration : none !important;
+}
+
+div.yith-wcmbs-tabs ul.ui-tabs-nav li.ui-state-active > a {
+    color : #404040 !important;
+}
+
+div.yith-wcmbs-tabs ul.ui-tabs-nav li > a:focus {
+    outline : none !important;
+}
+
+div.yith-wcmbs-tabs a {
+    border     : 0 !important;
+    box-shadow : none !important;
+}
+
+/*
+    WIDGET MESSAGES
+*/
+#yith-wcmbs-message-to-send {
+    width         : 100%;
+    height        : 70px;
+    margin-bottom : 10px;
+    font-family   : Consolas, Monaco, monospace;
+    font-size     : 11px;
+    padding       : 5px;
+}
+
+#yith-wcmbs-widget-messages-list-wrapper {
+    width         : 100%;
+    height        : 200px;
+    overflow-y    : scroll;
+    background    : #fff;
+    padding       : 10px !important;
+    margin-bottom : 15px !important;
+    color         : #000 !important;
+}
+
+ul#yith-wcmbs-widget-messages-list {
+    overflow : auto;
+}
+
+ul#yith-wcmbs-widget-messages-list li {
+    overflow : auto;
+}
+
+div.yith-wcmbs-message-container {
+    padding       : 10px;
+    background    : #eee;
+    width         : 95%;
+    margin-bottom : 20px;
+    box-sizing    : border-box;
+    position      : relative;
+    text-align    : left;
+    font-size     : 13px;
+}
+
+div.yith-wcmbs-message-container::after {
+    content      : ' ';
+    position     : absolute;
+    border-top   : 15px solid #eee;
+    border-right : 15px solid transparent;
+    bottom       : -12px;
+    left         : 0;
+}
+
+div.yith-wcmbs-message-container .exact-date {
+    font-size       : 10px;
+    text-decoration : none;
+    border          : 0;
+}
+
+div.yith-wcmbs-message-sent-by-user {
+    background  : #ccf0ff;
+    margin-left : 5%;
+    text-align  : right;
+}
+
+div.yith-wcmbs-message-container.yith-wcmbs-message-sent-by-user::after {
+    border-top   : 15px solid #ccf0ff;
+    border-left  : 15px solid transparent;
+    border-right : 0;
+    right        : 0;
+    left         : auto;
+}
+
+div#yith-wcmbs-get-older-messages {
+    width          : 100%;
+    height         : 30px;
+    color          : #fff;
+    text-align     : center;
+    font-size      : 14px;
+    line-height    : 30px;
+    background     : #444;
+    font-weight    : 800;
+    text-transform : uppercase;
+    cursor         : pointer;
+}
+
+div#yith-wcmbs-get-older-messages:hover {
+    background : #777;
+}
+
+div.yith-wcmbs-get-older-messages-disabled {
+    background : #999 !important;
+    cursor     : default !important;
+}
+
+/* ----------------------------------------------
+    Membership Plan Item List in MY ACCOUNT page
+   ---------------------------------------------- */
+
+.yith-wcmbs-my-account-list-plan-items-container {
+    padding : 20px !important;
+}
+
+.yith-wcmbs-my-account-list-plan-items-container * {
+    list-style : none;
+}
+
+.yith-wcmbs-membership-plan-items {
+    margin-bottom : 40px;
+}
+
+.yith-wcmbs-membership-plan-items:last-child {
+    margin-bottom : 0;
+}
+
+span.yith-wcmbs-plan-items-availability-info {
+    font-size     : 10px;
+    border-radius : 2px;
+    background    : #e4e4e4;
+    padding       : 0 7px;
+    color         : #555;
+    font-style    : italic;
+    display       : inline-block;
+    margin        : 0 4px;
+}
+
+.yith-wcmbs-my-account-list-plan-items-container ul {
+    padding : 0 10px;
+}
+
+.yith-wcmbs-my-account-list-plan-items-container li {
+    font-size     : 12px;
+    margin-bottom : 3px;
+    padding       : 4px;
+}
+
+.yith-wcmbs-my-account-list-plan-items-container li.yith-wcmbs-plan-item {
+    height   : 28px;
+    position : relative;
+}
+
+.yith-wcmbs-my-account-list-plan-items-container li.yith-wcmbs-plan-item:hover {
+    background : #f9f9f9;
+}
+
+.yith-wcmbs-my-account-list-plan-items-container li h5 {
+    padding       : 0;
+    margin        : 0;
+    font-size     : 13px;
+    margin-bottom : 6px;
+    margin-top    : 3px;
+    font-weight   : 600;
+    color         : #313131 !important;
+}
+
+/* ----------------------------------------------
+    Membership Plan Item List in SHORTCODE
+   ---------------------------------------------- */
+
+.yith-wcmbs-plan-list-shortcode-container li {
+    list-style : none;
+}
+
+.yith-wcmbs-plan-list-shortcode-container p, .yith-wcmbs-plan-list-shortcode-container a {
+    margin  : 0;
+    padding : 0;
+    border  : 0 none !important;
+}
+
+/* --------- Download File List -------------- */
+ul.yith-wcmbs-download-file-list {
+    list-style : none;
+}
+
+/*======== MEMBERSHIP TABLE ========== */
+table.yith-wcmbs-membership-table {
+    width              : 100%;
+    border             : 1px solid #dcdcdc;
+    border-radius      : 5px;
+    border-collapse    : separate;
+    -webkit-box-shadow : 1px 1px 1px 1px #f0f0f0;
+    box-shadow         : 1px 1px 1px 1px #f0f0f0;
+    margin-bottom      : 40px;
+    overflow           : hidden;
+    table-layout       : auto;
+}
+
+table.yith-wcmbs-membership-table th {
+    padding        : 15px 20px;
+    border-right   : 1px solid #dcdcdc;
+    text-align     : center;
+    background     : #f6f4f4;
+    text-transform : uppercase;
+    font-weight    : 700;
+    color          : #4d4a4a;
+    font-size      : 13px;
+}
+
+table.yith-wcmbs-membership-table th:last-child {
+    border-right : 0;
+}
+
+table.yith-wcmbs-membership-table thead {
+    background : #f6f4f4;
+}
+
+table.yith-wcmbs-membership-table thead th {
+    text-transform : uppercase;
+    font-weight    : 700;
+    color          : #4d4a4a;
+    font-size      : 13px;
+}
+
+table.yith-wcmbs-membership-table tbody tr td {
+    border-bottom  : 1px solid #dcdcdc;
+    border-right   : 1px solid #dcdcdc;
+    font-size      : 13px;
+    padding        : 15px 20px;
+    vertical-align : middle;
+    text-align     : left;
+}
+
+table.yith-wcmbs-membership-table tbody tr td.download-link {
+    padding    : 0;
+    text-align : center;
+}
+
+table.yith-wcmbs-membership-table tbody tr td:last-child {
+    border-right : 0;
+}
+
+table.yith-wcmbs-membership-table tbody tr td.download-link a {
+    text-transform : uppercase;
+    font-weight    : 700;
+    padding        : 3px 8px 2px;
+    margin         : 5px;
+}
+
+table.yith-wcmbs-membership-table tbody tr td.download-link a.banned {
+    opacity : 0.3;
+}
+
+table.yith-wcmbs-membership-table tbody tr:last-child td {
+    border-bottom : 0;
+}
+
+table.yith-wcmbs-membership-table .yith-wcmbs-membership-table-icon {
+    width      : 100px;
+    text-align : center;
+}
+
+table.yith-wcmbs-membership-table .yith-wcmbs-membership-table-title a {
+    color  : #2471ab;
+    border : 0 !important;
+}
+
+table.yith-wcmbs-membership-table .yith-wcmbs-membership-table-download {
+    text-align : center;
+}
+
+table.yith-wcmbs-membership-table tr.yith-wcmbs-membership-table-title th {
+    background : #fff;
+}
+
+table.yith-wcmbs-membership-table tr.yith-wcmbs-membership-table-title.yith-wcmbs-border-top th {
+    background : #fff;
+}
+
+/*======== DOWNLOAD BUTTON IN MEMBERSHIP CONTENTS ========== */
+
+.yith-wcmbs-product-download-box {
+    padding       : 25px;
+    border-radius : 7px;
+    background    : #fff2e0;
+    margin        : 20px 0 40px;
+}
+
+.yith-wcmbs-product-download-box--can-download {
+    background : #f2f5e4;
+}
+
+.yith-wcmbs-product-download-box__heading {
+    font-size   : 1.1em;
+    font-weight : 600;
+    margin      : 0 0 1.5em;
+}
+
+.yith-wcmbs-product-download-box__downloads {
+    margin : 1.5em 0 -10px;
+}
+
+.yith-wcmbs-product-download-box__label:after {
+    content : ':';
+}
+
+.yith-wcmbs-product-download-box__value {
+    font-weight : 600;
+}
+
+.yith-wcmbs-product-download-box__non-sufficient-credits {
+    color       : #cf0000;
+    font-weight : 600;
+}
+
+.yith-wcmbs-product-download-button,
+.yith-wcmbs-download-links,
+.yith-wcmbs-download-button {
+    line-height        : 1.5;
+    cursor             : pointer;
+    text-decoration    : none;
+    color              : #fff;
+    background-color   : #ebe9eb;
+    border             : 0 !important;
+    white-space        : nowrap;
+    display            : inline-block;
+    background-image   : none;
+    box-shadow         : none;
+    -webkit-box-shadow : none;
+    text-shadow        : none;
+    margin             : 0 10px 10px 0;
+    font-style         : normal;
+    font-weight        : 600;
+    text-transform     : uppercase;
+    padding            : 10px 28px !important;
+    border-radius      : 100px;
+    font-size          : 13px !important;
+}
+
+.yith-wcmbs-product-download-button.locked,
+.yith-wcmbs-download-links.locked,
+.yith-wcmbs-download-button.locked {
+    color      : #fff;
+    background : #ca7a0a;
+}
+
+.yith-wcmbs-product-download-button.locked:hover,
+.yith-wcmbs-download-links.locked:hover,
+.yith-wcmbs-download-button.locked:hover {
+    color        : #fff;
+    background   : #d68a1f;
+    border-color : #d68a1f;
+}
+
+.yith-wcmbs-product-download-button.unlocked,
+.yith-wcmbs-download-links.unlocked,
+.yith-wcmbs-download-button.unlocked {
+    color      : #fff;
+    background : #93ab07;
+}
+
+.yith-wcmbs-product-download-button.unlocked:hover,
+.yith-wcmbs-download-links.unlocked:hover,
+.yith-wcmbs-download-button.unlocked:hover {
+    color            : #fff;
+    background-color : #a2bb10;
+    border-color     : #a2bb10;
+}
+
+
+.yith-wcmbs-download-button__credits:before {
+    content : ' - ';
+}
+
+
+.yith-wcmbs-download-button__credits {
+
+}
+
+
+.yith-wcmbs-download-links {
+    margin : 0 4px !important;
+    float  : right;
+}
+
+.ui-helper-hidden-accessible {
+    display : none;
+}
+
+/**
+ * Membership Plans
+ */
+.yith-wcmbs-membership-plan-items__title {
+    text-transform : uppercase;
+    margin-bottom  : 15px;
+    color          : #2a8db0;
+    font-weight    : 700;
+    font-size      : .9em;
+}
+
+.yith-wcmbs-membership-plan-items__item,
+.yith-wcmbs-membership-history-activity {
+    padding         : 17px 24px;
+    border          : 1px solid rgba(0, 0, 0, 0.07);
+    margin-bottom   : 15px;
+    font-size       : .95em;
+    display         : flex;
+    justify-content : space-between;
+    align-items     : center;
+    box-shadow      : 1px 1px 7px 0 rgba(0, 0, 0, 0.05);
+}
+
+.yith-wcmbs-membership-plan-items__item__name a {
+    color : #2a8db0;
+}
+
+.yith-wcmbs-membership-plan-items__item__availability {
+    font-size : .9em;
+    color     : #2a8db0;
+}
+
+.yith-wcmbs-membership-plan-items__item__download {
+    margin-left : 10px;
+}
+
+.yith-wcmbs-membership-plan-items__item__download .yith-wcmbs-product-download-button,
+.yith-wcmbs-membership-plan-items__item__download .yith-wcmbs-download-links,
+.yith-wcmbs-membership-plan-items__item__download .yith-wcmbs-download-button {
+    margin : 5px;
+}
+
+.yith-wcmbs-membership-plan-items__footer {
+    text-align : center;
+}
+
+.yith-wcmbs-membership-plan-items__pagination {
+    display       : inline-flex;
+    border-radius : 4px;
+    border        : 1px solid rgba(0, 0, 0, 0.07);
+    box-shadow    : 1px 1px 7px 0 rgba(0, 0, 0, 0.05);
+    box-sizing    : border-box;
+    align-items   : center;
+}
+
+.yith-wcmbs-membership-plan-items__pagination > * {
+    line-height : 1.5em;
+    font-size   : 1em;
+    padding     : 6px 9px 3px;
+}
+
+.yith-wcmbs-membership-plan-items__pagination__prev:before,
+.yith-wcmbs-membership-plan-items__pagination__next:before {
+    font-family : "dashicons";
+}
+
+.yith-wcmbs-membership-plan-items__pagination__prev:before {
+    content : '\f341';
+}
+
+.yith-wcmbs-membership-plan-items__pagination__next:before {
+    content : '\f345';
+}
+
+.yith-wcmbs-membership-plan-items__pagination__prev.yith-wcmbs--enabled,
+.yith-wcmbs-membership-plan-items__pagination__next.yith-wcmbs--enabled {
+    cursor : pointer;
+}
+
+.yith-wcmbs-membership-plan-items__pagination__prev.yith-wcmbs--disabled,
+.yith-wcmbs-membership-plan-items__pagination__next.yith-wcmbs--disabled {
+    opacity : 0.5;
+}
+
+
+.yith-wcmbs-membership-history-activity__date {
+    font-weight : 600;
+    min-width   : 100px;
+}
+
+.yith-wcmbs-membership-history-activity__note {
+    flex        : 1;
+    margin-left : 20px;
+}
+
+/**
+ * Proteo My Account Icon
+ */
+.yith-wcmbs-proteo-myaccount-icon svg {
+    height    : 30px;
+    position  : absolute;
+    top       : 50%;
+    left      : 50%;
+    transform : translateX(-50%) translateY(-50%)
+}
+
+.yith-wcmbs-proteo-myaccount-icon {
+    height   : 48px;
+    position : relative;
+}
+
+/**
+ * Elementor Widgets - Editor Styles
+ */
+
+.yith-wcmbs-elementor-members-only-content-start-widget {
+    font-family : -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    text-align  : center;
+    font-weight : 600;
+    color       : #4f5762;
+    position    : relative;
+}
+
+.yith-wcmbs-elementor-members-only-content-start-widget:before {
+    content    : "";
+    position   : absolute;
+    top        : calc(50%);
+    left       : 0;
+    right      : 0;
+    border-top : 3px dashed #ccd0d4;
+    z-index    : 1;
+}
+
+.yith-wcmbs-elementor-members-only-content-start-widget__title {
+    position       : relative;
+    background     : #fff;
+    padding        : 0 20px;
+    z-index        : 10;
+    text-transform : uppercase;
+}
+
+
+@media only screen and (max-width : 768px) {
+    table.yith-wcmbs-membership-table .yith-wcmbs-membership-table-icon {
+        width : auto;
+    }
+
+    table.yith-wcmbs-membership-table tbody tr td {
+        border-bottom : 0;
+        border-right  : 0;
+    }
+
+
+    div.yith-wcmbs-tabs ul.ui-tabs-nav {
+        margin-left : 0;
+    }
+
+    div.yith-wcmbs-tabs ul.ui-tabs-nav li {
+        margin-right : 3px;
+    }
+
+    .yith-wcmbs-responsive-hidden {
+        display : none !important;
+    }
+}
