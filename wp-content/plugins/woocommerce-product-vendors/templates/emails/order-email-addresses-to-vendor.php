@@ -22,12 +22,15 @@ $billing = $order->get_formatted_billing_address();
 		 * @param boolean  $show_billing Whether to show billing information. Default true.
 		 * @param WC_Order $order        Order object.
 		 */
-		if ( $billing && apply_filters( 'wcpv_email_to_vendor_show_billing', true, $order ) ) : ?>
+		if ( $billing && apply_filters( 'wcpv_email_to_vendor_show_billing', true, $order ) ) :
+			?>
 			<td class="td" style="text-align:left; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;" valign="top" width="50%">
 				<h3><?php esc_html_e( 'Billing Address', 'woocommerce-product-vendors' ); ?></h3>
 
 				<address class="text">
-					<?php echo wp_kses_post( $billing ); ?>
+					<?php
+					echo wp_kses_post( $billing );
+					?>
 				</address>
 			</td>
 		<?php endif; ?>

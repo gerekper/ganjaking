@@ -266,14 +266,10 @@ class WC_Product_Vendors_Utils {
 			$vendor_data = get_term_meta( $term->term_id, 'vendor_data', true );
 
 			if ( ! empty( $vendor_data['admins'] ) ) {
-				if ( version_compare( WC_VERSION, '3.0.0', '>=' ) && is_array( $vendor_data['admins'] ) ) {
+				if ( is_array( $vendor_data['admins'] ) ) {
 					$admin_ids = array_map( 'absint', $vendor_data['admins'] );
 				} else {
-					if ( is_array( $vendor_data['admins'] ) ) {
-						$admin_ids = array_filter( array_map( 'absint', $vendor_data['admins'] ) );
-					} else {
-						$admin_ids = array_filter( array_map( 'absint', explode( ',', $vendor_data['admins'] ) ) );
-					}
+					$admin_ids = array_filter( array_map( 'absint', explode( ',', $vendor_data['admins'] ) ) );
 				}
 
 				if ( in_array( $user_id, $admin_ids ) ) {
@@ -332,14 +328,10 @@ class WC_Product_Vendors_Utils {
 
 			$vendor_data = get_term_meta( $term->term_id, 'vendor_data', true );
 
-			if ( version_compare( WC_VERSION, '3.0.0', '>=' ) && is_array( $vendor_data['admins'] ) ) {
+			if ( is_array( $vendor_data['admins'] ) ) {
 				$admin_ids = array_map( 'absint', $vendor_data['admins'] );
 			} else {
-				if ( is_array( $vendor_data['admins'] ) ) {
-					$admin_ids = array_filter( array_map( 'absint', $vendor_data['admins'] ) );
-				} else {
-					$admin_ids = array_filter( array_map( 'absint', explode( ',', $vendor_data['admins'] ) ) );
-				}
+				$admin_ids = array_filter( array_map( 'absint', explode( ',', $vendor_data['admins'] ) ) );
 			}
 
 			// if user is listed as one of the admins
@@ -429,7 +421,7 @@ class WC_Product_Vendors_Utils {
 	public static function get_user_active_vendor( $user_id = null ) {
 		$vendor_id = get_user_meta( $user_id ? $user_id : get_current_user_id(), '_wcpv_active_vendor', true );
 
-		if ( ! empty( $vendor_id ) ) {
+		if ( ! empty( $vendor_id ) && self::is_valid_vendor( $vendor_id ) ) {
 			return $vendor_id;
 		}
 
@@ -743,6 +735,80 @@ class WC_Product_Vendors_Utils {
 	}
 
 	/**
+	 * Checks whether the logged-in user (with their active vendor) can access an order.
+	 *
+	 * @param int $order_id Order ID.
+	 * @return boolean TRUE if user can access the order, FALSE otherwise.
+	 *
+	 * @since 2.1.66
+	 */
+	public static function can_logged_in_user_access_order( $order_id ) {
+		return self::can_vendor_access_order( $order_id, self::get_user_active_vendor() );
+	}
+
+	/**
+	 * Checks whether a vendor can access an order.
+	 *
+	 * @param int $order_id  Order ID.
+	 * @param int $vendor_id Vendor ID.
+	 * @return boolean TRUE if vendor can access the order, FALSE otherwise.
+	 *
+	 * @since 2.1.66
+	 */
+	public static function can_vendor_access_order( $order_id, $vendor_id ) {
+		$order_id  = absint( $order_id );
+		$vendor_id = absint( $vendor_id );
+
+		if ( ! $order_id || ! $vendor_id ) {
+			return false;
+		}
+
+		$order = wc_get_order( $order_id );
+		if ( ! $order ) {
+			return false;
+		}
+
+		return in_array( $vendor_id, array_map( 'absint', array_keys( self::get_vendors_from_order( $order ) ) ), true );
+	}
+
+	/**
+	 * Checks if a given order item can be managed by the logged-in user (it's of one of the vendors the user manages).
+	 *
+	 * @param int $order_item_id Order item ID.
+	 * @return boolean TRUE if the user can manage the order item, FALSE otherwise.
+	 *
+	 * @since 2.1.66
+	 */
+	public static function can_logged_in_user_manage_order_item( $order_item_id ) {
+		return self::can_vendor_manage_order_item( $order_item_id, self::get_user_active_vendor() );
+	}
+
+	/**
+	 * Checks if an order item ID can be managed by a given vendor.
+	 *
+	 * @param int $order_item_id The order item ID.
+	 * @param int $vendor_id     The vendor ID.
+	 * @return boolean TRUE if the vendor can manage the order item, FALSE otherwise.
+	 *
+	 * @since 2.1.66
+	 */
+	public static function can_vendor_manage_order_item( $order_item_id, $vendor_id ) {
+		$order_item_id = absint( $order_item_id );
+		$vendor_id     = absint( $vendor_id );
+
+		if ( ! $order_item_id || ! $vendor_id ) {
+			return false;
+		}
+
+		$order_item = WC_Order_Factory::get_order_item( $order_item_id );
+		if ( ! $order_item || 'line_item' !== $order_item->get_type() ) {
+			return false;
+		}
+
+		return absint( self::get_vendor_id_from_product( $order_item->get_product_id() ) ) === $vendor_id;
+	}
+
+	/**
 	 * Gets the list of vendors
 	 *
 	 * @access public
@@ -1009,6 +1075,8 @@ class WC_Product_Vendors_Utils {
 			$wildcard_postcode = substr( $wildcard_postcode, 0, -1 );
 			$valid_postcodes[] = $wildcard_postcode . '*';
 		}
+
+		$valid_postcodes = array_map( 'esc_sql', $valid_postcodes );
 
 		// Rules array
 		$rules = array();
@@ -1473,10 +1541,10 @@ class WC_Product_Vendors_Utils {
 
 	/**
 	 * Modify status display on the vendor's screen.
-	 * 
+	 *
 	 * @param WC_Order $order     Order object.
 	 * @param int      $vendor_id Vendor ID.
-	 * 
+	 *
 	 * @return string
 	 */
 	public static function get_vendor_order_status( $order, $vendor_id ) {

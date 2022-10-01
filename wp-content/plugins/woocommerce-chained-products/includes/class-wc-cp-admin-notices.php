@@ -30,7 +30,6 @@ if ( ! class_exists( 'WC_CP_Admin_Notices' ) ) {
 			add_filter( 'plugin_action_links_' . plugin_basename( WC_CP_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
 
 			add_action( 'admin_notices', array( $this, 'admin_notice_sa_needs_wc_25_above' ) );
-			add_action( 'admin_init', array( $this, 'cp_dismiss_admin_notice' ), 12 );
 
 			add_action( 'admin_notices', array( $this, 'sa_cp_show_review_notice' ) );
 			add_action( 'admin_init', array( $this, 'sa_cp_update_notice_action' ) );
@@ -103,20 +102,6 @@ if ( ! class_exists( 'WC_CP_Admin_Notices' ) ) {
 				<?php
 			}
 
-		}
-
-		/**
-		 * Function to dismiss admin notice
-		 */
-		public function cp_dismiss_admin_notice() {
-			if ( isset( $_GET['cp_dismiss_admin_notice'] ) && '1' === $_GET['cp_dismiss_admin_notice'] && isset( $_GET['option_name'] ) ) { // phpcs:ignore
-				$option_name = sanitize_text_field( wp_unslash( $_GET['option_name'] ) ); // phpcs:ignore
-				update_option( $option_name, 'no', 'no' );
-
-				$referer = wp_get_referer();
-				wp_safe_redirect( $referer );
-				exit();
-			}
 		}
 
 		/**

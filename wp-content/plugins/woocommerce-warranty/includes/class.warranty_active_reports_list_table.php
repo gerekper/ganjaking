@@ -95,7 +95,8 @@ class Warranty_Active_Reports_List_Table extends WP_List_Table {
 		$order_id     = get_post_meta( $item->ID, '_order_id', true );
         $order        = wc_get_order( $order_id );
         $order_number = ( $order ) ? $order->get_order_number() : '-';
-		$edit_url     = get_edit_post_link( $order_id, 'url' );
+
+		$edit_url = WC_Warranty_Compatibility::get_order_admin_edit_url( $order_id );
 
 		if ( $edit_url ) {
 			return '<a href="' . esc_url( $edit_url ) . '">' . $order_number . '</a>';	
@@ -155,13 +156,8 @@ class Warranty_Active_Reports_List_Table extends WP_List_Table {
 			$addon_index = wc_get_order_item_meta( $item_index, '_item_warranty_selected', true );
 
 			if ( $warranty ) {
-				// order's date of completion must be within the warranty period
-				if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-					$completed = get_post_meta( $order->id, '_completed_date', true );
-				} else {
-					$completed = $order->get_date_completed() ? $order->get_date_completed()
-					                                                  ->date( 'Y-m-d H:i:s' ) : false;
-				}
+				// order's date of completion must be within the warranty period.
+				$completed = $order->get_date_completed() ? $order->get_date_completed()->date( 'Y-m-d H:i:s' ) : false;
 
 				if ( 'addon_warranty' === $warranty['type'] ) {
 					if ( ! empty( $completed ) ) {

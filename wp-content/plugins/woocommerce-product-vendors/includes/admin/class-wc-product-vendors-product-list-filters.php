@@ -33,7 +33,7 @@ class WC_Product_Vendors_Product_List_Filters {
 			return;
 		}
 
-		$selected = isset( $wp_query->query_vars['wcpv_product_vendors'] ) ? $wp_query->query_vars['wcpv_product_vendors'] : '';
+		$selected = isset( $wp_query->query_vars[ WC_PRODUCT_VENDORS_TAXONOMY ] ) ? $wp_query->query_vars[ WC_PRODUCT_VENDORS_TAXONOMY ] : '';
 
 		?>
 		<select name="wcpv_product_vendors" id="product_vendor_filter_dropdown" >
@@ -61,7 +61,7 @@ class WC_Product_Vendors_Product_List_Filters {
 	 */
 	protected function get_vendors() {
 		$vendors = get_terms( apply_filters( 'wcpv_get_terms_get_vendors', array(
-			'taxonomy' => 'wcpv_product_vendors',
+			'taxonomy' => WC_PRODUCT_VENDORS_TAXONOMY,
 			'hide_empty' => true,
 		) ) );
 

@@ -9,14 +9,9 @@
 
         if ( 'completed' === WC_Warranty_Compatibility::get_order_prop( $order, 'status' ) && Warranty_Order::order_has_warranty( $order ) ) {
             if ( empty( $_GET['idx'] ) ) {
-                // show products in an order
-
-                if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-                    $completed = get_post_meta( $order->id, '_completed_date', true);
-                } else {
-                    $completed = $order->get_date_completed() ? $order->get_date_completed()->date( 'Y-m-d H:i:s' ) : false;
-                }
-                $items      = $order->get_items();
+				// show products in an order.
+				$completed = $order->get_date_completed() ? $order->get_date_completed()->date( 'Y-m-d H:i:s' ) : false;
+				$items     = $order->get_items();
 
                 if ( empty($completed) ) {
                     $completed = false;

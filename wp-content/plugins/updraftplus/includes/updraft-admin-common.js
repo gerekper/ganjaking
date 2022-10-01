@@ -1990,9 +1990,9 @@ jQuery(function($) {
 				host = "";
 			}
 			if (updraft_webdav_settings[instance_id]['host'].indexOf("/") >= 0) {
-				$('#updraft_webdav_host_error').show();
+				$('.webdav-'+instance_id+' .updraft_webdav_host_error').show();
 			} else {
-				$('#updraft_webdav_host_error').hide();
+				$('.webdav-'+instance_id+' .updraft_webdav_host_error').hide();
 			}
 			
 			if (0 == updraft_webdav_settings[instance_id]['path'].indexOf("/") || "" === updraft_webdav_settings[instance_id]['path']) {
@@ -2344,7 +2344,8 @@ jQuery(function($) {
 
 		var backup_options = {
 			db_anon_all: db_anon_all,
-			db_anon_non_staff: db_anon_non_staff
+			db_anon_non_staff: db_anon_non_staff,
+			clone_region: region
 		}
 
 		if ('wp_only' === backup_nonce) {
@@ -2774,7 +2775,8 @@ jQuery(function($) {
 			backup_nonce: backup_nonce,
 			backup_timestamp: backup_timestamp,
 			db_anon_all: backup_options['db_anon_all'],
-			db_anon_non_staff: backup_options['db_anon_non_staff']
+			db_anon_non_staff: backup_options['db_anon_non_staff'],
+			clone_region: backup_options['clone_region']
 		};
 
 		updraft_activejobslist_backupnownonce_only = 1;
@@ -3282,6 +3284,7 @@ jQuery(function($) {
 			// Setup cancel button events
 			$('.updraft-restore--cancel').on('click', function(e) {
 				e.preventDefault();
+				jQuery('#ud_downloadstatus2').html('');
 				this.close();
 			}.bind(this));
 
@@ -3780,7 +3783,7 @@ jQuery(function($) {
 		}
 	});
 	
-	jQuery('.updraft_exclude_container .updraft_add_exclude_item').on('click', function(event) {
+	jQuery('#updraft_include_others_exclude_container, #updraft_include_uploads_exclude_container, .updraft_exclude_container').on('click', 'a.updraft_add_exclude_item', function(event) {
 		event.preventDefault();
 		var backup_entity = jQuery(this).data('include-backup-file');
 		jQuery('#updraft_exclude_modal_for').val(backup_entity);
@@ -5355,6 +5358,35 @@ jQuery(function($) {
 	jQuery('#updraft-restore-modal').on('click', '#updraftplus_restore_themes_showmoreoptions', function(e) {
 		e.preventDefault();
 		jQuery('.updraftplus_restore_themes_options_container').toggle();
+	});
+
+	jQuery('#updraft-restore-modal').on('click', '.updraft-select-all-tables', function(e) {
+		e.preventDefault();
+		jQuery('.updraft_restore_tables_options').prop('checked', true);
+	});
+
+	jQuery('#updraft-restore-modal').on('click', '.updraft-deselect-all-tables', function(e) {
+		e.preventDefault();
+		jQuery('.updraft_restore_tables_options').prop('checked', false);
+	});
+
+	var last_checked = null;
+
+	jQuery('#updraft-restore-modal').on('click', '.updraft_restore_tables_options', function(e) {
+		if (!last_checked) {
+			last_checked = this;
+			return;
+		}
+	
+		if (e.shiftKey) {
+			var start = jQuery('.updraft_restore_tables_options').index(this);
+			var end = jQuery('.updraft_restore_tables_options').index(last_checked);
+	
+			jQuery('.updraft_restore_tables_options').slice(Math.min(start, end), Math.max(start, end)+1).prop('checked', last_checked.checked);
+	
+		}
+	
+		last_checked = this;
 	});
 
 	/**

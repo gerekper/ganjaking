@@ -426,7 +426,7 @@ class WC_Product_Vendors_Store_Admin {
 		}
 
 		if ( ! empty( $admins ) ) {
-			if ( version_compare( WC_VERSION, '3.0.0', '>=' ) && is_array( $vendor_data['admins'] ) ) {
+			if ( is_array( $vendor_data['admins'] ) ) {
 				$admin_ids = array_map( 'absint', $vendor_data['admins'] );
 			} else {
 				$admin_ids = array_filter( array_map( 'absint', explode( ',', $vendor_data['admins'] ) ) );
@@ -468,14 +468,10 @@ class WC_Product_Vendors_Store_Admin {
 			$sanitized_vendor_data = array();
 
 			foreach ( $posted_vendor_data as $data_key => $data_value ) {
-				if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) {
-					// Previous to WC 3.0, Select 2 needed saved values as string.
-					// Now no longer so we sanitize it as multidimensional array.
-					if ( 'admins' === $data_key ) {
-						$sanitized_vendor_data[ $data_key ] = array_map( 'absint', $data_value );
+				if ( 'admins' === $data_key ) {
+					$sanitized_vendor_data[ $data_key ] = array_map( 'absint', $data_value );
 
-						continue;
-					}
+					continue;
 				}
 
 				if ( 'description' === $data_key ) {
@@ -513,7 +509,7 @@ class WC_Product_Vendors_Store_Admin {
 			// account for checkbox fields
 			$sanitized_vendor_data['instant_payout'] = ! isset( $posted_vendor_data['instant_payout'] ) ? 'no' : 'yes';
 
-			if ( version_compare( WC_VERSION, '3.0.0', '>=' ) && empty( $posted_vendor_data['admins'] ) ) {
+			if ( empty( $posted_vendor_data['admins'] ) ) {
 				$sanitized_vendor_data['admins'] = array();
 			}
 
@@ -674,7 +670,7 @@ class WC_Product_Vendors_Store_Admin {
 		}
 
 		if ( 'admins' === $column_name && ! empty( $vendor_data['admins'] ) ) {
-			if ( version_compare( WC_VERSION, '3.0.0', '>=' ) && is_array( $vendor_data['admins'] ) ) {
+			if ( is_array( $vendor_data['admins'] ) ) {
 				$admin_ids = array_map( 'absint', $vendor_data['admins'] );
 			} else {
 				$admin_ids = array_filter( array_map( 'absint', explode( ',', $vendor_data['admins'] ) ) );
@@ -1527,12 +1523,7 @@ class WC_Product_Vendors_Store_Admin {
 			wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
 		}
 
-		if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) {
-			$term = (string) wc_clean( stripslashes( $_GET['term']['term'] ) );
-		} else {
-			$term = (string) wc_clean( stripslashes( $_GET['term'] ) );
-		}
-
+		$term = (string) wc_clean( stripslashes( $_GET['term']['term'] ) );
 		$args = array(
 			'hide_empty' => false,
 			'name__like' => $term,
@@ -1952,35 +1943,19 @@ class WC_Product_Vendors_Store_Admin {
 	 * @return array $tools
 	 */
 	public function add_debug_tool( $tools ) {
-		if ( ! empty( $_GET['action'] ) && 'wcpv_clear_transients' === $_GET['action'] && version_compare( WC_VERSION, '3.0', '<' ) ) {
-			WC_Product_Vendors_Utils::clear_reports_transients();
-			WC_Product_Vendors_Utils::clear_vendor_error_list_transient();
-
-			echo '<div class="updated"><p>' . esc_html__( 'Product Vendor Transients Cleared', 'woocommerce-product-vendors' ) . '</p></div>';
-		}
-
-		if ( ! empty( $_GET['action'] ) && 'wcpv_delete_webhook' === $_GET['action'] && version_compare( WC_VERSION, '3.0', '<' ) ) {
-			WC_Product_Vendors_Utils::delete_paypal_webhook_id();
-
-			echo '<div class="updated"><p>' . esc_html__( 'Product Vendor Webhook Deleted.', 'woocommerce-product-vendors' ) . '</p></div>';
-		}
-
 		$tools['wcpv_clear_transients'] = array(
-			'name'    => __( 'Product Vendors Transients', 'woocommerce-product-vendors' ),
-			'button'  => __( 'Clear all transients/cache', 'woocommerce-product-vendors' ),
-			'desc'    => __( 'This will clear all Product Vendors related transients/caches such as reports.', 'woocommerce-product-vendors' ),
+			'name'     => __( 'Product Vendors Transients', 'woocommerce-product-vendors' ),
+			'button'   => __( 'Clear all transients/cache', 'woocommerce-product-vendors' ),
+			'desc'     => __( 'This will clear all Product Vendors related transients/caches such as reports.', 'woocommerce-product-vendors' ),
+			'callback' => 'WC_Product_Vendors_Utils::clear_reports_transients',
 		);
 
 		$tools['wcpv_delete_webhook'] = array(
-			'name'    => __( 'Product Vendors Delete Webhook', 'woocommerce-product-vendors' ),
-			'button'  => __( 'Delete Webhook', 'woocommerce-product-vendors' ),
-			'desc'    => __( 'Troubleshoot PayPal Payouts. Delete current webhook and receive new webhook id.', 'woocommerce-product-vendors' ),
+			'name'     => __( 'Product Vendors Delete Webhook', 'woocommerce-product-vendors' ),
+			'button'   => __( 'Delete Webhook', 'woocommerce-product-vendors' ),
+			'desc'     => __( 'Troubleshoot PayPal Payouts. Delete current webhook and receive new webhook id.', 'woocommerce-product-vendors' ),
+			'callback' => 'WC_Product_Vendors_Utils::delete_paypal_webhook_id',
 		);
-
-		if ( version_compare( WC_VERSION, '3.0', '>=' ) ) {
-			$tools['wcpv_clear_transients']['callback'] = 'WC_Product_Vendors_Utils::clear_reports_transients';
-			$tools['wcpv_delete_webhook']['callback'] = 'WC_Product_Vendors_Utils::delete_paypal_webhook_id';
-		}
 
 		return $tools;
 	}

@@ -23,6 +23,8 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
+use Automattic\WooCommerce\Utilities\OrderUtil;
+
 if ( ! class_exists( 'WC_Warranty_Compatibility' ) ) :
 
     /**
@@ -86,6 +88,19 @@ if ( ! class_exists( 'WC_Warranty_Compatibility' ) ) :
             return is_callable( $getter ) ? $modifier( call_user_func( $getter ) ) : $order->{ $prop };
         }
 
-    }
+		/**
+		 * Get Order admin edit URL.
+		 *
+		 * @param Int $order_id ID of the order object.
+		 *
+		 * @return String
+		 */
+		public static function get_order_admin_edit_url( $order_id ) {
+			if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
+				return admin_url( 'admin.php?page=wc-orders&id=' . absint( $order_id ) ) . '&action=edit';
+			}
+			return get_edit_post_link( $order_id, 'url' );
+		}
+	}
 
-endif; // Class exists check
+endif; // Class exists check.

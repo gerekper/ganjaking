@@ -29,6 +29,26 @@ class WC_Product_Vendors_Vendor_Order_Notes {
 	}
 
 	/**
+	 * Validates the current request.
+	 *
+	 * @return boolean TRUE if request is valid, FALSE otherwise.
+	 */
+	private function is_valid_request() {
+		$nonce   = $_POST['security'] ?? '';
+		$note    = $_POST['note'] ?? '';
+		$post_id = $_POST['post_id'] ?? '';
+
+		if ( empty( $nonce ) || empty( $note ) || empty( $post_id ) ) {
+			return false;
+		}
+
+		return
+			wp_verify_nonce( $nonce, '_wc_product_vendors_vendor_add_order_note_nonce' . $post_id )
+			&& WC_Product_Vendors_Utils::auth_vendor_user()
+			&& WC_Product_Vendors_Utils::can_logged_in_user_access_order( $post_id );
+	}
+
+	/**
 	 * Adds a note (comment) to the order.
 	 *
 	 * @access public
@@ -40,19 +60,7 @@ class WC_Product_Vendors_Vendor_Order_Notes {
 	 * @return int Comment ID.
 	 */
 	public function add_order_note() {
-		if ( ! wp_verify_nonce( $_POST['security'], '_wc_product_vendors_vendor_add_order_note_nonce' ) ) {
-			wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
-		}
-
-		if ( empty( $_POST['note'] ) ) {
-			wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
-		}
-
-		if ( empty( $_POST['post_id'] ) ) {
-			wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
-		}
-
-		if ( ! WC_Product_Vendors_Utils::auth_vendor_user() ) {
+		if ( ! $this->is_valid_request() ) {
 			wp_die( __( 'Cheatin&#8217; huh?', 'woocommerce-product-vendors' ) );
 		}
 
@@ -124,14 +132,12 @@ class WC_Product_Vendors_Vendor_Order_Notes {
 	 * @access public
 	 * @since 2.0.0
 	 * @version 2.0.0
-	 * @param object $post
+	 * @param WC_Order $order
 	 * @return mixed
 	 */
-	public function output( $post ) {
-		global $post;
-
+	public function output( $order ) {
 		$args = array(
-			'post_id'   => $post->ID,
+			'post_id'   => $order->get_id(),
 			'orderby'   => 'comment_ID',
 			'order'     => 'DESC',
 			'approve'   => 'approve',
@@ -184,6 +190,7 @@ class WC_Product_Vendors_Vendor_Order_Notes {
 		echo '</ul>';
 		?>
 		<div class="add_note">
+			<?php wp_nonce_field( '_wc_product_vendors_vendor_add_order_note_nonce' . $order->get_id(), 'wcpv_add_order_note_nonce', false ); ?>
 			<h4><?php esc_html_e( 'Add note', 'woocommerce-product-vendors' ); ?> <?php echo wc_help_tip( __( 'Add a note for your reference, or add a customer note (the user will be notified).', 'woocommerce-product-vendors' ) ); ?></h4>
 			<p>
 				<textarea type="text" name="order_note" id="add_order_note" class="input-text" cols="20" rows="5"></textarea>
@@ -193,7 +200,7 @@ class WC_Product_Vendors_Vendor_Order_Notes {
 					<option value=""><?php esc_html_e( 'Private note', 'woocommerce-product-vendors' ); ?></option>
 					<option value="customer"><?php esc_html_e( 'Note to customer', 'woocommerce-product-vendors' ); ?></option>
 				</select>
-				<a href="#" class="add_note button" data-id="<?php echo esc_attr( $post->ID ); ?>"><?php esc_html_e( 'Add', 'woocommerce-product-vendors' ); ?></a>
+				<a href="#" class="add_note button" data-id="<?php echo esc_attr( $order->get_id() ); ?>"><?php esc_html_e( 'Add', 'woocommerce-product-vendors' ); ?></a>
 			</p>
 		</div>
 		<?php

@@ -17,14 +17,8 @@ echo "\n";
 $pass_shipping = false;
 
 foreach ( $order->get_items() as $item_id => $item ) :
-	$_product  = $item->get_product();
-	$item_meta = version_compare( WC_VERSION, '3.0', '<' ) ? new WC_Order_Item_Meta( $item, $_product ) : new WC_Order_Item_Product( $item_id );
-
-	if ( version_compare( WC_VERSION, '3.0.0', '<' ) ) {
-		$product_id = $_product->id;
-	} else {
-		$product_id = ( 'product_variation' === $_product->post_type ) ? $_product->get_parent_id() : $_product->get_id();
-	}
+	$_product   = $item->get_product();
+	$product_id = ( 'product_variation' === $_product->post_type ) ? $_product->get_parent_id() : $_product->get_id();
 
 	$pass_shipping |= 'yes' === get_post_meta( $product_id, '_wcpv_product_pass_shipping', true );
 	$vendor_id = WC_Product_Vendors_Utils::get_vendor_id_from_product( $product_id );
@@ -48,17 +42,13 @@ foreach ( $order->get_items() as $item_id => $item ) :
 		do_action( 'woocommerce_order_item_meta_start', $item_id, $item, $order );
 
 		// Variation
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			echo ( $item_meta_content = $item_meta->display( true, true ) ) ? "\n" . $item_meta_content : '';
-		} else {
-			echo strip_tags( wc_display_item_meta( $item, array(
-				'before'    => "\n- ",
-				'separator' => "\n- ",
-				'after'     => "",
-				'echo'      => false,
-				'autop'     => false,
-			) ) );
-		}
+		echo strip_tags( wc_display_item_meta( $item, array(
+			'before'    => "\n- ",
+			'separator' => "\n- ",
+			'after'     => "",
+			'echo'      => false,
+			'autop'     => false,
+		) ) );
 
 		// Quantity
 		echo "\n" . sprintf( __( 'Quantity: %s', 'woocommerce-product-vendors' ), apply_filters( 'woocommerce_email_order_item_quantity', $item['qty'], $item ) );

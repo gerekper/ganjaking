@@ -172,7 +172,7 @@ jQuery( document ).ready( function( $ ) {
 							$( element.val().split( ',' ) ).each( function( i, val ) {
 								selected.push({
 									id: val,
-									text: data[ val ]
+									text: data[ val ] || element.data( 'placeholder' )
 								});
 							});
 							return callback( selected );
@@ -185,7 +185,7 @@ jQuery( document ).ready( function( $ ) {
 						select2_args.initSelection = function( element, callback ) {
 							var data = {
 								id: element.val(),
-								text: element.attr( 'data-selected' )
+								text: element.attr( 'data-selected' ) || element.data( 'placeholder' )
 							};
 							return callback( data );
 						};
@@ -298,6 +298,14 @@ jQuery( document ).ready( function( $ ) {
 					$( '#wcpv_product_split_tax,#wcpv-split-tax').prop( 'checked', false );
 				}
 			});
+
+			// Store Vendor Profile details as they are updated.
+			if ( $( '#wcpv_vendor_info' ).length && window.tinymce != null ) {
+				var editor = tinymce.get( 'wcpv_vendor_info' );
+				editor.on( 'change', function ( el ) {
+					$( '#wcpv_vendor_info' ).val( editor.getContent() );
+				});
+			}
 		}
 	}; // close namespace
 

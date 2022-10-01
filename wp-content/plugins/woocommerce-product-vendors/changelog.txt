@@ -1,5 +1,24 @@
 *** Product Vendors Changelog ***
 
+2022-09-29 - version 2.1.66
+* Add - Ability to edit email for vendor support.
+* Add - Address, email, and phone number in the vendor order email.
+* Dev - remove node_modules from production package.
+* Fix - Adding Order Notes workflow.
+* Fix - Deleting vendors leads to a broken admin issue.
+* Fix - Fulfillment status workflow.
+* Fix - Improve checkout validation.
+* Fix - Reports -> Vendors select2 placeholder gets wiped and displays "undefined".
+* Fix - Undefined warning related to 'tinymce'.
+* Fix - Users not being created when manually adding a vendor.
+* Fix - Vendor Gets Out of Stock and Low Stock Emails when setting is disabled.
+* Fix - Vendor Profile doesn't save when Vendor created.
+* Tweak - Add support for Custom Order Table implementation.
+* Tweak - Bump PHP minimum to 7.0.
+* Tweak - Bump WC minimum to 6.0.
+* Tweak - Bump WP minimum to 5.6.
+* Update - Remove filters after sending emails in vendor order email to vendor.
+
 2022-08-23 - version 2.1.65
 * Fix: Vendor registration confirmation message is outside viewport.
 * Tweak - WC 6.8.0 compatibility.

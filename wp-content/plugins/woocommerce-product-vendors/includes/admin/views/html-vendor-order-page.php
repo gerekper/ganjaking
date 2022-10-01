@@ -4,6 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $timezone        = ! empty( $vendor_data['timezone'] ) ? sanitize_text_field( $vendor_data['timezone'] ) : '';
+$order_date      = $order->get_date_created() ? WC_Product_Vendors_Utils::format_date( gmdate( 'Y-m-d H:i:s', $order->get_date_created()->getTimestamp() ), $timezone ) : '';
 $shipping_method = $order->get_shipping_method();
 
 if ( ! $shipping_method ) {
@@ -28,7 +29,7 @@ if ( ! $shipping_method ) {
 				<div id="woocommerce-order-notes" class="postbox">
 					<div class="inside">
 						<h2><?php esc_html_e( 'Order Notes', 'woocommerce-product-vendors' ); ?></h2>
-						<?php $this->order_notes->output( $post ); ?>
+						<?php $this->order_notes->output( $order ); ?>
 					</div><!-- .inside -->
 				</div><!-- #woocommerce-order-notes -->
 			</div><!-- #postbox-container-1 -->
@@ -46,7 +47,7 @@ if ( ! $shipping_method ) {
 										<h4><?php esc_html_e( 'General Details', 'woocommerce-product-vendors' ); ?></h4>
 
 										<p class="form-field form-field-wide"><label for="order_date"><?php esc_html_e( 'Order date:', 'woocommerce-product-vendors' ) ?></label>
-											<input type="text" class="date-picker" name="order_date" id="order_date" maxlength="10" value="<?php echo WC_Product_Vendors_Utils::format_date( sanitize_text_field( $post->post_date_gmt ), $timezone ); ?>" disabled="disabled" />
+											<input type="text" class="date-picker" name="order_date" id="order_date" maxlength="10" value="<?php echo $order_date; ?>" disabled="disabled" />
 										</p>
 
 										<p class="form-field form-field-wide wc-order-status"><label for="order_status"><?php esc_html_e( 'Order status:', 'woocommerce-product-vendors' ) ?></label>

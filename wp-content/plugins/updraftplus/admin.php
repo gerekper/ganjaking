@@ -560,7 +560,7 @@ class UpdraftPlus_Admin {
 		
 		add_filter('woocommerce_in_plugin_update_message', array($this, 'woocommerce_in_plugin_update_message'));
 		
-		new Updraft_Dashboard_News('https://feeds.feedburner.com/updraftplus/', 'https://updraftplus.com/news/', $news_translations);
+		new Updraft_Dashboard_News('https://feeds.feedburner.com/UpdraftPlus', 'https://updraftplus.com/news/', $news_translations);
 
 		// New-install admin tour
 		if ((!defined('UPDRAFTPLUS_ENABLE_TOUR') || UPDRAFTPLUS_ENABLE_TOUR) && (!defined('UPDRAFTPLUS_THIS_IS_CLONE') || !UPDRAFTPLUS_THIS_IS_CLONE)) {
@@ -810,7 +810,7 @@ class UpdraftPlus_Admin {
 		wp_deregister_style('jquery-ui');
 		$jquery_ui_version = version_compare($updraftplus->get_wordpress_version(), '5.6', '>=') ? '1.12.1' : '1.11.4';
 		$jquery_ui_css_enqueue_version = $updraftplus->use_unminified_scripts() ? $jquery_ui_version.'.0'.'.'.time() : $jquery_ui_version.'.0';
-		wp_enqueue_style('jquery-ui', UPDRAFTPLUS_URL."/includes/jquery-ui.custom-v$jquery_ui_version$updraft_min_or_not.css", array(), $jquery_ui_css_enqueue_version);
+		wp_enqueue_style('updraft-jquery-ui', UPDRAFTPLUS_URL."/includes/jquery-ui.custom-v$jquery_ui_version$updraft_min_or_not.css", array(), $jquery_ui_css_enqueue_version);
 	
 		wp_enqueue_style('updraft-admin-css', UPDRAFTPLUS_URL.'/css/updraftplus-admin'.$updraft_min_or_not.'.css', array(), $enqueue_version);
 		// add_filter('style_loader_tag', array($this, 'style_loader_tag'), 10, 2);
@@ -4580,6 +4580,7 @@ class UpdraftPlus_Admin {
 		} elseif (!empty($backup['service']) && array('none') != $backup['service'] && array('') != $backup['service'] && 'none' != $backup['service']) {
 			
 			foreach ($services as $key => $value) {
+				if (is_string($backup['service'])) $backup['service'] = array($backup['service']);
 				if (in_array($value, $backup['service'])) unset($services[$key]);
 			}
 

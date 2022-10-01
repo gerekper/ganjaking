@@ -1,13 +1,8 @@
 <?php
 $name = $value = $expiry = false;
 
-$order = wc_get_order( $order_id );
-
-if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-    $order_date = get_post_meta( $order->id, '_completed_date', true);
-} else {
-    $order_date = $order->get_date_completed() ? $order->get_date_completed()->date( 'Y-m-d H:i:s' ) : false;
-}
+$order      = wc_get_order( $order_id );
+$order_date = $order->get_date_completed() ? $order->get_date_completed()->date( 'Y-m-d H:i:s' ) : false;
 
 if ( empty( $warranty['label'] ) ) {
     $product_warranty = warranty_get_product_warranty( $item['product_id'] );

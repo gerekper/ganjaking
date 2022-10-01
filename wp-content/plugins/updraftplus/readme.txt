@@ -3,7 +3,7 @@ Contributors: Backup with UpdraftPlus, DavidAnderson, DNutbourne, aporter, snigh
 Tags: backup, restore, database backup, wordpress backup, cloud backup, s3, dropbox, google drive, onedrive, ftp, backups
 Requires at least: 3.2
 Tested up to: 6.0
-Stable tag: 1.22.21
+Stable tag: 1.22.23
 Author URI: https://updraftplus.com
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -168,6 +168,35 @@ The <a href="https://updraftplus.com/news/">UpdraftPlus backup blog</a> is the b
 
 N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.16.32.x of the free version correspond to changes made in 2.16.32.x of the paid version.
 
+
+
+= 1.22.23 - 29/Sep/2022 =
+
+* FIX: Fix "More Files" tracking on resumption
+* FIX: Parse error when loading plugins and themes in UpdraftCentral. Error occurs when UpdraftPlus is installed in a system with PHP 5.6 or older.
+* FIX: BinZip did not handle out-of-tree directory symlinks. These are now backed up as expected.
+* FIX: When expired tokens occur during Vault uploads, reschedule and resume, to avoid incomplete pruning of backup history
+* FIX: Inconsistent WebDAV host field behaviour where there are multiple WebDAV storage locations
+* FIX: The Exclusion rule link text was broken when "uploads" and "wp-content" exclusion settings were initially in an unchecked state
+* TWEAK: Create IAM call methods in UpdraftPlus_S3
+* TWEAK: Add a select all / deselect all selector to the table list when restoring
+* TWEAK: Do not write `SET @@GLOBAL.GTID_PURGED` statements
+* TWEAK: Improve the upload after create status reporting in the progress widget
+* TWEAK: If a symlink pointed to an inaccessible location, this was silently skipped when using ZipArchive; it now generates a warning.
+* TWEAK: Cast the service list to an array in upload_button() to avoid a potential PHP error with PHP 8
+* TWEAK: Quadruple size of buffer when reading from files for S3 chunks
+
+= 1.22.22 - 16/Sep/2022 =
+
+* FIX: Restrict the CSS scope for our jQuery to prevent conflicts
+* FIX: UI bug when unable to download a database for restoration and then retrying before refreshing the page
+* TWEAK: Add basic design to confirmation window when adding a site to UpdraftCentral
+* TWEAK: Prevent a PHP coding deprecation warning on PHP 8.1
+* TWEAK: Feedburner URLs now are case-sensitive
+* TWEAK: Improve the Handlebars template of the Rackspace Cloud Files remote storage by taking PHP code out of it
+* TWEAK: WP Rocket - disable CDN upon migration completion since key will be invalid.
+* TWEAK: Improve the UpdraftClone user-visible feedback and logging on delay or failure conditions
+* TWEAK: WebDAV refactor part 2: Eliminate the stream-wrapper layer
 
 = 1.22.21 - 09/Sep/2022 =
 
@@ -1570,7 +1599,7 @@ N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which i
 * TWEAK: Prevent PHP notice if another plugin cancels a cron event
 * TWEAK: Tweak semaphore handling and enhance logging
 
-Older changes are found <a href="https://plugins.svn.wordpress.org/updraftplus/trunk/changelog.txt">in the changelog.txt file in the plugin directory.</a>
+Older changes are found <a href="https://plugins.svn.wordpress.org/updraftplus/trunk/changelog-old.txt">in the changelog-old.txt file in the plugin directory.</a>
 
 == Screenshots ==
 
@@ -1605,4 +1634,4 @@ Reliance upon any non-English translation is at your own risk; UpdraftPlus can g
 We recognise and thank those mentioned at https://updraftplus.com/acknowledgements/ for code and/or libraries used and/or modified under the terms of their open source licences.
 
 == Upgrade Notice ==
-* 1.22.21: Various tweaks and fixes. See changelog for full details. A recommended update for all.
+* 1.22.23: Various tweaks and fixes. See changelog for full details. A recommended update for all.

@@ -450,6 +450,13 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 						
 							$this->log("exception (".get_class($e).") whilst trying initiateMultipartUpload: ".$e->getMessage().' (line: '.$e->getLine().', file: '.$e->getFile().')');
 							
+							if (false !== strpos($e->getMessage(), '[ExpiredToken]')) {
+								$this->log("Re-scheduling resumption and aborting so that new token can be requested upon resumption");
+								UpdraftPlus_Job_Scheduler::reschedule(50);
+								UpdraftPlus_Job_Scheduler::record_still_alive();
+								die;
+							}
+							
 							$upload_id = false;
 							
 						}
@@ -481,7 +488,25 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 								$this->log("error: $key: chunk $i: file was truncated underneath us (orig_size=$orig_file_size, now_size=".filesize($fullpath).")");
 								$this->log(sprintf(__('error: file %s was shortened unexpectedly', 'updraftplus'), $fullpath), 'error');
 							}
-							$etag = $storage->uploadPart($bucket_name, $filepath, $upload_id, $fullpath, $i);
+							
+							$storage->setExceptions(true);
+							try {
+								$etag = $storage->uploadPart($bucket_name, $filepath, $upload_id, $fullpath, $i);
+							} catch (Exception $e) {
+								
+								$this->log("exception (".get_class($e).") during uploadPart: ".$e->getMessage().' (line: '.$e->getLine().', file: '.$e->getFile().')');
+								
+								if (false !== strpos($e->getMessage(), '[ExpiredToken]')) {
+									$this->log("Re-scheduling resumption and aborting so that new token can be requested upon resumption");
+									UpdraftPlus_Job_Scheduler::reschedule(50);
+									UpdraftPlus_Job_Scheduler::record_still_alive();
+									die;
+								}
+								
+								$etag = false;
+							}
+							$storage->setExceptions(false);
+							
 							if (false !== $etag && is_string($etag)) {
 								$updraftplus->record_uploaded_chunk(round(100*$i/$chunks, 1), "$i, $etag", $fullpath);
 								array_push($etags, $etag);
@@ -535,6 +560,13 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 		}
 	}
 	
+	/**
+	 * This function lists the files found in the configured storage location
+	 *
+	 * @param  String $match - a substring to require (tested via strpos() !== false)
+	 *
+	 * @return Array - each file is represented by an array with entries 'name' and (optional) 'size'
+	 */
 	public function listfiles($match = 'backup_') {
 		$config = $this->get_config();
 		return $this->listfiles_with_path($config['path'], $match);
@@ -605,7 +637,7 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 	 * The purpose of splitting this into a separate method, is to also allow listing with a different path
 	 *
 	 * @param  String  $path 			   Path to check
-	 * @param  String  $match 			   THe match for idetifying the bucket name
+	 * @param  String  $match 			   The match for idetifying the bucket name
 	 * @param  Boolean $include_subfolders Check if list file need to include sub folders
 	 * @return Array
 	 */

@@ -449,7 +449,8 @@ class UpdraftPlus_Addons_MoreFiles {
 
 		$this->more_paths = array();
 
-		$final_created = array();
+		$final_created = $updraftplus->jobdata_get('morefiles_temporary_final_created');
+		if (!is_array($final_created)) $final_created = array();
 
 		$first_linked_index = 0;
 		
@@ -463,6 +464,7 @@ class UpdraftPlus_Addons_MoreFiles {
 		if (!is_array($more_locations)) $more_locations = array();
 
 		foreach ($whichdirs as $whichdir) {
+			if (in_array($whichdir, $more_locations)) continue;
 
 			// Actually create the thing
 			$dirlist = $this->backup_more_dirlist($whichdir);
@@ -476,7 +478,7 @@ class UpdraftPlus_Addons_MoreFiles {
 				}
 				
 				if (!empty($more_map) && isset($more_map[$first_linked_index])) {
-					$first_linked_index = count($more_map) - 1;
+					$first_linked_index = $index = count($more_map);
 				}
 
 				$created = $updraftplus_backup->create_zip($dirlist, 'more', $backup_file_basename, $index, $first_linked_index);
@@ -506,6 +508,9 @@ class UpdraftPlus_Addons_MoreFiles {
 				$updraftplus->log("$whichdir: No backup of 'more' directory: there was nothing found to back up", 'warning', 'morefiles-empty-'.md5($whichdir));
 				// return false;
 			}
+
+			$final_created = array_unique($final_created);
+			$updraftplus->jobdata_set('morefiles_temporary_final_created', $final_created);
 		}
 
 		return (empty($final_created)) ? false : $final_created;

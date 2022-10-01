@@ -46,12 +46,15 @@ class WC_Product_Vendors_Emails {
 		add_action( 'wcpv_shortcode_registration_form_process', array( $self, 'send_registration_emails' ) );
 
 		// send no stock email
-		add_action( 'woocommerce_no_stock', array( $self, 'send_no_stock_email' ) );
+		add_action( 'woocommerce_no_stock_notification', array( $self, 'send_no_stock_email' ) );
 
 		// send low stock email
-		add_action( 'woocommerce_low_stock', array( $self, 'send_low_stock_email' ) );
+		add_action( 'woocommerce_low_stock_notification', array( $self, 'send_low_stock_email' ) );
 
 		add_filter( 'woocommerce_template_directory', array( $self, 'template_directory' ), 10, 2 );
+
+		// Add vendor recipient email field for support questions.
+		add_filter( 'woocommerce_email_settings', array( $self, 'add_vendor_support_recipient_email_field' ) );
 
     	return true;
 	}
@@ -129,11 +132,7 @@ class WC_Product_Vendors_Emails {
 	 * @return array $emails
 	 */
 	public function add_resend_order_email_action( $emails ) {
-		if ( version_compare( WC_VERSION, '3.2', '<' ) ) {
-			$emails[] = 'order_email_to_vendor';
-		} else {
-			$emails['order_email_to_vendor'] = __( 'Resend Order Email (Vendor)', 'woocommerce-product-vendors' );
-		}
+		$emails['order_email_to_vendor'] = __( 'Resend Order Email (Vendor)', 'woocommerce-product-vendors' );
 
 		return $emails;
 	}
@@ -212,11 +211,20 @@ class WC_Product_Vendors_Emails {
 	 * @return bool
 	 */
 	public function send_no_stock_email( $product ) {
-		if ( version_compare( WC_VERSION, '3.0.0', '<' ) ) {
-			$product_id = $product->id;
-		} else {
-			$product_id = ( 'product_variation' === $product->post_type ) ? $product->get_parent_id() : $product->get_id();
+		if ( 'no' === get_option( 'woocommerce_notify_no_stock', 'yes' ) ) {
+			return;
 		}
+
+		/**
+		 * Determine if the current product should trigger a no stock notification
+		 *
+		 * @param int $product_id - The out of stock product id
+		 */
+		if ( false === apply_filters( 'woocommerce_should_send_no_stock_notification', true, $product->get_id() ) ) {
+			return;
+		}
+
+		$product_id = ( 'product_variation' === $product->post_type ) ? $product->get_parent_id() : $product->get_id();
 
 		// check if product belongs to a vendor
 		$vendor_id = WC_Product_Vendors_Utils::get_vendor_id_from_product( $product_id );
@@ -245,11 +253,20 @@ class WC_Product_Vendors_Emails {
 	 * @return bool
 	 */
 	public function send_low_stock_email( $product ) {
-		if ( version_compare( WC_VERSION, '3.0.0', '<' ) ) {
-			$product_id = $product->id;
-		} else {
-			$product_id = ( 'product_variation' === $product->post_type ) ? $product->get_parent_id() : $product->get_id();
+		if ( 'no' === get_option( 'woocommerce_notify_low_stock', 'yes' ) ) {
+			return;
 		}
+
+		/**
+		 * Determine if the current product should trigger a low stock notification
+		 *
+		 * @param int $product_id - The low stock product id
+		 */
+		if ( false === apply_filters( 'woocommerce_should_send_low_stock_notification', true, $product->get_id() ) ) {
+			return;
+		}
+
+		$product_id = ( 'product_variation' === $product->post_type ) ? $product->get_parent_id() : $product->get_id();
 
 		// check if product belongs to a vendor
 		$vendor_id = WC_Product_Vendors_Utils::get_vendor_id_from_product( $product_id );
@@ -259,7 +276,7 @@ class WC_Product_Vendors_Emails {
 
 			$vendor_email = $vendor_data['email'];
 
-			$stock = version_compare( WC_VERSION, '3.0.0', '<' ) ? html_entity_decode( strip_tags( $product->get_total_stock() ) ) : html_entity_decode( strip_tags( $product->get_stock_quantity() ) );
+			$stock = html_entity_decode( strip_tags( $product->get_stock_quantity() ) );
 
 			$message = sprintf( __( '%s is low in stock.', 'woocommerce-product-vendors' ), html_entity_decode( strip_tags( $product->get_formatted_name() ), ENT_QUOTES, get_bloginfo( 'charset' ) ) ) . ' ' . sprintf( __( 'There are %d left', 'woocommerce-product-vendors' ), $stock );
 
@@ -307,6 +324,43 @@ class WC_Product_Vendors_Emails {
 		}
 
 		return $directory;
+	}
+
+	/**
+	 * Add vendor support recipient email field
+	 * 
+	 * @param array $settings Email settings fields.
+	 * @return array $settings
+	 */
+	public function add_vendor_support_recipient_email_field( array $settings ) {
+
+		$settings[] = array(
+				'title' => __( 'Vendor email options', 'woocommerce' ),
+				'type'  => 'title',
+				'desc'  => '',
+				'id'    => 'vendor_support_email_options',
+		);
+
+		$settings[]	= array(
+				'title'             => __( 'Vendor support email address', 'woocommerce-product-vendors' ),
+				'desc'              => sprintf( __( 'The email address to receive support questions from vendors. Default %s', 'woocommerce-product-vendors' ), '<code>' . get_option( 'admin_email' ) . '</code>' ),
+				'id'                => 'vendor_support_email_address',
+				'type'              => 'email',
+				'custom_attributes' => array(
+					'multiple' => 'multiple',
+				),
+				'css'               => 'min-width:400px;',
+				'default'           => get_option( 'admin_email' ),
+				'autoload'          => false,
+				'desc_tip'          => true,
+		);
+
+		$settings[]	= array(
+				'type' => 'sectionend',
+				'id'   => 'vendor_support_email_options',
+		);
+
+		return $settings;
 	}
 }
 

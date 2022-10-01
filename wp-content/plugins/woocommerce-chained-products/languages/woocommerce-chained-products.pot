@@ -1,14 +1,14 @@
-# Copyright (C) 2021 WooCommerce Chained Products
+# Copyright (C) 2022 WooCommerce Chained Products
 # This file is distributed under the same license as the WooCommerce Chained Products package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Chained Products 2.11.0\n"
+"Project-Id-Version: WooCommerce Chained Products 2.12.0\n"
 "Report-Msgid-Bugs-To: https://www.storeapps.org/support/contact-us/\n"
-"POT-Creation-Date: 2021-11-10 09:16:50+00:00\n"
+"POT-Creation-Date: 2022-09-29 18:12:14+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: Wed, 10 Nov 2021 14:46:50 +0530\n"
+"PO-Revision-Date: Thu, 29 Sep 2022 23:42:14 +0530\n"
 "Last-Translator: Ratnakar Dubey <support@storeapps.org>\n"
 "Language-Team: StoreApps <support@storeapps.org>\n"
 
@@ -37,12 +37,12 @@ msgstr ""
 
 #: includes/class-cp-admin-welcome.php:146
 #: includes/class-wc-admin-chained-products.php:2298
-#: includes/class-wc-cp-admin-notices.php:76
+#: includes/class-wc-cp-admin-notices.php:75
 msgid "Settings"
 msgstr ""
 
 #: includes/class-cp-admin-welcome.php:147
-#: includes/class-wc-cp-admin-notices.php:78
+#: includes/class-wc-cp-admin-notices.php:77
 msgid "Docs"
 msgstr ""
 
@@ -51,7 +51,7 @@ msgid "Know Chained Products"
 msgstr ""
 
 #: includes/class-cp-admin-welcome.php:167
-#: includes/class-wc-cp-admin-notices.php:77
+#: includes/class-wc-cp-admin-notices.php:76
 msgid "Shortcode"
 msgstr ""
 
@@ -617,71 +617,71 @@ msgid ""
 "quantity in stock."
 msgstr ""
 
-#: includes/class-wc-cp-admin-notices.php:79
+#: includes/class-wc-cp-admin-notices.php:78
 msgid "Support"
 msgstr ""
 
-#: includes/class-wc-cp-admin-notices.php:80
+#: includes/class-wc-cp-admin-notices.php:79
 msgid "Review"
 msgstr ""
 
-#: includes/class-wc-cp-admin-notices.php:97
+#: includes/class-wc-cp-admin-notices.php:96
 msgid "Important - "
 msgstr ""
 
-#: includes/class-wc-cp-admin-notices.php:97
+#: includes/class-wc-cp-admin-notices.php:96
 msgid ""
 "WooCommerce Chained Products plugin is active but it will only work with "
 "WooCommerce 2.5+. "
 msgstr ""
 
-#: includes/class-wc-cp-admin-notices.php:97
+#: includes/class-wc-cp-admin-notices.php:96
 msgid "Please update WooCommerce to the latest version"
 msgstr ""
 
-#: includes/class-wc-cp-admin-notices.php:145
+#: includes/class-wc-cp-admin-notices.php:130
 msgid "Glad to see that you are using"
 msgstr ""
 
-#: includes/class-wc-cp-admin-notices.php:145
+#: includes/class-wc-cp-admin-notices.php:130
 msgid "WooCommerce Chained Products."
 msgstr ""
 
-#: includes/class-wc-cp-admin-notices.php:150
+#: includes/class-wc-cp-admin-notices.php:135
 msgid "Congratulations!"
 msgstr ""
 
-#: includes/class-wc-cp-admin-notices.php:150
+#: includes/class-wc-cp-admin-notices.php:135
 msgid "You have successfully sold a product using"
 msgstr ""
 
-#. #-#-#-#-#  woocommerce-chained-products.pot (WooCommerce Chained Products 2.11.0)  #-#-#-#-#
+#. #-#-#-#-#  woocommerce-chained-products.pot (WooCommerce Chained Products 2.12.0)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
-#: includes/class-wc-cp-admin-notices.php:150
+#: includes/class-wc-cp-admin-notices.php:135
 msgid "WooCommerce Chained Products"
 msgstr ""
 
-#: includes/class-wc-cp-admin-notices.php:150
+#: includes/class-wc-cp-admin-notices.php:135
 msgid "plugin."
 msgstr ""
 
-#: includes/class-wc-cp-admin-notices.php:233
+#: includes/class-wc-cp-admin-notices.php:218
 msgid "Remind me after a month"
 msgstr ""
 
-#: includes/class-wc-cp-admin-notices.php:234
+#: includes/class-wc-cp-admin-notices.php:219
 msgid "Never show again"
 msgstr ""
 
-#: includes/class-wc-cp-admin-notices.php:237
+#: includes/class-wc-cp-admin-notices.php:222
 msgid "It would be great if you "
 msgstr ""
 
-#: includes/class-wc-cp-admin-notices.php:237
+#: includes/class-wc-cp-admin-notices.php:222
 msgid "give us a 5-star rating"
 msgstr ""
 
-#: includes/class-wc-cp-admin-notices.php:237
+#: includes/class-wc-cp-admin-notices.php:222
 msgid "of your experience. Thanking you in advance 😊"
 msgstr ""
 

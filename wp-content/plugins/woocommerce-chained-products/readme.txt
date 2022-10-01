@@ -4,7 +4,7 @@ Donate link: https://www.storeapps.org/
 Tags: woocommerce, chained products, bundled products, product bundle, combo, combination, discount, grouped, products, variations, special, offer, linked, chain, woo commerce
 Requires at least: 4.9.0
 Tested up to: 5.8.1
-Stable tag: 2.11.0
+Stable tag: 2.12.0
 
 Create discounted product bundles and combo packs and boost your sales. Automatically add linked / related products to order.
 

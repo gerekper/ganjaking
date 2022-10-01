@@ -1245,7 +1245,7 @@ tr[class*="_updraft_remote_storage_border"] {
 	vertical-align: bottom;
 }
 
-#updraft_webdav_host_error, .onedrive_folder_error {
+.updraft_webdav_host_error, .onedrive_folder_error {
 	color: red;
 }
 

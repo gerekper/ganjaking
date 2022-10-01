@@ -198,7 +198,7 @@ class WC_Product_Vendors_Per_Product_Shipping_Method extends WC_Shipping_Method 
     	// This shipping method loops through products, adding up the cost
     	if ( sizeof( $package['contents'] ) > 0 ) {
 			foreach ( $package['contents'] as $item_id => $values ) {
-				$product_tax_status = version_compare( WC_VERSION, '3.0', '<' ) ? $values['data']->tax_status : $values['data']->get_tax_status();
+				$product_tax_status = $values['data']->get_tax_status();
 				if ( $values['quantity'] > 0 ) {
 					if ( $values['data']->needs_shipping() ) {
 						$rule = false;

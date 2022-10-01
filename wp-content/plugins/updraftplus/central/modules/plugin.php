@@ -299,7 +299,9 @@ class UpdraftCentral_Plugin_Commands extends UpdraftCentral_Commands {
 		$results = array();
 		if (!empty($action) && !empty($items) && is_array($items)) {
 			foreach ($items as $value) {
-				$results[] = array($this, $action)($value);
+				if (method_exists($this, $action)) {
+					$results[] = $this->$action($value);
+				}
 			}
 		}
 

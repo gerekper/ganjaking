@@ -176,8 +176,10 @@ class UpdraftCentral_Main {
 		
 		$result = $this->receive_public_key();
 		if (!is_array($result) || empty($result['responsetype'])) die;
-		
-		echo '<html><head><title>UpdraftCentral</title></head><body><h1>'.$updraftcentral_host_plugin->retrieve_show_message('updraftcentral_connection').'</h1><h2>'.htmlspecialchars(network_site_url()).'</h2><p>';
+
+		$style = 'body {text-align: center;font-family: Helvetica,Arial,Lucida,sans-serif;background-color: #A64C1A;color: #FFF;height: 100%;width: 100%;margin: 0;padding: 0;}#main {height: 100%;width: 100%;display: table;}#wrapper {display: table-cell;height: 100%;vertical-align: middle;}h1 {margin-bottom: 5px;}h2 {margin-top: 0;font-size: 22px;color: #FFF;}#btn-close {color: #FFF;font-size: 20px;font-weight: 500;padding: .3em 1em;line-height: 1.7em !important;background-color: transparent;background-size: cover;background-position: 50%;background-repeat: no-repeat;border: 2px solid;border-radius: 3px;-webkit-transition-duration: .2s;transition-duration: .2s;-webkit-transition-property: all !important;transition-property: all !important;text-decoration: none;}#btn-close:hover {background-color: #DE6726;}';
+
+		echo '<html><head><title>UpdraftCentral</title><style>'.$style.'</style></head><body><div id="main"><div id="wrapper"><img src="'.UPDRAFTCENTRAL_CLIENT_URL.'/images/ud-logo.png" width="60" /> <h1>'.$updraftcentral_host_plugin->retrieve_show_message('updraftcentral_connection').'</h1><h2>'.htmlspecialchars(network_site_url()).'</h2><p>';
 		
 		if ('ok' == $result['responsetype']) {
 			$updraftcentral_host_plugin->retrieve_show_message('updraftcentral_connection_successful', true);
@@ -203,7 +205,7 @@ class UpdraftCentral_Main {
 			}
 		}
 		
-		echo '</p><p><a href="'.esc_url($this->get_current_clean_url()).'" onclick="window.close();">'.$updraftcentral_host_plugin->retrieve_show_message('close').'</a></p>';
+		echo '</p><p><a id="btn-close" href="'.esc_url($this->get_current_clean_url()).'" onclick="window.close();">'.$updraftcentral_host_plugin->retrieve_show_message('close').'</a></p></div></div>';
 		die;
 	}
 	

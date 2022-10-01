@@ -169,7 +169,7 @@ jQuery( document ).ready( function( $ ) {
 					post_id:   $( this ).data( 'id' ),
 					note:      $( 'textarea#add_order_note' ).val(),
 					note_type: $( 'select#order_note_type' ).val(),
-					security:  wcpv_vendor_admin_local.ajaxAddOrderNoteNonce
+					security:  $( '#wcpv_add_order_note_nonce' ).val(),
 				};
 
 				$.post( wcpv_vendor_admin_local.ajaxurl, data, function( response ) {

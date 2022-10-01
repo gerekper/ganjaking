@@ -9,46 +9,22 @@ class Warranty_Order {
         add_action( 'plugins_loaded', array( $this, 'init_order_meta' ), 20 );
     }
 
-    /**
-     * Actions for order item meta.
-     *
-     * @since 1.8.6
-     * @return void
-     */
-    public function init_order_meta() {
-        if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-            add_action( 'woocommerce_add_order_item_meta', array( $this, 'order_item_meta_bwc' ), 10, 3 );
+	/**
+	 * Actions for order item meta.
+	 *
+	 * @since 1.8.6
+	 * @return void
+	 */
+	public function init_order_meta() {
+		add_action( 'woocommerce_checkout_create_order_line_item', array( $this, 'order_item_meta' ), 10, 3 );
 
-            // order status changed
-            add_action( 'woocommerce_order_status_changed', array($this, 'order_status_changed_bwc'), 10, 3 );
-        } else {
-            add_action( 'woocommerce_checkout_create_order_line_item', array( $this, 'order_item_meta' ), 10, 3 );
+		// order status changed.
+		add_action( 'woocommerce_order_status_changed', array( $this, 'order_status_changed' ), 10, 4 );
 
-            // order status changed
-            add_action( 'woocommerce_order_status_changed', array($this, 'order_status_changed'), 10, 4 );
-
-			// Display item warranty.
-			add_action( 'woocommerce_before_order_itemmeta', array( $this, 'render_order_item_warranty' ), 10, 2 );
-			add_action( 'woocommerce_order_item_meta_end', array( $this, 'render_order_item_warranty' ), 10, 2 );
-        }
-    }
-
-    /**
-     * Listens to order status changes and sets the completed date if the current
-     * order status matches the start status of the warranty period
-     *
-     * @param int       $order_id
-     * @param string    $old_status
-     * @param string    $new_status
-     */
-    public function order_status_changed_bwc( $order_id, $old_status, $new_status ) {
-        // update order's date of completion
-        $handler = function ( $order ) {
-            update_post_meta( $order->id, '_completed_date', current_time( 'mysql' ) );
-        };
-
-        $this->handle_status_change( $order_id, $new_status, $handler );
-    }
+		// Display item warranty.
+		add_action( 'woocommerce_before_order_itemmeta', array( $this, 'render_order_item_warranty' ), 10, 2 );
+		add_action( 'woocommerce_order_item_meta_end', array( $this, 'render_order_item_warranty' ), 10, 2 );
+	}
 
     /**
      * Listens to order status changes and sets the completed date if the current
@@ -77,38 +53,36 @@ class Warranty_Order {
      * @param callable  $handler
      */
     private function handle_status_change( $order_id, $new_status, $handler ) {
-        global $woocommerce;
+		global $woocommerce;
 
-        $order          = wc_get_order( $order_id );
+		$order = wc_get_order( $order_id );
 
         if ( 'completed' !== $new_status ) {
             return;
         }
 
-        $items          = $order->get_items();
-        $has_warranty   = false;
+        $items        = $order->get_items();
+        $has_warranty = false;
 
         foreach ( $items as $item ) {
             $warranty       = false;
             $addon_index    = false;
             $metas          = (isset($item['item_meta'])) ? $item['item_meta'] : array();
 
-            foreach ( $metas as $key => $value ) {
-                $value = version_compare( WC_VERSION, '3.0', '<' ) ? $value[0] : $value;
+			foreach ( $metas as $key => $value ) {
+				if ( '_item_warranty' === $key ) {
+					$warranty = maybe_unserialize( $value );
+				}
+			}
 
-                if ( $key == '_item_warranty' ) {
-                    $warranty = maybe_unserialize( $value );
-                }
-            }
+			if ( $warranty ) {
+				// update order's date of completion.
+				$handler( $order );
 
-            if ( $warranty ) {
-                // update order's date of completion
-                $handler( $order );
-
-                break; // only need to update once per order
-            }
-        }
-    }
+				break; // only need to update once per order.
+			}
+		}
+	}
 
     /**
      * Include add-ons line item meta.
@@ -133,31 +107,6 @@ class Warranty_Order {
             if ( 'no_warranty' !== $warranty['type'] ) {
                 $item->update_meta_data( '_item_warranty', $warranty );
             }
-        }
-    }
-
-    /**
-     * Adds the warranty to the item as item meta
-     *
-     * @access public
-     * @param mixed $item_id
-     * @param mixed $values
-     * @return void
-     */
-    function order_item_meta_bwc( $item_id, $values ) {
-        $_product       = $values['data'];
-        $_prod_id       = ( version_compare( WC_VERSION, '3.0', '<' ) && isset( $_product->variation_id ) ) ? $_product->variation_id : $_product->get_id();
-        $warranty       = warranty_get_product_warranty( $_prod_id );
-        $warranty_label = $warranty['label'];
-
-        if ( $warranty ) {
-            if ( $warranty['type'] == 'addon_warranty' ) {
-                $warranty_index = isset($values['warranty_index']) ? $values['warranty_index'] : false;
-
-                wc_add_order_item_meta( $item_id, '_item_warranty_selected', $warranty_index );
-            }
-
-            wc_add_order_item_meta( $item_id, '_item_warranty', $warranty );
         }
     }
 
@@ -189,12 +138,8 @@ class Warranty_Order {
             }
 
             if ( $warranty !== false ) {
-                // order's date of completion must be within the warranty period
-                if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-                    $completed = get_post_meta( $order->id, '_completed_date', true);
-                } else {
-                    $completed = $order->get_date_completed() ? $order->get_date_completed()->date( 'Y-m-d H:i:s' ) : false;
-                }
+				// order's date of completion must be within the warranty period.
+				$completed = $order->get_date_completed() ? $order->get_date_completed()->date( 'Y-m-d H:i:s' ) : false;
 
                 if ( $warranty['type'] == 'addon_warranty' ) {
                     $valid_until    = false;

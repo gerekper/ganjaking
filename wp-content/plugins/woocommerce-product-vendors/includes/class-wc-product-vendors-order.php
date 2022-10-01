@@ -83,7 +83,7 @@ class WC_Product_Vendors_Order {
 				// Only process the vendor in question.
 				if ( absint( $commission->vendor_id ) === $vendor_id ) {
 					$this->commission->update_status( $commission->id, $commission->order_item_id, 'paid' );
-					WC_Product_Vendors_Utils::update_order_item_meta( $commission->$order_item_id );
+					WC_Product_Vendors_Utils::update_order_item_meta( $commission->order_item_id );
 				}
 			}
 		}
@@ -99,11 +99,7 @@ class WC_Product_Vendors_Order {
 	 * @return bool
 	 */
 	public function process_manual_create_commission_action( $order ) {
-		if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) {
-			$order_id = $order->get_id();
-		} else {
-			$order_id = $order->id;
-		}
+		$order_id = $order->get_id();
 
 		$this->process( $order_id );
 
@@ -124,11 +120,11 @@ class WC_Product_Vendors_Order {
 
 		$commission_added = false;
 
-		$check_commission_added = get_post_meta( $order_id, '_wcpv_commission_added', true );
-
 		$this->order = wc_get_order( $order_id );
 
 		if ( is_a( $this->order, 'WC_Order' ) && $items = $this->order->get_items( 'line_item' ) ) {
+			$check_commission_added = $this->order->get_meta( '_wcpv_commission_added', true );
+
 			$order_status = $this->order->get_status();
 			$commission_ids = array();
 
@@ -242,11 +238,7 @@ class WC_Product_Vendors_Order {
 
 					$last_commission_id = $wpdb->get_var( $wpdb->prepare( $check_sql, $order_item_id, $order_id, 'paid' ) );
 
-					if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) {
-						$order_date = $this->order->get_date_created() ? gmdate( 'Y-m-d H:i:s', $this->order->get_date_created()->getOffsetTimestamp() ) : '';
-					} else {
-						$order_date = $this->order->order_date;
-					}
+					$order_date = $this->order->get_date_created() ? gmdate( 'Y-m-d H:i:s', $this->order->get_date_created()->getOffsetTimestamp() ) : '';
 
 					// initial commission status.
 					$init_status = apply_filters( 'wcpv_processing_init_commission_status', 'unpaid' );
@@ -282,11 +274,7 @@ class WC_Product_Vendors_Order {
 						$wpdb->query( $wpdb->prepare( $sql, $order_item_id, '_commission_status', $init_status ) );
 					}
 
-					if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) {
-						$customer_user = $this->order->get_user_id();
-					} else {
-						$customer_user = $this->order->customer_user;
-					}
+					$customer_user = $this->order->get_user_id();
 
 					// add vendor id to customer meta.
 					if ( ! empty( $customer_user ) ) {
@@ -297,7 +285,8 @@ class WC_Product_Vendors_Order {
 
 			if ( $commission_added ) {
 				// flag order that commission was added.
-				update_post_meta( $order_id, '_wcpv_commission_added', 'yes' );
+				$this->order->update_meta_data( '_wcpv_commission_added', 'yes' );
+				$this->order->save_meta_data();
 
 				do_action( 'wcpv_commission_added', $this->order );
 			}
@@ -362,10 +351,6 @@ class WC_Product_Vendors_Order {
 	 * @return array $actions
 	 */
 	public function add_commission_order_action( $actions ) {
-		if ( ! isset( $_REQUEST['post'] ) ) {
-			return $actions;
-		}
-
 		$actions['wcpv_manual_create_commission'] = __( 'Generate Vendor Commission', 'woocommerce-product-vendors' );
 
 		return $actions;
@@ -485,7 +470,7 @@ class WC_Product_Vendors_Order {
 	 * @version 2.1.27
 	 */
 	public function remove_affected_commissions( $order_id ) {
-		if ( ! in_array( get_post_type( $order_id ), wc_get_order_types(), true ) ) {
+		if ( ! WC_Product_Vendors_COT_Compatibility::is_order( $order_id ) ) {
 			return;
 		}
 

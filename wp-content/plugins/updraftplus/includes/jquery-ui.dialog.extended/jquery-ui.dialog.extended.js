@@ -13,6 +13,11 @@
  *	jquery.ui.core.js
  *	jquery.ui.widget.js
  *	jquery.ui.dialog.js
+ *
+ * Changes:
+ *  Add "updraft-dialog" class for every jQuery UI dialog created by UpdraftPlus plugin.
+ *  Wrap all "updraft-dialog" class with "updraft-container" class
+ *   to prevent CSS conflict with other plugins that use jQuery UI too.
  */
 (function( $ ) {
 
@@ -30,6 +35,7 @@ $.widget("ui.dialog", $.ui.dialog, {
 		height: 200, // auto is not allowed when using animation
 
 		closeModalOnClick: true,
+		dialogClass: 'updraft-dialog',
 
 		// viewport settings
 		forceFullscreen: false,
@@ -275,6 +281,9 @@ $.widget("ui.dialog", $.ui.dialog, {
 
 		// make dialog responsive to viewport changes
 		this._on(window, this._windowResizeEvents);
+
+		// add wrapper to dialog
+		$('.updraft-dialog').not('.updraft-container > .updraft-dialog').wrap('<div class="updraft-container" />');
 	},
 
 	_windowResizeEvents: {

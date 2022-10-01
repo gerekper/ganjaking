@@ -10,15 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) {
-	$order_date = $order->get_date_created();
-	$billing_first_name = $order->get_billing_first_name();
-	$billing_last_name = $order->get_billing_last_name();
-} else {
-	$order_date = $order->order_date;
-	$billing_first_name = $order->billing_first_name;
-	$billing_last_name = $order->billing_last_name;
-}
+$order_date = $order->get_date_created();
+$billing_first_name = $order->get_billing_first_name();
+$billing_last_name = $order->get_billing_last_name();
 
 echo "= " . $email_heading . " =\n\n";
 

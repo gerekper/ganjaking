@@ -853,7 +853,7 @@ class UpdraftPlus_BackupModule_dropbox extends UpdraftPlus_BackupModule {
 		$this->log(__('Success:', 'updraftplus').' '.sprintf(__('you have authenticated your %s account', 'updraftplus'), 'Dropbox'));
 
 		if (empty($account_info['code']) || "200" != $account_info['code']) {
-			$message .= " (".__('though part of the returned information was not as expected - your mileage may vary', 'updraftplus').") ". $account_info['code'];
+			$message .= " (".__('though part of the returned information was not as expected - whether this indicates a real problem cannot be determined', 'updraftplus').") ". $account_info['code'];
 			if (!empty($accountinfo_err)) $message .= "<br>".htmlspecialchars($accountinfo_err);
 		} else {
 			$body = $account_info['body'];

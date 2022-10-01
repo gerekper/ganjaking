@@ -466,14 +466,21 @@ class UpdraftPlus_BackupModule_remotesend extends UpdraftPlus_RemoteStorage_Addo
 		$clone_url = $updraftplus->jobdata_get('clone_url');
 		$clone_key = $updraftplus->jobdata_get('clone_key');
 		$secret_token = $updraftplus->jobdata_get('secret_token');
+		$clone_region = $updraftplus->jobdata_get('clone_region');
 			
 		if (empty($clone_id) && empty($secret_token)) return $opts;
+
+		$updraftplus->log("Polling for UpdraftClone (ID: {$clone_id} Region: {$clone_region}) migration information.");
 		
 		$params = array('clone_id' => $clone_id, 'secret_token' => $secret_token);
 		$response = $updraftplus->get_updraftplus_clone()->clone_info_poll($params);
 
 		if (!isset($response['status']) || 'success' != $response['status']) {
-			$updraftplus->log("UpdraftClone migration information poll failed with code: " . $response['code']);
+			if ('clone_network_not_found' == $response['code'] && 0 === $updraftplus->current_resumption) {
+				$updraftplus->log("UpdraftClone network information is not ready yet please wait while the clone finishes provisioning.");
+			} else {
+				$updraftplus->log("UpdraftClone migration information poll failed with code: " . $response['code']);
+			}
 			return $opts;
 		}
 

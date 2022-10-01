@@ -1,15 +1,15 @@
 <?php
 /**
  * Plugin Name: WooCommerce Product Vendors
- * Version: 2.1.65
+ * Version: 2.1.66
  * Plugin URI: https://woocommerce.com/products/product-vendors/
  * Description: Set up a multi-vendor marketplace that allows vendors to manage their own products and earn commissions. Run stores similar to Amazon or Etsy.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
- * Requires at least: 4.4.0
- * Requires PHP: 5.5
+ * Requires at least: 5.6
+ * Requires PHP: 7.0
  * Tested up to: 6.0
- * WC requires at least: 2.6
+ * WC requires at least: 6.0
  * WC tested up to: 6.8.0
  * Text Domain: woocommerce-product-vendors
  * Domain Path: /languages
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'WC_Product_Vendors' ) ) {
-	define( 'WC_PRODUCT_VENDORS_VERSION', '2.1.65' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_PRODUCT_VENDORS_VERSION', '2.1.66' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Main class.
@@ -173,6 +173,9 @@ if ( ! class_exists( 'WC_Product_Vendors' ) ) {
 				require_once( dirname( __FILE__ ) . '/includes/integrations/class-wc-product-vendors-product-enquiry.php' );
 			}
 
+			// COT Compatibility.
+			require_once( __DIR__ . '/includes/compatibility/class-wc-product-vendors-cot-compatibility.php' );
+
 			return true;
 		}
 
@@ -205,7 +208,7 @@ if ( ! class_exists( 'WC_Product_Vendors' ) ) {
 				return;
 			}
 
-			if ( ! function_exists( 'phpversion' ) ||  version_compare( phpversion(), '5.5', '<' ) ) {
+			if ( ! function_exists( 'phpversion' ) ||  version_compare( phpversion(), '7.0', '<' ) ) {
 				add_action( 'admin_notices', array( $this, 'php_version_notice' ) );
 				return;
 			}
@@ -255,7 +258,7 @@ if ( ! class_exists( 'WC_Product_Vendors' ) ) {
 		 * @return string
 		 */
 		public function php_version_notice() {
-			echo '<div class="error"><p>' . wp_kses( sprintf( __( 'WooCommerce Product Vendors requires PHP 5.5 and above. <a href="%s">How to update your PHP version</a>', 'woocommerce' ), 'https://docs.woocommerce.com/document/how-to-update-your-php-version/' ), array(
+			echo '<div class="error"><p>' . wp_kses( sprintf( __( 'WooCommerce Product Vendors requires PHP 7.0 and above. <a href="%s">How to update your PHP version</a>', 'woocommerce' ), 'https://docs.woocommerce.com/document/how-to-update-your-php-version/' ), array(
 				'a' => array(
 					'href'  => array(),
 					'title' => array(),

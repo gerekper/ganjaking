@@ -100,9 +100,6 @@ class WC_Product_Vendors_Vendor_Admin {
 		// remove product meta boxes
 		add_action( 'add_meta_boxes', array( self::$self, 'remove_product_meta_boxes' ), 99 );
 
-		// remove product visibility option
-		add_filter( 'woocommerce_product_visibility_options', array( self::$self, 'remove_product_visibility_option' ) );
-
 		// remove product data tabs
 		add_filter( 'woocommerce_product_data_tabs', array( self::$self, 'remove_product_data_tabs' ) );
 
@@ -521,7 +518,9 @@ class WC_Product_Vendors_Vendor_Admin {
 
 		$subject = wp_specialchars_decode( get_bloginfo( 'name' ), ENT_QUOTES ) . ' ' . __( 'Vendor Support Question', 'woocommerce-product-vendors' );
 
-		if ( wp_mail( get_bloginfo( 'admin_email' ), $subject, $message ) ) {
+		$to      = ! empty( get_option( 'vendor_support_email_address' ) ) ? sanitize_email( get_option( 'vendor_support_email_address' ) ) : get_bloginfo( 'admin_email' );
+
+		if ( wp_mail( $to, $subject, $message ) ) {
 			echo 'success';
 		} else {
 			echo 'errors';
@@ -579,22 +578,6 @@ class WC_Product_Vendors_Vendor_Admin {
 		unset( $types['grouped'], $types['external'] );
 
 		return $types;
-	}
-
-	/**
-	 * Remove product visibility options
-	 *
-	 * @since 2.0.0
-	 * @since 2.1.4 Apply only to pre WC 3.0.
-	 * @param array $options
-	 * @return array $options
-	 */
-	public function remove_product_visibility_option( $options ) {
-		if ( version_compare( WC_VERSION, '3.0.0', '<' ) ) {
-			return array();
-		}
-
-		return $options;
 	}
 
 	/**
@@ -709,7 +692,6 @@ class WC_Product_Vendors_Vendor_Admin {
 			'buttonLogoText'           => __( 'Add Logo', 'woocommerce-product-vendors' ),
 			'currentScreen'            => $current_screen->id,
 			'ajaxVendorSupportNonce'   => wp_create_nonce( '_wc_product_vendors_vendor_support_nonce' ),
-			'ajaxAddOrderNoteNonce'    => wp_create_nonce( '_wc_product_vendors_vendor_add_order_note_nonce' ),
 			'vendorSupportSuccess'     => __( 'Your question has been submitted.  You will be contacted shortly.', 'woocommerce-product-vendors' ),
 		) );
 
@@ -1241,12 +1223,7 @@ class WC_Product_Vendors_Vendor_Admin {
 	 * @return bool
 	 */
 	public function render_order_page() {
-		global $post;
-
 		$order_id = absint( $_GET['id'] );
-
-		$post = get_post( $order_id );
-
 		$theorder = wc_get_order( $order_id );
 
 		$order = $theorder;
@@ -1265,18 +1242,11 @@ class WC_Product_Vendors_Vendor_Admin {
 			$payment_gateways = array();
 		}
 
-		if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) {
-			$payment_method = $order->get_payment_method();
-		} else {
-			$payment_method = $order->payment_method;
-		}
-
+		$payment_method = $order->get_payment_method();
 		$payment_method = ! empty( $payment_method ) ? $payment_method : '';
 
-		$vendors_from_order = WC_Product_Vendors_Utils::get_vendors_from_order( $order );
-
 		// Check if vendor have access to order page.
-		if ( ! in_array( WC_Product_Vendors_Utils::get_user_active_vendor(), array_keys( $vendors_from_order ) ) ) {
+		if ( ! WC_Product_Vendors_Utils::can_logged_in_user_access_order( $order_id ) ) {
 			echo '<div class="error"><p>';
 			print_r( __( 'You do not have permission to view this page.', 'woocommerce-product-vendors' ) );
 			echo '</p></div>';

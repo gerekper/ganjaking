@@ -136,16 +136,16 @@ class UpdraftPlus_Addon_S3_Enhanced {
 		if (empty($settings_values['region'])) $settings_values['region'] = 'us-east-1';
 		
 		if (empty($settings_values['rrs'])) $settings_values['rrs'] = false;
-
+	
 		$allow_download = empty($settings_values['allowdownload']) ? false : true;
 		$allow_delete = empty($settings_values['allowdelete']) ? false : true;
-
+	
 		global $updraftplus;
-
+	
 		include_once(UPDRAFTPLUS_DIR.'/methods/s3.php');
 		
 		$method = new UpdraftPlus_BackupModule_s3;
-
+	
 		$useservercerts = !empty($settings_values['useservercerts']);
 		$disableverify = !empty($settings_values['disableverify']);
 		$nossl = !empty($settings_values['nossl']);
@@ -153,8 +153,6 @@ class UpdraftPlus_Addon_S3_Enhanced {
 		$adminaccesskey = $settings_values['adminaccesskey'];
 		$adminsecret = $settings_values['adminsecret'];
 		$region = $settings_values['region'];
-		
-		add_filter('updraftplus_indicate_s3_class_prefer_aws_sdk', '__return_true');
 		
 		$return_error = false;
 		
@@ -173,8 +171,6 @@ class UpdraftPlus_Addon_S3_Enhanced {
 		} catch (Exception $e) {
 			$return_error = array('e' => 1, 'm' => __('Error:', 'updraftplus').' '.$e->getMessage());
 		}
-		
-		remove_filter('updraftplus_indicate_s3_class_prefer_aws_sdk', '__return_true');
 		
 		if (is_array($return_error)) return $return_error;
 		
@@ -220,59 +216,30 @@ class UpdraftPlus_Addon_S3_Enhanced {
 				return array('e' => 1, 'm' => $msg);
 			}
 		}
-
+	
 		// Create the new IAM user
-		global $updraftplus;
-		$updraftplus->potentially_remove_composer_autoloaders(array('GuzzleHttp\\', 'Aws\\'));
-		include(UPDRAFTPLUS_DIR.'/vendor/autoload.php');
-		$updraftplus->mitigate_guzzle_autoloader_conflicts();
-
-		// AWS SDK V3 requires we specify a version. String 'latest' can be used but not recommended, a full list of versions for each API found here: https://docs.aws.amazon.com/aws-sdk-php/v3/api/index.html
-		// latest IamClient version as of 17/01/22 is version 2010-05-08
-		$opts = array(
-			'credentials' => array(
-				'key' => $adminaccesskey,
-				'secret'  => $adminsecret
-			),
-			'version' => '2010-05-08',
-			'region' => $region
-		);
-		$iam = new IamClient($opts);
-
-		// Try create a new Iam user
+	
 		try {
-			$response = $iam->createUser(array(
-				'Path' => '/updraftplus/',
-				'UserName' => $settings_values['newuser']
-			));
-		} catch (Guzzle\Http\Exception\ClientErrorResponseException $e) {
-			$response = $e->getResponse();
-			$code = $response->getStatusCode();
-			$reason = $response->getReasonPhrase();
-			if (403 == $code) {
-				return array('e' => 1, 'm' => __('Authorisation failed (check your credentials)', 'updraftplus'));
-			} elseif (409 == $code && 'Conflict' == $reason) {
-				return array('e' => 1, 'm' => __('Conflict: that user already exists', 'updraftplus'));
-			} else {
-				return array('e' => 1, 'm' => sprintf(__('IAM operation failed (%s)', 'updraftplus'), 5)." (".$e->getMessage().') ('.get_class($e).')');
-			}
+			$response = $storage->createUser(array('Path' => '/updraftplus/', 'UserName' => $settings_values['newuser']));
 		} catch (Exception $e) {
 			return array('e' => 1, 'm' => sprintf(__('IAM operation failed (%s)', 'updraftplus'), 4).' ('.$e->getMessage().') ('.get_class($e).')');
 		}
-		
+	
+		if (403 == $response['code']) {
+			return array('e' => 1, 'm' => __('Authorisation failed (check your credentials)', 'updraftplus'));
+		} elseif (409 == $response['code']) {
+			return array('e' => 1, 'm' => __('Conflict: that user already exists', 'updraftplus'));
+		}
+	
 		if (empty($response['User']['UserId']) || empty($response['User']['CreateDate']) || empty($response['User']['UserName'])) {
-			return array('e' => 1, 'm' => sprintf(__('IAM operation failed (%s)', 'updraftplus'), 3));
+			return array('e' => 1, 'm' => sprintf(__('IAM operation failed (%s)', 'updraftplus'), 5)." (".$response['error']['message'].')');
 		}
 		
 		$user = $response['User']['UserName'];
 		
 		// Add the User to the bucket
-		
-		// Get the user API key
 		try {
-			$response = $iam->createAccessKey(array('UserName' => $user));
-		} catch (Guzzle\Http\Exception\ClientErrorResponseException $e) {
-			return array('e' => 1, 'm' => __('Failed to create user Access Key', 'updraftplus')." (".$e->getMessage().') ('.get_class($e).')');
+			$response = $storage->createAccessKey($user);
 		} catch (Exception $e) {
 			return array('e' => 1, 'm' => __('Operation to create user Access Key failed', 'updraftplus'));
 		}
@@ -286,58 +253,60 @@ class UpdraftPlus_Addon_S3_Enhanced {
 		
 		// policy document
 		$pol_doc = '{
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "s3:ListBucket",
-        "s3:GetBucketLocation",
-        "s3:ListBucketMultipartUploads"
-      ],
-      "Resource": "arn:aws:s3:::'.$bucket.'",
-      "Condition": {}
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "s3:AbortMultipartUpload",';
+	"Statement": [
+	{
+	  "Effect": "Allow",
+	  "Action": [
+		"s3:ListBucket",
+		"s3:GetBucketLocation",
+		"s3:ListBucketMultipartUploads"
+	  ],
+	  "Resource": "arn:aws:s3:::'.$bucket.'",
+	  "Condition": {}
+	},
+	{
+	  "Effect": "Allow",
+	  "Action": [
+		"s3:AbortMultipartUpload",';
 		if ($allow_delete) $pol_doc .= '
-        "s3:DeleteObject",
-        "s3:DeleteObjectVersion",';
+		"s3:DeleteObject",
+		"s3:DeleteObjectVersion",';
 		if ($allow_download) $pol_doc .= '
-        "s3:GetObject",
-        "s3:GetObjectAcl",
-        "s3:GetObjectVersion",
-        "s3:GetObjectVersionAcl",';
+		"s3:GetObject",
+		"s3:GetObjectAcl",
+		"s3:GetObjectVersion",
+		"s3:GetObjectVersionAcl",';
 		$pol_doc .= '
-        "s3:PutObject",
-        "s3:PutObjectAcl",
-        "s3:PutObjectVersionAcl"
-      ],
-      "Resource": "arn:aws:s3:::'.$bucket.'/*",
-      "Condition": {}
-    },
-    {
-      "Effect": "Allow",
-      "Action": "s3:ListAllMyBuckets",
-      "Resource": "*",
-      "Condition": {}
-    }
-  ]
-}';
-		
+		"s3:PutObject",
+		"s3:PutObjectAcl",
+		"s3:PutObjectVersionAcl"
+	  ],
+	  "Resource": "arn:aws:s3:::'.$bucket.'/*",
+	  "Condition": {}
+	},
+	{
+	  "Effect": "Allow",
+	  "Action": "s3:ListAllMyBuckets",
+	  "Resource": "*",
+	  "Condition": {}
+	}
+	]
+	}';
+	
 		try {
-			$response = $iam->putUserPolicy(array(
+			$response = $storage->putUserPolicy(array(
 				'UserName' => $user,
 				'PolicyName' => $user.'updraftpolicy',
 				'PolicyDocument' => $pol_doc
 			));
-		} catch (Guzzle\Http\Exception\ClientErrorResponseException $e) {
-			return array('e' => 1, 'm' => __('Failed to apply User Policy', 'updraftplus')." (".$e->getMessage().') ('.get_class($e).')');
 		} catch (Exception $e) {
 			return array('e' => 1, 'm' => __('Failed to apply User Policy'.$e->getMessage()));
 		}
-		
+	
+		if (!empty($response['error'])) {
+			return array('e' => 1, 'm' => __('Failed to apply User Policy', 'updraftplus')." (".$response['error']['message'].')');
+		}
+	
 		return array(
 			'e' => 0,
 			'u' => htmlspecialchars($user),

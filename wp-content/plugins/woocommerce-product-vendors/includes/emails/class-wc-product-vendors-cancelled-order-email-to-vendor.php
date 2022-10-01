@@ -46,12 +46,7 @@ class WC_Product_Vendors_Cancelled_Order_Email_To_Vendor extends WC_Email {
 
 		if ( $order_id ) {
 			$this->object = wc_get_order( $order_id );
-
-			if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) {
-				$order_date = $this->object->get_date_created();
-			} else {
-				$order_date = $this->object->order_date;
-			}
+			$order_date   = $this->object->get_date_created();
 
 			$this->find['order-date']      = '{order_date}';
 			$this->find['order-number']    = '{order_number}';

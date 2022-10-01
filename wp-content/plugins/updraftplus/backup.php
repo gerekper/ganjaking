@@ -22,6 +22,8 @@ class UpdraftPlus_Backup {
 	public $zipfiles_batched;
 
 	public $zipfiles_skipped_notaltered;
+	
+	private $symlink_reversals = array();
 
 	private $makezip_recursive_batchedbytes;
 
@@ -462,7 +464,6 @@ class UpdraftPlus_Backup {
 			
 			// reset the jobstatus as we may have just uploaded a backup set
 			$updraftplus->jobdata_set('jobstatus', 'filescreating');
-			$updraftplus->jobdata_delete('uploading_substatus');
 		}
 	}
 
@@ -497,6 +498,9 @@ class UpdraftPlus_Backup {
 		$upload_status = $updraftplus->jobdata_get('uploading_substatus');
 		if (!is_array($upload_status) || !isset($upload_status['t'])) {
 			$upload_status = array('i' => 0, 'p' => 0, 't' => max(1, $total_instances_count)*count($backup_array));
+			$updraftplus->jobdata_set('uploading_substatus', $upload_status);
+		} elseif (is_array($upload_status) && isset($upload_status['t'])) {
+			$upload_status['t'] = $upload_status['i'] + max(1, $total_instances_count)*count($backup_array);
 			$updraftplus->jobdata_set('uploading_substatus', $upload_status);
 		}
 
@@ -1458,6 +1462,7 @@ class UpdraftPlus_Backup {
 				if ($created != $whichdir && (is_string($created) || is_array($created))) {
 					if (is_string($created)) $created =array($created);
 					foreach ($created as $fname) {
+						if (isset($backup_array[$youwhat]) && in_array($fname, $backup_array[$youwhat])) continue;
 						$backup_array[$youwhat][$index] = $fname;
 						$itext = (0 == $index) ? '' : $index;
 						// File may have already been uploaded and removed so get the size from jobdata
@@ -2160,7 +2165,7 @@ class UpdraftPlus_Backup {
 			$where_array = str_replace('%', '[percent_sign]', $where_array);
 		}
 		$where = '';
-		
+
 		if (!empty($where_array) && is_array($where_array)) {
 			// N.B. Don't add a WHERE prefix here; most versions of mysqldump silently strip it out, but one was encountered that didn't.
 			$first_loop = true;
@@ -2215,6 +2220,7 @@ class UpdraftPlus_Backup {
 		
 		$ret = false;
 		$any_output = false;
+		$gtid_found = false;
 		$writes = 0;
 		$write_bytes = 0;
 		$handle = function_exists('popen') ? popen($exec, 'r') : false;
@@ -2222,6 +2228,14 @@ class UpdraftPlus_Backup {
 			while (!feof($handle)) {
 				$w = fgets($handle, 1048576);
 				if (is_string($w) && $w) {
+
+					if (preg_match('/^SET @@GLOBAL.GTID_PURGED/i', $w)) $gtid_found = true;
+
+					if ($gtid_found) {
+						if (false !== strpos($w, ';')) $gtid_found = false;
+						continue;
+					}
+
 					$this->stow($w);
 					$writes++;
 					$write_bytes += strlen($w);
@@ -3004,8 +3018,6 @@ class UpdraftPlus_Backup {
 	 */
 	private function makezip_recursive_add($fullpath, $use_path_when_storing, $original_fullpath, $startlevels, &$exclude) {
 
-// $zipfile = $this->zip_basename.(($this->index == 0) ? '' : ($this->index+1)).'.zip.tmp';
-
 		global $updraftplus;
 
 		// Only BinZip supports symlinks. This means that as a consistent outcome, the only think that can be done with directory symlinks is either a) potentially duplicate the data or b) skip it. Whilst with internal WP entities (e.g. plugins) we definitely want the data, in the case of user-selected directories, we assume the user knew what they were doing when they chose the directory - i.e. we can skip symlink-accessed data that's outside.
@@ -3090,8 +3102,13 @@ class UpdraftPlus_Backup {
 				if ('.' == $e || '..' == $e) continue;
 
 				if (is_link($fullpath.'/'.$e)) {
+					
 					$deref = realpath($fullpath.'/'.$e);
-					if (is_file($deref)) {
+
+					if (false === $deref) {
+						$updraftplus->log("$fullpath/$e: unfollowable link");
+						$updraftplus->log(sprintf(__("%s: unfollowable link - could not be followed to back up (readlink=%s). Possible causes include that the link points to an invalid or inaccessible location.", 'updraftplus'), $use_path_when_storing.'/'.$e, readlink($fullpath.'/'.$e)), 'warning', "unrlink-$e");
+					} elseif (is_file($deref)) {
 						$use_stripped = $stripped_storage_path.'/'.$e;
 						if (false !== ($fkey = array_search($use_stripped, $exclude))) {
 							$updraftplus->log("Entity excluded by configuration option: $use_stripped");
@@ -3118,6 +3135,7 @@ class UpdraftPlus_Backup {
 							$updraftplus->log(sprintf(__("%s: unreadable file - could not be backed up"), $deref), 'warning');
 						}
 					} elseif (is_dir($deref)) {
+						$this->symlink_reversals[$deref] = $fullpath.'/'.$e;
 						$this->makezip_recursive_add($deref, $use_path_when_storing.'/'.$e, $original_fullpath, $startlevels, $exclude);
 					}
 				} elseif (is_file($fullpath.'/'.$e)) {
@@ -3850,7 +3868,7 @@ class UpdraftPlus_Backup {
 		if ((int) $maxzipbatch < 1024) $maxzipbatch = 26214400;
 
 		// Short-circuit the null case, because we want to detect later if something useful happenned
-		if (count($this->zipfiles_dirbatched) == 0 && count($this->zipfiles_batched) == 0) return true;
+		if (0 == count($this->zipfiles_dirbatched) && 0 == count($this->zipfiles_batched)) return true;
 
 		// If on PclZip, then if possible short-circuit to a quicker method (makes a huge time difference - on a folder of 1500 small files, 2.6s instead of 76.6)
 		// This assumes that makezip_addfiles() is only called once so that we know about all needed files (the new style)
@@ -3929,6 +3947,11 @@ class UpdraftPlus_Backup {
 		if (apply_filters('updraftplus_include_manifest', false, $this->whichone, $this)) {
 			$this->updraftplus_include_manifest($this->whichone);
 		}
+		
+		// Give binzip the help it needs to deal with directory symlinks
+		if (!empty($this->symlink_reversals) && is_callable(array($zip, 'ud_notify_symlink_reversals'))) {
+			$zip->ud_notify_symlink_reversals($this->symlink_reversals);
+		}
 
 		// Make sure all directories are created before we start creating files
 		while ($dir = array_pop($this->zipfiles_dirbatched)) {
@@ -3977,6 +4000,7 @@ class UpdraftPlus_Backup {
 			if (!isset($this->existing_files[$add_as]) || $this->existing_files[$add_as] != $fsize) {
 
 				@touch($zipfile);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+				
 				$zip->addFile($file, $add_as);
 				$zipfiles_added_thisbatch++;
 
@@ -4223,6 +4247,11 @@ class UpdraftPlus_Backup {
 
 			if (empty($zip)) {
 				$zip = new $this->use_zip_object;
+
+				// Give binzip the help it needs to deal with directory symlinks
+				if (!empty($this->symlink_reversals) && is_callable(array($zip, 'ud_notify_symlink_reversals'))) {
+					$zip->ud_notify_symlink_reversals($this->symlink_reversals);
+				}
 
 				if (file_exists($zipfile)) {
 					$opencode = $zip->open($zipfile);

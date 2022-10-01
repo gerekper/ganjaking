@@ -420,7 +420,7 @@ class Updraft_Restorer {
 		restore_error_handler();
 		
 	}
-	
+
 	/**
 	 * Whether or not we must use the global $wpdb object for database queries.
 	 * That is to say: we *can* always use it. But we prefer to avoid the overhead since we are potentially doing very many queries.
@@ -4165,6 +4165,23 @@ class Updraft_Restorer {
 						if (!is_dir($edir.'/'.$dbase)) @mkdir($edir.'/'.$dbase);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
 						$updraftplus->log_e("Elegant themes theme builder plugin data detected: resetting temporary folder");
 						update_option('et_images_temp_folder', $edir.'/'.$dbase);
+					}
+
+					// check if current restoration is a migration
+					if (!empty($this->restore_options['updraft_restorer_replacesiteurl'])) {
+						$wp_rocket_settings = $wpdb->get_row($wpdb->prepare("SELECT option_value FROM $new_table_name WHERE option_name = %s LIMIT 1", 'wp_rocket_settings'));
+
+						if (!empty($wp_rocket_settings->option_value)) {
+							$wp_rocket_settings = maybe_unserialize($wp_rocket_settings->option_value);
+
+							// if WP Rocket settings is found and cdn is enabled
+							if (isset($wp_rocket_settings['cdn'])) {
+								unset($wp_rocket_settings['cdn']);
+								update_option('wp_rocket_settings', $wp_rocket_settings);
+
+								$updraftplus->log_e("WP Rocket CDN option detected: disabling the option");
+							}
+						}
 					}
 				}
 

@@ -170,11 +170,7 @@ class Warranty_Item {
         $expiry         = false;
         $order          = wc_get_order( $this->get_order_id() );
 
-        if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-            $completed_date = get_post_meta( $order->id, '_completed_date', true);
-        } else {
-            $completed_date = $order->get_date_completed() ? $order->get_date_completed()->date( 'Y-m-d H:i:s' ) : false;
-        }
+		$completed_date = $order->get_date_completed() ? $order->get_date_completed()->date( 'Y-m-d H:i:s' ) : false;
 
         if ( empty( $duration_value ) ) {
             $duration_value = $this->duration_value;

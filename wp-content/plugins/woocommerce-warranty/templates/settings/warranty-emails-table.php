@@ -3,7 +3,7 @@
 </style>
 <p class="description">
     <?php _e('Available variables:', 'wc_warranty'); ?>
-    <code>{order_id}</code>, <code>{rma_code}</code>, <code>{shipping_code}</code>,
+    <code>{order_id}</code>, <code>{rma_code}</code>,
     <code>{product_id}</code>, <code>{product_name}</code>, <code>{warranty_status}</code>,
     <?php
     foreach ($custom_vars as $custom_var) {

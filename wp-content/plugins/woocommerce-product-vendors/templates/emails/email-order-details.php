@@ -26,14 +26,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			$pass_shipping = false;
 
 			foreach ( $order->get_items() as $item_id => $item ) {
-				$_product  = $item->get_product();
-				$item_meta = version_compare( WC_VERSION, '3.0', '<' ) ? new WC_Order_Item_Meta( $item, $_product ) : new WC_Order_Item_Product( $item_id );
-
-				if ( version_compare( WC_VERSION, '3.0.0', '<' ) ) {
-					$product_id = $_product->id;
-				} else {
-					$product_id = ( 'product_variation' === $_product->post_type ) ? $_product->get_parent_id() : $_product->get_id();
-				}
+				$_product   = $item->get_product();
+				$product_id = ( 'product_variation' === $_product->post_type ) ? $_product->get_parent_id() : $_product->get_id();
 
 				$pass_shipping |= 'yes' === get_post_meta( $product_id, '_wcpv_product_pass_shipping', true );
 				$vendor_id = WC_Product_Vendors_Utils::get_vendor_id_from_product( $product_id );
@@ -67,13 +61,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							do_action( 'woocommerce_order_item_meta_start', $item_id, $item, $order );
 
 							// Variation
-							if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-								if ( ! empty( $item_meta->meta ) ) {
-									echo '<br/><small>' . nl2br( $item_meta->display( true, true, '_', "\n" ) ) . '</small>';
-								}
-							} else {
-								wc_display_item_meta( $item );
-							}
+							wc_display_item_meta( $item );
 
 							// allow other plugins to add additional product information here
 							do_action( 'woocommerce_order_item_meta_end', $item_id, $item, $order );

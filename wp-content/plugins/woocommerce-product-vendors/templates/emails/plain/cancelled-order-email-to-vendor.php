@@ -10,11 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) {
-	$order_id = $order->get_id();
-} else {
-	$order_id = $order->id;
-}
+$order_id = $order->get_id();
 
 echo "= " . $email_heading . " =\n\n";
 

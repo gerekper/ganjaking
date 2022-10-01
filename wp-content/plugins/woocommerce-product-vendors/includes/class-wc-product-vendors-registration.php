@@ -26,6 +26,10 @@ class WC_Product_Vendors_Registration {
 			add_action( 'wp_ajax_wc_product_vendors_registration', array( $this, 'registration_ajax' ) );
 			add_action( 'wp_ajax_nopriv_wc_product_vendors_registration', array( $this, 'registration_ajax' ) );
 
+			// Create user if vendor creating from admin dashboard
+			if ( isset( $_POST['action'] ) && $_POST['action'] === 'add-tag'  ) {
+				add_action( 'created_' . WC_PRODUCT_VENDORS_TAXONOMY, array( $this, 'create_user_on_vendor_term_creation' ), 100 );
+			}
 		} else {
 			add_action( 'wp_enqueue_scripts', array( $this, 'add_scripts' ) );
 		}
@@ -311,5 +315,46 @@ class WC_Product_Vendors_Registration {
 		$args['password_reset_key'] = $password_reset_key;
 
 		return $this->register_vendor( $form_items, $user, $args );
+	}
+
+	/**
+	 * Create user on vendor creation through admin dashboard
+	 *
+	 * @access public
+	 * @param int $term_id newly created term id
+	 * @return void
+	 */
+	public function create_user_on_vendor_term_creation( $term_id ) {
+		// Get term and vendor data
+		$term         = get_term( $term_id );
+		$vendor_data  = get_term_meta( $term_id, 'vendor_data', true );
+		$vendor_data  = ! is_array( $vendor_data ) ? array() : $vendor_data;
+		$vendor_email = empty( $vendor_data['email'] ) ? null : $vendor_data['email'];
+
+		// No need to create user if the email is already associated with any account
+		if ( ! $vendor_email || email_exists( $vendor_email ) ) {
+			return;
+		}
+
+		$args = apply_filters( 'wcpv_admin_register_vendor_args', array(
+			'user_login'    =>  $term->slug,
+			'user_email'    =>  $vendor_email,
+			'user_pass'     =>  wp_generate_password(),
+			'first_name'    =>  $term->name,
+			'display_name'  =>  $term->name,
+			'role'          =>  'wc_product_vendors_admin_vendor',
+		) );
+
+		// Create
+		$user_id = wp_insert_user( $args );
+
+		// Make the user admin of the vendor
+		if ( $user_id ) {
+			$admins                = ( empty( $vendor_data['admins'] ) || ! is_array( $vendor_data['admins'] ) ) ? array() : $vendor_data['admins'];
+			$admins[]              = $user_id;
+			$vendor_data['admins'] = array_unique( $admins );
+
+			update_term_meta( $term_id, 'vendor_data', $vendor_data );
+		}
 	}
 }

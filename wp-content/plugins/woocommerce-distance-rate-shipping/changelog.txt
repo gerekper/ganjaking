@@ -1,5 +1,11 @@
 *** WooCommerce Distance Rate Shipping Changelog ***
 
+2022-09-28 - version 1.2.0
+* Add - Enable automated translations delivery.
+
+2022-09-06 - version 1.1.1
+* Fix - Exclude unnecessary files from plugin zip file.
+
 2022-07-04 - version 1.1.0
 * Tweak - WC 6.6 and WP 6.0 compatibility.
 

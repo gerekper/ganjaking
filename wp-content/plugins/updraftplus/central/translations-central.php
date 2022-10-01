@@ -15,7 +15,7 @@ return array(
 	'security_check' => __('Security check. ', 'updraftplus'),
 	'must_visit_link' => __('You must visit this link in the same browser and login session as you created the key in.', 'updraftplus'),
 	'connection_already_made' => __('This connection appears to already have been made.', 'updraftplus'),
-	'close' => __('Close...', 'updraftplus'),
+	'close' => __('Close', 'updraftplus'),
 	'nothing_yet_logged' => __('(Nothing yet logged)', 'updraftplus'),
 	'invalid_url' => __('An invalid URL was entered', 'updraftplus'),
 	'updraftcentral_key_created' => __('UpdraftCentral key created successfully', 'updraftplus'),

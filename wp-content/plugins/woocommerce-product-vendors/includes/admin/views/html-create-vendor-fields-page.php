@@ -56,13 +56,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="form-field term-admins">
 		<label for="wcpv-vendor-admins"><?php esc_html_e( 'Vendor Admins', 'woocommerce-product-vendors' ); ?> <?php echo wc_help_tip( __( 'Additional access level can be set individually per vendor user.', 'woocommerce-product-vendors' ) ); ?></label>
-		<?php if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) { ?>
-			<select id="wcpv-vendor-admins" style="width: 50%;" class="wc-customer-search" name="vendor_data[admins][]" multiple="multiple" data-placeholder="<?php esc_attr_e( 'Search for Users', 'woocommerce-product-vendors' ); ?>">
-			</select>
-		<?php } else { ?>
-			<input type="hidden" class="wc-customer-search" id="wcpv-vendor-admins" name="vendor_data[admins]" data-multiple="true" data-placeholder="<?php esc_attr_e( 'Search for Users', 'woocommerce-product-vendors' ); ?>" value="<?php echo esc_attr( $admins ); ?>" data-allow_clear="true" style="max-width: 95%;" />
-		<?php } ?>
-
+		<select id="wcpv-vendor-admins" style="width: 50%;" class="wc-customer-search" name="vendor_data[admins][]" multiple="multiple" data-placeholder="<?php esc_attr_e( 'Search for Users', 'woocommerce-product-vendors' ); ?>"></select>
 		<p><?php esc_html_e( 'A list of users who can manage this vendor.', 'woocommerce-product-vendors' ); ?></p>
 	</div>
 

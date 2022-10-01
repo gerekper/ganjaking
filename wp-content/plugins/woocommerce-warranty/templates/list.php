@@ -303,9 +303,9 @@ SQL;
             if ( class_exists('WC_Seq_Order_Number') ) {
 				$seq_order_num_obj = ( function_exists('wc_sequential_order_numbers') ) ? wc_sequential_order_numbers() : $GLOBALS['wc_seq_order_number'];
                 $order_id          = is_callable( array( $seq_order_num_obj, 'find_order_by_order_number' ) ) ? $seq_order_num_obj->find_order_by_order_number( $item['order_id'] ) : false;
-
+				$edit_url          = WC_Warranty_Compatibility::get_order_admin_edit_url( $order_id );
                 if ( $order_id ) {
-                    $item_order = '<a href="post.php?post='. $order_id .'&action=edit">#'. $item['order_id'] .'</a>';
+                    $item_order = '<a href="' . esc_url( $edit_url ) . '">#'. $item['order_id'] .'</a>';
                 } else {
                     $item_order = '#'. $item['order_id'];
                 }
@@ -313,7 +313,8 @@ SQL;
                 $item_order = '#'. $item['order_id'];
             }
         } else {
-            $item_order = '<a href="post.php?post='. $item['order_id'] .'&action=edit">#'. $order_number .'</a>';
+			$edit_url   = WC_Warranty_Compatibility::get_order_admin_edit_url( $item['order_id'] );
+            $item_order = '<a href="' . esc_url( $edit_url ) . '">#'. $order_number .'</a>';
         }
 
         $order_str = sprintf( __('Order %s', 'wc_warranty'), $item_order );

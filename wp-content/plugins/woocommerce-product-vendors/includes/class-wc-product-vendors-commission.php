@@ -280,8 +280,12 @@ class WC_Product_Vendors_Commission {
 
 		$wpdb->query( $wpdb->prepare( "DELETE FROM {$this->table_name} WHERE `id` = %d", absint( $commission_id ) ) );
 
-		// also delete order post meta
-		delete_post_meta( absint( $order_id ), '_wcpv_commission_added' );
+		// also delete order post meta.
+		$order = wc_get_order( $order_id );
+		if ( ! empty( $order ) ) {
+			$order->delete_meta_data( '_wcpv_commission_added' );
+			$order->save_meta_data();
+		}
 
 		do_action( 'wcpv_commissions_deleted' );
 

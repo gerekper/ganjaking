@@ -1,5 +1,11 @@
 *** Warranty Requests Changelog ***
 
+2022-09-28 - version 1.9.34
+* Fix   - Exclude unnecessary files from plugin zip file.
+* Tweak - WC 6.6 and WP 6.0 compatibility.
+* Tweak - Make `{shipping_code}` template variable deprecated as it has the same value as `{customer_shipping_code}`.
+* Tweak - Custom Order Tables(COT) compatibility.
+
 2022-04-04 - version 1.9.33
 * Tweak - Add 'after_warranty_create_coupon' action hook and 'warranty_update_request_data' filter hook.
 

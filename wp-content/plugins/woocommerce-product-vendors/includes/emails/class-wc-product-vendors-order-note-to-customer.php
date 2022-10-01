@@ -48,13 +48,8 @@ class WC_Product_Vendors_Order_Note_To_Customer extends WC_Email {
 
 			$this->object = wc_get_order( $order_id );
 
-			if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) {
-				$order_date = $this->object->get_date_created();
-				$recipient  = $this->object->get_billing_email();
-			} else {
-				$order_date = $this->object->order_date;
-				$recipient  = $this->object->billing_email;
-			}
+			$order_date = $this->object->get_date_created();
+			$recipient  = $this->object->get_billing_email();
 
 			$this->recipient               = $recipient;
 			$this->find['order-date']      = '{order_date}';

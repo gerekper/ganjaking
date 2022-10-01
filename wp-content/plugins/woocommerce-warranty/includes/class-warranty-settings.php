@@ -30,8 +30,7 @@ class Warranty_Settings {
         add_action( 'woocommerce_admin_field_warranty_addons_table', array($this, 'warranty_addons_table') );
         add_action( 'woocommerce_admin_field_warranty_categories_table', array($this, 'warranty_categories_table') );
         add_action( 'woocommerce_admin_field_warranty_logo', array($this, 'warranty_logo_field') );
-
-    }
+	}
 
     public static function get_settings_fields() {
         $warranty_page_id       = wc_get_page_id('warranty');
@@ -452,7 +451,11 @@ class Warranty_Settings {
     }
 
     public function update_warranty_emails( $value ) {
-        if ( $value['type'] == 'warranty_emails' ) {
+		if ( empty( $value['type'] ) ) {
+			return;
+		}
+
+        if ( 'warranty_emails' === $value['type'] ) {
             $emails = self::get_warranty_emails_from_post();
 
             update_option( 'warranty_emails', $emails );
@@ -460,7 +463,11 @@ class Warranty_Settings {
     }
 
     public function update_permissions( $value ) {
-        if ( $value['type'] == 'warranty_permissions' ) {
+		if ( empty( $value['type'] ) ) {
+			return;
+		}
+
+        if ( 'warranty_permissions' === $value['type'] ) {
             $permissions = self::get_warranty_permissions_from_post();
 
             update_option('warranty_permissions', $permissions);
@@ -468,7 +475,11 @@ class Warranty_Settings {
     }
 
     public function update_multi_status( $value ) {
-        if ( $value['type'] == 'multi_status' ) {
+		if ( empty( $value['type'] ) ) {
+			return;
+		}
+
+        if ( 'multi_status' === $value['type'] ) {
             $statuses = self::get_multi_status_from_post( $value['id'] );
 
             update_option( $value['id'], $statuses );
@@ -476,7 +487,7 @@ class Warranty_Settings {
     }
 
     public function update_form_builder( $value ) {
-        if ( $value['type'] == 'warranty_form_builder' ) {
+        if ( 'warranty_form_builder' === $value['type'] ) {
             $form = self::get_form_builder_from_post();
 
             update_option( 'warranty_form', $form );
@@ -484,7 +495,11 @@ class Warranty_Settings {
     }
 
     public function update_category_warranties( $value ) {
-        if ( $value['type'] == 'warranty_categories_table' ) {
+		if ( empty( $value['type'] ) ) {
+			return;
+		}
+
+        if ( 'warranty_categories_table' === $value['type'] ) {
             $warranties = self::get_category_warranties_from_post();
 
             update_option( 'wc_warranty_categories', $warranties );
@@ -492,7 +507,11 @@ class Warranty_Settings {
     }
 
     public function update_default_addons( $value ) {
-        if ( $value['type'] == 'warranty_addons_table' ) {
+		if ( empty( $value['type'] ) ) {
+			return;
+		}
+
+        if ( 'warranty_addons_table' === $value['type'] ) {
             $addons = self::get_default_addons_from_post();
 
             update_option( 'warranty_default_addons', $addons );

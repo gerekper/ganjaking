@@ -132,7 +132,10 @@ if ( ! empty( $commissions ) ) {
 			delete_post_meta( $commission->ID, '_commission_amount' );
 			delete_post_meta( $commission->ID, '_commission_order' );
 			delete_option( 'shop_vendor_' . $commission->ID );
-			delete_post_meta( $order_id, '_commissions_processed' );
+
+			$commission_order = wc_get_order( $order_id );
+			$commission_order->delete_meta_data( '_commissions_processed' );
+			$commission_order->save_meta_data();
 
 			// delete all order item meta
 			$wpdb->query( "DELETE FROM {$wpdb->prefix}woocommerce_order_itemmeta WHERE `meta_key` = '_commission'" );

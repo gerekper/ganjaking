@@ -3,12 +3,12 @@
  * Plugin Name: WooCommerce Warranty Requests
  * Plugin URI: https://woocommerce.com/products/warranty-requests/
  * Description: Set warranties for your products (free and paid), and allow customers to purchase warranties when buying a product, and to initiate a return request right from their account. Manage RMA numbers, return status, email communications, and track return shipping easily with this extension.
- * Version: 1.9.33
+ * Version: 1.9.34
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text domain: wc_warranty
- * Tested up to: 5.9
- * WC tested up to: 6.3
+ * Tested up to: 6.0
+ * WC tested up to: 6.8
  * WC requires at least: 3.0
  *
  * Copyright: © 2022 WooCommerce
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WOOCOMMERCE_WARRANTY_VERSION', '1.9.33' ); // WRCS: DEFINED_VERSION.
+define( 'WOOCOMMERCE_WARRANTY_VERSION', '1.9.34' ); // WRCS: DEFINED_VERSION.
 
 // Plugin init hook.
 add_action( 'plugins_loaded', 'wc_warranty_init' );

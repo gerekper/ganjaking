@@ -51,6 +51,35 @@ class WC_Product_Vendors_Order_Email_To_Vendor extends WC_Email {
 	}
 
 	/**
+	 * Function to append email ID and phone number to address.
+	 *
+	 * @param string $address     Formatted address.
+	 * @param array  $raw_address Raw address.
+	 *
+	 * @return mixed|string
+	 */
+	public function formatted_address( $address, $raw_address ) {
+
+		/**
+		 * Filters if email and phone of the customer should be removed from vendor email.
+		 *
+		 * @since 2.1.62
+		 *
+		 * @param bool $remove Remove email and phone from email.
+		 */
+		if ( ! apply_filters( 'wcpv_order_email_to_vendor_remove_email_phone', false ) ) {
+			if ( array_key_exists( 'phone', $raw_address ) && ! empty( $raw_address['phone'] ) ) {
+				$address .= '<br/>' . wc_make_phone_clickable( $raw_address['phone'] );
+			}
+			if ( array_key_exists( 'email', $raw_address ) && ! empty( $raw_address['email'] ) ) {
+				$address .= '<br/>' . esc_html( $raw_address['email'] );
+			}
+		}
+
+		return $address;
+	}
+
+	/**
 	 * trigger function.
 	 *
 	 * @access public
@@ -65,12 +94,7 @@ class WC_Product_Vendors_Order_Email_To_Vendor extends WC_Email {
 		if ( $order_id ) {
 
 			$this->object = wc_get_order( $order_id );
-
-			if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) {
-				$order_date = $this->object->get_date_created();
-			} else {
-				$order_date = $this->object->order_date;
-			}
+			$order_date   = $this->object->get_date_created();
 
 			$this->find['order-date']      = '{order_date}';
 			$this->find['order-number']    = '{order_number}';
@@ -90,6 +114,8 @@ class WC_Product_Vendors_Order_Email_To_Vendor extends WC_Email {
 
 				add_action( 'wc_product_vendors_email_order_meta', array( $this, 'show_commission_information' ), 10 , 4 );
 
+				add_filter( 'woocommerce_order_get_formatted_billing_address', array( $this, 'formatted_address' ), 10, 2 );
+
 				$sent = false;
 
 				// Send email to each vendor.
@@ -104,6 +130,16 @@ class WC_Product_Vendors_Order_Email_To_Vendor extends WC_Email {
 
 					$sent = $this->send( $this->get_recipient(), $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
 				}
+
+				remove_filter( 'woocommerce_order_get_formatted_billing_address', array( $this, 'formatted_address' ) );
+
+				remove_action( 'wc_product_vendors_email_order_meta', array( $this, 'show_commission_information' ), 10 );
+
+				remove_filter( 'wc_get_template', array( $this, 'filter_customer_addresses' ), 10 );
+
+				remove_filter( 'woocommerce_email_customer_details_fields', array( $this, 'filter_customer_fields' ), 10 );
+
+				remove_filter( 'woocommerce_get_order_item_totals', array( $this, 'filter_order_totals' ), 10 );
 
 				if ( $sent ) {
 					// add order note that email was sent to vendor

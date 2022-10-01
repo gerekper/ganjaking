@@ -25,6 +25,9 @@ class WC_Product_Vendors_Taxonomy {
 		// Registers custom updated term messages.
 		add_filter( 'term_updated_messages', array( $this, 'updated_term_messages' ) );
 
+		// Remove active vendor from Vendor Admin if active vendor is going to delete.
+		add_action( 'pre_delete_term', array( $this, 'maybe_remove_wcpv_active_vendor' ), 10, 2 );
+
 		return true;
 	}
 
@@ -86,7 +89,7 @@ class WC_Product_Vendors_Taxonomy {
 	 */
 	public function updated_term_messages( $messages ) {
 
-		$messages['wcpv_product_vendors'] = array(
+		$messages[ WC_PRODUCT_VENDORS_TAXONOMY ] = array(
 			0 => '',
 			1 => __( 'Vendor added.', 'woocommerce-product-vendors' ),
 			2 => __( 'Vendor deleted.', 'woocommerce-product-vendors' ),
@@ -134,6 +137,36 @@ class WC_Product_Vendors_Taxonomy {
 		} else {
 			/* Translators: %1$s: Anchor tag to vendors list. %2$s: Closing anchor tag. */
 			printf( wp_kses_post( __( 'Please create vendors by going %1$sHere%2$s', 'woocommerce-product-vendors' ) ), '<a href="' . esc_url( admin_url( 'edit-tags.php?taxonomy=wcpv_product_vendors&post_type=product' ) ) . '" title="' . esc_attr__( 'Vendors', 'woocommerce-product-vendors' ) . '">', '</a>' );
+		}
+	}
+
+	/**
+	 * Remove active vendor meta from Vendor Admin if active vendor is going to delete.
+	 *
+	 * @param int    $term     Term ID.
+	 * @param string $taxonomy Taxonomy name.
+	 * @return void
+	 */
+	public function maybe_remove_wcpv_active_vendor( $term, $taxonomy ) {
+		if ( WC_PRODUCT_VENDORS_TAXONOMY !== $taxonomy ) {
+			return;
+		}
+
+		$vendor_data = get_term_meta( $term, 'vendor_data', true );
+		if ( ! empty( $vendor_data['admins'] ) ) {
+			if ( version_compare( WC_VERSION, '3.0.0', '>=' ) && is_array( $vendor_data['admins'] ) ) {
+				$admin_ids = array_map( 'absint', $vendor_data['admins'] );
+			} else {
+				$admin_ids = array_filter( array_map( 'absint', explode( ',', $vendor_data['admins'] ) ) );
+			}
+
+			foreach ( $admin_ids as $admin_id ) {
+				$active_vendor = get_user_meta( $admin_id, '_wcpv_active_vendor', true );
+				if ( $term === (int) $active_vendor ) {
+					// Remove active vendor from vendor admin.
+					delete_user_meta( $admin_id, '_wcpv_active_vendor', $active_vendor );
+				}
+			}
 		}
 	}
 }

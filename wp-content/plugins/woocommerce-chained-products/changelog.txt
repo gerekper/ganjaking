@@ -1,5 +1,9 @@
 *** WooCommerce Chained Products Changelog ***
 
+2022.09.30 - version 2.12.0
+* Update: Removed an unnecessary function
+* Update: POT file
+
 2021.11.10 - version 2.11.0
 * New: Tested upto WooCommerce 5.9.0
 * New: Tested upto WordPress 5.8.1

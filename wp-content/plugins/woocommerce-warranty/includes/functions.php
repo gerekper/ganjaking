@@ -192,11 +192,7 @@ function warranty_get_order_item_warranty( $item ) {
 }
 
 function warranty_get_warranty_duration_string( $warranty, $order ) {
-	if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-		$completed = get_post_meta( $order->id, '_completed_date', true);
-	} else {
-		$completed = $order->get_date_completed() ? $order->get_date_completed()->date( 'Y-m-d H:i:s' ) : false;
-	}
+	$completed = $order->get_date_completed() ? $order->get_date_completed()->date( 'Y-m-d H:i:s' ) : false;
 
 	if ( empty($completed) ) {
 		$completed = false;
@@ -1189,6 +1185,9 @@ function warranty_variable_replacements( $input, $request_id ) {
 	$product_names = implode( ', ', $product_names );
 	$product_ids   = implode( ', ', $product_ids );
 
+	/**
+	 * Deprecated variable : {shipping_code}. Deprecated as it has the same with {customer_shipping_code}.
+	 */
 	$vars = array(
 		'{order_id}', '{rma_code}', '{shipping_code}', '{product_id}', '{product_name}',
 		'{warranty_status}',
