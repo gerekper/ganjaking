@@ -66,6 +66,19 @@ if (!isset($collapseable)) {
 					<li>
 						<?php
 						echo wfView::create('options/option-toggled', array(
+							'optionName' => 'enableRemoteIpLookup',
+							'enabledValue' => 1,
+							'disabledValue' => 0,
+							'value' => wfConfig::get('enableRemoteIpLookup', true) ? 1 : 0,
+							'title' => __('Look up visitor IP locations via Wordfence servers', 'wordfence'),
+							'subtitle' => __('If this option is disabled, Wordfence can look up countries for visitor IP addresses using a local database, but cannot look up regions or cities', 'wordfence'),
+							'helpLink' => wfSupportController::supportURL(wfSupportController::ITEM_GENERAL_REMOTE_IP_LOOKUP)
+						))->render();
+						?>
+					</li>
+					<li>
+						<?php
+						echo wfView::create('options/option-toggled', array(
 							'optionName' => 'other_hideWPVersion',
 							'enabledValue' => 1,
 							'disabledValue' => 0,

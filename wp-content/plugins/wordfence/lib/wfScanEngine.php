@@ -448,6 +448,8 @@ class wfScanEngine {
 			wfUtils::formatBytes($peakMemory)
 		));
 
+		wfScanMonitor::endMonitoring();
+
 		if ($this->isFullScan()) {
 			$this->status(1, 'info', sprintf(
 			/* translators: 1. Number of files. 2. Number of plugins. 3. Number of themes. 4. Number of posts. 5. Number of comments. 6. Number of URLs. 7. Time duration. */
@@ -2112,26 +2114,38 @@ class wfScanEngine {
 				}
 			}
 
-			//Other vulnerable plugins
-			//Disabled until we improve the data source to weed out false positives
-			/*if (count($allPlugins) > 0) {
-				foreach ($allPlugins as $plugin) {
-					if (!isset($plugin['vulnerable']) || !$plugin['vulnerable']) {
-						continue;
-					}
-					
-					$key = 'wfPluginVulnerable' . ' ' . $plugin['pluginFile'] . ' ' . $plugin['Version'];
-					$shortMsg = "The Plugin \"" . $plugin['Name'] . "\" has an unpatched security vulnerability.";
-					$longMsg = 'To protect your site from this vulnerability, the safest option is to deactivate and completely remove ' . esc_html($plugin['Name']) . ' until the developer releases a security fix. <a href="https://docs.wordfence.com/en/Understanding_scan_results#Plugin_has_an_unpatched_security_vulnerability" target="_blank" rel="noopener noreferrer">Get more information.<span class="screen-reader-text"> (' . esc_html__('opens in new tab', 'wordfence') . ')</span></a>';
-					$added = $this->addIssue('wfPluginVulnerable', 1, $key, $key, $shortMsg, $longMsg, $plugin);
+			//Handle plugins that either do not exist in the repo or do not have updates available
+			foreach ($allPlugins as $slug => $plugin) {
+				if ($plugin['vulnerable']) {
+					$key = implode(' ', array('wfPluginVulnerable', $plugin['pluginFile'], $plugin['Version']));
+					$shortMsg = sprintf(__('The Plugin "%s" has a security vulnerability.', 'wordfence'), $plugin['Name']);
+					$longMsg = sprintf(
+						wp_kses(
+							__('To protect your site from this vulnerability, the safest option is to deactivate and completely remove "%s" until a patched version is available. <a href="%s" target="_blank" rel="noopener noreferrer">Get more information.<span class="screen-reader-text"> (opens in new tab)</span></a>', 'wordfence'),
+							array(
+								'a' => array(
+									'href' => array(),
+									'target' => array(),
+									'rel' => array(),
+								),
+								'span' => array(
+									'class' => array()
+								)
+							)
+						),
+						$plugin['Name'],
+						wfSupportController::esc_supportURL(wfSupportController::ITEM_SCAN_RESULT_PLUGIN_VULNERABLE)
+					);
+					if (is_string($plugin['vulnerable']))
+						$plugin['vulnerabilityLink'] = $plugin['vulnerable'];
+					$plugin['updatedAvailable'] = false;
+					$added = $this->addIssue('wfPluginVulnerable', wfIssues::SEVERITY_CRITICAL, $key, $key, $shortMsg, $longMsg, $plugin);
 					if ($added == wfIssues::ISSUE_ADDED || $added == wfIssues::ISSUE_UPDATED) { $haveIssues = wfIssues::STATUS_PROBLEM; }
 					else if ($haveIssues != wfIssues::STATUS_PROBLEM && ($added == wfIssues::ISSUE_IGNOREP || $added == wfIssues::ISSUE_IGNOREC)) { $haveIssues = wfIssues::STATUS_IGNORED; }
 					
-					if (isset($plugin['slug'])) {
-						unset($allPlugins[$plugin['slug']]);
-					}
+					unset($allPlugins[$slug]);
 				}
-			}*/
+			}
 		}
 
 		$this->updateCheck = false;
@@ -2368,6 +2382,7 @@ class wfScanEngine {
 	}
 
 	public static function requestKill() {
+		wfScanMonitor::endMonitoring();
 		wfConfig::set('wfKillRequested', time(), wfConfig::DONT_AUTOLOAD);
 	}
 
@@ -2379,7 +2394,7 @@ class wfScanEngine {
 		}
 	}
 
-	public static function startScan($isFork = false, $scanMode = false) {
+	public static function startScan($isFork = false, $scanMode = false, $isResume = false) {
 		if (!defined('DONOTCACHEDB')) {
 			define('DONOTCACHEDB', true);
 		}
@@ -2397,7 +2412,10 @@ class wfScanEngine {
 				return __("A scan is already running. Use the stop scan button if you would like to terminate the current scan.", 'wordfence');
 			}
 			wfConfig::set('currentCronKey', ''); //Ensure the cron key is cleared
+			if (!$isResume)
+				wfScanMonitor::handleScanStart($scanMode);
 		}
+		wfScanMonitor::logLastAttempt($isFork);
 		$timeout = self::getMaxExecutionTime() - 2; //2 seconds shorter than max execution time which ensures that only 2 HTTP processes are ever occupied
 		$testURL = admin_url('admin-ajax.php?action=wordfence_testAjax');
 		$forceIpv4 = wfConfig::get('scan_force_ipv4_start');
@@ -2405,25 +2423,34 @@ class wfScanEngine {
 		if ($forceIpv4)
 			$interceptor->setOption(CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
 		if (!wfConfig::get('startScansRemotely', false)) {
-			try {
-				$testResult = $interceptor->intercept(function () use ($testURL, $timeout) {
-					return wp_remote_post($testURL, array(
-						'timeout'   => $timeout,
-						'blocking'  => true,
-						'sslverify' => false,
-						'headers'   => array()
-					));
-				});
-			} catch (Exception $e) {
-				//Fall through to the remote start test below
+			if ($isFork) {
+				$testSuccessful = (bool) wfConfig::get('scanAjaxTestSuccessful');
+				wordfence::status(4, 'info', sprintf(__("Cached result for scan start test: %s", 'wordfence'), var_export($testSuccessful, true)));
 			}
+			else {
+				try {
+					$testResult = $interceptor->intercept(function () use ($testURL, $timeout) {
+						return wp_remote_post($testURL, array(
+							'timeout'   => $timeout,
+							'blocking'  => true,
+							'sslverify' => false,
+							'headers'   => array()
+						));
+					});
+				} catch (Exception $e) {
+					//Fall through to the remote start test below
+				}
 
-			wordfence::status(4, 'info', sprintf(/* translators: Support URL. */ __("Test result of scan start URL fetch: %s", 'wordfence'), var_export($testResult, true)));
+				wordfence::status(4, 'info', sprintf(/* translators: Scan start test result data. */ __("Test result of scan start URL fetch: %s", 'wordfence'), var_export($testResult, true)));
+
+				$testSuccessful = !is_wp_error($testResult) && (is_array($testResult) || $testResult instanceof ArrayAccess) && strstr($testResult['body'], 'WFSCANTESTOK') !== false;
+				wfConfig::set('scanAjaxTestSuccessful', $testSuccessful);
+			}
 		}
 
 		$cronKey = wfUtils::bigRandomHex();
 		wfConfig::set('currentCronKey', time() . ',' . $cronKey);
-		if ((!wfConfig::get('startScansRemotely', false)) && (!is_wp_error($testResult)) && (is_array($testResult) || $testResult instanceof ArrayAccess) && strstr($testResult['body'], 'WFSCANTESTOK') !== false) {
+		if ((!wfConfig::get('startScansRemotely', false)) && $testSuccessful) {
 			//ajax requests can be sent by the server to itself
 			$cronURL = self::_localStartURL($isFork, $scanMode, $cronKey);
 			$headers = array('Referer' => false/*, 'Cookie' => 'XDEBUG_SESSION=1'*/);

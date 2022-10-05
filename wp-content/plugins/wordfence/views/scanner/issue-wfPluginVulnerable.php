@@ -14,7 +14,6 @@ echo wfView::create('scanner/issue-base', array(
 		null,
 		__('Details', 'wordfence') => '{{html longMsg}}',
 		null,
-		__('Plugin URL', 'wordfence') => array('data.PluginURI', '<a href="${data.PluginURI}" target="_blank" rel="noopener noreferrer"><span class="wf-hidden-xs wf-split-word">${data.PluginURI}</span><span class="wf-visible-xs">' . __('View', 'wordfence') . '</span><span class="screen-reader-text"> (' . esc_html__('opens in new tab', 'wordfence') . ')</span></a>'),
 		__('Repository URL', 'wordfence') => array('data.wpURL', '<a href="${data.wpURL}" target="_blank" rel="noopener noreferrer"><span class="wf-hidden-xs wf-split-word">${data.wpURL}</span><span class="wf-visible-xs">' . __('View', 'wordfence') . '</span><span class="screen-reader-text"> (' . esc_html__('opens in new tab', 'wordfence') . ')</span></a>'),
 		__('Vulnerability Information', 'wordfence') => array('data.vulnerabilityLink', '<a href="${data.vulnerabilityLink}" target="_blank" rel="noopener noreferrer"><span class="wf-hidden-xs wf-split-word">${data.vulnerabilityLink}</span><span class="wf-visible-xs">' . __('View', 'wordfence') . '</span><span class="screen-reader-text"> (' . esc_html__('opens in new tab', 'wordfence') . ')</span></a>'),
 	),
@@ -29,8 +28,6 @@ echo wfView::create('scanner/issue-base', array(
 		null,
 		__('Details', 'wordfence') => '$longMsg',
 		null,
-		__('Plugin URL', 'wordfence') => '$data.PluginURI',
-		__('Repository URL', 'wordfence') => '$data.wpURL',
 		__('Vulnerability Information', 'wordfence') => '$data.vulnerabilityLink',
 	),
 ))->render();

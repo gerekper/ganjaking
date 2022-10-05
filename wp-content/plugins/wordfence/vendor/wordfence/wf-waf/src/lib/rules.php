@@ -951,7 +951,7 @@ class wfWAFRuleComparison implements wfWAFRuleInterface {
 		if ($fh === false)
 			return false;
 		//T_BAD_CHARACTER is only available since PHP 7.4.0 and before 7.0.0
-		$T_BAD_CHARACTER = defined('T_BAD_CHARACTER') ? T_BAD_CHARACTER : 10001;
+		$T_BAD_CHARACTER = defined('T_BAD_CHARACTER') ? constant('T_BAD_CHARACTER') : 10001;
 		$phpBlock = null;
 		$wrappedTokenCheckBytes = '';
 		$maxTokenSize = 15; //__halt_compiler

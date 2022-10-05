@@ -114,12 +114,6 @@ else if (wfConfig::get('touppPromptNeeded')) {
 		<div class="wf-row">
 			<div class="wf-col-xs-12">
 				<div class="wf-block wf-active">
-					<?php if (wfConfig::get('betaThreatDefenseFeed')): ?>
-						<ul class="wf-block-banner">
-							<li><?php esc_html_e('Beta scan signatures are currently enabled. These signatures have not been fully tested yet and may cause false positives or scan stability issues on some sites.', 'wordfence'); ?></li>
-							<li><a href="#" class="wf-btn wf-btn-default" id="wf-beta-disable" role="button"><?php esc_html_e('Turn Off Beta Signatures', 'wordfence'); ?></a></li>
-						</ul>
-					<?php endif; ?>
 					<div class="wf-block-content">
 						<ul class="wf-block-list">
 							<li>
@@ -400,18 +394,3 @@ if (wfOnboardingController::willShowNewTour(wfOnboardingController::TOUR_SCAN)):
 		</div>
 	</script>
 <?php endif; ?>
-
-<script type="application/javascript">
-	(function($) {
-		$(function() {
-			$('#wf-beta-disable').on('click', function(e) {
-				e.preventDefault();
-				e.stopPropagation();
-
-				WFAD.setOption('betaThreatDefenseFeed', 0, function() {
-					window.location.reload(true);
-				});
-			});
-		});
-	})(jQuery);
-</script>

@@ -120,7 +120,7 @@ if (!isset($hideShowMenuItem)) {
 						echo wfView::create('options/option-text', array(
 							'textOptionName' => 'liveTraf_maxAge',
 							'textValue'      => wfConfig::get('liveTraf_maxAge'),
-							'title'          => __('Maximum days to keep Live Traffic data (minimum: 1)', 'wordfence'),
+							'title'          => __('Maximum days to keep Live Traffic data (1-30 days)', 'wordfence'),
 						))->render();
 						?>
 					</li>

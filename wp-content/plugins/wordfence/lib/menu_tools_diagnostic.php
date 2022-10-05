@@ -31,7 +31,7 @@ if (!isset($sendingDiagnosticEmail)) {
 		<div class="wf-diagnostics-wrapper">
 			<div class="wf-flex-row">
 				<div class="wf-flex-row-1">
-					<?php esc_html_e('This page shows information that can be used for troubleshooting conflicts, configuration issues, or compatibility with other plugins, themes, or a host\'s environment.', 'wordfence') ?>
+					<?php echo wp_kses(sprintf(__('This page shows information that can be used for troubleshooting conflicts, configuration issues, or compatibility with other plugins, themes, or a host\'s environment. Failing tests are not always a sign of something that you need to fix, but can help the Wordfence team when troubleshooting a problem. (<a href="%s" target="_blank" rel="noopener noreferrer">Learn More <span class="screen-reader-text">opens in new tab</span></a>)', 'wordfence'), wfSupportController::esc_supportURL(wfSupportController::ITEM_DIAGNOSTICS)), array('a' => array('href' => array(), 'target' => array(), 'rel' => array()), 'span' => array('class' => array()))) ?>
 				</div>
 				<div class="wf-flex-row-0 wf-padding-add-left">
 					<div id="sendByEmailThanks" class="hidden">
@@ -864,18 +864,6 @@ if (!isset($sendingDiagnosticEmail)) {
 									'value'         => wfWAF::getInstance()->getStorageEngine()->getConfig('avoid_php_input', false) ? 1 : 0,
 									'title'         => __('Disable reading of php://input', 'wordfence'),
 									'helpLink'      => wfSupportController::supportURL(wfSupportController::ITEM_DIAGNOSTICS_OPTION_DISABLE_PHP_INPUT),
-								))->render();
-								?>
-							</li>
-							<li>
-								<?php
-								echo wfView::create('options/option-toggled', array(
-									'optionName'    => 'betaThreatDefenseFeed',
-									'enabledValue'  => 1,
-									'disabledValue' => 0,
-									'value'         => $w->get('betaThreatDefenseFeed') ? 1 : 0,
-									'title'         => __('Enable beta threat defense feed', 'wordfence'),
-									'helpLink'      => wfSupportController::supportURL(wfSupportController::ITEM_DIAGNOSTICS_OPTION_BETA_TDF),
 								))->render();
 								?>
 							</li>

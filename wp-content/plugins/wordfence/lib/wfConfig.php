@@ -98,6 +98,7 @@ class wfConfig {
 			"notification_blogHighlights" => array('value' => true, 'autoload' => self::AUTOLOAD),
 			"notification_productUpdates" => array('value' => true, 'autoload' => self::AUTOLOAD),
 			"notification_scanStatus" => array('value' => true, 'autoload' => self::AUTOLOAD),
+			"enableRemoteIpLookup" => array('value' => true, 'autoload' => self::AUTOLOAD),
 			"other_hideWPVersion" => array('value' => false, 'autoload' => self::AUTOLOAD),
 			"other_blockBadPOST" => array('value' => false, 'autoload' => self::AUTOLOAD),
 			"other_scanComments" => array('value' => true, 'autoload' => self::AUTOLOAD),
@@ -139,6 +140,7 @@ class wfConfig {
 			'scan_exclude' => array('value' => '', 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_STRING)), 
 			'scan_maxIssues' => array('value' => 1000, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_INT)), 
 			'scan_maxDuration' => array('value' => '', 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_STRING)), 
+			"scan_max_resume_attempts" => array('value' => wfScanMonitor::DEFAULT_RESUME_ATTEMPTS, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_INT)),
 			'whitelisted' => array('value' => '', 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_STRING)),
 			'whitelistedServices' => array('value' => '{}', 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_JSON)),
 			'bannedURLs' => array('value' => '', 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_STRING)), 
@@ -191,11 +193,9 @@ class wfConfig {
 		//Set as default only, not included automatically in the settings import/export or options page saving
 		'defaultsOnly' => array(
 			"apiKey" => array('value' => "", 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_STRING)),
-			'keyType' => array('value' => wfLicense::KEY_TYPE_PAID_CURRENT, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_STRING)),
+			'keyType' => array('value' => wfLicense::KEY_TYPE_FREE, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_STRING)),
 			'isPaid' => array('value' => false, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_BOOL)),
-			'keyExpDays' => array('value' => 365, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_INT)),
 			'hasKeyConflict' => array('value' => false, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_BOOL)),
-			'betaThreatDefenseFeed' => array('value' => false, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_BOOL)),
 			'timeoffset_wf_updated' => array('value' => 0, 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_INT)),
 			'cacheType' => array('value' => 'disabled', 'autoload' => self::AUTOLOAD, 'validation' => array('type' => self::TYPE_STRING)),
 			'detectProxyRecommendation' => array('value' => '', 'autoload' => self::DONT_AUTOLOAD, 'validation' => array('type' => self::TYPE_STRING)),
@@ -1329,6 +1329,14 @@ Options -ExecCGI
 					$checked = true;
 					break;
 				}
+				case 'scan_max_resume_attempts':
+				{
+					$value = (int) $value;
+					wfScanMonitor::validateResumeAttempts($value, $valid);
+					if (!$valid)
+						$errors[] = array('option' => $key, 'error' => sprintf(__('Invalid number of scan resume attempts specified: %d', 'wordfence'), $value));
+					break;
+				}
 			}
 		}
 		
@@ -1714,16 +1722,6 @@ Options -ExecCGI
 					$saved = true;
 					break;
 				}
-				case 'betaThreatDefenseFeed':
-				{
-					$value = wfUtils::truthyToBoolean($value);
-					wfConfig::set($key, $value);
-					if (class_exists('wfWAFConfig')) {
-						wfWAFConfig::set('betaThreatDefenseFeed', $value, 'synced');
-					}
-					$saved = true;
-					break;
-				}
 				case 'liveTraf_maxAge':
 				{
 					$value = max(1, $value);
@@ -1893,6 +1891,7 @@ Options -ExecCGI
 					'notification_blogHighlights',
 					'notification_productUpdates',
 					'notification_scanStatus',
+					'enableRemoteIpLookup',
 					'other_hideWPVersion',
 					'other_bypassLitespeedNoabort',
 					'deleteTablesOnDeact',
@@ -2033,7 +2032,6 @@ Options -ExecCGI
 					'debugOn',
 					'startScansRemotely',
 					'ssl_verify',
-					'betaThreatDefenseFeed',
 					'wordfenceI18n',
 				);
 				break;

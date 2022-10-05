@@ -43,12 +43,6 @@
 	</div>
 <?php endif ?>
 
-<?php if (wfConfig::get('betaThreatDefenseFeed')): ?>
-	<div style="margin: 12px 0;padding: 8px; background-color: #ffffe0; border: 1px solid #ffd975; border-width: 1px 1px 1px 10px;">
-		<?php esc_html_e('Beta scan signatures are currently enabled. These signatures have not been fully tested yet and may cause false positives or scan stability issues on some sites.', 'wordfence'); echo ' '; esc_html_e('The Beta option can be turned off at the bottom of the Diagnostics page.', 'wordfence'); ?>
-	</div>
-<?php endif; ?>
-
 <?php if ($timeLimitReached): ?>
 	<div style="margin: 12px 0;padding: 8px; background-color: #ffffe0; border: 1px solid #ffd975; border-width: 1px 1px 1px 10px;">
 		<em><?php echo wp_kses(sprintf(
@@ -103,7 +97,8 @@ foreach ($severitySections as $severityLevel => $severityLabel):
 		echo '<p>';
 	}
 	if (!empty($i['tmplData']['vulnerable'])) {
-		echo '<strong>' . esc_html__('Update includes security-related fixes.', 'wordfence') . '</strong>';
+		if (isset($i['tmplData']['updateAvailable']) && $i['tmplData']['updateAvailable'] !== false)
+			echo '<strong>' . esc_html__('Update includes security-related fixes.', 'wordfence') . '</strong>';
 		if (isset($i['tmplData']['vulnerabilityLink'])) {
 			echo ' <a href="' . $i['tmplData']['vulnerabilityLink'] . '" target="_blank" rel="nofollow noreferrer noopener">' . esc_html__('Vulnerability Information', 'wordfence') . '</a>';
 		}
@@ -161,4 +156,3 @@ if (count($sentences)) {
 <?php } ?>
 
 <p><!-- ##UNSUBSCRIBE## --></p>
-

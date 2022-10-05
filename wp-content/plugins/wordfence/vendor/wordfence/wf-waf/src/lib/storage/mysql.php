@@ -576,7 +576,6 @@ class wfWAFStorageMySQL implements wfWAFStorageInterface {
 				'disableWAFIPBlocking',
 				'advancedBlockingEnabled',
 				'blockCustomText',
-				'betaThreatDefenseFeed',
 				'whitelistedServiceIPs'
 			),
 		);

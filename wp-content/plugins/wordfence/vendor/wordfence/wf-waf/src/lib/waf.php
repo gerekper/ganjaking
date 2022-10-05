@@ -510,7 +510,6 @@ auEa+7b+FGTKs7dUo2BNGR7OVifK4GZ8w/ajS0TelhrSRi3BBQCGXLzUO/UURUAh
 					'blockCustomText' => 'synced',
 					'timeoffset_wf' => 'synced',
 					'advancedBlockingEnabled' => 'synced',
-					'betaThreatDefenseFeed' => 'synced',
 					'disableWAFIPBlocking' => 'synced',
 					'patternBlocks' => 'synced',
 					'countryBlocks' => 'synced',
@@ -1887,7 +1886,6 @@ class wfWAFCronFetchRulesEvent extends wfWAFCronEvent {
 				's'        => $waf->getStorageEngine()->getConfig('siteURL', null, 'synced') ? $waf->getStorageEngine()->getConfig('siteURL', null, 'synced') : $guessSiteURL,
 				'h'        => $waf->getStorageEngine()->getConfig('homeURL', null, 'synced') ? $waf->getStorageEngine()->getConfig('homeURL', null, 'synced') : $guessSiteURL,
 				'openssl'  => $waf->hasOpenSSL() ? 1 : 0,
-				'betaFeed' => (int) $waf->getStorageEngine()->getConfig('betaThreatDefenseFeed', null, 'synced'),
 				'lang'     => $waf->getStorageEngine()->getConfig('WPLANG', null, 'synced'),
 			);
 			$lastRuleHash=$this->forceUpdate ? null : $waf->getStorageEngine()->getConfig('lastRuleHash', null, 'transient');
@@ -1950,7 +1948,6 @@ class wfWAFCronFetchRulesEvent extends wfWAFCronEvent {
 						's'        => $waf->getStorageEngine()->getConfig('siteURL', null, 'synced') ? $waf->getStorageEngine()->getConfig('siteURL', null, 'synced') : $guessSiteURL,
 						'h'        => $waf->getStorageEngine()->getConfig('homeURL', null, 'synced') ? $waf->getStorageEngine()->getConfig('homeURL', null, 'synced') : $guessSiteURL,
 						'openssl'  => $waf->hasOpenSSL() ? 1 : 0,
-						'betaFeed' => (int) $waf->getStorageEngine()->getConfig('betaThreatDefenseFeed', null, 'synced'),
 						'hash'	   => $this->forceUpdate ? null : $waf->getStorageEngine()->getConfig('lastMalwareHash', null, 'transient'),
 						'cs-hash'  => $this->forceUpdate ? null : $waf->getStorageEngine()->getConfig('lastMalwareHashCommonStrings', null, 'transient'),
 						'lang'   => $waf->getStorageEngine()->getConfig('WPLANG', null, 'synced')

@@ -37,9 +37,6 @@ class wfAPI {
 		}
 
 		$dat = json_decode($json, true);
-		$dat['_isPaidKey']=true;
-		$dat['_keyExpDays']=365;
-		$dat['_nextRenewAttempt']=365;
 
 		if (!is_array($dat)) {
 			throw new wfAPICallInvalidResponseException(sprintf(/* translators: API call/action/endpoint. */ __("We received a data structure that is not the expected array when contacting the Wordfence scanning servers and calling the '%s' function.", 'wordfence'), $action));
@@ -200,8 +197,7 @@ class wfAPI {
 		
 		return self::buildQuery(array(
 			'k' => $this->APIKey,
-			's' => wfUtils::base64url_encode(json_encode($values)),
-			'betaFeed'  => (int) wfConfig::get('betaThreatDefenseFeed'),
+			's' => wfUtils::base64url_encode(json_encode($values))
 		));
 	}
 

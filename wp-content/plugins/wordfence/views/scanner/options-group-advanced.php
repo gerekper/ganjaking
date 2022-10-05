@@ -64,6 +64,21 @@ if (!isset($collapseable)) {
 							))->render();
 						?>
 					</li>
+					<li>
+						<?php
+						$options = array();
+						foreach (range(0, wfScanMonitor::MAX_RESUME_ATTEMPTS) as $number) {
+							$options[] = array('value' => $number, 'label' => $number > 0 ? $number : '0 (Disabled)');
+						}
+						echo wfView::create('options/option-select', array(
+							'selectOptionName' => 'scan_max_resume_attempts',
+							'selectOptions' => $options,
+							'selectValue' => wfConfig::get('scan_max_resume_attempts', wfScanMonitor::DEFAULT_RESUME_ATTEMPTS),
+							'title' => __('Maximum number of attempts to resume each scan stage', 'wordfence'),
+							'helpLink' => wfSupportController::supportURL(wfSupportController::ITEM_SCAN_OPTION_MAX_RESUME_ATTEMPTS),
+						))->render();
+						?>
+					</li>
 				</ul>
 			</div>
 		</div>

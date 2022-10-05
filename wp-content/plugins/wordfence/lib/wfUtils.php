@@ -1443,46 +1443,68 @@ class wfUtils {
 			}
 		}
 		if(sizeof($toResolve) > 0){
-			$api = new wfAPI(wfConfig::get('apiKey'), wfUtils::getWPVersion());
-			try {
-				$freshIPs = $api->call('resolve_ips', array(), array(
-					'ips' => implode(',', $toResolve)
-					));
-				if(is_array($freshIPs)){
-					foreach($freshIPs as $IP => $value){
-						$IP_bin = wfUtils::inet_pton($IP);
-						if($value == 'failed'){
-							$db->queryWrite("insert IGNORE into " . $locsTable . " (IP, ctime, failed) values (%s, unix_timestamp(), 1)", $IP_bin);
-							$IPLocs[$IP] = false;
-						} else if(is_array($value)){
-							for($i = 0; $i <= 5; $i++){
-								//Prevent warnings in debug mode about uninitialized values
-								if(! isset($value[$i])){ $value[$i] = ''; }
-							}
-							$db->queryWrite("insert IGNORE into " . $locsTable . " (IP, ctime, failed, city, region, countryName, countryCode, lat, lon) values (%s, unix_timestamp(), 0, '%s', '%s', '%s', '%s', %s, %s)",
-								$IP_bin,
-								$value[3], //city
-								$value[2], //region
-								$value[1], //countryName
-								$value[0],//countryCode
-								$value[4],//lat
-								$value[5]//lon
-								);
-							$IPLocs[$IP] = array(
-								'IP' => $IP,
-								'city' => $value[3],
-								'region' => wfUtils::shouldDisplayRegion($value[1]) ? $value[2] : '',
-								'countryName' => $value[1],
-								'countryCode' => $value[0],
-								'lat' => $value[4],
-								'lon' => $value[5]
-								);
+			if (wfConfig::get('enableRemoteIpLookup', true)) {
+				$api = new wfAPI(wfConfig::get('apiKey'), wfUtils::getWPVersion());
+				try {
+					$freshIPs = $api->call('resolve_ips', array(), array(
+						'ips' => implode(',', $toResolve)
+						));
+				} catch(Exception $e){
+					wordfence::status(2, 'error', sprintf(/* translators: Error message. */ __("Call to Wordfence API to resolve IPs failed: %s", 'wordfence'), $e->getMessage()));
+					return array();
+				}
+			}
+			else {
+				require_once(__DIR__ . '/wfIpLocator.php');
+				$locator = wfIpLocator::getInstance();
+				$freshIPs = array();
+				$locale = get_locale();
+				foreach ($toResolve as $ip) {
+					$record = $locator->locate($ip);
+					if ($record !== null) {
+						$countryCode = $record->getCountryCode();
+						if ($countryCode !== null) {
+							$countryName = $record->getCountryName($locale);
+							if ($countryName === null)
+								$countryName = $countryCode;
+							$freshIPs[$ip] = array($countryCode, $countryName);
+							continue;
 						}
 					}
+					$freshIPs[$ip] = 'failed';
 				}
-			} catch(Exception $e){
-				wordfence::status(2, 'error', sprintf(/* translators: Error message. */ __("Call to Wordfence API to resolve IPs failed: %s", 'wordfence'), $e->getMessage()));
-				return array();
+			}
+			if(is_array($freshIPs)){
+				foreach($freshIPs as $IP => $value){
+					$IP_bin = wfUtils::inet_pton($IP);
+					if($value == 'failed'){
+						$db->queryWrite("insert IGNORE into " . $locsTable . " (IP, ctime, failed) values (%s, unix_timestamp(), 1)", $IP_bin);
+						$IPLocs[$IP] = false;
+					} else if(is_array($value)){
+						for($i = 0; $i <= 5; $i++){
+							//Prevent warnings in debug mode about uninitialized values
+							if(! isset($value[$i])){ $value[$i] = ''; }
+						}
+						$db->queryWrite("insert IGNORE into " . $locsTable . " (IP, ctime, failed, city, region, countryName, countryCode, lat, lon) values (%s, unix_timestamp(), 0, '%s', '%s', '%s', '%s', %s, %s)",
+							$IP_bin,
+							$value[3], //city
+							$value[2], //region
+							$value[1], //countryName
+							$value[0],//countryCode
+							$value[4],//lat
+							$value[5]//lon
+							);
+						$IPLocs[$IP] = array(
+							'IP' => $IP,
+							'city' => $value[3],
+							'region' => wfUtils::shouldDisplayRegion($value[1]) ? $value[2] : '',
+							'countryName' => $value[1],
+							'countryCode' => $value[0],
+							'lat' => $value[4],
+							'lon' => $value[5]
+							);
+					}
+				}
 			}
 		}
 		return $IPLocs;
@@ -1595,57 +1617,26 @@ class wfUtils {
 		$URL = preg_replace('/\?.*$/', '', $URL); //strip off query string
 		return $URL;
 	}
-	public static function IP2Country($IP){
-		if (version_compare(phpversion(), '5.4.0', '<')) {
-			return '';
-		}
-		
-		if (!class_exists('wfGeoIP2')) {
-			wfUtils::error_clear_last();
-			require_once(dirname(__FILE__) . '/../models/common/wfGeoIP2.php');
-			wfUtils::check_and_log_last_error('geoip', 'GeoIP Error:');
-		}
-		
-		try {
-			wfUtils::error_clear_last();
-			$geoip = @wfGeoIP2::shared();
-			wfUtils::check_and_log_last_error('geoip', 'GeoIP Error:');
-			wfUtils::error_clear_last();
-			$code = @$geoip->countryCode($IP);
-			wfUtils::check_and_log_last_error('geoip', 'GeoIP Error:');
-			return is_string($code) ? $code : '';
-		}
-		catch (Exception $e) {
-			wfUtils::check_and_log_last_error('geoip', 'GeoIP Error:', $e->getMessage());
-		}
-		
-		return '';
+	public static function requireIpLocator() {
+		/**
+		 * This is also used in the WAF so in certain site setups (i.e. nested sites in subdirectories)
+		 * it's possible for this to already have been loaded from a different installation of the
+		 * plugin and hence require_once doesn't help as it's a different file path. There is no guarantee
+		 * that the two plugin installations are the same version, so should the wfIpLocator class or any
+		 * of its dependencies change in a manner that is not backwards compatible, this may need to be
+		 * handled differently.
+		 */
+		if (!class_exists('wfIpLocator'))
+			require_once(__DIR__ . '/wfIpLocator.php');
+	}
+	public static function IP2Country($ip){
+		self::requireIpLocator();
+		return wfIpLocator::getInstance()->getCountryCode($ip);
 	}
 	public static function geoIPVersion() {
-		if (version_compare(phpversion(), '5.4.0', '<')) {
-			return 0;
-		}
-		
-		if (!class_exists('wfGeoIP2')) {
-			wfUtils::error_clear_last();
-			require_once(dirname(__FILE__) . '/../models/common/wfGeoIP2.php');
-			wfUtils::check_and_log_last_error('geoip', 'GeoIP Error:');
-		}
-		
-		try {
-			wfUtils::error_clear_last();
-			$geoip = @wfGeoIP2::shared();
-			wfUtils::check_and_log_last_error('geoip', 'GeoIP Error:');
-			wfUtils::error_clear_last();
-			$version = @$geoip->version();
-			wfUtils::check_and_log_last_error('geoip', 'GeoIP Error:');
-			return $version;
-		}
-		catch (Exception $e) {
-			wfUtils::check_and_log_last_error('geoip', 'GeoIP Error:', $e->getMessage());
-		}
-		
-		return 0;
+		self::requireIpLocator();
+		$version = wfIpLocator::getInstance()->getDatabaseVersion();
+		return $version === null ? 0 : $version;
 	}
 	public static function siteURLRelative(){
 		if(is_multisite()){

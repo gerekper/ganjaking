@@ -25,6 +25,8 @@ class wfSupportController {
 	
 	const ITEM_GDPR = 'gdpr';
 	const ITEM_GDPR_DPA = 'gdpr-dpa';
+
+	const ITEM_GENERAL_REMOTE_IP_LOOKUP = 'general-remote-ip-lookup';
 	
 	const ITEM_DASHBOARD = 'dashboard';
 	const ITEM_DASHBOARD_STATUS_FIREWALL = 'dashboard-status-firewall';
@@ -135,6 +137,7 @@ class wfSupportController {
 	const ITEM_SCAN_OPTION_STAGE_TIME_LIMIT = 'scan-option-stage-time-limit';
 	const ITEM_SCAN_OPTION_EXCLUDE_PATTERNS = 'scan-option-exclude-patterns';
 	const ITEM_SCAN_OPTION_CUSTOM_MALWARE_SIGNATURES = 'scan-option-custom-malware-signatures';
+	const ITEM_SCAN_OPTION_MAX_RESUME_ATTEMPTS = 'scan-option-max-resume-attempts';
 	const ITEM_SCAN_TIME_LIMIT = 'scan-time-limit';
 	const ITEM_SCAN_FAILS = 'scan-fails';
 	const ITEM_SCAN_FAILED_START = 'scan-failed-start';
@@ -151,6 +154,7 @@ class wfSupportController {
 	const ITEM_SCAN_RESULT_REPAIR_MODIFIED_FILES = 'scan-result-repair-modified-files';
 	const ITEM_SCAN_RESULT_MODIFIED_PLUGIN = 'scan-result-modified-plugin';
 	const ITEM_SCAN_RESULT_MODIFIED_THEME = 'scan-result-modified-theme';
+	const ITEM_SCAN_RESULT_PLUGIN_VULNERABLE = 'scan-result-plugin-vulnerable';
 
 	const ITEM_TOOLS_TWO_FACTOR = 'tools-two-factor';
 	const ITEM_TOOLS_LIVE_TRAFFIC = 'tools-live-traffic';
@@ -158,6 +162,7 @@ class wfSupportController {
 	const ITEM_TOOLS_WHOIS_LOOKUP = 'tools-whois-lookup';
 	const ITEM_TOOLS_IMPORT_EXPORT = 'tools-import-export';
 	
+	const ITEM_DIAGNOSTICS = 'diagnostics';
 	const ITEM_DIAGNOSTICS_SYSTEM_CONFIGURATION = 'diagnostics-system-configuration';
 	const ITEM_DIAGNOSTICS_TEST_MEMORY = 'diagnostics-test-memory';
 	const ITEM_DIAGNOSTICS_TEST_EMAIL = 'diagnostics-test-email';
@@ -169,6 +174,7 @@ class wfSupportController {
 	const ITEM_DIAGNOSTICS_OPTION_DISABLE_PHP_INPUT = 'diagnostics-option-disable-php-input';
 	const ITEM_DIAGNOSTICS_OPTION_BETA_TDF = 'diagnostics-option-beta-tdf';
 	const ITEM_DIAGNOSTICS_OPTION_WORDFENCE_TRANSLATIONS = 'diagnostics-option-wordfence-translations';
+	const ITEM_DIAGNOSTICS_IPV6 = 'diagnostics-ipv6';
 
 	const ITEM_MODULE_LOGIN_SECURITY = 'module-login-security';
 	const ITEM_MODULE_LOGIN_SECURITY_2FA = 'module-login-security-2fa';
@@ -208,6 +214,8 @@ class wfSupportController {
 				
 			case self::ITEM_GDPR:
 			case self::ITEM_GDPR_DPA:
+
+			case self::ITEM_GENERAL_REMOTE_IP_LOOKUP:
 				
 			case self::ITEM_DASHBOARD:
 			case self::ITEM_DASHBOARD_STATUS_FIREWALL:
@@ -323,6 +331,7 @@ class wfSupportController {
 			case self::ITEM_SCAN_OPTION_STAGE_TIME_LIMIT:
 			case self::ITEM_SCAN_OPTION_EXCLUDE_PATTERNS:
 			case self::ITEM_SCAN_OPTION_CUSTOM_MALWARE_SIGNATURES:
+			case self::ITEM_SCAN_OPTION_MAX_RESUME_ATTEMPTS:
 			case self::ITEM_SCAN_RESULT_PUBLIC_CONFIG:
 			case self::ITEM_SCAN_RESULT_PLUGIN_ABANDONED:
 			case self::ITEM_SCAN_RESULT_PLUGIN_REMOVED:
@@ -334,6 +343,7 @@ class wfSupportController {
 			case self::ITEM_SCAN_RESULT_REPAIR_MODIFIED_FILES:
 			case self::ITEM_SCAN_RESULT_MODIFIED_PLUGIN:
 			case self::ITEM_SCAN_RESULT_MODIFIED_THEME:
+			case self::ITEM_SCAN_RESULT_PLUGIN_VULNERABLE:
 
 			case self::ITEM_TOOLS_TWO_FACTOR:
 			case self::ITEM_TOOLS_LIVE_TRAFFIC:
@@ -341,6 +351,7 @@ class wfSupportController {
 			case self::ITEM_TOOLS_WHOIS_LOOKUP:
 			case self::ITEM_TOOLS_IMPORT_EXPORT:
 				
+			case self::ITEM_DIAGNOSTICS:
 			case self::ITEM_DIAGNOSTICS_SYSTEM_CONFIGURATION:
 			case self::ITEM_DIAGNOSTICS_TEST_MEMORY:
 			case self::ITEM_DIAGNOSTICS_TEST_EMAIL:
@@ -352,6 +363,7 @@ class wfSupportController {
 			case self::ITEM_DIAGNOSTICS_OPTION_DISABLE_PHP_INPUT:
 			case self::ITEM_DIAGNOSTICS_OPTION_BETA_TDF:
 			case self::ITEM_DIAGNOSTICS_OPTION_WORDFENCE_TRANSLATIONS:
+			case self::ITEM_DIAGNOSTICS_IPV6:
 
 			case self::ITEM_MODULE_LOGIN_SECURITY:
 			case self::ITEM_MODULE_LOGIN_SECURITY_2FA:

@@ -480,22 +480,13 @@ class wfWAFIPBlocksController
 	}
 	
 	protected function ip2Country($ip) {
-		if (version_compare(phpversion(), '5.4.0', '<')) {
-			return '';
-		}
-		
-		require_once(dirname(__FILE__) . '/wfWAFGeoIP2.php');
-		
-		try {
-			$geoip = @wfWAFGeoIP2::shared();
-			$code = @$geoip->countryCode($ip);
-			return is_string($code) ? $code : '';
-		}
-		catch (Exception $e) {
-			//Ignore
-		}
-		
-		return '';
+		/**
+		 * It's possible this class is already loaded from a different installation of the plugin
+		 * by the time this is reached. See wfUtils::requireIpLocator for additional details.
+		 */
+		if (!class_exists('wfIpLocator'))
+			require_once __DIR__ . '/../lib/wfIpLocator.php';
+		return wfIpLocator::getInstance()->getCountryCode($ip);
 	}
 	
 	/**

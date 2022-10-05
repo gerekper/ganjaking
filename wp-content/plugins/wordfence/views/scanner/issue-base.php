@@ -22,7 +22,7 @@ if (!isset($textOutput) || !is_array($textOutput)):
 	{{if severity == <?php echo wfIssues::SEVERITY_CRITICAL ?>}}wf-issue-severity-critical{{/if}}
 	{{if severity == <?php echo wfIssues::SEVERITY_HIGH ?>}}wf-issue-severity-high{{/if}}
 	{{if severity == <?php echo wfIssues::SEVERITY_MEDIUM ?>}}wf-issue-severity-medium{{/if}}
-	{{if severity == <?php echo wfIssues::SEVERITY_LOW ?>}}wf-issue-severity-low{{/if}}" data-issue-id="${id}" data-issue-type="<?php echo $internalType; ?>" data-issue-severity="${severity}" data-high-sensitivity="{{if (data.highSense == '1')}}1{{else}}0{{/if}}" data-beta-signatures="{{if (data.betaSigs == '1')}}1{{else}}0{{/if}}">
+	{{if severity == <?php echo wfIssues::SEVERITY_LOW ?>}}wf-issue-severity-low{{/if}}" data-issue-id="${id}" data-issue-type="<?php echo $internalType; ?>" data-issue-severity="${severity}" data-high-sensitivity="{{if (data.highSense == '1')}}1{{else}}0{{/if}}">
 	<li class="wf-issue-summary">
 		<ul>
 			<li class="wf-issue-icon"><?php echo $iconSVG; ?></li>
