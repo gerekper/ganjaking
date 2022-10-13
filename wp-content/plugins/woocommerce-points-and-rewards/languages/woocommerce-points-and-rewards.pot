@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Points and Rewards 1.7.14\n"
+"Project-Id-Version: WooCommerce Points and Rewards 1.7.16\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-points-and-rewards\n"
-"POT-Creation-Date: 2022-09-27 10:11:30+00:00\n"
+"POT-Creation-Date: 2022-10-11 10:08:41+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -187,7 +187,10 @@ msgid "Points Label"
 msgstr ""
 
 #: includes/class-wc-points-rewards-admin.php:587
-msgid "The label used to refer to points on the frontend, singular and plural."
+msgid ""
+"This is the label that is seen by shoppers on your store. By default, the "
+"label will be Point / Points. You can customize your own singular and "
+"plural labels here."
 msgstr ""
 
 #: includes/class-wc-points-rewards-admin.php:589
@@ -198,7 +201,7 @@ msgstr ""
 
 #: includes/class-wc-points-rewards-admin.php:589
 #: includes/class-wc-points-rewards-admin.php:739
-#: includes/class-wc-points-rewards-admin.php:1094
+#: includes/class-wc-points-rewards-admin.php:1122
 #: includes/class-wc-points-rewards-manage-points-list-table.php:41
 #: includes/class-wc-points-rewards-manage-points-list-table.php:76
 #: includes/class-wc-points-rewards-points-log-list-table.php:41
@@ -328,67 +331,67 @@ msgstr ""
 msgid "Apply Points"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:918
+#: includes/class-wc-points-rewards-admin.php:941
 msgid "%sOnly apply to points earned since%s - %sOptional%s"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:920
+#: includes/class-wc-points-rewards-admin.php:943
 msgid "Leave blank to apply to all points"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:955
+#: includes/class-wc-points-rewards-admin.php:978
 msgid "%sUp Until%s - %sOptional%s: Leave blank to apply to all orders"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1031
+#: includes/class-wc-points-rewards-admin.php:1059
 msgid "Database error while applying user points."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1063
+#: includes/class-wc-points-rewards-admin.php:1091
 msgid "%d order updated."
 msgid_plural "%s orders updated."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-points-rewards-admin.php:1097
+#: includes/class-wc-points-rewards-admin.php:1125
 msgid "Earned:"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1098
-#: includes/class-wc-points-rewards-admin.php:1102
+#: includes/class-wc-points-rewards-admin.php:1126
+#: includes/class-wc-points-rewards-admin.php:1130
 msgid "None"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1101
+#: includes/class-wc-points-rewards-admin.php:1129
 msgid "Redeemed:"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1123
+#: includes/class-wc-points-rewards-admin.php:1151
 msgid "Points Modifier"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1124
+#: includes/class-wc-points-rewards-admin.php:1152
 msgid ""
 "Enter a percentage which modifies how points are earned when this coupon is "
 "applied. For example, enter 200% to double the amount of points typically "
 "earned when the coupon is applied."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1186
+#: includes/class-wc-points-rewards-admin.php:1214
 msgid "Reset Points and Rewards"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1187
+#: includes/class-wc-points-rewards-admin.php:1215
 msgid "Delete all points and rewards and clear the logs."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1188
+#: includes/class-wc-points-rewards-admin.php:1216
 msgid ""
 "<strong class=\"red\">Note:</strong> This action will remove all customer "
 "points and cannot be undone."
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:1203
+#: includes/class-wc-points-rewards-admin.php:1231
 msgid "All points and rewards successfully deleted"
 msgstr ""
 
@@ -695,7 +698,7 @@ msgstr ""
 msgid "Category Points Earned"
 msgstr ""
 
-#: includes/class-wc-points-rewards-product.php:175
+#: includes/class-wc-points-rewards-product.php:180
 #. translators: 1: points
 msgid "Earn at least <strong>%d</strong> points by purchasing this product."
 msgstr ""
@@ -745,8 +748,8 @@ msgstr ""
 msgid "https://woocommerce.com"
 msgstr ""
 
-#: includes/class-wc-points-rewards-admin.php:919
-#: includes/class-wc-points-rewards-admin.php:956
+#: includes/class-wc-points-rewards-admin.php:942
+#: includes/class-wc-points-rewards-admin.php:979
 msgctxt "placeholder"
 msgid "YYYY-MM-DD"
 msgstr ""

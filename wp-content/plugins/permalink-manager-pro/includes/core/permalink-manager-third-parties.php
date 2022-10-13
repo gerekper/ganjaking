@@ -109,7 +109,7 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 
 		// 11. WP All Export
 		if(class_exists('PMXE_Plugin') && (!empty($permalink_manager_options['general']['pmxi_support']))) {
-			add_filter('pmxe_available_sections', array($this, 'wpae_custom_uri_section'), 9);
+			add_filter('wp_all_export_available_sections', array($this, 'wpae_custom_uri_section'), 9);
 			add_filter('wp_all_export_available_data', array($this, 'wpae_custom_uri_section_fields'), 9);
 			add_filter('wp_all_export_csv_rows', array($this,'wpae_export_custom_uri'), 10, 2);
 		}
@@ -236,10 +236,18 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 			else if(!empty($_POST['_cs_nonce'])) {
 				$wp_query->query_vars['do_not_redirect'] = 1;
 			}
+			// Tutor LMS
+			else if(!empty($query_vars['tutor_dashboard_page'])) {
+				$wp_query->query_vars['do_not_redirect'] = 1;
+			}
+			// AMP
+			else if(function_exists('amp_get_slug') && array_key_exists(amp_get_slug(), $query_vars)) {
+				$wp_query->query_vars['do_not_redirect'] = 1;
+			}
 		}
 
 		// WPForo
-		if(class_exists('wpForo')) {
+		if(defined('WPFORO_VERSION')) {
 			$forum_page_id = get_option('wpforo_pageid');
 
 			if(!empty($forum_page_id) && !empty($post->ID) && $forum_page_id == $post->ID) {
@@ -249,10 +257,10 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	}
 
 	/**
-	 * 2. AMP hooks
+	 * 2. AMP hooks (support for older versions)
 	 */
 	function detect_amp($uri_parts, $request_url) {
-		global $amp_enabled;
+		global $amp_enabled, $wp;
 		$amp_query_var = AMP_QUERY_VAR;
 
 		// Check if AMP should be triggered
@@ -1019,9 +1027,27 @@ class Permalink_Manager_Third_Parties extends Permalink_Manager_Class {
 	}
 
 	function wpae_export_custom_uri($articles, $options) {
+		if((!empty($options['selected_post_type']) && $options['selected_post_type'] == 'taxonomies') || !empty($options['is_taxonomy_export'])) {
+			$is_term = true;
+		} else {
+			$is_term = false;
+		}
+
 		foreach($articles as &$article) {
 			if(!empty($article['id'])) {
-				$article['Custom URI'] = Permalink_Manager_URI_Functions_Post::get_post_uri($article['id']);
+				$item_id = $article['id'];
+			} else if(!empty($article['ID'])) {
+				$item_id = $article['ID'];
+			} else if(!empty($article['Term ID'])) {
+				$item_id = $article['Term ID'];
+			} else {
+				continue;
+			}
+
+			if(!empty($is_term)) {
+				$article['Custom URI'] = Permalink_Manager_URI_Functions_Tax::get_term_uri($item_id);
+			} else {
+				$article['Custom URI'] = Permalink_Manager_URI_Functions_Post::get_post_uri($item_id);
 			}
 		}
 

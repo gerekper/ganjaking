@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.1.0
+ * @version     1.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -403,7 +403,10 @@ if ( ! class_exists( 'WC_SC_Coupon_Parser' ) ) {
 
 			// expiry date.
 			if ( isset( $postmeta['expiry_date'] ) ) {
-				$timestamp_expiry_date = ( ! empty( $postmeta['expiry_date'] ) ) ? strtotime( $postmeta['expiry_date'] ) : '';
+				$timestamp_expiry_date = '';
+				if ( ! empty( $postmeta['expiry_date'] ) ) {
+					$timestamp_expiry_date = ( function_exists( 'wc_string_to_timestamp' ) ) ? wc_string_to_timestamp( $postmeta['expiry_date'] ) : 0;
+				}
 				if ( ! empty( $postmeta['expiry_date'] ) && empty( $timestamp_expiry_date ) ) {
 					/* translators: 1. Coupon code 2. Expiry date */
 					$this->log( 'error', sprintf( __( 'Incorrect format for expiry date of coupon "%1$s". Entered date is %2$s. Expected date format: YYYY-MM-DD', 'woocommerce-smart-coupons' ), $coupon['post_title'], $postmeta['expiry_date'] ) );

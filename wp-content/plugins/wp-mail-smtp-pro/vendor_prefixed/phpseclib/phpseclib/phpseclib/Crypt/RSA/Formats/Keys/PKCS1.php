@@ -14,8 +14,6 @@
  *
  * Analogous to ssh-keygen's pem format (as specified by -m)
  *
- * @category  Crypt
- * @package   RSA
  * @author    Jim Wigginton <terrafrost@php.net>
  * @copyright 2015 Jim Wigginton
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -31,16 +29,13 @@ use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 /**
  * PKCS#1 Formatted RSA Key Handler
  *
- * @package RSA
  * @author  Jim Wigginton <terrafrost@php.net>
- * @access  public
  */
 abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\Keys\PKCS1
 {
     /**
      * Break a public or private key down into its constituent components
      *
-     * @access public
      * @param string $key
      * @param string $password optional
      * @return array
@@ -59,7 +54,7 @@ abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
         }
         $key = parent::load($key, $password);
         $decoded = \WPMailSMTP\Vendor\phpseclib3\File\ASN1::decodeBER($key);
-        if (empty($decoded)) {
+        if (!$decoded) {
             throw new \RuntimeException('Unable to decode BER');
         }
         $key = \WPMailSMTP\Vendor\phpseclib3\File\ASN1::asn1map($decoded[0], \WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps\RSAPrivateKey::MAP);
@@ -89,7 +84,6 @@ abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
     /**
      * Convert a private key to the appropriate format.
      *
-     * @access public
      * @param \phpseclib3\Math\BigInteger $n
      * @param \phpseclib3\Math\BigInteger $e
      * @param \phpseclib3\Math\BigInteger $d
@@ -113,7 +107,6 @@ abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
     /**
      * Convert a public key to the appropriate format
      *
-     * @access public
      * @param \phpseclib3\Math\BigInteger $n
      * @param \phpseclib3\Math\BigInteger $e
      * @return string

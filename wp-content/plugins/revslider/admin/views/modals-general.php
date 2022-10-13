@@ -73,6 +73,34 @@ if(!defined('ABSPATH')) exit();
 	</div>
 </div>
 
+<!-- TRACKING MODAL -->
+<div class="_TPRB_ rb-modal-wrapper" data-modal="rbm_tracking_firstgo">
+	<div class="rb-modal-inner">
+		<div class="rb-modal-content">
+			<div id="rbm_tracking_firstgo" class="rb_modal form_inner">
+				<div id="rbm_des_rocket" class="rbm_deco rbm_des_rocket"></div>
+				<div id="rbm_des_charts" class="rbm_deco rbm_des_charts"></div>
+				<div id="rbm_des_rsicon" class="rbm_deco rbm_des_rsicon"></div>
+				<div class="rbm_header"><i class="rbm_close material-icons">close</i></div>					
+				<div class="rbm_content">														
+					<div class="mcg_page_title"><?php _e('Help Us Make Slider Revolution Better!','revslider'); ?></div>
+					<div class="tracking_content_box">
+						<div class="mcg_page_subtitle"><?php _e('I agree to share data related to my Slider Revolution usage<br>with the development team to help improve the plugin.','revslider'); ?></div>
+						<div class="mcg_page_content"><?php _e('You can always change this agreement with one click in the Global Settings.','revslider'); ?></div>
+						
+						<div class="div25"></div>
+						<purplebutton id="rbm_track_enable" style="display:inline-block;" class=""><?php _e('Yes, that‘s fine!', 'revslider');?></purplebutton>
+						<div class="div10"></div>
+						<graybutton id="rbm_track_disable" style="display:inline-block;" class=""><?php _e('No, thanks.', 'revslider');?></graybutton>
+						<div class="div50"></div>						
+						<a target="_blank" rel="noopener"  href=" https://www.sliderrevolution.com/plugin-privacy-policy/" class="simpletext smalllink" style="display:inline-block;"><?php _e('View our detailled data collection policy', 'revslider');?></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 <!--DEACTIVATED WARNING MODAL-->
 <div class="_TPRB_ rb-modal-wrapper" data-modal="rbm_notactive_warning">
 	<div class="rb-modal-inner">
@@ -94,7 +122,7 @@ if(!defined('ABSPATH')) exit();
 								<div class="div15"></div>
 								<div class="mcg_page_content"><?php _e('We can help you restore everything right now, all you have to do is choose one of<br>the options below:', 'revslider');?></div>
 								<div class="div25"></div>
-								<purplebutton id="pb_closeandregister" style="display:inline-block; margin-right:10px" class="mcg_next_page"><?php _e('Register Licence Key', 'revslider');?></purplebutton>							
+								<purplebutton id="pb_closeandregister" style="display:inline-block; margin-right:10px" class="mcg_next_page"><?php _e('Register Licence Key', 'revslider');?></purplebutton>
 								<a target="_blank" rel="noopener"  href="https://account.sliderrevolution.com/portal/?utm_source=admin&utm_medium=button&utm_campaign=srusers&utm_content=members" style="display:inline-block;" class="bluebutton normal mcg_quit_page"><?php _e('Buy License Key', 'revslider');?></a>
 								<div class="div10"></div>
 							</div>

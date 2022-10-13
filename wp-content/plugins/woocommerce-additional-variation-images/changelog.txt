@@ -1,5 +1,9 @@
 *** WooCommerce Additional Variation Images Changelog ***
 
+2022-10-11 - version 2.2.0
+* Fix - Add compatibility with HPOS (custom order tables) for WooCommerce.
+* Tweak - WC 6.9 compatibility.
+
 2022-09-06 - version 2.1.0
 * Add - Enable support for automatic translation files delivery.
 * Fix - Update dependencies.

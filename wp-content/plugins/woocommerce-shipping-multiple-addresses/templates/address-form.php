@@ -82,7 +82,7 @@ if ( isset($_GET['edit']) ):
 
             do_action('woocommerce_after_checkout_shipping_form', $checkout);
             ?>
-
+			<?php wp_nonce_field( 'save_to_address_book' ); ?>
             <input type="hidden" name="action" value="save_to_address_book" />
             <input type="hidden" name="id" id="address_id" value="<?php echo $address_id; ?>" />
 

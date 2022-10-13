@@ -1,5 +1,9 @@
 *** WooCommerce Anti Fraud ***
 
+2022-10-11 - version 4.7
+* PLUGINS-1615 - Improve Blacklist Settings Layout.
+* PLUGINS-1617 - Introducing HTML5 Geolocation (Rules).
+
 2022-09-13 - version 4.6
 * PLUGINS-1598 - Fix check for customer's first purchase rule.
 * PLUGINS-1614 - Fix issue in formatting after whitelisting an email using the 'Unblock' button.

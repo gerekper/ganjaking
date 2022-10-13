@@ -5,8 +5,6 @@
  *
  * PHP version 5 and 7
  *
- * @category  Math
- * @package   BigInteger
  * @author    Jim Wigginton <terrafrost@php.net>
  * @copyright 2017 Jim Wigginton
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -19,9 +17,7 @@ namespace WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines;
  *
  * Uses 64-bit floats if int size is 4 bits
  *
- * @package PHP32
  * @author  Jim Wigginton <terrafrost@php.net>
- * @access  public
  */
 class PHP32 extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP
 {
@@ -73,9 +69,12 @@ class PHP32 extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP
                 $i = 0;
             }
             list(, $digit) = \unpack('N', \substr($val, $i, 4));
+            if ($digit < 0) {
+                $digit += 0xffffffff + 1;
+            }
             $step = \count($vals) & 3;
             if ($step) {
-                $digit >>= 2 * $step;
+                $digit = \floor($digit / \pow(2, 2 * $step));
             }
             if ($step != 3) {
                 $digit &= static::MAX_DIGIT;
@@ -226,7 +225,6 @@ class PHP32 extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP
      *
      * @param PHP32 $y
      * @return int in case < 0 if $this is less than $y; > 0 if $this is greater than $y, and 0 if they are equal.
-     * @access public
      * @see self::equals()
      */
     public function compare(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP32 $y)

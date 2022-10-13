@@ -455,7 +455,6 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 
 		$upgrade->force = in_array($this->get_val($_REQUEST, 'checkforupdates', 'false'), array('true', true), true);
 		$upgrade->_retrieve_version_info();
-		
 		$upgrade->add_update_checks();
 	}
 
@@ -1367,7 +1366,8 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 				case 'update_global_settings':
 					$global = $this->get_val($data, 'global_settings', array());
 					if(!empty($global)){
-						$return = $this->set_global_settings($global);
+						$update = $this->get_val($data, 'update', false);
+						$return = $this->set_global_settings($global, $update);
 						if($return === true){
 							$this->ajax_response_success(__('Global Settings saved/updated', 'revslider'));
 						}else{
@@ -2171,23 +2171,23 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 					$this->ajax_response_success(__('Successfully fetched Facebook albums', 'revslider'), array('html' => implode(' ', $return)));
 				break;
 				case 'get_flickr_photosets':
-					$error = __('Could not fetch flickr photosets', 'revslider');
+					$error = __('Could not fetch flickr album', 'revslider');
 					if(!empty($data['url']) && !empty($data['key'])){
 						$flickr = new RevSliderFlickr($data['key']);
 						$user_id = $flickr->get_user_from_url($data['url']);
 						$return = $flickr->get_photo_sets($user_id, $data['count'], $data['set']);
 						if(!empty($return)){
-							$this->ajax_response_success(__('Successfully fetched flickr photosets', 'revslider'), array('data' => array('html' => implode(' ', $return))));
+							$this->ajax_response_success(__('Successfully fetched flickr albums', 'revslider'), array('data' => array('html' => implode(' ', $return))));
 						}else{
-							$error = __('Could not fetch flickr photosets', 'revslider');
+							$error = __('Could not fetch flickr albums', 'revslider');
 						}
 					}else{
 						if(empty($data['url']) && empty($data['key'])){
-							$this->ajax_response_success(__('Cleared Photosets', 'revslider'), array('html' => implode(' ', $return)));
+							$this->ajax_response_success(__('Cleared Albums', 'revslider'), array('html' => implode(' ', $return)));
 						}elseif(empty($data['url'])){
-							$error = __('No User URL - Could not fetch flickr photosets', 'revslider');
+							$error = __('No User URL - Could not fetch flickr albums', 'revslider');
 						}else{
-							$error = __('No API KEY - Could not fetch flickr photosets', 'revslider');
+							$error = __('No API KEY - Could not fetch flickr albums', 'revslider');
 						}
 					}
 					

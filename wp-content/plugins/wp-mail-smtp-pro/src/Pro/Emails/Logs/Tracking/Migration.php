@@ -57,7 +57,7 @@ class Migration extends MigrationAbstract {
 		$table           = Tracking::get_events_table_name();
 		$charset_collate = $wpdb->get_charset_collate();
 
-		$sql = "CREATE TABLE `$table` (
+		$sql = "CREATE TABLE IF NOT EXISTS `$table` (
 		    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 		    `email_log_id` INT UNSIGNED NOT NULL,
 		    `event_type` VARCHAR(20) NOT NULL,
@@ -97,7 +97,7 @@ class Migration extends MigrationAbstract {
 		$table           = Tracking::get_links_table_name();
 		$charset_collate = $wpdb->get_charset_collate();
 
-		$sql = "CREATE TABLE `$table` (
+		$sql = "CREATE TABLE IF NOT EXISTS `$table` (
 		    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 		    `email_log_id` INT UNSIGNED NOT NULL,
 		    `url` TEXT,

@@ -122,7 +122,7 @@ class WC_Deposits_Order_Manager {
 
 		/**
 		 * Filter is follow up order.
-		 * 
+		 *
 		 * @param bool     $is_follow_up Flag order as Follow Up.
 		 * @param WC_Order $order Order.
 		 */
@@ -289,7 +289,7 @@ class WC_Deposits_Order_Manager {
 	 */
 	public function process_deposits_in_order( $order_id ) {
 		$order     = wc_get_order( $order_id );
-		$parent_id = wp_get_post_parent_id( $order_id );
+		$parent_id = $order->get_parent_id();
 
 		// Check if any items need scheduling
 		foreach ( $order->get_items() as $order_item_id => $item ) {
@@ -544,13 +544,15 @@ class WC_Deposits_Order_Manager {
 	public function woocommerce_after_order_itemmeta( $item_id, $item, $_product ) {
 		if ( WC_Deposits_Order_Item_Manager::is_deposit( $item ) ) {
 
-			$order_id = $item->get_order_id();
-			$order    = wc_get_order( $order_id );
-			$currency = $order->get_currency();
+			$order_id     = $item->get_order_id();
+			$order        = wc_get_order( $order_id );
+			$currency     = $order->get_currency();
+			$payment_plan = WC_Deposits_Order_Item_Manager::get_payment_plan( $item );
 
-			// Plans
-			if ( $payment_plan = WC_Deposits_Order_Item_Manager::get_payment_plan( $item ) ) {
-				echo '<a href="' . esc_url( admin_url( 'edit.php?post_status=wc-scheduled-payment&post_type=shop_order&post_parent=' . $order_id ) ) . '" target="_blank" class="button button-small">' . __( 'View Scheduled Payments', 'woocommerce-deposits' ) . '</a>';
+			// Plans.
+			if ( $payment_plan ) {
+				$scheduled_payments_url = WC_Deposits_COT_Compatibility::get_scheduled_payments_url( $order_id );
+				echo '<a href="' . esc_url( $scheduled_payments_url ) . '" target="_blank" class="button button-small">' . esc_html__( 'View Scheduled Payments', 'woocommerce-deposits' ) . '</a>';
 
 			// Regular deposits
 			} else {
@@ -559,19 +561,22 @@ class WC_Deposits_Order_Manager {
 				$remaining_balance_paid     = ! empty( $item['remaining_balance_paid'] );
 
 				if ( $remaining_balance_order_id && ( $remaining_balance_order = wc_get_order( $remaining_balance_order_id ) ) ) {
-					echo '<a href="' . esc_url( admin_url( 'post.php?post=' . absint( $remaining_balance_order_id ) . '&action=edit' ) ) . '" target="_blank" class="button button-small">' . sprintf( __( 'Remainder - Invoice #%1$s', 'woocommerce-deposits' ), $remaining_balance_order->get_order_number() ) . '</a>';
+					echo '<a href="' . esc_url( WC_Deposits_COT_Compatibility::get_order_admin_edit_url( $remaining_balance_order ) ) . '" target="_blank" class="button button-small">' . sprintf( __( 'Remainder - Invoice #%1$s', 'woocommerce-deposits' ), $remaining_balance_order->get_order_number() ) . '</a>';
 				} elseif( $remaining_balance_paid ) {
 					printf( __( 'The remaining balance of %s (plus tax) for this item was paid offline.', 'woocommerce-deposits' ), wc_price( $remaining, array( 'currency' => $currency ) ) );
 					echo ' <a href="' . esc_url( wp_nonce_url( add_query_arg( array( 'mark_deposit_unpaid' => $item_id ) ), 'mark_deposit_unpaid', 'mark_deposit_unpaid_nonce' ) ) . '" class="button button-small">' . sprintf( __( 'Unmark as Paid', 'woocommerce-deposits' ) ) . '</a>';
 				} elseif ( ! self::has_deposit_without_future_payments( $order_id ) ) {
+					$edit_order_url = WC_Deposits_COT_Compatibility::get_order_admin_edit_url( $order );
 					?>
-					<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( array( 'invoice_remaining_balance' => $item_id ), admin_url( 'post.php?post=' . $order_id . '&action=edit' ) ), 'invoice_remaining_balance', 'invoice_remaining_balance_nonce' ) ); ?>" class="button button-small"><?php _e( 'Invoice Remaining Balance', 'woocommerce-deposits' ); ?></a>
-					<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( array( 'mark_deposit_fully_paid' => $item_id ), admin_url( 'post.php?post=' . $order_id . '&action=edit' ) ), 'mark_deposit_fully_paid', 'mark_deposit_fully_paid_nonce' ) ); ?>" class="button button-small"><?php printf( __( 'Mark Paid (offline)', 'woocommerce-deposits' ) ); ?></a>
+					<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( array( 'invoice_remaining_balance' => $item_id ), $edit_order_url ), 'invoice_remaining_balance', 'invoice_remaining_balance_nonce' ) ); ?>" class="button button-small"><?php _e( 'Invoice Remaining Balance', 'woocommerce-deposits' ); ?></a>
+					<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( array( 'mark_deposit_fully_paid' => $item_id ), $edit_order_url ), 'mark_deposit_fully_paid', 'mark_deposit_fully_paid_nonce' ) ); ?>" class="button button-small"><?php printf( __( 'Mark Paid (offline)', 'woocommerce-deposits' ) ); ?></a>
 					<?php
 				}
 			}
 		} elseif ( ! empty( $item['original_order_id'] ) ) {
-			echo '<a href="' . esc_url( admin_url( 'post.php?post=' . absint( $item['original_order_id'] ) . '&action=edit' ) ) . '" target="_blank" class="button button-small">' . __( 'View Original Order', 'woocommerce-deposits' ) . '</a>';
+			$original_order = wc_get_order( $item['original_order_id'] );
+
+			echo '<a href="' . esc_url( WC_Deposits_COT_Compatibility::get_order_admin_edit_url( $original_order ) ) . '" target="_blank" class="button button-small">' . esc_html__( 'View Original Order', 'woocommerce-deposits' ) . '</a>';
 		}
 	}
 
@@ -619,12 +624,33 @@ class WC_Deposits_Order_Manager {
 
 		switch ( $action ) {
 			case 'mark_deposit_unpaid' :
-				wc_delete_order_item_meta( $item_id, '_remaining_balance_paid', 1, true );
-				wp_redirect( admin_url( 'post.php?post=' . absint( $order_id ) . '&action=edit' ) );
+				wc_delete_order_item_meta( $item_id, '_remaining_balance_paid' );
+				/**
+				 * Update order status back to On-Hold/Processing/Partially Paid if it is completed.
+				 *  - Cash on delivery (COD) - Processing
+				 *  - Check Payments - On Hold
+				 *  - Direct bank transfer (BACS) - On Hold
+				 *  - other Payment methods - Partially Paid
+				 */
+				if ( $order && 'completed' === $order->get_status() ) {
+					$payment_method = $order->get_payment_method();
+					if ( in_array( $payment_method, array( 'bacs', 'cheque' ), true ) ) {
+						$order->update_status( 'on-hold', __( 'Unmarked as paid.', 'woocommerce-deposits' ) );
+					} elseif ( 'cod' === $payment_method ) {
+						$order->update_status( 'processing', __( 'Unmarked as paid.', 'woocommerce-deposits' ) );
+					} else {
+						$order->update_status( 'partial-payment', __( 'Unmarked as paid.', 'woocommerce-deposits' ) );
+					}
+				}
+				wp_redirect( WC_Deposits_COT_Compatibility::get_order_admin_edit_url( $order ) );
 				exit;
 			case 'mark_deposit_fully_paid' :
 				wc_add_order_item_meta( $item_id, '_remaining_balance_paid', 1 );
-				wp_redirect( admin_url( 'post.php?post=' . absint( $order_id ) . '&action=edit' ) );
+				// Update order status to completed if all deposits items fully paid.
+				if ( $order && 'completed' !== $order->get_status() && $this->is_deposit_fully_paid( $order_id ) ) {
+					$order->update_status( 'completed', __( 'Order completed with Mark Paid (offline).', 'woocommerce-deposits' ) );
+				}
+				wp_redirect( WC_Deposits_COT_Compatibility::get_order_admin_edit_url( $order ) );
 				exit;
 			case 'invoice_remaining_balance' :
 				// Used for products with fixed deposits or percentage based deposits. Not used for payment plan products
@@ -671,10 +697,35 @@ class WC_Deposits_Order_Manager {
 					$emails = WC_Emails::instance();
 					$emails->customer_invoice( wc_get_order( $new_order_id ) );
 				}
-
-				wp_redirect( admin_url( 'post.php?post=' . absint( $new_order_id ) . '&action=edit' ) );
+				$new_order = wc_get_order( $new_order_id );
+				wp_redirect( WC_Deposits_COT_Compatibility::get_order_admin_edit_url( $new_order ) );
 				exit;
 		}
+	}
+
+	/**
+	 * Check if all deposits items are fully paid.
+	 *
+	 * @param int $order_id Order ID.
+	 * @return boolean
+	 */
+	public function is_deposit_fully_paid( $order_id ) {
+		$order = wc_get_order( $order_id );
+		if ( $order ) {
+			$paid = true;
+			foreach ( $order->get_items() as $item ) {
+				if (
+					WC_Deposits_Order_Item_Manager::is_deposit( $item ) &&
+					! WC_Deposits_Order_Item_Manager::is_fully_paid( $item, $order )
+				) {
+					$paid = false;
+					break;
+				}
+			}
+
+			return $paid;
+		}
+		return false;
 	}
 
 	/**

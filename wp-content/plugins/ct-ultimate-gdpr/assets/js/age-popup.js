@@ -128,8 +128,7 @@ jQuery(document).ready(function ($) {
         $(document).trigger('ct-age-clicked');
 
     }
-
-	$('#ct-ultimate-gdpr-age-accept').attr('style','cursor: pointer !important');    
+ 
 	$('#ct-ultimate-gdpr-age-accept').bind('click', onAccept);
 	$('body').on('click touchstart', '#ct-ultimate-gdpr-age-accept', onAccept);
 	

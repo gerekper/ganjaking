@@ -12,7 +12,7 @@ if ( ! class_exists( 'SP_API' ) ) {
 	/**
 	 * API request helper.
 	 */
-	class SP_API {
+	class SP_API extends NS_MCF_Integration {
 
 		/**
 		 * Uri to make AWS requests
@@ -20,13 +20,6 @@ if ( ! class_exists( 'SP_API' ) ) {
 		 * @const SP_API_REQUEST_ENDPOINT
 		 */
 		const SP_API_REQUEST_ENDPOINT = 'https://mcf.atouchpoint.com/api/do-request';
-
-		/**
-		 * Singleton instance of NS_FBA
-		 *
-		 * @var NS_FBA $ns_fba
-		 */
-		private $ns_fba;
 
 		/**
 		 * Contain the Seller Partner host
@@ -64,18 +57,27 @@ if ( ! class_exists( 'SP_API' ) ) {
 		private $merchant_id;
 
 		/**
-		 * Constructor.
+		 * Initialize the variables for the api.
 		 *
-		 * @param   array $options  The plugin integration options.
+		 * @param array $options The options.
+		 *
+		 * @return void
 		 */
-		public function __construct( array $options ) {
-			$this->ns_fba = NS_FBA::get_instance();
-
+		public function init_api( array $options ) {
 			$this->host            = $options['api_host'];
 			$this->token           = $options['token'];
 			$this->version         = $options['version'];
 			$this->customer_status = $options['customer_mcf_status'];
 			$this->merchant_id     = $options['merchant_id'];
+		}
+
+		/**
+		 * Check if class is iniatialized well.
+		 *
+		 * @return boolean
+		 */
+		public function is_initialized() {
+			return isset( $this->host ) && isset( $this->token ) && isset( $this->version ) && isset( $this->customer_status ) && isset( $this->merchant_id );
 		}
 
 		/**
@@ -108,12 +110,6 @@ if ( ! class_exists( 'SP_API' ) ) {
 
 			$url = $this->host . $path;
 
-			/** TODO: JUST FOR TESTING.
-			if ( $this->ns_fba->is_debug ) {
-				error_log( "\nSP-API make_request var url passed in: \n" . print_r( $url, true ) );              // phpcs:ignore
-			}
-			*/
-
 			$args = array(
 				'refreshToken'   => $this->token,
 				'requestUrl'     => rawurlencode( $url ),
@@ -129,21 +125,21 @@ if ( ! class_exists( 'SP_API' ) ) {
 
 			$url = add_query_arg( $args, self::SP_API_REQUEST_ENDPOINT );
 
-			// This is UGLY, but for now the quickest way to test + symbols in SKUs AAARRRRGH!
-			// Solution in progress - ticket open with Amazon. Suspect issue on their end.
-			// phpcs:ignore
-			//$url = str_ireplace( '%2B', '+', $url );
-
 			// Grabbing the response here gives us a single logging point on all request / response pairs.
 			$response = wp_remote_post( $url ); // phpcs:ignore
 
 			/** TODO: JUST FOR TESTING.
-			if ( $this->ns_fba->is_debug ) {
-				error_log( "\nSP-API make_request var args: \n" . print_r( $args, true ) );            // phpcs:ignore
-				error_log( "\nSP-API make_request var url: \n" . print_r( $url, true ) );              // phpcs:ignore
-				error_log( "\nSP-API make_request var response:  \n" . print_r( $response, true ) );   // phpcs:ignore
-			}
-			*/
+			 */
+			$logfile = $this->ns_fba->plugin_path . 'logs/ns-fba-TEST.html';
+			// Delete any existing file so we can easily evaluate just the most recent request in isolation.
+			unlink( $logfile );
+			$this->ns_fba->logger->add_entry( 'SP-API make_request var args:', 'test', $logfile );
+			$this->ns_fba->logger->add_entry( $args, 'test', $logfile );
+			$this->ns_fba->logger->add_entry( 'SP-API make_request var url:', 'test', $logfile );
+			$this->ns_fba->logger->add_entry( $url, 'test', $logfile );
+			$this->ns_fba->logger->add_entry( 'SP-API make_request response:', 'test', $logfile );
+			$this->ns_fba->logger->add_entry( $response, 'test', $logfile );
+
 			return $response;
 		}
 
@@ -155,18 +151,14 @@ if ( ! class_exists( 'SP_API' ) ) {
 		 * @return bool
 		 */
 		public static function is_error_in( $response ): bool {
+			if ( is_wp_error( $response ) || ! is_array( $response ) || ! isset( $response['body'] ) ) {
+				return true;
+			}
 			$json = json_decode( $response['body'], true );
 			// TODO: Remove false success condition after verifying it is no longer applicable.
 			// TODO: Consolidate all possible conditions here throughout codebase into 1 single consistent bool.
 			// TODO: This will require scrubbing the MCF ns-fba-sig code as well.
-			if ( is_wp_error( $response ) || ! is_array( $response ) ||
-				! empty( $json['error'] ) || ! empty( $json['errors'] ) || ( isset( $json['success'] ) && false === $json['success'] ) ) {
-				/** Keep for logging use later
-				if ( $this->ns_fba->is_debug ) {
-					// phpcs:ignore
-					error_log( "SP-API is_error_in Response (true):\n" . print_r( $response, true ) );
-				}
-				*/
+			if ( isset( $json['error'] ) || isset( $json['errors'] ) || ( isset( $json['success'] ) && false === $json['success'] ) ) {
 				return true;
 			}
 			return false;

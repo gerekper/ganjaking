@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Mail SMTP 3.5.1\n"
+"Project-Id-Version: WP Mail SMTP 3.6.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-mail-smtp-pro\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-07-14T17:36:09+00:00\n"
+"POT-Creation-Date: 2022-10-05T07:15:28+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: wp-mail-smtp-pro\n"
@@ -34,22 +34,22 @@ msgid "https://wpforms.com/"
 msgstr ""
 
 #: src/Pro/Admin/DashboardWidget.php:204
-#: src/Pro/Emails/Logs/Reports/Admin.php:193
+#: src/Pro/Emails/Logs/Reports/Admin.php:195
 msgid "Confirmed sent emails"
 msgstr ""
 
 #: src/Pro/Admin/DashboardWidget.php:205
-#: src/Pro/Emails/Logs/Reports/Admin.php:194
+#: src/Pro/Emails/Logs/Reports/Admin.php:196
 msgid "Sent emails"
 msgstr ""
 
 #: src/Pro/Admin/DashboardWidget.php:206
-#: src/Pro/Emails/Logs/Reports/Admin.php:195
+#: src/Pro/Emails/Logs/Reports/Admin.php:197
 msgid "Unconfirmed sent emails"
 msgstr ""
 
 #: src/Pro/Admin/DashboardWidget.php:207
-#: src/Pro/Emails/Logs/Reports/Admin.php:196
+#: src/Pro/Emails/Logs/Reports/Admin.php:198
 msgid "Failed emails"
 msgstr ""
 
@@ -97,8 +97,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/Pro/Admin/DashboardWidget.php:367
-#: src/Pro/Emails/Logs/Reports/Admin.php:191
-#: src/Pro/Emails/Logs/Reports/Admin.php:292
+#: src/Pro/Emails/Logs/Reports/Admin.php:193
+#: src/Pro/Emails/Logs/Reports/Admin.php:294
 msgid "All Emails"
 msgstr ""
 
@@ -472,7 +472,7 @@ msgid "Emails sent when logging is disabled are not stored in the database and w
 msgstr ""
 
 #: src/Pro/Emails/Logs/Admin/PageAbstract.php:66
-#: src/Pro/Emails/Logs/Reports/Admin.php:378
+#: src/Pro/Emails/Logs/Reports/Admin.php:380
 msgid "Enable Email Log"
 msgstr ""
 
@@ -481,12 +481,12 @@ msgid "Email Logging is Not Installed Correctly"
 msgstr ""
 
 #: src/Pro/Emails/Logs/Admin/PageAbstract.php:89
-#: src/Pro/Emails/Logs/Reports/Admin.php:399
+#: src/Pro/Emails/Logs/Reports/Admin.php:401
 msgid "The database table was not installed correctly. Please contact plugin support to diagnose and fix the issue. Provide them the error message below:"
 msgstr ""
 
 #: src/Pro/Emails/Logs/Admin/PageAbstract.php:93
-#: src/Pro/Emails/Logs/Reports/Admin.php:403
+#: src/Pro/Emails/Logs/Reports/Admin.php:405
 msgid "For some reason the database table was not installed correctly. Please contact plugin support team to diagnose and fix the issue."
 msgstr ""
 
@@ -541,8 +541,8 @@ msgstr ""
 #: src/Pro/Emails/Logs/Admin/Table.php:506
 #: src/Pro/Emails/Logs/Admin/Table.php:526
 #: src/Pro/Emails/Logs/Admin/Table.php:555
-#: src/Pro/Emails/Logs/Export/AbstractData.php:169
-#: src/Pro/Emails/Logs/Export/AbstractData.php:189
+#: src/Pro/Emails/Logs/Export/AbstractData.php:173
+#: src/Pro/Emails/Logs/Export/AbstractData.php:193
 msgid "N/A"
 msgstr ""
 
@@ -781,6 +781,7 @@ msgstr ""
 
 #: src/Pro/Emails/Logs/Admin/SinglePage.php:290
 #: src/Pro/Emails/Logs/Admin/Table.php:212
+#: src/Pro/Emails/Logs/Export/Export.php:174
 msgid "Source"
 msgstr ""
 
@@ -905,8 +906,8 @@ msgstr ""
 #: src/Pro/Emails/Logs/Admin/SinglePage.php:731
 #: src/Pro/Emails/Logs/Admin/Table.php:510
 #: src/Pro/Emails/Logs/Admin/Table.php:530
-#: src/Pro/Emails/Logs/Export/AbstractData.php:173
-#: src/Pro/Emails/Logs/Export/AbstractData.php:193
+#: src/Pro/Emails/Logs/Export/AbstractData.php:177
+#: src/Pro/Emails/Logs/Export/AbstractData.php:197
 #: src/Pro/Emails/Logs/Logs.php:456
 #: src/Pro/Providers/Providers.php:217
 msgid "Yes"
@@ -916,8 +917,8 @@ msgstr ""
 #: src/Pro/Emails/Logs/Admin/SinglePage.php:732
 #: src/Pro/Emails/Logs/Admin/Table.php:511
 #: src/Pro/Emails/Logs/Admin/Table.php:531
-#: src/Pro/Emails/Logs/Export/AbstractData.php:174
-#: src/Pro/Emails/Logs/Export/AbstractData.php:194
+#: src/Pro/Emails/Logs/Export/AbstractData.php:178
+#: src/Pro/Emails/Logs/Export/AbstractData.php:198
 msgid "No"
 msgstr ""
 
@@ -1129,15 +1130,15 @@ msgstr ""
 msgid "Email log ID"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Export/Export.php:195
+#: src/Pro/Emails/Logs/Export/Export.php:196
 msgid "Export in CSV (.csv)"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Export/Export.php:199
+#: src/Pro/Emails/Logs/Export/Export.php:200
 msgid "Export in Microsoft Excel (.xlsx)"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Export/Export.php:200
+#: src/Pro/Emails/Logs/Export/Export.php:201
 msgid "Export in EML (.eml)"
 msgstr ""
 
@@ -1204,7 +1205,7 @@ msgstr ""
 
 #: src/Pro/Emails/Logs/Logs.php:722
 #: src/Pro/Emails/Logs/Logs.php:973
-#: src/Pro/Emails/Logs/Reports/Admin.php:423
+#: src/Pro/Emails/Logs/Reports/Admin.php:425
 #: src/Pro/Emails/Logs/Resend.php:42
 #: src/Pro/Emails/Logs/Resend.php:96
 #: src/Pro/Emails/Logs/Webhooks/Webhooks.php:350
@@ -1230,7 +1231,7 @@ msgid "There was an error while processing your request, and no email log entrie
 msgstr ""
 
 #: src/Pro/Emails/Logs/Logs.php:969
-#: src/Pro/Emails/Logs/Reports/Admin.php:419
+#: src/Pro/Emails/Logs/Reports/Admin.php:421
 #: src/Pro/Emails/Logs/Resend.php:38
 #: src/Pro/Emails/Logs/Resend.php:92
 #: src/Pro/Emails/Logs/Webhooks/Webhooks.php:357
@@ -1247,65 +1248,65 @@ msgstr ""
 msgid "There was an issue while trying to delete all email log entries. Error message: %s"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Reports/Admin.php:192
-#: src/Pro/Emails/Logs/Reports/Admin.php:290
+#: src/Pro/Emails/Logs/Reports/Admin.php:194
+#: src/Pro/Emails/Logs/Reports/Admin.php:292
 msgid "Search Results"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Reports/Admin.php:197
+#: src/Pro/Emails/Logs/Reports/Admin.php:199
 msgid "Opened emails"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Reports/Admin.php:198
+#: src/Pro/Emails/Logs/Reports/Admin.php:200
 msgid "Clicked links"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Reports/Admin.php:232
+#: src/Pro/Emails/Logs/Reports/Admin.php:234
 msgid "Number of items per page:"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Reports/Admin.php:299
+#: src/Pro/Emails/Logs/Reports/Admin.php:301
 msgid "total"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Reports/Admin.php:303
+#: src/Pro/Emails/Logs/Reports/Admin.php:305
 msgid "sent"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Reports/Admin.php:307
+#: src/Pro/Emails/Logs/Reports/Admin.php:309
 msgid "confirmed"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Reports/Admin.php:310
+#: src/Pro/Emails/Logs/Reports/Admin.php:312
 msgid "unconfirmed"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Reports/Admin.php:314
+#: src/Pro/Emails/Logs/Reports/Admin.php:316
 msgid "failed"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Reports/Admin.php:318
+#: src/Pro/Emails/Logs/Reports/Admin.php:320
 msgid "open count"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Reports/Admin.php:323
+#: src/Pro/Emails/Logs/Reports/Admin.php:325
 msgid "click count"
 msgstr ""
 
 #. translators: %1$d - items count; %2$s - search term.
-#: src/Pro/Emails/Logs/Reports/Admin.php:341
+#: src/Pro/Emails/Logs/Reports/Admin.php:343
 msgid "Found <strong>%1$d items</strong> where the subject contains <i>%2$s</i>"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Reports/Admin.php:371
+#: src/Pro/Emails/Logs/Reports/Admin.php:373
 msgid "Email Log Required"
 msgstr ""
 
-#: src/Pro/Emails/Logs/Reports/Admin.php:374
+#: src/Pro/Emails/Logs/Reports/Admin.php:376
 msgid "Email Reports provide valuable insights by aggregating data from the Email Log, allowing you to measure the success of your emails."
 msgstr ""
 
-#: src/Pro/Emails/Logs/Reports/Admin.php:395
+#: src/Pro/Emails/Logs/Reports/Admin.php:397
 msgid "Email Reports are Not Installed Correctly"
 msgstr ""
 
@@ -1590,86 +1591,86 @@ msgstr ""
 msgid "Site"
 msgstr ""
 
-#: src/Pro/Pro.php:433
+#: src/Pro/Pro.php:441
 msgid "Go to WP Mail SMTP Settings page"
 msgstr ""
 
-#: src/Pro/Pro.php:434
+#: src/Pro/Pro.php:442
 msgid "Settings"
 msgstr ""
 
-#: src/Pro/Pro.php:441
+#: src/Pro/Pro.php:449
 msgid "Go to WPMailSMTP.com support page"
 msgstr ""
 
-#: src/Pro/Pro.php:442
+#: src/Pro/Pro.php:450
 msgid "Support"
 msgstr ""
 
-#: src/Pro/Pro.php:449
+#: src/Pro/Pro.php:457
 msgid "Go to WPMailSMTP.com documentation page"
 msgstr ""
 
-#: src/Pro/Pro.php:450
+#: src/Pro/Pro.php:458
 msgid "Docs"
 msgstr ""
 
-#: src/Pro/Pro.php:536
+#: src/Pro/Pro.php:544
 msgid "There was an error while processing the authentication request. The authorization code is missing. Please try again."
 msgstr ""
 
-#: src/Pro/Pro.php:544
+#: src/Pro/Pro.php:552
 msgid "There was an error while processing the authentication request. The nonce is invalid. Please try again."
 msgstr ""
 
-#: src/Pro/Pro.php:551
+#: src/Pro/Pro.php:559
 msgid "There was an error while processing the authentication request. Please recheck your Client ID and Client Secret and try again."
 msgstr ""
 
-#: src/Pro/Pro.php:558
+#: src/Pro/Pro.php:566
 msgid "There was an error while processing the authentication request. Please make sure that you have Client ID and Client Secret both valid and saved."
 msgstr ""
 
 #. translators: %s - error code, returned by Zoho API.
-#: src/Pro/Pro.php:566
+#: src/Pro/Pro.php:574
 msgid "There was an error while processing the authentication request: %s. Please try again."
 msgstr ""
 
-#: src/Pro/Pro.php:573
+#: src/Pro/Pro.php:581
 msgid "There was an error while processing the authentication request. Please recheck your Region, Client ID and Client Secret and try again."
 msgstr ""
 
-#: src/Pro/Pro.php:582
+#: src/Pro/Pro.php:590
 msgid "You have successfully linked the current site with your Microsoft API project. Now you can start sending emails through Outlook."
 msgstr ""
 
-#: src/Pro/Pro.php:589
+#: src/Pro/Pro.php:597
 msgid "You have successfully linked the current site with your Zoho Mail API project. Now you can start sending emails through Zoho Mail."
 msgstr ""
 
-#: src/Pro/Pro.php:619
+#: src/Pro/Pro.php:627
 msgid "Auto-updates are not available."
 msgstr ""
 
-#: src/Pro/Pro.php:863
+#: src/Pro/Pro.php:871
 #: src/Pro/Providers/Providers.php:276
 #: src/Pro/Providers/Providers.php:320
 msgid "Please provide a valid email address."
 msgstr ""
 
-#: src/Pro/Pro.php:865
+#: src/Pro/Pro.php:873
 msgid "Please provide a domain."
 msgstr ""
 
-#: src/Pro/Pro.php:941
+#: src/Pro/Pro.php:949
 msgid "You don't have the permission to perform this action."
 msgstr ""
 
-#: src/Pro/Pro.php:947
+#: src/Pro/Pro.php:955
 msgid "Please enter a valid license key!"
 msgstr ""
 
-#: src/Pro/Pro.php:957
+#: src/Pro/Pro.php:965
 msgid "License functionality missing!"
 msgstr ""
 

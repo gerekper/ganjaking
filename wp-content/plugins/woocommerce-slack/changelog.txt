@@ -1,5 +1,14 @@
 *** WooCommerce Slack Changelog ***
 
+2022-10-05 - version 1.2.10
+* Tweak - Removed empty option from the channel selector fields.
+* Tweak - Excluded archived channels from the list.
+* Tweak - Increased the number of channels to fetch from Slack to 1000.
+* Tweak - Tested compatibility up to WC 7.0.
+* Tweak - Tested compatibility up to WP 6.0.
+* Fix - Fixed missing channels in the selector fields.
+* Fix - Fixed warning for calling the deprecated method `WC_Abstract_Legacy_Order::get_product_from_item()`.
+
 2022-03-25 - version 1.2.9
 * Fix - Improve mechanics for fetching and updating the list of available channels (props Brian Henry).
 * Fix - Removed requests to deprecated `groups.list` endpoint (props Brian Henry).

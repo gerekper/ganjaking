@@ -1,0 +1,304 @@
+# Copyright (C) 2022 WooCommerce
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Store Catalog PDF Download 2.0.0\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2022-10-03T11:39:12+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.6.0\n"
+"X-Domain: woocommerce-store-catalog-pdf-download\n"
+
+#. Plugin Name of the plugin
+msgid "WooCommerce Store Catalog PDF Download"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://woocommerce.com/products/woocommerce-store-catalog-pdf-download/"
+msgstr ""
+
+#. Description of the plugin
+msgid "A WooCommerce plugin/extension that adds ability for users to download a PDF of your store catalog."
+msgstr ""
+
+#. Author of the plugin
+msgid "WooCommerce"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://woocommerce.com/"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:67
+msgid "Add Logo Image"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:68
+msgid "Upload Image"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:69
+msgid "Add PDF"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:70
+msgid "Upload PDF"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:71
+msgid "Are you sure you want to remove this image?"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:72
+msgid "Are you sure you want to remove this PDF?"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:73
+#: includes/class-wc-store-catalog-pdf-download-admin.php:208
+msgid "Custom PDF Preview Link"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:94
+#: includes/class-wc-store-catalog-pdf-download-admin.php:112
+#: includes/class-wc-store-catalog-pdf-download-admin.php:192
+msgid "Store Catalog PDF"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:156
+#: includes/class-wc-store-catalog-pdf-download-frontend.php:30
+#: includes/class-wc-store-catalog-pdf-download-shortcode.php:47
+msgid "Download Catalog"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:194
+msgid "Ready-made PDF"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:199
+msgid "Custom PDF"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:199
+msgid "Upload a ready made PDF of your store."
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:201
+msgid "Upload Custom PDF"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:201
+msgid "Optional: This is to be used with the shortcode to display a ready made PDF"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:215
+msgid "Click to remove PDF"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:221
+msgid "PDF Generator"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:226
+msgid "Company Logo"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:226
+msgid "Upload a logo to be shown at the top of the PDF."
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:228
+msgid "Upload Logo"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:242
+msgid "Click to remove image"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:247
+msgid "PDF Header"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:249
+msgid "Show Header"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:250
+msgid "Enabling this option will show a header information at the top of the PDF such as any intro verbiage."
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:255
+msgid "PDF Header Text"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:262
+msgid "PDF Footer"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:264
+msgid "Show Footer"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:265
+msgid "Enabling this option will show a footer information at the bottom of the PDF such as foot notes or any outro verbiage."
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:270
+msgid "PDF Footer Text"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:277
+msgid "PDF Layout Format"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:277
+msgid "Set how you want the PDF layout format to display for category products."
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:280
+msgid "List Format"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:281
+msgid "Grid Format"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:287
+msgid "Download Link Label"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:287
+msgid "Set the text you want to display next to the download icon."
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:379
+msgid "Required"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:380
+msgid "Present"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:386
+msgid "System Temp Directory"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:387
+#: includes/class-wc-store-catalog-pdf-download-admin.php:397
+#: includes/class-wc-store-catalog-pdf-download-admin.php:398
+#: includes/class-wc-store-catalog-pdf-download-admin.php:403
+#: includes/class-wc-store-catalog-pdf-download-admin.php:404
+#: includes/class-wc-store-catalog-pdf-download-admin.php:409
+#: includes/class-wc-store-catalog-pdf-download-admin.php:410
+#: includes/class-wc-store-catalog-pdf-download-admin.php:415
+#: includes/class-wc-store-catalog-pdf-download-admin.php:416
+#: includes/class-wc-store-catalog-pdf-download-admin.php:421
+#: includes/class-wc-store-catalog-pdf-download-admin.php:422
+msgid "Yes"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:396
+msgid "Upload Directory"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:398
+#: includes/class-wc-store-catalog-pdf-download-admin.php:404
+#: includes/class-wc-store-catalog-pdf-download-admin.php:410
+#: includes/class-wc-store-catalog-pdf-download-admin.php:416
+#: includes/class-wc-store-catalog-pdf-download-admin.php:422
+msgid "No"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-admin.php:426
+msgid "Template Overrides"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-ajax.php:109
+msgid "Store-Catalog"
+msgstr ""
+
+#: includes/class-wc-store-catalog-pdf-download-ajax.php:272
+msgid "Placeholder"
+msgstr ""
+
+#: src/Admin/Admin.php:39
+msgctxt "aria-label: settings link"
+msgid "View WooCommerce Store Catalog PDF Download settings"
+msgstr ""
+
+#: src/Admin/Admin.php:40
+msgctxt "plugin action link"
+msgid "Settings"
+msgstr ""
+
+#: src/Admin/Admin.php:65
+msgctxt "aria-label: documentation link"
+msgid "View WooCommerce Store Catalog PDF Download documentation"
+msgstr ""
+
+#: src/Admin/Admin.php:66
+msgctxt "plugin row link"
+msgid "Docs"
+msgstr ""
+
+#: src/Admin/Admin.php:72
+msgctxt "aria-label: support link"
+msgid "Open a support ticket at WooCommerce.com"
+msgstr ""
+
+#: src/Admin/Admin.php:73
+msgctxt "plugin row link"
+msgid "Support"
+msgstr ""
+
+#. translators: 1: Minimum PHP version 2: Current PHP version
+#: src/Requirements.php:59
+msgctxt "admin notice"
+msgid "<strong>WooCommerce Store Catalog PDF Download</strong> requires PHP %1$s or higher. You are using version %2$s"
+msgstr ""
+
+#. translators: 1: Minimum WordPress version 2: Current WordPress version
+#: src/Requirements.php:66
+msgctxt "admin notice"
+msgid "<strong>WooCommerce Store Catalog PDF Download</strong> requires WordPress %1$s or higher. You are using version %2$s"
+msgstr ""
+
+#: src/Requirements.php:71
+msgctxt "admin notice"
+msgid "<strong>WooCommerce Store Catalog PDF Download</strong> requires WooCommerce to be activated to work."
+msgstr ""
+
+#. translators: 1: Minimum WooCommerce version 2: Current WooCommerce version
+#: src/Requirements.php:75
+msgctxt "admin notice"
+msgid "<strong>WooCommerce Store Catalog PDF Download</strong> requires WooCommerce %1$s or higher. You are using version %2$s"
+msgstr ""
+
+#: templates/pdf-layout-product-meta-html.php:13
+msgid "Category:"
+msgid_plural "Categories:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/pdf-layout-product-meta-html.php:14
+msgid "Tag:"
+msgid_plural "Tags:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/pdf-layout-product-meta-html.php:23
+msgid "SKU:"
+msgstr ""
+
+#: templates/pdf-layout-product-meta-html.php:23
+msgid "N/A"
+msgstr ""
+
+#. translators: %s: WooCommerce link
+#: woocommerce-store-catalog-pdf-download.php:131
+msgid "WooCommerce Store Catalog PDF Download Plugin requires WooCommerce to be installed and active. You can download %s here."
+msgstr ""

@@ -12,6 +12,7 @@ $rs_od	= $rsaf->get_slider_overview();
 $rsa	= $rsaf->get_short_library($rs_od);
 $rsupd	= new RevSliderPluginUpdate();
 $rsaddon= new RevSliderAddons();
+if(!isset($rstrack)) $rstrack= new RevSliderTracking();
 
 $rs_addon_update		 = $rsaddon->check_addon_version();
 $rs_addons				 = $rsaddon->get_addon_list();
@@ -35,7 +36,7 @@ $rs_new_addon_counter	 = ($rs_new_addon_counter === false) ? count($rs_addons) :
 $rs_new_temp_counter	 = get_option('rs-templates-counter', false);
 if($rs_new_temp_counter === false){
 	$_rs_tmplts			 = get_option('rs-templates', false);
-	$_rs_tmplts			 = (!is_array($_rs_tmplts)) ? json_decode($_rs_tmplts, true) : $_rs_tmplts;
+	$_rs_tmplts			 = $this->do_uncompress($_rs_tmplts);
 	$rs_new_temp_counter = (isset($_rs_tmplts['slider'])) ? count($_rs_tmplts['slider']) : $rs_new_temp_counter;
 }
 $rs_global_sizes		 = array(
@@ -86,7 +87,7 @@ $rs_show_deregister_popup = $rsaf->_truefalse(get_option('revslider-deregister-p
 		<?php
 		if(RevSliderWooCommerce::woo_exists()){
 			$wc = new WC_Product(0);
-			$wc_price_suffix = str_replace(array("\n", "\r"), '', $wc->get_price_suffix());
+			$wc_price_suffix = str_replace(array("\n", "\r", "'"), '', $wc->get_price_suffix());
 		?>wc_full_price:		'<?php echo wc_price('99') . $wc_price_suffix; ?>',
 		wc_price:			'<?php echo strip_tags(wc_price('99') . $wc_price_suffix); ?>',
 		wc_price_no_cur:	'<?php echo strip_tags(wc_price('99')); ?>',
@@ -112,6 +113,7 @@ $rs_show_deregister_popup = $rsaf->_truefalse(get_option('revslider-deregister-p
 	RVS.ENV.newAddonsAmount = '<?php echo $rs_new_addon_counter; ?>';
 	RVS.ENV.newTemplatesAmount = '<?php echo $rs_new_temp_counter; ?>';
 	RVS.ENV.deregisterPopup	= <?php echo ($rs_show_deregister_popup) ? 'true' : 'false'; ?>;
+	RVS.ENV.tracking		= '<?php echo $rstrack->get_status(); ?>';
 	
 	<?php
 	if($rs_slider_update_needed == true){

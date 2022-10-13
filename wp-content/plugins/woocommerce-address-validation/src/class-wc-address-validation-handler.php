@@ -70,6 +70,8 @@ class WC_Address_Validation_Handler {
 			'WC_Address_Validation_Provider_Postcode_Dot_Nl'
 		) );
 
+		$this->maybe_set_default_provider();
+
 		// load active ('wp' is the earliest hook with access to page conditionals)
 		add_action( 'wp', array( $this, 'load_validation' ) );
 
@@ -330,6 +332,10 @@ class WC_Address_Validation_Handler {
 			$this->providers = $providers;
 		}
 
+		if( self::is_smarty_street_retired() ) {
+			unset( $this->providers['WC_Address_Validation_Provider_SmartyStreets'] );
+		}
+
 		return $this->providers;
 	}
 
@@ -398,5 +404,36 @@ class WC_Address_Validation_Handler {
 		return apply_filters( 'wc_address_validation_validation_required', $validation_required );
 	}
 
+	/**
+	 * Is smarty street api retired
+	 *
+	 * @since 2.9.0
+	 * @return boolean
+	 */
+	public static function is_smarty_street_retired() {
+
+		$current_date = strtotime( wp_date( 'd-m-Y' ) );
+
+		// Make sure date according the WordPress time zone.
+		$smarty_retire_date =  strtotime( wp_date( 'd-m-Y', strtotime( '04-10-2022' ) ) );
+
+		return $current_date >= $smarty_retire_date;
+	}
+
+	/**
+	 * Set the default provider if needed
+	 *
+	 * @since 2.9.0
+	 */
+	public function maybe_set_default_provider() {
+
+		$active_provider = get_option( 'wc_address_validation_active_provider', '' );
+
+		if( self::is_smarty_street_retired() && 'WC_Address_Validation_Provider_SmartyStreets' == $active_provider ) {
+			update_option( 'wc_address_validation_active_provider', 'WC_Address_Validation_Provider_Addressy' );
+			update_option( 'wc_address_validation_smartystreets_retired_message','true' );
+
+		}
+	}
 
 }

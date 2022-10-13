@@ -121,7 +121,7 @@ abstract class AbstractRestParser extends \WPMailSMTP\Vendor\Aws\Api\Parser\Abst
         // Check if the headers are prefixed by a location name
         $result[$name] = [];
         $prefix = $shape['locationName'];
-        $prefixLen = \strlen($prefix);
+        $prefixLen = $prefix !== null ? \strlen($prefix) : 0;
         foreach ($response->getHeaders() as $k => $values) {
             if (!$prefixLen) {
                 $result[$name][$k] = \implode(', ', $values);

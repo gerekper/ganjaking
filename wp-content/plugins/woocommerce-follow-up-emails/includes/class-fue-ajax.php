@@ -3186,13 +3186,12 @@ class FUE_AJAX {
 	 * Create a new newsletter list
 	 */
 	public static function create_list() {
-		if ( ! empty( $_POST['security'] ) && ! wp_verify_nonce( $_POST['security'], 'add_new_fue_list' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
-			wp_die( esc_html__( 'Error: Invalid request. Please try again.', 'follow_up_emails' ) );
-		}
 
 		if ( ! current_user_can( 'manage_follow_up_emails' ) ) {
 			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 		}
+
+		check_ajax_referer( 'add_new_fue_list', 'security' );
 
 		$list = isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
 
@@ -3212,13 +3211,16 @@ class FUE_AJAX {
 			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 		}
 
-		$id     = isset( $_POST['id'] ) ? absint( wp_unslash( $_POST['id'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
-		$list   = isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
-		$access = isset( $_POST['access'] ) ? absint( wp_unslash( $_POST['access'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
-		$list_id = Follow_Up_Emails::instance()->newsletter->edit_list( $id, $list, $access );
+		check_ajax_referer( 'fue_update_list' );
+
+		$id     = isset( $_POST['id'] ) ? absint( wp_unslash( $_POST['id'] ) ) : '';
+		$list   = isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
+		$access = isset( $_POST['access'] ) ? absint( wp_unslash( $_POST['access'] ) ) : '';
+
+		Follow_Up_Emails::instance()->newsletter->edit_list( $id, $list, $access );
 		wp_send_json(array(
-			'status'    => 'success',
-			'id'        => $list_id
+			'status' => 'success',
+			'id'     => $id,
 		));
 	}
 
@@ -3230,10 +3232,13 @@ class FUE_AJAX {
 			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 		}
 
-		$id = isset( $_POST['id'] ) ? absint( wp_unslash( $_POST['id'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+		check_ajax_referer( 'fue_delete_list' );
+
+		$id = isset( $_POST['id'] ) ? absint( wp_unslash( $_POST['id'] ) ) : '';
 		Follow_Up_Emails::instance()->newsletter->remove_list( $id );
 		wp_send_json(array(
-			'status'    => 'success'
+			'status' => 'success',
+			'id'     => $id,
 		));
 	}
 
@@ -3244,6 +3249,8 @@ class FUE_AJAX {
 		if ( ! current_user_can( 'manage_follow_up_emails' ) ) {
 			wp_die( esc_html__( 'You do not have permission', 'follow_up_emails' ), 'Access Denied', array( 'response' => 403 ) );
 		}
+
+		check_ajax_referer( 'fue_remove_subscriber_from_list' );
 
 		$subscriber = isset( $_POST['subscriber'] ) ? sanitize_text_field( wp_unslash( $_POST['subscriber'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
 		$list = isset( $_POST['list'] ) ? absint( wp_unslash( $_POST['list'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification

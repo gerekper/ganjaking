@@ -1,0 +1,107 @@
+*** WooCommerce Store Catalog PDF Download Changelog ***
+
+2022-10-03 - version 2.0.0
+* Tweak - Check the minimum requirements before initializing the plugin.
+* Tweak - Added links to the plugin settings, documentation and to get support in the plugin list.
+* Tweak - Tested compatibility up to WC 7.0.
+* Tweak - Tested compatibility up to WP 6.0.
+* Fix - Fixed fatal errors when generating the catalog PDFs in PHP 8.0 or higher.
+* Dev - Updated Dompdf library to version v2.0.1.
+* Dev - Updated the minimum requirements to WC 3.5, WP 4.7, and PHP 7.1.
+
+2020-10-07 - version 1.10.27
+* Tweak - WC 4.4 compatibility.
+
+2020-08-19 - version 1.10.26
+* Tweak - WordPress 5.5 compatibility.
+
+2020-07-07 - version 1.10.25
+* Fix - Escape output for selectWoo fields.
+
+2020-06-10 - version 1.10.24
+* Fix - Fix last empty page on PDF list format.
+* Tweak - WC 4.2 compatibility.
+
+2020-04-30 - version 1.10.23
+* Tweak - WC 4.1 compatibility.
+
+2020-03-30 - version 1.10.22
+* Tweak - Remove legacy code.
+
+2020-01-14 - version 1.0.21
+* Tweak - WC 4.0 compatibility.
+
+2020-02-05 - version 1.0.20
+* Fix - Use proper escape for attributes.
+
+2020-01-14 - version 1.0.19
+* Tweak - WC 3.9 compatibility.
+
+2019-11-04 - version 1.0.18
+* Tweak - WC 3.8 compatibility.
+
+2019-08-08 - version 1.0.17
+* Tweak - WC 3.7 compatibility.
+
+2019-04-16 - version 1.0.16
+* Tweak - WC 3.6 compatibility.
+
+2018-10-09 - version 1.0.15
+* Update - WC 3.4 compatibility.
+
+2018-06-19 - version 1.0.14
+* Fix - Product Images don't show up in the Catalog once downloaded.
+
+2018-05-21 - version 1.0.13
+* Update - WC 3.4 compatibility.
+
+2017-12-13 - version 1.0.12
+* Update - Dompdf library to 0.8.2.
+* Update - WC tested up to version.
+
+2017-09-06 - version 1.0.11
+* Fix - On product detail page, title was cut off.
+* Add - WC minimum requirements to header.
+
+2017-04-25 - version 1.0.10
+* Fix - Missing vendor folder causing 500 error.
+
+2017-04-20 - version 1.0.9
+* Fix - Additional WC 3.0 compatibility.
+* Update - DomPDF library.
+
+2017-04-03 - version 1.0.8
+* Fix - Update for WC 3.0 compatibility
+
+2015-11-25 - version 1.0.7
+* Add - URL fopen is required into the system status
+
+2015-11-09 - version 1.0.6
+* Tweak - Remove CSS underline from the price as it appears to render like a strikeout on some systems
+
+2015-07-22 - version 1.0.5
+* Tweak - In Firefox when logo image is removed, a reminder image icon still shows
+* Tweak - Removed confirmation to delete PDF and logo image as it is not needed
+* Add - Versions to all template
+* Add - Template override status in status report
+
+2015-06-22 - version 1.0.4
+* Fix - Logo not saving due to corrupted minification file
+* Add - Footer pagination
+* Tweak - Adjusted list layout format to remove tables and better compatibility
+* Tweak - Check on shop page if showing categories only then disable the pdf button
+
+2015-03-25 - version 1.0.3
+* Tweaks to template files to be more content compatible
+* Fix PHP 5.3 < issue with certain syntax
+
+2015-03-25 - version 1.0.2
+* Tweak transient queried posts with dynamic queried posts to prevent cache issue
+* Removed underlines from links
+* Added support for Cyrillic fonts
+
+2015-03-20 - version 1.0.1
+* Fix - Ensure filenames with apostrophes can be generated
+
+2015-03-16 - version 1.0.0
+* First Release

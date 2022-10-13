@@ -193,9 +193,9 @@ class Permalink_Manager_Settings extends Permalink_Manager_Class {
 					),
 					'pmxi_support' => array(
 						'type' => 'single_checkbox',
-						'label' => __('WP All Import support', 'permalink-manager'),
+						'label' => __('WP All Import/Export support', 'permalink-manager'),
 						'input_class' => '',
-						'class_exists' => 'PMXI_Plugin',
+						'class_exists' => array('PMXI_Plugin', 'PMXE_Plugin'),
 						'description' => __('If disabled, the custom permalinks <strong>will not be saved</strong> for the posts imported with WP All Import plugin.', 'permalink-manager')
 					),
 					'um_support' => array(
@@ -227,6 +227,11 @@ class Permalink_Manager_Settings extends Permalink_Manager_Class {
 					'show_native_slug_field' => array(
 						'type' => 'single_checkbox',
 						'label' => __('Show "Native slug" field in URI Editor', 'permalink-manager')
+					),
+					'partial_disable_strict' => array(
+						'type' => 'single_checkbox',
+						'label' => __('"Exclude content types" strict mode', 'permalink-manager'),
+						'description' => __('If this option is enabled, any custom post types and taxonomies with the "<strong>query_var</strong>" and "<strong>rewrite</strong>" attributes set to "<em>false</em>" will be excluded from the plugin and hence will not be shown in the "<em>General settings -> Exclude content types</em>" options.', 'permalink-manager')
 					),
 					'pagination_redirect' => array(
 						'type' => 'single_checkbox',

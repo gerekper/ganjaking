@@ -61,13 +61,14 @@ if ( strpos( $settings_str, 'giveaway' ) !== false ) {
 	$settings->no_conflict_mode = false;
 }
 
-$include_seed_fb_sdk           = false;
-$include_seed_twitter_sdk      = false;
-$include_seedprod_headline_sdk = false;
-$include_gallery_lightbox_sdk  = false;
-$include_gallery_sdk  = false;
-
+$include_seed_fb_sdk                 = false;
+$include_seed_twitter_sdk            = false;
+$include_seedprod_headline_sdk       = false;
+$include_gallery_lightbox_sdk        = false;
+$include_gallery_sdk                 = false;
+$include_counter_sdk                 = false;
 $include_seedprod_image_lightbox_sdk = false;
+$include_beforeaftertoggle_sdk  = false;
 
 
 
@@ -104,6 +105,11 @@ if ( strpos( $settings_str, 'animatedheadline' ) !== false ) {
 	$include_seedprod_headline_sdk = true;
 }
 
+if ( strpos( $settings_str, 'beforeaftertoggle' ) !== false ) {
+	$include_beforeaftertoggle_sdk = true;
+}
+
+
 if ( strpos( $settings_str, 'seedprodgallery' ) !== false ) {
 	$include_gallery_sdk = true;
 }
@@ -130,6 +136,10 @@ if ( strpos( $settings_str, 'twitterembed' ) !== false ) {
 
 if ( strpos( $settings_str, 'twittertweet' ) !== false ) {
 	$include_seed_twitter_sdk = true;
+}
+
+if ( strpos( $settings_str, 'counter' ) !== false ) {
+	$include_counter_sdk = true;
 }
 
 
@@ -248,14 +258,14 @@ if ( ! empty( $settings ) ) {
 		<?php
 	}
 	?>
-<?php if ( empty( $settings->no_conflict_mode ) ) : ?>
-<?php
+	<?php if ( empty( $settings->no_conflict_mode ) ) : ?>
+		<?php
 		$sp_title = wp_title( '&raquo;', false );
 		if ( ! empty( $sp_title ) ) {
 			//remove extra title tag
 			?>
 <?php } ?>
-<?php endif; ?>
+	<?php endif; ?>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Default CSS -->
@@ -268,11 +278,15 @@ if ( ! empty( $settings ) ) {
 	<?php if ( true === $include_gallery_sdk ) { ?>
 	<link rel="stylesheet" id='seedprod-gallerylightbox-css' href="<?php echo esc_url( $plugin_url ); ?>public/css/seedprod-gallery-block.min.css?ver=<?php echo esc_attr( SEEDPROD_PRO_VERSION ); ?>" type='text/css' media='all' /> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet ?>
 	<?php } ?>
+
+	<?php if ( true === $include_beforeaftertoggle_sdk ) { ?>
+	<link rel='stylesheet' id='seedprod-twentytwenty-css'  href='<?php echo esc_url( $plugin_url ); ?>public/css/before-after-toggle.min.css?ver=<?php echo esc_attr( SEEDPROD_PRO_VERSION ); ?>' type='text/css' media='all' /> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet ?>
+<?php } ?>
 		
 
-<?php if ( true === $include_seedprod_image_lightbox_sdk ) { ?>
+	<?php if ( true === $include_seedprod_image_lightbox_sdk ) { ?>
 	<link rel='stylesheet' id='seedprod-image-lightbox-css'  href='<?php echo esc_url( $plugin_url ); ?>public/css/lightbox.min.css?ver=<?php echo esc_attr( SEEDPROD_PRO_VERSION ); ?>' type='text/css' media='all' /> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet ?>
-<?php } ?>
+	<?php } ?>
 
 	<?php if ( ! empty( $google_fonts_str ) ) : ?>
 <!-- Google Font -->
@@ -373,14 +387,20 @@ var seeprod_enable_recaptcha = <?php echo (int) $settings->enable_recaptcha; ?>;
 <script src="<?php echo esc_url( $plugin_url ); ?>public/js/jquery.animation.min.js" defer></script> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript ?>
 		<?php
 	}
+
+	if ( true === $include_counter_sdk ) {
+		?>
+<script src="<?php echo esc_url( $plugin_url ); ?>public/js/jquery-numerator.min.js" defer></script> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript ?>
+		<?php
+	}
 	
 
 	?>
-	
+
 	<?php if ( true === $include_gallery_lightbox_sdk ) { ?>
 		<script src="<?php echo esc_url( $plugin_url ); ?>public/js/img-previewer.min.js" defer></script> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript ?>
 	<?php } ?>
-	
+
 	<script src="<?php echo esc_url( $plugin_url ); ?>public/js/sp-scripts.min.js" defer></script> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript ?>
 	<?php
 	
@@ -423,7 +443,7 @@ var seeprod_enable_recaptcha = <?php echo (int) $settings->enable_recaptcha; ?>;
 			echo '<script src="' . esc_url( $include_url ) . 'js/jquery/jquery.min.js"></script>' . "\n"; // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
 		}
 	}
-	
+
 
 	?>
 	<?php
@@ -475,7 +495,7 @@ var seeprod_enable_recaptcha = <?php echo (int) $settings->enable_recaptcha; ?>;
 	$actual_link        = rawurlencode( ( isset( $_SERVER['HTTPS'] ) && 'on' === $_SERVER['HTTPS'] ? 'https' : 'http' ) . "://$server_http_host$server_request_uri" );
 	$content            = str_replace( 'the_link', $actual_link, $content );
 	$content            = do_shortcode( $content );
-	if( empty($content) ){
+	if ( empty( $content ) ) {
 		$content = '<h1 style="margin-top:80px; text-align:center; font-size: 22px">The content for this page is empty or has not been saved. Please edit this page and "Save" the contents in the builder.</h1>';
 	}
 	echo apply_filters( 'seedprod_lpage_content', $content );
@@ -483,7 +503,7 @@ var seeprod_enable_recaptcha = <?php echo (int) $settings->enable_recaptcha; ?>;
 	// TODO: Add a way to run content in the loop
 	// if ( have_posts() ) {
 	// 	while ( have_posts() ) {
-	// 		the_post(); 
+	//      the_post();
 	// 		$content = do_shortcode( $content );
 	// 		echo apply_filters( 'seedprod_lpage_content', $content );
 	// 	} // end while
@@ -544,16 +564,17 @@ var seeprod_enable_recaptcha = <?php echo (int) $settings->enable_recaptcha; ?>;
 	}
 	
 	?>
-	
+
 </script>
 
 	<?php
-	
+
 	if ( true === $include_seedprod_image_lightbox_sdk ) {
 		?>
 		<script src="<?php echo esc_url( $plugin_url ); ?>public/js/lightbox.min.js" defer></script> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript ?>
 		<?php
 	}
+
 
 	if ( empty( $settings->no_conflict_mode ) ) {
 		wp_footer();
@@ -562,6 +583,16 @@ var seeprod_enable_recaptcha = <?php echo (int) $settings->enable_recaptcha; ?>;
 	<?php
 	if ( ! empty( $settings->footer_scripts ) ) {
 		echo $settings->footer_scripts; // phpcs:ignore
+	}
+
+	
+	if ( true === $include_beforeaftertoggle_sdk ) {
+		?>
+
+<script src="<?php echo esc_url( $plugin_url ); ?>public/js/jquery.event.move.js" defer></script> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript ?>
+<script src="<?php echo esc_url( $plugin_url ); ?>public/js/jquery.twentytwenty.min.js" defer></script> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript ?>
+		
+		<?php
 	}
 	?>
 </body>

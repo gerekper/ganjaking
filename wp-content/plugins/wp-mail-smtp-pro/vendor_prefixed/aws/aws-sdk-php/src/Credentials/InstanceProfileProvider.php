@@ -48,7 +48,6 @@ class InstanceProfileProvider
         $this->timeout = (float) \getenv(self::ENV_TIMEOUT) ?: (isset($config['timeout']) ? $config['timeout'] : 1.0);
         $this->profile = isset($config['profile']) ? $config['profile'] : null;
         $this->retries = (int) \getenv(self::ENV_RETRIES) ?: (isset($config['retries']) ? $config['retries'] : 3);
-        $this->attempts = 0;
         $this->client = isset($config['client']) ? $config['client'] : \WPMailSMTP\Vendor\Aws\default_http_handler();
     }
     /**
@@ -58,6 +57,7 @@ class InstanceProfileProvider
      */
     public function __invoke($previousCredentials = null)
     {
+        $this->attempts = 0;
         return \WPMailSMTP\Vendor\GuzzleHttp\Promise\Coroutine::of(function () use($previousCredentials) {
             // Retrieve token or switch out of secure mode
             $token = null;

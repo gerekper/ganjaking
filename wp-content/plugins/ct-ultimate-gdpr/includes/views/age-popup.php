@@ -178,33 +178,17 @@ $attr_array  = array(
 
             <input name="ct-ultimate-gdpr-age-date-of-birth-year" type="number" max="<?php echo date('Y'); ?>" value="<?php echo esc_attr($year_placeholder); ?>" class="ct-gdpr-input ct-gdpr-input-number ct-gdpr-input-year">
 	
-			<a href="javascript:void(0)"
-                id="ct-ultimate-gdpr-age-accept"
-                class="ct-gdpr-button ct-gdpr-popup-age__submit js-ct-gdpr-age-Accept"
-                <?php if ($options['age_box_style'] == 'none') : ?>
-                    style="
-                        <?php if ($options['age_button_shape'] == 'rounded') { echo 'border-radius: 25px'; }?>; 
-                        background-color: <?php echo esc_attr($options['age_button_bg_color']); ?>; 
-                        color: <?php echo esc_attr($options['age_button_text_color']); ?>;"
-                <?php else: ?>
-                    style="<?php if ($options['age_button_shape'] == 'rounded'){ echo 'border-radius: 25px'; }?>"
-                <?php endif; ?>
-            >
-                   
-             <?php echo wp_kses_post($options['age_popup_label_accept']); ?>
-            </a>
+			<a href="javascript:void(0)"  id="ct-ultimate-gdpr-age-accept" class="ct-gdpr-button ct-gdpr-popup-age__submit js-ct-gdpr-age-Accept"
             
-			
-            <!--<button
-                id="ct-ultimate-gdpr-age-accept"
-                class="ct-gdpr-button ct-gdpr-popup-age__submit js-ct-gdpr-age-Accept"
-                <?php if ($options['age_box_style'] == 'none') : ?>
-                    style="<?php if ($options['age_button_shape'] == 'rounded') echo 'border-radius: 25px'; ?>; background-color: <?php echo esc_attr($options['age_button_bg_color']); ?>; color: <?php echo esc_attr($options['age_button_text_color']); ?>;"
-                <?php endif; ?>
-            >
-                <?php echo wp_kses_post($options['age_popup_label_accept']); ?>
-            </button>-->
-			
+            <?php 
+                $age_button_shape = ( $options['age_button_shape'] == 'rounded' ) ? 'border-radius:25px;' : 'border-radius:0px;';
+                $age_button_bg_color = (!empty($options['age_button_bg_color'])) ? 'background-color:'.esc_attr($options['age_button_bg_color']).';' : '';
+                $age_button_text_color = (!empty($options['age_button_text_color'])) ? 'color:'.esc_attr($options['age_button_text_color']).';' : '';
+                $age_button_style = $age_button_shape.$age_button_bg_color.$age_button_text_color;
+            ?>
+            style="cursor:pointer;line-height:1.4em;<?=$age_button_style?>">
+            <?php echo wp_kses_post($options['age_popup_label_accept']); ?>
+            </a>
         </div>
     </div>
         <?php if ($options['age_box_style'] == 'none') : ?>

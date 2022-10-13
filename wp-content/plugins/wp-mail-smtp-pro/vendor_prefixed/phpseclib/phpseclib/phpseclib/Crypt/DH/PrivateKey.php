@@ -3,8 +3,6 @@
 /**
  * DH Private Key
  *
- * @category  Crypt
- * @package   DH
  * @author    Jim Wigginton <terrafrost@php.net>
  * @copyright 2015 Jim Wigginton
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -17,9 +15,7 @@ use WPMailSMTP\Vendor\phpseclib3\Crypt\DH;
 /**
  * DH Private Key
  *
- * @package DH
  * @author  Jim Wigginton <terrafrost@php.net>
- * @access  public
  */
 class PrivateKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\DH
 {
@@ -28,20 +24,17 @@ class PrivateKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\DH
      * Private Key
      *
      * @var \phpseclib3\Math\BigInteger
-     * @access private
      */
     protected $privateKey;
     /**
      * Public Key
      *
      * @var \phpseclib3\Math\BigInteger
-     * @access private
      */
     protected $publicKey;
     /**
      * Returns the public key
      *
-     * @access public
      * @return DH\PublicKey
      */
     public function getPublicKey()

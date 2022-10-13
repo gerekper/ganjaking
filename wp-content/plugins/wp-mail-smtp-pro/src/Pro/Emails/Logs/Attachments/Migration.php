@@ -57,7 +57,7 @@ class Migration extends MigrationAbstract {
 		$table           = Attachments::get_attachment_files_table_name();
 		$charset_collate = $wpdb->get_charset_collate();
 
-		$sql = "CREATE TABLE `$table` (
+		$sql = "CREATE TABLE IF NOT EXISTS `$table` (
 		    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 		    `hash` VARCHAR(128) NOT NULL,
 		    `folder` VARCHAR(64) NOT NULL,
@@ -94,7 +94,7 @@ class Migration extends MigrationAbstract {
 		$table           = Attachments::get_email_attachments_table_name();
 		$charset_collate = $wpdb->get_charset_collate();
 
-		$sql = "CREATE TABLE `$table` (
+		$sql = "CREATE TABLE IF NOT EXISTS `$table` (
 		    `email_log_id` INT UNSIGNED NOT NULL,
 		    `attachment_id` INT UNSIGNED,
 		    `filename` TEXT,

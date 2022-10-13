@@ -3,8 +3,6 @@
 /**
  * EC Private Key
  *
- * @category  Crypt
- * @package   EC
  * @author    Jim Wigginton <terrafrost@php.net>
  * @copyright 2015 Jim Wigginton
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -27,9 +25,7 @@ use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 /**
  * EC Private Key
  *
- * @package EC
  * @author  Jim Wigginton <terrafrost@php.net>
- * @access  public
  */
 class PrivateKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\EC implements \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\PrivateKey
 {
@@ -44,6 +40,10 @@ class PrivateKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\EC implements \WPMa
      * @var object
      */
     protected $dA;
+    /**
+     * @var string
+     */
+    protected $secret;
     /**
      * Multiplies an encoded point by the private key
      *
@@ -79,7 +79,6 @@ class PrivateKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\EC implements \WPMa
      * Create a signature
      *
      * @see self::verify()
-     * @access public
      * @param string $message
      * @return mixed
      */
@@ -106,7 +105,7 @@ class PrivateKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\EC implements \WPMa
             $A = $this->curve->encodePoint($this->QA);
             $curve = $this->curve;
             $hash = new \WPMailSMTP\Vendor\phpseclib3\Crypt\Hash($curve::HASH);
-            $secret = \substr($hash->hash($this->dA->secret), $curve::SIZE);
+            $secret = \substr($hash->hash($this->secret), $curve::SIZE);
             if ($curve instanceof \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Curves\Ed25519) {
                 $dom = !isset($this->context) ? '' : 'SigEd25519 no Ed25519 collisions' . "\0" . \chr(\strlen($this->context)) . $this->context;
             } else {
@@ -198,13 +197,12 @@ class PrivateKey extends \WPMailSMTP\Vendor\phpseclib3\Crypt\EC implements \WPMa
     public function toString($type, array $options = [])
     {
         $type = self::validatePlugin('Keys', $type, 'savePrivateKey');
-        return $type::savePrivateKey($this->dA, $this->curve, $this->QA, $this->password, $options);
+        return $type::savePrivateKey($this->dA, $this->curve, $this->QA, $this->secret, $this->password, $options);
     }
     /**
      * Returns the public key
      *
      * @see self::getPrivateKey()
-     * @access public
      * @return mixed
      */
     public function getPublicKey()

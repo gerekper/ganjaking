@@ -608,13 +608,19 @@ class RevSliderSlider extends RevSliderFunctions {
 	public function get_slider_by_param_string($string, $templates = false){
 		global $wpdb;
 		
-		$sql = "SELECT * FROM ". $wpdb->prefix . RevSliderFront::TABLE_SLIDER ." WHERE ";
 		$string = (array)$string;
+		if(empty($string)) return array();
+
+		$sql = "SELECT * FROM ". $wpdb->prefix . RevSliderFront::TABLE_SLIDER ." WHERE ";
 		$add = '';
+		
 		if($templates === true) $sql .= "(";
 		
-		foreach($string as $v){
-			$sql .= $add. "params LIKE '%%%s%%'";
+		foreach($string as $k => $v){
+			//$sql .= $add. "params LIKE '%%%s%%'";
+			$string[$k] = '%'.$v.'%';
+			
+			$sql .= $add. "params LIKE %s";
 			if($add === '') $add = " OR ";
 		}
 		if($templates === true) $sql .= ") AND `type` != 'template'";
@@ -2193,29 +2199,30 @@ class RevSliderSlider extends RevSliderFunctions {
 				$max_allowed = 50;
 			break;
 			case 'vimeo':
-				$vimeo = new RevSliderVimeo($this->get_param(array('source', 'vimeo', 'transient'), '1200'));
-				$vimeo_type = $this->get_param(array('source', 'vimeo', 'typeSource'));
-				
+				$vimeo		= new RevSliderVimeo($this->get_param(array('source', 'vimeo', 'transient'), '1200'));
+				$vimeo_type	= $this->get_param(array('source', 'vimeo', 'typeSource'));
+				$max_posts	= $this->get_param(array('source', 'vimeo', 'count'), '25');
+				$max_allowed = 60;
+				if(intval($max_posts) > $max_allowed) $max_posts = $max_allowed;
+
 				switch($vimeo_type){
 					case 'user':
-						$posts = $vimeo->get_vimeo_videos($vimeo_type, $this->get_param(array('source', 'vimeo', 'userName')));
+						$posts = $vimeo->get_vimeo_videos($vimeo_type, $this->get_param(array('source', 'vimeo', 'userName')), $max_posts);
 					break;
 					case 'channel':
-						$posts = $vimeo->get_vimeo_videos($vimeo_type, $this->get_param(array('source', 'vimeo', 'channelName')));
+						$posts = $vimeo->get_vimeo_videos($vimeo_type, $this->get_param(array('source', 'vimeo', 'channelName')), $max_posts);
 					break;
 					case 'group':
-						$posts = $vimeo->get_vimeo_videos($vimeo_type, $this->get_param(array('source', 'vimeo', 'groupName')));
+						$posts = $vimeo->get_vimeo_videos($vimeo_type, $this->get_param(array('source', 'vimeo', 'groupName')), $max_posts);
 					break;
 					case 'album':
-						$posts = $vimeo->get_vimeo_videos($vimeo_type, $this->get_param(array('source', 'vimeo', 'albumId')));
+						$posts = $vimeo->get_vimeo_videos($vimeo_type, $this->get_param(array('source', 'vimeo', 'albumId')), $max_posts);
 					break;
 					default:
 					break;
 				}
 				
 				$additions['vim_type'] = $this->get_param(array('source', 'vimeo', 'typeSource'), 'user');
-				$max_posts	 = $this->get_param(array('source', 'vimeo', 'count'), '25');
-				$max_allowed = 60;
 			break;
 			default:
 				global $rs_preview_mode;

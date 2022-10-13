@@ -729,10 +729,11 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 		$template = $this->get_option( 'cookie_use_group_popup' ) ? 'cookie-group-popup' : 'cookie-popup';
 		
 		$options = array_merge( $this->get_default_options(), $this->options );
-		
+
 		// 1173
+		// ct_ultimate_gdpr_render_template( ct_ultimate_gdpr_locate_template( 'cookie-template', false ), true, $options ); 
 		if($this->is_cookie_single_popup_enabled()) {
-			ct_ultimate_gdpr_locate_template('cookie-single-popup', true, $options);
+			ct_ultimate_gdpr_render_template( ct_ultimate_gdpr_locate_template( 'cookie-template', false ), true, $options ); 
 		} else {
 			ct_ultimate_gdpr_locate_template('cookie-group-popup', true, $options);
 		}
@@ -967,6 +968,10 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 			$all_cookies[ $cookie_name ] = $cookie_name;
 
 			foreach ( $cookies_to_block as $level => $blacklisted_cookies ) {
+
+				if(!is_array($blacklisted_cookies)) {	
+					$blacklisted_cookies = explode(" ", $blacklisted_cookies);
+				}
 
 				// level is below accepted level, no need to block
 				if ( $level <= $group_level ) {

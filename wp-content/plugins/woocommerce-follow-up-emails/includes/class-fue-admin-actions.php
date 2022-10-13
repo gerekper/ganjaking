@@ -673,9 +673,9 @@ class FUE_Admin_Actions {
 				}
 
 				$subs_id = fue_add_subscriber_to_list( $add_to_list, array(
-					'email'      => $row[0], // Required
-					'first_name' => ! empty( $row[1] ) ? $row[1] : '',
-					'last_name'  => ! empty( $row[2] ) ? $row[2] : '',
+					'email'      => sanitize_email( $row[0] ), // Required
+					'first_name' => ! empty( $row[1] ) ? sanitize_text_field( $row[1] ) : '',
+					'last_name'  => ! empty( $row[2] ) ? sanitize_text_field( $row[2] ) : '',
 				) );
 
 				if ( is_wp_error( $subs_id ) ) {
@@ -741,7 +741,7 @@ class FUE_Admin_Actions {
 					exit;
 				} elseif ( 'new' === $action ) {
 					$newsletter = Follow_Up_Emails::instance()->newsletter;
-					$list       = $post['new_list_name'];
+					$list       = sanitize_text_field( $post['new_list_name'] );
 					$newsletter->add_list( $list );
 
 					foreach ( $subscriber_ids as $subscriber_id ) {

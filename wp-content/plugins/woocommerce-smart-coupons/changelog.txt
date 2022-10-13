@@ -1,5 +1,9 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2022.10.06 - version 6.3.0
+* Update: Correctly handle and validate expiry date & time
+* Update: POT file
+
 2022.09.26 - version 6.2.0
 * New: Display store credit original amount in the coupon's admin dashboard
 * New: Setting & hook 'wc_sc_show_myaccount_menu_icon' to show or hide icon for coupons menu/tab on My account page
@@ -15,7 +19,7 @@
 * Fix: Uncaught TypeError: Cannot access offset of type string on string - $this->locations_lookup_in['address']
 * Fix: Hard-coded table prefix in query, replaced with $wpdb->prefix
 * Fix: Unnecessarily logging a lot of messages in the log file during refund process [Admin]
-* Fix: Spelling mistake in 'You have scheduled to sent…' to 'You have scheduled to send…'
+* Fix: Spelling mistake in 'You have scheduled to sent...' to 'You have scheduled to send...'
 * Fix: A few minor spelling mistakes
 * Update: POT file
 

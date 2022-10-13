@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.6.1] - 2022-10-05
+### Fixed:
+- Setup Wizard steps navigation, when going backwards.
+
+## [3.6.0] - 2022-10-04
+### Added:
+- Source column to Email Log CSV and XLSX export.
+- The `wp_mail` function call backtrace to the Debug Events if the "Debug Email Sending" option is enabled.
+- Email Logs Configuration step in the Setup Wizard.
+- Plugin's DB tables re-creation process in WP Site Health.
+- Debug Events retention period setting.
+
+### Changed:
+- Updated the list of conflicting plugins (added Zoho Mail).
+- Improved conflicting plugins' admin notices (display multiple at once).
+- Switched to the WP Core function `is_email` for verifying email addresses.
+- Improved the detection if `wp_mail` function is overwritten.
+
+### Fixed:
+- One-time fatal error on the Email Reports page, right after Email Logs were enabled.
+- Gmail mailer not using the correct From Email Address in Domain Checker.
+- Exported (.csv and .xlsx) email log values could be executed as formulas.
+- Email Log `people` DROP index DB error.
+
 ## [3.5.2] - 2022-08-17
 ### Fixed:
 - The check if `wp_mail` function is overwritten on Windows servers.

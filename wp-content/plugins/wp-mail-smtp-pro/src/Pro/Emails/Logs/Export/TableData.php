@@ -2,6 +2,7 @@
 
 namespace WPMailSMTP\Pro\Emails\Logs\Export;
 
+use Generator;
 use WPMailSMTP\Pro\Emails\Logs\Email;
 use WPMailSMTP\Pro\Emails\Logs\EmailsCollection;
 
@@ -53,7 +54,7 @@ class TableData extends AbstractData {
 	 *
 	 * @since 2.8.0
 	 *
-	 * @return \Generator
+	 * @return Generator
 	 */
 	public function get_row() {
 
@@ -65,7 +66,7 @@ class TableData extends AbstractData {
 
 			foreach ( $this->get_columns() as $col_id => $col_label ) {
 				$value          = $this->get_field_value( $col_id, $email );
-				$row[ $col_id ] = html_entity_decode( $value, ENT_QUOTES );
+				$row[ $col_id ] = $this->escape_value( $value );
 			}
 
 			/**
@@ -79,5 +80,24 @@ class TableData extends AbstractData {
 			 */
 			yield apply_filters( 'wp_mail_smtp_pro_emails_logs_export_table_data_get_row', $row, $email, $this );
 		}
+	}
+
+	/**
+	 * Escape string for table data.
+	 *
+	 * @since 3.6.0
+	 *
+	 * @param mixed $value Value to escape.
+	 *
+	 * @return string
+	 */
+	private function escape_value( $value ) {
+
+		// Prevent formulas in spreadsheet applications.
+		if ( in_array( substr( (string) $value, 0, 1 ), [ '=', '-', '+', '@', "\t", "\r" ], true ) ) {
+			$value = "'" . $value;
+		}
+
+		return html_entity_decode( $value, ENT_QUOTES );
 	}
 }

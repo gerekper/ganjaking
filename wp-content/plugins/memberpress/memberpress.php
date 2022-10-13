@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: MemberPress Basic
+Plugin Name: MemberPress Pro
 Plugin URI: http://www.memberpress.com/
 Description: The membership plugin that makes it easy to accept payments for access to your content and digital products.
-Version: 1.9.45
+Version: 1.9.47
 Author: Caseproof, LLC
 Author URI: http://caseproof.com/
 Text Domain: memberpress
@@ -61,7 +61,7 @@ define('MEPR_GATEWAYS_URL',MEPR_URL.'/app/gateways');
 define('MEPR_VENDOR_LIB_URL',MEPR_URL.'/vendor/lib');
 define('MEPR_SCRIPT_URL',site_url('/index.php?plugin=mepr'));
 define('MEPR_OPTIONS_SLUG', 'mepr_options');
-define('MEPR_EDITION', 'memberpress-basic');
+define('MEPR_EDITION', 'memberpress-pro');
 
 define('MEPR_MIN_PHP_VERSION', '5.6.20');
 

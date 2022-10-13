@@ -5,8 +5,6 @@
  *
  * PHP version 5
  *
- * @category  Crypt
- * @package   Common
  * @author    Jim Wigginton <terrafrost@php.net>
  * @copyright 2015 Jim Wigginton
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -14,8 +12,6 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\Keys;
 
-use WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64;
-use WPMailSMTP\Vendor\ParagonIE\ConstantTime\Hex;
 use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\AES;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\DES;
@@ -26,9 +22,7 @@ use WPMailSMTP\Vendor\phpseclib3\File\ASN1;
 /**
  * PKCS1 Formatted Key Handler
  *
- * @package RSA
  * @author  Jim Wigginton <terrafrost@php.net>
- * @access  public
  */
 abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\Keys\PKCS
 {
@@ -36,13 +30,11 @@ abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
      * Default encryption algorithm
      *
      * @var string
-     * @access private
      */
     private static $defaultEncryptionAlgorithm = 'AES-128-CBC';
     /**
      * Sets the default encryption algorithm
      *
-     * @access public
      * @param string $algo
      */
     public static function setEncryptionAlgorithm($algo)
@@ -52,7 +44,6 @@ abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
     /**
      * Returns the mode constant corresponding to the mode string
      *
-     * @access public
      * @param string $mode
      * @return int
      * @throws \UnexpectedValueException if the block cipher mode is unsupported
@@ -72,7 +63,6 @@ abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
     /**
      * Returns a cipher object corresponding to a string
      *
-     * @access public
      * @param string $algo
      * @return string
      * @throws \UnexpectedValueException if the encryption algorithm is unsupported
@@ -96,7 +86,6 @@ abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
     /**
      * Generate a symmetric key for PKCS#1 keys
      *
-     * @access private
      * @param string $password
      * @param string $iv
      * @param int $length
@@ -114,7 +103,6 @@ abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
     /**
      * Break a public or private key down into its constituent components
      *
-     * @access public
      * @param string $key
      * @param string $password optional
      * @return array
@@ -140,7 +128,7 @@ abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
         
                    * OpenSSL is the de facto standard.  It's utilized by OpenSSH and other projects */
         if (\preg_match('#DEK-Info: (.+),(.+)#', $key, $matches)) {
-            $iv = \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Hex::decode(\trim($matches[2]));
+            $iv = \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::hex2bin(\trim($matches[2]));
             // remove the Proc-Type / DEK-Info sections as they're no longer needed
             $key = \preg_replace('#^(?:Proc-Type|DEK-Info): .*#m', '', $key);
             $ciphertext = \WPMailSMTP\Vendor\phpseclib3\File\ASN1::extractBER($key);
@@ -166,7 +154,6 @@ abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
     /**
      * Wrap a private key appropriately
      *
-     * @access public
      * @param string $key
      * @param string $type
      * @param string $password
@@ -176,26 +163,25 @@ abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
     protected static function wrapPrivateKey($key, $type, $password, array $options = [])
     {
         if (empty($password) || !\is_string($password)) {
-            return "-----BEGIN {$type} PRIVATE KEY-----\r\n" . \chunk_split(\WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64::encode($key), 64) . "-----END {$type} PRIVATE KEY-----";
+            return "-----BEGIN {$type} PRIVATE KEY-----\r\n" . \chunk_split(\WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::base64_encode($key), 64) . "-----END {$type} PRIVATE KEY-----";
         }
         $encryptionAlgorithm = isset($options['encryptionAlgorithm']) ? $options['encryptionAlgorithm'] : self::$defaultEncryptionAlgorithm;
         $cipher = self::getEncryptionObject($encryptionAlgorithm);
         $iv = \WPMailSMTP\Vendor\phpseclib3\Crypt\Random::string($cipher->getBlockLength() >> 3);
         $cipher->setKey(self::generateSymmetricKey($password, $iv, $cipher->getKeyLength() >> 3));
         $cipher->setIV($iv);
-        $iv = \strtoupper(\WPMailSMTP\Vendor\ParagonIE\ConstantTime\Hex::encode($iv));
-        return "-----BEGIN {$type} PRIVATE KEY-----\r\n" . "Proc-Type: 4,ENCRYPTED\r\n" . "DEK-Info: " . $encryptionAlgorithm . ",{$iv}\r\n" . "\r\n" . \chunk_split(\WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64::encode($cipher->encrypt($key)), 64) . "-----END {$type} PRIVATE KEY-----";
+        $iv = \strtoupper(\WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::bin2hex($iv));
+        return "-----BEGIN {$type} PRIVATE KEY-----\r\n" . "Proc-Type: 4,ENCRYPTED\r\n" . "DEK-Info: " . $encryptionAlgorithm . ",{$iv}\r\n" . "\r\n" . \chunk_split(\WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::base64_encode($cipher->encrypt($key)), 64) . "-----END {$type} PRIVATE KEY-----";
     }
     /**
      * Wrap a public key appropriately
      *
-     * @access public
      * @param string $key
      * @param string $type
      * @return string
      */
     protected static function wrapPublicKey($key, $type)
     {
-        return "-----BEGIN {$type} PUBLIC KEY-----\r\n" . \chunk_split(\WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64::encode($key), 64) . "-----END {$type} PUBLIC KEY-----";
+        return "-----BEGIN {$type} PUBLIC KEY-----\r\n" . \chunk_split(\WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::base64_encode($key), 64) . "-----END {$type} PUBLIC KEY-----";
     }
 }

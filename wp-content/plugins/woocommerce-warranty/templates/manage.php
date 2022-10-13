@@ -282,7 +282,7 @@ $products = new WP_Query( array(
 							</td>
 							<td colspan="1">
 								&mdash;
-								<a class="editinline" data-target="edit_<?php echo $child; ?>" href="#"><?php echo $_variation->get_formatted_name(); ?></a>
+								<a class="editinline" data-target="edit_<?php echo esc_attr( $child ); ?>" href="#"><?php echo esc_html( wp_strip_all_tags( $_variation->get_formatted_name() ) ); ?></a>
 							</td>
 							<td>
 								<?php echo $_variation->get_price_html() ? $_variation->get_price_html() : '<span class="na">&ndash;</span>'; ?>

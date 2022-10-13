@@ -7,8 +7,6 @@
  *
  * Place in $HOME/.ssh/authorized_keys
  *
- * @category  Crypt
- * @package   Common
  * @author    Jim Wigginton <terrafrost@php.net>
  * @copyright 2015 Jim Wigginton
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -16,16 +14,13 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\Keys;
 
-use WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64;
 use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
+use WPMailSMTP\Vendor\phpseclib3\Crypt\AES;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\Random;
-use WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedFormatException;
 /**
  * OpenSSH Formatted RSA Key Handler
  *
- * @package Common
  * @author  Jim Wigginton <terrafrost@php.net>
- * @access  public
  */
 abstract class OpenSSH
 {
@@ -33,20 +28,17 @@ abstract class OpenSSH
      * Default comment
      *
      * @var string
-     * @access private
      */
     protected static $comment = 'phpseclib-generated-key';
     /**
      * Binary key flag
      *
      * @var bool
-     * @access private
      */
     protected static $binary = \false;
     /**
      * Sets the default comment
      *
-     * @access public
      * @param string $comment
      */
     public static function setComment($comment)
@@ -58,7 +50,6 @@ abstract class OpenSSH
      *
      * $type can be either ssh-dss or ssh-rsa
      *
-     * @access public
      * @param string $key
      * @param string $password
      * @return array
@@ -72,7 +63,7 @@ abstract class OpenSSH
         // https://cvsweb.openbsd.org/cgi-bin/cvsweb/src/usr.bin/ssh/PROTOCOL.key?annotate=HEAD
         if (\strpos($key, 'BEGIN OPENSSH PRIVATE KEY') !== \false) {
             $key = \preg_replace('#(?:^-.*?-[\\r\\n]*$)|\\s#ms', '', $key);
-            $key = \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64::decode($key);
+            $key = \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::base64_decode($key);
             $magic = \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::shift($key, 15);
             if ($magic != "openssh-key-v1\0") {
                 throw new \RuntimeException('Expected openssh-key-v1');
@@ -84,38 +75,27 @@ abstract class OpenSSH
                 // that to the appropriate key loading parser $numKey times or something
                 throw new \RuntimeException('Although the OpenSSH private key format supports multiple keys phpseclib does not');
             }
-            if (\strlen($kdfoptions) || $kdfname != 'none' || $ciphername != 'none') {
-                /*
-                  OpenSSH private keys use a customized version of bcrypt. specifically, instead of encrypting
-                  OrpheanBeholderScryDoubt 64 times OpenSSH's bcrypt variant encrypts
-                  OxychromaticBlowfishSwatDynamite 64 times. so we can't use crypt().
-                
-                  bcrypt is basically Blowfish with an altered key expansion. whereas Blowfish just runs the
-                  key through the key expansion bcrypt interleaves the key expansion with the salt and
-                  password. this renders openssl / mcrypt unusuable. this forces us to use a pure-PHP implementation
-                  of bcrypt. the problem with that is that pure-PHP is too slow to be practically useful.
-                
-                  in addition to encrypting a different string 64 times the OpenSSH implementation also performs bcrypt
-                  from scratch $rounds times. calling crypt() 64x with bcrypt takes 0.7s. PHP is going to be naturally
-                  slower. pure-PHP is 215x slower than OpenSSL for AES and pure-PHP is 43x slower for bcrypt.
-                  43 * 0.7 = 30s. no one wants to wait 30s to load a private key.
-                
-                  another way to think about this..  according to wikipedia's article on Blowfish,
-                  "Each new key requires pre-processing equivalent to encrypting about 4 kilobytes of text".
-                  key expansion is done (9+64*2)*160 times. multiply that by 4 and it turns out that Blowfish,
-                  OpenSSH style, is the equivalent of encrypting ~80mb of text.
-                
-                  more supporting evidence: sodium_compat does not implement Argon2 (another password hashing
-                  algorithm) because "It's not feasible to polyfill scrypt or Argon2 into PHP and get reasonable
-                  performance. Users would feel motivated to select parameters that downgrade security to avoid
-                  denial of service (DoS) attacks. The only winning move is not to play"
-                    -- https://github.com/paragonie/sodium_compat/blob/master/README.md
-                */
-                throw new \RuntimeException('Encrypted OpenSSH private keys are not supported');
-                //list($salt, $rounds) = Strings::unpackSSH2('sN', $kdfoptions);
+            switch ($ciphername) {
+                case 'none':
+                    break;
+                case 'aes256-ctr':
+                    if ($kdfname != 'bcrypt') {
+                        throw new \RuntimeException('Only the bcrypt kdf is supported (' . $kdfname . ' encountered)');
+                    }
+                    list($salt, $rounds) = \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::unpackSSH2('sN', $kdfoptions);
+                    $crypto = new \WPMailSMTP\Vendor\phpseclib3\Crypt\AES('ctr');
+                    //$crypto->setKeyLength(256);
+                    //$crypto->disablePadding();
+                    $crypto->setPassword($password, 'bcrypt', $salt, $rounds, 32);
+                    break;
+                default:
+                    throw new \RuntimeException('The only supported cipherse are: none, aes256-ctr (' . $ciphername . ' is being used)');
             }
             list($publicKey, $paddedKey) = \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::unpackSSH2('ss', $key);
             list($type) = \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::unpackSSH2('s', $publicKey);
+            if (isset($crypto)) {
+                $paddedKey = $crypto->decrypt($paddedKey);
+            }
             list($checkint1, $checkint2) = \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::unpackSSH2('NN', $paddedKey);
             // any leftover bytes in $paddedKey are for padding? but they should be sequential bytes. eg. 1, 2, 3, etc.
             if ($checkint1 != $checkint2) {
@@ -127,7 +107,7 @@ abstract class OpenSSH
         $parts = \explode(' ', $key, 3);
         if (!isset($parts[1])) {
             $key = \base64_decode($parts[0]);
-            $comment = isset($parts[1]) ? $parts[1] : \false;
+            $comment = \false;
         } else {
             $asciiType = $parts[0];
             self::checkType($parts[0]);
@@ -154,7 +134,6 @@ abstract class OpenSSH
      * Printable keys are what are generated by default. These are the ones that go in
      * $HOME/.ssh/authorized_key.
      *
-     * @access public
      * @param bool $enabled
      */
     public static function setBinaryOutput($enabled)
@@ -164,7 +143,6 @@ abstract class OpenSSH
     /**
      * Checks to see if the type is valid
      *
-     * @access private
      * @param string $candidate
      */
     private static function checkType($candidate)
@@ -176,7 +154,6 @@ abstract class OpenSSH
     /**
      * Wrap a private key appropriately
      *
-     * @access public
      * @param string $publicKey
      * @param string $privateKey
      * @param string $password
@@ -185,12 +162,10 @@ abstract class OpenSSH
      */
     protected static function wrapPrivateKey($publicKey, $privateKey, $password, $options)
     {
-        if (!empty($password) && \is_string($password)) {
-            throw new \WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedFormatException('Encrypted OpenSSH private keys are not supported');
-        }
         list(, $checkint) = \unpack('N', \WPMailSMTP\Vendor\phpseclib3\Crypt\Random::string(4));
         $comment = isset($options['comment']) ? $options['comment'] : self::$comment;
         $paddedKey = \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::packSSH2('NN', $checkint, $checkint) . $privateKey . \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::packSSH2('s', $comment);
+        $usesEncryption = !empty($password) && \is_string($password);
         /*
           from http://tools.ietf.org/html/rfc4253#section-6 :
         
@@ -198,12 +173,23 @@ abstract class OpenSSH
           'padding_length', 'payload', and 'random padding' MUST be a multiple
           of the cipher block size or 8, whichever is larger.
         */
-        $paddingLength = 7 * \strlen($paddedKey) % 8;
+        $blockSize = $usesEncryption ? 16 : 8;
+        $paddingLength = ($blockSize - 1) * \strlen($paddedKey) % $blockSize;
         for ($i = 1; $i <= $paddingLength; $i++) {
             $paddedKey .= \chr($i);
         }
-        $key = \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::packSSH2('sssNss', 'none', 'none', '', 1, $publicKey, $paddedKey);
+        if (!$usesEncryption) {
+            $key = \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::packSSH2('sssNss', 'none', 'none', '', 1, $publicKey, $paddedKey);
+        } else {
+            $rounds = isset($options['rounds']) ? $options['rounds'] : 16;
+            $salt = \WPMailSMTP\Vendor\phpseclib3\Crypt\Random::string(16);
+            $kdfoptions = \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::packSSH2('sN', $salt, $rounds);
+            $crypto = new \WPMailSMTP\Vendor\phpseclib3\Crypt\AES('ctr');
+            $crypto->setPassword($password, 'bcrypt', $salt, $rounds, 32);
+            $paddedKey = $crypto->encrypt($paddedKey);
+            $key = \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::packSSH2('sssNss', 'aes256-ctr', 'bcrypt', $kdfoptions, 1, $publicKey, $paddedKey);
+        }
         $key = "openssh-key-v1\0{$key}";
-        return "-----BEGIN OPENSSH PRIVATE KEY-----\n" . \chunk_split(\WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64::encode($key), 70, "\n") . "-----END OPENSSH PRIVATE KEY-----\n";
+        return "-----BEGIN OPENSSH PRIVATE KEY-----\n" . \chunk_split(\WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::base64_encode($key), 70, "\n") . "-----END OPENSSH PRIVATE KEY-----\n";
     }
 }

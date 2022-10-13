@@ -5,7 +5,7 @@
  * Description: Sell products and services with recurring payments in your WooCommerce Store.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
- * Version: 4.5.1
+ * Version: 4.6.0
  *
  * WC requires at least: 4.4
  * WC tested up to: 6.5.0
@@ -48,6 +48,20 @@ if ( ! is_woocommerce_active() || version_compare( get_option( 'woocommerce_db_v
 	return;
 }
 
+/**
+ * Declare plugin incompatibility with WooCommerce HPOS.
+ *
+ * @since 4.6.0
+ */
+add_action(
+	'before_woocommerce_init',
+	function() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, false );
+		}
+	}
+);
+
 // Subscribe to automated translations.
 add_action( 'woocommerce_translations_updates_for_woocommerce-subscriptions', '__return_true' );
 
@@ -71,7 +85,7 @@ class WC_Subscriptions {
 	public static $plugin_file = __FILE__;
 
 	/** @var string */
-	public static $version = '4.5.1';
+	public static $version = '4.6.0';
 
 	/** @var string */
 	public static $wc_minimum_supported_version = '4.4';

@@ -53,6 +53,11 @@ class WC_Points_Rewards_Product {
 	public function render_product_message() {
 		global $product;
 
+		// Do not display the product message for external products.
+		if ( 'external' === $product->get_type() ) {
+			return;
+		}
+
 		$message = get_option( 'wc_points_rewards_single_product_message' );
 
 		$points_earned = self::get_points_earned_for_product_purchase( $product );

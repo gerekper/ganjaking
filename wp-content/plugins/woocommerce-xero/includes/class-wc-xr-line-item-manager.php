@@ -53,23 +53,6 @@ class WC_XR_Line_Item_Manager {
 				// Create Line Item object.
 				$line_item   = new WC_XR_Line_Item( $this->settings );
 				$description = self::detexturize( $item['name'] );
-				// Variation? Add attribute data to the description.
-				if ( 'WC_Product_Variation' === get_class( $product ) || 'WC_Product_Subscription_Variation' === get_class( $product ) ) {
-					$attributes = array();
-
-					foreach ( $item['item_meta_array'] as $meta_id => $meta ) {
-						if ( empty( $meta->value ) || is_serialized( $meta->value ) || '_' === substr( $meta->key, 0, 1 ) ) {
-							continue;
-						}
-
-						$attributes[] = $meta->key . ': ' . $meta->value;
-
-					}
-
-					if ( 0 < count( $attributes ) ) {
-						$description .= ' (' . implode( ', ', $attributes ) . ')';
-					}
-				}
 				$line_item->set_description( $description );
 
 				// Set account code.
@@ -83,9 +66,19 @@ class WC_XR_Line_Item_Manager {
 				// Send Discount?
 				$item_without_discounts = $order->get_item_subtotal( $item, $prices_inc_tax, false );
 
-				// Invoice decimal precision.
-				$precision     = 'on' === $this->settings->get_option( 'four_decimals' ) ? 4 : 2;
-				$item_discount = round( ( $order->get_line_subtotal( $item, $prices_inc_tax, false ) - $order->get_line_total( $item, $prices_inc_tax, false ) ), $precision );
+				// Discount forced to be 2 decimals because XERO always rounds it down to 2 in the end.
+				// See https://github.com/woocommerce/woocommerce-xero/pull/281#issuecomment-1169853203.
+				$item_discount = round( ( $order->get_line_subtotal( $item, $prices_inc_tax, false ) - $order->get_line_total( $item, $prices_inc_tax, false ) ), 2 );
+
+				// Get Quantity.
+				$get_quantity = $item->get_quantity();
+
+				// If discount is greater than the total amount, change the
+				// item amount to match with the total discount.
+				if ( $item_discount > ( $item_without_discounts * $get_quantity ) ) {
+					$item_without_discounts = $item_discount / $get_quantity;
+				}
+
 				if ( 0.001 < abs( $item_discount ) ) {
 					$line_item->set_discount_amount( $item_discount );
 				}
@@ -418,7 +411,7 @@ class WC_XR_Line_Item_Manager {
 			$account_code = $this->settings->get_option( 'rounding_account' );
 
 			// Check rounding account code.
-			if ( '' !== $account_code ) {
+			if ( '' !== $account_code && $diff > 0 ) {
 
 				// Create correction line item.
 				$correction_line = new WC_XR_Line_Item( $this->settings );

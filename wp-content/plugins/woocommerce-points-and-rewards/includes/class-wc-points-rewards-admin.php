@@ -584,7 +584,7 @@ class WC_Points_Rewards_Admin {
 			// points label.
 			array(
 				'title'    => __( 'Points Label', 'woocommerce-points-and-rewards' ),
-				'desc_tip' => __( 'The label used to refer to points on the frontend, singular and plural.', 'woocommerce-points-and-rewards' ),
+				'desc_tip' => esc_html__( 'This is the label that is seen by shoppers on your store. By default, the label will be Point / Points. You can customize your own singular and plural labels here.', 'woocommerce-points-and-rewards' ),
 				'id'       => 'wc_points_rewards_points_label',
 				'default'  => sprintf( '%s:%s', __( 'Point', 'woocommerce-points-and-rewards' ), __( 'Points', 'woocommerce-points-and-rewards' ) ),
 				'type'     => 'singular_plural',
@@ -842,12 +842,35 @@ class WC_Points_Rewards_Admin {
 	 * Save the singular-plural text fields
 	 *
 	 * @since 0.1
-	 * @param array $field
+	 * @param  string $value     Option value.
+	 * @param  array  $option    Option name.
+	 * @param  string $raw_value Raw value.
+	 * @return string
 	 */
 	public function save_singular_plural_field( $value, $option, $raw_value ) {
+		$singular = '';
+		$plural   = '';
 
-		if ( ! empty( $_POST[ $option['id'] . '_singular' ] ) && ! empty( $_POST[ $option['id'] . '_plural' ] ) )
-			return wc_clean( $_POST[ $option['id'] . '_singular' ] ) . ':' . wc_clean( $_POST[ $option['id'] . '_plural' ] );
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
+		if ( ! empty( $_POST[ $option['id'] . '_singular' ] ) ) {
+			$singular = wc_clean( wp_unslash( $_POST[ $option['id'] . '_singular' ] ) );
+		}
+
+		if ( ! empty( $_POST[ $option['id'] . '_plural' ] ) ) {
+			$plural = wc_clean( wp_unslash( $_POST[ $option['id'] . '_plural' ] ) );
+		}
+		// phpcs:enable
+
+		// If both the fields are empty, then return the default label value.
+		if ( empty( $singular ) && empty( $plural ) ) {
+			return $option['default'];
+		}
+
+		// If either of the labels is empty, then use the non-empty label.
+		$singular = ! empty( $singular ) ? $singular : $plural;
+		$plural   = ! empty( $plural ) ? $plural : $singular;
+
+		return $singular . ':' . $plural;
 	}
 
 	/**
@@ -946,7 +969,7 @@ class WC_Points_Rewards_Admin {
 				</th>
 				<td class="forminp forminp-text" style="width:15%;">
 					<fieldset>
-						<a href="<?php echo esc_url( add_query_arg( array( 'action' => 'apply_points' ) ) ); ?>" class="button" id="<?php echo $field['id'];?>"><?php echo esc_html( $field['button_text'] ); ?></a>
+						<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( [ 'action' => 'apply_points' ] ), 'wc-points-rewards-apply-points' ) ); ?>" class="button" id="<?php echo esc_attr( $field['id'] ); ?>"><?php echo esc_html( $field['button_text'] ); ?></a>
 					</fieldset>
 				</td>
 				<td class="forminp forminp-text" style="width: 50%; float: left;">
@@ -983,6 +1006,11 @@ class WC_Points_Rewards_Admin {
 		if ( 'settings' == $current_tab ) {
 
 			if ( 'apply_points' == $current_action ) {
+
+				// Verify nonce before proceeding with the action.
+				if ( empty( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_key( $_REQUEST['_wpnonce'] ), 'wc-points-rewards-apply-points' ) ) {
+					return;
+				}
 
 				// try and avoid timeouts as best we can
 				@set_time_limit( 0 );

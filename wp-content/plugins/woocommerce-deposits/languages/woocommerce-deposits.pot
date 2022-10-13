@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Deposits 2.0.1\n"
+"Project-Id-Version: WooCommerce Deposits 2.0.2\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-deposits\n"
-"POT-Creation-Date: 2022-09-14 19:57:39+00:00\n"
+"POT-Creation-Date: 2022-10-11 05:57:56+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -91,7 +91,7 @@ msgid "Payment Plan"
 msgstr ""
 
 #: includes/class-wc-deposits-cart-manager.php:977
-#: includes/class-wc-deposits-order-manager.php:974
+#: includes/class-wc-deposits-order-manager.php:1025
 msgid "%s payable in total"
 msgstr ""
 
@@ -106,12 +106,12 @@ msgid "(includes %s)"
 msgstr ""
 
 #: includes/class-wc-deposits-cart-manager.php:1164
-#: includes/class-wc-deposits-order-manager.php:865
+#: includes/class-wc-deposits-order-manager.php:916
 msgid "(includes tax)"
 msgstr ""
 
 #: includes/class-wc-deposits-cart-manager.php:1164
-#: includes/class-wc-deposits-order-manager.php:865
+#: includes/class-wc-deposits-order-manager.php:916
 msgid "(excludes tax)"
 msgstr ""
 
@@ -122,14 +122,14 @@ msgstr ""
 
 #: includes/class-wc-deposits-cart-manager.php:1197
 #: includes/class-wc-deposits-cart-manager.php:1198
-#: includes/class-wc-deposits-order-manager.php:870
+#: includes/class-wc-deposits-order-manager.php:921
 msgid "Discount Applied Toward Future Payments"
 msgstr ""
 
 #: includes/class-wc-deposits-cart-manager.php:1204
 #: includes/class-wc-deposits-cart-manager.php:1205
-#: includes/class-wc-deposits-order-manager.php:882
-#: includes/class-wc-deposits-order-manager.php:887
+#: includes/class-wc-deposits-order-manager.php:933
+#: includes/class-wc-deposits-order-manager.php:938
 msgid "Future Payments"
 msgstr ""
 
@@ -143,7 +143,7 @@ msgid "Scheduled Orders"
 msgstr ""
 
 #: includes/class-wc-deposits-my-account.php:162
-#: includes/class-wc-deposits-order-manager.php:574
+#: includes/class-wc-deposits-order-manager.php:579
 msgid "View Original Order"
 msgstr ""
 
@@ -203,40 +203,50 @@ msgid "Deposit Amount (excl. tax)"
 msgstr ""
 
 #: includes/class-wc-deposits-order-manager.php:537
-#: includes/class-wc-deposits-order-manager.php:779
+#: includes/class-wc-deposits-order-manager.php:830
 msgid "Deposit"
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:553
+#: includes/class-wc-deposits-order-manager.php:555
 msgid "View Scheduled Payments"
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:562
-#: includes/class-wc-deposits-order-manager.php:796
+#: includes/class-wc-deposits-order-manager.php:564
+#: includes/class-wc-deposits-order-manager.php:847
 msgid "Remainder - Invoice #%1$s"
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:564
+#: includes/class-wc-deposits-order-manager.php:566
 msgid "The remaining balance of %s (plus tax) for this item was paid offline."
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:565
+#: includes/class-wc-deposits-order-manager.php:567
 msgid "Unmark as Paid"
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:568
+#: includes/class-wc-deposits-order-manager.php:571
 msgid "Invoice Remaining Balance"
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:569
+#: includes/class-wc-deposits-order-manager.php:572
 msgid "Mark Paid (offline)"
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:798
+#: includes/class-wc-deposits-order-manager.php:638
+#: includes/class-wc-deposits-order-manager.php:640
+#: includes/class-wc-deposits-order-manager.php:642
+msgid "Unmarked as paid."
+msgstr ""
+
+#: includes/class-wc-deposits-order-manager.php:651
+msgid "Order completed with Mark Paid (offline)."
+msgstr ""
+
+#: includes/class-wc-deposits-order-manager.php:849
 msgid "The remaining balance of %s for this item was paid offline."
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:897
+#: includes/class-wc-deposits-order-manager.php:948
 msgid "Total Due Today:"
 msgstr ""
 
@@ -432,19 +442,19 @@ msgstr ""
 msgid "Select payment gateways that should be disabled when accepting deposits."
 msgstr ""
 
-#: includes/class-wc-deposits.php:99
+#: includes/class-wc-deposits.php:100
 msgid "Docs"
 msgstr ""
 
-#: includes/class-wc-deposits.php:100
+#: includes/class-wc-deposits.php:101
 msgid "Premium Support"
 msgstr ""
 
-#: includes/class-wc-deposits.php:114
+#: includes/class-wc-deposits.php:115
 msgid "Deposits have been activated!"
 msgstr ""
 
-#: includes/class-wc-deposits.php:116
+#: includes/class-wc-deposits.php:117
 #. translators: %s: Deposits settings page link
 msgid ""
 "Add or edit a product to manage deposits in the Product Data section for "

@@ -502,6 +502,7 @@ class RevSliderSliderImport extends RevSliderSlider {
 		
 		//update slider params
 		$params = $this->get_val($this->slider_data, 'params');
+		$params['imported'] = true; //set that we are an imported slider
 		if($this->exists){
 			$params['title'] = $this->get_param('title');
 			$params['alias'] = $this->get_param('alias');
@@ -582,6 +583,7 @@ class RevSliderSliderImport extends RevSliderSlider {
 		
 		//update slider params
 		$params = $this->get_val($this->slider_data, 'params');
+		$params['imported'] = true; //set that we are an imported slider
 		
 		//check if we are a premium slider
 		if($this->get_val($params, 'pakps', false) === true && $this->_truefalse(get_option('revslider-valid', 'false')) === false){

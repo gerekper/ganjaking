@@ -52,7 +52,6 @@ class MeprAuthorizeGateway extends MeprBaseRealGateway {
         'transaction_key' => '',
         'signature_key' => '',
         'force_ssl' => false,
-        'catchup_type' => 'proration',
         'debug' => false,
         //'use_cron' => false,
         'test_mode' => false,
@@ -586,14 +585,22 @@ class MeprAuthorizeGateway extends MeprBaseRealGateway {
       // If no trial or trial amount is zero then we've got to make
       // sure the confirmation txn lasts through the trial
       if(!$sub->trial || ($sub->trial and $sub->trial_amount <= 0.00)) {
-        $day_count = ($sub->trial)?$sub->trial_days:$mepr_options->grace_init_days;
+        if($sub->trial) {
+          $expires_at = MeprUtils::ts_to_mysql_date(time() + MeprUtils::days($sub->trial_days), 'Y-m-d 23:59:59');
+        }
+        elseif(!$mepr_options->disable_grace_init_days && $mepr_options->grace_init_days > 0) {
+          $expires_at = MeprUtils::ts_to_mysql_date(time() + MeprUtils::days($mepr_options->grace_init_days), 'Y-m-d 23:59:59');
+        }
+        else {
+          $expires_at = $txn->created_at; // Expire immediately
+        }
 
-        $txn->expires_at  = MeprUtils::ts_to_mysql_date(time() + MeprUtils::days($day_count), 'Y-m-d H:i:s'); // Grace period before txn processes
+        $txn->expires_at  = $expires_at;
         $txn->txn_type    = MeprTransaction::$subscription_confirmation_str;
         $txn->status      = MeprTransaction::$confirmed_str;
         $txn->trans_num   = $sub->subscr_id;
         $txn->set_subtotal(0.00); // This txn is just a confirmation txn ... it shouldn't have a cost
-        $txn->store();
+        $txn->store(true);
       }
 
       if($upgrade) {
@@ -663,37 +670,6 @@ class MeprAuthorizeGateway extends MeprBaseRealGateway {
     $args = MeprHooks::apply_filters('mepr_authorize_update_subscription_args', $args, $sub);
 
     $res = $this->send_arb_request('ARBUpdateSubscriptionRequest', $args);
-
-    // Calculate ARB Catch up payment
-    if( $sub->is_expired() &&
-        $sub->latest_txn_failed() &&
-        !$sub->first_real_payment_failed() && //Only when first payment failed, Authorize.net suspends sub, when we update the card it retries it, so don't catchup
-        ($catchup = $sub->calculate_catchup($this->settings->catchup_type)) &&
-        $catchup->proration > 0.00 ) {
-      // Create Transaction
-      $txn = new MeprTransaction();
-      $txn->subscription_id = $sub->id;
-      $txn->user_id = $sub->user_id;
-      $txn->set_subtotal($catchup->proration);
-      $txn->prorated = true;
-      $txn->product_id = $sub->product_id;
-      $txn->gateway = $this->id;
-
-      $now = time();
-      $txn->created_at = MeprUtils::ts_to_mysql_date($now);
-      $txn->expires_at = MeprUtils::ts_to_mysql_date($catchup->next_billing, 'Y-m-d 23:59:59');
-
-      $txn->store();
-
-      // Bill Catch-Up Payment
-      $_POST['mepr_cc_num']       = sanitize_text_field($_POST['update_cc_num']);
-      $_POST['mepr_cvv_code']     = sanitize_text_field($_POST['update_cvv_code']);
-      $_POST['mepr_cc_exp_month'] = sanitize_text_field($_POST['update_cc_exp_month']);
-      $_POST['mepr_cc_exp_year']  = sanitize_text_field($_POST['update_cc_exp_year']);
-
-      $_REQUEST['silence_expired_cc'] = true;
-      $this->process_payment($txn);
-    }
 
     return $res;
   }
@@ -1000,7 +976,6 @@ class MeprAuthorizeGateway extends MeprBaseRealGateway {
     $test_mode     = ($this->settings->test_mode == 'on' or $this->settings->test_mode == true);
     $debug         = ($this->settings->debug == 'on' or $this->settings->debug == true);
     $force_ssl     = ($this->settings->force_ssl == 'on' or $this->settings->force_ssl == true);
-    $catchup_type  = $this->settings->catchup_type;
     // $use_cron     = ($this->settings->use_cron == 'on' or $this->settings->use_cron == true);
 
     ?>
@@ -1025,17 +1000,6 @@ class MeprAuthorizeGateway extends MeprBaseRealGateway {
       </tr>
       <tr>
         <td colspan="2"><input type="checkbox" name="<?php echo $mepr_options->integrations_str; ?>[<?php echo $this->id;?>][force_ssl]"<?php checked($force_ssl); ?> />&nbsp;<?php _e('Force SSL', 'memberpress'); ?></td>
-      </tr>
-      <tr>
-        <td><?php _e('Catch Up Payment Type', 'memberpress'); ?></td>
-        <td>
-          <select name="<?php echo $mepr_options->integrations_str; ?>[<?php echo $this->id;?>][catchup_type]">
-            <option value="none" <?php selected($catchup_type, 'none'); ?>><?php _e('None', 'memberpress'); ?></option>
-            <option value="period" <?php selected($catchup_type, 'period'); ?>><?php _e('Period', 'memberpress'); ?></option>
-            <option value="proration" <?php selected($catchup_type, 'proration'); ?>><?php _e('Proration', 'memberpress'); ?></option>
-            <option value="full" <?php selected($catchup_type, 'full'); ?>><?php _e('Full', 'memberpress'); ?></option>
-          </select>
-        </td>
       </tr>
       <tr>
         <td><?php _e('Webhook URL:', 'memberpress'); ?></td>
@@ -1105,14 +1069,6 @@ class MeprAuthorizeGateway extends MeprBaseRealGateway {
 
     ?>
     <div class="mp_wrapper">
-      <?php if( $sub->is_expired() &&
-                $sub->latest_txn_failed() &&
-                !$sub->first_real_payment_failed() && //Only when first payment failed, Authorize.net suspends sub, when we update the card it retries it, so don't catchup
-                ($catchup = $sub->calculate_catchup($this->settings->catchup_type)) &&
-                $catchup->proration > 0.00 ): ?>
-        <div class="mepr_error"><?php printf(__('Note: Because your subscription is expired, when you update your credit card number our system will attempt to bill your card for the prorated amount of %s to catch you up until the next automatic billing.','memberpress'), MeprAppHelper::format_currency($catchup->proration)); ?></div>
-      <?php endif; ?>
-
       <form action="" method="post" id="mepr_authorize_net_update_cc_form" class="mepr-checkout-form mepr-form" novalidate>
         <input type="hidden" name="_mepr_nonce" value="<?php echo wp_create_nonce('mepr_process_update_account_form'); ?>" />
         <div class="mepr_update_account_table">

@@ -56,7 +56,7 @@ class RevsliderDiviModule extends ET_Builder_Module {
         );
     }
 
-	public function render( $attrs, $content = null, $render_slug ) {
+	public function render( $attrs, $content = null, $render_slug = '' ) {
         return do_shortcode( et_pb_fix_shortcodes( str_replace( array( '&#91;', '&#93;' ), array( '[', ']' ), $this->props['revslider_divi'] ), true ) );
 	}
 }

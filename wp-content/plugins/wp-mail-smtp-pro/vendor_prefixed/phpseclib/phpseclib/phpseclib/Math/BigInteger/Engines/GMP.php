@@ -5,8 +5,6 @@
  *
  * PHP version 5 and 7
  *
- * @category  Math
- * @package   BigInteger
  * @author    Jim Wigginton <terrafrost@php.net>
  * @copyright 2017 Jim Wigginton
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -18,9 +16,7 @@ use WPMailSMTP\Vendor\phpseclib3\Exception\BadConfigurationException;
 /**
  * GMP Engine.
  *
- * @package GMP
  * @author  Jim Wigginton <terrafrost@php.net>
- * @access  public
  */
 class GMP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\Engine
 {
@@ -29,14 +25,12 @@ class GMP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\Engine
      *
      * @see parent::bitwise_leftRotate()
      * @see parent::bitwise_rightRotate()
-     * @access protected
      */
     const FAST_BITWISE = \true;
     /**
      * Engine Directory
      *
      * @see parent::setModExpEngine
-     * @access protected
      */
     const ENGINE_DIR = 'GMP';
     /**
@@ -214,7 +208,6 @@ class GMP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\Engine
      *
      * @param GMP $y
      * @return int in case < 0 if $this is less than $y; > 0 if $this is greater than $y, and 0 if they are equal.
-     * @access public
      * @see self::equals()
      */
     public function compare(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\GMP $y)
@@ -287,7 +280,6 @@ class GMP extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\Engine
      * Absolute value.
      *
      * @return GMP
-     * @access public
      */
     public function abs()
     {

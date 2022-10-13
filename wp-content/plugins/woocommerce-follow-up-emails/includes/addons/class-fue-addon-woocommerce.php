@@ -426,23 +426,22 @@ class FUE_Addon_Woocommerce {
 
 	/**
 	 * Look for a Subscription Variation product and modify the displayed
-	 * title to include all of its attributes in a CSV format
+	 * title to include the variation price.
 	 *
 	 * @param array $products
 	 * @return mixed
 	 */
 	public function display_product_variable_attributes( $products ) {
 		foreach ( $products as $id => $title ) {
-			$product = WC_FUE_Compatibility::wc_get_product( $id );
+			$product = wc_get_product( $id );
 
-			if ( is_a($product, 'WC_Product_Subscription_Variation') ) {
-				$identifier = '#' . $id;
-				$attributes = $product->get_variation_attributes();
-				$extra_data = ' &ndash; ' . implode( ', ', $attributes ) . ' &ndash; ' . wc_price( $product->get_price() );
-
-				$products[$id] = sprintf( __( '%s &ndash; %s%s', 'woocommerce' ), $identifier, $product->get_title(), $extra_data );
+			if ( is_a( $product, 'WC_Product_Subscription_Variation' ) ) {
+				$products[ $id ] .= sprintf(
+					/* translators: variation price */
+					__( ' &ndash; %s', 'follow_up_emails' ),
+					wc_price( $product->get_price() )
+				);
 			}
-
 		}
 
 		return $products;

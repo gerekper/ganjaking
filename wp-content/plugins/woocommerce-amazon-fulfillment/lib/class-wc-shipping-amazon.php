@@ -1,15 +1,19 @@
 <?php
 /**
- * Amazon custom shipping class.
+ * Amazon custom shipping class. This adds standard shipping method to WC and provides
+ * realtime shipment and delivery estimates.
  *
  * @package NeverSettle\WooCommerce-Amazon-Fulfillment
  */
 
 defined( 'ABSPATH' ) || exit;
 
-require_once dirname( __FILE__ ) . '/../../woocommerce/includes/abstracts/abstract-wc-settings-api.php';
-require_once dirname( __FILE__ ) . '/../../woocommerce/includes/abstracts/abstract-wc-shipping-method.php';
-require_once dirname( __FILE__ ) . '/class-sp-fulfillment.php';
+// TODO: 4.1.0 Figure out if these are actually required.
+// They should already be required and these lines can maybe totally get deleted.
+// They are currently needed due to how file loading is done.
+require_once WP_PLUGIN_DIR . '/woocommerce/includes/abstracts/abstract-wc-settings-api.php';
+require_once WP_PLUGIN_DIR . '/woocommerce/includes/abstracts/abstract-wc-shipping-method.php';
+require_once dirname( __FILE__ ) . '/class-ns-mcf-fulfillment.php';
 
 /**
  * Amazon shipping method.
@@ -113,7 +117,7 @@ class WC_Shipping_Amazon extends WC_Shipping_Method {
 	 * @param array $package The package.
 	 */
 	public function calculate_shipping( $package = array() ) {
-		$sp_fulfillment = SP_Fulfillment::get_instance();
+		$mcf_fulfillment = new NS_MCF_Fulfillment( NS_FBA::get_instance() );
 
 		$shipping_speed_categories = array();
 
@@ -123,7 +127,7 @@ class WC_Shipping_Amazon extends WC_Shipping_Method {
 			}
 		}
 
-		$response = $sp_fulfillment->get_fulfillment_orders_preview( $package, $shipping_speed_categories );
+		$response = $mcf_fulfillment->get_fulfillment_orders_preview( $package, $shipping_speed_categories );
 
 		if ( ! SP_API::is_error_in( $response ) ) {
 
@@ -138,12 +142,17 @@ class WC_Shipping_Amazon extends WC_Shipping_Method {
 
 				$rate_key = $fulfillment_previews['shippingSpeedCategory'];
 
-				$latest_arrival_date = $fulfillment_previews['fulfillmentPreviewShipments'][0]['latestArrivalDate'];
-
-				$latest_arrival_date = ! empty( $latest_arrival_date ) ? sprintf( '(%s %s)', __( 'est. arrive by' ), ( new DateTime( $latest_arrival_date ) )->format( 'D, M jS' ) ) : '';
-
 				if ( isset( $this->custom_rates[ $rate_key ] ) &&
 					'yes' === $this->custom_rates[ $rate_key ]['enabled'] ) {
+
+					if ( ! isset( $fulfillment_previews['estimatedFees'] ) ) {
+						// If the area is not supported, we should not proceed.
+						continue;
+					}
+
+					$latest_arrival_date = $fulfillment_previews['fulfillmentPreviewShipments'][0]['latestArrivalDate'];
+
+					$latest_arrival_date = ! empty( $latest_arrival_date ) ? sprintf( '(%s %s)', __( 'est. arrive by' ), ( new DateTime( $latest_arrival_date ) )->format( 'D, M jS' ) ) : '';
 
 					$formatted_estimated_fee = $this->get_formatted_estimated_feeds( $fulfillment_previews['estimatedFees'] );
 					$estimated_fee           = isset( $formatted_estimated_fee[ self::FBA_PER_UNIT_FULFILLMENT_FEE ] ) ? $formatted_estimated_fee[ self::FBA_PER_UNIT_FULFILLMENT_FEE ]['value'] : 0;

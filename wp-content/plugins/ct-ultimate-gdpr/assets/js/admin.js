@@ -93,6 +93,7 @@ jQuery(document).ready(function ($) {
         $this.find( '.form-table input[type="checkbox"]' ).each( function() {
             var $this = $( this );
             $this.css( 'display', 'none' );
+            
             var $html = '<div class="ct-ultimate-gdpr-checkbox-switch"><span class="on label">'+ct_ultimate_gdpr_admin_translations.enable+'</span><span class="off label">'+ct_ultimate_gdpr_admin_translations.disable+'</span><span class="switch">\'+ct_ultimate_gdpr_admin_translations.enable+\'</span></div>';
             $( $html ).insertAfter( $this );
 
@@ -102,14 +103,17 @@ jQuery(document).ready(function ($) {
                 $this.next().find( '.switch' ).css( 'left', '50%' ).text( ct_ultimate_gdpr_admin_translations.disabled );
             }
         } );
+
         $( '.ct-ultimate-gdpr-checkbox-switch .off' ).on( 'click', function () {
             var $this = $( this );
-            $this.parent().prev().removeAttr( 'checked' );
+            var checkBox =  $this.parent().prev();
+            checkBox.prop( "checked", !checkBox.prop("checked")  );
             $this.next().css( 'left', '50%' ).text( ct_ultimate_gdpr_admin_translations.disabled );
         });
         $( '.ct-ultimate-gdpr-checkbox-switch .on' ).on( 'click', function () {
             var $this = $( this );
-            $this.parent().prev().attr( 'checked', 'checked' );
+            var checkBox =  $this.parent().prev();
+            checkBox.prop( "checked", !checkBox.prop("checked")  );
             $this.next().next().css( 'left', '0' ).text( ct_ultimate_gdpr_admin_translations.enabled );
         });
     }
@@ -428,38 +432,35 @@ jQuery(document).ready(function ($) {
       })
 
 
-    function toggleListOptions(enable = true){
-
+    function toggleSingleCookieListOptions(){
+        // individual cookie
         var individualCookieSwitcher = $('#cookie_single_popup').siblings();
-        var switcher = $( individualCookieSwitcher[0] ).children();
- 
-        if(switcher[2].innerHTML === 'Enabled') {
-            console.log("enabled");
-            $('.list-before-individual + div').css('display', 'none');
-            $('.list-before-group + div').css('display', 'block');
-        }
-        if(switcher[2].innerHTML === 'Disabled') {
-            console.log("disabled");
-            $('.list-before-individual + div').css('display', 'block');
-            $('.list-before-group + div').css('display', 'none');
+        
+        if( individualCookieSwitcher.find().prevObject.length > 0 ) {
+            var switcher = $( individualCookieSwitcher[0] ).children();
+            if(switcher[2].innerText === 'Enabled') {
+                $('.list-before-individual + div').css('display', 'none');
+                $('.list-before-group + div').css('display', 'block');
+            }
+            if(switcher[2].innerText === 'Disabled') {
+                $('.list-before-individual + div').css('display', 'block');
+                $('.list-before-group + div').css('display', 'none');
+            }
         }
     }
 
-    function init(){
+    function initSingleCookiePopup(){
         var $ = jQuery;
         var enableSwitcher = $('#cookie_single_popup').parent();
 
-        toggleListOptions();
+        toggleSingleCookieListOptions();
         
         enableSwitcher.on('click','.ct-ultimate-gdpr-checkbox-switch', function(){
-
             if( enableSwitcher.find('input').attr('checked') === "checked") {
-                toggleListOptions()
-            }else{
-                toggleListOptions(false)
-            }
+                toggleSingleCookieListOptions()
+            } 
         })
     }
-    init()
+    initSingleCookiePopup()
 
 });

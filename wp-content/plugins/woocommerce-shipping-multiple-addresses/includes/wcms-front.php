@@ -103,20 +103,13 @@ class WC_MS_Front {
 		wp_enqueue_script( 'jquery-ui-touch-punch', plugins_url( 'assets/js/jquery.ui.touch-punch.min.js', WC_Ship_Multiple::FILE ), array( 'jquery-ui-mouse', 'jquery-ui-widget' ) );
 
 		if ( $user->ID != 0 ) {
-			wp_enqueue_script( 'multiple_shipping_script', plugins_url( 'assets/js/front.min.js', WC_Ship_Multiple::FILE ) );
-
-			wp_localize_script( 'multiple_shipping_script', 'WC_Shipping', array(
-				// URL to wp-admin/admin-ajax.php to process the request
-				'ajaxurl' => admin_url( 'admin-ajax.php' )
-			) );
-
 			$page_id = wc_get_page_id( 'account_addresses' );
 			$url = get_permalink( $page_id );
 			$url = add_query_arg( 'height', '400', add_query_arg( 'width', '400', add_query_arg( 'addressbook', '1', $url ) ) );
 		?>
 			<script type="text/javascript">
 				var address = null;
-				var wc_ship_url = '<?php echo $url; ?>';
+				var wc_ship_url = '<?php echo esc_url( $url ); ?>';
 			</script>
 		<?php
 		}
@@ -138,6 +131,7 @@ class WC_MS_Front {
 					'wc_url'            => WC()->plugin_url(),
 					'countries'         => wp_json_encode( array_merge( WC()->countries->get_allowed_country_states(), WC()->countries->get_shipping_country_states() ) ),
 					'select_state_text' => esc_attr__( 'Select an option&hellip;', 'wc_shipping_multiple_address' ),
+					'_wcmsnonce'        => wp_create_nonce( 'wcms-action_' . WC()->session->get_customer_unique_id() ),
 				)
 			)
 		);

@@ -1,5 +1,19 @@
 *** WooCommerce Follow-Up Emails ***
 
+2022-10-12 - version 4.9.31
+* Fix - Only add price when overriding search results for subscription variations.
+* Tweak - WC 7.0 compatibility.
+
+2022-10-11 - version 4.9.30
+* Fix - Sanitise and escape mailing list name.
+* Fix - Sanitise and escape template name.
+* Fix - Typo of using in-string variables.
+
+2022-10-04 - version 4.9.29
+* Fix - Escape insertions in Subscribers bulk upload.
+* Fix - Fix- Secures files allowing only access inside ABSPATH.
+* Fix - Secure Update and Delete Subscriber List with Nonce.
+
 2022-09-02 - version 4.9.28
 * Tweak - WC 6.9 compatibility.
 

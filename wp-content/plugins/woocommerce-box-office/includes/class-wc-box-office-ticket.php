@@ -122,14 +122,15 @@ class WC_Box_Office_Ticket {
 			return;
 		}
 
-		$this->post       = $post;
-		$this->id         = $post->ID;
-		$this->title      = $post->post_title;
-		$this->status     = $post->post_status;
-		$this->order_id   = get_post_meta( $this->id, '_order', true );
-		$this->order      = wc_get_order( $this->order_id );
-		$this->product_id = get_post_meta( $this->id, '_product', true );
-		$this->product    = wc_get_product( $this->product_id );
+		$this->post         = $post;
+		$this->id           = $post->ID;
+		$this->title        = $post->post_title;
+		$this->status       = $post->post_status;
+		$this->order_id     = get_post_meta( $this->id, '_order', true );
+		$this->order        = wc_get_order( $this->order_id );
+		$this->product_id   = get_post_meta( $this->id, '_product', true );
+		$this->product      = wc_get_product( $this->product_id );
+		$this->variation_id = get_post_meta( $this->id, '_variation_id', true );
 
 		$ticket_fields = wc_box_office_get_product_ticket_fields( $this->product_id );
 		foreach ( $ticket_fields as $field_key => $field ) {
@@ -219,6 +220,8 @@ class WC_Box_Office_Ticket {
 		update_post_meta( $ticket_id, '_token', $this->_generate_token( $ticket_id ) );
 
 		update_post_meta( $ticket_id, '_product_id', $product->get_id() );
+
+		update_post_meta( $ticket_id, '_variation_id', $data['variation_id'] );
 
 		update_post_meta( $ticket_id, '_customer_id', $data['customer_id'] );
 

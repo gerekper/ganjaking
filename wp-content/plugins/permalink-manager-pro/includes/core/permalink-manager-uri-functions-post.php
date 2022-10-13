@@ -715,12 +715,20 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		global $permalink_manager_uris, $permalink_manager_options;
 
 		if($column_name == "permalink-manager-col") {
-			// Get auto-update settings
-			$auto_update_val = get_post_meta($post_id, "auto_update_uri", true);
-			$auto_update_uri = (!empty($auto_update_val)) ? $auto_update_val : $permalink_manager_options["general"]["auto_update_uris"];
+			$exclude_drafts = (isset($permalink_manager_options['general']['ignore_drafts'])) ? $permalink_manager_options['general']['ignore_drafts'] : false;
+
+			// A. Disable the "Quick Edit" form for draft posts if "Exclude drafts" option is turned on
+			if($exclude_drafts && get_post_status($post_id) == 'draft') {
+				$readonly = 1;
+			}
+			// B. Get auto-update settings
+			else {
+				$auto_update_val = get_post_meta($post_id, "auto_update_uri", true);
+				$readonly = (!empty($auto_update_val)) ? $auto_update_val : $permalink_manager_options["general"]["auto_update_uris"];
+			}
 
 			$uri = (!empty($permalink_manager_uris[$post_id])) ? rawurldecode($permalink_manager_uris[$post_id]) : self::get_post_uri($post_id, true);
-			printf('<span class="permalink-manager-col-uri" data-readonly="%s">%s</span>', intval($auto_update_uri), $uri);
+			printf('<span class="permalink-manager-col-uri" data-readonly="%s">%s</span>', intval($readonly), $uri);
 		}
 	}
 

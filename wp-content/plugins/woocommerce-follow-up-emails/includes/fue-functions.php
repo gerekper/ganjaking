@@ -47,22 +47,35 @@ function fue_template_basename( $filename ) {
 }
 
 /**
+ * Check if a file is inside ABSPATH, and it exists.
+ *
+ * @param string $filename The file name to check
+ * @return bool True if file exists and is valid. False otherwise.
+ */
+function fue_is_valid_template_file( $filename ) {
+	return (
+		0 === stripos( realpath( $filename ), get_stylesheet_directory() ) ||
+		0 === stripos( realpath( $filename ), FUE_TEMPLATES_DIR )
+	) && file_exists( $filename );
+}
+
+/**
  * Locate the directory an email template is installed in and return the full path
  * @param string $filename basename of the email template
- * @param $type string 'path' or 'url'
+ * @param string $type 'path' or 'url'
  * @return string|bool
  */
 function fue_locate_email_template( $filename, $type = 'path' ) {
 	$fue_pattern    = FUE_TEMPLATES_DIR .'/emails/'. fue_template_basename( $filename ) ;
 	$theme_pattern  = get_stylesheet_directory() .'/follow-up-emails/emails/'. fue_template_basename( $filename );
 
-	if ( file_exists( $theme_pattern ) ) {
+	if ( fue_is_valid_template_file( $theme_pattern ) ) {
 		if ( $type == 'path' ) {
 			return $theme_pattern;
 		} else {
 			return get_stylesheet_directory_uri() .'/follow-up-emails/emails/'. fue_template_basename( $filename );
 		}
-	} elseif ( file_exists( $fue_pattern ) ) {
+	} elseif ( fue_is_valid_template_file( $fue_pattern ) ) {
 		if ( $type == 'path' ) {
 			return $fue_pattern;
 		} else {

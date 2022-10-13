@@ -5,8 +5,6 @@
  *
  * PHP version 5 and 7
  *
- * @category  Math
- * @package   BigInteger
  * @author    Jim Wigginton <terrafrost@php.net>
  * @copyright 2017 Jim Wigginton
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -19,9 +17,7 @@ use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP\Base;
 /**
  * PHP Dynamic Barrett Modular Exponentiation Engine
  *
- * @package PHP
  * @author  Jim Wigginton <terrafrost@php.net>
- * @access  public
  */
 abstract class EvalBarrett extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP\Base
 {
@@ -62,7 +58,7 @@ abstract class EvalBarrett extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger
                 $lhs = new ' . $class . '();
                 $lhs->value = $x;
                 $rhs = new ' . $class . '();
-                $rhs->value = [' . \implode(',', \array_map('self::float2string', $m->value)) . '];
+                $rhs->value = [' . \implode(',', \array_map(self::class . '::float2string', $m->value)) . '];
                 list(, $temp) = $lhs->divide($rhs);
                 return $temp->value;
             ';

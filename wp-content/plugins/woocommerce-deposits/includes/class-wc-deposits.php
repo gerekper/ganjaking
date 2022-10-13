@@ -83,6 +83,7 @@ class WC_Deposits {
 		require_once __DIR__ . '/class-wc-deposits-plan.php';
 		require_once __DIR__ . '/class-wc-deposits-my-account.php';
 		require_once __DIR__ . '/compatibility/core/class-wc-deposits-core-compatibility.php';
+		require_once __DIR__ . '/compatibility/class-wc-deposits-cot-compatibility.php';
 		require_once __DIR__ . '/class-wc-deposits-blocks-compatibility.php';
 	}
 

@@ -8,22 +8,12 @@
 
 defined( 'ABSPATH' ) || exit;
 
-require_once dirname( __FILE__ ) . '/lib/class-sp-api.php';
-require_once dirname( __FILE__ ) . '/lib/class-sp-fulfillment.php';
-
 if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 
 	/**
 	 * WooCommerce integration class.
 	 */
 	class WC_Integration_FBA extends WC_Integration {
-
-		/**
-		 * Store a helper for Seller Partner operations (initialized in __construct)
-		 *
-		 * @var SP_Fulfillment $sp_fulfillment
-		 */
-		public $sp_fulfillment;
 
 		/**
 		 * Will store an NS_FBA class instance (initialized in __construct)
@@ -49,9 +39,9 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 		/**
 		 * Will store the LWA flag status (initialized in __construct)
 		 *
-		 * @var bool $is_lwa_configured
+		 * @var bool $is_configured
 		 */
-		private $is_lwa_configured;
+		private $is_configured;
 
 		/**
 		 * Will store self-explanatory based on property name
@@ -102,7 +92,7 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 		private $ns_fba_currency_code;               // phpcs:ignore
 		private $ns_fba_currency_conversion;         // phpcs:ignore
 
-		// We can't type $ns_fba_disable_shipping because it can be string or array based on settings.
+		// We can't set type for $ns_fba_disable_shipping because it can be string or array based on settings.
 		// TODO: We should maybe split this setting into 2 separate ones or phase the setting out.
 		private $ns_fba_disable_shipping;                   // phpcs:ignore
 
@@ -138,6 +128,8 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 		/**
 		 * The developer ids.
 		 *
+		 * TODO: 4.1.0 We shouldn't need these any more as of 4.1.0 since SP API apps include all dev id's in 1 app ID.
+		 *
 		 * @var array $developer_ids
 		 */
 		private $developer_ids = array(
@@ -145,48 +137,6 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 			'https://sellingpartnerapi-eu.amazon.com' => 309795410647,
 			'https://sellingpartnerapi-fe.amazon.com' => 733779550746,
 		);
-
-		/**
-		 * Consent URL to authorize APP
-		 *
-		 * @const CONSENT_URL
-		 */
-		const SP_CONSENT_URL = 'https://sellercentral.amazon.com/apps/authorize/consent';
-
-		/**
-		 * APP ID.
-		 *
-		 * @const SP_API_ID
-		 */
-		const SP_API_ID = 'amzn1.sellerapps.app.37bb1030-6d6b-43dd-85e0-4408bf9660f5';
-
-		/**
-		 * Define if API is in debug mode.
-		 *
-		 * @const SP_API_DEBUG_MODE
-		 */
-		const SP_API_DEBUG_MODE = true;
-
-		/**
-		 * Redirect URI after APP consent.
-		 *
-		 * @const SP_API_REDIRECT_URI
-		 */
-		const SP_API_REDIRECT_URI = 'https://mcf.atouchpoint.com/api/sp-api-oauth';
-
-		/**
-		 * MWS to LWA migrate URI.
-		 *
-		 * @const SP_API_MWS_MIGRATE_URI
-		 */
-		const SP_API_MWS_MIGRATE_URI = 'https://mcf.atouchpoint.com/api/sp-api-oauth-migrate';
-
-		/**
-		 * Option name for last inventory sync date.
-		 *
-		 * @const LAST_INVENTORY_SYNC_DATE_OPTION_NAME
-		 */
-		const LAST_INVENTORY_SYNC_DATE_OPTION_NAME = 'ns_fba_last_inventory_sync_date';
 
 		/**
 		 * The single instance of the class.
@@ -213,6 +163,15 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 
 			self::$wc_integration = $this;
 
+			// local reference to the singleton nsfba object.
+			$this->ns_fba        = NS_FBA::get_instance();
+			$this->text_domain   = $this->ns_fba->text_domain;
+			$this->is_configured = $this->ns_fba->utils->is_configured();
+
+			if ( $this->is_configured ) {
+				$this->ns_fba_lwa_auth_refresh_token = get_option( 'ns_fba_lwa_auth_refresh_token' );
+			}
+
 			// defaults for settings parameters.
 			$this->button_defaults = array(
 				'class'             => 'button-secondary',
@@ -223,25 +182,14 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 				'title'             => '',
 			);
 
-			// local reference to the singleton nsfba object.
-			$this->ns_fba            = NS_FBA::get_instance();
-			$this->text_domain       = $this->ns_fba->text_domain;
-			$this->is_lwa_configured = $this->ns_fba->utils->is_lwa_configured();
-
-			if ( $this->is_lwa_configured ) {
-				$this->ns_fba_lwa_auth_refresh_token = get_option( 'ns_fba_lwa_auth_refresh_token' );
-			}
-
 			// normal integration properties.
 			$this->id           = 'fba';
 			$this->method_title = __( 'Amazon Multi-Channel Fulfillment (MCF)', $this->text_domain );
 
 			// Load the settings.
 			$this->init_settings();
-			$this->check_tokens();
+			$this->init_check_tokens();
 			$this->init_form_fields();
-
-			$this->sp_fulfillment = SP_Fulfillment::get_instance( $this );
 
 			// This is a hidden setting for the new authentication model
 			// This is Never Settle's MWS Access ID per region
@@ -415,12 +363,7 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 			// Run the inventory api test if this is a test request and they are configured.
 			add_action( 'wp_ajax_ns_fba_test_inventory', array( $this, 'inventory_test_results' ) );
 
-			if ( ! $this->is_lwa_configured ) {
-				// TODO: We might be able to scrap this legacy support and only allow tests if LWA is configured.
-				// Run the connection api test if this is a test request and they are configured.
-				add_action( 'wp_ajax_ns_fba_test_api', array( $this, 'api_test_results_legacy' ) );
-				// Scheduled inventory syncing.
-				add_action( 'sp_api_sync_inventory', array( $this->ns_fba->inventory, 'sync_all_inventory' ) );
+			if ( ! $this->is_configured ) {
 				// After upgrade plugin will try to migrate to LWA.
 				add_action( 'upgrader_process_complete', array( $this, 'after_upgrade_plugin' ), 10, 2 );
 			} else {
@@ -433,7 +376,7 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 				// Toggle NS FBA Fulfill.
 				add_action( 'wp_ajax_toggle_ns_fba_fulfill', array( $this, 'toggle_ns_fba_fulfill' ) );
 				// Scheduled inventory syncing.
-				add_action( 'sp_api_sync_inventory', array( $this->sp_fulfillment, 'sync_inventory' ) );
+				add_action( 'sp_api_sync_inventory', array( $this->ns_fba->fulfill, 'sync_inventory' ) );
 			}
 		}
 
@@ -482,7 +425,7 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 				'api_host'            => $this->get_option( 'ns_fba_service_url' ),
 				'version'             => $this->get_version(),
 				'customer_mcf_status' => $this->get_option( 'ns_fba_mws_auth_token' ) ? 'EXISTING' : 'NEW',
-				'merchant_id'         => $this->is_lwa_configured ? get_option( 'ns_fba_lwa_merchant_id' ) : get_option( 'ns_fba_merchant_id' ),
+				'merchant_id'         => $this->is_configured ? get_option( 'ns_fba_lwa_merchant_id' ) : get_option( 'ns_fba_merchant_id' ),
 				'token'               => $this->ns_fba_lwa_auth_refresh_token ?? '',
 			);
 		}
@@ -524,17 +467,13 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 			if ( ! empty( $migrate_url ) ) {
 				$response = wp_remote_get( $migrate_url );
 
-				if ( is_wp_error( $response ) ) {
+				if ( SP_API::is_error_in( $response ) ) {
+					$this->ns_fba->logger->add_entry( $response, 'wc' );
 					$this->show_migration_status( false );
 					return;
 				}
 
 				$json = json_decode( $response['body'], true );
-
-				if ( ! empty( $json['error'] ) || ! empty( $json['errors'] ) || false === $json['success'] ) {
-					$this->show_migration_status( false );
-					return;
-				}
 
 				$access_token    = $json['access_token'];
 				$refresh_token   = $json['refresh_token'];
@@ -545,64 +484,6 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 					$this->show_migration_status( true );
 				} else {
 					$this->show_migration_status( false );
-				}
-			}
-		}
-
-		// TODO: Eventually remove this test function.
-		/**
-		 * Try to perform an automatic migration from MWS to LWA.
-		 *
-		 * @throws Exception Only added thanks to the use of random_bytes in get_lwa_migration_url.
-		 */
-		public function test_after_upgrade_plugin() {
-			$default_lwa_endpoint = 'https://sellingpartnerapi-na.amazon.com';
-
-			$service_mapping = array(
-				// DEFAULT / NORTH AMERICA / ALL OTHERS.
-				'https://mws.amazonservices.com'    => $default_lwa_endpoint,
-				// EUROPE.
-				'https://mws-eu.amazonservices.com' => 'https://sellingpartnerapi-eu.amazon.com',
-				'https://mws.amazonservices.in'     => 'https://sellingpartnerapi-eu.amazon.com',
-				// FAR EAST.
-				'https://mws-fe.amazonservices.com' => 'https://sellingpartnerapi-fe.amazon.com',
-				'https://mws.amazonservices.com.au' => 'https://sellingpartnerapi-fe.amazon.com',
-				'https://mws.amazonservices.jp'     => 'https://sellingpartnerapi-fe.amazon.com',
-			);
-
-			$current_service_url = $this->get_option( 'ns_fba_service_url' );
-
-			if ( ! empty( $current_service_url ) && array_key_exists( $current_service_url, $service_mapping ) ) {
-				$service_endpoint_lwa = $service_mapping[ $current_service_url ];
-			} else {
-				// After upgrade if the current service endpoint is empty or not found in mapping, set to default.
-				$service_endpoint_lwa = $default_lwa_endpoint;
-			}
-
-			$migrate_url = $this->get_lwa_migration_url( $service_endpoint_lwa );
-
-			if ( ! empty( $migrate_url ) ) {
-				$response = wp_remote_get( $migrate_url );
-
-				if ( is_wp_error( $response ) ) {
-					wp_send_json_error( 'WP Error' );
-				}
-
-				$json = json_decode( $response['body'], true );
-
-				if ( ! empty( $json['error'] ) || ! empty( $json['errors'] ) || false === $json['success'] ) {
-					wp_send_json_error( print_r( $json, true ) ); // phpcs:ignore
-				}
-
-				$access_token    = $json['access_token'];
-				$refresh_token   = $json['refresh_token'];
-				$lwa_merchant_id = $json['merchant_id'];
-
-				if ( $this->set_lwa_config_data( $access_token, $refresh_token, $lwa_merchant_id ) ) {
-					$this->update_option( 'ns_fba_service_url', $service_endpoint_lwa );
-					wp_send_json_success( 'Successfully migrated to LWA and the new Amazon Selling Partner API for Merchant ID ' . $lwa_merchant_id );
-				} else {
-					wp_send_json_error( 'Automatic Migration to LWA and the new Amazon Selling Partner API failed because the universe is a cruel place.' );
 				}
 			}
 		}
@@ -619,7 +500,7 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 		 * Once the page load checks for values coming as query parameters so we can define
 		 * if it's last part of LWA process and update proper options
 		 */
-		private function check_tokens() {
+		private function init_check_tokens() {
 
 			if ( ! isset( $_GET['access_token'] ) ||
 			! isset( $_GET['refresh_token'] ) ||
@@ -653,7 +534,7 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 			if ( ! is_user_logged_in() || ! current_user_can( 'administrator' ) ) {
 				return false;
 			}
-			if ( empty( $access_token ) || empty( $refresh_token ) || empty( $merchant_id ) || $this->is_lwa_configured ) {
+			if ( empty( $access_token ) || empty( $refresh_token ) || empty( $merchant_id ) || $this->is_configured ) {
 				return false;
 			}
 
@@ -671,7 +552,7 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 		public function api_test_results() {
 			check_ajax_referer( 'ns-fba-ajax', 'nonce' );
 
-			$result = $this->sp_fulfillment->test_api_connection();
+			$result = $this->ns_fba->fulfill->test_api_connection();
 
 			$message = $result['message'];
 
@@ -716,19 +597,12 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 			}
 			*/
 
-			if ( ! $this->is_lwa_configured ) {
-				$service   = $this->ns_fba->inventory->create_service_inventory();
-				$inventory = $this->ns_fba->inventory->get_sku_inventory( $service, $sku );
-
-				$inventory_number = $inventory['number'];
-				$message          = $inventory['message'];
-
-			} else {
+			if ( $this->is_configured ) {
 				if ( ! empty( $sku ) ) {
 					$marketplace_id = $this->get_option( 'ns_fba_marketplace_id' );
 					$path           = '/fba/inventory/v1/summaries?details=true&granularityType=Marketplace&granularityId=' . $marketplace_id . '&marketplaceIds=' . $marketplace_id . '&sellerSkus=' . $sku;
 
-					$result = $this->sp_fulfillment->test_api_connection( $path );
+					$result = $this->ns_fba->fulfill->test_api_connection( $path );
 
 					if ( $result['success'] &&
 					isset( $result['response'] ) &&
@@ -757,12 +631,7 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 		 * Handle the POST request to manually sync all inventory levels
 		 */
 		public function handle_manual_sync() {
-			// TODO: Remove this LEGACY inventory sync once all sellers are on ver 4+.
-			check_ajax_referer( 'ns-fba-ajax', 'nonce' );
-			$this->ns_fba->inventory->sync_all_inventory();
-			// translators: The log url.
-			$text = sprintf( __( 'Inventory Sync Complete! <a href="%s" target="_blank">Click here to see the results</a>', $this->text_domain ), $this->ns_fba->inv_log_url );
-			wp_send_json_success( $text );
+			$this->sp_api_sync_inventory_ajax();
 		}
 
 		/**
@@ -771,10 +640,10 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 		public function sp_api_sync_inventory_ajax() {
 			check_ajax_referer( 'ns-fba-ajax', 'nonce' );
 
-			$result = $this->sp_fulfillment->sync_inventory( true );
+			$result = $this->ns_fba->fulfill->sync_inventory( true );
 
 			if ( $result ) {
-				$last_inventory_sync_date = $this->get_option( self::LAST_INVENTORY_SYNC_DATE_OPTION_NAME );
+				$last_inventory_sync_date = $this->get_option( LAST_INVENTORY_SYNC_OPT_NAME );
 				wp_send_json_success(
 					array(
 						'message'                  => __( 'Sync Success.', $this->text_domain ),
@@ -810,7 +679,7 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 				}
 			}
 
-			$result = $this->sp_fulfillment->get_SKUs( $marketplace_id, $next_token );
+			$result = $this->ns_fba->inventory->get_SKUs( $marketplace_id, $next_token );
 
 			$message = $result['message'];
 
@@ -851,8 +720,8 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 		public function toggle_ns_fba_fulfill() {
 			check_ajax_referer( 'ns-fba-ajax', 'nonce' );
 
-			if ( isset( $_POST['data'] ) ) {
-				$this->sp_fulfillment->toggle_fulfill( $_POST['data'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+			if ( isset( $_POST['data'] ) && ! empty( $_POST['data'] ) ) {
+				$this->ns_fba->fulfill->toggle_fulfill( $_POST['data'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
 			}
 
 			wp_send_json_success( array() );
@@ -880,7 +749,7 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 			check_ajax_referer( 'ns-fba-ajax', 'nonce' );
 
 			$skus   = isset( $_POST['data'] ) ? $_POST['data'] : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
-			$result = $this->sp_fulfillment->import_SKUs( $skus );
+			$result = $this->ns_fba->inventory->import_SKUs( $skus );
 
 			wp_send_json_success(
 				array(
@@ -890,24 +759,6 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 					'wc_data_header' => $this->wc_data_header,
 				)
 			);
-		}
-
-		/**
-		 * Sync fulfilment order status.
-		 */
-		public function sync_fulfillment_order_status() {
-			// TODO: Get rid of this ridiculous pass-through called from woocommerce-amazon-fulfillment.php.
-			$this->sp_fulfillment->sync_fulfillment_order_status();
-		}
-
-		/**
-		 * Sync fulfilment order shipping info.
-		 *
-		 * @param int $order_id The order id.
-		 */
-		public function get_fulfillment_order_shipping_info( $order_id ) {
-			// TODO: Get rid of this ridiculous pass-through called from woocommerce-amazon-fulfillment.php.
-			$this->sp_fulfillment->get_fulfillment_order_shipping_info( $order_id );
 		}
 
 		/**
@@ -968,22 +819,11 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 		 * Initialize integration settings form fields.
 		 */
 		public function init_form_fields() {
-			// Handle new and LEGACY end points for now.
-			// TODO: remove all the MWS LEGACY endpoints eventually.
-			if ( $this->is_lwa_configured || ! $this->ns_fba->is_configured ) {
-				$home_region_options = array(
-					'https://sellingpartnerapi-na.amazon.com' => __( 'North America (Default) - https://sellingpartnerapi-na.amazon.com', $this->text_domain ),
-					'https://sellingpartnerapi-eu.amazon.com' => __( 'Europe - https://sellingpartnerapi-eu.amazon.com', $this->text_domain ),
-					'https://sellingpartnerapi-fe.amazon.com' => __( 'Far East - https://sellingpartnerapi-fe.amazon.com', $this->text_domain ),
-				);
-			} else {
-				// LEGACY MWS endpoints.
-				$home_region_options = array(
-					'https://mws.amazonservices.com'    => __( 'North America (Default) - https://mws.amazonservices.com', $this->text_domain ),
-					'https://mws-eu.amazonservices.com' => __( 'Europe - https://mws-eu.amazonservices.com', $this->text_domain ),
-					'https://mws-fe.amazonservices.com' => __( 'Singapore - https://mws-fe.amazonservices.com', $this->text_domain ),
-				);
-			}
+			$home_region_options = array(
+				'https://sellingpartnerapi-na.amazon.com' => __( 'North America (Default) - https://sellingpartnerapi-na.amazon.com', $this->text_domain ),
+				'https://sellingpartnerapi-eu.amazon.com' => __( 'Europe - https://sellingpartnerapi-eu.amazon.com', $this->text_domain ),
+				'https://sellingpartnerapi-fe.amazon.com' => __( 'Far East - https://sellingpartnerapi-fe.amazon.com', $this->text_domain ),
+			);
 			$this->ns_fba_service_url = $this->get_option( 'ns_fba_service_url' );
 			$home_region_keys         = array_keys( $home_region_options );
 
@@ -996,7 +836,7 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 				$this->ns_fba_service_url                    = $home_region_keys[0];
 			}
 
-			if ( ! $this->is_lwa_configured ) {
+			if ( ! $this->is_configured ) {
 				$this->form_fields = array_merge(
 					$this->form_fields,
 					array(
@@ -1070,7 +910,7 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 				)
 			);
 
-			if ( ! $this->is_lwa_configured ) {
+			if ( ! $this->is_configured ) {
 
 				// TODO: Eventually we can remove these fields because the LWA auth process replaces these auth fields.
 				// Hide the legacy ns_fba_mws_auth_token field if ns_fba_mws_auth_token is blank.
@@ -1134,9 +974,9 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 				}
 			}
 
-			if ( $this->ns_fba->is_configured ) {
+			if ( $this->is_configured ) {
 
-				$last_inventory_sync_date           = new DateTime( $this->get_option( self::LAST_INVENTORY_SYNC_DATE_OPTION_NAME ) );
+				$last_inventory_sync_date           = new DateTime( $this->get_option( LAST_INVENTORY_SYNC_OPT_NAME ) );
 				$last_inventory_sync_date           = $last_inventory_sync_date->setTimezone( wp_timezone() );
 				$last_inventory_sync_date           = $last_inventory_sync_date->format( 'm-d-Y H:i:s' );
 				$last_inventory_sync_date_container = '<br>Last sync date: <span id="last-inventory-sync-date-container">' . ( '' !== $last_inventory_sync_date ? $last_inventory_sync_date : '---' ) . '</span>';
@@ -1174,7 +1014,7 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 
 				// SECTION Product Import
 				// Only show the Compare and Import Products section when connected to the SP-API.
-				if ( $this->is_lwa_configured ) {
+				if ( $this->is_configured ) {
 					$this->form_fields = array_merge(
 						$this->form_fields,
 						array(
@@ -1212,7 +1052,7 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 					)
 				);
 
-				if ( $this->is_lwa_configured ) {
+				if ( $this->is_configured ) {
 					$this->form_fields = array_merge(
 						$this->form_fields,
 						array(
@@ -1740,7 +1580,7 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 			// Ignore the phpcs warning about base64 which is required by Amazon SP-API.
 			// phpcs:ignore
 			$state = base64_encode( random_bytes( 128 ) );
-			set_transient( NS_FBA::SP_API_STATE_TRANSIENT, $state, 600 );
+			set_transient( SP_API_STATE_TRANSIENT, $state, 600 );
 			$request_url = isset( $_SERVER['REQUEST_URI'] ) ? wp_strip_all_tags( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 			// Ignore the phpcs warning about base64 which is required by Amazon SP-API.
 			// phpcs:ignore
@@ -1754,8 +1594,8 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 				)
 			);
 
-			$url = sprintf( '%s?application_id=%s&state=%s&redirect_uri=%s', self::SP_CONSENT_URL, self::SP_API_ID, $state, self::SP_API_REDIRECT_URI );
-			$url = self::SP_API_DEBUG_MODE ? $url . '&version=beta' : $url;
+			$url = sprintf( '%s?application_id=%s&state=%s&redirect_uri=%s', SP_API_CONSENT_URL, SP_API_ID, $state, SP_API_REDIRECT_URI );
+			$url = SP_API_DEBUG_MODE ? $url . '&version=beta' : $url;
 
 			return $url;
 		}
@@ -1776,17 +1616,17 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 			}
 
 			// LWA should not be set but MWS should, because the only way to migrate is from an existing MWS token.
-			if ( $this->is_lwa_configured || ! $this->ns_fba->utils->is_configured() ) {
+			if ( $this->is_configured ) {
 				return '';
 			}
 
 			$state = base64_encode( random_bytes( 128 ) ); // phpcs:ignore
-			set_transient( NS_FBA::SP_API_STATE_MIGRATE_TRANSIENT, $state, 600 );
+			set_transient( SP_API_STATE_MIGRATE_TRANSIENT, $state, 600 );
 			$request_url = isset( $_SERVER['REQUEST_URI'] ) ? wp_strip_all_tags( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 
 			$args = array(
 				'service_url'    => $target_lwa_url,
-				'application_id' => self::SP_API_ID,
+				'application_id' => SP_API_ID,
 				'client_state'   => $state,
 				'url'            => rawurlencode( home_url() . $request_url ),
 				'rest_url'       => rawurlencode( get_rest_url() ),
@@ -1799,7 +1639,7 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 				'hostName'       => rawurlencode( get_site_url() ),
 			);
 
-			$url = add_query_arg( $args, self::SP_API_MWS_MIGRATE_URI );
+			$url = add_query_arg( $args, SP_API_MWS_MIGRATE_URI );
 
 			return $url;
 		}
@@ -1810,7 +1650,7 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 		 * @return string
 		 */
 		public function get_version(): string {
-			return get_file_data( __DIR__ . '/woocommerce-amazon-fulfillment.php', array( 'Version' ), 'plugin' )[0];
+			return $this->ns_fba->version;
 		}
 
 		/**
@@ -1924,6 +1764,11 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 
 		/**
 		 * Validate Shipping Exclusions Field.
+		 *
+		 * @param string $key The field key.
+		 * @param mixed  $value The value.
+		 *
+		 * @return mixed
 		 */
 		public function validate_ns_fba_exclude_shipping_field( $key, $value ) {
 			// override the default text field validation for our custom field because it tries to run stripslashes on our array.
@@ -1949,27 +1794,6 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 			}
 			wp_send_json_error( "Can't update Amazon Marketplace Selector" );
 		}
-
-		// ******** LEGACY COMPATIBILITY *********
-		// *************************************** .
-
-		/**
-		 * API Test Results.
-		 */
-		public function api_test_results_legacy() {
-			check_ajax_referer( 'ns-fba-ajax', 'nonce' );
-			// runs the api credentials test if this is a test request and they are configured.
-			$status = $this->ns_fba->outbound->test_api();
-			if ( 'success' === $status ) {
-				$text = __( 'Success! Your MWS credentials are correct and the service is active.', $this->text_domain );
-				wp_send_json_success( $text );
-			} else {
-				// translators: The status.
-				$text = sprintf( __( 'Uh-oh! There was a problem connecting: %s.', $this->text_domain ), $status );
-				wp_send_json_error( $text );
-			}
-		}
-
 		// *************************************** .
 
 		/**

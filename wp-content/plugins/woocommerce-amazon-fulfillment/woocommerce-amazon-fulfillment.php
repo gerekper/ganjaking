@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Amazon Fulfillment
  * Plugin URI: https://neversettle.it
  * Description: Integrates Amazon MCF (Multi-channel Fulfillment) and FBA with WooCommerce.
- * Version: 4.0.9
+ * Version: 4.1.1
  * Author: Never Settle
  * Author URI: https://neversettle.it
  * Requires at least: 5.0
@@ -22,16 +22,12 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
-}
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 // Plugin updates.
 if ( function_exists( 'woothemes_queue_update' ) ) {
-	// Original IDs listed in product details under dev account
-	// Woo: 669839:d41d8cd98f00b204e9800998ecf8427e
-	// woothemes_queue_update( plugin_basename( __FILE__ ), 'd41d8cd98f00b204e9800998ecf8427e', '669839' );
-	// New IDs provided by Woo.
+	// IDs provided by Woo.
 	woothemes_queue_update( plugin_basename( __FILE__ ), 'b73d2c19a6ff0f06485e0f11eb4bf922', '669839' );
 }
 
@@ -51,11 +47,7 @@ if ( file_exists( ABSPATH . 'wp-includes/PHPMailer/PHPMailer.php' ) ) {
 	require_once ABSPATH . 'wp-includes/class-phpmailer.php';
 }
 
-if ( ! class_exists( 'WC_Shipping_Amazon' ) ) {
-	require_once dirname( __FILE__ ) . '/lib/class-wc-shipping-amazon.php';
-}
-
-// register our deactivation handler so that we can clear any scheduled syncs.
+// Register our deactivation handler so that we can clear any scheduled syncs.
 register_deactivation_hook( __FILE__, array( 'NS_FBA', 'on_deactivation' ) );
 
 /**
@@ -75,28 +67,14 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 		class NS_FBA {
 
 			/**
-			 * Transient name to be used to verify th state
-			 *
-			 * @const SP_API_STATE_COOKIE
-			 */
-			const SP_API_STATE_TRANSIENT = 'ns_fba_sp_api_state';
-
-			/**
-			 * Transient name to be used to verify state of MWS migration
-			 *
-			 * @const SP_API_STATE_COOKIE
-			 */
-			const SP_API_STATE_MIGRATE_TRANSIENT = 'ns_fba_sp_api_state_migrate';
-
-			/**
-			 * Plugin strings
+			 * Plugin version for use in logging and updates and other such wondrous things.
 			 *
 			 * @var string $version
 			 */
-			public $version = '4.0.9';
+			public $version = '4.1.1';
 
 			/**
-			 * The App name.
+			 * The App name, primarily used for Amazon's record keeping as passed in the user_agent for example.
 			 *
 			 * @var string $app_name
 			 */
@@ -130,6 +108,14 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 			 */
 			public $utils;
 
+
+			/**
+			 * File utils Helper Class Instance.
+			 *
+			 * @var object $file_utils
+			 */
+			public $file_utils;
+
 			/**
 			 * Maintenance Helper Class Instance.
 			 *
@@ -145,18 +131,25 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 			public $inventory;
 
 			/**
-			 * Outbound Helper Class Instance.
-			 *
-			 * @var object $outbound
-			 */
-			public $outbound;
-
-			/**
 			 * WooCommerce Integration Helper Class Instance.
 			 *
-			 * @var SP_Fulfillment $fulfill
+			 * @var NS_MCF_Fulfillment $fulfill
 			 */
 			public $fulfill;
+
+			/**
+			 * Will store an SP_API class instance.
+			 *
+			 * @var sp_api $sp_api
+			 */
+			public $sp_api;
+
+			/**
+			 * Our main generic logging object which can handle a variety of logging operations.
+			 *
+			 * @var NS_MCF_Logs $logger
+			 */
+			public $logger;
 
 			/**
 			 * WooCommerce Integration Helper Class Instance.
@@ -164,13 +157,6 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 			 * @var WC_Integration_FBA $wc_integration
 			 */
 			public $wc_integration;
-
-			/**
-			 * Will store an SP_API class instance
-			 *
-			 * @var sp_api $sp_api
-			 */
-			public $sp_api;
 
 			/**
 			 * Stores the options for this plugin.
@@ -271,32 +257,24 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 			public $is_debug = false;
 
 			/**
-			 * Plugin State Boolean variables.
-			 * Used for skipping hooks that will fail without settings.
+			 * Configuration mode status.
 			 *
 			 * @var bool $is_configured
 			 */
 			public $is_configured = false;
 
 			/**
-			 * Lwa configuration mode status.
-			 *
-			 * @var bool $is_lwa_configured
-			 */
-			public $is_lwa_configured = false;
-
-			/**
 			 * The single instance of the class.
 			 *
 			 * @var object $ns_fba
 			 */
-			private static $ns_fba;
+			private static $ns_fba = null;
 
 			/**
 			 * SINGLETON INSTANCE
 			 */
 			public static function get_instance() {
-				if ( null === self::$ns_fba ) {
+				if ( is_null( self::$ns_fba ) ) {
 					self::$ns_fba = new self();
 				}
 				return self::$ns_fba;
@@ -313,61 +291,59 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 				$mo     = dirname( __FILE__ ) . '/lang/' . $this->text_domain . '-' . $locale . '.mo';
 				load_textdomain( $this->text_domain, $mo );
 
-				// Constants and globals setup.
-				$this->plugin_url     = WP_PLUGIN_URL . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
-				$this->plugin_path    = WP_PLUGIN_DIR . '/' . dirname( plugin_basename( __FILE__ ) ) . '/';
-				$date_name            = uniqid();
-				$this->log_url        = $this->plugin_url . 'logs/ns-fba-' . $date_name . '-success.html';
-				$this->log_path       = $this->plugin_path . 'logs/ns-fba-' . $date_name . '-success.html';
-				$this->err_log_url    = $this->plugin_url . 'logs/ns-fba-' . $date_name . '-ERROR.html';
-				$this->err_log_path   = $this->plugin_path . 'logs/ns-fba-' . $date_name . '-ERROR.html';
-				$this->debug_log_url  = $this->plugin_url . 'logs/ns-fba-' . $date_name . '-DEBUG.html';
-				$this->debug_log_path = $this->plugin_path . 'logs/ns-fba-' . $date_name . '-DEBUG.html';
-				$this->inv_log_url    = $this->plugin_url . 'logs/ns-fba-inventory-log.html';
-				$this->inv_log_path   = $this->plugin_path . 'logs/ns-fba-inventory-log.html';
-				$this->trans_log_url  = $this->plugin_url . 'logs/ns-fba-translation-log.csv';
-				$this->trans_log_path = $this->plugin_path . 'logs/ns-fba-translation-log.csv';
+				// Define plugin constants.
+				$this->define_constants();
+
+				// Define paths used.
+				$this->init_paths();
 
 				// Load our helper class includes and the Amazon PHP libraries.
 				$this->require_all( $this->plugin_path . 'lib', 3 );
 
-				// Instantiate and assign our helper class objects, passing $this in so they have access to properties.
-				$this->wc        = new NS_FBA_WooCommerce( $this );
-				$this->utils     = new NS_FBA_Utils( $this );
-				$this->maint     = new NS_FBA_Maintenance( $this );
-				$this->inventory = new NS_FBA_Inventory( $this );
-				$this->outbound  = new NS_FBA_Outbound( $this );
-				$this->fulfill   = new SP_Fulfillment( $this );
+				add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
+				add_action( 'init', array( $this, 'init_test_upgrade' ) );
+			}
 
-				// Create the logs directory if it doesn't exist.
-				if ( ! file_exists( $this->plugin_path . 'logs' ) ) {
-					mkdir( $this->plugin_path . 'logs' );
-				}
+			/**
+			 * Initiate the classes once the plugins have loaded.
+			 */
+			public function plugins_loaded() {
+
+				// Instantiate and assign our helper class objects, passing $this in so they have access to properties.
+				$this->file_utils = new NS_MCF_File();
+				$this->wc         = new NS_MCF_WooCommerce( $this );
+				$this->utils      = new NS_MCF_Utils( $this );
+				$this->maint      = new NS_MCF_Maintenance( $this );
+				$this->inventory  = new NS_MCF_Inventory( $this );
+				$this->fulfill    = new NS_MCF_Fulfillment( $this );
+				$this->sp_api     = new SP_API( $this );
+				$this->logger     = new NS_MCF_Logs( $this );
 
 				// Initialize the options.
 				$this->get_options();
 
 				// Set is_debug based on retrieved value from DB.
-				$this->is_debug = $this->utils->isset_on( $this->options['ns_fba_debug_mode'] );
+				// Clean install does not have this set, we need to check.
+				$this->is_debug = isset( $this->options['ns_fba_debug_mode'] ) ? $this->utils->isset_on( $this->options['ns_fba_debug_mode'] ) : false;
 
 				// This is an important test to prevent potential error conditions where
 				// values aren't available that hooks depend on and therefore get wired prematurely.
 				$this->is_configured = $this->utils->is_configured();
 
-				// PLUGIN SETUP ACTIONS - ALWAYS RUN.
 				// Plugin init for wiring the WC Integration.
-				add_action( 'plugins_loaded', array( $this, 'init' ) );
+				$this->setup_integration();
 
 				// Add custom amazon fulfillment settings tab under WooCommerce Product Data Tabs.
 				add_filter( 'woocommerce_product_data_tabs', array( $this->wc, 'woo_fba_product_tab' ) );
 				add_action( 'woocommerce_product_data_panels', array( $this->wc, 'custom_product_fba_panel' ) );
 
+				// Register order status.
+				$this->wc->add_custom_order_status();
+
 				// Add custom save handler to our custom settings.
 				add_action( 'woocommerce_process_product_meta', array( $this->wc, 'save_custom_settings' ) );
 				// Add custom order statuses to normal reporting for woocommerce.
 				add_filter( 'woocommerce_reports_order_statuses', array( $this->wc, 'add_custom_status_reporting' ) );
-				// Add custom order statuses for fulfillment.
-				add_action( 'init', array( $this->wc, 'add_custom_order_status' ) );
 
 				// Add bulk send functionality.
 				add_filter( 'bulk_actions-edit-shop_order', array( $this, 'register_bulk_actions' ) );
@@ -380,10 +356,10 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 				add_action( 'admin_notices', array( $this->wc, 'order_edit_notice' ) );
 				add_action( 'admin_enqueue_scripts', array( $this, 'add_nsfba_scripts_and_styles' ) );
 
+				add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( &$this, 'filter_plugin_actions' ) );
+
 				// PLUGIN AUTOMATION AND EVENT HANDLING ACTIONS - ONLY RUN IF PLUGIN IS CONFIGURED.
 				if ( $this->is_configured ) {
-
-					$this->is_lwa_configured = $this->utils->is_lwa_configured();
 
 					// Add scheduled event for inventory sync and fulfillment status sync if either option is selected.
 					if ( $this->utils->isset_on( $this->options['ns_fba_clean_logs'] ) ) {
@@ -402,45 +378,104 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 					// Process 'Send to Amazon FBA' order meta box order action.
 					add_action( 'woocommerce_order_action_ns_fba_send_to_fulfillment', array( $this->wc, 'process_order_meta_box_actions' ) );
 
-					if ( ! $this->is_lwa_configured ) {
-						// Add custom action on payment complete to send order data to fulfillment.
-						add_action( 'woocommerce_payment_complete', array( $this->outbound, 'maybe_send_fulfillment_order' ) );
-						add_action( 'woocommerce_payment_complete_order_status_processing', array( $this->outbound, 'maybe_send_fulfillment_order' ) );
+					// Add custom action on payment complete to send order data to fulfillment.
+					add_action( 'woocommerce_payment_complete', array( $this, 'create_fulfillment_order' ) );
+					add_action( 'woocommerce_payment_complete_order_status_processing', array( $this, 'check_create_fulfillment_order' ) );
 
-						add_action(
-							'woocommerce_order_action_ns_fba_check_tracking',
-							function( $order ) {
-								if ( empty( get_post_meta( $order->get_id(), '_sent_to_fba', true ) ) ) {
-									wp_die( esc_html__( 'This order has not been sent to Amazon for fulfillment.', 'ns-fba-for-woocommerce' ) );
-								}
-								ob_start();
-								$this->outbound->get_fulfillment_order_shipping_info( $order->get_id() );
-								ob_end_clean();
+					// Process 'Check Amazon Tracking Info' order action.
+					// This fragment of code could be encapsulated together with legacy counterpart.
+					// To avoid errors we go to keep it separated.
+					add_action(
+						'woocommerce_order_action_ns_fba_check_tracking',
+						function( $order ) {
+							if ( empty( get_post_meta( $order->get_id(), '_sent_to_fba', true ) ) ) {
+								wp_die( esc_html__( 'This order has not been sent to Amazon for fulfillment.', 'ns-fba-for-woocommerce' ) );
 							}
-						);
-					} else {
-						// Add custom action on payment complete to send order data to fulfillment.
-						add_action( 'woocommerce_payment_complete', array( $this, 'create_fulfillment_order' ) );
-						add_action( 'woocommerce_payment_complete_order_status_processing', array( $this, 'check_create_fulfillment_order' ) );
-
-						// Process 'Check Amazon Tracking Info' order action.
-						// This fragment of code could be encapsulated together with legacy counterpart.
-						// To avoid errors we go to keep it separated.
-						add_action(
-							'woocommerce_order_action_ns_fba_check_tracking',
-							function( $order ) {
-								if ( empty( get_post_meta( $order->get_id(), '_sent_to_fba', true ) ) ) {
-									wp_die( esc_html__( 'This order has not been sent to Amazon for fulfillment.', 'ns-fba-for-woocommerce' ) );
-								}
-								ob_start();
-								$this->wc_integration->get_fulfillment_order_shipping_info( $order->get_id() );
-								ob_end_clean();
-							}
-						);
-					}
+							ob_start();
+							$this->fulfill->get_fulfillment_order_shipping_info( $order->get_id() );
+							ob_end_clean();
+						}
+					);
 
 					// Add 'Send to Amazon FBA' order meta box order action.
 					add_action( 'woocommerce_order_actions', array( $this->wc, 'add_order_meta_box_actions' ) );
+				}
+
+				add_filter( 'woocommerce_shipping_methods', array( $this, 'ns_fba_shipping_methods' ) );
+			}
+
+			/**
+			 * Initiate the conditions for manually running the plugin upgrade test.
+			 */
+			public function init_test_upgrade() {
+				// Trigger after_upgrade_plugin() to run through testing that if we have the query param test_upgrade.
+				// Upgrade sequence can be tested by accessing URL.
+				// /wp-admin/admin.php?page=wc-settings&tab=integration&section=fba&test-upgrade=1 .
+
+				// Bail out if the LWA token refresh process has already happened.
+				if ( $this->is_configured ) {
+					return;
+				}
+
+				// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				if ( ! empty( $_GET['test-upgrade'] ) ) {
+					// We have to add these requires, or it will kick a fatal error.
+					require_once ABSPATH . 'wp-admin/includes/file.php';
+					require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+					require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+					require_once ABSPATH . 'wp-admin/includes/plugin.php';
+					$temp_upgrader = new WP_Upgrader();
+					$temp_options  = array();
+					$this->wc_integration->after_upgrade_plugin( $temp_upgrader, $temp_options );
+				}
+			}
+
+			/**
+			 * Set up the paths used in the plugin.
+			 *
+			 * @return void
+			 */
+			private function init_paths() {
+				// Constants and globals setup.
+				$this->plugin_url     = trailingslashit( plugin_dir_url( __FILE__ ) );
+				$this->plugin_path    = trailingslashit( plugin_dir_path( __FILE__ ) );
+				$date_name            = uniqid();
+				$this->log_url        = $this->plugin_url . 'logs/ns-fba-' . $date_name . '-success.html';
+				$this->log_path       = $this->plugin_path . 'logs/ns-fba-' . $date_name . '-success.html';
+				$this->err_log_url    = $this->plugin_url . 'logs/ns-fba-' . $date_name . '-ERROR.html';
+				$this->err_log_path   = $this->plugin_path . 'logs/ns-fba-' . $date_name . '-ERROR.html';
+				$this->debug_log_url  = $this->plugin_url . 'logs/ns-fba-' . $date_name . '-DEBUG.html';
+				$this->debug_log_path = $this->plugin_path . 'logs/ns-fba-' . $date_name . '-DEBUG.html';
+				$this->inv_log_url    = $this->plugin_url . 'logs/ns-fba-inventory-log.html';
+				$this->inv_log_path   = $this->plugin_path . 'logs/ns-fba-inventory-log.html';
+				$this->trans_log_url  = $this->plugin_url . 'logs/ns-fba-translation-log.csv';
+				$this->trans_log_path = $this->plugin_path . 'logs/ns-fba-translation-log.csv';
+			}
+
+			/**
+			 * Define plugin constants
+			 * Global constants used within the plugin if they are not already defined
+			 */
+			protected function define_constants() {
+				$this->define( 'SP_API_DEBUG_MODE', true );
+				$this->define( 'SP_API_ID', 'amzn1.sellerapps.app.37bb1030-6d6b-43dd-85e0-4408bf9660f5' );
+				$this->define( 'SP_API_CONSENT_URL', 'https://sellercentral.amazon.com/apps/authorize/consent' );
+				$this->define( 'SP_API_REDIRECT_URI', 'https://mcf.atouchpoint.com/api/sp-api-oauth' );
+				$this->define( 'SP_API_MWS_MIGRATE_URI', 'https://mcf.atouchpoint.com/api/sp-api-oauth-migrate' );
+				$this->define( 'LAST_INVENTORY_SYNC_OPT_NAME', 'ns_fba_last_inventory_sync_date' );
+				$this->define( 'SP_API_STATE_TRANSIENT', 'ns_fba_sp_api_state' );
+				$this->define( 'SP_API_STATE_MIGRATE_TRANSIENT', 'ns_fba_sp_api_state_migrate' );
+			}
+
+			/**
+			 * Define constant helper if not already set
+			 *
+			 * @param string      $name The name.
+			 * @param string|bool $value The value.
+			 */
+			private function define( $name, $value ) {
+				if ( ! defined( $name ) ) {
+					define( $name, $value );
 				}
 			}
 
@@ -467,19 +502,17 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 			}
 
 			/**
-			 * Initialize the plugin
+			 * Set up the integration.
+			 * Register the WooCommerce integration that is used in the settings.
 			 */
-			public function init() {
-				add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( &$this, 'filter_plugin_actions' ) );
+			public function setup_integration() {
 				// Checks if WooCommerce is installed.
 				if ( class_exists( 'WC_Integration' ) ) {
 					// Include our integration class.
 					require_once 'woocommerce-settings-integration.php';
 
 					$this->wc_integration = new WC_Integration_FBA( $this );
-
-					$sp_api       = new SP_API( $this->wc_integration->get_SP_API_options() );
-					$this->sp_api = $sp_api;
+					$this->sp_api->init_api( $this->wc_integration->get_SP_API_options() );
 
 					// Register the integration.
 					add_filter( 'woocommerce_integrations', array( $this, 'add_integration' ) );
@@ -488,30 +521,18 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 					// Only activate the hook if the option is turned ON.
 					if ( $this->utils->isset_on( $this->options['ns_fba_display_order_tracking'] ) ) {
 
-						if ( ! $this->is_lwa_configured ) {
-							add_action( 'woocommerce_view_order', array( $this->outbound, 'get_fulfillment_order_shipping_info' ) );
-						} else {
-							add_action( 'woocommerce_view_order', array( $this->fulfill, 'get_fulfillment_order_shipping_info' ) );
-						}
+						add_action( 'woocommerce_view_order', array( $this->fulfill, 'get_fulfillment_order_shipping_info' ) );
 					}
 
 					if ( $this->is_configured ) {
 						// Add scheduled event for inventory sync and fulfillment status sync if either option is selected.
 						if ( $this->utils->isset_on( $this->options['ns_fba_sync_ship_status'] ) ) {
 
-							if ( ! $this->is_lwa_configured ) {
-								add_action( 'sp_api_sync_inventory', array( $this->inventory, 'sync_all_inventory' ) );
-							} else {
-								add_action( 'sp_api_sync_inventory', array( $this->fulfill, 'sync_inventory' ) );
-							}
+							add_action( 'sp_api_sync_inventory', array( $this->fulfill, 'sync_inventory' ) );
 
 							if ( $this->utils->isset_on( $this->options['ns_fba_sync_ship_status'] ) ) {
 
-								if ( ! $this->is_lwa_configured ) {
-									add_action( 'sp_api_sync_inventory', array( $this->outbound, 'sync_fulfillment_order_status' ) );
-								} else {
-									add_action( 'sp_api_sync_inventory', array( $this->wc_integration, 'sync_fulfillment_order_status' ) );
-								}
+								add_action( 'sp_api_sync_inventory', array( $this->fulfill, 'sync_fulfillment_order_status' ) );
 							}
 						}
 					}
@@ -522,10 +543,8 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 			 * Not Configured Notice.
 			 */
 			public function not_configured_notice() {
-				// Checks if saving the options has now left us in an unconfigured state.
-				// This is now based on is_lwa_configured so that we get new users and existing users to transition asap.
-				$this->is_lwa_configured = $this->utils->is_lwa_configured();
-				if ( ! $this->is_lwa_configured ) {
+				$this->is_configured = $this->utils->is_configured();
+				if ( ! $this->is_configured ) {
 					$url = admin_url( 'admin.php?page=wc-settings&tab=integration&section=fba' );
 					?>
 					<div class="notice notice-error is-dismissible">
@@ -544,6 +563,13 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 			 * Setup plugin scripts and styles.
 			 */
 			public function add_nsfba_scripts_and_styles() {
+				$screen         = get_current_screen();
+				$screen_id      = $screen ? $screen->id : '';
+				// Only load on required pages to avoid script conflicts.
+				$plugin_screens = array( 'woocommerce_page_wc-settings', 'edit-product', 'edit-shop_order', 'shop_order' );
+				if ( ! in_array( $screen_id, $plugin_screens, true ) ) {
+					return;
+				}
 				wp_enqueue_style( 'ns-fba-style', plugins_url( 'css/ns-fba-style.css', __FILE__ ), array(), $this->version );
 				wp_enqueue_script( 'ns-fba-script', plugins_url( 'js/ns-fba-script.js', __FILE__ ), array( 'jquery-ui-dialog' ), $this->version, false );
 				wp_localize_script(
@@ -604,13 +630,13 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 
 				$response = $this->fulfill->post_fulfillment_order( $order );
 
-				// TODO: Consider moving this handler code into the main code of post_fulfillment_order.
-				// TODO: Consider refactor to make this entire function unnecessary.
-				if ( 'yes' === $this->wc_integration->get_option( 'ns_fba_email_on_error' ) &&
-					! $this->sp_api->is_error_in( $response ) ) {
-					$body      = json_decode( $response['body'], true );
+				if ( 'yes' !== $this->wc_integration->get_option( 'ns_fba_email_on_error' ) ) {
+					return;
+				}
+
+				if ( is_wp_error( $response ) ) {
 					$mail_body = "An error has occurred creating this order in your seller account in Amazon. \n";
-					$mail_body = $mail_body . "The error is: \n" . $body['errors'][0]['message'];
+					$mail_body = $mail_body . "The error is: \n" . $response->get_error_message();
 					$this->utils->mail_message( $mail_body, 'Error creating Fulfillment order in Amazon' );
 				}
 			}
@@ -638,7 +664,7 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 						'methods'             => 'GET',
 						'callback'            => function ( WP_REST_Request $request ) {
 							$state     = $request->get_param( 'state' );
-							$transient = get_transient( self::SP_API_STATE_TRANSIENT );
+							$transient = get_transient( SP_API_STATE_TRANSIENT );
 
 							return ( ! empty( $transient ) && ! empty( $state ) && $state === $transient );
 						},
@@ -654,7 +680,7 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 						'methods'             => 'GET',
 						'callback'            => function ( WP_REST_Request $request ) {
 							$state     = $request->get_param( 'state' );
-							$transient = get_transient( self::SP_API_STATE_MIGRATE_TRANSIENT );
+							$transient = get_transient( SP_API_STATE_MIGRATE_TRANSIENT );
 
 							return ( ! empty( $transient ) && ! empty( $state ) && $state === $transient );
 						},
@@ -679,14 +705,10 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 				if ( 'ns_fba_send' === $action ) {
 					foreach ( $post_ids as $id ) {
 
-						if ( $this->is_lwa_configured ) {
-							$order = wc_get_order( $id );
+						$order = wc_get_order( $id );
 
-							if ( false !== $order ) {
-								$this->fulfill->post_fulfillment_order( $order, true );
-							}
-						} else {
-							$this->outbound->send_fulfillment_order( $id, true );
+						if ( false !== $order ) {
+							$this->fulfill->post_fulfillment_order( $order, true );
 						}
 					}
 
@@ -722,6 +744,7 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 			 */
 			public static function on_deactivation() {
 				wp_clear_scheduled_hook( 'ns_fba_inventory_sync' );
+				wp_clear_scheduled_hook( 'ns_fba_clean_logs_daily' );
 			}
 
 			/**
@@ -898,26 +921,24 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 				return false;
 			}
 
+			/**
+			 * Register a new woocommerce shipping method.
+			 *
+			 * @param array $methods The current shipping methods.
+			 *
+			 * @return array
+			 */
+			public function ns_fba_shipping_methods( $methods ) {
+				$methods['WC_Shipping_Amazon'] = 'WC_Shipping_Amazon';
+				return $methods;
+
+			} // End function add_amazon_shipping_method
+
 		} // End class NS_FBA.
 
 	}
 
 	// instantiate the class.
 	$ns_fba_inst = NS_FBA::get_instance();
-
-	/**
-	 * Register a new woocommerce shipping method.
-	 *
-	 * @param array $methods The current shipping methods.
-	 *
-	 * @return array
-	 */
-	function ns_fba_shipping_methods( $methods ) {
-		$methods['WC_Shipping_Amazon'] = 'WC_Shipping_Amazon';
-		return $methods;
-
-	} // End function add_amazon_shipping_method
-
-	add_filter( 'woocommerce_shipping_methods', 'ns_fba_shipping_methods' );
 
 }

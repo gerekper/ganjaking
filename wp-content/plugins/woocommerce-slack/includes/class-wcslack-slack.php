@@ -43,21 +43,25 @@ if ( ! class_exists( 'WC_Slack_API' ) ) {
 
 
 		/**
-		 * List all channels
+		 * List all channels.
 		 *
-		 * @package WooCommerce Slack
-		 * @author  Bryce <bryce@bryce.se>
-		 * @since   1.0.0
+		 * @since 1.0.0
 		 */
 		public function all_channels( $api_key ) {
-
-			$channels_array = array( 'select' => __( 'Select Channel...', 'woocommerce-slack' ) );
-
-			$url = 'https://slack.com/api/conversations.list?types=public_channel,private_channel';
+			$channels_array = array();
 
 			if ( ! empty( get_transient( 'wcslack_429_status' ) ) ) {
 				return $channels_array;
 			}
+
+			$url = add_query_arg(
+				array(
+					'types'            => 'public_channel,private_channel',
+					'exclude_archived' => 'true',
+					'limit'            => '1000',
+				),
+				'https://slack.com/api/conversations.list'
+			);
 
 			$resp = wp_remote_get( $url, array(
 				'user-agent' => get_bloginfo( 'name' ) . ' / 1.0',

@@ -5,8 +5,6 @@
  *
  * PHP version 5 and 7
  *
- * @category  Math
- * @package   BigInteger
  * @author    Jim Wigginton <terrafrost@php.net>
  * @copyright 2017 Jim Wigginton
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -18,9 +16,7 @@ use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP;
 /**
  * PHP Montgomery Modular Exponentiation Engine with interleaved multiplication
  *
- * @package PHP
  * @author  Jim Wigginton <terrafrost@php.net>
- * @access  public
  */
 abstract class MontgomeryMult extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\PHP\Reductions\Montgomery
 {
@@ -32,7 +28,6 @@ abstract class MontgomeryMult extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInte
      *
      * @see self::_prepMontgomery()
      * @see self::_montgomery()
-     * @access private
      * @param array $x
      * @param array $y
      * @param array $m

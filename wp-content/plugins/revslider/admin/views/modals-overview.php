@@ -108,7 +108,8 @@ if(!defined('ABSPATH')) exit();
 										<option selected="selected" value="unset"><?php _e('Unset','revslider');?></option>
 										<option value="anonymous"><?php _e('Anonymous', 'revslider');?></option>
 										<option value="use-credentials"><?php _e('Use Credentials', 'revslider');?></option>
-									</select><span class="linebreak"></span>
+									</select><span class="linebreak"></span>						
+						<label_a><?php _e('Slider Revolution Analytics Sharing', 'revslider');?></label_a><input type="checkbox" data-evt="udpateTrackingEnv" class="easyinit globalinput callEvent" data-r="globals.trackingOnOff"><span class="linebreak"></span>
 						<div class="div25"></div>
 						<div class="ale_i_title"><?php _e('Page Loading Optimization', 'revslider');?></div>
 						<hr class="general_hr">

@@ -148,6 +148,7 @@
 	</table>
 
 	<div class="form-row">
+		<?php wp_nonce_field( 'shipping_address_action' ); ?>
 		<input type="hidden" name="delete[index]" id="delete_index" value="" />
 		<input type="hidden" name="delete[key]" id="delete_key" value="" />
 		<input type="hidden" name="shipping_type" value="item" />
@@ -170,56 +171,3 @@
 	</small>
 
 </form>
-<?php if ( $user->ID == 0 ): ?>
-	<div id="address_form_template" style="display: none;">
-		<form id="add_address_form">
-			<div class="shipping_address address_block" id="shipping_address">
-				<?php do_action('woocommerce_before_checkout_shipping_form', $checkout); ?>
-
-				<div class="address-column">
-					<?php
-					foreach ($shipFields as $key => $field) :
-						$val    = '';
-						$key    = 'address['. $key .']';
-						$id     = rtrim( str_replace( '[', '_', $key ), ']' );
-						$field['return'] = true;
-
-						echo str_replace( 'id="'. $key .'"', 'id="'. $id .'"', woocommerce_form_field( $key, $field, $val ) );
-					endforeach;
-
-					do_action('woocommerce_after_checkout_shipping_form', $checkout);
-					?>
-					<input type="hidden" name="id" id="address_id" value="" />
-				</div>
-
-			</div>
-
-			<input type="hidden" name="return" value="list" />
-			<input type="submit" class="button" id="use_address" value="<?php _e('Use this address', 'wc_shipping_multiple_address'); ?>" />
-		</form>
-	</div>
-<?php else: ?>
-	<div id="address_form_template" style="display: none;">
-		<form id="add_address_form">
-			<div class="shipping_address address_block" id="shipping_address">
-				<?php do_action('woocommerce_before_checkout_shipping_form', $checkout); ?>
-
-				<div class="address-column">
-					<?php
-					foreach ($shipFields as $key => $field) :
-						$val = '';
-						$key = 'address['. $key .']';
-
-						woocommerce_form_field( $key, $field, $val );
-					endforeach;
-
-					do_action('woocommerce_after_checkout_shipping_form', $checkout);
-					?>
-				</div>
-			</div>
-
-			<input type="hidden" name="return" value="list" />
-			<input type="submit" id="save_address" class="button" value="<?php _e('Save Address', 'wc_shipping_multiple_address'); ?>" />
-		</form>
-	</div>
-<?php endif; ?>

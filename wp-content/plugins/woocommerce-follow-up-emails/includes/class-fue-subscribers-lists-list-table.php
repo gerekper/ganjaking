@@ -4,6 +4,9 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 }
 
+/**
+ * Class FUE_Subscribers_Lists_List_Table
+ */
 class FUE_Subscribers_Lists_List_Table extends WP_List_Table {
 	/**
 	 * Create and instance of this list table.
@@ -105,8 +108,12 @@ class FUE_Subscribers_Lists_List_Table extends WP_List_Table {
 		return sprintf( '<input type="checkbox" name="list[]" value="%1$s" />', $list->id );
 	}
 
+	/**
+	 * @param  object $list
+	 * @return string
+	 */
 	public function column_list_name( $list ) {
-		$out = '<strong>'. $list->list_name .'</strong>';
+		$out = '<strong>' . esc_html( $list->list_name ) . '</strong>';
 
 		// Get actions
 		$actions = array(

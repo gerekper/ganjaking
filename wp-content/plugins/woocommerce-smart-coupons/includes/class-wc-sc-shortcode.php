@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.8.0
+ * @version     1.9.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -356,8 +356,12 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 						);
 
 						$new_coupon_id = wp_insert_post( $coupon_args );
-						if ( ! empty( $expiry_days ) ) {
-							$_expiry_date = gmdate( 'Y-m-d', strtotime( "+$expiry_days days" ) );
+						if ( ! empty( $shortcode['expiry_date'] ) ) {
+							$timestamp    = strtotime( $shortcode['expiry_date'] ) + $this->wc_timezone_offset();
+							$_expiry_date = gmdate( 'Y-m-d', $timestamp );
+						} elseif ( ! empty( $expiry_days ) ) {
+							$timestamp    = strtotime( "+$expiry_days days" ) + $this->wc_timezone_offset();
+							$_expiry_date = gmdate( 'Y-m-d', $timestamp );
 						}
 
 						// Add meta for coupons.
@@ -375,7 +379,7 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 
 						if ( $this->is_wc_gte_30() ) {
 							if ( ! empty( $_expiry_date ) ) {
-								$_expiry_date = strtotime( $_expiry_date );
+								$_expiry_date = strtotime( $_expiry_date ) - $this->wc_timezone_offset();
 								update_post_meta( $new_coupon_id, 'date_expires', $_expiry_date );
 							}
 						} else {
@@ -482,14 +486,15 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 				$coupon_type .= __( 'Free Shipping', 'woocommerce-smart-coupons' );
 			}
 
-			if ( ! empty( $expiry_date ) ) {
+			if ( $this->is_wc_gte_30() && $expiry_date instanceof WC_DateTime ) {
+				$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : 0;
+			} elseif ( ! is_int( $expiry_date ) ) {
+				$expiry_date = strtotime( $expiry_date );
+			}
+
+			if ( ! empty( $expiry_date ) && is_int( $expiry_date ) ) {
 				$expiry_time = (int) get_post_meta( $coupon_id, 'wc_sc_expiry_time', true );
 				if ( ! empty( $expiry_time ) ) {
-					if ( $this->is_wc_gte_30() && $expiry_date instanceof WC_DateTime ) {
-						$expiry_date = $expiry_date->getTimestamp();
-					} elseif ( ! is_int( $expiry_date ) ) {
-						$expiry_date = strtotime( $expiry_date );
-					}
 					$expiry_date += $expiry_time; // Adding expiry time to expiry date.
 				}
 			}

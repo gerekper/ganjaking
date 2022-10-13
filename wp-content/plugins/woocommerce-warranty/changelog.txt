@@ -1,5 +1,8 @@
 *** Warranty Requests Changelog ***
 
+2022-10-05 - version 2.0.0
+* Update - Security update.
+
 2022-09-28 - version 1.9.34
 * Fix   - Exclude unnecessary files from plugin zip file.
 * Tweak - WC 6.6 and WP 6.0 compatibility.

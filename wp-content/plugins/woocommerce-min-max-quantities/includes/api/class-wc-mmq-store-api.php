@@ -16,7 +16,7 @@ use Automattic\WooCommerce\StoreApi\Exceptions\RouteException;
 /**
  * Filters the store public API.
  *
- * @version 2.5.0
+ * @version 4.0.2
  */
 class WC_MMQ_Store_API {
 
@@ -148,6 +148,8 @@ class WC_MMQ_Store_API {
 	 */
 	public static function filter_multiple_of_cart_item_qty( $value, $product, $cart_item ) {
 
+		$group_of_quantity = 0;
+
 		if ( $product->is_type( 'variation' ) ) {
 			$min_max_rules = get_post_meta( $product->get_id(), 'min_max_rules', true );
 			if ( 'yes' === $min_max_rules ) {
@@ -171,6 +173,11 @@ class WC_MMQ_Store_API {
 			if ( ! is_null( $cart_item ) ) {
 				$group_of_quantity = absint( apply_filters( 'wc_min_max_quantity_group_of_quantity', $group_of_quantity, $product->get_id(), $cart_item[ 'key' ], $cart_item ) );
 			}
+		}
+
+		if ( 0 === $group_of_quantity ) {
+			$mmq_instance      = WC_Min_Max_Quantities::get_instance();
+			$group_of_quantity = $mmq_instance->get_group_of_quantity_for_product( $product );
 		}
 
 		// Avoid returning zero as the group of quantity.

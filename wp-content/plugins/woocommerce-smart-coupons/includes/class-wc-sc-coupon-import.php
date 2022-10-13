@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.0.0
+ * @version     2.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -501,15 +501,11 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 						);
 						if ( true === $is_import_meta ) {
 							if ( $this->is_wc_gte_30() && 'expiry_date' === $meta_key ) {
-								$meta_value = strtotime( $meta_value );
-								if ( ! empty( $meta_value ) && is_numeric( $meta_value ) ) {
-									$gmt_offset = get_option( 'gmt_offset', false );
-									if ( false !== $gmt_offset && is_numeric( $gmt_offset ) ) {
-										$gmt_offset_timestamp = $gmt_offset * HOUR_IN_SECONDS;
-										$meta_value           = $meta_value - $gmt_offset_timestamp; // Substracts GMT offset from expiry date timestamp.
-									}
+								$datetime   = $this->wc_string_to_datetime( $meta_value );
+								$meta_value = ( is_object( $datetime ) && is_callable( array( $datetime, 'getTimestamp' ) ) ) ? $datetime->getTimestamp() : 0;
+								if ( false !== $meta_value ) {
+									update_post_meta( $post_id, 'date_expires', $meta_value );
 								}
-								update_post_meta( $post_id, 'date_expires', $meta_value );
 							} else {
 								update_post_meta( $post_id, $meta_key, maybe_unserialize( $meta_value ) );
 							}

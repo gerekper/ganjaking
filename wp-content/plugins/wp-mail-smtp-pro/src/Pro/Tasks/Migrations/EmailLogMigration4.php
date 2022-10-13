@@ -2,6 +2,7 @@
 
 namespace WPMailSMTP\Pro\Tasks\Migrations;
 
+use WPMailSMTP\Helpers\DB;
 use WPMailSMTP\Pro\Emails\Logs\Logs;
 use WPMailSMTP\Tasks\Task;
 
@@ -64,8 +65,14 @@ class EmailLogMigration4 extends Task {
 
 		$queries = [];
 
-		$queries[] = "DROP INDEX `subject` ON `$table`;";
-		$queries[] = "DROP INDEX `people` ON `$table`;";
+		if ( DB::index_exists( $table, 'subject' ) ) {
+			$queries[] = "DROP INDEX `subject` ON `$table`;";
+		}
+
+		if ( DB::index_exists( $table, 'people' ) ) {
+			$queries[] = "DROP INDEX `people` ON `$table`;";
+		}
+
 		$queries[] = "ALTER TABLE `$table` CHANGE COLUMN `subject` `subject` VARCHAR(255) NOT NULL AFTER `id`;";
 		$queries[] = "CREATE INDEX `subject` ON `$table` (`subject`);";
 

@@ -1,5 +1,8 @@
 *** Ship to Multiple Addresses Changelog ***
 
+2022-10-05 - version 3.7.2
+* Update - Security update
+
 2022-09-07 - version 3.7.1
 * Fix - Exclude unnecessary files from plugin zip file.
 

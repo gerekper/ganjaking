@@ -407,7 +407,7 @@ rs-parallax-wrap,
 rs-loop-wrap,
 rs-mask-wrap { display: block; }
 
-
+rs-column-wrap>rs-mask-wrap,
 rs-column-wrap>rs-loop-wrap { z-index: 1 }
 
 rs-layer-wrap,
@@ -502,7 +502,7 @@ rs-column rs-mask-wrap 			{	display: inline-block;}
 
 rs-column .rs-parallax-wrap rs-loop-wrap,
 rs-column .rs-parallax-wrap rs-mask-wrap,
-rs-column .rs-parallax-wrap { position: relative !important; left:auto !important; top:auto !important; line-height: 0px;}
+rs-column .rs-parallax-wrap { position: relative; left:auto; top:auto; line-height: 0px;}
 
 rs-column .rs-parallax-wrap rs-loop-wrap,
 rs-column .rs-parallax-wrap rs-mask-wrap,
@@ -1419,3 +1419,9 @@ rs-loader.spinner6{width:40px;height:40px;-webkit-transform:translate(-50%,-50%)
 .avada-has-rev-slider-styles .rev_slider_wrapper {
 	transform:none;
 }
+
+/* rs-carousel-wrap{
+	transform: scale(0.3);
+	overflow: visible !important;
+	border: solid 5px red;
+} */

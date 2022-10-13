@@ -712,6 +712,10 @@ class RevSliderFront extends RevSliderFunctions {
 			
 			if(isset($shortcodes[1]) && $shortcodes[1] !== ''){
 				foreach($shortcodes[1] as $s){
+					if(strpos($s, '"') !== false){
+						$s = explode('"', $s);
+						$s = (isset($s[0])) ? $s[0] : '';
+					}
 					if(!RevSliderSlider::alias_exists($s)) continue;
 					
 					$sldr = new RevSliderSlider();

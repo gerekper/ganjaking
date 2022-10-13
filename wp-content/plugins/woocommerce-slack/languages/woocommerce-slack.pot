@@ -1,18 +1,38 @@
 # Copyright (C) 2022 WooCommerce
-# This file is distributed under the GPL-2.0+.
+# This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Slack 1.2.9\n"
-"Report-Msgid-Bugs-To: "
-"https://wordpress.org/support/plugin/woocommerce-slack\n"
-"POT-Creation-Date: 2022-03-25 19:27:06+00:00\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
+"Project-Id-Version: WooCommerce Slack 1.2.10\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: node-wp-i18n 1.2.3\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2022-10-05T08:11:41+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.6.0\n"
+"X-Domain: woocommerce-slack\n"
+
+#. Plugin Name of the plugin
+msgid "WooCommerce Slack"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://woocommerce.com/products/woocommerce-slack/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Easily send notifications to your different Slack channels whenever a WooCommerce event happens!"
+msgstr ""
+
+#. Author of the plugin
+msgid "WooCommerce"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://woocommerce.com/"
+msgstr ""
 
 #: includes/class-wcslack-events.php:111
 msgid "New Post:"
@@ -74,7 +94,8 @@ msgstr ""
 msgid "Product (#%d %s) is on backorder."
 msgstr ""
 
-#: includes/class-wcslack-events.php:334 includes/class-wcslack-events.php:385
+#: includes/class-wcslack-events.php:334
+#: includes/class-wcslack-events.php:385
 #: includes/class-wcslack-events.php:436
 msgid "View Product"
 msgstr ""
@@ -135,37 +156,31 @@ msgstr ""
 msgid "View Customer"
 msgstr ""
 
-#: includes/class-wcslack-events.php:743
+#: includes/class-wcslack-events.php:733
 msgid "Shipping"
 msgstr ""
 
-#: includes/class-wcslack-events.php:773
+#: includes/class-wcslack-events.php:763
 msgid "Order Total"
 msgstr ""
 
 #: includes/class-wcslack-privacy.php:12
 #: includes/class-wcslack-settings-legacy.php:27
 #: includes/class-wcslack-settings.php:36
-#: includes/class-wcslack-settings.php:827
-#: includes/class-wcslack-settings.php:829
-#: includes/class-wcslack-settings.php:835
-#: includes/class-wcslack-settings.php:837
+#: includes/class-wcslack-settings.php:830
+#: includes/class-wcslack-settings.php:832
+#: includes/class-wcslack-settings.php:838
+#: includes/class-wcslack-settings.php:840
 msgid "Slack"
 msgstr ""
 
 #: includes/class-wcslack-privacy.php:20
-msgid ""
-"By using this extension, you may be storing personal data or sharing data "
-"with an external service. <a href=\"%s\" target=\"_blank\">Learn more about "
-"how this works, including what you may want to include in your privacy "
-"policy.</a>"
+msgid "By using this extension, you may be storing personal data or sharing data with an external service. <a href=\"%s\" target=\"_blank\">Learn more about how this works, including what you may want to include in your privacy policy.</a>"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:28
 #: includes/class-wcslack-settings.php:37
-msgid ""
-"Configure the settings below to send notifications to your Slack channel "
-"based on WooCommerce events."
+msgid "Configure the settings below to send notifications to your Slack channel based on WooCommerce events."
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:192
@@ -178,9 +193,7 @@ msgid "Authentication & Defaults"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:198
-msgid ""
-"Please authenticate your slack account here and choose the defaults for "
-"sending messages."
+msgid "Please authenticate your slack account here and choose the defaults for sending messages."
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:202
@@ -188,10 +201,7 @@ msgid "API Key"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:204
-msgid ""
-"Go to your %s and copy the token provided. If there is no token yet, you'll "
-"need to press the \"Create Token\" button in the Authentication section. "
-"You may need to refresh after saving to see your rooms."
+msgid "Go to your %s and copy the token provided. If there is no token yet, you'll need to press the \"Create Token\" button in the Authentication section. You may need to refresh after saving to see your rooms."
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:204
@@ -199,19 +209,17 @@ msgid "Slack Account's API / Token Settings"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:208
-#: includes/class-wcslack-settings.php:335
+#: includes/class-wcslack-settings.php:338
 msgid "Default Channel(s)"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:211
-#: includes/class-wcslack-settings.php:338
-msgid ""
-"Which channel or group do you want the notifications to be sent to by "
-"default?"
+#: includes/class-wcslack-settings.php:341
+msgid "Which channel or group do you want the notifications to be sent to by default?"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:215
-#: includes/class-wcslack-settings.php:342
+#: includes/class-wcslack-settings.php:345
 msgid "Default Emoji"
 msgstr ""
 
@@ -223,77 +231,69 @@ msgstr ""
 #: includes/class-wcslack-settings-legacy.php:418
 #: includes/class-wcslack-settings-legacy.php:451
 #: includes/class-wcslack-settings-legacy.php:492
-#: includes/class-wcslack-settings.php:344
-#: includes/class-wcslack-settings.php:389
-#: includes/class-wcslack-settings.php:430
-#: includes/class-wcslack-settings.php:479
-#: includes/class-wcslack-settings.php:512
-#: includes/class-wcslack-settings.php:545
-#: includes/class-wcslack-settings.php:578
-#: includes/class-wcslack-settings.php:619
+#: includes/class-wcslack-settings.php:347
+#: includes/class-wcslack-settings.php:392
+#: includes/class-wcslack-settings.php:433
+#: includes/class-wcslack-settings.php:482
+#: includes/class-wcslack-settings.php:515
+#: includes/class-wcslack-settings.php:548
+#: includes/class-wcslack-settings.php:581
+#: includes/class-wcslack-settings.php:622
 msgid "Emoji Code Here eg. :cop:"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:218
-#: includes/class-wcslack-settings.php:345
-msgid ""
-"Enter the code for an emoji you want to include with each message by "
-"default. You can find all codes on a site like %s or you can even upload "
-"your own icon as an emoji in %s"
+#: includes/class-wcslack-settings.php:348
+msgid "Enter the code for an emoji you want to include with each message by default. You can find all codes on a site like %s or you can even upload your own icon as an emoji in %s"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:222
-#: includes/class-wcslack-settings.php:349
+#: includes/class-wcslack-settings.php:352
 msgid "Sender Name"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:225
-#: includes/class-wcslack-settings.php:352
-msgid ""
-"You can enter a custom name that messages will sent from. By default it's "
-"your site name."
+#: includes/class-wcslack-settings.php:355
+msgid "You can enter a custom name that messages will sent from. By default it's your site name."
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:229
-#: includes/class-wcslack-settings.php:356
+#: includes/class-wcslack-settings.php:359
 msgid "Debug Mode"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:231
-#: includes/class-wcslack-settings.php:358
-msgid ""
-"Enable Debug Mode. <br><strong>Note: this may log personal information. We "
-"recommend using this for debugging purposes only and deleting the logs when "
-"finished.</strong>"
+#: includes/class-wcslack-settings.php:361
+msgid "Enable Debug Mode. <br><strong>Note: this may log personal information. We recommend using this for debugging purposes only and deleting the logs when finished.</strong>"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:234
-#: includes/class-wcslack-settings.php:361
+#: includes/class-wcslack-settings.php:364
 msgid "Enable Logging. Find the logs under WooCommerce > System Status > Logs."
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:238
-#: includes/class-wcslack-settings.php:365
+#: includes/class-wcslack-settings.php:368
 msgid "Notification Events"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:240
-#: includes/class-wcslack-settings.php:367
+#: includes/class-wcslack-settings.php:370
 msgid "Check the events you would like to send notifications for."
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:246
-#: includes/class-wcslack-settings.php:373
+#: includes/class-wcslack-settings.php:376
 msgid "New Post"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:248
-#: includes/class-wcslack-settings.php:375
+#: includes/class-wcslack-settings.php:378
 msgid "New Post Published"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:251
-#: includes/class-wcslack-settings.php:378
+#: includes/class-wcslack-settings.php:381
 msgid "Every time a new post is published"
 msgstr ""
 
@@ -304,340 +304,306 @@ msgstr ""
 #: includes/class-wcslack-settings-legacy.php:419
 #: includes/class-wcslack-settings-legacy.php:452
 #: includes/class-wcslack-settings-legacy.php:493
-#: includes/class-wcslack-settings.php:390
-#: includes/class-wcslack-settings.php:431
-#: includes/class-wcslack-settings.php:480
-#: includes/class-wcslack-settings.php:513
-#: includes/class-wcslack-settings.php:546
-#: includes/class-wcslack-settings.php:579
-#: includes/class-wcslack-settings.php:620
-msgid ""
-"Enter the code for an emoji you want to include with this type of "
-"notification"
+#: includes/class-wcslack-settings.php:393
+#: includes/class-wcslack-settings.php:434
+#: includes/class-wcslack-settings.php:483
+#: includes/class-wcslack-settings.php:516
+#: includes/class-wcslack-settings.php:549
+#: includes/class-wcslack-settings.php:582
+#: includes/class-wcslack-settings.php:623
+msgid "Enter the code for an emoji you want to include with this type of notification"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:269
 #: includes/class-wcslack-settings-legacy.php:318
 #: includes/class-wcslack-settings-legacy.php:458
-#: includes/class-wcslack-settings.php:396
-#: includes/class-wcslack-settings.php:445
-#: includes/class-wcslack-settings.php:585
+#: includes/class-wcslack-settings.php:399
+#: includes/class-wcslack-settings.php:448
+#: includes/class-wcslack-settings.php:588
 msgid "Extended Notification"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:272
 #: includes/class-wcslack-settings-legacy.php:321
 #: includes/class-wcslack-settings-legacy.php:461
-#: includes/class-wcslack-settings.php:399
-#: includes/class-wcslack-settings.php:448
-#: includes/class-wcslack-settings.php:588
+#: includes/class-wcslack-settings.php:402
+#: includes/class-wcslack-settings.php:451
+#: includes/class-wcslack-settings.php:591
 msgid "Would you like to send extra details with this notification?"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:287
 #: includes/class-wcslack-settings-legacy.php:289
-#: includes/class-wcslack-settings.php:414
-#: includes/class-wcslack-settings.php:416
+#: includes/class-wcslack-settings.php:417
+#: includes/class-wcslack-settings.php:419
 msgid "New Order"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:292
-#: includes/class-wcslack-settings.php:419
+#: includes/class-wcslack-settings.php:422
 msgid "Every time a new order is made"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:310
-#: includes/class-wcslack-settings.php:437
+#: includes/class-wcslack-settings.php:440
 msgid "Free Orders"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:313
-#: includes/class-wcslack-settings.php:440
+#: includes/class-wcslack-settings.php:443
 msgid "Notify when a %s0 order is made?"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:336
 #: includes/class-wcslack-settings-legacy.php:338
-#: includes/class-wcslack-settings.php:463
-#: includes/class-wcslack-settings.php:465
+#: includes/class-wcslack-settings.php:466
+#: includes/class-wcslack-settings.php:468
 msgid "Back Order"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:341
-#: includes/class-wcslack-settings.php:468
+#: includes/class-wcslack-settings.php:471
 msgid "Every time a new back order is made"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:369
 #: includes/class-wcslack-settings-legacy.php:371
-#: includes/class-wcslack-settings.php:496
-#: includes/class-wcslack-settings.php:498
+#: includes/class-wcslack-settings.php:499
+#: includes/class-wcslack-settings.php:501
 msgid "Low on Stock"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:374
-#: includes/class-wcslack-settings.php:501
-msgid ""
-"Every time an item is low in stock (amount is defined in your inventory "
-"settings)"
+#: includes/class-wcslack-settings.php:504
+msgid "Every time an item is low in stock (amount is defined in your inventory settings)"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:402
 #: includes/class-wcslack-settings-legacy.php:404
-#: includes/class-wcslack-settings.php:529
-#: includes/class-wcslack-settings.php:531
+#: includes/class-wcslack-settings.php:532
+#: includes/class-wcslack-settings.php:534
 msgid "Out of Stock"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:407
-#: includes/class-wcslack-settings.php:534
+#: includes/class-wcslack-settings.php:537
 msgid "Every time an item is out of stock"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:435
-#: includes/class-wcslack-settings.php:562
+#: includes/class-wcslack-settings.php:565
 msgid "Reviews"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:437
-#: includes/class-wcslack-settings.php:564
+#: includes/class-wcslack-settings.php:567
 msgid "New Review"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:440
-#: includes/class-wcslack-settings.php:567
+#: includes/class-wcslack-settings.php:570
 msgid "Every time a review is made"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:476
-#: includes/class-wcslack-settings.php:603
+#: includes/class-wcslack-settings.php:606
 msgid "Customers"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:478
-#: includes/class-wcslack-settings.php:605
+#: includes/class-wcslack-settings.php:608
 msgid "New Customer"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:481
-#: includes/class-wcslack-settings.php:608
+#: includes/class-wcslack-settings.php:611
 msgid "Every time a new customer is registered / created"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:584
-#: includes/class-wcslack-settings.php:887
+#: includes/class-wcslack-settings.php:890
 msgid "Test Notification: "
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:585
-#: includes/class-wcslack-settings.php:888
+#: includes/class-wcslack-settings.php:891
 msgid "This is a test notification from %s"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:589
-#: includes/class-wcslack-settings.php:892
+#: includes/class-wcslack-settings.php:895
 msgid "Extended Notifications"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:590
-#: includes/class-wcslack-settings.php:893
-msgid ""
-"Some notifications have the option to turn on extended notifications. They "
-"look this and will often contain extra information about the specific "
-"notification! Neat, huh?"
+#: includes/class-wcslack-settings.php:896
+msgid "Some notifications have the option to turn on extended notifications. They look this and will often contain extra information about the specific notification! Neat, huh?"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:594
-#: includes/class-wcslack-settings.php:897
+#: includes/class-wcslack-settings.php:900
 msgid "The Left Colored Bar"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:595
-#: includes/class-wcslack-settings.php:898
-msgid ""
-"It's possible to change the color of that bar on the left (green by "
-"default), using a simple filter. For more on this please see the %s."
+#: includes/class-wcslack-settings.php:901
+msgid "It's possible to change the color of that bar on the left (green by default), using a simple filter. For more on this please see the %s."
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:595
-#: includes/class-wcslack-settings.php:898
+#: includes/class-wcslack-settings.php:901
 msgid "WooCommerce Slack Documentation"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:599
-#: includes/class-wcslack-settings.php:902
+#: includes/class-wcslack-settings.php:905
 msgid "Support"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:600
-#: includes/class-wcslack-settings.php:903
+#: includes/class-wcslack-settings.php:906
 msgid "If you need help, please don't be afraid to ask %s."
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:600
-#: includes/class-wcslack-settings.php:903
+#: includes/class-wcslack-settings.php:906
 msgid "WooCommerce Support"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:604
-#: includes/class-wcslack-settings.php:907
+#: includes/class-wcslack-settings.php:910
 msgid "Back to Work!"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:605
-#: includes/class-wcslack-settings.php:908
+#: includes/class-wcslack-settings.php:911
 msgid "Now, get back to work over at"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:642
-#: includes/class-wcslack-settings.php:940
+#: includes/class-wcslack-settings.php:943
 msgid "Send Test"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:646
-#: includes/class-wcslack-settings.php:944
+#: includes/class-wcslack-settings.php:947
 msgid "Send Test Notification"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:650
-#: includes/class-wcslack-settings.php:948
+#: includes/class-wcslack-settings.php:951
 msgid "Save your settings first!"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:673
-#: includes/class-wcslack-settings.php:966
+#: includes/class-wcslack-settings.php:969
 msgid "Reload channels"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:677
-#: includes/class-wcslack-settings.php:970
+#: includes/class-wcslack-settings.php:973
 msgid "Reload Available Channels"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:681
-#: includes/class-wcslack-settings.php:974
-msgid ""
-"If you have added a new channel and it's not showing, this will refresh the "
-"list."
+#: includes/class-wcslack-settings.php:977
+msgid "If you have added a new channel and it's not showing, this will refresh the list."
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:797
-#: includes/class-wcslack-settings.php:1057
+#: includes/class-wcslack-settings.php:1060
 msgid "The API Key is invalid. Please double check it and try again!"
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:817
-msgid ""
-"We noticed you're using Legacy API authentication for slack. Please clear "
-"your legacy API key! On the next screen, you'll enter your Slack app's "
-"Client ID and Client Secret."
+msgid "We noticed you're using Legacy API authentication for slack. Please clear your legacy API key! On the next screen, you'll enter your Slack app's Client ID and Client Secret."
 msgstr ""
 
 #: includes/class-wcslack-settings-legacy.php:818
 msgid "Clear Key"
 msgstr ""
 
-#: includes/class-wcslack-settings.php:317
+#: includes/class-wcslack-settings.php:320
 msgid "Client ID"
 msgstr ""
 
-#: includes/class-wcslack-settings.php:319
+#: includes/class-wcslack-settings.php:322
 msgid "Enter your Slack client ID."
 msgstr ""
 
-#: includes/class-wcslack-settings.php:324
+#: includes/class-wcslack-settings.php:327
 msgid "Client Secret"
 msgstr ""
 
-#: includes/class-wcslack-settings.php:326
+#: includes/class-wcslack-settings.php:329
 msgid "Enter your Slack client secret."
 msgstr ""
 
-#: includes/class-wcslack-settings.php:331
+#: includes/class-wcslack-settings.php:334
 msgid "Authorization"
 msgstr ""
 
-#: includes/class-wcslack-settings.php:683
+#: includes/class-wcslack-settings.php:686
 msgid "Please fill out all required fields from above."
 msgstr ""
 
-#: includes/class-wcslack-settings.php:686
+#: includes/class-wcslack-settings.php:689
 msgid "Successfully authenticated."
 msgstr ""
 
-#: includes/class-wcslack-settings.php:687
+#: includes/class-wcslack-settings.php:690
 msgid "Disconnect"
 msgstr ""
 
-#: includes/class-wcslack-settings.php:690
+#: includes/class-wcslack-settings.php:693
 msgid "Access token is not valid. Please re-connect."
 msgstr ""
 
-#: includes/class-wcslack-settings.php:691
 #: includes/class-wcslack-settings.php:694
+#: includes/class-wcslack-settings.php:697
 msgid "Connect with Slack"
 msgstr ""
 
-#: includes/class-wcslack-settings.php:706
+#: includes/class-wcslack-settings.php:709
 msgid "Slack application"
 msgstr ""
 
-#: includes/class-wcslack-settings.php:707
+#: includes/class-wcslack-settings.php:710
 msgid "WooCommerce Slack documentation."
 msgstr ""
 
-#: includes/class-wcslack-settings.php:710
 #. translators: 0: Slack apps URL 1: WP redirect uri 2: create app docs url
-msgid ""
-"To begin syncing with Slack, create a new %s. The callback URL to be added "
-"is <strong style=\"background-color:#ddd;\">&nbsp;%s&nbsp;</strong>. Full "
-"details are available in the %s"
-msgstr ""
-
 #: includes/class-wcslack-settings.php:713
-#. translators: 0: Slack apps URL
-msgid ""
-"You may also copy the Client ID and Client Secret of an existing %s into "
-"the fields below."
+msgid "To begin syncing with Slack, create a new %s. The callback URL to be added is <strong style=\"background-color:#ddd;\">&nbsp;%s&nbsp;</strong>. Full details are available in the %s"
 msgstr ""
 
-#: includes/class-wcslack-settings.php:756
+#: includes/class-wcslack-settings.php:759
 msgid "Permission denied!"
 msgstr ""
 
-#: includes/class-wcslack-settings.php:808
+#: includes/class-wcslack-settings.php:811
 msgid "Invalid request!"
 msgstr ""
 
-#: includes/class-wcslack-settings.php:827
+#: includes/class-wcslack-settings.php:830
 msgid "Account connected successfully!"
 msgstr ""
 
-#: includes/class-wcslack-settings.php:829
-msgid ""
-"Failed to connect to your account, please try again, if the problem "
-"persists, turn on Debug Log option and see what is happening."
+#: includes/class-wcslack-settings.php:832
+msgid "Failed to connect to your account, please try again, if the problem persists, turn on Debug Log option and see what is happening."
 msgstr ""
 
-#: includes/class-wcslack-settings.php:835
+#: includes/class-wcslack-settings.php:838
 msgid "Account disconnected successfully!"
 msgstr ""
 
-#: includes/class-wcslack-settings.php:837
-msgid ""
-"Failed to disconnect to your account, please try again, if the problem "
-"persists, turn on Debug Log option and see what is happening."
+#: includes/class-wcslack-settings.php:840
+msgid "Failed to disconnect to your account, please try again, if the problem persists, turn on Debug Log option and see what is happening."
 msgstr ""
 
-#: includes/class-wcslack-slack.php:54
-msgid "Select Channel..."
-msgstr ""
-
-#: woocommerce-slack.php:33
 #. translators: %s WC download URL link.
-msgid ""
-"Slack requires WooCommerce to be installed and active. You can download %s "
-"here."
+#: woocommerce-slack.php:33
+msgid "Slack requires WooCommerce to be installed and active. You can download %s here."
 msgstr ""
 
 #: woocommerce-slack.php:80
@@ -646,26 +612,4 @@ msgstr ""
 
 #: woocommerce-slack.php:81
 msgid "Docs"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "WooCommerce Slack"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "https://woocommerce.com/products/woocommerce-slack/"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid ""
-"Easily send notifications to your different Slack channels whenever a "
-"WooCommerce event happens!"
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "WooCommerce"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "https://woocommerce.com/"
 msgstr ""

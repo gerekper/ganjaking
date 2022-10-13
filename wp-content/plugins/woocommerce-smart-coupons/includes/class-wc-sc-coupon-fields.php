@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.5.1
+ * @version     1.6.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1035,7 +1035,8 @@ if ( ! class_exists( 'WC_SC_Coupon_Fields' ) ) {
 					$expiry_date  = get_post_meta( $post->ID, 'expiry_date', true );
 
 					if ( ! empty( $expiry_date ) && empty( $date_expires ) ) {
-						$date_expires = strtotime( $expiry_date );
+						$datetime     = $this->wc_string_to_datetime( $expiry_date );
+						$date_expires = ( is_object( $datetime ) && is_callable( array( $datetime, 'getTimestamp' ) ) ) ? $datetime->getTimestamp() : 0;
 						if ( false !== $date_expires ) {
 							update_post_meta( $post->ID, 'date_expires', $date_expires );
 							delete_post_meta( $post->ID, 'expiry_date' );

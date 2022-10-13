@@ -82,7 +82,8 @@
 		$( '#woocommerce-product-data' ).on( 'woocommerce_variations_loaded woocommerce_variations_added', function() {
 			var $min_max_rules_options = $( '.checkbox.min_max_rules' ).parents( '.woocommerce_variable_attributes' ).find( '.min_max_rules_options' ),
 				$min_quantities        = $( 'input.variation_minimum_allowed_quantity' ),
-				$max_quantities        = $( 'input.variation_maximum_allowed_quantity' );
+				$max_quantities        = $( 'input.variation_maximum_allowed_quantity' ),
+				$group_of_quantities   = $( 'input.variation_group_of_quantity' );
 
 			// Determine whether to show variation Min/Max rules based on the value of the Min/Max rules checkbox.
 			$min_max_rules_options.each( function() {
@@ -151,6 +152,28 @@
 					}
 				} );
 			} );
+
+			$group_of_quantities.each( function() {
+				$( this ).on( 'keyup change focusout focus click', function() {
+					var $input            = $( this ),
+						qty               = $input.val(),
+						$container        = $input.closest( '.min_max_rules_options' ),
+						$category_exclude = $container.find( 'input.variation_minmax_category_group_of_exclude' );
+
+					if ( qty ) {
+						// If the user has already enabled "Exclude from Category rules" before filling in a "Group of" value, do not interfere with checkbox.
+						if ( ! $category_exclude.is( ':checked' ) ) {
+							$category_exclude.prop( 'disabled', true );
+							$category_exclude.prop( 'checked', true );
+						}
+					} else {
+						if ( $category_exclude.is( ':disabled' ) &&  $category_exclude.is( ':checked' ) ) {
+							$category_exclude.prop( 'disabled', false );
+							$category_exclude.prop( 'checked', false );
+						}
+					}
+				} );
+			} );
 		} );
 
 		$( '.woocommerce_variations' ).on( 'change', '.checkbox.min_max_rules', function() {
@@ -206,6 +229,26 @@
 				$step      = $container.find( 'input#group_of_quantity' );
 
 			is_valid = validate_max_qty( $input, qty, $step.val(), $min.val() );
+		} );
+
+		$( 'input#group_of_quantity' ).on( 'keyup change focusout focus click', function() {
+			var $input            = $( this ),
+				qty               = $input.val(),
+				$container        = $input.closest( '.options_group' ),
+				$category_exclude = $container.find( 'input.exclude_category_rules' );
+
+				if ( qty ) {
+					// If the user has already enabled "Exclude from Category rules" before filling in a "Group of" value, do not interfere with checkbox.
+					if ( ! $category_exclude.is( ':checked' ) ) {
+						$category_exclude.prop( 'disabled', true );
+						$category_exclude.prop( 'checked', true );
+					}
+				} else {
+					if ( $category_exclude.is( ':disabled' ) &&  $category_exclude.is( ':checked' ) ) {
+						$category_exclude.prop( 'disabled', false );
+						$category_exclude.prop( 'checked', false );
+					}
+				}
 		} );
 
 		// Validate that the Minimum Quantity is a multiple of the Group Of quantity.

@@ -93,7 +93,7 @@ class WC_Settings_Address_Validation extends \WC_Settings_Page {
 
 			array(
 				'name'     => __( 'Provider', 'woocommerce-address-validation' ),
-				'desc'     => __( 'Select the provider to use.', 'woocommerce-address-validation' ),
+				'desc'     => sprintf( '%s <br> %s', __( 'Select your provider, then save.', 'woocommerce-address-validation' ), __( 'Complete setup by navigating to the provider’s tab next to General Options and entering your account info.', 'woocommerce-address-validation') ),
 				'id'       => 'wc_address_validation_active_provider',
 				'default'  => 'addressy',
 				'type'     => 'select',

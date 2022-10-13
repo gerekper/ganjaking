@@ -134,7 +134,7 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 
 		// A. Inherit the custom permalink from the term
 		if($mode == 1) {
-			$term_slug = $permalink_manager_uris["tax-{$term->term_id}"];
+			$term_slug = (!empty($permalink_manager_uris["tax-{$term->term_id}"])) ? $permalink_manager_uris["tax-{$term->term_id}"] : '';
 		}
 		// B. Hierarhcical taxonomy base
 		else if($mode == 2) {
@@ -196,9 +196,7 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 
 		// 1. Disable post types that are not publicly_queryable
 		foreach($wp_post_types as $post_type) {
-			$is_publicly_queryable = (!empty($post_type->publicly_queryable) || (!empty($post_type->public) && !empty($post_type->rewrite))) ? true : false;
-
-			if(!$is_publicly_queryable && !in_array($post_type->name, array('post', 'page', 'attachment'))) {
+			if(!is_post_type_viewable($post_type) || (empty($post_type->query_var) && empty($post_type->rewrite) && empty($post_type->_builtin) && !empty($permalink_manager_options['general']['partial_disable_strict']))) {
 				$disabled_post_types[] = $post_type->name;
 			}
 		}
@@ -220,9 +218,7 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 
 		// 1. Disable taxonomies that are not publicly_queryable
 		foreach($wp_taxonomies as $taxonomy) {
-			$is_publicly_queryable = (!empty($taxonomy->publicly_queryable) || (!empty($taxonomy->public) && !empty($taxonomy->rewrite))) ? true : false;
-
-			if(!$is_publicly_queryable && !in_array($taxonomy->name, array('category', 'post_tag'))) {
+			if(!is_taxonomy_viewable($taxonomy) || (empty($taxonomy->query_var) && empty($taxonomy->rewrite) && empty($taxonomy->_builtin) && !empty($permalink_manager_options['general']['partial_disable_strict']))) {
 				$disabled_taxonomies[] = $taxonomy->name;
 			}
 		}

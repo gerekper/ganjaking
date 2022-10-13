@@ -39,8 +39,6 @@
  * ?>
  * </code>
  *
- * @category  Crypt
- * @package   AES
  * @author    Jim Wigginton <terrafrost@php.net>
  * @copyright 2008 Jim Wigginton
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -51,9 +49,7 @@ namespace WPMailSMTP\Vendor\phpseclib3\Crypt;
 /**
  * Pure-PHP implementation of AES.
  *
- * @package AES
  * @author  Jim Wigginton <terrafrost@php.net>
- * @access  public
  */
 class AES extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Rijndael
 {
@@ -63,7 +59,6 @@ class AES extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Rijndael
      * Since \phpseclib3\Crypt\AES extends \phpseclib3\Crypt\Rijndael, this function is, technically, available, but it doesn't do anything.
      *
      * @see \phpseclib3\Crypt\Rijndael::setBlockLength()
-     * @access public
      * @param int $length
      * @throws \BadMethodCallException anytime it's called
      */
@@ -77,7 +72,6 @@ class AES extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Rijndael
      * Valid key lengths are 128, 192, and 256.  Set the link to bool(false) to disable a fixed key length
      *
      * @see \phpseclib3\Crypt\Rijndael:setKeyLength()
-     * @access public
      * @param int $length
      * @throws \LengthException if the key length isn't supported
      */
@@ -100,7 +94,6 @@ class AES extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Rijndael
      *
      * @see \phpseclib3\Crypt\Rijndael:setKey()
      * @see setKeyLength()
-     * @access public
      * @param string $key
      * @throws \LengthException if the key length isn't supported
      */

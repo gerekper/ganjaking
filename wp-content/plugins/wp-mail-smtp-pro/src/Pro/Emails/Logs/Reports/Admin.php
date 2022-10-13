@@ -95,20 +95,13 @@ class Admin extends EmailReportsTab {
 	 */
 	public function hooks() {
 
-		if (
-			wp_mail_smtp()->get_pro()->get_logs()->is_enabled() &&
-			wp_mail_smtp()->get_pro()->get_logs()->is_valid_db()
-		) {
-			add_action( 'admin_init', [ $this, 'init_table' ] );
-			add_action( 'wp_mail_smtp_admin_area_enqueue_assets', [ $this, 'enqueue_assets' ] );
+		add_action( 'admin_init', [ $this, 'init_table' ] );
+		add_action( 'wp_mail_smtp_admin_area_enqueue_assets', [ $this, 'enqueue_assets' ] );
 
-			// Initialize screen options.
-			add_action( 'load-wp-mail-smtp_page_wp-mail-smtp-' . $this->get_parent_slug(), [ $this, 'screen_options' ] );
-			add_filter( 'set-screen-option', [ $this, 'set_screen_options' ], 10, 3 );
-			add_filter( 'set_screen_option_wp_mail_smtp_report_items_per_page', [ $this, 'set_screen_options' ], 10, 3 );
-		}
-
-		add_action( 'wp_mail_smtp_admin_area_enqueue_assets', [ $this, 'enqueue_main_styles' ] );
+		// Initialize screen options.
+		add_action( 'load-wp-mail-smtp_page_wp-mail-smtp-' . $this->get_parent_slug(), [ $this, 'screen_options' ] );
+		add_filter( 'set-screen-option', [ $this, 'set_screen_options' ], 10, 3 );
+		add_filter( 'set_screen_option_wp_mail_smtp_report_items_per_page', [ $this, 'set_screen_options' ], 10, 3 );
 	}
 
 	/**
@@ -137,6 +130,15 @@ class Admin extends EmailReportsTab {
 	 * @since 3.0.0
 	 */
 	public function enqueue_assets() {
+
+		$this->enqueue_main_styles();
+
+		if (
+			! wp_mail_smtp()->get_pro()->get_logs()->is_enabled() ||
+			! wp_mail_smtp()->get_pro()->get_logs()->is_valid_db()
+		) {
+			return;
+		}
 
 		$min = WP::asset_min();
 

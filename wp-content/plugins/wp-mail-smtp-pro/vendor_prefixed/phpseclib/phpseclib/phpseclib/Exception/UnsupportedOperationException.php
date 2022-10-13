@@ -5,8 +5,6 @@
  *
  * PHP version 5
  *
- * @category  Exception
- * @package   UnsupportedOperationException
  * @author    Jim Wigginton <terrafrost@php.net>
  * @copyright 2015 Jim Wigginton
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -17,7 +15,6 @@ namespace WPMailSMTP\Vendor\phpseclib3\Exception;
 /**
  * UnsupportedOperationException
  *
- * @package UnsupportedOperationException
  * @author  Jim Wigginton <terrafrost@php.net>
  */
 class UnsupportedOperationException extends \RuntimeException

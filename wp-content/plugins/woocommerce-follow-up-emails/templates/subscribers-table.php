@@ -81,27 +81,6 @@
 		$("#new_list").insertAfter($("#bulk-action-selector-bottom"));
 		$("#rename_subscriber").insertAfter($("#bulk-action-selector-bottom"));
 
-		$( '.btn-new-list' ).on( 'click', function() {
-			var name = prompt("<?php esc_html_e('List Name:', 'follow_up_emails'); ?>")
-
-			if ( !name ) {
-				return;
-			}
-
-			$(".wrap").block({ message: null, overlayCSS: { background: '#fff url('+ FUE.ajax_loader +') no-repeat center', opacity: 0.6 } });
-
-			$.post(
-				ajaxurl,
-				{
-					action: "fue_create_list",
-					name: name
-				},
-				function() {
-					window.location.reload();
-				}
-			)
-		} );
-
 		$( '.remove-from-list' ).on( 'click', function( e ) {
 			e.preventDefault();
 			var btn         = $(this);
@@ -111,7 +90,12 @@
 
 			table.block({ message: null, overlayCSS: { background: '#fff url('+ FUE.ajax_loader +') no-repeat center', opacity: 0.6 } });
 
-			$.post(ajaxurl, {action: "fue_remove_subscriber_from_list", subscriber: subscriber, list: list}, function() {
+			$.post(ajaxurl, {
+				action: "fue_remove_subscriber_from_list",
+				subscriber: subscriber,
+				list: list,
+				_ajax_nonce: '<?php echo esc_js( wp_create_nonce( 'fue_remove_subscriber_from_list' ) ); ?>'
+			}, function() {
 				$(btn).parents("div.list").remove();
 				table.unblock();
 			});

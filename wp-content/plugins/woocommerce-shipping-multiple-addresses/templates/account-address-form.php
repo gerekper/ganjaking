@@ -37,8 +37,7 @@
     <?php endif; ?>
 
     <div class="form-row">
-        <input type="hidden" name="idx" value="<?php echo $idx; ?>" />
-        <input type="hidden" name="shipping_account_address_action" value="save" />
+		<?php wp_nonce_field( 'shipping_account_address_action' ); ?>
         <input type="submit" name="set_addresses" value="<?php _e( 'Save Address', 'wc_shipping_multiple_address' ); ?>" class="button alt" />
     </div>
 </form>

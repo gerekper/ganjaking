@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit95022fecab150a6c826d834deacc487c
+class ComposerStaticInit0e350bd2e29e4e026634d2f621e9ee8a
 {
     public static $files = array (
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
@@ -216,9 +216,11 @@ class ComposerStaticInit95022fecab150a6c826d834deacc487c
         'WPMailSMTP\\Conflicts' => __DIR__ . '/../..' . '/src/Conflicts.php',
         'WPMailSMTP\\Connect' => __DIR__ . '/../..' . '/src/Connect.php',
         'WPMailSMTP\\Core' => __DIR__ . '/../..' . '/src/Core.php',
+        'WPMailSMTP\\DBRepair' => __DIR__ . '/../..' . '/src/DBRepair.php',
         'WPMailSMTP\\Debug' => __DIR__ . '/../..' . '/src/Debug.php',
         'WPMailSMTP\\Geo' => __DIR__ . '/../..' . '/src/Geo.php',
         'WPMailSMTP\\Helpers\\Crypto' => __DIR__ . '/../..' . '/src/Helpers/Crypto.php',
+        'WPMailSMTP\\Helpers\\DB' => __DIR__ . '/../..' . '/src/Helpers/DB.php',
         'WPMailSMTP\\Helpers\\Helpers' => __DIR__ . '/../..' . '/src/Helpers/Helpers.php',
         'WPMailSMTP\\Helpers\\PluginImportDataRetriever' => __DIR__ . '/../..' . '/src/Helpers/PluginImportDataRetriever.php',
         'WPMailSMTP\\MailCatcher' => __DIR__ . '/../..' . '/src/MailCatcher.php',
@@ -244,6 +246,7 @@ class ComposerStaticInit95022fecab150a6c826d834deacc487c
         'WPMailSMTP\\Pro\\Alerts\\Providers\\SlackWebhook\\Options' => __DIR__ . '/../..' . '/src/Pro/Alerts/Providers/SlackWebhook/Options.php',
         'WPMailSMTP\\Pro\\Alerts\\Providers\\TwilioSMS\\Handler' => __DIR__ . '/../..' . '/src/Pro/Alerts/Providers/TwilioSMS/Handler.php',
         'WPMailSMTP\\Pro\\Alerts\\Providers\\TwilioSMS\\Options' => __DIR__ . '/../..' . '/src/Pro/Alerts/Providers/TwilioSMS/Options.php',
+        'WPMailSMTP\\Pro\\DBRepair' => __DIR__ . '/../..' . '/src/Pro/DBRepair.php',
         'WPMailSMTP\\Pro\\Emails\\Control\\Admin\\SettingsTab' => __DIR__ . '/../..' . '/src/Pro/Emails/Control/Admin/SettingsTab.php',
         'WPMailSMTP\\Pro\\Emails\\Control\\Control' => __DIR__ . '/../..' . '/src/Pro/Emails/Control/Control.php',
         'WPMailSMTP\\Pro\\Emails\\Control\\Reload' => __DIR__ . '/../..' . '/src/Pro/Emails/Control/Reload.php',
@@ -396,6 +399,7 @@ class ComposerStaticInit95022fecab150a6c826d834deacc487c
         'WPMailSMTP\\Reports\\Emails\\Summary' => __DIR__ . '/../..' . '/src/Reports/Emails/Summary.php',
         'WPMailSMTP\\Reports\\Reports' => __DIR__ . '/../..' . '/src/Reports/Reports.php',
         'WPMailSMTP\\SiteHealth' => __DIR__ . '/../..' . '/src/SiteHealth.php',
+        'WPMailSMTP\\Tasks\\DebugEventsCleanupTask' => __DIR__ . '/../..' . '/src/Tasks/DebugEventsCleanupTask.php',
         'WPMailSMTP\\Tasks\\Meta' => __DIR__ . '/../..' . '/src/Tasks/Meta.php',
         'WPMailSMTP\\Tasks\\Reports\\SummaryEmailTask' => __DIR__ . '/../..' . '/src/Tasks/Reports/SummaryEmailTask.php',
         'WPMailSMTP\\Tasks\\Task' => __DIR__ . '/../..' . '/src/Tasks/Task.php',
@@ -1197,6 +1201,7 @@ class ComposerStaticInit95022fecab150a6c826d834deacc487c
         'WPMailSMTP\\Vendor\\phpseclib3\\Crypt\\ChaCha20' => __DIR__ . '/../..' . '/vendor_prefixed/phpseclib/phpseclib/phpseclib/Crypt/ChaCha20.php',
         'WPMailSMTP\\Vendor\\phpseclib3\\Crypt\\Common\\AsymmetricKey' => __DIR__ . '/../..' . '/vendor_prefixed/phpseclib/phpseclib/phpseclib/Crypt/Common/AsymmetricKey.php',
         'WPMailSMTP\\Vendor\\phpseclib3\\Crypt\\Common\\BlockCipher' => __DIR__ . '/../..' . '/vendor_prefixed/phpseclib/phpseclib/phpseclib/Crypt/Common/BlockCipher.php',
+        'WPMailSMTP\\Vendor\\phpseclib3\\Crypt\\Common\\Formats\\Keys\\JWK' => __DIR__ . '/../..' . '/vendor_prefixed/phpseclib/phpseclib/phpseclib/Crypt/Common/Formats/Keys/JWK.php',
         'WPMailSMTP\\Vendor\\phpseclib3\\Crypt\\Common\\Formats\\Keys\\OpenSSH' => __DIR__ . '/../..' . '/vendor_prefixed/phpseclib/phpseclib/phpseclib/Crypt/Common/Formats/Keys/OpenSSH.php',
         'WPMailSMTP\\Vendor\\phpseclib3\\Crypt\\Common\\Formats\\Keys\\PKCS' => __DIR__ . '/../..' . '/vendor_prefixed/phpseclib/phpseclib/phpseclib/Crypt/Common/Formats/Keys/PKCS.php',
         'WPMailSMTP\\Vendor\\phpseclib3\\Crypt\\Common\\Formats\\Keys\\PKCS1' => __DIR__ . '/../..' . '/vendor_prefixed/phpseclib/phpseclib/phpseclib/Crypt/Common/Formats/Keys/PKCS1.php',
@@ -1307,6 +1312,7 @@ class ComposerStaticInit95022fecab150a6c826d834deacc487c
         'WPMailSMTP\\Vendor\\phpseclib3\\Crypt\\EC\\Curves\\sect571k1' => __DIR__ . '/../..' . '/vendor_prefixed/phpseclib/phpseclib/phpseclib/Crypt/EC/Curves/sect571k1.php',
         'WPMailSMTP\\Vendor\\phpseclib3\\Crypt\\EC\\Curves\\sect571r1' => __DIR__ . '/../..' . '/vendor_prefixed/phpseclib/phpseclib/phpseclib/Crypt/EC/Curves/sect571r1.php',
         'WPMailSMTP\\Vendor\\phpseclib3\\Crypt\\EC\\Formats\\Keys\\Common' => __DIR__ . '/../..' . '/vendor_prefixed/phpseclib/phpseclib/phpseclib/Crypt/EC/Formats/Keys/Common.php',
+        'WPMailSMTP\\Vendor\\phpseclib3\\Crypt\\EC\\Formats\\Keys\\JWK' => __DIR__ . '/../..' . '/vendor_prefixed/phpseclib/phpseclib/phpseclib/Crypt/EC/Formats/Keys/JWK.php',
         'WPMailSMTP\\Vendor\\phpseclib3\\Crypt\\EC\\Formats\\Keys\\MontgomeryPrivate' => __DIR__ . '/../..' . '/vendor_prefixed/phpseclib/phpseclib/phpseclib/Crypt/EC/Formats/Keys/MontgomeryPrivate.php',
         'WPMailSMTP\\Vendor\\phpseclib3\\Crypt\\EC\\Formats\\Keys\\MontgomeryPublic' => __DIR__ . '/../..' . '/vendor_prefixed/phpseclib/phpseclib/phpseclib/Crypt/EC/Formats/Keys/MontgomeryPublic.php',
         'WPMailSMTP\\Vendor\\phpseclib3\\Crypt\\EC\\Formats\\Keys\\OpenSSH' => __DIR__ . '/../..' . '/vendor_prefixed/phpseclib/phpseclib/phpseclib/Crypt/EC/Formats/Keys/OpenSSH.php',
@@ -1326,6 +1332,7 @@ class ComposerStaticInit95022fecab150a6c826d834deacc487c
         'WPMailSMTP\\Vendor\\phpseclib3\\Crypt\\RC2' => __DIR__ . '/../..' . '/vendor_prefixed/phpseclib/phpseclib/phpseclib/Crypt/RC2.php',
         'WPMailSMTP\\Vendor\\phpseclib3\\Crypt\\RC4' => __DIR__ . '/../..' . '/vendor_prefixed/phpseclib/phpseclib/phpseclib/Crypt/RC4.php',
         'WPMailSMTP\\Vendor\\phpseclib3\\Crypt\\RSA' => __DIR__ . '/../..' . '/vendor_prefixed/phpseclib/phpseclib/phpseclib/Crypt/RSA.php',
+        'WPMailSMTP\\Vendor\\phpseclib3\\Crypt\\RSA\\Formats\\Keys\\JWK' => __DIR__ . '/../..' . '/vendor_prefixed/phpseclib/phpseclib/phpseclib/Crypt/RSA/Formats/Keys/JWK.php',
         'WPMailSMTP\\Vendor\\phpseclib3\\Crypt\\RSA\\Formats\\Keys\\MSBLOB' => __DIR__ . '/../..' . '/vendor_prefixed/phpseclib/phpseclib/phpseclib/Crypt/RSA/Formats/Keys/MSBLOB.php',
         'WPMailSMTP\\Vendor\\phpseclib3\\Crypt\\RSA\\Formats\\Keys\\OpenSSH' => __DIR__ . '/../..' . '/vendor_prefixed/phpseclib/phpseclib/phpseclib/Crypt/RSA/Formats/Keys/OpenSSH.php',
         'WPMailSMTP\\Vendor\\phpseclib3\\Crypt\\RSA\\Formats\\Keys\\PKCS1' => __DIR__ . '/../..' . '/vendor_prefixed/phpseclib/phpseclib/phpseclib/Crypt/RSA/Formats/Keys/PKCS1.php',
@@ -1533,9 +1540,9 @@ class ComposerStaticInit95022fecab150a6c826d834deacc487c
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit95022fecab150a6c826d834deacc487c::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit95022fecab150a6c826d834deacc487c::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit95022fecab150a6c826d834deacc487c::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0e350bd2e29e4e026634d2f621e9ee8a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0e350bd2e29e4e026634d2f621e9ee8a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit0e350bd2e29e4e026634d2f621e9ee8a::$classMap;
 
         }, null, ClassLoader::class);
     }

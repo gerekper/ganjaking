@@ -3,24 +3,24 @@
  * Plugin Name: WooCommerce Slack
  * Plugin URI: https://woocommerce.com/products/woocommerce-slack/
  * Description: Easily send notifications to your different Slack channels whenever a WooCommerce event happens!
- * Version: 1.2.9
+ * Version: 1.2.10
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
- * License: GPL-2.0+
+ * Tested up to: 6.0
  * Domain: woocommerce-slack
  * Domain Path: /languages
- * WC tested up to: 5.1.0
+ *
  * WC requires at least: 2.6
- * Tested up to: 5.7
+ * WC tested up to: 7.0
  * Woo: 609199:5d6bda97bdd686290db0d68143723878
  *
- * Copyright: © 2022 WooCommerce
+ * License: GNU General Public License v3.0
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ *
+ * @package WC_Slack
  */
 
-// If this file is called directly, abort.
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 
 /**
  * WooCommerce fallback notice.
@@ -43,7 +43,7 @@ function woocommerce_slack_missing_wc_notice() {
 
 if ( ! class_exists( 'WC_Slack' ) ) {
 
-	define( 'WC_SLACK_VERSION', '1.2.9' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_SLACK_VERSION', '1.2.10' ); // WRCS: DEFINED_VERSION.
 
 	class WC_Slack {
 
@@ -116,5 +116,5 @@ function woocommerce_slack_init() {
 		return;
 	}
 
-	$WC_Slack = new WC_Slack( __FILE__ );
+	new WC_Slack();
 }

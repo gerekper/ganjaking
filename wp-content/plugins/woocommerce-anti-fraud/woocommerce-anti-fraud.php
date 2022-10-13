@@ -4,13 +4,13 @@
  * Plugin Name: WooCommerce Anti Fraud
  * Plugin URI: https://woocommerce.com/products/woocommerce-anti-fraud/
  * Description: Score each of your transactions, checking for possible fraud, using a set of advanced scoring rules.
- * Version: 4.6
+ * Version: 4.7
  * Author: OPMC Australia Pty Ltd
  * Author URI: https://opmc.biz/
  * Text Domain: woocommerce-anti-fraud
  * Domain Path: /languages
  * License: GPL v3
- * WC tested up to: 6.8
+ * WC tested up to: 6.9
  * WC requires at least: 2.6
  * Woo: 500217:955da0ce83ea5a44fc268eb185e46c41
  *
@@ -195,8 +195,61 @@ class WooCommerce_Anti_Fraud {
 		
 		add_action('wp_enqueue_scripts', array($this, 'wc_af_captcha_script'), 9999);
 		add_action('login_enqueue_scripts', array($this, 'wc_af_captcha_script'), 9999);
+		add_action('wp_enqueue_scripts', array($this,'add_scripts_to_pages'), 9999);
+		add_action( 'wp_ajax_my_action_geo_country', array($this, 'my_action_geo_country' ));
+		add_action( 'wp_ajax_nopriv_my_action_geo_country', array($this, 'my_action_geo_country' ) );
 	}
 
+	public function my_action_geo_country() {
+
+		if (!empty($_POST['latitude']) && !empty($_POST['longitude'])) {
+			
+			if (wp_verify_nonce( isset($_REQUEST['_wpnonce']), 'my-nonce' ) ) {
+			return false;
+			}
+			
+			$lat = sanitize_text_field($_POST['latitude']);
+			$lng = sanitize_text_field($_POST['longitude']);
+			$response = wp_remote_get('https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=' . $lat . '&longitude=' . $lng . '&localityLanguage=en');
+			if ( is_wp_error( $response ) ) {
+				echo 'error';
+				die();
+			}
+			if (isset($response)) {
+
+				$output = json_decode($response['body'], true);
+
+				if (!empty($output['city'])) {
+					$g_city = strtolower($output['city']);
+				} else {
+					$g_countryCode = strtolower($output['countryCode']);
+				}
+
+				$g_state = strtolower($output['principalSubdivision']);
+				update_option('html_geo_loc_state', $g_state);
+				update_option('html_geo_loc_city', $g_city);
+				update_option('html_geo_loc_cntry', $g_countryCode);
+				echo 'success';		
+				die();
+			}
+		} else {
+			delete_option('html_geo_loc_state');
+			delete_option('html_geo_loc_city');
+			delete_option('html_geo_loc_cntry');
+		}
+		die();
+	}
+
+	public function add_scripts_to_pages() {
+		$maxmind_settings = get_option( 'wc_af_maxmind_type' ); // Get MaxMind enable/disable
+		$wc_af_maxmind_insights_setting = get_option( 'wc_af_maxmind_insights' ); // Get MaxMind insights enable/disable
+		$wc_af_maxmind_factors_setting = get_option( 'wc_af_maxmind_factors' ); // Get MaxMind factors enable/disable
+		if ('yes' != $maxmind_settings && 'yes' != $wc_af_maxmind_insights_setting && 'yes' != $wc_af_maxmind_factors_setting) {
+			wp_enqueue_script('ajax_operation_script', plugins_url('assets/js/geoloc.js', __FILE__ ), array(), '1.0');
+			 wp_localize_script( 'ajax_operation_script', 'myAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php', 'relataive' )));  
+			wp_enqueue_script( 'ajax_operation_script' );
+		}
+	}
 
 	public function plugin_load_td() {
 		
@@ -536,6 +589,12 @@ $loop->the_post();
 				WC_AF_Rules::get()->add_rule(new WC_AF_Rule_Ip_Location());
 			}
 		}
+		if ('yes' != $maxmind_settings && 'yes' != $wc_af_maxmind_insights_setting && 'yes' != $wc_af_maxmind_factors_setting) {
+
+			WC_AF_Rules::get()->add_rule(new WC_AF_Rule_Geo_Location());
+		}
+		
+
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_Country() );
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_Billing_Matches_Shipping() );
 		WC_AF_Rules::get()->add_rule( new WC_AF_Rule_Detect_Proxy() );

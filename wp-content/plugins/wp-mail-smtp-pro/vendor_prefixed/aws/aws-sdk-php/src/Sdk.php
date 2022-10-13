@@ -67,6 +67,8 @@ namespace WPMailSMTP\Vendor\Aws;
  * @method \Aws\MultiRegionClient createMultiRegionBackup(array $args = [])
  * @method \Aws\BackupGateway\BackupGatewayClient createBackupGateway(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionBackupGateway(array $args = [])
+ * @method \Aws\BackupStorage\BackupStorageClient createBackupStorage(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionBackupStorage(array $args = [])
  * @method \Aws\Batch\BatchClient createBatch(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionBatch(array $args = [])
  * @method \Aws\BillingConductor\BillingConductorClient createBillingConductor(array $args = [])
@@ -153,12 +155,16 @@ namespace WPMailSMTP\Vendor\Aws;
  * @method \Aws\MultiRegionClient createMultiRegionConnect(array $args = [])
  * @method \Aws\ConnectCampaignService\ConnectCampaignServiceClient createConnectCampaignService(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionConnectCampaignService(array $args = [])
+ * @method \Aws\ConnectCases\ConnectCasesClient createConnectCases(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionConnectCases(array $args = [])
  * @method \Aws\ConnectContactLens\ConnectContactLensClient createConnectContactLens(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionConnectContactLens(array $args = [])
  * @method \Aws\ConnectParticipant\ConnectParticipantClient createConnectParticipant(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionConnectParticipant(array $args = [])
  * @method \Aws\ConnectWisdomService\ConnectWisdomServiceClient createConnectWisdomService(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionConnectWisdomService(array $args = [])
+ * @method \Aws\ControlTower\ControlTowerClient createControlTower(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionControlTower(array $args = [])
  * @method \Aws\CostExplorer\CostExplorerClient createCostExplorer(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionCostExplorer(array $args = [])
  * @method \Aws\CostandUsageReportService\CostandUsageReportServiceClient createCostandUsageReportService(array $args = [])
@@ -299,6 +305,8 @@ namespace WPMailSMTP\Vendor\Aws;
  * @method \Aws\MultiRegionClient createMultiRegionIoTEventsData(array $args = [])
  * @method \Aws\IoTFleetHub\IoTFleetHubClient createIoTFleetHub(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionIoTFleetHub(array $args = [])
+ * @method \Aws\IoTFleetWise\IoTFleetWiseClient createIoTFleetWise(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionIoTFleetWise(array $args = [])
  * @method \Aws\IoTJobsDataPlane\IoTJobsDataPlaneClient createIoTJobsDataPlane(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionIoTJobsDataPlane(array $args = [])
  * @method \Aws\IoTSecureTunneling\IoTSecureTunnelingClient createIoTSecureTunneling(array $args = [])
@@ -351,6 +359,8 @@ namespace WPMailSMTP\Vendor\Aws;
  * @method \Aws\MultiRegionClient createMultiRegionLexRuntimeV2(array $args = [])
  * @method \Aws\LicenseManager\LicenseManagerClient createLicenseManager(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionLicenseManager(array $args = [])
+ * @method \Aws\LicenseManagerUserSubscriptions\LicenseManagerUserSubscriptionsClient createLicenseManagerUserSubscriptions(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionLicenseManagerUserSubscriptions(array $args = [])
  * @method \Aws\Lightsail\LightsailClient createLightsail(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionLightsail(array $args = [])
  * @method \Aws\LocationService\LocationServiceClient createLocationService(array $args = [])
@@ -409,6 +419,8 @@ namespace WPMailSMTP\Vendor\Aws;
  * @method \Aws\MultiRegionClient createMultiRegionMigrationHub(array $args = [])
  * @method \Aws\MigrationHubConfig\MigrationHubConfigClient createMigrationHubConfig(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionMigrationHubConfig(array $args = [])
+ * @method \Aws\MigrationHubOrchestrator\MigrationHubOrchestratorClient createMigrationHubOrchestrator(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionMigrationHubOrchestrator(array $args = [])
  * @method \Aws\MigrationHubRefactorSpaces\MigrationHubRefactorSpacesClient createMigrationHubRefactorSpaces(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionMigrationHubRefactorSpaces(array $args = [])
  * @method \Aws\MigrationHubStrategyRecommendations\MigrationHubStrategyRecommendationsClient createMigrationHubStrategyRecommendations(array $args = [])
@@ -455,6 +467,8 @@ namespace WPMailSMTP\Vendor\Aws;
  * @method \Aws\MultiRegionClient createMultiRegionPolly(array $args = [])
  * @method \Aws\Pricing\PricingClient createPricing(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionPricing(array $args = [])
+ * @method \Aws\PrivateNetworks\PrivateNetworksClient createPrivateNetworks(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionPrivateNetworks(array $args = [])
  * @method \Aws\PrometheusService\PrometheusServiceClient createPrometheusService(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionPrometheusService(array $args = [])
  * @method \Aws\Proton\ProtonClient createProton(array $args = [])
@@ -569,6 +583,8 @@ namespace WPMailSMTP\Vendor\Aws;
  * @method \Aws\MultiRegionClient createMultiRegionSts(array $args = [])
  * @method \Aws\Support\SupportClient createSupport(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionSupport(array $args = [])
+ * @method \Aws\SupportApp\SupportAppClient createSupportApp(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionSupportApp(array $args = [])
  * @method \Aws\Swf\SwfClient createSwf(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionSwf(array $args = [])
  * @method \Aws\Synthetics\SyntheticsClient createSynthetics(array $args = [])
@@ -626,7 +642,7 @@ namespace WPMailSMTP\Vendor\Aws;
  */
 class Sdk
 {
-    const VERSION = '3.231.5';
+    const VERSION = '3.238.0';
     /** @var array Arguments for creating clients */
     private $args;
     /**

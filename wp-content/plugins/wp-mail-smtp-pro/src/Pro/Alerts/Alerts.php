@@ -34,6 +34,35 @@ class Alerts {
 		add_filter( 'wp_mail_smtp_admin_get_pages', [ $this, 'init_settings_tab' ] );
 
 		add_action( 'wp_mail_smtp_mailcatcher_send_failed', [ $this, 'handle_failed_email' ], 10, 3 );
+		add_action( 'wp_mail_smtp_options_set', [ $this, 'remove_empty_send_to_for_alert_email' ] );
+	}
+
+	/**
+	 * Removes the empty send_to values.
+	 *
+	 * @since 3.6.0
+	 *
+	 * @param array $options The options array.
+	 *
+	 * @return array The options array after removing empty send_to values.
+	 */
+	public function remove_empty_send_to_for_alert_email( $options ) {
+
+		if ( isset( $options['alert_email']['connections'] ) ) {
+			$valid_connections = [];
+
+			foreach ( $options['alert_email']['connections'] as $connection ) {
+				if ( ! empty( $connection['send_to'] ) ) {
+					$valid_connections[] = [
+						'send_to' => $connection['send_to'],
+					];
+				}
+			}
+
+			$options['alert_email']['connections'] = $valid_connections;
+		}
+
+		return $options;
 	}
 
 	/**

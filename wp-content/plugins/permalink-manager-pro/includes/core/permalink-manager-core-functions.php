@@ -714,7 +714,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			/**
 			 * 3. Prevent redirect loop
 			 */
-			if(!empty($correct_permalink) && is_string($correct_permalink) && !empty($wp->request) && !empty($redirect_type) && $redirect_type !== 'slash_redirect') {
+			if(!empty($correct_permalink) && is_string($correct_permalink) && !empty($wp->request) && !empty($redirect_type) && !in_array($redirect_type, array('slash_redirect', 'duplicated_slash_redirect'))) {
 				$current_uri = trim($wp->request, "/");
 				$redirect_uri = trim(parse_url($correct_permalink, PHP_URL_PATH), "/");
 

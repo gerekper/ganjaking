@@ -73,7 +73,7 @@ class ConfigurationProvider extends \WPMailSMTP\Vendor\Aws\AbstractConfiguration
             $configProviders[] = self::ini();
         }
         $configProviders[] = self::fallback();
-        $memo = self::memoize(\call_user_func_array('self::chain', $configProviders));
+        $memo = self::memoize(\call_user_func_array([\WPMailSMTP\Vendor\Aws\DefaultsMode\ConfigurationProvider::class, 'chain'], $configProviders));
         if (isset($config['defaultsMode']) && $config['defaultsMode'] instanceof \WPMailSMTP\Vendor\Aws\CacheInterface) {
             return self::cache($memo, $config['defaultsMode'], self::$cacheKey);
         }

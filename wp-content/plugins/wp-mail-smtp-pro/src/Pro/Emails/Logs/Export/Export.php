@@ -171,6 +171,7 @@ class Export {
 				'log_id'     => esc_html__( 'Email log ID', 'wp-mail-smtp-pro' ),
 				'opened'     => esc_html__( 'Opened', 'wp-mail-smtp-pro' ),
 				'clicked'    => esc_html__( 'Clicked', 'wp-mail-smtp-pro' ),
+				'initiator'  => esc_html__( 'Source', 'wp-mail-smtp-pro' ),
 			]
 		);
 

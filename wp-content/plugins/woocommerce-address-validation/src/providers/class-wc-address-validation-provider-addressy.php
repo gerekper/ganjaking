@@ -58,7 +58,7 @@ class WC_Address_Validation_Provider_Addressy extends \WC_Address_Validation_Pro
 		$this->title = __( 'Loqate', 'woocommerce-address-validation' );
 
 		/* translators: Placeholders: %1$s - <a> tag, %2$s - </a> tag */
-		$this->description = sprintf( __( 'Loqate offers 100 free US address verification per month for both residential and commercial US addresses, and paid accounts can perform lookup for addresses in any country. %1$sSign up for a free account%2$s now to get started.', 'woocommerce-address-validation'), '<a href="https://www.loqate.com/partners/ADRSY11126" target="_blank">', '</a>' );
+		$this->description = sprintf( __( 'Loqate offers address verification for both residential and commercial US and can perform lookups for addresses in any country. %1$sSign up for a Loqate account%2$s now to get started. .', 'woocommerce-address-validation'), '<a href="https://account.loqate.com/register/" target="_blank">', '</a>' );
 
 		$this->supports = array(
 			'address_validation',

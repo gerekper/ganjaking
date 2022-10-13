@@ -22,7 +22,7 @@ class RestJsonSerializer extends \WPMailSMTP\Vendor\Aws\Api\Serializer\RestSeria
     public function __construct(\WPMailSMTP\Vendor\Aws\Api\Service $api, $endpoint, \WPMailSMTP\Vendor\Aws\Api\Serializer\JsonBody $jsonFormatter = null)
     {
         parent::__construct($api, $endpoint);
-        $this->contentType = 'application/json';
+        $this->contentType = \WPMailSMTP\Vendor\Aws\Api\Serializer\JsonBody::getContentType($api);
         $this->jsonFormatter = $jsonFormatter ?: new \WPMailSMTP\Vendor\Aws\Api\Serializer\JsonBody($api);
     }
     protected function payload(\WPMailSMTP\Vendor\Aws\Api\StructureShape $member, array $value, array &$opts)

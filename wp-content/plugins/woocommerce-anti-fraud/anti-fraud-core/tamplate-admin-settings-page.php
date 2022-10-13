@@ -378,6 +378,30 @@ if ( '' === $current_section ) : ?>
 						<?php $this->opmc_score_slider( get_option('wc_settings_anti_fraud_bca_order_weight') ); ?>
 					</td>
 				</tr>
+				<!-- /* Geo Localion */ -->
+				<tr valign="top" class="">
+					<th scope="row" class="titledesc">
+					<label for="wc_af_geolocation_order">
+						<?php echo wp_kses_post($settings_fileds['wc_af_geolocation_order']['title']); ?>
+						<span class="woocommerce-help-tip" data-tip="<?php echo wp_kses_post($settings_fileds['wc_af_geolocation_order']['desc_tip']); ?>"></span>
+					</label>
+					</th>
+					<td  class="forminp forminp-checkbox">
+						<fieldset>
+						<legend class="screen-reader-text"><span><?php echo wp_kses_post($settings_fileds['wc_af_geolocation_order']['title']); ?></span></legend>
+						<label for="wc_af_geolocation_order" class="opmc-toggle-control">
+						<input name="wc_af_geolocation_order" id="wc_af_geolocation_order" type="checkbox" value="1" <?php checked( get_option( 'wc_af_geolocation_order' ), 'yes' ); ?> >
+						<span class="opmc-control"></span>
+					</label> 
+						</fieldset>
+					</td>
+					<td class="forminp forminp-number">
+						<input name="wc_settings_anti_fraud_geolocation_order_weight" id="wc_settings_anti_fraud_geolocation_order_weight" type="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraud_geolocation_order_weight']['type']); ?>" style="display: block; width: 5em;" value="<?php echo esc_attr(get_option('wc_settings_anti_fraud_geolocation_order_weight')); ?>" min="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraud_geolocation_order_weight']['custom_attributes']['min']); ?>" step="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraud_geolocation_order_weight']['custom_attributes']['step']); ?>" max="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraud_geolocation_order_weight']['custom_attributes']['max']); ?>">
+					</td>
+					<td class="forminp forminp-slider">
+						<?php $this->opmc_score_slider( get_option('wc_settings_anti_fraud_geolocation_order_weight') ); ?>
+					</td>
+				</tr>
 				<tr valign="top" class="">
 					<th scope="row" class="titledesc">
 					<label for="wc_af_billing_phone_number_order">
@@ -900,8 +924,108 @@ if ( '' === $current_section ) : ?>
 
 			</tbody>
 		</table>
+	</section>
+<?php elseif ('black_list' == $current_section) : ?>
+	<section>
+		<h2>Blacklist</h2>
+		<div id="<?php echo esc_attr($this->id . '_blacklist_settings-description'); ?>">
+			<?php echo wp_kses_post($settings_fileds[$this->id . '_blacklist_settings']['desc']); ?>
+		</div>
+		<hr/>
+		<?php $this->opmc_add_admin_field_section($settings_fileds[$this->id . '_sub_blacklist_settings']); ?>
+		<table class="form-table opmc_wc_af_table">
+				<tbody>
+					<tr valign="top" class="">
+						<th scope="row" class="titledesc">
+						<label for="wc_af_email_blacklist">
+							<?php echo wp_kses_post($settings_fileds['wc_af_email_blacklist']['title']); ?>
+							<span class="woocommerce-help-tip" data-tip="<?php echo esc_attr($settings_fileds['wc_af_email_blacklist']['desc_tip']); ?>"></span>
+						</label>
+						</th>
+						<td  class="forminp forminp-checkbox">
+							<fieldset>
+							<legend class="screen-reader-text"><span><?php echo esc_attr($settings_fileds['wc_af_email_blacklist']['title']); ?></span></legend>
+							<label for="wc_af_email_blacklist" class="opmc-toggle-control">
+								<input name="wc_af_email_blacklist" id="wc_af_email_blacklist" type="checkbox" value="1" <?php checked( get_option( 'wc_af_email_blacklist' ), 'yes' ); ?> >
+								<span class="opmc-control"></span>
+							</label> 
+							</fieldset>
+						</td>
+					</tr>
 
+					<tr valign="top" class="">
+						<th scope="row" class="titledesc">
+						<label for="wc_af_enable_automatic_blacklist">
+							<?php echo wp_kses_post($settings_fileds['wc_af_enable_automatic_blacklist']['title']); ?>
+							<span class="woocommerce-help-tip" data-tip="<?php echo esc_attr($settings_fileds['wc_af_enable_automatic_blacklist']['desc_tip']); ?>"></span>
+						</label>
+						</th>
+						<td  class="forminp forminp-checkbox">
+							<fieldset>
+							<legend class="screen-reader-text"><span><?php echo esc_attr($settings_fileds['wc_af_enable_automatic_blacklist']['title']); ?></span></legend>
+							<label for="wc_af_enable_automatic_blacklist" class="opmc-toggle-control">
+								<input name="wc_af_enable_automatic_blacklist" id="wc_af_enable_automatic_blacklist" type="checkbox" value="1" <?php checked( get_option( 'wc_af_enable_automatic_blacklist' ), 'yes' ); ?> >
+								<span class="opmc-control"></span>
+							</label> 
+							</fieldset>
+						</td>
+					</tr>
+					<tr valign="top">
+						<th scope="row" class="titledesc">
+							<label for="wc_settings_anti_fraud_blacklist_emails">
+								<?php 
+										echo wp_kses_post($settings_fileds['wc_settings_anti_fraud_blacklist_emails']['name']);
+										$description = WC_Admin_Settings::get_field_description( $settings_fileds['wc_settings_anti_fraud_blacklist_emails'] ); 
+										echo wp_kses_post($description['tooltip_html']);
+								?>
+							</label>
+						</th>
+						<td  class="forminp forminp-textarea" colspan="3">
+							<textarea name="wc_settings_anti_fraud_blacklist_emails" id="wc_settings_anti_fraud_blacklist_emails" style="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraud_blacklist_emails']['css']); ?>" class="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraud_blacklist_emails']['class']); ?>"><?php echo esc_html(get_option( 'wc_settings_anti_fraud_blacklist_emails' )); ?></textarea>
+						</td>
+					</tr>
+					
 
+				</tbody>
+		</table>
+
+		<?php $this->opmc_add_admin_field_section($settings_fileds[$this->id . '_sub_ip_blacklist_settings']); ?>
+		<table class="form-table opmc_wc_af_table">
+			<tbody>
+				<tr valign="top" class="">
+					<th scope="row" class="titledesc">
+					<label for="wc_af_enable_automatic_ip_blacklist">
+						<?php echo wp_kses_post($settings_fileds['wc_af_enable_automatic_ip_blacklist']['title']); ?>
+						<span class="woocommerce-help-tip" data-tip="<?php echo esc_attr($settings_fileds['wc_af_enable_automatic_ip_blacklist']['desc_tip']); ?>"></span>
+					</label>
+					</th>
+					<td  class="forminp forminp-checkbox">
+						<fieldset>
+						<legend class="screen-reader-text"><span><?php echo esc_attr($settings_fileds['wc_af_enable_automatic_ip_blacklist']['title']); ?></span></legend>
+						<label for="wc_af_enable_automatic_ip_blacklist" class="opmc-toggle-control">
+							<input name="wc_af_enable_automatic_ip_blacklist" id="wc_af_enable_automatic_ip_blacklist" type="checkbox" value="1" <?php checked( get_option( 'wc_af_enable_automatic_ip_blacklist' ), 'yes' ); ?> >
+							<span class="opmc-control"></span>
+						</label> 
+						</fieldset>
+					</td>
+				</tr>
+
+				<tr valign="top">
+					<th scope="row" class="titledesc">
+						<label for="wc_settings_anti_fraud_blacklist_ipaddress">
+							<?php 
+									echo wp_kses_post($settings_fileds['wc_settings_anti_fraud_blacklist_ipaddress']['name']);
+									$description = WC_Admin_Settings::get_field_description( $settings_fileds['wc_settings_anti_fraud_blacklist_ipaddress'] ); 
+									echo wp_kses_post($description['tooltip_html']);
+							?>
+						</label>
+					</th>
+					<td  class="forminp forminp-textarea" colspan="3">
+						<textarea name="wc_settings_anti_fraud_blacklist_ipaddress" id="wc_settings_anti_fraud_blacklist_ipaddress" style="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraud_blacklist_ipaddress']['css']); ?>" class="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraud_blacklist_ipaddress']['class']); ?>"><?php echo esc_html(get_option( 'wc_settings_anti_fraud_blacklist_ipaddress' )); ?></textarea>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 	</section>
 <?php else : ?>
 

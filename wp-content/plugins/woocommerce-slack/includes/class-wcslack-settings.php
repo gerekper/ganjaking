@@ -312,6 +312,9 @@ class WC_Slack_Settings extends WC_Integration {
 
 		$available_channels = $this->available_channels();
 
+		// Remove legacy empty option.
+		unset( $available_channels['select'] );
+
 		$this->form_fields = array(
 			'client_id'       => array(
 				'title'       => __( 'Client ID', 'woocommerce-slack' ),

@@ -234,7 +234,7 @@
 
 					// Save the invoice file
 					$inv_file = self::get_pdf_temp() . "/" . 'inv-' . $filename;
-					$mpdf->Output( $inv_file, \Mpdf\Output\Destination::FILE );
+					$mpdf->Output( $pdftemp . '/' . $inv_file, \Mpdf\Output\Destination::FILE );
 
 					// Start mPDF for terms and conditions
 					$mpdf 		= new \Mpdf\Mpdf( ['format' => $papersize, 'orientation' => $paperorientation] );
@@ -245,7 +245,7 @@
 
 					// Save the terms file
 					$terms_file = self::get_pdf_temp() . "/" . 'terms-' . $filename;
-					$mpdf->Output( $terms_file, \Mpdf\Output\Destination::FILE );
+					$mpdf->Output( $pdftemp . '/' . $terms_file, \Mpdf\Output\Destination::FILE );
 
 					// Load PDF Merger
 					if ( !class_exists('PDFMerger') ) {
@@ -271,7 +271,7 @@
 
 				}
 
-				$mpdf->Output('filename.pdf', \Mpdf\Output\Destination::FILE);
+				$mpdf->Output( $pdftemp . '/filename.pdf', \Mpdf\Output\Destination::FILE);
 
 				if( isset( $stream ) && $stream === FALSE ) {
 					return $file;
@@ -2509,7 +2509,7 @@
 				}
 
 			}
-
+/*
 			if( $order->get_total_refunded() > 0 ) {
 
 				$output .=  '<tr class="pdfordertotals_row">' .
@@ -2519,8 +2519,8 @@
 							'</tr>' ;
 							
 			}
-
-			$output = apply_filters( 'pdf_template_order_totals' , $output, $order_id );
+*/
+			$output = apply_filters( 'pdf_template_order_totals' , $output, $order_id, $tax_display = '' );
 
 			return $output;
 

@@ -10,8 +10,6 @@
  *
  * PHP version 5
  *
- * @category  Crypt
- * @package   EC
  * @author    Jim Wigginton <terrafrost@php.net>
  * @copyright 2015 Jim Wigginton
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -19,7 +17,6 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Formats\Keys;
 
-use WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64;
 use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base as BaseCurve;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Montgomery as MontgomeryCurve;
@@ -31,9 +28,7 @@ use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 /**
  * XML Formatted EC Key Handler
  *
- * @package EC
  * @author  Jim Wigginton <terrafrost@php.net>
- * @access  public
  */
 abstract class XML
 {
@@ -53,7 +48,6 @@ abstract class XML
     /**
      * Break a public or private key down into its constituent components
      *
-     * @access public
      * @param string $key
      * @param string $password optional
      * @return array
@@ -101,7 +95,7 @@ abstract class XML
      * @param bool $decode optional
      * @return \DOMNodeList
      */
-    private static function query($xpath, $name, $error = null, $decode = \true)
+    private static function query(\DOMXPath $xpath, $name, $error = null, $decode = \true)
     {
         $query = '/';
         $names = \explode('/', $name);
@@ -148,7 +142,7 @@ abstract class XML
      */
     private static function decodeValue($value)
     {
-        return \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64::decode(\str_replace(["\r", "\n", ' ', "\t"], '', $value));
+        return \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::base64_decode(\str_replace(["\r", "\n", ' ', "\t"], '', $value));
     }
     /**
      * Extract points from an XML document
@@ -329,7 +323,7 @@ abstract class XML
             return '<' . $pre . 'ECDSAKeyValue xmlns' . $post . '="http://www.w3.org/2001/04/xmldsig-more#">' . "\r\n" . self::encodeXMLParameters($curve, $pre, $options) . "\r\n" . '<' . $pre . 'PublicKey>' . "\r\n" . '<' . $pre . 'X Value="' . $publicKey[0] . '" />' . "\r\n" . '<' . $pre . 'Y Value="' . $publicKey[1] . '" />' . "\r\n" . '</' . $pre . 'PublicKey>' . "\r\n" . '</' . $pre . 'ECDSAKeyValue>';
         }
         $publicKey = "\4" . $publicKey[0]->toBytes() . $publicKey[1]->toBytes();
-        return '<' . $pre . 'ECDSAKeyValue xmlns' . $post . '="http://www.w3.org/2009/xmldsig11#">' . "\r\n" . self::encodeXMLParameters($curve, $pre, $options) . "\r\n" . '<' . $pre . 'PublicKey>' . \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64::encode($publicKey) . '</' . $pre . 'PublicKey>' . "\r\n" . '</' . $pre . 'ECDSAKeyValue>';
+        return '<' . $pre . 'ECDSAKeyValue xmlns' . $post . '="http://www.w3.org/2009/xmldsig11#">' . "\r\n" . self::encodeXMLParameters($curve, $pre, $options) . "\r\n" . '<' . $pre . 'PublicKey>' . \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::base64_encode($publicKey) . '</' . $pre . 'PublicKey>' . "\r\n" . '</' . $pre . 'ECDSAKeyValue>';
     }
     /**
      * Encode Parameters
@@ -367,12 +361,12 @@ abstract class XML
             $temp = $result['specifiedCurve'];
             switch ($temp['fieldID']['fieldType']) {
                 case 'prime-field':
-                    $xml .= '<' . $pre . 'Prime>' . "\r\n" . '<' . $pre . 'P>' . \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64::encode($temp['fieldID']['parameters']->toBytes()) . '</' . $pre . 'P>' . "\r\n" . '</' . $pre . 'Prime>' . "\r\n";
+                    $xml .= '<' . $pre . 'Prime>' . "\r\n" . '<' . $pre . 'P>' . \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::base64_encode($temp['fieldID']['parameters']->toBytes()) . '</' . $pre . 'P>' . "\r\n" . '</' . $pre . 'Prime>' . "\r\n";
                     break;
                 default:
                     throw new \WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedCurveException('Field Type of ' . $temp['fieldID']['fieldType'] . ' is not supported');
             }
-            $xml .= '</' . $pre . 'FieldID>' . "\r\n" . '<' . $pre . 'Curve>' . "\r\n" . '<' . $pre . 'A>' . \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64::encode($temp['curve']['a']) . '</' . $pre . 'A>' . "\r\n" . '<' . $pre . 'B>' . \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64::encode($temp['curve']['b']) . '</' . $pre . 'B>' . "\r\n" . '</' . $pre . 'Curve>' . "\r\n" . '<' . $pre . 'Base>' . \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64::encode($temp['base']) . '</' . $pre . 'Base>' . "\r\n" . '<' . $pre . 'Order>' . \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64::encode($temp['order']) . '</' . $pre . 'Order>' . "\r\n" . '</' . $pre . 'ECParameters>';
+            $xml .= '</' . $pre . 'FieldID>' . "\r\n" . '<' . $pre . 'Curve>' . "\r\n" . '<' . $pre . 'A>' . \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::base64_encode($temp['curve']['a']) . '</' . $pre . 'A>' . "\r\n" . '<' . $pre . 'B>' . \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::base64_encode($temp['curve']['b']) . '</' . $pre . 'B>' . "\r\n" . '</' . $pre . 'Curve>' . "\r\n" . '<' . $pre . 'Base>' . \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::base64_encode($temp['base']) . '</' . $pre . 'Base>' . "\r\n" . '<' . $pre . 'Order>' . \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::base64_encode($temp['order']) . '</' . $pre . 'Order>' . "\r\n" . '</' . $pre . 'ECParameters>';
             return $xml;
         }
     }

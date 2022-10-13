@@ -138,6 +138,14 @@ class Pro {
 			}
 		);
 
+		// Use the Pro DBRepair.
+		add_filter(
+			'wp_mail_smtp_core_get_db_repair',
+			function () {
+				return DBRepair::class;
+			}
+		);
+
 		// Fix `Options::array_merge_recursive` numeric keys array duplicates.
 		add_filter(
 			'wp_mail_smtp_options_set',

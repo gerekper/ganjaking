@@ -148,21 +148,23 @@ class RevSliderUpdate {
 	public function _retrieve_version_info(){
 		$rslb		= RevSliderGlobals::instance()->get('RevSliderLoadBalancer');
 		$last_check	= get_option('revslider-update-check-short');
-		
+
 		// Check for updates
 		if($last_check == false || time() - $last_check > 172800 || $this->force == true){
+			do_action('revslider-retrieve_version_info', $this);
 			update_option('revslider-update-check-short', time());
 			
-			$hash = ($this->force === true) ? '' : get_option('revslider-update-hash', '');
-			$purchase = (get_option('revslider-valid', 'false') == 'true') ? get_option('revslider-code', '') : '';
-			$data = array(
+			$hash		= ($this->force === true) ? '' : get_option('revslider-update-hash', '');
+			$purchase	= (get_option('revslider-valid', 'false') == 'true') ? get_option('revslider-code', '') : '';
+			$data		= array(
 				'version' => urlencode(RS_REVISION),
 				'item' => urlencode(RS_PLUGIN_SLUG),
 				'hash' => urlencode($hash),
-				'code' => urlencode($purchase)
+				'code' => urlencode($purchase),
+				'addition' => apply_filters('revslider_retrieve_version_info_addition', array())
 			);
-			
-			$request = $rslb->call_url($this->remote_url, $data, 'updates');
+
+			$request	= $rslb->call_url($this->remote_url, $data, 'updates');
 			$version_info = wp_remote_retrieve_body($request);
 			
 			if(wp_remote_retrieve_response_code($request) != 200 || is_wp_error($version_info)){

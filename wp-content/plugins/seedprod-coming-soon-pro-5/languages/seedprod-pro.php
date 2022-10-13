@@ -63,6 +63,7 @@ $generated_i18n_strings = array(
 
 	// Reference: src/admin/App.vue:302
 	// Reference: src/components/CountdownOptions.vue:848
+	// Reference: src/components/CounterOptions.vue:323
 	// Reference: src/components/CustomHTMLOptions.vue:199
 	// Reference: src/components/FormOptions.vue:178
 	// Reference: src/components/NavOptions.vue:570
@@ -481,6 +482,7 @@ $generated_i18n_strings = array(
 	// Reference: src/admin/SettingsGeneral.vue:259
 	// Reference: src/admin/ThemeTemplates-Pro.vue:1379
 	// Reference: src/components/AnimatedHeadlineOptions.vue:562
+	// Reference: src/components/BeforeAfterToggleOptions.vue:517
 	// Reference: src/components/BusinessHoursOptions.vue:742
 	// Reference: src/components/FacebookCommentsOptions.vue:258
 	// Reference: src/components/FacebookEmbedOptions.vue:331
@@ -500,6 +502,7 @@ $generated_i18n_strings = array(
 	// Reference: src/admin/SettingsGeneral.vue:260
 	// Reference: src/admin/ThemeTemplates-Pro.vue:1380
 	// Reference: src/components/AnimatedHeadlineOptions.vue:563
+	// Reference: src/components/BeforeAfterToggleOptions.vue:518
 	// Reference: src/components/BusinessHoursOptions.vue:743
 	// Reference: src/components/FacebookCommentsOptions.vue:259
 	// Reference: src/components/FacebookEmbedOptions.vue:332
@@ -706,7 +709,7 @@ $generated_i18n_strings = array(
 	__( 'Search templates...', 'seedprod-pro' ),
 
 	// Reference: src/admin/ThemeChooser.vue:808
-	// Reference: src/views/SetupBlockOptions-Pro.vue:1466
+	// Reference: src/views/SetupBlockOptions-Pro.vue:1476
 	__( 'WooCommerce', 'seedprod-pro' ),
 
 	// Reference: src/admin/ThemeChooser.vue:809
@@ -873,6 +876,7 @@ $generated_i18n_strings = array(
 	__( 'You can manually setup thes pages in WordPress by going to Settings > Reading > Your homepage displays:', 'seedprod-pro' ),
 
 	// Reference: src/admin/ThemeTemplates-Pro.vue:1479
+	// Reference: src/components/BeforeAfterToggleOptions.vue:490
 	// Reference: src/components/FacebookCommentsOptions.vue:273
 	// Reference: src/components/FacebookEmbedOptions.vue:349
 	// Reference: src/components/FacebookLikeOptions.vue:345
@@ -1086,12 +1090,14 @@ $generated_i18n_strings = array(
 	// Reference: src/components/AddToCartOptions.vue:1066
 	// Reference: src/components/AdditionalInformationOptions.vue:127
 	// Reference: src/components/AnimatedHeadlineOptions.vue:512
+	// Reference: src/components/BeforeAfterToggleOptions.vue:506
 	// Reference: src/components/BulletListOptions.vue:494
 	// Reference: src/components/BusinessHoursOptions.vue:712
 	// Reference: src/components/ButtonOptions.vue:1202
 	// Reference: src/components/ColOptions.vue:662
 	// Reference: src/components/ContactFormOptions.vue:290
 	// Reference: src/components/CountdownOptions.vue:845
+	// Reference: src/components/CounterOptions.vue:320
 	// Reference: src/components/CustomHTMLOptions.vue:197
 	// Reference: src/components/DividerOptions.vue:358
 	// Reference: src/components/FacebookCommentsOptions.vue:268
@@ -1153,12 +1159,14 @@ $generated_i18n_strings = array(
 	// Reference: src/components/AddToCartOptions.vue:1067
 	// Reference: src/components/AdditionalInformationOptions.vue:128
 	// Reference: src/components/AnimatedHeadlineOptions.vue:513
+	// Reference: src/components/BeforeAfterToggleOptions.vue:507
 	// Reference: src/components/BulletListOptions.vue:495
 	// Reference: src/components/BusinessHoursOptions.vue:717
 	// Reference: src/components/ButtonOptions.vue:1203
 	// Reference: src/components/ColOptions.vue:679
 	// Reference: src/components/ContactFormOptions.vue:291
 	// Reference: src/components/CountdownOptions.vue:847
+	// Reference: src/components/CounterOptions.vue:322
 	// Reference: src/components/CustomHTMLOptions.vue:198
 	// Reference: src/components/DividerOptions.vue:359
 	// Reference: src/components/FacebookCommentsOptions.vue:269
@@ -1216,7 +1224,7 @@ $generated_i18n_strings = array(
 	// Reference: src/components/WCCheckoutOptions.vue:763
 	// Reference: src/components/WCCustomProductsGridOptions.vue:1076
 	// Reference: src/components/WpWidgetBlockOptions.vue:187
-	// Reference: src/views/SetupBlockOptions-Pro.vue:1462
+	// Reference: src/views/SetupBlockOptions-Pro.vue:1472
 	__( 'Advanced', 'seedprod-pro' ),
 
 	// Reference: src/components/AccordionOptions.vue:601
@@ -1267,6 +1275,7 @@ $generated_i18n_strings = array(
 	// Reference: src/components/BusinessHoursOptions.vue:725
 	// Reference: src/components/ButtonOptions.vue:1207
 	// Reference: src/components/CountdownOptions.vue:885
+	// Reference: src/components/CounterOptions.vue:339
 	// Reference: src/components/DividerOptions.vue:361
 	// Reference: src/components/FacebookCommentsOptions.vue:271
 	// Reference: src/components/FacebookEmbedOptions.vue:344
@@ -1313,6 +1322,7 @@ $generated_i18n_strings = array(
 	__( 'List Layout', 'seedprod-pro' ),
 
 	// Reference: src/components/AccordionOptions.vue:607
+	// Reference: src/components/BeforeAfterToggleOptions.vue:510
 	// Reference: src/components/BulletListOptions.vue:501
 	// Reference: src/components/BusinessHoursOptions.vue:727
 	// Reference: src/components/ColOptions.vue:681
@@ -1323,6 +1333,7 @@ $generated_i18n_strings = array(
 	__( 'Vertical', 'seedprod-pro' ),
 
 	// Reference: src/components/AccordionOptions.vue:608
+	// Reference: src/components/BeforeAfterToggleOptions.vue:511
 	// Reference: src/components/BulletListOptions.vue:502
 	// Reference: src/components/BusinessHoursOptions.vue:728
 	// Reference: src/components/ColOptions.vue:680
@@ -1371,6 +1382,7 @@ $generated_i18n_strings = array(
 
 	// Reference: src/components/AccordionOptions.vue:612
 	// Reference: src/components/AnimatedHeadlineOptions.vue:517
+	// Reference: src/components/BeforeAfterToggleOptions.vue:502
 	// Reference: src/components/BulletListOptions.vue:506
 	// Reference: src/components/DividerOptions.vue:381
 	// Reference: src/components/FeatureOptions.vue:454
@@ -1391,6 +1403,7 @@ $generated_i18n_strings = array(
 	__( 'Text', 'seedprod-pro' ),
 
 	// Reference: src/components/AccordionOptions.vue:613
+	// Reference: src/components/BeforeAfterToggleOptions.vue:496
 	// Reference: src/components/BulletListOptions.vue:507
 	// Reference: src/components/DividerOptions.vue:380
 	// Reference: src/components/FeatureOptions.vue:449
@@ -1466,6 +1479,7 @@ $generated_i18n_strings = array(
 	// Reference: src/components/AddToCartOptions.vue:1100
 	// Reference: src/components/AnimatedHeadlineOptions.vue:532
 	// Reference: src/components/BackgroundControl.vue:462
+	// Reference: src/components/BeforeAfterToggleOptions.vue:503
 	// Reference: src/components/BusinessHoursOptions.vue:739
 	// Reference: src/components/ButtonOptions.vue:1239
 	// Reference: src/components/ColOptions.vue:673
@@ -2029,6 +2043,7 @@ $generated_i18n_strings = array(
 
 	// Reference: src/components/AddToCartOptions.vue:1072
 	// Reference: src/components/BackgroundControl.vue:481
+	// Reference: src/components/BeforeAfterToggleOptions.vue:498
 	// Reference: src/components/ButtonOptions.vue:1211
 	// Reference: src/components/CountdownOptions.vue:856
 	// Reference: src/components/FacebookCommentsOptions.vue:281
@@ -2119,6 +2134,7 @@ $generated_i18n_strings = array(
 	// Reference: src/components/BusinessHoursOptions.vue:713
 	// Reference: src/components/ButtonOptions.vue:1218
 	// Reference: src/components/CountdownOptions.vue:846
+	// Reference: src/components/CounterOptions.vue:321
 	// Reference: src/components/ImageCarouselOptions.vue:926
 	// Reference: src/components/ImageOptions.vue:704
 	// Reference: src/components/LoginOptions.vue:927
@@ -2443,6 +2459,7 @@ $generated_i18n_strings = array(
 	__( 'Additional Information Preview Not Available', 'seedprod-pro' ),
 
 	// Reference: src/components/AlignControl.vue:344
+	// Reference: src/components/BeforeAfterToggleOptions.vue:499
 	__( 'Align', 'seedprod-pro' ),
 
 	// Reference: src/components/Anchor-Pro.vue:26
@@ -2455,6 +2472,7 @@ $generated_i18n_strings = array(
 	__( 'Headline', 'seedprod-pro' ),
 
 	// Reference: src/components/AnimatedHeadlineOptions.vue:519
+	// Reference: src/components/BeforeAfterToggleOptions.vue:501
 	// Reference: src/components/FeatureOptions.vue:453
 	// Reference: src/components/HeaderOptions.vue:452
 	// Reference: src/components/IconFeatureOptions.vue:443
@@ -2477,6 +2495,7 @@ $generated_i18n_strings = array(
 	__( 'h4', 'seedprod-pro' ),
 
 	// Reference: src/components/AnimatedHeadlineOptions.vue:535
+	// Reference: src/components/BeforeAfterToggleOptions.vue:504
 	// Reference: src/components/DividerOptions.vue:376
 	// Reference: src/components/FacebookCommentsOptions.vue:300
 	// Reference: src/components/FacebookEmbedOptions.vue:373
@@ -2660,6 +2679,7 @@ $generated_i18n_strings = array(
 
 	// Reference: src/components/BackgroundControl.vue:474
 	// Reference: src/components/ColOptions.vue:696
+	// Reference: src/components/CounterOptions.vue:332
 	// Reference: src/components/FontControl.vue:25
 	// Reference: src/components/ImageOptions.vue:742
 	// Reference: src/components/PostinfoOptions.vue:593
@@ -2732,11 +2752,101 @@ $generated_i18n_strings = array(
 	__( 'Dim Background', 'seedprod-pro' ),
 
 	// Reference: src/components/BackgroundControl.vue:488
+	// Reference: src/components/BeforeAfterToggleOptions.vue:513
 	// Reference: src/components/ColOptions.vue:699
 	// Reference: src/components/RowOptions.vue:702
 	// Reference: src/components/SectionOptions.vue:392
 	// Reference: src/views/SetupDesign-Pro.vue:832
 	__( 'Overlay Color', 'seedprod-pro' ),
+
+	// Reference: src/components/BeforeAfterToggleOptions.vue:491
+	// Reference: src/components/FeatureOptions.vue:448
+	// Reference: src/components/IconFeatureOptions.vue:438
+	// Reference: src/components/ImageCarouselOptions.vue:922
+	// Reference: src/components/ImageOptions.vue:706
+	// Reference: src/components/PostfeaturedimageOptions.vue:641
+	// Reference: src/components/PostinfoOptions.vue:601
+	// Reference: src/components/PostsOptions.vue:1529
+	// Reference: src/components/ProductFeaturedImageOptions.vue:641
+	// Reference: src/components/ProductMetaOptions.vue:331
+	// Reference: src/components/ProductRelatedOptions.vue:629
+	// Reference: src/components/SeedProdBasicGalleryOptions.vue:783
+	// Reference: src/components/SeedProdGalleryOptions.vue:1038
+	// Reference: src/components/SiteLogoOptions.vue:286
+	// Reference: src/components/SocialSharingOptions.vue:395
+	// Reference: src/components/TestimonialOptions.vue:545
+	// Reference: src/components/UpsellsOptions.vue:629
+	// Reference: src/components/WCCustomProductsGridOptions.vue:1167
+	__( 'Image', 'seedprod-pro' ),
+
+	// Reference: src/components/BeforeAfterToggleOptions.vue:492
+	__( 'Before Image', 'seedprod-pro' ),
+
+	// Reference: src/components/BeforeAfterToggleOptions.vue:493
+	__( 'After Image', 'seedprod-pro' ),
+
+	// Reference: src/components/BeforeAfterToggleOptions.vue:494
+	__( 'Before Label', 'seedprod-pro' ),
+
+	// Reference: src/components/BeforeAfterToggleOptions.vue:495
+	__( 'After Label', 'seedprod-pro' ),
+
+	// Reference: src/components/BeforeAfterToggleOptions.vue:497
+	// Reference: src/components/FeatureOptions.vue:450
+	// Reference: src/components/IconFeatureOptions.vue:440
+	// Reference: src/components/ImageOptions.vue:715
+	// Reference: src/components/PostfeaturedimageOptions.vue:650
+	// Reference: src/components/ProductFeaturedImageOptions.vue:650
+	// Reference: src/components/SeedProdBasicGalleryOptions.vue:832
+	// Reference: src/components/SeedProdGalleryOptions.vue:1087
+	// Reference: src/components/SiteLogoOptions.vue:295
+	__( 'Image Size', 'seedprod-pro' ),
+
+	// Reference: src/components/BeforeAfterToggleOptions.vue:500
+	// Reference: src/components/FeatureOptions.vue:452
+	// Reference: src/components/IconFeatureOptions.vue:442
+	__( 'Header Text', 'seedprod-pro' ),
+
+	// Reference: src/components/BeforeAfterToggleOptions.vue:505
+	// Reference: src/components/CountdownOptions.vue:887
+	// Reference: src/components/WCCartOptions.vue:519
+	// Reference: src/components/WCCheckoutOptions.vue:787
+	// Reference: src/components/WCCustomProductsGridOptions.vue:1100
+	// Reference: src/views/GlobalCSS.vue:1963
+	__( 'Label Color', 'seedprod-pro' ),
+
+	// Reference: src/components/BeforeAfterToggleOptions.vue:508
+	__( 'Orientation', 'seedprod-pro' ),
+
+	// Reference: src/components/BeforeAfterToggleOptions.vue:509
+	__( 'Slider Orientation', 'seedprod-pro' ),
+
+	// Reference: src/components/BeforeAfterToggleOptions.vue:512
+	__( 'Move on Hover', 'seedprod-pro' ),
+
+	// Reference: src/components/BeforeAfterToggleOptions.vue:514
+	__( 'Comparison Handle', 'seedprod-pro' ),
+
+	// Reference: src/components/BeforeAfterToggleOptions.vue:515
+	__( 'Handle Initial Offset', 'seedprod-pro' ),
+
+	// Reference: src/components/BeforeAfterToggleOptions.vue:516
+	__( 'Handle Color', 'seedprod-pro' ),
+
+	// Reference: src/components/BeforeAfterToggleOptions.vue:519
+	__( 'Handle Thickness', 'seedprod-pro' ),
+
+	// Reference: src/components/BeforeAfterToggleOptions.vue:520
+	__( 'Circle Width', 'seedprod-pro' ),
+
+	// Reference: src/components/BeforeAfterToggleOptions.vue:521
+	__( 'Circle Radius', 'seedprod-pro' ),
+
+	// Reference: src/components/BeforeAfterToggleOptions.vue:522
+	__( 'Triangle Size', 'seedprod-pro' ),
+
+	// Reference: src/components/BeforeAfterToggleOptions.vue:523
+	__( 'Before /After Label Styles', 'seedprod-pro' ),
 
 	// Reference: src/components/BorderSectionControl.vue:80
 	// Reference: src/components/PostsOptions.vue:1511
@@ -3181,15 +3291,62 @@ $generated_i18n_strings = array(
 	// Reference: src/components/CountdownOptions.vue:886
 	__( 'Hightlight Color', 'seedprod-pro' ),
 
-	// Reference: src/components/CountdownOptions.vue:887
-	// Reference: src/components/WCCartOptions.vue:519
-	// Reference: src/components/WCCheckoutOptions.vue:787
-	// Reference: src/components/WCCustomProductsGridOptions.vue:1100
-	// Reference: src/views/GlobalCSS.vue:1963
-	__( 'Label Color', 'seedprod-pro' ),
-
 	// Reference: src/components/CountdownOptions.vue:888
 	__( 'Restart', 'seedprod-pro' ),
+
+	// Reference: src/components/Counter-Pro.vue:69
+	__( 'Counter Block', 'seedprod-pro' ),
+
+	// Reference: src/components/CounterOptions.vue:324
+	__( 'Starting Number', 'seedprod-pro' ),
+
+	// Reference: src/components/CounterOptions.vue:325
+	__( 'Ending Number', 'seedprod-pro' ),
+
+	// Reference: src/components/CounterOptions.vue:326
+	__( 'Number Prefix', 'seedprod-pro' ),
+
+	// Reference: src/components/CounterOptions.vue:327
+	__( 'Number Suffix', 'seedprod-pro' ),
+
+	// Reference: src/components/CounterOptions.vue:328
+	__( 'Animation Duration', 'seedprod-pro' ),
+
+	// Reference: src/components/CounterOptions.vue:329
+	__( 'Thousands Separator', 'seedprod-pro' ),
+
+	// Reference: src/components/CounterOptions.vue:330
+	// Reference: src/components/PostsOptions.vue:1506
+	__( 'Separator', 'seedprod-pro' ),
+
+	// Reference: src/components/CounterOptions.vue:331
+	// Reference: src/components/ImageCarouselOptions.vue:909
+	// Reference: src/components/PostsOptions.vue:1477
+	// Reference: src/components/ProductRelatedOptions.vue:658
+	// Reference: src/components/SeedProdBasicGalleryOptions.vue:770
+	// Reference: src/components/SeedProdGalleryOptions.vue:1093
+	// Reference: src/components/TestimonialOptions.vue:548
+	// Reference: src/components/UpsellsOptions.vue:658
+	// Reference: src/components/WCCustomProductsGridOptions.vue:1196
+	__( 'Title', 'seedprod-pro' ),
+
+	// Reference: src/components/CounterOptions.vue:333
+	__( 'Dot', 'seedprod-pro' ),
+
+	// Reference: src/components/CounterOptions.vue:334
+	__( 'Space', 'seedprod-pro' ),
+
+	// Reference: src/components/CounterOptions.vue:335
+	__( 'Title Text Color', 'seedprod-pro' ),
+
+	// Reference: src/components/CounterOptions.vue:336
+	__( 'Number Text Color', 'seedprod-pro' ),
+
+	// Reference: src/components/CounterOptions.vue:337
+	__( 'Number Align', 'seedprod-pro' ),
+
+	// Reference: src/components/CounterOptions.vue:338
+	__( 'Title Align', 'seedprod-pro' ),
 
 	// Reference: src/components/CustomHTML.vue:45
 	__( 'Enter Your HTML', 'seedprod-pro' ),
@@ -3322,7 +3479,7 @@ $generated_i18n_strings = array(
 	__( 'Insert', 'seedprod-pro' ),
 
 	// Reference: src/components/DynamicTextControl.vue:137
-	// Reference: src/components/Row.vue:1059
+	// Reference: src/components/Row.vue:1063
 	// Reference: src/components/Section.vue:670
 	// Reference: src/views/Layoutnav.vue:772
 	// Reference: src/views/Setup.vue:1018
@@ -3604,7 +3761,7 @@ $generated_i18n_strings = array(
 	// Reference: src/components/FacebookLikeOptions.vue:349
 	// Reference: src/components/TwitterEmbedTimelineOptions.vue:442
 	// Reference: src/components/TwitterEmbedTweetOptions.vue:340
-	// Reference: src/views/SetupBlockOptions-Pro.vue:1461
+	// Reference: src/views/SetupBlockOptions-Pro.vue:1471
 	__( 'Standard', 'seedprod-pro' ),
 
 	// Reference: src/components/FacebookLikeOptions.vue:351
@@ -3640,39 +3797,6 @@ $generated_i18n_strings = array(
 
 	// Reference: src/components/FacebookSettings.vue:38
 	__( 'Change App Id', 'seedprod-pro' ),
-
-	// Reference: src/components/FeatureOptions.vue:448
-	// Reference: src/components/IconFeatureOptions.vue:438
-	// Reference: src/components/ImageCarouselOptions.vue:922
-	// Reference: src/components/ImageOptions.vue:706
-	// Reference: src/components/PostfeaturedimageOptions.vue:641
-	// Reference: src/components/PostinfoOptions.vue:601
-	// Reference: src/components/PostsOptions.vue:1529
-	// Reference: src/components/ProductFeaturedImageOptions.vue:641
-	// Reference: src/components/ProductMetaOptions.vue:331
-	// Reference: src/components/ProductRelatedOptions.vue:629
-	// Reference: src/components/SeedProdBasicGalleryOptions.vue:783
-	// Reference: src/components/SeedProdGalleryOptions.vue:1038
-	// Reference: src/components/SiteLogoOptions.vue:286
-	// Reference: src/components/SocialSharingOptions.vue:395
-	// Reference: src/components/TestimonialOptions.vue:545
-	// Reference: src/components/UpsellsOptions.vue:629
-	// Reference: src/components/WCCustomProductsGridOptions.vue:1167
-	__( 'Image', 'seedprod-pro' ),
-
-	// Reference: src/components/FeatureOptions.vue:450
-	// Reference: src/components/IconFeatureOptions.vue:440
-	// Reference: src/components/ImageOptions.vue:715
-	// Reference: src/components/PostfeaturedimageOptions.vue:650
-	// Reference: src/components/ProductFeaturedImageOptions.vue:650
-	// Reference: src/components/SeedProdBasicGalleryOptions.vue:832
-	// Reference: src/components/SeedProdGalleryOptions.vue:1087
-	// Reference: src/components/SiteLogoOptions.vue:295
-	__( 'Image Size', 'seedprod-pro' ),
-
-	// Reference: src/components/FeatureOptions.vue:452
-	// Reference: src/components/IconFeatureOptions.vue:442
-	__( 'Header Text', 'seedprod-pro' ),
 
 	// Reference: src/components/FeatureOptions.vue:460
 	__( 'Al Text', 'seedprod-pro' ),
@@ -3760,16 +3884,6 @@ $generated_i18n_strings = array(
 	// Reference: src/components/ProductMetaOptions.vue:333
 	// Reference: src/components/SeedProdGalleryOptions.vue:1094
 	__( 'Caption', 'seedprod-pro' ),
-
-	// Reference: src/components/ImageCarouselOptions.vue:909
-	// Reference: src/components/PostsOptions.vue:1477
-	// Reference: src/components/ProductRelatedOptions.vue:658
-	// Reference: src/components/SeedProdBasicGalleryOptions.vue:770
-	// Reference: src/components/SeedProdGalleryOptions.vue:1093
-	// Reference: src/components/TestimonialOptions.vue:548
-	// Reference: src/components/UpsellsOptions.vue:658
-	// Reference: src/components/WCCustomProductsGridOptions.vue:1196
-	__( 'Title', 'seedprod-pro' ),
 
 	// Reference: src/components/ImageCarouselOptions.vue:910
 	// Reference: src/components/SeedProdBasicGalleryOptions.vue:771
@@ -3863,7 +3977,7 @@ $generated_i18n_strings = array(
 
 	// Reference: src/components/ImageControl.vue:260
 	// Reference: src/components/ImageMultipleControl.vue:346
-	// Reference: src/components/Row.vue:1055
+	// Reference: src/components/Row.vue:1059
 	// Reference: src/components/Section.vue:667
 	// Reference: src/views/BuilderView.vue:1052
 	__( 'or', 'seedprod-pro' ),
@@ -4638,9 +4752,6 @@ page plugin.', 'seedprod-pro' ),
 	// Reference: src/components/PostsOptions.vue:1505
 	__( 'Show Comment Count', 'seedprod-pro' ),
 
-	// Reference: src/components/PostsOptions.vue:1506
-	__( 'Separator', 'seedprod-pro' ),
-
 	// Reference: src/components/PostsOptions.vue:1507
 	__( 'Show Excerpt', 'seedprod-pro' ),
 
@@ -4987,21 +5098,21 @@ page plugin.', 'seedprod-pro' ),
 	// Reference: src/components/ProgressBarOptions.vue:326
 	__( 'My Text', 'seedprod-pro' ),
 
-	// Reference: src/components/Row.vue:1056
+	// Reference: src/components/Row.vue:1060
 	// Reference: src/components/Section.vue:668
 	// Reference: src/views/BuilderView.vue:1053
 	__( 'Drag a new block here', 'seedprod-pro' ),
 
-	// Reference: src/components/Row.vue:1057
+	// Reference: src/components/Row.vue:1061
 	// Reference: src/components/Section.vue:672
 	// Reference: src/views/BuilderView.vue:1054
 	// Reference: src/views/Layoutnav.vue:774
 	__( 'Choose your layout:', 'seedprod-pro' ),
 
-	// Reference: src/components/Row.vue:1058
+	// Reference: src/components/Row.vue:1062
 	__( 'Enter a new block template name:', 'seedprod-pro' ),
 
-	// Reference: src/components/Row.vue:1060
+	// Reference: src/components/Row.vue:1064
 	// Reference: src/components/Section.vue:671
 	// Reference: src/views/Layoutnav.vue:773
 	// Reference: src/views/Setup.vue:1026
@@ -5989,7 +6100,7 @@ page plugin.', 'seedprod-pro' ),
 	__( 'Yes, delete it!', 'seedprod-pro' ),
 
 	// Reference: src/views/GlobalCSS.vue:1893
-	// Reference: src/views/SetupBlockOptions-Pro.vue:1464
+	// Reference: src/views/SetupBlockOptions-Pro.vue:1474
 	// Reference: src/views/SetupDesign-Pro.vue:796
 	__( 'Editing:', 'seedprod-pro' ),
 
@@ -6210,11 +6321,11 @@ page plugin.', 'seedprod-pro' ),
 	__( 'Categories:', 'seedprod-pro' ),
 
 	// Reference: src/views/SectionTemplates-Pro.vue:98
-	// Reference: src/views/SetupBlockOptions-Pro.vue:1459
+	// Reference: src/views/SetupBlockOptions-Pro.vue:1469
 	__( 'Blocks', 'seedprod-pro' ),
 
 	// Reference: src/views/SectionTemplates-Pro.vue:99
-	// Reference: src/views/SetupBlockOptions-Pro.vue:1460
+	// Reference: src/views/SetupBlockOptions-Pro.vue:1470
 	__( 'Sections', 'seedprod-pro' ),
 
 	// Reference: src/views/SettingsAccess-Pro.vue:293
@@ -6540,19 +6651,19 @@ page plugin.', 'seedprod-pro' ),
 	// Reference: src/views/Setup.vue:1567
 	__( 'Something has prevented the page from being saved.', 'seedprod-pro' ),
 
-	// Reference: src/views/SetupBlockOptions-Pro.vue:1463
+	// Reference: src/views/SetupBlockOptions-Pro.vue:1473
 	__( 'Saved Blocks', 'seedprod-pro' ),
 
-	// Reference: src/views/SetupBlockOptions-Pro.vue:1465
+	// Reference: src/views/SetupBlockOptions-Pro.vue:1475
 	__( 'Search blocks...', 'seedprod-pro' ),
 
-	// Reference: src/views/SetupBlockOptions-Pro.vue:1467
+	// Reference: src/views/SetupBlockOptions-Pro.vue:1477
 	__( 'Widgets', 'seedprod-pro' ),
 
-	// Reference: src/views/SetupBlockOptions-Pro.vue:1468
+	// Reference: src/views/SetupBlockOptions-Pro.vue:1478
 	__( 'Template Tags', 'seedprod-pro' ),
 
-	// Reference: src/views/SetupBlockOptions-Pro.vue:1469
+	// Reference: src/views/SetupBlockOptions-Pro.vue:1479
 	__( 'WooCommerce Template Tags', 'seedprod-pro' ),
 
 	// Reference: src/views/TemplateChooser-Pro.vue:1236

@@ -676,46 +676,36 @@ if ( ! class_exists( 'WC_Slack_Events' ) ) {
 
 
 		/**
-		 * Get Order Line Items
+		 * Gets the order line items.
 		 *
-		 * @package WooCommerce Slack
-		 * @author  Bryce <bryce@bryce.se>
-		 * @since   1.0.0
-		 * @return 	array
+		 * @since 1.0.0
+		 *
+		 * @param int $order_id Order ID.
+		 * @return array
 		 */
-
 		public function get_order_line( $order_id ) {
+			$order       = wc_get_order( $order_id );
+			$order_items = $order->get_items();
+			$line_items  = array();
 
-			$order = new WC_Order( $order_id );
-
-			if ( sizeof( $order->get_items() ) > 0 ) {
-
-				$items = array();
-
-				foreach( $order->get_items() as $item ) {
-
-					$_product = apply_filters( 'woocommerce_order_item_product', $order->get_product_from_item( $item ), $item );
-
-					// Item Name
-					$item_name = sprintf( '<%s|%s>', get_permalink( $item['product_id'] ), $item['name'] );
-
-					// Item Quantity
-					$item_quantity = 'x ' . $item['qty'];
-
-					// Item Total
-					$item_total = html_entity_decode( get_woocommerce_currency_symbol() ) . number_format( (float)$order->get_line_total( $item, true ), 2, '.', '' );
-
-					// Add to $items var
-					$items[] = array(
-						'value' => $item_name . ' ' . $item_quantity . ' - ' . $item_total,
-						'short'	=> false,
-					);
-
-				}
-
-				return $items;
+			if ( empty( $order_items ) ) {
+				return $line_items;
 			}
 
+			foreach ( $order_items as $item ) {
+				$item_name = sprintf( '<%s|%s>', get_permalink( $item['product_id'] ), $item['name'] );
+
+				$item_quantity = 'x ' . $item['qty'];
+
+				$item_total = html_entity_decode( get_woocommerce_currency_symbol() ) . number_format( (float) $order->get_line_total( $item, true ), 2, '.', '' );
+
+				$line_items[] = array(
+					'value' => $item_name . ' ' . $item_quantity . ' - ' . $item_total,
+					'short' => false,
+				);
+			}
+
+			return $line_items;
 		}
 
 

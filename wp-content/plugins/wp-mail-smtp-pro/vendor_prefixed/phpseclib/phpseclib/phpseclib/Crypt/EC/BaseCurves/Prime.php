@@ -13,8 +13,6 @@
  *
  * PHP version 5 and 7
  *
- * @category  Crypt
- * @package   EC
  * @author    Jim Wigginton <terrafrost@php.net>
  * @copyright 2017 Jim Wigginton
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -30,9 +28,7 @@ use WPMailSMTP\Vendor\phpseclib3\Math\PrimeField\Integer as PrimeInteger;
 /**
  * Curves over y^2 = x^3 + a*x + b
  *
- * @package Prime
  * @author  Jim Wigginton <terrafrost@php.net>
- * @access  public
  */
 class Prime extends \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base
 {
@@ -453,7 +449,8 @@ class Prime extends \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base
     /**
      * Multiply and Add Points
      *
-     * Adapted from https://git.io/vxPUH
+     * Adapted from:
+     * https://github.com/indutny/elliptic/blob/725bd91/lib/elliptic/curve/base.js#L125
      *
      * @return int[]
      */
@@ -570,11 +567,12 @@ class Prime extends \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base
     /**
      * Precomputes NAF points
      *
-     * Adapted from https://git.io/vxY1f
+     * Adapted from:
+     * https://github.com/indutny/elliptic/blob/725bd91/lib/elliptic/curve/base.js#L351
      *
      * @return int[]
      */
-    private function getNAFPoints($point, $wnd)
+    private function getNAFPoints(array $point, $wnd)
     {
         if (isset($point['naf'])) {
             return $point['naf'];
@@ -601,7 +599,8 @@ class Prime extends \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base
     /**
      * Precomputes points in Joint Sparse Form
      *
-     * Adapted from https://git.io/vxrpD
+     * Adapted from:
+     * https://github.com/indutny/elliptic/blob/725bd91/lib/elliptic/utils.js#L96
      *
      * @return int[]
      */

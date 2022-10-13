@@ -85,6 +85,13 @@
 			</property>
 		</properties>
 	</rule>
+	
+	<!-- Add WooCommerce sanitizing functions -->
+	<rule ref="WordPress.Security.ValidatedSanitizedInput">
+		<properties>
+			<property name="customSanitizingFunctions" type="array" value="wc_clean,wc_sanitize_tooltip,wc_format_decimal,wc_stock_amount,wc_sanitize_permalink,wc_sanitize_textarea" />
+		</properties>
+	</rule>
 
 	<!-- Check the main PHP file and everything in src/ -->
 	<arg name="extensions" value="php"/>

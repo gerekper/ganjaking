@@ -140,12 +140,21 @@ class WC_Box_Office_Order {
 				}
 			}
 
-		 	// Check if a ticket was already created at some point, and trash it (since it will be re-created)
+			// Check if a ticket was already created at some point, and trash it (since it will be re-created).
 			foreach ( $tickets as $ticket ) {
-				$ticket = new WC_Box_Office_Ticket( $ticket );
+				$ticket            = new WC_Box_Office_Ticket( $ticket );
+				$product_id        = (int) $ticket_meta['product_id'];
+				$ticket_product_id = (int) $ticket->product_id;
+				if ( is_a( $ticket->product, 'WC_Product_Variable' ) ) {
+					$product_id        = (int) $ticket_meta['variation_id'];
+					$ticket_product_id = (int) $ticket->variation_id;
+				}
 
-				if ( $ticket->fields === $fields ) {
-					wp_delete_post( $ticket->ID );
+				if (
+					array_keys( $ticket->fields ) === array_keys( $fields ) &&
+					$ticket_product_id === $product_id
+				) {
+					wp_delete_post( $ticket->id );
 				}
 			}
 

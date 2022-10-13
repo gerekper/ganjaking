@@ -5,23 +5,19 @@
  *
  * PHP version 5 and 7
  *
- * @category  Math
- * @package   BigInteger
  * @author    Jim Wigginton <terrafrost@php.net>
  * @copyright 2017 Jim Wigginton
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Math\PrimeField;
 
-use WPMailSMTP\Vendor\ParagonIE\ConstantTime\Hex;
+use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
 use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 use WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Integer as Base;
 /**
  * Prime Finite Fields
  *
- * @package Math
  * @author  Jim Wigginton <terrafrost@php.net>
- * @access  public
  */
 class Integer extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Integer
 {
@@ -289,7 +285,7 @@ class Integer extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Inte
      */
     public function toHex()
     {
-        return \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Hex::encode($this->toBytes());
+        return \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::bin2hex($this->toBytes());
     }
     /**
      * Converts an Integer to a bit string (eg. base-2).
@@ -352,7 +348,6 @@ class Integer extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Inte
     /**
      *  __toString() magic method
      *
-     * @access public
      * @return string
      */
     public function __toString()
@@ -362,7 +357,6 @@ class Integer extends \WPMailSMTP\Vendor\phpseclib3\Math\Common\FiniteField\Inte
     /**
      *  __debugInfo() magic method
      *
-     * @access public
      * @return array
      */
     public function __debugInfo()

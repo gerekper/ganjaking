@@ -68,6 +68,17 @@ https://woocommerce.com/document/amazon-fulfillment/#section-17
 
 ## Changelog
 
+
+### 2022-10-10 - version 4.1.1
+* Fix issue where failed email is sent when an order is fulfiled successfully.
+
+
+### 2022-09-29 - version 4.1.0
+* Remove support for MWS
+* Implement work-around for Amazon API not returning all SKUs to fix inventory sync
+* Implement logging through WooCommerce logging
+* Add URL to package tracking number for shipment status
+
 ### 2022-07-22 - version 4.0.9
 * Patch to MAJOR UPDATE (see full details of version 4.0.0)
 * Fix issue in passing # symbol to Amazon with temporary work-around

@@ -2,11 +2,11 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Ship to Multiple Addresses 3.7.1\n"
+"Project-Id-Version: WooCommerce Ship to Multiple Addresses 3.7.2\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-shipping-multiple-"
 "addresses\n"
-"POT-Creation-Date: 2022-09-07 21:40:53+00:00\n"
+"POT-Creation-Date: 2022-10-05 20:33:43+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,60 +21,36 @@ msgstr ""
 msgid "Multiple Shipping"
 msgstr ""
 
-#: includes/wcms-address-book.php:110 includes/wcms-address-book.php:112
+#: includes/wcms-address-book.php:108 includes/wcms-address-book.php:110
 msgid "Address deleted"
 msgstr ""
 
-#: includes/wcms-address-book.php:271 includes/wcms-address-book.php:273
+#: includes/wcms-address-book.php:278
 msgid "Address saved"
 msgstr ""
 
-#: includes/wcms-address-book.php:306
+#: includes/wcms-address-book.php:319
 msgid "Please enter a valid postcode/ZIP."
 msgstr ""
 
-#: includes/wcms-address-book.php:318 includes/wcms-address-book.php:320
+#: includes/wcms-address-book.php:331 includes/wcms-address-book.php:333
 msgid "is not a valid phone number."
 msgstr ""
 
-#: includes/wcms-address-book.php:331 includes/wcms-address-book.php:333
+#: includes/wcms-address-book.php:344 includes/wcms-address-book.php:346
 msgid "is not a valid email address."
 msgstr ""
 
-#: includes/wcms-address-book.php:353 includes/wcms-address-book.php:355
+#: includes/wcms-address-book.php:366 includes/wcms-address-book.php:368
 msgid "is not valid. Please enter one of the following:"
 msgstr ""
 
-#: includes/wcms-address-book.php:385 includes/wcms-address-book.php:387
-#: includes/wcms-address-book.php:662
+#: includes/wcms-address-book.php:404 includes/wcms-address-book.php:406
 msgid "Please enter the complete address"
 msgstr ""
 
-#: includes/wcms-address-book.php:415 includes/wcms-address-book.php:417
-#: includes/wcms-address-book.php:696
+#: includes/wcms-address-book.php:434 includes/wcms-address-book.php:436
 msgid "Address is already in your address book"
-msgstr ""
-
-#: includes/wcms-address-book.php:476
-msgid "Address Book"
-msgstr ""
-
-#: includes/wcms-address-book.php:497
-msgid "You have not set up a shipping address yet."
-msgstr ""
-
-#: includes/wcms-address-book.php:499 templates/shipping-address-drop.php:282
-#: templates/shipping-address-table.php:198
-msgid "Use this address"
-msgstr ""
-
-#: includes/wcms-address-book.php:504
-msgid "You have no shipping addresses saved."
-msgstr ""
-
-#: includes/wcms-address-book.php:763 templates/shipping-address-drop.php:151
-#: templates/shipping-address-drop.php:236
-msgid "Drag items here"
 msgstr ""
 
 #: includes/wcms-admin-user-addresses-list-table.php:28
@@ -97,14 +73,12 @@ msgid "Cancel"
 msgstr ""
 
 #: includes/wcms-admin-user-addresses-list-table.php:113
-#: templates/account-address-form.php:42 templates/address-form.php:101
-#: templates/shipping-address-drop.php:308
-#: templates/shipping-address-table.php:222
+#: templates/account-address-form.php:41 templates/address-form.php:101
 msgid "Save Address"
 msgstr ""
 
-#: includes/wcms-admin.php:58 includes/wcms-front.php:140
-#: includes/wcms-front.php:154
+#: includes/wcms-admin.php:58 includes/wcms-front.php:133
+#: includes/wcms-front.php:148
 msgid "Select an option&hellip;"
 msgstr ""
 
@@ -137,13 +111,10 @@ msgid "View Addresses"
 msgstr ""
 
 #: includes/wcms-cart.php:180 settings.php:177
-#: templates/shipping-address-drop.php:143
-#: templates/shipping-address-drop.php:228
 msgid "Remove"
 msgstr ""
 
-#: includes/wcms-cart.php:221 templates/shipping-address-drop.php:47
-#: templates/shipping-address-table.php:55
+#: includes/wcms-cart.php:221 templates/shipping-address-table.php:55
 msgid "Duplicate Cart"
 msgstr ""
 
@@ -168,53 +139,53 @@ msgstr ""
 msgid "One or more items has no shipping address."
 msgstr ""
 
-#: includes/wcms-front.php:264
+#: includes/wcms-front.php:258
 msgid ""
 "This order ships to multiple addresses.  <a class=\"button\" "
 "href=\"%s\">View Addresses</a>"
 msgstr ""
 
-#: includes/wcms-front.php:322
+#: includes/wcms-front.php:316
 msgid "Shipping address %d"
 msgstr ""
 
-#: includes/wcms-front.php:432
+#: includes/wcms-front.php:426
 msgid "%s is a required field."
 msgstr ""
 
-#: includes/wcms-front.php:449
+#: includes/wcms-front.php:443
 msgid "Please enter a valid postcode / ZIP."
 msgstr ""
 
-#: includes/wcms-front.php:458
+#: includes/wcms-front.php:452
 msgid "%s is not a valid phone number."
 msgstr ""
 
-#: includes/wcms-front.php:465
+#: includes/wcms-front.php:459
 msgid "%s is not a valid email address."
 msgstr ""
 
-#: includes/wcms-front.php:492
+#: includes/wcms-front.php:486
 msgid "Address added successfully."
 msgstr ""
 
-#: includes/wcms-front.php:495
+#: includes/wcms-front.php:489
 msgid "Address changed successfully."
 msgstr ""
 
-#: includes/wcms-front.php:566
+#: includes/wcms-front.php:560
 msgid "Delete address"
 msgstr ""
 
-#: includes/wcms-front.php:584
+#: includes/wcms-front.php:578
 msgid "Deleted address"
 msgstr ""
 
-#: includes/wcms-front.php:586
+#: includes/wcms-front.php:580
 msgid "Address could not be found"
 msgstr ""
 
-#: includes/wcms-front.php:604
+#: includes/wcms-front.php:598
 msgid "Add address"
 msgstr ""
 
@@ -801,58 +772,25 @@ msgstr ""
 msgid "n/a"
 msgstr ""
 
-#: templates/shipping-address-drop.php:5
-msgid "Cart Items"
+#: templates/shipping-address-table.php:45
+msgid "Add a new shipping address"
 msgstr ""
 
-#: templates/shipping-address-drop.php:48
 #: templates/shipping-address-table.php:56
 msgid ""
 "Duplicating your cart will allow you to ship the exact same cart contents "
 "to multiple locations. This will also increase the price of your purchase."
 msgstr ""
 
-#: templates/shipping-address-drop.php:63
-msgid "Saved Addresses"
-msgstr ""
-
-#: templates/shipping-address-drop.php:64
-#: templates/shipping-address-drop.php:162
-msgid "Add New"
-msgstr ""
-
-#: templates/shipping-address-drop.php:98
-#: templates/shipping-address-drop.php:100
-#: templates/shipping-address-drop.php:102
-msgid "edit"
-msgstr ""
-
-#: templates/shipping-address-drop.php:161
-msgid "Shipping Addresses"
-msgstr ""
-
-#: templates/shipping-address-drop.php:256
-#: templates/shipping-address-table.php:161
-msgid "Save Addresses and Continue"
-msgstr ""
-
-#: templates/shipping-address-drop.php:317
-msgid "Select an existing address"
-msgstr ""
-
-#: templates/shipping-address-drop.php:366
-msgid "Duplicate Cart Items"
-msgstr ""
-
-#: templates/shipping-address-table.php:45
-msgid "Add a new shipping address"
-msgstr ""
-
-#: templates/shipping-address-table.php:157
+#: templates/shipping-address-table.php:158
 msgid "Update"
 msgstr ""
 
-#: templates/shipping-address-table.php:169
+#: templates/shipping-address-table.php:162
+msgid "Save Addresses and Continue"
+msgstr ""
+
+#: templates/shipping-address-table.php:170
 msgid ""
 "Please note: To send a single item to more than one person, you must change "
 "the quantity of that item to match the number of people you're sending it "

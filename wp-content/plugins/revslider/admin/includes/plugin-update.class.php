@@ -73,7 +73,7 @@ class RevSliderPluginUpdate extends RevSliderFunctions {
 	 */
 	public function __construct(){
 		$this->revision = get_option('revslider_update_version', '6.0.0');
-		
+
 		foreach($this->update['620']['ease_replace_adv'] as $a_f => $a_t){
 			foreach($this->update['620']['ease_adv_modifier'] as $a_m_f => $a_m_t){
 				$this->update['620']['ease_adv_from'][] = $a_f.'.'.$a_m_f;
@@ -214,11 +214,26 @@ class RevSliderPluginUpdate extends RevSliderFunctions {
 			$upd->change_navigation_settings_to_6_4_10();
 			$upd->set_version('6.4.10');
 		}
+
+		//add this so that sliders will be updated if under 6.4.11
+		if(version_compare($version, '6.5.12', '<')){
+			//$upd->set_version('6.5.12');
+		}
+
+		//add this so that sliders will be updated if under 6.4.11
+		if(version_compare($version, '6.5.20', '<')){
+			$upd->set_version('6.5.20');
+		}
 		
 		//add this so that sliders will be updated if under 6.5.26
 		if(version_compare($version, '6.5.26', '<')){
 			$upd->set_version('6.5.26');
 		}
+		//add this so that sliders will be updated if under 6.4.11
+		if(version_compare($version, '6.6.0', '<')){
+			$upd->set_version('6.6.0');
+		}
+		
 	}
 	
 	/**
@@ -261,10 +276,18 @@ class RevSliderPluginUpdate extends RevSliderFunctions {
 			$this->upgrade_slider_to_6_4_10($slider);
 		}
 
+		if(version_compare($version, '6.5.12', '<')){
+			$this->upgrade_slider_to_6_5_12($slider);
+		}
+
 		if($this->import === false){
 			if(version_compare($version, '6.5.26', '<')){
 				$this->upgrade_slider_to_6_5_26($slider);
 			}
+		}
+		
+		if(version_compare($version, '6.6.0', '<')){
+			$this->upgrade_slider_to_6_6_0($slider);
 		}
 	}
 	
@@ -724,6 +747,172 @@ class RevSliderPluginUpdate extends RevSliderFunctions {
 								}
 							}
 							
+							if($save){
+								$slide->set_layers_raw($layers);
+								$slide->save_layers();
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	/** check to convert the given Slider to latest versions
+	 * @since: 6.5.12
+	 **/
+	public function upgrade_slider_to_6_5_12($sliders = false){
+		$sr = new RevSliderSlider();
+		$sl = new RevSliderSlide();
+		$sliders = ($sliders === false) ? $sr->get_sliders() : array($sliders); //do it on all Sliders if false
+		
+		if(!empty($sliders) && is_array($sliders)){
+			foreach($sliders as $slider){
+				if(version_compare($slider->get_setting('version', '1.0.0'), '6.5.12', '<')){
+					$params = $slider->get_params();
+					$params['version'] = '6.5.12';
+					$slider->update_params($params, true);
+					$slider->update_settings(array('version' => '6.5.12'));
+				}
+
+				$slides = $slider->get_slides(false, true);
+				$static_id = $sl->get_static_slide_id($slider->get_id());
+				if($static_id !== false){
+					$msl = new RevSliderSlide();
+					if(strpos($static_id, 'static_') === false){
+						$static_id = 'static_'. $static_id;
+					}
+					$msl->init_by_id($static_id);
+					if($msl->get_id() !== ''){
+						$slides = array_merge($slides, array($msl));
+					}
+				}
+				
+				if(!empty($slides) && is_array($slides)){
+					foreach($slides as $slide){
+						$settings = $slide->get_settings();
+						//on slides
+						if(version_compare($this->get_val($settings, 'version', '1.0.0'), '6.5.12', '<')){
+							$params			= $slide->get_params();
+							$params['version'] = '6.5.12';
+
+							$slide->set_params($params);
+							$slide->save_params();
+							
+							$slide->settings['version'] = '6.5.12';
+							$slide->save_settings();
+						}
+						
+						//on layers
+						$layers = $slide->get_layers();
+						
+						if(!empty($layers) && is_array($layers)){
+							$save = false;
+							foreach($layers as $lk => $layer){
+								$version = $this->get_val($layer, 'version', '1.0.0');
+								
+								if(version_compare($version, '6.5.12', '<')){
+									$save		 = true;
+									$layers[$lk]['version'] = '6.5.12';
+									
+									//check if parent layer is from type column 
+									$puid = $this->get_val($layer, array('group', 'puid'), -1);
+									if($puid !== -1 && $this->get_val($layers, array($puid, 'type')) === 'column'){
+										$this->set_val($layers, array($lk, 'position', 'position'), 'relative');
+									}
+								}
+							}
+							
+							if($save){
+								$slide->set_layers_raw($layers);
+								$slide->save_layers();
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	/** check to convert the given Slider to latest versions
+	 * changing the position.position attribute
+	 * set it to absolute as default
+	 * if layer is in column, default is relative
+	 * @since: 6.6.0
+	 **/
+	public function upgrade_slider_to_6_6_0($sliders = false){
+		$sr = new RevSliderSlider();
+		$sl = new RevSliderSlide();
+		$sliders = ($sliders === false) ? $sr->get_sliders() : array($sliders); //do it on all Sliders if false
+		
+		if(!empty($sliders) && is_array($sliders)){
+			foreach($sliders as $slider){
+				if(version_compare($slider->get_setting('version', '1.0.0'), '6.6.0', '<')){
+					$params = $slider->get_params();
+					$params['version'] = '6.6.0';
+					$slider->update_params($params, true);
+					$slider->update_settings(array('version' => '6.6.0'));
+				}
+
+				$slides = $slider->get_slides(false, true);
+				$static_id = $sl->get_static_slide_id($slider->get_id());
+				if($static_id !== false){
+					$msl = new RevSliderSlide();
+					if(strpos($static_id, 'static_') === false){
+						$static_id = 'static_'. $static_id;
+					}
+					$msl->init_by_id($static_id);
+					if($msl->get_id() !== ''){
+						$slides = array_merge($slides, array($msl));
+					}
+				}
+				
+				if(!empty($slides) && is_array($slides)){
+					foreach($slides as $slide){
+						$settings = $slide->get_settings();
+						//on slides
+						if(version_compare($this->get_val($settings, 'version', '1.0.0'), '6.6.0', '<')){
+							$params			= $slide->get_params();
+							$params['version'] = '6.6.0';
+
+							$slide->set_params($params);
+							$slide->save_params();
+							
+							$slide->settings['version'] = '6.6.0';
+							$slide->save_settings();
+						}
+						
+						//on layers
+						$layers = $slide->get_layers();
+						
+						if(!empty($layers) && is_array($layers)){
+							$save = false;
+							$group_uids = array();
+							foreach($layers as $lk => $layer){
+								if($this->get_val($layer, 'type', 'text') === 'column') $group_uids[] = (string)$this->get_val($layer, 'uid', -1);
+							}
+
+							foreach($layers as $lk => $layer){
+								$version = $this->get_val($layer, 'version', '1.0.0');
+								
+								if(version_compare($version, '6.6.0', '<')){
+									$save		 = true;
+									$layers[$lk]['version'] = '6.6.0';
+
+									if(in_array($this->get_val($layer, 'type', 'text'), array('column', 'row'), true)) continue; //column and row do not have these values
+
+									$puid	= (string)$this->get_val($layer, array('group', 'puid'), -1);
+									
+									$pos_default = 'absolute';
+									//if layer is in a row/column, default is relative
+									if($puid !== '-1' && in_array($this->get_val($layers, array($puid, 'type')), array('column', 'row'))){
+										$pos_default = 'relative';
+									}
+									
+									$this->set_val($layers, array($lk, 'position', 'position'), $pos_default);
+								}
+							}
+
 							if($save){
 								$slide->set_layers_raw($layers);
 								$slide->save_layers();

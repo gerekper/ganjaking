@@ -11,8 +11,6 @@
  *
  * PHP version 5
  *
- * @category  Crypt
- * @package   DSA
  * @author    Jim Wigginton <terrafrost@php.net>
  * @copyright 2015 Jim Wigginton
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -20,23 +18,19 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\DSA\Formats\Keys;
 
-use WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64;
 use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
 use WPMailSMTP\Vendor\phpseclib3\Exception\BadConfigurationException;
 use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 /**
  * XML Formatted DSA Key Handler
  *
- * @package DSA
  * @author  Jim Wigginton <terrafrost@php.net>
- * @access  public
  */
 abstract class XML
 {
     /**
      * Break a public or private key down into its constituent components
      *
-     * @access public
      * @param string $key
      * @param string $password optional
      * @return array
@@ -66,7 +60,7 @@ abstract class XML
             if (!$temp->length) {
                 continue;
             }
-            $value = new \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger(\WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64::decode($temp->item(0)->nodeValue), 256);
+            $value = new \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger(\WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::base64_decode($temp->item(0)->nodeValue), 256);
             switch ($key) {
                 case 'p':
                     // a prime modulus meeting the [DSS] requirements
@@ -116,7 +110,6 @@ abstract class XML
      *
      * See https://www.w3.org/TR/xmldsig-core/#sec-DSAKeyValue
      *
-     * @access public
      * @param \phpseclib3\Math\BigInteger $p
      * @param \phpseclib3\Math\BigInteger $q
      * @param \phpseclib3\Math\BigInteger $g
@@ -125,6 +118,6 @@ abstract class XML
      */
     public static function savePublicKey(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger $p, \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger $q, \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger $g, \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger $y)
     {
-        return "<DSAKeyValue>\r\n" . '  <P>' . \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64::encode($p->toBytes()) . "</P>\r\n" . '  <Q>' . \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64::encode($q->toBytes()) . "</Q>\r\n" . '  <G>' . \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64::encode($g->toBytes()) . "</G>\r\n" . '  <Y>' . \WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64::encode($y->toBytes()) . "</Y>\r\n" . '</DSAKeyValue>';
+        return "<DSAKeyValue>\r\n" . '  <P>' . \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::base64_encode($p->toBytes()) . "</P>\r\n" . '  <Q>' . \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::base64_encode($q->toBytes()) . "</Q>\r\n" . '  <G>' . \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::base64_encode($g->toBytes()) . "</G>\r\n" . '  <Y>' . \WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::base64_encode($y->toBytes()) . "</Y>\r\n" . '</DSAKeyValue>';
     }
 }

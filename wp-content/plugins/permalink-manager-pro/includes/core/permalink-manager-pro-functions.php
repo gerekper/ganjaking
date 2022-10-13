@@ -27,7 +27,6 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 		add_action( 'permalink_manager_updated_term_uri', array($this, 'save_redirects'), 9, 5 );
 
 		// Check for updates
-		add_action( 'plugins_loaded', array($this, 'check_for_updates'), 10 );
 		add_action( 'admin_init', array($this, 'reload_license_key'), 10 );
 		add_action( 'wp_ajax_pm_get_exp_date', array($this, 'get_expiration_date'), 9 );
 
@@ -39,7 +38,6 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 	 * Get license key
 	 */
 	public static function get_license_key($load_from_db = false) {
-		return true;
 		$permalink_manager_options = get_option('permalink-manager', array());
 
 		// Key defined in wp-config.php
@@ -48,7 +46,6 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 		}
 		// Network licence key (multisite)
 		else if(is_multisite()) {
-			return true;
 			// A. Move the license key to site options
 			if(!empty($_POST['licence']['licence_key'])) {
 				$site_licence_key = sanitize_text_field($_POST['licence']['licence_key']);
@@ -61,7 +58,6 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 		else if(!empty($_POST['licence']['licence_key'])) {
 			$license_key = sanitize_text_field($_POST['licence']['licence_key']);
 		} else {
-			return true;
 			$license_key = (!empty($permalink_manager_options['licence']['licence_key'])) ? $permalink_manager_options['licence']['licence_key'] : "";
 		}
 
@@ -138,7 +134,18 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 	 */
 	public static function get_expiration_date($basic_check = false, $empty_if_valid = false, $update_available = true) {
 		global $permalink_manager_options;
-
+		set_transient('permalink_manager_active', $permalink_manager_options['licence']['licence_key'], 12 * YEAR_IN_SECONDS);
+		$expired = 0;
+		$expiration_info = __('You own a lifetime licence key.', 'permalink-manager');
+		if($basic_check || ($empty_if_valid && $expired == 0)) {
+		return $expired;
+		}
+		if(!empty($_REQUEST['action']) && $_REQUEST['action'] == 'pm_get_exp_date') {
+		echo $expiration_info;
+		die();
+		} else {
+		return $expiration_info;
+		}
 		// Get expiration info & the licence key
 		$exp_date = (!empty($permalink_manager_options['licence']['expiration_date'])) ? $permalink_manager_options['licence']['expiration_date'] : false;
 		$license_key = (!empty($permalink_manager_options['licence']['licence_key'])) ? $permalink_manager_options['licence']['licence_key'] : "";
@@ -150,23 +157,23 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 		if(empty($license_key)) {
 			$settings_page_url = Permalink_Manager_Admin_Functions::get_admin_url("&section=settings");
 			$expiration_info = sprintf(__('Please paste the licence key to access all Permalink Manager Pro updates & features <a href="%s" target="_blank">on this page</a>.', 'permalink-manager'), $settings_page_url);
-			$expired = 2;
+			$expired = 3;
 		}
 		// License key is invalid
 		else if($exp_date == '-') {
-			$expiration_info = __('Your licence key is valid.');
-			$expired = 0;
+			$expiration_info = __('Your Permalink Manager Pro licence key is invalid!', 'permalink-manager');
+			$expired = 3;
 		}
 		// Key expired
 		else if(!empty($exp_date) && $exp_date < time()) {
 			$expiration_info = sprintf(__('Your Permalink Manager Pro licence key expired! Please renew your license key using <a href="%s" target="_blank">this link</a> to regain access to plugin updates and technical support.', 'permalink-manager'), $license_info_page);
-			$expired = 1;
+			$expired = 2;
 		}
 		// License key is abused
 		else if(!empty($exp_date) && !empty($websites) && $update_available === false) {
 			$expiration_info = sprintf(__('Your Permalink Manager Pro license is already in use on another website and cannot be used to request automatic update for this domain.', 'permalink-manager'), $license_info_page) . " ";
 			$expiration_info .= sprintf(__('For further information, visit the <a href="%s" target="_blank"> License info</a> page.'), $license_info_page);
-			$expired = 1;
+			$expired = 2;
 		}
 		// Valid lifetime license key
 		else if(date("Y", intval($exp_date)) > 2028) {
@@ -322,6 +329,16 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 				// Reset custom field value
 				$custom_field_value = "";
 
+				// Check additional arguments (__custom_field.argument_value)
+				if(strpos($custom_field, '.') !== false) {
+					$custom_field_split = preg_split('/[\.]/', $custom_field);
+
+					if(!empty($custom_field_split[1])) {
+						$custom_field_arg = $custom_field_split[1];
+						$custom_field = $custom_field_split[0];
+					}
+				}
+
 				// 1. Use WooCommerce fields
 				if(class_exists('WooCommerce') && in_array($custom_field, array('sku')) && !empty($element->ID)) {
 					$product = wc_get_product($element->ID);
@@ -330,7 +347,6 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 					if($custom_field == 'sku') {
 						$custom_field_value = $product->get_sku();
 					}
-					// 1B ...
 				}
 
 				// 2. Try to get value using ACF API
@@ -338,24 +354,7 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 					$acf_element_id = (!empty($element->ID)) ? $element->ID : "{$element->taxonomy}_{$element->term_id}";
 					$field_object = get_field_object($custom_field, $acf_element_id);
 
-					// A. Taxonomy field
-					if(!empty($field_object['taxonomy']) && !empty($field_object['value'])) {
-						$rel_terms_id = $field_object['value'];
-
-						if(!empty($rel_terms_id) && (is_array($rel_terms_id) || is_numeric($rel_terms_id))) {
-							$rel_terms = get_terms(array('taxonomy' => $field_object['taxonomy'], 'include' => $rel_terms_id));
-
-							// Get lowest term
-							if(!is_wp_error($rel_terms) && !empty($rel_terms[0]) && is_object($rel_terms[0])) {
-								$rel_term = Permalink_Manager_Helper_Functions::get_lowest_element($rel_terms[0], $rel_terms);
-							}
-
-							// Get the replacement slug
-							$custom_field_value = (!empty($rel_term->term_id)) ? Permalink_Manager_Helper_Functions::get_term_full_slug($rel_term, $rel_terms, false, $native_uri) : "";
-						}
-					}
-
-					// B. Relationship field
+					// A. Relationship field
 					if(!empty($field_object['type']) && (in_array($field_object['type'], array('relationship', 'post_object', 'taxonomy'))) && !empty($field_object['value'])) {
 						$rel_elements = $field_object['value'];
 
@@ -363,23 +362,21 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 						if($field_object['type'] == 'taxonomy') {
 							if(!empty($rel_elements) && (is_array($rel_elements))) {
 								if(is_numeric($rel_elements[0]) && !empty($field_object['taxonomy'])) {
-									$rel_elements = get_terms(array('include' => $rel_elements, 'taxonomy' => $field_object['taxonomy'], 'hide_empty' => false));
+									$rel_elements = get_terms(array('include' => $rel_elements, 'taxonomy' => $field_object['taxonomy'], 'hide_empty' => false, 'orderby' => 'term_id', 'order' => 'DESC'));
 								}
 
 								// Get lowest term
 								if(!is_wp_error($rel_elements) && !empty($rel_elements) && is_object($rel_elements[0])) {
 									$rel_term = Permalink_Manager_Helper_Functions::get_lowest_element($rel_elements[0], $rel_elements);
 								}
-							} else if(is_numeric($rel_elements)) {
+							} if(!empty($rel_elements->term_id)) {
+								$rel_term = $rel_elements;
+							} else if(!empty($rel_elements) && is_numeric($rel_elements)) {
 								$rel_term = get_term($rel_elements, $field_object['taxonomy']);
 							}
 
 							if(!empty($rel_term->term_id)) {
-								$custom_field_value = $rel_term->slug;
-							} else if(!empty($rel_elements->term_id)) {
-								$custom_field_value = $rel_elements->slug;
-							} else {
-								$custom_field_value = "";
+								$custom_field_value = (!empty($custom_field_arg) && is_numeric($custom_field_arg)) ? Permalink_Manager_Helper_Functions::get_term_full_slug($rel_term, $rel_elements, $custom_field_arg, $native_uri) : $rel_term->slug;
 							}
 						}
 						// B2. Posts

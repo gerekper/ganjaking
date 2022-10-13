@@ -1077,7 +1077,7 @@ class Permalink_Manager_Admin_Functions extends Permalink_Manager_Class {
 		if(class_exists('Permalink_Manager_Pro_Functions')) {
 			$exp_date = Permalink_Manager_Pro_Functions::get_expiration_date(true);
 
-			$is_pro = ($exp_date > 1) ? false : true;
+			$is_pro = ($exp_date > 2) ? false : true;
 		} else {
 			$is_pro = false;
 		}

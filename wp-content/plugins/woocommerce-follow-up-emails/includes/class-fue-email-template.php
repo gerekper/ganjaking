@@ -4,6 +4,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
+/**
+ * Class for handling Email templates
+ */
 class FUE_Email_Template {
 
 	/**
@@ -56,7 +59,7 @@ class FUE_Email_Template {
 		if ( ! $file || ! is_readable( $file ) ) {
 			return new WP_Error(
 				'fue_email_template',
-				sprintf( __( 'The template (%s) could not be found or is not accessible', 'follow_up_emails' ), $file )
+				__( 'The template could not be found or is not accessible', 'follow_up_emails' )
 			);
 		}
 

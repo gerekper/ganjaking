@@ -1,5 +1,9 @@
 *** WooCommerce Deposits Changelog ***
 
+2022-10-11 - version 2.0.2
+* Fix - Update order status to Completed if the deposit is marked as Mark Paid (Offline).
+* Tweak - Add support for Custom Order Table implementation.
+
 2022-09-14 - version 2.0.1
 * Add - Compatibility with the "One Page Checkout" extension.
 * Add - Compatibility with the "WooCommerce Multi-Currency" extension.

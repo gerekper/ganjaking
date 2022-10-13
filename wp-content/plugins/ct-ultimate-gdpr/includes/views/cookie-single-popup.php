@@ -413,48 +413,47 @@ if ( empty( $options['cookie_modal_always_visible'] ) ) :
 
 			<form action="#" class="ct-ultimate-gdpr-cookie-modal-single" >
 				<ul>
-				<?php if (empty($options['cookie_group_popup_hide_level_1'])) : ?>
-					<li><label for="cookie0">
-						<img class="ct-svg" src="<?php echo esc_url( $block_icon )?>" style="width: 60px;" alt="<?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_BLOCK_ALL)); ?>">
-						</label>
-						<span><?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_BLOCK_ALL)); ?></span>
-						<input type="radio" name="radio-group" id="cookie0" value="1" class="ct-ultimate-gdpr-cookie-modal-single-item"  
-							<?=CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 1)?>/></li>
-				<?php endif; ?>
-				<?php if (empty($options['cookie_group_popup_hide_level_2'])) : ?>
-					<li><label for="cookie5">
-						<img class="ct-svg" src="<?php echo esc_url( $ess_icon)?>" style="width: 60px;" alt="<?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_NECESSARY)); ?>">
-						</label>
-						<span><?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_NECESSARY)); ?></span>
-						<input type="checkbox" name="radio-group" id="cookie5" value="5" class="ct-ultimate-gdpr-cookie-modal-single-item" 
-						<?=CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 5)?> /></li>
-				<?php endif; ?>
-				<?php if (empty($options['cookie_group_popup_hide_level_3'])) : ?>
-					<li><label for="cookie6">
-						<img class="ct-svg" src="<?php echo esc_url( $func_icon)?>" alt="<?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_CONVENIENCE)); ?>">
-						</label>
-						<span><?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_CONVENIENCE)); ?></span>
-						<input type="checkbox" name="radio-group"  id="cookie6" value="6" class="ct-ultimate-gdpr-cookie-modal-single-item"
-						<?=CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 6)?>/></li>
-				<?php endif; ?>
-				<?php if (empty($options['cookie_group_popup_hide_level_4'])) : ?>
-					<li><label for="cookie7">
-						<img class="ct-svg" src="<?php echo esc_url( $ana_icon )?>" alt="<?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_STATISTICS)); ?>">
-						</label>
-						<span><?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_STATISTICS)); ?></span>
-						<input type="checkbox" name="radio-group"  id="cookie7" value="7" class="ct-ultimate-gdpr-cookie-modal-single-item" 
-						<?=CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 7)?>/></li>
-				<?php endif; ?>
-				<?php if (empty($options['cookie_group_popup_hide_level_5'])) : ?>
-					<li><label for="cookie8">
-						<img class="ct-svg" src="<?php echo esc_url( $adv_icon ) ?>" alt="<?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_TARGETTING)); ?>">
-						</label>
-						<span><?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_TARGETTING)); ?></span>
-						<input type="checkbox" name="radio-group"  id="cookie8" value="8" class="ct-ultimate-gdpr-cookie-modal-single-item" 
-						<?=CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 8)?>/></li>
-
+					<?php if (empty($options['cookie_group_popup_hide_level_1'])) : ?>
+						<li><label for="cookie0">
+							<img class="ct-svg" src="<?php echo esc_url( $block_icon )?>" style="width: 60px;" alt="<?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_BLOCK_ALL)); ?>">
+							</label>
+							<span><?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_BLOCK_ALL)); ?></span>
+							<input type="radio" name="radio-group" id="cookie0" value="1" class="ct-ultimate-gdpr-cookie-modal-single-item"  
+								<?=CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 1)?>/></li>
+					<?php endif; ?>
+					<?php if (empty($options['cookie_group_popup_hide_level_2'])) : ?>
+						<li><label for="cookie5">
+							<img class="ct-svg" src="<?php echo esc_url( $ess_icon)?>" style="width: 60px;" alt="<?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_NECESSARY)); ?>">
+							</label>
+							<span><?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_NECESSARY)); ?></span>
+							<input type="checkbox" name="radio-group" id="cookie5" value="5" class="ct-ultimate-gdpr-cookie-modal-single-item" 
+							<?=CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 5)?> /></li>
+					<?php endif; ?>
+					<?php if (empty($options['cookie_group_popup_hide_level_3'])) : ?>
+						<li><label for="cookie6">
+							<img class="ct-svg" src="<?php echo esc_url( $func_icon)?>" alt="<?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_CONVENIENCE)); ?>">
+							</label>
+							<span><?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_CONVENIENCE)); ?></span>
+							<input type="checkbox" name="radio-group"  id="cookie6" value="6" class="ct-ultimate-gdpr-cookie-modal-single-item"
+							<?=CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 6)?>/></li>
+					<?php endif; ?>
+					<?php if (empty($options['cookie_group_popup_hide_level_4'])) : ?>
+						<li><label for="cookie7">
+							<img class="ct-svg" src="<?php echo esc_url( $ana_icon )?>" alt="<?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_STATISTICS)); ?>">
+							</label>
+							<span><?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_STATISTICS)); ?></span>
+							<input type="checkbox" name="radio-group"  id="cookie7" value="7" class="ct-ultimate-gdpr-cookie-modal-single-item" 
+							<?=CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 7)?>/></li>
+					<?php endif; ?>
+					<?php if (empty($options['cookie_group_popup_hide_level_5'])) : ?>
+						<li><label for="cookie8">
+							<img class="ct-svg" src="<?php echo esc_url( $adv_icon ) ?>" alt="<?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_TARGETTING)); ?>">
+							</label>
+							<span><?php echo esc_html(CT_Ultimate_GDPR_Model_Group::get_label(CT_Ultimate_GDPR_Model_Group::LEVEL_TARGETTING)); ?></span>
+							<input type="checkbox" name="radio-group"  id="cookie8" value="8" class="ct-ultimate-gdpr-cookie-modal-single-item" 
+							<?=CT_Ultimate_GDPR_Model_Group::is_level_checked( apply_filters('ct_ultimate_gdpr_controller_cookie_group_level', 0), 8)?>/></li>
+					<?php endif; ?>
 				</ul>
-				<?php endif; ?>
 			</form>
 
 			<div class="ct-ultimate-gdpr-cookie-modal-single-wrap">
@@ -483,68 +482,63 @@ if ( empty( $options['cookie_modal_always_visible'] ) ) :
 						$adv_option_string = ct_ultimate_gdpr_get_value("cookie_group_popup_features_available_group_5_individual", $options);
 						$advertisings = array_filter(array_map('trim', explode(';', $adv_option_string)));
 
-
 					?>
 					<div class="ct-ultimate-gdpr-cookie-modal-single-wrap__inner--info">
 						<div class="ct-ultimate-gdpr-cookie-modal-single__info--desc" id="desc-left">
 							<ul class="ct-ultimate-gdpr-cookie-modal-slider-able" style="color: <?php echo esc_attr($options['cookie_modal_text_color']); ?>;">
-							
-							<?php if(!empty($essentials)) : ?>
-								<?php foreach ($essentials as $essential) : ?>
-								
-									<li class="essentials"> <?php echo esc_html($essential); ?></li>
-								<?php endforeach; ?>
-							<?php endif; ?>
+								<?php if(!empty($essentials) && empty($options['cookie_group_popup_hide_level_2']) ) : ?>
+									<?php foreach ($essentials as $essential) : ?>
+										<li class="essentials"> <?php echo esc_html($essential); ?></li>
+									<?php endforeach; ?>
+								<?php endif; ?>
 
-							<?php if(!empty($functionalities)) : ?>
-								<?php foreach ($functionalities as $functionality) : ?>
-									<li class="functionality"> <?php echo esc_html($functionality); ?></li>
-								<?php endforeach; ?>
-							<?php endif; ?>
-							
-							<?php if(!empty($analytics)) : ?>
-								<?php foreach ($analytics as $analytic) : ?>
-									<li class="analytics"> <?php echo esc_html($analytic); ?></li>
-								<?php endforeach; ?>
-							<?php endif; ?>
-
-							<?php if(!empty($advertisings)) : ?>
-								<?php foreach ($advertisings as $advertising) : ?>
-									<li class="advertising"> <?php echo esc_html($advertising); ?></li>
-								<?php endforeach; ?>
-							<?php endif; ?>
-							
+								<?php if(!empty($functionalities) && empty($options['cookie_group_popup_hide_level_3']) ) : ?>
+									<?php foreach ($functionalities as $functionality) : ?>
+										<li class="functionality"> <?php echo esc_html($functionality); ?></li>
+									<?php endforeach; ?>
+								<?php endif; ?>
 								
+								<?php if(!empty($analytics) && empty($options['cookie_group_popup_hide_level_4']) ) : ?>
+									<?php foreach ($analytics as $analytic) : ?>
+										<li class="analytics"> <?php echo esc_html($analytic); ?></li>
+									<?php endforeach; ?>
+								<?php endif; ?>
+
+								<?php if(!empty($advertisings) && empty($options['cookie_group_popup_hide_level_5']) ) : ?>
+									<?php foreach ($advertisings as $advertising) : ?>
+										<li class="advertising"> <?php echo esc_html($advertising); ?></li>
+									<?php endforeach; ?>
+								<?php endif; ?>
 							</ul>
 						</div>
 						<div class="ct-ultimate-gdpr-cookie-modal-single__info--desc" id="desc-right">
 							<ul class="ct-ultimate-gdpr-cookie-modal-slider-not-able" style="color: <?php echo esc_attr($options['cookie_modal_text_color']); ?>;">
-							<li><?php echo esc_html__('Remember your login details', 'ct-ultimate-gdpr'); ?></li>
-							<?php if(!empty($essentials)) : ?>
-								<?php foreach ($essentials as $essential) : ?>
-									<li class="essentials"> <?php echo esc_html($essential); ?></li>
-								<?php endforeach; ?>
-							<?php endif; ?>
 
-							<?php if(!empty($functionalities)) : ?>
-								<?php foreach ($functionalities as $functionality) : ?>
-									<li class="functionality"> <?php echo esc_html($functionality); ?></li>
-								<?php endforeach; ?>
-							<?php endif; ?>
-							
-							<?php if(!empty($analytics)) : ?>
-								<?php foreach ($analytics as $analytic) : ?>
-									<li class="analytics"> <?php echo esc_html($analytic); ?></li>
-								<?php endforeach; ?>
-							<?php endif; ?>
+								<li><?php echo esc_html__('Remember your login details', 'ct-ultimate-gdpr'); ?></li>
+								<?php if(!empty($essentials) && empty($options['cookie_group_popup_hide_level_2']) ) : ?>
+									<?php foreach ($essentials as $essential) : ?>
+										<li class="essentials"> <?php echo esc_html($essential); ?></li>
+									<?php endforeach; ?>
+								<?php endif; ?>
 
-							<?php if(!empty($advertisings)) : ?>
-								<?php foreach ($advertisings as $advertising) : ?>
-									<li class="advertising"> <?php echo esc_html($advertising); ?></li>
-								<?php endforeach; ?>
-							<?php endif; ?>
-									
-									
+								<?php if(!empty($functionalities) && empty($options['cookie_group_popup_hide_level_3']) ) : ?>
+									<?php foreach ($functionalities as $functionality) : ?>
+										<li class="functionality"> <?php echo esc_html($functionality); ?></li>
+									<?php endforeach; ?>
+								<?php endif; ?>
+								
+								<?php if(!empty($analytics) && empty($options['cookie_group_popup_hide_level_4']) ) : ?>
+									<?php foreach ($analytics as $analytic) : ?>
+										<li class="analytics"> <?php echo esc_html($analytic); ?></li>
+									<?php endforeach; ?>
+								<?php endif; ?>
+
+								<?php if(!empty($advertisings) && empty($options['cookie_group_popup_hide_level_5']) ) : ?>
+									<?php foreach ($advertisings as $advertising) : ?>
+										<li class="advertising"> <?php echo esc_html($advertising); ?></li>
+									<?php endforeach; ?>
+								<?php endif; ?>
+
 						    </ul>
 						</div>
 						<div class="ct-clearfix"></div>

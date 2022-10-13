@@ -1,5 +1,12 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2022-10-11 - version 1.7.16
+* Fix - Label fields not updated if only one of the fields is filled.
+
+2022-10-04 - version 1.7.15
+* Fix - Remove points to be earned message in single product page for external/affiliate products.
+* Fix - Secures apply points to previous orders with a nonce.
+
 2022-09-27 - version 1.7.14
 * Fix - earn points notice inconsistent visibility issue.
 

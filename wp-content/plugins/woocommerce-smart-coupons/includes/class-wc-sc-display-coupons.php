@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.5.0
+ * @version     2.6.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1641,9 +1641,10 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 				$expiry_date = ( ! empty( $coupon_id ) ) ? get_post_meta( $coupon_id, 'expiry_date', true ) : '';
 
 				if ( ! empty( $expiry_date ) ) {
-					$expiry_timestamp = strtotime( $expiry_date );
-					if ( false !== $expiry_timestamp ) {
-						$value = new WC_DateTime( "@{$expiry_timestamp}", new DateTimeZone( 'UTC' ) );
+					$datetime     = $this->wc_string_to_datetime( $expiry_date );
+					$date_expires = ( is_object( $datetime ) && is_callable( array( $datetime, 'getTimestamp' ) ) ) ? $datetime->getTimestamp() : 0;
+					if ( false !== $date_expires ) {
+						return $datetime->__toString();
 					}
 				}
 			}
@@ -2084,14 +2085,15 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 								$coupon_type .= __( 'Free Shipping', 'woocommerce-smart-coupons' );
 							}
 
-							if ( ! empty( $expiry_date ) ) {
+							if ( $this->is_wc_gte_30() && $expiry_date instanceof WC_DateTime ) {
+								$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : 0;
+							} elseif ( ! is_int( $expiry_date ) ) {
+								$expiry_date = strtotime( $expiry_date );
+							}
+
+							if ( ! empty( $expiry_date ) && is_int( $expiry_date ) ) {
 								$expiry_time = (int) get_post_meta( $coupon_id, 'wc_sc_expiry_time', true );
 								if ( ! empty( $expiry_time ) ) {
-									if ( $this->is_wc_gte_30() && $expiry_date instanceof WC_DateTime ) {
-										$expiry_date = $expiry_date->getTimestamp();
-									} elseif ( ! is_int( $expiry_date ) ) {
-										$expiry_date = strtotime( $expiry_date );
-									}
 									$expiry_date += $expiry_time; // Adding expiry time to expiry date.
 								}
 							}

@@ -1,4 +1,9 @@
 *** WooCommerce PDF Invoice Changelog ***
+2022.10.03 - version 4.16.3
+ * Fix MPDF temp folder
+ * Fix pdf_template_order_totals filter
+ * Remove refund from get_pdf_order_totals
+
 2022.09.26 - version 4.16.2
  * Add "Set Resources Folder" to System Status
 

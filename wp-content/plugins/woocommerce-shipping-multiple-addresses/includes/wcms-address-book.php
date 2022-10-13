@@ -13,14 +13,12 @@ class WC_MS_Address_Book {
         // delete address request
         add_action( 'template_redirect', array($this, 'delete_address') );
 
-        add_action( 'template_redirect', array( $this, 'save_addresses' ) );
-        add_action( 'template_redirect', array( $this, 'save_addresses_book_from_post' ) );
-        add_action( 'template_redirect', array( $this, 'address_book' ) );
+		    add_action( 'template_redirect', array( $this, 'save_shipping_addresses' ) );
+		    add_action( 'template_redirect', array( $this, 'save_account_shipping_addresses' ) );
+		    add_action( 'template_redirect', array( $this, 'save_addresses_book_from_post' ) );
 
         add_action( 'wp_ajax_wc_ms_delete_address', array( $this, 'ajax_delete_address' ) );
         add_action( 'wp_ajax_nopriv_wc_ms_delete_address', array( $this, 'ajax_delete_address' ) );
-        add_action( 'wp_ajax_wc_save_to_address_book', array( $this, 'save_address_book' ) );
-        add_action( 'wp_ajax_nopriv_wc_save_to_address_book', array( $this, 'save_address_book' ) );
     }
 
     /**
@@ -117,175 +115,190 @@ class WC_MS_Address_Book {
         }
     }
 
-    public function save_addresses() {
+	public function save_shipping_addresses() {
+		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['_wpnonce'] ), 'shipping_address_action' ) ) {
+			return;
+		}
 
-        if (isset($_POST['shipping_address_action']) && $_POST['shipping_address_action'] == 'save' ) {
-            /* @var $cart WC_Cart */
-            $cart       = WC()->cart;
-            $checkout   = WC()->checkout;
+		if ( ! isset( $_POST['shipping_address_action'] ) || 'save' !== $_POST['shipping_address_action'] ) {
+			return;
+		}
 
-            $user_addresses = $this->get_user_addresses( get_current_user_id() );
+		$cart           = WC()->cart;
+		$user_addresses = $this->get_user_addresses( get_current_user_id() );
 
-            $fields = WC()->countries->get_address_fields( WC()->countries->get_base_country(), 'shipping_' );
+		$fields = WC()->countries->get_address_fields( WC()->countries->get_base_country(), 'shipping_' );
 
-            $cart->get_cart_from_session();
-            $cart_items = wcms_get_real_cart_items();
+		$cart->get_cart_from_session();
+		$cart_items = wcms_get_real_cart_items();
 
-            $data   = array();
-            $rel    = array();
+		$data = array();
+		$rel  = array();
 
-            if ( isset($_POST['items']) ) {
+		if ( isset( $_POST['items'] ) ) {
 
-                $items = $_POST['items'];
+			$items = $_POST['items'];
 
-                // handler for delete requests
-                if ( isset($_POST['delete_line']) ) {
-                    $delete     = $_POST['delete'];
-                    $cart_key   = $delete['key'];
-                    $index      = $delete['index'];
+			// handler for delete requests.
+			if ( isset( $_POST['delete_line'] ) ) {
+				$delete   = $_POST['delete'];
+				$cart_key = $delete['key'];
+				$index    = $delete['index'];
 
-                    // trim the quantity by 1 and remove the corresponding address
-                    $cart_items = wcms_get_real_cart_items();
-                    $item_qty   = $cart_items[$cart_key]['quantity'] - 1;
-                    $cart->set_quantity( $cart_key, $item_qty );
+				// trim the quantity by 1 and remove the corresponding address.
+				$cart_items = wcms_get_real_cart_items();
+				$item_qty   = $cart_items[ $cart_key ]['quantity'] - 1;
+				$cart->set_quantity( $cart_key, $item_qty );
 
-                    if ( isset($items[$cart_key]['qty'][$index]) ) {
-                        unset( $items[$cart_key]['qty'][$index] );
-                    }
+				if ( isset( $items[ $cart_key ]['qty'][ $index ] ) ) {
+					unset( $items[ $cart_key ]['qty'][ $index ] );
+				}
 
-                    if ( isset($items[$cart_key]['address'][$index]) ) {
-                        unset( $items[$cart_key]['address'][$index] );
-                    }
-                }
+				if ( isset( $items[ $cart_key ]['address'][ $index ] ) ) {
+					unset( $items[ $cart_key ]['address'][ $index ] );
+				}
+			}
 
-                // handler for quantities update
-                foreach ( $items as $cart_key => $item ) {
-                    $qtys           = $item['qty'];
-                    $item_addresses = $item['address'];
+			// handler for quantities update.
+			foreach ( $items as $cart_key => $item ) {
+				$qtys           = $item['qty'];
+				$item_addresses = $item['address'];
 
-                    foreach ( $item_addresses as $idx => $item_address ) {
-                        $cart_items     = wcms_get_real_cart_items();
-                        $new_qty        = false;
+				foreach ( $item_addresses as $idx => $item_address ) {
+					$cart_items = wcms_get_real_cart_items();
+					$new_qty    = false;
 
-                        if ( $qtys[ $idx ] == 0 ) {
-                            // decrement the cart item quantity by one
-                            $current_qty = $cart_items[ $cart_key ]['quantity'];
-                            $new_qty        = $current_qty - 1;
-                            $cart->set_quantity( $cart_key, $new_qty );
-                        } elseif ( $qtys[ $idx ] > 1 ) {
-                            $qty_to_add = $qtys[$idx] - 1;
-                            $item_qty   = $cart_items[$cart_key]['quantity'];
-                            $new_qty    = $item_qty + $qty_to_add;
-                            $cart->set_quantity( $cart_key, $new_qty );
-                        }
+					if ( $qtys[ $idx ] == 0 ) {
+						// decrement the cart item quantity by one.
+						$current_qty = $cart_items[ $cart_key ]['quantity'];
+						$new_qty     = $current_qty - 1;
+						$cart->set_quantity( $cart_key, $new_qty );
+					} elseif ( $qtys[ $idx ] > 1 ) {
+						$qty_to_add = $qtys[ $idx ] - 1;
+						$item_qty   = $cart_items[ $cart_key ]['quantity'];
+						$new_qty    = $item_qty + $qty_to_add;
+						$cart->set_quantity( $cart_key, $new_qty );
+					}
+				}
+			}
 
-                    }
+			$cart_items = wcms_get_real_cart_items();
+			foreach ( $items as $cart_key => $item ) {
+				$qtys           = $item['qty'];
+				$item_addresses = $item['address'];
 
-                }
+				$product_id = $cart_items[ $cart_key ]['product_id'];
+				$sig        = $cart_key . '_' . $product_id . '_';
+				$_sig       = '';
 
-                $cart_items = wcms_get_real_cart_items();
-                foreach ( $items as $cart_key => $item ) {
-                    $qtys           = $item['qty'];
-                    $item_addresses = $item['address'];
+				foreach ( $item_addresses as $idx => $item_address ) {
+					$address_id   = $item_address;
+					$user_address = $user_addresses[ $address_id ];
 
-                    $product_id = $cart_items[$cart_key]['product_id'];
-                    $sig        = $cart_key .'_'. $product_id .'_';
-                    $_sig       = '';
+					$i = 1;
+					for ( $x = 0; $x < $qtys[ $idx ]; $x++ ) {
 
-                    foreach ( $item_addresses as $idx => $item_address ) {
-                        $address_id = $item_address;
-                        $user_address = $user_addresses[ $address_id ];
+						$rel[ $address_id ][] = $cart_key;
 
-                        $i = 1;
-                        for ( $x = 0; $x < $qtys[$idx]; $x++ ) {
+						while ( isset( $data[ 'shipping_first_name_' . $sig . $i ] ) ) {
+							$i++;
+						}
+						$_sig = $sig . $i;
 
-                            $rel[ $address_id ][]  = $cart_key;
+						if ( $fields ) {
+							foreach ( $fields as $key => $field ) :
+								$data[ $key . '_' . $_sig ] = $user_address[ $key ];
+						endforeach;
+						};
+					}
+				}
 
-                            while ( isset($data['shipping_first_name_'. $sig . $i]) ) {
-                                $i++;
-                            }
-                            $_sig = $sig . $i;
+				$cart_address_ids_session = (array) wcms_session_get( 'cart_address_ids' );
 
-                            if ( $fields ) foreach ( $fields as $key => $field ) :
-                                $data[$key .'_'. $_sig] = $user_address[ $key ];
-                            endforeach;
-                        }
+				if ( ! empty( $_sig ) && ! wcms_session_isset( 'cart_address_ids' ) || ! in_array( $_sig, $cart_address_ids_session, true ) ) {
+					$cart_address_sigs_session          = wcms_session_get( 'cart_address_sigs' );
+					$cart_address_sigs_session[ $_sig ] = $address_id;
+					wcms_session_set( 'cart_address_sigs', $cart_address_sigs_session );
+				}
+			}
+		}
 
-                    }
+		wcms_session_set( 'cart_item_addresses', $data );
+		wcms_session_set( 'address_relationships', $rel );
+		wcms_session_set( 'wcms_item_addresses', $rel );
 
-                    $cart_address_ids_session = (array)wcms_session_get( 'cart_address_ids' );
+		if ( isset( $_POST['update_quantities'] ) || isset( $_POST['delete_line'] ) ) {
+			$next_url = get_permalink( wc_get_page_id( 'multiple_addresses' ) );
+		} else {
+			// redirect to the checkout page.
+			$next_url = wc_get_checkout_url();
+		}
 
-                    if ( !empty($_sig) && !wcms_session_isset( 'cart_address_ids' ) || ! in_array($_sig, $cart_address_ids_session) ) {
-                        $cart_address_sigs_session = wcms_session_get( 'cart_address_sigs' );
-                        $cart_address_sigs_session[$_sig] = $address_id;
-                        wcms_session_set( 'cart_address_sigs', $cart_address_sigs_session);
-                    }
+		$this->wcms->clear_packages_cache();
 
-                }
+		wp_safe_redirect( $next_url );
+		exit;
+	}
 
-            }
+	public function save_account_shipping_addresses() {
+		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['_wpnonce'] ), 'shipping_account_address_action' ) ) {
+			return;
+		}
 
-            wcms_session_set( 'cart_item_addresses', $data );
-            wcms_session_set( 'address_relationships', $rel );
-            wcms_session_set( 'wcms_item_addresses', $rel );
+		if ( ! isset( $_POST['shipping_account_address_action'] ) || 'save' !== $_POST['shipping_account_address_action'] ) {
+			return;
+		}
 
-            if ( isset($_POST['update_quantities']) || isset($_POST['delete_line']) ) {
-                $next_url = get_permalink( wc_get_page_id( 'multiple_addresses' ) );
-            } else {
-                // redirect to the checkout page
-                $next_url = wc_get_checkout_url();
-            }
+		$user = wp_get_current_user();
+		$idx  = $_POST['idx'];
 
-            $this->wcms->clear_packages_cache();
+		$addresses = get_user_meta( $user->ID, 'wc_other_addresses', true );
 
-            wp_redirect($next_url);
-            exit;
-        } elseif (isset($_POST['shipping_account_address_action']) && $_POST['shipping_account_address_action'] == 'save' ) {
-            $user   = wp_get_current_user();
-            $idx    = $_POST['idx'];
+		if ( ! is_array( $addresses ) ) {
+			$addresses = array();
+		}
 
-            $addresses = get_user_meta( $user->ID, 'wc_other_addresses', true );
+		if ( $idx == -1 ) {
+			$idx = count( $addresses );
 
-            if ( !is_array( $addresses ) ) {
-                $addresses = array();
-            }
+			while ( array_key_exists( $idx, $addresses ) ) {
+				$idx++;
+			}
+		}
 
-            if ( $idx == -1 ) {
-                $idx = count( $addresses );
+		unset( $_POST['shipping_account_address_action'], $_POST['set_addresses'], $_POST['idx'] );
 
-                while ( array_key_exists( $idx, $addresses ) ) {
-                    $idx++;
-                }
-            }
+		foreach ( $_POST as $key => $value ) {
+			$addresses[ $idx ][ $key ] = $value;
+		}
 
-            unset($_POST['shipping_account_address_action'], $_POST['set_addresses'], $_POST['idx']);
+		update_user_meta( $user->ID, 'wc_other_addresses', $addresses );
 
-            foreach ($_POST as $key => $value) {
-                $addresses[ $idx ][ $key ] = $value;
-            }
+		if ( function_exists( 'wc_add_notice' ) ) {
+			wc_add_notice( __( 'Address saved', 'wc_shipping_multiple_address' ), 'success' );
+		}
 
+		$page_id = wc_get_page_id( 'myaccount' );
+		wp_safe_redirect( get_permalink( $page_id ) );
+		exit;
+	}
 
-            update_user_meta( $user->ID, 'wc_other_addresses', $addresses );
+	public function validate_addresses_book( $shipFields ) {
+		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['_wpnonce'] ), 'save_to_address_book' ) ) {
+			return;
+		}
 
-            if ( function_exists('wc_add_notice') )
-                wc_add_notice( __( 'Address saved', 'wc_shipping_multiple_address' ), 'success' );
-            else
-                WC()->add_message(__( 'Address saved', 'wc_shipping_multiple_address' ) );
-
-            $page_id = wc_get_page_id( 'myaccount' );
-            wp_redirect(get_permalink($page_id));
-            exit;
-        }
-    }
-
-    public function validate_addresses_book( $shipFields ) {
-        $address = $_POST['address'];
-        $errors  = array();
+		if ( ! isset( $_POST['address'] ) ) {
+			return;
+		}
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$address = wc_clean( wp_unslash( $_POST['address'] ) );
+		$errors  = array();
 
         foreach ( $shipFields as $key => $field ) {
 
-            if ( isset($field['required']) && $field['required'] && empty($address[$key]) ) {
-                if ( 'shipping_state' == $key && empty( WC()->countries->get_states( $address['shipping_country'] ) ) ) {
+            if ( isset( $field['required'] ) && $field['required'] && empty( $address[ $key ] ) ) {
+                if ( 'shipping_state' === $key && empty( WC()->countries->get_states( $address['shipping_country'] ) ) ) {
                     continue;
                 }
 
@@ -369,161 +382,116 @@ class WC_MS_Address_Book {
     }
 
     public function save_addresses_book_from_post() {
-        if ( !empty( $_POST['action'] ) && $_POST['action'] == 'save_to_address_book' ) {
+		if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['_wpnonce'] ), 'save_to_address_book' ) ) {
+			return;
+		}
 
-            $user       = wp_get_current_user();
-            $id         = $_POST['id'];
-			$address = $_POST['address'];
-            $addresses  = $this->get_user_addresses( $user );
-            $shipFields = WC()->countries->get_address_fields( $address['shipping_country'], 'shipping_' );
-            $redirect_url   = (isset($_POST['next'])) ? $_POST['next'] : get_permalink( wc_get_page_id('multiple_addresses') );
+		if ( ! isset( $_POST['id'] ) || ! isset( $_POST['address'] ) ) {
+			return;
+		}
 
-			$validation = $this->validate_addresses_book( $shipFields );
+		$user       = wp_get_current_user();
+		$id         = $_POST['id'];
+		$address = $_POST['address'];
+		$addresses  = $this->get_user_addresses( $user );
+		$shipFields = WC()->countries->get_address_fields( $address['shipping_country'], 'shipping_' );
+		$redirect_url   = (isset($_POST['next'])) ? $_POST['next'] : get_permalink( wc_get_page_id('multiple_addresses') );
 
-            if ( count( $validation['errors'] ) > 0 ) {
-                if ( function_exists( 'wc_add_notice' ) ) {
-                    wc_add_notice( __( 'Please enter the complete address', 'wc_shipping_multiple_address' ), 'error' );
-                } else {
-                    WC()->add_error( __( 'Please enter the complete address', 'wc_shipping_multiple_address' ) );
-                }
-                $next = add_query_arg( $address, $redirect_url );
-                wp_redirect( add_query_arg('address-form', 1, $next ) );
-                exit;
-            }
+		$validation = $this->validate_addresses_book( $shipFields );
 
-			$address = $validation['address'];
+		if ( count( $validation['errors'] ) > 0 ) {
+			if ( function_exists( 'wc_add_notice' ) ) {
+				wc_add_notice( __( 'Please enter the complete address', 'wc_shipping_multiple_address' ), 'error' );
+			} else {
+				WC()->add_error( __( 'Please enter the complete address', 'wc_shipping_multiple_address' ) );
+			}
+			$next = add_query_arg( $address, $redirect_url );
+			wp_redirect( add_query_arg('address-form', 1, $next ) );
+			exit;
+		}
 
-            // address is unique, save!
-            if ( $id == -1 ) {
-                $vals = '';
-                foreach ($address as $key => $value) {
-                    $vals .= $value;
-                }
-                $md5 = md5($vals);
+		$address = $validation['address'];
 
-                foreach ($addresses as $addr) {
-                    $vals = '';
-                    if( !is_array($addr) ) { continue; }
-                    foreach ($addr as $key => $value) {
-                        $vals .= $value;
-                    }
-                    $addrMd5 = md5($vals);
+		// address is unique, save!
+		if ( $id == -1 ) {
+			$vals = '';
+			foreach ($address as $key => $value) {
+				$vals .= $value;
+			}
+			$md5 = md5($vals);
 
-                    if ($md5 == $addrMd5) {
-                        // duplicate address!
-                        if ( function_exists( 'wc_add_notice' ) ) {
-                            wc_add_notice( __( 'Address is already in your address book', 'wc_shipping_multiple_address' ), 'error' );
-                        } else {
-                            WC()->add_error( __( 'Address is already in your address book', 'wc_shipping_multiple_address' ) );
-                        }
-                        $next = add_query_arg( $address, $redirect_url );
-                        wp_redirect( add_query_arg('address-form', 1, $next ) );
-                        exit;
-                    }
-                }
+			foreach ($addresses as $addr) {
+				$vals = '';
+				if( !is_array($addr) ) { continue; }
+				foreach ($addr as $key => $value) {
+					$vals .= $value;
+				}
+				$addrMd5 = md5($vals);
 
-                $addresses[] = $address;
-            } else {
-                $addresses[$id] = $address;
-            }
+				if ($md5 == $addrMd5) {
+					// duplicate address!
+					if ( function_exists( 'wc_add_notice' ) ) {
+						wc_add_notice( __( 'Address is already in your address book', 'wc_shipping_multiple_address' ), 'error' );
+					} else {
+						WC()->add_error( __( 'Address is already in your address book', 'wc_shipping_multiple_address' ) );
+					}
+					$next = add_query_arg( $address, $redirect_url );
+					wp_redirect( add_query_arg('address-form', 1, $next ) );
+					exit;
+				}
+			}
 
-            // update the default address and remove it from the $addresses array
-            if ( $user->ID > 0 ) {
-                if ( $id == 0 ) {
-                    $default_address = $addresses[0];
-                    unset( $addresses[0] );
+			$addresses[] = $address;
+		} else {
+			$addresses[$id] = $address;
+		}
 
-                    if ( $default_address['shipping_address_1'] && $default_address['shipping_postcode'] ) {
-                        update_user_meta( $user->ID, 'shipping_first_name', $default_address['shipping_first_name'] );
-                        update_user_meta( $user->ID, 'shipping_last_name',  $default_address['shipping_last_name'] );
-                        update_user_meta( $user->ID, 'shipping_company',    $default_address['shipping_company'] );
-                        update_user_meta( $user->ID, 'shipping_address_1',  $default_address['shipping_address_1'] );
-                        update_user_meta( $user->ID, 'shipping_address_2',  $default_address['shipping_address_2'] );
-                        update_user_meta( $user->ID, 'shipping_city',       $default_address['shipping_city'] );
-                        update_user_meta( $user->ID, 'shipping_state',      $default_address['shipping_state'] );
-                        update_user_meta( $user->ID, 'shipping_postcode',   $default_address['shipping_postcode'] );
-                        update_user_meta( $user->ID, 'shipping_country',    $default_address['shipping_country'] );
-                    }
-                    unset( $addresses[0] );
-                }
+		// update the default address and remove it from the $addresses array
+		if ( $user->ID > 0 ) {
+			if ( $id == 0 ) {
+				$default_address = $addresses[0];
+				unset( $addresses[0] );
 
-            }
+				if ( $default_address['shipping_address_1'] && $default_address['shipping_postcode'] ) {
+					update_user_meta( $user->ID, 'shipping_first_name', $default_address['shipping_first_name'] );
+					update_user_meta( $user->ID, 'shipping_last_name',  $default_address['shipping_last_name'] );
+					update_user_meta( $user->ID, 'shipping_company',    $default_address['shipping_company'] );
+					update_user_meta( $user->ID, 'shipping_address_1',  $default_address['shipping_address_1'] );
+					update_user_meta( $user->ID, 'shipping_address_2',  $default_address['shipping_address_2'] );
+					update_user_meta( $user->ID, 'shipping_city',       $default_address['shipping_city'] );
+					update_user_meta( $user->ID, 'shipping_state',      $default_address['shipping_state'] );
+					update_user_meta( $user->ID, 'shipping_postcode',   $default_address['shipping_postcode'] );
+					update_user_meta( $user->ID, 'shipping_country',    $default_address['shipping_country'] );
+				}
+				unset( $addresses[0] );
+			}
 
-            $this->save_user_addresses( $user->ID, $addresses );
+		}
 
-            if ( $id >= 0 ) {
-                $next = add_query_arg( 'updated', '1', $redirect_url );
-            } else {
-                $next = add_query_arg( 'new', '1', $redirect_url );
-            }
+		$this->save_user_addresses( $user->ID, $addresses );
 
-            wp_redirect( $next );
-            exit;
-        }
-    }
+		if ( $id >= 0 ) {
+			$next = add_query_arg( 'updated', '1', $redirect_url );
+		} else {
+			$next = add_query_arg( 'new', '1', $redirect_url );
+		}
 
-    public function address_book() {
-        $user = wp_get_current_user();
-
-        if ($user->ID == 0) {
-            return;
-        }
-
-        if (isset($_GET['addressbook']) && $_GET['addressbook'] == 1) {
-            $addresses = get_user_meta($user->ID, 'wc_other_addresses', true);
-            ?>
-            <p></p>
-            <h2><?php _e( 'Address Book', 'wc_shipping_multiple_address' ); ?></h2>
-            <?php
-            if (!empty($addresses)):
-                foreach ($addresses as $addr) {
-                    if ( empty($addr) ) continue;
-
-                    echo '<div style="float: left; width: 200px;">';
-                    $address = array(
-                        'first_name'    => $addr['shipping_first_name'],
-                        'last_name'     => $addr['shipping_last_name'],
-                        'company'       => $addr['shipping_company'],
-                        'address_1'     => $addr['shipping_address_1'],
-                        'address_2'     => $addr['shipping_address_2'],
-                        'city'          => $addr['shipping_city'],
-                        'state'         => $addr['shipping_state'],
-                        'postcode'      => $addr['shipping_postcode'],
-                        'country'       => $addr['shipping_country']
-                    );
-                    $formatted_address  = wcms_get_formatted_address( $address );
-                    $json_address       = wp_json_encode( $address );
-
-                    if (!$formatted_address) _e( 'You have not set up a shipping address yet.', 'wc_shipping_multiple_address' ); else echo '<address>'.$formatted_address.'</address>';
-                    echo '  <textarea style="display:none;">'. $json_address .'</textarea>';
-                    echo '  <p><button type="button" class="button address-use">'. __( 'Use this address', 'wc_shipping_multiple_address' ) .'</button></p>';
-                    echo '</div>';
-                }
-                echo '<div class="clear: both;"></div>';
-            else:
-                echo '<h4>'. __( 'You have no shipping addresses saved.', 'wc_shipping_multiple_address' ) .'</h4>';
-            endif;
-            ?>
-            <script type="text/javascript">
-                jQuery(document).ready(function() {
-                    jQuery( '.address-use' ).click(function() {
-                        var address = JSON.parse(jQuery(this).parents( 'p' ).prev( 'textarea' ).val());
-                        jQuery(this).prop( 'disabled', true);
-
-                        setAddress(address, '<?php echo $_GET['sig']; ?>' );
-                        tb_remove();
-                    });
-                });
-            </script>
-            <?php
-            exit;
-        }
+		wp_redirect( $next );
+		exit;
     }
 
     public function ajax_delete_address() {
-        $user       = wp_get_current_user();
-        $idx        = absint( $_POST['idx'] );
-        $addresses  = $this->get_user_addresses( $user );
+		if ( ! isset( $_POST['_wcmsnonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['_wcmsnonce'] ), 'wcms-action_' . WC()->session->get_customer_unique_id() ) ) {
+			exit;
+		}
+
+		if ( ! isset( $_POST['idx'] ) ) {
+			exit;
+		}
+
+		$user      = wp_get_current_user();
+		$idx       = absint( sanitize_text_field( wp_unslash( $_POST['idx'] ) ) );
+		$addresses = $this->get_user_addresses( $user );
 
         unset( $addresses[ $idx ] );
 
@@ -533,7 +501,7 @@ class WC_MS_Address_Book {
         exit;
     }
 
-    function get_user_addresses( $user, $include_default = true ) {
+    public function get_user_addresses( $user, $include_default = true ) {
         if (! $user instanceof WP_User ) {
             $user = new WP_User( $user );
         }
@@ -560,7 +528,7 @@ class WC_MS_Address_Book {
         return $this->array_sort( $addresses, 'shipping_first_name' );
     }
 
-    function array_sort($array, $on, $order=SORT_ASC) {
+    public function array_sort($array, $on, $order=SORT_ASC) {
         $new_array = array();
         $sortable_array = array();
 
@@ -644,130 +612,4 @@ class WC_MS_Address_Book {
 
 		return md5( implode( '_', $address ) );
 	}
-
-    public function save_address_book() {
-
-        $this->wcms->cart->load_cart_files();
-
-        $checkout   = WC()->checkout;
-        $user       = wp_get_current_user();
-
-		$address = $_POST['address'];
-
-        $shipFields = WC()->countries->get_address_fields( $address['shipping_country'], 'shipping_' );
-
-		$validation = $this->validate_addresses_book( $shipFields );
-
-        if ( count( $validation['errors'] ) > 0 ) {
-            die( wp_json_encode( array( 'ack' => 'ERR', 'errors' => $errors, 'message' => __( 'Please enter the complete address', 'wc_shipping_multiple_address' ) ) ) );
-        }
-
-		$address = $validation['address'];
-
-        $id  = $_POST['id'];
-
-        $addresses  = $this->get_user_addresses( $user );
-
-        $redirect_url = (isset($_POST['next'])) ? $_POST['next'] : get_permalink( wc_get_page_id('multiple_addresses') );
-
-        if ( $id >= 0 )
-            $next = add_query_arg( 'updated', '1', $redirect_url );
-        else
-            $next = add_query_arg( 'new', '1', $redirect_url );
-
-        // address is unique, save!
-        if ( $id == -1 ) {
-            $vals = '';
-            foreach ($address as $key => $value) {
-                $vals .= $value;
-            }
-            $md5 = md5($vals);
-
-            foreach ($addresses as $addr) {
-                $vals = '';
-                if( !is_array($addr) ) { continue; }
-                foreach ($addr as $key => $value) {
-                    $vals .= $value;
-                }
-                $addrMd5 = md5($vals);
-
-                if ($md5 == $addrMd5) {
-                    // duplicate address!
-                    die( wp_json_encode( array( 'ack' => 'ERR', 'message' => __( 'Address is already in your address book', 'wc_shipping_multiple_address' ) ) ) );
-                }
-            }
-
-            $addresses[] = $address;
-        } else {
-            $addresses[$id] = $address;
-        }
-
-        // update the default address and remove it from the $addresses array
-        if ( $user->ID > 0 ) {
-            if ( $id == 0 ) {
-                $default_address = $addresses[0];
-                unset( $addresses[0] );
-
-                if ( $default_address['shipping_address_1'] && $default_address['shipping_postcode'] ) {
-                    update_user_meta( $user->ID, 'shipping_first_name', $default_address['shipping_first_name'] );
-                    update_user_meta( $user->ID, 'shipping_last_name',  $default_address['shipping_last_name'] );
-                    update_user_meta( $user->ID, 'shipping_company',    $default_address['shipping_company'] );
-                    update_user_meta( $user->ID, 'shipping_address_1',  $default_address['shipping_address_1'] );
-                    update_user_meta( $user->ID, 'shipping_address_2',  $default_address['shipping_address_2'] );
-                    update_user_meta( $user->ID, 'shipping_city',       $default_address['shipping_city'] );
-                    update_user_meta( $user->ID, 'shipping_state',      $default_address['shipping_state'] );
-                    update_user_meta( $user->ID, 'shipping_postcode',   $default_address['shipping_postcode'] );
-                    update_user_meta( $user->ID, 'shipping_country',    $default_address['shipping_country'] );
-                }
-                unset( $addresses[0] );
-            }
-
-        }
-
-        $this->save_user_addresses( $user->ID, $addresses );
-
-        foreach ( $address as $key => $value ) {
-            $new_key = str_replace( 'shipping_', '', $key);
-            $address[$new_key] = $value;
-        }
-
-        $formatted_address  = wcms_get_formatted_address( $address );
-        $json_address       = wp_json_encode( $address );
-
-        if (!$formatted_address) return;
-
-        if ( isset($_POST['return']) && $_POST['return'] == 'list' ) {
-            $html = '<option value="'. $id .'">'. $formatted_address .'</option>';
-        } else {
-            $html = '
-                    <div class="account-address">
-                        <address>'. $formatted_address .'</address>
-                        <div style="display: none;">';
-
-            ob_start();
-            foreach ($shipFields as $key => $field) :
-                $val = (isset($address[$key])) ? $address[$key] : '';
-                $key .= '_'. $id;
-
-                woocommerce_form_field( $key, $field, $val );
-            endforeach;
-
-            do_action( 'woocommerce_after_checkout_shipping_form', $checkout);
-            $html .= ob_get_clean();
-
-            $html .= '
-                            <input type="hidden" name="addresses[]" value="'. $id .'" />
-                        </div>
-
-                        <ul class="items-column" id="items_column_'. $id .'">
-                            <li class="placeholder">' . __( 'Drag items here', 'wc_shipping_multiple_address' ) . '</li>
-                        </ul>
-                    </div>
-                    ';
-        }
-
-        $return = wp_json_encode( array( 'ack' => 'OK', 'id' => $id, 'html' => $html, 'return' => $_POST['return'], 'next' => $next ) );
-        die($return);
-
-    }
 }

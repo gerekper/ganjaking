@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.6.0
+ * @version     2.7.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -652,13 +652,11 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 						}
 						$is_free_shipping = ( $coupon->get_free_shipping() ) ? 'yes' : 'no';
 						$discount_type    = $coupon->get_discount_type();
-						$expiry_date      = $coupon->get_date_expires();
 						$coupon_code      = $coupon->get_code();
 					} else {
 						$coupon_id        = ( ! empty( $coupon->id ) ) ? $coupon->id : 0;
 						$is_free_shipping = ( ! empty( $coupon->free_shipping ) ) ? $coupon->free_shipping : '';
 						$discount_type    = ( ! empty( $coupon->discount_type ) ) ? $coupon->discount_type : '';
-						$expiry_date      = ( ! empty( $coupon->expiry_date ) ) ? $coupon->expiry_date : '';
 						$coupon_code      = ( ! empty( $coupon->code ) ) ? $coupon->code : '';
 					}
 

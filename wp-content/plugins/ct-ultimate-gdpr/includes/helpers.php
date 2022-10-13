@@ -360,9 +360,9 @@ function ct_ultimate_gdpr_json_encode($value)
 function ct_ultimate_gdpr_get_user_ip()
 {
 
-    $client  = @$_SERVER['HTTP_CLIENT_IP'];
-    $forward = @$_SERVER['HTTP_X_FORWARDED_FOR'];
-    $remote  = $_SERVER['REMOTE_ADDR'];
+    $client  = array_key_exists( 'HTTP_CLIENT_IP', $_SERVER ) ? $_SERVER['HTTP_CLIENT_IP'] : '';
+    $forward = array_key_exists( 'HTTP_X_FORWARDED_FOR', $_SERVER ) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : '';
+    $remote  = array_key_exists( 'REMOTE_ADDR', $_SERVER ) ? $_SERVER['REMOTE_ADDR'] : '';
 
     if (filter_var($client, FILTER_VALIDATE_IP)) {
         $ip = $client;

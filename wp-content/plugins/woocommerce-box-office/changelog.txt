@@ -1,5 +1,12 @@
 *** WooCommerce Box Office Changelog ***
 
+2022-10-11 - version 1.1.41
+* Dev - Update composer versions from v1 to v2.
+* Dev - Update node version from 8.9.3 to 16.13.0.
+* Dev - Update npm version from 5.5.1 to 8.0.0.
+* Fix - Duplicate tickets appear after navigating off-site and returning to cart.
+* Fix - When a ticket moves from Failed to Processing or Completed, it will remain in Trash.
+
 2022-09-13 - version 1.1.40
 * Add - Coupon code column to attendee export CSV file.
 * Fix - Broken email formatting.

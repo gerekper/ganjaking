@@ -140,6 +140,10 @@ abstract class AbstractData {
 			case 'clicked':
 				$val = $this->get_was_email_link_already_clicked( $email );
 				break;
+
+			case 'initiator':
+				$val = $email->get_initiator_name();
+				break;
 		}
 
 		/**

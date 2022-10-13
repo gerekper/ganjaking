@@ -551,41 +551,64 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 					* @param array $settings Array of the plugin settings
 					*/
 					$settings = apply_filters( 'myplugin_company_file_settings', array(
+
 						array(
 							'name' => __( 'Blacklist', 'woocommerce-anti-fraud' ),
 							'type' => 'title',
 							'desc' => __( 'WooCommerce Anti-Fraud allows you to create a list of email addresses as well as a list of IP addresses that will always be marked as potential fraud transactions.', 'woocommerce-anti-fraud' ),
 							'id'   => 'wc_af_blacklist_settings',
 						),
+
+						array(
+							'name' => __( 'Email Blacklisting', 'woocommerce-anti-fraud' ),
+							'type' => 'section',
+							'desc' => '',
+							'desc_tip' => '',
+							'id'   => 'wc_af_sub_blacklist_settings',
+							'class' => 'wc_af_sub-section',
+							'css'   => 'display: block;'
+						),
 						//Enable email blacklist
 						array(
 							'title'       => __( 'Email Blacklist', 'woocommerce-anti-fraud' ),
 							'type'        => 'checkbox',
-							'label'       => 'wc_af_email_blacklist',
+							'label'       => '',
 							'default'     => 'no',
-							'desc' => __( 'Enable the email blacklist function', 'woocommerce-anti-fraud' ),
-							'id'   => 'wc_settings_' . self::SETTINGS_NAMESPACE . 'enable_automatic_email_blacklist',
+							'desc' => '',
+							'desc_tip'    => __( 'Enable the email blacklist function to block emails captured by WooCommerce Anti-fraud rules.', 'woocommerce-anti-fraud' ),
+							'id'   =>'wc_af_email_blacklist',
 						),
 						//Enable automatic blacklisting
 						array(
 							'title'       => __( 'Automatic Blacklisting', 'woocommerce-anti-fraud' ),
 							'type'        => 'checkbox',
-							'label'       => 'wc_af_email_blacklist',
+							'label'       => '',
 							'default'     => 'no',
-							'desc' => __( 'Add email addresses of orders reported with a high risk of fraud to blacklist automatically', 'woocommerce-anti-fraud' ),
-							'id'          => 'wc_settings_' . self::SETTINGS_NAMESPACE . 'enable_automatic_blacklist',
+							'desc' => '',
+							'desc_tip'    => __( 'Add email addresses of orders reported with a high risk of fraud to blacklist automatically.', 'woocommerce-anti-fraud' ),
+							'id'          => 'wc_af_enable_automatic_blacklist',
 						),
 						//Block these email addresses
 						array(
 							'name'        => __( 'Blocked Email Addresses', 'woocommerce-anti-fraud' ),
 							'type'        => 'textarea',
-							'desc'        => __( 'The email addresses listed in the text area below will be considered unsafe:', 'woocommerce-anti-fraud '),
-							'id'          => 'wc_settings_' . self::SETTINGS_NAMESPACE . 'blacklist_emails',
+							'desc'        =>'',
+							'desc_tip'   => __( 'The email addresses listed in the text area will be considered unsafe. You can also add or remove emails manually here. Type “,” or press TAB/ENTER button for the next entry.', 'woocommerce-anti-fraud' ),
+							'id'          => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_blacklist_emails',
 							'css'         => 'width:100%; height: 100px;',
 							'default'     => '',
 							'class'       => 'wc_af_tags_input',
 						),
-						
+
+						array(
+							'name' => __( 'IP Blacklisting', 'woocommerce-anti-fraud' ),
+							'type' => 'section',
+							'desc' => '',
+							'desc_tip' => '',
+							'id'   => 'wc_af_sub_ip_blacklist_settings',
+							'class' => 'wc_af_sub-section',
+							'css'   => 'display: block;'
+						),
 						//Enable IP blacklist
 						array(
 							'title'       => __( 'IP Blacklist', 'woocommerce-anti-fraud' ),
@@ -593,14 +616,16 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 							'label'       => 'wc_af_ip_blacklist',
 							'default'     => 'no',
 							'desc' => __( 'Enable the IP blacklist function', 'woocommerce-anti-fraud' ),
-							'id'   => 'wc_settings_' . self::SETTINGS_NAMESPACE . 'enable_automatic_ip_blacklist',
+							'desc_tip'    => __( 'Enable the IP blacklist function to block IP addresses with high risk of frauds.', 'woocommerce-anti-fraud' ),
+							'id'   => 'wc_af_enable_automatic_ip_blacklist',
 						),
 						//Block these email addresses
 						array(
 							'name'        => __( 'Blocked IP Adresses', 'woocommerce-anti-fraud' ),
 							'type'        => 'textarea',
-							'desc'        => __( 'The IP addresses listed in the text area below will be considered unsafe:', 'woocommerce-anti-fraud '),
-							'id'          => 'wc_settings_' . self::SETTINGS_NAMESPACE . 'blacklist_ipaddress',
+							'desc'        => '',
+							'desc_tip'    => __( 'The IP addresses listed in the text area will be considered unsafe.  You can also add or remove IP addresses manually here. Type “,” or press TAB/ENTER button for the next entry.', 'woocommerce-anti-fraud' ),
+							'id'          => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_blacklist_ipaddress',
 							'css'         => 'width:100%; height: 100px;',
 							'default'     => '',
 							'class'       => 'wc_af_tags_input',
@@ -1085,6 +1110,31 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 								'max'  => 100
 							),
 						),
+
+						/* Geo Location */
+						array(
+							'title'       => __( 'Does Geo Location Match?', 'woocommerce-anti-fraud' ),
+							'type'        => 'checkbox',
+							'label'       => '',
+							'default'     => 'yes',
+							'desc' => '',
+							'desc_tip' => __( 'Enable it to identify that customer\'s shipping/billing state matches the state provided by Geo Location.', 'woocommerce-anti-fraud' ),
+							'id'    => 'wc_af_geolocation_order'
+						),
+						array(
+							'name'     => __( 'Rule Weight', 'woocommerce-anti-fraud' ),
+							'type'     => 'number',
+							'options'  => $rule_weight,
+							'desc'     => __( '<br/>' ),
+							'id'       => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_geolocation_order_weight',
+							'css'         => 'display: block; width: 5em;',
+							'custom_attributes' => array(
+								'min'  => 0,
+								'step' => 1,
+								'max'  => 100
+							),
+						),
+
 						array(
 							'title'       => __( 'Are Billing and Shipping Addresses Same?', 'woocommerce-anti-fraud' ),
 							'type'        => 'checkbox',

@@ -70,6 +70,8 @@ class RevSliderSliderExportHtml extends RevSliderSliderExport {
 			exit;
 		}
 
+		$slider = apply_filters('revslider_doing_html_export', $slider, $slider_id, $this);
+
 		$this->slider_title	= $slider->get_title();
 		$this->slider_alias	= $slider->get_alias();
 		

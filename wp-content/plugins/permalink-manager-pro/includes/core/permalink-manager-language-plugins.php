@@ -120,7 +120,7 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 	 * WPML/Polylang/TranslatePress filters
 	 */
 	public static function get_language_code($element) {
-		global $TRP_LANGUAGE, $translate_press_settings, $icl_adjust_id_url_filter_off, $sitepress, $wpml_post_translations, $wpml_term_translations;
+		global $TRP_LANGUAGE, $translate_press_settings, $icl_adjust_id_url_filter_off, $sitepress, $polylang, $wpml_post_translations, $wpml_term_translations;
 
 		// Disable WPML adjust ID filter
 		$icl_adjust_id_url_filter_off = true;
@@ -137,9 +137,17 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 		if(!empty($TRP_LANGUAGE)) {
 			$lang_code = self::get_translatepress_language_code($TRP_LANGUAGE);
 		}
-		// B. WPML & Polylang
-		else {
-			$is_wpml_compatible = (!empty($sitepress) && method_exists($sitepress, 'is_display_as_translated_post_type')) ? self::is_wpml_compatible() : false;
+		// B. Polylang
+		else if(!empty($polylang) && function_exists('pll_get_post_language')) {
+			if(isset($element->post_type)) {
+				$lang_code = pll_get_post_language($element->ID, 'slug');
+			} else if(isset($element->taxonomy)) {
+				$lang_code = pll_get_term_language($element->term_id, 'slug');
+			}
+		}
+		// C. WPML
+		else if(!empty($sitepress)) {
+			$is_wpml_compatible = (method_exists($sitepress, 'is_display_as_translated_post_type')) ? self::is_wpml_compatible() : false;
 
 			if(isset($element->post_type)) {
 				$element_id = $element->ID;
@@ -240,7 +248,7 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 	}
 
 	function fix_language_mismatch($item_id, $uri_parts, $is_term = false) {
-		global $wp, $language_code, $permalink_manager_options;
+		global $wp, $polylang, $language_code, $permalink_manager_options;
 
 		$mode = (!empty($permalink_manager_options['general']['fix_language_mismatch'])) ? $permalink_manager_options['general']['fix_language_mismatch'] : 0;
 
@@ -279,7 +287,17 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 		if($detected_language_code !== $element_language_code) {
 			// A. Display the content in requested language
 			if($mode == 1) {
-				$item_id = apply_filters('wpml_object_id', $element_id, $element_type);
+				if(!empty($polylang)) {
+					if(function_exists('pll_get_post') && !$is_term) {
+						$translated_item_id = pll_get_post($element_id, $detected_language_code);
+					} else if(function_exists('pll_get_term') && $is_term) {
+						$translated_item_id = pll_get_term($element_id, $detected_language_code);
+					}
+
+					$item_id = (!empty($translated_item_id)) ? $translated_item_id : $item_id;
+				} else {
+					$item_id = apply_filters('wpml_object_id', $element_id, $element_type);
+				}
 			}
 			// C. Display "404 error"
 			else {

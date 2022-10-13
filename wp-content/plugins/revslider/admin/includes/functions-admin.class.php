@@ -500,6 +500,7 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 	 * returns an object of current system values
 	 **/
 	public function get_system_requirements(){
+		global $wpdb;
 		$dir	= wp_upload_dir();
 		$basedir = $this->get_val($dir, 'basedir').'/';
 		$ml		= ini_get('memory_limit');
@@ -508,11 +509,14 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 		$umfb	= wp_convert_hr_to_bytes($umf);
 		$pms	= ini_get('post_max_size');
 		$pmsb	= wp_convert_hr_to_bytes($pms);
+		$map	= $wpdb->get_row("SHOW VARIABLES LIKE 'max_allowed_packet';");
+		$map	= $this->get_val($map, 'Value', 0);
 		
-		
+
 		$mlg  = ($mlb >= 268435456) ? true : false;
 		$umfg = ($umfb >= 33554432) ? true : false;
 		$pmsg = ($pmsb >= 33554432) ? true : false;
+		$mapg = ($map >= 16777216) ? true : false;
 		
 		return array(
 			'memory_limit' => array(
@@ -530,7 +534,13 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 				'min' => size_format(33554432),
 				'good'=> $pmsg
 			),
+			'max_allowed_packet' => array(
+				'has' => size_format($map),
+				'min' => size_format(16777216),
+				'good'=> $mapg
+			),
 			'upload_folder_writable'	=> wp_is_writable($basedir),
+			'zlib_enabled'				=> function_exists('gzcompress') && function_exists('gzuncompress'),
 			'object_library_writable'	=> wp_image_editor_supports(array('methods' => array('resize', 'save'))),
 			'server_connect'			=> get_option('revslider-connection', false),
 		);
@@ -824,6 +834,7 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'successImportFile' => __('File Succesfully Imported', 'revslider'),
 			'importReport' => __('Import Report', 'revslider'),
 			'updateNow' => __('Update Now', 'revslider'),
+			'multiplechildrensel' => __('Multiple Children Selected', 'revslider'),
 			'activateToUpdate' => __('Activate To Update', 'revslider'),
 			'activated' => __('Activated', 'revslider'),
 			'notActivated' => __('Not Activated', 'revslider'),			
@@ -1067,6 +1078,7 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'active_sr_tmp_obl' => __('Template & Object Library', 'revslider'),
 			'active_sr_inst_upd' => __('Instant Updates', 'revslider'),
 			'active_sr_one_on_one' => __('1on1 Support', 'revslider'),			
+			'noticepositionreseted' => __('Layer positions has been reset', 'revslider'),			
 			'parallaxsettoenabled' => __('Parallax is now generally Enabled', 'revslider'),			
 			'filtertransitionissuepre' => __('Some slide transitions do not support filters. If problems occur, please try a different slide transition / filter pairing', 'revslider'),
 			'CORSERROR' => __('External Media can not be used  for WEBGL Transitions due CORS Policy issues', 'revslider'),

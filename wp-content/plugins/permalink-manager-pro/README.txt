@@ -6,8 +6,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: permalinks, custom permalinks, permalink, woocommerce permalinks, url editor
 Requires at least: 4.4.0
 Requires PHP: 5.4
-Tested up to: 6.0.1
-Stable tag: 2.2.19.3
+Tested up to: 6.0.2
+Stable tag: 2.2.20
 
 Permalink Manager lets you customize the complete URL addresses of your posts, pages, custom post types, terms, and WooCommerce links with ease without touching any core files.
 
@@ -41,8 +41,6 @@ Click here for additional information and to purchase <a href="https://permalink
 * **WooCommerce support**<br/>Permalink Manager Pro may be used to change the URL addresses of WooCommerce products, tags, categories, and attributes. For example, you may use the plugin to <a href="https://permalinkmanager.pro/docs/tutorials/remove-product-category-woocommerce-urls/">remove /product/ and /product-category/ from WooCommerce URL</a>.
 * **Custom fields support**<br/>Only Permalink Manager makes it possible to <a href="https://permalinkmanager.pro/docs/tutorials/how-to-use-custom-fields-inside-wordpress-permalinks/">add custom fields to WordPress permalinks</a> without the need for any technical skills on the part of the user.
 * **Extra redirects**<br/>You can define extra 301 redirects (aliases) for any post, page, or term. Additionally, you may assign a redirect URL to each post/term, which will take users to any external URL address. For each element, the redirect URLs might be specified separately.
-
-https://www.youtube.com/watch?v=KMOtAK5c7t8
 
 = Translators =
 * Japanese - Shinsaku Ikeda
@@ -94,6 +92,15 @@ It is because Permalink Manager overwrites one of the core Wordpress functionali
 8.	Permalink Manager settings.
 
 == Changelog ==
+
+= 2.2.20 (October 10, 2022) =
+* Fix - The URLs with duplicated slashes (eg. example.com/sample-page////) are now handled correctly and forwarded to the canonical URL.
+* Fix - The redirect problem was resolved with WPForo versions after 2.0.1
+* Dev - Improved compatibility with the WP All Import plugin functions
+* Dev - Improved compatibility with Polylang plugin
+* Dev - Better support for ACF Relationship fields
+* Dev - The plugin no longer (by default) supports custom post types & taxonomies that do not have the "query_var" and "rewrite" properties
+* Enhancement - In "Exclude drafts" mode, the URI Editor field in the "Quick Edit" section becomes "read-only" for the "Draft" posts.
 
 = 2.2.19.3 (August 11, 2022) =
 * Dev - New filter added - 'permalink_manager_pre_sanitize_title'

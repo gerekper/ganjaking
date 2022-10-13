@@ -605,5 +605,8 @@ input[type="password"]{-webkit-appearance:none;-moz-appearance:none;appearance:n
 .sp-divider-wrapper .sp-divider .sp-divider-separator::after,.sp-divider-wrapper .sp-divider .sp-divider-separator::before{flex-grow:1;-webkit-box-flex:1}
 .sp-divider-wrapper .sp-divider .sp-divider-text-block{padding:0 10px}
 .sp-divider-wrapper .sp-divider .sp-divider-text-block .sp-divider-text{font-size:15px}
+.sp-counter-wrapper{flex-direction:column}
+.sp-counter-wrapper .sp-counter-title,.sp-counter-wrapper .sp-counter-text-wrapper{display:flex}
+.sp-counter-wrapper .sp-counter-text-wrapper .sp-counter-number-prefix,.sp-counter-wrapper .sp-counter-text-wrapper .sp-counter-number-suffix{white-space:pre-wrap}
 @media(min-width:640px){.sm\:sp-flex{display:flex}
 }

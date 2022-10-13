@@ -52,17 +52,19 @@ if ( !file_exists( $emails_dir ) ) {
 	}
 }
 
-$template_name = $post['template_name'];
-$template_file = sanitize_title( $template_name ) . '.html';
-$template_src  = $post['template_source'];
+$template_name           = $post['template_name'];
+$template_slug           = sanitize_title( $template_name );
+$sanitized_template_name = sanitize_text_field( $template_name );
+$template_file           = $template_slug . '.html';
+$template_src            = $post['template_source'];
 
 $i = 1;
-while ( file_exists( $emails_dir .'/'. $template_file ) ) {
-	$template_file = sanitize_title( $template_name ) .'-'. $i .'.html';
+while ( file_exists( "{$emails_dir}/{$template_file}" ) ) {
+	$template_file = "{$template_slug}-{$i}.html";
 	$i++;
 }
 
-$template_src = "<!--\nTemplate Name: $template_name\n-->\n" . $template_src;
+$template_src = "<!--\nTemplate Name: $sanitized_template_name\n-->\n" . $template_src;
 
 if ( !$wp_filesystem->put_contents( $emails_dir .'/'. $template_file, $template_src, FS_CHMOD_FILE ) ) {
 	show_message( sprintf( __('Error saving file to %s', 'follow_up_emails' ), $emails_dir .'/'. $template_file ) );
@@ -70,5 +72,5 @@ if ( !$wp_filesystem->put_contents( $emails_dir .'/'. $template_file, $template_
 }
 
 /* translators: %s template name */
-show_message( sprintf( __( 'Created template %s', 'follow_up_emails' ), $template_name ) );
+show_message( sprintf( __( 'Created template %s', 'follow_up_emails' ), esc_html( $template_name ) ) );
 show_message( '<a href="admin.php?page=followup-emails-templates">' . __( 'Go back', 'follow_up_emails' ) . '</a>' );

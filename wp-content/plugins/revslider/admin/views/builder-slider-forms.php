@@ -441,9 +441,11 @@ $api = 'revapi'; // . $slider_id;
 				<div class="form_inner_header"><i class="material-icons">view_carousel</i><?php _e('Carousel Layout', 'revslider');?></div>
 
 				<div class="collapsable" style="display:block !important">
-					<longoption><label_a><?php _e('Keep Aspect Ratio (Justify)', 'revslider');?></label_a><input type="checkbox"  id="sr_ca_justi" class="sliderinput easyinit callEvent" data-evt="device_area_dimension_update" data-showhide=".nojustifywall" data-hideshow=".justifywall" data-showhidedep="false"  data-r="carousel.justify"/></longoption>
+					<label_a><?php _e('Orientation', 'revslider');?></label_a><select data-evt="updatesliderlayoutall" id="sr_ca_orient" class="sliderinput tos2 nosearchbox easyinit" data-r="carousel.orientation" data-show=".carori_*val*" data-hide=".carori_any" ><option value="h"><?php _e('Horizontal', 'revslider');?></option><option value="v"><?php _e('Vertical', 'revslider');?></option></select>
+					<longoption class="carori_any carori_v"><label_a style="padding-right:40px"><?php _e('Prev/Next Visibility', 'revslider');?></label_a><input data-evt="updatesliderlayout" data-min="0"  id="sr_ca_pdt" data-r="carousel.prevNextVis" data-numeric="true" data-allowed="px,%" data-evt=""  type="text"  class="sliderinput valueduekeyboard  easyinit" placeholder="none" ></longoption>
+					<div class="carori_any carori_h"><longoption><label_a><?php _e('Keep Aspect Ratio (Justify)', 'revslider');?></label_a><input type="checkbox"  id="sr_ca_justi" class="sliderinput easyinit callEvent" data-evt="device_area_dimension_update" data-showhide=".nojustifywall" data-hideshow=".justifywall" data-showhidedep="false"  data-r="carousel.justify"/></longoption></div>
 					<div class="justifywall"><longoption><label_a><?php _e('Max Width 100%', 'revslider');?></label_a><input type="checkbox"  id="sr_ca_justi_maxwidth" class="sliderinput easyinit"  data-r="carousel.justifyMaxWidth"/></longoption></div>
-					<longoption><label_a><?php _e('Snap to X Alignment', 'revslider');?></label_a><input type="checkbox"  id="sr_ca_snap" class="sliderinput easyinit"  data-r="carousel.snap"/></longoption>
+					<longoption><label_a class="carori_any carori_h"><?php _e('Snap to X Alignment', 'revslider');?></label_a><label_a class="carori_any carori_v"><?php _e('Snap to Y Alignment', 'revslider');?></label_a><input type="checkbox"  id="sr_ca_snap" class="sliderinput easyinit"  data-r="carousel.snap"/></longoption>
 					<longoption><label_a><?php _e('Infinity Scroll', 'revslider');?></label_a><input type="checkbox"  id="sr_ca_inf" class="sliderinput easyinit" data-evt="" data-r="carousel.infinity"/></longoption>
 					<longoption><label_a><?php _e('Stop on click', 'revslider');?></label_a><input type="checkbox"  id="sr_ca_socl" class="sliderinput easyinit" data-evt="" data-r="carousel.stopOnClick"/></longoption>
 					<div class="div20"></div>
@@ -451,23 +453,26 @@ $api = 'revapi'; // . $slider_id;
 					<div class="div20"></div>					
 					<row class="directrow">
 						<onelong><label_a><?php _e('Max. Visible', 'revslider');?></label_a><select data-change="sr_ca_stretch" data-changeto='false' data-changewhennot="1" data-evt="updatesliderlayout" id="sr_ca_mitems" class="sliderinput tos2 nosearchbox easyinit" data-r="carousel.maxItems" ><option value="1">1</option><option value="3">3</option><option value="5">5</option><option value="7">7</option><option value="9">9</option><option value="11">11</option><option value="13">13</option><option value="15">15</option><option value="17">17</option></select></onelong>
+						<oneshort><div class="carori_any carori_v"><label_icon class="ui_y"></label_icon><select id="sr_ca_valign" data-updateviaevt="true" data-evt="carouselverticaldouble" data-evtparam="sr_ca_valign" class="sliderinput tos2 nosearchbox easyinit" data-r="carousel.vertical" ><option value="top"><?php _e('Top', 'revslider');?></option><option value="center"><?php _e('Center', 'revslider');?></option><option value="bottom"><?php _e('Bottom', 'revslider');?></option></select></div></oneshort>
 					</row>
+					<div class="carori_any carori_h">
 					<div class="nojustifywall">
-						<label_a><?php _e('Stretch Slides', 'revslider');?></label_a><input type="checkbox"  data-evt="updatesliderlayout" id="sr_ca_stretch" data-change="sr_ca_mitems" data-changeto="1" data-changewhen='true' class="sliderinput easyinit" data-evt="" data-r="carousel.stretch"/><span class="linebreak"></span>
+						<label_a><?php _e('Stretch Slides', 'revslider');?></label_a><input type="checkbox"  data-evt="updatesliderlayoutall" id="sr_ca_stretch" data-change="sr_ca_mitems" data-changeto="1" data-changewhen='true' class="sliderinput easyinit" data-evt="" data-r="carousel.stretch"/><span class="linebreak"></span>
+					</div>
 					</div>
 					<row class="directrow">
 						<onelong><label_icon class="ui_bradius"></label_icon><input data-allowed="px,%" data-evt="updatesliderlayout" data-r="carousel.borderRadius" type="text" id="sr_ca_br" data-numeric="true" class="sliderinput  easyinit valueduekeyboard"></onelong>
 						<oneshort><label_icon class="ui_gap"></label_icon><input data-evt="updatesliderlayout" data-min="-700"  id="sr_ca_gap" data-r="carousel.space" data-numeric="true" data-allowed="px" data-evt=""  type="text"  class="sliderinput valueduekeyboard  easyinit" placeholder="none" ></oneshort>
 					</row>
-					<div class="nojustifywall">
+					<div class="carori_any carori_h">
 						<row class="directrow">
 							<onelong><label_icon class="ui_padding_top"></label_icon><input data-evt="updatesliderlayout" data-min="0"  id="sr_ca_pdt" data-r="carousel.paddingTop" data-numeric="true" data-allowed="px" data-evt=""  type="text"  class="sliderinput valueduekeyboard  easyinit" placeholder="none" ></onelong>
 							<oneshort><label_icon class="ui_padding_bottom"></label_icon><input data-evt="updatesliderlayout" data-min="0"  id="sr_ca_pdb" data-r="carousel.paddingBottom" data-numeric="true" data-allowed="px" data-evt=""  type="text"  class="sliderinput valueduekeyboard  easyinit" placeholder="none" ></oneshort>
 						</row>
-					</div>
-					<row class="directrow">
+					</div>					
+					<row class="directrow carori_any carori_h">
 						<onelong><label_icon class="ui_x"></label_icon><select id="sr_ca_halign" class="sliderinput tos2 nosearchbox easyinit" data-r="carousel.horizontal" ><option value="left"><?php _e('Left', 'revslider');?></option><option value="center"><?php _e('Center', 'revslider');?></option><option value="right"><?php _e('Right', 'revslider');?></option></select></onelong>
-						<oneshort><label_icon class="ui_y"></label_icon><select id="sr_ca_valign" class="sliderinput tos2 nosearchbox easyinit" data-r="carousel.vertical" ><option value="top"><?php _e('Top', 'revslider');?></option><option value="center"><?php _e('Center', 'revslider');?></option><option value="bottom"><?php _e('Bottom', 'revslider');?></option></select></oneshort>
+						<oneshort><label_icon class="ui_y"></label_icon><select id="sr_ca_valign_b" class="sliderinput tos2 nosearchbox easyinit" data-updateviaevt="true" data-evt="carouselverticaldouble"  data-evtparam="sr_ca_valign_b" data-r="carousel.vertical" ><option value="top"><?php _e('Top', 'revslider');?></option><option value="center"><?php _e('Center', 'revslider');?></option><option value="bottom"><?php _e('Bottom', 'revslider');?></option></select></oneshort>
 					</row>
 				</div>
 			</div>
@@ -477,6 +482,9 @@ $api = 'revapi'; // . $slider_id;
 				<div class="collapsable" style="display:block !important">
 					<label_a><?php _e('Easing', 'revslider');?></label_a><select id="sr_ca_ease" class="sliderinput tos2 searchbox easyinit easingSelect" data-r="carousel.ease"></select>
 					<label_a><?php _e('Ease Speed', 'revslider');?></label_a><input data-allowed="ms" data-min="0"  id="sr_ca_speed" data-r="carousel.speed" data-numeric="true" data-evt=""  type="text"  class="sliderinput valueduekeyboard  easyinit">
+					<row class="direktrow">
+						<onelong><label_a><?php _e('Overshoot', 'revslider');?></label_a><input data-evt="updatesliderlayout" type="checkbox" id="sr_ca_overshoot" class="sliderinput easyinit" data-evt="" data-r="carousel.overshoot"/></onelong>
+					</row>
 				</div>
 			</div>
 
@@ -484,25 +492,35 @@ $api = 'revapi'; // . $slider_id;
 				<div class="form_inner_header"><i class="material-icons">linear_scale</i><?php _e('Effects', 'revslider');?></div>
 				<div class="collapsable" style="display:block !important">
 					<row class="directrow">
+						<label_a><?php _e('Spin', 'revslider');?></label_a><select id="sr_ca_spin" class="sliderinput tos2 nosearchbox easyinit" data-evt="updatesliderlayout" data-r="carousel.spin" data-showprio="show" data-hide=".spin_*val*_hide" data-show=".spin_*val*_show"><option value="off"><?php _e('Off', 'revslider');?></option><option value="2d"><?php _e('2D', 'revslider');?></option><option value="3d"><?php _e('3D', 'revslider');?></option></select>
+					</row>
+					<row class="directrow spin_off_hide spin_2d_show spin_3d_show">
+						<onelong><label_a><?php _e('Spin Angle', 'revslider');?></label_a><input type="text" data-min="-120" data-max="120" data-numeric="true" data-allowed="deg" data-evt="updatesliderlayout" id="sr_ca_spinangle" class="sliderinput valueduekeyboard easyinit" data-evt="" data-r="carousel.spinAngle"/></onelong>
+					</row>
+					<row class="directrow">
+						<onelong><label_a><?php _e('Skew X', 'revslider');?></label_a><input type="text" data-min="-30" data-max="30" data-numeric="true" data-allowed="deg" data-evt="" data-evt="updatesliderlayout" id="sr_ca_skewxall" class="sliderinput valueduekeyboard easyinit" data-evt="" data-r="carousel.skewX"/></onelong>
+						<oneshort><label_a><?php _e('Y', 'revslider');?></label_a><input type="text" data-min="-30" data-max="30" data-numeric="true" data-allowed="deg" data-evt="" data-evt="updatesliderlayout" id="sr_ca_skewyall" class="sliderinput valueduekeyboard easyinit" data-evt="" data-r="carousel.skewY"/></oneshort>
+					</row>
+					<row class="directrow">
 						<onelong><label_a><?php _e('Fade', 'revslider');?></label_a><input type="checkbox" data-evt="updatesliderlayout" data-showhide="#carosel_fade_vary_wrap" data-showhidedep="true" id="sr_ca_fadeall" class="sliderinput easyinit" data-evt="" data-r="carousel.fadeOut"/></onelong>
 						<oneshort id="carosel_fade_vary_wrap">
 							<label_icon class="ui_max_fadedown"></label_icon><input data-evt="updatesliderlayout" data-min="0"  id="sr_ca_maxopa" data-r="carousel.maxOpacity" data-numeric="true" data-allowed="%" data-evt=""  data-min="0" data-max="100" type="text"  class="sliderinput valueduekeyboard  easyinit"><span class="linebreak"></span>
 							<label_icon class="ui_v_fade"></label_icon><input type="checkbox"  data-evt="updatesliderlayout" id="sr_ca_vfadeall" class="sliderinput easyinit" data-evt="" data-r="carousel.varyFade"/></oneshort>
 					</row>
-					<row class="directrow">
+					<row class="directrow spin_off_show spin_2d_hide spin_3d_hide">
 						<onelong><label_a><?php _e('Rotation', 'revslider');?></label_a><input data-evt="updatesliderlayout" type="checkbox" data-showhide=".carosel_rotate_vary_wrap" data-showhidedep="true"  id="sr_ca_rotate" class="sliderinput easyinit" data-evt="" data-r="carousel.rotation"/></onelong>
 						<oneshort class="carosel_rotate_vary_wrap">
 							<label_icon class="ui_max_rotation"></label_icon><input data-evt="updatesliderlayout" data-min="0"  id="sr_ca_maxrot" data-r="carousel.maxRotation" data-numeric="true" data-allowed="deg" data-evt=""  type="text"  class="sliderinput valueduekeyboard  easyinit"><span class="linebreak"></span>
 							<label_icon class="ui_v_rotation"></label_icon><input data-evt="updatesliderlayout" type="checkbox"  id="sr_ca_vrotate" class="sliderinput easyinit" data-evt="" data-r="carousel.varyRotate"/><span class="linebreak"></span>
 						</oneshort>
 					</row>
-					<row class="directrow">
+					<row class="directrow spin_off_show spin_2d_hide spin_3d_hide">
 						<onelong><label_a><?php _e('Scale', 'revslider');?></label_a><input type="checkbox" data-evt="updatesliderlayout" data-showhide=".carosel_scale_vary_wrap" data-showhidedep="true"  id="sr_ca_scale" class="sliderinput easyinit" data-evt="" data-r="carousel.scale"/></onelong>
 						<oneshort class="carosel_scale_vary_wrap">
 							<label_icon class="ui_max_scaledown"></label_icon><input data-evt="updatesliderlayout" data-min="0"  id="sr_ca_scaleDown" data-r="carousel.scaleDown" data-numeric="true" data-allowed="%" data-evt=""  type="text"  class="sliderinput valueduekeyboard  easyinit"><span class="linebreak"></span>
 						</oneshort>
 					</row>
-					<row class="directrow carosel_scale_vary_wrap">
+					<row class="directrow carosel_scale_vary_wrap  spin_off_show spin_2d_hide spin_3d_hide">
 						<onelong><label_a><?php _e('Scale Offset', 'revslider');?></label_a><input type="checkbox" data-evt="updatesliderlayout" id="sr_ca_offsetscale" class="sliderinput easyinit" data-evt="" data-r="carousel.offsetScale"/></onelong>
 						<oneshort><label_icon class="ui_v_scale"></label_icon><input data-evt="updatesliderlayout" type="checkbox"  id="sr_ca_vscale" class="sliderinput easyinit" data-evt="" data-r="carousel.varyScale"/></oneshort>
 					</row>
@@ -735,14 +753,14 @@ foreach ($wc_sortby as $wc_val => $wc_name) {
 						<label_a><?php _e('API Key', 'revslider');?></label_a><input placeholder="<?php _e('Enter your Api Key', 'revslider');?>" data-evt="flickrsourcechange" class="sliderinput easyinit" data-r="source.flickr.apiKey"  type="text" id="sr_source_flickr_apikey"><span class="linebreak"></span>
 						<label_a><?php _e('Source', 'revslider');?></label_a><select id="flickr-type" data-evt="flickrsourcechange" data-theme="wideopentos2" class="sliderinput tos2 nosearchbox easyinit" data-r="source.flickr.type" data-show=".flickr_*val*" data-hide=".flickr_source_settings">
 							<option value="publicphotos" title="<?php _e('Display a user\'s public photos', 'revslider');?>"><?php _e('User Public Photos', 'revslider');?></option>
-							<option value="photosets" title="<?php _e('Display a certain photoset from a user', 'revslider');?>" selected="selected"><?php _e('User Photoset', 'revslider');?></option>
+							<option value="photosets" title="<?php _e('Display a certain album from a user', 'revslider');?>" selected="selected"><?php _e('User Album', 'revslider');?></option>
 							<option value="gallery" title="<?php _e('Display a gallery', 'revslider');?>"><?php _e('Gallery', 'revslider');?></option>
 							<option value="group" title="<?php _e('Display a group\'s photos', 'revslider');?>"><?php _e('Groups\' Photos', 'revslider');?></option>
 						</select>
 						<div class="flickr_source_settings flickr_publicphotos flickr_photosets">
 							<label_a><?php _e('User URL:', 'revslider');?></label_a><input placeholder="<?php _e('Enter User URL', 'revslider');?>" data-r="source.flickr.userURL" data-evt="flickrsourcechange" type="text"  name="sr_src_flick_userurl" class="easyinit sliderinput"><span class="linebreak"></span>
 							<div class="flickr_source_settings flickr_photosets">
-								<label_a><?php _e('Photoset', 'revslider');?></label_a><select placeholder="<?php _e('Pick an Item', 'revslider');?>" id="sr_src_flickr_photoset" name="sr_src_flickr_photoset" data-theme="wideopentos2" class="sliderinput tos2 searchbox easyinit" data-r="source.flickr.photoSet"></select>
+								<label_a><?php _e('Album', 'revslider');?></label_a><select placeholder="<?php _e('Pick an Item', 'revslider');?>" id="sr_src_flickr_photoset" name="sr_src_flickr_photoset" data-theme="wideopentos2" class="sliderinput tos2 searchbox easyinit" data-r="source.flickr.photoSet"></select>
 							</div>
 						</div>
 						<div class="flickr_source_settings flickr_gallery">

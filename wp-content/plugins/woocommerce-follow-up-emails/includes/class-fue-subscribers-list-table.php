@@ -4,6 +4,9 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 }
 
+/**
+ * Class for handling the Subscribers Table
+ */
 class FUE_Subscribers_List_Table extends WP_List_Table {
 
 	public $newsletter;
@@ -58,10 +61,6 @@ class FUE_Subscribers_List_Table extends WP_List_Table {
 
 		if ( 'top' == $which ) {
 			?>
-			<!--
-			<div class="alignleft actions">
-				<button type="button" class="button button-primary btn-new-list">Create New List</button>
-			</div>-->
 			<div class="alignleft actions">
 				<select id="filter_list">
 					<?php $selected_filter = isset($_GET['list']) ? sanitize_text_field( wp_unslash( $_GET['list'] ) ): '-1'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended ?>
@@ -144,15 +143,15 @@ class FUE_Subscribers_List_Table extends WP_List_Table {
 	 * @return string
 	 */
 	public function column_email( $subscriber ) {
-		return $subscriber['email'];
+		return esc_html( $subscriber['email'] );
 	}
 
 	/**
-	 * @param  array $subscribes
+	 * @param array $subscriber
 	 * @return string
 	 */
 	public function column_name( $subscriber ) {
-		return $subscriber['first_name'] . ' ' . $subscriber['last_name'];
+		return esc_html( $subscriber['first_name'] . ' ' . $subscriber['last_name'] );
 	}
 
 	/**

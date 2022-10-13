@@ -1177,7 +1177,7 @@ function warranty_variable_replacements( $input, $request_id ) {
 		$product_ids[] = $product->get_id();
 
 		if ( $product->is_type( 'variation' ) ) {
-			$product_names[] = $product->get_formatted_name();
+			$product_names[] = esc_html( wp_strip_all_tags( $product->get_formatted_name() ) );
 		} else {
 			$product_names[] = $product->get_title();
 		}

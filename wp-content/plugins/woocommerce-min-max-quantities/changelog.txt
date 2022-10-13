@@ -1,5 +1,14 @@
 *** WooCommerce Min/Max Quantities Changelog ***
 
+2022.10.11 - version 4.0.3
+* Fix - Revert declared compatibility with the new Custom Order Tables.
+
+2022.10.10 - version 4.0.2
+* Tweak - Added support for category 'Group of' rules in the block-based cart.
+* Tweak - Declared compatibility with the new Custom Order Tables.
+* Tweak - Disabled 'Exclude from Category rules' when product/variation-level 'Group of' rules are defined. Product/variation-level 'Group of' rules automatically override category 'Group of' rules.
+* Fix - Fixed an issue that prevented checkout when a product with multiple categories with conflicting 'Group of' rules was added to the cart. 
+
 2022-09-26 - version 4.0.1
 * Fix - Fixed "Exclude" checkboxes styles.
 

@@ -17,8 +17,6 @@
  * use it to describe this, too. PKCS1 is easier to remember than RFC5915, after
  * all. I suppose this could also be named IETF but idk
  *
- * @category  Crypt
- * @package   EC
  * @author    Jim Wigginton <terrafrost@php.net>
  * @copyright 2015 Jim Wigginton
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -26,7 +24,6 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\EC\Formats\Keys;
 
-use WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64;
 use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\Keys\PKCS1 as Progenitor;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base as BaseCurve;
@@ -39,9 +36,7 @@ use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 /**
  * "PKCS1" (RFC5915) Formatted EC Key Handler
  *
- * @package EC
  * @author  Jim Wigginton <terrafrost@php.net>
- * @access  public
  */
 abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\Keys\PKCS1
 {
@@ -49,7 +44,6 @@ abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
     /**
      * Break a public or private key down into its constituent components
      *
-     * @access public
      * @param string $key
      * @param string $password optional
      * @return array
@@ -65,7 +59,7 @@ abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
             \preg_match('#-*BEGIN EC PRIVATE KEY-*[^-]*-*END EC PRIVATE KEY-*#s', $key, $matches);
             $decoded = parent::load($matches[0], $password);
             $decoded = \WPMailSMTP\Vendor\phpseclib3\File\ASN1::decodeBER($decoded);
-            if (empty($decoded)) {
+            if (!$decoded) {
                 throw new \RuntimeException('Unable to decode BER');
             }
             $ecPrivate = \WPMailSMTP\Vendor\phpseclib3\File\ASN1::asn1map($decoded[0], \WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps\ECPrivateKey::MAP);
@@ -78,7 +72,7 @@ abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
             \preg_match('#-*BEGIN EC PARAMETERS-*[^-]*-*END EC PARAMETERS-*#s', $key, $matches);
             $decoded = parent::load($matches[0], '');
             $decoded = \WPMailSMTP\Vendor\phpseclib3\File\ASN1::decodeBER($decoded);
-            if (empty($decoded)) {
+            if (!$decoded) {
                 throw new \RuntimeException('Unable to decode BER');
             }
             $ecParams = \WPMailSMTP\Vendor\phpseclib3\File\ASN1::asn1map($decoded[0], \WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps\ECParameters::MAP);
@@ -101,7 +95,7 @@ abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
         }
         $key = parent::load($key, $password);
         $decoded = \WPMailSMTP\Vendor\phpseclib3\File\ASN1::decodeBER($key);
-        if (empty($decoded)) {
+        if (!$decoded) {
             throw new \RuntimeException('Unable to decode BER');
         }
         $key = \WPMailSMTP\Vendor\phpseclib3\File\ASN1::asn1map($decoded[0], \WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps\ECParameters::MAP);
@@ -124,7 +118,6 @@ abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
     /**
      * Convert EC parameters to the appropriate format
      *
-     * @access public
      * @return string
      */
     public static function saveParameters(\WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base $curve, array $options = [])
@@ -134,20 +127,20 @@ abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
             throw new \WPMailSMTP\Vendor\phpseclib3\Exception\UnsupportedCurveException('TwistedEdwards and Montgomery Curves are not supported');
         }
         $key = self::encodeParameters($curve, \false, $options);
-        return "-----BEGIN EC PARAMETERS-----\r\n" . \chunk_split(\WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64::encode($key), 64) . "-----END EC PARAMETERS-----\r\n";
+        return "-----BEGIN EC PARAMETERS-----\r\n" . \chunk_split(\WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::base64_encode($key), 64) . "-----END EC PARAMETERS-----\r\n";
     }
     /**
      * Convert a private key to the appropriate format.
      *
-     * @access public
      * @param \phpseclib3\Math\BigInteger $privateKey
      * @param \phpseclib3\Crypt\EC\BaseCurves\Base $curve
      * @param \phpseclib3\Math\Common\FiniteField\Integer[] $publicKey
+     * @param string $secret optional
      * @param string $password optional
      * @param array $options optional
      * @return string
      */
-    public static function savePrivateKey(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger $privateKey, \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base $curve, array $publicKey, $password = '', array $options = [])
+    public static function savePrivateKey(\WPMailSMTP\Vendor\phpseclib3\Math\BigInteger $privateKey, \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Base $curve, array $publicKey, $secret = null, $password = '', array $options = [])
     {
         self::initialize_static_variables();
         if ($curve instanceof \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\TwistedEdwards || $curve instanceof \WPMailSMTP\Vendor\phpseclib3\Crypt\EC\BaseCurves\Montgomery) {

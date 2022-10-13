@@ -25,6 +25,11 @@ class Permalink_Manager_Gutenberg extends Permalink_Manager_Class {
 			return;
 		}
 
+		// Check the user capabilities
+		if(Permalink_Manager_Admin_Functions::current_user_can_edit_uris() === false) {
+			return;
+		}
+
 		// Check if the post is excluded
 		if(!empty($post->ID) && Permalink_Manager_Helper_Functions::is_post_excluded($post)) {
 			return;

@@ -73,7 +73,8 @@
 				action: "fue_update_list",
 				id: id,
 				name: name,
-				access: access
+				access: access,
+				_ajax_nonce: '<?php echo esc_js( wp_create_nonce( 'fue_update_list' ) ); ?>'
 			}, function() {
 				$("#row_"+ id +" td.column-list_name strong").html( name );
 
@@ -99,7 +100,8 @@
 
 				$.post( ajaxurl, {
 					action: "fue_delete_list",
-					id: id
+					id: id,
+					_ajax_nonce: '<?php echo esc_js( wp_create_nonce( 'fue_delete_list' ) ); ?>'
 				}, function() {
 					$("#row_"+ id).fadeOut();
 					$("#spacer_row_"+ id).remove();

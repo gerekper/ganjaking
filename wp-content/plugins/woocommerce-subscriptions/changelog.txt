@@ -1,4 +1,9 @@
 *** WooCommerce Subscriptions Changelog ***
+2022-10-11 - version 4.6.0
+* Add: Declare incompatibility with WooCommerce High-Performance Order Storage (HPOS).
+* Fix: Move One Time Shipping metabox fields to use the woocommerce_product_options_shipping_product_data hook introduced in WC 6.0.
+* Update: Improve handling of bulk action execution.
+* Dev: Update subscriptions-core to 2.3.0
 
 2022-08-26 - version 4.5.1
 * Fix - Fatal Error caused in rare cases where quantity is zero during renewal, builds upon fix released in 4.4.0.

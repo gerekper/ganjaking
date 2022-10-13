@@ -5,8 +5,6 @@
  *
  * PHP version 5
  *
- * @category  Crypt
- * @package   Common
  * @author    Jim Wigginton <terrafrost@php.net>
  * @copyright 2015 Jim Wigginton
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -17,9 +15,7 @@ namespace WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Traits;
 /**
  * Password Protected Trait for Private Keys
  *
- * @package Common
  * @author  Jim Wigginton <terrafrost@php.net>
- * @access  public
  */
 trait PasswordProtected
 {
@@ -37,7 +33,6 @@ trait PasswordProtected
      *
      * @see self::createKey()
      * @see self::load()
-     * @access public
      * @param string|bool $password
      */
     public function withPassword($password = \false)

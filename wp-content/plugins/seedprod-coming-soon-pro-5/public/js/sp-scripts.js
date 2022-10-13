@@ -878,4 +878,51 @@ function seedprod_add_gallery_js(blockId) {
       }
     });
   });
+} // Check if an element is in the viewport.
+
+
+jQuery.fn.isInViewport = function () {
+  var elementTop = jQuery(this).offset().top;
+  var elementBottom = elementTop + jQuery(this).outerHeight();
+  var viewportTop = jQuery(window).scrollTop();
+  var viewportBottom = viewportTop + jQuery(window).height();
+  return elementBottom > viewportTop && elementTop < viewportBottom;
+}; // Trigger counter block.
+
+
+function counter(blockId) {
+  var duration = jQuery("#sp-counter-".concat(blockId, " .sp-counter-text-wrapper .sp-counter-number")).attr('data-duration');
+  var startNumber = jQuery("#sp-counter-".concat(blockId, " .sp-counter-text-wrapper .sp-counter-number")).attr('data-start-number');
+  var endNumber = jQuery("#sp-counter-".concat(blockId, " .sp-counter-text-wrapper .sp-counter-number")).attr('data-end-number');
+  var thousandsSeparator = jQuery("#sp-counter-".concat(blockId, " .sp-counter-text-wrapper .sp-counter-number")).attr('data-thousands-separator');
+  var separator = jQuery("#sp-counter-".concat(blockId, " .sp-counter-text-wrapper .sp-counter-number")).attr('data-separator');
+  var options = {};
+  var delimeter = {
+    'default': ',',
+    'space': ' ',
+    'dot': '.'
+  };
+  options.duration = duration;
+  options.delimiter = thousandsSeparator ? delimeter[separator] : '';
+  options.toValue = endNumber;
+  jQuery("#sp-counter-number-".concat(blockId)).html(startNumber);
+  jQuery("#sp-counter-number-".concat(blockId)).numerator(options);
+}
+
+function beforeafterslider(blockId, options) {
+  console.log(options);
+  /*
+  let options1 = {
+  	default_offset_pct: 0.5,
+  	orientation: "horizontal",
+  	before_label: "Before",
+  	after_label: "After",
+  	no_overlay: false,//self.block.settings.overlayColor,
+  	move_slider_on_hover: true,
+  	move_with_handle_only: true,
+  	click_to_move: true
+  };
+  */
+
+  jQuery("#sp-toggle-".concat(blockId, " .twentytwenty-container")).twentytwenty(options);
 }

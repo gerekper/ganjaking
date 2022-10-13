@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Min/Max Quantities
  * Plugin URI: https://woocommerce.com/products/minmax-quantities/
  * Description: Define minimum/maximum allowed quantities for products, variations and orders.
- * Version: 4.0.1
+ * Version: 4.0.3
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Requires at least: 4.4
@@ -24,7 +24,7 @@
 
 if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 
-	define( 'WC_MIN_MAX_QUANTITIES', '4.0.1' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_MIN_MAX_QUANTITIES', '4.0.3' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Min Max Quantities class.
@@ -152,6 +152,10 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 
 			add_action( 'woocommerce_blocks_loaded', array( $this, 'enqueue_blocks_support' ) );
 
+			// Declare HPOS compatibility.
+			// Temporarily disabled as of 4.0.3
+			// add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
+
 		}
 
 		/**
@@ -198,6 +202,19 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 				include_once __DIR__ . '/includes/api/class-wc-mmq-store-api.php';
 				WC_MMQ_Store_API::init();
 			}
+		}
+
+		/**
+		 * Declare HPOS( Custom Order tables) compatibility.
+		 *
+		 * @since 4.0.2
+		 */
+		public function declare_hpos_compatibility () {
+			if ( ! class_exists( 'Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+				return;
+			}
+
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
 		}
 
 		/**
@@ -361,6 +378,10 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 					$terms          = get_the_terms( $values[ 'product_id' ], 'product_cat' );
 					$found_term_ids = array();
 
+					// If a product belongs to multiple categories with different 'Group of' values, find the category with the smallest 'Group of' value.
+					$min_group_of_category_id    = 0;
+					$min_group_of_category_value = 0;
+
 					if ( $terms ) {
 
 						foreach ( $terms as $term ) {
@@ -373,8 +394,13 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 								continue;
 							}
 
-							$found_term_ids[]                      = $term->term_id;
-							$category_quantities[ $term->term_id ] = isset( $category_quantities[ $term->term_id ] ) ? $category_quantities[ $term->term_id ] + $values[ 'quantity' ] : $values[ 'quantity' ];
+							$found_term_ids[]        = $term->term_id;
+							$category_group_of_value = absint( get_term_meta( $term->term_id, 'group_of_quantity', true ) );
+
+							if ( 0 !== $category_group_of_value && ( 0 === $min_group_of_category_value || $category_group_of_value < $min_group_of_category_value ) ) {
+								$min_group_of_category_value = $category_group_of_value;
+								$min_group_of_category_id    = $term->term_id;
+							}
 
 							// Record count in parents of this category too.
 							$parents = get_ancestors( $term->term_id, 'product_cat' );
@@ -384,10 +410,21 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 									continue;
 								}
 
-								$found_term_ids[]               = $parent;
-								$category_quantities[ $parent ] = isset( $category_quantities[ $parent ] ) ? $category_quantities[ $parent ] + $values[ 'quantity' ] : $values[ 'quantity' ];
+								$found_term_ids[]        = $parent;
+								$category_group_of_value = absint( get_term_meta( $parent, 'group_of_quantity', true ) );
+
+								if ( 0 !== $category_group_of_value && ( 0 === $min_group_of_category_value || $category_group_of_value < $min_group_of_category_value ) ) {
+									$min_group_of_category_value = $category_group_of_value;
+									$min_group_of_category_id    = $parent;
+								}
 							}
 						}
+					}
+
+					if ( 0 !== $min_group_of_category_id && 0 !== $min_group_of_category_value ) {
+						$category_quantities[ $min_group_of_category_id ] = isset( $category_quantities[ $min_group_of_category_id ] )
+							? $category_quantities[ $min_group_of_category_id ] + $values[ 'quantity' ]
+							: $values[ 'quantity' ];
 					}
 
 					// Check item rules once per product ID.

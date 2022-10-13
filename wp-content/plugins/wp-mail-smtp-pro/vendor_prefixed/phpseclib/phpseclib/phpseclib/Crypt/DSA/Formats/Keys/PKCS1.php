@@ -19,8 +19,6 @@
  * The DSA private key format seems to have been adapted from the RSA private key format so
  * we're just re-using that as the name.
  *
- * @category  Crypt
- * @package   DSA
  * @author    Jim Wigginton <terrafrost@php.net>
  * @copyright 2015 Jim Wigginton
  * @license   http://www.opensource.org/licenses/mit-license.html  MIT License
@@ -28,7 +26,7 @@
  */
 namespace WPMailSMTP\Vendor\phpseclib3\Crypt\DSA\Formats\Keys;
 
-use WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64;
+use WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings;
 use WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\Keys\PKCS1 as Progenitor;
 use WPMailSMTP\Vendor\phpseclib3\File\ASN1;
 use WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps;
@@ -36,16 +34,13 @@ use WPMailSMTP\Vendor\phpseclib3\Math\BigInteger;
 /**
  * PKCS#1 Formatted DSA Key Handler
  *
- * @package RSA
  * @author  Jim Wigginton <terrafrost@php.net>
- * @access  public
  */
 abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\Keys\PKCS1
 {
     /**
      * Break a public or private key down into its constituent components
      *
-     * @access public
      * @param string $key
      * @param string $password optional
      * @return array
@@ -54,7 +49,7 @@ abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
     {
         $key = parent::load($key, $password);
         $decoded = \WPMailSMTP\Vendor\phpseclib3\File\ASN1::decodeBER($key);
-        if (empty($decoded)) {
+        if (!$decoded) {
             throw new \RuntimeException('Unable to decode BER');
         }
         $key = \WPMailSMTP\Vendor\phpseclib3\File\ASN1::asn1map($decoded[0], \WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps\DSAParams::MAP);
@@ -74,7 +69,6 @@ abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
     /**
      * Convert DSA parameters to the appropriate format
      *
-     * @access public
      * @param \phpseclib3\Math\BigInteger $p
      * @param \phpseclib3\Math\BigInteger $q
      * @param \phpseclib3\Math\BigInteger $g
@@ -84,12 +78,11 @@ abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
     {
         $key = ['p' => $p, 'q' => $q, 'g' => $g];
         $key = \WPMailSMTP\Vendor\phpseclib3\File\ASN1::encodeDER($key, \WPMailSMTP\Vendor\phpseclib3\File\ASN1\Maps\DSAParams::MAP);
-        return "-----BEGIN DSA PARAMETERS-----\r\n" . \chunk_split(\WPMailSMTP\Vendor\ParagonIE\ConstantTime\Base64::encode($key), 64) . "-----END DSA PARAMETERS-----\r\n";
+        return "-----BEGIN DSA PARAMETERS-----\r\n" . \chunk_split(\WPMailSMTP\Vendor\phpseclib3\Common\Functions\Strings::base64_encode($key), 64) . "-----END DSA PARAMETERS-----\r\n";
     }
     /**
      * Convert a private key to the appropriate format.
      *
-     * @access public
      * @param \phpseclib3\Math\BigInteger $p
      * @param \phpseclib3\Math\BigInteger $q
      * @param \phpseclib3\Math\BigInteger $g
@@ -108,7 +101,6 @@ abstract class PKCS1 extends \WPMailSMTP\Vendor\phpseclib3\Crypt\Common\Formats\
     /**
      * Convert a public key to the appropriate format
      *
-     * @access public
      * @param \phpseclib3\Math\BigInteger $p
      * @param \phpseclib3\Math\BigInteger $q
      * @param \phpseclib3\Math\BigInteger $g

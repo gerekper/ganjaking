@@ -399,7 +399,7 @@ jQuery(document).ready(function() {
 				var helpTooltip = this;
 
 				tippy(helpTooltip, {
-					position: 'top-start',
+					// placement: 'top-start',
 					arrow: true,
 					content: jQuery(helpTooltip).attr('title'),
 					distance: 20
@@ -573,7 +573,7 @@ jQuery(document).ready(function() {
 		jQuery('#permalink-manager #load_stop_words_button').on('click', function() {
 			var lang = jQuery( ".load_stop_words option:selected" ).val();
 			if(lang) {
-				var json_url = permalink_manager.url + "/includes/ext/stopwords-json/dist/" + lang + ".json";
+				var json_url = permalink_manager.url + "/includes/vendor/stopwords-json/dist/" + lang + ".json";
 
 				// Load JSON with words list
 				jQuery.getJSON(json_url, function(data) {

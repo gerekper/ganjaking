@@ -94,23 +94,6 @@ if(!defined('ABSPATH')) exit();
 				</div>
 			</div>
 
-			<div id="form_layercontent_content_column" class="form_inner open  _shfc_">
-				<div class="form_inner_header"><i class="material-icons">reorder</i><?php _e('Column Settings', 'revslider');?></div>
-				<div class="collapsable" style="padding-bottom:0px;" >
-					<row>
-						<onelabel><label_a><?php _e('Vertical Align', 'revslider');?></label_a></onelabel>
-						<onefull>
-							<label_icon class="triggerselect layer_content_ver_selector twostatetrigger material-icons" data-select="#layer_content_valign" data-val="top" id="layer_content_valign_top">vertical_align_top</label_icon><!--
-							--><label_icon class="triggerselect layer_content_ver_selector twostatetrigger material-icons" data-select="#layer_content_valign" data-val="middle" id="layer_content_valign_middle">vertical_align_center</label_icon><!--
-							--><label_icon class="triggerselect layer_content_ver_selector twostatetrigger material-icons" data-select="#layer_content_valign" data-val="bottom" id="layer_content_valign_bottom">vertical_align_bottom</label_icon>
-						</onefull>
-					</row>
-				</div>
-			</div>
-
-
-
-
 			<!-- LAYER TEXT CONTENT -->
 			<div id="form_layercontent_content_text" class="form_inner open _shft_ _shfb_ _homs_">
 				<div class="form_inner_header"><i class="material-icons">title</i><?php _e('Text/Button Layer Content', 'revslider');?></div>
@@ -118,8 +101,8 @@ if(!defined('ABSPATH')) exit();
 
 					<div class="left_right_row">
 						<div class="view-switch">
-							<div data-show="#ta_layertext" data-hide=".idletoggletext, #ta_toggle_settings" class="vs-item selected"><?php _e('Idle', 'revslider');?></div>
-							<div data-show="#ta_toggletext, #ta_toggle_settings" data-hide=".idletoggletext" class="vs-item"><?php _e('Toggle', 'revslider');?></div>
+							<div data-show="#ta_layertext" data-hide=".idletoggletext, #ta_toggle_settings" class="vs-item selected" data-evt="redrawSelectedLayersInnerHTML"><?php _e('Idle', 'revslider');?></div>
+							<div id="toggledtextbutton" data-show="#ta_toggletext, #ta_toggle_settings" data-hide=".idletoggletext" class="vs-item" data-evt="redrawSelectedLayersInnerHTML"><?php _e('Toggle', 'revslider');?></div>
 						</div>
 						<div class="icon_trigger_wrap">
 
@@ -130,34 +113,26 @@ if(!defined('ABSPATH')) exit();
 						<div class="tp-clearfix"></div>
 					</div>
 					<textarea id="ta_layertext" class="idletoggletext rsmaxtextarea its-idle layerinput easyinit callEvent livechange"  data-br="convert" data-evt="layerTextContentUpdate" data-r="text" data-cursortoclick="true"></textarea>
-					<textarea id="ta_toggletext" style="display:none" class="idletoggletext rsmaxtextarea its-toggle layerinput easyinit" data-br="convert" data-r="toggle.text" data-cursortoclick="true"></textarea>
+					<textarea id="ta_toggletext" style="display:none" class="idletoggletext rsmaxtextarea its-toggle layerinput easyinit callEvent livechange" data-evt="layerTextContentUpdate" data-br="convert" data-r="toggle.text" data-cursortoclick="true"></textarea>
 					<div id="ta_layertext_extension"></div>
 					<div id="ta_toggle_settings" style="display:none">
-						<longoption><i class="material-icons">g_translate</i><label_a><?php _e('Use Toggle', 'revslider');?></label_a><input type="checkbox" class="easyinit layerinput" data-r="toggle.set"></longoption>
+						<longoption><i class="material-icons">g_translate</i><label_a><?php _e('Use Toggle', 'revslider');?></label_a><input type="checkbox" class="easyinit layerinput callEvent" data-evt="redrawSelectedLayersInnerHTML" data-r="toggle.set"></longoption>
 						<longoption style="display:none"><i class="material-icons">mouse</i><label_a><?php _e('Toggled in Hover Style', 'revslider');?></label_a><input type="checkbox" class="easyinit layerinput" data-r="toggle.useHover"></longoption>
 						<longoption><i class="material-icons">compare_arrows</i><label_a><?php _e('Inverse Toggled Content', 'revslider');?></label_a><input type="checkbox" class="easyinit layerinput" data-r="toggle.inverse"></longoption>
 					</div>
 
 					<div class="div10"></div>
 					<label_a><?php _e('Placeholder', 'revslider');?></label_a><input id="ta_placeholder" type="text" data-r="placeholder" class="easyinit layerinput livechange" data-evt="layerTextContentUpdate" data-evtparam="placeholder" data-br="convert" data-cursortoclick="true">
-					<div class="__idle__"><label_a><?php _e('Line Break', 'revslider');?></label_a><select id="layer_linebreak" class="layerinput easyinit nosearchbox tos2"  data-responsive="true" data-evt="redrawInnerHTML" data-r="idle.whiteSpace.#size#.v"><option value="nowrap"><?php _e('Only Manual &lt;br/&gt;', 'revslider');?></option><option value="normal"><?php _e('Width Based', 'revslider');?></option><option value="content"><?php _e('Content Based', 'revslider');?></option><option value="full"><?php _e('Content and Width Based', 'revslider');?></option></select></div>
+					<div class="__idle__"><label_a><?php _e('Line Break', 'revslider');?></label_a><select id="layer_linebreak" class="layerinput easyinit nosearchbox tos2"  data-responsive="true" data-evt="redrawInnerHTML" data-r="idle.whiteSpace.#size#.v"><option value="nowrap"><?php _e('Only Manual &lt;br/&gt;', 'revslider');?></option><option value="normal"><?php _e('Width Based', 'revslider');?></option><option value="content"><?php _e('Content Based', 'revslider');?></option><option value="full"><?php _e('Content and Width Based', 'revslider');?></option></select><div class="div20"></div></div>
 				</div>
 			</div>
 
-			<!-- HORIZONTAL ALIGN SPECIALITY -->
-			<div id="form_layercontent_content_horalign" style="margin-top:0px; padding-top:0px;" class="form_inner open _shft_ _shfb_ _shfc_">
-				<div class="collapsable" class="" style="padding-top:0px;">
-					<row class="directrow">
-						<onelabel><label_a><?php _e('Text Align', 'revslider');?></label_a></onelabel>
-						<onefull>
-							<label_icon class="triggerselect layer_content_hor_selector twostatetrigger material-icons" data-select="#layer_content_halign" data-val="left" id="layer_content_halign_left">format_align_left</label_icon><!--
-							--><label_icon class="triggerselect layer_content_hor_selector twostatetrigger material-icons" data-select="#layer_content_halign" data-val="center" id="layer_content_halign_center">format_align_center</label_icon><!--
-							--><label_icon class="triggerselect layer_content_hor_selector twostatetrigger material-icons" data-select="#layer_content_halign" data-val="right" id="layer_content_halign_right">format_align_right</label_icon><!--
-							--><label_icon class="triggerselect layer_content_hor_selector twostatetrigger material-icons" data-select="#layer_content_halign" data-val="inherit" id="layer_content_halign_inherit">subdirectory_arrow_right</label_icon>
-						</onefull>
-					</row>
-				</div>
-			</div>
+
+			
+
+
+		
+		
 
 			
 
@@ -338,21 +313,43 @@ if(!defined('ABSPATH')) exit();
 				</div>
 			</div>-->
 
-			<!-- DISPLAY MODE IN COLUMN -->
-			<div id="form_layercontent_content_column_display" class="form_inner open  _shflic_ _homs_">
-				<div class="form_inner_header"><i class="material-icons">reorder</i><?php _e('Display Mode in Column', 'revslider');?></div>
-				<div class="collapsable">
-					<label_a><?php _e('Display', 'revslider');?></label_a><select id="layer_displaymode" class="layerinput tos2 nosearchbox easyinit"  data-r="idle.display"><option value="block" selected="selected"><?php _e('Block', 'revslider');?></option><option value="inline-block"><?php _e('Inline-Block', 'revslider');?></option></select>
-					<label_a><?php _e('Float', 'revslider');?></label_a><select id="layer_floatmode" class="layerinput tos2 nosearchbox easyinit"   data-r="idle.float.#size#.v"><option value="none" selected="selected"><?php _e('None', 'revslider');?></option><option value="left"><?php _e('Left', 'revslider');?></option><option value="right"><?php _e('Right', 'revslider');?></option></select>
-					<label_a><?php _e('Clear', 'revslider');?></label_a><select id="layer_clearmode" class="layerinput tos2 nosearchbox easyinit"  data-r="idle.clear.#size#.v"><option value="none" selected="selected"><?php _e('None', 'revslider');?></option><option value="left"><?php _e('Left', 'revslider');?></option><option value="right"><?php _e('Right', 'revslider');?></option><option value="both"><?php _e('Both', 'revslider');?></option></select>
-					<div class="div10"></div>					
-					<div data-pos="before" data-helpkey="linebreak_before" style="text-align:left" class="add_linebreak basic_action_button longbutton layerinput rightbutton"><i class="material-icons">vertical_align_top</i><?php _e('Add LineBreak Before', 'revslider');?></div><linebreak></linebreak>
-					<div data-pos="after" data-helpkey="lineabreak_after" style="text-align:left" class="add_linebreak basic_action_button longbutton layerinput rightbutton"><i class="material-icons">vertical_align_bottom</i><?php _e('Add LineBreak After', 'revslider');?></div><linebreak></linebreak>					
+			<!-- HORIZONTAL ALIGN SPECIALITY -->
+			<div id="form_layercontent_content_column" style="margin-top:0px; padding-top:0px;" class="form_inner open _nsfsir_ _nsfsvir_ _nsfiir_ _nsfvir_ _nsfair_ _nsfr_">
+				<div class="form_inner_header"><i class="material-icons">reorder</i><?php _e('Content Behavior', 'revslider');?></div>
+				<div class="collapsable">				
+					<row class="_shft_ _shfb_ _shfc_ _shfg_">
+						<onelabel><label_a><?php _e('Text Align', 'revslider');?></label_a></onelabel>
+						<onefull>
+							<label_icon class="triggerselect layer_content_hor_selector twostatetrigger material-icons" data-select="#layer_content_halign" data-val="left" id="layer_content_halign_left">format_align_left</label_icon><!--
+							--><label_icon class="triggerselect layer_content_hor_selector twostatetrigger material-icons" data-select="#layer_content_halign" data-val="center" id="layer_content_halign_center">format_align_center</label_icon><!--
+							--><label_icon class="triggerselect layer_content_hor_selector twostatetrigger material-icons" data-select="#layer_content_halign" data-val="right" id="layer_content_halign_right">format_align_right</label_icon><!--
+							--><label_icon class="triggerselect layer_content_hor_selector twostatetrigger material-icons" data-select="#layer_content_halign" data-val="inherit" id="layer_content_halign_inherit">subdirectory_arrow_right</label_icon>
+						</onefull>
+					</row>				
+					<div class="_shfc_ _shfg_ _nsft_ _nsfb_">						
+						<row>
+							<onelabel><label_a><?php _e('Vertical Align', 'revslider');?></label_a></onelabel>
+							<onefull>
+								<label_icon class="triggerselect layer_content_ver_selector twostatetrigger material-icons" data-select="#layer_content_valign" data-val="top" id="layer_content_valign_top">vertical_align_top</label_icon><!--
+								--><label_icon class="triggerselect layer_content_ver_selector twostatetrigger material-icons" data-select="#layer_content_valign" data-val="middle" id="layer_content_valign_middle">vertical_align_center</label_icon><!--
+								--><label_icon class="triggerselect layer_content_ver_selector twostatetrigger material-icons" data-select="#layer_content_valign" data-val="bottom" id="layer_content_valign_bottom">vertical_align_bottom</label_icon>
+							</onefull>
+						</row>										
+					</div>
+					<div class="_shflicg_ _homs_"><div class="div10"></div><label_a><?php _e('Position', 'revslider');?></label_a><select data-show=".show_on_*val*" data-hide=".hide_on_relorabs" id="layer_positionmode" class="layerinput tos2 nosearchbox easyinit" data-evt="positionPositionUpdate" data-r="position.position"><option value="absolute" selected="selected"><?php _e('Absolute', 'revslider');?></option><option value="relative"><?php _e('Relative', 'revslider');?></option></select></div>					
+					<div class="hide_on_relorabs show_on_relative hide_on_root">						
+							<label_a><?php _e('Display', 'revslider');?></label_a><select id="layer_displaymode" class="layerinput tos2 nosearchbox easyinit"  data-r="idle.display"><option value="block" selected="selected"><?php _e('Block', 'revslider');?></option><option value="inline-block"><?php _e('Inline-Block', 'revslider');?></option></select>
+							<label_a><?php _e('Float', 'revslider');?></label_a><select id="layer_floatmode" class="layerinput tos2 nosearchbox easyinit"   data-r="idle.float.#size#.v"><option value="none" selected="selected"><?php _e('None', 'revslider');?></option><option value="left"><?php _e('Left', 'revslider');?></option><option value="right"><?php _e('Right', 'revslider');?></option></select>
+							<label_a><?php _e('Clear', 'revslider');?></label_a><select id="layer_clearmode" class="layerinput tos2 nosearchbox easyinit"  data-r="idle.clear.#size#.v"><option value="none" selected="selected"><?php _e('None', 'revslider');?></option><option value="left"><?php _e('Left', 'revslider');?></option><option value="right"><?php _e('Right', 'revslider');?></option><option value="both"><?php _e('Both', 'revslider');?></option></select>
+							<div class="div10"></div>					
+							<div data-pos="before" data-helpkey="linebreak_before" style="text-align:left" class="add_linebreak basic_action_button longbutton layerinput rightbutton"><i class="material-icons">vertical_align_top</i><?php _e('Add LineBreak Before', 'revslider');?></div><linebreak></linebreak>
+							<div data-pos="after" data-helpkey="lineabreak_after" style="text-align:left" class="add_linebreak basic_action_button longbutton layerinput rightbutton"><i class="material-icons">vertical_align_bottom</i><?php _e('Add LineBreak After', 'revslider');?></div><linebreak></linebreak>						
+					</div>
 				</div>
 			</div>
 
 			<!-- LAYER CONTENT TAG -->
-			<div id="form_layercontent_tag" class="form_inner open _nsfr_ _nsfc_">
+			<div id="form_layercontent_tag" class="form_inner open _nsfr_ _nsfc_ _nsfg_">
 				<div class="form_inner_header"><i class="material-icons">code</i><?php _e('HTML Tag', 'revslider');?></div>
 				<div class="collapsable">
 					<label_a><?php _e('Wrapping Tag', 'revslider');?></label_a><select id="layer_htmltag" class="layerinput tos2 nosearchbox easyinit" data-r="htmltag"><option value="div" selected="selected"><?php _e('&lt;rs-layer&gt;', 'revslider');?></option><option value="p"><?php _e('&lt;p&gt;', 'revslider');?></option><option value="h1"><?php _e('&lt;h1&gt;', 'revslider');?></option><option value="h2"><?php _e('&lt;h2&gt;', 'revslider');?></option><option value="h3"><?php _e('&lt;h3&gt;', 'revslider');?></option><option value="h4"><?php _e('&lt;h4&gt;', 'revslider');?></option><option value="h5"><?php _e('&lt;h5&gt;', 'revslider');?></option><option value="h6"><?php _e('&lt;h6&gt;', 'revslider');?></option><option value="span"><?php _e('&lt;span&gt;', 'revslider');?></option></select>
@@ -360,7 +357,7 @@ if(!defined('ABSPATH')) exit();
 			</div>
 
 			<!-- LAYER CONTENT CONVERT -->
-			<div id="form_layercontent_convert" class="form_inner open _nsfr_ _nsfc_ _nsfs_ _nsfa_">
+			<div id="form_layercontent_convert" class="form_inner open _nsfr_ _nsfc_ _nsfs_ _nsfa_ _nsfg_">
 				<div class="form_inner_header"><i class="material-icons">swap_horizontal_circle</i><?php _e('Convert Layer Type', 'revslider');?></div>
 				<div class="collapsable">					
 					<div data-into="button" class="_shoft_ convert_layer_into basic_action_button layerinput longbutton rightbutton"><i class="material-icons">swap_horizontal_circle</i>Convert to Button</div>
@@ -435,8 +432,8 @@ if(!defined('ABSPATH')) exit();
 			<!-- LAYER POSITION basic -->
 			<div id="form_layerposition_basic" class="form_inner open _nsfc_">
 				<div class="form_inner_header"><i class="material-icons">zoom_out_map</i><?php _e('Position & Size', 'revslider');?></div>
-				<div class="collapsable ">
-					<div id="rs-align-buttons" class="_nfr_ _nflic_">
+				<div class="collapsable ">					
+					<div id="rs-align-buttons" class="_nfr_  hide_on_relorabs show_on_absolute">
 						<!-- LAYER ALIGN ICON BASED SETTINGS-->
 						<select style="display:none !important" id="layer_pos_halign" data-unselect=".layer_hor_selector" data-select="#layer_hor_*val*" class="layerinput easyinit" data-responsive="true" data-r="position.horizontal.#size#.v" data-triggerinp="#layer_pos_x" data-triggerinpval="0"><option value="left"><?php _e('Left', 'revslider');?></option><option value="center"><?php _e('Center', 'revslider');?></option><option value="right"><?php _e('Right', 'revslider');?></option></select>
 						<select style="display:none !important" id="layer_pos_valign" data-unselect=".layer_ver_selector" data-select="#layer_ver_*val*" class="layerinput easyinit" data-responsive="true" data-r="position.vertical.#size#.v" data-triggerinp="#layer_pos_y" data-triggerinpval="0"><option value="top"><?php _e('Top', 'revslider');?></option><option value="middle"><?php _e('Center', 'revslider');?></option><option value="bottom"><?php _e('Bottom', 'revslider');?></option></select>
@@ -446,11 +443,11 @@ if(!defined('ABSPATH')) exit();
 							<oneshort class="lp10"><label_icon class="triggerselect ui_topalign layer_ver_selector" data-select="#layer_pos_valign" data-val="top" id="layer_ver_top"></label_icon><label_icon class="triggerselect ui_middlealign layer_ver_selector" data-select="#layer_pos_valign" data-val="middle" id="layer_ver_middle"></label_icon><label_icon class="triggerselect ui_bottomalign layer_ver_selector" data-select="#layer_pos_valign" data-val="bottom" id="layer_ver_bottom"></label_icon></oneshort>
 						</row>
 					</div>
-					<row class="directrow _nfr_ _nfc_ _nflic_">
+					<row class="directrow _nfr_ _nfc_  hide_on_relorabs show_on_absolute">
 						<onelong><label_icon class="ui_x"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-allowed="px" data-responsive="true" data-numeric="true" data-r="position.x.#size#.v" data-min="-3000" data-max="3000" type="text" id="layer_pos_x"></onelong>
 						<oneshort class="_nfr_"><label_icon class="ui_y"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-responsive="true" data-numeric="true" data-allowed="px" data-r="position.y.#size#.v" data-min="-3000" data-max="5000" type="text" id="layer_pos_y"></oneshort>
 					</row>
-					<row class="_nfr_ _nfc_">
+					<row class="directrow _nfr_ _nfc_">
 						<onelong class="layersize_wrap layersize_wrap_width layersize_fullwidth layersize_cover layersize_cover-proportional"><label_icon class="ui_width"></label_icon><input data-numeric="true" data-allowed="%,px,auto,#/#" data-min="0" data-max="10000" data-updateviaevt="true" data-evt="layerSizeChange" data-evtparam="width" data-presets_text="Auto!100%!200px!#1/3#!#2/3#" data-responsive="true" data-presets_val="auto!100%!200px!#1/3#!#2/3#" data-r="size.width.#size#.v" type="text" id="layer_width"  class="layerinput smallinput easyinit input_with_presets callEvent"></onelong>
 						<oneshort class="layersize_wrap layersize_wrap_height layersize_fullheight layersize_cover layersize_cover-proportional"><label_icon class="ui_height"></label_icon><input data-numeric="true" data-allowed="%,px,auto,#/#" data-min="0" data-max="10000" data-updateviaevt="true" data-evt="layerSizeChange" data-evtparam="height" data-presets_text="Auto!100%!200px!#1/3#!#2/3#" data-responsive="true" data-presets_val="auto!100%!200px!#1/3#!#2/3#" data-r="size.height.#size#.v" type="text" id="layer_height"  class="layerinput smallinput easyinit input_with_presets callEvent"></oneshort>
 						<div id="reset_lock_media_size_layer" class="_nsft_ _nsfa_ _nsfb_">
@@ -464,7 +461,7 @@ if(!defined('ABSPATH')) exit();
 					<div class="_nsfc_ _nsfr_ _nsft_ _nsfa_ _nsfb_ _nsfsvg_ _nsftbsic_">
 						<label_a><?php _e('Size Presets', 'revslider');?></label_a><select id="layer_covermode" data-enable=".layersize_wrap " data-disable=".layersize_*val*" class="layerinput tos2 nosearchbox easyinit callEvent" data-updateviaevt="true" data-evt="layerSizePreset" data-r="size.covermode"><option value="custom" selected="selected"><?php _e('Custom Size', 'revslider');?></option><option value="fullwidth"><?php _e('Full Width', 'revslider');?></option><option value="fullheight"><?php _e('Full Height', 'revslider');?></option><option value="cover"><?php _e('Stretch', 'revslider');?></option><option value="cover-proportional"><?php _e('Cover', 'revslider');?></option></select>
 					</div>
-					<div class="_nflic_ _nvojcm_">
+					<div class="_nflic_ _nvojcm_ _nflic_ _nflicg_">
 						<label_a><?php _e('Layer Align', 'revslider');?></label_a>
 						<div class="radiooption">
 							<div><input name="layer_within_align" class="layerinput easyinit" data-r="behavior.baseAlign" data-evt="layerAlignChanged" type="radio" value="grid"><label_sub><?php _e('Layer Area', 'revslider');?></label_sub></div>
@@ -473,10 +470,10 @@ if(!defined('ABSPATH')) exit();
 					</div>
 				</div>
 			</div>
-
+			
 			<!-- LAYER POSITION ADDITIONAL -->
 			<div id="form_layerposition_additional" class="form_inner open _nsfc_">
-				<div class="form_inner_header"><i class="material-icons">select_all</i><?php _e('Additional', 'revslider');?></div>
+				<div class="form_inner_header"><i class="material-icons">select_all</i><?php _e('Min/Max Width & Height', 'revslider');?></div>
 				<div class="collapsable">
 
 					<row class="directrow _nsfr_ _nsfc_">
@@ -523,7 +520,7 @@ if(!defined('ABSPATH')) exit();
 				<li data-target="#form_layerstyle_bg" class="form_menu_level_1_li" id="lstyle_l1_2"><?php _e('Background', 'revslider');?></li>
 			</ul>
 
-			<div id="form_layerstyle_lineheight" class="form_inner open _shfc_">
+			<div id="form_layerstyle_lineheight" class="form_inner open _shfc_ _shfg_">
 				<div class="form_inner_header"><i class="material-icons">title</i><?php _e('Line Height', 'revslider');?></div>
 				<div class="collapsable">
 					<row class="directrow __idle__">
@@ -660,7 +657,7 @@ if(!defined('ABSPATH')) exit();
 					</div>
 					<!-- STREAM BASED IMAGE BG -->
 					<div class="__idle__ _nsfi_ _nsfv_">						
-						<div class="div25"></div>
+						<div class="div10"></div>
 						<longoption><i class="material-icons">language</i><label_a ><?php _e('Image from Stream if exist', 'revslider');?></label_a><input type="checkbox" class="easyinit layerinput callEvent" data-showhide="#layerbg_srctype_streamlibrary" data-showhidedep="true" data-evt="updatelayerbgimage" data-r="idle.bgFromStream"></longoption>
 						<div class="div5"></div>
 						<div id="layerbg_srctype_streamlibrary"><label_a class="singlerow"><?php _e('Stream Size', 'revslider');?></label_a><select class="layerinput tos2 nosearchbox easyinit"  data-r="behavior.streamSourceType"><option value="auto" selected="selected"><?php _e("Default Setting", 'revslider');?></option><?php foreach ($img_sizes as $imghandle => $imgSize) { echo '<option value="' . $imghandle . '">' . $imgSize . '</option>';}?></select></div>						
@@ -687,7 +684,7 @@ if(!defined('ABSPATH')) exit();
 						<onelong><label_icon class="ui_padding_top"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit callEvent" id="idle_layer_padding_top" data-updateviaevt="true" data-evt="updatePaddingInput" data-evtparam="0" data-allowed="px"  data-responsive="true" data-numeric="true" data-r="idle.padding.#size#.v.0" data-min="0" data-max="1000" type="text"></onelong>
 						<oneshort><label_icon class="ui_padding_right"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit callEvent" data-updateviaevt="true" data-evt="updatePaddingInput" data-evtparam="1" data-allowed="px"  data-numeric="true" data-responsive="true" data-r="idle.padding.#size#.v.1" data-min="0" data-max="1000" type="text"></oneshort>
 					</row>
-					<row>
+					<row class="directrow">
 						<onelong><label_icon class="ui_padding_bottom"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit callEvent" data-updateviaevt="true" data-evt="updatePaddingInput" data-evtparam="2" data-allowed="px"  data-numeric="true" data-responsive="true" data-r="idle.padding.#size#.v.2" data-min="0" data-max="1000" type="text"></onelong>
 						<oneshort><label_icon class="ui_padding_left"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit callEvent" data-updateviaevt="true" data-evt="updatePaddingInput" data-evtparam="3" data-allowed="px"  data-numeric="true" data-responsive="true" data-r="idle.padding.#size#.v.3" data-min="0" data-max="1000" type="text"></oneshort>
 					</row>
@@ -769,18 +766,16 @@ if(!defined('ABSPATH')) exit();
 			<div id="form_box_shadow" class="form_inner open">
 				<div class="form_inner_header"><i class="material-icons">filter_none</i><?php _e('Box Shadow', 'revslider');?></div>
 				<div class="collapsable">
-					<row class="direktrow">
-						<onelong><label_a><?php _e('Effect', 'revslider');?></label_a><input class="layerinput smallinput easyinit" type="checkbox" data-r="idle.boxShadow.inuse"/></onelong>
-						<oneshort></oneshort>
-					</row>
+					<row class="direktrow"><onelong><label_a><?php _e('Effect', 'revslider');?></label_a><input class="layerinput smallinput easyinit" type="checkbox" data-r="idle.boxShadow.inuse"/></onelong><oneshort></oneshort></row>
 					<div style="display:none">
 						<label_a><?php _e('Shadow on', 'revslider');?></label_a>
 						<div class="radiooption">
 							<div><input name="boxshadowon" class="layerinput easyinit" data-r="idle.boxShadow.container" type="radio" value="wrapper"><label_sub><?php _e('Wrapper Container', 'revslider');?></label_sub></div>
 							<div><input name="boxshadowon" class="layerinput easyinit" data-r="idle.boxShadow.container" type="radio" value="content"><label_sub><?php _e('Layer Container', 'revslider');?></label_sub></div>
 						</div>
+						<div class="div10"></div>
 					</div>
-					<div class="div10"></div>
+					
 
 					<row class="direktrow">
 						<onelong><label_icon class="ui_x"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="px" data-min="-500" data-max="500" data-responsive="true" data-r="idle.boxShadow.hoffset.#size#.v" type="text"></onelong>
@@ -791,6 +786,7 @@ if(!defined('ABSPATH')) exit();
 						<oneshort><label_icon class="ui_gap"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="px" data-min="0" data-max="500" data-responsive="true" data-r="idle.boxShadow.spread.#size#.v" type="text"></oneshort>
 					</row>
 					<label_a><?php _e('Shadow Color', 'revslider');?></label_a><input type="text" data-mode="single" data-editing="Box Shadow Color" name="boxShadowColor" id="boxShadowColor" class="my-color-field layerinput easyinit" data-visible="true" data-r="idle.boxShadow.color" value="transparent"><div class="linebreak"></div>
+					<div class="div5"></div>
 				</div>
 			</div><!-- END OF BOX SHADOW SETTING -->
 
@@ -798,10 +794,7 @@ if(!defined('ABSPATH')) exit();
 			<div id="form_text_shadow" class="form_inner open _shft_ _shfb_">
 				<div class="form_inner_header"><i class="material-icons">format_size</i><?php _e('Text Shadow', 'revslider');?></div>
 				<div class="collapsable">
-					<row class="direktrow">
-						<onelong><label_a><?php _e('Effect', 'revslider');?></label_a><input class="layerinput smallinput easyinit" type="checkbox" data-r="idle.textShadow.inuse"/></onelong>
-						<oneshort></oneshort>
-					</row>
+					<row class="direktrow"><onelong><label_a><?php _e('Effect', 'revslider');?></label_a><input class="layerinput smallinput easyinit" type="checkbox" data-r="idle.textShadow.inuse"/></onelong><oneshort></oneshort></row>
 					<row class="direktrow">
 						<onelong><label_icon class="ui_x"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="px" data-min="0" data-max="500" data-responsive="true" data-r="idle.textShadow.hoffset.#size#.v" type="text"></onelong>
 						<oneshort><label_icon class="ui_y"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="px" data-min="0" data-max="500" data-responsive="true" data-r="idle.textShadow.voffset.#size#.v" type="text"></oneshort>
@@ -811,6 +804,7 @@ if(!defined('ABSPATH')) exit();
 						<oneshort></oneshort>
 					</row>
 					<label_a><?php _e('Shadow Color', 'revslider');?></label_a><input type="text" data-mode="single" data-editing="Text Shadow Color" name="textShadowColor" id="textShadowColor" class="my-color-field layerinput easyinit" data-visible="true" data-r="idle.textShadow.color" value="transparent"><div class="linebreak"></div>
+					<div class="div5"></div>
 				</div>
 			</div><!-- END OF TEXT SHADOW SETTING -->
 
@@ -827,6 +821,7 @@ if(!defined('ABSPATH')) exit();
 						<oneshort></oneshort>
 					</row>					
 					<label_a><?php _e('Stroke Color', 'revslider');?></label_a><input type="text" data-mode="single" data-editing="Text Shadow Color" name="textStrokeColor" id="textStrokeColor" class="my-color-field layerinput easyinit" data-visible="true" data-r="idle.textStroke.color" value="transparent"><div class="linebreak"></div>
+					<div class="div5"></div>
 				</div>
 			</div><!-- END OF TEXT SHADOW SETTING -->
 
@@ -1287,48 +1282,51 @@ if(!defined('ABSPATH')) exit();
 								<onelong><label_icon class="ui_origox"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="px,%,inherit" data-r="#frame#.transform.originX" data-min="-3600" data-max="3600" type="text"></onelong>
 								<oneshort><label_icon class="ui_origoy"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="px,%,inherit" data-r="#frame#.transform.originY" data-min="-3600" data-max="3600" type="text"></oneshort>
 							</row>
-							<row class="direktrow">
+							<row>
 								<onelong><label_icon class="ui_origoz"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="px,%,inherit" data-r="#frame#.transform.originZ" data-min="-3600" data-max="3600" type="text"></onelong>
 								<oneshort></oneshort>
 							</row>
-							<div class="div15"></div>
+							<div class="div10"></div>
 							<div class="form_inner_header innerwrap_breakout"><i class="material-icons">auto_awesome</i><?php _e('Layer Filter', 'revslider');?></div>
 							<div class="div15"></div>
-							<row>
+							<row class="direktrow">
 								<onelong><label_a><?php _e('Use Filter', 'revslider');?></label_a><input type="checkbox" data-showhide="._ltsel_main_filter" data-showhidedep="true" class="layerinput easyinit" data-r="#frame#.filter.use"/></onelong>
 								<oneshort class="_ltsel_main_filter"><label_icon class="ui_blur"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="px" data-min="0" data-max="500" data-r="#frame#.filter.blur" type="text"></oneshort>									
 							</row>
-							<row>
-								<onelong class="_ltsel_main_filter"><label_icon class="ui_grayscale"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="%" data-min="0" data-max="100" data-r="#frame#.filter.grayscale" type="text"></onelong>
-								<oneshort class="_ltsel_main_filter"><label_icon class="ui_brightness"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="%" data-min="0" data-max="10000" data-r="#frame#.filter.brightness" type="text"></oneshort>
-							</row>															
-							
-							<longoption class="_ltsel_main_filter"><label_a><?php _e('Set Filters on Mask', 'revslider');?></label_a><input type="checkbox" class="layerinput easyinit" data-r="timeline.filtersOnMask"/></longoption>
-							
+							<div class="_ltsel_main_filter">
+								<row>
+									<onelong><label_icon class="ui_grayscale"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="%" data-min="0" data-max="100" data-r="#frame#.filter.grayscale" type="text"></onelong>
+									<oneshort><label_icon class="ui_brightness"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="%" data-min="0" data-max="10000" data-r="#frame#.filter.brightness" type="text"></oneshort>
+								</row>
+								<longoption><label_a><?php _e('Set Filters on Mask', 'revslider');?></label_a><input type="checkbox" class="layerinput easyinit" data-r="timeline.filtersOnMask"/></longoption>
+								<div class="div10"></div>
+							</div>
 							
 							<div class="div15"></div>
 							<div class="form_inner_header innerwrap_breakout"><i class="material-icons">settings_brightness</i><?php _e('Layer Back-Drop Filter', 'revslider');?></div>
 							<div class="div15"></div>
-							<row>
+							<row class="direktrow">
 								<onelong><label_a><?php _e('Use Filter', 'revslider');?></label_a><input type="checkbox" data-showhide="._ltsel_main_bfilter" data-showhidedep="true" class="layerinput easyinit" data-r="#frame#.bfilter.use"/></onelong>
 								<oneshort class="_ltsel_main_bfilter"><label_icon class="ui_blur"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="px" data-min="0" data-max="100" data-r="#frame#.bfilter.blur" type="text"></oneshort>									
 							</row>
-							<row class="direktrow">
-								<onelong class="_ltsel_main_bfilter"><label_icon class="ui_grayscale"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="%" data-min="0" data-max="100" data-r="#frame#.bfilter.grayscale" type="text"></onelong>
-								<oneshort class="_ltsel_main_bfilter"><label_icon class="ui_brightness"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="%" data-min="0" data-max="500" data-r="#frame#.bfilter.brightness" type="text"></oneshort>
-							</row>
-							<row class="direktrow">
-								<onelong class="_ltsel_main_bfilter"><i class="label_icon material-icons">filter_vintage</i><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="%" data-min="0" data-max="100" data-r="#frame#.bfilter.sepia" type="text"></onelong>
-								<oneshort class="_ltsel_main_bfilter"><i class="label_icon material-icons inshort">invert_colors</i><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="%" data-min="0" data-max="500" data-r="#frame#.bfilter.invert" type="text"></oneshort>
-							</row>
-
-							<div class="div15"></div>
+							<div class="_ltsel_main_bfilter">
+								<row class="direktrow">
+									<onelong><label_icon class="ui_grayscale"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="%" data-min="0" data-max="100" data-r="#frame#.bfilter.grayscale" type="text"></onelong>
+									<oneshort><label_icon class="ui_brightness"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="%" data-min="0" data-max="500" data-r="#frame#.bfilter.brightness" type="text"></oneshort>
+								</row>
+								<row class="direktrow">
+									<onelong><i class="label_icon material-icons">filter_vintage</i><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="%" data-min="0" data-max="100" data-r="#frame#.bfilter.sepia" type="text"></onelong>
+									<oneshort><i class="label_icon material-icons inshort">invert_colors</i><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="%" data-min="0" data-max="500" data-r="#frame#.bfilter.invert" type="text"></oneshort>
+								</row>	
+								<div class="div5"></div>							
+							</div>
+							
 							<!-- REVERSE ANIMATIONS -->
 							<div class="show_on_frame_0 show_on_frame_999">
-								<div class="form_inner_header innerwrap_breakout"><i class="material-icons">settings_ethernet</i><?php _e('Slide Direction based Mirroring', 'revslider');?></div>
-
 								<div class="div15"></div>
-								<row> <!-- NO DIREKT ROW NEEDED -->
+								<div class="form_inner_header innerwrap_breakout"><i class="material-icons">settings_ethernet</i><?php _e('Slide Direction based Mirroring', 'revslider');?></div>
+								<div class="div15"></div>
+								<row class="direktrow"> 
 									<onelong><label_icon class="ui_x"></label_icon><input type="checkbox" class="easyinit layerinput" data-r="#frame#.reverseDirection.x"></onelong>
 									<oneshort><label_icon class="ui_y"></label_icon><input type="checkbox" class="easyinit layerinput" data-r="#frame#.reverseDirection.y"></oneshort>
 								</row>
@@ -1336,11 +1334,11 @@ if(!defined('ABSPATH')) exit();
 									<onelong><label_icon class="ui_rotatex"></label_icon><input type="checkbox" class="easyinit layerinput" data-r="#frame#.reverseDirection.rotationX"></onelong>
 									<oneshort><label_icon class="ui_rotatey"></label_icon><input type="checkbox" class="easyinit layerinput" data-r="#frame#.reverseDirection.rotationY"></oneshort>
 								</row>
-								<row> <!-- NO DIREKT ROW NEEDED -->
+								<row class="direktrow">
 									<onelong><label_icon class="ui_rotatez"></label_icon><input type="checkbox" class="easyinit layerinput" data-r="#frame#.reverseDirection.rotationZ"></onelong>
 									<oneshort></oneshort>
 								</row>
-								<row>
+								<row class="direktrow">
 									<onelong><label_icon class="ui_skewx"></label_icon><input type="checkbox" class="easyinit layerinput" data-r="#frame#.reverseDirection.skewX"></onelong>
 									<oneshort><label_icon class="ui_skewy"></label_icon><input type="checkbox" class="easyinit layerinput" data-r="#frame#.reverseDirection.skewY"></oneshort>
 								</row>
@@ -1479,32 +1477,31 @@ if(!defined('ABSPATH')) exit();
 									<onelong><label_icon class="ui_origox"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="px,%,inherit" data-r="#frame#.chars.originX" data-min="-3600" data-max="3600" type="text"></onelong>
 									<oneshort><label_icon class="ui_origoy"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="px,%,inherit" data-r="#frame#.chars.originY" data-min="-3600" data-max="3600" type="text"></oneshort>
 								</row>
-								<row class="direktrow">
+								<row>
 									<onelong><label_icon class="ui_origoz"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="px,%,inherit" data-r="#frame#.chars.originZ" data-min="-3600" data-max="3600" type="text"></onelong>
 									<oneshort></oneshort>
 								</row>
-								<div class="div15"></div>
+								<div class="div10"></div>
 								<div class="form_inner_header innerwrap_breakout"><i class="material-icons">auto_awesome</i><?php _e('Char Filter', 'revslider');?></div>
 								<div class="div15"></div>
 								<row class="direktrow">
 									<onelong><label_a><?php _e('Use Filter', 'revslider');?></label_a><input type="checkbox" data-showhide="._ltsel_chars_filter" data-showhidedep="true" class="layerinput easyinit" data-r="#frame#.chars.fuse"/></onelong>
 									<oneshort class="_ltsel_chars_filter"><label_icon class="ui_blur"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="px" data-min="0" data-max="500" data-r="#frame#.chars.blur" type="text"></oneshort>									
 								</row>
-								<row class="direktrow">
+								<row class="">
 									<onelong class="_ltsel_chars_filter"><label_icon class="ui_grayscale"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="%" data-min="0" data-max="100" data-r="#frame#.chars.grayscale" type="text"></onelong>
 									<oneshort class="_ltsel_chars_filter"><label_icon class="ui_brightness"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="%" data-min="0" data-max="10000" data-r="#frame#.chars.brightness" type="text"></oneshort>
-								</row>
-								<div class="div15"></div>
+								</row>								
 								<!-- REVERSE ANIMATIONS -->
 								<div class="show_on_frame_0 show_on_frame_999">
+									<div class="div10"></div>
 									<div class="form_inner_header innerwrap_breakout"><i class="material-icons">settings_ethernet</i><?php _e('Slide Direction based Mirroring', 'revslider');?></div>
-
 									<div class="div15"></div>
 									<row class="direktrow">
 										<onelong><label_icon class="ui_x"></label_icon><input type="checkbox" class="easyinit layerinput" data-r="#frame#.reverseDirection.charsX"></onelong>
 										<oneshort><label_icon class="ui_y"></label_icon><input type="checkbox" class="easyinit layerinput" data-r="#frame#.reverseDirection.charsY"></oneshort>
 									</row>
-									<row>
+									<row class="direktrow">
 										<onelong><label_icon class="ui_splitdirection"></label_icon><input type="checkbox" class="easyinit layerinput" data-r="#frame#.reverseDirection.charsDirection"></onelong>
 										<oneshort></oneshort>
 									</row>
@@ -1552,24 +1549,24 @@ if(!defined('ABSPATH')) exit();
 									<onelong><label_icon class="ui_origox"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="px,%,inherit" data-r="#frame#.words.originX" data-min="-3600" data-max="3600" type="text"></onelong>
 									<oneshort><label_icon class="ui_origoy"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="px,%,inherit" data-r="#frame#.words.originY" data-min="-3600" data-max="3600" type="text"></oneshort>
 								</row>
-								<row class="direktrow">
+								<row>
 									<onelong><label_icon class="ui_origoz"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="px,%,inherit" data-r="#frame#.words.originZ" data-min="-3600" data-max="3600" type="text"></onelong>
 									<oneshort></oneshort>
 								</row>
-								<div class="div15"></div>
+								<div class="div10"></div>
 								<div class="form_inner_header innerwrap_breakout"><i class="material-icons">auto_awesome</i><?php _e('Word Filter', 'revslider');?></div>
 								<div class="div15"></div>
 								<row class="direktrow">
 									<onelong><label_a><?php _e('Use Filter', 'revslider');?></label_a><input type="checkbox" data-showhide="._ltsel_words_filter" data-showhidedep="true" class="layerinput easyinit" data-r="#frame#.words.fuse"/></onelong>
 									<oneshort class="_ltsel_words_filter"><label_icon class="ui_blur"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="px" data-min="0" data-max="500" data-r="#frame#.words.blur" type="text"></oneshort>									
 								</row>
-								<row class="direktrow">
+								<row>
 									<onelong class="_ltsel_words_filter"><label_icon class="ui_grayscale"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="%" data-min="0" data-max="100" data-r="#frame#.words.grayscale" type="text"></onelong>
 									<oneshort class="_ltsel_words_filter"><label_icon class="ui_brightness"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="%" data-min="0" data-max="10000" data-r="#frame#.words.brightness" type="text"></oneshort>
-								</row>
-								<div class="div15"></div>
+								</row>								
 								<!-- REVERSE ANIMATIONS -->
 								<div class="show_on_frame_0 show_on_frame_999">
+									<div class="div10"></div>
 									<div class="form_inner_header innerwrap_breakout"><i class="material-icons">settings_ethernet</i><?php _e('Slide Direction based Mirroring', 'revslider');?></div>
 
 									<div class="div15"></div>
@@ -1577,7 +1574,7 @@ if(!defined('ABSPATH')) exit();
 										<onelong><label_icon class="ui_x"></label_icon><input type="checkbox" class="easyinit layerinput" data-r="#frame#.reverseDirection.wordsX"></onelong>
 										<oneshort><label_icon class="ui_y"></label_icon><input type="checkbox" class="easyinit layerinput" data-r="#frame#.reverseDirection.wordsY"></oneshort>
 									</row>
-									<row>
+									<row class="direktrow">
 										<onelong><label_icon class="ui_splitdirection"></label_icon><input type="checkbox" class="easyinit layerinput" data-r="#frame#.reverseDirection.wordsDirection"></onelong>
 										<oneshort></oneshort>
 									</row>
@@ -1625,24 +1622,24 @@ if(!defined('ABSPATH')) exit();
 									<onelong><label_icon class="ui_origox"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="px,%,inherit" data-r="#frame#.lines.originX" data-min="-3600" data-max="3600" type="text"></onelong>
 									<oneshort><label_icon class="ui_origoy"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="px,%,inherit" data-r="#frame#.lines.originY" data-min="-3600" data-max="3600" type="text"></oneshort>
 								</row>
-								<row class="direktrow">
+								<row>
 									<onelong><label_icon class="ui_origoz"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="px,%,inherit" data-r="#frame#.lines.originZ" data-min="-3600" data-max="3600" type="text"></onelong>
 									<oneshort></oneshort>
 								</row>
-								<div class="div15"></div>
+								<div class="div10"></div>
 								<div class="form_inner_header innerwrap_breakout"><i class="material-icons">auto_awesome</i><?php _e('Line Filter', 'revslider');?></div>
 								<div class="div15"></div>
 								<row class="direktrow">
 									<onelong><label_a><?php _e('Use Filter', 'revslider');?></label_a><input type="checkbox" data-showhide="._ltsel_lines_filter" data-showhidedep="true" class="layerinput easyinit" data-r="#frame#.lines.fuse"/></onelong>
 									<oneshort class="_ltsel_lines_filter"><label_icon class="ui_blur"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="px" data-min="0" data-max="500" data-r="#frame#.lines.blur" type="text"></oneshort>									
 								</row>
-								<row class="direktrow">
+								<row>
 									<onelong class="_ltsel_lines_filter"><label_icon class="ui_grayscale"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="%" data-min="0" data-max="100" data-r="#frame#.lines.grayscale" type="text"></onelong>
 									<oneshort class="_ltsel_lines_filter"><label_icon class="ui_brightness"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-numeric="true" data-allowed="%" data-min="0" data-max="10000" data-r="#frame#.lines.brightness" type="text"></oneshort>
-								</row>
-								<div class="div15"></div>
+								</row>								
 								<!-- REVERSE ANIMATIONS -->
 								<div class="show_on_frame_0 show_on_frame_999">
+									<div class="div10"></div>
 									<div class="form_inner_header innerwrap_breakout"><i class="material-icons">settings_ethernet</i><?php _e('Slide Direction based Mirroring', 'revslider');?></div>
 
 									<div class="div15"></div>
@@ -1650,7 +1647,7 @@ if(!defined('ABSPATH')) exit();
 										<onelong><label_icon class="ui_x"></label_icon><input type="checkbox" class="easyinit layerinput" data-r="#frame#.reverseDirection.linesX"></onelong>
 										<oneshort><label_icon class="ui_y"></label_icon><input type="checkbox" class="easyinit layerinput" data-r="#frame#.reverseDirection.linesY"></oneshort>
 									</row>
-									<row>
+									<row class="direktrow">
 										<onelong><label_icon class="ui_splitdirection"></label_icon><input type="checkbox" class="easyinit layerinput" data-r="#frame#.reverseDirection.linesDirection"></onelong>
 										<oneshort></oneshort>
 									</row>

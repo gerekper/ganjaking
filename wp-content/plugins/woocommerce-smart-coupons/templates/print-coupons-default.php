@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.7.0
- * @version     1.3.0
+ * @version     1.4.0
  * @package     woocommerce-smart-coupons/templates/
  */
 
@@ -141,14 +141,16 @@ $bloginfo = get_bloginfo( 'name', 'display' );
 				}
 
 				if ( ! empty( $expiry_date ) ) {
-					$expiry_time = (int) get_post_meta( $coupon_id, 'wc_sc_expiry_time', true );
-					if ( ! empty( $expiry_time ) ) {
-						if ( $woocommerce_smart_coupon->is_wc_gte_30() && $expiry_date instanceof WC_DateTime ) {
-							$expiry_date = $expiry_date->getTimestamp();
-						} elseif ( ! is_int( $expiry_date ) ) {
-							$expiry_date = strtotime( $expiry_date );
+					if ( $woocommerce_smart_coupon->is_wc_gte_30() && $expiry_date instanceof WC_DateTime ) {
+						$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : 0;
+					} elseif ( ! is_int( $expiry_date ) ) {
+						$expiry_date = strtotime( $expiry_date );
+					}
+					if ( ! empty( $expiry_date ) && is_int( $expiry_date ) ) {
+						$expiry_time = (int) get_post_meta( $coupon_id, 'wc_sc_expiry_time', true );
+						if ( ! empty( $expiry_time ) ) {
+							$expiry_date += $expiry_time; // Adding expiry time to expiry date.
 						}
-						$expiry_date += $expiry_time; // Adding expiry time to expiry date.
 					}
 				}
 

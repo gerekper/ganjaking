@@ -65,11 +65,21 @@ class RevSliderFunctions extends RevSliderData {
 	 * update general settings
 	 * @before: RevSliderOperations::updateGeneralSettings()
 	 */
-	public function set_global_settings($global){
+	public function set_global_settings($global, $merge = false){
 		$this->delete_wp_cache('_get_global_settings');
-		
+		if($this->_truefalse($merge) === true){
+			$_global = $this->get_global_settings();
+			if(!is_array($_global)) $_global = array();
+			if(!is_array($global)) $global = array();
+
+			$global = array_merge($_global, $global);
+		}
+
 		$global = json_encode($global);
-		return update_option('revslider-global-settings', $global);
+		
+		update_option('revslider-global-settings', $global);
+		
+		return true;
 	}
 
 
@@ -289,6 +299,34 @@ class RevSliderFunctions extends RevSliderData {
 		return false;
 	}
 	
+	/**
+	 * compress an array/object/string to a string
+	 * @since 6.6.0
+	 **/
+	public function do_compress($data, $level = 9){
+		if(is_array($data) || is_object($data)) $data = json_encode($data);
+		
+		if(!function_exists('gzcompress') || !function_exists('gzuncompress')) return $data; //gzencode / gzdecode
+
+		return base64_encode(gzcompress($data, $level));
+	}
+
+	/**
+	 * decompress an string to an array/object/string
+	 * @since 6.6.0
+	 **/
+	public function do_uncompress($data){
+		if($data === false || empty($data) || is_array($data) || is_object($data)) return $data;
+		$_data = json_decode($data, true);
+		if(is_array($_data) || is_object($_data)) return $_data;
+		if(!function_exists('gzcompress') || !function_exists('gzuncompress')) return $data; //gzencode / gzdecode
+
+		$data = gzuncompress(base64_decode($data));
+		$_data = json_decode($data, true);
+
+		return (!empty($_data)) ? $_data : $data;
+	}
+
 	/**
 	 * get attachment image url
 	 * before: RevSliderFunctionsWP::getUrlAttachmentImage();
