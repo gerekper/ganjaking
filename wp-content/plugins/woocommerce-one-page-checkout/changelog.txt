@@ -1,5 +1,10 @@
 *** WooCommerce One Page Checkout Changelog ***
 
+2022-10-13 - version 1.9.6
+* Fix - Declare compatibility with HPOS.
+* Fix - Define Node version.
+* Fix - Fix localization to use the 'woocommerce-one-page-checkout' domain.
+
 2022-07-26 - version 1.9.5
 * Fix - Prevent errors showing up when the global $post variable is not available.
 

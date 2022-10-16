@@ -1,12 +1,36 @@
+13.10.2022 - ver 6.10.0
+  - New: Option to use Google Fonts locally - used fonts will be downloaded to comply with the GDPR policies
+  - Compatibility: Compatibility for WooCommerce Tab Manager
+  - Update: Pie chart legend positions improved
+  - Update: Translations updated
+  - Fix: Full-width logic for rows is working properly
+  - Fix: Frontend editor does not contain unneeded notices
+  - Fix: Controls work properly in the Frontend editor
+  - Fix: WooCommerce Post Grid works properly with translate keys
+  - Fix: Flexslider overflow in the image gallery works properly
+  - Fix: Round chard legend position works properly
+  - Fix: WooCommerce Shop page CSS works properly
+  - Fix: Unused CSS prefixes removed
+  - Fix: addPageCustomCss and custom ID work properly
+  - Fix: Custom accent colors work properly in the Separator with Text
+  - Fix: Youtube Video background autoplay works properly
+  - Fix: License check logic works properly
+  - Fix: Edit form loading for async scripts
+  - Fix: Warning on the removed default template
+  - Fix: Automapper removing elements work properly
+  - Fix: get_the_excerpt filter arguments support WordPress 5.5
+  - Fix: Admin access in multisite works properly
+  - Fix: Edit-form initialization works properly
+
 07.04.2022 - ver 6.9.0
-   New: Filter to disable full width row JS
-   Update: Option to set custom color for the round chart element
-   Update: WPML compatibility improved with filters for images
-   Fix: Raw HTML element works properly for WPML Translation Editor
-   Fix: Auto-mapper deprecation notice works properly
-   Fix: Template preview works properly
-   Fix: Stretched row works properly in WordPress default themes
-   Fix: Post grid works properly
+  - New: Filter to disable full width row JS
+  - Update: Option to set custom color for the round chart element
+  - Update: WPML compatibility improved with filters for images
+  - Fix: Raw HTML element works properly for WPML Translation Editor
+  - Fix: Auto-mapper deprecation notice works properly
+  - Fix: Template preview works properly
+  - Fix: Stretched row works properly in WordPress default themes
+  - Fix: Post grid works properly
 
 20.12.2021 - ver 6.8.0
   - Update: Deprecated jQuery removed from the plugin

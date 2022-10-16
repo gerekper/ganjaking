@@ -162,7 +162,7 @@ if ( ! class_exists( 'Vc_Automap_Model' ) ) {
 		protected function deleteOption() {
 			unset( self::$option_data[ $this->id ] );
 
-			return delete_option( self::$option_name );
+			return update_option( self::$option_name, self::$option_data );
 		}
 	}
 }

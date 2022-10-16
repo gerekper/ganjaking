@@ -209,19 +209,6 @@ trait WooDataSourceTrait
         return $type;
     }
 
-    public function variation($product)
-    {
-        foreach ($product->get_visible_children() as $variation_id) {
-            $variation = wc_get_product($variation_id);
-            $attributes = [];
-            foreach ($variation->get_attributes() as $attribute => $value) {
-                $attributes[$attribute] = "$variation_id" . "_sp_" . $value;
-            }
-            $output[] = $attributes;
-        }
-        return $output;
-    }
-
     public function variableProduct($product, $value)
     {
         ?>
@@ -232,60 +219,41 @@ trait WooDataSourceTrait
                id="ntb_woo_product_variation"
                data-product_variations="<?php echo htmlentities(json_encode($product->get_available_variations())); ?>"
                data-quantity="1"
-               data-variations="<?php echo htmlentities(json_encode($this->variation($product))); ?>"
                class="nt_add_to_cart_<?php echo $product->get_id(); ?> nt_button nt_button_woo single_add_to_cart_button button alt wc_product_<?php echo $product->get_type(); ?>"
             >
                 <?php echo $value !== 'Select options' ? $value : __('Add to cart', 'ninja-tables-pro'); ?>
             </a><br>
             <?php
 
-            $variations = $product->get_available_variations();
-            $attr = [];
-            foreach ($variations as $var) {
-                foreach ($var['attributes'] as $key => $value) {
-                    $attr[$key][] = $value;
-                }
-            }
-            foreach ($product->get_attributes() as $taxonomy => $attribute) {
-                $taxonomy_label = wc_attribute_label($taxonomy, $product);
-                ?>
-                <select data-product_id="<?php echo $product->get_id(); ?>"
-                        id="<?php echo $taxonomy . '_' . $product->get_id(); ?>"
-                        class="nt_woo_attribute ntb_attribute_select_<?php echo $product->get_id(); ?>"
-                        data-attribute_name="<?php echo 'attribute_' . $taxonomy ?>"
-                        name="<?php echo 'attribute_' . $taxonomy; ?>"
-                        data-id="<?php echo $taxonomy ?>">
-                    <option value="" selected>
-                        <?php echo $taxonomy_label; ?>
-                    </option>
-                    <?php
+            $variations = $product->get_variation_attributes();
 
-                    if ($attribute->get_terms()) {
-                        foreach ($attribute->get_terms() as $key => $term) {
-                            $con1 = in_array('', $attr['attribute_' . $taxonomy]);
-                            $con2 = in_array($term->slug, $attr['attribute_' . $taxonomy]);
-                            if ($con1 || $con2) {
-                                ?>
-                                <option id="<?php echo $term->term_id; ?>"
-                                        value="<?php echo $term->slug; ?>">
-                                    <?php echo $term->name; ?>
-                                </option>
-                                <?php
-                            }
-                        }
-                    } else {
-                        //  get custom variations
-                        foreach ($attribute['options'] as $key => $term) {
+            foreach ($variations as $key => $variation) {
+                $key = str_replace(' ', '-', $key);
+                $key = strtolower($key);
+                $key = preg_replace("/[^a-zA-Z0-9-_]+/", "", $key);
+                $taxonomy_label = wc_attribute_label($key, $product);
+                ?>
+                    <select
+                            data-product_id="<?php echo $product->get_id(); ?>"
+                            id="<?php echo 'attribute_'. $key . '_' . $product->get_id(); ?>"
+                            class="nt_woo_attribute ntb_attribute_select_<?php echo $product->get_id(); ?>"
+                            data-attribute_name="<?php echo 'attribute_' . $key ?>"
+                            data-attribute_label="<?php echo $taxonomy_label ?>"
+                            name="<?php echo 'attribute_' . $key; ?>"
+                            data-default_options="<?php echo htmlentities(json_encode($variation)); ?>"
+                            data-id="<?php echo $key ?>">
+                    >
+                        <option value=""><?php echo $taxonomy_label; ?></option>
+                        <?php
+                        foreach ($variation as $option) {
                             ?>
-                            <option id="<?php echo $term ?>"
-                                    value="<?php echo $term; ?>">
-                                <?php echo $term; ?>
-                            </option>
-                        <?php }
-                    } ?>
-                </select>
+                            <option value="<?php echo $option; ?>"><?php echo $option; ?></option>
+                            <?php
+                        }
+                        ?>
+                    </select>
                 <?php
-            } ?>
+            }?>
             <span class="selected_price_<?php echo $product->get_id(); ?>"></span>
         </div>
         <?php

@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Checkout Field Editor
  * Plugin URI: https://woocommerce.com/products/woocommerce-checkout-field-editor/
  * Description: Add, remove and modify fields shown on your WooCommerce checkout page.
- * Version: 1.7.4
+ * Version: 1.7.6
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Tested up to: 6.0
@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-define( 'WC_CHECKOUT_FIELD_EDITOR_VERSION', '1.7.4' ); // WRCS: DEFINED_VERSION.
+define( 'WC_CHECKOUT_FIELD_EDITOR_VERSION', '1.7.6' ); // WRCS: DEFINED_VERSION.
 define( 'WC_CHECKOUT_FIELD_EDITOR_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 
 // Plugin init hook.
@@ -41,6 +41,15 @@ add_filter( 'plugin_row_meta', 'wc_checkout_fields_plugin_row_meta', 10, 2 );
 // Subscribe to automated translations.
 add_filter( 'woocommerce_translations_updates_for_woocommerce-checkout-field-editor', '__return_true' );
 
+// Declare comaptibility with custom order tables for WooCommerce.
+add_action(
+	'before_woocommerce_init',
+	function() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
+	}
+);
 
 /**
  * Initialize plugin.

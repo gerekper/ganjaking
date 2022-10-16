@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Component abstraction. Contains data and maintains view state.
  *
  * @class    WC_CP_Component
- * @version  8.5.2
+ * @version  8.6.0
  */
 class WC_CP_Component implements ArrayAccess {
 
@@ -1129,14 +1129,17 @@ class WC_CP_Component implements ArrayAccess {
 	|--------------------------------------------------------------------------
 	*/
 
+	#[\ReturnTypeWillChange]
 	public function offsetGet( $offset ) {
 		return isset( $this->data[ $offset ] ) ? $this->data[ $offset ] : null;
 	}
 
+	#[\ReturnTypeWillChange]
 	public function offsetExists( $offset ) {
 		return isset( $this->data[ $offset ] );
 	}
 
+	#[\ReturnTypeWillChange]
 	public function offsetSet( $offset, $value ) {
 		if ( is_null( $offset ) ) {
 			$this->data[] = $value;
@@ -1145,6 +1148,7 @@ class WC_CP_Component implements ArrayAccess {
 		}
 	}
 
+	#[\ReturnTypeWillChange]
 	public function offsetUnset( $offset ) {
 		unset( $this->data[ $offset ] );
 	}

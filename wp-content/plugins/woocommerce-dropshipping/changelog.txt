@@ -1,5 +1,19 @@
 *** WooCommerce AliExpress Dropshipping Changelog ***
 
+2022-10-13 - version 4.4
+* PLUGINS-1772 - Fix rounding off product prices.
+* PLUGINS-1539 - Fix Array notice errors.
+* PLUGINS-1785 - Add dash notice for Pro add-on for Dropshipping.
+* PLUGINS-1655 - Fix plugin compatibility issues with newer PHP 8.
+* PLUGINS-1791 - Fix Unauthenticated SQLi.
+
+2022-09-08 - version 4.3
+* PLUGINS-1459 - Fix wrong price format in supplier's email.
+* PLUGINS-1670 - Fix code that slows down website.
+* PLUGINS-1656 - Fix rounding off empty price error.
+* PLUGINS-1501 - Fix notice when there is no shipping country filled up.
+* PLUGINS-1631 - Don't send cancellation orders to supplier if the order came from 'On-Hold' order status.
+
 2022-07-28 - version 4.2
 * PLUGINS-1233 - Add a filter by supplier in order page.
 * PLUGINS-1423 - Show company name in Shipping Address of Packingslip.

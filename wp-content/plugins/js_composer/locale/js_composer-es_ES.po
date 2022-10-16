@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WPBakery Page Builder\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-14 17:07+0200\n"
-"PO-Revision-Date: 2021-12-14 17:10+0200\n"
+"PO-Revision-Date: 2022-10-11 21:07+0300\n"
 "Last-Translator: Michael M <hello@wpbakery.com>\n"
 "Language-Team: elpuntografico.com <contacto@elpuntografico.com>\n"
 "Language: es_ES\n"
@@ -638,13 +638,13 @@ msgstr "ID del elemento"
 #: config/./wp/shortcode-vc-wp-tagcloud.php:48
 #: config/./wp/shortcode-vc-wp-text.php:31
 #: include/./autoload/vendors/shortcode-vc-gutenberg.php:26
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Enter element ID (Note: make sure it is unique and valid according to %sw3c "
 "specification%s)."
 msgstr ""
 "Introduce el ID de la sección (Nota: asegúrate de que es único y válido "
-"según la especificacion del <a href=\"%s\" target=\"_blank\">w3c</a>)."
+"según la especificacion del %sw3c%s)."
 
 #: config/./buttons/shortcode-vc-btn.php:322
 #: config/./buttons/shortcode-vc-cta.php:234
@@ -2815,7 +2815,7 @@ msgstr "Sin enlace"
 
 #: config/./content/shortcode-vc-posts-slider.php:95
 msgid "Link type."
-msgstr "Tipo de enlace"
+msgstr "Tipo de enlace."
 
 #: config/./content/shortcode-vc-posts-slider.php:106
 msgid "Enter links for each slide here. Divide links with linebreaks (Enter)."
@@ -3404,16 +3404,13 @@ msgid "Video link"
 msgstr "Link del vídeo"
 
 #: config/./content/shortcode-vc-video.php:25
-#, fuzzy, php-format
-#| msgid ""
-#| "Enter link to video (Note: read more about available formats at WordPress "
-#| "<a href=\"%s\" target=\"_blank\">codex page</a>)."
+#, php-format
 msgid ""
 "Enter link to video (Note: read more about available formats at WordPress "
 "%scodex page%s)."
 msgstr ""
 "Introduce el enlace al vídeo. (Nota: aprende más acerca de los formatos "
-"disponibles en el <a href=“%s” target=“_blank”>codex</a>)."
+"disponibles en el %scodex%s)."
 
 #: config/./content/shortcode-vc-video.php:29
 msgid "Video width"
@@ -5738,16 +5735,13 @@ msgid "Enter section title (Note: you can leave it empty)."
 msgstr "Introduce el título de la sección (Nota: puedes dejarlo vacío)."
 
 #: config/./tta/shortcode-vc-tta-section.php:58
-#, fuzzy, php-format
-#| msgid ""
-#| "Enter section ID (Note: make sure it is unique and valid according to <a "
-#| "href=\"%s\" target=\"_blank\">w3c specification</a>)."
+#, php-format
 msgid ""
 "Enter section ID (Note: make sure it is unique and valid according to %sw3c "
 "specification%s)."
 msgstr ""
 "Introduce el ID de la sección (Nota: asegúrate de que es único y válido "
-"según la especificacion del <a href=\"%s\" target=\"_blank\">w3c</a>)."
+"según la especificacion del %sw3c%s)."
 
 #: config/./tta/shortcode-vc-tta-section.php:80
 msgid "Section for Tabs, Tours, Accordions."
@@ -6425,14 +6419,9 @@ msgstr ""
 
 #: include/./autoload/vc-pointers-backend-editor.php:75
 #: include/./autoload/vc-pointers-frontend-editor.php:53
-#, fuzzy, php-format
-#| msgid ""
-#| "P.S. Learn more at our <a href=\"%s\" target=\"_blank\">Knowledge Base</"
-#| "a>."
+#, php-format
 msgid "P.S. Learn more at our %sKnowledge Base%s."
-msgstr ""
-"P.D.: Descubre más en nuestra <a href=“%s” target=“_blank”>base de "
-"conocimiento</a>."
+msgstr "P.D.: Descubre más en nuestra %sbase de conocimiento%s."
 
 #: include/./autoload/vendors/gravity_forms.php:21
 msgid "No Gravity forms found."
@@ -7395,14 +7384,13 @@ msgid "Invalid license key"
 msgstr "Clave de licencia no válida"
 
 #: include/./classes/settings/class-vc-license.php:441
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hola! Would you like to receive automatic updates and unlock premium "
 "support? Please %sactivate your copy%s of WPBakery Page Builder."
 msgstr ""
 "¡Hola! ¿Quieres recibir actualizaciones automáticas y desbloquear soporte "
-"premium? <a href=\"%s\">Activa tu copia</a> de WPBakery Page Builder, por "
-"favor."
+"premium? %sActiva tu copia%s de WPBakery Page Builder, por favor."
 
 #: include/./classes/settings/class-vc-license.php:441
 msgid "Dismiss this notice."
@@ -7507,7 +7495,7 @@ msgstr "¿Seguro que quieres reestablecer las opciones predefinidas?"
 
 #: include/./classes/settings/class-vc-settings.php:464
 msgid "Saving..."
-msgstr "Guardando…"
+msgstr "Guardando..."
 
 #: include/./classes/settings/class-vc-settings.php:466
 msgid "Design Options successfully saved."
@@ -8343,7 +8331,7 @@ msgstr "Mostrar varios productos por ID o SKU."
 #, php-format
 msgid "Select how to sort retrieved products. More at %s. Default by Title"
 msgstr ""
-"Selecciona cómo ordenar los productos. Más en %s. Por defecto por título."
+"Selecciona cómo ordenar los productos. Más en %s. Por defecto por título"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:389
 #, php-format
@@ -8361,7 +8349,7 @@ msgstr "Añadir al carrito"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:425
 msgid "Show multiple products by ID or SKU"
-msgstr "Mostrar varios productos por ID o SKU."
+msgstr "Mostrar varios productos por ID o SKU"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:439
 msgid "Wrapper inline style"
@@ -8442,7 +8430,7 @@ msgstr "Número"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:581
 msgid "The `number` field is used to display the number of products."
-msgstr "El campo \"Número\" se usa para mostrar el número de productos"
+msgstr "El campo \"Número\" se usa para mostrar el número de productos."
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:615
 msgid "Hide empty"
@@ -8945,7 +8933,7 @@ msgstr "rotateInDownRight"
 
 #: include/./params/animation_style/animation_style.php:270
 msgid "rotateInUpLeft"
-msgstr "RotateInUpLeft"
+msgstr "rotateInUpLeft"
 
 #: include/./params/animation_style/animation_style.php:274
 msgid "rotateInUpRight"
@@ -10251,7 +10239,7 @@ msgstr "Editor en el frontend"
 msgid "Control user access to Grid Builder and Grid Builder Elements."
 msgstr ""
 "Controla el acceso de los usuarios a Grid Builder y a los elementos de Grid "
-"Builder"
+"Builder."
 
 #: include/./templates/pages/partials/vc-roles-parts/_post_settings.tpl.php:15
 #, fuzzy
@@ -10435,12 +10423,12 @@ msgstr ""
 "<strong>soporte oficial.</strong>"
 
 #: include/./templates/pages/vc-settings/tab.php:119
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Don't have direct license yet? %sPurchase WPBakery Page Builder license%s."
 msgstr ""
-"¿todavía no tienes una licencia directa? <a href=\"%s\" target=\"_blank"
-"\">Compra una licencia de WPBakery Page Builder</a>."
+"¿todavía no tienes una licencia directa? %sCompra una licencia de WPBakery "
+"Page Builder%s."
 
 #: include/./templates/pages/vc-welcome/index.php:9
 #, php-format
@@ -10469,16 +10457,15 @@ msgstr ""
 "información?"
 
 #: include/./templates/pages/vc-welcome/vc-faq.php:9
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "WPBakery has complete documentation available at our knowledge base: %s "
 "which covers everything related to WPBakery Page Builder starting from "
 "Installation and up to more advanced features based on our Inner API."
 msgstr ""
 "WPBakery tiene documentación completa disponible en su base de conocimiento "
-"en <a target=\"_blank\" href=\"%s\">kb.wpbakery.com</a>, que cubre todo lo "
-"relacionado con WPBakery Page Builder, desde la instalación y hasta opciones "
-"más avanzadas basadas en la API interna."
+"en %s, que cubre todo lo relacionado con WPBakery Page Builder, desde la "
+"instalación y hasta opciones más avanzadas basadas en la API interna."
 
 #: include/./templates/pages/vc-welcome/vc-faq.php:13
 msgid "Preface"
@@ -10701,13 +10688,7 @@ msgid "Official Support"
 msgstr "Soporte Oficial"
 
 #: include/./templates/pages/vc-welcome/vc-resources.php:27
-#, fuzzy, php-format
-#| msgid ""
-#| "To get your support related question answered in the fastest timing, "
-#| "please head over to our <a href=\"%s\" target=\"_blank\">support page</a> "
-#| "and open Support ticket. To open a support ticket you should have a valid "
-#| "support subscription in case if your support has expired you can <a href="
-#| "\"%s\" target=\"_blank\">purchase support extension</a> on CodeCanyon."
+#, php-format
 msgid ""
 "To get your support related question answered in the fastest timing, please "
 "head over to our %ssupport page%s and open Support ticket. To open a support "
@@ -10715,19 +10696,13 @@ msgid ""
 "has expired you can %spurchase support extension%s on support.wpbakery.com."
 msgstr ""
 "Para que tu pregunta relacionada con soporte sea respondida lo antes "
-"posible, dirígete a nuestra <a href=\"%s\" target=\"_blank\">página de "
-"soporte</a> y abre el ticket de soporte. Para abrir un ticket de soporte, "
-"debes tener una suscripción de soporte válida. Si tu soporte ha caducado, "
-"puedes <a href=\"%s\" target=\"_blank\">adquirir una extensión de soporte</"
-"a> en CodeCanyon."
+"posible, dirígete a nuestra %spágina de soporte%s y abre el ticket de "
+"soporte. Para abrir un ticket de soporte, debes tener una suscripción de "
+"soporte válida. Si tu soporte ha caducado, puedes %sadquirir una extensión "
+"de soporte%s en support.wpbakery.com."
 
 #: include/./templates/pages/vc-welcome/vc-resources.php:29
-#, fuzzy, php-format
-#| msgid ""
-#| "Before applying for support please make sure you understand the rules of "
-#| "support and go through all steps described and listed in <a href=\"%s\" "
-#| "target=\"_blank\">Support Policy</a> in order to get your issues solved "
-#| "as soon as possible."
+#, php-format
 msgid ""
 "Before applying for support please make sure you understand the rules of "
 "support and go through all steps described and listed in %sSupport Policy%s "
@@ -10735,8 +10710,8 @@ msgid ""
 msgstr ""
 "Antes de enviar una solicitud de soporte por favor asegúrate de que "
 "entiendes las normas de soporte y que has seguido todos los pasos detallados "
-"en la <a href=“%s” target=“_blank”>Política de Soporte</a>, con el fin de "
-"que tus incidencias sean resueltas a la mayor brevedad."
+"en la %sPolítica de Soporte%s, con el fin de que tus incidencias sean "
+"resueltas a la mayor brevedad."
 
 #: include/./templates/pages/vc-welcome/vc-welcome.php:11
 msgid "A Hassle-Free WordPress Page Builder"
@@ -10750,15 +10725,15 @@ msgid ""
 msgstr ""
 
 #: include/./templates/params/column_offset/template.tpl.php:21
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Responsive design settings are currently disabled. You can enable them in "
 "WPBakery Page Builder %ssettings page%s by unchecking \"Disable responsive "
 "content elements\"."
 msgstr ""
 "Los ajustes de diseño responsivo están deshabilitados actualmente. Puedes "
-"habilitarlos en la <a href=\"%s\">página de ajustes de WPBakery Page "
-"Builder</a>, desmarcando \"Deshabilitar elementos de contenido responsive\"."
+"habilitarlos en la %spágina de ajustes de WPBakery Page Builder%s, "
+"desmarcando \"Deshabilitar elementos de contenido responsive\"."
 
 #: include/./templates/params/column_offset/template.tpl.php:31
 msgid "Device"

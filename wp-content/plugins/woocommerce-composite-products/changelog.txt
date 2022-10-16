@@ -1,5 +1,15 @@
 *** WooCommerce Composite Products ***
 
+2022.10.13 - version 8.6.0
+* Important - The Min/Max Quantities integration requires Min/Max Quantities v3+.
+* Feature - Added support for the Min/Max Quantities 'Group of' feature.
+* Feature - Validated Min/Max component quantity values on edit.
+* Dev - Introduced 'woocommerce_composited_item_quantity_min' and 'woocommerce_composited_item_quantity_max' filters to programmatically control the component's min/max quantity.
+* Dev - Introduced 'woocommerce_composited_item_group_of_qty' filter to programmatically control the composited item's group of quantity.
+* Tweak - Added support for PHP v8.1.
+* Tweak - Added support for automated translations delivery.
+* Fix - Fixed a fatal error that was triggered when using PHP v8 and using Cart/Checkout Blocks.
+
 2022.08.15 - version 8.5.2
 * Fix - Fixed an issue that prevented discounts with comma separated decimals from being saved.
 * Fix - Fixed an issue with 404 errors on frontend assets in some managed server configurations.

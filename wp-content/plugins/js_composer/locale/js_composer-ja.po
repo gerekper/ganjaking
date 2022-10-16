@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WPBakery Page Builder\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-14 17:07+0200\n"
-"PO-Revision-Date: 2021-12-14 17:09+0200\n"
+"PO-Revision-Date: 2022-10-11 21:14+0300\n"
 "Last-Translator: Michael M <hello@wpbakery.com>\n"
 "Language-Team: evange <info@evange.co.jp>\n"
 "Language: ja\n"
@@ -7221,13 +7221,13 @@ msgid "Invalid license key"
 msgstr ""
 
 #: include/./classes/settings/class-vc-license.php:441
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hola! Would you like to receive automatic updates and unlock premium "
 "support? Please %sactivate your copy%s of WPBakery Page Builder."
 msgstr ""
-"ライセンスアクティベーションが必要な場合の自動アップデータを取得する。<a "
-"href=\""
+"Hola! Would you like to receive automatic updates and unlock premium "
+"support? Please %sactivate your copy%s of WPBakery Page Builder."
 
 #: include/./classes/settings/class-vc-license.php:441
 msgid "Dismiss this notice."
@@ -7747,13 +7747,13 @@ msgid "Error! Can't connect to filesystem"
 msgstr "エラー！ファイルシステムに接続できません"
 
 #: include/./classes/updaters/class-vc-updater.php:145
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "To receive automatic updates license activation is required. Please visit "
 "%sSettings%s to activate your WPBakery Page Builder."
 msgstr ""
-"ライセンスアクティベーションが必要な場合の自動アップデータを取得する。<a "
-"href=\""
+"To receive automatic updates license activation is required. Please visit "
+"%sSettings%s to activate your WPBakery Page Builder."
 
 #: include/./classes/updaters/class-vc-updater.php:145
 #: include/./classes/updaters/class-vc-updating-manager.php:204
@@ -7773,13 +7773,13 @@ msgid "Downloading package..."
 msgstr ""
 
 #: include/./classes/updaters/class-vc-updating-manager.php:204
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "To receive automatic updates license activation is required. Please visit "
 "%ssettings%s to activate your WPBakery Page Builder."
 msgstr ""
-"ライセンスアクティベーションが必要な場合の自動アップデータを取得する。<a "
-"href=\""
+"To receive automatic updates license activation is required. Please visit "
+"%ssettings%s to activate your WPBakery Page Builder."
 
 #: include/./classes/vendors/plugins/acf/grid-item-shortcodes.php:18
 #: include/./classes/vendors/plugins/acf/shortcode.php:18
@@ -10389,15 +10389,15 @@ msgid ""
 msgstr ""
 
 #: include/./templates/params/column_offset/template.tpl.php:21
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Responsive design settings are currently disabled. You can enable them in "
 "WPBakery Page Builder %ssettings page%s by unchecking \"Disable responsive "
 "content elements\"."
 msgstr ""
 "レスポンシブデザインの設定は現在無効になっています。あなたがこのチェックを外"
-"すことでWPBakery Page Builderの<a href=\"%s\">設定ページ</a>で\"Disable "
-"responsive content elements\"からそれらを有効にすることができます "
+"すことでWPBakery Page Builderの%s設定ページ%sで\"Disable responsive content "
+"elements\"からそれらを有効にすることができます "
 
 #: include/./templates/params/column_offset/template.tpl.php:31
 msgid "Device"

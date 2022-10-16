@@ -458,7 +458,7 @@ function vc_gitem_template_attribute_post_excerpt( $value, $data ) {
 		'data' => '',
 	), $data ) );
 
-	return apply_filters( 'the_excerpt', apply_filters( 'get_the_excerpt', $value ) );
+	return apply_filters( 'the_excerpt', apply_filters( 'get_the_excerpt', $value, get_post( $post ) ) );
 }
 
 /**

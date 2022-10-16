@@ -1940,8 +1940,8 @@
 
 		global $wpdb;
 
-        $product_id = $wpdb->get_var('SELECT post_id FROM '.$wpdb->postmeta.' WHERE meta_key="_sku" AND meta_value LIKE "%'.$sku.'%"');
-
+        //$product_id = $wpdb->get_var('SELECT post_id FROM '.$wpdb->postmeta.' WHERE meta_key="_sku" AND meta_value LIKE "%'.$sku.'%"');
+	$product_id = $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key='_sku' AND meta_value='%s' LIMIT 1", $sku ) );
         if($product_id){
 
         	return $product_id;
@@ -3206,7 +3206,8 @@ function place_order_automatically_meta_box_content(){
 
 	         	//for check order id exist or not.
 
-	        	$results = $wpdb->get_results( "SELECT * FROM $wpdb->posts WHERE ID = $orderid");
+	        	//$results = $wpdb->get_results( "SELECT * FROM $wpdb->posts WHERE ID = $orderid");
+			$results = $wpdb->query( $wpdb->prepare( "SELECT * FROM $wpdb->posts WHERE ID='%s'", $orderid ) );
 
 	         	if( empty($results)) {
 

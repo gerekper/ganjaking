@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Data tabs/panels for the Composite type.
  *
  * @class    WC_CP_Meta_Box_Product_Data
- * @version  8.5.2
+ * @version  8.6.0
  */
 class WC_CP_Meta_Box_Product_Data {
 
@@ -1659,7 +1659,7 @@ class WC_CP_Meta_Box_Product_Data {
 				<label for="group_quantity_min_<?php echo $id; ?>">
 					<?php echo __( 'Min Quantity', 'woocommerce-composite-products' ); ?>
 				</label>
-				<input type="number" class="group_quantity_min" name="bto_data[<?php echo $id; ?>][quantity_min]" id="group_quantity_min_<?php echo $id; ?>" value="<?php echo $quantity_min; ?>" placeholder="" step="1" min="0" />
+				<input type="number" class="group_quantity group_quantity_min" name="bto_data[<?php echo $id; ?>][quantity_min]" id="group_quantity_min_<?php echo $id; ?>" value="<?php echo $quantity_min; ?>" placeholder="" step="1" min="0" />
 				<?php echo wc_help_tip( __( 'Set a minimum quantity for the selected Component Option.', 'woocommerce-composite-products' ) ); ?>
 			</div>
 		</div>
@@ -1677,6 +1677,7 @@ class WC_CP_Meta_Box_Product_Data {
 	public static function component_config_quantity_max( $id, $data, $product_id ) {
 
 		$quantity_max = isset( $data[ 'quantity_max' ] ) ? $data[ 'quantity_max' ] : 1;
+		$quantity_min = isset( $data[ 'quantity_min' ] ) ? $data[ 'quantity_min' ] : 1;
 
 		?>
 		<div class="group_quantity_max">
@@ -1684,7 +1685,7 @@ class WC_CP_Meta_Box_Product_Data {
 				<label for="group_quantity_max_<?php echo $id; ?>">
 					<?php echo __( 'Max Quantity', 'woocommerce-composite-products' ); ?>
 				</label>
-				<input type="number" class="group_quantity_max" name="bto_data[<?php echo $id; ?>][quantity_max]" id="group_quantity_max_<?php echo $id; ?>" value="<?php echo $quantity_max; ?>" placeholder="" step="1" min="0" />
+				<input type="number" class="group_quantity group_quantity_max" name="bto_data[<?php echo $id; ?>][quantity_max]" id="group_quantity_max_<?php echo $id; ?>" value="<?php echo $quantity_max; ?>" placeholder="" step="1" min="<?php echo $quantity_min; ?> />
 				<?php echo wc_help_tip( __( 'Set a maximum quantity for the selected Component Option. Leave the field empty to allow an unlimited maximum quantity.', 'woocommerce-composite-products' ) ); ?>
 			</div>
 		</div>

@@ -14,6 +14,12 @@ function vc_woocommerce_add_to_cart_script() {
 	}
 }
 
+function vc_woocommerce_tab_manager_allowed_meta_box_ids( $allowed_meta_box_ids ) {
+	$allowed_meta_box_ids[] = 'wpb_wpbakery';
+
+	return $allowed_meta_box_ids;
+}
+
 /**
  * @since 4.4 vendors initialization moved to hooks in autoload/vendors.
  *
@@ -39,5 +45,8 @@ function vc_init_vendor_woocommerce() {
 		add_filter( 'vc_gitem_post_data_get_link_real_target', 'vc_gitem_post_data_get_link_real_target_woocommerce', 12, 3 );
 		add_filter( 'vc_gitem_zone_image_block_link', 'vc_gitem_zone_image_block_link_woocommerce', 10, 3 );
 		add_action( 'wp_enqueue_scripts', 'vc_woocommerce_add_to_cart_script' );
+
+		// woocommerce-tab-manager wc_tab_manager_allowed_meta_box_ids compatibility
+		add_filter( 'wc_tab_manager_allowed_meta_box_ids', 'vc_woocommerce_tab_manager_allowed_meta_box_ids' );
 	}
 }

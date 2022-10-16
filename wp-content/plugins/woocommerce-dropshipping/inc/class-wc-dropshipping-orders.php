@@ -12,7 +12,8 @@ class WC_Dropshipping_Orders {
 		add_action('woocommerce_order_actions',array( $this,'add_order_meta_box_order_processing'));
 		add_action('woocommerce_order_status_processing',array($this,'order_processing'));
 		add_action('woocommerce_order_status_completed',array($this,'order_complete'));
-		add_action('woocommerce_order_status_cancelled',array($this,'order_cancelled'));
+		add_action( 'woocommerce_order_status_changed', array($this,'grab_order_old_status'), 10, 4 );
+		//add_action('woocommerce_order_status_cancelled',array($this,'order_cancelled'));
 		add_action('woocommerce_order_action_resend_dropship_supplier_notifications',array($this,'order_processing'));
 		add_action('wc_dropship_manager_send_order',array($this,'send_order'),10, 2);
 		add_filter( 'wp_mail_content_type',array($this,'wpse27856_set_content_type') );
@@ -49,6 +50,7 @@ class WC_Dropshipping_Orders {
 	}
     function round_price_product( $price ){
     // Return rounded price
+	$price = floatval($price);
       return round( $price,2);
     }
 	public function add_order_meta_box_order_processing( $actions ) {
@@ -64,10 +66,27 @@ class WC_Dropshipping_Orders {
 			$this->notify_warehouse($order); // notify the warehouse to ship the order
 		}
 	}
-	public function order_cancelled( $order_id ) { 
+
+
+	// Below function to send an email when order status cancelled.
+	
+	public function grab_order_old_status( $order_id, $status_from, $status_to, $order ) {
+		$order = new WC_Order( $order_id );
+		
+		if($status_from == "completed" && $status_to == "cancelled"){
+           $this->notify_warehouse($order);
+	   }elseif($status_from == "processing" && $status_to == "cancelled"){
+			$this->notify_warehouse($order);
+		}else{
+			
+		}
+	}
+		
+	
+	/*public function order_cancelled( $order_id ) { 
         $order = new WC_Order( $order_id ); // load the order from woocommerce
         $this->notify_warehouse($order);
-    }
+    }*/
 	/* Notify Suppliers */
 	// perform all tasks that happen once an order is set to processing
 	public function order_processing( $order_id ) {
@@ -135,6 +154,8 @@ class WC_Dropshipping_Orders {
 		}
 		return $info;
 	}
+
+
 	public function get_order_product_info($item,$product) {
 		global $woocommerce;
 		$woocommerce_price_decimal_sep = get_option( 'woocommerce_price_decimal_sep' );
@@ -212,6 +233,7 @@ class WC_Dropshipping_Orders {
 				$info[$key] = $data['value'];
 			}
 		}
+
 		// Product Variations
 		$info['variation_data'] = [];
 		$info['variation_labels'] = [];
@@ -230,6 +252,7 @@ class WC_Dropshipping_Orders {
 			$info['variation_labels'] = $variation_label;
 			$v_name = explode('- ', $info['name']);
 			$info['variation_name'] = $v_name[0];
+
 		}
 		else
 		{
@@ -247,12 +270,14 @@ class WC_Dropshipping_Orders {
 		}
 		return $info;
 	}
+
 	private function get_addon_display_label($item_meta)
 	{
 		$d = $item_meta->display_key;
 		// remove the price from the meta display name
 		return trim(preg_replace('/\(\$\d.*\)/','',$d));
 	}
+
 	public function get_order_info($order) {
 		$options = get_option( 'wc_dropship_manager' );
 	    $hideorderdetail_suppliername = $options['hideorderdetail_suppliername'];
@@ -326,6 +351,7 @@ class WC_Dropshipping_Orders {
 	public function get_content_type() {
 		return " text/html";
 	}
+
 	// for sending failure notifications
 	public function sendAlert($text) {
 		wp_mail( get_bloginfo('admin_email'), 'Alert from '.get_bloginfo('name'), $text );
@@ -337,6 +363,7 @@ class WC_Dropshipping_Orders {
     			wp_mkdir_p( $order_dir );
 		return $order_dir;
 	}
+
 	// generate packingslip PDF
 	public function make_pdf($order_info,$supplier_info,$html,$file_name) {
 		// Include TCPDF library
@@ -405,6 +432,7 @@ class WC_Dropshipping_Orders {
 		$pdf->Output($file, 'F'); // save PDF
 		return $file;
 	}
+	
 	// generate packing csv
 	public function make_csv($order_info,$supplier_info,$html,$file_name) {
 

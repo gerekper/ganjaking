@@ -347,10 +347,10 @@ class Vc_Base {
 	 *
 	 */
 	public function addPageCustomCss( $id = null ) {
-		if ( is_front_page() || is_home() ) {
-			$id = get_queried_object_id();
-		} elseif ( is_singular() ) {
-			if ( ! $id ) {
+		if ( ! $id ) {
+			if ( is_front_page() || is_home() ) {
+				$id = get_queried_object_id();
+			} elseif ( is_singular() ) {
 				$id = get_the_ID();
 			}
 		}
@@ -389,6 +389,10 @@ class Vc_Base {
 	public function addShortcodesCustomCss( $id = null ) {
 		if ( ! $id && is_singular() ) {
 			$id = get_the_ID();
+		}
+		// if is woocommerce shop page
+		if ( ! $id && function_exists( 'is_shop' ) && is_shop() ) {
+			$id = get_option( 'woocommerce_shop_page_id' );
 		}
 
 		if ( $id ) {
@@ -510,11 +514,6 @@ class Vc_Base {
 		wp_register_script( 'nivo-slider', vc_asset_url( 'lib/bower/nivoslider/jquery.nivo.slider.pack.js' ), array( 'jquery-core' ), WPB_VC_VERSION, true );
 		wp_register_script( 'flexslider', vc_asset_url( 'lib/flexslider/jquery.flexslider.min.js' ), array( 'jquery-core' ), WPB_VC_VERSION, true );
 		wp_register_script( 'wpb_composer_front_js', vc_asset_url( 'js/dist/js_composer_front.min.js' ), array( 'jquery-core' ), WPB_VC_VERSION, true );
-		wp_localize_script( 'wpb_composer_front_js', 'vcData', array(
-			'currentTheme' => array(
-				'slug' => wpb_get_current_theme_slug(),
-			),
-		) );
 
 		/**
 		 * @since 4.4
@@ -672,6 +671,10 @@ class Vc_Base {
 			);
 			$content = preg_replace( $s, $r, $content );
 
+			// if content contains [vc_row then wrap with '<div>'
+			if ( preg_match( '/vc_row/', $content ) ) {
+				$content = '<section class="wpb-content-wrapper">' . $content . '</section>';
+			}
 			return $content;
 		}
 

@@ -40,5 +40,6 @@
   "params-to-init.php": "add required init params",
   "post-type-default-template.php": "Load default templates",
   "bc-multisite-options.php": "BC for multisite options",
-  "vc-undoredo.php": "Undo Redo logic"
+  "vc-undoredo.php": "Undo Redo logic",
+  "local-fonts/class-local-fonts.php": "Local Google fonts"
 }

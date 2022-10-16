@@ -37,7 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var WPBakeryShortcode_Vc_Text_Separator $this
  */
 
-$title_align = $el_width = $style = $title = $align = $color = $accent_color = $el_class = $el_id = $layout = $css = $border_width = $add_icon = $i_type = $i_icon_fontawesome = $i_icon_openiconic = $i_icon_typicons = $i_icon_entypo = $i_icon_linecons = $i_color = $i_custom_color = $i_background_style = $i_background_color = $i_custom_background_color = $i_size = $i_css_animation = $css_animation = '';
+$title_align = $el_width = $style = $title = $align = $color = $accent_color = $inline_css = $el_class = $el_id = $layout = $css = $border_width = $add_icon = $i_type = $i_icon_fontawesome = $i_icon_openiconic = $i_icon_typicons = $i_icon_entypo = $i_icon_linecons = $i_color = $i_custom_color = $i_background_style = $i_background_color = $i_custom_background_color = $i_size = $i_css_animation = $css_animation = '';
 
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
@@ -54,7 +54,17 @@ $class .= ( 'separator_no_text' === $layout ) ? ' vc_separator_no_text' : '';
 if ( '' !== $color && 'custom' !== $color ) {
 	$class .= ' vc_sep_color_' . $color;
 }
-$inline_css = ( 'custom' === $color && '' !== $accent_color ) ? ' style="' . vc_get_css_color( 'border-color', $accent_color ) . '"' : '';
+
+if ( 'custom' === $color && '' !== $accent_color ) {
+	if ( 'shadow' === $style ) {
+		$inline_css = vc_get_css_color( 'color', $accent_color );
+	} else {
+		$inline_css = vc_get_css_color( 'border-color', $accent_color );
+	}
+	if ( $inline_css ) {
+		$inline_css = ' style="' . esc_attr( $inline_css ) .'"';
+	}
+}
 
 $class_to_filter = $class;
 $class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class ) . $this->getCSSAnimation( $css_animation );
@@ -80,7 +90,7 @@ if ( ! empty( $el_id ) ) {
 }
 $wrapper_attributes_html = implode( ' ', $wrapper_attributes );
 $separatorHtml = <<<TEMPLATE
-<div class="$css_class" $wrapper_attributes_html><span class="vc_sep_holder vc_sep_holder_l"><span $inline_css class="vc_sep_line"></span></span>$content<span class="vc_sep_holder vc_sep_holder_r"><span $inline_css class="vc_sep_line"></span></span>
+<div class="$css_class" $wrapper_attributes_html><span class="vc_sep_holder vc_sep_holder_l"><span$inline_css class="vc_sep_line"></span></span>$content<span class="vc_sep_holder vc_sep_holder_r"><span$inline_css class="vc_sep_line"></span></span>
 </div>
 TEMPLATE;
 

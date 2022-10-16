@@ -4,10 +4,10 @@
  * Description: Super fast sales with WooCommerce. Add to cart, checkout & pay all on the one page!
  * Author:      Automattic
  * Author URI:  https://woocommerce.com/
- * Text Domain: wcopc
+ * Text Domain: woocommerce-one-page-checkout
  * Domain Path: languages
  * Plugin URI:  https://woocommerce.com/products/woocommerce-one-page-checkout/
- * Version: 1.9.5
+ * Version: 1.9.6
  * Tested up to: 6.0
  * WC requires at least: 2.5
  * WC tested up to: 6.4
@@ -34,6 +34,18 @@
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+defined( 'ABSPATH' ) || exit;
+
+// Declare comaptibility with custom order tables for WooCommerce.
+add_action(
+	'before_woocommerce_init',
+	function() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
+	}
+);
+
 /**
  * Required functions
  */
@@ -56,7 +68,7 @@ if ( ! is_woocommerce_active() || version_compare( get_option( 'woocommerce_db_v
 	return;
 }
 
-define( 'WC_ONE_PAGE_CHECKOUT_VERSION', '1.9.5' ); // WRCS: DEFINED_VERSION.
+define( 'WC_ONE_PAGE_CHECKOUT_VERSION', '1.9.6' ); // WRCS: DEFINED_VERSION.
 
 add_filter( 'woocommerce_translations_updates_for_woocommerce-one-page-checkout', '__return_true' );
 
@@ -67,13 +79,13 @@ add_filter( 'woocommerce_translations_updates_for_woocommerce-one-page-checkout'
  */
 function wcopc_load_plugin_textdomain() {
 
-	$locale = apply_filters( 'plugin_locale', get_locale(), 'wcopc' );
+	$locale = apply_filters( 'plugin_locale', get_locale(), 'woocommerce-one-page-checkout' );
 
 	// Allow upgrade safe, site specific language files in /wp-content/languages/woocommerce/
-	load_textdomain( 'wcopc', WP_LANG_DIR . '/woocommerce/wcopc-' . $locale . '.mo' );
+	load_textdomain( 'woocommerce-one-page-checkout', WP_LANG_DIR . '/woocommerce/woocommerce-one-page-checkout-' . $locale . '.mo' );
 
 	// Then check for a language file in /wp-content/plugins/woocommerce-one-page-checkout/languages/ (this will be overriden by any file already loaded)
-	load_plugin_textdomain( 'wcopc', false, basename( dirname( __FILE__ ) ) . '/languages/' );
+	load_plugin_textdomain( 'woocommerce-one-page-checkout', false, basename( dirname( __FILE__ ) ) . '/languages/' );
 }
 
 add_action( 'plugins_loaded', 'wcopc_load_plugin_textdomain' );
@@ -164,23 +176,23 @@ class PP_One_Page_Checkout {
 			'wcopc_templates',
 			array(
 				'product-table'  => array(
-					'label'               => __( 'Product Table', 'wcopc' ),
-					'description'         => __( 'Display a row for each product containing its thumbnail, title and price. Best for a few simple products where the thumbnails are helpful, e.g. a set of halloween masks.', 'wcopc' ),
+					'label'               => __( 'Product Table', 'woocommerce-one-page-checkout' ),
+					'description'         => __( 'Display a row for each product containing its thumbnail, title and price. Best for a few simple products where the thumbnails are helpful, e.g. a set of halloween masks.', 'woocommerce-one-page-checkout' ),
 					'supports_containers' => false,
 				),
 				'product-list'   => array(
-					'label'               => __( 'Product List', 'wcopc' ),
-					'description'         => __( 'Display a list of products with a radio button for selection. Useful when the customer does not need a description or photograph to choose, e.g. versions of an eBook.', 'wcopc' ),
+					'label'               => __( 'Product List', 'woocommerce-one-page-checkout' ),
+					'description'         => __( 'Display a list of products with a radio button for selection. Useful when the customer does not need a description or photograph to choose, e.g. versions of an eBook.', 'woocommerce-one-page-checkout' ),
 					'supports_containers' => false,
 				),
 				'product-single' => array(
-					'label'               => __( 'Single Product', 'wcopc' ),
-					'description'         => __( 'Display the single product template for each product. Useful when the description, images, gallery and other meta data will help the customer choose, e.g. evening gowns.', 'wcopc' ),
+					'label'               => __( 'Single Product', 'woocommerce-one-page-checkout' ),
+					'description'         => __( 'Display the single product template for each product. Useful when the description, images, gallery and other meta data will help the customer choose, e.g. evening gowns.', 'woocommerce-one-page-checkout' ),
 					'supports_containers' => false,
 				),
 				'pricing-table'  => array(
-					'label'               => __( 'Pricing Table', 'wcopc' ),
-					'description'         => __( "Display a simple pricing table with each product's attributes, weight and dimensions. Useful to allow customers to compare different, but related products, e.g. membership subscriptions.", 'wcopc' ),
+					'label'               => __( 'Pricing Table', 'woocommerce-one-page-checkout' ),
+					'description'         => __( "Display a simple pricing table with each product's attributes, weight and dimensions. Useful to allow customers to compare different, but related products, e.g. membership subscriptions.", 'woocommerce-one-page-checkout' ),
 					'supports_containers' => false,
 				),
 			)
@@ -600,7 +612,7 @@ class PP_One_Page_Checkout {
 
 		if ( self::is_wcopc_checkout() ) {
 
-			$message = preg_replace( '/<a[^>]*>(' . esc_html__( 'View Cart', 'wcopc' ) . ')<\/a>/iU', '', $message );
+			$message = preg_replace( '/<a[^>]*>(' . esc_html__( 'View Cart', 'woocommerce-one-page-checkout' ) . ')<\/a>/iU', '', $message );
 
 		}
 
@@ -620,7 +632,7 @@ class PP_One_Page_Checkout {
 			$product_title = $quantity . ' &times; ' . $product_title;
 		}
 
-		return sprintf( esc_html__( '%s&quot; added to your order. Complete your order below.', 'wcopc' ), $product_title );
+		return sprintf( esc_html__( '%s&quot; added to your order. Complete your order below.', 'woocommerce-one-page-checkout' ), $product_title );
 	}
 
 	/**
@@ -630,7 +642,7 @@ class PP_One_Page_Checkout {
 	 * @return string
 	 */
 	public static function modify_single_add_to_cart_text( $product ) {
-		return __( 'Add to order', 'wcopc' );
+		return __( 'Add to order', 'woocommerce-one-page-checkout' );
 	}
 
 	/**
@@ -993,14 +1005,14 @@ class PP_One_Page_Checkout {
 			}
 
 			WC()->cart->set_quantity( $cart_item_id, 0 );
-			wc_add_notice( sprintf( __( '&quot;%s&quot; was successfully removed from your order.', 'wcopc' ), get_the_title( $value['product_id'] ) ), 'success' );
+			wc_add_notice( sprintf( __( '&quot;%s&quot; was successfully removed from your order.', 'woocommerce-one-page-checkout' ), get_the_title( $value['product_id'] ) ), 'success' );
 			$response_data['result'] = 'success';
 			$item_removed            = true;
 			break;
 		}
 
 		if ( ! $item_removed ) {
-			wc_add_notice( sprintf( __( '&quot;%s&quot; could not be removed from your order.', 'wcopc' ), get_the_title( $value['product_id'] ) ), 'error' );
+			wc_add_notice( sprintf( __( '&quot;%s&quot; could not be removed from your order.', 'woocommerce-one-page-checkout' ), get_the_title( $value['product_id'] ) ), 'error' );
 			$response_data['result'] = 'failure';
 		}
 
@@ -1109,7 +1121,7 @@ class PP_One_Page_Checkout {
 						}
 					}
 				} else {
-					wc_add_notice( __( 'Please choose product options&hellip;', 'wcopc' ), 'error' );
+					wc_add_notice( __( 'Please choose product options&hellip;', 'woocommerce-one-page-checkout' ), 'error' );
 				}
 
 				// Variable product handling
@@ -1168,7 +1180,7 @@ class PP_One_Page_Checkout {
 
 				// If variation_id is empty or variations weren't set, add a notice.
 				if ( empty( $variation_id ) || ! $all_variations_set ) {
-					wc_add_notice( __( 'Please choose product options&hellip;', 'wcopc' ), 'error' );
+					wc_add_notice( __( 'Please choose product options&hellip;', 'woocommerce-one-page-checkout' ), 'error' );
 				}
 
 				// Custom Handler
@@ -1332,8 +1344,8 @@ class PP_One_Page_Checkout {
 			'wcopc_script_data',
 			array(
 				'wcopc_nonce'                 => wp_create_nonce( self::$nonce_action ),
-				'wcopc_complete_order_prompt' => '<a class="wc-south opc-complete-order" href="#customer_details">' . __( 'Modify &amp; complete order below', 'wcopc' ) . '</a>',
-				'ajax_error_notice'           => '<div class="woocommerce-error">' . __( 'Error processing your request. Please try refreshing the page. Contact us if you continue to have issues.', 'wcopc' ) . '</div>',
+				'wcopc_complete_order_prompt' => '<a class="wc-south opc-complete-order" href="#customer_details">' . __( 'Modify &amp; complete order below', 'woocommerce-one-page-checkout' ) . '</a>',
+				'ajax_error_notice'           => '<div class="woocommerce-error">' . __( 'Error processing your request. Please try refreshing the page. Contact us if you continue to have issues.', 'woocommerce-one-page-checkout' ) . '</div>',
 				'ajax_url'                    => WC()->ajax_url(),
 				'autoscroll'                  => self::get_settings_instance()->get_setting( 'autoscroll' ),
 			)
@@ -1606,8 +1618,8 @@ class PP_One_Page_Checkout {
 	 */
 	public static function improve_empty_cart_error( $error ) {
 
-		if ( defined( 'WOOCOMMERCE_CHECKOUT' ) && $error == sprintf( __( 'Sorry, your session has expired. <a href="%s">Return to homepage &rarr;</a>', 'wcopc' ), home_url() ) ) {
-			$error = __( 'You must select a product.', 'wcopc' );
+		if ( defined( 'WOOCOMMERCE_CHECKOUT' ) && $error == sprintf( __( 'Sorry, your session has expired. <a href="%s">Return to homepage &rarr;</a>', 'woocommerce-one-page-checkout' ), home_url() ) ) {
+			$error = __( 'You must select a product.', 'woocommerce-one-page-checkout' );
 		}
 
 		return $error;
@@ -1677,11 +1689,11 @@ class PP_One_Page_Checkout {
 			if ( ! is_woocommerce_active() ) :
 				?>
 				<div id="message" class="error">
-					<p><?php printf( esc_html__( '%1$sWooCommerce One Page Checkout is inactive.%2$s The %3$sWooCommerce plugin%4$s must be active for WooCommerce One Page Checkout to work. Please %5$sinstall & activate WooCommerce%6$s', 'wcopc' ), '<strong>', '</strong>', '<a href="http://wordpress.org/extend/plugins/woocommerce/">', '</a>', '<a href="' . esc_url( admin_url( 'plugins.php' ) ) . '">', '&nbsp;&raquo;</a>' ); ?></p>
+					<p><?php printf( esc_html__( '%1$sWooCommerce One Page Checkout is inactive.%2$s The %3$sWooCommerce plugin%4$s must be active for WooCommerce One Page Checkout to work. Please %5$sinstall & activate WooCommerce%6$s', 'woocommerce-one-page-checkout' ), '<strong>', '</strong>', '<a href="http://wordpress.org/extend/plugins/woocommerce/">', '</a>', '<a href="' . esc_url( admin_url( 'plugins.php' ) ) . '">', '&nbsp;&raquo;</a>' ); ?></p>
 				</div>
 						<?php elseif ( version_compare( get_option( 'woocommerce_db_version' ), '2.5', '<' ) ) : ?>
 				<div id="message" class="error">
-					<p><?php printf( esc_html__( '%1$sWooCommerce One Page Checkout is inactive.%2$s This plugin requires WooCommerce 2.5 or newer. Please %3$supdate WooCommerce to version 2.5 or newer%4$s', 'wcopc' ), '<strong>', '</strong>', '<a href="' . esc_url( admin_url( 'plugins.php' ) ) . '">', '&nbsp;&raquo;</a>' ); ?></p>
+					<p><?php printf( esc_html__( '%1$sWooCommerce One Page Checkout is inactive.%2$s This plugin requires WooCommerce 2.5 or newer. Please %3$supdate WooCommerce to version 2.5 or newer%4$s', 'woocommerce-one-page-checkout' ), '<strong>', '</strong>', '<a href="' . esc_url( admin_url( 'plugins.php' ) ) . '">', '&nbsp;&raquo;</a>' ); ?></p>
 				</div>
 		<?php endif; ?>
 			<?php
@@ -1788,8 +1800,8 @@ class PP_One_Page_Checkout {
 		$options['wcopc'] = array(
 			'id'            => '_wcopc',
 			'wrapper_class' => '',
-			'label'         => __( 'One Page Checkout', 'wcopc' ),
-			'description'   => __( 'Add checkout to product page.', 'wcopc' ),
+			'label'         => __( 'One Page Checkout', 'woocommerce-one-page-checkout' ),
+			'description'   => __( 'Add checkout to product page.', 'woocommerce-one-page-checkout' ),
 			'default'       => 'no',
 		);
 

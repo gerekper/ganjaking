@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Setup admin hooks.
  *
  * @class    WC_CP_Admin
- * @version  8.3.5
+ * @version  8.6.0
  */
 class WC_CP_Admin {
 
@@ -265,6 +265,10 @@ class WC_CP_Admin {
 				'layouts'                      => array_keys( WC_Product_Composite::get_layout_options() ),
 				'wc_placeholder_img_src'       => wc_placeholder_img_src(),
 				'is_first_composite'           => isset( $_GET[ 'wc_cp_first_composite' ] ) ? 'yes' : 'no',
+				/* translators: %s: Lowest required qty value. */
+				'i18n_qty_low_error'           => __( 'Please enter an integer higher than %s.', 'woocommerce-composite-products' ),
+				/* translators: %s: Highest allowed qty value. */
+				'i18n_qty_high_error'          => __( 'Please enter an integer lower than or equal to %s.', 'woocommerce-composite-products' ),
 				// Strings.
 				'i18n_save_error'              => __( 'Your settings could not be saved. Please refresh the page and try again.', 'woocommerce-composite-products' ),
 				'i18n_no_default'              => __( 'No default option&hellip;', 'woocommerce-composite-products' ),

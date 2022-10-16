@@ -64,8 +64,8 @@ do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plai
          <tr>           
              <td><?php echo $item->get_name();?><br/><?php echo $product->get_sku();?></td>
 		        <td><?php echo $item->get_quantity();?></td>
-		        <td><?php echo wc_get_price_excluding_tax( $product );?></td>
-		        <td><?php echo $item->get_quantity()* wc_get_price_excluding_tax( $product );?></td>
+		        <td><?php echo wc_price( wc_get_price_excluding_tax( $product )); ?></td>
+		        <td><?php echo wc_price( $item->get_quantity()* wc_get_price_excluding_tax( $product )); ?></td>
 		        <td><?php echo  wc_price($item->get_subtotal_tax());?></td>  
 		        <td><?php echo wc_price(($item->get_quantity()* wc_get_price_excluding_tax( $product ))+$item->get_total_tax());?></td> 
 		        </tr>
@@ -92,9 +92,9 @@ do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plai
              <td>Subtotal</td>
 		        <td>&nbsp;</td>
 		        <td>&nbsp;</td>
-		        <td><?php echo floatval($sub_total);?></td>
-		        <td><?php echo  floatval( $total_gst);?></td>  
-		        <td><?php echo get_woocommerce_currency_symbol().intval((($sub_total+$total_gst)*100))/100;?></td> 
+		        <td><?php echo wc_price($sub_total);?></td>
+		        <td><?php echo  wc_price( $total_gst);?></td>  
+		        <td><?php echo wc_price($sub_total+$total_gst);?></td>
 		        </tr>
 			
 		</tbody>

@@ -17,10 +17,10 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 		<thead>
 			<tr>
 				<th class="product-name">
-					<?php esc_html_e( 'Product', 'wcopc' ); ?>
-					<div class="product-quantity"><?php esc_html_e( 'Quantity', 'wcopc' ); ?></div>
+					<?php esc_html_e( 'Product', 'woocommerce-one-page-checkout' ); ?>
+					<div class="product-quantity"><?php esc_html_e( 'Quantity', 'woocommerce-one-page-checkout' ); ?></div>
 				</th>
-				<th class="product-total"><?php esc_html_e( 'Total', 'wcopc' ); ?></th>
+				<th class="product-total"><?php esc_html_e( 'Total', 'woocommerce-one-page-checkout' ); ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -35,7 +35,7 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 						<tr class="<?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item opc_cart_item', $cart_item, $cart_item_key ) ); ?>" data-add_to_cart="<?php echo esc_attr( $_product->variation_id ? $_product->variation_id : $_product->id ); ?>" data-update_key="<?php echo esc_attr( $cart_item_key ); ?>">
 							<td class="product-name">
 								<div class="product-remove" >
-									<?php echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf( '<a href="%s" class="remove" title="%s">&times;</a>', esc_url( wcopc_get_cart_remove_url( $cart_item_key ) ), esc_attr__( 'Remove this item', 'wcopc' ) ), $cart_item_key ); ?>
+									<?php echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf( '<a href="%s" class="remove" title="%s">&times;</a>', esc_url( wcopc_get_cart_remove_url( $cart_item_key ) ), esc_attr__( 'Remove this item', 'woocommerce-one-page-checkout' ) ), $cart_item_key ); ?>
 								</div>
 								<div class="product-details" >
 									<?php echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', $_product->get_title(), $cart_item, $cart_item_key ) ); ?>
@@ -72,7 +72,7 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 		<tfoot>
 
 			<tr class="cart-subtotal">
-				<th><?php esc_html_e( 'Cart Subtotal', 'wcopc' ); ?></th>
+				<th><?php esc_html_e( 'Cart Subtotal', 'woocommerce-one-page-checkout' ); ?></th>
 				<td><?php wc_cart_totals_subtotal_html(); ?></td>
 			</tr>
 
@@ -126,7 +126,7 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 			<?php do_action( 'woocommerce_review_order_before_order_total' ); ?>
 
 			<tr class="order-total">
-				<th><?php esc_html_e( 'Order Total', 'wcopc' ); ?></th>
+				<th><?php esc_html_e( 'Order Total', 'woocommerce-one-page-checkout' ); ?></th>
 				<td><?php wc_cart_totals_order_total_html(); ?></td>
 			</tr>
 
@@ -171,9 +171,9 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 				} else {
 
 					if ( ! WC()->customer->get_country() )
-						$no_gateways_message = esc_html__( 'Please fill in your details above to see available payment methods.', 'wcopc' );
+						$no_gateways_message = esc_html__( 'Please fill in your details above to see available payment methods.', 'woocommerce-one-page-checkout' );
 					else
-						$no_gateways_message = esc_html__( 'Sorry, it seems that there are no available payment methods for your state. Please contact us if you require assistance or wish to make alternate arrangements.', 'wcopc' );
+						$no_gateways_message = esc_html__( 'Sorry, it seems that there are no available payment methods for your state. Please contact us if you require assistance or wish to make alternate arrangements.', 'woocommerce-one-page-checkout' );
 
 					echo '<p>' . apply_filters( 'woocommerce_no_available_payment_methods_message', $no_gateways_message ) . '</p>';
 
@@ -184,14 +184,14 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 
 		<div class="form-row place-order">
 
-			<noscript><?php esc_html_e( 'Since your browser does not support JavaScript, or it is disabled, please ensure you click the <em>Update Totals</em> button before placing your order. You may be charged more than the amount stated above if you fail to do so.', 'wcopc' ); ?><br/><input type="submit" class="button alt" name="woocommerce_checkout_update_totals" value="<?php esc_attr__( 'Update totals', 'wcopc' ); ?>" /></noscript>
+			<noscript><?php esc_html_e( 'Since your browser does not support JavaScript, or it is disabled, please ensure you click the <em>Update Totals</em> button before placing your order. You may be charged more than the amount stated above if you fail to do so.', 'woocommerce-one-page-checkout' ); ?><br/><input type="submit" class="button alt" name="woocommerce_checkout_update_totals" value="<?php esc_attr__( 'Update totals', 'woocommerce-one-page-checkout' ); ?>" /></noscript>
 
 			<?php wp_nonce_field( 'woocommerce-process_checkout' ); ?>
 
 			<?php do_action( 'woocommerce_review_order_before_submit' ); ?>
 
 			<?php
-			$order_button_text = apply_filters( 'woocommerce_order_button_text', __( 'Place order', 'wcopc' ) );
+			$order_button_text = apply_filters( 'woocommerce_order_button_text', __( 'Place order', 'woocommerce-one-page-checkout' ) );
 
 			echo apply_filters( 'woocommerce_order_button_html', '<input type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="' . esc_attr( $order_button_text ) . '" data-value="' . esc_attr( $order_button_text ) . '" />' );
 			?>
@@ -200,7 +200,7 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 				$terms_is_checked = apply_filters( 'woocommerce_terms_is_checked_default', isset( $_POST['terms'] ) );
 				?>
 				<p class="form-row terms">
-					<label for="terms" class="checkbox"><?php printf( __( 'I&rsquo;ve read and accept the <a href="%s" target="_blank">terms &amp; conditions</a>', 'wcopc' ), esc_url( get_permalink( wc_get_page_id( 'terms' ) ) ) ); ?></label>
+					<label for="terms" class="checkbox"><?php printf( __( 'I&rsquo;ve read and accept the <a href="%s" target="_blank">terms &amp; conditions</a>', 'woocommerce-one-page-checkout' ), esc_url( get_permalink( wc_get_page_id( 'terms' ) ) ) ); ?></label>
 					<input type="checkbox" class="input-checkbox" name="terms" <?php checked( $terms_is_checked, true ); ?> id="terms" />
 				</p>
 			<?php } ?>

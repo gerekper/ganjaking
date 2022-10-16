@@ -178,8 +178,10 @@
 <!-- For Display Shipping methode and supplier name -->
 
 <table align="center" style="width:180mm;" cellpadding="5" cellspacing="0" ><tr><td style="<?php echo $woo_body_bg_color; ?>">
-
-	<table class="top_address" align="center" cellpadding="5" cellspacing="0" style="width:100%;" >
+	<table>
+		<tr>
+			<td style="<?php echo $woo_body_bg_color; ?> text-align:left;">
+	<table class="top_address" cellpadding="5" cellspacing="0" style="width:100%;" >
 
 				<tbody>
 
@@ -348,6 +350,7 @@
 			</tbody>
 
 		</table>
+		</td></tr></table>
 
 		<!-- If Tracking Number Exist and Order complete action performed then send email with Tracking Number -->
 
@@ -1064,7 +1067,9 @@
 
                 $order_shipping_state = !empty($states[$order_shipping_state]) ? $states[$order_shipping_state] : '';
 
-                $order_shipping_country = WC()->countries->countries[$order_shipping_country];
+                if(!empty($order_shipping_country)){
+			$order_shipping_country = WC()->countries->countries[$order_shipping_country];
+		}
 
                 
 
@@ -1396,7 +1401,7 @@
 
 						<?php
 
-						} } ?>
+						}  ?>
 
 					</td>
 
@@ -1424,7 +1429,9 @@
 
 		</table>
 
-	<?php } ?>
+	<?php } } ?>
+	</td>
+</tr>
 
 	</table>
 

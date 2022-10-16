@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin AJAX meta-box handlers.
  *
  * @class     WC_CP_Admin_Ajax
- * @version   8.5.1
+ * @version   8.6.0
  */
 class WC_CP_Admin_Ajax {
 

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WPBakery Page Builder\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-14 17:07+0200\n"
-"PO-Revision-Date: 2021-12-14 17:09+0200\n"
+"PO-Revision-Date: 2022-10-11 21:12+0300\n"
 "Last-Translator: Michael M <hello@wpbakery.com>\n"
 "Language-Team: WPBakery\n"
 "Language: de_DE\n"
@@ -2122,7 +2122,7 @@ msgstr "Individuelles Linkziel"
 
 #: config/./content/shortcode-vc-gallery.php:133
 msgid "Select where to open  custom links."
-msgstr "Wählen in welchem Fenster der Link geöffnet werden soll"
+msgstr "Wählen in welchem Fenster der Link geöffnet werden soll."
 
 #: config/./content/shortcode-vc-gmaps.php:7
 msgid "Google Maps"
@@ -2800,7 +2800,7 @@ msgstr "Linktyp."
 msgid "Enter links for each slide here. Divide links with linebreaks (Enter)."
 msgstr ""
 "Geben Sie hier die Links für jeden Slide ein. Trenne Sie die Links mit Enter/"
-"Zeilenumbruch"
+"Zeilenumbruch."
 
 #: config/./content/shortcode-vc-posts-slider.php:110
 msgid "Thumbnail size"
@@ -3130,7 +3130,7 @@ msgstr "Individuelle Rahmenfarbe"
 
 #: config/./content/shortcode-vc-separator.php:38
 msgid "Select border color for your element."
-msgstr "Wählen Sie eine Rahmenfarbe für Ihr Element"
+msgstr "Wählen Sie eine Rahmenfarbe für Ihr Element."
 
 #: config/./content/shortcode-vc-separator.php:49
 #: config/./content/shortcode-vc-text-separator.php:103
@@ -3331,7 +3331,7 @@ msgstr ""
 
 #: config/./content/shortcode-vc-toggle.php:44
 msgid "Toggle block content."
-msgstr "Aufklappelement Inhalt"
+msgstr "Aufklappelement Inhalt."
 
 #: config/./content/shortcode-vc-toggle.php:51
 msgid "Select toggle design style."
@@ -3390,16 +3390,13 @@ msgid "Video link"
 msgstr "Videolink"
 
 #: config/./content/shortcode-vc-video.php:25
-#, fuzzy, php-format
-#| msgid ""
-#| "Enter link to video (Note: read more about available formats at WordPress "
-#| "<a href=\"%s\" target=\"_blank\">codex page</a>)."
+#, php-format
 msgid ""
 "Enter link to video (Note: read more about available formats at WordPress "
 "%scodex page%s)."
 msgstr ""
 "Link zum Video eingeben (Mehr Informationen zu verfügbaren Formaten findest "
-"du im <a href=„%s“ target=„_blank“>WordPress Codex</a>)."
+"du im %sWordPress Codex%s)."
 
 #: config/./content/shortcode-vc-video.php:29
 msgid "Video width"
@@ -3517,7 +3514,7 @@ msgstr "Link zu benutzerdefinierter Überschrift hinzufügen."
 #: include/./params/vc_grid_item/shortcodes.php:107
 #: include/./params/vc_grid_item/shortcodes.php:131
 msgid "Select element tag."
-msgstr "Wählen Sie einen Inhaltstyp"
+msgstr "Wählen Sie einen Inhaltstyp."
 
 #: config/./content/vc-custom-heading-element.php:58
 #: include/./params/vc_grid_item/shortcodes.php:108
@@ -3854,7 +3851,7 @@ msgstr "Inhalte mit horizontalen Reitern"
 
 #: config/./deprecated/shortcode-vc-tabs.php:34
 msgid "Auto rotate tabs each X seconds."
-msgstr "Tabs automatisch jede X-te Sekunde durchwechseln"
+msgstr "Tabs automatisch jede X-te Sekunde durchwechseln."
 
 #: config/./deprecated/shortcode-vc-tabs.php:50
 #: config/./deprecated/shortcode-vc-tour.php:52
@@ -7392,13 +7389,13 @@ msgid "Invalid license key"
 msgstr ""
 
 #: include/./classes/settings/class-vc-license.php:441
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hola! Would you like to receive automatic updates and unlock premium "
 "support? Please %sactivate your copy%s of WPBakery Page Builder."
 msgstr ""
-"Um automatische Updates zu erhalten müssen Sie Ihre Lizenz aktivieren. Bitte "
-"besuchen Sie <a href=\""
+"Hola! Would you like to receive automatic updates and unlock premium "
+"support? Please %sactivate your copy%s of WPBakery Page Builder."
 
 #: include/./classes/settings/class-vc-license.php:441
 msgid "Dismiss this notice."
@@ -7533,7 +7530,7 @@ msgstr "Meine Shortcodes"
 
 #: include/./classes/settings/class-vc-settings.php:472
 msgid "Shortcode name is required."
-msgstr "Falscher Name für Shortcode: %s. Name wird benötigt"
+msgstr "Falscher Name wird benötigt"
 
 #: include/./classes/settings/class-vc-settings.php:473
 msgid "Please enter valid shortcode tag."
@@ -7948,13 +7945,13 @@ msgid "Error! Can't connect to filesystem"
 msgstr "Fehler! Verdindung zum Dateisystem konnte nicht hergestellt werden"
 
 #: include/./classes/updaters/class-vc-updater.php:145
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "To receive automatic updates license activation is required. Please visit "
 "%sSettings%s to activate your WPBakery Page Builder."
 msgstr ""
-"Um automatische Updates zu erhalten müssen Sie Ihre Lizenz aktivieren. Bitte "
-"besuchen Sie <a href=\""
+"To receive automatic updates license activation is required. Please visit "
+"%sSettings%s to activate your WPBakery Page Builder."
 
 #: include/./classes/updaters/class-vc-updater.php:145
 #: include/./classes/updaters/class-vc-updating-manager.php:204
@@ -7974,13 +7971,13 @@ msgid "Downloading package..."
 msgstr ""
 
 #: include/./classes/updaters/class-vc-updating-manager.php:204
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "To receive automatic updates license activation is required. Please visit "
 "%ssettings%s to activate your WPBakery Page Builder."
 msgstr ""
-"Um automatische Updates zu erhalten müssen Sie Ihre Lizenz aktivieren. Bitte "
-"besuchen Sie <a href=\""
+"To receive automatic updates license activation is required. Please visit "
+"%ssettings%s to activate your WPBakery Page Builder."
 
 #: include/./classes/vendors/plugins/acf/grid-item-shortcodes.php:18
 #: include/./classes/vendors/plugins/acf/shortcode.php:18
@@ -10670,20 +10667,15 @@ msgid ""
 msgstr ""
 
 #: include/./templates/params/column_offset/template.tpl.php:21
-#, fuzzy, php-format
-#| msgid ""
-#| "Responsive design settings are currently disabled. You can enable them in "
-#| "WPBakery Page Builder <a href=\"%s\">settings page</a> by unchecking "
-#| "\"Disable responsive content elements\"."
+#, php-format
 msgid ""
 "Responsive design settings are currently disabled. You can enable them in "
 "WPBakery Page Builder %ssettings page%s by unchecking \"Disable responsive "
 "content elements\"."
 msgstr ""
-"Responsive Design Einstellungen sind derzeit deaktiviert. Du kannst sie auf "
-"der <a href=\"%s\">Einstellungsseite des WPBakery Page Builder</a> "
-"aktivieren, indem du die Option \"Responsive Content Elemente deaktivieren\" "
-"deaktivierst."
+"Responsive design settings are currently disabled. You can enable them in "
+"WPBakery Page Builder %ssettings page%s by unchecking \"Disable responsive "
+"content elements\"."
 
 #: include/./templates/params/column_offset/template.tpl.php:31
 msgid "Device"

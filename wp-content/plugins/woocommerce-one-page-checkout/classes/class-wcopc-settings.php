@@ -38,7 +38,7 @@ final class WCOPC_Settings {
 	 * @return array The tabs with ours added.
 	 */
 	public function add_settings_page( $tabs ) {
-		$tabs[ $this->id ] = __( 'One Page Checkout', 'wcopc' );
+		$tabs[ $this->id ] = __( 'One Page Checkout', 'woocommerce-one-page-checkout' );
 
 		return $tabs;
 	}
@@ -101,16 +101,16 @@ final class WCOPC_Settings {
 	private function get_settings() {
 		$settings = array(
 			array(
-				'title' => __( 'Checkout Behavior', 'wcopc' ),
+				'title' => __( 'Checkout Behavior', 'woocommerce-one-page-checkout' ),
 				'type'  => 'title',
 				'id'    => 'wcopc_checkout_behavior',
 			),
 			array(
-				'title'    => __( 'Enable auto-scroll', 'wcopc' ),
-				'desc'     => __( 'Automatically scroll to notifications on checkout page', 'wcopc' ),
+				'title'    => __( 'Enable auto-scroll', 'woocommerce-one-page-checkout' ),
+				'desc'     => __( 'Automatically scroll to notifications on checkout page', 'woocommerce-one-page-checkout' ),
 				'id'       => $this->settings['autoscroll']['id'],
 				'type'     => 'checkbox',
-				'desc_tip' => __( 'When items in the cart are added, removed, or otherwise updated, One Page Checkout automatically scrolls to the notification section if necessary. This setting controls that behavior.', 'wcopc' ),
+				'desc_tip' => __( 'When items in the cart are added, removed, or otherwise updated, One Page Checkout automatically scrolls to the notification section if necessary. This setting controls that behavior.', 'woocommerce-one-page-checkout' ),
 				'default'  => $this->settings['autoscroll']['default'],
 			),
 			array(

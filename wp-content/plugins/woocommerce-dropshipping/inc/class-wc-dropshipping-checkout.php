@@ -409,6 +409,7 @@ class WC_Dropshipping_Checkout {
 					    }
             }
             
+	if(!empty($arrayuser)){		
             $uniqe_userid = array_unique($arrayuser);
            
             $postid = $order->get_id();
@@ -433,7 +434,7 @@ class WC_Dropshipping_Checkout {
 							echo '';
 						}
 			 		}
-            
+			}           
           	}
 
 	}

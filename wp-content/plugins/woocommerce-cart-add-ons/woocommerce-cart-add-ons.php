@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Cart Add-Ons
  * Plugin URI: https://woocommerce.com/products/cart-add-ons/
  * Description: A tool for driving incremental and impulse purchases once customers are in the shopping cart. It extends the concept of upsells and cross-sells at the product level, and engages your customers at the moment they are most likely to increase spending.
- * Version: 2.3.0
+ * Version: 2.3.1
  * Author: WooCommerce
  * Tested up to: 6.0
  * WC requires at least: 4.0
@@ -36,11 +36,20 @@ use Automattic\WooCommerce\Admin\Features\Navigation\Menu;
 use Automattic\WooCommerce\Admin\Features\Navigation\Screen;
 use Automattic\WooCommerce\Admin\Features\Features;
 
+// Declare comaptibility with custom order tables for WooCommerce.
+add_action(
+	'before_woocommerce_init',
+	function() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
+	}
+);
 
 // Subscribe to automated translations.
 add_filter( 'woocommerce_translations_updates_for_woocommerce-cart-add-ons', '__return_true' );
 
-define( 'WC_CART_ADDONS_VERSION', '2.3.0' ); // WRCS: DEFINED_VERSION.
+define( 'WC_CART_ADDONS_VERSION', '2.3.1' ); // WRCS: DEFINED_VERSION.
 
 require 'widget.php';
 

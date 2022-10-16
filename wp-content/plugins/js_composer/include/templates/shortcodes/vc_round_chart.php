@@ -23,6 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var WPBakeryShortCode_Vc_Round_Chart $this
  */
 $el_class = $el_id = $title = $type = $style = $legend = $animation = $tooltips = $stroke_color = $stroke_width = $values = $css = $css_animation = $custom_stroke_color = '';
+$legend_position = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
 
@@ -179,6 +180,7 @@ $round_chart_data = [
 ];
 $options[] = 'data-vc-values="' . esc_attr( wp_json_encode( $round_chart_data ) ) . '"';
 $options[] = 'data-vc-legend-color="' . esc_attr( $legendColor ) . '"';
+$options[] = 'data-vc-legend-position="' . esc_attr( $legend_position ) . '"';
 if ( '' !== $title ) {
 	$title = '<h2 class="wpb_heading">' . $title . '</h4>';
 }

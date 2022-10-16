@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WPBakery Page Builder\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-14 17:07+0200\n"
-"PO-Revision-Date: 2021-12-14 17:08+0200\n"
+"PO-Revision-Date: 2022-10-11 20:59+0300\n"
 "Last-Translator: \n"
 "Language-Team: WPBakery\n"
 "Language: uk\n"
@@ -638,16 +638,13 @@ msgstr "ID елемента"
 #: config/./wp/shortcode-vc-wp-tagcloud.php:48
 #: config/./wp/shortcode-vc-wp-text.php:31
 #: include/./autoload/vendors/shortcode-vc-gutenberg.php:26
-#, fuzzy, php-format
-#| msgid ""
-#| "Enter element ID (Note: make sure it is unique and valid according to <a "
-#| "href=\"%s\" target=\"_blank\">w3c specification</a>)."
+#, php-format
 msgid ""
 "Enter element ID (Note: make sure it is unique and valid according to %sw3c "
 "specification%s)."
 msgstr ""
 "Введіть ID елемента (Примітка: переконайтеся, що він є унікальний та дійсно "
-"відповідно до <a href=\"%s\" target=\"_blank\">специфікації w3c</a>)."
+"відповідно до %sспецифікації w3c%s)."
 
 #: config/./buttons/shortcode-vc-btn.php:322
 #: config/./buttons/shortcode-vc-cta.php:234
@@ -3375,17 +3372,13 @@ msgid "Video link"
 msgstr "Відео посилання"
 
 #: config/./content/shortcode-vc-video.php:25
-#, fuzzy, php-format
-#| msgid ""
-#| "Enter link to video (Note: read more about available formats at WordPress "
-#| "<a href=\"%s\" target=\"_blank\">codex page</a>)."
+#, php-format
 msgid ""
 "Enter link to video (Note: read more about available formats at WordPress "
 "%scodex page%s)."
 msgstr ""
 "Введіть посилання на відео ( Примітка : Додаткову інформацію про доступних "
-"форматах на WordPress <a href=\"%s\" target=\"_blank\"> Codex сторінку </"
-"a> ) ."
+"форматах на WordPress %sCodex сторінку%s) ."
 
 #: config/./content/shortcode-vc-video.php:29
 msgid "Video width"
@@ -5695,16 +5688,13 @@ msgid "Enter section title (Note: you can leave it empty)."
 msgstr "Виберіть розділ заголовка (примітка: не залишайте  це порожнім)"
 
 #: config/./tta/shortcode-vc-tta-section.php:58
-#, fuzzy, php-format
-#| msgid ""
-#| "Enter section ID (Note: make sure it is unique and valid according to <a "
-#| "href=\"%s\" target=\"_blank\">w3c specification</a>)."
+#, php-format
 msgid ""
 "Enter section ID (Note: make sure it is unique and valid according to %sw3c "
 "specification%s)."
 msgstr ""
 "Введіть ID розділу (Примітка: переконайтеся, що він унікальний і дійсний "
-"відповідно до <a href=\"%s\" target=\"_blank\">специфікації w3c</a> )."
+"відповідно до %sспецифікації w3c%s )."
 
 #: config/./tta/shortcode-vc-tta-section.php:80
 msgid "Section for Tabs, Tours, Accordions."
@@ -6378,13 +6368,9 @@ msgstr ""
 
 #: include/./autoload/vc-pointers-backend-editor.php:75
 #: include/./autoload/vc-pointers-frontend-editor.php:53
-#, fuzzy, php-format
-#| msgid ""
-#| "P.S. Learn more at our <a href=\"%s\" target=\"_blank\">Knowledge Base</"
-#| "a>."
+#, php-format
 msgid "P.S. Learn more at our %sKnowledge Base%s."
-msgstr ""
-"P.S. Дізнайтесь більше <a href=\"%s\" target=\"_blank\">База знань</a>."
+msgstr "P.S. Дізнайтесь більше %sБаза знань%s."
 
 #: include/./autoload/vendors/gravity_forms.php:21
 msgid "No Gravity forms found."
@@ -7335,18 +7321,13 @@ msgid "Invalid license key"
 msgstr "Неправельний ліцензійний ключ"
 
 #: include/./classes/settings/class-vc-license.php:441
-#, fuzzy, php-format
-#| msgid ""
-#| "Hola! Would you like to receive automatic updates and unlock premium "
-#| "support? Please <a href=\"%s\">activate your copy</a> of WPBakery Page "
-#| "Builder."
+#, php-format
 msgid ""
 "Hola! Would you like to receive automatic updates and unlock premium "
 "support? Please %sactivate your copy%s of WPBakery Page Builder."
 msgstr ""
 "Hola! Хочете отримувати автоматичне оновлення та розблокувати преміальну "
-"підтримку? Будь ласка, <a href=\"%s\">активуйте вашу копію</a> WPBakery Page "
-"Builder."
+"підтримку? Будь ласка, %sактивуйте вашу копію%s WPBakery Page Builder."
 
 #: include/./classes/settings/class-vc-license.php:441
 msgid "Dismiss this notice."
@@ -10341,15 +10322,11 @@ msgstr ""
 "<strong>бібліотеки шаблонів</strong> і <strong>офіційну підтримку.</strong>"
 
 #: include/./templates/pages/vc-settings/tab.php:119
-#, fuzzy, php-format
-#| msgid ""
-#| "Don't have direct license yet? <a href=\"%s\" target=\"_blank\">Purchase "
-#| "WPBakery Page Builder license</a>."
+#, php-format
 msgid ""
 "Don't have direct license yet? %sPurchase WPBakery Page Builder license%s."
 msgstr ""
-"Ще немає прямої ліцензії? <a href=\"%s\" target=\"_blank\">Придбайте "
-"ліцензію WPBakery Page Builder</a> ."
+"Ще немає прямої ліцензії? %sПридбайте ліцензію WPBakery Page Builder%s ."
 
 #: include/./templates/pages/vc-welcome/index.php:9
 #, php-format
@@ -10375,21 +10352,15 @@ msgid "New to WPBakery Page Builder or Looking for More Information?"
 msgstr "Новинка для WPBakery Page Builder або шукає додаткову інформацію?"
 
 #: include/./templates/pages/vc-welcome/vc-faq.php:9
-#, fuzzy, php-format
-#| msgid ""
-#| "WPBakery has complete documentation available at our knowledge base: <a "
-#| "target=\"_blank\" href=\"%s\">kb.wpbakery.com</a> which covers everything "
-#| "related to WPBakery Page Builder starting from Installation and up to "
-#| "more advanced features based on our Inner API."
+#, php-format
 msgid ""
 "WPBakery has complete documentation available at our knowledge base: %s "
 "which covers everything related to WPBakery Page Builder starting from "
 "Installation and up to more advanced features based on our Inner API."
 msgstr ""
-"WPBakery має повну документацію, доступну на нашій базі знань: <a target="
-"\"_blank\" href=\"%s\">kb.wpbakery.com,</a> яка охоплює все, що пов'язано з "
-"WPBakery Page Builder, починаючи з установки і до більш розширених "
-"можливостей на основі Inner API."
+"WPBakery має повну документацію, доступну на нашій базі знань: %s яка "
+"охоплює все, що пов'язано з WPBakery Page Builder, починаючи з установки і "
+"до більш розширених можливостей на основі Inner API."
 
 #: include/./templates/pages/vc-welcome/vc-faq.php:13
 msgid "Preface"
@@ -10608,14 +10579,7 @@ msgid "Official Support"
 msgstr "Офіційна підтримка"
 
 #: include/./templates/pages/vc-welcome/vc-resources.php:27
-#, fuzzy, php-format
-#| msgid ""
-#| "To get your support related question answered in the fastest timing, "
-#| "please head over to our <a href=\"%s\" target=\"_blank\">support page</a> "
-#| "and open Support ticket. To open a support ticket you should have a valid "
-#| "support subscription in case if your support has expired you can <a href="
-#| "\"%s\" target=\"_blank\">purchase support extension</a> on support."
-#| "wpbakery.com."
+#, php-format
 msgid ""
 "To get your support related question answered in the fastest timing, please "
 "head over to our %ssupport page%s and open Support ticket. To open a support "
@@ -10623,28 +10587,21 @@ msgid ""
 "has expired you can %spurchase support extension%s on support.wpbakery.com."
 msgstr ""
 "Щоб отримати відповідь на відповідь на Вашу підтримку в найкоротші терміни, "
-"будь ласка, перейдіть на нашу <a href=\"%s\" target=\"_blank\">сторінку "
-"підтримки</a> та відкрийте квиток Support. Щоб відкрити квиток на підтримку, "
-"ви повинні мати дійсну підписку на підтримку, якщо термін дії вашої "
-"підтримки закінчився, ви можете <a href=\"%s\" target=\"_blank\">придбати "
-"розширення підтримки</a> на support.wpbakery.com."
+"будь ласка, перейдіть на нашу %sсторінку підтримки%s та відкрийте квиток "
+"Support. Щоб відкрити квиток на підтримку, ви повинні мати дійсну підписку "
+"на підтримку, якщо термін дії вашої підтримки закінчився, ви можете "
+"%sпридбати розширення підтримки%s на support.wpbakery.com."
 
 #: include/./templates/pages/vc-welcome/vc-resources.php:29
-#, fuzzy, php-format
-#| msgid ""
-#| "Before applying for support please make sure you understand the rules of "
-#| "support and go through all steps described and listed in <a href=\"%s\" "
-#| "target=\"_blank\">Support Policy</a> in order to get your issues solved "
-#| "as soon as possible."
+#, php-format
 msgid ""
 "Before applying for support please make sure you understand the rules of "
 "support and go through all steps described and listed in %sSupport Policy%s "
 "in order to get your issues solved as soon as possible."
 msgstr ""
 "Перш ніж подати заявку на підтримку, будь ласка, переконайтеся, що ви "
-"зрозуміли правила підтримки та пройшли всі кроки, описані та вказані в <a "
-"href=\"%s\" target=\"_blank\"> Політиці підтримки </a>, щоб вирішити "
-"проблеми  якомога швидше."
+"зрозуміли правила підтримки та пройшли всі кроки, описані та вказані в "
+"%sПолітиці підтримки%s, щоб вирішити проблеми  якомога швидше."
 
 #: include/./templates/pages/vc-welcome/vc-welcome.php:11
 #, fuzzy
@@ -10660,19 +10617,15 @@ msgid ""
 msgstr ""
 
 #: include/./templates/params/column_offset/template.tpl.php:21
-#, fuzzy, php-format
-#| msgid ""
-#| "Responsive design settings are currently disabled. You can enable them in "
-#| "WPBakery Page Builder <a href=\"%s\">settings page</a> by unchecking "
-#| "\"Disable responsive content elements\"."
+#, php-format
 msgid ""
 "Responsive design settings are currently disabled. You can enable them in "
 "WPBakery Page Builder %ssettings page%s by unchecking \"Disable responsive "
 "content elements\"."
 msgstr ""
 "Відповідні налаштування дизайну наразі вимкнено. Їх можна ввімкнути на "
-"сторінці <a href=\"%s\">налаштувань</a> WPBakery Page Builder, знявши "
-"прапорець \"Вимкнути відповідні елементи вмісту\"."
+"сторінці %sналаштувань%s WPBakery Page Builder, знявши прапорець \"Вимкнути "
+"відповідні елементи вмісту\"."
 
 #: include/./templates/params/column_offset/template.tpl.php:31
 msgid "Device"

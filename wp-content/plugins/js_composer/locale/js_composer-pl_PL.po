@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WPBakery Page Builder\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-14 17:07+0200\n"
-"PO-Revision-Date: 2021-12-14 17:10+0200\n"
+"PO-Revision-Date: 2022-10-11 21:08+0300\n"
 "Last-Translator: Michael M <hello@wpbakery.com>\n"
 "Language-Team: Digital Factory <info@digitalfactory.pl>\n"
 "Language: pl_PL\n"
@@ -88,7 +88,7 @@ msgstr "Tekst"
 #: config/./deprecated/shortcode-vc-cta-button2.php:71
 #: config/./deprecated/shortcode-vc-cta-button2.php:73
 msgid "Text on the button"
-msgstr "Tekst przycisku."
+msgstr "Tekst przycisku"
 
 #: config/./buttons/shortcode-vc-btn.php:57
 #: config/./content/vc-custom-heading-element.php:40
@@ -3247,7 +3247,7 @@ msgstr "Wybierz pozycję tytułu"
 
 #: config/./content/shortcode-vc-text-separator.php:66
 msgid "Select title location."
-msgstr "Wybierz miejsce tytułu"
+msgstr "Wybierz miejsce tytułu."
 
 #: config/./content/shortcode-vc-text-separator.php:70
 #, fuzzy
@@ -5129,7 +5129,7 @@ msgstr ""
 
 #: config/./structure/shortcode-vc-raw-html.php:21
 msgid "Enter your HTML content."
-msgstr "Wpisz treść HTML"
+msgstr "Wpisz treść HTML."
 
 #: config/./structure/shortcode-vc-raw-js.php:8
 #, fuzzy
@@ -5615,7 +5615,7 @@ msgid ""
 "field to add a class name and then refer to it in your css file."
 msgstr ""
 "Jeśli chcesz aby dany element wyglądał inaczej niż inne, użyj tego pola aby "
-"nadać mu klasę CSS i móc z niej skorzystać w pliku .css"
+"nadać mu klasę CSS i móc z niej skorzystać w pliku .css."
 
 #: config/./tta/shortcode-vc-tta-accordion.php:238
 msgid "Add Section"
@@ -6482,7 +6482,7 @@ msgstr "Przeciągnij i upuść mnie w kolumnie"
 
 #: include/./classes/core/class-vc-base.php:699
 msgid "Press OK to delete \"{tab_name}\" tab, Cancel to leave"
-msgstr "Kliknij OK aby usunąć zakłądkę \"{tab_name}\" lub Anuluj aby przerwać "
+msgstr "Kliknij OK aby usunąć zakłądkę \"{tab_name}\" lub Anuluj aby przerwać"
 
 #: include/./classes/core/class-vc-base.php:700
 #: include/./classes/shortcodes/vc-tour.php:23

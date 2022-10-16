@@ -3,7 +3,7 @@
         'name' => 'woocommerce/woocommerce-checkout-field-editor',
         'pretty_version' => 'dev-trunk',
         'version' => 'dev-trunk',
-        'reference' => '952bc4d3b919711daa3fc2da7b632eeaf3157fd0',
+        'reference' => 'ff68ae43b9472d5b06d04021db3c0c1fff63fef1',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'composer/installers' => array(
-            'pretty_version' => 'v1.10.0',
-            'version' => '1.10.0.0',
-            'reference' => '1a0357fccad9d1cc1ea0c9a05b8847fbccccb78d',
+            'pretty_version' => 'v1.12.0',
+            'version' => '1.12.0.0',
+            'reference' => 'd20a64ed3c94748397ff5973488761b22f6d3f19',
             'type' => 'composer-plugin',
             'install_path' => __DIR__ . '/./installers',
             'aliases' => array(),
@@ -34,7 +34,7 @@
         'woocommerce/woocommerce-checkout-field-editor' => array(
             'pretty_version' => 'dev-trunk',
             'version' => 'dev-trunk',
-            'reference' => '952bc4d3b919711daa3fc2da7b632eeaf3157fd0',
+            'reference' => 'ff68ae43b9472d5b06d04021db3c0c1fff63fef1',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -61,12 +61,12 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 			<div class="opc-pricing-table-product-dimensions">
 			<?php if ( $product->has_weight() ) : ?>
 				<!-- Product Weight -->
-				<h4><?php esc_html_e( 'Weight', 'wcopc' ) ?></h4>
+				<h4><?php esc_html_e( 'Weight', 'woocommerce-one-page-checkout' ) ?></h4>
 				<p class="product_weight"><?php echo wc_format_weight( $product->get_weight() ); ?></p>
 			<?php endif; ?>
 			<?php if ( $product->has_dimensions() ) : ?>
 			<!-- Product Dimension -->
-				<h4><?php esc_html_e( 'Dimensions', 'wcopc' ) ?></h4>
+				<h4><?php esc_html_e( 'Dimensions', 'woocommerce-one-page-checkout' ) ?></h4>
 				<p class="product_dimensions"><?php echo wc_format_dimensions( $product->get_dimensions( false ) ); ?></p>
 			<?php endif; ?>
 			</div>

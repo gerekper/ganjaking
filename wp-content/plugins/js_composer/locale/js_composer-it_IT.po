@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WPBakery Page Builder\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-14 17:07+0200\n"
-"PO-Revision-Date: 2021-12-14 17:10+0200\n"
+"PO-Revision-Date: 2022-10-11 21:03+0300\n"
 "Last-Translator: Michael M <hello@wpbakery.com>\n"
 "Language-Team: WPBakery\n"
 "Language: it_IT\n"
@@ -386,7 +386,7 @@ msgstr ""
 #: config/./deprecated/shortcode-vc-cta-button.php:81
 #: config/./deprecated/shortcode-vc-cta-button2.php:108
 msgid "Select button alignment."
-msgstr "Seleziona allineamento pulsante"
+msgstr "Seleziona allineamento pulsante."
 
 #: config/./buttons/shortcode-vc-btn.php:257
 #: config/./deprecated/shortcode-vc-button2.php:37
@@ -1951,7 +1951,7 @@ msgstr "Immagine a Griglia"
 
 #: config/./content/shortcode-vc-gallery.php:29
 msgid "Select gallery type."
-msgstr "Seleziona tipo di Gallery"
+msgstr "Seleziona tipo di Gallery."
 
 #: config/./content/shortcode-vc-gallery.php:33
 #: config/./content/shortcode-vc-posts-slider.php:40
@@ -1972,7 +1972,7 @@ msgstr "Disabilita"
 #: config/./content/shortcode-vc-posts-slider.php:49
 #: config/./deprecated/shortcode-vc-tour.php:36
 msgid "Auto rotate slides each X seconds."
-msgstr "Rotazione automatica ogni X secondi"
+msgstr "Rotazione automatica ogni X secondi."
 
 #: config/./content/shortcode-vc-gallery.php:54
 #: config/./content/shortcode-vc-single-image.php:21
@@ -2007,7 +2007,7 @@ msgstr "Immagini"
 #: config/./content/shortcode-vc-images-carousel.php:24
 #: config/./grids/class-vc-grids-common.php:759
 msgid "Select images from media library."
-msgstr "Seleziona immagini dalla libreria"
+msgstr "Seleziona immagini dalla libreria."
 
 #: config/./content/shortcode-vc-gallery.php:78
 msgid ""
@@ -2672,7 +2672,7 @@ msgstr "Tipo di Slider"
 
 #: config/./content/shortcode-vc-posts-slider.php:29
 msgid "Select slider type."
-msgstr "Seleziona tipo di Slider"
+msgstr "Seleziona tipo di Slider."
 
 #: config/./content/shortcode-vc-posts-slider.php:33
 msgid "Slider count"
@@ -3659,7 +3659,7 @@ msgstr ""
 #: config/./grids/class-vc-grids-common.php:857
 #: config/./grids/class-vc-grids-common.php:1088
 msgid "Select button size."
-msgstr "Seleziona dimensione pulsante"
+msgstr "Seleziona dimensione pulsante."
 
 #: config/./deprecated/shortcode-vc-button2.php:49
 #: config/./deprecated/shortcode-vc-cta-button2.php:81
@@ -3784,7 +3784,7 @@ msgstr "Attiva o disattiva contenuto"
 
 #: config/./deprecated/shortcode-vc-tabs.php:34
 msgid "Auto rotate tabs each X seconds."
-msgstr "Rotazione automatica schede ogni X schede"
+msgstr "Rotazione automatica schede ogni X schede."
 
 #: config/./deprecated/shortcode-vc-tabs.php:50
 #: config/./deprecated/shortcode-vc-tour.php:52
@@ -4888,7 +4888,7 @@ msgstr "Seleziona layout pulsante."
 
 #: config/./social/shortcode-vc-tweetmeme.php:7
 msgid "Tweetmeme Button"
-msgstr "Pulsante Tweetmeme "
+msgstr "Pulsante Tweetmeme"
 
 #: config/./social/shortcode-vc-tweetmeme.php:11
 msgid "Tweet button"
@@ -5115,7 +5115,7 @@ msgstr ""
 
 #: config/./structure/shortcode-vc-raw-html.php:21
 msgid "Enter your HTML content."
-msgstr "Inserisci il tuo Contenuto HTML"
+msgstr "Inserisci il tuo Contenuto HTML."
 
 #: config/./structure/shortcode-vc-raw-js.php:8
 msgid "Raw JS"
@@ -6312,7 +6312,7 @@ msgstr "Nessun Gravity Forms trovato."
 
 #: include/./autoload/vendors/gravity_forms.php:27
 msgid "Select a form to display."
-msgstr "Seleziona un form da visualizzare"
+msgstr "Seleziona un form da visualizzare."
 
 #: include/./autoload/vendors/gravity_forms.php:34
 msgid "Gravity Form"
@@ -6508,7 +6508,7 @@ msgstr "Sei sicuro che si desidera convertire alla nuova versione?"
 
 #: include/./classes/core/class-vc-base.php:714
 msgid "Loading..."
-msgstr "Attendere"
+msgstr "Attendere..."
 
 #: include/./classes/core/class-vc-base.php:716
 msgid "Set Image"
@@ -7522,7 +7522,7 @@ msgstr "Valore \"Responsive max\" non valido."
 msgid ""
 "Something went wrong: js_composer_front_custom.css could not be created."
 msgstr ""
-"Qualcosa è andato storto: js_composer_front_custom.css non può essere creato"
+"Qualcosa è andato storto: js_composer_front_custom.css non può essere creato."
 
 #: include/./classes/settings/class-vc-settings.php:937
 msgid "js_composer_front_custom.css could not be created. Connection error."
@@ -7955,7 +7955,7 @@ msgstr "ID LayerSlider"
 
 #: include/./classes/vendors/plugins/class-vc-vendor-layerslider.php:160
 msgid "Select your LayerSlider."
-msgstr "Seleziona il tuo LayerSlider"
+msgstr "Seleziona il tuo LayerSlider."
 
 #: include/./classes/vendors/plugins/class-vc-vendor-ninja-forms.php:44
 msgid "Ninja Forms"
@@ -7989,7 +7989,7 @@ msgstr "Revolution Slider"
 #: include/./classes/vendors/plugins/class-vc-vendor-revslider.php:75
 #: include/./classes/vendors/plugins/class-vc-vendor-revslider.php:145
 msgid "Select your Revolution Slider."
-msgstr "Seleziona la tua Revolution Slider"
+msgstr "Seleziona la tua Revolution Slider."
 
 #: include/./classes/vendors/plugins/class-vc-vendor-woocommerce.php:133
 #, fuzzy

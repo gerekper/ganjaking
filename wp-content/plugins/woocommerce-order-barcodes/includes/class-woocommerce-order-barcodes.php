@@ -361,7 +361,7 @@ class WooCommerce_Order_Barcodes {
 
 		$screen       = $this->get_order_admin_screen();
 		$order        = $this->init_theorder_object( $post_or_order_object );
-		$barcode_text = $this->get_order_meta( $order->get_id(), '_barcode_text' );
+		$barcode_text = $this->get_order_or_post_meta( $order->get_id(), '_barcode_text' );
 
 		if ( 'yes' === $this->barcode_enable || $barcode_text ) {
 			add_meta_box( 'woocommerce-order-barcode', __( 'Order Barcode', 'woocommerce-order-barcodes' ), array( $this, 'get_metabox_barcode' ), $screen, 'side', 'default' );
@@ -381,7 +381,7 @@ class WooCommerce_Order_Barcodes {
 		}
 
 		$order        = $this->init_theorder_object( $post_or_order_object );
-		$barcode_text = $this->get_order_meta( $order->get_id(), '_barcode_text' );
+		$barcode_text = $this->get_order_or_post_meta( $order->get_id(), '_barcode_text' );
 
 		wp_enqueue_style( $this->_token . '-admin' );
 
@@ -409,7 +409,7 @@ class WooCommerce_Order_Barcodes {
 		}
 
 		// Get barcode text.
-		$barcode_text = $this->get_order_meta( $order_id, '_barcode_text' );
+		$barcode_text = $this->get_order_or_post_meta( $order_id, '_barcode_text' );
 
 		if ( ! $barcode_text ) {
 			return;
@@ -471,7 +471,7 @@ class WooCommerce_Order_Barcodes {
 		}
 
 		// Get barcode text.
-		$barcode_text = $this->get_order_meta( $order_id, '_barcode_text' );
+		$barcode_text = $this->get_order_or_post_meta( $order_id, '_barcode_text' );
 		return trailingslashit( get_site_url() ) . '?wc_barcode=' . $barcode_text;
 	}
 
@@ -584,7 +584,7 @@ class WooCommerce_Order_Barcodes {
 			break;
 
 			case 'checkin':
-				if ( 'yes' === $this->get_order_meta( $order_id, '_checked_in' ) ) {
+				if ( 'yes' === $this->get_order_or_post_meta( $order_id, '_checked_in' ) ) {
 					$response      = __( 'Customer already checked in', 'woocommerce-order-barcodes' );
 					$response_type = 'notice';
 				} else {
@@ -594,7 +594,7 @@ class WooCommerce_Order_Barcodes {
 			break;
 
 			case 'checkout':
-				if ( 'no' === $this->get_order_meta( $order_id, '_checked_in' ) ) {
+				if ( 'no' === $this->get_order_or_post_meta( $order_id, '_checked_in' ) ) {
 					$response      = __( 'Customer already checked out', 'woocommerce-order-barcodes' );
 					$response_type = 'notice';
 				} else {
@@ -624,7 +624,7 @@ class WooCommerce_Order_Barcodes {
 		}
 
 		// Display check-in status if set.
-		$checked_in = $this->get_order_meta( $order_id, '_checked_in' );
+		$checked_in = $this->get_order_or_post_meta( $order_id, '_checked_in' );
 		if ( $checked_in ) {
 			$checkin_status = ( 'yes' === $checked_in ) ? __( 'Checked in', 'woocommerce-order-barcodes' ) : __( 'Checked out', 'woocommerce-order-barcodes' );
 			echo '<h3 class="checked_in ' . esc_attr( $checked_in ) . '">' . $checkin_status . '</h3>';
@@ -742,7 +742,7 @@ class WooCommerce_Order_Barcodes {
 	 */
 	public function checkin_status_edit_field( $order ) {
 		$order_id   = $order->get_id();
-		$checked_in = $this->get_order_meta( $order_id, '_checked_in' );
+		$checked_in = $this->get_order_or_post_meta( $order_id, '_checked_in' );
 
 		if ( $checked_in ) {
 			?>
@@ -1008,19 +1008,26 @@ class WooCommerce_Order_Barcodes {
 	}
 
 	/**
-	 * Get Order meta value.
+	 * Get Order or post meta value.
 	 *
-	 * @param int    $order_id The ID of the order post.
+	 * @param int    $id The ID of the order or post.
 	 * @param String $meta_name The name of the meta.
 	 */
-	public function get_order_meta( $order_id, $meta_name ) {
-		$order = wc_get_order( $order_id );
+	public function get_order_or_post_meta( $id, $meta_name ) {
+		$order = wc_get_order( $id );
 
-		if ( ! is_a( $order, 'WC_Order' ) ) {
-			return false;
+		if ( $this->is_wc_order( $order ) ) {
+			return $order->get_meta( $meta_name );
 		}
 
-		return $order->get_meta( $meta_name );
+		// Check the post too for WC Box Office compatibility.
+		$post = get_post( $id );
+
+		if ( $this->is_wp_post( $post ) ) {
+			return get_post_meta( $id, $meta_name, true );
+		}
+
+		return false;
 	}
 
 	/**

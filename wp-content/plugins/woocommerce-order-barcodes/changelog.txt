@@ -1,5 +1,8 @@
 *** WooCommerce Order Barcodes Changelog ***
 
+2022-10-13 - version 1.5.2
+* Fix   - Add WCC Box Office compatibility for displaying a ticket barcode.
+
 2022-09-22 - version 1.5.1
 * Fix   - Prevent adding order meta box to other post types.
 * Tweak - WC 6.9 compatibility.

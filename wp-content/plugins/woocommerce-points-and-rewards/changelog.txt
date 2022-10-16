@@ -1,5 +1,8 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2022-10-13 - version 1.7.17
+* Tweak - WC 7.0 compatibility.
+
 2022-10-11 - version 1.7.16
 * Fix - Label fields not updated if only one of the fields is filled.
 

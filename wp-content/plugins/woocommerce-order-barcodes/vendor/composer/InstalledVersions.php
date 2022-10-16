@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'c05c3a9bc348a918957c286fb3e3aed4778d6129',
+    'reference' => '36409f2d2405ac7cf9b8b5b25313efb20e2ffe5f',
     'name' => 'woocommerce/woocommerce-order-barcodes',
   ),
   'versions' => 
@@ -159,7 +159,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'c05c3a9bc348a918957c286fb3e3aed4778d6129',
+      'reference' => '36409f2d2405ac7cf9b8b5b25313efb20e2ffe5f',
     ),
   ),
 );

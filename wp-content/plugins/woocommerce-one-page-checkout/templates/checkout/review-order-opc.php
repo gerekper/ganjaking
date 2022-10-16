@@ -19,10 +19,10 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 		<thead>
 			<tr>
 				<th class="product-name">
-					<?php esc_html_e( 'Product', 'wcopc' ); ?>
-					<div class="product-quantity"><?php esc_html_e( 'Quantity', 'wcopc' ); ?></div>
+					<?php esc_html_e( 'Product', 'woocommerce-one-page-checkout' ); ?>
+					<div class="product-quantity"><?php esc_html_e( 'Quantity', 'woocommerce-one-page-checkout' ); ?></div>
 				</th>
-				<th class="product-total"><?php esc_html_e( 'Total', 'wcopc' ); ?></th>
+				<th class="product-total"><?php esc_html_e( 'Total', 'woocommerce-one-page-checkout' ); ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -37,7 +37,7 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 						<tr class="<?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item opc_cart_item', $cart_item, $cart_item_key ) ); ?>" data-add_to_cart="<?php echo esc_attr( $_product->get_id() ); ?>" data-update_key="<?php echo esc_attr( $cart_item_key ); ?>">
 							<td class="product-name">
 								<div class="product-remove" >
-									<?php echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf( '<a href="%s" class="remove" title="%s">&times;</a>', esc_url( wcopc_get_cart_remove_url( $cart_item_key ) ), esc_html__( 'Remove this item', 'wcopc' ) ), $cart_item_key ); ?>
+									<?php echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf( '<a href="%s" class="remove" title="%s">&times;</a>', esc_url( wcopc_get_cart_remove_url( $cart_item_key ) ), esc_html__( 'Remove this item', 'woocommerce-one-page-checkout' ) ), $cart_item_key ); ?>
 								</div>
 								<div class="product-details" >
 									<?php echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', wcopc_get_products_name( $_product ), $cart_item, $cart_item_key ) ); ?>
@@ -74,7 +74,7 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 		<tfoot>
 
 			<tr class="cart-subtotal">
-				<th><?php esc_html_e( 'Cart Subtotal', 'wcopc' ); ?></th>
+				<th><?php esc_html_e( 'Cart Subtotal', 'woocommerce-one-page-checkout' ); ?></th>
 				<td><?php wc_cart_totals_subtotal_html(); ?></td>
 			</tr>
 
@@ -121,7 +121,7 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 			<?php do_action( 'woocommerce_review_order_before_order_total' ); ?>
 
 			<tr class="order-total">
-				<th><?php esc_html_e( 'Order Total', 'wcopc' ); ?></th>
+				<th><?php esc_html_e( 'Order Total', 'woocommerce-one-page-checkout' ); ?></th>
 				<td><?php wc_cart_totals_order_total_html(); ?></td>
 			</tr>
 

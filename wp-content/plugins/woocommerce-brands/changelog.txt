@@ -1,5 +1,8 @@
 *** Brands Changelog ***
 
+2022-10-13 - version 1.6.38
+* Tweak - WC 7.0 compatibility.
+
 2022-09-27 - version 1.6.37
 * Fix - Fixes tax query ignoring category (#230).
 

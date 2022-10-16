@@ -44,6 +44,8 @@
 		base.hasBeenSticky = false;
 		base.leftOffset = null;
 		base.topOffset = null;
+		base.fooTableId = '#footable_parent_'+$(el).attr('data-footable_id');
+		base.tableWidth =  null;
 
 		base.init = function () {
 			base.setOptions(options);
@@ -71,7 +73,7 @@
 					'</style>');
 				base.$head.append(base.$printStyle);
 			});
-			
+
 			base.$clonedHeader.find("input, select").attr("disabled", true);
 
 			base.updateWidth();
@@ -108,6 +110,7 @@
 			}
 			base.$scrollableArea.on('resize.' + name, base.toggleHeaders);
 			base.$scrollableArea.on('resize.' + name, base.updateWidth);
+			$(base.fooTableId).on("scroll." + name, base.toggleHeaders);
 		};
 
 		base.unbind = function(){
@@ -136,7 +139,7 @@
 			if (base.$el) {
 				base.$el.each(function () {
 					var $this = $(this),
-						newLeft,
+						// newLeft,
 						newTopOffset = base.isWindowScrolling ? (
 									isNaN(base.options.fixedOffset) ?
 									base.options.fixedOffset.outerHeight() :
@@ -146,7 +149,7 @@
 						offset = $this.offset(),
 
 						scrollTop = base.$scrollableArea.scrollTop() + newTopOffset,
-						scrollLeft = base.$scrollableArea.scrollLeft(),
+						// scrollLeft = base.$scrollableArea.scrollLeft(),
 
 						headerHeight,
 
@@ -162,15 +165,23 @@
 					}
 
 					if (scrolledPastTop && notScrolledPastBottom) {
-						newLeft = offset.left - scrollLeft + base.options.leftOffset;
+						base.tableWidth = $(base.fooTableId).width();
 						base.$originalHeader.css({
 							'position': 'fixed',
-							'margin-top': base.options.marginTop,
-                                                        'top': base.topOffset - (base.isWindowScrolling ? 0 : base.$window.scrollTop()),
-							'left': newLeft,
-							'z-index': base.options.zIndex
-						});
-						base.leftOffset = newLeft;
+							'width': base.tableWidth+'px',
+							'overflow-x': 'hidden',
+							'top': base.topOffset - (base.isWindowScrolling ? 0 : base.$window.scrollTop()),
+							'display': 'flex',
+							'flex-direction': 'column',
+						})
+						 base.$originalHeader.children('.footable-header').css({
+						 	'z-index': base.options.zIndex,
+							'position': 'absolute',
+							'left': "-"+$(base.fooTableId).scrollLeft()+"px",
+							'bottom': 0,
+					 	})
+
+						base.leftOffset = 'auto';
 						base.topOffset = newTopOffset;
 						base.$clonedHeader.css('display', '');
 						if (!base.isSticky) {
@@ -186,6 +197,8 @@
 						base.isSticky = false;
 						base.resetWidth($('td,th', base.$clonedHeader), $('td,th', base.$originalHeader));
 						$this.trigger('disabledStickiness.' + name);
+						base.$originalHeader.css('display', 'table-header-group');
+						base.$originalHeader.children('.footable-header').css('position', '');
 					}
 				});
 			}
@@ -220,7 +233,7 @@
 			base.setWidth(cellWidths, base.$clonedHeaderCells, base.$originalHeaderCells);
 
 			// Copy row width from whole table
-			base.$originalHeader.css('width', base.$clonedHeader.width());
+			base.$originalHeader.css('width', base.tableWidth+'px');
 
 			// If we're caching the height, we need to update the cached value when the width changes
 			if (base.options.cacheHeaderHeight) {

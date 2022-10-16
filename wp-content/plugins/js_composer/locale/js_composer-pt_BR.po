@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WPBakery Page Builder\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-14 17:07+0200\n"
-"PO-Revision-Date: 2021-12-14 17:08+0200\n"
+"PO-Revision-Date: 2022-10-11 21:18+0300\n"
 "Last-Translator: \n"
 "Language-Team: Danilo Mamedes Ribeiro\n"
 "Language: pt_BR\n"
@@ -10517,7 +10517,7 @@ msgstr ""
 "rápido, entre na nossa %sPágina de Suporte%s e Abra um Ticket. Para abrir um "
 "Ticket de Suporte, você deve ter uma assinatura de suporte válida. No caso "
 "de seu suporte ter vencido, você pode %sComprar Suporte Extendido%s no "
-"CodeCanyon."
+"support.wpbakery.com."
 
 #: include/./templates/pages/vc-welcome/vc-resources.php:29
 #, php-format

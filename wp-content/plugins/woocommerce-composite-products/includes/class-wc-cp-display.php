@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Products display functions and filters.
  *
  * @class    WC_CP_Display
- * @version  8.4.2
+ * @version  8.6.0
  */
 class WC_CP_Display {
 
@@ -289,6 +289,8 @@ class WC_CP_Display {
 			'i18n_selected_product_stock_insufficient' => __( 'The selected option does not have enough stock. Please choose another option to continue&hellip;', 'woocommerce-composite-products' ),
 			'i18n_select_product_options'              => __( 'Please choose product options to continue&hellip;', 'woocommerce-composite-products' ),
 			'i18n_select_product_options_for'          => __( 'Please choose product options.', 'woocommerce-composite-products' ),
+			'i18n_select_product_quantity'             => __( 'Please choose a valid quantity to continue&hellip;', 'woocommerce-composite-products' ),
+			'i18n_select_product_quantity_for'         => __( 'Please choose a valid quantity.', 'woocommerce-composite-products' ),
 			'i18n_select_product_addons'               => __( 'Please configure all required product fields to continue&hellip;', 'woocommerce-composite-products' ),
 			'i18n_select_product_addons_for'           => __( 'Please configure all required product fields.', 'woocommerce-composite-products' ),
 			'i18n_review_product_addons'               => __( 'Please ensure that all product fields match the required format to continue&hellip;', 'woocommerce-composite-products' ),

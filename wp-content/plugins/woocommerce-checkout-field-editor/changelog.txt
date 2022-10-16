@@ -1,5 +1,12 @@
 *** Checkout Field Editor Changelog ***
 
+2022-10-13 - version 1.7.6
+* Fix - Update hpos compatibility snippet.
+
+2022-10-13 - version 1.7.5
+* Fix - Add compatibility with HPOS for WooCommerce.
+* Fix - Define Node version.
+
 2022-09-06 - version 1.7.4
 * Fix - Added backward compatible support for WooCommerce CRUD Operations and Custom Order Tables.
 * Tweak - WC 6.8 compatibility.

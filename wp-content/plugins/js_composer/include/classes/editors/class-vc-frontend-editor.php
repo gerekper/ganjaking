@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * WPBakery WPBakery Page Builder front end editor
+ * WPBakery Page Builder front end editor
  *
  * @package WPBakeryPageBuilder
  *
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Introduce principles ‘What You See Is What You Get’ into your page building process with our amazing frontend editor.
  * See how your content will look on the frontend instantly with no additional clicks or switches.
  *
- * @since   4.0
+ * @since 4.0
  */
 class Vc_Frontend_Editor {
 	/**
@@ -108,14 +108,13 @@ class Vc_Frontend_Editor {
 		} elseif ( vc_is_page_editable() ) {
 			/**
 			 * if page loaded inside frontend editor iframe it has page_editable mode.
-			 * It required to some some js/css elements and add few helpers for editor to be used.
+			 * It required to some js/css elements and add few helpers for editor to be used.
 			 */
 			$this->buildEditablePage();
 		} else {
 			// Is it is simple page just enable buttons and controls
 			$this->buildPage();
 		}
-
 	}
 
 	/**
@@ -380,7 +379,10 @@ class Vc_Frontend_Editor {
 		if ( $this->post_id ) {
 			$this->post = get_post( $this->post_id );
 		}
-		do_action_ref_array( 'the_post', array( $this->post, $wp_query ) );
+		do_action_ref_array( 'the_post', array(
+			$this->post,
+			$wp_query,
+		) );
 		$post = $this->post;
 		$this->post_id = $this->post->ID;
 	}
@@ -451,8 +453,8 @@ class Vc_Frontend_Editor {
 		$this->enqueueAdmin();
 		$this->enqueueMappedShortcode();
 		wp_enqueue_media( array( 'post' => $this->post_id ) );
-		remove_all_actions( 'admin_notices', 3 );
-		remove_all_actions( 'network_admin_notices', 3 );
+		remove_all_actions( 'admin_notices' );
+		remove_all_actions( 'network_admin_notices' );
 
 		$post_custom_css = wp_strip_all_tags( get_post_meta( $this->post_id, '_wpb_post_custom_css', true ) );
 		$this->post_custom_css = $post_custom_css;

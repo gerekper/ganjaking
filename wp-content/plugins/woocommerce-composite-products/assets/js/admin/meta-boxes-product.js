@@ -314,6 +314,12 @@ jQuery( function( $ ) {
 		this.$sort_filter_container       = this.$content.find( '.options_group_component--sort-filter' );
 		this.$show_filters_input          = this.$content.find( '.group_show_filters input' );
 
+		this.$min_qty                     = this.$content.find( 'div.group_quantity_min' );
+		this.$min_qty_input               = this.$min_qty.find( 'input.group_quantity_min' );
+		this.$max_qty                     = this.$content.find( 'div.group_quantity_max' );
+		this.$max_qty_input               = this.$max_qty.find( 'input.group_quantity_max' );
+		this.max_qty_prev                 = this.$max_qty_input.val();
+
 		this.initialized_content          = false;
 
 		this.component_toggled = function() {
@@ -340,6 +346,62 @@ jQuery( function( $ ) {
 			}
 
 			return initialize_content;
+		};
+
+		this.validate_quantity = function( target, context ) {
+
+			var $input = self.$min_qty_input;
+
+			if ( 'max' === target ) {
+				$input = self.$max_qty_input;
+			}
+
+			var qty    = $input.val(),
+				min    = parseFloat( $input.attr( 'min' ) ),
+				max    = parseFloat( $input.attr( 'max' ) ),
+				step   = parseFloat( $input.attr( 'step' ) ),
+				result = {
+					qty:   qty,
+					error: ''
+				};
+
+			if ( min >= 0 && ( qty < min || isNaN( qty ) ) ) {
+
+				// The max field doesn't have a max value. Also when validating the max field there's no need to validate the empty string.
+				if ( 'max' !== target || qty !== '' ) {
+
+					if ( 'max' === context ) {
+						result.qty = self.max_qty_prev;
+					} else {
+						result.qty = min;
+					}
+
+					result.error = wc_composite_admin_params.i18n_qty_low_error.replace( '%s', min );
+				}
+
+				return result;
+			}
+
+			if ( max > 0 && qty > max ) {
+
+				result.qty = max;
+
+				result.error = wc_composite_admin_params.i18n_qty_high_error.replace( '%s', max );
+
+				return result;
+			}
+
+			if ( step > 0 && qty > 0 ) {
+
+				if ( qty % step ) {
+					result.qty   = step * Math.ceil( qty / step );
+					result.error = wc_composite_admin_params.i18n_qty_step_error.replace( '%s', step );
+				}
+
+				return result;
+			}
+
+			return result;
 		};
 
 		this.section_changed = function( $section_link ) {
@@ -541,6 +603,24 @@ jQuery( function( $ ) {
 					.css( 'top', offset.top + $target.height() )
 					.fadeIn( '100' );
 			}
+		};
+
+		this.add_formatted_error_tip = function( $target, error ) {
+
+			var offset = $target.position();
+
+			if ( $target.parent().find( '.wc_error_tip' ).length === 0 ) {
+				$target.after( '<div class="wc_error_tip">' + error + '</div>' );
+				$target.parent().find( '.wc_error_tip' )
+					.css( 'left', offset.left + $target.width() - ( $target.width() / 2 ) - ( $( '.wc_error_tip' ).width() / 2 ) )
+					.css( 'top', offset.top + $target.height() )
+					.fadeIn( '100' );
+			}
+		};
+
+		this.remove_error_tip = function( $target ) {
+
+			$target.parent().find( '.wc_error_tip' ).fadeOut( '100', function() { $( this ).remove(); } );
 		};
 
 		this.has_error = function( $target ) {
@@ -1045,6 +1125,65 @@ jQuery( function( $ ) {
 					component       = component_objects[ el_id ];
 
 				component.priced_individually_input_changed();
+			} )
+
+			// Validate quantities.
+			.on( 'input change', 'input.group_quantity', function( e ) {
+
+				var $input          = $( this ),
+					$el             = $input.closest( '.bto_group' ),
+					el_id           = $el.data( 'component_metabox_id' ),
+					component       = component_objects[ el_id ];
+
+				var changed = 'min';
+
+				if ( $input.hasClass( 'group_quantity_max' ) ) {
+					changed = 'max';
+				}
+
+				var check = component.validate_quantity( changed, changed );
+
+				// Is there an error?
+				if ( check.error ) {
+
+					// Show an error while typing, or replace the typed value with the corrected one on blur/change.
+					if ( 'input' === event.type ) {
+
+						// Add error.
+						setTimeout( function() {
+							component.add_formatted_error_tip( $input, check.error );
+						}, 5 );
+
+					} else {
+
+						$input.val( check.qty ).change();
+					}
+
+					// Valid value?
+				} else {
+
+					// Clear existing errors.
+					component.remove_error_tip( $input );
+
+					// Update max/default inputs.
+					if ( 'change' === event.type ) {
+
+						// Check and update min/max attribute values.
+						var min = component.$min_qty_input.val(),
+							max = component.$max_qty_input.val();
+
+						component.$max_qty_input.attr( 'min', min );
+
+						check = component.validate_quantity( 'max', changed );
+
+						if ( check.error ) {
+							component.$max_qty_input.val( check.qty );
+							max = check.qty;
+						}
+
+						component.max_qty_prev = max;
+					}
+				}
 			} )
 
 			// Filters.

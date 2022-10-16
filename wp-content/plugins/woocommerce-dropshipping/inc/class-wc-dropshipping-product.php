@@ -374,14 +374,14 @@ class WC_Dropshipping_Product {
 		$supplier = array();
                 $suppliers = array();
                 $meta_datas = array();  
-		$result = $wpdb->get_results("SELECT a.*,b.* FROM {$wpdb->posts} a, {$wpdb->postmeta} b WHERE a.ID=b.post_id AND a.post_type='product' GROUP BY a.ID"); 
+		$result = $wpdb->get_results("SELECT a.ID,a.post_type, b.post_id  FROM {$wpdb->posts} a, {$wpdb->postmeta} b WHERE a.ID=b.post_id AND a.post_type='product' GROUP BY a.ID");  
 		if(!empty($result)){
 		 foreach($result as $products){
 			  if(!empty(get_post_meta( $products->ID, 'supplierid' ))){	 
 				 $supplier[] = get_post_meta( $products->ID, 'supplierid' );
 			  }
 		 } 
-        $get_meta_data = $wpdb->get_results("SELECT a.*,b.* FROM {$wpdb->terms} a, {$wpdb->term_taxonomy} b WHERE a.term_id=b.term_id AND b.taxonomy='dropship_supplier'"); 
+       $get_meta_data = $wpdb->get_results("SELECT a.term_id, b.term_id, b.taxonomy FROM {$wpdb->terms} a, {$wpdb->term_taxonomy} b WHERE a.term_id=b.term_id AND b.taxonomy='dropship_supplier'");
          foreach($get_meta_data as $meta_data){
 		  if(!empty($meta_data)){			  
              $meta_datas[] = $meta_data->term_id;
@@ -394,7 +394,7 @@ class WC_Dropshipping_Product {
 		$unmatched_result = array_diff($suppliers, $meta_datas);
 		
 		foreach($unmatched_result as $rs){
-			  $results = $wpdb->get_results("SELECT * FROM {$wpdb->postmeta}  WHERE meta_key='supplierid' AND meta_value='".$rs."'"); 
+			  $results = $wpdb->get_results("SELECT post_id FROM {$wpdb->postmeta}  WHERE meta_key='supplierid' AND meta_value='".$rs."'");
 			  delete_post_meta($results[0]->post_id, 'supplierid');
               delete_post_meta($results[0]->post_id, 'supplier');
 		 }

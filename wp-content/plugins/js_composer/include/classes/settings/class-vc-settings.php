@@ -267,6 +267,13 @@ class Vc_Settings {
 			$this,
 			'google_fonts_subsets_callback',
 		) );
+		$this->addField( $tab, esc_html__( 'Local Google Fonts', 'js_composer' ), 'local_google_fonts', array(
+			$this,
+			'sanitize_local_google_fonts_callback',
+		), array(
+			$this,
+			'local_google_fonts_callback',
+		) );
 
 		/**
 		 * Tab: Design Options
@@ -531,8 +538,8 @@ class Vc_Settings {
 				?>
 				<label>
 					<input type="checkbox"<?php echo esc_attr( $checked ); ?> value="<?php echo esc_attr( $pt ); ?>"
-					id="wpb_js_gf_subsets_<?php echo esc_attr( $pt ); ?>"
-					name="<?php echo esc_attr( self::$field_prefix . 'google_fonts_subsets' ); ?>[]">
+						   id="wpb_js_gf_subsets_<?php echo esc_attr( $pt ); ?>"
+						   name="<?php echo esc_attr( self::$field_prefix . 'google_fonts_subsets' ); ?>[]">
 					<?php echo esc_html( $pt ); ?>
 				</label><br>
 				<?php
@@ -540,6 +547,21 @@ class Vc_Settings {
 		}
 		?>
 		<p class="description indicator-hint"><?php esc_html_e( 'Select subsets for Google Fonts available to content elements.', 'js_composer' ); ?></p>
+		<?php
+	}
+
+	public function local_google_fonts_callback() {
+		$checked = get_option( self::$field_prefix . 'local_google_fonts' );
+		if ( empty( $checked ) ) {
+			$checked = false;
+		}
+		?>
+		<label>
+			<input type="checkbox"<?php echo $checked ? ' checked' : ''; ?> value="1" id="local_google_fonts" name="<?php echo esc_attr( self::$field_prefix . 'local_google_fonts' ); ?>">
+			<?php esc_html_e( 'Enable', 'js_composer' ); ?>
+		</label><br/>
+		<p
+				class="description indicator-hint"><?php esc_html_e( 'This will automatically download all used Google Fonts locally.', 'js_composer' ); ?></p>
 		<?php
 	}
 
@@ -621,7 +643,7 @@ class Vc_Settings {
 		?>
 		<label>
 			<input type="checkbox"<?php echo( $checked ? ' checked' : '' ); ?> value="1"
-			id="wpb_js_<?php echo esc_attr( $field ); ?>" name="<?php echo esc_attr( self::$field_prefix . $field ); ?>">
+				   id="wpb_js_<?php echo esc_attr( $field ); ?>" name="<?php echo esc_attr( self::$field_prefix . $field ); ?>">
 			<?php esc_html_e( 'Enable', 'js_composer' ); ?>
 		</label><br/>
 		<p class="description indicator-hint"><?php esc_html_e( 'Enable the use of custom design options (Note: when checked - custom css file will be used).', 'js_composer' ); ?></p>
@@ -725,6 +747,15 @@ class Vc_Settings {
 	 */
 	public function sanitize_not_responsive_css_callback( $rules ) {
 		return (bool) $rules;
+	}
+
+	/**
+	 * @param $checkbox
+	 *
+	 * @return mixed
+	 */
+	public function sanitize_local_google_fonts_callback( $checkbox ) {
+		return (bool) $checkbox;
 	}
 
 	/**

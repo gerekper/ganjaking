@@ -231,8 +231,11 @@ class WoocommercePostsProvider
 
         $message = 'Table created successfully.';
 
-        update_post_meta($tableId, '_ninja_table_woo_query_selections', $_REQUEST['query_selections']);
-        update_post_meta($tableId, '_ninja_table_woo_query_conditions', $_REQUEST['query_conditions']);
+        $query_selections = isset($_REQUEST['query_selections']) ? $_REQUEST['query_selections'] : null;
+        $query_conditions = isset($_REQUEST['query_conditions']) ? $_REQUEST['query_conditions'] : null;
+
+        update_post_meta($tableId, '_ninja_table_woo_query_selections', $query_selections);
+        update_post_meta($tableId, '_ninja_table_woo_query_conditions', $query_conditions);
 
         $appearanceSettings = [
             'show_cart_before_table' => 'yes',
@@ -620,19 +623,10 @@ class WoocommercePostsProvider
             $product_id = apply_filters( 'woocommerce_add_to_cart_product_id', $product_id);
             $quantity = empty($qty) ? 1 : apply_filters( 'woocommerce_stock_amount', $qty);
             $variation_id = ArrayHelper::get($_POST, 'variation_id');
-
+            $variation = ArrayHelper::get($_POST, 'attributes');
             $cart_item_data = $_POST;
             unset($cart_item_data['quantity']);
 
-            $variation = array();
-
-            foreach ($cart_item_data as $key => $value) {
-                if (preg_match("/^attribute*/", $key)) {
-                    $variation[$key] = $value;
-                }
-            }
-
-            foreach ($variation as $key=>$value) { $variation[$key] = stripslashes($value); }
             $passed_validation = apply_filters( 'woocommerce_add_to_cart_validation', true, $product_id, $quantity );
 
             if ( $passed_validation && WC()->cart->add_to_cart( $product_id, $quantity, $variation_id, $variation, $cart_item_data  ) ) {

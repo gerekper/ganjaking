@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WPBakery WPBakery Page Builder v3.6.14.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-14 17:07+0200\n"
-"PO-Revision-Date: 2021-12-14 17:08+0200\n"
+"PO-Revision-Date: 2022-10-11 21:13+0300\n"
 "Last-Translator: admin <admin@local.test>\n"
 "Language-Team: Nederlands\n"
 "Language: nl_NL\n"
@@ -1033,9 +1033,8 @@ msgstr "Opvallende knop"
 #: config/./content/shortcode-vc-toggle.php:7
 #: config/./deprecated/shortcode-vc-cta-button2.php:17
 #: include/./classes/settings/automapper/class-vc-automapper.php:203
-#, fuzzy
 msgid "Heading"
-msgstr "Padding"
+msgstr "Heading"
 
 #: config/./buttons/shortcode-vc-cta.php:30
 #: config/./buttons/shortcode-vc-cta.php:69

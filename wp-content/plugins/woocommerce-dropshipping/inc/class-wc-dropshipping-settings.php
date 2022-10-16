@@ -1465,7 +1465,8 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                         <td><label for="cost_of_goods">Show Cost instead of Sell Price?:</label></td>
                                     </tr> 
                                 </table>';
-                                
+
+		    /* // Commenting below code as it is not used anywhere.
                             echo '<p></p> 
 
                                 <table> 
@@ -1477,6 +1478,12 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                 </table>  
                                 
                             </div>';
+		    */
+		    	echo '<p></p> 
+
+                                
+                            </div>';
+	
 
                             echo '<br/><br/> 
 

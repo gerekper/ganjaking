@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Helper functions.
  *
  * @class    WC_CP_Helpers
- * @version  8.4.1
+ * @version  8.6.0
  */
 class WC_CP_Helpers {
 
@@ -450,20 +450,24 @@ class WC_CP_Array implements ArrayAccess {
 		$this->import( $data );
 	}
 
+	#[\ReturnTypeWillChange]
 	public function offsetGet( $offset ) {
 		return isset( $this->{ $offset } ) ? $this->{ $offset } : null;
 	}
 
+	#[\ReturnTypeWillChange]
 	public function offsetExists( $offset ) {
 		return isset( $this->{ $offset } );
 	}
 
+	#[\ReturnTypeWillChange]
 	public function offsetSet( $offset, $value ) {
 		if ( ! is_null( $offset ) ) {
 			$this->{ $offset } = $value;
 		}
 	}
 
+	#[\ReturnTypeWillChange]
 	public function offsetUnset( $offset ) {
 		unset( $this->{ $offset } );
 	}

@@ -101,6 +101,23 @@ return array(
 			),
 		),
 		array(
+			'type' => 'dropdown',
+			'heading' => esc_html__( 'Legend position', 'js_composer' ),
+			'param_name' => 'legend_position',
+			'value' => array(
+				esc_html__( 'Top', 'js_composer' ) => 'top',
+				esc_html__( 'Left', 'js_composer' ) => 'left',
+				esc_html__( 'Bottom', 'js_composer' ) => 'bottom',
+				esc_html__( 'Right', 'js_composer' ) => 'right',
+			),
+			'description' => esc_html__( 'Select legend position.', 'js_composer' ),
+			'std' => 'left',
+			'dependency' => array(
+				'element' => 'legend',
+				'value' => 'yes',
+			),
+		),
+		array(
 			'type' => 'colorpicker',
 			'heading' => esc_html__( 'Custom legend color', 'js_composer' ),
 			'param_name' => 'custom_legend_color',

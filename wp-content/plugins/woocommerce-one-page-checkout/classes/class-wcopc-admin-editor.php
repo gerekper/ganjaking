@@ -213,27 +213,27 @@ input.#wcopc_product_ids {
 <form id="wcopc_settings">
 	<?php do_action( 'wcopc_shortcode_iframe_before' ); ?>
 	<fieldset id="wcopc_product_ids_fields">
-		<label for="wcopc_product_ids"><strong><?php _e( 'Products:', 'wcopc' ); ?></strong></label>
+		<label for="wcopc_product_ids"><strong><?php _e( 'Products:', 'woocommerce-one-page-checkout' ); ?></strong></label>
 		<?php if ( PP_One_Page_Checkout::is_woocommerce_pre( '3.0' ) ) { ?>
-			<input type="hidden" id="wcopc_product_ids" name="wcopc_product_ids[]" data-multiple="true" class="wc-product-search" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'wcopc' ); ?>"/>
+			<input type="hidden" id="wcopc_product_ids" name="wcopc_product_ids[]" data-multiple="true" class="wc-product-search" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce-one-page-checkout' ); ?>"/>
 		<?php } else { ?>
-			<select id="wcopc_product_ids" name="wcopc_product_ids[]" class="wc-product-search" multiple="multiple" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'wcopc' ); ?>"></select>
+			<select id="wcopc_product_ids" name="wcopc_product_ids[]" class="wc-product-search" multiple="multiple" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'woocommerce-one-page-checkout' ); ?>"></select>
 		<?php } ?>
 	</fieldset>
 	<?php if ( $display_category_ids ) :?>
 		<fieldset id="wcopc_category_ids_fields">
 			<label for="wcopc_category_ids">
-				<strong><?php _e( 'Categories:', 'wcopc' ); ?></strong>
+				<strong><?php _e( 'Categories:', 'woocommerce-one-page-checkout' ); ?></strong>
 			</label>
 			<select id="wcopc_category_ids"
 					name="wcopc_category_ids[]"
 					class="wc-category-search wcopc-category-search"
 					multiple="multiple"
-					data-placeholder="<?php esc_attr_e( 'Search for a category&hellip;', 'wcopc' ); ?>"></select>
+					data-placeholder="<?php esc_attr_e( 'Search for a category&hellip;', 'woocommerce-one-page-checkout' ); ?>"></select>
 		</fieldset>
 	<?php endif; ?>
 	<fieldset id="wcopc_template_fields">
-		<div style="font-weight: bold;"><?php _e( 'Template:', 'wcopc' ); ?></div>
+		<div style="font-weight: bold;"><?php _e( 'Template:', 'woocommerce-one-page-checkout' ); ?></div>
 		<?php $first = true; ?>
 		<?php foreach( PP_One_Page_Checkout::$templates as $id => $template_details ) : ?>
 		<label for="<?php echo esc_attr( $id ); ?>">
@@ -247,8 +247,8 @@ input.#wcopc_product_ids {
 	</fieldset>
 	<?php do_action( 'wcopc_shortcode_iframe_after' ); ?>
 	<fieldset>
-		<input id="wcopc_submit" type="submit" class="button-primary" value="<?php esc_attr_e( 'Create Shortcode', 'wcopc' ); ?>" />
-		<input id="wcopc_cancel" type="button" class="button" value="<?php esc_attr_e( 'Cancel', 'wcopc' ); ?>" />
+		<input id="wcopc_submit" type="submit" class="button-primary" value="<?php esc_attr_e( 'Create Shortcode', 'woocommerce-one-page-checkout' ); ?>" />
+		<input id="wcopc_cancel" type="button" class="button" value="<?php esc_attr_e( 'Cancel', 'woocommerce-one-page-checkout' ); ?>" />
 	</fieldset>
 </form>
 </div>

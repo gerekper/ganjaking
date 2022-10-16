@@ -56,6 +56,7 @@ if ( '' === $wpb_vc_status || ! isset( $wpb_vc_status ) ) {
 ?>
 
 	<input type="hidden" id="wpb_vc_js_status" name="wpb_vc_js_status" value="<?php echo esc_attr( $wpb_vc_status ); ?>"/>
+	<input type="hidden" id="wpb_js_google_fonts_save_nonce" name="wpb_js_google_fonts_save_nonce" value="<?php echo esc_js( wp_create_nonce( 'wpb_js_google_fonts_save' ) ); ?>"/>
 	<input type="hidden" id="wpb_vc_loading" name="wpb_vc_loading"
 			value="<?php esc_attr_e( 'Loading, please wait...', 'js_composer' ); ?>"/>
 	<input type="hidden" id="wpb_vc_loading_row" name="wpb_vc_loading_row"

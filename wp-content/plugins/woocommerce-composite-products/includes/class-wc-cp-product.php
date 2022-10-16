@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composited Product wrapper class.
  *
  * @class    WC_CP_Product
- * @version  8.4.2
+ * @version  8.6.0
  */
 class WC_CP_Product {
 
@@ -1092,7 +1092,14 @@ class WC_CP_Product {
 			$qty     = ( $qty_min > 1 && $this->is_sold_individually() ) ? 1 : $qty_min;
 		}
 
-		return $qty;
+		/**
+		 * 'woocommerce_composited_item_quantity_min' filter.
+		 *
+		 * @param  mixed            $qty
+		 * @param  WC_CP_Product    $this
+		 * @param  WC_CP_Component  $component
+		 */
+		return apply_filters( 'woocommerce_composited_item_quantity_min', $qty, $this, $component );
 	}
 
 	/**
@@ -1145,7 +1152,14 @@ class WC_CP_Product {
 			$qty_max = $qty_max_bound;
 		}
 
-		return '' !== $qty_max ? absint( $qty_max ) : '';
+		/**
+		 * 'woocommerce_composited_item_quantity_max' filter.
+		 *
+		 * @param  mixed            $qty_max
+		 * @param  WC_CP_Product    $this
+		 * @param  WC_CP_Component  $component
+		 */
+		return apply_filters( 'woocommerce_composited_item_quantity_max', '' !== $qty_max ? absint( $qty_max ) : '', $this, $component );
 	}
 
 	/**

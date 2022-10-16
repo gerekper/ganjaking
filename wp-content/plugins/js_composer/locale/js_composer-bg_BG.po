@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WPBakery Page Builder\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-14 17:07+0200\n"
-"PO-Revision-Date: 2021-12-14 17:10+0200\n"
+"PO-Revision-Date: 2022-10-11 21:02+0300\n"
 "Last-Translator: Michael M <hello@wpbakery.com>\n"
 "Language-Team: Bulgarian\n"
 "Language: bg_BG\n"
@@ -7227,13 +7227,13 @@ msgid "Invalid license key"
 msgstr ""
 
 #: include/./classes/settings/class-vc-license.php:441
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hola! Would you like to receive automatic updates and unlock premium "
 "support? Please %sactivate your copy%s of WPBakery Page Builder."
 msgstr ""
-"За да получавате автоматични обновления е необходим лицензна активация. Моля "
-"посетете <a href=\""
+"Hola! Would you like to receive automatic updates and unlock premium "
+"support? Please %sactivate your copy%s of WPBakery Page Builder."
 
 #: include/./classes/settings/class-vc-license.php:441
 msgid "Dismiss this notice."
@@ -7532,7 +7532,7 @@ msgstr ""
 
 #: include/./classes/settings/class-vc-settings.php:987
 msgid "custom.css could not be created. Problem with access."
-msgstr "Custom.CSS не можеше да бъде създаден. Проблем с достъпа."
+msgstr "custom.css не можеше да бъде създаден. Проблем с достъпа."
 
 #: include/./classes/settings/class-vc-settings.php:1008
 #, php-format
@@ -7756,13 +7756,13 @@ msgid "Error! Can't connect to filesystem"
 msgstr "Грешка! Не може да се свържем с файловата система"
 
 #: include/./classes/updaters/class-vc-updater.php:145
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "To receive automatic updates license activation is required. Please visit "
 "%sSettings%s to activate your WPBakery Page Builder."
 msgstr ""
-"За да получавате автоматични обновления е необходим лицензна активация. Моля "
-"посетете <a href=\""
+"To receive automatic updates license activation is required. Please visit "
+"%sSettings%s to activate your WPBakery Page Builder."
 
 #: include/./classes/updaters/class-vc-updater.php:145
 #: include/./classes/updaters/class-vc-updating-manager.php:204
@@ -7782,13 +7782,13 @@ msgid "Downloading package..."
 msgstr ""
 
 #: include/./classes/updaters/class-vc-updating-manager.php:204
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "To receive automatic updates license activation is required. Please visit "
 "%ssettings%s to activate your WPBakery Page Builder."
 msgstr ""
-"За да получавате автоматични обновления е необходим лицензна активация. Моля "
-"посетете <a href=\""
+"To receive automatic updates license activation is required. Please visit "
+"%ssettings%s to activate your WPBakery Page Builder."
 
 #: include/./classes/vendors/plugins/acf/grid-item-shortcodes.php:18
 #: include/./classes/vendors/plugins/acf/shortcode.php:18
@@ -7842,14 +7842,14 @@ msgstr "Подравняване на ляво"
 #: include/./classes/vendors/plugins/woocommerce/grid-item-shortcodes.php:83
 #: include/./params/font_container/font_container.php:91
 msgid "left"
-msgstr "Ляво"
+msgstr "ляво"
 
 #: include/./classes/vendors/plugins/acf/grid-item-shortcodes.php:61
 #: include/./classes/vendors/plugins/acf/shortcode.php:59
 #: include/./classes/vendors/plugins/woocommerce/grid-item-shortcodes.php:84
 #: include/./params/font_container/font_container.php:92
 msgid "right"
-msgstr "Дясно"
+msgstr "дясно"
 
 #: include/./classes/vendors/plugins/acf/grid-item-shortcodes.php:62
 #: include/./classes/vendors/plugins/acf/shortcode.php:60
@@ -7863,7 +7863,7 @@ msgstr "център"
 #: include/./classes/vendors/plugins/woocommerce/grid-item-shortcodes.php:86
 #: include/./params/font_container/font_container.php:94
 msgid "justify"
-msgstr "Оправдава"
+msgstr "оправдава"
 
 #: include/./classes/vendors/plugins/acf/grid-item-shortcodes.php:65
 #: include/./classes/vendors/plugins/acf/shortcode.php:63
@@ -10404,15 +10404,15 @@ msgid ""
 msgstr ""
 
 #: include/./templates/params/column_offset/template.tpl.php:21
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Responsive design settings are currently disabled. You can enable them in "
 "WPBakery Page Builder %ssettings page%s by unchecking \"Disable responsive "
 "content elements\"."
 msgstr ""
 "Настройките на респонзив дизайна са забранени. Можете да ги разрешите във "
-"визуалния редактор <a href=\"%s\">Настройки на страницата</a> чрез де "
-"маркирането на \"Забраняване на респонзив елементи със съдържание\"."
+"визуалния редактор %sНастройки на страницата%s чрез де маркирането на "
+"\"Забраняване на респонзив елементи със съдържание\"."
 
 #: include/./templates/params/column_offset/template.tpl.php:31
 msgid "Device"

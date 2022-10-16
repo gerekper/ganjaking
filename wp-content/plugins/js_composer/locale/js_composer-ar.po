@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: WPBakery Page Builder\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-14 17:07+0200\n"
-"PO-Revision-Date: 2021-12-14 17:11+0200\n"
+"PO-Revision-Date: 2022-10-11 21:16+0300\n"
 "Last-Translator: info@t3rep.com <info@t3rep.com>\n"
 "Language-Team: info@t3rep.com\n"
 "Language: ar\n"
@@ -643,16 +643,13 @@ msgstr "ID  العنصر"
 #: config/./wp/shortcode-vc-wp-tagcloud.php:48
 #: config/./wp/shortcode-vc-wp-text.php:31
 #: include/./autoload/vendors/shortcode-vc-gutenberg.php:26
-#, fuzzy, php-format
-#| msgid ""
-#| "Enter section ID (Note: make sure it is unique and valid according to <a "
-#| "href=\"%s\" target=\"_blank\">w3c specification</a>)."
+#, php-format
 msgid ""
 "Enter element ID (Note: make sure it is unique and valid according to %sw3c "
 "specification%s)."
 msgstr ""
-"ادخل ID القسم  (ملاحظة : يرجي ان يكون غير مكرر وغير مستخدم من قبل ويكون "
-"متوافق مع <a href=\"%s\" target=\"_blank\">w3c specification</a>)."
+"Enter element ID (Note: make sure it is unique and valid according to %sw3c "
+"specification%s)."
 
 #: config/./buttons/shortcode-vc-btn.php:322
 #: config/./buttons/shortcode-vc-cta.php:234
@@ -3330,16 +3327,13 @@ msgid "Video link"
 msgstr "رابط الفيديو"
 
 #: config/./content/shortcode-vc-video.php:25
-#, fuzzy, php-format
-#| msgid ""
-#| "Enter link to video (Note: read more about available formats at WordPress "
-#| "<a href=\"%s\" target=\"_blank\">codex page</a>)."
+#, php-format
 msgid ""
 "Enter link to video (Note: read more about available formats at WordPress "
 "%scodex page%s)."
 msgstr ""
-"أدخل رابط لفيديو (ملاحظة: قراءة المزيد حول التنسيقات المتاحة في ووردبرس <a "
-"href=\" %s \" target=\"_blank\">codex page</a>)."
+"Enter link to video (Note: read more about available formats at WordPress "
+"%scodex page%s)."
 
 #: config/./content/shortcode-vc-video.php:29
 msgid "Video width"
@@ -5629,16 +5623,13 @@ msgid "Enter section title (Note: you can leave it empty)."
 msgstr "أدخل عنوان القسم  (ملاحظة: يمكنك تركه فارغا)."
 
 #: config/./tta/shortcode-vc-tta-section.php:58
-#, fuzzy, php-format
-#| msgid ""
-#| "Enter section ID (Note: make sure it is unique and valid according to <a "
-#| "href=\"%s\" target=\"_blank\">w3c specification</a>)."
+#, php-format
 msgid ""
 "Enter section ID (Note: make sure it is unique and valid according to %sw3c "
 "specification%s)."
 msgstr ""
-"ادخل ID القسم  (ملاحظة : يرجي ان يكون غير مكرر وغير مستخدم من قبل ويكون "
-"متوافق مع <a href=\"%s\" target=\"_blank\">w3c specification</a>)."
+"Enter section ID (Note: make sure it is unique and valid according to %sw3c "
+"specification%s)."
 
 #: config/./tta/shortcode-vc-tta-section.php:80
 msgid "Section for Tabs, Tours, Accordions."
@@ -6297,13 +6288,9 @@ msgstr "يمكنك تحرير العنصر الخاص بك في أي وقت وا
 
 #: include/./autoload/vc-pointers-backend-editor.php:75
 #: include/./autoload/vc-pointers-frontend-editor.php:53
-#, fuzzy, php-format
-#| msgid ""
-#| "P.S. Learn more at our <a href=\"%s\" target=\"_blank\">Knowledge Base</a>."
+#, php-format
 msgid "P.S. Learn more at our %sKnowledge Base%s."
-msgstr ""
-"PS مزيد من المعلومات في موقعنا <a href=\"%s\" target=\"_blank\">قاعدة المعارف."
-"</a>"
+msgstr "P.S. Learn more at our %sKnowledge Base%s."
 
 #: include/./autoload/vendors/gravity_forms.php:21
 msgid "No Gravity forms found."
@@ -7238,18 +7225,13 @@ msgid "Invalid license key"
 msgstr "قمية هامش خاطئه"
 
 #: include/./classes/settings/class-vc-license.php:441
-#, fuzzy, php-format
-#| msgid ""
-#| "Hola! Would you like to receive automatic updates and unlock premium "
-#| "support? Please <a href=\"%s\">activate your copy</a> of WPBakery Page "
-#| "Builder."
+#, php-format
 msgid ""
 "Hola! Would you like to receive automatic updates and unlock premium support? "
 "Please %sactivate your copy%s of WPBakery Page Builder."
 msgstr ""
-"مرحبا! هل تريد الحصول على التحديثات التلقائية، والاستفادة من جميع خيارات "
-"المحرر المتطور ؟ الرجاء <a href=\"%s\">تنشيط النسخة الخاصة بك</a> من \"منشئ "
-"الصفحة وبباكيري\"."
+"Hola! Would you like to receive automatic updates and unlock premium support? "
+"Please %sactivate your copy%s of WPBakery Page Builder."
 
 #: include/./classes/settings/class-vc-license.php:441
 msgid "Dismiss this notice."
@@ -7768,15 +7750,13 @@ msgid "Error! Can't connect to filesystem"
 msgstr "خطأ! لا يمكن الاتصال بنظام الملفات"
 
 #: include/./classes/updaters/class-vc-updater.php:145
-#, fuzzy, php-format
-#| msgid ""
-#| "To receive automatic updates license activation is required. Please visit "
-#| "<a href=\""
+#, php-format
 msgid ""
 "To receive automatic updates license activation is required. Please visit "
 "%sSettings%s to activate your WPBakery Page Builder."
 msgstr ""
-"للحصول على التحديثات التلقائية يتوجب عليك تفعيل الترخيص. يرجى زيارة <a href=\""
+"To receive automatic updates license activation is required. Please visit "
+"%sSettings%s to activate your WPBakery Page Builder."
 
 #: include/./classes/updaters/class-vc-updater.php:145
 #: include/./classes/updaters/class-vc-updating-manager.php:204
@@ -7796,15 +7776,13 @@ msgid "Downloading package..."
 msgstr "تحميل الحزمة من سوق envato ..."
 
 #: include/./classes/updaters/class-vc-updating-manager.php:204
-#, fuzzy, php-format
-#| msgid ""
-#| "To receive automatic updates license activation is required. Please visit "
-#| "<a href=\""
+#, php-format
 msgid ""
 "To receive automatic updates license activation is required. Please visit "
 "%ssettings%s to activate your WPBakery Page Builder."
 msgstr ""
-"للحصول على التحديثات التلقائية يتوجب عليك تفعيل الترخيص. يرجى زيارة <a href=\""
+"To receive automatic updates license activation is required. Please visit "
+"%ssettings%s to activate your WPBakery Page Builder."
 
 #: include/./classes/vendors/plugins/acf/grid-item-shortcodes.php:18
 #: include/./classes/vendors/plugins/acf/shortcode.php:18
@@ -10164,15 +10142,11 @@ msgid ""
 msgstr ""
 
 #: include/./templates/pages/vc-settings/tab.php:119
-#, fuzzy, php-format
-#| msgid ""
-#| "Don't have direct license yet? <a href=\"%s\" target=\"_blank\">Purchase "
-#| "WPBakery Page Builder license</a>."
+#, php-format
 msgid ""
 "Don't have direct license yet? %sPurchase WPBakery Page Builder license%s."
 msgstr ""
-"لا تملك رخصة شراء بعد ؟ <a href=\"%s\" target=\"_blank\">يمكنك شراء رخصة الان "
-"عبر الرابط</a>."
+"Don't have direct license yet? %sPurchase WPBakery Page Builder license%s."
 
 #: include/./templates/pages/vc-welcome/index.php:9
 #, php-format
@@ -10195,20 +10169,15 @@ msgid "New to WPBakery Page Builder or Looking for More Information?"
 msgstr "هل انت جديد في استخدام المحرر المتطور ؟ او تبحث عن معلومات ؟"
 
 #: include/./templates/pages/vc-welcome/vc-faq.php:9
-#, fuzzy, php-format
-#| msgid ""
-#| "WPBakery has complete documentation available at our knowledge base: <a "
-#| "target=\"_blank\" href=\"%s\">kb.wpbakery.com</a> which covers everything "
-#| "related to WPBakery Page Builder starting from Installation and up to more "
-#| "advanced features based on our Inner API."
+#, php-format
 msgid ""
 "WPBakery has complete documentation available at our knowledge base: %s which "
 "covers everything related to WPBakery Page Builder starting from Installation "
 "and up to more advanced features based on our Inner API."
 msgstr ""
-"WPBakery لديه وثائق كاملة متوفرة في قاعدة المعرفة لدينا: <a target=\"_blank\" "
-"href=\" %s \"> kb.wpbakery.com </A> التي تغطي كل ما يتعلق بالمحرر المتطور "
-"بدءا من تركيب وتصل إلى المزيد من الميزات المتقدمة على أساس API الخاصة بنا."
+"WPBakery has complete documentation available at our knowledge base: %s which "
+"covers everything related to WPBakery Page Builder starting from Installation "
+"and up to more advanced features based on our Inner API."
 
 #: include/./templates/pages/vc-welcome/vc-faq.php:13
 msgid "Preface"
@@ -10428,39 +10397,28 @@ msgid "Official Support"
 msgstr "الدعم الفني "
 
 #: include/./templates/pages/vc-welcome/vc-resources.php:27
-#, fuzzy, php-format
-#| msgid ""
-#| "To get your support related question answered in the fastest timing, "
-#| "please head over to our <a href=\"%s\" target=\"_blank\">support page</a> "
-#| "and open Support ticket. To open a support ticket you should have a valid "
-#| "support subscription in case if your support has expired you can <a href="
-#| "\"%s\" target=\"_blank\">purchase support extension</a> on CodeCanyon."
+#, php-format
 msgid ""
 "To get your support related question answered in the fastest timing, please "
 "head over to our %ssupport page%s and open Support ticket. To open a support "
 "ticket you should have a valid support subscription in case if your support "
 "has expired you can %spurchase support extension%s on support.wpbakery.com."
 msgstr ""
-"لكى تقم بالحصول على إجابه لأسئلة الدعم الخاصه بك فى اسرع وقت فضلا قم بزيارة "
-"<a href=\"%s\" target=\"_blank\">صفحة الدعم</a> و قم بفتح تذكرة دعم. لفتح "
-"تذكرة دعم لابد لك من إمتلاك اشتراك صالح وفي حالة انتهاء الاشتراك الخاص بك "
-"بمكنك <a href=\"%s\" target=\"_blank\"شراء دعم فني ممتد </a>"
+"To get your support related question answered in the fastest timing, please "
+"head over to our %ssupport page%s and open Support ticket. To open a support "
+"ticket you should have a valid support subscription in case if your support "
+"has expired you can %spurchase support extension%s on support.wpbakery.com."
 
 #: include/./templates/pages/vc-welcome/vc-resources.php:29
-#, fuzzy, php-format
-#| msgid ""
-#| "Before applying for support please make sure you understand the rules of "
-#| "support and go through all steps described and listed in <a href=\"%s\" "
-#| "target=\"_blank\">Support Policy</a> in order to get your issues solved as "
-#| "soon as possible."
+#, php-format
 msgid ""
 "Before applying for support please make sure you understand the rules of "
 "support and go through all steps described and listed in %sSupport Policy%s "
 "in order to get your issues solved as soon as possible."
 msgstr ""
-"قبل التقدم بطلب الدعم من فضلك تأكد من فهم قواعد وشروط الدعم ويرجي مراجعة جميع "
-"الخطوات المذكورة والواردة في <a href=\" %s \" target=\"_blank\"> اتفاقية شروط "
-"الدعم </A> من أجل الحصول على حل المشاكل الخاصة بك في أقرب وقت ممكن."
+"Before applying for support please make sure you understand the rules of "
+"support and go through all steps described and listed in %sSupport Policy%s "
+"in order to get your issues solved as soon as possible."
 
 #: include/./templates/pages/vc-welcome/vc-welcome.php:11
 #, fuzzy
@@ -10476,18 +10434,15 @@ msgid ""
 msgstr ""
 
 #: include/./templates/params/column_offset/template.tpl.php:21
-#, fuzzy, php-format
-#| msgid ""
-#| "Responsive design settings are currently disabled. You can enable them in "
-#| "WPBakery Page Builder <a href=\"%s\">settings page</a> by unchecking "
-#| "\"Disable responsive content elements\"."
+#, php-format
 msgid ""
 "Responsive design settings are currently disabled. You can enable them in "
 "WPBakery Page Builder %ssettings page%s by unchecking \"Disable responsive "
 "content elements\"."
 msgstr ""
-"اعدادات الريسبونسيف حالياً معطلة. يمكنك تفعيلها بالمحرر المتطور من<a href=\"%s"
-"\">اعدادات الصفحة</a> ازالة العلامة من \"تعطيل المحتوي المتجاوب\"."
+"Responsive design settings are currently disabled. You can enable them in "
+"WPBakery Page Builder %ssettings page%s by unchecking \"Disable responsive "
+"content elements\"."
 
 #: include/./templates/params/column_offset/template.tpl.php:31
 msgid "Device"

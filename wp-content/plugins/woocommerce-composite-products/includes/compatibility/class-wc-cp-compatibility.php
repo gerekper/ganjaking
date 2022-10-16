@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 3rd-party Extensions Compatibility.
  *
  * @class    WC_CP_Compatibility
- * @version  8.5.1
+ * @version  8.6.0
  */
 class WC_CP_Compatibility {
 
@@ -84,7 +84,8 @@ class WC_CP_Compatibility {
 			'pb'     => '6.14.0',
 			'ci'     => '1.2.4',
 			'pao'    => '3.0.14',
-			'blocks' => '7.2.0'
+			'blocks' => '7.2.0',
+			'mmq'    => '3.0.0'
 		);
 
 		// Initialize.
@@ -363,6 +364,19 @@ class WC_CP_Compatibility {
 				$notice         = sprintf( __( 'The installed version of <strong>%1$s</strong> is not supported by <strong>Composite Products</strong>. Please update <a href="%2$s" target="_blank">%3$s</a> to version <strong>%4$s</strong> or higher.', 'woocommerce-composite-products' ), $extension, $extension_url, $extension_full, $required_version );
 
 				WC_CP_Admin_Notices::add_dismissible_notice( $notice, array( 'dismiss_class' => 'addons_lt_' . $required_version, 'type' => 'warning' ) );
+			}
+		}
+
+		// MMQ version check.
+		if ( class_exists( 'WC_Min_Max_Quantities' ) ) {
+			$required_version = $this->required[ 'mmq' ];
+			if ( ! defined( 'WC_MIN_MAX_QUANTITIES' ) || version_compare( WC_MIN_MAX_QUANTITIES, $required_version ) < 0 ) {
+				$extension      = __( 'Min/Max Quantities', 'woocommerce-composite-products' );
+				$extension_full = __( 'WooCommerce Min/Max Quantities', 'woocommerce-composite-products' );
+				$extension_url  = 'https://woocommerce.com/products/minmax-quantities/';
+				/* translators: %1$s: Extension, %2$s: Extension URL, %3$s: Extension full name, %4$s: Required version. */
+				$notice         = sprintf( __( 'The installed version of <strong>%1$s</strong> is not supported by <strong>Composite Products</strong>. Please update <a href="%2$s" target="_blank">%3$s</a> to version <strong>%4$s</strong> or higher.', 'woocommerce-composite-products' ), $extension, $extension_url, $extension_full, $required_version );
+				WC_CP_Admin_Notices::add_dismissible_notice( $notice, array( 'dismiss_class' => 'mmq_lt_' . $required_version, 'type' => 'warning' ) );
 			}
 		}
 	}

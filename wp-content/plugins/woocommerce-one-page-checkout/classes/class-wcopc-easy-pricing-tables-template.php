@@ -19,8 +19,8 @@ class WCOPC_Easy_Pricing_Tables_Template extends WCOPC_Template {
 		}
 
 		$this->template_key = 'easy_pricing_table';
-		$this->label        = __( 'Easy Pricing Table', 'wcopc' );
-		$this->description  = __( 'Include a pricing table creating with the Easy Pricing Table plugin. Best for creating highly customised pricing tables.', 'wcopc' );
+		$this->label        = __( 'Easy Pricing Table', 'woocommerce-one-page-checkout' );
+		$this->description  = __( 'Include a pricing table creating with the Easy Pricing Table plugin. Best for creating highly customised pricing tables.', 'woocommerce-one-page-checkout' );
 
 		add_filter( 'wcopc_product_selection_fields_before', array( $this, 'display_pricing_table' ), 10, 2 );
 
@@ -57,7 +57,7 @@ class WCOPC_Easy_Pricing_Tables_Template extends WCOPC_Template {
 		));
 ?>
 	<fieldset id="wcopc_easy_pricing_table_fields" style="margin: 1em 0;">
-		<label for="wcopc_easy_pricing_table_id" style="width: 70px; display: inline-block;"><?php esc_html_e( 'Pricing Table:', 'wcopc' ); ?></label>
+		<label for="wcopc_easy_pricing_table_id" style="width: 70px; display: inline-block;"><?php esc_html_e( 'Pricing Table:', 'woocommerce-one-page-checkout' ); ?></label>
 		<?php if ( ! empty( $easy_pricing_tables ) ) : ?>
 		<select id="wcopc_easy_pricing_table_id" style="width: 75%;">
 			<?php foreach( $easy_pricing_tables as $easy_pricing_table ) : ?>
@@ -65,7 +65,7 @@ class WCOPC_Easy_Pricing_Tables_Template extends WCOPC_Template {
 			<?php endforeach; ?>
 		</select>
 		<?php else : ?>
-			<span><?php esc_html_e( 'No pricing tables available.', 'wcopc' ); ?>
+			<span><?php esc_html_e( 'No pricing tables available.', 'woocommerce-one-page-checkout' ); ?>
 		<?php endif; ?>
 	</fieldset>
 <?php

@@ -1970,6 +1970,7 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 						return false;
 					}
 
+					this.update_validation();
 					this.update_totals( component );
 				},
 
@@ -6074,6 +6075,11 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 					composite.actions.add_action( 'component_selection_changed', this.selection_changed_handler, 110, this );
 
 					/**
+					 * Update navigation view elements when quantity changes.
+					 */
+					composite.actions.add_action( 'component_quantity_changed', this.quantity_changed_handler, 10, this );
+
+					/**
 					 * Render movable navigation when the product selection view content is updated.
 					 */
 					composite.actions.add_action( 'component_selection_details_updated', this.selection_details_updated_handler, 10, this );
@@ -6133,6 +6139,19 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 					// Autotransition to next.
 					if ( step.can_autotransition() ) {
 						composite.show_next_step();
+						return false;
+					}
+
+					this.render_change();
+				},
+
+				/**
+				 * Updates navigation view elements when quantity changes.
+				 * Handled by the composite actions dispatcher.
+				 */
+				quantity_changed_handler: function( step ) {
+
+					if ( ! composite.is_initialized ) {
 						return false;
 					}
 
@@ -12266,6 +12285,11 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 								}
 							}
 
+							if ( ! this.has_valid_quantity() ) {
+								this.add_validation_message( wc_composite_params.i18n_select_product_quantity );
+								this.add_validation_message( wc_composite_params.i18n_select_product_quantity_for, 'composite' );
+							}
+
 							if ( this.has_required_addons() && ! this.has_valid_required_addons() ) {
 								this.add_validation_message( wc_composite_params.i18n_select_product_addons );
 								this.add_validation_message( wc_composite_params.i18n_select_product_addons_for, 'composite' );
@@ -12689,6 +12713,10 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 				}
 			}
 
+			if ( valid && this.is_visible() ) {
+				valid = this.has_valid_quantity();
+			}
+
 			if ( valid && this.is_visible() && this.has_required_addons() ) {
 				valid = this.has_valid_required_addons();
 			}
@@ -12724,7 +12752,25 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 				$addons.each( function() {
 					if ( valid && ! this.checkValidity() && '' !== this.value ) {
 						this.reportValidity();
-						valid = false
+						valid = false;
+					}
+				});
+			}
+			return valid;
+		};
+
+		/**
+		 * Validates quantity.
+		 */
+		WC_CP_Component.prototype.has_valid_quantity = function() {
+			var $quantities  = this.$component_summary_content.find( '.component_wrap input.qty' ),
+				valid        = true
+
+			if ( $quantities.length > 0 ) {
+				$quantities.each( function() {
+					if ( valid && ! this.checkValidity() && '' !== this.value ) {
+						this.reportValidity();
+						valid = false;
 					}
 				});
 			}

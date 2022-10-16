@@ -629,6 +629,7 @@ class WC_Checkout_Field_Editor {
 					</tbody>
 				</table>
 				<?php
+				wp_nonce_field( 'save_changes', 'save_changes_nonce' );
 				echo '<p class="submit"><input type="submit" class="button-primary" value="' . esc_attr__( 'Save Changes', 'woocommerce-checkout-field-editor' ) . '" /></p>';
 				echo '</form>';
 				echo '</div>';
@@ -702,6 +703,11 @@ class WC_Checkout_Field_Editor {
 	 * @return void
 	 */
 	public function save_options( $tab ) {
+		if ( ! isset( $_POST['save_changes_nonce'] )
+		|| ! wp_verify_nonce( sanitize_key( $_POST['save_changes_nonce'] ), 'save_changes' ) ) { 
+			return;
+		}
+
 		$o_fields          = $this->get_fields( $tab );
 		$fields            = $o_fields;
 		$core_fields       = array_keys( WC()->countries->get_address_fields( WC()->countries->get_base_country(), $tab . '_' ) );

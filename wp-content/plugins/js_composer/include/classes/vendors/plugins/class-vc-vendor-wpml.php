@@ -10,6 +10,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Vc_Vendor_WPML {
 
 	public function load() {
+		add_filter( 'vc_object_id', array(
+			$this,
+			'filterMediaId',
+		) );
+
 		add_filter( 'vc_basic_grid_filter_query_suppress_filters', '__return_false' );
 
 		add_filter( 'vc_grid_request_url', array(
@@ -44,5 +49,13 @@ class Vc_Vendor_WPML {
 		}
 
 		return $link;
+	}
+
+	/**
+	 * @param $id
+	 * @return mixed|void
+	 */
+	public function filterMediaId( $id ) {
+		return apply_filters( 'wpml_object_id', $id, 'post', true );
 	}
 }

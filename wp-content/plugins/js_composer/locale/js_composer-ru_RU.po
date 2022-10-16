@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WPBakery Page Builder\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-14 17:07+0200\n"
-"PO-Revision-Date: 2021-12-14 17:09+0200\n"
+"PO-Revision-Date: 2022-10-11 20:55+0300\n"
 "Last-Translator: Michael M <hello@wpbakery.com>\n"
 "Language-Team: WPBakery\n"
 "Language: ru_RU\n"
@@ -636,13 +636,13 @@ msgstr "ID элемента"
 #: config/./wp/shortcode-vc-wp-tagcloud.php:48
 #: config/./wp/shortcode-vc-wp-text.php:31
 #: include/./autoload/vendors/shortcode-vc-gutenberg.php:26
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Enter element ID (Note: make sure it is unique and valid according to %sw3c "
 "specification%s)."
 msgstr ""
-"Введите ID секции (убедитесь, чтобы он был уникальным согласно <a href=\"%s"
-"\" target=\"_blank\">w3c спецификации</a>)."
+"Введите ID секции (убедитесь, чтобы он был уникальным согласно %sw3c "
+"спецификации%s)."
 
 #: config/./buttons/shortcode-vc-btn.php:322
 #: config/./buttons/shortcode-vc-cta.php:234
@@ -5636,16 +5636,13 @@ msgid "Enter section title (Note: you can leave it empty)."
 msgstr "Введите название секции (вы можете оставить его пустым)."
 
 #: config/./tta/shortcode-vc-tta-section.php:58
-#, fuzzy, php-format
-#| msgid ""
-#| "Enter section ID (Note: make sure it is unique and valid according to <a "
-#| "href=\"%s\" target=\"_blank\">w3c specification</a>)."
+#, php-format
 msgid ""
 "Enter section ID (Note: make sure it is unique and valid according to %sw3c "
 "specification%s)."
 msgstr ""
-"Введите ID секции (убедитесь, чтобы он был уникальным согласно <a href=\"%s"
-"\" target=\"_blank\">w3c спецификации</a>)."
+"Введите ID секции (убедитесь, чтобы он был уникальным согласно %sw3c "
+"спецификации%s)."
 
 #: config/./tta/shortcode-vc-tta-section.php:80
 msgid "Section for Tabs, Tours, Accordions."

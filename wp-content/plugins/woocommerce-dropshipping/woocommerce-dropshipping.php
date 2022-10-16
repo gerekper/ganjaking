@@ -8,7 +8,7 @@
 
  * Description: Handle dropshipping from your WooCommerce. Create a packing slip, and notify the vendor when an order is paid. Import inventory updates via CSV from your vendors.
 
- * Version: 4.2
+ * Version: 4.4
 
  * Author: OPMC Australia Pty Ltd
 
@@ -67,6 +67,44 @@ if ( ! function_exists( 'woothemes_queue_update' ) ) {
  */
 
 woothemes_queue_update( plugin_basename( __FILE__ ), '403b956c6bd33bb70b089df260b994ee', '1923014' );
+
+
+/**
+
+ * Dropshipping Pro Release Notice
+
+ */
+/* check if Dropshipping Pro is active */
+function is_dropshipping_pro_active() {
+    $active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
+	foreach ( $active_plugins as $plugin ) {
+		if ( strpos( $plugin, 'pro-add-on-for-woocommerce-dropshipping') !== false ) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function dropshipping_pro_admin_notice(){
+    global $pagenow;
+    if ( $pagenow == 'index.php' && is_dropshipping_pro_active() == false) {
+         echo '<div class="notice notice-info is-dismissible">
+             <p>Pro Add-on for WooCommerce Dropshipping - Now Released!</p>
+			 <p>Add marketing and customization features to the WooCommerce Dropshipping Plugin with Pro Add-on for WooCommerce Dropshipping.  <a href="https://woocommerce.com/products/pro-add-on-for-woocommerce-dropshipping/" target="_blank">Find out more!</a></p>
+         </div>';
+    }
+}
+
+add_action('admin_notices', 'dropshipping_pro_admin_notice');
+
+/**
+
+ * End
+
+ */
+
+
 
 /**
 

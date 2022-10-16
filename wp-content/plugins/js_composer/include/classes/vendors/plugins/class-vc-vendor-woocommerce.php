@@ -1496,19 +1496,19 @@ class Vc_Vendor_Woocommerce {
 	 */
 	public static function getProductsFieldsList() {
 		return array(
-			esc_html__( 'SKU', 'js_composer' ) => 'sku',
-			esc_html__( 'ID', 'js_composer' ) => 'id',
-			esc_html__( 'Price', 'js_composer' ) => 'price',
-			esc_html__( 'Regular Price', 'js_composer' ) => 'regular_price',
-			esc_html__( 'Sale Price', 'js_composer' ) => 'sale_price',
-			esc_html__( 'Price html', 'js_composer' ) => 'price_html',
-			esc_html__( 'Reviews count', 'js_composer' ) => 'reviews_count',
-			esc_html__( 'Short description', 'js_composer' ) => 'short_description',
-			esc_html__( 'Dimensions', 'js_composer' ) => 'dimensions',
-			esc_html__( 'Rating count', 'js_composer' ) => 'rating_count',
-			esc_html__( 'Weight', 'js_composer' ) => 'weight',
-			esc_html__( 'Is on sale', 'js_composer' ) => 'on_sale',
-			esc_html__( 'Custom field', 'js_composer' ) => '_custom_',
+			esc_html__( 'SKU', 'woocommerce' ) => 'sku',
+			esc_html__( 'ID', 'woocommerce' ) => 'id',
+			esc_html__( 'Price', 'woocommerce' ) => 'price',
+			esc_html__( 'Regular price', 'woocommerce' ) => 'regular_price',
+			esc_html__( 'Sale price', 'woocommerce' ) => 'sale_price',
+			esc_html__( 'Price html', 'woocommerce' ) => 'price_html',
+			esc_html__( 'Reviews count', 'woocommerce' ) => 'reviews_count',
+			esc_html__( 'Short description', 'woocommerce' ) => 'short_description',
+			esc_html__( 'Dimensions', 'woocommerce' ) => 'dimensions',
+			esc_html__( 'Rating count', 'woocommerce' ) => 'rating_count',
+			esc_html__( 'Weight', 'woocommerce' ) => 'weight',
+			esc_html__( 'Is on sale', 'woocommerce' ) => 'on_sale',
+			esc_html__( 'Custom field', 'woocommerce' ) => '_custom_',
 		);
 	}
 

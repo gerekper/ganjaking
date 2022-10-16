@@ -17,7 +17,7 @@ use Automattic\WooCommerce\StoreApi\Schemas\V1\CartItemSchema;
 /**
  * Extends the store public API with composite related data for each composite parent and child item.
  *
- * @version 8.4.0
+ * @version 8.6.0
  */
 class WC_CP_Store_API {
 
@@ -382,11 +382,11 @@ class WC_CP_Store_API {
 			return;
 		}
 
-		$step = $component_quantity_limits[ 'multiple_of' ];
+		$step = $item_data[ 'quantity_limits' ]->multiple_of;
 		$min  = $component_quantity_limits[ 'minimum' ];
 		$max  = $component_quantity_limits[ 'maximum' ];
 
-		$item_data[ 'quantity_limits' ]->multiple_of = $step;
+		$item_data[ 'quantity_limits' ]->multiple_of = $step * $component_quantity_limits[ 'multiple_of' ];
 		$item_data[ 'quantity_limits' ]->minimum     = $min;
 
 		if ( $max ) {
@@ -478,6 +478,21 @@ class WC_CP_Store_API {
 			if ( is_null( $cart_item ) ) {
 				continue;
 			}
+
+			/**
+			 * StoreAPI returns the following fields as
+			 * - object (/wc/store/v1/cart)
+			 * - array (/wc/store/v1/cart/extensions)
+			 *
+			 * Casting them to objects, to avoid PHP8+ fatal errors.
+			 *
+			 * @see https://github.com/woocommerce/woocommerce-composite-products/issues/886
+			 * @see https://github.com/woocommerce/woocommerce-blocks/issues/7275
+			 */
+			$item_data[ 'quantity_limits' ] = (object) $item_data[ 'quantity_limits' ];
+			$item_data[ 'prices' ]          = (object) $item_data[ 'prices' ];
+			$item_data[ 'totals' ]          = (object) $item_data[ 'totals' ];
+			$item_data[ 'extensions' ]      = (object) $item_data[ 'extensions' ];
 
 			if ( wc_cp_is_composite_container_cart_item( $cart_item ) ) {
 
