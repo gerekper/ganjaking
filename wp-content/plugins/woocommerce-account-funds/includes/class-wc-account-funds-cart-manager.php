@@ -106,6 +106,7 @@ class WC_Account_Funds_Cart_Manager {
 
 	/**
 	 * Amount of funds being applied
+	 *
 	 * @return float
 	 */
 	public static function used_funds_amount() {
@@ -145,7 +146,7 @@ class WC_Account_Funds_Cart_Manager {
 			WC()->session->set( 'use-account-funds', true );
 		}
 
-		if ( ! empty( $_GET['remove_account_funds'] )  ) {
+		if ( ! empty( $_GET['remove_account_funds'] ) ) {
 			WC()->session->set( 'use-account-funds', false );
 			WC()->session->set( 'used-account-funds', false );
 			wp_redirect( esc_url_raw( remove_query_arg( 'remove_account_funds' ) ) );
@@ -228,6 +229,7 @@ class WC_Account_Funds_Cart_Manager {
 
 	/**
 	 * Subscription?
+	 *
 	 * @return bool
 	 */
 	public static function cart_contains_subscription() {
@@ -294,12 +296,12 @@ class WC_Account_Funds_Cart_Manager {
 		}
 
 		// note: we make our points discount "greedy" so as many points as possible are
-		//   applied to the order.  However we also want to play nice with other discounts
-		//   so if another coupon is applied we want to use less points than otherwise.
-		//   The solution is to make this discount apply post-tax so that both pre-tax
-		//   and post-tax discounts can be considered.  At the same time we use the cart
-		//   subtotal excluding tax to calculate the maximum points discount, so it
-		//   functions like a pre-tax discount in that sense.
+		// applied to the order.  However we also want to play nice with other discounts
+		// so if another coupon is applied we want to use less points than otherwise.
+		// The solution is to make this discount apply post-tax so that both pre-tax
+		// and post-tax discounts can be considered.  At the same time we use the cart
+		// subtotal excluding tax to calculate the maximum points discount, so it
+		// functions like a pre-tax discount in that sense.
 		return array(
 			'id'            => true,
 			'discount_type' => 'fixed' === get_option( 'account_funds_discount_type' ) ? 'fixed_cart' : 'percent',
@@ -310,10 +312,10 @@ class WC_Account_Funds_Cart_Manager {
 	/**
 	 * Get coupon discount amount as percentage.
 	 *
-	 * @param  float $discount
-	 * @param  float $discounting_amount
-	 * @param  object $cart_item
-	 * @param  bool $single
+	 * @param  float     $discount
+	 * @param  float     $discounting_amount
+	 * @param  object    $cart_item
+	 * @param  bool      $single
 	 * @param  WC_Coupon $coupon
 	 * @return float
 	 */
@@ -358,6 +360,7 @@ class WC_Account_Funds_Cart_Manager {
 
 	/**
 	 * Make the label for the coupon look nicer
+	 *
 	 * @param  string $label
 	 * @return string
 	 */
@@ -374,6 +377,7 @@ class WC_Account_Funds_Cart_Manager {
 
 	/**
 	 * Make the html for the coupon look nicer
+	 *
 	 * @param  string $html
 	 * @return string
 	 */

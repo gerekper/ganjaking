@@ -36,23 +36,25 @@ class WC_Account_Funds_Updater_2_0_9 implements WC_Account_Funds_Updater {
 	 * @return array List of renewal orders
 	 */
 	private function _get_renewal_orders_paid_with_af() {
-		return get_posts( array(
-			'post_type'   => 'shop_subscription',
-			'meta_query'  => array(
-				array(
-					'key'   => '_funds_removed',
-					'value' => '1',
+		return get_posts(
+			array(
+				'post_type'           => 'shop_subscription',
+				'meta_query'          => array(
+					array(
+						'key'   => '_funds_removed',
+						'value' => '1',
+					),
+					array(
+						'key'     => '_funds_used',
+						'value'   => '0',
+						'compare' => '>',
+					),
 				),
-				array(
-					'key'     => '_funds_used',
-					'value'   => '0',
-					'compare' => '>',
-				)
-			),
-			'post_status'         => 'any',
-			'nopaging'            => true,
-			'post_parent__not_in' => array( '0' ),
-		) );
+				'post_status'         => 'any',
+				'nopaging'            => true,
+				'post_parent__not_in' => array( '0' ),
+			)
+		);
 	}
 
 	/**

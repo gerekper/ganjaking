@@ -22,7 +22,7 @@ function wc_account_funds_format_order_price( $order, $price, $args = array() ) 
 	$args = wp_parse_args(
 		$args,
 		array(
-			'currency' => $order->get_currency()
+			'currency' => $order->get_currency(),
 		)
 	);
 

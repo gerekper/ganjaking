@@ -604,7 +604,7 @@ class RevSliderFunctions extends RevSliderData {
 				$categories	= array_merge($categories, $cats);
 			}
 		}else{
-			$args = array('taxonomy' => $taxonomy);
+			$args = array('taxonomy' => $taxonomy, 'number' => 10000);
 			$cats = get_categories($args);
 			foreach($cats as $cat){
 				$num				= $cat->count;

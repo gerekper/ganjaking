@@ -1,5 +1,10 @@
 *** WooCommerce Account Funds ***
 
+2022-10-17 - version 2.7.1
+* Tweak - Skip the v2.3.7 migration script when updating from a version older than 2.3.0.
+* Tweak - Tested compatibility up to WC 7.0.
+* Tweak - Tested compatibility with WP 6.1.
+
 2022-06-14 - version 2.7.0
 * Tweak - Validates the format of the funds' amount in the edit user screen.
 * Tweak - Updated link to get support in the plugin list.

@@ -5011,6 +5011,19 @@ class RevSliderHelp {
 							)
 						),
 						'image_background' => array(
+							'cross_origin_video' => array(
+								$t => __("Cross Origin Video", 'revsliderhelp'),
+								$h => "bg.crossOriginVideo",
+								$k => array("cross origin video", "video background"),
+								$d => __("By default videos are not requested with CORS header and you may get CORS error (Cross-Origin Request Blocked), to resolve it please enable this option. If your third party server does not deliver videos with CORS permission then you will get CORS error. In that case either use videos from same server as your website's origin or enable CORS permissions for videos on third party server.", 'revsliderhelp'),
+								$a => $u . "slide-background/#video",
+								$hl => array(
+									$dp => array(array($p => '#slide#.slide.bg.type', $v => 'html5', $o => 'slide_bg_type')),
+									$m => "#module_slide_trigger, #gst_slide_1", 
+									$st => '#form_slidebg_source', 
+									$f => "*[data-r='bg.crossOriginVideo']"
+								)
+							),
 							'image_from_stream' => array(
 								$t => __("Image from Stream", 'revsliderhelp'),
 								$h => "bg.imageFromStream",

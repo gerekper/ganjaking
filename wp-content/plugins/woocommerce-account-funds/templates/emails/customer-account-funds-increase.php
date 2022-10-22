@@ -14,6 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 
-	<p><?php printf( __( 'Your account funds on %1$s have increased from %2$s to %3$s.', 'woocommerce-account-funds' ), $home_url, $current_funds, $new_funds ) ?></p>
+	<p><?php printf( __( 'Your account funds on %1$s have increased from %2$s to %3$s.', 'woocommerce-account-funds' ), $home_url, $current_funds, $new_funds ); ?></p>
 
-<?php do_action( 'woocommerce_email_footer', $email );
+<?php
+do_action( 'woocommerce_email_footer', $email );

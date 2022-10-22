@@ -894,6 +894,10 @@ function perfmatters_login_url_plugins_loaded() {
 
 function perfmatters_wp_loaded() {
 
+	if(!apply_filters('perfmatters_login_url', true)) {
+		return;
+	}
+
 	//Declare Global Variables
 	global $pagenow;
 	global $perfmatters_wp_login;
@@ -1028,6 +1032,15 @@ if(!empty($perfmatters_options['preload']['instant_page'])) {
 
 function perfmatters_enqueue_instant_page() {
 
+	if(isset($_GET['perfmattersoff'])) {
+		return;
+	}
+
+	//exclude specific woocommerce pages
+    if(function_exists('is_woocommerce') && (is_cart() || is_checkout() || is_account_page())) {
+        return;
+    }
+
 	$exclude_instant_page = Perfmatters\Utilities::get_post_meta('perfmatters_exclude_instant_page');
 
 	if(!$exclude_instant_page) {
@@ -1136,7 +1149,7 @@ function perfmatters_update_ga() {
 			    }
 
 			    if($type == 'gtag') {
-			    	$plugins_url = (!empty($options['analytics']['cdn_url']) ? trailingslashit($options['analytics']['cdn_url']) . 'wp-content/plugins' : plugins_url()) . '/perfmatters/js/';
+			    	$plugins_url = (!empty($options['analytics']['cdn_url']) ? trailingslashit($options['analytics']['cdn_url']) . 'wp-content/plugins' : str_replace('http:', 'https:', plugins_url())) . '/perfmatters/js/';
 			    	$split_upload_dir = explode('/wp-content/', $upload_dir['baseurl']);
 			    	$uploads_url = (!empty($options['analytics']['cdn_url']) ? trailingslashit($options['analytics']['cdn_url']) . 'wp-content/' . $split_upload_dir[1] : $upload_dir['baseurl']) . '/perfmatters';
 			    	$body = str_replace('https://www.google-analytics.com/', $plugins_url, $file['body']);
@@ -1177,7 +1190,7 @@ function perfmatters_print_ga() {
 		    $output.= "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 					(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 					m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-					})(window,document,'script','" . plugins_url() . "/perfmatters/js/analytics.js','ga');";
+					})(window,document,'script','" . str_replace('http:', 'https:', plugins_url()) . "/perfmatters/js/analytics.js','ga');";
 		    $output.= "ga('create', '" . $options['analytics']['tracking_id'] . "', 'auto');";
 
 		    //disable display features
@@ -1212,7 +1225,7 @@ function perfmatters_print_ga() {
 	}
 	elseif($options['analytics']['script_type'] == 'minimal') {
 		$output.= '<script>window.pmGAID="' . $options['analytics']['tracking_id'] . '";' . (!empty($options['analytics']['anonymize_ip']) ? 'window.pmGAAIP=true;' : '') . '</script>';
-		$output.= '<script src="' . plugins_url() . '/perfmatters/js/analytics-minimal.js"></script>';
+		$output.= '<script src="' . str_replace('http:', 'https:', plugins_url()) . '/perfmatters/js/analytics-minimal.js"></script>';
 	}
 	elseif($options['analytics']['script_type'] == 'minimal_inline') {
 		$output.= '<script>(function(a,b,c){var d=a.history,e=document,f=navigator||{},g=localStorage,h=encodeURIComponent,i=d.pushState,k=function(){return Math.random().toString(36)},l=function(){return g.cid||(g.cid=k()),g.cid},m=function(r){var s=[];for(var t in r)r.hasOwnProperty(t)&&void 0!==r[t]&&s.push(h(t)+"="+h(r[t]));return s.join("&")},n=function(r,s,t,u,v,w,x){var z="https://www.google-analytics.com/collect",A=m({v:"1",ds:"web",aip:c.anonymizeIp?1:void 0,tid:b,cid:l(),t:r||"pageview",sd:c.colorDepth&&screen.colorDepth?screen.colorDepth+"-bits":void 0,dr:e.referrer||void 0,dt:e.title,dl:e.location.origin+e.location.pathname+e.location.search,ul:c.language?(f.language||"").toLowerCase():void 0,de:c.characterSet?e.characterSet:void 0,sr:c.screenSize?(a.screen||{}).width+"x"+(a.screen||{}).height:void 0,vp:c.screenSize&&a.visualViewport?(a.visualViewport||{}).width+"x"+(a.visualViewport||{}).height:void 0,ec:s||void 0,ea:t||void 0,el:u||void 0,ev:v||void 0,exd:w||void 0,exf:"undefined"!=typeof x&&!1==!!x?0:void 0});if(f.sendBeacon)f.sendBeacon(z,A);else{var y=new XMLHttpRequest;y.open("POST",z,!0),y.send(A)}};d.pushState=function(r){return"function"==typeof d.onpushstate&&d.onpushstate({state:r}),setTimeout(n,c.delay||10),i.apply(d,arguments)},n(),a.ma={trackEvent:function o(r,s,t,u){return n("event",r,s,t,u)},trackException:function q(r,s){return n("exception",null,null,null,null,r,s)}}})(window,"' . $options['analytics']['tracking_id'] . '",{' . (!empty($options['analytics']['anonymize_ip']) ? 'anonymizeIp:true,' : '') . 'colorDepth:true,characterSet:true,screenSize:true,language:true});</script>';
@@ -1233,7 +1246,7 @@ function perfmatters_print_ga() {
 
 //return local anlytics url for Monster Insights
 function perfmatters_monster_ga($url) {
-	return plugins_url() . "/perfmatters/js/analytics.js";
+	return str_replace('http:', 'https:', plugins_url()) . "/perfmatters/js/analytics.js";
 }
 
 //return local gtag url for Monster Insights

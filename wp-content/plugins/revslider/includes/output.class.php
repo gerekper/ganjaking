@@ -772,7 +772,7 @@ class RevSliderOutput extends RevSliderFunctions {
 
 			if($this->slider->get_param('pakps', false) === true && $this->_truefalse(get_option('revslider-valid', 'false')) === false && $rs_preview_mode === false && $this->get_preview_mode() === false){
 				$this->console_exception = true;
-				throw new Exception(__('Please register the Slider Revolution plugin to use premium templates.', 'revslider'));// return false;
+				$this->throw_error(__('Please register the Slider Revolution plugin to use premium templates.', 'revslider')); // return false;
 			}
 			
 			//the initial id can be an alias, so reset the id now
@@ -5797,8 +5797,12 @@ rs-module .material-icons {
 		//$data['video']['autoplay'] = 'true'; //default, so dont write
 		//$data['video']['apf'] = false; //default, so dont write
 		
+		$crso = $slide->get_param(array('bg', 'crossOriginVideo'), false);
 		
-		if($video_type === 'html5') $data['video']['vfc'] = $slide->get_param(array('bg', 'video', 'fitCover'), true); //video fit cover
+		if($video_type === 'html5') {
+			$data['video']['vfc'] = $slide->get_param(array('bg', 'video', 'fitCover'), true); //video fit cover
+			if($crso === true) $data['video']['crossOriginVideo'] = $crso;
+		}
 		$do	= $slide->get_param(array('bg', 'video', 'dottedOverlay'), 'none');
 		if($do !== 'none'){
 			$data['video']['do'] = $do;
@@ -7038,13 +7042,23 @@ rs-module .material-icons {
 	 * print the HTML markup if no Slides are found in Slider
 	 **/
 	public function add_no_slides_markup(){
-		if($this->slider->is_posts()){
-			$text = __('No slides found, please add at least one Slide Template to the choosen language.', 'revslider');
-		}else{
-			$text = __('No slides found, please add some slides', 'revslider');
+		$sourcetype = $this->slider->get_param(array('sourcetype'));
+
+		$text = __('Make sure to add slides to the slider', 'revslider');
+		switch($sourcetype){
+			case 'woo':
+			case 'woocommerce':
+				$text = __('Make sure that a valid WooCommerce product type / category is selected in "Module General Options -> Content -> Types & Categories".', 'revslider');
+			break;
+			case 'post':
+			case 'posts':
+			case 'specific_posts':
+			case 'current_post':
+				$text = __('Make sure that a valid post type / category is selected in "Module General Options -> Content -> Post Selection".', 'revslider');
+			break;
 		}
 		
-		throw new Exception($text);
+		$this->throw_error($text);
 	}
 	
 	/**
@@ -7238,9 +7252,9 @@ rs-module .material-icons {
 		$html .= ($this->rs_module_wrap_open === false) ? RS_T3.'<rs-module-wrap id="'.$html_id.'_wrapper">'."\n" : '';
 		$html .= ($this->rs_module_open === false) ? RS_T4.'<rs-module id="'.$html_id.'">'."\n" : '';
 		$html .= RS_T5.'<div class="rs_error_message_box">'."\n";
-		$html .= RS_T6.'<div class="rs_error_message_oops">Oops...</div>'."\n";
+		$html .= RS_T6.'<div class="rs_error_message_oops">There is nothing to show here!</div>'."\n";
 		$html .= RS_T6.'<div class="rs_error_message_content">'.esc_html($message);
-		$html .= (!empty($url)) ? '<br>'.__('Please follow this link to edit the Slider:', 'revslider') : '';
+		$html .= (!empty($url)) ? '<br>'.__('Please follow this link to edit the slider:', 'revslider') : '';
 		$html .= '</div>'."\n";
 		$html .= (!empty($url)) ? RS_T6.'<a href="'.$url.'" target="_blank" rel="noopener" class="rs_error_message_button">Edit Module : "'.$this->slider->get_alias().'"</a>'."\n" : '';
 		$html .= (!empty($page_url)) ? RS_T6.'<a href="'.$page_url.'" target="_blank" rel="noopener" class="rs_error_message_button">Edit Page</a>'."\n" : '';

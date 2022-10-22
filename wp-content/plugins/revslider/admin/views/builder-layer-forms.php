@@ -31,7 +31,7 @@ if(!defined('ABSPATH')) exit();
 			--><div id="gst_layer_6" data-select="#gst_layer_6" data-unselect=".layer_submodule_trigger" class="layer_submodule_trigger opensettingstrigger" data-collapse="true" data-forms='["#form_layer_advstyle"]'><i class="material-icons">invert_colors</i><span data-stickycolor="blue"  class="gso_title"><?php _e('Adv. Style', 'revslider');?></span></div><!--
 			--><div id="gst_layer_4" data-select="#gst_layer_4" data-unselect=".layer_submodule_trigger" class="layer_submodule_trigger opensettingstrigger" data-collapse="true" data-forms='["#form_layer_animation"]'><i class="material-icons">play_arrow</i><span data-stickycolor="purple"  class="gso_title"><?php _e('Animation', 'revslider');?></span></div><!--
 			--><div id="gst_layer_15" data-select="#gst_layer_15" data-unselect=".layer_submodule_trigger" class="layer_submodule_trigger opensettingstrigger" data-collapse="true" data-forms='["#form_layer_loop"]'><i class="material-icons">repeat_one</i><span data-stickycolor="purple"  class="gso_title"><?php _e('Loop Layer', 'revslider');?></span></div><!--
-			--><div id="gst_layer_9" data-select="#gst_layer_9" data-unselect=".layer_submodule_trigger" class="layer_submodule_trigger opensettingstrigger" data-collapse="true" data-forms='["#form_layer_hover"]'><i class="material-icons">mouse</i><span data-stickycolor="blue"  class="gso_title"><?php _e('Hover', 'revslider');?></span></div><!--
+			--><div id="gst_layer_9" data-select="#gst_layer_9" data-unselect=".layer_submodule_trigger" class="layer_submodule_trigger opensettingstrigger" data-collapse="true" data-forms='["#form_layer_hover"]'><i class="material-icons">mouse</i><span data-stickycolor="blue"  id="gst_layer_9_menu_title" class="gso_title"><?php _e('Hover', 'revslider');?></span></div><!--
 			--><div id="gst_layer_8" data-select="#gst_layer_8" data-unselect=".layer_submodule_trigger" class="layer_submodule_trigger opensettingstrigger" data-collapse="true" data-forms='["#form_layer_parallax"]'><i class="material-icons">system_update_alt</i><span data-stickycolor="blue"  class="gso_title"><?php _e('On Scroll', 'revslider');?></span></div><!--
 			--><div id="gst_layer_5" class="callEvent layer_submodule_trigger openmodaltrigger" data-evt="openLayerActions"><i class="material-icons">touch_app</i><span class="gso_title">Actions</span></div><!--
 			--><div id="gst_layer_13" data-select="#gst_layer_13" data-unselect=".layer_submodule_trigger" class="layer_submodule_trigger opensettingstrigger" data-collapse="true" data-forms='["#form_layer_visibility"]'><i class="material-icons">photo_size_select_large</i><span data-stickycolor="blue"  class="gso_title"><?php _e('Visibility', 'revslider');?></span></div><!--
@@ -1002,14 +1002,14 @@ if(!defined('ABSPATH')) exit();
 
 			<!-- LAYER HOVER DEFAULTS -->
 			<div class="form_inner open">
-				<div class="form_inner_header"><i class="material-icons">mouse</i><?php _e('Hover', 'revslider');?></div>
+				<div class="form_inner_header"><i class="material-icons">mouse</i><div style="display:inline-block" id="gst_layer_9_header"><?php _e('Hover', 'revslider');?></div></div>
 				<div class="collapsable">
 					<label_a><?php _e('Cursor', 'revslider');?></label_a><select class="layerinput tos2 nosearchbox easyinit" id="layer_css_cursor" data-r="idle.cursor"><option value="auto" selected="selected">Auto</option><option value="default">Default</option><option value="crosshair">Crosshair</option><option value="pointer">Pointer</option><option value="move">Move</option><option value="text">Text</option><option value="wait">Wait</option><option value="help">Help</option><option value="zoom-in">Zoom-in</option><option value="zoom-out">Zoom-out</option><option value="none">None</option></select><span class="linebreak"></span>
 					<label_a><?php _e('Pointer Event', 'revslider');?></label_a><select class="layerinput tos2 nosearchbox easyinit" id="layer_css_pointerevent" data-r="hover.pointerEvents"><option value="auto" selected="selected">Auto</option><option value="none">None</option></select>
 					<label_a><?php _e('Animation', 'revslider');?></label_a><select class="layerinput tos2 nosearchbox easyinit" id="layer_use_hover" data-r="hover.usehover" data-show=".copyhoversettings*val*" data-hide=".copyhoversettings" data-showprio="show" id="layer_usehover" class="layerinput easyinit" data-evt="copyhoversettings" data-evtparam="checkiffirst" data-r="hover.usehover"><option value="true"><?php _e('Enabled', 'revslider');?></option><option value="desktop"><?php _e('Only on Desktop', 'revslider');?></option><option value="false"><?php _e('Disabled', 'revslider');?></option></select></onelong>					
 				</div>
 			</div>
-			<div class="copyhoversettings copyhoversettingstrue copyhoversettingsdesktop">
+			<div id="hover_settings_area" class="copyhoversettings copyhoversettingstrue copyhoversettingsdesktop">
 				<!-- LAYER HOVER TRANSFORM -->
 				<div class="form_inner open">
 					<div class="form_inner_header"><i class="material-icons">mouse</i><?php _e('Animation', 'revslider');?></div>
@@ -1055,21 +1055,27 @@ if(!defined('ABSPATH')) exit();
 				<div class="form_inner open">
 					<div class="form_inner_header"><i class="material-icons">title</i><?php _e('Style', 'revslider');?></div>
 					<div class="collapsable">
+						<div id="layerTextColorHover_PRE"></div>
 						<div class="_shft_ _shfb_ _shoft_ _shofb_">
 							<!-- TEXT HOVER STYLE -->
-							<label_a><?php _e('Text Color', 'revslider');?></label_a><input type="text" data-editing="Layer Hover Text Color" data-mode="single" name="layerTextColorHover" id="layerTextColorHover" class="my-color-field layerinput easyinit" data-visible="true" data-r="hover.color" value="transparent">
+							<div id="layerTextColorHover_wrap">
+								<div class="hovercolors"><label_a id="layerTextColorHover_label"><?php _e('Text Color', 'revslider');?></label_a><input type="text" data-editing="Layer Hover Text Color" data-mode="single" name="layerTextColorHover" id="layerTextColorHover" class="my-color-field layerinput easyinit" data-visible="true" data-r="hover.color" value="transparent"></div>
+							</div>
 							<div class="div5"></div>
 							<row class="directrow">
 								<onelong><label_icon class="ui_textdecoration"></label_icon><select id="layer_textdecoration_hover" class="layerinput tos2 nosearchbox easyinit" data-r="hover.textDecoration"><option selected="selected" value="none">None</option><option value="underline"><?php _e('Underline', 'revslider');?></option><option value="overline"><?php _e('Overline', 'revslider');?></option><option value="line-through"><?php _e('Line-through', 'revslider');?></option></select></onelong>
 								<oneshort></oneshort>
 							</row>
 						</div>
-										
-						<label_a><?php _e('BG Color', 'revslider');?></label_a><input type="text" data-editing="Layer BG Color on Hover" name="layerBGColor" id="layerBGColorHover" class="my-color-field layerinput easyinit" data-visible="true" data-r="hover.backgroundColor" value="transparent">
+						<div id="layerBGColorHover_wrap">
+							<div class="hovercolors"><label_a id="layerBGColorHover_label"><?php _e('BG Color', 'revslider');?></label_a><input type="text" data-editing="Layer BG Color on Hover" name="layerBGColor" id="layerBGColorHover" class="my-color-field layerinput easyinit" data-visible="true" data-r="hover.backgroundColor" value="transparent"></div>
+						</div>
 						<div class="div5"></div>
 						<label_a><?php _e('Gradient Anim', 'revslider');?></label_a><select id="hover_layer_gradient_style" class="layerinput tos2 nosearchbox easyinit" data-r="hover.gradientStyle"><option value="fading"><?php _e('Fade', 'revslider');?></option><option value="sliding"><?php _e('Slide', 'revslider');?></option></select>
 						<div class="div10"></div>
-						<label_a><?php _e('Border Color', 'revslider');?></label_a><input type="text" data-mode="single" data-editing="Layer Border Color" name="layerBorderColor" id="layerBorderColorHover" class="my-color-field layerinput easyinit" data-visible="true" data-r="hover.borderColor" value="transparent"><div class="linebreak"></div>
+						<div id="layerBorderColor_wrap">
+							<div class="hovercolors"><label_a id="layerBorderColor_label"><?php _e('Border Color', 'revslider');?></label_a><input type="text" data-mode="single" data-editing="Layer Border Color" name="layerBorderColor" id="layerBorderColorHover" class="my-color-field layerinput easyinit" data-visible="true" data-r="hover.borderColor" value="transparent"><div class="linebreak"></div></div>
+						</div>
 						<div class="div5"></div>
 						<label_a><?php _e('Border Style', 'revslider');?></label_a><select id="hover_layer_border_style" class="layerinput tos2 nosearchbox easyinit" data-r="hover.borderStyle" data-show=".border_style_advanced_hover" data-hide="#border_style_*val*_hover" data-showprio="hide" ><option value="none"><?php _e('None', 'revslider');?></option><option value="solid"><?php _e('Solid', 'revslider');?></option><option value="dashed"><?php _e('Dashed', 'revslider');?></option><option value="dotted"><?php _e('Dotted', 'revslider');?></option><option value="double"><?php _e('Double', 'revslider');?></option></select>
 						<div class="div10"></div>

@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Min/Max Quantities
  * Plugin URI: https://woocommerce.com/products/minmax-quantities/
  * Description: Define minimum/maximum allowed quantities for products, variations and orders.
- * Version: 4.0.3
+ * Version: 4.0.4
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Requires at least: 4.4
@@ -24,7 +24,7 @@
 
 if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 
-	define( 'WC_MIN_MAX_QUANTITIES', '4.0.3' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_MIN_MAX_QUANTITIES', '4.0.4' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Min Max Quantities class.
@@ -74,6 +74,13 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 		public $excludes = array();
 
 		/**
+		 * Instance of compatibility class.
+		 *
+		 * @var WC_MMQ_Compatibility
+		 */
+		public $compatibility;
+
+		/**
 		 * Instance of addons class.
 		 *
 		 * @var WC_Min_Max_Quantities_Addons
@@ -107,19 +114,24 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 				return;
 			}
 
+			$this->maybe_define_constant( 'WC_MMQ_ABSPATH', trailingslashit( plugin_dir_path( __FILE__ ) ) );
+
 			/**
 			 * Localisation.
 			 */
 			$this->load_plugin_textdomain();
 
 			if ( is_admin() ) {
-				include_once __DIR__ . '/includes/class-wc-min-max-quantities-admin.php';
+				include_once WC_MMQ_ABSPATH . '/includes/class-wc-min-max-quantities-admin.php';
 			}
 
-			include_once __DIR__ . '/includes/class-wc-min-max-quantities-addons.php';
-			include_once __DIR__ . '/includes/compatibility/class-wc-mmq-core-compatibility.php';
+			// Extensions compatibility functions and hooks.
+			include_once WC_MMQ_ABSPATH . 'includes/compatibility/class-wc-min-max-quantities-compatibility.php';
+			$this->compatibility = WC_MMQ_Compatibility::instance();
 
-			$this->addons = new WC_Min_Max_Quantities_Addons();
+			if ( $this->compatibility->is_module_loaded( 'product_addons' ) ) {
+				$this->addons = new WC_Min_Max_Quantities_Addons();
+			}
 
 			$this->minimum_order_quantity = absint( get_option( 'woocommerce_minimum_order_quantity' ) );
 			$this->maximum_order_quantity = absint( get_option( 'woocommerce_maximum_order_quantity' ) );
@@ -150,12 +162,21 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 
 			add_filter( 'woocommerce_add_to_cart_product_id', array( $this, 'modify_add_to_cart_quantity' ) );
 
-			add_action( 'woocommerce_blocks_loaded', array( $this, 'enqueue_blocks_support' ) );
-
 			// Declare HPOS compatibility.
-			// Temporarily disabled as of 4.0.3
-			// add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
+			add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
+		}
 
+		/**
+		 * Define constants if not present.
+		 *
+		 * @since 4.0.4
+		 *
+		 * @return boolean
+		 */
+		protected function maybe_define_constant( $name, $value ) {
+			if ( ! defined( $name ) ) {
+				define( $name, $value );
+			}
 		}
 
 		/**
@@ -190,17 +211,6 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 				$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 				wp_register_script( 'wc-mmq-frontend', $this->plugin_url() . '/assets/js/frontend/validate' . $suffix . '.js', WC_MIN_MAX_QUANTITIES );
 				wp_enqueue_script( 'wc-mmq-frontend' );
-			}
-		}
-
-		/**
-		 * Enqueue compatibility with Cart/Checkout Blocks.
-		 */
-		public function enqueue_blocks_support() {
-			// WooCommerce Cart/Checkout Blocks support.
-			if ( version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '7.2.0' ) >= 0 ) {
-				include_once __DIR__ . '/includes/api/class-wc-mmq-store-api.php';
-				WC_MMQ_Store_API::init();
 			}
 		}
 
@@ -455,7 +465,7 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 
 					if ( $values[ 'variation_id' ] ) {
 						$min_max_rules     = get_post_meta( $values[ 'variation_id' ], 'min_max_rules', true );
-						$allow_combination = get_post_meta( $values[ 'product_id' ], 'allow_combination', true );
+						$allow_combination = 'yes' === get_post_meta( $values[ 'product_id' ], 'allow_combination', true );
 
 						// Variation level min max rules enabled.
 						if ( 'yes' === $min_max_rules && ! $allow_combination ) {
@@ -847,7 +857,7 @@ if ( ! class_exists( 'WC_Min_Max_Quantities' ) ) :
 		public function update_quantity_args( $data, $product ) {
 			// Multiple shipping address product plugin compat
 			// don't update the quantity args when on set multiple address page.
-			if ( $this->addons->is_multiple_shipping_address_page() ) {
+			if ( is_a( $this->addons, 'WC_Min_Max_Quantities_Addons' ) && $this->addons->is_multiple_shipping_address_page() ) {
 				return $data;
 			}
 

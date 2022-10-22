@@ -39,11 +39,11 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 
 		$this->title = $this->settings['title'];
 
-		$description = sprintf( __( "Available balance: %s", 'woocommerce-account-funds'), WC_Account_Funds::get_account_funds() );
+		$description = sprintf( __( 'Available balance: %s', 'woocommerce-account-funds' ), WC_Account_Funds::get_account_funds() );
 
 		if ( 'yes' === get_option( 'account_funds_give_discount' ) ) {
-			$amount      = get_option( 'account_funds_discount_amount', 0 );
-			$amount      = 'fixed' === get_option( 'account_funds_discount_type' ) ? wc_price( $amount ) : $amount . '%';
+			$amount       = get_option( 'account_funds_discount_amount', 0 );
+			$amount       = 'fixed' === get_option( 'account_funds_discount_type' ) ? wc_price( $amount ) : $amount . '%';
 			$description .= '<br/><em>' . sprintf( __( 'Use your account funds and get a %s discount on your order.', 'woocommerce-account-funds' ), $amount ) . '</em>';
 		}
 
@@ -57,7 +57,7 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 		add_action( 'subscriptions_activated_for_order', array( $this, 'subscriptions_activated_for_order' ), 5 );
 
 		// Make sure this class is loaded before using any methods that depend on it.
-		include_once( __DIR__ . '/class-wc-account-funds-cart-manager.php' );
+		include_once __DIR__ . '/class-wc-account-funds-cart-manager.php';
 	}
 
 	/**
@@ -122,14 +122,14 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 				'title'   => __( 'Enable/Disable', 'woocommerce-account-funds' ),
 				'type'    => 'checkbox',
 				'label'   => __( 'Enable', 'woocommerce-account-funds' ),
-				'default' => 'yes'
+				'default' => 'yes',
 			),
-			'title' => array(
+			'title'   => array(
 				'title'       => __( 'Title', 'woocommerce-account-funds' ),
 				'type'        => 'text',
 				'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce-account-funds' ),
-				'default'     => __( 'Account Funds', 'woocommerce-account-funds' )
-			)
+				'default'     => __( 'Account Funds', 'woocommerce-account-funds' ),
+			),
 		);
 	}
 
@@ -150,8 +150,8 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 		// Changing the subscription's payment method.
 		if ( $order instanceof WC_Subscription ) {
 			return array(
-				'result'    => 'success',
-				'redirect'  => $this->get_return_url( $order )
+				'result'   => 'success',
+				'redirect' => $this->get_return_url( $order ),
 			);
 		}
 
@@ -179,8 +179,8 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 
 		// Return thankyou redirect.
 		return array(
-			'result'    => 'success',
-			'redirect'  => $this->get_return_url( $order )
+			'result'   => 'success',
+			'redirect' => $this->get_return_url( $order ),
 		);
 	}
 
@@ -205,7 +205,7 @@ class WC_Gateway_Account_Funds extends WC_Payment_Gateway {
 			if ( $order_total > $funds ) {
 				throw new Exception(
 					sprintf(
-						__( 'Insufficient funds (amount to pay = %s; available funds = %s).', 'woocommerce-account-funds' ),
+						__( 'Insufficient funds (amount to pay = %1$s; available funds = %2$s).', 'woocommerce-account-funds' ),
 						wc_account_funds_format_order_price( $order, $order_total ),
 						wc_account_funds_format_order_price( $order, $funds )
 					)

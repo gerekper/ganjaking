@@ -40,8 +40,8 @@ class WC_Account_Funds_Email_Account_Funds_Increase extends WC_Email {
 		$this->title          = __( 'Account Funds Increase', 'woocommerce-account-funds' );
 		$this->description    = __( 'This email is sent to the customer when account funds are manually increased.', 'woocommerce-account-funds' );
 
-		$this->heading        = __( 'Your Account Funds Have Increased', 'woocommerce-account-funds' );
-		$this->subject        = __( 'Account Funds Increase', 'woocommerce-account-funds' );
+		$this->heading = __( 'Your Account Funds Have Increased', 'woocommerce-account-funds' );
+		$this->subject = __( 'Account Funds Increase', 'woocommerce-account-funds' );
 
 		$this->template_base  = plugin_dir_path( WC_ACCOUNT_FUNDS_FILE ) . 'templates/';
 		$this->template_html  = 'emails/customer-account-funds-increase.php';
@@ -54,7 +54,7 @@ class WC_Account_Funds_Email_Account_Funds_Increase extends WC_Email {
 	/**
 	 * Trigger.
 	 *
-	 * @param int $user_id
+	 * @param int    $user_id
 	 * @param string $current_funds
 	 * @param string $new_funds
 	 */
@@ -82,7 +82,8 @@ class WC_Account_Funds_Email_Account_Funds_Increase extends WC_Email {
 	 */
 	public function get_content_html() {
 		ob_start();
-		wc_get_template( $this->template_html,
+		wc_get_template(
+			$this->template_html,
 			array(
 				'email_heading' => $this->get_heading(),
 				'current_funds' => $this->current_funds,
@@ -90,8 +91,11 @@ class WC_Account_Funds_Email_Account_Funds_Increase extends WC_Email {
 				'home_url'      => home_url(),
 				'sent_to_admin' => false,
 				'plain_text'    => false,
-				'email'         => $this
-			), '', $this->template_base );
+				'email'         => $this,
+			),
+			'',
+			$this->template_base
+		);
 		return ob_get_clean();
 	}
 
@@ -103,7 +107,8 @@ class WC_Account_Funds_Email_Account_Funds_Increase extends WC_Email {
 	 */
 	public function get_content_plain() {
 		ob_start();
-		wc_get_template( $this->template_plain,
+		wc_get_template(
+			$this->template_plain,
 			array(
 				'email_heading' => $this->get_heading(),
 				'current_funds' => $this->current_funds,
@@ -111,8 +116,11 @@ class WC_Account_Funds_Email_Account_Funds_Increase extends WC_Email {
 				'home_url'      => home_url(),
 				'sent_to_admin' => false,
 				'plain_text'    => true,
-				'email'         => $this
-			), '', $this->template_base );
+				'email'         => $this,
+			),
+			'',
+			$this->template_base
+		);
 		return ob_get_clean();
 	}
 }

@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Automation\Engine\Builder\UpdateWorkflowController as FreePluginUpdateWorkflowController;
 use MailPoet\Automation\Engine\Data\Workflow;
-use MailPoet\Automation\Engine\Workflows\Step;
+use MailPoet\Automation\Engine\Integration\Step;
 
 class UpdateWorkflowController extends FreePluginUpdateWorkflowController {
   /** @param Step[] $steps */

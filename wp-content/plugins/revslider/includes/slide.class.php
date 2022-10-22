@@ -2805,7 +2805,7 @@ class RevSliderSlide extends RevSliderFunctions {
 		if(empty($ids)) array();
 		
 		$string_ids = (is_string($ids)) ? $ids : implode(',', $ids);
-		$args		= array('include' => $string_ids);
+		$args		= array('include' => $string_ids, 'number' => 10000);
 		if(!empty($tax)){
 			$args['taxonomy'] = (is_string($tax)) ? explode(',', $tax) : $tax;
 		}

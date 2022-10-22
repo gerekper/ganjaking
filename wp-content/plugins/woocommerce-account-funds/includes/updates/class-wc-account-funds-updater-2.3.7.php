@@ -29,6 +29,12 @@ class WC_Account_Funds_Updater_2_3_7 implements WC_Account_Funds_Updater {
 	 * {@inheritdoc}
 	 */
 	public function update() {
+		if ( 'yes' === get_option( 'wc_account_funds_skip_migration_237', 'no' ) ) {
+			$this->log( 'Updating the plugin from an older version than 2.3.0. No need to execute the migration 2.3.7' );
+			delete_option( 'wc_account_funds_skip_migration_237' );
+			return;
+		}
+
 		// Identify the Orders that need to be fixed.
 		$order_ids = get_posts(
 			array(
@@ -102,7 +108,6 @@ EOT;
 
 		update_option( 'account_funds_update_2_3_7_fix_order_balances', $order_balances );
 	}
-
 
 	/**
 	 * Processes the update action.

@@ -48,7 +48,7 @@ class WC_Store_Credit_Meta_Box_Coupon_Usage {
 		$args = apply_filters(
 			'wc_store_credit_coupon_usage_query_args',
 			array(
-				'status' => array( 'wc-pending', 'wc-processing', 'wc-on-hold', 'wc-completed', 'wc-partial-payment' ),
+				'status' => array( 'wc-pending', 'wc-processing', 'wc-on-hold', 'wc-completed', 'wc-failed', 'wc-partial-payment' ),
 				'return' => 'object',
 			),
 			$coupon

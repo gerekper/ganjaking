@@ -107,7 +107,7 @@ class Preload
 
                                 $ver = $scripts_arr[$line['url']]->ver;
 
-                                if(empty($ver) && preg_match('/wp-includes|wp-admin/i', $url)) {
+                                if(empty($ver)) {
                                     $ver = get_bloginfo('version');
                                 }
 

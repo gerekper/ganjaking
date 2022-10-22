@@ -17,6 +17,7 @@ class WC_Account_Funds_Shortcodes {
 
 	/**
 	 * Show account funds for current user
+	 *
 	 * @return string
 	 */
 	public function get_account_funds() {

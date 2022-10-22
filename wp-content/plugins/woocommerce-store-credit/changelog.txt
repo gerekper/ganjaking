@@ -1,5 +1,12 @@
 *** Store Credit Changelog ***
 
+2022-10-18 - version 4.2.3
+* Tweak - Don't restore the credit when the order status changes to 'failed'.
+* Tweak - Tested compatibility up to WC 7.0.
+* Tweak - Tested compatibility with WP 6.1.
+* Fix - Store Credit wasn't re-applied to an order successfully paid after the first payment failed.
+* Fix - Store Credit was incorrectly restored after canceling the PayPal payment process.
+
 2022-08-29 - version 4.2.2
 * Tweak - Don't allow adding to the cart Store Credit products with zero credit amount.
 * Tweak - The custom credit amount field is required when adding to the cart a Store Credit product without a default credit amount.

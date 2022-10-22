@@ -406,6 +406,7 @@ html, body {
 	width: auto;
 	font-size: 16px;
 	outline: none;
+	transform: none;
 }
 #perfmatters-script-manager input[type='checkbox']:before, #perfmatters-script-manager input[type='checkbox']:after {
 	display: none;
@@ -832,5 +833,8 @@ html, body {
 }
 #perfmatters-script-manager .pmsm-hide {
 	display: none;
+}
+.pmsm-locked {
+	opacity: 0.5;
 }
 </style>";

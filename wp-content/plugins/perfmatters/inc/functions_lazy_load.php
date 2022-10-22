@@ -9,8 +9,13 @@ function perfmatters_lazy_load_init() {
 		$exclude_lazy_loading = Perfmatters\Utilities::get_post_meta('perfmatters_exclude_lazy_loading');
 
 		//check if its ok to lazy load
-		if(!$exclude_lazy_loading && !is_admin() && !perfmatters_is_dynamic_request() && !isset($_GET['perfmatters']) && !perfmatters_is_page_builder() && !is_embed() && !is_feed() && !is_customize_preview()) {
+		if(!$exclude_lazy_loading && !is_admin() && !perfmatters_is_dynamic_request() && !isset($_GET['perfmatters']) && !perfmatters_is_page_builder() && !is_embed() && !is_feed() && !is_customize_preview() && !isset($_GET['perfmattersoff'])) {
 
+			//exclude specific woocommerce pages
+            if(function_exists('is_woocommerce') && (is_cart() || is_checkout() || is_account_page())) {
+                return;
+            }
+            
 			//don't lazy load on amp
 			if(function_exists('is_amp_endpoint') && is_amp_endpoint()) {
 				return;
@@ -351,8 +356,10 @@ function perfmatters_lazy_load_image($image) {
 	$output = sprintf('<img %1$s />', $lazy_image_atts_string);
 
 	//original noscript image
-	$output.= "<noscript>" . $image[0] . "</noscript>";
-
+	if(apply_filters('perfmatters_lazyload_noscript', true)) {
+		$output.= "<noscript>" . $image[0] . "</noscript>";
+	}
+	
 	return $output;
 }
 
@@ -417,7 +424,9 @@ function perfmatters_lazy_load_iframes($html, $buffer) {
 				$iframe_lazyload = str_replace($iframe[1], ' ' . $lazy_iframe_atts_string, $iframe[0]);
 				
 				//add noscript original iframe
-				$iframe_lazyload.= '<noscript>' . $iframe[0] . '</noscript>';
+				if(apply_filters('perfmatters_lazyload_noscript', true)) {
+					$iframe_lazyload.= '<noscript>' . $iframe[0] . '</noscript>';
+				}
 			}
 
 			//replace iframe with placeholder
@@ -487,11 +496,13 @@ function perfmatters_lazy_load_youtube_iframe($iframe) {
 	//finished youtube lazy output
 	$youtube_lazyload = '<div class="perfmatters-lazy-youtube" data-src="' . esc_attr($youtube_url) . '" data-id="' . esc_attr($youtube_id) . '" data-query="' . esc_attr($query) . '" onclick="perfmattersLazyLoadYouTube(this);">';
 		$youtube_lazyload.= '<div>';
-			$youtube_lazyload.= '<img class="perfmatters-lazy" src="data:image/svg+xml,%3Csvg%20xmlns=\'http://www.w3.org/2000/svg\'%20viewBox=\'0%200%20' . $resolutions[$resolution]['width'] . '%20' . $resolutions[$resolution]['height'] . '%3E%3C/svg%3E" data-src="https://i.ytimg.com/vi/' . esc_attr($youtube_id) .'/' . $resolution . '.jpg" alt="YouTube ' . __('video', 'perfmatters') . '" width="' . $resolutions[$resolution]['width'] . '" height="' . $resolutions[$resolution]['height'] . '" data-pin-nopin="true">';
+			$youtube_lazyload.= '<img loading="lazy" class="perfmatters-lazy" src="data:image/svg+xml,%3Csvg%20xmlns=\'http://www.w3.org/2000/svg\'%20viewBox=\'0%200%20' . $resolutions[$resolution]['width'] . '%20' . $resolutions[$resolution]['height'] . '%3E%3C/svg%3E" data-src="https://i.ytimg.com/vi/' . esc_attr($youtube_id) .'/' . $resolution . '.jpg" alt="YouTube ' . __('video', 'perfmatters') . '" width="' . $resolutions[$resolution]['width'] . '" height="' . $resolutions[$resolution]['height'] . '" data-pin-nopin="true">';
 			$youtube_lazyload.= '<div class="play"></div>';
 		$youtube_lazyload.= '</div>';
 	$youtube_lazyload.= '</div>';
-	$youtube_lazyload.= '<noscript>' . $iframe[0] . '</noscript>';
+	if(apply_filters('perfmatters_lazyload_noscript', true)) {
+		$youtube_lazyload.= '<noscript>' . $iframe[0] . '</noscript>';
+	}
 
 	return $youtube_lazyload;
 }
@@ -548,7 +559,9 @@ function perfmatters_lazy_load_videos($html, $buffer) {
 			$video_lazyload  = str_replace($video[1], ' ' . $lazy_video_atts_string, $video[0]);
 
 			//add noscript original video
-			$video_lazyload .= '<noscript>' . $video[0] . '</noscript>';
+			if(apply_filters('perfmatters_lazyload_noscript', true)) {
+				$video_lazyload .= '<noscript>' . $video[0] . '</noscript>';
+			}
 
 			//replace video with placeholder
 			$html = str_replace($video[0], $video_lazyload, $html);
@@ -679,7 +692,9 @@ function perfmatters_print_lazy_load_css() {
 	$options = get_option('perfmatters_options');
 
 	//print noscript styles
-	echo '<noscript><style>.perfmatters-lazy[data-src]{display:none !important;}</style></noscript>';
+	if(apply_filters('perfmatters_lazyload_noscript', true)) {
+		echo '<noscript><style>.perfmatters-lazy[data-src]{display:none !important;}</style></noscript>';
+	}
 
 	$styles = '';
 

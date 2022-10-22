@@ -22,6 +22,7 @@ class WC_Account_Funds_Installer {
 	protected static $_updates = array(
 		'2.0.9' => 'updates/class-wc-account-funds-updater-2.0.9.php',
 		'2.1.3' => 'updates/class-wc-account-funds-updater-2.1.3.php',
+		'2.3.0' => 'updates/class-wc-account-funds-updater-2.3.0.php',
 		'2.3.7' => 'updates/class-wc-account-funds-updater-2.3.7.php',
 	);
 
@@ -105,11 +106,14 @@ class WC_Account_Funds_Installer {
 	 * @param null $deprecated No longer used.
 	 */
 	protected static function _set_options( $deprecated = null ) {
-		$old_settings = get_option( 'wcaf_settings', array(
-			'give_discount'   => 0,
-			'discount_type'   => 'fixed',
-			'discount_amount' => 0,
-		) );
+		$old_settings = get_option(
+			'wcaf_settings',
+			array(
+				'give_discount'   => 0,
+				'discount_type'   => 'fixed',
+				'discount_amount' => 0,
+			)
+		);
 
 		add_option( 'account_funds_give_discount', $old_settings['give_discount'] );
 		add_option( 'account_funds_discount_type', $old_settings['discount_type'] );

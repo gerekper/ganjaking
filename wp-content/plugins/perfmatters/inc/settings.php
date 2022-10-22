@@ -1490,6 +1490,20 @@ function perfmatters_settings() {
         )
     );
 
+    //hide admin bar menu
+    add_settings_field(
+        'hide_admin_bar_menu', 
+        perfmatters_title(__('Hide Admin Bar Menu', 'perfmatters'), 'hide_admin_bar_menu', 'https://perfmatters.io/docs/hide-admin-bar-menu/'), 
+        'perfmatters_print_input', 
+        'perfmatters_tools', 
+        'plugin', 
+        array(
+            'id' => 'hide_admin_bar_menu',
+            'option' => 'perfmatters_tools',
+            'tooltip' => __('Hide the Perfmatters menu in the admin bar.', 'perfmatters')
+        )
+    );
+
     //restore defaults
     add_settings_field(
         'restore_defaults', 

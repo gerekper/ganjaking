@@ -1,5 +1,8 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2022-10-18 - version 1.7.18
+* Fix - Duplication notifications during checkout.
+
 2022-10-13 - version 1.7.17
 * Tweak - WC 7.0 compatibility.
 

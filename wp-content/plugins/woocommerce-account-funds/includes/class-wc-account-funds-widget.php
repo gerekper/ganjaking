@@ -55,8 +55,8 @@ class WC_Account_Funds_Widget extends WP_Widget {
 	 * Settings forms
 	 */
 	function form( $instance ) {
-		if ( isset( $instance[ 'title' ] ) ) {
-			$title = $instance[ 'title' ];
+		if ( isset( $instance['title'] ) ) {
+			$title = $instance['title'];
 		} else {
 			$title = __( 'My Account Funds', 'woocommerce-account-funds' );
 		}

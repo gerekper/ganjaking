@@ -45,7 +45,10 @@ class RevSliderUpdate {
 	public function set_update_transient($transient){
 		$this->_check_updates();
 
-		if(isset($transient) && !isset($transient->response)) $transient->response = array();
+		if(isset($transient) && !isset($transient->response)){
+			if(!is_object($transient)) $transient = new stdClass();
+			$transient->response = array();
+		}
 		if(!isset($this->data))			return $transient;
 		if(!isset($this->data->basic))	return $transient;
 		

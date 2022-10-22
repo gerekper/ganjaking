@@ -77,7 +77,7 @@ function perfmatters_network_default_callback() {
 	$perfmatters_network = get_site_option('perfmatters_network');
 
 	echo "<select name='perfmatters_network[default]' id='default'>";
-		$sites = array_map('get_object_vars', get_sites(array('deleted' => 0)));
+		$sites = array_map('get_object_vars', get_sites(array('deleted' => 0, 'number' => 1000)));
 		if(is_array($sites) && $sites !== array()) {
 			echo "<option value=''>" . __('None', 'perfmatters') . "</option>";
 			foreach($sites as $site) {
@@ -154,7 +154,7 @@ function perfmatters_network_page_callback() {
 
 		if(!empty($perfmatters_network['default'])) {
 
-			$sites = array_map('get_object_vars', get_sites(array('deleted' => 0)));
+			$sites = array_map('get_object_vars', get_sites(array('deleted' => 0, 'number' => 1000)));
 			if(is_array($sites) && $sites !== array()) {
 
 				$update_count = 0;
@@ -214,7 +214,7 @@ function perfmatters_network_page_callback() {
 					echo "<p>" . __('Select a site from the dropdown and click to apply the settings from your network default (above).', 'perfmatters') . "</p>";
 
 					echo "<select name='perfmatters_network_apply_blog' style='margin-right: 10px;'>";
-						$sites = array_map('get_object_vars', get_sites(array('deleted' => 0)));
+						$sites = array_map('get_object_vars', get_sites(array('deleted' => 0, 'number' => 1000)));
 						if(is_array($sites) && $sites !== array()) {
 							echo "<option value=''>" . __('Select a Site', 'perfmatters') . "</option>";
 							foreach($sites as $site) {

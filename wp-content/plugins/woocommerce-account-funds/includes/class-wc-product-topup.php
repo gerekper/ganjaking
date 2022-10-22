@@ -56,6 +56,7 @@ class WC_Product_Topup extends WC_Product {
 
 	/**
 	 * Not a visible product
+	 *
 	 * @return boolean
 	 */
 	public function is_visible() {

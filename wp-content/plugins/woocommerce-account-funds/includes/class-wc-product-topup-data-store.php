@@ -25,12 +25,14 @@ class WC_Product_Topup_Data_Store extends WC_Product_Data_Store_CPT {
 	public function read( &$product ) {
 		$product->set_defaults();
 		$product->set_id( wc_get_page_id( 'myaccount' ) );
-		$product->set_props( array(
-			'name'              => $product->get_title(),
-			'virtual'           => $product->is_virtual(),
-			'tax_status'        => $product->get_tax_status(),
-			'sold_individually' => $product->is_sold_individually(),
-		) );
+		$product->set_props(
+			array(
+				'name'              => $product->get_title(),
+				'virtual'           => $product->is_virtual(),
+				'tax_status'        => $product->get_tax_status(),
+				'sold_individually' => $product->is_sold_individually(),
+			)
+		);
 		$product->set_object_read( true );
 	}
 }

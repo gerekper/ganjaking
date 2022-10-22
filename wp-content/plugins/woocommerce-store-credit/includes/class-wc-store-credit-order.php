@@ -126,7 +126,7 @@ class WC_Store_Credit_Order {
 	 */
 	public function order_status_changed( $order_id, $from, $to, $order ) {
 		// The order statuses that require to restore the coupons credit.
-		$restore_statuses = array( 'cancelled', 'failed', 'refunded' );
+		$restore_statuses = array( 'cancelled', 'refunded' );
 
 		if ( in_array( $to, $restore_statuses, true ) ) {
 			// Restore the coupons' credit.
@@ -141,7 +141,7 @@ class WC_Store_Credit_Order {
 				$order_discounts->update_shipping_discount_items();
 			}
 
-			// The merchant wants to recover the order and its store credit coupons were restored and they are no longer valid.
+			// The merchant wants to recover the order and its store credit coupons were restored.
 			wc_store_credit_delete_restored_coupons_for_order( $order, $from );
 		}
 

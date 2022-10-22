@@ -108,6 +108,9 @@ if ($wpml->wpml_exists()) {
 					--><div class="slidebg_html5_settings slide_bg_settings slidebg_vimeo_settings slidebg_youtube_settings"><!--
 						--><longoption><i class="material-icons">language</i><label_a ><?php _e('Video from Stream if exists', 'revslider');?></label_a><input type="checkbox" class="easyinit slideinput" data-r="bg.videoFromStream"></longoption><!--
 					--></div><!--
+					--><div class="slidebg_html5_settings slide_bg_settings"><!--
+						--><longoption><i class="material-icons">language</i><label_a ><?php _e('CrossOrigin Video', 'revslider');?></label_a><input type="checkbox" class="easyinit slideinput" data-r="bg.crossOriginVideo"></longoption><!--
+					--></div><!--
 				--></div>
 			</div><!-- SOURCE END -->
 

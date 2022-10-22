@@ -4,8 +4,8 @@ Donate link: https://perfmatters.io
 Tags: perfmatters
 Requires at least: 5.5
 Requires PHP: 7.0
-Tested up to: 6.0.2
-Stable tag: 1.9.9
+Tested up to: 6.0.3
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,23 @@ Perfmatters is a lightweight performance plugin developed to speed up your WordP
 Check out our [documentation](https://perfmatters.io/docs/) for more information on how to use Perfmatters.
 
 == Changelog ==
+
+= 2.0.0 - 10.18.2022 =
+* Added new system for query string timestamps for Used CSS file method to help see changes quicker in environments with caching.
+* Added support for ?perfmattersoff query string which gives the ability to quickly prevent the majority of Perfmatters features from running on the front end for testing purposes.
+* Added additional support for updating the plugin via WP-CLI.
+* Made some changes to admin bar menu item. There is now a Perfmatters top-level admin bar menu item that links to our plugin settings page. The Script Manager and Clear Used CSS function can be accessed by hovering over that main menu item if those features are enabled.
+* Disabled certain features from running on WooCommerce cart, checkout, and account pages for better compatibility.
+* Increased site limit in dropdowns on Multisite network settings page.
+* Added additional compatibility styles to the Script Manager.
+* Added additional built-in exclusions for Remove Unused CSS for better compatibility with Elementor, Astra, Kadence, and GenerateBlocks.
+* Added new perfmatters_login_url filter.
+* Added new perfmatters_lazyload_noscript filter.
+* Fixed an issue where YouTube preview thumbnails were generating a preload warning in certain instances.
+* Fixed an issue that was causing analytics.js not to be served over HTTPS in instances where an SSL migration had been done previously on the site.
+* Fixed an issue where delayed style attribute was applied to preloaded stylesheets that already existed in the DOM.
+* Fixed an issue where some features were being allowed to run on XML sitemap URLs in certain cases.
+* Fixed an issue where theme and plugin files were not falling back to a WordPress version query string when present in a dynamic preload.
 
 = 1.9.9 - 09.05.2022 =
 * Added additional autosave interval options.
@@ -367,7 +384,7 @@ Check out our [documentation](https://perfmatters.io/docs/) for more information
 * Updated EDD plugin updater class which will now allow for WordPress auto-update support.
 * Removed option to Defer Inline JavaScript which is now being replaced by the new Delay JavaScript option.
 * Adjusted Script Manager hook priority for better compatibility.
-* Compatability fix to the DOM Monitoring lazy load option.
+* Compatibility fix to the DOM Monitoring lazy load option.
 * Added compatibility fix for jQuery fitVids to lazy loading function.
 * Fixed an issue where lazy loading was attempting to run on AMP pages.
 

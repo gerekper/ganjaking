@@ -5,14 +5,10 @@ namespace MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\Automation\Engine\Data\Step;
 use MailPoet\Automation\Engine\Data\StepRunArgs;
-use MailPoet\Automation\Engine\Data\Workflow;
-use MailPoet\Automation\Engine\Workflows\Action;
-use MailPoet\Automation\Engine\Workflows\Payload;
-use MailPoet\Automation\Engine\Workflows\Subject;
+use MailPoet\Automation\Engine\Data\StepValidationArgs;
+use MailPoet\Automation\Engine\Integration\Action;
 use MailPoet\Automation\Integrations\MailPoet\Payloads\SubscriberPayload;
-use MailPoet\Automation\Integrations\MailPoet\Subjects\SubscriberSubject;
 use MailPoet\Entities\StatisticsUnsubscribeEntity;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\InvalidStateException;
@@ -64,15 +60,8 @@ class UnsubscribeAction implements Action {
     return ['mailpoet:subscriber'];
   }
 
-  /**
-   * @param Subject<Payload>[] $subjects
-   */
-  public function isValid(array $subjects, Step $step, Workflow $workflow): bool {
-    $subscriberSubjects = array_filter($subjects, function (Subject $subject) {
-      return $subject->getKey() === SubscriberSubject::KEY;
-    });
-
-    return count($subscriberSubjects) === 1;
+  public function validate(StepValidationArgs $args): void {
+    // TODO: we may want to add some checks here
   }
 
   public function run(StepRunArgs $args): void {

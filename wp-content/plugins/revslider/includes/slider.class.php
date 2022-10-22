@@ -263,7 +263,6 @@ class RevSliderSlider extends RevSliderFunctions {
 	 * @param bool $show_error
 	 */
 	public function init_by_mixed($mixed, $show_error = true){
-
 		if(is_numeric($mixed)){
 			$this->init_by_id($mixed, $show_error);
 		}else{
@@ -283,13 +282,9 @@ class RevSliderSlider extends RevSliderFunctions {
 		$this->validate_numeric($sid, 'Slider ID');
 		
 		$slider_data = $wpdb->get_row($wpdb->prepare("SELECT * FROM ". $wpdb->prefix . RevSliderFront::TABLE_SLIDER ." WHERE id = %d", $sid), ARRAY_A);
-		if(empty($slider_data) && !is_admin() && $show_error === true){
-			throw new Exception('Slider not found.');
-		}
+		if(empty($slider_data) && !is_admin() && $show_error === true) $this->throw_error('Slider not found.');
 		
-		if(!empty($slider_data)){
-			$this->init_by_data($slider_data);
-		}
+		if(!empty($slider_data)) $this->init_by_data($slider_data);
 	}
 	
 	
@@ -308,12 +303,10 @@ class RevSliderSlider extends RevSliderFunctions {
 			$slider_data = $wpdb->get_row($wpdb->prepare("SELECT * FROM ". $wpdb->prefix . RevSliderFront::TABLE_SLIDER ." WHERE alias = %s", $alias), ARRAY_A);
 		}
 		if(empty($slider_data) && !is_admin() && $show_error === true){
-			throw new Exception('Slider with alias '.sanitize_text_field(esc_attr($alias)).' not found.');
+			$this->throw_error('Slider with alias '.sanitize_text_field(esc_attr($alias)).' not found.');
 		}
 		
-		if(!empty($slider_data)){
-			$this->init_by_data($slider_data);
-		}
+		if(!empty($slider_data)) $this->init_by_data($slider_data);
 	}
 	
 	
@@ -2122,7 +2115,7 @@ class RevSliderSlider extends RevSliderFunctions {
 		$max_allowed = 999999;
 		$sourcetype	 = $this->get_param('sourcetype', 'gallery');
 		$additions	 = array();
-		
+		$max_posts	 = 0;
 		switch($sourcetype){
 			case 'facebook':
 				$facebook = RevSliderGlobals::instance()->get('RevSliderFacebook');
@@ -2228,13 +2221,14 @@ class RevSliderSlider extends RevSliderFunctions {
 				global $rs_preview_mode;
 				if($rs_preview_mode){
 					$admin = new RevSliderAdmin();
-					$admin->ajax_response_error(__('Some Settings in Slider <strong>Source may not complete</strong>.<br>Please Complete All Settings in Slider Sources.', 'revslider'));
+					$admin->ajax_response_error(__('Make sure that the stream settings are properly selected in "Module General Options -> Content -> Stream Settings".', 'revslider'));
 				}else{
-					$this->throw_error(__('Sorry, this Social Stream cannot be displayed.', 'revslider'));
+					$this->throw_error(__('Make sure that the stream settings are properly selected in "Module General Options -> Content -> Stream Settings".', 'revslider'));
 				}
 			break;
 		}
-		
+
+		$max_posts = intval($max_posts);
 		if($max_posts < 0) $max_posts *= -1;
 		
 		$posts = apply_filters('revslider_pre_mod_stream_data', $posts, $sourcetype, $this->id);
@@ -2250,15 +2244,14 @@ class RevSliderSlider extends RevSliderFunctions {
 			global $rs_preview_mode;
 			if($rs_preview_mode){
 				$admin = new RevSliderAdmin();
-				$admin->ajax_response_error(__('Some Settings in Slider <strong>Source may not complete</strong>.<br>Please Complete All Settings in Slider Sources.', 'revslider'));
+				$admin->ajax_response_error(__('Make sure that the stream settings are properly selected in "Module General Options -> Content -> Stream Settings".', 'revslider'));
 			}else{
-				$this->throw_error(__('Sorry, this Social Stream cannot be displayed.', 'revslider'));
+				$this->throw_error(__('Make sure that the stream settings are properly selected in "Module General Options -> Content -> Stream Settings".', 'revslider'));
 			}
 		}
 		
 		$i = 0;
 		$tk = 0;
-		
 		
 		foreach($posts as $data){
 			if(empty($data)) continue; //ignore empty entries, like from instagram

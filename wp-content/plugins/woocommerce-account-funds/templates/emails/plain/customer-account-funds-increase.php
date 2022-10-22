@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-echo "= " . $email_heading . " =\n\n";
+echo '= ' . $email_heading . " =\n\n";
 
 echo sprintf( __( 'Your account funds on %1$s have increased from %2$s to %3$s.', 'woocommerce-account-funds' ), $home_url, $current_funds, $new_funds ) . "\n\n";
 

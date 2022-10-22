@@ -19,6 +19,20 @@ class Meta
 			//setup meta options
 			self::get_meta_options();
 
+			//exclude specific woocommerce pages
+            if(function_exists('is_woocommerce') && !empty($_GET['post'])) {
+
+            	$wc_pages = array_filter(array(
+					get_option('woocommerce_cart_page_id'),
+					get_option('woocommerce_checkout_page_id'),
+					get_option('woocommerce_myaccount_page_id')
+            	));
+
+                if(in_array($_GET['post'], $wc_pages)) {
+                	return;
+                }
+            }
+
 			//meta actions
 			add_action('add_meta_boxes', array('Perfmatters\Meta', 'add_meta_boxes'), 1);
         	add_action('save_post', array('Perfmatters\Meta', 'save_meta'), 1, 2);

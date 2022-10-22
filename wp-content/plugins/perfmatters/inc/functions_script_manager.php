@@ -3,7 +3,7 @@
 //actions and filters
 if(!empty($perfmatters_options['assets']['script_manager'])) {
 	add_action('shutdown', 'perfmatters_script_manager', 0);
-	add_action('admin_bar_menu', 'perfmatters_script_manager_admin_bar', 1000);
+	add_action('admin_bar_menu', 'perfmatters_script_manager_admin_bar', 1);
 	add_filter('post_row_actions', 'perfmatters_script_manager_row_actions', 10, 2);
 	add_filter('page_row_actions', 'perfmatters_script_manager_row_actions', 10, 2);
 	add_action('script_loader_src', 'perfmatters_dequeue_scripts', 1000, 2);
@@ -24,7 +24,7 @@ function perfmatters_script_manager() {
 }
 
 //Script Manager Admin Bar Link
-function perfmatters_script_manager_admin_bar($wp_admin_bar) {
+function perfmatters_script_manager_admin_bar(WP_Admin_Bar $wp_admin_bar) {
 
 	//check for proper access
 	if(!current_user_can('manage_options') || !perfmatters_network_access() || perfmatters_is_page_builder()) {
@@ -68,11 +68,12 @@ function perfmatters_script_manager_admin_bar($wp_admin_bar) {
 	//build node and add to admin bar
 	if(!empty($menu_text) && !empty($href)) {
 		$args = array(
+			'parent' => 'perfmatters',
 			'id'    => 'perfmatters_script_manager',
 			'title' => $menu_text,
 			'href'  => $href
 		);
-		$wp_admin_bar->add_node($args);
+		$wp_admin_bar->add_menu($args);
 	}
 }
 
@@ -354,6 +355,8 @@ function perfmatters_script_manager_print_script($category, $group, $details) {
 
 	$data = $perfmatters_filters[$details['type']];
 
+	$locked = false;
+
 	if(empty($data["scripts"]->registered[$details['handle']]->src) && (empty($perfmatters_script_manager_settings['dependencies']) || (empty($data["scripts"]->registered[$details['handle']]->deps) && empty($master_array['requires'][$details['type']][$details['handle']])))) {
 		return;
 	}
@@ -367,12 +370,21 @@ function perfmatters_script_manager_print_script($category, $group, $details) {
 		}
 	}
 
-	echo "<tr>";	
+	$locked_scripts = array(
+		'admin-bar'
+	);
+
+	if(in_array($details['handle'], $locked_scripts) || empty($data['scripts']->registered[$details['handle']]->src)) {
+		$locked = true;
+	}
+
+	echo "<tr" . ($locked ? ' class="pmsm-locked"' : '') . ">";	
 
 		//Status
 		echo "<td class='perfmatters-script-manager-status'>";
 
-			if(!empty($data["scripts"]->registered[$details['handle']]->src)) {
+			//if(!empty($data["scripts"]->registered[$details['handle']]->src)) {
+			if(!$locked) {
 				perfmatters_script_manager_print_status($details['type'], $details['handle']);
 			}
 
@@ -1252,7 +1264,7 @@ function pmsm_settings_update_process($old_value, $value) {
 //dequeue scripts based on script manager configuration
 function perfmatters_dequeue_scripts($src, $handle) {
 	
-	if(is_admin() || isset($_GET['perfmatters']) || perfmatters_is_page_builder()) {
+	if(is_admin() || isset($_GET['perfmatters']) || isset($_GET['perfmattersoff']) || perfmatters_is_page_builder()) {
 		return $src;
 	}
 
