@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.6.0
+ * @version     2.7.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -247,7 +247,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 					}
 
 					if ( $this->is_wc_gte_30() && $expiry_date instanceof WC_DateTime ) {
-						$expiry_date = $expiry_date->getTimestamp();
+						$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : null;
 					} elseif ( ! is_int( $expiry_date ) ) {
 						$expiry_date = strtotime( $expiry_date );
 					}
@@ -1041,7 +1041,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 				$coupon_amount = $this->get_amount( $coupon, true );
 
 				if ( $this->is_wc_gte_30() && $expiry_date instanceof WC_DateTime ) {
-					$expiry_date = $expiry_date->getTimestamp();
+					$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : null;
 				} elseif ( ! is_int( $expiry_date ) ) {
 					$expiry_date = strtotime( $expiry_date );
 				}
@@ -1641,9 +1641,10 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 				$expiry_date = ( ! empty( $coupon_id ) ) ? get_post_meta( $coupon_id, 'expiry_date', true ) : '';
 
 				if ( ! empty( $expiry_date ) ) {
-					$datetime     = $this->wc_string_to_datetime( $expiry_date );
-					$date_expires = ( is_object( $datetime ) && is_callable( array( $datetime, 'getTimestamp' ) ) ) ? $datetime->getTimestamp() : 0;
-					if ( false !== $date_expires ) {
+					$datetime  = $this->wc_string_to_datetime( $expiry_date ); // Can't use wrapper function 'WC_Smart_Coupons::wc_string_to_datetime_to_timestamp' here as $datetime object is needed later.
+					$timestamp = ( is_object( $datetime ) && is_callable( array( $datetime, 'getTimestamp' ) ) ) ? $datetime->getTimestamp() : null;
+					$timestamp = $this->get_date_expires_value( $timestamp );
+					if ( ! empty( $timestamp ) ) {
 						return $datetime->__toString();
 					}
 				}
@@ -2086,7 +2087,7 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 							}
 
 							if ( $this->is_wc_gte_30() && $expiry_date instanceof WC_DateTime ) {
-								$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : 0;
+								$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : null;
 							} elseif ( ! is_int( $expiry_date ) ) {
 								$expiry_date = strtotime( $expiry_date );
 							}

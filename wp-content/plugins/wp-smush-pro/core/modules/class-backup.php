@@ -396,6 +396,15 @@ class Backup extends Abstract_Module {
 					)
 				);
 			}
+
+			// Check capability.
+			if ( ! Helper::is_user_allowed( 'upload_files' ) ) {
+				wp_send_json_error(
+					array(
+						'error_msg' => esc_html__( "You don't have permission to work with uploaded files.", 'wp-smushit' ),
+					)
+				);
+			}
 		}
 
 		$attachment_id = (int) $attachment_id;
@@ -714,6 +723,10 @@ class Backup extends Abstract_Module {
 	 */
 	public function get_image_count() {
 		check_ajax_referer( 'smush_bulk_restore' );
+		// Check for permission.
+		if ( ! Helper::is_user_allowed( 'manage_options' ) ) {
+			wp_die( esc_html__( 'Unauthorized', 'wp-smushit' ), 403 );
+		}
 		wp_send_json_success(
 			array(
 				'items' => $this->get_attachments_with_backups(),
@@ -728,6 +741,12 @@ class Backup extends Abstract_Module {
 	 */
 	public function restore_step() {
 		check_ajax_referer( 'smush_bulk_restore' );
+
+		// Check for permission.
+		if ( ! Helper::is_user_allowed( 'manage_options' ) ) {
+			wp_die( esc_html__( 'Unauthorized', 'wp-smushit' ), 403 );
+		}
+
 		$id = filter_input( INPUT_POST, 'item', FILTER_SANITIZE_NUMBER_INT, FILTER_NULL_ON_FAILURE );
 
 		$status = $id && $this->restore_image( $id, false );

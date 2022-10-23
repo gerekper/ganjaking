@@ -167,7 +167,7 @@ class WebP extends Abstract_Module {
 
 		// Add support for basic auth in WPMU DEV staging.
 		if ( isset( $_SERVER['WPMUDEV_HOSTING_ENV'] ) && 'staging' === $_SERVER['WPMUDEV_HOSTING_ENV'] && isset( $_SERVER['PHP_AUTH_USER'] ) ) {
-			$args['headers']['Authorization'] = 'Basic ' . base64_encode( $_SERVER['PHP_AUTH_USER'] . ':' . $_SERVER['PHP_AUTH_PW'] );
+			$args['headers']['Authorization'] = 'Basic ' . base64_encode( wp_unslash( $_SERVER['PHP_AUTH_USER'] ) . ':' . wp_unslash( $_SERVER['PHP_AUTH_PW'] ) );
 		}
 
 		$response = wp_remote_get( $test_image, $args );
@@ -331,7 +331,7 @@ class WebP extends Abstract_Module {
 		if ( 0 === strpos( $upload['basedir'], ABSPATH ) ) {
 			// Environments like Flywheel have an ABSPATH that's not used in the paths.
 			$root_path_base = ABSPATH;
-		} elseif ( ! empty( $_SERVER['DOCUMENT_ROOT'] ) && 0 === strpos( $upload['basedir'], $_SERVER['DOCUMENT_ROOT'] ) ) {
+		} elseif ( ! empty( $_SERVER['DOCUMENT_ROOT'] ) && 0 === strpos( $upload['basedir'], wp_unslash( $_SERVER['DOCUMENT_ROOT'] ) ) ) {
 			/**
 			 * This gets called when scanning for uncompressed images.
 			 * When ran from certain contexts, $_SERVER['DOCUMENT_ROOT'] might not be set.

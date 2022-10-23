@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.1.0
+ * @version     2.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -501,11 +501,13 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 						);
 						if ( true === $is_import_meta ) {
 							if ( $this->is_wc_gte_30() && 'expiry_date' === $meta_key ) {
-								$datetime   = $this->wc_string_to_datetime( $meta_value );
-								$meta_value = ( is_object( $datetime ) && is_callable( array( $datetime, 'getTimestamp' ) ) ) ? $datetime->getTimestamp() : 0;
-								if ( false !== $meta_value ) {
-									update_post_meta( $post_id, 'date_expires', $meta_value );
+								if ( ! empty( $meta_value ) ) {
+									$meta_value = $this->wc_string_to_datetime_to_timestamp( $meta_value );
+									$meta_value = $this->get_date_expires_value( $meta_value );
+								} else {
+									$meta_value = null;
 								}
+								update_post_meta( $post_id, 'date_expires', $meta_value );
 							} else {
 								update_post_meta( $post_id, $meta_key, maybe_unserialize( $meta_value ) );
 							}

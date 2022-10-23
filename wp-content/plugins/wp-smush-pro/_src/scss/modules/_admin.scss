@@ -407,7 +407,7 @@
 				&.fadeInLeft { animation-name: fadeInLeft; }
 				&.fadeInRight { animation-name: fadeInRight; }
 
-				.sui-box-selectors {
+				.sui-box-selectors, .smush-onboarding-sharing-data {
 					display: flex;
 					justify-content: center;
 					align-items: center;
@@ -415,6 +415,40 @@
 					label:last-of-type {
 						top: 0;
 						font-size: 13px;
+					}
+				}
+
+				.smush-onboarding-tracking-box {
+					background: #f8f8f8;
+					margin: 2px 0 30px;
+					padding: 20px 30px;
+					line-height: 22px;
+					letter-spacing: -0.25px;
+					text-align: center;
+					input{
+						border:1px solid #ddd;
+						background-color: #FAFAFA;
+						border-radius: 4px;
+						box-shadow: none;
+						margin: 0 16px 0 0;
+						width: 16px;
+						height:16px;
+						display: inline-block;
+						vertical-align: middle;
+						+ span{
+							display: inline-block;
+						}
+					}
+					label{
+						display: block;
+						margin:0 auto;
+						max-width: 325px;
+						width: 100%;
+						span {
+							letter-spacing:0;
+							font-size: 12px!important;
+							font-weight: 400;;
+						}
 					}
 				}
 			}
@@ -527,6 +561,9 @@
 		.wp-smush-bulk-progress-bar-wrapper {
 			margin-bottom: 30px;
 			.sui-progress-state span { display: inline-block; }
+			.sui-progress-bar {
+				border-radius: 5px;
+			}
 		}
 
 		#sui-cross-sell-footer h3 {
@@ -540,10 +577,14 @@
 			.smush-bulk-errors {
 				&.overflow-box{
 					overflow-y: scroll;
-            		height: 200px;
+            		height: 260px;
 				}
+				max-height: 260px;
+				overflow-y: auto;
+				overflow-x:hidden;
             	padding-left: 30px;
     			padding-right: 30px;
+				margin: 0 -30px;
 
 				.smush-bulk-error-row {
 					align-content: center;
@@ -554,7 +595,7 @@
 					height: 52px;
 					justify-content: space-between;
 					margin: 0 -30px;
-					padding: 0 20px;
+					padding: 0 30px 0 15px;
 					font-size: 13px;
 					letter-spacing: -0.25px;
 
@@ -566,24 +607,7 @@
 						display: flex;
 						align-content: center;
 						align-items: center;
-						flex-basis: 100%;
-
-						&:before {
-							content: "I";
-							font-family: wpmudev-plugin-icons !important;
-							speak: none;
-							font-size: 16px;
-							font-style: normal;
-							font-weight: 400;
-							font-variant: normal;
-							text-transform: none;
-							line-height: 1;
-							text-rendering: auto;
-							display: inline-block;
-							margin-right: 10px;
-							color: #FECF2F;
-						}
-
+						// flex-basis: 100%;
 						.sui-icon-photo-picture {
 							font-size: 12px;
 							border-radius: 4px;
@@ -608,21 +632,43 @@
 						}
 
 						.smush-image-name {
-							line-height: 15px;
+							line-height: 20px;
 							font-weight: 500;
 							margin-right: 10px;
+							color:#333;
 							word-break: break-all;
 						}
-
-						.smush-image-error {
-							line-height: 15px;
-							word-break: break-all;
+					}
+					.smush-bulk-image-title{
+						display:flex;
+						align-items: center;
+						justify-content: center;
+						&:before {
+							content: "I";
+							font-family: wpmudev-plugin-icons !important;
+							speak: none;
+							font-size: 16px;
+							font-style: normal;
+							font-weight: 400;
+							font-variant: normal;
+							text-transform: none;
+							line-height: 1;
+							text-rendering: auto;
+							display: inline-block;
 							margin-right: 10px;
+							color: #FECF2F;
 						}
+					}
+					.smush-image-error {
+						line-height: 23px;
+						word-break: break-all;
+						margin-right: 10px;
+						color:#888;
 					}
 
 					.smush-bulk-image-actions {
-						flex-basis: 30px;
+						// flex-basis: auto;
+						white-space: nowrap;
 
 						button:disabled {
 							background-color: #F2F2F2;
@@ -632,25 +678,123 @@
 								color: lighten( #333333, 50% );
 							}
 						}
+						a{
+							&.smush-link-detail {
+								padding-left: 15px;
+								margin-left: 15px;
+								position: relative;
+								&:before{
+									content: "";
+									position: absolute;
+									border-left:1px solid #ddd;
+									left:0;
+									top:0;
+									bottom:0;
+								}
+							}
+							&.disabled {
+								color: currentColor;
+								display: inline-block;
+								pointer-events: none;
+								text-decoration: none;
+								cursor: not-allowed;
+								opacity: 0.5;
+							}
+						}
 					}
 
-					@media screen and (max-width: 600px) {
+					&.smush-error-upsell {
+						box-shadow: inset 2px 0 0 0 #8D00B1;
+						.smush-bulk-image-title {
+							&:before{
+								color:#8D00B1;
+							}
+							padding:10px 0;
+							.smush-image-error {
+								margin-top:0;
+							}
+						}
+						a {
+							color:#8D00B1;
+						}
+					}
+
+					@media screen and (max-width: 782px) {
+						margin:0 -20px;
+					}
+
+					@media screen and (max-width: 767px) {
 						height: auto;
+						align-items: flex-start;
 
 						.smush-bulk-image-data {
-							flex-wrap: wrap;
-							padding: 10px 20px;
+							padding: 10px 0;
+							flex-flow: column;
+							align-items: flex-start;
+							.smush-image-error {
+								margin-left: 25px;
+							}
 						}
 
 						.smush-image-error {
 							margin-top: 10px;
 						}
+
+						.smush-bulk-image-actions{
+							margin-top: 10px;
+							max-height: 20px;
+							a {
+								line-height: 24px;
+							}
+							.smush-link-detail:before {
+								top:9px;
+							}
+						}
+						&.smush-error-upsell .smush-bulk-image-title {
+							align-items: flex-start;
+							&:before{
+								margin-top: 5px;
+							}
+						}
+					}
+					@media screen and (max-width: 480px) {
+						flex-flow: column;
+						align-items: flex-start;
+						align-content: flex-start;
+						padding-bottom: 14px;
+						// .smush-image-error,.smush-bulk-image-title,.smush-bulk-image-actions a {
+						// 	font-size: 12px;
+						// }
+						.smush-bulk-image-actions{
+							padding-left: 25px;
+							margin-top: 0;
+						}
+						.smush-bulk-image-data {
+							margin-bottom: 5px;
+							padding-bottom: 0;
+							.smush-image-error {
+								margin-top: 10px;
+								margin-bottom: 0;
+							}
+						}
+
+						&.smush-error-upsell .smush-bulk-image-title {
+							padding-bottom: 0;
+						}
+
 					}
 				}
 			}
 
 			.smush-bulk-errors-actions {
 				margin: 30px 0 10px;
+				@media screen and (max-width:320px) {
+					a{
+						padding-left:10px!important;
+						padding-right: 10px!important;
+						font-size: 11.5px;
+					}
+				}
 			}
 
 		} // Bulk Smush error messages: End.
@@ -668,6 +812,91 @@
 		}
 		.sui-summary-smush-nextgen {
 			background-size: 170px;
+		}
+
+		.bulk-smush-wrapper {
+			.wp-smush-upsell-cdn {
+				&.sui-hidden{
+					display: none!important;
+				}
+				padding:20px 30px;
+				background: #F8F8F8;
+				border-radius: 4px;
+				.sui-image-icon{
+					width:40px;
+					margin-right:15px;
+					display: inline-block;
+				}
+				.sui-box-content {
+					p {
+						font-size:13px;
+						color:#333;
+						margin-bottom:5px;
+						line-height: 22px;
+					}
+					a {
+						font-size:13px;
+					}
+				}
+				@media screen and ( max-width: 600px ) {
+					padding: 20px;
+				}
+				@media screen and (min-width: 361px) {
+					display:flex;
+				}
+			}
+		}
+
+		.bulk-smush-unlimited {
+			position:relative;
+			.sui-box-title {
+				font-size: 16px;
+				line-height: 22px;
+				margin-bottom:14px;
+				@media screen and ( max-width: 480px ) {
+					margin-top: 5px;
+				}
+			}
+			.sui-box-content {
+				.sui-button{
+					background: transparent;
+					color:#17A8E3;
+					font-size: 12px;
+					letter-spacing: -0.25px;
+					border: 2px solid #E1F6FF;
+					border-radius: 4px;
+					&:hover{
+						color:#fff;
+						background-color:#17A8E3;
+						border-color:#17A8E3;
+					}
+				}
+				p {
+					font-size: 13px;
+					line-height: 22px;
+					margin-bottom: 19px;
+				}
+				&.smush-dismissible-notice {
+					position: static;
+				}
+				.smush-dismiss-notice-button{
+					outline:0;
+					box-shadow: none;
+					position: absolute;
+					width: 18px;
+					height: 18px;
+					top:35px;
+					right:35px;
+					@media screen and ( max-width:600px ) {
+						top:24px;
+						right:20px;
+					}
+					@media screen and (max-width:480px) {
+						top:10px;
+						right:10px;
+					}
+				}
+			}
 		}
 
 		/**
@@ -748,6 +977,78 @@
 		.sui-toggle + label {
 			font-weight: 500;
 		}
+
+		/** WPMUDEV Free modal */
+		#smush-wpmudev-free-dialog {
+			.sui-box-header {
+				background-color: #290E56;
+				border-top-left-radius: 4px;
+				border-top-right-radius: 4px;;
+				.sui-box-banner {
+					padding-top: 8px;
+					padding-bottom: 14px;
+					margin-bottom: 0;
+				}
+			}
+			.smush-box-description{
+				text-align: center;
+				margin-bottom: 35px;
+				p {
+					font-size: 13px;
+					margin-bottom: 10px;
+					line-height: 22px;
+				}
+			}
+			.sui-box-title{
+				font-size: 22px;
+				line-height: 30px;
+			}
+
+			.sui-box-body{
+				padding-bottom:0;
+			}
+
+			.smush-list-detail{
+				font-size: 14px;
+				max-width:490px;
+				margin:0 auto;
+				li{
+					position: relative;
+					padding-left:30px;
+					border-bottom:1px solid #E6E6E6;
+					padding-bottom:11px;
+					margin-bottom: 15px;
+					line-height: 24px;
+					font-weight: 500;
+					letter-spacing:0;
+					&:before{
+						content:"";
+						background:url( '../images/tick@2x.png' ) no-repeat 0 0;
+						position:absolute;
+						width:14px;
+						height:10px;
+						background-size: contain;
+						left: 0;
+						top:7px;
+					}
+				}
+			}
+
+			.sui-box-footer{
+				padding-bottom: 46px;
+				text-align: center;
+				p {
+					font-size: 13px;
+					line-height: 22px;
+
+					&:first-child {
+						line-height: 14px;
+						margin-top: -1px;
+						margin-bottom:31px;
+					}
+				}
+			}
+		}
 	}
 
 	.smush-align-left {
@@ -778,6 +1079,9 @@
 			.wp-smush-count-resize-total {
 				margin-top: 16px;
 				display: block;
+				&.sui-hidden{
+					display:none;
+				}
 			}
 			.wp-smush-count-total {
 				display: block;
@@ -834,6 +1138,7 @@
 		line-height: 18px;
 		vertical-align: middle;
 	}
+	
 
 	/**
 	 * Fixes the headers and footers with .sui-actions-right on mobiles.

@@ -1,24 +1,28 @@
 *** Changelog ***
 
-2022-08-15 version 2.37
+2022-10-21 - version 2.38
+
+* Fixed add payment method captcha not working for some themes
+
+2022-08-15 - version 2.37
 
 * Improvements on security for nonce checking
 
-2022-06-30 version 2.36
+2022-06-30 - version 2.36
 
 * Fixed review captcha not working on some clients
 
 
-2022-06-22 version 2.35
+2022-06-22 - version 2.35
 
 * Fixed critical error occured for some of clients
 
-2022-05-26 version 2.34
+2022-05-26 - version 2.34
 
 * Tested with WordPress 6.0
 * Tested with WooCommerce 6.5
 
-2022-05-08 version 2.33
+2022-05-08 - version 2.33
 
 * Added action for checkout registration form - i13_woo_checkout_regform_action to render captcha on checkout registration form. For example
   for example you can do something like below in your functions.php
@@ -30,28 +34,28 @@
     }
 
 
-2022-04-11 version 2.32
+2022-04-11 - version 2.32
 
 * Fixes for reCaptcha not working with Wordfence Security 2FA - wp login
 
-2022-04-01 version 2.31
+2022-04-01 - version 2.31
 
 * Fixes for reCaptcha v3 multiple instance not working on checkout in some themes
 
-2022-03-21 version 2.30
+2022-03-21 - version 2.30
 
 * Fixed Google Pay issue in some themes
 
-2022-02-27 version 2.29
+2022-02-27 - version 2.29
 
 * Fixes for order tracking causing problem for contact form 7 reCaptcha.
 * Fixes for order tracking captcha turn off ignored.
 
-2022-02-23 version 2.28
+2022-02-23 - version 2.28
 
 * Fixes for WooCommerce signup/login captcha did not work for some themes to due to custom forms.
 
-2022-01-23 version 2.27
+2022-01-23 - version 2.27
 
 * Added support for buddy press signup. See reCaptcha for WooCommerce Signup Settings.
 * Fixes settings mismatch for Signup with WP signup method

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.28.0
- * @version     1.0.0
+ * @version     1.1.0
  * @package     woocommerce-smart-coupons/includes/
  */
 
@@ -291,7 +291,7 @@ if ( ! class_exists( 'WC_SC_Background_Upgrade' ) ) {
 			if ( ! empty( $version ) && ! empty( $status ) ) {
 				$db_status             = get_option( 'sc_wc_db_update_status', array() );
 				$db_status[ $version ] = $status;
-				return update_option( 'sc_wc_db_update_status', $db_status );
+				return update_option( 'sc_wc_db_update_status', $db_status, 'no' );
 			}
 			return false;
 		}

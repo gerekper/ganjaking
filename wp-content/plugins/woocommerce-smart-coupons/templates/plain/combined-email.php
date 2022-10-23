@@ -3,7 +3,7 @@
  * Coupon Email Content
  *
  * @author      StoreApps
- * @version     1.3.0
+ * @version     1.4.0
  * @package     woocommerce-smart-coupons/templates/plain/
  */
 
@@ -108,7 +108,7 @@ foreach ( $receiver_details as $receiver_data ) {
 	echo esc_html__( 'Expires on:', 'woocommerce-smart-coupons' );
 	if ( ! empty( $expiry_date ) ) {
 		if ( $woocommerce_smart_coupon->is_wc_gte_30() && $expiry_date instanceof WC_DateTime ) {
-			$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : 0;
+			$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : null;
 		} elseif ( ! is_int( $expiry_date ) ) {
 			$expiry_date = strtotime( $expiry_date );
 		}

@@ -185,7 +185,13 @@ class WoocommerceProductFeedsExpandedStructuredData {
 					'valueAddedTaxIncluded' => false,
 				],
 			];
+			if ( get_option( 'woocommerce_tax_display_shop' ) === 'incl' ) {
+				$price = number_format( $feed_item->price_inc_tax, 2, '.', '' );
+			} else {
+				$price = number_format( $feed_item->price_ex_tax, 2, '.', '' );
+			}
 		} else {
+			$price                = number_format( $feed_item->price_inc_tax, 2, '.', '' );
 			$price_specifications = [
 				[
 					'price'         => $feed_item->price_inc_tax,
@@ -199,6 +205,7 @@ class WoocommerceProductFeedsExpandedStructuredData {
 			[
 				'@type'              => 'Offer',
 				'url'                => $feed_item->purchase_link,
+				'price'              => $price,
 				'priceCurrency'      => get_woocommerce_currency(),
 				'priceSpecification' => $price_specifications,
 				'priceValidUntil'    => $price_valid_until,

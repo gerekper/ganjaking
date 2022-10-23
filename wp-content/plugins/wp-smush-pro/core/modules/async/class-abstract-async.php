@@ -166,19 +166,12 @@ abstract class Abstract_Async {
 	 */
 	public function process_request() {
 		if ( ! empty( $this->body_data ) ) {
-			$cookies = array();
-			foreach ( $_COOKIE as $name => $value ) {
-				$cookies[] = "$name=" . rawurlencode( is_array( $value ) ? serialize( $value ) : $value );
-			}
-
 			$request_args = array(
 				'timeout'   => apply_filters( 'smush_async_time_out', 0 ),
 				'blocking'  => false,
 				'sslverify' => false,
 				'body'      => $this->body_data,
-				'headers'   => array(
-					'cookie' => implode( '; ', $cookies ),
-				),
+				'cookies'   => wp_unslash( $_COOKIE ),
 			);
 
 			$url = admin_url( 'admin-post.php' );

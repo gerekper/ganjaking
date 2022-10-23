@@ -91,22 +91,20 @@ abstract class Abstract_Summary_Page extends Abstract_Page {
 			$resize_savings = size_format( $core->stats['resize_savings'], 1 );
 		}
 
-		list( $percent_optimized, $grade ) = $this->get_grade_data();
-
 		$this->view(
 			'summary/meta-box',
 			array(
 				'human_format'      => empty( $human[1] ) ? 'B' : $human[1],
-				'human_size'        => empty( $human[0] ) ? '0' : round( (int) $human[0] ),
-				'remaining'         => $this->get_total_images_to_smush(),
+				'human_size'        => empty( $human[0] ) ? '0' : intval($human[0] ),
+				'remaining'         => $core->remaining_count(),
 				'resize_count'      => ! $resize_count ? 0 : $resize_count,
 				'resize_enabled'    => (bool) $this->settings->get( 'resize' ),
 				'resize_savings'    => $resize_savings,
 				'stats_percent'     => $core->stats['percent'] > 0 ? number_format_i18n( $core->stats['percent'], 1 ) : 0,
 				'total_optimized'   => $core->stats['total_images'],
-				'percent_grade'     => $grade,
-				'percent_metric'    => 0.0 === (float) $percent_optimized ? 100 : $percent_optimized,
-				'percent_optimized' => $percent_optimized,
+				'percent_grade'     => $core->percent_grade,
+				'percent_metric'    => $core->percent_metric,
+				'percent_optimized' => $core->percent_optimized,
 			)
 		);
 	}
@@ -134,33 +132,6 @@ abstract class Abstract_Summary_Page extends Abstract_Page {
 			</li>
 			<?php
 		}
-	}
-
-	/**
-	 * Calculates the total images to be smushed.
-	 * This is all unsmushed images + all images to re-smush.
-	 *
-	 * We're not using $core->remaining_count because it excludes the resmush count
-	 * when the amount of unsmushed images and amount of images to re-smush are the same.
-	 * So, if you have 2 images to re-smush and 2 unsmushed images, it'll return 2 and no 4.
-	 * We might need to check that there, it's used everywhere so we must be careful. Using this in the meantime.
-	 *
-	 * @since 3.7.2
-	 *
-	 * @return integer
-	 */
-	protected function get_total_images_to_smush() {
-		$images_to_resmush = count( get_option( 'wp-smush-resmush-list', array() ) );
-
-		// This is the same calculation used for $core->remaining_count,
-		// except that we don't add the re-smushed count here.
-		$unsmushed_count = WP_Smush::get_instance()->core()->total_count - WP_Smush::get_instance()->core()->smushed_count - WP_Smush::get_instance()->core()->skipped_count;
-		// Sometimes this number can be negative, if there are weird issues with metadata.
-		if ( $unsmushed_count > 0 ) {
-			return $images_to_resmush + $unsmushed_count;
-		}
-
-		return $images_to_resmush;
 	}
 
 	/**
@@ -241,37 +212,5 @@ abstract class Abstract_Summary_Page extends Abstract_Page {
 			</span>
 		</li>
 		<?php
-	}
-
-	/**
-	 * Get grade data (percent optimized and class name) for the score widget in summary meta box.
-	 *
-	 * @since 3.10.0
-	 *
-	 * @return array
-	 */
-	protected function get_grade_data() {
-		$core = WP_Smush::get_instance()->core();
-
-		$total_images_to_smush = $this->get_total_images_to_smush();
-		$total_images          = $core->total_count - $core->skipped_count;
-
-		$percent_optimized = 0;
-		if ( 0 === $total_images ) {
-			$grade = 'sui-grade-dismissed';
-		} elseif ( $total_images === $total_images_to_smush ) {
-			$grade = 'sui-grade-f';
-		} else {
-			$percent_optimized = floor( ( $total_images - $total_images_to_smush ) * 100 / $total_images );
-
-			$grade = 'sui-grade-f';
-			if ( $percent_optimized >= 60 && $percent_optimized < 90 ) {
-				$grade = 'sui-grade-c';
-			} elseif ( $percent_optimized >= 90 ) {
-				$grade = 'sui-grade-a';
-			}
-		}
-
-		return array( $percent_optimized, $grade );
 	}
 }

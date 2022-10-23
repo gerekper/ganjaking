@@ -50,7 +50,10 @@ class APIClient extends AbstractAPIClient {
 		];
 		$result  = json_decode( $this->response_body, true );
 
-
+		if ( key_exists( 'code', $result ) && 401 === $result['code'] ) {
+			set_transient( 'wp_rocket_no_licence', true, WEEK_IN_SECONDS );
+			update_rocket_option( 'remove_unused_css', 0 );
+		}
 
 		return wp_parse_args( (array) $result, $default );
 	}

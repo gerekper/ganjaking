@@ -20,7 +20,7 @@ class WC_Free_Gift_Coupons_Admin {
 	 * 
 	 * @var string
 	 */
-	public static $version = '3.3.2';
+	public static $version = '3.3.3';
 
 	/** 
 	 * Coupon Product ids list

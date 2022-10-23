@@ -3,8 +3,8 @@ Contributors:nik00726
 Tags:Recaptcha
 Requires at least:3.0
 Tested up to:6.0
-Version:2.37
-Stable tag:2.37
+Version:2.38
+Stable tag:2.38
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,6 +88,11 @@ This plugin is easy to install like other plug-ins of Wordpress as you need to j
 
 
 == Changelog ==
+
+= 2.38 =
+
+* Fixed add payment method captcha not working for some themes
+
 
 = 2.37 =
 

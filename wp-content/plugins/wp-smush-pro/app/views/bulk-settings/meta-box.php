@@ -65,7 +65,7 @@ do_action( 'wp_smush_after_basic_settings' );
 	</div>
 
 	<div class="sui-box-settings-col-2">
-		<button type="button" class="sui-button sui-button-ghost" onclick="WP_Smush.restore.init()" <?php disabled( ! $backups_count ); ?>>
+		<button type="button" class="sui-button sui-button-ghost wp-smush-restore" onclick="WP_Smush.restore.init()" <?php disabled( ! $backups_count ); ?>>
 			<i class="sui-icon-undo" aria-hidden="true"></i>
 			<?php esc_html_e( 'Restore Thumbnails', 'wp-smushit' ); ?>
 		</button>

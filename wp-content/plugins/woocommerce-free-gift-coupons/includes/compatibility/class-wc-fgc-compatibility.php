@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Free Gift Coupons/Compatibility
  * @since    2.1.0
- * @version  2.1.0
+ * @version  3.3.5
  */
 
 // Exit if accessed directly.
@@ -45,8 +45,25 @@ class WC_Free_Gift_Coupons_Compatibility {
 
 	public function __construct() {
 
+		// Declare HPOS compatibility.
+		add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
+
 		// Initialize.
 		add_action( 'plugins_loaded', array( $this, 'init' ), 100 );
+	}
+
+	/**
+	 * Declare HPOS (Custom Order tables) compatibility.
+	 *
+	 * @since 3.3.4
+	 */
+	public function declare_hpos_compatibility() {
+
+		if ( ! class_exists( 'Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			return;
+		}
+
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WC_Free_Gift_Coupons::plugin_basename(), true );
 	}
 
 	/**

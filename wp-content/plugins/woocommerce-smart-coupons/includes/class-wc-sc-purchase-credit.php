@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.2.0
+ * @version     2.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -62,6 +62,8 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 			add_action( 'wp_footer', array( $this, 'enqueue_styles_scripts' ) );
 
 			add_action( 'woocommerce_cart_is_empty', array( $this, 'maybe_clear_credit_called_session' ) );
+
+			add_action( 'woocommerce_after_checkout_validation', array( $this, 'maybe_required_coupon_delivery_date_time' ), 10, 2 );
 
 		}
 
@@ -472,6 +474,15 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 			if ( ! wp_script_is( 'jquery' ) ) {
 				wp_enqueue_script( 'jquery' );
 			}
+			$deliver_coupon_option = apply_filters(
+				'wc_sc_deliver_coupon',
+				'now',
+				array(
+					'source'                => $this,
+					'cart_contents'         => ( isset( WC()->cart->cart_contents ) && is_array( WC()->cart->cart_contents ) ) ? WC()->cart->cart_contents : array(),
+					'schedule_store_credit' => get_option( 'smart_coupons_schedule_store_credit' ),
+				)
+			);
 			?>
 			<!-- WooCommerce Smart Coupons Styles And Scripts Start -->
 			<style type="text/css" media="screen">
@@ -597,6 +608,13 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 						let gift_sending_timestamp      = Math.floor(utc_date_time.getTime()/1000); // Remove milliseconds from timestamp.
 						jQuery(date_time_wrapper).find('.gift_sending_timestamp').val(gift_sending_timestamp);
 					});
+
+					var deliver_coupon_option = '<?php echo esc_html( $deliver_coupon_option ); ?>';
+
+					if ( 'later' === deliver_coupon_option ){
+						jQuery('form.woocommerce-checkout').find('.email_sending_date_time_wrapper').addClass('show');
+						jQuery('form.woocommerce-checkout').find('input#wc_sc_schedule_gift_sending').prop('checked', true).trigger('change');
+					}
 				});
 			</script>
 			<!-- WooCommerce Smart Coupons Styles And Scripts End -->
@@ -1171,6 +1189,56 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 		public function maybe_clear_credit_called_session() {
 			if ( WC()->session->__isset( 'credit_called' ) ) {
 				WC()->session->__unset( 'credit_called' );
+			}
+		}
+
+		/**
+		 * Validate checkout based on whether delivery time is required or not
+		 *
+		 * @param array    $fields checkout fields.
+		 * @param WP_Error $errors WP Error Object.
+		 * @return void
+		 */
+		public function maybe_required_coupon_delivery_date_time( $fields = array(), $errors = object ) {
+
+			$nonce_value = ( ! empty( $_POST['woocommerce-process-checkout-nonce'] ) ) ? wc_clean( wp_unslash( $_POST['woocommerce-process-checkout-nonce'] ) ) : ''; // phpcs:ignore
+			if ( ! wp_verify_nonce( $nonce_value, 'woocommerce-process_checkout' ) ) {
+				return;
+			}
+
+			global $store_credit_label;
+
+			$is_schedule_gift_sending = ( ! empty( $_POST['wc_sc_schedule_gift_sending'] ) ) ? wc_clean( wp_unslash( $_POST['wc_sc_schedule_gift_sending'] ) ) : '';                                             // phpcs:ignore
+			$gift_sending_timestamp   = ( ! empty( $_POST['gift_sending_timestamp'] ) && is_array( $_POST['gift_sending_timestamp'] ) ) ? wc_clean( wp_unslash( $_POST['gift_sending_timestamp'] ) ) : array();  // phpcs:ignore
+			$send_to                  = ( ! empty( $_POST['sc_send_to'] ) ) ? wc_clean( wp_unslash( $_POST['sc_send_to'] ) ) : '';                                                                               // phpcs:ignore
+			$is_gift                  = ( ! empty( $_POST['is_gift'] ) ) ? wc_clean( wp_unslash( $_POST['is_gift'] ) ) : '';                                                                                     // phpcs:ignore
+
+			if ( 'yes' === $is_gift && 'yes' === $is_schedule_gift_sending ) {
+				$is_date_available = true;
+				if ( is_array( $gift_sending_timestamp ) && ! empty( $gift_sending_timestamp ) ) {
+					if ( 'many' === $send_to ) {
+						foreach ( $gift_sending_timestamp as $coupon_id => $timestamp ) {
+							if ( 0 === absint( $coupon_id ) ) {
+								continue;
+							}
+							$filtered = array_filter( $timestamp );
+							if ( count( $filtered ) !== count( $timestamp ) ) {
+								$is_date_available = false;
+								break;
+							}
+						}
+					} elseif ( 'one' === $send_to ) {
+						if ( empty( $gift_sending_timestamp[0][0] ) ) {
+							$is_date_available = false;
+						}
+					}
+				}
+				if ( false === $is_date_available ) {
+					if ( is_object( $errors ) && is_callable( array( $errors, 'add' ) ) ) {
+						/* translators: %s: field name */
+						$errors->add( 'validation', __( 'Coupon delivery date and time is a required field.', 'woocommerce-smart-coupons' ) );
+					}
+				}
 			}
 		}
 

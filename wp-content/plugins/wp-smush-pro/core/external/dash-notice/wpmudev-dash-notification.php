@@ -5,7 +5,7 @@
 if ( ! class_exists( 'WPMUDEV_Dashboard_Notice4' ) ) {
 return;
 	class WPMUDEV_Dashboard_Notice4 {
-		var $version        = '4.2.3';
+		var $version        = '4.2.4';
 		var $screen_id      = false;
 		var $product_name   = false;
 		var $product_update = false;
@@ -1055,7 +1055,7 @@ return;
 			?>
 			<div id="content" class="<?php echo esc_attr( $dlg_id ); ?>">
 				<script src="<?php echo includes_url( '/wp-includes/js/jquery/jquery.js' ); ?>"></script>
-				<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed%3A400%2C700%7CRoboto%3A400%2C500%2C300%2C300italic%2C100" type="text/css" media="all"/>
+				<link rel="stylesheet" href="https://fonts.bunny.net/css?family=Roboto+Condensed%3A400%2C700%7CRoboto%3A400%2C500%2C300%2C300italic%2C100" type="text/css" media="all"/>
 				<style>
 					* {
 						box-sizing: border-box;

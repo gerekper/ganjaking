@@ -1,5 +1,13 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2022.10.20 - version 10.7.7
+* Change: Add additional elements to expanded schem following new validation by Google
+* Fix: Resolve issue where some items could be excluded from the feed in rare configurations
+
+2022.09.28 - version 10.7.6
+* Change: Disable query monitor during feed generation if it is active
+* Change: WooCommerce 7.0 compatibility
+
 2022.08.24 - version 10.7.5
 * Change: WooCommerce 6.9 compatibility
 * Change: Internal IDs are only added to the product review feed if there are no other identifiers

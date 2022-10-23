@@ -154,6 +154,11 @@ class WoocommerceGpfFrontend {
 		// as it has horrible performance characteristics.
 		add_filter( 'atto/ignore_get_object_terms', '__return_true', 9999 );
 		remove_filter( 'terms_clauses', 'to_terms_clauses', 99, 3 );
+
+		// Disable query monitor.
+		// phpcs:disable WordPress.NamingConventions.ValidHookName.UseUnderscores
+		do_action( 'qm/cease' );
+		// phpcs:enable
 	}
 
 	public function log_query_args( $args ) {

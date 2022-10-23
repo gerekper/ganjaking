@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.9.0
+ * @version     2.0.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -380,6 +380,7 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 						if ( $this->is_wc_gte_30() ) {
 							if ( ! empty( $_expiry_date ) ) {
 								$_expiry_date = strtotime( $_expiry_date ) - $this->wc_timezone_offset();
+								$_expiry_date = $this->get_date_expires_value( $_expiry_date );
 								update_post_meta( $new_coupon_id, 'date_expires', $_expiry_date );
 							}
 						} else {
@@ -487,7 +488,7 @@ if ( ! class_exists( 'WC_SC_Shortcode' ) ) {
 			}
 
 			if ( $this->is_wc_gte_30() && $expiry_date instanceof WC_DateTime ) {
-				$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : 0;
+				$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : null;
 			} elseif ( ! is_int( $expiry_date ) ) {
 				$expiry_date = strtotime( $expiry_date );
 			}

@@ -773,9 +773,9 @@ class WoocommerceGpfFeedItem {
 				continue;
 			}
 			$child_prices = $this->generate_prices_for_product( $child_product );
-			if ( ( 0 === (int) $current_prices['price_inc_tax'] ) && ( (int) $child_prices['price_inc_tax'] > 0 ) ) {
+			if ( ( 0 === (int) $current_prices['price_inc_tax'] ) && ( (float) $child_prices['price_inc_tax'] > 0.0 ) ) {
 				$current_prices = $child_prices;
-			} elseif ( ( $child_prices['price_inc_tax'] > 0 ) && ( $child_prices['price_inc_tax'] < $current_prices['price_inc_tax'] ) ) {
+			} elseif ( ( (float) $child_prices['price_inc_tax'] > 0.0 ) && ( $child_prices['price_inc_tax'] < $current_prices['price_inc_tax'] ) ) {
 				$current_prices = $child_prices;
 			}
 		}

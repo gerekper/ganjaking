@@ -176,6 +176,11 @@ class NextGen extends Abstract_Integration {
 
 		check_ajax_referer( 'wp-smush-ajax', '_nonce' );
 
+		// Check For permission.
+		if ( ! Helper::is_user_allowed( 'manage_options' ) ) {
+			wp_die( esc_html__( 'Unauthorized', 'wp-smushit' ), 403 );
+		}
+
 		if ( empty( $_GET['attachment_id'] ) ) {
 			wp_send_json_error(
 				array(
@@ -413,7 +418,7 @@ class NextGen extends Abstract_Integration {
 		}
 
 		// Check for media upload permission.
-		if ( ! current_user_can( 'upload_files' ) ) {
+		if ( ! Helper::is_user_allowed( 'upload_files' ) ) {
 			wp_send_json_error(
 				array(
 					'error_msg' => __( "You don't have permission to work with uploaded files.", 'wp-smushit' ),
@@ -545,7 +550,7 @@ class NextGen extends Abstract_Integration {
 		}
 
 		// Check permissions.
-		if ( ! current_user_can( 'NextGEN Manage gallery' ) ) {
+		if ( ! Helper::is_user_allowed( 'NextGEN Manage gallery' ) ) {
 			wp_send_json_error(
 				array(
 					'error'     => 'unauthorized',
@@ -663,6 +668,16 @@ class NextGen extends Abstract_Integration {
 			wp_send_json_error(
 				array(
 					'error_msg' => '<div class="wp-smush-error">' . esc_html__( "Image couldn't be smushed as the nonce verification failed, try reloading the page.", 'wp-smushit' ) . '</div>',
+				)
+			);
+		}
+
+		// Check permissions.
+		if ( ! Helper::is_user_allowed( 'NextGEN Manage gallery' ) ) {
+			wp_send_json_error(
+				array(
+					'error'     => 'unauthorized',
+					'error_msg' => '<div class="wp-smush-error">' . esc_html__( "You don't have permission to do this.", 'wp-smushit' ) . '</div>',
 				)
 			);
 		}

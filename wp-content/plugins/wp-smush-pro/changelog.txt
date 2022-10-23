@@ -6,6 +6,25 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+= 3.12.2 ( 2022-10-19 )
+- Improvement: Security hardening
+- Fix: Issues on older PHP versions
+
+= 3.12.1 ( 2022-10-11 )
+- Fix: PHP error on non-English language sites
+
+= 3.12.0 ( 2022-10-11 )
+- New: Bulk smush images in the background!
+- New: 50 images limit removed for free users
+- New: Better GDPR compliance by replacing Google fonts with Bunny fonts
+- New: Filter on media library page to view media items with errors
+- New: Option to receive an email once bulk smush is complete
+- Fix: Some images incorrectly selected for resmush
+- Fix: Database error while converting PNG to JPG on WordPress 6.1 Beta
+
+= 3.11.1 ( 2022-08-19 ) =
+- Fix: Fallback to sequential processing when parallel processing not possible
+
 = 3.11.0 ( 2022-08-11 ) =
 - New: Smush all image sizes in parallel for improved performance
 - Improvement: Code improvements
@@ -122,4 +141,4 @@ Change Log:
 
 
 
-941105-1660239714-au
+941105-1666343947-au

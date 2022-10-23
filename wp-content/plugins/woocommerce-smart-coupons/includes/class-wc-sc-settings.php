@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.9.1
+ * @version     2.0.0
  * @package     woocommerce-smart-coupons/includes/
  */
 
@@ -597,7 +597,7 @@ if ( ! class_exists( 'WC_SC_Settings' ) ) {
 					'id'          => 'sc_store_credit_singular_text',
 					'type'        => 'text',
 					'placeholder' => __( 'Singular name', 'woocommerce-smart-coupons' ),
-					'desc_tip'    => __( 'Give alternate singular name to Store Credit / Gift Certficate. This label will only rename Store Credit / Gift Certficate used in the Smart Coupons plugin.', 'woocommerce-smart-coupons' ),
+					'desc_tip'    => __( 'Give alternate singular name to Store Credit / Gift Certificate. This label will only rename Store Credit / Gift Certificate used in the Smart Coupons plugin.', 'woocommerce-smart-coupons' ),
 					'css'         => 'min-width:300px;',
 					'autoload'    => false,
 				),

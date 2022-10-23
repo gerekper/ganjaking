@@ -278,7 +278,7 @@ class Configs {
 			return new WP_Error( '404', __( 'The given config ID does not exist', 'wp-smushit' ) );
 		}
 
-		$this->apply_config( $config['config']['configs'] );
+		$this->apply_config( $config['config']['configs'], $config['name'] );
 	}
 
 	/**
@@ -288,7 +288,7 @@ class Configs {
 	 *
 	 * @param array $config The config to apply.
 	 */
-	public function apply_config( $config ) {
+	public function apply_config( $config, $config_name = '' ) {
 		$sanitized_config = $this->sanitize_config( $config );
 
 		// Update 'networkwide' options in multisites.
@@ -359,6 +359,8 @@ class Configs {
 			$new_lazy_load = array_replace_recursive( $stored_lazy_load, $sanitized_config['lazy_load'] );
 			$settings_handler->set_setting( 'wp-smush-lazy_load', $new_lazy_load );
 		}
+
+		do_action( 'wp_smush_config_applied', $config_name );
 
 		// Skip onboarding if applying a config.
 		update_option( 'skip-smush-setup', true );

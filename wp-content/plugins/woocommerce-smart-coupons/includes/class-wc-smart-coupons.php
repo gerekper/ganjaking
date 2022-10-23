@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     4.5.0
+ * @version     4.7.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -64,15 +64,6 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		 * @since 3.3.0
 		 */
 		private function __clone() {
-			wc_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'woocommerce-smart-coupons' ), '3.3.0' );
-		}
-
-		/**
-		 * Unserializing instances of this class is forbidden.
-		 *
-		 * @since 3.3.0
-		 */
-		public function __wakeup() {
 			wc_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'woocommerce-smart-coupons' ), '3.3.0' );
 		}
 
@@ -156,6 +147,8 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			add_action( 'woocommerce_system_status_report', array( $this, 'smart_coupons_system_status_report' ), 11 );
 
 			add_action( 'woocommerce_rest_prepare_shop_order_object', array( $this, 'rest_api_prepare_shop_order_object' ), 10, 3 );
+
+			add_action( 'before_woocommerce_init', array( $this, 'hpos_compat_declaration' ) );
 
 		}
 
@@ -393,7 +386,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		public function get_expiration_format( $expiry_date ) {
 
 			if ( $this->is_wc_gte_30() && $expiry_date instanceof WC_DateTime ) {
-				$expiry_date = $expiry_date->getTimestamp();
+				$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : null;
 			} elseif ( ! is_int( $expiry_date ) ) {
 				$expiry_date = strtotime( $expiry_date );
 			}
@@ -824,10 +817,8 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				return false;
 			}
 
-			$current_timestamp = time(); // Get GMT timestamp.
-
 			// Check if time is already passed.
-			if ( $current_timestamp > $timestamp ) {
+			if ( time() > $timestamp ) {
 				return false;
 			}
 			return true;
@@ -1161,7 +1152,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 									break;
 								case 'date_expires':
 									if ( $data instanceof WC_DateTime ) {
-										$expiry_date = ( is_object( $data ) && is_callable( array( $data, 'getTimestamp' ) ) ) ? $data->getTimestamp() : 0;
+										$expiry_date = ( is_object( $data ) && is_callable( array( $data, 'getTimestamp' ) ) ) ? $data->getTimestamp() : null;
 									} elseif ( ! is_int( $expiry_date ) ) {
 										$expiry_date = strtotime( $expiry_date );
 									}
@@ -1789,14 +1780,13 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				$expiry_date = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_date_expires' ) ) ) ? $coupon->get_date_expires() : '';
 				if ( ! empty( $expiry_date ) ) {
 					if ( $expiry_date instanceof WC_DateTime ) {
-						$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : 0;
+						$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : null;
 					} elseif ( ! is_int( $expiry_date ) ) {
 						$expiry_date = strtotime( $expiry_date );
 					}
 					if ( is_int( $expiry_date ) ) {
-						$expiry_date      += $expiry_time; // Adding expiry time to expiry date.
-						$current_timestamp = time();
-						if ( $current_timestamp <= $expiry_date ) {
+						$expiry_date += $expiry_time; // Adding expiry time to expiry date.
+						if ( time() <= $expiry_date ) {
 							$expired = false;
 						} else {
 							$expired = true;
@@ -3242,7 +3232,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				$sc_coupon_validity     = ( ! empty( $coupon_id ) ) ? get_post_meta( $coupon_id, 'sc_coupon_validity', true ) : '';
 
 				if ( $this->is_wc_gte_30() && $expiry_date instanceof WC_DateTime ) {
-					$expiry_date = $expiry_date->getTimestamp();
+					$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : null;
 				} elseif ( ! is_int( $expiry_date ) ) {
 					$expiry_date = strtotime( $expiry_date );
 				}
@@ -3281,9 +3271,8 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				update_post_meta( $smart_coupon_id, 'limit_usage_to_x_items', $limit_usage_to_x_items );
 
 				if ( $this->is_wc_gte_30() ) {
-					if ( ! empty( $expiry_date ) ) {
-						update_post_meta( $smart_coupon_id, 'date_expires', $expiry_date );
-					}
+					$expiry_date = $this->get_date_expires_value( $expiry_date );
+					update_post_meta( $smart_coupon_id, 'date_expires', $expiry_date );
 				} else {
 					$expiry_date = ( ! empty( $expiry_date ) ) ? gmdate( 'Y-m-d', intval( $expiry_date ) + $this->wc_timezone_offset() ) : '';
 					update_post_meta( $smart_coupon_id, 'expiry_date', $expiry_date );
@@ -4129,7 +4118,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			$is_percent = $this->is_percent_coupon( array( 'coupon_object' => $coupon ) );
 
 			if ( $expiry_date instanceof WC_DateTime ) {
-				$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : 0;
+				$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : null;
 			} elseif ( ! is_int( $expiry_date ) ) {
 				$expiry_date = strtotime( $expiry_date );
 			}
@@ -5897,7 +5886,42 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			}
 		}
 
+		/**
+		 * Get timestamp from date string
+		 *
+		 * @param string $date_string The date in string format.
+		 * @return int
+		 */
+		public function wc_string_to_datetime_to_timestamp( $date_string = '' ) {
+			$timestamp = null;
+			if ( ! empty( $date_string ) ) {
+				$datetime  = $this->wc_string_to_datetime( $date_string );
+				$timestamp = ( is_object( $datetime ) && is_callable( array( $datetime, 'getTimestamp' ) ) ) ? $datetime->getTimestamp() : null;
+			}
+			return $timestamp;
+		}
+
+		/**
+		 * Maybe convert to correct value for meta 'date_expires'
+		 *
+		 * @param mixed $date_expires The current date_expires value.
+		 * @return mixed
+		 */
+		public function get_date_expires_value( $date_expires = null ) {
+			$date_expires = intval( $date_expires );
+			$date_expires = ( ! empty( $date_expires ) ) ? $date_expires : null;
+			return $date_expires;
+		}
+
+		/**
+		 * Function to declare WooCommerce HPOS related compatibility status
+		 */
+		public function hpos_compat_declaration() {
+			if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', 'woocommerce-smart-coupons/woocommerce-smart-coupons.php', false );
+			}
+		}
+
 	}//end class
 
 } // End class exists check
-

@@ -147,6 +147,12 @@
 					props: { stats: 'excluded' },
 					priority: 30,
 				},
+
+				failed: {
+					text: smush_vars.strings.filter_failed,
+					props: { stats: 'failed_processing' },
+					priority: 40,
+				},
 			};
 		},
 	});

@@ -40,7 +40,66 @@ $sui-wrap-class: false;
 		}
 	}
 }
-
+.smush-status-links{
+	.smush-upgrade-link {
+		color: #8D00B1;
+		font-size: 12px;
+	}
+	.smush-ignore-utm,.smush-revert-utm{
+		display: block;
+		margin: 6px 0 4px;
+	}
+	a {
+		text-decoration: none;
+	}
+	span {
+		float: none !important;;
+	}
+	.smush-cdn-notice {
+		color: #50575E;
+		a {
+			color:#2271B1;
+			&:focus {
+				box-shadow: none;
+				opacity: 0.7;
+			}
+		}
+	}
+}
+.smush-status {
+	&.smush-warning,&.smush-ignored,&.smush-success{
+		padding-left:17px;
+		position: relative;
+		&:before{
+			content:"";
+			background: url('../images/icon-warning.png' ) no-repeat 0 0;
+			position: absolute;
+			width:12px;
+			height:12px;
+			background-size: contain;
+			left: 0;
+			top:3px;
+		}
+	}
+	&.smush-ignored{
+		&:before{
+			background-image: url('../images/icon-ignored.png' ) !important;
+		}
+	}
+	&.smush-success{
+		&:before{
+			background-image: url('../images/icon-success.png' ) !important;
+		}
+	}
+	.sui-icon-warning-media-lib {
+		margin-right:4px;
+		position:relative;
+		top:1px;
+	}	
+}
+.column-smushit .smush-status{
+	color:#50575E;
+}
 // Stats table.
 .sui-smush-media {
 	table.wp-smush-stats-holder {

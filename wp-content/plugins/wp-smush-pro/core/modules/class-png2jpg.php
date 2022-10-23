@@ -732,9 +732,11 @@ class Png2jpg extends Abstract_Module {
 		// Update In Post Content, Loop Over a set of posts to avoid the query failure for large sites.
 		global $wpdb;
 		// Get existing Images with current URL.
-		$query = $wpdb->prepare(
-			"SELECT ID, post_content FROM $wpdb->posts WHERE post_content LIKE '%%%s%%'",
-			$o_url
+		$wild       = '%';
+		$o_url_like = $wild . $wpdb->esc_like( $o_url ) . $wild;
+		$query      = $wpdb->prepare(
+			"SELECT ID, post_content FROM $wpdb->posts WHERE post_content LIKE %s",
+			$o_url_like
 		);
 
 		$rows = $wpdb->get_results( $query, ARRAY_A );

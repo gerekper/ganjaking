@@ -1,5 +1,17 @@
 === WooCommerce Free Gift Coupons ===
 
+2022.10.19 - version 3.3.5
+* Fix: Compatibility with Custom Order Tables.
+
+2022.10.18 - version 3.3.4
+* Update: Tested up to WooCommerce 7.0.
+* Tweak - Declared compatibility with the new Custom Order Tables.
+* Fix: Pass additional cart key parameter to sync functions to reduce possibility of undefined notices.
+
+2022.05.18 - version 3.3.3
+* Update: Tested against WooCommerce 6.5.0.
+* Fix: Fatal Error in update routine, call "Call to protected method WP_Background_Process::is_process_running()", reintroduced by code standards sniffing.
+
 2021.12.01  - version 3.3.2
 * Fix: Load RTL stylesheets when not in SCRIPT_DEBUG mode.
 * New: Display notices to store managers in front-end and admin when a gift product is not purchasable.

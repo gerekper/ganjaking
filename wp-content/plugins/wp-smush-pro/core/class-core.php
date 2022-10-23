@@ -139,13 +139,6 @@ class Core extends Stats {
 	public $total_count = 0;
 
 	/**
-	 * Image ids that needs to be resmushed.
-	 *
-	 * @var array $resmush_ids
-	 */
-	public $resmush_ids = array();
-
-	/**
 	 * Limit for allowed number of images per bulk request.
 	 *
 	 * This is enforced at api level too.
@@ -268,23 +261,13 @@ class Core extends Stats {
 
 		$upgrade_url = add_query_arg(
 			array(
+				'coupon'       => 'SMUSH30OFF',
 				'utm_source'   => 'smush',
 				'utm_medium'   => 'plugin',
-				'utm_campaign' => 'smush_bulksmush_issues_filesizelimit_notice',
+				'utm_campaign' => 'smush_bulksmush_inline_filesizelimit',
 			),
 			'https://wpmudev.com/project/wp-smush-pro/'
 		);
-
-		if ( WP_Smush::is_pro() ) {
-			$error_in_bulk = esc_html__( '{{smushed}}/{{total}} images were successfully compressed, {{errors}} encountered issues.', 'wp-smushit' );
-		} else {
-			$error_in_bulk = sprintf(
-				/* translators: %1$s - opening link tag, %2$s - </a> */
-				esc_html__( '{{smushed}}/{{total}} images were successfully compressed, {{errors}} encountered issues. Are you hitting the 5MB "size limit exceeded" warning? %1$sUpgrade to Smush Pro for FREE%2$s to optimize unlimited image files.', 'wp-smushit' ),
-				'<a href="' . esc_url( $upgrade_url ) . '" target="_blank">',
-				'</a>'
-			);
-		}
 
 		$wp_smush_msgs = array(
 			'nonce'                   => wp_create_nonce( 'wp-smush-ajax' ),
@@ -292,13 +275,26 @@ class Core extends Stats {
 			'settingsUpdated'         => esc_html__( 'Your settings have been updated', 'wp-smushit' ),
 			'resmush'                 => esc_html__( 'Super-Smush', 'wp-smushit' ),
 			'smush_now'               => esc_html__( 'Smush Now', 'wp-smushit' ),
-			'error_in_bulk'           => $error_in_bulk,
+			'error_in_bulk'           => esc_html__( '{{smushed}}/{{total}} images smushed successfully, {{errors}} images were not optimized, find out why and how to resolve the issue(s) below.', 'wp-smushit' ),
+			'all_failed'              => esc_html__( 'All of your images failed to smush. Find out why and how to resolve the issue(s) below.', 'wp-smushit' ),
 			'all_resmushed'           => esc_html__( 'All images are fully optimized.', 'wp-smushit' ),
+			'all_smushed'             => esc_html__( 'All attachments have been smushed. Awesome!', 'wp-smushit' ),
+			'error_size_limit'        => WP_Smush::is_pro() ? '' : sprintf(
+			/* translators: %1$s - opening link tag, %2$s - </a> */
+				esc_html__( 'Are you hitting the 5MB "size limit exceeded" warning? %1$sUpgrade to Smush Pro for FREE%2$s to optimize unlimited image files up to 32Mb each.', 'wp-smushit' ),
+				'<a href="' . esc_url( $upgrade_url ) . '" target="_blank">',
+				'</a>'
+			),
+			'processing_cdn_for_free' => esc_html__( 'Want to serve images even faster? Get up to 2x more speed with Smush Pro’s CDN, which spans 45 servers worldwide.', 'wp-smushit' ),
+			'processed_cdn_for_free'  => esc_html__( 'Let images reach your audience faster no matter where your hosting servers are. Smush Pro’s global CDN serves images closer to site visitors via 45 worldwide server locations.', 'wp-smushit' ),
 			'restore'                 => esc_html__( 'Restoring image...', 'wp-smushit' ),
 			'smushing'                => esc_html__( 'Smushing image...', 'wp-smushit' ),
+			'btn_ignore'              => esc_html__( 'Ignore', 'wp-smushit' ),
+			'view_detail'             => esc_html__( 'View Details', 'wp-smushit' ),
 			'membership_valid'        => esc_html__( 'We successfully verified your membership, all the Pro features should work completely. ', 'wp-smushit' ),
 			'membership_invalid'      => esc_html__( "Your membership couldn't be verified.", 'wp-smushit' ),
 			'missing_path'            => esc_html__( 'Missing file path.', 'wp-smushit' ),
+			'failed_item_smushed'     => esc_html__( 'Images smushed successfully, No further action required', 'wp-smushit' ),
 			// Used by Directory Smush.
 			'unfinished_smush_single' => esc_html__( 'image could not be smushed.', 'wp-smushit' ),
 			'unfinished_smush'        => esc_html__( 'images could not be smushed.', 'wp-smushit' ),
@@ -314,7 +310,7 @@ class Core extends Stats {
 			// Errors.
 			'error_ignore'            => esc_html__( 'Ignore this image from bulk smushing', 'wp-smushit' ),
 			// Ignore text.
-			'ignored'                 => esc_html__( 'Ignored from auto-smush', 'wp-smushit' ),
+			'ignored'                 => esc_html__( 'Ignored', 'wp-smushit' ),
 			'not_processed'           => esc_html__( 'Not processed', 'wp-smushit' ),
 			// Notices.
 			'noticeDismiss'           => esc_html__( 'Dismiss', 'wp-smushit' ),
@@ -329,9 +325,25 @@ class Core extends Stats {
 			'bulk_smush_url'          => network_admin_url( 'admin.php?page=smush-bulk' ),
 			'directory_url'           => network_admin_url( 'admin.php?page=smush-directory' ),
 			'localWebpURL'            => network_admin_url( 'admin.php?page=smush-webp' ),
+			'edit_link'               => Helper::get_image_media_link( '{{id}}', null, true ),
+			'debug_mode'              => defined( 'WP_DEBUG' ) && WP_DEBUG,
+			'cancel'                  => esc_html__( 'Cancel', 'wp-smushit' ),
+			'cancelling'              => esc_html__( 'Cancelling ...', 'wp-smushit' ),
 		);
 
 		wp_localize_script( $handle, 'wp_smush_msgs', $wp_smush_msgs );
+
+		$product_analytics = WP_Smush::get_instance()->core()->mod->product_analytics;
+		wp_localize_script(
+			$handle,
+			'wp_smush_mixpanel',
+			array(
+				'opt_in'           => Settings::get_instance()->get( 'usage' ),
+				'token'            => $product_analytics->get_token(),
+				'unique_id'        => $product_analytics->get_unique_id(),
+				'super_properties' => $product_analytics->get_super_properties(),
+			)
+		);
 
 		if ( 'toplevel_page_smush' === $current_screen->id ) {
 			$slug = 'dashboard';
@@ -343,7 +355,7 @@ class Core extends Stats {
 		// Load the stats on selected screens only.
 		if ( $slug && isset( WP_Smush::get_instance()->admin()->pages[ $slug ] ) && method_exists( WP_Smush::get_instance()->admin()->pages[ $slug ], 'dashboard_summary_meta_box' ) ) {
 			// Get resmush list, If we have a resmush list already, localize those IDs.
-			$resmush_ids = get_option( 'wp-smush-resmush-list' );
+			$resmush_ids = $this->get_resmush_ids();
 			if ( $resmush_ids ) {
 				// Get the attachments, and get lossless count.
 				$this->resmush_ids = $resmush_ids;
@@ -374,6 +386,11 @@ class Core extends Stats {
 				'savings_resize'     => $this->stats['resize_savings'],
 				'savings_conversion' => $this->stats['conversion_savings'],
 				'savings_dir_smush'  => $this->dir_stats,
+				'savings_percent'    => $this->stats['percent'] > 0 ? number_format_i18n( $this->stats['percent'], 1 ) : 0,
+				'percent_grade'      => $this->percent_grade,
+				'percent_metric'     => $this->percent_metric,
+				'percent_optimized'  => $this->percent_optimized,
+				'remaining_count'    => $this->remaining_count,
 			);
 		} else {
 			$data = array(
@@ -387,6 +404,10 @@ class Core extends Stats {
 				'savings_resize'     => '',
 				'savings_conversion' => '',
 				'savings_supersmush' => '',
+				'savings_percent'    => '',
+				'percent_grade'      => '',
+				'percent_metric'     => '',
+				'percent_optimized'  => '',
 			);
 		}
 
@@ -403,45 +424,7 @@ class Core extends Stats {
 		// Convert it into ms.
 		$data['timeout'] = WP_SMUSH_TIMEOUT * 1000;
 
-		wp_localize_script( $handle, 'wp_smushit_data', $data );
-	}
-
-	/**
-	 * Check bulk sent count, whether to allow further smushing or not
-	 *
-	 * @param bool   $reset  To hard reset the transient.
-	 * @param string $key    Transient Key - bulk_sent_count/dir_sent_count.
-	 *
-	 * @return bool
-	 */
-	public static function check_bulk_limit( $reset = false, $key = 'bulk_sent_count' ) {
-		$transient_name = 'wp-smush-' . $key;
-
-		// If we JUST need to reset the transient.
-		if ( $reset ) {
-			set_transient( $transient_name, 0, 60 );
-			return;
-		}
-
-		$bulk_sent_count = (int) get_transient( $transient_name );
-
-		// Check if bulk smush limit is less than limit.
-		if ( ! $bulk_sent_count || $bulk_sent_count < self::$max_free_bulk ) {
-			$continue = true;
-		} elseif ( $bulk_sent_count === self::$max_free_bulk ) {
-			// If user has reached the limit, reset the transient.
-			$continue = false;
-			$reset    = true;
-		} else {
-			$continue = false;
-		}
-
-		// If we need to reset the transient.
-		if ( $reset ) {
-			set_transient( $transient_name, 0, 60 );
-		}
-
-		return $continue;
+		wp_localize_script( $handle, 'wp_smushit_data', apply_filters( 'wp_smush_script_data', $data ) );
 	}
 
 	/**
@@ -547,26 +530,6 @@ class Core extends Stats {
 			'width'  => $width,
 			'height' => $height,
 		);
-	}
-
-	/**
-	 * Update the image smushed count in transient
-	 *
-	 * @param string $key  Database key.
-	 */
-	public static function update_smush_count( $key = 'bulk_sent_count' ) {
-		$transient_name = 'wp-smush-' . $key;
-
-		$bulk_sent_count = get_transient( $transient_name );
-
-		// If bulk sent count is not set.
-		if ( false === $bulk_sent_count ) {
-			// Start transient at 0.
-			set_transient( $transient_name, 1, 200 );
-		} elseif ( $bulk_sent_count < self::$max_free_bulk ) {
-			// If lte $this->max_free_bulk images are sent, increment.
-			set_transient( $transient_name, $bulk_sent_count + 1, 200 );
-		}
 	}
 
 	/**

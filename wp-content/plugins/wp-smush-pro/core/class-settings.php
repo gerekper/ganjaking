@@ -74,6 +74,7 @@ class Settings {
 		'background_images' => true,
 		'rest_api_support'  => false, // CDN option.
 		'webp_mod'          => false, // WebP module.
+		'background_email'  => false,
 	);
 
 	/**
@@ -90,7 +91,7 @@ class Settings {
 	 *
 	 * @var array $basic_features
 	 */
-	public static $basic_features = array( 'bulk', 'auto', 'strip_exif', 'resize', 'original', 'gutenberg', 'js_builder', 'gform', 'lazy_load', 'lossy' );
+	public static $basic_features = array( 'bulk', 'auto', 'strip_exif', 'resize', 'original', 'gutenberg', 'js_builder', 'gform', 'lazy_load', 'lossy', 'background_email' );
 
 	/**
 	 * List of fields in bulk smush form.
@@ -99,7 +100,7 @@ class Settings {
 	 *
 	 * @var array
 	 */
-	private $bulk_fields = array( 'bulk', 'auto', 'lossy', 'strip_exif', 'resize', 'original', 'backup', 'png_to_jpg', 'no_scale' );
+	private $bulk_fields = array( 'bulk', 'auto', 'lossy', 'strip_exif', 'resize', 'original', 'backup', 'png_to_jpg', 'no_scale', 'background_email' );
 
 	/**
 	 * List of fields in integration form.
@@ -278,6 +279,11 @@ class Settings {
 				'label'       => esc_html__( 'Allow usage tracking', 'wp-smushit' ),
 				'short_label' => esc_html__( 'Usage Tracking', 'wp-smushit' ),
 				'desc'        => esc_html__( 'Help make Smush better by letting our designers learn how you’re using the plugin.', 'wp-smushit' ),
+			),
+			'background_email'  => array(
+				'label'       => esc_html__( 'Enable email notification', 'wp-smushit' ),
+				'short_label' => esc_html__( 'Email Notification', 'wp-smushit' ),
+				'desc'        => esc_html__( 'Be notified via email about the bulk smush status when the process has completed.', 'wp-smushit' ),
 			),
 		);
 
@@ -603,8 +609,9 @@ class Settings {
 	public function reset() {
 		check_ajax_referer( 'wp_smush_reset' );
 
-		if ( ! current_user_can( 'manage_options' ) ) {
-			die();
+		// Check capability.
+		if ( ! Helper::is_user_allowed( 'manage_options' ) ) {
+			wp_die( esc_html__( 'Unauthorized', 'wp-smushit' ), 403 );
 		}
 
 		delete_site_option( 'wp-smush-networkwide' );
@@ -629,8 +636,12 @@ class Settings {
 	public function save_settings() {
 		check_ajax_referer( 'wp-smush-ajax' );
 
-		if ( ! is_user_logged_in() ) {
-			wp_send_json_error();
+		if ( ! Helper::is_user_allowed( 'manage_options' ) ) {
+			wp_send_json_error(
+				array(
+					'message' => esc_html__( "You don't have permission to do this.", 'wp-smushit' ),
+				)
+			);
 		}
 
 		// Delete S3 alert flag, if S3 option is disabled again.

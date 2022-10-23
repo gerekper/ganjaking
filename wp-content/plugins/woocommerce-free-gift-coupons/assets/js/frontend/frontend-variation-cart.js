@@ -6,7 +6,7 @@ jQuery( document ).ready( function( $ ){
 	 * @param {JQuery Object} $node
 	 * @return {bool} True if the DOM Element is UI Blocked, false if not.
 	 */
-	var is_blocked = function( $node ) {
+	let is_blocked = function( $node ) {
 		return $node.is( '.processing' ) || $node.parents( '.processing' ).length;
 	};
 
@@ -15,7 +15,7 @@ jQuery( document ).ready( function( $ ){
 	 *
 	 * @param {JQuery Object} $node
 	 */
-	var block = function( $node ) {
+	let block = function( $node ) {
 		if ( ! is_blocked( $node ) ) {
 			$node.addClass( 'processing' ).block( {
 				message: null,
@@ -32,7 +32,7 @@ jQuery( document ).ready( function( $ ){
 	 *
 	 * @param {JQuery Object} $node
 	 */
-	var unblock = function( $node ) {
+	let unblock = function( $node ) {
 		$node.removeClass( 'processing' ).unblock();
 	};
 
@@ -42,32 +42,32 @@ jQuery( document ).ready( function( $ ){
 	 * @param {JQuery Object} $form
 	 * @return object JSON/object
 	 */
-	var getFormData = function ( $form ) {
-		var form = new FormData( $form[0] );
+	let getFormData = function ( $form ) {
+		let form = new FormData( $form[0] );
 
 		// Remove add-to-cart property as it causes issues, re-adds the product to cart afresh.
 		form.delete( 'add-to-cart' );
 
 		return form;
-	}
+	};
 
 	/**
 	 * Hides options for preselected attributes.
 	 *
 	 * @param {array} data
 	 */
-	var hidePreSelectedAttributes = function ( data ) {
+	let hidePreSelectedAttributes = function ( data ) {
 		if ( undefined === data || ! Array.isArray( data ) ) {
 			return;
 		}
 
-		for ( attribute in data ) {
+		for ( let attribute in data ) {
 			$( 'select[name="' + data[attribute] + '"]' ).closest( 'tr' ).hide();
 		}
 
 		// Hide reset link.
 		$( '.variations_form.cart .reset_variations' ).hide();
-	}
+	};
 
 	/**
 	 * Is it a media query condition?
@@ -75,9 +75,9 @@ jQuery( document ).ready( function( $ ){
 	 * @param {string} mediaCondition
 	 * @return {bool} 
 	 */
-	var isMediaQuery = function ( mediaCondition ) {
+	let isMediaQuery = function ( mediaCondition ) {
 		return window.matchMedia( mediaCondition ).matches;
-	}
+	};
 
 	/**
 	 * Insert the new row where variations can be selected
@@ -88,12 +88,12 @@ jQuery( document ).ready( function( $ ){
 	 * @param {string} cart_item_key
 	 * @param {object} response 
 	 */
-	var renderVariationSelectionPanel = function ( $current_item_row, cart_item_key, response ) {
+	let renderVariationSelectionPanel = function ( $current_item_row, cart_item_key, response ) {
 
 		// Get the total of the columns of the row and col before product name.
-		var total                 = 0;
-		var colsBeforeProductName = 0;
-		var productNameWidth      = 0;
+		let total                 = 0;
+		let colsBeforeProductName = 0;
+		let productNameWidth      = 0;
 
 		// Loop through the child element.
 		$current_item_row.children().each( function( i, item ) {
@@ -109,9 +109,9 @@ jQuery( document ).ready( function( $ ){
 		});
 
 		// Make sure our response.data is on the product name column.
-		var dataColSpan = total - colsBeforeProductName;
+		let dataColSpan = total - colsBeforeProductName;
 
-		var template = wp.template( 'wc-fgc-edit' );
+		let template = wp.template( 'wc-fgc-edit' );
 
 		$current_item_row.after( 
 			template( {
@@ -125,7 +125,7 @@ jQuery( document ).ready( function( $ ){
 		// Set width of label td.
 		$( '#wc-fgc-new-row_' + cart_item_key + ' td.label' ).css( 'width', productNameWidth );
 
-	}
+	};
 
 	/**
 	 * Auto-open gift selection panel.
@@ -133,9 +133,9 @@ jQuery( document ).ready( function( $ ){
 	 * If an variation item is not selected, and its the
 	 * only one not selected, it auto opens it for the user.
 	 */
-	var autoOpenVariationSelectionDisplay = function() {
+	let autoOpenVariationSelectionDisplay = function() {
 		$( '.woocommerce-cart-form .wc-fgc-auto-open-edit' ).first().trigger( 'click' );
-	}
+	};
 
 	/**
 	 * Update cart thumbnail.
@@ -143,11 +143,11 @@ jQuery( document ).ready( function( $ ){
 	 * @param {node} $current_item_row The jQuery node for the current cart row.
 	 * @param {obj} The found variation.
 	 */
-	var updateCartThumbnail = function( $current_item_row, variation ) {
+	let updateCartThumbnail = function( $current_item_row, variation ) {
 
 		if ( variation && variation.image && variation.image.thumb_src && variation.image.thumb_src.length > 1 ) {
 
-			var $product_img = $current_item_row.find( '.product-thumbnail img' );
+			let $product_img = $current_item_row.find( '.product-thumbnail img' );
 
 			if ( $product_img.length ) {
 
@@ -167,15 +167,15 @@ jQuery( document ).ready( function( $ ){
 			resetCartThumbnail( $current_item_row );
 
 		}
-	}
+	};
 
 	/**
 	 * Reset cart thumbnail.
 	 *
 	 * @param {node} $current_item_row The jQuery node for the current cart row.
 	 */
-	var resetCartThumbnail = function( $current_item_row ) {
-		var $product_img = $current_item_row.find( '.product-thumbnail img' );
+	let resetCartThumbnail = function( $current_item_row ) {
+		let $product_img = $current_item_row.find( '.product-thumbnail img' );
 
 		if ( $product_img.length ) {
 
@@ -189,15 +189,15 @@ jQuery( document ).ready( function( $ ){
 			$product_img.wc_reset_variation_attr( 'alt' );
 
 		}
-	}
+	};
 
 	/**
 	 * Reset variations.
 	 */
 	 $( document ).on( 'reset_data', function( event ) {
 
-		var $form             = $(event.target);
-		var $current_item_row = $form.data( 'fgc_current_item_row' );
+		let $form             = $(event.target);
+		let $current_item_row = $form.data( 'fgc_current_item_row' );
 		
 		if ( 'undefined' !== typeof $current_item_row && $current_item_row.length ) {
 			$current_item_row.find( '.wc-fgc-stock-error' ).html( '' );
@@ -220,16 +220,16 @@ jQuery( document ).ready( function( $ ){
 	$( document ).on( 'click', '.wc-fgc-edit-in-cart', function( e ) {
 		e.preventDefault();
 
-		var $button       = $( this );
-		var cart_item_key = $( this ).data( 'cart_item_key' );
-		var $editRow      = $( 'tr#wc-fgc-new-row_' + cart_item_key );
+		let $button       = $( this );
+		let cart_item_key = $( this ).data( 'cart_item_key' );
+		let $editRow      = $( 'tr#wc-fgc-new-row_' + cart_item_key );
 
 		// If not a button found, then it's from the notice link.
 		if ( ! $button.is( ':button' ) ) {
 			$button = $( '.woocommerce-cart-form' ).find( '.wc-fgc-edit-in-cart[data-cart_item_key="' + cart_item_key + '"]' );
 		}
 
-		var $current_item_row = $button.closest( 'tr.wc-fgc-cart-item' );
+		let $current_item_row = $button.closest( 'tr.wc-fgc-cart-item' );
 
 		if ( 'undefined' === typeof $current_item_row || ! $current_item_row.length ) {
 			$current_item_row = $editRow.prevAll( 'tr.wc-fgc-cart-item:first' ); 
@@ -247,10 +247,10 @@ jQuery( document ).ready( function( $ ){
 			$editRow.fadeIn();
 
 			// Scroll to the section, cool UX 8-).
-			var $variationsForm = $( '#wc_fgc_' + cart_item_key + ' .variations_form' );
+			let $variationsForm = $( '#wc_fgc_' + cart_item_key + ' .variations_form' );
 
 			// If it's mobile, scroll to the summary section, else scroll to the cart-item.
-			$scrollTo = isMediaQuery( '(max-width:767.9px)' ) ? $variationsForm : $current_item_row;
+			let $scrollTo = isMediaQuery( '(max-width:767.9px)' ) ? $variationsForm : $current_item_row;
 
 			$( 'body,html' ).animate( {
 				scrollTop: ( $scrollTo.offset().top - 50 )
@@ -264,8 +264,8 @@ jQuery( document ).ready( function( $ ){
 
 		block( $( '.woocommerce-cart-form' ) );
 
-		var productID   = $( this ).data( 'product_id' );
-		var variationID = $( this ).data( 'variation_id' );
+		let productID   = $( this ).data( 'product_id' );
+		let variationID = $( this ).data( 'variation_id' );
 
 		$.ajax( {
 			url: wc_cart_params.wc_ajax_url.toString().replace( '%%endpoint%%', 'fgc_get_product' ),
@@ -287,19 +287,19 @@ jQuery( document ).ready( function( $ ){
 				}
 
 				// The inserted content.
-				var $cart_editor = $( '#wc_fgc_' + cart_item_key );
+				let $cart_editor = $( '#wc_fgc_' + cart_item_key );
 
 				// Initialize variable product scripts.
-				var $form = $cart_editor.find( '.variations_form' );
+				let $form = $cart_editor.find( '.variations_form' );
 
 				if ( $form ) {
 					$form.data( 'fgc_current_item_row', $current_item_row ).wc_variation_form();
 				}
 
 				// Dynamically update the aria label on the update button to give more context to screen readers.
-				var productTitle  = $cart_editor.data( 'product_title' );
-				var addToCartText = $cart_editor.data( 'single_add_to_cart_text' );
-				var ariaLabel     = wc_fgc_var_cart_params.i18_update_button_label.replace( '%button_text%', addToCartText ).replace( '%product_title%', productTitle );
+				let productTitle  = $cart_editor.data( 'product_title' );
+				let addToCartText = $cart_editor.data( 'single_add_to_cart_text' );
+				let ariaLabel     = wc_fgc_var_cart_params.i18_update_button_label.replace( '%button_text%', addToCartText ).replace( '%product_title%', productTitle );
 
 				// Stash the cart item key on the add to cart button for later retrieval.
 				$form.find( '.single_add_to_cart_button' ).data( 'cart_item_key', cart_item_key ).attr( 'aria-label', ariaLabel );
@@ -311,10 +311,10 @@ jQuery( document ).ready( function( $ ){
 				hidePreSelectedAttributes( $button.data( 'pre_selected_attributes' ) );
 
 				// Scroll to the section, cool UX 8-).
-				var $variationsForm = $( '#wc_fgc_' + cart_item_key + ' .variations_form' );
+				let $variationsForm = $( '#wc_fgc_' + cart_item_key + ' .variations_form' );
 
 				// If it's mobile, scroll to the summary section, else scroll to the cart-item.
-				$scrollTo = isMediaQuery( '(max-width:767.9px)' ) ? $variationsForm : $current_item_row;
+				let $scrollTo = isMediaQuery( '(max-width:767.9px)' ) ? $variationsForm : $current_item_row;
 
 				$( 'body,html' ).animate( {
 					scrollTop: ( $scrollTo.offset().top - 50 )
@@ -325,16 +325,16 @@ jQuery( document ).ready( function( $ ){
 
 			} else {
 				// Incase no data is returned, show our default error.
-				var msg = ( undefined === response.data ? wc_fgc_var_cart_params.i18n_server_error : response.data );
+				let msg = ( undefined === response.data ? wc_fgc_var_cart_params.i18n_server_error : response.data );
 				window.alert( msg );
 			}
 
 		} )
-		.fail( function( response ) {
+		.fail( function() {
 			window.alert( wc_fgc_var_cart_params.i18n_server_error );
 			$button.fadeIn();
 		} )
-		.always( function( response ) {
+		.always( function() {
 			unblock( $( '.woocommerce-cart-form' ) );
 		} );
 
@@ -346,8 +346,8 @@ jQuery( document ).ready( function( $ ){
 	 */
 	 $( document ).on( 'found_variation', function( event, variation ) {
 
-		var $form             = $(event.target);
-		var $current_item_row = $form.data( 'fgc_current_item_row' );
+		let $form             = $(event.target);
+		let $current_item_row = $form.data( 'fgc_current_item_row' );
 		
 		if ( 'undefined' !== typeof $current_item_row && $current_item_row.length ) {
 			updateCartThumbnail( $current_item_row, variation );
@@ -359,8 +359,8 @@ jQuery( document ).ready( function( $ ){
 	 * Reset variations.
 	 */
 	 $( document ).on( 'reset_data', function( e ) {
-		var $form             = $(e.target);
-		var $current_item_row = $form.data( 'fgc_current_item_row' );
+		let $form             = $(e.target);
+		let $current_item_row = $form.data( 'fgc_current_item_row' );
 		
 		if ( 'undefined' !== typeof $current_item_row && $current_item_row.length ) {
 			$current_item_row.find( '.wc-fgc-stock-error' ).html( '' );
@@ -383,21 +383,21 @@ jQuery( document ).ready( function( $ ){
 
 		block( $( '.wc-fgc-new-row' ) );
 
-		var $id   = $( this ).closest( '.wc_fgc_cart' ).attr( 'id' );
-		var $form = $( '#' + $id + ' form' );
+		let $id   = $( this ).closest( '.wc_fgc_cart' ).attr( 'id' );
+		let $form = $( '#' + $id + ' form' );
 
 		// Gather data.
-		var cart_item_key = $( this ).data( 'cart_item_key' );
-		var variation     = {};
+		let cart_item_key = $( this ).data( 'cart_item_key' );
+		let variation     = {};
 
 		// Set data.
-		var payload = getFormData( $form );
+		let payload = getFormData( $form );
 		payload.append( 'cart_item_key', cart_item_key );
 
 		// Get variation data.
 		$( '#' + $id ).find( 'select[name^=attribute]' ).each( function() {
-			var attrName        = $( this ).attr( 'name' );
-			var attrValue       = $( this ).val();
+			let attrName        = $( this ).attr( 'name' );
+			let attrValue       = $( this ).val();
 			variation[attrName] = attrValue;
 
 			// Load to form data.
@@ -417,7 +417,7 @@ jQuery( document ).ready( function( $ ){
 
 			if ( response.success ) {
 				// Update WooCommerce Cart.
-				var $wcCart = $( '.woocommerce-cart-form [name="update_cart"]' );
+				let $wcCart = $( '.woocommerce-cart-form [name="update_cart"]' );
 				$wcCart.prop( 'disabled', false ).trigger( 'click' );
 			} else {
 				$( '.wc-fgc-stock-error' ).html( response.data );
@@ -429,10 +429,10 @@ jQuery( document ).ready( function( $ ){
 			}
 
 		} )
-		.fail( function( response ) {
+		.fail( function() {
 			window.alert( wc_fgc_var_cart_params.i18n_variation_update_error );
 		} )
-		.always( function( response ) {
+		.always( function() {
 			unblock( $( '.wc-fgc-new-row' ) );
 		} );
 
@@ -442,18 +442,18 @@ jQuery( document ).ready( function( $ ){
 		e.preventDefault();
 
 		// Display warning if still disabled.
-		var variationID = $(this).data( 'variation_id' );
+		let variationID = $(this).data( 'variation_id' );
 
 		if ( ! variationID && $( this ).closest( '.wc_fgc_cart' ).find( '.single_add_to_cart_button' ).is( '.disabled' ) ) {
 			window.alert( wc_add_to_cart_variation_params.i18n_make_a_selection_text );
 		}
 
-		var $cartContainer = $( this ).closest( '.wc-fgc-new-row' );
-		var cartItemIdAttr = $cartContainer.attr( 'id' );
-		var cartItemId     = cartItemIdAttr.split( '_' )[1];
+		let $cartContainer = $( this ).closest( '.wc-fgc-new-row' );
+		let cartItemIdAttr = $cartContainer.attr( 'id' );
+		let cartItemId     = cartItemIdAttr.split( '_' )[1];
 		
 		$cartContainer.fadeOut( function() {
-			$updateBtn = $( '.wc-fgc-edit-in-cart[data-cart_item_key=' + cartItemId + ']' );
+			let $updateBtn = $( '.wc-fgc-edit-in-cart[data-cart_item_key=' + cartItemId + ']' );
 			$updateBtn.show();
 		});
 		

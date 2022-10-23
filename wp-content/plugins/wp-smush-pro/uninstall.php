@@ -45,7 +45,7 @@ $smushit_keys = array(
 	'wp-smush-last_run_sync',
 	'wp-smush-networkwide',
 	'wp-smush-cron_update_running',
-	'wp-smush-hide-conflict-notice',
+	'wp-smush-dismissed-notices',
 	'wp-smush-show_upgrade_modal',
 	'wp-smush-preset_configs',
 	'wp-smush-webp_hide_wizard',

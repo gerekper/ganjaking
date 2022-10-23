@@ -16,6 +16,8 @@ import domReady from '@wordpress/dom-ready';
  */
 import { TutorialsList, TutorialsSlider } from '@wpmudev/shared-tutorials';
 
+import MixPanel from "./mixpanel"
+
 function hideTutorials() {
 	const xhr = new XMLHttpRequest();
 
@@ -74,3 +76,21 @@ domReady( function() {
 		);
 	}
 } );
+
+jQuery(function ($) {
+	$(document).on('click', '#smush-box-tutorials li > [role="link"], #smush-dash-tutorials li > [role="link"]', function () {
+		const $tutorial = $(this);
+		const isDashPage = !!$tutorial.closest('#smush-dash-tutorials').length;
+		const decodeHtml = (html) => {
+			const txt = document.createElement("textarea");
+			txt.innerHTML = html;
+			return txt.value;
+		};
+		const title = decodeHtml($tutorial.attr('title'));
+
+		(new MixPanel()).track('Tutorial Opened', {
+			'Tutorial Name': title,
+			'Triggered From': isDashPage ? 'Dashboard' : 'Tutorials Tab'
+		});
+	});
+});

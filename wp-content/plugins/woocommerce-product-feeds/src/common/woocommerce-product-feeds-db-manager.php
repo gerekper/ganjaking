@@ -351,4 +351,13 @@ class WoocommerceProductFeedsDbManager {
 			);
 		}
 	}
+
+	/**
+	 * Invalidate schema cache so schema changes get picked up.
+	 *
+	 * @return void
+	 */
+	public function upgrade_db_to_16() {
+		update_option( 'woocommerce_gpf_schema_min_timestamp_validity', time() );
+	}
 }

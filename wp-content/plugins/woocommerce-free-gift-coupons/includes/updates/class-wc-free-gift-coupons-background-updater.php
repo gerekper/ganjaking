@@ -102,6 +102,39 @@ class WC_Free_Gift_Coupons_Background_Updater extends WP_Background_Process {
 	public function is_update_queued() {
 		return ! empty( $this->data ) || false === $this->is_queue_empty();
 	}
+
+	/**
+	 * Is the updater actually running?
+	 *
+	 * @return boolean
+	 */
+	public function is_process_running() { // phpcs:ignore Generic.CodeAnalysis.UselessOverridingMethod
+		return parent::is_process_running();
+	}
+
+	/**
+	 * Time exceeded.
+	 *
+	 * Ensures the batch never exceeds a sensible time limit.
+	 * A timeout limit of 30s is common on shared hosting.
+	 *
+	 * @return bool
+	 */
+	public function time_exceeded() { // phpcs:ignore Generic.CodeAnalysis.UselessOverridingMethod
+		return parent::time_exceeded();
+	}
+
+	/**
+	 * Memory exceeded.
+	 *
+	 * Ensures the batch process never exceeds 90%
+	 * of the maximum WordPress memory.
+	 *
+	 * @return bool
+	 */
+	public function memory_exceeded() { // phpcs:ignore Generic.CodeAnalysis.UselessOverridingMethod
+		return parent::memory_exceeded();
+	}
 	
 	/**
 	 * Runs update tasks and creates log entries.

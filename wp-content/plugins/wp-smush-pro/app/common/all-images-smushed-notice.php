@@ -16,7 +16,7 @@ if ( ! defined( 'WPINC' ) ) {
 <div class="sui-notice sui-notice-success wp-smush-all-done<?php echo $all_done ? '' : ' sui-hidden'; ?>">
 	<div class="sui-notice-content">
 		<div class="sui-notice-message">
-			<i class="sui-notice-icon sui-icon-info sui-md" aria-hidden="true"></i>
+			<i class="sui-notice-icon sui-icon-check-tick sui-md" aria-hidden="true"></i>
 			<p><?php esc_html_e( 'All attachments have been smushed. Awesome!', 'wp-smushit' ); ?></p>
 		</div>
 	</div>

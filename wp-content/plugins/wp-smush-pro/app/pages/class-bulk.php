@@ -30,8 +30,6 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 
 		// If a free user, update the limits.
 		if ( ! WP_Smush::is_pro() ) {
-			// Reset transient.
-			Core::check_bulk_limit( true );
 			add_action( 'smush_setting_column_tag', array( $this, 'add_lossy_new_tag' ) );
 		}
 
@@ -41,6 +39,7 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 		add_action( 'smush_setting_column_right_additional', array( $this, 'resize_settings' ), 20 );
 		add_action( 'smush_setting_column_right_outside', array( $this, 'full_size_options' ), 20, 2 );
 		add_action( 'smush_setting_column_right_outside', array( $this, 'scale_options' ), 20, 2 );
+		add_action( 'wp_smush_render_setting_row', array( $this, 'set_background_email_setting_visibility' ) );
 	}
 
 	/**
@@ -61,6 +60,24 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 					'box_class' => 'sui-box bulk-smush-wrapper',
 				)
 			);
+
+			// Bulk Smush unlimited ~ WPMUDEV Free upsell.
+			$show_bulk_unlimited_box = ! WP_Smush::is_pro() && ! WP_Smush::get_instance()->admin()->is_notice_dismissed( 'bulk-unlimited' );
+			if ( $show_bulk_unlimited_box ) {
+				$this->add_meta_box(
+					'bulk-unlimited',
+					'',
+					array( $this, 'bulk_smush_unlimited_metabox' ),
+					null,
+					null,
+					'main',
+					array(
+						'box_class' => 'sui-box bulk-smush-unlimited sui-hidden',
+					)
+				);
+				// Load modal.
+				$this->modals['wpmudev-free'] = array();
+			}
 		}
 
 		$class = WP_Smush::is_pro() ? 'wp-smush-pro' : '';
@@ -187,7 +204,7 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 	public function settings_desc( $setting_key = '' ) {
 		if ( empty( $setting_key ) || ! in_array(
 			$setting_key,
-			array( 'resize', 'original', 'strip_exif', 'png_to_jpg' ),
+			array( 'resize', 'original', 'strip_exif', 'png_to_jpg', 'background_email' ),
 			true
 		) ) {
 			return;
@@ -240,6 +257,12 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 						'wp-smushit'
 					);
 					break;
+				case 'background_email':
+					$bg_optimization = WP_Smush::get_instance()->core()->mod->bg_optimization;
+					$bg_email_desc   = sprintf( __( 'You will receive an email at <strong>%s</strong> when the bulk smush has completed.', 'wp-smushit' ), $bg_optimization->get_mail_recipient() );
+					echo wp_kses_post( $bg_email_desc );
+					break;
+
 				default:
 					break;
 			}
@@ -488,7 +511,7 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 	public function bulk_smush_metabox() {
 		$core = WP_Smush::get_instance()->core();
 
-		$total_images_to_smush = $this->get_total_images_to_smush();
+		$total_images_to_smush = $core->remaining_count();
 
 		// This is the same calculation used for $core->remaining_count,
 		// except that we don't add the re-smushed count here.
@@ -500,21 +523,39 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 				'checkout'     => 0,
 				'utm_source'   => 'smush',
 				'utm_medium'   => 'plugin',
-				'utm_campaign' => Core::$max_free_bulk < $total_images_to_smush ? 'smush_bulksmush_morethan50images_tryproforfree' : 'smush_bulksmush_lessthan50images_tryproforfree',
+				'utm_campaign' => 'smush_bulksmush_cdn',
 			),
 			$this->upgrade_url
 		);
 
+		$bg_optimization               = WP_Smush::get_instance()->core()->mod->bg_optimization;
+		$background_processing_enabled = $bg_optimization->should_use_background();
+		$background_in_processing      = $background_processing_enabled && $bg_optimization->is_in_processing();
+
 		$this->view(
 			'bulk/meta-box',
 			array(
-				'core'                  => $core,
-				'is_pro'                => WP_Smush::is_pro(),
-				'unsmushed_count'       => $unsmushed_count > 0 ? $unsmushed_count : 0,
-				'resmush_count'         => count( get_option( 'wp-smush-resmush-list', array() ) ),
-				'total_images_to_smush' => $total_images_to_smush,
-				'bulk_upgrade_url'      => $bulk_upgrade_url,
+				'core'                            => $core,
+				'is_pro'                          => WP_Smush::is_pro(),
+				'unsmushed_count'                 => $unsmushed_count > 0 ? $unsmushed_count : 0,
+				'resmush_count'                   => count( get_option( 'wp-smush-resmush-list', array() ) ),
+				'total_images_to_smush'           => $total_images_to_smush,
+				'bulk_upgrade_url'                => $bulk_upgrade_url,
+				'background_processing_enabled'   => $background_processing_enabled,
+				'background_in_processing'        => $background_in_processing,
+				'background_in_processing_notice' => $bg_optimization->get_in_process_notice(),
 			)
+		);
+	}
+
+	/**
+	 * Bulk smush unlimited meta box.
+	 *
+	 * @since 3.12.0
+	 */
+	public function bulk_smush_unlimited_metabox() {
+		$this->view(
+			'bulk/unlimited/meta-box'
 		);
 	}
 
@@ -569,4 +610,22 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 		<?php
 	}
 
+	function set_background_email_setting_visibility( $name ) {
+		if ( $name !== 'background_email' ) {
+			return;
+		}
+
+		$bg_optimization       = WP_Smush::get_instance()->core()->mod->bg_optimization;
+		$is_background_enabled = $bg_optimization->should_use_background();
+
+		if ( ! $is_background_enabled ) {
+			?>
+			<style>
+				.background_email-settings-row {
+					display: none !important;
+				}
+			</style>
+			<?php
+		}
+	}
 }

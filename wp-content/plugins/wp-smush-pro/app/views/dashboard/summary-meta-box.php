@@ -58,16 +58,14 @@ if ( ! defined( 'WPINC' ) ) {
 					<?php esc_html_e( 'Images Smushed', 'wp-smushit' ); ?>
 				</span>
 			</span>
-			<?php if ( $resize_count > 0 ) : ?>
-				<span class="wp-smush-count-resize-total">
-					<span class="sui-summary-detail wp-smush-total-optimised">
-						<?php echo esc_html( $resize_count ); ?>
-					</span>
-					<span class="sui-summary-sub">
-						<?php esc_html_e( 'Images Resized', 'wp-smushit' ); ?>
-					</span>
+			<span class="wp-smush-count-resize-total <?php echo $resize_count > 0 ? '' : 'sui-hidden'; ?>">
+				<span class="sui-summary-detail wp-smush-total-optimised">
+					<?php echo esc_html( $resize_count ); ?>
 				</span>
-			<?php endif; ?>
+				<span class="sui-summary-sub">
+					<?php esc_html_e( 'Images Resized', 'wp-smushit' ); ?>
+				</span>
+			</span>
 		</span>
 	</div>
 </div>

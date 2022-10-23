@@ -59,11 +59,21 @@ class Helper {
 	 */
 	public static function logger() {
 		if ( null === self::$logger ) {
+			$swiched_blog = false;
+			// On MU site, move all log files into the log folder [wp-content/uploads/smush] on the main site.
+			if ( is_multisite() && ! is_main_site() ) {
+				switch_to_blog( get_main_site_id() );
+				$swiched_blog = true;
+			}
 			$upload_dir = wp_get_upload_dir();
 
 			$log_dir = 'smush';
 			if ( false !== strpos( $upload_dir['basedir'], WP_CONTENT_DIR ) ) {
 				$log_dir = str_replace( trailingslashit( WP_CONTENT_DIR ), '', $upload_dir['basedir'] ) . '/smush';
+			}
+
+			if ( $swiched_blog ) {
+				restore_current_blog();
 			}
 
 			self::$logger = WDEV_Logger::create(
@@ -442,8 +452,9 @@ class Helper {
 			 * Support old version.
 			 *
 			 * @since 3.9.10
+			 * @since 3.12.0 Flag as a failed item with animated error keycode.
 			 */
-			update_post_meta( $id, 'wp-smush-ignore-bulk', Core::STATUS_ANIMATED );
+			Error_Handler::set_flag_failed_item( $id, 'animated' );
 			// Clean the old metadata.
 			delete_post_meta( $id, 'wp-smush-animated' );
 			return true;
@@ -454,6 +465,12 @@ class Helper {
 		if ( $enabled_backup && '0' === $is_animated ) {
 			// If it's not an animated image, returns.
 			return false;
+		}
+
+		// Check animated status from error meta value.
+		$is_animated = Error_Handler::is_animated_file( $id );
+		if ( $is_animated ) {
+			return true;
 		}
 
 		$filecontents = file_get_contents( $file_path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
@@ -480,21 +497,38 @@ class Helper {
 			}
 		}
 
-		$is_animated = 0;
-		if ( $count > 1 ) {
-			$is_animated = 1;
-			/**
-			 * Set it as an ignored image to exclude from unsmushed list.
-			 *
-			 * @since 3.9.10
-			 */
-			update_post_meta( $id, 'wp-smush-ignore-bulk', Core::STATUS_ANIMATED );
-		} elseif ( $enabled_backup ) {
-			// Cache the result if user enabled the backup mode.
+		$is_animated = $count > 1;
+		if ( ! $is_animated && $enabled_backup ) {
+			// Cache non-animated status if user enabled the backup mode. We cached animated status via Failed_Processing.
 			update_post_meta( $id, 'wp-smush-animated', $is_animated );
 		}
 
 		return $is_animated;
+	}
+
+	/**
+	 * Verify the file size limit.
+	 *
+	 * @param int $attachment_id Attachment ID.
+	 *
+	 * Note: We only use this method to verify an image before smushing it,
+	 * we still need to verify the file size of every thumbnail files while smushing them.
+	 *
+	 * @return bool|int Return the file size if the size limit is exceeded, otherwise return FALSE.
+	 */
+	public static function size_limit_exceeded( $attachment_id ) {
+		$original_file_path = self::get_attached_file( $attachment_id, 'original' );
+		if ( ! file_exists( $original_file_path ) ) {
+			$original_file_path = self::get_attached_file( $attachment_id );
+		}
+
+		if ( ! file_exists( $original_file_path ) ) {
+			return false;
+		}
+		$max_file_size = WP_Smush::is_pro() ? WP_SMUSH_PREMIUM_MAX_BYTES : WP_SMUSH_MAX_BYTES;
+		$file_size     = filesize( $original_file_path );
+
+		return $file_size > $max_file_size ? $file_size : false;
 	}
 
 	/**
@@ -555,6 +589,21 @@ class Helper {
 	}
 
 	/**
+	 * Get Smush page URL.
+	 *
+	 * @param string $page Page URL.
+	 *
+	 * @return string
+	 */
+	public static function get_page_url( $page = 'smush-bulk' ) {
+		if ( is_multisite() && is_network_admin() ) {
+			return network_admin_url( 'admin.php?page=' . $page );
+		}
+
+		return admin_url( 'admin.php?page=' . $page );
+	}
+
+	/**
 	 * Get the extension of a file.
 	 *
 	 * @param string $file File path or file name.
@@ -592,6 +641,21 @@ class Helper {
 			}
 		}
 		return $is_not_rest_media;
+	}
+
+	/**
+	 * Checks if user is allowed to perform the ajax actions.
+	 * As previous we allowed for logged in user, so add a hook filter to allow
+	 * user can custom the capability. It might also helpful when user custom admin menu via Branda.
+	 *
+	 * @since 3.13.0
+	 *
+	 * @param string $capability Capability default is manage_options.
+	 * @return boolean
+	 */
+	public static function is_user_allowed( $capability = 'manage_options' ) {
+		$capability = empty( $capability ) ? 'manage_options' : $capability;
+		return current_user_can( apply_filters( 'wp_smush_admin_cap', $capability ) );
 	}
 
 	/*------ S3 Compatible Methods ------*/

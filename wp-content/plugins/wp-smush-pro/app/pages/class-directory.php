@@ -47,21 +47,7 @@ class Directory extends Abstract_Summary_Page implements Interface_Page {
 	 * Directory Smush meta box.
 	 */
 	public function directory_smush_meta_box() {
-		// Reset the bulk limit transient.
-		if ( ! WP_Smush::is_pro() ) {
-			Core::check_bulk_limit( true, 'dir_sent_count' );
-		}
-
 		$core = WP_Smush::get_instance()->core();
-
-		$upgrade_url = add_query_arg(
-			array(
-				'utm_source'   => 'smush',
-				'utm_medium'   => 'plugin',
-				'utm_campaign' => 'smush_directorysmush_limit_notice',
-			),
-			$this->upgrade_url
-		);
 
 		$errors = 0;
 		$images = array();
@@ -77,7 +63,6 @@ class Directory extends Abstract_Summary_Page implements Interface_Page {
 			array(
 				'errors'      => $errors,
 				'images'      => $images,
-				'upgrade_url' => $upgrade_url,
 			)
 		);
 	}

@@ -8,6 +8,7 @@
  */
 
 import Smush from '../smush/smush';
+import Fetcher from '../utils/fetcher';
 
 ( function( $ ) {
 	'use strict';
@@ -27,6 +28,7 @@ import Smush from '../smush/smush';
 
 				// Remove limit exceeded styles.
 				const progress = $( '.wp-smush-bulk-progress-bar-wrapper' );
+				// TODO: we don't have wp-smush-exceed-limit remove the following line and test
 				progress.removeClass( 'wp-smush-exceed-limit' );
 				progress
 					.find( '.sui-progress-block .wp-smush-all' )
@@ -58,6 +60,12 @@ import Smush from '../smush/smush';
 
 				$( '.wp-smush-remaining' ).addClass( 'sui-hidden' );
 
+				// Show upsell cdn.
+				const upsell_cdn = $('.wp-smush-upsell-cdn');
+				if ( upsell_cdn.length ) {
+					upsell_cdn.show();
+				}
+
 				// Show loader.
 				progress
 					.find( '.sui-progress-block i.sui-icon-info' )
@@ -87,11 +95,43 @@ import Smush from '../smush/smush';
 					_ajax_nonce: wp_smush_msgs.nonce,
 				} ).done( ( response ) => {
 					if ( self.is( 'a' ) && response.success && 'undefined' !== typeof response.data.links ) {
-						self.parent().parent().find( '.smush-status' ).text( wp_smush_msgs.ignored );
-						e.target.closest( '.smush-status-links' ).innerHTML = response.data.links;
+						if ( e.target.closest( '.smush-status-links' ) ) {
+							const smushStatus = self.parent().parent().find( '.smush-status' );
+							smushStatus.text( wp_smush_msgs.ignored );
+							smushStatus.addClass('smush-ignored');
+							e.target.closest( '.smush-status-links' ).innerHTML = response.data.links;
+						} else if (e.target.closest( '.smush-bulk-error-row' ) ){
+							self.addClass('disabled');
+							e.target.closest( '.smush-bulk-error-row' ).style.opacity = 0.5;
+						}
 					}
 				} );
 			} );
+
+			/**
+			 * Ignore file from bulk Smush.
+			 *
+			 * @since 3.12.0
+			 */
+			 const ignoreAll = document.querySelector('.wp_smush_ignore_all_failed_items');
+			 if ( ignoreAll ) {
+				 ignoreAll.onclick = (e) => {
+					 e.preventDefault();
+					 e.target.setAttribute('disabled','');
+					 e.target.style.cursor = 'progress';
+					 const type = e.target.dataset.type || null;
+					 e.target.classList.remove('sui-tooltip');
+					 Fetcher.smush.ignoreAll(type).then((res) => {
+						 if ( res.success ) {
+							 window.location.reload();
+						 } else {
+							 e.target.style.cursor = 'pointer';
+							 e.target.removeAttribute('disabled');
+							 WP_Smush.helpers.showNotice( res );
+						 }
+					 });
+				 }
+			 }
 		},
 	};
 

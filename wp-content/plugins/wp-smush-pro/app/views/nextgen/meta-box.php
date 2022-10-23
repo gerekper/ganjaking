@@ -11,8 +11,6 @@
  * @var string $url                   Media library URL.
  */
 
-use Smush\Core\Integrations\Nextgen\Admin;
-
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
@@ -49,7 +47,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 <?php $this->view( 'all-images-smushed-notice', array( 'all_done' => empty( $total_images_to_smush ) ), 'common' ); ?>
 
-<?php $this->view( 'progress-bar', array( 'count' => ( $ng->remaining_count + $resmush_count ) ), 'common' ); ?>
+<?php $this->view( 'progress-bar', array( 'count' => ( $ng->remaining_count + $resmush_count ) ), 'views/nextgen' ); ?>
 
 <div class="smush-final-log sui-hidden">
 	<div class="smush-bulk-errors"></div>

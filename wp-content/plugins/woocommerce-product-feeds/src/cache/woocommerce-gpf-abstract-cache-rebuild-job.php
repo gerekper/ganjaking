@@ -120,6 +120,11 @@ abstract class WoocommerceGpfAbstractCacheRebuildJob {
 				}
 			);
 		}
+
+		// Disable query monitor.
+		// phpcs:disable WordPress.NamingConventions.ValidHookName.UseUnderscores
+		do_action( 'qm/cease' );
+		// phpcs:enable
 	}
 
 	/**

@@ -2,7 +2,7 @@
 /**
  * WPMU DEV Logger - A simple logger module
  *
- * @version 1.0.0
+ * @version 1.0.2
  * @author WPMU DEV (Thobk)
  * @package WDEV_Logger
  *
@@ -166,6 +166,7 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 		 *  'use_native_filesystem_api'    => true,
 		 *  'max_log_size'                 => 10,
 		 *  'expected_log_size_in_percent' => 0.7,
+		 *  'is_private'                   => false,
 		 *  'log_dir'                      => 'wpmudev',
 		 *  'add_subsite_dir'              => true,
 		 *  'modules'                      => array(),
@@ -197,17 +198,6 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 		 */
 		public static function create( $option, $option_key = null ) {
 			return new self( $option, $option_key );
-		}
-
-		/**
-		 * Return the plugin instance from the option.
-		 *
-		 * @param string|null $option_key Option key name.
-		 *
-		 * @return WDEV_Logger
-		 */
-		public static function create_from_option( $option_key = null ) {
-			return self::create( array(), $option_key );
 		}
 
 		/**
@@ -272,6 +262,19 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 				return;
 			}
 
+			return $this->write_log_file( $this->format_message( $message, $type ) );
+		}
+
+		/**
+		 * Format the message to be logged.
+		 *
+		 * @since 1.0.2
+		 *
+		 * @param string $message Message to be logged.
+		 * @param string $type    Message type.
+		 * @return string
+		 */
+		private function format_message( $message, $type ) {
 			if ( ! is_string( $message ) ) {
 				if ( ! is_scalar( $message ) ) {
 					$message = PHP_EOL . print_r( $message, true );
@@ -298,8 +301,7 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 				);
 				$message .= PHP_EOL .'['. date('c') .'] Stack trace: '. PHP_EOL . print_r( $backtrace, true );//phpcs:ignore
 			}
-
-			return $this->write_log_file( $message );
+			return $message;
 		}
 
 		/**
@@ -350,7 +352,7 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 		 */
 		public function get_download_link( $module = null ) {
 			// set current module.
-			$this->register_module( $module );
+			$this->switch_module( $module );
 
 			return wp_nonce_url(
 				add_query_arg(
@@ -372,29 +374,36 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 		 * Accepts module name (slug) and action. So far only 'download' and 'delete' actions is supported.
 		 */
 		public function process_actions() {
-			// phpcs:ignore
-			if ( isset( $_REQUEST['log_action'], $_REQUEST['log_module'], $_REQUEST[ self::NONCE_NAME ] ) && wp_verify_nonce( $_REQUEST[ self::NONCE_NAME ], $this->get_log_action_name() ) ) { // Input var ok.
-				$action = sanitize_text_field( wp_unslash( $_REQUEST['log_action'] ) );   // Input var ok.
-				$module = sanitize_text_field( wp_unslash( $_REQUEST['log_module'] ) ); // Input var ok.
-
-				// Not called by a registered module.
-				if ( ! isset( $this->modules[ $module ] ) ) {
-					/* translators: %s Method name */
-					wp_send_json_error( sprintf( __( 'Module %s does not exist.', 'wpmudev' ), $module ) );
-				}
-
-				// Only allow these actions.
-				if ( in_array( $action, array( 'download', 'delete' ), true ) && method_exists( $this, $action ) ) {
-					$should_return = isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'];
-					$result        = call_user_func( array( $this, $action ), $module, $should_return );
-					if ( $should_return ) {
-						wp_send_json_success( $result );
-					}
-					exit;
-				}
-				/* translators: %s Method name */
-				wp_send_json_error( sprintf( __( 'Method %s does not exist.', 'wpmudev' ), $action ) );
+			// phpcs:disable WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			if (
+				! isset( $_REQUEST['log_action'], $_REQUEST['log_module'], $_REQUEST[ self::NONCE_NAME ] ) ||
+				! wp_verify_nonce( wp_unslash( $_REQUEST[ self::NONCE_NAME ] ), $this->get_log_action_name() )
+			) {
+				// Invalid action, return.
+				return;
 			}
+			// phpcs:enable
+
+			$action = sanitize_text_field( wp_unslash( $_REQUEST['log_action'] ) );   // Input var ok.
+			$module = sanitize_text_field( wp_unslash( $_REQUEST['log_module'] ) ); // Input var ok.
+
+			// Not called by a registered module.
+			if ( ! isset( $this->modules[ $module ] ) ) {
+				/* translators: %s Method name */
+				wp_send_json_error( sprintf( __( 'Module %s does not exist.', 'wpmudev' ), $module ) );
+			}
+
+			// Only allow these actions.
+			if ( in_array( $action, array( 'download', 'delete' ), true ) && method_exists( $this, $action ) ) {
+				$should_return = isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'];
+				$result        = call_user_func( array( $this, $action ), $module, $should_return );
+				if ( $should_return ) {
+					wp_send_json_success( $result );
+				}
+				exit;
+			}
+			/* translators: %s Method name */
+			wp_send_json_error( sprintf( __( 'Method %s does not exist.', 'wpmudev' ), $action ) );
 		}
 
 		/**
@@ -405,17 +414,17 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 		 * @return bool True on success or false on failure.
 		 */
 		public function delete( $module = null ) {
-			if ( $this->connect_fs() ) {
-				global $wp_filesystem;
-				// Set current module.
-				$this->register_module( $module );
-				if ( ! $wp_filesystem->exists( $this->get_file() ) ) {
-					return true;
-				}
-				return $wp_filesystem->delete( $this->get_file(), false, 'f' );
+			if ( ! $this->connect_fs() ) {
+				return false;
 			}
 
-			return false;
+			global $wp_filesystem;
+			// Set current module.
+			$this->switch_module( $module );
+			if ( ! $wp_filesystem->exists( $this->get_file() ) ) {
+				return true;
+			}
+			return $wp_filesystem->delete( $this->get_file(), false, 'f' );
 		}
 
 		/**
@@ -454,12 +463,11 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 		 * That's useful to use it while uninstalling plugin.
 		 */
 		public function cleanup() {
-			if ( $this->connect_fs() ) {
-				if ( ! empty( $this->modules ) ) {
-					foreach ( $this->modules as $module => $module_option ) {
-						$this->delete( $module );
-					}
-				}
+			if ( empty( $this->modules ) || ! $this->connect_fs() ) {
+				return;
+			}
+			foreach ( $this->modules as $module => $module_option ) {
+				$this->delete( $module );
 			}
 		}
 
@@ -553,34 +561,35 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 		 * @param bool   $return  Download file or return the content.
 		 */
 		private function download( $module = null, $return = false ) {
-			if ( $this->connect_fs() ) {
-				global $wp_filesystem;
-
-				// Set current module.
-				$this->register_module( $module );
-
-				$content = $wp_filesystem->get_contents( $this->get_file() );
-
-				if ( $content && $this->get_module_option( 'is_private' ) ) {
-					$content = ltrim( $content, '<?php die(); ?>' );
-				}
-
-				if ( $return ) {
-					return $content;
-				}
-
-				header( 'Content-Description: WPMUDEV log download' );
-				header( 'Content-Type: text/plain' );
-				header( "Content-Disposition: attachment; filename={$this->current_module}.log" );
-				header( 'Content-Transfer-Encoding: binary' );
-				header( 'Content-Length: ' . strlen( $content ) );
-				header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
-				header( 'Expires: 0' );
-				header( 'Pragma: public' );
-
-				echo $content;//phpcs:ignore
-				exit;
+			if ( ! $this->connect_fs() ) {
+				return;
 			}
+			global $wp_filesystem;
+
+			// Set current module.
+			$this->switch_module( $module );
+
+			$content = $wp_filesystem->get_contents( $this->get_file() );
+
+			if ( $content && $this->get_module_option( 'is_private' ) ) {
+				$content = ltrim( $content, '<?php die(); ?>' );
+			}
+
+			if ( $return ) {
+				return $content;
+			}
+
+			header( 'Content-Description: WPMUDEV log download' );
+			header( 'Content-Type: text/plain' );
+			header( "Content-Disposition: attachment; filename={$this->current_module}.log" );
+			header( 'Content-Transfer-Encoding: binary' );
+			header( 'Content-Length: ' . strlen( $content ) );
+			header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
+			header( 'Expires: 0' );
+			header( 'Pragma: public' );
+
+			echo $content;//phpcs:ignore
+			exit;
 		}
 
 		/**
@@ -615,6 +624,47 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 		}
 
 		/**
+		 * Sanitize module slug.
+		 *
+		 * @since 1.0.2
+		 *
+		 * @param string $module_slug Module name/slug.
+		 * @return string
+		 */
+		private function sanitize_module_slug( $module_slug ) {
+			return str_replace( '-', '_', sanitize_key( $module_slug ) );
+		}
+
+		/**
+		 * Parse module option.
+		 *
+		 * @since 1.0.2
+		 *
+		 * @param string $module_slug   Sanitized module slug.
+		 * @param array  $module_option Module option.
+		 * @return array Sanitized module option.
+		 */
+		private function parse_module_option( $module_slug, $module_option ) {
+			// If the module_option is empty, we will set it as a general module.
+			if ( ! empty( $module_option['is_global_module'] ) ) {
+				$this->option['global_module'] = $module_slug;
+			}
+
+			if ( ! empty( $module_option ) ) {
+				// Only keep the allowed keys.
+				$module_option = array_intersect_key( $module_option, $this->option );
+				array_walk( $module_option, array( $this, 'sanitize_option' ) );
+			}
+
+			if ( empty( $module_option['name'] ) ) {
+				$module_option['name'] = str_replace( '_', '-', $module_slug );
+			}
+			$module_option['name'] = sanitize_title( $module_option['name'] );
+
+			return $module_option;
+		}
+
+		/**
 		 * Parse option.
 		 *
 		 * @access private
@@ -627,55 +677,57 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 				'use_native_filesystem_api'    => true,
 				'max_log_size'                 => 10,
 				'expected_log_size_in_percent' => 0.7,
+				'is_private'                   => false,
 				'log_dir'                      => 'wpmudev',
 				'add_subsite_dir'              => true,
 				'modules'                      => array(),
 			);
-			// Parse option, don't parse the option is empty.
-			if ( ! empty( $option ) ) {
-				$option = wp_parse_args( $option, $this->option );
-				if ( empty( $option['modules'] ) ) {
-					// Default module.
-					$option['modules']['index'] = array(
-						'is_global_module' => 1,
-					);
+			// Parse option, don't parse if the option is empty.
+			if ( empty( $option ) ) {
+				return;
+			}
+
+			$option = wp_parse_args( $option, $this->option );
+			if ( empty( $option['modules'] ) ) {
+				// Default module.
+				$option['modules']['index'] = array(
+					'is_global_module' => 1,
+				);
+			}
+
+			$modules = $option['modules'];
+			unset( $option['modules'] );
+			// Sanitize option.
+			array_walk( $option, array( $this, 'sanitize_option' ) );
+			$this->option = $option;
+
+			// Parse modules.
+			$this->parse_modules( $modules );
+
+			// Maybe activate the general module.
+			if ( empty( $this->option['global_module'] ) ) {
+				$this->modules['index']        = $this->option;
+				$this->option['global_module'] = 'index';
+			}
+
+			// Set current module.
+			$this->current_module = $this->option['global_module'];
+		}
+
+		/**
+		 * Parse option for modules.
+		 *
+		 * @since 1.0.2
+		 *
+		 * @param array $modules List modules to parse.
+		 */
+		private function parse_modules( $modules ) {
+			foreach ( $modules as $module_slug => $module_option ) {
+				if ( empty( $module_slug ) ) {
+					continue;
 				}
-
-				$modules = $option['modules'];
-				unset( $option['modules'] );
-				// Sanitize option.
-				array_walk( $option, array( $this, 'sanitize_option' ) );
-				$this->option = $option;
-
-				// Parse modules.
-				foreach ( $modules as $module_slug => $module_option ) {
-					if ( empty( $module_slug ) ) {
-						continue;
-					}
-					$module_slug = str_replace( '-', '_', sanitize_key( $module_slug ) );
-					// If the module_option is empty, we will set it as a general module.
-					if ( ! empty( $module_option['is_global_module'] ) ) {
-						$this->current_module = $module_slug;
-					}
-
-					if ( ! empty( $module_option ) ) {
-						$module_option = wp_parse_args( $module_option, $this->option );
-						array_walk( $module_option, array( $this, 'sanitize_option' ) );
-					}
-
-					if ( empty( $module_option['name'] ) ) {
-						$module_option['name'] = str_replace( '_', '-', $module_slug );
-					}
-					$module_option['name']         = sanitize_title( $module_option['name'] );
-					$this->modules[ $module_slug ] = $module_option;
-				}
-
-				// Maybe activate the general module.
-				if ( empty( $this->current_module ) ) {
-					$this->modules['index'] = $this->option;
-					$this->current_module   = 'index';
-				}
-				$this->option['global_module'] = $this->current_module;
+				// Parse module.
+				$this->add_module( $module_slug, $module_option );
 			}
 		}
 
@@ -707,7 +759,7 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 					}
 					return;
 				// We ignore this property to avoid conflict with the cached file name.
-				case 'file':
+				case 'file_name':
 					// Don't allow to set this option directly, please try to use is_global_module instead.
 				case 'global_module':
 					$option = null;
@@ -825,45 +877,65 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 			}
 
 			// Initialize the Filesystem API.
-			if ( ! WP_Filesystem( $this->get_filesystem_credentials( $access_type ) ) ) {
-				global $wp_filesystem;
-				$connect_st = -1;// Set -1 to allow to use native PHP File.
-				// Try to connect Filesystem API again by using method direct to use the native Filesystem API.
-				if ( 'direct' !== $access_type && $this->get_module_option( 'use_native_filesystem_api' ) ) {
-					if ( $this->enabling_debug_log_mode() && is_wp_error( $wp_filesystem->errors ) && $wp_filesystem->errors->has_errors() ) {
-						$error_msg = sprintf( 'Cannot connect to Filesystem API via %1$s: %2$s, trying to use the direct method!', strtoupper( $access_type ), $wp_filesystem->errors->get_error_message() );
-					}
+			if ( WP_Filesystem( $this->get_filesystem_credentials( $access_type ) ) ) {
+				// Filesystem API is connected, cache result.
+				$connect_st = 1;
+			} else {
+				// Try to use native Filesystem API and log errors.
+				$connect_st = $this->maybe_try_native_fsapi_and_log_error( $access_type );
+			}
 
-					add_filter( 'filesystem_method', array( $this, 'force_access_direct_method' ), 9999 );
-					if ( ! WP_Filesystem( true ) ) {
-						// This case should be never catch unless file wp-admin/includes/class-wp-filesystem-ftpext.php doesn't exist.
-						$connect_st  = 0;
-						$this->error = true;
-					}
-					remove_filter( 'filesystem_method', array( $this, 'force_access_direct_method' ), 9999 );
-				} else {
+			return $connect_st;
+		}
+
+		/**
+		 * Maybe try to use native filesystem API for non-direct type,
+		 * and log error.
+		 *
+		 * @since 1.0.2
+		 *
+		 * @param string $access_type Access type.
+		 * @return int connect status: 0 for failure, and -1 for try to use native Filesystem API.
+		 */
+		private function maybe_try_native_fsapi_and_log_error( $access_type ) {
+			global $wp_filesystem;
+			$connect_st = -1;// Set -1 to allow to use native PHP File.
+			// Try to connect Filesystem API again by using method direct to use the native Filesystem API.
+			if ( 'direct' !== $access_type && $this->get_module_option( 'use_native_filesystem_api' ) ) {
+				if ( $this->enabling_debug_log_mode() && is_wp_error( $wp_filesystem->errors ) && $wp_filesystem->errors->has_errors() ) {
+					$error_msg = sprintf( 'Cannot connect to Filesystem API via %1$s: %2$s, trying to use the direct method!', strtoupper( $access_type ), $wp_filesystem->errors->get_error_message() );
+				}
+
+				add_filter( 'filesystem_method', array( $this, 'force_access_direct_method' ), 9999 );
+				if ( ! WP_Filesystem( true ) ) {
+					// This case should be never catch unless file wp-admin/includes/class-wp-filesystem-ftpext.php doesn't exist.
 					$connect_st  = 0;
 					$this->error = true;
 				}
-
-				// Maybe log the error.
-				if ( $this->enabling_debug_log_mode() ) {
-					// This is for the case we try to use native PHP File handling.
-					if ( $this->error && empty( $error_msg ) ) {
-						if ( is_wp_error( $wp_filesystem->errors ) && $wp_filesystem->errors->has_errors() ) {
-							$error_msg = $wp_filesystem->errors->get_error_message();
-						} else {
-							/* translators: %s Filesystem method */
-							$error_msg = sprintf( 'Connect to the Filesystem API via method %s failure!', strtoupper( $access_type ) );
-						}
-					}
-
-					if ( ! empty( $error_msg ) ) {
-						error_log( $error_msg );// phpcs:ignore.
-					}
-				}
+				remove_filter( 'filesystem_method', array( $this, 'force_access_direct_method' ), 9999 );
 			} else {
-				$connect_st = 1;
+				$connect_st  = 0;
+				$this->error = true;
+			}
+
+			if ( ! $this->enabling_debug_log_mode() ) {
+				// Debug log is disabled, return.
+				return $connect_st;
+			}
+
+			// Log the error and return.
+			// This is for the case we try to use native PHP File handling.
+			if ( $this->error && empty( $error_msg ) ) {
+				if ( is_wp_error( $wp_filesystem->errors ) && $wp_filesystem->errors->has_errors() ) {
+					$error_msg = $wp_filesystem->errors->get_error_message();
+				} else {
+					/* translators: %s Filesystem method */
+					$error_msg = sprintf( 'Connect to the Filesystem API via method %s failure!', strtoupper( $access_type ) );
+				}
+			}
+
+			if ( ! empty( $error_msg ) ) {
+				error_log( $error_msg );// phpcs:ignore.
 			}
 
 			return $connect_st;
@@ -882,32 +954,43 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 		}
 
 		/**
+		 * Get file name.
+		 *
+		 * @since 1.0.2
+		 */
+		private function get_file_name() {
+			// Try to get from cache.
+			$file_name = $this->get_module_option( 'file_name' );
+			if ( $file_name ) {
+				return $file_name;
+			}
+			// Use PHP for private file.
+			if ( $this->get_module_option( 'is_private' ) ) {
+				$suffix = 'log.php';
+			} else {
+				$suffix = 'debug.log';
+			}
+
+			$file_name = $this->get_module_option( 'name' );
+			if ( empty( $file_name ) ) {
+				$file_name = $this->current_module;
+			}
+
+			$file_name = $file_name . '-' . $suffix;
+
+			// Save to module.
+			$this->modules[ $this->current_module ]['file_name'] = $file_name;
+			return $file_name;
+		}
+
+		/**
 		 * Prepare filename.
 		 *
 		 * @access private
 		 */
 		private function get_file() {
 			// Try to get from cache.
-			$file = $this->get_module_option( 'file' );
-			if ( ! $file ) {
-				if ( $this->get_module_option( 'is_private' ) ) {
-					$file = 'log.php';
-				} else {
-					$file = 'debug.log';
-				}
-
-				$file_name = $this->get_module_option( 'name' );
-				if ( empty( $file_name ) ) {
-					$file_name = $this->current_module;
-				}
-				$file = $file_name . '-' . $file;
-
-				$file = $this->get_log_directory() . $file;
-
-				// Save to module.
-				$this->modules[ $this->current_module ]['file'] = $file;
-			}
-
+			$file = $this->get_log_directory() . $this->get_file_name();
 			return apply_filters( 'wdev_logger_get_file', $file, $this->current_module, $this->modules[ $this->current_module ] );
 		}
 
@@ -1014,24 +1097,23 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 		 * Check if log directory is already create, if not - create it.
 		 *
 		 * @access private
+		 *
+		 * @return bool
 		 */
 		private function is_writable_log_dir() {
 			global $wp_filesystem;
 
 			$log_dir = dirname( $this->get_file() );
 
-			$exist_and_writable = 0;
 			if ( $wp_filesystem->is_dir( $log_dir ) ) {
+				// The directory exists, check writeable permissions.
 				if ( $wp_filesystem->is_writable( $log_dir ) || $wp_filesystem->chmod( $log_dir, FS_CHMOD_DIR ) ) {
 					return true;
 				}
-			} elseif ( $status = $this->create_log_dir( $log_dir ) ) {//phpcs:ignore
-				if ( true === $status ) {
-					$wp_filesystem->put_contents( $log_dir . '/index.php', '<?php' . PHP_EOL . '// Silence is golden.', FS_CHMOD_FILE );
-				}
-				$exist_and_writable = 1;
+				return false;
 			}
-			return $exist_and_writable;
+
+			return $this->create_log_dir( $log_dir );
 		}
 
 		/**
@@ -1041,31 +1123,53 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 		 * @return bool True on success, false on failure.
 		 */
 		public function create_log_dir( $log_dir ) {
-			if ( ! mkdir( $log_dir, FS_CHMOD_DIR, true ) ) {
+			// If we can create nested directories via mkdir, let's do it and return.
+			if ( mkdir( $log_dir, FS_CHMOD_DIR, true ) ) {
+				// Create an index.php file to avoid access log folder directly.
 				global $wp_filesystem;
-				$log_dir = str_replace( '\\', '/', $log_dir );
-				$log_dir = trailingslashit( $log_dir );
-				$offset  = strlen( WP_CONTENT_DIR );
-				if ( $pos = strpos( $log_dir, '/', $offset ) ) {//phpcs:ignore
-					while ( $pos ) {
-						$n_log_dir = substr( $log_dir, 0, $pos );
-						if ( ! $wp_filesystem->is_dir( $n_log_dir ) ) {
-							if ( $wp_filesystem->mkdir( $n_log_dir ) ) {
-								$wp_filesystem->put_contents( $log_dir . '/index.php', '<?php' . PHP_EOL . '// Silence is golden.', FS_CHMOD_FILE );
-							} else {
-								return false;
-							}
-						}
-						$offset = $pos + 1;
-						$pos    = strpos( $log_dir, '/', $offset );
-					}
-
-					return 1;
-				}
-				return $wp_filesystem->mkdir( $log_dir );
-			} else {
+				$wp_filesystem->put_contents( $log_dir . '/index.php', '<?php' . PHP_EOL . '// Silence is golden.', FS_CHMOD_FILE );
 				return true;
 			}
+
+			return $this->create_nested_directory( $log_dir );
+		}
+
+		/**
+		 * Try to separate nested log directory and create one by one
+		 * if it can be done via mkdir with recursive is TRUE.
+		 *
+		 * @since 1.0.2
+		 *
+		 * @param  string $log_dir Log directory.
+		 * @return bool
+		 */
+		private function create_nested_directory( $log_dir ) {
+			global $wp_filesystem;
+			$log_dir = str_replace( '\\', '/', $log_dir );
+			$log_dir = trailingslashit( $log_dir );
+			$offset  = strlen( WP_CONTENT_DIR );
+			// Detect next slash position from WP_CONTENT_DIR.
+			$next_slash_pos = strpos( $log_dir, '/', $offset );
+			if ( ! $next_slash_pos ) {
+				// If there is only once depth, create it and return.
+				return $wp_filesystem->mkdir( $log_dir );
+			}
+
+			// Try to create nested directories.
+			while ( $next_slash_pos ) {
+				$n_log_dir = substr( $log_dir, 0, $next_slash_pos );
+				if ( ! $wp_filesystem->is_dir( $n_log_dir ) ) {
+					if ( $wp_filesystem->mkdir( $n_log_dir ) ) {
+						$wp_filesystem->put_contents( $n_log_dir . '/index.php', '<?php' . PHP_EOL . '// Silence is golden.', FS_CHMOD_FILE );
+					} else {
+						return false;
+					}
+				}
+				$offset         = $next_slash_pos + 1;
+				$next_slash_pos = strpos( $log_dir, '/', $offset );
+			}
+
+			return true;
 		}
 
 		/**
@@ -1165,36 +1269,42 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 		 * @param string $module Module name.
 		 */
 		private function set_current_module( $module ) {
-			$set = 0;
-			if ( ! empty( $module ) && isset( $this->modules[ $module ] ) ) {
-				$set = -1;
-				if ( $module !== $this->current_module ) {
-					$this->current_module = $module;
-					// Reset debug/log level.
-					$this->log_level   = null;
-					$this->debug_level = null;
-					$set               = 1;
-				}
+			if ( empty( $module ) || ! isset( $this->modules[ $module ] ) ) {
+				// Module is not exist, return.
+				return 0;
 			}
 
-			return $set;
+			if ( $module === $this->current_module ) {
+				// Is already on this module, return.
+				return -1;
+			}
+
+			// Set current module.
+			$this->current_module = $module;
+			// Reset debug/log level.
+			$this->log_level   = null;
+			$this->debug_level = null;
+			return 1;
 		}
 
 		/**
-		 * Set current module.
+		 * Switch module.
 		 *
 		 * @param string $module Module name.
 		 *
-		 * @return true;
+		 * @return int 1 if switch is successful, otherwise try to use global module.
 		 */
-		public function register_module( $module ) {
+		private function switch_module( $module ) {
 			if ( $module ) {
 				$module = str_replace( '-', '_', sanitize_key( $module ) );
 			}
-			if ( ! $this->set_current_module( $module ) ) {
-				$this->maybe_active_global_module();
+			if ( $this->set_current_module( $module ) ) {
+				// Switched to the new module, return.
+				return 1;
 			}
-			return true;
+			// Try to use global module.
+			$this->maybe_active_global_module();
+			return -1;
 		}
 
 		/**
@@ -1206,17 +1316,23 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 		 * or exit if we can't detect the global module.
 		 */
 		public function maybe_active_global_module( $return = false ) {
-			if ( ! $this->un_lock ) {
-				if ( ! ( isset( $this->option['global_module'] ) && $this->set_current_module( $this->option['global_module'] ) ) ) {
-					if ( $return ) {
-						return new WP_Error( 'non-registered', 'Cheating, huh?' );
-					} else {
-						wp_die( 'Cheating, huh?' );
-					}
-				}
-			} else {
+			// If is already on existed module, lock it and return.
+			if ( $this->un_lock ) {
 				// re-lock.
 				$this->un_lock = false;
+				return;
+			}
+
+			// Global module exist, switch to this module, and return.
+			if ( ! empty( $this->option['global_module'] ) && $this->set_current_module( $this->option['global_module'] ) ) {
+				return;
+			}
+
+			// Return an error.
+			if ( $return ) {
+				return new WP_Error( 'non-registered', 'Cheating, huh?' );
+			} else {
+				wp_die( 'Cheating, huh?' );
 			}
 		}
 
@@ -1235,43 +1351,44 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 		 * Expected size = max_log_size * expected_log_size_in_percent
 		 */
 		public function clear_logs() {
-			if ( ! empty( $this->modules ) && $this->connect_fs() ) {
-				global $wp_filesystem;
-				foreach ( $this->modules as $module => $module_option ) {
-					$this->set_current_module( $module );
-					$file = $this->get_file();
-					if ( $wp_filesystem->exists( $file ) ) {
-						// Delete the log file if deactivated debug log.
-						if ( ! $this->get_log_level() ) {
-							$wp_filesystem->delete( $file, false, 'f' );
-							continue;
-						}
+			if ( empty( $this->modules ) || ! $this->connect_fs() ) {
+				return;
+			}
+			global $wp_filesystem;
+			foreach ( $this->modules as $module => $module_option ) {
+				$this->set_current_module( $module );
+				$file = $this->get_file();
+				if ( $wp_filesystem->exists( $file ) ) {
+					// Delete the log file if deactivated debug log.
+					if ( ! $this->get_log_level() ) {
+						$wp_filesystem->delete( $file, false, 'f' );
+						continue;
+					}
 
-						$file_size     = $wp_filesystem->size( $file );
-						$max_file_size = $this->get_module_option( 'max_log_size' ) * MB_IN_BYTES;
-						if ( $file_size < $max_file_size ) {
-							continue;
+					$file_size     = $wp_filesystem->size( $file );
+					$max_file_size = $this->get_module_option( 'max_log_size' ) * MB_IN_BYTES;
+					if ( $file_size < $max_file_size ) {
+						continue;
+					}
+					$expected_file_size = $this->get_module_option( 'expected_log_size_in_percent' ) * $max_file_size;
+					if ( $expected_file_size < 1 ) {
+						$wp_filesystem->delete( $file, false, 'f' );
+						continue;
+					}
+					$contents = $wp_filesystem->get_contents( $file );
+					$offset   = intval( $file_size - $expected_file_size );
+					$pos      = strpos( $contents, PHP_EOL . '[', $offset );
+					if ( ! $pos ) {
+						$pos = strpos( $contents, PHP_EOL, $offset );
+					}
+					if ( $pos ) {
+						$contents = substr( $contents, $pos );
+						if ( $this->get_module_option( 'is_private' ) ) {
+							$contents = '<?php die(); ?>' . $contents;
 						}
-						$expected_file_size = $this->get_module_option( 'expected_log_size_in_percent' ) * $max_file_size;
-						if ( $expected_file_size < 1 ) {
-							$wp_filesystem->delete( $file, false, 'f' );
-							continue;
-						}
-						$contents = $wp_filesystem->get_contents( $file );
-						$offset   = intval( $file_size - $expected_file_size );
-						$pos      = strpos( $contents, PHP_EOL . '[', $offset );
-						if ( ! $pos ) {
-							$pos = strpos( $contents, PHP_EOL, $offset );
-						}
-						if ( $pos ) {
-							$contents = substr( $contents, $pos );
-							if ( $this->get_module_option( 'is_private' ) ) {
-								$contents = '<?php die(); ?>' . $contents;
-							}
-							$wp_filesystem->put_contents( $file, $contents, FS_CHMOD_FILE );
-						} else {
-							$wp_filesystem->delete( $file, false, 'f' );
-						}
+						$wp_filesystem->put_contents( $file, $contents, FS_CHMOD_FILE );
+					} else {
+						$wp_filesystem->delete( $file, false, 'f' );
 					}
 				}
 			}
@@ -1286,5 +1403,54 @@ if ( ! class_exists( 'WDEV_Logger' ) ) {
 			return wp_create_nonce( $this->get_log_action_name() );
 		}
 
+		/**
+		 * Update module option for the existed module.
+		 * Note: the new option will inherit from old option.
+		 *
+		 * @param string $module        Module slug.
+		 * @param array  $module_option Module options.
+		 * @return bool
+		 */
+		public function update_module( $module, $module_option = array() ) {
+			if ( empty( $module ) ) {
+				return false;
+			}
+			$module_slug = $this->sanitize_module_slug( $module );
+			// If the module doesn't exist, return.
+			if ( ! isset( $this->modules[ $module_slug ] ) ) {
+				if ( $this->enabling_debug_log_mode() ) {
+					error_log( sprintf( 'Module %s does not exist, use add_module to add a new module.', $module ) );//phpcs:ignore
+				}
+				return false;
+			}
+			$module_option                 = wp_parse_args( $module_option, $this->modules[ $module_slug ] );
+			$this->modules[ $module_slug ] = $this->parse_module_option( $module_slug, $module_option );
+			return true;
+		}
+
+		/**
+		 * Add a new module.
+		 *
+		 * @uses self::update_module() instead to update module option if it's already exist.
+		 *
+		 * @param string $module        Module slug.
+		 * @param array  $module_option Module options.
+		 * @return bool
+		 */
+		public function add_module( $module, $module_option = array() ) {
+			if ( empty( $module ) ) {
+				return false;
+			}
+			$module_slug = $this->sanitize_module_slug( $module );
+			// If the module exist, return.
+			if ( isset( $this->modules[ $module_slug ] ) ) {
+				if ( $this->enabling_debug_log_mode() ) {
+					error_log( sprintf( 'Module %s is already exist, use update_module to update new module option.', $module ) );//phpcs:ignore
+				}
+				return false;
+			}
+			$this->modules[ $module_slug ] = $this->parse_module_option( $module_slug, $module_option );
+			return true;
+		}
 	}
 }

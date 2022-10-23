@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.4.1
- * @version     1.4.0
+ * @version     1.5.0
  *
  * @package     woocommerce-smart-coupons/includes/emails/
  */
@@ -157,7 +157,7 @@ if ( ! class_exists( 'WC_SC_Email_Coupon' ) ) {
 
 			if ( ! empty( $expiry_date ) ) {
 				if ( $woocommerce_smart_coupon->is_wc_gte_30() && $expiry_date instanceof WC_DateTime ) {
-					$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : 0;
+					$expiry_date = ( is_callable( array( $expiry_date, 'getTimestamp' ) ) ) ? $expiry_date->getTimestamp() : null;
 				} elseif ( ! is_int( $expiry_date ) ) {
 					$expiry_date = strtotime( $expiry_date );
 				}

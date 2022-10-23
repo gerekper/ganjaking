@@ -62,7 +62,7 @@ class Editor extends Abstract_Async {
 
 		// Store the image path.
 		$data['filepath']  = ! empty( $data[1] ) ? $data[1] : '';
-		$data['wp-action'] = ! empty( $data['action'] ) ? $data['action'] : '';			   	   			 	 	 	 	
+		$data['wp-action'] = ! empty( $data['action'] ) ? $data['action'] : '';
 		unset( $data['action'], $data[1] );
 
 		return $data;

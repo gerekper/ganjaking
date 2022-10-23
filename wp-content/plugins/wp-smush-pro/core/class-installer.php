@@ -161,6 +161,12 @@ class Installer {
 				self::upgrade_3_10_3();
 			}
 
+			$hide_new_feature_highlight_modal = apply_filters( 'wpmudev_branding_hide_doc_link', false );
+			if ( ! $hide_new_feature_highlight_modal && version_compare( $version, '3.12.0', '<' ) ) {
+				// Add the flag to display the new feature background process modal.
+				add_site_option( 'wp-smush-show_upgrade_modal', true );
+			}
+
 			// Create/upgrade directory smush table.
 			self::directory_smush_table();
 

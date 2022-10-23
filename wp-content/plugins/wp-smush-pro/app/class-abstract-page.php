@@ -815,11 +815,7 @@ abstract class Abstract_Page {
 			$page = $this->get_slug();
 		}
 
-		if ( is_multisite() && is_network_admin() ) {
-			return network_admin_url( 'admin.php?page=' . $page );
-		}
-
-		return admin_url( 'admin.php?page=' . $page );
+		return Helper::get_page_url( $page );
 	}
 
 	/**

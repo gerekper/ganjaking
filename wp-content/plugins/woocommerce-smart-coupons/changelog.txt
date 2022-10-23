@@ -1,5 +1,19 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2022.10.21 - version 6.5.0
+* New: WooCommerce 7.0.0 compatible
+* New: WordPress 6.0.3 compatible
+* Update: Removed magic method __wakeup
+* Update: POT file
+
+2022.10.13 - version 6.4.0
+* Fix: When bulk generating, importing or sending store credit with an empty coupon expiry date, it is setting the date as 1970-01-01 which is invalidating all those coupons
+* Fix: Not checking for an empty value for delivery date if 'Deliver coupon' is set to 'Later'
+* Update: Filter 'wc_sc_deliver_coupon' to set default option for 'Deliver coupon' to 'Later' on the checkout page when the customer is opting to send the coupon to someone else
+* Update: Set autoload for 'sc_wc_db_update_status' option as 'no'
+* Update: Spelling correction from 'Certficate' to 'Certificate'
+* Update: POT file
+
 2022.10.06 - version 6.3.0
 * Update: Correctly handle and validate expiry date & time
 * Update: POT file

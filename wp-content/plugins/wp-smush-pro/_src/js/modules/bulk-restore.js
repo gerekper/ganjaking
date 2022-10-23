@@ -2,6 +2,8 @@
 /* global ajaxurl */
 /* global _ */
 
+import MixPanel from "../mixpanel";
+
 /**
  * Bulk restore JavaScript code.
  *
@@ -42,6 +44,8 @@
 				success: 0,
 				errors: [],
 			};
+
+			this.mixPanel = new MixPanel();
 
 			this.resetModalWidth();
 			this.renderTemplate();
@@ -99,6 +103,8 @@
 
 					self.renderTemplate();
 					self.initScan();
+
+					self.mixPanel.track('Bulk Restore Triggered');
 				});
 			}
 		},

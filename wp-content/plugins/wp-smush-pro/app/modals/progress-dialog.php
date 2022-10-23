@@ -38,42 +38,6 @@ if ( ! defined( 'WPINC' ) ) {
 					<?php esc_html_e( 'Bulk smushing is in progress, you need to leave this tab open until the process completes.', 'wp-smushit' ); ?>
 				</p>
 
-				<div id="smush-limit-reached-notice" class="sui-notice sui-notice-warning">
-					<div class="sui-notice-content">
-						<div class="sui-notice-message">
-							<i class="sui-notice-icon sui-icon-info sui-md" aria-hidden="true"></i>
-							<p>
-								<?php
-								$upgrade_url = add_query_arg(
-									array(
-										'utm_source'   => 'smush',
-										'utm_medium'   => 'plugin',
-										'utm_campaign' => 'smush_bulksmush_limit_reached_notice',
-									),
-									esc_url( 'https://wpmudev.com/project/wp-smush-pro/' )
-								);
-
-								printf(
-									/* translators: %s1$d - bulk smush limit, %2$s - upgrade link, %3$s - </a>, %4$s - <strong>, $5$s - </strong> */
-									esc_html__( 'The free version of Smush allows you to compress %1$d images at a time. You can easily click %4$sResume%5$s to optimize another %1$d images, or %2$sUpgrade to Pro%3$s to compress unlimited images at once.', 'wp-smushit' ),
-									absint( Core::$max_free_bulk ),
-									'<a href="' . esc_url( $upgrade_url ) . '" target="_blank">',
-									'</a>',
-									'<strong>',
-									'</strong>'
-								)
-								?>
-							</p>
-							<p>
-								<a class="sui-button wp-smush-resume-scan">
-									<i class="sui-icon-play" aria-hidden="true"></i>
-									<?php esc_html_e( 'Resume', 'wp-smushit' ); ?>
-								</a>
-							</p>
-						</div>
-					</div>
-				</div>
-
 				<div class="sui-progress-block sui-progress-can-close">
 					<div class="sui-progress">
 						<span class="sui-progress-icon" aria-hidden="true">
