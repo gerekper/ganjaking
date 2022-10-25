@@ -1,7 +1,7 @@
 <?php
 /**
  * Virtual Event Settings 
- * @version 4.0.3
+ * @version 4.2
  */	
 
 
@@ -112,11 +112,25 @@ $EVENT->localize_edata('_evoz');
 ?>
 
 <div class='zoom_connect' style='display:<?php echo $vir_type=='zoom'?'block':'none';?>; margin-bottom: 15px'>
-	<?php if( $zid = $EVENT->get_eprop('_evoz_mtg_id')):?>
-		<span class='evo_btn trig_zoom ajde_popup_trig' data-type='zoom' data-popc='print_lightbox' data-lb_cl_nm='evo_zoom_config' data-t='Zoom Meeting Settings' data-eid='<?php echo $EVENT->ID;?>' style='margin-right: 10px'><?php _e('Open Zoom Meeting Settings','eventon');?></span>
+	<?php 
+	$btn_data = array(
+		'lbvals'=> array(
+			'lbc'=>'evo_zoom_config',
+			't'=>__('Zoom meeting settings','eventon'),
+			'ajax'=>'yes',
+			'd'=> array(					
+				'eid'=> $EVENT->ID,
+				'action'=> 'evo_zoom_settings',
+				'uid'=>'evo_get_zoom_events',
+			)
+		)
+	);
+	?>
+	<?php if( $zid = $EVENT->get_eprop('_evoz_mtg_id')):	?>
+		<span class='evo_btn evolb_trigger' <?php echo $this->helper->array_to_html_data($btn_data);?> style='margin-right: 10px'><?php _e('Open Zoom Meeting Settings','eventon');?></span>
 		</span>
-	<?php else:?>
-		<span class='evo_btn trig_zoom ajde_popup_trig' data-type='zoom' data-popc='print_lightbox' data-lb_cl_nm='evo_zoom_config' data-t='Create Zoom Meeting' data-eid='<?php echo $EVENT->ID;?>' style='margin-right: 10px'><?php _e('Create Zoom Meeting','eventon');?></span>
+	<?php else: ?>
+		<span class='evo_btn evolb_trigger' <?php echo $this->helper->array_to_html_data($btn_data);?>  style='margin-right: 10px'><?php _e('Create Zoom Meeting','eventon');?></span>
 		</span>
 	<?php endif;?>
 	</span>
@@ -126,13 +140,23 @@ $EVENT->localize_edata('_evoz');
 $EVENT->localize_edata('_evojitsi');
 ?>
 <div class='jitsi_connect' style='display:<?php echo $vir_type=='jitsi'?'block':'none';?>; margin-bottom: 15px'>
-	<?php if( $mtg_id = $EVENT->get_eprop('_mtg_id')):?>
-		<span class='evo_btn trig_jitsi ajde_popup_trig' data-type='jitsi' data-popc='print_lightbox' data-lb_cl_nm='evo_jitsi_config' data-t='Jitsi Meeting Settings' data-eid='<?php echo $EVENT->ID;?>' style='margin-right: 10px'><?php _e('Open Zoom Meeting Settings','eventon');?></span>
-		</span>
-	<?php else:?>
-		<span class='evo_btn trig_jitsi ajde_popup_trig' data-type='jitsi' data-popc='print_lightbox' data-lb_cl_nm='evo_jitsi_config' data-t='Create Jitsi Meeting' data-eid='<?php echo $EVENT->ID;?>' style='margin-right: 10px'><?php _e('Create Jitsi Meeting','eventon');?></span>
-		</span>
-	<?php endif;?>
+	<?php 
+	$btn_data = array(
+		'lbvals'=> array(
+			'lbc'=>'evo_jitsi_config',
+			't'=>__('Jitsi meeting settings','eventon'),
+			'ajax'=>'yes',
+			'd'=> array(					
+				'eid'=> $EVENT->ID,
+				'action'=> 'evo_jitsi_settings',
+				'uid'=>'evo_get_jitsi_events',
+			)
+		)
+	);
+	?>
+	<span class='evo_btn evolb_trigger' <?php echo $this->helper->array_to_html_data($btn_data);?> style='margin-right: 10px'><?php echo ( $mtg_id = $EVENT->get_eprop('_mtg_id')) ? __('Open Jitsi Meeting Settings','eventon') : __('Create Jitsi Meeting','eventon');?></span>
+	</span>
+	
 	</span>
 </div>
 
@@ -144,8 +168,22 @@ $EVENT->localize_edata('_evojitsi');
 </p>
 
 <p class='row sel_moderator'>
+	<?php 
+		$btn_data = array(
+			'lbvals'=> array(
+				'lbc'=>'sel_moderator',
+				't'=>__('Select moderator for event','eventon'),
+				'ajax'=>'yes',
+				'd'=> array(					
+					'eid'=> $EVENT->ID,
+					'action'=> 'eventon_select_virtual_moderator',
+					'uid'=>'evo_get_vir_mod_events',
+				)
+			)
+		);
+	?>
 	<label><?php _e('Select moderator for the virtual event','eventon')?></label>
-	<span class='evo_btn trig_select_moderator ajde_popup_trig' data-popc='print_lightbox' data-lb_cl_nm='sel_moderator' data-lb_sz='small' data-t='<?php _e('Select Moderator for Virtual Event','eventon');?>' data-eid='<?php echo $EVENT->ID;?>' style='margin-right: 10px'><?php $EVENT->get_prop('_mod') ? _e('Update Moderator','eventon') : _e('Select Moderator','eventon');?></span>
+	<span class='evo_btn evolb_trigger' <?php echo $this->helper->array_to_html_data($btn_data);?> data-popc='print_lightbox' data-lb_cl_nm='sel_moderator' data-lb_sz='small' data-t='<?php _e('Select Moderator for Virtual Event','eventon');?>' data-eid='<?php echo $EVENT->ID;?>' style='margin-right: 10px'><?php $EVENT->get_prop('_mod') ? _e('Update Moderator','eventon') : _e('Select Moderator','eventon');?></span>
 </p>
 
 

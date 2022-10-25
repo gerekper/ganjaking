@@ -572,21 +572,21 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 						array(
 							'title'       => __( 'Email Blacklist', 'woocommerce-anti-fraud' ),
 							'type'        => 'checkbox',
-							'label'       => '',
+							'label'       => 'wc_af_email_blacklist',
 							'default'     => 'no',
 							'desc' => '',
 							'desc_tip'    => __( 'Enable the email blacklist function to block emails captured by WooCommerce Anti-fraud rules.', 'woocommerce-anti-fraud' ),
-							'id'   =>'wc_af_email_blacklist',
+							'id'   =>'wc_settings_anti_fraudenable_automatic_email_blacklist',
 						),
 						//Enable automatic blacklisting
 						array(
 							'title'       => __( 'Automatic Blacklisting', 'woocommerce-anti-fraud' ),
 							'type'        => 'checkbox',
-							'label'       => '',
+							'label'       => 'wc_af_automatic_blacklist',
 							'default'     => 'no',
 							'desc' => '',
 							'desc_tip'    => __( 'Add email addresses of orders reported with a high risk of fraud to blacklist automatically.', 'woocommerce-anti-fraud' ),
-							'id'          => 'wc_af_enable_automatic_blacklist',
+							'id'          => 'wc_settings_anti_fraudenable_automatic_blacklist',
 						),
 						//Block these email addresses
 						array(
@@ -594,7 +594,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 							'type'        => 'textarea',
 							'desc'        =>'',
 							'desc_tip'   => __( 'The email addresses listed in the text area will be considered unsafe. You can also add or remove emails manually here. Type “,” or press TAB/ENTER button for the next entry.', 'woocommerce-anti-fraud' ),
-							'id'          => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_blacklist_emails',
+							'id'          => 'wc_settings_' . self::SETTINGS_NAMESPACE . 'blacklist_emails',
 							'css'         => 'width:100%; height: 100px;',
 							'default'     => '',
 							'class'       => 'wc_af_tags_input',
@@ -617,7 +617,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 							'default'     => 'no',
 							'desc' => __( 'Enable the IP blacklist function', 'woocommerce-anti-fraud' ),
 							'desc_tip'    => __( 'Enable the IP blacklist function to block IP addresses with high risk of frauds.', 'woocommerce-anti-fraud' ),
-							'id'   => 'wc_af_enable_automatic_ip_blacklist',
+							'id'   => 'wc_settings_anti_fraudenable_automatic_ip_blacklist',
 						),
 						//Block these email addresses
 						array(
@@ -625,7 +625,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 							'type'        => 'textarea',
 							'desc'        => '',
 							'desc_tip'    => __( 'The IP addresses listed in the text area will be considered unsafe.  You can also add or remove IP addresses manually here. Type “,” or press TAB/ENTER button for the next entry.', 'woocommerce-anti-fraud' ),
-							'id'          => 'wc_settings_' . self::SETTINGS_NAMESPACE . '_blacklist_ipaddress',
+							'id'          => 'wc_settings_' . self::SETTINGS_NAMESPACE . 'blacklist_ipaddress',
 							'css'         => 'width:100%; height: 100px;',
 							'default'     => '',
 							'class'       => 'wc_af_tags_input',

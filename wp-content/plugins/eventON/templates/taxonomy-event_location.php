@@ -6,12 +6,13 @@
  
  *	@Author: AJDE
  *	@EventON
- *	@version: 2.6.14
+ *	@version: 4.2
  */	
 	
 
 	evo_get_page_header();
 
+	$help = new evo_helper();
 
 	$tax = get_query_var( 'taxonomy' );
 	$term = get_query_var( 'term' );
@@ -49,15 +50,19 @@
 		
 	// location link
 		$location_link_target = (!empty($term_meta['evcal_location_link_target']) && $term_meta['evcal_location_link_target'] == 'yes')? '_blank':'';
-		$location_link_a = (!empty($term_meta['evcal_location_link']))? 
-			'<a target="'.$location_link_target.'" href="'. evo_format_link($term_meta['evcal_location_link']) .'">': false;
-		$location_link_b = $location_link_a? '</a>':false;
+
+		$location_term_link = !empty($term_meta['evcal_location_link']) ? evo_format_link($term_meta['evcal_location_link']) : false;
+
+		$location_term_name = $location_term_link ? 
+			'<a target="'.$location_link_target.'" href="'. $location_term_link .'">' .  $term->name . '</a>':
+			 $term->name;
+
 
 ?>
 
-<div class='wrap evotax_term_card evo_location_card'>	
+<div class='wrap evotax_term_card evo_location_card alignwide'>	
 	
-	<div id='primary' class="content-area">
+	<div id='' class="content-area">
 
 		<div class='eventon site-main'>
 
@@ -66,18 +71,36 @@
 			</header>
 
 			<div class='entry-content'>
-				<div class="evo_location_tax evotax_term_details" style='background-image:url(<?php echo $img_url;?>)'>
-					
+				
+				<div class='evo_term_top_section dfx'>
+
 					<?php if($img_url):?>
-						<div class="location_circle term_image_circle" style='background-image:url(<?php echo $img_url;?>)'></div>
+						<div class="evotax_term_img" style='background-image:url(<?php echo $img_url;?>)'>
+						</div>	
 					<?php endif;?>
-					
-					<h2 class="location_name tax_term_name"><span><?php echo $location_link_a . $term->name . $location_link_b;?></span></h2>
-					<?php if($location_type=='add'):?><p class="location_address"><span><i class='fa fa-map-marker'></i> <?php echo $location_address;?></span></p><?php endif;?>
-					<div class='location_description tax_term_description'><?php echo category_description();?></div>
+
+					<div class='evo_tax_details'>
+						<h2 class="location_name tax_term_name evo_h2 ttu"><span><?php echo $location_term_name;?></span></h2>
+						
+						<?php if($location_address):?>
+							<p class="location_address mar0 pad0"><i class='fa fa-map-marker marr10'></i> <?php echo $location_address;?></p>
+						<?php endif;?>
+						
+						<div class='location_description tax_term_description'>
+							<?php echo category_description();?>								
+						</div>
+
+						<?php if( $location_term_link):?>
+							<p class='mar0 pad0'><a class='evo_btn evcal_btn' href='<?php echo $location_term_link;?>' target='<?php echo $location_link_target;?>'><?php evo_lang_e('Learn More');?></a></p>
+						<?php endif;?>
+					</div>
+
 				</div>
 				
-				<?php if($location_address):
+				<?php 
+
+				// location google map
+				if($location_address):
 					EVO()->cal->set_cur('evcal_1');
 					$zoomlevel = EVO()->cal->get_prop('evcal_gmap_zoomlevel');
 						if(!$zoomlevel) $zoomlevel = 16;
@@ -86,20 +109,33 @@
 						if(!$map_type) $map_type = 'roadmap';
 
 					$eventtop_style = EVO()->cal->get_prop('evosm_eventtop_style','evcal_1') == 'white'? '0':'2';
+
+					$map_data = array(
+						'address'=> $location_address,
+						'latlng'=> $location_latlan,
+						'location_type'=> $location_type,
+						'zoom'=> $zoomlevel,
+						'scroll'=> EVO()->cal->check_yn('evcal_gmap_scroll')? 'no':'yes',
+						'mty'=>$map_type,
+						'delay'=>400
+					);
 				?>
-					<div id='evo_locationcard_gmap' class="evo_location_map" data-address='<?php echo $location_address;?>' data-latlng='<?php echo $location_latlan;?>' data-location_type='<?php echo $location_type;?>'data-zoom='<?php echo $zoomlevel;?>' data-scroll='<?php echo EVO()->cal->check_yn('evcal_gmap_scroll')? 'no':'yes';?>' data-mty='<?php echo $map_type;?>'></div>
+					<div id='evo_event_location_term_<?php echo $term->term_id;?>' class="evo_trigger_map evo_location_map" <?php echo $help->array_to_html_data($map_data);?>></div>
 				<?php endif;?>
 
-				<h3 class="location_subtitle evotax_term_subtitle"><?php evo_lang_e('Events at this location');?></h3>
-				
-				<?php 
-					$shortcode = apply_filters('evo_tax_archieve_page_shortcode', 
-						'[add_eventon_list number_of_months="5" '.$tax.'='.$term->term_id.' hide_mult_occur="no" hide_empty_months="yes" eventtop_style="'. $eventtop_style.'"]', 
-						$tax,
-						$term->term_id
-					);
-					echo do_shortcode($shortcode);
-				?>
+
+				<div class='evo_term_events'>
+					<h3 class="location_subtitle evotax_term_subtitle border marb30"><?php evo_lang_e('Events at this location');?></h3>
+					
+					<?php 
+						$shortcode = apply_filters('evo_tax_archieve_page_shortcode', 
+							'[add_eventon_list number_of_months="5" '.$tax.'='.$term->term_id.' hide_mult_occur="no" hide_empty_months="yes" eventtop_style="'. $eventtop_style.'"]', 
+							$tax,
+							$term->term_id
+						);
+						echo do_shortcode($shortcode);
+					?>
+				</div>
 
 			</div>
 		</div>
@@ -111,9 +147,4 @@
 
 <?php	do_action('eventon_after_main_content'); ?>
 
-<?php 
-
-	evo_get_page_footer();
-
-
-?>
+<?php 	evo_get_page_footer(); ?>

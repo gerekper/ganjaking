@@ -1,7 +1,7 @@
 <?php
 /**
  * Event Class for one event
- * @version 4.1.3
+ * @version 4.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -31,6 +31,7 @@ class EVO_Event extends EVO_Data_Store{
 
 	public $utc_offset = 0; // utc offset for the event times
 	public $utcoff = 0;
+	public $is_utcoff = false;
 
 	public function __construct($event_id, $event_pmv='', $ri = 0, $force_data_set = true, $post=false){
 		
@@ -42,6 +43,7 @@ class EVO_Event extends EVO_Data_Store{
 			$this->set_event_data($event_pmv);
 		} 		
 		
+		$this->is_utcoff = EVO()->calendar->is_utcoff;
 		$this->localize_edata();
 		$this->ri = $ri;
 
@@ -96,7 +98,7 @@ class EVO_Event extends EVO_Data_Store{
 		function get_ux_link(){
 			$exlink_option = $this->get_prop('_evcal_exlink_option');	
 		}
-
+	
 	// title
 		function get_title(){
 			if(!empty($this->post_title)) return apply_filters('evodata_title', $this->post_title, $this);
@@ -151,7 +153,7 @@ class EVO_Event extends EVO_Data_Store{
 				$this->utc_offset = $this->utcoff = $HELP->get_timezone_offset( $tz_string , $this->start_unix );
 				
 				// if settings set to use utf offset
-				if( EVO()->calendar->is_utcoff ){	
+				if( $this->is_utcoff ){	
 					$this->start_unix =  $this->start_unix + $this->utc_offset;
 				}
 
@@ -176,7 +178,7 @@ class EVO_Event extends EVO_Data_Store{
 				$this->end_unix = (int)$end;
 				$this->duration = (int)$end - (int)$start;
 				
-				if( EVO()->calendar->is_utcoff ){
+				if( $this->is_utcoff ){
 					// return unix offset of event time from utc 0 -- get event offset from utc 0
 					$tz_string = $this->get_timezone_key();
 					$HELP = new evo_helper();
@@ -193,12 +195,13 @@ class EVO_Event extends EVO_Data_Store{
 
 
 		// current and future
+		// @updated 4.2
 		function is_current_event( $cutoff='end', $current_time = '', $utc = false){
 			if(empty($current_time)){
 				$current_time = EVO()->calendar->get_current_time();
 			}
 
-			$event_start_time = ($utc) ? $this->start_unix: $this->start_unix_raw;
+			$event_start_time = ($this->is_utcoff) ? $this->start_unix: $this->start_unix_raw;
 			$event_time = $cutoff == 'end' ?  $event_start_time + $this->duration : $event_start_time;
 			return $event_time > $current_time? true: false;
 		}		
@@ -630,7 +633,7 @@ class EVO_Event extends EVO_Data_Store{
 					}
 
 
-					$prev_link = $this->get_permalink( ($ri-1), $this->L);
+					$prev_link = $this->get_permalink( ($ri-1), $this->l);
 					
 					echo "<a href='{$prev_link}' class='prev' title='{$text}'><b class='fa fa-angle-left'></b><em>{$text}</em></a>";
 				}				
@@ -668,7 +671,7 @@ class EVO_Event extends EVO_Data_Store{
 				
 			}
 			
-			echo "</span><span class='clear'></span></p></div>";
+			echo "</span></p></div>";
 
 			return ob_get_clean();
 		}
@@ -905,10 +908,9 @@ class EVO_Event extends EVO_Data_Store{
 
 			return json_encode($json);
 		}
-	
-	
+		
 
-	// EVENT DATA
+	// EVENT e DATA
 		// @updated 2.9
 		// localize meta_array_data (edata) for the event object to be used
 		function localize_edata($meta_array_key = ''){	
@@ -1016,7 +1018,6 @@ class EVO_Event extends EVO_Data_Store{
 		function get_start_unix(){	return (int)$this->get_prop('evcal_srow');	}
 		function get_end_unix(){	return (int)$this->get_prop('evcal_erow');	}
 
-
 	// LOCATION
 		function is_hide_location_info(){
 			//return EVO()->calendar->is_user_logged_in;
@@ -1102,6 +1103,8 @@ class EVO_Event extends EVO_Data_Store{
 		function get_organizer_term_id($type='id'){ // @+2.8
 			$O_terms = wp_get_post_terms($this->ID, 'event_organizer');
 			if ( $O_terms && ! is_wp_error( $O_terms ) ){
+				
+				
 				return ($type == 'id')? (int)$O_terms[0]->term_id: $O_terms[0];
 			}
 			return false;
@@ -1145,6 +1148,66 @@ class EVO_Event extends EVO_Data_Store{
 					'youtube'=>'evcal_org_yt'
 				));
 		}
+	// event taxonomy data / @4.2
+		function get_taxonomy_data($tax, $load_meta_data = true, $term_id = false){
+			
+			// get terms
+			$terms = wp_get_post_terms($this->ID, $tax);
+			if ( $terms && ! is_wp_error( $terms ) ){
+				$R = array();
+
+				if( $load_meta_data){
+					$meta_key_array = $this->get_taxonomy_meta_array( $tax );
+				}
+
+				foreach($terms as $term){
+
+					if( $term_id && $term->term_id != $term_id ) continue; 
+
+					$R[ $tax ][ $term->term_id ] = $term;
+
+					// if meta data key exists
+					if( $meta_key_array && count($meta_key_array)>0){
+						$term_meta = evo_get_term_meta( $tax, (int)$term->term_id);
+
+						foreach( $meta_key_array as $I=>$key){
+							$K = is_integer($I)? $key: $I;				
+							$R[ $tax ][ $term->term_id ]->$K = (empty($term_meta[$key]))? '': $term_meta[$key];
+						}
+					}
+
+					// pass link 
+					$R[ $tax ][ $term->term_id ]->link = get_term_link( $term , $tax);
+				}				
+				return $R;			
+
+			}else{
+				return false;
+			}
+
+		}
+		function get_taxonomy_meta_array($tax){
+			$meta_data = array();
+
+			$meta_data['event_organizer'] = apply_filters('evo_organizer_archive_page_social', array(
+					'twitter'=>'evcal_org_tw',
+					'facebook'=>'evcal_org_fb',
+					'linkedin'=>'evcal_org_ln',
+					'youtube'=>'evcal_org_yt'
+				));
+			$meta_data['event_organizer']['img_id'] = 'evo_org_img';
+			$meta_data['event_organizer']['organizer_img_id'] = 'evo_org_img';
+			$meta_data['event_organizer']['organizer_contact'] = 'evcal_org_contact';
+			$meta_data['event_organizer']['contact_email'] = 'evcal_org_contact_e';
+			$meta_data['event_organizer']['organizer_address'] = 'evcal_org_address';
+			$meta_data['event_organizer']['organizer_link'] = 'evcal_org_exlink';
+			$meta_data['event_organizer']['organizer_link_target'] = '_evocal_org_exlink_target';
+
+			$meta_data = apply_filters( 'evo_single_event_taxonomy_meta_array', $meta_data, $tax, $this);
+
+			return isset($meta_data[ $tax ]) ? $meta_data[ $tax ]: false;
+		}
+
 
 	// Event color
 	// @+ 3.0.7
@@ -1232,7 +1295,7 @@ class EVO_Event extends EVO_Data_Store{
 			return  $sin_event_evodata ;
 		}
 
-	// event field dynamic tag processing
+	// dynamic tag processing
 	// added v 4.0.3
 		public function process_dynamic_tags($VV){
 			if( strpos($VV, '{') !== false){
@@ -1278,11 +1341,110 @@ class EVO_Event extends EVO_Data_Store{
 			return $VV;
 		}
 
+	// ICS file for the event
+	// @updated 4.3
+		function get_ics_content($include_repeats = false){
+			$HELP = new evo_helper();
+
+			// Location information
+				$lDATA = $this->get_location_data();
+
+				$location = $location_address = '';
+				if($lDATA){
+					if($lDATA['name']) $location_name = $lDATA['name'];
+					if($lDATA['location_address']) $location_address = $lDATA['location_address'];
+					$location = ($location_name? $location_name . ' ':'') . ($location_address?$location_address:'');
+					$location = $HELP->esc_ical_text( stripslashes($location) );
+				}
+			
+			$name = $summary = $this->get_title();
+
+			// summary for ICS file			
+				$content = (!empty($this->content))? $this->content:'';
+				if(!empty($content)){
+					$content = strip_tags($content);
+					$content = str_replace(']]>', ']]&gt;', $content);
+					$summary = wp_trim_words($content, 50, '[..]');
+				}		
+			
+			$uid = uniqid();
+
+			// start and end time
+				//$dDATA = $this->get_non_adjusted_times();
+				$dDATA = $this->get_utc_adjusted_times();
+
+				$format =  $this->is_all_day() ? 'Ymd' : 'Ymd\THi';
+
+				$start = date_i18n( $format, $dDATA['start'] );
+				$end = date_i18n( $format, $dDATA['end'] );				
+				
+				//$time = current_time('timestamp');
+				//$year = date('Y', $time);
+
+			ob_start();
+			
+			//echo "METHOD:REQUEST\n"; // requied by Outlook
+			echo "BEGIN:VEVENT\n";
+			
+			echo "UID:{$uid}\n"; // required by Outlok
+			echo "DTSTAMP:".date_i18n('Ymd\THis')."\n"; // required by Outlook
+			
+			$_ending = $this->is_all_day() ? '': '00Z'; // 00 is for seconds
+			echo "DTSTART:". 	$start .$_ending . "\n";
+			echo "DTEND:".	$end .$_ending . "\n";
+
+			// timezone
+			if($tz = $this->get_timezone_key()){
+				echo "TZID:". $tz. "\r\n";
+			}
+
+
+			echo "LOCATION:{$location}\n";
+			echo "SUMMARY:".html_entity_decode( $HELP->esc_ical_text($name))."\n";
+			echo "DESCRIPTION: ".$HELP->esc_ical_text($summary)."\\n" . ($this->is_virtual() ? $this->virtual_url() : $this->get_permalink() ) . "\n";
+
+			echo "URL:" . ($this->is_virtual() ? $this->virtual_url() : $this->get_permalink() ) . "\n";
+
+			// plug @+3.1
+			do_action('evo_event_ics_content', $this);
+
+			echo "END:VEVENT\n";
+			
+
+
+			// Repeats
+			if( $include_repeats && $this->is_repeating_event()){
+
+				foreach($this->get_repeats() as $key=>$val){
+
+
+					$uid = uniqid();
+					echo "BEGIN:VEVENT\n";
+					echo "UID:{$uid}\n"; // required by Outlok
+					echo "DTSTAMP:".date_i18n('Ymd\THis')."\n"; // required by Outlook
+						
+					$_ending = $this->is_all_day() ? '': '00Z'; // 00 is for seconds
+					$start0 = date_i18n( $format, ( $val[0] + $this->utc_offset ) );
+					$end0 = date_i18n( $format, ( $val[1] + $this->utc_offset ) );
+
+					echo "DTSTART:" . $start0 ."\n"; 
+					echo "DTEND:" . $end0 ."\n";
+					
+					echo "LOCATION:". $location ."\n";
+					echo "SUMMARY:". html_entity_decode( $HELP->esc_ical_text($name)) ."\n";
+					echo "DESCRIPTION: ". $HELP->esc_ical_text($summary) ."\n" . ($this->is_virtual() ? $this->virtual_url() : $this->get_permalink() ) . "\n";
+					
+					echo "END:VEVENT\n";
+				}
+			}
+
+			return ob_get_clean();
+		}
+
 	// supportive
 		// process link
 		function _process_link($event_link, $append, $var){
 			$help = new evo_helper();
-
 			return $help->process_link( $event_link, $var, $append);
 		}
 

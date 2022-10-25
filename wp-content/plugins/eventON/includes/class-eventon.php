@@ -2,14 +2,14 @@
 /**
  * EventON Setup
  *
- * @since 4.1.3
+ * @since 4.2
  */
 
 defined( 'ABSPATH' ) || exit;
 
 // Main EventON Class
 final class EventON {
-	public $version = '4.1.3';
+	public $version = '4.2';
 	/**
 	 * @var evo_generator
 	 */
@@ -150,7 +150,8 @@ final class EventON {
 			include_once(EVO_ABSPATH.'includes/admin/settings/class-addon-details.php' );				
 			include_once(EVO_ABSPATH.'includes/admin/class-views.php' );
 			include_once(EVO_ABSPATH.'includes/admin/eventon-admin-functions.php' );
-			include_once(EVO_ABSPATH.'includes/admin/eventon-admin-html.php' );
+			include_once(EVO_ABSPATH.'includes/admin/eventon-admin-html.php' );			
+			include_once(EVO_ABSPATH.'includes/admin/class-admin-taxonomies_editor.php' );
 			include_once(EVO_ABSPATH.'includes/admin/eventon-admin-taxonomies.php' );
 			include_once(EVO_ABSPATH.'includes/admin/post_types/ajde_events.php' );
 			include_once(EVO_ABSPATH.'includes/admin/welcome.php' );		
@@ -230,7 +231,7 @@ final class EventON {
 		}
 		if(is_admin()){
 			if( class_exists('evo_admin')) $this->evo_admin 	= new evo_admin();
-			if( class_exists('eventon_taxonomies') ) $this->taxonomies	= new eventon_taxonomies();	
+			if( class_exists('EVO_Taxonomies') ) $this->taxonomies	= new EVO_Taxonomies();	
 		}
 
 		
@@ -348,7 +349,7 @@ final class EventON {
 	/** LOAD Backender UI and functionalities for settings. */
 	// Legacy
 		public function load_ajde_backender(){			
-			include_once(  'includes/admin/settings/class-settings.php' );
+			include_once( EVO_ABSPATH. 'includes/admin/settings/class-settings.php' );
 			$this->settings = new EVO_Settings();
 		}	
 		public function register_backender_scripts(){

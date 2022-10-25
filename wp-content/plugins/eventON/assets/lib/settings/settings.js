@@ -1,6 +1,6 @@
 /**
  * EventON Settings scripts
- * @version  4.1
+ * @version  4.2
  */
 jQuery(document).ready(function($){
 
@@ -87,13 +87,19 @@ jQuery(document).ready(function($){
 		$('#ajde_customization').evo_webhooks();
 
 // Other
+	// remove extra save changes button @since 4.2
+		$('body').find('.evo_diag').each(function(){
+			if(!($(this).hasClass('actual')) ) $(this).remove();
+		});
 	// colpase menu
 		$('.ajde-collapse-menu').on('click', function(){
 			if($(this).hasClass('close')){
 				$(this).parent().removeClass('mini');
+				$(this).closest('.ajde_settings').removeClass('mini');
 				$('.evo_diag').removeClass('mini');
 				$(this).removeClass('close');
 			}else{
+				$(this).closest('.ajde_settings').addClass('mini');
 				$(this).parent().addClass('mini');
 				$('.evo_diag').addClass('mini');
 				$(this).addClass('close');

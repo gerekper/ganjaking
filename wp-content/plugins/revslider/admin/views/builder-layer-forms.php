@@ -433,7 +433,7 @@ if(!defined('ABSPATH')) exit();
 			<div id="form_layerposition_basic" class="form_inner open _nsfc_">
 				<div class="form_inner_header"><i class="material-icons">zoom_out_map</i><?php _e('Position & Size', 'revslider');?></div>
 				<div class="collapsable ">					
-					<div id="rs-align-buttons" class="_nfr_  hide_on_relorabs show_on_absolute">
+					<div id="rs-align-buttons" class="_nfr_  hide_on_relorabs show_on_absolute _nfliginset_">
 						<!-- LAYER ALIGN ICON BASED SETTINGS-->
 						<select style="display:none !important" id="layer_pos_halign" data-unselect=".layer_hor_selector" data-select="#layer_hor_*val*" class="layerinput easyinit" data-responsive="true" data-r="position.horizontal.#size#.v" data-triggerinp="#layer_pos_x" data-triggerinpval="0"><option value="left"><?php _e('Left', 'revslider');?></option><option value="center"><?php _e('Center', 'revslider');?></option><option value="right"><?php _e('Right', 'revslider');?></option></select>
 						<select style="display:none !important" id="layer_pos_valign" data-unselect=".layer_ver_selector" data-select="#layer_ver_*val*" class="layerinput easyinit" data-responsive="true" data-r="position.vertical.#size#.v" data-triggerinp="#layer_pos_y" data-triggerinpval="0"><option value="top"><?php _e('Top', 'revslider');?></option><option value="middle"><?php _e('Center', 'revslider');?></option><option value="bottom"><?php _e('Bottom', 'revslider');?></option></select>
@@ -443,11 +443,11 @@ if(!defined('ABSPATH')) exit();
 							<oneshort class="lp10"><label_icon class="triggerselect ui_topalign layer_ver_selector" data-select="#layer_pos_valign" data-val="top" id="layer_ver_top"></label_icon><label_icon class="triggerselect ui_middlealign layer_ver_selector" data-select="#layer_pos_valign" data-val="middle" id="layer_ver_middle"></label_icon><label_icon class="triggerselect ui_bottomalign layer_ver_selector" data-select="#layer_pos_valign" data-val="bottom" id="layer_ver_bottom"></label_icon></oneshort>
 						</row>
 					</div>
-					<row class="directrow _nfr_ _nfc_  hide_on_relorabs show_on_absolute">
+					<row class="directrow _nfr_ _nfc_  hide_on_relorabs show_on_absolute _nfliginset_">
 						<onelong><label_icon class="ui_x"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-allowed="px" data-responsive="true" data-numeric="true" data-r="position.x.#size#.v" data-min="-3000" data-max="3000" type="text" id="layer_pos_x"></onelong>
 						<oneshort class="_nfr_"><label_icon class="ui_y"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit" data-responsive="true" data-numeric="true" data-allowed="px" data-r="position.y.#size#.v" data-min="-3000" data-max="5000" type="text" id="layer_pos_y"></oneshort>
 					</row>
-					<row class="directrow _nfr_ _nfc_">
+					<row class="directrow _nfr_ _nfc_ _nfliginset_">
 						<onelong class="layersize_wrap layersize_wrap_width layersize_fullwidth layersize_cover layersize_cover-proportional"><label_icon class="ui_width"></label_icon><input data-numeric="true" data-allowed="%,px,auto,#/#" data-min="0" data-max="10000" data-updateviaevt="true" data-evt="layerSizeChange" data-evtparam="width" data-presets_text="Auto!100%!200px!#1/3#!#2/3#" data-responsive="true" data-presets_val="auto!100%!200px!#1/3#!#2/3#" data-r="size.width.#size#.v" type="text" id="layer_width"  class="layerinput smallinput easyinit input_with_presets callEvent"></onelong>
 						<oneshort class="layersize_wrap layersize_wrap_height layersize_fullheight layersize_cover layersize_cover-proportional"><label_icon class="ui_height"></label_icon><input data-numeric="true" data-allowed="%,px,auto,#/#" data-min="0" data-max="10000" data-updateviaevt="true" data-evt="layerSizeChange" data-evtparam="height" data-presets_text="Auto!100%!200px!#1/3#!#2/3#" data-responsive="true" data-presets_val="auto!100%!200px!#1/3#!#2/3#" data-r="size.height.#size#.v" type="text" id="layer_height"  class="layerinput smallinput easyinit input_with_presets callEvent"></oneshort>
 						<div id="reset_lock_media_size_layer" class="_nsft_ _nsfa_ _nsfb_">
@@ -459,7 +459,19 @@ if(!defined('ABSPATH')) exit();
 					</row>
 
 					<div class="_nsfc_ _nsfr_ _nsft_ _nsfa_ _nsfb_ _nsfsvg_ _nsftbsic_">
-						<label_a><?php _e('Size Presets', 'revslider');?></label_a><select id="layer_covermode" data-enable=".layersize_wrap " data-disable=".layersize_*val*" class="layerinput tos2 nosearchbox easyinit callEvent" data-updateviaevt="true" data-evt="layerSizePreset" data-r="size.covermode"><option value="custom" selected="selected"><?php _e('Custom Size', 'revslider');?></option><option value="fullwidth"><?php _e('Full Width', 'revslider');?></option><option value="fullheight"><?php _e('Full Height', 'revslider');?></option><option value="cover"><?php _e('Stretch', 'revslider');?></option><option value="cover-proportional"><?php _e('Cover', 'revslider');?></option></select>
+						<label_a><?php _e('Size Presets', 'revslider');?></label_a><select id="layer_covermode" data-enable=".layersize_wrap " data-disable=".layersize_*val*" class="layerinput tos2 nosearchbox easyinit callEvent" data-updateviaevt="true" data-evt="layerSizePreset" data-r="size.covermode"><option value="custom" selected="selected"><?php _e('Custom Size', 'revslider');?></option><option value="fullwidth"><?php _e('Full Width', 'revslider');?></option><option value="fullheight"><?php _e('Full Height', 'revslider');?></option><option value="fullinset"><?php _e('Full Inset', 'revslider');?></option><option value="cover"><?php _e('Stretch', 'revslider');?></option><option value="cover-proportional"><?php _e('Cover', 'revslider');?></option></select>
+					</div>
+					<!-- THE EXTRA MARGIN FOR FULL INSET LAYERS -->
+					<div class="_shfliginset_ ">
+						<row class="directrow">
+							<oneabsolute><div id="layer_marginlock_iconswitchb" class="icon_switcher" data-ref="#layer_margin_lockb"><i class="material-icons icon_state_off">lock_open</i><i class="material-icons icon_state_on">lock_outline</i><input class="easyinit layerinput callEvent" id="layer_margin_lockb" data-updateviaevt="true" data-evt="lockMargin" data-setclasson="layer_marginlock_iconswitchb" data-class="icsw_on" type="checkbox" data-r="idle.marginLock"></div></oneabsolute>
+							<onelong><label_icon class="ui_margin_top"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit callEvent" data-updateviaevt="true" data-evt="updateMarginInput" data-evtparam="0" data-allowed="px"  data-responsive="true" data-numeric="true" data-r="idle.margin.#size#.v.0" data-min="-500" data-max="2000" type="text"></onelong>
+							<oneshort><label_icon class="ui_margin_right"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit callEvent" data-updateviaevt="true" data-evt="updateMarginInput" data-evtparam="1" data-allowed="px"  data-responsive="true" data-numeric="true" data-r="idle.margin.#size#.v.1" data-min="-500" data-max="2000" type="text"></oneshort>
+						</row>
+						<row class="directrow">
+							<onelong><label_icon class="ui_margin_bottom"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit callEvent" data-updateviaevt="true" data-evt="updateMarginInput" data-evtparam="2" data-allowed="px"  data-responsive="true" data-numeric="true" data-r="idle.margin.#size#.v.2" data-min="-500" data-max="2000" type="text"></onelong>
+							<oneshort><label_icon class="ui_margin_left"></label_icon><input class="layerinput valueduekeyboard smallinput easyinit callEvent" data-updateviaevt="true" data-evt="updateMarginInput" data-evtparam="3" data-allowed="px"  data-responsive="true" data-numeric="true" data-r="idle.margin.#size#.v.3" data-min="-500" data-max="2000" type="text"></oneshort>
+						</row>
 					</div>
 					<div class="_nflic_ _nvojcm_ _nflic_ _nflicg_">
 						<label_a><?php _e('Layer Align', 'revslider');?></label_a>

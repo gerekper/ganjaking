@@ -142,10 +142,11 @@ class Crawl_Settings_Integration implements Integration_Interface {
 		];
 
 		$this->search_cleanup_settings = [
-			'search_cleanup'          => \__( 'Filter search terms', 'wordpress-seo-premium' ),
-			'search_cleanup_emoji'    => \__( 'Filter searches with emojis and other special characters', 'wordpress-seo-premium' ),
-			'search_cleanup_patterns' => \__( 'Filter searches with common spam patterns', 'wordpress-seo-premium' ),
-			'deny_search_crawling'    => \__( 'Prevent search engines from crawling site search URLs', 'wordpress-seo-premium' ),
+			'search_cleanup'              => \__( 'Filter search terms', 'wordpress-seo-premium' ),
+			'search_cleanup_emoji'        => \__( 'Filter searches with emojis and other special characters', 'wordpress-seo-premium' ),
+			'search_cleanup_patterns'     => \__( 'Filter searches with common spam patterns', 'wordpress-seo-premium' ),
+			'deny_search_crawling'        => \__( 'Prevent search engines from crawling site search URLs', 'wordpress-seo-premium' ),
+			'redirect_search_pretty_urls' => \__( 'Redirect pretty URLs for search pages to raw format', 'wordpress-seo-premium' ),
 		];
 
 		$this->unused_resources_settings = [
@@ -216,7 +217,7 @@ class Crawl_Settings_Integration implements Integration_Interface {
 				'These are expert features, so make sure you know what you\'re doing before removing the parameters. %1$sRead more about how your site can be affected%2$s.',
 				'wordpress-seo-premium'
 			),
-			'<a href="' . \esc_url( $this->shortlinker->build_shortlink( 'https://yoa.st/permalink-cleanup' ) ) . '">',
+			'<a href="' . \esc_url( $this->shortlinker->build_shortlink( 'https://yoa.st/permalink-cleanup' ) ) . '" target="_blank" rel="noopener noreferrer">',
 			'</a>'
 		);
 

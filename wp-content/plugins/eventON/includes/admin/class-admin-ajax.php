@@ -1,7 +1,7 @@
 <?php
 /**
  * Function ajax for backend
- * @version   2.6.15
+ * @version   4.2
  */
 class EVO_admin_ajax{
 	public function __construct(){
@@ -13,10 +13,7 @@ class EVO_admin_ajax{
 			'get_addons_list'		=>'get_addons_list',
 			'export_settings'		=>'export_settings',
 			'import_settings'		=>'import_settings',
-			'get_event_tax_term_section'=>'get_event_tax_term_section',
-			'event_tax_list'		=>'event_tax_list',
-			'event_tax_save_changes'=>'event_tax_save_changes',
-			'event_tax_remove'		=>'event_tax_remove',
+
 			'eventpost_update_meta'	=>'evo_eventpost_update_meta',
 			'admin_test_email'		=>'admin_test_email',
 			'admin_get_environment'		=>'admin_get_environment',
@@ -315,186 +312,6 @@ class EVO_admin_ajax{
 			}
 		}
 
-	// get event singular tax term form or list
-		function get_event_tax_term_section(){			
-			echo json_encode(array(
-				'status'=>'good',
-				'content'=> EVO()->evo_admin->metaboxes->get_tax_form()
-			)); exit;
-		}
-
-		// tax term list
-		function event_tax_list(){
-			$post_data = $this->helper->sanitize_array( $_POST);
-			$terms = get_terms(
-				$post_data['tax'],
-				array(
-					'orderby'           => 'name', 
-				    'order'             => 'ASC',
-				    'hide_empty'=>false
-				) 
-			);
-
-			ob_start();
-			echo "<div class='evo_tax_entry' data-eventid='{$post_data['eventid']}' data-tax='{$post_data['tax']}' data-type='list'>";
-
-			if(count($terms)>0){				
-				?><select class='field' name='event_tax_termid'><?php
-				if(empty($post_data['termid'])){
-					?><option value=""><?php _e('Select from the list','eventon');?></option><?php
-				}
-				foreach ( $terms as $term ) {
-
-					if( empty($term->name)) continue;
-
-					$selected = (!empty($post_data['termid']) && $term->term_id == $post_data['termid'])? 'selected="selected"':'';
-					?><option <?php echo $selected;?> value="<?php echo $term->term_id;?>"><?php echo $term->name;?></option><?php
-				}
-				?></select>
-				<p style='text-align:center; padding-top:10px;'><span class='evo_btn evo_term_submit'><?php _e('Save Changes','eventon');?></span></p>
-				<?php
-			}else{
-				?><p><?php _e('You do not have any items saved! Please add new!','eventon');?></p><?php
-			}
-
-			echo "</div>";
-
-			echo json_encode(array(
-				'status'=>'good',
-				'content'=>ob_get_clean()
-			)); exit;
-		}
-
-		// save changes
-		function event_tax_save_changes(){
-			$post_data = $this->helper->sanitize_array( $_POST);
-			$status = 'bad';
-			$content = '';
-			$tax = $post_data['tax'];
-
-			switch($post_data['type']){
-			case 'list':
-				if(!empty($post_data['event_tax_termid'])){
-					$event_id = (int)$post_data['eventid'];
-					wp_set_object_terms( $event_id, (int)$post_data['event_tax_termid'], $tax , false);
-					$status = 'good';
-					$content = __('Changes successfully saved!','eventon');	
-				}else{
-					$content = __('Term ID was not passed!','eventon');	
-				}
-			break;
-			case 'new':
-			case 'edit':
-				
-				if(!isset($post_data[ 'term_name' ])) break;
-
-				$term_name = esc_attr(stripslashes($post_data[ 'term_name' ]));
-				$term = term_exists( $term_name, $tax );
-				
-				if($term !== 0 && $term !== null){
-					$taxtermID = (int)$term['term_id'];
-					wp_set_object_terms( $post_data['eventid'], $taxtermID, $tax );
-				}else{
-					// create slug from term name
-						$trans = array(" "=>'-', ","=>'');
-						$term_slug= strtr($term_name, $trans);
-
-					// create wp term
-					$new_term_ = wp_insert_term( $term_name, $tax , array('slug'=>$term_slug) );
-
-					if(!is_wp_error($new_term_)){
-						$taxtermID = (int)$new_term_['term_id'];
-					}	
-				}
-
-				$fields = EVO()->taxonomies->get_event_tax_fields_array($post_data['tax'],'');
-
-				
-				// if a term ID is present
-				if($taxtermID){
-					$term_meta = array();
-
-					// save description
-					$term_description = isset($post_data['description'])? sanitize_text_field($post_data['description']):'';
-					$tt = wp_update_term($taxtermID, $tax, array( 'description'=>$term_description ));
-					
-					// lat and lon values saved in the form
-						if(isset($post_data['location_lon'])) $term_meta['location_lon'] = str_replace('"', "'", $post_data['location_lon']); 
-						if(isset($post_data['location_lat'])) $term_meta['location_lat'] = str_replace('"', "'", $post_data['location_lat']); 
-
-					foreach($fields as $key=>$value){
-						if(in_array($key, array('description', 'submit','term_name','evcal_lat','evcal_lon'))) continue;
-
-						if(isset($post_data[$value['var']])){
-
-							do_action('evo_tax_save_each_field',$value['var'], $post_data[$value['var']]);
-
-							
-							if($value['var']=='location_address'){
-								if(isset($post_data['location_address']))
-									$latlon = eventon_get_latlon_from_address($post_data['location_address']);
-
-								// longitude
-								$term_meta['location_lon'] = isset($term_meta['location_lon']) ? $term_meta['location_lon']:
-									(!empty($latlon['lng'])? floatval($latlon['lng']): null);
-
-								// latitude
-								$term_meta['location_lat'] = isset($term_meta['location_lat']) ? $term_meta['location_lat']:
-									(!empty($latlon['lat'])? floatval($latlon['lat']): null);
-
-								$term_meta['location_address' ] = (isset($post_data[ 'location_address' ]))? $post_data[ 'location_address' ]:null;
-
-								continue;
-							}
-
-
-							$term_meta[ $value['var'] ] = str_replace('"', "'", $post_data[$value['var']]); 
-
-						}else{
-							$term_meta[ $value['var'] ] = ''; 
-						}
-					}
-
-					// save meta values
-						evo_save_term_metas($tax, $taxtermID, $term_meta);
-					// assign term to event & replace
-						wp_set_object_terms( $post_data['eventid'], $taxtermID, $tax , false);	
-
-					$status = 'good';
-					$content = __('Changes successfully saved!','eventon');	
-				}
-
-			break;
-			}
-
-			echo json_encode(array(
-				'status'=>$status,
-				'content'=>$content,
-				'htmldata'=> EVO()->evo_admin->metaboxes->event_edit_tax_section($tax , $post_data['eventid'] )
-			)); exit;
-		}
-		// remove a taxonomy term
-		function event_tax_remove(){
-			$post_data = $this->helper->sanitize_array( $_POST);
-			$status = 'bad';
-			$content = '';
-			
-			if(!empty($post_data['termid'])){
-				$event_id = (int)$post_data['eventid'];
-				wp_remove_object_terms( $event_id, (int)$post_data['termid'], $post_data['tax'] , false);
-				$status = 'good';
-				$content = __('Changes successfully saved!','eventon');	
-			}else{
-				$content = __('Term ID was not passed!','eventon');	
-			}
-
-			echo json_encode(array(
-				'status'=>$status,
-				'content'=>$content,
-				'htmldata'=> EVO()->evo_admin->metaboxes->event_edit_tax_section($post_data['tax'] , $post_data['eventid'] )
-			)); exit;
-		}
-
 	// export eventon settings
 		function export_settings(){
 			// check if admin and loggedin
@@ -546,7 +363,7 @@ class EVO_admin_ajax{
 		}
 
 	// export events as CSV
-	// @version 2.2.30
+	// @update 4.3
 		function export_events(){
 
 			// check if admin and loggedin
@@ -646,21 +463,25 @@ class EVO_admin_ajax{
 					$__id = get_the_ID();
 					$pmv = get_post_meta($__id);
 
+					// create Event
+					$EVENT = new EVO_Event( $__id, '', 0, true, $events->post );
+
+
 					$csvRow = '';
 					$csvRow.= get_post_status($__id).",";
 					$csvRow.= $__id.",";
 					$loctaxid = $orgtaxid = '';
 					$loctaxname = $orgtaxname = '';
 
-					//echo (!empty($pmv['_featured'])?$pmv['_featured'][0]:'no').",";
-					$csvRow.= (!empty($pmv['evcal_event_color'])? $pmv['evcal_event_color'][0]:'').",";
+					$csvRow.= ( $EVENT->get_hex() ).",";
 
 					// location for this event
-						$_event_location_term = wp_get_object_terms( $__id, 'event_location' );
+						$lDATA = $EVENT->get_location_data();
 						$location_term_meta = $event_location_term_id = false;
-						if ( $_event_location_term && ! is_wp_error( $_event_location_term ) ){
-							$event_location_term_id = $_event_location_term[0]->term_id;
-							$location_term_meta = evo_get_term_meta('event_location',$event_location_term_id, '', true);
+						
+						if ( $lDATA ){
+							$event_location_term_id = $lDATA['location_term_id'];
+							$location_term_meta = $lDATA;
 						}
 
 					// Organizer for this event
@@ -673,14 +494,15 @@ class EVO_admin_ajax{
 
 					// Event Initial
 						// event name
-							$eventName = get_the_title();
+							$eventName = $EVENT->get_title();
 							$eventName = $this->html_process_content($eventName, $process_html_content);
 							//$eventName = iconv("utf-8", "ascii//TRANSLIT//IGNORE", $eventName);
 							//$eventName =  preg_replace("/^'|[^A-Za-z0-9\s-]|'$/", '', $output); 
 							$eventName = str_replace('&amp;#8217;', "'", $eventName);
 							$csvRow.= '"'. $eventName.'",';
 
-						$event_content = get_the_content();
+						// summary for the ICS file
+						$event_content = (!empty($EVENT->content))? $EVENT->content:'';
 							$event_content = str_replace('"', "'", $event_content);
 							$event_content = str_replace(',', "\,", $event_content);
 							$event_content = $this->html_process_content( $event_content, $process_html_content);

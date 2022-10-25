@@ -1,6 +1,6 @@
 /**
  * Javascript code that is associated with the front end of the calendar
- * @version 4.1.1
+ * @version 4.2
  */
 
 jQuery(document).ready(function($){
@@ -157,6 +157,35 @@ jQuery(document).ready(function($){
 
 		jitsi();
 	}
+
+// GENERALIZED functions
+// General AJAX trigger - added 3.1
+	$(document).on('click','.evo_trig_ajax',function(event ){
+		var ajax_data = {};
+		const obj = $(this);
+
+		ajax_data = obj.data();
+		$(document).data( 'evo_data', ajax_data );
+
+		$(document).trigger('evo_before_trig_ajax', [obj]);
+
+		var new_ajax_data = $(document).data( 'evo_data');
+		new_ajax_data['action'] = 'eventon_gen_trig_ajax';
+		new_ajax_data['nn'] = the_ajax_script.postnonce;
+
+		$.ajax({
+			beforeSend: function(){
+				$(document).trigger('evo_beforesend_trig_ajax', [obj, new_ajax_data]);
+			},
+			type: 'POST',url: ajax_url ,data: new_ajax_data,dataType:'json',
+			success:function(return_data){
+				$(document).trigger('evo_success_trig_ajax', [obj, new_ajax_data, return_data]);
+			},complete:function(){
+				$(document).trigger('evo_complete_trig_ajax', [obj, new_ajax_data]);
+			}
+		});
+
+	});
 
 // Virtual Events & jitsi
 	function jitsi(mod_refresh){
@@ -637,7 +666,9 @@ jQuery(document).ready(function($){
 
 		// if no events
 		if( !has_events){
-			html += "<div class='date_row'><div class='row'>"+_txt+"</div></div>";
+			no_event_content = CAL.evo_get_global({S1: 'html', S2:'no_events'});
+			
+			html += "<div class='date_row'><div class='row no_events'>"+no_event_content+"</div></div>";
 		}
 
 		html += '</div>';
@@ -651,39 +682,8 @@ jQuery(document).ready(function($){
 		
 	}
 
-
-// General AJAX trigger - added 3.1
-	$(document).on('click','.evo_trig_ajax',function(event ){
-		var ajax_data = {};
-		const obj = $(this);
-
-		ajax_data = obj.data();
-		$(document).data( 'evo_data', ajax_data );
-
-		$(document).trigger('evo_before_trig_ajax', [obj]);
-
-		var new_ajax_data = $(document).data( 'evo_data');
-		new_ajax_data['action'] = 'eventon_gen_trig_ajax';
-		new_ajax_data['nn'] = the_ajax_script.postnonce;
-
-		$.ajax({
-			beforeSend: function(){
-				$(document).trigger('evo_beforesend_trig_ajax', [obj, new_ajax_data]);
-			},
-			type: 'POST',url: ajax_url ,data: new_ajax_data,dataType:'json',
-			success:function(return_data){
-				$(document).trigger('evo_success_trig_ajax', [obj, new_ajax_data, return_data]);
-			},complete:function(){
-				$(document).trigger('evo_complete_trig_ajax', [obj, new_ajax_data]);
-			}
-		});
-
-	});
-
 // Initial load data via ajax
 	function init_load_cal_data(){
-
-		//return;
 
 		// check if calendars are present in the page
 			var run_initload = false;
@@ -815,6 +815,7 @@ jQuery(document).ready(function($){
 	
 // Other
 	// LIGHTBOX		
+		// since 4.2 moving to functions
 		// open lightbox @2.9
 		$('body').on('evo_open_lightbox',function(event, lb_class, content){
 			const LIGHTBOX = $('.evo_lightbox.'+lb_class).eq(0);
@@ -829,6 +830,7 @@ jQuery(document).ready(function($){
 		});
 		// close popup
 			BODY.on('click','.evolbclose', function(){	
+				if( $(this).hasClass('evolb_close_btn')) return;
 				LIGHTBOX = 	$(this).closest('.evo_lightbox');
 				closing_lightbox( LIGHTBOX );				
 			});
@@ -909,7 +911,10 @@ jQuery(document).ready(function($){
 				ux_val = cal_ux_val;
 			}
 
-			//console.log(ux_val);
+			// special mobile only user interaction 
+				if( SC.ux_val_mob !== undefined && SC.ux_val_mob != '' && SC.ux_val_mob != '-' && SC.ux_val_mob != ux_val){
+					if( is_mobile() ) ux_val = SC.ux_val_mob;
+				}
 
 			// open as lightbox
 			if(ux_val=='3' || ux_val == '3a'){
@@ -924,6 +929,7 @@ jQuery(document).ready(function($){
 				SC['event_id'] = parseInt(event_id);
 				SC['ajax_eventtop_show_content'] = true;
 
+				// since 4.2
 				eventon_open_event_lightbox( SC , obj, CAL);
 				
 				return false;
@@ -1037,23 +1043,64 @@ jQuery(document).ready(function($){
 				}
 			}
 		});	
+		
+
+		// process lightbox event card
+		$('body').on('evo_lightbox_processed', function(event, OO, LIGHTBOX){
+			if( OO.uid != 'evo_open_eventcard_lightbox') return false;
+
+			LIGHTBOX.addClass('eventcard eventon_events_list');
+			LIGHTBOX_content = LIGHTBOX.find('.evolb_content');
+			LIGHTBOX_content.attr('class', 'evolb_content '+ OO.other_data.extra_classes );
+			LIGHTBOX_content.find('.evopop_top')
+					.evoGenmaps({	'fnt':2 ,'cal':OO.other_data.CAL });
+
+			var SC = OO.other_data.SC;
+			var obj = OO.other_data.obj;
+
+			fullheight_img_reset(); 
+
+			// update border color and eventtop color
+				bgcolor = LIGHTBOX_content.find('.evcal_cblock').data('bgcolor');
+
+				// if tiles and eventtop style set to clean
+				var show_lightbox_color = SC.tiles == 'yes' && ( SC.eventtop_style == '0' || SC.eventtop_style == '4') ? false: true;
+				
+				if( (CAL && CAL.hasClass('color') && show_lightbox_color) ||
+					(!CAL && show_lightbox_color)
+
+				){
+					LIGHTBOX_content.addClass('color');
+					LIGHTBOX_content.find('.evopop_top').css({'background-color':bgcolor});
+				}else{
+					LIGHTBOX_content.find('.evopop_top').css({'border-left':'3px solid '+bgcolor});
+				}
+
+			// trigger 
+			if( obj.data('runjs')){
+				$('body').trigger('evo_load_single_event_content',[ SC.event_id, OO.other_data.obj]);
+			}
+			
+			// countdown
+			LIGHTBOX_content.find('.evo_countdowner').each(function(){
+				obj.removeClass('evo_cd_on');
+				obj.evo_countdown();
+			});
+
+			
+			// RTL
+				if( SC.evortl =='yes'){	
+					LIGHTBOX.addClass('evortl');
+				}
+
+			$('body').trigger('evolightbox_end');
+
+		});
 
 		// open event as lightbox
-		function eventon_open_event_lightbox( data,obj, CAL){
-			// set elements
-			EVO_LIGHTBOX = $('.evo_lightbox.eventcard');
-			LIGHTBOX_body = EVO_LIGHTBOX.find('.evo_lightbox_body');
+		function eventon_open_event_lightbox( data,obj, CAL){			
 
-			// resets
-				EVO_LIGHTBOX.find('.evo_pop_body').show();
-				fullheight_img_reset();
-				LIGHTBOX_body.html('');
-
-			// RTL
-				if( data.evortl =='yes'){	
-					EVO_LIGHTBOX.find('.evo_popin').addClass('evortl');	
-					EVO_LIGHTBOX.addClass('evortl');
-				}
+			const cancel_class = ( obj.hasClass('cancel_event')) ? ' cancel_event':'';
 
 				
 			// AJAX via lightbox
@@ -1066,22 +1113,12 @@ jQuery(document).ready(function($){
 				new_content += box + box + box;
 				new_content += '</div>';
 
-				// eventtop initial content
-				if( data.ajax_eventtop_show_content){
-					LIGHTBOX_body.append('<div class="evopop_top">'+ obj.html() +'</div>');
-				}else{
-					LIGHTBOX_body.append('<div class="evopop_top"></div>')
-				}
 				
-				LIGHTBOX_body.append( new_content );
-
-				LIGHTBOX_body.attr('class','evo_lightbox_body eventon_list_event evo_pop_body evcal_eventcard event_'+data.event_id +'_'+ data.repeat_interval);
-
-
 				var data_arg = {};
 				data_arg['event_id'] = data.event_id;
 				data_arg['ri'] = data.repeat_interval;
 				data_arg['SC'] = data;
+				data_arg['load_lbcontent'] = true;
 				data_arg['action'] = 'eventon_load_single_eventcard_content';
 
 				
@@ -1091,94 +1128,45 @@ jQuery(document).ready(function($){
 					data_arg.SC.tile_bg = '0';
 					data_arg.SC.tiles = 'no';
 
-
-				var ra = true;
-
-				// load event content via ajax
-				if(ra){
-					$.ajax({
-						beforeSend: function(){},
-						type: 'POST',
-						url:the_ajax_script.ajaxurl,
-						data: data_arg,
-						dataType:'json',
-						success:function(data){
-
-							if(data. status == 'good'){
-								LIGHTBOX_body.html( data.html );
-
-								LIGHTBOX_body.find('.evo_eventtop')
-									.evoGenmaps({ 
-										'fnt':2 ,
-										'SC': data,
-										'cal': CAL,											
-									});
-									
-								fullheight_img_reset(); 
-
-								// trigger 
-								if( obj.data('runjs'))	$('body').trigger('evo_load_single_event_content',[ data.event_id, obj]);
-
-								LIGHTBOX_body.evo_local_time();
-								
-							}
-
-						},complete:function(){
-							$('body').trigger('evo_single_event_load_end');
-						}
-					});
-				}
+				CAL.evo_lightbox_open({
+					uid:'evo_open_eventcard_lightbox',
+					lbc:'evo_eventcard',
+					end:'client',
+					content: new_content,
+					ajax:'yes',
+					d: 	data_arg,
+					other_data: {
+						extra_classes: 'evo_lightbox_body eventon_list_event evo_pop_body evcal_eventcard event_'+data.event_id +'_'+ data.repeat_interval + cancel_class,
+						CAL:CAL,
+						obj: obj,
+						SC: data
+					}
+				});
+				
 
 			}else{
 
 				var content = obj.closest('.eventon_list_event').find('.event_description').html();
 				var _content = $(content).not('.evcal_close');
-
-				const cancel_class = ( obj.hasClass('cancel_event')) ? ' cancel_event':'';
 				
-				LIGHTBOX_body.append('<div class="evopop_top">'+ obj.html() +'</div>').append(_content);
-				LIGHTBOX_body.attr('class','evo_lightbox_body eventon_list_event evo_pop_body evcal_eventcard event_'+data.event_id +'_'+ data.repeat_interval + cancel_class);
+				
+				CAL.evo_lightbox_open({
+					uid:'evo_open_eventcard_lightbox',
+					lbc:'evo_eventcard',
+					end:'client',
+					content: '<div class="evopop_top">'+ obj.html() +'</div>' + content,
+					other_data: {
+						extra_classes: 'evo_lightbox_body eventon_list_event evo_pop_body evcal_eventcard event_'+data.event_id +'_'+ data.repeat_interval + cancel_class,
+						CAL:CAL,
+						obj: obj,
+						SC: data
+					}
+				});
 
-				LIGHTBOX_body.find('.evopop_top').attr('data-text', obj.data('text') );
-				LIGHTBOX_body.find('.evopop_top')
-					.evoGenmaps({	'fnt':2 ,'cal':CAL });
+				return;
 			}
 			
 			
-			
-			EVO_LIGHTBOX.addClass('show');
-			$('body').trigger('evolightbox_show');
-			
-			fullheight_img_reset();    // added second reset
-
-			// update border color and eventtop color
-				bgcolor = $('.evo_pop_body').find('.evcal_cblock').data('bgcolor');
-
-				// if tiles and eventtop style set to clean
-				var show_lightbox_color = data.tiles == 'yes' && ( data.eventtop_style == '0' || data.eventtop_style == '4') ? false: true;
-				
-				if( (CAL && CAL.hasClass('color') && show_lightbox_color) ||
-					(!CAL && show_lightbox_color)
-
-				){
-					LIGHTBOX_body.addClass('color');
-					LIGHTBOX_body.find('.evopop_top').css({'background-color':bgcolor});
-				}else{
-					LIGHTBOX_body.find('.evopop_top').css({'border-left':'3px solid '+bgcolor});
-				}
-
-			// trigger 
-			if( obj.data('runjs')){
-				$('body').trigger('evo_load_single_event_content',[ data.event_id, obj]);
-			}
-			
-			// countdown
-			EVO_LIGHTBOX.find('.evo_countdowner').each(function(){
-				obj.removeClass('evo_cd_on');
-				obj.evo_countdown();
-			});
-
-			$('body').trigger('evolightbox_end');
 		}	
 
 	// load eventon event anywhere via lightbox ajax
@@ -1195,35 +1183,37 @@ jQuery(document).ready(function($){
 			data['ux_val'] = '3a';
 			data['ajax_eventtop_show_content'] = false;
 
-			console.log(data);
+
+
+			//console.log(data);
 			eventon_open_event_lightbox( data, obj, false);
 		});
 
-		// call to run google maps on load
-			function init_run_gmap_openevc(delay){
-				$('.ajde_evcal_calendar').each(function(){
-			
-					var CAL = $(this);
-					var SC = CAL.evo_shortcode_data();
+	// call to run google maps on load
+		function init_run_gmap_openevc(delay){
+			$('.ajde_evcal_calendar').each(function(){
+		
+				var CAL = $(this);
+				var SC = CAL.evo_shortcode_data();
 
-					if( SC === undefined || SC === null) return;
+				if( SC === undefined || SC === null) return;
 
-					if( typeof SC !== 'object' ){
-						SC = JSON.parse(SC);
-					}
+				if( typeof SC !== 'object' ){
+					SC = JSON.parse(SC);
+				}
 
-					if( 'evc_open' in SC && SC.evc_open =='yes'){
+				if( 'evc_open' in SC && SC.evc_open =='yes'){
 
-						$(this).find('.desc_trig').each(function(){
-							if(delay!='' && delay !== undefined){							
-								$(this).evoGenmaps({'fnt':2, 'cal': CAL, 'delay':delay});
-							}else{
-								$(this).evoGenmaps({'fnt':2,'cal': CAL });							
-							}
-						});
-					}
-				});
-			}
+					$(this).find('.desc_trig').each(function(){
+						if(delay!='' && delay !== undefined){							
+							$(this).evoGenmaps({'fnt':2, 'cal': CAL, 'delay':delay});
+						}else{
+							$(this).evoGenmaps({'fnt':2,'cal': CAL });							
+						}
+					});
+				}				
+			});
+		}
 	
 	// Calendar Interaction
 		// event bubbles
@@ -1505,7 +1495,7 @@ jQuery(document).ready(function($){
 	
 	// SORTING & FILTERING
 		// display sort section
-		$('.evo-filter-btn').click(function(){
+		$('body').on('click','.evo-filter-btn', function(){
 			CAL = $(this).closest('.ajde_evcal_calendar');
 			line = CAL.find('.eventon_sorting_section');
 			if(line.is(':visible')){
@@ -1520,7 +1510,7 @@ jQuery(document).ready(function($){
 		});	
 		
 		// SORTing
-			$('.evo-sort-btn').click(function(){
+			$('body').on('click','.evo-sort-btn',function(){
 				line = $(this).find('.eventon_sort_line');
 				if(line.is(':visible')){
 					line.hide();
@@ -1532,7 +1522,7 @@ jQuery(document).ready(function($){
 			});
 		
 			// update calendar based on the sorting selection
-				$('.eventon_sort_line').on('click','p',function(){
+				$('body').on('click', '.evo_sort_option',function(){
 					O = $(this);
 					var CAL = O.closest('.ajde_evcal_calendar');
 					var sort_by = O.data('val');
@@ -1547,7 +1537,7 @@ jQuery(document).ready(function($){
 				});		
 		
 		// filtering section open and close menu
-			$('.filtering_set_val').click(function(){
+			$('body').on('click','.filtering_set_val',function(){
 				// close sorting
 					sortSelect = $(this).closest('.eventon_sorting_section').find('.evo_srt_options');
 					if(sortSelect.is(':visible') == true) sortSelect.fadeToggle();
@@ -1573,17 +1563,22 @@ jQuery(document).ready(function($){
 			});	
 		
 		// selection on filter dropdown list
-			$('.eventon_filter_dropdown').on('click','p',function(){
+			$('body').on('click','p.evo_filter_val',function (){
+
+				CAL = $(this).closest('.ajde_evcal_calendar');	
 				var new_filter_val = $(this).data('filter_val'),
 					O = $(this),
-					filter_section = $(this).closest('.eventon_filter_line');
-				var filter = $(this).closest('.eventon_filter');
-				var filter_current_set_val = filter.data('filter_val');
+					filter_section = $(this).closest('.eventon_filter_line'),
+					filter = $(this).closest('.eventon_filter'),
+					filter_current_set_val = filter.data('filter_val');
+					filter_def_val = filter.data('fldef');
+
+				const filter_set_val = filter.find('.filtering_set_val');
+				const filter_btn = CAL.find('.evo-filter-btn');
+
 				var select_filter_type = filter_section.hasClass('selecttype')? true:false;
 				FILTER_DROPDOWN = $(this).parent();
 				CAL = $(this).closest('.ajde_evcal_calendar');	
-
-				//console.log(new_filter_val);
 
 
 				// for filter values with checkboxes
@@ -1636,31 +1631,58 @@ jQuery(document).ready(function($){
 						O.parent().find('p').removeClass('select');
 						O.addClass('select');
 					}
+
+					filter.data('filter_val',new_filter_val);
 				}
+
+				var set_new_filter_val = filter.data('filter_val');
+
+
+				// display filter informer	
+					if( !( CAL.hasClass('flhi') ) ){
+						//console.log(set_new_filter_val+' '+ filter_def_val);
+						if( set_new_filter_val == filter_def_val){
+							filter_set_val.removeClass('set');						
+						}else{
+							filter_set_val.addClass('set');
+						}
+
+						var count_filters = filter_section.find('.filtering_set_val.set').length;
+
+						if( count_filters > 0){
+							filter_btn.find('em').html( count_filters ).addClass('o');
+							CAL.find('.evo_filter_clear').addClass('show');
+						}else{
+							filter_btn.find('em').removeClass('o');		
+							CAL.find('.evo_filter_clear').removeClass('show');					
+						}
+					}
+
+					
 
 				// if select filter type 
 				if(select_filter_type) return;
 
 				
 				// For non checkbox select options
-				if(filter_current_set_val == new_filter_val){
-					$(this).parent().fadeOut();
-				}else{					
-					cal_resets( CAL );
-							
-					// make changes					
-					filter.data('filter_val', new_filter_val);
+					if(filter_current_set_val == new_filter_val){
+						$(this).parent().fadeOut();
+					}else{					
+						cal_resets( CAL );
+								
+						// make changes					
+						filter.data('filter_val', new_filter_val);
 
-					CAL.evo_update_sc_from_filters();					
+						CAL.evo_update_sc_from_filters();					
 
-					run_cal_ajax( CAL.attr('id') ,'none','filering');
-										
-					// reset the new values				
-					var new_filter_name = $(this).html();
-					
-					O.parent().fadeOut();
-					O.parent().siblings('.filtering_set_val').removeClass('show');
-				}
+						run_cal_ajax( CAL.attr('id') ,'none','filering');
+											
+						// reset the new values				
+						var new_filter_name = $(this).html();
+						
+						O.parent().fadeOut();
+						filter_set_val.removeClass('show');
+					}
 			});
 			
 			// apply filters via button to the calendar
@@ -1685,6 +1707,38 @@ jQuery(document).ready(function($){
 
 					CAL.evo_update_sc_from_filters();	// update shortcode from filters
 					
+					run_cal_ajax(CAL.attr('id'),'none','filering');
+				});
+
+			// clear filters - @4.2
+				$('body').on('click','.evo_filter_clear',function(){
+					CAL = $(this).closest('.ajde_evcal_calendar');
+
+					CAL.find('.eventon_filter').each(function(){
+						const filter = $(this);
+						const def = filter.data('fldef');
+
+						$(this).find('.filtering_set_val').removeClass('set');
+						CAL.find('.evo-filter-btn em').removeClass('o');
+
+						filter.data('filter_val', def);
+
+						if( def == 'all'){							
+							filter.find('.evo_filter_val').addClass('select');
+						}else{
+							// filter value that is not all
+							filter.find('.evo_filter_val').removeClass('select');
+							fil_vals = def.split(',');
+							$.each( fil_vals, function( index, value){
+								filter.find('.evo_filter_val[data-filter_val="'+ value +'"]').addClass('select');
+							});
+						}
+					});
+
+					$(this).removeClass('show');
+
+					// update shortcode and run new ajax for events
+					CAL.evo_update_sc_from_filters();					
 					run_cal_ajax(CAL.attr('id'),'none','filering');
 				});
 		
@@ -1802,7 +1856,13 @@ jQuery(document).ready(function($){
 			// refresh event top
 				.on('runajax_refresh_eventtop',function(e, OBJ, nonce){
 
-				});
+				})
+
+			// click on no events - @v 4.2
+				.on('click','.evo_no_events_btn', function (e){
+					BODY.trigger('click_on_no_event_btn', [$(this) ] );
+				})
+				;
 		
 
 	// PRIMARY hook to get content	
@@ -1933,12 +1993,11 @@ jQuery(document).ready(function($){
 			var current_text = title_element.html();
 			var CAL = title_element.closest('.ajde_evcal_calendar');
 
-			// for RTL not do the animation
-			if(CAL.hasClass('evortl')){
-				title_element.html(new_data);
-				return;
-			}
+			
+			title_element.html(new_data);
+			return;
 
+			/*  - @v 4.2
 			var hei = title_element.height();
 			var wid= title_element.width();
 			
@@ -1946,12 +2005,16 @@ jQuery(document).ready(function($){
 			title_element.html("<span style='position:absolute; width:"+wid+"; height:"+hei+" ;'>"+current_text+"</span><span style='position:absolute; display:none;'>"+new_data+"</span>").width(wid);
 
 			var LC_w = title_element.find('span:last-child').width()+5;
+
+			console.log(title_element);
 						
+			title_element.animate({width: LC_w},2000);
 			title_element.find('span:first-child').fadeOut(800); 
 			title_element.find('span:last-child').fadeIn(800, function(){
 				title_element.html(new_data);
 			});
-			title_element.animate({width: LC_w},800);
+			*/
+			
 		}
 	
 	// actual animation/function for more/less button
@@ -2082,32 +2145,18 @@ jQuery(document).ready(function($){
 
 	// event location archive card page
 		// @u 2.8.6
-		$('body').find('.evo_location_map').each(function(){
-			THIS = $(this);
-			MAPID = THIS.attr('id');
+		$('body').find('.evo_location_map').each(function(){			
+			$(this).evo_load_gmap();
+		});
 
-			var location_type = THIS.attr('data-location_type');
-			if(location_type=='add'){
-				var address = THIS.attr('data-address');
-				var location_type = 'add';
-			}else{			
-				var address = THIS.attr('data-latlng');
-				var location_type = 'latlng';				
-			}
-
-			// zoomlevel
-				zoom = parseInt(THIS.data('zoom'));
-				scrollwheel = THIS.data('scroll') == 'yes'? true: false;
-
-			THIS.evoGenmaps({
-				'fnt':5,
-				map_canvas_id:	MAPID,
-				location_type: 	location_type,
-				address:address,
-				zoomlevel: 		zoom,
-				mapformat: 		THIS.data('mty'),
-				scroll: 		scrollwheel,
-			});
+		// on event card lightbox load -> organizer details @since 4.2
+		$('body').on('evo_ajax_complete_evo_get_organizer_info', function(event,  OO){
+			
+			LB = $('body').find('.'+ OO.lightbox_key);
+			map_id_elm = LB.find('.evo_trigger_map');
+			
+			map_id_elm.evo_load_gmap();
+			
 		});
 		
 	// SINGLE EVENTS
@@ -2264,7 +2313,7 @@ jQuery(document).ready(function($){
 		    })
 		}
 		
-	$('.evo-search').on('click',function(){
+	$('body').on('click','.evo-search',function(){
 		var section = $(this).closest('.calendar_header');
 		var item = section.find('.evo_search_bar');
 
@@ -2278,10 +2327,15 @@ jQuery(document).ready(function($){
 			do_search_box( $(this) );
 		});
 
-		$(".evosr_search_box input").evo_enterKey(function () {
-			do_search_box( $(this).siblings('.evo_do_search') );
-		});
+		// dynamic enter key press on the search input field @4.2
+			$('body').on('keypress', '.evo_search_field',function(event){
+				var keycode = (event.keyCode ? event.keyCode : event.which);
+				if( keycode == '13' ){
+					do_search_box( $(this).siblings('.evo_do_search') );
+				}			
+			});
 
+		// primary search function
 		function do_search_box(OBJ){
 			SearchVal = OBJ.closest('.evosr_search_box').find('input').val();
 			Evosearch = OBJ.closest('.EVOSR_section');
@@ -2293,40 +2347,33 @@ jQuery(document).ready(function($){
 				return false;
 			}
 
+			$('body')
+			.on('evo_ajax_beforesend_evo_get_search_results', function (event, uid){
+				Evosearch.find('.evo_search_results_count').hide();
+				Evosearch.addClass('searching');
+			}).on('evo_ajax_complete_evo_get_search_results', function (event, uid){
+				Evosearch.removeClass('searching');
+			}).on('evo_ajax_success_evo_get_search_results', function (event, uid, data){
+				Evosearch.find('.evo_search_results').html( data.content);
 
-			SC = Evosearch.find('span.data').data('sc');
-
-			
-			var data_arg = {
-				action: 		'eventon_search_evo_events',
-				search: 		SearchVal,
-				shortcode: SC
-			};
-			$.ajax({
-				beforeSend: function(){
-					Evosearch.find('.evo_search_results_count').hide();
-					Evosearch.addClass('searching');
-				},
-				type: 'POST',
-				url:the_ajax_script.ajaxurl,
-				data: data_arg,
-				dataType:'json',
-				success:function(data){
-					Evosearch.find('.evo_search_results').html( data.content);
-
-					if(Evosearch.find('.no_events').length>0){
-
-					}else{
-						// find event count
-						Events = Evosearch.find('.evo_search_results').find('.eventon_list_event').length;
-						Evosearch.find('.evo_search_results_count span').html( Events);
-						Evosearch.find('.evo_search_results_count').fadeIn();
-					}
-					
-				},complete: function(){
-					Evosearch.removeClass('searching');
+				if(Evosearch.find('.no_events').length==0){
+					// find event count
+					Events = Evosearch.find('.evo_search_results').find('.eventon_list_event').length;
+					Evosearch.find('.evo_search_results_count span').html( Events);
+					Evosearch.find('.evo_search_results_count').fadeIn();
 				}
 			});
+
+			var ajax_results = OBJ.evo_admin_get_ajax({
+				'ajaxdata': {
+					action: 		'eventon_search_evo_events',
+					search: 		SearchVal,
+					shortcode:  	Evosearch.find('span.data').data('sc')					
+				},
+				'uid':'evo_get_search_results',
+				end: 'client'
+			});
+
 		}
 
 	// submit search from calendar
@@ -2336,8 +2383,6 @@ jQuery(document).ready(function($){
 		function search_within_calendar(obj){
 
 			var ev_cal = obj.closest('.ajde_evcal_calendar');
-
-
 			
 			ev_cal.evo_update_cal_sc({F:'show_limit_paged',V: '1' });
 			ev_cal.evo_update_cal_sc({F:'s',V: obj.val() });

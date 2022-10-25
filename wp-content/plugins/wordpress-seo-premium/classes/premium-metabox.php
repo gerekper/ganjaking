@@ -168,7 +168,18 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 				WPSEO_PREMIUM_FILE
 			),
 			'inclusiveLanguageAnalysisActive' => $analysis_inclusive_language->is_enabled(),
+			'premiumAssessmentsScriptUrl'     => \plugins_url(
+				'assets/js/dist/register-premium-assessments-' . $assets_manager->flatten_version( WPSEO_PREMIUM_VERSION ) . WPSEO_CSSJS_SUFFIX . '.js',
+				WPSEO_PREMIUM_FILE
+			),
 		];
+
+		if ( \defined( 'YOAST_SEO_TEXT_FORMALITY' ) && YOAST_SEO_TEXT_FORMALITY === true ) {
+			$data['textFormalityScriptUrl'] = \plugins_url(
+				'assets/js/dist/register-text-formality-' . $assets_manager->flatten_version( WPSEO_PREMIUM_VERSION ) . WPSEO_CSSJS_SUFFIX . '.js',
+				WPSEO_PREMIUM_FILE
+			);
+		}
 
 		if ( WPSEO_Metabox::is_post_edit( $this->get_current_page() ) ) {
 			$data = array_merge( $data, $this->get_post_metabox_config() );
@@ -210,6 +221,7 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 			'linkSuggestionsUnindexed'        => ! $this->is_prominent_words_indexing_completed() && WPSEO_Capability_Utils::current_user_can( 'wpseo_manage_options' ),
 			'perIndexableLimit'               => $this->per_indexable_limit( $language ),
 			'isProminentWordsAvailable'       => $is_prominent_words_available,
+			'isTitleAssessmentAvailable'      => true,
 		];
 	}
 
@@ -242,13 +254,14 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 		$language    = WPSEO_Language_Utils::get_language( $site_locale );
 
 		return [
-			'currentObjectId'           => $term->term_id,
-			'currentObjectType'         => 'term',
-			'linkSuggestionsEnabled'    => ( $link_suggestions_enabled ) ? 'enabled' : 'disabled',
-			'linkSuggestionsAvailable'  => $is_prominent_words_available,
-			'linkSuggestionsUnindexed'  => ! $this->is_prominent_words_indexing_completed() && WPSEO_Capability_Utils::current_user_can( 'wpseo_manage_options' ),
-			'perIndexableLimit'         => $this->per_indexable_limit( $language ),
-			'isProminentWordsAvailable' => $is_prominent_words_available,
+			'currentObjectId'            => $term->term_id,
+			'currentObjectType'          => 'term',
+			'linkSuggestionsEnabled'     => ( $link_suggestions_enabled ) ? 'enabled' : 'disabled',
+			'linkSuggestionsAvailable'   => $is_prominent_words_available,
+			'linkSuggestionsUnindexed'   => ! $this->is_prominent_words_indexing_completed() && WPSEO_Capability_Utils::current_user_can( 'wpseo_manage_options' ),
+			'perIndexableLimit'          => $this->per_indexable_limit( $language ),
+			'isProminentWordsAvailable'  => $is_prominent_words_available,
+			'isTitleAssessmentAvailable' => false,
 		];
 	}
 

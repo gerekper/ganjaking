@@ -653,6 +653,8 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'corecss' => __('Core CSS', 'revslider'),
 			'coretools' => __('Core Tools (GreenSock & Co)', 'revslider'),
 			'enablecompression' => __('Enable Server Compression', 'revslider'),
+			'notduringinsetmode' => __('Resize and Drag is not available if Layer Size set to Inset', 'revslider'),
+			'insetrequirements' => __('Move Layer into a Group and set Position to Absolute before selecting Full Inset', 'revslider'),
 			'noservercompression' => __('Not Available, read FAQ', 'revslider'),
 			'servercompression' => __('Serverside Compression', 'revslider'),
 			'sizeafteroptim' => __('Size after Optimization', 'revslider'),

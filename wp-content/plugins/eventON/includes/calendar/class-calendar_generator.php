@@ -3,7 +3,7 @@
  * EVO_generator class.
  *
  * @class 		EVO_generator
- * @version		4.1.3
+ * @version		4.2
  * @package		EventON/Classes
  * @category	Class
  * @author 		AJDE
@@ -475,10 +475,11 @@ class EVO_generator {
 
 					// for multiple months with none separate months
 					if( ($sep_month == 'no' && empty($content) ) || empty($content) ){
-						$content .= "<div class='eventon_list_event no_events'><p class='no_events' >".$this->lang_array['no_event']."</p></div>";
+						$content .= "<div class='eventon_list_event no_events'>".$this->helper->get_no_event_content() ."</div>";
 					}
 
 				}
+
 				
 			}else{ // return only individual events				
 				$event_list_array = $this->filtering->apply_filters_to_event_list($event_list_array,'event_count');
@@ -1852,7 +1853,7 @@ class EVO_generator {
 						}
 
 					// Event Organizer
-						$O = $EVENT->get_organizer_data();
+						$O = $EVENT->get_taxonomy_data('event_organizer');
 						$hideOrganizer_from_eventCard = $EVENT->check_yn('evo_evcrd_field_org');
 
 						if($O && !$hideOrganizer_from_eventCard){
@@ -1860,8 +1861,7 @@ class EVO_generator {
 							$_eventcard['organizer'] = array();	
 						}
 
-					// Custom fields
-						
+					// Custom fields						
 						$cmf_etop_data = array();
 
 						for($x =1; $x<$custom_meta_fields_count+1; $x++){
@@ -1948,6 +1948,7 @@ class EVO_generator {
 					// CONSTRUCT event top html
 					$eventtop_html =  $structure->get_event_top(  $EventData, $eventtop_fields );						
 					$eventtop_html = apply_filters('eventon_eventtop_html',$eventtop_html);
+					//$eventtop_html = '';
 
 				// (---) hook for addons
 					$html_info_line = apply_filters('eventon_event_cal_short_info_line', $eventtop_html);
@@ -2060,35 +2061,67 @@ class EVO_generator {
 							}else{
 								$_this_style = 'background-color: '.$EventData['color'].';';
 								$p_elm_styles['background-color'] = $EventData['color'];
+								$_eventClasses[] = 'noimg';
 							}
 							
 
-							// support different tile style
+							// support different tile style , with top box
 							// top box tile
 							if(!empty($SC['tile_style']) && $SC['tile_style'] !='0'){
 								$topbox_topbox_height = $SC['tile_height']!= 0? ((int)$SC['tile_height']) -110: 150;
-								$topbox_padding_top = $topbox_topbox_height+15;								
+								$topbox_padding_top = $topbox_topbox_height+35;								
+														
 
-								$eventbefore = '<div class="evo_boxtop" style="'.$_this_style.'height:'.$topbox_topbox_height.'px;"></div>';
-
-								$_eventInAttr['style'][] = 'padding-top: '.$topbox_padding_top.'px;';							
-
-								// tile style = 1;
+								// tile style = 1; details under color tile
 								if( $SC['tile_style'] == 1){
-									if( $SC['tile_bg'] =='0'){
+									if( $SC['tile_bg'] =='0'){ // color bg		
+
 										$_eventInAttr['style'][] = 'border-color:'.$EventData['color'].';';	
 										//$_eventClasses [] = 'color';
-									}else{
+									
+									}else{ 
 										$_eventInAttr['style'][] = 'background-color:'.$EventData['color'].';';	
+									}
+
+									// img bg
+									if( $SC['tile_bg'] =='1'){
+										$topbox_topbox_height = $topbox_topbox_height + 50;
+										$topbox_padding_top = $topbox_topbox_height + 35;
+										
+										// no event image
+										if(empty($img_src)){
+											 $topbox_padding_top = 80;
+											 $topbox_topbox_height = 0;
+										}
 									}
 									
 								}
 								
-								// tile style = 2
+								// tile style = 2 - details under clean tile
 								if( $SC['tile_style'] == 2){
+
+									// color background
+									if( $SC['tile_bg'] == '0'){
+										$topbox_topbox_height = 30;
+										$topbox_padding_top = $topbox_topbox_height + 55;
+									}
+
+									// img bg
+									if( $SC['tile_bg'] == '1'){
+										// no image
+										if( empty($img_src)){
+											$topbox_topbox_height = 30;
+											$topbox_padding_top = $topbox_topbox_height + 55;
+										}
+									}
+									
 									$_eventInAttr['style'][] = 'border-color:'.$EventData['color'].';';	
 								}
 								
+								// complete items
+								$eventbefore = '<div class="evo_boxtop" style="'.$_this_style.'height:'.$topbox_topbox_height.'px;"></div>';
+
+								$_eventInAttr['style'][] = 'padding-top: '.$topbox_padding_top.'px;';
 								$p_elm_styles = array();
 
 							}else{
@@ -2132,6 +2165,7 @@ class EVO_generator {
 				$_eventInAttr['id']=$unique_id;
 				$_eventInAttr['class']=$_eventInClasses_;
 				$_eventInAttr['data-ux_val'] = $event_ux_val;
+				$_eventInAttr['data-ux_val_mob'] = isset($SC['ux_val_mob']) ? $SC['ux_val_mob']: '-';
 				if( $EventData['cancelled'] )  $_eventInAttr['data-text'] = evo_lang('Cancelled');
 				$_eventInAttr['data-j'] = apply_filters('evo_event_json_data', array(), $event_id);
 				$_eventInAttr['data-runjs'] = apply_filters('evo_event_run_json_onclick', false, $EVENT);

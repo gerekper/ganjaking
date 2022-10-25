@@ -6,6 +6,9 @@
     Tool tips
 */
 
+:root{
+    --evo_color_prim: #00aafb;
+}   
 /* General */
     .evo_elm_row p.evo_field_container input{
     	border-radius: 8px;
@@ -21,7 +24,7 @@
 
 /* yes no button */
     .ajde_yn_btn {
-        background-color: #52b4e4;
+        background-color: var(--evo_color_prim);
         height: 24px;
         width: 40px;
         overflow: hidden;
@@ -291,7 +294,7 @@
         border-radius: 20px;overflow: hidden;padding:5px;flex-wrap: wrap;}
     
     p.evo_row_select span span:hover{ color: #9c9c9c;}
-    p.evo_row_select span span.select{   background-color: #52b4e4;color:#fff;border-radius: 20px}
+    p.evo_row_select span span.select{   background-color: var(--evo_color_1);color:#fff;border-radius: 20px}
     
     p.evo_row_select span span{padding:8px 15px;color:#636363;cursor: pointer;line-height: 1    }
 
@@ -354,7 +357,7 @@
         color: #fff;
         font-size: 10px;
         margin-top: 3px;
-        background-color: #3b3b3b;
+        background-color: var(--evo_color_1);
         padding: 3px;
         border-radius: 50%;
         height: 16px;

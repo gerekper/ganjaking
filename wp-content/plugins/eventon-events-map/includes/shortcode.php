@@ -18,14 +18,16 @@ class evo_em_shortcode{
 
 	function __construct(){
 		add_shortcode('add_eventon_evmap', array($this,'generate_calendar'));
-		add_filter('eventon_shortcode_popup',array($this,'shortcode_optinos'), 10, 1);
+		add_filter('eventon_shortcode_popup',array($this,'shortcode_optinos'), 11, 1);
+		add_filter('eventon_shortcode_defaults',array($this,  'add_shortcode_defaults'), 10, 1);
 	}
 
 	// generate calendar
 		function generate_calendar($atts){
 
 			if(!is_array($atts)) $atts = array();		
-			EVOEM()->is_running_em = true;	
+			
+			//EVOEM()->is_running_em = true;	
 			EVOEM()->load_script = true;		
 			
 			// add additional default values to accepted shortcode variables
@@ -33,21 +35,18 @@ class evo_em_shortcode{
 			
 			$atts['calendar_type'] = 'map';		
 
-			ob_start();	
-
-			EVOEM()->frontend->atts = $atts;
-			echo EVOEM()->frontend->generate_evo_em($atts);
+			$O =  EVOEM()->frontend->generate_evo_em($atts);
 				
 			// pipe down
 			EVOEM()->is_running_em = false;	
-			remove_filter('eventon_shortcode_defaults', array($this,'add_shortcode_defaults'));
+			//remove_filter('eventon_shortcode_defaults', array($this,'add_shortcode_defaults'));
 
-			return ob_get_clean();
-					
+			return $O;					
 		}
+
 	// add new default shortcode arguments
 		function add_shortcode_defaults($arr){
-			
+
 			return array_merge($arr, array(
 				'map_height'=>400,
 				'show_alle'=>'no',
@@ -83,10 +82,12 @@ class evo_em_shortcode{
 							'type'=>'select',
 							'options'=>array(
 								'monthly'=>'Month Navigational Map',
-								'upcoming'=>'All Upcoming Events'
+								'upcoming'=>'All Upcoming Events',
+								//'pastfuture'=>'Past and Upcoming Events',
 							),
 							'var'=>'map_type',
-							'default'=>'monthly'
+							'default'=>'monthly',
+							//'guide'=>'For "Past and Upcoming Events" use fixed month and year to set the first past month and number of months ',
 						)						
 						,$evo_shortcode_box->shortcode_default_field('fixed_month')
 						,$evo_shortcode_box->shortcode_default_field('fixed_year')

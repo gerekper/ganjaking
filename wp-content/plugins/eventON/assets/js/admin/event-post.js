@@ -1,5 +1,5 @@
 /** 
- * @version  4.0.3
+ * @version  4.2
  */
 jQuery(document).ready(function($){
 
@@ -19,45 +19,26 @@ jQuery(document).ready(function($){
 	// virtual event
 	// 4.0.3
 		// load virtual settings to light box
-			$('body').on('click','.trig_virtual_event_config',function(){
-				
-				var ajaxdataa_ = {};
-				ajaxdataa_['action']='eventon_config_virtual_event';
-				ajaxdataa_['eid'] = $(this).data('eid');
-				var LB = $('.config_vir_events');
+			$('body')
+			.on('evo_ajax_success_evo_get_virtual_events',function(event, OO, data){
+				if(data.status=='good'){		
+					LB = $('body').find('.' + OO.lightbox_key );			
+					LB.evo_lightbox_populate_content({content: data.content });	
+					var vir_val = LB.find('.evo_eventedit_virtual_event').val();
+					if( vir_val == 'zoom'){
+						LB.find('.zoom_connect').show();
+					}
+				}
+			})
+			// select moderator
+			.on('evo_ajax_success_evo_get_vir_mod_events',function(event, OO, data){
+				if(data.status=='good'){		
+					LB = $('body').find('.' + OO.lightbox_key );			
+					LB.evo_lightbox_populate_content({content: data.content });	
+				}
+			})
+			;
 
-				$.ajax({
-					beforeSend: function(){ },
-					url:	the_ajax_script.ajaxurl,
-					data: 	ajaxdataa_,	dataType:'json', type: 	'POST',
-					success:function(data){
-						LB.find('.ajde_popup_text').html( data.content );
-						var vir_val = LB.find('.evo_eventedit_virtual_event').val();
-						if( vir_val == 'zoom'){
-							LB.find('.zoom_connect').show();
-						}
-					},
-					complete:function(){ }
-				});
-			});
-
-		// open select moderator
-			$('body').on('click','.trig_select_moderator',function(){
-				var ajaxdataa_ = {};
-				ajaxdataa_['action']='eventon_select_virtual_moderator';
-				ajaxdataa_['eid'] = $(this).data('eid');
-				var LB = $('.sel_moderator');
-
-				$.ajax({
-					beforeSend: function(){ },
-					url:	the_ajax_script.ajaxurl,
-					data: 	ajaxdataa_,	dataType:'json', type: 	'POST',
-					success:function(data){
-						LB.find('.ajde_popup_text').html( data.content );
-					},
-					complete:function(){ }
-				});
-			});
 			// set user role > load users for the role
 			$('body').on('change','.evo_virtual_moderator_role',function(){
 				var ajaxdataa_ = {};
@@ -68,7 +49,7 @@ jQuery(document).ready(function($){
 
 				$.ajax({
 					beforeSend: function(){ 
-						$('body').trigger('evo_show_loading_animation',['sel_moderator','saving']);	
+						LB.evo_lightbox_start_inloading();
 					},
 					url:	the_ajax_script.ajaxurl,
 					data: 	ajaxdataa_,	dataType:'json', type: 	'POST',
@@ -76,7 +57,7 @@ jQuery(document).ready(function($){
 						LB.find('.evo_virtual_moderator_users').html( data.content );
 					},
 					complete:function(){ 
-						$('body').trigger('evo_hide_loading_animation',['sel_moderator']);
+						LB.evo_lightbox_stop_inloading();
 					}
 				});
 			});
@@ -87,21 +68,19 @@ jQuery(document).ready(function($){
 					LB = $('.sel_moderator');
 				FORM.ajaxSubmit({
 					beforeSubmit: function(){	
-						$('body').trigger('evo_show_loading_animation',['sel_moderator','saving']);	
+						LB.evo_lightbox_start_inloading();
 					},
 					dataType: 	'json',
 					url: 		the_ajax_script.ajaxurl,
 					type: 	'POST',
 					success:function(data){
 						if( data.status == 'good'){
-							$('body').trigger('ajde_lightbox_show_msg',[ data.msg, 'sel_moderator','good',true]);
+							LB.evo_lightbox_show_msg({'type': 'good', 'message':data.msg, hide_lightbox:2000});
 						}else{
-							$('body').trigger('ajde_lightbox_show_msg',[ data.msg, 'sel_moderator','bad']);
+							LB.evo_lightbox_show_msg({'type': 'bad', 'message':data.msg});
 						}
 					},
-					complete:function(){
-						$('body').trigger('evo_hide_loading_animation',['sel_moderator']);
-					}
+					complete:function(){	LB.evo_lightbox_stop_inloading();	}
 				});
 			});
 
@@ -165,24 +144,14 @@ jQuery(document).ready(function($){
 	
 
 	// jitsi
-		$('body').on('click','.trig_jitsi', function(){
-			var ajaxdataa_ = {};
-			ajaxdataa_['action']='evo_jitsi_settings';
-			ajaxdataa_['eid'] = $(this).data('eid');
-			var LB = $('.evo_jitsi_config');
-
-			$.ajax({
-				beforeSend: function(){ LB.find('.ajde_popup_text').addClass('evo_loader');},
-				url:	the_ajax_script.ajaxurl,
-				data: 	ajaxdataa_,	dataType:'json', type: 	'POST',
-				success:function(data){
-					LB.find('.ajde_popup_text').html( data.content );
-				},
-				complete:function(){ 
-					LB.find('.ajde_popup_text').removeClass('evo_loader');
-				}
-			});
+		$('body')
+		.on('evo_ajax_success_evo_get_jitsi_events',function(event, OO, data){
+			if(data.status=='good'){		
+				LB = $('body').find('.' + OO.lightbox_key );			
+				LB.evo_lightbox_populate_content({content: data.content });	
+			}
 		});
+		
 		$('body').on('click','.evo_jitsi_save',function(){
 
 			var FORM = $(this).closest('form'),
@@ -221,23 +190,12 @@ jQuery(document).ready(function($){
 		});
 
 	// ZOOM
-		$('body').on('click','.trig_zoom',function(){
-			var ajaxdataa_ = {};
-			ajaxdataa_['action']='evo_zoom_settings';
-			ajaxdataa_['eid'] = $(this).data('eid');
-			var LB = $('.evo_zoom_config');
-
-			$.ajax({
-				beforeSend: function(){ LB.find('.ajde_popup_text').addClass('evo_loader');},
-				url:	the_ajax_script.ajaxurl,
-				data: 	ajaxdataa_,	dataType:'json', type: 	'POST',
-				success:function(data){
-					LB.find('.ajde_popup_text').html( data.content );
-				},
-				complete:function(){ 
-					LB.find('.ajde_popup_text').removeClass('evo_loader');
-				}
-			});
+		$('body')
+		.on('evo_ajax_success_evo_get_zoom_events',function(event, OO, data){
+			if(data.status=='good'){		
+				LB = $('body').find('.' + OO.lightbox_key );			
+				LB.evo_lightbox_populate_content({content: data.content });	
+			}
 		});	
 
 		// connect to the api
@@ -295,29 +253,13 @@ jQuery(document).ready(function($){
 		});
 
 	// Related events	
-		$('body').
-		on('click','.evo_rel_events',function(){
-			OBJ = $(this);
-			LB = $('body').find('.evo_related_events_lb');
-			var ajaxdataa = { };
-				ajaxdataa['action']='eventon_rel_event_list';
-				ajaxdataa['eventid']=  OBJ.data('eventid');
-				ajaxdataa['EVs']=  OBJ.siblings('.evo_rel_events_sel_list').val();
-
-			$.ajax({
-				beforeSend: function(){},
-				type: 'POST',
-				url:evo_admin_ajax_handle.ajaxurl,
-				data: ajaxdataa,
-				dataType:'json',
-				success:function(data){
-					if(data.status=='good'){						
-						LB.find('.ajde_popup_text').html( data.content);
-						LB.find('select.field').select2();						
-					}
-				},complete:function(){}
-			});	
-		})
+		$('body')
+		.on('evo_ajax_success_evo_get_related_events',function (event, OO, data){
+			if(data.status=='good'){
+				LB = $('body').find('.' + OO.lightbox_key );			
+				LB.find('.evolb_content').html( data.content);					
+			}
+		})		
 		.on('click','span.rel_event', function(){
 			O = $(this);
 			O.toggleClass('select');
@@ -340,10 +282,11 @@ jQuery(document).ready(function($){
 			BOX.find('.ev_rel_events_list').html( HTML );
 			BOX.find('.evo_rel_events_sel_list').val( JSON.stringify(EV) );
 
-			$('body').trigger('ajde_lightbox_show_msg',[ 'Saved related events', 'evo_related_events_lb','good',true]);
-			
-			// hide lightbox after a 2 second delay
-			$('body').trigger('evoadmin_lightbox_hide',['evo_related_events_lb',2000]);
+			LB.evo_lightbox_show_msg({
+				'type':'good',
+				'message':'Saved related events!',
+				'hide_lightbox':2000
+			});
 			
 		})
 		// remove related events

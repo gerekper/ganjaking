@@ -57,8 +57,7 @@ class Zapier_Classic_Editor implements Integration_Interface {
 	 * @return void
 	 */
 	public function add_publishbox_text( WP_Post $post ) {
-		if ( ! $this->zapier_helper->is_post_type_supported( $post->post_type )
-			|| $this->zapier_helper->is_connected() ) {
+		if ( ! $this->zapier_helper->is_post_type_supported( $post->post_type ) ) {
 			return;
 		}
 		?>
@@ -66,15 +65,30 @@ class Zapier_Classic_Editor implements Integration_Interface {
 			<span class="yoast-logo svg"></span>
 			<span>
 			<?php
-			\printf(
-				/* translators: 1: Link start tag, 2: Yoast SEO, 3: Zapier, 4: Link closing tag. */
-				\esc_html__( '%1$sConnect %2$s with %3$s%4$s to instantly share your published posts with 2000+ destinations such as Twitter, Facebook and more.', 'wordpress-seo-premium' ),
-				'<a href="' . \esc_url( \admin_url( 'admin.php?page=wpseo_integrations' ) ) . '" target="_blank">',
-				'Yoast SEO',
-				'Zapier',
-				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The content is already escaped.
-				WPSEO_Admin_Utils::get_new_tab_message() . '</a>'
-			);
+			if ( $this->zapier_helper->is_connected() ) {
+				\printf(
+					/* translators: 1: Zapier, 2: Link start tag, 3: Zapier, 4: Link closing tag. */
+					\esc_html__( 'You’re successfully connected to %1$s. Publishing a post will trigger automated actions based on your Zap’s configuration. %2$sManage your Zap in %3$s%4$s.', 'wordpress-seo-premium' ),
+					'Zapier',
+					'<a href="' . \esc_url( 'https://zapier.com/app/zaps' ) . '" target="_blank">',
+					'Zapier',
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The content is already escaped.
+					WPSEO_Admin_Utils::get_new_tab_message() . '</a>'
+				);
+
+			}
+			else {
+				\printf(
+					/* translators: 1: Link start tag, 2: Yoast SEO, 3: Zapier, 4: Link closing tag. */
+					\esc_html__( '%1$sConnect %2$s with %3$s%4$s to instantly share your published posts with 2000+ destinations such as Twitter, Facebook and more.', 'wordpress-seo-premium' ),
+					'<a href="' . \esc_url( \admin_url( 'admin.php?page=wpseo_integrations' ) ) . '" target="_blank">',
+					'Yoast SEO',
+					'Zapier',
+					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The content is already escaped.
+					WPSEO_Admin_Utils::get_new_tab_message() . '</a>'
+				);
+
+			}
 			?>
 			</span>
 		</div>

@@ -128,12 +128,11 @@ function evotemp_before_single_event_content(){
 	$json = apply_filters('evo_event_json_data',array(), $event_id);
 
 	// eventtop style
-	$etsty = EVO()->cal->get_prop('evosm_eventtop_style');
-	if(!$etsty) $etsty = 'color';
+	$eventtop_style = EVO()->cal->get_prop('evosm_eventtop_style');
+	if(!$eventtop_style) $eventtop_style = 'immersive';
 
-	
 	?>
-	<div id='evcal_single_event_<?php echo get_the_ID();?>' class='ajde_evcal_calendar eventon_single_event evo_sin_page<?php echo ($rtl?'evortl':'') .' '. $etsty;?>' data-eid='<?php echo $event_id;?>' data-l='<?php echo EVO()->lang;?>' data-j='<?php echo json_encode($json);?>'>
+	<div id='evcal_single_event_<?php echo get_the_ID();?>' class='ajde_evcal_calendar eventon_single_event evo_sin_page<?php echo ($rtl?'evortl':'') .' '. $eventtop_style;?>' data-eid='<?php echo $event_id;?>' data-l='<?php echo EVO()->lang;?>' data-j='<?php echo json_encode($json);?>'>
 	<?php
 
 	// event data 
@@ -152,8 +151,10 @@ function evotemp_before_single_event_content(){
 	$header_text =  get_eventon_cal_title_month($formatted_time['n'], $formatted_time['Y'], $lang);
 
 	
-
-	?><div id='evcal_head' class='calendar_header'><p id='evcal_cur'><?php echo $header_text;?></p></div><?php
+	// if show month year header
+	if( EVO()->cal->check_yn('evosm_show_monthyear')):
+		?><div id='evcal_head' class='calendar_header'><p id='evcal_cur'><?php echo $header_text;?></p></div><?php
+	endif;
 
 	
 }
@@ -165,12 +166,15 @@ function evotemp_single_event_summary(){
 	global $event;
 
 	// eventtop style
-	$etsty = EVO()->cal->get_prop('evosm_eventtop_style');
-	if(!$etsty) $etsty = 'color';
+	$eventtop_style = EVO()->cal->get_prop('evosm_eventtop_style');
+	if(!$eventtop_style) $eventtop_style = 'immersive';
+
+
 
 	$single_events_args = apply_filters('eventon_single_event_page_data',array(
 		'etc_override'=>'yes',
-		'eventtop_style'=> ($etsty == 'color'? 2:0),
+		'eventtop_style'=> ($eventtop_style == 'color'? 2:0),
+		'eventtop_layout_style'=> EVO()->cal->get_prop('evosm_eventtop_layout_style')
 	));
 
 	$content =  EVO()->calendar->get_single_event_data( $event->ID, EVO()->lang, $event->ri, $single_events_args);		
@@ -189,7 +193,9 @@ function evotemp_single_event_summary(){
 
 		// repeat header
 		echo $event->get_repeat_header_html();
-		
+
+		?><h1 class='evosin_event_title'><?php echo $event->get_title();?></h1><?php
+			
 		echo $content[0]['content'];
 	endif;
 }

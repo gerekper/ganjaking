@@ -3,4 +3,4 @@ To modify your generated font, use the *dev.svg* file, located in the *fonts* fo
 See the documentation for more info on how to use this package: http://icomoon.io/#docs/font-face
 
 
-941105-1666343947-au
+941105-1666688512-au

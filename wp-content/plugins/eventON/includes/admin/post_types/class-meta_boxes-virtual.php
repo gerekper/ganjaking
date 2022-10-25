@@ -1,7 +1,7 @@
 <?php
 /**
  * Virtual Events Meta box content
- * @ 4.0.3
+ * @ 4.2
  */
 ?>
 
@@ -22,8 +22,21 @@
 
 
 	<div id='evo_virtual_details' class='evo_edit_field_box' style='display:<?php echo $EVENT->check_yn('_virtual')?'block':'none';?>'>
-
-		<p><span class='evo_btn trig_virtual_event_config ajde_popup_trig' data-popc='print_lightbox' data-lb_cl_nm='config_vir_events' data-t='<?php _e('Configure Virtual Event','eventon');?>' data-eid='<?php echo $EVENT->ID;?>' style='margin-right: 10px'><?php _e('Configure Virtual Event Details','eventon');?></span></p>		
+		<?php 
+		$btn_data = array(
+			'lbvals'=> array(
+				'lbc'=>'config_vir_events',
+				't'=>__('Configure Virtual Event Details','eventon'),
+				'ajax'=>'yes',
+				'd'=> array(					
+					'eid'=> $EVENT->ID,
+					'action'=> 'eventon_config_virtual_event',
+					'uid'=>'evo_get_virtual_events',
+				)
+			)
+		);
+		?>
+		<p><span class='evo_btn evolb_trigger' <?php echo $this->helper->array_to_html_data($btn_data);?> data-popc='print_lightbox' data-lb_cl_nm='config_vir_events' data-t='<?php _e('Configure Virtual Event','eventon');?>' data-eid='<?php echo $EVENT->ID;?>' style='margin-right: 10px'><?php _e('Configure Virtual Event Details','eventon');?></span></p>		
 	</div>									
 	</div>									
 </div>

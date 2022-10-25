@@ -699,7 +699,7 @@ abstract class Abstract_Page {
 		if ( 'smush-cdn' === $this->get_slug() ) {
 			$cdn = $this->settings->get_setting( 'wp-smush-cdn_status' );
 			if ( isset( $cdn->cdn_enabling ) && $cdn->cdn_enabling ) {
-				$message = esc_html__( 'Your settings have been saved and changes are now propagating to the CDN. Changes can take up to 30 minutes to take effect but your images will continue to be served in the mean time, please be patient.', 'wp-smushit' );
+				$message = esc_html__( 'Your settings have been saved and changes are now propagating to the CDN. Changes can take up to 30 minutes to take effect but your images will continue to be served in the meantime, please be patient.', 'wp-smushit' );
 			}
 		}
 

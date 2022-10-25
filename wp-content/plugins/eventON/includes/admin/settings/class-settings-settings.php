@@ -1,7 +1,7 @@
 <?php
 /**
   * evo settings class
-  * @version 2.3.23
+  * @version 4.2
   */
 class evo_settings_settings{
 	function __construct($evcal_opt)	{		
@@ -9,6 +9,12 @@ class evo_settings_settings{
 	}
 
 	function content(){
+
+		$preset_data = array(
+			'evo_color_1' => '202124',
+			'evo_color_2' => '656565',
+			'evo_color_link' => '656565',
+		);
 
 		$help = new evo_helper();
 
@@ -70,7 +76,8 @@ class evo_settings_settings{
 					array('id'=>'evo_login_link',
 						'type'=>'text',
 						'name'=>__('URL for custom login link','eventon'), 
-						'legend'=>__('If provided this URL will be used instead of default wordpress URL for users to login where eventon access is restricted to only login users.','eventon','eventon')
+						'legend'=>__('If provided this URL will be used instead of default wordpress URL for users to login where eventon access is restricted to only login users.','eventon','eventon'),
+						'default'=>'https://'
 					),
 					array('id'=>'evo_dis_icshtmldecode',
 						'type'=>'yesno',
@@ -130,7 +137,43 @@ class evo_settings_settings{
 							array('id'=>'evo_remove_jsonld','type'=>'end_afterstatement'),
 
 					array('type'=>'sub_section_close'),
+
+					// no event settings
+					array('type'=>'sub_section_open','name'=>__('No Event View Settings' ,'eventon')),
+
+						array('id'=>'evo_noevent_set',
+							'type'=>'dropdown',
+							'name'=>__('Select display styles for no event view','eventon'), 
+							'options'=>array(
+								'default'=>__('No events text string','eventon'),
+								'button'=>__('Clickable Button','eventon'),
+								'button_sub'=>__('Clickable Button with subtitle','eventon')
+							),
+							'legend'=>__('Select how you would like the calendar to display when there are no events on the current month or date range. You can use this space to engage visitors in creative ways.','eventon')
+						),
+						array('id'=>'evo_noevent_btn_action',
+							'type'=>'dropdown',
+							'name'=>__('Optional button action','eventon'), 
+							'options'=> apply_filters('evo_settings_noevent_btn_actions', array(
+								'none'=>__('Not do anything','eventon'),
+								'link'=>__('Link to custom URL','eventon')
+							)),
+							'legend'=>__('Select what action the clickable button should perform when clicked.','eventon')
+						),
+						array('id'=>'evo_noevent_link',
+							'type'=>'text',
+							'name'=>__('Optional no event button action custom URL','eventon'),
+							'legend'=>__('Type in a complete URL for no event button action link.','eventon'),
+							'default'=>'https://'
+						),
+						array('id'=>'evo_note',
+							'type'=>'note',
+							'name'=>sprintf(__('NOTE: Text used in the no event content can be translated via EvnetON Language Settings' ,'eventon'))
+						),
+
+					array('type'=>'sub_section_close'),
 					
+					// settings and data management
 					array('type'=>'sub_section_open','name'=>__('Settings & Data Management' ,'eventon')),
 
 						array('id'=>'evo_delete_settings',
@@ -359,20 +402,13 @@ class evo_settings_settings{
 				'tab_name'=>__('Icons','eventon'),
 				'icon'=>'diamond',
 				'fields'=> apply_filters('eventon_custom_icons', array(
-					/*
-					array('id'=>'evcal_sh001',
-						'type'=>'subheader',
-						'name'=>__('SVG Icons','eventon')),
-					array('id'=>'evo_custom_code',
-						'type'=>'customcode',
-						'code'=>$this->svg_icons()),
-					*/
+					
 					array('id'=>'evcal_sh001',
 						'type'=>'subheader',
 						'name'=>__('Icon Selections','eventon')),
 					array('id'=>'fs_fonti2','type'=>'fontation','name'=>__('EventCard Icons','eventon'),
 						'variations'=>array(
-							array('id'=>'evcal__ecI', 'type'=>'color', 'default'=>'6B6B6B'),
+							array('id'=>'evcal__ecI', 'type'=>'color', 'default'=>$preset_data['evo_color_2']),
 							array('id'=>'evcal__ecIz', 'type'=>'font_size', 'default'=>'18px'),
 						)
 					),
@@ -518,52 +554,6 @@ class evo_settings_settings{
 					array('id'=>'evcal__note','type'=>'customcode','code'=>$this->eventcard_meta_fields()),
 					
 				)
-			),
-
-			array(
-				'id'=>'evcal_003',
-				'name'=>__('Third Party API Support for Event Calendar','eventon'),
-				'tab_name'=>__('Third Party APIs','eventon'),
-				'icon'=>'plug',
-				'fields'=> apply_filters('eventon_settings_3rdparty', array(
-					// paypal
-					array('type'=>'sub_section_open','name'=>__('Paypal','eventon')),
-					array('id'=>'evcal_paypal_pay','type'=>'yesno','name'=>__('Enable PayPal event ticket payments','eventon'),'afterstatement'=>'evcal_paypal_pay', 'legend'=>'This will allow you to add a paypal direct link to each event that will allow visitors to pay for event via paypal.'),
-					array('id'=>'evcal_paypal_pay','type'=>'begin_afterstatement'),
-					array('id'=>'evcal_pp_email','type'=>'text','name'=>__('Your paypal email address to receive payments','eventon')),				
-					array('id'=>'evcal_pp_cur','type'=>'dropdown','name'=>__('Select your currency','eventon'), 'options'=> array(
-							'AUD'=>'Australian Dollar',
-							'BRL'=>'Brazilian Real',
-							'CAD'=>'Canadian Dollar',
-							'CZK'=>'Czech Koruna',
-							'DKK'=>'Danish Krone',
-							'EUR'=>'Euro',
-							'HKD'=>'Hong Kong Dollar',
-							'HUF'=>'Hungarian Forint',
-							'ILS'=>'Israeli New Sheqel',
-							'JPY'=>'Japanese Yen',
-							'MYR'=>'Malaysian Ringgit',
-							'MXN'=>'Mexican Peso',
-							'NOK'=>'Norwegian Krone',
-							'NZD'=>'New Zealand Dollar',
-							'PHP'=>'Philippine Peso',
-							'PLN'=>'Polish Zloty',
-							'GBP'=>'Pound Sterling',
-							'RUB'=>'Russian Ruble',
-							'SGD'=>'Singapore Dollar',
-							'SEK'=>'Swedish Krona',
-							'CHF'=>'Swiss Franc',
-							'TWD'=>'Taiwan New Dollar',
-							'THB'=>'Thai Baht',
-							'TRY'=>'Turkish Lira',
-							'USD'=>'U.S. Dollar',
-						),
-						'legend'=> __('PayPal Currently supports 25 currencies','eventon') 
-					),				
-					array('id'=>'evcal_paypal_pay','type'=>'end_afterstatement'),
-
-					array('type'=>'sub_section_close'),
-				))
 			)
 			// custom meta fields
 			,array(
@@ -644,11 +634,20 @@ class evo_settings_settings{
 			// Single Events
 				array(
 					'id'=>'eventon_social',
-					'name'=> __('Settings for Single Events','eventon'),
+					'name'=> __('Settings for Single Event Page','eventon'),
 					'display'=>'none',
 					'tab_name'=> __('Single Events','eventon'),
 					'icon'=>'calendar',
 					'fields'=> $this->single_events()
+				),
+
+			// third party APIs
+				array(
+					'id'=>'evcal_003',
+					'name'=>__('Third Party API Support for Event Calendar','eventon'),
+					'tab_name'=>__('Third Party APIs','eventon'),
+					'icon'=>'plug',
+					'fields'=> apply_filters('eventon_settings_3rdparty', $this->third_party_apis() )
 				),
 
 			// search
@@ -725,11 +724,19 @@ class evo_settings_settings{
 				'type'=>'yesno',
 				'name'=>__('Disable comments section on single event template page','eventon'), 
 				'legend'=>__('This will hide comments box from showing on single event page','eventon')
-			);
+			);	
+
+			$data[] = array('id'=>'evosm_show_monthyear',
+				'type'=>'yesno',
+				'name'=>__('Show month, year header on single event header','eventon'), 
+				'legend'=>__('This will display the month and year of the event above event header.','eventon')
+			);	
+
 			$data[] = array('id'=>'evosm_eventtop_style','type'=>'dropdown',
-				'name'=>__('Select EventTop Style','eventon'),
-				'legend'=>'This will set the single event page eventTop style',
+				'name'=>__('Select eventTop style','eventon'),
+				'legend'=>'This will set the single event page eventTop style only for single event page.',
 				'options'=>array(
+						'immersive'=>'Immersive Flow',
 						'color'=>'Colorful',
 						'white'=>'Clean White',
 					)
@@ -780,43 +787,6 @@ class evo_settings_settings{
 			<br/>NOTE: In basic event list, search feature can only search for events in first month. If you want to allow search for multiple months on an event list, please check out <a href='https://www.myeventon.com/addons/event-lists-extended/' target='_blank'>Event Lists Ext Addon</a>.
 			</p>
 			<?php return ob_get_clean();
-		}
-
-	// SVG icons
-		function svg_icons(){
-			ob_start();
-
-			$svgs = new EVO_Svgs();
-			?>
-			<div class="evoadmin_svgs">
-				<p><?php _e('SVG Icons for EventON Calendar');?></p>
-				<div class='evoadmin_svgs_container'>
-				<?php
-					$ss = $svgs->get_all();
-
-					if(count($ss)>0){
-						foreach($ss as $slug=>$code){
-							echo "<span data-s='{$slug}'>". $code ."</span>";
-						}
-					}
-				?>
-				</div>
-				
-				<p><span class='evoadmin_add_svg_icons evo_admin_btn btn_triad ajde_popup_trig ' data-popc='evoadmin_lightbox'><?php _e('Add New');?></span>
-				</p>
-
-			</div>
-			<?php
-
-			EVO()->lightbox->admin_lightbox_content(array(
-				'class'=>'evoadmin_lightbox', 
-				'content'=>"<p class='evo_lightbox_loading'></p>",
-				'title'=>__('SVG Icons','eventon'),
-				'width'=>'900'
-				)
-			);
-
-			return ob_get_clean();
 		}
 
 	// html for diagnosis content
@@ -1291,6 +1261,49 @@ class evo_settings_settings{
 			return $etc;
 		}
 
+	// Third party APIs
+		function third_party_apis(){
+			$data = array();
+
+			// paypal
+			$data[] = array('type'=>'sub_section_open','name'=>__('Paypal','eventon'));
+			$data[] = array('id'=>'evcal_paypal_pay','type'=>'yesno','name'=>__('Enable PayPal event ticket payments','eventon'),'afterstatement'=>'evcal_paypal_pay', 'legend'=>'This will allow you to add a paypal direct link to each event that will allow visitors to pay for event via paypal.');
+			$data[] = array('id'=>'evcal_paypal_pay','type'=>'begin_afterstatement');
+			$data[] = array('id'=>'evcal_pp_email','type'=>'text','name'=>__('Your paypal email address to receive payments','eventon'));				
+			$data[] = array('id'=>'evcal_pp_cur','type'=>'dropdown','name'=>__('Select your currency','eventon'), 'options'=> array(
+					'AUD'=>'Australian Dollar',
+					'BRL'=>'Brazilian Real',
+					'CAD'=>'Canadian Dollar',
+					'CZK'=>'Czech Koruna',
+					'DKK'=>'Danish Krone',
+					'EUR'=>'Euro',
+					'HKD'=>'Hong Kong Dollar',
+					'HUF'=>'Hungarian Forint',
+					'ILS'=>'Israeli New Sheqel',
+					'JPY'=>'Japanese Yen',
+					'MYR'=>'Malaysian Ringgit',
+					'MXN'=>'Mexican Peso',
+					'NOK'=>'Norwegian Krone',
+					'NZD'=>'New Zealand Dollar',
+					'PHP'=>'Philippine Peso',
+					'PLN'=>'Polish Zloty',
+					'GBP'=>'Pound Sterling',
+					'RUB'=>'Russian Ruble',
+					'SGD'=>'Singapore Dollar',
+					'SEK'=>'Swedish Krona',
+					'CHF'=>'Swiss Franc',
+					'TWD'=>'Taiwan New Dollar',
+					'THB'=>'Thai Baht',
+					'TRY'=>'Turkish Lira',
+					'USD'=>'U.S. Dollar',
+				),
+				'legend'=> __('PayPal Currently supports 25 currencies','eventon') 
+			);				
+			$data[] = array('id'=>'evcal_paypal_pay','type'=>'end_afterstatement');
+
+			$data[] = array('type'=>'sub_section_close');
+			return $data;
+		}
 	/**
 	 * theme pages and templates
 	 * @return  

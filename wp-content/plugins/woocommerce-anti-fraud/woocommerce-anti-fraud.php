@@ -4,13 +4,13 @@
  * Plugin Name: WooCommerce Anti Fraud
  * Plugin URI: https://woocommerce.com/products/woocommerce-anti-fraud/
  * Description: Score each of your transactions, checking for possible fraud, using a set of advanced scoring rules.
- * Version: 4.7
+ * Version: 4.7.1
  * Author: OPMC Australia Pty Ltd
  * Author URI: https://opmc.biz/
  * Text Domain: woocommerce-anti-fraud
  * Domain Path: /languages
  * License: GPL v3
- * WC tested up to: 6.9
+ * WC tested up to: 7.0
  * WC requires at least: 2.6
  * Woo: 500217:955da0ce83ea5a44fc268eb185e46c41
  *

@@ -1,7 +1,7 @@
 <?php 
 /**
  * EventON Lightboxes for back and front
- * @version 2.9
+ * @version 4.2
  */
 
 class EVO_Lightboxes{
@@ -32,9 +32,9 @@ class EVO_Lightboxes{
 
 			if(is_array($lightboxWindows) && count($lightboxWindows)>0){
 
-				$display = (EVO()->cal->check_yn('evo_load_scripts_only_onevo','evcal_1') && !EVO()->cal->check_yn('evo_load_all_styles_onpages','evcal_1') )? 'none':'block';
+				//$display = (EVO()->cal->check_yn('evo_load_scripts_only_onevo','evcal_1') && !EVO()->cal->check_yn('evo_load_all_styles_onpages','evcal_1') )? 'none':'block';
 
-				echo "<div class='evo_lightboxes' style='display:{$display}'>";
+				echo "<div id='evo_lightboxes' class='evo_lightboxes' style='display:none'>";
 				foreach($lightboxWindows as $key=>$lb){
 					?>
 					<div class='evo_lightbox <?php echo $key;?> <?php echo !empty($lb['classes'])? $lb['classes']:'';?>' id='<?php echo !empty($lb['id'])? $lb['id']:'';?>' >
@@ -60,6 +60,8 @@ class EVO_Lightboxes{
 		echo "<div class='ajde_admin_lightboxes'>";		
 		echo $this->content;
 		echo "</div><div class='evo_elms'><em class='evo_tooltip_box'></em></div>";
+
+		echo "<div id='evo_lightboxes' class='evo_lightboxes'></div>";	
 	}
 
 	function admin_lightbox_content($arg){
@@ -78,35 +80,35 @@ class EVO_Lightboxes{
 		$args = (!empty($arg) && is_array($arg) && count($arg)>0) ? 
 			array_merge($defaults, $arg) : $defaults;
 
-		$ajdeCLASSES = array();
+		$lb_classes = array();
 
 		// ajde_popup classes
-			if(!empty($args['type']) && $args['type']=='padded')	$ajdeCLASSES[] = 'padd';
-			if(!$args['outside_click']) $ajdeCLASSES[] = 'nooutside';
+			if(!empty($args['type']) && $args['type']=='padded')	$lb_classes[] = 'padd';
+			if(!$args['outside_click']) $lb_classes[] = 'nooutside';
 			
-			$ajdeCLASSES[] = $args['class'];				
+			$lb_classes[] = $args['class'];				
 
-			$ajdeCLASSES = implode(' ', $ajdeCLASSES);
+			$lb_classes = implode(' ', $lb_classes);
 
 		//print_r($args);
 		$content='';
 		$content .= 
-			"<div id='ajde_popup_outter' class='ajde_admin_lightbox {$ajdeCLASSES}'>
-			<div class='evo_content_in'>
-			<div class='evo_content_inin'>
-			<div class='ajde_popup {$ajdeCLASSES}' {$args['attr']} style='". ( (!empty($args['width']))? 'width:'.$args['width'].'px;':null )."'>	
-				<div class='ajde_header'>
-					<a class='ajde_backbtn' style='display:none'><i class='fa fa-angle-left'></i></a>
-					<p id='ajde_title' class='ajde_lightbox_title'>{$args['title']}</p>
-					". ( (!empty($args['subtitle']))? "<p id='ajde_subtitle'>{$args['subtitle']}</p>":null) ."
+			"<div class='evo_lightbox ajde_admin_lightbox {$lb_classes}'>
+			<div class='evolb_content_in ajde_content_in'>
+			<div class='evolb_content_inin ajde_content_inin'>
+			<div class='evolb_popup ajde_popup {$lb_classes}' {$args['attr']} style='". ( (!empty($args['width']))? 'width:'.$args['width'].'px;':null )."'>	
+				<div class='evolb_header'>
+					<a class='evolb_backbtn ajde_backbtn' style='display:none'><i class='fa fa-angle-left'></i></a>
+					<p class='evolb_title ajde_lightbox_title'>{$args['title']}</p>
+					". ( (!empty($args['subtitle']))? "<p class='evolb_subtitle ajde_subtitle'>{$args['subtitle']}</p>":null) ."
 					<a class='ajde_close_pop_btn'>X</a>
 				</div>							
-				<div id='ajde_loading'></div>";
+				<div id='evolb_loading'></div>";
 			// preloading
 				$innner = ($args['preloading'])? '<p class="loading">Loading</p>':$args['content'];
 
-			$content .= (!empty($args['max_height']))? "<div class='ajde_lightbox_outter maxbox' >":null;
-			$content .= "<div class='ajde_popup_text'>{$innner}</div>";
+			$content .= (!empty($args['max_height']))? "<div class='evolb_lightbox_outter ajde_lightbox_outter maxbox' >":null;
+			$content .= "<div class='evolb_content ajde_popup_text'>{$innner}</div>";
 			$content .= (!empty($args['max_height']))? "</div>":null;
 			$content .= "<p class='message'></p>
 				

@@ -1,8 +1,10 @@
 /**
  * EventON Generate Google Maps Function
- * @version  0.2
+ * @version  4.2
  */
 (function($){
+
+// map loader function 
 	$.fn.evoGenmaps = function(opt){
 
 		var defaults = {
@@ -113,7 +115,7 @@
 				}
 
 				// marker icons
-				if( 'mapiconurl' in SC) options.iconURL = SC.mapiconurl;
+				if( SC !== undefined && SC != '' &&  'mapiconurl' in SC) options.iconURL = SC.mapiconurl;
 
 				// make sure there is address present to draw map
 				if( options.address === undefined || options.address == '') return false;
@@ -169,6 +171,9 @@
 						scrollwheel: true,
 					}
 				}
+
+				console.log(myOptions);
+
 				
 				var map_canvas = document.getElementById(options.map_canvas_id);
 				map = new google.maps.Map(map_canvas, myOptions);
@@ -222,4 +227,58 @@
 
 		
 	};
+
+// trigger map load on calendar
+// @since 4.2
+	$('body').on('evo_load_map_on_cals',function (){
+		
+		if( $('body').find('.ajde_evcal_calendar').length < 1 ) return;
+
+		$('body').find('.ajde_evcal_calendar').each(function(){
+			var el = $(this);
+			el.find('.desc_trig').each(function(index){
+				var self = this;
+				setTimeout(function(){
+					$(self).evoGenmaps({'fnt':2,'cal': el});
+				},index*600);					
+			});
+		});
+	});
+
+	// trigger load google map on dynamic map element
+	$.fn.evo_load_gmap = function(opt){
+		var defs = {
+			'map_canvas_id':'',
+			'delay':0,
+		};
+		var OO = $.extend({}, defs, opt);
+
+		EL = this;
+
+		var location_type = 'add';
+		var location_type = EL.data('location_type');
+
+		if(location_type=='add'){
+			var address = EL.data('address');				
+		}else{			
+			var address = EL.data('latlng');
+			var location_type = 'latlng';				
+		}
+		scrollwheel = EL.data('scroll') == 'yes'? true: false;
+
+		EL.evoGenmaps({
+			map_canvas_id: EL.attr('id'),
+			fnt: 5,
+			location_type:	location_type,
+			address: address,
+			zoomlevel: parseInt( EL.data('zoom') ),
+			mapformat: EL.data('mty'),
+			scroll: scrollwheel,
+			delay:  EL.data('delay') ? EL.data('delay') : OO.delay
+		});
+
+	};
+
+
+
 }(jQuery));

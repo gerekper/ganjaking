@@ -5,7 +5,7 @@
  * @author 		AJDE
  * @category 	Admin
  * @package 	EventON/Admin/ajde_events
- * @version     4.0.6
+ * @version     4.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -131,52 +131,6 @@ class evo_event_metaboxes{
 		}
 
 	// MAIN META BOX CONTENT
-		function event_edit_tax_section($tax, $eventid, $tax_string=''){
-			$event_tax_term = wp_get_post_terms($eventid, $tax);
-
-			$tax_name = !empty($tax_string)? $tax_string: str_replace('event_', '', $tax);
-
-			ob_start();
-			// If a tax term is already set
-			if ( $event_tax_term && ! is_wp_error( $event_tax_term ) ){	
-
-			// translated tax name
-				$translated_tax_name = array(
-					'location'=>__('location','eventon'),
-					'organizer'=>__('organizer','eventon')
-				);
-
-				if(isset($translated_tax_name[ $tax_name])){
-					$tax_name = $translated_tax_name[ $tax_name];
-				}	
-
-				$text_select_different = sprintf(__('Select different %s from list','eventon'),  $tax_name);
-				$text_create_new = sprintf(__('Create a new %s','eventon'),$tax_name);
-				$text_edit = sprintf(__('Edit %s','eventon'),$tax_name);
-			?>
-				<p class='evo_selected_tax_term'><em><?php echo $tax_name;?>:</em> <span><?php echo $event_tax_term[0]->name;?></span> 
-					<i class='fa fa-pencil evo_tax_term_form ajde_popup_trig' data-popc='print_lightbox' data-lb_cl_nm='evo_config_term' data-type='edit' data-id='<?php echo $event_tax_term[0]->term_id;?>' title='<?php echo $text_edit;?>' data-t="<?php echo $text_edit;?>"></i> 
-					<i class='fa fa-times evo_tax_remove' data-type='delete' data-id='<?php echo $event_tax_term[0]->term_id;?>' title='<?php _e('Delete','eventon');?>'></i>
-				</p>
-				<p class='evo_selected_tax_actions'>
-					<a class='evo_tax_term_list evo_btn ajde_popup_trig' data-type='list' data-lb_cl_nm='evo_config_term' data-popc='print_lightbox' data-eventid='<?php echo $eventid;?>' data-id='<?php echo $event_tax_term[0]->term_id;?>' data-t="<?php echo $text_select_different;?>"><?php echo $text_select_different;?></a>
-					<a class='evo_tax_term_form evo_btn ajde_popup_trig' data-popc='print_lightbox' data-lb_cl_nm='evo_config_term' data-type='new' data-t="<?php echo $text_create_new;?>"><?php echo $text_create_new;?></a>
-				</p>
-				
-				<?php
-			}else{
-				$text_select_different = sprintf(__('Select different %s from list','eventon'),  $tax_name);
-				$text_create_new = sprintf(__('Create a new %s','eventon'),$tax_name);
-				?>
-				<p class='evo_selected_tax_actions'>
-					<a class='evo_tax_term_list evo_btn ajde_popup_trig' data-type='list' data-popc='print_lightbox' data-lb_cl_nm='evo_config_term' data-eventid='<?php echo $eventid;?>' data-t="<?php echo $text_select_different;?>"><?php echo $text_select_different;?></a>
-					<a class='evo_tax_term_form evo_btn ajde_popup_trig' data-popc='print_lightbox' data-lb_cl_nm='evo_config_term' data-eventid='<?php echo $eventid;?>' data-type='new' data-tax='event_location' data-t="<?php echo $text_create_new;?>"><?php echo $text_create_new;?></a>
-				</p>
-				<?php
-			}
-			return ob_get_clean();
-		}
-
 		function ajde_evcal_show_box(){
 			global $eventon, $ajde, $post;
 			
@@ -193,6 +147,8 @@ class evo_event_metaboxes{
 			
 			$EVENT = $this->EVENT;
 			$ev_vals = $this->event_data;	
+
+			$this->helper = new evo_helper();
 
 
 			$select_a_arr= array('AM','PM');
@@ -304,7 +260,7 @@ class evo_event_metaboxes{
 					'content'=>'',
 					'slug'=>'ev_seo',
 				)
-			));
+			), $EVENT);
 
 			// if language corresponding enabled
 				if(evo_settings_check_yn($evcal_opt1,'evo_lang_corresp')){
@@ -593,7 +549,7 @@ class evo_event_metaboxes{
 										<div class='evcal_location_data_section'>										
 											<div class='evo_singular_tax_for_event event_location' data-tax='event_location' data-eventid='<?php echo $p_id;?>'>
 											<?php
-												echo $this->event_edit_tax_section( 'event_location' ,$p_id, __('location','eventon'));
+												echo EVO()->taxonomies->get_meta_box_content( 'event_location' ,$p_id, __('location','eventon'));
 											?>
 											</div>									
 										</div>										
@@ -640,9 +596,9 @@ class evo_event_metaboxes{
 									<p class='edb_icon evcal_edb_map'></p>
 									<div class='evcal_db_data'>
 										<div class='evcal_location_data_section'>
-											<div class='evo_singular_tax_for_event event_organizer' data-tax='event_organizer' data-eventid='<?php echo $p_id;?>'>
+											<div class='evo_singular_tax_for_event event_organizer' >
 											<?php
-												echo $this->event_edit_tax_section( 'event_organizer',$p_id, __('organizer','eventon'));
+												echo EVO()->taxonomies->get_meta_box_content( 'event_organizer',$p_id, __('organizer','eventon'));
 											?>
 											</div>										
 					                    </div><!--.evcal_location_data_section-->
@@ -765,24 +721,6 @@ class evo_event_metaboxes{
 					</div>	
 			</div>
 		<?php  
-			global $ajde;
-			
-			// Lightbox
-			// deprecating
-			EVO()->lightbox->admin_lightbox_content(array(
-				'class'=>'evo_term_lightbox', 
-				'content'=>"<p class='evo_lightbox_loading'></p>",
-				'title'=>__('Event Data','eventon'),
-				'width'=>'500'
-				)
-			);
-			EVO()->lightbox->admin_lightbox_content(array(
-				'class'=>'evo_gen_lightbox', 
-				'content'=>"<p class='evo_lightbox_loading'></p>",
-				'title'=>__('Event Edit','eventon'),
-				'width'=>'500'
-				)
-			);
 		}
 
 	// THIRD PARTY event related settings 
@@ -1023,161 +961,6 @@ class evo_event_metaboxes{
 				
 		}
 
-	// GET event taxonomy form for new and edit term
-	// request by AJAX
-	// $_POST is present
-		function get_tax_form(){
-			global $ajde;
-
-			$is_new = (isset($_POST['type']) && $_POST['type']=='new')? true: false;
-
-			$event_id = isset($_POST['eventid']) ? (int)$_POST['eventid']: false;
-			$term_id = isset($_POST['termid']) ? (int)$_POST['termid']: false;
-			$tax = isset($_POST['tax']) ? sanitize_text_field($_POST['tax']): false;
-
-			// definitions
-				$termMeta = $event_tax_term = false;
-
-			// if edit
-			if(!$is_new && $tax){
-
-
-				$event_tax_term = wp_get_post_terms( $event_id, $tax);
-				if ( $event_tax_term && ! is_wp_error( $event_tax_term ) ){						
-					$event_tax_term = $event_tax_term[0];
-				}
-
-				$termMeta = evo_get_term_meta( $tax, $term_id, '', true);
-				
-			}
-
-			ob_start();
-			
-			echo "<div class='evo_tax_entry' data-eventid='{$event_id}' data-tax='{$_POST['tax']}' data-type='{$_POST['type']}'>";
-
-			
-			// pass term id if editing
-				if($event_tax_term && !$is_new):?>
-					<p><input class='field' type='hidden' name='termid' value="<?php echo $term_id;?>" /></p>
-				<?php endif;
-
-			// for each fields
-			$fields = EVO()->taxonomies->get_event_tax_fields_array($tax, $event_tax_term);
-			
-			foreach( $fields as $key=>$value){
-				$field_value = '';
-
-				if(empty($value['value'])){
-					if(!empty($value['var']) && !empty( $termMeta[$value['var']] )){
-						if( !is_array($termMeta[$value['var']]) && !is_object($termMeta[$value['var']])){
-							$field_value = stripslashes(str_replace('"', "'", (esc_attr( $termMeta[$value['var']] )) ));
-						}						
-					}
-
-				}else{
-					$field_value = $value['value'];
-				}
-
-				switch ($value['type']) {
-					case 'text':
-						?>
-						<p>	
-							<label for='<?php echo $key;?>'><?php echo $value['name']?></label>
-							<input id='<?php echo $key;?>' class='field' type='text' name='<?php echo $value['var'];?>' value="<?php echo $field_value?>" style='width:100%' placeholder='<?php echo !empty($value['placeholder'])? $value['placeholder']:'';?>'/>
-							<?php if(!empty($value['legend'])):?>
-								<em class='evo_legend'><?php echo $value['legend']?></em>
-							<?php endif;?>
-						</p>
-						<?php
-					break;
-					case 'select':
-						?>
-						<p>	
-							<label for='<?php echo $key;?>'><?php echo $value['name']?></label>
-							<select id='<?php echo $key;?>' class='field' name='<?php echo $value['var'];?>'>
-							<?php foreach( $value['options'] as $f=>$v){
-								echo "<option value='{$f}' ". ($field_value == $f?'selected':'') .">{$v}</option>";
-							}?>
-							</select>							
-							<?php if(!empty($value['legend'])):?>
-								<em class='evo_legend'><?php echo $value['legend']?></em>
-							<?php endif;?>
-						</p>
-						<?php
-					break;
-					case 'textarea':
-						?>
-						<p>	
-							<label for='<?php echo $key;?>'><?php echo $value['name']?></label>	
-							<textarea id='<?php echo $key;?>' class='field' type='text' name='<?php echo $value['var'];?>' style='width:100%'><?php echo $field_value?></textarea>						
-							
-							<?php if(!empty($value['legend'])):?>
-								<em class='evo_legend'><?php echo $value['legend']?></em>
-							<?php endif;?>
-						</p>
-						<?php
-					break;
-					case 'image':
-						$image_id = $termMeta? $field_value: false;
-
-						// image soruce array
-						$img_src = ($image_id)? 	wp_get_attachment_image_src($image_id,'medium'): null;
-							$img_src = (!empty($img_src))? $img_src[0]: null;
-
-						$__button_text = ($image_id)? __('Remove Image','eventon'): __('Choose Image','eventon');
-						$__button_text_not = ($image_id)? __('Remove Image','eventon'): __('Choose Image','eventon');
-						$__button_class = ($image_id)? 'removeimg':'chooseimg';
-						?>
-						<p class='evo_metafield_image'>
-							<label><?php echo $value['name']?></label>
-							<input class='field <?php echo $key;?> custom_upload_image evo_meta_img' name="<?php echo $key;?>" type="hidden" value="<?php echo ($image_id)? $image_id: null;?>" /> 
-                    		<input class="custom_upload_image_button button <?php echo $__button_class;?>" data-txt='<?php echo $__button_text_not;?>' type="button" value="<?php echo $__button_text;?>" /><br/>
-                    		<span class='evo_loc_image_src image_src'>
-                    			<img src='<?php echo $img_src;?>' style='<?php echo !empty($image_id)?'':'display:none';?>'/>
-                    		</span>
-                    		
-                    	</p>
-						<?php
-					break;
-					case 'yesno':
-						?>
-						<p>
-							<span class='yesno_row evo'>
-								<?php 	
-								echo $ajde->wp_admin->html_yesnobtn(array(
-									'id'=>$key, 
-									'var'=>$field_value,
-									'input'=>true,
-									'inputAttr'=>array('class'=>'field'),
-									'label'=>$value['name']
-								));?>											
-							</span>
-						</p>
-						<?php
-					break;
-					case 'button':
-						?>
-						<p style='text-align:center; padding-top:10px'><span class='evo_btn evo_term_submit'><?php echo $is_new? __('Add New','eventon'): __('Save Changes','eventon');?></span>
-
-							<?php if(!$is_new):?>
-								<a class='evo_admin_btn btn_secondary' href='<?php echo get_admin_url()?>term.php?taxonomy=event_location&tag_ID=<?php echo $term_id;?>&post_type=ajde_events'><?php _e('Edit From Page','eventon');?></a>
-							<?php endif;?>
-
-						</p>
-						<?php
-					break;
-				}
-
-				// after location longitude field
-				if($key == 'evcal_lon' && EVO()->cal->get_prop('evo_gmap_api_key', 'evcal_1')){
-					echo "<p><a class='evo_auto_gen_latlng evo_admin_btn'>". __('Generate Location Coordinates','eventon') ."</a></p>";
-				}
-			}
-
-			echo "</div>";
-
-			return ob_get_clean();
-		}
 
 
 	// Supporting functions

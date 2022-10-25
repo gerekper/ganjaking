@@ -203,18 +203,18 @@ jQuery(document).ready(function($){
 		
 	// popup lightbox functions
 		function show_pop_bad_msg(msg){
-			$('.ajde_popup').find('.message').removeClass('bad good').addClass('bad').html(msg).fadeIn();
+			$('.evolb_popup').find('.message').removeClass('bad good').addClass('bad').html(msg).fadeIn();
 		}
 		function show_pop_good_msg(msg){
-			$('.ajde_popup').find('.message').removeClass('bad good').addClass('good').html(msg).fadeIn();
+			$('.evolb_popup').find('.message').removeClass('bad good').addClass('good').html(msg).fadeIn();
 		}
 		
 		function show_pop_loading(){
-			$('.ajde_popup_text').css({'opacity':0.3});
-			$('#ajde_loading').fadeIn();
+			$('.evolnb_popup_text').css({'opacity':0.3});
+			$('#evolb_loading').fadeIn();
 		}
 		function hide_pop_loading(){
-			$('.ajde_popup_text').css({'opacity':1});
-			$('#ajde_loading').fadeOut(20);
+			$('.evolnb_popup_text').css({'opacity':1});
+			$('#evolb_loading').fadeOut(20);
 		}
 });

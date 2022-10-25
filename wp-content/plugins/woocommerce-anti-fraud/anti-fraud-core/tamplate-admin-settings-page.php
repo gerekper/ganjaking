@@ -938,15 +938,15 @@ if ( '' === $current_section ) : ?>
 					<tr valign="top" class="">
 						<th scope="row" class="titledesc">
 						<label for="wc_af_email_blacklist">
-							<?php echo wp_kses_post($settings_fileds['wc_af_email_blacklist']['title']); ?>
-							<span class="woocommerce-help-tip" data-tip="<?php echo esc_attr($settings_fileds['wc_af_email_blacklist']['desc_tip']); ?>"></span>
+							<?php echo wp_kses_post($settings_fileds['wc_settings_anti_fraudenable_automatic_email_blacklist']['title']); ?>
+							<span class="woocommerce-help-tip" data-tip="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraudenable_automatic_email_blacklist']['desc_tip']); ?>"></span>
 						</label>
 						</th>
 						<td  class="forminp forminp-checkbox">
 							<fieldset>
-							<legend class="screen-reader-text"><span><?php echo esc_attr($settings_fileds['wc_af_email_blacklist']['title']); ?></span></legend>
-							<label for="wc_af_email_blacklist" class="opmc-toggle-control">
-								<input name="wc_af_email_blacklist" id="wc_af_email_blacklist" type="checkbox" value="1" <?php checked( get_option( 'wc_af_email_blacklist' ), 'yes' ); ?> >
+							<legend class="screen-reader-text"><span><?php echo esc_attr($settings_fileds['wc_settings_anti_fraudenable_automatic_email_blacklist']['title']); ?></span></legend>
+							<label for="wc_settings_anti_fraudenable_automatic_email_blacklist" class="opmc-toggle-control">
+								<input name="wc_settings_anti_fraudenable_automatic_email_blacklist" id="wc_settings_anti_fraudenable_automatic_email_blacklist" type="checkbox" value="1" <?php checked( get_option( 'wc_settings_anti_fraudenable_automatic_email_blacklist' ), 'yes' ); ?> >
 								<span class="opmc-control"></span>
 							</label> 
 							</fieldset>
@@ -955,16 +955,16 @@ if ( '' === $current_section ) : ?>
 
 					<tr valign="top" class="">
 						<th scope="row" class="titledesc">
-						<label for="wc_af_enable_automatic_blacklist">
-							<?php echo wp_kses_post($settings_fileds['wc_af_enable_automatic_blacklist']['title']); ?>
-							<span class="woocommerce-help-tip" data-tip="<?php echo esc_attr($settings_fileds['wc_af_enable_automatic_blacklist']['desc_tip']); ?>"></span>
+						<label for="wc_af_automatic_blacklist">
+							<?php echo wp_kses_post($settings_fileds['wc_settings_anti_fraudenable_automatic_blacklist']['title']); ?>
+							<span class="woocommerce-help-tip" data-tip="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraudenable_automatic_blacklist']['desc_tip']); ?>"></span>
 						</label>
 						</th>
 						<td  class="forminp forminp-checkbox">
 							<fieldset>
-							<legend class="screen-reader-text"><span><?php echo esc_attr($settings_fileds['wc_af_enable_automatic_blacklist']['title']); ?></span></legend>
-							<label for="wc_af_enable_automatic_blacklist" class="opmc-toggle-control">
-								<input name="wc_af_enable_automatic_blacklist" id="wc_af_enable_automatic_blacklist" type="checkbox" value="1" <?php checked( get_option( 'wc_af_enable_automatic_blacklist' ), 'yes' ); ?> >
+							<legend class="screen-reader-text"><span><?php echo esc_attr($settings_fileds['wc_settings_anti_fraudenable_automatic_blacklist']['title']); ?></span></legend>
+							<label for="wc_settings_anti_fraudenable_automatic_blacklist" class="opmc-toggle-control">
+								<input name="wc_settings_anti_fraudenable_automatic_blacklist" id="wc_settings_anti_fraudenable_automatic_blacklist" type="checkbox" value="1" <?php checked( get_option( 'wc_settings_anti_fraudenable_automatic_blacklist' ), 'yes' ); ?> >
 								<span class="opmc-control"></span>
 							</label> 
 							</fieldset>
@@ -972,16 +972,16 @@ if ( '' === $current_section ) : ?>
 					</tr>
 					<tr valign="top">
 						<th scope="row" class="titledesc">
-							<label for="wc_settings_anti_fraud_blacklist_emails">
+							<label for="wc_settings_anti_fraudblacklist_emails">
 								<?php 
-										echo wp_kses_post($settings_fileds['wc_settings_anti_fraud_blacklist_emails']['name']);
-										$description = WC_Admin_Settings::get_field_description( $settings_fileds['wc_settings_anti_fraud_blacklist_emails'] ); 
+										echo wp_kses_post($settings_fileds['wc_settings_anti_fraudblacklist_emails']['name']);
+										$description = WC_Admin_Settings::get_field_description( $settings_fileds['wc_settings_anti_fraudblacklist_emails'] ); 
 										echo wp_kses_post($description['tooltip_html']);
 								?>
 							</label>
 						</th>
 						<td  class="forminp forminp-textarea" colspan="3">
-							<textarea name="wc_settings_anti_fraud_blacklist_emails" id="wc_settings_anti_fraud_blacklist_emails" style="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraud_blacklist_emails']['css']); ?>" class="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraud_blacklist_emails']['class']); ?>"><?php echo esc_html(get_option( 'wc_settings_anti_fraud_blacklist_emails' )); ?></textarea>
+							<textarea name="wc_settings_anti_fraudblacklist_emails" id="wc_settings_anti_fraudblacklist_emails" style="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraudblacklist_emails']['css']); ?>" class="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraudblacklist_emails']['class']); ?>"><?php echo esc_html(get_option( 'wc_settings_anti_fraudblacklist_emails' )); ?></textarea>
 						</td>
 					</tr>
 					
@@ -994,16 +994,16 @@ if ( '' === $current_section ) : ?>
 			<tbody>
 				<tr valign="top" class="">
 					<th scope="row" class="titledesc">
-					<label for="wc_af_enable_automatic_ip_blacklist">
-						<?php echo wp_kses_post($settings_fileds['wc_af_enable_automatic_ip_blacklist']['title']); ?>
-						<span class="woocommerce-help-tip" data-tip="<?php echo esc_attr($settings_fileds['wc_af_enable_automatic_ip_blacklist']['desc_tip']); ?>"></span>
+					<label for="wc_af_ip_blacklist">
+						<?php echo wp_kses_post($settings_fileds['wc_settings_anti_fraudenable_automatic_ip_blacklist']['title']); ?>
+						<span class="woocommerce-help-tip" data-tip="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraudenable_automatic_ip_blacklist']['desc_tip']); ?>"></span>
 					</label>
 					</th>
 					<td  class="forminp forminp-checkbox">
 						<fieldset>
-						<legend class="screen-reader-text"><span><?php echo esc_attr($settings_fileds['wc_af_enable_automatic_ip_blacklist']['title']); ?></span></legend>
-						<label for="wc_af_enable_automatic_ip_blacklist" class="opmc-toggle-control">
-							<input name="wc_af_enable_automatic_ip_blacklist" id="wc_af_enable_automatic_ip_blacklist" type="checkbox" value="1" <?php checked( get_option( 'wc_af_enable_automatic_ip_blacklist' ), 'yes' ); ?> >
+						<legend class="screen-reader-text"><span><?php echo esc_attr($settings_fileds['wc_settings_anti_fraudenable_automatic_ip_blacklist']['title']); ?></span></legend>
+						<label for="wc_settings_anti_fraudenable_automatic_ip_blacklist" class="opmc-toggle-control">
+							<input name="wc_settings_anti_fraudenable_automatic_ip_blacklist" id="wc_settings_anti_fraudenable_automatic_ip_blacklist" type="checkbox" value="1" <?php checked( get_option( 'wc_settings_anti_fraudenable_automatic_ip_blacklist' ), 'yes' ); ?> >
 							<span class="opmc-control"></span>
 						</label> 
 						</fieldset>
@@ -1012,16 +1012,16 @@ if ( '' === $current_section ) : ?>
 
 				<tr valign="top">
 					<th scope="row" class="titledesc">
-						<label for="wc_settings_anti_fraud_blacklist_ipaddress">
+						<label for="wc_settings_anti_fraudblacklist_ipaddress">
 							<?php 
-									echo wp_kses_post($settings_fileds['wc_settings_anti_fraud_blacklist_ipaddress']['name']);
-									$description = WC_Admin_Settings::get_field_description( $settings_fileds['wc_settings_anti_fraud_blacklist_ipaddress'] ); 
+									echo wp_kses_post($settings_fileds['wc_settings_anti_fraudblacklist_ipaddress']['name']);
+									$description = WC_Admin_Settings::get_field_description( $settings_fileds['wc_settings_anti_fraudblacklist_ipaddress'] ); 
 									echo wp_kses_post($description['tooltip_html']);
 							?>
 						</label>
 					</th>
 					<td  class="forminp forminp-textarea" colspan="3">
-						<textarea name="wc_settings_anti_fraud_blacklist_ipaddress" id="wc_settings_anti_fraud_blacklist_ipaddress" style="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraud_blacklist_ipaddress']['css']); ?>" class="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraud_blacklist_ipaddress']['class']); ?>"><?php echo esc_html(get_option( 'wc_settings_anti_fraud_blacklist_ipaddress' )); ?></textarea>
+						<textarea name="wc_settings_anti_fraudblacklist_ipaddress" id="wc_settings_anti_fraud_blacklist_ipaddress" style="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraudblacklist_ipaddress']['css']); ?>" class="<?php echo esc_attr($settings_fileds['wc_settings_anti_fraudblacklist_ipaddress']['class']); ?>"><?php echo esc_html(get_option( 'wc_settings_anti_fraudblacklist_ipaddress' )); ?></textarea>
 					</td>
 				</tr>
 			</tbody>

@@ -39,6 +39,22 @@ echo "<div class='evcal_data_block_style1'>
 			
 		}
 	?></span>
-	<span class='evo_btn ajde_popup_trig evo_rel_events' data-popc='print_lightbox' data-lb_cl_nm='evo_related_events_lb' data-t='<?php _e('Configure Related Event Details','eventon');?>' data-eventid='<?php echo $EVENT->ID;?>'><?php _e('Add related event','eventon');?></span>
+
+	<?php
+		$btn_data = array(
+			'lbvals'=> array(
+				'lbc'=>'evo_related_events_lb',
+				't'=>__('Configure Related Event Details','eventon'),
+				'ajax'=>'yes',
+				'd'=> array(					
+					'eventid'=> $EVENT->ID,
+					'action'=> 'eventon_rel_event_list',
+					'EVs'=> $related_events,
+					'uid'=>'evo_get_related_events',
+				)
+			)
+		);
+	?>
+	<span class='evo_btn evolb_trigger' <?php echo $this->helper->array_to_html_data($btn_data);?> ><?php _e('Add related event','eventon');?></span>
 
 <?php echo "</div></div>";

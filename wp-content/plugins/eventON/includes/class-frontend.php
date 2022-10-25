@@ -20,6 +20,10 @@ class evo_frontend {
 
 	public function __construct(){
 
+
+		//$DD = new DateTime();
+		//$DDtz = new DateTimeZone('Argentina/Buenos_Aires');
+		//echo $DD->format('Y-m-d H:i');
 		
 		// eventon related wp options access on frontend
 		$this->evo_options = $this->evopt1 = EVO()->evo_generator->evopt1;
@@ -225,11 +229,11 @@ class evo_frontend {
 			$google_fonts = apply_filters(
 				'evo_google_font_families',
 				array(
-					//'Montserrat' => 'Montserrat:400,700',
-					//'noto-sans' => 'Noto+Sans:400,400italic,700',
-					'open-sans' => 'Open+Sans:400,400italic,700',
-					'Roboto' => 'Roboto:400,700,900',
+					'noto-sans' => 'Noto+Sans:400,400italic,700',
+					//'open-sans' => 'Open+Sans:400,400italic,700',
+					//'Roboto' => 'Roboto:400,700,900',
 					//'league-spartan' => 'League+Spartan:400,700',
+					'monsterrat' => 'Montserrat:700,800,900',
 				)
 			);
 

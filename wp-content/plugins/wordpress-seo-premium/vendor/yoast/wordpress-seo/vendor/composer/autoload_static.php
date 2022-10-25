@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita78ab64e139b6dc62cd85aabb1117c83
+class ComposerStaticInit5434431f7edd419170b194dd8ad0882e
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -659,6 +659,7 @@ class ComposerStaticInita78ab64e139b6dc62cd85aabb1117c83
         'Yoast\\WP\\SEO\\Conditionals\\Schema_Blocks_Conditional' => __DIR__ . '/../..' . '/src/conditionals/schema-blocks-conditional.php',
         'Yoast\\WP\\SEO\\Conditionals\\Settings_Conditional' => __DIR__ . '/../..' . '/src/conditionals/settings-conditional.php',
         'Yoast\\WP\\SEO\\Conditionals\\Should_Index_Links_Conditional' => __DIR__ . '/../..' . '/src/conditionals/should-index-links-conditional.php',
+        'Yoast\\WP\\SEO\\Conditionals\\Text_Formality_Conditional' => __DIR__ . '/../..' . '/src/conditionals/text-formality-conditional.php',
         'Yoast\\WP\\SEO\\Conditionals\\The_Events_Calendar_Conditional' => __DIR__ . '/../..' . '/src/conditionals/the-events-calendar-conditional.php',
         'Yoast\\WP\\SEO\\Conditionals\\Third_Party\\CoAuthors_Plus_Activated_Conditional' => __DIR__ . '/../..' . '/src/conditionals/third-party/coauthors-plus-activated-conditional.php',
         'Yoast\\WP\\SEO\\Conditionals\\Third_Party\\CoAuthors_Plus_Flag_Conditional' => __DIR__ . '/../..' . '/src/conditionals/third-party/coauthors-plus-flag-conditional.php',
@@ -898,6 +899,7 @@ class ComposerStaticInita78ab64e139b6dc62cd85aabb1117c83
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Woocommerce_Permalinks' => __DIR__ . '/../..' . '/src/integrations/third-party/woocommerce-permalinks.php',
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Wordproof' => __DIR__ . '/../..' . '/src/integrations/third-party/wordproof.php',
         'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Wordproof_Integration_Toggle' => __DIR__ . '/../..' . '/src/integrations/third-party/wordproof-integration-toggle.php',
+        'Yoast\\WP\\SEO\\Integrations\\Third_Party\\Zapier_Free' => __DIR__ . '/../..' . '/src/integrations/third-party/zapier-free.php',
         'Yoast\\WP\\SEO\\Integrations\\Uninstall_Integration' => __DIR__ . '/../..' . '/src/integrations/uninstall-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Watchers\\Addon_Update_Watcher' => __DIR__ . '/../..' . '/src/integrations/watchers/addon-update-watcher.php',
         'Yoast\\WP\\SEO\\Integrations\\Watchers\\Auto_Update_Watcher' => __DIR__ . '/../..' . '/src/integrations/watchers/auto-update-watcher.php',
@@ -949,7 +951,7 @@ class ComposerStaticInita78ab64e139b6dc62cd85aabb1117c83
         'Yoast\\WP\\SEO\\Presenters\\Abstract_Indexable_Tag_Presenter' => __DIR__ . '/../..' . '/src/presenters/abstract-indexable-tag-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Abstract_Presenter' => __DIR__ . '/../..' . '/src/presenters/abstract-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Admin\\Alert_Presenter' => __DIR__ . '/../..' . '/src/presenters/admin/alert-presenter.php',
-        'Yoast\\WP\\SEO\\Presenters\\Admin\\Auto_Update_Notification_Presenter' => __DIR__ . '/../..' . '/src/presenters/admin/auto-update-notification-presenter.php',
+        'Yoast\\WP\\SEO\\Presenters\\Admin\\Auto_Update_Notification_Presenter' => __DIR__ . '/../..' . '/src/deprecated/src/presenters/admin/auto-update-notification-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Admin\\Badge_Presenter' => __DIR__ . '/../..' . '/src/presenters/admin/badge-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Admin\\Beta_Badge_Presenter' => __DIR__ . '/../..' . '/src/presenters/admin/beta-badge-presenter.php',
         'Yoast\\WP\\SEO\\Presenters\\Admin\\Help_Link_Presenter' => __DIR__ . '/../..' . '/src/presenters/admin/help-link-presenter.php',
@@ -1033,9 +1035,9 @@ class ComposerStaticInita78ab64e139b6dc62cd85aabb1117c83
         'Yoast\\WP\\SEO\\Routes\\Workouts_Route' => __DIR__ . '/../..' . '/src/routes/workouts-route.php',
         'Yoast\\WP\\SEO\\Routes\\Yoast_Head_REST_Field' => __DIR__ . '/../..' . '/src/routes/yoast-head-rest-field.php',
         'Yoast\\WP\\SEO\\Schema_Templates\\Assets\\Icons' => __DIR__ . '/../..' . '/src/schema-templates/assets/icons.php',
-        'Yoast\\WP\\SEO\\Services\\Health_Check\\Curl_Check' => __DIR__ . '/../..' . '/src/services/health-check/curl-check.php',
-        'Yoast\\WP\\SEO\\Services\\Health_Check\\Curl_Reports' => __DIR__ . '/../..' . '/src/services/health-check/curl-reports.php',
-        'Yoast\\WP\\SEO\\Services\\Health_Check\\Curl_Runner' => __DIR__ . '/../..' . '/src/services/health-check/curl-runner.php',
+        'Yoast\\WP\\SEO\\Services\\Health_Check\\Curl_Check' => __DIR__ . '/../..' . '/src/deprecated/src/services/health-check/curl-check.php',
+        'Yoast\\WP\\SEO\\Services\\Health_Check\\Curl_Reports' => __DIR__ . '/../..' . '/src/deprecated/src/services/health-check/curl-reports.php',
+        'Yoast\\WP\\SEO\\Services\\Health_Check\\Curl_Runner' => __DIR__ . '/../..' . '/src/deprecated/src/services/health-check/curl-runner.php',
         'Yoast\\WP\\SEO\\Services\\Health_Check\\Default_Tagline_Check' => __DIR__ . '/../..' . '/src/services/health-check/default-tagline-check.php',
         'Yoast\\WP\\SEO\\Services\\Health_Check\\Default_Tagline_Reports' => __DIR__ . '/../..' . '/src/services/health-check/default-tagline-reports.php',
         'Yoast\\WP\\SEO\\Services\\Health_Check\\Default_Tagline_Runner' => __DIR__ . '/../..' . '/src/services/health-check/default-tagline-runner.php',
@@ -1107,9 +1109,9 @@ class ComposerStaticInita78ab64e139b6dc62cd85aabb1117c83
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita78ab64e139b6dc62cd85aabb1117c83::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita78ab64e139b6dc62cd85aabb1117c83::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInita78ab64e139b6dc62cd85aabb1117c83::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit5434431f7edd419170b194dd8ad0882e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit5434431f7edd419170b194dd8ad0882e::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit5434431f7edd419170b194dd8ad0882e::$classMap;
 
         }, null, ClassLoader::class);
     }

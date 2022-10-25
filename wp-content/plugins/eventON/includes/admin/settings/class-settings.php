@@ -123,18 +123,20 @@ class EVO_Settings{
 // OTHER
 	function header_wraps($args){
 		?>
-		<div class="wrap ajde_settings" id='<?php echo $args['tab_id'];?>'>
-			<h2><?php echo $args['title'];?> (ver <?php echo $args['version'];?>)</h2>
-			<h2 class='nav-tab-wrapper' id='meta_tabs'>
-				<?php					
-					foreach($args['tabs'] as $key=>$val){
-						
-						echo "<a href='{$args['tab_page']}".$key."' class='nav-tab ".( ($this->focus_tab == $key)? 'nav-tab-active':null)." {$key}' ". 
-							( (!empty($args['tab_attr_field']) && !empty($args['tab_attr_pre']))? 
-								$args['tab_attr_field'] . "='{$args['tab_attr_pre']}{$key}'":'') . ">".$val."</a>";
-					}			
-				?>		
-			</h2>
+		<div class="wrap ajde_settings <?php echo $this->focus_tab;?>" id='<?php echo $args['tab_id'];?>'>
+			<div class='evo_settings_header'>
+				<h2><?php echo $args['title'];?> (ver <?php echo $args['version'];?>)</h2>
+				<h2 class='nav-tab-wrapper' id='meta_tabs'>
+					<?php					
+						foreach($args['tabs'] as $key=>$val){
+							
+							echo "<a href='{$args['tab_page']}".$key."' class='nav-tab ".( ($this->focus_tab == $key)? 'nav-tab-active':null)." {$key}' ". 
+								( (!empty($args['tab_attr_field']) && !empty($args['tab_attr_pre']))? 
+									$args['tab_attr_field'] . "='{$args['tab_attr_pre']}{$key}'":'') . ">".$val."</a>";
+						}			
+					?>		
+				</h2>
+			</div>
 		<?php
 	}
 
@@ -561,7 +563,7 @@ function print_ajde_customization_form($cutomization_pg_array, $ajdePT, $extra_t
 							<input name='".$variation['id']."' class='backender_colorpicker evocolorp_val' type='hidden' value='".$hex_color_val."' default='".$variation['default']."'/></em></p>";
 						}
 
-						$rightside.= "<div class='clear'></div><p class='multicolor_alt'></p></div>";
+						$rightside.= "<p class='multicolor_alt'></p></div>";
 
 					break;
 
@@ -821,6 +823,12 @@ function print_ajde_customization_form($cutomization_pg_array, $ajdePT, $extra_t
 						<div id='ajde_clr_picker' class="cp cp-default" style='display:none'></div>
 						<?php echo $rightside.$extra_tabs;?>
 					</div>
+
+					<div class='evo_diag actual'>
+						<!-- save settings -->
+						<input type="submit" class="evo_admin_btn btn_prime" value="<?php _e('Save Changes') ?>" /> <a id='resetColor' style='display:none' class='evo_admin_btn btn_secondary'><?php _e('Reset to default colors','eventon')?></a>
+					</div>	
+
 				</div>
 			</td>
 		</tr>

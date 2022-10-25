@@ -1,24 +1,24 @@
 /*
  * Javascript: EventON functions for all calendars
- * @version: 4.1.2
+ * @version: 4.2
  */
 (function($){
 
-	$.fn.evo_cal_functions = function(O){
-		el = this;
-		switch(O.return){
-			// load shortcodes inside calendar data
-			case 'load_shortcodes':
-				return el.find('.evo_cal_data').data('sc');		
-			break;
-			case 'update_shortcodes':
-				el.find('.evo_cal_data').data( 'sc', O.SC );
-			break;
-		}
-	};
+	// Calendar function s
+		$.fn.evo_cal_functions = function(O){
+			el = this;
+			switch(O.return){
+				// load shortcodes inside calendar data
+				case 'load_shortcodes':
+					return el.find('.evo_cal_data').data('sc');		
+				break;
+				case 'update_shortcodes':
+					el.find('.evo_cal_data').data( 'sc', O.SC );
+				break;
+			}
+		};
 
-	// Count down
-	// @+ 3.0
+	// Count down	// @+ 3.0
 		$.fn.evo_countdown_get = function(opt){
 			var defaults = { gap:''};
 			var OPT = $.extend({}, defaults, opt);
@@ -131,7 +131,6 @@
 			}
 		};
 
-
 	// access page GLOBALS
 		$.fn.evo_get_global = function(opt){
 			var defaults = { S1:'', S2:''};
@@ -178,40 +177,54 @@
 			
 		}
 
-	// GENERAL ACCESS + 4.1.2
+	// GENERAL AJAX ACCESS + 4.1.2
 		$.fn.evo_admin_get_ajax = function(opt){
   			var defs = {
   				'lightbox_key':'',
+  				'lightbox_loader': true,
   				'ajaxdata':'',
+  				'uid':'',
+  				'end':'admin', // admin or client
   			}
 
   			var OO = $.extend({}, defs, opt);
 
+
   			var ajaxdata = OO.ajaxdata;
+
+  			if( OO.end == 'client' ) ajaxdata['nn'] = evo_general_params.n; // passing nonce
+
+  			LB = false;
+  			if( OO.lightbox_key != '') LB = $('body').find('.'+ OO.lightbox_key);
 
   			var returnvals = '';
 
 			$.ajax({
 				beforeSend: function(){
-					if( OO.lightbox_key){
-						$('.'+ OO.lightbox_key).find('.ajde_popup_text').addClass( 'loading');
+					$('body').trigger('evo_ajax_beforesend_' + OO.uid ,[ OO ]);
+					if( LB && OO.lightbox_loader){
+						LB.find('.ajde_popup_text').addClass( 'loading');
 					}
 				},
 				type: 'POST',
-				url:evo_admin_ajax_handle.ajaxurl,
+				url: (OO.end == 'admin')? evo_admin_ajax_handle.ajaxurl : evo_general_params.ajaxurl,
 				data: ajaxdata,
 				dataType:'json',
 				success:function(data){
-					returnvals = data;
+					$('body').trigger('evo_ajax_success_' + OO.uid,[ OO, data ]);	
+
+					if( OO.ajaxdata.load_lbcontent ) LB.evo_lightbox_populate_content({content: data.content});
+
 				},complete:function(){
-					if( OO.lightbox_key){
-						$('.'+ OO.lightbox_key).find('.ajde_popup_text').removeClass( 'loading');
+					$('body').trigger('evo_ajax_complete_' + OO.uid ,[ OO ]);
+					if( LB && OO.lightbox_loader){
+						LB.find('.ajde_popup_text').removeClass( 'loading');
 					}
 				}
 			});	
-
-			return returnvals;
 		}
+
+		
 
 	// Handlebar process template data into html
 		$.fn.evo_HB_process_template = function(opt){
@@ -323,11 +336,14 @@
 
 			// No events
 			if( OPT.showEV){
+
+				no_event_content = CAL.evo_get_global({S1: 'html', S2:'no_events'});
+
 				tx_noevents = CAL.evo_get_txt({V:'no_events'});
 				EL = CAL.find('.eventon_events_list');
 				EL.find('.eventon_list_event.no_events').remove();
 				if( show == 0 )
-					EL.append('<div class="eventon_list_event no_events"><p class="no_events">'+tx_noevents+'</p></div>');
+					EL.append('<div class="eventon_list_event no_events">'+ no_event_content +'</div>');
 			}
 
 			// if show events list
@@ -415,30 +431,203 @@
 			return new Date(  Date.UTC(OPT.Y, OPT.M-1, OPT.D) ).getUTCDay();
 		}
 
+	// LIGHTBOX
 	// page Lightbox functions @+2.8
 	// append to the lightbox main class name .evo_lightbox
 		
-		$.fn.evo_prepare_lb = function(){
-			$(this).find('.evo_lightbox_body').html('');
-		}
-		$.fn.evo_show_lb = function(opt){
-			var defaults = { RTL:'', calid:''}
-			var OPT = $.extend({}, defaults, opt);
-
-			$(this).addClass('show '+ OPT.RTL).attr('data-cal_id', OPT.calid);
-			$('body').trigger('evolightbox_show');
-		}
-		$.fn.evo_append_lb = function(opt){
-			var defaults = { C:'', CAL:''}
-			var OPT = $.extend({}, defaults, opt);
-			$(this).find('.evo_lightbox_body').html( OPT.C);
-
-			if(  OPT.CAL!= '' && OPT.CAL !== undefined && OPT.CAL.hasClass('color')){
-				const LIST = $(this).find('.eventon_events_list');
-				if( LIST.length>0){
-					LIST.find('.eventon_list_event').addClass('color');
-				}				
+		// Legacy
+			$.fn.evo_prepare_lb = function(){
+				$(this).find('.evo_lightbox_body').html('');
 			}
+			$.fn.evo_show_lb = function(opt){
+				var defaults = { RTL:'', calid:''}
+				var OPT = $.extend({}, defaults, opt);
+
+				$(this).addClass('show '+ OPT.RTL).attr('data-cal_id', OPT.calid);
+				$('body').trigger('evolightbox_show');
+			}
+			$.fn.evo_append_lb = function(opt){
+				var defaults = { C:'', CAL:''}
+				var OPT = $.extend({}, defaults, opt);
+				$(this).find('.evo_lightbox_body').html( OPT.C);
+
+				if(  OPT.CAL!= '' && OPT.CAL !== undefined && OPT.CAL.hasClass('color')){
+					const LIST = $(this).find('.eventon_events_list');
+					if( LIST.length>0){
+						LIST.find('.eventon_list_event').addClass('color');
+					}				
+				}
+			}
+
+		// @version 4.2
+		$('body').on('click','.evolb_trigger', function(event){
+			event.preventDefault();
+			event.stopPropagation();
+			$(this).evo_lightbox_open($(this).data('lbvals'));
+		});
+		$('body').on('click','.evolb_close_btn', function (){
+			const LB = $(this).closest('.evo_lightbox');
+			LB.evo_lightbox_close();
+		});
+
+		$.fn.evo_lightbox_open = function (opt){
+			var defaults = { 
+				'uid':'',
+				't':'', //title
+				'lbc':'',// * lightbox class - REQUIRED
+				'lbsz':'',// lightbox size = mid small
+				'content':'',// passed on dynamic content
+				'content_id' :'',// id to get dynamic content from page
+				'ajax':'no',// use ajax to load content yes no
+				'ajax_url':'',
+				'd':'', // data object for ajax
+				'end':'admin',// admin or client end
+				'other_data':'',
+			};
+
+			var OO = $.extend({}, defaults, opt);
+
+			// create lightbox HTML
+			var html = '<div class="evo_lightbox '+OO.lbc+' '+OO.end+'"><div class="evolb_content_in"><div class="evolb_content_inin"><div class="evolb_box '+OO.lbc+' '+OO.lbsz +'"><div class="evolb_header"><a class="evolb_backbtn" style="display:none"><i class="fa fa-angle-left"></i></a><p class="evolb_title">' + OO.t + '</p><a class="evolb_close_btn evolbclose ">X</a></div><div class="evolb_content"></div><p class="message"></p></div></div></div></div>';
+
+			$('#evo_lightboxes').append( html );
+
+
+			LIGHTBOX = $('.evo_lightbox.'+ OO.lbc);
+
+			// Open lightbox on page
+				setTimeout( function(){ 
+					$('#evo_lightboxes').show();
+					LIGHTBOX.addClass('show');	
+					$('body').addClass('evo_overflow');
+					$('html').addClass('evo_overflow');
+				},300);
+
+			// show loading animation
+			LIGHTBOX.evo_lightbox_show_open_animation();
+				
+			// Load content
+			// dynamic content within the site
+				if(OO.content_id != ''){					
+					var content = $('#'+ OO.content_id ).html();					
+					LIGHTBOX.find('.evolb_content').html( content);
+				}
+			// load passed on content
+				if(OO.content != ''){
+					LIGHTBOX.find('.evolb_content').html( OO.content);
+				}
+
+			// run ajax to load content for the lightbox inside
+				if( OO.ajax == 'yes' && OO.d != ''){
+
+					var D = {};
+					D = OO.d;
+
+					LB.evo_admin_get_ajax({
+						ajaxdata: D, 
+						lightbox_key: OO.lbc,
+						uid: OO.d.uid,
+						end: OO.end
+					});
+				}
+
+			// load content from a AJAX file			
+				if( OO.ajax_url != ''){
+					$.ajax({
+						beforeSend: function(){},
+						url:	OO.ajax_url,
+						success:function(data){
+							LIGHTBOX.find('.evolb_content').html( data);
+						},complete:function(){}
+					});
+				}
+			
+			$('body').trigger('evo_lightbox_processed', [ OO, LIGHTBOX]);
+		}
+
+		$.fn.evo_lightbox_close = function (opt){
+			LB = this;
+			var defaults = { 
+				'delay':500, 
+				'remove_from_dom':true,
+			};
+
+			if( !(LB.hasClass('show')) ) return;
+
+			var OO = $.extend({}, defaults, opt);
+
+			var hide_delay = parseInt( OO.delay);
+
+			complete_close = (LB.parent().find('.evo_lightbox.show').length == 1)? true: false;
+
+			if( hide_delay > 500){
+				setTimeout( function(){ 
+					LB.removeClass('show');
+				}, ( hide_delay - 500  ) );
+			}else{
+				LB.removeClass('show');
+			}
+			
+			setTimeout( function(){ 
+				if(complete_close){
+					$('body').removeClass('evo_overflow');
+					$('html').removeClass('evo_overflow');
+				}
+				// remove lightbox HTML from DOM
+				if( OO.remove_from_dom) LB.remove();
+			}, hide_delay);	
+		}
+
+
+		$.fn.evo_lightbox_populate_content = function(opt){
+			LB = this;
+			var defaults = { 
+				'content':'',
+			}; var OO = $.extend({}, defaults, opt);
+			LB.find('.evolb_content').html( OO.content );
+		}
+		$.fn.evo_lightbox_start_inloading = function(opt){
+			LB = this;
+			LB.find('.evolb_content').addClass('loading');
+		}
+		$.fn.evo_lightbox_stop_inloading = function(opt){
+			LB = this;
+			LB.find('.evolb_content').removeClass('loading');
+		}
+		$.fn.evo_lightbox_show_msg = function(opt){
+			LB = this;
+			var defaults = { 
+				'type':'good',
+				'message':'',
+				'hide_message': false,// hide message after some time pass time or false
+				'hide_lightbox': false, // hide lightbox after some time of false
+			}; var OO = $.extend({}, defaults, opt);
+			LB.find('.message').removeClass('bad good').addClass( OO.type ).html( OO.message ).fadeIn();
+
+			if( OO.hide_message ) setTimeout(function(){  LB.evo_lightbox_hide_msg() }, OO.hide_message );
+
+			if( OO.hide_lightbox ) LB.evo_lightbox_close({ delay: OO.hide_lightbox });
+		}
+		$.fn.evo_lightbox_hide_msg = function(opt){
+			LB = this;
+			LB.find('p.message').hide();
+		}
+
+
+		$.fn.evo_lightbox_show_open_animation = function(opt){
+			LB = this;
+			var defaults = { 
+				'animation_type':'initial', // animation type initial or saving
+			};
+			var OO = $.extend({}, defaults, opt);
+
+			if( OO.animation_type == 'initial'){
+				LB.find('.evolb_content').html('<div class="evo_loading_bar_holder"><div class="evo_loading_bar wid_40 hi_50"></div><div class="evo_loading_bar"></div><div class="evo_loading_bar"></div><div class="evo_loading_bar"></div><div class="evo_loading_bar wid_25"></div></div>');
+			}
+
+			if( OO.animation_type == 'saving')
+				LB.find('.evolb_content').addClass('loading');
+
 		}
 
 	// Shortcodes
@@ -527,11 +716,11 @@
 
 			return luma>155? true:false;
 		}
-	// Other data
-		$.fn.evo_get_OD = function(){			
-			var ev_cal = $(this);
-			return ev_cal.find('.evo_cal_data').data('od');			
-		}
+		// Other data
+			$.fn.evo_get_OD = function(){			
+				var ev_cal = $(this);
+				return ev_cal.find('.evo_cal_data').data('od');			
+			}
 
 	// return all filter values for given calendar -- DEP 2.8
 		$.fn.evoGetFilters = function(){
@@ -567,36 +756,7 @@
 			}			
 			return filter_array;
 		}
-	// old shortcode method -- DEP
-		$.fn.evo_item_shortcodes = function(){			
-			var OBJ = $(this);
-			var shortcode_array ={};			
-			OBJ.each(function(){	
-				$.each(this.attributes, function(i, attrib){
-					var name = attrib.name;
-					if(attrib.name!='class' && attrib.name!='style' && attrib.value !=''){
-						name__ = attrib.name.split('-');
-						shortcode_array[name__[1]] = attrib.value;	
-					}
-				});
-			});
-			return shortcode_array;
-		}
-		$.fn.evo_shortcodes = function(){			
-			var ev_cal = $(this);
-			var shortcode_array ={};
-					
-			ev_cal.find('.cal_arguments').each(function(){
-				$.each(this.attributes, function(i, attrib){
-					var name = attrib.name;
-					if(attrib.name!='class' && attrib.name!='style' && attrib.value !=''){
-						name__ = attrib.name.split('-');
-						shortcode_array[name__[1]] = attrib.value;	
-					}
-				});
-			});	
-			return shortcode_array;
-		}
+		
 
 		// get evo data for a given calendar
 		$.fn.evo_getevodata = function(){
@@ -632,7 +792,36 @@
 			}
 		}
 
-	
+	// DEPRECATED functions
+		$.fn.evo_item_shortcodes = function(){			
+			var OBJ = $(this);
+			var shortcode_array ={};			
+			OBJ.each(function(){	
+				$.each(this.attributes, function(i, attrib){
+					var name = attrib.name;
+					if(attrib.name!='class' && attrib.name!='style' && attrib.value !=''){
+						name__ = attrib.name.split('-');
+						shortcode_array[name__[1]] = attrib.value;	
+					}
+				});
+			});
+			return shortcode_array;
+		}
+		$.fn.evo_shortcodes = function(){			
+			var ev_cal = $(this);
+			var shortcode_array ={};
+					
+			ev_cal.find('.cal_arguments').each(function(){
+				$.each(this.attributes, function(i, attrib){
+					var name = attrib.name;
+					if(attrib.name!='class' && attrib.name!='style' && attrib.value !=''){
+						name__ = attrib.name.split('-');
+						shortcode_array[name__[1]] = attrib.value;	
+					}
+				});
+			});	
+			return shortcode_array;
+		}
 		
 
 }(jQuery));

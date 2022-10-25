@@ -1,6 +1,6 @@
 /**
  * Javascript for event map
- * @version  1.4.4
+ * @version  1.4.8
  */
 jQuery(document).ready(function($){
 	var geocoder;
@@ -20,7 +20,7 @@ jQuery(document).ready(function($){
 				mapData = MAP.siblings('.evomap_data').data('d');
 				dlat = mapData.dlat;
 				dlon = mapData.dlon;
-				zlevel = parseInt(MAP.zl);
+				zlevel = parseInt(mapData.zoomlevel);
 				MAPSTYLES = mapData.mapstyles;
 
 			// map styles
@@ -113,6 +113,31 @@ jQuery(document).ready(function($){
 			run_redo_map_upon_AJAX(this_cal_id);
 		});
 
+	// VIEW Switcher
+		$('body').on('evo_vSW_clicked',function(event, OBJ, CAL){
+			if((OBJ.hasClass('evoem'))){
+				CAL.find('.evomap_section').show();
+				CAL.find('.evoEM_list').hide();				
+			}else{
+				CAL.find('.evomap_section').hide();
+				CAL.find('.evoEM_list').show();
+			}
+		});
+
+	// Tab switched
+		$('body').on('evo_tabs_newtab_selected', function( event, OBJ){
+
+			const tabid = OBJ.data('tab');
+
+			const cal_id = OBJ.closest('.evo_tab_view').find('.evo_tab_section.'+tabid)
+				.find('.ajde_evcal_calendar').attr('id');
+
+			if( OBJ.hasClass('map')){
+				process_events_list(cal_id,'redo');				
+			}
+
+		});
+
 	// PROCESS event map
 		var MARKERTYPE;
 		
@@ -152,7 +177,7 @@ jQuery(document).ready(function($){
 						count = 0;
 						events.each(function(){
 							var obj = $(this),
-								evoInfo = obj.find('.evo_info'),
+								evoInfo = obj.find('.event_location_attrs'),
 								eventidarray = [];
 
 							// if event have location information
@@ -382,6 +407,15 @@ jQuery(document).ready(function($){
 			$('body').on('click','.evo-mapfocus',function(){
 				map.fitBounds(bounds);
 			});
+
+		// show all the events
+			$('body').on('click','.evomap_all_events',function(){
+				const CAL = $(this).closest('.ajde_evcal_calendar');
+
+				CAL.find('.eventon_list_event').show();
+				CAL.find('.eventon_events_list').show();
+				CAL.find('.evoEM_list').show();
+			});
 			
 		// Show events for a location marker
 			function show_event(eventsARRAY, cal_id){
@@ -401,8 +435,10 @@ jQuery(document).ready(function($){
 						eventslist = calendar.find('.eventon_events_list').html();
 						//$('body').find('.evoEM_pop_body').html(eventslist);
 
-						appendTo_popup( eventslist );
-						show_popup(cal_id);
+						$('.evoem_lightbox').evo_append_lb({C: eventslist, CAL: calendar});
+						
+						//show_popup(cal_id);
+						$('.evoem_lightbox').evo_show_lb({calid: cal_id });
 
 						//popbody = $('body').find('.evoEM_pop_body');
 						popbody = $('.evoem_lightbox_body');

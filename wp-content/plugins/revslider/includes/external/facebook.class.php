@@ -266,7 +266,8 @@ class RevSliderFacebook extends RevSliderFunctions {
 		if (empty($id)) return;
 
 		$prefix = self::TRANSIENT_PREFIX . $id;
-		$wpdb->query($wpdb->prepare("DELETE FROM $wpdb->options WHERE `option_name` LIKE '%%%s%%'", $wpdb->esc_like($prefix)));
+		$wpdb->query($wpdb->prepare("DELETE FROM $wpdb->options WHERE `option_name` LIKE '%s'", '%'.$prefix.'%'));
+		//$wpdb->query($wpdb->prepare("DELETE FROM $wpdb->options WHERE `option_name` LIKE '%%%s%%'", $wpdb->esc_like($prefix)));
 	}
 
 }

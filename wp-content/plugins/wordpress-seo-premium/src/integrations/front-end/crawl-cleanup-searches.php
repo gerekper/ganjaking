@@ -5,6 +5,7 @@ namespace Yoast\WP\SEO\Premium\Integrations\Front_End;
 use WP_Query;
 use Yoast\WP\SEO\Conditionals\Front_End_Conditional;
 use Yoast\WP\SEO\Helpers\Options_Helper;
+use Yoast\WP\SEO\Helpers\Url_Helper;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
 
 /**
@@ -49,6 +50,9 @@ class Crawl_Cleanup_Searches implements Integration_Interface {
 		if ( $this->options_helper->get( 'search_cleanup' ) ) {
 			\add_filter( 'pre_get_posts', [ $this, 'validate_search' ] );
 		}
+		if ( $this->options_helper->get( 'redirect_search_pretty_urls' ) && ! empty( \get_option( 'permalink_structure' ) ) ) {
+			\add_action( 'template_redirect', [ $this, 'maybe_redirect_searches' ], 2 );
+		}
 	}
 
 	/**
@@ -78,6 +82,44 @@ class Crawl_Cleanup_Searches implements Integration_Interface {
 		$this->limit_characters();
 
 		return $query;
+	}
+
+	/**
+	 * Redirect pretty search URLs to the "raw" equivalent
+	 */
+	public function maybe_redirect_searches() {
+		if ( ! \is_search() ) {
+			return;
+		}
+
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+		if ( isset( $_SERVER['REQUEST_URI'] ) && \stripos( $_SERVER['REQUEST_URI'], '/search/' ) === 0 ) {
+			$args = [];
+
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+			$parsed = \wp_parse_url( $_SERVER['REQUEST_URI'] );
+
+			if ( ! empty( $parsed['query'] ) ) {
+				\wp_parse_str( $parsed['query'], $args );
+			}
+
+			$args['s'] = \get_search_query();
+
+			$proper_url = \home_url( '/' );
+
+			if ( \intval( \get_query_var( 'paged' ) ) > 1 ) {
+				$proper_url .= sprintf( 'page/%s/', \get_query_var( 'paged' ) );
+				unset( $args['paged'] );
+			}
+
+			$proper_url = \add_query_arg( \array_map( 'rawurlencode_deep', $args ), $proper_url );
+
+			if ( ! empty( $parsed['fragment'] ) ) {
+				$proper_url .= '#' . \rawurlencode( $parsed['fragment'] );
+			}
+
+			$this->redirect_away( 'We redirect pretty URLs to the raw format.', $proper_url );
+		}
 	}
 
 	/**

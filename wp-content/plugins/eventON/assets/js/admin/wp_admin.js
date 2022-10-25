@@ -1,12 +1,10 @@
 /*
  * EventON Back end scripts for general backend of wordpress
- * @version 4.1
+ * @version 4.2
  */
 
 
 jQuery(document).ready(function($){	
-
-
 
 // color picker
 	if( $.isFunction($.fn.ColorPicker) ) { 
@@ -189,6 +187,9 @@ jQuery(document).ready(function($){
 	});
 
 // LIGHTBOX function 
+	// since 4.2 moved to funtctions
+
+
 	// lightbox hide
 		$('body').on('click',' .ajde_close_pop_trig',function(){
 			hide_popupwindowbox( $(this).closest('.ajde_admin_lightbox') );
@@ -292,6 +293,7 @@ jQuery(document).ready(function($){
 			// if already open
 			if(LIGHTBOX.is("visible")===true) return false;
 
+
 			POPUP = LIGHTBOX.find('.ajde_popup');
 			POPUP.find('.message').removeClass('bad good').hide();
 
@@ -300,6 +302,7 @@ jQuery(document).ready(function($){
 			$('body').addClass('evo_overflow');
 			$('html').addClass('evo_overflow');
 		}
+
 		// @version 4.1
 		$('body').on('evo_open_dynamic_admin_lightbox', function(event, obj, obj_data){
 			ajde_popup_open(obj, obj_data);
@@ -437,55 +440,22 @@ jQuery(document).ready(function($){
 			$('#ajde_loading').fadeOut(20);
 		}
 
-// Event Singular tax term form create new or edit form
-	$('body').on('click','.evo_tax_term_form',function(){
-		OBJ = $(this);
-		PAR = OBJ.closest('.evo_singular_tax_for_event');
-		var ajaxdataa = { };
-			ajaxdataa['action']='eventon_get_event_tax_term_section';
-			ajaxdataa['type']= OBJ.data('type');
-			ajaxdataa['tax']=  PAR.data('tax');
-			ajaxdataa['eventid']=  PAR.data('eventid');
-			ajaxdataa['termid']=  OBJ.data('id');
-
-		$.ajax({
-			beforeSend: function(){	},
-			type: 'POST',
-			url:evo_admin_ajax_handle.ajaxurl,
-			data: ajaxdataa,
-			dataType:'json',
-			success:function(data){
-				if(data.status=='good'){						
-					$('.evo_config_term').find('.ajde_popup_text').html( data.content);
-				}else{}
-			},complete:function(){}
-		});	
+// TAXONOMY term form, NEW/ EDIT/ DELETE
+	$('body')
+	.on('evo_ajax_success_evo_get_tax_term_form',function(event, OO, data){
+		if(data.status=='good'){						
+			$('.evo_config_term').find('.evolb_content').html( data.content);
+		}
 	});
 	
 	// get term list
-	$('body').on('click','.evo_tax_term_list',function(){
-		OBJ = $(this);
-		PAR = OBJ.closest('.evo_singular_tax_for_event');
-		var ajaxdataa = { };
-			ajaxdataa['action']='eventon_event_tax_list';
-			ajaxdataa['tax']=  PAR.data('tax');
-			ajaxdataa['eventid']=  PAR.data('eventid');
-			ajaxdataa['termid']=  OBJ.data('id');
-
-		$.ajax({
-			beforeSend: function(){},
-			type: 'POST',
-			url:evo_admin_ajax_handle.ajaxurl,
-			data: ajaxdataa,
-			dataType:'json',
-			success:function(data){
-				if(data.status=='good'){						
-					$('.evo_config_term').find('.ajde_popup_text').html( data.content);
-					$('.evo_config_term').find('select.field').select2();						
-				}
-			},complete:function(){}
-		});	
-	});
+	$('body')
+	.on('evo_ajax_success_evo_get_tax_list',function(event, OO, data){
+		if(data.status=='good'){						
+			$('.evo_config_term').find('.evolb_content').html( data.content);
+			$('.evo_config_term').find('select.field').select2();						
+		}
+	});	
 
 	// save changes
 	$('body').on('click','.evo_term_submit',function(){
@@ -497,32 +467,32 @@ jQuery(document).ready(function($){
 			ajaxdataa['eventid']=  PAR.data('eventid');
 			ajaxdataa['type']=  PAR.data('type');
 
-		PAR.find('.field').each(function(){
-			if($(this).val() != ''){
-				ajaxdataa[ $(this).attr('name')]=  $(this).val();
-			}
+		PAR.find('select, input, textarea').each(function(){
+			if( $(this).val() == '') return;
+			if( $(this).attr('name') === undefined ) return;
+			
+			ajaxdataa[ $(this).attr('name')]=  $(this).val();			
 		});
+
+		LB = OBJ.closest('.evo_lightbox');
+
 
 		$.ajax({
 			beforeSend: function(){
-				$('.evo_config_term').find('.ajde_lightbox_title').html( evo_admin_ajax_handle.select_from_list);
-				$('.evo_config_term').find('.ajde_popup_text').addClass( 'loading');
+				LB.evo_lightbox_start_inloading();
 			},
 			type: 'POST',
 			url:evo_admin_ajax_handle.ajaxurl,
 			data: ajaxdataa,
 			dataType:'json',
 			success:function(data){
-				if(data.status=='good'){		
-					$('body').trigger('ajde_lightbox_show_msg',[ data.content, 'evo_config_term','good',true]);				
+				if(data.status=='good'){	
+					LB.evo_lightbox_show_msg({'message':data.content});
 					$('.evo_singular_tax_for_event.'+PAR.data('tax')).html(data.htmldata);
 				}
 			},complete:function(){
-				setTimeout(function () {
-				   $('.ajde_close_pop_btn').trigger('click');
-				}, 2000);					
-				$('.evo_config_term').find('.ajde_popup_text').removeClass( 'loading');
-
+				LB.evo_lightbox_close({'delay':2000});
+				
 				// when setting event location
 				if(PAR.data('tax') == 'event_location'){
 					var inp = $('body').find('input[name="evcal_gmap_gen"]');
@@ -532,33 +502,31 @@ jQuery(document).ready(function($){
 		});	
 	});
 
-	// remove location
-	$('body').on('click','.evo_tax_remove',function(){
-		OBJ = $(this);
-		PAR = OBJ.closest('.evo_singular_tax_for_event');
-		var ajaxdataa = { };
-			ajaxdataa['action']='eventon_event_tax_remove';
-			ajaxdataa['tax']=  PAR.data('tax');
-			ajaxdataa['eventid']=  PAR.data('eventid');
-			ajaxdataa['termid']=  OBJ.data('id');
+	// remove tax term
+		$('body').on('click','.evo_tax_remove',function(){
+			OBJ = $(this);
+			PAR = OBJ.closest('.evo_singular_tax_for_event');
+			var ajaxdataa = { };
+				ajaxdataa['action']='eventon_event_tax_remove';
+				ajaxdataa['tax']=  OBJ.data('tax');
+				ajaxdataa['eventid']=  OBJ.data('eventid');
+				ajaxdataa['termid']=  OBJ.data('termid');
 
-		$.ajax({
-			beforeSend: function(){
-				PAR.addClass( 'loading');
-			},
-			type: 'POST',
-			url:evo_admin_ajax_handle.ajaxurl,
-			data: ajaxdataa,
-			dataType:'json',
-			success:function(data){
-				if(data.status=='good'){						
-					PAR.html(data.htmldata);
+			$.ajax({
+				beforeSend: function(){	PAR.addClass( 'loading');	},
+				type: 'POST',
+				url:evo_admin_ajax_handle.ajaxurl,
+				data: ajaxdataa,
+				dataType:'json',
+				success:function(data){
+					if(data.status=='good'){						
+						PAR.html(data.htmldata);
+					}
+				},complete:function(){
+					PAR.removeClass( 'loading');
 				}
-			},complete:function(){
-				PAR.removeClass( 'loading');
-			}
-		});	
-	});
+			});	
+		});
 
 
 // Upload custom images to eventon custom image meta fields
@@ -638,176 +606,6 @@ jQuery(document).ready(function($){
 	    }
 	});
 
-// Multi Data Types for event type posts
-	$('body').on('click','.evomdt_add_new_btn',function(){
-		OBJ = $(this);
-		var ajaxdataa = { };
-			ajaxdataa['action']='evo_mdt';
-			ajaxdataa['type']= 'newform';
-			ajaxdataa['tax']=  OBJ.data('tax');
-			ajaxdataa['eventid']=  OBJ.data('eventid');
-
-		$.ajax({
-			beforeSend:function(){	},
-			type: 'POST',
-			url:evo_admin_ajax_handle.ajaxurl,
-			data: ajaxdataa,
-			dataType:'json',
-			success:function(data){
-				if(data.status=='good'){
-					$('.evo_mdt_lb').find('.ajde_popup_text').html( data.content);
-				}else{}
-			},
-			complete:function(){}
-		});			
-	});
-
-	// edit term
-		$('.evomdt_selection').on('click','i.fa-pencil',function(){
-			OBJ = $(this);
-			var ajaxdataa = { };
-				ajaxdataa['action']='evo_mdt';
-				ajaxdataa['type']= 'editform';
-				ajaxdataa['tax']=  OBJ.closest('ul').data('tax');
-				ajaxdataa['eventid']=  OBJ.closest('ul').data('eventid');
-				ajaxdataa['termid']=  OBJ.parent().data('termid');
-
-			$.ajax({
-				beforeSend:function(){	},
-				type: 'POST',
-				url:evo_admin_ajax_handle.ajaxurl,
-				data: ajaxdataa,
-				dataType:'json',
-				success:function(data){
-					if(data.status=='good'){
-						$('.evo_mdt_lb').find('.ajde_popup_text').html( data.content);
-					}else{}
-				},
-				complete:function(){	}
-			});			
-		});
-
-	// delete term relationship
-		$('.evomdt_selection').on('click','i.fa-close',function(){
-			OBJ = $(this);
-			EVOMB = OBJ.closest('.evomb_body');
-			var ajaxdataa = { };
-				ajaxdataa['action']='evo_mdt';
-				ajaxdataa['type']= 'removeterm';
-				ajaxdataa['tax']=  OBJ.closest('ul').data('tax');
-				ajaxdataa['eventid']=  OBJ.closest('ul').data('eventid');
-				ajaxdataa['termid']=  OBJ.parent().data('termid');
-
-			$.ajax({
-				beforeSend: function(){	EVOMB.addClass('loading'); },
-				type: 'POST',
-				url:evo_admin_ajax_handle.ajaxurl,
-				data: ajaxdataa,
-				dataType:'json',
-				success:function(data){
-					if(data.status=='good'){
-						$('.'+ ajaxdataa['tax']+'_display_list').html(data.content);
-					}else{}
-				},complete:function(){	EVOMB.removeClass('loading'); }
-			});			
-		});
-
-	// submit mdt form
-		$('body').on('click','.evomdt_new_mdt_submit',function(){
-			
-			OBJ = $(this);
-			FORM = OBJ.closest('.ev_admin_form');
-			BOX = OBJ.closest('.ajde_popup_text');
-
-			var ajaxdataa = { };
-				ajaxdataa['action']='evo_mdt';
-				ajaxdataa['type']= 'save';
-
-			error = 0;
-			FORM.find('.field').each(function(){
-				THIS = $(this);
-				// required field missing
-				if( THIS.hasClass('req') && (THIS.val() === undefined || THIS.val()=='')) error++;
-				ajaxdataa[ THIS.attr('name')] = THIS.val();
-			});
-
-			if(error == 0 ){
-				$.ajax({
-					beforeSend: function(){	BOX.addClass('loading'); },
-					type: 'POST',
-					url:evo_admin_ajax_handle.ajaxurl,
-					data: ajaxdataa,
-					dataType:'json',
-					success:function(data){
-						if(data.status=='good'){
-							$('.'+ ajaxdataa['tax']+'_display_list').html(data.content);
-							$('body').trigger('ajde_lightbox_show_msg',[ data.msg,'evo_mdt_lb']);
-						}else{	}
-					},
-					complete:function(){ BOX.removeClass('loading');	}
-				});	
-			}else{
-				msg = 'Required Fields Missing!';
-				$('body').trigger('ajde_lightbox_show_msg',[ msg,'evo_mdt_lb','bad']);
-			}		
-		});
-	// select from list
-		$('body').on('click','.evomdt_get_list',function(){
-			OBJ = $(this);
-			var ajaxdataa = { };
-				ajaxdataa['action']='evo_mdt';
-				ajaxdataa['type']= 'list';
-				ajaxdataa['eventid']= OBJ.data('eventid');
-				ajaxdataa['tax']= OBJ.data('tax');
-
-			$.ajax({
-				type: 'POST',
-				url:evo_admin_ajax_handle.ajaxurl,
-				data: ajaxdataa,
-				dataType:'json',
-				success:function(data){
-					if(data.status=='good'){
-						$('.evo_mdt_lb').find('.ajde_popup_text').html( data.content);
-					}else{	}
-				},complete:function(){		}
-			});			
-		});	
-
-	// save list
-		$('body').on('click','.evomdt_save_list_submit',function(){
-			OBJ = $(this);
-			BOX = OBJ.closest('.ajde_popup_text');
-
-			var mdt = [];
-			OBJ.parent().parent().find('input').each(function() {
-				if($(this).is(':checked'))
-		    		mdt.push($(this).val());
-		    });
-
-			var ajaxdataa = { };
-				ajaxdataa['action']='evo_mdt';
-				ajaxdataa['type']= 'savelist';
-				ajaxdataa['eventid']= OBJ.data('eventid');
-				ajaxdataa['tax']= OBJ.data('tax');
-				ajaxdataa['mdt']= mdt;
-
-			
-			$.ajax({
-				beforeSend: function(){	BOX.addClass('loading'); },
-				type: 'POST',
-				url:evo_admin_ajax_handle.ajaxurl,
-				data: ajaxdataa,
-				dataType:'json',
-				success:function(data){
-					if(data.status=='good'){
-						$('.'+ ajaxdataa['tax']+'_display_list').html(data.content);
-							$('body').trigger('ajde_lightbox_show_msg',[ data.msg,'evo_mdt_lb']);
-					}else{
-
-					}
-				},complete:function(){BOX.removeClass('loading');}
-			});		
-		});	
 	
 // settings
 	// themes section
@@ -904,8 +702,6 @@ jQuery(document).ready(function($){
 				},complete:function(){	}
 			});
 		});
-
-	
 		
 // Event Top Designer @version 4.1
 	$.fn.evotop_designer = function (options){
@@ -1248,7 +1044,6 @@ jQuery(document).ready(function($){
 	$('.evotrouble_left').on('click','h5',function(){
 		$(this).next('p').toggle();
 	});
-
 
 // Diagnose
 	$('#evo_send_test_email').on('click', function(){

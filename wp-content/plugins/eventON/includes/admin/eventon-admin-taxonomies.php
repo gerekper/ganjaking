@@ -6,17 +6,18 @@
  * @author 		Ashan Jay
  * @category 	Admin
  * @package 	eventon/Admin/Taxonomies
- * @version     0.1
+ * @version     4.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-class eventon_taxonomies{
+class EVO_Taxonomies extends EVO_Taxonomies_editor{
 
 	function __construct(){
 		add_action( 'admin_init', array($this,'eventon_taxonomy_admin' ));
 		add_action( 'event_type_pre_add_form', array($this, 'event_type_description' ));
 		add_action( 'admin_init', array($this, 'eventon_add_tax') );
+		add_action( 'admin_init', array($this, 'editor_ajax_calls') );
 
 		// event type 1
 		add_filter( 'manage_edit-event_type_columns', array($this,'event_type_edit_columns'),5 );
@@ -39,7 +40,8 @@ class eventon_taxonomies{
 	 		add_action( 'event_location_edit_form_fields', array($this,'eventon_taxonomy_edit_meta_field'), 10, 2 );
 	 		add_action( 'edited_event_location', array($this,'evo_save_taxonomy_custom_meta'), 10, 2 );  
 			add_action( 'create_event_location', array($this,'evo_save_taxonomy_custom_meta'), 10, 2 );
-			add_action( 'event_location_edit_form', array($this,'loc_tax_footer'), 10, 2 );
+			add_action( 'event_location_edit_form', array($this,'tax_viewpage_btn'), 10, 2 );
+			add_action( 'event_organizer_edit_form', array($this,'tax_viewpage_btn'), 10, 2 );
 
 		// event organizer
 			add_filter("manage_edit-event_organizer_columns", array($this,'eventon_evorganizer_theme_columns'));  
@@ -175,12 +177,12 @@ class eventon_taxonomies{
 				}
 			}  
 
-	// Get taxonomy terms list as array
-		function get_event_tax_fields_array($tax, $event_tax_term=''){
-			$is_new = (isset($_POST['type']) && $_POST['type']=='new')? true: false;
+	// Get taxonomy terms list as array - updated @4.2
+		function get_event_tax_fields_array($tax, $event_tax_term='', $field_type =''){
+			$is_new = (!empty($field_type) && $field_type == 'new')? true: false;
 
-			if($tax == 'event_location'){
-				return array(
+			$tax_fields = apply_filters('evo_taxonomy_form_fields_array', array(
+				'event_location'=> array(
 					'term_name'=>array(
 						'type'=>'text',
 						'name'=> __('Location Name','eventon'),
@@ -255,11 +257,8 @@ class eventon_taxonomies{
 						)					
 					),
 					'submit'=>array('type'=>'button',)
-				);
-			}
-
-			if($tax == 'event_organizer'){
-				return array(
+				),
+				'event_organizer'=> array(
 					'term_name'=>array(
 						'type'=>'text',
 						'name'=>__('Organizer Name','eventon'),
@@ -276,7 +275,7 @@ class eventon_taxonomies{
 					),
 					'evcal_org_contact'=>array(
 						'type'=>'text',
-						'name'=>__('Organizer General Contact Information','eventon'),
+						'name'=>__('Organizer General Contact Details','eventon'),
 						'var'=>'evcal_org_contact'				
 					),
 					'evcal_org_contact_e'=> array(
@@ -286,7 +285,7 @@ class eventon_taxonomies{
 					),
 					'evcal_org_address'=>array(
 						'type'=>'text',
-						'name'=>__('Organizer Address','eventon'),	
+						'name'=>__('Organizer Physical Address','eventon'),	
 						'var'=> 'evcal_org_address'					
 					),
 					'evcal_org_fb'=> array(
@@ -325,8 +324,12 @@ class eventon_taxonomies{
 						'var'=>	'evo_org_img'	
 					),
 					'submit'=>array('type'=>'button',)
-				);
-			}
+				)
+
+			), $tax, $event_tax_term);
+
+
+			return isset($tax_fields[ $tax ]) ? $tax_fields[ $tax ]: array();
 
 		}
 
@@ -491,8 +494,9 @@ class eventon_taxonomies{
 			}
 
 		// edit tag page footer
-			function loc_tax_footer($tag, $tax){
-				echo "<p><a class='evo_admin_btn' href='".get_site_url().'/event-location/'.$tag->slug."'>".__('VIEW','eventon')."</a></p>";
+			function tax_viewpage_btn($tag, $tax){
+				$link = get_term_link( $tag , $tax);
+				echo "<p><a class='evo_admin_btn' href='". $link ."'>".__('VIEW','eventon')."</a></p>";
 			}
 		
 		// Edit term page
@@ -582,7 +586,7 @@ class eventon_taxonomies{
 						<?php 
 							if(!empty($term_meta['evo_loc_img'])){
 								$img_url = wp_get_attachment_image_src($term_meta['evo_loc_img'],'medium');
-							}else{ $img_url=false;}
+							}else{ $img_url = array(0=>''); }
 
 							$__button_text = (!empty($term_meta['evo_loc_img']))? __('Remove Image','eventon'): __('Choose Image','eventon');
 							$__button_text_not = (empty($term_meta['evo_loc_img']))? __('Remove Image','eventon'): __('Choose Image','eventon');
@@ -673,7 +677,7 @@ class eventon_taxonomies{
 				// additional fields
 					foreach($this->get_event_tax_fields_array('event_organizer') as $field=>$value){
 
-						if( in_array( $field , array('_evocal_org_exlink_target','submit') ) ) continue;
+						if( in_array( $field , array('term_name','description', '_evocal_org_exlink_target','submit') ) ) continue;
 						
 						if($value['type'] == 'image'):
 						?>
@@ -713,25 +717,25 @@ class eventon_taxonomies{
 				//  fields
 					foreach($this->get_event_tax_fields_array('event_organizer') as $field=>$value){
 
-						if($field == '_evocal_org_exlink_target') continue;
-						if($field == 'submit') continue;
+						if( in_array( $field , array('term_name','description', '_evocal_org_exlink_target','submit') ) ) continue;
 						
 						if($field == 'evcal_org_exlink'):
 						?>
 							<tr class="form-field">
-							<th scope="row" valign="top"><label for="term_meta[evcal_org_exlink]"><?php _e( 'Link to the organizers page', 'eventon' ); ?></label></th>
+							<th scope="row" valign="top"><label for="term_meta[evcal_org_exlink]"><?php _e( 'Link to custom organizer page', 'eventon' ); ?></label></th>
 							<td>
 								<input type="text" name="term_meta[evcal_org_exlink]" id="term_meta[evcal_org_exlink]" value="<?php echo !empty($term_meta['evcal_org_exlink'])  ? esc_attr( $term_meta['evcal_org_exlink'] ) : ''; ?>">
-								<p><span class='yesno_row evo'>
-									<?php 	
-									$_evocal_org_exlink_target = $this->termmeta($term_meta,'_evocal_org_exlink_target');
-									echo $ajde->wp_admin->html_yesnobtn(array(
-										'id'=>'term_meta[_evocal_org_exlink_target]', 
-										'var'=>$_evocal_org_exlink_target,
-										'input'=>true,
+								<?php 	
+									
+
+									echo EVO()->elements->get_element(array(
+										'type'=>'yesno_btn',
+										'id'=> 'term_meta[_evocal_org_exlink_target]', 
+										'value'=>	$this->termmeta($term_meta,'_evocal_org_exlink_target'),
 										'label'=>__('Open organizer link in new window','eventon')
-									));?>											
-								</span></p>
+									));
+									
+								?>
 
 								<p class="description"><?php _e( 'Use this field to link organizer to other user profile pages','eventon' ); ?></p>
 							</td>

@@ -94,7 +94,8 @@ class Evo_Calendar_Now{
 
 				// no events
 				}else{
-					echo "<p class='evo_eventon_no_events_now'>". evo_lang('No Events at the Moment')."</p>";
+					echo "<div class='evo_eventon_no_events_now'>". EVO()->calendar->helper->get_no_event_content() . "</div>";
+					
 				}
 
 			?>

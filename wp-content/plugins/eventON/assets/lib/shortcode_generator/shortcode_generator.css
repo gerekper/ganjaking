@@ -1,7 +1,14 @@
 /* 
 Shortcode Generator 
-@version 4.0.6
+@version 4.2
 */
+
+:root{
+    --evo_color_1: #202124;
+    --evo_main_font: 'Noto Sans', arial;
+    --evo_border_c:#e0e0e0;
+}
+
     .ajde_admin_lightbox.eventon_shortcode{opacity: 0; visibility: hidden;}
     .ajde_admin_lightbox.show.eventon_shortcode {    opacity: 1; visibility: visible;}
 
@@ -43,20 +50,21 @@ Shortcode Generator
         position:relative;
     }
     #ajdePOSH_outter h3{
-        font:italic 14px 'open sans';
-        color:#848484;
+        font-size: 14px;
+        font-style: italic;
+        font-family: var(--evo_main_font);
+        color:var(--evo_color_1);
         margin:0;
         border-bottom:1px solid #ededed;
         position:relative;
         overflow:hidden;
-        text-align: center;
     }
     #ajdePOSH_outter h3.back {text-align: left;}
     #ajdePOSH_outter h3.back span{
         padding-left:40px;font-style: normal;font-weight: 700;text-transform: uppercase;
     }
     #ajdePOSH_outter h3 span{
-        padding:10px;
+        padding:10px 20px;
         display:block;
     }
     #ajdePOSH_back{
@@ -79,7 +87,7 @@ Shortcode Generator
     .ajdePOSH_btn{
         cursor:pointer;
         border-bottom:1px solid #ededed;
-        font:16px 'open sans';
+        font:16px var(--evo_main_font);
         padding:10px 20px;
     }
     .ajdePOSH_btn:hover{
@@ -129,7 +137,7 @@ Shortcode Generator
     .fieldline p.label{
         margin:0;
         padding:0px;
-        font:13px 'open sans';
+        font:13px var(--evo_main_font);
         position: relative;
         background-color: transparent;
         color: #444;
@@ -151,8 +159,8 @@ Shortcode Generator
             -moz-box-shadow: 0px 0px 10px 3px rgba(0,0,0,0.3);
             box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.3);
         border-radius: 5px;
-        color:#808080;
-        font-family: 'open sans';
+        color:var(--evo_color_1);
+        font-family: var(--evo_main_font);
         box-sizing: border-box;
     }
     .POSH_S2_box em{ font-size:14px;display: block; font-style: normal; padding:3px; cursor: pointer;   }
@@ -205,7 +213,7 @@ Shortcode Generator
         .ajdePOSH_inner .fieldline.collapsable{cursor: pointer;background-color: #f7f7f7}
         .ajdePOSH_inner .fieldline.collapsable:hover{opacity: 0.7}
         .ajdePOSH_inner .fieldline.collapsable:after{
-            content: "\f142";
+            content: "\f343";
             height: 20px;
             width: 14px;
             display: block;
@@ -222,7 +230,7 @@ Shortcode Generator
         .ajdePOSH_inner .collapsable_fields .fieldline{background-color: #fff;}
         .ajdePOSH_inner .collapsable_fields div:first-child{border-radius:10px 10px  0 0 }
         .ajdePOSH_inner .collapsable_fields div:last-child{border-radius: 0 0 10px 10px}
-        .ajdePOSH_inner .fieldline.collapsable.closed:after{    content: "\f140";}
+        .ajdePOSH_inner .fieldline.collapsable.closed:after{    content: "\f347";}
     /* elements compatibility */
         .ajdePOSH_inner .evo_elm_lb_fields{  display: flex; align-items: center;}
         .ajdePOSH_inner .evo_elm_lb_fields .evo_field_label{margin-left: 5px;}

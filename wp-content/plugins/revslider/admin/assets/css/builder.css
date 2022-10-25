@@ -147,6 +147,7 @@
 #the_container .form_collector .form_inner ._shflic_,
 #the_container .form_collector .form_inner._shflic_,
 #the_container .form_collector .form_inner ._shflig_,
+#the_container .form_collector .form_inner ._shfliginset_,
 #the_container .form_collector .form_inner._shflig_,
 #the_container .form_collector .form_inner ._shflicg_,
 #the_container .form_collector .form_inner._shflicg_,
@@ -211,6 +212,12 @@
 #the_container._layer_in_group_sel_ .form_collector .form_inner._shflicg_,
 #the_container._layer_in_group_sel_ .form_collector .form_inner ._shflicg_,
 
+#the_container._layer_in_group_sel_ .form_collector .form_inner._shflig_,
+#the_container._layer_in_group_sel_ .form_collector .form_inner ._shflig_,
+
+#the_container._layer_in_group_sel_.layer_is_inset .form_collector .form_inner._shfliginset_,
+#the_container._layer_in_group_sel_.layer_is_inset .form_collector .form_inner ._shfliginset_,
+
 #the_container._text_sel_ .form_collector .form_inner._shoft_,
 #the_container._button_sel_ .form_collector .form_inner._shofb_,
 
@@ -229,6 +236,12 @@
 #the_container.multiple_layers_selected._text_sel_._row_sel_ .form_collector .form_inner._homs_,
 #the_container.multiple_layers_selected._text_sel_._column_sel_ .form_collector .form_inner._homs_ { display: none !important;}
 
+
+
+#the_container._layer_in_group_sel_.layer_is_inset .form_collector .form_inner._nfliginset_,
+#the_container._layer_in_group_sel_.layer_is_inset .form_collector .form_inner ._nfliginset_,
+#the_container._layer_in_group_sel_.layer_is_inset .ui-resizable.selected .ui-resizable-handle,
+#the_container._layer_in_group_sel_.layer_is_inset .ui-resizable.selected ._lc_reScaler,
 #the_container._layer_in_root_sel_ .hide_on_root,
 #the_container._layer_in_root_sel_._shape_sel_ .form_collector .form_inner._nsfsir_,
 #the_container._layer_in_root_sel_._shape_sel_ .form_collector .form_inner ._nsfsir_,

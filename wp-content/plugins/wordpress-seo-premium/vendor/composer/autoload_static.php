@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit6b431bf0ce38b392570e1910761ed4c1
+class ComposerStaticInit844f53f483df9f4f4583325698f6b6b3
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -188,6 +188,7 @@ class ComposerStaticInit6b431bf0ce38b392570e1910761ed4c1
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Indexing_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/prominent-words/indexing-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Metabox_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/prominent-words/metabox-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Replacement_Variables_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/replacement-variables-integration.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Settings_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/settings-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Thank_You_Page_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/thank-you-page-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\User_Profile_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/user-profile-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Workouts_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/workouts-integration.php',
@@ -242,9 +243,9 @@ class ComposerStaticInit6b431bf0ce38b392570e1910761ed4c1
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit6b431bf0ce38b392570e1910761ed4c1::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit6b431bf0ce38b392570e1910761ed4c1::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit6b431bf0ce38b392570e1910761ed4c1::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit844f53f483df9f4f4583325698f6b6b3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit844f53f483df9f4f4583325698f6b6b3::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit844f53f483df9f4f4583325698f6b6b3::$classMap;
 
         }, null, ClassLoader::class);
     }

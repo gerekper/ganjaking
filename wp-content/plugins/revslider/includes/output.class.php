@@ -1972,6 +1972,8 @@ class RevSliderOutput extends RevSliderFunctions {
 		$html_video_data	= $this->get_html_video_data();
 		$html_column_data	= $this->get_html_column_data();
 		$html_margin_data	= $this->get_html_margin_data($row_group_uid);
+		$html_covermode_data	= $this->get_html_covermode_data();
+
 		$html_padding_data	= $this->get_html_padding_data();
 		$html_border_data	= $this->get_html_border_data();
 		$html_inline_style	= $this->get_html_inline_style();
@@ -2034,6 +2036,7 @@ class RevSliderOutput extends RevSliderFunctions {
 		echo ($html_video_data != '')		? $html_video_data : ''; //$this->ld().RS_T8.   ."\n"
 		echo ($html_column_data != '')		? $this->ld().RS_T8.$html_column_data."\n" : '';
 		echo ($html_margin_data != '')		? $this->ld().RS_T8.$html_margin_data."\n" : '';
+		echo ($html_covermode_data != '')	? $this->ld().RS_T8.$html_covermode_data."\n" : '';
 		echo ($html_padding_data != '')		? $this->ld().RS_T8.$html_padding_data."\n" : '';
 		echo ($html_border_data != '')		? $this->ld().RS_T8.$html_border_data."\n" : '';
 		echo ($html_frameorder != '')		? $this->ld().RS_T8.$html_frameorder."\n" : '';
@@ -2049,6 +2052,7 @@ class RevSliderOutput extends RevSliderFunctions {
 			}
 		}
 
+		
 		
 		
 		do_action('revslider_add_layer_attributes', $layer, $this->slide, $this->slider, $this);
@@ -4929,6 +4933,15 @@ rs-module .material-icons {
 		return $html;
 	}
 	
+	/**
+	 * get the covermode HTML data
+	 **/
+	public function get_html_covermode_data(){
+		$layer	= $this->get_layer();		
+		$covermode	= $this->get_val($layer, array('size', 'covermode'),'custom');
+		return ($covermode === 'fullinset') ? 'data-fullinset="true"' : '';
+	}
+
 	/**
 	 * get the column HTML data
 	 **/

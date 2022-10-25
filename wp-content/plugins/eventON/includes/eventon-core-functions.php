@@ -1631,6 +1631,8 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 	function evo_get_template_part( $slug, $name='', $preurl=''){
 		eventon_get_template_part($slug, $name, $preurl);
 	}
+
+	// @updated 4.2
 	function eventon_get_template_part( $slug, $name = '' , $preurl='') {
 		$cache_key = sanitize_key( implode( '-', array( 'template-part', $slug, $name, EVO()->version ) ) );
 		$template  = (string) wp_cache_get( $cache_key, 'eventon' );
@@ -1642,27 +1644,22 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 
 		if( !$template){
 			if ( $name ) {
-				$template = locate_template(
-					array(
-						"{$slug}-{$name}.php",
-						EVO()->template_path() . "{$slug}-{$name}.php",
-					)
-				);
 
-				if ( ! $template ) {
-					$fallback = EVO()->plugin_path() . "/templates/{$slug}-{$name}.php";
-					$template = file_exists( $fallback ) ? $fallback : '';
-				}
+				$locations = array(
+						"{$slug}-{$name}.php",
+						EVO()->template_path() . "/{$slug}-{$name}.php",
+						EVO()->template_path() . "/templates/{$slug}-{$name}.php",
+					);
+
+				$template = locate_template( $locations	);
+
 			}
 
+			// if template can not be located use eventon provided template
 			if ( ! $template ) {
-				// If template file doesn't exist, look in yourtheme/slug.php and yourtheme/eventon/slug.php.
-				$template = locate_template(
-					array(
-						"{$slug}.php",
-						EVO()->template_path() . "{$slug}.php",
-					)
-				);
+
+				$template = EVO()->plugin_path() . "/templates/{$slug}-{$name}.php";	
+
 			}
 
 			// Don't cache the absolute path so that it can be shared between web servers with different paths.

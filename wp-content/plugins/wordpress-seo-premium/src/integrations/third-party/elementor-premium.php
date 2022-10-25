@@ -163,7 +163,17 @@ class Elementor_Premium implements Integration_Interface {
 				WPSEO_PREMIUM_FILE
 			),
 			'inclusiveLanguageAnalysisActive' => $analysis_inclusive_language->is_enabled(),
+			'premiumAssessmentsScriptUrl'     => \plugins_url(
+				'assets/js/dist/register-premium-assessments-' . $assets_manager->flatten_version( WPSEO_PREMIUM_VERSION ) . WPSEO_CSSJS_SUFFIX . '.js',
+				WPSEO_PREMIUM_FILE
+			),
 		];
+		if ( \defined( 'YOAST_SEO_TEXT_FORMALITY' ) && YOAST_SEO_TEXT_FORMALITY === true ) {
+			$data['textFormalityScriptUrl'] = \plugins_url(
+				'assets/js/dist/register-text-formality-' . $assets_manager->flatten_version( WPSEO_PREMIUM_VERSION ) . WPSEO_CSSJS_SUFFIX . '.js',
+				WPSEO_PREMIUM_FILE
+			);
+		}
 		$data = \array_merge( $data, $this->get_post_metabox_config() );
 
 		if ( \current_user_can( 'edit_others_posts' ) ) {

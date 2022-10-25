@@ -1,7 +1,7 @@
 <?php
 /**
  * EventON General Calendar Elements
- * @version 4.0.6
+ * @version 4.2
 
 Items //
 print_date_time_selector
@@ -173,7 +173,7 @@ class EVO_General_Elements{
 				echo "<div class='evo_elm_row {$id}' style='{$row_style}'>";
 				echo"<p class='evo_field_label'>".$name.$legend_code . "</p><p class='evo_field_container'>";
 
-				echo "<textarea name='{$id}'>{$value}</textarea>";
+				echo "<textarea name='{$id}' style='width:100%'>{$value}</textarea>";
 
 				echo "</p></div>";
 

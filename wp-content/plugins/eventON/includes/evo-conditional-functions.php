@@ -50,3 +50,16 @@ function evo_current_theme_is_fse_theme(){
 
 	return false;
 }
+
+/* check if hex color is dark or white
+* @since 4.2 */
+function eventon_is_hex_dark($hex){
+	$red = hexdec(substr($hex, 1, 2));
+	$green = hexdec(substr($hex, 3, 2));
+	$blue = hexdec(substr($hex, 5, 2));
+	$result = (($red * 299) + ($green * 587) + ($blue * 114)) / 1000;
+	echo $result;
+
+	return $result < 128 ? true: false;
+
+}

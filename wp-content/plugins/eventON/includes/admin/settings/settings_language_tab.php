@@ -2,7 +2,7 @@
 /**
  * Language Settings 
  *
- * @version		2.8.10
+ * @version		4.2
  * @package		EventON/settings
  * @category	Settings
  * @author 		AJDE
@@ -229,7 +229,7 @@ class evo_settings_lang{
 					array('label'=>'Duration','var'=>1),
 
 					array('label'=>'No Events','name'=>'evcal_lang_noeve',),
-					array('label'=>'No Events on The List at This Time','var'=>1),
+					array('label'=>'No Events at this time','var'=>1),
 					array('label'=>'All Day','name'=>'evcal_lang_allday'),
 					array('label'=>'Year Around Event','name'=>'evcal_lang_yrrnd'),
 					array('label'=>'Month Long Event','name'=>'evcal_lang_mntlng'),
@@ -297,7 +297,6 @@ class evo_settings_lang{
 
 				array('type'=>'togheader','name'=>__('Now Calendar','eventon')),
 					array('label'=>'Events Happening Now','var'=>1),	
-					array('label'=>'No Events at the Moment','var'=>1),	
 					array('label'=>'Coming up Next in','var'=>1),
 					array('label'=>'Time Left','var'=>1),		
 					array('label'=>'Event Completed','var'=>1),			
@@ -343,6 +342,7 @@ class evo_settings_lang{
 						'label'=>__('Current Month','eventon'),'name'=>'evcal_lang_gototoday',
 					),
 					array('label'=>'Apply Filters','name'=>'evcal_lang_apply_filters'),
+					array('label'=>'Clear Filters','var'=>1),
 					array('label'=>'Past and Future Events','var'=>1),
 					array('label'=>'Only Past Events','var'=>1),
 					array('label'=>'Only Future Events','var'=>1),
@@ -544,6 +544,7 @@ class evo_settings_lang{
 				$output[] = array('label'=>'Events at this location', 'var'=>'1');
 				$output[] = array('label'=>'Event Organizer', 'name'=>'evcal_lang_evorg');
 				$output[] = array('label'=>'Events by this organizer', 'var'=>'1');
+				$output[] = array('label'=>'Events by', 'var'=>'1');
 				$output[] = array('label'=>'Event Tag', 'var'=>'1');
 
 				// for MDT

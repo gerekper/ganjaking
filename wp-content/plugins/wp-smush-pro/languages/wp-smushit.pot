@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Smush Pro 3.12.2\n"
+"Project-Id-Version: Smush Pro 3.12.3\n"
 "Report-Msgid-Bugs-To: https://wpmudev.com\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-10-20T19:55:42+00:00\n"
+"POT-Creation-Date: 2022-10-24T16:53:14+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: wp-smushit\n"
@@ -94,7 +94,7 @@ msgid "Your settings have been updated!"
 msgstr ""
 
 #: app/class-abstract-page.php:702
-msgid "Your settings have been saved and changes are now propagating to the CDN. Changes can take up to 30 minutes to take effect but your images will continue to be served in the mean time, please be patient."
+msgid "Your settings have been saved and changes are now propagating to the CDN. Changes can take up to 30 minutes to take effect but your images will continue to be served in the meantime, please be patient."
 msgstr ""
 
 #. translators: %1$s - <a>, %2$s - </a>
@@ -1228,7 +1228,7 @@ msgstr ""
 #: app/pages/class-cdn.php:90
 msgid ""
 "Your settings have been saved and changes are now propagating to the CDN. Changes can take up to 30\n"
-"\t\t\t\tminutes to take effect but your images will continue to be served in the mean time, please be patient."
+"\t\t\t\tminutes to take effect but your images will continue to be served in the meantime, please be patient."
 msgstr ""
 
 #. translators: %1$s - starting a tag, %2$s - closing a tag

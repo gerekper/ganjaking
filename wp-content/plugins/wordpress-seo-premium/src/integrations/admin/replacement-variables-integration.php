@@ -51,7 +51,7 @@ class Replacement_Variables_Integration implements Integration_Interface {
 		$get_action = \filter_input( \INPUT_GET, 'action', \FILTER_SANITIZE_STRING );
 		$get_page   = \filter_input( \INPUT_GET, 'page', \FILTER_SANITIZE_STRING );
 
-		if ( $get_page !== 'wpseo_titles' && $get_action !== 'elementor' && ! $this->load_metabox( $this->get_current_page() ) ) {
+		if ( $get_page !== 'wpseo_titles' && $get_page !== 'wpseo_settings' && $get_action !== 'elementor' && ! $this->load_metabox( $this->get_current_page() ) ) {
 			return;
 		}
 

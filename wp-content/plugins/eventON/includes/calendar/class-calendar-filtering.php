@@ -1,7 +1,7 @@
 <?php
 /**
 * Calendar Filtering
-* @version 4.1.2
+* @version 4.2
 */
 
 class EVO_Cal_Filering{
@@ -60,7 +60,7 @@ class EVO_Cal_Filering{
 					$cnt =1;
 					foreach($evsa1 as $so=>$sov){
 						if(in_array($so, $sorting_options) || $so=='date' ){
-						echo "<p data-val='sort_".$so."' data-type='".$so."' class='evs_btn ".( ($args['sort_by'] == $sort_options[$cnt])? 'evs_hide':null)."' >"
+						echo "<p data-val='sort_".$so."' data-type='".$so."' class='evs_btn evo_sort_option ".( ($args['sort_by'] == $sort_options[$cnt])? 'evs_hide':null)."' >"
 								.$this->cal->lang('evcal_lang_s'.$so,$sov)
 								."</p>";
 						}
@@ -137,14 +137,14 @@ class EVO_Cal_Filering{
 
 							$filter_type_name = evo_lang('Past and Future Events');
 							echo "<div class='eventon_filter evo_hideshow_pastfuture' data-filter_field='{$vv}' 
-								data-filter_val='{$__filter_val}' data-filter_type='custom' >								
+								data-filter_val='{$__filter_val}' data-filter_type='custom' data-fldef='{$__filter_val}'>								
 								<div class='eventon_filter_selection'>
-									<p class='filtering_set_val' data-opts='evs4_in'>{$filter_type_name}</p>
+									<p class='filtering_set_val' data-opts='evs4_in'>{$filter_type_name}<em class='fa fa-check'></em></p>
 									<div class='eventon_filter_dropdown evo_hideshow select_one' style='display:none'>";
 
-									echo "<p class='". ($__filter_val =='all'? 'select ':'')."all' data-filter_val='all'>{$__text_all_}</p>";
-									echo "<p class='past ". ( $__filter_val=='all' || $__filter_val=='past'? 'select':'')."' data-filter_val='past'>". evo_lang('Only Past Events') ."</p>";
-									echo "<p class='future ". ( $__filter_val=='all'|| $__filter_val=='future'? 'select':'')."' data-filter_val='future'>". evo_lang('Only Future Events') ."</p>";
+									echo "<p class='evo_filter_val ". ($__filter_val =='all'? 'select ':'')."all' data-filter_val='all'>{$__text_all_}</p>";
+									echo "<p class='evo_filter_val past ". ( $__filter_val=='all' || $__filter_val=='past'? 'select':'')."' data-filter_val='past'>". evo_lang('Only Past Events') ."</p>";
+									echo "<p class='evo_filter_val future ". ( $__filter_val=='all'|| $__filter_val=='future'? 'select':'')."' data-filter_val='future'>". evo_lang('Only Future Events') ."</p>";
 								echo "</div>
 								</div><div class='clear'></div>
 							</div>";
@@ -157,18 +157,18 @@ class EVO_Cal_Filering{
 
 							$filter_type_name = evo_lang('Virtual Events');
 							echo "<div class='eventon_filter evo_hideshow_vir' data-filter_field='{$vv}' 
-								data-filter_val='{$__filter_val}' data-filter_type='custom' >								
+								data-filter_val='{$__filter_val}' data-filter_type='custom' data-fldef='{$__filter_val}'>								
 								<div class='eventon_filter_selection'>
-									<p class='filtering_set_val' data-opts='evs4_in'>{$filter_type_name}</p>
+									<p class='filtering_set_val' data-opts='evs4_in'>{$filter_type_name}<em class='fa fa-check'></em></p>
 									<div class='eventon_filter_dropdown evo_hideshow select_one' style='display:none'>";
 
-									echo "<p class='". ($__filter_val =='all'? 'select ':'')."all' data-filter_val='all'>{$__text_all_}</p>";
+									echo "<p class='evo_filter_val ". ($__filter_val =='all'? 'select ':'')."all' data-filter_val='all'>{$__text_all_}</p>";
 									
 									foreach(array(
 										'vir'=>evo_lang('Virtual Events'),
 										'nvir'=>evo_lang('Non Virtual Events'),
 									) as $f=>$v){
-										echo "<p class='{$f} ". ( $__filter_val=='all' || $__filter_val== $f ? 'select':'')."' data-filter_val='{$f}'>". evo_lang( $v ) ."</p>";
+										echo "<p class='evo_filter_val {$f} ". ( $__filter_val=='all' || $__filter_val== $f ? 'select':'')."' data-filter_val='{$f}'>". evo_lang( $v ) ."</p>";
 									}	
 									
 								echo "</div>
@@ -183,15 +183,15 @@ class EVO_Cal_Filering{
 
 							$filter_type_name = evo_lang('Events Status');
 							echo "<div class='eventon_filter evo_hideshow_st' data-filter_field='{$vv}' 
-								data-filter_val='{$__filter_val}' data-filter_type='custom' >								
+								data-filter_val='{$__filter_val}' data-filter_type='custom' data-fldef='{$__filter_val}'>								
 								<div class='eventon_filter_selection'>
-									<p class='filtering_set_val' data-opts='evs4_in'>{$filter_type_name}</p>
+									<p class='filtering_set_val' data-opts='evs4_in'>{$filter_type_name}<em class='fa fa-check'></em></p>
 									<div class='eventon_filter_dropdown evo_hideshow select_one' style='display:none'>";
 
-									echo "<p class='". ($__filter_val =='all'? 'select ':'')."all' data-filter_val='all'>{$__text_all_}</p>";
+									echo "<p class='evo_filter_val ". ($__filter_val =='all'? 'select ':'')."all' data-filter_val='all'>{$__text_all_}</p>";
 
 									foreach( EVO()->cal->get_status_array('front') as $f=>$v){
-										echo "<p class='{$f} ". ( $__filter_val=='all' || $__filter_val== $f ? 'select':'')."' data-filter_val='{$f}'>". evo_lang( $v ) ."</p>";
+										echo "<p class='evo_filter_val {$f} ". ( $__filter_val=='all' || $__filter_val== $f ? 'select':'')."' data-filter_val='{$f}'>". evo_lang( $v ) ."</p>";
 									}									
 									
 								echo "</div>
@@ -230,20 +230,20 @@ class EVO_Cal_Filering{
 										$select = '';
 										if($__filter_val == 'all' || in_array($tag->term_id, $filtering_values)) $select = 'select';
 
-										$inside .= "<p class='". $select."' data-filter_val='{$tag->term_id}'>". $tag->name ."</p>";
+										$inside .= "<p class='evo_filter_val ". $select."' data-filter_val='{$tag->term_id}'>". $tag->name ."</p>";
 									}
 
 							// Empty inside
 							if(empty($inside)) continue;
 
-							echo "<div class='eventon_filter evo_hideshow_evotag' data-filter_field='event_tag' data-filter_val='{$__filter_val}' data-filter_type='tax' >								
+							echo "<div class='eventon_filter evo_hideshow_evotag' data-filter_field='event_tag' data-filter_val='{$__filter_val}' data-filter_type='tax' data-fldef='{$__filter_val}'>								
 								
 								<div class='eventon_filter_selection'>
-									<p class='filtering_set_val' data-opts='evs4_in'>". evo_lang('Event Tag'). "</p>
+									<p class='filtering_set_val' data-opts='evs4_in'>". evo_lang('Event Tag'). "<em class='fa fa-check'></em></p>
 									<div class='eventon_filter_dropdown evo_hideshow' style='display:none'>";
 
 									if(!$filter_show_set_only){
-										echo "<p class='". ($__filter_val == 'all'? 'select':'')." all' data-filter_val='all'>{$__text_all_}</p>";
+										echo "<p class='evo_filter_val ". ($__filter_val == 'all'? 'select':'')." all' data-filter_val='all'>{$__text_all_}</p>";
 									}
 
 									echo $inside;
@@ -266,72 +266,76 @@ class EVO_Cal_Filering{
 					));
 			
 					// filtering value filter is set to show
-					if($cats ){
+						if($cats ){
 
-						$inside ='';
-						$raw_filter_val = (!empty($args[$vv])? $args[$vv]: 'all');
-
-						$FVALS = $this->process_filter_terms( $raw_filter_val );
-						extract($FVALS);
-
-						// If filter value is none skip it
-							if( $_V == 'none') continue;
-
-						// INSIDE drop down
-						if(!$filter_show_set_only && $_FO != 'NOT'){
-							$inside .=  "<p class='". ($_V == 'all'? 'select':'')." all' data-filter_val='all'>{$__text_all_}</p>";
-						}
-
-						// each taxonomy term
-						foreach($cats as $ct){
-							// show only set filter values if set
-								if($filter_show_set_only && !in_array($ct->term_id, $_VA ) && $_FO != 'NOT') continue;
-
-							// for NOT filters show everything else
-								if($_FO == 'NOT' && in_array( $ct->term_id, $_VA)) continue;
+							$inside ='';
+							$raw_filter_val = rtrim( ( !empty($args[$vv])? $args[$vv]: 'all'), ',');
 							
-							$select = ( in_array($ct->term_id, $_VA)  || $_V == 'all' || $_FO == 'NOT') ? 'select':'';
+							$FVALS = $this->process_filter_terms( $raw_filter_val );
+							extract($FVALS);
 
-							// if term is parent level
-							$par = $ct->parent == 0? true:false;
-							
-							$term_name = $this->cal->lang('evolang_'.$vv.'_'.$ct->term_id,$ct->name );
-							
-							if(!$selectfilterType){
-								// event type 1 tax icon
-								$icon_str = $this->cal->helper->get_tax_icon($vv,$ct->term_id, $this->cal->evopt1 );
+							// If filter value is none skip it
+								if( $_V == 'none') continue;
 
-								$inside .=  "<p class='{$select} ".$vv.'_'.$ct->term_id.' '.$ct->slug.' '. ($icon_str?'has_icon':''). ($par?'':' np'). "' data-filter_val='".$ct->term_id."' data-filter_slug='".$ct->slug."'>". $icon_str . $term_name."</p>";
-							}else{// checkbox select option								
-								$inside .=  "<p class='{$vv}_{$ct->term_id} {$select}' data-filter_val='".$ct->term_id."'>". $term_name."</p>";
+							// INSIDE drop down
+							if(!$filter_show_set_only && $_FO != 'NOT'){
+								$inside .=  "<p class='evo_filter_val ". ($_V == 'all'? 'select':'')." all' data-filter_val='all'>{$__text_all_}</p>";
 							}
+
+							// each taxonomy term
+								foreach($cats as $ct){
+									// show only set filter values if set
+										if($filter_show_set_only && !in_array($ct->term_id, $_VA ) && $_FO != 'NOT') continue;
+
+									// for NOT filters show everything else
+										if($_FO == 'NOT' && in_array( $ct->term_id, $_VA)) continue;
+									
+									$select = ( in_array($ct->term_id, $_VA)  || $_V == 'all' || $_FO == 'NOT') ? 'select':'';
+
+									// if term is parent level
+									$par = $ct->parent == 0? true:false;
+									
+									$term_name = $this->cal->lang('evolang_'.$vv.'_'.$ct->term_id,$ct->name );
+									
+									if(!$selectfilterType){
+										// event type 1 tax icon
+										$icon_str = $this->cal->helper->get_tax_icon($vv,$ct->term_id, $this->cal->evopt1 );
+
+										$inside .=  "<p class='evo_filter_val {$select} ".$vv.'_'.$ct->term_id.' '.$ct->slug.' '. ($icon_str?'has_icon':''). ($par?'':' np'). "' data-filter_val='".$ct->term_id."' data-filter_slug='".$ct->slug."'>". $icon_str . $term_name."</p>";
+									}else{// checkbox select option								
+										$inside .=  "<p class='evo_filter_val {$vv}_{$ct->term_id} {$select}' data-filter_val='".$ct->term_id."'>". $term_name."</p>";
+									}
+								}
+
+							// if no values in the filter
+							if(empty($inside)) continue;
+
+							// only for event type taxonomies
+							$_isthis_ett = (in_array($vv, $_filter_array))? true:false;
+							$ett_count = ($ff==1)? '':$ff;
+
+							// Language for the taxonomy name text
+								$lang__ = ($_isthis_ett && isset($this->cal->lang_array['et'.$ett_count]))? 
+									$this->cal->lang_array['et'.$ett_count]:
+									(!empty($this->cal->lang_array[$ff])? $this->cal->lang_array[$ff]: 
+										evo_lang(str_replace('_', ' ', $vv)) );
+
+							echo "<div class='eventon_filter evo_sortOpt evo_sortList_{$vv}' data-filter_field='{$vv}' data-filter_val='{$raw_filter_val}' data-filter_type='tax' data-fl_o='{$_FO}' data-fldef='{$raw_filter_val}'>
+									<p class='filtering_set_val'>".$lang__."<em class='fa fa-check'></em></p>
+									<div class='eventon_filter_dropdown' style='display:none'>".$inside."</div>	
+							</div>";					
+							
 						}
-
-						// if no values in the filter
-						if(empty($inside)) continue;
-
-						// only for event type taxonomies
-						$_isthis_ett = (in_array($vv, $_filter_array))? true:false;
-						$ett_count = ($ff==1)? '':$ff;
-
-						// Language for the taxonomy name text
-							$lang__ = ($_isthis_ett && isset($this->cal->lang_array['et'.$ett_count]))? 
-								$this->cal->lang_array['et'.$ett_count]:
-								(!empty($this->cal->lang_array[$ff])? $this->cal->lang_array[$ff]: 
-									evo_lang(str_replace('_', ' ', $vv)) );
-
-						echo "<div class='eventon_filter evo_sortOpt evo_sortList_{$vv}' data-filter_field='{$vv}' data-filter_val='{$raw_filter_val}' data-filter_type='tax' data-fl_o='{$_FO}'>
-								<p class='filtering_set_val'>".$lang__."</p>
-								<div class='eventon_filter_dropdown' style='display:none'>".$inside."</div>	
-							<div class='clear'></div>
-						</div>";					
-						
-					}
 				}
 
 				// for select filter type
 				if($selectfilterType){
 					echo "<p class='evo_filter_submit'>". $this->cal->lang('evcal_lang_apply_filters','Apply Filters')."</p>";
+				}
+
+				// clear filters
+				if( !empty($args['filter_clear']) && $args['filter_clear']=='yes' ){
+					echo "<p class='evo_filter_clear'>". evo_lang('Clear Filters')."</p>";
 				}
 
 				// (---) Hook for addon
@@ -623,8 +627,13 @@ class EVO_Cal_Filering{
 					$content_li.= '<div class="evoShow_more_events" style="'.( $SC['tile_height']!=0? 'height:'.$SC['tile_height'].'px':'' ).'"><span>'.$this->cal->lang_array['evsme'].'</span></div>';
 				}
 			}else{
-				if( ($SC['sep_month'] == 'yes' && $SC['number_of_months']>1 )|| $SC['number_of_months'] ==1 )
-					$content_li = "<div class='eventon_list_event no_events'><p class='no_events' >".$this->cal->lang_array['no_event']."</p></div>";
+				$HELP = new evo_cal_help();
+				if( ($SC['sep_month'] == 'yes' && $SC['number_of_months']>1 )|| $SC['number_of_months'] ==1 ){
+					$content_li = "<div class='eventon_list_event no_events'>";
+					$content_li .= $HELP->get_no_event_content();
+					$content_li .=  "</div>";
+				}
+					
 			}
 
 			return $content_li;

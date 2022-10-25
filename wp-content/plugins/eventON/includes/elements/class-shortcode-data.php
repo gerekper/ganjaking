@@ -32,6 +32,7 @@ class EVO_Shortcode_Data{
 						,$this->shortcode_default_field('fixed_mo_yr')						
 						,$this->shortcode_default_field('lang')
 						,$this->shortcode_default_field('UIX')
+						,$this->shortcode_default_field('UIXmob')
 
 						,array('name'=> __('General Options','eventon'),'type'=>'collapsable','closed'=>true)	
 							,$this->shortcode_default_field('cal_init_nonajax')
@@ -93,6 +94,8 @@ class EVO_Shortcode_Data{
 							,$this->shortcode_default_field('hide_sortO')						
 							,$this->shortcode_default_field('expand_sortO')
 							,$this->shortcode_default_field('filter_show_set_only')	
+							,$this->shortcode_default_field('filter_hide_indicator')	
+							,$this->shortcode_default_field('filter_clear')	
 							,$this->shortcode_default_field('filter_type')	
 							,$this->shortcode_default_field('filter_relationship')	
 							,array('type'=>'close_div')	
@@ -180,6 +183,8 @@ class EVO_Shortcode_Data{
 							,$this->shortcode_default_field('hide_sortO')						
 							,$this->shortcode_default_field('expand_sortO')
 							,$this->shortcode_default_field('filter_show_set_only')	
+							,$this->shortcode_default_field('filter_hide_indicator')	
+							,$this->shortcode_default_field('filter_clear')	
 							,$this->shortcode_default_field('filter_type')	
 							,$this->shortcode_default_field('filter_relationship')	
 							,array('type'=>'close_div'),
@@ -187,6 +192,8 @@ class EVO_Shortcode_Data{
 						array('name'=>'Display Design Options','type'=>'collapsable','closed'=>true),
 							$this->shortcode_default_field('show_et_ft_img'),
 							$this->shortcode_default_field('etc_override'),
+							$this->shortcode_default_field('eventtop_style'),
+							$this->shortcode_default_field('eventtop_date_style'),
 							
 							// tiles
 							$this->shortcode_default_field('tiles'),

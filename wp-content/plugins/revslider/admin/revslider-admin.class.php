@@ -75,9 +75,23 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		global $pagenow;
 		if(!in_array($this->get_val($_GET, 'page'), $this->pages) && !$this->is_edit_page() && (!isset($pagenow) || $pagenow !== 'plugins.php')) return;
 		
-		wp_enqueue_style('rs-open-sans', '//fonts.googleapis.com/css?family=Open+Sans:400,300,700,600,800');
-		wp_enqueue_style('rs-roboto', '//fonts.googleapis.com/css?family=Roboto');
-		wp_enqueue_style('tp-material-icons', '//fonts.googleapis.com/icon?family=Material+Icons');
+		$f	 = new RevSliderFunctions();
+		$gs	 = $f->get_global_settings();
+		$fdl = $f->get_val($gs, 'fontdownload', 'off');
+		if($fdl === 'off'){
+			$url_css = $f->modify_fonts_url('https://fonts.googleapis.com/css?family=');
+			$url_material = str_replace('css?', 'icon?', $url_css);
+			wp_enqueue_style('rs-open-sans', $url_css.'Open+Sans:400,300,700,600,800');
+			wp_enqueue_style('rs-roboto', $url_css.'Roboto');
+			wp_enqueue_style('tp-material-icons', $url_material.'Material+Icons');
+		}elseif($fdl === 'preload'){
+			$fonts = array('Open+Sans:400%2C300%2C700%2C600%2C800', 'Roboto:400%2C300%2C700%2C600%2C800', 'Material+Icons');
+			$html = $f->preload_fonts($fonts);
+			if(!empty($html)){
+				echo $html;
+			}
+		}//disable => load on your own
+		
 		//wp_enqueue_style('revslider-global-styles', RS_PLUGIN_URL . 'admin/assets/css/global.css', array(), RS_REVISION);
 		wp_enqueue_style(array('wp-jquery-ui', 'wp-jquery-ui-core', 'wp-jquery-ui-dialog', 'wp-color-picker'));
 		wp_enqueue_style('revbuilder-color-picker-css', RS_PLUGIN_URL . 'admin/assets/css/tp-color-picker.css', array(), RS_REVISION);

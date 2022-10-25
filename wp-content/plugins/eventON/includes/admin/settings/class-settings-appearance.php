@@ -1,7 +1,7 @@
 <?php
 /**
  * Appearance settings for eventon
- * @version 2.4.8
+ * @version 4.2
  */
 
 class evoadmin_set_appearance{
@@ -9,6 +9,14 @@ class evoadmin_set_appearance{
 		$this->evcal_opt = $evcal_opt;
 	}
 	function get(){
+		$preset_data = array(
+			'evo_color_1' => '202124',
+			'evo_color_2' => '656565',
+			'evo_color_prim' => '00aafb',
+			'evo_color_link' => '656565',
+		);
+		extract($preset_data);
+
 		return apply_filters('eventon_appearance_add', 
 			array(
 				array('id'=>'evo_notice_1','type'=>'notice','name'=>sprintf(__('Once you make changes to appearance make sure to clear browser and website cache to see results. <br/>Can not find appearance? <a href="%s" target="_blank">See how you can add custom styles to change additional appearances</a>','eventon'),'http://www.myeventon.com/documentation/change-css-calendar/') )
@@ -16,18 +24,19 @@ class evoadmin_set_appearance{
 				,array('id'=>'evoapp_code_1', 'type'=>'customcode','code'=>$this->appearance_theme_selector(), )
 				,array('id'=>'fc_mcolor','type'=>'multicolor','name'=>__('Multiple colors','eventon'),
 					'variations'=>array(
-						array('id'=>'evcal_hexcode', 'default'=>'4bb5d8', 'name'=>__('Primary Calendar Color','eventon')),
-						array('id'=>'evcal_header1_fc', 'default'=>'737373', 'name'=>'Header Month/Year text color'),
-						array('id'=>'evcal__fc2', 'default'=>'737373', 'name'=>'Calendar Date color'),
+						array('id'=>'evcal_hexcode', 'default'=>'00aafb', 'name'=>__('Primary Default Color','eventon')),						
+						
+						array('id'=>'evoclr_1', 'default'=>$preset_data['evo_color_1'], 'name'=>'Primary Text Color'),
+						array('id'=>'evoclr_2', 'default'=>$preset_data['evo_color_2'], 'name'=>'Secondary Text Color'),
 					)
 				),
 				array('id'=>'evcal_font_fam','type'=>'text','name'=>__('Primary Calendar Font family <i>(Note: type the name of the font that is supported in your website. eg. Arial)</i>','eventon')
-					,'default'=>'roboto, oswald, arial narrow'
+					,'default'=>'Montserrat, sans-serif'
 				),
 					
 
 				array('id'=>'evcal_font_fam_secondary','type'=>'text','name'=>__('Secondary Calendar Font family <i>(Note: type the name of the font that is supported in your website. eg. Arial)</i>','eventon')
-					,'default'=>'open sans, arial',
+					,'default'=>'Noto Sans, sans-serif',
 					'legend' => 'Secondary font family is used in subtitle text through out the calendar.'
 				),
 				array('id'=>'evcal_arrow_hide','type'=>'yesno','name'=>__('Hide month navigation arrows','eventon'), 'legend'=>'You can also hide individual calendar navigation arrows via shortcode variable hide_arrows="yes"'),
@@ -42,6 +51,8 @@ class evoadmin_set_appearance{
 
 				// Calendar Header
 				array('id'=>'evcal_fcx','type'=>'hiddensection_open','name'=>__('Calendar Header','eventon'), 'display'=>'none'),
+					array('id'=>'evcal_header1_fc','type'=>'color','name'=>__('Header Month/Year text color','eventon'), 'default'=>$preset_data['evo_color_1']),
+					array('id'=>'evcal__fc2','type'=>'color','name'=>__('Calendr Date Color','eventon'), 'default'=>$preset_data['evo_color_1']),
 					array('id'=>'fs_sort_options','type'=>'fontation','name'=>__('Sort Options Text','eventon'),
 						'variations'=>array(
 							array('id'=>'evcal__sot', 'name'=>'Default State', 'type'=>'color', 'default'=>'B8B8B8'),
@@ -50,7 +61,7 @@ class evoadmin_set_appearance{
 					),array('id'=>'fs_calhead','type'=>'fontation','name'=>__('Jump Months Trigger Button','eventon'),
 						'variations'=>array(
 							array('id'=>'evcal__jm001', 'name'=>'Text Color', 'type'=>'color', 'default'=>'ffffff'),
-							array('id'=>'evcal__jm002', 'name'=>'Background Color', 'type'=>'color', 'default'=>'ADADAD'),
+							array('id'=>'evcal__jm002', 'name'=>'Background Color', 'type'=>'color', 'default'=>$preset_data['evo_color_1']),
 							array('id'=>'evcal__jm001H', 'name'=>'Text Color (Hover)', 'type'=>'color', 'default'=>'ffffff'),
 							array('id'=>'evcal__jm002H', 'name'=>'Background Color (Hover)', 'type'=>'color', 'default'=>'d3d3d3'),						
 						)
@@ -127,7 +138,7 @@ class evoadmin_set_appearance{
 					array('id'=>'evors','type'=>'fontation','name'=>__('Events Found Data','eventon'),
 						'variations'=>array(
 							array('id'=>'evosr_8', 'name'=>__('Caption Color','eventon'),'type'=>'color', 'default'=>'14141E'),
-							array('id'=>'evosr_9', 'name'=>__('Event Count Background Color','eventon'),'type'=>'color', 'default'=>'d2d2d2'),	
+							array('id'=>'evosr_9', 'name'=>__('Event Count Background Color','eventon'),'type'=>'color', 'default'=> $evo_color_1),	
 							array('id'=>'evosr_10', 'name'=>__('Event Count Text Color','eventon'),'type'=>'color', 'default'=>'ffffff'),	
 						)
 					),
@@ -147,9 +158,18 @@ class evoadmin_set_appearance{
 					array('id'=>'evo','type'=>'fontation','name'=>__('Single Event Repeat Header','eventon'),
 						'variations'=>array(
 							array('id'=>'evo_rep_1', 'name'=>__('Title Section Background Color','eventon'),'type'=>'color', 'default'=>'fed584'),
-							array('id'=>'evo_rep_1c', 'name'=>__('Title Section Text Color','eventon'),'type'=>'color', 'default'=>'808080'),
-							array('id'=>'evo_rep_2', 'name'=>__('Nav Section Background Color','eventon'),'type'=>'color', 'default'=>'ffe3ad'),
-							array('id'=>'evo_rep_2c', 'name'=>__('Nav Section Text Color','eventon'),'type'=>'color', 'default'=>'808080'),
+							array('id'=>'evo_rep_1c', 'name'=>__('Title Section Text Color','eventon'),'type'=>'color', 'default'=> $evo_color_1),
+							array('id'=>'evo_rep_2c', 'name'=>__('Nav Section Text Color','eventon'),'type'=>'color', 'default'=> $evo_color_2),
+							
+						)
+					),
+					array('id'=>'evo','type'=>'fontation','name'=>__('No Event Box background','eventon'),
+						'variations'=>array(
+							array('id'=>'evo_noe_1', 'name'=>__('For colorful EventTop Style','eventon'),'type'=>'color', 'default'=>'ffffff'),
+							array('id'=>'evo_noe_1c', 'name'=>__('For colorful EventTop font color','eventon'),'type'=>'color', 'default'=>$evo_color_1),
+							array('id'=>'evo_noe_2', 'name'=>__('For clear EventTop Style','eventon'),'type'=>'color', 'default'=>'ffffff'),
+							array('id'=>'evo_noe_2c', 'name'=>__('For clear EventTop font color','eventon'),'type'=>'color', 'default'=>$evo_color_1),
+							
 							
 						)
 					),
@@ -161,11 +181,11 @@ class evoadmin_set_appearance{
 				// event top
 				array('id'=>'evcal_fcx','type'=>'hiddensection_open','name'=>__('EventTop Styles','eventon'), 'display'=>'none'),
 
-					array('id'=>'evcal__fc3','type'=>'color','name'=>__('Event Title font color','eventon'), 'default'=>'6B6B6B'),					
+					array('id'=>'evcal__fc3','type'=>'color','name'=>__('Event Title font color','eventon'), 'default'=>$preset_data['evo_color_1']),					
 
-					array('id'=>'evcal__fc3st','type'=>'color','name'=>__('Event Sub Title font color','eventon'), 'default'=>'6B6B6B'),
-					array('id'=>'evcal__fc6','type'=>'color','name'=>__('Text under event title (on EventTop. Eg. Time, location etc.)','eventon'),'default'=>'8c8c8c'),
-					array('id'=>'evcal__fc7','type'=>'color','name'=>__('Category title color (eg. Event Type)','eventon'),'default'=>'c8c8c8'),					
+					array('id'=>'evcal__fc3st','type'=>'color','name'=>__('Event Sub Title font color','eventon'), 'default'=>$preset_data['evo_color_1']),
+					array('id'=>'evcal__fc6','type'=>'color','name'=>__('Text under event title (on EventTop. Eg. Time, location etc.)','eventon'),'default'=>$preset_data['evo_color_1']),
+					array('id'=>'evcal__fc7','type'=>'color','name'=>__('Category title color (eg. Event Type)','eventon'),'default'=>$preset_data['evo_color_1']),					
 
 					array('id'=>'fs_fonti','type'=>'fontation','name'=>__('Background Color','eventon'),
 						'variations'=>array(
@@ -237,7 +257,7 @@ class evoadmin_set_appearance{
 				array('id'=>'evcal_fcxx','type'=>'hiddensection_open','name'=>__('EventCard Styles','eventon'), 'display'=>'none'),
 				array('id'=>'fs_fonti1','type'=>'fontation','name'=> __('Section Title Text','eventon'),
 					'variations'=>array(
-						array('id'=>'evcal__fc4', 'type'=>'color', 'default'=>'6B6B6B'),
+						array('id'=>'evcal__fc4', 'type'=>'color', 'default'=>$preset_data['evo_color_1']),
 						array('id'=>'evcal_fs_001', 'type'=>'font_size', 'default'=>'18px'),
 					)
 				),

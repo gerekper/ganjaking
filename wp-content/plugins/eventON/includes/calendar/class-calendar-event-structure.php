@@ -22,6 +22,8 @@ class EVO_Cal_Event_Structure{
 		if(!empty($EVENT)) $this->EVENT = $EVENT;
 
 		$this->timezone = get_option('gmt_offset', 0);
+
+		$this->helper = $this->help = new evo_helper();
 	}
 
 
@@ -241,18 +243,17 @@ class EVO_Cal_Event_Structure{
 				if( $event_timezone_key && EVO()->cal->check_yn('evo_show_localtime','evcal_1') ){
 
 					extract( $this->timezone_data);
-					$help = new evo_helper();
 					
 					
 					if( !EVO()->cal->check_yn('evo_gmt_hide','evcal_1')){
 
-						$GMT_text = $help->get_timezone_gmt( $event_timezone_key, $EVENT->start_unix);
+						$GMT_text = $this->help->get_timezone_gmt( $event_timezone_key, $EVENT->start_unix);
 
 						$timezone_text .= "<span class='evo_tz'>(". $GMT_text .")</span>";
 					}
 
 					// event utc offset
-					$tzo = $help->get_timezone_offset( $event_timezone_key, $EVENT->start_unix);
+					$tzo = $this->help->get_timezone_offset( $event_timezone_key, $EVENT->start_unix);
 
 					$tzo_box = "<em class='evcal_tz_time evo_mytime tzo_trig' title='". evo_lang('My Time') ."' data-tzo='{$tzo}' data-tform='{$__f}' data-times='{$event_start_unix}-{$event_end_unix}' ><i class='fa fa-globe-americas'></i> <b>{$__t}</b></em>";							
 				}
@@ -283,6 +284,10 @@ class EVO_Cal_Event_Structure{
 				// location address
 				$LOCadd = ( ( 'location' == $eventtop_location_data || $eventtop_location_data =='both') && !empty($location_address))? stripslashes($location_address): false;
 
+				// check if location address and name the same
+					if( $LOCname == $LOCadd ) $LOCadd = '';
+
+
 				if($LOCname || $LOCadd){
 					$OT.= "<span class='evoet_location level_3'>";
 					$OT.= '<em class="evcal_location" '.( !empty($location_latlng)? ' data-latlng="'.$location_latlng.'"':null ).' data-add_str="'.$LOCadd.'">'.($LOCname? '<em class="event_location_name">'.$LOCname.'</em>':'').
@@ -293,12 +298,40 @@ class EVO_Cal_Event_Structure{
 
 			break;
 			case 'organizer':
-				if( in_array('organizer',$eventtop_used_fields) && !empty($organizer) && isset($organizer->name)){
+				if( in_array('organizer',$eventtop_used_fields) && !empty($event_organizer) ){
+
 					
 					$OT.="<span class='evcal_oganizer level_4'>
-						<em><i>".( eventon_get_custom_language( '','evcal_evcard_org', 'Event Organized By')  ).':</i></em>
-						<em>'.$organizer->name."</em>
-						</span>";
+						<em><i>".( eventon_get_custom_language( '','evcal_evcard_org', 'Event Organized By')  ).'</i></em>';
+
+						foreach($event_organizer as $EO_id=>$EO){
+							if( empty( $EO->name)) continue;
+
+							$org_data = array(
+
+							);
+
+							$btn_data = array(
+								'lbvals'=> array(
+									'lbc'=>'evo_organizer_lb',
+									't'=>	$EO->name,
+									'ajax'=>'yes',
+									'end'=>'client',
+									'd'=> array(					
+										'eventid'=> $EVENT->ID,
+										'term_id'=> $EO->term_id,
+										'action'=> 'eventon_gen_trig_ajax',
+										'uid'=>'evo_get_organizer_info',
+										'load_lbcontent'=>true
+									)
+								)
+							);
+
+
+							$OT.='<em class="evoet_dataval evolb_trigger" '. $this->help->array_to_html_data($btn_data) .'>'.$EO->name."</em>";
+						}
+						
+					$OT.="</span>";
 				}
 
 			break;
@@ -314,7 +347,7 @@ class EVO_Cal_Event_Structure{
 					$count = count($event_tags);
 					$i = 1;
 					foreach($event_tags as $tag){
-						$OT.="<em data-tagid='{$tag->term_id}'>{$tag->name}".( ($count==$i)?'':',')."</em>";
+						$OT.="<em class='evoet_dataval' data-tagid='{$tag->term_id}'>{$tag->name}".( ($count==$i)?'':',')."</em>";
 						$i++;
 					}
 					$OT.="</span>";
@@ -379,21 +412,21 @@ class EVO_Cal_Event_Structure{
 			if(!empty($object->cmf_data) && is_array($object->cmf_data) && count($object->cmf_data)>0){
 
 				if( !isset($object->cmf_data[ $field ])) return $OT;
-				$OT = $this->get_eventtop_cmf_html( $object->cmf_data[ $field ]);
+				$OT = $this->get_eventtop_cmf_html( $object->cmf_data[ $field ] , $EVENT);
 
 			}
 		}
 
 		// event type taxonomy
 		if(strpos($field, 'eventtype') !== false){
-			$OT .= $this->get_eventtop_types($field, $object);
+			$OT .= $this->get_eventtop_types($field, $object, $EVENT);
 		}
 
 		return $OT;
 	}
 
 	// HTML for various event top blocks
-		function get_eventtop_types($tax_field, $object){
+		function get_eventtop_types($tax_field, $object, $EVENT){
 			$OT = '';
 
 			if( empty($object->$tax_field)) return $OT;
@@ -401,10 +434,10 @@ class EVO_Cal_Event_Structure{
 			$tax_data = $object->$tax_field;
 			if( !isset( $tax_data['terms'] )) return $OT;
 
-			$OT .="<span class='evoet_eventtypes level_4 evcal_event_types ett{$tax_data['tax_index']}'><em><i>{$tax_data['tax_name']}:</i></em>";
+			$OT .="<span class='evoet_eventtypes level_4 evcal_event_types ett{$tax_data['tax_index']}'><em><i>{$tax_data['tax_name']}</i></em>";
 
 			foreach($tax_data['terms'] as $term_id=>$TD){
-				$OT .="<em data-filter='{$TD['s']}'>".$TD['i']. $TD['tn'] . $TD['add'] ."</em>";
+				$OT .="<em data-filter='{$TD['s']}' class='evoetet_val evoet_dataval'>".$TD['i']. $TD['tn'] . $TD['add'] ."</em>";
 			}
 			$OT .="</span>";
 
@@ -412,12 +445,13 @@ class EVO_Cal_Event_Structure{
 			return $OT;
 		}
 
-		function get_eventtop_cmf_html($v){
+		function get_eventtop_cmf_html($v, $EVENT){
 			$OT = $icon_string = '';
 			if( empty($v['value'])) return $OT;
 
 			// user loggedin visibility restriction
 			if( !empty($v['login_needed_message']) ) return $OT;
+
 
 			// user role restriction validation
 			if( ($v['visibility_type'] =='admin' && !current_user_can( 'manage_options' ) ) ||
@@ -429,17 +463,24 @@ class EVO_Cal_Event_Structure{
 				$icon_string ='<i class="fa '. $v['imgurl'] .'"></i>'; 
 			}
 
+			$cmf_value = $EVENT->process_dynamic_tags( $v['value'] );
+
 			if( $v['type'] == 'button'){									
-				$OT.= "<span class='evoet_cmf'><em class='evcal_cmd evocmd_button' data-href='". ($v['valueL'] ). "' data-target='". ($v['_target']). "'>" . $icon_string .$v['value']."</em></span>";
+				$OT.= "<span class='evoet_cmf'><em class='evcal_cmd evocmd_button' data-href='". ($v['valueL'] ). "' data-target='". ($v['_target']). "'>" . $icon_string . $cmf_value ."</em></span>";
 			
 			}elseif( $v['type'] == 'textarea'){
 
 			}else{	
-				$OT.= "<span class='evoet_cmf'><em class='evcal_cmd'>". $icon_string . "<i>".  $v['field_name'].':</i></em><em>'. $v['value'] ."</em>
+				$OT.= "<span class='evoet_cmf'><em class='evcal_cmd'>". $icon_string . "<i>".  $v['field_name'].':</i></em><em>'. $cmf_value ."</em>
 					</span>";									
 			}
 
 			return $OT;
+		}
+
+	// return html eventtop with filled in dynamic data
+		function get_dynamic_eventtop($eventdata, $layout){
+
 		}
 
 	function get_event_top($EventData, $eventtop_fields){
@@ -568,7 +609,7 @@ class EVO_Cal_Event_Structure{
 					$opened = true;
 				}
 
-				$CC .= "<div class='evocard_box {$NN}' data-c='". $color ."' 
+				$CC .= "<div id='event_{$NN}' class='evocard_box {$NN}' data-c='". $color ."' 
 					style='". (!empty($color) ? "background-color:#{$color}":'') ."'>". $BCC . "</div>";
 
 				// stacked boxes close container
@@ -690,19 +731,17 @@ class EVO_Cal_Event_Structure{
 						if( !empty($object->_evo_tz) && EVO()->cal->check_yn('evo_show_localtime','evcal_1')){
 
 							extract( $this->timezone_data);
-							$help = new evo_helper();
-
-							
+														
 
 							if( !EVO()->cal->check_yn('evo_gmt_hide','evcal_1')){
 
-								$GMT_text = $help->get_timezone_gmt( $object->_evo_tz , $EVENT->start_unix);
+								$GMT_text = $this->help->get_timezone_gmt( $object->_evo_tz , $EVENT->start_unix);
 
 								$evc_time_text .= "<span class='evo_tz'>(". $GMT_text .")</span>";
 							}
 
 							// event utc offset
-							$tzo = $help->get_timezone_offset( $object->_evo_tz,  $EVENT->start_unix);
+							$tzo = $this->help->get_timezone_offset( $object->_evo_tz,  $EVENT->start_unix);
 
 							$evc_time_text .= "<span class='evo_mytime tzo_trig' title='". evo_lang('My Time') ."' data-tzo='{$tzo}' data-tform='{$__f}' data-times='{$object->event_times}'><i class='fa fa-globe-americas'></i> <b>{$__t}</b></span>";
 						}
@@ -746,7 +785,7 @@ class EVO_Cal_Event_Structure{
 												$OT.= "<p class='evo_virtual_location_url'>" . evo_lang('URL:'). $locationLink . ' '. $location_link."</a></p>";
 										}else{
 
-											if(!empty($location_address)){
+											if(!empty($location_address) && $location_address != $location_name ){
 												$OT .= "<p class='evo_location_address'>". $locationLink . stripslashes($location_address) . ($locationLink? '</a>':'') ."</p>";
 											}
 											
@@ -757,8 +796,6 @@ class EVO_Cal_Event_Structure{
 							</div>";
 						}
 					break;
-
-				
 
 				// REPEAT SERIES
 					case 'repeats':
@@ -911,54 +948,96 @@ class EVO_Cal_Event_Structure{
 					case 'organizer':					
 						$evcal_evcard_org = eventon_get_custom_language($evoOPT2, 'evcal_evcard_org','Organizer');
 
-						if(empty($ED['organizer_term'])) break;
+						if(empty($ED['event_organizer'])) break;
 						
-						$img_src = (!empty($organizer_img_id)? 
-							wp_get_attachment_image_src($organizer_img_id,'medium'): null);
-
-						$newdinwow = (!empty($organizer_link_target) && $organizer_link_target=='yes')? 'target="_blank"':'';
-
-						// organizer name text openinnewwindow
-							if(!empty($organizer_link)){							
-								$orgNAME = "<span class='evo_card_organizer_name_t'><a ".( $newdinwow )." href='" . 
-									evo_format_link($organizer_link) . "'>".$organizer_name."</a></span>";
-							}else{
-								$orgNAME = "<span class='evo_card_organizer_name_t'>".$organizer_name."</span>";
-							}	
-
+						
 						
 						$OT.= "<div class='evo_metarow_organizer evorow evcal_evdata_row evcal_evrow_sm ".$end_row_class."'>
 								<span class='evcal_evdata_icons'><i class='fa ".get_eventON_icon('evcal__fai_004', 'fa-headphones',$evOPT )."'></i></span>
 								<div class='evcal_evdata_cell'>							
-									<h3 class='evo_h3'>".$evcal_evcard_org."</h3>
-									".(!empty($img_src)? 
-										"<p class='evo_data_val evo_card_organizer_image'><img src='{$img_src[0]}'/></p>":null)."
-									<div class='evo_card_organizer'>";
+									<h3 class='evo_h3'>".$evcal_evcard_org."</h3>";
+									
+								$OT.= "<div class='evo_evdata_cell_content'>";
 
-									$description = !empty($organizer_description) ? stripslashes($organizer_description): false;
+						// foreach organizer
+						foreach( $event_organizer as $EOID=>$EO){
 
-									$org_data = "<p class='evo_data_val evo_card_organizer_name'>
-										".$orgNAME.
-										( $description? "<span class='evo_card_organizer_description'>".$description."</span>":'').
-										(!empty($organizer_contact)? 
-										"<span class='evo_card_organizer_contact'>". stripslashes($organizer_contact). "</span>":null)."
-										".(!empty($organizer_address)? 
-										"<span class='evo_card_organizer_address'>". stripslashes($organizer_address). "</span>":null)."
-										</p>";
 
-									// organizer social share
-										$org_social = '';
-										foreach($EVENT->get_organizer_social_meta_array() as $key=>$val){
-											if( !empty($EventData[$key]))
-												$org_social .= "<a href='". urldecode( $EventData[$key] ) . "'><i class='fa fa-{$key}'></i></a>";
-										}
-										if( !empty($org_social)) 
-											$org_data .= "<p class='evo_card_organizer_social'>" .$org_social ."</p>";
+							// image
+							$img_src = (!empty($EO->organizer_img_id)? 
+								wp_get_attachment_image_src($EO->organizer_img_id,'medium'): null);
 
-									$OT .= apply_filters('evo_organizer_event_card', $org_data, $ED, $organizer_term_id);
+							$newdinwow = (!empty($EO->organizer_link_target) && $EO->organizer_link_target=='yes')? 'target="_blank"':'';
 
-									$OT .= "</div><div class='clear'></div>							
-								</div>
+							// Organizer link
+								$org_link = '';
+								if(!empty($EO->organizer_link) || !empty($EO->link) ){	
+
+									if( !empty($EO->link) ) $org_link = $EO->link;
+									if( !empty($EO->organizer_link) ) $org_link = $EO->organizer_link;
+
+									$orgNAME = "<span class='evo_card_organizer_name_t'><a ".( $newdinwow )." href='" . 
+										evo_format_link( $org_link ) . "'>".$EO->name."</a></span>";
+								}else{
+									$orgNAME = "<span class='evo_card_organizer_name_t'>". $EO->name."</span>";
+								}	
+
+
+
+							$OT.= "<div class='evo_card_organizer'>";
+
+							// image
+								$OT.= (!empty($img_src)? 
+										"<p class='evo_data_val evo_card_organizer_image'><img src='{$img_src[0]}'/></p>":null);
+
+							$description = !empty($EO->description) ? stripslashes($EO->description): false;
+
+							$org_data = '';
+							$org_data .= "<h4 class='evo_h4'>" . $orgNAME . "</h4>" ;
+							$org_data .= "<p class='evo_data_val'>".
+								( $description? "<span class='evo_card_organizer_description'>".$description."</span>":'').
+								(!empty($EO->organizer_contact)? 
+								"<span class='evo_card_organizer_contact padt10'>". stripslashes($EO->organizer_contact). "</span>":null)."
+								".(!empty($EO->organizer_address)? 
+								"<span class='evo_card_organizer_address padt10'>". stripslashes($EO->organizer_address). "</span>":null)."
+								</p>";
+
+							// organizer social share
+								$org_social = '';
+								foreach($EVENT->get_organizer_social_meta_array() as $key=>$val){
+									if( !empty($EventData[$key]))
+										$org_social .= "<a href='". urldecode( $EventData[$key] ) . "'><i class='fa fa-{$key}'></i></a>";
+								}
+								if( !empty($org_social)) 
+									$org_data .= "<p class='evo_card_organizer_social'>" .$org_social ."</p>";
+
+							// learn more button
+								$btn_data = array(
+									'lbvals'=> array(
+										'lbc'=>'evo_organizer_lb',
+										't'=>	$EO->name,
+										'ajax'=>'yes',
+										'end'=>'client',
+										'd'=> array(					
+											'eventid'=> $EVENT->ID,
+											'term_id'=> $EO->term_id,
+											'action'=> 'eventon_gen_trig_ajax',
+											'uid'=>'evo_get_organizer_info',
+											'load_lbcontent'=>true
+										)
+									)
+								);
+								$org_data .= "<p class='evo_card_organizer_more'><a class='evolb_trigger evcal_btn mart10' ".$this->helper->array_to_html_data($btn_data).">". evo_lang('Learn More') . "</a></p>";
+
+							$OT .= apply_filters('evo_organizer_event_card', $org_data, $ED, $EO->term_id);
+
+							$OT .= "</div>";
+
+						}
+								$OT.= "</div>";
+
+															
+								$OT .= "</div>
 							</div>";
 						
 					break;
@@ -1074,15 +1153,20 @@ class EVO_Cal_Event_Structure{
 											$time = $EE->get_formatted_smart_time($x);
 
 											$imgs = $EE->get_image_urls();
+											
+											$img_bg_url = '';
+
 											$img_html = '<span class="noimg" style="background-color:#'. $EE->get_hex() .'"></span>';
 											if($imgs){
-												$img_html = '<span class="" style="background-image: url('. $imgs['medium'].')"></span>';
+												$img_bg_url = $imgs['full'];
+												$img_html = '<span class="" style="background-image: url('. $imgs['full'].')"></span>';
 											}
 
 											
-											$rel_events[ $I .'.'. $EE->get_start_time() ] =  "<a href='". $EE->get_permalink($x). "'>
-												".$img_html."
-												<b>{$N}</b><em>{$time}</em>
+											$rel_events[ $I .'.'. $EE->get_start_time() ] =  
+												"<a style='background-color:#{$EE->get_hex()}; background-image: url({$img_bg_url}) ' href='". $EE->get_permalink($x). "'>
+												<h4 class='evo_h4'>{$N}</h4>
+												<em><i class='fa fa-clock-o'></i> {$time}</em>
 												</a>";
 										}
 

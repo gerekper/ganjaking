@@ -13,7 +13,7 @@
  * Plugin Name:       Smush Pro
  * Plugin URI:        http://wpmudev.com/project/wp-smush-pro/
  * Description:       Reduce image file sizes, improve performance and boost your SEO using the <a href="https://wpmudev.com/">WPMU DEV</a> WordPress Smush API.
- * Version:           3.12.2
+ * Version:           3.12.3
  * Author:            WPMU DEV
  * Author URI:        https://wpmudev.com/
  * License:           GPLv2
@@ -48,7 +48,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 if ( ! defined( 'WP_SMUSH_VERSION' ) ) {
-	define( 'WP_SMUSH_VERSION', '3.12.2' );
+	define( 'WP_SMUSH_VERSION', '3.12.3' );
 }
 // Used to define body class.
 if ( ! defined( 'WP_SHARED_UI_VERSION' ) ) {
@@ -90,11 +90,6 @@ if ( ! defined( 'WP_SMUSH_PARALLEL' ) ) {
 if ( ! defined( 'WP_SMUSH_BACKGROUND' ) ) {
 	define( 'WP_SMUSH_BACKGROUND', true );
 }
-
-/**
- * Include vendor dependencies
- */
-require_once __DIR__ . '/vendor/autoload.php';
 
 /**
  * To support Smushing on staging sites like SiteGround staging where staging site urls are different
@@ -221,6 +216,11 @@ if ( ! class_exists( 'WP_Smush' ) ) {
 		 */
 		private function __construct() {
 			spl_autoload_register( array( $this, 'autoload' ) );
+
+			/**
+			 * Include vendor dependencies
+			 */
+			require_once __DIR__ . '/vendor/autoload.php';
 
 			add_action( 'admin_init', array( '\\Smush\\Core\\Installer', 'upgrade_settings' ) );
 			add_action( 'current_screen', array( '\\Smush\\Core\\Installer', 'maybe_create_table' ) );

@@ -214,7 +214,7 @@ class evo_helper{
 			$this->tooltips($content, $position='',true);
 		}
 
-	// date time ICS
+	// ICS - date time processing
 		public function get_ics_format_from_unix($unix, $separate = true){
 			$enviro = new EVO_Environment();
 
@@ -228,6 +228,31 @@ class evo_helper{
 
 			return $new_timeT.'T'.$new_timeZ.'00Z';
 		}
+
+		// sanitize unix
+			function sanitize_unix( $unix){
+				$t = explode('Z', $unix);
+				$u = explode('T', $t[0]);
+
+				$a = (int)$u[0];
+				$b = isset($u[1]) ? (int)$u[1]:0;
+
+				if(strlen($a)<6) $a = sprintf('%06d', $a);
+				if(strlen($b)<6) $b = sprintf('%06d', $b);
+
+				return $a.'T'. $b .'Z';
+			}
+
+		// Escape ICS text
+			function esc_ical_text( $text='' ) {
+				
+			    $text = str_replace("\\", "", $text);
+			    $text = str_replace("\r", "\r\n ", $text);
+			    $text = str_replace("\n", "\r\n ", $text);
+			    $text = str_replace(",", "\, ", $text);
+			    $text = EVO()->calendar->helper->htmlspecialchars_decode($text);
+			    return $text;
+			}
 
 	// template locator
 	// pass: paths array, file name, default template with full path and file

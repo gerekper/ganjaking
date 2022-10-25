@@ -549,7 +549,7 @@ $jq_date_format = _evo_dateformat_PHP_to_jQueryUI($wp_date_format);
 						$end_dt = $DD->format($date_format_string);
 
 
-						echo '<li data-cnt="'.$count.'" style="display:'.(( $count>3)?'none':'block').'" class="'.($count==0?'initial':'').($count>3?' over':'').'">'. ($count==0? '<dd>'.__('Initial','eventon').'</dd>':'').'<span>'.__('from','eventon').'</span> '. $start_dt .' <span class="e">End</span> '. $end_dt .'<em alt="Delete">x</em>
+						echo '<li data-cnt="'.$count.'" style="display:'.(( $count>3)?'none':'flex').'" class="'.($count==0?'initial':'').($count>3?' over':'').'">'. ($count==0? '<dd>'.__('Initial','eventon').'</dd>':'').'<span>'.__('from','eventon').'</span> '. $start_dt .' <span class="e">End</span> '. $end_dt .'<em alt="Delete">x</em>
 						<input type="hidden" name="repeat_intervals['.$count.'][0]" value="'.$start_unix.'"/><input type="hidden" name="repeat_intervals['.$count.'][1]" value="'.$end_unix.'"/></li>';
 						$count++;
 					}										

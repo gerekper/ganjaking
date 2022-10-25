@@ -74,7 +74,6 @@ class Admin {
 		add_filter( 'plugin_row_meta', array( $this, 'add_plugin_meta_links' ), 10, 2 );
 
 		// Prints a membership validation issue notice in Media Library.
-	//	add_action( 'admin_notices', array( $this, 'media_library_membership_notice' ) );
 
 		// Plugin conflict notice.
 		add_action( 'admin_notices', array( $this, 'show_plugin_conflict_notice' ) );

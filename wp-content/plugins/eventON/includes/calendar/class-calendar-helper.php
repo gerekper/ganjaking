@@ -1,9 +1,9 @@
 <?php
 /**
- * helper fnctions for calendar
+ * helper functions for calendar
  *
  * @class 		evo_cal_help
- * @version		3.0.6
+ * @version		4.2
  * @package		EventON/Classes
  * @category	Class
  * @author 		AJDE
@@ -361,24 +361,24 @@ class evo_cal_help {
 		function get_eventtop_all_fields(){
 
 			$base = array(
-				'ft_img'=>__('Event Image'),
-				'day_block' =>__('Event date blcok'),
-				'tags'=>__('Tags'),
-				'title'=>__('Title'),
-				'subtitle'=>__('Subtitle'),
-				'time'=>__('Event Time'),
-				'location'=>__('Location'),
-				'organizer'=>__('Organizer'),
-				'eventtags'=>__('Event Tag Types'),
-				'progress_bar'=>__('Event Progress Bar')
+				'ft_img'=>__('Event Image','eventon'),
+				'day_block' =>__('Event date block','eventon'),
+				'tags'=>__('Tags','eventon'),
+				'title'=>__('Title','eventon'),
+				'subtitle'=>__('Subtitle','eventon'),
+				'time'=>__('Event Time','eventon'),
+				'location'=>__('Location','eventon'),
+				'organizer'=>__('Organizer','eventon'),
+				'eventtags'=>__('Event Tag Types','eventon'),
+				'progress_bar'=>__('Event Progress Bar','eventon')
 			);
 			for($x =1; $x< evo_retrieve_cmd_count() +1; $x++){
-				$base['cmd'.$x] = __('Custom Field'). " ".$x;
+				$base['cmd'.$x] = __('Custom Field','eventon'). " ".$x;
 			}
 
 			// add event types	
 				for($x =1; $x< evo_get_ett_count() +1; $x++){
-					$base['eventtype'.($x==1? '': $x)] = __('Event Type'). ($x==1? '': $x);
+					$base['eventtype'.($x==1? '': $x)] = __('Event Type' ,'eventon'). ($x==1? '': $x);
 				}
 
 			// add addon fields
@@ -484,6 +484,8 @@ class evo_cal_help {
 				}
 			}			
 
+			// check to make sure top row is there
+			if(!isset($evo_etl['c0']))  $evo_etl = array('c0'=>array()) + $evo_etl;
 			
 
 			// create day block values from legacy - what to show
@@ -513,8 +515,6 @@ class evo_cal_help {
 				}
 			}
 
-			
-			
 
 
 			return array(
@@ -760,6 +760,42 @@ class evo_cal_help {
 
 	    }
 
+	// get no event HTML content global for all calendars
+	// @v 4.2
+	    function get_no_event_content(){
+	    	$text_1 = EVO()->calendar->lang_array['no_event'];
+
+	    	$type = EVO()->cal->get_prop('evo_noevent_set','evcal_1');
+
+	    	$html = '';
+	    	$show_default = true;
+
+
+	    	// clickable button
+	    	if( $type == 'button' || $type == 'button_sub'){
+
+	    		$btn_action = EVO()->cal->get_prop('evo_noevent_btn_action','evcal_1'); 
+	    		$link_url = EVO()->cal->get_prop('evo_noevent_link','evcal_1'); 
+
+
+	    		if( $btn_action == 'link' && $link_url){
+	    			$show_default = false;
+	    			$subtitle = '';
+	    			if( $type == 'button_sub'){
+	    				$subtitle = '<span class="st">' . evo_lang('No Events at this time') . '</span>';
+	    			}
+	    			$html = "<p class='no_events clickable'><a class='evo_no_events_btn' href='{$link_url}'><span class='t'>".$text_1. '</span>'.  $subtitle . "</a></p>";
+	    		}
+
+
+	    		
+	    	}
+
+	    	if($show_default) $html = "<p class='no_events' >".$text_1."</p>";
+
+	    	
+	    	return $html;
+	    }
 
 
 

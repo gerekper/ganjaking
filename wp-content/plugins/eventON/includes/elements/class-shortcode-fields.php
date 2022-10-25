@@ -1,7 +1,7 @@
 <?php
 /**
  * Shortcode Field Data Array
- * @3.0
+ * @updated 4.2
  */
 
 class Evo_Shortcode_Fields{
@@ -287,7 +287,22 @@ class Evo_Shortcode_Fields{
 					'4'=>__('Open in single event page','eventon'),
 					'4a'=>__('Open in single event page in new window','eventon')
 				))
-			),'etc_override'=>array(
+			),
+			'UIXmob'=>array(
+				'name'=>__('Mobile Only User Interaction','eventon'),
+				'type'=>'select',
+				'guide'=>__('Select the user interaction option to override individual event user interactions ONLY for mobile devices','eventon'),
+				'var'=>'ux_val_mob',
+				'default'=>'0',
+				'options'=>apply_filters('eventon_uixmob_shortcode_opts', array(
+					'0'=>'Same as desktop user',
+					'X'=>__('Do not interact','eventon'),
+					'3a'=>__('Lightbox popup window with AJAX','eventon'),
+					'4'=>__('Open in single event page','eventon'),
+					'4a'=>__('Open in single event page in new window','eventon')
+				))
+			),
+			'etc_override'=>array(
 				'name'=>__('Event type color override','eventon'),
 				'type'=>'YN',
 				'guide'=>__('Select this option to override event colors with event type colors, if they exists','eventon'),
@@ -412,7 +427,23 @@ class Evo_Shortcode_Fields{
 				'guide'=>__('This will show only the above set filter values for selection on the calendar, other filter values will not show for selection on calendar','eventon'),
 				'var'=>'filter_show_set_only',
 				'default'=>'no',
-			),'filter_relationship'=>array(
+			),
+			// @4.2
+			'filter_hide_indicator'=>array(
+				'name'=>__('Hide filter selected indicator bubble/check mark','eventon'),
+				'type'=>'YN',
+				'guide'=>__('This will hide the filter selected indicator bubble and checkmark on calendar filter.','eventon'),
+				'var'=>'filter_hide_indicator',
+				'default'=>'no',
+			),
+			'filter_clear'=>array(
+				'name'=>__('Show clear filter button to reset','eventon'),
+				'type'=>'YN',
+				'guide'=>__('This will show clear filters button on filter bar to reset the set filters back to default values.','eventon'),
+				'var'=>'filter_clear',
+				'default'=>'no',
+			),
+			'filter_relationship'=>array(
 				'name'=>__('Filter Relationship for Multiple Event Types','eventon'),
 				'type'=>'select',
 				'guide'=>__('For multiple event types, select the filter relationship that to be used for filtering events.','eventon'),

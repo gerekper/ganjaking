@@ -402,6 +402,11 @@ class WPSEO_Premium_Assets implements WPSEO_WordPress_Integration {
 				'source'       => 'assets/css/dist/premium-thank-you-' . $version . '.css',
 				'dependencies' => [],
 			],
+			[
+				'name'         => WPSEO_Admin_Asset_Manager::PREFIX . 'premium-settings',
+				'source'       => 'assets/css/dist/premium-settings-' . $version . '.css',
+				'dependencies' => [],
+			],
 		];
 	}
 

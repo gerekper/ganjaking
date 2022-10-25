@@ -46,6 +46,7 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\conditionals\\open_graph_conditional' => 'Yoast\\WP\\SEO\\Conditionals\\Open_Graph_Conditional',
             'yoast\\wp\\seo\\conditionals\\robots_txt_conditional' => 'Yoast\\WP\\SEO\\Conditionals\\Robots_Txt_Conditional',
             'yoast\\wp\\seo\\conditionals\\schema_blocks_conditional' => 'Yoast\\WP\\SEO\\Conditionals\\Schema_Blocks_Conditional',
+            'yoast\\wp\\seo\\conditionals\\settings_conditional' => 'Yoast\\WP\\SEO\\Conditionals\\Settings_Conditional',
             'yoast\\wp\\seo\\conditionals\\third_party\\elementor_edit_conditional' => 'Yoast\\WP\\SEO\\Conditionals\\Third_Party\\Elementor_Edit_Conditional',
             'yoast\\wp\\seo\\conditionals\\wincher_enabled_conditional' => 'Yoast\\WP\\SEO\\Conditionals\\Wincher_Enabled_Conditional',
             'yoast\\wp\\seo\\conditionals\\yoast_admin_and_dashboard_conditional' => 'Yoast\\WP\\SEO\\Conditionals\\Yoast_Admin_And_Dashboard_Conditional',
@@ -109,6 +110,7 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\premium\\integrations\\admin\\prominent_words\\indexing_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Indexing_Integration',
             'yoast\\wp\\seo\\premium\\integrations\\admin\\prominent_words\\metabox_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Metabox_Integration',
             'yoast\\wp\\seo\\premium\\integrations\\admin\\replacement_variables_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Replacement_Variables_Integration',
+            'yoast\\wp\\seo\\premium\\integrations\\admin\\settings_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Settings_Integration',
             'yoast\\wp\\seo\\premium\\integrations\\admin\\thank_you_page_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Thank_You_Page_Integration',
             'yoast\\wp\\seo\\premium\\integrations\\admin\\user_profile_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\User_Profile_Integration',
             'yoast\\wp\\seo\\premium\\integrations\\admin\\workouts_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Workouts_Integration',
@@ -184,6 +186,7 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Conditionals\\Open_Graph_Conditional' => 'getOpenGraphConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Robots_Txt_Conditional' => 'getRobotsTxtConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Schema_Blocks_Conditional' => 'getSchemaBlocksConditionalService',
+            'Yoast\\WP\\SEO\\Conditionals\\Settings_Conditional' => 'getSettingsConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Third_Party\\Elementor_Edit_Conditional' => 'getElementorEditConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Wincher_Enabled_Conditional' => 'getWincherEnabledConditionalService',
             'Yoast\\WP\\SEO\\Conditionals\\Yoast_Admin_And_Dashboard_Conditional' => 'getYoastAdminAndDashboardConditionalService',
@@ -247,6 +250,7 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Indexing_Integration' => 'getIndexingIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Metabox_Integration' => 'getMetaboxIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Replacement_Variables_Integration' => 'getReplacementVariablesIntegrationService',
+            'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Settings_Integration' => 'getSettingsIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Thank_You_Page_Integration' => 'getThankYouPageIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\User_Profile_Integration' => 'getUserProfileIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Workouts_Integration' => 'getWorkoutsIntegrationService',
@@ -561,6 +565,16 @@ class Cached_Container extends Container
     protected function getSchemaBlocksConditionalService()
     {
         return $this->services['Yoast\\WP\\SEO\\Conditionals\\Schema_Blocks_Conditional'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\Conditionals\\Schema_Blocks_Conditional');
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Conditionals\Settings_Conditional' shared service.
+     *
+     * @return \Yoast\WP\SEO\Conditionals\Settings_Conditional
+     */
+    protected function getSettingsConditionalService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Conditionals\\Settings_Conditional'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\Conditionals\\Settings_Conditional');
     }
 
     /**
@@ -985,6 +999,7 @@ class Cached_Container extends Container
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Indexing_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Metabox_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Replacement_Variables_Integration');
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Settings_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Thank_You_Page_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\User_Profile_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Workouts_Integration');
@@ -1303,6 +1318,16 @@ class Cached_Container extends Container
     protected function getReplacementVariablesIntegrationService()
     {
         return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Replacement_Variables_Integration'] = new \Yoast\WP\SEO\Premium\Integrations\Admin\Replacement_Variables_Integration();
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Integrations\Admin\Settings_Integration' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Integrations\Admin\Settings_Integration
+     */
+    protected function getSettingsIntegrationService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Settings_Integration'] = new \Yoast\WP\SEO\Premium\Integrations\Admin\Settings_Integration(${($_ = isset($this->services['WPSEO_Admin_Asset_Manager']) ? $this->services['WPSEO_Admin_Asset_Manager'] : $this->getWPSEOAdminAssetManagerService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Current_Page_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Current_Page_Helper'] : $this->getCurrentPageHelperService()) && false ?: '_'});
     }
 
     /**

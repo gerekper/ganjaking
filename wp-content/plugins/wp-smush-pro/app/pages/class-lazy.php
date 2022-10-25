@@ -55,7 +55,7 @@ class Lazy extends Abstract_Summary_Page implements Interface_Page {
 	 * @since 3.2.0
 	 */
 	public function common_meta_box_footer() {
-		$this->view( 'meta-box-footer', array(), 'common' );			   	   			 	 	 	 	
+		$this->view( 'meta-box-footer', array(), 'common' );
 	}
 
 	/**

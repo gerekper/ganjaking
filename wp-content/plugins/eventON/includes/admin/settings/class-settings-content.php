@@ -49,10 +49,7 @@ switch ($this->focus_tab):
 
 		?>
 
-		<div class='evo_diag'>
-			<!-- save settings -->
-			<input type="submit" class="evo_admin_btn btn_prime" value="<?php _e('Save Changes') ?>" /> <a id='resetColor' style='display:none' class='evo_admin_btn btn_secondary'><?php _e('Reset to default colors','eventon')?></a>
-		</div>		
+			
 		</form>
 
 		<div class="evo_lang_export">

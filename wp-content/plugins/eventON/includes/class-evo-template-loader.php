@@ -47,13 +47,9 @@ class EVO_Template_Loader {
 			$search_files = $this->get_template_loader_files( $default_file );
 			$template     = locate_template( $search_files );
 
+
 			if ( ! $template ) {
-				if ( false !== strpos( $default_file, 'product_cat' ) || false !== strpos( $default_file, 'product_tag' ) ) {
-					$cs_template = str_replace( '_', '-', $default_file );
-					$template    = EVO()->plugin_path() . '/templates/' . $cs_template;
-				} else {
-					$template = EVO()->plugin_path() . '/templates/' . $default_file;
-				}
+				$template = EVO()->plugin_path() . '/templates/' . $default_file;				
 			}
 		}
 
@@ -188,7 +184,7 @@ class EVO_Template_Loader {
 	public function get_template_loader_files( $default_file  ) {
 		
 		$templates = apply_filters( 'evo_template_loader_files', array(), $default_file );
-		$templates[] = 'eventon.php';
+	
 
 
 		if ( is_page_template() ) {
@@ -220,7 +216,8 @@ class EVO_Template_Loader {
 
 		}
 
-		$templates[] = EVO()->template_path() . $default_file;
+		$templates[] = EVO()->template_path() .'/' . $default_file;
+		$templates[] = EVO()->template_path() .'/templates/' . $default_file;
 
 		return array_unique( $templates );
 

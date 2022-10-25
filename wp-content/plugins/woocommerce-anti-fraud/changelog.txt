@@ -1,5 +1,8 @@
 *** WooCommerce Anti Fraud ***
 
+2022-10-24 - version 4.7.1
+* Fix plugin update causing loss of setting values.
+
 2022-10-11 - version 4.7
 * PLUGINS-1615 - Improve Blacklist Settings Layout.
 * PLUGINS-1617 - Introducing HTML5 Geolocation (Rules).

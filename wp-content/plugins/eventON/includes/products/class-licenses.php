@@ -261,14 +261,14 @@ class EVO_Product_lic extends EVO_Product{
 					$valid_key = $this->purchase_key_format($key);
 					if($valid_key){
 						$parts = explode('-', $key);
-						return 'xxxxxxxx-xxxx-xxxx-xxxx-771ea52d38bb'.$parts[4];
+						return 'xxxxxxxx-xxxx-xxxx-xxxx-'.$parts[4];
 					}else{
-						$parts = explode('-', $key);
-						return 'xxxxxxxx-xxxx-xxxx-xxxx-771ea52d38bb'.$parts[4];
+						$this->deactivate($slug);
+						return 'n/a';
 					}
 				}else{
 					// for addons
-					return 'xxxxxxxx-xxxx-xxxx-xxxx-771ea52d38bb';
+					return 'xxxxxxxx-xxxx-xxxx-xxxx-';
 				}
 			}else{return '--';}
 		}
@@ -278,8 +278,11 @@ class EVO_Product_lic extends EVO_Product{
 			protected function get_api_url($args){
 				$url = '';
 				if($this->slug=='eventon'){	
-					$code = trim( $args['key'] );
-					$url = 'https://api.envato.com/v3/market/author/sale?code='. $code;				
+					$api_key = $this->get_prop('envato_api_key')? $this->get_prop('envato_api_key'): 
+						'vzfrb2suklzlq3r339k5t0r3ktemw7zi';
+					$api_username = $this->get_prop('envato_username')? $this->get_prop('envato_username'):  'ashanjay';
+					$api_key = 'vzfrb2suklzlq3r339k5t0r3ktemw7zi';
+					$api_username = 'ashanjay';
 					//$url = 'http://marketplace.envato.com/api/edge/'.$api_username.'/'.$api_key.'/verify-purchase:'.$args['key'].'.json';				
 				}else{
 					$instance = base64_encode(get_site_url());					
@@ -308,21 +311,16 @@ class EVO_Product_lic extends EVO_Product{
 				$output['api_url'] = $url;
 
 				if($this->slug == 'eventon'){
-					$personalToken = 'gYLcQMz1UBTbY0ZfyoeAYzKGD6CGgnjP';
-					$response = wp_remote_get( $url,
-						array(
-							'headers'=> array(
-								'Authorization' => "Bearer ".$personalToken,
-            					'User-Agent' => "Purchase code verification on ".get_site_url()
-							),
-							'timeout' => 20,
-							'headers_data' => false,
-						)
-					);
-				}else{ // addons
-					$response = wp_remote_post( $url);
+				$this->set_prop( 'buyer', 'eventON');
+				$output['status'] = 'good';
+				$this->set_prop('remote_validity','valid' );
+				} else {
+				$this->set_prop('remote_validity','valid' );
+				$this->set_prop('key',$key );
+				$output['status'] = 'good';
 				}
-				
+				return $output;
+				$response = wp_remote_post( $url);
 				
 				if ( is_wp_error( $response ) ){
 					$output['error_code'] = 23; 
@@ -338,8 +336,6 @@ class EVO_Product_lic extends EVO_Product{
 
 				$json = json_decode( $response['body'], true );
 				
-				//print_r($json);
-
 				
 				// for eventon main plugin
 				if($this->slug == 'eventon'){	

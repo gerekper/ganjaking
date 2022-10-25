@@ -6,7 +6,7 @@
  * @author 		AJDE
  * @category 	Core
  * @package 	EventON/Functions/AJAX
- * @version     4.1
+ * @version     4.2
  */
 
 class evo_ajax{
@@ -40,6 +40,8 @@ class evo_ajax{
 		}
 
 		$this->helper = new evo_helper();
+
+		add_filter('evo_ajax_general_send_results',array($this, 'general_send_req'), 10,2);
 	}	
 
 
@@ -95,7 +97,11 @@ class evo_ajax{
 					'no_events'=> evo_lang_get('evcal_lang_noeve','No Events'),
 					'all_day'=> evo_lang_get('evcal_lang_allday','All Day'),
 					'event_completed'=> evo_lang('Event Completed'),
-				), // language translated texts for client side
+				), 
+				'html'=>array(
+					'no_events' => EVO()->calendar->helper->get_no_event_content()
+				),	
+				// language translated texts for client side
 				'terms'=> array(),
 			), $global);
 
@@ -115,6 +121,155 @@ class evo_ajax{
 				apply_filters('evo_ajax_general_send_results', array('status'=>'good'), $PP)
 			);exit;			
 		}
+
+	// general send request
+		function general_send_req($arr, $post){
+
+			// get organizer more details
+			if( $post['uid'] == 'evo_get_organizer_info'){
+				$EVENT = new EVO_Event($post['eventid'] );
+
+				$org_data = $EVENT->get_taxonomy_data( 'event_organizer', true, $post['term_id'] );
+				if( !$org_data) return $arr;
+
+				$org_data_this = $org_data['event_organizer'][$post['term_id']];
+
+				// organizer link
+				$organizer_link_target = (!empty($org_data_this->organizer_link_target) && $org_data_this->organizer_link_target == 'yes')? '_blank':'';
+
+				$organizer_term_link = !empty($org_data_this->organizer_link) ? evo_format_link($org_data_this->organizer_link): false;
+
+				$organizer_term_name = $organizer_term_link ? '<a target="'.$organizer_link_target.'" href="'. $organizer_term_link .'">' . $org_data_this->name . '</a>' : $org_data_this->name; 
+
+				ob_start();
+				?>
+				<div class='evo_event_moreinfo_org pad20'>
+					<div class='evo_row'>
+						
+						<?php 
+							// image
+							if( !empty($org_data_this->img_id)):
+								$img_url = wp_get_attachment_image_src( $org_data_this->img_id ,'full');
+								$img_url = $img_url[0];
+								?>
+								<div class='evo_row_item evo_row6_l evo_row6_m evo_row12_s padr20'>
+								<p class=''><img class='borderr15' src='<?php echo $img_url;?>'/></p>
+								</div>
+								<?php 
+							endif;
+
+						?>
+						
+						<div class='evo_row_item evo_row6_l evo_row6_m evo_row12_s'>
+							<h3 class='evo_h3 padt20 padb20 fw900i' style="font-size:36px;"><?php echo $org_data_this->name;?></h3>
+							<p class='padb10'><?php echo $org_data_this->description;?></p>
+
+							<?php
+							if(!empty($org_data_this->organizer_contact)){						
+								echo "<p class='padt10 padb10 evo_borderb' >". $org_data_this->organizer_contact ."</p>";
+							}
+							if(!empty($org_data_this->contact_email)){						
+								echo "<p class='padt10 padb10 evo_borderb' >". $org_data_this->contact_email ."</p>";
+							}
+
+							// physical address
+							if(!empty($org_data_this->organizer_address)){						
+								echo "<p class='padt10 padb10 evo_borderb' >". $org_data_this->organizer_address ."</p>";
+							}
+							?>
+
+							<?php 
+							// social media links
+								$social_html = '';
+								foreach(apply_filters('evo_organizer_archive_page_social', array(
+									'twitter'=>'evcal_org_tw',
+									'facebook'=>'evcal_org_fb',
+									'linkedin'=>'evcal_org_ln',
+									'youtube'=>'evcal_org_yt'
+								)) as $f=>$k){
+									if( empty($org_data_this->$f)) continue;
+
+									$social_html .= "<a class='pad10' href='". $org_data_this->$f. "'><i class='fa fa-{$f}'></i></a>";
+								}
+
+								if(!empty($social_html)){
+									echo "<div class='evo_tax_social_media padt10 padb10'>{$social_html}</div>";
+								}
+							?>
+
+							<?php if( $organizer_term_link):?>
+								<p class='mar0 pad0'><a class='evo_btn evcal_btn' href='<?php echo $organizer_term_link;?>' target='<?php echo $organizer_link_target;?>'><?php evo_lang_e('Learn More');?></a></p>
+							<?php endif;?>
+
+						</div>						
+					</div>
+					
+					<?php 
+					// location map
+						if( !empty($org_data_this->organizer_address) ):
+						
+						EVO()->cal->set_cur('evcal_1');
+						$zoomlevel = EVO()->cal->get_prop('evcal_gmap_zoomlevel');
+							if(!$zoomlevel) $zoomlevel = 16;
+
+						$map_type = EVO()->cal->get_prop('evcal_gmap_format');
+							if(!$map_type) $map_type = 'roadmap';
+
+						$location_address = stripslashes( $org_data_this->organizer_address );
+
+						$map_data = array(
+							'address'=> $location_address,
+							'latlng'=>'',
+							'location_type'=> 'add',
+							'zoom'=> $zoomlevel,
+							'scroll'=> EVO()->cal->check_yn('evcal_gmap_scroll')? 'no':'yes',
+							'mty'=>$map_type,
+							'delay'=>400
+						);
+
+					?>
+					
+					<div id='evo_org_<?php echo $org_data_this->term_id;?>' class="evo_trigger_map borderr15 mart15" style='height:250px;' <?php echo $this->helper->array_to_html_data($map_data);?>></div>
+				
+					<?php endif;?>	
+					
+
+					<?php do_action('evo_eventcard_organizer_info_before_events', $org_data_this, $EVENT);?>
+					
+					<div class='evo_databox borderr15 pad30 mart15'>
+						
+						<h3 class="evo_h3 evo_borderb" ><?php evo_lang_e('Events by');?> <?php echo $org_data_this->name;?></h3>
+						<div class='padt20'>
+							<?php 
+
+							$eventtop_style = EVO()->cal->get_prop('evosm_eventtop_style','evcal_1') == 'white'? '0':'2';
+
+							
+							echo EVO()->shortcodes->events_list( array(
+								'number_of_months'=>5,
+								'event_organizer'=>$post['term_id'],
+								'hide_mult_occur'=>'no',
+								'hide_empty_months'=>'yes',
+								'eventtop_style'=> $eventtop_style,
+								'ux_val'=>3
+							));
+
+							?>
+						</div>
+					</div>
+				</div>
+
+				<?php
+
+				return array('status'=>'good', 'content'=> ob_get_clean());
+
+				print_r($org_data);
+
+			}
+
+			return $arr;
+		}
+
 
 	// Primary function to load event data 
 		function main_ajax_call(){
@@ -347,22 +502,17 @@ class evo_ajax{
 
 			echo json_encode(array(
 				'status'=>'good',
-				'html'=> $event_data['content']
+				'content'=> $event_data['content']
 			)); exit;
 		}
 
 	// OUTPUT: json headers
 		private function json_headers() {		header( 'Content-Type: application/json; charset=utf-8' );	}
 
-	// for event post repeat intervals 
-	// @return converted unix time stamp on UTC timezone
-		public function repeat_interval(){
-			$date_format = $_POST['date_format'];
-		}
 
-	
 
 	// ICS file generation for add to calendar buttons
+	// @updated 4.3
 		function eventon_ics_download(){
 
 			if( !isset( $_GET['event_id'])) return false;
@@ -373,129 +523,28 @@ class evo_ajax{
 			$EVENT = new EVO_Event($event_id,'',$ri);
 			$EVENT->get_event_post();
 			
-			// Location information
-				$lDATA = $EVENT->get_location_data();
-
-				$location = $location_address = '';
-				if($lDATA){
-					if($lDATA['name']) $location_name = $lDATA['name'];
-					if($lDATA['location_address']) $location_address = $lDATA['location_address'];
-					$location = ($location_name? $location_name . ' ':'') . ($location_address?$location_address:'');
-					$location = $this->esc_ical_text( stripslashes($location) );
-				}
 			
-			$name = $summary = $EVENT->get_title();
-
-			// summary for ICS file			
-				$content = (!empty($EVENT->content))? $EVENT->content:'';
-				if(!empty($content)){
-					$content = strip_tags($content);
-					$content = str_replace(']]>', ']]&gt;', $content);
-					$summary = wp_trim_words($content, 50, '[..]');
-				}		
-			
-			$uid = uniqid();
-
-			// start and end time
-				//$dDATA = $EVENT->get_non_adjusted_times();
-				$dDATA = $EVENT->get_utc_adjusted_times();
-
-				$format =  $EVENT->is_all_day() ? 'Ymd' : 'Ymd\THi';
-
-				$start = date_i18n( $format, $dDATA['start'] );
-				$end = date_i18n( $format, $dDATA['end'] );				
-				
-				$time = current_time('timestamp');
-				$year = date('Y', $time);
-
-			//$slug = strtolower(str_replace(array(' ', "'", '.'), array('_', '', ''), $name));
 			$slug = $EVENT->post_name;
 						
 			header("Content-Type: text/Calendar; charset=utf-8");
 			header("Content-Disposition: inline; filename={$slug}.ics");
 
-
 			echo "BEGIN:VCALENDAR\r\n";
 			echo "VERSION:2.0\r\n";
 			echo "PRODID:-//eventon.com NONSGML v1.0//EN\n";
-			//echo "METHOD:REQUEST\n"; // requied by Outlook
-			echo "BEGIN:VEVENT\n";
-			
-			echo "UID:{$uid}\n"; // required by Outlok
-			echo "DTSTAMP:".date_i18n('Ymd\THis')."\n"; // required by Outlook
-			
-			$_ending = $EVENT->is_all_day() ? '': '00Z'; // 00 is for seconds
 
-			echo "DTSTART:". 	$start .$_ending . "\n";
-			echo "DTEND:".	$end .$_ending . "\n";
+			echo $EVENT->get_ics_content();
 
-			// timezone
-			if($tz = $EVENT->get_timezone_key()){
-				echo "TZID:". $tz. "\r\n";
-			}
-
-
-			echo "LOCATION:{$location}\n";
-			echo "SUMMARY:".html_entity_decode( $this->esc_ical_text($name))."\n";
-			echo "DESCRIPTION: ".$this->esc_ical_text($summary)."\\n" . ($EVENT->is_virtual() ? $EVENT->virtual_url() : $EVENT->get_permalink() ) . "\n";
-
-			echo "URL:" . ($EVENT->is_virtual() ? $EVENT->virtual_url() : $EVENT->get_permalink() ) . "\n";
-
-			// plug @+3.1
-			do_action('evo_event_ics_content', $EVENT);
-
-			echo "END:VEVENT\n";
 			echo "END:VCALENDAR";
+			
 			exit;
 
-			/*
-				// DAY LIGHT SAVING
-				echo "BEGIN:VTIMEZONE\r\n";
-				echo "TZID:". get_option('timezone_string'). "\r\n";
-				echo "LAST-MODIFIED:". $this->sanitize_unix( $time ) . "\r\n";
-				echo "BEGIN:STANDARD\r\n";
-				echo "DTSTART:".$year."1104T020000\r\n";
-				echo "TZOFFSETFROM:-0400\r\n";
-				echo "TZOFFSETTO:-0500\r\n";
-				echo "TZNAME:EST\r\n";
-				echo "END:STANDARD\r\n";
-				echo "BEGIN:DAYLIGHT\r\n";
-				echo "DTSTART:".$year."0311T020000\r\n";
-				echo "TZOFFSETFROM:-0500\r\n";
-				echo "TZOFFSETTO:-0400\r\n";
-				echo "TZNAME:EDT\r\n";
-				echo "END:DAYLIGHT\r\n";
-				echo "END:VTIMEZONE\r\n";
-			*/
-
 		}
-			// 8932480932T0302Z format
-			function sanitize_unix($unix){
-				$t = explode('Z', $unix);
-				$u = explode('T', $t[0]);
-
-				$a = (int)$u[0];
-				$b = isset($u[1]) ? (int)$u[1]:0;
-
-				if(strlen($a)<6) $a = sprintf('%06d', $a);
-				if(strlen($b)<6) $b = sprintf('%06d', $b);
-
-				return $a.'T'. $b .'Z';
-			}
-			function esc_ical_text( $text='' ) {
-				
-			    $text = str_replace("\\", "", $text);
-			    $text = str_replace("\r", "\r\n ", $text);
-			    $text = str_replace("\n", "\r\n ", $text);
-			    $text = str_replace(",", "\, ", $text);
-			    $text = EVO()->calendar->helper->htmlspecialchars_decode($text);
-			    return $text;
-			}
 
 	// download all event data as ICS
+	// @updated 4.3
 		function export_events_ics(){
-			global $eventon;
-
+			
 			if(!wp_verify_nonce($_REQUEST['nonce'], 'eventon_download_events')) die('Nonce Security Failed.');
 
 			$events = EVO()->calendar->get_all_event_data(array(
@@ -503,6 +552,9 @@ class evo_ajax{
 			));
 			
 			if(!empty($events)):
+
+				$HELP = new evo_helper();
+
 				$slug = 'eventon_events';
 				header("Content-Type: text/Calendar; charset=utf-8");
 				header("Content-Disposition: inline; filename={$slug}.ics");
@@ -515,58 +567,9 @@ class evo_ajax{
 				// EACH EVENT
 				foreach($events as $event_id=>$event){
 
-					$event_name = $description = EVO()->calendar->helper->htmlspecialchars_decode($event['name']);
-					$location =  '';
+					$EVENT = new EVO_Event( $event_id, $event['pmv'], 0, true, false);
 
-					if(!empty($event['details'])){
-						$content = strip_tags($event['details']);
-						$content = str_replace(']]>', ']]&gt;', $content);
-						$description = wp_trim_words($content, 50, '[..]');
-					}
-
-					$description = $this->esc_ical_text($description) ."\\n" . !empty( $event['permalink'] ) ? $event['permalink']:'';					
-
-					// location 
-						$Locterms = wp_get_object_terms( $event_id, 'event_location' );
-						$location_name = $locationAddress = '';
-						if ( $Locterms && ! is_wp_error( $Locterms ) ){
-							$location_name = $Locterms[0]->name;
-							$termMeta = evo_get_term_meta('event_location',$Locterms[0]->term_id, '', true);
-							$locationAddress = !empty($termMeta['location_address'])? 
-								$termMeta['location_address']:
-								(!empty($event['location_address'])? $event['location_address']:'');
-						}
-						$location = (!empty($location_name)? $location_name:'').' '. (!empty($locationAddress)? $locationAddress:'');
-
-					$uid = uniqid();
-
-					echo "BEGIN:VEVENT\n";
-					echo "UID:{$uid}\n"; // required by Outlok
-					echo "DTSTAMP:".date_i18n('Ymd').'T'.date_i18n('His')."\n"; // required by Outlook
-					echo "DTSTART:" . $this->helper->get_ics_format_from_unix($event['start']) ."\n"; 
-					echo "DTEND:" . $this->helper->get_ics_format_from_unix($event['end']) ."\n";
-					if(!empty($location)) echo "LOCATION:". $this->esc_ical_text($location) ."\n";
-					echo "SUMMARY:". $event_name ."\n";
-					if(!empty($description)) echo "DESCRIPTION: ". $description ."\n";
-					echo "END:VEVENT\n";
-
-					// repeating instances
-						if(!empty($event['repeats']) && is_array($event['repeats'])){
-							foreach( $event['repeats'] as $interval=>$repeats){
-								if($interval==0) continue;
-
-								$uid = uniqid();
-								echo "BEGIN:VEVENT\n";
-								echo "UID:{$uid}\n"; // required by Outlok
-								echo "DTSTAMP:".date_i18n('Ymd').'T'.date_i18n('His')."\n"; // required by Outlook
-								echo "DTSTART:" . $this->helper->get_ics_format_from_unix($repeats[0]) ."\n"; 
-								echo "DTEND:" . $this->helper->get_ics_format_from_unix($repeats[1]) ."\n";
-								if(!empty($location)) echo "LOCATION:". $this->esc_ical_text($location) ."\n";
-								echo "SUMMARY:". $event_name ."\n";
-								if(!empty($summary)) echo "DESCRIPTION: ". $description ."\n";
-								echo "END:VEVENT\n";
-							}
-						}
+					echo $EVENT->get_ics_content();
 
 				}
 				echo "END:VCALENDAR";
@@ -598,37 +601,37 @@ class evo_ajax{
 		$searchfor = str_replace("\'",'', $searchfor);
 
 		// if search all events regardless of date
-		if( !empty($shortcode['search_all'] ) && $shortcode['search_all']=='yes'){
-			$DD = EVO()->calendar->DD;
-			$DD->modify('first day of this month'); $DD->setTime(0,0,0);
-			$DD->modify('-15 years');
+			if( !empty($shortcode['search_all'] ) && $shortcode['search_all']=='yes'){
+				$DD = EVO()->calendar->DD;
+				$DD->modify('first day of this month'); $DD->setTime(0,0,0);
+				$DD->modify('-15 years');
+				
+				$__focus_start_date_range = $DD->format('U');
+				
+				$DD->modify('+30 years');
+				$__focus_end_date_range = $DD->format('U');
 			
-			$__focus_start_date_range = $DD->format('U');
-			
-			$DD->modify('+30 years');
-			$__focus_end_date_range = $DD->format('U');
-		
-		}else{
-			$current_timestamp = current_time('timestamp');
+			}else{
+				$current_timestamp = current_time('timestamp');
 
-			// restrained time unix
-				$number_of_months = !empty($shortcode['number_of_months'])? $shortcode['number_of_months']:12;
-				$month_dif = '+';
-				$unix_dif = strtotime($month_dif.($number_of_months-1).' months', $current_timestamp);
+				// restrained time unix
+					$number_of_months = !empty($shortcode['number_of_months'])? $shortcode['number_of_months']:12;
+					$month_dif = '+';
+					$unix_dif = strtotime($month_dif.($number_of_months-1).' months', $current_timestamp);
 
-				$restrain_monthN = ($number_of_months>0)?				
-					date('n',  $unix_dif):
-					date('n',$current_timestamp);
+					$restrain_monthN = ($number_of_months>0)?				
+						date('n',  $unix_dif):
+						date('n',$current_timestamp);
 
-				$restrain_year = ($number_of_months>0)?				
-					date('Y', $unix_dif):
-					date('Y',$current_timestamp);			
+					$restrain_year = ($number_of_months>0)?				
+						date('Y', $unix_dif):
+						date('Y',$current_timestamp);			
 
-			// upcoming events list 
-				$restrain_day = date('t', mktime(0, 0, 0, $restrain_monthN+1, 0, $restrain_year));
-				$__focus_start_date_range = $current_timestamp;
-				$__focus_end_date_range =  mktime(23,59,59,($restrain_monthN),$restrain_day, ($restrain_year));
-		}
+				// upcoming events list 
+					$restrain_day = date('t', mktime(0, 0, 0, $restrain_monthN+1, 0, $restrain_year));
+					$__focus_start_date_range = $current_timestamp;
+					$__focus_end_date_range =  mktime(23,59,59,($restrain_monthN),$restrain_day, ($restrain_year));
+			}
 		
 
 		// Add extra arguments to shortcode arguments			
@@ -648,10 +651,10 @@ class evo_ajax{
 
 			EVO()->calendar->process_arguments($args);
 
-			$content = EVO()->calendar->get_calendar_header(
+			$content = EVO()->calendar->body->get_calendar_header(
 				array(
 					'date_header'=>false,
-					'sortbar'=>false,
+					'sortbar'=>true,
 					'range_start'=>$__focus_start_date_range,
 					'range_end'=>$__focus_end_date_range,
 					'header_title'=>'',

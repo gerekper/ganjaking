@@ -4,8 +4,8 @@ Plugin Name: EventON
 Author URI: http://ashanjay.com/
 Tags: calendar, event calendar, events, directory, location, organizer, repeating event
 Requires at least: 5.5
-Tested up to: 6.0.2
-Stable tag: 4.1.3
+Tested up to: 6.0.3
+Stable tag: 4.2
 Initial Release: 2011-12-21
 
 EventON is an event calendar plugin for WordPress, that helps you showcase and present your events to your audiences in a clean and clutter-free layout. 
@@ -52,6 +52,43 @@ Automatic updates will work for plugin update after you have registered and acti
 How to update eventON: http://docs.myeventon.com/documentations/update-eventon/ 
 
 == Changelog ==
+= 4.2 (2022-10-24) = 
+ADDED: New font family as the default font face of eventON
+ADDED: new color scheme for calendar fonts
+ADDED: separate user interaction type only for mobile users
+ADDED: ability to link no events box to a link
+ADDED: ability to change style of no events box
+ADDED: New single event page eventtop style - Immersive flow
+ADDED: No events box appearance in settings
+ADDED: JQ trigger function to load google maps at any given point
+ADDED: sorting and filter capabilities to standalone search box
+ADDED: event filters enabled and used indicator bubble/check mark
+ADDED: Clear filter button to reset all set filters to default
+ADDED: hash support for single event link to scroll direct to event sections
+ADDED: global ajax object
+ADDED: organizer learn more on event card to load in lightbox
+ADDED: eventtop organizer details to load in lightbox
+ADDED: ability to select multiple organizers for an event
+FIXED: settings missing file error
+FIXED: eventtop designer top bar missing in settings
+FIXED: child template files not working
+FIXED: event type archive template formatting
+FIXED: download all events ICS timezone errors
+FIXED: sort bar open by default to indicate on sort button
+FIXED: search box enter key press not working on dynamically created search box
+FIXED: same location name and address to show only once
+FIXED: organizer archive page link to organizer title
+FIXED: error on admin edit event tax page without image
+FIXED: taxonomy pages to run direct shortcode function to avoid expensive regex
+UPDATED: backend UI styles
+UPDATED: tiles with event detail below design and layout
+UPDATED: tiles view design over all
+UPDATED: a more bold filter design
+UPDATED: organizer bigger image
+UPDATED: multi data types to use a global taxonomy class to save and fetch data
+UPDATED: related events layout design
+UPDATED: organizer and location archive page designs
+
 = 4.1.3 (2022-9-8) =
 ADDED: organizer social link to display in eventcard as well
 FIXED: single event page not loading the scripts

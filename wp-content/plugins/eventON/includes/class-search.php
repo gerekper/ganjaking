@@ -1,7 +1,7 @@
 <?php
 /**
  * Search Capabilities of events through out eventon
- * @version 4.1
+ * @version 4.2
  */
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -52,7 +52,7 @@ class evo_search{
 		<div id='evo_search' class='EVOSR_section '>
 			<div class="evo_search_entry">
 				<p class='evosr_search_box' >
-					<input type="text" placeholder='<?php echo evo_lang_get('evoSR_001a','Search Calendar Events');?>' data-role="none">
+					<input class='evo_search_field' type="text" placeholder='<?php echo evo_lang_get('evoSR_001a','Search Calendar Events');?>' data-role="none">
 					<a class='evo_do_search'><i class="fa fa-search"></i></a>
 					<span class="evosr_blur"></span>
 					<span class="evosr_blur_process"></span>
@@ -61,6 +61,8 @@ class evo_search{
 				</p>
 				<p class='evosr_msg' style='display:none'><?php echo evo_lang_get('evoSR_003','What do you want to search for?');?></p>
 			</div>
+
+
 			<p class="evo_search_results_count" style='display:none'><span>10</span> <?php echo evo_lang_get('evoSR_004','Event(s) found');?></p>
 			<div class="evo_search_results"></div>
 		</div>

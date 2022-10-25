@@ -81,7 +81,10 @@ class evo_cal_body{
 					$__cal_classes[] = 'esty_'. ( (int)$args['eventtop_style']); 
 				}
 
-
+			// display filter informer
+				if( isset($args['filter_hide_indicator']) && $args['filter_hide_indicator'] == 'yes'){
+					$__cal_classes[] = 'flhi';
+				}
 
 			// eventtop date styles
 			if($args['eventtop_date_style'] == 1){ 
@@ -191,9 +194,12 @@ class evo_cal_body{
 							
 							echo  $this->cal_above_header($arg_y);	
 
+							echo "<div class='evo_header_title'>";
 							echo "<p id='evcal_cur' class='evo_month_title'> ".$cal_header_title."</p>";	
 							// arrows
 							if(!$hide_arrows) echo $this->cal_parts_arrows();
+
+							echo "</div>";
 
 						}else{ // without the date header
 							$arg_y['jumper'] = 'no';
@@ -205,7 +211,7 @@ class evo_cal_body{
 					// (---) Hook for addon
 						do_action('eventon_calendar_header_content',  $args);
 					
-						echo "<div class='clear'></div></div>";
+						echo "</div>";
 					
 									
 					// SORT BAR
@@ -329,7 +335,19 @@ class evo_cal_body{
 							if($ff=='evo-gototoday-btn'){
 								echo "<span class='".$ff."' style='display:none' data-mo='{$focused_month_num}' data-yr='{$focused_year}' data-dy=''>".$v."</span>";
 							}else{
-								echo "<span class='".$ff."'>".$v."</span>";
+
+								// set as active if sort bar is set to be visible by default
+								$add = $add2 = '';
+								if( $ff == 'evo-filter-btn'){
+									if( !empty($exp_so) && $exp_so == 'yes'){
+										$add = ' show';
+									}
+
+									$add2 = '<em></em>';
+									
+								}
+
+								echo "<span class='".$ff.$add."'>".$v. $add2 . "</span>";
 							}							
 						}
 						

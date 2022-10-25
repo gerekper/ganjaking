@@ -173,6 +173,7 @@ return array(
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Indexing_Integration' => $baseDir . '/src/integrations/admin/prominent-words/indexing-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Prominent_Words\\Metabox_Integration' => $baseDir . '/src/integrations/admin/prominent-words/metabox-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Replacement_Variables_Integration' => $baseDir . '/src/integrations/admin/replacement-variables-integration.php',
+    'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Settings_Integration' => $baseDir . '/src/integrations/admin/settings-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Thank_You_Page_Integration' => $baseDir . '/src/integrations/admin/thank-you-page-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\User_Profile_Integration' => $baseDir . '/src/integrations/admin/user-profile-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Workouts_Integration' => $baseDir . '/src/integrations/admin/workouts-integration.php',

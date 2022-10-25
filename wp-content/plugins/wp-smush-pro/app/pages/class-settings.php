@@ -119,7 +119,7 @@ class Settings extends Abstract_Page implements Interface_Page {
 
 		<span class="sui-description sui-toggle-description">
 			<?php
-			esc_html_e( 'Note: Usage tracking is completely anonymous. We are only tracking what features you are/aren’t using to make our feature decisions more informed.', 'wp-smushit' );
+			esc_html_e( 'Note: Usage tracking is completely anonymous. We are only tracking what features you are/aren’t using to make our feature decisions more informed.', 'wp-smushit' );			   	   			 	 	 	 	
 			?>
 		</span>
 		<?php

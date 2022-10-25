@@ -89,7 +89,7 @@ class CDN extends Abstract_Summary_Page implements Interface_Page {
 			'disabled'   => __( 'CDN is not yet active. Configure your settings below and click Activate.', 'wp-smushit' ),
 			'activating' => __(
 				'Your settings have been saved and changes are now propagating to the CDN. Changes can take up to 30
-				minutes to take effect but your images will continue to be served in the mean time, please be patient.',
+				minutes to take effect but your images will continue to be served in the meantime, please be patient.',
 				'wp-smushit'
 			),
 			'upgrade'    => sprintf(
