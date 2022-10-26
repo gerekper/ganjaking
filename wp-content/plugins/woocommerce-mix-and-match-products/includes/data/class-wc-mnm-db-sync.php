@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products
  * @since    2.0.0
- * @version  2.0.0
+ * @version  2.2.0
  */
 
 // Exit if accessed directly.
@@ -39,7 +39,7 @@ class WC_MNM_DB_Sync {
 	 */
 	public static function duplicate_product_before_save( $duplicated_product, $product ) {
 
-		if ( $product->is_type( 'mix-and-match' ) ) {
+		if ( is_callable( array( $product, 'get_child_items' ) ) ) {
 
 			$child_items      = $product->get_child_items( 'edit' );
 			$duplicated_items = array();
@@ -57,7 +57,7 @@ class WC_MNM_DB_Sync {
 	}
 
 	/**
-	 * Deletes bundled item DB entries when their container product is deleted.
+	 * Deletes child item DB entries when their container product is deleted.
 	 *
 	 * @param  mixed  $id  ID of post being deleted.
 	 */
@@ -86,7 +86,7 @@ class WC_MNM_DB_Sync {
 
 		$container = wc_get_product( $id );
 
-		if ( $container &&  $container->is_type( 'mix-and-match' ) ) {
+		if ( is_callable( array( $container, 'get_child_items' ) ) ) {
 
 			try {
 

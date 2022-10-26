@@ -157,6 +157,12 @@ class WC_MNM_Admin_Notices {
 
 			$notice = sanitize_text_field( $_GET[ 'wc-mnm-hide-notice' ] );
 
+			// If we dismiss an update notice that has a cleanup prompt, let's cleanup the transient.
+			if ( 'cleanup' === $notice ) {
+				delete_transient( 'wc_mnm_show_2x00_cleanup_legacy_child_meta' );
+				$notice = 'update';
+			}
+
 			// NB: see WC_Admin_Notices::hide_notice() if we ever need notices that are dismissed on a per-user basis.
 			self::remove_notice( $notice );
 		}
@@ -252,11 +258,7 @@ class WC_MNM_Admin_Notices {
 				}
 			}
 		} else {
-			if ( 'yes' === get_transient( 'wc_mnm_show_2x00_cleanup_legacy_child_meta' ) ) {
-				include dirname( __FILE__ ) . '/views/html-notice-updated-2x00.php';
-			} else {
-				include dirname( __FILE__ ) . '/views/html-notice-updated.php';
-			}
+			include dirname( __FILE__ ) . '/views/html-notice-updated.php';
 		}
 
 	}

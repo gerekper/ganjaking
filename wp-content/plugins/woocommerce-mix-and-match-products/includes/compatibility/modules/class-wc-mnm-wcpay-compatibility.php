@@ -5,7 +5,7 @@
  * @author   Kathy Darling
  * @package  WooCommerce Mix and Match/Compatibility
  * @since    1.11.6
- * @version  1.11.6
+ * @version  2.2.0
  */
 
 // Exit if accessed directly.
@@ -34,7 +34,7 @@ class WC_MNM_WCPay_Compatibility {
 	 */
 	public static function hide_request_buttons( $supported, $product ) {
 
-		if ( $product->is_type( 'mix-and-match' ) ) {
+		if ( wc_mnm_is_product_container_type( $product ) ) {
 			$supported = false;
 		}
 		return $supported;

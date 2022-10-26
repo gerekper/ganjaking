@@ -6,7 +6,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Update
  * @since    1.2.0
- * @version  2.0.0
+ * @version  2.2.0
  */
 
 // Exit if accessed directly.
@@ -669,8 +669,8 @@ function wc_mnm_update_2x00_custom_tables() {
 				foreach ( array_keys( $container_data ) as $child_item_product_id ) {
 
 					// Test if product ID exists.
-					if ( ! array_key_exists( $existing_ids[$child_item_product_id] ) ) {
-						$existing_ids[$child_item_product_id] = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE ID=%s", $child_item_product_id ) );
+					if ( ! array_key_exists( $child_item_product_id, $existing_ids ) ) {
+						$existing_ids[$child_item_product_id] = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE ID=%s", $child_item_product_id ) ); // Comes back null if the product does not exist in DB.
 					}
 
 					// Skip any products that don't exist.
@@ -715,7 +715,7 @@ function wc_mnm_update_2x00_custom_tables() {
 	}
 
 	// Set transient for clean up button.
-	set_transient( 'wc_mnm_show_2x00_cleanup_legacy_child_meta', 'yes' );
+	set_transient( 'wc_mnm_show_2x00_cleanup_legacy_child_meta', 'yes', 25200 );
 
 	delete_option( 'wc_mnm_update_2x00_last_product_id' );
 	delete_option( 'wc_mnm_update_2x00_product_ids' );
@@ -867,6 +867,7 @@ function wc_mnm_update_2x00_product_meta() {
 
 }
 
+
 /**
  * Delete the old _mnm_data post meta.
  *
@@ -893,5 +894,101 @@ function  wc_mnm_update_2x00_cleanup_legacy_child_meta() {
 	if ( false === $wpdb->query( $sql ) ) {
 		wc_get_logger()->log( 'error', 'Mix and Match could not delete legacy product meta.', array( 'source' => 'wc_mnm_db_updates' ) );
 	}
+
+}
+
+
+/**
+ * Remove duplicate meta keys (again)
+ *
+ * @since 2.2.0
+ */
+function wc_mnm_update_2x2x0_delete_duplicate_meta() {
+
+	global $wpdb;
+
+	// Process all the existing MNM products to only delete meta for them (as some meta keys are a bit generic)
+	$mnm_term = get_term_by( 'slug', 'mix-and-match', 'product_type' );
+
+	if ( false === $mnm_term ) {
+		return false;
+	}
+
+	// As product $extra_data, woo was saving automatically.
+	$delete_keys = array(
+		'_min_raw_price',
+		'_min_raw_regular_price',
+		'_max_raw_price',
+		'_max_raw_regular_price',
+		'_layout_override',
+		'_layout',
+		'_add_to_cart_form_location',
+		'_min_container_size',
+		'_max_container_size',
+		'_priced_per_product',
+		'_discount',
+		'_packing_mode',
+		'_weight_cumulative',
+		'_content_source',
+		'_child_category_ids',
+		'_child_items_stock_status',
+	);
+
+	// Grab post ids to update, storing the last ID processed, so we know where to start next time.
+	$container_id      = 0;
+	$last_product_id   = get_option( 'wc_mnm_update_2x2x0_delete_duplicate_meta_last_product_id', 0 );
+
+	$containers = $wpdb->get_results(
+		$wpdb->prepare(
+            "
+			SELECT
+				DISTINCT P.ID AS product_id
+				FROM
+					{$wpdb->posts} as P
+				JOIN
+					{$wpdb->term_relationships} AS PRODUCT_TYPE
+					ON PRODUCT_TYPE.object_id = P.ID
+				JOIN {$wpdb->postmeta} AS PM
+					ON P.ID = PM.post_id
+				WHERE
+					( P.post_type = 'product' ) AND 
+					( PRODUCT_TYPE.term_taxonomy_id = %d ) AND 
+					( P.ID > %d )
+				GROUP BY
+					P.ID
+				ORDER BY
+					P.ID
+				ASC
+				LIMIT %d
+			",
+			$mnm_term->term_id,
+			$last_product_id,
+			wc_mnm_update_batch_limit()
+		)
+	);
+
+	if ( ! empty( $containers ) ) {
+
+		foreach ( $containers as $container ) {
+
+			$container_id = intval( $container->product_id );
+
+			foreach( $delete_keys as $key ) {
+				$result = delete_post_meta( $container_id, $key );
+			}
+
+		}
+
+		// Start the run again.
+		if ( $container_id ) {
+			return update_option( 'wc_mnm_update_2x2x0_delete_duplicate_meta_last_product_id', $container_id );
+		}
+
+	}
+
+	// Delete temporary options.
+	delete_option( 'wc_mnm_update_2x2x0_delete_duplicate_meta_last_product_id' );
+
+	return false;
 
 }

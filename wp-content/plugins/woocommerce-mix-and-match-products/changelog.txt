@@ -1,5 +1,33 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2022.10.24 - version 2.2.1
+* Tweak: Use core cart functions for detecting parent/child relationships in cart item filters.
+* Tweak: Add wrapping <span> when doing wc_ajax_mnm_update_container_order_item. For compat with mini-extensions.
+* Tweak: Admin edit orders, handle updates with no changes.
+
+2022.10.24 - version 2.2.0
+* Update: Tested up to WooCommerce 7.0.0.
+* Update - Declared compatibility with the new Custom Order Tables.
+* New: Convert container order item editing to use reuasable ajax callbacks and templates. Fixes display issues in admin and allows for extensibility.
+* New: Add get_permalink() and get_title() methods/filters to WC_MNM_Child_Item class.
+* New: 2nd parameter to WC_Product_MNM_Data_Store_CPT::query_child_items_by_container() to optionally change format of returned data.
+* New: Add `wc_mnm_category_caption` hook for displaying info about the category titles when using category contents.
+* Fix: Invalid array_key_exists() syntax in custom db 2.0 upgrade function.
+* Fix: Flatsome theme grid classes.
+* Fix: Stop saving duplicate meta keys. Upgrade routine to clean up duplicate data.
+* Fix: Restore photoSwipe modal for themes that support it.
+* Fix: Thumbnail and short description live previews in Customizer.
+* Fix - Prevent child item stock from being reduced when editing Mix and Match products in configurable orders.
+* Tweak: Change CoCart validation to use built-in validation methods. NB: This means the loss of CoCart specific-filters/error codes, please test accordingly.
+* Tweak: Remove quantity inputs for child items in cart block (show per container quantity in title).
+* Tweak: Change selections config to per-container quantity in checkout block.
+* Tweak: Add styles to order edit modal.
+* Dev: Modify $.wc_mnm_form() script to 1. not require passing objects to initialize, 2. define properties in intialize() method so they can be reattached. 3. return the current element for script chaining.
+* Dev: Introduce `wc_mnm_product_container_types` filter for testing if product is Mix and Match type. For future extensibilty.
+* Dev: Admin functions for generating enhanced searches and toggle fields.
+* Dev: Admin Simplify relational hide/show fields in metabox via classnames.
+* Dev: Introduce wc_mnm_form_classes filter for <form> element classes.
+
 2022.09.05 - version 2.1.3
 * Fix: Fatal error in update cart validation via CoCart
 * Tweak: Add check that product still exists in update cart validation.

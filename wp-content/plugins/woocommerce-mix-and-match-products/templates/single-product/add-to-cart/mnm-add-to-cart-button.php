@@ -13,7 +13,7 @@
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   2.0.0
- * @version 2.1.0
+ * @version 2.2.0
  */
 
 // Exit if accessed directly.
@@ -24,36 +24,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! $product->is_in_stock() ) {
 	return;
 }
-
-/**
- * woocommerce_before_add_to_cart_button hook.
- */
-do_action( 'woocommerce_before_add_to_cart_button' );
-
-/**
- * @since 1.4.0.
- */
-do_action( 'woocommerce_before_add_to_cart_quantity' );
-
-woocommerce_quantity_input(
-    array(
-	'min_value' => $product->is_sold_individually() ? 1 : apply_filters( 'woocommerce_quantity_input_min', 1, $product ),
-	'max_value' => $product->is_sold_individually() ? 1 : apply_filters( 'woocommerce_quantity_input_max', $product->backorders_allowed() ? '' : $product->get_stock_quantity(), $product ),
-	'input_value' => isset( $_REQUEST['quantity'] ) ? wc_stock_amount( wp_unslash( $_REQUEST['quantity'] ) ) : $product->get_min_purchase_quantity(), // WPCS: CSRF ok, input var ok.
-	)
-);
-
-/**
- * @since 1.4.0.
- */
-do_action( 'woocommerce_after_add_to_cart_quantity' );
 ?>
 
+<div class="woocommerce-mix-and-match-add-to-cart mnm_button_wrap add_to_cart_button_wrap">
+	<?php do_action( 'woocommerce_before_add_to_cart_button' ); ?>
 
-<button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button mnm_add_to_cart_button button alt" data-product_id="<?php echo esc_attr( $product->get_id() ); ?>"><?php echo $product->single_add_to_cart_text(); ?></button>
+	<?php
+	do_action( 'woocommerce_before_add_to_cart_quantity' );
 
-<?php
-/**
- * woocommerce_after_add_to_cart_button hook.
- */
-do_action( 'woocommerce_after_add_to_cart_button' );
+	woocommerce_quantity_input(
+		array(
+			'min_value'   => apply_filters( 'woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product ),
+			'max_value'   => apply_filters( 'woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product ),
+			'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( wp_unslash( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity(), // WPCS: CSRF ok, input var ok.
+		)
+	);
+
+	do_action( 'woocommerce_after_add_to_cart_quantity' );
+	?>
+
+	<button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button button alt"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
+
+	<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
+
+</div>

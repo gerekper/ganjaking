@@ -18,8 +18,10 @@
 .woocommerce-js .mnm_message {
   display: none; }
 
-.mnm_form .mnm_image figure {
-  margin: 0; }
+.mnm_form .mnm_child_product_images {
+  position: relative; }
+  .mnm_form .mnm_child_product_images figure {
+    margin: 0; }
 
 .mnm_form .woocommerce-product-details__short-description {
   font-size: .85em; }
@@ -63,7 +65,6 @@
     /* Show the snackbar */
     /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
 			However, delay the fade out process for 3 seconds */
-    -webkit-animation: wc_mnm_fadein 0.5s, wc_mnm_fadeout 0.5s 3s;
     animation: wc_mnm_fadein 0.5s, wc_mnm_fadeout 0.5s 3s; }
 
 .mnm_form .mnm_message_content {
@@ -141,7 +142,7 @@
   .mnm_table .mnm_image {
     min-width: 100px;
     max-width: 300px;
-    padding-right: 1em; }
+    margin-right: 1em; }
   .mnm_table .mnm_image img {
     display: block; }
   .mnm_table .product-quantity {
@@ -223,13 +224,6 @@
  * Snackbar/Toasty child item notification animation
  */
 /* Animations to fade the snackbar in and out */
-@-webkit-keyframes wc_mnm_fadein {
-  from {
-    transform: translate(-50%, 0);
-    opacity: 0; }
-  to {
-    transform: translate(-50%, -120%);
-    opacity: 1; } }
 
 @keyframes wc_mnm_fadein {
   from {
@@ -238,14 +232,6 @@
   to {
     transform: translate(-50%, -120%);
     opacity: 1; } }
-
-@-webkit-keyframes wc_mnm_fadeout {
-  from {
-    transform: translate(-50%, -120%);
-    opacity: 1; }
-  to {
-    transform: translate(-50%, 0);
-    opacity: 0; } }
 
 @keyframes wc_mnm_fadeout {
   from {

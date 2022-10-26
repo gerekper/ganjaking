@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    1.0.0
- * @version  2.0.10
+ * @version  2.2.0
  */
 
 // Exit if accessed directly.
@@ -67,7 +67,7 @@ class WC_MNM_Compatibility {
 		return self::$_instance;
 	}
 
-	function __construct() {
+	public function __construct() {
 
 		// Core compatibility functions and hooks.
 		require_once 'core/class-wc-mnm-core-compatibility.php';
@@ -87,11 +87,28 @@ class WC_MNM_Compatibility {
 			add_action( 'admin_init', array( $this, 'add_compatibility_notices' ) );
 		}
 
+		// Declare HPOS compatibility.
+		add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
+
 		// Deactivate functionality from mini-extensions.
 		$this->unload();
 
 		// Initialize.
 		add_action( 'plugins_loaded', array( $this, 'init' ), 100 );
+	}
+
+	/**
+	 * Declare HPOS (Custom Order tables) compatibility.
+	 *
+	 * @since 2.2.0
+	 */
+	public function declare_hpos_compatibility() {
+
+		if ( ! class_exists( 'Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			return;
+		}
+
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WC_Mix_and_Match()->plugin_basename(), true );
 	}
 
 	/**

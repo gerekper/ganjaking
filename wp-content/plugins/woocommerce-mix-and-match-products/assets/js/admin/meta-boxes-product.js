@@ -17,111 +17,62 @@ jQuery(
 		$( '#shipping_product_data .mnm_packing_options' ).prependTo( '#shipping_product_data' );
 
 		// Toggle dimensions by packing method.
-		$( '#shipping_product_data .dimensions_field' ).closest( '.options_group' ).addClass( 'show_if_packed_together show_if_has_physical_container hide_if_packed_separately hide_if_virtual' );
-		$( '#shipping_product_data .shipping_class_field' ).closest( '.options_group' ).addClass( 'show_if_packed_together show_if_has_physical_container hide_if_packed_separately hide_if_virtual' );
+		$( '#shipping_product_data .dimensions_field' ).closest( '.options_group' ).addClass( 'show_if_wc_mnm_packing_mode_together show_if_wc_mnm_has_physical_container_yes hide_if_wc_mnm_has_physical_container_no hide_if_wc_mnm_packing_mode_separate hide_if_wc_mnm_packing_mode_virtual' );
+		$( '#shipping_product_data .shipping_class_field' ).closest( '.options_group' ).addClass( 'show_if_wc_mnm_packing_mode_together show_if_wc_mnm_has_physical_container_yes hide_if_wc_mnm_has_physical_container_no hide_if_wc_mnm_packing_mode_separate hide_if_wc_mnm_packing_mode_virtual' );
 
-		// Hide/Show contents fields.
-		$( '.wc_mnm_content_source' ).on(
-			'change',
-			function() {
+		// Hide/show related fields on input change.
+		$( '#woocommerce-product-data' ).on( 'change', '.wc_mnm_display_toggle :input', function() {
 
-				if ( 'mix-and-match' === $( '#product-type' ).val() ) {
+			var $panels = $( this ).closest( '.product_data' );
 
-					var source = $( '#mnm_product_data .wc_mnm_content_source:checked' ).val();
+			var target = $( this ).attr( 'name' );
 
-					$( '#mnm_product_data .show_if_source_categories' ).hide();
-					$( '#mnm_product_data .show_if_source_products' ).hide();
-
-					if ( 'categories' === source ) {
-						$( '#mnm_product_data .show_if_source_categories' ).show();
-					} else {
-						$( '#mnm_product_data .show_if_source_products' ).show();
-					}
-
-				}
-
+			var regex = /\[.+\]/g;
+			
+			if ( target.match(regex) ) {
+				target  = target.replace( regex, '' ); // Eliminate any inputname[99] numbers for compatibility with variation fields.
+				$panels = $( this ).closest( '.woocommerce_variation' );
 			}
-		);
 
-		// Hide/Show Layout fields.
-		$( '#wc_mnm_layout_override' ).on(
-			'change',
-			function() {
+			var value =  $( this ).is( ':checked' ) ? $( this ).val() : 'no'; // Unchecked checkboxes default to "no".
 
-				if ( 'mix-and-match' === $( '#product-type' ).val() ) {
-					if ( this.checked ) {
-						$( '#mnm_product_data .show_if_layout_override' ).show();
-					} else {
-						$( '#mnm_product_data .show_if_layout_override' ).hide();
-					}
-				}
+			// Hide/Show all with rules.
+			var hide_classes = '.hide_if_' + target + '_' + value;
+			var show_classes = '.show_if_' + target + '_' + value;
+			
+			$panels.find( $( hide_classes ) ).hide();
+			$panels.find( $( show_classes ) ).show();
 
+			$( '#woocommerce-product-data' ).trigger( target + '_changed', value );
+
+		} );
+
+		// Hide/Show physical container field as function of packing mode.
+		$( '#woocommerce-product-data' ).on( 'wc_mnm_packing_mode_changed', function( e, value ) {
+
+			if ( value === 'separate' ) {
+				// Re-Trigger when packed separately is selected.
+				$( '.mnm_packing_options .wc_mnm_has_physical_container_field :input' ).trigger( 'change' );
 			}
-		);
 
-		// Hide/Show Per-Item pricing related fields.
-		$( '.wc_mnm_per_product_pricing' ).on(
-			'change',
-			function() {
+		} );
+
+		// Hide/Show NYP field as function of per-item pricing.
+		$( '#woocommerce-product-data' ).on( 'wc_mnm_per_product_pricing_changed', function( e, value ) {
+
+			if ( 'mix-and-match' === $( '#product-type' ).val() ) {
 
 				var $nyp = $( '#_nyp' ).closest( 'label' ).hide();
 
-				if ( 'yes' === this.value ) {
+				if ( 'yes' === value ) {
 					$nyp.hide();
-					$( '#mnm_product_data .show_if_per_item_pricing' ).show();
 				} else {
 					$nyp.show();
-					$( '#mnm_product_data .show_if_per_item_pricing' ).hide();
 				}
-
 			}
-		);
 
-		// Hide/Show shipping related fields.
-		$( '.mnm_packing_options .packing_mode' ).on(
-			'change',
-			function() {
+		} );
 
-				if ( 'mix-and-match' === $( '#product-type' ).val() ) {
-
-					var mode = $( '.mnm_packing_options .packing_mode:checked' ).val();
-
-					if ( 'together' === mode ) {
-						$( '#shipping_product_data .show_if_packed_together' ).show();
-						$( '#shipping_product_data .hide_if_packed_together' ).hide();
-					} else if ( 'separate' === mode ) {
-						$( '#shipping_product_data .show_if_packed_separately' ).show();
-						$( '#shipping_product_data .hide_if_packed_separately' ).hide();
-
-						// Trigger when packed separately is selected.
-						$( '.mnm_packing_options .wc_mnm_has_physical_container' ).trigger( 'change' );
-					} else {
-						$( '#shipping_product_data .show_if_virtual' ).show();
-						$( '#shipping_product_data .hide_if_virtual' ).hide();
-					}
-
-				}
-
-			}
-		);
-
-		// Hide/Show shipping fields when packed separately fields.
-		$( '.mnm_packing_options .wc_mnm_has_physical_container' ).on(
-			'change',
-			function() {
-
-				if ( 'mix-and-match' === $( '#product-type' ).val() ) {
-
-					if ( this.checked ) {
-						$( '#shipping_product_data .show_if_has_physical_container' ).show();
-					} else {
-						$( '#shipping_product_data .show_if_has_physical_container' ).hide();
-					}
-
-				}
-
-			}
-		);
 
 		// Mix and Match type specific options.
 		$( document.body ).on(
@@ -131,23 +82,22 @@ jQuery(
 				if ( select_val === 'mix-and-match' ) {
 
 					// Handle hide/show of toggles inside MNM panel.
-					$( '#wc_mnm_layout_override' ).trigger( 'change' );
-					$( '.wc_mnm_content_source:checked' ).trigger( 'change' );
-					$( '.wc_mnm_per_product_pricing:checked' ).trigger( 'change' );
+					$( '.wc_mnm_display_toggle input[type="checkbox"]' ).trigger( 'change' );
+					$( '.wc_mnm_display_toggle :input[type!="checkbox"]:checked' ).trigger( 'change' );
+					
 					$( 'input#_manage_stock' ).trigger( 'change' );
 
-					// Handle hide/show of toggles inside shipping panel.
-					$( '.mnm_packing_options .packing_mode:checked' ).trigger( 'change' );
-
 					// Blunt-force the shipping tab to show. Necessary if not updated and user still has _virtual meta = 'yes'.
-					$( '.product_data_tabs .shipping_options ' ).show();
+					$( '.product_data_tabs .shipping_options' ).show();
 
 				}
 
 			}
 		);
 
-		if ( typeof $.fn.selectWoo === 'function' ) {
+		
+		// Category enhanced search.
+		try {
 
 			// Duplicated Ajax category search box since Woo does not yet support saving cat IDs.
 			// @see: https://github.com/woocommerce/woocommerce/pull/32743.
@@ -239,33 +189,47 @@ jQuery(
 				},
 				getEnhancedSelectFormatString()
 			);
+			
+			$( document.body ).on( 'wc-mnm-enhanced-category-select-init', function() {
 
-			$( '#mnm_allowed_categories' ).selectWoo( select2_args ).addClass( 'enhanced' );
+				// Ajax category search box
+				$( ':input.wc-mnm-category-search' ).filter( ':not(.enhanced)' ).each( function() {
+					
+					$( this ).selectWoo( select2_args ).addClass( 'enhanced' );
 
-			// Make sortable.
-			if ( $( '#mnm_allowed_categories' ).data( 'sortable' ) ) {
+					// Make sortable.
+					if ( $( this ).data( 'sortable' ) ) {
 
-				var $select = $( '#mnm_allowed_categories' );
-				var $list   = $select.next( '.select2-container' ).find( 'ul.select2-selection__rendered' );
+						var $select = $( this );
+						var $list   = $select.next( '.select2-container' ).find( 'ul.select2-selection__rendered' );
 
-				$list.sortable(
-					{
-						placeholder : 'ui-state-highlight select2-selection__choice',
-						forcePlaceholderSize: true,
-						items       : 'li:not(.select2-search__field)',
-						tolerance   : 'pointer',
-						stop: function() {
-							$( $list.find( '.select2-selection__choice' ).get().reverse() ).each(
-								function() {
-									var id     = $( this ).data( 'data' ).id;
-									var option = $select.find( 'option[value="' + id + '"]' )[0];
-									$select.prepend( option );
+						$list.sortable(
+							{
+								placeholder : 'ui-state-highlight select2-selection__choice',
+								forcePlaceholderSize: true,
+								items       : 'li:not(.select2-search__field)',
+								tolerance   : 'pointer',
+								stop: function() {
+									$( $list.find( '.select2-selection__choice' ).get().reverse() ).each(
+										function() {
+											var id     = $( this ).data( 'data' ).id;
+											var option = $select.find( 'option[value="' + id + '"]' )[0];
+											$select.prepend( option );
+										}
+									);
 								}
-							);
-						}
+							}
+						);
 					}
-				);
-			}
+
+				});
+
+				
+			} ).trigger( 'wc-mnm-enhanced-category-select-init' );
+
+		} catch( err ) {
+			// If select2 failed (conflict?) log the error but don't stop other scripts breaking.
+			window.console.log( err );
 		}
 
 		// Trigger product type change.

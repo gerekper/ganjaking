@@ -84,7 +84,16 @@ class WC_MNM_Child_Item_Data_Store {
 			$data = $wpdb->get_row(
                 $wpdb->prepare(
                     "
-				SELECT items.child_item_id, items.product_id, items.container_id, items.menu_order, p.post_parent as product_parent_id
+				SELECT items.child_item_id, 
+					CASE
+					WHEN p.post_parent > 0 THEN p.post_parent
+					ELSE items.product_id 
+					END AS product_id,
+				CASE
+					WHEN p.post_parent > 0 THEN items.product_id
+					ELSE 0
+					END AS variation_id,
+				items.container_id, items.menu_order
 				FROM {$wpdb->prefix}wc_mnm_child_items AS items 
 				INNER JOIN {$wpdb->prefix}posts as p ON items.product_id = p.ID
 				WHERE items.child_item_id = %d",
@@ -100,8 +109,8 @@ class WC_MNM_Child_Item_Data_Store {
 
 		$child_item->set_props(
 			array(
-				'product_id'   => $data->product_parent_id ? $data->product_parent_id : $data->product_id,
-				'variation_id' => $data->product_parent_id ? $data->product_id : 0,
+				'product_id'   => $data->product_id,
+				'variation_id' => $data->variation_id,
 				'container_id' => $data->container_id,
 				'menu_order'   => $data->menu_order,
 			)

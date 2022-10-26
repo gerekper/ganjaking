@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Classes/Products
  * @since    1.0.0
- * @version  2.1.2
+ * @version  2.2.0
  */
 
 // Exit if accessed directly.
@@ -60,6 +60,12 @@ class WC_Product_Mix_and_Match extends WC_Product_Mix_and_Match_Legacy {
 	private $on_sale;
 
 	/**
+	 * True if product is NYP enabled.
+	 * @var null|bool
+	 */
+	private $is_nyp = null;
+
+	/**
 	 * True if product data is in sync with children.
 	 * @var bool
 	 */
@@ -89,7 +95,7 @@ class WC_Product_Mix_and_Match extends WC_Product_Mix_and_Match_Legacy {
 	 *  Define type-specific properties.
 	 * @var array
 	 */
-	protected $extra_data = array(
+	protected $extended_data = array(
 		'min_raw_price'             => '',
 		'min_raw_regular_price'     => '',
 		'max_raw_price'             => '',
@@ -117,6 +123,9 @@ class WC_Product_Mix_and_Match extends WC_Product_Mix_and_Match_Legacy {
 
 		// Back-compat.
 		$this->product_type = 'mix-and-match';
+
+		// Merge in our extended data. Renaming to prevent Woo from saving duplicate meta keys. We will handle all own meta saving.
+		$this->data = array_merge( $this->data, $this->extended_data );
 
 		parent::__construct( $product );
 	}
@@ -288,7 +297,7 @@ class WC_Product_Mix_and_Match extends WC_Product_Mix_and_Match_Legacy {
 	 * @param  string  $context
 	 * @return string
 	 */
-	public function get_layout_override( $context = 'any' ) {
+	public function get_layout_override( $context = 'view' ) {
 		return $this->get_prop( 'layout_override', $context );
 	}
 
@@ -300,7 +309,7 @@ class WC_Product_Mix_and_Match extends WC_Product_Mix_and_Match_Legacy {
 	 * @param  string  $context
 	 * @return string
 	 */
-	public function get_layout( $context = 'any' ) {
+	public function get_layout( $context = 'view' ) {
 		return $this->get_prop( 'layout', $context );
 	}
 
@@ -804,7 +813,7 @@ class WC_Product_Mix_and_Match extends WC_Product_Mix_and_Match_Legacy {
 	 * @return bool
 	 */
 	public function is_nyp() {
-		if ( ! isset( $this->is_nyp ) ) {
+		if ( is_null ( $this->is_nyp ) ) {
 			$this->is_nyp = WC_Mix_and_Match()->compatibility->is_nyp( $this );
 		}
 		return $this->is_nyp;
@@ -1697,7 +1706,7 @@ class WC_Product_Mix_and_Match extends WC_Product_Mix_and_Match_Legacy {
 	 */
 	public function get_data_attributes( $args = array() ) {
 
-		$attributes = array(
+		$attributes = wp_parse_args( $args, array(
 			'per_product_pricing' => $this->is_priced_per_product() ? 'true'        :  'false',
 			'container_id'        => $this->get_id(),
 			'min_container_size'  => $this->get_min_container_size(),
@@ -1706,8 +1715,8 @@ class WC_Product_Mix_and_Match extends WC_Product_Mix_and_Match_Legacy {
 			'base_regular_price'  => wc_get_price_to_display( $this, array( 'price' => $this->get_regular_price() ) ),
 			'price_data'          => json_encode( $this->get_container_price_data() ),
 			'input_name'          => wc_mnm_get_child_input_name( $this->get_id() ),
-			'context'             => is_admin() ? 'edit' : 'add-to-cart',
-		);
+			'context'             => doing_action( 'wc_ajax_mnm_get_edit_container_order_item_form' ) ? 'edit' : 'add-to-cart',
+		) );
 
 		/**
 		 * `wc_mnm_container_data_attributes` Data attribues filter.

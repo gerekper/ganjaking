@@ -13,7 +13,7 @@
  * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.0.0
- * @version 2.1.2
+ * @version 2.2.0
  */
 
 // Exit if accessed directly.

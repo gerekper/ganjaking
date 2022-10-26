@@ -6,7 +6,7 @@
  *
  * @package WooCommerce Mix and Match Products/Compatibility
  * @since   1.10.0
- * @version 2.1.3
+ * @version 2.2.0
  */
 
 // Exit if accessed directly.
@@ -88,99 +88,23 @@ class WC_MNM_COCART_Compatibility {
 	 * @return bool
 	 */
 	public static function add_to_cart_validation( $passed_validation, $product_id, $quantity, $variation_id = '', $variation = array(), $cart_item_data = array(), $product_type = '' ) {
+
 		try {
-			if ( 'mix-and-match' === $product_type ) {
+
+			if ( 'mix-and-match' === $product_type && isset( $cart_item_data['mnm_config'] ) ) {
+
 				$product = wc_get_product( $product_id );
 
-				$min_container_size = $product->get_min_container_size();
-				$max_container_size = $product->get_max_container_size();
-				$available_products = $product->get_available_children();
-
-				$strings = WC_Mix_and_Match_Display::get_add_to_cart_parameters( $trim_zeros );
-
-				$error_message = '';
-				$error         = array();
-
-				// Get the total quantity of all items.
-				$total_qty = 0;
-
-				// Reconfigure MNM Configuration.
-				$cart_item_data = self::reconfigure_mnm_configuration( $cart_item_data );
-
-				// Count item total.
-				foreach ( $cart_item_data['mnm_config'] as $child_id => $child_item ) {
-					$child_quantity = $child_item['quantity'];
-					$total_qty +=$child_quantity;
+				try {
+					$passed_validation = wc_mix_and_match()->cart->validate_container_configuration( $product, $values['quantity'], $cart_item_data['mnm_config'], array( 'context' => 'cart', 'throw_exception' => true ) );
+				} catch ( Exception $e ) {
+					throw new CoCart_Data_Exception( $e->getCode(), $e->getMessage(), 404, array( 'plugin' => 'woocommerce-mix-and-match' ) );
 				}
-
-				// Validate that the container has at least 1 item.
-				if ( $min_container_size === $max_container_size && $total_qty !== $min_container_size ) {
-					$error_message = $min_container_size === 1 ? $strings['i18n_qty_error_single'] : $string['i18n_qty_error'];
-					$error_message = str_replace( '%s', $min_container_size, $error_message );
-
-					$error = array( 'error_code' => $min_container_size === 1 ? 'i18n_qty_error_single' : 'i18n_qty_error', 'message' => $error_message );
-				}
-
-				// Validate a range.
-				else if ( $max_container_size > 0 && $min_container_size > 0 && ( $total_qty < $min_container_size || $total_qty > $max_container_size ) ) {
-					$error_message = $strings['i18n_min_max_qty_error'];
-					$error_message = str_replace( '%max', $max_container_size, $error_message );
-					$error_message = str_replace( '%min', $min_container_size, $error_message );
-
-					$error = array( 'error_code' => 'i18n_min_max_qty_error', 'message' => $error_message );
-				}
-
-				// Validate that a container has minimum number of items.
-				else if ( $min_container_size > 0 && $total_qty < $min_container_size ) {
-					$error_message = $min_container_size > 1 ? $strings['i18n_min_qty_error'] : $strings['i18n_min_qty_error_singular'];
-					$error_message = str_replace( '%min', $min_container_size, $error_message );
-
-					$error = array( 'error_code' => $min_container_size > 1 ? 'i18n_min_qty_error' : 'i18n_min_qty_error_singular', 'message' => $error_message );
-				}
-
-				// Validate that a container has fewer than the maximum number of items.
-				else if ( $max_container_size > 0 && $total_qty > $max_container_size ) {
-					$error_message = $max_container_size > 1 ? $strings['i18n_max_qty_error'] : $strings['i18n_max_qty_error_singular'];
-					$error_message = str_replace( '%max', $max_container_size, $error_message );
-
-					$error = array( 'error_code' => $max_container_size > 1 ? 'i18n_max_qty_error' : 'i18n_max_qty_error_singular', 'message' => $error_message );
-				}
-
-				// If quantity validation failed.
-				if ( ! empty( $error ) ) {
-					$selected_qty_message = $total_qty === 1 ? $strings['i18n_qty_message_single'] : $strings['i18n_qty_message'];
-					$error['message'] = str_replace( '%v', $selected_qty_message, $error['message'] );
-					$error['message'] = str_replace( '%s', $total_qty, $error['message'] );
-
-					throw new CoCart_Data_Exception( $error['error_code'], $error['message'], 403, array( 'plugin' => 'woocommerce-mix-and-match' ) );
-				}
-
-				foreach ( $cart_item_data['mnm_config'] as $child_id => $child_item ) {
-					$child_product_id = $child_item[ 'variation_id' ] ? $child_item[ 'variation_id' ] : $child_item[ 'product_id' ];
-
-					// Validate that the product is available for this container.
-					if ( ! $product->is_allowed_child_product( $child_product_id ) ) {
-						$error_message = sprintf( __( 'A product in your configuration is not available for %s.', 'woocommerce-mix-and-match-products' ), $product->get_name( 'view' ) );
-
-						throw new CoCart_Data_Exception( 'wc_mnm_cocart_child_product_not_available_in_container.', $error_message, 403, array( 'plugin' => 'woocommerce-mix-and-match' ) );
-					}
-				}
-
-				// Generate a ID based on product ID, variation ID, variation data, and other cart item data.
-				$cart_id = WC()->cart->generate_cart_id( $product_id, $variation_id, $variation, $cart_item_data );
-
-				// Find the cart item key in the existing cart.
-				$cart_item_key = WC()->cart->find_product_in_cart( $cart_id );
-
-				// Validate container.
-				if ( self::validate_container_configuration( $product, $quantity, $cart_item_data['mnm_config'] ) ) {
-					$passed_validation = true;
-				} else {
-					$passed_validation = false;
-				}
+				
 			}
 
 			return $passed_validation;
+
 		} catch ( CoCart_Data_Exception $e ) {
 			return CoCart_Response::get_error_response( $e->getErrorCode(), $e->getMessage(), $e->getCode(), $e->getAdditionalData() );
 		}
@@ -220,10 +144,13 @@ class WC_MNM_COCART_Compatibility {
 		return $cart_item_data;
 	} // END reconfigure_mnm_configuration()
 
+
 	/**
 	 * Validates add to cart for MNM containers.
 	 *
 	 * Basically ensures that stock for all child products exists before attempting to add them to cart.
+	 * 
+	 * @deprecated 2.2.0
 	 *
 	 * @throws CoCart_Data_Exception Exception if invalid data is detected.
 	 *
@@ -235,120 +162,16 @@ class WC_MNM_COCART_Compatibility {
 	 * @return boolean
 	 */
 	public static function validate_container_configuration( $container, $container_quantity, $configuration ) {
+		wc_deprecated_function( 'WC_MNM_COCART_Compatibility::validate_container_configuration()', '2.2.0', 'Function is no longer used.' );
+
 		try {
-			$is_configuration_valid = true;
-
-			// Count the total child items.
-			$total_items_in_container = 0;
-
-			$container_id    = $container->get_id();
-			$container_title = $container->get_title();
-
-			// If a stock-managed product / variation exists in the container multiple times, its stock will be checked only once for the sum of all child quantities.
-			// The stock manager class keeps a record of stock-managed product / variation ids.
-			$mnm_stock = new WC_Mix_and_Match_Stock_Manager( $container );
-
-			$error_message = '';
-			$error         = array();
-
-			if ( $container->has_child_items() ) {
-
-				// Loop through the items.
-				foreach ( $container->get_child_items() as $child_item ) {
-
-					$child_product    = $child_item->get_product();
-					$child_product_id = $child_product->get_id();
-
-					// Check that a product has been selected.
-					if ( isset( $configuration[ $child_product_id ] ) && $configuration[ $child_product_id ] !== '' ) {
-						$item_quantity = $configuration[ $child_product_id ]['quantity'];
-					} else {
-						continue;
-					}
-
-					// Total quantity in single container.
-					$total_items_in_container += $item_quantity;
-
-					// Total quantity of items in all containers: for stock purposes.
-					$quantity = $item_quantity * $container_quantity;
-
-					// Product is purchasable - only for per item pricing.
-					if ( $container->is_priced_per_product() && ! $child_product->is_purchasable() ) {
-						$error_message = sprintf( __( 'The configuration you have selected cannot be added to the cart since &quot;%s&quot; cannot be purchased.', 'woocommerce-mix-and-match-products' ), $child_product->get_title() );
-					}
-
-					// Validate the max number of items in the container.
-					if ( $max_container_size > 0 && $total_items_in_container > $max_container_size ) {
-						// translators: %1$d is the maximum container quantity. %2$s is the container product title.
-						$error_message = sprintf( _n( 'You have selected too many items. Please choose %1$d item for &quot;%2$s&quot;', 'You have selected too many items. Please choose %1$d items for &quot;%2$s&quot;.', $max_container_size, 'woocommerce-mix-and-match-products' ), $max_container_size, $container->get_title() );
-						$error = array( 'error_code' => 'wc_mnm_cocart_container_too_many_items', 'message' => $error_message );
-					}
-
-					// Check individual min/max quantities.
-					$min_quantity  = $child_item->get_quantity( 'min' );
-					$max_quantity  = $child_item->get_quantity( 'max' );
-					$step_quantity = $child_item->get_quantity( 'step' );
-
-					if ( $max_quantity && $item_quantity > $max_quantity ) {
-						// translators: %1ds is the maximum quantity of the child product. %2$s is the product title.
-						$error_message = sprintf( __( 'The configuration you have selected cannot be added to the cart since you cannot select more than %1$d of &quot;%2$s&quot;.', 'woocommerce-mix-and-match-products' ), $max_quantity, $child_product->get_title() );
-						$error = array( 'error_code' => 'wc_mnm_cocart_configuration_cannot_select_more', 'message' => $error_message );
-					} elseif ( $min_quantity && $item_quantity < $min_quantity ) {
-						// translators: %1$d is the minimum quantity of the child product. %2$s is the product title.
-						$error_message = sprintf( __( 'The configuration you have selected cannot be added to the cart since you must select at least %1$d of &quot;%2$s&quot;.', 'woocommerce-mix-and-match-products' ), $min_quantity, $child_product->get_title() );
-						$error = array( 'error_code' => 'wc_mnm_cocart_configuration_cannot_select_less', 'message' => $error_message );
-					} elseif ( $step_quantity > 1 && $item_quantity % $step_quantity ) {
-						// translators: %1$s is the product title. %2$d is the step quantity of the child product.
-						$error_message = sprintf( __( 'The configuration you have selected cannot be added to the cart since you must select &quot;%1$s&quot; in quantities of %2$d.', 'woocommerce-mix-and-match-products' ), $child_product->get_title(), $step_quantity );
-						$error = array( 'error_code' => 'wc_mnm_cocart_configuration_must_select_quantities', 'message' => $error_message );
-					}
-
-					if ( ! empty( $error ) ) {
-						throw new CoCart_Data_Exception( $error['error_code'], $error['message'], 403, array( 'plugin' => 'woocommerce-mix-and-match' ) );
-					}
-
-					// Stock management.
-					$mnm_stock->add_item( $child_item->get_product_id(), $child_item->get_variation_id(), $quantity );
-
-					/**
-					 * Individual item validation.
-					 *
-					 * @param bool $is_valid
-					 * @param obj  $container          WC_Product_Mix_and_Match of parent container.
-					 * @param obj  $child_item         WC_MNM_Child_Item of child item.
-					 * @param int  $item_quantity      Quantity of child item.
-					 * @param int  $container_quantity Quantity of parent container.
-					 */
-					$is_configuration_valid = apply_filters( 'wc_mnm_cocart_child_item_add_to_cart_validation', true, $container, $child_item, $item_quantity, $container_quantity );
-
-					if ( has_filter( 'wc_mnm_cocart_item_add_to_cart_validation' ) ) {
-						wc_deprecated_function( 'wc_mnm_cocart_item_add_to_cart_validation', '2.0.0', 'wc_mnm_child_item_add_to_cart_validation, nb: 3rd param will be WC_MNM_Child_Item object.' );
-
-						/**
-						 * Individual item validation.
-						 *
-						 * @deprecated - 2.0.0
-						 *
-						 * @param bool $is_configuration_valid
-						 * @param obj  $container          WC_Product_Mix_and_Match of parent container.
-						 * @param obj  $mnm_item           WC_Product of child item.
-						 * @param int  $item_quantity      Quantity of child item.
-						 * @param int  $container_quantity Quantity of parent container.
-						 * @param int $container_quantity Quantity of parent container.
-						 */
-						$is_configuration_valid = apply_filters( 'wc_mnm_cocart_item_add_to_cart_validation', $is_configuration_valid, $container, $child_product, $item_quantity, $container_quantity );
-					}
-
-					if ( ! $is_configuration_valid ) {
-						break;
-					}
-
-				} // END foreach.
-			}
-		} catch ( CoCart_Data_Exception $e ) {
-			return CoCart_Response::get_error_response( $e->getErrorCode(), $e->getMessage(), $e->getCode(), $e->getAdditionalData() );
+			return wc_mix_and_match()->cart->validate_container_configuration( $container, $container_quantity, $configuration, array( 'context' => 'cart', 'throw_exception' => true ) );
+		} catch ( Exception $e ) {
+			throw new CoCart_Data_Exception( $e->getCode(), $e->getMessage(), 404, array( 'plugin' => 'woocommerce-mix-and-match' ) );
 		}
+
 	} // END validate_container_configuration()
+
 
 	/**
 	 * Validates the item when being updated.
@@ -371,59 +194,17 @@ class WC_MNM_COCART_Compatibility {
 
 			if ( $product->is_type( 'mix-and-match' ) && wc_mnm_is_container_cart_item( $values ) ) {
 				
-				// Grab child items.
-				$child_items = $product->get_child_items();
-
-				if ( empty( $child_items ) ) {
-					throw new CoCart_Data_Exception( 'wc_mnm_cocart_container_no_child_items', __( 'This container has no child items.', 'woocommerce-mix-and-match-products' ), 404, array( 'plugin' => 'woocommerce-mix-and-match' ) );
+				try {
+					$additional_quantity = $product_quantity - $values['quantity'];
+					$passed_validation = wc_mix_and_match()->cart->validate_container_configuration( $product, $additional_quantity, $values['mnm_config'], array( 'context' => 'cart', 'throw_exception' => true ) );
+				} catch ( Exception $e ) {
+					throw new CoCart_Data_Exception( $e->getCode(), $e->getMessage(), 404, array( 'plugin' => 'woocommerce-mix-and-match' ) );
 				}
 
-				// If a stock-managed product / variation exists in the container multiple times, its stock will be checked only once for the sum of all child quantities.
-				// The stock manager class keeps a record of stock-managed product / variation ids.
-				$mnm_stock = new WC_Mix_and_Match_Stock_Manager( $product );
-
-				$configuration = $values['mnm_config'];
-
-				// Loop through the items.
-				foreach ( $child_items as $child_item_id => $child_item ) {
-
-					// Get the child product/variation.
-					$child_product    = $child_item->get_product();
-					$child_product_id = $child_item->get_variation_id() ? $child_item->get_variation_id() : $child_item->get_product_id();
-
-					// Check that a product has been selected.
-					if ( isset( $configuration[ $child_product_id ] ) && $configuration[ $child_product_id ] !== '' ) {
-						$item_quantity = $configuration[ $child_product_id ]['quantity'];
-						// If the ID isn't in the posted data something is rotten in Denmark.
-					} else {
-						continue;
-					}
-
-					// Quantity per container.
-					$item_quantity = $data['quantity'];
-
-					// Total quantity.
-					$quantity = $item_quantity * $additional_quantity;
-
-					// Product could not be found. Either deleted or was never created.
-					if ( ! $child_product ) {
-						throw new CoCart_Data_Exception( 'wc_mnm_cocart_child_item_not_exist', __( 'An item that was originally added to this container no longer exists.', 'woocommerce-mix-and-match-products' ), 404, array( 'plugin' => 'woocommerce-mix-and-match' ) );
-					}
-
-					// Stock management.
-					$mnm_stock->add_item( $child_item->get_product_id(), $child_item->get_variation_id(), $quantity );
-
-				} // End foreach.
-
-				// Check stock for stock-managed child items.
-				// If out of stock, don't proceed.
-				if ( ! $mnm_stock->validate_stock( true ) ) {
-					throw new CoCart_Data_Exception( 'wc_mnm_cocart_child_item_not_exist', __( 'There is not enough stock to purchase this many containers.', 'woocommerce-mix-and-match-products' ), 404, array( 'plugin' => 'woocommerce-mix-and-match' ) );
-					return false;
-				}
 			}
-
+			
 			return $passed_validation;
+
 		} catch ( CoCart_Data_Exception $e ) {
 			return CoCart_Response::get_error_response( $e->getErrorCode(), $e->getMessage(), $e->getCode(), $e->getAdditionalData() );
 		}

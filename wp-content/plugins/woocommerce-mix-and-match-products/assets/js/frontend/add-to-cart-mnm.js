@@ -164,44 +164,10 @@ jQuery.fn.wc_get_mnm_script = function() {
 	/**
 	 * Main container object.
 	 */
-	function WC_MNM_Container( data ) {
+	function WC_MNM_Container( $form ) {
 
-		var container = this;
-
-		this.container_id = data.container_id;
-
-		this.$mnm_form = data.$mnm_form;
-		this.$mnm_data = data.$mnm_data;
-		this.$mnm_cart = data.$mnm_data; // For backcompat.
-
-		this.$mnm_items = data.$mnm_form.find( '.mnm_item' );
-		this.$mnm_price = data.$mnm_form.find( '.mnm_price' );
-		this.$mnm_reset = data.$mnm_form.find( '.mnm_reset' );
-
-		this.$mnm_button          = data.$mnm_data.find( '.mnm_add_to_cart_button' );
-		this.$mnm_message         = data.$mnm_data.find( '.mnm_message' );
-		this.$mnm_message_content = this.$mnm_message.find( '.mnm_message_content' );
-		this.$mnm_quantity        = this.$mnm_data.find( '.mnm_wrap input.qty' );
-
-		this.$addons_totals     = this.$mnm_data.find( '#product-addons-total' );
-		this.show_addons_totals = false;
-
-		this.child_items = {};
-
-		this.price_data = data.$mnm_data.data( 'price_data' );
-
-		this.container_size     = 0;
-		this.min_container_size = data.$mnm_data.data( 'min_container_size' );
-		this.max_container_size = data.$mnm_data.data( 'max_container_size' );
-		this.container_config   = [];
-
-		this.update_mnm_timer   = false;
-		this.update_price_timer = false;
-
-		this.validation_context  = 'undefined' !== data.$mnm_data.data( 'context' ) ?  data.$mnm_data.data( 'context' ) : 'cart';
-		this.validation_messages = [];
-		this.status_messages     = [];
-
+		var container       = this;
+		this.$mnm_form      = $form;
 		this.is_initialized = false;
 
 		this.api = {
@@ -430,14 +396,14 @@ jQuery.fn.wc_get_mnm_script = function() {
 				 * Update totals upon changing quantities.
 				 */
 				.on(
-                    'input',
-                    ':input',
+                    'input.wc-mnm-form',
+                    ':input.qty',
                     function() {
 					clearTimeout( child_item.child_item_timer );
 					var $input = $( this );
                     child_item.child_item_timer = setTimeout(
                         function() {
-                        $input.trigger( 'change' );
+                        $input.trigger( 'change.wc-mnm-form' );
                         },
                         500
                     );
@@ -445,8 +411,8 @@ jQuery.fn.wc_get_mnm_script = function() {
                     } 
                 )
 				.on(
-                    'change',
-                    ':input',
+                    'change.wc-mnm-form',
+                    ':input.qty',
                     function() {
 					child_item.update_quantity();
 					container.update_container( child_item );
@@ -464,15 +430,12 @@ jQuery.fn.wc_get_mnm_script = function() {
 				container.$mnm_data.on( 'updated_addons', container.updated_addons_handler );
 			}
 
-			container.$mnm_reset
+			// Upon clicking reset link.
+			container.$mnm_reset.on( 'click.wc-mnm-form', function() {
+				container.$mnm_form.trigger( 'wc-mnm-container-reset' );
+			} );
 
-				// Upon clicking reset link.
-				.on(
-					'click',
-					function( e ) {
-						container.reset( e );
-					}
-				);
+			container.$mnm_form.on( 'wc-mnm-container-reset', container.reset );
 
 		};
 
@@ -792,6 +755,55 @@ jQuery.fn.wc_get_mnm_script = function() {
 		 * Object initialization.
 		 */
 		this.initialize = function() {
+
+			this.$mnm_data = this.$mnm_form.find( '.mnm_data' );
+			this.$mnm_cart = this.$mnm_data; // For backcompat.
+
+			if ( 'undefined' === typeof this.$mnm_data ) {
+				return false;
+			}
+
+			this.container_id = this.$mnm_data.data( 'container_id' );
+
+			if ( 'undefined' === typeof this.container_id ) {
+				return false;
+			}
+
+			// Store script ID.
+			this.$mnm_form.data( 'script_id', this.container_id );
+
+			// Find relevant elements.
+			this.$mnm_items  = this.$mnm_form.find( '.mnm_item' );
+			this.$mnm_price  = this.$mnm_form.find( '.mnm_price' );
+			this.$mnm_reset  = this.$mnm_form.find( '.mnm_reset' );
+			this.$mnm_button = this.$mnm_form.find( '.single_add_to_cart_button' );
+
+			if ( ! this.$mnm_button.length ) {
+				this.$mnm_button = this.$mnm_form.find( ':submit' );
+			}
+
+			this.$mnm_message         = this.$mnm_data.find( '.mnm_message' );
+			this.$mnm_message_content = this.$mnm_message.find( '.mnm_message_content' );
+			this.$mnm_quantity        = this.$mnm_data.find( '.mnm_wrap input.qty' );
+
+			this.$addons_totals     = this.$mnm_data.find( '#product-addons-total' );
+			this.show_addons_totals = false;
+
+			this.child_items = {};
+
+			this.price_data = this.$mnm_data.data( 'price_data' );
+
+			this.container_size     = 0;
+			this.min_container_size = this.$mnm_data.data( 'min_container_size' );
+			this.max_container_size = this.$mnm_data.data( 'max_container_size' );
+			this.container_config   = [];
+
+			this.update_mnm_timer   = false;
+			this.update_price_timer = false;
+
+			this.validation_context  = 'undefined' !== this.$mnm_data.data( 'context' ) ?  this.$mnm_data.data( 'context' ) : 'cart';
+			this.validation_messages = [];
+			this.status_messages     = [];
 
 			/**
 			 * Initial states and loading.
@@ -1154,6 +1166,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 			}
 
 			// Change message style based on validation.
+			this.$mnm_data.toggleClass( 'passes_validation', this.passes_validation() );
 			this.$mnm_message.toggleClass( 'woocommerce-error', ! this.passes_validation() );
 
 			// Hide/Show Reset Link.
@@ -1168,21 +1181,18 @@ jQuery.fn.wc_get_mnm_script = function() {
 		/**
 		 * Reset form to intial state.
 		 */
-
-		this.reset = function( event ) {
-
-			event.preventDefault();
+		this.reset = function() {
 
 			// Loop through child items.
 			$.each(
-				this.child_items,
+				container.child_items,
 				function( index, child_item ) {
 					child_item.reset();
 				}
 			);
 
 			if ( false !== container.$mnm_reset.triggerHandler( 'wc-mnm-reset-configuration', [ container ] ) ) {
-				this.update_container();
+				container.update_container();
 			}
 
 		};
@@ -1207,7 +1217,6 @@ jQuery.fn.wc_get_mnm_script = function() {
 		 * Quantity total message builder.
 		 */
 		this.selected_quantity_message = function( qty ) {
-
 			var message = qty === 1 ? wc_mnm_params.i18n_qty_message_single : wc_mnm_params.i18n_qty_message;
 			return message.replace( '%s', qty );
 		};
@@ -1216,7 +1225,7 @@ jQuery.fn.wc_get_mnm_script = function() {
 		 * Shuts down events, actions and filters managed by this script object.
 		 */
 		this.shutdown = function() {
-			this.$mnm_form.find( '*' ).off();
+			this.$mnm_form.find( '*' ).off( '.wc-mnm-form' );
 		};
 
 		/**
@@ -1259,41 +1268,50 @@ jQuery.fn.wc_get_mnm_script = function() {
 			var validation_status  = container.is_initialized ? '' : container.api.get_validation_status();
 
 			// Validation.
-			if ( min_container_size === max_container_size ) {
+			switch ( true ) {
+				// Validate a fixed size container.
+				case min_container_size === max_container_size:
 
-				valid_message = 'undefined' !== typeof wc_mnm_params[ 'i18n_' + this.validation_context + '_valid_fixed_message'  ] ?  wc_mnm_params[ 'i18n_' + this.validation_context + '_valid_fixed_message'  ] : wc_mnm_params.i18n_valid_fixed_message;
+					valid_message = 'undefined' !== typeof wc_mnm_params[ 'i18n_' + this.validation_context + '_valid_fixed_message'  ] ?  wc_mnm_params[ 'i18n_' + this.validation_context + '_valid_fixed_message'  ] : wc_mnm_params.i18n_valid_fixed_message;
+					
+					if ( total_qty !== min_container_size ) {
+						error_message = min_container_size === 1 ? wc_mnm_params.i18n_qty_error_single : wc_mnm_params.i18n_qty_error;
+						error_message = error_message.replace( '%s', min_container_size );
+					}
 
-				if ( total_qty !== min_container_size ) {
-					error_message = min_container_size === 1 ? wc_mnm_params.i18n_qty_error_single : wc_mnm_params.i18n_qty_error;
-					error_message = error_message.replace( '%s', min_container_size );
-				}
+					break;
 
-					// Validate that a container has fewer than the maximum number of items.
-			} else if ( max_container_size > 0 && min_container_size === 0 ) {
+				// Validate that a container has fewer than the maximum number of items.
+				case max_container_size > 0 && min_container_size === 0:
 
-				valid_message = 'undefined' !== typeof wc_mnm_params[ 'i18n_' + this.validation_context + '_valid_max_message'  ] ?  wc_mnm_params[ 'i18n_' + this.validation_context + '_valid_max_message'  ] : wc_mnm_params.i18n_valid_max_message;
+					valid_message = 'undefined' !== typeof wc_mnm_params[ 'i18n_' + this.validation_context + '_valid_max_message'  ] ?  wc_mnm_params[ 'i18n_' + this.validation_context + '_valid_max_message'  ] : wc_mnm_params.i18n_valid_max_message;
 
-				if ( total_qty > max_container_size ) {
-					error_message = max_container_size > 1 ? wc_mnm_params.i18n_max_qty_error : wc_mnm_params.i18n_max_qty_error_singular;
-				}
+					if ( total_qty > max_container_size ) {
+						error_message = max_container_size > 1 ? wc_mnm_params.i18n_max_qty_error : wc_mnm_params.i18n_max_qty_error_singular;
+					}
+
+					break;
 
 				// Validate a range.
-			} else if ( max_container_size > 0 && min_container_size > 0 ) {
+				case max_container_size > 0 && min_container_size > 0:
 
-				valid_message = 'undefined' !== typeof wc_mnm_params[ 'i18n_' + this.validation_context + '_valid_range_message'  ] ?  wc_mnm_params[ 'i18n_' + this.validation_context + '_valid_range_message'  ] : wc_mnm_params.i18n_valid_range_message;
-	
-				if ( total_qty < min_container_size || total_qty > max_container_size ) {
-					error_message = wc_mnm_params.i18n_min_max_qty_error;
-				}
+					valid_message = 'undefined' !== typeof wc_mnm_params[ 'i18n_' + this.validation_context + '_valid_range_message'  ] ?  wc_mnm_params[ 'i18n_' + this.validation_context + '_valid_range_message'  ] : wc_mnm_params.i18n_valid_range_message;
+		
+					if ( total_qty < min_container_size || total_qty > max_container_size ) {
+						error_message = wc_mnm_params.i18n_min_max_qty_error;
+					}
+				break;
 
 				// Validate that a container has minimum number of items.
-			} else if ( min_container_size >= 0 ) {
+				case min_container_size >= 0:
 
-				valid_message = 'undefined' !== typeof wc_mnm_params[ 'i18n_' + this.validation_context + '_valid_min_message'  ] ?  wc_mnm_params[ 'i18n_' + this.validation_context + '_valid_min_message'  ] : wc_mnm_params.i18n_valid_min_message;
+					valid_message = 'undefined' !== typeof wc_mnm_params[ 'i18n_' + this.validation_context + '_valid_min_message'  ] ?  wc_mnm_params[ 'i18n_' + this.validation_context + '_valid_min_message'  ] : wc_mnm_params.i18n_valid_min_message;
 
-				if ( total_qty < min_container_size ) {
-					error_message = min_container_size > 1 ? wc_mnm_params.i18n_min_qty_error : wc_mnm_params.i18n_min_qty_error_singular;
-				}
+					if ( total_qty < min_container_size ) {
+						error_message = min_container_size > 1 ? wc_mnm_params.i18n_min_qty_error : wc_mnm_params.i18n_min_qty_error_singular;
+					}
+
+				break;
 
 			}
 
@@ -1305,9 +1323,9 @@ jQuery.fn.wc_get_mnm_script = function() {
 				this.add_message( error_message.replace( '%v', qty_message ), 'error' );
 
 				// Add selected qty status message if there are no error messages.
-			} else {
+			} else if ( valid_message !== '' ) {
 
-				valid_message = valid_message.replace( '%max', max_container_size ).replace( '%min', min_container_size );
+				valid_message = valid_message.replace( '%max', max_container_size ).replace( '%min', min_container_size );	
 
 				this.add_message( valid_message.replace( '%v', qty_message ) );
 			}
@@ -1648,15 +1666,19 @@ jQuery.fn.wc_get_mnm_script = function() {
 					}
 				}
 
-				if ( typeof( wc_mnm_scripts[ container_id ] ) !== 'undefined' ) {
-					wc_mnm_scripts[ container_id ].shutdown();
+
+				if ( 'undefined' !== typeof this.data( 'script_id' ) && 'undefined' !== typeof( wc_mnm_scripts[ this.data( 'script_id' ) ] ) ) {
+					wc_mnm_scripts[ this.data( 'script_id' ) ].shutdown();
 				}
 
-				wc_mnm_scripts[ container_id ] = new WC_MNM_Container( { $mnm_form: $mnm_form, $mnm_data: $mnm_data, container_id: container_id } );
+				var container = new WC_MNM_Container( this );
+				container.initialize();
 
-				$mnm_form.data( 'script_id', container_id );
+				if ( container && container.is_initialized ) {
+					wc_mnm_scripts[ container.container_id ] = container;
+				}
 
-				wc_mnm_scripts[ container_id ].initialize();
+				return this;
 
 			};
 

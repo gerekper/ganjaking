@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Admin/Import
  * @since    1.3.0
- * @version  2.0.0
+ * @version  2.2.0
  */
 
 // Exit if accessed directly.
@@ -177,7 +177,7 @@ class WC_MNM_Product_Import {
 	 */
 	public static function set_mnm_props( $product, $data ) {
 
-		if ( $product instanceof WC_Product && $product->is_type( 'mix-and-match' ) ) {
+		if ( $product instanceof WC_Product && wc_mnm_is_product_container_type( $product ) ) {
 
 			$props = apply_filters(
 				'wc_mnm_import_set_props',

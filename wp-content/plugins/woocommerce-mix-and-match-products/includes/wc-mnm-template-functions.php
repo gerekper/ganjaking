@@ -6,7 +6,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Functions
  * @since    1.0.0
- * @version  2.0.7
+ * @version  2.2.0
  */
 
 // Exit if accessed directly.
@@ -28,16 +28,12 @@ function wc_mnm_template_add_to_cart_after_summary() {
 
 	global $product;
 
-	if ( $product->is_type( 'mix-and-match' ) ) {
-		if ( 'after_summary' === $product->get_add_to_cart_form_location() ) {
-			$classes = implode( ' ', apply_filters( 'wc_mnm_form_wrapper_classes', array( 'summary-add-to-cart-form', 'summary-add-to-cart-form-mnm' ), $product ) );
-			?><div class="<?php echo esc_attr( $classes ); ?>">
-			<?php
-				do_action( 'woocommerce_mix-and-match_add_to_cart' );
-			?>
-			</div>
-			<?php
-		}
+	if ( wc_mnm_is_product_container_type( $product ) && 'after_summary' === $product->get_add_to_cart_form_location() ) { 
+		$classes = implode( ' ', apply_filters( 'wc_mnm_form_wrapper_classes', array( 'summary-add-to-cart-form', 'summary-add-to-cart-form-mnm' ), $product ) ); ?>
+		<div class="<?php echo esc_attr( $classes ); ?>">
+			<?php do_action( 'woocommerce_mix-and-match_add_to_cart' ); ?>
+		</div>
+		<?php
 	}
 }
 
@@ -46,7 +42,7 @@ function wc_mnm_template_add_to_cart_after_summary() {
  *
  * @since  1.3.0
  *
- * @param WC_Product_Mix_and_Match $product - Optionally call template for a specific product. Since 1.11.7
+ * @param WC_Product_Mix_and_Match $container - Optionally call template for a specific product. Since 1.11.7
  */
 function wc_mnm_template_add_to_cart( $container = false ) {
 
@@ -62,7 +58,7 @@ function wc_mnm_template_add_to_cart( $container = false ) {
 		$product = $container;
 	}
 
-	if ( ! $product || ! $product->is_type( 'mix-and-match' ) ) {
+	if ( ! $product || ! wc_mnm_is_product_container_type( $product ) ) {
 		return;
 	}
 
@@ -88,7 +84,7 @@ function wc_mnm_template_add_to_cart( $container = false ) {
 	 *
 	 * @param array - The classes that will print in the <form> tag.
 	 * @param obj $product WC_Mix_And_Match of parent product
-	 * @since  2.1.2
+	 * @since  2.2.0
 	 */
 	$classes = apply_filters( 'wc_mnm_form_classes', $classes, $product );
 
@@ -189,6 +185,16 @@ function wc_mnm_template_child_items_wrapper_open( $product ) {
 		wc_set_loop_prop( 'loop', 0 );
 		wc_set_loop_prop( 'columns', $columns );
 
+		$column_headers = array();
+
+		// Check whether or not to display thumbnails.
+		if ( 'yes' === get_option( 'wc_mnm_display_thumbnail', 'yes' ) ) {
+			$column_headers[ 'thumbnail' ] = '&nbsp;';
+		}
+
+		$column_headers[ 'name' ] = esc_html_x( 'Product', '[Frontend]', 'woocommerce-mix-and-match-products' );
+		$column_headers[ 'quantity' ] = esc_html_x( 'Quantity', '[Frontend]', 'woocommerce-mix-and-match-products' );
+
 		/**
 		 * Table column headings.
 		 *
@@ -196,14 +202,7 @@ function wc_mnm_template_child_items_wrapper_open( $product ) {
 		 * @param obj $product WC_Mix_And_Match of parent product
 		 * @since  1.3.1
 		 */
-		$column_headers = apply_filters(
-			'wc_mnm_tabular_column_headers',
-			array( 'thumbnail'  => '&nbsp;',
-				   'name'       => _x( 'Product', '[Frontend]', 'woocommerce-mix-and-match-products' ),
-				   'quantity'   => _x( 'Quantity', '[Frontend]', 'woocommerce-mix-and-match-products' )
-			),
-			$product
-		);
+		$column_headers = apply_filters( 'wc_mnm_tabular_column_headers', $column_headers, $product );
 
 		$classes = array(
 			'products',
@@ -295,6 +294,11 @@ function wc_mnm_template_child_item_details_wrapper_open( $child_item, $product 
  */
 function wc_mnm_template_child_item_thumbnail_open( $child_item, $product ) {
 
+	// Check whether or not to display thumbnails.
+	if ( 'yes' !== get_option( 'wc_mnm_display_thumbnail', 'yes' ) ) {
+		return;
+	}
+
 	/**
 	 * Wrapping classes.
 	 *
@@ -326,6 +330,11 @@ function wc_mnm_template_child_item_thumbnail_open( $child_item, $product ) {
  * @since  1.3.0
  */
 function wc_mnm_template_child_item_thumbnail( $child_item, $product ) {
+
+	// Check whether or not to display thumbnails.
+	if ( 'yes' !== get_option( 'wc_mnm_display_thumbnail', 'yes' ) ) {
+		return;
+	}
 
 	$thumbnail_id = has_post_thumbnail( $child_item->get_product()->get_id() ) ? get_post_thumbnail_id( $child_item->get_product()->get_id() ) : get_post_thumbnail_id( $child_item->get_product()->get_parent_id() );
 
@@ -372,11 +381,35 @@ function wc_mnm_template_child_item_thumbnail( $child_item, $product ) {
 			'thumbnail_id' => $thumbnail_id,
 			'image_size'   => $image_size,
 			'link_classes' => $link_classes,
+			'image_rel'    => current_theme_supports( 'wc-product-gallery-lightbox' ) ? 'photoSwipe' : 'prettyPhoto',
 		),
 		'',
 		WC_Mix_and_Match()->plugin_path() . '/templates/'
 	);
 
+}
+
+/**
+ * Close the thumbnail section.
+ * 
+ * @since 2.2.0
+ *
+ * @param obj WC_MNM_Child_Item $child_item of child item
+ * @param obj WC_Mix_and_Match $product the parent container
+ */
+function wc_mnm_template_child_item_thumbnail_close( $child_item, $product ) {
+
+	// Check whether or not to display thumbnails.
+	if ( 'yes' !== get_option( 'wc_mnm_display_thumbnail', 'yes' ) ) {
+		return;
+	}
+
+	wc_get_template(
+		'single-product/mnm/' . $product->get_layout() . '/mnm-child-item-detail-wrapper-close.php',
+		array(),
+		'',
+		WC_Mix_and_Match()->plugin_path() . '/templates/'
+	);
 }
 
 
@@ -414,7 +447,8 @@ function wc_mnm_template_child_item_title( $child_item, $product ) {
 		'single-product/mnm/mnm-product-title.php',
 		array(
 			'quantity'    => $qty,
-			'title'       => $child_item->get_product()->get_title(),
+			'title'       => $child_item->get_title(),
+			'permalink'   => $child_item->get_permalink(),
 			'child_item'  => $child_item,
 			'mnm_product' => $child_item->get_product(), // For back-compatibility.
 			'mnm_item'    => $child_item->get_product(), // For back-compatibility.
@@ -658,27 +692,27 @@ if ( ! function_exists( 'wc_mnm_template_reset_link' ) ) {
 	 * Add the MNM reset link
 	 * @since  1.3.0
 	 */
-	function wc_mnm_template_reset_link() {
+	function wc_mnm_template_reset_link( $product ) {
 
-		global $product;
-
-		if ( $product->is_type( 'mix-and-match' ) ) {
-				wc_get_template(
-					'single-product/mnm/mnm-reset.php',
-					array(),
-					'',
-					WC_Mix_and_Match()->plugin_path() . '/templates/'
-				);
-		}
+		wc_get_template(
+			'single-product/mnm/mnm-reset.php',
+			array(),
+			'',
+			WC_Mix_and_Match()->plugin_path() . '/templates/'
+		);
 	}
 }
 
 /**
  * Get the Add to Cart button wrap.
+ * 
+ * @deprecated 2.2.0
  *
  * @param obj WC_Mix_and_Match product of parent product
  */
 function wc_mnm_template_add_to_cart_wrap( $product ) {
+
+	wc_deprecated_function( __FUNCTION__, '2.2.0', 'wc_mnm_template_container_status()' );
 
 	$purchasable_notice = _x( 'This product is currently unavailable.', '[Frontend]', 'woocommerce-mix-and-match-products' );
 
@@ -719,6 +753,56 @@ function wc_mnm_template_add_to_cart_wrap( $product ) {
 
 }
 
+
+/**
+ * Get the validation status template. (replacing wc_mnm_template_add_to_cart_wrap() but similar)
+ * 
+ * @since 2.2.0
+ *
+ * @param obj WC_Mix_and_Match product of parent product
+ */
+function wc_mnm_template_container_status( $product ) {
+
+	$purchasable_notice = _x( 'This product is currently unavailable.', '[Frontend]', 'woocommerce-mix-and-match-products' );
+
+	if ( ! $product->is_purchasable()  && current_user_can( 'manage_woocommerce' ) ) {
+
+		$purchasable_notice_reason = '';
+
+		// Give store owners a reason.
+		if ( defined( 'WC_MNM_UPDATING' ) ) {
+			$purchasable_notice_reason .= sprintf( __( 'The Mix and Match database is updating in the background. During this time, all mix and match products on your site will be unavailable. If this message persists, please <a href="%s" target="_blank">get in touch</a> with our support team. Note: This message is visible to store managers only.', 'woocommerce-mix-and-match-products' ), WC_Mix_and_Match()->get_resource_url( 'ticket-form' ) );
+		} elseif ( ! $product->is_priced_per_product() && '' === $product->get_price() ) {
+			$purchasable_notice_reason .= sprintf( __( '&quot;%1$s&quot; is not purchasable because it is missing a base price. To give &quot;%1$s&quot; a static base price, navigate to <strong>Product Data > General</strong> and fill in the <strong>Regular Price</strong> field. Note: This message is visible to store managers only.', 'woocommerce-mix-and-match-products' ), $product->get_title() );
+		} elseif ( ! $product->has_child_items() ) {
+			$purchasable_notice_reason .= __( 'Please make sure that this product has allowed contents defined and that those products have a price and/or are in stock. WooCommerce does not allow products with a blank price to be purchased. Note: This message is visible to store managers only.', 'woocommerce-mix-and-match-products' );
+		}
+
+		if ( $purchasable_notice_reason ) {
+			$purchasable_notice .= '<div class="woocommerce-info"><span class="purchasable_notice_reason">' . $purchasable_notice_reason . '</span></div>';
+		}
+	}
+
+	if ( isset( $_GET['update-container'] ) ) {
+		$updating_cart_key = wc_clean( $_GET['update-container'] );
+		if ( isset( WC()->cart->cart_contents[ $updating_cart_key ] ) ) {
+			echo '<input type="hidden" name="update-container" value="' . $updating_cart_key . '" />';
+		}
+	}
+
+	wc_get_template(
+		'single-product/mnm-container-status.php',
+		array(
+			'product'            => $product,
+			'purchasable_notice' => $purchasable_notice,
+		),
+		'',
+		WC_Mix_and_Match()->plugin_path() . '/templates/'
+	);
+
+}
+
+
 /**
  * Get the Add to Cart button.
  *
@@ -746,6 +830,10 @@ function wc_mnm_template_add_to_cart_button( $product ) {
 * @param obj WC_Mix_and_Match $product the parent container
 */
 function wc_mnm_child_item_short_description( $child_item, $product ) {
+
+	if ( 'yes' !== get_option( 'wc_mnm_display_short_description', 'no' ) ) {
+		return;
+	}
 
 	global $post;
 	$backup_post = $post;
@@ -905,7 +993,17 @@ function wc_mnm_category_caption( $child_item, $product ) {
 				if ( $category instanceof WP_Term ) {
 
 					wc_mnm_template_child_items_wrapper_close( $product );
-					woocommerce_template_loop_category_title( $category );
+
+					/**
+					 * Display category caption
+					 *
+					 * @since 2.2.0
+					 *
+					 * @param obj $category WP_Term
+					 * @param obj $product WC_Mix_And_Match of parent product
+					 */
+					do_action( 'wc_mnm_category_caption', $category, $product );
+
 					wc_mnm_template_child_items_wrapper_open( $product );
 
 					// Stash the current category.
@@ -923,7 +1021,7 @@ function wc_mnm_category_caption( $child_item, $product ) {
 
 
 /**
- * Switch the category captions in the loop.
+ * The first catagory caption.
  *
  * @since 2.0.0
  *
@@ -943,8 +1041,15 @@ function wc_mnm_first_category_caption( $product ) {
 
 		if ( $category instanceof WP_Term ) {
 
-			// Use the existing category title template.
-			woocommerce_template_loop_category_title( $category );
+			/**
+			 * Display category caption|title
+			 *
+			 * @since 2.2.0
+			 *
+			 * @param obj $category WP_Term
+			 * @param obj $product WC_Mix_And_Match of parent product
+			 */
+			do_action( 'wc_mnm_category_caption', $category, $product );
 
 			// Stash the current category.
 			$product->current_cat    = $first_cat_id;
@@ -953,3 +1058,83 @@ function wc_mnm_first_category_caption( $product ) {
 
 	}
 }
+
+	
+/**
+ * Display the category titles in the loop.
+ *
+ * @since 2.2.0
+ *
+ * @param obj $category WP_Term
+ * @param WC_Product_Mix_and_Match
+ */
+function wc_mnm_category_title( $category, $product ) {
+
+	if ( $category instanceof WP_Term ) {
+		
+		woocommerce_template_loop_category_title( $category );	
+
+	}
+
+}
+
+
+/*--------------------------------------------------------*/
+/*  Mix and Match edit container template functions       */
+/*--------------------------------------------------------*/
+
+if ( ! function_exists( 'wc_mnm_template_edit_container_order_item' ) ) {
+
+	/**
+	 * Edit container template for Mix and Match products.
+	 * 
+	 * @since 2.2.0
+	 * 
+	 * @param WC_Product_Mix_and_Match
+	 * @param WC_Order_Item $order_item
+	 * @param WC_Order $order
+	 * @param  string $context The originating source loading this template
+	 */
+	function wc_mnm_template_edit_container_order_item( $product, $order_item, $order, $context ) {
+
+		global $product;
+
+		if ( $order_item instanceof WC_Order_Item_Product ) {
+			$product = $order_item->get_product();
+		}
+
+		if ( ! $product || ! $product->is_type( 'mix-and-match' ) ) {
+			return;
+		}
+
+		$classes = array( 
+			'mnm_form',
+			'cart',
+			'cart_group',
+			'edit_container',
+		);
+
+		/**
+		 * Form classes.
+		 *
+		 * @param array - The classes that will print in the <form> tag.
+		 * @param obj $product WC_Mix_And_Match of parent product
+		 */
+		$classes = apply_filters( 'wc_mnm_edit_form_classes', $classes, $product );
+			
+		wc_get_template(
+			'edit-order-item/edit-container.php',
+			array(
+				'order_item' => $order_item,
+				'order'      => $order,
+				'classes'    => $classes,
+				'context'    => $context,
+			),
+			'',
+			WC_Mix_and_Match()->plugin_path(). '/templates/'
+		);
+
+	}
+
+}
+

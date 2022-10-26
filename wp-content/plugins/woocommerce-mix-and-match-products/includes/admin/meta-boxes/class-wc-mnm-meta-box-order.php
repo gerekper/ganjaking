@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Mix and Match edit-order functions and filters.
  *
  * @class    WC_MNM_Meta_Box_Order
- * @version  2.1.0
+ * @version  2.2.0
  */
 class WC_MNM_Meta_Box_Order {
 
@@ -41,6 +41,7 @@ class WC_MNM_Meta_Box_Order {
 
 		// Add JS template.
 		add_action( 'admin_footer', array( __CLASS__, 'add_js_template' ) );
+
 	}
 
 	/*
@@ -55,7 +56,6 @@ class WC_MNM_Meta_Box_Order {
 	 * @param  $item_id  int
 	 * @param  $item     WC_Order_Item
 	 * @param  $order    WC_Order
-	 * @return void
 	 */
 	public static function add_child_items( $item_id, $item, $order ) {
 
@@ -63,7 +63,7 @@ class WC_MNM_Meta_Box_Order {
 
 			$product = $item->get_product();
 
-			if ( $product && $product->is_type( 'mix-and-match' ) ) {
+			if ( $product && wc_mnm_is_product_container_type( $product ) ) {
 
 				/**
 				 * 'wc_mnm_auto_add_child_items' filter.
@@ -150,7 +150,7 @@ class WC_MNM_Meta_Box_Order {
 
 		if ( self::$order && self::$order->is_editable() && 'line_item' === $item->get_type() ) {
 
-			if ( $product && $product->is_type( 'mix-and-match' ) ) {
+			if ( $product && wc_mnm_is_product_container_type( $product ) ) {
 
 				/**
 				 * 'wc_mnm_is_container_order_item_editable' filter.
@@ -161,6 +161,9 @@ class WC_MNM_Meta_Box_Order {
 				 * @param  $order     WC_Order
 				 */
 				if ( apply_filters( 'wc_mnm_is_container_order_item_editable', true, $product, $item, self::$order ) ) {
+
+					// Load required ajax scripts.
+					WC_MNM_Ajax::load_edit_scripts();
 
 					// Already configured?
 					$is_configured = wc_mnm_is_container_order_item( $item, self::$order );
@@ -186,7 +189,7 @@ class WC_MNM_Meta_Box_Order {
 		if ( wp_script_is( 'wc-mnm-admin-order-panel' ) ) {
 			?>
 			<script type="text/template" id="tmpl-wc-modal-edit-container">
-				<div class="wc-backbone-modal">
+				<div class="wc-backbone-modal wc-mnm-backbone-modal">
 					<div class="wc-backbone-modal-content">
 						<section class="wc-backbone-modal-main" role="main">
 							<header class="wc-backbone-modal-header">
@@ -210,6 +213,7 @@ class WC_MNM_Meta_Box_Order {
 			<?php
 		}
 	}
+
 }
 
 WC_MNM_Meta_Box_Order::init();

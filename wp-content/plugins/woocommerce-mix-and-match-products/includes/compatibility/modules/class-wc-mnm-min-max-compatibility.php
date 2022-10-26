@@ -3,7 +3,7 @@
  * WC_MNM_Min_Max_Compatibility class
  *
  * @package  WooCommerce Mix and Match Products/Compatibility
- * @since    1.7.0
+ * @since    2.2.0
  */
 
 // Exit if accessed directly.
@@ -111,7 +111,7 @@ class WC_MNM_Min_Max_Compatibility {
 	 * @since  1.6.1
 	 */
 	public static function process_mnm_min_max_data( $product ) {
-		if ( $product->is_type( 'mix-and-match' ) && ! defined( 'WC_MNM_UPDATING' ) ) {
+		if ( wc_mnm_is_product_container_type( $product ) && ! defined( 'WC_MNM_UPDATING' ) ) {
 			$ignore = wc_bool_to_string( isset( $_POST['_mnm_ignore_min_max_rules'] ) && $_POST['_mnm_ignore_min_max_rules'] == 'ignore' );
 			$product->update_meta_data( '_mnm_ignore_min_max_rules', $ignore );
 		}

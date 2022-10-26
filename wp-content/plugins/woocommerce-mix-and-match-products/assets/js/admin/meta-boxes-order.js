@@ -36,18 +36,18 @@ jQuery(
 				var item_id  = $item.attr( 'data-order_item_id' );
 
 				$.ajax( {
-					url: woocommerce_admin_meta_boxes.ajax_url,
+					url: wc_mnm_admin_order_params.wc_ajax_url.toString().replace( '%%endpoint%%', 'mnm_get_edit_container_order_item_form' ),
 					type: 'POST',
 					data: {
-						action:    'woocommerce_configure_container_order_item',
-						item_id:   item_id,
-						dataType:  'json',
-						order_id:  woocommerce_admin_meta_boxes.post_id,
-						security:  wc_mnm_admin_order_params.edit_container_nonce
+						item_id : item_id,
+						dataType: 'json',
+						order_id: woocommerce_admin_meta_boxes.post_id,
+						security: wc_mnm_admin_order_params.edit_container_nonce,
+						context : 'metabox'
 					},
 					success: function( response ) {
 
-						if ( response.success ) {
+						if ( response.success && response.data ) {
 
 							var WCMNMBackboneModal = $.WCBackboneModal.View.extend(
 								{
@@ -65,13 +65,16 @@ jQuery(
 								}
 							);
 
-							// Load the Form in the modal.
-							view.$el.find( 'article' ).html( response.data );
-							
-							// Initialize validation scripts.
-							view.$el.find( '.mnm_form' ).each( function() {
-								$(this).wc_mnm_form();
-							} );
+							// Load the Form in the modal. We get fragments returned, but in admin we only need the form.
+							if ( 'undefined' !== typeof response.data[ 'div.wc-mnm-edit-container' ] ) {
+								view.$el.find( 'article' ).html( response.data[ 'div.wc-mnm-edit-container' ] );
+
+								// Initialize validation scripts.
+								view.$el.find( '.mnm_form' ).each( function() {
+									$(this).wc_mnm_form();
+								} );
+
+							}
 				
 						} else {
 							window.alert( response.data );
@@ -89,32 +92,37 @@ jQuery(
 
 				functions.block( view.$el.find( '.wc-backbone-modal-content' ) );
 
+				var Form     =  view.$el.find( '.mnm_form' ).wc_get_mnm_script();
+
 				var data = $.extend(
-					view.getFormData(),
 					functions.get_taxable_address(),
 					{
-						action:    'woocommerce_edit_container_in_order',
-						item_id:   view._string.item_id,
-						dataType:  'json',
-						order_id:  woocommerce_admin_meta_boxes.post_id,
-						security:  wc_mnm_admin_order_params.edit_container_nonce
+						action  : 'woocommerce_edit_container_in_order',
+						item_id : view._string.item_id,
+						dataType: 'json',
+						order_id: woocommerce_admin_meta_boxes.post_id,
+						security: wc_mnm_admin_order_params.edit_container_nonce,
+						config  : 'undefined' !== typeof Form ? Form.api.get_container_config(): [],
+						context : 'metabox'
 					}
 				);
 
 				$.ajax( {
-					url: woocommerce_admin_meta_boxes.ajax_url,
+					url: wc_mnm_admin_order_params.wc_ajax_url.toString().replace( '%%endpoint%%', 'mnm_update_container_order_item' ),
 					type: 'POST',
 					data: data,
 					success: function( response ) {
 
 						if ( response.success ) {
-							$order_items.find( '.inside' ).empty();
-							$order_items.find( '.inside' ).append( response.data.html );
 
-							$order_items.trigger( 'wc_order_items_reloaded' );
+							if ( 'undefined' !== typeof response.data.html ) {
+								$order_items.find( '.inside' ).empty();
+								$order_items.find( '.inside' ).append( response.data.html );
+								$order_items.trigger( 'wc_order_items_reloaded' );
+							}
 
 							// Update notes.
-							if ( response.data.notes_html ) {
+							if ( 'undefined' !== typeof response.data.notes_html ) {
 								$( 'ul.order_notes' ).empty();
 								$( 'ul.order_notes' ).append( $( response.data.notes_html ).find( 'li' ) );
 							}

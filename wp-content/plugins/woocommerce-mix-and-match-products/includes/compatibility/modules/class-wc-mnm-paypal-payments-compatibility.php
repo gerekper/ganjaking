@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    2.0.0
- * @version  2.0.0
+ * @version  2.2.0
  */
 
 // Exit if accessed directly.
@@ -37,7 +37,7 @@ class WC_MNM_PayPal_Payments_Compatibility {
 	 */
 	public static function hide_request_buttons( $supports, $product ) {
 
-		if ( $product->is_type( 'mix-and-match' ) ) {
+		if ( wc_mnm_is_product_container_type( $product ) ) {
 			$supports = false;
 
 		}

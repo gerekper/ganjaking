@@ -3,6 +3,7 @@
  * Admin View: Notice - 2.0 Updated.
  *
  * @package WooCommerce Mix and Match Products\Admin\Notices
+ * @deprecated 2.2.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

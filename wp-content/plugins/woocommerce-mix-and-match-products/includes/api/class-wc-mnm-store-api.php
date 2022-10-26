@@ -4,6 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/REST API
  * @since    2.0.0
+ * @version 2.2.0
  */
 
 // Exit if accessed directly.
@@ -16,8 +17,6 @@ use Automattic\WooCommerce\StoreApi\Schemas\V1\CartItemSchema;
 
 /**
  * Extends the store public API with container related data for each container parent and child item.
- *
- * @version 2.0.7
  */
 class WC_MNM_Store_API {
 
@@ -51,6 +50,9 @@ class WC_MNM_Store_API {
 		// Validate container in the Store API and add cart errors.
 		add_action( 'woocommerce_store_api_validate_cart_item', array( __CLASS__, 'validate_cart_item' ), 10, 2 );
 
+		// Remove quantity selectors from child items.
+		add_filter( 'woocommerce_store_api_product_quantity_editable', array( __CLASS__, 'product_quantity_editable' ), 10, 3 );
+		 
 		// Prevent access to the checkout block.
 		add_action( 'woocommerce_store_api_checkout_update_order_meta', array( __CLASS__, 'validate_draft_order' ) );
 
@@ -90,7 +92,7 @@ class WC_MNM_Store_API {
 
 		if ( wc_mnm_is_container_cart_item( $cart_item ) ) {
 
-			if ( ! $cart_item[ 'data' ]->is_type( 'mix-and-match' ) ) {
+			if ( ! wc_mnm_is_product_container_type( $cart_item[ 'data' ] ) ) {
 				return $item_data;
 			}
 
@@ -107,7 +109,7 @@ class WC_MNM_Store_API {
 			}
 
 			$item_data[ 'child_items' ] = $cart_item[ 'mnm_contents' ];
-			$item_data[ 'container_data' ]   = array(
+			$item_data[ 'container_data' ] = array(
 				'configuration'         => $cart_item[ 'mnm_config' ],
 				'is_priced_per_product' => $container->is_priced_per_product(),
 				'is_editable'           => apply_filters( 'wc_mnm_show_edit_it_cart_link', true, $cart_item, $cart_item[ 'key' ] ),
@@ -117,7 +119,7 @@ class WC_MNM_Store_API {
 
 			$container = $container_item[ 'data' ];
 
-			if ( ! $container->is_type( 'mix-and-match' ) ) {
+			if ( ! wc_mnm_is_product_container_type( $container ) ) {
 				return $item_data;
 			}
 
@@ -128,9 +130,13 @@ class WC_MNM_Store_API {
 			}
 
 			$item_data[ 'container' ]   = $cart_item[ 'mnm_container' ];
+
+			$child_config_qty      = $cart_item[ 'quantity' ] / $container_item[ 'quantity' ];
+
 			$item_data[ 'child_item_data' ] = array(
 				'container_id'          => $container_item[ 'product_id' ],
 				'child_item_id'         => $cart_item[ 'child_item_id' ],
+				'child_qty'             => $child_config_qty,
 				'is_priced_per_product' => $container->is_priced_per_product(),
 				'is_last'               => self::$last_child_item_key === $cart_item[ 'key' ],
 			);
@@ -413,8 +419,6 @@ class WC_MNM_Store_API {
 	 */
 	public static function validate_add_to_cart_item( $product, $request ) {
 
-		error_log( "validate add to cart item ". json_encode( $request ) );
-
 		if ( validate_container_add_to_cart( $request ) ) {
 			try {
 				WC_Mix_and_Match()->cart->validate_container_in_cart( $request );
@@ -445,6 +449,21 @@ class WC_MNM_Store_API {
 				throw new RouteException( 'woocommerce_store_api_invalid_container_configuration', $notice );
 			}
 		}
+	}
+
+	/**
+	 * Remove quantity inputs from child items in Store API context.
+	 * 
+	 * @param bool $qty_is_editable
+	 * @param  WC_Product  $product
+	 * @param  array       $cart_item
+	 * @return false
+	 */
+	public static function product_quantity_editable( $qty_is_editable, $product, $cart_item ) {
+		if ( wc_mnm_is_child_cart_item( $cart_item ) ) {
+			$qty_is_editable = false;
+		}
+		return $qty_is_editable;
 	}
 
 	/**

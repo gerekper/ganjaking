@@ -1,12 +1,19 @@
 /**
  * External dependencies
  */
- import { __, sprintf } from '@wordpress/i18n';
- import { __experimentalRegisterCheckoutFilters } from '@woocommerce/blocks-checkout';
+import { __, sprintf } from '@wordpress/i18n';
+import { __experimentalRegisterCheckoutFilters } from '@woocommerce/blocks-checkout';
 
-__experimentalRegisterCheckoutFilters(
-    'mix-and-match',
-    {
+__experimentalRegisterCheckoutFilters( 'mix-and-match', {
+
+	itemName: ( context, { mix_and_match }, { cartItem } ) => {
+
+		if ( mix_and_match && mix_and_match.child_item_data ) {
+			context = `${ context } x ${ mix_and_match.child_item_data.child_qty }`;
+		}
+
+		return context;
+	},
 
 	 cartItemClass: ( classlist, { mix_and_match }, { context, cartItem } ) => {
 

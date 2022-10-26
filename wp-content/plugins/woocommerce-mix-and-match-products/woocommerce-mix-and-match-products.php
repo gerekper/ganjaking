@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Mix and Match Products
  * Plugin URI: http://www.woocommerce.com/products/woocommerce-mix-and-match-products/
  * Description: Allow customers to choose products in any combination to fill a "container" of a specific size.
- * Version: 2.1.3
+ * Version: 2.2.1
  * Author: Kathy Darling
  * Author URI: http://kathyisawesome.com/
  * Woo: 853021:e59883891b7bcd535025486721e4c09f
  *
  * WC requires at least: 3.6.0
- * WC tested up to: 6.7.0
+ * WC tested up to: 7.0.0
  * Requires at least: 4.7.0
  * Requires PHP: 5.6
  *

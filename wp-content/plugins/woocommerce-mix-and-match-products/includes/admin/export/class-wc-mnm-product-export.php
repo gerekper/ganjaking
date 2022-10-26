@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Admin/Export
  * @since    1.3.0
- * @version  2.0.0
+ * @version  2.2.0
  */
 
 // Exit if accessed directly.
@@ -57,7 +57,7 @@ class WC_MNM_Product_Export {
 	 */
 	public static function add_columns( $columns ) {
 
-		$columns['wc_mnm_wc_mnm_content_source']     = __( 'MnM Content Source', 'woocommerce-mix-and-match-products' );
+		$columns['wc_mnm_content_source']            = __( 'MnM Content Source', 'woocommerce-mix-and-match-products' );
 		$columns['wc_mnm_child_category_ids']        = __( 'MnM Child Category Ids', 'woocommerce-mix-and-match-products' );
 		$columns['wc_mnm_child_items']               = __( 'MnM Child Items (JSON-encoded)', 'woocommerce-mix-and-match-products' );
 		$columns['wc_mnm_min_container_size']        = __( 'MnM Minimum Container Size', 'woocommerce-mix-and-match-products' );
@@ -89,7 +89,7 @@ class WC_MNM_Product_Export {
 	 */
 	public static function export_content_source( $value, $product ) {
 
-		if ( $product->is_type( 'mix-and-match' ) ) {
+		if ( wc_mnm_is_product_container_type( $product ) ) {
 			$value = $product->get_content_source( 'edit' );
 		}
 
@@ -107,7 +107,7 @@ class WC_MNM_Product_Export {
 	 */
 	public static function export_child_category_ids( $value, $product ) {
 
-		if ( $product->is_type( 'mix-and-match' ) ) {
+		if ( wc_mnm_is_product_container_type( $product ) ) {
 			// Use the WC_Product_CSV_Exporter formatting for term IDs.
 			$exporter = new WC_Product_CSV_Exporter();
 			$value = $exporter->format_term_ids( $product->get_child_category_ids( 'edit' ), 'product_cat' );
@@ -126,7 +126,7 @@ class WC_MNM_Product_Export {
 	 */
 	public static function export_child_items( $value, $product ) {
 
-		if ( $product->is_type( 'mix-and-match' ) ) {
+		if ( wc_mnm_is_product_container_type( $product ) ) {
 
 			$child_items = $product->get_child_items( 'edit' );
 
@@ -182,7 +182,7 @@ class WC_MNM_Product_Export {
 	 */
 	public static function export_min_container_size( $value, $product ) {
 
-		if ( $product->is_type( 'mix-and-match' ) ) {
+		if ( wc_mnm_is_product_container_type( $product ) ) {
 			$value = $product->get_min_container_size( 'edit' );
 		}
 
@@ -198,7 +198,7 @@ class WC_MNM_Product_Export {
 	 */
 	public static function export_max_container_size( $value, $product ) {
 
-		if ( $product->is_type( 'mix-and-match' ) ) {
+		if ( wc_mnm_is_product_container_type( $product ) ) {
 			$value = $product->get_max_container_size( 'edit' );
 		}
 
@@ -214,7 +214,7 @@ class WC_MNM_Product_Export {
 	 */
 	public static function export_priced_per_product( $value, $product ) {
 
-		if ( $product->is_type( 'mix-and-match' ) ) {
+		if ( wc_mnm_is_product_container_type( $product ) ) {
 			$value = $product->is_priced_per_product( 'edit' ) ? 1 : 0;
 		}
 
@@ -230,7 +230,7 @@ class WC_MNM_Product_Export {
 	 */
 	public static function export_packing_mode( $value, $product ) {
 
-		if ( $product->is_type( 'mix-and-match' ) ) {
+		if ( wc_mnm_is_product_container_type( $product ) ) {
 			$value = $product->get_packing_mode( 'edit' );
 		}
 
@@ -248,7 +248,7 @@ class WC_MNM_Product_Export {
 	 */
 	public static function export_weight_cumulative( $value, $product ) {
 
-		if ( $product->is_type( 'mix-and-match' ) ) {
+		if ( wc_mnm_is_product_container_type( $product ) ) {
 			$value = $product->get_weight_cumulative( 'edit' ) ? 1 : 0;
 		}
 
@@ -267,7 +267,7 @@ class WC_MNM_Product_Export {
 	 */
 	public static function export_discount_per_product( $value, $product ) {
 
-		if ( $product->is_type( 'mix-and-match' ) ) {
+		if ( wc_mnm_is_product_container_type( $product ) ) {
 			$value = $product->is_priced_per_product( 'edit' ) ? $product->get_discount( 'edit' ) : '';
 		}
 
@@ -284,7 +284,7 @@ class WC_MNM_Product_Export {
 	 */
 	public static function export_layout_override( $value, $product ) {
 
-		if ( $product->is_type( 'mix-and-match' ) ) {
+		if ( wc_mnm_is_product_container_type( $product ) ) {
 			$value = $product->has_layout_override( 'edit' ) ? 1 : 0;
 		}
 
@@ -303,7 +303,7 @@ class WC_MNM_Product_Export {
 	 */
 	public static function export_layout( $value, $product ) {
 
-		if ( $product->is_type( 'mix-and-match' ) ) {
+		if ( wc_mnm_is_product_container_type( $product ) ) {
 			$value = $product->get_layout( 'edit' );
 		}
 
@@ -321,7 +321,7 @@ class WC_MNM_Product_Export {
 	 */
 	public static function export_add_to_cart_form_location( $value, $product ) {
 
-		if ( $product->is_type( 'mix-and-match' ) ) {
+		if ( wc_mnm_is_product_container_type( $product ) ) {
 			$value = $product->get_add_to_cart_form_location( 'edit' );
 		}
 
@@ -354,7 +354,7 @@ class WC_MNM_Product_Export {
 	public static function export_shipped_per_product( $value, $product ) {
 		wc_deprecated_function( __METHOD__ . '()', '2.0.0', __CLASS__ . '::export_packing_method()' );
 
-		if ( $product->is_type( 'mix-and-match' ) ) {
+		if ( wc_mnm_is_product_container_type( $product ) ) {
 			$value = ! $product->is_packed_together( 'edit' ) ? 1 : 0;
 		}
 

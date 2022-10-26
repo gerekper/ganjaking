@@ -5,7 +5,7 @@
  * @class    WC_Mix_and_Match
  * @package  WooCommerce Mix and Match
  * @since    1.0.0
- * @version  2.0.0
+ * @version  2.2.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -33,7 +33,7 @@ class WC_Mix_and_Match {
 	 *
 	 * @var str
 	 */
-	public $version = '2.1.3';
+	public $version = '2.2.1';
 
 	/**
 	 * Required Version of WooCommerce.
@@ -167,7 +167,7 @@ class WC_Mix_and_Match {
 		WC_Mix_and_Match_Cart::get_instance();
 
 		// Include theme-level hooks and actions files.
-		$this->theme_includes();
+		add_action( 'after_setup_theme', array( $this, 'theme_includes' ) );
 
 		/**
 		 * WooCommerce Mix and Match is fully loaded.
@@ -237,6 +237,9 @@ class WC_Mix_and_Match {
 
 		// Include order-again related functions.
 		require_once 'class-wc-mnm-order-again.php';
+		
+		// Ajax functions and hooks.
+		require_once 'class-wc-mnm-ajax.php';
 
 		// Customizer functions and hooks.
 		require_once 'customizer/class-wc-mnm-customizer.php';

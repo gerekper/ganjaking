@@ -3,7 +3,7 @@
  * Child Item class.
  *
  * @package  WooCommerce Mix and Match Products/Classes/Products
- * @since    2.0.0
+ * @since    2.2.0
  */
 
 // Exit if accessed directly.
@@ -452,6 +452,40 @@ class WC_MNM_Child_Item extends WC_Data {
 
 	}
 
+	/**
+	 * Item title.
+	 * 
+	 * @since  2.2.0
+	 *
+	 * @return string
+	 */
+	public function get_title() {
+		/**
+		 * 'wc_mnm_child_item_title' filter.
+		 *
+		 * @param  string             $title
+		 * @param  WC_MNM_Child_Item  $this
+		 */
+		return apply_filters( 'wc_mnm_child_item_title', $this->get_product()->get_title(), $this );
+	}
+
+	/**
+	 * Item permalink.
+	 *
+	 * @since  2.2.0
+	 *
+	 * @return string
+	 */
+	public function get_permalink() {
+		/**
+		 * 'wc_mnm_child_item_permalink' filter.
+		 *
+		 * @param  string             $permalink
+		 * @param  WC_MNM_Child_Item  $this
+		 */
+		return apply_filters( 'wc_mnm_child_item_permalink', $this->is_visible() && $this->get_product()->is_visible() ? $this->get_product()->get_permalink() : '', $this );
+	}
+
 	/*
 	|--------------------------------------------------------------------------
 	| Setters
@@ -549,7 +583,7 @@ class WC_MNM_Child_Item extends WC_Data {
 			$exists = false;
 		}
 
-		if ( $exists && ( ! is_object( $this->get_container() ) || ! $this->get_container()->is_type( 'mix-and-match' ) ) ) {
+		if ( $exists && ( ! is_object( $this->get_container() ) || ! ( $this->get_container() instanceof WC_Product ) ) ) {
 			$exists = false;
 		}
 

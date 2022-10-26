@@ -13,7 +13,7 @@
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.3.0
- * @version 2.1.2
+
  */
 
 // Exit if accessed directly.
@@ -21,8 +21,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-
-<div class="mnm_cart mnm_data cart" <?php echo $product->get_data_attributes(); ?>>
+<?php 
+// @todo = use woo's implode_attributes function for
+?>
+<div class="mnm_cart mnm_data cart mnm_status" data-for_container="<?php echo esc_attr( $product->get_id() ); ?>" <?php echo $product->get_data_attributes(); ?> >
 
 <?php
 
@@ -33,42 +35,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 		do_action( 'wc_mnm_before_add_to_cart_button_wrap' );
 	?>
 
-		<div class="mnm_wrap mnm_button_wrap">
+		<p class="mnm_price" style="display:none;"></p>
 
-			<p class="mnm_price" style="display:none;"></p>
 
-			<div class="mnm_message woocommerce-message" style="display:none;">
-				<ul class="msg mnm_message_content" aria-live="polite">
-					<li><?php echo wc_mnm_get_quantity_message( $product ); ?></li>
-				</ul>
-			</div>
+
+		<?php
+
+		// MnM Availability.
+		?>
+		<div class="mnm_availability">
 
 			<?php
 
-			// MnM Availability.
-			?>
-			<div class="mnm_availability">
-
-				<?php
-
-				// Availability html.
-				echo wc_get_stock_html( $product );
-
-				?>
-				
-			</div>
-			<?php
-			/**
-			 * wc_mnm_add_to_cart_button hook.
-			 * @hooked wc_mnm_template_add_to_cart_button - 10
-			 */
-			do_action( 'wc_mnm_add_to_cart_button', $product );
+			// Availability html.
+			echo wc_get_stock_html( $product );
 
 			?>
-
-
+			
 		</div>
-	
+		<?php
+		/**
+		 * wc_mnm_add_to_cart_button hook.
+		 * @hooked wc_mnm_template_add_to_cart_button - 10
+		 */
+		do_action( 'wc_mnm_add_to_cart_button', $product );
+
+		?>
 
 		<?php
 		/**

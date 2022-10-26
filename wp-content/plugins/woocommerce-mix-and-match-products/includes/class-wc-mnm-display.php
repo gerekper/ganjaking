@@ -321,7 +321,7 @@ class WC_Mix_and_Match_Display {
 	 */
 	public function cart_item_wrap( $content, $cart_item ) {
 
-		if ( wc_mnm_maybe_is_child_order_item( $cart_item ) ) {
+		if ( wc_mnm_maybe_is_child_cart_item( $cart_item ) ) {
 			$content = '<span class="mnm_child_item_arrow_wrap">' . $content . '</span>';
 		}
 
@@ -353,7 +353,7 @@ class WC_Mix_and_Match_Display {
 			}
 		}
 
-		if ( wc_mnm_maybe_is_child_order_item( $cart_item ) && '' !== $content ) {
+		if ( wc_mnm_maybe_is_child_cart_item( $cart_item ) && '' !== $content ) {
 			$content = '<small class="mnm_child_item_arrow_wrap">' . $content . '</small>';
 		}
 
@@ -692,7 +692,8 @@ class WC_Mix_and_Match_Display {
 
 			foreach ( $child_cart_items as $child_cart_item_key => $child_cart_item ) {
 
-				$child_item_description = WC_MNM_Helpers::format_product_title( $child_cart_item[ 'data' ]->get_name(), $child_cart_item[ 'quantity' ], array( 'title_first' => false ) );
+				$child_config_qty      = $child_cart_item[ 'quantity' ] / $cart_item[ 'quantity' ];
+				$child_item_description = WC_MNM_Helpers::format_product_title( $child_cart_item[ 'data' ]->get_name(), $child_config_qty, array( 'title_first' => false ) );
 
 				if ( $args[ 'aggregated' ] ) {
 
@@ -753,7 +754,7 @@ class WC_Mix_and_Match_Display {
 		// When serving a Store API request...
 		if ( WC_MNM_Core_Compatibility::is_store_api_request() && wc_mnm_is_container_cart_item( $cart_item ) ) {
 
-			if ( ! $cart_item[ 'data' ]->is_type( 'mix-and-match' ) ) {
+			if ( ! wc_mnm_is_product_container_type( $cart_item[ 'data' ] ) ) {
 				return $data;
 			}
 
@@ -778,8 +779,9 @@ class WC_Mix_and_Match_Display {
 	 */
 	public function order_table_item_title( $content, $order_item ) {
 
-		if ( ! empty( $order_item['mnm_container'] ) ) {
-			if ( did_action( 'woocommerce_view_order' ) || did_action( 'woocommerce_thankyou' ) || did_action( 'before_woocommerce_pay' ) || did_action( 'woocommerce_account_view-subscription_endpoint' ) ) {
+
+		if ( wc_mnm_is_child_order_item( $order_item ) ) {
+			if ( did_action( 'wc_ajax_mnm_update_container_order_item' ) || did_action( 'woocommerce_view_order' ) || did_action( 'woocommerce_thankyou' ) || did_action( 'before_woocommerce_pay' ) || did_action( 'woocommerce_account_view-subscription_endpoint' ) ) {
 				$content = '<span class="mnm_child_item_arrow_wrap">' . $content . '</span>';
 			} else {
 				// E-mails.

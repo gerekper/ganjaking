@@ -13,7 +13,7 @@
  * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.0.0
- * @version 2.1.2
+ * @version 2.2.0
  */
 
 // Exit if accessed directly.
@@ -29,7 +29,7 @@ global $product;
 do_action( 'woocommerce_before_add_to_cart_form' );
 ?>
 
-<form class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype="multipart/form-data">
+<form class="<?php echo 'layout_' . esc_attr( $product->get_layout() ); ?> <?php echo esc_attr( implode( ' ', $classes ) ); ?>" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype="multipart/form-data">
 
 	<?php
 
@@ -40,6 +40,9 @@ do_action( 'woocommerce_before_add_to_cart_form' );
 	 * @since  1.8.0
 	 *
 	 * @hooked wc_mnm_content_loop - 10
+	 * @hooked wc_mnm_template_reset_link         - 20
+	 * @hooked wc_mnm_template_container_status   - 30
+	 * @hooked wc_mnm_template_add_to_cart_button - 40
 	 */
 	do_action( 'wc_mnm_content_loop', $product );
 
@@ -48,9 +51,7 @@ do_action( 'woocommerce_before_add_to_cart_form' );
 	 *
 	 * @param  WC_Mix_and_Match  $product
 	 * @since  1.3.0
-	 *
-	 * @hooked wc_mnm_template_reset_link       - 10
-	 * @hooked wc_mnm_template_add_to_cart_wrap - 20
+	 * @deprecated 2.2.0
 	 */
 	do_action( 'wc_mnm_add_to_cart_wrap', $product );
 

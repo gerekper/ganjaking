@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Install
  * @since    1.2.0
- * @version  2.0.10
+ * @version  2.2.0
  */
 
 // Exit if accessed directly.
@@ -39,6 +39,9 @@ class WC_MNM_Install {
 			'wc_mnm_update_2x00_order_item_meta',
 			'wc_mnm_update_2x00_category_contents_meta',
 			'wc_mnm_update_2x00_product_meta',
+		),
+		'2.2.0' => array( 
+			'wc_mnm_update_2x2x0_delete_duplicate_meta',
 		),
 	);
 

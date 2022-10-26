@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    2.0.0
- * @version  2.0.9
+ * @version  2.2.0
  */
 
 // Exit if accessed directly.
@@ -379,7 +379,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		 */
 		public static function container_subscription_option_data( $data, $subscription_scheme, $product ) {
 
-			if ( $product->is_type( 'mix-and-match' ) ) {
+			if ( wc_mnm_is_product_container_type( $product ) ) {
 
 				$subscription_schemes  = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
 				$force_subscription    = WCS_ATT_Product_Schemes::has_forced_subscription_scheme( $product );
@@ -417,9 +417,9 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 				$data[ 'option_has_price' ]           = false !== strpos( $data[ 'option_details_html' ], '%p' );
 				$data[ 'dropdown_format' ]            = ucfirst( trim( wp_kses( $dropdown_details_html, array() ) ) );
-				$data[ 'dropdown_discounted_format' ] = sprintf( _x( '%1$s (%2$s off)', 'discounted dropdown option price', 'wc-mnm-satt-bridge', 'woocommerce-mix-and-match-products' ), '%p', sprintf( _x( '%s%%', 'dropdown option discount', 'wc-mnm-satt-bridge', 'woocommerce-mix-and-match-products' ), '%d' ) );
+				$data[ 'dropdown_discounted_format' ] = sprintf( _x( '%1$s (%2$s off)', 'discounted dropdown option price', 'woocommerce-mix-and-match-products' ), '%p', sprintf( _x( '%s%%', 'dropdown option discount', 'woocommerce-mix-and-match-products' ), '%d' ) );
 				$data[ 'dropdown_discount_decimals' ] = WCS_ATT_Product_Prices::get_formatted_discount_precision();
-				$data[ 'dropdown_sale_format' ]       = sprintf( _x( '%1$s (was %2$s)', 'dropdown option sale price', 'wc-mnm-satt-bridge', 'woocommerce-mix-and-match-products' ), '%p', '%r' );
+				$data[ 'dropdown_sale_format' ]       = sprintf( _x( '%1$s (was %2$s)', 'dropdown option sale price', 'woocommerce-mix-and-match-products' ), '%p', '%r' );
 			}
 
 			return $data;
@@ -442,7 +442,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		public static function filter_container_item_subtotal( $subtotal, $cart_item, $cart_item_key ) {
 
 			// MnM container subtotals originally modified by WCS are not overwritten by MnM.
-			if ( $cart_item[ 'data' ]->is_type( 'mix-and-match' ) ) {
+			if ( wc_mnm_is_product_container_type( $cart_item[ 'data' ] ) ) {
 				return $subtotal;
 			}
 
@@ -559,7 +559,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 			$product = $item->get_product();
 
-			if ( $product->is_type( 'mix-and-match' ) ) {
+			if ( wc_mnm_is_product_container_type( $product ) ) {
 				$switch_url  = WC_Subscriptions_Switcher::get_switch_url( $item_id, $item, $subscription );
 				$switch_link_text = get_option( 'wc_mnm_subscription_switch_button_text', __( 'Update selections', 'woocommerce-mix-and-match-products' ) );
 			}
@@ -583,7 +583,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 			$product = $item->get_product();
 
-			if ( $product->is_type( 'mix-and-match' ) ) {
+			if ( wc_mnm_is_product_container_type( $product ) ) {
 				$switch_url  = WC_Subscriptions_Switcher::get_switch_url( $item_id, $item, $subscription );
 				$switch_text = get_option( 'wc_mnm_subscription_switch_button_text', __( 'Update selections', 'woocommerce-mix-and-match-products' ) );
 				$switch_link = sprintf( '<a href="%s" class="wcs-switch-link button">%s</a>', esc_url( $switch_url ), esc_html( $switch_text ) );
@@ -682,7 +682,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 						WCS_Download_Handler::revoke_downloadable_file_permission( $child_product_id, $subscription->get_id(), $subscription->get_user_id() );
 
 						// Add order note.
-						$subscription->add_order_note( sprintf( _x( '"%1$s" (Product ID: #%2$d) removal triggered by "%3$s" via the My Account page.', 'used in order note', 'wc-mnm-satt-bridge', 'woocommerce-mix-and-match-products' ), wcs_get_line_item_name( $child_item ), $child_product_id, wcs_get_line_item_name( $item ) ) );
+						$subscription->add_order_note( sprintf( _x( '"%1$s" (Product ID: #%2$d) removal triggered by "%3$s" via the My Account page.', 'used in order note', 'woocommerce-mix-and-match-products' ), wcs_get_line_item_name( $child_item ), $child_product_id, wcs_get_line_item_name( $item ) ) );
 
 						// Trigger WCS action.
 						do_action( 'wcs_user_removed_item', $child_item, $subscription );
@@ -737,7 +737,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 						}
 
 						// Add order note.
-						$subscription->add_order_note( sprintf( _x( '"%1$s" (Product ID: #%2$d) removal un-done by "%3$s" via the My Account page.', 'used in order note', 'wc-mnm-satt-bridge', 'woocommerce-mix-and-match-products' ), wcs_get_line_item_name( $child_item ), wcs_get_canonical_product_id( $child_item ), wcs_get_line_item_name( $item ) ) );
+						$subscription->add_order_note( sprintf( _x( '"%1$s" (Product ID: #%2$d) removal un-done by "%3$s" via the My Account page.', 'used in order note', 'woocommerce-mix-and-match-products' ), wcs_get_line_item_name( $child_item ), wcs_get_canonical_product_id( $child_item ), wcs_get_line_item_name( $item ) ) );
 
 						// Trigger WCS action.
 						do_action( 'wcs_user_readded_item', $child_item, $subscription );
@@ -764,7 +764,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 			$data[] = array(
 				'id'    => 'mnm_contents',
-				'label' => __( 'Between Mix and Match Configurations', 'wc-mnm-satt-bridge', 'woocommerce-mix-and-match-products' )
+				'label' => __( 'Between Mix and Match Configurations', 'woocommerce-mix-and-match-products' )
 			);
 
 			return $data;
@@ -858,11 +858,11 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		 */
 		public static function container_supports_switching( $is_feature_supported, $product, $feature, $args ) {
 
-			if ( 'subscription_scheme_switching' === $feature && $product->is_type( 'mix-and-match' ) ) {
+			if ( 'subscription_scheme_switching' === $feature && wc_mnm_is_product_container_type( $product ) ) {
 
 				$is_feature_supported = false;
 
-			} elseif ( 'subscription_content_switching' === $feature && false === $is_feature_supported && $product->is_type( 'mix-and-match' ) ) {
+			} elseif ( 'subscription_content_switching' === $feature && false === $is_feature_supported && wc_mnm_is_product_container_type( $product ) ) {
 
 				$subscription_has_fixed_length = isset( $args[ 'subscription' ] ) ? $args[ 'subscription' ]->get_time( 'end', '' ) : false;
 				// Length Proration must be enabled for switching to be possible when the current subscription/plan has a fixed length.
@@ -904,11 +904,11 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 				if ( wc_mnm_is_container_order_item( $item, $subscription ) ) {
 
-					$product = wc_get_product( $product_id );
+					$product = wc_get_product( $variation_id ? $variation_id : $product_id );
 
-					if ( $product->is_type( 'mix-and-match' ) ) {
+					if ( wc_mnm_is_product_container_type( $product ) ) {
 
-						$configuration = WC_Mix_and_Match()->cart->get_posted_container_configuration( $product_id );
+						$configuration = WC_Mix_and_Match()->cart->get_posted_container_configuration( $product );
 
 						foreach ( $configuration as $child_item_id => $child_item_configuration ) {
 
@@ -921,7 +921,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 							 * @param  int    $child_item_id
 							 * @param  mixed  $product_id
 							 */
-							$configuration[ $child_item_id ] = apply_filters( 'wc_mnm_child_item_cart_item_identifier', $child_item_configuration, $child_item_id, $product_id );
+							$configuration[ $child_item_id ] = apply_filters( 'wc_mnm_child_item_cart_item_identifier', $child_item_configuration, $child_item_id, $product->get_id() );
 						}
 
 						$is_identical = $item->get_meta( '_mnm_config', true ) === $configuration;
@@ -1000,15 +1000,10 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 				if ( $configuration = WC_Mix_and_Match_Order::get_current_container_configuration( $item, $subscription ) ) {
 
 					$args = WC_Mix_and_Match()->cart->rebuild_posted_container_form_data( $configuration, $item->get_product() );
+					$args = WC_MNM_Helpers::urlencode_recursive( $args );
 
-					$key = key( $args );
-					$array = current( $args );
-
-					$args_data = array_map( 'urlencode', $array );
-					$args_keys = array_map( 'urlencode', array_keys( $array ) );
-
-					if ( ! empty( $array ) ) {
-						$url = add_query_arg( array( urlencode( $key ) => array_combine( $args_keys, $args_data ) ), $url );
+					if ( ! empty( $args ) ) {
+						$url = add_query_arg( $args, $url );
 					}
 
 				}
@@ -1047,7 +1042,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		 */
 		public static function force_switched_container_type_subscription( $is_forced, $product ) {
 
-			if ( $product->is_type( 'mix-and-match' ) ) {
+			if ( wc_mnm_is_product_container_type( $product ) ) {
 				if ( ! $is_forced && WCS_ATT_Manage_Switch::is_switch_request() ) {
 					$is_forced = WCS_ATT_Manage_Switch::is_switch_request_for_product( $product );
 				}
@@ -1066,7 +1061,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 		 */
 		public static function limit_switched_container_type_schemes( $schemes, $product ) {
 
-			if ( $product->is_type( 'mix-and-match' ) ) {
+			if ( wc_mnm_is_product_container_type( $product ) ) {
 				if ( WCS_ATT_Manage_Switch::is_switch_request_for_product( $product ) ) {
 
 					$subscription = wcs_get_subscription( $_GET[ 'switch-subscription' ] );
@@ -1190,7 +1185,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 			if ( wc_mnm_is_container_cart_item( $cart_item, $recurring_cart->cart_contents ) ) {
 
-				if ( $cart_item[ 'data' ]->is_type( 'mix-and-match' ) ) {
+				if ( wc_mnm_is_product_container_type( $cart_item[ 'data' ] ) ) {
 					$callback = array( __CLASS__, 'add_container_to_order' );
 				}
 

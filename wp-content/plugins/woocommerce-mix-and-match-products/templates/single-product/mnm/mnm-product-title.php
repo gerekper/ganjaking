@@ -13,7 +13,7 @@
  * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.0.0
- * @version 2.0.6
+ * @version 2.2.0
  */
 
 // Exit if accessed directly.
@@ -21,4 +21,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<h4 class="woocommerce-loop-product__title product_title entry-title"><?php echo $child_item->get_product()->is_visible() ? '<a href="' . $child_item->get_product()->get_permalink() . '" target="_blank">' . WC_Mix_and_Match_Helpers::format_product_title( $title, $quantity ) . '</a>' : WC_Mix_and_Match_Helpers::format_product_title( $title, $quantity ); ?> </h4>
+<h4 class="woocommerce-loop-product__title product_title entry-title"><?php echo $permalink ? '<a href="' . $permalink . '" target="_blank">' . WC_Mix_and_Match_Helpers::format_product_title( $title, $quantity ) . '</a>' : WC_Mix_and_Match_Helpers::format_product_title( $title, $quantity ); ?> </h4>

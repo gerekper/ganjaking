@@ -26,45 +26,61 @@
   color: #888; }
 
 /* Modal */
-.wc-backbone-modal table.mnm_child_products {
+.wc-mnm-backbone-modal article {
+  padding: 0; }
+
+.wc-mnm-backbone-modal form.edit_container > :not(.mnm_status) {
+  margin: 1.5em; }
+
+.wc-mnm-backbone-modal form.edit_container .mnm_status {
+  position: sticky;
+  border-top: 2px solid var(--wc-red, #a00);
+  width: 100%;
+  padding: 1em;
+  bottom: 0;
+  background: white; }
+  .wc-mnm-backbone-modal form.edit_container .mnm_status.passes_validation {
+    border-top-color: var(--wc-green, #7ad03a); }
+
+.wc-mnm-backbone-modal table.mnm_child_products {
   width: 100%;
   line-height: 30px; }
-  .wc-backbone-modal table.mnm_child_products th {
+  .wc-mnm-backbone-modal table.mnm_child_products th {
     padding: 0.5em 0; }
-    .wc-backbone-modal table.mnm_child_products th.child_item_details_head {
+    .wc-mnm-backbone-modal table.mnm_child_products th.child_item_details_head {
       padding-right: 1em;
       text-align: right; }
-  .wc-backbone-modal table.mnm_child_products td {
+  .wc-mnm-backbone-modal table.mnm_child_products td {
     padding: 0.75em 0;
     border-bottom: 1px solid #eee;
     vertical-align: top; }
-    .wc-backbone-modal table.mnm_child_products td.product-thumbnail img {
+    .wc-mnm-backbone-modal table.mnm_child_products td.product-thumbnail img {
       width: 50px;
       height: auto; }
-    .wc-backbone-modal table.mnm_child_products td.product-details {
+    .wc-mnm-backbone-modal table.mnm_child_products td.product-details {
       padding-right: 1em; }
-      .wc-backbone-modal table.mnm_child_products td.product-details .woocommerce-loop-product__title {
+      .wc-mnm-backbone-modal table.mnm_child_products td.product-details .woocommerce-loop-product__title {
         margin: 0; }
-      .wc-backbone-modal table.mnm_child_products td.product-details .price {
+      .wc-mnm-backbone-modal table.mnm_child_products td.product-details .price {
         margin: 0; }
-      .wc-backbone-modal table.mnm_child_products td.product-details dl.variation {
+      .wc-mnm-backbone-modal table.mnm_child_products td.product-details dl.variation {
         font-size: 85%;
         list-style: none outside; }
-        .wc-backbone-modal table.mnm_child_products td.product-details dl.variation:last-child {
+        .wc-mnm-backbone-modal table.mnm_child_products td.product-details dl.variation:last-child {
           margin-bottom: 0; }
-        .wc-backbone-modal table.mnm_child_products td.product-details dl.variation dt {
+        .wc-mnm-backbone-modal table.mnm_child_products td.product-details dl.variation dt {
           float: right;
           clear: both;
           margin-left: .25em;
           display: inline-block;
           font-weight: 700; }
-        .wc-backbone-modal table.mnm_child_products td.product-details dl.variation dd {
+        .wc-mnm-backbone-modal table.mnm_child_products td.product-details dl.variation dd {
           margin: 0; }
-    .wc-backbone-modal table.mnm_child_products td.product-quantity {
+    .wc-mnm-backbone-modal table.mnm_child_products td.product-quantity {
       vertical-align: top; }
-      .wc-backbone-modal table.mnm_child_products td.product-quantity .quantity {
+      .wc-mnm-backbone-modal table.mnm_child_products td.product-quantity .quantity {
         text-align: center; }
-        .wc-backbone-modal table.mnm_child_products td.product-quantity .quantity input {
+        .wc-mnm-backbone-modal table.mnm_child_products td.product-quantity .quantity input {
           width: 53px; }
-  .wc-backbone-modal table.mnm_child_products tr.mnm_item:last-of-type > td {
+  .wc-mnm-backbone-modal table.mnm_child_products tr.mnm_item:last-of-type > td {
     border-bottom: none; }

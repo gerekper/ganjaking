@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Admin
  * @since    1.0.0
- * @version  2.1.0
+ * @version  2.2.0
  */
 
 // Exit if accessed directly.
@@ -73,6 +73,9 @@ class WC_Mix_and_Match_Admin {
 		// Admin notices handling.
 		include_once __DIR__ . '/class-wc-mnm-admin-notices.php';
 
+		// Admin functions.
+		include_once __DIR__ . '/wc-mnm-admin-functions.php';
+
 		// Product Import/Export.
 		if ( WC_MNM_Core_Compatibility::is_wc_version_gte( '3.1' ) ) {
 			include_once __DIR__ . '/export/class-wc-mnm-product-export.php';
@@ -82,7 +85,7 @@ class WC_Mix_and_Match_Admin {
 		// Metaboxes.
 		include_once __DIR__ . '/meta-boxes/class-wc-mnm-meta-box-product-data.php';
 
-		// Admin AJAX.
+		// Admin AJAX (deprecated, see: WC_MNM_Ajax instead).
 		include_once __DIR__ . '/class-wc-mnm-admin-ajax.php';
 
 		// Admin edit-order screen.
@@ -142,22 +145,23 @@ class WC_Mix_and_Match_Admin {
 			wp_enqueue_style( 'wc-mnm-admin-product-panel' );
 			wp_enqueue_script( 'wc-mnm-admin-product-panel' );
 
-		} elseif ( in_array( $screen_id, array( 'shop_order', 'shop_subscription' ) ) ) {
+		} elseif ( isset( $_GET[ 'action' ] ) && 'edit' === $_GET[ 'action' ] && in_array( $screen_id, array( 'shop_order', 'shop_subscription', 'woocommerce_page_wc-orders' ) ) ) {
 
 			if ( WC_MNM_Core_Compatibility::is_wc_version_gte( '3.6' ) ) {
 
-				// Load front end validation scripts.
-				wc_mix_and_match()->display->frontend_scripts();
+				// Load edit validation scripts.
+				WC_MNM_Ajax::load_edit_scripts();
 
 				wp_enqueue_style( 'wc-mnm-admin-order-style' );
 				wp_enqueue_script( 'wc-mnm-admin-order-panel' );
 
 				$params = array(
-					'edit_container_nonce'     => wp_create_nonce( 'wc_mnm_edit_container' ),
+					'wc_ajax_url'           => WC_AJAX::get_endpoint( '%%endpoint%%' ),
+					'edit_container_nonce'  => wp_create_nonce( 'wc_mnm_edit_container' ),
 					'i18n_configure'        => __( 'Configure', 'woocommerce-mix-and-match-products' ),
 					'i18n_edit'             => __( 'Edit', 'woocommerce-mix-and-match-products' ),
 					'i18n_form_error'       => __( 'Failed to initialize form. If this issue persists, please reload the page and try again.', 'woocommerce-mix-and-match-products' ),
-					'i18n_validation_error' => __( 'Failed to validate configuration. If this issue persists, please reload the page and try again.', 'woocommerce-mix-and-match-products' )
+					'i18n_validation_error' => __( 'Failed to validate configuration. If this issue persists, please reload the page and try again.', 'woocommerce-mix-and-match-products' ),
 				);
 
 				wp_localize_script( 'wc-mnm-admin-order-panel', 'wc_mnm_admin_order_params', $params );

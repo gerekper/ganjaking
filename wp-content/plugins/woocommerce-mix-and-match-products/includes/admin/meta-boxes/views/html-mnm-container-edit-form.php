@@ -4,9 +4,9 @@
  *
  * @package  WooCommerce Mix and Match Products/Admin/Meta-Boxes/Order/Views
  * 
- * @version 2.1.0
+ * @deprecated 2.2.0
  *
- * @var WC+Product_Mix_and_Match $product The mix and match product
+ * @var WC_Product_Mix_and_Match $product The mix and match product
  * @var WC_Order_Item_Product $order_item The item being displayed
  * @var int $item_id The id of the item being displayed
  */
@@ -34,7 +34,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</tbody>
 	</table>
 
-	<?php wc_mnm_template_reset_link(); ?>
+	<?php wc_mnm_template_reset_link( $product ); ?>
 
     <div class="mnm_cart mnm_data cart" <?php echo $product->get_data_attributes( array( 'context' => 'edit' ) ); ?>>
 

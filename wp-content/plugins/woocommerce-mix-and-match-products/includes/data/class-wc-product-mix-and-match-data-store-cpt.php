@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Data
  * @since    1.2.0
- * @version  2.1.2
+ * @version  2.2.0
  */
 
 // Exit if accessed directly.
@@ -133,8 +133,6 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	 * @param  bool                   $force
 	 */
 	protected function update_post_meta( &$product, $force = false ) {
-
-		$this->extra_data_saved = true;
 
 		parent::update_post_meta( $product, $force );
 
@@ -376,15 +374,17 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		return $child_items;
 	}
 
+
 	/**
 	 * Reads the allowed contents from the DB.
 	 *
 	 * @since 2.0.0
 	 *
 	 * @param  int|WC_Product_Mix_and_Match  $product
-	 * @return array() - map of child item ids => child product ids
+	 * @param string $return Format of returned data, values: 'ids'|'array'
+	 * @return array() - map of [ child item ids => child product ids ] OR map of full props ex: [ child item ids => [ child_item_id, p_id, product_id, variation_id, container_id, menu_order ] ]
 	 */
-	public function query_child_items_by_container( $product ) {
+	public function query_child_items_by_container( $product, $return = 'ids' ) {
 
 		$product_id = $product instanceof WC_Product ? $product->get_id() : absint( $product );
 
@@ -393,22 +393,34 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		// Get from cache if available.
 		$child_items = 0 < $product_id ? wp_cache_get( 'wc-mnm-child-items-' . $product_id, 'products' ) : false;
 
+		$results = array();
+
 		if ( false === $child_items ) {
 
 			$child_items = $wpdb->get_results(
                 $wpdb->prepare(
                     "
-				SELECT items.child_item_id, items.product_id, items.container_id, items.menu_order, p.post_parent as product_parent_id
+					SELECT items.child_item_id, items.product_id as p_id,
+					CASE
+						WHEN p.post_parent > 0 THEN p.post_parent
+						ELSE items.product_id 
+						END AS product_id,
+					CASE
+						WHEN p.post_parent > 0 THEN items.product_id
+						ELSE 0
+						END AS variation_id,
+	   			items.container_id, items.menu_order
 				FROM {$wpdb->prefix}wc_mnm_child_items AS items 
 				INNER JOIN {$wpdb->prefix}posts as p ON items.product_id = p.ID
 				WHERE items.container_id = %d
+				GROUP BY items.product_id
 				ORDER BY items.menu_order ASC",
                     $product_id
                 ) 
             );
 
 			foreach ( $child_items as $child_item ) {
-				wp_cache_set( 'wc-mnm-child-item-' . $child_item->child_item_id, $child_item, 'wc-mnm-child-items' );
+				wp_cache_set( 'wc-mnm-child-item-' . $child_item->child_item_id, $child_item, 'wc-mnm-child-items' );		
 			}
 
 			if ( 0 < $product_id ) {
@@ -417,7 +429,25 @@ class WC_Product_MNM_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 
 		}
 
-		return ! empty( $child_items ) ? array_unique( wp_list_pluck( $child_items, 'product_id', 'child_item_id' ) ) : array();
+		return ! empty( $child_items ) ? array_unique( wp_list_pluck( $child_items, 'p_id', 'child_item_id' ) ) : array();
+		if ( ! empty( $child_items ) ) {
+			foreach ( $child_items as $child_item ) {
+				if ( 'array' === $return ) {
+					$results[ $child_item->child_item_id ] = array(
+						'p_id'         => $child_item->p_id, // The product ID or variation ID, unique post ID for priming caches.
+						'product_id'   => $child_item->product_id,
+						'variation_id' => $child_item->variation_id,
+						'container_id' => $child_item->container_id,
+						'menu_order'   => $child_item->menu_order,
+					);
+				} else {
+					$results[ $child_item->child_item_id ] = $child_item->p_id;
+				}
+			}
+			
+		}
+
+		return $results;
 
 	}
 

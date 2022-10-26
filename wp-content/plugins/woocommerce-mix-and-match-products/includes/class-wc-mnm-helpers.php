@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Helpers
  * @since    1.0.0
- * @version  2.0.6
+ * @version  2.2.0
  */
 
 // Exit if accessed directly.
@@ -158,6 +158,37 @@ class WC_MNM_Helpers {
 
 		return $title_string;
 	}
+
+	
+	/**
+	 * Recursive version of 'urlencode' for multidimensional assosciative arrays.
+	 * 
+	 * Hat tip to Composite Products.
+	 *
+	 * @since  2.2.0
+	 *
+	 * @param  function  $array
+	 * @param  array     $escaped_array
+	 * @return array
+	 */
+	public static function urlencode_recursive( $array ) {
+
+		$escaped_array = array();
+
+		foreach ( $array as $key => $value ) {
+
+			if ( is_array( $value ) ) {
+				$data = self::urlencode_recursive( $value );
+			} else {
+				$data = urlencode( $value );
+			}
+
+			$escaped_array[ urlencode( $key ) ] = $data;
+		}
+
+		return $escaped_array;
+	}
+
 
 	/*-----------------------------------------------------------------------------------*/
 	/* Deprecated Functions */

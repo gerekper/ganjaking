@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Theme Compatibility
  * @since    2.0.7
- * @version  2.1.2
+ * @version  2.2.0
  */
 
 // Exit if accessed directly.
@@ -26,7 +26,7 @@ class WC_MNM_Flatsome_Compatibility {
 		add_filter( 'wc_mnm_loop_classes', array( __CLASS__, 'loop_classes' ), 10, 2 );
 
 		// Filters the child items classes.
-		add_filter( 'wc_mnm_child_item_classes', array( __CLASS__, 'child_item_classes' ), 10, 2 );
+		add_filter( 'wc_mnm_child_item_classes', array( __CLASS__, 'child_item_classes' ), 10, 3 );
 
 		// Flatsome has it's own flex layout.
 		add_filter( 'wc_mnm_grid_has_flex_layout', '__return_false' );
@@ -61,10 +61,11 @@ class WC_MNM_Flatsome_Compatibility {
 	 * Add theme-specific wrapper classes to child items.
 	 *
 	 * @param  array     $classes - All classes on the wrapper container.
+	 * @param  obj $child_item WC_MNM_Child_Item
 	 * @param obj $product WC_Mix_And_Match of parent product
 	 * @return array
 	 */
-	public static function child_item_classes( $classes, $product ) {
+	public static function child_item_classes( $classes, $child_item, $product ) {
 		if ( 'grid' === $product->get_layout() ) {
 			$new_classes = array( 'product-small', 'col' );
 			$classes = array_merge( $classes, $new_classes );
@@ -113,7 +114,8 @@ class WC_MNM_Flatsome_Compatibility {
 	 */
 	public static function inline_style() {
 		$custom_css = "
-		.mnm_item .box-text .quantity .button { margin-top: 0; }
+		.mnm_form.layout_grid .mnm_item { margin-left: 0; margin-right: 0; }
+		.mnm_form .mnm_item .box-text .quantity .button { margin-top: 0; }
 		";
 
 		wp_add_inline_style( 'wc-mnm-frontend', $custom_css );

@@ -4,6 +4,7 @@
  *
  * @package  WooCommerce Mix and Match/Admin/Ajax
  * @since    1.7.0
+ * @deprecated 2.2.0
  */
 
 // Exit if accessed directly.
@@ -22,19 +23,7 @@ class WC_MNM_Admin_Ajax {
 	/**
 	 * Hook in.
 	 */
-	public static function init() {
-
-		/*
-		 * Edit-Order screens.
-		 */
-
-		// Ajax handler used to fetch form content for populating "Configure/Edit" container order item modals.
-		add_action( 'wp_ajax_woocommerce_configure_container_order_item', array( __CLASS__, 'ajax_container_order_item_form' ) );
-
-		// Ajax handler for editing containers in manual/editable orders.
-		add_action( 'wp_ajax_woocommerce_edit_container_in_order', array( __CLASS__, 'ajax_edit_container_in_order' ) );
-
-	}
+	public static function init() {}
 
 	/*
 	|--------------------------------------------------------------------------
@@ -43,7 +32,7 @@ class WC_MNM_Admin_Ajax {
 	*/
 
 	/**
-	 * True when displaying content in an edit-composite order item modal.
+	 * True when displaying content in an edit-container order item modal.
 	 *
 	 * @return bool
 	 */
@@ -291,8 +280,8 @@ class WC_MNM_Admin_Ajax {
 
 			$product = $order_item->get_product();
 
-			if ( ! ( $product instanceof WC_Product_Mix_and_Match ) ) {
-				$error = esc_html__( 'Product is not mix and match type and so cannot be edited', 'woocommerce-mix-and-match-products' );
+			if ( ! wc_mnm_is_product_container_type( $product ) ) {
+				$error = esc_html__( 'Product is not mix and match container type and so cannot be edited', 'woocommerce-mix-and-match-products' );
 				throw new Exception( $error );
 			}
 
@@ -318,4 +307,3 @@ class WC_MNM_Admin_Ajax {
 	}
 
 }
-WC_MNM_Admin_Ajax::init();

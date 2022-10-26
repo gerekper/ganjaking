@@ -6,7 +6,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Functions
  * @since    1.2.0
- * @version  2.0.0
+ * @version  2.2.0
  */
 
 // Exit if accessed directly.
@@ -373,15 +373,40 @@ function wc_mnm_maybe_is_child_order_item( $order_item ) {
  */
 function wc_mnm_is_container_order_item( $order_item ) {
 
-	$is_child = false;
+	$is_container = false;
 
 	if ( isset( $order_item['mnm_config'] ) ) {
-		$is_child = true;
+		$is_container = true;
 	}
 
-	return $is_child;
+	return $is_container;
 }
 
+
+/*---------------*/
+/*  Products.    */
+/*---------------*/
+
+/**
+ * Given a product, test if a Mix and Match container type.
+ *
+ * @since  2.2.0
+ *
+ * @param  mixed string|WC_Product $product - A product object or product type.
+ * @return bool
+ */
+function wc_mnm_is_product_container_type( $product ) {
+
+	$container_types = (array) apply_filters( 'wc_mnm_product_container_types', array( 'mix-and-match' ) );
+
+	if ( $product instanceof WC_Product ) {
+		$is_type = $product->is_type( $container_types );
+	} else {
+		$is_type = in_array( $product, $container_types );
+	}
+
+	return $is_type;
+}
 
 /*
 |--------------------------------------------------------------------------

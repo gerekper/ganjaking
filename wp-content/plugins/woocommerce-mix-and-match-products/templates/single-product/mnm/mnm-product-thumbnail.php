@@ -13,7 +13,7 @@
  * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.9.4
- * @version 2.0.0
+ * @version 2.2.0
  */
 
 // Exit if accessed directly.
@@ -45,11 +45,13 @@ if ( $thumbnail_id ) {
 		)
 	);
 
-	$html  = '<figure class="mnm_child_product_images woocommerce-product-gallery__image">' . $image . '</figure>';
+	$html  = '<figure class="mnm_child_product_image woocommerce-product-gallery__image">';
+	$html  .= sprintf( '<a href="%1$s" class="image zoom" title="%2$s" data-rel="%3$s">%4$s</a>', $image_link, $image_title, $image_rel, $image );
+	$html .= '</figure>';
 
 } else {
 
-	$html  = '<figure class="mnm_child_product_images woocommerce-product-gallery__image--placeholder">';
+	$html  = '<figure class="mnm_child_product_image woocommerce-product-gallery__image--placeholder">';
 	$html .= sprintf(
 		'<img class="wp-post-image" src="%1$s" alt="%2$s"/>',
 		wc_placeholder_img_src(),

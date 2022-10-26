@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Orders
  * @since    1.0.0
- * @version  2.0.4
+ * @version  2.2.0
  */
 
 // Exit if accessed directly.
@@ -76,10 +76,8 @@ class WC_Mix_and_Match_Order {
 		add_filter( 'woocommerce_get_item_count', array( $this, 'order_item_count' ), 10, 3 );
 
 		// Filter admin dashboard item count and classes.
-		if ( is_admin() ) {
-			add_filter( 'woocommerce_admin_html_order_item_class', array( $this, 'html_order_item_class' ), 10, 3 );
-			add_filter( 'woocommerce_admin_html_order_preview_item_class', array( $this, 'html_order_item_class' ), 10, 3 );
-		}
+		add_filter( 'woocommerce_admin_html_order_item_class', array( $this, 'html_order_item_class' ), 10, 3 );
+		add_filter( 'woocommerce_admin_html_order_preview_item_class', array( $this, 'html_order_item_class' ), 10, 3 );
 
 		// Modify product while completing payment - @see 'get_processing_product_from_item()' and 'container_item_needs_processing()'.
 		add_action( 'woocommerce_pre_payment_complete', array( $this, 'apply_order_item_product_filter' ) );
@@ -184,7 +182,7 @@ class WC_Mix_and_Match_Order {
 			)
 		);
 
-		if ( $container && $container->is_type( 'mix-and-match' ) ) {
+		if ( $container && wc_mnm_is_product_container_type( $container ) ) {
 
 			$configuration = $args['configuration'];
 
@@ -955,7 +953,7 @@ class WC_Mix_and_Match_Order {
 	 */
 	public function container_item_needs_processing( $is_needed, $product, $order_id ) {
 
-		if ( $product->is_type( 'mix-and-match' ) && isset( $product->bundle_needs_processing ) && 'no' === $product->bundle_needs_processing ) {
+		if ( wc_mnm_is_product_container_type( $product ) && isset( $product->bundle_needs_processing ) && 'no' === $product->bundle_needs_processing ) {
 			$is_needed = false;
 		}
 
@@ -1041,7 +1039,7 @@ class WC_Mix_and_Match_Order {
 		}
 
 		// Add data to the container item.
-		if ( wc_mnm_is_container_cart_item( $cart_item_values ) && $cart_item_values['data']->is_type( 'mix-and-match' ) ) {
+		if ( wc_mnm_is_container_cart_item( $cart_item_values ) && wc_mnm_is_product_container_type( $cart_item_values['data'] ) ) {
 
 			/**
 			 * "Container Size" meta data.
