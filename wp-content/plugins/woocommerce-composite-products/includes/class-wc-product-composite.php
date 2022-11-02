@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Product Class.
  *
  * @class    WC_Product_Composite
- * @version  8.3.0
+ * @version  8.6.1
  */
 class WC_Product_Composite extends WC_Product {
 
@@ -291,7 +291,7 @@ class WC_Product_Composite extends WC_Product {
 					$min_component_raw_price_option = $component->get_option( $this->permutations[ 'min' ][ $component_id ] );
 
 					if ( $min_component_raw_price_option ) {
-						$min_component_raw_price = $min_component_raw_price_option->min_price;
+						$min_component_raw_price = (float) $min_component_raw_price_option->min_price;
 						$quantity_min            = $component->is_optional() ? 0 : $component->get_quantity( 'min' );
 						$min_raw_price          += $quantity_min * $min_component_raw_price;
 					}
@@ -316,7 +316,7 @@ class WC_Product_Composite extends WC_Product {
 						$max_component_raw_price_option = $component->get_option( $this->permutations[ 'max' ][ $component_id ] );
 
 						if ( $max_component_raw_price_option ) {
-							$max_component_raw_price = $max_component_raw_price_option->max_price;
+							$max_component_raw_price = (float) $max_component_raw_price_option->max_price;
 							$quantity_max            = $component->get_quantity( 'max' );
 							$max_raw_price          += $quantity_max * $max_component_raw_price;
 						}

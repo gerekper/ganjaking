@@ -151,6 +151,16 @@ jQuery(document).ready(function($) {
 	   }
 	   
 	});
+
+	$('.view_order').click(function () {
+		var dataId = $(this).data('id');
+	   if($(this).is(':checked')){	
+		  $('.'+dataId).show();
+	   }else{
+		  $('.'+dataId).hide(); 
+	   }
+	   
+	});
 	
 	$('#show_logo').click(function (){
 	   if($('#show_logo').is(':checked')){
@@ -160,6 +170,12 @@ jQuery(document).ready(function($) {
 	   }
 	});
 	
+});
+
+$(document).ready(function(){
+    $(".order_button_email").click(function(){
+        $(".order_button_email").attr("checked", "checked");
+    });
 });
 
 /*jQuery(document).ready(function() { 

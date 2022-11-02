@@ -2,7 +2,7 @@
 /**
  * The Template for displaying quantity/input multiplier field.
  *
- * @version 3.0.27
+ * @version 5.0.1
  * @package woocommerce-product-addons
  */
 
@@ -32,6 +32,7 @@ if ( 'percentage_based' === $price_type ) {
 	<input
 		type="number"
 		class="input-text wc-pao-addon-field wc-pao-addon-input-multiplier"
+		inputmode="numeric"
 		data-raw-price="<?php echo esc_attr( $price_raw ); ?>"
 		data-price="<?php echo esc_attr( $price_display ); ?>"
 		name="<?php echo esc_attr( $addon_key ); ?>"

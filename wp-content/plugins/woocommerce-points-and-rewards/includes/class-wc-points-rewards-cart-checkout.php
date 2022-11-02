@@ -38,6 +38,9 @@ class WC_Points_Rewards_Cart_Checkout {
 		add_action( 'woocommerce_before_checkout_form', array( $this, 'render_earn_points_message' ), 5 );
 		add_action( 'woocommerce_before_checkout_form', array( $this, 'render_redeem_points_message' ), 6 );
 
+		// Add JavaScript used by apply discount button.
+		add_action( 'woocommerce_before_checkout_form', [ $this, 'render_apply_discount_javascript' ] );
+
 		// Add JavaScript used by apply discount button (when partial redeem is enabled).
 		add_action( 'woocommerce_before_cart', array( $this, 'render_discount_javascript' ) );
 		add_action( 'woocommerce_before_checkout_form', array( $this, 'render_discount_javascript' ) );
@@ -515,9 +518,14 @@ class WC_Points_Rewards_Cart_Checkout {
 		$message = '<div class="woocommerce-info wc_points_redeem_earn_points">' . $message . '</div>';
 
 		echo apply_filters( 'wc_points_rewards_redeem_points_message', $message, $discount_available );
+	}
 
-		// add AJAX submit for applying the discount on the checkout page
-
+	/**
+	 * Add AJAX submit for applying the discount on the checkout page footer.
+	 *
+	 * @return void
+	 */
+	public function render_apply_discount_javascript() {
 		if ( is_checkout() ) {
 			wc_enqueue_js( '
 			/* Points & Rewards AJAX Apply Points Discount */

@@ -5,7 +5,7 @@ Author URI: http://ashanjay.com/
 Tags: calendar, event calendar, events, directory, location, organizer, repeating event
 Requires at least: 5.5
 Tested up to: 6.0.3
-Stable tag: 4.2
+Stable tag: 4.2.1
 Initial Release: 2011-12-21
 
 EventON is an event calendar plugin for WordPress, that helps you showcase and present your events to your audiences in a clean and clutter-free layout. 
@@ -52,6 +52,16 @@ Automatic updates will work for plugin update after you have registered and acti
 How to update eventON: http://docs.myeventon.com/documentations/update-eventon/ 
 
 == Changelog ==
+= 4.2.1 (2022-10-27) = 
+ADDED: is_hook_active() for third part webhooks
+ADDED: Eventon settings class global get_event_edit_settings()
+FIXED: minor style issues
+FIXED: edit event page not loading eventon_functions.js file
+FIXED: eventon-core-functions.php on line 1898 error
+FIXED: monthly repeat week of the month to repeat error
+FIXED: missing learn more translation
+UPDATED: evo elements styles minor
+
 = 4.2 (2022-10-24) = 
 ADDED: New font family as the default font face of eventON
 ADDED: new color scheme for calendar fonts

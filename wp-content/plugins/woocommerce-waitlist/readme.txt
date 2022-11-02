@@ -1,10 +1,10 @@
 === WooCommerce Waitlist ===
 Requires at least: 4.2.0
-Tested up to: 6.0.2
+Tested up to: 6.0.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.0.0
-WC tested up to: 6.8.2
+WC tested up to: 7.0.0
 
 This plugin enables registered users to request an email notification when an out-of-stock product comes back into stock. It tallies these registrations in the admin panel for review and provides details.
 
@@ -44,6 +44,12 @@ Why does the Waitlist only show up for some products?
 If you’re using the Advanced Notifications extension make sure you disable the backorder setting.
 
 == Changelog ==
+
+2022.10.27 - Version 2.3.5
+* Fix: Invalid product IDs stopping export of waitlist data
+* Fix: Product bundles being ignored by global exporter
+* Feature: Newly created users now force a page reload after they have been added to the waitlist
+* Added: Filter to redirect new users after they have an account created for them (wcwl_redirect_after_account_auto_create)
 
 2022.09.06 - Version 2.3.4
 * Fix: Raw HTML ouputting on user account waitlist page

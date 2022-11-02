@@ -32,6 +32,7 @@ class WC_Distance_Rate {
 		add_action( 'admin_notices', array( $this, 'upgrade_notice' ) );
 		add_action( 'wp_ajax_distance_rate_dismiss_upgrade_notice', array( $this, 'dismiss_upgrade_notice' ) );
 		add_action( 'woocommerce_loaded', array( $this, 'load_post_wc_class' ) );
+		add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
 	}
 
 	/**
@@ -64,6 +65,15 @@ class WC_Distance_Rate {
 		);
 
 		return array_merge( $plugin_links, $links );
+	}
+
+	/**
+	 * Declaring HPOS compatibility.
+	 */
+	public function declare_hpos_compatibility() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', 'woocommerce-distance-rate-shipping/woocommerce-distance-rate-shipping.php', true );
+		}
 	}
 
 	/**

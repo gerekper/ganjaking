@@ -268,6 +268,7 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist' ) ) {
 					$this->update_user_chosen_language_for_product( $email, $lang );
 					$this->save_waitlist();
 					$this->update_waitlist_count( 'add' );
+
 					if ( isset( $user ) && $user ) {
 						do_action( 'wcwl_after_add_user_to_waitlist', $this->product_id, $user );
 					}
@@ -311,7 +312,10 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist' ) ) {
 		 */
 		public function maybe_login_customer( $user_id ) {
 			if ( 'yes' === get_option( 'woocommerce_waitlist_auto_login' ) && isset( $_POST['action'] ) && 'wcwl_process_user_waitlist_request' === $_POST['action'] ) {
+				wp_clear_auth_cookie();
+				wp_set_current_user($user_id);
 				wp_set_auth_cookie( $user_id );
+				set_transient('waitlist_user_logged_in_' . $user_id, true, 10);
 			}
 		}
 

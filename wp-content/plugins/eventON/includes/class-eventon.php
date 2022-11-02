@@ -2,14 +2,14 @@
 /**
  * EventON Setup
  *
- * @since 4.2
+ * @since 4.2.1
  */
 
 defined( 'ABSPATH' ) || exit;
 
 // Main EventON Class
 final class EventON {
-	public $version = '4.2';
+	public $version = '4.2.1';
 	/**
 	 * @var evo_generator
 	 */
@@ -219,7 +219,7 @@ final class EventON {
 		$this->gen_int 			= new EVO_Int_General(); 
 		$this->evosv 			= new Evo_Cal_Schedule(); 
 
-		$this->evohooks 		= new EVO_WebHooks();
+		$this->webhooks 		= new EVO_WebHooks();
 
 
 		$GLOBALS['evo_shortcode_box'] = $this->shortcode_gen;

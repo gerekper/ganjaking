@@ -30,7 +30,7 @@ class WC_Product_Addons_Cart_Ajax {
 	 */
 	public function calculate_tax() {
 		// Make sure we have a total to calculate the tax on.
-		$add_on_total = floatval( $_POST['add_on_total'] );
+		$add_on_total = isset( $_POST['add_on_total'] ) ? (float) wc_clean( wp_unslash( $_POST['add_on_total'] ) ) : 0;
 		if ( $add_on_total < 0 ) {
 			wp_send_json( array(
 				'result' => 'ERROR',
@@ -38,10 +38,10 @@ class WC_Product_Addons_Cart_Ajax {
 			) );
 		}
 
-		$add_on_total_raw = floatval( $_POST['add_on_total_raw'] );
+		$add_on_total_raw = isset( $_POST['add_on_total_raw'] ) ? (float) wc_clean( wp_unslash( $_POST['add_on_total_raw'] ) ) : 0;
 
 		// Make sure we have a valid product so we can calculate tax.
-		$product_id = intval( $_POST['product_id'] );
+		$product_id = isset( $_POST['product_id'] ) ? absint( wc_clean( wp_unslash( $_POST['product_id'] ) ) ) : 0;
 		$product    = wc_get_product( $product_id );
 
 		if ( ! $product ) {

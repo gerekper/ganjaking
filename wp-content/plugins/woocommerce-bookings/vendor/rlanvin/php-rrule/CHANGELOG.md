@@ -2,6 +2,34 @@
 
 ## [Unreleased]
 
+
+## [2.3.2] - 2022-05-03
+
+### Fixed
+
+- Fix timezone (and the entire rule) changed to uppercase if rule was created using `createdFromRfcString` [#103](https://github.com/rlanvin/php-rrule/issues/103)
+
+## [2.3.1] - 2022-04-22
+
+### Fixed
+
+- Fix microseconds not always removed from dtstart, causing date comparison issues with specific date input [#104](https://github.com/rlanvin/php-rrule/issues/104)
+
+## [2.3.0] - 2021-10-25
+
+### Added
+
+- Added Swedish translation [#96](https://github.com/rlanvin/php-rrule/pull/96/)
+- Added `bin/review_translations.php` as a helper for translators and contributors
+- Added Hebrew translation [#95](https://github.com/rlanvin/php-rrule/pull/95)
+
+### Fixed
+
+- Fix Finnish translation [#94](https://github.com/rlanvin/php-rrule/issues/94)
+- Update French translation
+- Update German translation
+- Fix compatibility with PHP 8.1 [#100](https://github.com/rlanvin/php-rrule/pull/100)
+
 ## [2.2.2] - 2021-01-09
 
 ### Fixed
@@ -202,7 +230,10 @@
 
 - First release, everything before that was unversioned (`dev-master` was used).
 
-[Unreleased]: https://github.com/rlanvin/php-rrule/compare/v2.2.2...HEAD
+[Unreleased]: https://github.com/rlanvin/php-rrule/compare/v2.3.2...HEAD
+[2.3.2]: https://github.com/rlanvin/php-rrule/compare/v2.3.1...v2.3.2
+[2.3.1]: https://github.com/rlanvin/php-rrule/compare/v2.3.0...v2.3.1
+[2.3.0]: https://github.com/rlanvin/php-rrule/compare/v2.2.2...v2.3.0
 [2.2.2]: https://github.com/rlanvin/php-rrule/compare/v2.2.1...v2.2.2
 [2.2.1]: https://github.com/rlanvin/php-rrule/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/rlanvin/php-rrule/compare/v2.1.0...v2.2.0

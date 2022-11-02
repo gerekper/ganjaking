@@ -68,7 +68,11 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Ajax' ) ) {
 			} else {
 				$html = wcwl_get_waitlist_fields( $product_id, $context, $response, $lang );
 			}
-			wp_send_json_success( array( 'html' => $html ) );
+
+			if ( get_transient( 'waitlist_user_logged_in_' . get_current_user_id() ) === true ) {
+				wp_send_json_success( array( 'redirectUrl' => apply_filters( 'wcwl_redirect_after_account_auto_create', "" ) ) );
+			}
+			wp_send_json_success( array( 'html' => $html ));
 		}
 
 		/**

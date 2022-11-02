@@ -8,7 +8,7 @@
 
  * Description: Handle dropshipping from your WooCommerce. Create a packing slip, and notify the vendor when an order is paid. Import inventory updates via CSV from your vendors.
 
- * Version: 4.4
+ * Version: 4.5
 
  * Author: OPMC Australia Pty Ltd
 
@@ -247,82 +247,97 @@ final class WC_Dropshipping {
 		      require('templates/graph-reports.php');
 		 }
 
-	public function init () {
+		 public function init () {
 
-		load_plugin_textdomain( 'woocommerce-dropshipping', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
-
-		do_action( 'wc_dropship_manager_init' );
-
-		if ( is_admin() ) {
-
-			require_once('inc/class-wc-dropshipping-admin.php');
-
-            require_once('inc/class-wc-dropshipping-settings.php');
-			
-			//include_once(WC()->plugin_path().'/includes/admin/reports/class-wc-admin-report.php');			
-
-			//require_once('inc/class-wc-report-sales-by-supplier.php');
-			
-			$active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
-
-			foreach ( $active_plugins as $plugin ) {
+			load_plugin_textdomain( 'woocommerce-dropshipping', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+	
+			do_action( 'wc_dropship_manager_init' );
+	
+			if ( is_admin() ) {
+	
+				require_once('inc/class-wc-dropshipping-admin.php');
+	
+				require_once('inc/class-wc-dropshipping-settings.php');
 				
-				if ( strpos( $plugin, 'woocommerce.php' ) ) {
+				//include_once(WC()->plugin_path().'/includes/admin/reports/class-wc-admin-report.php');			
+	
+				//require_once('inc/class-wc-report-sales-by-supplier.php');
 				
-					include_once(WC()->plugin_path().'/includes/admin/reports/class-wc-admin-report.php');		
-					require_once('inc/class-wc-report-sales-by-supplier.php');
+				$active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
+	
+				foreach ( $active_plugins as $plugin ) {
+					
+					if ( strpos( $plugin, 'woocommerce.php' ) ) {
+					
+						include_once(WC()->plugin_path().'/includes/admin/reports/class-wc-admin-report.php');		
+						require_once('inc/class-wc-report-sales-by-supplier.php');
+					}
 				}
+	
+				$this->admin = new WC_Dropshipping_Admin();
+	
 			}
-
-			$this->admin = new WC_Dropshipping_Admin();
-
-		}
-
-		require_once('inc/class-wc-dropshipping-orders.php');
-
-		$this->orders = new WC_Dropshipping_Orders();
-
-		require_once('inc/class-wc-dropshipping-checkout.php');
-
-		$this->checkout = new WC_Dropshipping_Checkout();
-
-		require_once( 'inc/class-wc-dropshipping-dashboard.php' );
-
-		$this->dashboard = new WC_Dropshipping_Dashboard();
-
-		// Limit Capabilities of Dropshipper
-
-		add_action( 'wp_before_admin_bar_render', array($this, 'limit_dropshipper_capabilities'), 99 );
-		
-        add_action('wp_dashboard_setup', array($this, 'remove_dashboard_widgets') , 20);
-
-		// Make temporary folder for uploading attachments after that files get auto remove after base64 encode
-
-		$upload = wp_upload_dir();
-
-		$upload_dir = $upload['basedir'];
-
-		$upload_dir = $upload_dir . '/droptmp';
-
-		if (! is_dir($upload_dir)) {
-
-			mkdir( $upload_dir, 0777 );
-
-			$upload_convert = wp_upload_dir();
-
-			$upload_convert = $upload_convert['basedir'];
-
-			$upload_dir_convert = $upload_convert . '/droptmp/convert';
-
-			if (! is_dir($upload_dir_convert)) {
-
-			    mkdir( $upload_dir_convert, 0777 );
-
+			if( !function_exists( 'is_plugin_inactive' ) ) :
+				require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+			endif;
+			if( !class_exists( 'WooCommerce' ) ) :
+				add_action( 'admin_init', 'yourplugin_deactivate' );
+				add_action( 'admin_notices', 'yourplugin_admin_notice' );
+				function yourplugin_deactivate() {
+					deactivate_plugins( plugin_basename( __FILE__ ) );
+					echo "<script>window.location.reload();</script>";
+				}
+				function yourplugin_admin_notice() {
+					echo '<div class="error"><p><strong>WooCommerce</strong> must be installed and activated to use this WooCommerce Dropshipping Plugin.</p></div>';
+					if( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
+				}
+			endif;
+	
+			require_once('inc/class-wc-dropshipping-orders.php');
+	
+			$this->orders = new WC_Dropshipping_Orders();
+	
+			require_once('inc/class-wc-dropshipping-checkout.php');
+	
+			$this->checkout = new WC_Dropshipping_Checkout();
+	
+			require_once( 'inc/class-wc-dropshipping-dashboard.php' );
+	
+			$this->dashboard = new WC_Dropshipping_Dashboard();
+	
+			// Limit Capabilities of Dropshipper
+	
+			add_action( 'wp_before_admin_bar_render', array($this, 'limit_dropshipper_capabilities'), 99 );
+			
+			add_action('wp_dashboard_setup', array($this, 'remove_dashboard_widgets') , 20);
+	
+			// Make temporary folder for uploading attachments after that files get auto remove after base64 encode
+	
+			$upload = wp_upload_dir();
+	
+			$upload_dir = $upload['basedir'];
+	
+			$upload_dir = $upload_dir . '/droptmp';
+	
+			if (! is_dir($upload_dir)) {
+	
+				mkdir( $upload_dir, 0777 );
+	
+				$upload_convert = wp_upload_dir();
+	
+				$upload_convert = $upload_convert['basedir'];
+	
+				$upload_dir_convert = $upload_convert . '/droptmp/convert';
+	
+				if (! is_dir($upload_dir_convert)) {
+	
+					mkdir( $upload_dir_convert, 0777 );
+	
+				}
+	
 			}
-
+	
 		}
-
-	}
 	
         public function aliexpress_product_discount(){
             echo "Aliexpress Product Discount<br/>";
@@ -344,6 +359,16 @@ final class WC_Dropshipping {
           } 
 	
 	public function activate() {
+		/**
+		 * Function install_wc_customer_service_plugin.
+		 *
+		 * @since 2022
+		 */
+		if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+			echo '<h4> WooCommerce plugin is missing. This plugin requires WooCommerce.', 'ap </h4>';
+			/*Adding @ before will prevent XDebug output*/
+			@trigger_error( 'Please install WooCommerce before activating.', E_USER_ERROR );
+		}
 
 		$options = get_option( 'wc_dropship_manager' );
 

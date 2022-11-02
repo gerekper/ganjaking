@@ -251,6 +251,7 @@ class WC_Pre_Orders {
 				'new-pre-order',
 				'pre-order-available',
 				'pre-order-cancelled',
+				'admin-pre-order-cancelled',
 				'pre-order-date-changed',
 				'pre-ordered',
 			) as $class_file_name
@@ -258,11 +259,12 @@ class WC_Pre_Orders {
 			require_once "emails/class-wc-pre-orders-email-{$class_file_name}.php";
 		}
 
-		$email_classes['WC_Pre_Orders_Email_New_Pre_Order']          = new WC_Pre_Orders_Email_New_Pre_Order();
-		$email_classes['WC_Pre_Orders_Email_Pre_Ordered']            = new WC_Pre_Orders_Email_Pre_Ordered();
-		$email_classes['WC_Pre_Orders_Email_Pre_Order_Date_Changed'] = new WC_Pre_Orders_Email_Pre_Order_Date_Changed();
-		$email_classes['WC_Pre_Orders_Email_Pre_Order_Cancelled']    = new WC_Pre_Orders_Email_Pre_Order_Cancelled();
-		$email_classes['WC_Pre_Orders_Email_Pre_Order_Available']    = new WC_Pre_Orders_Email_Pre_Order_Available();
+		$email_classes['WC_Pre_Orders_Email_New_Pre_Order']             = new WC_Pre_Orders_Email_New_Pre_Order();
+		$email_classes['WC_Pre_Orders_Email_Pre_Ordered']               = new WC_Pre_Orders_Email_Pre_Ordered();
+		$email_classes['WC_Pre_Orders_Email_Pre_Order_Date_Changed']    = new WC_Pre_Orders_Email_Pre_Order_Date_Changed();
+		$email_classes['WC_Pre_Orders_Email_Pre_Order_Cancelled']       = new WC_Pre_Orders_Email_Pre_Order_Cancelled();
+		$email_classes['WC_Pre_Orders_Email_Admin_Pre_Order_Cancelled'] = new WC_Pre_Orders_Email_Admin_Pre_Order_Cancelled();
+		$email_classes['WC_Pre_Orders_Email_Pre_Order_Available']       = new WC_Pre_Orders_Email_Pre_Order_Available();
 
 		return $email_classes;
 	}

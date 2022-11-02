@@ -68,7 +68,7 @@ class Hooks {
    */
   public function setSettingsLinkInPluginPage(array $actionLinks): array {
     $customLinks = [
-      'settings' => '<a href="' . $this->wp->adminUrl('admin.php?page=mailpoet-settings') . '" aria-label="' . $this->wp->escAttr(__('View MailPoet settings', 'mailpoet')) . '">' . $this->wp->escHtml(__('Settings', 'mailpoet')) . '</a>',
+      'settings' => '<a href="' . $this->wp->adminUrl('admin.php?page=mailpoet-settings') . '" aria-label="' . $this->wp->escAttr(__('View MailPoet settings', 'mailpoet-premium')) . '">' . $this->wp->escHtml(__('Settings', 'mailpoet-premium')) . '</a>',
     ];
 
     return array_merge($customLinks, $actionLinks);

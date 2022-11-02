@@ -647,9 +647,9 @@ class WC_Bookings_Details_Meta_Box {
 					throw new Exception( __( 'Error: Could not create item', 'woocommerce-bookings' ) );
 				}
 
-				// Link only if product of order item matches with booking's product.
+				// Link only if the booking doesn't have an existing order or product of order item does not match with booking's product.
 				$order_item_product_id = (int) wc_get_order_item_meta( $order_item_id, '_product_id' );
-				if ( absint( $product_id ) === $order_item_product_id ) {
+				if ( empty( $booking->get_order_item_id( $order_item_id ) ) || absint( $product_id ) !== $order_item_product_id ) {
 					$booking->set_order_item_id( $order_item_id );
 				}
 			}

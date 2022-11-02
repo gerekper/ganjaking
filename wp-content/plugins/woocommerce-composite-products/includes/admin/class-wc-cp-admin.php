@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Setup admin hooks.
  *
  * @class    WC_CP_Admin
- * @version  8.6.0
+ * @version  8.6.1
  */
 class WC_CP_Admin {
 
@@ -24,7 +24,7 @@ class WC_CP_Admin {
 	 *
 	 * @var string
 	 */
-	private static $bundled_selectsw_version = '1.1.7';
+	private static $bundled_selectsw_version = '1.2.0';
 
 	/**
 	 * Setup admin hooks.
@@ -245,7 +245,7 @@ class WC_CP_Admin {
 		 */
 		if ( in_array( $screen_id, array( 'edit-product', 'product' ) ) ) {
 			wp_enqueue_style( 'wc-composite-writepanel-css' );
-		} elseif ( in_array( $screen_id, array( 'shop_order', 'edit-shop_order', 'shop_subscription', 'edit-shop_subscription' ) ) ) {
+		} elseif ( in_array( $screen_id, array( 'shop_order', 'edit-shop_order', 'shop_subscription', 'edit-shop_subscription', 'woocommerce_page_wc-orders' ) ) ) {
 			wp_enqueue_style( 'wc-composite-edit-order-css' );
 		}
 
@@ -266,7 +266,7 @@ class WC_CP_Admin {
 				'wc_placeholder_img_src'       => wc_placeholder_img_src(),
 				'is_first_composite'           => isset( $_GET[ 'wc_cp_first_composite' ] ) ? 'yes' : 'no',
 				/* translators: %s: Lowest required qty value. */
-				'i18n_qty_low_error'           => __( 'Please enter an integer higher than %s.', 'woocommerce-composite-products' ),
+				'i18n_qty_low_error'           => __( 'Please enter an integer higher than or equal to %s.', 'woocommerce-composite-products' ),
 				/* translators: %s: Highest allowed qty value. */
 				'i18n_qty_high_error'          => __( 'Please enter an integer lower than or equal to %s.', 'woocommerce-composite-products' ),
 				// Strings.
@@ -297,7 +297,7 @@ class WC_CP_Admin {
 
 			wp_localize_script( 'wc-composite-admin-product-panel', 'wc_composite_admin_params', $params );
 
-		} elseif ( in_array( $screen_id, array( 'shop_order', 'shop_subscription' ) ) ) {
+		} elseif ( in_array( $screen_id, array( 'shop_order', 'shop_subscription', 'woocommerce_page_wc-orders' ) ) ) {
 
 			wp_enqueue_script( 'wc-composite-admin-order-panel' );
 

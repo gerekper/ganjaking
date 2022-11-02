@@ -427,7 +427,7 @@
                                 <td class="tracking_number" colspan="3" style="<?php echo $woo_body_text_color; echo $woo_body_bg_color; ?> border-top:1px solid <?php echo $woo_base_color_only; ?>;">
 
                                     <?php echo "Tracking Number:" ?>
-                                    <?php echo @$dropshipper_shipping_info['tracking_number']; ?>
+                                    <?php echo @$dropshipper_shipping_info = ['tracking_number']; ?>
 
                                 </td>
                             </tr>
@@ -454,6 +454,12 @@
                         </table>
 
                         <!-- Product Details here -->
+
+                        <?php 
+                        $options = get_option( 'wc_dropship_manager' );
+                        $split_gst_amount = $options['show_gst_supplier_email'];
+                        
+                        ?>
 
                         <table class="products-tab" style="border:1px solid #000;width:100%;" border="1" align="center" cellpadding="8" cellspacing="0">
 
@@ -729,7 +735,23 @@
 
 								}
 
-							} ?>
+                            } ?>
+
+                                    <?php if( $split_gst_amount == 1 ){ ?>
+
+                                    <th border="0" align="center">
+                                        <?php esc_html_e( 'Sub Total (excl GST)', 'woocommerce-dropshipping' ); ?>
+                                    </th>
+
+                                    <th border="0" align="center">
+                                        <?php esc_html_e( 'GST Amount', 'woocommerce-dropshipping' ); ?>
+                                    </th>
+
+                                    <th border="0" align="center">
+                                        <?php esc_html_e( 'Amount Payable (Incl GST)', 'woocommerce-dropshipping' ); ?>
+                                    </th>
+
+                                    <?php   } ?>
                                     <!-- For Price Title End-->
 
                                 </tr>
@@ -768,7 +790,8 @@
 
 				$price = $prod_info['price'];
 
-				$typeofpackage = $prod_info['typeofpackage'];
+                $typeofpackage = $prod_info['typeofpackage'];
+                $total = $prod_info['total'];
 
 				$currency_sym = get_woocommerce_currency_symbol();
 
@@ -868,7 +891,12 @@
 
 					}
 
-				}
+                }
+               if( $split_gst_amount == 1 ){
+                    $rows .= '<td class = "gst_price" align="center">'. wc_price($total) .'</td>';
+                    $rows .= '<td class = "gst_price" align="center">'. wc_price($subtotal_tax) .'</td>';
+                    $rows .= '<td class = "gst_price" align="center">'. wc_price($total + $subtotal_tax).'</td>';
+                }
 
 				$rows .='</tr>';
 

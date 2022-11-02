@@ -1,5 +1,12 @@
 *** WooCommerce Conditional Shipping and Payments ***
 
+2022.11.01 - version 1.14.4
+* Tweak - Declared compatibility with the new High-Performance Order Storage.
+
+2022.10.26 - version 1.14.3
+* Tweak - Declared incompatibility with the new High-Performance Order Storage.
+* Tweak - Improved security.
+
 2022.08.15 - version 1.14.2
 * Fix - Fixed an issue with 404 errors on frontend assets in some managed server configurations.
 

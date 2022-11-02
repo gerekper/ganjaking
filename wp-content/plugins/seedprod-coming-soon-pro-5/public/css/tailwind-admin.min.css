@@ -2068,6 +2068,7 @@ a:focus{outline:0;box-shadow:none}
 .sp-a a{color:#dd4a1f}
 .sp-a a:hover{color:#f15d32}
 #sp-welcome-top{background:url(../svg/bg-leaf.svg);background-position:top center;background-repeat:no-repeat}
+.sp-w-550px .seedprod-modal-container{max-width:550px;border-radius:3px}
 .sp-text-56px{font-size:56px}
 .sp-p-c63{padding:.63rem}
 .sp-w-275{width:275px;max-width:275px}

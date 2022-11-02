@@ -132,4 +132,10 @@ class Renderer {
     }
     return false;
   }
+
+  public function getJsAsset($asset) {
+    return (!empty($this->assetsManifestJs[$asset])) ?
+      $this->assetsManifestJs[$asset] :
+      $asset;
+  }
 }

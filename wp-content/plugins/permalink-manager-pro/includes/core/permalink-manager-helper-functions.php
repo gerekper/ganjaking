@@ -793,5 +793,4 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 		}
 	}
 
-
 }

@@ -20,7 +20,7 @@ class EVO_WebHooks{
 		);
 
 		
-		$result = wp_remote_post($webhook,$request);
+		$result = wp_remote_post($webhook_url,$request);
 		if ( $result['response']['code'] == 200 ) {
 	        return array( 1 );
 	    } else {
@@ -126,7 +126,9 @@ class EVO_WebHooks{
 
 	}
 
+	// plug for adding trigger points
 	function get_trigger_events(){
+
 		return apply_filters('evo_webhook_triggers',
 			array()
 		);
@@ -161,7 +163,7 @@ class EVO_WebHooks{
 			));exit;
 		}
 
-	// return a list of all webhooks incely
+	// return a list of all webhooks nicely
 		public function get_webhooks_html(){
 			$webhooks = $this->get_hook_data();
 
@@ -226,6 +228,23 @@ class EVO_WebHooks{
 			} 
 		}
 		return $whs;
+	}
+
+	// @since 4.2.1
+	public function is_hook_active($hook_trig_key){
+		$whs = EVO()->cal->get_prop('evowhs','evcal_1');
+
+		if($whs && is_array($whs)){
+			foreach($whs as $hook_id=>$data){
+				if(!isset( $data['trig'] )) continue;
+				if(!isset( $data['url'] )) continue;
+				if( $data['trig'] == $hook_trig_key ){
+					return $data['url'];
+				}
+			}
+		}
+		return false;
+
 	}
 	
 }

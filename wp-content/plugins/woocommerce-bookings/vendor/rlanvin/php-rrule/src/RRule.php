@@ -670,8 +670,8 @@ class RRule implements RRuleInterface
 
 		if (! $force_rset) {
 			// try to detect if we have a RRULE or a set
-			$string = strtoupper($string);
-			$nb_rrule = substr_count($string, 'RRULE');
+			$upper_string = strtoupper($string);
+			$nb_rrule = substr_count($upper_string, 'RRULE');
 			if ($nb_rrule == 0) {
 				$class = '\RRule\RRule';
 			}
@@ -680,7 +680,7 @@ class RRule implements RRuleInterface
 			}
 			else {
 				$class = '\RRule\RRule';
-				if (strpos($string, 'EXDATE') !== false ||  strpos($string, 'RDATE') !== false ||  strpos($string, 'EXRULE') !== false) {
+				if (strpos($upper_string, 'EXDATE') !== false ||  strpos($upper_string, 'RDATE') !== false ||  strpos($upper_string, 'EXRULE') !== false) {
 					$class = '\RRule\RSet';
 				}
 			}
@@ -917,6 +917,7 @@ class RRule implements RRuleInterface
 	/**
 	 * @internal
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetExists($offset)
 	{
 		return is_numeric($offset) && $offset >= 0 && ! is_float($offset) && $offset < count($this);
@@ -925,6 +926,7 @@ class RRule implements RRuleInterface
 	/**
 	 * @internal
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetGet($offset)
 	{
 		if (! is_numeric($offset) || $offset < 0 || is_float($offset)) {
@@ -957,6 +959,7 @@ class RRule implements RRuleInterface
 	/**
 	 * @internal
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetSet($offset, $value)
 	{
 		throw new \LogicException('Setting a Date in a RRule is not supported');
@@ -965,6 +968,7 @@ class RRule implements RRuleInterface
 	/**
 	 * @internal
 	 */
+	#[\ReturnTypeWillChange]
 	public function offsetUnset($offset)
 	{
 		throw new \LogicException('Unsetting a Date in a RRule is not supported');
@@ -980,6 +984,7 @@ class RRule implements RRuleInterface
 	 *
 	 * @return int
 	 */
+	#[\ReturnTypeWillChange]
 	public function count()
 	{
 		if ($this->isInfinite()) {
@@ -1326,6 +1331,7 @@ class RRule implements RRuleInterface
 	 *
 	 * @return \DateTime|null
 	 */
+	#[\ReturnTypeWillChange]
 	public function getIterator()
 	{
 		$total = 0;
@@ -1385,7 +1391,7 @@ class RRule implements RRuleInterface
 			$timeset = $this->timeset;
 		}
 		else {
-			// initialize empty if it's not going to occurs on the first iteration
+			// initialize empty if it's not going to occur on the first iteration
 			if (
 				($this->freq >= self::HOURLY && $this->byhour && ! in_array($hour, $this->byhour))
 				|| ($this->freq >= self::MINUTELY && $this->byminute && ! in_array($minute, $this->byminute))
@@ -1557,7 +1563,6 @@ class RRule implements RRuleInterface
 							return;
 						}
 
-						// next($timeset);
 						if ($occurrence >= $dtstart) { // ignore occurrences before DTSTART
 							if ($this->count && $total >= $this->count) {
 								$this->total = $total;
@@ -1929,12 +1934,12 @@ class RRule implements RRuleInterface
 	 *
 	 * @return string
 	 */
-	static protected function i18nList(array $array, $and = 'and')
+	static protected function i18nList(array $array, $and = 'and ')
 	{
 		if (count($array) > 1) {
 			$last = array_splice($array, -1);
 			return sprintf(
-				'%s %s %s',
+				'%s %s%s',
 				implode(', ',$array),
 				$and,
 				implode('',$last)
@@ -2246,20 +2251,36 @@ class RRule implements RRuleInterface
 				));
 				$parts['bymonthday'][] = $tmp;
 			}
-			$parts['bymonthday'] = implode(' '.$i18n['and'],$parts['bymonthday']);
+			// because the 'on the Xth day' strings start with the space, and the "and" ends with a space
+			// it's necessary to collapse double spaces into one
+			// this behaviour was introduced in https://github.com/rlanvin/php-rrule/pull/95
+			$parts['bymonthday'] = str_replace('  ',' ',implode(' '.$i18n['and'],$parts['bymonthday']));
 		}
 
 		if (not_empty($this->rule['BYDAY'])) {
 			$parts['byweekday'] = array();
 			if ($this->byweekday) {
 				$tmp = $this->byweekday;
-				foreach ($tmp as & $value) {
-					$value = $i18n['weekdays'][$value];
+
+				$selector = 'weekdays';
+				$days_names = $i18n['weekdays'];
+				$prefix = '';
+				if (!empty($i18n['shorten_weekdays_in_list']) && count($tmp) > 1) {
+					// special case for Hebrew (and possibly other languages)
+					// see https://github.com/rlanvin/php-rrule/pull/95 for the reasoning
+					$selector = 'weekdays_shortened_for_list';
+					$prefix = $i18n['shorten_weekdays_days'];
 				}
+
+				foreach ($tmp as & $value) {
+					$value = $i18n[$selector][$value];
+				}
+
 				$parts['byweekday'][] = strtr(self::i18nSelect($i18n['byweekday'], count($tmp)), array(
-					'%{weekdays}' =>  self::i18nList($tmp, $i18n['and'])
+					'%{weekdays}' =>  $prefix . self::i18nList($tmp, $i18n['and'])
 				));
 			}
+
 			if ($this->byweekday_nth) {
 				$tmp = $this->byweekday_nth;
 				foreach ($tmp as & $value) {

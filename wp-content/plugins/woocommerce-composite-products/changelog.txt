@@ -1,5 +1,12 @@
 *** WooCommerce Composite Products ***
 
+2022.11.01 - version 8.6.1
+* Tweak - Introduced compatibility with the new High-Performance Order Storage.
+* Tweak - Improved security.
+* Tweak - Replaced 'Sort by newness' with 'Sort by latest'.
+* Tweak - Updated validation error that showed up when setting a low Maximum Quantity for a component.
+* Fix - Prevented multiplying integers with strings when syncing Composite raw prices.
+
 2022.10.13 - version 8.6.0
 * Important - The Min/Max Quantities integration requires Min/Max Quantities v3+.
 * Feature - Added support for the Min/Max Quantities 'Group of' feature.

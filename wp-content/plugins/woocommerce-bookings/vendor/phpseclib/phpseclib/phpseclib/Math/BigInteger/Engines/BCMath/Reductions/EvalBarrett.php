@@ -15,8 +15,8 @@
 
 namespace phpseclib3\Math\BigInteger\Engines\BCMath\Reductions;
 
-use phpseclib3\Math\BigInteger\Engines\BCMath\Base;
 use phpseclib3\Math\BigInteger\Engines\BCMath;
+use phpseclib3\Math\BigInteger\Engines\BCMath\Base;
 
 /**
  * PHP Barrett Modular Exponentiation Engine
@@ -59,11 +59,6 @@ abstract class EvalBarrett extends Base
      */
     protected static function generateCustomReduction(BCMath $m, $class)
     {
-        if (isset($n->reduce)) {
-            self::$custom_reduction = $n->reduce;
-            return $n->reduce;
-        }
-
         $m_length = strlen($m);
 
         if ($m_length < 5) {
@@ -81,9 +76,9 @@ abstract class EvalBarrett extends Base
 
         $m = "'$m'";
         $u = "'$u'";
-        $m1= "'$m1'";
+        $m1 = "'$m1'";
 
-        $code.= '
+        $code = '
             $lsd = substr($n, -' . $cutoff . ');
             $msd = substr($n, 0, -' . $cutoff . ');
 

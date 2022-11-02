@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Conditional Shipping and Payments
 * Plugin URI: https://woocommerce.com/products/woocommerce-conditional-shipping-and-payments
 * Description: Exclude shipping methods, payment gateways and shipping destinations using conditional logic.
-* Version: 1.14.2
+* Version: 1.14.4
 * Author: WooCommerce
 * Author URI: https://somewherewarm.com/
 *
@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * @class    WC_Conditional_Shipping_Payments
- * @version  1.14.2
+ * @version  1.14.4
  */
 
 if ( ! class_exists( 'WC_Conditional_Shipping_Payments' ) ) :
@@ -37,7 +37,7 @@ if ( ! class_exists( 'WC_Conditional_Shipping_Payments' ) ) :
 class WC_Conditional_Shipping_Payments {
 
 	/* Plugin version */
-	const VERSION = '1.14.2';
+	const VERSION = '1.14.4';
 
 	/* Required WC version */
 	const REQ_WC_VERSION = '3.9.0';
@@ -156,6 +156,16 @@ class WC_Conditional_Shipping_Payments {
 	 */
 	public function plugin_path() {
 		return untrailingslashit( plugin_dir_path( __FILE__ ) );
+	}
+
+	/**
+	 * Plugin base path name getter.
+	 * @since  1.14.3
+	 *
+	 * @return string
+	 */
+	public function get_plugin_basename() {
+		return plugin_basename( __FILE__ );
 	}
 
 	/**
@@ -283,6 +293,8 @@ class WC_Conditional_Shipping_Payments {
 	 */
 	public function init_textdomain() {
 		load_plugin_textdomain( 'woocommerce-conditional-shipping-and-payments', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		// Subscribe to automated translations.
+		add_filter( 'woocommerce_translations_updates_for_' . basename( __FILE__, '.php' ), '__return_true' );
 	}
 
 	/**

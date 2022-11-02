@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Component abstraction. Contains data and maintains view state.
  *
  * @class    WC_CP_Component
- * @version  8.6.0
+ * @version  8.6.1
  */
 class WC_CP_Component implements ArrayAccess {
 
@@ -471,7 +471,7 @@ class WC_CP_Component implements ArrayAccess {
 				'default'    => __( 'Default sorting', 'woocommerce' ),
 				'popularity' => __( 'Sort by popularity', 'woocommerce' ),
 				'rating'     => __( 'Sort by average rating', 'woocommerce' ),
-				'date'       => __( 'Sort by newness', 'woocommerce' ),
+				'date'       => __( 'Sort by latest', 'woocommerce' ),
 				'price'      => __( 'Sort by price: low to high', 'woocommerce' ),
 				'price-desc' => __( 'Sort by price: high to low', 'woocommerce' )
 			), $this->id, $this->composite );

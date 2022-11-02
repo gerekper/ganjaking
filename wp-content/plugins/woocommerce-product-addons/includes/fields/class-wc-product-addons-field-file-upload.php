@@ -30,6 +30,7 @@ class WC_Product_Addons_Field_File_Upload extends WC_Product_Addons_Field {
 			}
 		}
 
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		if ( ! empty( $_FILES[ $field_name ] ) && WC_Product_Addons_Helper::is_filesize_over_limit( $_FILES[ $field_name ] ) ) {
 			return new WP_Error( 'error', esc_html__( 'Filesize exceeds the limit.', 'woocommerce-product-addons' ) );
 		}
@@ -55,7 +56,9 @@ class WC_Product_Addons_Field_File_Upload extends WC_Product_Addons_Field {
 			'price_type' => $this->addon['price_type'],
 		);
 
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		if ( ! empty( $_FILES[ $field_name ] ) && ! empty( $_FILES[ $field_name ]['name'] ) && ! $this->test ) {
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			$upload = $this->handle_upload( $_FILES[ $field_name ] );
 
 			if ( empty( $upload['error'] ) && ! empty( $upload['file'] ) ) {

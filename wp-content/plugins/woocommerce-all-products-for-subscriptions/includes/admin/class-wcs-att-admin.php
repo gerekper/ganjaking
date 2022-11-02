@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Admin includes and hooks.
  *
  * @class    WCS_ATT_Admin
- * @version  4.0.0
+ * @version  4.0.3
  */
 class WCS_ATT_Admin {
 
@@ -24,7 +24,7 @@ class WCS_ATT_Admin {
   	 *
   	 * @var string
   	 */
-  	private static $bundled_selectsw_version = '1.1.7';
+  	private static $bundled_selectsw_version = '1.2.0';
 
 	/**
 	 * Initialize.

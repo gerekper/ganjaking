@@ -1,5 +1,13 @@
 *** WooCommerce All Products For Subscriptions ***
 
+2022.10.26 - version 4.0.3
+* Tweak - Declared incompatibility with the new High-Performance Order Storage.
+* Tweak - Improved security.
+
+2022.10.11 - version 4.0.2
+* Tweak - Added compatibility with PHP v8.1.
+* Tweak - Added support for automated translations delivery.
+
 2022.09.19 - version 4.0.1
 * Fix - Fixed error that prevented category-specific Global Subscription Plans from applying to variations.
 

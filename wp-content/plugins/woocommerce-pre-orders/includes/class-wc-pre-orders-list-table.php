@@ -174,6 +174,7 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 			'customer'          => __( 'Customer', 'wc-pre-orders' ),
 			'product'           => __( 'Product', 'wc-pre-orders' ),
 			'order'             => __( 'Order', 'wc-pre-orders' ),
+			'order_status'      => __( 'Order status', 'wc-pre-orders' ),
 			'order_date'        => __( 'Order date', 'wc-pre-orders' ),
 			'availability_date' => __( 'Availability date', 'wc-pre-orders' ),
 		);
@@ -278,6 +279,10 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 
 			case 'order_date':
 				$column_content = date_i18n( wc_date_format(), strtotime( version_compare( WC_VERSION, '3.0', '<' ) ? $order->order_date : ( $order->get_date_created() ? gmdate( 'Y-m-d H:i:s', $order->get_date_created()->getOffsetTimestamp() ) : '' ) ) );
+				break;
+
+			case 'order_status':
+				$column_content = sprintf( '<mark class="order-status %s"><span>%s</span></mark>', esc_attr( sanitize_html_class( 'status-' . $order->get_status() ) ), esc_html( wc_get_order_status_name( $order->get_status() ) ) );
 				break;
 
 			case 'availability_date':

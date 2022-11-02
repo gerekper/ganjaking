@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Compatibility with other extensions.
  *
  * @class    WCS_ATT_Integrations
- * @version  3.1.18
+ * @version  4.0.3
  */
 class WCS_ATT_Integrations {
 
@@ -95,10 +95,27 @@ class WCS_ATT_Integrations {
 			require_once( WCS_ATT_ABSPATH . 'includes/integrations/class-wcs-att-integration-wc-payments.php' );
 		}
 
+		// Declare HPOS compatibility.
+		add_action( 'before_woocommerce_init', array( __CLASS__, 'declare_hpos_compatibility' ) );
+
 		if ( is_admin() ) {
 			// Check plugin min versions.
 			add_action( 'admin_init', array( __CLASS__, 'display_notices' ) );
 		}
+	}
+
+	/**
+	 * Declare HPOS( Custom Order tables) compatibility.
+	 *
+	 * @since 4.0.3
+	 */
+	public static function declare_hpos_compatibility() {
+
+		if ( ! class_exists( 'Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			return;
+		}
+
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WCS_ATT()->plugin_basename(), false );
 	}
 
 	/**

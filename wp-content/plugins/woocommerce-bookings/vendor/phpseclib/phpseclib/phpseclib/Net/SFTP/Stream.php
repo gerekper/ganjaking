@@ -28,7 +28,7 @@ use phpseclib3\Net\SSH2;
  * @author  Jim Wigginton <terrafrost@php.net>
  * @access  public
  */
-class Stream extends SFTP
+class Stream
 {
     /**
      * SFTP instances
@@ -37,7 +37,7 @@ class Stream extends SFTP
      *
      * @var array
      */
-    static $instances;
+    public static $instances;
 
     /**
      * SFTP instance
@@ -157,14 +157,14 @@ class Stream extends SFTP
         $orig = $path;
         extract(parse_url($path) + ['port' => 22]);
         if (isset($query)) {
-            $path.= '?' . $query;
+            $path .= '?' . $query;
         } elseif (preg_match('/(\?|\?#)$/', $orig)) {
-            $path.= '?';
+            $path .= '?';
         }
         if (isset($fragment)) {
-            $path.= '#' . $fragment;
+            $path .= '#' . $fragment;
         } elseif ($orig[strlen($orig) - 1] == '#') {
-            $path.= '#';
+            $path .= '#';
         }
 
         if (!isset($host)) {
@@ -329,7 +329,7 @@ class Stream extends SFTP
             $this->eof = true;
             return false;
         }
-        $this->pos+= strlen($result);
+        $this->pos += strlen($result);
 
         return $result;
     }
@@ -338,7 +338,7 @@ class Stream extends SFTP
      * Write to stream
      *
      * @param string $data
-     * @return mixed
+     * @return int|false
      * @access public
      */
     private function _stream_write($data)
@@ -361,7 +361,7 @@ class Stream extends SFTP
         if ($result === false) {
             return false;
         }
-        $this->pos+= strlen($data);
+        $this->pos += strlen($data);
         if ($this->pos > $this->size) {
             $this->size = $this->pos;
         }
@@ -410,15 +410,15 @@ class Stream extends SFTP
     {
         switch ($whence) {
             case SEEK_SET:
-                if ($offset >= $this->size || $offset < 0) {
+                if ($offset < 0) {
                     return false;
                 }
                 break;
             case SEEK_CUR:
-                $offset+= $this->pos;
+                $offset += $this->pos;
                 break;
             case SEEK_END:
-                $offset+= $this->size;
+                $offset += $this->size;
         }
 
         $this->pos = $offset;
@@ -447,7 +447,9 @@ class Stream extends SFTP
         //     and https://github.com/php/php-src/blob/master/main/php_streams.h#L592
         switch ($option) {
             case 1: // PHP_STREAM_META_TOUCH
-                return $this->sftp->touch($path, $var[0], $var[1]);
+                $time = isset($var[0]) ? $var[0] : null;
+                $atime = isset($var[1]) ? $var[1] : null;
+                return $this->sftp->touch($path, $time, $atime);
             case 2: // PHP_STREAM_OWNER_NAME
             case 3: // PHP_STREAM_GROUP_NAME
                 return false;

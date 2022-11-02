@@ -232,7 +232,6 @@
 	}	
 
 /*-- recurring events --*/
-	.evo_elm_row.evcal_repeat{background-color: #ffe4c0; padding:5px;border-radius: 10px;}
 	#evo_mb .evo_elm_row.evcal_repeat .ajde_yn_btn_label{margin-bottom: 0px;}
 	#evcal_rep, .evcal_rep, .evo_dark_metabox_darker{
 		border-top: 1px solid #e0e0e0;

@@ -214,6 +214,9 @@ class evo_admin {
 			
 			if ( $typenow == '' || $typenow == "ajde_events" ) {
 
+				// enqueue functions
+				wp_enqueue_script('evcal_functions');
+
 				// load color picker files
 				EVO()->elements->load_colorpicker();
 

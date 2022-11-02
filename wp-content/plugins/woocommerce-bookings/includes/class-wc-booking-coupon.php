@@ -25,12 +25,16 @@ class WC_Booking_Coupon {
 	 */
 	public function __construct() {
 		add_filter( 'woocommerce_coupon_discount_types', array( $this, 'add_coupon_type' ) );
-		add_filter( 'woocommerce_coupon_is_valid', array( $this, 'is_coupon_valid' ), 10, 2 );
+		add_filter( 'woocommerce_coupon_is_valid', array( $this, 'is_coupon_valid' ), 10, 3 );
 		if ( version_compare( WC_VERSION, '3.4.0', '<' ) ) {
 			add_filter( 'woocommerce_get_discounted_price', array( $this, 'apply_discount' ), 10, 3 );
 		} else {
-			add_filter( 'woocommerce_coupon_custom_discounts_array', array( $this, 'coupon_custom_discounts' ), 10, 5 );
+			add_filter( 'woocommerce_coupon_custom_discounts_array', array( $this, 'coupon_custom_discounts' ), 10, 2 );
+			add_filter( 'woocommerce_coupon_get_discount_amount', array( $this, 'update_coupon_discount_amount' ), 10, 5 );
 		}
+
+		// Make our custom coupon type 'booking_person' valid for the cart. `is_valid_for_cart()`.
+		add_filter( 'woocommerce_cart_coupon_types', array( $this, 'cart_coupon_types' ) );
 	}
 
 	/**
@@ -41,6 +45,22 @@ class WC_Booking_Coupon {
 	 */
 	public function add_coupon_type( $types ) {
 		$types['booking_person'] = esc_html__( 'Booking Person Discount (Amount Off Per Person)', 'woocommerce-bookings' );
+
+		return $types;
+	}
+
+	/**
+	 * Filter the list of coupon types that are valid for the cart.
+	 *
+	 * @param array $types Valid coupon types for the cart.
+	 *
+	 * @return array
+	 */
+	public function cart_coupon_types( $types ) {
+		if ( is_array( $types ) ) {
+			array_push( $types, 'booking_person' );
+		}
+
 		return $types;
 	}
 
@@ -53,7 +73,7 @@ class WC_Booking_Coupon {
 	 *
 	 * @return bool Returns true if coupon is valid
 	 */
-	public function is_coupon_valid( $is_valid, $wc_coupon ) {
+	public function is_coupon_valid( $is_valid, $wc_coupon, $discount ) {
 		if ( 'booking_person' !== self::get_coupon_prop( $wc_coupon, 'discount_type' ) ) {
 			return $is_valid;
 		}
@@ -61,6 +81,20 @@ class WC_Booking_Coupon {
 		if ( ! WC()->cart->is_empty() ) {
 			foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 				$product = wc_get_product( $cart_item['product_id'] );
+				if ( is_a( $product, 'WC_Product_Booking' ) && $product->has_persons() ) {
+					return true;
+				}
+			}
+		}
+
+		// Ensure coupons apply correctly if added within the admin.
+		if ( $discount->get_object() ) {
+			check_ajax_referer( 'order-item', 'security' );
+
+			$order_items = $discount->get_items_to_validate();
+			foreach ( $order_items as $order_item ) {
+				$product = wc_get_product( $order_item->object->get_product_id() );
+
 				if ( is_a( $product, 'WC_Product_Booking' ) && $product->has_persons() ) {
 					return true;
 				}
@@ -156,7 +190,7 @@ class WC_Booking_Coupon {
 	}
 
 	/**
-	 * Get coupon discount amount
+	 * Get coupon discount amount.
 	 *
 	 * @param  array $discounts
 	 * @param  WC_Coupon $coupon
@@ -180,6 +214,55 @@ class WC_Booking_Coupon {
 	}
 
 	/**
+	 * Update coupon discount amount of an order item.
+	 *
+	 * @param float     $discount
+	 * @param float     $discounting_amount
+	 * @param object    $cart_item WC_Order_Item_Product
+	 * @param bool      $single
+	 * @param WC_Coupon $coupon
+	 *
+	 * @return float
+	 */
+	public function update_coupon_discount_amount( $discount, $discounting_amount, $cart_item, $single, $coupon ) {
+		if ( 'booking_person' !== self::get_coupon_prop( $coupon, 'discount_type' ) ) {
+			return $discount;
+		}
+
+		// When coupon applied on the cart/checkout page.
+		if ( is_callable( array( $cart_item['data'], 'get_id' ) ) ) {
+			$product_id    = $cart_item['data']->get_id();
+			$total_persons = array_sum( $cart_item['booking']['_persons'] );
+		} else {
+			// When coupon applied on the order edit page (in back end).
+			$product_id = $cart_item->get_product_id();
+			$item_id    = $cart_item->get_id();
+
+			// Get the booking ID.
+			$booking_id = WC_Booking_Data_Store::get_booking_ids_from_order_item_id( $item_id );
+			$booking_id = $booking_id[0] ?? false;
+
+			// Return if booking ID not found from the given order item ID.
+			if ( ! $booking_id ) {
+				return $discount;
+			}
+
+			// Get the total persons.
+			$booking       = new WC_Booking( $booking_id );
+			$total_persons = $booking->get_persons_total();
+		}
+		$product = wc_get_product( $product_id );
+
+		if ( ! $product->is_type( 'booking' ) ) {
+			return $discount;
+		}
+
+		$discount_amount = self::get_coupon_prop( $coupon, 'amount' );
+
+		return $discount_amount * $total_persons;
+	}
+
+	/**
 	 * Get coupon property with compatibility check on order getter introduced
 	 * in WC 3.0.
 	 *
@@ -194,5 +277,4 @@ class WC_Booking_Coupon {
 		$getter = array( $coupon, 'get_' . $prop );
 		return is_callable( $getter ) ? call_user_func( $getter ) : $coupon->{ $prop };
 	}
-
 }

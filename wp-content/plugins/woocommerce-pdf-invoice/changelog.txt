@@ -1,4 +1,7 @@
 *** WooCommerce PDF Invoice Changelog ***
+2022.10.24 - version 4.17.0
+ * Security - Additional checks when downloading invoices
+
 2022.10.03 - version 4.16.3
  * Fix MPDF temp folder
  * Fix pdf_template_order_totals filter

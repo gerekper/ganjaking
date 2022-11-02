@@ -1,5 +1,8 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2022-10-25 - version 1.7.19
+* Fix - Redirect to the cart page on removing and applying reward points on the checkout page.
+
 2022-10-18 - version 1.7.18
 * Fix - Duplication notifications during checkout.
 

@@ -285,6 +285,7 @@
         padding: 0 10px!important;
         height: 30px;
         width: 70px!important;
+        background-color: transparent;
     }
 /* color picker */
     .evo_elm_color{display: block;height: 35px;width: 60px!important; border-radius: 25px; background-color: #888}
@@ -298,6 +299,12 @@
     
     p.evo_row_select span span{padding:8px 15px;color:#636363;cursor: pointer;line-height: 1    }
 
+/* afterstatement field */
+    .evo_elm_afterstatement {
+            background-color: #ddd;
+        padding: 8px;margin-bottom: 10px;
+        border-radius: 10px;
+    }
 
 /* Tool tips */
     .evo_elms{
@@ -406,3 +413,4 @@
 
 /* general meta boxes */
     .evo_elm_row.yesno_row{display: flex; padding:5px 0;}
+    .evo_elm_row.yesno_row .field_name{margin-bottom: 10px;}

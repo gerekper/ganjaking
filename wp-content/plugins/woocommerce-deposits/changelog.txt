@@ -1,5 +1,8 @@
 *** WooCommerce Deposits Changelog ***
 
+2022-11-01 - version 2.1.0
+* Add – Declare support for High-performance Order Systems (“HPOS”).
+
 2022-10-11 - version 2.0.2
 * Fix - Update order status to Completed if the deposit is marked as Mark Paid (Offline).
 * Tweak - Add support for Custom Order Table implementation.

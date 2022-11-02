@@ -1680,7 +1680,7 @@ S2.define('selectSW/selection/single',[
     var $rendered = this.$selection.find('.select2-selection__rendered');
     var formatted = Utils.entityDecode(this.display(selection, $rendered));
 
-    $rendered.empty().append(formatted);
+    $rendered.empty().text(formatted);
 
     var title = selection.title || selection.text;
 

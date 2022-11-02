@@ -7,17 +7,40 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-09-26T14:14:19+00:00\n"
-"PO-Revision-Date: 2022-08-04 09:54:03+0000\n"
+"POT-Creation-Date: 2022-10-26T15:39:18+00:00\n"
+"PO-Revision-Date: 2022-10-06 15:54:03+0000\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
 
-#: includes/admin/class-wc-bookings-admin.php:673
+#: includes/admin/views/html-booking-export.php:10
+msgid "Click the \"Export\" button to export this product, it's settings, as well as any applicable resources, persons, and global availability rules. This will create a ZIP file that will then be downloaded to your local device to help WooCommerce support troubleshoot your bookings setup, if needed."
+msgstr "Klicke auf den Button „Exportieren“, um dieses Produkt, dessen Einstellungen sowie etwaige damit verknüpfte Ressourcen, Personen und globale Verfügbarkeitsregeln zu exportieren. Dadurch wird eine ZIP-Datei erstellt, die dann auf dein lokales Gerät heruntergeladen wird, um dem WooCommerce-Support bei Bedarf bei der Fehlersuche in deiner Buchungseinrichtung zu helfen."
+
+#: includes/admin/class-wc-bookings-export.php:201
+msgid "Unable to export!"
+msgstr "Export nicht möglich!"
+
+#: includes/admin/class-wc-bookings-export.php:64
+#: includes/admin/class-wc-bookings-export.php:69
+#: includes/admin/class-wc-bookings-export.php:80
+msgid "This booking product does not exist!"
+msgstr "Dieses Buchungsprodukt ist nicht vorhanden!"
+
+#: includes/admin/class-wc-bookings-export.php:44
+msgid "Unauthorised request, please try again."
+msgstr "Nicht genehmigte Anfrage, bitte versuche es noch einmal."
+
+#: includes/admin/class-wc-bookings-admin.php:387
+#: includes/admin/views/html-booking-export.php:14
+msgid "Export"
+msgstr "Inhalte exportieren"
+
+#: includes/admin/class-wc-bookings-admin.php:681
 msgid "The booking duration has been set to 24 as a duration greater than 24 hours is not allowed when Availability is \"not-available by default\"."
 msgstr "Die Buchungsdauer wurde auf 24 festgelegt, da eine Dauer, die mehr als 24 Stunden beträgt, nicht zulässig ist, wenn unter Verfügbarkeit „standardmäßig nicht verfügbar“ angegeben ist."
 
-#: includes/admin/class-wc-bookings-admin.php:672
+#: includes/admin/class-wc-bookings-admin.php:680
 msgid "A duration greater than 24 hours is not allowed when Availability is \"not-available by default\"."
 msgstr "Eine Dauer, die mehr als 24 Stunden beträgt, ist nicht zulässig, wenn unter Verfügbarkeit „standardmäßig nicht verfügbar“ angegeben ist."
 
@@ -49,11 +72,11 @@ msgstr "Dieser Abschnitt zeigt Dateien an, die die standardmäßigen WooCommerce
 msgid "WooCommerce Bookings template overrides"
 msgstr "WooCommerce Bookings-Template-Überschreibungen"
 
-#: includes/admin/class-wc-bookings-admin.php:700
+#: includes/admin/class-wc-bookings-admin.php:708
 msgid "Maximum duration needs to be greater than or equal to the minimum duration."
 msgstr "Die maximale Dauer muss größer oder gleich der minimalen Dauer sein."
 
-#: includes/admin/class-wc-bookings-admin.php:699
+#: includes/admin/class-wc-bookings-admin.php:707
 msgid "Minimum duration needs to be less than or equal to maximum duration."
 msgstr "Die minimale Dauer muss kleiner oder gleich der maximalen Dauer sein."
 
@@ -61,7 +84,7 @@ msgstr "Die minimale Dauer muss kleiner oder gleich der maximalen Dauer sein."
 msgid "Customer Information"
 msgstr "Kundeninformationen"
 
-#: includes/admin/class-wc-bookings-admin.php:671
+#: includes/admin/class-wc-bookings-admin.php:679
 msgid "This setting is being overridden at the resource level."
 msgstr "Diese Einstellung wird auf der Ressourcenebene überschrieben."
 
@@ -112,12 +135,12 @@ msgstr "Löscheinstellung"
 msgid "Date should be of the format yyyy-mm-dd and cannot be empty."
 msgstr "Das Datum sollte das Format jjjj-mm-tt haben und darf nicht leer sein."
 
-#: includes/admin/class-wc-bookings-admin.php:693
+#: includes/admin/class-wc-bookings-admin.php:701
 #: includes/admin/class-wc-bookings-details-meta-box.php:555
 msgid "Start date cannot be greater than end date."
 msgstr "Das Startdatum kann nicht hinter dem Enddatum liegen."
 
-#: includes/admin/class-wc-bookings-admin.php:692
+#: includes/admin/class-wc-bookings-admin.php:700
 msgid "\"Start and end date\" should be of the format yyyy-mm-dd and cannot be empty."
 msgstr "„Start- und Enddatum“ sollte das Format jjjj-mm-tt haben und darf nicht leer sein."
 
@@ -170,11 +193,11 @@ msgid "Metadata:"
 msgstr "Metadaten:"
 
 #. translators: 1: href link to list of bookings, 2: booking post type link
-#: woocommerce-bookings.php:377
+#: woocommerce-bookings.php:378
 msgid "<a href=\"%1$s\">Add or edit a product</a> to manage bookings in the Product Data section for individual products and then go to the <a href=\"%2$s\" target=\"_blank\">Bookings page</a> to manage them individually."
 msgstr "<a href=\"%1$s\">Füge ein Produkt hinzu oder bearbeite es</a>, um Buchungen im Abschnitt „Produktdaten” für einzelne Produkte zu verwalten, und gehe dann zur <a href=\"%2$s\" target=\"_blank\">Seite „Buchungen”</a>, um sie einzeln zu verwalten."
 
-#: woocommerce-bookings.php:375
+#: woocommerce-bookings.php:376
 msgid "Bookings has been activated!"
 msgstr "Bookings wurden aktiviert!"
 
@@ -2332,85 +2355,85 @@ msgstr "Klicken, zum umschalten"
 msgid "Unlink"
 msgstr "Link entfernen"
 
-#: includes/admin/views/html-booking-data.php:108
+#: includes/admin/views/html-booking-data.php:109
 msgid "before the start date."
 msgstr "zum Anreisetag"
 
-#: includes/admin/views/html-booking-data.php:100
+#: includes/admin/views/html-booking-data.php:101
 msgid "Booking can be cancelled until"
 msgstr "Die Buchung kann storniert werden bis"
 
-#: includes/admin/views/html-booking-data.php:93
+#: includes/admin/views/html-booking-data.php:94
 msgid "Check this box if the booking can be cancelled by the customer after it has been purchased. A refund will not be sent automatically."
 msgstr "Aktivieren, falls diese Buchung durch den Kunden storniert werden kann, nachdem sie bezahlt wurde. Eine Rückzahlung wird nicht automatisch eingeleitet."
 
-#: includes/admin/views/html-booking-data.php:92
+#: includes/admin/views/html-booking-data.php:93
 msgid "Can be cancelled?"
 msgstr "Stornierbar?"
 
-#: includes/admin/views/html-booking-data.php:86
+#: includes/admin/views/html-booking-data.php:87
 msgid "Check this box if the booking requires admin approval/confirmation. Payment will not be taken during checkout."
 msgstr "Aktivieren, wenn der Admin die Buchung prüfen muss. Die Zahlung wird dann ausgesetzt."
 
-#: includes/admin/views/html-booking-data.php:85
+#: includes/admin/views/html-booking-data.php:86
 msgid "Requires confirmation?"
 msgstr "Bestätigung erforderlich?"
 
-#: includes/admin/views/html-booking-data.php:76
+#: includes/admin/views/html-booking-data.php:77
 msgid "Calendar always visible"
 msgstr "Kalender immer sichtbar"
 
-#: includes/admin/views/html-booking-data.php:75
+#: includes/admin/views/html-booking-data.php:76
 msgid "Display calendar on click"
 msgstr "Zeige Kalender beim Klicken"
 
-#: includes/admin/views/html-booking-data.php:73
+#: includes/admin/views/html-booking-data.php:74
 msgid "Choose how the calendar is displayed on the booking form."
 msgstr "Wählen Sie, wie der Kalender im Buchungsformular angezeigt werden soll."
 
-#: includes/admin/views/html-booking-data.php:72
+#: includes/admin/views/html-booking-data.php:73
 msgid "Calendar display mode"
 msgstr "Kalenderanzeige"
 
-#: includes/admin/views/html-booking-data.php:62
+#: includes/admin/views/html-booking-data.php:63
 msgid "Lets the user select a start and end date on the calendar - duration will be calculated automatically."
 msgstr "Lassen Sie den Nutzer Anreise- und Enddatum im Kalender wählen. Die Dauer wird automatisch berechnet."
 
-#: includes/admin/views/html-booking-data.php:61
+#: includes/admin/views/html-booking-data.php:62
 msgid "Enable Calendar Range Picker?"
 msgstr "Kalender mit Bereichswahl aktivieren?"
 
-#: includes/admin/views/html-booking-data.php:46
+#: includes/admin/views/html-booking-data.php:47
 msgid "The maximum allowed duration the user can input."
 msgstr "Der maximale Zeitraum, den ein Nutzer angeben kann."
 
-#: includes/admin/views/html-booking-data.php:45
+#: includes/admin/views/html-booking-data.php:46
 msgid "Maximum duration"
 msgstr "Maximale Dauer"
 
-#: includes/admin/views/html-booking-data.php:33
+#: includes/admin/views/html-booking-data.php:34
 msgid "The minimum allowed duration the user can input."
 msgstr "Der minimale Zeitraum, den ein Nutzer angeben kann."
 
-#: includes/admin/views/html-booking-data.php:32
+#: includes/admin/views/html-booking-data.php:33
 msgid "Minimum duration"
 msgstr "Minimale Dauer"
 
-#: includes/admin/views/html-booking-data.php:23
-#: includes/admin/views/html-booking-data.php:106
+#: includes/admin/views/html-booking-data.php:24
+#: includes/admin/views/html-booking-data.php:107
 #: includes/booking-form/class-wc-booking-form.php:206
 msgid "Minute(s)"
 msgstr "Minute(n)"
 
-#: includes/admin/views/html-booking-data.php:16
+#: includes/admin/views/html-booking-data.php:17
 msgid "Customer defined blocks of"
 msgstr "Benutzerdefinierte Einheiten von"
 
-#: includes/admin/views/html-booking-data.php:15
+#: includes/admin/views/html-booking-data.php:16
 msgid "Fixed blocks of"
 msgstr "Feste Einheiten von"
 
-#: includes/admin/views/html-booking-data.php:13
+#: includes/admin/views/html-booking-data.php:14
 msgid "Booking duration"
 msgstr "Buchungsdauer"
 
@@ -2489,16 +2512,16 @@ msgstr "in der Zukunft"
 
 #: includes/admin/views/html-booking-availability.php:35
 #: includes/admin/views/html-booking-availability.php:45
-#: includes/admin/views/html-booking-data.php:22
-#: includes/admin/views/html-booking-data.php:105
+#: includes/admin/views/html-booking-data.php:23
+#: includes/admin/views/html-booking-data.php:106
 #: includes/booking-form/class-wc-booking-form.php:198
 msgid "Hour(s)"
 msgstr "Stunde(n)"
 
 #: includes/admin/views/html-booking-availability.php:34
 #: includes/admin/views/html-booking-availability.php:44
-#: includes/admin/views/html-booking-data.php:21
-#: includes/admin/views/html-booking-data.php:104
+#: includes/admin/views/html-booking-data.php:22
+#: includes/admin/views/html-booking-data.php:105
 #: includes/booking-form/class-wc-booking-form.php:174
 msgid "Day(s)"
 msgstr "Tag(e)"
@@ -2512,8 +2535,8 @@ msgstr "Woche(n)"
 
 #: includes/admin/views/html-booking-availability.php:32
 #: includes/admin/views/html-booking-availability.php:42
-#: includes/admin/views/html-booking-data.php:20
-#: includes/admin/views/html-booking-data.php:103
+#: includes/admin/views/html-booking-data.php:21
+#: includes/admin/views/html-booking-data.php:104
 #: includes/booking-form/class-wc-booking-form.php:157
 msgid "Month(s)"
 msgstr "Monat(e)"
@@ -3419,88 +3442,88 @@ msgstr "Verknüpfen dieser Leistung nicht möglich."
 msgid "The resource has already been linked to this product"
 msgstr "Die Leistung wurde schon mit diesem Produkt verknüpft."
 
-#: includes/admin/class-wc-bookings-admin.php:724
+#: includes/admin/class-wc-bookings-admin.php:732
 msgid "Enable this if this bookable product has multiple bookable resources, for example room types or instructors."
 msgstr "Aktivieren, wenn das Produkt verschiedene Leistungen hat (z.B. Einzelzimmer, Doppelzimmer)"
 
-#: includes/admin/class-wc-bookings-admin.php:723
+#: includes/admin/class-wc-bookings-admin.php:731
 msgid "Has resources"
 msgstr "hat Leistungen"
 
-#: includes/admin/class-wc-bookings-admin.php:717
+#: includes/admin/class-wc-bookings-admin.php:725
 msgid "Enable this if this bookable product can be booked by a customer defined number of persons."
 msgstr "Aktivieren, wenn der Kunde die Anzahl der Personen bestimmen darf."
 
-#: includes/admin/class-wc-bookings-admin.php:716
+#: includes/admin/class-wc-bookings-admin.php:724
 msgid "Has persons"
 msgstr "hat Personen"
 
-#: includes/admin/class-wc-bookings-admin.php:669
+#: includes/admin/class-wc-bookings-admin.php:677
 msgid "Resource"
 msgstr "Ressource"
 
-#: includes/admin/class-wc-bookings-admin.php:668
+#: includes/admin/class-wc-bookings-admin.php:676
 #: includes/admin/views/html-create-booking-page.php:18
 msgid "Customer"
 msgstr "Kunde"
 
-#: includes/admin/class-wc-bookings-admin.php:667
+#: includes/admin/class-wc-bookings-admin.php:675
 msgid "View details"
 msgstr "Details anzeigen"
 
-#: includes/admin/class-wc-bookings-admin.php:662
+#: includes/admin/class-wc-bookings-admin.php:670
 msgid "Enter a name for the new resource"
 msgstr "Bitte geben Sie einen Namen für die neue Leistung an"
 
-#: includes/admin/class-wc-bookings-admin.php:661
+#: includes/admin/class-wc-bookings-admin.php:669
 msgid "days"
 msgstr "Tage"
 
-#: includes/admin/class-wc-bookings-admin.php:660
+#: includes/admin/class-wc-bookings-admin.php:668
 msgid "hours"
 msgstr "Stunden"
 
-#: includes/admin/class-wc-bookings-admin.php:659
+#: includes/admin/class-wc-bookings-admin.php:667
 msgid "minutes"
 msgstr "Minuten"
 
-#: includes/admin/class-wc-bookings-admin.php:656
+#: includes/admin/class-wc-bookings-admin.php:664
 msgid "Are you sure you want to remove this resource?"
 msgstr "Sind Sie sicher, dass Sie diese Leistung löschen wollen?"
 
-#: includes/admin/class-wc-bookings-admin.php:653
+#: includes/admin/class-wc-bookings-admin.php:661
 msgid "Are you sure you want to remove this person type?"
 msgstr "Sind Sie sicher, dass Sie diese Personenart löschen wollen?"
 
-#: includes/admin/class-wc-bookings-admin.php:555
+#: includes/admin/class-wc-bookings-admin.php:562
 #: includes/class-wc-booking-privacy.php:78
 msgid "Bookable product"
 msgstr "Buchbares Produkt"
 
-#: includes/admin/class-wc-bookings-admin.php:461
+#: includes/admin/class-wc-bookings-admin.php:468
 msgid "Booking submitted."
 msgstr "Buchung abgeschickt."
 
-#: includes/admin/class-wc-bookings-admin.php:460
+#: includes/admin/class-wc-bookings-admin.php:467
 msgid "Booking saved."
 msgstr "Buchung gespeichert."
 
-#: includes/admin/class-wc-bookings-admin.php:456
+#: includes/admin/class-wc-bookings-admin.php:463
 msgid "Custom field deleted."
 msgstr "Benutzerdefiniertes Feld gelöscht."
 
-#: includes/admin/class-wc-bookings-admin.php:455
+#: includes/admin/class-wc-bookings-admin.php:462
 msgid "Custom field updated."
 msgstr "Benutzerdefiniertes Feld aktualisiert."
 
-#: includes/admin/class-wc-bookings-admin.php:454
-#: includes/admin/class-wc-bookings-admin.php:457
-#: includes/admin/class-wc-bookings-admin.php:459
+#: includes/admin/class-wc-bookings-admin.php:461
+#: includes/admin/class-wc-bookings-admin.php:464
+#: includes/admin/class-wc-bookings-admin.php:466
 msgid "Booking updated."
 msgstr "Buchung aktualisiert."
 
 #: includes/admin/class-wc-bookings-admin.php:380
-#: includes/admin/class-wc-bookings-admin.php:670
+#: includes/admin/class-wc-bookings-admin.php:678
 #: includes/admin/views/html-booking-tab.php:4
 #: includes/booking-form/class-wc-booking-form.php:257
 #: includes/class-wc-bookings-google-calendar-connection.php:1423

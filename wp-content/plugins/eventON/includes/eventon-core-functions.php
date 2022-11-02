@@ -1177,6 +1177,8 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 
 						if(!empty($monthly_repeat_days)){
 
+							$current_month_year = $DD->format('F Y');
+
 							foreach($monthly_repeat_days as $d){
 
 								if(empty($d)) continue;							
@@ -1186,12 +1188,15 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 								// if week of month set
 								if( !empty($monthly_wom)){
 
-									$monthly_wom = is_array($monthly_wom)? $monthly_wom:  explode(',', $monthly_wom);									
+									$monthly_wom = is_array($monthly_wom)? $monthly_wom:  explode(',', $monthly_wom);	
+
 									foreach($monthly_wom as $week_om){
 
-										$DD->modify( $week_names[ $week_om ] .' '. $day_name. ' of '. $DD->format('F Y'));
+										$DD->modify( $week_names[ $week_om ] .' '. $day_name. ' of '. $current_month_year );
 										$DD->setTime( $event_hour, $event_min);
 										$new_unix_S = $DD->format('U');
+
+										//$debug .= $week_names[ $week_om ] .' '. $day_name. ' of '. $current_month_year.'-'.$DD->format('Y-m-d').'/'. "{$x} {$week_om} {$d}".'//';
 
 										// Add the new unix values
 										if($new_unix_S < $unix_S) continue;
@@ -1201,7 +1206,7 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 											($new_unix_S + $event_duration) 
 										);
 
-										$debug .= $week_names[ $week_om ] .' '. $day_name. ' of '. $DD->format('F Y').'-'.$DD->format('Y-m-d').'/'. "{$x} {$week_om} {$d}".'//';
+										//$debug .= $week_names[ $week_om ] .' '. $day_name. ' of '. $DD->format('F Y').'-'.$DD->format('Y-m-d').'/'. "{$x} {$week_om} {$d}".'//';
 									}
 
 								// no week of month set = default to first
@@ -1893,6 +1898,8 @@ require EVO_ABSPATH. 'includes/evo-conditional-functions.php';
 			if(!$response) return false;
 
 			$RR = json_decode($response);
+
+			if( !isset($RR->results[0])) return false;
 
 			return array(
 		        'lat' => $RR->results[0]->geometry->location->lat,

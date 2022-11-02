@@ -3,7 +3,7 @@
         'name' => 'woocommerce/woocommerce-deposits',
         'pretty_version' => 'dev-trunk',
         'version' => 'dev-trunk',
-        'reference' => 'a0354e7523e1dfa4ee8a7126da38b5bd0f69d767',
+        'reference' => '8e850acff9a202f0aad069d0be996fad574019db',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'woocommerce/woocommerce-deposits' => array(
             'pretty_version' => 'dev-trunk',
             'version' => 'dev-trunk',
-            'reference' => 'a0354e7523e1dfa4ee8a7126da38b5bd0f69d767',
+            'reference' => '8e850acff9a202f0aad069d0be996fad574019db',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

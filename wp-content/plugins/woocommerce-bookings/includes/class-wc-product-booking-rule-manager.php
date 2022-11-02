@@ -1118,7 +1118,7 @@ class WC_Product_Booking_Rule_Manager {
 			} elseif ( false !== strpos( $type, 'time' ) ) {
 				// if the day doesn't match and the day is not zero skip the rule
 				// zero means all days. SO rule only apply for zero or a matching day.
-				if ( ! empty( $range['day'] ) && $slot_day_no !== $range['day'] ) {
+				if ( ! empty( $range['day'] ) && $slot_day_no !== intval( $range['day'] ) ) {
 					continue;
 				}
 
@@ -1159,12 +1159,17 @@ class WC_Product_Booking_Rule_Manager {
 				// Normal rule.
 				if ( $slot_start_time < $rule_end_time && $slot_end_time > $rule_start_time ) {
 					if ( 'hour' === $bookable_product->get_duration_unit() || 'minute' === $bookable_product->get_duration_unit() ) {
-						// If the product is not available by default and the rule makes the product available,
-						// slot_end_time has to be also inside of the rule_end_time for products with duration of hours or minutes.
-						$check_in_range = $rule_val && ! $bookable_product->get_default_availability() && ! $bookable_product->get_check_start_block_only();
+						// If the rule makes the product available, check if slot range is inside the rule range.
+						if ( $apply_rule_times && $rule_val ) {
+							if ( $slot_start_time < $rule_start_time ) {
+								continue;
+							}
 
-						if ( $apply_rule_times && $check_in_range && ( $slot_start_time < $rule_start_time || $slot_end_time > $rule_end_time ) ) {
-							continue;
+							// When availability setting is set to check against "The starting block only",
+							// Only then, check if slot_end_time is inside the rule_end_time.
+							if ( ! $bookable_product->get_check_start_block_only() && $slot_end_time > $rule_end_time ) {
+								continue;
+							}
 						}
 					}
 					$bookable = $rule_val;

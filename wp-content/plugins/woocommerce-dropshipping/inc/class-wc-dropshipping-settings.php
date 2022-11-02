@@ -199,7 +199,70 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                     } else {
 
                         $options['cc_mail'] = '0';
+                    }                                    
+
+                    /** Staert Hide client info 5.6
+                     * created at : 13/10/2022
+                     * Updated at : 
+                    */
+                    if (isset($_POST['hide_client_info_Suppliers'])) {
+
+                        $options['hide_client_info_Suppliers'] = '1';
+                    } else {
+
+                        $options['hide_client_info_Suppliers'] = '0';
                     }
+                     /** End Hide client info */ 
+                    
+                    /** Supplier Email Notifications */ 
+                    if (isset($_POST['view_order'])) {
+
+                        $options['view_order'] = '1';
+                    } else {
+
+                        $options['view_order'] = '0';
+                    }
+
+                    if (isset($_POST['renewal_email'])) {
+
+                        $options['renewal_email'] = '1';
+                    } else {
+
+                        $options['renewal_email'] = '0';
+                    }
+                    /** End Supplier Email Notifications */ 
+                    
+                    //Start hide contact_info_Suppliers
+                    if (isset($_POST['hide_contact_info_Suppliers'])) {
+
+                        $options['hide_contact_info_Suppliers'] = '1';
+                    } else {
+
+                        $options['hide_contact_info_Suppliers'] = '0';
+                    } 
+                    //End hide contact_info_Suppliers
+
+                    //store add_shipping_add
+                    if (isset($_POST['store_add_shipping_add'])) {
+
+                        $options['store_add_shipping_add'] = '1';
+                    } else {
+
+                        $options['store_add_shipping_add'] = '0';
+                    } 
+                    //store add_shipping_add
+
+                    //specific deli_location
+                    if (isset($_POST['specific_deli_location'])) {
+
+                        $options['specific_deli_location'] = '1';
+                    } else {
+
+                        $options['specific_deli_location'] = '0';
+                    } 
+
+                    //specific deli_location
+                    
 
                     if (isset($_POST['from_name'])) {
 
@@ -273,6 +336,14 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                         $options['cost_of_goods'] = '0';
                     }
 
+                    if (isset($_POST['show_gst_supplier_email'])) {
+
+                        $options['show_gst_supplier_email'] = '1';
+                    } else {
+
+                        $options['show_gst_supplier_email'] = '0';
+                    }
+
                     if (isset($_POST['billing_address'])) {
 
                         $options['billing_address'] = '1';
@@ -329,6 +400,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                         $options['order_complete_link'] = '0';
                     }
 
+
                     if (isset($_POST['type_of_package'])) {
 
                         $options['type_of_package'] = '1';
@@ -382,22 +454,8 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                         $options['ali_cbe_price_rate_value_name'] = 0;
                     }
+
 			
-			  if (isset($_POST['renewal_email'])) {
-
-                        $options['renewal_email'] = $_POST['renewal_email'];
-                    } else {
-
-                        $options['renewal_email'] = '0';
-                    }
-			
-			if (isset($_POST['order_button_email'])) {
-
-                        $options['order_button_email'] = $_POST['order_button_email'];
-                    } else {
-
-                        $options['order_button_email'] = '0';
-                    }
 
                     update_option('wc_dropship_manager', $options);
                 }
@@ -433,13 +491,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                     }
                 }
 
-                if (isset($_POST['renewal_email'])) {
-
-                    $options['renewal_email'] = '1';
-                } else {
-
-                    $options['renewal_email'] = '0';
-                }
+                
 
                 if (isset($options['full_information'])) {
 
@@ -513,6 +565,65 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                     $cc_mail = '';
                 }
 
+                /** hide client_info_Suppliers */
+                if (isset($options['hide_client_info_Suppliers'])) {
+
+                    $hide_client_info_Suppliers = $options['hide_client_info_Suppliers'];
+                } else {
+
+                    $hide_client_info_Suppliers = '';
+                }
+                // hide client_info_Suppliers
+                 
+                // Supplier Email Notifications 
+                if (isset($options['view_order'])) {
+
+                    $view_order = $options['view_order'];
+                } else {
+
+                    $view_order = '';
+                }
+
+                if (isset($options['renewal_email'])) {
+
+                    $renewal_email = $options['renewal_email'];
+                } else {
+
+                    $renewal_email = '';
+                }
+                // End Supplier Email Notifications
+
+                //hide contact_info_Suppliers
+                if (isset($options['hide_contact_info_Suppliers'])) {
+
+                    $hide_contact_info_Suppliers = $options['hide_contact_info_Suppliers'];
+                } else {
+
+                    $hide_contact_info_Suppliers = '';
+                }
+                //hide contact_info_Suppliers
+
+                //store add_shipping_add
+                if (isset($options['store_add_shipping_add'])) {
+
+                    $store_add_shipping_add = $options['store_add_shipping_add'];
+                } else {
+
+                    $store_add_shipping_add = '';
+                }
+                //store add_shipping_add 
+
+                //specific deli_location
+                if (isset($options['specific_deli_location'])) {
+
+                    $specific_deli_location = $options['specific_deli_location'];
+                } else {
+
+                    $specific_deli_location = '';
+                }
+
+                //specific deli_location
+
                 if (isset($options['from_name'])) {
 
                     $from_name = $options['from_name'];
@@ -575,6 +686,14 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                 } else {
 
                     $cost_of_goods = '';
+                }
+
+                if (isset($options['show_gst_supplier_email'])) {
+
+                    $show_gst_supplier_email = $options['show_gst_supplier_email'];
+                } else {
+
+                    $show_gst_supplier_email = '';
                 }
 
                 if (isset($options['billing_address'])) {
@@ -672,6 +791,8 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                     $order_complete_link = '';
                 }
+
+               
 
                 if (isset($options['type_of_package'])) {
 
@@ -824,7 +945,69 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                     $cc_mail = ' ';
                 }
 
-                if ($hide_shipping_price == '1') {
+
+                //hide client_info_Suppliers
+                if ( $hide_client_info_Suppliers == '1' || $hide_client_info_Suppliers == '' ) {
+
+                    $hide_client_info_Suppliers = ' checked="checked" ';
+                } else {
+
+                    $hide_client_info_Suppliers = ' ';
+                }
+                //hide client_info_Suppliers
+
+                // Supplier Email Notifications
+                if ( $view_order == '1' || $view_order == '' ) {
+
+                    $view_order = ' checked="checked" ';
+                } else {
+
+                    $view_order = ' ';
+                }
+
+                if ( $renewal_email == '1' || $renewal_email == '' ) {
+
+                    $renewal_email = ' checked="checked" ';
+                } else {
+
+                    $renewal_email = ' ';
+                } 
+                // End Supplier Email Notifications
+
+                //hide contact_info_Suppliers
+                if ( $hide_contact_info_Suppliers == '1' || $hide_contact_info_Suppliers == '' ) {
+
+                    $hide_contact_info_Suppliers = ' checked="checked" ';
+                } else {
+
+                    $hide_contact_info_Suppliers = ' ';
+                }
+                //hide contact_info_Suppliers
+
+                //store add_shipping_add
+                if ( $store_add_shipping_add == '1' || $store_add_shipping_add == '' ) {
+
+                    $store_add_shipping_add = ' checked="checked" ';
+                } else {
+
+                    $store_add_shipping_add = ' ';
+                }
+                //store add_shipping_add
+
+                //specific deli_location
+                if ( $specific_deli_location == '1' || $specific_deli_location == '' ) {
+
+                    $specific_deli_location = ' checked="checked" ';
+                    $location_option = 'style="display:block"';
+                } else {
+
+                    $location_option = 'style="display:hide"';
+                }
+
+               
+                //specific deli_location
+
+                if ($hide_shipping_price == '1' || $hide_shipping_price == '') {
 
                     $hide_shipping_price = ' checked="checked" ';
                 } else {
@@ -878,6 +1061,14 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                 } else {
 
                     $cost_of_goods = ' ';
+                }
+
+                if ($show_gst_supplier_email == '1' || $show_gst_supplier_email == '') {
+
+                    $show_gst_supplier_email = ' checked="checked" ';
+                } else {
+
+                    $show_gst_supplier_email = ' ';
                 }
 
                 if ($billing_address == '1') {
@@ -1025,31 +1216,8 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                         $options['ali_cbe_price_rate_value_name'] = 0;
                     }
                 }
-
-                if (isset($options['renewal_email'])) {
-
-                    $renewal_email = $options['renewal_email'];
-                } else {
-
-                    $renewal_email = '';
-                }
-
-                
-                if ($options['renewal_email'] == '1') {
-
-                    $renewal_email = ' checked="checked" ';
-                } else {
-
-                    $renewal_email = '';
-                }
-				
+               
 			
-                
-                if ($options['order_button_email'] == '1') {
-                    $order_button_email = ' checked="checked" ';
-                } else {
-                    $order_button_email = ' ';
-                }
 		    
               
                 $woocommerce_url = plugins_url() . '/woocommerce/';
@@ -1162,59 +1330,59 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 				echo '<div class="drop-setting-section" id="supplier_email_notifications">';
 
-				echo '<h3>Supplier Email Notifications</h3> 
+				        echo '<h3>Supplier Email Notifications</h3> 
 
-                <p>When an order&apos;s status switches to processing, emails are sent to each supplier to notify them to ship their products. You can set a custom message for the suppliers in the box below to be included in these emails</p> 
-
-                <table> 
-                    <tr> 
-                        <td><label for="email_order_note">Email order note:</label></td> 
-                        <td><img class="help_tip" data-tip="This note will appear on emails that suppliers will receive with your order notifications" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
-
-                        <td><textarea name="email_order_note" id="email_order_note" cols="45" >' . @$options['email_order_note'] . '</textarea></td> 
-                    </tr> 
-                </table>';
-
-				echo '<p></p>
-
-                    <table>
-		        <tr>
-                            <td><input name="order_button_email" id="order_button_email" type="checkbox" ' . $order_button_email . ' value="1"/></td>
-                            <td><label for="order_button_email">Include \'View order\' link in suppliers email:</label></td>
-                            <td><img class="help_tip" data-tip="If checked this option will Include \'View order\' link in suppliers email" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
-                        </tr>
-                        <tr>
-                            <td><input name="renewal_email" id="renewal_email" type="checkbox" ' . $renewal_email . ' /></td>
-                            <td><label for="renewal_email">Do not send renewal email to suppliers:</label></td>
-                            <td><img class="help_tip" data-tip="If checked this option will not send subscription renewal email\'s to suppliers" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
-                        </tr>
-                    </table>';
-
-					echo '<h3>.CSV File Inventory Update Settings</h3> 
-
-                        <p>These options relate to how your store processes data imported from CSV spreadsheet files, if you receive them from your supplier</p> 
+                        <p>When an order&apos;s status switches to processing, emails are sent to each supplier to notify them to ship their products. You can set a custom message for the suppliers in the box below to be included in these emails</p> 
 
                         <table> 
-
                             <tr> 
+                                <td><label for="email_order_note">Email order note:</label></td> 
+                                <td><img class="help_tip" data-tip="This note will appear on emails that suppliers will receive with your order notifications" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
 
-                                <td><label for="inventory_pad">Inventory Padding:</label></td> 
+                                <td><textarea name="email_order_note" id="email_order_note" cols="45" >' . @$options['email_order_note'] . '</textarea></td> 
+                            </tr> 
+                        </table>';
 
-                                <td><img class="help_tip" data-tip="If the supplier&apos;s stock falls below this number on an imported spreadsheet, the item will be considered out of stock in your store. <br>Set this to zero if you want to directly use the inventory numbers your supplier gives you, or higher if you want to ensure that they don&apos;t sell out of their products before you make a sale." src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                        echo '<p></p>
 
-                                <td><input name="inventory_pad" value="' . @$options['inventory_pad'] . '" size="1" /></td> 
-                            </tr> 			
-					<!--<tr> 
+                            <table> 
+                                <tr>
+                                    <td><input name="view_order" id="view_order" class="view_order" type="checkbox" ' . $view_order . '  /></td> 
 
-    					 <td valign="top"><label for="url_product_feed">Url to product feed:</label></td> 
-    					 <td><img class="help_tip" data-tip="After updating the in-stock/out of stock status this url will be called to regenerate your product feed. <br />(Just leave blank if you don\'t have a product feed)" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                    <td><label for="view_order">Include \'View order\' link in suppliers email:</label></td> 
 
-    					 <td> 
-    					 <input name="url_product_feed" value="' . @$options['url_product_feed'] . '" size="100" /> 
-    					 </td> 
-					</tr>--> 
+                                    <td><img class="help_tip" data-tip="If checked this option will not send subscription renewal email\'s to suppliers" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
+                                </tr> 
 
-					</table>';
+                            </table>
+
+                            <table> 
+                                <tr>
+                                    <td><input name="renewal_email" id="renewal_email" class="view_order" type="checkbox" ' . $renewal_email . '  /></td> 
+
+                                    <td><label for="renewal_email">Do not send renewal email to suppliers:</label></td> 
+
+                                    <td><img class="help_tip" data-tip="If checked this option will not send subscription renewal email\'s to suppliers" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
+                                </tr> 
+
+                            </table>';
+
+
+					        echo '<h3>.CSV File Inventory Update Settings</h3> 
+
+                            <p>These options relate to how your store processes data imported from CSV spreadsheet files, if you receive them from your supplier</p> 
+
+                            <table> 
+
+                                <tr> 
+
+                                    <td><label for="inventory_pad">Inventory Padding:</label></td> 
+
+                                    <td><img class="help_tip" data-tip="If the supplier&apos;s stock falls below this number on an imported spreadsheet, the item will be considered out of stock in your store. <br>Set this to zero if you want to directly use the inventory numbers your supplier gives you, or higher if you want to ensure that they don&apos;t sell out of their products before you make a sale." src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+
+                                    <td><input name="inventory_pad" value="' . @$options['inventory_pad'] . '" size="1" /></td> 
+                                </tr> 			
+                            </table>';
 
 					echo '</div>';
 
@@ -1466,19 +1634,16 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     </tr> 
                                 </table>';
 
-		    /* // Commenting below code as it is not used anywhere.
                             echo '<p></p> 
 
                                 <table> 
                                     <tr> 
-                                        <td><input name="show_gst_supplier_email" id="show_gst_supplier_email" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $show_gst_tax_split . '  /></td> 
+                                        <td><input name="show_gst_supplier_email" id="show_gst_supplier_email" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $show_gst_supplier_email . '  /></td> 
 
                                         <td><label for="show_gst_supplier_email">Show GST Tax Split.</label></td>
                                     </tr> 
-                                </table>  
-                                
-                            </div>';
-		    */
+                                </table> ';
+		    
 		    	echo '<p></p> 
 
                                 
@@ -1854,11 +2019,65 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
                             </table>';
 
-						echo '</div>';
+                            // echo '<p></p> 
+							// 	<table> 
+                            //     <tr>
+                            //         <td><input name="hide_client_info_Suppliers" id="hide_client_info_Suppliers" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $hide_client_info_Suppliers . '  /></td> 
 
-						echo '<div class="drop-setting-section" id="customised_supplier_emails">';
+                            //         <td><label for="hide_client_info_Suppliers">Hide Client info in Suppliers Order list dashboard.</label> '; 
+                                    
+                            //         echo '</td> 
+                            //     </tr> 
 
-						echo '<h3>Customised Supplier Emails</h3> 
+                            // </table>';
+
+                            // echo '<p></p> 
+							// 	<table> 
+                            //     <tr>
+                            //         <td><input name="hide_contact_info_Suppliers" id="hide_contact_info_Suppliers" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $hide_contact_info_Suppliers . '  /></td> 
+
+                            //         <td><label for="hide_contact_info_Suppliers">Hide Contact Info in Suppliers Order list dashboard.</label></td> 
+                            //     </tr> 
+
+                            // </table>';
+
+                            // echo '<p></p> 
+							// 	<table> 
+                            //     <tr>
+                            //         <td><input name="store_add_shipping_add" id="store_add_shipping_add" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $store_add_shipping_add . '  /></td> 
+
+                            //         <td><label for="store_add_shipping_add">Enable store address as shipping address in Suppliers Order list dashboard.</label></td> 
+                            //     </tr> 
+
+                            // </table>';
+
+                            // echo '<p></p> 
+							// 	<table> 
+                            //     <tr>
+                            //         <td><input name="specific_deli_location" id="specific_deli_location" data-id="specific_deli_location" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $specific_deli_location . '  /></td> 
+
+                            //         <td><label for="specific_deli_location">Enable specific delivery location for the supplier.</label></td> 
+                            //     </tr> 
+
+                            // </table>
+
+                            // <div class="inner-toggle specific_deli_location" ' . $location_option . '> 
+
+                            //     <table style="margin-left:50px;"> 
+                            //         <tr> 
+                            //             <td style="width:150px"><label for="specific_deli_location">Enter Location :</label></td> 
+
+                            //             <td><img class="help_tip" data-tip="Please specify Location" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+
+                            //             <td><input name="location_option" value="' . @$options['location_option'] . '" size="30" maxlength="50" /></td>
+                            //         </tr>
+                            //     </table>
+                            // </div>
+						echo '</div>
+
+						<div class="drop-setting-section" id="customised_supplier_emails">
+
+						<h3>Customised Supplier Emails</h3> 
 
                        <p></p> 
                         <div style="';

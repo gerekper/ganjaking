@@ -884,6 +884,25 @@ function seedprod_pro_theme_template_enqueue_styles() {
 			);
 		}
 
+		// entrance animation css and scripts
+		if ( in_array( 'animatedblocks', $seedprod_theme_requirements ) ) {
+			wp_enqueue_style(
+				'seedprod-entrance-animate-css',
+				SEEDPROD_PRO_PLUGIN_URL . 'public/css/animate.css',
+				false,
+				SEEDPROD_PRO_VERSION
+			);
+			wp_register_script(
+				'seedprod-entrance-animation-dynamic-css',
+				SEEDPROD_PRO_PLUGIN_URL . 'public/js/animate-dynamic.js',
+				array( 'jquery-core' ),
+				SEEDPROD_PRO_VERSION,
+				true
+			);
+			wp_enqueue_script( 'seedprod-entrance-animation-dynamic-css' );
+		}
+
+		// gallery scripts
 		if ( in_array( 'seedprodgallery', $seedprod_theme_requirements ) || in_array( 'seedprodbasicgallery', $seedprod_theme_requirements ) ) {
 
 			wp_enqueue_script(
@@ -1310,6 +1329,11 @@ function get_the_theme_parts_requirements() {
 	// animated headline blocks
 	if ( strpos( $settings_str, 'animatedheadline' ) !== false ) {
 		$seedprod_theme_requirements[] = 'animatedheadline';
+	}
+
+	// animated blocks
+	if ( strpos( $settings_str, 'ani_' ) !== false ) {
+		$seedprod_theme_requirements[] = 'animatedblocks';
 	}
 
 	// seedprod gallery blocks

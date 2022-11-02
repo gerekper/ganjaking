@@ -409,9 +409,9 @@ class evo_settings_lang{
 						'label'=>'Learn More link text',
 						'name'=>'evcal_evcard_learnmore2',
 						'legend'=>'for event learn more text'
-					),array(
-						'label'=>'Related Events','var'=>1,
 					),
+					array('label'=>'Related Events','var'=>1),
+					array('label'=>'Learn More','var'=>1),
 					array('label'=>'Login required to see the information','var'=>'1',),
 					array('label'=>'Share on facebook','var'=>1),
 					array('label'=>'Share on twitter','var'=>1),

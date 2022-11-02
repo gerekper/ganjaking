@@ -49,7 +49,7 @@ class UnsubscribeAction implements Action {
   }
 
   public function getName(): string {
-    return __('Unsubscribe', 'mailpoet');
+    return __('Unsubscribe', 'mailpoet-premium');
   }
 
   public function getArgsSchema(): ObjectSchema {

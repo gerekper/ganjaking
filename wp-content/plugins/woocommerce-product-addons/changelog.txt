@@ -1,5 +1,15 @@
 *** Product Addons Changelog ***
 
+2022-11-01 - version 5.0.1
+* Fix - Resolved PHPCS security issues.
+* Tweak - Updated numeric addons to be compatible with mobile browsers.
+* Tweak - Declared incompatibility with the new High-Performance Order Storage.
+
+2022-05-25 - version 5.0.0
+* Fix - Add renovate bot configuration.
+* Tweak - WC 6.5 compatibility.
+* Tweak - WP 6.0 compatibility.
+
 2022-04-12 - version 4.9.0
 * Tweak - WC 6.3.1 compatibility.
 * Tweak - WP 5.9 compatibility.

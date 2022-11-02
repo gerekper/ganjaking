@@ -92,7 +92,7 @@ function mailpoet_premium_upgrade_required_notice() {
   if ($isKeyValid) {
     $notice = __('You have an older version of the Premium plugin. The features have been disabled in order not to break MailPoet. Please update it in the Plugins page now.', 'mailpoet-premium');
   } else {
-    $notice = __('Your MailPoet Premium plugin is incompatible with the free MailPoet plugin. [link1]Register[/link1] your key or [link2]purchase one now[/link2] to update the Premium to the latest version.', 'mailpoet');
+    $notice = __('Your MailPoet Premium plugin is incompatible with the free MailPoet plugin. [link1]Register[/link1] your key or [link2]purchase one now[/link2] to update the Premium to the latest version.', 'mailpoet-premium');
     $notice = Helpers::replaceLinkTags($notice, 'admin.php?page=mailpoet-settings#premium', [], 'link1');
     $notice = Helpers::replaceLinkTags($notice, 'admin.php?page=mailpoet-premium', [], 'link2');
   }

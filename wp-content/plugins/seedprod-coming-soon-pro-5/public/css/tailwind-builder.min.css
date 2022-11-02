@@ -3335,6 +3335,8 @@ ul.seedprod-menu-list{display:inline-block;width:100%;text-align:left}
 .sp-divider-wrapper .sp-divider .sp-divider-separator::after,.sp-divider-wrapper .sp-divider .sp-divider-separator::before{flex-grow:1;-webkit-box-flex:1}
 .sp-divider-wrapper .sp-divider .sp-divider-text-block{padding:0 10px}
 .sp-divider-wrapper .sp-divider .sp-divider-text-block .sp-divider-text{font-size:15px}
+.sp_animated_start{opacity:0}
+.sp-stripe-connect{color:#fff;font-size:15px;font-weight:bold;text-decoration:none;line-height:1;background-color:#635bff;border-radius:3px;padding:10px 20px;display:inline-flex;align-items:center}
 .sp-counter-wrapper{flex-direction:column}
 .sp-counter-wrapper .sp-counter-title,.sp-counter-wrapper .sp-counter-text-wrapper{display:flex}
 .sp-counter-wrapper .sp-counter-text-wrapper .sp-counter-number-prefix,.sp-counter-wrapper .sp-counter-text-wrapper .sp-counter-number-suffix{white-space:pre-wrap}

@@ -3,12 +3,12 @@
  * Plugin Name: WooCommerce Product Add-ons
  * Plugin URI: https://woocommerce.com/products/product-add-ons/
  * Description: Add extra options to products which your customers can select from, when adding to the cart, with an optional fee for each extra option. Add-ons can be checkboxes, a select box, or custom text input.
- * Version: 4.9.0
+ * Version: 5.0.1
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Requires at least: 3.8
- * Tested up to: 5.9
- * WC tested up to: 6.3.1
+ * Tested up to: 6.0
+ * WC tested up to: 6.5
  * WC requires at least: 3.0
  * Text Domain: woocommerce-product-addons
  * Domain Path: /languages/
@@ -65,7 +65,7 @@ function woocommerce_product_addons_init() {
 	}
 
 	if ( ! class_exists( 'WC_Product_Addons' ) ) :
-		define( 'WC_PRODUCT_ADDONS_VERSION', '4.9.0' ); // WRCS: DEFINED_VERSION.
+		define( 'WC_PRODUCT_ADDONS_VERSION', '5.0.1' ); // WRCS: DEFINED_VERSION.
 		define( 'WC_PRODUCT_ADDONS_MAIN_FILE', __FILE__ );
 		define( 'WC_PRODUCT_ADDONS_PLUGIN_URL', untrailingslashit( plugins_url( '/', __FILE__ ) ) );
 		define( 'WC_PRODUCT_ADDONS_PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
@@ -91,6 +91,9 @@ function woocommerce_product_addons_init() {
 				add_action( 'rest_api_init', array( $this, 'rest_api_init' ) );
 				add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'action_links' ) );
 				add_action( 'admin_notices', array( $this, 'notices' ) );
+
+				// Declare HPOS compatibility.
+				add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
 			}
 
 			/**
@@ -189,6 +192,20 @@ function woocommerce_product_addons_init() {
 
 					delete_transient( 'wc_pao_activation_notice' );
 				}
+			}
+
+			/**
+			 * Declare HPOS( Custom Order tables) compatibility.
+			 *
+			 * @since 5.0.1
+			 */
+			public function declare_hpos_compatibility() {
+
+				if ( ! class_exists( 'Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+					return;
+				}
+
+				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, false );
 			}
 		}
 

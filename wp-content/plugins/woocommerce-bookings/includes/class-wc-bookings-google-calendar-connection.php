@@ -1445,7 +1445,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 				foreach ( $order_item->get_meta_data() as $order_meta_data ) {
 					$the_meta_data = $order_meta_data->get_data();
 
-					if ( is_serialized( $the_meta_data['value'] ) ) {
+					if ( is_serialized( $the_meta_data['value'] ) || is_array( $the_meta_data['value'] ) ) {
 						continue;
 					}
 

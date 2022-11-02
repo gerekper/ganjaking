@@ -440,8 +440,8 @@
 
 		// cancel event eventtop lines		
 		array(
-			'item'=>'.ajde_evcal_calendar .eventon_events_list .eventon_list_event .cancel_event.evcal_list_a, .evo_lightbox_body.eventon_list_event.cancel_event .evopop_top',
-			'css'=>'background-color:#$', 'var'=>'evcal__cancel_event_4x','default'=>'464646',
+			'item'=>'.ajde_evcal_calendar #evcal_list.eventon_events_list .eventon_list_event .cancel_event.evcal_list_a, .evo_lightbox_body.eventon_list_event.cancel_event .evopop_top',
+			'css'=>'background-color:#$', 'var'=>'evcal__cancel_event_4x','default'=>'b0b0b0',
 		),array(
 			'item'=>'.eventon_events_list .eventon_list_event .cancel_event.evcal_list_a:before',
 			'css'=>'color:#$', 'var'=>'evcal__cancel_event_4x','default'=>'333333',

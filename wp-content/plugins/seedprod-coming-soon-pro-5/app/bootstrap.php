@@ -179,6 +179,23 @@ function seedprod_pro_admin_enqueue_scripts( $hook_suffix ) {
 				SEEDPROD_PRO_VERSION
 			);
 
+			// animate css
+			wp_enqueue_style(
+				'seedprod-animate-css',
+				SEEDPROD_PRO_PLUGIN_URL . 'public/css/animate.css',
+				false,
+				SEEDPROD_PRO_VERSION
+			);
+
+			wp_register_script(
+				'seedprod-animate-dynamic-css',
+				SEEDPROD_PRO_PLUGIN_URL . 'public/js/animate-dynamic.js',
+				array( 'jquery-core' ),
+				SEEDPROD_PRO_VERSION,
+				true
+			);
+			//wp_enqueue_script( 'seedprod-animate-dynamic-css' );
+
 			// Load WPForms CSS assets.
 			if ( function_exists( 'wpforms' ) ) {
 				add_filter( 'wpforms_global_assets', '__return_true' );

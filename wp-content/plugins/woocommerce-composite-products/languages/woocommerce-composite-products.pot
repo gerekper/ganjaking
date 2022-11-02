@@ -2,16 +2,16 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Composite Products 8.6.0\n"
+"Project-Id-Version: WooCommerce Composite Products 8.6.1\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-10-13T07:01:56+00:00\n"
+"POT-Creation-Date: 2022-11-01T10:22:31+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.7.0\n"
+"X-Generator: WP-CLI 2.7.1\n"
 "language-team: LANGUAGE <EMAIL@ADDRESS>\n"
 "X-Domain: woocommerce-composite-products\n"
 
@@ -395,7 +395,7 @@ msgstr ""
 
 #. translators: %s: Lowest required qty value.
 #: includes/admin/class-wc-cp-admin.php:269
-msgid "Please enter an integer higher than %s."
+msgid "Please enter an integer higher than or equal to %s."
 msgstr ""
 
 #. translators: %s: Highest allowed qty value.
@@ -2294,44 +2294,44 @@ msgstr ""
 msgid "A variation of the Stepped layout that starts with a configuration Summary. Components can be configured in any sequence."
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:328
+#: includes/compatibility/class-wc-cp-compatibility.php:345
 msgid "Product Bundles"
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:329
+#: includes/compatibility/class-wc-cp-compatibility.php:346
 msgid "WooCommerce Product Bundles"
 msgstr ""
 
 #. translators: %1$s: Extension, %2$s: Extension URL, %3$s: Extension full name, %4$s: Required version.
-#: includes/compatibility/class-wc-cp-compatibility.php:332
-#: includes/compatibility/class-wc-cp-compatibility.php:343
-#: includes/compatibility/class-wc-cp-compatibility.php:364
-#: includes/compatibility/class-wc-cp-compatibility.php:378
+#: includes/compatibility/class-wc-cp-compatibility.php:349
+#: includes/compatibility/class-wc-cp-compatibility.php:360
+#: includes/compatibility/class-wc-cp-compatibility.php:381
+#: includes/compatibility/class-wc-cp-compatibility.php:395
 msgid "The installed version of <strong>%1$s</strong> is not supported by <strong>Composite Products</strong>. Please update <a href=\"%2$s\" target=\"_blank\">%3$s</a> to version <strong>%4$s</strong> or higher."
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:341
+#: includes/compatibility/class-wc-cp-compatibility.php:358
 msgid "Composite Products - Conditional Images"
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:350
+#: includes/compatibility/class-wc-cp-compatibility.php:367
 msgid "The <strong>Conditional Components</strong> mini-extension is now part of <strong>Composite Products</strong>. Please deactivate and remove the <strong>Composite Products - Conditional Components</strong> feature plugin."
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:361
+#: includes/compatibility/class-wc-cp-compatibility.php:378
 #: includes/compatibility/modules/class-wc-cp-addons-compatibility.php:176
 msgid "Product Add-Ons"
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:362
+#: includes/compatibility/class-wc-cp-compatibility.php:379
 msgid "WooCommerce Product Add-Ons"
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:374
+#: includes/compatibility/class-wc-cp-compatibility.php:391
 msgid "Min/Max Quantities"
 msgstr ""
 
-#: includes/compatibility/class-wc-cp-compatibility.php:375
+#: includes/compatibility/class-wc-cp-compatibility.php:392
 msgid "WooCommerce Min/Max Quantities"
 msgstr ""
 

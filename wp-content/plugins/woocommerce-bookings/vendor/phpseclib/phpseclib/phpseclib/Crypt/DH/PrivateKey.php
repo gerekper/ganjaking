@@ -13,8 +13,8 @@
 
 namespace phpseclib3\Crypt\DH;
 
-use phpseclib3\Crypt\DH;
 use phpseclib3\Crypt\Common;
+use phpseclib3\Crypt\DH;
 
 /**
  * DH Private Key
@@ -47,7 +47,7 @@ class PrivateKey extends DH
      * Returns the public key
      *
      * @access public
-     * @return DH
+     * @return DH\PublicKey
      */
     public function getPublicKey()
     {

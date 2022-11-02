@@ -809,9 +809,9 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 
 			// Prevent redirect loop
 			$rel_old_uri = wp_make_link_relative($old_uri);
-			$rel_correct_permalink = wp_make_link_relative($correct_permalink);
+			$rel_new_uri = wp_make_link_relative($correct_permalink);
 
-			if($redirect_type === 'www_redirect' || $rel_old_uri !== $rel_correct_permalink) {
+			if($redirect_type === 'www_redirect' || $rel_old_uri !== $rel_new_uri) {
 				wp_safe_redirect($correct_permalink, $redirect_mode, PERMALINK_MANAGER_PLUGIN_NAME);
 				exit();
 			}

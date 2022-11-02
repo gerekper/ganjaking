@@ -13,17 +13,17 @@
 
 namespace phpseclib3\Crypt\RSA;
 
-use phpseclib3\Crypt\RSA;
-use phpseclib3\Math\BigInteger;
-use phpseclib3\File\ASN1;
 use phpseclib3\Common\Functions\Strings;
-use phpseclib3\Crypt\Hash;
-use phpseclib3\Exception\NoKeyLoadedException;
-use phpseclib3\Exception\UnsupportedFormatException;
-use phpseclib3\Crypt\Random;
 use phpseclib3\Crypt\Common;
-use phpseclib3\File\ASN1\Maps\DigestInfo;
+use phpseclib3\Crypt\Hash;
+use phpseclib3\Crypt\Random;
+use phpseclib3\Crypt\RSA;
 use phpseclib3\Crypt\RSA\Formats\Keys\PSS;
+use phpseclib3\Exception\UnsupportedAlgorithmException;
+use phpseclib3\Exception\UnsupportedFormatException;
+use phpseclib3\File\ASN1;
+use phpseclib3\File\ASN1\Maps\DigestInfo;
+use phpseclib3\Math\BigInteger;
 
 /**
  * Raw RSA Key Handler
@@ -97,16 +97,32 @@ class PublicKey extends RSA implements Common\PublicKey
 
         // EMSA-PKCS1-v1_5 encoding
 
+        $exception = false;
+
         // If the encoding operation outputs "intended encoded message length too short," output "RSA modulus
         // too short" and stop.
         try {
             $em2 = $this->emsa_pkcs1_v1_5_encode($m, $this->k);
+            $r1 = hash_equals($em, $em2);
         } catch (\LengthException $e) {
+            $exception = true;
+        }
+
+        try {
+            $em3 = $this->emsa_pkcs1_v1_5_encode_without_null($m, $this->k);
+            $r2 = hash_equals($em, $em3);
+        } catch (\LengthException $e) {
+            $exception = true;
+        } catch (UnsupportedAlgorithmException $e) {
+            $r2 = false;
+        }
+
+        if ($exception) {
             throw new \LengthException('RSA modulus too short');
         }
 
         // Compare
-        return hash_equals($em, $em2);
+        return $r1 || $r2;
     }
 
     /**
@@ -185,6 +201,10 @@ class PublicKey extends RSA implements Common\PublicKey
         }
 
         if (!isset($oids[$decoded['digestAlgorithm']['algorithm']])) {
+            return false;
+        }
+
+        if (isset($decoded['digestAlgorithm']['parameters']) && $decoded['digestAlgorithm']['parameters'] !== ['null' => '']) {
             return false;
         }
 
@@ -329,7 +349,7 @@ class PublicKey extends RSA implements Common\PublicKey
         while (strlen($ps) != $psLen) {
             $temp = Random::string($psLen - strlen($ps));
             $temp = str_replace("\x00", '', $temp);
-            $ps.= $temp;
+            $ps .= $temp;
         }
         $type = 2;
         $em = chr(0) . chr($type) . $ps . chr(0) . $m;
@@ -472,7 +492,7 @@ class PublicKey extends RSA implements Common\PublicKey
 
         if ($type == PSS::class) {
             if ($this->signaturePadding == self::SIGNATURE_PSS) {
-                $options+= [
+                $options += [
                     'hash' => $this->hash->getHash(),
                     'MGFHash' => $this->mgfHash->getHash(),
                     'saltLength' => $this->getSaltLength()
@@ -492,7 +512,7 @@ class PublicKey extends RSA implements Common\PublicKey
      */
     public function asPrivateKey()
     {
-        $new = new PrivateKey;
+        $new = new PrivateKey();
         $new->exponent = $this->exponent;
         $new->modulus = $this->modulus;
         $new->k = $this->k;

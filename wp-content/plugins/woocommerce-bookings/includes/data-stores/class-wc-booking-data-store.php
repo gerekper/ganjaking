@@ -408,7 +408,7 @@ class WC_Booking_Data_Store extends WC_Data_Store_WP {
 	}
 
 	/**
-	 * For a given booking ID, get it's linked order item ID if set.
+	 * For a given booking ID, get it's linked order customer ID if set.
 	 *
 	 * @param  int $booking_id
 	 * @return int

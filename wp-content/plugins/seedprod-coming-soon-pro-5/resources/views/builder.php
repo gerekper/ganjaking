@@ -192,6 +192,29 @@ if ( empty( $seedprod_site_token ) ) {
 $license_key           = get_option( 'seedprod_api_key' );
 $email_integration_url = '';
 
+// stripe connect
+$seedprod_stripe_connect_origin = get_option( 'seedprod_stripe_connect_origin' );
+if(empty($seedprod_stripe_connect_origin)){
+	$seedprod_stripe_connect_origin = wp_generate_uuid4();
+	add_option( 'seedprod_stripe_connect_origin' , $seedprod_stripe_connect_origin );
+}
+// Set stripe token
+if(!empty($_GET['seedprod_stripe_connect_token'])){
+	if(!empty($_GET['seedprod_stripe_connect_origin'])){
+		if($seedprod_stripe_connect_origin == $_GET['seedprod_stripe_connect_origin']);
+		update_option( 'seedprod_stripe_connect_token' , $_GET['seedprod_stripe_connect_token'] );
+	}
+}
+// get stripe token
+$seedprod_stripe_connect_token = get_option( 'seedprod_stripe_connect_token' );
+if(empty($seedprod_stripe_connect_token)){
+	$seedprod_stripe_connect_token = '';
+}
+
+
+
+$seedprod_web_api = SEEDPROD_PRO_WEB_API_URL;
+
 
 //if (1 === 0 && empty(seedprod_pro_cu()) || empty($seedprod_api_token)) {
 if ( 1 === 0 ) {
@@ -200,6 +223,8 @@ if ( 1 === 0 ) {
 	$token                 = $seedprod_site_token;
 	$email_integration_url = SEEDPROD_PRO_WEB_API_URL . 'email_integrations?api_token=' . $seedprod_api_token . '&token=' . $token . '&license_key=' . $license_key . '&lpage_uuid=' . $lpage_uuid . '&lpage_id=' . $lpage_id;
 }
+
+
 
 
 $seedprod_app_settings = get_option( 'seedprod_app_settings' );
@@ -449,6 +474,9 @@ if ( count( $seedprod_theme_parts ) > 0 ) {
 var seedprod_data = 
 <?php
 $seedprod_data = array(
+	'seedprod_web_api'                 => $seedprod_web_api,
+	'seedprod_stripe_connect_token'    => $seedprod_stripe_connect_token,
+	'seedprod_stripe_connect_origin'    => $seedprod_stripe_connect_origin,
 	'seedprod_settings'                => $seedprod_settings,
 	'mixed_content'                    => $mixed_content,
 	'is_landing_page'                  => $is_landing_page,

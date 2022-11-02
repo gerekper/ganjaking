@@ -353,7 +353,7 @@ html{background-image:url('data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJ
 .seedprod-block-option:hover{background:#dd4a1f;border-radius:5px;color:#fff}
 .seedprod-block-option{background:#edebed;width:88px;height:85px;margin-bottom:8px;margin-right:8px;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;border-radius:5px}
 .seedprod-block-option i{margin-top:24px;font-size:20px !important}
-.seedprod-block-option button{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;font-size:11px;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;width:100%;height:100%;cursor:move}
+.seedprod-block-option button{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column;font-size:11px;-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;width:100%;height:100%;cursor:move;padding:1px}
 .seedprod-block-option span{-webkit-box-flex:1;-ms-flex:1;flex:1;display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center}
 #seedprod-wrapper .seedprod-block-option-details{background:#fff;border-top:1px solid #f2f2f2;color:#707070;position:relative;padding:20px 0;display:table-cell;width:480px;text-align:left;padding-left:74px;font-size:16px;cursor:pointer}
 .seedprod-entry-drag-area{width:582px;margin-left:-34px}

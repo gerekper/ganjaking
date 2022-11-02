@@ -1,7 +1,7 @@
 <?php
 
-add_action('admin_head', 'my_custom_fonts');
-function my_custom_fonts() {
+add_action('admin_head', 'wp_my_custom_fonts');
+function wp_my_custom_fonts() {
     
     if( is_user_logged_in() ) {
         $user = wp_get_current_user();
@@ -303,6 +303,13 @@ function dropshipper_order_list() {
 
         $paged = isset($_GET['paged']) ? $_GET['paged'] : 1;
         $post_status = array('wc-processing', 'wc-completed', 'wc-on-hold');
+
+        $options = get_option( 'wc_dropship_manager' );
+        $hide_client_info_Suppliers = $options['hide_client_info_Suppliers'];
+        $hide_contact_info_Suppliers = $options['hide_contact_info_Suppliers'];
+        
+        $store_add_shipping_add = $options['store_add_shipping_add'];
+        $specific_deli_location = $options['specific_deli_location'];
         
         if ( isset ( $_POST['dateFrom'] ) && isset( $_POST['dateTo'] ) ) {
             $getFromdateIn = $_POST['dateFrom'];
@@ -402,9 +409,23 @@ function dropshipper_order_list() {
 
                         <th scope="col" id="id" class="manage-column column-id column-primary sortable desc" style="width: 5%;padding-left: 10px;">ID</th>
                         <th scope="col" id="date" class="manage-column column-date" style="width: 7%;">Date</th>
-                        <th scope="col" id="product" class="manage-column column-product">Product</th>
-                        <th scope="col" id="client" class="manage-column column-client-info">Client Info</th>
-                        <th scope="col" id="client" class="manage-column column-client-info">Contact Info</th>
+                        <th scope="col" id="product" class="manage-column column-product">Product</th>';
+                        
+                        if( $hide_client_info_Suppliers == 1 ){
+                        echo'<th scope="col" id="client" class="manage-column column-client-info" style="display:none;">Client Info</th>';
+                        }else{
+                            echo'<th scope="col" id="client" class="manage-column column-client-info" >Client Info</th>';
+                        }
+
+                        if( $hide_contact_info_Suppliers == 1 ){
+                            echo'<th scope="col" id="contact_info" class="manage-column column-contact-info" style="display:none;">Contact Info</th>';
+                            }else{
+                                echo'<th scope="col" id="contact_info" class="manage-column column-contact-info">Contact Info</th>';
+                        }
+
+
+
+                        echo '
                         <th scope="col" id="shipping" class="manage-column column-shipping-info">Shipping Info</th>
                         <th scope="col" id="pod_header" class="manage-column column-pod">POD</th>
                         <th scope="col" id="status" class="manage-column column-status-info">Status</th>
@@ -415,6 +436,8 @@ function dropshipper_order_list() {
                 <tbody id="the-list">';
 
                 $user_id = get_current_user_id();
+
+                $client_info_supp = '';
 
                 $supplier_id = get_user_meta($user_id, 'supplier_id');
 
@@ -442,6 +465,7 @@ function dropshipper_order_list() {
                         $supplier_pod_id = '_supplier_pod_' . get_current_user_id();
                         $supplier_pod = get_post_meta($order_number, $order_number . '_' . $supplier_pod_id . '_status', true);
                         $items = $order->get_items();
+                        $store_address     = get_option( 'woocommerce_store_address' );
 
                         $fake_ajax_url = wp_nonce_url(admin_url('admin-ajax.php?action=woocommerce_dropshippers_mark_as_shipped&return=' . admin_url() . '&orderid=' . get_the_ID() . '&supplierid=' . @$supplier_id[0]), 'woocommerce_dropshippers_mark_as_shipped');
 
@@ -486,11 +510,23 @@ function dropshipper_order_list() {
                             }
                         }
 
-                        echo '</td> 
+                        echo '</td> ';
 
-                            <td class="client column-client" data-colname="client">' . $order->get_formatted_shipping_address() . '</td>
+                        if( $hide_client_info_Suppliers == 1 ){
+                            
+                            echo '<td class="client column-client" data-colname="client" style="display:none;" >' . $order->get_formatted_shipping_address() .'</td>';
+                        }else{
+                            
+                            echo '<td class="client column-client" data-colname="client">' . $order->get_formatted_shipping_address() . '</td>';
+                        }
 
-                            <td class="client-email column-client-email" data-colname="client-email">' . $order->get_billing_email() . '<br><div class="row-actions"><span><a href="mailto:' . $order->get_billing_email() . '">Send an Email</a></span></div></td>
+                        if( $hide_contact_info_Suppliers == 1 ){
+                            echo'<td class="client-email column-client-email" data-colname="client-email" style="display:none;">' . $order->get_billing_email() . '<br><div class="row-actions"><span><a href="mailto:' . $order->get_billing_email() . '">Send an Email</a></span></div></td>';
+                        }else{
+                                echo'<td class="client-email column-client-email" data-colname="client-email">' . $order->get_billing_email() . '<br><div class="row-actions"><span><a href="mailto:' . $order->get_billing_email() . '">Send an Email</a></span></div></td>';
+                        }
+
+                           echo '
 
                             <td class="shipping column-shipping" data-colname="shipping">
 
@@ -543,18 +579,28 @@ function dropshipper_order_list() {
 
                         <th scope="col" id="date" class="manage-column column-date">Date</th>
 
-                        <th scope="col" id="product" class="manage-column column-product">Product</th>
+                        <th scope="col" id="product" class="manage-column column-product">Product</th>';
 
-                        <th scope="col" id="client" class="manage-column column-client-info">Client Info</th>
+                        
+                        
+                        if( $hide_client_info_Suppliers == 1 ){
+                        echo'<th scope="col" id="client" class="manage-column column-client-info" style="display:none;">Client Info</th>';
+                        }else{
+                            echo'<th scope="col" id="client" class="manage-column column-client-info" >Client Info</th>';
+                        }
 
-                        <th scope="col" id="client" class="manage-column column-client-info">Contact Info</th>
+                        if( $hide_contact_info_Suppliers == 1 ){
+                            echo'<th scope="col" id="contact_info" class="manage-column column-contact-info" style="display:none;">Contact Info</th>';
+                            }else{
+                                echo'<th scope="col" id="contact_info" class="manage-column column-contact-info">Contact Info</th>';
+                        }
 
+
+
+                        echo '
                         <th scope="col" id="shipping" class="manage-column column-shipping-info">Shipping Info</th>
-
                         <th scope="col" id="pod_header" class="manage-column column-pod">POD</th>
-
                         <th scope="col" id="status" class="manage-column column-status-info">Status</th>
-
                     </tr>
 
                 </tfoot>
@@ -592,17 +638,13 @@ function dropshipper_order_list() {
                         <th scope="col" id="date" class="manage-column column-date">Date</th>
 
                         <th scope="col" id="product" class="manage-column column-product">Product</th>
+                        <th scope="col" id="client" class="manage-column column-client-info" >Client Info</th>';
+                       
 
-                        <th scope="col" id="client" class="manage-column column-client-info">Client Info</th>
-
-                        <th scope="col" id="client" class="manage-column column-client-info">Contact Info</th>
-
+                        echo '<th scope="col" id="contact_info" class="manage-column column-contact-info">Contact Info</th>
                         <th scope="col" id="shipping" class="manage-column column-shipping-info">Shipping Info</th>
-
                         <th scope="col" id="pod_header" class="manage-column column-pod">POD</th>
-
                         <th scope="col" id="status" class="manage-column column-status-info">Status</th>
-
                     </tr>
 
                 </thead>

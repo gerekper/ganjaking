@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Subscription scheme object. May extend the WC_Data class or handle CRUD in the future, if schemes are moved out of meta.
  *
  * @class    WCS_ATT_Scheme
- * @version  3.4.2
+ * @version  4.0.2
  */
 class WCS_ATT_Scheme implements ArrayAccess {
 
@@ -596,16 +596,19 @@ class WCS_ATT_Scheme implements ArrayAccess {
 	|--------------------------------------------------------------------------
 	*/
 
+	#[\ReturnTypeWillChange]
 	public function offsetGet( $offset ) {
 		$key = isset( $this->offset_map[ $offset ] ) ? $this->offset_map[ $offset ] : false;
 		return $key ? $this->data[ $key ] : null;
 	}
 
+	#[\ReturnTypeWillChange]
 	public function offsetExists( $offset ) {
 		$key = isset( $this->offset_map[ $offset ] ) ? $this->offset_map[ $offset ] : false;
 		return $key ? isset( $this->data[ $key ] ) : false;
 	}
 
+	#[\ReturnTypeWillChange]
 	public function offsetSet( $offset, $value ) {
 		if ( is_null( $offset ) ) {
 			$this->data[] = $value;
@@ -619,6 +622,7 @@ class WCS_ATT_Scheme implements ArrayAccess {
 		}
 	}
 
+	#[\ReturnTypeWillChange]
 	public function offsetUnset( $offset ) {
 		$key = isset( $this->offset_map[ $offset ] ) ? $this->offset_map[ $offset ] : false;
 		if ( $key ) {

@@ -1,5 +1,10 @@
 *** WooCommerce Cart Add-ons ***
 
+2022-10-28 - version 2.3.2
+* Fix - Fix WooCommerce Block feature plugin detection.
+* Tweak - WC 7.0.0 compatibility.
+* Tweak - WP 6.1 compatibility.
+
 2022-10-13 - version 2.3.1
 * Fix - Declare compatibility with HPOS.
 * Fix - Define Node version.

@@ -1,5 +1,16 @@
 *** WooCommerce Bookings Changelog ***
 
+2022-10-26 - version 1.15.64
+* Add - Provision to apply 'Booking Person Discount' from admin dashboard.
+* Fix - "Min persons" setting is not working when Booking is added manually from admin.
+* Fix - Booking availability for bookable products with resources.
+* Fix - Changing booking status or date/time moves the booking to the last line item in the order.
+* Fix - Improvements to admin side calendar view.
+* Fix - Slot range checked to be inside the rule range for an hour and minute durations.
+* Tweak - Skip array value booking metadata during sync booking with GCal.
+* Update - Change keypress event to keyup.
+* Update - Lock the `google/apiclient-services` to v0.181.0.
+
 2022-09-26 - version 1.15.63
 * Add - Bookings Helper integration (Export button on a product page).
 

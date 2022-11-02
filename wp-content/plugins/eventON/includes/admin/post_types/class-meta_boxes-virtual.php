@@ -1,7 +1,7 @@
 <?php
 /**
  * Virtual Events Meta box content
- * @ 4.2
+ * @ 4.2.1
  */
 ?>
 
@@ -36,7 +36,7 @@
 			)
 		);
 		?>
-		<p><span class='evo_btn evolb_trigger' <?php echo $this->helper->array_to_html_data($btn_data);?> data-popc='print_lightbox' data-lb_cl_nm='config_vir_events' data-t='<?php _e('Configure Virtual Event','eventon');?>' data-eid='<?php echo $EVENT->ID;?>' style='margin-right: 10px'><?php _e('Configure Virtual Event Details','eventon');?></span></p>		
+		<p><span class='evo_btn evolb_trigger' <?php echo $this->helper->array_to_html_data($btn_data);?>  style='margin-right: 10px'><?php _e('Configure Virtual Event Details','eventon');?></span></p>		
 	</div>									
 	</div>									
 </div>

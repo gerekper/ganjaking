@@ -20,6 +20,7 @@ namespace Automattic\WooCommerce\Bookings\Vendor\Google\Auth;
 use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\HttpHandler\HttpClientCache;
 use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\HttpHandler\HttpHandlerFactory;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\Utils;
 
 /**
  * Tools for using the IAM API.
@@ -88,7 +89,7 @@ class Iam
             'POST',
             $uri,
             $headers,
-            Psr7\stream_for(json_encode($body))
+            Utils::streamFor(json_encode($body))
         );
 
         $res = $httpHandler($request);

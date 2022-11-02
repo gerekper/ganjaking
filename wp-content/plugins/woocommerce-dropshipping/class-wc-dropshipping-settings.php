@@ -273,6 +273,14 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                         $options['cost_of_goods'] = '0';
                     }
 
+                    if (isset($_POST['show_gst_supplier_email'])) {
+
+                        $options['show_gst_supplier_email'] = '1';
+                    } else {
+
+                        $options['show_gst_supplier_email'] = '0';
+                    }
+
                     if (isset($_POST['billing_address'])) {
 
                         $options['billing_address'] = '1';
@@ -559,6 +567,14 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                 } else {
 
                     $cost_of_goods = '';
+                }
+
+                if (isset($options['show_gst_supplier_email'])) {
+
+                    $show_gst_supplier_email = $options['show_gst_supplier_email'];
+                } else {
+
+                    $show_gst_supplier_email = '';
                 }
 
                 if (isset($options['billing_address'])) {
@@ -862,6 +878,14 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                 } else {
 
                     $cost_of_goods = ' ';
+                }
+
+                if ($show_gst_supplier_email == '1' || $show_gst_supplier_email == '') {
+
+                    $show_gst_supplier_email = ' checked="checked" ';
+                } else {
+
+                    $show_gst_supplier_email = ' ';
                 }
 
                 if ($billing_address == '1') {
@@ -1436,6 +1460,16 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     </tr> 
                                 </table>
                             </div>';
+
+                            echo '<p></p> 
+
+                                <table> 
+                                    <tr> 
+                                        <td><input name="show_gst_supplier_email" id="show_gst_supplier_email" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $show_gst_supplier_email . '  /></td> 
+
+                                        <td><label for="show_gst_supplier_email">Show GST Tax Split.</label></td>
+                                    </tr> 
+                                </table>  ';
 
                             echo '<br/><br/> 
 

@@ -2017,7 +2017,7 @@ class RRuleTest extends TestCase
 ///////////////////////////////////////////////////////////////////////////////
 // RFC Strings
 
-	public function rfcStrings() 
+	public function rfcStrings()
 	{
 		return array(
 			// full RFC string
@@ -2164,7 +2164,7 @@ class RRuleTest extends TestCase
 	{
 		$rule = new RRule($str);
 
-		// test that parsing the string produces the same result 
+		// test that parsing the string produces the same result
 		// as generating the string from a rule
 		$this->assertEquals($rule, new RRule($rule->rfcString()));
 
@@ -2201,7 +2201,7 @@ class RRuleTest extends TestCase
 	public function quirkyRfcStrings()
 	{
 		return array(
-			array('DTSTART=20160202T000000Z;FREQ=DAILY;UNTIL=20160205T000000Z', 
+			array('DTSTART=20160202T000000Z;FREQ=DAILY;UNTIL=20160205T000000Z',
 				array(
 					date_create('2016-02-02', new DateTimeZone('UTC')),
 					date_create('2016-02-03', new DateTimeZone('UTC')),
@@ -2209,7 +2209,7 @@ class RRuleTest extends TestCase
 					date_create('2016-02-05', new DateTimeZone('UTC'))
 				)
 			),
-			array('RRULE:DTSTART=20160202T000000Z;FREQ=DAILY;UNTIL=20160205T000000Z', 
+			array('RRULE:DTSTART=20160202T000000Z;FREQ=DAILY;UNTIL=20160205T000000Z',
 				array(
 					date_create('2016-02-02', new DateTimeZone('UTC')),
 					date_create('2016-02-03', new DateTimeZone('UTC')),
@@ -2220,7 +2220,7 @@ class RRuleTest extends TestCase
 		);
 	}
 
-	/** 
+	/**
 	 * @dataProvider quirkyRfcStrings
 	 */
 	public function testQuirkyRfcStringsParserNotice($str,$occurrences)
@@ -2520,6 +2520,13 @@ class RRuleTest extends TestCase
 		$this->assertInstanceOf('\RRule\RSet', $object);
 	}
 
+	public function testCreateFromRfcStringDoesntChangeCase()
+	{
+		$str = "DTSTART;TZID=Europe/Paris:20200929T000000\nRRULE:FREQ=DAILY;BYSECOND=0;BYMINUTE=0;BYHOUR=9";
+		$rule = RRule::createFromRfcString($str);
+		$this->assertEquals($str, $rule->rfcString());
+	}
+
 ///////////////////////////////////////////////////////////////////////////////
 // Timezone
 
@@ -2733,14 +2740,14 @@ class RRuleTest extends TestCase
 		}
 		$this->assertEquals(date_create('2007-01-01'), $occurrence);
 		$occurrence->modify('+1 day');
-		$this->assertEquals(date_create('2007-01-01'), $rrule[0], 'No modification possible with foreach (uncached)'); 
+		$this->assertEquals(date_create('2007-01-01'), $rrule[0], 'No modification possible with foreach (uncached)');
 
 		foreach ($rrule as $occurrence) {
 			break;
 		}
 		$this->assertEquals(date_create('2007-01-01'), $occurrence);
 		$occurrence->modify('+1 day');
-		$this->assertEquals(date_create('2007-01-01'), $rrule[0], 'No modification possible with foreach (cached)'); 
+		$this->assertEquals(date_create('2007-01-01'), $rrule[0], 'No modification possible with foreach (cached)');
 
 		// getOccurrences
 		$occurrences = $rrule->getOccurrences();
@@ -2825,6 +2832,24 @@ class RRuleTest extends TestCase
 			new DateTime('Wednesday, January 27, 2021 08:00'),
 			new DateTime('Friday, January 29, 2021 08:00')
 		], $occurrences, 'DateTimeImmutable produces valid results');
+	}
+
+	/**
+	 * Test bug #104
+	 * @see https://github.com/rlanvin/php-rrule/issues/104
+	 */
+	public function testMicrosecondsAreRemovedFromInput()
+	{
+		$dtstart = '2022-04-22 12:00:00.5';
+		$rule = new RRule([
+			'dtstart' => $dtstart,
+			'freq' => 'daily',
+			'interval' => 1,
+			'count' => 1
+		]);
+		$this->assertTrue($rule->occursAt('2022-04-22 12:00:00'));
+		$this->assertTrue($rule->occursAt('2022-04-22 12:00:00.5'));
+		$this->assertEquals(date_create('2022-04-22 12:00:00'), $rule[0]);
 	}
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -2943,15 +2968,19 @@ class RRuleTest extends TestCase
 			// 2 characters language code
 			array('en', array('en'), array('en')),
 			array('fr', array('fr'), array('fr')),
+			array('sv', array('sv'), array('sv')),
 			// with region and underscore
 			array('en_US', array('en','en_US'), array('en','en_US')),
 			array('en_US.utf-8', array('en','en_US'), array('en','en_US')),
-			array('en_US_POSIX', array('en','en_US'), array('en','en_US')),
-			// case insentitive
+            array('en_US_POSIX', array('en','en_US'), array('en','en_US')),
+            array('sv_SE', array('sv','sv_SE'), array('sv','sv_SE')),
+            // case insentitive
 			array('en_sg', array('en','en_SG'), array('en','en_SG')),
+			array('sv_se', array('sv','sv_SE'), array('sv','sv_SE')),
 			// with a dash
 			array('en-US', array('en','en_US'), array('en','en_US')),
 			array('zh-Hant-TW', array('zh','zh_TW'), array('zh','zh_TW')), // real locale is zh-Hant-TW, but since we don't have a "zh" file, we just use "en" for the test
+            array('sv-SE', array('sv','sv_SE'), array('sv','sv_SE')),
 
 			// invalid
 			array('eng', array('en'), false),
@@ -3095,7 +3124,7 @@ class RRuleTest extends TestCase
 		)); // the locales are correctly formatted, but not such file exist, so this should throw a RuntimeException
 	}
 
-	/** 
+	/**
 	 * Test that humanReadable works
 	 */
 	public function testHumanReadableWithCLocale()

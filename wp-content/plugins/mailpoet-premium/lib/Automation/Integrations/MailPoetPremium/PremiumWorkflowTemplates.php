@@ -37,7 +37,7 @@ class PremiumWorkflowTemplates {
       WorkflowTemplate::CATEGORY_WELCOME,
       "Automation template description is going to be here. Let's describe a lot of interesting ideas which incorporated into this beautiful and useful template",
       $this->builder->createFromSequence(
-        __('Welcome email sequence', 'mailpoet'),
+        __('Welcome email sequence', 'mailpoet-premium'),
         [
           'mailpoet:someone-subscribes',
           'core:delay',
@@ -52,7 +52,7 @@ class PremiumWorkflowTemplates {
       WorkflowTemplate::CATEGORY_WELCOME,
       "Automation template description is going to be here. Let's describe a lot of interesting ideas which incorporated into this beautiful and useful template",
       $this->builder->createFromSequence(
-        __('Advanced welcome email sequence', 'mailpoet'),
+        __('Advanced welcome email sequence', 'mailpoet-premium'),
         [
           'mailpoet:someone-subscribes',
           'core:delay',

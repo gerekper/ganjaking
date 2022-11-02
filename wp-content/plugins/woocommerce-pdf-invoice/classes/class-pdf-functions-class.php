@@ -752,11 +752,7 @@
 		 function pdf_url_check() {
 			 global $woocommerce;
 			 
-			 if ( isset( $_GET['pdfid'] ) && !is_admin() ) {
-
-			 	if( !class_exists('WC_send_pdf') ){
-					include( 'class-pdf-send-pdf-class.php' );
-				}
+			 if ( isset( $_GET['pdfid'] ) && !is_admin() && isset( $_GET['key'] ) ) {
 				
 				$orderid = stripslashes( $_GET['pdfid'] );
 				$order   = new WC_Order( $orderid );
@@ -764,14 +760,25 @@
 				// Get the current user
 				$current_user = wp_get_current_user();
 
+				// Get Order Key from order object
+				$order_key = $order->get_order_key();
+
+				// Get Order Key from URL
+				$order_key_url = stripslashes( $_GET['key'] );
+
 				// Get the user id from the order
-				$user_id = is_callable( array( $order, 'get_user_id' ) ) ? $order->get_user_id() : $order->user_id;
+				$user_id = $order->get_user_id();
 			
 				// Allow $user_id to be filtered
 				$user_id = apply_filters( 'pdf_invoice_download_user_id', $user_id, $current_user, $orderid );
-				
-				// Check the current user ID matches the ID of the user who placed the order
-				if ( $user_id == $current_user->ID ) {
+
+				// Check the current user ID matches the ID of the user who placed the order and the keys match
+				if ( $user_id == $current_user->ID && $order_key == $order_key_url ) {
+
+					if( !class_exists('WC_send_pdf') ){
+						include( 'class-pdf-send-pdf-class.php' );
+					}
+
 					echo WC_send_pdf::get_woocommerce_pdf_invoice( $order, NULL, 'false' );
 				}
 			 

@@ -285,19 +285,21 @@ class Permalink_Manager_Actions extends Permalink_Manager_Class {
 	 * Additional actions
 	 */
 	public static function extra_actions() {
-		if(isset($_GET['flush_sitemaps'])) {
-			self::flush_sitemaps();
-		} else if(isset($_GET['clear-permalink-manager-uris'])) {
-			self::clear_all_uris();
-		} else if(isset($_GET['remove-permalink-manager-settings'])) {
-			$option_name = sanitize_text_field($_GET['remove-permalink-manager-settings']);
-			self::remove_plugin_data($option_name);
-		} else if(!empty($_REQUEST['remove-uri'])) {
-			$uri_key = sanitize_text_field($_REQUEST['remove-uri']);
-			self::force_clear_single_element_uris_and_redirects($uri_key);
-		} else if(!empty($_REQUEST['remove-redirect'])) {
-			$redirect_key = sanitize_text_field($_REQUEST['remove-redirect']);
-			self::force_clear_single_redirect($redirect_key);
+		if(current_user_can('manage_options')) {
+			if(isset($_GET['flush_sitemaps'])) {
+				self::flush_sitemaps();
+			} else if(isset($_GET['clear-permalink-manager-uris'])) {
+				self::clear_all_uris();
+			} else if(isset($_GET['remove-permalink-manager-settings'])) {
+				$option_name = sanitize_text_field($_GET['remove-permalink-manager-settings']);
+				self::remove_plugin_data($option_name);
+			} /*else if(!empty($_REQUEST['remove-uri'])) {
+				$uri_key = sanitize_text_field($_REQUEST['remove-uri']);
+				self::force_clear_single_element_uris_and_redirects($uri_key);
+			} else if(!empty($_REQUEST['remove-redirect'])) {
+				$redirect_key = sanitize_text_field($_REQUEST['remove-redirect']);
+				self::force_clear_single_redirect($redirect_key);
+			}*/
 		} else if(!empty($_POST['screen-options-apply'])) {
 			self::save_screen_options();
 		}
@@ -307,7 +309,7 @@ class Permalink_Manager_Actions extends Permalink_Manager_Class {
 	 * Save "Screen Options"
 	 */
 	public static function save_screen_options() {
-		check_admin_referer( 'screen-options-nonce', 'screenoptionnonce' );
+		check_admin_referer('screen-options-nonce', 'screenoptionnonce');
 
 		// The values will be sanitized inside the function
 		self::save_settings('screen-options', $_POST['screen-options']);

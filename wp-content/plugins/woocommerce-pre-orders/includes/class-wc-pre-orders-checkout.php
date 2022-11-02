@@ -36,7 +36,11 @@ class WC_Pre_Orders_Checkout {
 
 		// add order meta
 		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'add_order_meta' ) );
-		add_action( 'woocommerce_blocks_checkout_update_order_meta', array( $this, 'add_order_meta_by_order' ) );
+		if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) && version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '7.2.0', '>=' ) ) {
+			add_action( 'woocommerce_store_api_checkout_update_order_meta', array( $this, 'add_order_meta_by_order' ) );
+		} else {
+			add_action( 'woocommerce_blocks_checkout_update_order_meta', array( $this, 'add_order_meta_by_order' ) );
+		}
 
 		// change status to pre-ordered when payment is completed for a pre-order charged upfront
 		add_filter( 'woocommerce_payment_complete_order_status', array( $this, 'update_payment_complete_order_status' ), 10, 2 );

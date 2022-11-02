@@ -48,6 +48,7 @@ class WC_Deposits {
 
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		add_action( 'plugins_loaded', array( $this, 'includes' ) );
+		add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
 
 		// Multicurrency Support (https://woocommerce.com/products/multi-currency/).
@@ -190,5 +191,18 @@ class WC_Deposits {
 		$filter_tags[] = 'woocommerce_deposits_fixed_deposit_amount';
 
 		return $filter_tags;
+	}
+
+	/**
+	 * Declares support for HPOS
+	 *
+	 * @since 2.0.3
+	 */
+	public function declare_hpos_compatibility() {
+		if ( ! class_exists( 'Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			return;
+		}
+
+		Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WC_DEPOSITS_ABSPATH . '/woocommerce-deposits.php', true );
 	}
 }

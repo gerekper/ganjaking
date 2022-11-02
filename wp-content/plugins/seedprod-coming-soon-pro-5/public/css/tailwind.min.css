@@ -358,7 +358,7 @@ to{background-position:0 0}
 }@keyframes sp-ajax-stripes{from{background-position:48px 0}
 to{background-position:0 0}
 }.sp-ajax-animated{-webkit-animation:sp-ajax-stripes 1s linear infinite;animation:sp-ajax-stripes 1s linear infinite}
-.sp-ajax-striped{background-image:linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent);background-size:1rem 1rem}
+.sp-ajax-striped{background-image:linear-gradient(45deg,rgba(255,255,255,0.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.15) 75%,transparent 75%,transparent) !important;background-size:1rem 1rem !important}
 #tubular-container iframe{opacity:0;transition:opacity .5s}
 #tubular-container .active{opacity:1}
 @media(max-width:640px){.sp-spacer{height:1vh !important}
@@ -448,7 +448,8 @@ input[type="password"]{-webkit-appearance:none;-moz-appearance:none;appearance:n
 .menu-item a{text-align:left !important}
 }.seedprod-menu-horizontal .menu-item:first-child{padding-left:0 !important}
 .seedprod-menu-horizontal .sub-menu .menu-item:first-child{padding-left:10px !important}
-.seedprod-menu-horizontal .menu-item:last-child{padding-right:0 !important}
+@media(max-width:786px){.seedprod-menu-horizontal .sub-menu .menu-item:first-child{padding-left:0 !important}
+}.seedprod-menu-horizontal .menu-item:last-child{padding-right:0 !important}
 .seedprod-menu-horizontal .sub-menu .menu-item:last-child{padding-right:10px !important}
 .sp-mobile-menu-true ul.sub-menu{padding-left:10px}
 .custom-restricted-width .menu-item:first-child{padding-top:0 !important}
@@ -605,6 +606,7 @@ input[type="password"]{-webkit-appearance:none;-moz-appearance:none;appearance:n
 .sp-divider-wrapper .sp-divider .sp-divider-separator::after,.sp-divider-wrapper .sp-divider .sp-divider-separator::before{flex-grow:1;-webkit-box-flex:1}
 .sp-divider-wrapper .sp-divider .sp-divider-text-block{padding:0 10px}
 .sp-divider-wrapper .sp-divider .sp-divider-text-block .sp-divider-text{font-size:15px}
+.sp_animated_start{opacity:0}
 .sp-counter-wrapper{flex-direction:column}
 .sp-counter-wrapper .sp-counter-title,.sp-counter-wrapper .sp-counter-text-wrapper{display:flex}
 .sp-counter-wrapper .sp-counter-text-wrapper .sp-counter-number-prefix,.sp-counter-wrapper .sp-counter-text-wrapper .sp-counter-number-suffix{white-space:pre-wrap}

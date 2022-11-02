@@ -7,17 +7,40 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-09-26T14:14:19+00:00\n"
-"PO-Revision-Date: 2022-08-03 11:54:18+0000\n"
+"POT-Creation-Date: 2022-10-26T15:39:18+00:00\n"
+"PO-Revision-Date: 2022-10-07 09:54:20+0000\n"
 "Language: ja_JP\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
 
-#: includes/admin/class-wc-bookings-admin.php:673
+#: includes/admin/views/html-booking-export.php:10
+msgid "Click the \"Export\" button to export this product, it's settings, as well as any applicable resources, persons, and global availability rules. This will create a ZIP file that will then be downloaded to your local device to help WooCommerce support troubleshoot your bookings setup, if needed."
+msgstr "「エクスポート」ボタンをクリックすると、この商品、その設定、該当するリソース、人数、グローバル予約可能枠のルールがエクスポートされます。 エクスポートすると ZIP ファイルが生成され、ローカル端末にダウンロードされます。WooCommerce サポートはこのファイルを使用して必要に応じて予約設定のトラブルシューティングを行います。"
+
+#: includes/admin/class-wc-bookings-export.php:201
+msgid "Unable to export!"
+msgstr "エクスポートできません。"
+
+#: includes/admin/class-wc-bookings-export.php:64
+#: includes/admin/class-wc-bookings-export.php:69
+#: includes/admin/class-wc-bookings-export.php:80
+msgid "This booking product does not exist!"
+msgstr "この予約商品は存在しません。"
+
+#: includes/admin/class-wc-bookings-export.php:44
+msgid "Unauthorised request, please try again."
+msgstr "不正なリクエストです。もう一度お試しください。"
+
+#: includes/admin/class-wc-bookings-admin.php:387
+#: includes/admin/views/html-booking-export.php:14
+msgid "Export"
+msgstr "エクスポート"
+
+#: includes/admin/class-wc-bookings-admin.php:681
 msgid "The booking duration has been set to 24 as a duration greater than 24 hours is not allowed when Availability is \"not-available by default\"."
 msgstr "予約可能枠が「デフォルトで利用不可」の場合、24時間を超える期間は許可されないため、予約期間は24に設定されています。"
 
-#: includes/admin/class-wc-bookings-admin.php:672
+#: includes/admin/class-wc-bookings-admin.php:680
 msgid "A duration greater than 24 hours is not allowed when Availability is \"not-available by default\"."
 msgstr "予約可能枠が「デフォルトで利用不可」の場合、24時間を超える期間は許可されません。"
 
@@ -49,11 +72,11 @@ msgstr "このセクションには WooCommerce Bookings のデフォルトテ�
 msgid "WooCommerce Bookings template overrides"
 msgstr "WooCommerce Bookings テンプレートの上書き"
 
-#: includes/admin/class-wc-bookings-admin.php:700
+#: includes/admin/class-wc-bookings-admin.php:708
 msgid "Maximum duration needs to be greater than or equal to the minimum duration."
 msgstr "最長期間は最短期間以上である必要があります。"
 
-#: includes/admin/class-wc-bookings-admin.php:699
+#: includes/admin/class-wc-bookings-admin.php:707
 msgid "Minimum duration needs to be less than or equal to maximum duration."
 msgstr "最短期間は最長期間以下である必要があります。"
 
@@ -61,7 +84,7 @@ msgstr "最短期間は最長期間以下である必要があります。"
 msgid "Customer Information"
 msgstr "顧客情報"
 
-#: includes/admin/class-wc-bookings-admin.php:671
+#: includes/admin/class-wc-bookings-admin.php:679
 msgid "This setting is being overridden at the resource level."
 msgstr "この設定は、リソースレベルで上書きされています。"
 
@@ -112,12 +135,12 @@ msgstr "削除設定"
 msgid "Date should be of the format yyyy-mm-dd and cannot be empty."
 msgstr "日付は yyyy-mm-dd 形式にする必要があり、空欄にはできません。"
 
-#: includes/admin/class-wc-bookings-admin.php:693
+#: includes/admin/class-wc-bookings-admin.php:701
 #: includes/admin/class-wc-bookings-details-meta-box.php:555
 msgid "Start date cannot be greater than end date."
 msgstr "開始日を終了日より後にすることはできません。"
 
-#: includes/admin/class-wc-bookings-admin.php:692
+#: includes/admin/class-wc-bookings-admin.php:700
 msgid "\"Start and end date\" should be of the format yyyy-mm-dd and cannot be empty."
 msgstr "「開始日と終了日」は yyyy-mm-dd 形式にする必要があり、空欄にはできません。"
 
@@ -170,11 +193,11 @@ msgid "Metadata:"
 msgstr "メタデータ :"
 
 #. translators: 1: href link to list of bookings, 2: booking post type link
-#: woocommerce-bookings.php:377
+#: woocommerce-bookings.php:378
 msgid "<a href=\"%1$s\">Add or edit a product</a> to manage bookings in the Product Data section for individual products and then go to the <a href=\"%2$s\" target=\"_blank\">Bookings page</a> to manage them individually."
 msgstr "「商品データ」セクションで予約を管理するには、個々の商品について<a href=\"%1$s\">商品を追加または編集</a>し、次に<a href=\"%2$s\" target=\"_blank\">「予約ページ」</a>に移動してそれらを個別に管理します。"
 
-#: woocommerce-bookings.php:375
+#: woocommerce-bookings.php:376
 msgid "Bookings has been activated!"
 msgstr "Bookings が有効化されました。"
 
@@ -2312,85 +2335,85 @@ msgstr "クリックで切替"
 msgid "Unlink"
 msgstr "リンク解除"
 
-#: includes/admin/views/html-booking-data.php:108
+#: includes/admin/views/html-booking-data.php:109
 msgid "before the start date."
 msgstr "開始日の前。"
 
-#: includes/admin/views/html-booking-data.php:100
+#: includes/admin/views/html-booking-data.php:101
 msgid "Booking can be cancelled until"
 msgstr "以下の日時までキャンセル可能:"
 
-#: includes/admin/views/html-booking-data.php:93
+#: includes/admin/views/html-booking-data.php:94
 msgid "Check this box if the booking can be cancelled by the customer after it has been purchased. A refund will not be sent automatically."
 msgstr "予約の購入後、顧客によるキャンセルが可能な場合はこのボックスをチェックします。 返金は自動で送信されません。"
 
-#: includes/admin/views/html-booking-data.php:92
+#: includes/admin/views/html-booking-data.php:93
 msgid "Can be cancelled?"
 msgstr "キャンセルを許可しますか ?"
 
-#: includes/admin/views/html-booking-data.php:86
+#: includes/admin/views/html-booking-data.php:87
 msgid "Check this box if the booking requires admin approval/confirmation. Payment will not be taken during checkout."
 msgstr "予約が管理者の承認/確認を必要とする場合、これをチェックして下さい。購入手続き時に支払いは行われません。"
 
-#: includes/admin/views/html-booking-data.php:85
+#: includes/admin/views/html-booking-data.php:86
 msgid "Requires confirmation?"
 msgstr "確認を必要とするか?"
 
-#: includes/admin/views/html-booking-data.php:76
+#: includes/admin/views/html-booking-data.php:77
 msgid "Calendar always visible"
 msgstr "カレンダーを常に表示する"
 
-#: includes/admin/views/html-booking-data.php:75
+#: includes/admin/views/html-booking-data.php:76
 msgid "Display calendar on click"
 msgstr "クリックでカレンダーを表示"
 
-#: includes/admin/views/html-booking-data.php:73
+#: includes/admin/views/html-booking-data.php:74
 msgid "Choose how the calendar is displayed on the booking form."
 msgstr "予約フォームでのカレンダーの表示方法を選択してください。"
 
-#: includes/admin/views/html-booking-data.php:72
+#: includes/admin/views/html-booking-data.php:73
 msgid "Calendar display mode"
 msgstr "カレンダー表示モード"
 
-#: includes/admin/views/html-booking-data.php:62
+#: includes/admin/views/html-booking-data.php:63
 msgid "Lets the user select a start and end date on the calendar - duration will be calculated automatically."
 msgstr "ユーザーが開始日と終了日をカレンダーで選択できるようにします。期間は自動で選択されます。"
 
-#: includes/admin/views/html-booking-data.php:61
+#: includes/admin/views/html-booking-data.php:62
 msgid "Enable Calendar Range Picker?"
 msgstr "カレンダーで範囲選択機能を有効にしますか ?"
 
-#: includes/admin/views/html-booking-data.php:46
+#: includes/admin/views/html-booking-data.php:47
 msgid "The maximum allowed duration the user can input."
 msgstr "ユーザーが入力できる最長の期間。"
 
-#: includes/admin/views/html-booking-data.php:45
+#: includes/admin/views/html-booking-data.php:46
 msgid "Maximum duration"
 msgstr "最長期間"
 
-#: includes/admin/views/html-booking-data.php:33
+#: includes/admin/views/html-booking-data.php:34
 msgid "The minimum allowed duration the user can input."
 msgstr "ユーザーが入力できる最短の期間。"
 
-#: includes/admin/views/html-booking-data.php:32
+#: includes/admin/views/html-booking-data.php:33
 msgid "Minimum duration"
 msgstr "最短期間"
 
-#: includes/admin/views/html-booking-data.php:23
-#: includes/admin/views/html-booking-data.php:106
+#: includes/admin/views/html-booking-data.php:24
+#: includes/admin/views/html-booking-data.php:107
 #: includes/booking-form/class-wc-booking-form.php:206
 msgid "Minute(s)"
 msgstr "分"
 
-#: includes/admin/views/html-booking-data.php:16
+#: includes/admin/views/html-booking-data.php:17
 msgid "Customer defined blocks of"
 msgstr "次の顧客定義のブロック :"
 
-#: includes/admin/views/html-booking-data.php:15
+#: includes/admin/views/html-booking-data.php:16
 msgid "Fixed blocks of"
 msgstr "固定ブロック"
 
-#: includes/admin/views/html-booking-data.php:13
+#: includes/admin/views/html-booking-data.php:14
 msgid "Booking duration"
 msgstr "予約期間"
 
@@ -2469,16 +2492,16 @@ msgstr "未来の日付まで"
 
 #: includes/admin/views/html-booking-availability.php:35
 #: includes/admin/views/html-booking-availability.php:45
-#: includes/admin/views/html-booking-data.php:22
-#: includes/admin/views/html-booking-data.php:105
+#: includes/admin/views/html-booking-data.php:23
+#: includes/admin/views/html-booking-data.php:106
 #: includes/booking-form/class-wc-booking-form.php:198
 msgid "Hour(s)"
 msgstr "時間"
 
 #: includes/admin/views/html-booking-availability.php:34
 #: includes/admin/views/html-booking-availability.php:44
-#: includes/admin/views/html-booking-data.php:21
-#: includes/admin/views/html-booking-data.php:104
+#: includes/admin/views/html-booking-data.php:22
+#: includes/admin/views/html-booking-data.php:105
 #: includes/booking-form/class-wc-booking-form.php:174
 msgid "Day(s)"
 msgstr "日"
@@ -2492,8 +2515,8 @@ msgstr "週"
 
 #: includes/admin/views/html-booking-availability.php:32
 #: includes/admin/views/html-booking-availability.php:42
-#: includes/admin/views/html-booking-data.php:20
-#: includes/admin/views/html-booking-data.php:103
+#: includes/admin/views/html-booking-data.php:21
+#: includes/admin/views/html-booking-data.php:104
 #: includes/booking-form/class-wc-booking-form.php:157
 msgid "Month(s)"
 msgstr "月"
@@ -3396,88 +3419,88 @@ msgstr "リソースを追加できません"
 msgid "The resource has already been linked to this product"
 msgstr "リソースはすでにこの商品と紐付けられています。"
 
-#: includes/admin/class-wc-bookings-admin.php:724
+#: includes/admin/class-wc-bookings-admin.php:732
 msgid "Enable this if this bookable product has multiple bookable resources, for example room types or instructors."
 msgstr "部屋の種類・講師など、この予約商品が複数の予約リソースを有する場合、チェックします。"
 
-#: includes/admin/class-wc-bookings-admin.php:723
+#: includes/admin/class-wc-bookings-admin.php:731
 msgid "Has resources"
 msgstr "リソースが必要"
 
-#: includes/admin/class-wc-bookings-admin.php:717
+#: includes/admin/class-wc-bookings-admin.php:725
 msgid "Enable this if this bookable product can be booked by a customer defined number of persons."
 msgstr "顧客がこの予約商品に対して人数を指定することができる場合、チェックします。"
 
-#: includes/admin/class-wc-bookings-admin.php:716
+#: includes/admin/class-wc-bookings-admin.php:724
 msgid "Has persons"
 msgstr "予約に人数が必要"
 
-#: includes/admin/class-wc-bookings-admin.php:669
+#: includes/admin/class-wc-bookings-admin.php:677
 msgid "Resource"
 msgstr "リソース "
 
-#: includes/admin/class-wc-bookings-admin.php:668
+#: includes/admin/class-wc-bookings-admin.php:676
 #: includes/admin/views/html-create-booking-page.php:18
 msgid "Customer"
 msgstr "お客様"
 
-#: includes/admin/class-wc-bookings-admin.php:667
+#: includes/admin/class-wc-bookings-admin.php:675
 msgid "View details"
 msgstr "詳細を表示"
 
-#: includes/admin/class-wc-bookings-admin.php:662
+#: includes/admin/class-wc-bookings-admin.php:670
 msgid "Enter a name for the new resource"
 msgstr "新規リソースの名称を入力してください"
 
-#: includes/admin/class-wc-bookings-admin.php:661
+#: includes/admin/class-wc-bookings-admin.php:669
 msgid "days"
 msgstr "日"
 
-#: includes/admin/class-wc-bookings-admin.php:660
+#: includes/admin/class-wc-bookings-admin.php:668
 msgid "hours"
 msgstr "時間"
 
-#: includes/admin/class-wc-bookings-admin.php:659
+#: includes/admin/class-wc-bookings-admin.php:667
 msgid "minutes"
 msgstr "分"
 
-#: includes/admin/class-wc-bookings-admin.php:656
+#: includes/admin/class-wc-bookings-admin.php:664
 msgid "Are you sure you want to remove this resource?"
 msgstr "本当にこのリソースを削除しますか？"
 
-#: includes/admin/class-wc-bookings-admin.php:653
+#: includes/admin/class-wc-bookings-admin.php:661
 msgid "Are you sure you want to remove this person type?"
 msgstr "本当にこのお客様の種類を削除しますか？"
 
-#: includes/admin/class-wc-bookings-admin.php:555
+#: includes/admin/class-wc-bookings-admin.php:562
 #: includes/class-wc-booking-privacy.php:78
 msgid "Bookable product"
 msgstr "予約商品"
 
-#: includes/admin/class-wc-bookings-admin.php:461
+#: includes/admin/class-wc-bookings-admin.php:468
 msgid "Booking submitted."
 msgstr "予約を送信しました。"
 
-#: includes/admin/class-wc-bookings-admin.php:460
+#: includes/admin/class-wc-bookings-admin.php:467
 msgid "Booking saved."
 msgstr "予約を保存しました。"
 
-#: includes/admin/class-wc-bookings-admin.php:456
+#: includes/admin/class-wc-bookings-admin.php:463
 msgid "Custom field deleted."
 msgstr "カスタムフィールドを削除しました。"
 
-#: includes/admin/class-wc-bookings-admin.php:455
+#: includes/admin/class-wc-bookings-admin.php:462
 msgid "Custom field updated."
 msgstr "カスタムフィールドを更新しました。"
 
-#: includes/admin/class-wc-bookings-admin.php:454
-#: includes/admin/class-wc-bookings-admin.php:457
-#: includes/admin/class-wc-bookings-admin.php:459
+#: includes/admin/class-wc-bookings-admin.php:461
+#: includes/admin/class-wc-bookings-admin.php:464
+#: includes/admin/class-wc-bookings-admin.php:466
 msgid "Booking updated."
 msgstr "予約を更新しました。"
 
 #: includes/admin/class-wc-bookings-admin.php:380
-#: includes/admin/class-wc-bookings-admin.php:670
+#: includes/admin/class-wc-bookings-admin.php:678
 #: includes/admin/views/html-booking-tab.php:4
 #: includes/booking-form/class-wc-booking-form.php:257
 #: includes/class-wc-bookings-google-calendar-connection.php:1423

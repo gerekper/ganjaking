@@ -6,8 +6,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: permalinks, custom permalinks, permalink, woocommerce permalinks, url editor
 Requires at least: 4.4.0
 Requires PHP: 5.4
-Tested up to: 6.0.2
-Stable tag: 2.2.20
+Tested up to: 6.1.0
+Stable tag: 2.2.20.1
 
 Permalink Manager lets you customize the complete URL addresses of your posts, pages, custom post types, terms, and WooCommerce links with ease without touching any core files.
 
@@ -93,14 +93,17 @@ It is because Permalink Manager overwrites one of the core Wordpress functionali
 
 == Changelog ==
 
+= 2.2.20.1 (October 31, 2022) =
+* Fix - Security fix for BAC vulnerability found in the debug function that allowed unauthorized removal of single URIs
+
 = 2.2.20 (October 10, 2022) =
-* Fix - The URLs with duplicated slashes (eg. example.com/sample-page////) are now handled correctly and forwarded to the canonical URL.
+* Fix - The URLs with duplicated slashes (eg. example.com/sample-page////) are now handled correctly and forwarded to the canonical URL
 * Fix - The redirect problem was resolved with WPForo versions after 2.0.1
 * Dev - Improved compatibility with the WP All Import plugin functions
 * Dev - Improved compatibility with Polylang plugin
 * Dev - Better support for ACF Relationship fields
 * Dev - The plugin no longer (by default) supports custom post types & taxonomies that do not have the "query_var" and "rewrite" properties
-* Enhancement - In "Exclude drafts" mode, the URI Editor field in the "Quick Edit" section becomes "read-only" for the "Draft" posts.
+* Enhancement - In "Exclude drafts" mode, the URI Editor field in the "Quick Edit" section becomes "read-only" for the "Draft" posts
 
 = 2.2.19.3 (August 11, 2022) =
 * Dev - New filter added - 'permalink_manager_pre_sanitize_title'

@@ -17,10 +17,12 @@
 
 namespace Automattic\WooCommerce\Bookings\Vendor\Google\Auth;
 
+use Firebase\JWT\JWT;
 use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\HttpHandler\HttpClientCache;
 use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\HttpHandler\HttpHandlerFactory;
-use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\Query;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\Request;
+use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\Utils;
 use InvalidArgumentException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -428,7 +430,6 @@ class OAuth2 implements FetchAuthTokenInterface
 
         $assertion = [
             'iss' => $this->getIssuer(),
-            'aud' => $this->getAudience(),
             'exp' => ($now + $this->getExpiry()),
             'iat' => ($now - $opts['skew']),
         ];
@@ -437,9 +438,18 @@ class OAuth2 implements FetchAuthTokenInterface
                 throw new \DomainException($k . ' should not be null');
             }
         }
+        if (!(is_null($this->getAudience()))) {
+            $assertion['aud'] = $this->getAudience();
+        }
+
         if (!(is_null($this->getScope()))) {
             $assertion['scope'] = $this->getScope();
         }
+
+        if (empty($assertion['scope']) && empty($assertion['aud'])) {
+            throw new \DomainException('one of scope or aud should not be null');
+        }
+
         if (!(is_null($this->getSub()))) {
             $assertion['sub'] = $this->getSub();
         }
@@ -507,7 +517,7 @@ class OAuth2 implements FetchAuthTokenInterface
             'POST',
             $uri,
             $headers,
-            Psr7\build_query($params)
+            Query::build($params)
         );
     }
 
@@ -682,10 +692,10 @@ class OAuth2 implements FetchAuthTokenInterface
 
         // Construct the uri object; return it if it is valid.
         $result = clone $this->authorizationUri;
-        $existingParams = Psr7\parse_query($result->getQuery());
+        $existingParams = Query::parse($result->getQuery());
 
         $result = $result->withQuery(
-            Psr7\build_query(array_merge($existingParams, $params))
+            Query::build(array_merge($existingParams, $params))
         );
 
         if ($result->getScheme() != 'https') {
@@ -1361,7 +1371,7 @@ class OAuth2 implements FetchAuthTokenInterface
             return;
         }
 
-        return Psr7\uri_for($uri);
+        return Utils::uriFor($uri);
     }
 
     /**
@@ -1372,25 +1382,17 @@ class OAuth2 implements FetchAuthTokenInterface
      */
     private function jwtDecode($idToken, $publicKey, $allowedAlgs)
     {
-        if (class_exists('Firebase\JWT\JWT')) {
-            return \Firebase\JWT\JWT::decode($idToken, $publicKey, $allowedAlgs);
-        }
-
-        return \JWT::decode($idToken, $publicKey, $allowedAlgs);
+        return JWT::decode($idToken, $publicKey, $allowedAlgs);
     }
 
     private function jwtEncode($assertion, $signingKey, $signingAlgorithm, $signingKeyId = null)
     {
-        if (class_exists('Firebase\JWT\JWT')) {
-            return \Firebase\JWT\JWT::encode(
-                $assertion,
-                $signingKey,
-                $signingAlgorithm,
-                $signingKeyId
-            );
-        }
-
-        return \JWT::encode($assertion, $signingKey, $signingAlgorithm, $signingKeyId);
+        return JWT::encode(
+            $assertion,
+            $signingKey,
+            $signingAlgorithm,
+            $signingKeyId
+        );
     }
 
     /**

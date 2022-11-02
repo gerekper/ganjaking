@@ -198,6 +198,13 @@ function countdown(type, ts, id, action, redirect) {
     var minutes = Math.floor(distance % (1000 * 60 * 60) / (1000 * 60));
     var seconds = Math.floor(distance % (1000 * 60) / 1000);
 
+    if (seconds == -1) {
+      seconds = 0;
+      minutes = 0;
+      hours = 0;
+      days = 0;
+    }
+
     if (days == 0) {
       jQuery("#sp-cd-days-" + id).hide();
     } else {
@@ -226,8 +233,8 @@ function countdown(type, ts, id, action, redirect) {
 
 
       if (action == "3") {
-        console.log('remove' + id);
-        seedprodCookies.remove('seedprod_enddate_' + id);
+        //console.log('remove' + id);
+        seedprodCookies.remove('seedprod_enddate_' + id); //location.reload();
       }
     }
   }, 1000);

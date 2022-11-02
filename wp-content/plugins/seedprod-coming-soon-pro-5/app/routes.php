@@ -202,6 +202,15 @@ function seedprod_pro_create_menus() {
 		'sp_pro_debug',
 		'seedprod_pro_debug_page'
 	);
+
+	add_submenu_page( 
+		'themes.php',
+		__( 'Theme Builder', 'seedprod-pro' ),
+		__( 'Theme Builder', 'seedprod-pro' ),
+		apply_filters( 'seedprod_theme_templates_menu_capability', 'edit_others_posts' ),
+		'seedprod_pro_theme_templates',
+		'seedprod_pro_theme_templates_page'
+	);
 }
 
 add_action( 'admin_head', 'seedprod_pro_remove_menus' );

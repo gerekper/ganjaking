@@ -65,14 +65,16 @@ class WC_Pre_Orders_Blocks_Integration {
 	 * @return void
 	 */
 	public function blocks_loaded() {
-		$extend = Package::container()->get( ExtendRestApi::class );
-		$extend->register_payment_requirements(
-			array(
-				'data_callback' => array( $this, 'add_pre_order_availability_payment_requirement' ),
-			)
+		$args = array(
+			'data_callback' => array( $this, 'add_pre_order_availability_payment_requirement' ),
 		);
-		$extend = Package::container()->get( ExtendRestApi::class );
-		WC_Pre_Orders_Extend_Store_API::init( $extend );
+		if ( function_exists( 'woocommerce_store_api_register_payment_requirements' ) ) {
+			woocommerce_store_api_register_payment_requirements( $args );
+		} else {
+			$extend = Package::container()->get( ExtendRestApi::class );
+			$extend->register_payment_requirements( $args );
+		}
+		WC_Pre_Orders_Extend_Store_API::init();
 	}
 
 	/**

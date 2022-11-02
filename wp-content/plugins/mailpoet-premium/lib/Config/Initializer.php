@@ -166,7 +166,22 @@ class Initializer {
   }
 
   public function includePremiumJavascript() {
-    $this->renderView('scripts.html');
+    $this->wp->wpEnqueueScript(
+      'premium',
+      Env::$assetsUrl . '/dist/js/' . $this->renderer->getJsAsset('premium.js'),
+      [],
+      Env::$version,
+      true
+    );
+    $this->wp->wpSetScriptTranslations('premium', 'mailpoet-premium');
+
+    // Print and dequeue the premium script immediately, so it is correctly placed
+    // between "admin_vendor" and "admin" scripts from the free plugin.
+    // This is a temporary solution until we use WP queuing for all translations.
+    \wp_scripts()->do_item('wp-i18n');
+    \wp_scripts()->do_item('premium');
+    $this->wp->wpDequeueScript('wp-i18n');
+    $this->wp->wpDequeueScript('premium');
   }
 
   /**

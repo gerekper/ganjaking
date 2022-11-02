@@ -2,16 +2,16 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce All Products For Subscriptions 4.0.1\n"
+"Project-Id-Version: WooCommerce All Products For Subscriptions 4.0.3\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-09-19T11:48:04+00:00\n"
+"POT-Creation-Date: 2022-10-26T09:59:08+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.6.0\n"
+"X-Generator: WP-CLI 2.7.1\n"
 "language-team: LANGUAGE <EMAIL@ADDRESS>\n"
 "X-Domain: woocommerce-all-products-for-subscriptions\n"
 
@@ -366,33 +366,33 @@ msgctxt "many terms separator"
 msgid "%1$s&nbsp;&gt;&nbsp;&hellip;&nbsp;&gt;&nbsp;%2$s"
 msgstr ""
 
-#: includes/class-wcs-att-integrations.php:122
+#: includes/class-wcs-att-integrations.php:139
 msgid "Product Bundles"
 msgstr ""
 
-#: includes/class-wcs-att-integrations.php:123
+#: includes/class-wcs-att-integrations.php:140
 msgid "WooCommerce Product Bundles"
 msgstr ""
 
-#: includes/class-wcs-att-integrations.php:125
-#: includes/class-wcs-att-integrations.php:139
-#: includes/class-wcs-att-integrations.php:155
+#: includes/class-wcs-att-integrations.php:142
+#: includes/class-wcs-att-integrations.php:156
+#: includes/class-wcs-att-integrations.php:172
 msgid "The installed version of <strong>%1$s</strong> is not supported by <strong>All Products for WooCommerce Subscriptions</strong>. Please update <a href=\"%2$s\" target=\"_blank\">%3$s</a> to version <strong>%4$s</strong> or higher."
 msgstr ""
 
-#: includes/class-wcs-att-integrations.php:136
+#: includes/class-wcs-att-integrations.php:153
 msgid "Composite Products"
 msgstr ""
 
-#: includes/class-wcs-att-integrations.php:137
+#: includes/class-wcs-att-integrations.php:154
 msgid "WooCommerce Composite Products"
 msgstr ""
 
-#: includes/class-wcs-att-integrations.php:152
+#: includes/class-wcs-att-integrations.php:169
 msgid "Product Add-Ons"
 msgstr ""
 
-#: includes/class-wcs-att-integrations.php:153
+#: includes/class-wcs-att-integrations.php:170
 msgid "WooCommerce Product Add-Ons"
 msgstr ""
 
@@ -754,10 +754,10 @@ msgstr ""
 msgid "Please update WooCommerce."
 msgstr ""
 
-#: woocommerce-all-products-for-subscriptions.php:450
+#: woocommerce-all-products-for-subscriptions.php:452
 msgid "Documentation"
 msgstr ""
 
-#: woocommerce-all-products-for-subscriptions.php:451
+#: woocommerce-all-products-for-subscriptions.php:453
 msgid "Support"
 msgstr ""

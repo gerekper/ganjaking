@@ -628,6 +628,8 @@ function seedprod_pro_save_lpage() {
 			$html = preg_replace( "'contenteditable=\"true\"'", '', $html );
 			$html = preg_replace( "'spellcheck=\"false\"'", '', $html );
 			$html = str_replace( 'function(e,n,r,i){return fn(t,e,n,r,i,!0)}', '', $html );
+			// remove preview animation
+			$html = str_replace( 'animate__', '', $html );
 			// remove sp-theme-template id
 			require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/includes/simple_html_dom.php';
 			$phtml                   = seedprod_str_get_html( $html );

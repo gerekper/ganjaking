@@ -53,28 +53,28 @@ class EVO_General_Elements{
 		), $A);
 		extract($A);
 
-		// reuses
-			$legend_code = !empty($tooltip) ? $this->tooltips($tooltip, $tooltip_position, false): null;
-			if(!empty($field_attr) && count($field_attr)>0){
-				$field_attr = array_map(function($v,$k){
-					return $k .'="'. $v .'"';
-				}, array_values($field_attr), array_keys($field_attr));
-				
-			}
-			$field_attr = !empty($field_attr) ? implode(' ', $field_attr) : null;
+		// prelim
+			// reuses
+				$legend_code = !empty($tooltip) ? $this->tooltips($tooltip, $tooltip_position, false): null;
+				if(!empty($field_attr) && count($field_attr)>0){
+					$field_attr = array_map(function($v,$k){
+						return $k .'="'. $v .'"';
+					}, array_values($field_attr), array_keys($field_attr));
+					
+				}
+				$field_attr = !empty($field_attr) ? implode(' ', $field_attr) : null;
 
-		// validation
-			if(empty($type)) return false;
+			// validation
+				if(empty($type)) return false;
 
 
-		// nesting
-			$nesting_start = $nesting_end = '';
-			if(!empty($nesting)){
-				$nesting_start = "<div class='{$nesting}'>";
-				$nesting_end = "</div>";
-			}
-
-		
+			// nesting
+				$nesting_start = $nesting_end = '';
+				if(!empty($nesting)){
+					$nesting_start = "<div class='{$nesting}'>";
+					$nesting_end = "</div>";
+				}
+			
 		ob_start();
 
 		echo $nesting_start;
@@ -97,6 +97,7 @@ class EVO_General_Elements{
 
 			// GENERAL Text field
 			case 'text':
+			case 'input':
 				echo "<div class='evo_elm_row {$id}' style='{$row_style}'>";
 				$placeholder = (!empty($default) )? 'placeholder="'.$default.'"':null;				
 

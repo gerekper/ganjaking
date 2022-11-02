@@ -1,126 +1,19 @@
-# Copyright (C) 2022 MailPoet Premium
-# This file is distributed under the same license as the MailPoet Premium package.
+# Copyright (C) 2022 MailPoet
+# This file is distributed under the same license as the MailPoet Premium plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet Premium 3.101.0\n"
+"Project-Id-Version: MailPoet Premium 3.102.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
-"POT-Creation-Date: 2022-10-17 13:21:22+00:00\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
-"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2022-11-01T11:27:45+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.6.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
-"X-Poedit-Country: United States\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-Basepath: ../\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-Bookmarks: \n"
-"X-Textdomain-Support: yes\n"
-
-#: lib/API/JSON/v1/Bounces.php:39 lib/API/JSON/v1/Stats.php:70
-#: lib/API/JSON/v1/Stats.php:103
-msgid "This newsletter does not exist."
-msgstr ""
-
-#: lib/API/JSON/v1/Bounces.php:46 lib/API/JSON/v1/Stats.php:79
-#: lib/API/JSON/v1/Stats.php:110
-msgid "This newsletter is not sent yet."
-msgstr ""
-
-#: lib/API/JSON/v1/SubscriberDetailedStats.php:42
-msgid "Missing subscriber id."
-msgstr ""
-
-#: lib/Automation/Integrations/MailPoetPremium/Actions/UnsubscribeAction.php:49
-msgid "Unsubscribe"
-msgstr ""
-
-#: lib/Automation/Integrations/MailPoetPremium/PremiumWorkflowTemplates.php:37
-msgid "Welcome email sequence"
-msgstr ""
-
-#: lib/Automation/Integrations/MailPoetPremium/PremiumWorkflowTemplates.php:52
-msgid "Advanced welcome email sequence"
-msgstr ""
-
-#: lib/Config/Hooks.php:45
-msgid "[link1]Register[/link1] your copy of the MailPoet Premium plugin to receive access to automatic upgrades and support. Need a license key? [link2]Purchase one now.[/link2]"
-msgstr ""
-
-#: lib/Config/Hooks.php:68
-msgid "View MailPoet settings"
-msgstr ""
-
-#: lib/Config/Hooks.php:68
-msgid "Settings"
-msgstr ""
-
-#. translators: %1$s is the name of the template, %2$s the path to the cache
-#. folder and %3$s the error message.
-
-#: lib/Config/Renderer.php:108
-msgid "Failed to render template \"%1$s\". Please ensure the template cache folder \"%2$s\" exists and has write permissions. Terminated with error: \"%3$s\""
-msgstr ""
-
-#: lib/Newsletter/Stats/SubscriberEngagement.php:330
-msgid "Filter by link clicked"
-msgstr ""
-
-#: lib/Newsletter/Stats/SubscriberEngagement.php:362
-msgctxt "Subscriber engagement filter - filter those who clicked on a newsletter link"
-msgid "Clicked"
-msgstr ""
-
-#: lib/Newsletter/Stats/SubscriberEngagement.php:367
-msgctxt "Subscriber engagement filter - filter those who opened a newsletter"
-msgid "Opened"
-msgstr ""
-
-#: lib/Newsletter/Stats/SubscriberEngagement.php:372
-msgctxt "Subscriber engagement filter - shows machine-opens for a given newsletter"
-msgid "Machine-opened"
-msgstr ""
-
-#: lib/Newsletter/Stats/SubscriberEngagement.php:377
-msgctxt "Subscriber engagement filter - filter those who unsubscribed from a newsletter"
-msgid "Unsubscribed"
-msgstr ""
-
-#: lib/Newsletter/Stats/SubscriberEngagement.php:386
-msgctxt "Subscriber engagement filter - filter those who performed any action (e.g., clicked, opened, unsubscribed)"
-msgid "All engaged"
-msgstr ""
-
-#: lib/Newsletter/Stats/SubscriberEngagement.php:397
-msgctxt "Subscriber engagement filter - filter those who did not open a newsletter"
-msgid "Unopened"
-msgstr ""
-
-#: mailpoet-premium.php:51
-msgid "MailPoet Premium requires PHP version 7.2.0 or newer (version 8.0 recommended). Please read our [link]instructions[/link] on how to resolve this issue."
-msgstr ""
-
-#: mailpoet-premium.php:78
-msgid "MailPoet Premium cannot start because it is missing core files. Please reinstall the plugin."
-msgstr ""
-
-#. translators: %s is the MailPoet version.
-
-#: mailpoet_initializer.php:76
-msgid "You need to have MailPoet version %s or higher activated before using this version of MailPoet Premium."
-msgstr ""
-
-#: mailpoet_initializer.php:90
-msgid "You have an older version of the Premium plugin. The features have been disabled in order not to break MailPoet. Please update it in the Plugins page now."
-msgstr ""
-
-#: mailpoet_initializer.php:92
-msgid "Your MailPoet Premium plugin is incompatible with the free MailPoet plugin. [link1]Register[/link1] your key or [link2]purchase one now[/link2] to update the Premium to the latest version."
-msgstr ""
+"X-Domain: mailpoet-premium\n"
 
 #: views/newsletters/campaign_stats.html:6
 msgid "Revenues generated by customers who made a purchase within two weeks after they clicked on this email. This is the sum of the order totals including shipping and taxes."
@@ -278,6 +171,128 @@ msgstr ""
 msgctxt "Prefix for order number e.g. Order #123"
 msgid "Order"
 msgstr ""
-#. Description of the plugin/theme
+
+#. Plugin Name of the plugin
+msgid "MailPoet Premium"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+msgid "https://www.mailpoet.com"
+msgstr ""
+
+#. Description of the plugin
 msgid "This plugin adds Premium features to the free version of MailPoet and unlocks the limit of 1,000 subscribers. Enjoy!"
+msgstr ""
+
+#. Author of the plugin
+msgid "MailPoet"
+msgstr ""
+
+#: lib/API/JSON/v1/Bounces.php:39
+#: lib/API/JSON/v1/Stats.php:70
+#: lib/API/JSON/v1/Stats.php:103
+msgid "This newsletter does not exist."
+msgstr ""
+
+#: lib/API/JSON/v1/Bounces.php:46
+#: lib/API/JSON/v1/Stats.php:79
+#: lib/API/JSON/v1/Stats.php:110
+msgid "This newsletter is not sent yet."
+msgstr ""
+
+#: lib/API/JSON/v1/SubscriberDetailedStats.php:42
+msgid "Missing subscriber id."
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Actions/UnsubscribeAction.php:49
+msgid "Unsubscribe"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/PremiumWorkflowTemplates.php:37
+msgid "Welcome email sequence"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/PremiumWorkflowTemplates.php:52
+msgid "Advanced welcome email sequence"
+msgstr ""
+
+#: lib/Config/Hooks.php:45
+msgid "[link1]Register[/link1] your copy of the MailPoet Premium plugin to receive access to automatic upgrades and support. Need a license key? [link2]Purchase one now.[/link2]"
+msgstr ""
+
+#: lib/Config/Hooks.php:68
+msgid "View MailPoet settings"
+msgstr ""
+
+#: lib/Config/Hooks.php:68
+msgid "Settings"
+msgstr ""
+
+#. translators: %1$s is the name of the template, %2$s the path to the cache folder and %3$s the error message.
+#: lib/Config/Renderer.php:108
+msgid "Failed to render template \"%1$s\". Please ensure the template cache folder \"%2$s\" exists and has write permissions. Terminated with error: \"%3$s\""
+msgstr ""
+
+#: lib/Newsletter/Stats/SubscriberEngagement.php:330
+msgid "Filter by link clicked"
+msgstr ""
+
+#: lib/Newsletter/Stats/SubscriberEngagement.php:362
+msgctxt "Subscriber engagement filter - filter those who clicked on a newsletter link"
+msgid "Clicked"
+msgstr ""
+
+#: lib/Newsletter/Stats/SubscriberEngagement.php:367
+msgctxt "Subscriber engagement filter - filter those who opened a newsletter"
+msgid "Opened"
+msgstr ""
+
+#: lib/Newsletter/Stats/SubscriberEngagement.php:372
+msgctxt "Subscriber engagement filter - shows machine-opens for a given newsletter"
+msgid "Machine-opened"
+msgstr ""
+
+#: lib/Newsletter/Stats/SubscriberEngagement.php:377
+msgctxt "Subscriber engagement filter - filter those who unsubscribed from a newsletter"
+msgid "Unsubscribed"
+msgstr ""
+
+#: lib/Newsletter/Stats/SubscriberEngagement.php:386
+msgctxt "Subscriber engagement filter - filter those who performed any action (e.g., clicked, opened, unsubscribed)"
+msgid "All engaged"
+msgstr ""
+
+#: lib/Newsletter/Stats/SubscriberEngagement.php:397
+msgctxt "Subscriber engagement filter - filter those who did not open a newsletter"
+msgid "Unopened"
+msgstr ""
+
+#: mailpoet-premium.php:51
+msgid "MailPoet Premium requires PHP version 7.2.0 or newer (version 8.0 recommended). Please read our [link]instructions[/link] on how to resolve this issue."
+msgstr ""
+
+#: mailpoet-premium.php:78
+msgid "MailPoet Premium cannot start because it is missing core files. Please reinstall the plugin."
+msgstr ""
+
+#. translators: %s is the MailPoet version.
+#: mailpoet_initializer.php:76
+msgid "You need to have MailPoet version %s or higher activated before using this version of MailPoet Premium."
+msgstr ""
+
+#: mailpoet_initializer.php:90
+msgid "You have an older version of the Premium plugin. The features have been disabled in order not to break MailPoet. Please update it in the Plugins page now."
+msgstr ""
+
+#: mailpoet_initializer.php:92
+msgid "Your MailPoet Premium plugin is incompatible with the free MailPoet plugin. [link1]Register[/link1] your key or [link2]purchase one now[/link2] to update the Premium to the latest version."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "New workflow"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "An unknown error occurred."
 msgstr ""

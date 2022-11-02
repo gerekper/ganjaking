@@ -30,6 +30,7 @@
 namespace phpseclib3\Math;
 
 use phpseclib3\Exception\BadConfigurationException;
+use phpseclib3\Math\BigInteger\Engines\Engine;
 
 /**
  * Pure-PHP arbitrary precision integer arithmetic library. Supports base-2, base-10, base-16, and base-256
@@ -39,26 +40,19 @@ use phpseclib3\Exception\BadConfigurationException;
  * @author  Jim Wigginton <terrafrost@php.net>
  * @access  public
  */
-class BigInteger implements \Serializable
+class BigInteger implements \JsonSerializable
 {
     /**
      * Main Engine
      *
-     * @var string
+     * @var class-string<Engine>
      */
     private static $mainEngine;
 
     /**
-     * Modular Exponentiation Engine
-     *
-     * @var string
-     */
-    private static $modexpEngine;
-
-    /**
      * Selected Engines
      *
-     * @var array
+     * @var list<string>
      */
     private static $engines;
 
@@ -70,14 +64,33 @@ class BigInteger implements \Serializable
     private $value;
 
     /**
+     * Mode independent value used for serialization.
+     *
+     * @see self::__sleep()
+     * @see self::__wakeup()
+     * @var string
+     */
+    private $hex;
+
+    /**
+     * Precision (used only for serialization)
+     *
+     * @see self::__sleep()
+     * @see self::__wakeup()
+     * @var int
+     */
+    private $precision;
+
+    /**
      * Sets engine type.
      *
      * Throws an exception if the type is invalid
      *
      * @param string $main
-     * @param array $modexps optional
+     * @param list<string> $modexps optional
+     * @return void
      */
-    public static function setEngine($main, $modexps = ['DefaultEngine'])
+    public static function setEngine($main, array $modexps = ['DefaultEngine'])
     {
         self::$engines = [];
 
@@ -88,6 +101,7 @@ class BigInteger implements \Serializable
         if (!$fqmain::isValidEngine()) {
             throw new BadConfigurationException("$main is not setup correctly on this system");
         }
+        /** @var class-string<Engine> $fqmain */
         self::$mainEngine = $fqmain;
 
         if (!in_array('Default', $modexps)) {
@@ -107,8 +121,6 @@ class BigInteger implements \Serializable
         if (!$found) {
             throw new BadConfigurationException("No valid modular exponentiation engine found for $main");
         }
-
-        self::$modexpEngine = $modexp;
 
         self::$engines = [$main, $modexp];
     }
@@ -153,9 +165,8 @@ class BigInteger implements \Serializable
      * If the second parameter - $base - is negative, then it will be assumed that the number's are encoded using
      * two's compliment.  The sole exception to this is -10, which is treated the same as 10 is.
      *
-     * @param int|BigInteger\Engines\Engine $x Base-10 number or base-$base number if $base set.
+     * @param string|int|BigInteger\Engines\Engine $x Base-10 number or base-$base number if $base set.
      * @param int $base
-     * @return BigInteger
      */
     public function __construct($x = 0, $base = 10)
     {
@@ -186,7 +197,7 @@ class BigInteger implements \Serializable
      */
     public function __toString()
     {
-        return (string) $this->value;
+        return (string)$this->value;
     }
 
     /**
@@ -230,7 +241,7 @@ class BigInteger implements \Serializable
      * @param bool $twos_compliment
      * @return string
      */
-    function toBits($twos_compliment = false)
+    public function toBits($twos_compliment = false)
     {
         return $this->value->toBits($twos_compliment);
     }
@@ -252,7 +263,7 @@ class BigInteger implements \Serializable
      * @param BigInteger $y
      * @return BigInteger
      */
-    function subtract(BigInteger $y)
+    public function subtract(BigInteger $y)
     {
         return new static($this->value->subtract($y->value));
     }
@@ -306,8 +317,9 @@ class BigInteger implements \Serializable
      * Calculates modular inverses.
      *
      * Say you have (30 mod 17 * x mod 17) mod 17 == 1.  x can be found using modular inverses.
-     * @return BigInteger
+     *
      * @param BigInteger $n
+     * @return BigInteger
      */
     public function modInverse(BigInteger $n)
     {
@@ -318,8 +330,9 @@ class BigInteger implements \Serializable
      * Calculates modular inverses.
      *
      * Say you have (30 mod 17 * x mod 17) mod 17 == 1.  x can be found using modular inverses.
-     * @return BigInteger[]
+     *
      * @param BigInteger $n
+     * @return BigInteger[]
      */
     public function extendedGCD(BigInteger $n)
     {
@@ -357,7 +370,7 @@ class BigInteger implements \Serializable
      */
     public function abs()
     {
-         return new static($this->value->abs());
+        return new static($this->value->abs());
     }
 
     /**
@@ -390,40 +403,54 @@ class BigInteger implements \Serializable
      *
      * Will be called, automatically, when serialize() is called on a BigInteger object.
      *
-     * phpseclib 1.0 serialized strings look like this:
-     * O:15:"Math_BigInteger":1:{s:3:"hex";s:18:"00ab54a98ceb1f0ad2";}
+     * __sleep() / __wakeup() have been around since PHP 4.0
      *
-     * phpseclib 3.0 serialized strings look like this:
-     * C:25:"phpseclib\Math\BigInteger":42:{a:1:{s:3:"hex";s:18:"00ab54a98ceb1f0ad2";}}
+     * \Serializable was introduced in PHP 5.1 and deprecated in PHP 8.1:
+     * https://wiki.php.net/rfc/phase_out_serializable
      *
-     * @return string
+     * __serialize() / __unserialize() were introduced in PHP 7.4:
+     * https://wiki.php.net/rfc/custom_object_serialization
+     *
+     * @return array
      */
-    public function serialize()
+    public function __sleep()
     {
-        $val = ['hex' => $this->toHex(true)];
-        $precision = $this->value->getPrecision();
-        if ($precision > 0) {
-            $val['precision'] = $precision;
+        $this->hex = $this->toHex(true);
+        $vars = ['hex'];
+        if ($this->getPrecision() > 0) {
+            $vars[] = 'precision';
         }
-        return serialize($val);
+        return $vars;
     }
 
     /**
      * Serialize
      *
      * Will be called, automatically, when unserialize() is called on a BigInteger object.
-     *
-     * @param string $serialized
      */
-    public function unserialize($serialized)
+    public function __wakeup()
     {
-        $r = unserialize($serialized);
-        $temp = new static($r['hex'], -16);
+        $temp = new static($this->hex, -16);
         $this->value = $temp->value;
-        if (isset($r['precision'])) {
+        if ($this->precision > 0) {
             // recalculate $this->bitmask
-            $this->setPrecision($r['precision']);
+            $this->setPrecision($this->precision);
         }
+    }
+
+    /**
+     * JSON Serialize
+     *
+     * Will be called, automatically, when json_encode() is called on a BigInteger object.
+     */
+    #[\ReturnTypeWillChange]
+    public function jsonSerialize()
+    {
+        $result = ['hex' => $this->toHex(true)];
+        if ($this->precision > 0) {
+            $result['precision'] = $this->getPrecision();
+        }
+        return $result;
     }
 
     /**
@@ -453,8 +480,8 @@ class BigInteger implements \Serializable
     /**
      * Compares two numbers.
      *
-     * Although one might think !$x->compare($y) means $x != $y, it, in fact, means the opposite.  The reason for this is
-     * demonstrated thusly:
+     * Although one might think !$x->compare($y) means $x != $y, it, in fact, means the opposite.  The reason for this
+     * is demonstrated thusly:
      *
      * $x  > $y: $x->compare($y)  > 0
      * $x  < $y: $x->compare($y)  < 0
@@ -595,7 +622,7 @@ class BigInteger implements \Serializable
         $class = self::$mainEngine;
         extract($class::minMaxBits($bits));
         /** @var BigInteger $min
-         *  @var BigInteger $max
+         * @var BigInteger $max
          */
         return [
             'min' => new static($min),
@@ -737,7 +764,9 @@ class BigInteger implements \Serializable
     public static function min(BigInteger ...$nums)
     {
         $class = self::$mainEngine;
-        $nums = array_map(function($num) { return $num->value; }, $nums);
+        $nums = array_map(function ($num) {
+            return $num->value;
+        }, $nums);
         return new static($class::min(...$nums));
     }
 
@@ -750,7 +779,9 @@ class BigInteger implements \Serializable
     public static function max(BigInteger ...$nums)
     {
         $class = self::$mainEngine;
-        $nums = array_map(function($num) { return $num->value; }, $nums);
+        $nums = array_map(function ($num) {
+            return $num->value;
+        }, $nums);
         return new static($class::max(...$nums));
     }
 
@@ -777,7 +808,7 @@ class BigInteger implements \Serializable
     /**
      * Is Odd?
      *
-     * @return boolean
+     * @return bool
      */
     public function isOdd()
     {
@@ -788,7 +819,7 @@ class BigInteger implements \Serializable
      * Tests if a bit is set
      *
      * @param int $x
-     * @return boolean
+     * @return bool
      */
     public function testBit($x)
     {
@@ -798,7 +829,7 @@ class BigInteger implements \Serializable
     /**
      * Is Negative?
      *
-     * @return boolean
+     * @return bool
      */
     public function isNegative()
     {
@@ -842,7 +873,7 @@ class BigInteger implements \Serializable
     public function createRecurringModuloFunction()
     {
         $func = $this->value->createRecurringModuloFunction();
-        return function(BigInteger $x) use ($func) {
+        return function (BigInteger $x) use ($func) {
             return new static($func($x->value));
         };
     }
@@ -853,11 +884,11 @@ class BigInteger implements \Serializable
      * Splits BigInteger's into chunks of $split bits
      *
      * @param int $split
-     * @return \phpseclib3\Math\BigInteger[]
+     * @return BigInteger[]
      */
     public function bitwise_split($split)
     {
-        return array_map(function($val) {
+        return array_map(function ($val) {
             return new static($val);
         }, $this->value->bitwise_split($split));
     }

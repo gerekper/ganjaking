@@ -1,5 +1,10 @@
 *** WooCommerce AliExpress Dropshipping Changelog ***
 
+2022-10-31 - version 4.5
+* PLUGINS-1792 - Fix GST tax split on emails and settings.
+* PLUGINS-1644 - Implement Woo dependency.
+* PLUGINS-1570 - Fix Mark as shipped and View Orders link in packing slip.
+
 2022-10-13 - version 4.4
 * PLUGINS-1772 - Fix rounding off product prices.
 * PLUGINS-1539 - Fix Array notice errors.

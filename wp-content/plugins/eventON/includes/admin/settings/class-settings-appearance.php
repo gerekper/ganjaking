@@ -207,7 +207,7 @@ class evoadmin_set_appearance{
 							array('id'=>'evcal__cancel_event_1', 'name'=>'Background color', 'type'=>'color', 'default'=>'F79191'),
 							array('id'=>'evcal__cancel_event_2', 'name'=>'Font Color', 'type'=>'color', 'default'=>'ffffff'),
 							array('id'=>'evcal__cancel_event_3x', 'name'=>'EventTop Background Color', 'type'=>'color', 'default'=>'333333'),
-							array('id'=>'evcal__cancel_event_4x', 'name'=>'EventTop Cancelled text color', 'type'=>'color', 'default'=>'464646'),
+							array('id'=>'evcal__cancel_event_4x', 'name'=>'EventTop Cancelled text color', 'type'=>'color', 'default'=>'b0b0b0'),
 						)
 					),
 					

@@ -1,5 +1,11 @@
 *** WooCommerce Waitlist Change Log ***
 
+2022.10.27 - Version 2.3.5
+* Fix: Invalid product IDs stopping export of waitlist data
+* Fix: Product bundles being ignored by global exporter
+* Feature: Newly created users now force a page reload after they have been added to the waitlist
+* Added: Filter to redirect new users after they have an account created for them (wcwl_redirect_after_account_auto_create)
+
 2022.09.06 - Version 2.3.4
 * Fix: Raw HTML ouputting on user account waitlist page
 

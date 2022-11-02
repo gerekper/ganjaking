@@ -64,6 +64,7 @@ if ( strpos( $settings_str, 'giveaway' ) !== false ) {
 $include_seed_fb_sdk                 = false;
 $include_seed_twitter_sdk            = false;
 $include_seedprod_headline_sdk       = false;
+$include_seedprod_animation_sdk      = false;
 $include_gallery_lightbox_sdk        = false;
 $include_gallery_sdk                 = false;
 $include_counter_sdk                 = false;
@@ -103,6 +104,10 @@ if ( strpos( $settings_str, '"showLightboxGallery":true' ) !== false ) {
 
 if ( strpos( $settings_str, 'animatedheadline' ) !== false ) {
 	$include_seedprod_headline_sdk = true;
+}
+
+if ( strpos( $settings_str, 'ani_' ) !== false ) {
+	$include_seedprod_animation_sdk = true;
 }
 
 if ( strpos( $settings_str, 'beforeaftertoggle' ) !== false ) {
@@ -274,7 +279,12 @@ if ( ! empty( $settings ) ) {
 
 	<?php if ( true === $include_seedprod_headline_sdk ) { ?>
 	<link rel='stylesheet' id='seedprod-animate-css'  href='<?php echo esc_url( $plugin_url ); ?>public/css/sp-animate.min.css?ver=<?php echo esc_attr( SEEDPROD_PRO_VERSION ); ?>' type='text/css' media='all' /> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet ?>
-<?php } ?>
+	<?php } ?>
+
+	<?php if ( true === $include_seedprod_animation_sdk ) { ?>
+	<link rel='stylesheet'   href='<?php echo esc_url( $plugin_url ); ?>public/css/animate.css?ver=<?php echo esc_attr( SEEDPROD_PRO_VERSION ); ?>' type='text/css' media='all' /> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet ?>
+	<?php } ?>
+
 	<?php if ( true === $include_gallery_sdk ) { ?>
 	<link rel="stylesheet" id='seedprod-gallerylightbox-css' href="<?php echo esc_url( $plugin_url ); ?>public/css/seedprod-gallery-block.min.css?ver=<?php echo esc_attr( SEEDPROD_PRO_VERSION ); ?>" type='text/css' media='all' /> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet ?>
 	<?php } ?>
@@ -394,7 +404,17 @@ var seeprod_enable_recaptcha = <?php echo (int) $settings->enable_recaptcha; ?>;
 		<?php
 	}
 	
+	?>
 
+<?php
+	
+	if ( true === $include_seedprod_animation_sdk ) {
+		?>
+<script src="<?php echo esc_url( $plugin_url ); ?>public/js/animate-dynamic.js" defer></script> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript ?>
+
+		<?php
+	}
+	
 	?>
 
 	<?php if ( true === $include_gallery_lightbox_sdk ) { ?>

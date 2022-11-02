@@ -412,7 +412,8 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Ajax' ) ) {
 			foreach ( $products as $product ) {
 				$product_id = absint( $product );
 				$product    = wc_get_product( $product_id );
-				if ( WooCommerce_Waitlist_Plugin::is_variation( $product ) || WooCommerce_Waitlist_Plugin::is_simple( $product ) ) {
+				if ( ! $product ) continue;
+				if ( WooCommerce_Waitlist_Plugin::is_variation( $product ) || WooCommerce_Waitlist_Plugin::is_simple( $product ) || WooCommerce_Waitlist_Plugin::is_bundle( $product )) {
 					$waitlist = get_post_meta( $product_id, 'woocommerce_waitlist', true );
 					$archives = $this->get_formatted_archives( $product_id );
 					if ( $this->no_users( $waitlist ) && $this->no_users( $archives ) ) {

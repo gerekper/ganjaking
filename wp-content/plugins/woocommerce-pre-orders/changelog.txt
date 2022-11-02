@@ -1,5 +1,10 @@
 *** WooCommerce Pre-Orders Plugin ***
 
+2022-10-31 - version 1.8.0
+* Tweak – Switch to global functions to remove deprecation warnings coming from WooCommerce Blocks.
+* Fix – Ensure store admins receive notifications of any pre-order cancellations.
+* Add – New column to the Pre-Orders admin table to show the linked order status.
+
 2022-09-20 - version 1.7.3
 * Fix - My Account > Pre-Orders template change to display text when customer has no pre-orders. PR#336.
 * Fix - Ensure all pre-orders don't show up when filtering by a product without pre-orders.

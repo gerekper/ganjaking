@@ -16,13 +16,6 @@ use Automattic\WooCommerce\Blocks\StoreApi\Schemas\CartItemSchema;
 
 class WC_Pre_Orders_Extend_Store_API {
 	/**
-	 * Stores Rest Extending instance.
-	 *
-	 * @var ExtendRestApi
-	 */
-	private static $extend;
-
-	/**
 	 * Plugin Identifier, unique to each plugin.
 	 *
 	 * @var string
@@ -32,12 +25,9 @@ class WC_Pre_Orders_Extend_Store_API {
 	/**
 	 * Bootstraps the class and hooks required data.
 	 *
-	 * @param ExtendRestApi $extend_rest_api An instance of the ExtendRestApi class.
-	 *
 	 * @since 3.1.0
 	 */
-	public static function init( ExtendRestApi $extend_rest_api ) {
-		self::$extend = $extend_rest_api;
+	public static function init() {
 		self::extend_store();
 	}
 
@@ -45,17 +35,20 @@ class WC_Pre_Orders_Extend_Store_API {
 	 * Registers the actual data into each endpoint.
 	 */
 	public static function extend_store() {
-
-		// Register into `cart/items`.
-		self::$extend->register_endpoint_data(
-			array(
-				'endpoint'        => CartItemSchema::IDENTIFIER,
-				'namespace'       => self::IDENTIFIER,
-				'data_callback'   => array( 'WooCommerce\Pre_Orders\Blocks\WC_Pre_Orders_Extend_Store_API', 'extend_cart_item_data' ),
-				'schema_callback' => array( 'WooCommerce\Pre_Orders\Blocks\WC_Pre_Orders_Extend_Store_API', 'extend_cart_item_schema' ),
-				'schema_type'       => ARRAY_A,
-			)
+		$args = array(
+			'endpoint'        => CartItemSchema::IDENTIFIER,
+			'namespace'       => self::IDENTIFIER,
+			'data_callback'   => array( 'WooCommerce\Pre_Orders\Blocks\WC_Pre_Orders_Extend_Store_API', 'extend_cart_item_data' ),
+			'schema_callback' => array( 'WooCommerce\Pre_Orders\Blocks\WC_Pre_Orders_Extend_Store_API', 'extend_cart_item_schema' ),
+			'schema_type'     => ARRAY_A,
 		);
+
+		if ( function_exists( 'woocommerce_store_api_register_endpoint_data' ) ) {
+			woocommerce_store_api_register_endpoint_data( $args );
+		} else {
+			$extend = Package::container()->get( ExtendRestApi::class );
+			$extend->register_endpoint_data( $args );
+		}
 	}
 
 	/**

@@ -12,8 +12,8 @@ class WC_Dropshipping_Orders {
 		add_action('woocommerce_order_actions',array( $this,'add_order_meta_box_order_processing'));
 		add_action('woocommerce_order_status_processing',array($this,'order_processing'));
 		add_action('woocommerce_order_status_completed',array($this,'order_complete'));
-		add_action( 'woocommerce_order_status_changed', array($this,'grab_order_old_status'), 10, 4 );
-		//add_action('woocommerce_order_status_cancelled',array($this,'order_cancelled'));
+		//add_action( 'woocommerce_order_status_changed', array($this,'grab_order_old_status'), 10, 4 );
+		add_action('woocommerce_order_status_cancelled',array($this,'order_cancelled'));
 		add_action('woocommerce_order_action_resend_dropship_supplier_notifications',array($this,'order_processing'));
 		add_action('wc_dropship_manager_send_order',array($this,'send_order'),10, 2);
 		add_filter( 'wp_mail_content_type',array($this,'wpse27856_set_content_type') );
@@ -70,7 +70,7 @@ class WC_Dropshipping_Orders {
 
 	// Below function to send an email when order status cancelled.
 	
-	public function grab_order_old_status( $order_id, $status_from, $status_to, $order ) {
+	/*public function grab_order_old_status( $order_id, $status_from, $status_to, $order ) {
 		$order = new WC_Order( $order_id );
 		
 		if($status_from == "completed" && $status_to == "cancelled"){
@@ -80,13 +80,13 @@ class WC_Dropshipping_Orders {
 		}else{
 			
 		}
-	}
+	}*/
 		
 	
-	/*public function order_cancelled( $order_id ) { 
+	public function order_cancelled( $order_id ) { 
         $order = new WC_Order( $order_id ); // load the order from woocommerce
         $this->notify_warehouse($order);
-    }*/
+    }
 	/* Notify Suppliers */
 	// perform all tasks that happen once an order is set to processing
 	public function order_processing( $order_id ) {
@@ -674,6 +674,7 @@ class WC_Dropshipping_Orders {
 		$from_email = $options['from_email'];
 		$cc_email = $options['cc_mail'];
 		$complete_url = $options['order_complete_link'];
+		$order_email = $options['order_button_email'];
 		$cnf_mail = $options['cnf_mail'];
 		if(trim($from_name) == "")
 		{
@@ -726,8 +727,13 @@ class WC_Dropshipping_Orders {
 			if($order->get_status() == 'processing') {
 				if($complete_url == '1') {
 					$message .= '<table cellpadding="8" cellspacing="0" style="width:100%;" >
-			    	<tr><td style="text-align: center;">'.sprintf( __( 'To mark this order as shipped please click the following link:', 'woocommerce-dropshipping'  ),"" ).'<br/><a href="'.get_home_url().'/wp-admin/admin-ajax.php?action=woocommerce_dropshippers_mark_as_shipped&orderid='.$order_info["id"].'&supplierid='.$supplier_info["id"].'">'.sprintf( __( 'Mark as shipped', 'woocommerce-dropshipping'  ),"" ).'</a></td></tr></table>';
-			    }
+			    	<tr><td style="text-align: center;">'.sprintf( __( 'To mark this order as shipped please click the following link:', 'woocommerce-dropshipping'  ),"" ).'<br/><a href="'.get_home_url().'/wp-admin/admin-ajax.php?action=woocommerce_dropshippers_mark_as_shipped&orderid='.$order_info["custom_order_number"].'&supplierid='.$supplier_info["id"].'">'.sprintf( __( 'Mark as shipped', 'woocommerce-dropshipping'  ),"" ).'</a></td></tr></table>';		
+				}
+				if($order_email == '1') {
+					$message .= '<table cellpadding="8" cellspacing="0" style="width:100%;" >
+			    	<tr><td style="text-align: center;"><a href="'.get_home_url().'/wp-admin/admin.php?page=dropshipper-order-list">'.sprintf( __('View order in dashboard', 'woocommerce-dropshipping' ),"" ).'</a></td></tr></table>';
+		
+				}
 			}
 			$headers  = "From: ".wp_specialchars_decode($from_name)." <".$from_email.">\r\n";
 			if($cc_email == '0'){
@@ -766,9 +772,9 @@ class WC_Dropshipping_Orders {
 			}
 			$order_status = $order->get_status();
 			if ($order_status == 'completed') {
-				$hdrs['Subject'] = 'Order #'.$order_info['id'].' is completed ';
+				$hdrs['Subject'] = 'Order #'.$order_info['custom_order_number'].' is completed ';
 			}else if ($order_status == 'cancelled') {
-				$hdrs['Subject'] = 'Order #'.$order_info['id'].' is cancelled ';
+				$hdrs['Subject'] = 'Order #'.$order_info['custom_order_number'].' is cancelled ';
 			} else {
 				$hdrs['Subject'] = sprintf( __('New Order #%1$s From %2$s', 'woocommerce-dropshipping' ),$order_info['id'],	$from_name  );
 			}

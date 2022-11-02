@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Loads admin tabs and adds related hooks / filters.
  *
- * @version  1.12.1
+ * @version  1.14.3
  */
 class WC_CSP_Admin {
 
@@ -25,7 +25,7 @@ class WC_CSP_Admin {
 	 *
 	 * @var string
 	 */
-	private static $bundled_selectsw_version = '1.1.7';
+	private static $bundled_selectsw_version = '1.2.0';
 
 	/**
 	 * @var array

@@ -375,6 +375,7 @@ $seedprod_pro_block_templates = '
       "borderStyle":"solid",
       "hideOnDesktop": false,
       "hideOnMobile": false,
+      "entranceAnimation":"",
       "alignType":"s",
       "display":"",
       "flexDirection":"row",
@@ -474,6 +475,7 @@ $seedprod_pro_block_templates = '
       "topshapeheight":"",
       "topflip":false,
       "topfront":false,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
    },
@@ -561,6 +563,7 @@ $seedprod_pro_block_templates = '
     "topshapeheight":"",
     "topflip":false,
     "topfront":false,
+    "entranceAnimation":"",
     "hideOnDesktop": false,
     "hideOnMobile": false
  },
@@ -597,6 +600,7 @@ $seedprod_pro_block_templates = '
      "paddingLeft_mobile": "",
      "paddingRight_mobile": "",
      "paddingSync_mobile": true,
+     "entranceAnimation":"",
      "hideOnDesktop": false,
      "hideOnMobile": false
    },
@@ -643,6 +647,7 @@ $seedprod_pro_block_templates = '
     "paddingLeft_mobile": "",
     "paddingRight_mobile": "",
     "paddingSync_mobile": true,
+    "entranceAnimation":"",
     "hideOnDesktop": false,
     "hideOnMobile": false
   },
@@ -701,6 +706,7 @@ $seedprod_pro_block_templates = '
     "nametypographyItalic": "",
     "nametypographyUnderline": "",
     "nametypographyLetterCase": "",
+    "entranceAnimation":"",
     "hideOnDesktop": false,
     "hideOnMobile": false
    },
@@ -758,6 +764,7 @@ $seedprod_pro_block_templates = '
     "imageBorderStyle":"solid",
     "imageBorderColor": "",
     "blockTemplateId": false,
+    "entranceAnimation":"",
     "hideOnDesktop": false,
     "hideOnMobile": false
    },
@@ -829,6 +836,7 @@ $seedprod_pro_block_templates = '
     "headertypographyItalic": "",
     "headertypographyUnderline": "",
     "headertypographyLetterCase": "",
+    "entranceAnimation":"",
     "hideOnDesktop": false,
     "hideOnMobile": false
    },
@@ -912,6 +920,7 @@ $seedprod_pro_block_templates = '
     "labeltypographyItalic": "",
     "labeltypographyUnderline": "",
     "labeltypographyLetterCase": "",
+    "entranceAnimation":"",
     "hideOnDesktop": false,
     "hideOnMobile": false
    },
@@ -976,6 +985,7 @@ $seedprod_pro_block_templates = '
     "headertypographyItalic": "",
     "headertypographyUnderline": "",
     "headertypographyLetterCase": "",
+    "entranceAnimation":"",
     "hideOnDesktop": false,
     "hideOnMobile": false
    },
@@ -1035,7 +1045,8 @@ $seedprod_pro_block_templates = '
       "align_mobile": "center",
       "typographyLetterCase": "",
       "hideOnDesktop": false,
-      "hideOnMobile": false
+      "hideOnMobile": false,
+      "entranceAnimation":""
     },
     "animatedheadline":{
       "beforeHeaderTxt": "Before text",
@@ -1101,6 +1112,7 @@ $seedprod_pro_block_templates = '
       "typographyUnderline": "",
       "align": "center",
       "typographyLetterCase": "",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -1213,6 +1225,7 @@ $seedprod_pro_block_templates = '
       "imageBorderStyle":"solid",
       "imageBorderColor": "",
       "blockTemplateId": false,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -1286,6 +1299,95 @@ $seedprod_pro_block_templates = '
       "imageBorderStyle":"solid",
       "imageBorderColor": "",
       "blockTemplateId": false,
+      "entranceAnimation":"",
+      "hideOnDesktop": false,
+      "hideOnMobile": false
+    },
+    "stripepayment":{
+      "payment_amount": "",
+      "payment_description": "",
+      "stripe_token": "",
+      "success_url": "",
+      "payment_currency": "USD",
+      "action": "link",
+      "link": "",
+      "openNewWindow": false,
+      "noFollow": false,
+      "btnTxt": "Pay Now",
+      "btnStyle": "",
+      "btnSubTxt": "",
+      "btnSubTextSize": "",
+      "textColor": "",
+      "bgColor": "",
+      "buttonTextColor":"",
+      "bgColorHover":"",
+      "buttonTextHoverColor":"",
+      "buttonNormalStyle":"s",
+      "buttonNormalBGtype":"radial",
+      "buttonNormalBGposition":"",
+      "buttonHoverStyle":"s",
+      "buttonHoverBGtype":"radial",
+      "buttonHoverBGposition":"",
+      "btnStyleHover":"",
+      "btnPaddingTop": "16",
+      "btnPaddingLeft": "20",
+      "btnSize":"4",
+      "beforeIcon": "",
+      "afterIcon": "",
+      "marginTop": "",
+      "marginBottom": "",
+      "marginLeft": "",
+      "marginRight": "",
+      "marginSync": false,
+      "marginTop_mobile": "",
+      "marginBottom_mobile": "",
+      "marginLeft_mobile": "",
+      "marginRight_mobile": "",
+      "marginSync_mobile": false,
+      "customClass":"",
+      "paddingTop": "",
+      "paddingBottom": "",
+      "paddingLeft": "",
+      "paddingRight": "",
+      "paddingSync": true,
+      "paddingTop_mobile": "",
+      "paddingBottom_mobile": "",
+      "paddingLeft_mobile": "",
+      "paddingRight_mobile": "",
+      "paddingSync_mobile": true,
+      "borderRadius": "4",
+      "border": "",
+      "borderStyle": "",
+      "borderSize": "",
+      "borderColor": "",
+      "shadow": "",
+      "shadowColor":"",
+      "shadowHorizontal":0,
+      "shadowVertical":0,
+      "shadowBlur":3,
+      "shadowSpread":0,
+      "shadowPosition":"outline",
+      "textShadow": "",
+      "textshadowColor":"",
+      "textshadowHorizontal":0,
+      "textshadowVertical":0,
+      "textshadowBlur":3,
+      "textshadowSpread":0,
+      "textshadowPosition":"outline",
+      "font": "",
+      "fontVariant": "",
+      "fontSize": "22",
+      "fontSize_mobile": "",
+      "lineHeight": "",
+      "lineHeight_mobile": "",
+      "letterSpacing": "",
+      "letterSpacing_mobile": "",
+      "typographyBold": "",
+      "typographyItalic": "",
+      "typographyUnderline": "",
+      "align": "center",
+      "align_mobile": "center",
+      "typographyLetterCase": "",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -1369,6 +1471,7 @@ $seedprod_pro_block_templates = '
       "align": "center",
       "align_mobile": "center",
       "typographyLetterCase": "",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -1433,6 +1536,7 @@ $seedprod_pro_block_templates = '
       "align": "left",
       "align_mobile": "left",
       "typographyLetterCase": "",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -1466,6 +1570,7 @@ $seedprod_pro_block_templates = '
       "paddingLeft_mobile": "",
       "paddingRight_mobile": "",
       "paddingSync_mobile": true,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -1499,6 +1604,7 @@ $seedprod_pro_block_templates = '
       "paddingLeft_mobile": "",
       "paddingRight_mobile": "",
       "paddingSync_mobile": true,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -1533,6 +1639,7 @@ $seedprod_pro_block_templates = '
       "paddingLeft_mobile": "",
       "paddingRight_mobile": "",
       "paddingSync_mobile": true,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -1569,6 +1676,7 @@ $seedprod_pro_block_templates = '
       "paddingLeft_mobile": "",
       "paddingRight_mobile": "",
       "paddingSync_mobile": true,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -1599,6 +1707,7 @@ $seedprod_pro_block_templates = '
       "paddingLeft_mobile": "",
       "paddingRight_mobile": "",
       "paddingSync_mobile": true,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -1636,6 +1745,7 @@ $seedprod_pro_block_templates = '
       "paddingLeft_mobile": "",
       "paddingRight_mobile": "",
       "paddingSync_mobile": true,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -1665,6 +1775,7 @@ $seedprod_pro_block_templates = '
       "paddingLeft_mobile": "0",
       "paddingRight_mobile": "0",
       "paddingSync_mobile": true,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -1698,6 +1809,7 @@ $seedprod_pro_block_templates = '
       "paddingLeft_mobile": "",
       "paddingRight_mobile": "",
       "paddingSync_mobile": true,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -1729,6 +1841,7 @@ $seedprod_pro_block_templates = '
       "paddingLeft_mobile": "",
       "paddingRight_mobile": "",
       "paddingSync_mobile": true,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -1772,6 +1885,7 @@ $seedprod_pro_block_templates = '
       "typographyUnderline": "",
       "align": "left",
       "typographyLetterCase": "",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -1799,6 +1913,7 @@ $seedprod_pro_block_templates = '
       "paddingRight_mobile": "",
       "paddingSync_mobile": true,
       "align": "center",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -1848,7 +1963,6 @@ $seedprod_pro_block_templates = '
       "imageBorderColor": "",
       "blockTemplateId":false,
       "radiusunit":"px",
-      "hideOnDesktop": false,
       "imghiddenwidth": "",
       "imghiddenheight": "",
       "borderRadiusSync":true,
@@ -1863,6 +1977,8 @@ $seedprod_pro_block_templates = '
       "shadowBlur":"20",
       "shadowPosition":"outline",
       "objectfit":"",
+      "entranceAnimation":"",
+      "hideOnDesktop": false,
       "hideOnMobile": false
     },
     "divider":{
@@ -1913,6 +2029,7 @@ $seedprod_pro_block_templates = '
       "headertypographyUnderline": "",
       "headertypographyLetterCase": "",
       "iconHeight": "15",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -1997,6 +2114,7 @@ $seedprod_pro_block_templates = '
       "headertypographyItalic": "",
       "headertypographyUnderline": "",
       "headertypographyLetterCase": "",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -2036,6 +2154,7 @@ $seedprod_pro_block_templates = '
       "paddingLeft_mobile": "",
       "paddingRight_mobile": "",
       "paddingSync_mobile": true,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -2073,6 +2192,7 @@ $seedprod_pro_block_templates = '
       "paddingLeft_mobile": "",
       "paddingRight_mobile": "",
       "paddingSync_mobile": true,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -2099,6 +2219,7 @@ $seedprod_pro_block_templates = '
       "paddingLeft_mobile": "",
       "paddingRight_mobile": "",
       "paddingSync_mobile": true,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -2126,6 +2247,7 @@ $seedprod_pro_block_templates = '
       "paddingBottom_mobile": "",
       "paddingLeft_mobile": "",
       "paddingRight_mobile": "",
+      "entranceAnimation":"",
       "paddingSync_mobile": true
     },
     "templatetag":{
@@ -2170,6 +2292,7 @@ $seedprod_pro_block_templates = '
       "paddingLeft_mobile": "",
       "paddingRight_mobile": "",
       "paddingSync_mobile": true,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -2237,6 +2360,7 @@ $seedprod_pro_block_templates = '
       "btnPaddingVertical": "8",
       "btnPaddingHorizontal": "12",
       "btnBorderRadius": "3",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -2275,6 +2399,7 @@ $seedprod_pro_block_templates = '
       "paddingLeft_mobile": "",
       "paddingRight_mobile": "",
       "paddingSync_mobile": true,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -2345,6 +2470,7 @@ $seedprod_pro_block_templates = '
       "align": "center",
       "typographyLetterCase": "uppercase",
       "blockTemplateId":false,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -2406,6 +2532,7 @@ $seedprod_pro_block_templates = '
       "align_mobile": "left",
       "typographyLetterCase": "",
       "blockTemplateId":false,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -2508,6 +2635,7 @@ $seedprod_pro_block_templates = '
       "bgCustomSizeWidthUnit":"%",
       "bgCustomSizeWidth":"100",
       "blockTemplateId":false,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -2613,6 +2741,7 @@ $seedprod_pro_block_templates = '
       "tabContentBorderRight": "",
       "tabContentBorderBottom": "",
       "tabContentBorderLeft": "",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -2694,6 +2823,7 @@ $seedprod_pro_block_templates = '
       "subnavshadowPosition":"outline",
       "subnavColor": "",
       "subnavHoverColor": "",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -2768,6 +2898,7 @@ $seedprod_pro_block_templates = '
       "paddingSync_mobile": true,
       "gap": false,
       "blockTemplateId":false,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -2826,6 +2957,7 @@ $seedprod_pro_block_templates = '
       "paddingRight_mobile": "",
       "paddingSync_mobile": true,
       "blockTemplateId":false,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -2872,6 +3004,7 @@ $seedprod_pro_block_templates = '
       "shadowPosition":"outline",
       "align": "center",
       "blockTemplateId":false,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -2913,6 +3046,7 @@ $seedprod_pro_block_templates = '
       "shadowSpread":0,
       "shadowPosition":"outline",
       "align": "center",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -3111,6 +3245,7 @@ $seedprod_pro_block_templates = '
       "blockBorderSync": true,
       "blockBorderStyle":"solid",
       "blockBorderColor": "#f3f3f3",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -3181,6 +3316,7 @@ $seedprod_pro_block_templates = '
       "typographyUnderline": "",
       "align": "center",
       "typographyLetterCase": "",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -3251,6 +3387,7 @@ $seedprod_pro_block_templates = '
       "cartHeaderFont": "",
       "cartHeaderFontVariant": "",
       "cartHeaderColor": "",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -3342,6 +3479,7 @@ $seedprod_pro_block_templates = '
       "paddingLeft_mobile": "",
       "paddingRight_mobile": "",
       "paddingSync_mobile": true,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -3463,6 +3601,7 @@ $seedprod_pro_block_templates = '
       "imageBorderRight": "1",
       "imageBorderSync": true,
       "imagePadding": "",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -3582,6 +3721,7 @@ $seedprod_pro_block_templates = '
       "imageBorderRight": "1",
       "imageBorderSync": true,
       "imagePadding": "",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -3701,6 +3841,7 @@ $seedprod_pro_block_templates = '
       "imageBorderRight": "1",
       "imageBorderSync": true,
       "imagePadding": "",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -3820,6 +3961,7 @@ $seedprod_pro_block_templates = '
       "imageBorderRight": "1",
       "imageBorderSync": true,
       "imagePadding": "",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -3939,10 +4081,12 @@ $seedprod_pro_block_templates = '
       "imageBorderRight": "1",
       "imageBorderSync": true,
       "imagePadding": "",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
     "wctopratedproductsgrid":{
+      "entranceAnimation":"",
       "columns": "4",
       "pagination": false,
       "limit": "-1",
@@ -4060,6 +4204,7 @@ $seedprod_pro_block_templates = '
       "imagePadding": ""
     },
     "wpwidgetblock":{
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false,
       "widgetdataoptions": "",
@@ -4248,6 +4393,7 @@ $seedprod_pro_block_templates = '
       "paginationtypographyUnderline": "",
       "paginationtypographyLetterCase": "",
       "paginationTextColor": "",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false,
       "postpaddingTop": "",
@@ -4348,10 +4494,12 @@ $seedprod_pro_block_templates = '
       "typographyUnderline": "",
       "align": "center",
       "typographyLetterCase": "",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
     "postcontent":{
+      "entranceAnimation":"",
       "editortxt":"code",
       "txt": "[seedprod tag=\"the_content\"]",
       "textColor": "",
@@ -4391,6 +4539,7 @@ $seedprod_pro_block_templates = '
       "typographyLetterCase": ""
     },
     "postexcerpt":{
+      "entranceAnimation":"",
       "txt": "[seedprod tag=\"the_excerpt\"]",
       "textColor": "",
       "bgColor": "",
@@ -4477,6 +4626,7 @@ $seedprod_pro_block_templates = '
       "imageBorderStyle":"solid",
       "imageBorderColor": "",
       "blockTemplateId":false,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -4559,6 +4709,7 @@ $seedprod_pro_block_templates = '
       "shadowSpread":0,
       "shadowPosition":"outline",
       "borderStyle":"solid",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -4603,6 +4754,7 @@ $seedprod_pro_block_templates = '
       "borderRight": "0",
       "borderSync": true,
       "borderStyle":"solid",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -4642,6 +4794,7 @@ $seedprod_pro_block_templates = '
       "paddingLeft_mobile": "",
       "paddingRight_mobile": "",
       "paddingSync_mobile": true,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -4702,6 +4855,7 @@ $seedprod_pro_block_templates = '
       "borderSync": true,
       "borderStyle":"solid",
       "showIcons": true,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -4745,6 +4899,7 @@ $seedprod_pro_block_templates = '
       "paddingLeft_mobile": "",
       "paddingRight_mobile": "",
       "paddingSync_mobile": true,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -4836,6 +4991,7 @@ $seedprod_pro_block_templates = '
       "imageBorderStyle":"solid",
       "imageBorderColor": "",
       "blockTemplateId":false,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -4890,6 +5046,7 @@ $seedprod_pro_block_templates = '
       "paddingRight_mobile": "",
       "paddingSync_mobile": true,
       "customClass":"",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -4981,6 +5138,7 @@ $seedprod_pro_block_templates = '
       "quantityalign": "",
       "quantitytypographyLetterCase": "",
       "spaceBetween": "10",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -5065,6 +5223,7 @@ $seedprod_pro_block_templates = '
       "borderRight": "0",
       "borderSync": true,
       "borderStyle":"solid",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -5129,6 +5288,7 @@ $seedprod_pro_block_templates = '
       "typographyUnderline": "",
       "align": "left",
       "typographyLetterCase": "",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -5193,6 +5353,7 @@ $seedprod_pro_block_templates = '
       "typographyUnderline": "",
       "align": "left",
       "typographyLetterCase": "",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -5319,6 +5480,7 @@ $seedprod_pro_block_templates = '
       "panelpaddingBottom": "",
       "panelpaddingLeft": "",
       "panelpaddingRight": "",
+      "entranceAnimation":"",
       "panelpaddingSync": true
     },
     "additionalinformation":{
@@ -5372,6 +5534,7 @@ $seedprod_pro_block_templates = '
       "typographyLetterCase":"",
       "textColor":"",
       "customClass": "",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false,
       "showHeader": true
@@ -5505,6 +5668,7 @@ $seedprod_pro_block_templates = '
       "imageBorderRight": "1",
       "imageBorderSync": true,
       "imagePadding": "",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -5637,6 +5801,7 @@ $seedprod_pro_block_templates = '
       "imageBorderRight": "1",
       "imageBorderSync": true,
       "imagePadding": "",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -5687,6 +5852,7 @@ $seedprod_pro_block_templates = '
       "paddingLeft": "",
       "paddingRight": "",
       "paddingSync": true,
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -5751,6 +5917,7 @@ $seedprod_pro_block_templates = '
       "typographyUnderline": "",
       "align": "left",
       "typographyLetterCase": "",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -5861,6 +6028,7 @@ $seedprod_pro_block_templates = '
       "imageBorderRight": "1",
       "imageBorderSync": true,
       "imagePadding": "",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     },
@@ -5937,6 +6105,7 @@ $seedprod_pro_block_templates = '
       "paddingSync_mobile": true,
       "align": "center",
       "align_mobile": "center",
+      "entranceAnimation":"",
       "hideOnDesktop": false,
       "hideOnMobile": false
     }
