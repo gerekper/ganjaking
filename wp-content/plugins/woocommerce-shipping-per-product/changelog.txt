@@ -1,5 +1,8 @@
 *** Shipping Per Product Changelog ***
 
+2022-11-02 - version 2.4.0
+* Add - Declared High-Performance Order Storage (HPOS) compatibility.
+
 2022-09-07 - version 2.3.19
 * Fix   - Exclude unnecessary files from plugin zip file.
 * Tweak - WC 6.6 and WP 6.0 compatibility.

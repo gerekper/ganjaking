@@ -1,5 +1,11 @@
 *** Advanced Notifications Changelog ***
 
+2022-11-02 - version 1.4.0
+* Add - Declared High-Performance Order Storage (HPOS) compatibility.
+
+2022-10-25 - version 1.3.3
+* Update - Security update.
+
 2022-09-06 - version 1.3.2
 * Fix   - Exclude unnecessary files from plugin zip file.
 * Tweak - WC 6.8 and WP 6.0 compatibility.

@@ -91,11 +91,7 @@ class WC_Email_New_Booking extends WC_Email {
 			}
 
 			if ( $this->object->get_order() ) {
-				if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-					$order_date = $this->object->get_order()->order_date;
-				} else {
-					$order_date = $this->object->get_order()->get_date_created() ? $this->object->get_order()->get_date_created()->date( 'Y-m-d H:i:s' ) : '';
-				}
+				$order_date = $this->object->get_order()->get_date_created() ? $this->object->get_order()->get_date_created()->date( 'Y-m-d H:i:s' ) : '';
 				$this->find[]    = '{order_date}';
 				$this->replace[] = date_i18n( wc_bookings_date_format(), strtotime( $order_date ) );
 

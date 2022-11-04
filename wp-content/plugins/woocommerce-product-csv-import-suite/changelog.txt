@@ -1,5 +1,13 @@
 *** Product CSV Import Suite Changelog ***
 
+2022-11-01 - version 1.10.50
+* Declare support for HPOS.
+* Dev - exclude node_modules from production package.
+* Fix - Ensure "Merge empty cells" works properly for taxonomy terms.
+* Fix - Missing scheduled products in the export.
+* Fix - Multiple products with same Title can be uploaded.
+* Revert "Declare support for HPOS".
+
 2022-07-06 - version 1.10.49
 * Tweak - Bump tested up to WordPress 6.0.
 

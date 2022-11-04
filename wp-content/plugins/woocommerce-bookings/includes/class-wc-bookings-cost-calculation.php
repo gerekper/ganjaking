@@ -34,13 +34,6 @@ class WC_Bookings_Cost_Calculation {
 		$person_block_costs       = 0;
 		$total_person_block_costs = 0;
 
-		// Get resource cost.
-		if ( isset( $data['_resource_id'] ) ) {
-			$resource         = $product->get_resource( $data['_resource_id'] );
-			$base_block_cost += $resource->get_block_cost();
-			$base_cost       += $resource->get_base_cost();
-		}
-
 		// Potentially increase costs if dealing with persons.
 		if ( ! empty( $data['_persons'] ) && $product->has_person_types() ) {
 			foreach ( $data['_persons'] as $person_id => $person_count ) {
@@ -272,8 +265,21 @@ class WC_Bookings_Cost_Calculation {
 					break;
 				}
 			}
+
+			// Add resource block cost.
+			if ( isset( $data['_resource_id'] ) ) {
+				$resource    = $product->get_resource( $data['_resource_id'] );
+				$block_cost += $resource->get_block_cost();
+			}
+
 			$total_block_cost         += $block_cost;
 			$total_person_block_costs += $person_block_costs;
+		}
+
+		// Add resource base cost.
+		if ( isset( $data['_resource_id'] ) ) {
+			$resource   = $product->get_resource( $data['_resource_id'] );
+			$base_cost += $resource->get_base_cost();
 		}
 
 		$booking_cost = max( 0, $total_block_cost + $base_cost );

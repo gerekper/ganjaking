@@ -2,17 +2,17 @@
 # This file is distributed under the same license as the WooCommerce Product Vendors package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product Vendors 2.1.66\n"
+"Project-Id-Version: WooCommerce Product Vendors 2.1.68\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-product-vendors\n"
-"POT-Creation-Date: 2022-09-29 15:00:55+00:00\n"
+"POT-Creation-Date: 2022-11-01 20:25:04+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: node-wp-i18n 1.2.3\n"
+"X-Generator: node-wp-i18n 1.2.6\n"
 
 #: includes/admin/class-wc-product-vendors-privacy.php:12
 #: includes/admin/class-wc-product-vendors-store-admin.php:832
@@ -89,7 +89,7 @@ msgid "Notes"
 msgstr ""
 
 #: includes/admin/class-wc-product-vendors-store-admin.php:649
-#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:301
+#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:306
 msgid "Vendor ID"
 msgstr ""
 
@@ -146,7 +146,7 @@ msgstr ""
 #: includes/admin/class-wc-product-vendors-store-admin.php:968
 #: includes/admin/class-wc-product-vendors-store-admin.php:1499
 #: includes/admin/class-wc-product-vendors-store-commission-list.php:418
-#: includes/integrations/bookings-global-availability/class-wc-product-vendors-bookings-global-availability.php:121
+#: includes/integrations/bookings-global-availability/class-wc-product-vendors-bookings-global-availability.php:128
 #: includes/integrations/bookings-global-availability/views/html-bookings-global-availability-settings.php:81
 #: includes/widgets/class-wc-product-vendors-vendor-widget.php:111
 #: templates/emails/order-fulfill-status-to-admin.php:23
@@ -1731,11 +1731,11 @@ msgstr ""
 msgid "configure your vendor settings"
 msgstr ""
 
-#: includes/class-wc-product-vendors-order.php:337
+#: includes/class-wc-product-vendors-order.php:344
 msgid "Commission data generated."
 msgstr ""
 
-#: includes/class-wc-product-vendors-order.php:354
+#: includes/class-wc-product-vendors-order.php:361
 msgid "Generate Vendor Commission"
 msgstr ""
 
@@ -1970,10 +1970,14 @@ msgid "Pre-ordered"
 msgstr ""
 
 #: includes/class-wc-product-vendors-utils.php:1507
-msgid "Trash"
+msgid "Partially Paid"
 msgstr ""
 
 #: includes/class-wc-product-vendors-utils.php:1510
+msgid "Trash"
+msgstr ""
+
+#: includes/class-wc-product-vendors-utils.php:1513
 msgid "Unknown"
 msgstr ""
 
@@ -2571,9 +2575,9 @@ msgid ""
 msgstr ""
 
 #: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:107
-#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:175
-#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:215
-#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:231
+#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:180
+#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:220
+#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:236
 msgid "Sorry, there has been an error."
 msgstr ""
 
@@ -2581,56 +2585,56 @@ msgstr ""
 msgid "The file does not exist, please try again."
 msgstr ""
 
-#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:177
+#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:182
 msgid "The CSV is invalid."
 msgstr ""
 
-#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:188
+#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:193
 msgid ""
 "Import complete - imported <strong>%1$s</strong> shipping rates and skipped "
 "<strong>%2$s</strong>."
 msgstr ""
 
-#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:197
+#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:202
 msgid "All done!"
 msgstr ""
 
-#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:248
+#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:253
 msgid "Import Per-product Shipping Rates"
 msgstr ""
 
-#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:269
+#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:274
 msgid ""
 "Hi there! Upload a CSV file containing per-product shipping rates to import "
 "the contents into your shop. Choose a .csv file to upload, then click "
 "\"Upload file and import\"."
 msgstr ""
 
-#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:271
+#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:276
 msgid ""
 "Rates need to be defined with columns in a specific order (6 columns). "
 "Product ID, Country Code, State Code, Postcode, Cost, Item Cost"
 msgstr ""
 
-#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:282
+#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:287
 msgid ""
 "Before you can upload your import file, you will need to fix the following "
 "error:"
 msgstr ""
 
-#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:291
+#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:296
 msgid "Choose a file from your computer:"
 msgstr ""
 
-#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:297
+#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:302
 msgid "Maximum size: %s"
 msgstr ""
 
-#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:304
+#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:309
 msgid "Delimiter"
 msgstr ""
 
-#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:310
+#: includes/shipping/per-product/class-wc-product-vendors-per-product-shipping-importer.php:315
 msgid "Upload file and import"
 msgstr ""
 
@@ -3014,13 +3018,13 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: woocommerce-product-vendors.php:249
+#: woocommerce-product-vendors.php:250
 msgid ""
 "WooCommerce Product Vendors requires WooCommerce to be installed and "
 "active. You can download %s here."
 msgstr ""
 
-#: woocommerce-product-vendors.php:261
+#: woocommerce-product-vendors.php:262
 msgid ""
 "WooCommerce Product Vendors requires PHP 7.0 and above. <a href=\"%s\">How "
 "to update your PHP version</a>"

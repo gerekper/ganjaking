@@ -38,6 +38,13 @@ class WC_Product_Vendors_Order {
 		add_action( 'woocommerce_order_status_failed_to_processing', array( $this, 'process' ) );
 		add_action( 'woocommerce_order_status_failed_to_completed', array( $this, 'process' ) );
 		add_action( 'woocommerce_bookings_create_booking_page_add_order_item', array( $this, 'process' ) );
+		// process deposit orders.
+		add_action( 'woocommerce_order_status_pending_to_partial-payment', array( $this, 'process' ) );
+		add_action( 'woocommerce_order_status_on-hold_to_partial-payment', array( $this, 'process' ) );
+		add_action( 'woocommerce_order_status_failed_to_partial-payment', array( $this, 'process' ) );
+		add_action( 'woocommerce_order_status_pending-deposit_to_processing', array( $this, 'process' ) );
+		add_action( 'woocommerce_order_status_pending-deposit_to_completed', array( $this, 'process' ) );
+		add_action( 'woocommerce_order_status_scheduled-payment_to_processing', array( $this, 'process' ) );
 
 		add_action( 'delete_post', array( $this, 'remove_affected_commissions' ) );
 		add_action( 'woocommerce_order_status_pending_to_processing', array( $this, 'maybe_complete_order' ), 20, 1 );
@@ -254,7 +261,7 @@ class WC_Product_Vendors_Order {
 					}
 
 					// check if we need to pay vendor commission instantly.
-					if ( ! empty( $vendor_data['instant_payout'] ) && 'yes' === $vendor_data['instant_payout'] && ! empty( $vendor_data['paypal'] ) && ( 'completed' === $order_status || 'processing' === $order_status ) && 0 != $total_commission ) {
+					if ( ! empty( $vendor_data['instant_payout'] ) && 'yes' === $vendor_data['instant_payout'] && ! empty( $vendor_data['paypal'] ) && ( 'completed' === $order_status || 'processing' === $order_status || 'partial-payment' === $order_status ) && 0 != $total_commission ) {
 						$commission_ids[ $last_commission_id ] = absint( $last_commission_id );
 					}
 

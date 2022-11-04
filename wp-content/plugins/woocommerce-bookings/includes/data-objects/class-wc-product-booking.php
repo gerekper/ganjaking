@@ -1,10 +1,6 @@
 <?php
 
-if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-	class WC_Product_Booking_Compatibility extends Legacy_WC_Product_Booking {}
-} else {
-	class WC_Product_Booking_Compatibility extends WC_Product {}
-}
+class WC_Product_Booking_Compatibility extends WC_Product {}
 
 /**
  * Class for the booking product type.

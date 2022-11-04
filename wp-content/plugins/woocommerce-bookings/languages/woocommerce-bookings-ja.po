@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-10-26T15:39:18+00:00\n"
+"POT-Creation-Date: 2022-11-01T19:54:49+00:00\n"
 "PO-Revision-Date: 2022-10-07 09:54:20+0000\n"
 "Language: ja_JP\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1517,7 +1517,7 @@ msgstr "予約はキャンセルできません。 サポートが必要な場�
 msgid "Your booking was cancelled."
 msgstr "予約がキャンセルされました。"
 
-#: includes/class-wc-booking-coupon.php:43
+#: includes/class-wc-booking-coupon.php:47
 msgid "Booking Person Discount (Amount Off Per Person)"
 msgstr "予約者割引 (一人あたりの割引料金)"
 

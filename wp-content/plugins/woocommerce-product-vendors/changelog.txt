@@ -1,5 +1,17 @@
 *** Product Vendors Changelog ***
 
+2022-11-01 - version 2.1.68
+* Declare support for HPOS.
+* Dev - Add support for node 16 and npm 8.
+* Fix - Compatibility issues with WooCommerce Deposits.
+* Fix - Per product shipping rules import issue when a vendor is selected.
+* Fix - Plugin assets now work via symlink.
+* Fix - Vendors links use common permalink base.
+* Tweak - Performance improvements for Bookings calendar and Bookings API.
+
+2022-10-11 - version 2.1.67
+* Fix - Ensure the orders page in the vendor dashboard is responsive.
+
 2022-09-29 - version 2.1.66
 * Add - Ability to edit email for vendor support.
 * Add - Address, email, and phone number in the vendor order email.

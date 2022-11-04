@@ -69,10 +69,6 @@ class WC_Bookings_Create {
 					$base_tax_rates = WC_Tax::get_base_tax_rates( $product->get_tax_class() );
 					$base_taxes     = WC_Tax::calc_tax( $booking_cost, $base_tax_rates, true );
 					$booking_cost   = $booking_cost - array_sum( $base_taxes );
-
-					if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-						$booking_cost = round( $booking_cost, absint( get_option( 'woocommerce_price_num_decimals' ) ) );
-					}
 				}
 
 				$props = array(
@@ -102,12 +98,8 @@ class WC_Bookings_Create {
 
 					$order = new WC_Order( $order_id );
 
-					if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-						update_post_meta( $order_id, '_order_total', $order->get_total() + $booking_cost );
-					} else {
-						$order->set_total( $order->get_total( 'edit' ) + $booking_cost );
-						$order->save();
-					}
+					$order->set_total( $order->get_total( 'edit' ) + $booking_cost );
+					$order->save();
 
 					do_action( 'woocommerce_bookings_create_booking_page_add_order_item', $order_id );
 				}
@@ -202,20 +194,11 @@ class WC_Bookings_Create {
 	 * @return int
 	 */
 	public function create_order( $total, $customer_id ) {
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			$order = wc_create_order( array(
-				'customer_id' => absint( $customer_id ),
-			) );
-			$order_id = $order->id;
-			$order->set_total( $total );
-			update_post_meta( $order->id, '_created_via', 'bookings' );
-		} else {
-			$order = new WC_Order();
-			$order->set_customer_id( $customer_id );
-			$order->set_total( $total );
-			$order->set_created_via( 'bookings' );
-			$order_id = $order->save();
-		}
+		$order = new WC_Order();
+		$order->set_customer_id( $customer_id );
+		$order->set_total( $total );
+		$order->set_created_via( 'bookings' );
+		$order_id = $order->save();
 
 		do_action( 'woocommerce_new_booking_order', $order_id );
 

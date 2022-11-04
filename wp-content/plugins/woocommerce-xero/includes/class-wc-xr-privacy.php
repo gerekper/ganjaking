@@ -212,7 +212,7 @@ class WC_XR_Privacy extends WC_Abstract_Privacy {
 	 * @return array
 	 */
 	protected function maybe_handle_subscription( $order ) {
-		if ( ! class_exists( 'WC_Subscriptions' ) ) {
+		if ( ! class_exists( 'WC_Subscriptions' ) && ! class_exists( 'WC_Subscriptions_Core_Plugin' ) ) {
 			return array( false, false, array() );
 		}
 

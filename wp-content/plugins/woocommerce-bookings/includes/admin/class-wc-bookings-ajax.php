@@ -192,11 +192,7 @@ class WC_Bookings_Ajax {
 			}
 		}
 
-		if ( version_compare( WC_VERSION, '2.4.0', '>=' ) ) {
-			$price_suffix = $product->get_price_suffix( $cost, 1 );
-		} else {
-			$price_suffix = $product->get_price_suffix();
-		}
+		$price_suffix = $product->get_price_suffix( $cost, 1 );
 
 		// Build the output
 		$output = apply_filters( 'woocommerce_bookings_booking_cost_string', __( 'Booking cost', 'woocommerce-bookings' ), $product ) . ': <strong>' . wc_price( $display_price ) . $price_suffix . '</strong>';

@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Warranty Requests 2.0.0\n"
+"Project-Id-Version: WooCommerce Warranty Requests 2.1.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-warranty\n"
-"POT-Creation-Date: 2022-10-05 20:27:09+00:00\n"
+"POT-Creation-Date: 2022-10-25 18:18:44+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -62,7 +62,7 @@ msgstr ""
 #: templates/settings/categories-table.php:129
 #: templates/settings/categories-table.php:164
 #: templates/variables-panel-list.php:40 templates/variables-panel-list.php:83
-#: woocommerce-warranty.php:278
+#: woocommerce-warranty.php:292
 msgid "Days"
 msgstr ""
 
@@ -78,7 +78,7 @@ msgstr ""
 #: templates/settings/categories-table.php:130
 #: templates/settings/categories-table.php:165
 #: templates/variables-panel-list.php:41 templates/variables-panel-list.php:84
-#: woocommerce-warranty.php:280
+#: woocommerce-warranty.php:294
 msgid "Weeks"
 msgstr ""
 
@@ -94,7 +94,7 @@ msgstr ""
 #: templates/settings/categories-table.php:131
 #: templates/settings/categories-table.php:166
 #: templates/variables-panel-list.php:42 templates/variables-panel-list.php:85
-#: woocommerce-warranty.php:282
+#: woocommerce-warranty.php:296
 msgid "Months"
 msgstr ""
 
@@ -110,7 +110,7 @@ msgstr ""
 #: templates/settings/categories-table.php:132
 #: templates/settings/categories-table.php:167
 #: templates/variables-panel-list.php:43 templates/variables-panel-list.php:86
-#: woocommerce-warranty.php:284
+#: woocommerce-warranty.php:298
 msgid "Years"
 msgstr ""
 
@@ -411,22 +411,22 @@ msgid "No Warranty"
 msgstr ""
 
 #: includes/class-warranty-frontend.php:68 includes/functions.php:359
-#: woocommerce-warranty.php:277
+#: woocommerce-warranty.php:291
 msgid "Day"
 msgstr ""
 
 #: includes/class-warranty-frontend.php:70 includes/functions.php:361
-#: woocommerce-warranty.php:279
+#: woocommerce-warranty.php:293
 msgid "Week"
 msgstr ""
 
 #: includes/class-warranty-frontend.php:72 includes/functions.php:363
-#: woocommerce-warranty.php:281
+#: woocommerce-warranty.php:295
 msgid "Month"
 msgstr ""
 
 #: includes/class-warranty-frontend.php:74 includes/functions.php:365
-#: woocommerce-warranty.php:283
+#: woocommerce-warranty.php:297
 msgid "Year"
 msgstr ""
 
@@ -547,27 +547,27 @@ msgid "No requests found"
 msgstr ""
 
 #: includes/class-warranty-install.php:327
-#: includes/class-warranty-install.php:353 woocommerce-warranty.php:119
+#: includes/class-warranty-install.php:353 woocommerce-warranty.php:133
 msgid "New"
 msgstr ""
 
-#: includes/class-warranty-install.php:328 woocommerce-warranty.php:120
+#: includes/class-warranty-install.php:328 woocommerce-warranty.php:134
 msgid "Reviewing"
 msgstr ""
 
 #: includes/class-warranty-install.php:329
-#: includes/class-warranty-install.php:354 woocommerce-warranty.php:121
+#: includes/class-warranty-install.php:354 woocommerce-warranty.php:135
 msgid "Processing"
 msgstr ""
 
 #: includes/class-warranty-install.php:330
 #: includes/class-warranty-install.php:355 templates/report.php:10
-#: woocommerce-warranty.php:122
+#: woocommerce-warranty.php:136
 msgid "Completed"
 msgstr ""
 
 #: includes/class-warranty-install.php:331
-#: includes/class-warranty-install.php:356 woocommerce-warranty.php:123
+#: includes/class-warranty-install.php:356 woocommerce-warranty.php:137
 msgid "Rejected"
 msgstr ""
 
@@ -575,7 +575,7 @@ msgstr ""
 msgid "Reason"
 msgstr ""
 
-#: includes/class-warranty-install.php:390 woocommerce-warranty.php:443
+#: includes/class-warranty-install.php:390 woocommerce-warranty.php:457
 msgid "Select reason to request for warranty"
 msgstr ""
 
@@ -1540,11 +1540,11 @@ msgstr ""
 msgid "One option per line"
 msgstr ""
 
-#: woocommerce-warranty.php:520 woocommerce-warranty.php:549
+#: woocommerce-warranty.php:534 woocommerce-warranty.php:563
 msgid "The field \"%s\" is required"
 msgstr ""
 
-#: woocommerce-warranty.php:530
+#: woocommerce-warranty.php:544
 msgid "The file you selected is not permitted. Please select another."
 msgstr ""
 

@@ -3,14 +3,14 @@
  * Plugin Name: WooCommerce Advanced Notifications
  * Plugin URI: https://woocommerce.com/products/advanced-notifications
  * Description: Add additonal, advanced order and stock notifications to WordPress - ideal for improving store management or for dropshippers.
- * Version: 1.3.2
+ * Version: 1.4.0
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-advanced-notifications
  * Domain Path: /languages/
  * Tested up to: 6.0
- * WC requires at least: 2.6
- * WC tested up to: 6.8
+ * WC requires at least: 3.0
+ * WC tested up to: 7.0
  * Woo: 18740:112372c44b002fea2640bd6bfafbca27
  *
  * Copyright: © 2022 WooCommerce
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WC_ADVANCED_NOTIFICATIONS_VERSION', '1.3.2' ); // WRCS: DEFINED_VERSION.
+define( 'WC_ADVANCED_NOTIFICATIONS_VERSION', '1.4.0' ); // WRCS: DEFINED_VERSION.
 define( 'WC_ADVANCED_NOTIFICATIONS_DB_VERSION', '1.0.1' ); // DB Version.
 /**
  * Localisation
@@ -59,6 +59,16 @@ function woocommerce_advanced_notifications_db_check() {
         activate_advanced_notifications();
     }
 }
+
+/**
+ * Declaring HPOS compatibility.
+ */
+function woocommerce_advanced_notifications_declare_hpos_compatibility() {
+	if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', 'woocommerce-advanced-notifications/woocommerce-advanced-notifications.php', true );
+	}
+}
+add_action( 'before_woocommerce_init', 'woocommerce_advanced_notifications_declare_hpos_compatibility' );
 
 /**
  * Activation

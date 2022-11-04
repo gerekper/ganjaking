@@ -103,7 +103,12 @@ class WC_Bookings_Details_Meta_Box {
 		if ( ! is_a( $booking, 'WC_Booking' ) || $booking->get_id() !== $post->ID ) {
 			$booking = new WC_Booking( $post->ID );
 		}
-		$order             = $booking->get_order();
+
+		$order = $booking->get_order();
+		if ( ! $order ) {
+			return;
+		}
+
 		$product_id        = $booking->get_product_id( 'edit' );
 		$resource_id       = $booking->get_resource_id( 'edit' );
 		$customer_id       = $booking->get_customer_id( 'edit' );
@@ -155,15 +160,11 @@ class WC_Bookings_Details_Meta_Box {
 
 						<p class="form-field form-field-wide">
 							<label for="_booking_order_id"><?php esc_html_e( 'Order ID:', 'woocommerce-bookings' ); ?></label>
-							<?php if ( version_compare( WC_VERSION, '3.0', '<' ) ) : ?>
-								<input type="hidden" name="_booking_order_id" id="_booking_order_id" value="<?php echo esc_attr( $booking->get_order_id() ); ?>" data-selected="<?php echo esc_attr( $order ? $order->get_order_number() : '' ); ?>" data-placeholder="<?php esc_attr_e( 'N/A', 'woocommerce-bookings' ); ?>" data-allow_clear="true" />
-							<?php else : ?>
-								<select name="_booking_order_id" id="_booking_order_id" data-placeholder="<?php esc_attr_e( 'N/A', 'woocommerce-bookings' ); ?>" data-allow_clear="true">
-									<?php if ( $booking->get_order_id() && $order ) : ?>
-										<option selected="selected" value="<?php echo esc_attr( $booking->get_order_id() ); ?>"><?php echo esc_html( $order->get_order_number() . ' &ndash; ' . date_i18n( wc_bookings_date_format(), strtotime( is_callable( array( $order, 'get_date_created' ) ) ? $order->get_date_created() : $order->post_date ) ) ); ?></option>
-									<?php endif; ?>
-								</select>
-							<?php endif; ?>
+							<select name="_booking_order_id" id="_booking_order_id" data-placeholder="<?php esc_attr_e( 'N/A', 'woocommerce-bookings' ); ?>" data-allow_clear="true">
+								<?php if ( $booking->get_order_id() && $order ) : ?>
+									<option selected="selected" value="<?php echo esc_attr( $booking->get_order_id() ); ?>"><?php echo esc_html( $order->get_order_number() . ' &ndash; ' . date_i18n( wc_bookings_date_format(), strtotime( is_callable( array( $order, 'get_date_created' ) ) ? $order->get_date_created() : $order->post_date ) ) ); ?></option>
+								<?php endif; ?>
+							</select>
 						</p>
 
 						<p class="form-field form-field-wide"><label for="booking_date"><?php esc_html_e( 'Date created:', 'woocommerce-bookings' ); ?></label>
@@ -205,15 +206,11 @@ class WC_Bookings_Details_Meta_Box {
 								$customer_string = '';
 							}
 							?>
-							<?php if ( version_compare( WC_VERSION, '3.0', '<' ) ) : ?>
-								<input type="hidden" name="_booking_customer_id" id="_booking_customer_id" class="wc-customer-search" value="<?php echo esc_attr( $booking->get_customer_id() ); ?>" data-selected="<?php echo esc_attr( $customer_string ); ?>" data-placeholder="<?php echo esc_attr( $guest_placeholder ); ?>" data-allow_clear="true" />
-							<?php else : ?>
-								<select name="_booking_customer_id" id="_booking_customer_id" class="wc-customer-search" data-placeholder="<?php echo esc_attr( $guest_placeholder ); ?>" data-allow_clear="true">
-									<?php if ( $booking->get_customer_id() ) : ?>
-										<option selected="selected" value="<?php echo esc_attr( $booking->get_customer_id() ); ?>"><?php echo esc_attr( $customer_string ); ?></option>
-									<?php endif; ?>
-								</select>
-							<?php endif; ?>
+							<select name="_booking_customer_id" id="_booking_customer_id" class="wc-customer-search" data-placeholder="<?php echo esc_attr( $guest_placeholder ); ?>" data-allow_clear="true">
+								<?php if ( $booking->get_customer_id() ) : ?>
+									<option selected="selected" value="<?php echo esc_attr( $booking->get_customer_id() ); ?>"><?php echo esc_attr( $customer_string ); ?></option>
+								<?php endif; ?>
+							</select>
 						</p>
 
 						<p class="form-field form-field-wide">
@@ -410,90 +407,47 @@ class WC_Bookings_Details_Meta_Box {
 		" );
 
 		// Select2 handling
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			wc_enqueue_js( "
-				$( '#_booking_order_id' ).filter( ':not(.enhanced)' ).each( function() {
-					var select2_args = {
-						allowClear:  true,
-						placeholder: $( this ).data( 'placeholder' ),
-						minimumInputLength: 1,
-						escapeMarkup: function( m ) {
-							return m;
+		wc_enqueue_js( "
+			$( '#_booking_order_id' ).filter( ':not(.enhanced)' ).each( function() {
+				var select2_args = {
+					allowClear:  true,
+					placeholder: $( this ).data( 'placeholder' ),
+					minimumInputLength: 1,
+					escapeMarkup: function( m ) {
+						return m;
+					},
+					ajax: {
+						url:         '" . admin_url( 'admin-ajax.php' ) . "',
+						dataType:    'json',
+						quietMillis: 250,
+						data: function( params ) {
+							return {
+								term:     params.term,
+								action:   'wc_bookings_json_search_order',
+								security: '" . wp_create_nonce( 'search-booking-order' ) . "'
+							};
 						},
-						ajax: {
-							url:         '" . admin_url( 'admin-ajax.php' ) . "',
-							dataType:    'json',
-							quietMillis: 250,
-							data: function( term, page ) {
-								return {
-									term:     term,
-									action:   'wc_bookings_json_search_order',
-									security: '" . wp_create_nonce( 'search-booking-order' ) . "'
-								};
-							},
-							results: function( data, page ) {
-								var terms = [];
-								if ( data ) {
-									$.each( data, function( id, text ) {
-										terms.push( { id: id, text: text } );
+						processResults: function( data ) {
+							var terms = [];
+							if ( data ) {
+								$.each( data, function( id, text ) {
+									terms.push({
+										id: id,
+										text: text
 									});
-								}
-								return { results: terms };
-							},
-							cache: true
+								});
+							}
+							return {
+								results: terms
+							};
 						},
-						multiple: false
-					};
-					select2_args.initSelection = function( element, callback ) {
-						var data = {id: element.val(), text: element.attr( 'data-selected' )};
-						return callback( data );
-					};
-					$( this ).select2( select2_args ).addClass( 'enhanced' );
-				});
-			" );
-		} else {
-			wc_enqueue_js( "
-				$( '#_booking_order_id' ).filter( ':not(.enhanced)' ).each( function() {
-					var select2_args = {
-						allowClear:  true,
-						placeholder: $( this ).data( 'placeholder' ),
-						minimumInputLength: 1,
-						escapeMarkup: function( m ) {
-							return m;
-						},
-						ajax: {
-							url:         '" . admin_url( 'admin-ajax.php' ) . "',
-							dataType:    'json',
-							quietMillis: 250,
-							data: function( params ) {
-								return {
-									term:     params.term,
-									action:   'wc_bookings_json_search_order',
-									security: '" . wp_create_nonce( 'search-booking-order' ) . "'
-								};
-							},
-							processResults: function( data ) {
-								var terms = [];
-								if ( data ) {
-									$.each( data, function( id, text ) {
-										terms.push({
-											id: id,
-											text: text
-										});
-									});
-								}
-								return {
-									results: terms
-								};
-							},
-							cache: true
-						},
-						multiple: false
-					};
-					$( this ).select2( select2_args ).addClass( 'enhanced' );
-				});
-			" );
-		}
+						cache: true
+					},
+					multiple: false
+				};
+				$( this ).select2( select2_args ).addClass( 'enhanced' );
+			});
+		" );
 	}
 
 	/**
@@ -537,6 +491,13 @@ class WC_Bookings_Details_Meta_Box {
 		}
 
 		if ( self::$saved_meta_box ) {
+			return $post_id;
+		}
+
+		// Get booking object.
+		$booking    = new WC_Booking( $post_id );
+		$product_id = wc_clean( $_POST['product_or_resource_id'] ) ?: $booking->get_product_id();
+		if ( ! $product_id ) {
 			return $post_id;
 		}
 
@@ -591,10 +552,6 @@ class WC_Bookings_Details_Meta_Box {
 		if ( empty( $booking_end_time ) ) {
 			$booking_end_time = '23:59';
 		}
-
-		// Get booking object.
-		$booking    = new WC_Booking( $post_id );
-		$product_id = wc_clean( $_POST['product_or_resource_id'] ) ?: $booking->get_product_id();
 
 		$end_date   = explode( '-', $end_date );
 		$start_date = explode( '-', $start_date );

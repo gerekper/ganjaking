@@ -132,6 +132,9 @@ class WC_Box_Office {
 		// Check updates.
 		add_action( 'init', array( $this, 'check_updates' ) );
 
+		// Declare compatibility with High-Performance Order Storage.
+		add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
+
 		$this->_initiated = true;
 	}
 
@@ -259,5 +262,16 @@ class WC_Box_Office {
 	 */
 	public function check_updates() {
 		$this->components->updater->update_check( $this->_version );
+	}
+
+	/**
+	 * Declare compatibility with High-Performance Order Storage.
+	 *
+	 * @since x.x.x
+	 */
+	public function declare_hpos_compatibility() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', $this->file, true );
+		}
 	}
 }

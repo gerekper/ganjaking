@@ -198,6 +198,10 @@ class WC_Advanced_Notifications_Table extends WP_List_Table {
 	function process_bulk_action() {
 		global $wpdb;
 
+		if ( ! empty( $_POST ) ) {
+			check_admin_referer( 'bulk-emails' );
+		}
+
 		if ( ! $this->current_action() ) {
 			return;
 		}
@@ -212,8 +216,19 @@ class WC_Advanced_Notifications_Table extends WP_List_Table {
 
 					$email_id = absint( $email_id );
 
-					$wpdb->query( "DELETE FROM {$wpdb->prefix}advanced_notifications WHERE notification_id = {$email_id};" );
-					$wpdb->query( "DELETE FROM {$wpdb->prefix}advanced_notification_triggers WHERE notification_id = {$email_id};" );
+					$wpdb->query( 
+						$wpdb->prepare( 
+							"DELETE FROM {$wpdb->prefix}advanced_notifications WHERE notification_id = %d;",
+							$email_id
+						)
+					);
+
+					$wpdb->query( 
+						$wpdb->prepare(
+							"DELETE FROM {$wpdb->prefix}advanced_notification_triggers WHERE notification_id = %d;",
+							$email_id
+						)
+					);
 
 				}
 			}

@@ -19,6 +19,13 @@ class WC_Product_Vendors_Bookings_Global_Availability {
 	private $bookings_to_vendors_cache = array();
 
 	/**
+	 * Cache vendor rules for performance improvements.
+	 *
+	 * @var array
+	 */
+	private $vendor_rules_cache = array();
+
+	/**
 	 * Init Integration.
 	 */
 	public function init() {
@@ -206,56 +213,62 @@ class WC_Product_Vendors_Bookings_Global_Availability {
 	 * @return array $availability_rules
 	 */
 	public function filter_availability_rules( $rules, $for_resource, $booking ) {
-
-		// to prevent duplicate queries from bookings, cache vendor data.
-		if ( isset( $this->bookings_to_vendors_cache[ $booking->get_id() ] ) ) {
-			$vendor_id = $this->bookings_to_vendors_cache[ $booking->get_id() ];
+		$rules_cache_key = $booking->get_id() . '_' . $for_resource;
+		if ( isset( $this->vendor_rules_cache[ $rules_cache_key ] ) ) {
+			$rules = $this->vendor_rules_cache[ $rules_cache_key ];
 		} else {
-			$vendor = WC_Product_Vendors_Utils::is_vendor_product( $booking->get_id() );
-			if ( $vendor ) {
-				$vendor_id = $vendor[0]->term_id;
-				$this->bookings_to_vendors_cache[ $booking->get_id() ] = $vendor_id;
+			// to prevent duplicate queries from bookings, cache vendor data.
+			if ( isset( $this->bookings_to_vendors_cache[ $booking->get_id() ] ) ) {
+				$vendor_id = $this->bookings_to_vendors_cache[ $booking->get_id() ];
 			} else {
-				$vendor_id = false;
+				$vendor = WC_Product_Vendors_Utils::is_vendor_product( $booking->get_id() );
+				if ( $vendor ) {
+					$vendor_id = $vendor[0]->term_id;
+					$this->bookings_to_vendors_cache[ $booking->get_id() ] = $vendor_id;
+				} else {
+					$vendor_id = false;
+				}
+			}
+
+			/**
+			 * All global availability objects.
+			 *
+			 * @var WC_Global_Availability[] $global_availabilities
+			 */
+			$global_availabilities = WC_Data_Store::load( 'booking-global-availability' )->get_all();
+
+			if ( $vendor_id ) {
+				// filter rules that belong to this vendor's product.
+				$filtered_global_availabilities = array_filter(
+					$global_availabilities,
+					function ( WC_Global_Availability $availability ) use ( $vendor_id ) {
+						return (int) $availability->get_meta( 'vendor_id' ) === (int) $vendor_id;
+					}
+				);
+			} else {
+				// filter rules that don't belong to any vendor.
+				$filtered_global_availabilities = array_filter(
+					$global_availabilities,
+					function ( WC_Global_Availability $availability ) {
+						return empty( $availability->get_meta( 'vendor_id' ) );
+					}
+				);
+			}
+
+			// Remove existing global rules.
+			foreach ( $rules as $key => $rule ) {
+				if ( 'global' === $rule['level'] ) {
+					unset( $rules[ $key ] );
+				}
+			}
+
+			$rules = array_merge( $rules, WC_Product_Booking_Rule_Manager::process_availability_rules( $filtered_global_availabilities, 'global' ) );
+
+			usort( $rules, array( 'WC_Product_Booking_Rule_Manager', 'sort_rules_callback' ) );
+			if ( $rules ) {
+				$this->vendor_rules_cache[ $rules_cache_key ] = $rules;
 			}
 		}
-
-		/**
-		 * All global availability objects.
-		 *
-		 * @var WC_Global_Availability[] $global_availabilities
-		 */
-		$global_availabilities = WC_Data_Store::load( 'booking-global-availability' )->get_all();
-
-		if ( $vendor_id ) {
-			// filter rules that belong to this vendor's product.
-			$filtered_global_availabilities = array_filter(
-				$global_availabilities,
-				function ( WC_Global_Availability $availability ) use ( $vendor_id ) {
-					return (int) $availability->get_meta( 'vendor_id' ) === (int) $vendor_id;
-				}
-			);
-		} else {
-			// filter rules that don't belong to any vendor.
-			$filtered_global_availabilities = array_filter(
-				$global_availabilities,
-				function ( WC_Global_Availability $availability ) {
-					return empty( $availability->get_meta( 'vendor_id' ) );
-				}
-			);
-		}
-
-		// Remove existing global rules.
-		foreach ( $rules as $key => $rule ) {
-			if ( 'global' === $rule['level'] ) {
-				unset( $rules[ $key ] );
-			}
-		}
-
-		$rules = array_merge( $rules, WC_Product_Booking_Rule_Manager::process_availability_rules( $filtered_global_availabilities, 'global' ) );
-
-		usort( $rules, array( 'WC_Product_Booking_Rule_Manager', 'sort_rules_callback' ) );
-
 		return $rules;
 	}
 }

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit90458e1c9eedf92429d06e8e1516f831
+class ComposerStaticInit7738bf8521e259fd8952949c8e8f624a
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -475,7 +475,6 @@ class ComposerStaticInit90458e1c9eedf92429d06e8e1516f831
         'Google_Task_Retryable' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
         'Google_Task_Runner' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
         'Google_Utils_UriTemplate' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-        'Legacy_WC_Product_Booking' => __DIR__ . '/../..' . '/includes/compatibility/class-legacy-wc-product-booking.php',
         'Monolog\\ErrorHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/ErrorHandler.php',
         'Monolog\\Formatter\\ChromePHPFormatter' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Formatter/ChromePHPFormatter.php',
         'Monolog\\Formatter\\ElasticaFormatter' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Formatter/ElasticaFormatter.php',
@@ -1047,10 +1046,10 @@ class ComposerStaticInit90458e1c9eedf92429d06e8e1516f831
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit90458e1c9eedf92429d06e8e1516f831::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit90458e1c9eedf92429d06e8e1516f831::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit90458e1c9eedf92429d06e8e1516f831::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit90458e1c9eedf92429d06e8e1516f831::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit7738bf8521e259fd8952949c8e8f624a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit7738bf8521e259fd8952949c8e8f624a::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit7738bf8521e259fd8952949c8e8f624a::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit7738bf8521e259fd8952949c8e8f624a::$classMap;
 
         }, null, ClassLoader::class);
     }

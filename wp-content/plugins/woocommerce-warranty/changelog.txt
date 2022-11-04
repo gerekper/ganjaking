@@ -1,5 +1,8 @@
 *** Warranty Requests Changelog ***
 
+2022-10-25 - version 2.1.0
+* Add - Declared HPOS compatibility.
+
 2022-10-05 - version 2.0.0
 * Update - Security update.
 

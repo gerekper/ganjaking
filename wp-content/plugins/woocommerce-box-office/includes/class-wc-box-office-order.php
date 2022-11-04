@@ -291,12 +291,16 @@ class WC_Box_Office_Order {
 			return;
 		}
 
-		$processed = get_post_meta( $order_id, '_tickets_processed', true );
-		if ( 'yes' === $processed ) {
+		$order = wc_get_order( $order_id );
+		if ( ! $order ) {
 			return;
 		}
 
-		$order = wc_get_order( $order_id );
+		$processed = $order->get_meta( '_tickets_processed', true );
+
+		if ( 'yes' === $processed ) {
+			return;
+		}
 
 		$payment_method = is_callable( array( $order, 'get_payment_method' ) )
 			? $order->get_payment_method()
@@ -322,7 +326,8 @@ class WC_Box_Office_Order {
 			wp_update_post( array( 'ID' => $ticket_id, 'post_status' => 'publish' ) );
 		}
 
-		update_post_meta( $order_id, '_tickets_processed', 'yes' );
+		$order->update_meta_data( '_tickets_processed', 'yes' );
+		$order->save();
 
 		// Send email to each email contact in each ticket.
 		WCBO()->components->cron->schedule_send_email_after_tickets_published( time(), $tickets );
@@ -361,7 +366,8 @@ class WC_Box_Office_Order {
 		}
 
 		// Reset the processing status so after order status is changed again the ticket status will be updated correctly.
-		update_post_meta( $order_id, '_tickets_processed', 'no' );
+		$order->update_meta_data( '_tickets_processed', 'no' );
+		$order->save();
 	}
 
 	/**

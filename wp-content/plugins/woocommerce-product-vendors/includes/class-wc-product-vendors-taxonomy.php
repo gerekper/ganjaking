@@ -68,7 +68,7 @@ class WC_Product_Vendors_Taxonomy {
 				'delete_terms' => 'manage_woocommerce',
 				'assign_terms' => 'manage_woocommerce',
 			),
-			'rewrite'            => (array) apply_filters( 'wcpv_vendor_rewrite_rules', array( 'with_front' => true, 'slug' => apply_filters( 'wcpv_vendor_slug', 'vendor' ) ) ),
+			'rewrite'            => (array) apply_filters( 'wcpv_vendor_rewrite_rules', array( 'with_front' => false, 'slug' => apply_filters( 'wcpv_vendor_slug', 'vendor' ) ) ),
 			'show_in_quick_edit' => false,
 		);
 

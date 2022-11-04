@@ -1,5 +1,11 @@
 *** Xero Integration ***
 
+2022-11-01 - version 1.7.50
+* Add - Support for Subscriptions with WooCommerce Payments.
+
+2022-xx-xx - version x.x.x
+* Add: Subscriptions with WooCommerce Payments compatibility.
+
 2022-10-11 - version 1.7.49
 * Fix - Ensure prices and discounts use the same precision value, to avoid Xero errors where the discount is more than the total price.
 * Tweak - For variable products, remove item meta from the item description when sending to Xero.
@@ -97,7 +103,7 @@
 * Tweak - WC 4.2 compatibility.
 
 2020-05-12 - version 1.7.30
-* Fix   - Matching non-shipping line items with INPUT tax types. 
+* Fix   - Matching non-shipping line items with INPUT tax types.
 * Tweak - WC 4.1 compatibility.
 
 2020-04-21 - version 1.7.29

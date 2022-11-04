@@ -106,12 +106,7 @@ if ( $order ) :
 	<h2>
 	<?php
 
-	$pre_wc_30 = version_compare( WC_VERSION, '3.0', '<' );
-	if ( $pre_wc_30 ) {
-		$order_date = $order->order_date;
-	} else {
-		$order_date = $order->get_date_created() ? $order->get_date_created()->date( 'Y-m-d H:i:s' ) : '';
-	}
+	$order_date = $order->get_date_created() ? $order->get_date_created()->date( 'Y-m-d H:i:s' ) : '';
 
 	echo esc_html( __( 'Order', 'woocommerce-bookings' ) . ': ' . $order->get_order_number() );
 	?>
@@ -134,12 +129,12 @@ if ( $order ) :
 			switch ( $order->get_status() ) {
 
 				case 'completed':
-					echo wp_kses_post( $pre_wc_30 ? $order->email_order_items_table( array( 'show_sku' => false ) ) : wc_get_email_order_items( $order, array( 'show_sku' => false ) ) );
+					echo wp_kses_post( wc_get_email_order_items( $order, array( 'show_sku' => false ) ) );
 					break;
 
 				case 'processing':
 				default:
-					echo wp_kses_post( $pre_wc_30 ? $order->email_order_items_table( array( 'show_sku' => true ) ) : wc_get_email_order_items( $order, array( 'show_sku' => true ) ) );
+					echo wp_kses_post( wc_get_email_order_items( $order, array( 'show_sku' => true ) ) );
 					break;
 			}
 			?>

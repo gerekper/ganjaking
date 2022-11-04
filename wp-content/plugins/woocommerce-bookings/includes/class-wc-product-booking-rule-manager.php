@@ -1189,6 +1189,32 @@ class WC_Product_Booking_Rule_Manager {
 			}
 		}
 
+		/**
+		 * `check_availability_rules_against_time` function checks rules against day of $slot_start_time only.
+		 * So, for multi-day availability check, we have to recursively call function for each in-between days.
+		 *
+		 * Example:
+		 * Rule check against (11:00 PM - 20/04/2022) to (03:00 AM - 22/04/2022)
+		 * will requires availability check against below times to consider rules of each in-between days.
+		 *
+		 * 1. 11:00 PM (20/04/2022) - 03:00 AM (22/04/2022)
+		 * 2. 12:00 AM (21/04/2022) - 03:00 AM (22/04/2022)
+		 * 3. 12:00 AM (22/04/2022) - 03:00 AM (22/04/2022)
+		 *
+		 * Check if $slot_end_time is in next or upcoming day and multi-day availability check is required.
+		 * (For customer defined blocks & minutes/hours block durations only).
+		 *
+		 * @see https://github.com/woocommerce/woocommerce-bookings/issues/2878
+		 */
+		$next_day = strtotime( 'midnight + 1 day', $slot_start_time );
+		if (
+			$bookable &&
+			'customer' === $bookable_product->get_duration_type() &&
+			in_array( $bookable_product->get_duration_unit(), array( 'minute', 'hour' ), true ) &&
+			$slot_end_time > $next_day
+		) {
+			return self::check_availability_rules_against_time( $next_day, $slot_end_time, $resource_id, $bookable_product, $bookable );
+		}
 		return $bookable;
 	}
 

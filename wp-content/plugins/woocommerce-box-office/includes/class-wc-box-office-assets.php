@@ -68,8 +68,15 @@ class WC_Box_Office_Assets {
 			'ajaxurl' => admin_url( 'admin-ajax.php' ),
 		);
 
-		$post_type = get_post_type();
-		switch ( $post_type ) {
+		$content_type = get_post_type();
+
+		// Support COT order edit page
+		if ( isset( $_GET['page'], $_GET['id'], $_GET['action'] ) && $_GET['page'] === 'wc-orders' && $_GET['action'] === 'edit' && (int) $_GET['id'] > 0 ) {
+			$content_type = 'cot_order_edit';
+		}
+
+		switch ( $content_type ) {
+			case 'cot_order_edit':
 			case 'shop_order':
 				$exported_js['editPostUrl'] = admin_url( 'post.php?action=edit' );
 				wp_register_script( 'woocommerce-box-office-admin-order', WCBO()->assets_url . 'js/admin-order' . WCBO()->script_suffix . '.js', array( 'jquery' ), WCBO()->_version );

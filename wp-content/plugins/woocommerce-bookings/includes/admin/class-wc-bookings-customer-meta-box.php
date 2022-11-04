@@ -59,6 +59,7 @@ class WC_Bookings_Customer_Meta_Box {
 		if ( ! is_a( $booking, 'WC_Booking' ) || $booking->get_id() !== $post->ID ) {
 			$booking = new WC_Booking( $post->ID );
 		}
+
 		$has_data = false;
 		?>
 		<table class="booking-customer-details">

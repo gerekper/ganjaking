@@ -1,5 +1,0 @@
-Virtual Plus (EVOVP) addon for EventON Plugin
-====================================
-
-v 0.1 (2021-2-18)
-Initial release

@@ -35,6 +35,10 @@ if ( $booking_ids ) {
 		$booking    = new WC_Booking( $booking_id );
 		$order      = $booking->get_order();
 		$plain_text = false;
+
+		if ( ! $order ) {
+			continue;
+		}
 		?>
 		<div class="wc-booking-summary" style="margin-top: 1em">
 			<?php

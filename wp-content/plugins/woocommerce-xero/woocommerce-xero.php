@@ -5,7 +5,7 @@
  * Description: Integrates <a href="https://woocommerce.com/" target="_blank" >WooCommerce</a> with the <a href="http://www.xero.com" target="_blank">Xero</a> accounting software.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
- * Version: 1.7.49
+ * Version: 1.7.50
  * Text Domain: woocommerce-xero
  * Domain Path: /languages/
  * Requires at least: 5.6
@@ -41,7 +41,7 @@ if ( ! defined( 'WC_XERO_ABSURL' ) ) {
 	define( 'WC_XERO_ABSURL', plugin_dir_url( __FILE__ ) . '/' );
 }
 
-define( 'WC_XERO_VERSION', '1.7.49' ); // WRCS: DEFINED_VERSION.
+define( 'WC_XERO_VERSION', '1.7.50' ); // WRCS: DEFINED_VERSION.
 
 /**
  * Main plugin class.
@@ -93,7 +93,7 @@ class WC_Xero {
 		}
 
 		// If subscriptions is active.
-		if ( class_exists( 'WC_Subscriptions' ) ) {
+		if ( class_exists( 'WC_Subscriptions_Core_Plugin' ) || class_exists( 'WC_Subscriptions' ) ) {
 			require_once plugin_dir_path( self::get_plugin_file() ) . '/includes/compat/woocommerce-subscriptions-compat.php';
 			new Woocommerce_Subscriptions_Compat( $settings );
 		}

@@ -214,7 +214,9 @@ class WC_Bookings_CPT {
 		}
 
 		$product = $booking->get_product();
-
+		if ( ! $product ) {
+			return;
+		}
 		switch ( $column ) {
 			case 'booking_status':
 				echo '<span class="status-' . esc_attr( $booking->get_status() ) . ' tips" data-tip="' . wc_sanitize_tooltip( wc_bookings_get_status_label( $booking->get_status() ) ) . '">' . esc_html( wc_bookings_get_status_label( $booking->get_status() ) ) . '</span>';

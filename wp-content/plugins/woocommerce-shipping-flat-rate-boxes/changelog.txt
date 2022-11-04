@@ -1,5 +1,12 @@
 *** Flat Rate Box Shipping Changelog ***
 
+2022-10-25 - version 2.2.0
+* Add - Declared HPOS compatibility.
+
+2022-09-07 - version 2.1.0
+* Fix   - Exclude unnecessary files from plugin zip file.
+* Tweak - WC 6.6 and WP 6.0 compatibility.
+
 2022-01-05 - version 2.0.17
 * Fix   - Missing Languages folder and .pot file in release-ready zip file.
 

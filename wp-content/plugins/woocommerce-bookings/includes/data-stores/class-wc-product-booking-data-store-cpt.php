@@ -68,20 +68,13 @@ class WC_Product_Booking_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	 * @param  WC_Product $product
 	 */
 	private function force_meta_values( &$product ) {
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			update_post_meta( $product->get_id(), '_regular_price', '' );
-			update_post_meta( $product->get_id(), '_sale_price', '' );
-			update_post_meta( $product->get_id(), '_manage_stock', 'no' );
-			update_post_meta( $product->get_id(), '_price', WC_Bookings_Cost_Calculation::calculated_base_cost( $product ) );
-		} else {
-			$product->set_regular_price( '' );
-			$product->set_sale_price( '' );
-			$product->set_manage_stock( false );
-			$product->set_stock_status( 'instock' );
+		$product->set_regular_price( '' );
+		$product->set_sale_price( '' );
+		$product->set_manage_stock( false );
+		$product->set_stock_status( 'instock' );
 
-			// Set price so filters work.
-			$product->set_price( WC_Bookings_Cost_Calculation::calculated_base_cost( $product ) );
-		}
+		// Set price so filters work.
+		$product->set_price( WC_Bookings_Cost_Calculation::calculated_base_cost( $product ) );
 	}
 
 	/**
@@ -90,31 +83,7 @@ class WC_Product_Booking_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	 * @param WC_Product_Booking $product
 	 */
 	public function create( &$product ) {
-
-		// If we're not using 3.0.x we can only store meta data here.
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-
-			$id = wp_insert_post( apply_filters( 'woocommerce_new_product_data', array(
-				'post_type'      => 'product',
-				'post_status'    => 'publish',
-				'post_author'    => get_current_user_id(),
-				'post_title'     => $product->get_name() ? $product->get_name() : __( 'Product', 'woocommerce-bookings' ),
-				'post_content'   => $product->get_description(),
-				'post_excerpt'   => $product->get_short_description(),
-				'post_parent'    => $product->get_parent_id(),
-				'comment_status' => $product->get_reviews_allowed() ? 'open' : 'closed',
-				'ping_status'    => 'closed',
-				'menu_order'     => $product->get_menu_order(),
-				'post_date'      => date( 'Y-m-d H:i:s', $product->get_date_created() ),
-				'post_date_gmt'  => get_gmt_from_date( date( 'Y-m-d H:i:s', $product->get_date_created() ) ),
-			) ), true );
-
-			$product->set_id( $id );
-			$this->update_post_meta( $product, true );
-			$this->force_meta_values( $product );
-		} else {
-			parent::create( $product );
-		}
+		parent::create( $product );
 		$this->force_meta_values( $product );
 		WC_Bookings_Cache::delete_booking_slots_transient();
 	}
@@ -126,11 +95,7 @@ class WC_Product_Booking_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	 */
 	public function read( &$product ) {
 		// If we're not using 3.0.x we can only store meta data here.
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			$this->read_product_data( $product );
-		} else {
-			parent::read( $product );
-		}
+		parent::read( $product );
 	}
 
 	/**
@@ -140,13 +105,7 @@ class WC_Product_Booking_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	 */
 	public function update( &$product ) {
 		$this->force_meta_values( $product );
-
-		// If we're not using 3.0.x we can only store meta data here.
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			$this->update_post_meta( $product, true );
-		} else {
-			parent::update( $product );
-		}
+		parent::update( $product );
 		WC_Bookings_Cache::delete_booking_slots_transient( $product->get_id() );
 	}
 
@@ -169,20 +128,11 @@ class WC_Product_Booking_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	 */
 	public function update_post_meta( &$product, $force = false ) {
 		// Only call parent method if using full CRUD object as of 3.0.x.
-		if ( version_compare( WC_VERSION, '3.0', '>=' ) ) {
-			parent::update_post_meta( $product, $force );
-		}
+		parent::update_post_meta( $product, $force );
 		$updated_props = array();
 		foreach ( $this->booking_meta_key_to_props as $key => $prop ) {
 			if ( is_callable( array( $product, "get_$prop" ) ) ) {
-
-				// in version 2.6 and below WC expects the data for
-				// for has resources and has persons to be stored as meta data with yes/no values
-				if ( version_compare( WC_VERSION, '3.0', '<' ) && in_array( $prop, array( 'has_persons', 'has_resources' ) ) ) {
-					update_post_meta( $product->get_id(), $key, $product->{ "get_$prop" }( 'edit' ) ? 'yes' : 'no' );
-				} else {
-					update_post_meta( $product->get_id(), $key, $product->{ "get_$prop" }( 'edit' ) );
-				}
+				update_post_meta( $product->get_id(), $key, $product->{ "get_$prop" }( 'edit' ) );
 				$updated_props[] = $prop;
 			}
 		}
@@ -201,9 +151,7 @@ class WC_Product_Booking_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 	 */
 	public function read_product_data( &$product ) {
 		// Only call parent method if using full CRUD object as of 3.0.x.
-		if ( version_compare( WC_VERSION, '3.0', '>=' ) ) {
-			parent::read_product_data( $product );
-		}
+		parent::read_product_data( $product );
 
 		$set_props = array();
 

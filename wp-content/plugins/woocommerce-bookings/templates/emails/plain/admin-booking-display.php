@@ -26,6 +26,10 @@ if ( $booking_ids ) {
 		$order      = $booking->get_order();
 		$plain_text = true;
 
+		if ( ! $order ) {
+			continue;
+		}
+
 		foreach ( $order->get_items() as $item_id => $item ) {
 			// Product name.
 			echo esc_html( apply_filters( 'woocommerce_order_item_name', $item->get_name(), $item, false ) ) . "\n\n";

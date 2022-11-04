@@ -18,12 +18,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<label for="customer_id"><?php esc_html_e( 'Customer', 'woocommerce-bookings' ); ?></label>
 					</th>
 					<td>
-						<?php if ( version_compare( WC_VERSION, '3.0', '<' ) ) : ?>
-							<input type="hidden" name="customer_id" id="customer_id" class="wc-customer-search" data-placeholder="<?php esc_attr_e( 'Guest', 'woocommerce-bookings' ); ?>" data-allow_clear="true" />
-						<?php else : ?>
-							<select name="customer_id" id="customer_id" class="wc-customer-search" data-placeholder="<?php esc_attr_e( 'Guest', 'woocommerce-bookings' ); ?>" data-allow_clear="true">
-							</select>
-						<?php endif; ?>
+						<select name="customer_id" id="customer_id" class="wc-customer-search" data-placeholder="<?php esc_attr_e( 'Guest', 'woocommerce-bookings' ); ?>" data-allow_clear="true">
+						</select>
 					</td>
 				</tr>
 				<tr valign="top">

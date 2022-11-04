@@ -3,15 +3,15 @@
  * Plugin Name: WooCommerce Flat Rate Box Shipping
  * Plugin URI: https://woocommerce.com/products/flat-rate-box-shipping/
  * Description: Flat rate box shipping lets you define costs for boxes to different destinations. Items are packed into boxes based on item size and volume.
- * Version: 2.0.17
+ * Version: 2.2.0
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * Requires at least: 4.0
- * Tested up to: 5.5
- * WC requires at least: 2.6
- * WC tested up to: 4.5
+ * Tested up to: 6.0
+ * WC requires at least: 3.0
+ * WC tested up to: 7.1
  *
- * Copyright: © 2020 WooCommerce
+ * Copyright: © 2022 WooCommerce
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WC_BOX_SHIPPING_VERSION', '2.0.17' ); // WRCS: DEFINED_VERSION.
+define( 'WC_BOX_SHIPPING_VERSION', '2.2.0' ); // WRCS: DEFINED_VERSION.
 
 // Plugin init hook.
 add_action( 'plugins_loaded', 'wc_shipping_flat_rate_boxes_init' );
@@ -53,6 +53,16 @@ function wc_shipping_flat_rate_boxes_woocommerce_deactivated() {
 
 // Activation hook.
 register_activation_hook( __FILE__, 'wc_shipping_flat_rate_boxes_install' );
+
+/**
+ * Declaring HPOS compatibility.
+ */
+function wc_shipping_flat_rate_boxes_declare_hpos_compatibility() {
+	if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', 'woocommerce-shipping-flat-rate-boxes/woocommerce-shipping-flat-rate-boxes.php', true );
+	}
+}
+add_action( 'before_woocommerce_init', 'wc_shipping_flat_rate_boxes_declare_hpos_compatibility' );
 
 /**
  * Activation function.

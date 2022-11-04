@@ -43,7 +43,7 @@ $user_id = get_post_meta( $post->ID, '_user', true );
 	<?php if ( $order ) : ?>
 	<p class="form-field">
 		<label for="order_link"><?php _e( 'Order:', 'woocommerce-box-office' ); ?></label>
-		<a id="order_link" href="<?php echo esc_url( admin_url( 'post.php?post=' . $order_id . '&action=edit' ) ); ?>"><?php echo esc_html( $order->get_order_number() ); ?></a>
+		<a id="order_link" href="<?php echo esc_url( $order->get_edit_order_url() ); ?>"><?php echo esc_html( $order->get_order_number() ); ?></a>
 	</p>
 	<?php endif; ?>
 

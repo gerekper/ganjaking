@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Table Rate Shipping
  * Plugin URI: https://woocommerce.com/products/table-rate-shipping/
  * Description: Table rate shipping lets you define rates depending on location vs shipping class, price, weight, or item count.
- * Version: 3.0.41
+ * Version: 3.1.0
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
  * Requires at least: 4.0
@@ -13,8 +13,8 @@
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Domain Path: /languages
- * WC tested up to: 6.8
- * WC requires at least: 2.6
+ * WC tested up to: 7.0
+ * WC requires at least: 3.0
  *
  * Woo: 18718:3034ed8aff427b0f635fe4c86bbf008a
  *
@@ -41,13 +41,14 @@ class WC_Table_Rate_Shipping {
 	 * Constructor.
 	 */
 	public function __construct() {
-		define( 'TABLE_RATE_SHIPPING_VERSION', '3.0.41' ); // WRCS: DEFINED_VERSION.
+		define( 'TABLE_RATE_SHIPPING_VERSION', '3.1.0' ); // WRCS: DEFINED_VERSION.
 		define( 'TABLE_RATE_SHIPPING_DEBUG', defined( 'WP_DEBUG' ) && WP_DEBUG && ( ! defined( 'WP_DEBUG_DISPLAY' ) || WP_DEBUG_DISPLAY ) );
 		define( 'WC_TABLE_RATE_SHIPPING_MAIN_FILE', __FILE__ );
 
 		add_filter( 'pre_site_transient_update_plugins', array( $this, 'filter_out_trs' ) );
 		add_filter( 'site_transient_update_plugins', array( $this, 'filter_out_trs' ) );
 		add_action( 'plugins_loaded', array( $this, 'init' ) );
+		add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
 		register_activation_hook( __FILE__, array( $this, 'install' ) );
 	}
 
@@ -127,6 +128,19 @@ class WC_Table_Rate_Shipping {
 		add_action( 'delete_product_shipping_class', array( $this, 'update_deleted_shipping_class' ) );
 		add_action( 'woocommerce_before_cart', array( $this, 'maybe_show_abort' ), 1 );
 		add_action( 'woocommerce_before_checkout_form_cart_notices', array( $this, 'maybe_show_abort' ), 20 );
+	}
+
+	/**
+	 * Declare High-Performance Order Storage (HPOS) compatibility
+	 *
+	 * @see https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#declaring-extension-incompatibility
+	 *
+	 * @return void
+	 */
+	public function declare_hpos_compatibility() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', 'woocommerce-table-rate-shipping/woocommerce-table-rate-shipping.php' );
+		}
 	}
 
 	/**

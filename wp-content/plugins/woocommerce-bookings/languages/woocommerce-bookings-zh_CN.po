@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-10-26T15:39:18+00:00\n"
+"POT-Creation-Date: 2022-11-01T19:54:49+00:00\n"
 "PO-Revision-Date: 2022-10-09 16:54:24+0000\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1517,7 +1517,7 @@ msgstr "您的预订已不能被取消。如果您觉得有必要请联系我们
 msgid "Your booking was cancelled."
 msgstr "您的预订已取消"
 
-#: includes/class-wc-booking-coupon.php:43
+#: includes/class-wc-booking-coupon.php:47
 msgid "Booking Person Discount (Amount Off Per Person)"
 msgstr "预订个人折扣（每人折扣量）"
 

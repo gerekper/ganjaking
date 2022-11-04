@@ -702,6 +702,10 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 	public function product_exists( $title, $sku = '', $post_name = '' ) {
 		global $wpdb;
 
+		if ( '' ===  $sku ) {
+			return false;
+		}
+
 		// Post Title Check
 		$post_title = stripslashes( sanitize_post_field( 'post_title', $title, 0, 'db' ) );
 

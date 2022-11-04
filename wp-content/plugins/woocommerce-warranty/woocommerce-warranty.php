@@ -3,12 +3,12 @@
  * Plugin Name: WooCommerce Warranty Requests
  * Plugin URI: https://woocommerce.com/products/warranty-requests/
  * Description: Set warranties for your products (free and paid), and allow customers to purchase warranties when buying a product, and to initiate a return request right from their account. Manage RMA numbers, return status, email communications, and track return shipping easily with this extension.
- * Version: 2.0.0
+ * Version: 2.1.0
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text domain: wc_warranty
  * Tested up to: 6.0
- * WC tested up to: 6.8
+ * WC tested up to: 7.1
  * WC requires at least: 3.0
  *
  * Copyright: © 2022 WooCommerce
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WOOCOMMERCE_WARRANTY_VERSION', '2.0.0' ); // WRCS: DEFINED_VERSION.
+define( 'WOOCOMMERCE_WARRANTY_VERSION', '2.1.0' ); // WRCS: DEFINED_VERSION.
 
 // Plugin init hook.
 add_action( 'plugins_loaded', 'wc_warranty_init' );
@@ -93,6 +93,7 @@ class WooCommerce_Warranty {
 		}
 
 		add_action( 'init', array( $this, 'init' ) );
+		add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
 		add_filter( 'woocommerce_translations_updates_for_woocommerce_warranty', '__return_true' );
 	}
 
@@ -101,6 +102,19 @@ class WooCommerce_Warranty {
 	 */
 	public function init() {
 		require_once self::$includes_path . '/class-warranty-privacy.php';
+	}
+
+	/**
+	 * Declare High-Performance Order Storage (HPOS) compatibility
+	 *
+	 * @see https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#declaring-extension-incompatibility
+	 *
+	 * @return void
+	 */
+	public function declare_hpos_compatibility() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', 'woocommerce-warranty/woocommerce-warranty.php' );
+		}
 	}
 
 	public function enqueue_scripts() {

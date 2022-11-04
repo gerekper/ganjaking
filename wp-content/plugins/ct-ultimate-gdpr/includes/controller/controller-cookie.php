@@ -501,6 +501,10 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 
 		}
 
+		if(!$this->is_google_fonts_disabled()) {
+			wp_enqueue_style( 'ct-ultimate-gdpr-custom-fonts', ct_ultimate_gdpr_url( '/assets/css/fonts/fonts.css' ) );
+		}
+		
         wp_enqueue_style( 'dashicons' );
 
 	}
@@ -778,6 +782,17 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
         } 
     }
 
+	
+	/**
+	 * Check if google fonts is enabled
+	 * @return bool
+	 */
+	public function is_google_fonts_disabled() {
+		if($this->get_option('cookie_disable_google_fonts')) {
+			return true;
+		}
+	}
+
 
     /**
      * Check  bot/user agent
@@ -820,6 +835,7 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 		return $user_declined || $cookie_declined;
 
 	}
+
 
 	/**
 	 * @param int $level If passed, a flat structure of cookienames above that level will be returned
@@ -1571,6 +1587,13 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 			'ct-ultimate-gdpr-cookie' // Page
 		);
 
+		add_settings_section(
+			'ct-ultimate-gdpr-cookie_tab-2_section-11', // ID
+			 esc_html__( 'Disable Google Fonts', 'ct-ultimate-gdpr' ), // Title
+			 null,
+			 'ct-ultimate-gdpr-cookie'
+		);
+
 //      * Cookie section - advanced tab */
 
 		add_settings_section(
@@ -2020,6 +2043,15 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 				'ct-ultimate-gdpr-cookie_tab-2_section-6'
 			);
 
+			//TAB 2 - SECTION 11 - DISABLE GOOGLE FONTS
+
+			add_settings_field(
+				'cookie_disable_google_fonts',
+				esc_html__( 'Disable Google Fonts', 'ct-ultimate-gdpr' ),
+				array( $this, 'render_field_cookie_disable_google_fonts' ),
+				'ct-ultimate-gdpr-cookie',
+				'ct-ultimate-gdpr-cookie_tab-2_section-11'
+			);
 
 			//TAB 3
 
@@ -3091,6 +3123,20 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
 			$admin->get_field_name( __FUNCTION__ ),
 			$admin->get_field_name_prefixed( $field_name ),
 			$admin->get_option_value_escaped( $field_name, '' )
+		);
+	}
+
+	/**
+	 * 
+	 */
+	public function render_field_cookie_disable_google_fonts() {
+		$admin      = CT_Ultimate_GDPR::instance()->get_admin_controller();
+		$field_name = $admin->get_field_name( __FUNCTION__ );
+		printf(
+			"<input class='ct-ultimate-gdpr-field' type='checkbox' id='%s' name='%s' %s />",
+			$admin->get_field_name( __FUNCTION__ ),
+			$admin->get_field_name_prefixed( $field_name ),
+			$admin->get_option_value_escaped( $field_name ) ? 'checked' : ''
 		);
 	}
 
@@ -4365,6 +4411,7 @@ class CT_Ultimate_GDPR_Controller_Cookie extends CT_Ultimate_GDPR_Controller_Abs
             'cookie_withdrawal_cookies_agreement_button_bg_color'        => '#ff7d27',
             'cookie_withdrawal_cookies_agreement_button_text_color'      => '#ffffff',
             'cookie_withdrawal_cookies_agreement_button_border_color'    => '#ff7d27',
+			'render_field_cookie_disable_google_fonts'			=> false,
             ) );
 
 	}

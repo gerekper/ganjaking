@@ -1503,6 +1503,9 @@ class WC_Product_Vendors_Utils {
 			case 'pre-ordered':
 				$order_status = __( 'Pre-ordered', 'woocommerce-product-vendors' );
 				break;
+			case 'partial-payment':
+				$order_status = __( 'Partially Paid', 'woocommerce-product-vendors' );
+				break;
 			case 'trash':
 				$order_status = __( 'Trash', 'woocommerce-product-vendors' );
 				break;

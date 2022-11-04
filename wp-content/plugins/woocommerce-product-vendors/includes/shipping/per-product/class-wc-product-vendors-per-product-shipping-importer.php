@@ -40,7 +40,7 @@ if ( class_exists( 'WP_Importer' ) ) :
 				$this->delimiter = ',';
 			}
 
-			$this->vendor_id = ! empty( $_POST['vendor_id'] ) ? absint( $_POST['vendor_id'] ) : '';
+			$this->vendor_id = ! empty( $_POST['vendor_id'] ) ? absint( $_POST['vendor_id'] ) : 0;
 
 			$step = empty( $_GET['step'] ) ? 0 : (int) $_GET['step'];
 
@@ -128,6 +128,11 @@ if ( class_exists( 'WP_Importer' ) ) :
 						list( $post_id, $country, $state, $postcode, $cost, $item_cost ) = $row;
 
 						$terms = wp_get_post_terms( $post_id, WC_PRODUCT_VENDORS_TAXONOMY );
+
+						// Check if the vendor_id is still empty, if so get it from the current product.
+						if ( empty( $this->vendor_id ) ) {
+							$this->vendor_id = WC_Product_Vendors_Utils::get_vendor_id_from_product( $post_id );
+						}
 
 						// skip if user cannot manage this product
 						foreach ( $terms as $term ) {

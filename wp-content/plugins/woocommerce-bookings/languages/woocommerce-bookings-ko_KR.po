@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-10-26T15:39:18+00:00\n"
+"POT-Creation-Date: 2022-11-01T19:54:49+00:00\n"
 "PO-Revision-Date: 2022-10-06 17:54:05+0000\n"
 "Language: ko_KR\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1517,7 +1517,7 @@ msgstr "예약을 취소할 수 없습니다. 도움이 필요한 경우 문의�
 msgid "Your booking was cancelled."
 msgstr "예약이 취소되었습니다."
 
-#: includes/class-wc-booking-coupon.php:43
+#: includes/class-wc-booking-coupon.php:47
 msgid "Booking Person Discount (Amount Off Per Person)"
 msgstr "예약 인원 할인(1인당 금액 할인)"
 

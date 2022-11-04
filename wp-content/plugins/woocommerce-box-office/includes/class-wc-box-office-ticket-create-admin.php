@@ -130,8 +130,7 @@ class WC_Box_Office_Ticket_Create_Admin {
 				break;
 			case 3:
 				if ( $this->_current_order ) {
-					$order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $this->_current_order->id : $this->_current_order->get_id();
-					$order_url = admin_url( 'post.php?post=' . $order_id . '&action=edit' );
+					$order_url = $this->_current_order->get_edit_order_url();
 				}
 		}
 

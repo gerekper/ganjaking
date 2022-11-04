@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Shipping Per Product v2
  * Plugin URI: https://woocommerce.com/products/per-product-shipping/
  * Description: Per product shipping allows you to define different shipping costs for products, based on customer location. These costs can be added to other shipping methods, or used as a standalone shipping method.
- * Version: 2.3.19
+ * Version: 2.4.0
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Requires at least: 3.3
  * Tested up to: 6.0
  * WC requires at least: 2.6
- * WC tested up to: 6.6
+ * WC tested up to: 7.0
  *
  * Copyright: © 2022 WooCommerce
  * License: GNU General Public License v3.0
@@ -44,7 +44,7 @@ function woocommerce_shipping_per_product_missing_wc_notice() {
 }
 
 if ( ! class_exists( 'WC_Shipping_Per_Product_Init' ) ) :
-	define( 'PER_PRODUCT_SHIPPING_VERSION', '2.3.19' ); // WRCS: DEFINED_VERSION.
+	define( 'PER_PRODUCT_SHIPPING_VERSION', '2.4.0' ); // WRCS: DEFINED_VERSION.
 	define( 'PER_PRODUCT_SHIPPING_FILE', __FILE__ );
 
 	/**
@@ -77,6 +77,7 @@ if ( ! class_exists( 'WC_Shipping_Per_Product_Init' ) ) :
 
 			include_once 'includes/functions-wc-shipping-per-product.php';
 
+			add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
 			add_action( 'woocommerce_shipping_init', array( $this, 'load_shipping_method' ) );
 			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'plugin_action_links' ) );
 			add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
@@ -108,6 +109,19 @@ if ( ! class_exists( 'WC_Shipping_Per_Product_Init' ) ) :
 		 */
 		public function load_post_wc_class() {
 			require_once __DIR__ . '/includes/class-wc-shipping-per-product-privacy.php';
+		}
+
+		/**
+		 * Declare High-Performance Order Storage (HPOS) compatibility
+		 *
+		 * @see https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#declaring-extension-incompatibility
+		 *
+		 * @return void
+		 */
+		public function declare_hpos_compatibility() {
+			if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', 'woocommerce-shipping-per-product/woocommerce-shipping-per-product.php' );
+			}
 		}
 
 		/**

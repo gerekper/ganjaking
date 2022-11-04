@@ -424,13 +424,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		if ( ! empty( $actions ) ) {
 			$last = end( $actions );
 
-			if ( version_compare( WC_VERSION, '4.0.0', '>=' ) ) {
-				// Action scheduler >= 3.0
-				$last_interval = $last->get_schedule()->get_recurrence();
-			} else {
-				// Action scheduler < 3.0
-				$last_interval = $last->get_schedule()->interval_in_seconds();
-			}
+			$last_interval = $last->get_schedule()->get_recurrence();
 
 			if ( $last_interval != $poll_interval_seconds ) {
 				as_unschedule_all_actions( 'wc-booking-poll-google-cal' );

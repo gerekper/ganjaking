@@ -178,12 +178,12 @@ class WC_PCSVIS_Exporter {
 			}
 
 			$product_args = apply_filters( 'woocommerce_csv_product_export_args', array(
-				'numberposts' 	=> $limit,
-				'post_status' 	=> array( 'publish', 'pending', 'private', 'draft' ),
-				'post_type'		=> $post_type,
-				'orderby' 		=> 'ID',
-				'order'			=> 'ASC',
-				'offset'		=> $current_offset
+				'numberposts' => $limit,
+				'post_status' => array( 'publish', 'pending', 'private', 'draft', 'future' ),
+				'post_type'   => $post_type,
+				'orderby'     => 'ID',
+				'order'       => 'ASC',
+				'offset'      => $current_offset
 			) );
 
 			if ( $post_type == 'product_variation' ) {

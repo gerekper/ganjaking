@@ -24,11 +24,7 @@ class WC_Booking_Cart_Manager {
 		add_filter( 'woocommerce_add_cart_item_data', array( $this, 'add_cart_item_data' ), 10, 2 );
 		add_filter( 'woocommerce_add_to_cart_validation', array( $this, 'validate_add_cart_item' ), 10, 3 );
 
-		if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) {
-			add_action( 'woocommerce_new_order_item', array( $this, 'order_item_meta' ), 50, 2 );
-		} else {
-			add_action( 'woocommerce_add_order_item_meta', array( $this, 'order_item_meta' ), 50, 2 );
-		}
+		add_action( 'woocommerce_new_order_item', array( $this, 'order_item_meta' ), 50, 2 );
 
 		add_action( 'woocommerce_store_api_checkout_order_processed', array( $this, 'review_items_on_block_checkout' ), 10, 1 );
 		add_action( 'woocommerce_checkout_order_processed', array( $this, 'review_items_on_shortcode_checkout' ), 10, 1 );

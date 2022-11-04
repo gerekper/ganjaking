@@ -230,7 +230,7 @@ class WC_Product_Vendors_Commission {
 
 		$filtered_commission_ids = array();
 
-		// filter out only commission that are unpaid and order status is processing or completed
+		// filter out only commission that are unpaid and order status is processing, completed or partial-payment (deposit order).
 		foreach( $commissions as $commission ) {
 			$order = wc_get_order( $commission->order_id );
 
@@ -240,7 +240,7 @@ class WC_Product_Vendors_Commission {
 
 			$order_status = $order->get_status();
 
-			if ( 'completed' === $order_status || 'processing' === $order_status ) {
+			if ( 'completed' === $order_status || 'processing' === $order_status || 'partial-payment' === $order_status ) {
 				$filtered_commission_ids[ $commission->id ] = $commission->id;
 			}
 		}

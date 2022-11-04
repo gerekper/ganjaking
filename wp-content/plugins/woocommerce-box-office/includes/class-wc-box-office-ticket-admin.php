@@ -355,13 +355,13 @@ class WC_Box_Office_Ticket_Admin {
 				break;
 			case 'order':
 				$order_id     = wp_get_post_parent_id( $post_id );
-				$order_status = get_post_status( $order_id );
-				if ( $order_id ) {
+				$order        = wc_get_order( $order_id );
+				if ( $order_id && $order instanceof \WC_Order ) {
 					printf(
 						'<strong><a href="%1$s">%2$s</a> - %3$s</strong>',
-						esc_url( admin_url( 'post.php?post=' . $order_id . '&action=edit' ) ),
+						esc_url( $order->get_edit_order_url() ),
 						esc_html( '#' . $order_id ),
-						wc_get_order_status_name( $order_status )
+						wc_get_order_status_name( $order->get_status() )
 					);
 				} else {
 					echo '-';

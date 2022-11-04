@@ -647,7 +647,7 @@ class WC_CSV_Parser {
 				}
 
 				// Any defined?
-				if ( sizeof( $terms ) == 0 )
+				if ( sizeof( $terms ) === 0 && ! $merge_empty_cells )
 					continue;
 
 				// Add to array

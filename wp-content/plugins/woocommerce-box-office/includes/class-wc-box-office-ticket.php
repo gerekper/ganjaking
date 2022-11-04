@@ -180,19 +180,17 @@ class WC_Box_Office_Ticket {
 		$title = $this->_maybe_create_title_variation( $product->get_title(), $data );
 
 		// Get order ID from order item.
-		if ( $data['order_item_id'] ) {
-			$order_id = $wpdb->get_var( $wpdb->prepare( "SELECT order_id FROM {$wpdb->prefix}woocommerce_order_items WHERE order_item_id = %d", $data['order_item_id'] ) );
-		} else {
-			$order_id = 0;
-		}
+		$order_id = $data['order_item_id'] ? wc_get_order_id_by_order_item_id( $data['order_item_id'] ) : 0;
 
+		// Post parent ID (order ID in fact) is no more guaranteed to come from posts table since COT introduced.
+		// However it will work as ususal as long as we do things with the order ID in WooCommerce way.
 		$ticket_data = array(
 			'post_type'    => 'event_ticket',
 			'post_title'   => $title,
 			'post_status'  => $status,
 			'ping_status'  => 'closed',
 			'post_excerpt' => '',
-			'post_parent'  => $order_id
+			'post_parent'  => $order_id,
 		);
 
 		$ticket_id = wp_insert_post( $ticket_data );

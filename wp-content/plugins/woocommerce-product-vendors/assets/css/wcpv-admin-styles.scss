@@ -130,7 +130,7 @@
 	padding-right: 5px;
 }
 
-.wcpv-order-status-processing {
+.wcpv-order-status-processing, .wcpv-order-status-partial-payment {
 	color: #2ea2cc;
 }
 
@@ -477,4 +477,26 @@ form.wcpv-vendor-support-form .required {
 
 th#taxonomy-wcpv_product_vendors {
 	width: 10%;
+}
+
+@media screen and (max-width: 782px){
+	#wcpv-vendor-orders th#order_id {
+		width: 100%;
+	}
+
+	#wcpv-vendor-order-detail th#product_name {
+		width: 100%;
+	}
+
+	#wcpv-vendor-orders td.order_id a {
+		font-weight: bold;
+	}
+
+	#wcpv-vendor-orders th:not(#order_id) {
+		display: none;
+	}
+
+	#wcpv-vendor-order-detail th:not(#product_name) {
+		display: none;
+	}
 }

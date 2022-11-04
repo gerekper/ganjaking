@@ -1,5 +1,13 @@
 *** WooCommerce Bookings Changelog ***
 
+2022-11-01 - version 1.15.65
+* Fix - Prevent bookings and display end-times in unavailable times on another day.
+* Fix - Resource cost not included in booking cost when `=` used in booking cost ranges.
+* Tweak - Bump minimum WooCommerce version from 2.6 to 6.0.
+* Tweak - Prevent unneeded ajax calls to wc_bookings_calculate_costs to improve performance.
+* Tweak - Set minimum PHP version to 7.0.
+* Tweak - Set minimum WordPress version to 5.6.
+
 2022-10-26 - version 1.15.64
 * Add - Provision to apply 'Booking Person Discount' from admin dashboard.
 * Fix - "Min persons" setting is not working when Booking is added manually from admin.

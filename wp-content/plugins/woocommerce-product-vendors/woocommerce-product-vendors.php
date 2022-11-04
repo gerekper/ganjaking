@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WooCommerce Product Vendors
- * Version: 2.1.66
+ * Version: 2.1.68
  * Plugin URI: https://woocommerce.com/products/product-vendors/
  * Description: Set up a multi-vendor marketplace that allows vendors to manage their own products and earn commissions. Run stores similar to Amazon or Etsy.
  * Author: WooCommerce
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'WC_Product_Vendors' ) ) {
-	define( 'WC_PRODUCT_VENDORS_VERSION', '2.1.66' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_PRODUCT_VENDORS_VERSION', '2.1.68' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Main class.
@@ -81,6 +81,7 @@ if ( ! class_exists( 'WC_Product_Vendors' ) ) {
 		 */
 		private function __construct() {
 			add_action( 'plugins_loaded', array( $this, 'init' ), 0 );
+			add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
 
 			// Subscribe to automated translations.
 			add_filter( 'woocommerce_translations_updates_for_woocommerce-product-vendors', '__return_true' );
@@ -104,7 +105,7 @@ if ( ! class_exists( 'WC_Product_Vendors' ) ) {
 
 			define( 'WC_PRODUCT_VENDORS_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 			define( 'WC_PRODUCT_VENDORS_TEMPLATES_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) . '/templates/' );
-			define( 'WC_PRODUCT_VENDORS_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
+			define( 'WC_PRODUCT_VENDORS_PLUGIN_URL', untrailingslashit( plugins_url( '/', __FILE__ ) ) );
 			define( 'WC_PRODUCT_VENDORS_TAXONOMY', 'wcpv_product_vendors' );
 
 			return true;
@@ -264,6 +265,17 @@ if ( ! class_exists( 'WC_Product_Vendors' ) ) {
 					'title' => array(),
 				),
 			) ) . '</p></div>';
+		}
+
+		/**
+		 * Declares HPOS compatibility
+		 *
+		 * @since 2.1.68
+		 */
+		public function declare_hpos_compatibility() {
+			if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+			}
 		}
 	}
 

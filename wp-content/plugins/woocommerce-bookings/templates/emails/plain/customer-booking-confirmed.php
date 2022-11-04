@@ -76,13 +76,7 @@ if ( $order ) {
 
 	do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plain_text, $email );
 
-	$pre_wc_30 = version_compare( WC_VERSION, '3.0', '<' );
-
-	if ( $pre_wc_30 ) {
-		$order_date = $order->order_date;
-	} else {
-		$order_date = $order->get_date_created() ? $order->get_date_created()->date( 'Y-m-d H:i:s' ) : '';
-	}
+	$order_date = $order->get_date_created() ? $order->get_date_created()->date( 'Y-m-d H:i:s' ) : '';
 
 	/* translators: 1: order number */
 	echo esc_html( sprintf( __( 'Order number: %s', 'woocommerce-bookings' ), $order->get_order_number() ) ) . "\n";
@@ -95,20 +89,16 @@ if ( $order ) {
 
 	switch ( $order->get_status() ) {
 		case 'completed':
-			echo wp_kses_post( $pre_wc_30 ? $order->email_order_items_table( array(
-				'show_sku'   => false,
-				'plain_text' => true,
-			) ) : wc_get_email_order_items( $order, array(
+			echo wp_kses_post( wc_get_email_order_items(
+				$order, array(
 				'show_sku'   => false,
 				'plain_text' => true,
 			) ) );
 			break;
 		case 'processing':
 		default:
-			echo wp_kses_post( $pre_wc_30 ? $order->email_order_items_table( array(
-				'show_sku'   => true,
-				'plain_text' => true,
-			) ) : wc_get_email_order_items( $order, array(
+			echo wp_kses_post( wc_get_email_order_items(
+				$order, array(
 				'show_sku'   => true,
 				'plain_text' => true,
 			) ) );
