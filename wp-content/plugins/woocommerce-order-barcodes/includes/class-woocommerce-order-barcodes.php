@@ -125,6 +125,9 @@ class WooCommerce_Order_Barcodes {
 		$this->barcode_type = get_option( 'wc_order_barcodes_type', 'code128' );
 		$this->barcode_colours = get_option( 'wc_order_barcodes_colours', array( 'foreground' => '#000000' ) );
 
+		// Declare HPOS Compatibility.
+		add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
+
 		// Register JS.
 		add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_assets' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'register_frontend_assets' ) );
@@ -177,6 +180,19 @@ class WooCommerce_Order_Barcodes {
 		}
 
 		add_filter( 'woocommerce_debug_tools', array( $this, 'add_new_tools_action' ), 10, 1 );
+	}
+
+	/**
+	 * Declare High-Performance Order Storage (HPOS) compatibility
+	 *
+	 * @see https://github.com/woocommerce/woocommerce/wiki/High-Performance-Order-Storage-Upgrade-Recipe-Book#declaring-extension-incompatibility
+	 *
+	 * @return void
+	 */
+	public function declare_hpos_compatibility() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', 'woocommerce-order-barcodes/woocommerce-order-barcodes.php' );
+		}
 	}
 
 	/**

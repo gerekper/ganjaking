@@ -734,9 +734,14 @@
 			$page_id 	= version_compare( WC_VERSION, '3.0', '<' ) ? woocommerce_get_page_id( 'view_order' ) : wc_get_page_id( 'view_order' );
 			 
 			if ( get_post_meta( $order_id, '_invoice_number', TRUE ) ) {
+
+				$url = add_query_arg( array(
+						'pdfid'    	=> $order_id,
+						'key'   	=> $order->get_order_key(),
+					), get_permalink( $page_id ) );
 			 
 			 	$actions['pdf'] = array(
-					'url'  => add_query_arg( 'pdfid', $order_id, get_permalink( $page_id ) ),
+					'url'  => $url,
 					'name' => __( apply_filters('woocommerce_pdf_my_account_button_label', __( 'PDF Invoice', 'woocommerce-pdf-invoice' ) ) )
 				);
 			 
