@@ -75,8 +75,8 @@ class WC_MNM_Ajax {
 		echo '<div class="wc-mnm-edit-container wc-mnm-edit-container-' . $order->get_type() . '">'; // Restore wrapping class as fragments replaces it.
 
 		/*
-		 * `wc_mnm_edit_container_order_item_in_shop_order` filter
-		 * 'wc_mnm_edit_container_order_item_in_shop_subscription' filter.
+		 * `wc_mnm_edit_container_order_item_in_shop_order` hook
+		 * 'wc_mnm_edit_container_order_item_in_shop_subscription' hook.
 		 * 
 		 * @param  $product  WC_Product_Mix_and_Match
 		 * @param  $order_item WC_Order_Item

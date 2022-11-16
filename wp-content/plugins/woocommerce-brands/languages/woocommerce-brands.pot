@@ -2,10 +2,10 @@
 # This file is distributed under the same license as the WooCommerce Brands package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Brands 1.6.38\n"
+"Project-Id-Version: WooCommerce Brands 1.6.39\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-brands\n"
-"POT-Creation-Date: 2022-10-13 20:56:56+00:00\n"
+"POT-Creation-Date: 2022-11-08 05:56:00+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -294,19 +294,19 @@ msgstr ""
 msgid "&uarr; Top"
 msgstr ""
 
-#: woocommerce-brands.php:89
+#: woocommerce-brands.php:102
 msgid "Docs"
 msgstr ""
 
-#: woocommerce-brands.php:92
+#: woocommerce-brands.php:105
 msgid "Support"
 msgstr ""
 
-#: woocommerce-brands.php:95
+#: woocommerce-brands.php:108
 msgid "Changelog"
 msgstr ""
 
-#: woocommerce-brands.php:106
+#: woocommerce-brands.php:119
 #. translators: %s: WooCommerce link
 msgid "WooCommerce Brands requires %s to be installed and active."
 msgstr ""

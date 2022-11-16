@@ -48,6 +48,7 @@ class WC_Product_Addons_Field_List extends WC_Product_Addons_Field {
 					'price'      => floatval( sanitize_text_field( $this->get_option_price( $option ) ) ),
 					'field_name' => $this->addon['field_name'],
 					'field_type' => $this->addon['type'],
+					'id'         => isset( $this->addon[ 'id' ] ) ? $this->addon[ 'id' ] : 0,
 					'price_type' => $option['price_type'],
 				);
 			}

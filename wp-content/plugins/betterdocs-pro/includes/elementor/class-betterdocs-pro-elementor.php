@@ -45,7 +45,6 @@ class BetterDocs_Pro_Elementor
      */
     public static function get_widget_list()
     {
-        $widget_arr['betterdocs-elementor-reactions']     = 'BetterDocs_Elementor_Reactions';
         $widget_arr['betterdocs-elementor-multiple-kb']   = 'BetterDocs_Elementor_Multiple_Kb';
         $widget_arr['betterdocs-elementor-popular-view']  = 'Betterdocs_Elementor_Popular_View';
         $widget_arr['betterdocs-elementor-tab-view-list'] = 'BetterDocs_Elementor_Tab_View';

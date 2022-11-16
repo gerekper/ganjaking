@@ -159,7 +159,7 @@ function betterdocs_customize_css_pro() {
 			}
 			<?php } ?>
 
-			.betterdocs-categories-wrap .betterdocs-tab-list a{
+			.betterdocs-categories-wrap.multiple-kb .betterdocs-tab-list a{
 				background-color:<?php echo $output['betterdocs_mkb_list_bg_color'] ?>;
 				font-size:<?php echo $output['betterdocs_mkb_list_font_size'] ?>px;
 				padding-top :<?php echo $output['betterdocs_mkb_list_column_padding_top'] ?>px;
@@ -176,21 +176,21 @@ function betterdocs_customize_css_pro() {
 				border-bottom-left-radius:<?php echo $output['betterdocs_mkb_tab_list_border_bottomleft'] ?>px;
 			}
 
-			.betterdocs-categories-wrap .betterdocs-tab-list a:hover{
+			.betterdocs-categories-wrap.multiple-kb .betterdocs-tab-list a:hover{
 				background-color: <?php echo $output['betterdocs_mkb_list_bg_hover_color'] ?>;
 			}
-			.betterdocs-categories-wrap .betterdocs-tab-list a{
+			.betterdocs-categories-wrap.multiple-kb .betterdocs-tab-list a{
 				color: <?php echo $output['betterdocs_mkb_tab_list_font_color']?>;
 			}
-			.betterdocs-categories-wrap .betterdocs-tab-list a.active {
+			.betterdocs-categories-wrap.multiple-kb .betterdocs-tab-list a.active {
 				background-color: <?php echo $output['betterdocs_mkb_tab_list_back_color_active'] ?>;
 				color: <?php echo $output['betterdocs_mkb_tab_list_font_color_active'] ?>;
 			}
-			.betterdocs-categories-wrap .betterdocs-tab-list a.active:focus {
+			.betterdocs-categories-wrap.multiple-kb .betterdocs-tab-list a.active:focus {
 				background-color: <?php echo $output['betterdocs_mkb_tab_list_back_color_active'] ?>;
 				color: <?php echo $output['betterdocs_mkb_tab_list_font_color_active'] ?>;
 			}
-			.tabs-content .betterdocs-tab-content .betterdocs-tab-categories {
+			.betterdocs-categories-wrap.multiple-kb .tabs-content .betterdocs-tab-content .betterdocs-tab-categories {
 				width: <?php echo $output['betterdocs_mkb_tab_list_box_content_width'] ?>%;
 				grid-gap: <?php echo $output['betterdocs_mkb_column_space'] ?>px;
 				padding-top:<?php echo $output['betterdocs_mkb_column_padding_top'] ?>px;
@@ -202,40 +202,40 @@ function betterdocs_customize_css_pro() {
 				margin-bottom:<?php echo $output['betterdocs_mkb_tab_list_box_content_margin_bottom'] ?>px;
 				margin-left:<?php echo $output['betterdocs_mkb_tab_list_box_content_margin_left'] ?>px;
 			}
-			.tabs-content .betterdocs-tab-categories .docs-single-cat-wrap {
+			.betterdocs-categories-wrap.multiple-kb .tabs-content .betterdocs-tab-categories .docs-single-cat-wrap {
 				background-color: <?php echo $output['betterdocs_mkb_column_bg_color2'] ?>;
 			}
 
-			.tabs-content .betterdocs-tab-categories .docs-single-cat-wrap:hover {
+			.betterdocs-categories-wrap.multiple-kb .tabs-content .betterdocs-tab-categories .docs-single-cat-wrap:hover {
 				background-color: <?php echo $output['betterdocs_mkb_column_hover_bg_color'] ?>;
 			}
 
-			.tabs-content .betterdocs-tab-content .docs-single-cat-wrap .docs-cat-title-inner .docs-cat-title .docs-cat-heading {
+			.betterdocs-categories-wrap.multiple-kb .tabs-content .betterdocs-tab-content .docs-single-cat-wrap .docs-cat-title-inner .docs-cat-title .docs-cat-heading {
 				font-size: <?php echo $output['betterdocs_mkb_cat_title_font_size'] ?>;
 			}
 
-			.tabs-content .betterdocs-tab-content .docs-single-cat-wrap .docs-cat-title .docs-cat-heading {
+			.betterdocs-categories-wrap.multiple-kb .tabs-content .betterdocs-tab-content .docs-single-cat-wrap .docs-cat-title .docs-cat-heading {
 				color: <?php echo $output['betterdocs_mkb_cat_title_color'] ?>;
 			}
 
-			.tabs-content .betterdocs-tab-content .docs-single-cat-wrap .docs-cat-title .docs-cat-heading:hover {
+			.betterdocs-categories-wrap.multiple-kb .tabs-content .betterdocs-tab-content .docs-single-cat-wrap .docs-cat-title .docs-cat-heading:hover {
 				color: <?php echo $output['betterdocs_mkb_cat_title_hover_color'] ?>;
 			}
-			.tabs-content .betterdocs-tab-content .betterdocs-tab-categories .docs-single-cat-wrap .docs-item-container ul li a{
+			.betterdocs-categories-wrap.multiple-kb .tabs-content .betterdocs-tab-content .betterdocs-tab-categories .docs-single-cat-wrap .docs-item-container ul li a{
 				color: <?php echo $output['betterdocs_mkb_column_list_color']?>;
 				font-size: <?php echo $output['betterdocs_mkb_column_list_font_size']?>px;
 			}
-			.tabs-content .betterdocs-tab-content .betterdocs-tab-categories .docs-single-cat-wrap .docs-item-container ul li {
+			.betterdocs-categories-wrap.multiple-kb .tabs-content .betterdocs-tab-content .betterdocs-tab-categories .docs-single-cat-wrap .docs-item-container ul li {
 				margin-top: <?php echo $output['betterdocs_mkb_column_list_margin_top'] ?>px;
 				margin-right: <?php echo $output['betterdocs_mkb_column_list_margin_right'] ?>px;
 				margin-bottom: <?php echo $output['betterdocs_mkb_list_margin_bottom']?>px;
 				margin-left: <?php echo $output['betterdocs_mkb_list_margin_left'] ?>px;
 			}
-			.tabs-content .betterdocs-tab-content .betterdocs-tab-categories .docs-single-cat-wrap .docs-item-container ul li a:hover{
+			.betterdocs-categories-wrap.multiple-kb .tabs-content .betterdocs-tab-content .betterdocs-tab-categories .docs-single-cat-wrap .docs-item-container ul li a:hover{
 				color: <?php echo $output['betterdocs_mkb_column_list_hover_color'] ?>;
 			}
 
-			.tabs-content .betterdocs-tab-content .betterdocs-tab-categories .docs-single-cat-wrap .docs-item-container .docs-cat-link-btn {
+			.betterdocs-categories-wrap.multiple-kb .tabs-content .betterdocs-tab-content .betterdocs-tab-categories .docs-single-cat-wrap .docs-item-container .docs-cat-link-btn {
 				background-color: <?php echo $output['betterdocs_mkb_tab_list_explore_btn_bg_color'] ?>;
 				color: <?php echo $output['betterdocs_mkb_tab_list_explore_btn_color'] ?>;
 				border-color : <?php echo $output['betterdocs_mkb_tab_list_explore_btn_border_color'] ?>;
@@ -249,7 +249,7 @@ function betterdocs_customize_css_pro() {
 				border-bottom-right-radius: <?php echo $output['betterdocs_mkb_tab_list_explore_btn_borderr_bottomright'] ?>px;
 				border-bottom-left-radius: <?php echo $output['betterdocs_mkb_tab_list_explore_btn_borderr_bottomleft'] ?>px;
 			}
-			.tabs-content .betterdocs-tab-content .betterdocs-tab-categories .docs-single-cat-wrap .docs-item-container .docs-cat-link-btn:hover {
+			.betterdocs-categories-wrap.multiple-kb .tabs-content .betterdocs-tab-content .betterdocs-tab-categories .docs-single-cat-wrap .docs-item-container .docs-cat-link-btn:hover {
 				background-color: <?php echo $output['betterdocs_mkb_tab_list_explore_btn_hover_bg_color'] ?>;
 				color:<?php echo $output['betterdocs_mkb_tab_list_explore_btn_hover_color'] ?>;
 				border-color: <?php echo $output['betterdocs_mkb_tab_list_explore_btn_hover_border_color'] ?>;
@@ -386,21 +386,6 @@ function betterdocs_customize_css_pro() {
 			padding-left: <?php echo $output['betterdocs_doc_single_content_area_padding_left'] ?>px;
 		}
 		<?php } ?>
-		.betterdocs-article-reactions .betterdocs-article-reactions-heading h5 {
-			color: <?php echo $output['betterdocs_post_reactions_text_color'] ?>;
-		}
-		.betterdocs-article-reaction-links li a {
-			background-color: <?php echo $output['betterdocs_post_reactions_icon_color'] ?>;
-		}
-		.betterdocs-article-reaction-links li a:hover {
-			background-color: <?php echo $output['betterdocs_post_reactions_icon_hover_bg_color'] ?>;
-		}
-		.betterdocs-article-reaction-links li a svg path {
-			fill: <?php echo $output['betterdocs_post_reactions_icon_svg_color'] ?>;
-		}
-		.betterdocs-article-reaction-links li a:hover svg path {
-			fill: <?php echo $output['betterdocs_post_reactions_icon_hover_svg_color'] ?>;
-		}
 
 		/** Customizer Controls (Doc Page Layout 6) **/
 

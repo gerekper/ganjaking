@@ -24,6 +24,7 @@ class WC_Account_Funds_Cart_Manager {
 		add_action( 'wp_loaded', array( $this, 'maybe_use_funds' ), 15 );
 
 		add_action( 'woocommerce_cart_loaded_from_session', array( $this, 'calculate_totals' ), 99 );
+		add_action( 'woocommerce_before_calculate_totals', array( $this, 'before_calculate_totals' ) );
 		add_action( 'woocommerce_after_calculate_totals', array( $this, 'after_calculate_totals' ), 99 );
 
 		add_filter( 'woocommerce_get_shop_coupon_data', array( $this, 'get_discount_data' ), 10, 2 );
@@ -114,6 +115,16 @@ class WC_Account_Funds_Cart_Manager {
 	}
 
 	/**
+	 * Removes the usage of account funds.
+	 *
+	 * @since 2.7.2
+	 */
+	public static function remove_funds() {
+		WC()->session->set( 'use-account-funds', false );
+		WC()->session->set( 'used-account-funds', false );
+	}
+
+	/**
 	 * Processes the updated order review.
 	 *
 	 * @since 2.3.0
@@ -147,8 +158,7 @@ class WC_Account_Funds_Cart_Manager {
 		}
 
 		if ( ! empty( $_GET['remove_account_funds'] ) ) {
-			WC()->session->set( 'use-account-funds', false );
-			WC()->session->set( 'used-account-funds', false );
+			self::remove_funds();
 			wp_redirect( esc_url_raw( remove_query_arg( 'remove_account_funds' ) ) );
 			exit;
 		}
@@ -414,6 +424,17 @@ class WC_Account_Funds_Cart_Manager {
 	}
 
 	/**
+	 * Before calculate totals.
+	 *
+	 * @since 2.7.2
+	 */
+	public function before_calculate_totals() {
+		if ( self::using_funds() && ! self::can_use_funds() ) {
+			self::remove_funds();
+		}
+	}
+
+	/**
 	 * After calculate totals.
 	 *
 	 * @since 2.3.5
@@ -444,8 +465,7 @@ class WC_Account_Funds_Cart_Manager {
 		// Use the payment gateway instead.
 		if ( $funds >= $total ) {
 			$this->remove_discount();
-			WC()->session->set( 'use-account-funds', false );
-			WC()->session->set( 'used-account-funds', false );
+			self::remove_funds();
 			WC()->cart->calculate_shipping();
 			WC()->cart->calculate_totals();
 			return;

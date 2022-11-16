@@ -1465,7 +1465,14 @@ jQuery.fn.wc_get_mnm_script = function() {
 
 			// Validate individual quantity limits and prevent over-filling container.
 			if ( container_max > 0 && potential_size > container_max ) {
-				new_qty = container_size >= container_max ? prev_qty : Math.min( container_max - container_size, max );
+
+				if ( container_size >=  container_max ) {
+					new_qty = prev_qty - ( container_size - container_max );
+					new_qty = new_qty > 0 ? new_qty : 0;	
+				} else {
+					new_qty = Math.min( container_max - container_size, max );
+				}
+
 				msg = wc_mnm_params.i18n_child_item_max_container_qty_message.replace( '%d', container_max );
 			} else if ( min >= 0 && current_qty < min ) {
 				new_qty = min;

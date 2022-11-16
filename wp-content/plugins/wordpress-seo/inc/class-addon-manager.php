@@ -267,7 +267,6 @@ class WPSEO_Addon_Manager {
 	 * @return bool True when the subscription is valid.
 	 */
 	public function has_valid_subscription( $slug ) {
-		return true;
 		$subscription = $this->get_subscription( $slug );
 
 		// An non-existing subscription is never valid.
@@ -764,7 +763,7 @@ class WPSEO_Addon_Manager {
 	 */
 	protected function map_site_information( $site_information ) {
 		return (object) [
-			'url'           => 'yoast.com',
+			'url'           => $site_information->url,
 			'subscriptions' => array_map( [ $this, 'map_subscription' ], $site_information->subscriptions ),
 		];
 	}
@@ -779,17 +778,17 @@ class WPSEO_Addon_Manager {
 	protected function map_subscription( $subscription ) {
 		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase -- Not our properties.
 		return (object) [
-			'renewal_url' => 'yoast.com',
-			'expiry_date' => '20/09/2027',
+			'renewal_url' => $subscription->renewalUrl,
+			'expiry_date' => $subscription->expiryDate,
 			'product'     => (object) [
-				'version'      => '19.3.0',
-				'name'         => 'Yoast SEO Premium',
-				'slug'         => 'wordpress-seo-premium',
-				'last_updated' => '20/09/2027',
-				'store_url'    => 'yoast.com',
+				'version'      => $subscription->product->version,
+				'name'         => $subscription->product->name,
+				'slug'         => $subscription->product->slug,
+				'last_updated' => $subscription->product->lastUpdated,
+				'store_url'    => $subscription->product->storeUrl,
 				// Ternary operator is necessary because download can be undefined.
-				'download'     => 'yoast.com',
-				'changelog'    => 'yoast.com',
+				'download'     => isset( $subscription->product->download ) ? $subscription->product->download : null,
+				'changelog'    => $subscription->product->changelog,
 			],
 		];
 		// phpcs:enable

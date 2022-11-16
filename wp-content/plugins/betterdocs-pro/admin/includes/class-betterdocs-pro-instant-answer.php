@@ -40,6 +40,7 @@ class BetterDocs_Pro_IA {
         add_action('wp_enqueue_scripts', array($this, 'scripts'));
         add_action('admin_enqueue_scripts', array($this, 'scripts'));
         add_filter('betterdocs_settings_tab', array($this, 'settings'));
+        add_filter('rest_doc_category_query', array( $this, 'order_ia_doc_taxonomies' ), 10, 2 );
         $ia = BetterDocs_DB::get_settings('enable_disable');
         $ia_preview = BetterDocs_DB::get_settings('ia_enable_preview');
         if($ia == 1) {
@@ -48,6 +49,18 @@ class BetterDocs_Pro_IA {
         if($ia_preview == 1) {
             add_action('admin_footer', array($this, 'add_admin_ia_icon'));
         }
+    }
+
+    public function order_ia_doc_taxonomies( $args, $request ) {
+        if( empty( $args['include'] ) ) {
+            $tax_limit          = empty( BetterDocs_DB::get_settings('doc_category_limit') ) ? 10 : BetterDocs_DB::get_settings('doc_category_limit');
+            $args['number']     = $tax_limit;
+            $args['hide_empty'] = 1;
+            $args['meta_key']   = 'doc_category_order';
+            $args['orderby']    = 'meta_value_num';
+            $args['order']      = 'ASC';
+        }
+        return $args;
     }
 
     public function scripts( $hook ) {
@@ -626,6 +639,17 @@ class BetterDocs_Pro_IA {
                                     'priority' => 3,
                                     'multiple' => true,
                                     'options'  => $this->docs_categories(),
+                                    'dependency' => array(
+                                        '' => array(
+                                            'fields' => array( 'doc_category_limit' ),
+                                        )
+                                    ),
+                                ),
+                                'doc_category_limit' => array(
+                                    'type'        => 'number',
+                                    'label'       => __('Number Of Categories' , 'betterdocs-pro'),
+                                    'default'     => 10,
+                                    'priority'    => 4
                                 ),
                                 'display_ia_pages' => array(
                                     'type'        => 'select',
@@ -1408,74 +1432,6 @@ class BetterDocs_Pro_IA {
             'callback'  => array( $this, 'save_global_response' ),
             'permission_callback' => '__return_true'
         ));
-        register_rest_route( $this->namespace, '/feedback/(?P<id>\d+)', array(
-            'methods'   => [ 'PUT', 'POST' ],
-            'callback'  => array( $this, 'save_response' ),
-            'permission_callback' => '__return_true',
-            'args'      => array(
-                'id' => array(
-                    'validate_callback' => function($param, $request, $key) {
-                        return is_numeric( $param );
-                    }
-                ),
-            ),
-        ));
-    }
-
-
-
-    /**
-     * Save Feedback for individual Docs
-     * @param WP_REST_Request $request
-     * @return void
-     */
-    public function save_response( WP_REST_Request $request ){
-        global $wpdb;
-        $docs_id = isset( $request['id'] ) ? intval( $request['id'] ) : null;
-        $feelings = isset( $request['feelings'] ) ? $request['feelings'] : 'happy';
-        if( $docs_id !== null && get_option('betterdocs_pro_db_version') == true ) {
-            $post_id = $wpdb->get_results(
-                $wpdb->prepare(
-                    "SELECT *
-                    FROM {$wpdb->prefix}betterdocs_analytics
-                    WHERE created_at = %s AND post_id = %d",
-                    date('Y-m-d'),
-                    $docs_id
-                )
-            );
-
-            if (!empty($post_id)) {
-                $feelings_increment = $post_id[0]->{$feelings} + 1;
-                $insert = $wpdb->query(
-                    $wpdb->prepare(
-                        "UPDATE {$wpdb->prefix}betterdocs_analytics 
-                    SET ".$feelings." = ". $feelings_increment ."
-                    WHERE created_at = %s AND post_id = %d",
-                        array(
-                            date('Y-m-d'),
-                            $docs_id
-                        )
-                    )
-                );
-            } else {
-                $insert = $wpdb->query(
-                    $wpdb->prepare(
-                        "INSERT INTO {$wpdb->prefix}betterdocs_analytics 
-                        ( post_id, ".$request['feelings'].", created_at )
-                        VALUES ( %d, %d, %s )",
-                        array(
-                            $docs_id,
-                            1,
-                            date('Y-m-d')
-                        )
-                    )
-                );
-            }
-
-            if( $insert == true ) return true;
-
-        }
-        return false;
     }
 
     /**

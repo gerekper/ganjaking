@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Admin/Import
  * @since    1.3.0
- * @version  2.2.0
+ * @version  2.2.2
  */
 
 // Exit if accessed directly.
@@ -122,8 +122,8 @@ class WC_MNM_Product_Import {
 	 */
 	public static function parse_child_category_ids( $parsed_data, $importer ) {
 
-		if ( ! empty( $parsed_data['wc_mnm_category_ids'] ) ) {
-			$parsed_data['wc_mnm_category_ids'] = $importer->parse_categories_field( $parsed_data['wc_mnm_category_ids'] );
+		if ( ! empty( $parsed_data['wc_mnm_child_category_ids'] ) ) {
+			$parsed_data['wc_mnm_child_category_ids'] = $importer->parse_categories_field( $parsed_data['wc_mnm_child_category_ids'] );
 		}
 
 		return $parsed_data;

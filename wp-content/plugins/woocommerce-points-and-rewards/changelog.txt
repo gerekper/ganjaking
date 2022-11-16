@@ -1,5 +1,11 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2022-11-08 - version 1.7.20
+* Fix - Add HPOS compatibility for order management.
+* Fix - Add HPOS compatibility.
+* Tweak - WC 7.1 compatibility.
+* Tweak - WP 6.1 compatibility.
+
 2022-10-25 - version 1.7.19
 * Fix - Redirect to the cart page on removing and applying reward points on the checkout page.
 

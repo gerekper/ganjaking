@@ -265,7 +265,7 @@ class WC_Box_Office_Ticket_Shortcode {
 			$html .= '<div>' . "\n";
 
 			if ( $full_name ) {
-				$html .= $full_name . '<br/>' . "\n";
+				$html .= esc_html( $full_name ) . '<br/>' . "\n";
 			}
 
 			if ( $url ) {
@@ -273,7 +273,7 @@ class WC_Box_Office_Ticket_Shortcode {
 			}
 
 			if ( $twitter ) {
-				$html .= '<a href="https://twitter.com/' . $twitter . '">@' . $twitter . '</a><br/>' . "\n";
+				$html .= '<a href="https://twitter.com/' . esc_attr( $twitter ) . '">@' . esc_html( $twitter ) . '</a><br/>' . "\n";
 			}
 
 			$html .= '</div>' . "\n";

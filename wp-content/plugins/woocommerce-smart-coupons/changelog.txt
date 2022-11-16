@@ -1,5 +1,23 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2022.11.11 - version 6.7.0
+* New: Usage restriction field 'Excluded emails'
+* Fix: 'For new user only?' setting is not working in a specific case
+* Developer: Hook 'wc_sc_start_coupon_options_email_restriction'
+* Developer: Filter & option 'wc_sc_coupon_product_need_processing' to decide whether to automatically mark the order as 'completed' for coupon products
+* Update: Automatically mark the order as 'completed' if that order contains only those products that will generate/issue coupons
+* Update: Added icon for 'Manage coupon categories' button on Coupons dashboard admin page
+* Update: Corrected text domain at one place
+* Update: POT file
+
+2022.11.04 - version 6.6.0
+* New: WooCommerce 7.0.1 compatible
+* New: WordPress 6.1 compatible
+* New: A new way for applying 1-click coupon via AJAX
+* Fix: Coupon not applying in order created via REST API
+* Developer: Filter 'wc_sc_apply_coupon_via_ajax' for choosing method of applying coupon via AJAX or via URL (default: via AJAX)
+* Update: POT file
+
 2022.10.21 - version 6.5.0
 * New: WooCommerce 7.0.0 compatible
 * New: WordPress 6.0.3 compatible

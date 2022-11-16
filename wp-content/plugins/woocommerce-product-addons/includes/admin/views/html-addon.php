@@ -18,6 +18,7 @@ $max                             = ! empty( $addon['max'] ) ? $addon['max'] : ''
 $adjust_price                    = ! empty( $addon['adjust_price'] ) ? $addon['adjust_price'] : '';
 $price_type                      = ! empty( $addon['price_type'] ) ? $addon['price_type'] : '';
 $_price                          = ! empty( $addon['price'] ) ? $addon['price'] : '';
+$id                              = ! empty( $addon['id'] ) ? $addon['id'] : '';
 $show_heading_col                = 'show';
 $display_option_rows_class       = 'show';
 $display_non_option_rows_class   = 'hide';
@@ -48,13 +49,17 @@ if ( 'heading' === $addon_type ) {
 		<div class="wc-pao-col1">
 			<span class="wc-pao-addon-sort-handle dashicons dashicons-menu"></span>
 			<h2 class="wc-pao-addon-name"><?php echo esc_html( $addon_title ); ?></h2>
-			<small class="wc-pao-addon-type"><?php echo esc_html( $addon_type_formatted ); ?></small>
-		</div>
+			<small class="wc-pao-addon-type"><?php echo esc_html( $addon_type_formatted ); ?></small><?php
+				if ( isset( $id ) && ! empty( $id ) ) {
+					?><small class="wc-pao-addon-id"><?php echo 'ID: ' . esc_html( $id ); ?></small><?php
+				}
+		?></div>
 
 		<div class="wc-pao-col2">
 			<button type="button" class="wc-pao-remove-addon button"><?php esc_html_e( 'Remove', 'woocommerce-product-addons' ); ?></button>
 			<span class="wc-pao-addon-toggle" title="<?php esc_attr_e( 'Click to toggle', 'woocommerce-product-addons' ); ?>" aria-hidden="true"></span>
 			<input type="hidden" name="product_addon_position[<?php echo esc_attr( $loop ); ?>]" class="wc-pao-addon-position" value="<?php echo esc_attr( $loop ); ?>" />
+			<input type="hidden" name="product_addon_id_[<?php echo $loop; ?>]" class="product_addon_id" value="<?php echo $id; ?>" />
 		</div>
 	</div>
 

@@ -39,7 +39,7 @@ class Yoast_WooCommerce_Dependencies {
 			return false;
 		}
 
-		if ( ! version_compare( $wordpress_seo_version, '19.7-RC1', '>=' ) ) {
+		if ( ! version_compare( $wordpress_seo_version, '19.10-RC1', '>=' ) ) {
 			add_action( 'all_admin_notices', [ $this, 'yoast_seo_upgrade_error' ] );
 
 			return false;

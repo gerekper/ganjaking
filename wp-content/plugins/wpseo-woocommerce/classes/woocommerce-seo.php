@@ -114,6 +114,8 @@ class Yoast_WooCommerce_SEO {
 
 		add_filter( 'wpseo_sitemap_entry', [ $this, 'filter_hidden_product' ], 10, 3 );
 		add_filter( 'wpseo_exclude_from_sitemap_by_post_ids', [ $this, 'filter_woocommerce_pages' ] );
+
+		add_action( 'before_woocommerce_init', [ $this, 'declare_custom_order_tables_compatibility' ] );
 	}
 
 	/**
@@ -479,6 +481,7 @@ class Yoast_WooCommerce_SEO {
 		Yoast_Form::get_instance()->select( 'woo_schema_brand', esc_html__( 'Brand', 'yoast-woo-seo' ), $taxonomies );
 		Yoast_Form::get_instance()->select( 'woo_schema_color', esc_html__( 'Color', 'yoast-woo-seo' ), $taxonomies );
 		Yoast_Form::get_instance()->select( 'woo_schema_pattern', esc_html__( 'Pattern', 'yoast-woo-seo' ), $taxonomies );
+		Yoast_Form::get_instance()->select( 'woo_schema_material', esc_html__( 'Material', 'yoast-woo-seo' ), $taxonomies );
 
 		if ( WPSEO_Options::get( 'breadcrumbs-enable' ) === true ) {
 			echo '<h2>' . esc_html__( 'Breadcrumbs', 'yoast-woo-seo' ) . '</h2>';
@@ -1440,6 +1443,15 @@ class Yoast_WooCommerce_SEO {
 		}
 
 		add_filter( 'wpseo_breadcrumb_links', [ $this, 'add_attribute_to_breadcrumbs' ] );
+	}
+
+	/**
+	 * Declares compatibility with the WooCommerce HPOS feature.
+	 */
+	public function declare_custom_order_tables_compatibility() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WPSEO_WOO_PLUGIN_FILE, true );
+		}
 	}
 
 	/**

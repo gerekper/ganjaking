@@ -3,8 +3,8 @@ Contributors: wpdevteam, re_enter_rupok
 Donate link: https://wpdeveloper.com
 Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, table of content, TOC, knowledgebase, faqs, doc page, best documentation plugin, support, customer support
 Requires at least: 4.0
-Tested up to: 6.0
-Stable tag: 2.2.0
+Tested up to: 6.1
+Stable tag: 2.2.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -90,6 +90,14 @@ Yes, it will work with any standard WordPress theme.
 
 
 == Changelog ==
+
+= 2.2.1 - 06/11/2022 = 
+
+- Improved: Added Category Ordering option inside Instant Answers
+- Added: Shortcodes for Multiple Knowledge base
+- Fixed: Analytics not working when switching to a different language on dashboard
+- Fixed: Reaction count for draft docs are being counted for Analytics
+- Few minor bug fixes & improvements
 
 = 2.2.0 - 25/09/2022 = 
 

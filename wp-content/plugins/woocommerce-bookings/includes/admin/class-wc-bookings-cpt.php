@@ -51,6 +51,8 @@ class WC_Bookings_CPT {
 	 * Add extra bulk action options to mark orders as complete or processing.
 	 *
 	 * Using Javascript until WordPress core fixes: http://core.trac.wordpress.org/ticket/16031
+	 *
+	 * @return void
 	 */
 	public function bulk_admin_footer() {
 		global $post_type;
@@ -72,54 +74,94 @@ class WC_Bookings_CPT {
 
 	/**
 	 * Process the new bulk actions for changing order status.
+	 *
+	 * @since 1.15.65 On validate user capability to edit bookings.
+	 *
+	 * @return void
 	 */
 	public function bulk_action() {
+		$screen = get_current_screen();
+
+		// Handle bulk action only for bookings.
+		if ( ! $screen || 'edit-wc_booking' !== $screen->id ) {
+			return;
+		}
+
 		$wp_list_table = _get_list_table( 'WP_Posts_List_Table' );
-		$action = $wp_list_table->current_action();
+		$action        = $wp_list_table->current_action();
+		$booking_ids   = isset( $_REQUEST['post'] ) ?
+			array_map( 'absint', (array) $_REQUEST['post'] ) :
+			[];
+
+		// Do we have booking ids to process?
+		if ( empty( $booking_ids ) ) {
+			return;
+		}
 
 		switch ( $action ) {
 			case 'confirm_bookings':
-				$new_status = 'confirmed';
+				$new_status    = 'confirmed';
 				$report_action = 'bookings_confirmed';
 				break;
 			case 'unconfirm_bookings':
-				$new_status = 'pending-confirmation';
+				$new_status    = 'pending-confirmation';
 				$report_action = 'bookings_unconfirmed';
 				break;
 			case 'mark_paid_bookings':
-				$new_status = 'paid';
+				$new_status    = 'paid';
 				$report_action = 'bookings_marked_paid';
 				break;
 			case 'mark_unpaid_bookings':
-				$new_status = 'unpaid';
+				$new_status    = 'unpaid';
 				$report_action = 'bookings_marked_unpaid';
 				break;
 			case 'cancel_bookings':
-				$new_status = 'cancelled';
+				$new_status    = 'cancelled';
 				$report_action = 'bookings_cancelled';
 				break;
+
 			default:
 				return;
 		}
 
-		$changed = 0;
+		check_admin_referer( 'bulk-posts' );
 
-		$post_ids = array_map( 'absint', (array) $_REQUEST['post'] );
+		$updated = 0;
+		$locked  = 0;
+		$skipped = 0;
 
-		foreach ( $post_ids as $post_id ) {
-			$booking = get_wc_booking( $post_id );
-			if ( $booking->get_status() !== $new_status ) {
-				$booking->update_status( $new_status );
+		foreach ( $booking_ids as $booking_id ) {
+			$booking = get_wc_booking( $booking_id );
+
+			// Is user allowed to edit booking?
+			if ( ! $booking || ! current_user_can( "edit_$this->type", $booking->get_id() ) ) {
+				wp_die( __( 'Sorry, you are not allowed to edit this item.', 'woocommerce-bookings' ) );
 			}
-			$changed++;
+
+			// Update booking only if another user is not editing it.
+			if ( wp_check_post_lock( $booking->get_id() ) ) {
+				$locked++;
+				continue;
+			}
+
+			// Update booking status if required.
+			if ( $booking->get_status() === $new_status ) {
+				$skipped++;
+				continue;
+			}
+
+			$booking->update_status( $new_status );
+			$updated ++;
 		}
 
-		$sendback = add_query_arg( array(
-			'post_type' => $this->type,
+		$sendback = add_query_arg( [
+			'post_type'    => $this->type,
 			$report_action => true,
-			'changed' => $changed,
-			'ids' => join( ',', $post_ids ),
-		), '' );
+			'updated'      => $updated,
+			'locked'       => $locked,
+			'skipped'      => $skipped,
+			'ids'          => implode( ',', $booking_ids ),
+		], '' );
 		wp_redirect( $sendback );
 		exit();
 	}

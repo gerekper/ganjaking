@@ -47,13 +47,14 @@ class WC_Product_Addons_Field_File_Upload extends WC_Product_Addons_Field {
 		$adjust_price   = $this->addon['adjust_price'];
 		$field_name     = $this->get_field_name();
 		$this_data      = array(
-			'name'    => sanitize_text_field( $this->addon['name'] ),
-			'price'   => '1' != $adjust_price ? 0 : floatval( sanitize_text_field( $this->addon['price'] ) ),
-			'value'   => '',
-			'display' => '',
-			'field_name' => $this->addon['field_name'],
-			'field_type' => $this->addon['type'],
-			'price_type' => $this->addon['price_type'],
+			'name'       => sanitize_text_field( $this->addon[ 'name' ] ),
+			'price'      => '1' != $adjust_price ? 0 : floatval( sanitize_text_field( $this->addon[ 'price' ] ) ),
+			'value'      => '',
+			'display'    => '',
+			'field_name' => $this->addon[ 'field_name' ],
+			'field_type' => $this->addon[ 'type' ],
+			'id'         => isset( $this->addon[ 'id' ] ) ? $this->addon[ 'id' ] : 0,
+			'price_type' => $this->addon[ 'price_type' ],
 		);
 
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized

@@ -80,7 +80,7 @@ function mailpoet_premium_free_version_required_notice() {
     MAILPOET_VERSION_REQUIRED
   );
   printf(
-    '<div class="error"><p>%1$s</p></div>',
+    '<div class="notice notice-error"><p>%1$s</p></div>',
     esc_html($notice)
   );
 }
@@ -98,7 +98,7 @@ function mailpoet_premium_upgrade_required_notice() {
   }
 
   printf(
-    '<div class="error"><p>%1$s</p></div>',
+    '<div class="notice notice-error"><p>%1$s</p></div>',
     wp_kses(
       $notice,
       [

@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit844f53f483df9f4f4583325698f6b6b3
+class ComposerStaticInit4bee3c279891cd4c4ae10789bc093adf
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -178,6 +178,7 @@ class ComposerStaticInit844f53f483df9f4f4583325698f6b6b3
         'Yoast\\WP\\SEO\\Premium\\Initializers\\Index_Now_Key' => __DIR__ . '/../..' . '/src/initializers/index-now-key.php',
         'Yoast\\WP\\SEO\\Premium\\Initializers\\Plugin' => __DIR__ . '/../..' . '/src/initializers/plugin.php',
         'Yoast\\WP\\SEO\\Premium\\Initializers\\Redirect_Handler' => __DIR__ . '/../..' . '/src/initializers/redirect-handler.php',
+        'Yoast\\WP\\SEO\\Premium\\Initializers\\Woocommerce' => __DIR__ . '/../..' . '/src/initializers/woocommerce.php',
         'Yoast\\WP\\SEO\\Premium\\Initializers\\Wp_Cli_Initializer' => __DIR__ . '/../..' . '/src/initializers/wp-cli-initializer.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Abstract_OpenGraph_Integration' => __DIR__ . '/../..' . '/src/integrations/abstract-opengraph-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Crawl_Settings_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/crawl-settings-integration.php',
@@ -243,9 +244,9 @@ class ComposerStaticInit844f53f483df9f4f4583325698f6b6b3
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit844f53f483df9f4f4583325698f6b6b3::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit844f53f483df9f4f4583325698f6b6b3::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit844f53f483df9f4f4583325698f6b6b3::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit4bee3c279891cd4c4ae10789bc093adf::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit4bee3c279891cd4c4ae10789bc093adf::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit4bee3c279891cd4c4ae10789bc093adf::$classMap;
 
         }, null, ClassLoader::class);
     }

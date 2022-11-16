@@ -107,11 +107,7 @@
   margin-bottom: 40px;
   width: 100% !important;
 }
-.betterdocs-article-reactions p {
-  margin: 0;
-  text-align: center;
-  width: 100%;
-}
+
 .betterdocs-full-sidebar-left .betterdocs-categories-wrap {
   width: 100% !important;
   border-radius: 0;
@@ -152,6 +148,8 @@
 }
 
 .grid-col-3 .docs-content-full-main {
+  width: inherit;
+  width: -moz-available;
   grid-column: 4 / span 7;
 }
 
@@ -302,6 +300,8 @@ betterdocs-single-layout5 .betterdocs-full-sidebar-left {
   border-left: 1px solid #eff2f7;
 }
 .grid-col-3 .docs-content-full-main {
+  width: inherit;
+  width: -moz-available;
   grid-column: 4 / span 7;
 }
 

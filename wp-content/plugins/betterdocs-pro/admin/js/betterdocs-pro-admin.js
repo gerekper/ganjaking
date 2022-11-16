@@ -514,6 +514,21 @@
 			}
 		}
 
+		$('#betterdocs-meta-reporting_frequency .betterdocs-field-description').hide();
+		var reporting_frequency = $('#reporting_frequency').attr("data-value");
+        if (reporting_frequency == 'betterdocs_monthly' ) {
+            $('#betterdocs-meta-reporting_frequency .betterdocs-field-description').show(); 
+        }
+
+        $('#reporting_frequency').on('select2:select', function (e) {
+            var data = e.params.data.id;
+            if(data === 'betterdocs_monthly') {
+                $('#betterdocs-meta-reporting_frequency .betterdocs-field-description').show();
+            } else {
+                $('#betterdocs-meta-reporting_frequency .betterdocs-field-description').hide(); 
+            }
+        });
+
 		// Disable tabs condition for IA
 		var chatTab = $("#chat_tab_visibility_switch"),
 			ansTab = $("#answer_tab_visibility_switch"),

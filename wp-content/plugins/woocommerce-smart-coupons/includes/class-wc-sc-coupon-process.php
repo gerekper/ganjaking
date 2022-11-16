@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.7.0
+ * @version     2.9.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -68,6 +68,8 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 			add_action( 'admin_init', array( $this, 'delete_smart_coupons_contribution' ), 11 );
 
 			add_filter( 'woocommerce_order_item_needs_processing', array( $this, 'virtual_downloadable_item_needs_update_smart_coupon_balance' ), 10, 3 );
+
+			add_filter( 'woocommerce_order_item_needs_processing', array( $this, 'coupon_product_dont_need_processing' ), 10, 3 );
 		}
 
 		/**
@@ -307,8 +309,8 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 		 */
 		public function update_smart_coupon_balance( $order_id ) {
 
-            if ( ( ! empty( $_POST['post_type'] ) && 'shop_order' === $_POST['post_type'] && ! empty( $_POST['action'] ) && 'editpost' === $_POST['action'] ) // phpcs:ignore
-                || ( ! empty( $_GET['action'] ) && in_array( $_GET['action'], array( 'woocommerce_mark_order_status', 'mark_on-hold', 'mark_processing', 'mark_completed' ), true ) ) // phpcs:ignore
+			if ( ( ! empty( $_POST['post_type'] ) && 'shop_order' === $_POST['post_type'] && ! empty( $_POST['action'] ) && 'editpost' === $_POST['action'] ) // phpcs:ignore
+				|| ( ! empty( $_GET['action'] ) && in_array( $_GET['action'], array( 'woocommerce_mark_order_status', 'mark_on-hold', 'mark_processing', 'mark_completed' ), true ) ) // phpcs:ignore
 			) {
 				return;
 			}
@@ -322,6 +324,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 				$smart_coupons_contribution = $this->get_post_meta( $order_id, 'smart_coupons_contribution', true, true );
 
 				if ( empty( $smart_coupons_contribution ) || ! is_array( $smart_coupons_contribution ) ) {
+					$this->update_smart_coupon_balance_by_used_coupon( $order_id );
 					return;
 				}
 
@@ -370,6 +373,94 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 								wp_trash_post( $coupon_id );
 							} else {
 								$this->update_post_meta( $coupon_id, 'coupon_amount', $credit_remaining, true, $order );
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/**
+		 * Update smart coupon balance by used coupon.
+		 *
+		 * @param int $order_id Integer.
+		 * @return void
+		 */
+		public function update_smart_coupon_balance_by_used_coupon( $order_id = 0 ) {
+
+			if ( empty( $order_id ) ) {
+				return;
+			}
+
+			if ( ( ! empty( $_POST['post_type'] ) && 'shop_order' === $_POST['post_type'] && ! empty( $_POST['action'] ) && 'editpost' === $_POST['action'] )// phpcs:ignore
+				|| ( ! empty( $_GET['action'] ) && in_array( $_GET['action'], array( 'woocommerce_mark_order_status', 'mark_on-hold', 'mark_processing', 'mark_completed' ), true ) )// phpcs:ignore
+			) {
+				return;
+			}
+
+			$order = function_exists( 'wc_get_order' ) ? wc_get_order( $order_id ) : null;
+
+			if ( ! is_object( $order ) || ! is_a( $order, 'WC_Order' ) ) {
+				return;
+			}
+
+			$order_items = is_callable( array( $order, 'get_items' ) ) ? $order->get_items( 'coupon' ) : array();
+
+			if ( ! empty( $order_items ) ) {
+
+				foreach ( $order_items as $item_id => $item ) {
+					$item_title      = ( is_object( $item ) && is_callable( array( $item, 'get_name' ) ) ) ? $item->get_name() : '';
+					$coupon_post_obj = ( function_exists( 'wpcom_vip_get_page_by_title' ) ) ? wpcom_vip_get_page_by_title( $item_title, OBJECT, 'shop_coupon' ) : get_page_by_title( $item_title, OBJECT, 'shop_coupon' );// phpcs:ignore
+					$coupon_id       = isset( $coupon_post_obj->ID ) ? $coupon_post_obj->ID : 0;
+					$coupon_code     = isset( $coupon_post_obj->post_title ) ? $coupon_post_obj->post_title : '';
+					$smart_coupon    = new WC_Coupon( $coupon_id );
+					if ( is_a( $smart_coupon, 'WC_Coupon' ) ) {
+						$coupon_amount = $this->get_amount( $smart_coupon );
+						if ( $this->is_wc_gte_30() ) {
+							if ( ! is_object( $smart_coupon ) || ! is_callable( array( $smart_coupon, 'get_id' ) ) ) {
+								continue;
+							}
+							$coupon_id = $smart_coupon->get_id();
+							if ( empty( $coupon_id ) ) {
+								$coupon_id = wc_get_coupon_id_by_code( $coupon_code );
+								if ( empty( $coupon_id ) ) {
+									continue;
+								}
+							}
+							$discount_type = is_callable( array( $smart_coupon, 'get_discount_type' ) ) ? $smart_coupon->get_discount_type() : '';
+						} else {
+							$coupon_id     = ( ! empty( $smart_coupon->id ) ) ? $smart_coupon->id : 0;
+							$discount_type = ( ! empty( $smart_coupon->discount_type ) ) ? $smart_coupon->discount_type : '';
+						}
+
+						if ( 'smart_coupon' === $discount_type ) {
+							$order_discount_amount     = $this->get_order_item_meta( $item_id, 'discount_amount', true );
+							$order_discount_tax_amount = $this->get_order_item_meta( $item_id, 'discount_amount_tax', true );
+
+							$sc_include_tax = $this->is_store_credit_include_tax();
+							// Add discount on tax if it has been given on tax.
+							if ( 'yes' === $sc_include_tax && ! empty( $order_discount_tax_amount ) ) {
+								$order_discount_amount += $order_discount_tax_amount;
+							}
+
+							$credit_remaining = round( ( $coupon_amount - $order_discount_amount ), get_option( 'woocommerce_price_num_decimals', 2 ) );
+
+							// Allow 3rd party plugin to modify the remaining balance of the store credit.
+							$credit_remaining = apply_filters(
+								'wc_sc_credit_remaining',
+								$credit_remaining,
+								array(
+									'source'     => $this,
+									'order_obj'  => $order,
+									'coupon_obj' => $smart_coupon,
+								)
+							);
+
+							if ( $credit_remaining <= 0 && get_option( 'woocommerce_delete_smart_coupon_after_usage' ) === 'yes' ) {
+								$this->update_post_meta( $coupon_id, 'coupon_amount', 0 );
+								wp_trash_post( $coupon_id );
+							} else {
+								$this->update_post_meta( $coupon_id, 'coupon_amount', $credit_remaining );
 							}
 						}
 					}
@@ -1450,6 +1541,33 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 				}
 			}
 			return $virtual_downloadable_item;
+		}
+
+		/**
+		 * Check if the product is only going to generate/issue coupon, if so, tell the system that this product doesn't needs processing & can proceed with completing the order.
+		 *
+		 * @param boolean    $needs_processing Whether needs processing or not.
+		 * @param WC_Product $product The product object.
+		 * @param integer    $order_id The order id.
+		 * @return boolean
+		 */
+		public function coupon_product_dont_need_processing( $needs_processing = true, $product = null, $order_id = 0 ) {
+			$coupon_titles = $this->get_coupon_titles( array( 'product_object' => $product ) );
+			if ( $product->is_virtual() && ! empty( $coupon_titles ) ) {
+				$needs_processing = apply_filters(
+					'wc_sc_coupon_product_need_processing',
+					$this->sc_get_option( 'wc_sc_coupon_product_need_processing', 'no' ),
+					array(
+						'source'                    => $this,
+						'original_needs_processing' => $needs_processing,
+						'product'                   => $product,
+						'order_id'                  => $order_id,
+					)
+				);
+				$needs_processing = ( 'yes' !== $needs_processing ) ? 'no' : $needs_processing;
+				return wc_string_to_bool( $needs_processing );
+			}
+			return $needs_processing;
 		}
 
 	}

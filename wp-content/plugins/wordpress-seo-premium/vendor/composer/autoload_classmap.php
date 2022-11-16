@@ -163,6 +163,7 @@ return array(
     'Yoast\\WP\\SEO\\Premium\\Initializers\\Index_Now_Key' => $baseDir . '/src/initializers/index-now-key.php',
     'Yoast\\WP\\SEO\\Premium\\Initializers\\Plugin' => $baseDir . '/src/initializers/plugin.php',
     'Yoast\\WP\\SEO\\Premium\\Initializers\\Redirect_Handler' => $baseDir . '/src/initializers/redirect-handler.php',
+    'Yoast\\WP\\SEO\\Premium\\Initializers\\Woocommerce' => $baseDir . '/src/initializers/woocommerce.php',
     'Yoast\\WP\\SEO\\Premium\\Initializers\\Wp_Cli_Initializer' => $baseDir . '/src/initializers/wp-cli-initializer.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Abstract_OpenGraph_Integration' => $baseDir . '/src/integrations/abstract-opengraph-integration.php',
     'Yoast\\WP\\SEO\\Premium\\Integrations\\Admin\\Crawl_Settings_Integration' => $baseDir . '/src/integrations/admin/crawl-settings-integration.php',

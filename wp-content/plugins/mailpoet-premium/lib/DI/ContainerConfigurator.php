@@ -29,6 +29,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $this->registerFreeService($container, \MailPoet\Automation\Engine\Builder\UpdateWorkflowController::class);
     $this->registerFreeService($container, \MailPoet\Automation\Engine\Mappers\WorkflowMapper::class);
     $this->registerFreeService($container, \MailPoet\Automation\Engine\Storage\WorkflowStorage::class);
+    $this->registerFreeService($container, \MailPoet\Automation\Engine\Storage\WorkflowStatisticsStorage::class);
     $this->registerFreeService($container, \MailPoet\Automation\Engine\Hooks::class);
     $this->registerFreeService($container, \MailPoet\Automation\Engine\Validation\WorkflowValidator::class);
     $this->registerFreeService($container, \MailPoet\Automation\Integrations\MailPoet\Subjects\SubscriberSubject::class);

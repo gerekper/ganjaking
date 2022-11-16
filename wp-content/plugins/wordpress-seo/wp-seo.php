@@ -8,9 +8,8 @@
  *
  * @wordpress-plugin
  * Plugin Name: Yoast SEO
- * Version:     19.7.1
+ * Version:     19.10
  * Plugin URI:  https://yoa.st/1uj
- * Secret Key:  83a5bb0e2ad5164690bc7a42ae592cf5
  * Description: The first true all-in-one SEO solution for WordPress, including on-page content analysis, XML sitemaps and much more.
  * Author:      Team Yoast
  * Author URI:  https://yoa.st/1uk
@@ -49,5 +48,3 @@ if ( ! defined( 'WPSEO_FILE' ) ) {
 
 // Load the Yoast SEO plugin.
 require_once dirname( WPSEO_FILE ) . '/wp-seo-main.php';
-/* Anti-Leecher Indentifier */
-/* Credited By BABIATO-FORUM */

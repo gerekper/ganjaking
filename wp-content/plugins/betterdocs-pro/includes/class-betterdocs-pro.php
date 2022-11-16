@@ -134,6 +134,7 @@ class Betterdocs_Pro
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-betterdocs-pro-admin.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-betterdocs-pro-report-email.php';
 		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-betterdocs-pro-admin-screen.php';
 		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/includes/class-betterdocs-pro-settings.php';
 		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/includes/class-betterdocs-analytics.php';

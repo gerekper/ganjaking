@@ -6,7 +6,7 @@
  *
  * @author      StoreApps
  * @since       4.10.0
- * @version     1.1.1
+ * @version     1.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -144,7 +144,7 @@ if ( ! class_exists( 'WC_SC_REST_Coupons_Controller' ) ) {
 							$id_from_code = wc_get_coupon_id_by_code( $coupon_code, $id );
 
 							if ( $id_from_code ) {
-								return new WP_Error( 'woocommerce_rest_coupon_code_already_exists', __( 'The coupon code already exists', 'woocommerce' ), array( 'status' => 400 ) );
+								return new WP_Error( 'woocommerce_rest_coupon_code_already_exists', __( 'The coupon code already exists', 'woocommerce-smart-coupons' ), array( 'status' => 400 ) );
 							}
 
 							$coupon->set_code( $coupon_code );

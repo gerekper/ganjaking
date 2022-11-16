@@ -112,7 +112,12 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 				else if ( $this->file_url_import_enabled )
 					$file = ABSPATH . $this->file_url;
 
-				$file = str_replace( "\\", "/", $file );
+				try {
+					$file = str_replace( "\\", "/", $file );
+					$this->perform_file_path_checks( $file );
+				} catch ( Throwable $e ) {
+					$file = false;
+				}
 
 				if ( $file ) {
 					?>
@@ -150,13 +155,14 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 							function import_rows( start_pos, end_pos ) {
 
 								var data = {
-									action: 	'woocommerce_csv_import_request',
-									file:       '<?php echo addslashes( $file ); ?>',
-									mapping:    decodeURIComponent('<?php echo rawurlencode( wp_json_encode( $_POST['map_to'] ) ); ?>'),
-									delimiter:  '<?php echo $this->delimiter; ?>',
+									_ajax_nonce:       '<?php echo esc_js( wp_create_nonce( 'csv-import-ajax' ) ); ?>',
+									action:            'woocommerce_csv_import_request',
+									file:              '<?php echo addslashes( $file ); ?>',
+									mapping:           decodeURIComponent('<?php echo rawurlencode( wp_json_encode( $_POST['map_to'] ) ); ?>'),
+									delimiter:         '<?php echo esc_js( $this->delimiter ); ?>',
 									merge_empty_cells: '<?php echo $this->merge_empty_cells; ?>',
-									start_pos:  start_pos,
-									end_pos:    end_pos,
+									start_pos:         start_pos,
+									end_pos:           end_pos,
 								};
 
 								return $.ajax({
@@ -313,7 +319,11 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 								$.ajax({
 									type: 'POST',
 									url: ajaxurl,
-									data: { action: "woocommerce_csv_import_regenerate_thumbnail", id: id },
+									data: {
+										_ajax_nonce: '<?php echo esc_js( wp_create_nonce( 'csv-regenerate-thumbnail' ) ); ?>',
+										action: "woocommerce_csv_import_regenerate_thumbnail",
+										id: id
+									},
 									success: function( response ) {
 										if ( response !== Object( response ) || ( typeof response.success === "undefined" && typeof response.error === "undefined" ) ) {
 											response = new Object;
@@ -337,6 +347,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 
 							function import_done() {
 								var data = {
+									_ajax_nonce: '<?php echo esc_js( wp_create_nonce( 'csv-import-ajax' ) ); ?>',
 									action: 'woocommerce_csv_import_request',
 									file: '<?php echo $file; ?>',
 									processed_terms: processed_terms,
@@ -365,9 +376,10 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 				}
 			break;
 			case 3 :
-				// Check access - cannot use nonce here as it will expire after multiple requests
 				if ( ! current_user_can( 'manage_woocommerce' ) )
 					die();
+
+				check_ajax_referer( 'csv-import-ajax' );
 
 				add_filter( 'http_request_timeout', array( $this, 'bump_request_timeout' ) );
 
@@ -379,7 +391,14 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 				@flush();
 				$wpdb->hide_errors();
 
-				$file      = stripslashes( $_POST['file'] );
+				try {
+					$file = stripslashes( $_POST['file'] );
+					$this->perform_file_path_checks( $file );
+				} catch ( Throwable $e ) {
+					WC_Product_CSV_Import_Suite::log( __( 'Invalid filepath specified during import.', 'woocommerce-product-csv-import-suite' ) );
+					exit( __( 'Error finding uploaded file!', 'woocommerce-product-csv-import-suite' ) );
+				}
+
 				$mapping   = json_decode( stripslashes( $_POST['mapping'] ), true );
 				$start_pos = isset( $_POST['start_pos'] ) ? absint( $_POST['start_pos'] ) : 0;
 				$end_pos   = isset( $_POST['end_pos'] ) ? absint( $_POST['end_pos'] ) : '';
@@ -407,6 +426,8 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 				if ( ! current_user_can( 'manage_woocommerce' ) ) {
 					die();
 				}
+
+				check_ajax_referer( 'csv-import-ajax' );
 
 				add_filter( 'http_request_timeout', array( $this, 'bump_request_timeout' ) );
 
@@ -671,19 +692,35 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 	/**
 	 * Handle initial path file check before displaying import options.
 	 *
-	 * @throws Exception Error on supplied file path.
+	 * @throws Exception Errors relating to the supplied file path.
+	 * @throws Throwable Errors relating to the supplied file path.
 	 *
 	 * @since 1.10.13
 	 *
 	 * @version 1.10.13
 	 */
 	protected function handle_initial_path_file_check() {
-		if ( ! $this->is_safe_path( ABSPATH, $_POST['file_url'] ) ) {
-			/* translators: placeholder is base directory (ABSPATH) */
+		$this->perform_file_path_checks( ABSPATH . $_POST['file_url'] );
+		$this->file_url = esc_attr( $_POST['file_url'] );
+	}
+
+	/**
+	 * Confirm that the import file path is valid.
+	 *
+	 * @throws Exception Errors relating to the supplied file path.
+	 * @throws Throwable Errors relating to the supplied file path.
+	 *
+	 * @param string $filepath The file path to be checked.
+	 */
+	private function perform_file_path_checks( string $filepath ) {
+		if ( 'phar' === strtolower( (string) parse_url( $filepath, PHP_URL_SCHEME ) ) ){
+			throw new Exception( __( 'Sorry, filepath must not be within a PHAR executable.', 'woocommerce-product-csv-import-suite' ) );
+		}
+
+		if ( ! $this->is_within_abspath( $filepath ) ) {	/* translators: placeholder is base directory (ABSPATH) */
 			throw new Exception( sprintf( __( 'Sorry, there has been an error: path file must exist inside %s.', 'woocommerce-product-csv-import-suite' ), ABSPATH ) );
 		}
 
-		$filepath = ABSPATH . $_POST['file_url'];
 		if ( ! file_exists( $filepath ) ) {
 			/* translators: placeholder is file path */
 			throw new Exception( sprintf( __( 'Sorry, there has been an error: %s does not exist.', 'woocommerce-product-csv-import-suite' ), $filepath ) );
@@ -695,8 +732,17 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 			/* translators: placeholder is comma-separated of accepted mime-types for import (e.g. 'text/csv') */
 			throw new Exception( sprintf( __( 'File must have .csv extension with acceptable mime types (%s)', 'woocommerce-product-csv-import-suite' ), $mime_types ) );
 		}
+	}
 
-		$this->file_url = esc_attr( $_POST['file_url'] );
+	/**
+	 * Checks if the provided filepath is within WordPress's absolute path.
+	 *
+	 * @param string $filepath The filepath to be checked.
+	 *
+	 * @return bool True if the filepath is within ABSPATH.
+	 */
+	private function is_within_abspath( string $filepath ): bool {
+		return 0 === strpos( realpath( $filepath ), trailingslashit( realpath( ABSPATH ) ) );
 	}
 
 	public function product_exists( $title, $sku = '', $post_name = '' ) {
@@ -1547,7 +1593,16 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 	 */
 	protected function is_acceptable_csv_file( $filepath ) {
 		$pathinfo = pathinfo( $filepath );
-		if ( ! isset( $pathinfo['extension'] ) || 'csv' !== $pathinfo['extension'] ) {
+		if ( ! isset( $pathinfo['extension'] ) ) {
+			return false;
+		}
+
+		// Acceptable file extensions are *.csv and also some variants of *.csv.txt (since, post-upload,
+		// CSV files will gain a .txt extension).
+		if (
+			'csv' !== $pathinfo['extension']
+			&& ! preg_match( '/.csv(-[0-9]+)?.txt$/', $pathinfo['basename'] )
+		) {
 			return false;
 		}
 

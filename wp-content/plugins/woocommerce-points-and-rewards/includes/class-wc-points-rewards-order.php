@@ -43,7 +43,7 @@ class WC_Points_Rewards_Order {
 		add_action( 'woocommerce_order_status_failed', array( $this, 'handle_cancelled_refunded_order' ) );
 		add_action( 'woocommerce_order_partially_refunded', array( $this, 'handle_partially_refunded_order' ), 10, 2 );
 
-		add_filter( 'wcs_renewal_order_meta_query', array( $this, 'exclude_meta_from_renewal_order' ) );
+		add_filter( 'wcs_renewal_order_meta', array( $this, 'exclude_meta_from_renewal_order' ) );
 	}
 
 	/**
@@ -70,6 +70,8 @@ class WC_Points_Rewards_Order {
 	 *
 	 * @since 1.0
 	 * @param object|int $order the WC_Order object or order ID
+	 *
+	 * @return bool True if points redeemed, false if not.
 	 */
 	public function add_points_earned( $order ) {
 		global $wc_points_rewards;
@@ -81,41 +83,43 @@ class WC_Points_Rewards_Order {
 		$order_id = $order->get_id();
 		$order_user_id = $order->get_user_id();
 
-		// bail for guest user
+		// Bail for guest user.
 		if ( ! $order_user_id ) {
-			return;
+			return false;
 		}
 
 		// Bail for gifted orders.
-		$gift = get_post_meta( $order_id, '_wcgp_given_order', true );
+		$gift = $order->get_meta( '_wcgp_given_order', true );
 		if ( 'yes' == $gift && apply_filters( 'woocommerce_points_rewards_ignore_gifted_orders', true ) ) {
-			return;
+			return false;
 		}
 
-		// check if points have already been added for this order
-		$points = get_post_meta( $order_id, '_wc_points_earned', true );
+		// Check if points have already been added for this order.
+		$points = $order->get_meta( '_wc_points_earned', true );
 
 		if ( '' !== $points ) {
-			return;
+			return false;
 		}
 
-		// get points earned
+		// Get points earned.
 		$points = $this->get_points_earned_for_purchase( $order );
 
-		// set order meta, regardless of whether any points were earned, just so we know the process took place
-		update_post_meta( $order_id, '_wc_points_earned', $points );
+		// Set order meta, regardless of whether any points were earned, just so we know the process took place.
+		$order->update_meta_data( '_wc_points_earned', $points );
+		$order->save();
 
-		// bail if no points earned
+		// Bail if no points earned.
 		if ( ! $points ) {
-			return;
+			return false;
 		}
 
-		// add points
 		WC_Points_Rewards_Manager::increase_points( $order_user_id, $points, 'order-placed', null, $order_id );
 
-		// add order note
+		// Add order note.
 		/* translators: 1: points 2: points label */
 		$order->add_order_note( sprintf( __( 'Customer earned %1$d %2$s for purchase.', 'woocommerce-points-and-rewards' ), $points, $wc_points_rewards->get_points_label( $points ) ) );
+
+		return true;
 	}
 
 	/**
@@ -209,8 +213,9 @@ class WC_Points_Rewards_Order {
 	public function maybe_deduct_redeemed_points( $order_id ) {
 		global $wc_points_rewards;
 
-		$already_redeemed  = get_post_meta( $order_id, '_wc_points_redeemed', true );
-		$logged_redemption = get_post_meta( $order_id, '_wc_points_logged_redemption', true );
+		$order             = wc_get_order( $order_id );
+		$already_redeemed  = $order->get_meta( $order_id, '_wc_points_redeemed', true );
+		$logged_redemption = $order->get_meta( $order_id, '_wc_points_logged_redemption', true );
 
 		// Points has already been redeemed
 		if ( ! empty( $already_redeemed ) ) {
@@ -253,7 +258,8 @@ class WC_Points_Rewards_Order {
 		// deduct points
 		WC_Points_Rewards_Manager::decrease_points( $order_user_id, $points_redeemed, 'order-redeem', array( 'discount_code' => $discount_code, 'discount_amount' => $discount_amount ), $order_id );
 
-		update_post_meta( $order_id, '_wc_points_redeemed', $points_redeemed );
+		$order->update_meta_data( '_wc_points_redeemed', $points_redeemed );
+		$order->save();
 
 		// add order note
 		/* translators: 1: points earned 2: points label 3: discount amount */
@@ -305,32 +311,34 @@ class WC_Points_Rewards_Order {
 			return;
 		}
 
-		// handle removing any points earned for the order
-		$points_earned = get_post_meta( $order_id, '_wc_points_earned', true );
+		// Handle removing any points earned for the order.
+		$points_earned = $order->get_meta( '_wc_points_earned', true );
 
 		if ( $points_earned > 0 ) {
 
 			// remove points
 			WC_Points_Rewards_Manager::decrease_points( $order_user_id, $points_earned, 'order-cancelled', null, $order_id );
 
-			// remove points from order
-			delete_post_meta( $order_id, '_wc_points_earned' );
+			// Remove points from order.
+			$order->delete_meta_data( '_wc_points_earned' );
+			$order->save();
 
 			// add order note
 			/* translators: 1: points earned 2: points earned label */
 			$order->add_order_note( sprintf( __( '%1$d %2$s removed.', 'woocommerce-points-and-rewards' ), $points_earned, $wc_points_rewards->get_points_label( $points_earned ) ) );
 		}
 
-		// handle crediting points redeemed for a discount
-		$points_redeemed = get_post_meta( $order_id, '_wc_points_redeemed', true );
+		// Handle crediting points redeemed for a discount.
+		$points_redeemed = $order->get_meta( '_wc_points_redeemed', true );
 
 		if ( $points_redeemed > 0 ) {
 
 			// credit points
 			WC_Points_Rewards_Manager::increase_points( $order_user_id, $points_redeemed, 'order-cancelled', null, $order_id );
 
-			// remove points from order
-			delete_post_meta( $order_id, '_wc_points_redeemed' );
+			// Remove points from order.
+			$order->delete_meta_data( '_wc_points_redeemed' );
+			$order->save();
 
 			// add order note
 			/* translators: 1: points redeemed 2: points redeemed label */
@@ -362,7 +370,7 @@ class WC_Points_Rewards_Order {
 		}
 
 		// Handle removing any points earned for the order.
-		$points_earned = get_post_meta( $order_id, '_wc_points_earned', true );
+		$points_earned = $order->get_meta( '_wc_points_earned', true );
 
 		if ( $points_earned > 0 ) {
 			$refund          = new WC_Order_Refund( $refund_id );
@@ -378,15 +386,23 @@ class WC_Points_Rewards_Order {
 	}
 
 	/**
-	 * Exclude any metadata from being passed on to subscription renewal orders.
+	 * Exclude any points and rewards metadata from being passed onto renewal order.
 	 *
-	 * @since 1.6.40
-	 * @param string $meta_query Query string for copying meta data.
-	 * @return string The modified query.
+	 * @since  1.7.20
+	 * @param  array $order_meta Metadata that we want to filter.
+	 * @return array Filtered renewal order metadata.
 	 */
-	public function exclude_meta_from_renewal_order( $meta_query ) {
-		$meta_query .= " AND `meta_key` NOT IN ( '_wc_points_earned', '_wc_points_logged_redemption', '_wc_points_redeemed' )";
-		return $meta_query;
+	public function exclude_meta_from_renewal_order( $order_meta ) {
+		$points_and_rewards_meta = array( '_wc_points_earned', '_wc_points_logged_redemption', '_wc_points_redeemed' );
+
+		foreach ( $order_meta as $index => $meta ) {
+
+			if ( in_array( $meta['meta_key'], $points_and_rewards_meta, true ) ) {
+				unset( $order_meta[ $index ] );
+			}
+		}
+
+		return $order_meta;
 	}
 
 } // end \WC_Points_Rewards_Order class

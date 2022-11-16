@@ -10,9 +10,8 @@
  *
  * @wordpress-plugin
  * Plugin Name: Yoast SEO Premium
- * Version:     19.4
+ * Version:     19.5
  * Plugin URI:  https://yoa.st/2jc
- * Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
  * Description: The first true all-in-one SEO solution for WordPress, including on-page content analysis, XML sitemaps and much more.
  * Author:      Team Yoast
  * Author URI:  https://yoa.st/2jc
@@ -40,47 +39,48 @@
  */
 
 use Yoast\WP\SEO\Premium\Addon_Installer;
+
 $site_information = get_transient( 'wpseo_site_information' );
 if ( isset( $site_information->subscriptions ) && ( count( $site_information->subscriptions ) == 0 ) ) {
-delete_transient( 'wpseo_site_information' );
-delete_transient( 'wpseo_site_information_quick' );
+    delete_transient( 'wpseo_site_information' );
+    delete_transient( 'wpseo_site_information_quick' );
 }
 
 add_filter( 'pre_http_request', function( $pre, $parsed_args, $url ){
-$site_information = (object) [
-'subscriptions' => [
-(object) [
-'product' => (object) [ 'slug' => 'yoast-seo-wordpress-premium' ],
-'expiryDate' => '+5 years'
-],
+    $site_information = (object) [
+        'subscriptions' => [
+            (object) [
+                'product' => (object) [ 'slug' => 'yoast-seo-wordpress-premium' ],
+                'expiryDate' => '+5 years'
+            ],
 
-(object) [
-'product' => (object) [ 'slug' => 'yoast-seo-news' ],
-'expiryDate' => '+5 years'
-],
-(object) [
-'product' => (object) [ 'slug' => 'yoast-seo-woocommerce' ],
-'expiryDate' => '+5 years'
-],
-(object) [
-'product' => (object) [ 'slug' => 'yoast-seo-video' ],
-'expiryDate' => '+5 years'
-],
-(object) [
-'product' => (object) [ 'slug' => 'yoast-seo-local' ],
-'expiryDate' => '+5 years'
-]
-],
-];
+            (object) [
+                'product' => (object) [ 'slug' => 'yoast-seo-news' ],
+                'expiryDate' => '+5 years'
+            ],
+            (object) [
+                'product' => (object) [ 'slug' => 'yoast-seo-woocommerce' ],
+                'expiryDate' => '+5 years'
+            ],
+            (object) [
+                'product' => (object) [ 'slug' => 'yoast-seo-video' ],
+                'expiryDate' => '+5 years'
+            ],
+            (object) [
+                'product' => (object) [ 'slug' => 'yoast-seo-local' ],
+                'expiryDate' => '+5 years'
+            ]
+        ],
+    ];
 
-if ( strpos( $url, 'https://my.yoast.com/api/sites/current' ) !== false ) {
-return [
-'response' => [ 'code' => 200, 'message' => '??' ],
-'body' => json_encode( $site_information )
-];
-} else {
-return $pre;
-}
+    if ( strpos( $url, 'https://my.yoast.com/api/sites/current' ) !== false ) {
+        return [
+            'response' => [ 'code' => 200, 'message' => 'ОК' ],
+            'body'     => json_encode( $site_information )
+        ];
+    } else {
+        return $pre;
+    }
 }, 10, 3 );
 
 if ( ! defined( 'WPSEO_PREMIUM_FILE' ) ) {
@@ -99,7 +99,7 @@ if ( ! defined( 'WPSEO_PREMIUM_BASENAME' ) ) {
  * {@internal Nobody should be able to overrule the real version number as this can cause
  *            serious issues with the options, so no if ( ! defined() ).}}
  */
-define( 'WPSEO_PREMIUM_VERSION', '19.4' );
+define( 'WPSEO_PREMIUM_VERSION', '19.5' );
 
 // Initialize Premium autoloader.
 $wpseo_premium_dir               = WPSEO_PREMIUM_PATH;

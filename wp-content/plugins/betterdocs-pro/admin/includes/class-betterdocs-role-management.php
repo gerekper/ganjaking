@@ -76,7 +76,7 @@ class BetterDocs_Role_Management {
     }
 
     public static function remove_caps( $remove_default_caps = false ){
-        $_given_caps = BetterDocs_Settings::get_role_cap_mapper();
+        $_given_caps = class_exists('BetterDocs_Settings') ? BetterDocs_Settings::get_role_cap_mapper() : '';
         /**
          * This will run while pro is activating.
          */

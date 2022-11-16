@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.7.0
+ * @version     1.8.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -421,6 +421,15 @@ if ( ! class_exists( 'WC_SC_Coupon_Fields' ) ) {
 			?>
 			<div class="options_group smart-coupons-field">
 				<?php
+					do_action(
+						'wc_sc_start_coupon_options_email_restriction',
+						array(
+							'source'     => $this,
+							'coupon_id'  => $coupon_id,
+							'coupon_obj' => $coupon,
+						)
+					);
+
 					woocommerce_wp_checkbox(
 						array(
 							'id'          => 'sc_disable_email_restriction',

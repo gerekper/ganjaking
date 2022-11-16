@@ -14,7 +14,7 @@ $current_category_icon_id 	= get_term_meta( $current_category->term_id, 'doc_cat
 $current_category_icon_url  = $current_category_icon_id ? wp_get_attachment_image( $current_category_icon_id, 'medium' ) : '<img src="' . BETTERDOCS_PRO_URL. 'admin/assets/img/cat-grid-3.png">';
 $heading                    = isset( $customizer_settings['betterdocs_archive_other_categories_heading_text'] ) ?  $customizer_settings['betterdocs_archive_other_categories_heading_text'] : '';
 $load_more_text             = isset( $customizer_settings['betterdocs_archive_other_categories_load_more_text'] ) ? $customizer_settings['betterdocs_archive_other_categories_load_more_text'] : '';
-$category_related_docs      = shortcode_exists('betterdocs_category_related_terms') ? do_shortcode('[betterdocs_category_related_terms heading="'.$heading.'" load_more_text="'.$load_more_text.'"]') : '';
+$category_related_docs      = shortcode_exists('betterdocs_related_categories') ? do_shortcode('[betterdocs_related_categories heading="'.$heading.'" load_more_text="'.$load_more_text.'"]') : '';
 $doc_query		            = new WP_Query( $list_args );
 $doc_list                   = '';
 

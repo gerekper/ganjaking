@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Yoast SEO: WooCommerce package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Yoast SEO: WooCommerce 15.2\n"
+"Project-Id-Version: Yoast SEO: WooCommerce 15.3\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-woocommerce/issues\n"
-"POT-Creation-Date: 2022-09-20 09:10:47+00:00\n"
+"POT-Creation-Date: 2022-11-08 10:12:35+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -50,43 +50,47 @@ msgid ""
 "module to work."
 msgstr ""
 
-#: classes/woocommerce-seo.php:427
+#: classes/woocommerce-seo.php:429
 #. translators: %1$s resolves to WooCommerce SEO
 msgid "%1$s Settings"
 msgstr ""
 
-#: classes/woocommerce-seo.php:475
+#: classes/woocommerce-seo.php:477
 msgid "Schema & OpenGraph additions"
 msgstr ""
 
-#: classes/woocommerce-seo.php:476
+#: classes/woocommerce-seo.php:478
 msgid ""
 "If you have product attributes for the following types, select them here, "
 "the plugin will make sure they're used for the appropriate Schema.org and "
 "OpenGraph markup."
 msgstr ""
 
-#: classes/woocommerce-seo.php:478
+#: classes/woocommerce-seo.php:480
 msgid "Manufacturer"
 msgstr ""
 
-#: classes/woocommerce-seo.php:479
+#: classes/woocommerce-seo.php:481
 msgid "Brand"
 msgstr ""
 
-#: classes/woocommerce-seo.php:480
+#: classes/woocommerce-seo.php:482
 msgid "Color"
 msgstr ""
 
-#: classes/woocommerce-seo.php:481
+#: classes/woocommerce-seo.php:483
 msgid "Pattern"
 msgstr ""
 
 #: classes/woocommerce-seo.php:484
+msgid "Material"
+msgstr ""
+
+#: classes/woocommerce-seo.php:487
 msgid "Breadcrumbs"
 msgstr ""
 
-#: classes/woocommerce-seo.php:488
+#: classes/woocommerce-seo.php:491
 #. translators: %1$s resolves to internal links options page, %2$s resolves to
 #. closing link tag, %3$s resolves to Yoast SEO, %4$s resolves to WooCommerce
 msgid ""
@@ -97,40 +101,40 @@ msgid ""
 "replaced."
 msgstr ""
 
-#: classes/woocommerce-seo.php:500
+#: classes/woocommerce-seo.php:503
 #. translators: %1$s resolves to WooCommerce
 msgid "Replace %1$s Breadcrumbs"
 msgstr ""
 
-#: classes/woocommerce-seo.php:506
+#: classes/woocommerce-seo.php:509
 msgid "Admin"
 msgstr ""
 
-#: classes/woocommerce-seo.php:510
+#: classes/woocommerce-seo.php:513
 #. translators: %1$s resolves to Yoast SEO, %2$s resolves to WooCommerce
 msgid ""
 "Both %2$s and %1$s add metaboxes to the edit product page, if you want %2$s "
 "to be above %1$s, check the box."
 msgstr ""
 
-#: classes/woocommerce-seo.php:520
+#: classes/woocommerce-seo.php:523
 #. translators: %1$s resolves to WooCommerce
 msgid "Move %1$s up"
 msgstr ""
 
-#: classes/woocommerce-seo.php:1333
+#: classes/woocommerce-seo.php:1336
 msgid "You should write a short description for this product."
 msgstr ""
 
-#: classes/woocommerce-seo.php:1334
+#: classes/woocommerce-seo.php:1337
 msgid "The short description for this product is too short."
 msgstr ""
 
-#: classes/woocommerce-seo.php:1335
+#: classes/woocommerce-seo.php:1338
 msgid "Your short description has a good length."
 msgstr ""
 
-#: classes/woocommerce-seo.php:1336
+#: classes/woocommerce-seo.php:1339
 msgid "The short description for this product is too long."
 msgstr ""
 

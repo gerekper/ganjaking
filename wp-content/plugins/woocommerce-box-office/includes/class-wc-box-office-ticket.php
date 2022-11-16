@@ -293,7 +293,7 @@ class WC_Box_Office_Ticket {
 			if ( is_array( $val ) ) {
 				$val = implode( ', ', $val );
 			}
-			$ticket_content = str_replace( '{' . $field['label'] . '}', $val, $ticket_content );
+			$ticket_content = str_replace( '{' . $field['label'] . '}', esc_html( $val ), $ticket_content );
 		}
 
 		$post = get_post( $this->product_id );
@@ -316,7 +316,13 @@ class WC_Box_Office_Ticket {
 		$ticket_content = shortcode_unautop( $ticket_content );
 		$ticket_content = do_shortcode( $ticket_content );
 
-		return apply_filters( 'woocommerce_box_office_get_printed_ticket_content', $ticket_content );
+		/**
+		 * Provides an opportunity to modify the ticket content.
+		 *
+		 * @param string $ticket_content     Ticket HTML.
+		 * @param string $raw_ticket_content Raw ticket HTML.
+		 */
+		return apply_filters( 'woocommerce_box_office_get_printed_ticket_content', wp_kses_post( $ticket_content ), $ticket_content );
 	}
 
 	/**
@@ -390,6 +396,7 @@ class WC_Box_Office_Ticket {
 					$value = trim( $value, '/' );
 					$value = trim( $value, '.' );
 					$value = str_replace( '@', '', $value );
+					$value = sanitize_text_field( $value );
 					break;
 
 				case 'url':

@@ -904,15 +904,7 @@ class WC_Mix_and_Match_Cart {
 	 */
 	private function set_mnm_cart_item( $cart_item, $container ) {
 
-		$child_item_id = isset( $cart_item[ 'child_item_id' ] ) ? $cart_item[ 'child_item_id' ] : 0;
-
-		// If the item went into the cart before 2.0 update then it won't have a child_item_id key.
-		if ( ! $child_item_id ) {
-			$child_item_id = ! empty( $cart_item[ 'variation_id' ] ) ? 'product-' . $cart_item[ 'variation_id' ] : 'product-' . $cart_item[ 'product_id' ];
-			$cart_item[ 'child_item_id' ] = $child_item_id;
-		}
-
-		$child_item = $container->get_child_item( $cart_item[ 'child_item_id' ] ); // @todo - if the item went into the cart before 2.0 update then it won't have a child_item_id key
+		$child_item = $container->get_child_item_by_product_id( $cart_item[ 'variation_id' ] ? $cart_item[ 'variation_id' ] : $cart_item[ 'product_id' ] );
 
 		if ( ! $child_item ) {
 			return $cart_item;

@@ -1,80 +1,6 @@
 <?php
 
 /**
- * Docs Reactions Shortcode
- * *
- * @since      1.0.2
- * 
- */
-
-add_shortcode('betterdocs_article_reactions', 'betterdocs_article_reactions');
-function betterdocs_article_reactions($atts, $content = null)
-{
-    $get_args = shortcode_atts(
-        array(
-            'text' => ''
-        ),
-        $atts
-    );
-    do_action( 'betterdocs_before_shortcode_load' );
-    if ($get_args['text']) {
-        $reactions_text = $get_args['text'];
-    } else {
-        $reactions_text = get_theme_mod('betterdocs_post_reactions_text', esc_html__('What are your Feelings', 'betterdocs-pro'));
-    }
-	?>
-	<div class="betterdocs-article-reactions">
-		<div class="betterdocs-article-reactions-heading">
-			<?php 
-			if ($reactions_text) {
-				echo '<h5>' . esc_html($reactions_text) . '</h5>';
-			} 
-			?>
-		</div>
-		<ul class="betterdocs-article-reaction-links">
-			<li>
-				<a class="betterdocs-feelings" data-feelings="happy" href="#">
-					<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" style="enable-background:new 0 0 20 20;" xml:space="preserve">
-						<path class="st0" d="M10,0.1c-5.4,0-9.9,4.4-9.9,9.8c0,5.4,4.4,9.9,9.8,9.9c5.4,0,9.9-4.4,9.9-9.8C19.9,4.5,15.4,0.1,10,0.1z
-					M13.3,6.4c0.8,0,1.5,0.7,1.5,1.5c0,0.8-0.7,1.5-1.5,1.5c-0.8,0-1.5-0.7-1.5-1.5C11.8,7.1,12.5,6.4,13.3,6.4z M6.7,6.4
-					c0.8,0,1.5,0.7,1.5,1.5c0,0.8-0.7,1.5-1.5,1.5c-0.8,0-1.5-0.7-1.5-1.5C5.2,7.1,5.9,6.4,6.7,6.4z M10,16.1c-2.6,0-4.9-1.6-5.8-4
-					l1.2-0.4c0.7,1.9,2.5,3.2,4.6,3.2s3.9-1.3,4.6-3.2l1.2,0.4C14.9,14.5,12.6,16.1,10,16.1z" />
-						<path class="st1" d="M-6.6-119.7c-7.1,0-12.9,5.8-12.9,12.9s5.8,12.9,12.9,12.9s12.9-5.8,12.9-12.9S0.6-119.7-6.6-119.7z
-					M-2.3-111.4c1.1,0,2,0.9,2,2c0,1.1-0.9,2-2,2c-1.1,0-2-0.9-2-2C-4.3-110.5-3.4-111.4-2.3-111.4z M-10.9-111.4c1.1,0,2,0.9,2,2
-					c0,1.1-0.9,2-2,2c-1.1,0-2-0.9-2-2C-12.9-110.5-12-111.4-10.9-111.4z M-6.6-98.7c-3.4,0-6.4-2.1-7.6-5.3l1.6-0.6
-					c0.9,2.5,3.3,4.2,6,4.2s5.1-1.7,6-4.2L1-104C-0.1-100.8-3.2-98.7-6.6-98.7z" />
-					</svg>
-				</a>
-			</li>
-			<li>
-				<a class="betterdocs-feelings" data-feelings="normal" href="#">
-					<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" style="enable-background:new 0 0 20 20;" xml:space="preserve">
-						<path class="st0" d="M10,0.2c-5.4,0-9.8,4.4-9.8,9.8s4.4,9.8,9.8,9.8s9.8-4.4,9.8-9.8S15.4,0.2,10,0.2z M6.7,6.5
-				c0.8,0,1.5,0.7,1.5,1.5c0,0.8-0.7,1.5-1.5,1.5C5.9,9.5,5.2,8.9,5.2,8C5.2,7.2,5.9,6.5,6.7,6.5z M14.2,14.3H5.9
-				c-0.3,0-0.6-0.3-0.6-0.6c0-0.3,0.3-0.6,0.6-0.6h8.3c0.3,0,0.6,0.3,0.6,0.6C14.8,14,14.5,14.3,14.2,14.3z M13.3,9.5
-				c-0.8,0-1.5-0.7-1.5-1.5c0-0.8,0.7-1.5,1.5-1.5c0.8,0,1.5,0.7,1.5,1.5C14.8,8.9,14.1,9.5,13.3,9.5z" />
-					</svg>
-				</a>
-			</li>
-			<li>
-				<a class="betterdocs-feelings" data-feelings="sad" href="#">
-					<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" style="enable-background:new 0 0 20 20;" xml:space="preserve">
-						<circle class="st0" cx="27.5" cy="0.6" r="1.9" />
-						<circle class="st0" cx="36" cy="0.6" r="1.9" />
-						<path class="st1" d="M10,0.3c-5.4,0-9.8,4.4-9.8,9.8s4.4,9.8,9.8,9.8s9.8-4.4,9.8-9.8S15.4,0.3,10,0.3z M13.3,6.6
-					c0.8,0,1.5,0.7,1.5,1.5c0,0.8-0.7,1.5-1.5,1.5c-0.8,0-1.5-0.7-1.5-1.5C11.8,7.3,12.4,6.6,13.3,6.6z M6.7,6.6c0.8,0,1.5,0.7,1.5,1.5
-					c0,0.8-0.7,1.5-1.5,1.5C5.9,9.6,5.2,9,5.2,8.1C5.2,7.3,5.9,6.6,6.7,6.6z M14.1,15L14.1,15c-0.2,0-0.4-0.1-0.5-0.2
-					c-0.9-1-2.2-1.7-3.7-1.7s-2.8,0.6-3.7,1.7C6.2,14.9,6,15,5.9,15h0c-0.6,0-0.8-0.6-0.5-1.1c1.1-1.3,2.8-2.1,4.6-2.1
-					c1.8,0,3.5,0.8,4.6,2.1C15,14.3,14.7,15,14.1,15z" />
-					</svg>
-				</a>
-			</li>
-		</ul>
-	</div> <!-- Social Share end-->
-<?php }
-
-
-/**
  * Category box layout 3
  * *
  * @since      1.0.2
@@ -269,7 +195,7 @@ function betterdocs_multiple_kb_tab_grid($atts, $content = null)
             'terms' => '',
             'terms_orderby' => '',
             'terms_order' => '',
-            'disable_customizer_style' => false,
+            'disable_customizer_style' => 'false',
             'title_tag' => 'h2',
             'orderby' => BetterDocs_DB::get_settings('alphabetically_order_post'),
             'order' => BetterDocs_DB::get_settings('docs_order'),
@@ -305,7 +231,7 @@ function betterdocs_multiple_kb_tab_grid($atts, $content = null)
     if ($taxonomy_objects && !is_wp_error($taxonomy_objects)) :
         $class = ['betterdocs-categories-wrap betterdocs-tab-grid ash-bg'];
 
-        if ($get_args['disable_customizer_style'] == false) {
+        if ($get_args['disable_customizer_style'] == 'false') {
             $class[] = 'multiple-kb';
         }
 
@@ -326,7 +252,7 @@ function betterdocs_multiple_kb_tab_grid($atts, $content = null)
                 if ($kb->count > 0) {
                     echo '<div class="betterdocs-tab-content '.$kb->slug.'">';
                     echo '<div class="betterdocs-tab-categories">';
-                    $category_objects = BetterDocs_Helper::taxonomy_object(true, $get_args['terms'], $get_args['terms_order'], $get_args['terms_orderby'], $kb->slug, $nested_subcategory);
+                    $category_objects = BetterDocs_Helper::taxonomy_object(true, '', $get_args['terms_order'], $get_args['terms_orderby'], $kb->slug, $nested_subcategory);
                     if ($category_objects && !is_wp_error($category_objects)) {
                         // display category grid by order
                         foreach ($category_objects as $term) {
@@ -375,14 +301,15 @@ function betterdocs_multiple_kb_tab_grid($atts, $content = null)
                                             nested_category_list(
                                                 $term_id,
                                                 true,
-                                                '',
+                                                array(''),
                                                 'docs',
 												$get_args['orderby'],
 												$get_args['order'],
                                                 $get_args['terms_orderby'],
                                                 $get_args['terms_order'],
                                                 '',
-                                                $kb->slug
+                                                $kb->slug,
+												$posts_per_grid
                                             );
                                         }
 
@@ -685,7 +612,7 @@ function betterdocs_multiple_kb_list($atts, $content = null)
     $get_args = shortcode_atts(
         array(
             'terms' => '',
-            'disable_customizer_style' => false,
+            'disable_customizer_style' => 'false',
             'title_tag' => 'h2'
         ),
         $atts
@@ -716,7 +643,7 @@ function betterdocs_multiple_kb_list($atts, $content = null)
     if ($taxonomy_objects && !is_wp_error($taxonomy_objects)) :
         $class = ['betterdocs-categories-wrap betterdocs-category-box betterdocs-category-box-pro pro-layout-3 layout-flex betterdocs-list-view ash-bg'];
 
-        if ($get_args['disable_customizer_style'] == false) {
+        if ($get_args['disable_customizer_style'] == 'false') {
             $class[] = 'multiple-kb';
         }
 
@@ -1178,41 +1105,15 @@ function betterdocs_load_terms() {
 	$nested_subcategory = BetterDocs_DB::get_settings('nested_subcategory') != 'off' ? true : false;
 	$terms         		= BetterDocs_Helper::get_doc_terms( $multiple_kb, $terms_order, $terms_orderby, $tax_page, $current_term_id, $nested_subcategory, $kb_slug );
 	$terms				= array_slice( $terms, $current_items, $no_of_terms );
-	$term_list = '';
+	$other_terms_markup = related_categories( $terms, $nested_subcategory, $multiple_kb );
 
-	foreach( $terms as $term_object ) {
-		$term_title 	  			= isset( $term_object->name ) ? $term_object->name : '';
-		$term_slug        			= isset( $term_object->slug ) ? $term_object->slug : '';
-		$term_permalink   			= BetterDocs_Helper::term_permalink('doc_category', $term_slug);
-		$current_category_icon_id 	= get_term_meta( $term_object->term_id, 'doc_category_thumb-id', true ) ?  get_term_meta( $term_object->term_id, 'doc_category_thumb-id', true ) : '';
-		$current_category_icon_url  = $current_category_icon_id ? wp_get_attachment_image( $current_category_icon_id, array('340', '282') ) : '<img src="' . BETTERDOCS_PRO_URL. 'admin/assets/img/cat-grid-3.png">';
-		$term_description 			= $term_object->description != '' ? '<p class="betterdocs-related-term-desc">'.wp_trim_words( $term_object->description, 10 ).'</p>' : '';
-		$term_count       			= isset( $term_object->count ) ? $term_object->count : '';
-		$term_doc_count	  			= betterdocs_get_postcount( $term_count, $term_object->term_id, $nested_subcategory );
-		$term_doc_count	  			= apply_filters('betterdocs_postcount', $term_doc_count, $multiple_kb, $term_object->term_id, $term_slug, $term_count, $nested_subcategory, $kb_slug ); 		
-		$term_list 		 		   .= '<div class="betterdocs-related-category">';
-		$term_list				   .= '<div class="betterdocs-related-category-wrap">';
-		$term_list				   .= '<div class="betterdocs-related-category-img-wrap">';
-		$term_list		 		   .= $current_category_icon_url;
-		$term_list				   .= '</div>';
-		$term_list				   .= '<div class="betterdocs-related-category-info-wrap">';
-		$term_list		 		   .= '<a href="'.$term_permalink.'" class="betterdocs-related-info">';
-		$term_list       		   .= '<h2 class="betterdocs-related-term-text">'.$term_title.'</h2>';
-		$term_list		 		   .= '<span class="betterdocs-related-term-count">'.$term_doc_count.'</span>';
-		$term_list		 		   .= '</a>';
-		$term_list		 		   .= $term_description;
-		$term_list				   .= '</div>';
-		$term_list				   .= '</div>';
-		$term_list		 		   .= '</div>';
-	}
-
-	wp_send_json_success( $term_list );
+	wp_send_json_success( $other_terms_markup );
 
 	die();
 }
 
-add_shortcode( 'betterdocs_category_related_terms','betterdocs_category_related_terms' );
-function betterdocs_category_related_terms($atts,  $content = null) {
+add_shortcode( 'betterdocs_related_categories','betterdocs_related_categories' );
+function betterdocs_related_categories($atts,  $content = null) {
 	do_action( 'betterdocs_before_shortcode_load' );
 
 	ob_start();
@@ -1240,6 +1141,30 @@ function betterdocs_category_related_terms($atts,  $content = null) {
 	$current_term_id	 = get_queried_object() != null ? get_queried_object()->term_id : '';
 	$terms_objects       = class_exists('BetterDocs_Helper') && ! is_wp_error( BetterDocs_Helper::get_doc_terms( $multiple_kb, $terms_order, $terms_orderby, BetterDocs_Helper::get_tax(), $current_term_id, $nested_subcategory ) ) ? array_slice( BetterDocs_Helper::get_doc_terms(  $multiple_kb, $terms_order, $terms_orderby, BetterDocs_Helper::get_tax(), $current_term_id, $nested_subcategory ), 0, 4 ) : '';
 	$terms_objects_count = count( BetterDocs_Helper::get_doc_terms( $multiple_kb, $terms_order, $terms_orderby, BetterDocs_Helper::get_tax(), $current_term_id, $nested_subcategory ) );
+	$other_terms_markup  = related_categories( $terms_objects, $nested_subcategory, $multiple_kb, $terms_title_tag );
+
+	$loader = '<svg class="betterdocs-load-more-loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: 0; background: none; shape-rendering: auto;" width="25px" height="25px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"><g transform="translate(78,50)"><g transform="rotate(0)"><circle cx="0" cy="0" r="6" fill="#ccbaff" fill-opacity="1"><animateTransform attributeName="transform" type="scale" begin="-0.8663366336633663s" values="1.5 1.5;1 1" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite"></animateTransform><animate attributeName="fill-opacity" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite" values="1;0" begin="-0.8663366336633663s"></animate></circle></g></g><g transform="translate(69.79898987322333,69.79898987322332)"><g transform="rotate(45)"><circle cx="0" cy="0" r="6" fill="#ccbaff" fill-opacity="0.875"><animateTransform attributeName="transform" type="scale" begin="-0.7425742574257426s" values="1.5 1.5;1 1" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite"></animateTransform><animate attributeName="fill-opacity" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite" values="1;0" begin="-0.7425742574257426s"></animate></circle></g></g><g transform="translate(50,78)"><g transform="rotate(90)"><circle cx="0" cy="0" r="6" fill="#ccbaff" fill-opacity="0.75"><animateTransform attributeName="transform" type="scale" begin="-0.6188118811881188s" values="1.5 1.5;1 1" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite"></animateTransform><animate attributeName="fill-opacity" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite" values="1;0" begin="-0.6188118811881188s"></animate></circle></g></g><g transform="translate(30.201010126776673,69.79898987322333)"><g transform="rotate(135)"><circle cx="0" cy="0" r="6" fill="#ccbaff" fill-opacity="0.625"><animateTransform attributeName="transform" type="scale" begin="-0.49504950495049505s" values="1.5 1.5;1 1" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite"></animateTransform><animate attributeName="fill-opacity" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite" values="1;0" begin="-0.49504950495049505s"></animate></circle></g></g><g transform="translate(22,50)"><g transform="rotate(180)"><circle cx="0" cy="0" r="6" fill="#ccbaff" fill-opacity="0.5"><animateTransform attributeName="transform" type="scale" begin="-0.3712871287128713s" values="1.5 1.5;1 1" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite"></animateTransform><animate attributeName="fill-opacity" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite" values="1;0" begin="-0.3712871287128713s"></animate></circle></g></g><g transform="translate(30.201010126776666,30.201010126776673)"><g transform="rotate(225)"><circle cx="0" cy="0" r="6" fill="#ccbaff" fill-opacity="0.375"><animateTransform attributeName="transform" type="scale" begin="-0.24752475247524752s" values="1.5 1.5;1 1" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite"></animateTransform><animate attributeName="fill-opacity" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite" values="1;0" begin="-0.24752475247524752s"></animate></circle></g></g><g transform="translate(49.99999999999999,22)"><g transform="rotate(270)"><circle cx="0" cy="0" r="6" fill="#ccbaff" fill-opacity="0.25"><animateTransform attributeName="transform" type="scale" begin="-0.12376237623762376s" values="1.5 1.5;1 1" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite"></animateTransform><animate attributeName="fill-opacity" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite" values="1;0" begin="-0.12376237623762376s"></animate></circle></g></g><g transform="translate(69.79898987322332,30.201010126776666)"><g transform="rotate(315)"><circle cx="0" cy="0" r="6" fill="#ccbaff" fill-opacity="0.125"><animateTransform attributeName="transform" type="scale" begin="0s" values="1.5 1.5;1 1" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite"></animateTransform><animate attributeName="fill-opacity" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite" values="1;0" begin="0s"></animate></circle></g></g></svg>';
+	echo empty( $terms_objects ) ? '<h2 class="betterdocs-related-doc-head">'.__('No Other Categories', 'betterdocs-pro').'</h2>' : '<h2 class="betterdocs-related-doc-head">'.$heading.'</h2>';
+	echo '<div class="betterdocs-related-doc-row">';
+	echo $other_terms_markup;	   
+	echo '</div>';
+	echo '<div class="betterdocs-show-more-terms">';
+	echo ! empty( $terms_objects ) && $terms_objects_count > 4 ? '<button class="betterdocs-load-more-button" type="button"><p class="load-more-text">'.$load_more_text.'</p>'.$loader.'</button>' : '';
+	echo '</div>';
+
+	return ob_get_clean();
+}
+
+/**
+ * This function creates related categories markup.
+ * 
+ * @param array $terms_objects
+ * @param bool $nested_subcategory
+ * @param bool $multiple_kb
+ * 
+ * @return string
+ */
+function related_categories( $terms_objects, $nested_subcategory, $multiple_kb, $terms_title_tag = 'h2' ) {
 	$term_list = '';
 
 	foreach( $terms_objects as $term_object ) {
@@ -1250,8 +1175,9 @@ function betterdocs_category_related_terms($atts,  $content = null) {
 			$current_category_icon_url  = $current_category_icon_id ? wp_get_attachment_image( $current_category_icon_id, array('340', '282') ) : '<img src="' . BETTERDOCS_PRO_URL. 'admin/assets/img/cat-grid-3.png">';
 			$term_description 			= $term_object->description != '' ? '<p class="betterdocs-related-term-desc">'.wp_trim_words( $term_object->description, 10 ).'</p>' : '';
 			$term_count       			= isset( $term_object->count ) ? $term_object->count : '';
+			$kb_slug         			= $multiple_kb && ! empty( get_term_meta( $term_object->term_id,'doc_category_knowledge_base', true )[0] ) ? get_term_meta( $term_object->term_id,'doc_category_knowledge_base', true )[0] : '';
             $term_doc_count	  			= betterdocs_get_postcount( $term_count, $term_object->term_id, $nested_subcategory );
-            $term_doc_count	  			= apply_filters('betterdocs_postcount', $term_doc_count, $multiple_kb, $term_object->term_id, $term_slug, $term_count, $nested_subcategory); 
+            $term_doc_count	  			= apply_filters('betterdocs_postcount', $term_doc_count, $multiple_kb, $term_object->term_id, $term_slug, $term_count, $nested_subcategory,	$kb_slug ); 
 			$term_list 		 		   .= '<div class="betterdocs-related-category">';
 			$term_list				   .= '<div class="betterdocs-related-category-wrap">';
 			$term_list				   .= '<div class="betterdocs-related-category-img-wrap">';
@@ -1268,16 +1194,7 @@ function betterdocs_category_related_terms($atts,  $content = null) {
 			$term_list		 		   .= '</div>';
 	}
 
-	$loader = '<svg class="betterdocs-load-more-loader" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: 0; background: none; shape-rendering: auto;" width="25px" height="25px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"><g transform="translate(78,50)"><g transform="rotate(0)"><circle cx="0" cy="0" r="6" fill="#ccbaff" fill-opacity="1"><animateTransform attributeName="transform" type="scale" begin="-0.8663366336633663s" values="1.5 1.5;1 1" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite"></animateTransform><animate attributeName="fill-opacity" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite" values="1;0" begin="-0.8663366336633663s"></animate></circle></g></g><g transform="translate(69.79898987322333,69.79898987322332)"><g transform="rotate(45)"><circle cx="0" cy="0" r="6" fill="#ccbaff" fill-opacity="0.875"><animateTransform attributeName="transform" type="scale" begin="-0.7425742574257426s" values="1.5 1.5;1 1" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite"></animateTransform><animate attributeName="fill-opacity" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite" values="1;0" begin="-0.7425742574257426s"></animate></circle></g></g><g transform="translate(50,78)"><g transform="rotate(90)"><circle cx="0" cy="0" r="6" fill="#ccbaff" fill-opacity="0.75"><animateTransform attributeName="transform" type="scale" begin="-0.6188118811881188s" values="1.5 1.5;1 1" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite"></animateTransform><animate attributeName="fill-opacity" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite" values="1;0" begin="-0.6188118811881188s"></animate></circle></g></g><g transform="translate(30.201010126776673,69.79898987322333)"><g transform="rotate(135)"><circle cx="0" cy="0" r="6" fill="#ccbaff" fill-opacity="0.625"><animateTransform attributeName="transform" type="scale" begin="-0.49504950495049505s" values="1.5 1.5;1 1" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite"></animateTransform><animate attributeName="fill-opacity" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite" values="1;0" begin="-0.49504950495049505s"></animate></circle></g></g><g transform="translate(22,50)"><g transform="rotate(180)"><circle cx="0" cy="0" r="6" fill="#ccbaff" fill-opacity="0.5"><animateTransform attributeName="transform" type="scale" begin="-0.3712871287128713s" values="1.5 1.5;1 1" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite"></animateTransform><animate attributeName="fill-opacity" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite" values="1;0" begin="-0.3712871287128713s"></animate></circle></g></g><g transform="translate(30.201010126776666,30.201010126776673)"><g transform="rotate(225)"><circle cx="0" cy="0" r="6" fill="#ccbaff" fill-opacity="0.375"><animateTransform attributeName="transform" type="scale" begin="-0.24752475247524752s" values="1.5 1.5;1 1" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite"></animateTransform><animate attributeName="fill-opacity" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite" values="1;0" begin="-0.24752475247524752s"></animate></circle></g></g><g transform="translate(49.99999999999999,22)"><g transform="rotate(270)"><circle cx="0" cy="0" r="6" fill="#ccbaff" fill-opacity="0.25"><animateTransform attributeName="transform" type="scale" begin="-0.12376237623762376s" values="1.5 1.5;1 1" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite"></animateTransform><animate attributeName="fill-opacity" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite" values="1;0" begin="-0.12376237623762376s"></animate></circle></g></g><g transform="translate(69.79898987322332,30.201010126776666)"><g transform="rotate(315)"><circle cx="0" cy="0" r="6" fill="#ccbaff" fill-opacity="0.125"><animateTransform attributeName="transform" type="scale" begin="0s" values="1.5 1.5;1 1" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite"></animateTransform><animate attributeName="fill-opacity" keyTimes="0;1" dur="0.9900990099009901s" repeatCount="indefinite" values="1;0" begin="0s"></animate></circle></g></g></svg>';
-	echo empty( $terms_objects ) ? '<h2 class="betterdocs-related-doc-head">'.__('No Other Categories', 'betterdocs-pro').'</h2>' : '<h2 class="betterdocs-related-doc-head">'.$heading.'</h2>';
-	echo '<div class="betterdocs-related-doc-row">';
-	echo $term_list;	   
-	echo '</div>';
-	echo '<div class="betterdocs-show-more-terms">';
-	echo ! empty( $terms_objects ) && $terms_objects_count > 4 ? '<button class="betterdocs-load-more-button" type="button"><p class="load-more-text">'.$load_more_text.'</p>'.$loader.'</button>' : '';
-	echo '</div>';
-
-	return ob_get_clean();
+	return $term_list;
 }
 
 /* Describe what the code snippet does so you can remember later on */

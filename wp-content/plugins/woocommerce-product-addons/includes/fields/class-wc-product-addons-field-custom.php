@@ -101,6 +101,7 @@ class WC_Product_Addons_Field_Custom extends WC_Product_Addons_Field {
 						'display'    => wp_strip_all_tags( wc_price( $price ) ),
 						'field_name' => $this->addon['field_name'],
 						'field_type' => $this->addon['type'],
+						'id'         => isset( $this->addon[ 'id' ] ) ? $this->addon[ 'id' ] : 0,
 						'price_type' => $this->addon['price_type'],
 					);
 				}
@@ -115,6 +116,7 @@ class WC_Product_Addons_Field_Custom extends WC_Product_Addons_Field {
 						'price'      => '1' != $adjust_price ? 0 : floatval( sanitize_text_field( $price * $posted ) ),
 						'field_name' => $this->addon['field_name'],
 						'field_type' => $this->addon['type'],
+						'id'         => isset( $this->addon[ 'id' ] ) ? $this->addon[ 'id' ] : 0,
 						'price_type' => $this->addon['price_type'],
 					);
 				}
@@ -126,6 +128,7 @@ class WC_Product_Addons_Field_Custom extends WC_Product_Addons_Field {
 					'price'      => '1' != $adjust_price ? 0 : floatval( sanitize_text_field( $price ) ),
 					'field_name' => $this->addon['field_name'],
 					'field_type' => $this->addon['type'],
+					'id'         => isset( $this->addon[ 'id' ] ) ? $this->addon[ 'id' ] : 0,
 					'price_type' => $this->addon['price_type'],
 				);
 				break;

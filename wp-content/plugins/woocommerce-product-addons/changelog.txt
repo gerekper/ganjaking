@@ -1,5 +1,11 @@
 *** Product Addons Changelog ***
 
+2022-11-08 - version 5.0.2
+* Tweak - Introduced compatibility with the new High-Performance Order Storage.
+* Fix - Removed unnecessary meta boxes sanitization.
+* Fix - Resolved an issue that made addons with identical titles show up multiple times in the cart when re-ordering.
+
+
 2022-11-01 - version 5.0.1
 * Fix - Resolved PHPCS security issues.
 * Tweak - Updated numeric addons to be compatible with mobile browsers.

@@ -1,5 +1,8 @@
 *** Bulk Stock Management Changelog ***
 
+2022-11-09 - version 2.2.32
+* Declare positive compatibility with HPOS.
+
 2020-11-25 - version 2.2.31
 * Fix - Fatal error when opening the Stock Management page in PHP 8.
 * Tweak - WC 4.7 compatibility.

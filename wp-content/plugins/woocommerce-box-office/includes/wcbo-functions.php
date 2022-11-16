@@ -718,7 +718,7 @@ function wc_box_office_ticket_field_input( $field_key = '', $field = array(), $t
 		case 'email':
 		case 'url':
 		case 'twitter':
-			$html .= '<input type="text" class="input-text" value="' . $value . '" name="ticket_fields[' . $field_key . ']" id="field_' . $field_key . '"' . $disabled . ' />' . "\n";
+			$html .= '<input type="text" class="input-text" value="' . esc_attr( $value ) . '" name="ticket_fields[' . $field_key . ']" id="field_' . $field_key . '"' . $disabled . ' />' . "\n";
 		break;
 
 		case 'select':

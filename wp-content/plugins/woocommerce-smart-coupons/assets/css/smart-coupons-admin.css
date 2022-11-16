@@ -13,8 +13,9 @@ a#sc-manage-category,
 	background-color: #f0fff0;
 }
 button#export_coupons > span.dashicons,
-a#wc_sc_print_coupons > span.dashicons {
-	transform: translateY(15%);
+a#wc_sc_print_coupons > span.dashicons,
+a#sc-manage-category > span.dashicons {
+	transform: translateX(-15%) translateY(15%);
 }
 div#smart_coupons_tabs h2 {
 	margin-bottom: 10px;

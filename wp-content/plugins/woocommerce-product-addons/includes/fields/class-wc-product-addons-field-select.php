@@ -44,12 +44,13 @@ class WC_Product_Addons_Field_Select extends WC_Product_Addons_Field {
 		}
 
 		$cart_item_data[] = array(
-			'name'  => sanitize_text_field( $this->addon['name'] ),
-			'value' => $chosen_option['label'],
-			'price' => floatval( sanitize_text_field( $this->get_option_price( $chosen_option ) ) ),
-			'field_name' => $this->addon['field_name'],
-			'field_type' => $this->addon['type'],
-			'price_type' => $chosen_option['price_type'],
+			'name'       => sanitize_text_field( $this->addon[ 'name' ] ),
+			'value'      => $chosen_option[ 'label' ],
+			'price'      => floatval( sanitize_text_field( $this->get_option_price( $chosen_option ) ) ),
+			'field_name' => $this->addon[ 'field_name' ],
+			'field_type' => $this->addon[ 'type' ],
+			'id'         => isset( $this->addon[ 'id' ] ) ? $this->addon[ 'id' ] : 0,
+			'price_type' => $chosen_option[ 'price_type' ],
 		);
 
 		return $cart_item_data;

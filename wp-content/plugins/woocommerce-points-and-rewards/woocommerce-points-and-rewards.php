@@ -5,11 +5,11 @@
  * Description: Reward customers for purchases and other actions with points which can be redeemed for discounts
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
- * Version: 1.7.19
+ * Version: 1.7.20
  * Text Domain: woocommerce-points-and-rewards
  * Domain Path: /languages/
- * Tested up to: 6.0
- * WC tested up to: 7.0
+ * Tested up to: 6.1
+ * WC tested up to: 7.1
  * WC requires at least: 4.5
  *
  * Copyright: © 2022 WooCommerce
@@ -20,9 +20,21 @@
  * Woo: 210259:1649b6cca5da8b923b01ca56b5cdd246
  */
 
+use Automattic\WooCommerce\Utilities\FeaturesUtil;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+// HPOS compatibility declaration.
+add_action(
+	'before_woocommerce_init',
+	function() {
+		if ( class_exists( FeaturesUtil::class ) ) {
+			FeaturesUtil::declare_compatibility( 'custom_order_tables', plugin_basename( __FILE__ ), true );
+		}
+	}
+);
 
 /**
  * WooCommerce fallback notice.
@@ -143,7 +155,7 @@ register_activation_hook( __FILE__, 'wc_points_rewards_activate' );
  */
 
 if ( ! class_exists( 'WC_Points_Rewards' ) ) :
-	define( 'WC_POINTS_REWARDS_VERSION', '1.7.19' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_POINTS_REWARDS_VERSION', '1.7.20' ); // WRCS: DEFINED_VERSION.
 	define( 'WC_POINTS_REWARDS_ENDPOINT', 'points-and-rewards' );
 
 	class WC_Points_Rewards {
@@ -426,7 +438,7 @@ if ( ! class_exists( 'WC_Points_Rewards' ) ) :
 		 */
 		public function get_points_label( $count ) {
 
-			list( $singular, $plural ) = explode( ':', get_option( 'wc_points_rewards_points_label' ) );
+			[ $singular, $plural ] = explode( ':', get_option( 'wc_points_rewards_points_label' ) );
 
 			return 1 == $count ? $singular : $plural;
 		}
@@ -679,7 +691,7 @@ if ( ! class_exists( 'WC_Points_Rewards' ) ) :
 
 			if ( isset( $expiry ) && '' !== $expiry ) {
 
-				list( $number, $period ) = explode( ':', $expiry );
+				[ $number, $period ] = explode( ':', $expiry );
 
 				if ( is_numeric( $number ) && in_array( $period, array( 'DAY', 'WEEK', 'MONTH', 'YEAR' ) ) ) {
 

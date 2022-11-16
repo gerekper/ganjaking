@@ -203,7 +203,11 @@ class WC_Product_Addons_Cart {
 	 * @param  array                 $values        Order item values.
 	 */
 	public function order_line_item( $item, $cart_item_key, $values ) {
+
 		if ( ! empty( $values['addons'] ) ) {
+
+			$ids = array();
+
 			foreach ( $values['addons'] as $addon ) {
 				$key           = $addon['name'];
 				$price_type    = $addon['price_type'];
@@ -243,13 +247,18 @@ class WC_Product_Addons_Cart {
 				}
 
 				$meta_data = [
-					'key'   => $key,
-					'value' => $addon['value'],
+					'key'        => $key,
+					'value'      => $addon[ 'value' ],
+					'id'         => $addon[ 'id' ]
 				];
 				$meta_data = apply_filters( 'woocommerce_product_addons_order_line_item_meta', $meta_data, $addon, $item, $values );
 
 				$item->add_meta_data( $meta_data['key'], $meta_data['value'] );
+
+				$ids[] = $meta_data;
 			}
+
+			$item->add_meta_data( '_pao_ids', $ids );
 		}
 	}
 
@@ -268,7 +277,13 @@ class WC_Product_Addons_Cart {
 		remove_filter( 'woocommerce_add_to_cart_validation', array( $this, 'validate_add_cart_item' ), 999, 3 );
 
 		// Get addon data.
-		$product_addons = WC_Product_Addons_Helper::get_product_addons( $item['product_id'] );
+		$product_addons   = WC_Product_Addons_Helper::get_product_addons( $item['product_id'] );
+		$ids              = $item->get_meta( '_pao_ids', true );
+
+		// Backwards compatibility for orders with Addons without ID.
+		if ( empty( $ids ) ) {
+			$ids = $item->get_meta_data();
+		}
 
 		if ( empty( $cart_item_data['addons'] ) ) {
 			$cart_item_data['addons'] = array();
@@ -290,17 +305,7 @@ class WC_Product_Addons_Cart {
 					case 'checkbox':
 						include_once WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/fields/class-wc-product-addons-field-list.php';
 
-						$value = array();
-
-						foreach ( $item->get_meta_data() as $meta ) {
-							if ( stripos( $meta->key, $addon['name'] ) === 0 ) {
-								if ( is_array( $meta->value ) && ! empty( $meta->value ) ) {
-									$value[] = array_map( 'sanitize_title', $meta->value );
-								} else {
-									$value[] = sanitize_title( $meta->value );
-								}
-							}
-						}
+						$value = $this->get_addon_meta_value( $ids, $addon, 'checkbox' );
 
 						if ( empty( $value ) ) {
 							continue 2; // Skip to next addon in foreach loop.
@@ -314,17 +319,7 @@ class WC_Product_Addons_Cart {
 							case 'radiobutton':
 								include_once WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/fields/class-wc-product-addons-field-list.php';
 
-								$value = array();
-
-								foreach ( $item->get_meta_data() as $meta ) {
-									if ( stripos( $meta->key, $addon['name'] ) === 0 ) {
-										if ( is_array( $meta->value ) && ! empty( $meta->value ) ) {
-											$value[] = array_map( 'sanitize_title', $meta->value );
-										} else {
-											$value[] = sanitize_title( $meta->value );
-										}
-									}
-								}
+								$value = $this->get_addon_meta_value( $ids, $addon, 'radiobutton' );
 
 								if ( empty( $value ) ) {
 									continue 3; // Skip to next addon in foreach loop. Need to use 3 because we have two nested switch statements.
@@ -336,12 +331,7 @@ class WC_Product_Addons_Cart {
 							case 'select':
 								include_once WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/fields/class-wc-product-addons-field-select.php';
 
-								foreach ( $item->get_meta_data() as $meta ) {
-									if ( stripos( $meta->key, $addon['name'] ) === 0 ) {
-										$value = sanitize_title( $meta->value );
-										break;
-									}
-								}
+								$value = $this->get_addon_meta_value( $ids, $addon, 'select' );
 
 								if ( empty( $value ) ) {
 									continue 3; // Skip to next addon in foreach loop. Need to use 3 because we have two nested switch statements.
@@ -365,13 +355,8 @@ class WC_Product_Addons_Cart {
 					case 'select':
 						include_once WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/fields/class-wc-product-addons-field-select.php';
 
-						foreach ( $item->get_meta_data() as $meta ) {
-							if ( stripos( $meta->key, $addon['name'] ) === 0 ) {
-								$value = sanitize_title( $meta->value );
+						$value = $this->get_addon_meta_value( $ids, $addon, 'select' );
 
-								break;
-							}
-						}
 
 						if ( empty( $value ) ) {
 							continue 2; // Skip to next addon in foreach loop.
@@ -396,12 +381,7 @@ class WC_Product_Addons_Cart {
 					case 'input_multiplier':
 						include_once WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/fields/class-wc-product-addons-field-custom.php';
 
-						foreach ( $item->get_meta_data() as $meta ) {
-							if ( stripos( $meta->key, $addon['name'] ) === 0 ) {
-								$value = wc_clean( $meta->value );
-								break;
-							}
-						}
+						$value = $this->get_addon_meta_value( $ids, $addon, 'input_multiplier' );
 
 						if ( empty( $value ) ) {
 							continue 2; // Skip to next addon in foreach loop.
@@ -412,12 +392,7 @@ class WC_Product_Addons_Cart {
 					case 'file_upload':
 						include_once WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/fields/class-wc-product-addons-field-file-upload.php';
 
-						foreach ( $item->get_meta_data() as $meta ) {
-							if ( stripos( $meta->key, $addon['name'] ) === 0 ) {
-								$value = wc_clean( $meta->value );
-								break;
-							}
-						}
+						$value = $this->get_addon_meta_value( $ids, $addon, 'file_upload' );
 
 						if ( empty( $value ) ) {
 							continue 2; // Skip to next addon in foreach loop.
@@ -630,6 +605,75 @@ class WC_Product_Addons_Cart {
 		}
 
 		return $other_data;
+	}
+
+	/**
+	 * Grabs the value of a product addon from order item meta.
+	 *
+	 * @param array  $ids Array of addon meta that include id, name and value.
+	 * @param array  $addon
+	 * @param string $type Addon type.
+	 * @return array
+	 */
+	public function get_addon_meta_value( $ids, $addon, $type ) {
+		$value = array();
+
+		if ( 'checkbox' === $type || 'radiobutton' === $type ) {
+			foreach ( $ids as $meta ) {
+				if ( $this->is_matching_addon( $addon, $meta ) ) {
+					$meta_value = is_object( $meta ) ? $meta->value : $meta[ 'value' ];
+					if ( is_array( $meta_value ) && ! empty( $meta_value ) ) {
+						$value[] = array_map( 'sanitize_title', $meta_value );
+					} else {
+						$value[] = sanitize_title( $meta_value );
+					}
+					break;
+				}
+			}
+		} elseif( 'select' === $type ) {
+			foreach ( $ids as $meta ) {
+				if ( $this->is_matching_addon( $addon, $meta ) ) {
+					$meta_value = is_object( $meta ) ? $meta->value : $meta[ 'value' ];
+					$value      = sanitize_title( $meta_value );
+					break;
+				}
+			}
+		} else {
+			foreach ( $ids as $meta ) {
+				if ( $this->is_matching_addon( $addon, $meta ) ) {
+					$meta_value = is_object( $meta ) ? $meta->value : $meta[ 'value' ];
+					$value      = wc_clean( $meta_value );
+					break;
+				}
+			}
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Checks if an order item addon meta matches a product level addon.
+	 *
+	 * @param array  $addon
+	 * @param array|object  $meta
+	 * @return boolean
+	 */
+	public function is_matching_addon( $addon, $meta ) {
+
+		if (
+			is_array( $meta )
+			&& isset( $addon[ 'id' ] )
+			&& isset( $meta[ 'id' ] )
+			&& 0 !== $addon[ 'id' ]
+			&& 0 !== $meta[ 'id' ] ) {
+			$match = $addon[ 'id' ] === $meta[ 'id' ] && stripos( $meta[ 'key' ], $addon['name'] ) === 0;
+		} else {
+			// Backwards compatibility for addons without ID.
+			$meta_key = is_object( $meta ) ? $meta->key : $meta[ 'key' ];
+			$match    = stripos( $meta_key, $addon['name'] ) === 0;
+		}
+
+		return $match;
 	}
 
 	/**

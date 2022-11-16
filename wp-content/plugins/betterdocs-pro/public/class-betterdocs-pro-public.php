@@ -62,7 +62,6 @@ class Betterdocs_Pro_Public
 		add_filter('betterdocs_archive_template', array($this, 'get_docs_archive_template'));
 		add_filter('betterdocs_single_layout_select_choices', array($this, 'customizer_single_layout_choices'));
 		add_filter('betterdocs_single_template', array($this, 'get_docs_single_template'));
-		add_action('betterdocs_docs_before_social', array($this, 'betterdocs_article_reactions'));
         add_filter('betterdocs_layout_documentation_page_settings', array($this, 'popular_docs_settings'));
         add_filter('betterdocs_option_default_settings', array($this, 'betterdocs_default_option_setting'), 10, 1);
         add_filter('betterdocs_search_form_atts', array($this, 'search_form_atts'));
@@ -72,6 +71,7 @@ class Betterdocs_Pro_Public
         add_action('betterdocs_popular_keyword_limit_settings', array($this, 'popular_keyword_limit'));
         add_filter('betterdocs_search_button_text', array($this, 'search_button_text'), 10, 1);
         add_filter('betterdocs_posts_number', array( $this, 'betterdocs_add_note' ), 10, 1 );
+        
         if ($this->internal_kb == 1) {
             add_filter('betterdocs_category_terms_object', array($this, 'restrict_doc_category'), 10, 1);
             add_filter('betterdocs_kb_terms_object', array($this, 'restrict_kb'), 10, 1);
@@ -387,19 +387,11 @@ class Betterdocs_Pro_Public
         $values['betterdocs_popular_docs_text']   = esc_html__('Popular Docs', 'betterdocs-pro');
         $values['betterdocs_popular_docs_number'] = 10;
         $values['search_button_text']             = esc_html__('Search','betterdocs-pro');
+        $values['reporting_frequency']            = 'betterdocs_daily';
+        $values['select_reporting_data']        = array('overview', 'top-docs', 'most-search');
+        $values['reporting_subject']              = wp_sprintf( '%s %s', __( 'Weekly Engagement Summary of', 'betterdocs-pro' ),  get_bloginfo( 'name' ) );
         return $values;
     }
-
-	public function betterdocs_article_reactions($reactions = '')
-	{
-		$post_reactions = get_theme_mod('betterdocs_post_reactions', true);
-
-		if ($post_reactions == true) {
-			$reactions = do_shortcode('[betterdocs_article_reactions]');
-		}
-
-		return $reactions;
-	}
 
     public function advance_search_settings()
     {
@@ -543,6 +535,7 @@ class Betterdocs_Pro_Public
             heading_tag="'.$heading_tag.'"
             subheading_tag="'.$subheading_tag.'"]').'</div>';
     }
+
 
     public function shutdown() {
         global $migration_Process;

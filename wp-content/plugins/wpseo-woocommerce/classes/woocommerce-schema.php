@@ -73,7 +73,7 @@ class WPSEO_WooCommerce_Schema {
 	/**
 	 * Should the yoast schema output be used.
 	 *
-	 * @return bool Whether or not the Yoast SEO schema should be output.
+	 * @return bool Whether the Yoast SEO schema should be output.
 	 */
 	public static function should_output_yoast_schema() {
 		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals -- Using WPSEO hook.
@@ -182,6 +182,7 @@ class WPSEO_WooCommerce_Schema {
 		$this->add_manufacturer( $product );
 		$this->add_color( $product );
 		$this->add_pattern( $product );
+		$this->add_material( $product );
 		$this->add_global_identifier( $product );
 
 		/**
@@ -434,17 +435,19 @@ class WPSEO_WooCommerce_Schema {
 	}
 
 	/**
-	 * Adds the product color property to the Schema output.
+	 * Add a custom schema property to the Schema output.
 	 *
 	 * @param WC_Product $product The product object.
+	 * @param string     $option_name The option name.
+	 * @param string     $schema_id The schema identifier to use.
 	 *
 	 * @return void
 	 */
-	private function add_color( $product ) {
-		$schema_color = WPSEO_Options::get( 'woo_schema_color' );
+	private function add_custom_schema_property( $product, $option_name, $schema_id ) {
+		$schema_data = WPSEO_Options::get( $option_name );
 
-		if ( ! empty( $schema_color ) ) {
-			$terms = get_the_terms( $product->get_id(), $schema_color );
+		if ( ! empty( $schema_data ) ) {
+			$terms = get_the_terms( $product->get_id(), $schema_data );
 
 			if ( is_array( $terms ) ) {
 				// Variable products can have more than one color.
@@ -458,19 +461,30 @@ class WPSEO_WooCommerce_Schema {
 				}
 
 				if ( count( $terms ) === 1 ) {
-					$term                = reset( $terms );
-					$this->data['color'] = strtolower( $term->name );
+					$term                     = reset( $terms );
+					$this->data[ $schema_id ] = strtolower( $term->name );
 				}
 				elseif ( $is_variable_product ) {
-					$colors = [];
+					$schema_data_content = [];
 					foreach ( $terms as $term ) {
-						$colors[] = strtolower( $term->name );
+						$schema_data_content[] = strtolower( $term->name );
 					}
 
-					$this->data['color'] = $colors;
+					$this->data[ $schema_id ] = $schema_data_content;
 				}
 			}
 		}
+	}
+
+	/**
+	 * Adds the product color property to the Schema output.
+	 *
+	 * @param WC_Product $product The product object.
+	 *
+	 * @return void
+	 */
+	private function add_color( $product ) {
+		$this->add_custom_schema_property( $product, 'woo_schema_color', 'color' );
 	}
 
 	/**
@@ -481,36 +495,18 @@ class WPSEO_WooCommerce_Schema {
 	 * @return void
 	 */
 	private function add_pattern( $product ) {
-		$schema_pattern = WPSEO_Options::get( 'woo_schema_pattern' );
+		$this->add_custom_schema_property( $product, 'woo_schema_pattern', 'pattern' );
+	}
 
-		if ( ! empty( $schema_pattern ) ) {
-			$terms = get_the_terms( $product->get_id(), $schema_pattern );
-
-			if ( is_array( $terms ) ) {
-				// Variable products can have more than one pattern.
-				$is_variable_product = false;
-				if ( isset( $this->data['offers'] ) ) {
-					foreach ( $this->data['offers'] as $offer ) {
-						if ( $offer['@type'] === 'AggregateOffer' ) {
-							$is_variable_product = true;
-						}
-					}
-				}
-
-				if ( count( $terms ) === 1 ) {
-					$term                  = reset( $terms );
-					$this->data['pattern'] = strtolower( $term->name );
-				}
-				elseif ( $is_variable_product ) {
-					$colors = [];
-					foreach ( $terms as $term ) {
-						$colors[] = strtolower( $term->name );
-					}
-
-					$this->data['pattern'] = $colors;
-				}
-			}
-		}
+	/**
+	 * Adds the product material property to the Schema output.
+	 *
+	 * @param WC_Product $product The product object.
+	 *
+	 * @return void
+	 */
+	private function add_material( $product ) {
+		$this->add_custom_schema_property( $product, 'woo_schema_material', 'material' );
 	}
 
 	/**

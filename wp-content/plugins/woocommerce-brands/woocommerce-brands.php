@@ -8,11 +8,11 @@
  * Developer: WooCommerce
  * Developer URI: http://woocommerce.com/
  * Requires at least: 4.4
- * Tested up to: 6.0.0
- * Version: 1.6.38
+ * Tested up to: 6.1
+ * Version: 1.6.39
  * Text Domain: woocommerce-brands
  * Domain Path: /languages/
- * WC tested up to: 7.0
+ * WC tested up to: 7.1
  * WC requires at least: 3.6
  *
  * Copyright (c) 2020 WooCommerce
@@ -35,8 +35,11 @@
  * @package woocommerce-brands
  */
 
+use Automattic\WooCommerce\Utilities\FeaturesUtil;
+
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
+	exit;
 }
 
 // Plugin init hook.
@@ -44,6 +47,16 @@ add_action( 'plugins_loaded', 'wc_brands_init', 1 );
 
 // Automatic translations.
 add_filter( 'woocommerce_translations_updates_for_woocommerce-brands', '__return_true' );
+
+// HPOS compatibility declaration.
+add_action(
+	'before_woocommerce_init',
+	function() {
+		if ( class_exists( FeaturesUtil::class ) ) {
+			FeaturesUtil::declare_compatibility( 'custom_order_tables', plugin_basename( __FILE__ ), true );
+		}
+	}
+);
 
 /**
  * Initialize plugin.
@@ -55,7 +68,7 @@ function wc_brands_init() {
 		return;
 	}
 
-	define( 'WC_BRANDS_VERSION', '1.6.38' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_BRANDS_VERSION', '1.6.39' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Localisation

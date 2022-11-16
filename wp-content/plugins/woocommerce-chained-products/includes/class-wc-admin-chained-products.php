@@ -2,7 +2,7 @@
 /**
  * Class to handle all backend related functionalities in chained products
  *
- * @version     1.1.0
+ * @version     1.2.0
  * @package     woocommerce-chained-products/includes/
  */
 
@@ -2179,7 +2179,7 @@ if ( ! class_exists( 'WC_Admin_Chained_Products' ) ) {
 		 * @param array $total_chained_details All chained product details.
 		 * @return array $total_chained_details
 		 */
-		public function calculate_all_chained_products_detail( $chained_parent_id, $total_chained_ids = array(), $total_chained_details ) {
+		public function calculate_all_chained_products_detail( $chained_parent_id, $total_chained_ids = array(), $total_chained_details = array() ) {
 			if ( ! empty( $total_chained_ids ) && is_array( $total_chained_ids ) ) {
 				foreach ( $total_chained_ids as $id ) {
 

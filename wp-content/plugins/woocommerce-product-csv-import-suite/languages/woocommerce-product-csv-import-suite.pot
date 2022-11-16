@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product CSV Import Suite 1.10.50\n"
+"Project-Id-Version: WooCommerce Product CSV Import Suite 1.10.51\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-product-csv-import-suite\n"
-"POT-Creation-Date: 2022-11-01 20:21:57+00:00\n"
+"POT-Creation-Date: 2022-11-09 17:41:37+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -35,27 +35,27 @@ msgstr ""
 msgid "CSV Import Suite"
 msgstr ""
 
-#: includes/class-wc-pcsvis-ajax-handler.php:40
+#: includes/class-wc-pcsvis-ajax-handler.php:45
 msgid "Failed resize: %s is an invalid image ID."
 msgstr ""
 
-#: includes/class-wc-pcsvis-ajax-handler.php:43
+#: includes/class-wc-pcsvis-ajax-handler.php:48
 msgid "Your user account doesn't have permission to resize images"
 msgstr ""
 
-#: includes/class-wc-pcsvis-ajax-handler.php:48
+#: includes/class-wc-pcsvis-ajax-handler.php:53
 msgid "The originally uploaded image file cannot be found at %s"
 msgstr ""
 
-#: includes/class-wc-pcsvis-ajax-handler.php:57
+#: includes/class-wc-pcsvis-ajax-handler.php:62
 msgid "Unknown failure reason."
 msgstr ""
 
-#: includes/class-wc-pcsvis-ajax-handler.php:62
+#: includes/class-wc-pcsvis-ajax-handler.php:67
 msgid "&quot;%1$s&quot; (ID %2$s) was successfully resized in %3$s seconds."
 msgstr ""
 
-#: includes/class-wc-pcsvis-ajax-handler.php:69
+#: includes/class-wc-pcsvis-ajax-handler.php:74
 msgid "&quot;%1$s&quot; (ID %2$s) failed to resize. The error message was: %3$s"
 msgstr ""
 
@@ -173,236 +173,245 @@ msgstr ""
 msgid "Error with handle_upload!"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:123
+#: includes/importer/class-wc-pcsvis-product-import.php:128
 msgid "Row"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:124
+#: includes/importer/class-wc-pcsvis-product-import.php:129
 #: includes/importer/views/html-import-options.php:95
 msgid "SKU"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:125
+#: includes/importer/class-wc-pcsvis-product-import.php:130
 msgid "Product"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:126
+#: includes/importer/class-wc-pcsvis-product-import.php:131
 msgid "Status Msg"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:218
+#: includes/importer/class-wc-pcsvis-product-import.php:224
 msgid "AJAX Error"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:321
+#: includes/importer/class-wc-pcsvis-product-import.php:331
 msgid ""
 "The resize request was abnormally terminated (ID %s). This is likely due to "
 "the image exceeding available memory or some other type of fatal error."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:326
+#: includes/importer/class-wc-pcsvis-product-import.php:336
 msgid "thumbnails regenerated"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:364
+#: includes/importer/class-wc-pcsvis-product-import.php:375
+#: includes/importer/class-wc-pcsvis-product-import.php:399
 msgid "Error finding uploaded file!"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:428
+#: includes/importer/class-wc-pcsvis-product-import.php:398
+msgid "Invalid filepath specified during import."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:449
 msgid "Cleaning up..."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:433
+#: includes/importer/class-wc-pcsvis-product-import.php:454
 msgid "Clearing transients..."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:468
+#: includes/importer/class-wc-pcsvis-product-import.php:489
 msgid "Backfilling parents..."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:473
+#: includes/importer/class-wc-pcsvis-product-import.php:494
 msgid "Linking upsells..."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:481
+#: includes/importer/class-wc-pcsvis-product-import.php:502
 msgid "Linking crosssells..."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:490
+#: includes/importer/class-wc-pcsvis-product-import.php:511
 msgid "Syncing variations..."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:498
+#: includes/importer/class-wc-pcsvis-product-import.php:519
 msgid "Finished. Import complete."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:565
+#: includes/importer/class-wc-pcsvis-product-import.php:586
 msgid "Processing products."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:579
+#: includes/importer/class-wc-pcsvis-product-import.php:600
 msgid "Finished processing products."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:593
+#: includes/importer/class-wc-pcsvis-product-import.php:614
 msgid "Parsing products CSV."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:600
+#: includes/importer/class-wc-pcsvis-product-import.php:621
 msgid "Finished parsing products CSV."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:665
+#: includes/importer/class-wc-pcsvis-product-import.php:686
 #. translators: placeholder is upload error from WP
 msgid "Sorry, there has been an error: %s."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:683
+#: includes/importer/class-wc-pcsvis-product-import.php:717
+msgid "Sorry, filepath must not be within a PHAR executable."
+msgstr ""
+
+#: includes/importer/class-wc-pcsvis-product-import.php:721
 #. translators: placeholder is base directory (ABSPATH)
 msgid "Sorry, there has been an error: path file must exist inside %s."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:689
+#: includes/importer/class-wc-pcsvis-product-import.php:726
 #. translators: placeholder is file path
 msgid "Sorry, there has been an error: %s does not exist."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:696
+#: includes/importer/class-wc-pcsvis-product-import.php:733
 #. translators: placeholder is comma-separated of accepted mime-types for
 #. import (e.g. 'text/csv')
 msgid "File must have .csv extension with acceptable mime types (%s)"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:841
+#: includes/importer/class-wc-pcsvis-product-import.php:887
 msgid "Product already processed"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:842
+#: includes/importer/class-wc-pcsvis-product-import.php:888
 #: includes/importer/class-wc-pcsvis-product_variation-import.php:65
 msgid "> Post ID already processed. Skipping."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:848
+#: includes/importer/class-wc-pcsvis-product-import.php:894
 #: includes/importer/class-wc-pcsvis-product_variation-import.php:70
 msgid "Skipping auto-draft"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:849
+#: includes/importer/class-wc-pcsvis-product-import.php:895
 #: includes/importer/class-wc-pcsvis-product_variation-import.php:71
 msgid "> Skipping auto-draft."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:857
+#: includes/importer/class-wc-pcsvis-product-import.php:903
 msgid "Product already exists"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:858
+#: includes/importer/class-wc-pcsvis-product-import.php:904
 #: includes/importer/class-wc-pcsvis-product_variation-import.php:123
 msgid "> &#8220;%s&#8221; already exists."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:863
+#: includes/importer/class-wc-pcsvis-product-import.php:909
 msgid "Importing post ID conflicts with an existing post ID"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:864
+#: includes/importer/class-wc-pcsvis-product-import.php:910
 msgid "> &#8220;%s&#8221; ID already exists."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:872
+#: includes/importer/class-wc-pcsvis-product-import.php:918
 msgid "Post is not a product"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:873
+#: includes/importer/class-wc-pcsvis-product-import.php:919
 msgid "> &#8220;%s&#8221; is not a product."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:883
+#: includes/importer/class-wc-pcsvis-product-import.php:929
 #: includes/importer/class-wc-pcsvis-product_variation-import.php:97
 msgid "> Merging post ID %s."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:952
+#: includes/importer/class-wc-pcsvis-product-import.php:998
 msgid "> Failed to update product %s"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:961
+#: includes/importer/class-wc-pcsvis-product-import.php:1007
 #: includes/importer/class-wc-pcsvis-product_variation-import.php:108
 msgid "> Merged post data: "
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:999
+#: includes/importer/class-wc-pcsvis-product-import.php:1045
 msgid "> Inserting %s"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1021
+#: includes/importer/class-wc-pcsvis-product-import.php:1067
 msgid "Failed to import product"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1022
+#: includes/importer/class-wc-pcsvis-product-import.php:1068
 #: includes/importer/class-wc-pcsvis-product_variation-import.php:147
 msgid "Failed to import product &#8220;%s&#8221;"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1031
+#: includes/importer/class-wc-pcsvis-product-import.php:1077
 #: includes/importer/class-wc-pcsvis-product_variation-import.php:151
 msgid "> Inserted - post ID is %s."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1081
+#: includes/importer/class-wc-pcsvis-product-import.php:1127
 msgid "> > Image exists - skipping %s"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1107
+#: includes/importer/class-wc-pcsvis-product-import.php:1153
 #: includes/importer/class-wc-pcsvis-product_variation-import.php:220
 msgid "> > Importing image \"%s\""
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1121
+#: includes/importer/class-wc-pcsvis-product-import.php:1167
 msgid "> > Imported image \"%s\""
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1135
+#: includes/importer/class-wc-pcsvis-product-import.php:1181
 msgid "> > Error importing image \"%s\""
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1142
+#: includes/importer/class-wc-pcsvis-product-import.php:1188
 #: includes/importer/class-wc-pcsvis-product_variation-import.php:248
 msgid "> > Images set"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1224
+#: includes/importer/class-wc-pcsvis-product-import.php:1270
 msgid "> Finished merging post ID %s."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1227
+#: includes/importer/class-wc-pcsvis-product-import.php:1273
 msgid "> Finished importing post ID %s."
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1328
-#: includes/importer/class-wc-pcsvis-product-import.php:1352
+#: includes/importer/class-wc-pcsvis-product-import.php:1374
+#: includes/importer/class-wc-pcsvis-product-import.php:1398
 msgid "Invalid file type"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1335
+#: includes/importer/class-wc-pcsvis-product-import.php:1381
 msgid "Local image did not exist!"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1365
+#: includes/importer/class-wc-pcsvis-product-import.php:1411
 msgid "> > Inserted image attachment \"%s\""
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1430
+#: includes/importer/class-wc-pcsvis-product-import.php:1476
 msgid "Zero size file downloaded"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1488
+#: includes/importer/class-wc-pcsvis-product-import.php:1534
 #: includes/views/html-admin-screen.php:4
 #: includes/views/import/html-import-products.php:7
 msgid "Import Products"
 msgstr ""
 
-#: includes/importer/class-wc-pcsvis-product-import.php:1488
+#: includes/importer/class-wc-pcsvis-product-import.php:1534
 #: includes/views/import/html-import-products.php:7
 msgid "Merge Products"
 msgstr ""

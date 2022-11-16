@@ -1003,107 +1003,104 @@ class WC_Points_Rewards_Admin {
 		$date 			 = ( empty( $_REQUEST['date'] ) )	 ? null : sanitize_text_field( urldecode( $_REQUEST['date'] ) );
 		$date 			 = strtotime( $date );
 
-		if ( 'settings' == $current_tab ) {
+		if ( 'settings' !== $current_tab ) {
+			return;
+		}
 
-			if ( 'apply_points' == $current_action ) {
+		if ( 'apply_points' === $current_action ) {
 
-				// Verify nonce before proceeding with the action.
-				if ( empty( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_key( $_REQUEST['_wpnonce'] ), 'wc-points-rewards-apply-points' ) ) {
+			// Verify nonce before proceeding with the action.
+			if ( empty( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_key( $_REQUEST['_wpnonce'] ), 'wc-points-rewards-apply-points' ) ) {
+				return;
+			}
+
+			// try and avoid timeouts as best we can
+			wc_set_time_limit( 0 );
+
+			// perform the action in manageable chunks
+			$success_count  = 0;
+			$offset         = 0;
+			$posts_per_page = 500;
+
+			do {
+
+				$args = array(
+					'type'       => 'shop_order',
+					'status'     => array( 'wc-processing', 'wc-completed' ),
+					'return'     => 'ids',
+					'offset'     => $offset,
+					'limit'      => $posts_per_page,
+					'meta_query' => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+						array(
+							'key'     => '_wc_points_earned',
+							'compare' => 'NOT EXISTS',
+						),
+					),
+				);
+
+				// if date has been chosen, query orders only after that date
+				if ( $date ) {
+					$args['date_query'] = array(
+						array(
+							'after'     => array(
+								'year'  => date( 'Y', $date ), // phpcs:ignore
+								'month' => date( 'n', $date ), // phpcs:ignore
+								'day'   => date( 'j', $date ), // phpcs:ignore
+							),
+							'inclusive' => true,
+						),
+					);
+				}
+
+				// grab a set of order ids for existing orders with no earned points set
+				$order_ids = wc_get_orders( $args );
+
+				// some sort of database error
+				if ( is_wp_error( $order_ids ) ) {
+					$wc_points_rewards->admin_message_handler->add_error( __( 'Database error while applying user points.', 'woocommerce-points-and-rewards' ) );
+
 					return;
 				}
 
-				// try and avoid timeouts as best we can
-				@set_time_limit( 0 );
+				// Otherwise go through the results and add the points earned.
+				if ( is_array( $order_ids ) ) {
+					foreach ( $order_ids as $order_id ) {
+						$order = wc_get_order( $order_id );
 
-				// perform the action in manageable chunks
-				$success_count  = 0;
-				$offset         = 0;
-				$posts_per_page = 500;
+						if ( ! $order ) {
+							continue;
+						}
 
-				do {
+						$paid = null !== $order->get_date_paid( 'edit' );
 
-					$args = array(
-						'post_type'      => 'shop_order',
-						'fields'         => 'ids',
-						'offset'         => $offset,
-						'posts_per_page' => $posts_per_page,
-						'meta_query' => array(
-							array(
-								'key'     => '_wc_points_earned',
-								'compare' => 'NOT EXISTS'
-							),
-						)
-					);
+						// Only add points to paid or completed orders.
+						if ( $paid || 'completed' === $order->get_status() ) {
 
-					// if date has been chosen, query orders only after that date
-					if ( $date ) {
-						$args['date_query']	= array(
-							array(
-								'after' => array(
-									'year' 	=> date( 'Y', $date ),
-									'month'	=> date( 'n', $date ),
-									'day'	=> date( 'j', $date ),
-								),
-								'inclusive'	=> true,
-							),
-						);
-					}
-
-					$args['post_status'] = array( 'wc-processing', 'wc-completed' );
-
-					// grab a set of order ids for existing orders with no earned points set
-					$order_ids = get_posts( $args );
-
-					// some sort of database error
-					if ( is_wp_error( $order_ids ) ) {
-						$wc_points_rewards->admin_message_handler->add_error( __( 'Database error while applying user points.', 'woocommerce-points-and-rewards' ) );
-
-						return;
-					}
-
-					// Otherwise go through the results and add the points earned.
-					if ( is_array( $order_ids ) ) {
-						foreach ( $order_ids as $order_id ) {
-							$order = wc_get_order( $order_id );
-
-							if ( ! $order ) {
-								continue;
-							}
-
-							$paid = null !== $order->get_date_paid( 'edit' );
-
-							// Only add points to paid or completed orders.
-							if ( $paid || 'completed' === $order->get_status() ) {
-
-								$wc_points_rewards->order->add_points_earned( $order );
-
-								$success_count++;
-							}
+							$wc_points_rewards->order->add_points_earned( $order );
+							$success_count++;
 						}
 					}
+				}
 
-					// increment offset
-					$offset += $posts_per_page;
+				// increment offset
+				$offset += $posts_per_page;
 
-				} while( count( $order_ids ) == $posts_per_page );  // while full set of results returned  (meaning there may be more results still to retrieve)
+				$total_orders = count( $order_ids );
 
-				// success message
-				$wc_points_rewards->admin_message_handler->add_message( sprintf( _n( '%d order updated.', '%s orders updated.', $success_count, 'woocommerce-points-and-rewards' ), $success_count ) );
+			} while ( $total_orders === $posts_per_page );  // while full set of results returned  (meaning there may be more results still to retrieve)
 
-			}
-
-			if ( $wc_points_rewards->admin_message_handler->message_count() > 0 || $wc_points_rewards->admin_message_handler->error_count() > 0 ) {
-				// display the result
-
-				if ( $wc_points_rewards->admin_message_handler->error_count() > 0 )
-					echo '<div id="message" class="error fade"><p><strong>' . esc_html( $wc_points_rewards->admin_message_handler->get_error( 0 ) ) . '</strong></p></div>';
-
-				if ( $wc_points_rewards->admin_message_handler->message_count() > 0 )
-					echo '<div id="message" class="updated fade"><p><strong>' . esc_html( $wc_points_rewards->admin_message_handler->get_message( 0 ) ) . '</strong></p></div>';
-
-			}
+			// Success message.
+			// translators: %s number of orders updated.
+			$wc_points_rewards->admin_message_handler->add_message( sprintf( _n( '%s order updated.', '%s orders updated.', $success_count, 'woocommerce-points-and-rewards' ), number_format_i18n( $success_count ) ) );
 		}
 
+		if ( $wc_points_rewards->admin_message_handler->error_count() > 0 ) {
+			echo '<div id="message" class="error fade"><p><strong>' . esc_html( $wc_points_rewards->admin_message_handler->get_error( 0 ) ) . '</strong></p></div>';
+		}
+
+		if ( $wc_points_rewards->admin_message_handler->message_count() > 0 ) {
+			echo '<div id="message" class="updated fade"><p><strong>' . esc_html( $wc_points_rewards->admin_message_handler->get_message( 0 ) ) . '</strong></p></div>';
+		}
 	}
 
 
@@ -1115,8 +1112,10 @@ class WC_Points_Rewards_Admin {
 	 */
 	public function render_points_earned_redeemed_info( $order_id ) {
 
-		$points_earned   = get_post_meta( $order_id, '_wc_points_earned', true );
-		$points_redeemed = get_post_meta( $order_id, '_wc_points_redeemed', true );
+		$order = wc_get_order( $order_id );
+
+		$points_earned   = $order->get_meta( '_wc_points_earned', true );
+		$points_redeemed = $order->get_meta( '_wc_points_redeemed', true );
 
 		?>
 			<h4><?php _e( 'Points', 'woocommerce-points-and-rewards' ); ?></h4>

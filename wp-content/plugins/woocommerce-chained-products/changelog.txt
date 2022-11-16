@@ -1,5 +1,14 @@
 *** WooCommerce Chained Products Changelog ***
 
+2022.11.09 - version 2.13.0
+* New: WooCommerce 7.0.1 compatible
+* New: WordPress 6.1.0 compatible
+* New: Support for displaying appropriate messages for chained products on backorders 
+* Fix: PHP 8.1 Warning: Uncaught TypeError: Unsupported operand types: string + float
+* Fix: PHP 8.1 Warning: Required parameter $cart_item_data follows optional parameter $quantity
+* Fix: PHP 8.1 Warning: Required parameter $total_chained_details follows optional parameter $total_chained_ids
+* Update: POT file
+
 2022.09.30 - version 2.12.0
 * Update: Removed an unnecessary function
 * Update: POT file

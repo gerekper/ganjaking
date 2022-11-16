@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) exit;
 
 /*
  * Plugin Name: MailPoet Premium
- * Version: 3.102.0
+ * Version: 3.103.0
  * Plugin URI: https://www.mailpoet.com
  * Description: This plugin adds Premium features to the free version of MailPoet and unlocks the limit of 1,000 subscribers. Enjoy!
  * Author: MailPoet
@@ -22,7 +22,7 @@ if (!defined('ABSPATH')) exit;
  */
 
 $mailpoetPremium = [
-  'version' => '3.102.0',
+  'version' => '3.103.0',
   'filename' => __FILE__,
   'path' => dirname(__FILE__),
   'autoloader' => dirname(__FILE__) . '/vendor/autoload.php',
@@ -55,7 +55,7 @@ function mailpoet_premium_php_version_notice() {
   );
   $notice = str_replace('[/link]', '</a>', $notice);
   printf(
-    '<div class="error"><p>%1$s</p></div>',
+    '<div class="notice notice-error"><p>%1$s</p></div>',
     wp_kses(
       $notice,
       [
@@ -80,7 +80,7 @@ if (!file_exists($mailpoetPremium['autoloader']) || !file_exists($mailpoetPremiu
 function mailpoet_premium_core_dependency_notice() {
   $notice = __('MailPoet Premium cannot start because it is missing core files. Please reinstall the plugin.', 'mailpoet-premium');
   printf(
-    '<div class="error"><p>%1$s</p></div>',
+    '<div class="notice notice-error"><p>%1$s</p></div>',
     esc_html($notice)
   );
 }

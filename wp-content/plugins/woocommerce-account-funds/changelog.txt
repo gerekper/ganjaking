@@ -1,5 +1,9 @@
 *** WooCommerce Account Funds ***
 
+2022-11-10 - version 2.7.2
+* Tweak - Check if the funds are still applicable to the cart when its items are updated.
+* Fix - Funds were not being removed from the cart after adding a deposit product.
+
 2022-10-17 - version 2.7.1
 * Tweak - Skip the v2.3.7 migration script when updating from a version older than 2.3.0.
 * Tweak - Tested compatibility up to WC 7.0.

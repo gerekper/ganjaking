@@ -19,6 +19,10 @@ class WC_PCSVIS_AJAX_Handler {
 	public function csv_import_request() {
 		define( 'WP_LOAD_IMPORTERS', true );
 
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			exit( -1 );
+		}
+
 		if ( $_REQUEST['import_page'] == 'woocommerce_variation_csv' )
 			WC_PCSVIS_Importer::variation_importer();
 		else
@@ -32,6 +36,7 @@ class WC_PCSVIS_AJAX_Handler {
 		@error_reporting( 0 ); // Don't break the JSON result
 
 		header( 'Content-type: application/json' );
+		check_ajax_referer( 'csv-regenerate-thumbnail' );
 
 		$id    = (int) $_REQUEST['id'];
 		$image = get_post( $id );

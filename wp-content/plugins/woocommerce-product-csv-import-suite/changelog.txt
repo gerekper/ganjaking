@@ -1,5 +1,9 @@
 *** Product CSV Import Suite Changelog ***
 
+2022-11-09 - version 1.10.51
+* Change - File upload workflow improvements.
+* Fix - Issue with product creation during file import.
+
 2022-11-01 - version 1.10.50
 * Declare support for HPOS.
 * Dev - exclude node_modules from production package.

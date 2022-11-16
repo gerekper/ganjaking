@@ -5,7 +5,7 @@
  * @class    WC_Mix_and_Match
  * @package  WooCommerce Mix and Match
  * @since    1.0.0
- * @version  2.2.0
+ * @version  2.2.2
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -33,7 +33,7 @@ class WC_Mix_and_Match {
 	 *
 	 * @var str
 	 */
-	public $version = '2.2.1';
+	public $version = '2.2.2';
 
 	/**
 	 * Required Version of WooCommerce.

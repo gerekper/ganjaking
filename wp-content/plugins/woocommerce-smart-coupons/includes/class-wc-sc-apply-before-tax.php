@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.5.0
+ * @version     1.6.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -366,63 +366,20 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 		 * @return float      $discount
 		 */
 		public function cart_return_discount_amount( $discount, $discounting_amount, $cart_item, $single, $coupon ) {
-			$discount_type = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_discount_type' ) ) ) ? $coupon->get_discount_type() : '';
+
+			if ( ! is_object( $coupon ) || ! is_a( $coupon, 'WC_Coupon' ) ) {
+				return $discount;
+			}
+
+			$discount_type = is_callable( array( $coupon, 'get_discount_type' ) ) ? $coupon->get_discount_type() : '';
 			if ( 'smart_coupon' !== $discount_type ) {
 				return $discount;
 			}
 
-			$coupon_code = ( is_object( $coupon ) && is_callable( array( $coupon, 'get_code' ) ) ) ? $coupon->get_code() : '';
+			$coupon_code = is_callable( array( $coupon, 'get_code' ) ) ? $coupon->get_code() : '';
 
 			if ( is_object( $cart_item ) && is_a( $cart_item, 'WC_Order_Item_Product' ) ) {
-				$product_id           = ( is_callable( array( $cart_item, 'get_product_id' ) ) ) ? $cart_item->get_product_id() : 0;
-				$variation_id         = ( is_callable( array( $cart_item, 'get_variation_id' ) ) ) ? $cart_item->get_variation_id() : 0;
-				$quantity             = ( is_callable( array( $cart_item, 'get_quantity' ) ) ) ? $cart_item->get_quantity() : 1;
-				$item_id              = ( is_callable( array( $cart_item, 'get_id' ) ) ) ? $cart_item->get_id() : 0;
-				$product_subtotal     = ( is_callable( array( $cart_item, 'get_subtotal' ) ) ) ? $cart_item->get_subtotal() : 0;
-				$product_subtotal_tax = ( is_callable( array( $cart_item, 'get_subtotal_tax' ) ) ) ? $cart_item->get_subtotal_tax() : 0;
-				$order                = ( is_callable( array( $cart_item, 'get_order' ) ) ) ? $cart_item->get_order() : null;
-
-				$coupon_amount = $this->get_amount( $coupon, true, $order );
-
-				if ( ! empty( $this->sc_api_credit_left[ $item_id ][ $variation_id ] ) ) {
-					return $this->sc_api_credit_left[ $item_id ][ $variation_id ] / $quantity;
-				} elseif ( ! empty( $this->sc_api_credit_left[ $item_id ][ $product_id ] ) ) {
-					return $this->sc_api_credit_left[ $item_id ][ $product_id ] / $quantity;
-				}
-				if ( empty( $this->sc_api_credit_left[ $coupon_code ] ) ) {
-					return $discount;
-				}
-
-				$prices_include_tax = ( 'yes' === get_option( 'woocommerce_prices_include_tax' ) ) ? true : false;
-				if ( true === $prices_include_tax ) {
-					$sc_include_tax = get_option( 'woocommerce_smart_coupon_include_tax', 'no' );
-					if ( 'no' === $sc_include_tax ) {
-						$discounting_amount = $product_subtotal / $quantity;
-					}
-				}
-
-				$credit_left = ( ! empty( $this->sc_api_credit_left ) && isset( $this->sc_api_credit_left[ $coupon_code ] ) ) ? $this->sc_api_credit_left[ $coupon_code ] : $coupon_amount;
-
-				if ( $credit_left > 0 ) {
-
-					$discount = $discounting_amount * $quantity;
-
-					if ( $credit_left >= $discount ) {
-						$credit_left                              = $credit_left - $discount;
-						$this->sc_api_credit_left[ $coupon_code ] = $credit_left;
-					} else {
-						$discount                                 = $credit_left;
-						$this->sc_api_credit_left[ $coupon_code ] = 0;
-					}
-				}
-				$discount = $discount / $quantity;
-
-				if ( ! empty( $variation_id ) ) {
-					$this->sc_api_credit_left[ $item_id ][ $variation_id ] = $discount;
-				} else {
-					$this->sc_api_credit_left[ $item_id ][ $product_id ] = $discount;
-				}
-				return $discount;
+				return $this->calculate_discount_amount_for_rest_api( $discount, $discounting_amount, $cart_item, $single, $coupon );
 			}
 
 			$coupon_amount = $this->get_amount( $coupon, true );
@@ -473,6 +430,84 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 
 			return $discount;
 		}
+
+		/**
+		 * Calculate discount amount for REST API.
+		 *
+		 * @param float                 $discount Amount this coupon has discounted.
+		 * @param float                 $discounting_amount Amount the coupon is being applied to.
+		 * @param WC_Order_Item_Product $cart_item Object.
+		 * @param bool                  $single True if discounting a single qty item, false if its the line.
+		 * @param WC_Coupon             $coupon Object.
+		 * @return float|int|mixed
+		 */
+		public function calculate_discount_amount_for_rest_api( $discount = 0, $discounting_amount = 0, $cart_item = object, $single = false, $coupon = object ) {
+
+			if ( ! is_object( $coupon ) || ! is_a( $coupon, 'WC_Coupon' ) ) {
+				return $discount;
+			}
+
+			if ( ! is_object( $cart_item ) || ! is_a( $cart_item, 'WC_Order_Item_Product' ) ) {
+				return $discount;
+			}
+
+			$product_id           = ( is_callable( array( $cart_item, 'get_product_id' ) ) ) ? $cart_item->get_product_id() : 0;
+			$variation_id         = ( is_callable( array( $cart_item, 'get_variation_id' ) ) ) ? $cart_item->get_variation_id() : 0;
+			$quantity             = ( is_callable( array( $cart_item, 'get_quantity' ) ) ) ? $cart_item->get_quantity() : 1;
+			$item_id              = ( is_callable( array( $cart_item, 'get_id' ) ) ) ? $cart_item->get_id() : 0;
+			$product_subtotal     = ( is_callable( array( $cart_item, 'get_subtotal' ) ) ) ? $cart_item->get_subtotal() : 0;
+			$product_subtotal_tax = ( is_callable( array( $cart_item, 'get_subtotal_tax' ) ) ) ? $cart_item->get_subtotal_tax() : 0;
+			$order                = ( is_callable( array( $cart_item, 'get_order' ) ) ) ? $cart_item->get_order() : null;
+			$coupon_code          = ( is_callable( array( $coupon, 'get_code' ) ) ) ? $coupon->get_code() : '';
+			$discount_type        = ( is_callable( array( $coupon, 'get_discount_type' ) ) ) ? $coupon->get_discount_type() : '';
+
+			if ( 'smart_coupon' !== $discount_type ) {
+				return $discount;
+			}
+
+			$coupon_amount = $this->get_amount( $coupon, true, $order );
+
+			if ( ! empty( $this->sc_api_credit_left[ $item_id ][ $variation_id ] ) ) {
+				return $this->sc_api_credit_left[ $item_id ][ $variation_id ] / $quantity;
+			} elseif ( ! empty( $this->sc_api_credit_left[ $item_id ][ $product_id ] ) ) {
+				return $this->sc_api_credit_left[ $item_id ][ $product_id ] / $quantity;
+			}
+			if ( isset( $this->sc_api_credit_left[ $coupon_code ] ) && empty( $this->sc_api_credit_left[ $coupon_code ] ) ) {
+				return $discount;
+			}
+
+			$prices_include_tax = ( 'yes' === get_option( 'woocommerce_prices_include_tax' ) ) ? true : false;
+			if ( true === $prices_include_tax ) {
+				$sc_include_tax = get_option( 'woocommerce_smart_coupon_include_tax', 'no' );
+				if ( 'no' === $sc_include_tax ) {
+					$discounting_amount = $product_subtotal / $quantity;
+				}
+			}
+
+			$credit_left = ( ! empty( $this->sc_api_credit_left ) && isset( $this->sc_api_credit_left[ $coupon_code ] ) ) ? $this->sc_api_credit_left[ $coupon_code ] : $coupon_amount;
+
+			if ( $credit_left > 0 ) {
+
+				$discount = $discounting_amount * $quantity;
+
+				if ( $credit_left >= $discount ) {
+					$credit_left                              = $credit_left - $discount;
+					$this->sc_api_credit_left[ $coupon_code ] = $credit_left;
+				} else {
+					$discount                                 = $credit_left;
+					$this->sc_api_credit_left[ $coupon_code ] = 0;
+				}
+			}
+
+			if ( ! empty( $variation_id ) ) {
+				$this->sc_api_credit_left[ $item_id ][ $variation_id ] = $discount;
+			} else {
+				$this->sc_api_credit_left[ $item_id ][ $product_id ] = $discount;
+			}
+			return $discount;
+
+		}
+
 
 		/**
 		 * Discount details for store credit

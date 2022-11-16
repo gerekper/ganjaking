@@ -162,6 +162,33 @@ class BetterDocs_Multiple_Kb
 			'priority'	=> 10,
 			'help'      => __('<strong>You can use:</strong> [betterdocs_multiple_kb_2 column="" terms="" disable_customizer_style="false" title_tag="h2"]' , 'betterdocs-pro'),
 		);
+		$settings['multiple_kb_3_shortcode'] = array(
+			'type'      => 'text',
+			'label'     => __('Multiple KB- Layout 3' , 'betterdocs-pro'),
+			'default'   => '[betterdocs_multiple_kb_list]',
+			'readonly'	=> true,
+			'clipboard' => true,
+			'priority'	=> 10,
+			'help'      => __('<strong>You can use:</strong> [betterdocs_multiple_kb_list terms="" disable_customizer_style="false" title_tag="h2"]' , 'betterdocs-pro'),
+		);
+		$settings['multiple_kb_4_shortcode'] = array(
+			'type'      => 'text',
+			'label'     => __('Multiple KB- Layout 4' , 'betterdocs-pro'),
+			'default'   => '[betterdocs_multiple_kb_tab_grid]',
+			'readonly'	=> true,
+			'clipboard' => true,
+			'priority'	=> 10,
+			'help'      => __('<strong>You can use:</strong> [betterdocs_multiple_kb_tab_grid terms="" disable_customizer_style="false" terms_orderby="" terms_order="" orderby="" order="" posts_per_grid="" title_tag="h2"]' , 'betterdocs-pro'),
+		);
+		$settings['mkb_popular_docs'] = array(
+			'type'      => 'text',
+			'label'     => __('Popular Docs' , 'betterdocs-pro'),
+			'default'   => '[betterdocs_popular_articles]',
+			'readonly'	=> true,
+			'clipboard' => true,
+			'priority'	=> 10,
+			'help'      => __('<strong>You can use:</strong> [betterdocs_popular_articles post_per_page="" title="Popular Docs" title_tag="h2" multiple_knowledge_base="false" disable_customizer_style="false"]', 'betterdocs-pro')
+		);
 		return $settings;
 	}
 
@@ -304,7 +331,7 @@ class BetterDocs_Multiple_Kb
 		
         $kb_terms = array();
         $term = wp_get_post_terms($post->ID, 'knowledge_base');
-		if (!empty($term)) {
+		if (! is_wp_error( $term ) && !empty($term)) {
 			$kb_terms[] = $term[0];
 			if (isset($_COOKIE['last_knowledge_base']) && has_term($_COOKIE['last_knowledge_base'], 'knowledge_base')) {
 				$kb_terms[0] = get_term_by('slug', $_COOKIE['last_knowledge_base'], 'knowledge_base');

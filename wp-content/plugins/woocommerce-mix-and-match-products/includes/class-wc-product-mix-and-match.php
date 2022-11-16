@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Classes/Products
  * @since    1.0.0
- * @version  2.2.0
+ * @version  2.2.2
  */
 
 // Exit if accessed directly.
@@ -1162,7 +1162,7 @@ class WC_Product_Mix_and_Match extends WC_Product_Mix_and_Match_Legacy {
 	 *
 	 * @return WC_MNM_Child_Item|false
 	 */
-	private function get_child_item_by_product_id( $child_product_id, $context = 'view' ) {
+	public function get_child_item_by_product_id( $child_product_id, $context = 'view' ) {
 
 		$child_items_by_product = WC_MNM_Helpers::cache_get( $this->get_id(), 'child_items_by_product' );
 

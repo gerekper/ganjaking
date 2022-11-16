@@ -2,6 +2,9 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+/**
+ * Coupon Campaigns class.
+ */
 class WC_Coupon_Campaigns {
 	private $dir;
 	private $file;
@@ -505,6 +508,9 @@ class WC_Coupon_Campaigns {
 			'number'	=> '5'
 		);
 
+		// Remove the exclude coupon comments from the clauses, because we want to display the coupon notes.
+		remove_filter( 'comments_clauses', array( $this, 'exclude_coupon_comments' ), 10, 1 );
+
 		$notes = get_comments( $args );
 
 		echo '<ul class="order_notes">';
@@ -525,6 +531,8 @@ class WC_Coupon_Campaigns {
 		}
 
 		echo '</ul>';
+
+		add_filter( 'comments_clauses', array( $this, 'exclude_coupon_comments' ), 10, 1 );
 	}
 
 	/**

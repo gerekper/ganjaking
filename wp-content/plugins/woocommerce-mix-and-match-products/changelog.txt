@@ -1,5 +1,11 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2022.11.07 - version 2.2.2
+* Fix: Double-charging for child items when ordering again. #466.
+* Fix: Front-end validation allow overfilled container to be reduced. #461.
+* Fix: Child Category IDs are not imported. #467. 
+* Tweak: Make get_child_item_by_product_id() method public.
+
 2022.10.24 - version 2.2.1
 * Tweak: Use core cart functions for detecting parent/child relationships in cart item filters.
 * Tweak: Add wrapping <span> when doing wc_ajax_mnm_update_container_order_item. For compat with mini-extensions.

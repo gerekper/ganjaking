@@ -3,7 +3,7 @@
  * Main class to handle mainly frontend related chained products actions
  *
  * @since       2.5.0
- * @version     1.1.0
+ * @version     1.2.0
  * @package     woocommerce-chained-products/includes/
  */
 
@@ -203,6 +203,8 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 					if ( $chained_parent instanceof WC_Product ) {
 						$regular_prices[ $product_id ] = $chained_parent->get_price();
 						$prices[ $product_id ]         = $chained_parent->get_regular_price();
+						$regular_prices[ $product_id ] = ( ! empty( $regular_prices[ $product_id ] ) ) ? $regular_prices[ $product_id ] : 0;
+						$prices[ $product_id ]         = ( ! empty( $prices[ $product_id ] ) ) ? $regular_prices[ $product_id ] : 0;
 					}
 
 					if ( ! empty( $chained_items ) ) {
@@ -213,7 +215,7 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 							if ( $chained_product instanceof WC_Product && 'yes' === $priced_individually ) {
 								$chained_product_regular_price = $chained_product->get_regular_price();
 								if ( ! empty( $chained_product_regular_price ) ) {
-									$regular_prices[ $product_id ] += ( $chained_product_regular_price * $chained_item_data['unit'] );
+									$regular_prices[ $product_id ] = floatval( $regular_prices[ $product_id ] ) + ( floatval( $chained_product_regular_price ) * intval( $chained_item_data['unit'] ) );
 								}
 								$chained_product_price = $chained_product->get_price();
 								if ( ! empty( $chained_product_price ) ) {
@@ -1225,54 +1227,68 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 		 * @param int    $product_id ID of the product being added to the cart.
 		 * @param int    $quantity  Quantity of the item being added to the cart.
 		 * @param int    $variation_id ID of the variation being added to the cart.
-		 * @param array  $variation Attribute values.
-		 * @param array  $cart_item_data Extra cart item data passed to the item.
-		 * @param string $parent_cart_key For working with parent/child product types such as MNM.
+		 *
+		 * @return void.
 		 */
-		public function add_chained_products_to_cart( $cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data, $parent_cart_key = null ) {
+		public function add_chained_products_to_cart( $cart_item_key = '', $product_id = 0, $quantity = 0, $variation_id = 0 ) {
 			global $wc_chained_products;
 
-			$product_id              = empty( $variation_id ) ? $product_id : $variation_id;
-			$chained_products_detail = $wc_chained_products->get_all_chained_product_details( $product_id );
+			$product_id              = ! empty( $variation_id ) ? intval( $variation_id ) : intval( $product_id );
+			$chained_products_detail = is_callable( array( $wc_chained_products, 'get_all_chained_product_details' ) ) ? $wc_chained_products->get_all_chained_product_details( $product_id ) : array();
 
-			if ( $chained_products_detail ) {
+			if ( empty( $chained_products_detail ) ) {
+				return;
+			}
 
-				$validation_result = $this->are_chained_products_available( $product_id, $quantity );
+			$validation_result = $this->are_chained_products_available( $product_id, intval( $quantity ) );
 
-				if ( null !== $validation_result ) {
-					return;
-				}
+			if ( ! empty( $validation_result ) && ! empty( $validation_result['stock_status'] ) && 'outofstock' === $validation_result['stock_status'] ) {
+				return;
+			}
 
-				$chained_cart_item_data = array(
-					'chained_item_of' => $cart_item_key,
-				);
+			$chained_cart_item_data = array( 'chained_item_of' => $cart_item_key );
 
-				foreach ( $chained_products_detail as $chained_products_id => $chained_products_data ) {
+			foreach ( $chained_products_detail as $chained_products_id => $chained_products_data ) {
 
-					$_product = wc_get_product( $chained_products_id );
-					if ( $_product instanceof WC_Product ) {
-						$chained_variation_id = '';
+				$_product = wc_get_product( intval( $chained_products_id ) );
+				if ( $_product instanceof WC_Product ) {
+					$chained_variation_id = 0;
 
-						if ( $_product instanceof WC_Product_Variation ) {
-							$chained_variation_id = ( Chained_Products_WC_Compatibility::is_wc_gte_30() ) ? $_product->get_id() : $_product->variation_id;
-						}
-
-						$chained_parent_id = ( empty( $chained_variation_id ) ) ? $chained_products_id : $wc_chained_products->get_parent( $chained_products_id );
-
-						$this->cp_cart_item_data = $chained_cart_item_data;
-
-						$chained_variation_data = ( ! empty( $chained_variation_id ) ) ? $_product->get_variation_attributes() : array();
-						$chained_cart_item_data = (array) apply_filters( 'woocommerce_add_cart_item_data', $chained_cart_item_data, $chained_parent_id, $chained_variation_id, $quantity );
-						$priced_individually    = ( ! empty( $chained_products_data['priced_individually'] ) ) ? $chained_products_data['priced_individually'] : 'no';
-
-						// Prepare for adding children to cart.
-						do_action( 'wc_before_chained_add_to_cart', $chained_parent_id, $quantity * $chained_products_data['unit'], $chained_variation_id, $chained_variation_data, $chained_cart_item_data, $chained_products_data['unit'] );
-
-						$chained_item_cart_key = $this->chained_add_to_cart( $product_id, $chained_parent_id, $quantity * $chained_products_data['unit'], $chained_variation_id, $chained_variation_data, $chained_cart_item_data, $priced_individually );
-
-						// Finish.
-						do_action( 'wc_after_chained_add_to_cart', $chained_parent_id, $quantity * $chained_products_data['unit'], $chained_variation_id, $chained_variation_data, $chained_cart_item_data, $cart_item_key );
+					if ( $_product instanceof WC_Product_Variation ) {
+						$chained_variation_id = ( Chained_Products_WC_Compatibility::is_wc_gte_30() && is_callable( array( $_product, 'get_id' ) ) ) ? $_product->get_id() : ( ! empty( $_product->variation_id ) ? $_product->variation_id : 0 );
 					}
+
+					$chained_parent_id = ! empty( $chained_variation_id ) ? ( is_callable( array( $wc_chained_products, 'get_parent' ) ) ? $wc_chained_products->get_parent( intval( $chained_products_id ) ) : 0 ) : intval( $chained_products_id );
+
+					$this->cp_cart_item_data = $chained_cart_item_data;
+
+					$chained_variation_data = ( ! empty( $chained_variation_id ) && is_callable( array( $_product, 'get_variation_attributes' ) ) ) ? $_product->get_variation_attributes() : array();
+					$chained_cart_item_data = (array) apply_filters( 'woocommerce_add_cart_item_data', $chained_cart_item_data, $chained_parent_id, $chained_variation_id, $quantity );
+					$priced_individually    = ( ! empty( $chained_products_data['priced_individually'] ) ) ? $chained_products_data['priced_individually'] : 'no';
+					$chained_quantity       = intval( $quantity ) * ( ! empty( $chained_products_data['unit'] ) ? intval( $chained_products_data['unit'] ) : 1 );
+
+					// Prepare for adding children to cart.
+					do_action(
+						'wc_before_chained_add_to_cart',
+						intval( $chained_parent_id ),
+						$chained_quantity,
+						$chained_variation_id,
+						$chained_variation_data,
+						$chained_cart_item_data,
+						( ! empty( $chained_products_data['unit'] ) ? intval( $chained_products_data['unit'] ) : 1 )
+					);
+
+					$chained_item_cart_key = $this->chained_add_to_cart( intval( $product_id ), intval( $chained_parent_id ), $chained_quantity, $chained_variation_id, $chained_variation_data, $chained_cart_item_data, $priced_individually );
+					// Finish.
+					do_action(
+						'wc_after_chained_add_to_cart',
+						intval( $chained_parent_id ),
+						$chained_quantity,
+						$chained_variation_id,
+						$chained_variation_data,
+						$chained_cart_item_data,
+						$cart_item_key
+					);
 				}
 			}
 		}
@@ -1290,7 +1306,7 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 		 * @param string $priced_individually Allow chained item to be priced 'yes|no'.
 		 * @return string|false
 		 */
-		public function chained_add_to_cart( $parent_cart_key, $product_id, $quantity = 1, $variation_id = '', $variation = '', $cart_item_data, $priced_individually = 'no' ) {
+		public function chained_add_to_cart( $parent_cart_key, $product_id, $quantity = 1, $variation_id = '', $variation = '', $cart_item_data = array(), $priced_individually = 'no' ) {
 
 			// Load cart item data when adding to cart.
 			$cart_item_data = (array) apply_filters( 'woocommerce_add_cart_item_data', $cart_item_data, $product_id, $variation_id, $quantity );
@@ -1608,31 +1624,42 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 		}
 
 		/**
-		 * Function to hide "Add to cart" button if chained products are out of stock
+		 * Function to hide "Add to cart" button if chained products are out of stock.
 		 *
-		 * @param boolean    $availability Availability of the product.
+		 * @param array      $availability Availability of the product.
 		 * @param WC_Product $_product Product object.
-		 * @return boolean $availability
+		 *
+		 * @return array $availability
 		 */
-		public function woocommerce_get_chained_products_availability( $availability, $_product ) {
+		public function woocommerce_get_chained_products_availability( $availability = array(), $_product = null ) {
+
+			if ( ! $_product instanceof WC_Product ) {
+				return $availability;
+			}
+
 			if ( Chained_Products_WC_Compatibility::is_wc_gte_30() ) {
-				$product_id = $_product->get_id();
+				$product_id = is_callable( array( $_product, 'get_id' ) ) ? $_product->get_id() : 0;
 			} else {
-				$product_id = $_product instanceof WC_Product_Variation ? $_product->variation_id : $_product->id;
+				$product_id = ( $_product instanceof WC_Product_Variation && ! empty( $_product->variation_id ) ) ? $_product->variation_id : ( ! empty( $_product->id ) ? $_product->id : 0 );
+			}
+
+			if ( empty( $product_id ) ) {
+				return $availability;
 			}
 
 			$validation_result = $this->are_chained_products_available( $product_id );
 
-			if ( null !== $validation_result ) {
-				$_product->manage_stock               = 'no';
-				$_product->stock_status               = 'outofstock';
-				$chained_availability                 = array();
-				$chained_availability['availability'] = __( 'Out of stock', 'woocommerce-chained-products' ) . ': ' . implode( ', ', $validation_result['product_titles'] ) . __( ' doesn\'t have sufficient quantity in stock.', 'woocommerce-chained-products' );
-				$chained_availability['class']        = 'out-of-stock';
+			if ( ! empty( $validation_result ) ) {
+
+				$stock_status = ! empty( $validation_result['stock_status'] ) ? $validation_result['stock_status'] : '';
+
+				if ( ! empty( $stock_status ) && is_callable( array( $_product, 'set_stock_status' ) ) ) {
+					$_product->set_stock_status( $stock_status );
+				}
 
 				// Hide parent product if chained product is out of stock.
-				if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) ) {
-					if ( Chained_Products_WC_Compatibility::is_wc_gte_30() ) {
+				if ( 'outofstock' === $stock_status && 'yes' === get_option( 'woocommerce_hide_out_of_stock_items', 'no' ) ) {
+					if ( Chained_Products_WC_Compatibility::is_wc_gte_30() && is_callable( array( $_product, 'set_catalog_visibility' ) ) && is_callable( array( $_product, 'save' ) ) ) {
 						$_product->set_catalog_visibility( 'hidden' );
 						$_product->save();
 					} else {
@@ -1640,7 +1667,31 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 					}
 				}
 
-				return $chained_availability;
+				$class           = 'in-stock';
+				$cp_availability = '';
+
+				if ( 'outofstock' === $stock_status ) {
+					/* translators: 1: Chained item name(s) */
+					$cp_availability = _x( 'Out of stock', 'out of stock availability text', 'woocommerce-chained-products' ) . ( ! empty( $validation_result['product_titles'] ) ? sprintf( _nx( ': %s does not have sufficient quantity in stock.', ': %s do not have sufficient quantity in stock.', count( $validation_result['product_titles'] ), 'chained products backorder message', 'woocommerce-chained-products' ), implode( ', ', $validation_result['product_titles'] ) ) : '' );
+					$class           = 'out-of-stock';
+				} elseif ( 'onbackorder' === $stock_status ) {
+					/* translators: 1: Chained item name(s) */
+					$cp_availability = _x( 'Available on backorder', 'backorder availability text', 'woocommerce-chained-products' ) . ( ! empty( $validation_result['product_titles'] ) ? sprintf( _nx( ': %s is available on backorder.', ': %s are available on backorder.', count( $validation_result['product_titles'] ), 'chained products backorder message', 'woocommerce-chained-products' ), implode( ', ', $validation_result['product_titles'] ) ) : '' );
+					$class           = 'available-on-backorder';
+				}
+
+				return apply_filters(
+					'wcp_get_chained_products_availability',
+					array(
+						'availability' => $cp_availability,
+						'class'        => $class,
+					),
+					array(
+						'stock_status'      => $stock_status,
+						'validation_result' => $validation_result,
+						'source'            => $this,
+					)
+				);
 			}
 
 			return $availability;
@@ -1685,7 +1736,7 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 		 * @param WC_Product $_product Product Object.
 		 * @return int $stock
 		 */
-		public function validate_stock_availability_of_chained_products( $stock, $_product = null ) {
+		public function validate_stock_availability_of_chained_products( $stock = 0, $_product = null ) {
 			global $post, $wc_chained_products;
 
 			if ( $_product instanceof WC_Product ) {
@@ -1705,7 +1756,7 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 					if ( ! empty( $max_quantity ) ) {
 						for ( $max_count = 1; $max_count < $max_quantity; $max_count++ ) {
 							$validation_result = $this->are_chained_products_available( $post_id, $max_count );
-							if ( null !== $validation_result ) {
+							if ( ! empty( $validation_result ) && ! empty( $validation_result['stock_status'] ) && 'outofstock' === $validation_result['stock_status'] ) {
 								if ( isset( $stock['max_value'] ) ) {
 									$stock['max_value'] = $max_count - 1;
 								} elseif ( isset( $stock['availability'] ) ) {
@@ -1782,27 +1833,33 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 				$chained_product_detail = $wc_chained_products->get_all_chained_product_details( $product_id );
 				$chained_product_ids    = ( is_array( $chained_product_detail ) ) ? array_keys( $chained_product_detail ) : null;
 
+				if ( ! $parent_product instanceof WC_Product ) {
+					return null;
+				}
+
 				if ( null !== $chained_product_ids ) {
-					$validation_result   = array();
-					$product_titles      = array();
-					$chained_add_to_cart = 'yes';
+					$product_titles              = array();
+					$backorders_allowed_products = array();
+					$chained_add_to_cart         = 'yes';
 
 					$chained_product_quantity_in_cart = 0;
+					$is_parent_product_in_stock       = is_callable( array( $parent_product, 'is_in_stock' ) ) ? $parent_product->is_in_stock() : false;
 
 					foreach ( $chained_product_ids as $chained_product_id ) {
-						$chained_product_instance = $wc_chained_products->get_product_instance( $chained_product_id );
+						$chained_product_instance = is_callable( array( $wc_chained_products, 'get_product_instance' ) ) ? $wc_chained_products->get_product_instance( intval( $chained_product_id ) ) : null;
+
 						if ( ! ( $chained_product_instance instanceof WC_Product ) ) {
-							continue;
-						}
-						if ( ! ( $parent_product instanceof WC_Product ) ) {
 							continue;
 						}
 
 						// Allow adding chained products to cart if backorders is allowed.
-						if ( $parent_product->is_in_stock() &&
-							$chained_product_instance->backorders_allowed() &&
-							$chained_product_instance->is_in_stock()
+						if ( $is_parent_product_in_stock &&
+							// Note: Pass the default quantity 1 to `is_on_backorder()` method as per WooCommerce does while checking the availability check.
+							( is_callable( array( $chained_product_instance, 'is_on_backorder' ) ) && $chained_product_instance->is_on_backorder( 1 ) ) &&
+							( is_callable( array( $chained_product_instance, 'is_in_stock' ) ) && $chained_product_instance->is_in_stock() ) &&
+							is_callable( array( $wc_chained_products, 'get_product_title' ) )
 							) {
+							$backorders_allowed_products[] = '"' . $wc_chained_products->get_product_title( intval( $chained_product_id ) ) . '"';
 							continue;
 						}
 
@@ -1817,14 +1874,24 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 								( $chained_product_instance->get_stock_quantity() < ( ( $main_product_quantity * $chained_product_detail[ $chained_product_id ]['unit'] ) + $chained_product_quantity_in_cart ) ) )
 						) {
 
-							$product_titles[]    = '"' . $wc_chained_products->get_product_title( $chained_product_id ) . '"';
+							$product_titles[]    = is_callable( array( $wc_chained_products, 'get_product_title' ) ) ? '"' . $wc_chained_products->get_product_title( intval( $chained_product_id ) ) . '"' : '';
 							$chained_add_to_cart = 'no';
 						}
 					}
 					if ( 'no' === $chained_add_to_cart ) {
-						$validation_result['product_titles']         = $product_titles;
-						$validation_result['chained_cart_validated'] = $chained_add_to_cart;
-						return $validation_result;
+						return array(
+							'product_titles' => array_filter( $product_titles ),
+							'valid'          => $chained_add_to_cart,
+							'stock_status'   => 'outofstock',
+						);
+					}
+
+					if ( ! empty( $backorders_allowed_products ) ) {
+						return array(
+							'product_titles' => array_filter( $backorders_allowed_products ),
+							'valid'          => $chained_add_to_cart,
+							'stock_status'   => 'onbackorder',
+						);
 					}
 				}
 			}
@@ -1874,9 +1941,18 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 
 			$validation_result = $this->are_chained_products_available( $product_id, $main_product_quantity, $chained_products_in_cart );
 
-			if ( null !== $validation_result ) {
-				/* translators: 1: Parent product name 2: Chained item name(s) */
-				wc_add_notice( sprintf( __( 'Can not add %1$1s to cart as %2$2s doesn\'t have sufficient quantity in stock.', 'woocommerce-chained-products' ), $wc_chained_products->get_product_title( $product_id ), implode( ', ', $validation_result['product_titles'] ) ), 'error' );
+			if ( ! empty( $validation_result ) && ! empty( $validation_result['stock_status'] ) && 'outofstock' === $validation_result['stock_status'] ) {
+
+				wc_add_notice(
+					sprintf(
+						/* translators: 1: Parent product name 2: Chained item name(s) */
+						_x( 'Can not add %1$s to cart as %2$s doesn\'t have sufficient quantity in stock.', 'cart validation notice', 'woocommerce-chained-products' ),
+						is_callable( array( $wc_chained_products, 'get_product_title' ) ) ? $wc_chained_products->get_product_title( intval( $product_id ) ) : '',
+						! empty( $validation_result['product_titles'] && is_array( $validation_result['product_titles'] ) ) ? implode( ', ', $validation_result['product_titles'] ) : _x( 'Chained products', 'chained products title', 'woocommerce-chained-products' )
+					),
+					'error'
+				);
+
 				return false;
 			}
 			return $add_to_cart;
@@ -1931,13 +2007,21 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 		 * @param int     $main_product_quantity Parent product quantity.
 		 * @return boolean $update_cart
 		 */
-		public function woocommerce_chained_update_cart_validation( $update_cart, $cart_item_key, $cart_item, $main_product_quantity ) {
+		public function woocommerce_chained_update_cart_validation( $update_cart = true, $cart_item_key = '', $cart_item = array(), $main_product_quantity = 0 ) {
 			global $woocommerce, $wc_chained_products;
 			$product_id        = ( isset( $cart_item['variation_id'] ) && $cart_item['variation_id'] > 0 ) ? $cart_item['variation_id'] : $cart_item['product_id'];
 			$validation_result = $this->are_chained_products_available( $product_id, $main_product_quantity );
-			if ( null !== $validation_result ) {
-				/* translators: 1: Parent product name 2: Chained item name(s) */
-				wc_add_notice( sprintf( __( 'Can not increase quantity of %1$1s because %2$2s doesn\'t have sufficient quantity in stock.', 'woocommerce-chained-products' ), $wc_chained_products->get_product_title( $product_id ), implode( ', ', $validation_result['product_titles'] ) ), 'error' );
+
+			if ( ! empty( $validation_result ) && ! empty( $validation_result['stock_status'] ) && 'outofstock' === $validation_result['stock_status'] ) {
+				wc_add_notice(
+					sprintf(
+						/* translators: 1: Parent product name 2: Chained item name(s) */
+						_x( 'Can not increase quantity of %1$s because %2$s doesn\'t have sufficient quantity in stock.', 'cart validation message', 'woocommerce-chained-products' ),
+						is_callable( array( $wc_chained_products, 'get_product_title' ) ) ? $wc_chained_products->get_product_title( intval( $product_id ) ) : '',
+						! empty( $validation_result['product_titles'] && is_array( $validation_result['product_titles'] ) ) ? implode( ', ', $validation_result['product_titles'] ) : _x( 'Chained products', 'chained products title', 'woocommerce-chained-products' )
+					),
+					'error'
+				);
 				return false;
 			}
 			return $update_cart;
@@ -1965,9 +2049,13 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 					$product_id        = ( isset( $cart_item_value['variation_id'] ) && $cart_item_value['variation_id'] > 0 ) ? $cart_item_value['variation_id'] : $cart_item_value['product_id'];
 					$validation_result = $this->are_chained_products_available( $product_id, $cart_item_value['quantity'] );
 
-					if ( null !== $validation_result ) {
-						/* translators: 1: Parent product name 2: Chained item name(s) */
-						$message[] = sprintf( __( 'Can not add %1$1s to cart as %2$2s doesn\'t have sufficient quantity in stock.', 'woocommerce-chained-products' ), $wc_chained_products->get_product_title( $cart_item_value['product_id'] ), implode( ', ', $validation_result['product_titles'] ) );
+					if ( ! empty( $validation_result ) && ! empty( $validation_result['stock_status'] ) && 'outofstock' === $validation_result['stock_status'] ) {
+						$message[] = sprintf(
+							/* translators: 1: Parent product name 2: Chained item name(s) */
+							_x( 'Can not add %1$s to cart as %2$s doesn\'t have sufficient quantity in stock.', 'out of stock notice', 'woocommerce-chained-products' ),
+							is_callable( array( $wc_chained_products, 'get_product_title' ) ) ? $wc_chained_products->get_product_title( intval( $product_id ) ) : '',
+							! empty( $validation_result['product_titles'] && is_array( $validation_result['product_titles'] ) ) ? implode( ', ', $validation_result['product_titles'] ) : _x( 'Chained products', 'chained products title', 'woocommerce-chained-products' )
+						);
 						$cart->set_quantity( $cart_item_key, 0 );
 						if ( $cart_page_id ) {
 							wp_safe_redirect( apply_filters( 'woocommerce_get_cart_url', get_permalink( $cart_page_id ) ) );
@@ -2108,7 +2196,7 @@ if ( ! class_exists( 'WC_Chained_Products' ) ) {
 							for ( $max_count = 1; $max_count <= $max_quantity; $max_count++ ) {
 
 								$validation_result = $this->are_chained_products_available( $chained_parent_id, $max_count );
-								if ( null !== $validation_result ) {
+								if ( ! empty( $validation_result ) && ! empty( $validation_result['stock_status'] ) && 'outofstock' === $validation_result['stock_status'] ) {
 									break;
 								}
 							}

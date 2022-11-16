@@ -29,7 +29,7 @@ class WPSEO_Premium {
 	 *
 	 * @var string
 	 */
-	const PLUGIN_VERSION_NAME = '19.4';
+	const PLUGIN_VERSION_NAME = '19.5';
 
 	/**
 	 * Machine readable version for determining whether an upgrade is needed.
@@ -137,7 +137,7 @@ class WPSEO_Premium {
 
 			// Add input fields to page meta post types.
 			add_action(
-				'Yoast\WP\SEO\admin_post_types_beforearchive',
+				'Yoast\WP\SEO\admin_post_types_beforearchive_internal',
 				[
 					$this,
 					'admin_page_meta_post_types_checkboxes',

@@ -702,7 +702,7 @@ class GFSettings {
 						</p>
 					</td>
 					<td data-header="<?php esc_html_e( $license_info->renewal_text() ); ?>">
-						<p>N/A</p>
+						<p><?php echo esc_html( $license_info->renewal_date() ); ?></p>
 					</td>
 					<td data-header="<?php _e( 'Days Left', 'gravityforms' ); ?>">
 						<p>

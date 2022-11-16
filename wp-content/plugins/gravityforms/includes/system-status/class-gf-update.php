@@ -111,6 +111,16 @@ class GF_Update {
 										);
 									}
 
+								} else {
+
+									printf(
+										esc_html__( '%sRegister%s your copy of Gravity Forms to receive access to automatic updates and support. Need a license key? %sPurchase one now%s.', 'gravityforms' ),
+										'<a href="admin.php?page=gf_settings">',
+										'</a>',
+										'<a href="https://www.gravityforms.com">',
+										'</a>'
+									);
+
 								}
 								?>
                             </p>
@@ -193,7 +203,7 @@ class GF_Update {
 
 		// Add Gravity Forms core to updates array.
 		$updates[] = array(
-			'is_valid_key'      => 1,
+			'is_valid_key'      => rgar( $version_info, 'is_valid_key' ),
 			'name'              => esc_html__( 'Gravity Forms', 'gravityforms' ),
 			'path'              => $plugin_path,
 			'slug'              => 'gravityforms',

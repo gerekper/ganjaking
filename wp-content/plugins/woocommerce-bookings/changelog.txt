@@ -1,5 +1,9 @@
 *** WooCommerce Bookings Changelog ***
 
+2022-11-09 - version 1.15.66
+* Add - Declare compatibility with High-Performance Order Storage ("HPOS").
+* Fix - Admin access for bulk action requests.
+
 2022-11-01 - version 1.15.65
 * Fix - Prevent bookings and display end-times in unavailable times on another day.
 * Fix - Resource cost not included in booking cost when `=` used in booking cost ranges.
