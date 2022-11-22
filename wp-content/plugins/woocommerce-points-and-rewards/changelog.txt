@@ -1,5 +1,8 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2022-11-16 - version 1.7.21
+* Fix - Zero conversion rate causing internal server error.
+
 2022-11-08 - version 1.7.20
 * Fix - Add HPOS compatibility for order management.
 * Fix - Add HPOS compatibility.

@@ -77,8 +77,8 @@ class UnsubscribeAction implements Action {
 
     if ($this->trackingConfig->isEmailTrackingEnabled()) {
       $meta = json_encode([
-        'workflow' => $args->getWorkflow()->getId(),
-        'workflow_run' => $args->getWorkflowRun()->getId(),
+        'automation' => $args->getAutomation()->getId(),
+        'automation_run' => $args->getAutomationRun()->getId(),
         'step' => $args->getStep()->getId(),
       ]);
       $this->unsubscribesTracker->track(

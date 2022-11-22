@@ -221,13 +221,13 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 			*/
 			if(strpos($element_id, 'tax-') !== false) {
 				// Remove the "tax-" prefix
-				$term_id = intval(preg_replace("/[^0-9]/", "", $element_id));
+				$element_id = intval(preg_replace("/[^0-9]/", "", $element_id));
 
 				// Filter detected post ID
-				$term_id = apply_filters('permalink_manager_detected_term_id', intval($term_id), $uri_parts, true);
+				$element_id = apply_filters('permalink_manager_detected_term_id', intval($element_id), $uri_parts, true);
 
 				// Get the variables to filter wp_query and double-check if taxonomy exists
-				$term = get_term($term_id);
+				$term = get_term($element_id);
 				$term_taxonomy = (!empty($term->taxonomy)) ? $term->taxonomy : false;
 
 				// Check if term is allowed
@@ -244,7 +244,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 						$query["taxonomy"] = $term_taxonomy;
 						$query_parameter = $term_taxonomy;
 					}
-					$term_ancestors = get_ancestors($term_id, $term_taxonomy);
+					$term_ancestors = get_ancestors($element_id, $term_taxonomy);
 					$final_uri = $term->slug;
 
 					// Fix for hierarchical terms

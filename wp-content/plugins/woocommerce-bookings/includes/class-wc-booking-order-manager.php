@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Handles order status transitions and keeps bookings in sync
  */
@@ -47,6 +46,12 @@ class WC_Booking_Order_Manager {
 		add_action( 'before_delete_post', array( $this, 'delete_post' ) );
 		add_action( 'wp_trash_post', array( $this, 'trash_post' ) );
 		add_action( 'untrash_post', array( $this, 'untrash_post' ) );
+
+		// Handle HPOS order trash and delete.
+		add_action( 'woocommerce_before_delete_order', array( $this, 'delete_post' ) );
+		add_action( 'woocommerce_before_trash_order', array( $this, 'trash_post' ) );
+		add_action( 'woocommerce_untrash_order', array( $this, 'untrash_post' ) );
+
 		add_action( 'woocommerce_booking_cancelled', array( $this, 'maybe_cancel_order' ) );
 		add_action( 'woocommerce_booking_paid', array( $this, 'maybe_process_order' ) );
 		add_action( 'woocommerce_booking_unpaid', array( $this, 'maybe_pending_order' ) );
@@ -421,7 +426,8 @@ class WC_Booking_Order_Manager {
 		$cancelled_bookings = array();
 
 		// Prevents infinite loop during synch.
-		update_post_meta( $order_id, '_booking_status_sync', true );
+		$order->update_meta_data( '_booking_status_sync', true );
+		$order->save_meta_data();
 
 		// Collect booking IDs where refunded qty matches with its order item
 		// being refunded.
@@ -452,7 +458,8 @@ class WC_Booking_Order_Manager {
 		}
 
 		WC_Cache_Helper::get_transient_version( 'bookings', true );
-		delete_post_meta( $order_id, '_booking_status_sync' );
+		$order->delete_meta_data( '_booking_status_sync' );
+		$order->save_meta_data();
 	}
 
 	/**
@@ -473,7 +480,7 @@ class WC_Booking_Order_Manager {
 			$item_count = is_a( $order, 'WC_Order' ) ? count( $order->get_items() ) : 0;
 
 			if ( 1 === $item_count && $order_id && ! self::is_syncing( $order_id ) ) {
-				wp_delete_post( $order_id, true );
+				$order->delete( true );
 			}
 
 			$this->clear_cron_hooks( (int) $post_id );
@@ -481,7 +488,7 @@ class WC_Booking_Order_Manager {
 			self::syncing_stop( $post_id );
 		}
 
-		if ( 'shop_order' === get_post_type( $post_id ) ) {
+		if ( WC_Booking_Order_Compat::is_shop_order( $post_id ) ) {
 			self::syncing_start( $post_id );
 
 			$bookings = WC_Booking_Data_Store::get_booking_ids_from_order_id( $post_id );
@@ -516,13 +523,13 @@ class WC_Booking_Order_Manager {
 
 			// only delete this order if this booking is the only item in it
 			if ( 1 === $item_count && $order_id && ! self::is_syncing( $order_id ) ) {
-				wp_trash_post( $order_id );
+				$order->delete();
 			}
 
 			self::syncing_stop( $post_id );
 		}
 
-		if ( 'shop_order' === get_post_type( $post_id ) ) {
+		if ( WC_Booking_Order_Compat::is_shop_order( $post_id ) ) {
 			self::syncing_start( $post_id );
 
 			$bookings = WC_Booking_Data_Store::get_booking_ids_from_order_id( $post_id );
@@ -554,13 +561,13 @@ class WC_Booking_Order_Manager {
 			$order_id = WC_Booking_Data_Store::get_booking_order_id( $post_id );
 
 			if ( $order_id && ! self::is_syncing( $order_id ) ) {
-				wp_untrash_post( $order_id );
+				WC_Booking_Order_Compat::untrash_post( $order_id );
 			}
 
 			self::syncing_stop( $post_id );
 		}
 
-		if ( 'shop_order' === get_post_type( $post_id ) ) {
+		if ( WC_Booking_Order_Compat::is_shop_order( $post_id ) ) {
 			self::syncing_start( $post_id );
 
 			$bookings = WC_Booking_Data_Store::get_booking_ids_from_order_id( $post_id );

@@ -833,6 +833,18 @@ class WC_Product_Booking_Rule_Manager {
 
 			$minute_range = self::calculate_minute_range( $from, $to );
 
+			/*
+			 * Remove 1 min from start and 1 min from end of the unbookable range to keep those minutes bookable.
+			 * Detailed information on this can be found in `get_rule_minutes_for_time` method.
+			 * @see https://github.com/woocommerce/woocommerce-bookings/issues/3409
+			 */
+			$minutes['overlapping_start_time'] = false;
+			$minutes['overlapping_end_time']   = false;
+			if ( ! $minutes['is_bookable'] ) {
+				$minutes['overlapping_start_time'] = array_shift( $minute_range );
+				$minutes['overlapping_end_time']   = array_pop( $minute_range );
+			}
+
 			$minutes['minutes'] = array_merge( $minutes['minutes'], $minute_range );
 
 		}

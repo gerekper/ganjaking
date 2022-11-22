@@ -20,8 +20,22 @@ class WC_Bookings_Report_Dashboard {
 	public static function add_stats_to_dashboard() {
 		global $wpdb;
 
-		$new_bookings = $wpdb->get_var( $wpdb->prepare(
-			"SELECT COUNT(DISTINCT wcbookings.ID) AS count
+		if ( WC_Booking_Order_Compat::is_cot_enabled() ) {
+			$new_bookings = $wpdb->get_var( $wpdb->prepare(
+				"SELECT COUNT(DISTINCT wcbookings.ID) AS count
+				FROM {$wpdb->posts} AS wcbookings
+				INNER JOIN {$wpdb->prefix}wc_orders AS wcorder
+					ON wcbookings.post_parent = wcorder.id
+				WHERE wcbookings.post_type IN ( 'wc_booking' )
+					AND wcorder.status IN ( 'wc-completed', 'wc-processing', 'wc-on-hold', 'wc-refunded' )
+					AND wcorder.date_created_gmt >= '%s'
+					AND wcorder.date_created_gmt < '%s'",
+				date( 'Y-m-01', current_time( 'timestamp', true ) ),
+				date( 'Y-m-d H:i:s', current_time( 'timestamp', true ) )
+			) );
+		} else {
+			$new_bookings = $wpdb->get_var( $wpdb->prepare(
+				"SELECT COUNT(DISTINCT wcbookings.ID) AS count
 				FROM {$wpdb->posts} AS wcbookings
 				INNER JOIN {$wpdb->posts} AS wcorder
 					ON wcbookings.post_parent = wcorder.ID
@@ -30,9 +44,10 @@ class WC_Bookings_Report_Dashboard {
 					AND wcorder.post_status IN ( 'wc-completed', 'wc-processing', 'wc-on-hold', 'wc-refunded' )
 					AND wcorder.post_date >= '%s'
 					AND wcorder.post_date < '%s'",
-			date( 'Y-m-01', current_time( 'timestamp' ) ),
-			date( 'Y-m-d H:i:s', current_time( 'timestamp' ) )
-		) );
+				date( 'Y-m-01', current_time( 'timestamp' ) ),
+				date( 'Y-m-d H:i:s', current_time( 'timestamp' ) )
+			) );
+		}
 
 		$require_confirmation = $wpdb->get_var( "SELECT COUNT(DISTINCT wcbookings.ID) AS count
 				FROM {$wpdb->posts} AS wcbookings

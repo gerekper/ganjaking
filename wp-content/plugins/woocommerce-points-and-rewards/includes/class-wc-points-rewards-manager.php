@@ -477,8 +477,15 @@ class WC_Points_Rewards_Manager {
 	 * @return int
 	 */
 	public static function calculate_points_for_discount( $discount_amount ) {
-
 		list( $points, $monetary_value ) = explode( ':', get_option( 'wc_points_rewards_redeem_points_ratio', '' ) );
+
+		$points         = floatval( $points );
+		$monetary_value = floatval( $monetary_value );
+
+		// Return zero point value if not set in settings.
+		if ( 0.0 === $monetary_value ) {
+			return 0;
+		}
 
 		$required_points = $discount_amount * ( $points / $monetary_value );
 

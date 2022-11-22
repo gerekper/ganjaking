@@ -144,7 +144,7 @@ class WC_Bookings_Details_Meta_Box {
 				<?php
 				if ( $order ) {
 					/* translators: 1: href to order id */
-					printf( ' ' . esc_html__( 'Linked to order %s.', 'woocommerce-bookings' ), '<a href="' . admin_url( 'post.php?post=' . absint( ( is_callable( array( $order, 'get_id' ) ) ? esc_html( $order->get_id() ) : esc_html( $order->id ) ) ) . '&action=edit' ) . '">#' . esc_html( $order->get_order_number() ) . '</a>' );
+					printf( ' ' . esc_html__( 'Linked to order %s.', 'woocommerce-bookings' ), '<a href="' . $order->get_edit_order_url() . '">#' . esc_html( $order->get_order_number() ) . '</a>' );
 				}
 
 				if ( $product && is_callable( array( $product, 'is_bookings_addon' ) ) && $product->is_bookings_addon() ) {

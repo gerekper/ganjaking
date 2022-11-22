@@ -9,6 +9,10 @@ class woocommerce_product_pricing_rules_admin {
 	}
 
 	public function on_product_write_panel_tabs() {
+        if (!apply_filters('current_user_can_manage_dynamic_pricing', current_user_can('manage_woocommerce'))) {
+            return false;
+        }
+
 		if ( WC_Dynamic_Pricing_Compatibility::is_wc_version_gte_2_3() ) :
 			?>
             <li class="pricing_tab dynamic_pricing_options dynamic_pricing_options_23">
@@ -30,6 +34,9 @@ class woocommerce_product_pricing_rules_admin {
 
 	public function product_data_panel() {
 		global $post;
+		if (!apply_filters('current_user_can_manage_dynamic_pricing', current_user_can('manage_woocommerce'))) {
+			return false;
+		}
 		$product           = wc_get_product( $post->ID );
 		$pricing_rule_sets = WC_Dynamic_Pricing_Compatibility::get_product_meta( $product, '_pricing_rules' );
 		$pricing_rule_sets = ! empty( $pricing_rule_sets ) ? $pricing_rule_sets : array();

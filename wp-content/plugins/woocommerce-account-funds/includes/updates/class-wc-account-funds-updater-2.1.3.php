@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Updater for 2.1.3.
  *
  * This updates order item meta as WC 3.0 will invalidate order item with
- * invaild product ID. Before 2.1.3, AF stores `_product_id` with value sets to
+ * invalid product ID. Before 2.1.3, AF stores `_product_id` with value sets to
  * page id of my-account page.
  */
 class WC_Account_Funds_Updater_2_1_3 implements WC_Account_Funds_Updater {

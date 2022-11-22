@@ -123,7 +123,7 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 		$slug = (empty($slug)) ? get_the_title($id) : $slug;
 		$slug = sanitize_title($slug);
 
-		$new_slug = wp_unique_post_slug($slug, $id, get_post_status($id), get_post_type($id), null);
+		$new_slug = wp_unique_post_slug($slug, $id, get_post_status($id), get_post_type($id), 0);
 		$wpdb->query($wpdb->prepare("UPDATE {$wpdb->posts} SET post_name = %s WHERE ID = %d", $new_slug, $id));
 
 		return $new_slug;
@@ -537,7 +537,7 @@ class Permalink_Manager_URI_Functions_Post extends Permalink_Manager_Class {
 				$correct_slug = ($mode == 'slugs') ? sanitize_title($row['post_title']) : Permalink_Manager_Helper_Functions::sanitize_title($row['post_title']);
 
 				// Process URI & slug
-				$new_slug = wp_unique_post_slug($correct_slug, $row['ID'], get_post_status($row['ID']), get_post_type($row['ID']), null);
+				$new_slug = wp_unique_post_slug($correct_slug, $row['ID'], get_post_status($row['ID']), get_post_type($row['ID']), 0);
 				$new_post_name = ($mode == 'slugs') ? $new_slug : $old_post_name; // Post name is changed only in first mode
 
 				// Prepare the new URI

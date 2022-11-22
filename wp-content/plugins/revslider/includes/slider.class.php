@@ -1324,15 +1324,24 @@ class RevSliderSlider extends RevSliderFunctions {
 	 * get sliders array - function don't belong to the object!
 	 * @before: RevSliderSlider::getArrSliders();
 	 */
-	public function get_sliders($templates = false){
+	public function get_sliders($templates = false, $page = 0){
 		global $wpdb, $rs_do_init_action;
 		
 		$rs_do_init_action = false;
 		$sliders	= array();
 		$do_order	= 'id';
 		$direction	= 'ASC';
-		
-		$slider_data = $wpdb->get_results($wpdb->prepare("SELECT * FROM ".$wpdb->prefix . RevSliderFront::TABLE_SLIDER." WHERE `type` != 'folder' ORDER BY %s %s", array($do_order, $direction)), ARRAY_A); //WHERE `type` = '' OR `type` IS NULL 
+		$page		= intval($page);
+		$type		= ($templates === true) ? '' : " AND `type` != 'template'";
+		$limit		= '';
+
+		if($page > 0){
+			$end	= 50 * $page;
+			$start	= $end - 50;
+			$limit	= ' LIMIT '.$start.', '.$end;
+		}
+
+		$slider_data = $wpdb->get_results($wpdb->prepare("SELECT * FROM ".$wpdb->prefix . RevSliderFront::TABLE_SLIDER." WHERE `type` != 'folder' ". $type ." ORDER BY %s %s".$limit, array($do_order, $direction)), ARRAY_A); //WHERE `type` = '' OR `type` IS NULL 
 		if(!empty($slider_data)){
 			foreach($slider_data as $data){
 				$slider = new RevSliderSlider();

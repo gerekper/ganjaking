@@ -32,7 +32,7 @@ class WC_Dynamic_Pricing_Simple_Taxonomy extends WC_Dynamic_Pricing_Simple_Base 
 			foreach ( $pricing_rule_sets as $set_id => $pricing_rule_set ) {
 				$execute_rules      = false;
 				$conditions_met     = 0;
-				$pricing_conditions = $pricing_rule_set['conditions'];
+				$pricing_conditions = $pricing_rule_set['conditions'] ?? [];
 				if ( is_array( $pricing_conditions ) && sizeof( $pricing_conditions ) > 0 ) {
 					foreach ( $pricing_conditions as $condition ) {
 						$conditions_met += $this->handle_condition( $condition );
@@ -170,7 +170,7 @@ class WC_Dynamic_Pricing_Simple_Taxonomy extends WC_Dynamic_Pricing_Simple_Base 
 				break;
 			case 'percentage_discount':
 			case 'percent_product':
-				$amount = $amount / 100;
+				$amount = floatval($amount) / 100;
 				if ( $amount <= 1 ) {
 					$result = round( floatval( $price ) - ( floatval( $amount ) * $price ), (int) $num_decimals );
 				} else {

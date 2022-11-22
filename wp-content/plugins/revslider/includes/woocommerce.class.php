@@ -215,5 +215,26 @@ class RevSliderWooCommerce extends RevSliderFunctions {
 		
 		return $sort_by;
 	}
+
+	/**
+	 * since WooCommerce 3.0 this function is deprecated as it could lead to performance issues
+	 * this is a 1to1 copy of the named function without the deprecation message
+	 **/
+	public static function get_total_stock($product){
+		if ( sizeof( $product->get_children() ) > 0 ) {
+			$total_stock = max( 0, $product->get_stock_quantity() );
+
+			foreach ( $product->get_children() as $child_id ) {
+				if ( 'yes' === get_post_meta( $child_id, '_manage_stock', true ) ) {
+					$stock = get_post_meta( $child_id, '_stock', true );
+					$total_stock += max( 0, wc_stock_amount( $stock ) );
+				}
+			}
+		} else {
+			$total_stock = $product->get_stock_quantity();
+		}
+		
+		return wc_stock_amount( $total_stock );
+	}
 	
 }	//end of the class

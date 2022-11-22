@@ -206,8 +206,8 @@ class FUE_Front_Handler {
 			'store_url_secure' => home_url( null, 'https' ),
 			'store_name'       => get_bloginfo( 'name' ),
 			'unsubscribe'      => fue_get_unsubscribe_url(),
-			'subject'          => $email->subject,
-			'message'          => $email->message,
+			'subject'          => wp_kses_post( $email->subject ),
+			'message'          => wp_kses_post( $email->message ),
 			'meta'             => array(),
 		);
 

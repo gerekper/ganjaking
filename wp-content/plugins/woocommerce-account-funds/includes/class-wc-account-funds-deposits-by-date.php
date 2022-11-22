@@ -34,33 +34,22 @@ class WC_Report_Deposits_By_Date extends WC_Admin_Report {
 		$this->report_data->deposit_amounts = array();
 
 		$args = array(
-			'numberposts'            => -1,
-			'post_type'              => 'shop_order',
-			'fields'                 => 'ids',
-			'no_found_rows'          => true,
-			'update_post_meta_cache' => false,
-			'update_post_term_cache' => false,
-			'post_status'            => array( 'wc-completed', 'wc-processing', 'wc-on-hold' ),
-			'meta_query'             => array(
+			'type'         => 'shop_order',
+			'limit'        => -1,
+			'status'       => array( 'wc-completed', 'wc-processing', 'wc-on-hold' ),
+			'funds_query'  => array(
 				array(
 					'key'   => '_funds_deposited',
 					'value' => '1',
 				),
 			),
-			'date_query'             => array(
-				array(
-					'after'     => date( 'Y-m-d', $this->start_date ),
-					'before'    => date( 'Y-m-d', $this->end_date ),
-					'inclusive' => true,
-				),
-			),
+			'date_created' => gmdate( 'Y-m-d', $this->start_date ) . '...' . gmdate( 'Y-m-d', $this->end_date ),
 		);
 
-		$orders = get_posts( $args );
+		$orders = wc_get_orders( $args );
 
-		foreach ( $orders as $order_id ) {
-			$order = new WC_Order( $order_id );
-			$time  = strtotime( date( 'Ymd', strtotime( $order->get_date_created() ) ) ) . '000';
+		foreach ( $orders as $order ) {
+			$time = strtotime( date( 'Ymd', strtotime( $order->get_date_created() ) ) ) . '000';
 
 			foreach ( $order->get_items() as $item ) {
 				$product = $item->get_product();

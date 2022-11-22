@@ -300,7 +300,7 @@ class WC_Bookings_CPT {
 			case 'order':
 				$order = $booking->get_order();
 				if ( $order ) {
-					echo '<a href="' . esc_url( admin_url( 'post.php?post=' . ( is_callable( array( $order, 'get_id' ) ) ? $order->get_id() : $order->id ) . '&action=edit' ) ) . '">#' . esc_html( $order->get_order_number() ) . '</a> - ' . esc_html( wc_get_order_status_name( $order->get_status() ) );
+					echo '<a href="' . esc_url( $order->get_edit_order_url() ) . '">#' . esc_html( $order->get_order_number() ) . '</a> - ' . esc_html( wc_get_order_status_name( $order->get_status() ) );
 				} else {
 					echo '-';
 				}

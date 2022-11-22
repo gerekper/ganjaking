@@ -6,7 +6,7 @@
 class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 
 	public function __construct() {
-		add_action( 'admin_init', array($this, 'init') );
+		add_action( 'init', array($this, 'init') );
 		add_action( 'rest_api_init', array($this, 'init') );
 
 		add_filter( 'term_link', array($this, 'custom_tax_permalinks'), 999, 2 );
@@ -35,12 +35,14 @@ class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 			add_action( "delete_{$tax}", array($this, 'remove_term_uri'), 10, 2 );
 
 			// Check the user capabilities
-			$edit_uris_cap = (!empty($permalink_manager_options['general']['edit_uris_cap'])) ? $permalink_manager_options['general']['edit_uris_cap'] : 'publish_posts';
-			if(current_user_can($edit_uris_cap)) {
-				add_action( "{$tax}_add_form_fields", array($this, 'edit_uri_box'), 10, 1 );
-				add_action( "{$tax}_edit_form_fields", array($this, 'edit_uri_box'), 10, 1 );
-				add_filter( "manage_edit-{$tax}_columns", array($this, 'quick_edit_column') );
-				add_filter( "manage_{$tax}_custom_column" , array($this, 'quick_edit_column_content'), 10, 3 );
+			if(is_admin()) {
+				$edit_uris_cap = (!empty($permalink_manager_options['general']['edit_uris_cap'])) ? $permalink_manager_options['general']['edit_uris_cap'] : 'publish_posts';
+				if(current_user_can($edit_uris_cap)) {
+					add_action( "{$tax}_add_form_fields", array($this, 'edit_uri_box'), 10, 1 );
+					add_action( "{$tax}_edit_form_fields", array($this, 'edit_uri_box'), 10, 1 );
+					add_filter( "manage_edit-{$tax}_columns", array($this, 'quick_edit_column') );
+					add_filter( "manage_{$tax}_custom_column" , array($this, 'quick_edit_column_content'), 10, 3 );
+				}
 			}
 		}
 	}

@@ -180,7 +180,7 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 		$icl_adjust_id_url_filter_off = false;
 
 		// Use default language if nothing detected
-		return ($lang_code) ? $lang_code : self::get_default_language();
+		return (!empty($lang_code)) ? $lang_code : self::get_default_language();
 	}
 
 	public static function get_translatepress_language_code($lang) {
@@ -248,9 +248,13 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 	}
 
 	function fix_language_mismatch($item_id, $uri_parts, $is_term = false) {
-		global $wp, $polylang, $language_code, $permalink_manager_options;
+		global $wp, $polylang, $language_code, $permalink_manager_options, $icl_adjust_id_url_filter_off;
 
 		$mode = (!empty($permalink_manager_options['general']['fix_language_mismatch'])) ? $permalink_manager_options['general']['fix_language_mismatch'] : 0;
+
+		// Stop WPML from changing the output of the get_term() and get_post() functions
+		$icl_adjust_id_url_filter_off_prior = $icl_adjust_id_url_filter_off;
+		$icl_adjust_id_url_filter_off = true;
 
 		if($is_term) {
 			$element = get_term($item_id);
@@ -294,7 +298,7 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 						$translated_item_id = pll_get_term($element_id, $detected_language_code);
 					}
 
-					$item_id = (!empty($translated_item_id)) ? $translated_item_id : $item_id;
+					$item_id = (isset($translated_item_id)) ? $translated_item_id : $item_id;
 				} else {
 					$item_id = apply_filters('wpml_object_id', $element_id, $element_type);
 				}
@@ -304,6 +308,8 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 				$item_id = 0;
 			}
 		}
+
+		$icl_adjust_id_url_filter_off = $icl_adjust_id_url_filter_off_prior;
 
 		return $item_id;
 	}

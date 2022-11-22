@@ -40,7 +40,6 @@ class Permalink_Manager_Actions extends Permalink_Manager_Class {
 			'uri_editor' => array('function' => 'update_all_permalinks', 'display_uri_table' => true),
 			'permalink_manager_options' => array('function' => 'save_settings'),
 			'permalink_manager_permastructs' => array('function' => 'save_permastructures'),
-			'flush_sitemaps' => array('function' => 'flush_sitemaps'),
 			'import' => array('function' => 'import_custom_permalinks_uris'),
 		);
 
@@ -285,21 +284,29 @@ class Permalink_Manager_Actions extends Permalink_Manager_Class {
 	 * Additional actions
 	 */
 	public static function extra_actions() {
-		if(current_user_can('manage_options')) {
-			if(isset($_GET['flush_sitemaps'])) {
-				self::flush_sitemaps();
-			} else if(isset($_GET['clear-permalink-manager-uris'])) {
+		global $permalink_manager_before_sections_html;
+
+		if(current_user_can('manage_options') && !empty($_GET['_wpnonce'])) {
+			// Check if the nonce field is correct
+			$nonce = sanitize_key($_GET['_wpnonce']);
+
+			if(!wp_verify_nonce($nonce, 'permalink-manager')) {
+				$permalink_manager_before_sections_html = Permalink_Manager_Admin_Functions::get_alert_message(__( 'You are not allowed to remove Permalink Manager data!', 'permalink-manager' ), 'error updated_slugs');
+				return;
+			}
+
+			if(isset($_GET['clear-permalink-manager-uris'])) {
 				self::clear_all_uris();
 			} else if(isset($_GET['remove-permalink-manager-settings'])) {
 				$option_name = sanitize_text_field($_GET['remove-permalink-manager-settings']);
 				self::remove_plugin_data($option_name);
-			} /*else if(!empty($_REQUEST['remove-uri'])) {
+			} else if(!empty($_REQUEST['remove-uri'])) {
 				$uri_key = sanitize_text_field($_REQUEST['remove-uri']);
 				self::force_clear_single_element_uris_and_redirects($uri_key);
 			} else if(!empty($_REQUEST['remove-redirect'])) {
 				$redirect_key = sanitize_text_field($_REQUEST['remove-redirect']);
 				self::force_clear_single_redirect($redirect_key);
-			}*/
+			}
 		} else if(!empty($_POST['screen-options-apply'])) {
 			self::save_screen_options();
 		}
@@ -413,13 +420,6 @@ class Permalink_Manager_Actions extends Permalink_Manager_Class {
 		// Make sure that the user is allowed to remove the plugin data
 		if(!current_user_can('manage_options')) {
 			$permalink_manager_before_sections_html .= Permalink_Manager_Admin_Functions::get_alert_message(__( 'You are not allowed to remove Permalink Manager data!', 'permalink-manager' ), 'error updated_slugs');
-		}
-
-		// Check if the nonce field is correct
-		$nonce = sanitize_key($_GET['_wpnonce']);
-		if(!wp_verify_nonce($nonce, 'permalink-manager')) {
-			$permalink_manager_before_sections_html .= Permalink_Manager_Admin_Functions::get_alert_message(__( 'You are not allowed to remove Permalink Manager data!', 'permalink-manager' ), 'error updated_slugs');
-			return;
 		}
 
 		switch($field_name) {
@@ -698,19 +698,6 @@ class Permalink_Manager_Actions extends Permalink_Manager_Class {
 			$dismissed_time = (!empty($permalink_manager_alerts[$alert_id]['dismissed_time'])) ? (int) $permalink_manager_alerts[$alert_id]['dismissed_time'] : DAY_IN_SECONDS;
 
 			set_transient($dismissed_transient_name, 1, $dismissed_time);
-		}
-	}
-
-	/**
-	 * Clear sitemaps cache
-	 */
-	function flush_sitemaps($types = array()) {
-		global $permalink_manager_before_sections_html;
-
-		if(class_exists('WPSEO_Sitemaps_Cache')) {
-			$sitemaps = WPSEO_Sitemaps_Cache::clear($types);
-
-			$permalink_manager_before_sections_html .= Permalink_Manager_Admin_Functions::get_alert_message(__( 'Sitemaps were updated!', 'permalink-manager' ), 'updated');
 		}
 	}
 

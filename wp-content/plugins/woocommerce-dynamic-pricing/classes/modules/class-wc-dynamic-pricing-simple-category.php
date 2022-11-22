@@ -25,7 +25,7 @@ class WC_Dynamic_Pricing_Simple_Category extends WC_Dynamic_Pricing_Simple_Base 
 			foreach ( $pricing_rule_sets as $set_id => $pricing_rule_set ) {
 				$execute_rules      = false;
 				$conditions_met     = 0;
-				$pricing_conditions = $pricing_rule_set['conditions'];
+				$pricing_conditions = $pricing_rule_set['conditions'] ?? [];
 				if ( is_array( $pricing_conditions ) && sizeof( $pricing_conditions ) > 0 ) {
 					foreach ( $pricing_conditions as $condition ) {
 						$conditions_met += $this->handle_condition( $condition );
@@ -161,13 +161,14 @@ class WC_Dynamic_Pricing_Simple_Category extends WC_Dynamic_Pricing_Simple_Base 
 		if ( $amount === null || $amount === "" || ! is_numeric( $amount ) ) {
 			return false;
 		}
+		$amount = floatval( $amount );
 
 		$num_decimals = apply_filters( 'woocommerce_dynamic_pricing_get_decimals', (int) get_option( 'woocommerce_price_num_decimals' ) );
 
 		switch ( $rule['type'] ) {
 			case 'price_discount':
 			case 'fixed_product':
-				$adjusted = floatval( $price ) - floatval( $amount );
+				$adjusted = floatval( $price ) - $amount;
 				$result   = $adjusted >= 0 ? $adjusted : 0;
 				break;
 			case 'percentage_discount':
@@ -186,7 +187,7 @@ class WC_Dynamic_Pricing_Simple_Category extends WC_Dynamic_Pricing_Simple_Base 
 				}
 
 				if ( isset( $cart_item['addons_price_before_calc'] ) ) {
-					$addons_total = $price - $cart_item['addons_price_before_calc'];
+					$addons_total = floatval( $price ) - floatval( $cart_item['addons_price_before_calc'] );
 					$amount       += $addons_total;
 				}
 

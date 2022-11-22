@@ -217,17 +217,10 @@ class WC_Account_Funds_My_Account {
 	 * Show top up products
 	 */
 	private function my_account_products() {
-		$product_ids = get_posts(
+		$product_ids = wc_get_products(
 			array(
-				'post_type' => 'product',
-				'fields'    => 'ids',
-				'tax_query' => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
-					array(
-						'taxonomy' => 'product_type',
-						'field'    => 'slug',
-						'terms'    => 'deposit',
-					),
-				),
+				'return' => 'ids',
+				'type'   => 'deposit',
 			)
 		);
 
@@ -245,16 +238,13 @@ class WC_Account_Funds_My_Account {
 	 */
 	private function get_deposits() {
 		if ( is_null( $this->deposits ) ) {
-			$this->deposits = get_posts(
+			$this->deposits = wc_get_orders(
 				array(
-					'numberposts' => 10,
-					'post_type'   => 'shop_order',
-					'post_status' => array( 'wc-completed', 'wc-processing', 'wc-on-hold' ),
-					'meta_query'  => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
-						array(
-							'key'   => '_customer_user',
-							'value' => get_current_user_id(),
-						),
+					'type'        => 'shop_order',
+					'limit'       => 10,
+					'status'      => array( 'wc-completed', 'wc-processing', 'wc-on-hold' ),
+					'customer_id' => get_current_user_id(),
+					'funds_query' => array(
 						array(
 							'key'   => '_funds_deposited',
 							'value' => '1',
@@ -291,11 +281,9 @@ class WC_Account_Funds_My_Account {
 	 */
 	public function recent_deposit_items_data() {
 		foreach ( $this->get_deposits() as $deposit ) {
-			$order = wc_get_order( $deposit->ID );
-
 			$funded = 0;
 
-			foreach ( $order->get_items() as $item ) {
+			foreach ( $deposit->get_items() as $item ) {
 				$product = $item->get_product();
 
 				if ( ! $product ) {
@@ -303,17 +291,17 @@ class WC_Account_Funds_My_Account {
 				}
 
 				if ( $product->is_type( 'deposit' ) || $product->is_type( 'topup' ) ) {
-					$funded += $order->get_line_total( $item );
+					$funded += $deposit->get_line_total( $item );
 				}
 			}
 
 			$vars = array(
 				'deposit' => array(
 					'funded'            => $funded,
-					'order_date'        => ( $order->get_date_created() ? gmdate( 'Y-m-d H:i:s', $order->get_date_created()->getOffsetTimestamp() ) : '' ),
-					'order_url'         => $order->get_view_order_url(),
-					'order_number'      => $order->get_order_number(),
-					'order_status_name' => wc_get_order_status_name( $order->get_status() ),
+					'order_date'        => ( $deposit->get_date_created() ? gmdate( 'Y-m-d H:i:s', $deposit->get_date_created()->getOffsetTimestamp() ) : '' ),
+					'order_url'         => $deposit->get_view_order_url(),
+					'order_number'      => $deposit->get_order_number(),
+					'order_status_name' => wc_get_order_status_name( $deposit->get_status() ),
 				),
 			);
 

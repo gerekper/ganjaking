@@ -36,10 +36,11 @@ class WC_Account_Funds_Updater_2_0_9 implements WC_Account_Funds_Updater {
 	 * @return array List of renewal orders
 	 */
 	private function _get_renewal_orders_paid_with_af() {
-		return get_posts(
+		return wc_get_orders(
 			array(
-				'post_type'           => 'shop_subscription',
-				'meta_query'          => array(
+				'type'           => 'shop_subscription',
+				'parent_exclude' => array( '0' ),
+				'funds_query'    => array(
 					array(
 						'key'   => '_funds_removed',
 						'value' => '1',
@@ -50,9 +51,6 @@ class WC_Account_Funds_Updater_2_0_9 implements WC_Account_Funds_Updater {
 						'compare' => '>',
 					),
 				),
-				'post_status'         => 'any',
-				'nopaging'            => true,
-				'post_parent__not_in' => array( '0' ),
 			)
 		);
 	}
@@ -65,10 +63,11 @@ class WC_Account_Funds_Updater_2_0_9 implements WC_Account_Funds_Updater {
 	 * @return string Recurring total
 	 */
 	private function _get_recurring_total( $parent_id ) {
-		if ( version_compare( WC_Subscriptions::$version, '2.0.0', '<' ) ) {
-			$recurring_total = get_post_meta( $parent_id, '_order_recurring_total', true );
-		} else {
-			$recurring_total = get_post_meta( $parent_id, '_wcs_migrated_order_recurring_total', true );
+		$subscription    = wc_get_order( $parent_id );
+		$recurring_total = $subscription->get_meta( '_wcs_migrated_order_recurring_total' );
+
+		if ( ! $recurring_total ) {
+			$recurring_total = $subscription->get_meta( '_order_recurring_total' );
 		}
 
 		return $recurring_total;

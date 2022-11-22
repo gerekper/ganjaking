@@ -85,11 +85,40 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 			wp_enqueue_style('rs-roboto', $url_css.'Roboto');
 			wp_enqueue_style('tp-material-icons', $url_material.'Material+Icons');
 		}elseif($fdl === 'preload'){
-			$fonts = array('Open+Sans:400%2C300%2C700%2C600%2C800', 'Roboto:400%2C300%2C700%2C600%2C800', 'Material+Icons');
+			$fonts = array('Open Sans' => 'Open+Sans:400%2C300%2C700%2C600%2C800', 'Roboto' => 'Roboto:400%2C300%2C700%2C500');//, 'Material Icons' => 'Material+Icons'
 			$html = $f->preload_fonts($fonts);
-			if(!empty($html)){
-				echo $html;
-			}
+			if(!empty($html)) echo $html;
+			echo "\n<style>@font-face {
+	font-family: 'Material Icons';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Material Icons'),
+	local('MaterialIcons-Regular'),
+	url(".RS_PLUGIN_URL."public/assets/fonts/material/MaterialIcons-Regular.woff2) format('woff2'),
+	url(".RS_PLUGIN_URL."public/assets/fonts/material/MaterialIcons-Regular.woff) format('woff'),  
+	url(".RS_PLUGIN_URL."public/assets/fonts/material/MaterialIcons-Regular.ttf) format('truetype');
+}
+.material-icons {
+	font-family: 'Material Icons';
+	font-weight: normal;
+	font-style: normal;
+		font-size: inherit;
+	display: inline-block;  
+	text-transform: none;
+	letter-spacing: normal;
+	word-wrap: normal;
+	white-space: nowrap;
+	direction: ltr;
+	vertical-align: top;
+	line-height: inherit;
+	/* Support for IE. */
+	font-feature-settings: 'liga';
+	
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	-moz-osx-font-smoothing: grayscale;
+}
+</style>\n";
 		}//disable => load on your own
 		
 		//wp_enqueue_style('revslider-global-styles', RS_PLUGIN_URL . 'admin/assets/css/global.css', array(), RS_REVISION);
@@ -776,6 +805,22 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 			if(!in_array($action, $no_cache)) $this->flush_wp_cache();
 			
 			switch($action){
+				case 'load_google_font':
+					$google_font = $this->get_val($data, 'font', '');
+					$this->download_collected_fonts($google_font);
+					$this->ajax_response_success('', '');
+				break;
+				case 'collect_google_fonts':
+
+					$page = $this->get_val($data, 'page', 1);
+					$return = $this->collect_used_fonts(true, true, $page);
+
+					$this->ajax_response_data($return);
+				break;
+				case 'delete_full_fonts_cache':
+					$this->delete_google_fonts();
+					$this->ajax_response_success(__('Successfully deleted all fonts cache', 'revslider'));
+				break;
 				case 'activate_plugin':
 					$result	 = false;
 					$code	 = trim($this->get_val($data, 'code'));
@@ -2226,10 +2271,6 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 					$cache->clear_all_transients();
 					
 					$this->ajax_response_success(__('Slider Revolution internal cache was fully cleared', 'revslider'));
-				break;
-				case 'trigger_font_deletion':
-					$this->delete_google_fonts();
-					$this->ajax_response_success(__('Downloaded Google Fonts will be updated', 'revslider'));
 				break;
 				case 'get_same_aspect_ratio':
 					$images = $this->get_val($data, 'images', array());

@@ -1,5 +1,8 @@
 *** WooCommerce Account Funds ***
 
+2022-11-16 - version 2.7.3
+* Tweak - Declare compatibility with WooCommerce High-Performance Order Storage (HPOS).
+
 2022-11-10 - version 2.7.2
 * Tweak - Check if the funds are still applicable to the cart when its items are updated.
 * Fix - Funds were not being removed from the cart after adding a deposit product.

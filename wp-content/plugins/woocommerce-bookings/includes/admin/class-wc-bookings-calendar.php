@@ -194,6 +194,7 @@ class WC_Bookings_Calendar {
 					'status'   => $status,
 					'note'     => isset( $note ) ? $note : '',
 					'start'    => $event->get_start(),
+					'end'      => $event->get_end(),
 				);
 			} else { // Extract global availability data.
 				$availability = $event;
@@ -206,6 +207,7 @@ class WC_Bookings_Calendar {
 						continue;
 					}
 					$start            = $range['start'];
+					$end   		      = $range['end'];
 					$short_start_time = $this->get_short_time( $range['start'] );
 					$short_end_time   = $this->get_short_time( $range['end'] );
 					$time             = $availability->is_all_day() ? __( 'All Day', 'woocommerce-bookings' ) : sprintf( __( '%1$s — %2$s', 'woocommerce-bookings' ), $short_start_time, $short_end_time );
@@ -226,6 +228,7 @@ class WC_Bookings_Calendar {
 						'url'      => $detail_href,
 						'note'     => '',
 						'start'    => $start,
+						'end'      => $end,
 					);
 				}
 			}

@@ -43,7 +43,6 @@ return array(
     'WP_Rocket\\Subscriber\\Media\\Webp_Subscriber' => $baseDir . '/inc/classes/subscriber/Media/class-webp-subscriber.php',
     'WP_Rocket\\Subscriber\\Optimization\\Dequeue_JQuery_Migrate_Subscriber' => $baseDir . '/inc/deprecated/subscriber/Optimization/class-dequeue-jquery-migrate-subscriber.php',
     'WP_Rocket\\Subscriber\\Optimization\\Minify_HTML_Subscriber' => $baseDir . '/inc/deprecated/subscriber/admin/Optimization/class-minify-html-subscriber.php',
-    'WP_Rocket\\Subscriber\\Third_Party\\Plugins\\Ecommerce\\BigCommerce_Subscriber' => $baseDir . '/inc/classes/subscriber/third-party/plugins/ecommerce/class-bigcommerce-subscriber.php',
     'WP_Rocket\\Subscriber\\Third_Party\\Plugins\\Images\\Webp\\EWWW_Subscriber' => $baseDir . '/inc/classes/subscriber/third-party/plugins/Images/Webp/class-ewww-subscriber.php',
     'WP_Rocket\\Subscriber\\Third_Party\\Plugins\\Images\\Webp\\Imagify_Subscriber' => $baseDir . '/inc/classes/subscriber/third-party/plugins/Images/Webp/class-imagify-subscriber.php',
     'WP_Rocket\\Subscriber\\Third_Party\\Plugins\\Images\\Webp\\Optimus_Subscriber' => $baseDir . '/inc/classes/subscriber/third-party/plugins/Images/Webp/class-optimus-subscriber.php',

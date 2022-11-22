@@ -618,7 +618,13 @@ function wc_bookings_get_time_slots( $bookable_product, $blocks, $intervals = ar
 
 			$qty_booked_in_block = 0;
 
-			$inteval_in_minutes = in_array( $bookable_product->get_duration_unit(), array( 'minute', 'hour' ) ) ? $interval : $interval * ( DAY_IN_SECONDS / MINUTE_IN_SECONDS );
+			if ( in_array( $bookable_product->get_duration_unit(), array( 'minute', 'hour' ) ) ) {
+				// Duration in minutes for intra-day duration.
+				$inteval_in_minutes = $interval;
+			} else {
+				// Maximum 1 full day for "fixed blocks of N days" duration.
+				$inteval_in_minutes = DAY_IN_SECONDS / MINUTE_IN_SECONDS;
+			}
 
 			// Prepare ( array ) of minutes we are looking at.
 			$block_minutes_array = wc_bookings_get_block_minutes_array( $block, $inteval_in_minutes );

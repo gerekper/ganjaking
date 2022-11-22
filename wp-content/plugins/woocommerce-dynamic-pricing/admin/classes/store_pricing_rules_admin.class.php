@@ -300,12 +300,12 @@ class woocommerce_store_pricing_rules_admin {
 					'on_store_settings_validation'
 				) );
 
-				/*
-				register_setting( '_a_taxonomy_' . $taxonomy . '_pricing_rules', '_a_taxonomy_ ' . $taxonomy . '_pricing_rules', array(
+
+				register_setting( '_a_taxonomy_' . $taxonomy . '_pricing_rules', '_a_taxonomy_' . $taxonomy . '_pricing_rules', array(
 					$this,
 					'on_store_settings_validation'
 				) );
-				*/
+
 			}
 		}
 

@@ -7,11 +7,15 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-11-09T17:07:15+00:00\n"
-"PO-Revision-Date: 2022-10-06 15:54:03+0000\n"
+"POT-Creation-Date: 2022-11-17T02:06:11+00:00\n"
+"PO-Revision-Date: 2022-11-09 17:07:38+0000\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
+
+#: includes/admin/class-wc-bookings-cpt.php:138
+msgid "Sorry, you are not allowed to edit this item."
+msgstr "Du bist leider nicht berechtigt, dieses Element zu bearbeiten."
 
 #: includes/admin/views/html-booking-export.php:10
 msgid "Click the \"Export\" button to export this product, it's settings, as well as any applicable resources, persons, and global availability rules. This will create a ZIP file that will then be downloaded to your local device to help WooCommerce support troubleshoot your bookings setup, if needed."
@@ -193,35 +197,35 @@ msgid "Metadata:"
 msgstr "Metadaten:"
 
 #. translators: 1: href link to list of bookings, 2: booking post type link
-#: woocommerce-bookings.php:380
+#: woocommerce-bookings.php:393
 msgid "<a href=\"%1$s\">Add or edit a product</a> to manage bookings in the Product Data section for individual products and then go to the <a href=\"%2$s\" target=\"_blank\">Bookings page</a> to manage them individually."
 msgstr "<a href=\"%1$s\">Füge ein Produkt hinzu oder bearbeite es</a>, um Buchungen im Abschnitt „Produktdaten” für einzelne Produkte zu verwalten, und gehe dann zur <a href=\"%2$s\" target=\"_blank\">Seite „Buchungen”</a>, um sie einzeln zu verwalten."
 
-#: woocommerce-bookings.php:378
+#: woocommerce-bookings.php:391
 msgid "Bookings has been activated!"
 msgstr "Bookings wurden aktiviert!"
 
-#: woocommerce-bookings.php:271
+#: woocommerce-bookings.php:284
 msgid "Unserializing instances of this class is forbidden."
 msgstr "Eine Aufhebung der Serialisierung von Instanzen dieser Klasse ist verboten."
 
-#: woocommerce-bookings.php:262
+#: woocommerce-bookings.php:275
 msgid "Cloning is forbidden."
 msgstr "Klonen ist verboten."
 
-#: woocommerce-bookings.php:231
+#: woocommerce-bookings.php:244
 msgid "Premium Support"
 msgstr "Premium-Support"
 
-#: woocommerce-bookings.php:231
+#: woocommerce-bookings.php:244
 msgid "Visit Premium Customer Support"
 msgstr "Premium Kunden-Supportforum besuchen"
 
-#: woocommerce-bookings.php:230
+#: woocommerce-bookings.php:243
 msgid "Docs"
 msgstr "Dokumentation"
 
-#: woocommerce-bookings.php:230
+#: woocommerce-bookings.php:243
 msgid "View Documentation"
 msgstr "Dokumentation anschauen"
 
@@ -1514,7 +1518,7 @@ msgstr "Falls nicht anders angegeben, werden alle Anfangs- und Endzeiten in dies
 #: includes/class-wc-booking-privacy.php:9
 #: includes/class-wc-booking-privacy.php:62
 #: includes/class-wc-bookings-init.php:93
-#: woocommerce-bookings.php:199
+#: woocommerce-bookings.php:212
 msgid "Bookings"
 msgstr "Buchungen"
 
@@ -3017,7 +3021,7 @@ msgstr "Einstellungen"
 #: includes/admin/class-wc-bookings-menus.php:71
 #: includes/admin/views/html-notifications-page.php:2
 #: includes/admin/views/html-notifications-page.php:58
-#: woocommerce-bookings.php:189
+#: woocommerce-bookings.php:202
 msgid "Send Notification"
 msgstr "Benachrichtigung senden"
 
@@ -3025,7 +3029,7 @@ msgstr "Benachrichtigung senden"
 #: includes/admin/views/html-calendar-day.php:2
 #: includes/admin/views/html-calendar-month.php:2
 #: includes/class-wc-bookings-google-calendar-connection.php:887
-#: woocommerce-bookings.php:179
+#: woocommerce-bookings.php:192
 msgid "Calendar"
 msgstr "Kalender"
 
@@ -3034,7 +3038,7 @@ msgstr "Kalender"
 #: includes/admin/views/html-create-booking-page-2.php:28
 #: includes/admin/views/html-create-booking-page.php:7
 #: includes/class-wc-bookings-init.php:95
-#: woocommerce-bookings.php:168
+#: woocommerce-bookings.php:181
 msgid "Add Booking"
 msgstr "neue Buchung"
 
@@ -3232,52 +3236,52 @@ msgstr "Bitte wählen Sie ein buchbares Produkt"
 msgid "Error - please try again"
 msgstr "Fehler – bitte erneut probieren"
 
-#: includes/admin/class-wc-bookings-cpt.php:376
+#: includes/admin/class-wc-bookings-cpt.php:418
 msgid "All Bookable Products"
 msgstr "alle buchbaren Produkte"
 
-#: includes/admin/class-wc-bookings-cpt.php:285
+#: includes/admin/class-wc-bookings-cpt.php:327
 msgid "Confirm"
 msgstr "Bestätigen"
 
-#: includes/admin/class-wc-bookings-cpt.php:277
+#: includes/admin/class-wc-bookings-cpt.php:319
 #: includes/admin/views/html-availability-views-nav.php:6
 msgid "View"
 msgstr "Ansicht"
 
 #. translators: 1: a href to booking id
-#: includes/admin/class-wc-bookings-cpt.php:226
+#: includes/admin/class-wc-bookings-cpt.php:268
 msgid "Booking #%d"
 msgstr "Buchung #%d"
 
-#: includes/admin/class-wc-bookings-cpt.php:176
+#: includes/admin/class-wc-bookings-cpt.php:218
 #: templates/myaccount/bookings.php:43
 #: templates/myaccount/my-bookings.php:34
 msgid "End Date"
 msgstr "End-Datum"
 
-#: includes/admin/class-wc-bookings-cpt.php:175
+#: includes/admin/class-wc-bookings-cpt.php:217
 #: templates/myaccount/bookings.php:42
 #: templates/myaccount/my-bookings.php:33
 msgid "Start Date"
 msgstr "Anreisedatum"
 
-#: includes/admin/class-wc-bookings-cpt.php:174
+#: includes/admin/class-wc-bookings-cpt.php:216
 #: templates/emails/customer-booking-confirmed.php:111
 #: templates/myaccount/bookings.php:41
 #: templates/myaccount/my-bookings.php:32
 msgid "Order"
 msgstr "Bestellung"
 
-#: includes/admin/class-wc-bookings-cpt.php:173
+#: includes/admin/class-wc-bookings-cpt.php:215
 msgid "Booked By"
 msgstr "Gebucht von"
 
-#: includes/admin/class-wc-bookings-cpt.php:172
+#: includes/admin/class-wc-bookings-cpt.php:214
 msgid "# of Persons"
 msgstr "Personenzahl"
 
-#: includes/admin/class-wc-bookings-cpt.php:171
+#: includes/admin/class-wc-bookings-cpt.php:213
 #: templates/emails/admin-booking-cancelled.php:32
 #: templates/emails/admin-new-booking.php:51
 #: templates/emails/customer-booking-cancelled.php:40
@@ -3288,46 +3292,46 @@ msgstr "Personenzahl"
 msgid "Booked Product"
 msgstr "Gebuchtes Produkt"
 
-#: includes/admin/class-wc-bookings-cpt.php:169
+#: includes/admin/class-wc-bookings-cpt.php:211
 #: templates/myaccount/bookings.php:39
 #: templates/myaccount/my-bookings.php:30
 msgid "ID"
 msgstr "ID"
 
-#: includes/admin/class-wc-bookings-cpt.php:170
+#: includes/admin/class-wc-bookings-cpt.php:212
 #: templates/myaccount/bookings.php:44
 #: templates/myaccount/my-bookings.php:35
 msgid "Status"
 msgstr "Status"
 
-#: includes/admin/class-wc-bookings-cpt.php:153
+#: includes/admin/class-wc-bookings-cpt.php:195
 msgid "Booking Title"
 msgstr "Buchungstitel"
 
 #. translators: 1: number of booking statuses change
-#: includes/admin/class-wc-bookings-cpt.php:138
+#: includes/admin/class-wc-bookings-cpt.php:180
 msgid "%1$s booking status changed."
 msgid_plural "%1$s booking statuses changed."
 msgstr[0] "%1$s Buchungsstatus wurde geändert."
 msgstr[1] "%1$s Buchungsstatus wurden geändert."
 
-#: includes/admin/class-wc-bookings-cpt.php:66
+#: includes/admin/class-wc-bookings-cpt.php:68
 msgid "Mark bookings as unpaid"
 msgstr "Buchungen als unbezahlt markieren"
 
-#: includes/admin/class-wc-bookings-cpt.php:65
+#: includes/admin/class-wc-bookings-cpt.php:67
 msgid "Mark bookings as paid"
 msgstr "Buchungen als bezahlt markieren"
 
-#: includes/admin/class-wc-bookings-cpt.php:64
+#: includes/admin/class-wc-bookings-cpt.php:66
 msgid "Cancel bookings"
 msgstr "Buchungen stornieren"
 
-#: includes/admin/class-wc-bookings-cpt.php:63
+#: includes/admin/class-wc-bookings-cpt.php:65
 msgid "Unconfirm bookings"
 msgstr "Buchungen nicht bestätigen"
 
-#: includes/admin/class-wc-bookings-cpt.php:62
+#: includes/admin/class-wc-bookings-cpt.php:64
 msgid "Confirm bookings"
 msgstr "Buchungen bestätigen"
 
@@ -3639,7 +3643,7 @@ msgid "Edit"
 msgstr "Bearbeiten"
 
 #: includes/admin/class-wc-bookable-resource-cpt.php:91
-#: includes/admin/class-wc-bookings-cpt.php:230
+#: includes/admin/class-wc-bookings-cpt.php:272
 #: includes/admin/class-wc-bookings-customer-meta-box.php:116
 #: includes/admin/class-wc-bookings-details-meta-box.php:118
 #: includes/admin/class-wc-bookings-details-meta-box.php:163
@@ -3656,7 +3660,7 @@ msgid "N/A"
 msgstr "N/A"
 
 #: includes/admin/class-wc-bookable-resource-cpt.php:48
-#: includes/admin/class-wc-bookings-cpt.php:177
+#: includes/admin/class-wc-bookings-cpt.php:219
 msgid "Actions"
 msgstr "Aktionen"
 

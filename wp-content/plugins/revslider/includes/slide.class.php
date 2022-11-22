@@ -962,7 +962,7 @@ class RevSliderSlide extends RevSliderFunctions {
 			$product = ($is_30) ? wc_get_product($post_id) : get_product($post_id);
 			
 			if($product !== false){
-				$wc_stock		= ($is_30) ? $product->get_stock_quantity() : $product->get_total_stock();
+				$wc_stock		= ($is_30) ? RevSliderWooCommerce::get_total_stock($product) : $product->get_total_stock();
 				$wc_rating		= ($is_30) ? wc_get_rating_html($product->get_average_rating()) : $product->get_rating_html();
 				$wc_categories	= ($is_30) ? wc_get_product_category_list($product->get_id(), ',') : $product->get_categories(',');
 				$wc_tags		= ($is_30) ? wc_get_product_tag_list($product->get_id()) : $product->get_tags();

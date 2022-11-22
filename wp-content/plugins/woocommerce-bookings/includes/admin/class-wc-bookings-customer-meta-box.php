@@ -104,7 +104,7 @@ class WC_Bookings_Customer_Meta_Box {
 			</tr>
 			<tr class="view">
 				<th>&nbsp;</th>
-				<td><a class="button button-small" target="_blank" href="<?php echo esc_url( apply_filters( 'woocommerce_bookings_admin_view_order_url', admin_url( 'post.php?post=' . absint( $booking_order_id ) . '&action=edit' ), $booking_order_id, $order ) ); ?>"><?php echo esc_html( 'View Order', 'woocommerce-bookings' ); ?></a></td>
+				<td><a class="button button-small" target="_blank" href="<?php echo esc_url( apply_filters( 'woocommerce_bookings_admin_view_order_url', $order->get_edit_order_url(), $booking_order_id, $order ) ); ?>"><?php echo esc_html( 'View Order', 'woocommerce-bookings' ); ?></a></td>
 			</tr>
 			<?php
 			$has_data = true;

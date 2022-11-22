@@ -435,7 +435,12 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 
 				// Make sure that custom field is a string
 				if(!empty($custom_field_value) && is_string($custom_field_value)) {
-					$default_uri = str_replace($custom_fields[0][$i], Permalink_Manager_Helper_Functions::sanitize_title($custom_field_value), $default_uri);
+					// Do not sanitize the custom field if 'no-sanitize' argument is added
+					if(empty($custom_field_arg) || strpos($custom_field_arg, 'no-sanitize') === false) {
+						$custom_field_value = Permalink_Manager_Helper_Functions::sanitize_title($custom_field_value);
+					}
+
+					$default_uri = str_replace($custom_fields[0][$i], $custom_field_value, $default_uri);
 				}
 			}
 		}
@@ -641,5 +646,3 @@ class Permalink_Manager_Pro_Functions extends Permalink_Manager_Class {
 	}
 
 }
-
-?>

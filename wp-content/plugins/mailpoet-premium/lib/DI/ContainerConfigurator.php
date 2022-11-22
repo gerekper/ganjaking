@@ -26,12 +26,12 @@ class ContainerConfigurator implements IContainerConfigurator {
 
     // Free plugin dependencies
     $this->registerFreeService($container, \MailPoet\Automation\Engine\Builder\UpdateStepsController::class);
-    $this->registerFreeService($container, \MailPoet\Automation\Engine\Builder\UpdateWorkflowController::class);
-    $this->registerFreeService($container, \MailPoet\Automation\Engine\Mappers\WorkflowMapper::class);
-    $this->registerFreeService($container, \MailPoet\Automation\Engine\Storage\WorkflowStorage::class);
-    $this->registerFreeService($container, \MailPoet\Automation\Engine\Storage\WorkflowStatisticsStorage::class);
+    $this->registerFreeService($container, \MailPoet\Automation\Engine\Builder\UpdateAutomationController::class);
+    $this->registerFreeService($container, \MailPoet\Automation\Engine\Mappers\AutomationMapper::class);
+    $this->registerFreeService($container, \MailPoet\Automation\Engine\Storage\AutomationStorage::class);
+    $this->registerFreeService($container, \MailPoet\Automation\Engine\Storage\AutomationStatisticsStorage::class);
     $this->registerFreeService($container, \MailPoet\Automation\Engine\Hooks::class);
-    $this->registerFreeService($container, \MailPoet\Automation\Engine\Validation\WorkflowValidator::class);
+    $this->registerFreeService($container, \MailPoet\Automation\Engine\Validation\AutomationValidator::class);
     $this->registerFreeService($container, \MailPoet\Automation\Integrations\MailPoet\Subjects\SubscriberSubject::class);
     $this->registerFreeService($container, \MailPoet\Config\AccessControl::class);
     $this->registerFreeService($container, \MailPoet\Config\Renderer::class);
@@ -52,7 +52,7 @@ class ContainerConfigurator implements IContainerConfigurator {
     $this->registerFreeService($container, \MailPoetVendor\Doctrine\ORM\EntityManager::class);
     $this->registerFreeService($container, \MailPoet\Util\CdnAssetUrl::class);
     $this->registerFreeService($container, \MailPoet\Util\License\Features\Subscribers::class);
-    $this->registerFreeService($container, \MailPoet\Automation\Integrations\MailPoet\Templates\WorkflowBuilder::class);
+    $this->registerFreeService($container, \MailPoet\Automation\Integrations\MailPoet\Templates\AutomationBuilder::class);
 
     // API
     $container->autowire(\MailPoet\Premium\API\JSON\v1\Bounces::class)->setPublic(true);
@@ -62,16 +62,16 @@ class ContainerConfigurator implements IContainerConfigurator {
     $container->autowire(\MailPoet\Premium\API\JSON\v1\ResponseBuilders\SubscriberDetailedStatsResponseBuilder::class);
 
     // Automation
-    $container->autowire(\MailPoet\Premium\Automation\Engine\Builder\CreateWorkflowController::class)->setPublic(true);
-    $container->autowire(\MailPoet\Premium\Automation\Engine\Builder\UpdateWorkflowController::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Engine\Builder\CreateAutomationController::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Engine\Builder\UpdateAutomationController::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Engine\Engine::class)->setPublic(true);
 
     // Automation - API endpoints
-    $container->autowire(\MailPoet\Premium\Automation\Engine\Endpoints\Workflows\WorkflowsPostEndpoint::class)->setPublic(true);
-    $container->autowire(\MailPoet\Premium\Automation\Engine\Endpoints\Workflows\WorkflowsPutEndpoint::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Engine\Endpoints\Automations\AutomationsPostEndpoint::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Engine\Endpoints\Automations\AutomationsPutEndpoint::class)->setPublic(true);
     // Automation - MailPoet Premium integration
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\MailPoetPremiumIntegration::class)->setPublic(true);
-    $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\PremiumWorkflowTemplates::class)->setPublic(true);
+    $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\PremiumAutomationTemplates::class)->setPublic(true);
     $container->autowire(\MailPoet\Premium\Automation\Integrations\MailPoetPremium\Actions\UnsubscribeAction::class)->setPublic(true);
     // Config
     $container->autowire(\MailPoet\Premium\Config\Hooks::class);

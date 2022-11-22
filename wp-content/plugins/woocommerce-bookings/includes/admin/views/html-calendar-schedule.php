@@ -20,59 +20,67 @@
 						<div class="wc-bookings-schedule-weekday"><?php echo esc_html( $day->format( 'M, D' ) ); ?></div>
 					</div>
 					<ul class="wc-bookings-schedule-day-events">
-					<?php while ( isset( $this->events_data[0] ) && date( 'Y-m-d', $this->events_data[0]['start'] ) === $day->format( 'Y-m-d' ) ) : ?>
-						<?php
-						$event_data  = array_shift( $this->events_data );
-						$description = ! empty( $event_data['customer'] ) ? '<span class="wc-bookings-schedule-customer-name">' . $event_data['customer'] . '</span>, ' . $event_data['title'] : $event_data['title'];
-						?>
-						<li>
-							<a class="wc-bookings-schedule-event" href="<?php echo esc_url( $event_data['url'] ); ?>">
-								<div class="wc-bookings-schedule-booking-duration">
-									<?php echo esc_html( $event_data['time'] ); ?>
-								</div>
-								<div class="wc-bookings-schedule-booking-info">
-									<div class="wc-bookings-schedule-booking-description">
-										<?php echo wp_kses_post( $description ); ?>
+					<?php
+					foreach ( $this->events_data as $index => $event_data ) :
+						if ( ( date( 'Y-m-d', $event_data['start'] ) === $day->format( 'Y-m-d' ) && date( 'Y-m-d', $event_data['end'] ) === $day->format( 'Y-m-d' ) ) || $event_data['end'] < strtotime( $day->format( 'Y-m-d' ) ) ) {
+							// Unset event to prevent unnecessary looping.
+							unset( $this->events_data[ $index ] );
+						}
+						// Display events of the day.
+						if ( date( 'Y-m-d', $event_data['start'] ) === $day->format( 'Y-m-d' ) || ( $event_data['start'] < strtotime( $day->format( 'Y-m-d' ) ) && $event_data['end'] > strtotime( $day->format( 'Y-m-d' ) ) ) ) :
+						 	$description = ! empty( $event_data['customer'] ) ? '<span class="wc-bookings-schedule-customer-name">' . $event_data['customer'] . '</span>, ' . $event_data['title'] : $event_data['title'];
+							?>
+							<li>
+								<a class="wc-bookings-schedule-event" href="<?php echo esc_url( $event_data['url'] ); ?>">
+									<div class="wc-bookings-schedule-booking-duration">
+										<?php echo esc_html( $event_data['time'] ); ?>
 									</div>
-									<div class="wc-bookings-schedule-booking-details">
-										<?php
-										$resources = array();
-										if ( ! empty( $event_data['resource'] ) ) {
-											array_push( $resources, $event_data['resource'] );
-										}
-										if ( ! empty( $event_data['resources'] ) ) {
-											echo esc_html( __( 'Resources: ', 'woocommerce-bookings' ) );
-											echo esc_html( implode( ', ', $event_data['resources'] ) );
-										}
-										?>
-									</div>
-									<div class="wc-bookings-schedule-booking-details">
-										<?php
-										$persons   = '';
-										if ( ! empty( $event_data['persons'] ) ) {
-											$persons = $event_data['persons'];
-										}
-										if ( ! empty( $persons ) ) {
-											// Persons from Booking data already contains label
-											echo esc_html( $persons );
-										}
-										?>
-									</div>
-									<?php if ( ! empty( $event_data['note'] ) ) : ?>
-										<div class="wc-bookings-schedule-booking-details">
-											<?php echo esc_html(
-												sprintf(
-													/* translators: %s: Additional note added to a booking. */
-													__( "Note: %s", 'woocommerce-bookings' ),
-													$event_data['note']
-												)
-											); ?>
+									<div class="wc-bookings-schedule-booking-info">
+										<div class="wc-bookings-schedule-booking-description">
+											<?php echo wp_kses_post( $description ); ?>
 										</div>
-									<?php endif; ?>
-								</div>
-							</a>
-						</li>
-					<?php endwhile; ?>
+										<div class="wc-bookings-schedule-booking-details">
+											<?php
+											$resources = array();
+											if ( ! empty( $event_data['resource'] ) ) {
+												array_push( $resources, $event_data['resource'] );
+											}
+											if ( ! empty( $event_data['resources'] ) ) {
+												echo esc_html( __( 'Resources: ', 'woocommerce-bookings' ) );
+												echo esc_html( implode( ', ', $event_data['resources'] ) );
+											}
+											?>
+										</div>
+										<div class="wc-bookings-schedule-booking-details">
+											<?php
+											$persons   = '';
+											if ( ! empty( $event_data['persons'] ) ) {
+												$persons = $event_data['persons'];
+											}
+											if ( ! empty( $persons ) ) {
+												// Persons from Booking data already contains label
+												echo esc_html( $persons );
+											}
+											?>
+										</div>
+										<?php if ( ! empty( $event_data['note'] ) ) : ?>
+											<div class="wc-bookings-schedule-booking-details">
+												<?php echo esc_html(
+													sprintf(
+														/* translators: %s: Additional note added to a booking. */
+														__( "Note: %s", 'woocommerce-bookings' ),
+														$event_data['note']
+													)
+												); ?>
+											</div>
+										<?php endif; ?>
+									</div>
+								</a>
+							</li>
+							<?php
+						endif;
+					endforeach;
+					?>
 					</ul>
 				</li>
 			<?php endforeach; ?>

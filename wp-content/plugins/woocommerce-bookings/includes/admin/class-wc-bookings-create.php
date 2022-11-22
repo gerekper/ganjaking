@@ -44,7 +44,7 @@ class WC_Bookings_Create {
 
 					$booking_order = $order_id;
 
-					if ( ! $booking_order || get_post_type( $booking_order ) !== 'shop_order' ) {
+					if ( ! $booking_order || ! WC_Booking_Order_Compat::is_shop_order( $booking_order ) ) {
 						throw new Exception( __( 'Invalid order ID provided', 'woocommerce-bookings' ) );
 					}
 				}
@@ -92,7 +92,7 @@ class WC_Bookings_Create {
 				} elseif ( $booking_order > 0 ) {
 					$order_id = absint( $booking_order );
 
-					if ( ! $order_id || get_post_type( $order_id ) !== 'shop_order' ) {
+					if ( ! $order_id || ! WC_Booking_Order_Compat::is_shop_order( $order_id ) ) {
 						throw new Exception( __( 'Invalid order ID provided', 'woocommerce-bookings' ) );
 					}
 
@@ -126,17 +126,17 @@ class WC_Bookings_Create {
 							'state',
 							'postcode',
 							'country',
+							'phone',
 						);
 						$types = array( 'shipping', 'billing' );
 
 						foreach ( $types as $type ) {
-							$address = array();
-
 							foreach ( $keys as $key ) {
-								$address[ $key ] = (string) get_user_meta( $customer_id, $type . '_' . $key, true );
+								$value = (string) get_user_meta( $customer_id, $type . '_' . $key, true );
+								$order->update_meta_data( '_' . $type . '_' . $key, $value );
 							}
-							$order->set_address( $address, $type );
 						}
+						$order->save();
 					}
 
 					// Add line item meta
@@ -166,7 +166,11 @@ class WC_Bookings_Create {
 
 				do_action( 'woocommerce_bookings_created_manual_booking', $new_booking );
 
-				wp_safe_redirect( admin_url( 'post.php?post=' . ( $create_order ? $order_id : $new_booking->get_id() ) . '&action=edit' ) );
+				$redirect_url = $create_order
+					? $order->get_edit_order_url()
+					: admin_url( 'post.php?post=' . $new_booking->get_id() . '&action=edit' );
+
+				wp_safe_redirect( $redirect_url );
 				exit;
 
 			}

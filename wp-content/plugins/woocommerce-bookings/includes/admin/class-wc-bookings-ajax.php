@@ -330,12 +330,20 @@ class WC_Bookings_Ajax {
 
 		$term = apply_filters( 'woocommerce_booking_json_search_order_number', $term );
 
-		$query_orders = $wpdb->get_results( $wpdb->prepare( "
+		if ( WC_Booking_Order_Compat::is_cot_enabled() ) {
+			$query_orders = $wpdb->get_results( $wpdb->prepare( "
+			SELECT id FROM {$wpdb->prefix}wc_orders AS wc_orders
+			WHERE wc_orders.id LIKE %s
+			LIMIT 10
+		", $term . '%' ) );
+		} else {
+			$query_orders = $wpdb->get_results( $wpdb->prepare( "
 			SELECT ID, post_title FROM {$wpdb->posts} AS posts
 			WHERE posts.post_type = 'shop_order'
 			AND posts.ID LIKE %s
 			LIMIT 10
 		", $term . '%' ) );
+		}
 
 		if ( $query_orders ) {
 			foreach ( $query_orders as $item ) {

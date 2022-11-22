@@ -41,11 +41,40 @@ class RevSliderShortcodeWizard extends RevSliderFunctions {
 			wp_enqueue_style('rs-roboto', $url_css.'Roboto');
 			wp_enqueue_style('tp-material-icons', $url_material.'Material+Icons');
 		}elseif($fdl === 'preload'){
-			$fonts = array('Roboto:400%2C300%2C700%2C600%2C800', 'Material+Icons');
+			$fonts = array('Roboto' => 'Roboto:400%2C300%2C700%2C500'); //, 'Material Icons' => 'Material+Icons'
 			$html = $f->preload_fonts($fonts);
-			if(!empty($html)){
-				echo $html;
-			}
+			if(!empty($html)) echo $html;
+			echo "\n<style>@font-face {
+	font-family: 'Material Icons';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Material Icons'),
+	local('MaterialIcons-Regular'),
+	url(".RS_PLUGIN_URL."public/assets/fonts/material/MaterialIcons-Regular.woff2) format('woff2'),
+	url(".RS_PLUGIN_URL."public/assets/fonts/material/MaterialIcons-Regular.woff) format('woff'),  
+	url(".RS_PLUGIN_URL."public/assets/fonts/material/MaterialIcons-Regular.ttf) format('truetype');
+}
+.material-icons {
+	font-family: 'Material Icons';
+	font-weight: normal;
+	font-style: normal;
+		font-size: inherit;
+	display: inline-block;  
+	text-transform: none;
+	letter-spacing: normal;
+	word-wrap: normal;
+	white-space: nowrap;
+	direction: ltr;
+	vertical-align: top;
+	line-height: inherit;
+	/* Support for IE. */
+	font-feature-settings: 'liga';
+	
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	-moz-osx-font-smoothing: grayscale;
+}
+</style>\n";
 		}//disable => load on your own
 	}
 

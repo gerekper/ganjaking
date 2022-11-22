@@ -1,4 +1,11 @@
 *** Dynamic Pricing Changelog ***
+2022.11.14 - version 3.1.29
+    * Update: Remove legacy woo-themes updater.
+    * Fix:  Fix problem when registering additional taxonomies with advanced rules.
+    * Fix:  Proper casting of values before performing operations - PHP 8.x compatibility.
+    * Fix:  Fix problem with PHP 8.x compatibility.
+    * New:  Added filter, current_user_can_manage_dynamic_pricing, to allow users to disable the dynamic pricing management section.
+
 2022.06.05 - version 3.1.28
     * Fix:  Fix deprecation notice for is_ajax.
     * Update:  Check pricing rules are an array before attempting to use.

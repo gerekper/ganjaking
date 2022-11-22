@@ -1023,95 +1023,386 @@ class RevSliderFunctions extends RevSliderData {
 	/**
 	 * preloading fonts and return style for it
 	 **/
-	public function preload_fonts($fonts){
+	public function preload_fonts($fonts, $style = true, $all = false){
 		$ret = '';
-
 		if(!empty($fonts)){
+			if (!function_exists('download_url')) require_once ABSPATH . 'wp-admin/includes/file.php';
+
 			$upload_dir	= wp_upload_dir();
 			$base_dir	= $upload_dir['basedir'];
 			$base_url	= $upload_dir['baseurl'];
-			$rs_google_ts = get_option('rs_google_font', 0);
-			
+			$tp_google_ts = get_option('tp_google_font', 0);
+			$types		= array(
+				//--- original
+				'ttf'	=> array('user-agent' => ''),
+				'woff'	=> array('accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8', 'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10240'),
+				'woff2'	=> array('accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8', 'user-agent' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:73.0) Gecko/20100101 Firefox/73.0'),
+				//--- original end
+				/*--- alternative
+				//'ttf'	=> array('user-agent' => 'Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/538.1 (KHTML, like Gecko) Safari/538.1 Daum/4.1'),
+				//'woff'	=> array('user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:27.0) Gecko/20100101 Firefox/27.0'),
+				//'woff2'	=> array('user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.0'),
+				//'eot'	=> array('user-agent' => 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0)'),
+				//'svg'	=> array('user-agent' => 'Mozilla/4.0 (iPad; CPU OS 4_0_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/4.1 Mobile/9A405 Safari/7534.48.3'),
+				//--- alternative 2 end */
+			);
+			$fonts_css	= get_option('tp_font_css', array());
+			if(!is_array($fonts_css)) $fonts_css = array();
+			$load = 'ttf';
+
+			if ($all === false) {
+				$_browser	= $this->get_browser();
+				$version	= $this->get_val($_browser, 'version', '0');
+				$browser	= $this->get_val($_browser, 'name', '');
+				//Chrome 6+ , Firefox 3.6+ IE9+, Safari 5.1+  -> WOFF
+				//Chrome 26+, Operae23+, Firefox 39+ -> Woff2
+				switch(strtolower($browser)){
+					case 'mozilla firefox':
+						if(version_compare($version, '3.6', '>=')) $load = 'woff';
+						if(version_compare($version, '39', '>=')) $load = 'woff2';
+					break;
+					case 'edge':
+						$load = 'woff2';
+					break;
+					case 'google chrome':
+						if(version_compare($version, '6', '>=')) $load = 'woff';
+						if(version_compare($version, '26', '>=')) $load = 'woff2';
+					break;
+					case 'apple safari':
+						if(version_compare($version, '5.1', '>=')) $load = 'woff';
+					break;
+					case 'opera':
+						if(version_compare($version, '23', '>=')) $load = 'woff';
+					break;
+					case 'internet explorer':
+						if(version_compare($version, '9', '>=')) $load = 'woff';
+					break;
+				}
+			}
+
 			foreach($fonts as $key => $font){
 				//check if we downloaded the font already
-				$font = str_replace('%7C', '', $font);
-				$font_name = preg_replace('/[^-a-z0-9 ]+/i', '', $key);
-				$font_name = strtolower(str_replace(' ', '-', esc_attr($font_name)));
-				
+				$font		= str_replace('%7C', '', $font);
+				if(strpos($key, ':') !== false){
+					$key = explode(':', $key);
+					$key = $key[0];
+				}
+				$font_name	= preg_replace('/[^-a-z0-9 ]+/i', '', $key);
+				$font_name	= strtolower(str_replace(' ', '-', esc_attr($font_name)));
 				$f_raw		= explode(':', $font);
-				$weights	= (!empty($f_raw) && is_array($f_raw) && isset($f_raw[1])) ? explode('%2C', $f_raw[1]) : array('400');
+				$weights	= array('400');
+				$unicode	= '';
+				$font_loaded = array();
+				if(!empty($f_raw) && is_array($f_raw) && isset($f_raw[1])){
+					$f_raw[1]	= str_replace(array('%2C', 'wght', '@', ';'), array(',', '', '', ','), $f_raw[1]);
+					$weights	= explode(',', $f_raw[1]);
+					foreach($weights as $wk => $weight){
+						if($weight === 'ital'){
+							$weights[$wk] = 'italic';
+							continue;
+						}
+						$weights[$wk] = intval($weight);
+						if($weights[$wk] < 100) unset($weights[$wk]);
+					}
+					if(empty($weights)) $weights = array('400');
+					$weights = array_unique($weights);
+				}
 				$f_family	= str_replace('+', ' ', $f_raw[0]);
 				
-				$f_download = false;
-				foreach($weights as $weight){
-					if(!is_file($base_dir.'/revslider/gfonts/'. $font_name . '/' . $font_name . '-' . $weight . '.woff2') || filemtime($base_dir.'/revslider/gfonts/'. $font_name . '/' . $font_name . '-' . $weight . '.woff2') < $rs_google_ts){
-						$f_download = true;
-						break;
+				foreach($types as $ftype => $options){
+					if($load !== $ftype && $all === false) continue;
+					$f_download = false;
+					foreach($weights as $weight){
+						$font_style = 'normal';
+						if(intval($weight) === 0){
+							$font_style	= preg_replace('/[0-9]+/', '', $weight);
+							$weight	= preg_replace('/[a-zA-Z]+/', '', $weight);
+							if(intval($weight) < 100) $weight = '400';
+						}
+
+						$_css = $this->get_val($fonts_css, array($font_name, $ftype, $weight, $font_style), false);
+						if(!empty($_css) && is_array($_css)){
+							foreach($_css as $uc => $fw){
+								if(empty($fw) || !is_array($fw)) continue;
+								
+								foreach($fw as $_fw => $font_css){
+									$start = strpos($font_css, '###BASE###');
+									if($start === false) continue;
+									$end = strpos($font_css, ')', $start + 10);
+									$file_raw = substr($font_css, $start + 10, $end - ($start + 10));
+
+									if(!is_file($base_dir.'/themepunch/gfonts/'. $file_raw) || filemtime($base_dir.'/themepunch/gfonts/'. $file_raw) < $tp_google_ts){
+										$f_download = true;
+										break;
+									}
+								}
+							}
+						}else{
+							$f_download = true;
+						}
 					}
-				}
-				
-				if($f_download){
-					if(!is_dir($base_dir.'/revslider/gfonts/')){
-						mkdir($base_dir.'/revslider/gfonts/');
-					}
-					
-					if(!is_dir($base_dir.'/revslider/gfonts/'.$font_name)){
-						mkdir($base_dir.'/revslider/gfonts/'.$font_name);
-					}
-					
-					$regex_url	= "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/";
-					$regex_fw	= "/(?<=font-weight:)(.*)(?=;)/";
-					$regex_fs	= "/(?<=font-style:)(.*)(?=;)/";
-					$url		= 'https://fonts.googleapis.com/css?family='.$font;
-					
-					$content	= wp_remote_get($url);
-					$body		= $this->get_val($content, 'body', '');
-					$body		= explode('}', $body);
-					if(!empty($body)){
-						foreach($body as $b){
-							if(preg_match($regex_url, $b, $found_fonts)){
-								$found_font = rtrim($found_fonts[0], ')');
-								$found_fw = (preg_match($regex_fw, $b, $found_fw)) ? trim($found_fw[0]) : '400';
-								$found_fs = (preg_match($regex_fs, $b, $found_fs)) ? trim($found_fs[0]) : 'normal';
-								
-								$f_c = wp_remote_get($found_font);
-								$f_c_body = $this->get_val($f_c, 'body', '');
-								
-								$found_fs = ($found_fs !== 'normal') ? $found_fs : '';
-								$found_fw = ($found_fw === '400' && $found_fs !== '') ? '' : $found_fw;
-								
-								$file = $base_dir.'/revslider/gfonts/'. $font_name . '/' . $font_name . '-' . $found_fw . $found_fs . '.woff2';
-								
-								@mkdir(dirname($file));
-								@file_put_contents($file, $f_c_body);
+					if($f_download){
+						if(!is_dir($base_dir.'/themepunch/')) mkdir($base_dir.'/themepunch/');
+						if(!is_dir($base_dir.'/themepunch/gfonts/')) mkdir($base_dir.'/themepunch/gfonts/');
+						if(!is_dir($base_dir.'/themepunch/gfonts/'.$font_name)) mkdir($base_dir.'/themepunch/gfonts/'.$font_name);
+
+						$content = wp_remote_get('https://fonts.googleapis.com/css?family='.$font, $options);
+						$body	 = $this->get_val($content, 'body', '');
+						$body	 = explode('}', $body);
+						
+						if(!empty($body)){
+							foreach($body as $b){
+								if(preg_match("/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/", $b, $found_fonts)){
+									$found_font	= rtrim($found_fonts[0], ')');
+									$filename	= basename($found_font);
+									$found_fw	= (preg_match("/(?<=font-weight:)(.*)(?=;)/", $b, $found_fw)) ? trim($found_fw[0]) : '400';
+									$found_fs	= (preg_match("/(?<=font-style:)(.*)(?=;)/", $b, $found_fs)) ? trim($found_fs[0]) : 'normal';
+									$found_ur	= (preg_match("/(?<=\/\*)(.*)(?=\*\/)/", $b, $found_ur)) ? trim($found_ur[0]) : '';
+
+									$found_ur	= (empty($found_ur)) ? 'all' : $found_ur;
+									$found_fs	= ($found_fs !== 'normal') ? 'italic' : $found_fs;
+									$found_fw	= (empty($found_fw)) ? '400' : $found_fw;
+									$file		= $base_dir.'/themepunch/gfonts/'. $font_name . '/' . $filename;
+									$_file		= '###BASE###'. $font_name . '/' . $filename;
+									if(!in_array($filename, $font_loaded)){
+										$tmp = download_url($found_font, 4);
+										if(!is_wp_error($tmp)){
+											if(!is_dir(dirname($file))) @mkdir(dirname($file));
+											copy($tmp, $file);
+											@unlink($tmp);
+										}
+										
+										$font_loaded[] = $filename;
+									}
+
+									if(strpos($b, 'font-display') === false) $b .= '  font-display: swap;'."\n";
+									
+									if(!isset($fonts_css[$font_name]))									$fonts_css[$font_name] = array();
+									if(!isset($fonts_css[$font_name][$ftype]))							$fonts_css[$font_name][$ftype] = array();
+									if(!isset($fonts_css[$font_name][$ftype][$found_fw]))				$fonts_css[$font_name][$ftype][$found_fw] = array();
+									if(!isset($fonts_css[$font_name][$ftype][$found_fw][$found_fs]))	$fonts_css[$font_name][$ftype][$found_fw][$found_fs] = array();
+									$fonts_css[$font_name][$ftype][$found_fw][$found_fs][$found_ur]	= str_replace($found_font, $_file, $b . '}');
+								}
 							}
 						}
 					}
-				}
 
-				if(!empty($weights) && is_array($weights)){
-					$ret .= '<style>';
-					foreach($weights as $weight){
-						$style	 = (strpos($weight, 'italic') !== false) ? 'italic' : 'normal';
-						$_weight = str_replace('italic', '', $weight);
-						$_weight = (empty(trim($_weight))) ? '400' : $_weight;
-						$ret	.=
-"@font-face {
-font-family: '".$f_family."';
-font-style: ".$style.";
-font-weight: ".$_weight.";
-font-display: swap;
-src: local('".$f_family."'), local('".$f_family."'), url(".$base_url.'/revslider/gfonts/'. $font_name . '/' . $font_name . '-' . $weight . '.woff2'.") format('woff2');
-}";
+					if(!empty($weights) && is_array($weights)){
+						if($style === true)	$ret .= '<style>';
+						$format = ($ftype !== 'ttf') ? $ftype : 'truetype';
+						foreach($weights as $weight){
+							$font_style = 'normal';
+							if(intval($weight) === 0){
+								$font_style	= preg_replace('/[0-9]+/', '', $weight);
+								$weight	= preg_replace('/[a-zA-Z]+/', '', $weight);
+								if(intval($weight) < 100) $weight = '400';
+							}
+							//$_style	 = (strpos($weight, 'italic') !== false) ? 'italic' : 'normal';
+							//$_weight = str_replace('italic', '', $weight);
+							//$_weight = (empty(trim($_weight))) ? '400' : $_weight;
+							$_css = $this->get_val($fonts_css, array($font_name, $ftype, $weight), false);
+							if(!empty($_css) && is_array($_css)){
+								foreach($_css as $uc => $fw){
+									if(empty($fw) || !is_array($fw)) continue;
+									
+									foreach($fw as $_fw => $font_css){
+										$ret .= str_replace('###BASE###', $base_url.'/themepunch/gfonts/', $font_css);
+									}
+								}
+							}else{
+								if(!isset($fonts_css[$font_name]))									$fonts_css[$font_name] = array();
+								if(!isset($fonts_css[$font_name][$ftype]))							$fonts_css[$font_name][$ftype] = array();
+								if(!isset($fonts_css[$font_name][$ftype][$weight]))					$fonts_css[$font_name][$ftype][$weight] = array();
+								if(!isset($fonts_css[$font_name][$ftype][$weight][$font_style]))	$fonts_css[$font_name][$ftype][$weight][$font_style] = array();
+								$fonts_css[$font_name][$ftype][$weight][$font_style]['all']	= '/* '.$weight.' does not exist  */';
+							}
+							/*else{
+								$ret .=
+	"@font-face {
+	font-family: '".$f_family."';
+	font-style: ".$_style.";
+	font-weight: ".$_weight.";
+	font-display: swap;
+	src: local('".$f_family."'), local('".$f_family."'), url(".$base_url.'/themepunch/gfonts/'. $font_name . '/' . $font_name . '-' . $weight . '.' . $ftype . ") format('".$format."');
+	}";
+							}*/
+						}
+						if($style === true)	$ret .= '</style>';
 					}
-					$ret .= '</style>';
 				}
 			}
+
+			update_option('tp_font_css', $fonts_css);
 		}
 
 		return $ret;
 	}
+
+	/**
+	 * get the client browser with version
+	 **/
+	public function get_browser(){
+		$u_agent	= $_SERVER['HTTP_USER_AGENT'];
+		$bname		= 'Unknown';
+		$platform	= 'Unknown';
+		$version	= '';
+		$ub			= '';
+
+		// get platform
+		if (preg_match('/linux/i', $u_agent)) {
+			$platform = 'linux';
+		} elseif (preg_match('/macintosh|mac os x/i', $u_agent)) {
+			$platform = 'mac';
+		} elseif (preg_match('/windows|win32/i', $u_agent)) {
+			$platform = 'windows';
+		}
+
+		// get name of useragent
+		if(preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent)) {
+			$bname = 'Internet Explorer';
+			$ub = 'MSIE';
+		} elseif(preg_match('/Firefox/i',$u_agent)) {
+			$bname = 'Mozilla Firefox';
+			$ub = 'Firefox';
+		} elseif(preg_match('/OPR/i',$u_agent))	{
+			$bname = 'Opera';
+			$ub = 'Opera';
+		} elseif(preg_match('/Chrome/i',$u_agent) && !preg_match('/Edg/i',$u_agent)) {
+			$bname = 'Google Chrome';
+			$ub = 'Chrome';
+		} elseif(preg_match('/Safari/i',$u_agent) && !preg_match('/Edg/i',$u_agent)) {
+			$bname = 'Apple Safari';
+			$ub = 'Safari';
+		} elseif(preg_match('/Netscape/i',$u_agent)) {
+			$bname = 'Netscape';
+			$ub = 'Netscape';
+		} elseif(preg_match('/Edg/i',$u_agent)) {
+			$bname = 'Edge';
+			$ub = 'Edg';
+		} elseif(preg_match('/Trident/i',$u_agent)) {
+			$bname = 'Internet Explorer';
+			$ub = 'MSIE';
+		}
+
+		// get version
+		$known		= array('Version', $ub, 'other');
+		$pattern	= '#(?<browser>' . join('|', $known) . ')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
+		if (!preg_match_all($pattern, $u_agent, $matches)){ /* */ }
+		// see how many we have
+		$i			= count($matches['browser']);
+		$version	= $matches['version'][0];
+		if ($i != 1) {
+			//we will have two since we are not using the 'other' argument yet
+			//see if the version is before or after the name
+			$version = (strripos($u_agent, 'Version') < strripos($u_agent,$ub)) ? $matches['version'][0] : $matches['version'][1];
+		}
+
+		// check if we have a number
+		if ($version == null || $version == '') $version = '0';
+
+		return array(
+			'name'		=> $bname,
+			'version'	=> $version,
+			'platform'	=> $platform
+		);
+    }
+
+	/**
+	 * get a collection of all used fonts, either in a grid or from the whole plugin
+	 **/
+	public function collect_used_fonts($save = true, $fetch_all = true, $page = 1){
+		$used_fonts = get_option('tp-google-fonts-collect', array());
+		$global_fonts = array();
+		$more = false;
+		$sr = new RevSliderSlider();
+		$sl = new RevSliderSlide();
+
+		//get all slider, init them and get subsets and get_used_fonts
+		$page = intval($page);
+		if($page <= 0) $page = 1;
+
+		$sliders = $sr->get_sliders(false, $page);
+		if(!empty($sliders)){
+			foreach($sliders as $slider){
+				$gfsub	= $slider->get_param('subsets', array());
+				$gf		= $slider->get_used_fonts(false);
+				if(!empty($gf)){
+					foreach($gf as $handle => $data){
+						if(!isset($global_fonts[$handle])) $global_fonts[$handle] = array();
+
+						$variants = $this->get_val($data, 'variants', array());
+						if(!empty($variants) && is_array($variants)){
+							foreach($variants as $variant => $true){
+								if(!in_array($variant, $global_fonts[$handle])) $global_fonts[$handle][] = $variant;
+							}
+						}
+					}
+				}
+			}
+			if(count($sliders) >= 50) $more = true;
+		}
+
+		if(!empty($global_fonts)){
+			foreach($global_fonts as $handle => $variants){
+				$url = $handle;
+				if(!empty($variants) && is_array($variants)){
+					sort($variants);
+					$url .= ':'.implode(',', $variants);
+				}
+				if(!isset($used_fonts[$handle]))			$used_fonts[$handle] = array();
+				if(!in_array($url, $used_fonts[$handle]))	$used_fonts[$handle][] = $url;
+			}
+		}
+		
+		if($fetch_all === true){
+			if(class_exists('ThemePunch_Fonts') && method_exists('ThemePunch_Fonts', 'collect_used_fonts')){
+				$esg_fonts = new ThemePunch_Fonts();
+				$return = $esg_fonts->collect_used_fonts(false, false, $page);
+				$fonts = $this->get_val($return, 'fonts', array());
+				$_more = $this->get_val($return, 'more', false);
+				if($_more === true) $more = true;
+				//merge esg and revslider
+
+				if(!empty($fonts)){
+					foreach($fonts as $handle => $urls){
+						if(empty($urls) || !is_array($urls)) continue;
+						if (!isset($used_fonts[$handle]) ) $used_fonts[$handle] = array();
+						if (!in_array($handle, $used_fonts[$handle])) {
+							foreach($urls as $url){
+								if(!in_array($url, $used_fonts[$handle])) $used_fonts[$handle][] = $url;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		$used_fonts = apply_filters('punchfonts_collect_fonts', $used_fonts);
+		if($save === true) update_option('tp-google-fonts-collect', $used_fonts);
+
+		return array('fonts' => $used_fonts, 'more' => $more);
+	}
+
+
+	public function download_collected_fonts($handle){
+		if (empty($handle)) return;
+		if (!is_array($handle)) $handle = (array)$handle;
+
+		$collected	= get_option('tp-google-fonts-collect', array());
+
+		foreach ($handle as $_handle) {
+			if (!isset($collected[$_handle])) continue;
+
+			$load = array();
+			foreach($collected[$_handle] as $h){
+				$load[$h] = $h;
+			}
+
+			$this->preload_fonts($load, false, true);
+		}
+	}
 	
+
 	/**
 	 * Change FontURL to new URL (added for chinese support since google is blocked there)
 	 * @since: 5.0
@@ -1349,11 +1640,13 @@ src: local('".$f_family."'), local('".$f_family."'), url(".$base_url.'/revslider
 	
 	
 	/**
-	 * set the rs_google_font to current date, so that it will be redownloaded
+	 * set the tp_google_font to current date, so that it will be redownloaded
 	 * @before: RevSliderOperations::deleteGoogleFonts();
 	 */
 	public function delete_google_fonts(){
-		update_option('rs_google_font', time());
+		update_option('tp_google_font', time());
+		update_option('tp_font_css', array());
+		update_option('tp-google-fonts-collect', array());
 	}
 	
 	

@@ -1369,15 +1369,23 @@ class WC_Product_Vendors_Vendor_Admin {
 		if ( ! empty( $_POST['wcpv_save_vendor_settings_nonce'] ) && ! empty( $_POST['vendor_data'] ) ) {
 			// continue only if nonce passes
 			if ( wp_verify_nonce( $_POST['wcpv_save_vendor_settings_nonce'], 'wcpv_save_vendor_settings' ) ) {
-
-				$posted_vendor_data = $_POST['vendor_data'];
+				$allowed_editable_settings = $this->get_vendor_store_editable_settings_list();
+				$posted_vendor_data        = $_POST['vendor_data'];
 
 				// sanitize
 				$posted_vendor_data = array_map( 'sanitize_text_field', $posted_vendor_data );
 				$posted_vendor_data = array_map( 'stripslashes', $posted_vendor_data );
 
 				// Sanitize html editor content.
-				$posted_vendor_data['profile'] = ! empty( $_POST['vendor_data']['profile'] ) ? wp_kses_post( $_POST['vendor_data']['profile'] ) : '';
+				$posted_vendor_data['profile'] = ! empty( $_POST['vendor_data']['profile'] ) ?
+					wp_kses_post( $_POST['vendor_data']['profile'] ) :
+					'';
+
+				// Select only editable vendor settings in posted data.
+				$posted_vendor_data = array_intersect_key(
+					$posted_vendor_data,
+					array_flip( $allowed_editable_settings )
+				);
 
 				// merge the changes with existing settings
 				$posted_vendor_data = array_merge( $vendor_data, $posted_vendor_data );
@@ -1780,6 +1788,25 @@ class WC_Product_Vendors_Vendor_Admin {
 		if ( WC_Product_Vendors_Utils::is_vendor() && ! wc_current_user_has_role( 'administrator' ) ) {
 			remove_all_actions( 'admin_notices' );
 		}
+	}
+
+	/**
+	 * Should return vendor (admin or manager) editable settings list.
+	 *
+	 * Vendor store settings are defined in includes/admin/views/html-vendor-store-settings-page.php
+	 *
+	 * @since 2.1.69
+	 *
+	 * @return array List of editable settings.
+	 */
+	private function get_vendor_store_editable_settings_list() {
+		return [
+			'logo',
+			'profile',
+			'email',
+			'paypal',
+			'timezone'
+		];
 	}
 }
 

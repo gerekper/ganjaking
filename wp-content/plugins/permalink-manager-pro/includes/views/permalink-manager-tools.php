@@ -51,8 +51,15 @@ class Permalink_Manager_Tools extends Permalink_Manager_Class {
 		$all_duplicates = Permalink_Manager_Helper_Functions::get_all_duplicates();
 		$home_url = trim(get_option('home'), "/");
 
+		$button_url = add_query_arg(array(
+			'section' => 'tools',
+			'subsection' => 'duplicates',
+			'clear-permalink-manager-uris' => 1,
+			'_wpnonce' => wp_create_nonce('permalink-manager')
+		), Permalink_Manager_Admin_Functions::get_admin_url());
+
 		$html = sprintf("<h3>%s</h3>", __("List of duplicated permalinks", "permalink-manager"));
-		$html .= wpautop(sprintf("<a class=\"button button-primary\" href=\"%s\">%s</a>", admin_url('tools.php?page=permalink-manager&section=tools&subsection=duplicates&clear-permalink-manager-uris=1'), __('Fix custom permalinks & redirects', 'permalink-manager')));
+		$html .= wpautop(sprintf("<a class=\"button button-primary\" href=\"%s\">%s</a>", $button_url, __('Fix custom permalinks & redirects', 'permalink-manager')));
 
 		if(!empty($all_duplicates)) {
 			foreach($all_duplicates as $uri => $duplicates) {

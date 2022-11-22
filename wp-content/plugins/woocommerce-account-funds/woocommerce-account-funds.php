@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Account Funds
  * Plugin URI: https://woocommerce.com/products/account-funds/
  * Description: Allow customers to deposit funds into their accounts and pay with account funds during checkout.
- * Version: 2.7.2
+ * Version: 2.7.3
  * Author: Themesquad
  * Author URI: https://themesquad.com/
  * Requires PHP: 5.6
@@ -63,7 +63,7 @@ class WC_Account_Funds {
 	 *
 	 * @var string
 	 */
-	public $version = '2.7.2';
+	public $version = '2.7.3';
 
 	/**
 	 * Constructor.
@@ -122,6 +122,7 @@ class WC_Account_Funds {
 		 * Core classes.
 		 */
 		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/wc-account-funds-functions.php';
+		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/class-wc-account-funds-order-query.php';
 		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/class-wc-account-funds-installer.php';
 		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/class-wc-account-funds-my-account.php';
 		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/class-wc-account-funds-integrations.php';
@@ -145,6 +146,7 @@ class WC_Account_Funds {
 	private function init_hooks() {
 		add_action( 'plugins_loaded', array( $this, 'gateway_init' ), 0 );
 		add_action( 'widgets_init', array( $this, 'widgets_init' ) );
+		add_action( 'before_woocommerce_init', array( $this, 'declare_compatibility' ) );
 		add_action( 'init', array( $this, 'init' ) );
 
 		add_filter( 'woocommerce_email_classes', array( $this, 'add_email_classes' ), 99 );
@@ -169,6 +171,17 @@ class WC_Account_Funds {
 	 */
 	public function widgets_init() {
 		include_once WC_ACCOUNT_FUNDS_PATH . 'includes/class-wc-account-funds-widget.php';
+	}
+
+	/**
+	 * Declares compatibility with the WC features.
+	 *
+	 * @since 2.7.3
+	 */
+	public function declare_compatibility() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WC_ACCOUNT_FUNDS_FILE, true );
+		}
 	}
 
 	/**
@@ -237,18 +250,13 @@ class WC_Account_Funds {
 		if ( $user_id ) {
 			$funds = WC_Account_Funds_Manager::get_user_funds( $user_id );
 
-			// Orders with pending funds.
-			$orders_ids = get_posts(
+			$orders_ids = wc_get_orders(
 				array(
-					'numberposts' => -1,
-					'post_type'   => 'shop_order',
-					'post_status' => array_keys( wc_get_order_statuses() ),
-					'fields'      => 'ids',
-					'meta_query'  => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
-						array(
-							'key'   => '_customer_user',
-							'value' => $user_id,
-						),
+					'type'        => 'shop_order',
+					'limit'       => -1,
+					'return'      => 'ids',
+					'customer_id' => $user_id,
+					'funds_query'  => array(
 						array(
 							'key'   => '_funds_removed',
 							'value' => '0',
@@ -271,7 +279,8 @@ class WC_Account_Funds {
 					continue;
 				}
 
-				$funds = $funds - floatval( get_post_meta( $order_id, '_funds_used', true ) );
+				$order = wc_get_order( $order_id );
+				$funds = $funds - floatval( $order->get_meta( '_funds_used', true ) );
 			}
 		}
 

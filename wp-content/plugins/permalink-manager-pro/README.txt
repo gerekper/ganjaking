@@ -6,8 +6,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: permalinks, custom permalinks, permalink, woocommerce permalinks, url editor
 Requires at least: 4.4.0
 Requires PHP: 5.4
-Tested up to: 6.1.0
-Stable tag: 2.2.20.1
+Tested up to: 6.1.1
+Stable tag: 2.2.20.3
 
 Permalink Manager lets you customize the complete URL addresses of your posts, pages, custom post types, terms, and WooCommerce links with ease without touching any core files.
 
@@ -92,6 +92,10 @@ It is because Permalink Manager overwrites one of the core Wordpress functionali
 8.	Permalink Manager settings.
 
 == Changelog ==
+
+= 2.2.20.2/2.2.20.3 (November 15, 2022) =
+* Fix - A nonce field has been added to debug tools code for increased security
+* Fix - The "Fix language mismatch" function now functions exactly the same way in Polylang as it does in WPML
 
 = 2.2.20.1 (October 31, 2022) =
 * Fix - Security fix for BAC vulnerability found in the debug function that allowed unauthorized removal of single URIs

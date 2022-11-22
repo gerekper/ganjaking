@@ -3,12 +3,12 @@ Contributors: woocommerce, themesquad
 Tags: woocommerce, delivery, date
 Requires PHP: 5.4
 Requires at least: 4.7
-Tested up to: 6.0
-Stable tag: 2.2.2
+Tested up to: 6.1
+Stable tag: 2.2.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.5
-WC tested up to: 6.9
+WC tested up to: 7.0
 Woo: 976514:beaa91b8098712860ec7335d3dca61c0
 
 == Description ==

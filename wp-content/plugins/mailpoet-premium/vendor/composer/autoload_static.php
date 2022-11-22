@@ -7,7 +7,7 @@ namespace Composer\Autoload;
 if (!defined('ABSPATH')) exit;
 
 
-class ComposerStaticInitdd12a0aac291e792131c2e43fe677cf7
+class ComposerStaticInit3222f84a588813096ee226d3fd5cf7f9
 {
     public static $prefixLengthsPsr4 = array (
         'M' => 
@@ -36,14 +36,14 @@ class ComposerStaticInitdd12a0aac291e792131c2e43fe677cf7
         'MailPoet\\Premium\\API\\JSON\\v1\\ResponseBuilders\\SubscriberDetailedStatsResponseBuilder' => __DIR__ . '/../..' . '/lib/API/JSON/v1/ResponseBuilders/SubscriberDetailedStatsResponseBuilder.php',
         'MailPoet\\Premium\\API\\JSON\\v1\\Stats' => __DIR__ . '/../..' . '/lib/API/JSON/v1/Stats.php',
         'MailPoet\\Premium\\API\\JSON\\v1\\SubscriberDetailedStats' => __DIR__ . '/../..' . '/lib/API/JSON/v1/SubscriberDetailedStats.php',
-        'MailPoet\\Premium\\Automation\\Engine\\Builder\\CreateWorkflowController' => __DIR__ . '/../..' . '/lib/Automation/Engine/Builder/CreateWorkflowController.php',
-        'MailPoet\\Premium\\Automation\\Engine\\Builder\\UpdateWorkflowController' => __DIR__ . '/../..' . '/lib/Automation/Engine/Builder/UpdateWorkflowController.php',
-        'MailPoet\\Premium\\Automation\\Engine\\Endpoints\\Workflows\\WorkflowsPostEndpoint' => __DIR__ . '/../..' . '/lib/Automation/Engine/Endpoints/Workflows/WorkflowsPostEndpoint.php',
-        'MailPoet\\Premium\\Automation\\Engine\\Endpoints\\Workflows\\WorkflowsPutEndpoint' => __DIR__ . '/../..' . '/lib/Automation/Engine/Endpoints/Workflows/WorkflowsPutEndpoint.php',
+        'MailPoet\\Premium\\Automation\\Engine\\Builder\\CreateAutomationController' => __DIR__ . '/../..' . '/lib/Automation/Engine/Builder/CreateAutomationController.php',
+        'MailPoet\\Premium\\Automation\\Engine\\Builder\\UpdateAutomationController' => __DIR__ . '/../..' . '/lib/Automation/Engine/Builder/UpdateAutomationController.php',
+        'MailPoet\\Premium\\Automation\\Engine\\Endpoints\\Automations\\AutomationsPostEndpoint' => __DIR__ . '/../..' . '/lib/Automation/Engine/Endpoints/Automations/AutomationsPostEndpoint.php',
+        'MailPoet\\Premium\\Automation\\Engine\\Endpoints\\Automations\\AutomationsPutEndpoint' => __DIR__ . '/../..' . '/lib/Automation/Engine/Endpoints/Automations/AutomationsPutEndpoint.php',
         'MailPoet\\Premium\\Automation\\Engine\\Engine' => __DIR__ . '/../..' . '/lib/Automation/Engine/Engine.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\Actions\\UnsubscribeAction' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/Actions/UnsubscribeAction.php',
         'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\MailPoetPremiumIntegration' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/MailPoetPremiumIntegration.php',
-        'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\PremiumWorkflowTemplates' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/PremiumWorkflowTemplates.php',
+        'MailPoet\\Premium\\Automation\\Integrations\\MailPoetPremium\\PremiumAutomationTemplates' => __DIR__ . '/../..' . '/lib/Automation/Integrations/MailPoetPremium/PremiumAutomationTemplates.php',
         'MailPoet\\Premium\\Config\\Env' => __DIR__ . '/../..' . '/lib/Config/Env.php',
         'MailPoet\\Premium\\Config\\Hooks' => __DIR__ . '/../..' . '/lib/Config/Hooks.php',
         'MailPoet\\Premium\\Config\\Initializer' => __DIR__ . '/../..' . '/lib/Config/Initializer.php',
@@ -65,9 +65,9 @@ class ComposerStaticInitdd12a0aac291e792131c2e43fe677cf7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitdd12a0aac291e792131c2e43fe677cf7::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitdd12a0aac291e792131c2e43fe677cf7::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitdd12a0aac291e792131c2e43fe677cf7::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3222f84a588813096ee226d3fd5cf7f9::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3222f84a588813096ee226d3fd5cf7f9::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit3222f84a588813096ee226d3fd5cf7f9::$classMap;
 
         }, null, ClassLoader::class);
     }

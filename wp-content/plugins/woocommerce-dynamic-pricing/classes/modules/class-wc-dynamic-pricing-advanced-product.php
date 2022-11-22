@@ -141,7 +141,7 @@ class WC_Dynamic_Pricing_Advanced_Product extends WC_Dynamic_Pricing_Advanced_Ba
 							}
 
 							if ( isset( $cart_item['addons_price_before_calc'] ) ) {
-								$addons_total = $price - $cart_item['addons_price_before_calc'];
+								$addons_total = floatval($price) - floatval($cart_item['addons_price_before_calc']);
 								$amount += $addons_total;
 							}
 
@@ -346,19 +346,18 @@ class WC_Dynamic_Pricing_Advanced_Product extends WC_Dynamic_Pricing_Advanced_Ba
 					switch ( $rule['type'] ) {
 						case 'fixed_adjustment':
 							$adjusted            = floatval( $price ) - floatval( $amount );
-							$adjusted            = $adjusted >= 0 ? $adjusted : 0;
-							$line_total          = 0;
+							$adjusted            = max( $adjusted, 0 );
 							$full_price_quantity = $cart_item['quantity'] - $a;
 							$discount_quantity   = $a;
 							$line_total          = ( $discount_quantity * $adjusted ) + ( $full_price_quantity * $price );
 							$result              = $line_total / $cart_item['quantity'];
-							$result              = $result >= 0 ? $result : 0;
+							$result              = max( $result, 0 );
 
 							$this->used_rules[ $rule_set_id ] = isset( $this->used_rules[ $rule_set_id ] ) ? $this->used_rules[ $rule_set_id ] + $a : $a;
 
 							break;
 						case 'percent_adjustment':
-							$amount = $amount / 100;
+							$amount = floatval( $amount ) / 100;
 
 							$adjusted   = round( floatval( $price ) - ( floatval( $amount ) * $price ), (int) $num_decimals );
 							$line_total = 0;
@@ -373,13 +372,13 @@ class WC_Dynamic_Pricing_Advanced_Product extends WC_Dynamic_Pricing_Advanced_Ba
 
 							break;
 						case 'fixed_price':
-							$adjusted            = round( $amount, (int) $num_decimals );
+							$adjusted            = round( floatval($amount), (int) $num_decimals );
 							$line_total          = 0;
 							$full_price_quantity = $cart_item['quantity'] - $a;
 							$discount_quantity   = $a;
 							$line_total          = ( $discount_quantity * $adjusted ) + ( $full_price_quantity * $price );
 							$result              = $line_total / $cart_item['quantity'];
-							$result              = $result >= 0 ? $result : 0;
+							$result              = max( $result, 0 );
 
 							$this->used_rules[ $rule_set_id ] = isset( $this->used_rules[ $rule_set_id ] ) ? $this->used_rules[ $rule_set_id ] + $a : $a;
 

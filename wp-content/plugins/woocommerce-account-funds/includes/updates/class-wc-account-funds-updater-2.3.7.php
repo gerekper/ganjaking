@@ -36,25 +36,18 @@ class WC_Account_Funds_Updater_2_3_7 implements WC_Account_Funds_Updater {
 		}
 
 		// Identify the Orders that need to be fixed.
-		$order_ids = get_posts(
+		$order_ids = wc_get_orders(
 			array(
-				'post_type'      => 'shop_order',
-				'post_status'    => array( 'wc-processing', 'wc-completed' ),
-				'fields'         => 'ids',
-				'posts_per_page' => -1,
-				'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
-					array(
-						'key'   => '_payment_method',
-						'value' => 'accountfunds',
-					),
-					array(
-						'key'   => '_order_total',
-						'value' => 0,
-						'type'  => 'NUMERIC',
-					),
+				'type'           => 'shop_order',
+				'limit'          => - 1,
+				'status'         => array( 'wc-processing', 'wc-completed' ),
+				'return'         => 'ids',
+				'payment_method' => 'accountfunds',
+				'total'          => '0',
+				'funds_query'    => array(
 					array(
 						'key'   => '_funds_removed',
-						'value' => 1,
+						'value' => '1',
 					),
 					array(
 						'key'     => '_funds_used',
@@ -92,7 +85,7 @@ EOT;
 
 			$order_balances[ $order_id ] = $order_total;
 
-			// Add the missing meta data.
+			// Add the missing metadata.
 			$order->update_meta_data( '_funds_used', $order_total );
 			$order->save_meta_data();
 

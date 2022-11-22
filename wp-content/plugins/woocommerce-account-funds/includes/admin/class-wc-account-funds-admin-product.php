@@ -20,7 +20,7 @@ class WC_Account_Funds_Admin_Product {
 	 */
 	public function __construct() {
 		add_filter( 'product_type_selector', array( $this, 'product_types' ) );
-		add_action( 'woocommerce_process_product_meta_deposit', array( $this, 'process_product_deposit' ), 10 );
+		add_action( 'woocommerce_process_product_meta_deposit', array( $this, 'process_product_deposit' ) );
 		add_action( 'woocommerce_product_data_panels', array( $this, 'product_write_panel' ) );
 	}
 
@@ -42,7 +42,9 @@ class WC_Account_Funds_Admin_Product {
 	 * @param int $post_id Post ID.
 	 */
 	public function process_product_deposit( $post_id ) {
-		update_post_meta( $post_id, '_virtual', 'yes' );
+		$product = wc_get_product( $post_id );
+		$product->set_virtual( true );
+		$product->save();
 	}
 
 	/**

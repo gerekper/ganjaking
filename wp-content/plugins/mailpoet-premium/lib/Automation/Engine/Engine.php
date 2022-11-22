@@ -7,21 +7,17 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Automation\Engine\API\API;
 use MailPoet\Automation\Engine\Hooks as AutomationHooks;
-use MailPoet\Features\FeaturesController;
-use MailPoet\Premium\Automation\Engine\Endpoints\Workflows\WorkflowsPostEndpoint;
-use MailPoet\Premium\Automation\Engine\Endpoints\Workflows\WorkflowsPutEndpoint;
+use MailPoet\Premium\Automation\Engine\Endpoints\Automations\AutomationsPostEndpoint;
+use MailPoet\Premium\Automation\Engine\Endpoints\Automations\AutomationsPutEndpoint;
 use MailPoet\Premium\Automation\Integrations\MailPoetPremium\MailPoetPremiumIntegration;
-use MailPoet\Premium\Automation\Integrations\MailPoetPremium\PremiumWorkflowTemplates;
+use MailPoet\Premium\Automation\Integrations\MailPoetPremium\PremiumAutomationTemplates;
 use MailPoet\WP\Functions as WPFunctions;
 
 class Engine {
   /** @var MailPoetPremiumIntegration */
   private $mailpoetPremiumIntegration;
 
-  /** @var FeaturesController */
-  private $featuresController;
-
-  /** @var PremiumWorkflowTemplates  */
+  /** @var PremiumAutomationTemplates  */
   private $templateStorage;
 
   /** @var WPFunctions */
@@ -29,21 +25,15 @@ class Engine {
 
   public function __construct(
     MailPoetPremiumIntegration $mailpoetPremiumIntegration,
-    FeaturesController $featuresController,
-    PremiumWorkflowTemplates $templateStorage,
+    PremiumAutomationTemplates $templateStorage,
     WPFunctions $wp
   ) {
     $this->mailpoetPremiumIntegration = $mailpoetPremiumIntegration;
-    $this->featuresController = $featuresController;
     $this->templateStorage = $templateStorage;
     $this->wp = $wp;
   }
 
   public function initialize(): void {
-    if (!$this->featuresController->isSupported(FeaturesController::AUTOMATION) && !defined('MAILPOET_PREMIUM_TESTS_AUTOMATION')) {
-      return;
-    }
-
     $this->wp->addAction(
       AutomationHooks::API_INITIALIZE,
       [$this, 'registerPremiumAutomationAPIRoutes'],
@@ -55,14 +45,14 @@ class Engine {
       'register',
     ]);
 
-    $this->wp->addAction(AutomationHooks::WORKFLOW_TEMPLATES, [
+    $this->wp->addAction(AutomationHooks::AUTOMATION_TEMPLATES, [
       $this->templateStorage,
       'integrate',
     ]);
   }
 
   public function registerPremiumAutomationAPIRoutes(API $api): void {
-    $api->registerPostRoute('workflows', WorkflowsPostEndpoint::class);
-    $api->registerPutRoute('workflows/(?P<id>\d+)', WorkflowsPutEndpoint::class);
+    $api->registerPostRoute('automations', AutomationsPostEndpoint::class);
+    $api->registerPutRoute('automations/(?P<id>\d+)', AutomationsPutEndpoint::class);
   }
 }

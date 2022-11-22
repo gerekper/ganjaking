@@ -1,5 +1,11 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2022-11-14 - version 2.2.3
+* Tweak - Tested compatibility with WC 7.0.
+* Tweak - Tested compatibility with WP 6.1.
+* Fix - The calendar wasn't shown again when scrolling on a mobile device until clicking on a different element.
+* Dev - Updated bootstrap-datepicker.js library.
+
 2022-09-12 - version 2.2.2
 * Tweak - Improved the validation of the delivery fields during checkout.
 * Fix - Fixed the 'State' selector field in the delivery calendar dialog.
