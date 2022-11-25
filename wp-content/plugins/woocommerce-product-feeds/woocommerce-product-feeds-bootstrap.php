@@ -423,6 +423,9 @@ $woocommerce_gpf_di['WoocommerceProductFeedsAdvancedCustomFields']              
 $woocommerce_gpf_di['WoocommerceProductFeedsWoocommerceGermanized']                = function ( $c ) {
 	return new WoocommerceProductFeedsWoocommerceGermanized();
 };
+$woocommerce_gpf_di['WoocommerceProductFeedsMeasurementPriceCalculator']           = function ( $c ) {
+	return new WoocommerceProductFeedsMeasurementPriceCalculator();
+};
 $woocommerce_gpf_di['WoocommerceProductFeedsWoocommerceAdditionalVariationImages'] = function ( $c ) {
 	return new WoocommerceProductFeedsWoocommerceAdditionalVariationImages();
 };

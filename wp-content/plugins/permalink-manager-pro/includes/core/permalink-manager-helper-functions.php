@@ -731,7 +731,7 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 
  		if(!empty($all_duplicates)) {
 			// Get the language code of current element
-			$this_uri_lang = Permalink_Manager_Language_Plugins::get_language_code($element_id);
+			$this_uri_lang = apply_filters('permalink_manager_get_language_code', $element_id);
 
 			foreach($all_duplicates as $key => $duplicated_id) {
 				// Ignore custom redirects
@@ -741,7 +741,7 @@ class Permalink_Manager_Helper_Functions extends Permalink_Manager_Class {
 				}
 
 				if($this_uri_lang) {
-					$duplicated_uri_lang = Permalink_Manager_Language_Plugins::get_language_code($duplicated_id);
+					$duplicated_uri_lang = apply_filters('permalink_manager_get_language_code', $duplicated_id);
 				}
 
 				// Ignore the URI for requested element and other elements in other languages to prevent the false alert

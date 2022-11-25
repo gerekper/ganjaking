@@ -5,7 +5,7 @@ Plugin URI: http://hide-my-wp.wpwave.com/
 Description: An excellent security plugin to hide your WordPress installation packed with some of the coolest and most unique features in the community.
 Author: wpWave
 Author URI: http://wpwave.com
-Version: 6.2.6
+Version: 6.2.4
 Text Domain: hide_my_wp
 Domain Path: /lang
 License: GPL2
@@ -20,12 +20,8 @@ Network: True
  *   Copyright 2017 Hassan Jahangiri
  *   Some code from dxplugin base by mpeshev, plugin base v2 by Brad Vincent, weDevs Settings API by Tareq Hasan, rootstheme by Ben Word, Minify by Stephen Clay and Mute Scemer by ampt
  */
- $hide_my_wp_settings = get_option( 'hide_my_wp' );
- $hide_my_wp_settings['li'] = 'purchase-code';
- update_option( 'hide_my_wp', $hide_my_wp_settings );
-delete_option( 'pp_important_messages');
 define('HMW_TITLE', 'Hide My WP');
-define('HMW_VERSION', '6.2.6');
+define('HMW_VERSION', '6.2.4');
 define('HMW_SLUG', 'hide_my_wp'); //use _
 define('HMW_PATH', dirname(__FILE__));
 define('HMW_DIR', basename(HMW_PATH));
@@ -338,7 +334,7 @@ class HideMyWP
 			}
 			$show_access_message = false;
 		}
-
+		
 
 		if (isset($_GET['page']) && $_GET['page'] == self::slug && (isset($_GET['settings-updated']) || isset($_GET['settings-imported'])) && is_multisite()) {
             echo '<div class="error"><p>' . __('You have enabled Multisite. It\'s require to (re)configure Hide My WP after changing settings or activating new plugin or theme. <br><br><a target="_blank" href="' . add_query_arg(array('die_message' => 'multisite')) . '" class="button">' . __('Multisite Configuration', self::slug) . '</a>', self::slug) . '</p></div>';
@@ -386,9 +382,9 @@ class HideMyWP
 	}
 
     function access_test()
-    {
+    {        
         $response = wp_remote_get($this->partial_filter(get_stylesheet_uri()));
-
+            
         if (200 !== wp_remote_retrieve_response_code($response)
             AND 'OK' !== wp_remote_retrieve_response_message($response)
             AND is_wp_error($response)
@@ -519,7 +515,7 @@ class HideMyWP
             $this->block_access();
         if (is_tag() && !isset($_GET['tag']) && !$this->opt('tag_enable'))
             $this->block_access();
-         *
+         * 
          */
         if ((is_date() || is_time()) && !isset($_GET['monthnum']) && !isset($_GET['m']) && !isset($_GET['w']) && !isset($_GET['second']) && !isset($_GET['year']) && !isset($_GET['day']) && !isset($_GET['hour']) && !isset($_GET['second']) && !isset($_GET['minute']) && !isset($_GET['calendar']) && $this->opt('disable_archive'))
             $this->block_access();
@@ -626,15 +622,15 @@ class HideMyWP
         //wp_register_style( self::slug.'_admin_css', self::url. '/css/admin.css', array(), self::ver, 'all' );
         //wp_enqueue_style( self::slug.'_admin_css' );
     }
-
+    
     /**
      * HideMyWP::front_css_js()
      *
      * Adds buddypress ajax solution
      * @return
-     *
+     * 
      */
-    function front_css_js(){
+    function front_css_js(){        
         if($this->opt('replace_wpnonce') == 'on'){ ?>
             <script type="text/javascript">
                 jQuery(document).ajaxSuccess(function (event, xhr, settings) {
@@ -657,10 +653,10 @@ class HideMyWP
                     return str;
                 }
             </script>
-        <?php
-        }
+        <?php        
+        }        
     }
-
+    
     /**
      * HideMyWP::pp_settings_api_reset()
      * Filter after reseting Options
@@ -689,14 +685,6 @@ class HideMyWP
     {
         global $wp_rewrite;
 
-		$filename = ABSPATH . '.htaccess';
-		if(!is_writable($filename)){
-			$options_file = (is_multisite()) ? 'network/settings.php' : 'admin.php';
-            $page_url = admin_url(add_query_arg('page', 'hide_my_wp', $options_file));
-			$goback = add_query_arg(array('htaccess-write' => 'true'), $page_url);
-			wp_redirect($goback);
-			exit;
-		}
 
         update_option(self::slug . '_undo', get_option(self::slug));
 
@@ -970,7 +958,7 @@ class HideMyWP
      * @return
      */
     function block_access()
-    {
+    {        
         global $wp_query, $current_user;
         include_once(ABSPATH . '/wp-includes/pluggable.php');
 
@@ -1273,7 +1261,7 @@ class HideMyWP
                 $this->preg_replace_new[] = ' ';
                 $this->preg_replace_old[] = "%(\s){3,}%";
                 $this->preg_replace_new[] = ' ';
-
+                
             } elseif ($this->opt('remove_html_comments') == 'safe') {
                 require_once('lib/class.HTML-minify.php');
                 $min = new Minify_HTML($buffer, array('xhtml' => true));
@@ -2514,7 +2502,7 @@ class HideMyWP
             delete_optioon_deactivate_callbackn(self::slug);
             delete_option('hmwp_temp_admin_path');
             delete_option('trust_network_rules');
-            delete_option('hmwp_internal_assets');
+            delete_option('hmwp_internal_assets');            
         }
         flush_rewrite_rules();
     }
@@ -3527,7 +3515,7 @@ RewriteRule ^((wp-content|wp-includes|wp-admin)/(.*)) /" . $sub_install . "nothi
             $output .= 'RewriteCond %{REQUEST_URI} !(' . $white_regex . ')(.*)' . "\n";
             $output .= 'RewriteRule ^(.*)\.php(.*)' . ' /nothing_404_404' . $this->trust_key . ' [QSA,L]' . "\n";
         }
-
+                
         if (!$output)
             $output = __('Nothing to add for current settings!', self::slug);
         else
@@ -3581,6 +3569,7 @@ RewriteRule ^((wp-content|wp-includes|wp-admin)/(.*)) /" . $sub_install . "nothi
 
         if (is_multisite()) {
             if ($this->is_subdir_mu)
+                $new_login_path = '/' . $new_login_path;
             $rel_login_path = $this->blog_path . str_replace($this->sub_folder, '', $new_login_path);
         }
 
@@ -3757,16 +3746,8 @@ RewriteRule ^((wp-content|wp-includes|wp-admin)/(.*)) " . $this->sub_folder . '/
         if ($new_admin_path && $new_admin_path != 'wp-admin')
             $output .= 'RewriteRule ^' . $new_admin_path . '/(.*) /' . $this->sub_folder . 'wp-admin/$1' . $this->trust_key . ' [QSA,L]' . "\n";
 
-        if ($new_login_path && $new_login_path != 'wp-login.php') {
-            if(is_multisite()) {
-				$blogs = get_sites();
-				foreach( $blogs as $blog ){
-					$output .= 'RewriteRule ^'.str_replace("/".$this->sub_folder,'',$blog->path) . $new_login_path . ' /' . $blog->path . 'wp-login.php' . $this->trust_key . ' [QSA,L]' . "\n";
-				}
-			} else {
-				$output .= 'RewriteRule ^' . $new_login_path . ' /' . $this->sub_folder . 'wp-login.php' . $this->trust_key . ' [QSA,L]' . "\n";
-			}
-		}
+        if ($new_login_path && $new_login_path != 'wp-login.php')
+            $output .= 'RewriteRule ^' . $new_login_path . ' /' . $this->sub_folder . $rel_login_path . $this->trust_key . ' [QSA,L]' . "\n";
 
         if ($new_include_path)
             $output .= 'RewriteRule ^' . $new_include_path . '/(.*) /' . $rel_include_path . '/$1' . $this->trust_key . ' [QSA,L]' . "\n";
@@ -3861,7 +3842,7 @@ RewriteRule ^((wp-content|wp-includes|wp-admin)/(.*)) " . $this->sub_folder . '/
             $html = sprintf('%s ', $desc);
             $html .= sprintf('<span class="description">
             <ol style="color:#ff9900">
-            <li>Add below lines right before <strong>RewriteCond %%{REQUEST_FILENAME} !-f [OR]</strong> </li>
+            <li>Add below lines right before <strong>RewriteCond %{REQUEST_FILENAME} !-f [OR]</strong> </li>
             <li>You may need to re-configure the server whenever you change settings or activate a new plugin.</li> </ol></span>.
         <textarea readonly="readonly" onclick="" rows="5" cols="55" class="regular-text %1$s" id="%2$s" name="%2$s" style="%4$s">%3$s</textarea>', 'multisite_config_class', 'multisite_config', esc_textarea($output), 'width:95% !important;height:400px !important');
 
@@ -3944,7 +3925,7 @@ RewriteRule ^((wp-content|wp-includes|wp-admin)/(.*)) " . $this->sub_folder . '/
     {
         return $this->global_html_filter($buffer);
     }
-
+    
     /**
      * Redirect wp-register.page to 404 page
      */
@@ -3962,11 +3943,11 @@ RewriteRule ^((wp-content|wp-includes|wp-admin)/(.*)) " . $this->sub_folder . '/
             }
         }
     }
-
+    
     /**
      * @version 6.0.0
      * @param type $schedules
-     * @return Create weekly cron job
+     * @return Create weekly cron job 
      */
     function hmwp_cron_add_weekly( $schedules ) {
         // Adds once weekly to the existing schedules.
@@ -3976,7 +3957,7 @@ RewriteRule ^((wp-content|wp-includes|wp-admin)/(.*)) " . $this->sub_folder . '/
         );
         return $schedules;
     }
-
+    
     /**
      * Function to run the cron job
      */
@@ -3993,7 +3974,7 @@ RewriteRule ^((wp-content|wp-includes|wp-admin)/(.*)) " . $this->sub_folder . '/
             update_option('wpw_api_weekly_cron_job', 'yes');
         }
         /**
-        * No need to get trust network rules as we have made it dynamic : 02-12-2019
+        * No need to get trust network rules as we have made it dynamic : 02-12-2019    
         $rules = get_option('trust_network_rules');
         */
         $banned_ips = $this->opt('blocked_ips') != '' ? explode(',', $this->opt('blocked_ips')) : array();
@@ -4022,10 +4003,10 @@ RewriteRule ^((wp-content|wp-includes|wp-admin)/(.*)) " . $this->sub_folder . '/
             }
         }
     }
-
+    
     public function hmwp_activation_redirect($plugin){
         if( $plugin == plugin_basename( __FILE__ ) ) {
-           if(get_option('hmwp_setup_run') !== 'yes' && !is_multisite()){
+           if(get_option('hmwp_setup_run') !== 'yes'){
                 exit( wp_redirect( admin_url( 'admin.php?page=hmwp_setup_wizard' ) ) );
             }
         }

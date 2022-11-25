@@ -6,7 +6,7 @@
 class Permalink_Manager_URI_Functions_Tax extends Permalink_Manager_Class {
 
 	public function __construct() {
-		add_action( 'init', array($this, 'init') );
+		add_action( 'init', array($this, 'init'), 100 );
 		add_action( 'rest_api_init', array($this, 'init') );
 
 		add_filter( 'term_link', array($this, 'custom_tax_permalinks'), 999, 2 );

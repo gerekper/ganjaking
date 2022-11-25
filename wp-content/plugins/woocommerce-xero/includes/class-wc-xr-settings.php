@@ -243,6 +243,12 @@ class WC_XR_Settings {
 					'type'        => 'checkbox',
 					'description' => __( 'Send Item Code field with invoices. If this is enabled then each product must have a SKU defined and be setup as an <a href="https://central.xero.com/s/article/Add-an-inventory-item" target="_blank">inventory item</a> in Xero.', 'woocommerce-xero' ),
 				),
+				'append_email_to_contact'  => array(
+					'title'       => esc_html__( 'Use customer email in contact name', 'woocommerce-xero' ),
+					'default'     => 'on',
+					'type'        => 'checkbox',
+					'description' => esc_html__( 'Append customer email to contact name to ensure uniqueness and prevent duplicates. Email will be appended only if a contact with the same name exists.', 'woocommerce-xero' ),
+				),
 				'debug'                    => array(
 					'title'       => __( 'Debug', 'woocommerce-xero' ),
 					'default'     => 'off',

@@ -108,6 +108,7 @@ class ComposerStaticInitdefa2f895b9c8958a8913d0072ce990a
         'WoocommerceProductFeedsJobManager' => __DIR__ . '/../..' . '/src/jobs/woocommerce-product-feeds-job-manager.php',
         'WoocommerceProductFeedsMain' => __DIR__ . '/../..' . '/src/woocommerce-product-feeds-main.php',
         'WoocommerceProductFeedsMaybeRefreshGoogleTaxonomiesJob' => __DIR__ . '/../..' . '/src/jobs/woocommerce-product-feeds-maybe-refresh-google-taxonomies-job.php',
+        'WoocommerceProductFeedsMeasurementPriceCalculator' => __DIR__ . '/../..' . '/src/integrations/woocommerce-product-feeds-measurement-price-calculator.php',
         'WoocommerceProductFeedsRefreshGoogleTaxonomyJob' => __DIR__ . '/../..' . '/src/jobs/woocommerce-product-feeds-refresh-google-taxonomy-job.php',
         'WoocommerceProductFeedsTermDepthRepository' => __DIR__ . '/../..' . '/src/common/woocommerce-product-feeds-term-depth-repository.php',
         'WoocommerceProductFeedsWoocommerceAdditionalVariationImages' => __DIR__ . '/../..' . '/src/integrations/woocommerce-product-feeds-woocommerce-additional-variation-images.php',

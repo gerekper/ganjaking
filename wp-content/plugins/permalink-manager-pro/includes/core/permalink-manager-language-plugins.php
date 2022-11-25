@@ -29,6 +29,9 @@ class Permalink_Manager_Language_Plugins extends Permalink_Manager_Class {
 			// Adjust front page ID
 			add_filter('permalink_manager_is_front_page', array($this, 'wpml_is_front_page'), 9, 3);
 
+			// Provide the language code for any post/term
+			add_filter('permalink_manager_get_language_code', array($this, 'get_language_code'));
+
 			// Get translation mode
 			$mode = 0;
 

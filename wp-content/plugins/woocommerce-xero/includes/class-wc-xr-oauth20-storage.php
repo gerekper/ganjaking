@@ -56,19 +56,22 @@ class WC_XR_OAuth20_Storage_Class {
 	 */
 	public static function set_data( $token, $expires, $tenant_id, $refresh_token ) {
 		$logger    = new WC_XR_Oauth20_Logger();
-		$log_text  = 'XERO New connection made, storring token and other params\n';
-		$log_text .= '     AccessToken = ' . $token . '\n';
+		$log_text  = 'XERO New connection made, storing token and other params\n';
+		$log_text .= '     AccessToken = <<redacted>>\n';
 		$log_text .= '     Expires time = ' . $expires . '\n';
 		$log_text .= '     TenantId = ' . $tenant_id . '\n';
-		$log_text .= '     RefreshToken = ' . $refresh_token . '\n';
+		$log_text .= '     RefreshToken = <<redacted>>\n';
 		$logger->write( $log_text );
 
+		$wc_xr_data_encryption = new WC_XR_Data_Encryption();
+
 		$xero_oauth_options = [ // phpcs:ignore
-			'token'         => $token,
+			'token'         => $wc_xr_data_encryption->encrypt( $token ),
 			'expires'       => $expires,
 			'tenant_id'     => $tenant_id,
-			'refresh_token' => $refresh_token,
+			'refresh_token' => $wc_xr_data_encryption->encrypt( $refresh_token ),
 		];
+
 		update_option( 'xero_oauth_options', $xero_oauth_options, false );
 	}
 
@@ -77,9 +80,23 @@ class WC_XR_OAuth20_Storage_Class {
 	 */
 	public static function get_data() {
 		$xero_oauth_options = get_option( 'xero_oauth_options' );
+
 		if ( false === $xero_oauth_options ) {
 			return null;
 		}
+
+		$wc_xr_data_encryption = new WC_XR_Data_Encryption();
+
+		// Decrypt token only if value is non-empty. Default value of token is NULL.
+		if ( $xero_oauth_options['token'] ) {
+			$xero_oauth_options['token'] = $wc_xr_data_encryption->decrypt( $xero_oauth_options['token'] );
+		}
+
+		// Decrypt refresh_token only if value is non-empty. Default value of refresh_token is NULL.
+		if ( $xero_oauth_options['refresh_token'] ) {
+			$xero_oauth_options['refresh_token'] = $wc_xr_data_encryption->decrypt( $xero_oauth_options['refresh_token'] );
+		}
+
 		return $xero_oauth_options;
 	}
 
@@ -102,13 +119,14 @@ class WC_XR_OAuth20_Storage_Class {
 	public static function clear_data() {
 		$logger = new WC_XR_Oauth20_Logger();
 		$logger->write( 'XERO Clearing OAuth20 data.' );
+
 		$xero_oauth_options = [ // phpcs:ignore
 			'token'         => null,
 			'expires'       => null,
 			'tenant_id'     => null,
 			'refresh_token' => null,
 		];
-			update_option( 'xero_oauth_options', $xero_oauth_options, false );
+		update_option( 'xero_oauth_options', $xero_oauth_options, false );
 	}
 
 	/**

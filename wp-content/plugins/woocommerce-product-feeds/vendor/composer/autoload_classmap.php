@@ -75,6 +75,7 @@ return array(
     'WoocommerceProductFeedsJobManager' => $baseDir . '/src/jobs/woocommerce-product-feeds-job-manager.php',
     'WoocommerceProductFeedsMain' => $baseDir . '/src/woocommerce-product-feeds-main.php',
     'WoocommerceProductFeedsMaybeRefreshGoogleTaxonomiesJob' => $baseDir . '/src/jobs/woocommerce-product-feeds-maybe-refresh-google-taxonomies-job.php',
+    'WoocommerceProductFeedsMeasurementPriceCalculator' => $baseDir . '/src/integrations/woocommerce-product-feeds-measurement-price-calculator.php',
     'WoocommerceProductFeedsRefreshGoogleTaxonomyJob' => $baseDir . '/src/jobs/woocommerce-product-feeds-refresh-google-taxonomy-job.php',
     'WoocommerceProductFeedsTermDepthRepository' => $baseDir . '/src/common/woocommerce-product-feeds-term-depth-repository.php',
     'WoocommerceProductFeedsWoocommerceAdditionalVariationImages' => $baseDir . '/src/integrations/woocommerce-product-feeds-woocommerce-additional-variation-images.php',

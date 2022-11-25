@@ -98,8 +98,17 @@
 		copyValuesFromPreviousElement: function( i ) {
 			var self = this;
 			$( '.ticket-field-input', this.prevTicketEls[ i ] ).each( function() {
-				var id = $( this ).attr( 'id' ),
-					value = $( this ).val();
+				var $this = $( this );
+				var id = $this.attr( 'id' ),
+					value;
+				if ( [ 'radio', 'checkbox' ].includes( $this.attr( 'type' ) ) ) {
+					// for radio and checkbox, set value only if it is checked. skip otherwise.
+					if ( $this.is( ':checked' ) ) {
+						value = $this.val();
+					}
+				} else {
+					value = $this.val();
+				}
 
 				// Previous element has value, copy it to new element in the new view.
 				if ( value ) {
@@ -111,7 +120,7 @@
 		setElValue: function( $el, value ) {
 			switch ( $el.prop( 'nodeName' ) ) {
 				case 'INPUT':
-					if ( 'radio' === $el.attr( 'type' ) ) {
+					if ( [ 'radio', 'checkbox' ].includes( $el.attr( 'type' ) ) ) {
 						$el.each( function() {
 							$( this ).prop( 'checked', value === this.value );
 						} );

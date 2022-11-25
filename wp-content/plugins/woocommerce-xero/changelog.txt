@@ -1,5 +1,10 @@
 *** Xero Integration ***
 
+2022-11-23 - version 1.7.51
+* Add - Declare compatibility for High-performance Order Systems ("HPOS").
+* Add - Option to enable/disable use of customer email in the contact name.
+* Change - Ensure tokens are encrypted before we store them.
+
 2022-11-01 - version 1.7.50
 * Add - Support for Subscriptions with WooCommerce Payments.
 

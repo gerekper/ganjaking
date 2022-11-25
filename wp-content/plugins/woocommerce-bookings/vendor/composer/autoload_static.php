@@ -4,15 +4,15 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit660436d37d3ce21187845baa5adad7f6
+class ComposerStaticInit3a936c09a8de252d59a27289df403dac
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         '023d27dca8066ef29e6739335ea73bad' => __DIR__ . '/..' . '/symfony/polyfill-php70/bootstrap.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
-        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
@@ -273,7 +273,6 @@ class ComposerStaticInit660436d37d3ce21187845baa5adad7f6
         'Automattic\\WooCommerce\\Bookings\\Vendor\\GuzzleHttp\\TransferStats' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/TransferStats.php',
         'Automattic\\WooCommerce\\Bookings\\Vendor\\GuzzleHttp\\UriTemplate' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/UriTemplate.php',
         'Automattic\\WooCommerce\\Bookings\\Vendor\\GuzzleHttp\\Utils' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Utils.php',
-        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Composer\\Installers\\AglInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AglInstaller.php',
         'Composer\\Installers\\AimeosInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AimeosInstaller.php',
         'Composer\\Installers\\AnnotateCmsInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AnnotateCmsInstaller.php',
@@ -1048,10 +1047,10 @@ class ComposerStaticInit660436d37d3ce21187845baa5adad7f6
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit660436d37d3ce21187845baa5adad7f6::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit660436d37d3ce21187845baa5adad7f6::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit660436d37d3ce21187845baa5adad7f6::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit660436d37d3ce21187845baa5adad7f6::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit3a936c09a8de252d59a27289df403dac::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit3a936c09a8de252d59a27289df403dac::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit3a936c09a8de252d59a27289df403dac::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit3a936c09a8de252d59a27289df403dac::$classMap;
 
         }, null, ClassLoader::class);
     }

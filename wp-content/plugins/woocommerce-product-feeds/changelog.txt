@@ -1,5 +1,8 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2022.11.21 - version 10.8.0
+* New: Integration with Measurement Price Calculator extension
+
 2022.10.20 - version 10.7.7
 * Change: Add additional elements to expanded schem following new validation by Google
 * Fix: Resolve issue where some items could be excluded from the feed in rare configurations

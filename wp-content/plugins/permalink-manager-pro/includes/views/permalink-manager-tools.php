@@ -55,7 +55,7 @@ class Permalink_Manager_Tools extends Permalink_Manager_Class {
 			'section' => 'tools',
 			'subsection' => 'duplicates',
 			'clear-permalink-manager-uris' => 1,
-			'_wpnonce' => wp_create_nonce('permalink-manager')
+			'permalink-manager-nonce' => wp_create_nonce('permalink-manager')
 		), Permalink_Manager_Admin_Functions::get_admin_url());
 
 		$html = sprintf("<h3>%s</h3>", __("List of duplicated permalinks", "permalink-manager"));

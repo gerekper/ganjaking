@@ -259,12 +259,14 @@ class WC_PCSVIS_Product_Variation_Import extends WC_PCSVIS_Product_Import {
 
 		$groups_active = class_exists( 'Groups_WS' );
 
-		// When attributes come as uppercase, it cause variations combinations to bork.
-		// See https://github.com/woocommerce/woocommerce-product-csv-import-suite/issues/68
-		$insert_meta_data = array_change_key_case( $insert_meta_data, CASE_LOWER );
-
-		// Format meta data
+		// Format meta data.
 		foreach ( $insert_meta_data as $key => $value ) {
+			// When attributes come as uppercase, it cause variations combinations to bork.
+			// See https://github.com/woocommerce/woocommerce-product-csv-import-suite/issues/68.
+			if ( substr( $key, 0, 9 ) === 'attribute' ) {
+				$key = strtolower( $key );
+			}
+
 			$meta_key      = wp_unslash( $key );
 			$meta_value    = wp_unslash( $value );
 			$meta_value    = sanitize_meta( $meta_key, $meta_value, 'post' );

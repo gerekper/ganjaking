@@ -1486,8 +1486,8 @@ class WoocommerceGpfAdmin {
 	 * @return string       The label text.
 	 */
 	private function get_prepopulate_label( $key ) {
-		list( $type, $value ) = explode( ':', $key );
 		$descriptor           = '';
+		list( $type, $value ) = explode( ':', $key );
 		switch ( $type ) {
 			case 'tax':
 				$taxonomy = get_taxonomy( $value );

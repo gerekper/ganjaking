@@ -2,10 +2,10 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Box Office 1.1.43\n"
+"Project-Id-Version: WooCommerce Box Office 1.1.44\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-box-office\n"
-"POT-Creation-Date: 2022-11-09 17:39:13+00:00\n"
+"POT-Creation-Date: 2022-11-24 10:19:38+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -69,7 +69,7 @@ msgstr ""
 
 #: includes/class-wc-box-office-post-types.php:62
 #: includes/class-wc-box-office-product-admin.php:30
-#: includes/class-wc-box-office-ticket-admin.php:321
+#: includes/class-wc-box-office-ticket-admin.php:355
 #: includes/class-wc-box-office-tools.php:195
 #: includes/views/admin/create-ticket-step-3.php:27
 msgid "Ticket"
@@ -251,77 +251,91 @@ msgid ""
 "debugging purposes only and deleting the logs when finished."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:91
+#: includes/class-wc-box-office-ticket-admin.php:93
 msgid "All Ticket Products"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:140
+#: includes/class-wc-box-office-ticket-admin.php:103
+msgid "All status"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-admin.php:104
+#: includes/class-wc-box-office-tools.php:202
+#: includes/views/admin/ticket-meta-box.php:62
+msgid "Attended"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-admin.php:105
+msgid "Not attended"
+msgstr ""
+
+#: includes/class-wc-box-office-ticket-admin.php:174
 msgid "Ticket Information"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:143
+#: includes/class-wc-box-office-ticket-admin.php:177
 msgid "Ticket Barcode"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:273
+#: includes/class-wc-box-office-ticket-admin.php:307
 msgid "Email Information"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:274
+#: includes/class-wc-box-office-ticket-admin.php:308
 msgid "Email Content"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:275
+#: includes/class-wc-box-office-ticket-admin.php:309
 msgid "Email Log"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:322
+#: includes/class-wc-box-office-ticket-admin.php:356
 #: templates/myaccount/my-tickets.php:34
 msgid "Order"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:323
+#: includes/class-wc-box-office-ticket-admin.php:357
 msgid "Checked-in yet?"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:324
+#: includes/class-wc-box-office-ticket-admin.php:358
 #: includes/views/admin/ticket-email-log-meta-box.php:7
 msgid "Date"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:352
+#: includes/class-wc-box-office-ticket-admin.php:386
 #: includes/class-wc-box-office-ticket-shortcode.php:65
 #: templates/order/order-tickets.php:15
 msgid "Pending"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:372
+#: includes/class-wc-box-office-ticket-admin.php:406
 #: includes/views/admin/ticket-field.php:39
 #: includes/views/admin/ticket-field.php:46
 #: includes/views/admin/ticket-field.php:52
 msgid "Yes"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:421
-#: includes/class-wc-box-office-ticket-admin.php:422
+#: includes/class-wc-box-office-ticket-admin.php:455
+#: includes/class-wc-box-office-ticket-admin.php:456
 #: templates/ticket/scan.php:7
 msgid "Mark as attended"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:424
-#: includes/class-wc-box-office-ticket-admin.php:425
+#: includes/class-wc-box-office-ticket-admin.php:458
+#: includes/class-wc-box-office-ticket-admin.php:459
 msgid "Mark as not checked-in yet"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:539
-#: includes/class-wc-box-office-ticket-admin.php:585
+#: includes/class-wc-box-office-ticket-admin.php:573
+#: includes/class-wc-box-office-ticket-admin.php:619
 #: includes/views/admin/create-ticket-step-1.php:15
 #: includes/views/admin/create-ticket-step-2.php:11
 #: includes/views/admin/create-ticket-step-2.php:77
 msgid "Create Ticket"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-admin.php:596
+#: includes/class-wc-box-office-ticket-admin.php:630
 #: includes/class-wc-box-office-tools.php:52
 #: includes/class-wc-box-office-tools.php:62
 msgid "Tools"
@@ -371,47 +385,47 @@ msgstr ""
 msgid "Error: could not create order item"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-create-admin.php:425
+#: includes/class-wc-box-office-ticket-create-admin.php:441
 msgid "Missing value for field %s"
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-create-admin.php:472
+#: includes/class-wc-box-office-ticket-create-admin.php:488
 msgid "Something wrong with field %s."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-create-admin.php:577
+#: includes/class-wc-box-office-ticket-create-admin.php:593
 msgid "The product cannot be purchased."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-create-admin.php:581
+#: includes/class-wc-box-office-ticket-create-admin.php:597
 msgid "Product is set to sold individually. You can only add one ticket."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-create-admin.php:585
+#: includes/class-wc-box-office-ticket-create-admin.php:601
 msgid ""
 "You cannot create ticket for &quot;%s&quot; because the product is out of "
 "stock."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-create-admin.php:589
+#: includes/class-wc-box-office-ticket-create-admin.php:605
 msgid ""
 "You cannot create that amount of ticket(s) because there is not enough "
 "stock (%s remaining)."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-create-admin.php:621
+#: includes/class-wc-box-office-ticket-create-admin.php:637
 msgid "Please select the product options."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-create-admin.php:629
+#: includes/class-wc-box-office-ticket-create-admin.php:645
 msgid "Please select option for %s."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-create-admin.php:634
+#: includes/class-wc-box-office-ticket-create-admin.php:650
 msgid "Invalid value for option %s."
 msgstr ""
 
-#: includes/class-wc-box-office-ticket-create-admin.php:664
+#: includes/class-wc-box-office-ticket-create-admin.php:680
 msgid "Number of ticket fields does not match with provided ticket quantity."
 msgstr ""
 
@@ -564,35 +578,35 @@ msgstr ""
 msgid "User ID"
 msgstr ""
 
-#: includes/class-wc-box-office-tools.php:273
+#: includes/class-wc-box-office-tools.php:277
 msgid "N/A"
 msgstr ""
 
-#: includes/class-wc-box-office-tools.php:275
+#: includes/class-wc-box-office-tools.php:279
 msgid "Y/m/d g:i:s A"
 msgstr ""
 
-#: includes/class-wc-box-office-tools.php:342
+#: includes/class-wc-box-office-tools.php:347
 msgid "Ticket product is required."
 msgstr ""
 
-#: includes/class-wc-box-office-tools.php:343
+#: includes/class-wc-box-office-tools.php:348
 msgid "Empty email subject."
 msgstr ""
 
-#: includes/class-wc-box-office-tools.php:344
+#: includes/class-wc-box-office-tools.php:349
 msgid "Empty email body."
 msgstr ""
 
-#: includes/class-wc-box-office-tools.php:345
+#: includes/class-wc-box-office-tools.php:350
 msgid "Missing security nonce for this request. Please try again."
 msgstr ""
 
-#: includes/class-wc-box-office-tools.php:354
+#: includes/class-wc-box-office-tools.php:359
 msgid "Invalid security nonce for this request. Please try again."
 msgstr ""
 
-#: includes/class-wc-box-office-tools.php:408
+#: includes/class-wc-box-office-tools.php:413
 msgid "Sending email job is successfully queued."
 msgstr ""
 
@@ -1008,10 +1022,6 @@ msgstr ""
 
 #: includes/views/admin/ticket-meta-box.php:54
 msgid "User:"
-msgstr ""
-
-#: includes/views/admin/ticket-meta-box.php:62
-msgid "Attended"
 msgstr ""
 
 #: includes/views/admin/ticket-meta-box.php:64

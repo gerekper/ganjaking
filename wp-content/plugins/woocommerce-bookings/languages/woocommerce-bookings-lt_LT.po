@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-11-17T02:06:11+00:00\n"
+"POT-Creation-Date: 2022-11-24T10:18:53+00:00\n"
 "PO-Revision-Date: 2022-11-09 17:07:38+0000\n"
 "Language: lt\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
@@ -60,11 +60,11 @@ msgstr ""
 msgid "Overwrite Description"
 msgstr ""
 
-#: includes/class-wc-booking-order-manager.php:828
+#: includes/class-wc-booking-order-manager.php:835
 msgid "View all orders &rarr;"
 msgstr ""
 
-#: includes/class-wc-booking-order-manager.php:826
+#: includes/class-wc-booking-order-manager.php:833
 msgid "View order &rarr;"
 msgstr ""
 
@@ -96,7 +96,7 @@ msgstr ""
 msgid "Subject to confirmation"
 msgstr ""
 
-#: includes/class-wc-booking-order-manager.php:212
+#: includes/class-wc-booking-order-manager.php:217
 msgid "Are you sure you want to cancel your booking?"
 msgstr ""
 
@@ -197,11 +197,11 @@ msgid "Metadata:"
 msgstr ""
 
 #. translators: 1: href link to list of bookings, 2: booking post type link
-#: woocommerce-bookings.php:393
+#: woocommerce-bookings.php:396
 msgid "<a href=\"%1$s\">Add or edit a product</a> to manage bookings in the Product Data section for individual products and then go to the <a href=\"%2$s\" target=\"_blank\">Bookings page</a> to manage them individually."
 msgstr ""
 
-#: woocommerce-bookings.php:391
+#: woocommerce-bookings.php:394
 msgid "Bookings has been activated!"
 msgstr ""
 
@@ -255,7 +255,7 @@ msgstr "%1$s: %2$s"
 msgid "in timezone: %s"
 msgstr ""
 
-#: includes/class-wc-booking-order-manager.php:835
+#: includes/class-wc-booking-order-manager.php:842
 msgid "View my bookings &rarr;"
 msgstr ""
 
@@ -538,7 +538,7 @@ msgstr "Pradžia"
 msgid "F j, Y"
 msgstr "F j, Y"
 
-#: includes/wc-bookings-functions.php:1160
+#: includes/wc-bookings-functions.php:1166
 msgid "night"
 msgid_plural "nights"
 msgstr[0] ""
@@ -548,7 +548,7 @@ msgstr[2] ""
 #: includes/booking-form/class-wc-booking-form.php:293
 #: includes/data-objects/class-wc-product-booking.php:2320
 #: includes/data-objects/class-wc-product-booking.php:2335
-#: includes/wc-bookings-functions.php:1157
+#: includes/wc-bookings-functions.php:1163
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] "minutė"
@@ -558,14 +558,14 @@ msgstr[2] "minučių"
 #: includes/booking-form/class-wc-booking-form.php:295
 #: includes/data-objects/class-wc-product-booking.php:2322
 #: includes/data-objects/class-wc-product-booking.php:2337
-#: includes/wc-bookings-functions.php:1154
+#: includes/wc-bookings-functions.php:1160
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] "valanda"
 msgstr[1] "valandos"
 msgstr[2] "valandų"
 
-#: includes/wc-bookings-functions.php:1150
+#: includes/wc-bookings-functions.php:1156
 msgid "week"
 msgid_plural "weeks"
 msgstr[0] "savaitė"
@@ -575,7 +575,7 @@ msgstr[2] "savaičių"
 #: includes/booking-form/class-wc-booking-form.php:299
 #: includes/data-objects/class-wc-product-booking.php:2326
 #: includes/data-objects/class-wc-product-booking.php:2341
-#: includes/wc-bookings-functions.php:1143
+#: includes/wc-bookings-functions.php:1149
 msgid "month"
 msgid_plural "months"
 msgstr[0] "mėnuo"
@@ -1510,26 +1510,26 @@ msgstr ""
 msgid "WooCommerce Bookings Data"
 msgstr ""
 
-#: includes/class-wc-booking-order-manager.php:285
+#: includes/class-wc-booking-order-manager.php:290
 msgid "Past Bookings"
 msgstr ""
 
-#: includes/class-wc-booking-order-manager.php:279
+#: includes/class-wc-booking-order-manager.php:284
 msgid "Upcoming Bookings"
 msgstr ""
 
-#: includes/class-wc-booking-order-manager.php:273
+#: includes/class-wc-booking-order-manager.php:278
 msgid "Today's Bookings"
 msgstr ""
 
-#: includes/class-wc-booking-order-manager.php:211
+#: includes/class-wc-booking-order-manager.php:216
 msgid "All bookings start and end times except where stated differently are displayed in the following timezone: "
 msgstr ""
 
 #: includes/admin/class-wc-bookings-details-meta-box.php:516
 #: includes/admin/class-wc-bookings-details-meta-box.php:531
-#: includes/class-wc-booking-order-manager.php:160
-#: includes/class-wc-booking-order-manager.php:182
+#: includes/class-wc-booking-order-manager.php:165
+#: includes/class-wc-booking-order-manager.php:187
 #: includes/class-wc-booking-privacy.php:9
 #: includes/class-wc-booking-privacy.php:62
 #: includes/class-wc-bookings-init.php:93
@@ -1619,7 +1619,7 @@ msgstr ""
 #: includes/booking-form/class-wc-booking-form.php:297
 #: includes/data-objects/class-wc-product-booking.php:2324
 #: includes/data-objects/class-wc-product-booking.php:2339
-#: includes/wc-bookings-functions.php:1147
+#: includes/wc-bookings-functions.php:1153
 msgid "day"
 msgid_plural "days"
 msgstr[0] "diena"
@@ -2116,11 +2116,11 @@ msgid "Settings saved"
 msgstr ""
 
 #. translators: %s: Additional note added to a booking.
-#: includes/admin/views/html-calendar-schedule.php:66
+#: includes/admin/views/html-calendar-schedule.php:71
 msgid "Note: %s"
 msgstr ""
 
-#: includes/admin/views/html-calendar-schedule.php:44
+#: includes/admin/views/html-calendar-schedule.php:49
 msgid "Resources: "
 msgstr ""
 
@@ -2216,7 +2216,7 @@ msgstr "Pavad."
 
 #: includes/admin/views/html-booking-resources.php:8
 #: includes/booking-form/class-wc-booking-form.php:327
-#: includes/wc-bookings-functions.php:858
+#: includes/wc-bookings-functions.php:864
 #: templates/emails/plain/admin-booking-display.php:55
 #: templates/emails/plain/customer-booking-display.php:54
 msgid "Type"
@@ -2790,7 +2790,7 @@ msgstr ""
 
 #. translators: 0: number of bookings that require confirmation, 1: number of
 #. bookings that require confirmation
-#: includes/admin/class-wc-bookings-report-dashboard.php:55
+#: includes/admin/class-wc-bookings-report-dashboard.php:70
 msgid "<strong>%s booking(s)</strong> require confirmation"
 msgid_plural "<strong>%s booking(s)</strong> require confirmation"
 msgstr[0] ""
@@ -2798,7 +2798,7 @@ msgstr[1] ""
 msgstr[2] ""
 
 #. translators: 0: number of bookings, 1: number of bookings
-#: includes/admin/class-wc-bookings-report-dashboard.php:47
+#: includes/admin/class-wc-bookings-report-dashboard.php:62
 msgid "<strong>%s booking(s)</strong> new bookings this month"
 msgid_plural "<strong>%s booking(s)</strong> new bookings this month"
 msgstr[0] ""
@@ -3359,21 +3359,21 @@ msgid "Confirm bookings"
 msgstr "Patvirtinti rezervacijas"
 
 #. translators: 1: person id 2: person name 3: person count
-#: includes/admin/class-wc-bookings-calendar.php:750
+#: includes/admin/class-wc-bookings-calendar.php:753
 msgid "Person #%1$s - %2$s (%3$s)"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-calendar.php:741
+#: includes/admin/class-wc-bookings-calendar.php:744
 #: includes/class-wc-bookings-ics-exporter.php:176
 msgid "Resource #"
 msgstr "Išteklius #"
 
-#: includes/admin/class-wc-bookings-calendar.php:735
+#: includes/admin/class-wc-bookings-calendar.php:738
 msgid "Booked by"
 msgstr "Rezervavo"
 
 #. translators: 1: person type 2: quantity
-#: includes/admin/class-wc-bookings-calendar.php:614
+#: includes/admin/class-wc-bookings-calendar.php:617
 #: includes/class-wc-bookings-ics-exporter.php:187
 #: templates/emails/plain/admin-booking-cancelled.php:62
 #: templates/emails/plain/admin-new-booking.php:79
@@ -3385,7 +3385,7 @@ msgstr "Rezervavo"
 msgid "%1$s: %2$d"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-calendar.php:612
+#: includes/admin/class-wc-bookings-calendar.php:615
 #: includes/admin/class-wc-bookings-details-meta-box.php:260
 #: includes/class-wc-bookings-ics-exporter.php:185
 #: includes/wc-bookings-functions.php:72
@@ -3407,27 +3407,27 @@ msgid "Person(s)"
 msgstr ""
 
 #. translators: 1: number of bookings that are not displayed on calendar day
-#: includes/admin/class-wc-bookings-calendar.php:326
+#: includes/admin/class-wc-bookings-calendar.php:329
 msgid "%d more"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-calendar.php:213
-#: includes/admin/class-wc-bookings-calendar.php:287
-#: includes/admin/class-wc-bookings-calendar.php:652
+#: includes/admin/class-wc-bookings-calendar.php:215
+#: includes/admin/class-wc-bookings-calendar.php:290
+#: includes/admin/class-wc-bookings-calendar.php:655
 msgid "(From Google Calendar)"
 msgstr ""
 
 #. translators: 1: start time 2: end time
-#: includes/admin/class-wc-bookings-calendar.php:211
-#: includes/admin/class-wc-bookings-calendar.php:622
-#: includes/admin/class-wc-bookings-calendar.php:644
+#: includes/admin/class-wc-bookings-calendar.php:213
+#: includes/admin/class-wc-bookings-calendar.php:625
+#: includes/admin/class-wc-bookings-calendar.php:647
 msgid "%1$s — %2$s"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-calendar.php:211
-#: includes/admin/class-wc-bookings-calendar.php:622
-#: includes/admin/class-wc-bookings-calendar.php:630
-#: includes/admin/class-wc-bookings-calendar.php:648
+#: includes/admin/class-wc-bookings-calendar.php:213
+#: includes/admin/class-wc-bookings-calendar.php:625
+#: includes/admin/class-wc-bookings-calendar.php:633
+#: includes/admin/class-wc-bookings-calendar.php:651
 msgid "All Day"
 msgstr "Visa diena"
 
@@ -3552,7 +3552,7 @@ msgstr "Rezervacija atnaujinta."
 #: includes/admin/views/html-booking-tab.php:4
 #: includes/booking-form/class-wc-booking-form.php:257
 #: includes/class-wc-bookings-google-calendar-connection.php:1417
-#: includes/wc-bookings-functions.php:1120
+#: includes/wc-bookings-functions.php:1126
 msgid "Persons"
 msgstr ""
 

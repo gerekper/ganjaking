@@ -1,5 +1,12 @@
 *** WooCommerce Box Office Changelog ***
 
+2022-11-24 - version 1.1.44
+* Add - Ability to filter tickets by checked-in status.
+* Add - Ensure checkin-in status is added to the export data.
+* Fix - Broken images in email preview.
+* Fix - Ensure that creating a ticket for an existing completed order reduces the ticket stock.
+* Fixed - Incorrect radio button selection on qty update.
+
 2022-11-09 - version 1.1.43
 * Fix - Issue with Twitter ticket fields populating correctly on tickets.
 

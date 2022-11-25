@@ -1969,7 +1969,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 
 				// Break if start time is after the end date being calculated.
 				if ( $start_time > $end_date ) {
-					break 2;
+					break;
 				}
 
 				// Must be in the future

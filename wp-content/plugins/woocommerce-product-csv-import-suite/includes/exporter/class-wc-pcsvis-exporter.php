@@ -366,9 +366,7 @@ class WC_PCSVIS_Exporter {
 
 				}
 
-				if ( version_compare( WC_VERSION, '3.0', '>=' ) ) {
-					$terms = wp_get_object_terms( $product->ID, 'product_visibility', array( 'fields' => 'names' ) );
-				}
+				$terms = wp_get_object_terms( $product->ID, 'product_visibility', array( 'fields' => 'names' ) );
 
 				// Get column values
 				foreach ( $csv_columns as $column => $value ) {
@@ -378,11 +376,9 @@ class WC_PCSVIS_Exporter {
 							$column = '_price';
 						}
 
-						if ( version_compare( WC_VERSION, '3.0', '>=' ) ) {
-							if ( in_array( $value, array( 'featured' ) ) ) {
-								$row[] = in_array( $value, $terms ) ? 'yes' : 'no';
-								continue;
-							}
+						if ( in_array( $value, array( 'featured' ) ) ) {
+							$row[] = in_array( $value, $terms ) ? 'yes' : 'no';
+							continue;
 						}
 
 

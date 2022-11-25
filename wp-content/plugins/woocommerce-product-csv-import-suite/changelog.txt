@@ -1,5 +1,11 @@
 *** Product CSV Import Suite Changelog ***
 
+2022-11-22 - version 1.10.52
+* Declare support for HPOS.
+* Fix - Compatibility issue with Google Listings & Ads.
+* Fix - Duplicate media in library after merging product.
+* Update - Minimum supported versions of WC, WP and PHP.
+
 2022-11-09 - version 1.10.51
 * Change - File upload workflow improvements.
 * Fix - Issue with product creation during file import.

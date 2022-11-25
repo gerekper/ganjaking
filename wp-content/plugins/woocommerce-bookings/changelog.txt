@@ -1,14 +1,11 @@
 *** WooCommerce Bookings Changelog ***
 
-2022-11-17 - version 1.15.67
-* Add - Support for High-performance Order Storage ("HPOS") (formerly known as Custom Order Tables, "COT").
-* Dev - Bump NPM from 5.5.1 to 6.14.17.
-* Dev - Bump node from 8.9.3 to 16.17.1.
-* Fix - Admin calendar schedule view when a booking spans multiple days or months.
-* Fix - Availability for adjacent multi-date bookings.
-* Fix - Fixed bookable time issue of Google Calendar's recurring events.
-* Tweak - Upgrade NPM dependencies.
-* Tweak - WC 7.1.0 compatibility.
+2022-11-24 - version 1.15.68
+* Fix - All time ranges should be checked before marking any block unbookable.
+* Fix - Ensure maximum number of person type not allowed to exceed Max Persons setting.
+* Fix - Hide products from the `/slot` endpoint if their catalog visibility is set to `hidden`.
+* Fix - Make calendar popup and booking details popup WP 6.1 compatible.
+* Fix - Show booking details on the booking details admin page if it does not have an order.
 
 2022-11-09 - version 1.15.66
 * Add - Declare compatibility with High-Performance Order Storage ("HPOS").

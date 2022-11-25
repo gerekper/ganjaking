@@ -999,10 +999,8 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 					unset( $post );
 					return;
 				} else {
-					if ( version_compare( WC_VERSION, '3.0', '>=' ) ) {
-						$this->set_catalog_visibility( $post_id, $post );
-						$this->set_featured( $post_id, $post );
-					}
+					$this->set_catalog_visibility( $post_id, $post );
+					$this->set_featured( $post_id, $post );
 
 					WC_Product_CSV_Import_Suite::log( __( '> Merged post data: ', 'woocommerce-product-csv-import-suite' ) . print_r( $postdata, true ) );
 				}
@@ -1069,10 +1067,8 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 				unset( $post );
 				return;
 			} else {
-				if ( version_compare( WC_VERSION, '3.0', '>=' ) ) {
-					$this->set_catalog_visibility( $post_id, $post );
-					$this->set_featured( $post_id, $post );
-				}
+				$this->set_catalog_visibility( $post_id, $post );
+				$this->set_featured( $post_id, $post );
 
 				WC_Product_CSV_Import_Suite::log( sprintf( __('> Inserted - post ID is %s.', 'woocommerce-product-csv-import-suite'), $post_id ) );
 			}
@@ -1167,8 +1163,13 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 					WC_Product_CSV_Import_Suite::log( sprintf( __( '> > Imported image "%s"', 'woocommerce-product-csv-import-suite' ), $image ) );
 
 					// Set alt
-					update_post_meta( $attachment_id, '_wp_attachment_image_alt', $processing_product_title );
-					update_post_meta( $attachment_id, '_woocommerce_exclude_image', 0 );
+					if ( ! property_exists( $this, 'skip_attachment_meta_update' ) || ! $this->skip_attachment_meta_update ) {
+						update_post_meta( $attachment_id, '_wp_attachment_image_alt', $processing_product_title );
+						update_post_meta( $attachment_id, '_woocommerce_exclude_image', 0 );
+					} else {
+						// Reset meta update indicator.
+						$this->skip_attachment_meta_update = false;
+					}
 
 					if ( $featured ) {
 						$insert_meta_data['_thumbnail_id'] = $attachment_id;
@@ -1366,17 +1367,22 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 			// We have the path, check it exists
 			if ( file_exists( $attachment_file ) ) {
 
-				$attachment_url 	= str_replace( trailingslashit( ABSPATH ), trailingslashit( site_url() ), $attachment_file );
+				$attachment_url = str_replace( trailingslashit( ABSPATH ), trailingslashit( site_url() ), $attachment_file );
+				$attachment_id  = attachment_url_to_postid( $attachment_url );
 
-				if ( $info = wp_check_filetype( $attachment_file ) )
-					$post['post_mime_type'] = $info['type'];
-				else
-					return new WP_Error( 'attachment_processing_error', __('Invalid file type', 'wordpress-importer') );
+				// Avoid duplicate media in library.
+				if ( ! $attachment_id ) {
+					if ( $info = wp_check_filetype( $attachment_file ) )
+						$post['post_mime_type'] = $info['type'];
+					else
+						return new WP_Error( 'attachment_processing_error', __('Invalid file type', 'wordpress-importer') );
 
-				$post['guid'] = $attachment_url;
-
-				$attachment_id 		= wp_insert_attachment( $post, $attachment_file, $post_id );
-
+					$post['guid']  = $attachment_url;
+					$attachment_id = wp_insert_attachment( $post, $attachment_file, $post_id );
+				} else {
+					// Set an indicator to skip meta update for this attachment since we're pointing to existing one.
+					$this->skip_attachment_meta_update = true;
+				}
 			} else {
 				return new WP_Error( 'attachment_processing_error', __('Local image did not exist!', 'wordpress-importer') );
 			}

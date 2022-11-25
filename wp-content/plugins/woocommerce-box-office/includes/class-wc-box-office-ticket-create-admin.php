@@ -246,6 +246,22 @@ class WC_Box_Office_Ticket_Create_Admin {
 			}
 
 			$this->_current_order->calculate_totals( wc_tax_enabled() );
+
+			if ( 'existing' === $this->_clean_data['create_order_method'] ) {
+				$order_status = $this->_current_order->get_status( 'edit' );
+
+				/**
+				 * Allow third parties to add order statuses.
+				 *
+				 * @see WC_Order::payment_complete()
+				 */
+				$reduce_stock_order_statuses = apply_filters( 'woocommerce_valid_order_statuses_for_payment_complete', array( 'completed', 'processing', 'on-hold' ) );
+
+				// Reduce stock levels if existing order status is completed, processing or on hold.
+				if ( in_array( $order_status, $reduce_stock_order_statuses, true ) ) {
+					wc_reduce_stock_levels( $order_id );
+				}
+			}
 		}
 
 		return $item_id;

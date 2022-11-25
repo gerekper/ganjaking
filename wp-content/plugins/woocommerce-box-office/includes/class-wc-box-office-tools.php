@@ -94,7 +94,7 @@ class WC_Box_Office_Tools {
 
 		// Get email details.
 		$product_id = ! empty( $_POST['product_id'] ) ? absint( $_POST['product_id'] ) : '';
-		$content    = isset( $_POST['content'] ) ? trim( $_POST['content'] ) : '';
+		$content    = isset( $_POST['content'] ) ? wp_unslash( trim( $_POST['content'] ) ) : '';
 		$subject    = isset( $_POST['subject'] ) ? trim( $_POST['subject'] ) : '';
 
 		if ( empty( $product_id ) || empty( $content ) ) {
@@ -199,6 +199,7 @@ class WC_Box_Office_Tools {
 			'order_status'  => __( 'Order status', 'woocommerce-box-office' ),
 			'coupon_code'   => __( 'Coupon Code', 'woocommerce-box-office' ),
 			'user_id'       => __( 'User ID', 'woocommerce-box-office' ),
+			'is_checked_in' => __( 'Attended', 'woocommerce-box-office' ),
 		);
 
 		$queryable_product_ids = array();
@@ -268,6 +269,9 @@ class WC_Box_Office_Tools {
 
 				$ticket_url = wcbo_get_my_ticket_url( $ticket_id );
 
+				// Checked-in status.
+				$is_checked_in = get_post_meta( $ticket_id, '_attended', true );
+
 				// Get order date.
 				if ( ! $order || ( $order && '0000-00-00 00:00:00' === $order->get_date_created() ) ) {
 					$purchase_time = __( 'N/A', 'woocommerce-box-office' );
@@ -291,6 +295,7 @@ class WC_Box_Office_Tools {
 					'order_status'  => wc_get_order_status_name( get_post_status( $order_id ) ),
 					'coupon_code'   => $coupon_codes,
 					'user_id'       => $user_id,
+					'is_checked_in' => $is_checked_in ? 'Yes' : 'No',
 				);
 
 				// Get available ticket fields.

@@ -792,7 +792,7 @@ class Permalink_Manager_Core_Functions extends Permalink_Manager_Class {
 		/**
 		 * 7. Debug redirect
 		 */
-		$correct_permalink = apply_filters('permalink_manager_filter_redirect', $correct_permalink, $redirect_type, $queried_object);
+		$correct_permalink = apply_filters('permalink_manager_filter_redirect', $correct_permalink, $redirect_type, $queried_object, $old_uri);
 
 		/**
 		 * 8. Ignore default URIs (or do nothing if redirects are disabled)

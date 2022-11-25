@@ -6,39 +6,26 @@
  * Description: Allow customers to purchase products from external retailers
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 1.15.1
+ * Version: 1.16.0
  * Text Domain: woocommerce-product-retailers
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2013-2021, SkyVerge, Inc. (info@skyverge.com)
+ * Copyright: (c) 2013-2022, SkyVerge, Inc. (info@skyverge.com)
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @package   WC-Product-Retailers
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2021, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright Copyright (c) 2013-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 187888:9766af75222eed8f4fcdf56263685d41
- * WC requires at least: 3.5
- * WC tested up to: 5.1.0
+ * WC requires at least: 3.9.4
+ * WC tested up to: 7.1.0
  */
 
 defined( 'ABSPATH' ) or exit;
-
-// Required functions
-if ( ! function_exists( 'woothemes_queue_update' ) ) {
-	require_once( plugin_dir_path( __FILE__ ) . 'woo-includes/woo-functions.php' );
-}
-
-// Plugin updates
-woothemes_queue_update( plugin_basename( __FILE__ ), '9766af75222eed8f4fcdf56263685d41', '187888' );
-
-// WC active check
-if ( ! is_woocommerce_active() ) {
-	return;
-}
 
 /**
  * WooCommerce Product Retailers Loader.
@@ -49,16 +36,16 @@ class WC_Product_Retailers_Loader {
 
 
 	/** minimum PHP version required by this plugin */
-	const MINIMUM_PHP_VERSION = '7.0';
+	const MINIMUM_PHP_VERSION = '7.4';
 
 	/** minimum WordPress version required by this plugin */
-	const MINIMUM_WP_VERSION = '5.2';
+	const MINIMUM_WP_VERSION = '5.6';
 
 	/** minimum WooCommerce version required by this plugin */
-	const MINIMUM_WC_VERSION = '3.5';
+	const MINIMUM_WC_VERSION = '3.9.4';
 
 	/** SkyVerge plugin framework version used by this plugin */
-	const FRAMEWORK_VERSION = '5.10.6';
+	const FRAMEWORK_VERSION = '5.10.12';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Product Retailers';

@@ -22,7 +22,7 @@ class Permalink_Manager_Debug extends Permalink_Manager_Class {
 		$debug_section_url = add_query_arg(array(
 			'section' => 'debug',
 			'remove-permalink-manager-settings' => $field,
-			'_wpnonce' => wp_create_nonce('permalink-manager')
+			'permalink-manager-nonce' => wp_create_nonce('permalink-manager')
 		), Permalink_Manager_Admin_Functions::get_admin_url());
 
 		return $debug_section_url;

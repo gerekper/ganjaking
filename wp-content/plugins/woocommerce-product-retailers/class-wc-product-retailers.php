@@ -17,13 +17,13 @@
  * needs please refer to http://docs.woocommerce.com/document/woocommerce-product-retailers/ for more information.
  *
  * @author      SkyVerge
- * @copyright   Copyright (c) 2013-2021, SkyVerge, Inc. (info@skyverge.com)
+ * @copyright   Copyright (c) 2013-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_6 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
  * WooCommerce Product Retailers main plugin class.
@@ -34,7 +34,7 @@ class WC_Product_Retailers extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '1.15.1';
+	const VERSION = '1.16.0';
 
 	/** @var \WC_Product_Retailers single instance of this plugin */
 	protected static $instance;
@@ -103,7 +103,7 @@ class WC_Product_Retailers extends Framework\SV_WC_Plugin {
 	 */
 	protected function init_lifecycle_handler() {
 
-		require_once( $this->get_plugin_path() . '/includes/Lifecycle.php' );
+		require_once( $this->get_plugin_path() . '/src/Lifecycle.php' );
 
 		$this->lifecycle_handler = new SkyVerge\WooCommerce\Product_Retailers\Lifecycle( $this );
 	}
@@ -118,7 +118,7 @@ class WC_Product_Retailers extends Framework\SV_WC_Plugin {
 	 */
 	public function init_plugin() {
 
-		if ( ! is_admin() || ! is_ajax() ) {
+		if ( ! is_admin() || ! wp_doing_ajax() ) {
 
 			// add accordion shortcode
 			add_shortcode( 'woocommerce_product_retailers', array( $this, 'product_retailers_shortcode' ) );
@@ -149,7 +149,7 @@ class WC_Product_Retailers extends Framework\SV_WC_Plugin {
 	public function register_widgets() {
 
 		// load widget
-		require_once( $this->get_plugin_path() . '/includes/widgets/class-wc-product-retailers-widget.php' );
+		require_once( $this->get_plugin_path() . '/src/widgets/class-wc-product-retailers-widget.php' );
 
 		// register widget
 		register_widget( 'WC_Product_Retailers_Widget' );
@@ -170,7 +170,7 @@ class WC_Product_Retailers extends Framework\SV_WC_Plugin {
 	 */
 	public function product_retailers_shortcode( $atts ) {
 
-		require_once( $this->get_plugin_path() . '/includes/shortcodes/class-wc-product-retailers-shortcode.php' );
+		require_once( $this->get_plugin_path() . '/src/shortcodes/class-wc-product-retailers-shortcode.php' );
 
 		return \WC_Shortcodes::shortcode_wrapper( array( 'WC_Product_Retailers_Shortcode', 'output' ), $atts );
 	}
@@ -183,16 +183,16 @@ class WC_Product_Retailers extends Framework\SV_WC_Plugin {
 	 */
 	private function includes() {
 
-		require_once( $this->get_plugin_path() . '/includes/class-wc-product-retailers-product.php' );
-		require_once( $this->get_plugin_path() . '/includes/class-wc-product-retailers-taxonomy.php' );
-		require_once( $this->get_plugin_path() . '/includes/class-wc-product-retailers-retailer.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-product-retailers-product.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-product-retailers-taxonomy.php' );
+		require_once( $this->get_plugin_path() . '/src/class-wc-product-retailers-retailer.php' );
 
 		if ( is_admin() ) {
 
 			$this->admin_includes();
 		}
 
-		require_once( $this->get_plugin_path() . '/includes/wc-product-retailers-template-functions.php' );
+		require_once( $this->get_plugin_path() . '/src/wc-product-retailers-template-functions.php' );
 	}
 
 
@@ -203,9 +203,9 @@ class WC_Product_Retailers extends Framework\SV_WC_Plugin {
 	 */
 	private function admin_includes() {
 
-		$this->admin                = $this->load_class( '/includes/admin/class-wc-product-retailers-admin.php', 'WC_Product_Retailers_Admin' );
-		$this->admin_retailers_list = $this->load_class( '/includes/admin/class-wc-product-retailers-list.php',  'WC_Product_Retailers_List' );
-		$this->admin_retailers_edit = $this->load_class( '/includes/admin/class-wc-product-retailers-edit.php',  'WC_Product_Retailers_Edit' );
+		$this->admin                = $this->load_class( '/src/admin/class-wc-product-retailers-admin.php', 'WC_Product_Retailers_Admin' );
+		$this->admin_retailers_list = $this->load_class( '/src/admin/class-wc-product-retailers-list.php',  'WC_Product_Retailers_List' );
+		$this->admin_retailers_edit = $this->load_class( '/src/admin/class-wc-product-retailers-edit.php',  'WC_Product_Retailers_Edit' );
 	}
 
 
@@ -444,7 +444,7 @@ class WC_Product_Retailers extends Framework\SV_WC_Plugin {
 	 */
 	public function get_settings_url( $_ = '' ) {
 
-		return admin_url( 'admin.php?page=wc-settings&tab=products&section=display' );
+		return admin_url( 'admin.php?page=wc-settings&tab=products' );
 	}
 
 

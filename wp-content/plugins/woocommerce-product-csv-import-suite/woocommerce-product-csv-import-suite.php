@@ -5,9 +5,11 @@
  * Description: Import and export products and variations straight from WordPress admin. Go to WooCommerce > CSV Import Suite to get started. Supports post fields, product data, custom post types, taxonomies, and images.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
- * Version: 1.10.51
- * WC requires at least: 2.6
- * WC tested up to: 5.6
+ * Version: 1.10.52
+ * WC requires at least: 6.0
+ * Requires at least: 5.6
+ * Requires PHP: 7.0
+ * WC tested up to: 6.0
  * Tested up to: 6.0
  * Text Domain: woocommerce-product-csv-import-suite
  * Domain Path: /languages
@@ -36,7 +38,7 @@ function woocommerce_product_csv_import_suite_missing_wc_notice() {
 
 if ( ! class_exists( 'WC_Product_CSV_Import_Suite' ) ) :
 	define( 'WC_PCSVIS_FILE', __FILE__ );
-	define( 'WC_PCSVIS_VERSION', '1.10.51' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_PCSVIS_VERSION', '1.10.52' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Main CSV Import class
@@ -55,6 +57,7 @@ if ( ! class_exists( 'WC_Product_CSV_Import_Suite' ) ) :
 			add_filter( 'woocommerce_screen_ids', array( $this, 'woocommerce_screen_ids' ) );
 			add_action( 'init', array( $this, 'catch_export_request' ), 20 );
 			add_action( 'admin_init', array( $this, 'register_importers' ) );
+			add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
 
 			include_once 'includes/wc-pcsvis-functions.php';
 			include_once 'includes/class-wc-pcsvis-system-status-tools.php';
@@ -127,6 +130,17 @@ if ( ! class_exists( 'WC_Product_CSV_Import_Suite' ) ) :
 			global $wpdb;
 			$value = $wpdb->get_var( $wpdb->prepare( "SELECT meta_value from $wpdb->postmeta WHERE post_id = %d and meta_key = %s", $post_id, $meta_key ) );
 			return maybe_unserialize( $value );
+		}
+
+		/**
+		 * Declares HPOS compatibility
+		 *
+		 * @since 1.10.50
+		 */
+		public function declare_hpos_compatibility() {
+			if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables', __FILE__, true);
+			}
 		}
 	}
 endif;

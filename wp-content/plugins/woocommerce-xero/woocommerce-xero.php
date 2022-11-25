@@ -5,7 +5,7 @@
  * Description: Integrates <a href="https://woocommerce.com/" target="_blank" >WooCommerce</a> with the <a href="http://www.xero.com" target="_blank">Xero</a> accounting software.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
- * Version: 1.7.50
+ * Version: 1.7.51
  * Text Domain: woocommerce-xero
  * Domain Path: /languages/
  * Requires at least: 5.6
@@ -41,7 +41,7 @@ if ( ! defined( 'WC_XERO_ABSURL' ) ) {
 	define( 'WC_XERO_ABSURL', plugin_dir_url( __FILE__ ) . '/' );
 }
 
-define( 'WC_XERO_VERSION', '1.7.50' ); // WRCS: DEFINED_VERSION.
+define( 'WC_XERO_VERSION', '1.7.51' ); // WRCS: DEFINED_VERSION.
 
 /**
  * Main plugin class.
@@ -65,9 +65,12 @@ class WC_Xero {
 	 * Setup the class.
 	 */
 	public function setup() {
-
 		// Setup the autoloader.
 		$this->setup_autoloader();
+
+		// Run data migrations.
+		$wc_xr_encrypt_legacy_tokens_migration = new WC_XR_Encrypt_Legacy_Tokens_Migration();
+		$wc_xr_encrypt_legacy_tokens_migration->setup_hook();
 
 		// Load textdomain.
 		load_plugin_textdomain( 'woocommerce-xero', false, dirname( plugin_basename( self::get_plugin_file() ) ) . '/languages' );
@@ -168,3 +171,15 @@ add_action( 'plugins_loaded', '_woocommerce_xero_main' );
 
 // Subscribe to automated translations.
 add_filter( 'woocommerce_translations_updates_for_woocommerce-xero', '__return_true' );
+
+/**
+ * Declares compatibility for HPOS.
+ *
+ * @return void
+ */
+function woocommerce_xero_declare_hpos_compatibility() {
+	if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+	}
+}
+add_action( 'before_woocommerce_init', 'woocommerce_xero_declare_hpos_compatibility' );

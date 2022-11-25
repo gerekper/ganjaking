@@ -33,7 +33,7 @@ use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 class WC_Cart_Notices extends Framework\SV_WC_Plugin {
 
 
-	const VERSION = '1.13.3';
+	const VERSION = '1.14.0';
 
 	/** @var WC_Cart_Notices single instance of this plugin */
 	protected static $instance;

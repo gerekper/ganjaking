@@ -46,6 +46,7 @@ class WoocommerceProductFeedsIntegrationManager {
 			'facebook_for_woocommerce',
 			'woocommerce_germanized',
 			'woocommerce_additional_variation_images',
+			'measurement_price_calculator',
 		];
 	}
 
@@ -310,5 +311,18 @@ class WoocommerceProductFeedsIntegrationManager {
 			return;
 		}
 		$this->container['WoocommerceProductFeedsWoocommerceAdditionalVariationImages']->run();
+	}
+
+	/**
+	 * https://woocommerce.com/products/measurement-price-calculator/
+	 *
+	 * @return void
+	 */
+	private function measurement_price_calculator_integration() {
+		if ( ! class_exists( 'WC_Measurement_Price_Calculator_Loader' ) ||
+			 version_compare( WC_Measurement_Price_Calculator::VERSION, '3.20.1', 'lt' ) ) {
+			return;
+		}
+		$this->container['WoocommerceProductFeedsMeasurementPriceCalculator']->run();
 	}
 }

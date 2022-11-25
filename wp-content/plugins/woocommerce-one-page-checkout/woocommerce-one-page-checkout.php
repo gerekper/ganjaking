@@ -7,7 +7,7 @@
  * Text Domain: woocommerce-one-page-checkout
  * Domain Path: languages
  * Plugin URI:  https://woocommerce.com/products/woocommerce-one-page-checkout/
- * Version: 1.9.7
+ * Version: 1.9.8
  * Tested up to: 6.1
  * WC requires at least: 2.5
  * WC tested up to: 7.0.0
@@ -68,7 +68,7 @@ if ( ! is_woocommerce_active() || version_compare( get_option( 'woocommerce_db_v
 	return;
 }
 
-define( 'WC_ONE_PAGE_CHECKOUT_VERSION', '1.9.7' ); // WRCS: DEFINED_VERSION.
+define( 'WC_ONE_PAGE_CHECKOUT_VERSION', '1.9.8' ); // WRCS: DEFINED_VERSION.
 
 add_filter( 'woocommerce_translations_updates_for_woocommerce-one-page-checkout', '__return_true' );
 
@@ -229,6 +229,9 @@ class PP_One_Page_Checkout {
 
 		// Add WooCommerce body class
 		add_filter( 'body_class', array( __CLASS__, 'opc_woocommerce_body_class' ) );
+
+		// Show cart widget on OPC posts/pages
+		add_filter( 'woocommerce_widget_cart_is_hidden', array( __CLASS__, 'maybe_hide_cart_widget' ) );
 
 		// Filter is_checkout() on OPC posts/pages
 		add_filter( 'woocommerce_is_checkout', array( __CLASS__, 'is_checkout_filter' ) );
@@ -2165,5 +2168,18 @@ class PP_One_Page_Checkout {
 	 */
 	public static function opc_order_review_template_actions() {
 		wc_deprecated_function( __METHOD__, '1.7.0' );
+	}
+
+	/**
+	 * Show cart widget on OPC posts/pages.
+	 *
+	 * @return boolean
+	 */
+	public static function maybe_hide_cart_widget(){
+		global $post;
+
+		if ( self::post_is_opc( $post ) ) {
+			return false;
+		}
 	}
 }

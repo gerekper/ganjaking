@@ -86,14 +86,23 @@ class WC_Box_Office_Ticket_Admin {
 		$output  = '';
 		$tickets = wc_box_office_get_all_ticket_products();
 		if ( $tickets ) {
-			$current = ! empty( $_GET['filter_ticket_product_id'] ) ? absint( $_GET['filter_ticket_product_id'] ) : '';
+			// Filter by ticket product.
+			$current_id     = ! empty( $_GET['filter_ticket_product_id'] ) ? absint( $_GET['filter_ticket_product_id'] ) : '';
+			$checkin_status = isset( $_GET['filter_ticket_by_checkin_status'] ) ? sanitize_text_field( $_GET['filter_ticket_by_checkin_status'] ) : '';
 			$output .= '<select name="filter_ticket_product_id">';
 			$output .= '<option value="">' . __( 'All Ticket Products', 'woocommerce-box-office' ) . '</option>';
 
 			foreach ( $tickets as $ticket ) {
-				$output .= sprintf( '<option value="%s"%s>%s</option>', esc_attr( $ticket->ID ), selected( $ticket->ID, $current, false ), esc_html( $ticket->post_title ) );
+				$output .= sprintf( '<option value="%s"%s>%s</option>', esc_attr( $ticket->ID ), selected( $ticket->ID, $current_id, false ), esc_html( $ticket->post_title ) );
 			}
 
+			$output .= '</select>';
+
+			// Filter by checkin status.
+			$output .= '<select name="filter_ticket_by_checkin_status">';
+			$output .= '<option value="">' . __( 'All status', 'woocommerce-box-office' ) . '</option>';
+			$output .= sprintf( '<option %s value="attended">%s</option>', selected( $checkin_status, 'attended', false ),  __( 'Attended', 'woocommerce-box-office' ) );
+			$output .= sprintf( '<option %s value="not-attended">%s</option>', selected( $checkin_status, 'not-attended', false ),  __( 'Not attended', 'woocommerce-box-office' ) );
 			$output .= '</select>';
 		}
 
@@ -114,19 +123,44 @@ class WC_Box_Office_Ticket_Admin {
 			return;
 		}
 
-		if ( empty( $_GET['filter_ticket_product_id'] ) ) {
-			return;
-		}
-
 		if ( ! empty( $query->query_vars['suppress_filters'] ) ) {
 			return;
 		}
 
-		$query->query_vars['meta_query'] = array(
-			array(
+		$product_id     = isset( $_GET['filter_ticket_product_id'] ) ? absint( $_GET['filter_ticket_product_id'] ) : 0;
+		$checkin_status = isset( $_GET['filter_ticket_by_checkin_status'] ) ? sanitize_text_field( $_GET['filter_ticket_by_checkin_status'] ) : '';
+		$meta_query     = array();
+
+		// Meta query to filter by product id.
+		if ( $product_id ) {
+			$meta_query[] = array(
 				'key'   => '_product_id',
 				'value' => absint( $_GET['filter_ticket_product_id'] ),
-			)
+			);
+		}
+
+		// Meta query to filter by checkin status.
+		if ( $checkin_status ) {
+			if ( 'attended' === $checkin_status ) {
+				$meta_query[] = array(
+					'key'   => '_attended',
+					'value' => 'yes',
+				);
+			} else if ( 'not-attended' === $checkin_status ) {
+				$meta_query[] = array(
+					'key'     => '_attended',
+					'compare' => 'NOT EXISTS',
+				);
+			}
+		}
+
+		if ( empty( $meta_query ) ) {
+			return;
+		}
+
+		$query->query_vars['meta_query'] = array_merge(
+			isset( $query->query_vars['meta_query'] ) ? $query->query_vars['meta_query'] : array(),
+			$meta_query
 		);
 	}
 

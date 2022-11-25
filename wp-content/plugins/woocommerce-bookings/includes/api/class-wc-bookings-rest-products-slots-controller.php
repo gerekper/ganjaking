@@ -219,10 +219,11 @@ class WC_Bookings_REST_Products_Slots_Controller extends WC_REST_Controller {
 				$max_date = $max_bookable_date;
 			}
 
-			$product_resources = $bookable_product->get_resource_ids() ?: array();
-			$duration          = $bookable_product->get_duration();
-			$duration_unit     = $bookable_product->get_duration_unit();
-			$availability      = array();
+			$product_resources  = $bookable_product->get_resource_ids() ?: array();
+			$catalog_visibility = $bookable_product->get_catalog_visibility();
+			$duration           = $bookable_product->get_duration();
+			$duration_unit      = $bookable_product->get_duration_unit();
+			$availability       = array();
 
 			$resources = empty( $product_resources ) ? array( 0 ) : $product_resources;
 			if ( ! empty( $resource_ids ) ) {
@@ -244,7 +245,7 @@ class WC_Bookings_REST_Products_Slots_Controller extends WC_REST_Controller {
 					}
 
 					unset( $data['resources'] );
-					if ( ! $hide_unavailable || 1 <= $data['available'] ) {
+					if ( ( ! $hide_unavailable || 1 <= $data['available'] ) && 'hidden' !== $catalog_visibility ) {
 
 						/**
 						 * For the day duration, check if the required duration is available in the following days or not

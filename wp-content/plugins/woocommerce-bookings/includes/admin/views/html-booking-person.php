@@ -42,11 +42,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</td>
 				<td>
 					<label><?php esc_html_e( 'Min', 'woocommerce-bookings' ); ?>:</label>
-					<input type="number" name="person_min[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $person_type->get_min( 'edit' ) ); ?>" min="0" />
+					<input type="number"  class="person_min" name="person_min[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $person_type->get_min( 'edit' ) ); ?>" min="0" />
 				</td>
 				<td>
 					<label><?php esc_html_e( 'Max', 'woocommerce-bookings' ); ?>:</label>
-					<input type="number" name="person_max[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $person_type->get_max( 'edit' ) ); ?>" min="0" />
+					<input type="number" class="person_max" name="person_max[<?php echo esc_attr( $loop ); ?>]" value="<?php echo esc_attr( $person_type->get_max( 'edit' ) ); ?>" min="0" />
 				</td>
 
 				<?php do_action( 'woocommerce_bookings_after_person_max_column', $person_type->get_id() ); ?>

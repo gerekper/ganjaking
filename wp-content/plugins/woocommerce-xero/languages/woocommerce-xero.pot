@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the WooCommerce Xero Integration package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Xero Integration 1.7.50\n"
+"Project-Id-Version: WooCommerce Xero Integration 1.7.51\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-xero\n"
-"POT-Creation-Date: 2022-11-01 20:28:35+00:00\n"
+"POT-Creation-Date: 2022-11-23 22:31:32+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -89,8 +89,8 @@ msgstr ""
 msgid "ERROR creating Xero payment. ErrorNumber: %1$s | Error Message: %2$s"
 msgstr ""
 
-#: includes/class-wc-xr-privacy.php:22 includes/class-wc-xr-settings.php:561
-#: includes/class-wc-xr-settings.php:588
+#: includes/class-wc-xr-privacy.php:22 includes/class-wc-xr-settings.php:567
+#: includes/class-wc-xr-settings.php:594
 msgid "Xero"
 msgstr ""
 
@@ -367,112 +367,123 @@ msgid ""
 msgstr ""
 
 #: includes/class-wc-xr-settings.php:247
-msgid "Debug"
+msgid "Use customer email in contact name"
 msgstr ""
 
 #: includes/class-wc-xr-settings.php:250
+msgid ""
+"Append customer email to contact name to ensure uniqueness and prevent "
+"duplicates. Email will be appended only if a contact with the same name "
+"exists."
+msgstr ""
+
+#: includes/class-wc-xr-settings.php:253
+msgid "Debug"
+msgstr ""
+
+#: includes/class-wc-xr-settings.php:256
 msgid ""
 "Enable logging. Log file is located at: /wc-logs/. <br> <strong>Note: this "
 "may log personal information. We recommend using this for debugging "
 "purposes only and deleting the logs when finished.</strong>"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:369
+#: includes/class-wc-xr-settings.php:375
 msgid "Using %s uploaded at %s"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:422
+#: includes/class-wc-xr-settings.php:428
 msgid "Nonce verification failed!"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:496
+#: includes/class-wc-xr-settings.php:502
 msgid "Xero Settings"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:610 includes/class-wc-xr-settings.php:611
-#: includes/class-wc-xr-settings.php:641 includes/class-wc-xr-settings.php:650
-#: includes/class-wc-xr-settings.php:669
+#: includes/class-wc-xr-settings.php:616 includes/class-wc-xr-settings.php:617
+#: includes/class-wc-xr-settings.php:647 includes/class-wc-xr-settings.php:656
+#: includes/class-wc-xr-settings.php:675
 msgid "Xero OAuth"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:689
+#: includes/class-wc-xr-settings.php:695
 msgid "Xero for WooCommerce"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:693
+#: includes/class-wc-xr-settings.php:699
 msgid "Your settings have been saved."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:706
+#: includes/class-wc-xr-settings.php:712
 msgid "Missing required fields"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:712
+#: includes/class-wc-xr-settings.php:718
 msgid "There was an error saving your settings."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:728
+#: includes/class-wc-xr-settings.php:734
 msgid ""
 "Settings for your Xero account including security keys and default account "
 "numbers.<br/> <strong>All</strong> text fields are required for the "
 "integration to work properly."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:751
+#: includes/class-wc-xr-settings.php:757
 msgid "Key not set"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:789
+#: includes/class-wc-xr-settings.php:795
 msgid "Disconnect from Xero"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:797
+#: includes/class-wc-xr-settings.php:803
 msgid "Sign in with Xero"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:801
+#: includes/class-wc-xr-settings.php:807
 msgid ""
 "Please fill in the Client id and the Client Secret fields first and save "
 "before continuing."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:827
+#: includes/class-wc-xr-settings.php:833
 msgid ""
 "Please use the following url as your redirect url when creating a Xero "
 "application:"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:986
+#: includes/class-wc-xr-settings.php:992
 msgid ""
 "Xero has securely saved the contents of key file %s to the database and no "
 "longer requires it."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:989
+#: includes/class-wc-xr-settings.php:995
 msgid "Delete %s"
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:1004
+#: includes/class-wc-xr-settings.php:1010
 msgid "Xero could not delete %s. Check permissions and try again."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:1012
+#: includes/class-wc-xr-settings.php:1018
 msgid "Xero successfully deleted %s."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:1032
+#: includes/class-wc-xr-settings.php:1038
 msgid ""
 "Xero authentication using keys is in the process of being deprecated and "
 "new private apps can no longer be created."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:1033
+#: includes/class-wc-xr-settings.php:1039
 msgid ""
 "Please use new flow and the button available in Xero settings to authorize "
 "your application."
 msgstr ""
 
-#: includes/class-wc-xr-settings.php:1050
+#: includes/class-wc-xr-settings.php:1056
 msgid ""
 "Unable to fetch the Branding Theme details. Please ensure your Xero "
 "connection is properly authenticated."
@@ -488,20 +499,20 @@ msgstr ""
 msgid "Not all plugins have loaded yet but we requested the class %s"
 msgstr ""
 
-#: woocommerce-xero.php:136
+#: woocommerce-xero.php:139
 #. translators: %s: WooCommerce link
 msgid "WooCommerce Xero Integration requires %s to be installed and active."
 msgstr ""
 
-#: woocommerce-xero.php:149
+#: woocommerce-xero.php:152
 msgid "Settings"
 msgstr ""
 
-#: woocommerce-xero.php:150
+#: woocommerce-xero.php:153
 msgid "Support"
 msgstr ""
 
-#: woocommerce-xero.php:151
+#: woocommerce-xero.php:154
 msgid "Documentation"
 msgstr ""
 

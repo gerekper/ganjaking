@@ -105,9 +105,6 @@ class WC_Bookings_Details_Meta_Box {
 		}
 
 		$order = $booking->get_order();
-		if ( ! $order ) {
-			return;
-		}
 
 		$product_id        = $booking->get_product_id( 'edit' );
 		$resource_id       = $booking->get_resource_id( 'edit' );

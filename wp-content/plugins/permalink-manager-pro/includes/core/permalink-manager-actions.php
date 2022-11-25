@@ -286,9 +286,10 @@ class Permalink_Manager_Actions extends Permalink_Manager_Class {
 	public static function extra_actions() {
 		global $permalink_manager_before_sections_html;
 
-		if(current_user_can('manage_options') && !empty($_GET['_wpnonce'])) {
+		if(current_user_can('manage_options') && !empty($_GET['permalink-manager-nonce'])) {
 			// Check if the nonce field is correct
-			$nonce = sanitize_key($_GET['_wpnonce']);
+			$nonce = sanitize_key($_GET['permalink-manager-nonce']);
+
 
 			if(!wp_verify_nonce($nonce, 'permalink-manager')) {
 				$permalink_manager_before_sections_html = Permalink_Manager_Admin_Functions::get_alert_message(__( 'You are not allowed to remove Permalink Manager data!', 'permalink-manager' ), 'error updated_slugs');

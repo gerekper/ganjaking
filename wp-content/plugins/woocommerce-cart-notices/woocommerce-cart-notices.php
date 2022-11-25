@@ -6,7 +6,7 @@
  * Description: Add dynamic notices above the cart and checkout to help increase your sales!
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 1.13.3
+ * Version: 1.14.0
  * Text Domain: woocommerce-cart-notices
  * Domain Path: /i18n/languages/
  *
@@ -23,7 +23,7 @@
  *
  * Woo: 18706:cf25b8df1ffe2fa1880b076aa137f8d7
  * WC requires at least: 3.9.4
- * WC tested up to: 6.1.1
+ * WC tested up to: 7.1.0
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -37,10 +37,10 @@ class WC_Cart_Notices_Loader {
 
 
 	/** minimum PHP version required by this plugin */
-	const MINIMUM_PHP_VERSION = '7.0';
+	const MINIMUM_PHP_VERSION = '7.4';
 
 	/** minimum WordPress version required by this plugin */
-	const MINIMUM_WP_VERSION = '5.2';
+	const MINIMUM_WP_VERSION = '5.6';
 
 	/** minimum WooCommerce version required by this plugin */
 	const MINIMUM_WC_VERSION = '3.9.4';

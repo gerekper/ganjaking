@@ -34,7 +34,7 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 
 
 	/** version number */
-	const VERSION = '1.18.1';
+	const VERSION = '1.19.0';
 
 	/** @var WC_Seq_Order_Number_Pro single instance of this plugin */
 	protected static $instance;
@@ -1291,8 +1291,8 @@ class WC_Seq_Order_Number_Pro extends Framework\SV_WC_Plugin {
 
 		return $this->order_number_length;
 	}
-	
-	
+
+
 	/**
 	 * Returns the order number start.
 	 *

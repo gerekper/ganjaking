@@ -1,9 +1,9 @@
 === WooCommerce Cart Notices ===
 Author: skyverge
 Tags: woocommerce
-Requires at least: 5.2
-Tested up to: 5.9
-Requires PHP: 7.0
+Requires at least: 5.6
+Tested up to: 6.1.1
+Requires PHP: 7.4
 
 Add dynamic notices above the cart and checkout to help increase your sales!
 
