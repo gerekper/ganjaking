@@ -227,11 +227,18 @@ abstract class WPR_Shuttle_Dumper {
 			return $this->include_tables;
 		}
 
+
 		// $tables will only include the tables and not views.
 		// TODO - Handle views also, edits to be made in function 'get_create_table_sql' line 336
-		$tables = $this->db->fetch_numeric('
+        if(substr($table_prefix, -1) == '_'){
+          $tables = $this->db->fetch_numeric('
 			SHOW FULL TABLES WHERE Table_Type = "BASE TABLE" AND `Tables_in_'.$this->db->name.'` LIKE "' . $this->db->escape_like($table_prefix) . '%"
-		');
+		  ');
+        } else {
+          $tables = $this->db->fetch_numeric('
+			SHOW FULL TABLES WHERE Table_Type = "BASE TABLE" AND `Tables_in_'.$this->db->name.'` LIKE "' . $this->db->escape_like($table_prefix) . '"
+		  ');
+        }
 
 		$tables_list = array();
 		foreach ($tables as $table_row) {

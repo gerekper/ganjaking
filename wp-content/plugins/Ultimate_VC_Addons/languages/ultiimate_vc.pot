@@ -1,15 +1,15 @@
-# Copyright (C) 2021 Brainstorm Force
+# Copyright (C) 2022 Brainstorm Force
 # This file is distributed under the GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ultimate Addons for WPBakery Page Builder 3.19.10\n"
+"Project-Id-Version: Ultimate Addons for WPBakery Page Builder 3.19.13\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/Ultimate_VC_Addons\n"
-"POT-Creation-Date: 2021-06-04 07:31:49+00:00\n"
+"POT-Creation-Date: 2022-11-28 06:00:29+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en\n"
@@ -102,19 +102,19 @@ msgstr ""
 msgid "Version"
 msgstr ""
 
-#: admin/about.php:37 admin/admin.php:457 admin/debug.php:36
+#: admin/about.php:37 admin/admin.php:460 admin/debug.php:36
 #: admin/modules.php:94 admin/product-license.php:40 admin/script-styles.php:40
 #: admin/smooth-scroll-setting.php:40
 msgid "About"
 msgstr ""
 
-#: admin/about.php:38 admin/admin.php:344 admin/admin.php:345
+#: admin/about.php:38 admin/admin.php:347 admin/admin.php:348
 #: admin/debug.php:37 admin/modules.php:95 admin/product-license.php:41
 #: admin/script-styles.php:41 admin/smooth-scroll-setting.php:41
 msgid "Elements"
 msgstr ""
 
-#: admin/about.php:39 admin/admin.php:353 admin/admin.php:354
+#: admin/about.php:39 admin/admin.php:356 admin/admin.php:357
 #: admin/debug.php:38 admin/modules.php:96 admin/product-license.php:42
 #: admin/script-styles.php:42 admin/smooth-scroll-setting.php:42
 #: admin/smooth-scroll-setting.php:74
@@ -241,55 +241,55 @@ msgid ""
 "extensins."
 msgstr ""
 
-#: admin/admin.php:362 admin/admin.php:363
+#: admin/admin.php:365 admin/admin.php:366
 msgid "Scripts & Styles"
 msgstr ""
 
-#: admin/admin.php:373 admin/admin.php:374 admin/product-license.php:22
+#: admin/admin.php:376 admin/admin.php:377 admin/product-license.php:22
 msgid "Product License"
 msgstr ""
 
-#: admin/admin.php:383 admin/admin.php:384
+#: admin/admin.php:386 admin/admin.php:387
 msgid "Debug"
 msgstr ""
 
-#: admin/admin.php:425 admin/admin.php:426
+#: admin/admin.php:428 admin/admin.php:429
 #: modules/ultimate_icon_manager.php:209 modules/ultimate_icon_manager.php:210
 msgid "Icon Manager"
 msgstr ""
 
-#: admin/admin.php:438 modules/ultimate_font_manager.php:77
+#: admin/admin.php:441 modules/ultimate_font_manager.php:77
 #: modules/ultimate_font_manager.php:86
 msgid "Google Font Manager"
 msgstr ""
 
-#: admin/admin.php:439 modules/ultimate_font_manager.php:78
+#: admin/admin.php:442 modules/ultimate_font_manager.php:78
 #: modules/ultimate_font_manager.php:87
 msgid "Google Fonts"
 msgstr ""
 
-#: admin/admin.php:448 admin/admin.php:449 admin/map-settings.php:17
+#: admin/admin.php:451 admin/admin.php:452 admin/map-settings.php:17
 #: admin/modules.php:33
 msgid "Google Maps"
 msgstr ""
 
-#: admin/admin.php:873
+#: admin/admin.php:876
 msgid "Activate your license"
 msgstr ""
 
-#: admin/admin.php:876
+#: admin/admin.php:879
 msgid "Almost done!"
 msgstr ""
 
-#: admin/admin.php:892
+#: admin/admin.php:895
 msgid "Howdy! Please"
 msgstr ""
 
-#: admin/admin.php:892
+#: admin/admin.php:895
 msgid "activate your copy"
 msgstr ""
 
-#: admin/admin.php:892
+#: admin/admin.php:895
 msgid ""
 "of the Ultimate Addons for WPBakery Page Builder to receive automatic "
 "updates & get premium support."
@@ -4388,7 +4388,7 @@ msgstr ""
 msgid "Update font"
 msgstr ""
 
-#: modules/ultimate_font_manager.php:355
+#: modules/ultimate_font_manager.php:348
 msgid ""
 "Fonts could not be downloaded as there might be some issue with "
 "file_get_contents or wp_remote_get due to your server configuration."
@@ -7386,7 +7386,7 @@ msgstr ""
 msgid ""
 "Please put the embed code in the content for videos, eg: <a "
 "href='http://bsf.io/kuv3-' target='_blank' "
-"rel='noopener'>http://bsf.io/kuv3-</a><br>\r\n"
+"rel='noopener'>http://bsf.io/kuv3-</a><br>\n"
 "\t\t\t\t\t\t\t\t\tFor hosted video - Add any video with WordPress media "
 "uploader or with <a href='https://codex.wordpress.org/Video_Shortcode' "
 "target='_blank' rel='noopener'>[video]</a> shortcode."

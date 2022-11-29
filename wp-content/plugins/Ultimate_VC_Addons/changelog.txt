@@ -1,3 +1,7 @@
+3.19.13 - 28 November 2022
+- Improvement - Fonts related warning in google page speed insights due to custom fonts.
+- Fix: Customizer layout breaks due to conflict with astra pro plugin.
+
 3.19.12 - 25 Aug 2022
 - Improvement: Compatibility with the WordPress 6.0
 - Fix: Fonts are not loading in the Google Font Manager tab.
@@ -203,7 +207,7 @@
 - Fix: Info circle clipped at bottom / top is not working properly.
 - Fix: Info circle image alignment issue.
 - Fix: Advanced Tab content height issue on First loading with animation style.
-- Fix: Anchor tag link and tooltip issue in Just Icon. 
+- Fix: Anchor tag link and tooltip issue in Just Icon.
 - Fix: Anchor tag link issue in Icon.
 - Fix: Timeline issue without timeline item disappear.
 - Fix: Js error in row background.
@@ -224,7 +228,7 @@ Security Fix: A cross-site scripting (XSS) vulnerability was discovered in html 
 
 3.16.16 - 29-August-2017
 - Improvement: Advanced Tab ID is now editable.
-- Improvement: Link markup condition for team element need improvement. 
+- Improvement: Link markup condition for team element need improvement.
 - Improvement: Added image alignment option for image in image separator.
 - Fix: Row separator tilt left right issue.
 - Fix: Info-Circle does not include image in description area.

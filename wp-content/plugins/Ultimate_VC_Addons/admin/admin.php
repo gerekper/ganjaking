@@ -241,6 +241,9 @@ if ( ! class_exists( 'Ultimate_Admin_Area' ) ) {
 					.toplevel_page_about-ultimate a[href=\"admin.php?page=ultimate-font-manager\"] {
 					    display: none !important;
 					}
+					.wp-customizer .customize-control-ast-responsive-spacing .ast-spacing-responsive-btns button[type=\"button\"] {
+						height: inherit;
+					}
 				</style>
 			";// @codingStandardsIgnoreEnd.
 			if ( 'post.php' == $hook ||
