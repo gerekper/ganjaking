@@ -1,5 +1,8 @@
 *** WooCommerce Order Status Manager Changelog ***
 
+2022.11.29 - version 1.14.0
+ * Misc - Require PHP 7.4 and WordPress 5.6
+
 2022.08.01 - version 1.13.4
  * Fix - Replace deprecated `is_ajax()` function calls with `wp_doing_ajax()`
  * Misc - Require WooCommerce 3.9.4 or newer

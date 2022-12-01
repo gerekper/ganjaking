@@ -28,7 +28,7 @@
 	</thead>
 	<tbody>
 		<?php
-		foreach ( $data['settings']['shipping_days'] as $index => $shipping_day ) :
+		foreach ( $data['shipping_days'] as $index => $shipping_day ) :
 			$extra_info = array(
 				'Cut-off time: ' . ( ! empty( $shipping_day['time'] ) ? esc_html( $shipping_day['time'] ) : '-' ),
 			);

@@ -668,8 +668,11 @@ class WooCommerce_Product_Search_Service {
 						if ( !is_array( $term_ids ) ) {
 							$term_ids = array( $term_ids );
 						}
-						$term_ids = array_map( 'intval', $term_ids );
-						$term_ids = array_unique( $term_ids );
+
+						foreach ( $term_ids as $i => $term_id ) {
+							$term_ids[$i] = intval( $term_id );
+						}
+						$term_ids = array_keys( array_flip( $term_ids ) );
 
 						$n_before = count( $term_ids );
 						if ( $n_before > $limit ) {
@@ -695,8 +698,11 @@ class WooCommerce_Product_Search_Service {
 									if ( is_taxonomy_hierarchical( $term->taxonomy ) ) {
 										$child_term_ids = get_term_children( $term_id, $term->taxonomy );
 										if ( is_array( $child_term_ids ) ) {
-											$child_term_ids = array_map( 'intval', $child_term_ids );
-											$child_term_ids = array_unique( $child_term_ids );
+
+											foreach ( $child_term_ids as $i => $child_term_id ) {
+												$child_term_ids[$i] = intval( $child_term_id );
+											}
+											$child_term_ids = array_keys( array_flip( $child_term_ids ) );
 
 											$request_term_ids = array_merge( $request_term_ids, $child_term_ids );
 											$term_ids_by_taxonomy[$term->taxonomy] = array_merge( $term_ids_by_taxonomy[$term->taxonomy], $child_term_ids );
@@ -720,19 +726,21 @@ class WooCommerce_Product_Search_Service {
 							$parts = array();
 							foreach ( $term_ids_by_taxonomy as $taxonomy => $term_ids ) {
 
-								$term_ids = array_map( 'intval', $term_ids );
-								$term_ids = array_unique( $term_ids );
+								foreach ( $term_ids as $i => $term_id ) {
+									$term_ids[$i] = intval( $term_id );
+								}
+								$term_ids = array_keys( array_flip( $term_ids ) );
 
 								$parts[] =
 									"SELECT DISTINCT IF ( object_type IN ( 'variation', 'subscription_variation' ), parent_object_id, object_id ) AS object_id FROM $object_term_table " .
 									'WHERE ' .
-									'term_id IN ( ' . implode( ',', array_map( 'intval', $term_ids ) ) . ' ) ' .
+									'term_id IN ( ' . implode( ',', $term_ids ) . ' ) ' .
 									'UNION ' .
 									"SELECT DISTINCT object_id FROM $object_term_table " .
 									'WHERE ' .
 									"object_type IN ( 'variation', 'subscription_variation' ) " .
 									'AND ' .
-									'term_id IN ( ' . implode( ',', array_map( 'intval', $term_ids ) ) . ' ) ';
+									'term_id IN ( ' . implode( ',', $term_ids ) . ' ) ';
 							}
 							if ( count( $parts ) > 0 ) {
 
@@ -756,11 +764,14 @@ class WooCommerce_Product_Search_Service {
 								$query = "SELECT DISTINCT object_id FROM $object_term_table ";
 							}
 
-							$terms_post_ids = $wpdb->get_col( $query );
-							if ( is_array( $terms_post_ids ) ) {
-								$terms_post_ids = array_map( 'intval', $terms_post_ids );
+							$terms_post_ids = array();
+							$results = $wpdb->get_results( $query );
+							if ( is_array( $results ) ) {
+								$results = array_column( $results, 'object_id' );
+								foreach ( $results as $result ) {
+									$terms_post_ids[] = intval( $result );
+								}
 							}
-
 							$cached = wps_cache_set( $cache_key, $terms_post_ids, self::OBJECT_TERM_CACHE_GROUP, self::get_cache_lifetime() );
 						}
 
@@ -818,7 +829,10 @@ class WooCommerce_Product_Search_Service {
 		}
 
 		if ( is_array( $post_ids ) && count( $post_ids ) > 0 ) {
-			$post_ids = array_map( 'intval', $post_ids );
+
+			foreach ( $post_ids as $i => $post_id ) {
+				$post_ids[$i] = intval( $post_id );
+			}
 
 			$cache_key = self::get_cache_key( $post_ids );
 			$cached_post_ids = wps_cache_get( $cache_key, self::CONSISTENT_POST_CACHE_GROUP );
@@ -848,14 +862,22 @@ class WooCommerce_Product_Search_Service {
 					"SELECT object_id FROM $object_term_table WHERE " .
 					"object_type NOT IN ('variable', 'variable-subscription') AND object_id IN ( " . implode( ',', $post_ids ) . " ) $where_stock " .
 					"UNION " .
-					"SELECT DISTINCT parent_object_id FROM $object_term_table WHERE " .
+					"SELECT DISTINCT parent_object_id AS object_id FROM $object_term_table WHERE " .
 
 					"object_type IN ( 'variation', 'subscription_variation' ) AND object_id IN ( " . implode( ',', $post_ids ) . " ) $where_stock ";
 				if ( $limit !== null ) {
 					$query .= ' LIMIT ' . intval( $limit );
 				}
-				$post_ids = $wpdb->get_col( $query );
-				$post_ids = array_map( 'intval', $post_ids );
+
+				$results = $wpdb->get_results( $query );
+				$post_ids = array();
+				if ( is_array( $results ) ) {
+					$results = array_column( $results, 'object_id' );
+					foreach ( $results as $result ) {
+						$post_ids[] = intval( $result );
+					}
+				}
+
 				if ( count( $post_ids ) === 0 ) {
 					$post_ids = self::NONE;
 				}
@@ -1309,11 +1331,14 @@ class WooCommerce_Product_Search_Service {
 			foreach ( $taxonomy_term_ids as $taxonomy => $term_ids ) {
 				if ( count( $term_ids ) > 0 ) {
 
+					foreach ( $term_ids as $i => $term_id ) {
+						$term_ids[$i] = intval( $term_id );
+					}
 					$part =
 						'ot.object_id IN ( ' .
 						"SELECT IF ( object_type IN ( 'variation', 'subscription_variation' ), parent_object_id, object_id ) AS object_id FROM $object_term_table " .
 						'WHERE ' .
-						'term_id IN ( ' . implode( ',', array_map( 'intval', $term_ids ) ) . ' ) ' .
+						'term_id IN ( ' . implode( ',', $term_ids ) . ' ) ' .
 						'AND object_id != 0 ' .
 						') ';
 					if ( in_array( $taxonomy, $multiple_taxonomies ) ) {
@@ -1337,7 +1362,13 @@ class WooCommerce_Product_Search_Service {
 				}
 				if ( key_exists( $taxonomy, $taxonomy_term_ids ) ) {
 					if ( count( $taxonomy_term_ids[$taxonomy] ) > 0 ) {
-						$where[] = " ot.term_id IN (" . implode( ',', array_map( 'intval', $taxonomy_term_ids[$taxonomy] ) ) . ") ";
+
+						$term_ids = $taxonomy_term_ids[$taxonomy];
+
+						foreach ( $term_ids as $i => $term_id ) {
+							$term_ids[$i] = intval( $term_id );
+						}
+						$where[] = " ot.term_id IN (" . implode( ',', $term_ids ) . ") ";
 					}
 				}
 			}
@@ -1348,16 +1379,24 @@ class WooCommerce_Product_Search_Service {
 		if ( $allowed_term_ids === false ) {
 
 			$query =
-				"SELECT DISTINCT ot.term_id FROM $object_term_table ot ";
+				"SELECT DISTINCT ot.term_id AS term_id FROM $object_term_table ot ";
 			if ( count( $where ) > 0 ) {
 				$query .= "WHERE " . implode( ' AND ', $where );
 			}
-			$allowed_term_ids = $wpdb->get_col( $query );
+
+			$results = $wpdb->get_results( $query );
+			if ( is_array( $results ) ) {
+				$allowed_term_ids = array_column( $results, 'term_id' );
+			}
+
 			$cached = wps_cache_set( $cache_key, $allowed_term_ids, self::GET_TERMS_WHERE_CACHE_GROUP, self::get_cache_lifetime() );
 		}
 		if ( is_array( $allowed_term_ids ) && count( $allowed_term_ids ) > 0 ) {
 
-			$result = array_map( 'intval', $allowed_term_ids );
+			$result = array();
+			foreach ( $allowed_term_ids as $allowed_term_id ) {
+				$result[] = intval( $allowed_term_id );
+			}
 		}
 
 		return $result;
@@ -1836,7 +1875,11 @@ class WooCommerce_Product_Search_Service {
 
 			$on_sale_ids = WooCommerce_Product_Search_Utility::get_product_ids_on_sale();
 			if ( is_array( $on_sale_ids ) && count( $on_sale_ids ) > 0 ) {
-				$conj[] = sprintf( " ID IN ( " . implode( ',', array_map( 'intval', $on_sale_ids ) ) . " ) " );
+
+				foreach ( $on_sale_ids as $i => $id ) {
+					$on_sale_ids[$i] = (int) $id;
+				}
+				$conj[] = sprintf( " ID IN ( " . implode( ',', $on_sale_ids ) . " ) " );
 			} else {
 
 				$conj[] = ' ID = ' . esc_sql( self::NAUGHT ) ;
@@ -1960,7 +2003,11 @@ class WooCommerce_Product_Search_Service {
 				if ( $log_query_times ) {
 					$start = function_exists( 'microtime' ) ? microtime( true ) : time();
 				}
-				$results = $wpdb->get_col( $query );
+
+				$results = $wpdb->get_results( $query );
+				if ( is_array( $results ) ) {
+					$results = array_column( $results, 'ID' );
+				}
 
 				if ( $log_query_times ) {
 					$time = ( function_exists( 'microtime' ) ? microtime( true ) : time() ) - $start;
@@ -1985,7 +2032,10 @@ class WooCommerce_Product_Search_Service {
 				}
 				if ( !empty( $results ) && is_array( $results ) ) {
 					if ( count( $results ) > 0 ) {
-						$include = array_map( 'intval', $results );
+
+						foreach ( $results as $result ) {
+							$include[] = intval( $result );
+						}
 					} else {
 						$include = self::NONE;
 					}
@@ -2001,7 +2051,10 @@ class WooCommerce_Product_Search_Service {
 				'woocommerce_product_search_service_post_ids_for_request',
 				array( &$include, $cache_context )
 			);
-			$include = array_map( 'intval', $include );
+
+			foreach ( $include as $key => $value ) {
+				$include[$key] = intval( $value );
+			}
 		}
 
 		$cached = wps_cache_set( $cache_key, $include, self::POST_CACHE_GROUP, self::get_cache_lifetime() );
@@ -2073,7 +2126,11 @@ class WooCommerce_Product_Search_Service {
 					$cached = wps_cache_set( $cache_key, $posts, self::POST_FILTERED_CACHE_GROUP, self::get_cache_lifetime() );
 				}
 				if ( is_array( $posts ) && count( $posts ) > 0 ) {
-					$post_ids = array_map( 'intval', $posts );
+
+					$post_ids = array();
+					foreach ( $posts as $post_id ) {
+						$post_ids[] = intval( $post_id );
+					}
 				} else {
 					$post_ids = self::NONE;
 				}
@@ -2123,7 +2180,11 @@ class WooCommerce_Product_Search_Service {
 				$cached = wps_cache_set( $cache_key, $posts, self::POST_FILTERED_CACHE_GROUP, self::get_cache_lifetime() );
 			}
 			if ( is_array( $posts ) && count( $posts ) > 0 ) {
-				$post_ids = array_map( 'intval', $posts );
+
+				$post_ids = array();
+				foreach ( $posts as $post_id ) {
+					$post_ids[] = intval( $post_id );
+				}
 			} else {
 				$post_ids = self::NONE;
 			}
@@ -2354,17 +2415,21 @@ class WooCommerce_Product_Search_Service {
 				$products = $q->query( $query_vars );
 				if ( count( $products ) > 0 ) {
 
+					foreach ( $products as $i => $product_id ) {
+						$products[$i] = intval( $product_id );
+					}
+
 					if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '3.6.0' ) >= 0 ) {
 						$query =
 							"SELECT MIN( 0 + wc_product_meta_lookup.min_price ) AS min_price, MAX( 0 + wc_product_meta_lookup.max_price ) AS max_price " .
 							"FROM {$wpdb->wc_product_meta_lookup} wc_product_meta_lookup " .
-							"WHERE wc_product_meta_lookup.product_id IN (" . implode( ',', array_map( 'intval', $products ) ) . ") ";
+							"WHERE wc_product_meta_lookup.product_id IN (" . implode( ',', $products ) . ") ";
 					} else {
 
 						$query =
 							"SELECT MIN( 0 + price_meta.meta_value ) AS min_price, MAX( 0 + price_meta.meta_value ) AS max_price " .
 							"FROM $wpdb->postmeta AS price_meta " .
-							"WHERE price_meta.post_id IN (" . implode( ',', array_map( 'intval', $products ) ) . ") " .
+							"WHERE price_meta.post_id IN (" . implode( ',', $products ) . ") " .
 							"AND price_meta.meta_key IN ('" . implode( "','", array_map( 'esc_sql', apply_filters( 'woocommerce_price_filter_meta_keys', array( '_price' ) ) ) ) . "') " .
 							"AND price_meta.meta_value > ''";
 					}
@@ -2526,12 +2591,15 @@ class WooCommerce_Product_Search_Service {
 
 		if ( count( $post_ids ) > 0 ) {
 
+			foreach ( $post_ids as $i => $post_id ) {
+				$post_ids[$i] = intval( $post_id );
+			}
 			$object_term_table = WooCommerce_Product_Search_Controller::get_tablename( 'object_term' );
 			$cat_query =
 				"SELECT t.* FROM $wpdb->terms t WHERE t.term_id IN ( " .
 				"SELECT term_id FROM $object_term_table WHERE " .
 				"taxonomy = 'product_cat' " .
-				'AND object_id IN ( ' . implode( ',', array_map( 'intval', $post_ids ) ) . ' ) ' .
+				'AND object_id IN ( ' . implode( ',', $post_ids ) . ' ) ' .
 				' ) ';
 
 			if ( $categories = $wpdb->get_results( $cat_query ) ) {
@@ -2663,7 +2731,11 @@ class WooCommerce_Product_Search_Service {
 		$post_ids = self::get_post_ids_for_request_filtered( array( 'variations' => true, 'log_query_times' => false ) );
 
 		if ( $post_ids !== null && is_array( $post_ids ) && count( $post_ids ) > 0 ) {
-			$where[] = 'object_id IN (' . implode( ',', array_map( 'intval', $post_ids ) ) . ')';
+
+			foreach ( $post_ids as $i => $post_id ) {
+				$post_ids[$i] = intval( $post_id );
+			}
+			$where[] = 'object_id IN (' . implode( ',', $post_ids ) . ')';
 		}
 
 		if ( !empty( $ixwpst ) ) {
@@ -2699,12 +2771,16 @@ class WooCommerce_Product_Search_Service {
 			unset( $terms[$taxonomy] );
 
 			foreach ( $terms as $term_taxonomy => $term_ids ) {
+
+				foreach ( $term_ids as $i => $term_id ) {
+					$term_ids[$i] = intval( $term_id );
+				}
 				if ( count( $term_ids ) > 0 ) {
 					$where[] =
 						'object_id IN (' .
 						"SELECT object_id FROM $object_term_table WHERE " .
 						"object_id != 0 AND " .
-						"term_id IN (" . implode( ',', array_map( 'intval', $term_ids ) ) . ')' .
+						"term_id IN (" . implode( ',', $term_ids ) . ')' .
 						')';
 
 				}

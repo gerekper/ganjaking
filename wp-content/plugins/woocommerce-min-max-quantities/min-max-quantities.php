@@ -2,7 +2,6 @@
 /**
  * Backwards compat.
  *
- *
  * @since 2.3.18
  */
 if ( ! defined( 'ABSPATH' ) ) {

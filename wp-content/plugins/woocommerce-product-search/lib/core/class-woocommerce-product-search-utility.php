@@ -224,9 +224,28 @@ class WooCommerce_Product_Search_Utility {
 	 */
 	public static function get_product_ids_on_sale( $args = array() ) {
 
-		$on_sale_products    = self::get_on_sale_products( $args );
-		$product_ids = wp_parse_id_list( array_merge( wp_list_pluck( $on_sale_products, 'id' ), array_diff( wp_list_pluck( $on_sale_products, 'parent_id' ), array( 0 ) ) ) );
+		$cache_key = 'GPIDSOS_' . md5( json_encode( $args ) );
+		$product_ids = wps_cache_get( $cache_key, self::CACHE_GROUP );
+		if ( $product_ids === false ) {
+			$on_sale_products = self::get_on_sale_products( $args );
 
+			$product_ids = array();
+			$ids = array_column( $on_sale_products, 'id' );
+			foreach ( $ids as $id ) {
+				$product_ids[] = intval( $id );
+			}
+			$parent_ids = array_column( $on_sale_products, 'parent_id' );
+			foreach ( $parent_ids as $id ) {
+				$id = intval( $id );
+				if ( $id > 0 ) {
+					$product_ids[] = $id;
+				}
+			}
+
+			$product_ids = array_keys( array_flip( $product_ids ) );
+
+			wps_cache_set( $cache_key, $product_ids, self::CACHE_GROUP, WooCommerce_Product_Search_Service::get_cache_lifetime() );
+		}
 		return $product_ids;
 	}
 
@@ -317,12 +336,59 @@ class WooCommerce_Product_Search_Utility {
 		$results = wps_cache_get( $cache_key, self::CACHE_GROUP );
 		if ( $results === false ) {
 			$results = $wpdb->get_results( $query );
+
+			$n = count( $results );
+			for ( $i = 0; $i < $n; $i++ ) {
+				$results[$i]->id = intval( $results[$i]->id );
+				$results[$i]->parent_id = intval( $results[$i]->parent_id );
+			}
 			wps_cache_set( $cache_key, $results, self::CACHE_GROUP, WooCommerce_Product_Search_Service::get_cache_lifetime() );
 
 		}
 
 		return $results;
 
+	}
+
+	/**
+	 * Apply intval to all values in the array.
+	 *
+	 * @since 4.9.0
+	 *
+	 * @param array $values
+	 */
+	public static function intval_map( &$values ) {
+
+		foreach ( $values as $key => $value ) {
+			$values[$key] = intval( $value );
+		}
+	}
+
+	/**
+	 * Reduce to unique values in the array.
+	 *
+	 * @since 4.9.0
+	 *
+	 * @param array $values
+	 */
+	public static function unique_map( &$values ) {
+
+		$values = array_keys( array_flip( $values ) );
+	}
+
+	/**
+	 * Apply intval and reduce to unique values in the array.
+	 *
+	 * @since 4.9.0
+	 *
+	 * @param array $values
+	 */
+	public static function unique_intval_map( &$values ) {
+
+		foreach ( $values as $key => $value ) {
+			$values[$key] = intval( $value );
+		}
+		$values = array_keys( array_flip( $values ) );
 	}
 }
 

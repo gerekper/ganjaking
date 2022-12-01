@@ -1,5 +1,8 @@
 *** WooCommerce Print Invoices/Packing Lists Changelog ***
 
+2022.11.29 - version 3.12.0
+ * Misc - Require PHP 7.4 and WordPress 5.6
+
 2022.08.15 - version 3.11.5
  * Fix - Replace deprecated usages of `is_ajax()` in favor of `wp_doing_ajax()`
  * Misc - Require WooCommerce 3.9.4 or newer

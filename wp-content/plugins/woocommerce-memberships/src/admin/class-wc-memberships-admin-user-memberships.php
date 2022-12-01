@@ -23,7 +23,7 @@
 
 use SkyVerge\WooCommerce\Memberships\Profile_Fields;
 use SkyVerge\WooCommerce\Memberships\Profile_Fields\Profile_Field_Definition;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -1401,7 +1401,7 @@ class WC_Memberships_Admin_User_Memberships {
 				);
 			}
 			if ( ! wc_memberships()->get_admin_notice_handler()->is_notice_dismissed( 'membership-directory-notice' ) ) {
-				wc_memberships()->get_admin_notice_handler()->add_admin_notice( 
+				wc_memberships()->get_admin_notice_handler()->add_admin_notice(
 					sprintf(
 						/** translators: Placeholders: %1$s - <strong> HTML tag, %2$s - </strong> HTML tag */
 						__( '%1$s Membership Directories %2$s %3$s New! We’ve made adding member directories easier. You can use a block to add a directory to any page. %4$s Read more %5$s', 'woocommerce-memberships' ),
@@ -1412,7 +1412,7 @@ class WC_Memberships_Admin_User_Memberships {
 					'membership-directory-notice' ,
 					[
 						'notice_class' => 'notice-info',
-					] 
+					]
 				);
 			}
 		}

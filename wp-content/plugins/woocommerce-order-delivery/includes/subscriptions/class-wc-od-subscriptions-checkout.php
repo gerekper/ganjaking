@@ -28,6 +28,7 @@ if ( ! class_exists( 'WC_OD_Subscriptions_Checkout' ) ) {
 
 			add_action( 'woocommerce_adjust_order_fees_for_setup_cart_for_subscription_renewal', array( $this, 'adjust_order_fees' ) );
 			add_action( 'woocommerce_checkout_subscription_created', array( $this, 'subscription_created' ) );
+			add_action( 'woocommerce_checkout_create_order', array( $this, 'create_order' ), 110 );
 		}
 
 		/**
@@ -214,6 +215,27 @@ if ( ! class_exists( 'WC_OD_Subscriptions_Checkout' ) ) {
 			wc_od_setup_subscription_delivery_preferences( $subscription );
 			wc_od_update_subscription_delivery_date( $subscription );
 			wc_od_update_subscription_delivery_time_frame( $subscription );
+		}
+
+		/**
+		 * Processes an order before save.
+		 *
+		 * @since 2.3.0
+		 */
+		public function create_order() {
+			$cart_item = wcs_cart_contains_renewal();
+
+			if ( ! $cart_item ) {
+				return;
+			}
+
+			$checkout     = WC()->checkout();
+			$subscription = wcs_get_subscription( $cart_item['subscription_renewal']['subscription_id'] );
+
+			// Updates the subscription delivery details from the order renewal.
+			$subscription->update_meta_data( '_delivery_date', $checkout->get_value( 'delivery_date' ) );
+			$subscription->update_meta_data( '_delivery_time_frame', $checkout->get_value( 'delivery_time_frame' ) );
+			$subscription->save_meta_data();
 		}
 	}
 }

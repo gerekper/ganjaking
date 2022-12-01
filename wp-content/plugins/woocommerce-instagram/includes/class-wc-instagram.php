@@ -29,7 +29,7 @@ final class WC_Instagram {
 	 *
 	 * @var string
 	 */
-	public $version = '4.3.0';
+	public $version = '4.3.2';
 
 	/**
 	 * Constructor.
@@ -121,6 +121,7 @@ final class WC_Instagram {
 		register_activation_hook( WC_INSTAGRAM_FILE, array( 'WC_Instagram_Install', 'install' ) );
 		register_deactivation_hook( WC_INSTAGRAM_FILE, array( 'WC_Instagram_Uninstall', 'deactivate' ) );
 
+		add_action( 'before_woocommerce_init', array( $this, 'declare_compatibility' ) );
 		add_action( 'plugins_loaded', array( $this, 'init' ) );
 		add_action( 'after_setup_theme', array( $this, 'include_template_functions' ), 15 );
 	}
@@ -136,6 +137,18 @@ final class WC_Instagram {
 
 		add_filter( 'woocommerce_integrations', array( $this, 'register_integration' ) );
 		add_action( 'wc_instagram_renew_access', 'wc_instagram_renew_access' );
+	}
+
+	/**
+	 * Declares compatibility with the WC features.
+	 *
+	 * @since 4.3.1
+	 */
+	public function declare_compatibility() {
+		// Compatible with the 'High-Performance Order Storage' feature.
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WC_INSTAGRAM_FILE, true );
+		}
 	}
 
 	/**

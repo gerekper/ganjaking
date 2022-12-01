@@ -43,6 +43,7 @@ class WC_OD_Subscriptions {
 	 */
 	public function includes() {
 		include_once 'wc-od-subscriptions-functions.php';
+		include_once 'class-wc-od-subscription-delivery-details.php';
 		include_once 'class-wc-od-subscriptions-checkout.php';
 		include_once 'class-wc-od-subscriptions-emails.php';
 		include_once 'class-wc-od-subscriptions-settings.php';
@@ -79,6 +80,13 @@ class WC_OD_Subscriptions {
 			if ( ! $cart_item || $subscription->get_id() !== $cart_item['subscription_renewal']['subscription_id'] ) {
 				return;
 			}
+		}
+
+		$delivery_date = $subscription->get_meta( '_delivery_date' );
+
+		// It's a valid date.
+		if ( $delivery_date && wc_od_validate_subscription_delivery_date( $subscription, $delivery_date ) ) {
+			return;
 		}
 
 		wc_od_update_subscription_delivery_date( $subscription );

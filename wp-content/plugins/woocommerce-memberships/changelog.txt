@@ -1,5 +1,15 @@
 *** WooCommerce Memberships Changelog ***
 
+2022.11.30 - version 1.24.0
+ * Misc - Require PHP 7.4 and WordPress 5.6
+ * Localization - Add Brazilian Portuguese translation, courtesy Renato Fiuza
+ * Dev - Add the `wc_memberships_rule_object_ids` filter so that translated products can be restricted correctly
+
+2022.09.12 - version 1.23.1
+ * Fix - Ensure member purchasing discounts are applied with most recent versions of WooCommerce Bookings
+ * Fix - Ensure the correct restriction message is displayed in the 'wcm_content_restricted' shortcode
+ * Fix - Address potential deprecated notices when Memberships handles background jobs with WooCommerce 5.3+
+
 2022.03.28 - version 1.23.0
  * Feature - Introduce a configurable membership directory block with search, filtering, and pagination of members.
 

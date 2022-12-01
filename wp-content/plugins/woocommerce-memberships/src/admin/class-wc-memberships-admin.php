@@ -27,7 +27,7 @@ use SkyVerge\WooCommerce\Memberships\Admin\Views\Modals\Profile_Field\Confirm_De
 use SkyVerge\WooCommerce\Memberships\Admin\Views\Modals\User_Membership\Confirm_Edit_Profile_Fields;
 use SkyVerge\WooCommerce\Memberships\Admin\Profile_Fields;
 use SkyVerge\WooCommerce\Memberships\Profile_Fields as Profile_Fields_Handler;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 

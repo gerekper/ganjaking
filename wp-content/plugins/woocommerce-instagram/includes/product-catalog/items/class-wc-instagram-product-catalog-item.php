@@ -404,7 +404,7 @@ class WC_Instagram_Product_Catalog_Item {
 				$terms = $attribute->get_terms();
 			} else {
 				$terms = array(
-					get_term_by( 'name', $attribute, $name ),
+					get_term_by( 'slug', $attribute, $name ),
 				);
 			}
 

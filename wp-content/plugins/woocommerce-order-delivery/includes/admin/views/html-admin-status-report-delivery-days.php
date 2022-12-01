@@ -30,7 +30,7 @@
 	</thead>
 	<tbody>
 		<?php
-		foreach ( $data['settings']['delivery_days'] as $delivery_day ) :
+		foreach ( $data['delivery_days'] as $delivery_day ) :
 			$fee_amount      = ( $delivery_day->get_fee_amount() ? $delivery_day->get_fee_amount() : '' );
 			$has_time_frames = $delivery_day->has_time_frames();
 

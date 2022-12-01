@@ -1,5 +1,8 @@
 *** WooCommerce Checkout Add-Ons Changelog ***
 
+2022.11.29 - version 2.6.0
+ * Misc - Require PHP 7.4 and WordPress 5.6
+
 2022.08.15 - version 2.5.7
  * Fix - Replace deprecated `is_ajax()` calls with `wp_doing_ajax()`
  * Misc - Require WooCommerce 3.9.4 or newer

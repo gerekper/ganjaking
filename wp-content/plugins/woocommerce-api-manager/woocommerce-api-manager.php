@@ -4,17 +4,17 @@
  * Plugin Name: WooCommerce API Manager
  * Plugin URI: https://woocommerce.com/products/woocommerce-api-manager/
  * Description: An API resource manager.
- * Version: 2.4.6
+ * Version: 2.4.7
  * Author: Todd Lahman LLC
  * Author URI: https://www.toddlahman.com
  * Developer: Todd Lahman LLC
  * Developer URI: https://www.toddlahman.com
  * Text Domain: woocommerce-api-manager
  * Domain Path: /i18n/languages/
- * WC requires at least: 5.5
- * WC tested up to: 6.9
+ * WC requires at least: 5.6
+ * WC tested up to: 7.1.0
  * Woo: 260110:f7cdcfb7de76afa0889f07bcb92bf12e
- * Requires WP: 5.6
+ * Requires WP: 5.8
  * Requires PHP: 7.2
  *
  * Intellectual Property rights, and copyright, reserved by Todd Lahman, LLC as allowed by law include,
@@ -36,11 +36,11 @@ defined( 'ABSPATH' ) || exit;
  * Constants
  */
 if ( ! defined( 'WC_AM_VERSION' ) ) {
-	define( 'WC_AM_VERSION', '2.4.6' );
+	define( 'WC_AM_VERSION', '2.4.7' );
 }
 
 if ( ! defined( 'WC_AM_WC_MIN_REQUIRED_VERSION' ) ) {
-	define( 'WC_AM_WC_MIN_REQUIRED_VERSION', '5.5' );
+	define( 'WC_AM_WC_MIN_REQUIRED_VERSION', '5.6' );
 }
 
 if ( ! defined( 'WC_AM_REQUIRED_PHP_VERSION' ) ) {
@@ -404,6 +404,16 @@ final class WooCommerce_API_Manager {
 	 * Include required core files used in admin and on the frontend.
 	 */
 	public function includes() {
+		/*
+		 * @since 2.4.7
+		 * Declare incompatibility with WooCommerce HPOS until support is verified.
+		 */
+		add_action( 'before_woocommerce_init', function () {
+			if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, false );
+			}
+		} );
+
 		add_action( 'init', array( $this, 'maybe_activate_woocommerce_api_manager' ) );
 		register_deactivation_hook( $this->plugin_file, array( $this, 'deactivate_woocommerce_api_manager' ) );
 
@@ -482,13 +492,13 @@ final class WooCommerce_API_Manager {
 		 * @since 2.0.16
 		 */
 		if ( class_exists( 'WC_Subscriptions' ) || class_exists( 'WC_Subscriptions_Core_Plugin' ) && self::is_wc_subscriptions_active_static() ) {
-            if ( class_exists( 'WC_Subscriptions' ) ) {
-	            if ( version_compare( WC_Subscriptions::$version, WC_AM_WC_SUBS_MIN_REQUIRED_VERSION, '<' ) ) {
-		            add_action( 'admin_notices', __CLASS__ . '::upgrade_wc_sub_am_warning' );
+			if ( class_exists( 'WC_Subscriptions' ) ) {
+				if ( version_compare( WC_Subscriptions::$version, WC_AM_WC_SUBS_MIN_REQUIRED_VERSION, '<' ) ) {
+					add_action( 'admin_notices', __CLASS__ . '::upgrade_wc_sub_am_warning' );
 
-		            return;
-	            }
-            }
+					return;
+				}
+			}
 
 			if ( class_exists( 'WC_Subscriptions_Core_Plugin' ) ) {
 				if ( version_compare( WC_subscriptions_Core_Plugin::instance()->get_plugin_version(), WC_AM_WC_SUBS_MIN_REQUIRED_VERSION, '<' ) ) {
@@ -602,9 +612,9 @@ final class WooCommerce_API_Manager {
 	public static function upgrade_wc_sub_am_warning() {
 		$wam_wc_subs_active_version = class_exists( 'WC_Subscriptions' ) ? WC_Subscriptions::$version : get_option( 'woocommerce_subscriptions_active_version' );
 
-        if ( empty( $wam_wc_subs_active_version ) ) {
-	        $wam_wc_subs_active_version = class_exists( 'WC_Subscriptions_Core_Plugin' ) ? WC_subscriptions_Core_Plugin::instance()->get_plugin_version() : '';
-        }
+		if ( empty( $wam_wc_subs_active_version ) ) {
+			$wam_wc_subs_active_version = class_exists( 'WC_Subscriptions_Core_Plugin' ) ? WC_subscriptions_Core_Plugin::instance()->get_plugin_version() : '';
+		}
 
 		?>
         <div class="notice notice-error">

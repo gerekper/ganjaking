@@ -1,5 +1,14 @@
 *** WooCommerce Product Search ***
 
+2022.11.22 - version 4.9.0
+* WordPress 6.1 compatible.
+* WooCommerce 7.1 compatible.
+* This release is focused on internal optimizations that bring substantial performance gains, with measured operational improvements in excess of 1000% in numerous cases.
+* Decreases the sever load while attending search and filtering requests.
+* Improves the overall query response performance with targeted code optimizations.
+* Improves the search engine performance with faster database queries.
+* Improves the search engine performance with faster dataset handling operations.
+
 2022.09.05 - version 4.8.0
 * WordPress 6.0 compatible.
 * WooCommerce 6.9 compatible.

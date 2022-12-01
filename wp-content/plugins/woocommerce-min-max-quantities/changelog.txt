@@ -1,5 +1,11 @@
 *** WooCommerce Min/Max Quantities Changelog ***
 
+2022.11.29 - version 4.0.6
+* Fix - Fixed fatal error triggered in WordPress versions prior to 6.1.0.
+
+2022.11.28 - version 4.0.5
+* Fix - Resolved an issue that assigned negative stock values as variations minimum quantity.
+
 2022.10.18 - version 4.0.4
 * Fix - Resolved an issue that made empty notices show up in the block-based cart.
 * Fix - Fixed an issue that prevented variation-level rules from applying to the cart.

@@ -46,10 +46,10 @@ class PremiumAutomationTemplates {
       AutomationTemplate::CATEGORY_WELCOME,
       __(
         "Welcome new subscribers and start building a relationship with them. Send an email immediately after someone subscribes to your list to introduce your brand and a follow-up two days later to keep the conversation going.",
-        'mailpoet'
+        'mailpoet-premium'
       ),
       $this->builder->createFromSequence(
-        __('Welcome series for new subscribers', 'mailpoet'),
+        __('Welcome series for new subscribers', 'mailpoet-premium'),
         [
           'mailpoet:someone-subscribes',
           'mailpoet:send-email',
@@ -59,14 +59,14 @@ class PremiumAutomationTemplates {
         [
           [],
           [
-            'name' => __('Welcome email', 'mailpoet'),
+            'name' => __('Welcome email', 'mailpoet-premium'),
           ],
           [
             'delay' => 2,
             'delay_type' => 'DAYS',
           ],
           [
-            'name' => __('Follow-up email', 'mailpoet'),
+            'name' => __('Follow-up email', 'mailpoet-premium'),
           ],
         ]
       ),
@@ -78,10 +78,10 @@ class PremiumAutomationTemplates {
       AutomationTemplate::CATEGORY_WELCOME,
       __(
         "Welcome new WordPress users to your site. Send an email immediately after a WordPress user registers. Send a follow-up email two days later with more in-depth information.",
-        'mailpoet'
+        'mailpoet-premium'
       ),
       $this->builder->createFromSequence(
-        __('Welcome series for new WordPress users', 'mailpoet'),
+        __('Welcome series for new WordPress users', 'mailpoet-premium'),
         [
           'mailpoet:wp-user-registered',
           'mailpoet:send-email',
@@ -91,14 +91,14 @@ class PremiumAutomationTemplates {
         [
           [],
           [
-            'name' => __('Welcome email', 'mailpoet'),
+            'name' => __('Welcome email', 'mailpoet-premium'),
           ],
           [
             'delay' => 2,
             'delay_type' => 'DAYS',
           ],
           [
-            'name' => __('Follow-up email', 'mailpoet'),
+            'name' => __('Follow-up email', 'mailpoet-premium'),
           ],
         ]
       ),

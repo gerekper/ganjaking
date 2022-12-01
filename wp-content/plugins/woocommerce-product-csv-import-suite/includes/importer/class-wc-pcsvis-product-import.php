@@ -742,7 +742,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 	 * @return bool True if the filepath is within ABSPATH.
 	 */
 	private function is_within_abspath( string $filepath ): bool {
-		return 0 === strpos( realpath( $filepath ), trailingslashit( realpath( ABSPATH ) ) );
+		return 0 === strpos( wp_normalize_path( realpath( $filepath ) ), wp_normalize_path( trailingslashit( realpath( ABSPATH ) ) ) );
 	}
 
 	public function product_exists( $title, $sku = '', $post_name = '' ) {
@@ -1612,7 +1612,12 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 			return false;
 		}
 
-		return in_array( mime_content_type( $filepath ), $this->get_acceptable_csv_mime_types() );
+
+		return in_array(
+			wp_check_filetype( $filepath )['type'],
+			$this->get_acceptable_csv_mime_types(),
+			true
+		);
 	}
 
 	/**

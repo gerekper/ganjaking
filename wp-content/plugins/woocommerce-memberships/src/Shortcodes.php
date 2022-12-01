@@ -23,7 +23,7 @@
 
 namespace SkyVerge\WooCommerce\Memberships;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -235,22 +235,9 @@ class Shortcodes {
 
 		} elseif ( $post instanceof \WP_Post ) {
 
-			if ( in_array( $post->post_type, array( 'product', 'product_variation' ) ) ) {
+			$message_code = \WC_Memberships_User_Messages::get_message_code_shorthand_by_post_type( $post );
+			$output .= \WC_Memberships_User_Messages::get_message_html( $message_code, array( 'post' => $post ) );
 
-				if ( ! current_user_can( 'wc_memberships_view_restricted_product', $post->ID ) ) {
-					$output .= \WC_Memberships_User_Messages::get_message_html( 'product_viewing_restricted', array( 'post' => $post ) );
-				} elseif ( ! current_user_can( 'wc_memberships_view_delayed_product', $post->ID ) ) {
-					$output .= \WC_Memberships_User_Messages::get_message_html( 'product_access_delayed', array( 'post' => $post ) );
-				}
-
-			} else {
-
-				if ( ! current_user_can( 'wc_memberships_view_restricted_post_content', $post->ID ) ) {
-					$output .= \WC_Memberships_User_Messages::get_message_html( 'content_restricted', array( 'post' => $post ) );
-				} elseif ( ! current_user_can( 'wc_memberships_view_delayed_post_content', $post->ID ) ) {
-					$output .= \WC_Memberships_User_Messages::get_message_html( 'content_delayed', array( 'post' => $post ) );
-				}
-			}
 		}
 
 		return $output;

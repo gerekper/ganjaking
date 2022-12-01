@@ -72,7 +72,9 @@ class WoocommercePrfGoogleReviewFeed {
 		global $wpdb;
 
 		// Don't cache feed.
-		define( 'DONOTCACHEPAGE', true );
+		if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+			define( 'DONOTCACHEPAGE', true );
+		}
 		if ( ! headers_sent() ) {
 			header( 'Cache-Control: no-store, must-revalidate, max-age=0' );
 		}
@@ -80,8 +82,6 @@ class WoocommercePrfGoogleReviewFeed {
 		// Cater for large stores. Hide errors, set no time limit.
 		$wpdb->hide_errors();
 		@set_time_limit( 0 );
-
-		// Turn off any output buffering to avoid memory isssues.
 		while ( ob_get_level() ) {
 			@ob_end_clean();
 		}

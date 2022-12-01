@@ -23,7 +23,7 @@
 
 use SkyVerge\WooCommerce\Memberships\Integrations\Courseware\LearnDash;
 use SkyVerge\WooCommerce\Memberships\Integrations\Courseware\Sensei;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 

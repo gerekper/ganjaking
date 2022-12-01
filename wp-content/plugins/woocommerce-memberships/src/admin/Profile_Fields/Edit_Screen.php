@@ -28,7 +28,7 @@ use SkyVerge\WooCommerce\Memberships\Admin\Views\Meta_Boxes\Profile_Field\Data;
 use SkyVerge\WooCommerce\Memberships\Admin\Views\Meta_Boxes\Profile_Field\Publish;
 use SkyVerge\WooCommerce\Memberships\Profile_Fields as Profile_Fields_Handler;
 use SkyVerge\WooCommerce\Memberships\Profile_Fields\Profile_Field_Definition;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 

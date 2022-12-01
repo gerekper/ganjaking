@@ -1,0 +1,160 @@
+{
+    "translation-revision-date": "",
+    "generator": "WP-CLI\/2.4.0",
+    "source": "assets\/js\/blocks\/src\/components\/block-member-content.js",
+    "domain": "messages",
+    "locale_data": {
+        "messages": {
+            "": {
+                "domain": "messages",
+                "lang": "pt_BR",
+                "plural-forms": "nplurals=2; plural=(n > 1);"
+            },
+            "Member Content": [
+                "Conte\u00fado do Membro"
+            ],
+            "Only members of the selected plan(s) can see this content.": [
+                "Somente membros do(s) plano(s) selecionado(s) podem ver este conte\u00fado."
+            ],
+            "Visitors without the required plan will see a custom restriction message instead of this block.": [
+                "Visitantes sem o plano necess\u00e1rio ver\u00e3o uma mensagem de restri\u00e7\u00e3o personalizada ao inv\u00e9s deste bloco."
+            ],
+            "Visitors without the required plan will see the restriction message specified in %1$sMemberships Settings%2$s instead of this block.": [
+                "Visitantes sem o plano necess\u00e1rio ver\u00e3o a mensagem de restri\u00e7\u00e3o especificada em %1$sConfigura\u00e7\u00f5es de Membros%2$s ao inv\u00e9s deste bloco."
+            ],
+            "This block will be invisible to anyone without the required plan access.": [
+                "Este bloco ser\u00e1 invis\u00edvel para qualquer pessoa sem o acesso ao plano exigido."
+            ],
+            "No message": [
+                "Nenhuma mensagem"
+            ],
+            "Default restriction message": [
+                "Mensagem de restri\u00e7\u00e3o padr\u00e3o"
+            ],
+            "Custom restriction message": [
+                "Mensagem de restri\u00e7\u00e3o personalizada"
+            ],
+            "Basic HTML is allowed. You can also use the following merge tags:": [
+                "HTML b\u00e1sico \u00e9 permitido. Voc\u00ea tamb\u00e9m pode usar as seguintes tags de mesclagem:"
+            ],
+            "The content below will be visible only to users who are members of any plan.": [
+                "O conte\u00fado abaixo ser\u00e1 vis\u00edvel apenas para os usu\u00e1rios que s\u00e3o membros de qualquer plano."
+            ],
+            "The content below will be visible only to users who are members of %s.": [
+                "O conte\u00fado abaixo ser\u00e1 vis\u00edvel apenas para os usu\u00e1rios que s\u00e3o membros do %s."
+            ],
+            "End of member-only content block.": [
+                "Fim do bloco de conte\u00fado somente para membros."
+            ],
+            "or": [
+                "ou"
+            ],
+            "Membership plans": [
+                "Planos de Associa\u00e7\u00e3o"
+            ],
+            "Members of any selected plan(s) will see this block's content. Leave blank to show this content to members of any plan.": [
+                "Os membros de qualquer plano(s) selecionado(s) ver\u00e3o o conte\u00fado deste bloco. Deixe em branco para mostrar este conte\u00fado aos membros de qualquer plano."
+            ],
+            "Delay access": [
+                "Atraso no Acesso"
+            ],
+            "Determine when members should be able to see this content.": [
+                "Determine quando os membros devem ser capazes de ver este conte\u00fado."
+            ],
+            "restricted": [
+                "restrito"
+            ],
+            "Immediately": [
+                "Imediatamente"
+            ],
+            "After being a member for a specific time": [
+                "Depois de ser um membro por um tempo espec\u00edfico"
+            ],
+            "After a specific date": [
+                "Ap\u00f3s uma data espec\u00edfica"
+            ],
+            "hide": [
+                "ocultar"
+            ],
+            "protected": [
+                "protegido"
+            ],
+            "Active members can see block content after this date.": [
+                "Os membros ativos podem ver o conte\u00fado do bloco ap\u00f3s esta data."
+            ],
+            "memberships": [
+                "associa\u00e7\u00f5es"
+            ],
+            "Days": [
+                "Dias"
+            ],
+            "Weeks": [
+                "Semanas"
+            ],
+            "Months": [
+                "Meses"
+            ],
+            "Years": [
+                "Anos"
+            ],
+            "Active members can see block content after this period.": [
+                "Os membros ativos podem ver o conte\u00fado do bloco ap\u00f3s este per\u00edodo."
+            ],
+            "Hide block from members during free trial": [
+                "Ocultar bloqueio de membros durante o teste gratuito"
+            ],
+            "If enabled, members of a subscription plan can access this content immediately after their free trial ends, unless a specific time to get access from is selected.": [
+                "Se ativado, os membros de um plano de assinatura podem acessar este conte\u00fado imediatamente ap\u00f3s o t\u00e9rmino de seu teste gratuito, a menos que um tempo espec\u00edfico para obter acesso seja selecionado."
+            ],
+            "Restricted content message": [
+                "Mensagem de conte\u00fado restrito"
+            ],
+            "Message Content": [
+                "Conte\u00fado da Mensagem"
+            ],
+            "members": [
+                "membros"
+            ],
+            "non-members": [
+                "n\u00e3o membros"
+            ],
+            "non members": [
+                "n\u00e3o membros"
+            ],
+            "restrictions": [
+                "restri\u00e7\u00f5es"
+            ],
+            "content": [
+                "conte\u00fado"
+            ],
+            "hidden": [
+                "escondido"
+            ],
+            "private": [
+                "privado"
+            ],
+            "public": [
+                "p\u00fablico"
+            ],
+            "This content will only be shown to guests or users who are not members of %s.": [
+                "Este conte\u00fado ser\u00e1 mostrado apenas para convidados ou usu\u00e1rios que n\u00e3o sejam membros de %s."
+            ],
+            "End of content for non-members only.": [
+                "Fim do conte\u00fado apenas para n\u00e3o membros."
+            ],
+            "Non-Member Content": [
+                "Conte\u00fado de N\u00e3o Membros"
+            ],
+            "Only non-members can see this content.": [
+                "Apenas n\u00e3o membros podem ver este conte\u00fado."
+            ],
+            "Users who are not members of the selected plan(s) will see the content within this block. Leave blank to show this content to users who don't belong to any plan.": [
+                "Os usu\u00e1rios que n\u00e3o s\u00e3o membros do(s) plano(s) selecionado(s) ver\u00e3o o conte\u00fado deste bloco. Deixe em branco para mostrar este conte\u00fado a usu\u00e1rios que n\u00e3o pertencem a nenhum plano."
+            ],
+            "This content will only be shown to guests or non-members.": [
+                "Este conte\u00fado ser\u00e1 mostrado apenas para convidados ou n\u00e3o membros."
+            ]
+            
+        }
+    }
+}

@@ -21,7 +21,7 @@
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -504,7 +504,15 @@ class WC_Memberships_Membership_Plan_Rule {
 
 		$object_ids = ! empty( $this->object_ids ) && is_array( $this->object_ids ) ? array_map( 'absint', $this->object_ids ) : array();
 
-		return array_unique( $object_ids );
+		/**
+		* Filter object IDs array.
+		*
+		* @since 1.24.0
+		*
+		* @param int[] $object_ids array of all unique object IDs targeted by this rule
+		* @param \WC_Memberships_Membership_Plan_Rule $rule the current rule
+		*/
+		return apply_filters( 'wc_memberships_rule_object_ids', array_unique( $object_ids ), $this );
 	}
 
 

@@ -6,7 +6,7 @@
  * Description: Easily create custom order statuses and trigger custom emails when order status changes
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 1.13.4
+ * Version: 1.14.0
  * Text Domain: woocommerce-order-status-manager
  * Domain Path: /i18n/languages/
  *
@@ -23,7 +23,7 @@
  *
  * Woo: 588398:51fd9ab45394b4cad5a0ebf58d012342
  * WC requires at least: 3.9.4
- * WC tested up to: 6.7.0
+ * WC tested up to: 7.1.0
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -37,10 +37,10 @@ class WC_Order_Status_Manager_Loader {
 
 
 	/** minimum PHP version required by this plugin */
-	const MINIMUM_PHP_VERSION = '7.0';
+	const MINIMUM_PHP_VERSION = '7.4';
 
 	/** minimum WordPress version required by this plugin */
-	const MINIMUM_WP_VERSION = '5.2';
+	const MINIMUM_WP_VERSION = '5.6';
 
 	/** minimum WooCommerce version required by this plugin */
 	const MINIMUM_WC_VERSION = '3.9.4';

@@ -24,7 +24,7 @@
 use SkyVerge\WooCommerce\Memberships\Frontend\My_Account;
 use SkyVerge\WooCommerce\Memberships\Frontend\Profile_Fields;
 use \SkyVerge\WooCommerce\Memberships\Profile_Fields as Profile_Fields_Handler;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_13 as Framework;
 
 defined( 'ABSPATH' ) or exit;
 

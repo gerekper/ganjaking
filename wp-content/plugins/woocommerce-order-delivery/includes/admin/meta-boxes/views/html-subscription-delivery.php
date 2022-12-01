@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
 	<div class="wc-od-subscription-delivery__next-order">
 		<?php
 		foreach ( $fields as $key => $field ) :
-			wc_od_admin_field( $field );
+			wc_od_admin_field( $field, $subscription );
 		endforeach;
 		?>
 	</div>

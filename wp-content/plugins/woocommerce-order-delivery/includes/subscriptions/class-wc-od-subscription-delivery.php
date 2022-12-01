@@ -34,7 +34,7 @@ if ( ! class_exists( 'WC_OD_Subscription_Delivery' ) ) {
 			add_action( 'wp_ajax_wc_od_refresh_subscription_delivery_content', array( $this, 'refresh_delivery_content' ) );
 			add_action( 'template_redirect', array( $this, 'save_delivery' ) );
 			add_filter( 'woocommerce_form_field_wc_od_subscription_section_start', 'wc_od_subscription_section_start_field', 10, 3 );
-			add_filter( 'woocommerce_form_field_wc_od_subscription_end_start', 'wc_od_subscription_section_end_field' );
+			add_filter( 'woocommerce_form_field_wc_od_subscription_section_end', 'wc_od_subscription_section_end_field' );
 			add_filter( 'woocommerce_form_field_wc_od_subscription_delivery_days', 'wc_od_subscription_delivery_days_field', 10, 4 );
 
 			add_filter( 'wc_od_validate_subscription_field_delivery_date', array( $this, 'validate_delivery_date' ), 10, 3 );

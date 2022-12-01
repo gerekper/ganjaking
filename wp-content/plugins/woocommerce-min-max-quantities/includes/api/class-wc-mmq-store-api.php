@@ -69,6 +69,17 @@ class WC_MMQ_Store_API {
 				$value = absint( get_post_meta( $product->get_id(), 'variation_minimum_allowed_quantity', true ) );
 
 				if ( ! is_null( $cart_item ) ) {
+
+					/**
+					 * Use this filter to filter the Minimum Quantity of a product/variation.
+					 *
+					 * @since 2.2.7
+					 *
+					 * @param  string  $quantity
+					 * @param  int     $variation_id
+					 * @param  string  $cart_item_key
+					 * @param  array   $cart_item
+					 */
 					$value = absint( apply_filters( 'wc_min_max_quantity_minimum_allowed_quantity', $value, $product->get_id(), $cart_item[ 'key' ], $cart_item ) );
 				}
 			} else {
@@ -78,6 +89,17 @@ class WC_MMQ_Store_API {
 				if ( ! $allow_combination ) {
 					$value = absint( get_post_meta( $product->get_parent_id(), 'minimum_allowed_quantity', true ) );
 					if ( ! is_null( $cart_item ) ) {
+
+						/**
+						 * Use this filter to filter the Minimum Quantity of a product/variation.
+						 *
+						 * @since 2.2.7
+						 *
+						 * @param  string  $quantity
+						 * @param  int     $variation_id
+						 * @param  string  $cart_item_key
+						 * @param  array   $cart_item
+						 */
 						$value = absint( apply_filters( 'wc_min_max_quantity_minimum_allowed_quantity', $value, $product->get_id(), $cart_item[ 'key' ], $cart_item ) );
 					}
 				}
@@ -86,6 +108,17 @@ class WC_MMQ_Store_API {
 			$value = absint( get_post_meta( $product->get_id(), 'minimum_allowed_quantity', true ) );
 
 			if ( ! is_null( $cart_item ) ) {
+
+				/**
+				 * Use this filter to filter the Minimum Quantity of a product/variation.
+				 *
+				 * @since 2.2.7
+				 *
+				 * @param  string  $quantity
+				 * @param  int     $product_id
+				 * @param  string  $cart_item_key
+				 * @param  array   $cart_item
+				 */
 				$value = absint( apply_filters( 'wc_min_max_quantity_minimum_allowed_quantity', $value, $product->get_id(), $cart_item[ 'key' ], $cart_item ) );
 			}
 		}
@@ -113,18 +146,51 @@ class WC_MMQ_Store_API {
 			if ( 'yes' === $min_max_rules ) {
 				$max_quantity = absint( get_post_meta( $product->get_id(), 'variation_maximum_allowed_quantity', true ) );
 				if ( ! is_null( $cart_item ) ) {
+
+					/**
+					 * Use this filter to filter the Maximum Quantity of a product/variation.
+					 *
+					 * @since 2.2.7
+					 *
+					 * @param  string  $quantity
+					 * @param  int     $variation_id
+					 * @param  string  $cart_item_key
+					 * @param  array   $cart_item
+					 */
 					$max_quantity = absint( apply_filters( 'wc_min_max_quantity_maximum_allowed_quantity', $max_quantity, $product->get_id(), $cart_item[ 'key' ], $cart_item ) );
 				}
 			} else {
 
 				$max_quantity = absint( get_post_meta( $product->get_parent_id(), 'maximum_allowed_quantity', true ) );
 				if ( ! is_null( $cart_item ) ) {
+
+					/**
+					 * Use this filter to filter the Maximum Quantity of a product/variation.
+					 *
+					 * @since 2.2.7
+					 *
+					 * @param  string  $quantity
+					 * @param  int     $variation_id
+					 * @param  string  $cart_item_key
+					 * @param  array   $cart_item
+					 */
 					$max_quantity = absint( apply_filters( 'wc_min_max_quantity_maximum_allowed_quantity', $max_quantity, $cart_item[ 'product_id' ], $cart_item[ 'key' ], $cart_item ) );
 				}
 			}
 		} else {
 			$max_quantity = absint( get_post_meta( $product->get_id(), 'maximum_allowed_quantity', true ) );
 			if ( ! is_null( $cart_item ) ) {
+
+				/**
+				 * Use this filter to filter the Maximum Quantity of a product/variation.
+				 *
+				 * @since 2.2.7
+				 *
+				 * @param  string  $quantity
+				 * @param  int     $product_id
+				 * @param  string  $cart_item_key
+				 * @param  array   $cart_item
+				 */
 				$max_quantity = absint( apply_filters( 'wc_min_max_quantity_maximum_allowed_quantity', $max_quantity, $product->get_id(), $cart_item[ 'key' ], $cart_item ) );
 			}
 		}
@@ -156,6 +222,17 @@ class WC_MMQ_Store_API {
 				$group_of_quantity = absint( get_post_meta( $product->get_id(), 'variation_group_of_quantity', true ) );
 
 				if ( ! is_null( $cart_item ) ) {
+
+					/**
+					 * Use this filter to filter the Group of quantity of a product/variation.
+					 *
+					 * @since 2.2.7
+					 *
+					 * @param  string  $quantity
+					 * @param  int     $variation_id
+					 * @param  string  $cart_item_key
+					 * @param  array   $cart_item
+					 */
 					$group_of_quantity = absint( apply_filters( 'wc_min_max_quantity_group_of_quantity', $group_of_quantity, $product->get_id(), $cart_item[ 'key' ], $cart_item ) );
 				}
 			} else {
@@ -164,6 +241,17 @@ class WC_MMQ_Store_API {
 				if ( ! $allow_combination ) {
 					$group_of_quantity = absint( get_post_meta( $product->get_parent_id(), 'group_of_quantity', true ) );
 					if ( ! is_null( $cart_item ) ) {
+
+						/**
+						 * Use this filter to filter the Group of quantity of a product/variation.
+						 *
+						 * @since 2.2.7
+						 *
+						 * @param  string  $quantity
+						 * @param  int     $variation_id
+						 * @param  string  $cart_item_key
+						 * @param  array   $cart_item
+						 */
 						$group_of_quantity = absint( apply_filters( 'wc_min_max_quantity_group_of_quantity', $group_of_quantity, $product->get_id(), $cart_item[ 'key' ], $cart_item ) );
 					}
 				}
@@ -171,6 +259,17 @@ class WC_MMQ_Store_API {
 		} else {
 			$group_of_quantity = absint( get_post_meta( $product->get_id(), 'group_of_quantity', true ) );
 			if ( ! is_null( $cart_item ) ) {
+
+				/**
+				 * Use this filter to filter the Group of quantity of a product/variation.
+				 *
+				 * @since 2.2.7
+				 *
+				 * @param  string  $quantity
+				 * @param  int     $product_id
+				 * @param  string  $cart_item_key
+				 * @param  array   $cart_item
+				 */
 				$group_of_quantity = absint( apply_filters( 'wc_min_max_quantity_group_of_quantity', $group_of_quantity, $product->get_id(), $cart_item[ 'key' ], $cart_item ) );
 			}
 		}

@@ -6,7 +6,7 @@
  * Description: Adds a product documents element to WooCommerce product pages
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 1.13.1
+ * Version: 1.14.0
  * Text Domain: woocommerce-product-documents
  * Domain Path: /i18n/languages/
  *
@@ -22,7 +22,7 @@
  *
  * Woo: 238848:bc35cf9f51c735e4d6b2befe8ab048bb
  * WC requires at least: 3.9.4
- * WC tested up to: 6.8.0
+ * WC tested up to: 7.1.0
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -36,10 +36,10 @@ class WC_Product_Documents_Loader {
 
 
 	/** minimum PHP version required by this plugin */
-	const MINIMUM_PHP_VERSION = '7.0';
+	const MINIMUM_PHP_VERSION = '7.4';
 
 	/** minimum WordPress version required by this plugin */
-	const MINIMUM_WP_VERSION = '5.2';
+	const MINIMUM_WP_VERSION = '5.6';
 
 	/** minimum WooCommerce version required by this plugin */
 	const MINIMUM_WC_VERSION = '3.9.4';

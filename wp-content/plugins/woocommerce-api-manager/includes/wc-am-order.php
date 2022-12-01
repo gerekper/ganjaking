@@ -98,11 +98,20 @@ class WC_AM_Order {
 
 				if ( WCAM()->get_wc_subs_exist() ) {
 					// Updates only WooCommerce Subscription item products marked as API Products.
-					$this->update_wc_subscription_order( $order_id );
+					$sub_order_updated = $this->update_wc_subscription_order( $order_id );
 				}
 
 				// Updates products marked as API Products, but filters out WooCommerce Subscription items.
-				$this->update_api_order( $order_id );
+				$non_sub_order_updated = $this->update_api_order( $order_id );
+
+				if ( ! empty( $non_sub_order_updated ) || ! empty( $sub_order_updated ) ) {
+					/**
+					 * Returns the order_id for a new order or updated order.
+					 *
+					 * @since 2.4.7
+					 */
+					do_action( 'wc_am_new_or_updated_order', $order_id );
+				}
 			}
 		}
 	}
@@ -117,6 +126,7 @@ class WC_AM_Order {
 	public function update_api_order( $order_id ) {
 		global $wpdb;
 
+		$updated          = false;
 		$existng_products = array();
 		$order            = WC_AM_ORDER_DATA_STORE()->get_order_object( $order_id );
 		$line_item_data   = WC_AM_ORDER_DATA_STORE()->get_line_item_data_from_order( $order_id );
@@ -203,7 +213,7 @@ class WC_AM_Order {
 					 * Insert API resource data for new order items only.
 					 * This includes newly purchased order items, and order items added to an existing order.
 					 */
-					$wpdb->insert( $wpdb->prefix . $this->api_resource_table, $data, $format );
+					$updated = $wpdb->insert( $wpdb->prefix . $this->api_resource_table, $data, $format );
 				} else { // API resource exists, and needs to be updated.
 					$data = array(
 						'activations_purchased_total' => ! empty( $v[ 'activations_total' ] ) ? (int) $v[ 'activations_total' ] : 0,
@@ -238,7 +248,7 @@ class WC_AM_Order {
 					 * The order cannot be edited once it has a Completed status, so API resource updates only happen when
 					 * the order status is changed back to Completed.
 					 */
-					$wpdb->update( $wpdb->prefix . $this->api_resource_table, $data, $where, $data_format, $where_format );
+					$updated = $wpdb->update( $wpdb->prefix . $this->api_resource_table, $data, $where, $data_format, $where_format );
 				}
 			}
 		}
@@ -279,6 +289,8 @@ class WC_AM_Order {
 				}
 			}
 		}
+
+		return ! empty( $updated );
 	}
 
 	/**
@@ -293,6 +305,7 @@ class WC_AM_Order {
 	public function update_wc_subscription_order( $order_id ) {
 		global $wpdb;
 
+		$updated          = false;
 		$existng_products = array();
 		$order            = WC_AM_ORDER_DATA_STORE()->get_order_object( $order_id );
 		$line_item_data   = WC_AM_SUBSCRIPTION()->get_subscription_line_item_data_from_order( $order_id );
@@ -393,7 +406,7 @@ class WC_AM_Order {
 					 * Insert API resource data for new order items only.
 					 * This includes newly purchased order items, and order items added to an existing order.
 					 */
-					$wpdb->insert( $wpdb->prefix . $this->api_resource_table, $data, $format );
+					$updated = $wpdb->insert( $wpdb->prefix . $this->api_resource_table, $data, $format );
 				} else { // API resource exists, and needs to be updated.
 					/**
 					 * order_item_id is zero so this resource is not deleted if the corresponding line_item is removed from the order,
@@ -444,7 +457,7 @@ class WC_AM_Order {
 					 * The order cannot be edited once it has a Completed status, so API resource updates only happen when
 					 * the order status is changed back to Completed.
 					 */
-					$wpdb->update( $wpdb->prefix . $this->api_resource_table, $data, $where, $data_format, $where_format );
+					$updated = $wpdb->update( $wpdb->prefix . $this->api_resource_table, $data, $where, $data_format, $where_format );
 				}
 			}
 		}
@@ -482,6 +495,8 @@ class WC_AM_Order {
 				}
 			}
 		}
+
+		return ! empty( $updated );
 	}
 
 	/**

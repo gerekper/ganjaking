@@ -1,5 +1,8 @@
 *** Product CSV Import Suite Changelog ***
 
+2022-11-28 - version 1.10.53
+* Fix - Prevent file upload error.
+
 2022-11-22 - version 1.10.52
 * Declare support for HPOS.
 * Fix - Compatibility issue with Google Listings & Ads.

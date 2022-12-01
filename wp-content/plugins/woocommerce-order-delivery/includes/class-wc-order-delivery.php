@@ -29,7 +29,7 @@ final class WC_Order_Delivery {
 	 *
 	 * @var string
 	 */
-	public $version = '2.2.3';
+	public $version = '2.3.0';
 
 	/**
 	 * Constructor.
@@ -110,14 +110,23 @@ final class WC_Order_Delivery {
 	 * @since 1.1.0
 	 */
 	private function init_hooks() {
-		// Install.
 		register_activation_hook( WC_OD_FILE, array( 'WC_OD_Install', 'install' ) );
 
-		// Init.
+		add_action( 'before_woocommerce_init', array( $this, 'declare_compatibility' ) );
 		add_action( 'plugins_loaded', array( $this, 'init' ) );
-
-		// Data stores.
 		add_filter( 'woocommerce_data_stores', array( $this, 'register_data_stores' ) );
+	}
+
+	/**
+	 * Declares compatibility with the WC features.
+	 *
+	 * @since 2.3.0
+	 */
+	public function declare_compatibility() {
+		// Not compatible with the 'High-Performance Order Storage' feature.
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WC_OD_FILE, false );
+		}
 	}
 
 	/**

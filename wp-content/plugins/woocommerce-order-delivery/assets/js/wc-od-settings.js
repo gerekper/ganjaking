@@ -34,25 +34,41 @@ jQuery(function( $ ) {
 		},
 
 		deliveryCheckoutOptionsToggle: function() {
-			var $field = $( 'input[name="wc_od_checkout_delivery_option"]' ),
-				$toggleFields = $(
+			var that   = this,
+			    $field = $( 'input[name="wc_od_checkout_delivery_option"]' ),
+			    $toggleFields = $(
 					'.wc_od_time_frames,' +
 					'#wc_od_checkout_text,' +
 					'.wc_od_delivery_days,' +
 					'#wc_od_max_delivery_days,' +
-					'[name="wc_od_delivery_fields_option"],' +
-					'#wc_od_subscriptions_limit_to_billing_interval'
+					'[name="wc_od_delivery_fields_option"]'
 				).closest( 'tr' );
 
 			if ( $field.length ) {
 				if ( 'text' === $field.filter( ':checked' ).val() ) {
 					$toggleFields.hide();
+					this.settingsSectionToggle( 'subscription_options', false );
 				}
 
 				$field.on( 'change', function() {
-					$toggleFields.toggle();
+					var display = ( 'text' !== $field.filter( ':checked' ).val() );
+
+					$toggleFields.toggle( display );
+					that.settingsSectionToggle( 'subscription_options', display );
 				});
 			}
+		},
+
+		settingsSectionToggle: function( sectionId, display ) {
+			var description = $( '#' + sectionId + '-description' );
+
+			if ( ! description.length ) {
+				return;
+			}
+
+			description.toggle( display );
+			description.prev( 'h2' ).toggle( display );
+			description.next( '.form-table' ).toggle( display );
 		},
 
 		statusToggle: function() {

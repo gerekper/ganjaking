@@ -23,57 +23,21 @@ $has_outdated = false;
 		</tr>
 	</thead>
 	<tbody>
-		<tr>
-			<td data-export-label="Minimum working days"><?php esc_html_e( 'Minimum working days', 'woocommerce-order-delivery' ); ?>:</td>
-			<td class="help"></td>
-			<td>
-				<?php echo esc_html( $data['settings']['min_working_days'] ); ?>
-			</td>
-		</tr>
-		<tr>
-			<td data-export-label="Checkout location"><?php esc_html_e( 'Checkout location', 'woocommerce-order-delivery' ); ?>:</td>
-			<td class="help"></td>
-			<td>
-				<?php echo esc_html( $data['settings']['checkout_location'] ); ?>
-			</td>
-		</tr>
-		<tr>
-			<td data-export-label="Checkout options"><?php esc_html_e( 'Checkout options', 'woocommerce-order-delivery' ); ?>:</td>
-			<td class="help"></td>
-			<td>
-				<?php echo esc_html( $data['settings']['checkout_delivery_option'] ); ?>
-			</td>
-		</tr>
-		<tr>
-			<td data-export-label="Max delivery days"><?php esc_html_e( 'Max delivery days', 'woocommerce-order-delivery' ); ?>:</td>
-			<td class="help"></td>
-			<td>
-				<?php echo esc_html( $data['settings']['max_delivery_days'] ); ?>
-			</td>
-		</tr>
-		<tr>
-			<td data-export-label="Delivery fields"><?php esc_html_e( 'Delivery fields', 'woocommerce-order-delivery' ); ?>:</td>
-			<td class="help"></td>
-			<td>
-				<?php echo esc_html( $data['settings']['delivery_fields_option'] ); ?>
-			</td>
-		</tr>
-		<tr>
-			<td data-export-label="Enable local pickup"><?php esc_html_e( 'Enable local pickup', 'woocommerce-order-delivery' ); ?>:</td>
-			<td class="help"></td>
-			<td>
-				<?php WC_OD_Admin_System_Status::output_bool_html( wc_string_to_bool( $data['settings']['enable_local_pickup'] ) ); ?>
-			</td>
-		</tr>
-		<?php if ( ! is_null( $data['settings']['limit_order_renewals'] ) ) : ?>
-		<tr>
-			<td data-export-label="Limit delivery of order renewals"><?php esc_html_e( 'Limit subscription orders to the billing interval', 'woocommerce-order-delivery' ); ?>:</td>
-			<td class="help"></td>
-			<td>
-				<?php WC_OD_Admin_System_Status::output_bool_html( wc_string_to_bool( $data['settings']['limit_order_renewals'] ) ); ?>
-			</td>
-		</tr>
-		<?php endif; ?>
+		<?php foreach ( $data['settings'] as $setting ) : ?>
+			<tr>
+				<td data-export-label="<?php echo esc_attr( $setting['key'] ); ?>"><?php echo esc_html( $setting['label'] ); ?>:</td>
+				<td class="help"></td>
+				<td>
+					<?php
+					if ( isset( $setting['type'] ) && 'bool' === $setting['type'] ) :
+						WC_OD_Admin_System_Status::output_bool_html( $setting['value'] );
+					else :
+						echo esc_html( $setting['value'] );
+					endif;
+					?>
+				</td>
+			</tr>
+		<?php endforeach; ?>
 		<tr>
 			<td data-export-label="Overrides"><?php esc_html_e( 'Overrides', 'woocommerce' ); // phpcs:ignore WordPress.WP.I18n.TextDomainMismatch ?>:</td>
 			<td class="help"></td>

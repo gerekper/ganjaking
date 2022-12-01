@@ -40,34 +40,80 @@ class WC_OD_Admin_System_Status {
 			'Saturday',
 		);
 
-		$settings = array(
-			'min_working_days'         => WC_OD()->settings()->get_setting( 'min_working_days' ),
-			'shipping_days'            => WC_OD()->settings()->get_setting( 'shipping_days' ),
-			'delivery_ranges'          => WC_OD_Delivery_Ranges::get_ranges(),
-			'checkout_delivery_option' => WC_OD()->settings()->get_setting( 'checkout_delivery_option' ),
-			'delivery_days'            => wc_od_get_delivery_days(),
-			'delivery_fields_option'   => WC_OD()->settings()->get_setting( 'delivery_fields_option' ),
-			'max_delivery_days'        => WC_OD()->settings()->get_setting( 'max_delivery_days' ),
-			'enable_local_pickup'      => WC_OD()->settings()->get_setting( 'enable_local_pickup' ),
-			'limit_order_renewals'     => WC_OD()->settings()->get_setting( 'subscriptions_limit_to_billing_interval' ),
-		);
-
-		$choices           = wc_od_get_checkout_location_choices();
-		$checkout_location = WC_OD()->settings()->get_setting( 'checkout_location' );
-
-		$settings['checkout_location'] = ( isset( $choices[ $checkout_location ] ) ? $choices[ $checkout_location ] : 'undefined' );
-		$settings['delivery_ranges'][] = WC_OD_Delivery_Ranges::get_range( 0 );
+		$delivery_ranges   = WC_OD_Delivery_Ranges::get_ranges();
+		$delivery_ranges[] = WC_OD_Delivery_Ranges::get_range( 0 );
 
 		$data = array(
-			'days'      => $days,
-			'settings'  => $settings,
-			'overrides' => self::get_template_overrides(),
+			'days'            => $days,
+			'settings'        => self::get_settings(),
+			'overrides'       => self::get_template_overrides(),
+			'shipping_days'   => WC_OD()->settings()->get_setting( 'shipping_days' ),
+			'delivery_ranges' => $delivery_ranges,
+			'delivery_days'   => wc_od_get_delivery_days(),
 		);
 
 		include_once dirname( __FILE__ ) . '/views/html-admin-status-report-settings.php';
 		include_once dirname( __FILE__ ) . '/views/html-admin-status-report-shipping-days.php';
 		include_once dirname( __FILE__ ) . '/views/html-admin-status-report-delivery-ranges.php';
 		include_once dirname( __FILE__ ) . '/views/html-admin-status-report-delivery-days.php';
+	}
+
+	/**
+	 * Gets the plugin settings.
+	 *
+	 * @since 2.3.0
+	 *
+	 * @return array
+	 */
+	protected static function get_settings() {
+		$settings = WC_OD()->settings();
+
+		$checkout_location = $settings->get_setting( 'checkout_location' );
+		$location_choices  = wc_od_get_checkout_location_choices();
+
+		/**
+		 * Filters the settings to include in the System Status Report.
+		 *
+		 * @since 2.3.0
+		 *
+		 * @param array $settings An array with the settings data.
+		 */
+		return apply_filters(
+			'wc_od_system_status_report_settings',
+			array(
+				'min_working_days'         => array(
+					'key'   => 'Minimum working days',
+					'label' => __( 'Minimum working days', 'woocommerce-order-delivery' ),
+					'value' => $settings->get_setting( 'min_working_days' ),
+				),
+				'checkout_location'        => array(
+					'key'   => 'Checkout location',
+					'label' => __( 'Checkout location', 'woocommerce-order-delivery' ),
+					'value' => ( isset( $location_choices[ $checkout_location ] ) ? $location_choices[ $checkout_location ] : 'undefined' ),
+				),
+				'checkout_delivery_option' => array(
+					'key'   => 'Checkout options',
+					'label' => __( 'Checkout options', 'woocommerce-order-delivery' ),
+					'value' => $settings->get_setting( 'checkout_delivery_option' ),
+				),
+				'max_delivery_days'        => array(
+					'key'   => 'Max delivery days',
+					'label' => __( 'Maximum delivery range', 'woocommerce-order-delivery' ),
+					'value' => $settings->get_setting( 'max_delivery_days' ),
+				),
+				'delivery_fields_option'   => array(
+					'key'   => 'Delivery fields',
+					'label' => __( 'Delivery fields', 'woocommerce-order-delivery' ),
+					'value' => $settings->get_setting( 'delivery_fields_option' ),
+				),
+				'enable_local_pickup'      => array(
+					'key'   => 'Enable for Local Pickup',
+					'label' => __( 'Enable for Local Pickup', 'woocommerce-order-delivery' ),
+					'value' => $settings->get_setting( 'enable_local_pickup' ),
+					'type'  => 'bool',
+				),
+			)
+		);
 	}
 
 	/**

@@ -48,13 +48,12 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 		 * @since 1.0.0
 		 */
 		protected function __construct() {
-			$this->register_location();
-
 			// WP Hooks.
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 			add_action( 'wp_footer', array( $this, 'print_calendar_settings' ) );
 
 			// WooCommerce hooks.
+			add_action( 'woocommerce_checkout_init', array( $this, 'register_location' ) );
 			add_filter( 'woocommerce_checkout_fields', array( $this, 'checkout_fields' ) );
 			add_filter( 'woocommerce_checkout_get_value', array( $this, 'checkout_get_value' ), 10, 2 );
 			add_filter( 'woocommerce_update_order_review_fragments', array( $this, 'checkout_fragments' ) );
@@ -639,6 +638,8 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 			$fields = WC()->checkout()->get_checkout_fields( 'delivery' );
 
 			foreach ( $fields as $field_id => $field ) {
+				$value = ( isset( $data[ $field_id ] ) ? $data[ $field_id ] : '' );
+
 				/**
 				 * Filters the callback used to validate the checkout field.
 				 *
@@ -652,7 +653,7 @@ if ( ! class_exists( 'WC_OD_Checkout' ) ) {
 				$callback = apply_filters( "wc_od_checkout_{$field_id}_validation_callback", array( $this, 'validate_' . $field_id ), $field );
 
 				// Check the returned value is exactly 'false' to disambiguate legacy callbacks returning nothing.
-				if ( is_callable( $callback ) && false === call_user_func( $callback, $data[ $field_id ], $field ) ) {
+				if ( is_callable( $callback ) && false === call_user_func( $callback, $value, $field ) ) {
 					$errors->add(
 						$field_id,
 						/* translators: %s: field label */

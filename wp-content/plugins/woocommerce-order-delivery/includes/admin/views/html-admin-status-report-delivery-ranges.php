@@ -28,7 +28,7 @@
 	</thead>
 	<tbody>
 		<?php
-		foreach ( $data['settings']['delivery_ranges'] as $delivery_range ) :
+		foreach ( $data['delivery_ranges'] as $delivery_range ) :
 			$extra_info = array(
 				'Shipping methods: ' . ( $delivery_range->get_id() > 0 ? esc_html( $delivery_range->get_shipping_methods_option() ) : '-' ),
 			);

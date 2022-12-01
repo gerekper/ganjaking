@@ -1,5 +1,9 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2022.11.30 - version 10.8.1
+* Change: WooCommerce 7.2 compatibility
+* Fix: Resolve issue where PHP warning could be produced when generating product review feeds
+
 2022.11.21 - version 10.8.0
 * New: Integration with Measurement Price Calculator extension
 

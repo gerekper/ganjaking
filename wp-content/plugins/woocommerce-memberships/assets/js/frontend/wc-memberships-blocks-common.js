@@ -134,15 +134,11 @@ jQuery(function ($) {
 						$directory.find('.wcm-directory-list-wrapper').html(members);
 					} else {
 						if (filterPlan || filterStatus || searchInput) {
-							$directory.find('.wcm-directory-list-wrapper')
-								.html(`<div class="directory-placeholder-box">
-							<p>${wc_memberships_common.keywords.search_not_found}</p>
-							</div>`);
+							let message = wc_memberships_common.keywords.search_not_found;
+							$directory.find('.wcm-directory-list-wrapper').html('<div class="directory-placeholder-box"><p>' + message + '</p></div>');
 						} else {
-							$directory.find('.wcm-directory-list-wrapper')
-								.html(`<div class="directory-placeholder-box">
-							<p>${wc_memberships_common.keywords.results_not_found}</p>
-							</div>`);
+							let message = wc_memberships_common.keywords.results_not_found;
+							$directory.find('.wcm-directory-list-wrapper').html('<div class="directory-placeholder-box"><p>' + message + '</p></div>');
 						}
 					}
 					const totalMembers = request.getResponseHeader('x-wp-total');

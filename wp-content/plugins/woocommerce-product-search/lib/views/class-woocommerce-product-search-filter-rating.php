@@ -336,6 +336,8 @@ class WooCommerce_Product_Search_Filter_Rating {
 	/**
 	 * Returns product IDs for products rated at least $rating.
 	 *
+	 * @deprecated
+	 *
 	 * @param float $rating
 	 *
 	 * @return array

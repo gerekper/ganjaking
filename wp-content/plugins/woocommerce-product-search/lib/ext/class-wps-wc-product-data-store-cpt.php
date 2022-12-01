@@ -140,7 +140,11 @@ class WPS_WC_Product_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 					if ( count( $post_ids ) === 0 ) {
 						$post_ids = array( -1 );
 					}
-					$search_queries[] = " ( posts.ID IN ( " . implode( ',', array_map( 'intval', $post_ids ) ) . " ) ) ";
+
+					foreach ( $post_ids as $i => $post_id ) {
+						$post_ids[$i] = intval( $post_id );
+					}
+					$search_queries[] = " ( posts.ID IN ( " . implode( ',', $post_ids ) . " ) ) ";
 				}
 			}
 
@@ -223,10 +227,12 @@ class WPS_WC_Product_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 			}
 		}
 
-		$product_ids = array_map( 'intval', $product_ids );
-		$product_ids = array_unique( $product_ids );
-
-		return wp_parse_id_list( $product_ids );
+		$results = array();
+		foreach ( $product_ids as $product_id ) {
+			$results[] = intval( $product_id );
+		}
+		$results = array_keys( array_flip( $results ) );
+		return $results;
 	}
 }
 

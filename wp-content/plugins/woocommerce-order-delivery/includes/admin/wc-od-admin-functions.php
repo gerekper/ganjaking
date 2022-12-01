@@ -71,10 +71,12 @@ function wc_od_admin_get_field_callback( $type ) {
  * Outputs the admin field.
  *
  * @since 1.5.0
+ * @since 2.3.0 Added parameter `$data`.
  *
- * @param array $field The field data.
+ * @param array   $field The field data.
+ * @param WC_Data $data  WC_Data object, will be preferred over post object when passed.
  */
-function wc_od_admin_field( $field ) {
+function wc_od_admin_field( $field, WC_Data $data = null ) {
 	if ( ! isset( $field['type'] ) ) {
 		$field['type'] = 'text';
 	}
@@ -86,7 +88,7 @@ function wc_od_admin_field( $field ) {
 	$callback = wc_od_admin_get_field_callback( $field['type'] );
 
 	if ( is_callable( $callback ) ) {
-		call_user_func( $callback, $field );
+		call_user_func( $callback, $field, $data );
 	}
 }
 

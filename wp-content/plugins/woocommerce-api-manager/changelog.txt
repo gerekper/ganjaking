@@ -1,5 +1,11 @@
 *** WooCommerce API Manager Changelog ***
 
+2022.11.27 - version 2.4.7
+ * Notice: Declare incompatibility with WooCommerce HPOS until support is verified.
+ * Tweak: Detect WooCommerce Subscriptions included in WooCommerce core.
+ * Dev: Added wc_am_new_or_updated_order action hook that returns the order_id of a new or updated order containing API products.
+ * Dev: Can use WC_AM_API_RESOURCE_DATA_STORE()->get_all_api_resources_for_order_id( $order_id ) to get an array of all API Resource data created from the order line items. Use the plugins_loaded action hook to access the method.
+
 2022.09.14 - version 2.4.6
  * Feature: Added a product_list API endpoint which returns a unique list of product data such as Titles and Product IDs with no authentication required.
  * Fix: get_human_time_diff() method returned slightly incorrect time for date.

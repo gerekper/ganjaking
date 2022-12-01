@@ -565,85 +565,93 @@ function wc_od_update_subscription_delivery_date( $the_subscription ) {
 		return;
 	}
 
-	$delivery_date = false;
+	$delivery_details = new WC_OD_Subscription_Delivery_Details( $subscription );
 
-	// Assign a delivery date automatically.
-	if ( wc_od_subscription_needs_delivery_date( $subscription ) ) {
-		$delivery_timestamp = wc_od_get_subscription_first_delivery_date( $subscription );
+	if ( ! wc_od_subscription_needs_delivery_date( $subscription ) ) {
+		// Delete the value cloned from the previous order.
+		$delivery_details->set_delivery_date( null );
+		return;
+	}
 
-		if ( $delivery_timestamp ) {
-			// Try to adapt the date to the customer preferences.
-			if ( wc_od_subscription_has_delivery_preferences( $subscription ) ) {
-				$delivery_days = wc_od_get_subscription_preferred_delivery_days( $subscription );
-				$delivery_day  = $delivery_days->get( date( 'w', $delivery_timestamp ) );
+	// Assign a delivery date.
+	$delivery_date = $delivery_details->calculate_delivery_date(
+		array(
+			'assign'       => WC_OD()->settings()->get_setting( 'subscriptions_renewal_delivery_option' ),
+			'same_weekday' => wc_string_to_bool( WC_OD()->settings()->get_setting( 'subscriptions_renewal_same_weekday' ) ),
+		)
+	);
 
-				// The first delivery date is not an enabled day by the customer. Try with the next.
-				if ( $delivery_day && ! $delivery_day->is_enabled() ) {
-					$shipping_method = wc_od_get_order_shipping_method( $subscription );
-					$end_timestamp   = ( wc_od_get_subscription_max_delivery_date( $subscription ) + DAY_IN_SECONDS ); // Non-inclusive.
+	if ( $delivery_date ) {
+		$delivery_timestamp = $delivery_date->getTimestamp();
 
-					$next_delivery_date = wc_od_get_next_delivery_date(
-						array(
-							'subscription'       => $subscription, // Useful for developers.
-							'shipping_method'    => $shipping_method,
-							'delivery_days'      => $delivery_days->to_array(),
-							'delivery_date'      => $delivery_timestamp,
-							'end_date'           => $end_timestamp,
-							'disabled_days_args' => array(
-								'type'    => 'delivery',
-								'country' => $subscription->get_shipping_country(),
-								'state'   => $subscription->get_shipping_state(),
-							),
+		// Try to adapt the date to the customer preferences.
+		if ( wc_od_subscription_has_delivery_preferences( $subscription ) ) {
+			$delivery_days = wc_od_get_subscription_preferred_delivery_days( $subscription );
+			$delivery_day  = $delivery_days->get( $delivery_date->format( 'w' ) );
+
+			// Not a preferred day.
+			if ( $delivery_day && ! $delivery_day->is_enabled() ) {
+				$shipping_method = wc_od_get_order_shipping_method( $subscription );
+				$end_timestamp   = ( $delivery_details->get_max_delivery_date()->getTimestamp() + DAY_IN_SECONDS ); // Non-inclusive.
+
+				$next_timestamp = wc_od_get_next_delivery_date(
+					array(
+						'subscription'       => $subscription, // Useful for developers.
+						'shipping_method'    => $shipping_method,
+						'delivery_days'      => $delivery_days->to_array(),
+						'delivery_date'      => $delivery_timestamp,
+						'end_date'           => $end_timestamp,
+						'disabled_days_args' => array(
+							'type'    => 'delivery',
+							'country' => $subscription->get_shipping_country(),
+							'state'   => $subscription->get_shipping_state(),
 						),
-						'subscription'
-					);
+					),
+					'subscription'
+				);
 
-					if ( $next_delivery_date ) {
-						$delivery_timestamp = $next_delivery_date;
-					}
+				if ( $next_timestamp ) {
+					$delivery_timestamp = $next_timestamp;
 				}
 			}
+		}
 
+		/**
+		 * Filters the delivery date of a subscription.
+		 *
+		 * @since 1.3.0
+		 *
+		 * @param int             $delivery_timestamp A timestamp representing the subscription delivery date.
+		 * @param WC_Subscription $subscription       The subscription instance.
+		 */
+		$delivery_timestamp = apply_filters( 'wc_od_update_subscription_delivery_date', $delivery_timestamp, $subscription );
+
+		$delivery_date = ( $delivery_timestamp ? wc_od_timestamp_to_datetime( $delivery_timestamp ) : false );
+	}
+
+	if ( $delivery_date ) {
+		if ( $delivery_details->set_delivery_date( $delivery_date ) ) {
 			/**
-			 * Filter the delivery date of a subscription.
+			 * Fires after updating the delivery date of a subscription.
 			 *
 			 * @since 1.3.0
 			 *
 			 * @param int             $delivery_timestamp A timestamp representing the subscription delivery date.
 			 * @param WC_Subscription $subscription       The subscription instance.
 			 */
-			$delivery_timestamp = apply_filters( 'wc_od_update_subscription_delivery_date', $delivery_timestamp, $subscription );
-
-			if ( $delivery_timestamp ) {
-				$delivery_date = wc_od_localize_date( $delivery_timestamp, 'Y-m-d' );
-
-				if ( wc_od_update_order_meta( $subscription, '_delivery_date', $delivery_date, true ) ) {
-					/**
-					 * Fires immediately after updating the delivery date of a subscription.
-					 *
-					 * @since 1.3.0
-					 *
-					 * @param int             $delivery_timestamp A timestamp representing the subscription delivery date.
-					 * @param WC_Subscription $subscription       The subscription instance.
-					 */
-					do_action( 'wc_od_subscription_delivery_date_updated', $delivery_timestamp, $subscription );
-				}
-			} else {
-				/**
-				 * Fires if there is no delivery date for the subscription.
-				 *
-				 * @since 1.3.0
-				 *
-				 * @param WC_Subscription $subscription The subscription instance.
-				 */
-				do_action( 'wc_od_subscription_delivery_date_not_found', $subscription );
-			}
+			do_action( 'wc_od_subscription_delivery_date_updated', $delivery_date->getTimestamp(), $subscription );
 		}
-	}
+	} else {
+		$delivery_details->set_delivery_date( null );
 
-	if ( ! $delivery_date ) {
-		// Delete if exists the _delivery_date meta cloned from the previous order.
-		wc_od_delete_order_meta( $subscription, '_delivery_date', true );
+		/**
+		 * Fires if there is no delivery date for the subscription.
+		 *
+		 * @since 1.3.0
+		 *
+		 * @param WC_Subscription $subscription The subscription instance.
+		 */
+		do_action( 'wc_od_subscription_delivery_date_not_found', $subscription );
 	}
 }
 
@@ -716,13 +724,13 @@ function wc_od_get_subscription_delivery_fields( $the_subscription ) {
 	$delivery_date = wc_od_get_subscription_delivery_field_value( $subscription, 'delivery_date' );
 
 	$fields = array(
-		'delivery_date'    => wc_od_get_delivery_date_field_args( array(), 'subscription' ),
 		'next_order_start' => array(
 			'type'        => 'wc_od_subscription_section_start',
 			'title'       => __( 'Next order', 'woocommerce-order-delivery' ),
 			'description' => __( 'This will be the delivery details for the next order.', 'woocommerce-order-delivery' ),
 			'class'       => array( 'wc-od-subscription-next-order' ),
 		),
+		'delivery_date'    => wc_od_get_delivery_date_field_args( array(), 'subscription' ),
 	);
 
 	if ( $delivery_date ) {
