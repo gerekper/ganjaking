@@ -3,9 +3,10 @@
 namespace ACP\Sorting\Model\Post;
 
 use ACP\Sorting\FormatValue\ShortCodeCount;
+use ACP\Sorting\Model\WarningAware;
 use ACP\Sorting\Type\DataType;
 
-class Shortcodes extends FieldFormat {
+class Shortcodes extends FieldFormat implements WarningAware {
 
 	public function __construct() {
 		parent::__construct( 'post_content', new ShortCodeCount(), new DataType( DataType::NUMERIC ) );
@@ -22,7 +23,7 @@ class Shortcodes extends FieldFormat {
 
 		remove_filter( 'posts_where', [ $this, __FUNCTION__ ] );
 
-		$where .= " AND {$wpdb->posts}.post_content LIKE '%[%' AND {$wpdb->posts}.post_content LIKE '%]%' ";
+		$where .= " AND $wpdb->posts.post_content LIKE '%[%' AND $wpdb->posts.post_content LIKE '%]%' ";
 
 		return $where;
 	}

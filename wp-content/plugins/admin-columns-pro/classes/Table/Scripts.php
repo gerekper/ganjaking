@@ -2,13 +2,14 @@
 
 namespace ACP\Table;
 
-use AC;
 use AC\Asset;
+use AC\Asset\Style;
 use AC\ColumnSize;
-use AC\Registrable;
-use ACP\Settings\ListScreen\HideOnScreen;
+use AC\ListScreen;
+use AC\Registerable;
+use ACP\Asset\Script\Table;
 
-class Scripts implements Registrable {
+class Scripts implements Registerable {
 
 	/**
 	 * @var Asset\Location\Absolute
@@ -35,31 +36,15 @@ class Scripts implements Registrable {
 		add_action( 'ac/table_scripts', [ $this, 'scripts' ] );
 	}
 
-	private function is_width_configurator_enabled( AC\ListScreen $list_screen ) {
-		$hide_on_screen = new HideOnScreen\ColumnResize();
-
-		return apply_filters( 'acp/resize_columns/active', ! $hide_on_screen->is_hidden( $list_screen ), $list_screen );
-	}
-
-	public function scripts( AC\ListScreen $list_screen ) {
+	public function scripts( ListScreen $list_screen ) {
 		if ( ! $list_screen->has_id() ) {
 			return;
 		}
 
 		$assets = [
-			new AC\Asset\Style( 'acp-table', $this->location->with_suffix( 'assets/core/css/table.css' ) ),
-			new AC\Asset\Script( 'acp-table', $this->location->with_suffix( 'assets/core/js/table.js' ) ),
+			new Style( 'acp-table', $this->location->with_suffix( 'assets/core/css/table.css' ) ),
+			new Table( $this->location->with_suffix( 'assets/core/js/table.js' ), $list_screen, $this->user_storage, $this->list_storage ),
 		];
-
-		if ( $this->is_width_configurator_enabled( $list_screen ) ) {
-
-			$assets[] = new Script\ColumnResize(
-				$this->location->with_suffix( 'assets/core/js/width-configurator.js' ),
-				$list_screen,
-				$this->user_storage,
-				$this->list_storage
-			);
-		}
 
 		foreach ( $assets as $asset ) {
 			$asset->enqueue();

@@ -3,6 +3,7 @@
 namespace ACP\Column\Taxonomy;
 
 use AC;
+use ACP\ConditionalFormat;
 use ACP\Filtering;
 use ACP\Sorting;
 
@@ -10,7 +11,9 @@ use ACP\Sorting;
  * @since 2.0.0
  */
 class ID extends AC\Column
-	implements Sorting\Sortable, Filtering\Filterable {
+	implements Sorting\Sortable, Filtering\Filterable, ConditionalFormat\Formattable {
+
+	use ConditionalFormat\IntegerFormattableTrait;
 
 	public function __construct() {
 		$this->set_type( 'column-termid' );

@@ -16,24 +16,6 @@ function ACP() {
 }
 
 /**
- * @return bool
- * @since 5.1
- */
-function acp_sorting_show_all_results() {
-	$is_enabled = wp_cache_get( 'ac_show_all_results_sorting' );
-
-	if ( false === $is_enabled ) {
-		$is_enabled = ( new Sorting\Settings\AllResults() )->is_enabled()
-			? '1'
-			: '0';
-
-		wp_cache_add( 'ac_show_all_results_sorting', $is_enabled );
-	}
-
-	return '1' === $is_enabled;
-}
-
-/**
  * @return string
  * @since 4.4
  */
@@ -42,32 +24,14 @@ function acp_support_email() {
 }
 
 /**
- * Check if an addon is compatible or not
- *
- * @param string $namespace
- * @param string $version
- *
  * @return bool
+ * @deprecated 6.0
+ * @since      5.1
  */
-function acp_is_addon_compatible( $namespace, $version ) {
-	$addons = [
-		'ACA\ACF'   => '2.4',
-		'ACA\BP'    => '1.3.2',
-		'ACA\EC'    => '1.2.3',
-		'ACA\NF'    => '1.2.1',
-		'ACA\Pods'  => '1.2.1',
-		'ACA\Types' => '1.3.3',
-		'ACA\WC'    => '3.2',
-	];
+function acp_sorting_show_all_results() {
+	_deprecated_function( __FUNCTION__, '6.0' );
 
-	$namespace = rtrim( $namespace, '\\' );
-
-	if ( ! array_key_exists( $namespace, $addons ) ) {
-
-		return true;
-	}
-
-	return version_compare( $addons[ $namespace ], $version, '<=' );
+	return true;
 }
 
 /**

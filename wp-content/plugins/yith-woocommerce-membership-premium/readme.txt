@@ -2,6 +2,30 @@
 
 == Changelog ==
 
+= 1.18.0 - Released on 11 October 2022 =
+
+* New: support for WooCommerce 7.0
+* Update: YITH plugin framework
+* Update: language files
+* Fix: timezone issue when checking for membership expire date
+* Fix: timezone issue when checking for credits' update
+* Fix: show downloadable variable products in membership contents if products can be downloaded by members
+
+= 1.17.0 - Released on 20 September 2022 =
+
+* New: support for WooCommerce 6.9
+* Update: YITH plugin framework
+* Update: language files
+* Tweak: improved the way to handle hiding add-to-cart and price for members in combination with different themes
+* Tweak: new CSS class to identify single download link shown by shortcode
+* Dev: new filter 'yith_wcmbs_skip_render_protected_content_shortcode'
+
+= 1.16.0 - Released on 16 August 2022 =
+
+* New: support for WooCommerce 6.8
+* Update: YITH plugin framework
+* Update: language files
+
 = 1.15.0 - Released on 18 July 2022 =
 
 * New: support for WooCommerce 6.7

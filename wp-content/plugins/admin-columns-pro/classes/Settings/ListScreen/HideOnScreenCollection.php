@@ -5,7 +5,6 @@ namespace ACP\Settings\ListScreen;
 class HideOnScreenCollection {
 
 	const SORT_PRIORITY = 1;
-
 	const SORT_LABEL = 2;
 
 	/**

@@ -2,10 +2,10 @@
 Contributors: codepress, tschutter, davidmosterd, engelen, dungengronovius
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZDZRSYLQ4Z76J
 Tags: plugins, wordpress, admin, column, columns, custom columns, custom fields, image, dashboard, sortable, filters, posts, media, users, pages, posttypes, manage columns, wp-admin
-Requires at least: 4.7
-Tested up to: 5.4.2
-Requires PHP: 5.6.20
-Stable tag: 4.1.9
+Requires at least: 4.7.1
+Tested up to: 6.1.1
+Requires PHP: 7.2
+Stable tag: 4.6
 
 Customise columns on the administration screens for post(types), pages, media, comments, links and users with an easy to use drag-and-drop interface.
 
@@ -192,10 +192,6 @@ Great, we'd love to hear from you! Please leave your feature request in our [for
 
 You can select a custom size for your custom field option from the Column options.
 
-**my columns thumbnails still have the wrong size**
-
-If you want your already uploaded images to display the newly added size you will need to regenerate the thumbnail for them. You can use this plugin to generate the newly added sized thumbnails: http://wordpress.org/extend/plugins/regenerate-thumbnails/.
-
 = What filters and hooks can I use? =
 
 You can find a list of the available actions and filters (and examples on how to use them!) in the [Admin Columns documentation](https://www.admincolumns.com/documentation/?utm_source=wordpressorg&utm_medium=readme&utm_content=faq#filter-reference).
@@ -212,6 +208,165 @@ You can find a list of the available actions and filters (and examples on how to
 8. Posts Screen with custom fields.
 
 == Changelog ==
+
+= 4.6 =
+Release Date: November 30th, 2022
+
+* [Improved] Styling for dynamic select boxes is improved
+* [Improved] The date column setting has some minor UI improvements
+
+= 4.5.5 =
+Release Date: October 17th, 2022
+
+* [Fixed] DOMDocument will use `libxml_clear_errors` to clear any possible errors
+* [Fixed] The `word_count` method will always return an `int`
+* [Fixed] The column separator will always go through the filter: `ac/column/separator`
+* [Fixed] The link to the user profile will only be visible for users than can access that particular profile page
+* [Improved] Added the atrribute tag `ReturnTypeWillChange` to be compliant with PHP 8.x
+
+= 4.5.4 =
+Release Date: September 13th, 2022
+
+* [Fixed] JS null checks that could lead to JS errors
+* [Fixed] More PHP 8.1 compatibility fixes
+
+= 4.5.3 =
+Release Date: July 4th, 2022
+
+* [Fixed] Suppress PHP 8.1 warnings
+
+= 4.5.2 =
+Release Date: June 14th, 2022
+
+* [Added] It is now possible to select the Website display for User related columns
+* [Added] New hook to disable the column value sanitation on the table `ac/column/value/sanitize`
+
+= 4.5.1 =
+Release Date: May 16th, 2022
+
+* [Added] New Audio player column for Media list table
+* [Fixed] Prevent fatal error, when removing a non-existent column set from a Local Storage repository
+
+= 4.5 =
+Release Date: March 22nd, 2022
+
+* [Added] New Image column for the Media list table
+* [Added] The Slug column is now also available for the Media list table
+* [Improved] More thorough logic for the 'Restore Settings' option.
+* [Improved] Refactor of the Setup Script that runs when the plugin is installed and activated for the first time
+* [Improved] The Permalink column now also shows the (upcoming) permalinks for future and draft posts
+
+= 4.4.6 =
+Release Date: February 8th, 2022
+
+* [Fixed] Tooltip arrows were always visible in the dom behind the admin toolbar
+* [Removed] Support for the Ninja Forms integration is removed because of incompatibility with the new submission list table
+
+= 4.4.5 =
+Release Date: December 6th, 2021
+
+* [Hotfix] The ReadOnly class is renamed because it gave a fatal error in PHP 8.1
+
+= 4.4.4 =
+Release Date: November 8th, 2021
+
+* [Improved] UI Improvements
+
+= 4.4.3 =
+Release Date: October 26th, 2021
+
+* [Improved] The Menu Order column has no restriction anymore
+
+= 4.4.2 =
+Release Date: October 12th, 2021
+
+* [Fixed] The setting to hide the 'Edit Columns' button did not always store the settings
+* [Improved] Do not force showing notices with the hidden classes
+* [Added] JetEngine integration banner added
+
+= 4.4.1 =
+Release Date: September 28th, 2021
+
+* [Improved] Small optimizations for the Add-on page
+* [Improved] Give an idea of the available pro settings
+
+= 4.4 =
+Release Date: September 21st, 2021
+
+* [Added] Complete restyling of the Admin interface
+* [Fixed] Load a default column set when the preferred column set was restricted in the meantime
+* [Fixed] Gravatar display option did not work anymore since the value sanitation
+* [Fixed] Possible namespace clash in Admin class
+
+= 4.3.2 =
+Release Date: June 18th, 2021
+
+* [Added] Added Media columns: Artist and Album
+* [Fixed] Column date setting gave an error when the default date format was empty
+
+= 4.3.1 =
+Release Date: June 11th, 2021
+
+* [Added] Gravity Forms integration banner added
+* [Fixed] Changing the screen options on the column settings page is not persisted
+* [Fixed] Fixed data formatted labels with sanitation
+* [Fixed] The column value is now sanitized
+
+= 4.3 =
+Release Date: April 29th, 2021
+
+* [Fixed] Graceful handle corrupt column settings in order to prevent a fatal error
+* [Fixed] The date setting was not working correctly a second time you store a custom date format
+* [Fixed] Graceful handle corrupt column settings in order to prevent a fatal error
+* [Fixed] The column label in settings will now be sanitized
+
+= 4.2.7 =
+Release Date: February 8th, 2021
+
+* [Fixed] Some settings were not saved correctly on the admin settings page
+
+= 4.2.6 =
+Release Date: February 3rd, 2021
+
+* [Added] User Column: First and Last Post(type)
+* [Improved] It's now possible to select a post status for the Post Count column (User)
+
+= 4.2.5 =
+Release Date: December 15th, 2020
+
+* [Fixed] The updater could give a PHP warning when there were no updates
+* [Fixed] Display a correct message when an integration is not installed
+
+= 4.2.4 =
+Release Date: December 9th, 2020
+
+* [Fixed] WordPress 5.6 compatibility issues
+
+= 4.2.3 =
+Release Date: October 6th, 2020
+
+* [Added] Title only column added to Media list table
+* [Improved] Dashicons updates for icon picker in column settings
+* [Improved] New icons for action column added
+
+= 4.2.2 =
+Release Date: September 9th, 2020
+
+* [Fixed] Slug column now applies `urldecode()`
+* [Fixed] Links to documentation pages are updated
+
+= 4.2.1 =
+Release Date: August 21st, 2020
+
+* [Fixed] JS error on table pages
+
+= 4.2 =
+Release Date: August 18th, 2020
+
+* [Added] New api function `ac_get_columns` to retrieve the available columns for Listscreen ID
+* [Added] New api function `ac_get_column` to retrieve a single column from a Listscreen based on its ID
+* [Added] Screen Option to show the Listscreen ID and Listscreen Name on the Column settings page
+* [Fixed] Fixed User helper that gave some PHP warnings when using in the Author column
 
 = 4.1.9 =
 Release Date: July 28th, 2020

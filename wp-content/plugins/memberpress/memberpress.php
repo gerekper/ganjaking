@@ -3,7 +3,7 @@
 Plugin Name: MemberPress Pro
 Plugin URI: http://www.memberpress.com/
 Description: The membership plugin that makes it easy to accept payments for access to your content and digital products.
-Version: 1.9.50
+Version: 1.9.51
 Author: Caseproof, LLC
 Author URI: http://caseproof.com/
 Text Domain: memberpress
@@ -29,7 +29,7 @@ if(!defined('ABSPATH')) {die('You are not allowed to call this page directly.');
 
 define('MEPR_PLUGIN_SLUG','memberpress/memberpress.php');
 define('MEPR_PLUGIN_NAME','memberpress');
-define('MEPR_PATH',WP_PLUGIN_DIR.'/'.MEPR_PLUGIN_NAME);
+define('MEPR_PATH',dirname(dirname(__FILE__)).'/'.MEPR_PLUGIN_NAME);
 define('MEPR_IMAGES_PATH',MEPR_PATH.'/images');
 define('MEPR_CSS_PATH',MEPR_PATH.'/css');
 define('MEPR_JS_PATH',MEPR_PATH.'/js');
@@ -61,7 +61,7 @@ define('MEPR_GATEWAYS_URL',MEPR_URL.'/app/gateways');
 define('MEPR_VENDOR_LIB_URL',MEPR_URL.'/vendor/lib');
 define('MEPR_SCRIPT_URL',site_url('/index.php?plugin=mepr'));
 define('MEPR_OPTIONS_SLUG', 'mepr_options');
-define('MEPR_EDITION', 'memberpress-pro');
+define('MEPR_EDITION', 'memberpress-pro-5');
 
 define('MEPR_MIN_PHP_VERSION', '5.6.20');
 
@@ -404,6 +404,18 @@ set_site_transient( 'mepr_all_addons', json_encode( [
             'description' => 'WPBakery integration for MemberPress',
             'list_title' => 'WPBakery',
             'cover_image' => 'https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-wpbakery.png'
+        ]
+    ],
+'memberpress-quaderno' => [
+        'product_name' => 'MemberPress Quaderno',
+        'product_slug' => 'memberpress-quaderno',
+        'installable' => true,
+        'extra_info' => [
+            'main_file' => 'memberpress-quaderno/main.php',
+            'directory' => 'memberpress-quaderno',
+            'description' => 'MemberPress Quaderno',
+            'list_title' => 'Quaderno',
+            'cover_image' => 'https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-developer-tools.png'
         ]
     ],
     'affiliate-royale-mp' => [

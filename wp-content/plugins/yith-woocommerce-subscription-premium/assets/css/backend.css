@@ -1190,3 +1190,8 @@ span.status.cancelled {
 
 
 }
+
+/* fix for elementor */
+.yith-plugin-ui--ywsbs_subscription-post_type .yith-plugin-fw-wp-page__sub-tab-wrap .page-title-action {
+	display: none !important;
+  }

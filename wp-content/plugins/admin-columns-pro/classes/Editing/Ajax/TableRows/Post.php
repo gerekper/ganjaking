@@ -10,4 +10,10 @@ final class Post extends TableRows {
 		add_action( 'edit_posts_per_page', [ $this, 'handle_request' ] );
 	}
 
+	public function handle_request() {
+		remove_action( 'edit_posts_per_page', [ $this, __FUNCTION__ ] );
+
+		parent::handle_request();
+	}
+
 }

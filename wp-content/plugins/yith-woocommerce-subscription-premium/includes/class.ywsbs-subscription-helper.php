@@ -433,7 +433,7 @@ if ( ! class_exists( 'YWSBS_Subscription_Helper' ) ) {
 				return 0;
 			}
 
-			$last   = array_pop( $date_pause );
+			$last = array_pop( $date_pause );
 
 			return current_time( 'timestamp' ) - $last;
 		}
@@ -855,6 +855,7 @@ if ( ! class_exists( 'YWSBS_Subscription_Helper' ) ) {
 				$price .= $show_details ? '<span class="ywsbs-price-detail">' : '';
 
 				if ( ! empty( $fee_price ) ) {
+
 					$price .= '<span class="ywsbs-signup-fee">';
 					$price .= $fee_price;
 					$price .= '</span>';
@@ -912,13 +913,13 @@ if ( ! class_exists( 'YWSBS_Subscription_Helper' ) ) {
 
 			$variations = $product->get_available_variations();
 
-			$has_subscriptions = false;
+			$variations_sbs = array();
 			foreach ( $variations as $variation ) {
 				if ( ywsbs_is_subscription_product( $variation['variation_id'] ) ) {
-					$has_subscriptions = true;
-					break;
+					array_push( $variations_sbs, $variation );
 				}
 			}
+			$has_subscriptions = ! empty( $variations_sbs );
 
 			// APPLY_FILTER: ywsbs_skip_price_html_filter: return true it is possible skip the change price html.
 			if ( ! $has_subscriptions && apply_filters( 'ywsbs_skip_price_html_filter_on_variation', false, $product ) ) {
@@ -941,7 +942,6 @@ if ( ! class_exists( 'YWSBS_Subscription_Helper' ) ) {
 			$min_period = self::get_subscription_period_for_price( $min_var_prod );
 			$max_period = self::get_subscription_period_for_price( $max_var_prod );
 			if ( $min_price !== $max_price ) {
-
 				if ( ywsbs_is_subscription_product( $min_var_prod ) ) {
 					$price = ( is_numeric( $min_price ) ? wc_price( $min_price ) : $min_price ) . ( ( $min_period !== $max_period ) ? '<span class="price_time_opt"> / ' . self::get_subscription_period_for_price( $min_var_prod ) . '</span>' : '' );
 				} else {

@@ -1,4 +1,10 @@
 <?php
+/**
+ * Deposit Form Template
+ *
+ * @package woocommerce-deposits
+ */
+
 $default_selected_type = WC_Deposits_Product_Manager::get_deposit_selected_type( $post->ID );
 $style                 = 'deposit' === $default_selected_type ? 'style="display:block;"' : 'style="display:none;"';
 ?>
@@ -21,8 +27,8 @@ $style                 = 'deposit' === $default_selected_type ? 'style="display:
 	<?php endif; ?>
 
 	<?php if ( 'plan' === WC_Deposits_Product_Manager::get_deposit_type( $post->ID ) ) : ?>
-		<ul class="wc-deposits-payment-plans" <?php echo $style; ?>>
-			<?php foreach( WC_Deposits_Plans_Manager::get_plans_for_product( $post->ID ) as $key => $plan ) : ?>
+		<ul class="wc-deposits-payment-plans" <?php echo $style; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped ?>>
+			<?php foreach ( WC_Deposits_Plans_Manager::get_plans_for_product( $post->ID ) as $key => $plan ) : ?>
 				<li class="wc-deposits-payment-plan">
 					<input type="radio" name="wc_deposit_payment_plan" <?php checked( $key, 0 ); ?> value="<?php echo esc_attr( $plan->get_id() ); ?>" id="wc-deposits-payment-plan-<?php echo esc_attr( $plan->get_id() ); ?>" />
 					<label for="wc-deposits-payment-plan-<?php echo esc_attr( $plan->get_id() ); ?>">
@@ -33,8 +39,8 @@ $style                 = 'deposit' === $default_selected_type ? 'style="display:
 			<?php endforeach; ?>
 		</ul>
 	<?php else : ?>
-		<div class="wc-deposits-payment-description" <?php echo $style; ?>>
-			<?php echo WC_Deposits_Product_Manager::get_formatted_deposit_amount( $post->ID ); ?>
+		<div class="wc-deposits-payment-description" <?php echo $style; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already escaped ?>>
+			<?php echo wp_kses_post( WC_Deposits_Product_Manager::get_formatted_deposit_amount( $post->ID ) ); ?>
 		</div>
 	<?php endif; ?>
 </div>

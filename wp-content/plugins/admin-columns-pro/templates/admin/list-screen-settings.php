@@ -1,7 +1,7 @@
 <?php
 
-use AC\Form\Element\Toggle;
 use AC\Form\Element\Select;
+use AC\Form\Element\Toggle;
 use ACP\Bookmark\Setting\PreferredSegment;
 use ACP\Sorting\Settings\ListScreen\PreferredSort;
 
@@ -160,6 +160,35 @@ if ( ! defined( 'ABSPATH' ) ) {
 									<?php else: ?>
 										<p class="ac-setbox__descriptive">
 											<?php _e( "No public saved filters available.", 'codepress-admin-columns' ); ?>
+										</p>
+									<?php endif; ?>
+								</div>
+							</div>
+						</div>
+
+					<?php endif; ?>
+
+					<?php if ( $this->can_primary_column ) : ?>
+
+						<div class="ac-setbox__row -sub -primary-column">
+							<div class="ac-setbox__row__th">
+								<label><?= __( 'Primary Column', 'codepress-admin-columns' ); ?></label>
+								<?php echo $this->tooltip_primary_column->get_label(); ?>
+								<?php echo $this->tooltip_primary_column->get_instructions(); ?>
+							</div>
+							<div class="ac-setbox__row__fields">
+								<div class="ac-setbox__row__fields__inner">
+									<?php if ( $this->primary_columns ) : ?>
+										<div class="radio-labels radio-labels">
+											<?php
+											$select = new Select( 'primary_column', $this->primary_columns );
+
+											echo $select->set_class( 'primary_column' )->set_value( $this->primary_column );
+											?>
+										</div>
+									<?php else : ?>
+										<p class="ac-setbox__descriptive">
+											<?php _e( "Remove actions column to change the primary column.", 'codepress-admin-columns' ); ?>
 										</p>
 									<?php endif; ?>
 								</div>

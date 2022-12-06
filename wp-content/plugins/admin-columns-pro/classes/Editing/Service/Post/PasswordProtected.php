@@ -12,7 +12,7 @@ class PasswordProtected extends BasicStorage {
 		parent::__construct( new Field( 'post_password' ) );
 	}
 
-	public function get_view( $context ) {
+	public function get_view( string $context ): ?View {
 		return new View\Text();
 	}
 

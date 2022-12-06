@@ -9,6 +9,7 @@ use AC\Request;
 use ACP\Access\ActivationKeyStorage;
 use ACP\Access\ActivationUpdater;
 use ACP\Access\PermissionChecker;
+use ACP\Access\PermissionsStorage;
 use ACP\Access\Rule\ApiActivateResponse;
 use ACP\API;
 use ACP\Nonce;
@@ -52,13 +53,27 @@ class LicenseActivate implements RequestHandler {
 	 */
 	private $permission_checker;
 
-	public function __construct( ActivationKeyStorage $activation_key_storage, RequestDispatcher $api, SiteUrl $site_url, PluginDataUpdater $products_updater, ActivationUpdater $activation_updater, PermissionChecker $permission_checker ) {
+	/**
+	 * @var PermissionsStorage
+	 */
+	private $permission_storage;
+
+	public function __construct(
+		ActivationKeyStorage $activation_key_storage,
+		RequestDispatcher $api,
+		SiteUrl $site_url,
+		PluginDataUpdater $products_updater,
+		ActivationUpdater $activation_updater,
+		PermissionChecker $permission_checker,
+		PermissionsStorage $permission_storage
+	) {
 		$this->activation_key_storage = $activation_key_storage;
 		$this->api = $api;
 		$this->site_url = $site_url;
 		$this->products_updater = $products_updater;
 		$this->activation_updater = $activation_updater;
 		$this->permission_checker = $permission_checker;
+		$this->permission_storage = $permission_storage;
 	}
 
 	/**
@@ -102,6 +117,10 @@ class LicenseActivate implements RequestHandler {
 		if ( $response->has_error() ) {
 			$this->error_notice( $response->get_error()->get_error_message() );
 
+			if ( $this->permission_storage->retrieve()->has_usage_permission() ) {
+				$this->succes_notice( __( 'Product is activated, but automatic updates are disabled.', 'codepress-admin-columns' ) );
+			}
+
 			return;
 		}
 
@@ -120,7 +139,15 @@ class LicenseActivate implements RequestHandler {
 		wp_clean_plugins_cache();
 		wp_update_plugins();
 
-		( new Notice( $response->get( 'message' ) ) )->register();
+		$this->succes_notice( $response->get( 'message' ) );
+	}
+
+	private function info_notice( string $message ): void {
+		( new Notice( $message ) )->set_type( Message::INFO )->register();
+	}
+
+	private function succes_notice( string $message ): void {
+		( new Notice( $message ) )->register();
 	}
 
 	private function error_notice( $message ) {

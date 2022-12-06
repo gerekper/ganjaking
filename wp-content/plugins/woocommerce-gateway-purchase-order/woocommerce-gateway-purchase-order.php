@@ -3,17 +3,18 @@
  * Plugin Name: WooCommerce Purchase Order Payment Gateway
  * Plugin URI: https://woocommerce.com/products/woocommerce-gateway-purchase-order/
  * Description: Receive payments via purchase order with Woocommerce.
- * Version: 1.2.13
+ * Version: 1.3.0
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
- * Requires at least: 4.1.0
- * Tested up to: 6.0
+ * Requires at least: 5.6
+ * Requires PHP: 7.0
+ * Tested up to: 6.1
  *
  * Text Domain: woocommerce-gateway-purchase-order
  * Domain Path: /languages/
  * Woo: 478542:573a92318244ece5facb449d63e74874
- * WC tested up to: 6.5
- * WC requires at least: 2.6
+ * WC tested up to: 7.1
+ * WC requires at least: 6.0
  *
  * Originally developed, and sold to WooCommerce in it's original state, by Viren Bohra ( http://enticesolution.com/ ).
  *
@@ -64,3 +65,14 @@ function woocommerce_gateway_purchase_order_register_gateway( $methods ) {
 	return $methods;
 }
 
+/**
+ * Declares support for HPOS.
+ *
+ * @return void
+ */
+function woocommerce_gateway_purchase_order_declare_hpos_compatibility() {
+	if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+	}
+}
+add_action( 'before_woocommerce_init', 'woocommerce_gateway_purchase_order_declare_hpos_compatibility' );

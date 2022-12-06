@@ -2,17 +2,11 @@
 
 namespace ACP\Editing\Service\Post;
 
-use AC\Request;
-use ACP\Editing\Service;
+use ACP\Editing\Service\BasicStorage;
 use ACP\Editing\Storage;
 use ACP\Editing\View;
 
-class Content implements Service {
-
-	/**
-	 * @var Storage
-	 */
-	private $storage;
+class Content extends BasicStorage {
 
 	/**
 	 * @var View
@@ -20,20 +14,13 @@ class Content implements Service {
 	private $view;
 
 	public function __construct( View $view ) {
+		parent::__construct( new Storage\Post\Field( 'post_content' ) );
+
 		$this->view = $view;
-		$this->storage = new Storage\Post\Field( 'post_content' );
 	}
 
-	public function get_value( $id ) {
-		return $this->storage->get( $id );
-	}
-
-	public function get_view( $context ) {
+	public function get_view( string $context ): ?View {
 		return $this->view;
-	}
-
-	public function update( Request $request ) {
-		return $this->storage->update( (int) $request->get( 'id' ), $request->get( 'value' ) );
 	}
 
 }

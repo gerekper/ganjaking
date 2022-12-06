@@ -2,7 +2,11 @@
 
 namespace ACP\Column\NetworkSite;
 
-class Path extends Property {
+use ACP\ConditionalFormat;
+
+class Path extends Property implements ConditionalFormat\Formattable {
+
+	use ConditionalFormat\ConditionalFormatTrait;
 
 	public function __construct() {
 		$this->set_type( 'column-msite_path' );

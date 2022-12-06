@@ -2,9 +2,9 @@
 
 namespace ACP\Editing\Service;
 
-use AC\Request;
 use ACP\Editing\Service;
 use ACP\Editing\Storage;
+use ACP\Editing\Value\Data;
 use ACP\Editing\View;
 use DateTime as PhpDateTime;
 
@@ -13,7 +13,7 @@ class DateTime implements Service {
 	const FORMAT = 'Y-m-d H:i:s';
 
 	/**
-	 * @var View
+	 * @var View\DateTime
 	 */
 	private $view;
 
@@ -33,11 +33,19 @@ class DateTime implements Service {
 		$this->date_format = (string) $date_format;
 	}
 
-	public function get_view( $context ) {
+	public function get_view( string $context ): ?View {
 		return $this->view;
 	}
 
-	public function get_value( $id ) {
+	public function update( int $id, $data ): void {
+		if ( $data ) {
+			$data = PhpDateTime::createFromFormat( self::FORMAT, $data )->format( $this->date_format );
+		}
+
+		$this->storage->update( $id, $data );
+	}
+
+	public function get_value( int $id ) {
 		$value = $this->storage->get( $id );
 
 		if ( ! $value ) {
@@ -46,17 +54,9 @@ class DateTime implements Service {
 
 		$date = PhpDateTime::createFromFormat( $this->date_format, $value );
 
-		return $date ? $date->format( self::FORMAT ) : false;
-	}
-
-	public function update( Request $request ) {
-		$value = $request->get( 'value' );
-
-		$formattedValue = $value
-			? PhpDateTime::createFromFormat( self::FORMAT, $value )->format( $this->date_format )
-			: $value;
-
-		return $this->storage->update( $request->get( 'id' ), $formattedValue );
+		return $date
+			? $date->format( self::FORMAT )
+			: false;
 	}
 
 }

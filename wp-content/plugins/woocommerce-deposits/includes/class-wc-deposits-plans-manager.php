@@ -1,4 +1,10 @@
 <?php
+/**
+ * Deposits plans manager
+ *
+ * @package woocommerce-deposits
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -11,7 +17,7 @@ class WC_Deposits_Plans_Manager {
 	/**
 	 * Get a payment plan by ID.
 	 *
-	 * @param  int $plan_id
+	 * @param  int $plan_id Plan ID.
 	 * @return WC_Deposits_Plan
 	 */
 	public static function get_plan( $plan_id ) {
@@ -56,14 +62,14 @@ class WC_Deposits_Plans_Manager {
 	 * Get the default plan IDs.
 	 */
 	public static function get_default_plan_ids() {
-		return get_option( 'wc_deposits_default_plans', array() );
+		return array_map( 'absint', array_filter( (array) get_option( 'wc_deposits_default_plans', array() ) ) );
 	}
 
 	/**
 	 * Get plan ids assigned to a product.
 	 *
-	 * @param  int $product_id
-	 * @return array of ids
+	 * @param  int $product_id Product ID.
+	 * @return int[]
 	 */
 	public static function get_plan_ids_for_product( $product_id ) {
 		$map = array_map( 'absint', array_filter( (array) WC_Deposits_Product_Meta::get_meta( $product_id, '_wc_deposit_payment_plans' ) ) );
@@ -76,8 +82,8 @@ class WC_Deposits_Plans_Manager {
 	/**
 	 * Get payment plans for a product.
 	 *
-	 * @param  int $product_id
-	 * @return array of WC_Deposits_Plan
+	 * @param  int $product_id Product ID.
+	 * @return WC_Deposits_Plan[]
 	 */
 	public static function get_plans_for_product( $product_id ) {
 		global $wpdb;
@@ -85,7 +91,14 @@ class WC_Deposits_Plans_Manager {
 		$plans    = array();
 		$plan_ids = array_merge( array( 0 ), self::get_plan_ids_for_product( $product_id ) );
 
-		foreach ( $wpdb->get_results( "SELECT * FROM {$wpdb->wc_deposits_payment_plans} WHERE ID IN (" . implode( ',', $plan_ids ) . ")" ) as $result ) {
+		$results = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT * FROM {$wpdb->wc_deposits_payment_plans} WHERE ID IN (" . implode( ',', array_fill( 0, count( $plan_ids ), '%s' ) ) . ')',
+				$plan_ids
+			)
+		);
+
+		foreach ( $results as $result ) {
 			$plans[] = new WC_Deposits_Plan( $result );
 		}
 		return $plans;
@@ -98,10 +111,10 @@ class WC_Deposits_Plans_Manager {
 	 * paid and the parent order has a status of partially paid, processing or completed.
 	 *
 	 * @since  1.1.6
-	 * @param  WC_Order $parent_order
+	 * @param  WC_Order $parent_order Parent order.
 	 * @return bool
 	 */
-	public static function is_order_plan_fully_paid( $parent_order  ) {
+	public static function is_order_plan_fully_paid( $parent_order ) {
 		if ( ! $parent_order->has_status( array( 'processing', 'completed', 'partial-payment' ) ) ) {
 			return false;
 		}
@@ -111,7 +124,7 @@ class WC_Deposits_Plans_Manager {
 		$fully_paid      = true;
 
 		foreach ( $related_orders as $order_post ) {
-			$order = wc_get_order(  $order_post );
+			$order = wc_get_order( $order_post );
 			if ( ! $order->has_status( array( 'processing', 'completed' ) ) ) {
 				$fully_paid = false;
 				break;

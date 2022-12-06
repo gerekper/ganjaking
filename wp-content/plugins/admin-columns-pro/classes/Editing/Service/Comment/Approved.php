@@ -14,7 +14,7 @@ class Approved extends BasicStorage {
 		parent::__construct( new Storage\Comment\Field( 'comment_approved' ) );
 	}
 
-	public function get_view( $context ) {
+	public function get_view( string $context ): ?View {
 		$options = new ToggleOptions(
 			new Option( 0, __( 'Unapprove' ) ),
 			new Option( 1, __( 'Approve' ) )

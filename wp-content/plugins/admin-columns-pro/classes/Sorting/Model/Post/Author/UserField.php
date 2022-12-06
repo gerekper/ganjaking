@@ -4,6 +4,7 @@ namespace ACP\Sorting\Model\Post\Author;
 
 use ACP;
 use ACP\Sorting\AbstractModel;
+use ACP\Sorting\Model\SqlOrderByFactory;
 
 class UserField extends AbstractModel {
 
@@ -27,23 +28,13 @@ class UserField extends AbstractModel {
 	}
 
 	public function sorting_clauses_callback( $clauses ) {
+		remove_filter( 'posts_clauses', [ $this, __FUNCTION__ ] );
+
 		global $wpdb;
 
-		$order = esc_sql( $this->get_order() );
-
-		$join_type = $this->show_empty
-			? 'LEFT'
-			: 'INNER';
-
-		$clauses['join'] .= " {$join_type} JOIN {$wpdb->users} AS acsort_users ON {$wpdb->posts}.post_author = acsort_users.ID";
-
-		if ( ! $this->show_empty ) {
-			$clauses['join'] .= sprintf( " AND acsort_users.`%s` <> ''", esc_sql( $this->user_field ) );
-		}
-
-		$clauses['orderby'] = sprintf( "acsort_users.%s $order, $wpdb->posts.ID $order", esc_sql( $this->user_field ) );
-
-		remove_filter( 'posts_clauses', [ $this, __FUNCTION__ ] );
+		$clauses['join'] .= " LEFT JOIN $wpdb->users AS acsort_users ON $wpdb->posts.post_author = acsort_users.ID";
+		$clauses['orderby'] = SqlOrderByFactory::create( sprintf( "acsort_users.%s", $this->user_field ), $this->get_order() );
+		$clauses['orderby'] .= sprintf( ", $wpdb->posts.ID %s", esc_sql( $this->get_order() ) );
 
 		return $clauses;
 	}

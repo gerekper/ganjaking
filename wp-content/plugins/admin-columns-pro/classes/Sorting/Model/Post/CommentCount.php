@@ -3,13 +3,14 @@
 namespace ACP\Sorting\Model\Post;
 
 use ACP\Sorting\AbstractModel;
+use ACP\Sorting\Model\SqlOrderByFactory;
 
 class CommentCount extends AbstractModel {
 
-	const STATUS_APPROVED = '1';
-	const STATUS_SPAM = 'spam';
-	const STATUS_TRASH = 'trash';
-	const STATUS_PENDING = '0';
+	public const STATUS_APPROVED = '1';
+	public const STATUS_SPAM = 'spam';
+	public const STATUS_TRASH = 'trash';
+	public const STATUS_PENDING = '0';
 
 	/**
 	 * @var array
@@ -31,23 +32,18 @@ class CommentCount extends AbstractModel {
 	}
 
 	public function posts_fields_callback( $clauses ) {
+		remove_filter( 'posts_clauses', [ $this, __FUNCTION__ ] );
+
 		global $wpdb;
 
-		$join_type = $this->show_empty
-			? 'LEFT'
-			: 'INNER';
-
-		$clauses['fields'] .= ", COUNT( acsort_comments.comment_ID ) AS acsort_commentcount";
-		$clauses['join'] .= " {$join_type} JOIN {$wpdb->comments} AS acsort_comments ON acsort_comments.comment_post_ID = {$wpdb->posts}.ID";
+		$clauses['join'] .= "\nLEFT JOIN $wpdb->comments AS acsort_comments ON acsort_comments.comment_post_ID = $wpdb->posts.ID";
 
 		if ( $this->stati ) {
-			$clauses['join'] .= sprintf( " AND acsort_comments.comment_approved IN ( '%s' )", implode( "','", array_map( 'esc_sql', $this->stati ) ) );
+			$clauses['join'] .= sprintf( "\nAND acsort_comments.comment_approved IN ( '%s' )", implode( "','", array_map( 'esc_sql', $this->stati ) ) );
 		}
 
-		$clauses['groupby'] = "{$wpdb->posts}.ID";
-		$clauses['orderby'] = sprintf( "acsort_commentcount %s, %s", $this->get_order(), $clauses['orderby'] );
-
-		remove_filter( 'posts_clauses', [ $this, __FUNCTION__ ] );
+		$clauses['groupby'] = "$wpdb->posts.ID";
+		$clauses['orderby'] = SqlOrderByFactory::create_with_count( "acsort_comments.comment_ID", $this->get_order() );
 
 		return $clauses;
 	}

@@ -4,8 +4,10 @@ namespace ACP\Sorting\Model\User;
 
 use ACP\Sorting\AbstractModel;
 use ACP\Sorting\FormatValue;
+use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Sorter;
 use ACP\Sorting\Type\DataType;
+use WP_User_Query;
 
 /**
  * Sorts a user list table on a meta key. The meta value may contain mixed values, as long
@@ -37,9 +39,21 @@ class MetaFormat extends AbstractModel {
 	}
 
 	public function get_sorting_vars() {
+		add_action( 'pre_user_query', [ $this, 'pre_user_query_callback' ] );
+
 		return [
-			'ids' => $this->get_sorted_ids(),
+			'suppress_filters' => false,
 		];
+	}
+
+	public function pre_user_query_callback( WP_User_Query $query ) {
+		remove_action( 'pre_user_query', [ $this, __FUNCTION__ ] );
+
+		global $wpdb;
+
+		$query->query_orderby = sprintf( "ORDER BY %s, $wpdb->users.ID",
+			SqlOrderByFactory::create_with_ids( "$wpdb->users.ID", $this->get_sorted_ids(), $this->get_order() ) ?: $query->query_orderby
+		);
 	}
 
 	/**
@@ -48,12 +62,10 @@ class MetaFormat extends AbstractModel {
 	private function get_sorted_ids() {
 		global $wpdb;
 
-		$join_type = $this->show_empty ? 'LEFT' : 'INNER';
-
 		$sql = $wpdb->prepare( "
 			SELECT uu.ID AS id, um.meta_value AS value
-			FROM {$wpdb->users} AS uu
-			{$join_type} JOIN {$wpdb->usermeta} AS um ON uu.ID = um.user_id
+			FROM $wpdb->users AS uu
+			LEFT JOIN $wpdb->usermeta AS um ON uu.ID = um.user_id
 				AND um.meta_key = %s AND um.meta_value <> ''
 		", $this->meta_key );
 
@@ -73,7 +85,7 @@ class MetaFormat extends AbstractModel {
 			$values[ $id ] = trim( implode( ' ', $meta_values ) );
 		}
 
-		return ( new Sorter() )->sort( $values, $this->get_order(), $this->data_type, $this->show_empty );
+		return ( new Sorter() )->sort( $values, $this->data_type );
 	}
 
 }

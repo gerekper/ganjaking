@@ -2,11 +2,11 @@
 
 namespace ACP\Search;
 
-use AC\Registrable;
+use AC\Registerable;
 use ACP\Search\Query\Bindings;
 use LogicException;
 
-abstract class Query implements Registrable {
+abstract class Query implements Registerable {
 
 	/**
 	 * @var Bindings[]

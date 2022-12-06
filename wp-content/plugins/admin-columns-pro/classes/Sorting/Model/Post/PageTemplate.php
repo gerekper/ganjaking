@@ -16,6 +16,7 @@ class PageTemplate extends MetaMapping {
 		}
 
 		$templates = array_flip( $templates );
+
 		natcasesort( $templates );
 
 		return array_keys( $templates );

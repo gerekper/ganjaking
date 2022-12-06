@@ -2,8 +2,8 @@
 
 namespace ACP\Editing\Strategy;
 
+use ACP\Editing\RequestHandler;
 use ACP\Editing\Strategy;
-use WP_Term;
 
 class Taxonomy implements Strategy {
 
@@ -13,25 +13,16 @@ class Taxonomy implements Strategy {
 		$this->taxonomy = $taxonomy;
 	}
 
-	/**
-	 * @param WP_Term|int $term_or_term_id
-	 *
-	 * @return bool
-	 */
-	public function user_has_write_permission( $term_or_term_id ) {
-		if ( ! current_user_can( 'manage_categories' ) ) {
-			return false;
-		}
+	public function user_can_edit() {
+		return current_user_can( 'manage_categories' );
+	}
 
-		if ( ! $term_or_term_id instanceof WP_Term ) {
-			$term = get_term_by( 'id', $term_or_term_id, $this->taxonomy );
+	public function user_can_edit_item( $id ) {
+		return $this->user_can_edit() && current_user_can( 'edit_term', $id );
+	}
 
-			if ( ! $term instanceof WP_Term ) {
-				return false;
-			}
-		}
-
-		return true;
+	public function get_query_request_handler() {
+		return new RequestHandler\Query\Taxonomy();
 	}
 
 }

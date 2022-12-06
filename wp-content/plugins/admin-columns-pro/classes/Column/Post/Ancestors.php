@@ -5,6 +5,7 @@ namespace ACP\Column\Post;
 use AC\Collection;
 use AC\Column;
 use AC\Settings;
+use ACP\ConditionalFormat;
 use ACP\Export;
 use ACP\Filtering;
 use ACP\Search;
@@ -14,7 +15,9 @@ use ACP\Sorting;
  * @since 4.2
  */
 class Ancestors extends Column
-	implements Export\Exportable, Filtering\Filterable, Search\Searchable, Sorting\Sortable {
+	implements Export\Exportable, Filtering\Filterable, Search\Searchable, Sorting\Sortable, ConditionalFormat\Formattable {
+
+	use ConditionalFormat\ConditionalFormatTrait;
 
 	public function __construct() {
 		$this->set_type( 'column-ancestors' );

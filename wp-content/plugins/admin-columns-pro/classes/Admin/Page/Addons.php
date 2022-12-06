@@ -3,33 +3,51 @@
 namespace ACP\Admin\Page;
 
 use AC;
-use AC\Asset\Location;
 use AC\IntegrationRepository;
-use AC\PluginInformation;
 use AC\Renderable;
-use ACP\Access\PermissionsStorage;
-use ACP\Admin;
+use AC\View;
+use ACP;
 
 class Addons extends AC\Admin\Page\Addons {
 
-	/**
-	 * @var PermissionsStorage
-	 */
-	private $permission_repository;
-
-	public function __construct( Location\Absolute $location_lite, IntegrationRepository $integration_repository, PermissionsStorage $permission_repository, Renderable $head ) {
-		parent::__construct( $location_lite, $integration_repository, $head );
-
-		$this->permission_repository = $permission_repository;
+	protected function render_actions( AC\Integration $addon ): ?Renderable {
+		return $addon->is_plugin_active()
+			? ( new View() )->set_template( 'admin/page/component/addon/active-label' )
+			: null;
 	}
 
-	protected function render_actions( AC\Integration $addon ) {
-		return new Admin\Section\AddonStatus(
-			new PluginInformation( $addon->get_basename() ),
-			is_multisite(),
-			is_network_admin(),
-			$this->permission_repository
-		);
+	protected function get_grouped_addons() {
+		$groups = [];
+
+		$active = $this->integrations->find_all( [
+			IntegrationRepository::ARG_FILTER => [
+				new ACP\Integration\Filter\IsProActive(),
+			],
+		] );
+
+		if ( $active->exists() ) {
+			$groups[] = [
+				'title'        => __( 'Active', 'codepress-admin-columns' ),
+				'class'        => 'active',
+				'integrations' => $active,
+			];
+		}
+
+		$not_active = $this->integrations->find_all( [
+			IntegrationRepository::ARG_FILTER => [
+				new AC\Integration\Filter\IsPluginNotActive(),
+			],
+		] );
+
+		if ( $not_active->exists() ) {
+			$groups[] = [
+				'title'        => __( 'Available', 'codepress-admin-columns' ),
+				'class'        => 'available',
+				'integrations' => $not_active,
+			];
+		}
+
+		return $groups;
 	}
 
 }

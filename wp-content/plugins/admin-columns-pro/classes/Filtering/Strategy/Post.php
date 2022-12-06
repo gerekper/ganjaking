@@ -42,7 +42,7 @@ class Post extends Strategy {
 			SELECT DISTINCT {$field}
 			FROM {$wpdb->posts}
 			WHERE post_type = %s
-			AND {$post_field} <> ''
+			AND CAST({$post_field} as CHAR(1)) <> ''
 			ORDER BY 1
 		";
 

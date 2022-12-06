@@ -16,14 +16,14 @@ class Field implements Storage {
 		$this->field = (string) $field;
 	}
 
-	public function get( $id ) {
+	public function get( int $id ) {
 		return get_post_field( $this->field, $id, 'raw' );
 	}
 
-	public function update( $id, $value ) {
+	public function update( int $id, $data ): bool {
 		$args = [
 			'ID'         => $id,
-			$this->field => $value,
+			$this->field => $data,
 		];
 
 		$result = wp_update_post( $args );

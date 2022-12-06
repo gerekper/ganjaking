@@ -2,8 +2,10 @@
 
 namespace ACP\Editing;
 
-use AC;
 use AC\Column;
+use ACP\Editing\ApplyFilter;
+use ACP\Editing\Factory\BulkEditFactory;
+use ACP\Editing\Factory\InlineEditFactory;
 
 /**
  * Get all data settings needed to load editing for the WordPress list table
@@ -11,83 +13,64 @@ use AC\Column;
 class EditableDataFactory {
 
 	/**
-	 * @param AC\ListScreen $list_screen
-	 *
-	 * @return array
+	 * @var InlineEditFactory
 	 */
-	public function create( AC\ListScreen $list_screen ) {
-		$is_table_inline_editable = $this->is_list_screen_inline_editable( $list_screen );
-		$is_table_bulk_editable = $this->is_list_screen_bulk_editable( $list_screen );
+	private $inline_edit_factory;
 
-		if ( ! $is_table_inline_editable && ! $is_table_bulk_editable ) {
-			return [];
+	/**
+	 * @var BulkEditFactory
+	 */
+	private $bulk_edit_factory;
+
+	public function __construct( InlineEditFactory $inline_edit_factory, BulkEditFactory $bulk_edit_factory ) {
+		$this->inline_edit_factory = $inline_edit_factory;
+		$this->bulk_edit_factory = $bulk_edit_factory;
+	}
+
+	public function create() {
+		$data = [];
+
+		foreach ( $this->inline_edit_factory->create() as $column ) {
+			$column_data = $this->create_data_by_column( $column, Service::CONTEXT_SINGLE );
+
+			if ( $column_data ) {
+				$data[ $column->get_name() ]['type'] = $column->get_type();
+				$data[ $column->get_name() ]['inline_edit'] = $column_data;
+			}
 		}
 
-		$editable_data = [];
-		foreach ( $list_screen->get_columns() as $column ) {
-			$service = ServiceFactory::create( $column );
+		foreach ( $this->bulk_edit_factory->create() as $column ) {
+			$column_data = $this->create_data_by_column( $column, Service::CONTEXT_BULK );
 
-			if ( ! $service instanceof Service ) {
-				continue;
+			if ( $column_data ) {
+				$data[ $column->get_name() ]['type'] = $column->get_type();
+				$data[ $column->get_name() ]['bulk_edit'] = $column_data;
 			}
-
-			$inline_data = $is_table_inline_editable && $this->is_inline_edit_active( $column )
-				? $this->create_data_by_service( $service, $column, Service::CONTEXT_SINGLE )
-				: null;
-
-			$bulk_data = $is_table_bulk_editable && $this->is_bulk_edit_active( $column )
-				? $this->create_data_by_service( $service, $column, Service::CONTEXT_BULK )
-				: null;
-
-			if ( ! $inline_data && ! $bulk_data ) {
-				continue;
-			}
-
-			$editable_data[ $column->get_name() ] = [
-				'type'        => $column->get_type(),
-				'inline_edit' => $inline_data,
-				'bulk_edit'   => $bulk_data,
-			];
 		}
 
-		return $editable_data;
+		return $data;
 	}
 
 	/**
-	 * @param AC\ListScreen $list_screen
-	 *
-	 * @return bool
-	 */
-	private function is_list_screen_bulk_editable( AC\ListScreen $list_screen ) {
-		$is_enabled = ! ( new HideOnScreen\BulkEdit() )->is_hidden( $list_screen );
-
-		return (bool) apply_filters( 'acp/editing/bulk/active', $is_enabled, $list_screen );
-	}
-
-	/**
-	 * @param AC\ListScreen $list_screen
-	 *
-	 * @return bool
-	 */
-	private function is_list_screen_inline_editable( AC\ListScreen $list_screen ) {
-		return ! ( new HideOnScreen\InlineEdit() )->is_hidden( $list_screen );
-	}
-
-	/**
-	 * @param Service $service
-	 * @param Column  $column
-	 * @param string  $context
+	 * @param Column $column
+	 * @param string $context
 	 *
 	 * @return array|null
 	 */
-	private function create_data_by_service( Service $service, Column $column, $context ) {
-		$view = ( new ApplyFilter\View( $column, $context, $service ) )->apply_filters( $service->get_view( $context ) );;
+	private function create_data_by_column( Column $column, $context ) {
+		$service = ServiceFactory::create( $column );
 
-		if ( ! $view ) {
+		$filter = new ApplyFilter\View( $column, $context, $service );
+
+		$view = $filter->apply_filters( $service->get_view( $context ) );
+
+		if ( ! $view instanceof View ) {
 			return null;
 		}
-		
-		$data = apply_filters_deprecated( 'acp/editing/view_settings', [ $view->get_args(), $column ], '5.7', "acp/editing/view" );
+
+		$data = $view->get_args();
+
+		$data = apply_filters_deprecated( 'acp/editing/view_settings', [ $data, $column ], '5.7', "acp/editing/view" );
 		$data = apply_filters_deprecated( 'acp/editing/view_settings/' . $column->get_type(), [ $data, $column ], '5.7', "acp/editing/view" );
 
 		if ( ! is_array( $data ) ) {
@@ -98,40 +81,11 @@ class EditableDataFactory {
 			$data['options'] = $this->format_js( $data['options'] );
 		}
 
-		return (array) $data;
+		return $data;
 	}
 
 	/**
-	 * @param Column $column
-	 *
-	 * @return bool
-	 */
-	private function is_bulk_edit_active( Column $column ) {
-		$setting = $column->get_setting( Settings\BulkEditing::NAME );
-
-		$is_active = $setting instanceof Settings\BulkEditing && $setting->is_active();
-
-		/**
-		 * @deprecated 5.7
-		 */
-		$is_active = apply_filters( 'acp/editing/bulk-edit-active', $is_active, $column );
-
-		return apply_filters( 'acp/editing/bulk/is_active', $is_active, $column );
-	}
-
-	/**
-	 * @param Column $column
-	 *
-	 * @return bool
-	 */
-	private function is_inline_edit_active( Column $column ) {
-		$setting = $column->get_setting( Settings::NAME );
-
-		return $setting instanceof Settings && $setting->is_active();
-	}
-
-	/**
-	 * @param $list
+	 * @param array $list
 	 *
 	 * @return array
 	 */

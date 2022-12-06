@@ -56,7 +56,7 @@ final class Taxonomy extends ACP\Filtering\Strategy {
 		$values = $wpdb->get_col( "
 			SELECT DISTINCT {$term_field}
 			FROM {$wpdb->terms}
-			WHERE {$term_field} <> ''
+			WHERE CAST({$term_field} as CHAR(1)) <> ''
 			ORDER BY 1
 		" );
 

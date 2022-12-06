@@ -1,5 +1,8 @@
 *** WooCommerce Address Validation Changelog ***
 
+2022.12.01 - version 2.10.0
+ * Misc - Require PHP 7.4 and WordPress 5.6
+
 2022.10.03 - version 2.9.0
  * Misc - SmartyStreets retirement
 

@@ -1,4 +1,10 @@
 <?php
+/**
+ * Deposits product meta
+ *
+ * @package woocommerce-deposits
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -10,14 +16,21 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_Deposits_Product_Meta {
 
-	/** @var object Class Instance */
+	/**
+	 * Class instance
+	 *
+	 * @var WC_Deposits_Product_Meta
+	 */
 	private static $instance;
 
 	/**
 	 * Get the class instance.
 	 */
 	public static function get_instance() {
-		return null === self::$instance ? ( self::$instance = new self ) : self::$instance;
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
 	}
 
 	/**

@@ -3,12 +3,12 @@
 namespace ACP\Service;
 
 use AC\Capabilities;
-use AC\Registrable;
+use AC\Registerable;
 use ACP\ActivationTokenFactory;
 use ACP\Transient\UpdateCheckTransientHourly;
 use ACP\Updates\PluginDataUpdater;
 
-class ForcePluginUpdate implements Registrable {
+class ForcePluginUpdate implements Registerable {
 
 	/**
 	 * @var ActivationTokenFactory
@@ -27,7 +27,6 @@ class ForcePluginUpdate implements Registrable {
 
 	public function register() {
 		add_action( 'admin_init', [ $this, 'force_plugin_updates' ] );
-
 		add_action( 'load-plugins.php', [ $this, 'force_plugin_updates_cached' ], 9 );
 		add_action( 'load-update-core.php', [ $this, 'force_plugin_updates_cached' ], 9 );
 		add_action( 'load-update.php', [ $this, 'force_plugin_updates_cached' ], 9 );
@@ -59,12 +58,12 @@ class ForcePluginUpdate implements Registrable {
 	 * @return void
 	 */
 	public function force_plugin_updates_cached() {
-		$cache = new UpdateCheckTransientHourly();
+		$transient = new UpdateCheckTransientHourly();
 
-		if ( $cache->is_expired() ) {
+		if ( $transient->is_expired() ) {
 			$this->updater->update( $this->activation_token_factory->create() );
 
-			$cache->save();
+			$transient->save();
 		}
 	}
 

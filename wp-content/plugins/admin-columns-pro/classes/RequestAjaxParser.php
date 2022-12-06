@@ -3,9 +3,9 @@
 namespace ACP;
 
 use AC\Ajax;
-use AC\Registrable;
+use AC\Registerable;
 
-class RequestAjaxParser implements Registrable {
+class RequestAjaxParser implements Registerable {
 
 	/**
 	 * @var RequestAjaxHandlers

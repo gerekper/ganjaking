@@ -16,7 +16,7 @@ class Field implements Storage {
 		$this->field = (string) $field;
 	}
 
-	public function get( $id ) {
+	public function get( int $id ) {
 		$comment = get_comment( $id );
 
 		return property_exists( $comment, $this->field )
@@ -24,10 +24,10 @@ class Field implements Storage {
 			: null;
 	}
 
-	public function update( $id, $value ) {
+	public function update( int $id, $data ): bool {
 		$args = [
-			'comment_ID' => (int) $id,
-			$this->field => $value,
+			'comment_ID' => $id,
+			$this->field => $data,
 		];
 
 		$result = wp_update_comment( $args );

@@ -23,7 +23,7 @@ class WC_Deposits_Blocks_Integration implements IntegrationInterface {
 	 *
 	 * @var WC_Deposits_Blocks_Integration
 	 */
-	protected static $_instance = null;
+	protected static $instance = null;
 
 	/**
 	 * Main WC_Deposits_Blocks_Integration instance. Ensures only one instance of WC_Deposits_Blocks_Integration is loaded or can be loaded.
@@ -32,24 +32,24 @@ class WC_Deposits_Blocks_Integration implements IntegrationInterface {
 	 * @return WC_Deposits_Blocks_Integration
 	 */
 	public static function instance() {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self();
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
 		}
-		return self::$_instance;
+		return self::$instance;
 	}
 
 	/**
 	 * Cloning is forbidden.
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Oops!', 'woocommerce-deposits' ) );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Oops!', 'woocommerce-deposits' ), '1.6.2' );
 	}
 
 	/**
 	 * Unserializing instances of this class is forbidden.
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Oops!', 'woocommerce-deposits' ) );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Oops!', 'woocommerce-deposits' ), '1.6.2' );
 	}
 
 	/**
@@ -70,18 +70,18 @@ class WC_Deposits_Blocks_Integration implements IntegrationInterface {
 		$script_path       = '/assets/dist/frontend/blocks' . $suffix . '.js';
 		$script_asset_path = WC_DEPOSITS_ABSPATH . 'assets/dist/frontend/blocks.asset.php';
 		$script_asset      = file_exists( $script_asset_path )
-			? require( $script_asset_path )
+			? require $script_asset_path
 			: array(
 				'dependencies' => array(),
-				'version'      => WC_DEPOSITS_VERSION
+				'version'      => WC_DEPOSITS_VERSION,
 			);
 		$script_url        = WC_DEPOSITS_PLUGIN_URL . $script_path;
 
 		wp_register_script(
 			'wc-deposits-blocks',
 			$script_url,
-			$script_asset[ 'dependencies' ],
-			$script_asset[ 'version' ],
+			$script_asset['dependencies'],
+			$script_asset['version'],
 			true
 		);
 

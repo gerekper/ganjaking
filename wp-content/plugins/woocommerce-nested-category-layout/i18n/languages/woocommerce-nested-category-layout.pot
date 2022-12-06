@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Nested Category Layout 1.18.0\n"
+"Project-Id-Version: WooCommerce Nested Category Layout 1.18.1\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2022-11-29 10:41:38+00:00\n"
+"POT-Creation-Date: 2022-12-02 18:29:40+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,29 +13,29 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: class-wc-nested-category-layout.php:471
+#: class-wc-nested-category-layout.php:474
 msgid "Catalog Pages by Category"
 msgstr ""
 
-#: class-wc-nested-category-layout.php:473
+#: class-wc-nested-category-layout.php:476
 msgid ""
 "The following options determine which catalog pages will display nested "
 "subcategories and products."
 msgstr ""
 
-#: class-wc-nested-category-layout.php:478
+#: class-wc-nested-category-layout.php:481
 msgid "Products per Subcategory"
 msgstr ""
 
-#: class-wc-nested-category-layout.php:479
+#: class-wc-nested-category-layout.php:482
 msgid "The number of products to display per subcategory"
 msgstr ""
 
-#: class-wc-nested-category-layout.php:488
+#: class-wc-nested-category-layout.php:491
 msgid "Show products/subcategories"
 msgstr ""
 
-#: class-wc-nested-category-layout.php:489
+#: class-wc-nested-category-layout.php:492
 msgid "Shop Page"
 msgstr ""
 
@@ -43,7 +43,7 @@ msgstr ""
 msgid "WooCommerce Nested Category Layout"
 msgstr ""
 
-#: templates/loop/nested-category.php:92
+#: templates/loop/nested-category.php:100
 msgid "See more"
 msgstr ""
 

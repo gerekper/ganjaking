@@ -12,11 +12,7 @@ class Status extends AbstractModel {
 		return [];
 	}
 
-	public function orderby_status() {
-		global $wpdb;
-
-		remove_filter( 'posts_orderby', [ $this, __FUNCTION__ ] );
-
+	private function get_stati(): array {
 		$translated_stati = [];
 
 		foreach ( get_post_stati( null, 'objects' ) as $key => $post_status ) {
@@ -25,9 +21,17 @@ class Status extends AbstractModel {
 
 		natcasesort( $translated_stati );
 
-		$fields = implode( "','", array_map( 'esc_sql', array_keys( $translated_stati ) ) );
+		return array_keys( $translated_stati );
+	}
 
-		return sprintf( "FIELD( {$wpdb->posts}.post_status, '%s' ) %s", $fields, $this->get_order() );
+	public function orderby_status() {
+		global $wpdb;
+
+		remove_filter( 'posts_orderby', [ $this, __FUNCTION__ ] );
+
+		$fields = implode( "','", array_map( 'esc_sql', $this->get_stati() ) );
+
+		return sprintf( "FIELD( $wpdb->posts.post_status, '%s' ) %s", $fields, $this->get_order() );
 	}
 
 }

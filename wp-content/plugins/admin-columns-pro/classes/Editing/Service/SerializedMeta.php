@@ -2,16 +2,14 @@
 
 namespace ACP\Editing\Service;
 
-use AC\Request;
 use ACP\Editing\Service;
-use ACP\Editing\Storage\Meta;
+use ACP\Editing\Storage;
 use ACP\Editing\View;
-use RuntimeException;
 
-class SerializedMeta implements Service {
+class SerializedMeta implements Service, Editability {
 
 	/**
-	 * @var Meta
+	 * @var Storage\Meta
 	 */
 	private $storage;
 
@@ -20,54 +18,57 @@ class SerializedMeta implements Service {
 	 */
 	private $keys;
 
-	public function __construct( Meta $storage, array $keys ) {
+	public function __construct( Storage\Meta $storage, array $keys ) {
 		$this->storage = $storage;
 		$this->keys = $keys;
 	}
 
-	public function get_view( $context ) {
+	public function get_view( string $context ): ?View {
 		return new View\Text();
 	}
 
-	public function get_value( $id ) {
+	public function is_editable( int $id ): bool {
 		$value = $this->storage->get( $id );
 
-		if ( empty( $value ) ) {
-			return false;
+		if ( is_array( $value ) ) {
+			$value = ac_helper()->array->get_nested_value( $value, $this->keys );
 		}
 
-		$values = ac_helper()->array->get_nested_value( $value, $this->keys );
-
-		// Only scaler values are editable
-		return $values && is_scalar( $values )
-			? $values
-			: null;
+		return ! ( $value && ! is_scalar( $value ) );
 	}
 
-	private function is_integer( $string ) {
+	public function get_not_editable_reason( int $id ): string {
+		return __( 'Data must be `scalar`.', 'codepress-admin-columns' );
+	}
+
+	public function get_value( int $id ) {
+		$value = $this->storage->get( $id );
+
+		if ( $value && is_array( $value ) ) {
+			$value = ac_helper()->array->get_nested_value( $value, $this->keys );
+		}
+
+		return $value ?: false;
+	}
+
+	private function is_integer( $string ): bool {
 		return strval( (int) $string ) === $string;
 	}
 
-	public function update( Request $request ) {
-		$value = $request->get( 'value' );
-
-		if ( ! is_scalar( $value ) ) {
-			throw new RuntimeException( 'Invalid value.' );
-		}
-
+	private function maybe_cast_value( $value ) {
 		if ( $this->is_integer( $value ) ) {
 			$value = (int) $value;
 		}
 
-		$id = (int) $request->get( 'id' );
+		return $value;
+	}
 
-		$values = $this->storage->get( $id );
-
-		if ( $values && ! is_array( $values ) ) {
-			throw new RuntimeException( 'Currently stored data is not an array.' );
-		}
-
-		$values = ac_helper()->array->add_nested_value( $this->keys, $value, $values ?: [] );
+	public function update( int $id, $data ): void {
+		$values = ac_helper()->array->add_nested_value(
+			$this->keys,
+			$this->maybe_cast_value( $data ),
+			$this->storage->get( $id ) ?: []
+		);
 
 		$this->storage->update( $id, $values );
 	}

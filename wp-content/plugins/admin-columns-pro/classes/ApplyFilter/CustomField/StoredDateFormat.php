@@ -16,7 +16,7 @@ class StoredDateFormat implements AC\ApplyFilter {
 	}
 
 	public function apply_filters( $date_format ) {
-		return apply_filters( 'acp/custom_field/stored_date_format', $date_format, $this->column );
+		return (string) apply_filters( 'acp/custom_field/stored_date_format', $date_format, $this->column );
 	}
 
 }

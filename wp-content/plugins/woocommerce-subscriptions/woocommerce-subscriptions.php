@@ -5,10 +5,10 @@
  * Description: Sell products and services with recurring payments in your WooCommerce Store.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
- * Version: 4.6.0
+ * Version: 4.7.0
  *
- * WC requires at least: 4.4
- * WC tested up to: 6.5.0
+ * WC requires at least: 6.0
+ * WC tested up to: 7.1.0
  * Woo: 27147:6115e6d7e297b623a169fdcf5728b224
  *
  * Copyright 2019 WooCommerce
@@ -31,11 +31,8 @@
  * @since   1.0
  */
 
-/**
- * Required functions
- */
-if ( ! function_exists( 'woothemes_queue_update' ) || ! function_exists( 'is_woocommerce_active' ) ) {
-	require_once dirname( __FILE__ ) . '/woo-includes/woo-functions.php';
+if ( ! function_exists( 'is_plugin_active' ) ) {
+	include_once ABSPATH . 'wp-admin/includes/plugin.php';
 }
 
 /**
@@ -43,7 +40,7 @@ if ( ! function_exists( 'woothemes_queue_update' ) || ! function_exists( 'is_woo
  *
  * @since 1.0
  */
-if ( ! is_woocommerce_active() || version_compare( get_option( 'woocommerce_db_version' ), WC_Subscriptions::$wc_minimum_supported_version, '<' ) ) {
+if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) || version_compare( get_option( 'woocommerce_db_version' ), WC_Subscriptions::$wc_minimum_supported_version, '<' ) ) {
 	add_action( 'admin_notices', 'WC_Subscriptions::woocommerce_inactive_notice' );
 	return;
 }
@@ -85,10 +82,10 @@ class WC_Subscriptions {
 	public static $plugin_file = __FILE__;
 
 	/** @var string */
-	public static $version = '4.6.0';
+	public static $version = '4.7.0';
 
 	/** @var string */
-	public static $wc_minimum_supported_version = '4.4';
+	public static $wc_minimum_supported_version = '6.0';
 
 	/** @var WCS_Cache_Manager */
 	public static $cache;
@@ -122,7 +119,7 @@ class WC_Subscriptions {
 		if ( current_user_can( 'activate_plugins' ) ) {
 			$admin_notice_content = '';
 
-			if ( ! is_woocommerce_active() ) {
+			if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 				$install_url = wp_nonce_url(
 					add_query_arg(
 						array(
@@ -211,10 +208,6 @@ register_activation_hook( __FILE__, 'add_woocommerce_inbox_variant' );
  * @return WCS_Autoloader
  */
 function wcs_init_autoloader() {
-	if ( ! function_exists( 'is_plugin_active' ) ) {
-		include_once ABSPATH . 'wp-admin/includes/plugin.php';
-	}
-
 	$wcs_core_plugin_slug = 'woocommerce-subscriptions-core/woocommerce-subscriptions-core.php';
 	$is_wcs_core_active   = ( isset( $_GET['action'], $_GET['plugin'] ) && 'activate' === $_GET['action'] && $wcs_core_plugin_slug === $_GET['plugin'] ) || is_plugin_active( $wcs_core_plugin_slug ); //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	$wcs_core_path        = $is_wcs_core_active ? WP_PLUGIN_DIR . '/woocommerce-subscriptions-core/' : dirname( __FILE__ ) . '/vendor/woocommerce/subscriptions-core/';

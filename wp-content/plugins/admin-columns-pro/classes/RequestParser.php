@@ -2,10 +2,10 @@
 
 namespace ACP;
 
-use AC\Registrable;
+use AC\Registerable;
 use AC\Request;
 
-class RequestParser implements Registrable {
+class RequestParser implements Registerable {
 
 	/**
 	 * @var RequestHandlerFactory

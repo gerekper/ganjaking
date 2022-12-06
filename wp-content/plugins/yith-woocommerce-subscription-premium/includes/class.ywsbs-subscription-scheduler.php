@@ -66,10 +66,16 @@ if ( ! class_exists( 'YWSBS_Subscription_Scheduler' ) ) {
 			/**
 			 * The action scheduler uses UTC+0 time so we need to adjust the date according to this
 			 */
-			$gmt_offset = absint( get_option( 'gmt_offset' ) ) * 3600;
-			$new_date   = $gmt_offset > 0 ? ( absint( $new_date ) + $gmt_offset ) : ( absint( $new_date ) - $gmt_offset );
+			$gmt_offset        = absint( get_option( 'gmt_offset' ) ) * 3600;
+			$new_date          = $gmt_offset > 0 ? ( absint( $new_date ) + $gmt_offset ) : ( absint( $new_date ) - $gmt_offset );
+			$is_stripe_classic = false;
 
-			if ( 'payment_due_date' === $date_key && 'paypal' === $subscription->get_payment_method() ) {
+			if ( 'yith-stripe' === $subscription->get_payment_method() ) {
+				$options           = get_option( 'woocommerce_yith-stripe_settings' );
+				$is_stripe_classic = ! isset( $options['renew_mode'] ) || ( isset( $options['renew_mode'] ) && 'stripe' === $options['renew_mode'] );
+			}
+
+			if ( 'payment_due_date' === $date_key && ( 'paypal' === $subscription->get_payment_method() || ( $is_stripe_classic ) ) ) {
 				$new_date = ( $new_date - 12 * HOUR_IN_SECONDS );
 			}
 

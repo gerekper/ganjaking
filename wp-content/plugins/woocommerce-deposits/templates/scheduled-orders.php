@@ -1,4 +1,9 @@
 <?php
+/**
+ * Scheduled Orders Template
+ *
+ * @package woocommerce-deposits
+ */
 
 defined( 'ABSPATH' ) || exit;
 

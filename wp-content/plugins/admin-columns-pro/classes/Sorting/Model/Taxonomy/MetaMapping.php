@@ -2,26 +2,28 @@
 
 namespace ACP\Sorting\Model\Taxonomy;
 
+use ACP\Sorting\Model\SqlOrderByFactory;
+
 class MetaMapping extends Meta {
 
 	/**
 	 * @var array
 	 */
-	protected $sorted_fields;
+	protected $fields;
 
-	public function __construct( $meta_key, $sorted_fields ) {
+	public function __construct( string $meta_key, array $fields ) {
 		parent::__construct( $meta_key );
 
-		$this->sorted_fields = $sorted_fields;
+		$this->fields = $fields;
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function get_order_by() {
-		$fields = implode( "','", array_map( 'esc_sql', $this->sorted_fields ) );
-
-		return sprintf( "ORDER BY FIELD( acsort_termmeta.meta_value, '%s' ) %s, t.term_id", $fields, $this->get_order() );
+	protected function get_order_by(): string {
+		return SqlOrderByFactory::create_with_field(
+			"acsort_termmeta.meta_value",
+			$this->fields,
+			$this->get_order(),
+			$this->data_type
+		);
 	}
 
 }

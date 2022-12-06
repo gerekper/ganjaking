@@ -1,0 +1,224 @@
+[
+    {
+        "version": "5.1.0",
+        "title": "Events",
+        "type": "tribe_events",
+        "id": "fb05c58507b4ac61",
+        "updated": 1585130632,
+        "columns": {
+            "title": {
+                "type": "title",
+                "label": "Title",
+                "width": "",
+                "width_unit": "%",
+                "edit": "on",
+                "sort": "on",
+                "name": "title"
+            },
+            "59b7d458b00cc": {
+                "type": "column-ec-event_featured",
+                "label": "Featured",
+                "width": 100,
+                "width_unit": "px",
+                "edit": "on",
+                "sort": "on",
+                "filter": "on",
+                "filter_label": "",
+                "name": "59b7d458b00cc"
+            },
+            "start-date": {
+                "type": "start-date",
+                "label": "Start Date",
+                "width": "",
+                "width_unit": "%",
+                "edit": "on",
+                "filter": "on",
+                "filter_label": "",
+                "filter_format": "future_past",
+                "name": "start-date"
+            },
+            "end-date": {
+                "type": "end-date",
+                "label": "End Date",
+                "width": "",
+                "width_unit": "%",
+                "edit": "on",
+                "filter": "on",
+                "filter_label": "",
+                "filter_format": "future_past",
+                "name": "end-date"
+            },
+            "59b7d458b0595": {
+                "type": "column-ec-event_organizer",
+                "label": "Organizer",
+                "width": "",
+                "width_unit": "%",
+                "post_property_display": "title",
+                "post_link_to": "edit_post",
+                "edit": "on",
+                "sort": "on",
+                "filter": "on",
+                "filter_label": "",
+                "name": "59b7d458b0595"
+            },
+            "59b7d458b1341": {
+                "type": "column-ec-event_venue",
+                "label": "Venue",
+                "width": "",
+                "width_unit": "%",
+                "post_property_display": "title",
+                "post_link_to": "edit_post",
+                "edit": "on",
+                "sort": "on",
+                "filter": "on",
+                "filter_label": "",
+                "name": "59b7d458b1341"
+            }
+        },
+        "settings": []
+    },
+    {
+        "version": "5.1.0",
+        "title": "Organizers",
+        "type": "tribe_organizer",
+        "id": "c4b2fc79f987018d",
+        "updated": 1585130632,
+        "columns": {
+            "title": {
+                "type": "title",
+                "label": "Title",
+                "width": "",
+                "width_unit": "%",
+                "edit": "on",
+                "sort": "on",
+                "name": "title"
+            },
+            "59bf6e93a27e7": {
+                "type": "column-ec-organizer_events",
+                "label": "All Events",
+                "width": "",
+                "width_unit": "%",
+                "show_filter_link": "on",
+                "event_display": "all",
+                "name": "59bf6e93a27e7"
+            },
+            "59c8ea4d49278": {
+                "type": "column-ec-organizer_upcoming_event",
+                "label": "Upcoming Event",
+                "width": "",
+                "width_unit": "%",
+                "post_link_to": "edit_post",
+                "show_event_date": "on",
+                "filter": "on",
+                "filter_label": "",
+                "name": "59c8ea4d49278"
+            },
+            "59ca0fabcc947": {
+                "type": "column-ec-organizer_email",
+                "label": "Email",
+                "width": "",
+                "width_unit": "%",
+                "edit": "on",
+                "sort": "on",
+                "filter": "on",
+                "filter_label": "",
+                "name": "59ca0fabcc947"
+            },
+            "59ca0fabcd448": {
+                "type": "column-ec-organizer_phone",
+                "label": "Phone",
+                "width": "",
+                "width_unit": "%",
+                "edit": "on",
+                "sort": "on",
+                "filter": "on",
+                "filter_label": "",
+                "name": "59ca0fabcd448"
+            },
+            "59ca0fabcd89e": {
+                "type": "column-ec-organizer_website",
+                "label": "Website",
+                "width": "",
+                "width_unit": "%",
+                "edit": "on",
+                "sort": "on",
+                "filter": "on",
+                "filter_label": "",
+                "name": "59ca0fabcd89e"
+            }
+        },
+        "settings": []
+    },
+    {
+        "version": "5.1.0",
+        "title": "Venues",
+        "type": "tribe_venue",
+        "id": "4b841959135a207a",
+        "updated": 1585130632,
+        "columns": {
+            "title": {
+                "type": "title",
+                "label": "Title",
+                "width": "",
+                "width_unit": "%",
+                "edit": "on",
+                "sort": "on",
+                "name": "title"
+            },
+            "59c8e9cfb2ed4": {
+                "type": "column-ec-venue_upcoming_event",
+                "label": "Upcoming Event",
+                "width": "",
+                "width_unit": "%",
+                "post_link_to": "edit_post",
+                "show_event_date": "on",
+                "filter": "on",
+                "filter_label": "",
+                "name": "59c8e9cfb2ed4"
+            },
+            "59c8e9cfb3a94": {
+                "type": "column-ec-venue_events",
+                "label": "Total Events",
+                "width": "",
+                "width_unit": "%",
+                "show_filter_link": "on",
+                "event_display": "all",
+                "name": "59c8e9cfb3a94"
+            },
+            "59c8e9cfb43fc": {
+                "type": "column-ec-venue_city",
+                "label": "City",
+                "width": "",
+                "width_unit": "%",
+                "edit": "on",
+                "sort": "on",
+                "filter": "on",
+                "filter_label": "Cities",
+                "name": "59c8e9cfb43fc"
+            },
+            "59ca10124613a": {
+                "type": "column-ec-venue_phone",
+                "label": "Phone",
+                "width": "",
+                "width_unit": "%",
+                "edit": "on",
+                "sort": "on",
+                "filter": "on",
+                "filter_label": "Phone Numbers",
+                "name": "59ca10124613a"
+            },
+            "59ca101246563": {
+                "type": "column-ec-venue_website",
+                "label": "Website",
+                "width": "",
+                "width_unit": "%",
+                "edit": "on",
+                "sort": "on",
+                "filter": "on",
+                "filter_label": "Websites",
+                "name": "59ca101246563"
+            }
+        },
+        "settings": []
+    }
+]

@@ -1,5 +1,8 @@
 *** WooCommerce Cost of Goods Changelog ***
 
+2022.12.01 - version 2.12.0
+ * Misc - Require PHP 7.4 and WordPress 5.6
+
 2022.08.30 - version 2.11.3
  * Fix - Ensure that when getting costs refunded for an order item there are no PHP errors in sites running PHP 8.0+
 

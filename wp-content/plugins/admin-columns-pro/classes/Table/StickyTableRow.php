@@ -6,7 +6,7 @@ use AC;
 use AC\ListScreenRepository\Storage;
 use AC\Type\ListScreenId;
 
-class StickyTableRow implements AC\Registrable {
+class StickyTableRow implements AC\Registerable {
 
 	/**
 	 * @var Storage

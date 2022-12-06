@@ -3,6 +3,7 @@
 namespace ACP\Sorting\Model\User\RelatedMeta;
 
 use ACP\Sorting\AbstractModel;
+use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\DataType;
 use WP_User_Query;
 
@@ -22,7 +23,7 @@ class PostField extends AbstractModel {
 		parent::__construct( $data_type );
 
 		$this->field = $field;
-		$this->meta_key = $meta_key;
+		$this->meta_key = (string) $meta_key;
 	}
 
 	public function get_sorting_vars() {
@@ -34,29 +35,21 @@ class PostField extends AbstractModel {
 	public function pre_user_query_callback( WP_User_Query $query ) {
 		global $wpdb;
 
-		$order = $this->get_order();
+		remove_action( 'pre_user_query', [ $this, __FUNCTION__ ] );
 
-		$join_type = $this->show_empty
-			? 'LEFT'
-			: 'INNER';
-
-		$query->query_fields .= sprintf( ", acsort_posts.%s AS acsort_related_field", esc_sql( $this->field ) );
 		$query->query_from .= $wpdb->prepare( "
-			{$join_type} JOIN {$wpdb->usermeta} AS acsort_usermeta ON acsort_usermeta.user_id = {$wpdb->users}.ID
+			LEFT JOIN $wpdb->usermeta AS acsort_usermeta ON acsort_usermeta.user_id = $wpdb->users.ID
 				AND acsort_usermeta.meta_key = %s
-			{$join_type} JOIN {$wpdb->posts} AS acsort_posts ON acsort_posts.ID = acsort_usermeta.meta_value
+			LEFT JOIN $wpdb->posts AS acsort_posts ON acsort_posts.ID = acsort_usermeta.meta_value
 		", $this->meta_key );
 
-		if ( ! $this->show_empty ) {
-			$query->query_from .= sprintf( " AND acsort_posts.%s <> ''", esc_sql( $this->field ) );
-		}
-
-		$query->query_orderby = "
-			GROUP BY {$wpdb->users}.ID
-			ORDER BY acsort_related_field $order, {$wpdb->users}.ID $order
-		";
-
-		remove_action( 'pre_user_query', [ $this, __FUNCTION__ ] );
+		$query->query_orderby = sprintf( "
+			GROUP BY $wpdb->users.ID
+			ORDER BY %s, $wpdb->users.ID %s
+		",
+			SqlOrderByFactory::create( "acsort_posts.`$this->field`", $this->get_order() ),
+			esc_sql( $this->get_order() )
+		);
 	}
 
 }

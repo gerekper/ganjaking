@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Membership\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "membership\n"
-"POT-Creation-Date: 2022-07-18T09:04:10+02:00\n"
+"POT-Creation-Date: 2022-10-11T12:25:52+02:00\n"
 "PO-Revision-Date: 2020-11-11 09:53:57+0000\n"
 "Language: el_GR\n"
 "MIME-Version: 1.0\n"
@@ -86,7 +86,7 @@ msgstr "ID"
 
 #: includes/admin/class.yith-wcmbs-admin-profile-premium.php:229
 #: includes/class.yith-wcmbs-admin.php:640
-#: includes/class.yith-wcmbs-advanced-administration.php:186
+#: includes/class.yith-wcmbs-advanced-administration.php:189
 #: includes/class.yith-wcmbs-membership.php:589
 #: templates/premium/membership/membership-plans.php:33
 #: views/metaboxes/membership_info_content.php:26
@@ -95,7 +95,7 @@ msgstr "Ημερομηνία Έναρξης"
 
 #: includes/admin/class.yith-wcmbs-admin-profile-premium.php:230
 #: includes/class.yith-wcmbs-admin.php:641
-#: includes/class.yith-wcmbs-advanced-administration.php:196
+#: includes/class.yith-wcmbs-advanced-administration.php:199
 #: includes/class.yith-wcmbs-membership.php:590
 #: templates/premium/membership/membership-plans.php:37
 #: views/metaboxes/membership_info_content.php:30
@@ -103,17 +103,17 @@ msgid "Expiration Date"
 msgstr "Ημερομηνία Λήξης"
 
 #: includes/admin/class.yith-wcmbs-admin-profile-premium.php:231
-#: includes/class.yith-wcmbs-advanced-administration.php:201
+#: includes/class.yith-wcmbs-advanced-administration.php:204
 #: views/metaboxes/membership_info_content.php:34
 msgid "Order ID"
 msgstr "ID Παραγγελίας"
 
 #: includes/admin/class.yith-wcmbs-admin-profile-premium.php:232
 #: includes/class.yith-wcmbs-admin.php:637
-#: includes/class.yith-wcmbs-advanced-administration.php:213
+#: includes/class.yith-wcmbs-advanced-administration.php:216
 #: includes/class.yith-wcmbs-membership.php:604
 #: templates/premium/membership/membership-plans.php:41
-#: templates/premium/membership/membership-plans.php:108
+#: templates/premium/membership/membership-plans.php:110
 #: views/metaboxes/membership_info_content.php:106
 msgid "Status"
 msgstr "Κατάσταση"
@@ -210,7 +210,7 @@ msgid ""
 msgstr ""
 
 #: includes/class.yith-wcmbs-admin.php:443
-#: includes/class.yith-wcmbs-products-manager.php:302
+#: includes/class.yith-wcmbs-products-manager.php:313
 msgid "Error"
 msgstr "Σφάλμα"
 
@@ -277,54 +277,54 @@ msgstr "Δεν έχετε τμήμα εναλλακτικού περιεχομέ
 msgid "Create new alternative content block"
 msgstr "Δημιουργία τμήματος νέου εναλλακτικού περιεχομένου"
 
-#: includes/class.yith-wcmbs-advanced-administration.php:73
+#: includes/class.yith-wcmbs-advanced-administration.php:75
 msgid "Advanced Administration"
 msgstr "Προηγμένη Διαχείριση"
 
-#: includes/class.yith-wcmbs-advanced-administration.php:182
+#: includes/class.yith-wcmbs-advanced-administration.php:185
 msgid "Plan ID"
 msgstr "ID προγράμματος"
 
-#: includes/class.yith-wcmbs-advanced-administration.php:191
+#: includes/class.yith-wcmbs-advanced-administration.php:194
 msgid "Set an expiration date"
 msgstr "Ορισμός ημερομηνίας λήξης"
 
-#: includes/class.yith-wcmbs-advanced-administration.php:205
+#: includes/class.yith-wcmbs-advanced-administration.php:208
 msgid "Order Item ID"
 msgstr "ID αντικειμένου παραγγελίας"
 
-#: includes/class.yith-wcmbs-advanced-administration.php:209
+#: includes/class.yith-wcmbs-advanced-administration.php:212
 msgid "User ID"
 msgstr "ID Χρήστη"
 
-#: includes/class.yith-wcmbs-advanced-administration.php:218
+#: includes/class.yith-wcmbs-advanced-administration.php:221
 msgid "Paused days"
 msgstr "Μέρες σε παύση"
 
-#: includes/class.yith-wcmbs-advanced-administration.php:222
+#: includes/class.yith-wcmbs-advanced-administration.php:225
 msgid "Enable credits"
 msgstr "Ενεργοποίηση πιστώσεων"
 
-#: includes/class.yith-wcmbs-advanced-administration.php:227
+#: includes/class.yith-wcmbs-advanced-administration.php:230
 #: templates/premium/membership/membership-plans.php:49
 #: views/metaboxes/membership_info_content.php:68
 msgid "Remaining Credits"
 msgstr "Εναπομείνασες Πιστώσεις"
 
-#: includes/class.yith-wcmbs-advanced-administration.php:231
+#: includes/class.yith-wcmbs-advanced-administration.php:234
 msgid "Last Credit Update"
 msgstr "Τελευταία Ενημέρωση Πίστωσης"
 
-#: includes/class.yith-wcmbs-advanced-administration.php:236
+#: includes/class.yith-wcmbs-advanced-administration.php:239
 msgid "Next Credit Update"
 msgstr "Επόμενη Ενημέρωση Πίστωσης"
 
-#: includes/class.yith-wcmbs-advanced-administration.php:244
+#: includes/class.yith-wcmbs-advanced-administration.php:247
 #: views/metaboxes/plan-options.php:200
 msgid "Give a discount"
 msgstr "Προσφέρετε έκπτωση"
 
-#: includes/class.yith-wcmbs-advanced-administration.php:249
+#: includes/class.yith-wcmbs-advanced-administration.php:252
 #: views/metaboxes/plan-options.php:207
 msgid "Discount on all products (%)"
 msgstr "Έκπτωση σε όλα τα προϊόντα (%)"
@@ -364,7 +364,7 @@ msgid "Endpoint for the \"My Account &rarr; Memberships\" page"
 msgstr ""
 "Τελικό σημείο για την σελίδα “Συνδρομές Μέλους &rarr; Ο Λογαριασμός Μου”"
 
-#: includes/class.yith-wcmbs-frontend.php:464
+#: includes/class.yith-wcmbs-frontend.php:469
 msgid "You cannot purchase \"%s\". To do it, you need a membership plan"
 msgstr ""
 "Η αγορά του “%s” δεν είναι δυνατή. Για να την ολοκληρώσετε, χρειάζεστε "
@@ -660,39 +660,39 @@ msgctxt "Privacy Policy Content"
 msgid "YITH WooCommerce Membership"
 msgstr "YITH WooCommerce Membership"
 
-#: includes/class.yith-wcmbs-products-manager.php:168
+#: includes/class.yith-wcmbs-products-manager.php:179
 msgid "You can't access to this content. You don't have enough credits."
 msgstr ""
 "Δεν έχετε πρόσβαση σε αυτό το περιεχόμενο. Δεν έχετε αρκετές πιστώσεις."
 
-#: includes/class.yith-wcmbs-products-manager.php:170
+#: includes/class.yith-wcmbs-products-manager.php:181
 msgid "This product needs one credit,"
 msgid_plural "This product needs %s credits,"
 msgstr[0] "Αυτό το προϊόν χρειάζεται μια πίστωση,"
 msgstr[1] "Αυτό το προϊόν χρειάζεται %s πιστώσεις,"
 
-#: includes/class.yith-wcmbs-products-manager.php:171
+#: includes/class.yith-wcmbs-products-manager.php:182
 msgid "but you have only one credit!"
 msgid_plural "but you have only %s credits!"
 msgstr[0] "μα έχετε μόνο μια πίστωση!"
 msgstr[1] "μα έχετε μόνο %s πιστώσεις!"
 
-#: includes/class.yith-wcmbs-products-manager.php:173
-#: includes/class.yith-wcmbs-products-manager.php:305
+#: includes/class.yith-wcmbs-products-manager.php:184
+#: includes/class.yith-wcmbs-products-manager.php:316
 #: includes/class.yith-wcmbs-protected-links.php:83
 #: includes/class.yith-wcmbs-protected-media.php:141
 msgid "Restricted Access."
 msgstr "Περιορισμένη Πρόσβαση."
 
-#: includes/class.yith-wcmbs-products-manager.php:302
+#: includes/class.yith-wcmbs-products-manager.php:313
 msgid "Error while downloading file"
 msgstr "Σφάλμα κατα το κατέβασμα αρχείου"
 
-#: includes/class.yith-wcmbs-products-manager.php:305
+#: includes/class.yith-wcmbs-products-manager.php:316
 msgid "You can't access to this content"
 msgstr "Δεν έχετε πρόσβαση σε αυτό το περιεχόμενο"
 
-#: includes/class.yith-wcmbs-products-manager.php:358
+#: includes/class.yith-wcmbs-products-manager.php:369
 #: views/reports/download-reports-table.php:52
 #: views/reports/download-reports.php:9 views/reports/reports.php:10
 msgid "Downloads"
@@ -728,15 +728,15 @@ msgstr[1] "%s πιστώσεις"
 msgid "You don't have enough credits to download this product!"
 msgstr "Δεν έχετε αρκετές πιστώσεις για να κατεβάσετε αυτό το προϊόν!"
 
-#: includes/class.yith-wcmbs-shortcodes.php:500
+#: includes/class.yith-wcmbs-shortcodes.php:501
 msgid "You don't have any membership without a subscription plan yet."
 msgstr "Δεν έχετε κάποια συν. μέλους χωρίς πρόγραμμα απλής συνδρομής ακόμη."
 
-#: includes/class.yith-wcmbs-shortcodes.php:508
+#: includes/class.yith-wcmbs-shortcodes.php:509
 msgid "You don't have any membership with a subscription plan yet."
 msgstr "Δεν έχετε κάποια συν. μέλους με πρόγραμμα απλής συνδρομής ακόμη."
 
-#: includes/class.yith-wcmbs-shortcodes.php:511
+#: includes/class.yith-wcmbs-shortcodes.php:512
 msgid "You don't have any membership yet."
 msgstr "Δεν έχετε κάποια συνδρομή μέλους ακόμη."
 
@@ -1646,29 +1646,29 @@ msgctxt "Pagination"
 msgid "%1$s of %2$s"
 msgstr "%1$s του %2$s"
 
-#: templates/premium/membership/membership-plans.php:54
+#: templates/premium/membership/membership-plans.php:55
 msgid "Next credits update"
 msgstr "Επόμενη ενημέρωση πιστώσεων"
 
-#: templates/premium/membership/membership-plans.php:61
+#: templates/premium/membership/membership-plans.php:63
 #: views/metaboxes/membership_info_content.php:88
 msgid "Shop Discount"
 msgstr "Έκπτωση Καταστήματος"
 
-#: templates/premium/membership/membership-plans.php:90
+#: templates/premium/membership/membership-plans.php:92
 msgid "History"
 msgstr "Ιστορικό"
 
-#: templates/premium/membership/membership-plans.php:94
+#: templates/premium/membership/membership-plans.php:96
 msgid "Contents"
 msgstr "Περιεχόμενα"
 
-#: templates/premium/membership/membership-plans.php:109
+#: templates/premium/membership/membership-plans.php:111
 #: views/metaboxes/membership_info_content.php:107
 msgid "Update"
 msgstr "Ενημέρωση"
 
-#: templates/premium/membership/membership-plans.php:110
+#: templates/premium/membership/membership-plans.php:112
 #: views/metaboxes/membership_info_content.php:108
 msgid "Note"
 msgstr "Σημείωση"

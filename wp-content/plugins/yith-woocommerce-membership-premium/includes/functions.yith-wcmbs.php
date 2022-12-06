@@ -862,3 +862,77 @@ if ( ! function_exists( 'yith_wcmbs_late_enqueue_assets' ) ) {
 		YITH_WCMBS_Frontend()->late_enqueue_assets( $pages );
 	}
 }
+
+if ( ! function_exists( 'yith_wcmbs_late_enqueue_assets' ) ) {
+	/**
+	 * Late enqueue scripts and styles.
+	 *
+	 * @param array $pages The page types (membership, widget, etc...).
+	 *
+	 * @since 1.4.11
+	 */
+	function yith_wcmbs_late_enqueue_assets( $pages = array() ) {
+		YITH_WCMBS_Frontend()->late_enqueue_assets( $pages );
+	}
+}
+
+if ( ! function_exists( 'yith_wcmbs_local_strtotime' ) ) {
+	/**
+	 * Return a timestamp adding the local timezone offset.
+	 * Example:
+	 * Now it's 01 Oct 01:00 UTC+2 = 30 Set 23:00 UTC
+	 * The function will return the timestamp of 01 Oct 01:00 UTC
+	 *
+	 * @param string   $datetime       Datetime string (you can use the same param of strtotime).
+	 * @param int|null $base_timestamp The base timestamp.
+	 *
+	 * @return int
+	 * @since 1.18.0
+	 */
+	function yith_wcmbs_local_strtotime( string $datetime = 'now', int $base_timestamp = null ): int {
+		$time = is_null( $base_timestamp ) ? strtotime( $datetime ) : strtotime( $datetime, $base_timestamp );
+
+		return $time + (int) ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS );
+	}
+}
+
+if ( ! function_exists( 'yith_wcmbs_local_strtotime_midnight_to_utc' ) ) {
+	/**
+	 * Return UTC timestamp of the local day midnight.
+	 * Example:
+	 * Now it's 01 Oct 01:00 UTC+2 = 30 Set 23:00 UTC
+	 * The function will return the timestamp of 01 Oct 00:00 UTC+2 = 30 Set 22:00 UTC
+	 *
+	 * @param string   $datetime       Datetime string (you can use the same param of strtotime).
+	 * @param int|null $base_timestamp The base timestamp.
+	 *
+	 * @return int
+	 * @since 1.18.0
+	 */
+	function yith_wcmbs_local_strtotime_midnight_to_utc( string $datetime = 'now', int $base_timestamp = null ): int {
+		$utc_midnight = strtotime( 'midnight', yith_wcmbs_local_strtotime( $datetime, $base_timestamp ) );
+
+		return $utc_midnight - (int) ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS );
+	}
+}
+
+if ( ! function_exists( 'yith_wcmbs_date' ) ) {
+	/**
+	 * Format a date.
+	 *
+	 * @param int    $timestamp The timestamp to be formatted.
+	 * @param string $format    The date format.
+	 * @param bool   $gmt       GTM flag.
+	 *
+	 * @return string
+	 * @since 1.18.0
+	 */
+	function yith_wcmbs_date( int $timestamp, string $format = '', bool $gmt = true ): string {
+		$format = ! ! $format ? $format : wc_date_format();
+		if ( $gmt ) {
+			$timestamp += (int) ( get_option( 'gmt_offset' ) * HOUR_IN_SECONDS );
+		}
+
+		return date_i18n( $format, $timestamp );
+	}
+}

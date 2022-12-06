@@ -3,6 +3,7 @@
 namespace ACP\Column\Post;
 
 use AC;
+use ACP\ConditionalFormat;
 use ACP\Editing;
 use ACP\Export;
 use ACP\Filtering;
@@ -10,7 +11,9 @@ use ACP\Search;
 use ACP\Sorting;
 
 class Excerpt extends AC\Column\Post\Excerpt
-	implements Sorting\Sortable, Editing\Editable, Filtering\Filterable, Export\Exportable, Search\Searchable {
+	implements Sorting\Sortable, Editing\Editable, Filtering\Filterable, Export\Exportable, Search\Searchable, ConditionalFormat\Formattable {
+
+	use ConditionalFormat\ConditionalFormatTrait;
 
 	public function sorting() {
 		return new Sorting\Model\Post\PostExcerpt();

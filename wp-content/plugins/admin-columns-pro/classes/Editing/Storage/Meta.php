@@ -10,7 +10,7 @@ class Meta implements Storage {
 	/**
 	 * @var string
 	 */
-	private $meta_key;
+	protected $meta_key;
 
 	/**
 	 * @var MetaType
@@ -18,16 +18,16 @@ class Meta implements Storage {
 	private $meta_type;
 
 	public function __construct( $meta_key, MetaType $meta_type ) {
-		$this->meta_key = $meta_key;
+		$this->meta_key = (string) $meta_key;
 		$this->meta_type = $meta_type;
 	}
 
-	public function get( $id ) {
+	public function get( int $id ) {
 		return get_metadata( $this->meta_type->get(), $id, $this->meta_key, true );
 	}
 
-	public function update( $id, $value ) {
-		return false !== update_metadata( $this->meta_type->get(), $id, $this->meta_key, $value );
+	public function update( int $id, $data ): bool {
+		return false !== update_metadata( $this->meta_type->get(), $id, $this->meta_key, $data );
 	}
 
 }

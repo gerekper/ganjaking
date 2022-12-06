@@ -1,10 +1,16 @@
 <?php
+/**
+ * Deposits plans table
+ *
+ * @package woocommerce-deposits
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 if ( ! class_exists( 'WP_List_Table' ) ) {
-	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
 
 /**
@@ -17,18 +23,20 @@ class WC_Deposits_Plans_Table extends WP_List_Table {
 	/**
 	 * Constructor.
 	 */
-	public function __construct(){
-		parent::__construct( array(
-			'singular' => __( 'Payment Plan', 'woocommerce-deposits' ),
-			'plural'   => __( 'Payment Plans', 'woocommerce-deposits' ),
-			'ajax'     => false,
-		) );
+	public function __construct() {
+		parent::__construct(
+			array(
+				'singular' => __( 'Payment Plan', 'woocommerce-deposits' ),
+				'plural'   => __( 'Payment Plans', 'woocommerce-deposits' ),
+				'ajax'     => false,
+			)
+		);
 	}
 
 	/**
 	 * Output name.
 	 *
-	 * @param  object $item
+	 * @param  object $item Currently displayed item.
 	 * @return string
 	 */
 	public function column_plan_name( $item ) {
@@ -46,7 +54,7 @@ class WC_Deposits_Plans_Table extends WP_List_Table {
 	/**
 	 * Output description.
 	 *
-	 * @param  object $item
+	 * @param  object $item Currently displayed item.
 	 * @return string
 	 */
 	public function column_plan_description( $item ) {
@@ -56,7 +64,7 @@ class WC_Deposits_Plans_Table extends WP_List_Table {
 	/**
 	 * Output the plans schedule.
 	 *
-	 * @param  object $item
+	 * @param  object $item Currently displayed item.
 	 * @return string
 	 */
 	public function column_schedule( $item ) {
@@ -64,15 +72,15 @@ class WC_Deposits_Plans_Table extends WP_List_Table {
 	}
 
 	/**
-	 * get_columns function.
+	 * Custom columns
 	 *
 	 * @return  array
 	 */
-	public function get_columns(){
+	public function get_columns() {
 		return array(
 			'plan_name'        => __( 'Name', 'woocommerce-deposits' ),
 			'plan_description' => __( 'Description', 'woocommerce-deposits' ),
-			'schedule'         => __( 'Schedule', 'woocommerce-deposits' )
+			'schedule'         => __( 'Schedule', 'woocommerce-deposits' ),
 		);
 	}
 

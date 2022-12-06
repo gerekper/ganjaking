@@ -1,4 +1,10 @@
 <?php
+/**
+ * Deposits plans admin
+ *
+ * @package woocommerce-deposits
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -8,14 +14,21 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_Deposits_Plans_Admin {
 
-	/** @var object Class Instance */
+	/**
+	 * Class Instance
+	 *
+	 * @var WC_Deposits_Plans_Admin
+	 */
 	private static $instance;
 
 	/**
 	 * Get the class instance.
 	 */
 	public static function get_instance() {
-		return null === self::$instance ? ( self::$instance = new self ) : self::$instance;
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
 	}
 
 	/**
@@ -33,22 +46,26 @@ class WC_Deposits_Plans_Admin {
 	public function styles_and_scripts() {
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		wp_register_script( 'woocommerce-deposits-payment-plans', WC_DEPOSITS_PLUGIN_URL . '/assets/js/payment-plans' . $suffix . '.js', array( 'jquery' ), WC_DEPOSITS_VERSION, true );
-		wp_localize_script( 'woocommerce-deposits-payment-plans', 'wc_deposits_payment_plans_params', array(
-			'i18n_delete_plan' => __( 'Are you sure you want to delete this plan? This action cannot be undone.', 'woocommerce-deposits' )
-		) );
-		wp_enqueue_style( 'wc-deposits-admin', plugins_url( '/assets/css/admin.css', WC_DEPOSITS_FILE ) );
+		wp_localize_script(
+			'woocommerce-deposits-payment-plans',
+			'wc_deposits_payment_plans_params',
+			array(
+				'i18n_delete_plan' => __( 'Are you sure you want to delete this plan? This action cannot be undone.', 'woocommerce-deposits' ),
+			)
+		);
+		wp_enqueue_style( 'wc-deposits-admin', plugins_url( '/assets/css/admin.css', WC_DEPOSITS_FILE ), array(), WC_DEPOSITS_VERSION );
 	}
 
 	/**
 	 * Add a menu item for the payment plans screen.
 	 */
 	public function add_menu_item() {
-		$page = add_submenu_page( 'edit.php?post_type=product', __( 'Payment Plans', 'woocommerce-deposits' ), __( 'Payment Plans', 'woocommerce-deposits' ) , 'manage_woocommerce', 'deposit_payment_plans', array( $this, 'output' ) );
+		$page = add_submenu_page( 'edit.php?post_type=product', __( 'Payment Plans', 'woocommerce-deposits' ), __( 'Payment Plans', 'woocommerce-deposits' ), 'manage_woocommerce', 'deposit_payment_plans', array( $this, 'output' ) );
 	}
 	/**
 	 * Register the deposits screen ID.
 	 *
-	 * @param array $ids array
+	 * @param array $ids Existing screens IDs.
 	 * @return array
 	 */
 	public function add_screen_id( $ids = array() ) {
@@ -69,17 +86,17 @@ class WC_Deposits_Plans_Admin {
 			$result       = $this->validate_plan_amounts( $plan_amounts ) ? $this->maybe_save_plan() : false;
 
 			if ( is_wp_error( $result ) ) {
-				echo '<div class="error"><p>' . $result->get_error_message() . '</p></div>';
+				echo '<div class="error"><p>' . esc_html( $result->get_error_message() ) . '</p></div>';
 			} elseif ( $result ) {
-				echo '<div class="updated success"><p>' . __( 'Plan saved successfully', 'woocommerce-deposits' ) . '</p></div>';
+				echo '<div class="updated success"><p>' . esc_html__( 'Plan saved successfully', 'woocommerce-deposits' ) . '</p></div>';
 			}
 		}
 
-		if ( isset( $_GET['delete_plan'] ) && ! empty( $_GET['_wpnonce'] ) && wp_verify_nonce( $_GET['_wpnonce'], 'delete_plan' ) ) {
+		if ( isset( $_GET['delete_plan'] ) && check_admin_referer( 'delete_plan' ) ) {
 			$deleting_id = absint( $_GET['delete_plan'] );
 			$wpdb->delete( $wpdb->wc_deposits_payment_plans, array( 'ID' => $deleting_id ) );
 			$wpdb->delete( $wpdb->wc_deposits_payment_plans_schedule, array( 'plan_id' => $deleting_id ) );
-			echo '<div class="updated success"><p>' . __( 'Plan deleted successfully', 'woocommerce-deposits' ) . '</p></div>';
+			echo '<div class="updated success"><p>' . esc_html__( 'Plan deleted successfully', 'woocommerce-deposits' ) . '</p></div>';
 		}
 
 		$plan_name        = '';
@@ -92,11 +109,11 @@ class WC_Deposits_Plans_Admin {
 			$plan_name        = $plan->get_name();
 			$plan_description = $plan->get_description();
 			$payment_schedule = $plan->get_schedule();
-			include( 'views/html-edit-payment-plan.php' );
+			include 'views/html-edit-payment-plan.php';
 		} else {
 
 			$editing = false;
-			include( 'views/html-payment-plans.php' );
+			include 'views/html-payment-plans.php';
 		}
 	}
 
@@ -105,9 +122,9 @@ class WC_Deposits_Plans_Admin {
 	 */
 	public function output_plans() {
 		if ( ! class_exists( 'WC_Deposits_Plans_Table' ) ) {
-			require_once( 'list-tables/class-wc-deposits-plans-table.php' );
+			require_once 'list-tables/class-wc-deposits-plans-table.php';
 		}
-	 	$table = new WC_Deposits_Plans_Table();
+		$table = new WC_Deposits_Plans_Table();
 		$table->prepare_items();
 		$table->display();
 	}
@@ -144,7 +161,7 @@ class WC_Deposits_Plans_Admin {
 				$editing = false;
 			}
 
-			if ( ! isset( $_POST['woocommerce_save_plan_nonce'] ) || ! wp_verify_nonce( $_POST['woocommerce_save_plan_nonce'], 'woocommerce_save_plan' ) ) {
+			if ( ! check_admin_referer( 'woocommerce_save_plan', 'woocommerce_save_plan_nonce' ) ) {
 				return new WP_Error( 'error', __( 'Unable to save payment plan - please try again', 'woocommerce-deposits' ) );
 			}
 
@@ -161,11 +178,11 @@ class WC_Deposits_Plans_Admin {
 			};
 
 			$plan_id               = $editing;
-			$plan_name             = empty( $_POST['plan_name'] ) ? __( 'Payment Plan', 'woocommerce-deposits' ) : sanitize_text_field( $_POST['plan_name'] );
-			$plan_description      = empty( $_POST['plan_description'] ) ? '' : wp_kses_post( $_POST['plan_description'] );
-			$plan_amounts          = array_map( $abs_round, $_POST['plan_amount'] );
-			$plan_interval_amounts = array_map( 'absint', $_POST['plan_interval_amount'] );
-			$plan_interval_units   = array_map( 'sanitize_text_field', $_POST['plan_interval_unit'] );
+			$plan_name             = empty( $_POST['plan_name'] ) ? __( 'Payment Plan', 'woocommerce-deposits' ) : sanitize_text_field( wp_unslash( $_POST['plan_name'] ) );
+			$plan_description      = empty( $_POST['plan_description'] ) ? '' : wp_kses_post( wp_unslash( $_POST['plan_description'] ) );
+			$plan_amounts          = array_map( $abs_round, $_POST['plan_amount'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput -- Sanitized in $abs_round closure
+			$plan_interval_amounts = array_map( 'absint', $_POST['plan_interval_amount'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput -- Sanitized with absint
+			$plan_interval_units   = array_map( 'sanitize_text_field', $_POST['plan_interval_unit'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput -- Sanitized
 			$payment_schedule      = array();
 
 			if ( $editing ) {
@@ -194,7 +211,7 @@ class WC_Deposits_Plans_Admin {
 				return new WP_Error( 'error', __( 'Unable to save payment plan', 'woocommerce-deposits' ) );
 			}
 
-			// Get posted schedule
+			// Get posted schedule.
 			foreach ( $plan_amounts as $index => $plan_amount ) {
 				$payment_schedule[] = array(
 					'schedule_index'  => $index,
@@ -205,13 +222,13 @@ class WC_Deposits_Plans_Admin {
 				);
 			}
 
-			// Get existing schedule
+			// Get existing schedule.
 			$existing_schedule = $wpdb->get_results( $wpdb->prepare( "SELECT schedule_index, plan_id, amount, interval_amount, interval_unit FROM {$wpdb->wc_deposits_payment_plans_schedule} WHERE plan_id = %d;", $plan_id ), ARRAY_A );
 
-			// Clear and update
+			// Clear and update.
 			$wpdb->delete( $wpdb->wc_deposits_payment_plans_schedule, array( 'plan_id' => $plan_id ) );
 
-			// Insert
+			// Insert.
 			foreach ( $payment_schedule as $payment_schedule_row ) {
 				$wpdb->insert( $wpdb->wc_deposits_payment_plans_schedule, $payment_schedule_row );
 			}

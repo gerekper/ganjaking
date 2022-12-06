@@ -3,6 +3,7 @@
 namespace ACP\Sorting\Model\Taxonomy;
 
 use ACP\Sorting\AbstractModel;
+use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Sorter;
 
 class Menu extends AbstractModel {
@@ -13,18 +14,35 @@ class Menu extends AbstractModel {
 	private $taxonomy;
 
 	/**
+	 * @var array
+	 */
+	private $menu_labels;
+
+	/**
 	 * @param string $taxonomy
 	 */
 	public function __construct( $taxonomy ) {
 		parent::__construct();
 
 		$this->taxonomy = $taxonomy;
+		$this->menu_labels = [];
 	}
 
 	public function get_sorting_vars() {
-		return [
-			'ids' => $this->get_sorted_ids(),
-		];
+		add_filter( 'terms_clauses', [ $this, 'pre_term_query_callback' ] );
+
+		return [];
+	}
+
+	public function pre_term_query_callback( $clauses ) {
+		remove_filter( 'terms_clauses', [ $this, __FUNCTION__ ] );
+
+		$clauses['orderby'] = sprintf( 'ORDER BY %s, t.term_id',
+			SqlOrderByFactory::create_with_ids( "t.term_id", $this->get_sorted_ids(), $this->get_order() ) ?: $clauses['orderby']
+		);
+		$clauses['order'] = '';
+
+		return $clauses;
 	}
 
 	/**
@@ -50,7 +68,7 @@ class Menu extends AbstractModel {
 		$values = [];
 
 		foreach ( $wpdb->get_results( $sql ) as $object ) {
-			$values[ $object->id ][] = $this->get_menu_label( $object->menu_id );
+			$values[ $object->id ][] = $this->get_menu_label( (int) $object->menu_id );
 		}
 
 		foreach ( $values as $id => $_values ) {
@@ -62,15 +80,14 @@ class Menu extends AbstractModel {
 		return ( new Sorter() )->sort( $values );
 	}
 
-	/**
-	 * @param int $menu_item_id
-	 *
-	 * @return string|null
-	 */
-	private function get_menu_label( $menu_item_id ) {
+	private function get_menu_label( int $menu_item_id ): ?string {
 		global $wpdb;
 
-		$sql = $wpdb->prepare( "
+		if ( $menu_item_id === 0 ) {
+			return '';
+		}
+		if ( ! isset( $this->menu_labels[ $menu_item_id ] ) ) {
+			$sql = $wpdb->prepare( "
 			SELECT t.name
 				FROM {$wpdb->terms} AS t
 				INNER JOIN {$wpdb->term_taxonomy} AS tt ON tt.term_id = t.term_id
@@ -80,7 +97,10 @@ class Menu extends AbstractModel {
     			WHERE menu.ID = %d
 			", $menu_item_id );
 
-		return $wpdb->get_var( $sql );
+			$this->menu_labels[ $menu_item_id ] = $wpdb->get_var( $sql );
+		}
+
+		return $this->menu_labels[ $menu_item_id ];
 	}
 
 }

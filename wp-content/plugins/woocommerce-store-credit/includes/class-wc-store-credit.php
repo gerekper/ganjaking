@@ -27,7 +27,7 @@ final class WC_Store_Credit {
 	 *
 	 * @var string
 	 */
-	public $version = '4.2.3';
+	public $version = '4.2.4';
 
 	/**
 	 * Constructor.
@@ -89,6 +89,7 @@ final class WC_Store_Credit {
 		include_once WC_STORE_CREDIT_PATH . 'includes/class-wc-store-credit-emails.php';
 		include_once WC_STORE_CREDIT_PATH . 'includes/class-wc-store-credit-order.php';
 		include_once WC_STORE_CREDIT_PATH . 'includes/class-wc-store-credit-order-details.php';
+		include_once WC_STORE_CREDIT_PATH . 'includes/class-wc-store-credit-order-query.php';
 		include_once WC_STORE_CREDIT_PATH . 'includes/class-wc-store-credit-paypal.php';
 		include_once WC_STORE_CREDIT_PATH . 'includes/class-wc-store-credit-rest-api.php';
 		include_once WC_STORE_CREDIT_PATH . 'includes/class-wc-store-credit-integrations.php';
@@ -124,6 +125,10 @@ final class WC_Store_Credit {
 		register_activation_hook( WC_STORE_CREDIT_FILE, array( 'WC_Store_Credit_Install', 'install' ) );
 
 		add_action( 'plugins_loaded', array( $this, 'init' ) );
+
+		// Declare Compatibility with the WC features.
+		add_action( 'before_woocommerce_init', array( $this, 'declare_compatibility' ) );
+
 		add_action( 'woocommerce_loaded', array( $this, 'wc_loaded' ) );
 		add_action( 'after_setup_theme', array( $this, 'include_template_functions' ), 15 );
 	}
@@ -136,6 +141,18 @@ final class WC_Store_Credit {
 	public function init() {
 		// Load text domain.
 		load_plugin_textdomain( 'woocommerce-store-credit', false, dirname( WC_STORE_CREDIT_BASENAME ) . '/languages' );
+	}
+
+	/**
+	 * Declares compatibility with the WC features.
+	 *
+	 * @since 4.2.4
+	 */
+	public function declare_compatibility() {
+		// Compatible with the 'High-Performance Order Storage' feature.
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WC_STORE_CREDIT_FILE, true );
+		}
 	}
 
 	/**

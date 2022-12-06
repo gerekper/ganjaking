@@ -5,11 +5,11 @@
  * Description: Reward customers for purchases and other actions with points which can be redeemed for discounts
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
- * Version: 1.7.21
+ * Version: 1.7.22
  * Text Domain: woocommerce-points-and-rewards
  * Domain Path: /languages/
  * Tested up to: 6.1
- * WC tested up to: 7.1
+ * WC tested up to: 7.2
  * WC requires at least: 4.5
  *
  * Copyright: © 2022 WooCommerce
@@ -155,7 +155,7 @@ register_activation_hook( __FILE__, 'wc_points_rewards_activate' );
  */
 
 if ( ! class_exists( 'WC_Points_Rewards' ) ) :
-	define( 'WC_POINTS_REWARDS_VERSION', '1.7.21' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_POINTS_REWARDS_VERSION', '1.7.22' ); // WRCS: DEFINED_VERSION.
 	define( 'WC_POINTS_REWARDS_ENDPOINT', 'points-and-rewards' );
 
 	class WC_Points_Rewards {
@@ -256,6 +256,10 @@ if ( ! class_exists( 'WC_Points_Rewards' ) ) :
 		 * @since 1.7.0
 		 */
 		public static function setup_blocks_integration() {
+			if ( ! class_exists( 'Automattic\WooCommerce\Blocks\Package' ) || ! version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '4.4.0', '>' ) ) {
+				return;
+			}
+
 			add_action(
 				'woocommerce_blocks_cart_block_registration',
 				function( $integration_registry ) {
@@ -747,11 +751,7 @@ if ( ! class_exists( 'WC_Points_Rewards' ) ) :
 
 		public static function init() {
 			add_action( 'plugins_loaded', array( __CLASS__, 'woocommerce_points_and_rewards_init' ) );
-
-			if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) && version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), '4.4.0', '>' ) ) {
-				// When WooCommerceBlocks is loaded, set up the Integration class.
-				add_action( 'woocommerce_blocks_loaded', array( __CLASS__, 'setup_blocks_integration' ) );
-			}
+			add_action( 'woocommerce_blocks_loaded', array( __CLASS__, 'setup_blocks_integration' ) );
 		}
 	}
 endif;

@@ -185,6 +185,35 @@
     transition       : all .2s ease;
 }
 
+.yith-plugin-fw-panel-help-tab-content .box-with-image {
+    display              : grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap           : 40px;
+    background-color     : #fff;
+    border               : 1px solid #ebebeb;
+    padding              : 30px 40px;
+    max-width            : 60%;
+    margin               : 0 auto 40px;
+}
+
+.yith-plugin-fw-panel-help-tab-content .box-with-image img{
+    margin   : 0 auto;
+    max-width: 100%;
+}
+
+.yith-plugin-fw-panel-help-tab-content .box-with-image .box-content {
+    white-space: initial;
+}
+
+.yith-plugin-fw-panel-help-tab-content .box-with-image .box-content .button {
+    border-radius: 0;
+    padding      : 10px 20px;
+    min-width    : 230px;
+    margin-top   : 20px;
+    text-align   : center;
+    white-space: initial;
+}
+
 .yith-plugin-fw-panel-help-tab-content ul.yith-plugin-fw-help-tab-actions,
 .yith-plugin-fw-panel-help-tab-content .yith-plugin-fw-submit-ticket {
     margin    : 0 auto;
@@ -1159,11 +1188,6 @@ button#yith-plugin-fw-float-save-button.visible {
     display : flex;
 }
 
-button#yith-plugin-fw-float-save-button i {
-    font-size    : 15px;
-    margin-right : 8px;
-}
-
 button#yith-plugin-fw-float-save-button:hover {
     box-shadow : 0px 1px 6px 3px rgba(0, 121, 159, .3);
 }
@@ -1180,12 +1204,6 @@ button#yith-plugin-fw-float-save-button.green {
     left  : 70px;
 }
 
-.rtl button#yith-plugin-fw-float-save-button i {
-    margin-left  : 8px;
-    margin-right : 0;
-}
-
-
 /* === Responsive === */
 
 @media (max-width : 1210px) {
@@ -1200,6 +1218,10 @@ button#yith-plugin-fw-float-save-button.green {
 
     #yith_plugin_fw_panel_premium_tab .yith-plugin-fw-panel-premium-tab__features {
         padding-top : 15px;
+    }
+
+    .yith-plugin-fw-panel-help-tab-content .box-with-image {
+        max-width: 100%;
     }
 }
 
@@ -1237,6 +1259,11 @@ button#yith-plugin-fw-float-save-button.green {
     #yith_plugin_fw_panel_premium_tab .yith-plugin-fw-panel-premium-tab__cta-button {
         white-space : unset;
     }
+
+    .yith-plugin-fw-panel-help-tab-content .box-with-image .box-content a.button {
+        min-width: 0;
+        max-width: 100%;
+    }
 }
 
 @media (max-width : 992px) {
@@ -1253,6 +1280,11 @@ button#yith-plugin-fw-float-save-button.green {
 
     .yith-plugin-fw-panel-help-tab-content ul.yith-plugin-fw-help-tab-actions {
         padding-top : 0 !important;
+    }
+
+    .yith-plugin-fw-panel-help-tab-content .box-with-image {
+        display: block;
+        text-align: center;
     }
 }
 

@@ -4,10 +4,10 @@ namespace ACP\Search;
 
 use AC;
 use AC\Asset\Enqueueable;
-use AC\Registrable;
+use AC\Registerable;
 
 class Settings
-	implements Registrable {
+	implements Registerable {
 
 	/**
 	 * @var Enqueueable

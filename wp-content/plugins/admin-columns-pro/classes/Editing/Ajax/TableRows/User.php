@@ -10,4 +10,10 @@ final class User extends TableRows {
 		add_action( 'users_list_table_query_args', [ $this, 'handle_request' ] );
 	}
 
+	public function handle_request() {
+		remove_action( 'users_list_table_query_args', [ $this, __FUNCTION__ ] );
+
+		parent::handle_request();
+	}
+
 }

@@ -2,6 +2,7 @@
 
 namespace ACP\Search\Query;
 
+use ACP\CommentQueryInformation;
 use ACP\Search\Query;
 use WP_Comment_Query;
 
@@ -17,7 +18,6 @@ class Comment extends Query {
 	 * @param WP_Comment_Query $query
 	 */
 	public function callback_meta_query( WP_Comment_Query $query ) {
-
 		$meta_query = $this->get_meta_query();
 
 		if ( ! $meta_query ) {

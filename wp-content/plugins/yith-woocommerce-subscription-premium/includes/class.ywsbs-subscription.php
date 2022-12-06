@@ -1803,9 +1803,10 @@ if ( ! class_exists( 'YWSBS_Subscription' ) ) {
 		 */
 		public function cancel( $now = true ) {
 
-			// Change the status to cancelled.
-			$this->update_status( $now ? 'cancel-now' : 'cancelled' );
-
+			if ( 'cancelled' !== $this->get_status() ) {
+				// Change the status to cancelled.
+				$this->update_status( $now ? 'cancel-now' : 'cancelled' );
+			}
 			do_action( 'ywsbs_subscription_cancelled', $this->id );
 
 			// if there's a pending order for this subscription change the status of the order to cancelled.
@@ -1836,7 +1837,6 @@ if ( ! class_exists( 'YWSBS_Subscription' ) ) {
 		 * @since 2.0.0
 		 */
 		public function trash() {
-
 			// Cancel the subscription before trash.
 			$this->cancel();
 

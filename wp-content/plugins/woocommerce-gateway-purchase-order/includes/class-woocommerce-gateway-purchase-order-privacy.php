@@ -74,7 +74,7 @@ class Woocommerce_Gateway_Purchase_Order_Privacy extends WC_Abstract_Privacy {
 					'data'        => array(
 						array(
 							'name'  => __( 'PO Number', 'woocommerce-gateway-purchase-order' ),
-							'value' => get_post_meta( $order->get_id(), '_po_number', true ),
+							'value' => $order->get_meta( '_po_number', true ),
 						),
 					),
 				);
@@ -131,14 +131,14 @@ class Woocommerce_Gateway_Purchase_Order_Privacy extends WC_Abstract_Privacy {
 	 * @return array
 	 */
 	protected function maybe_handle_order( $order ) {
-		$order_id  = $order->get_id();
-		$po_number = get_post_meta( $order_id, '_po_number', true );
+		$po_number = $order->get_meta( '_po_number', true );
 
 		if ( empty( $po_number ) ) {
 			return array( false, false, array() );
 		}
 
-		delete_post_meta( $order_id, '_po_number' );
+		$order->delete_meta_data( '_po_number' );
+		$order->save_meta_data();
 
 		return array( true, false, array( __( 'Purchase Order Data Erased.', 'woocommerce-gateway-purchase-order' ) ) );
 	}

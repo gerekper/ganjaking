@@ -3,12 +3,16 @@
 namespace ACP\Column\User;
 
 use AC;
+
+use ACP\ConditionalFormat;
 use ACP\Export;
 use ACP\Search;
 use ACP\Sorting;
 
 class Login extends AC\Column\User\Login
-	implements Sorting\Sortable, Export\Exportable, Search\Searchable {
+	implements Sorting\Sortable, Export\Exportable, Search\Searchable, ConditionalFormat\Formattable {
+
+	use ConditionalFormat\ConditionalFormatTrait;
 
 	public function sorting() {
 		return new Sorting\Model\User\UserField( 'user_login' );

@@ -3,8 +3,11 @@
 namespace ACP\Column\NetworkSite;
 
 use AC;
+use ACP\ConditionalFormat;
 
-class Status extends AC\Column {
+class Status extends AC\Column implements ConditionalFormat\Formattable {
+
+	use ConditionalFormat\ConditionalFormatTrait;
 
 	public function __construct() {
 		$this->set_type( 'column-msite_status' );

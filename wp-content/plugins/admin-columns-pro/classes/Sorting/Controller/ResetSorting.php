@@ -5,12 +5,12 @@ namespace ACP\Sorting\Controller;
 use AC\Capabilities;
 use AC\Message;
 use AC\Preferences;
-use AC\Registrable;
+use AC\Registerable;
 
 /**
  * Reset all sorting preferences for all users
  */
-class ResetSorting implements Registrable {
+class ResetSorting implements Registerable {
 
 	public function register() {
 		add_action( 'admin_init', [ $this, 'handle_request' ] );

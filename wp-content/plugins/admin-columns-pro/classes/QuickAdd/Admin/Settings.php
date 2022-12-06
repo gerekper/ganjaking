@@ -3,13 +3,13 @@
 namespace ACP\QuickAdd\Admin;
 
 use AC\ListScreen;
-use AC\Registrable;
+use AC\Registerable;
 use ACP\QuickAdd\Admin\HideOnScreen;
 use ACP\QuickAdd\Filter;
 use ACP\QuickAdd\Model\Factory;
 use ACP\Settings\ListScreen\HideOnScreenCollection;
 
-class Settings implements Registrable {
+class Settings implements Registerable {
 
 	/**
 	 * @var Filter

@@ -168,7 +168,7 @@ jQuery( function ( $ ) {
 
 
 	function countSubscriptionVariation() {
-		var subscriptionVariations = $( document ).find( '.woocommerce_variable_attributes input.checkbox.checkbox_ywsbs_subscription:checked' ).size();
+		var subscriptionVariations = $( document ).find( '.woocommerce_variable_attributes input.checkbox.checkbox_ywsbs_subscription:checked' ).length;
 
 		var switchPriority = $( document ).find( '.switchable_priority' );
 

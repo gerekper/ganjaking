@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Subscription\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "subscription\n"
-"POT-Creation-Date: 2022-07-12T09:30:15+00:00\n"
+"POT-Creation-Date: 2022-10-04T14:30:38+00:00\n"
 "PO-Revision-Date: 2021-06-25 15:08:30+0000\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -828,8 +828,8 @@ msgid "Related Subscriptions"
 msgstr "Abbonamenti correlati"
 
 #: includes/class.yith-wc-subscription-limit.php:76
-#: includes/class.yith-wc-subscription-limit.php:150
-#: includes/class.ywsbs-subscription-cart.php:661
+#: includes/class.yith-wc-subscription-limit.php:156
+#: includes/class.ywsbs-subscription-cart.php:690
 msgid "You have already an active subscription with this product."
 msgstr "Già possiedi un abbonamento per questo prodotto."
 
@@ -886,14 +886,14 @@ msgid "This subscription cannot be resumed"
 msgstr "Questo abbonamento non può essere ripristinato"
 
 #: includes/class.yith-wc-subscription.php:772
-#: includes/class.yith-wc-subscription.php:814
+#: includes/class.yith-wc-subscription.php:823
 #: includes/class.ywsbs-subscription-my-account.php:298
 msgid "This subscription cannot be switched. Contact us for info"
 msgstr ""
 "Questo abbonamento non può essere cambiato. Contattaci per maggiori "
 "informazioni"
 
-#: includes/class.yith-wc-subscription.php:842
+#: includes/class.yith-wc-subscription.php:851
 msgid ""
 "This subscription cannot be cancelled. You cannot switch to related "
 "subscriptions"
@@ -901,37 +901,37 @@ msgstr ""
 "Questo abbonamento non può essere annullato. Il passaggio ai piani di "
 "abbonamento correlati non è consentito"
 
-#: includes/class.yith-wc-subscription.php:852
+#: includes/class.yith-wc-subscription.php:861
 msgid "Subscription cancelled due to switch"
 msgstr "Abbonamento annullato per passaggio ad altro piano"
 
-#: includes/class.ywsbs-subscription-cart.php:384
+#: includes/class.ywsbs-subscription-cart.php:409
 #: includes/class.ywsbs-subscription-helper.php:986
 msgctxt "do not translate the text inside the brackets"
 msgid "Subscription total for {{sub-time}}: {{sub-total}}"
 msgstr "Totale abbonamento per {{sub-time}}: {{sub-total}}"
 
-#: includes/class.ywsbs-subscription-cart.php:426
+#: includes/class.ywsbs-subscription-cart.php:451
 #: plugin-options/customization-options.php:200
 msgid "Next billing on:"
 msgstr "Prossimo pagamento:"
 
-#: includes/class.ywsbs-subscription-cart.php:426
+#: includes/class.ywsbs-subscription-cart.php:452
 #: plugin-options/customization-options.php:214
 msgid "First billing on:"
 msgstr "Primo pagamento:"
 
 #. translators: placeholder 1. first price, 2. valid period of the first price, 3. end price.
-#: includes/class.ywsbs-subscription-cart.php:496
+#: includes/class.ywsbs-subscription-cart.php:523
 msgid "%1$s until %2$s then %3$s"
 msgstr "%1$s fino a %2$s poi %3$s"
 
-#: includes/class.ywsbs-subscription-cart.php:499
+#: includes/class.ywsbs-subscription-cart.php:526
 #: includes/class.ywsbs-subscription-helper.php:852
 msgid " for "
 msgstr " per "
 
-#: includes/class.ywsbs-subscription-cart.php:681
+#: includes/class.ywsbs-subscription-cart.php:711
 msgid ""
 "A subscription has been removed from your cart. You cannot purchase "
 "different subscriptions at the same time."
@@ -1273,7 +1273,7 @@ msgstr "Crea un nuovo abbonamento per %s"
 
 #. translators: Placeholders: url of subscription, subscription number.
 #: includes/class.ywsbs-subscription-order.php:392
-#: includes/class.ywsbs-subscription-order.php:888
+#: includes/class.ywsbs-subscription-order.php:889
 msgctxt "Placeholders: url of subscription, ID subscription"
 msgid ""
 "A new subscription <a href=\"%1$s\">%2$s</a> has been created from this order"
@@ -1282,7 +1282,7 @@ msgstr ""
 "ordine"
 
 #. translators: Placeholder subscription id.
-#: includes/class.ywsbs-subscription-order.php:927
+#: includes/class.ywsbs-subscription-order.php:928
 msgctxt "subscription id"
 msgid ""
 "The subscription %s created from this orders has been cancelled because the "
@@ -1291,53 +1291,53 @@ msgstr ""
 "L'abbonamento %s creato da questo ordine è stato annullato poiché è stato "
 "rimosso l'elemento dall'ordine"
 
-#: includes/class.ywsbs-subscription-order.php:1154
+#: includes/class.ywsbs-subscription-order.php:1155
 msgid "The subscription cannot be cancelled."
 msgstr "L'abbonamento non può essere annullato."
 
-#: includes/class.ywsbs-subscription-order.php:1246
+#: includes/class.ywsbs-subscription-order.php:1247
 msgid "Renew Now"
 msgstr "Rinnova adesso"
 
 #. translators: Error code.
-#: includes/class.ywsbs-subscription-order.php:1426
+#: includes/class.ywsbs-subscription-order.php:1427
 msgctxt "Error code"
 msgid "Error %d: unable to create the order. Please try again."
 msgstr "Errore %d: non è stato possibile creare l'ordine. Prova di nuovo."
 
 #. translators: placeholder: order id.
-#: includes/class.ywsbs-subscription-order.php:1514
+#: includes/class.ywsbs-subscription-order.php:1515
 msgctxt ""
 "placeholder: coupon code, started limited value, current limited value "
 msgid "Limited level reduced for the coupon %1$s: %2$d ->%3$d "
 msgstr "Limite di utilizzo per il coupon %1$s ridotto da %2$d a %3$d "
 
 #. translators: Placeholder: subscription url, subscription number.
-#: includes/class.ywsbs-subscription-order.php:1547
+#: includes/class.ywsbs-subscription-order.php:1548
 #: includes/compatibility/yith-woocommerce-product-vendors.php:497
 msgid "This order has been created to renew subscription"
 msgstr "Questo ordine è stato creato per rinnovare l'abbonamento"
 
 #. translators: placeholder: order id.
-#: includes/class.ywsbs-subscription-order.php:1554
+#: includes/class.ywsbs-subscription-order.php:1555
 msgctxt "placeholder: order id"
 msgid "The order %d has been created for the subscription"
 msgstr "È stato creato l'ordine %d per l'abbonamento"
 
 #. translators: placeholder: renew order id.
-#: includes/class.ywsbs-subscription-order.php:1578
+#: includes/class.ywsbs-subscription-order.php:1579
 msgctxt "placeholder: order id"
 msgid "The order %d has been deleted for the subscription"
 msgstr "È stato rimosso l'ordine %d per l'abbonamento"
 
-#: includes/class.ywsbs-subscription-order.php:1654
-#: includes/class.ywsbs-subscription-order.php:1735
+#: includes/class.ywsbs-subscription-order.php:1655
+#: includes/class.ywsbs-subscription-order.php:1736
 #: includes/class.ywsbs-subscription-resubscribe.php:107
 #: includes/class.ywsbs-subscription-switch.php:210
 msgid "There was an error with your request. Please try again."
 msgstr "Si è verificato un errore con questa richiesta. Prova di nuovo."
 
-#: includes/class.ywsbs-subscription-order.php:1661
+#: includes/class.ywsbs-subscription-order.php:1662
 msgid "The renew order cannot be paid. Please contact the administrator."
 msgstr ""
 "Non è possibile pagare l'ordine di rinnovo. Ti preghiamo di contattare "
@@ -1512,7 +1512,7 @@ msgid "Payment received for #%s no status changed"
 msgstr "Pagamento ricevuto per #%s nessuna modifica allo stato"
 
 #. translators: placeholder subscription number.
-#: includes/class.ywsbs-subscription.php:1813
+#: includes/class.ywsbs-subscription.php:1814
 msgid ""
 "This order has been cancelled because subscription %s has been cancelled"
 msgstr ""
@@ -5007,7 +5007,7 @@ msgstr "Programma"
 msgid "Recurring totals"
 msgstr "Dettagli abbonamento"
 
-#: templates/cart/ywsbs-recurring-totals.php:53
+#: templates/cart/ywsbs-recurring-totals.php:54
 msgid "(ex. shipping)"
 msgstr "(spedizione esclusa)"
 

@@ -3,12 +3,15 @@
 namespace ACP\Column\Taxonomy;
 
 use AC;
+use ACP\ConditionalFormat;
 use ACP\Settings\Column\TaxonomyPostType;
 
 /**
  * @since 4.5.6
  */
-class CountForPostType extends AC\Column {
+class CountForPostType extends AC\Column implements ConditionalFormat\Formattable {
+
+	use ConditionalFormat\IntegerFormattableTrait;
 
 	public function __construct() {
 		$this->set_label( 'Count for Post Type' );

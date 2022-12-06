@@ -3,10 +3,13 @@
 namespace ACP\Column\NetworkSite;
 
 use AC;
+use ACP\ConditionalFormat;
 use ACP\Editing;
 
 abstract class Option extends AC\Column
-	implements Editing\Editable {
+	implements Editing\Editable, ConditionalFormat\Formattable {
+
+	use ConditionalFormat\ConditionalFormatTrait;
 
 	/**
 	 * @return string Site option name

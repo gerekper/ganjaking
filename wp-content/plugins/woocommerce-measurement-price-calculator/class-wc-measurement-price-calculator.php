@@ -34,7 +34,7 @@ class WC_Measurement_Price_Calculator extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version */
-	const VERSION = '3.20.2';
+	const VERSION = '3.21.0';
 
 	/** @var WC_Measurement_Price_Calculator single instance of this plugin */
 	protected static $instance;

@@ -2,27 +2,18 @@
 
 namespace ACP\Editing\Service\Post;
 
-use AC\Request;
-use ACP\Editing\Service;
+use ACP\Editing\Service\BasicStorage;
+use ACP\Editing\Storage;
 use ACP\Editing\View;
 
-class FeaturedImage implements Service {
+class FeaturedImage extends BasicStorage {
 
-	public function get_view( $context ) {
+	public function __construct() {
+		parent::__construct( new Storage\Post\FeaturedImage() );
+	}
+
+	public function get_view( string $context ): ?View {
 		return ( new View\Image() )->set_clear_button( true );
-	}
-
-	public function get_value( $id ) {
-		return get_post_thumbnail_id( $id );
-	}
-
-	public function update( Request $request ) {
-		$value = $request->get( 'value' );
-		$id = (int) $request->get( 'id' );
-
-		return $value
-			? (bool) set_post_thumbnail( $id, (int) $value )
-			: delete_post_thumbnail( $id );
 	}
 
 }

@@ -4,9 +4,9 @@ namespace ACP;
 
 use AC\ListScreen;
 use AC\ListScreenPost;
-use AC\Registrable;
+use AC\Registerable;
 
-class NativeTaxonomies implements Registrable {
+class NativeTaxonomies implements Registerable {
 
 	public function register() {
 		add_action( 'ac/column_types', [ $this, 'register_columns' ] );

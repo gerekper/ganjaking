@@ -2,9 +2,9 @@
 
 namespace ACP;
 
-use AC\Registrable;
+use AC\Registerable;
 
-class Localize implements Registrable {
+class Localize implements Registerable {
 
 	const TEXTDOMAIN = 'codepress-admin-columns';
 

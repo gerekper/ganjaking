@@ -3,6 +3,7 @@
 namespace ACP\Sorting\Model\User;
 
 use ACP\Sorting\AbstractModel;
+use ACP\Sorting\Model\SqlOrderByFactory;
 use WP_User_Query;
 
 class CommentCount extends AbstractModel {
@@ -40,39 +41,33 @@ class CommentCount extends AbstractModel {
 	}
 
 	public function pre_user_query_callback( WP_User_Query $query ) {
+		remove_action( 'pre_user_query', [ $this, __FUNCTION__ ] );
+
 		global $wpdb;
 
-		$order = $this->get_order();
+		$query->query_from .= "\nLEFT JOIN $wpdb->comments AS acsort_comments ON acsort_comments.user_id = $wpdb->users.ID\n";
 
-		$join_type = $this->show_empty
-			? 'LEFT'
-			: 'INNER';
-
-		$where_status = $this->status
-			? sprintf( " AND acsort_comments.comment_approved IN ( %s )", $this->esc_sql_array( $this->status ) )
-			: '';
-
-		$query->query_fields .= ", COUNT( acsort_comments.comment_ID ) AS acsort_commentcount";
-		$query->query_from .= " 
-			$join_type JOIN {$wpdb->comments} AS acsort_comments ON acsort_comments.user_id = {$wpdb->users}.ID
-			{$where_status}
-		";
+		if ( $this->status ) {
+			$query->query_from .= sprintf( "\nAND acsort_comments.comment_approved IN ( %s )", $this->esc_sql_array( $this->status ) );
+		}
 
 		if ( $this->post_types ) {
-
-			$where_post_type = sprintf( " AND acsort_posts.post_type IN ( %s )", $this->esc_sql_array( $this->post_types ) );
-
-			$query->query_from .= " 
-				$join_type JOIN {$wpdb->posts} AS acsort_posts ON acsort_posts.ID = acsort_comments.comment_post_ID
-				{$where_post_type}
-			";
+			$query->query_from .= sprintf(
+				"
+				\nLEFT JOIN $wpdb->posts AS acsort_posts ON acsort_posts.ID = acsort_comments.comment_post_ID AND acsort_posts.post_type IN ( %s )
+				",
+				$this->esc_sql_array( $this->post_types )
+			);
 		}
-		$query->query_orderby = "
-			GROUP BY {$wpdb->users}.ID
-			ORDER BY acsort_commentcount $order, {$wpdb->users}.ID $order
-		";
 
-		remove_action( 'pre_user_query', [ $this, __FUNCTION__ ] );
+		$query->query_orderby = sprintf(
+			"
+			GROUP BY $wpdb->users.ID
+			ORDER BY %s, $wpdb->users.ID %s
+			",
+			SqlOrderByFactory::create_with_count( "acsort_comments.comment_ID", $this->get_order() ),
+			$this->get_order()
+		);
 	}
 
 	private function esc_sql_array( $array ) {

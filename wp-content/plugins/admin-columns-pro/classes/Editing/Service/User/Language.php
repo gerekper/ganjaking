@@ -3,15 +3,27 @@
 namespace ACP\Editing\Service\User;
 
 use ACP\Editing;
-use ACP\Editing\Service;
+use ACP\Editing\Service\BasicStorage;
 use ACP\Editing\View;
 
-class Language extends Service\Basic {
+class Language extends BasicStorage {
+
+	/**
+	 * @var array
+	 */
+	private $options;
 
 	public function __construct( array $options ) {
-		$options = array_merge( [ '' => _x( 'Site Default', 'default site language' ) ], $options );
+		parent::__construct( new Editing\Storage\User\Meta( 'locale' ) );
 
-		parent::__construct( new View\Select( $options ), new Editing\Storage\User\Meta( 'locale' ) );
+		$this->options = $options;
+
+	}
+
+	public function get_view( string $context ): ?View {
+		$options = array_merge( [ '' => _x( 'Site Default', 'default site language' ) ], $this->options );
+
+		return new View\Select( $options );
 	}
 
 }

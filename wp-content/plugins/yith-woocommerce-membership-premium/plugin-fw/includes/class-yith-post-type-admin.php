@@ -427,7 +427,7 @@ if ( ! class_exists( 'YITH_Post_Type_Admin' ) ) {
 		}
 
 		/**
-		 * Disable Months dropdown for Bookings
+		 * Disable Months dropdown
 		 *
 		 * @param bool   $disable   Set true to disable.
 		 * @param string $post_type The post type.

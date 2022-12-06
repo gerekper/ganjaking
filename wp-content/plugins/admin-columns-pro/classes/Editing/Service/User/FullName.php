@@ -2,37 +2,18 @@
 
 namespace ACP\Editing\Service\User;
 
-use AC\Request;
-use ACP\Editing;
+use ACP\Editing\Service\BasicStorage;
+use ACP\Editing\Storage;
 use ACP\Editing\View;
 
-class FullName implements Editing\Service {
+class FullName extends BasicStorage {
 
-	const KEY_FIRST_NAME = 'first_name';
-	const KEY_LAST_NAME = 'last_name';
-
-	public function get_value( $id ) {
-		return [
-			'first_name' => get_user_meta( $id, self::KEY_FIRST_NAME, true ),
-			'last_name'  => get_user_meta( $id, self::KEY_LAST_NAME, true ),
-		];
+	public function __construct( ) {
+		parent::__construct( new Storage\User\FullName() );
 	}
 
-	public function get_view( $context ) {
+	public function get_view( string $context ): ?View {
 		return new View\FullName();
-	}
-
-	public function update( Request $request ) {
-		$value = $request->get( 'value' );
-		$id = (int) $request->get( 'id' );
-
-		if ( isset( $value['first_name'] ) ) {
-			update_user_meta( $id, self::KEY_FIRST_NAME, $value['first_name'] );
-		}
-
-		if ( isset( $value['last_name'] ) ) {
-			update_user_meta( $id, self::KEY_LAST_NAME, $value['last_name'] );
-		}
 	}
 
 }

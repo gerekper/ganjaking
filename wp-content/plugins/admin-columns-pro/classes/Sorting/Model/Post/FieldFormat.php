@@ -4,6 +4,7 @@ namespace ACP\Sorting\Model\Post;
 
 use ACP\Sorting\AbstractModel;
 use ACP\Sorting\FormatValue;
+use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Sorter;
 use ACP\Sorting\Strategy\Post;
 use ACP\Sorting\Type\DataType;
@@ -39,28 +40,45 @@ class FieldFormat extends AbstractModel {
 		$this->value_length = (int) $value_length;
 	}
 
-	/**
-	 * @return array
-	 */
 	public function get_sorting_vars() {
+		add_filter( 'posts_clauses', [ $this, 'sorting_clauses_callback' ] );
+
+		return [
+			'suppress_filters' => false,
+		];
+	}
+
+	public function sorting_clauses_callback( $clauses ) {
+		remove_filter( 'posts_clauses', [ $this, __FUNCTION__ ] );
+
+		global $wpdb;
+
+		$clauses['orderby'] = SqlOrderByFactory::create_with_ids(
+			"$wpdb->posts.ID",
+			$this->get_sorted_ids(),
+			$this->get_order()
+		);
+
+		return $clauses;
+	}
+
+	private function get_sorted_ids() {
 		add_filter( 'posts_fields', [ $this, 'posts_fields_callback' ] );
+
+		$values = [];
 
 		$args = [
 			'suppress_filters' => false,
 			'fields'           => [],
 		];
 
-		$ids = [];
-
 		foreach ( $this->strategy->get_results( $args ) as $object ) {
-			$ids[ $object->id ] = $this->formatter->format_value( $object->value );
+			$values[ $object->id ] = $this->formatter->format_value( $object->value );
 
 			wp_cache_delete( $object->id, 'posts' );
 		}
 
-		return [
-			'ids' => ( new Sorter() )->sort( $ids, $this->get_order(), $this->data_type, $this->show_empty ),
-		];
+		return ( new Sorter() )->sort( $values, $this->data_type );
 	}
 
 	/**
@@ -69,15 +87,15 @@ class FieldFormat extends AbstractModel {
 	 * @global wpdb $wpdb
 	 */
 	public function posts_fields_callback() {
-		global $wpdb;
-
 		remove_filter( 'posts_fields', [ $this, __FUNCTION__ ] );
 
-		$field = $this->value_length
-			? sprintf( "LEFT( {$wpdb->posts}.%s, %s )", esc_sql( $this->field ), $this->value_length )
-			: sprintf( "{$wpdb->posts}.%s", esc_sql( $this->field ) );
+		global $wpdb;
 
-		return sprintf( "{$wpdb->posts}.ID AS id, %s AS value ", $field );
+		$field = $this->value_length
+			? sprintf( "LEFT( $wpdb->posts.%s, %s )", esc_sql( $this->field ), $this->value_length )
+			: sprintf( "$wpdb->posts.%s", esc_sql( $this->field ) );
+
+		return sprintf( "$wpdb->posts.ID AS id, %s AS value ", $field );
 	}
 
 }

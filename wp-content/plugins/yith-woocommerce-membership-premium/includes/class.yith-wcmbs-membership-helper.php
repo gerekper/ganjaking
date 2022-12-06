@@ -7,9 +7,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Member Class
  *
  * @class   YITH_WCMBS_Membership
- * @package Yithemes
- * @since   1.0.0
  * @author  Yithemes
+ * @since   1.0.0
+ * @package Yithemes
  */
 class YITH_WCMBS_Membership_Helper {
 
@@ -42,8 +42,8 @@ class YITH_WCMBS_Membership_Helper {
 	/**
 	 * Constructor
 	 *
-	 * @since  1.0.0
 	 * @author Leanza Francesco <leanzafrancesco@gmail.com>
+	 * @since  1.0.0
 	 */
 	private function __construct() {
 		// Kept for backward compatibility.
@@ -55,8 +55,8 @@ class YITH_WCMBS_Membership_Helper {
 	 *
 	 * @param int $user_id the id of the user
 	 *
-	 * @return YITH_WCMBS_Membership[]|bool
 	 * @author Leanza Francesco <leanzafrancesco@gmail.com>
+	 * @return YITH_WCMBS_Membership[]|bool
 	 * @since  1.0.0
 	 */
 	public function get_memberships_by_user( $user_id ) {
@@ -81,8 +81,8 @@ class YITH_WCMBS_Membership_Helper {
 	 * @param array  $meta_query the meta query
 	 * @param string $return     the object type returned
 	 *
-	 * @return YITH_WCMBS_Membership[]|bool
 	 * @author Leanza Francesco <leanzafrancesco@gmail.com>
+	 * @return YITH_WCMBS_Membership[]|bool
 	 * @since  1.0.0
 	 */
 	public function get_memberships_by_meta( $meta_query, $return = 'memberships' ) {
@@ -110,8 +110,8 @@ class YITH_WCMBS_Membership_Helper {
 	 * @param array  $args   argument for get_posts
 	 * @param string $return the object type returned
 	 *
-	 * @return YITH_WCMBS_Membership[]|bool
 	 * @author Leanza Francesco <leanzafrancesco@gmail.com>
+	 * @return YITH_WCMBS_Membership[]|bool
 	 * @since  1.0.0
 	 */
 	public function get_memberships_by_args( $args, $return = 'memberships' ) {
@@ -203,33 +203,33 @@ class YITH_WCMBS_Membership_Helper {
 		$end   = 0;
 		switch ( $range ) {
 			case 'today':
-				$start = strtotime( 'now midnight' );
-				$end   = strtotime( 'tomorrow midnight' );
+				$start = yith_wcmbs_local_strtotime_midnight_to_utc();
+				$end   = yith_wcmbs_local_strtotime_midnight_to_utc( 'tomorrow' );
 				break;
 			case 'yesterday':
-				$start = strtotime( 'yesterday midnight' );
-				$end   = strtotime( 'now midnight' );
+				$start = yith_wcmbs_local_strtotime_midnight_to_utc( 'yesterday' );
+				$end   = yith_wcmbs_local_strtotime_midnight_to_utc();
 				break;
 			case 'month':
-				$start = strtotime( date( 'Y-m-01', current_time( 'timestamp' ) ) );
-				$end   = strtotime( 'tomorrow midnight' );
+				$start = yith_wcmbs_local_strtotime_midnight_to_utc( date( 'Y-m-01', yith_wcmbs_local_strtotime() ) );
+				$end   = strtotime( '+1 month', $start );
 				break;
 			case 'last_month' :
-				$first_day_current_month = strtotime( date( 'Y-m-01', current_time( 'timestamp' ) ) );
+				$first_day_current_month = yith_wcmbs_local_strtotime_midnight_to_utc( date( 'Y-m-01', yith_wcmbs_local_strtotime() ) );
 				$start                   = strtotime( date( 'Y-m-01', strtotime( '-1 DAY', $first_day_current_month ) ) );
 				$end                     = strtotime( date( 'Y-m-t', strtotime( '-1 DAY', $first_day_current_month ) ) );
 				break;
 			case 'year' :
-				$start = strtotime( date( 'Y-01-01', current_time( 'timestamp' ) ) );
-				$end   = strtotime( 'tomorrow midnight' );
+				$start = yith_wcmbs_local_strtotime_midnight_to_utc( date( 'Y-01-01', yith_wcmbs_local_strtotime() ) );
+				$end   = strtotime( '+1 year', $start );
 				break;
 			case '7day' :
-				$start = strtotime( '-6 days midnight', current_time( 'timestamp' ) );
-				$end   = strtotime( 'tomorrow midnight' );
+				$start = yith_wcmbs_local_strtotime_midnight_to_utc( '-6 days' );
+				$end   = yith_wcmbs_local_strtotime_midnight_to_utc( 'tomorrow' );
 				break;
 			case 'ever':
 				$start = 0;
-				$end   = strtotime( 'tomorrow midnight' );
+				$end   = yith_wcmbs_local_strtotime_midnight_to_utc( 'tomorrow' );
 				break;
 		}
 
@@ -291,8 +291,8 @@ class YITH_WCMBS_Membership_Helper {
 	/**
 	 * Get all memberships
 	 *
-	 * @return YITH_WCMBS_Membership[]|bool
 	 * @author Leanza Francesco <leanzafrancesco@gmail.com>
+	 * @return YITH_WCMBS_Membership[]|bool
 	 * @since  1.0.0
 	 */
 	public function get_all_memberships() {
@@ -311,8 +311,8 @@ class YITH_WCMBS_Membership_Helper {
 	 *
 	 * @param int $plan_id the id of the plan
 	 *
-	 * @return YITH_WCMBS_Membership[]|bool
 	 * @author Leanza Francesco <leanzafrancesco@gmail.com>
+	 * @return YITH_WCMBS_Membership[]|bool
 	 * @since  1.0.0
 	 */
 	public function get_all_memberships_by_plan_id( $plan_id ) {
@@ -333,8 +333,8 @@ class YITH_WCMBS_Membership_Helper {
 	 *
 	 * @param WP_Post|WP_Post[] $membership_posts the posts
 	 *
-	 * @return YITH_WCMBS_Membership[]|bool
 	 * @author Leanza Francesco <leanzafrancesco@gmail.com>
+	 * @return YITH_WCMBS_Membership[]|bool
 	 * @since  1.0.0
 	 */
 	public function parse_memberships_from_posts( $membership_posts ) {
@@ -372,8 +372,8 @@ class YITH_WCMBS_Membership_Helper {
 	 *
 	 * @param int $plan_id the id of the plan
 	 *
-	 * @return array
 	 * @author Leanza Francesco <leanzafrancesco@gmail.com>
+	 * @return array
 	 * @since  1.0.0
 	 */
 	public function get_members( $plan_id, $args = array() ) {

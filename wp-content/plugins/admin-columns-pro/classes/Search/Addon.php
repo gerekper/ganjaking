@@ -5,13 +5,13 @@ namespace ACP\Search;
 use AC;
 use AC\Asset\Location;
 use AC\ListScreenRepository\Storage;
-use AC\Registrable;
+use AC\Registerable;
 use ACP;
 use ACP\Bookmark\SegmentRepository;
 use ACP\Bookmark\Setting\PreferredSegment;
 use ACP\Settings\ListScreen\HideOnScreenCollection;
 
-final class Addon implements Registrable {
+final class Addon implements Registerable {
 
 	/**
 	 * @var Storage

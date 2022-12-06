@@ -2,14 +2,14 @@
 
 namespace ACP\Updates;
 
-use AC\Registrable;
+use AC\Registerable;
 use AC\Storage\KeyValuePair;
 use stdClass;
 
 /**
  * Hooks into the WordPress update process for plugins
  */
-class UpdatePlugin implements Registrable {
+class UpdatePlugin implements Registerable {
 
 	/**
 	 * @var string

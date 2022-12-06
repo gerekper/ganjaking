@@ -1,5 +1,9 @@
 *** Store Credit Changelog ***
 
+2022-12-01 - version 4.2.4
+* Tweak - Declare compatibility with WooCommerce High-Performance Order Storage (HPOS).
+* Tweak - Tested compatibility with WC 7.1.
+
 2022-10-18 - version 4.2.3
 * Tweak - Don't restore the credit when the order status changes to 'failed'.
 * Tweak - Tested compatibility up to WC 7.0.

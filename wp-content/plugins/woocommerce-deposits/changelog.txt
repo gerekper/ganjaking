@@ -1,5 +1,10 @@
 *** WooCommerce Deposits Changelog ***
 
+2022-12-05 - version 2.1.1
+* Fix - Fixed a fatal error that was triggered when using PHP v8 and using Cart/Checkout Blocks.
+* Fix – Fix divide by zero errors on checkout with PHP v8.
+* Fix – Fix "Order Again" for deposit-paid products.
+
 2022-11-01 - version 2.1.0
 * Add – Declare support for High-performance Order Systems (“HPOS”).
 

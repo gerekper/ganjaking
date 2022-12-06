@@ -80,7 +80,7 @@ $page  = min( $page, $max_num_pages );
 						$delay = $delay_time[ $plan->get_id() ];
 
 						if ( $membership->is_active() ) {
-							$availability_date = date( wc_date_format(), strtotime( '+ ' . $delay . ' days', $membership->start_date + ( $membership->paused_days * 60 * 60 * 24 ) ) );
+							$availability_date = yith_wcmbs_date( strtotime( '+ ' . $delay . ' days', $membership->start_date + ( $membership->paused_days * 60 * 60 * 24 ) ) );
 							$availability      = sprintf( __( 'Availability date: %s ', 'yith-woocommerce-membership' ), $availability_date );
 						} else {
 							$availability = sprintf( _n( 'available after %s day since the beginning of the membership', 'available after %s days since the beginning of the membership', $delay, 'yith-woocommerce-membership' ), $delay );

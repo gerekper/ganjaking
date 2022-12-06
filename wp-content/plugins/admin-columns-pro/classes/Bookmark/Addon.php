@@ -4,12 +4,12 @@ namespace ACP\Bookmark;
 
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
-use AC\Registrable;
+use AC\Registerable;
 use AC\Request;
 use ACP\Bookmark\Controller\RequestSetter;
 use ACP\Bookmark\Setting;
 
-class Addon implements Registrable {
+class Addon implements Registerable {
 
 	/**
 	 * @var Storage

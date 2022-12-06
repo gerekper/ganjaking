@@ -146,7 +146,7 @@ class Settings extends AC\Settings\Column
 	 * @return string
 	 */
 	public function get_filter_label() {
-		return $this->sanitize_label( $this->filter_label );
+		return $this->sanitize_label( (string) $this->filter_label );
 	}
 
 	/**

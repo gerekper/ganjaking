@@ -4,6 +4,7 @@ namespace ACP\Sorting\Model\Comment\Author;
 
 use ACP;
 use ACP\Sorting\AbstractModel;
+use ACP\Sorting\Model\SqlOrderByFactory;
 
 class UserField extends AbstractModel {
 
@@ -12,38 +13,26 @@ class UserField extends AbstractModel {
 	 */
 	private $user_field;
 
-	public function __construct( $user_field ) {
+	public function __construct( string $user_field ) {
 		parent::__construct();
 
-		$this->user_field = (string) $user_field;
+		$this->user_field = $user_field;
 	}
 
 	public function get_sorting_vars() {
 		add_filter( 'comments_clauses', [ $this, 'comments_clauses_callback' ] );
 
-		return [
-			'suppress_filters' => false,
-		];
+		return [];
 	}
 
 	public function comments_clauses_callback( $clauses ) {
+		remove_filter( 'comments_clauses', [ $this, __FUNCTION__ ] );
+
 		global $wpdb;
 
-		$order = esc_sql( $this->get_order() );
-
-		$join_type = $this->show_empty
-			? 'LEFT'
-			: 'INNER';
-
-		$clauses['join'] .= " {$join_type} JOIN {$wpdb->users} AS acsort_users ON {$wpdb->comments}.user_id = acsort_users.ID";
-
-		if ( ! $this->show_empty ) {
-			$clauses['join'] .= sprintf( " AND acsort_users.`%s` <> ''", esc_sql( $this->user_field ) );
-		}
-
-		$clauses['orderby'] = sprintf( "acsort_users.%s $order, {$wpdb->comments}.comment_ID $order", esc_sql( $this->user_field ) );
-
-		remove_filter( 'comments_clauses', [ $this, __FUNCTION__ ] );
+		$clauses['join'] .= "LEFT JOIN $wpdb->users AS acsort_users ON $wpdb->comments.user_id = acsort_users.ID";
+		$clauses['orderby'] = SqlOrderByFactory::create( "acsort_users.$this->user_field", $this->get_order() );
+		$clauses['orderby'] .= sprintf( ", $wpdb->comments.comment_ID %s", esc_sql( $this->get_order() ) );
 
 		return $clauses;
 	}

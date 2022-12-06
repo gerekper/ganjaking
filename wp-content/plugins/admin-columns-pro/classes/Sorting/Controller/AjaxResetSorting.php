@@ -4,11 +4,11 @@ namespace ACP\Sorting\Controller;
 
 use AC\Ajax;
 use AC\ListScreenRepository\Storage;
-use AC\Registrable;
+use AC\Registerable;
 use AC\Type\ListScreenId;
 use ACP\Sorting\UserPreference;
 
-class AjaxResetSorting implements Registrable {
+class AjaxResetSorting implements Registerable {
 
 	/**
 	 * @var Storage

@@ -2,8 +2,8 @@
 
 namespace ACP\Editing\Strategy;
 
+use ACP\Editing\RequestHandler;
 use ACP\Editing\Strategy;
-use WP_Post;
 
 class Post implements Strategy {
 
@@ -16,32 +16,19 @@ class Post implements Strategy {
 	 * @param string $post_type
 	 */
 	public function __construct( $post_type ) {
-		$this->post_type = $post_type;
+		$this->post_type = (string) $post_type;
 	}
 
-	/**
-	 * @param WP_Post|int $post
-	 *
-	 * @return bool
-	 */
-	public function user_has_write_permission( $post ) {
-		if ( ! $post instanceof WP_Post ) {
-			$post = get_post( $post );
+	public function user_can_edit() {
+		return current_user_can( 'edit_posts' );
+	}
 
-			if ( ! $post instanceof WP_Post ) {
-				return false;
-			}
-		}
+	public function user_can_edit_item( $id ) {
+		return $this->user_can_edit() && current_user_can( 'edit_post', $id ) && ! wp_check_post_lock( $id );
+	}
 
-		if ( ! current_user_can( 'edit_post', $post->ID ) ) {
-			return false;
-		}
-
-		if ( wp_check_post_lock( $post->ID ) ) {
-			return false;
-		}
-
-		return true;
+	public function get_query_request_handler() {
+		return new RequestHandler\Query\Post();
 	}
 
 }

@@ -58,11 +58,10 @@ final class Woocommerce_Gateway_Purchase_Order_Admin {
 			return;
 		}
 
-		$payment_method = version_compare( WC_VERSION, '3.0', '<' ) ? $order->payment_method : $order->get_payment_method();
-		$order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
+		$payment_method = $order->get_payment_method();
 
 		if ( 'woocommerce_gateway_purchase_order' === $payment_method ) {
-			$po_number = get_post_meta( $order_id, '_po_number', true );
+			$po_number = $order->get_meta( '_po_number', true );
 			/* translators: Placeholder: %1$s - opening <strong> tag, %2$s - coupons count (used in order), %3$s - closing </strong> tag - %4$s - coupons list */
 			printf( '<div class="purchase-order-number">' . __( '%1$sPurchase order number:%2$s %3$s', 'woocommerce-gateway-purchase-order' ) . '</div>', '<strong>', '</strong>', esc_html( $po_number ) );
 		}
@@ -76,11 +75,10 @@ final class Woocommerce_Gateway_Purchase_Order_Admin {
 	* @return void
 	*/
 	public function display_purchase_order_number ( $order ) {
-		$payment_method = version_compare( WC_VERSION, '3.0', '<' ) ? $order->payment_method : $order->get_payment_method();
-		$order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
+		$payment_method = $order->get_payment_method();
 
 		if ( 'woocommerce_gateway_purchase_order' === $payment_method ) {
-			$po_number = get_post_meta( $order_id, '_po_number', true );
+			$po_number = $order->get_meta( '_po_number', true );
 			if ( '' != $po_number ) {
 				if ( 'woocommerce_order_details_after_order_table' == current_filter() ) {
 					echo '<ul class="woocommerce-order-overview woocommerce-thankyou-order-details order_details">';

@@ -3,6 +3,7 @@
 namespace ACP\Sorting\Model\Post;
 
 use ACP\Sorting\AbstractModel;
+use ACP\Sorting\Model\SqlOrderByFactory;
 
 class PostParent extends AbstractModel {
 
@@ -15,18 +16,13 @@ class PostParent extends AbstractModel {
 	}
 
 	public function sorting_clauses_callback( $clauses ) {
+		remove_filter( 'posts_clauses', [ $this, __FUNCTION__ ] );
+
 		global $wpdb;
 
-		$order = esc_sql( $this->get_order() );
-
-		$join_type = $this->show_empty
-			? 'LEFT'
-			: 'INNER';
-
-		$clauses['join'] .= "{$join_type} JOIN {$wpdb->posts} AS acsort_posts ON {$wpdb->posts}.post_parent = acsort_posts.ID";
-		$clauses['orderby'] = "acsort_posts.post_title $order, acsort_posts.ID $order";
-
-		remove_filter( 'posts_clauses', [ $this, __FUNCTION__ ] );
+		$clauses['join'] .= "LEFT JOIN $wpdb->posts AS acsort_posts ON $wpdb->posts.post_parent = acsort_posts.ID";
+		$clauses['orderby'] = SqlOrderByFactory::create( "acsort_posts.post_title", $this->get_order() );
+		$clauses['orderby'] .= sprintf( ", $wpdb->posts.post_date %s", esc_sql( $this->get_order() ) );
 
 		return $clauses;
 	}

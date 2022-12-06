@@ -29,10 +29,10 @@ class V5201 extends Update {
 		}
 
 		foreach ( $preferences as $preference ) {
-			$segments = unserialize( $preference->meta_value );
+			$segments = unserialize( $preference->meta_value, [ 'allowed_classes' => false ] );
 
 			foreach ( $segments['segments'] as $k => $segment ) {
-				$data = unserialize( $segment['data'] );
+				$data = unserialize( $segment['data'], [ 'allowed_classes' => false ] );
 
 				$data['url_parameters'] = [];
 

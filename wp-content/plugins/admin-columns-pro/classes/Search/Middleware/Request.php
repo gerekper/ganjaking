@@ -16,7 +16,7 @@ class Request implements AC\Middleware {
 			$rules_key = 'ac-' . $rules_key;
 		}
 
-		$input_raw = $request->get( $rules_key );
+		$input_raw = $request->get( $rules_key, '' );
 
 		$rule_mapper = new Rules();
 		$rules = $rule_mapper( $input_raw );

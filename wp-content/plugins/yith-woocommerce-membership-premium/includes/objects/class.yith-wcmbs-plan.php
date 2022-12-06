@@ -1275,9 +1275,16 @@ if ( ! class_exists( 'YITH_WCMBS_Plan' ) ) {
 
 			// Downloadable Products
 			if ( 'product' === $post_type && YITH_WCMBS_Products_Manager()->is_allowed_download() ) {
-				$join[]             = "INNER JOIN {$wpdb->postmeta} AS post_meta_2 ON ( posts.ID = post_meta_2.post_id )";
-				$downloadable_query = $wpdb->prepare( 'post_meta_2.meta_key = %s AND post_meta_2.meta_value = %s', '_downloadable', 'yes' );
-				$where[]            = "AND ({$downloadable_query})";
+				$join[]                      = "INNER JOIN {$wpdb->postmeta} AS post_meta_2 ON ( posts.ID = post_meta_2.post_id )";
+				$downloadable_query          = $wpdb->prepare( 'post_meta_2.meta_key = %s AND post_meta_2.meta_value = %s', '_downloadable', 'yes' );
+				$downloadable_variables      = "SELECT DISTINCT(post_parent) 
+					from $wpdb->posts as variations 
+					INNER JOIN {$wpdb->postmeta} AS variations_pm ON (variations.ID = variations_pm.post_id AND post_parent != 0 AND post_type = 'product_variation' AND variations_pm.meta_key = '_downloadable') 
+					WHERE variations_pm.meta_value = 'yes'  
+				";
+				$downloadable_query_variable = "posts.ID in ($downloadable_variables)";
+
+				$where[] = "AND ( ({$downloadable_query}) OR ($downloadable_query_variable) )";
 			}
 
 			// Post Type and Status

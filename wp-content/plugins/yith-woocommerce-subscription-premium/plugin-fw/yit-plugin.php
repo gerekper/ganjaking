@@ -37,6 +37,7 @@ require_once 'includes/privacy/class-yith-privacy.php';
 require_once 'includes/privacy/class-yith-privacy-plugin-abstract.php';
 require_once 'includes/class-yith-system-status.php';
 require_once 'includes/class-yith-post-type-admin.php';
+require_once 'includes/class-yith-bh-onboarding.php';
 
 // Gutenberg Support.
 if ( class_exists( 'WP_Block_Type_Registry' ) ) {
@@ -110,25 +111,36 @@ if ( ! function_exists( 'yit_plugin_fw_row_meta' ) ) {
 			$plugin_data,
 			$status
 		);
-		$fields            = isset( $new_row_meta_args['to_show'] ) ? $new_row_meta_args['to_show'] : array();
-		$slug              = isset( $new_row_meta_args['slug'] ) ? $new_row_meta_args['slug'] : '';
-		$is_extended       = ! empty( $new_row_meta_args['is_extended'] ) || false !== strpos( $plugin_file, '-extended' );
-		$is_premium        = ! empty( $new_row_meta_args['is_premium'] ) || false !== strpos( $plugin_file, '-premium' );
+		$fields            = $new_row_meta_args['to_show'] ?? array();
+		$slug              = $new_row_meta_args['slug'] ?? '';
+		$is_extended       = $new_row_meta_args['is_extended'] ?? ( false !== strpos( $plugin_file, '-extended' ) );
+		$is_premium        = $new_row_meta_args['is_premium'] ?? ( false !== strpos( $plugin_file, '-premium' ) );
 		$utm_campaign      = 'plugin-version-author-uri';
 
 		if ( $is_premium ) {
 			$utm_source = 'wp-premium-dashboard';
+			$to_remove  = array( 'premium_version' );
 		} elseif ( $is_extended ) {
 			$utm_source = 'wp-extended-dashboard';
+			$to_remove  = array( 'live_demo' );
+
+			// set custom base uri.
+			$base_uri['documentation'] = 'https://www.bluehost.com/help/article/';
+			$base_uri['free_support']  = add_query_arg( array( 'page' => 'bluehost' ), admin_url( 'admin.php' ) ) . '#/help';
 		} else {
 			$utm_source = 'wp-free-dashboard';
 		}
 
-		if ( ! ! $is_premium ) {
-			$to_remove = array_search( 'premium_version', $fields, true );
+		// remove meta not required for current plugin.
+		if ( ! empty( $to_remove ) ) {
+			foreach ( $to_remove as $item_to_remove ) {
+				$item_to_remove_pos = array_search( $item_to_remove, $fields, true );
 
-			if ( false !== $to_remove ) {
-				unset( $fields[ $to_remove ] );
+				if ( false === $item_to_remove_pos ) {
+					continue;
+				}
+
+				unset( $fields[ $item_to_remove_pos ] );
 			}
 		}
 
@@ -155,11 +167,12 @@ if ( ! function_exists( 'yit_plugin_fw_row_meta' ) ) {
 				if ( ! empty( $slug ) ) {
 					if ( 'support' === $field ) {
 						$support_field = true === $is_premium ? 'premium_support' : 'free_support';
+
 						if ( ! empty( $base_uri[ $support_field ] ) ) {
 							$url = $base_uri[ $support_field ];
 						}
 
-						if ( 'free_support' === $support_field ) {
+						if ( 'free_support' === $support_field && ! $is_extended ) {
 							$url = $url . $slug;
 						}
 					} else {
@@ -171,7 +184,10 @@ if ( ! function_exists( 'yit_plugin_fw_row_meta' ) ) {
 			}
 
 			if ( ! empty( $url ) && ! empty( $label ) ) {
-				$url           = yith_plugin_fw_add_utm_data( $url, $slug, $utm_campaign, $utm_source );
+				if ( ! ( $is_extended && in_array( $field, array( 'support', 'documentation' ), true ) ) ) {
+					$url = yith_plugin_fw_add_utm_data( $url, $slug, $utm_campaign, $utm_source );
+				}
+
 				$plugin_meta[] = sprintf( '<a href="%s" target="_blank"><span class="%s"></span>%s</a>', $url, $icon, $label );
 			}
 		}
@@ -182,8 +198,12 @@ if ( ! function_exists( 'yit_plugin_fw_row_meta' ) ) {
 		}
 
 		if ( isset( $plugin_meta[2] ) ) {
-			$utm_plugin_uri = yith_plugin_fw_add_utm_data( $plugin_data['PluginURI'], $slug, $utm_campaign, $utm_source );
-			$plugin_meta[2] = str_replace( $plugin_data['PluginURI'], $utm_plugin_uri, $plugin_meta[2] );
+			if ( $is_extended ) {
+				unset( $plugin_meta[2] );
+			} else {
+				$utm_plugin_uri = yith_plugin_fw_add_utm_data( $plugin_data['PluginURI'], $slug, $utm_campaign, $utm_source );
+				$plugin_meta[2] = str_replace( $plugin_data['PluginURI'], $utm_plugin_uri, $plugin_meta[2] );
+			}
 		}
 
 		return $plugin_meta;
@@ -216,3 +236,53 @@ if ( ! function_exists( 'yith_add_action_links' ) ) {
 		return $links;
 	}
 }
+
+if ( ! function_exists( 'yith_plugin_fw_print_deactivation_message' ) ) {
+	/**
+	 * Prints message about plugins deactivation, due to multiple versions active of the same software active at the same time
+	 *
+	 * @return void
+	 * @since 3.9.8
+	 */
+	function yith_plugin_fw_print_deactivation_message() {
+		global $pagenow;
+
+		// phpcs:disable WordPress.Security.NonceVerification
+		if ( 'plugins.php' !== $pagenow || ! isset( $_GET['yith_deactivated_plugins'] ) ) {
+			return;
+		}
+
+		$names = sanitize_text_field( wp_unslash( $_GET['yith_deactivated_plugins'] ) );
+		$names = explode( ',', $names );
+		$names = array_map(
+			function ( $init_file ) {
+				$name = get_plugin_data( WP_PLUGIN_DIR . '/' . $init_file )['Name'] ?? '';
+				if ( ! $name ) {
+					$name = str_replace( array( '-', 'init.php', '/' ), ' ', $init_file );
+					$name = str_replace( array( 'yith', 'woocommerce', 'wordpress' ), array( 'YITH', 'WooCommerce', 'WordPress' ), $name );
+					$name = trim( ucwords( $name ) );
+				}
+
+				return $name;
+			},
+			$names
+		);
+
+		// translators: 1. Plugin(s) name(s).
+		$message = _n(
+			'%s was deactivated as you\'re running an higher tier version of the same plugin.',
+			'%s were deactivated as you\'re running higher tier versions of the same plugins.',
+			count( $names ),
+			'yit-plugin-fw'
+		);
+		$message = sprintf( $message, implode( ', ', $names ) );
+		?>
+		<div class="notice">
+			<p><?php echo esc_html( $message ); ?></p>
+		</div>
+		<?php
+		// phpcs:enable
+	}
+}
+
+add_action( 'admin_notices', 'yith_plugin_fw_print_deactivation_message' );

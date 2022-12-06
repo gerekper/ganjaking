@@ -23,9 +23,10 @@ class ColumnBulkSettingsSetter {
 			return;
 		}
 
-		$view = ( new ApplyFilter\View( $column, Service::CONTEXT_BULK, $service ) )->apply_filters( $service->get_view( Service::CONTEXT_SINGLE ) );
+		$filter = new ApplyFilter\View( $column, Service::CONTEXT_BULK, $service );
+		$view = $filter->apply_filters( $service->get_view( Service::CONTEXT_BULK ) );
 
-		if ( $view === false ) {
+		if ( ! $view instanceof View ) {
 			return;
 		}
 

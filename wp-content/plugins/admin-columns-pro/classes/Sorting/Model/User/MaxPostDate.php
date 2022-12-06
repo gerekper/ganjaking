@@ -3,6 +3,8 @@
 namespace ACP\Sorting\Model\User;
 
 use ACP\Sorting\AbstractModel;
+use ACP\Sorting\Model\SqlOrderByFactory;
+use ACP\Sorting\Type\ComputationType;
 use WP_User_Query;
 
 class MaxPostDate extends AbstractModel {
@@ -37,23 +39,15 @@ class MaxPostDate extends AbstractModel {
 	}
 
 	public function pre_user_query_callback( WP_User_Query $query ) {
+		remove_action( "pre_user_query", [ $this, __FUNCTION__ ] );
+
 		global $wpdb;
 
-		$order = $this->get_order();
-
-		$min_or_max = $this->oldest_post
-			? 'MIN'
-			: 'MAX';
-
-		$join_type = $this->show_empty
-			? 'LEFT'
-			: 'INNER';
-
-		$query->query_fields .= ", {$min_or_max}( acsort_posts.post_date ) AS acsort_firstpost";
+		$computation = new ComputationType( $this->oldest_post ? ComputationType::MIN : ComputationType::MAX );
 
 		$query->query_from .= $wpdb->prepare( " 
-					{$join_type} JOIN {$wpdb->posts} AS acsort_posts
-						ON {$wpdb->users}.ID = acsort_posts.post_author
+					LEFT JOIN $wpdb->posts AS acsort_posts
+						ON $wpdb->users.ID = acsort_posts.post_author
 						AND acsort_posts.post_type = %s
 					", $this->post_type );
 
@@ -61,12 +55,14 @@ class MaxPostDate extends AbstractModel {
 			$query->query_from .= "AND acsort_posts.post_status IN (" . $this->esc_sql_array( $this->post_stati ) . ")";
 		}
 
-		$query->query_orderby = "
-					GROUP BY {$wpdb->users}.ID
-					ORDER BY acsort_firstpost $order
-				";
-
-		remove_action( "pre_user_query", [ $this, __FUNCTION__ ] );
+		$query->query_orderby = sprintf(
+			"
+				GROUP BY $wpdb->users.ID
+				ORDER BY %s, $wpdb->users.ID %s
+			",
+			SqlOrderByFactory::create_with_computation( $computation, 'acsort_posts.post_date', $this->get_order() ),
+			esc_sql( $this->get_order() )
+		);
 	}
 
 	private function esc_sql_array( $array ) {

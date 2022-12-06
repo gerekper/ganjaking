@@ -3,23 +3,24 @@
 namespace ACP\Editing\Service\User;
 
 use AC;
-use AC\Request;
-use ACP\Editing;
-use ACP\Editing\View\RemoteSelect;
+use ACP\Editing\RemoteOptions;
+use ACP\Editing\Service\BasicStorage;
+use ACP\Editing\Storage;
+use ACP\Editing\View;
 use ACP\Helper;
 
-class DisplayName implements Editing\Service, Editing\RemoteOptions {
+class DisplayName extends BasicStorage implements RemoteOptions {
 
-	public function get_value( $id ) {
-		$name = ac_helper()->user->get_user_field( 'display_name', $id );
-
-		return [ $name => $name ];
+	public function __construct() {
+		parent::__construct( new Storage\User\DisplayName() );
 	}
 
-	public function get_view( $context ) {
-		return $context === self::CONTEXT_BULK
-			? false
-			: new RemoteSelect();
+	public function get_view( string $context ): ?View {
+		if ( $context === self::CONTEXT_BULK ) {
+			return null;
+		}
+
+		return new View\RemoteSelect();
 	}
 
 	public function get_remote_options( $id = null ) {
@@ -49,25 +50,6 @@ class DisplayName implements Editing\Service, Editing\RemoteOptions {
 			new Helper\Select\Options\SinglePage(),
 			AC\Helper\Select\Options::create_from_array( $options )
 		);
-	}
-
-	public function update( Request $request ) {
-		global $wpdb;
-
-		$id = $request->get( 'id' );
-		$value = sanitize_user( $request->get( 'value', '' ), true );
-
-		$result = $wpdb->update(
-			$wpdb->users,
-			[ 'display_name' => $value ],
-			[ 'ID' => $id ],
-			[ '%s' ],
-			[ '%d' ]
-		);
-
-		clean_user_cache( $id );
-
-		return $result !== false;
 	}
 
 }

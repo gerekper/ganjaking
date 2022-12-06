@@ -3,6 +3,7 @@
 namespace ACP\Sorting\Model\User;
 
 use ACP\Sorting\AbstractModel;
+use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\DataType;
 use WP_User_Query;
 
@@ -13,8 +14,8 @@ class UserField extends AbstractModel {
 	 */
 	protected $field;
 
-	public function __construct( $field, DataType $data_type = null, $show_empty = null ) {
-		parent::__construct( $data_type, $show_empty );
+	public function __construct( $field, DataType $data_type = null ) {
+		parent::__construct( $data_type );
 
 		$this->field = (string) $field;
 	}
@@ -26,15 +27,16 @@ class UserField extends AbstractModel {
 	}
 
 	public function pre_user_query_callback( WP_User_Query $query ) {
-		global $wpdb;
-
 		remove_action( 'pre_user_query', [ $this, __FUNCTION__ ] );
 
-		$query->query_orderby = sprintf( "ORDER BY %s.`%s` %s", $wpdb->users, esc_sql( $this->field ), $query->query_vars['order'] );
+		global $wpdb;
 
-		if ( ! $this->show_empty ) {
-			$query->query_where .= sprintf( " AND %s.`%s` <> ''", $wpdb->users, esc_sql( $this->field ) );
-		}
+		$query->query_orderby = sprintf( "
+				ORDER BY %s, user_login %s
+			",
+			SqlOrderByFactory::create( "$wpdb->users.`$this->field`", $this->get_order() ),
+			esc_sql( $this->get_order() )
+		);
 	}
 
 }

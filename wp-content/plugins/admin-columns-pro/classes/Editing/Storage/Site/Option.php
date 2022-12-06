@@ -15,18 +15,18 @@ class Option implements Storage {
 		$this->option_name = $option_name;
 	}
 
-	public function update( $id, $value ) {
+	public function update( int $id, $data ): bool {
 		switch_to_blog( $id );
 
-		$result = update_option( $this->option_name, $value );
+		$result = update_option( $this->option_name, $data );
 
 		restore_current_blog();
 
 		return $result;
 	}
 
-	public function get( $blog_id ) {
-		return ac_helper()->network->get_site_option( $blog_id, $this->option_name );
+	public function get( int $id ) {
+		return ac_helper()->network->get_site_option( $id, $this->option_name );
 	}
 
 }

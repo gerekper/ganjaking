@@ -1,0 +1,10 @@
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <g id="Logo-&amp;-icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon-Squared" transform="translate(-140.000000, -180.000000)">
+            <g id="yoast" transform="translate(140.000000, 180.000000)">
+                <rect id="BG" fill="#A32769" x="0" y="0" width="20" height="20" rx="2"></rect>
+                <path d="M13.2120593,3 L10.3780444,10.8556608 L9.01797037,6.61208841 L7,6.61208841 L9.25835556,12.4091114 C9.44813333,12.9016689 9.44813333,13.45106 9.25835556,13.9436175 C9.00531852,14.5877312 8.58780741,15.1434371 7.56300741,15.2823636 L7.56300741,17 C9.55567407,17 10.6374074,15.7749211 11.5989481,13.0911141 L15.3692,3 L13.2120593,3 Z" id="Path" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>

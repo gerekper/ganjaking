@@ -13,25 +13,16 @@ abstract class AbstractModel {
 	protected $data_type;
 
 	/**
-	 * @var bool
-	 */
-	protected $show_empty;
-
-	/**
 	 * @var Strategy\Comment|Strategy\Post|Strategy\User
 	 */
 	protected $strategy;
 
-	public function __construct( DataType $data_type = null, $show_empty = null ) {
+	public function __construct( DataType $data_type = null ) {
 		if ( null === $data_type ) {
 			$data_type = new DataType( DataType::STRING );
 		}
-		if ( null === $show_empty ) {
-			$show_empty = acp_sorting_show_all_results();
-		}
 
 		$this->data_type = $data_type;
-		$this->show_empty = (bool) $show_empty;
 	}
 
 	/**
@@ -77,7 +68,9 @@ abstract class AbstractModel {
 	 * @deprecated 5.2
 	 */
 	public function sort( array $array ) {
-		return ( new Sorter() )->sort( $array, $this->get_order(), $this->data_type, $this->show_empty );
+		_deprecated_function( __METHOD__, '6.0' );
+
+		return ( new Sorter() )->sort( $array, $this->data_type );
 	}
 
 }

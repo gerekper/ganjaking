@@ -8,8 +8,12 @@ use ACP\ListScreen\Post;
 class PostFactory implements ModelFactory {
 
 	public function create( ListScreen $list_screen ) {
-		return $list_screen instanceof Post
-			? new Create\Post( $list_screen->get_post_type() )
+		$post_type = $list_screen instanceof Post
+			? $list_screen->get_post_type()
+			: null;
+
+		return $post_type && post_type_exists( $post_type )
+			? new Create\Post( $post_type )
 			: null;
 	}
 

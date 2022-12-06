@@ -2,84 +2,75 @@
 
 namespace ACP\Editing\Service;
 
-use AC\Request;
 use ACP;
 use ACP\Editing;
 use ACP\Editing\Storage;
 use ACP\Editing\View;
+use RuntimeException;
 
 class ComputedNumber implements Editing\Service {
 
-	const ARG_VALUE = 'value';
 	const ARG_COMPUTATION_TYPE = 'computation_type';
 	const ARG_ALLOW_NEGATIVE = 'allow_negative';
 
-	const COMPUTATION_ADD = 'add';
-	const COMPUTATION_SUBTRACT = 'subtract';
-	const COMPUTATION_MULTIPLY = 'multiply';
-	const COMPUTATION_DIVIDE = 'divide';
-
-	/**
-	 * @var Storage
-	 */
 	protected $storage;
 
 	public function __construct( Storage $storage ) {
 		$this->storage = $storage;
 	}
 
-	public function get_view( $context ) {
-		return $context === self::CONTEXT_BULK
+	public function get_value( int $id ) {
+		return $this->storage->get( $id );
+	}
+
+	public function get_view( string $context ): ?View {
+		return $context === Editing\Service::CONTEXT_BULK
 			? new View\ComputedNumber()
 			: new View\Number();
 	}
 
-	public function get_value( $id ) {
-		return $this->storage->get( $id );
+	private function compute( float $current_value, float $compute_value, string $computation = null ) {
+		switch ( $computation ) {
+			case 'add':
+				return $current_value + $compute_value;
+			case 'subtract':
+				return $current_value - $compute_value;
+			case 'multiply':
+				return $current_value * $compute_value;
+			case 'divide':
+				if ( 0 == $compute_value ) {
+					throw new RuntimeException( __( 'Cannot divide by zero', 'codepress-admin-columns' ) );
+				}
+
+				return $current_value / $compute_value;
+			case 'replace':
+			default:
+				return $compute_value;
+		}
 	}
 
-	public function update( Request $request ) {
-		$id = $request->get( 'id' );
-		$args = $request->get( 'value' );
+	public function update( int $id, $data ): void {
+		$computation = $data[ self::ARG_COMPUTATION_TYPE ] ?? null;
 
-		if ( ! isset( $args[ self::ARG_COMPUTATION_TYPE ] ) ) {
-			$args = [
-				self::ARG_COMPUTATION_TYPE => null,
-				self::ARG_VALUE            => $args,
-				self::ARG_ALLOW_NEGATIVE   => null,
-			];
+		if ( null === $computation ) {
+			$this->storage->update( $id, $data ?: null );
+
+			return;
 		}
 
-		$input_value = $args[ self::ARG_VALUE ];
-		$compute_value = (float) $input_value;
-		$stored_value = (float) $this->get_value( $id );
+		$value = $this->compute(
+			(float) $this->get_value( $id ),
+			(float) $data['value'],
+			$computation
+		);
 
-		switch ( $args[ self::ARG_COMPUTATION_TYPE ] ) {
-			case self::COMPUTATION_ADD:
-				$value = $stored_value + $compute_value;
-				break;
-			case self::COMPUTATION_SUBTRACT:
-				$value = $stored_value - $compute_value;
-				break;
-			case self::COMPUTATION_MULTIPLY:
-				$value = $stored_value * $compute_value;
-				break;
-			case self::COMPUTATION_DIVIDE:
-				$value = 0 === $compute_value
-					? $stored_value
-					: $stored_value / $compute_value;
-				break;
-			default:
-				$value = '' === $input_value
-					? $input_value
-					: $compute_value;
-		}
+		$allow_negative = $data[ self::ARG_ALLOW_NEGATIVE ] ?? null;
 
-		if ( isset( $args[ self::ARG_ALLOW_NEGATIVE ] ) && ! $args[ self::ARG_ALLOW_NEGATIVE ] && $value < 0 && $input_value !== '' ) {
+		if ( ! $allow_negative && $value < 0 ) {
 			$value = 0;
 		}
 
-		return $this->storage->update( $id, $value );
+		$this->storage->update( $id, $value );
 	}
 
 }

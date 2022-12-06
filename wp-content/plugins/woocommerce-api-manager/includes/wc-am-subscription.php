@@ -914,16 +914,8 @@ class WC_AM_Subscription {
 		$order    = wc_get_order( $order );
 		$order_id = $order->get_id();
 
-		/**
-		 * Delete the activations assigned to resources that are assigned to this order_id.
-		 */
-		$activation_ids = WC_AM_API_ACTIVATION_DATA_STORE()->get_activations_by_subscription_order_id( $order_id );
-
-		if ( $activation_ids ) {
-			foreach ( $activation_ids as $k => $activation_id ) {
-				WC_AM_API_ACTIVATION_DATA_STORE()->delete_api_key_activation_by_activation_id( $activation_id );
-			}
-		}
+		// Delete API Key activations for on-hold status Subscriptions
+		$this->delete_api_key_activations_by_sub_id( $order_id );
 
 		/**
 		 * Delete the subscription API resource.
@@ -959,16 +951,8 @@ class WC_AM_Subscription {
 			$sub_id   = $subscription->get_id();
 			$order_id = WC_AM_API_RESOURCE_DATA_STORE()->get_order_id_by_sub_id( $sub_id );
 
-			/**
-			 * Delete the activations assigned to resources that are assigned to this order_id.
-			 */
-			$activation_ids = WC_AM_API_ACTIVATION_DATA_STORE()->get_activations_by_subscription_order_id( $sub_id );
-
-			if ( $activation_ids ) {
-				foreach ( $activation_ids as $k => $activation_id ) {
-					WC_AM_API_ACTIVATION_DATA_STORE()->delete_api_key_activation_by_activation_id( $activation_id );
-				}
-			}
+			// Delete API Key activations.
+			$this->delete_api_key_activations_by_sub_id( $sub_id );
 
 			$where = array(
 				'sub_id' => $sub_id
@@ -1182,17 +1166,41 @@ class WC_AM_Subscription {
 	/**
 	 * Refreshes/deletes API and database cache when subscription status changes.
 	 *
-	 * @since 2.2.8
+	 * @since   2.2.8
+	 * @updated 2.4.8 To delete on-hold activations.
 	 *
 	 * @param int $sub_id
 	 *
 	 * @throws \Exception
 	 */
 	public function refresh_cache( $sub_id ) {
-		if ( ! empty( $sub_id ) ) {
-			$order_id = WC_AM_API_RESOURCE_DATA_STORE()->get_order_id_by_sub_id( $sub_id );
+		$order_id     = WC_AM_API_RESOURCE_DATA_STORE()->get_order_id_by_sub_id( $sub_id );
+		$subscription = $this->get_subscription_object( $sub_id );
 
-			WC_AM_SMART_CACHE()->refresh_cache_by_order_id( $order_id );
+		if ( $subscription->has_status( 'on-hold' ) ) {
+			// Delete API Key activations for on-hold status Subscriptions.
+			$this->delete_api_key_activations_by_sub_id( $sub_id );
+		}
+
+		WC_AM_SMART_CACHE()->refresh_cache_by_order_id( $order_id );
+	}
+
+	/**
+	 * Delete the activations assigned to API Resources that have this order_id.
+	 *
+	 * @since 2.4.8
+	 *
+	 * @param $sub_id
+	 *
+	 * @return void
+	 */
+	private function delete_api_key_activations_by_sub_id( $sub_id ) {
+		$activation_ids = WC_AM_API_ACTIVATION_DATA_STORE()->get_activations_by_subscription_order_id( $sub_id );
+
+		if ( $activation_ids ) {
+			foreach ( $activation_ids as $k => $activation_id ) {
+				WC_AM_API_ACTIVATION_DATA_STORE()->delete_api_key_activation_by_activation_id( $activation_id );
+			}
 		}
 	}
 }

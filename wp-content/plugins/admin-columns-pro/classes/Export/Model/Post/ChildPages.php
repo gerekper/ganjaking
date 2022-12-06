@@ -16,7 +16,7 @@ class ChildPages extends Model {
 			$titles[] = get_post_field( 'post_title', $post_id );
 		}
 
-		return implode( ',', $titles );
+		return implode( ', ', $titles );
 	}
 
 }

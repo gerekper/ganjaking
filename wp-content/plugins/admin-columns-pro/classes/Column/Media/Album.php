@@ -3,13 +3,16 @@
 namespace ACP\Column\Media;
 
 use AC;
+use ACP\ConditionalFormat;
 use ACP\Editing;
 use ACP\Export;
 use ACP\Search;
 use ACP\Sorting;
 
 class Album extends AC\Column\Media\Album
-	implements Sorting\Sortable, Editing\Editable, Export\Exportable, Search\Searchable {
+	implements Sorting\Sortable, Editing\Editable, Export\Exportable, Search\Searchable, ConditionalFormat\Formattable {
+
+	use ConditionalFormat\ConditionalFormatTrait;
 
 	public function sorting() {
 		return new Sorting\Model\Media\MetaDataText( 'album' );

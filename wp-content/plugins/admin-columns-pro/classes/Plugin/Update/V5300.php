@@ -43,7 +43,7 @@ class V5300 extends Update {
 				continue;
 			}
 
-			$value = unserialize( $row->meta_value );
+			$value = unserialize( $row->meta_value, [ 'allowed_classes' => false ] );
 
 			if ( empty( $value['segments'] ) ) {
 				continue;
@@ -54,7 +54,7 @@ class V5300 extends Update {
 					continue;
 				}
 
-				$data = unserialize( $segment_data['data'] );
+				$data = unserialize( $segment_data['data'], [ 'allowed_classes' => false ] );
 
 				if ( empty( $data ) ) {
 					continue;

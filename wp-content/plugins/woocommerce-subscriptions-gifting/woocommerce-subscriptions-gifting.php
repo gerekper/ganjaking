@@ -5,7 +5,7 @@
  * Description: Allow customers to buy a subscription product for someone else, then share subscription management between the purchaser and recipient.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
- * Version: 2.5.0
+ * Version: 2.5.1
  * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Text-Domain: woocommerce-subscriptions-gifting
@@ -59,7 +59,7 @@ class WCS_Gifting {
 	 *
 	 * @var string
 	 */
-	public static $version = '2.4.0';
+	public static $version = '2.5.1';
 
 	/**
 	 * Minimum WooCommerce version required.

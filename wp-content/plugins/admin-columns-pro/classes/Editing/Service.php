@@ -2,32 +2,26 @@
 
 namespace ACP\Editing;
 
-use AC\Request;
-
 interface Service {
 
 	const CONTEXT_SINGLE = 'single';
 	const CONTEXT_BULK = 'bulk';
 
-	/**
-	 * @param string $context
-	 *
-	 * @return View|false
-	 */
-	public function get_view( $context );
+	public function get_view( string $context ): ?View;
 
 	/**
 	 * @param int $id
 	 *
 	 * @return mixed
 	 */
-	public function get_value( $id );
+	public function get_value( int $id );
 
 	/**
-	 * @param Request $request
+	 * @param int   $id
+	 * @param mixed $data
 	 *
-	 * @return bool
+	 * @return void
 	 */
-	public function update( Request $request );
+	public function update( int $id, $data ): void;
 
 }

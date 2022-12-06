@@ -9,7 +9,7 @@
 	); ?>
 </p>
 
-<img src="<?= esc_url( $this->location->get_url() ); ?>assets/core/images/preferred-filters.png" alt=""/>
+<img src="<?= esc_url( $this->location->with_suffix( 'assets/core/images/preferred-filters.png' )->get_url() ) ?>" alt=""/>
 
 <p>
 	<a href="<?= esc_url( Documentation::create_with_path( Documentation::ARTICLE_SAVED_FILTERS ) ); ?>" target="_blank">

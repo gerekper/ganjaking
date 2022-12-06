@@ -16,7 +16,7 @@ class PostStatus implements AC\ApplyFilter {
 	}
 
 	public function apply_filters( $value ) {
-		return apply_filters( 'acp/editing/post_statuses', $value, $this->column );
+		return (array) apply_filters( 'acp/editing/post_statuses', $value, $this->column );
 	}
 
 }

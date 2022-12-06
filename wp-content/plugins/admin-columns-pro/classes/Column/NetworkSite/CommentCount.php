@@ -3,9 +3,12 @@
 namespace ACP\Column\NetworkSite;
 
 use AC;
+use ACP\ConditionalFormat;
 use ACP\Settings;
 
-class CommentCount extends AC\Column {
+class CommentCount extends AC\Column implements ConditionalFormat\Formattable {
+
+	use ConditionalFormat\IntegerFormattableTrait;
 
 	public function __construct() {
 		$this->set_type( 'column-msite_commentcount' )

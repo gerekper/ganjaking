@@ -3,46 +3,23 @@
 namespace ACP\Editing\Service\Taxonomy;
 
 use AC;
-use AC\Request;
 use ACP\Editing\PaginatedOptions;
-use ACP\Editing\Service;
+use ACP\Editing\Service\BasicStorage;
 use ACP\Editing\Storage;
-use ACP\Editing\View\AjaxSelect;
+use ACP\Editing\View;
 use ACP\Helper\Select;
 
-class TaxonomyParent implements Service, PaginatedOptions {
+class TaxonomyParent extends BasicStorage implements PaginatedOptions {
 
 	/**
 	 * @var string
 	 */
 	private $taxonomy;
 
-	/**
-	 * @var Storage
-	 */
-	private $storage;
-
 	public function __construct( $taxonomy ) {
+		parent::__construct( new Storage\Taxonomy\TaxonomyParent( $taxonomy ) );
+
 		$this->taxonomy = $taxonomy;
-		$this->storage = new Storage\Taxonomy\Field( $taxonomy, 'parent' );
-	}
-
-	public function get_value( $id ) {
-		$parent_id = $this->storage->get( $id );
-
-		if ( ! $parent_id ) {
-			return false;
-		}
-
-		$parent = get_term_by( 'id', $parent_id, $this->taxonomy );
-
-		if ( ! $parent ) {
-			return false;
-		}
-
-		return [
-			$parent->term_id => $parent->name,
-		];
 	}
 
 	public function get_paginated_options( $search, $page, $id = null ) {
@@ -59,12 +36,8 @@ class TaxonomyParent implements Service, PaginatedOptions {
 		);
 	}
 
-	public function get_view( $context ) {
-		return ( new AjaxSelect() )->set_clear_button( true );
-	}
-
-	public function update( Request $request ) {
-		return $this->storage->update( $request->get( 'id' ), $request->get( 'value', '' ) );
+	public function get_view( string $context ): ?View {
+		return ( new View\AjaxSelect() )->set_clear_button( true );
 	}
 
 }

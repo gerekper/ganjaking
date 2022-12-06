@@ -72,12 +72,12 @@
 				</p>
 				<p class="field_info"><label><strong><?php esc_html_e( 'Last update', 'yith-woocommerce-membership' ) ?>:</strong></label>
 					<?php
-					echo esc_html( date_i18n( wc_date_format(), $membership->credits_update ) );
+					echo esc_html( $membership->get_formatted_date( 'credits_update' ) ) ;
 					?>
 				</p>
 				<p class="field_info"><label><strong><?php esc_html_e( 'Next update', 'yith-woocommerce-membership' ) ?>:</strong></label>
 					<?php
-					echo esc_html( date_i18n( wc_date_format(), $membership->next_credits_update ) );
+					echo esc_html( $membership->get_formatted_date( 'next_credits_update' ) );
 					?>
 				</p>
 			<?php endif ?>

@@ -6,7 +6,7 @@
  * Description: Send SMS order notifications to admins and customers for your WooCommerce store. Powered by Twilio :)
  * Author: SkyVerge
  * Author URI: http://www.woocommerce.com
- * Version: 1.16.3
+ * Version: 1.17.0
  * Text Domain: woocommerce-twilio-sms-notifications
  * Domain Path: /i18n/languages/
  *
@@ -23,7 +23,7 @@
  *
  * Woo: 132190:2b17098ebabfc218a552515202cf973a
  * WC requires at least: 3.9.4
- * WC tested up to: 6.8.0
+ * WC tested up to: 7.1.0
  */
 
 defined( 'ABSPATH' ) or exit;
@@ -37,10 +37,10 @@ class WC_Twilio_SMS_Loader {
 
 
 	/** minimum PHP version required by this plugin */
-	const MINIMUM_PHP_VERSION = '7.0';
+	const MINIMUM_PHP_VERSION = '7.4';
 
 	/** minimum WordPress version required by this plugin */
-	const MINIMUM_WP_VERSION = '5.2';
+	const MINIMUM_WP_VERSION = '5.6';
 
 	/** minimum WooCommerce version required by this plugin */
 	const MINIMUM_WC_VERSION = '3.9.4';

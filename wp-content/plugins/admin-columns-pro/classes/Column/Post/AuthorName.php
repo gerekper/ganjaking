@@ -3,6 +3,7 @@
 namespace ACP\Column\Post;
 
 use AC;
+use ACP\ConditionalFormat;
 use ACP\Editing;
 use ACP\Export;
 use ACP\Filtering;
@@ -11,7 +12,9 @@ use ACP\Settings;
 use ACP\Sorting;
 
 class AuthorName extends AC\Column\Post\AuthorName
-	implements Editing\Editable, Filtering\Filterable, Sorting\Sortable, Export\Exportable, Search\Searchable {
+	implements Editing\Editable, Filtering\Filterable, Sorting\Sortable, Export\Exportable, Search\Searchable, ConditionalFormat\Formattable {
+
+	use ConditionalFormat\ConditionalFormatTrait;
 
 	public function sorting() {
 		return ( new Sorting\Model\Post\AuthorFactory() )->create( $this->get_user_setting()->get_value(), $this );

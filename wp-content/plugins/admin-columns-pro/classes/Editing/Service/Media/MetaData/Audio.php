@@ -2,21 +2,19 @@
 
 namespace ACP\Editing\Service\Media\MetaData;
 
-use ACP\Editing;
 use ACP\Editing\Service;
 
 class Audio extends Service\Media\MetaData {
 
-	public function __construct( $sub_key ) {
-		parent::__construct( new Editing\View\Text(), $sub_key );
-	}
-
-	public function get_value( $id ) {
+	public function is_editable( int $id ): bool {
 		if ( ! wp_attachment_is( 'audio', $id ) ) {
-			return null;
+			return false;
 		}
 
-		return parent::get_value( $id );
+		return parent::is_editable( $id );
 	}
 
+	public function get_not_editable_reason( int $id ): string {
+		return __( 'Item is not an audio file.', 'codepress-admin-columns' );
+	}
 }

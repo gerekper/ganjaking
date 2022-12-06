@@ -20,6 +20,10 @@ abstract class Model {
 		$this->column = $column;
 	}
 
+	public function get_column() {
+		return $this->column;
+	}
+
 	/**
 	 * Retrieve the value to be exported by the column for a specific item
 	 *
@@ -28,16 +32,5 @@ abstract class Model {
 	 * @return string
 	 */
 	abstract public function get_value( $id );
-
-	/**
-	 * @return bool
-	 */
-	public function is_active() {
-		return true;
-	}
-
-	public function get_column() {
-		return $this->column;
-	}
 
 }

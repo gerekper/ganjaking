@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '8fa76ab459411566ed73c34295aa4b921d2337b3',
+        'reference' => '5144e21f1fc6aba0209df05eed4ce69ae3579241',
         'name' => '__root__',
         'dev' => false,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '8fa76ab459411566ed73c34295aa4b921d2337b3',
+            'reference' => '5144e21f1fc6aba0209df05eed4ce69ae3579241',
             'dev_requirement' => false,
         ),
         'skyverge/math' => array(

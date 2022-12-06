@@ -85,7 +85,7 @@ class WC_Subscriptions_Switcher {
 		add_filter( 'woocommerce_subscriptions_product_price_string_inclusions', array( __CLASS__, 'customise_product_string_inclusions' ), 12, 2 );
 
 		// Don't carry switch meta data to renewal orders
-		add_filter( 'wcs_renewal_order_meta_query', array( __CLASS__, 'remove_renewal_order_meta_query' ), 10 );
+		add_filter( 'wc_subscriptions_renewal_order_data', array( __CLASS__, 'remove_renewal_order_meta' ), 10 );
 
 		// Don't carry switch meta data to renewal orders
 		add_filter( 'woocommerce_subscriptions_recurring_cart_key', array( __CLASS__, 'get_recurring_cart_key' ), 10, 2 );
@@ -149,7 +149,7 @@ class WC_Subscriptions_Switcher {
 		add_action( 'woocommerce_grant_product_download_permissions', array( __CLASS__, 'delay_granting_download_permissions' ), 9, 1 );
 		add_action( 'woocommerce_subscriptions_switch_completed', array( __CLASS__, 'grant_download_permissions' ), 9, 1 );
 		add_action( 'woocommerce_subscription_checkout_switch_order_processed', array( __CLASS__, 'log_switches' ) );
-		add_filter( 'woocommerce_subscriptions_admin_related_orders_to_display', array( __CLASS__, 'display_switches_in_related_order_metabox' ), 10, 3 );
+		add_filter( 'wcs_admin_subscription_related_orders_to_display', array( __CLASS__, 'display_switches_in_related_order_metabox' ), 10, 3 );
 
 		// Override the add to cart text when switch args are present.
 		add_filter( 'woocommerce_product_single_add_to_cart_text', array( __CLASS__, 'display_switch_add_to_cart_text' ), 10, 1 );
@@ -1676,9 +1676,28 @@ class WC_Subscriptions_Switcher {
 	/**
 	 * Do not carry over switch related meta data to renewal orders.
 	 *
+	 * @since 4.7.0
+	 *
+	 * @see wc_subscriptions_renewal_order_data
+	 *
+	 * @param array $order_meta An order's meta data.
+	 *
+	 * @return array Filtered order meta data to be copied.
+	 */
+	public static function remove_renewal_order_meta( $order_meta ) {
+		unset( $order_meta['_subscription_switch'] );
+		return $order_meta;
+	}
+
+	/**
+	 * Do not carry over switch related meta data to renewal orders.
+	 *
+	 * @deprecated 4.7.0
+	 *
 	 * @since 1.5.4
 	 */
 	public static function remove_renewal_order_meta_query( $order_meta_query ) {
+		_deprecated_function( __METHOD__, '4.7.0', 'WC_Subscriptions_Switcher::remove_renewal_order_meta' );
 
 		$order_meta_query .= " AND `meta_key` NOT IN ('_subscription_switch')";
 
@@ -2309,29 +2328,34 @@ class WC_Subscriptions_Switcher {
 	 *
 	 * @param WC_Abstract_Order[] $orders_to_display The list of related orders to display.
 	 * @param WC_Subscription[]   $subscriptions     The list of related subscriptions.
-	 * @param WP_Post             $post              The order or subscription post being viewed.
+	 * @param WC_Order            $order             The order or subscription post being viewed.
 	 *
 	 * @return $orders_to_display The orders/subscriptions to display in the meta box.
 	 */
-	public static function display_switches_in_related_order_metabox( $orders_to_display, $subscriptions, $post ) {
+	public static function display_switches_in_related_order_metabox( $orders_to_display, $subscriptions, $order ) {
+		if ( $order instanceof WP_Post ) {
+			wcs_deprecated_argument( __METHOD__, '4.7.0', 'Passing a WP Post object is deprecated. This function now expects an Order or Subscription object.' );
+			$order = wc_get_order( $order->ID );
+		}
+
 		$switched_subscriptions = array();
 
 		// On the subscription page, just show related orders.
-		if ( wcs_is_subscription( $post->ID ) ) {
+		if ( wcs_is_subscription( $order ) ) {
 
-			foreach ( wcs_get_switch_orders_for_subscription( $post->ID ) as $order ) {
-				$order->update_meta_data( '_relationship', __( 'Switch Order', 'woocommerce-subscriptions' ) );
-				$orders_to_display[] = $order;
+			foreach ( wcs_get_switch_orders_for_subscription( $order->get_id() ) as $switch_order ) {
+				$switch_order->update_meta_data( '_relationship', __( 'Switch Order', 'woocommerce-subscriptions' ) );
+				$orders_to_display[] = $switch_order;
 			}
 
 			// Display the subscriptions which had item/s switched to this subscription by its parent order.
-			if ( ! empty( $post->post_parent ) ) {
-				$switched_subscriptions = wcs_get_subscriptions_for_switch_order( $post->post_parent );
+			if ( ! empty( $order->post_parent ) ) {
+				$switched_subscriptions = wcs_get_subscriptions_for_switch_order( $order->get_parent_id() );
 			}
 
-		// On the Edit Order screen, show any subscriptions with items switched by this order.
+			// On the Edit Order screen, show any subscriptions with items switched by this order.
 		} else {
-			$switched_subscriptions = wcs_get_subscriptions_for_switch_order( $post->ID );
+			$switched_subscriptions = wcs_get_subscriptions_for_switch_order( $order );
 		}
 
 		foreach ( $switched_subscriptions as $subscription ) {

@@ -2,7 +2,11 @@
 
 namespace ACP\Column\NetworkSite;
 
-class BlogID extends Property {
+use ACP\ConditionalFormat;
+
+class BlogID extends Property implements ConditionalFormat\Formattable {
+
+	use ConditionalFormat\IntegerFormattableTrait;
 
 	public function __construct() {
 		$this->set_type( 'column-blog_id' )

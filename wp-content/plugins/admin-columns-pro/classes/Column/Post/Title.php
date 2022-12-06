@@ -13,7 +13,7 @@ class Title extends AC\Column\Post\Title
 
 	public function editing() {
 		return new Editing\Service\Basic(
-			new Editing\View\Text(),
+			( new Editing\View\Text() )->set_placeholder( __( 'Add title', 'codepress-admin-columns' ) ),
 			new Storage\Post\Field( 'post_title' )
 		);
 	}

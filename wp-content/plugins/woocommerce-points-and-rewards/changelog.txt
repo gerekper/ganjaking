@@ -1,5 +1,9 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2022-12-06 - version 1.7.22
+* Fix - Update schema callback to match what is returned by data callback in Blocks integration class.
+* Tweak - WC 7.2 compatibility.
+
 2022-11-16 - version 1.7.21
 * Fix - Zero conversion rate causing internal server error.
 

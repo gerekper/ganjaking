@@ -89,7 +89,7 @@ class Segment extends Controller {
 
 		$segments = array_merge( $user_segments, $global_segments );
 
-		$segments = apply_filters( 'acp/search/segments_list', $segments, $this->list_screen );
+		$segments = (array) apply_filters( 'acp/search/segments_list', $segments, $this->list_screen );
 
 		$data = [];
 

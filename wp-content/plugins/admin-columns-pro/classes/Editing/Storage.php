@@ -2,21 +2,20 @@
 
 namespace ACP\Editing;
 
+use RuntimeException;
+
 interface Storage {
 
 	/**
-	 * @param int $id
-	 *
 	 * @return mixed
 	 */
-	public function get( $id );
+	public function get( int $id );
 
 	/**
-	 * @param int   $id
-	 * @param mixed $value
+	 * @param mixed $data
 	 *
-	 * @return bool
+	 * @throws RuntimeException
 	 */
-	public function update( $id, $value );
+	public function update( int $id, $data ): bool;
 
 }

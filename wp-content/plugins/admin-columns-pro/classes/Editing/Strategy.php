@@ -7,11 +7,21 @@ use ACP;
 interface Strategy {
 
 	/**
-	 * @param int|object $object_id
+	 * @param int $id
 	 *
-	 * @return bool True when user can edit object.
-	 * @since 4.0
+	 * @return bool
 	 */
-	public function user_has_write_permission( $object_id );
+	public function user_can_edit_item( $id );
+
+	/**
+	 * @return bool
+	 */
+	public function user_can_edit();
+
+	/**
+	 * Fetch rows
+	 * @return RequestHandler
+	 */
+	public function get_query_request_handler();
 
 }

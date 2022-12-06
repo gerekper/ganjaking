@@ -50,10 +50,12 @@ if ( ! empty( $user_plans ) ) {
 					'value' => $membership->get_remaining_credits(),
 				);
 
-				$details['next-credits-update'] = array(
-					'title' => __( 'Next credits update', 'yith-woocommerce-membership' ),
-					'value' => apply_filters( 'yith_wcmbs_next_credits_update_date', date_i18n( wc_date_format(), $membership->next_credits_update ), $membership->next_credits_update ),
-				);
+				if ( $membership->next_credits_update ) {
+					$details['next-credits-update'] = array(
+						'title' => __( 'Next credits update', 'yith-woocommerce-membership' ),
+						'value' => apply_filters( 'yith_wcmbs_next_credits_update_date', $membership->get_formatted_date( 'next_credits_update' ), $membership->next_credits_update ),
+					);
+				}
 			}
 
 			if ( $membership->has_discount() ) {

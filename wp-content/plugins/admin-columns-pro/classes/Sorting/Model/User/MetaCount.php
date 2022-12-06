@@ -3,6 +3,8 @@
 namespace ACP\Sorting\Model\User;
 
 use ACP\Sorting\AbstractModel;
+use ACP\Sorting\Model\SqlOrderByFactory;
+use ACP\Sorting\Type\ComputationType;
 use WP_User_Query;
 
 /**
@@ -28,35 +30,25 @@ class MetaCount extends AbstractModel {
 		return [];
 	}
 
-	/**
-	 * @param WP_User_Query $query
-	 */
 	public function pre_user_query_callback( WP_User_Query $query ) {
-		global $wpdb;
+		remove_action( 'pre_user_query', [ $this, __FUNCTION__ ] );
 
-		$join_type = $this->show_empty
-			? 'LEFT'
-			: 'INNER';
+		global $wpdb;
 
 		$order = $this->get_order();
 
-		$query->query_fields .= ", COUNT( acsort_usermeta.meta_key ) AS acsort_metacount";
 		$query->query_from .= $wpdb->prepare( "
-			{$join_type} JOIN {$wpdb->usermeta} AS acsort_usermeta 
-				ON {$wpdb->users}.ID = acsort_usermeta.user_id
+			LEFT JOIN $wpdb->usermeta AS acsort_usermeta 
+				ON $wpdb->users.ID = acsort_usermeta.user_id
 				AND acsort_usermeta.meta_key = %s
 		", $this->meta_key );
 
-		if ( ! $this->show_empty ) {
-			$query->query_from .= " AND acsort_usermeta.meta_value <> ''";
-		}
-
-		$query->query_orderby = "
-			GROUP BY {$wpdb->users}.ID
-			ORDER BY acsort_metacount $order, {$wpdb->users}.ID $order
-		";
-
-		remove_action( 'pre_user_query', [ $this, __FUNCTION__ ] );
+		$query->query_orderby = sprintf( "
+			GROUP BY $wpdb->users.ID
+			ORDER BY %s, $wpdb->users.ID %s",
+			SqlOrderByFactory::create_with_computation( new ComputationType( ComputationType::COUNT ), 'acsort_usermeta.meta_key', $order, true ),
+			esc_sql( $this->get_order() )
+		);
 	}
 
 }

@@ -25,7 +25,7 @@ class WC_Deposits_Blocks_Compatibility {
 	 * @var array
 	 */
 	private static $required = array(
-		'blocks' => '7.0.0'
+		'blocks' => '7.0.0',
 	);
 
 	/**
@@ -34,8 +34,10 @@ class WC_Deposits_Blocks_Compatibility {
 	public static function init() {
 
 		// WooCommerce Cart/Checkout Blocks support.
-		if ( ! class_exists( 'Automattic\WooCommerce\Blocks\Package' )
-		     || version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), self::$required[ 'blocks' ] ) <= 0 ) {
+		if (
+			! class_exists( 'Automattic\WooCommerce\Blocks\Package' )
+			|| version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), self::$required['blocks'] ) <= 0
+			) {
 			return;
 		}
 

@@ -2,10 +2,10 @@
 
 namespace ACP\Helper;
 
-use AC\Registrable;
+use AC\Registerable;
 
 abstract class FilterButton
-	implements Registrable {
+	implements Registerable {
 
 	/**
 	 * @var string

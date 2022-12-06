@@ -3,7 +3,7 @@
 Tags: checkout page, recurring billing, subscription billing, subscription box, Subscription Management, subscriptions, paypal subscriptions
 Requires at least: 5.8
 Tested up to: 6.0
-Stable tag: 2.17.0
+Stable tag: 2.20.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,6 +24,27 @@ YITH WooCommerce Subscription will add a new tab called "Subscription" in "YIT P
 There, you will find all YITH plugins with quick access to plugin setting page.
 
 == Changelog ==
+= 2.20.0 – Released on 3 October 2022 =
+* New: support for WooCommerce 7.0
+* Update: YITH plugin framework
+
+= 2.19.0 – Released on 6 September 2022 =
+* New: support for WooCommerce 6.9
+* Update: YITH plugin framework
+* Fix: fixed issue on delivery date
+* Fix: fixed css style issues with Elementor
+* Fix: show tax suffix only if cart item has tax
+
+= 2.18.1 – Released on 9 August 2022 =
+* Fix: fixed the issue with shipping costs on synchronized subscriptions when the customer creates a new account on the checkout page
+
+= 2.18.0 – Released on 4 August 2022 =
+* New: support for WooCommerce 6.8
+* Update: YITH plugin framework
+* Fix: avoid sending "cancelled" email if the subscriptions status is already cancelled
+* Fix: fixed issue with recurring coupons
+* Dev: added filter 'ywsbs_subscription_cart_needs_payments' to allow to set if a cart needs of payments or not
+
 = 2.17.0 – Released on 12 July 2022 =
 * New: support for WooCommerce 6.7
 * Update: YITH plugin framework

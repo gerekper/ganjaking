@@ -3,15 +3,11 @@
 namespace ACP\Export;
 
 use AC;
-use AC\Registrable;
+use AC\Registerable;
 use ACP\Export\HideOnScreen;
 use ACP\Settings\ListScreen\HideOnScreenCollection;
 
-/**
- * Handles general functionality for admin screens
- * @since 1.0
- */
-class Admin implements Registrable {
+class Admin implements Registerable {
 
 	public function register() {
 		add_action( 'acp/admin/settings/hide_on_screen', [ $this, 'add_hide_on_screen' ], 10, 2 );

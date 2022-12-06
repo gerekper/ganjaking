@@ -9,12 +9,9 @@ use WP_User;
 
 class Post implements Create {
 
-	/**
-	 * @var string
-	 */
 	protected $post_type;
 
-	public function __construct( $post_type ) {
+	public function __construct( string $post_type ) {
 		if ( ! post_type_exists( $post_type ) ) {
 			throw new LogicException( 'Post Type does not exists.' );
 		}

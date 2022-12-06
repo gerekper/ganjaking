@@ -200,13 +200,25 @@ class WC_Store_Credit_Order {
 		if ( ! $order_id && ! empty( $_POST['save'] ) ) {
 			$post_id = ( ! empty( $_POST['post_ID'] ) ? wc_clean( wp_unslash( $_POST['post_ID'] ) ) : false );
 
-			if ( $post_id && 'shop_order' === get_post_type( $post_id ) ) {
-				$order_id = $post_id;
+			if ( ! $post_id ) { // HPOS Compatibility.
+				$post_id = ( ! empty( $_REQUEST['id'] ) ? wc_clean( wp_unslash( $_REQUEST['id'] ) ) : false );
+			}
+
+			if ( $post_id ) {
+				$order = wc_get_order( $post_id );
+
+				if ( $order && 'shop_order' === $order->get_type() ) {
+					$order_id = $post_id;
+				}
 			}
 		}
 		// phpcs:enable WordPress.Security.NonceVerification
 
 		$action = ( $order_id ? str_replace( 'woocommerce_', '', $action ) : '' );
+
+		if ( 'editpost' === $action ) {
+			$action = 'edit_order';
+		}
 
 		/**
 		 * Filters the order action.
@@ -453,7 +465,7 @@ class WC_Store_Credit_Order {
 		$action = $this->get_order_action();
 
 		// Backward compatibility with orders which contain coupons applied after tax.
-		if ( 'editpost' === $action && ! wc_store_credit_apply_before_tax( $order ) ) {
+		if ( 'edit_order' === $action && ! wc_store_credit_apply_before_tax( $order ) ) {
 			$discount = wc_get_store_credit_used_for_order( $order );
 
 			$order->set_total( $order->get_total() - $discount );

@@ -1,4 +1,10 @@
 <?php
+/**
+ * Deposits order item manager
+ *
+ * @package woocommerce-deposits
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -11,7 +17,7 @@ class WC_Deposits_Order_Item_Manager {
 	/**
 	 * See if an item is a deposit.
 	 *
-	 * @param  array  $item
+	 * @param  array $item Order item.
 	 * @return boolean
 	 */
 	public static function is_deposit( $item ) {
@@ -21,7 +27,8 @@ class WC_Deposits_Order_Item_Manager {
 	/**
 	 * Get payment plan if used.
 	 *
-	 * @return bool or object
+	 * @param  array $item Order item.
+	 * @return bool|WC_Deposits_Plan
 	 */
 	public static function get_payment_plan( $item ) {
 		$payment_plan = ! empty( $item['payment_plan'] ) ? absint( $item['payment_plan'] ) : 0;
@@ -31,11 +38,11 @@ class WC_Deposits_Order_Item_Manager {
 	/**
 	 * See if an item has been fully paid.
 	 *
-	 * @param  array  $item
-	 * @param  WC_Order $parent_order
+	 * @param  array    $item Order item.
+	 * @param  WC_Order $parent_order Parent order.
 	 * @return boolean
 	 */
-	public static function is_fully_paid( $item, $parent_order = NULL ) {
+	public static function is_fully_paid( $item, $parent_order = null ) {
 		$remaining_balance_order_id = ! empty( $item['remaining_balance_order_id'] ) ? absint( $item['remaining_balance_order_id'] ) : 0;
 		$remaining_balance_paid     = ! empty( $item['remaining_balance_paid'] );
 		$payment_plan               = ! empty( $item['payment_plan'] ) ? absint( $item['payment_plan'] ) : 0;

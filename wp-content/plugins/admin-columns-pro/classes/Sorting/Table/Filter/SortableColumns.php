@@ -18,7 +18,7 @@ class SortableColumns implements ColumnRepository\Filter {
 		$this->model_factory = $model_factory;
 	}
 
-	public function filter( $columns ) {
+	public function filter( array $columns ): array {
 		return array_filter( $columns, [ $this, 'is_active' ] );
 	}
 

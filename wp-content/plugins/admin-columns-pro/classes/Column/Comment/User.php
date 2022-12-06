@@ -3,6 +3,7 @@
 namespace ACP\Column\Comment;
 
 use AC;
+use ACP\ConditionalFormat;
 use ACP\Editing;
 use ACP\Export;
 use ACP\Filtering;
@@ -14,7 +15,9 @@ use ACP\Sorting;
  * @since 4.0
  */
 class User extends AC\Column\Comment\User
-	implements Editing\Editable, Filtering\Filterable, Sorting\Sortable, Export\Exportable, Search\Searchable {
+	implements Editing\Editable, Filtering\Filterable, Sorting\Sortable, Export\Exportable, Search\Searchable, ConditionalFormat\Formattable {
+
+	use ConditionalFormat\ConditionalFormatTrait;
 
 	public function sorting() {
 		return ( new Sorting\Model\Comment\AuthorFactory() )->create( $this->get_setting( Settings\Column\User::NAME )->get_value(), $this );

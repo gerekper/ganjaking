@@ -4,6 +4,8 @@ namespace ACP\Sorting\Model\Post;
 
 use ACP\Sorting\AbstractModel;
 use ACP\Sorting\FormatValue;
+use ACP\Sorting\Model\SqlOrderByFactory;
+use ACP\Sorting\Model\WarningAware;
 use ACP\Sorting\Sorter;
 use ACP\Sorting\Strategy\Post;
 use ACP\Sorting\Type\DataType;
@@ -11,51 +13,53 @@ use ACP\Sorting\Type\DataType;
 /**
  * @property Post $strategy
  */
-class FeaturedImageSize extends AbstractModel {
+class FeaturedImageSize extends AbstractModel implements WarningAware {
 
 	/**
 	 * @var string
 	 */
 	private $meta_key;
 
-	/**
-	 * @var FormatValue\FileSize
-	 */
-	private $formatter;
-
 	public function __construct( $meta_key ) {
-		parent::__construct();
+		parent::__construct( new DataType( DataType::NUMERIC ) );
 
 		$this->meta_key = $meta_key;
-		$this->formatter = new FormatValue\FileSize();
 	}
 
 	public function get_sorting_vars() {
+		add_filter( 'posts_clauses', [ $this, 'sorting_clauses_callback' ] );
+
 		return [
-			'ids' => ( new Sorter() )->sort( $this->get_featured_image_sizes(), $this->get_order(), new DataType( DataType::NUMERIC ), $this->show_empty ),
+			'suppress_filters' => false,
 		];
 	}
 
-	private function get_featured_image_sizes() {
+	public function sorting_clauses_callback( $clauses ) {
+		remove_filter( 'posts_clauses', [ $this, __FUNCTION__ ] );
+
 		global $wpdb;
 
-		$join_type = $this->show_empty
-			? 'LEFT'
-			: 'INNER';
+		$clauses['orderby'] = SqlOrderByFactory::create_with_ids( "$wpdb->posts.ID", $this->get_sorted_ids(), $this->get_order() ) ?: $clauses['orderby'];
 
-		$where = ! $this->show_empty
-			? "AND pm1.meta_value <>''"
-			: '';
+		return $clauses;
+	}
+
+	private function get_sorted_ids() {
+		global $wpdb;
 
 		$sql = $wpdb->prepare( "
 			SELECT pp.ID AS id, pm2.meta_value AS file_path 
-			FROM {$wpdb->posts} AS pp
-			{$join_type} JOIN {$wpdb->postmeta} AS pm1 ON pm1.post_id = pp.ID 
-			    AND pm1.meta_key = %s {$where}
-			{$join_type} JOIN {$wpdb->postmeta} AS pm2 ON pm1.meta_value = pm2.post_id
+			FROM $wpdb->posts AS pp
+			LEFT JOIN $wpdb->postmeta AS pm1 ON pm1.post_id = pp.ID 
+			    AND pm1.meta_key = %s
+			LEFT JOIN $wpdb->postmeta AS pm2 ON pm1.meta_value = pm2.post_id
 				AND pm2.meta_key = '_wp_attached_file'
 			WHERE pp.post_type = %s
-		", $this->meta_key, $this->strategy->get_post_type() );
+				AND pm2.meta_value != ''
+		",
+			$this->meta_key,
+			$this->strategy->get_post_type()
+		);
 
 		$status = $this->strategy->get_post_status();
 
@@ -70,11 +74,12 @@ class FeaturedImageSize extends AbstractModel {
 		}
 
 		$values = [];
-		foreach ( $results as $object ) {
-			$values[ $object->id ] = $this->formatter->format_value( $object->file_path );
+
+		foreach ( $results as $row ) {
+			$values[ $row->id ] = ( new FormatValue\FileSize() )->format_value( $row->file_path );
 		}
 
-		return $values;
+		return ( new Sorter() )->sort( $values, $this->data_type );
 	}
 
 }

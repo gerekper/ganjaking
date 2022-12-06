@@ -13,6 +13,8 @@ class Order extends PostField {
 			Operators::GT,
 			Operators::LT,
 			Operators::BETWEEN,
+			Operators::IS_EMPTY,
+			Operators::NOT_IS_EMPTY,
 		] );
 
 		parent::__construct( $operators, Value::INT );

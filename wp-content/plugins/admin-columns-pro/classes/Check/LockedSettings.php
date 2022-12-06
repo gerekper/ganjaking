@@ -6,13 +6,13 @@ use AC;
 use AC\Capabilities;
 use AC\Message;
 use AC\Message\Notice;
-use AC\Registrable;
+use AC\Registerable;
 use AC\Screen;
 use AC\Type\Url;
 use ACP\Access\PermissionsStorage;
 use ACP\Admin\Page;
 
-class LockedSettings implements Registrable {
+class LockedSettings implements Registerable {
 
 	/**
 	 * @var string
@@ -112,21 +112,6 @@ class LockedSettings implements Registrable {
 		return implode( ' ', $parts );
 	}
 
-	private function get_addons_page_message() {
-		return sprintf(
-			'%s %s',
-			sprintf(
-				__( "To enable add-ons, %s.", 'codepress_admin_columns' ),
-				sprintf(
-					"<a href='%s'>%s</a>",
-					esc_url( $this->get_license_page_url()->get_url() ),
-					__( 'enter your license key', 'codepress-admin-columns' )
-				)
-			),
-			$this->get_message_account_page()
-		);
-	}
-
 	public function register_notice( Screen $screen ) {
 		if ( ! current_user_can( Capabilities::MANAGE ) || ! $screen->has_screen() ) {
 			return;
@@ -145,14 +130,6 @@ class LockedSettings implements Registrable {
 			case $screen->is_admin_screen( Page\License::NAME ) && $this->missing_usage_permission() :
 				$notice = new Notice(
 					$this->get_license_page_message(),
-					Message::ERROR
-				);
-
-				$notice->register();
-				break;
-			case $screen->is_admin_screen( Page\Addons::NAME ) && $this->missing_usage_permission() :
-				$notice = new Notice(
-					$this->get_addons_page_message(),
 					Message::ERROR
 				);
 

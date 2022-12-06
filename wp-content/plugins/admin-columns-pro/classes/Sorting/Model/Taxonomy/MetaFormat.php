@@ -4,6 +4,7 @@ namespace ACP\Sorting\Model\Taxonomy;
 
 use ACP\Sorting\AbstractModel;
 use ACP\Sorting\FormatValue;
+use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Sorter;
 use ACP\Sorting\Strategy\Taxonomy;
 use ACP\Sorting\Type\DataType;
@@ -31,9 +32,24 @@ class MetaFormat extends AbstractModel {
 	}
 
 	public function get_sorting_vars() {
-		return [
-			'ids' => $this->get_sorted_ids(),
-		];
+		add_filter( 'terms_clauses', [ $this, 'pre_term_query_callback' ] );
+
+		return [];
+	}
+
+	public function pre_term_query_callback( $clauses ) {
+		remove_filter( 'terms_clauses', [ $this, __FUNCTION__ ] );
+
+		if ( 'COUNT(*)' === $clauses['fields'] ) {
+			return $clauses;
+		}
+
+		$clauses['orderby'] = sprintf( 'GROUP BY t.term_id ORDER BY %s, t.term_id',
+			SqlOrderByFactory::create_with_ids( "t.term_id", $this->get_sorted_ids(), $this->get_order() ) ?: $clauses['orderby']
+		);
+		$clauses['order'] = '';
+
+		return $clauses;
 	}
 
 	/**
@@ -42,14 +58,12 @@ class MetaFormat extends AbstractModel {
 	private function get_sorted_ids() {
 		global $wpdb;
 
-		$join_type = $this->show_empty ? 'LEFT' : 'INNER';
-
 		$sql = $wpdb->prepare( "
 			SELECT terms.term_id AS id, tm.meta_value AS value
 			FROM {$wpdb->terms} AS terms
-			{$join_type} JOIN {$wpdb->term_taxonomy} AS tt ON tt.term_id = terms.term_id
+			LEFT JOIN {$wpdb->term_taxonomy} AS tt ON tt.term_id = terms.term_id
 			    AND tt.taxonomy = %s
-			INNER JOIN {$wpdb->termmeta} AS tm ON tm.term_id = terms.term_id
+			LEFT JOIN {$wpdb->termmeta} AS tm ON tm.term_id = terms.term_id
 				AND tm.meta_key = %s AND tm.meta_value <> ''
 		", $this->strategy->get_taxonomy(), $this->meta_key );
 
@@ -69,7 +83,7 @@ class MetaFormat extends AbstractModel {
 			$values[ $id ] = trim( implode( ' ', $meta_values ) );
 		}
 
-		return ( new Sorter() )->sort( $values, 'ASC', $this->data_type, $this->show_empty );
+		return ( new Sorter() )->sort( $values, $this->data_type );
 	}
 
 }

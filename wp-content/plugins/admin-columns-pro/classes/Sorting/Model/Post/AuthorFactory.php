@@ -7,12 +7,13 @@ use AC\Column;
 use ACP;
 use ACP\Sorting\AbstractModel;
 use ACP\Sorting\Model\Disabled;
+use LogicException;
 
 class AuthorFactory {
 
 	/**
-	 * @param string $type
-	 * @param Column $column
+	 * @param string      $type
+	 * @param Column|null $column
 	 *
 	 * @return AbstractModel
 	 */
@@ -31,6 +32,10 @@ class AuthorFactory {
 			case AC\Settings\Column\User::PROPERTY_FULL_NAME :
 				return new Author\FullName();
 			case AC\Settings\Column\User::PROPERTY_ROLES :
+				if ( ! $column ) {
+					throw new LogicException( 'Missing column' );
+				}
+
 				return new AuthorName( new ACP\Sorting\FormatValue\SettingFormatter( $column->get_setting( ACP\Settings\Column\User::NAME ) ) );
 			default:
 				return new Disabled();

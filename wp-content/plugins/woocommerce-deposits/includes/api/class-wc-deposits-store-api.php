@@ -13,7 +13,7 @@ use Automattic\WooCommerce\StoreApi\Schemas\V1\CartItemSchema;
  * Store API integration class.
  *
  * @class    WC_Deposits_Store_API
- * @version  1.6.0
+ * @version  2.1.1
  */
 class WC_Deposits_Store_API {
 
@@ -24,7 +24,11 @@ class WC_Deposits_Store_API {
 	 */
 	const IDENTIFIER = 'woocommerce-deposits';
 
-	/** @var WC_Deposits_Cart_Manager Class Instance */
+	/**
+	 * Class Instance
+	 *
+	 * @var WC_Deposits_Cart_Manager Class Instance
+	 */
 	private static $cart_manager;
 
 	/**
@@ -103,21 +107,21 @@ class WC_Deposits_Store_API {
 		$tax                   = self::$cart_manager::calculate_deferred_and_present_discount_tax();
 		if ( 'no' === get_option( 'woocommerce_prices_include_tax' ) ) {
 			if ( $is_tax_included ) {
-				$deferred_discount_tax = round( $tax[ 'deferred' ], wc_get_price_decimals() );
+				$deferred_discount_tax = round( $tax['deferred'], wc_get_price_decimals() );
 			}
 		} else {
 			if ( ! $is_tax_included ) {
-				$deferred_discount_tax = -round( $tax[ 'deferred' ], wc_get_price_decimals() );
+				$deferred_discount_tax = -round( $tax['deferred'], wc_get_price_decimals() );
 			}
 		}
 
 		$future_payment_amount    = self::$cart_manager->get_future_payments_amount_with_discount();
 		$deferred_discount_amount = self::$cart_manager::get_deferred_discount_amount();
 
-		$cart_data[ 'has_deposit' ]              = $has_deposit;
-		$cart_data[ 'future_payment_amount' ]    = (int) $money_formatter->format( $future_payment_amount );
-		$cart_data[ 'deferred_discount_amount' ] = (int) $money_formatter->format( $deferred_discount_amount );
-		$cart_data[ 'deferred_discount_tax' ]    = (int) $money_formatter->format( $deferred_discount_tax );
+		$cart_data['has_deposit']              = $has_deposit;
+		$cart_data['future_payment_amount']    = (int) $money_formatter->format( $future_payment_amount );
+		$cart_data['deferred_discount_amount'] = (int) $money_formatter->format( $deferred_discount_amount );
+		$cart_data['deferred_discount_tax']    = (int) $money_formatter->format( $deferred_discount_tax );
 
 		return $cart_data;
 	}
@@ -163,23 +167,23 @@ class WC_Deposits_Store_API {
 	 *
 	 * - filter item prices according to deposits;
 	 *
-	 * @param  WP_REST_Response  $response
-	 * @param  WP_REST_Server    $server
-	 * @param  WP_REST_Request   $request
+	 * @param WP_REST_Response $response Response.
+	 * @param WP_REST_Server   $server Server.
+	 * @param WP_REST_Request  $request Request.
 	 * @return WP_REST_Response|WP_Error
 	 */
 	public static function filter_cart_item_data( $response, $server, $request ) {
 
-		if ( is_wp_error( $response )
-		     || strpos( $request->get_route(), 'wc/store' ) === false ) {
+		if ( is_wp_error( $response ) || strpos( $request->get_route(), 'wc/store' ) === false ) {
 			return $response;
 		}
 
 		$data = $response->get_data();
 
-		if ( empty( $data[ 'items' ] )
-		     || ! isset( WC()->cart )
-		     || ! self::$cart_manager->has_deposit( WC()->cart )
+		if (
+			empty( $data['items'] )
+			|| ! isset( WC()->cart )
+			|| ! self::$cart_manager->has_deposit( WC()->cart )
 		) {
 			return $response;
 		}
@@ -187,29 +191,55 @@ class WC_Deposits_Store_API {
 		$money_formatter = woocommerce_store_api_get_formatter( 'money' );
 		$cart            = WC()->cart->get_cart();
 
-		foreach ( $data[ 'items' ] as $key => $item_data ) {
+		foreach ( $data['items'] as $key => $item_data ) {
 
-			$cart_item_key = $item_data[ 'key' ];
+			$cart_item_key = $item_data['key'];
 			$cart_item     = isset( $cart[ $cart_item_key ] ) ? $cart[ $cart_item_key ] : null;
 
-			if ( is_null( $cart_item ) || ! isset( $cart_item[ 'full_amount' ] ) || empty( $cart_item[ 'is_deposit' ] ) ) {
+			if ( is_null( $cart_item ) || ! isset( $cart_item['full_amount'] ) || empty( $cart_item['is_deposit'] ) ) {
 				continue;
 			}
 
-			// We need to apply this filter to the deposit amount, as it may have been affected by Memberships
-			$cart_item_deposit_amount     = apply_filters( 'woocommerce_deposits_get_deposit_amount', $cart_item[ 'deposit_amount' ], $cart_item[ 'data' ] );
-			$deposit_amount_excluding_tax = wc_get_price_excluding_tax( $cart_item[ 'data' ], array( 'qty' => $cart_item[ 'quantity' ], 'price' => $cart_item_deposit_amount ) );
+			/**
+			 * StoreAPI returns the following fields as
+			 * - object (/wc/store/v1/cart)
+			 * - array (/wc/store/v1/cart/extensions)
+			 *
+			 * Casting them to objects, to avoid PHP8+ fatal errors.
+			 *
+			 * @see https://github.com/woocommerce/woocommerce-deposits/issues/478
+			 * @see https://github.com/woocommerce/woocommerce-blocks/issues/7275
+			 */
+			$data['items'][ $key ]['quantity_limits'] = (object) $item_data['quantity_limits'];
+			$data['items'][ $key ]['prices']          = (object) $item_data['prices'];
+			$data['items'][ $key ]['totals']          = (object) $item_data['totals'];
+			$data['items'][ $key ]['extensions']      = (object) $item_data['extensions'];
+
+			// We need to apply this filter to the deposit amount, as it may have been affected by Memberships.
+			$cart_item_deposit_amount     = apply_filters( 'woocommerce_deposits_get_deposit_amount', $cart_item['deposit_amount'], $cart_item['data'] );
+			$deposit_amount_excluding_tax = wc_get_price_excluding_tax(
+				$cart_item['data'],
+				array(
+					'qty'   => $cart_item['quantity'],
+					'price' => $cart_item_deposit_amount,
+				)
+			);
 
 			if ( 'excl' === WC()->cart->get_tax_price_display_mode() ) {
-				$data[ 'items' ][ $key ][ 'totals' ]->line_subtotal     = $money_formatter->format( $deposit_amount_excluding_tax );
-				$data[ 'items' ][ $key ][ 'totals' ]->line_subtotal_tax = 0;
+				$data['items'][ $key ]['totals']->line_subtotal     = $money_formatter->format( $deposit_amount_excluding_tax );
+				$data['items'][ $key ]['totals']->line_subtotal_tax = 0;
 			} else {
-				$deposit_amount_including_tax = wc_get_price_including_tax( $cart_item[ 'data' ], array( 'qty' => $cart_item[ 'quantity' ], 'price' => $cart_item_deposit_amount ) );
+				$deposit_amount_including_tax = wc_get_price_including_tax(
+					$cart_item['data'],
+					array(
+						'qty'   => $cart_item['quantity'],
+						'price' => $cart_item_deposit_amount,
+					)
+				);
 
-				$data[ 'items' ][ $key ][ 'totals' ]->line_subtotal     = $money_formatter->format( $deposit_amount_excluding_tax );
-				$data[ 'items' ][ $key ][ 'totals' ]->line_subtotal_tax = $money_formatter->format( $deposit_amount_including_tax - $deposit_amount_excluding_tax );
+				$data['items'][ $key ]['totals']->line_subtotal     = $money_formatter->format( $deposit_amount_excluding_tax );
+				$data['items'][ $key ]['totals']->line_subtotal_tax = $money_formatter->format( $deposit_amount_including_tax - $deposit_amount_excluding_tax );
 			}
-
 		}
 
 		/**
@@ -222,7 +252,14 @@ class WC_Deposits_Store_API {
 		if ( ! empty( $deferred_tax ) && ! empty( $cart_tax_totals ) ) {
 			$tax = WC()->cart->get_taxes_total() - array_sum( self::$cart_manager->calculate_deferred_taxes_from_cart() );
 
-			$data[ 'totals' ]->total_tax = $money_formatter->format( $tax );
+			/**
+			 * Casting to object, to avoid PHP8+ fatal errors.
+			 *
+			 * @see https://github.com/woocommerce/woocommerce-deposits/issues/478
+			 * @see https://github.com/woocommerce/woocommerce-blocks/issues/7275
+			 */
+			$data['totals']            = (object) $data['totals'];
+			$data['totals']->total_tax = $money_formatter->format( $tax );
 		}
 
 		$response->set_data( $data );
@@ -233,8 +270,8 @@ class WC_Deposits_Store_API {
 	/**
 	 * Register deposits product data into cart/items endpoint.
 	 *
-	 * @param  array  $cart_item  Current cart item data.
-	 * @return array  $item_data  Registered deposits product data.
+	 * @param  array $cart_item Current cart item data.
+	 * @return array $item_data Registered deposits product data.
 	 */
 	public static function extend_cart_item_data( $cart_item ) {
 
@@ -244,16 +281,16 @@ class WC_Deposits_Store_API {
 			'plan_schedule'    => array(),
 		);
 
-		$item_data[ 'is_deposit' ] = ! empty( $cart_item[ 'is_deposit' ] );
+		$item_data['is_deposit'] = ! empty( $cart_item['is_deposit'] );
 
-		if ( $item_data[ 'is_deposit' ] && $cart_item[ 'payment_plan' ] ) {
-			$plan     = new WC_Deposits_Plan( $cart_item[ 'payment_plan' ] );
+		if ( $item_data['is_deposit'] && $cart_item['payment_plan'] ) {
+			$plan     = new WC_Deposits_Plan( $cart_item['payment_plan'] );
 			$schedule = $plan->get_schedule();
 
 			foreach ( $schedule as $schedule_row ) {
-				$item_data[ 'plan_schedule' ][] = $schedule_row;
+				$item_data['plan_schedule'][] = $schedule_row;
 			}
-			$item_data[ 'has_payment_plan' ] = true;
+			$item_data['has_payment_plan'] = true;
 		}
 
 		return $item_data;
@@ -334,8 +371,8 @@ class WC_Deposits_Store_API {
 	/**
 	 * Add "Payable in total" cart item data to deposit items.
 	 *
-	 * @param  array  $data
-	 * @param  array  $cart_item
+	 * @param array $data Cart Item data.
+	 * @param array $cart_item Cart Item.
 	 * @return array
 	 */
 	public static function cart_item_data( $data, $cart_item ) {
@@ -345,19 +382,31 @@ class WC_Deposits_Store_API {
 			return $data;
 		}
 
-		if ( is_null( $cart_item ) || ! isset( $cart_item[ 'full_amount' ] ) || empty( $cart_item[ 'is_deposit' ] ) ) {
+		if ( is_null( $cart_item ) || ! isset( $cart_item['full_amount'] ) || empty( $cart_item['is_deposit'] ) ) {
 			return $data;
 		}
 
 		if ( 'excl' === WC()->cart->get_tax_price_display_mode() ) {
-			$full_amount = wc_get_price_excluding_tax( $cart_item[ 'data' ], array( 'qty' => $cart_item[ 'quantity' ], 'price' => $cart_item[ 'full_amount' ] ) );
+			$full_amount = wc_get_price_excluding_tax(
+				$cart_item['data'],
+				array(
+					'qty'   => $cart_item['quantity'],
+					'price' => $cart_item['full_amount'],
+				)
+			);
 		} else {
-			$full_amount = wc_get_price_including_tax( $cart_item[ 'data' ], array( 'qty' => $cart_item[ 'quantity' ], 'price' => $cart_item[ 'full_amount' ] ) );
+			$full_amount = wc_get_price_including_tax(
+				$cart_item['data'],
+				array(
+					'qty'   => $cart_item['quantity'],
+					'price' => $cart_item['full_amount'],
+				)
+			);
 		}
 
 		$data_key = __( 'Payable In Total', 'woocommerce-deposits' );
-		if ( ! empty( $cart_item[ 'payment_plan' ] ) ) {
-			$plan       = new WC_Deposits_Plan( $cart_item[ 'payment_plan' ] );
+		if ( ! empty( $cart_item['payment_plan'] ) ) {
+			$plan       = new WC_Deposits_Plan( $cart_item['payment_plan'] );
 			$data_value = $plan->get_formatted_schedule( $full_amount );
 		} else {
 			$data_value = wc_price( $full_amount );
@@ -365,7 +414,7 @@ class WC_Deposits_Store_API {
 
 		$data[] = array(
 			'key'   => $data_key,
-			'value' => $data_value
+			'value' => $data_value,
 		);
 
 		return $data;

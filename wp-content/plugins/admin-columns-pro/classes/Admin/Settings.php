@@ -11,7 +11,7 @@ use AC\ListScreenCollection;
 use AC\ListScreenPost;
 use AC\ListScreenRepository\Sort;
 use AC\ListScreenRepository\Storage;
-use AC\Registrable;
+use AC\Registerable;
 use AC\Type\ListScreenId;
 use AC\Type\Url;
 use AC\View;
@@ -26,7 +26,7 @@ use ACP\Settings\ListScreen\HideOnScreenCollection;
 use ACP\Sorting;
 use WP_User;
 
-class Settings implements Registrable {
+class Settings implements Registerable {
 
 	/**
 	 * @var Storage
@@ -43,7 +43,11 @@ class Settings implements Registrable {
 	 */
 	private $segment_repository;
 
-	public function __construct( Storage $storage, Location\Absolute $location, SegmentRepository $segment_repository ) {
+	public function __construct(
+		Storage $storage,
+		Location\Absolute $location,
+		SegmentRepository $segment_repository
+	) {
 		$this->storage = $storage;
 		$this->location = $location;
 		$this->segment_repository = $segment_repository;
@@ -191,6 +195,21 @@ class Settings implements Registrable {
 		] );
 	}
 
+	private function tooltip_primary_column() {
+		$content = new View( [
+			'location' => $this->location,
+		] );
+
+		$content->set_template( 'admin/tooltip/primary-column' );
+
+		return new AC\Admin\Tooltip( 'primary_column', [
+			'content'    => $content,
+			'link_label' => sprintf( '<img src="%s" alt="?" class="ac-setbox__row__th__info">', AC()->get_url() . 'assets/images/question.svg' ),
+			'title'      => __( 'Primary Column', 'codepress-admin-columns' ),
+			'position'   => 'right_bottom',
+		] );
+	}
+
 	/**
 	 * @param ListScreen $list_screen
 	 *
@@ -214,17 +233,21 @@ class Settings implements Registrable {
 		}
 
 		$view = new View( [
-			'list_screen'           => $list_screen,
-			'preferences'           => $list_screen->get_preferences(),
-			'hide_on_screen'        => $this->get_checkboxes( $list_screen ),
-			'select_roles'          => $this->select_roles( $roles, $list_screen->is_read_only() ),
-			'select_users'          => $this->select_users( $users, $list_screen->is_read_only() ),
-			'tooltip_hs'            => $this->tooltip_horizontal_scrolling(),
-			'tooltip_filters'       => $this->tooltip_filters(),
-			'segments'              => $list_screen->has_id() ? $this->get_segments_for_list_screen_id( $list_screen->get_id() ) : [],
-			'can_horizontal_scroll' => true,
-			'can_sort'              => $list_screen instanceof Sorting\ListScreen,
-			'can_bookmark'          => $this->can_bookmark( $list_screen ),
+			'list_screen'            => $list_screen,
+			'preferences'            => $list_screen->get_preferences(),
+			'hide_on_screen'         => $this->get_checkboxes( $list_screen ),
+			'select_roles'           => $this->select_roles( $roles, $list_screen->is_read_only() ),
+			'select_users'           => $this->select_users( $users, $list_screen->is_read_only() ),
+			'tooltip_hs'             => $this->tooltip_horizontal_scrolling(),
+			'tooltip_filters'        => $this->tooltip_filters(),
+			'segments'               => $list_screen->has_id() ? $this->get_segments_for_list_screen_id( $list_screen->get_id() ) : [],
+			'can_horizontal_scroll'  => true,
+			'can_sort'               => $list_screen instanceof Sorting\ListScreen,
+			'can_bookmark'           => $this->can_bookmark( $list_screen ),
+			'can_primary_column'     => true,
+			'primary_column'         => $list_screen->get_preference( 'primary_column' ) ?: '',
+			'primary_columns'        => $this->get_primary_column_options( $list_screen ),
+			'tooltip_primary_column' => $this->tooltip_primary_column(),
 		] );
 
 		$view->set_template( 'admin/list-screen-settings' );
@@ -266,7 +289,8 @@ class Settings implements Registrable {
 		           ->add( new HideOnScreen\Search(), 90 )
 		           ->add( new HideOnScreen\BulkActions(), 100 )
 		           ->add( new HideOnScreen\ColumnResize(), 110 )
-				   ->add( new HideOnScreen\RowActions(), 120 );
+		           ->add( new HideOnScreen\ColumnOrder(), 120 )
+		           ->add( new HideOnScreen\RowActions(), 130 );
 
 		switch ( true ) {
 			case $list_screen instanceof ListScreenPost :
@@ -354,7 +378,7 @@ class Settings implements Registrable {
 				<?php _e( "Available sets are selectable from the overview screen. Users can have their own column view preference.", 'codepress-admin-columns' ); ?>
 			<p>
 			<p>
-				<img src="<?= esc_url( $this->location->get_url() ); ?>assets/core/images/layout-selector.png" alt=""/>
+				<img src="<?= esc_url( $this->location->with_suffix( 'assets/core/images/layout-selector.png' )->get_url() ) ?>" alt=""/>
 			</p>
 			<p>
 				<a href="<?= esc_url( ( new Url\Documentation( Url\Documentation::ARTICLE_COLUMN_SETS ) )->get_url() ); ?>" target="_blank"><?php _e( 'Online documentation', 'codepress-admin-columns' ); ?></a>
@@ -411,7 +435,7 @@ class Settings implements Registrable {
 			 *
 			 * @since 4.0
 			 */
-			$group = apply_filters( 'ac/editing/role_group', $group, $name );
+			$group = (string) apply_filters( 'ac/editing/role_group', $group, $name );
 
 			if ( ! isset( $roles[ $group ] ) ) {
 				$roles[ $group ]['title'] = $group;
@@ -422,6 +446,20 @@ class Settings implements Registrable {
 		}
 
 		return $roles;
+	}
+
+	private function get_primary_column_options( ListScreen $list_screen ) {
+		$options = [];
+
+		foreach ( $list_screen->get_columns() as $column ) {
+			if ( 'column-actions' === $column->get_type() ) {
+				return [];
+			}
+
+			$options[ $column->get_name() ] = $column->get_label();
+		}
+
+		return [ '' => __( 'Default', 'codepress-admin-columns' ) ] + $options;
 	}
 
 	/**

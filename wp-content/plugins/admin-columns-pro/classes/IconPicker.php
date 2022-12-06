@@ -3,10 +3,10 @@
 namespace ACP;
 
 use AC\Column;
-use AC\Registrable;
+use AC\Registerable;
 use ACP\Settings\Column\Label;
 
-class IconPicker implements Registrable {
+class IconPicker implements Registerable {
 
 	public function register() {
 		add_action( 'ac/column/settings', [ $this, 'register_column_settings' ] );

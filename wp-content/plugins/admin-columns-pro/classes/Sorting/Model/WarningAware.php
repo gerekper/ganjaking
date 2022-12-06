@@ -4,6 +4,6 @@ namespace ACP\Sorting\Model;
 
 interface WarningAware {
 
-	// Warning indicator
+	// Slow warning indicator
 
 }

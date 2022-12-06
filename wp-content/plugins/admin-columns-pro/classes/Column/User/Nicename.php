@@ -3,16 +3,20 @@
 namespace ACP\Column\User;
 
 use AC;
+use ACP\ConditionalFormat;
 use ACP\Editing;
+use ACP\Editing\View\Text;
 use ACP\Export;
 use ACP\Search;
 use ACP\Sorting;
 
 class Nicename extends AC\Column\User\Nicename
-	implements Editing\Editable, Export\Exportable, Search\Searchable, Sorting\Sortable {
+	implements Editing\Editable, Export\Exportable, Search\Searchable, Sorting\Sortable, ConditionalFormat\Formattable {
+
+	use ConditionalFormat\ConditionalFormatTrait;
 
 	public function editing() {
-		return new Editing\Service\User\Nicename( $this->get_label() );
+		return new Editing\Service\User\Nicename( ( new Text() )->set_placeholder( $this->get_label() ) );
 	}
 
 	public function export() {

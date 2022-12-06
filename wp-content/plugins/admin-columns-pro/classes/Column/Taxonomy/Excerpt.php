@@ -3,13 +3,16 @@
 namespace ACP\Column\Taxonomy;
 
 use AC;
+use ACP\ConditionalFormat;
 use ACP\Editing;
 
 /**
  * @since 2.0.0
  */
 class Excerpt extends AC\Column
-	implements Editing\Editable {
+	implements Editing\Editable, ConditionalFormat\Formattable {
+
+	use ConditionalFormat\ConditionalFormatTrait;
 
 	public function __construct() {
 		$this->set_type( 'column-excerpt' );

@@ -24,13 +24,13 @@ class IsEmpty extends MetaQuery\Comparison {
 		return [
 			'relation' => 'OR',
 			[
-				'key'   => $this->key,
-				'value' => $this->value->get_value(),
-			],
-			[
 				'key'     => $this->key,
 				'compare' => $this->operator,
 			],
+			[
+				'key'   => $this->key,
+				'value' => $this->value->get_value(),
+			]
 		];
 	}
 

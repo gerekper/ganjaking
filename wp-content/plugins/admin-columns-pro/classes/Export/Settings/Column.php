@@ -20,7 +20,7 @@ class Column extends AC\Settings\Column implements AC\Settings\Header {
 	 */
 	protected function define_options() {
 		return [
-			'export' => 'off',
+			'export' => 'on',
 		];
 	}
 

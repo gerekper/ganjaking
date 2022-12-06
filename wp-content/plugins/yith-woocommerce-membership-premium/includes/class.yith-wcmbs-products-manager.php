@@ -7,9 +7,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Members Class
  *
  * @class   YITH_WCMBS_Products_Manager
- * @package Yithemes
- * @since   1.0.0
  * @author  Yithemes
+ * @since   1.0.0
+ * @package Yithemes
  */
 class YITH_WCMBS_Products_Manager {
 
@@ -96,8 +96,19 @@ class YITH_WCMBS_Products_Manager {
 				$base_product_id = yit_get_base_product_id( $product );
 
 				if ( $downloadable && $this->user_has_access_to_product( get_current_user_id(), $base_product_id ) && ( apply_filters( 'yith_wcmb_skip_check_product_needs_credits_to_download', false ) || ! $this->product_needs_credits_to_download( get_current_user_id(), $base_product_id ) ) ) {
-					remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
-					remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
+
+					$hook      = 'woocommerce_single_product_summary';
+					$to_remove = array(
+						'woocommerce_template_single_add_to_cart',
+						'woocommerce_template_single_price',
+					);
+
+					foreach ( $to_remove as $callback ) {
+						$priority = has_action( $hook, $callback );
+						if ( false !== $priority ) {
+							remove_action( $hook, $callback, $priority );
+						}
+					}
 
 					do_action( 'yith_wcmbs_hide_price_and_add_to_cart' );
 				}
@@ -341,8 +352,8 @@ class YITH_WCMBS_Products_Manager {
 	 * add tabs to product
 	 *
 	 * @access   public
-	 * @since    1.0.0
 	 * @author   Leanza Francesco <leanzafrancesco@gmail.com>
+	 * @since    1.0.0
 	 */
 	public function product_tabs( $tabs ) {
 		global $post;
@@ -373,8 +384,8 @@ class YITH_WCMBS_Products_Manager {
 	 * @param int $user_id    The user ID.
 	 * @param int $product_id The product ID.
 	 *
-	 * @return bool
 	 * @author   Leanza Francesco <leanzafrancesco@gmail.com>
+	 * @return bool
 	 * @since    1.0.0
 	 */
 	public function user_has_access_to_product( $user_id, $product_id ) {
@@ -418,8 +429,8 @@ class YITH_WCMBS_Products_Manager {
 	 * @param string $key the key of the tab
 	 * @param array  $tab array that contains info of tab (title, priority, callback, product_id)
 	 *
-	 * @since    1.0.0
 	 * @author   Leanza Francesco <leanzafrancesco@gmail.com>
+	 * @since    1.0.0
 	 */
 	public function create_tab_content( $key, $tab ) {
 		$this->print_download_link_html();
@@ -429,9 +440,9 @@ class YITH_WCMBS_Products_Manager {
 	 * print the download link list for product in membership
 	 *
 	 * @access   public
-	 * @since    1.0.0
-	 **
 	 * @author   Leanza Francesco <leanzafrancesco@gmail.com>
+	 * @since    1.0.0
+	 *           *
 	 */
 	public function print_download_link_html() {
 		global $post;
@@ -463,10 +474,10 @@ class YITH_WCMBS_Products_Manager {
 			if ( ! $product_id && $post instanceof WP_Post ) {
 				$product_id = $post->ID;
 			}
-			
+
 			if ( $product_id && $this->user_has_access_to_product( $user_id, $product_id ) ) {
 				$product = wc_get_product( $product_id );
-				if( apply_filters( 'yith_wcmbs_skip_download_for_product', false, $product_id ) ) {
+				if ( apply_filters( 'yith_wcmbs_skip_download_for_product', false, $product_id ) ) {
 					return;
 				}
 				if ( $product ) {
@@ -530,10 +541,10 @@ class YITH_WCMBS_Products_Manager {
 	 *
 	 * @param int $product_id the id of the product
 	 *
+	 * @author   Leanza Francesco <leanzafrancesco@gmail.com>
 	 * @return array
 	 * @access   public
 	 * @since    1.0.0
-	 * @author   Leanza Francesco <leanzafrancesco@gmail.com>
 	 */
 	public function product_is_in_plans( $product_id ) {
 		$product = wc_get_product( $product_id );

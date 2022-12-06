@@ -10,4 +10,10 @@ final class Taxonomy extends TableRows {
 		add_action( 'parse_term_query', [ $this, 'handle_request' ] );
 	}
 
+	public function handle_request() {
+		remove_action( 'parse_term_query', [ $this, __FUNCTION__ ] );
+
+		parent::handle_request();
+	}
+
 }

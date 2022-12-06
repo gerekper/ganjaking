@@ -217,7 +217,7 @@ if ( $has_default_playlist ) {
 						<div class="box-content">
 							<h3><?php echo esc_html_x( 'Read the plugin documentation', 'Help tab documentation', 'yith-plugin-fw' ); ?></h3>
 							<p>
-								<?php echo esc_html_x( 'to learn from basics how it works', 'Help tab documentation', 'yith-plugin-fw' ); ?>
+								<?php echo esc_html_x( 'to learn how it works from the basics.', 'Help tab documentation', 'yith-plugin-fw' ); ?>
 							</p>
 							<a target="_blank" href="<?php echo esc_url( $options['doc_url'] ); ?>" class="button yith-plugin-fw__button--secondary">
 								<?php echo esc_html_x( 'Read the plugin documentation', 'Help tab documentation', 'yith-plugin-fw' ); ?>
@@ -235,9 +235,9 @@ if ( $has_default_playlist ) {
 								<b><?php echo esc_html_x( 'From DIY to full-service help', 'Help tab support', 'yith-plugin-fw' ); ?></b>
 							</p>
 							<p>
-								<?php echo esc_html_x( 'Call or chat 24/7 for support or let our expert to make your site', 'Help tab support', 'yith-plugin-fw' ); ?>
+								<?php echo esc_html_x( 'Call or chat 24/7 with our support agents, or let our experts build your site.', 'Help tab support', 'yith-plugin-fw' ); ?>
 							</p>
-							<a target="_blank" href="<?php echo esc_url( $options['submit_ticket_url'] ); ?>" class="yit-plugin-fw-submit-ticket-button button yith-plugin-fw__button--secondary">
+							<a href="<?php echo esc_url( $options['submit_ticket_url'] ); ?>" class="yit-plugin-fw-submit-ticket-button button yith-plugin-fw__button--secondary">
 								<?php echo esc_html_x( 'Yes, I need help', 'Help tab support', 'yith-plugin-fw' ); ?>
 							</a>
 						</div>

@@ -4,16 +4,16 @@ namespace ACP\Editing\Service\User;
 
 use AC;
 use ACP\Editing;
-use ACP\Editing\Service;
+use ACP\Editing\Service\BasicStorage;
 use ACP\Editing\View;
 
-class LanguageRemote extends Service\BasicStorage implements Editing\RemoteOptions {
+class LanguageRemote extends BasicStorage implements Editing\RemoteOptions {
 
 	public function __construct() {
 		parent::__construct( new Editing\Storage\User\Meta( 'locale' ) );
 	}
 
-	public function get_view( $context ) {
+	public function get_view( string $context ): ?View {
 		return new View\RemoteSelect();
 	}
 

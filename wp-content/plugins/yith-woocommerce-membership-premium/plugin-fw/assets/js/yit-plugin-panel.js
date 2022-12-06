@@ -275,7 +275,7 @@ jQuery( function ( $ ) {
 						floatSaveButton.unblock()
 							.addClass( 'green' )
 							.fadeOut( 300 )
-							.html( '<i class="yith-icon yith-icon-check"></i>' + floatSaveButton.data( 'saved-label' ) )
+							.html( floatSaveButton.data( 'saved-label' ) )
 							.fadeIn( 300 )
 							.delay( 2500 )
 							.queue(
@@ -284,7 +284,7 @@ jQuery( function ( $ ) {
 										500,
 										function () {
 											$( this ).removeClass( 'green' );
-											$( this ).html( '<i class="yith-icon yith-icon-save"></i>' + $( this ).data( 'default-label' ) ).fadeIn( 500 );
+											$( this ).html( $( this ).data( 'default-label' ) ).fadeIn( 500 );
 										}
 									);
 									next();

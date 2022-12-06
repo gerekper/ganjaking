@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Subscription\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "subscription\n"
-"POT-Creation-Date: 2022-07-12T08:28:28+00:00\n"
+"POT-Creation-Date: 2022-10-04T14:29:29+00:00\n"
 "PO-Revision-Date: 2020-07-09 09:14:04+0000\n"
 "Language: el_GR\n"
 "MIME-Version: 1.0\n"
@@ -867,8 +867,8 @@ msgid "Related Subscriptions"
 msgstr "Σχετικές Συνδρομές"
 
 #: includes/class.yith-wc-subscription-limit.php:76
-#: includes/class.yith-wc-subscription-limit.php:150
-#: includes/class.ywsbs-subscription-cart.php:661
+#: includes/class.yith-wc-subscription-limit.php:156
+#: includes/class.ywsbs-subscription-cart.php:690
 msgid "You have already an active subscription with this product."
 msgstr "Έχετε ήδη μια ενεργή συνδρομή με αυτό το προϊόν."
 
@@ -924,14 +924,14 @@ msgid "This subscription cannot be resumed"
 msgstr "Η συνδρομή δεν μπορεί να επαναφερθεί"
 
 #: includes/class.yith-wc-subscription.php:772
-#: includes/class.yith-wc-subscription.php:814
+#: includes/class.yith-wc-subscription.php:823
 #: includes/class.ywsbs-subscription-my-account.php:298
 msgid "This subscription cannot be switched. Contact us for info"
 msgstr ""
 "Δεν μπορεί να γίνει εναλλαγή της συνδρομής. Επικοινωνήστε μαζί μας για "
 "πληροφορίες"
 
-#: includes/class.yith-wc-subscription.php:842
+#: includes/class.yith-wc-subscription.php:851
 msgid ""
 "This subscription cannot be cancelled. You cannot switch to related "
 "subscriptions"
@@ -939,38 +939,38 @@ msgstr ""
 "Η συνδρομή δεν μπορεί να ακυρωθεί. Δεν μπορείτε να ορίσετε εναλλαγή σε "
 "σχετικές συνδρομές"
 
-#: includes/class.yith-wc-subscription.php:852
+#: includes/class.yith-wc-subscription.php:861
 msgid "Subscription cancelled due to switch"
 msgstr "Η συνδρομή ακυρώθηκε λόγω εναλλαγής"
 
-#: includes/class.ywsbs-subscription-cart.php:384
+#: includes/class.ywsbs-subscription-cart.php:409
 #: includes/class.ywsbs-subscription-helper.php:986
 msgctxt "do not translate the text inside the brackets"
 msgid "Subscription total for {{sub-time}}: {{sub-total}}"
 msgstr "Σύνολο συνδρομής για {{sub-time}}: {{sub-total}}"
 
-#: includes/class.ywsbs-subscription-cart.php:426
+#: includes/class.ywsbs-subscription-cart.php:451
 #: plugin-options/customization-options.php:200
 msgid "Next billing on:"
 msgstr "Επόμενη χρέωση στις:"
 
-#: includes/class.ywsbs-subscription-cart.php:426
+#: includes/class.ywsbs-subscription-cart.php:452
 #: plugin-options/customization-options.php:214
 msgid "First billing on:"
 msgstr "Πρώτη χρέωση στις:"
 
 #. translators: placeholder 1. first price, 2. valid period of the first price, 3. end price.
-#: includes/class.ywsbs-subscription-cart.php:496
+#: includes/class.ywsbs-subscription-cart.php:523
 #, fuzzy
 msgid "%1$s until %2$s then %3$s"
 msgstr "%1$s από %2$s σε %3$s"
 
-#: includes/class.ywsbs-subscription-cart.php:499
+#: includes/class.ywsbs-subscription-cart.php:526
 #: includes/class.ywsbs-subscription-helper.php:852
 msgid " for "
 msgstr " για "
 
-#: includes/class.ywsbs-subscription-cart.php:681
+#: includes/class.ywsbs-subscription-cart.php:711
 msgid ""
 "A subscription has been removed from your cart. You cannot purchase "
 "different subscriptions at the same time."
@@ -1314,7 +1314,7 @@ msgstr "Δημιουργία συνδρομής για αυτό το προϊό�
 
 #. translators: Placeholders: url of subscription, subscription number.
 #: includes/class.ywsbs-subscription-order.php:392
-#: includes/class.ywsbs-subscription-order.php:888
+#: includes/class.ywsbs-subscription-order.php:889
 #, fuzzy
 msgctxt "Placeholders: url of subscription, ID subscription"
 msgid ""
@@ -1324,7 +1324,7 @@ msgstr ""
 "παραγγελία"
 
 #. translators: Placeholder subscription id.
-#: includes/class.ywsbs-subscription-order.php:927
+#: includes/class.ywsbs-subscription-order.php:928
 msgctxt "subscription id"
 msgid ""
 "The subscription %s created from this orders has been cancelled because the "
@@ -1333,54 +1333,54 @@ msgstr ""
 "Η συνδρομή %s που δημιουργήθηκε από αυτές τις παραγγελίες έχει ακυρωθεί "
 "διότι το αντικείμενο παραγγελίας ακυρώθηκε"
 
-#: includes/class.ywsbs-subscription-order.php:1154
+#: includes/class.ywsbs-subscription-order.php:1155
 msgid "The subscription cannot be cancelled."
 msgstr "Η συνδρομή δεν μπορεί να ακυρωθεί."
 
-#: includes/class.ywsbs-subscription-order.php:1246
+#: includes/class.ywsbs-subscription-order.php:1247
 msgid "Renew Now"
 msgstr "Άμεση Ανανέωση"
 
 #. translators: Error code.
-#: includes/class.ywsbs-subscription-order.php:1426
+#: includes/class.ywsbs-subscription-order.php:1427
 msgctxt "Error code"
 msgid "Error %d: unable to create the order. Please try again."
 msgstr ""
 "Σφάλμα %d: μη δυνατή η δημιουργία παραγγελίας. Παρακαλώ προσπαθήστε ξανά."
 
 #. translators: placeholder: order id.
-#: includes/class.ywsbs-subscription-order.php:1514
+#: includes/class.ywsbs-subscription-order.php:1515
 msgctxt ""
 "placeholder: coupon code, started limited value, current limited value "
 msgid "Limited level reduced for the coupon %1$s: %2$d ->%3$d "
 msgstr ""
 
 #. translators: Placeholder: subscription url, subscription number.
-#: includes/class.ywsbs-subscription-order.php:1547
+#: includes/class.ywsbs-subscription-order.php:1548
 #: includes/compatibility/yith-woocommerce-product-vendors.php:497
 msgid "This order has been created to renew subscription"
 msgstr "Αυτή η παραγγελία έχει δημιουργηθεί για να ανανεώσει την συνδρομή"
 
 #. translators: placeholder: order id.
-#: includes/class.ywsbs-subscription-order.php:1554
+#: includes/class.ywsbs-subscription-order.php:1555
 msgctxt "placeholder: order id"
 msgid "The order %d has been created for the subscription"
 msgstr "Η παραγγελία %d έχει δημιουργηθεί για την συνδρομή"
 
 #. translators: placeholder: renew order id.
-#: includes/class.ywsbs-subscription-order.php:1578
+#: includes/class.ywsbs-subscription-order.php:1579
 msgctxt "placeholder: order id"
 msgid "The order %d has been deleted for the subscription"
 msgstr "Η παραγγελία %d έχει διαγραφεί για την συνδρομή"
 
-#: includes/class.ywsbs-subscription-order.php:1654
-#: includes/class.ywsbs-subscription-order.php:1735
+#: includes/class.ywsbs-subscription-order.php:1655
+#: includes/class.ywsbs-subscription-order.php:1736
 #: includes/class.ywsbs-subscription-resubscribe.php:107
 #: includes/class.ywsbs-subscription-switch.php:210
 msgid "There was an error with your request. Please try again."
 msgstr "Παρουσιάστηκε σφάλμα στο αίτημά σας. Παρακαλώ προσπαθήστε ξανά."
 
-#: includes/class.ywsbs-subscription-order.php:1661
+#: includes/class.ywsbs-subscription-order.php:1662
 msgid "The renew order cannot be paid. Please contact the administrator."
 msgstr ""
 "Η παραγγελία ανανέωσης δεν μπορεί να πληρωθεί. Παρακαλώ επικοινωνήστε με τον "
@@ -1560,7 +1560,7 @@ msgid "Payment received for #%s no status changed"
 msgstr "Η πληρωμή ελήφθη για #%s χωρίς αλλαγή κατάστασης"
 
 #. translators: placeholder subscription number.
-#: includes/class.ywsbs-subscription.php:1813
+#: includes/class.ywsbs-subscription.php:1814
 #, fuzzy
 msgid ""
 "This order has been cancelled because subscription %s has been cancelled"
@@ -5158,7 +5158,7 @@ msgstr "Προγραμματισμός"
 msgid "Recurring totals"
 msgstr "Επαναλαμβανόμενα σύνολα"
 
-#: templates/cart/ywsbs-recurring-totals.php:53
+#: templates/cart/ywsbs-recurring-totals.php:54
 #, fuzzy
 msgid "(ex. shipping)"
 msgstr "Μοναδική αποστολή"

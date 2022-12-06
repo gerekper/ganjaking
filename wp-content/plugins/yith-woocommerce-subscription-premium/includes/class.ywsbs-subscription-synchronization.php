@@ -300,9 +300,9 @@ if ( ! class_exists( 'YWSBS_Subscription_Synchronization' ) ) {
 				$day_of_month = $sync_info['day'];
 			}
 
-			if ( $today->format( 'm' ) === $sync_info['month'] && $today->format( 'd' ) === $day_of_month ) {
+			if ( $today->format( 'n' ) === $sync_info['month'] && $today->format( 'd' ) === $day_of_month ) {
 				$new_date = $today;
-			} elseif ( $new_date->format( 'm' ) < $sync_info['month'] || ( $new_date->format( 'm' ) === $sync_info['month'] ) && ( $new_date->format( 'd' ) < $day_of_month ) ) {
+			} elseif ( $new_date->format( 'n' ) < $sync_info['month'] || ( $new_date->format( 'n' ) === $sync_info['month'] ) && ( $new_date->format( 'd' ) < $day_of_month ) ) {
 				$new_date = $new_date->modify( $new_date->format( 'y' ) . '-' . $sync_info['month'] . '-' . $day );
 			} else {
 				$new_date = $new_date->modify( ( (int) $new_date->format( 'y' ) + 1 ) . '-' . $sync_info['month'] . '-' . $day );

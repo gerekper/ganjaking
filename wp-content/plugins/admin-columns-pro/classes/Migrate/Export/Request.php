@@ -7,7 +7,7 @@ use AC\Capabilities;
 use AC\ListScreenRepository\Storage;
 use AC\Type\ListScreenId;
 
-final class Request implements AC\Registrable {
+final class Request implements AC\Registerable {
 
 	const ACTION = 'acp-export';
 	const NONCE_NAME = 'acp_export_nonce';

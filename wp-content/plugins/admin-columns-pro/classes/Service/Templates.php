@@ -2,9 +2,9 @@
 
 namespace ACP\Service;
 
-use AC\Registrable;
+use AC\Registerable;
 
-class Templates implements Registrable {
+class Templates implements Registerable {
 
 	/**
 	 * @var string

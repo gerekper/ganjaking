@@ -54,42 +54,34 @@ class EditingModelFactory {
 					),
 					$storage
 				);
-
 			case CustomFieldType::TYPE_COLOR :
 				return new Service\Basic( ( new View\Color() )->set_clear_button( true ), $storage );
-
 			case CustomFieldType::TYPE_DATE :
 				$date_format = ( new StoredDateFormat( $column ) )->apply_filters( 'Y-m-d' );
 
 				return new Service\Date( ( new View\Date() )->set_clear_button( true ), $storage, $date_format );
-
 			case CustomFieldType::TYPE_IMAGE :
 				return new Service\Basic( ( new View\Image() )->set_clear_button( true ), $storage );
-
 			case CustomFieldType::TYPE_MEDIA :
 				return new Service\Basic( ( new View\Media() )->set_multiple( true )->set_clear_button( true ), $storage );
-
 			case CustomFieldType::TYPE_URL :
 				return new Service\Basic( ( new View\InternalLink() )->set_clear_button( true )->set_placeholder( __( 'Paste URL or type to search' ) ), $storage );
-
 			case CustomFieldType::TYPE_NUMERIC :
 				return new Service\ComputedNumber( $storage );
-
 			case CustomFieldType::TYPE_POST :
-				$post_types = apply_filters( 'acp/editing/settings/post_types', [], $column );
+				$post_types = (array) apply_filters( 'acp/editing/settings/post_types', [], $column );
 
 				return new Service\Posts(
 					( new View\AjaxSelect() )->set_clear_button( true ),
 					$storage,
 					new PaginatedOptions\Posts( $post_types )
 				);
-
 			case CustomFieldType::TYPE_USER :
 				return new Service\User(
 					( new View\AjaxSelect() )->set_clear_button( true ),
-					$storage
+					$storage,
+					new PaginatedOptions\Users()
 				);
-
 			default :
 				$type = self::get_editable_type( $column ) ?: 'textarea';
 

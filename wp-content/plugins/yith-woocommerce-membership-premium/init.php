@@ -3,17 +3,17 @@
  * Plugin Name: YITH WooCommerce Membership Premium
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-membership
  * Description: <code><strong>YITH WooCommerce Membership</strong></code> allows creating dedicated areas on your website/store where you can manage reserved access to your contents depending on what you want to show. Excellent to create online courses, study plans, paid areas, etc. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>
- * Version: 1.15.0
+ * Version: 1.18.0
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-membership
  * Domain Path: /languages/
- * WC requires at least: 6.5.0
- * WC tested up to: 6.7.x
+ * WC requires at least: 6.8.0
+ * WC tested up to: 7.0.x
  *
  * @author  yithemes
  * @package YITH WooCommerce Membership Premium
- * @version 1.15.0
+ * @version 1.18.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -50,7 +50,7 @@ if ( ! function_exists( 'yith_plugin_onboarding_registration_hook' ) ) {
 register_activation_hook( __FILE__, 'yith_plugin_onboarding_registration_hook' );
 
 if ( ! defined( 'YITH_WCMBS_VERSION' ) ) {
-	define( 'YITH_WCMBS_VERSION', '1.15.0' );
+	define( 'YITH_WCMBS_VERSION', '1.18.0' );
 }
 
 if ( ! defined( 'YITH_WCMBS_PREMIUM' ) ) {

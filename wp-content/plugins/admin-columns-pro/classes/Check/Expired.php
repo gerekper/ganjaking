@@ -5,7 +5,7 @@ namespace ACP\Check;
 use AC\Ajax;
 use AC\Capabilities;
 use AC\Message;
-use AC\Registrable;
+use AC\Registerable;
 use AC\Screen;
 use AC\Storage;
 use AC\Type\Url\Site;
@@ -17,7 +17,7 @@ use ACP\Type\SiteUrl;
 use DateTime;
 use Exception;
 
-class Expired implements Registrable {
+class Expired implements Registerable {
 
 	/**
 	 * @var string

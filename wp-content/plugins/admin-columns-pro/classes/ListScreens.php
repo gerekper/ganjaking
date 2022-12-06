@@ -5,9 +5,9 @@ namespace ACP;
 use AC;
 use AC\Admin;
 use AC\Groups;
-use AC\Registrable;
+use AC\Registerable;
 
-class ListScreens implements Registrable {
+class ListScreens implements Registerable {
 
 	public function register() {
 		add_action( 'ac/list_screen_groups', [ $this, 'register_list_screen_groups' ] );

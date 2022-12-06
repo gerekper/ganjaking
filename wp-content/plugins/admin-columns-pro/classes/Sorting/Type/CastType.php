@@ -10,19 +10,19 @@ use LogicException;
  */
 class CastType {
 
-	const SIGNED = 'SIGNED';
-	const CHAR = 'CHAR';
-	const DECIMAL = 'DECIMAL';
-	const DATE = 'DATE';
-	const DATETIME = 'DATETIME';
-	const BINARY = 'BINARY';
+	public const SIGNED = 'SIGNED';
+	public const CHAR = 'CHAR';
+	public const DECIMAL = 'DECIMAL(60,10)';
+	public const DATE = 'DATE';
+	public const DATETIME = 'DATETIME';
+	public const BINARY = 'BINARY';
 
 	/**
 	 * @var string
 	 */
 	private $value;
 
-	public function __construct( $value ) {
+	public function __construct( string $value ) {
 		if ( ! self::is_valid( $value ) ) {
 			throw new LogicException( 'Invalid cast type.' );
 		}
@@ -33,8 +33,12 @@ class CastType {
 	/**
 	 * @return string
 	 */
-	public function get_value() {
-		return str_replace( self::DECIMAL, 'DECIMAL(60,10)', $this->value );
+	public function get_value(): string {
+		return $this->value;
+	}
+
+	public function __toString(): string {
+		return $this->value;
 	}
 
 	/**
@@ -42,11 +46,11 @@ class CastType {
 	 *
 	 * @return bool
 	 */
-	public static function is_valid( $value ) {
+	public static function is_valid( $value ): bool {
 		return in_array( $value, [ self::CHAR, self::SIGNED, self::DATE, self::DATETIME, self::BINARY, self::DECIMAL ] );
 	}
 
-	static public function create_from_data_type( DataType $data_type ) {
+	public static function create_from_data_type( DataType $data_type ): self {
 		switch ( $data_type->get_value() ) {
 			case DataType::NUMERIC :
 				return new self( self::SIGNED );

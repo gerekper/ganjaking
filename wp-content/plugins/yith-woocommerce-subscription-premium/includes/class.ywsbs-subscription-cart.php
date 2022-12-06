@@ -47,6 +47,13 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 		protected $list_of_not_shippable = array();
 
 		/**
+		 * List of not shippable products
+		 *
+		 * @var array
+		 */
+		protected $clear_shipping = false;
+
+		/**
 		 * Returns single instance of the class
 		 *
 		 * @return YWSBS_Subscription_Coupons
@@ -85,7 +92,9 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 			add_action( 'woocommerce_review_order_after_order_total', array( $this, 'cart_recurring_totals' ), 10 );
 
 			// remove the shipping for sync products not prorated.
-			add_action( 'woocommerce_before_checkout_process', array( $this, 'sync_on_process_checkout' ), 200, 2 );
+			add_action( 'woocommerce_before_checkout_process', array( $this, 'sync_on_process_checkout' ), 200 );
+			add_action( 'woocommerce_checkout_update_customer', array( $this, 'check_shipping_to_clear' ), 200 );
+
 			add_filter( 'woocommerce_before_calculate_totals', array( $this, 'before_calculate_totals' ), 200, 2 );
 
 		}
@@ -94,7 +103,17 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 		 * Clear the shipping methods
 		 */
 		public function clear_shipping() {
+			$this->clear_shipping = true;
 			WC()->session->set( 'chosen_shipping_methods', array() );
+		}
+
+		/**
+		 * Clear the shipping methods
+		 */
+		public function check_shipping_to_clear() {
+			if ( $this->clear_shipping ) {
+				WC()->session->set( 'chosen_shipping_methods', array() );
+			}
 		}
 
 		/**
@@ -104,19 +123,22 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 			$ywsbs_sync_on_process_checkout = WC()->session->get( 'ywsbs_sync_on_process_checkout', false );
 
 			if ( $ywsbs_sync_on_process_checkout ) {
-			//	add_action( 'woocommerce_cart_needs_shipping', '__return_false', 200, 100 );
 				add_filter( 'woocommerce_after_checkout_validation', array( $this, 'clear_shipping' ), 200 );
+
 			}
 		}
 
 		/**
 		 * Remove temporary the shipping calculation for the products that are syncronized.
 		 *
-		 * @param WC_Cart $cart Cart.
+		 * @param   WC_Cart  $cart  Cart.
 		 */
 		public function before_calculate_totals( $cart ) {
 			if ( ! self::cart_has_subscriptions() ) {
 				return;
+			}
+			if ( WC()->session->get( 'reload_checkout', false ) === true ) {
+				add_filter( 'woocommerce_after_checkout_validation', array( $this, 'clear_shipping' ), 200 );
 			}
 			WC()->session->set( 'ywsbs_sync_on_process_checkout', false );
 			WC()->session->set( 'ywsbs_shipping_methods', WC()->session->get( 'chosen_shipping_methods', array() ) );
@@ -125,14 +147,15 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 			$prorate_option = get_option( 'ywsbs_sync_first_payment', 'no' );
 
 			foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
-				$apply_shipping_on_sync = 'no' === $prorate_option && ywsbs_is_subscription_product( $cart_item['data'] ) && $cart_item['data']->needs_shipping() && (
+				$apply_shipping_on_sync =
+					'no' === $prorate_option && ywsbs_is_subscription_product( $cart_item['data'] ) && $cart_item['data']->needs_shipping() &&
+					(
 						isset( $cart_item['ywsbs-subscription-info']['sync'] ) && 1 === (int) $cart_item['ywsbs-subscription-info']['sync'] &&
 						( empty( $cart_item['data']->get_price() ) || ( '' !== $cart_item['ywsbs-subscription-info']['fee'] && 0 == ( $cart_item['data']->get_price() - apply_filters( 'ywsbs_product_fee', $cart_item['ywsbs-subscription-info']['fee'], $cart_item['data'] ) ) ) ) //phpcs:ignore
 					);
 
 				if ( apply_filters( 'ywsbs_apply_shipping_on_synch_subscription', $apply_shipping_on_sync, $cart_item, $cart_item_key ) ) {
-						$product_id = $cart_item['data']->get_id();
-
+					$product_id = $cart_item['data']->get_id();
 					! in_array( $product_id, $this->list_of_not_shippable, true ) && array_push( $this->list_of_not_shippable, $cart_item['data']->get_id() );
 				} else {
 					$add_filter = false;
@@ -141,30 +164,29 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 
 			if ( ! empty( $this->list_of_not_shippable ) ) {
 				if ( $add_filter ) {
-
 					add_filter( 'woocommerce_calculated_total', array( $this, 'remove_shipping_cost_from_calculate_totals' ), 200, 2 );
 					add_filter( 'woocommerce_cart_tax_totals', array( $this, 'remove_tax_shipping_cost_from_calculate_totals' ), 200, 2 );
 					WC()->session->set( 'ywsbs_sync_on_process_checkout', true );
-
 				} else {
 					add_filter( 'woocommerce_product_needs_shipping', array( $this, 'maybe_not_shippable' ), 100, 2 );
 					add_filter( 'woocommerce_cart_needs_shipping_address', '__return_true' );
 					WC()->session->set( 'ywsbs_sync_on_process_checkout', false );
 				}
 			}
+
 		}
 
 		/**
 		 * Remove the shipping amount from cart if there'are only synch subscription on cart with price 0.
 		 *
-		 * @param float   $total Cart total.
-		 * @param WC_Cart $cart Cart.
+		 * @param   float    $total  Cart total.
+		 * @param   WC_Cart  $cart   Cart.
 		 *
 		 * @return mixed
 		 */
 		public function remove_shipping_cost_from_calculate_totals( $total, $cart ) {
 			$totals = $cart->get_totals();
-			$total -= ( $totals['shipping_total'] + $totals['shipping_tax'] );
+			$total  -= ( $totals['shipping_total'] + $totals['shipping_tax'] );
 
 			return $total;
 		}
@@ -172,8 +194,8 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 		/**
 		 * Remove the shipping amount from cart if there'are only synch subscription on cart with price 0.
 		 *
-		 * @param array   $total Cart total.
-		 * @param WC_Cart $cart Cart.
+		 * @param   array    $total  Cart total.
+		 * @param   WC_Cart  $cart   Cart.
 		 *
 		 * @return mixed
 		 */
@@ -200,14 +222,16 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 		/**
 		 * Return false for the product saved on list.
 		 *
-		 * @param bool       $value Value passed to filter.
-		 * @param WC_Product $product Product.
+		 * @param   bool        $value    Value passed to filter.
+		 * @param   WC_Product  $product  Product.
+		 *
 		 * @return bool
 		 */
 		public function maybe_not_shippable( $value, $product ) {
 			if ( in_array( $product->get_id(), $this->list_of_not_shippable, true ) ) {
 				return false;
 			}
+
 			return $value;
 		}
 
@@ -235,10 +259,11 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 		/**
 		 * Add additional cart item data to the subscription products.
 		 *
-		 * @param array $cart_item_data Cart item data.
-		 * @param int   $product_id Product id.
-		 * @param int   $variation_id Variation id.
-		 * @param int   $quantity Quantity.
+		 * @param   array  $cart_item_data  Cart item data.
+		 * @param   int    $product_id      Product id.
+		 * @param   int    $variation_id    Variation id.
+		 * @param   int    $quantity        Quantity.
+		 *
 		 * @return array
 		 */
 		public function set_subscription_meta_on_cart( $cart_item_data, $product_id, $variation_id, $quantity = 1 ) {
@@ -260,7 +285,7 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 		/**
 		 * Get the subscription meta
 		 *
-		 * @param WC_Product $product Product.
+		 * @param   WC_Product  $product  Product.
 		 */
 		public function get_subscription_meta_on_cart( $product ) {
 			$cart_item_subscription_data = array();
@@ -284,8 +309,8 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 		/**
 		 * Change price
 		 *
-		 * @param float      $price Price.
-		 * @param WC_Product $product WC_Product.
+		 * @param   float       $price    Price.
+		 * @param   WC_Product  $product  WC_Product.
 		 *
 		 * @return mixed
 		 */
@@ -337,9 +362,9 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 		/**
 		 * Change subtotal html price on cart.
 		 *
-		 * @param string $price_html Html Price.
-		 * @param array  $cart_item Cart item.
-		 * @param string $cart_item_key Cart Item key.
+		 * @param   string  $price_html     Html Price.
+		 * @param   array   $cart_item      Cart item.
+		 * @param   string  $cart_item_key  Cart Item key.
 		 *
 		 * @return string
 		 */
@@ -368,9 +393,9 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 		/**
 		 * Return the subscription total amount of a product.
 		 *
-		 * @param WC_Product $product Product.
-		 * @param int        $quantity Quantity.
-		 * @param bool|array $subscription_info Subscription information.
+		 * @param   WC_Product  $product            Product.
+		 * @param   int         $quantity           Quantity.
+		 * @param   bool|array  $subscription_info  Subscription information.
 		 *
 		 * @return string
 		 */
@@ -410,8 +435,8 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 		/**
 		 * Return the subscription next billing date.
 		 *
-		 * @param WC_Product $product Product.
-		 * @param bool|array $subscription_info Subscription information.
+		 * @param   WC_Product  $product            Product.
+		 * @param   bool|array  $subscription_info  Subscription information.
 		 *
 		 * @return string
 		 */
@@ -423,7 +448,8 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 				$billing_date = $subscription_info && isset( $subscription_info['next_payment_due_date'] ) && ! empty( $subscription_info['next_payment_due_date'] ) ? $subscription_info['next_payment_due_date'] : YWSBS_Subscription_Helper::get_billing_payment_due_date( $product );
 
 				if ( $billing_date ) {
-					$billing_date_text = empty( ywsbs_get_product_trial( $product ) ) ? get_option( 'ywsbs_show_next_billing_date_text', esc_html__( 'Next billing on:', 'yith-woocommerce-subscription' ) ) : get_option( 'ywsbs_show_next_billing_date_text_for_trial', esc_html__( 'First billing on:', 'yith-woocommerce-subscription' ) );
+					$billing_date_text = empty( ywsbs_get_product_trial( $product ) ) ? get_option( 'ywsbs_show_next_billing_date_text', esc_html__( 'Next billing on:', 'yith-woocommerce-subscription' ) ) : get_option( 'ywsbs_show_next_billing_date_text_for_trial',
+						esc_html__( 'First billing on:', 'yith-woocommerce-subscription' ) );
 					$billing_date_text = '<div class="ywsbs-next-billing-date"><strong>' . $billing_date_text . '</strong> ' . date_i18n( wc_date_format(), $billing_date ) . '</div>';
 				}
 			}
@@ -434,10 +460,10 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 		/**
 		 * Change price HTML to the product
 		 *
-		 * @param WC_Product $product WC_Product.
-		 * @param int        $quantity Quantity.
-		 * @param bool       $show_complete_price To show the complete price inside cart subtotal.
-		 * @param array      $cart_item Cart item.
+		 * @param   WC_Product  $product              WC_Product.
+		 * @param   int         $quantity             Quantity.
+		 * @param   bool        $show_complete_price  To show the complete price inside cart subtotal.
+		 * @param   array       $cart_item            Cart item.
 		 *
 		 * @return string
 		 * @since  1.2.0
@@ -492,6 +518,7 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 
 				$pri = wc_price( $recurring_price_display ) . ' / ' . $recurring_period . ' ' . $recurring_tax;
 				$pri = apply_filters( 'ywsbs_recurring_price_html', $pri, $recurring_price, $recurring_period, $cart_item );
+
 				// translators: placeholder 1. first price, 2. valid period of the first price, 3. end price.
 				return sprintf( __( '%1$s until %2$s then %3$s', 'yith-woocommerce-subscription' ), $price_html, date_i18n( wc_date_format(), $subscription_info['next_payment_due_date'] ), $pri );
 			}
@@ -516,7 +543,7 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 			} else {
 
 				$price_html  = $price_html . '<span class="ywsbs-max-lenght">' . $max_length . '</span>';
-				$price_html .= '</div>';
+				$price_html  .= '</div>';
 				$trial_price = YWSBS_Subscription_Helper::get_trial_price( $product, 'cart', $subscription_info );
 				$fee_price   = YWSBS_Subscription_Helper::get_fee_price( $product, $quantity, null, $subscription_info );
 
@@ -531,7 +558,9 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 
 			}
 
-			$price_html = apply_filters_deprecated( 'ywsbs_change_general_price_html', array( $price_html, $product, $product->get_meta( '_ywsbs_price_is_per' ), $product->get_meta( '_ywsbs_price_time_option' ), $product->get_meta( '_ywsbs_max_length' ), ywsbs_get_product_fee( $product ), ywsbs_get_product_trial( $product ), $quantity ), '2.0.0', 'ywsbs_change_subtotal_product_price', 'This filter will be removed in next major release.' );
+			$price_html = apply_filters_deprecated( 'ywsbs_change_general_price_html',
+				array( $price_html, $product, $product->get_meta( '_ywsbs_price_is_per' ), $product->get_meta( '_ywsbs_price_time_option' ), $product->get_meta( '_ywsbs_max_length' ), ywsbs_get_product_fee( $product ), ywsbs_get_product_trial( $product ), $quantity ), '2.0.0',
+				'ywsbs_change_subtotal_product_price', 'This filter will be removed in next major release.' );
 
 			// APPLY_FILTER: ywsbs_change_subtotal_product_price: to change the html price of a subscription product.
 			return apply_filters( 'ywsbs_change_subtotal_product_price', $price_html, $product, $quantity, $cart_item, $show_complete_price_on_substotal_cart );
@@ -541,9 +570,9 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 		/**
 		 * Change price in cart.
 		 *
-		 * @param string $price_html HTML price.
-		 * @param array  $cart_item Cart Item.
-		 * @param string $cart_item_key Cart Item Key.
+		 * @param   string  $price_html     HTML price.
+		 * @param   array   $cart_item      Cart Item.
+		 * @param   string  $cart_item_key  Cart Item Key.
 		 *
 		 * @return mixed|void
 		 */
@@ -572,8 +601,8 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 		/**
 		 * Check if there are subscription upgrade in progress and change the fee
 		 *
-		 * @param float $fee Fee amount.
-		 * @param array $cart_item Cart Item.
+		 * @param   float  $fee        Fee amount.
+		 * @param   array  $cart_item  Cart Item.
 		 *
 		 * @return bool
 		 */
@@ -606,8 +635,8 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 		 * Check if there are subscription upgrade in progress and change the trial options
 		 * During the upgrade or downgrade the trial period will be nulled.
 		 *
-		 * @param int   $trial Trial.
-		 * @param array $cart_item Cart Item.
+		 * @param   int    $trial      Trial.
+		 * @param   array  $cart_item  Cart Item.
 		 *
 		 * @return int | string
 		 */
@@ -638,10 +667,10 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 		 * Only a subscription can be added to the cart this method check if there's
 		 * a subscription in cart and remove the element if the next product to add is another subscription
 		 *
-		 * @param bool $valid Is valid boolean.
-		 * @param int  $product_id Product id.
-		 * @param int  $quantity Quantity.
-		 * @param int  $variation_id Variation id.
+		 * @param   bool  $valid         Is valid boolean.
+		 * @param   int   $product_id    Product id.
+		 * @param   int   $quantity      Quantity.
+		 * @param   int   $variation_id  Variation id.
 		 *
 		 * @return bool
 		 * @since  1.0.0
@@ -660,6 +689,7 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 			if ( ! YITH_WC_Subscription_Limit::is_purchasable( true, $product ) ) {
 				$message = esc_html__( 'You have already an active subscription with this product.', 'yith-woocommerce-subscription' );
 				wc_add_notice( $message, 'error' );
+
 				return false;
 			}
 
@@ -692,7 +722,7 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 		/**
 		 * Disable gateways that don't support multiple subscription on cart.
 		 *
-		 * @param array $gateways Gateways list.
+		 * @param   array  $gateways  Gateways list.
 		 */
 		public function disable_gateways( $gateways ) {
 
@@ -784,20 +814,30 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 					}
 				}
 			}
+
 			return 0 === $count ? false : $items;
 		}
 
 		/**
 		 * Check whether the cart needs payment even if the order total is $0
 		 *
-		 * @param bool    $needs_payment Need payment or is free.
-		 * @param WC_Cart $cart Cart.
+		 * @param   bool     $needs_payment  Need payment or is free.
+		 * @param   WC_Cart  $cart           Cart.
 		 *
 		 * @return bool
 		 */
 		public static function cart_needs_payment( $needs_payment, $cart ) {
-
-			if ( ! $needs_payment && self::cart_has_subscriptions() && 0 == $cart->get_total( 'edit' ) ) { // phpcs:ignore
+			/**
+			 * APPLY_FILTERS: ywsbs_subscription_cart_needs_payments
+			 *
+			 * This filter allows to set if a cart needs of payments or not
+			 *
+			 * @param   bool  $needs_payment  Value that can be filtered.
+			 *
+			 * @return bool
+			 */
+			$cart_needs_payments = apply_filters( 'ywsbs_subscription_cart_needs_payments', ! $needs_payment && self::cart_has_subscriptions() && 0 == $cart->get_total( 'edit' ) ); // phpcs:ignore
+			if ( $cart_needs_payments ) {
 				$needs_payment = true;
 			}
 
@@ -807,7 +847,7 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 		/**
 		 * Removes all subscription products from the shopping cart.
 		 *
-		 * @param int $item_key Cart item key to remove.
+		 * @param   int  $item_key  Cart item key to remove.
 		 *
 		 * @return void
 		 *
@@ -826,9 +866,9 @@ if ( ! class_exists( 'YWSBS_Subscription_Cart' ) ) {
 		/**
 		 * Get price.
 		 *
-		 * @param int   $product_id Product id.
-		 * @param float $price Price.
-		 * @param int   $quantity Quantity.
+		 * @param   int    $product_id  Product id.
+		 * @param   float  $price       Price.
+		 * @param   int    $quantity    Quantity.
 		 *
 		 * @return     float
 		 * @deprecated 2.0.0

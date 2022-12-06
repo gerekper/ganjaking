@@ -3,10 +3,12 @@
 namespace ACP\Column\User;
 
 use AC;
+use ACP;
+use ACP\Export\Exportable;
 use ACP\Sorting;
 use ACP\Sorting\Sortable;
 
-class UserPosts extends AC\Column implements Sortable, AC\Column\AjaxValue {
+class UserPosts extends AC\Column implements Sortable, AC\Column\AjaxValue, Exportable {
 
 	public function __construct() {
 		$this->set_type( 'column-user_posts' )
@@ -53,6 +55,10 @@ class UserPosts extends AC\Column implements Sortable, AC\Column\AjaxValue {
 			'posts_per_page' => -1,
 			'post_status'    => [ 'publish', 'private' ],
 		] );
+	}
+
+	public function export() {
+		return new ACP\Export\Model\User\UserPosts( $this );
 	}
 
 	public function sorting() {

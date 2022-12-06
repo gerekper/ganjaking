@@ -7,9 +7,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Member Class
  *
  * @class   YITH_WCMBS_Activity
- * @package Yithemes
- * @since   1.0.0
  * @author  Yithemes
+ * @since   1.0.0
+ * @package Yithemes
  */
 class YITH_WCMBS_Activity {
 
@@ -68,11 +68,7 @@ class YITH_WCMBS_Activity {
 	 * @return string
 	 */
 	public function get_formatted_date( $gmt = true, $format = false ) {
-		$timestamp = $this->timestamp;
-		if ( $gmt ) {
-			$offset    = get_option( 'gmt_offset' );
-			$timestamp += $offset * HOUR_IN_SECONDS;
-		}
+		$timestamp = ! ! $gmt ? yith_wcmbs_local_strtotime( 'now', $this->timestamp ) : $this->timestamp;
 
 		if ( $format === false ) {
 			$format = wc_date_format() . ' ' . wc_time_format();

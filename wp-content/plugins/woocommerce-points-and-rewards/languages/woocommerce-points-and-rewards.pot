@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Points and Rewards 1.7.21\n"
+"Project-Id-Version: WooCommerce Points and Rewards 1.7.22\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-points-and-rewards\n"
-"POT-Creation-Date: 2022-11-16 23:19:12+00:00\n"
+"POT-Creation-Date: 2022-12-06 09:05:56+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -419,16 +419,16 @@ msgstr ""
 msgid "Discount Applied Successfully"
 msgstr ""
 
-#: includes/class-wc-points-rewards-extend-store-endpoint.php:111
+#: includes/class-wc-points-rewards-extend-store-endpoint.php:107
 msgid "Points generated message"
 msgstr ""
 
-#: includes/class-wc-points-rewards-extend-store-endpoint.php:117
-msgid "The label used to refer to points on the frontend, singular."
+#: includes/class-wc-points-rewards-extend-store-endpoint.php:113
+msgid "Message to user inviting them to redeem points"
 msgstr ""
 
-#: includes/class-wc-points-rewards-extend-store-endpoint.php:123
-msgid "The label used to refer to points on the frontend, plural."
+#: includes/class-wc-points-rewards-extend-store-endpoint.php:119
+msgid "Max number of points able to be redeemed"
 msgstr ""
 
 #: includes/class-wc-points-rewards-manage-points-list-table.php:58
@@ -727,7 +727,7 @@ msgid ""
 "download %s here."
 msgstr ""
 
-#: woocommerce-points-and-rewards.php:425
+#: woocommerce-points-and-rewards.php:429
 msgid "Configure"
 msgstr ""
 

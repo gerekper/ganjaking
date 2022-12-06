@@ -13,7 +13,7 @@
 
 defined( 'ABSPATH' ) || exit; // Exit if accessed directly.
 
-list( $premium_features, $main_image_url, $show_free_vs_premium ) = yith_plugin_fw_extract( $options, 'premium_features', 'main_image_url', 'show_free_vs_premium_link' );
+list( $premium_features, $main_image_url, $show_free_vs_premium, $show_premium_landing_link ) = yith_plugin_fw_extract( $options, 'premium_features', 'main_image_url', 'show_free_vs_premium_link', 'show_premium_landing_link' );
 
 $get_premium_url = yith_plugin_fw_add_utm_data( $premium_url, $plugin_slug, 'button-upgrade', yith_plugin_fw_panel_utm_source( $this ) );
 
@@ -46,7 +46,14 @@ if ( $show_free_vs_premium ) {
 						</span>
 					</div>
 				<?php endforeach; ?>
-				<?php if ( $show_free_vs_premium ) : ?>
+				<?php if ( $show_premium_landing_link ) : ?>
+					<span class="yith-plugin-fw-panel-premium-tab__free-vs-premium">
+						<?php echo esc_html_x( 'And so much more!', 'Premium Tab', 'yith-plugin-fw' ); ?>
+						<a href="<?php echo esc_url( $get_premium_url ); ?>" target="_blank">
+							<?php echo esc_html_x( 'Check the premium features >', 'Premium Tab', 'yith-plugin-fw' ); ?>
+						</a>
+					</span>
+				<?php elseif ( $show_free_vs_premium ) : ?>
 					<span class="yith-plugin-fw-panel-premium-tab__free-vs-premium">
 						<?php echo esc_html_x( 'And so much more!', 'Premium Tab', 'yith-plugin-fw' ); ?>
 						<a href="<?php echo esc_url( $free_vs_premium_url . '#tab-free_vs_premium_tab' ); ?>" target="_blank">

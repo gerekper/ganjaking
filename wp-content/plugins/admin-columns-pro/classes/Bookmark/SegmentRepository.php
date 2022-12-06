@@ -122,7 +122,7 @@ class SegmentRepository {
 			new ListScreenId( $row->list_screen_id ),
 			(int) $row->user_id,
 			$row->name,
-			unserialize( $row->url_parameters ),
+			unserialize( $row->url_parameters, [ 'allowed_classes' => false ] ),
 			(bool) $row->global
 		);
 	}

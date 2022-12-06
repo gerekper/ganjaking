@@ -1,5 +1,8 @@
 *** WooCommerce Twilio SMS Notifications Changelog ***
 
+2022.12.01 - version 1.17.0
+ * Misc - Require PHP 7.4 and WordPress 5.6
+
 2022.08.16 - version 1.16.3
  * Fix - Replace deprecated `is_ajax()` usages with `wp_doing_ajax()`
  * Misc - Require WooCommerce 3.9.4 or newer

@@ -2,31 +2,21 @@
 
 namespace ACP\Editing\Strategy;
 
+use ACP\Editing\RequestHandler;
 use ACP\Editing\Strategy;
-use WP_Comment;
 
 class Comment implements Strategy {
 
-	/**
-	 * @param $comment
-	 *
-	 * @return bool
-	 * @since 4.0
-	 */
-	public function user_has_write_permission( $comment ) {
-		if ( ! $comment instanceof WP_Comment ) {
-			$comment = get_comment( $comment );
+	public function user_can_edit() {
+		return current_user_can( 'moderate_comments' );
+	}
 
-			if ( ! $comment instanceof WP_Comment ) {
-				return false;
-			}
-		}
+	public function user_can_edit_item( $id ) {
+		return $this->user_can_edit() && current_user_can( 'edit_comment', $id );
+	}
 
-		if ( ! current_user_can( 'edit_comment', $comment->comment_ID ) ) {
-			return false;
-		}
-
-		return true;
+	public function get_query_request_handler() {
+		return new RequestHandler\Query\Comment();
 	}
 
 }

@@ -69,7 +69,17 @@ class License implements Asset\Enqueueables, Renderable, RenderableHead {
 	 */
 	private $network_active;
 
-	public function __construct( Location\Absolute $location, Renderable $head, SiteUrl $site_url, ActivationTokenFactory $activation_token_factory, ActivationStorage $activation_storage, PermissionsStorage $permission_storage, LicenseKeyRepository $license_key_repository, PluginRepository $plugin_repository, $network_active ) {
+	public function __construct(
+		Location\Absolute $location,
+		Renderable $head,
+		SiteUrl $site_url,
+		ActivationTokenFactory $activation_token_factory,
+		ActivationStorage $activation_storage,
+		PermissionsStorage $permission_storage,
+		LicenseKeyRepository $license_key_repository,
+		PluginRepository $plugin_repository,
+		$network_active
+	) {
 		$this->location = $location;
 		$this->head = $head;
 		$this->site_url = $site_url;
@@ -124,21 +134,22 @@ class License implements Asset\Enqueueables, Renderable, RenderableHead {
 		return $view->set_template( 'admin/page/license' );
 	}
 
-	private function render_section_updates() {
+	private function render_section_updates(): View {
 		$content = '';
 
 		$updates_available = false;
 		$updates_available_with_package = false;
 
-		foreach ( $this->plugin_repository->find_all()->all() as $plugin ) {
-			$content .= $this->render_section_update( $plugin )->render();
+		$plugin = PluginInformation::create_by_file( ACP_FILE );
+		$plugin_update = $plugin->get_update();
 
-			if ( $plugin->has_update() ) {
-				$updates_available = true;
+		$content .= $this->render_section_update( $plugin )->render();
 
-				if ( $plugin->get_update()->has_package() ) {
-					$updates_available_with_package = true;
-				}
+		if ( $plugin_update ) {
+			$updates_available = true;
+
+			if ( $plugin_update->has_package() ) {
+				$updates_available_with_package = true;
 			}
 		}
 

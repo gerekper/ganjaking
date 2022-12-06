@@ -3,24 +3,20 @@
 namespace ACP\Editing\Service\Post;
 
 use AC;
-use AC\Request;
 use ACP\Editing\RemoteOptions;
-use ACP\Editing\Service;
-use ACP\Editing\View\RemoteSelect;
+use ACP\Editing\Service\BasicStorage;
+use ACP\Editing\Storage;
+use ACP\Editing\View;
 use ACP\Helper\Select;
 
-class PostType implements Service, RemoteOptions {
+class PostType extends BasicStorage implements RemoteOptions {
 
-	public function get_value( $id ) {
-		return get_post_type( $id );
+	public function __construct() {
+		parent::__construct( new Storage\Post\PostType() );
 	}
 
-	public function get_view( $context ) {
-		return new RemoteSelect();
-	}
-
-	public function update( Request $request ) {
-		return false !== set_post_type( (int) $request->get( 'id' ), $request->get( 'value' ) );
+	public function get_view( string $context ): ?View {
+		return new View\RemoteSelect();
 	}
 
 	public function get_remote_options( $id = null ) {

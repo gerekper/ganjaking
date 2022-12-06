@@ -10,19 +10,20 @@ use AC\Type\ListScreenId;
 use ACP\Editing\ApplyFilter;
 use ACP\Editing\Editable;
 use ACP\Editing\ListScreen;
-use ACP\Editing\Middleware\SaveValue;
 use ACP\Editing\Model;
 use ACP\Editing\RequestHandler;
+use ACP\Editing\RequestHandler\Exception\InvalidUserPermissionException;
+use ACP\Editing\RequestHandler\Exception\NotEditableException;
 use ACP\Editing\Service;
+use ACP\Editing\Service\Editability;
 use ACP\Editing\Strategy;
-use Exception;
 use RuntimeException;
 
 class BulkSave implements RequestHandler {
 
 	const SAVE_FAILED = 'failed';
 	const SAVE_SUCCESS = 'success';
-	const SAVE_NOT_EDITABLE = 'not_editable';
+	const SAVE_NOTICE = 'not_editable';
 
 	/**
 	 * @var Storage
@@ -37,9 +38,9 @@ class BulkSave implements RequestHandler {
 		$response = new Response\Json();
 
 		$ids = $request->filter( 'ids', false, FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY );
-		$value = $request->get( 'value', false );
+		$form_data = $request->get( 'value', false );
 
-		if ( $ids === false || $value === false ) {
+		if ( $ids === false || $form_data === false ) {
 			$response->error();
 		}
 
@@ -61,6 +62,10 @@ class BulkSave implements RequestHandler {
 			$response->error();
 		}
 
+		if ( ! $strategy->user_can_edit() ) {
+			$response->error();
+		}
+
 		$column = $list_screen->get_column_by_name( $request->get( 'column' ) );
 
 		if ( ! $column instanceof Editable ) {
@@ -78,15 +83,13 @@ class BulkSave implements RequestHandler {
 		foreach ( $ids as $id ) {
 			$error = null;
 
-			$request = new Request();
-			$request->get_parameters()->set( 'id', $id );
-			$request->get_parameters()->set( 'value', $value );
-
 			try {
-				$request->add_middleware( new SaveValue( new ApplyFilter\SaveValue( $id, $column ) ) );
-
-				$status = $this->save_single_value( $request, $strategy, $service, $column );
-			} catch ( Exception $e ) {
+				$this->save( $id, $form_data, $strategy, $service, $column );
+				$status = self::SAVE_SUCCESS;
+			} catch ( NotEditableException|InvalidUserPermissionException $e ) {
+				$error = $e->getMessage();
+				$status = self::SAVE_NOTICE;
+			} catch ( RuntimeException $e ) {
 				$error = $e->getMessage();
 				$status = self::SAVE_FAILED;
 			}
@@ -105,38 +108,45 @@ class BulkSave implements RequestHandler {
 	}
 
 	/**
-	 * @param Request  $request
+	 * @param int      $id
+	 * @param mixed    $form_data
 	 * @param Strategy $strategy
 	 * @param Service  $service
 	 * @param Column   $column
 	 *
-	 * @return string
+	 * @return void
 	 */
-	private function save_single_value( Request $request, Strategy $strategy, Service $service, Column $column ) {
-		$id = (int) $request->get( 'id' );
+	private function save( $id, $form_data, Strategy $strategy, Service $service, Column $column ) {
+		$id = (int) $id;
 
-		if ( ! $strategy->user_has_write_permission( $id ) ) {
-			return self::SAVE_NOT_EDITABLE;
+		if ( ! $id ) {
+			throw new RuntimeException( __( 'Missing id', 'codepress-admin-columns' ) );
 		}
 
-		$edit_value = ( new ApplyFilter\EditValue( $id, $column ) )->apply_filters( $service->get_value( $id ) );
-
-		if ( null === $edit_value ) {
-			return self::SAVE_NOT_EDITABLE;
+		if ( ! $strategy->user_can_edit_item( $id ) ) {
+			throw new InvalidUserPermissionException();
 		}
 
-		do_action( 'acp/editing/before_save', $column, $id, $request );
+		if ( $service instanceof Editability && ! $service->is_editable( $id ) ) {
+			throw new NotEditableException( $service->get_not_editable_reason( $id ) );
+		}
 
-		$result = $service->update( $request );
+		$filter = new ApplyFilter\SaveValue( $id, $column );
+		$form_data = $filter->apply_filters( $form_data );
+
+		do_action( 'acp/editing/before_save', $column, $id, $form_data );
+
+		$service->update(
+			$id,
+			$form_data
+		);
 
 		// Legacy..
-		if ( $service instanceof Model && true !== $result && $service->has_error() ) {
+		if ( $service instanceof Model && $service->has_error() ) {
 			throw new RuntimeException( $service->get_error()->get_error_message() );
 		}
 
-		do_action( 'acp/editing/saved', $column, $id, $request->get( 'value' ) );
-
-		return self::SAVE_SUCCESS;
+		do_action( 'acp/editing/saved', $column, $id, $form_data );
 	}
 
 }

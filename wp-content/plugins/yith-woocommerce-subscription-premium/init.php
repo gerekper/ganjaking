@@ -3,13 +3,13 @@
  * Plugin Name: YITH WooCommerce Subscription Premium
  * Plugin URI: https://yithemes.com/themes/plugins/yith-woocommerce-subscription/
  * Description: <code><strong>YITH WooCommerce Subscription</strong></code> allows enabling automatic recurring payments on your products. Once you buy a subscription-based product, the plugin will renew the payment automatically based on your own settings. Perfect for any kind of subscriptions, like magazines, software and so on. <a href="https://yithemes.com/" target="_blank">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>.
- * Version: 2.17.0
+ * Version: 2.20.0
  * Author: YITH
  * Author URI: https://yithemes.com/
  * Text Domain: yith-woocommerce-subscription
  * Domain Path: /languages/
- * WC requires at least: 6.5
- * WC tested up to: 6.7
+ * WC requires at least: 6.8
+ * WC tested up to: 7.0
  *
  * @package YITH WooCommerce Subscription
  */
@@ -36,7 +36,7 @@ yit_maybe_plugin_fw_loader( YITH_YWSBS_DIR );
 
 // Define constants ________________________________________.
 
-! defined( 'YITH_YWSBS_VERSION' ) && define( 'YITH_YWSBS_VERSION', '2.17.0' );
+! defined( 'YITH_YWSBS_VERSION' ) && define( 'YITH_YWSBS_VERSION', '2.20.0' );
 ! defined( 'YITH_YWSBS_PREMIUM' ) && define( 'YITH_YWSBS_PREMIUM', plugin_basename( __FILE__ ) );
 ! defined( 'YITH_YWSBS_INIT' ) && define( 'YITH_YWSBS_INIT', plugin_basename( __FILE__ ) );
 ! defined( 'YITH_YWSBS_FILE' ) && define( 'YITH_YWSBS_FILE', __FILE__ );

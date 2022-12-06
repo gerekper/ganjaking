@@ -1,5 +1,8 @@
 *** WooCommerce API Manager Changelog ***
 
+2022.12.05 - version 2.4.8
+ * Tweak: Delete API Key activations when WooCommerce Subscription transitions to on-hold status.
+
 2022.11.27 - version 2.4.7
  * Notice: Declare incompatibility with WooCommerce HPOS until support is verified.
  * Tweak: Detect WooCommerce Subscriptions included in WooCommerce core.

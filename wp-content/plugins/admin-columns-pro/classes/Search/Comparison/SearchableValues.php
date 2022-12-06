@@ -7,8 +7,8 @@ use ACP\Helper\Select\Options;
 interface SearchableValues {
 
 	/**
-	 * @param $search
-	 * @param $page
+	 * @param string $search
+	 * @param int    $page
 	 *
 	 * @return Options\Paginated
 	 */

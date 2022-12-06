@@ -1,4 +1,10 @@
 <?php
+/**
+ * Deposits my account
+ *
+ * @package woocommerce-deposits
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -29,7 +35,7 @@ class WC_Deposits_My_Account {
 
 		// Insering your new tab/page into the My Account page.
 		add_filter( 'woocommerce_account_menu_items', array( $this, 'maybe_add_new_menu_items' ) );
-		add_action( 'woocommerce_account_' . self::$endpoint .  '_endpoint', array( $this, 'endpoint_content' ) );
+		add_action( 'woocommerce_account_' . self::$endpoint . '_endpoint', array( $this, 'endpoint_content' ) );
 		add_action( 'woocommerce_order_details_after_order_table', array( $this, 'add_original_order_link' ) );
 		add_action( 'woocommerce_order_details_after_order_table', array( $this, 'render_related_scheduled_orders' ) );
 	}
@@ -46,7 +52,7 @@ class WC_Deposits_My_Account {
 	/**
 	 * Add new query var.
 	 *
-	 * @param array $vars
+	 * @param array $vars Query vars.
 	 * @return array
 	 */
 	public function add_query_vars( $vars ) {
@@ -58,7 +64,7 @@ class WC_Deposits_My_Account {
 	/**
 	 * Set endpoint title.
 	 *
-	 * @param string $title
+	 * @param string $title Endpoint title.
 	 * @return string
 	 */
 	public function endpoint_title( $title ) {
@@ -78,12 +84,21 @@ class WC_Deposits_My_Account {
 
 	/**
 	 * If the customer has scheduled orders, add new Scheduled Orders menu to My Account menu.
+	 *
 	 * @since 1.4.20
-	 * @param array $items
+	 * @param array $items Menu items.
 	 * @return array
 	 */
 	public function maybe_add_new_menu_items( $items ) {
-		$customer_orders = wc_get_orders( apply_filters( 'woocommerce_deposits_my_account_query', array( 'customer' => get_current_user_id(), 'post_status' =>  array( 'wc-scheduled-payment' ) ) ) );
+		$customer_orders = wc_get_orders(
+			apply_filters(
+				'woocommerce_deposits_my_account_query',
+				array(
+					'customer'    => get_current_user_id(),
+					'post_status' => array( 'wc-scheduled-payment' ),
+				)
+			)
+		);
 		if ( ! $customer_orders ) {
 			return $items;
 		}
@@ -93,7 +108,7 @@ class WC_Deposits_My_Account {
 	/**
 	 * Insert the new endpoint into the My Account menu.
 	 *
-	 * @param array $items
+	 * @param array $items Menu items.
 	 * @return array
 	 */
 	public function new_menu_items( $items ) {
@@ -102,7 +117,7 @@ class WC_Deposits_My_Account {
 		// Rebuilt the array to position our menu item after orders.
 		foreach ( $items as $key => $value ) {
 			if ( 'orders' === $key ) {
-				$rebuilt_menu[ $key ] = $value;
+				$rebuilt_menu[ $key ]            = $value;
 				$rebuilt_menu[ self::$endpoint ] = __( 'Scheduled Orders', 'woocommerce-deposits' );
 			} else {
 				$rebuilt_menu[ $key ] = $value;
@@ -114,18 +129,30 @@ class WC_Deposits_My_Account {
 
 	/**
 	 * Endpoint HTML content.
+	 *
+	 * @param int $current_page Current page.
 	 */
 	public function endpoint_content( $current_page ) {
 		$current_page    = empty( $current_page ) ? 1 : absint( $current_page );
-		$customer_orders = wc_get_orders( apply_filters( 'woocommerce_deposits_my_account_query', array( 'customer' => get_current_user_id(), 'page' => $current_page, 'paginate' => true, 'post_status' =>  array( 'wc-scheduled-payment' ) ) ) );
+		$customer_orders = wc_get_orders(
+			apply_filters(
+				'woocommerce_deposits_my_account_query',
+				array(
+					'customer'    => get_current_user_id(),
+					'page'        => $current_page,
+					'paginate'    => true,
+					'post_status' => array( 'wc-scheduled-payment' ),
+				)
+			)
+		);
 
 		add_filter( 'woocommerce_get_endpoint_url', array( __CLASS__, 'set_pagination_endpoint_url' ), 10, 3 );
 		wc_get_template(
 			'myaccount/orders.php',
 			array(
-				'current_page' => absint( $current_page ),
+				'current_page'    => absint( $current_page ),
 				'customer_orders' => $customer_orders,
-				'has_orders' => 0 < $customer_orders->total,
+				'has_orders'      => 0 < $customer_orders->total,
 			)
 		);
 		remove_filter( 'woocommerce_get_endpoint_url', array( __CLASS__, 'set_pagination_endpoint_url' ), 10, 3 );
@@ -181,7 +208,7 @@ class WC_Deposits_My_Account {
 		/**
 		 * The current page of this table.
 		 */
-		$current_page = (int)filter_input( INPUT_GET, 'scheduled_orders_page', FILTER_SANITIZE_NUMBER_INT );
+		$current_page = (int) filter_input( INPUT_GET, 'scheduled_orders_page', FILTER_SANITIZE_NUMBER_INT );
 
 		/**
 		 * Array of all custom orders except for the original order.
@@ -224,8 +251,13 @@ class WC_Deposits_My_Account {
 
 	/**
 	 * Set pagination endpoint.
+	 *
+	 * @param string $url URL.
+	 * @param string $endpoint Endpoint.
+	 * @param mixed  $value Value.
+	 * @return string
 	 */
-	static function set_pagination_endpoint_url( $url, $endpoint, $value ) {
+	public static function set_pagination_endpoint_url( $url, $endpoint, $value ) {
 
 		if ( 'orders' === $endpoint ) {
 			$url = wc_get_endpoint_url( self::$endpoint, $value );

@@ -649,8 +649,9 @@ if ( ! class_exists( 'YWSBS_Subscription_Order' ) ) {
 					WC()->cart->discount_cart_tax   = 0;
 					WC()->cart->subscription_coupon = 1;
 				}
-
+				add_filter( 'woocommerce_coupon_validate_user_usage_limit', '__return_false' );
 				$new_cart->calculate_totals();
+				remove_filter( 'woocommerce_coupon_validate_user_usage_limit', '__return_false' );
 				// Recalculate totals.
 				// save some order settings.
 

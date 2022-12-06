@@ -8,7 +8,7 @@ use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
 use AC\Type\ListScreenId;
 
-class HorizontalScrolling implements AC\Registrable {
+class HorizontalScrolling implements AC\Registerable {
 
 	/**
 	 * @var Storage

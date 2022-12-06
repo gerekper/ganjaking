@@ -30,7 +30,7 @@ $reset_warning = __( 'If you continue with this action, you will reset all optio
 			</p>
 
 			<?php if ( apply_filters( 'yit_framework_show_float_save_button', true ) ) : ?>
-				<button id="yith-plugin-fw-float-save-button" class="button button-primary yith-plugin-fw-animate__appear-from-bottom" data-default-label="<?php esc_attr_e( 'Save Options', 'yith-plugin-fw' ); ?>" data-saved-label="<?php esc_attr_e( 'Options Saved', 'yith-plugin-fw' ); ?>"><i class="yith-icon yith-icon-save"></i> <?php esc_html_e( 'Save Options', 'yith-plugin-fw' ); ?></button>
+				<button id="yith-plugin-fw-float-save-button" class="button button-primary yith-plugin-fw-animate__appear-from-bottom" data-default-label="<?php esc_attr_e( 'Save Options', 'yith-plugin-fw' ); ?>" data-saved-label="<?php esc_attr_e( 'Options Saved', 'yith-plugin-fw' ); ?>"><?php esc_html_e( 'Save Options', 'yith-plugin-fw' ); ?></button>
 			<?php endif; ?>
 
 			<input type="hidden" name="page" value="<?php echo esc_attr( $this->settings['page'] ); ?>"/>

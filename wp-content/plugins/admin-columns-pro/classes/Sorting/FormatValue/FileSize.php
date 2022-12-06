@@ -15,7 +15,7 @@ class FileSize implements FormatValue {
 			}
 		}
 
-		return $file && is_file( $file )
+		return $file && is_string( $file ) && is_file( $file )
 			? filesize( $file )
 			: null;
 	}
@@ -26,7 +26,7 @@ class FileSize implements FormatValue {
 	 * @return bool
 	 */
 	private function is_relative_path( $file ) {
-		return $file && 0 !== strpos( $file, '/' ) && ! preg_match( '|^.:\\\|', $file );
+		return $file && is_string( $file ) && 0 !== strpos( $file, '/' ) && ! preg_match( '|^.:\\\|', $file );
 	}
 
 }

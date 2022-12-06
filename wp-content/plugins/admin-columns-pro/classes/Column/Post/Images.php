@@ -3,6 +3,7 @@
 namespace ACP\Column\Post;
 
 use AC;
+use ACP\ConditionalFormat;
 use ACP\Export;
 use ACP\Sorting;
 
@@ -10,7 +11,9 @@ use ACP\Sorting;
  * @since 4.0.8
  */
 class Images extends AC\Column
-	implements Sorting\Sortable, AC\Column\AjaxValue, Export\Exportable {
+	implements Sorting\Sortable, AC\Column\AjaxValue, Export\Exportable, ConditionalFormat\Formattable {
+
+	use ConditionalFormat\ConditionalFormatTrait;
 
 	public function __construct() {
 		$this->set_type( 'column-images' );
@@ -169,7 +172,7 @@ class Images extends AC\Column
 		 *
 		 * @return string
 		 */
-		$string = apply_filters( 'ac/column/images/content', $string, $id, $this );
+		$string = (string) apply_filters( 'ac/column/images/content', $string, $id, $this );
 
 		return array_unique( ac_helper()->image->get_image_urls_from_string( $string ) );
 	}

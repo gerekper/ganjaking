@@ -95,13 +95,17 @@ class Post extends Strategy {
 	}
 
 	/**
-	 * @rerturn array
+	 * @return array
 	 */
 	public function get_post_status() {
 		$status = $this->wp_query->get( 'post_status' );
 
 		if ( empty( $status ) ) {
 			return [];
+		}
+
+		if ( is_array( $status ) ) {
+			return $status;
 		}
 
 		if ( false !== strpos( $status, ',' ) ) {

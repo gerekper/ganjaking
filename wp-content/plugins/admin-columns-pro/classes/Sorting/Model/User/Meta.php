@@ -3,6 +3,7 @@
 namespace ACP\Sorting\Model\User;
 
 use ACP\Sorting\AbstractModel;
+use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\CastType;
 use ACP\Sorting\Type\DataType;
 use WP_User_Query;
@@ -14,11 +15,7 @@ class Meta extends AbstractModel {
 	 */
 	protected $meta_key;
 
-	/**
-	 * @param string        $meta_key
-	 * @param DataType|null $data_type
-	 */
-	public function __construct( $meta_key, DataType $data_type = null ) {
+	public function __construct( string $meta_key, DataType $data_type = null ) {
 		parent::__construct( $data_type );
 
 		$this->meta_key = $meta_key;
@@ -31,39 +28,28 @@ class Meta extends AbstractModel {
 	}
 
 	public function pre_user_query_callback( WP_User_Query $query ) {
+		remove_action( 'pre_user_query', [ $this, __FUNCTION__ ] );
+
 		global $wpdb;
 
-		$join_type = $this->show_empty
-			? 'LEFT'
-			: 'INNER';
-
-		$from = $wpdb->prepare( "
-			{$join_type} JOIN {$wpdb->usermeta} AS acsort_usermeta 
-				ON {$wpdb->users}.ID = acsort_usermeta.user_id
+		$query->query_from .= $wpdb->prepare( "
+			LEFT JOIN $wpdb->usermeta AS acsort_usermeta 
+				ON $wpdb->users.ID = acsort_usermeta.user_id
 				AND acsort_usermeta.meta_key = %s
-		", $this->meta_key );
+			",
+			$this->meta_key
+		);
 
-		if ( ! $this->show_empty ) {
-			$from .= " AND acsort_usermeta.meta_value <> ''";
-		}
-
-		$query->query_from .= $from;
-		$query->query_orderby = $this->get_order_by();
-
-		remove_action( 'pre_user_query', [ $this, __FUNCTION__ ] );
+		$query->query_orderby = sprintf( "
+			GROUP BY $wpdb->users.ID 
+			ORDER BY %s, $wpdb->users.ID %s",
+			$this->get_order_by(),
+			esc_sql( $this->get_order() )
+		);
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function get_order_by() {
-		global $wpdb;
-
-		$order = esc_sql( $this->get_order() );
-		$cast_type = CastType::create_from_data_type( $this->data_type )->get_value();
-
-		return "ORDER BY CAST( acsort_usermeta.meta_value AS {$cast_type} ) $order, {$wpdb->users}.ID $order";
-
+	protected function get_order_by(): string {
+		return SqlOrderByFactory::create( "acsort_usermeta.`meta_value`", $this->get_order(), [ 'cast_type' => (string) CastType::create_from_data_type( $this->data_type ) ] );
 	}
 
 }

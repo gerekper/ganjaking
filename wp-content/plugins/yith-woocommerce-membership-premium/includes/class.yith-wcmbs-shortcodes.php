@@ -252,7 +252,7 @@ class YITH_WCMBS_Shortcodes {
 	 * @since    1.0.0
 	 */
 	public function render_protected_content( $atts, $content = null ) {
-		if ( ! $content ) {
+		if ( ! $content || apply_filters( 'yith_wcmbs_skip_render_protected_content_shortcode', false ) ) {
 			return '';
 		}
 
@@ -365,7 +365,8 @@ class YITH_WCMBS_Shortcodes {
 					$url       = $link['link'];
 					$name      = ! empty( $content ) ? $content : $link['name'];
 					$key       = $link['key'];
-					$classes   = array( $class );
+					$link_name = str_replace(' ', '', $link['name'] );
+					$classes   = array( $class . ' ' . $link_name );
 					$classes[] = $can_download_without_credits ? 'unlocked' : 'locked';
 
 					$name = apply_filters( 'yith_wcmbs_shortcode_membership_download_product_links_name', $name, $link, $atts, $content );

@@ -3,7 +3,6 @@
 namespace ACP\Editing;
 
 use AC\Column;
-use AC\Request;
 use ACP;
 use WP_Error;
 
@@ -32,14 +31,14 @@ abstract class Model implements Service {
 		$this->column = $column;
 	}
 
-	public function get_view( $context ) {
+	public function get_view( string $context ): ?View {
 		$settings = $this->get_view_settings();
 
 		// Backwards compatibility
 		$is_bulk_editable = ! isset( $settings[ self:: VIEW_BULK_EDITABLE ] ) || false !== $settings[ self:: VIEW_BULK_EDITABLE ];
 
 		if ( Service::CONTEXT_BULK === $context && ! $is_bulk_editable ) {
-			return false;
+			return null;
 		}
 
 		return new View\Legacy( $this->get_view_settings() );
@@ -84,7 +83,7 @@ abstract class Model implements Service {
 	 * @type string|int $range_step    Determines the number intervals for the 'number' type field. Default is 'any'.
 	 * @type string     $store_values  If a field can hold multiple values we store the key unless $store_values is set to (bool) true. Default is (bool) false.
 	 * @type bool       $bulk_editable If this model supports Bulk Edit
-	 * }
+	 *                                 }
 	 */
 	public function get_view_settings() {
 		return [
@@ -115,8 +114,8 @@ abstract class Model implements Service {
 	 */
 	abstract protected function save( $id, $value );
 
-	public function update( Request $request ) {
-		return $this->save( $request->get( 'id' ), $request->get( 'value' ) );
+	public function update( int $id, $data ): void {
+		$this->save( $id, $data );
 	}
 
 	/**

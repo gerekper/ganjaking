@@ -7,7 +7,7 @@ use AC\ListScreenRepository\Storage;
 use AC\Type\ListScreenId;
 use ACP\QuickAdd\Table;
 
-class AjaxScreenOption implements AC\Registrable {
+class AjaxScreenOption implements AC\Registerable {
 
 	/**
 	 * @var Storage

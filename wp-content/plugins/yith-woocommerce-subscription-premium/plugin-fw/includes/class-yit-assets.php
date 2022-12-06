@@ -80,6 +80,8 @@ if ( ! class_exists( 'YIT_Assets' ) ) {
 			wp_register_script( 'colorbox', YIT_CORE_PLUGIN_URL . '/assets/js/jquery.colorbox' . $suffix . '.js', array( 'jquery' ), '1.6.3', true );
 			wp_register_script( 'yith_how_to', YIT_CORE_PLUGIN_URL . '/assets/js/how-to' . $suffix . '.js', array( 'jquery' ), $this->version, true );
 			wp_register_script( 'yith-plugin-fw-wp-pages', YIT_CORE_PLUGIN_URL . '/assets/js/wp-pages' . $suffix . '.js', array( 'jquery' ), $this->version, false );
+			wp_register_script( 'yith-bh-onboarding', YIT_CORE_PLUGIN_URL . '/assets/js/yith-bh-onboarding' . $suffix . '.js', array( 'jquery', 'yit-plugin-panel', 'yith-plugin-fw-fields', 'jquery-blockui' ), $this->version, true );
+			wp_register_script( 'yith-plugin-fw-welcome-modal', YIT_CORE_PLUGIN_URL . '/assets/js/welcome-modal' . $suffix . '.js', array( 'jquery', 'wp-util', 'yith-ui' ), $this->version, true );
 
 			// Register styles.
 			wp_register_style( 'yith-plugin-ui', YIT_CORE_PLUGIN_URL . '/assets/css/yith-plugin-ui.css', array( 'yith-plugin-fw-icon-font' ), $this->version );
@@ -89,6 +91,8 @@ if ( ! class_exists( 'YIT_Assets' ) ) {
 			wp_register_style( 'yit-upgrade-to-pro', YIT_CORE_PLUGIN_URL . '/assets/css/yit-upgrade-to-pro.css', array( 'colorbox' ), $this->version );
 			wp_register_style( 'yit-plugin-metaboxes', YIT_CORE_PLUGIN_URL . '/assets/css/metaboxes.css', array( 'yith-plugin-ui' ), $this->version );
 			wp_register_style( 'yith-plugin-fw-fields', YIT_CORE_PLUGIN_URL . '/assets/css/yith-fields.css', array( 'yith-plugin-ui' ), $this->version );
+			wp_register_style( 'yith-bh-onboarding', YIT_CORE_PLUGIN_URL . '/assets/css/yith-bh-onboarding.css', array( 'yith-plugin-ui', 'yith-plugin-fw-fields' ), $this->version );
+			wp_register_style( 'yith-plugin-fw-welcome-modal', YIT_CORE_PLUGIN_URL . '/assets/css/welcome-modal.css', array(), $this->version );
 
 			$wc_version_suffix = '';
 			if ( function_exists( 'WC' ) || ! empty( $woocommerce ) ) {
@@ -150,6 +154,14 @@ if ( ! class_exists( 'YIT_Assets' ) ) {
 						'bulk_delete_confirm_button'  => _x( 'Yes, delete', 'Delete confirmation action', 'yith-plugin-fw' ),
 						'bulk_delete_cancel_button'   => __( 'No', 'yith-plugin-fw' ),
 					),
+				)
+			);
+
+			wp_localize_script(
+				'yith-bh-onboarding',
+				'yith_bh_onboarding',
+				array(
+					'ajax_url' => admin_url( 'admin-ajax.php' ),
 				)
 			);
 

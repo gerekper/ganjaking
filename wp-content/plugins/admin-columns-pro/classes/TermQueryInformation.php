@@ -2,10 +2,10 @@
 
 namespace ACP;
 
-use AC\Registrable;
+use AC\Registerable;
 use WP_Term_Query;
 
-final class TermQueryInformation implements Registrable {
+final class TermQueryInformation implements Registerable {
 
 	const KEY = 'ac_is_main_term_query';
 

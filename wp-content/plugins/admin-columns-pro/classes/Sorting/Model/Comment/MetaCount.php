@@ -3,6 +3,7 @@
 namespace ACP\Sorting\Model\Comment;
 
 use ACP\Sorting\AbstractModel;
+use ACP\Sorting\Model\SqlOrderByFactory;
 
 /**
  * Sort the comment list table on the number of times the meta_key is used by a comment.
@@ -31,28 +32,19 @@ class MetaCount extends AbstractModel {
 	}
 
 	public function comments_clauses_callback( $clauses ) {
+		remove_filter( 'comments_clauses', [ $this, __FUNCTION__ ] );
+
 		global $wpdb;
 
 		$order = esc_sql( $this->get_order() );
 
-		$join_type = $this->show_empty
-			? 'LEFT'
-			: 'INNER';
-
-		$clauses['fields'] .= ", COUNT( acsort_commentmeta.meta_key ) AS acsort_commentmeta";
 		$clauses['join'] .= $wpdb->prepare( "
-			{$join_type} JOIN {$wpdb->commentmeta} AS acsort_commentmeta ON {$wpdb->comments}.comment_ID = acsort_commentmeta.comment_id
+			LEFT JOIN $wpdb->commentmeta AS acsort_commentmeta ON $wpdb->comments.comment_ID = acsort_commentmeta.comment_id
 			AND acsort_commentmeta.meta_key = %s
 		", $this->meta_key );
 
-		if ( ! $this->show_empty ) {
-			$clauses['join'] .= " AND acsort_commentmeta.meta_value <> ''";
-		}
-
-		$clauses['groupby'] = "{$wpdb->comments}.comment_ID";
-		$clauses['orderby'] = "acsort_commentmeta {$order}, {$wpdb->comments}.comment_ID {$order}";
-
-		remove_filter( 'comments_clauses', [ $this, __FUNCTION__ ] );
+		$clauses['groupby'] = "$wpdb->comments.comment_ID";
+		$clauses['orderby'] = SqlOrderByFactory::create_with_count( "acsort_commentmeta.meta_key", $order );
 
 		return $clauses;
 	}

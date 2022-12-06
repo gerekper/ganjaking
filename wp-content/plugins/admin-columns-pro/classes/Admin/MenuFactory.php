@@ -22,7 +22,12 @@ class MenuFactory extends AC\Admin\MenuFactory {
 	 */
 	private $integration_repository;
 
-	public function __construct( $url, Location\Absolute $location, ActivationTokenFactory $activation_token_factory, IntegrationRepository $integration_repository ) {
+	public function __construct(
+		$url,
+		Location\Absolute $location,
+		ActivationTokenFactory $activation_token_factory,
+		IntegrationRepository $integration_repository
+	) {
 		parent::__construct( (string) $url, $location );
 
 		$this->activation_token_factory = $activation_token_factory;
@@ -55,15 +60,11 @@ class MenuFactory extends AC\Admin\MenuFactory {
 
 		$addons = $menu->get_item_by_slug( Page\Addons::NAME );
 
-		$inactive_addons = $this->get_inactive_addon_count();
-
-		if ( $inactive_addons > 0 ) {
-			$label = sprintf( '%s <span class="ac-badge">%s</span>', $addons->get_label(), $inactive_addons );
-
+		if ( $addons ) {
 			$menu->add_item( new AC\Admin\Menu\Item(
 				$addons->get_slug(),
 				$addons->get_url(),
-				$label,
+				$addons->get_label(),
 				$addons->get_class(),
 				$addons->get_target()
 			) );

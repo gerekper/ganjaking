@@ -3,6 +3,7 @@
 namespace ACP\Column\Comment;
 
 use AC;
+use ACP\ConditionalFormat;
 use ACP\Filtering;
 use ACP\Search;
 
@@ -10,7 +11,9 @@ use ACP\Search;
  * @since 4.2
  */
 class PostType extends AC\Column
-	implements Filtering\Filterable, Search\Searchable {
+	implements Filtering\Filterable, Search\Searchable, ConditionalFormat\Formattable {
+
+	use ConditionalFormat\ConditionalFormatTrait;
 
 	public function __construct() {
 		$this->set_type( 'column-post_type' )

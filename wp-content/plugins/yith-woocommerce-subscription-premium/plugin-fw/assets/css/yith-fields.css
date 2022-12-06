@@ -969,11 +969,7 @@ span.select2.select2-container.select2-container--default.yith-plugin-fw-select2
 	border : 0;
 }
 
-.yith-plugin-fw-select2-container.select2-container--default .select2-results__option[data-selected=true] {
-	background-color : #fff;
-	outline          : none;
-}
-
+.yith-plugin-fw-select2-container.select2-container--default .select2-results__option[data-selected=true],
 .yith-plugin-fw-select2-container.select2-container--default .select2-results__option--highlighted[aria-selected] {
 	background-color : #e8eff1;
 	color            : #4e8ba2;

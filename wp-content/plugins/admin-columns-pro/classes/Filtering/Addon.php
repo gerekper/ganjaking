@@ -5,7 +5,7 @@ namespace ACP\Filtering;
 use AC;
 use AC\Asset;
 use AC\Asset\Location;
-use AC\Registrable;
+use AC\Registerable;
 use AC\Request;
 use AC\Type\ListScreenId;
 use ACP;
@@ -13,7 +13,7 @@ use ACP;
 /**
  * @since 4.0
  */
-class Addon implements Registrable {
+class Addon implements Registerable {
 
 	/**
 	 * @var AC\ListScreenRepository\Storage
@@ -38,7 +38,7 @@ class Addon implements Registrable {
 
 	public function register() {
 		add_action( 'ac/column/settings', [ $this, 'settings' ] );
-		add_action( 'ac/admin_scripts/columns', [ $this, 'settings_scripts' ] );
+		add_action( 'ac/admin_scripts', [ $this, 'settings_scripts' ] );
 		add_action( 'ac/table/list_screen', [ $this, 'table_screen' ] );
 		add_action( 'ac/table/list_screen', [ $this, 'handle_filtering' ] );
 		add_action( 'wp_ajax_acp_update_filtering_cache', [ $this, 'ajax_update_dropdown_cache' ] );
@@ -156,9 +156,11 @@ class Addon implements Registrable {
 		return false;
 	}
 
-	public function settings_scripts() {
-		$script = new Asset\Script( 'acp-filtering-settings', $this->location->with_suffix( 'assets/filtering/js/settings.js' ), [ 'jquery' ] );
-		$script->enqueue();
+	public function settings_scripts( $page ) {
+		if( $page instanceof AC\Admin\Page\Columns ){
+			$script = new Asset\Script( 'acp-filtering-settings', $this->location->with_suffix( 'assets/filtering/js/settings.js' ), [ 'jquery' ] );
+			$script->enqueue();
+		}
 	}
 
 	/**

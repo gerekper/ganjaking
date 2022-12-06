@@ -18,14 +18,14 @@
  *
  * @package   SkyVerge/WooCommerce/Payment-Gateway/External_Checkout
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2020, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2022, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace SkyVerge\WooCommerce\PluginFramework\v5_10_4\Payment_Gateway\External_Checkout;
+namespace SkyVerge\WooCommerce\PluginFramework\v5_10_12\Payment_Gateway\External_Checkout;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_4\SV_WC_Payment_Gateway;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_4\SV_WC_Payment_Gateway_Plugin;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12\SV_WC_Payment_Gateway;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12\SV_WC_Payment_Gateway_Plugin;
 
 defined( 'ABSPATH' ) or exit;
 
@@ -71,7 +71,7 @@ abstract class External_Checkout {
 	 */
 	protected function init() {
 
-		if ( is_admin() && ! is_ajax() ) {
+		if ( is_admin() && ! wp_doing_ajax() ) {
 			$this->init_admin();
 		} elseif ( $this->get_processing_gateway() && $this->get_plugin()->get_id() === $this->get_processing_gateway()->get_plugin()->get_id() ) {
 			$this->init_ajax();

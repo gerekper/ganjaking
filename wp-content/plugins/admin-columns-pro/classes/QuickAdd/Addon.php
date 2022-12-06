@@ -10,7 +10,7 @@ use ACP\QuickAdd\Model\Factory;
 use ACP\QuickAdd\Model\PostFactory;
 use ACP\QuickAdd\Table;
 
-class Addon implements AC\Registrable {
+class Addon implements AC\Registerable {
 
 	/**
 	 * @var Storage
@@ -47,7 +47,7 @@ class Addon implements AC\Registrable {
 		];
 
 		foreach ( $services as $service ) {
-			if ( $service instanceof AC\Registrable ) {
+			if ( $service instanceof AC\Registerable ) {
 				$service->register();
 			}
 		}

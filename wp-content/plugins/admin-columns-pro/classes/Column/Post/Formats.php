@@ -15,7 +15,7 @@ class Formats extends AC\Column\Post\Formats
 	implements Editing\Editable, Filtering\Filterable, Sorting\Sortable, Search\Searchable {
 
 	public function sorting() {
-		return new Sorting\Model\Post\Taxonomy( $this->get_taxonomy(), false );
+		return new Sorting\Model\Post\Taxonomy( $this->get_taxonomy() );
 	}
 
 	public function editing() {

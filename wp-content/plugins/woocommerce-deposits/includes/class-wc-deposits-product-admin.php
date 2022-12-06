@@ -1,4 +1,10 @@
-<?php
+<?php // phpcs:ignore WordPress.Files.FileName.InvalidClassFileName
+/**
+ * Deposits plan product admin
+ *
+ * @package woocommerce-deposits
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -8,14 +14,21 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_Deposits_Plans_Product_Admin {
 
-	/** @var object Class Instance */
+	/**
+	 * Class instance
+	 *
+	 * @var WC_Deposits_Plans_Product_Admin
+	 */
 	private static $instance;
 
 	/**
 	 * Get the class instance.
 	 */
 	public static function get_instance() {
-		return null === self::$instance ? ( self::$instance = new self ) : self::$instance;
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
 	}
 
 	/**
@@ -23,7 +36,7 @@ class WC_Deposits_Plans_Product_Admin {
 	 */
 	public function __construct() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'styles_and_scripts' ) );
-		add_action( 'woocommerce_process_product_meta', array( $this,'save_product_data' ), 20 );
+		add_action( 'woocommerce_process_product_meta', array( $this, 'save_product_data' ), 20 );
 		add_action( 'woocommerce_product_write_panel_tabs', array( $this, 'add_tab' ), 5 );
 		add_action( 'woocommerce_product_data_panels', array( $this, 'deposit_panels' ) );
 
@@ -45,7 +58,7 @@ class WC_Deposits_Plans_Product_Admin {
 	 * Show the deposits tab.
 	 */
 	public function add_tab() {
-		include( 'views/html-deposits-tab.php' );
+		include 'views/html-deposits-tab.php';
 	}
 
 	/**
@@ -53,13 +66,13 @@ class WC_Deposits_Plans_Product_Admin {
 	 */
 	public function deposit_panels() {
 		wp_enqueue_script( 'woocommerce-deposits-admin' );
-		include( 'views/html-deposit-data.php' );
+		include 'views/html-deposit-data.php';
 	}
 
 	/**
 	 * Save data.
 	 *
-	 * @param int $post_id
+	 * @param int $post_id Post ID.
 	 */
 	public function save_product_data( $post_id ) {
 		$meta_to_save = array(
@@ -71,21 +84,21 @@ class WC_Deposits_Plans_Product_Admin {
 			'_wc_deposit_multiple_cost_by_booking_persons' => 'issetyesno',
 		);
 		foreach ( $meta_to_save as $meta_key => $sanitize ) {
-			$value = ! empty( $_POST[ $meta_key ] ) ? $_POST[ $meta_key ] : '';
+			$value = ! empty( $_POST[ $meta_key ] ) ? $_POST[ $meta_key ] : ''; // phpcs:ignore WordPress.Security -- Conditional sanitize, see below
 			switch ( $sanitize ) {
-				case 'int' :
+				case 'int':
 					$value = $value ? ( is_array( $value ) ? array_map( 'absint', $value ) : absint( $value ) ) : '';
 					break;
-				case 'float' :
+				case 'float':
 					$value = $value ? ( is_array( $value ) ? array_map( 'floatval', $value ) : floatval( $value ) ) : '';
 					break;
-				case 'yesno' :
-					$value = $value == 'yes' ? 'yes' : 'no';
+				case 'yesno':
+					$value = 'yes' === $value ? 'yes' : 'no';
 					break;
-				case 'issetyesno' :
+				case 'issetyesno':
 					$value = $value ? 'yes' : 'no';
 					break;
-				default :
+				default:
 					$value = is_array( $value ) ? array_map( 'sanitize_text_field', $value ) : sanitize_text_field( $value );
 			}
 			WC_Deposits_Product_Meta::update_meta( $post_id, $meta_key, $value );

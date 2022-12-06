@@ -2,12 +2,12 @@
 
 namespace ACP\Editing\Service\Post;
 
-use AC\ApplyFilter;
-use ACP\Editing\Service;
+use ACP\Editing\ApplyFilter;
+use ACP\Editing\Service\BasicStorage;
 use ACP\Editing\Storage;
-use ACP\Editing\View\Select;
+use ACP\Editing\View;
 
-class PostStatus extends Service\BasicStorage {
+class PostStatus extends BasicStorage {
 
 	/**
 	 * @var string
@@ -15,23 +15,23 @@ class PostStatus extends Service\BasicStorage {
 	private $post_type;
 
 	/**
-	 * @var ApplyFilter
+	 * @var ApplyFilter\PostStatus
 	 */
 	private $filter_post_status;
 
-	public function __construct( $post_type, ApplyFilter $filter_post_status ) {
+	public function __construct( $post_type, ApplyFilter\PostStatus $filter_post_status ) {
 		parent::__construct( new Storage\Post\Field( 'post_status' ) );
 
 		$this->post_type = (string) $post_type;
 		$this->filter_post_status = $filter_post_status;
 	}
 
-	public function get_view( $context ) {
+	public function get_view( string $context ): ?View {
 		$options = $this->get_stati_options();
 
 		return empty( $options )
-			? false
-			: new Select( $options );
+			? null
+			: new View\Select( $options );
 	}
 
 	/**

@@ -8,7 +8,7 @@ use ACP\Sorting;
 
 class DisabledOriginalColumns implements ColumnRepository\Filter {
 
-	public function filter( $columns ) {
+	public function filter( array $columns ): array {
 		return array_filter( $columns, [ $this, 'is_disabled' ] );
 	}
 

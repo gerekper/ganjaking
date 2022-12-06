@@ -1,5 +1,9 @@
 *** WooCommerce Subscriptions Gifting Changelog ***
 
+2022-09-08 - version 2.5.1
+ * Fix: Remove redundant password fields in new recipient account form. PR #414
+ * Dev: Document supported versions of nodejs & npm. PR #412
+
 2022-08-18 - version 2.5.0
  * Fix: Include additional content in new initial order and new recipient account emails.
 

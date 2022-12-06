@@ -6,6 +6,8 @@
  * @var string $current_tab     The current tab.
  * @var string $current_sub_tab The current sub-tab.
  * @var array  $latest_articles Latest HC articles.
+ * @var bool   $is_extended     Whether current plugin is an Extended version.
+ * @var bool   $is_premium      Whether current plugin is a Premium version.
  *
  * @package YITH\PluginFramework\Templates
  */
@@ -54,7 +56,7 @@ if ( $has_default_playlist ) {
 }
 ?>
 
-<div id='yith_plugin_fw_panel_help_tab' class='yith-plugin-fw-panel-help-tab-container'>
+<div id='yith_plugin_fw_panel_help_tab' class='yith-plugin-fw-panel-help-tab-container <?php echo esc_attr( $is_extended ? 'extended' : '' ); ?>'>
 	<div class="yith-plugin-fw-panel-help-tab-content">
 		<?php if ( $the_title ) : ?>
 			<h2 class="yith-plugin-fw-panel-help-tab-title"><?php echo wp_kses_post( $the_title ); ?></h2>
@@ -66,7 +68,7 @@ if ( $has_default_playlist ) {
 			</p>
 		<?php endif; ?>
 
-		<?php if ( $has_video || $has_additional_links ) : ?>
+		<?php if ( $is_premium && ( $has_video || $has_additional_links ) ) : ?>
 			<div class="row">
 				<?php if ( $video_url ) : ?>
 					<div class="yith-plugin-fw-help-tab-video <?php echo $has_additional_links ? 'column-left' : 'full-width'; ?>">
@@ -161,8 +163,7 @@ if ( $has_default_playlist ) {
 			</div>
 		<?php endif; ?>
 
-
-		<?php if ( $show_articles || $show_submit_ticket ) : ?>
+		<?php if ( $is_premium && ( $show_articles || $show_submit_ticket ) ) : ?>
 			<div class="row">
 				<?php if ( $show_articles ) : ?>
 					<div class="yith-plugin-fw-hc-articles <?php echo $show_submit_ticket ? 'column-left' : 'full-width'; ?>">
@@ -205,7 +206,44 @@ if ( $has_default_playlist ) {
 						</div>
 					</div>
 				<?php endif; ?>
-			<?php endif; ?>
-		</div>
+			</div>
+		<?php endif; ?>
+
+		<?php if ( $is_extended ) : ?>
+			<div class="row">
+				<?php if ( $options['doc_url'] ) : ?>
+					<div class="box-with-image">
+						<img src="<?php echo esc_url( YIT_CORE_PLUGIN_URL ); ?>/assets/images/help-tab/documentation.svg" alt="<?php echo esc_attr_x( 'Read the plugin documentation', 'Help tab documentation', 'yith-plugin-fw' ); ?>">
+						<div class="box-content">
+							<h3><?php echo esc_html_x( 'Read the plugin documentation', 'Help tab documentation', 'yith-plugin-fw' ); ?></h3>
+							<p>
+								<?php echo esc_html_x( 'to learn how it works from the basics.', 'Help tab documentation', 'yith-plugin-fw' ); ?>
+							</p>
+							<a target="_blank" href="<?php echo esc_url( $options['doc_url'] ); ?>" class="button yith-plugin-fw__button--secondary">
+								<?php echo esc_html_x( 'Read the plugin documentation', 'Help tab documentation', 'yith-plugin-fw' ); ?>
+							</a>
+						</div>
+					</div>
+				<?php endif; ?>
+
+				<?php if ( $show_submit_ticket ) : ?>
+					<div class="box-with-image">
+						<img src="<?php echo esc_url( YIT_CORE_PLUGIN_URL ); ?>/assets/images/help-tab/support-desk.svg" alt="<?php echo esc_attr_x( 'Need some help?', 'Help tab support', 'yith-plugin-fw' ); ?>">
+						<div class="box-content">
+							<h3><?php echo esc_html_x( 'Need some help?', 'Help tab support', 'yith-plugin-fw' ); ?></h3>
+							<p>
+								<b><?php echo esc_html_x( 'From DIY to full-service help', 'Help tab support', 'yith-plugin-fw' ); ?></b>
+							</p>
+							<p>
+								<?php echo esc_html_x( 'Call or chat 24/7 with our support agents, or let our experts build your site.', 'Help tab support', 'yith-plugin-fw' ); ?>
+							</p>
+							<a href="<?php echo esc_url( $options['submit_ticket_url'] ); ?>" class="yit-plugin-fw-submit-ticket-button button yith-plugin-fw__button--secondary">
+								<?php echo esc_html_x( 'Yes, I need help', 'Help tab support', 'yith-plugin-fw' ); ?>
+							</a>
+						</div>
+					</div>
+				<?php endif; ?>
+			</div>
+		<?php endif; ?>
 	</div>
 </div>

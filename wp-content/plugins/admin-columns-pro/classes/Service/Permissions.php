@@ -2,11 +2,11 @@
 
 namespace ACP\Service;
 
-use AC\Registrable;
+use AC\Registerable;
 use ACP\Access\PermissionChecker;
 use ACP\Access\PermissionsStorage;
 
-class Permissions implements Registrable {
+class Permissions implements Registerable {
 
 	/**
 	 * @var PermissionsStorage

@@ -3,6 +3,8 @@
 namespace ACP\Sorting\Model\User;
 
 use ACP\Sorting\AbstractModel;
+use ACP\Sorting\Model\SqlOrderByFactory;
+use ACP\Sorting\Type\ComputationType;
 use WP_User_Query;
 
 class PostCount extends AbstractModel {
@@ -31,16 +33,11 @@ class PostCount extends AbstractModel {
 	}
 
 	public function pre_user_query_callback( WP_User_Query $query ) {
+		remove_action( "pre_user_query", [ $this, __FUNCTION__ ] );
+
 		global $wpdb;
 
-		$order = $this->get_order();
-
-		$join_type = $this->show_empty
-			? 'LEFT'
-			: 'INNER';
-
-		$query->query_fields .= ", COUNT( acsort_posts.ID ) AS acsort_postcount";
-		$query->query_from .= " $join_type JOIN {$wpdb->posts} AS acsort_posts ON acsort_posts.post_author = {$wpdb->users}.ID";
+		$query->query_from .= " LEFT JOIN $wpdb->posts AS acsort_posts ON acsort_posts.post_author = $wpdb->users.ID";
 
 		if ( $this->post_status ) {
 			$query->query_from .= sprintf( " AND acsort_posts.post_status IN ( %s )", $this->esc_sql_array( $this->post_status ) );
@@ -50,12 +47,13 @@ class PostCount extends AbstractModel {
 			$query->query_from .= sprintf( " AND acsort_posts.post_type IN ( %s )", $this->esc_sql_array( $this->post_types ) );
 		}
 
-		$query->query_orderby = "
-			GROUP BY {$wpdb->users}.ID
-			ORDER BY acsort_postcount $order, {$wpdb->users}.ID $order
-		";
-
-		remove_action( "pre_user_query", [ $this, __FUNCTION__ ] );
+		$query->query_orderby = sprintf( "
+				GROUP BY $wpdb->users.ID
+				ORDER BY %s, $wpdb->users.ID %s
+			",
+			SqlOrderByFactory::create_with_computation( new ComputationType( ComputationType::COUNT ), 'acsort_posts.ID', $this->get_order(), true ),
+			esc_sql( $this->get_order() )
+		);
 	}
 
 	private function esc_sql_array( $array ) {

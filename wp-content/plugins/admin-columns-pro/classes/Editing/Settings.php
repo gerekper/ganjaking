@@ -58,7 +58,7 @@ class Settings extends AC\Settings\Column
 	}
 
 	protected function define_options() {
-		return [ self::NAME => 'off' ];
+		return [ self::NAME => 'on' ];
 	}
 
 	/**

@@ -2,6 +2,7 @@
 
 namespace ACP\Sorting\Strategy;
 
+use ACP\CommentQueryInformation;
 use ACP\Sorting\Strategy;
 use WP_Comment_Query;
 
@@ -49,6 +50,10 @@ final class Comment extends Strategy {
 		return $query->get_comments();
 	}
 
+	private function is_main_query(): bool {
+		return (bool) $this->get_query_var( 'orderby' );
+	}
+
 	/**
 	 * @param WP_Comment_Query $query
 	 */
@@ -56,7 +61,7 @@ final class Comment extends Strategy {
 		$this->set_comment_query( $query );
 
 		// check query conditions
-		if ( ! $this->get_query_var( 'orderby' ) ) {
+		if ( ! $this->is_main_query() ) {
 			return;
 		}
 

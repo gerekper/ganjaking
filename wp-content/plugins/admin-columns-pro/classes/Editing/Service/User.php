@@ -2,7 +2,6 @@
 
 namespace ACP\Editing\Service;
 
-use AC\Request;
 use ACP;
 use ACP\Editing\PaginatedOptions;
 use ACP\Editing\PaginatedOptionsFactory;
@@ -38,24 +37,40 @@ class User implements Service, PaginatedOptions {
 		$this->options_factory = $options_factory ?: new PaginatedOptions\Users();
 	}
 
-	public function get_view( $context ) {
+	public function get_view( string $context ): ?View {
 		return $this->view;
 	}
 
-	public function get_value( $id ) {
+	public function update( int $id, $data ): void {
+		$this->storage->update( $id, $this->sanitize_user_id( $data ) );
+	}
+
+	private function sanitize_user_id( $user_id ): ?int {
+		return $user_id && is_numeric( $user_id )
+			? (int) $user_id
+			: null;
+	}
+
+	private function get_stored_user_id( int $id ): ?int {
 		$user_id = $this->storage->get( $id );
 
-		if ( is_array( $user_id ) && ! empty( $user_id ) ) {
+		if ( is_array( $user_id ) ) {
 			$user_id = reset( $user_id );
 		}
 
-		return $user_id && is_scalar( $user_id )
-			? [ $user_id => ac_helper()->user->get_display_name( $user_id ) ]
-			: false;
+		return $this->sanitize_user_id( $user_id );
 	}
 
-	public function update( Request $request ) {
-		$this->storage->update( $request->get( 'id' ), $request->get( 'value' ) );
+	public function get_value( int $id ) {
+		$user_id = $this->get_stored_user_id( $id );
+
+		if ( ! $user_id || ! get_userdata( $user_id ) ) {
+			return false;
+		}
+
+		return [
+			$user_id => ac_helper()->user->get_display_name( $user_id ),
+		];
 	}
 
 	public function get_paginated_options( $s, $paged, $id = null ) {

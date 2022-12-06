@@ -3,7 +3,7 @@
 namespace ACP\Sorting\Model\Post;
 
 use ACP\Sorting\AbstractModel;
-use ACP\Sorting\Sorter;
+use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Strategy\Post;
 use ACP\Sorting\Type\DataType;
 
@@ -17,9 +17,21 @@ class Depth extends AbstractModel {
 	}
 
 	public function get_sorting_vars() {
+		add_filter( 'posts_clauses', [ $this, 'sorting_clauses_callback' ] );
+
 		return [
-			'ids' => ( new Sorter() )->sort( $this->get_sorted_ids(), $this->get_order(), $this->data_type, $this->show_empty ),
+			'suppress_filters' => false,
 		];
+	}
+
+	public function sorting_clauses_callback( $clauses ) {
+		remove_filter( 'posts_clauses', [ $this, __FUNCTION__ ] );
+
+		global $wpdb;
+
+		$clauses['orderby'] = SqlOrderByFactory::create_with_ids( "$wpdb->posts.ID", $this->get_sorted_ids(), $this->get_order() ) ?: $clauses['orderby'];
+
+		return $clauses;
 	}
 
 	private function get_depth( $id, array $ids, $depth = 0 ) {
@@ -55,7 +67,9 @@ class Depth extends AbstractModel {
 			$values[ $id ] = $this->get_depth( $id, $ids );
 		}
 
-		return $values;
+		asort( $values, SORT_NUMERIC );
+
+		return array_keys( $values );
 	}
 
 }

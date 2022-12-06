@@ -3,18 +3,27 @@
 namespace ACP\Sorting\Model\Post;
 
 use ACP\Sorting\AbstractModel;
-use ACP\Sorting\Sorter;
-use ACP\Sorting\Strategy;
+use ACP\Sorting\Model\SqlOrderByFactory;
+use ACP\Sorting\Model\WarningAware;
 
-/**
- * @property Strategy\Post $strategy
- */
-class Permalink extends AbstractModel {
+class Permalink extends AbstractModel implements WarningAware {
 
 	public function get_sorting_vars() {
+		add_filter( 'posts_clauses', [ $this, 'sorting_clauses_callback' ] );
+
 		return [
-			'ids' => $this->get_sorted_ids(),
+			'suppress_filters' => false,
 		];
+	}
+
+	public function sorting_clauses_callback( $clauses ) {
+		remove_filter( 'posts_clauses', [ $this, __FUNCTION__ ] );
+
+		global $wpdb;
+
+		$clauses['orderby'] = SqlOrderByFactory::create_with_ids( "$wpdb->posts.ID", $this->get_sorted_ids(), $this->get_order() ) ?: $clauses['orderby'];
+
+		return $clauses;
 	}
 
 	/**
@@ -26,8 +35,8 @@ class Permalink extends AbstractModel {
 		// only fetch the fields needed for `get_permalink()`
 		$sql = $wpdb->prepare( "
 			SELECT pp.ID, pp.post_type, pp.post_status, pp.post_name, pp.post_date, pp.post_parent
-			FROM {$wpdb->posts} AS pp 
-			WHERE pp.post_type = %s
+			FROM $wpdb->posts AS pp
+			WHERE pp.post_type = %s AND pp.post_name <> ''
 		",
 			$this->strategy->get_post_type()
 		);
@@ -35,7 +44,7 @@ class Permalink extends AbstractModel {
 		$status = $this->strategy->get_post_status();
 
 		if ( $status ) {
-			$sql .= sprintf( " AND pp.post_status IN ( '%s' )", implode( "','", array_map( 'esc_sql', $status ) ) );
+			$sql .= sprintf( "\nAND pp.post_status IN ( '%s' )", implode( "','", array_map( 'esc_sql', $status ) ) );
 		}
 
 		$results = $wpdb->get_results( $sql );
@@ -44,13 +53,19 @@ class Permalink extends AbstractModel {
 			return [];
 		}
 
-		$ids = [];
+		$values = [];
 
 		foreach ( $results as $object ) {
-			$ids[ $object->ID ] = get_permalink( get_post( $object ) );
+			$link = get_permalink( get_post( $object ) );
+
+			if ( $link && is_string( $link ) ) {
+				$values[ $object->ID ] = $link;
+			}
 		}
 
-		return ( new Sorter() )->sort( $ids, $this->get_order() );
+		natcasesort( $values );
+
+		return array_keys( $values );
 	}
 
 }

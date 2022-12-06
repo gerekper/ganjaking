@@ -201,7 +201,7 @@ class Meta extends Model {
 
 		foreach ( $this->get_meta_values() as $value ) {
 			if ( is_serialized( $value ) ) {
-				$value = unserialize( $value );
+				$value = unserialize( $value, [ 'allowed_classes' => false ] );
 
 				if ( is_array( $value ) ) {
 					$values = array_merge( $values, $value );

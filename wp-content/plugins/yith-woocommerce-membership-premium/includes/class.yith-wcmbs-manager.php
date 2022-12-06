@@ -7,9 +7,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Manager Class
  *
  * @class   YITH_WCMBS_Manager
- * @package Yithemes
- * @since   1.0.0
  * @author  Yithemes
+ * @since   1.0.0
+ * @package Yithemes
  */
 class YITH_WCMBS_Manager {
 
@@ -425,7 +425,7 @@ class YITH_WCMBS_Manager {
 								$new_post_ids[] = $id;
 							}
 						} else {
-							if ( strtotime( '+' . $delay[ $plan['id'] ] . ' days midnight', $plan['date'] ) <= strtotime( 'midnight' ) ) {
+							if ( yith_wcmbs_local_strtotime_midnight_to_utc( '+' . $delay[ $plan['id'] ] . ' days', $plan['date'] ) <= yith_wcmbs_local_strtotime_midnight_to_utc() ) {
 								$new_post_ids[] = $id;
 							}
 						}

@@ -2,26 +2,35 @@
 
 namespace ACP\Editing\Service\User;
 
-use AC\Request;
 use ACP\Editing;
-use WP_User;
+use ACP\Editing\Service;
+use ACP\Editing\Service\Editability;
+use ACP\Editing\View;
+use ACP\RolesFactory;
+use ACP\Service\Storage;
 
-class Role implements Editing\Service {
+class Role implements Service, Editability {
 
-	public function get_view( $context ) {
-		$options = [];
+	/**
+	 * By default, WordPress does not allow you to edit certain (3rd party) roles
+	 * @var bool
+	 */
+	private $allow_non_editable_roles;
 
-		if ( function_exists( 'get_editable_roles' ) ) {
-			foreach ( get_editable_roles() as $k => $role ) {
-				$options[ $k ] = translate_user_role( $role['name'] );
-			}
-		}
+	/**
+	 * @var Storage
+	 */
+	private $storage;
 
-		asort( $options );
+	public function __construct( bool $allow_non_editable_roles ) {
+		$this->allow_non_editable_roles = $allow_non_editable_roles;
+		$this->storage = new Editing\Storage\User\Role( $allow_non_editable_roles );
+	}
 
-		$view = ( new Editing\View\AdvancedSelect( $options ) )
-			->set_clear_button( false )
-			->set_multiple( true );
+	public function get_view( string $context ): ?View {
+		$view = new Editing\View\AdvancedSelect( $this->get_editable_roles() );
+		$view->set_clear_button( false )
+		     ->set_multiple( true );
 
 		if ( $context === self::CONTEXT_BULK ) {
 			$view->has_methods( true );
@@ -30,83 +39,43 @@ class Role implements Editing\Service {
 		return $view;
 	}
 
-	public function get_value( $id ) {
-		if ( ! current_user_can( 'promote_user', $id ) ) {
-			return null;
-		}
-
-		$roles = ac_helper()->user->get_user_field( 'roles', $id );
-
-		if ( ! $roles || ! is_array( $roles ) ) {
-			return false;
-		}
-
-		return $roles;
+	public function get_not_editable_reason( int $id ): string {
+		return __( 'Current user can not change user role.', 'codepress-admin-columns' );
 	}
 
-	public function update( Request $request ) {
-		$id = (int) $request->get( 'id' );
-		$params = $request->get( 'value' );
-
-		if ( ! isset( $params['method'] ) ) {
-			$params = [
-				'method' => 'replace',
-				'value'  => $params,
-			];
-		}
-
-		$user = get_user_by( 'id', $id );
-		$roles = $params['value'];
-
-		if ( current_user_can( 'edit_users' ) && current_user_can( 'promote_user', $id ) ) {
-
-			switch ( $params['method'] ) {
-				case 'add':
-					$this->add_roles( $user, $roles );
-
-					break;
-				case 'remove':
-					$this->remove_roles( $user, $roles );
-
-					break;
-				default:
-
-					if ( empty( $roles ) ) {
-						foreach ( $user->roles as $role ) {
-							$user->remove_role( $role );
-						}
-					} else {
-						// prevent the removal of your own admin role
-						if ( current_user_can( 'administrator' ) && get_current_user_id() === $id ) {
-							$roles[] = 'administrator';
-						}
-
-						$user->set_role( array_pop( $roles ) );
-						$this->add_roles( $user, $roles );
-					}
-			}
-		}
-
+	public function get_value( int $id ) {
+		return $this->storage->get( $id );
 	}
 
-	private function add_roles( WP_User $user, $roles ) {
-		foreach ( $roles as $key ) {
-			$user->add_role( $key );
-		}
+	public function update( int $id, $data ): void {
+		$this->storage->update( $id, $data );
 	}
 
-	private function remove_roles( WP_User $user, $roles ) {
-		if ( current_user_can( 'administrator' ) && get_current_user_id() == $user->ID ) {
-			$key = array_search( 'administrator', $roles );
+	public function is_editable( int $id ): bool {
+		return current_user_can( 'edit_users' ) && current_user_can( 'promote_user', $id );
+	}
 
-			if ( $key !== false ) {
-				unset( $roles[ $key ] );
-			}
+	private function get_translated_role_name( string $role ) {
+		$role_names = wp_roles()->role_names;
+		$role_name = $role_names[ $role ] ?? null;
+
+		return $role_name
+			? translate_user_role( $role_name )
+			: $role;
+	}
+
+	private function get_editable_roles() {
+		$options = [];
+
+		$editable_roles = ( new RolesFactory() )->create( $this->allow_non_editable_roles );
+
+		foreach ( $editable_roles as $role ) {
+			$options[ $role ] = $this->get_translated_role_name( $role );
 		}
 
-		foreach ( $roles as $key ) {
-			$user->remove_role( $key );
-		}
+		asort( $options );
+
+		return $options;
 	}
 
 }

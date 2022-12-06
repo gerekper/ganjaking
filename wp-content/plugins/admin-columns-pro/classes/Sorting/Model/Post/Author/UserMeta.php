@@ -3,6 +3,8 @@
 namespace ACP\Sorting\Model\Post\Author;
 
 use ACP;
+use ACP\Sorting\Model\SqlOrderByFactory;
+use ACP\Sorting\Type\CastType;
 use ACP\Sorting\Type\DataType;
 
 class UserMeta extends ACP\Sorting\AbstractModel {
@@ -27,25 +29,15 @@ class UserMeta extends ACP\Sorting\AbstractModel {
 	}
 
 	public function sorting_clauses_callback( $clauses ) {
+		remove_filter( 'posts_clauses', [ $this, __FUNCTION__ ] );
+
 		global $wpdb;
 
-		$order = esc_sql( $this->get_order() );
-
-		$join_type = $this->show_empty
-			? 'LEFT'
-			: 'INNER';
-
-		$clauses['join'] .= " {$join_type} JOIN {$wpdb->usermeta} AS acsort_usermeta ON {$wpdb->posts}.post_author = acsort_usermeta.user_id";
-		$clauses['where'] .= $wpdb->prepare( " AND acsort_usermeta.meta_key = %s", $this->meta_key );
-
-		if ( ! $this->show_empty ) {
-			$clauses['where'] .= " AND acsort_usermeta.meta_value <> ''";
-		}
-
-		$clauses['orderby'] = "acsort_usermeta.meta_value $order, {$wpdb->posts}.ID $order";
-		$clauses['groupby'] = "{$wpdb->posts}.ID";
-
-		remove_filter( 'posts_clauses', [ $this, __FUNCTION__ ] );
+		$clauses['join'] .= "\nLEFT JOIN $wpdb->usermeta AS acsort_usermeta ON $wpdb->posts.post_author = acsort_usermeta.user_id";
+		$clauses['where'] .= $wpdb->prepare( "\nAND acsort_usermeta.meta_key = %s", $this->meta_key );
+		$clauses['groupby'] = "$wpdb->posts.ID";
+		$clauses['orderby'] = SqlOrderByFactory::create( "acsort_usermeta.meta_value", $this->get_order(), [ 'cast_type' => (string) CastType::create_from_data_type( $this->data_type ) ] );
+		$clauses['orderby'] .= sprintf( "\n, $wpdb->posts.ID %s", esc_sql( $this->get_order() ) );
 
 		return $clauses;
 	}

@@ -3,6 +3,7 @@
 namespace ACP\Sorting\Model\User\RelatedMeta;
 
 use ACP\Sorting\AbstractModel;
+use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\DataType;
 use WP_User_Query;
 
@@ -22,7 +23,7 @@ class UserMeta extends AbstractModel {
 		parent::__construct( $data_type );
 
 		$this->meta_field = $meta_field;
-		$this->meta_key = $meta_key;
+		$this->meta_key = (string) $meta_key;
 	}
 
 	public function get_sorting_vars() {
@@ -32,33 +33,25 @@ class UserMeta extends AbstractModel {
 	}
 
 	public function pre_user_query_callback( WP_User_Query $query ) {
+		remove_action( 'pre_user_query', [ $this, __FUNCTION__ ] );
+
 		global $wpdb;
 
-		$order = $this->get_order();
-
-		$join_type = $this->show_empty
-			? 'LEFT'
-			: 'INNER';
-
-		$query->query_fields .= ", acsort_usermeta_related.meta_value AS acsort_related_field";
 		$query->query_from .= $wpdb->prepare( "
-			$join_type JOIN {$wpdb->usermeta} AS acsort_usermeta ON acsort_usermeta.user_id = {$wpdb->users}.ID
+			LEFT JOIN $wpdb->usermeta AS acsort_usermeta ON acsort_usermeta.user_id = $wpdb->users.ID
 				AND acsort_usermeta.meta_key = %s
-			$join_type JOIN {$wpdb->users} AS acsort_users ON acsort_users.ID = acsort_usermeta.meta_value
-			$join_type JOIN {$wpdb->usermeta} AS acsort_usermeta_related ON acsort_usermeta_related.user_id = acsort_users.ID
+			LEFT JOIN $wpdb->users AS acsort_users ON acsort_users.ID = acsort_usermeta.meta_value
+			LEFT JOIN $wpdb->usermeta AS acsort_usermeta_related ON acsort_usermeta_related.user_id = acsort_users.ID
 				AND acsort_usermeta_related.meta_key = %s
 		", $this->meta_key, $this->meta_field );
 
-		if ( ! $this->show_empty ) {
-			$query->query_from .= " AND acsort_usermeta_related.meta_value <>''";
-		}
-
-		$query->query_orderby = "
-			GROUP BY {$wpdb->users}.ID
-			ORDER BY acsort_related_field $order, {$wpdb->users}.ID $order
-		";
-
-		remove_action( 'pre_user_query', [ $this, __FUNCTION__ ] );
+		$query->query_orderby = sprintf( "
+			GROUP BY$wpdb->users.ID
+			ORDER BY %s,$wpdb->users.ID %s
+		",
+			SqlOrderByFactory::create( "acsort_usermeta_related.meta_value", $this->get_order() ),
+			esc_sql( $this->get_order() )
+		);
 	}
 
 }

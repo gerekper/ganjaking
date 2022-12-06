@@ -18,13 +18,13 @@
  *
  * @package   WC-Intuit-Payments/Gateway
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2020, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2022, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
 defined( 'ABSPATH' ) or exit;
 
-use SkyVerge\WooCommerce\PluginFramework\v5_10_4 as Framework;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
 
 /**
  * The main class for the Intuit Payments Gateway.  This class handles all the
@@ -42,7 +42,7 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 
 
 	/** string the plugin version number */
-	const VERSION = '3.0.0';
+	const VERSION = '3.1.0';
 
 	/** string the plugin id */
 	const PLUGIN_ID = 'intuit_payments';
@@ -124,20 +124,20 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 
 		$plugin_path = $this->get_plugin_path();
 
-		require_once( $plugin_path . '/includes/Handlers/Payment_Form.php' );
-		require_once( $plugin_path . '/includes/Handlers/Connection.php' );
-		require_once( $plugin_path . '/includes/abstract-wc-gateway-intuit-payments.php' );
-		require_once( $plugin_path . '/includes/class-wc-gateway-intuit-payments-credit-card.php' );
-		require_once( $plugin_path . '/includes/class-wc-gateway-intuit-payments-echeck.php' );
-		require_once( $plugin_path . '/includes/api/class-wc-intuit-payments-api-oauth-helper.php' );
-		require_once( $plugin_path . '/includes/class-wc-intuit-payments-ajax.php' );
+		require_once( $plugin_path . '/src/Handlers/Payment_Form.php' );
+		require_once( $plugin_path . '/src/Handlers/Connection.php' );
+		require_once( $plugin_path . '/src/abstract-wc-gateway-intuit-payments.php' );
+		require_once( $plugin_path . '/src/class-wc-gateway-intuit-payments-credit-card.php' );
+		require_once( $plugin_path . '/src/class-wc-gateway-intuit-payments-echeck.php' );
+		require_once( $plugin_path . '/src/api/class-wc-intuit-payments-api-oauth-helper.php' );
+		require_once( $plugin_path . '/src/class-wc-intuit-payments-ajax.php' );
 
 		$this->payments_ajax_instance = new WC_Intuit_Payments_AJAX( $this );
 
-		require_once( $plugin_path . '/includes/class-wc-intuit-payments-tokens-handler.php' );
+		require_once( $plugin_path . '/src/class-wc-intuit-payments-tokens-handler.php' );
 
 		if ( is_admin() ) {
-			require_once( $plugin_path . '/includes/class-wc-intuit-payments-admin-token-editor.php' );
+			require_once( $plugin_path . '/src/class-wc-intuit-payments-admin-token-editor.php' );
 		}
 	}
 
@@ -474,7 +474,7 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 	 */
 	protected function get_my_payment_methods_instance() {
 
-		require_once( $this->get_plugin_path() . '/includes/Handlers/My_Payment_Methods.php' );
+		require_once( $this->get_plugin_path() . '/src/Handlers/My_Payment_Methods.php' );
 
 		return new \SkyVerge\WooCommerce\Intuit\Handlers\My_Payment_Methods( $this );
 	}
@@ -590,7 +590,7 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 	 */
 	protected function init_lifecycle_handler() {
 
-		require_once( $this->get_plugin_path() . '/includes/Lifecycle.php' );
+		require_once( $this->get_plugin_path() . '/src/Lifecycle.php' );
 
 		$this->lifecycle_handler = new \SkyVerge\WooCommerce\Intuit\Lifecycle( $this );
 	}
@@ -606,7 +606,7 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 		parent::init_setup_wizard_handler();
 
 		require_once $this->get_framework_path() . '/payment-gateway/admin/abstract-sv-wc-payment-gateway-plugin-admin-setup-wizard.php';
-		require_once $this->get_plugin_path() . '/includes/admin/Setup_Wizard.php';
+		require_once $this->get_plugin_path() . '/src/admin/Setup_Wizard.php';
 
 		$this->setup_wizard_handler = new \SkyVerge\WooCommerce\Intuit\Admin\Setup_Wizard( $this );
 	}

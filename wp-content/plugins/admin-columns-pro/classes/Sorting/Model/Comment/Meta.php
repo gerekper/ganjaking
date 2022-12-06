@@ -3,6 +3,7 @@
 namespace ACP\Sorting\Model\Comment;
 
 use ACP\Sorting\AbstractModel;
+use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\CastType;
 use ACP\Sorting\Type\DataType;
 
@@ -16,7 +17,7 @@ class Meta extends AbstractModel {
 	public function __construct( $meta_key, DataType $data_type = null ) {
 		parent::__construct( $data_type );
 
-		$this->meta_key = $meta_key;
+		$this->meta_key = (string) $meta_key;
 	}
 
 	public function get_sorting_vars() {
@@ -26,39 +27,20 @@ class Meta extends AbstractModel {
 	}
 
 	public function comments_clauses_callback( $clauses ) {
+		remove_filter( 'comments_clauses', [ $this, __FUNCTION__ ] );
+
 		global $wpdb;
 
-		$join_type = $this->show_empty
-			? 'LEFT'
-			: 'INNER';
-
-		$clauses['join'] .= $wpdb->prepare( "
-			{$join_type} JOIN {$wpdb->commentmeta} AS acsort_commentmeta ON {$wpdb->comments}.comment_ID = acsort_commentmeta.comment_id
-			AND acsort_commentmeta.meta_key = %s
-		", $this->meta_key );
-
-		if ( ! $this->show_empty ) {
-			$clauses['join'] .= " AND acsort_commentmeta.meta_value <> ''";
-		}
-
+		$clauses['join'] .= $wpdb->prepare( "LEFT JOIN $wpdb->commentmeta AS acsort_commentmeta ON $wpdb->comments.comment_ID = acsort_commentmeta.comment_id AND acsort_commentmeta.meta_key = %s", $this->meta_key );
+		$clauses['groupby'] = "$wpdb->comments.comment_ID";
 		$clauses['orderby'] = $this->get_order_by();
-		$clauses['groupby'] = "{$wpdb->comments}.comment_ID";
-
-		remove_filter( 'comments_clauses', [ $this, __FUNCTION__ ] );
+		$clauses['orderby'] .= sprintf( ", $wpdb->comments.comment_ID %s", $this->get_order() );
 
 		return $clauses;
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function get_order_by() {
-		global $wpdb;
-
-		$order = esc_sql( $this->get_order() );
-		$cast_type = CastType::create_from_data_type( $this->data_type )->get_value();
-
-		return sprintf( "CAST( acsort_commentmeta.meta_value AS %s ) $order, {$wpdb->comments}.comment_ID $order", $cast_type );
+	protected function get_order_by(): string {
+		return SqlOrderByFactory::create( "acsort_commentmeta.meta_value", $this->get_order(), [ 'cast_type' => (string) CastType::create_from_data_type( $this->data_type ) ] );
 	}
 
 }

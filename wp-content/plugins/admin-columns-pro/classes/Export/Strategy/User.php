@@ -12,18 +12,11 @@ use WP_User_Query;
  */
 class User extends Strategy {
 
-	/**
-	 * @param AC\ListScreen\User $list_screen
-	 */
 	public function __construct( AC\ListScreen\User $list_screen ) {
 		parent::__construct( $list_screen );
 	}
 
-	/**
-	 * @since 1.0
-	 * @see   ACP_Export_ExportableListScreen::ajax_export()
-	 */
-	protected function ajax_export() {
+	protected function ajax_export(): void {
 		add_filter( 'users_list_table_query_args', [ $this, 'catch_users_query' ], PHP_INT_MAX - 100 );
 	}
 
@@ -37,17 +30,23 @@ class User extends Strategy {
 	 * @see   filter:users_list_table_query_args
 	 * @since 1.0
 	 */
-	public function catch_users_query( $args ) {
+	public function catch_users_query( $args ): void {
 		$per_page = $this->get_num_items_per_iteration();
 
 		$args['offset'] = $this->get_export_counter() * $per_page;
 		$args['number'] = $per_page;
 		$args['fields'] = 'ids';
 
-		// Construct users query
+		$ids = $this->get_requested_ids();
+
+		if ( $ids ) {
+			$args['include'] = isset( $args['include'] ) && is_array( $args['include'] )
+				? array_merge( $ids, $args['include'] )
+				: $ids;
+		}
+
 		$query = new WP_User_Query( $args );
 
-		// Export
 		$this->export( $query->get_results() );
 	}
 

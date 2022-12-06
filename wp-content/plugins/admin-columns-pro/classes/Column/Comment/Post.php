@@ -3,6 +3,7 @@
 namespace ACP\Column\Comment;
 
 use AC;
+use ACP\ConditionalFormat;
 use ACP\Export;
 use ACP\Search;
 
@@ -10,7 +11,9 @@ use ACP\Search;
  * @since 4.1
  */
 class Post extends AC\Column\Comment\Post
-	implements Export\Exportable, Search\Searchable {
+	implements Export\Exportable, Search\Searchable, ConditionalFormat\Formattable {
+
+	use ConditionalFormat\ConditionalFormatTrait;
 
 	public function export() {
 		return new Export\Model\StrippedValue( $this );

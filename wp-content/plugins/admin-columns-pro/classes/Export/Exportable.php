@@ -7,7 +7,7 @@ use ACP;
 interface Exportable {
 
 	/**
-	 * @return ACP\Export\Model
+	 * @return ACP\Export\Model|false
 	 */
 	public function export();
 

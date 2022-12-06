@@ -1,12 +1,9 @@
-<?php
+<?php declare( strict_types=1 );
 
 namespace ACP;
 
 interface RequestAjaxHandler {
 
-	/**
-	 * @return void
-	 */
 	public function handle();
 
 }

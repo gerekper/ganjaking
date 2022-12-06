@@ -7,7 +7,7 @@ use AC\Admin\Page\Settings;
 use AC\Ajax;
 use AC\Capabilities;
 use AC\Message;
-use AC\Registrable;
+use AC\Registerable;
 use AC\Screen;
 use AC\Storage;
 use AC\Type\Url\Site;
@@ -21,7 +21,7 @@ use DateTime;
 use Exception;
 
 class Renewal
-	implements Registrable {
+	implements Registerable {
 
 	/**
 	 * @var string

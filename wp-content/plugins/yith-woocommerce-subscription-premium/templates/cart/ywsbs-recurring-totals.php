@@ -37,7 +37,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 				);
 				$recurring_tax           = '';
 
-				if( wc_tax_enabled() ) {
+				$rates = WC_Tax::get_rates( $cart_item['data']->get_tax_class(), WC()->cart->get_customer() );
+				if( wc_tax_enabled() && ! empty( $rates )  ) {
 					if ( 'incl' === get_option( 'woocommerce_tax_display_shop' ) ) {
 						$recurring_tax = ' <small class="tax_label">' . WC()->countries->inc_tax_or_vat() . '</small>';
 					} else {

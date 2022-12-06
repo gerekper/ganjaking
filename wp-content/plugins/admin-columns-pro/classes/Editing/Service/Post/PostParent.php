@@ -22,11 +22,10 @@ class PostParent extends BasicStorage implements PaginatedOptions {
 		$this->post_type = (string) $post_type;
 	}
 
-	public function get_view( $context ) {
+	public function get_view( string $context ): ?View {
 		$view = new View\AjaxSelect();
-		$view->set_clear_button( true );
 
-		return $view;
+		return $view->set_clear_button( true );
 	}
 
 	public function get_paginated_options( $s, $paged, $id = null ) {
@@ -42,7 +41,7 @@ class PostParent extends BasicStorage implements PaginatedOptions {
 		);
 	}
 
-	public function get_value( $id ) {
+	public function get_value( int $id ) {
 		$parent = get_post( parent::get_value( $id ) );
 
 		if ( ! $parent ) {

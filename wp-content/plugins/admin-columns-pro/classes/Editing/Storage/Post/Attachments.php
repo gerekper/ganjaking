@@ -10,7 +10,7 @@ class Attachments extends Field {
 		parent::__construct( 'post_parent' );
 	}
 
-	public function get( $id ) {
+	public function get( int $id ) {
 		$attachment_ids = get_posts( [
 			'post_type'      => 'attachment',
 			'posts_per_page' => -1,
@@ -26,7 +26,7 @@ class Attachments extends Field {
 		return $attachment_ids;
 	}
 
-	public function update( $id, $attachment_ids ) {
+	public function update( int $id, $attachment_ids ): bool {
 		$current_attachment_ids = get_posts( [
 			'post_type'      => 'attachment',
 			'post_parent'    => $id,

@@ -11,8 +11,8 @@ $user_id = ! empty( $user_id ) ? $user_id : '';
 
 $download_types = apply_filters( 'yith_wcmbs_download_report_graphics_download_types', array( '' => '#3994D8' ), $user_id );
 
-$ten_days_start_timestamp = strtotime( '-9days midnight' );
-$ten_days_end_timestamp   = strtotime( 'tomorrow midnight' );
+$ten_days_start_timestamp = yith_wcmbs_local_strtotime_midnight_to_utc( '-9days' );
+$ten_days_end_timestamp   = yith_wcmbs_local_strtotime_midnight_to_utc( 'tomorrow' );
 $ten_days_start_date      = date( 'Y-m-d H:i:s', $ten_days_start_timestamp );
 $ten_days_end_date        = date( 'Y-m-d H:i:s', $ten_days_end_timestamp );
 
@@ -94,9 +94,9 @@ for ( $i = 0; $i < 10; $i ++ ) {
 }
 
 
-$first_day_current_month       = strtotime( date( 'Y-m-01', current_time( 'timestamp' ) ) );
+$first_day_current_month       = yith_wcmbs_local_strtotime_midnight_to_utc( date( 'Y-m-01', yith_wcmbs_local_strtotime() ) );
 $twelve_months_start_timestamp = strtotime( date( 'Y-m-01', strtotime( '-11 months', $first_day_current_month ) ) );
-$twelve_months_end_timestamp   = strtotime( 'tomorrow midnight' );
+$twelve_months_end_timestamp   = yith_wcmbs_local_strtotime_midnight_to_utc( 'tomorrow' );
 $twelve_months_start_date      = date( 'Y-m-d H:i:s', $twelve_months_start_timestamp );
 $twelve_months_end_date        = date( 'Y-m-d H:i:s', $twelve_months_end_timestamp );
 

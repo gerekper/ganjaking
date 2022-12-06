@@ -3,10 +3,13 @@
 namespace ACP\Column\Post;
 
 use AC;
+use ACP\ConditionalFormat;
 use ACP\Search;
 
 class PostVisibility extends AC\Column
-	implements Search\Searchable {
+	implements Search\Searchable, ConditionalFormat\Formattable {
+
+	use ConditionalFormat\ConditionalFormatTrait;
 
 	public function __construct() {
 		$this->set_type( 'column-post_visibility' );

@@ -3,11 +3,11 @@
 namespace ACP\Updates;
 
 use AC\Asset;
-use AC\Registrable;
+use AC\Registerable;
 use ACP\Asset\Script\PluginUpdatesCheck;
 use ACP\Transient\UpdateCheckTransient;
 
-class PeriodicUpdateCheck implements Registrable {
+class PeriodicUpdateCheck implements Registerable {
 
 	/**
 	 * @var Asset\Location\Absolute

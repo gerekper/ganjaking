@@ -4,6 +4,7 @@ namespace ACP\Sorting\Model\Comment;
 
 use ACP\Sorting\AbstractModel;
 use ACP\Sorting\FormatValue;
+use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Sorter;
 use ACP\Sorting\Type\DataType;
 
@@ -32,28 +33,33 @@ class MetaFormat extends AbstractModel {
 	public function __construct( FormatValue $formatter, $meta_key, DataType $data_type = null ) {
 		parent::__construct( $data_type );
 
-		$this->meta_key = $meta_key;
+		$this->meta_key = (string) $meta_key;
 		$this->formatter = $formatter;
 	}
 
 	public function get_sorting_vars() {
-		return [
-			'ids' => $this->get_sorted_ids(),
-		];
+		add_filter( 'comments_clauses', [ $this, 'sorting_clauses_callback' ] );
+
+		return [];
 	}
 
-	/**
-	 * @return array
-	 */
-	private function get_sorted_ids() {
+	public function sorting_clauses_callback( $clauses ) {
+		remove_filter( 'comments_clauses', [ $this, __FUNCTION__ ] );
+
 		global $wpdb;
 
-		$join_type = $this->show_empty ? 'LEFT' : 'INNER';
+		$clauses['orderby'] = SqlOrderByFactory::create_with_ids( "$wpdb->comments.comment_ID", $this->get_sorted_ids(), $this->get_order() ) ?: $clauses['orderby'];
+
+		return $clauses;
+	}
+
+	private function get_sorted_ids(): array {
+		global $wpdb;
 
 		$sql = $wpdb->prepare( "
 			SELECT cc.comment_ID AS id, cm.meta_value AS value
-			FROM {$wpdb->comments} AS cc
-			{$join_type} JOIN {$wpdb->commentmeta} AS cm ON cm.comment_id = cc.comment_ID
+			FROM $wpdb->comments AS cc
+			LEFT JOIN $wpdb->commentmeta AS cm ON cm.comment_id = cc.comment_ID
 				AND cm.meta_key = %s AND cm.meta_value <> ''
 		", $this->meta_key );
 
@@ -73,7 +79,7 @@ class MetaFormat extends AbstractModel {
 			$values[ $id ] = trim( implode( ' ', $meta_values ) );
 		}
 
-		return ( new Sorter() )->sort( $values, $this->get_order(), $this->data_type, $this->show_empty );
+		return ( new Sorter() )->sort( $values, $this->data_type );
 	}
 
 }

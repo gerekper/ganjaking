@@ -4,7 +4,7 @@ namespace ACP\Service;
 
 use AC;
 use AC\ListScreenRepository\Storage\ListScreenRepository;
-use AC\Registrable;
+use AC\Registerable;
 use ACP\ListScreenRepository\Collection;
 use ACP\ListScreenRepository\FileFactory;
 use ACP\Storage\Directory;
@@ -12,7 +12,7 @@ use ACP\Storage\ListScreen\LegacyCollectionDecoder;
 use ACP\Storage\ListScreen\SerializerTypes;
 use ACP\Storage\ListScreenRepositoryFactory;
 
-final class Storage implements Registrable {
+final class Storage implements Registerable {
 
 	/**
 	 * @var AC\ListScreenRepository\Storage

@@ -33,11 +33,13 @@ class Comment extends Strategy {
 	public function get_values_by_db_field( $field ) {
 		global $wpdb;
 
+		$field = sanitize_key( $field );
+
 		$results = $wpdb->get_col( "
 			SELECT " . sanitize_key( $field ) . "
 			FROM {$wpdb->comments} AS c
 			INNER JOIN {$wpdb->posts} ps ON ps.ID = c.comment_post_ID
-			WHERE c." . sanitize_key( $field ) . " <> ''
+			WHERE CAST(c.{$field} as CHAR(1)) <> ''
 		" );
 
 		if ( ! $results ) {

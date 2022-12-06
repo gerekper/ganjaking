@@ -15,8 +15,8 @@ if ( ! class_exists( 'YITH_WCMBS_Cron' ) ) {
 	/**
 	 * Notifier class.
 	 *
-	 * @since    1.0.0
 	 * @author   Leanza Francesco <leanzafrancesco@gmail.com>
+	 * @since    1.0.0
 	 */
 	class YITH_WCMBS_Cron {
 
@@ -54,26 +54,24 @@ if ( ! class_exists( 'YITH_WCMBS_Cron' ) ) {
 		}
 
 		public function set_cron() {
+			$tomorrow = yith_wcmbs_local_strtotime_midnight_to_utc( 'tomorrow' );
+
 			if ( ! wp_next_scheduled( 'yith_wcmbs_check_expiring_membership' ) ) {
-				wp_schedule_event( time(), 'daily', 'yith_wcmbs_check_expiring_membership' );
+				wp_schedule_event( $tomorrow, 'daily', 'yith_wcmbs_check_expiring_membership' );
 			}
 
 			if ( ! wp_next_scheduled( 'yith_wcmbs_check_expired_membership' ) ) {
-				wp_schedule_event( time(), 'daily', 'yith_wcmbs_check_expired_membership' );
+				wp_schedule_event( $tomorrow, 'daily', 'yith_wcmbs_check_expired_membership' );
 			}
 
 			if ( ! wp_next_scheduled( 'yith_wcmbs_check_credits_in_membership' ) ) {
-				wp_schedule_event( time(), 'daily', 'yith_wcmbs_check_credits_in_membership' );
+				wp_schedule_event( $tomorrow, 'daily', 'yith_wcmbs_check_credits_in_membership' );
 			}
-
-			// Clear old hook for deleting transients daily.
-			wp_clear_scheduled_hook( 'yith_wcmbs_delete_transients' );
 
 			if ( ! wp_next_scheduled( 'yith_wcmbs_delete_transients_cron' ) ) {
-				wp_schedule_event( strtotime( 'now midnight' ), 'daily', 'yith_wcmbs_delete_transients_cron' );
+				wp_schedule_event( $tomorrow, 'daily', 'yith_wcmbs_delete_transients_cron' );
 			}
 		}
-
 
 		public function check_expiring_membership() {
 			$expiring_days = absint( apply_filters( 'yith_wcmbs_membership_max_days_number_to_send_expiring_email', 10 ) );
@@ -92,7 +90,7 @@ if ( ! class_exists( 'YITH_WCMBS_Cron' ) ) {
 				),
 				array(
 					'key'     => '_end_date',
-					'value'   => strtotime( 'tomorrow midnight' ) + $expiring_days * DAY_IN_SECONDS,
+					'value'   => yith_wcmbs_local_strtotime_midnight_to_utc( 'tomorrow' ) + $expiring_days * DAY_IN_SECONDS,
 					'compare' => '<=',
 				),
 			);
@@ -123,7 +121,7 @@ if ( ! class_exists( 'YITH_WCMBS_Cron' ) ) {
 				),
 				array(
 					'key'     => '_end_date',
-					'value'   => strtotime( 'tomorrow midnight' ),
+					'value'   => yith_wcmbs_local_strtotime_midnight_to_utc( 'tomorrow' ),
 					'compare' => '<=',
 				),
 			);
@@ -142,8 +140,6 @@ if ( ! class_exists( 'YITH_WCMBS_Cron' ) ) {
 		public function check_credits_in_membership() {
 			$plans                 = YITH_WCMBS_Manager()->get_plans();
 			$plan_ids_with_credits = array();
-
-			$today = strtotime( 'now midnight' );
 
 			foreach ( $plans as $plan ) {
 				if ( $plan->has_credits() ) {
@@ -166,7 +162,7 @@ if ( ! class_exists( 'YITH_WCMBS_Cron' ) ) {
 					),
 					array(
 						'key'     => '_next_credits_update',
-						'value'   => $today,
+						'value'   => yith_wcmbs_local_strtotime_midnight_to_utc(),
 						'compare' => '<=',
 					),
 				);

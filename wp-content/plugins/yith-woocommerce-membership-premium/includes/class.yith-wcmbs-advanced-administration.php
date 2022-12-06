@@ -7,9 +7,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Members Class
  *
  * @class   YITH_WCMBS_Advanced_Administration
- * @package Yithemes
- * @since   1.0.0
  * @author  Yithemes
+ * @since   1.0.0
+ * @package Yithemes
  */
 class YITH_WCMBS_Advanced_Administration {
 
@@ -66,14 +66,17 @@ class YITH_WCMBS_Advanced_Administration {
 	 *
 	 * @param string $post_type
 	 *
-	 * @since    1.0
 	 * @author   Leanza Francesco <leanzafrancesco@gmail.com>
+	 * @since    1.0
 	 */
 	public function register_metaboxes( $post_type ) {
-		add_meta_box( 'yith-wcmbs-advanced-membership-administration', __( 'Advanced Administration', 'yith-woocommerce-membership' ), array(
-			$this,
-			'advanced_administration_metabox_render',
-		),            YITH_WCMBS_Post_Types::$membership, 'normal', 'default' );
+		add_meta_box(
+			'yith-wcmbs-advanced-membership-administration',
+			__( 'Advanced Administration', 'yith-woocommerce-membership' ),
+			array( $this, 'advanced_administration_metabox_render' ),
+			YITH_WCMBS_Post_Types::$membership,
+			'normal',
+			'default' );
 	}
 
 	/**
@@ -81,34 +84,34 @@ class YITH_WCMBS_Advanced_Administration {
 	 *
 	 * @param int $post_id the id of the membership
 	 *
-	 * @since  1.0.0
 	 * @author Leanza Francesco <leanzafrancesco@gmail.com
+	 * @since  1.0.0
 	 */
 	public function save_membership( $post_id ) {
-		if ( YITH_WCMBS_Post_Types::$membership == get_post_type( $post_id ) && ! empty( $_POST['yith_wcmbs_advanced_admin_edit'] ) ) {
+		if ( get_post_type( $post_id ) === YITH_WCMBS_Post_Types::$membership && ! empty( $_POST['yith_wcmbs_advanced_admin_edit'] ) ) {
 			$membership = yith_wcmbs_get_membership( $post_id );
 			if ( $membership->is_valid() ) {
-				$advanced_edit = $_POST['yith_wcmbs_advanced_admin_edit'];
-				$fields        = $this->get_fields();
-				$gmt_offset    = floatval( get_option( 'gmt_offset' ) );
+				$data   = $_POST['yith_wcmbs_advanced_admin_edit'];
+				$fields = $this->get_fields();
 
-				// On-off
-				if ( ! isset( $advanced_edit['discount_enabled'] ) ) {
-					$advanced_edit['discount_enabled'] = 'no';
+				// On-off.
+				if ( ! isset( $data['discount_enabled'] ) ) {
+					$data['discount_enabled'] = 'no';
 				}
 
-				if ( is_array( $advanced_edit ) ) {
-					foreach ( $advanced_edit as $meta => $value ) {
+				if ( is_array( $data ) ) {
+					foreach ( $data as $meta => $value ) {
 
 						if ( isset( $fields[ $meta ] ) && empty( $fields[ $meta ]['yith-wcmbs-fake'] ) ) {
-							$is_timestamp = isset( $fields[ $meta ]['type'] ) && 'datepicker' === $fields[ $meta ]['type'];
+							$is_date_field         = isset( $fields[ $meta ]['type'] ) && 'datepicker' === $fields[ $meta ]['type'];
+							$is_end_date_unlimited = 'unlimited' === $value && 'end_date' === $meta;
 
-							if ( $is_timestamp ) {
-								$is_end_date_unlimited = 'unlimited' == $value && $meta == 'end_date';
+							if ( $is_date_field && ! $is_end_date_unlimited ) {
 
-								if ( ! $is_end_date_unlimited ) {
-									$value = strtotime( $value . 'midnight' );
-									$value -= ( $gmt_offset * HOUR_IN_SECONDS );
+								if ( 'credits_update' === $meta && ! $value && isset( $data['credits'] ) && intval( $data['credits'] ) > - 1 ) {
+									$value = yith_wcmbs_local_strtotime_midnight_to_utc();
+								} else {
+									$value = ! ! $value ? yith_wcmbs_local_strtotime_midnight_to_utc( $value ) : $value;
 								}
 							}
 
@@ -139,7 +142,7 @@ class YITH_WCMBS_Advanced_Administration {
 					$value = ! $membership->is_unlimited() ? 'yes' : 'no';
 					break;
 				case 'end_date':
-					$value = ! $membership->is_unlimited() && $membership->end_date ? date( 'Y-m-d', absint( $membership->end_date ) ) : $membership->end_date;
+					$value = ! $membership->is_unlimited() && $membership->end_date ? yith_wcmbs_date( absint( $membership->end_date ), 'Y-m-d' ) : $membership->end_date;
 					$value = ! ! $value ? $value : '';
 					break;
 				case 'has_credits':
@@ -156,7 +159,7 @@ class YITH_WCMBS_Advanced_Administration {
 				default:
 					$value = $membership->$field_key;
 					if ( 'datepicker' === $field['type'] ) {
-						$value = ! ! $value ? date( 'Y-m-d', absint( $value ) ) : '';
+						$value = ! ! $value ? yith_wcmbs_date( absint( $value ), 'Y-m-d' ) : '';
 					}
 					break;
 			}

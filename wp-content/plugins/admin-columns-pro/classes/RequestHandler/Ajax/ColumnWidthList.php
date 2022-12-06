@@ -39,7 +39,7 @@ class ColumnWidthList implements RequestAjaxHandler {
 			wp_send_json_error();
 		}
 
-		foreach ( $this->user_storage->all( $id ) as $column_name => $width ) {
+		foreach ( $this->user_storage->get_all( $id ) as $column_name => $width ) {
 			$this->list_storage->save( $id, $column_name, $width );
 		}
 

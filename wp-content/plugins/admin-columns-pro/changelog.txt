@@ -1,5 +1,41 @@
 == Changelog ==
 
+= 6.0.1 =
+Release Date: December 5th, 2022
+
+* [Fixed] Fatal error on Product Variation when no setting were stored
+* [Fixed] Possible Fatal error for Media Library Assistant version < 3.05
+
+= 6.0 =
+Release Date: November 30th, 2022
+
+* [Breaking Changes] The minimum version required to run Admin Columns Pro is now PHP 7.2.
+* [Added] New Feature: Bulk Delete items on the list table
+* [Added] New Feature: Added option to set the primary column of the table
+* [Added] New Feature: Conditional Formatting
+* [Added] You can now change the order of the columns on the list table itself by dragging the column
+* [Fixed] License information did not always update
+* [Improved] Export now supports export of selected items
+* [Improved] Export UI improved: select which column you want to export and reorder column on the fly
+* [Improved] Smart Filtering for the Date Publish column now only filters dates for published posts
+* [Updated] Refactor: the `ACP\Editing\Service` interface has changed
+* [Added] New hook `acp/delete/reassign_user` allows you to reassign posts to another users when bulk deleting users
+* [Added] New hook `acp/delete/bulk/deleted_rows_per_iteration` allows you to set the number of rows that are deleted per batch
+* [Added] New hook `acp/column_order/active` allows you to globally show or hide the column order functionality
+* [ACF] It is now possible to add or remove options in bulk for Multiple Select fields
+* [ACF] It is now possible to set a custom separator for fields that display multiple values
+* [ACF] The Image field setting 'Uploaded to post' is now applied for Inline Editing
+* [ACF] The ACF date format is now correctly displayed in the column setting
+* [EventsCalendar] Sorting events on default columns did not work correctly
+* [JetEngine] Repeater field support
+* [MetaBox] New column support for the Relation Manager
+* [MetaBox] Editing on Table Storage did not work correctly when the related row did not yet exist in the table
+* [Pods] Date field display issue
+* [WooCommerce] Export for Customer columns fixed: Total sales, Order Number
+* [WooCommerce] It is now possible to select the order status for the user Total Sales column
+* [WooCommerce] Added Editing for Order columns: Payment Method, Customer
+* [WooCommerce] WooCommerce Sale column did not show correct schedule date
+
 = 5.7.4 =
 Release Date: September 13th, 2022
 

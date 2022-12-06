@@ -21,8 +21,8 @@ class Model extends AbstractModel {
 	 */
 	protected $orderby;
 
-	public function __construct( Column $column, DataType $data_type = null, $show_empty = null ) {
-		parent::__construct( $data_type, $show_empty );
+	public function __construct( Column $column, DataType $data_type = null ) {
+		parent::__construct( $data_type );
 
 		$this->column = $column;
 	}
@@ -47,7 +47,7 @@ class Model extends AbstractModel {
 		}
 
 		return [
-			'ids' => ( new Sorter() )->sort( $this->get_raw_values(), $this->get_order(), $this->data_type, $this->show_empty ),
+			'ids' => ( new Sorter() )->sort( $this->get_raw_values(), $this->data_type ),
 		];
 	}
 

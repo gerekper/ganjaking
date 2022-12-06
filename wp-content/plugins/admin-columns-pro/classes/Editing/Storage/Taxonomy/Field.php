@@ -10,25 +10,25 @@ class Field implements Storage {
 	/**
 	 * @var string
 	 */
-	private $field;
+	protected $taxonomy;
 
 	/**
 	 * @var string
 	 */
-	private $taxonomy;
+	protected $field;
 
 	public function __construct( $taxonomy, $field ) {
-		$this->taxonomy = $taxonomy;
+		$this->taxonomy = (string) $taxonomy;
 		$this->field = (string) $field;
 	}
 
-	public function get( $id ) {
+	public function get( int $id ) {
 		return ac_helper()->taxonomy->get_term_field( $this->field, $id, $this->taxonomy );
 	}
 
-	public function update( $id, $value ) {
+	public function update( int $id, $data ): bool {
 		$result = wp_update_term( $id, $this->taxonomy, [
-			$this->field => $value,
+			$this->field => $data,
 		] );
 
 		if ( is_wp_error( $result ) ) {

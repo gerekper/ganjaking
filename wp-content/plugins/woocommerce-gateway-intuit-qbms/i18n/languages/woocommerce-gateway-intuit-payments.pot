@@ -1,15 +1,15 @@
-# Copyright (C) 2021 SkyVerge
+# Copyright (C) 2022 SkyVerge
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Intuit Payments Gateway 3.0.0\n"
+"Project-Id-Version: WooCommerce Intuit Payments Gateway 3.1.0\n"
 "Report-Msgid-Bugs-To: "
 "https://woocommerce.com/my-account/marketplace-ticket-form/\n"
-"POT-Creation-Date: 2021-03-01 22:22:41+00:00\n"
+"POT-Creation-Date: 2022-12-06 11:18:31+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -49,122 +49,122 @@ msgstr ""
 msgid "Configure"
 msgstr ""
 
-#: includes/abstract-wc-gateway-intuit-payments.php:84
+#: src/abstract-wc-gateway-intuit-payments.php:84
 msgid ""
 "Intuit Payments Gateway provides a seamless and secure checkout process for "
 "your customers"
 msgstr ""
 
-#: includes/abstract-wc-gateway-intuit-payments.php:87
+#: src/abstract-wc-gateway-intuit-payments.php:87
 msgid "Production"
 msgstr ""
 
-#: includes/abstract-wc-gateway-intuit-payments.php:88
+#: src/abstract-wc-gateway-intuit-payments.php:88
 msgid "Sandbox"
 msgstr ""
 
-#: includes/abstract-wc-gateway-intuit-payments.php:191
-#: includes/abstract-wc-gateway-intuit-payments.php:207
-#: includes/admin/Setup_Wizard.php:400
+#: src/abstract-wc-gateway-intuit-payments.php:191
+#: src/abstract-wc-gateway-intuit-payments.php:207
+#: src/admin/Setup_Wizard.php:400
 msgid "Client ID"
 msgstr ""
 
-#: includes/abstract-wc-gateway-intuit-payments.php:194
-#: includes/abstract-wc-gateway-intuit-payments.php:210
+#: src/abstract-wc-gateway-intuit-payments.php:194
+#: src/abstract-wc-gateway-intuit-payments.php:210
 msgid "Your Intuit Developer app client ID."
 msgstr ""
 
-#: includes/abstract-wc-gateway-intuit-payments.php:199
-#: includes/abstract-wc-gateway-intuit-payments.php:215
-#: includes/admin/Setup_Wizard.php:417
+#: src/abstract-wc-gateway-intuit-payments.php:199
+#: src/abstract-wc-gateway-intuit-payments.php:215
+#: src/admin/Setup_Wizard.php:417
 msgid "Client Secret"
 msgstr ""
 
-#: includes/abstract-wc-gateway-intuit-payments.php:202
-#: includes/abstract-wc-gateway-intuit-payments.php:218
+#: src/abstract-wc-gateway-intuit-payments.php:202
+#: src/abstract-wc-gateway-intuit-payments.php:218
 msgid "Your Intuit Developer app client secret."
 msgstr ""
 
-#: includes/abstract-wc-gateway-intuit-payments.php:223
+#: src/abstract-wc-gateway-intuit-payments.php:223
 msgid "Payments Account"
 msgstr ""
 
-#: includes/abstract-wc-gateway-intuit-payments.php:267
+#: src/abstract-wc-gateway-intuit-payments.php:267
 msgid "Are you sure you wish to disconnect from your QuickBooks account?"
 msgstr ""
 
-#: includes/abstract-wc-gateway-intuit-payments.php:310
+#: src/abstract-wc-gateway-intuit-payments.php:310
 msgid "Connect with Quickbooks"
 msgstr ""
 
-#: includes/abstract-wc-gateway-intuit-payments.php:311
+#: src/abstract-wc-gateway-intuit-payments.php:311
 msgid "Please save your credentials before connecting with QuickBooks."
 msgstr ""
 
-#: includes/abstract-wc-gateway-intuit-payments.php:316
+#: src/abstract-wc-gateway-intuit-payments.php:316
 msgid "Disconnect from QuickBooks"
 msgstr ""
 
-#: includes/abstract-wc-gateway-intuit-payments.php:320
+#: src/abstract-wc-gateway-intuit-payments.php:320
 msgid "Connect with QuickBooks"
 msgstr ""
 
-#: includes/abstract-wc-gateway-intuit-payments.php:325
+#: src/abstract-wc-gateway-intuit-payments.php:325
 msgid "Please make sure your app's Redirect URI is configured exactly as:%s"
 msgstr ""
 
-#: includes/abstract-wc-gateway-intuit-payments.php:405
+#: src/abstract-wc-gateway-intuit-payments.php:405
 msgid "Error Test Case"
 msgstr ""
 
-#: includes/abstract-wc-gateway-intuit-payments.php:409
+#: src/abstract-wc-gateway-intuit-payments.php:409
 msgid "None"
 msgstr ""
 
-#: includes/abstract-wc-gateway-intuit-payments.php:501
+#: src/abstract-wc-gateway-intuit-payments.php:501
 msgid "Provided last four is invalid."
 msgstr ""
 
-#: includes/abstract-wc-gateway-intuit-payments.php:508
+#: src/abstract-wc-gateway-intuit-payments.php:508
 msgid "Provided token is invalid."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:94
+#: src/admin/Setup_Wizard.php:94
 msgid "Welcome"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:100
+#: src/admin/Setup_Wizard.php:100
 msgid "Let's Go!"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:104
+#: src/admin/Setup_Wizard.php:104
 msgid "Create app"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:111
+#: src/admin/Setup_Wizard.php:111
 msgid "App details"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:118
+#: src/admin/Setup_Wizard.php:118
 msgid "Connect"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:125 includes/admin/Setup_Wizard.php:382
+#: src/admin/Setup_Wizard.php:125 src/admin/Setup_Wizard.php:382
 msgid "Connect to QuickBooks"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:188
+#: src/admin/Setup_Wizard.php:188
 msgid "Welcome to WooCommerce Intuit Payments!"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:201
+#: src/admin/Setup_Wizard.php:201
 msgid ""
 "Let's create your Intuit app and connect it to the plugin so you can "
 "process credit card payments on your store. Please keep this wizard open in "
 "one tab for reference while working through the following steps."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:214
+#: src/admin/Setup_Wizard.php:214
 #. translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s - closing
 #. </strong> HTML tag, %3$s - opening <a> HTML tag, %4$s - closing </a> HTML
 #. tag, %5$s - opening <a> HTML tag, %6$s - closing </a> HTML tag
@@ -173,21 +173,21 @@ msgid ""
 "%5$sIntuit Payments%6$s enabled to complete setup."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:223
+#: src/admin/Setup_Wizard.php:223
 msgid ""
 "Not ready to setup yet? You can access the setup wizard later from the "
 "plugin settings."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:234
+#: src/admin/Setup_Wizard.php:234
 msgid "Create the app"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:236
+#: src/admin/Setup_Wizard.php:236
 msgid "First, let's create the app:"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:242
+#: src/admin/Setup_Wizard.php:242
 #. translators: Placeholders: %1$s - opening <a> HTML tag, %2$s - closing </a>
 #. HTML tag
 msgid ""
@@ -195,13 +195,13 @@ msgid ""
 "Online credentials."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:249
+#: src/admin/Setup_Wizard.php:249
 #. translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s - closing
 #. </strong> HTML tag
 msgid "Click %1$sMy Apps > Create an app > QuickBooks Online and Payments%2$s."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:256
+#: src/admin/Setup_Wizard.php:256
 #. translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s - closing
 #. </strong> HTML tag
 msgid ""
@@ -209,23 +209,23 @@ msgid ""
 "app%2$s."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:283
+#: src/admin/Setup_Wizard.php:283
 msgid "Update app details"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:289
+#: src/admin/Setup_Wizard.php:289
 #. translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s - closing
 #. </strong> HTML tag
 msgid "Go to the %1$sProduction tab%2$s."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:298
+#: src/admin/Setup_Wizard.php:298
 #. translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s - closing
 #. </strong> HTML tag
 msgid "Update the %1$sTerms of Service Links%2$s section."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:307
+#: src/admin/Setup_Wizard.php:307
 #. translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s - closing
 #. </strong> HTML tag, %3$s - opening <a> HTML tag, %4$s - closing </a> HTML
 #. tag
@@ -234,7 +234,7 @@ msgid ""
 "%3$sWooCommerce Settings%4$s."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:316
+#: src/admin/Setup_Wizard.php:316
 #. translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s - closing
 #. </strong> HTML tag
 msgid ""
@@ -242,37 +242,37 @@ msgid ""
 "fields."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:323 includes/admin/Setup_Wizard.php:363
+#: src/admin/Setup_Wizard.php:323 src/admin/Setup_Wizard.php:363
 #. translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s - closing
 #. </strong> HTML tag
 msgid "Click %1$sSave%2$s."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:333
+#: src/admin/Setup_Wizard.php:333
 #. translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s - closing
 #. </strong> HTML tag
 msgid "Go to the %1$sKeys & OAuth%2$s tab."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:342
+#: src/admin/Setup_Wizard.php:342
 #. translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s - closing
 #. </strong> HTML tag
 msgid "Update the %1$sRedirect URIs%2$s field with the following URL:"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:353
+#: src/admin/Setup_Wizard.php:353
 #. translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s - closing
 #. </strong> HTML tag
 msgid "Update the %1$sApp URLs%2$s fields."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:359
+#: src/admin/Setup_Wizard.php:359
 msgid ""
 "You can use your homepage or shop domain &ndash; these fields don't require "
 "a special URL."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:390
+#: src/admin/Setup_Wizard.php:390
 #. translators: Placeholders: %1$s - opening <strong> HTML tag, %2$s - closing
 #. </strong> HTML tag
 msgid ""
@@ -280,23 +280,23 @@ msgid ""
 "Secret%2$s in the fields below:"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:411 includes/admin/Setup_Wizard.php:425
+#: src/admin/Setup_Wizard.php:411 src/admin/Setup_Wizard.php:425
 msgid "Please fill out this field."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:412
+#: src/admin/Setup_Wizard.php:412
 msgid ""
 "The Client ID appears to be invalid. Please make sure the value is at least "
 "ten characters long and includes alphanumeric characters only."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:426
+#: src/admin/Setup_Wizard.php:426
 msgid ""
 "The Client Secret appears to be invalid. Please make sure the value is at "
 "least ten characters long and includes alphanumeric characters only."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:434
+#: src/admin/Setup_Wizard.php:434
 #. translators: Placeholders: %1$s - opening <a> HTML tag, %2$s - closing </a>
 #. HTML tag
 msgid ""
@@ -304,7 +304,7 @@ msgid ""
 "%1$stry again%2$s:"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:443
+#: src/admin/Setup_Wizard.php:443
 #. translators: Placeholders: %1$s - <span></span> opening and closing HTML
 #. tags, %2$s - opening <a> HTML tag, %3$s - closing </a> HTML tag
 msgid ""
@@ -312,152 +312,152 @@ msgid ""
 "settings, then %2$stry again%3$s:"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:454
+#: src/admin/Setup_Wizard.php:454
 #. translators: Placeholders: %1$s - opening <a> HTML tag, %2$s - closing </a>
 #. HTML tag
 msgid "%1$sConfirm that the Intuit app was set up correctly%2$s."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:461
+#: src/admin/Setup_Wizard.php:461
 #. translators: Placeholders: %1$s - opening <a> HTML tag, %2$s - closing </a>
 #. HTML tag
 msgid "%1$sDouble-check the Redirect URI in the Intuit app%2$s."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:468
+#: src/admin/Setup_Wizard.php:468
 #. translators: Placeholders: %1$s - opening <a> HTML tag, %2$s - closing </a>
 #. HTML tag
 msgid "%1$sDouble-check the Client ID and Client Secret fields%2$s."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:477
+#: src/admin/Setup_Wizard.php:477
 #. translators: Placeholders: %1$s - opening <a> HTML tag, %2$s - closing </a>
 #. HTML tag
 msgid "Still not connecting correctly? Please %1$scontact support%2$s."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:510
+#: src/admin/Setup_Wizard.php:510
 msgid "Finished!"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:519
+#: src/admin/Setup_Wizard.php:519
 msgid "That's it! You're ready to enable the plugin and accept payments."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:530
+#: src/admin/Setup_Wizard.php:530
 msgid "Enable Intuit Payments"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:531
+#: src/admin/Setup_Wizard.php:531
 msgid ""
 "Enable the gateway to start accepting payments now or update other plugin "
 "settings."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:532
+#: src/admin/Setup_Wizard.php:532
 msgid "Go to Settings"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:536
+#: src/admin/Setup_Wizard.php:536
 msgid "Intuit Payments documentation"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:537
+#: src/admin/Setup_Wizard.php:537
 msgid "Read about the gateway features and settings."
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:538
+#: src/admin/Setup_Wizard.php:538
 msgid "Visit docs"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:543
+#: src/admin/Setup_Wizard.php:543
 msgid "Get support"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:544
+#: src/admin/Setup_Wizard.php:544
 msgid "Need help? Get in touch with our support team!"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:545
+#: src/admin/Setup_Wizard.php:545
 msgid "Contact support"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:581
+#: src/admin/Setup_Wizard.php:581
 msgid "Continue"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:618
+#: src/admin/Setup_Wizard.php:618
 msgid "Want to keep learning?"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:620
+#: src/admin/Setup_Wizard.php:620
 msgid ""
 "Check out our monthly newsletter where we share updates, tutorials, and "
 "sneak peeks for new development!"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:625
+#: src/admin/Setup_Wizard.php:625
 msgid ""
 "Thanks for signing up! Keep an eye on your inbox for product updates and "
 "helpful tips!"
 msgstr ""
 
-#: includes/api/responses/class-wc-intuit-payments-api-oauth-response.php:90
+#: src/api/responses/class-wc-intuit-payments-api-oauth-response.php:90
 msgid "Invalid Consumer Key"
 msgstr ""
 
-#: includes/api/responses/class-wc-intuit-payments-api-oauth-response.php:94
-#: includes/api/responses/class-wc-intuit-payments-api-oauth2-response.php:109
+#: src/api/responses/class-wc-intuit-payments-api-oauth-response.php:94
+#: src/api/responses/class-wc-intuit-payments-api-oauth2-response.php:109
 msgid "Authentication error. Please try again."
 msgstr ""
 
-#: includes/class-wc-gateway-intuit-payments-credit-card.php:47
+#: src/class-wc-gateway-intuit-payments-credit-card.php:47
 msgid "Intuit Payments Credit Card"
 msgstr ""
 
-#: includes/class-wc-gateway-intuit-payments-credit-card.php:80
+#: src/class-wc-gateway-intuit-payments-credit-card.php:80
 #. translators: Placeholders: %1$s - opening <a> HTML tag, %2$s - closing </a>
 #. HTML tag
 msgid "Click %1$shere%2$s to launch the Intuit Payments setup wizard."
 msgstr ""
 
-#: includes/class-wc-gateway-intuit-payments-credit-card.php:120
+#: src/class-wc-gateway-intuit-payments-credit-card.php:120
 msgid "Payment system error"
 msgstr ""
 
-#: includes/class-wc-gateway-intuit-payments-credit-card.php:121
+#: src/class-wc-gateway-intuit-payments-credit-card.php:121
 msgid "Card number is invalid"
 msgstr ""
 
-#: includes/class-wc-gateway-intuit-payments-credit-card.php:122
+#: src/class-wc-gateway-intuit-payments-credit-card.php:122
 msgid "General decline"
 msgstr ""
 
-#: includes/class-wc-gateway-intuit-payments-credit-card.php:185
+#: src/class-wc-gateway-intuit-payments-credit-card.php:185
 msgid "Provided card type is invalid."
 msgstr ""
 
-#: includes/class-wc-gateway-intuit-payments-echeck.php:47
+#: src/class-wc-gateway-intuit-payments-echeck.php:47
 msgid "Intuit Payments eCheck"
 msgstr ""
 
-#: includes/class-wc-gateway-intuit-payments-echeck.php:68
+#: src/class-wc-gateway-intuit-payments-echeck.php:68
 msgid "Pending"
 msgstr ""
 
-#: includes/class-wc-gateway-intuit-payments-echeck.php:69
+#: src/class-wc-gateway-intuit-payments-echeck.php:69
 msgid "Declined"
 msgstr ""
 
-#: includes/class-wc-gateway-intuit-payments-echeck.php:70
+#: src/class-wc-gateway-intuit-payments-echeck.php:70
 msgid "Succeeded"
 msgstr ""
 
-#: includes/class-wc-intuit-payments-ajax.php:143
+#: src/class-wc-intuit-payments-ajax.php:143
 msgid "Payment gateway not found."
 msgstr ""
 
-#: includes/class-wc-intuit-payments-ajax.php:146
+#: src/class-wc-intuit-payments-ajax.php:146
 msgid "No valid credentials were provided."
 msgstr ""
 
@@ -477,7 +477,7 @@ msgstr ""
 msgid "https://woocommerce.com/"
 msgstr ""
 
-#: includes/admin/Setup_Wizard.php:626
+#: src/admin/Setup_Wizard.php:626
 msgctxt "Newsletter sign up"
 msgid "Sign up"
 msgstr ""

@@ -3,6 +3,7 @@
 namespace ACP\Sorting\Model\Post\RelatedMeta;
 
 use ACP\Sorting\AbstractModel;
+use ACP\Sorting\Model\SqlOrderByFactory;
 
 class PostField extends AbstractModel {
 
@@ -16,7 +17,7 @@ class PostField extends AbstractModel {
 	 */
 	private $meta_key;
 
-	public function __construct( $post_field, $meta_key ) {
+	public function __construct( string $post_field, string $meta_key ) {
 		parent::__construct();
 
 		$this->post_field = $post_field;
@@ -32,30 +33,18 @@ class PostField extends AbstractModel {
 	}
 
 	public function sorting_clauses_callback( $clauses ) {
+		remove_filter( 'posts_clauses', [ $this, __FUNCTION__ ] );
+
 		global $wpdb;
 
-		$order = esc_sql( $this->get_order() );
-
-		$join_type = $this->show_empty
-			? 'LEFT'
-			: 'INNER';
-
-		$clauses['fields'] .= sprintf( ", acsort_posts.%s AS acsort_field", esc_sql( $this->post_field ) );
-
 		$clauses['join'] .= $wpdb->prepare( "
-			{$join_type} JOIN $wpdb->postmeta AS acsort_postmeta ON $wpdb->posts.ID = acsort_postmeta.post_id
+			LEFT JOIN $wpdb->postmeta AS acsort_postmeta ON $wpdb->posts.ID = acsort_postmeta.post_id
 				AND acsort_postmeta.meta_key = %s 
 			", $this->meta_key );
 
-		if ( ! $this->show_empty ) {
-			$clauses['join'] .= " AND acsort_postmeta.meta_value !=''";
-		}
-
-		$clauses['join'] .= " {$join_type} JOIN $wpdb->posts AS acsort_posts ON acsort_posts.ID = acsort_postmeta.meta_value";
-		$clauses['orderby'] = "acsort_field $order, $wpdb->posts.ID $order";
-		$clauses['groupby'] = "{$wpdb->posts}.ID";
-
-		remove_filter( 'posts_clauses', [ $this, __FUNCTION__ ] );
+		$clauses['join'] .= "\nLEFT JOIN $wpdb->posts AS acsort_posts ON acsort_posts.ID = acsort_postmeta.meta_value";
+		$clauses['groupby'] = "$wpdb->posts.ID";
+		$clauses['orderby'] = SqlOrderByFactory::create( sprintf( "acsort_posts.%s", esc_sql( $this->post_field ) ), $this->get_order() );
 
 		return $clauses;
 	}

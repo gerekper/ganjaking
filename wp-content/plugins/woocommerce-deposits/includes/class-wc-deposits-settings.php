@@ -1,4 +1,10 @@
 <?php
+/**
+ * Deposits scheduled order manager
+ *
+ * @package woocommerce-deposits
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -8,17 +14,28 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_Deposits_Settings {
 
-	/** @var Settings Tab ID */
+	/**
+	 * Tab ID
+	 *
+	 * @var string
+	 */
 	private $settings_tab_id = 'deposits';
 
-	/** @var object Class Instance */
+	/**
+	 * Class instance
+	 *
+	 * @var WC_Deposits_Settings
+	 */
 	private static $instance;
 
 	/**
 	 * Get the class instance.
 	 */
 	public static function get_instance() {
-		return null === self::$instance ? ( self::$instance = new self ) : self::$instance;
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
 	}
 
 	/**
@@ -43,6 +60,9 @@ class WC_Deposits_Settings {
 
 	/**
 	 * Add settings tab to woocommerce.
+	 *
+	 * @param array $settings_tabs Settings tabs.
+	 * @return array
 	 */
 	public function add_woocommerce_settings_tab( $settings_tabs ) {
 		$settings_tabs[ $this->settings_tab_id ] = __( 'Deposits', 'woocommerce-deposits' );
@@ -52,7 +72,9 @@ class WC_Deposits_Settings {
 	/**
 	 * Returns settings array.
 	 *
-	 * @return array settings
+	 * @param array  $settings Settings.
+	 * @param string $current_section Section.
+	 * @return array
 	 */
 	public function get_settings( $settings, $current_section ) {
 		if ( 'deposits' !== $current_section ) {
@@ -70,7 +92,8 @@ class WC_Deposits_Settings {
 
 		$plans = WC_Deposits_Plans_Manager::get_plan_ids();
 
-		return apply_filters( 'woocommerce_deposits_get_settings',
+		return apply_filters(
+			'woocommerce_deposits_get_settings',
 			array(
 				array(
 					'name' => __( 'Storewide Deposits Configuration', 'woocommerce-deposits' ),
@@ -94,13 +117,13 @@ class WC_Deposits_Settings {
 				),
 
 				array(
-					'name' => esc_html__( 'Default Deposit Type', 'woocommerce-deposits' ),
-					'type'        => 'select',
-					'desc'        => esc_html__( 'The default way for customers to pay for this product using a deposit.', 'woocommerce-deposits' ),
-					'default'     => 'percent',
-					'desc_tip'    => true,
-					'id'          => 'wc_deposits_default_type',
-					'options'     => array(
+					'name'     => esc_html__( 'Default Deposit Type', 'woocommerce-deposits' ),
+					'type'     => 'select',
+					'desc'     => esc_html__( 'The default way for customers to pay for this product using a deposit.', 'woocommerce-deposits' ),
+					'default'  => 'percent',
+					'desc_tip' => true,
+					'id'       => 'wc_deposits_default_type',
+					'options'  => array(
 						'none'    => esc_html__( 'None', 'woocommerce-deposits' ),
 						'percent' => esc_html__( 'Percentage', 'woocommerce-deposits' ),
 						'fixed'   => esc_html__( 'Fixed Amount', 'woocommerce-deposits' ),
@@ -109,7 +132,7 @@ class WC_Deposits_Settings {
 				),
 
 				array(
-					'name' => __( 'Default Deposit Amount', 'woocommerce-deposits' ),
+					'name'        => __( 'Default Deposit Amount', 'woocommerce-deposits' ),
 					'type'        => 'text',
 					'desc'        => __( 'The default deposit amount.', 'woocommerce-deposits' ),
 					'default'     => '',
@@ -119,42 +142,55 @@ class WC_Deposits_Settings {
 				),
 
 				array(
-					'name' => esc_html__( 'Default Deposit Selected Type', 'woocommerce-deposits' ),
-					'type'        => 'select',
-					'desc'        => esc_html__( 'The default selected way for customers to pay for this product using a deposit.', 'woocommerce-deposits' ),
-					'default'     => 'deposit',
-					'desc_tip'    => true,
-					'id'          => 'wc_deposits_default_selected_type',
-					'options'     => array(
+					'name'     => esc_html__( 'Default Deposit Selected Type', 'woocommerce-deposits' ),
+					'type'     => 'select',
+					'desc'     => esc_html__( 'The default selected way for customers to pay for this product using a deposit.', 'woocommerce-deposits' ),
+					'default'  => 'deposit',
+					'desc_tip' => true,
+					'id'       => 'wc_deposits_default_selected_type',
+					'options'  => array(
 						'deposit' => esc_html__( 'Pay Deposit', 'woocommerce-deposits' ),
 						'full'    => esc_html__( 'Pay in Full', 'woocommerce-deposits' ),
 					),
 				),
 
 				array(
-					'name'        => esc_html__( 'Default Payment Plan', 'woocommerce-deposits' ),
-					'type'        => 'multiselect',
-					'class'       => 'wc-enhanced-select',
-					'css'         => 'width: 450px;',
-					'desc'        => esc_html__( 'The default payment plans to use.', 'woocommerce-deposits' ),
-					'default'     => array(),
-					'id'          => 'wc_deposits_default_plans',
-					'desc_tip'    => true,
-					'options'     => $plans,
-				),
-
-				array(
-					'name'     => __( 'Disable Payment Gateways', 'woocommerce-deposits' ),
+					'name'     => esc_html__( 'Default Payment Plan', 'woocommerce-deposits' ),
 					'type'     => 'multiselect',
 					'class'    => 'wc-enhanced-select',
 					'css'      => 'width: 450px;',
-					'desc'     => __( 'Select payment gateways that should be disabled when accepting deposits.', 'woocommerce-deposits' ),
+					'desc'     => esc_html__( 'The default payment plans to use.', 'woocommerce-deposits' ),
+					'default'  => array(),
+					'id'       => 'wc_deposits_default_plans',
+					'desc_tip' => true,
+					'options'  => $plans,
+				),
+
+				array(
+					'name'     => esc_html__( 'Disable Payment Gateways', 'woocommerce-deposits' ),
+					'type'     => 'multiselect',
+					'class'    => 'wc-enhanced-select',
+					'css'      => 'width: 450px;',
+					'desc'     => esc_html__( 'Select payment gateways that should be disabled when accepting deposits.', 'woocommerce-deposits' ),
 					'default'  => '',
 					'id'       => 'wc_deposits_disabled_gateways',
 					'desc_tip' => true,
 					'options'  => $payment_gateway_options,
 				),
-				array( 'type' => 'sectionend', 'id' => 'deposits_defaults' ),
+
+				array(
+					'title'    => esc_html__( 'Order again behavior', 'woocommerce-deposits' ),
+					'desc'     => esc_html__( 'Use original order\'s deposit settings on a reorder.', 'woocommerce-deposits' ),
+					'desc_tip' => esc_html__( 'With this enabled, if a customer places a reorder, the same deposit settings as the original order will automatically be applied.', 'woocommerce-deposits' ),
+					'id'       => 'wc_deposits_order_again_behaviour',
+					'default'  => 'no',
+					'type'     => 'checkbox',
+				),
+
+				array(
+					'type' => 'sectionend',
+					'id'   => 'deposits_defaults',
+				),
 			)
 		);
 	}

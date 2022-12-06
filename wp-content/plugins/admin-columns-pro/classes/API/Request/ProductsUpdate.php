@@ -7,9 +7,6 @@ use ACP\Plugins;
 use ACP\Type\ActivationToken;
 use ACP\Type\SiteUrl;
 
-/**
- * Used for the WordPress plugin updater
- */
 class ProductsUpdate extends Request {
 
 	public function __construct( SiteUrl $site_url, ActivationToken $activation_token = null ) {

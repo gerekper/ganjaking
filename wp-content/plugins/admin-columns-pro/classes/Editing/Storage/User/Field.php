@@ -21,13 +21,13 @@ class Field implements Storage {
 		$this->field = (string) $field;
 	}
 
-	public function get( $id ) {
+	public function get( int $id ) {
 		return ac_helper()->user->get_user_field( $this->field, $id );
 	}
 
-	public function update( $id, $value ) {
+	public function update( int $id, $data ): bool {
 		$args = [
-			$this->field => $value,
+			$this->field => $data,
 			'ID'         => $id,
 		];
 

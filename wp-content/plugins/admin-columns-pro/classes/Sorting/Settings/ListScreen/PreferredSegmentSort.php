@@ -1,6 +1,6 @@
 <?php
 
-namespace ACP\Sorting\Settings\Listscreen;
+namespace ACP\Sorting\Settings\ListScreen;
 
 use ACP\Bookmark\Setting\PreferredSegment;
 use ACP\Sorting\Request;

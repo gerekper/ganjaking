@@ -5,6 +5,7 @@ namespace ACP\Asset\Script;
 use AC\Asset\Location;
 use AC\Asset\Script;
 use AC\Nonce\Ajax;
+use AC\Translation;
 use Plugin_Upgrader;
 
 class LicenseManager extends Script {
@@ -20,13 +21,13 @@ class LicenseManager extends Script {
 			'_ajax_nonce' => ( new Ajax() )->create(),
 		] );
 
-		wp_localize_script( $this->handle, 'ACP_LICENSE_I18N', [
+		wp_localize_script( $this->handle, 'ACP_LICENSE_I18N', array_merge( [
 			'license_removal'             => __( 'Are you sure you want deactivate Admin Columns Pro?', 'codepress-admin-columns' ),
 			'license_removal_explanation' => __( 'You need to fill in your license key again if you want to reactivate.', 'codepress-admin-columns' ),
 			'plugin_update_success'       => $this->get_plugin_update_success_string(),
 			'updating_plugin'             => __( 'Updating plugin', 'codepress-admin-columns' ),
 			'plugin_up_to_date'           => __( 'This plugin is up to date', 'codepress-admin-columns' ),
-		] );
+		], Translation\Confirmation::get() ) );
 	}
 
 	private function get_plugin_update_success_string() {
@@ -35,9 +36,7 @@ class LicenseManager extends Script {
 		$upgrader = new Plugin_Upgrader();
 		$upgrader->upgrade_strings();
 
-		return isset( $upgrader->strings['process_success'] )
-			? $upgrader->strings['process_success']
-			: null;
+		return $upgrader->strings['process_success'] ?? null;
 	}
 
 }

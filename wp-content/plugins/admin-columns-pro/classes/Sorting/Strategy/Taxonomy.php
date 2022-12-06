@@ -5,6 +5,7 @@ namespace ACP\Sorting\Strategy;
 use ACP;
 use ACP\Sorting\AbstractModel;
 use ACP\Sorting\Strategy;
+use ACP\TermQueryInformation;
 use WP_Term_Query;
 
 class Taxonomy extends Strategy {
@@ -75,7 +76,7 @@ class Taxonomy extends Strategy {
 	 * return boolean
 	 */
 	private function is_main_query() {
-		$term_query = new ACP\TermQueryInformation();
+		$term_query = new TermQueryInformation();
 
 		if ( ! $this->get_query_var( 'orderby' ) || ! $term_query->is_main_query( $this->term_query ) ) {
 			return false;

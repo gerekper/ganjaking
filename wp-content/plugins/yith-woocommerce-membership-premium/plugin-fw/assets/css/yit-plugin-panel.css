@@ -1188,11 +1188,6 @@ button#yith-plugin-fw-float-save-button.visible {
     display : flex;
 }
 
-button#yith-plugin-fw-float-save-button i {
-    font-size    : 15px;
-    margin-right : 8px;
-}
-
 button#yith-plugin-fw-float-save-button:hover {
     box-shadow : 0px 1px 6px 3px rgba(0, 121, 159, .3);
 }
@@ -1208,12 +1203,6 @@ button#yith-plugin-fw-float-save-button.green {
     right : auto;
     left  : 70px;
 }
-
-.rtl button#yith-plugin-fw-float-save-button i {
-    margin-left  : 8px;
-    margin-right : 0;
-}
-
 
 /* === Responsive === */
 

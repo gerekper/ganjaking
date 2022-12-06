@@ -1,6 +1,6 @@
 <?php
 /**
- * WooCommerce Nested Category Layout
+ * WooCommerce Nested Category Layout.
  *
  * This source file is subject to the GNU General Public License v3.0
  * that is bundled with this package in the file license.txt.
@@ -23,7 +23,7 @@
 
 namespace SkyVerge\WooCommerce\Nested_Category_Layout\Walker;
 
-defined( 'ABSPATH' ) or exit;
+defined('ABSPATH') or exit;
 
 /**
  * Category walker for products.
@@ -39,110 +39,190 @@ defined( 'ABSPATH' ) or exit;
  *
  * @since 1.14.2
  */
-class Category_Products extends \Walker {
+class Category_Products extends \Walker
+{
+    /** @var string Taxonomy being handled. */
+    public $tree_type = 'product_cat';
 
+    /** @var array DB fields used. */
+    public $db_fields = ['parent' => 'parent', 'id' => 'term_id'];
 
-	/** @var string Taxonomy being handled. */
-	public $tree_type = 'product_cat';
+    /** @var array Associative array of category id's to category depth. */
+    protected $category_depths;
 
-	/** @var array DB fields used. */
-	public $db_fields = [ 'parent' => 'parent', 'id' => 'term_id' ];
+    /** @var array Associative array of product id's to an array of deepest parent category ID's. */
+    protected $product_category_ids = [];
 
-	/** @var array Associative array of category id's to category depth. */
-	protected $category_depths;
+    /** @var bool Flag to know whether the class has been initialized already. */
+    private $initialized = false;
 
+    /**
+     * Constructor.
+     *
+     * @since 1.14.2
+     *
+     * @param array $category_depths
+     */
+    public function __construct($category_depths)
+    {
+        $this->category_depths = $category_depths;
+    }
 
-	/**
-	 * Constructor.
-	 *
-	 * @since 1.14.2
-	 *
-	 * @param array $category_depths
-	 */
-	public function __construct( $category_depths ) {
+    /**
+     * Called after a category has been rendered.
+     *
+     * @see \Walker::end_el()
+     *
+     * @since 1.14.2
+     *
+     * @param string|array $output Passed by reference. Used to append additional content.
+     * @param \WP_Term $category The category.
+     * @param int $depth Level depth of the category.
+     * @param array $args Additional args.
+     */
+    public function end_el(&$output, $category, $depth = 0, $args = [])
+    {
+        if (is_array($output)) {
+            array_pop($output);
+        }
 
-		$this->category_depths = $category_depths;
-	}
+        if (empty($output)) {
+            $output = '';
+        }
+    }
 
+    /**
+     * Starts the list before the elements are added.
+     *
+     * The 'proper' way to use this callback is to update the $output memo with
+     * the output to be displayed. Since we're not interested in making a hierarchical
+     * list, instead we're doing a much simpler "flat" list, and it's more convenient
+     * to echo all output.
+     *
+     * @see \Walker::start_el()
+     *
+     * @since 1.14.2
+     *
+     * @param array $output Passed by reference. Used to remember categories that might need their title displayed.
+     * @param \WP_Term $category Category data object.
+     * @param int $depth Depth of category. Used for padding.
+     * @param array $args Uses 'selected', 'show_count', and 'show_last_update' keys, if they exist.
+     * @param int $current_object_id Current object ID.
+     */
+    public function start_el(&$output, $category, $depth = 0, $args = [], $current_object_id = 0)
+    {
+        global $woocommerce_loop;
 
-	/**
-	 * Called after a category has been rendered.
-	 *
-	 * @see \Walker::end_el()
-	 *
-	 * @since 1.14.2
-	 *
-	 * @param string|array $output Passed by reference. Used to append additional content.
-	 * @param \WP_Term $category The category.
-	 * @param int $depth Level depth of the category.
-	 * @param array $args Additional args.
-	 */
-	public function end_el( &$output, $category, $depth = 0, $args = [] ) {
+        if (! $this->initialized) {
+            // first category, so setup and initialize things
+            $this->initialized = true;
 
-		if ( is_array( $output ) ) {
-			array_pop( $output );
-		}
+            $this->set_product_category_ids($args);
+        }
 
-		if ( empty( $output ) ) {
-			$output = '';
-		}
-	}
+        if (! is_array($output)) {
+            $output = [];
+        }
 
+        // determine whether the current sub-categories contains any products
+        $has_products = apply_filters('wc_nested_category_layout_has_products', false, $this);
 
-	/**
-	 * Starts the list before the elements are added.
-	 *
-	 * The 'proper' way to use this callback is to update the $output memo with
-	 * the output to be displayed. Since we're not interested in making a hierarchical
-	 * list, instead we're doing a much simpler "flat" list, and it's more convenient
-	 * to echo all output.
-	 *
-	 * @see \Walker::start_el()
-	 *
-	 * @since 1.14.2
-	 *
-	 * @param array $output Passed by reference. Used to remember categories that might need their title displayed.
-	 * @param \WP_Term $category Category data object.
-	 * @param int $depth Depth of category. Used for padding.
-	 * @param array $args Uses 'selected', 'show_count', and 'show_last_update' keys, if they exist.
-	 * @param int $current_object_id Current object ID.
-	 */
-	public function start_el( &$output, $category, $depth = 0, $args = [], $current_object_id = 0 ) {
+        if (! $has_products) {
+            $has_products = $category->count > 0;
+        }
 
-		global $woocommerce_loop;
+        // keep track of the current category in case a child category
+        //  has products and we need to display titles
+        $category->depth = $depth;
 
-		if ( ! is_array( $output ) ) {
-			$output = [];
-		}
+        $output[] = $category;
 
-		// determine whether the current sub-categories contains any products
-		$has_products = apply_filters( 'wc_nested_category_layout_has_products', false, $this );
+        if ($has_products) {
+            if (wc_nested_category_layout()->is_woo_product_filter_active() && ! wncl_recursive_array_search($category->term_id, $this->product_category_ids)) {
+                return;
+            }
+            // tell the template to display a "See More" link if necessary
+            $woocommerce_loop['see_more'] = true;
 
-		if ( ! $has_products ) {
-			$has_products = $category->count > 0;
-		}
+            // record the fact that categories have been displayed.  Do this so we can alter the
+            //  query to skip any products that would otherwise be displayed, this is done so that
+            //  the number of products to be displayed can be set to '0' to have nested categories
+            //  only
+            $woocommerce_loop['has_categories'] = true;
 
-		// keep track of the current category in case a child category
-		//  has products and we need to display titles
-		$category->depth = $depth;
+            // display nested category title(s) and product(s)
+            woocommerce_nested_category_products_content_section($output, $this->product_category_ids);
+        }
+    }
 
-		$output[] = $category;
+    /**
+     * Helper function to determine all the deepest categories that the current page products belong to.
+     *
+     * @since 1.14.2
+     *
+     * @global array $woocommerce_loop Associative-array used by the template files.
+     * @param array $args Associative array of arguments passed to the Walker.
+     */
+    private function set_product_category_ids($args)
+    {
 
-		if ( $has_products ) {
+        // figure out the deepest categories for all the products, once
+        rewind_posts();
 
-			// tell the template to display a "See More" link if necessary
-			$woocommerce_loop['see_more'] = true;
+        if (have_posts()) {
+            while (have_posts()) {
+                the_post();
 
-			// record the fact that categories have been displayed.  Do this so we can alter the
-			//  query to skip any products that would otherwise be displayed, this is done so that
-			//  the number of products to be displayed can be set to '0' to have nested categories
-			//  only
-			$woocommerce_loop['has_categories'] = true;
+                global $product;
 
-			// display nested category title(s) and product(s)
-			woocommerce_nested_category_products_content_section( $output );
-		}
-	}
+                if (! $product) {
+                    continue;
+                }
 
+                $this->product_category_ids[$product->get_id()] = [];
 
+                // first get all the root product categories
+                $root_categories = get_categories(['parent' => 0, 'taxonomy' => 'product_cat']);
+
+                // then get all the categories the current product belongs to
+                $product_category_ids = wp_get_post_terms($product->get_id(), 'product_cat', ['fields' => 'ids']);
+
+                // determine the deepest (closest to leaf) category level for this product
+                $deepest = [];
+                foreach ($root_categories as $root_cat) {
+                    $root_cat->children = [];
+                }
+
+                $category_to_root = [];
+                foreach ($product_category_ids as $category_id) {
+
+                    // determine whether this category *is* a root category, or otherwise what its root category is
+                    foreach ($root_categories as $root_cat) {
+                        if ($root_cat->cat_ID == $category_id || term_is_ancestor_of($root_cat->cat_ID, $category_id, 'product_cat')) {
+                            $category_to_root[$category_id] = $root_cat->cat_ID;
+                            break;
+                        }
+                    }
+
+                    if (isset($deepest[$root_cat->cat_ID])) {
+                        $deepest[$root_cat->cat_ID] = max($deepest[$root_cat->cat_ID], isset($this->category_depths[$category_id]) ? $this->category_depths[$category_id] : -2);
+                    } else {
+                        $deepest[$root_cat->cat_ID] = isset($this->category_depths[$category_id]) ? $this->category_depths[$category_id] : -2;
+                    }
+                }
+
+                // collect only the deepest categories
+                foreach ($product_category_ids as $category_id) {
+                    if (isset($this->category_depths[$category_id]) && $this->category_depths[$category_id] == $deepest[$category_to_root[$category_id]]) {
+                        $this->product_category_ids[$product->get_id()][] = $category_id;
+                    }
+                }
+
+                // if this is empty it means the product is only in the current category, so add it
+                if (empty($this->product_category_ids[$product->get_id()]) && isset($args['current_category'])) {
+                    $this->product_category_ids[$product->get_id()][] = $args['current_category'];
+                }
+            }
+        }
+    }
 }

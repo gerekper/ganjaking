@@ -4,14 +4,14 @@ namespace ACP\Export;
 
 use AC\Asset\Location;
 use AC\ListScreenRepository;
-use AC\Registrable;
+use AC\Registerable;
 use ACP;
 use ACP\Export\Asset;
 use ACP\Export\RequestHandler\Ajax\FileName;
 use ACP\RequestAjaxHandlers;
 use ACP\RequestAjaxParser;
 
-class Addon implements Registrable {
+class Addon implements Registerable {
 
 	/**
 	 * @var Location
@@ -37,11 +37,10 @@ class Addon implements Registrable {
 			new RequestAjaxParser( $request_ajax_handlers ),
 			new Settings( $this->location ),
 			new TableScreen( $this->location ),
-			new TableScreenOptions( $this->location ),
 		];
 
 		foreach ( $services as $service ) {
-			if ( $service instanceof Registrable ) {
+			if ( $service instanceof Registerable ) {
 				$service->register();
 			}
 		}

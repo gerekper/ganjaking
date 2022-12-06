@@ -310,7 +310,7 @@ if ( ! class_exists( 'YWSBS_Subscription_Delivery_Schedules' ) ) {
 			$day   = ( 'end' === $delivery_settings['years_day'] ) ? 1 : $delivery_settings['years_day'];
 			$month = $delivery_settings['years_month'];
 
-			if ( $new_date->format( 'm' ) < $month || ( $new_date->format( 'm' ) == $month ) && ( $new_date->format( 'd' ) < $month ) ) { //phpcs:ignore
+			if ( $new_date->format( 'n' ) < $month || ( $new_date->format( 'n' ) == $month ) && ( $new_date->format( 'd' ) < $day ) ) { //phpcs:ignore
 				$new_date = $new_date->modify( $new_date->format( 'y' ) . '-' . $month . '-' . $day );
 			} else {
 				$new_date = $new_date->modify( ( (int) $new_date->format( 'y' ) + 1 ) . '-' . $month . '-' . $day );

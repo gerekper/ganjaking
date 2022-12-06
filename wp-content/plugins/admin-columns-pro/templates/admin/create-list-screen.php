@@ -43,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<div class="row actions">
 
-				<a class="instructions ac-pointer" rel="layout-help" data-pos="left" data-width="305" data-noclick="1">
+				<a class="instructions ac-pointer" rel="layout-help" data-pos="left" data-width="305" >
 					<?php _e( 'Instructions', 'codepress-admin-columns' ); ?>
 				</a>
 

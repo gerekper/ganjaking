@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Deposits 2.1.0\n"
+"Project-Id-Version: WooCommerce Deposits 2.1.1\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-deposits\n"
-"POT-Creation-Date: 2022-11-01 00:42:44+00:00\n"
+"POT-Creation-Date: 2022-12-05 20:38:11+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,56 +14,56 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.6\n"
 
-#: includes/api/class-wc-deposits-store-api.php:134
+#: includes/api/class-wc-deposits-store-api.php:138
 msgid "True if the cart contains an item with deposit."
 msgstr ""
 
-#: includes/api/class-wc-deposits-store-api.php:140
+#: includes/api/class-wc-deposits-store-api.php:144
 msgid "Amount to be paid in the future, after the deposit is paid."
 msgstr ""
 
-#: includes/api/class-wc-deposits-store-api.php:146
-#: includes/api/class-wc-deposits-store-api.php:152
+#: includes/api/class-wc-deposits-store-api.php:150
+#: includes/api/class-wc-deposits-store-api.php:156
 msgid "Future discounts, if a coupon is used."
 msgstr ""
 
-#: includes/api/class-wc-deposits-store-api.php:271
+#: includes/api/class-wc-deposits-store-api.php:308
 msgid "True if the cart item will be purchased with a deposit."
 msgstr ""
 
-#: includes/api/class-wc-deposits-store-api.php:277
+#: includes/api/class-wc-deposits-store-api.php:314
 msgid "True if the cart item will be purchased with a payment plan."
 msgstr ""
 
-#: includes/api/class-wc-deposits-store-api.php:283
+#: includes/api/class-wc-deposits-store-api.php:320
 msgid "Payment schedule for the associated plan."
 msgstr ""
 
-#: includes/api/class-wc-deposits-store-api.php:291
+#: includes/api/class-wc-deposits-store-api.php:328
 msgid "Schedule ID."
 msgstr ""
 
-#: includes/api/class-wc-deposits-store-api.php:297
+#: includes/api/class-wc-deposits-store-api.php:334
 msgid "Schedule index - if 0, then it is a deposit."
 msgstr ""
 
-#: includes/api/class-wc-deposits-store-api.php:303
+#: includes/api/class-wc-deposits-store-api.php:340
 msgid "Plan ID."
 msgstr ""
 
-#: includes/api/class-wc-deposits-store-api.php:309
+#: includes/api/class-wc-deposits-store-api.php:346
 msgid "Amount."
 msgstr ""
 
-#: includes/api/class-wc-deposits-store-api.php:315
+#: includes/api/class-wc-deposits-store-api.php:352
 msgid "Interval amount (number of days, weeks, months, years)."
 msgstr ""
 
-#: includes/api/class-wc-deposits-store-api.php:321
+#: includes/api/class-wc-deposits-store-api.php:358
 msgid "Interval unit - if 0, then it is a deposit."
 msgstr ""
 
-#: includes/api/class-wc-deposits-store-api.php:358
+#: includes/api/class-wc-deposits-store-api.php:407
 msgid "Payable In Total"
 msgstr ""
 
@@ -72,374 +72,405 @@ msgstr ""
 msgid "Oops!"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:394
+#: includes/class-wc-deposits-cart-manager.php:457
 msgid "Please select a valid payment plan"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:406
+#: includes/class-wc-deposits-cart-manager.php:469
 #. translators: %s: product name
 msgid "You cannot add another \"%s\" to your cart."
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:900
-#: includes/class-wc-deposits-plans-admin.php:164
-#: includes/class-wc-deposits-settings.php:107
-#: includes/list-tables/class-wc-deposits-plans-table.php:22
-#: includes/views/html-deposit-data.php:64
-#: includes/views/html-payment-plan-form.php:5
+#: includes/class-wc-deposits-cart-manager.php:1021
+#: includes/class-wc-deposits-plans-admin.php:181
+#: includes/class-wc-deposits-settings.php:130
+#: includes/list-tables/class-wc-deposits-plans-table.php:29
+#: includes/views/html-deposit-data.php:78
+#: includes/views/html-payment-plan-form.php:13
 msgid "Payment Plan"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:977
-#: includes/class-wc-deposits-order-manager.php:1025
+#: includes/class-wc-deposits-cart-manager.php:1145
+#: includes/class-wc-deposits-order-manager.php:1129
+#. translators: item subtotal
+#. translators: full amount payable
 msgid "%s payable in total"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1040
+#: includes/class-wc-deposits-cart-manager.php:1211
 #. translators: %s: country name
 msgid "estimated for %s"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1042
+#: includes/class-wc-deposits-cart-manager.php:1213
 #. translators: %s: tax information
 msgid "(includes %s)"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1164
-#: includes/class-wc-deposits-order-manager.php:916
+#: includes/class-wc-deposits-cart-manager.php:1334
+#: includes/class-wc-deposits-order-manager.php:1010
 msgid "(includes tax)"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1164
-#: includes/class-wc-deposits-order-manager.php:916
+#: includes/class-wc-deposits-cart-manager.php:1334
+#: includes/class-wc-deposits-order-manager.php:1010
 msgid "(excludes tax)"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1190
-#: includes/class-wc-deposits-cart-manager.php:1191
+#: includes/class-wc-deposits-cart-manager.php:1361
+#: includes/class-wc-deposits-cart-manager.php:1362
 msgid "Due Today"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1197
-#: includes/class-wc-deposits-cart-manager.php:1198
-#: includes/class-wc-deposits-order-manager.php:921
+#: includes/class-wc-deposits-cart-manager.php:1368
+#: includes/class-wc-deposits-cart-manager.php:1369
+#: includes/class-wc-deposits-order-manager.php:1015
 msgid "Discount Applied Toward Future Payments"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1204
-#: includes/class-wc-deposits-cart-manager.php:1205
-#: includes/class-wc-deposits-order-manager.php:933
-#: includes/class-wc-deposits-order-manager.php:938
+#: includes/class-wc-deposits-cart-manager.php:1375
+#: includes/class-wc-deposits-cart-manager.php:1376
+#: includes/class-wc-deposits-order-manager.php:1027
+#: includes/class-wc-deposits-order-manager.php:1032
 msgid "Future Payments"
 msgstr ""
 
-#: includes/class-wc-deposits-cart-manager.php:1319
+#: includes/class-wc-deposits-cart-manager.php:1525
 msgid "Select options"
 msgstr ""
 
-#: includes/class-wc-deposits-my-account.php:71
-#: includes/class-wc-deposits-my-account.php:106
+#: includes/class-wc-deposits-my-account.php:77
+#: includes/class-wc-deposits-my-account.php:121
 msgid "Scheduled Orders"
 msgstr ""
 
-#: includes/class-wc-deposits-my-account.php:162
-#: includes/class-wc-deposits-order-manager.php:579
+#: includes/class-wc-deposits-my-account.php:189
+#: includes/class-wc-deposits-order-manager.php:640
 msgid "View Original Order"
 msgstr ""
 
-#: includes/class-wc-deposits-my-account.php:205
+#: includes/class-wc-deposits-my-account.php:232
 msgid "Scheduled orders for order"
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:200
+#: includes/class-wc-deposits-order-manager.php:216
+#. translators: count label
 msgid "Partially Paid <span class=\"count\">(%s)</span>"
 msgid_plural "Partially Paid <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-deposits-order-manager.php:208
+#: includes/class-wc-deposits-order-manager.php:228
+#. translators: count label
 msgid "Scheduled <span class=\"count\">(%s)</span>"
 msgid_plural "Scheduled <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-deposits-order-manager.php:216
+#: includes/class-wc-deposits-order-manager.php:240
+#. translators: count label
 msgid "Pending Deposit Payment <span class=\"count\">(%s)</span>"
 msgid_plural "Pending Deposits Payment <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-deposits-order-manager.php:345
+#: includes/class-wc-deposits-order-manager.php:378
 msgid "All deposit items fully paid"
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:407
+#: includes/class-wc-deposits-order-manager.php:442
+#. translators: error message
 msgid "Error: Unable to create follow up payment (%s)"
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:462
+#: includes/class-wc-deposits-order-manager.php:501
 #. translators: Payment number for product's title
-msgid "Payment #%d for %s"
+msgid "Payment #%1$d for %2$s"
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:492
+#: includes/class-wc-deposits-order-manager.php:538
 msgid "Full Amount"
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:495
+#: includes/class-wc-deposits-order-manager.php:541
 msgid "Full Amount (excl. tax)"
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:498
+#: includes/class-wc-deposits-order-manager.php:544
 msgid "Deferred Discount"
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:501
+#: includes/class-wc-deposits-order-manager.php:547
 msgid "Deferred Discount (excl. tax)"
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:504
+#: includes/class-wc-deposits-order-manager.php:550
 msgid "Deposit Amount (excl. tax)"
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:537
-#: includes/class-wc-deposits-order-manager.php:830
+#: includes/class-wc-deposits-order-manager.php:590
+#: includes/class-wc-deposits-order-manager.php:915
 msgid "Deposit"
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:555
+#: includes/class-wc-deposits-order-manager.php:613
 msgid "View Scheduled Payments"
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:564
-#: includes/class-wc-deposits-order-manager.php:847
+#: includes/class-wc-deposits-order-manager.php:624
+#: includes/class-wc-deposits-order-manager.php:940
+#. translators: remaining balance order ID
+#. translators: remaining order ID
 msgid "Remainder - Invoice #%1$s"
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:566
+#: includes/class-wc-deposits-order-manager.php:627
+#. translators: offline paid amount
 msgid "The remaining balance of %s (plus tax) for this item was paid offline."
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:567
+#: includes/class-wc-deposits-order-manager.php:628
 msgid "Unmark as Paid"
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:571
+#: includes/class-wc-deposits-order-manager.php:632
 msgid "Invoice Remaining Balance"
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:572
+#: includes/class-wc-deposits-order-manager.php:633
 msgid "Mark Paid (offline)"
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:638
-#: includes/class-wc-deposits-order-manager.php:640
-#: includes/class-wc-deposits-order-manager.php:642
+#: includes/class-wc-deposits-order-manager.php:704
+#: includes/class-wc-deposits-order-manager.php:706
+#: includes/class-wc-deposits-order-manager.php:708
 msgid "Unmarked as paid."
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:651
+#: includes/class-wc-deposits-order-manager.php:717
 msgid "Order completed with Mark Paid (offline)."
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:849
+#: includes/class-wc-deposits-order-manager.php:943
+#. translators: paid offline amount
 msgid "The remaining balance of %s for this item was paid offline."
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:948
+#: includes/class-wc-deposits-order-manager.php:1042
 msgid "Total Due Today:"
 msgstr ""
 
-#: includes/class-wc-deposits-plan.php:127
+#: includes/class-wc-deposits-plan.php:158
+#. translators: year
 msgid "%s year"
 msgid_plural "%s years"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-deposits-plan.php:130
+#: includes/class-wc-deposits-plan.php:162
+#. translators: month
 msgid "%s month"
 msgid_plural "%s months"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-deposits-plan.php:133
+#: includes/class-wc-deposits-plan.php:166
+#. translators: day
 msgid "%s day"
 msgid_plural "%s days"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-deposits-plan.php:137
+#: includes/class-wc-deposits-plan.php:171
+#. translators: amount over duration
 msgid "%1$s payable over %2$s"
 msgstr ""
 
-#: includes/class-wc-deposits-plan.php:139
+#: includes/class-wc-deposits-plan.php:174
+#. translators: amount
 msgid "%1$s total payable"
 msgstr ""
 
-#: includes/class-wc-deposits-plans-admin.php:37
+#: includes/class-wc-deposits-plans-admin.php:53
 msgid "Are you sure you want to delete this plan? This action cannot be undone."
 msgstr ""
 
-#: includes/class-wc-deposits-plans-admin.php:46
-#: includes/list-tables/class-wc-deposits-plans-table.php:23
-#: includes/views/html-deposit-data.php:109
+#: includes/class-wc-deposits-plans-admin.php:63
+#: includes/list-tables/class-wc-deposits-plans-table.php:30
+#: includes/views/html-deposit-data.php:130
 #: includes/views/html-payment-plans.php:10
 msgid "Payment Plans"
 msgstr ""
 
-#: includes/class-wc-deposits-plans-admin.php:74
+#: includes/class-wc-deposits-plans-admin.php:91
 msgid "Plan saved successfully"
 msgstr ""
 
-#: includes/class-wc-deposits-plans-admin.php:82
+#: includes/class-wc-deposits-plans-admin.php:99
 msgid "Plan deleted successfully"
 msgstr ""
 
-#: includes/class-wc-deposits-plans-admin.php:125
+#: includes/class-wc-deposits-plans-admin.php:142
 msgid "Please enter a valid amount"
 msgstr ""
 
-#: includes/class-wc-deposits-plans-admin.php:148
+#: includes/class-wc-deposits-plans-admin.php:165
 msgid "Unable to save payment plan - please try again"
 msgstr ""
 
-#: includes/class-wc-deposits-plans-admin.php:194
+#: includes/class-wc-deposits-plans-admin.php:211
 msgid "Unable to save payment plan"
 msgstr ""
 
-#: includes/class-wc-deposits-product-manager.php:112
+#: includes/class-wc-deposits-product-manager.php:120
 msgid "person"
 msgstr ""
 
-#: includes/class-wc-deposits-product-manager.php:114
+#: includes/class-wc-deposits-product-manager.php:122
 msgid "item"
 msgstr ""
 
-#: includes/class-wc-deposits-product-manager.php:118
+#: includes/class-wc-deposits-product-manager.php:127
+#. translators: percent per item/person
 msgid "Pay a %1$s deposit per %2$s"
 msgstr ""
 
-#: includes/class-wc-deposits-product-manager.php:120
+#: includes/class-wc-deposits-product-manager.php:130
+#. translators: amount per item/person
 msgid "Pay a deposit of %1$s per %2$s"
 msgstr ""
 
-#: includes/class-wc-deposits-scheduled-order-manager.php:56
+#: includes/class-wc-deposits-scheduled-order-manager.php:70
 msgid ""
 "Error: Unable to schedule orders for product with payment plan. Reason: "
 "Already fully paid."
 msgstr ""
 
-#: includes/class-wc-deposits-scheduled-order-manager.php:112
+#: includes/class-wc-deposits-scheduled-order-manager.php:137
 msgid "Scheduled order ready for payment."
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:48
-#: includes/views/html-deposits-tab.php:1
+#: includes/class-wc-deposits-settings.php:68
+#: includes/views/html-deposits-tab.php:9
 msgid "Deposits"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:76
+#: includes/class-wc-deposits-settings.php:99
 msgid "Storewide Deposits Configuration"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:78
+#: includes/class-wc-deposits-settings.php:101
 msgid ""
 "These settings affect all products storewide. You can override these "
 "settings on a per product basis to make exceptions."
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:83
+#: includes/class-wc-deposits-settings.php:106
 msgid "Enable Deposits by Default"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:85
+#: includes/class-wc-deposits-settings.php:108
 msgid "You must set a default amount below if setting this option to \"yes\"."
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:90
-#: includes/views/html-deposit-data.php:47
+#: includes/class-wc-deposits-settings.php:113
+#: includes/views/html-deposit-data.php:59
 msgid "Yes - deposits are optional"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:91
-#: includes/views/html-deposit-data.php:48
+#: includes/class-wc-deposits-settings.php:114
+#: includes/views/html-deposit-data.php:60
 msgid "Yes - deposits are required"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:92
-#: includes/views/html-deposit-data.php:49
+#: includes/class-wc-deposits-settings.php:115
+#: includes/views/html-deposit-data.php:61
 msgid "No"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:97
+#: includes/class-wc-deposits-settings.php:120
 msgid "Default Deposit Type"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:99
+#: includes/class-wc-deposits-settings.php:122
 msgid "The default way for customers to pay for this product using a deposit."
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:104
+#: includes/class-wc-deposits-settings.php:127
 msgid "None"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:105
-#: includes/views/html-deposit-data.php:62
+#: includes/class-wc-deposits-settings.php:128
+#: includes/views/html-deposit-data.php:76
 msgid "Percentage"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:106
-#: includes/views/html-deposit-data.php:63
+#: includes/class-wc-deposits-settings.php:129
+#: includes/views/html-deposit-data.php:77
 msgid "Fixed Amount"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:112
+#: includes/class-wc-deposits-settings.php:135
 msgid "Default Deposit Amount"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:114
+#: includes/class-wc-deposits-settings.php:137
 msgid "The default deposit amount."
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:116
+#: includes/class-wc-deposits-settings.php:139
 msgid "n/a"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:122
-#: includes/views/html-deposit-data.php:89
+#: includes/class-wc-deposits-settings.php:145
+#: includes/views/html-deposit-data.php:109
 msgid "Default Deposit Selected Type"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:124
+#: includes/class-wc-deposits-settings.php:147
 msgid ""
 "The default selected way for customers to pay for this product using a "
 "deposit."
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:129
-#: includes/views/html-deposit-data.php:93 templates/deposit-form.php:11
+#: includes/class-wc-deposits-settings.php:152
+#: includes/views/html-deposit-data.php:113 templates/deposit-form.php:17
 msgid "Pay Deposit"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:130
-#: includes/views/html-deposit-data.php:94 templates/deposit-form.php:17
+#: includes/class-wc-deposits-settings.php:153
+#: includes/views/html-deposit-data.php:114 templates/deposit-form.php:23
 msgid "Pay in Full"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:135
+#: includes/class-wc-deposits-settings.php:158
 msgid "Default Payment Plan"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:139
+#: includes/class-wc-deposits-settings.php:162
 msgid "The default payment plans to use."
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:147
+#: includes/class-wc-deposits-settings.php:170
 msgid "Disable Payment Gateways"
 msgstr ""
 
-#: includes/class-wc-deposits-settings.php:151
+#: includes/class-wc-deposits-settings.php:174
 msgid "Select payment gateways that should be disabled when accepting deposits."
+msgstr ""
+
+#: includes/class-wc-deposits-settings.php:182
+msgid "Order again behavior"
+msgstr ""
+
+#: includes/class-wc-deposits-settings.php:183
+msgid "Use original order's deposit settings on a reorder."
+msgstr ""
+
+#: includes/class-wc-deposits-settings.php:184
+msgid ""
+"With this enabled, if a customer places a reorder, the same deposit "
+"settings as the original order will automatically be applied."
 msgstr ""
 
 #: includes/class-wc-deposits.php:101
@@ -462,202 +493,203 @@ msgid ""
 "setting page</a> to manage them storewide."
 msgstr ""
 
-#: includes/list-tables/class-wc-deposits-plans-table.php:40
+#: includes/list-tables/class-wc-deposits-plans-table.php:48
 msgid "Edit"
 msgstr ""
 
-#: includes/list-tables/class-wc-deposits-plans-table.php:40
+#: includes/list-tables/class-wc-deposits-plans-table.php:48
 msgid "Delete"
 msgstr ""
 
-#: includes/list-tables/class-wc-deposits-plans-table.php:73
+#: includes/list-tables/class-wc-deposits-plans-table.php:81
 msgid "Name"
 msgstr ""
 
-#: includes/list-tables/class-wc-deposits-plans-table.php:74
+#: includes/list-tables/class-wc-deposits-plans-table.php:82
 msgid "Description"
 msgstr ""
 
-#: includes/list-tables/class-wc-deposits-plans-table.php:75
+#: includes/list-tables/class-wc-deposits-plans-table.php:83
 msgid "Schedule"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:5
+#: includes/views/html-deposit-data.php:13
 msgid "Inherit storewide settings"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:9
+#: includes/views/html-deposit-data.php:19
 msgid "percent"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:12
+#: includes/views/html-deposit-data.php:22
 msgid "fixed amount"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:15
+#: includes/views/html-deposit-data.php:25
 msgid "payment plan"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:18
+#: includes/views/html-deposit-data.php:28
 msgid "none"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:23
+#: includes/views/html-deposit-data.php:33
 msgid "yes, optional"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:26
+#: includes/views/html-deposit-data.php:36
 msgid "yes, required"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:29
+#: includes/views/html-deposit-data.php:39
 msgid "no"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:34
+#: includes/views/html-deposit-data.php:44
 msgid "pay deposit"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:37
+#: includes/views/html-deposit-data.php:47
 msgid "pay in full"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:43
+#: includes/views/html-deposit-data.php:54
 msgid "Enable Deposits"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:44
+#: includes/views/html-deposit-data.php:56
+#. translators: a link to store settings page
 msgid ""
 "Allow customers to pay a deposit for this product. <br> <a href=\"%s\" "
 "target=\"_blank\">Manage storewide settings</a>"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:58
+#: includes/views/html-deposit-data.php:72
 msgid "Deposit Type"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:59
+#: includes/views/html-deposit-data.php:73
 msgid "Choose how customers can pay for this product using a deposit."
 msgstr ""
 
-#: includes/views/html-deposit-data.php:73
+#: includes/views/html-deposit-data.php:89
 msgid "Booking Persons"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:74
+#: includes/views/html-deposit-data.php:90
 msgid "Multiply fixed deposits by the number of persons booking"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:80
+#: includes/views/html-deposit-data.php:98
 msgid "Deposit Amount"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:82
+#: includes/views/html-deposit-data.php:100
 msgid "The amount of deposit needed. Do not include currency or percent symbols."
 msgstr ""
 
-#: includes/views/html-deposit-data.php:90
+#: includes/views/html-deposit-data.php:110
 msgid "Choose the default selected type of payment on page load."
 msgstr ""
 
-#: includes/views/html-deposit-data.php:114
+#: includes/views/html-deposit-data.php:135
 msgid "You have not created any payment plans yet."
 msgstr ""
 
-#: includes/views/html-deposit-data.php:115
+#: includes/views/html-deposit-data.php:136
 msgid "Create a Payment Plan"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:118
+#: includes/views/html-deposit-data.php:139
 msgid "Choose some plans"
 msgstr ""
 
-#: includes/views/html-deposit-data.php:128
+#: includes/views/html-deposit-data.php:149
 msgid "Choose which payment plans customers can use for this product."
 msgstr ""
 
-#: includes/views/html-deposit-data.php:138
+#: includes/views/html-deposit-data.php:159
 #. translators: default payment plan
 msgid "\"%s\" will be used if no payment plan is selected."
 msgstr ""
 
-#: includes/views/html-edit-payment-plan.php:2
+#: includes/views/html-edit-payment-plan.php:10
 msgid "Edit Payment Plan"
 msgstr ""
 
-#: includes/views/html-payment-plan-form.php:4
+#: includes/views/html-payment-plan-form.php:12
 msgid "Plan Name"
 msgstr ""
 
-#: includes/views/html-payment-plan-form.php:8
+#: includes/views/html-payment-plan-form.php:16
 msgid "Plan Description"
 msgstr ""
 
-#: includes/views/html-payment-plan-form.php:9
+#: includes/views/html-payment-plan-form.php:17
 msgid "Describe this plan to the customer"
 msgstr ""
 
-#: includes/views/html-payment-plan-form.php:14
-#: includes/views/html-payment-plan-form.php:37
-#: includes/views/html-payment-plan-form.php:60
+#: includes/views/html-payment-plan-form.php:22
+#: includes/views/html-payment-plan-form.php:46
+#: includes/views/html-payment-plan-form.php:71
 msgid "Days"
 msgstr ""
 
-#: includes/views/html-payment-plan-form.php:15
-#: includes/views/html-payment-plan-form.php:61
+#: includes/views/html-payment-plan-form.php:23
+#: includes/views/html-payment-plan-form.php:72
 msgid "Weeks"
 msgstr ""
 
-#: includes/views/html-payment-plan-form.php:16
-#: includes/views/html-payment-plan-form.php:37
-#: includes/views/html-payment-plan-form.php:62
+#: includes/views/html-payment-plan-form.php:24
+#: includes/views/html-payment-plan-form.php:46
+#: includes/views/html-payment-plan-form.php:73
 msgid "Months"
 msgstr ""
 
-#: includes/views/html-payment-plan-form.php:17
-#: includes/views/html-payment-plan-form.php:37
-#: includes/views/html-payment-plan-form.php:63
+#: includes/views/html-payment-plan-form.php:25
+#: includes/views/html-payment-plan-form.php:46
+#: includes/views/html-payment-plan-form.php:74
 msgid "Years"
 msgstr ""
 
-#: includes/views/html-payment-plan-form.php:22
-#: includes/views/html-payment-plan-form.php:57
+#: includes/views/html-payment-plan-form.php:31
+#: includes/views/html-payment-plan-form.php:68
 msgid "After"
 msgstr ""
 
-#: includes/views/html-payment-plan-form.php:28
+#: includes/views/html-payment-plan-form.php:37
 msgid "Payment Schedule"
 msgstr ""
 
-#: includes/views/html-payment-plan-form.php:31
+#: includes/views/html-payment-plan-form.php:40
 msgid "Payment Amount"
 msgstr ""
 
-#: includes/views/html-payment-plan-form.php:31
+#: includes/views/html-payment-plan-form.php:40
 msgid "This is the amount (in percent) based on the full product price."
 msgstr ""
 
-#: includes/views/html-payment-plan-form.php:32
+#: includes/views/html-payment-plan-form.php:41
 msgid "Interval"
 msgstr ""
 
-#: includes/views/html-payment-plan-form.php:32
+#: includes/views/html-payment-plan-form.php:41
 msgid "This is the interval between each payment."
 msgstr ""
 
-#: includes/views/html-payment-plan-form.php:36
+#: includes/views/html-payment-plan-form.php:45
 msgid "Total:"
 msgstr ""
 
-#: includes/views/html-payment-plan-form.php:37
+#: includes/views/html-payment-plan-form.php:46
 msgid "Total Duration:"
 msgstr ""
 
-#: includes/views/html-payment-plan-form.php:52
+#: includes/views/html-payment-plan-form.php:63
 msgid "Immediately"
 msgstr ""
 
-#: includes/views/html-payment-plan-form.php:76
+#: includes/views/html-payment-plan-form.php:87
 msgid "Save Payment Plan"
 msgstr ""
 
@@ -669,18 +701,18 @@ msgstr ""
 msgid "Add Payment Plan"
 msgstr ""
 
-#: templates/scheduled-orders.php:40
+#: templates/scheduled-orders.php:45
 #. translators: 1: formatted order total 2: total order items
 msgid "%1$s for %2$s item"
 msgid_plural "%1$s for %2$s items"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/scheduled-orders.php:66
+#: templates/scheduled-orders.php:71
 msgid "Previous"
 msgstr ""
 
-#: templates/scheduled-orders.php:70
+#: templates/scheduled-orders.php:75
 msgid "Next"
 msgstr ""
 
@@ -711,25 +743,25 @@ msgstr ""
 msgid "https://woocommerce.com"
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:195
-#: includes/class-wc-deposits-order-manager.php:227
+#: includes/class-wc-deposits-order-manager.php:210
+#: includes/class-wc-deposits-order-manager.php:252
 msgctxt "Order status"
 msgid "Partially Paid"
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:203
-#: includes/class-wc-deposits-order-manager.php:228
+#: includes/class-wc-deposits-order-manager.php:222
+#: includes/class-wc-deposits-order-manager.php:253
 msgctxt "Order status"
 msgid "Scheduled"
 msgstr ""
 
-#: includes/class-wc-deposits-order-manager.php:211
-#: includes/class-wc-deposits-order-manager.php:229
+#: includes/class-wc-deposits-order-manager.php:234
+#: includes/class-wc-deposits-order-manager.php:254
 msgctxt "Order status"
 msgid "Pending Deposit Payment"
 msgstr ""
 
-#: templates/scheduled-orders.php:28
+#: templates/scheduled-orders.php:33
 msgctxt "hash before order number"
 msgid "#"
 msgstr ""

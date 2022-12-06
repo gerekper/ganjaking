@@ -1,8 +1,16 @@
+<?php
+/**
+ * Deposits tab
+ *
+ * @package woocommerce-deposits
+ */
+
+?>
 <div class="form-wrap">
 	<form id="deposit-plan-form" method="post">
 		<div class="form-field">
 			<label for="plan_name"><?php esc_html_e( 'Plan Name', 'woocommerce-deposits' ); ?>:</label>
-			<input type="text" name="plan_name" id="plan_name" class="input-text" placeholder="<?php _e( 'Payment Plan', 'woocommerce-deposits' ); ?>" value="<?php echo esc_attr( $plan_name ); ?>" />
+			<input type="text" name="plan_name" id="plan_name" class="input-text" placeholder="<?php esc_html_e( 'Payment Plan', 'woocommerce-deposits' ); ?>" value="<?php echo esc_attr( $plan_name ); ?>" />
 		</div>
 		<div class="form-field">
 			<label for="plan_name"><?php esc_html_e( 'Plan Description', 'woocommerce-deposits' ); ?>:</label>
@@ -16,6 +24,7 @@
 				<option value="month">' . esc_html__( 'Months', 'woocommerce-deposits' ) . '</option>
 				<option value="year">' . esc_html__( 'Years', 'woocommerce-deposits' ) . '</option>
 				';
+
 			$row = '<tr>
 					<td class="cell-amount"><input type="number" placeholder="0" step="any" min="0" name="plan_amount[]" class="plan_amount" /></td>
 					<td class="cell-percent">%</td>
@@ -38,12 +47,14 @@
 					<th></th>
 				</tfoot>
 				<tbody>
-					<?php foreach ( $payment_schedule as $schedule ) :
+					<?php
+					foreach ( $payment_schedule as $schedule ) :
 						if ( ! $editing || empty( $schedule->schedule_index ) ) {
 							$index = 0;
 						} else {
 							$index = $schedule->schedule_index;
-						} ?>
+						}
+						?>
 						<tr>
 							<td class="cell-amount"><input type="number" placeholder="0" step="any" min="0" name="plan_amount[]" class="plan_amount" value="<?php echo esc_attr( $schedule->amount ); ?>" /></td>
 							<td class="cell-percent">%</td>

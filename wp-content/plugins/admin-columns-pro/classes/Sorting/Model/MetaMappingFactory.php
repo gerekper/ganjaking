@@ -14,20 +14,20 @@ class MetaMappingFactory {
 	/**
 	 * @param string $meta_type e.g. post, user, comment or taxonomy
 	 * @param string $meta_key  e.g. 'my_custom_field_key'
-	 * @param array  $sorted_fields
+	 * @param array  $fields
 	 *
 	 * @return AbstractModel
 	 */
-	public function create( $meta_type, $meta_key, $sorted_fields ) {
+	public function create( string $meta_type, string $meta_key, array $fields ): AbstractModel {
 		switch ( $meta_type ) {
 			case MetaType::POST :
-				return new Post\MetaMapping( $meta_key, $sorted_fields );
+				return new Post\MetaMapping( $meta_key, $fields );
 			case MetaType::USER :
-				return new User\MetaMapping( $meta_key, $sorted_fields );
+				return new User\MetaMapping( $meta_key, $fields );
 			case MetaType::COMMENT :
-				return new Comment\MetaMapping( $meta_key, $sorted_fields );
+				return new Comment\MetaMapping( $meta_key, $fields );
 			case MetaType::TERM :
-				return new Taxonomy\MetaMapping( $meta_key, $sorted_fields );
+				return new Taxonomy\MetaMapping( $meta_key, $fields );
 			default :
 				return new Disabled();
 		}

@@ -19,7 +19,7 @@ class MetaData extends Comparison\Meta {
 			Operators::CONTAINS,
 		] );
 
-		$this->sub_key = $sub_key;
+		$this->sub_key = (string) $sub_key;
 
 		parent::__construct( $operators, '_wp_attachment_metadata', 'post' );
 	}

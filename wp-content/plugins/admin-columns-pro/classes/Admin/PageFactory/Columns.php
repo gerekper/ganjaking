@@ -32,7 +32,12 @@ class Columns implements PageFactoryInterface {
 	 */
 	private $menu_factory;
 
-	public function __construct( Location\Absolute $location_core, Storage $storage, DefaultColumnsRepository $default_column_repository, MenuFactoryInterface $menu_factory ) {
+	public function __construct(
+		Location\Absolute $location_core,
+		Storage $storage,
+		DefaultColumnsRepository $default_column_repository,
+		MenuFactoryInterface $menu_factory
+	) {
 		$this->location_core = $location_core;
 		$this->storage = $storage;
 		$this->default_column_repository = $default_column_repository;
@@ -46,7 +51,8 @@ class Columns implements PageFactoryInterface {
 			new AC\Admin\Section\Partial\Menu(),
 			$this->storage,
 			new AC\Admin\View\Menu( $this->menu_factory->create( 'columns' ) ),
-			new AC\Admin\Preference\ListScreen()
+			new AC\Admin\Preference\ListScreen(),
+			true
 		);
 	}
 

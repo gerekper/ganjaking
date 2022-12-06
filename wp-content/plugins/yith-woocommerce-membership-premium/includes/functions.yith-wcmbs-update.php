@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Update int values to string in array meta.
+ *
+ * @return bool
+ */
 function yith_wcmbs_update_140_int_to_string_array_meta() {
 	global $wpdb;
 
@@ -25,6 +30,26 @@ function yith_wcmbs_update_140_int_to_string_array_meta() {
 	return true;
 }
 
+/**
+ * Update version 1.4.0
+ */
 function yith_wcmbs_update_140_db_version() {
 	YITH_WCMBS_Install::update_db_version( '1.4.0' );
+}
+
+/**
+ * Clear previously scheduled events, so they'll be re-created by using the correct time-zone (to be executed at midnight of the size time-zone).
+ */
+function yith_wcmbs_update_1_18_0_clear_scheduled_events() {
+	wp_clear_scheduled_hook( 'yith_wcmbs_check_expiring_membership' );
+	wp_clear_scheduled_hook( 'yith_wcmbs_check_expired_membership' );
+	wp_clear_scheduled_hook( 'yith_wcmbs_check_credits_in_membership' );
+	wp_clear_scheduled_hook( 'yith_wcmbs_delete_transients_cron' );
+}
+
+/**
+ * Update version 1.18.0
+ */
+function yith_wcmbs_update_1_18_0_db_version() {
+	YITH_WCMBS_Install::update_db_version( '1.18.0' );
 }

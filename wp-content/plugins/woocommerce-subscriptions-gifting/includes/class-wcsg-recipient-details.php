@@ -151,7 +151,7 @@ class WCSG_Recipient_Details {
 			if ( 0 === wc_notice_count( 'error' ) ) {
 				$user               = wp_get_current_user();
 				$address            = array();
-				$non_user_meta_keys = array( 'set_billing', 'new_password', 'repeat_password' );
+				$non_user_meta_keys = array( 'set_billing' );
 
 				foreach ( $form_fields as $key => $field ) {
 
@@ -177,10 +177,6 @@ class WCSG_Recipient_Details {
 
 						update_user_meta( $user->ID, $key, $value );
 					}
-				}
-
-				if ( ! empty( $_POST['new_password'] ) ) {
-					$user->user_pass = wc_clean( $_POST['new_password'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 				}
 
 				// Find out the user's full name from our custom first/last name fields and the shipping fields (if available).
@@ -268,22 +264,6 @@ class WCSG_Recipient_Details {
 			'class'        => array( 'form-row-last' ),
 			'clear'        => true,
 			'autocomplete' => 'family-name',
-		);
-
-		$personal_fields['new_password'] = array(
-			'type'     => 'password',
-			'label'    => esc_html__( 'New Password', 'woocommerce-subscriptions-gifting' ),
-			'required' => $user_requires_password,
-			'password' => true,
-			'class'    => array( 'form-row-first' ),
-		);
-
-		$personal_fields['repeat_password'] = array(
-			'type'     => 'password',
-			'label'    => esc_html__( 'Confirm New Password', 'woocommerce-subscriptions-gifting' ),
-			'required' => $user_requires_password,
-			'password' => true,
-			'class'    => array( 'form-row-last' ),
 		);
 
 		return apply_filters( 'wcsg_new_recipient_account_details_fields', array_merge( $personal_fields, $shipping_fields ) );

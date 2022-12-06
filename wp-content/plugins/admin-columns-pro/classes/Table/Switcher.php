@@ -8,9 +8,9 @@ use AC\ListScreenRepository\Filter;
 use AC\ListScreenRepository\Sort;
 use AC\ListScreenRepository\Storage;
 use AC\PermissionChecker;
-use AC\Registrable;
+use AC\Registerable;
 
-class Switcher implements Registrable {
+class Switcher implements Registerable {
 
 	/** @var Storage */
 	private $storage;

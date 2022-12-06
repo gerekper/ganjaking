@@ -18,20 +18,20 @@
  *
  * @package   SkyVerge/WooCommerce/Payment-Gateway/Classes
  * @author    SkyVerge
- * @copyright Copyright (c) 2013-2020, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2022, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
 
-namespace SkyVerge\WooCommerce\PluginFramework\v5_10_4;
+namespace SkyVerge\WooCommerce\PluginFramework\v5_10_12;
 
 use Automattic\WooCommerce\Admin\Notes\WC_Admin_Note;
 use Automattic\WooCommerce\Admin\Notes\WC_Admin_Notes;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_4\Payment_Gateway\External_Checkout\External_Checkout;
-use SkyVerge\WooCommerce\PluginFramework\v5_10_4\Payment_Gateway\External_Checkout\Google_Pay\Google_Pay;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12\Payment_Gateway\External_Checkout\External_Checkout;
+use SkyVerge\WooCommerce\PluginFramework\v5_10_12\Payment_Gateway\External_Checkout\Google_Pay\Google_Pay;
 
 defined( 'ABSPATH' ) or exit;
 
-if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_10_4\\SV_WC_Payment_Gateway_Plugin' ) ) :
+if ( ! class_exists( '\\SkyVerge\\WooCommerce\\PluginFramework\\v5_10_12\\SV_WC_Payment_Gateway_Plugin' ) ) :
 
 
 /**
@@ -188,10 +188,10 @@ abstract class SV_WC_Payment_Gateway_Plugin extends SV_WC_Plugin {
 		add_action( 'init', array( $this, 'maybe_init_my_payment_methods' ) );
 
 		// apple pay feature
-		add_action( 'init', array( $this, 'maybe_init_apple_pay' ) );
+		add_action( 'wp_loaded', [ $this, 'maybe_init_apple_pay' ] );
 
 		// Google Pay feature
-		add_action( 'init', [ $this, 'maybe_init_google_pay' ] );
+		add_action( 'wp_loaded', [ $this, 'maybe_init_google_pay' ] );
 
 		// TODO: move these to Subscriptions integration
 		if ( $this->is_subscriptions_active() ) {
@@ -370,7 +370,7 @@ abstract class SV_WC_Payment_Gateway_Plugin extends SV_WC_Plugin {
 	public function maybe_init_my_payment_methods() {
 
 		// bail if not frontend or an AJAX request
-		if ( is_admin() && ! is_ajax() ) {
+		if ( is_admin() && ! wp_doing_ajax() ) {
 			return;
 		}
 

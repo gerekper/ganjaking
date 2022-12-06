@@ -21,7 +21,6 @@ class MetaRelatedPostFactory {
 	 * @return AbstractModel|null
 	 */
 	public function create( $meta_type, $post_property, $meta_key ) {
-
 		switch ( $meta_type ) {
 			case MetaType::POST :
 				return ( new Sorting\Model\Post\MetaRelatedPostFactory() )->create( $post_property, $meta_key );

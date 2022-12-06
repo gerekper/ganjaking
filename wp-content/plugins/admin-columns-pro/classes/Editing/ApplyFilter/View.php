@@ -3,9 +3,12 @@
 namespace ACP\Editing\ApplyFilter;
 
 use AC;
+use AC\ApplyFilter;
+use ACP;
+use ACP\Editing;
 use ACP\Editing\Service;
 
-class View implements AC\ApplyFilter {
+class View implements ApplyFilter {
 
 	/**
 	 * @var AC\Column
@@ -22,14 +25,23 @@ class View implements AC\ApplyFilter {
 	 */
 	private $service;
 
-	public function __construct( AC\Column $column, $context, Service $service ) {
+	public function __construct( AC\Column $column, string $context, Service $service ) {
 		$this->column = $column;
-		$this->context = (string) $context;
+		$this->context = $context;
 		$this->service = $service;
 	}
 
+	/**
+	 * @param Editing\View|null $value
+	 *
+	 * @return Editing\View|null
+	 */
 	public function apply_filters( $value ) {
-		return apply_filters( 'acp/editing/view', $value, $this->column, $this->context, $this->service );
+		$value = apply_filters( 'acp/editing/view', $value, $this->column, $this->context, $this->service );
+
+		return $value instanceof Editing\View
+			? $value
+			: null;
 	}
 
 }

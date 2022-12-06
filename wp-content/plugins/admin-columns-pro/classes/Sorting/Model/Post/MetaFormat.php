@@ -4,6 +4,7 @@ namespace ACP\Sorting\Model\Post;
 
 use ACP\Sorting\AbstractModel;
 use ACP\Sorting\FormatValue;
+use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Sorter;
 use ACP\Sorting\Strategy\Post;
 use ACP\Sorting\Type\DataType;
@@ -39,9 +40,21 @@ class MetaFormat extends AbstractModel {
 	}
 
 	public function get_sorting_vars() {
+		add_filter( 'posts_clauses', [ $this, 'sorting_clauses_callback' ] );
+
 		return [
-			'ids' => $this->get_sorted_ids(),
+			'suppress_filters' => false,
 		];
+	}
+
+	public function sorting_clauses_callback( $clauses ) {
+		remove_filter( 'posts_clauses', [ $this, __FUNCTION__ ] );
+
+		global $wpdb;
+
+		$clauses['orderby'] = SqlOrderByFactory::create_with_ids( "$wpdb->posts.ID", $this->get_sorted_ids(), $this->get_order() ) ?: $clauses['orderby'];
+
+		return $clauses;
 	}
 
 	/**
@@ -50,12 +63,10 @@ class MetaFormat extends AbstractModel {
 	private function get_sorted_ids() {
 		global $wpdb;
 
-		$join_type = $this->show_empty ? 'LEFT' : 'INNER';
-
 		$sql = $wpdb->prepare( "
 			SELECT pp.ID AS id, pm.meta_value AS value
-			FROM {$wpdb->posts} AS pp
-			{$join_type} JOIN {$wpdb->postmeta} AS pm ON pm.post_id = pp.ID
+			FROM $wpdb->posts AS pp
+			LEFT JOIN $wpdb->postmeta AS pm ON pm.post_id = pp.ID
 				AND pm.meta_key = %s AND pm.meta_value <> ''
 			WHERE pp.post_type = %s
 		", $this->meta_key, $this->strategy->get_post_type() );
@@ -82,7 +93,7 @@ class MetaFormat extends AbstractModel {
 			$values[ $id ] = trim( implode( ' ', $meta_values ) );
 		}
 
-		return ( new Sorter() )->sort( $values, $this->get_order(), $this->data_type, $this->show_empty );
+		return ( new Sorter() )->sort( $values, $this->data_type );
 	}
 
 }

@@ -3,14 +3,14 @@
 namespace ACP\Service;
 
 use AC\PluginInformation;
-use AC\Registrable;
+use AC\Registerable;
 use ACP\API;
 use ACP\PluginRepository;
 use ACP\Storage\PluginsData;
 use ACP\Updates\UpdatePlugin;
 use ACP\Updates\ViewPluginDetails;
 
-class PluginUpdater implements Registrable {
+class PluginUpdater implements Registerable {
 
 	/**
 	 * @var API

@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: YITH WooCommerce Membership\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/yith-woocommerce-"
 "membership\n"
-"POT-Creation-Date: 2022-07-18T09:04:10+02:00\n"
+"POT-Creation-Date: 2022-10-11T12:25:52+02:00\n"
 "PO-Revision-Date: 2022-03-24 16:10:14+0000\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -85,7 +85,7 @@ msgstr "ID"
 
 #: includes/admin/class.yith-wcmbs-admin-profile-premium.php:229
 #: includes/class.yith-wcmbs-admin.php:640
-#: includes/class.yith-wcmbs-advanced-administration.php:186
+#: includes/class.yith-wcmbs-advanced-administration.php:189
 #: includes/class.yith-wcmbs-membership.php:589
 #: templates/premium/membership/membership-plans.php:33
 #: views/metaboxes/membership_info_content.php:26
@@ -94,7 +94,7 @@ msgstr "Data di inizio"
 
 #: includes/admin/class.yith-wcmbs-admin-profile-premium.php:230
 #: includes/class.yith-wcmbs-admin.php:641
-#: includes/class.yith-wcmbs-advanced-administration.php:196
+#: includes/class.yith-wcmbs-advanced-administration.php:199
 #: includes/class.yith-wcmbs-membership.php:590
 #: templates/premium/membership/membership-plans.php:37
 #: views/metaboxes/membership_info_content.php:30
@@ -102,17 +102,17 @@ msgid "Expiration Date"
 msgstr "Data di scadenza"
 
 #: includes/admin/class.yith-wcmbs-admin-profile-premium.php:231
-#: includes/class.yith-wcmbs-advanced-administration.php:201
+#: includes/class.yith-wcmbs-advanced-administration.php:204
 #: views/metaboxes/membership_info_content.php:34
 msgid "Order ID"
 msgstr "ID ordine"
 
 #: includes/admin/class.yith-wcmbs-admin-profile-premium.php:232
 #: includes/class.yith-wcmbs-admin.php:637
-#: includes/class.yith-wcmbs-advanced-administration.php:213
+#: includes/class.yith-wcmbs-advanced-administration.php:216
 #: includes/class.yith-wcmbs-membership.php:604
 #: templates/premium/membership/membership-plans.php:41
-#: templates/premium/membership/membership-plans.php:108
+#: templates/premium/membership/membership-plans.php:110
 #: views/metaboxes/membership_info_content.php:106
 msgid "Status"
 msgstr "Stato"
@@ -211,7 +211,7 @@ msgstr ""
 "riservati ai membri:</b>"
 
 #: includes/class.yith-wcmbs-admin.php:443
-#: includes/class.yith-wcmbs-products-manager.php:302
+#: includes/class.yith-wcmbs-products-manager.php:313
 msgid "Error"
 msgstr "Errore"
 
@@ -278,54 +278,54 @@ msgstr "Non hai ancora creato nessun blocco di contenuto alternativo!"
 msgid "Create new alternative content block"
 msgstr "Crea un nuovo blocco di contenuto alternativo"
 
-#: includes/class.yith-wcmbs-advanced-administration.php:73
+#: includes/class.yith-wcmbs-advanced-administration.php:75
 msgid "Advanced Administration"
 msgstr "Amministrazione avanzata"
 
-#: includes/class.yith-wcmbs-advanced-administration.php:182
+#: includes/class.yith-wcmbs-advanced-administration.php:185
 msgid "Plan ID"
 msgstr "ID del piano"
 
-#: includes/class.yith-wcmbs-advanced-administration.php:191
+#: includes/class.yith-wcmbs-advanced-administration.php:194
 msgid "Set an expiration date"
 msgstr "Imposta una data di scadenza"
 
-#: includes/class.yith-wcmbs-advanced-administration.php:205
+#: includes/class.yith-wcmbs-advanced-administration.php:208
 msgid "Order Item ID"
 msgstr "ID articolo ordine"
 
-#: includes/class.yith-wcmbs-advanced-administration.php:209
+#: includes/class.yith-wcmbs-advanced-administration.php:212
 msgid "User ID"
 msgstr "ID utente"
 
-#: includes/class.yith-wcmbs-advanced-administration.php:218
+#: includes/class.yith-wcmbs-advanced-administration.php:221
 msgid "Paused days"
 msgstr "Giorni di pausa"
 
-#: includes/class.yith-wcmbs-advanced-administration.php:222
+#: includes/class.yith-wcmbs-advanced-administration.php:225
 msgid "Enable credits"
 msgstr "Attiva i crediti"
 
-#: includes/class.yith-wcmbs-advanced-administration.php:227
+#: includes/class.yith-wcmbs-advanced-administration.php:230
 #: templates/premium/membership/membership-plans.php:49
 #: views/metaboxes/membership_info_content.php:68
 msgid "Remaining Credits"
 msgstr "Crediti rimasti"
 
-#: includes/class.yith-wcmbs-advanced-administration.php:231
+#: includes/class.yith-wcmbs-advanced-administration.php:234
 msgid "Last Credit Update"
 msgstr "Ultimo aggiornamento credito"
 
-#: includes/class.yith-wcmbs-advanced-administration.php:236
+#: includes/class.yith-wcmbs-advanced-administration.php:239
 msgid "Next Credit Update"
 msgstr "Prossimo aggiornamento del credito"
 
-#: includes/class.yith-wcmbs-advanced-administration.php:244
+#: includes/class.yith-wcmbs-advanced-administration.php:247
 #: views/metaboxes/plan-options.php:200
 msgid "Give a discount"
 msgstr "Offri uno sconto"
 
-#: includes/class.yith-wcmbs-advanced-administration.php:249
+#: includes/class.yith-wcmbs-advanced-administration.php:252
 #: views/metaboxes/plan-options.php:207
 msgid "Discount on all products (%)"
 msgstr "Sconto su tutti i prodotti (%)"
@@ -364,7 +364,7 @@ msgstr "Membership"
 msgid "Endpoint for the \"My Account &rarr; Memberships\" page"
 msgstr "Endpoint per la pagina \"My Account &rarr; Membership\""
 
-#: includes/class.yith-wcmbs-frontend.php:464
+#: includes/class.yith-wcmbs-frontend.php:469
 msgid "You cannot purchase \"%s\". To do it, you need a membership plan"
 msgstr "Non puoi acquistare \"%s\". Per farlo necessiti di un piano membership"
 
@@ -658,38 +658,38 @@ msgctxt "Privacy Policy Content"
 msgid "YITH WooCommerce Membership"
 msgstr "YITH WooCommerce Membership"
 
-#: includes/class.yith-wcmbs-products-manager.php:168
+#: includes/class.yith-wcmbs-products-manager.php:179
 msgid "You can't access to this content. You don't have enough credits."
 msgstr "Non puoi accedere a questo contenuto. Non hai abbastanza crediti."
 
-#: includes/class.yith-wcmbs-products-manager.php:170
+#: includes/class.yith-wcmbs-products-manager.php:181
 msgid "This product needs one credit,"
 msgid_plural "This product needs %s credits,"
 msgstr[0] "Questo prodotto necessita di un credito,"
 msgstr[1] "Questo prodotto necessita di %s crediti,"
 
-#: includes/class.yith-wcmbs-products-manager.php:171
+#: includes/class.yith-wcmbs-products-manager.php:182
 msgid "but you have only one credit!"
 msgid_plural "but you have only %s credits!"
 msgstr[0] "ma hai solo un credito!"
 msgstr[1] "ma hai solo %s crediti!"
 
-#: includes/class.yith-wcmbs-products-manager.php:173
-#: includes/class.yith-wcmbs-products-manager.php:305
+#: includes/class.yith-wcmbs-products-manager.php:184
+#: includes/class.yith-wcmbs-products-manager.php:316
 #: includes/class.yith-wcmbs-protected-links.php:83
 #: includes/class.yith-wcmbs-protected-media.php:141
 msgid "Restricted Access."
 msgstr "Accesso limitato."
 
-#: includes/class.yith-wcmbs-products-manager.php:302
+#: includes/class.yith-wcmbs-products-manager.php:313
 msgid "Error while downloading file"
 msgstr "Errore durante il download del file"
 
-#: includes/class.yith-wcmbs-products-manager.php:305
+#: includes/class.yith-wcmbs-products-manager.php:316
 msgid "You can't access to this content"
 msgstr "Non puoi accedere a questo contenuto"
 
-#: includes/class.yith-wcmbs-products-manager.php:358
+#: includes/class.yith-wcmbs-products-manager.php:369
 #: views/reports/download-reports-table.php:52
 #: views/reports/download-reports.php:9 views/reports/reports.php:10
 msgid "Downloads"
@@ -725,15 +725,15 @@ msgstr[1] "%s crediti"
 msgid "You don't have enough credits to download this product!"
 msgstr "Non hai abbastanza crediti per scaricare questo prodotto!"
 
-#: includes/class.yith-wcmbs-shortcodes.php:500
+#: includes/class.yith-wcmbs-shortcodes.php:501
 msgid "You don't have any membership without a subscription plan yet."
 msgstr "Non hai ancora nessuna membership senza un piano di abbonamento."
 
-#: includes/class.yith-wcmbs-shortcodes.php:508
+#: includes/class.yith-wcmbs-shortcodes.php:509
 msgid "You don't have any membership with a subscription plan yet."
 msgstr "Non hai ancora dei piani con abbonamento."
 
-#: includes/class.yith-wcmbs-shortcodes.php:511
+#: includes/class.yith-wcmbs-shortcodes.php:512
 msgid "You don't have any membership yet."
 msgstr "Non hai ancora nessuna membership."
 
@@ -1636,29 +1636,29 @@ msgctxt "Pagination"
 msgid "%1$s of %2$s"
 msgstr "%1$s di %2$s"
 
-#: templates/premium/membership/membership-plans.php:54
+#: templates/premium/membership/membership-plans.php:55
 msgid "Next credits update"
 msgstr "Prossimo aggiornamento dei crediti"
 
-#: templates/premium/membership/membership-plans.php:61
+#: templates/premium/membership/membership-plans.php:63
 #: views/metaboxes/membership_info_content.php:88
 msgid "Shop Discount"
 msgstr "Sconto negozio"
 
-#: templates/premium/membership/membership-plans.php:90
+#: templates/premium/membership/membership-plans.php:92
 msgid "History"
 msgstr "Storico"
 
-#: templates/premium/membership/membership-plans.php:94
+#: templates/premium/membership/membership-plans.php:96
 msgid "Contents"
 msgstr "Contenuti"
 
-#: templates/premium/membership/membership-plans.php:109
+#: templates/premium/membership/membership-plans.php:111
 #: views/metaboxes/membership_info_content.php:107
 msgid "Update"
 msgstr "Aggiornamento"
 
-#: templates/premium/membership/membership-plans.php:110
+#: templates/premium/membership/membership-plans.php:112
 #: views/metaboxes/membership_info_content.php:108
 msgid "Note"
 msgstr "Nota"

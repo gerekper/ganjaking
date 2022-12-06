@@ -1,4 +1,10 @@
 <?php
+/**
+ * Deposits plan
+ *
+ * @package woocommerce-deposits
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -8,15 +14,38 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_Deposits_Plan {
 
+	/**
+	 * Plan ID
+	 *
+	 * @var int
+	 */
 	private $id;
+
+	/**
+	 * Plan name
+	 *
+	 * @var string
+	 */
 	private $name;
+
+	/**
+	 * Plan description
+	 *
+	 * @var string
+	 */
 	private $description;
+
+	/**
+	 * Plan schedule
+	 *
+	 * @var array
+	 */
 	private $schedule;
 
 	/**
 	 * Plan Constructor.
 	 *
-	 * @param object $plan Queried plan
+	 * @param object $plan Queried plan.
 	 */
 	public function __construct( $plan ) {
 		if ( is_numeric( $plan ) ) {
@@ -89,7 +118,8 @@ class WC_Deposits_Plan {
 	/**
 	 * Format the payment schedule for display.
 	 *
-	 * @param  string $amount Optionaly define the amount being paid (if used when displaying a product)
+	 * @param  string $amount Optionaly define the amount being paid (if used when displaying a product).
+	 * @param  string $currency Currency.
 	 * @return string
 	 */
 	public function get_formatted_schedule( $amount = '', $currency = '' ) {
@@ -102,18 +132,18 @@ class WC_Deposits_Plan {
 
 		foreach ( $schedule as $schedule_row ) {
 			switch ( $schedule_row->interval_unit ) {
-				case 'day' :
+				case 'day':
 					$total_days += $schedule_row->interval_amount;
-				break;
-				case 'week' :
+					break;
+				case 'week':
 					$total_days += ( 7 * $schedule_row->interval_amount );
-				break;
-				case 'year' :
+					break;
+				case 'year':
 					$total_years += $schedule_row->interval_amount;
-				break;
-				case 'month' :
+					break;
+				case 'month':
 					$total_months += $schedule_row->interval_amount;
-				break;
+					break;
 			}
 		}
 
@@ -124,18 +154,23 @@ class WC_Deposits_Plan {
 		}
 
 		if ( $total_years ) {
+			/* translators: year */
 			$duration[] = sprintf( _n( '%s year', '%s years', $total_years, 'woocommerce-deposits' ), $total_years );
 		}
 		if ( $total_months ) {
+			/* translators: month */
 			$duration[] = sprintf( _n( '%s month', '%s months', $total_months, 'woocommerce-deposits' ), $total_months );
 		}
 		if ( $total_days ) {
+			/* translators: day */
 			$duration[] = sprintf( _n( '%s day', '%s days', $total_days, 'woocommerce-deposits' ), $total_days );
 		}
 
 		if ( $duration ) {
+			/* translators: amount over duration */
 			return sprintf( __( '%1$s payable over %2$s', 'woocommerce-deposits' ), $amount, implode( ', ', $duration ) );
 		} else {
+			/* translators: amount */
 			return sprintf( __( '%1$s total payable', 'woocommerce-deposits' ), $amount );
 		}
 	}

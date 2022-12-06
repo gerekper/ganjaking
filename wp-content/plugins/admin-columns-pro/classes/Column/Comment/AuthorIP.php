@@ -3,6 +3,7 @@
 namespace ACP\Column\Comment;
 
 use AC;
+use ACP\ConditionalFormat;
 use ACP\Filtering;
 use ACP\Search;
 use ACP\Sorting;
@@ -11,7 +12,9 @@ use ACP\Sorting;
  * @since 4.0
  */
 class AuthorIP extends AC\Column\Comment\AuthorIP
-	implements Filtering\Filterable, Sorting\Sortable, Search\Searchable {
+	implements Filtering\Filterable, Sorting\Sortable, Search\Searchable, ConditionalFormat\Formattable {
+
+	use ConditionalFormat\ConditionalFormatTrait;
 
 	public function sorting() {
 		return new Sorting\Model\OrderBy( 'comment_author_IP' );

@@ -3,13 +3,16 @@
 namespace ACP\Column\Media;
 
 use AC;
+use ACP\ConditionalFormat;
 use ACP\Editing;
 use ACP\Filtering;
 use ACP\Search;
 use ACP\Sorting;
 
 class MimeType extends AC\Column\Media\MimeType
-	implements Editing\Editable, Filtering\Filterable, Sorting\Sortable, Search\Searchable {
+	implements Editing\Editable, Filtering\Filterable, Sorting\Sortable, Search\Searchable, ConditionalFormat\Formattable {
+
+	use ConditionalFormat\ConditionalFormatTrait;
 
 	public function sorting() {
 		return new Sorting\Model\Media\MimeType();

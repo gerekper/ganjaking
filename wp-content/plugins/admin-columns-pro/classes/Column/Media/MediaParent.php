@@ -3,6 +3,7 @@
 namespace ACP\Column\Media;
 
 use AC;
+use ACP\ConditionalFormat;
 use ACP\Export;
 use ACP\Filtering;
 use ACP\Search;
@@ -11,7 +12,9 @@ use ACP\Search;
  * @since 4.0
  */
 class MediaParent extends AC\Column\Media\MediaParent
-	implements Filtering\Filterable, Export\Exportable, Search\Searchable {
+	implements Filtering\Filterable, Export\Exportable, Search\Searchable, ConditionalFormat\Formattable {
+
+	use ConditionalFormat\ConditionalFormatTrait;
 
 	public function filtering() {
 		return new Filtering\Model\Post\PostParent( $this );

@@ -3,6 +3,7 @@
 namespace ACP\Sorting\Model\Post;
 
 use ACP\Sorting\AbstractModel;
+use ACP\Sorting\Model\SqlOrderByFactory;
 
 class Attachment extends AbstractModel {
 
@@ -15,23 +16,17 @@ class Attachment extends AbstractModel {
 	}
 
 	public function sorting_clauses_callback( $clauses ) {
+		remove_filter( 'posts_clauses', [ $this, __FUNCTION__ ] );
+
 		global $wpdb;
 
-		$order = esc_sql( $this->get_order() );
-
-		$join_type = $this->show_empty
-			? 'LEFT'
-			: 'INNER';
-
-		$clauses['fields'] .= ", count( acsort_attachments.ID ) AS acsort_attachment_count";
 		$clauses['join'] .= "
-			$join_type JOIN $wpdb->posts AS acsort_attachments ON acsort_attachments.post_parent = {$wpdb->posts}.ID
-			AND acsort_attachments.post_type = 'attachment'
+			LEFT JOIN $wpdb->posts AS acsort_attachments ON acsort_attachments.post_parent = $wpdb->posts.ID
+				AND acsort_attachments.post_type = 'attachment'
 		";
 		$clauses['groupby'] = "$wpdb->posts.ID";
-		$clauses['orderby'] = "acsort_attachment_count $order, $wpdb->posts.ID $order";
-
-		remove_filter( 'posts_clauses', [ $this, __FUNCTION__ ] );
+		$clauses['orderby'] = SqlOrderByFactory::create_with_count( "acsort_attachments.ID", $this->get_order() );
+		$clauses['orderby'] .= sprintf( ", $wpdb->posts.ID %s", esc_sql( $this->get_order() ) );
 
 		return $clauses;
 	}

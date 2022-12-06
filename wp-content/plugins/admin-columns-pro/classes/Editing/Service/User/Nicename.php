@@ -8,11 +8,8 @@ use ACP\Editing\View\Text;
 
 class Nicename extends Basic {
 
-	public function __construct( $placeholder ) {
-		parent::__construct(
-			( new Text() )->set_placeholder( (string) $placeholder ),
-			new Storage\User\Field( 'user_nicename' )
-		);
+	public function __construct( Text $view ) {
+		parent::__construct( $view, new Storage\User\Field( 'user_nicename' ) );
 	}
 
 }

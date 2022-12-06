@@ -3,9 +3,11 @@
 namespace ACP\Column\NetworkSite;
 
 use AC;
+use ACP\ConditionalFormat;
+use ACP\ConditionalFormat\FormattableConfig;
 use ACP\Settings;
 
-class Plugins extends AC\Column {
+class Plugins extends AC\Column implements ConditionalFormat\Formattable {
 
 	public function __construct() {
 		$this->set_type( 'column-msite_plugins' );
@@ -37,6 +39,15 @@ class Plugins extends AC\Column {
 	public function register_settings() {
 		$this->add_setting( new Settings\Column\NetworkSite\PluginsInclude( $this ) )
 		     ->add_setting( new Settings\Column\NetworkSite\Plugins( $this ) );
+	}
+
+	public function conditional_format(): ?FormattableConfig {
+		$setting = $this->get_setting( 'plugin_display' );
+		$formatter = $setting instanceof Settings\Column\NetworkSite\Plugins && 'count' === $setting->get_value()
+			? new ConditionalFormat\Formatter\IntegerFormatter()
+			: null;
+
+		return new ConditionalFormat\FormattableConfig( $formatter );
 	}
 
 }

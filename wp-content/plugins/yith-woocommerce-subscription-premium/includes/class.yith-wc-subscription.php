@@ -326,7 +326,7 @@ if ( ! class_exists( 'YITH_WC_Subscription' ) ) {
 			$ep = self::$endpoint;
 			$vp = self::$view_endpoint;
 
-			return isset( $rules["(.?.+?)/{$ep}(/(.*))?/?$"] ) && isset( $rules["(.?.+?)/{$vp}(/(.*))?/?$"] ) ? $rules : false;
+			return isset( $rules[ "(.?.+?)/{$ep}(/(.*))?/?$" ] ) && isset( $rules[ "(.?.+?)/{$vp}(/(.*))?/?$" ] ) ? $rules : false;
 
 		}//end rewrite_rules()
 
@@ -398,11 +398,11 @@ if ( ! class_exists( 'YITH_WC_Subscription' ) ) {
 				'post_type'      => 'ywsbs_subscription',
 				'posts_per_page' => - 1,
 				'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
-				                           array(
-					                           'key'     => 'user_id',
-					                           'value'   => $user_id,
-					                           'compare' => '=',
-				                           ),
+										   array(
+											   'key'     => 'user_id',
+											   'value'   => $user_id,
+											   'compare' => '=',
+										   ),
 				),
 			);
 
@@ -777,6 +777,15 @@ if ( ! class_exists( 'YITH_WC_Subscription' ) ) {
 			WC()->cart->add_to_cart( $subscription->get( 'product_id' ), $subscription->get( 'quantity' ), $to_id, $variation->get_variation_attributes() );
 
 			$checkout_url = wc_get_checkout_url();
+			/**
+			 * DO_ACTION: ywsbs_subscription_downgrade_process
+			 *
+			 * Action triggered during the downgrade option
+			 *
+			 * @param   int  $from_id  Current subscription product to switch.
+			 * @param   int  $to_id  Final variation id.
+			 * @param   YWSBS_Subscription  $subscription  Subscription object
+			 */
 			do_action( 'ywsbs_subscription_downgrade_process', $subscription->get_variation_id(), $to_id, $subscription );
 
 			wp_safe_redirect( $checkout_url );

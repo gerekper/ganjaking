@@ -22,7 +22,13 @@ class Revisions extends AC\Column
 			return $this->get_empty_char();
 		}
 
-		return ac_helper()->html->get_ajax_toggle_box_link( $post_id, sprintf( _n( '%s revision', '%s revisions', $value, 'codepress-admin-columns' ), $value ), $this->get_name() );
+		return ac_helper()->html->get_ajax_modal_link(
+			sprintf( _n( '%s revision', '%s revisions', $value, 'codepress-admin-columns' ), $value ),
+			[
+				'title'     => __( 'Revisions', 'codepress-admin-columns' ) . ': ' . get_the_title( $post_id ),
+				'edit_link' => get_edit_post_link( $post_id ),
+				'id'        => $post_id,
+			] );
 	}
 
 	public function get_raw_value( $post_id ) {

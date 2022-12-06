@@ -1,9 +1,9 @@
 === WooCommerce Intuit Payments Gateway ===
 Author: skyverge
 Tags: woocommerce
-Requires PHP: 7.0
-Requires at least: 5.2
-Tested up to: 5.6.2
+Requires PHP: 7.4
+Requires at least: 5.6
+Tested up to: 6.1.1
 
 Accept credit cards in WooCommerce with the Intuit Payments or Legacy QBMS gateway
 

@@ -23,9 +23,10 @@ class ColumnInlineSettingsSetter {
 			return;
 		}
 
-		$view = ( new ApplyFilter\View( $column, Service::CONTEXT_SINGLE, $service ) )->apply_filters( $service->get_view( Service::CONTEXT_SINGLE ) );
+		$filter = new ApplyFilter\View( $column, Service::CONTEXT_SINGLE, $service );
+		$view = $filter->apply_filters( $service->get_view( Service::CONTEXT_SINGLE ) );
 
-		if ( $view === false ) {
+		if ( ! $view instanceof View ) {
 			return;
 		}
 

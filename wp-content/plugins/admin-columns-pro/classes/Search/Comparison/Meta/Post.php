@@ -78,7 +78,7 @@ class Post extends Meta
 	 */
 	protected function get_tax_query() {
 		$tax_query = [];
-
+		
 		foreach ( $this->terms as $term ) {
 			$tax_query[] = [
 				'taxonomy' => $term->taxonomy,

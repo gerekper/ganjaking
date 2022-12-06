@@ -45,9 +45,9 @@ class WC_Deposits_Core_Compatibility {
 	 *
 	 * @since  1.6.0
 	 *
-	 * @param  mixed            $result
-	 * @param  WP_REST_Server   $server
-	 * @param  WP_REST_Request  $request
+	 * @param mixed           $result REST Result.
+	 * @param WP_REST_Server  $server REST Server.
+	 * @param WP_REST_Request $request REST Request.
 	 * @return mixed
 	 */
 	public static function save_rest_request( $result, $server, $request ) {
@@ -88,7 +88,7 @@ class WC_Deposits_Core_Compatibility {
 	 *
 	 * @since  1.6.0
 	 *
-	 * @param  string  $route
+	 * @param  string $route Route.
 	 * @return boolean
 	 */
 	public static function is_store_api_request( $route = '' ) {

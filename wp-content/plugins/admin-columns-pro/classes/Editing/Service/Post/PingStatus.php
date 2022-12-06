@@ -12,7 +12,7 @@ class PingStatus extends BasicStorage {
 		parent::__construct( new Storage\Post\Field( 'ping_status' ) );
 	}
 
-	public function get_view( $context ) {
+	public function get_view( string $context ): ?View {
 		return new View\Toggle(
 			new ToggleOptions(
 				new Option( 'closed', __( 'Closed', 'codepress-admin-columns' ) ),

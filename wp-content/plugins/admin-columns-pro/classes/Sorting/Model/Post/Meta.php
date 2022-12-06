@@ -3,6 +3,7 @@
 namespace ACP\Sorting\Model\Post;
 
 use ACP\Sorting\AbstractModel;
+use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Type\CastType;
 use ACP\Sorting\Type\DataType;
 
@@ -13,7 +14,7 @@ class Meta extends AbstractModel {
 	 */
 	protected $meta_key;
 
-	public function __construct( $meta_key, DataType $data_type = null ) {
+	public function __construct( string $meta_key, DataType $data_type = null ) {
 		parent::__construct( $data_type );
 
 		$this->meta_key = $meta_key;
@@ -28,39 +29,24 @@ class Meta extends AbstractModel {
 	}
 
 	public function sorting_clauses_callback( $clauses ) {
+		remove_filter( 'posts_clauses', [ $this, __FUNCTION__ ] );
+
 		global $wpdb;
 
-		$join_type = $this->show_empty
-			? 'LEFT'
-			: 'INNER';
-
 		$clauses['join'] .= $wpdb->prepare( "
-			{$join_type} JOIN {$wpdb->postmeta} AS acsort_postmeta ON {$wpdb->posts}.ID = acsort_postmeta.post_id
+			LEFT JOIN $wpdb->postmeta AS acsort_postmeta ON $wpdb->posts.ID = acsort_postmeta.post_id
 			AND acsort_postmeta.meta_key = %s
 		", $this->meta_key );
 
-		if ( ! $this->show_empty ) {
-			$clauses['join'] .= " AND acsort_postmeta.meta_value <> ''";
-		}
-
-		$clauses['groupby'] = "{$wpdb->posts}.ID";
-		$clauses['orderby'] = $this->get_orderby();
-
-		remove_filter( 'posts_clauses', [ $this, __FUNCTION__ ] );
+		$clauses['groupby'] = "$wpdb->posts.ID";
+		$clauses['orderby'] = $this->get_order_by();
+		$clauses['orderby'] .= sprintf( ", $wpdb->posts.ID %s", $this->get_order() );
 
 		return $clauses;
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function get_orderby() {
-		global $wpdb;
-
-		$order = esc_sql( $this->get_order() );
-		$cast_type = CastType::create_from_data_type( $this->data_type )->get_value();
-
-		return sprintf( "CAST( acsort_postmeta.meta_value AS %s ) $order, {$wpdb->posts}.ID $order", $cast_type );
+	protected function get_order_by(): string {
+		return SqlOrderByFactory::create( "acsort_postmeta.`meta_value`", $this->get_order(), [ 'cast_type' => (string) CastType::create_from_data_type( $this->data_type ) ] );
 	}
 
 }

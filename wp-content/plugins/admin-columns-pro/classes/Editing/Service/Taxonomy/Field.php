@@ -3,17 +3,12 @@
 namespace ACP\Editing\Service\Taxonomy;
 
 use ACP\Editing;
-use ACP\Editing\Service;
+use ACP\Editing\Service\BasicStorage;
 
-class Field extends Service\Basic {
+abstract class Field extends BasicStorage {
 
-	/**
-	 * @param Editing\View $view
-	 * @param string       $taxonomy
-	 * @param string       $field
-	 */
-	public function __construct( Editing\View $view, $taxonomy, $field ) {
-		parent::__construct( $view, new Editing\Storage\Taxonomy\Field( $taxonomy, $field ) );
+	public function __construct( $taxonomy, $field ) {
+		parent::__construct( new Editing\Storage\Taxonomy\Field( $taxonomy, $field ) );
 	}
 
 }

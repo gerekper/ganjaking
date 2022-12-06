@@ -4,6 +4,7 @@ namespace ACP\Sorting\Model\Comment;
 
 use ACP\Sorting\AbstractModel;
 use ACP\Sorting\FormatValue;
+use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Sorter;
 use ACP\Sorting\Strategy;
 use ACP\Sorting\Type\DataType;
@@ -38,13 +39,20 @@ class FieldFormat extends AbstractModel {
 		$this->value_length = (int) $value_length;
 	}
 
-	/**
-	 * @return array
-	 */
 	public function get_sorting_vars() {
-		return [
-			'ids' => $this->get_sorted_ids(),
-		];
+		add_filter( 'comments_clauses', [ $this, 'sorting_clauses_callback' ] );
+
+		return [];
+	}
+
+	public function sorting_clauses_callback( $clauses ) {
+		remove_filter( 'comments_clauses', [ $this, __FUNCTION__ ] );
+
+		global $wpdb;
+
+		$clauses['orderby'] = SqlOrderByFactory::create_with_ids( "$wpdb->comments.comment_ID", $this->get_sorted_ids(), $this->get_order() ) ?: $clauses['orderby'];
+
+		return $clauses;
 	}
 
 	/**
@@ -63,7 +71,6 @@ class FieldFormat extends AbstractModel {
 	}
 
 	private function get_comment_status() {
-
 		switch ( $this->get_query_var( 'status' ) ) {
 			case 'hold' :
 				return 0;
@@ -73,9 +80,9 @@ class FieldFormat extends AbstractModel {
 				return 'trash';
 			case 'approve' :
 				return 1;
+			default:
+				return null;
 		}
-
-		return null;
 	}
 
 	/**
@@ -90,7 +97,7 @@ class FieldFormat extends AbstractModel {
 
 		$sql = sprintf( "
 			SELECT cc.comment_ID AS id, %s AS value 
-			FROM {$wpdb->comments} AS cc
+			FROM $wpdb->comments AS cc
 		", $field );
 
 		$status = $this->get_comment_status();
@@ -111,7 +118,7 @@ class FieldFormat extends AbstractModel {
 			$values[ $object->id ] = $this->formatter->format_value( $object->value );
 		}
 
-		return ( new Sorter() )->sort( $values, $this->get_order(), $this->data_type, $this->show_empty );
+		return ( new Sorter() )->sort( $values, $this->data_type );
 	}
 
 }

@@ -30,15 +30,27 @@ class ApiActivateResponse implements Rule {
 		}
 
 		// `Usage` permissions are given when the API call fails.
-		if ( $this->response->has_error() && $this->has_error_code( $this->response->get_error(), 'http_request_failed' ) ) {
+		if ( $this->response->has_error() && $this->has_http_error_code( $this->response->get_error() ) ) {
 			$permissions = $permissions->with_permission( Permissions::USAGE );
 		}
 
 		return $permissions;
 	}
 
-	private function has_error_code( WP_Error $error, $code ) {
-		return in_array( $code, $error->get_error_codes(), true );
+	/**
+	 * @param WP_Error $error
+	 *
+	 * @return bool
+	 * @see WP_Http
+	 */
+	private function has_http_error_code( WP_Error $error ): bool {
+		$http_error_codes = [
+			'http_failure', // no HTTP transports available
+			'http_request_not_executed', // User has blocked requests through HTTP
+			'http_request_failed', // any HTTP exceptions
+		];
+
+		return 0 !== count( array_intersect( $error->get_error_codes(), $http_error_codes ) );
 	}
 
 }

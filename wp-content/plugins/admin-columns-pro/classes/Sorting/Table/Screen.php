@@ -17,7 +17,7 @@ use ACP\Sorting\Settings;
 use ACP\Sorting\Type\SortType;
 use ACP\Sorting\UserPreference;
 
-class Screen implements AC\Registrable {
+class Screen implements AC\Registerable {
 
 	/**
 	 * @var AC\ListScreen
@@ -145,7 +145,7 @@ class Screen implements AC\Registrable {
 		}
 
 		$columns = $this->column_respository->find_all( [
-			ColumnRepository::ARG_FILTER => new Filter\SortableColumns( $this->model_factory ),
+			ColumnRepository::ARG_FILTER => [ new Filter\SortableColumns( $this->model_factory ) ],
 		] );
 
 		foreach ( $columns as $column ) {
@@ -164,7 +164,7 @@ class Screen implements AC\Registrable {
 	 */
 	public function unset_original_sortable_headings( $sortable_columns ) {
 		$columns = $this->column_respository->find_all( [
-			ColumnRepository::ARG_FILTER => new Filter\DisabledOriginalColumns(),
+			ColumnRepository::ARG_FILTER => [ new Filter\DisabledOriginalColumns() ],
 		] );
 
 		foreach ( $columns as $column ) {

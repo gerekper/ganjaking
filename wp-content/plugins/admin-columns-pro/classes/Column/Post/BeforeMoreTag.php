@@ -15,7 +15,7 @@ class BeforeMoreTag extends AC\Column\Post\BeforeMoreTag
 	implements Filtering\Filterable, Sorting\Sortable, Export\Exportable, Search\Searchable {
 
 	public function sorting() {
-		return new Sorting\Model\Post\PostField( 'post_content' );
+		return new Sorting\Model\Post\BeforeMoreTag();
 	}
 
 	public function filtering() {

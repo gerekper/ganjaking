@@ -3,6 +3,7 @@
 namespace ACP\Column\User;
 
 use AC;
+use ACP\ConditionalFormat;
 use ACP\Editing;
 use ACP\Export;
 use ACP\Filtering;
@@ -11,7 +12,9 @@ use ACP\Sorting;
 use WP_User;
 
 class Roles extends AC\Column\Meta
-	implements Editing\Editable, Filtering\Filterable, Sorting\Sortable, Search\Searchable, Export\Exportable {
+	implements Editing\Editable, Filtering\Filterable, Sorting\Sortable, Search\Searchable, Export\Exportable, ConditionalFormat\Formattable {
+
+	use ConditionalFormat\ConditionalFormatTrait;
 
 	public function __construct() {
 		$this->set_type( 'column-roles' )
@@ -40,7 +43,7 @@ class Roles extends AC\Column\Meta
 	}
 
 	public function editing() {
-		return new Editing\Service\User\Role();
+		return new Editing\Service\User\Role( true );
 	}
 
 	public function sorting() {
@@ -56,7 +59,7 @@ class Roles extends AC\Column\Meta
 	}
 
 	public function export() {
-		return new Export\Model\User\Role( $this );
+		return new Export\Model\User\Role( $this, true );
 	}
 
 }

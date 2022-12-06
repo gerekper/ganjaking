@@ -5,8 +5,8 @@ namespace ACP\Export\Model;
 use ACP\Export\Model;
 
 /**
- * Exportability model for outputting the column's output value
- * @since 4.1
+ * @since      4.1
+ * @deprecated 6.0
  */
 class Disabled extends Model {
 

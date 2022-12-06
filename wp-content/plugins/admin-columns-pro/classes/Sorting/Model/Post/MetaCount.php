@@ -3,6 +3,7 @@
 namespace ACP\Sorting\Model\Post;
 
 use ACP\Sorting\AbstractModel;
+use ACP\Sorting\Model\SqlOrderByFactory;
 
 /**
  * Sort a user list table on the number of times the meta_key is used by a user.
@@ -33,28 +34,18 @@ class MetaCount extends AbstractModel {
 	}
 
 	public function sorting_clauses_callback( $clauses ) {
+		remove_filter( 'posts_clauses', [ $this, __FUNCTION__ ] );
+
 		global $wpdb;
 
-		$order = esc_sql( $this->get_order() );
-
-		$join_type = $this->show_empty
-			? 'LEFT'
-			: 'INNER';
-
-		$clauses['fields'] .= ", COUNT( acsort_postmeta.meta_key ) AS acsort_metacount";
 		$clauses['join'] .= $wpdb->prepare( "
-			{$join_type} JOIN {$wpdb->postmeta} AS acsort_postmeta ON {$wpdb->posts}.ID = acsort_postmeta.post_id
+			LEFT JOIN $wpdb->postmeta AS acsort_postmeta ON $wpdb->posts.ID = acsort_postmeta.post_id
 			AND acsort_postmeta.meta_key = %s
 		", $this->meta_key );
 
-		if ( ! $this->show_empty ) {
-			$clauses['join'] .= " AND acsort_postmeta.meta_value <> ''";
-		}
-
-		$clauses['groupby'] = "{$wpdb->posts}.ID";
-		$clauses['orderby'] = "acsort_metacount {$order}, {$wpdb->posts}.ID {$order}";
-
-		remove_filter( 'posts_clauses', [ $this, __FUNCTION__ ] );
+		$clauses['groupby'] = "$wpdb->posts.ID";
+		$clauses['orderby'] = SqlOrderByFactory::create_with_count( "acsort_postmeta.meta_key", $this->get_order() );
+		$clauses['orderby'] .= sprintf( ", $wpdb->posts.post_date %s", esc_sql( $this->get_order() ) );
 
 		return $clauses;
 	}

@@ -13,7 +13,7 @@ use ACP\Sorting\Type\DataType;
 class CustomFieldFactory {
 
 	/**
-	 * @param string             $type
+	 * @param string|null             $type
 	 * @param string             $meta_type
 	 * @param string             $meta_key
 	 * @param Column\CustomField $column
@@ -21,6 +21,9 @@ class CustomFieldFactory {
 	 * @return AbstractModel
 	 */
 	public static function create( $type, $meta_type, $meta_key, Column\CustomField $column ) {
+		if( $type === null ){
+			return null;
+		}
 
 		switch ( $type ) {
 

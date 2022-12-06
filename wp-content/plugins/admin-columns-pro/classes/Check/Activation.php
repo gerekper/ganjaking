@@ -8,7 +8,7 @@ use AC\Admin\Page\Settings;
 use AC\Ajax;
 use AC\Capabilities;
 use AC\Message;
-use AC\Registrable;
+use AC\Registerable;
 use AC\Screen;
 use AC\Storage;
 use AC\Type\Url;
@@ -20,7 +20,7 @@ use ACP\Admin\Page\License;
 use ACP\Admin\Page\Tools;
 
 class Activation
-	implements Registrable {
+	implements Registerable {
 
 	/**
 	 * @var string
@@ -47,7 +47,13 @@ class Activation
 	 */
 	private $is_network_active;
 
-	public function __construct( $plugin_basename, ActivationTokenFactory $activation_token_factory, ActivationStorage $activation_storage, PermissionsStorage $permission_storage, $is_network_active ) {
+	public function __construct(
+		$plugin_basename,
+		ActivationTokenFactory $activation_token_factory,
+		ActivationStorage $activation_storage,
+		PermissionsStorage $permission_storage,
+		$is_network_active
+	) {
 		$this->plugin_basename = (string) $plugin_basename;
 		$this->activation_token_factory = $activation_token_factory;
 		$this->activation_storage = $activation_storage;
@@ -90,14 +96,13 @@ class Activation
 				);
 				$notice->register();
 				break;
-			case ( $screen->is_admin_screen( Settings::NAME ) || $screen->is_admin_screen( Columns::NAME ) || $screen->is_admin_screen( Tools::NAME ) || $screen->is_admin_screen( License::NAME ) ) && $this->show_message() :
+			case (
+				     $screen->is_admin_screen( Settings::NAME ) ||
+				     $screen->is_admin_screen( Columns::NAME ) ||
+				     $screen->is_admin_screen( Tools::NAME ) ||
+				     $screen->is_admin_screen( Addons::NAME ) ||
+				     $screen->is_admin_screen( License::NAME ) ) && $this->show_message() :
 				$notice = new Message\Notice( $this->get_message() );
-				$notice
-					->set_type( Message::INFO )
-					->register();
-				break;
-			case $screen->is_admin_screen( Addons::NAME ) && $this->show_message() :
-				$notice = new Message\Notice( $this->get_message_addon() );
 				$notice
 					->set_type( Message::INFO )
 					->register();
@@ -153,31 +158,6 @@ class Activation
 	 */
 	private function get_account_url() {
 		return new Url\UtmTags( new Url\Site( Url\Site::PAGE_ACCOUNT_SUBSCRIPTIONS ), 'license-activation' );
-	}
-
-	/**
-	 * @return string
-	 */
-	private function get_message_addon() {
-		return sprintf(
-			'%s %s',
-			sprintf(
-				__( "To enable add-ons, %s.", 'codepress_admin_columns' ),
-				sprintf(
-					"<a href='%s'>%s</a>",
-					esc_url( $this->get_license_page_url()->get_url() ),
-					__( 'enter your license key', 'codepress-admin-columns' )
-				)
-			),
-			sprintf(
-				__( 'You can find your license key on your %s.', 'codepress-admin-columns' ),
-				sprintf(
-					'<a href="%s" target="_blank">%s</a>',
-					esc_url( $this->get_account_url()->get_url() ),
-					__( 'account page', 'codepress-admin-columns' )
-				)
-			)
-		);
 	}
 
 	/**

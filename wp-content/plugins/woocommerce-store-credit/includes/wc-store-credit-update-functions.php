@@ -54,16 +54,22 @@ function wc_store_credit_update_240_orders_to_sync_credit_used() {
 	global $wpdb;
 
 	// Fetch the orders with coupons.
-	$order_ids = $wpdb->get_col(
-		"SELECT DISTINCT posts.ID
-			 FROM $wpdb->posts AS posts
-			 LEFT JOIN {$wpdb->prefix}woocommerce_order_items as items ON items.order_id = posts.ID
-			 WHERE posts.post_type = 'shop_order' AND
-			       posts.post_status IN ('wc-pending', 'wc-on-hold', 'wc-processing', 'wc-completed') AND
-			       items.order_item_type = 'coupon'"
+	$orders_ids_with_coupons = $wpdb->get_col(
+		"SELECT DISTINCT order_id
+			 FROM {$wpdb->prefix}woocommerce_order_items
+			 WHERE order_item_type = 'coupon'"
 	);
 
-	$order_ids = array_map( 'intval', $order_ids );
+	// Filter orders by type and status.
+	$order_ids = wc_get_orders(
+		array(
+			'type'     => 'shop_order',
+			'return'   => 'ids',
+			'status'   => array( 'wc-pending', 'wc-on-hold', 'wc-processing', 'wc-completed' ),
+			'limit'    => -1,
+			'post__in' => $orders_ids_with_coupons,
+		)
+	);
 
 	update_option( 'wc_store_credit_update_240_orders_to_sync_credit_used', $order_ids );
 }
@@ -126,15 +132,12 @@ function wc_store_credit_update_240_sync_credit_used_by_order( $order_id ) {
  * @global wpdb $wpdb The WordPress Database Access Abstraction Object.
  */
 function wc_store_credit_update_240_set_payment_method_to_orders() {
-	global $wpdb;
-
-	$order_ids = get_posts(
+	$orders = wc_get_orders(
 		array(
-			'posts_per_page' => -1,
-			'post_type'      => 'shop_order',
-			'post_status'    => array( 'wc-processing', 'wc-completed' ),
-			'fields'         => 'ids',
-			'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+			'type'               => 'shop_order',
+			'status'             => array( 'wc-processing', 'wc-completed' ),
+			'limit'              => -1,
+			'store_credit_query' => array(
 				array(
 					'key'   => '_payment_method',
 					'value' => '',
@@ -153,18 +156,13 @@ function wc_store_credit_update_240_set_payment_method_to_orders() {
 		)
 	);
 
-	if ( ! empty( $order_ids ) ) {
-		// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared
-		$wpdb->query(
-			$wpdb->prepare(
-				"UPDATE $wpdb->postmeta as metas
-				SET meta_value = %s
-				WHERE meta_key = '_payment_method' AND
-					  metas.post_id IN ('" . implode( "','", $order_ids ) . "')",
-				_x( 'Store Credit', 'payment method', 'woocommerce-store-credit' )
-			)
-		);
-		// phpcs:enable WordPress.DB.PreparedSQL.NotPrepared
+	if ( ! empty( $orders ) ) {
+		$payment_method = _x( 'Store Credit', 'payment method', 'woocommerce-store-credit' );
+
+		foreach ( $orders as $order ) {
+			$order->update_meta_data( '_payment_method', $payment_method );
+			$order->save_meta_data();
+		}
 	}
 }
 
@@ -253,14 +251,13 @@ function wc_store_credit_update_300_migrate_settings() {
  * Stores the orders that need to update the version used to calculate the store credit discounts.
  */
 function wc_store_credit_update_300_orders_to_update_credit_version() {
-	// If the '_store_credit_version' meta doesn't exists, it was created between versions 2.2 and 3.0.
-	$order_ids = get_posts(
+	// If the '_store_credit_version' meta doesn't exist, it was created between versions 2.2 and 3.0.
+	$order_ids = wc_get_orders(
 		array(
-			'posts_per_page' => -1,
-			'post_type'      => 'shop_order',
-			'post_status'    => array_keys( wc_get_order_statuses() ),
-			'fields'         => 'ids',
-			'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+			'type'               => 'shop_order',
+			'return'             => 'ids',
+			'limit'              => -1,
+			'store_credit_query' => array(
 				array(
 					'key'     => '_store_credit_used',
 					'compare' => 'EXISTS',
@@ -321,13 +318,12 @@ function wc_store_credit_update_300_update_order_credit_version( $order_id ) {
  */
 function wc_store_credit_update_300_orders_to_update_credit_discounts() {
 	// Orders with store credit coupons applied before taxes and without the metadata '_store_credit_discounts'.
-	$order_ids = get_posts(
+	$order_ids = wc_get_orders(
 		array(
-			'posts_per_page' => -1,
-			'post_type'      => 'shop_order',
-			'post_status'    => array_keys( wc_get_order_statuses() ),
-			'fields'         => 'ids',
-			'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+			'limit'              => - 1,
+			'type'               => 'shop_order',
+			'return'             => 'ids',
+			'store_credit_query' => array(
 				array(
 					'key'     => '_store_credit_used',
 					'compare' => 'EXISTS',

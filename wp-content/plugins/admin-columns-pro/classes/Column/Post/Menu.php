@@ -3,15 +3,18 @@
 namespace ACP\Column\Post;
 
 use AC;
+use ACP\ConditionalFormat;
 use ACP\Editing;
 use ACP\Export;
 use ACP\Sorting;
 
 class Menu extends AC\Column\Post\Menu
-	implements Editing\Editable, Export\Exportable, Sorting\Sortable {
+	implements Editing\Editable, Export\Exportable, Sorting\Sortable, ConditionalFormat\Formattable {
+
+	use ConditionalFormat\ConditionalFormatTrait;
 
 	public function editing() {
-		return new Editing\Service\Post\Menu( $this->get_object_type(), $this->get_item_type() );
+		return new Editing\Service\Menu( new Editing\Storage\Post\Menu( $this->get_object_type(), $this->get_item_type() ) );
 	}
 
 	public function export() {

@@ -5,7 +5,12 @@ namespace ACP\Editing\Ajax;
 use AC;
 use AC\Response;
 
-abstract class TableRows extends Request {
+abstract class TableRows implements AC\Registerable {
+
+	/**
+	 * @var AC\Request
+	 */
+	protected $request;
 
 	/**
 	 * @var AC\ListScreenWP
@@ -17,22 +22,16 @@ abstract class TableRows extends Request {
 	 * @param AC\ListScreenWP $list_screen
 	 */
 	public function __construct( AC\Request $request, AC\ListScreenWP $list_screen ) {
-		parent::__construct( $request );
-
+		$this->request = $request;
 		$this->list_screen = $list_screen;
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function get_action() {
-		return 'get_table_rows';
+	public function is_request() {
+		return $this->request->get( 'ac_action' ) === 'get_table_rows';
 	}
 
 	public function handle_request() {
-		remove_action( 'parse_term_query', [ $this, __FUNCTION__ ] );
-
-		$this->check_nonce();
+		check_ajax_referer( 'ac-ajax' );
 
 		$ids = $this->request->filter( 'ac_ids', [], FILTER_VALIDATE_INT, FILTER_REQUIRE_ARRAY );
 

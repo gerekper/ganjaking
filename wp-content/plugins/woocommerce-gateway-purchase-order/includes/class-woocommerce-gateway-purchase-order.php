@@ -153,11 +153,7 @@ final class Woocommerce_Gateway_Purchase_Order extends WC_Payment_Gateway {
 		$order->update_status( 'on-hold', __( 'Waiting to be processed', 'woocommerce-gateway-purchase-order' ) );
 
 		// Reduce stock levels
-		if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-			$order->reduce_order_stock();
-		} else {
-			wc_reduce_stock_levels( $order->get_id() );
-		}
+		wc_reduce_stock_levels( $order->get_id() );
 
 		// Remove cart
 		WC()->cart->empty_cart();

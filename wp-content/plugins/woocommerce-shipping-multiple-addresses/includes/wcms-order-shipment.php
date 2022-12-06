@@ -190,49 +190,69 @@ class WC_MS_Order_Shipment {
                 $billing_address[ $field ] = $row['meta_value'];
             }
 
-            // Shipping address.
-            $shipping_address = array();
+			$shipment->set_address( $billing_address, 'billing' );
 
-            foreach ( $package['destination'] as $field => $value ) {
-                $shipping_address[ $field ] = $value;
-            }
+			// Shipping address.
+			$shipping_address = array(
+				'first_name' => '',
+				'last_name'  => '',
+				'company'    => '',
+				'address_1'  => '',
+				'address_2'  => '',
+				'city'       => '',
+				'state'      => '',
+				'country'    => '',
+				'postcode'   => '',
+			);
 
-            $shipment->set_address( $billing_address, 'billing' );
-            $shipment->set_address( $shipping_address, 'shipping' );
-            $shipment->set_payment_method( WC_MS_Compatibility::get_order_prop( $order, 'payment_method' ) );
+			foreach ( $package['destination'] as $field => $value ) {
+				$shipping_address[ $field ] = $value;
+			}
 
-            if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-                $shipment->set_total( $shipping_total, 'shipping' );
-                $shipment->set_total( $tax_total, 'tax' );
-                $shipment->set_total( $shipping_tax_total, 'shipping_tax' );
-            } else {
-                $shipment->set_shipping_total( $shipping_total );
-                $shipment->set_cart_tax( $tax_total );
-                $shipment->set_shipping_tax( $shipping_tax_total );
-            }
+			$shipment->set_shipping_first_name( $shipping_address['first_name'] );
+			$shipment->set_shipping_last_name( $shipping_address['last_name'] );
+			$shipment->set_shipping_company( $shipping_address['company'] );
+			$shipment->set_shipping_address_1( $shipping_address['address_1'] );
+			$shipment->set_shipping_address_2( $shipping_address['address_2'] );
+			$shipment->set_shipping_city( $shipping_address['city'] );
+			$shipment->set_shipping_state( $shipping_address['state'] );
+			$shipment->set_shipping_country( $shipping_address['country'] );
+			$shipment->set_shipping_postcode( $shipping_address['postcode'] );
 
-            $shipment->set_total( $shipment_total );
+			$shipment->set_payment_method( WC_MS_Compatibility::get_order_prop( $order, 'payment_method' ) );
 
-            // Let plugins add meta
-            do_action( 'wc_ms_checkout_update_shipment_meta', $shipment, $order, $package, $package_index );
+			if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
+				$shipment->set_total( $shipping_total, 'shipping' );
+				$shipment->set_total( $tax_total, 'tax' );
+				$shipment->set_total( $shipping_tax_total, 'shipping_tax' );
+			} else {
+				$shipment->set_shipping_total( $shipping_total );
+				$shipment->set_cart_tax( $tax_total );
+				$shipment->set_shipping_tax( $shipping_tax_total );
+			}
 
-            if ( WC_MS_Gifts::is_enabled() ) {
-                if ( 1 == $order->get_meta( '_gift_' . $package_index ) ) {
-                    update_post_meta( $shipment_id, '_gift', true );
-                }
-            }
+			$shipment->set_total( $shipment_total );
 
-            // If we got here, the order was created without problems!
-            $wpdb->query( 'COMMIT' );
+			// Let plugins add meta.
+			do_action( 'wc_ms_checkout_update_shipment_meta', $shipment, $order, $package, $package_index );
 
-        } catch ( Exception $e ) {
-            // There was an error adding order data!
-            $wpdb->query( 'ROLLBACK' );
-            return new WP_Error( 'shipment-error', $e->getMessage() );
-        }
+			if ( WC_MS_Gifts::is_enabled() ) {
+				if ( 1 == $order->get_meta( '_gift_' . $package_index ) ) {
+					update_post_meta( $shipment_id, '_gift', true );
+				}
+			}
 
-        return $shipment_id;
-    }
+			// If we got here, the order was created without problems!
+			$wpdb->query( 'COMMIT' );
+
+		} catch ( Exception $e ) {
+			// There was an error adding order data!
+			$wpdb->query( 'ROLLBACK' );
+			return new WP_Error( 'shipment-error', $e->getMessage() );
+		}
+
+		return $shipment_id;
+	}
 
     /**
      * Create a new Order Shipment

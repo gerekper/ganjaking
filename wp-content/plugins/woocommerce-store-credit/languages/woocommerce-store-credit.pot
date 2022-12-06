@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Store Credit 4.2.3\n"
+"Project-Id-Version: WooCommerce Store Credit 4.2.4\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-10-18T14:50:37+00:00\n"
+"POT-Creation-Date: 2022-12-01T12:53:50+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: woocommerce-store-credit\n"
@@ -695,7 +695,7 @@ msgid "Store Credit used:"
 msgstr ""
 
 #: includes/class-wc-store-credit-order.php:156
-#: includes/wc-store-credit-update-functions.php:164
+#: includes/wc-store-credit-update-functions.php:160
 msgctxt "payment method"
 msgid "Store Credit"
 msgstr ""

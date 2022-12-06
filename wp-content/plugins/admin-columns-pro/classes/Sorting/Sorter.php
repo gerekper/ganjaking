@@ -10,44 +10,28 @@ use ACP\Sorting\Type\DataType;
 class Sorter {
 
 	/**
-	 * @param array         $values     [ (int) $id => (string|int|bool) $value ]
-	 * @param string        $order      ASC or DESC
-	 * @param DataType|null $data_type  numeric or string
-	 * @param bool          $show_empty Defaul true
+	 * @param array         $values [ (int) $id => (string|int|bool) $value ]
+	 * @param DataType|null $data_type
 	 *
-	 * @return array
+	 * @return int[]
 	 */
-	public function sort( array $values, $order = 'ASC', DataType $data_type = null, $show_empty = true ) {
-		if ( $order !== 'ASC' ) {
-			$order = 'DESC';
-		}
-
-		if ( null === $data_type ) {
-			$data_type = new DataType( DataType::STRING );
-		}
-
-		if ( ! $show_empty ) {
-			$values = array_filter( $values, [ $this, 'is_not_empty' ] );
-		}
-
-		$values = array_map( [ $this, 'truncate' ], $values );
-
-		switch ( $data_type->get_value() ) {
+	public function sort( array $values, DataType $data_type = null ) {
+		switch ( (string) $data_type ) {
 			case DataType::NUMERIC :
+				$values = array_filter( $values, 'is_numeric' );
+
 				asort( $values, SORT_NUMERIC );
 
-				break;
+				return array_keys( $values );
 			default :
+				$values = array_filter( $values, 'is_scalar' );
+				$values = array_filter( $values, [ $this, 'is_not_empty' ] );
+				$values = array_map( [ $this, 'truncate' ], $values );
+
 				natcasesort( $values );
+
+				return array_keys( $values );
 		}
-
-		$ids = array_keys( $values );
-
-		if ( 'DESC' === $order ) {
-			$ids = array_reverse( $ids );
-		}
-
-		return $ids;
 	}
 
 	/**
@@ -62,7 +46,7 @@ class Sorter {
 	}
 
 	/**
-	 * Allow zero values as non empty. Allows them to be sorted.
+	 * Allow zero values as nonempty. Allows them to be sorted.
 	 *
 	 * @param string|int|bool $value
 	 *

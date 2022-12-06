@@ -3,6 +3,7 @@
 namespace ACP\Sorting\Model\Post;
 
 use ACP\Sorting\AbstractModel;
+use ACP\Sorting\Model\SqlOrderByFactory;
 use ACP\Sorting\Sorter;
 use ACP\Sorting\Strategy\Post;
 
@@ -12,9 +13,21 @@ use ACP\Sorting\Strategy\Post;
 class Menu extends AbstractModel {
 
 	public function get_sorting_vars() {
+		add_filter( 'posts_clauses', [ $this, 'posts_fields_callback' ] );
+
 		return [
-			'ids' => $this->get_sorted_ids(),
+			'suppress_filters' => false,
 		];
+	}
+
+	public function posts_fields_callback( $clauses ) {
+		remove_filter( 'posts_clauses', [ $this, __FUNCTION__ ] );
+
+		global $wpdb;
+
+		$clauses['orderby'] = SqlOrderByFactory::create_with_ids( "$wpdb->posts.ID", $this->get_sorted_ids(), $this->get_order() );
+
+		return $clauses;
 	}
 
 	/**
@@ -48,7 +61,7 @@ class Menu extends AbstractModel {
 			$values[ $id ] = implode( ' ', $_values );
 		}
 
-		return ( new Sorter() )->sort( $values, $this->get_order() );
+		return ( new Sorter() )->sort( $values, $this->data_type );
 	}
 
 	/**
@@ -61,10 +74,10 @@ class Menu extends AbstractModel {
 
 		$sql = $wpdb->prepare( "
 			SELECT t.name
-				FROM {$wpdb->terms} AS t
-				INNER JOIN {$wpdb->term_taxonomy} AS tt ON tt.term_id = t.term_id
-				INNER JOIN {$wpdb->term_relationships} AS tr ON tr.term_taxonomy_id = tt.term_taxonomy_id
-				INNER JOIN {$wpdb->posts} AS menu ON menu.ID = tr.object_id
+				FROM $wpdb->terms AS t
+				INNER JOIN $wpdb->term_taxonomy AS tt ON tt.term_id = t.term_id
+				INNER JOIN $wpdb->term_relationships AS tr ON tr.term_taxonomy_id = tt.term_taxonomy_id
+				INNER JOIN $wpdb->posts AS menu ON menu.ID = tr.object_id
 				    AND menu.post_type = 'nav_menu_item'
     			WHERE menu.ID = %d
 			", $menu_item_id );

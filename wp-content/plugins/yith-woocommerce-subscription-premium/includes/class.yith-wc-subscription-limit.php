@@ -139,6 +139,12 @@ if ( ! class_exists( 'YITH_WC_Subscription_Limit' ) ) {
 		 */
 		public function check_cart_after_login( $cart = '' ) {
 
+			$skip_ajax_call = apply_filters( 'ywsbs_skip_ajax_call_for_cart_check_after_login', array( 'yith_wcstripe_verify_intent' ), $cart );
+
+			if ( isset( $_REQUEST['wc-ajax'] ) && in_array( $_REQUEST['wc-ajax'], $skip_ajax_call, true ) ) {
+				return;
+			}
+
 			$contents = ( ! empty( $cart ) && isset( $cart->cart_contents ) ) ? $cart->cart_contents : ( isset( WC()->cart ) ? WC()->cart->get_cart() : false );
 
 			if ( ! empty( $contents ) ) {

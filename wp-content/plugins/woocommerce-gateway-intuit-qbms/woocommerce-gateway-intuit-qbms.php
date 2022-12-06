@@ -6,11 +6,11 @@
  * Description: Accept credit cards in WooCommerce with the Intuit Payments gateway
  * Author: SkyVerge
  * Author URI: https://woocommerce.com/
- * Version: 3.0.0
+ * Version: 3.1.0
  * Text Domain: woocommerce-gateway-intuit-payments
  * Domain Path: /i18n/languages/
  *
- * Copyright: (c) 2013-2020, SkyVerge, Inc. (info@skyverge.com)
+ * Copyright: (c) 2013-2022, SkyVerge, Inc. (info@skyverge.com)
  *
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -18,28 +18,15 @@
  * @package   WC-Intuit-Payments
  * @author    SkyVerge
  * @category  Payment-Gateways
- * @copyright Copyright (c) 2013-2020, SkyVerge, Inc.
+ * @copyright Copyright (c) 2013-2022, SkyVerge, Inc.
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  *
  * Woo: 272221:56ee7c24d725409e3244401ed625b4f3
- * WC requires at least: 3.5
- * WC tested up to: 5.0.0
+ * WC requires at least: 3.9.4
+ * WC tested up to: 7.1.0
  */
 
 defined( 'ABSPATH' ) or exit;
-
-// Required functions
-if ( ! function_exists( 'woothemes_queue_update' ) ) {
-	require_once( plugin_dir_path( __FILE__ ) . 'woo-includes/woo-functions.php' );
-}
-
-// Plugin updates
-woothemes_queue_update( plugin_basename( __FILE__ ), '56ee7c24d725409e3244401ed625b4f3', '272221' );
-
-// WC active check
-if ( ! is_woocommerce_active() ) {
-	return;
-}
 
 /**
  * The plugin loader class.
@@ -51,16 +38,16 @@ class WC_Intuit_Payments_Loader {
 
 
 	/** minimum PHP version required by this plugin */
-	const MINIMUM_PHP_VERSION = '7.0';
+	const MINIMUM_PHP_VERSION = '7.4';
 
 	/** minimum WordPress version required by this plugin */
-	const MINIMUM_WP_VERSION = '5.2';
+	const MINIMUM_WP_VERSION = '5.6';
 
 	/** minimum WooCommerce version required by this plugin */
-	const MINIMUM_WC_VERSION = '3.5';
+	const MINIMUM_WC_VERSION = '3.9.4';
 
 	/** SkyVerge plugin framework version */
-	const FRAMEWORK_VERSION = '5.10.4';
+	const FRAMEWORK_VERSION = '5.10.12';
 
 	/** the plugin name, for displaying notices */
 	const PLUGIN_NAME = 'WooCommerce Intuit Payments Gateway';

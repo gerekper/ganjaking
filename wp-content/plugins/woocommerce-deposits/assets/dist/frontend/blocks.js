@@ -1,161 +1,22 @@
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
-/******/ })
-/************************************************************************/
-/******/ ([
-/* 0 */
-/***/ (function(module, exports) {
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+var __webpack_exports__ = {};
 
-(function() { module.exports = window["wp"]["i18n"]; }());
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["element"]; }());
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wc"]["blocksCheckout"]; }());
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wc"]["priceFormat"]; }());
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wc"]["wcSettings"]; }());
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wp"]["plugins"]; }());
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-(function() { module.exports = window["wc"]["wcBlocksRegistry"]; }());
-
-/***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: external ["wp","element"]
-var external_wp_element_ = __webpack_require__(1);
-
-// EXTERNAL MODULE: external ["wp","plugins"]
-var external_wp_plugins_ = __webpack_require__(5);
-
-// EXTERNAL MODULE: external ["wc","wcBlocksRegistry"]
-var external_wc_wcBlocksRegistry_ = __webpack_require__(6);
-
-// EXTERNAL MODULE: external ["wc","blocksCheckout"]
-var external_wc_blocksCheckout_ = __webpack_require__(2);
-
-// EXTERNAL MODULE: external ["wp","i18n"]
-var external_wp_i18n_ = __webpack_require__(0);
-
-// EXTERNAL MODULE: external ["wc","wcSettings"]
-var external_wc_wcSettings_ = __webpack_require__(4);
-
-// EXTERNAL MODULE: external ["wc","priceFormat"]
-var external_wc_priceFormat_ = __webpack_require__(3);
-
-// CONCATENATED MODULE: ./resources/js/frontend/blocks/utils/index.js
+;// CONCATENATED MODULE: external ["wp","element"]
+const external_wp_element_namespaceObject = window["wp"]["element"];
+;// CONCATENATED MODULE: external ["wp","plugins"]
+const external_wp_plugins_namespaceObject = window["wp"]["plugins"];
+;// CONCATENATED MODULE: external ["wc","wcBlocksRegistry"]
+const external_wc_wcBlocksRegistry_namespaceObject = window["wc"]["wcBlocksRegistry"];
+;// CONCATENATED MODULE: external ["wc","blocksCheckout"]
+const external_wc_blocksCheckout_namespaceObject = window["wc"]["blocksCheckout"];
+;// CONCATENATED MODULE: external ["wp","i18n"]
+const external_wp_i18n_namespaceObject = window["wp"]["i18n"];
+;// CONCATENATED MODULE: external ["wc","wcSettings"]
+const external_wc_wcSettings_namespaceObject = window["wc"]["wcSettings"];
+;// CONCATENATED MODULE: external ["wc","priceFormat"]
+const external_wc_priceFormat_namespaceObject = window["wc"]["priceFormat"];
+;// CONCATENATED MODULE: ./resources/js/frontend/blocks/utils/index.js
 /**
  * External dependencies
  */
@@ -189,15 +50,15 @@ const getDuration = (schedule, pricePlaceholder, quantity, fullAmount) => {
   }
 
   if (quantity > 1) {
-    return Object(external_wp_i18n_["sprintf"])(
+    return sprintf(
     /* translators: %1$s is the item's price, %2$s is the full amount to be paid, %3$s is the period of the payment plan . */
-    Object(external_wp_i18n_["__"])('%1$s - Payable in total %2$s over %3$s', 'woocommerce-deposits'), pricePlaceholder, Object(external_wc_priceFormat_["formatPrice"])(fullAmount), // Already multiplied by the quantity.
+    __('%1$s - Payable in total %2$s over %3$s', 'woocommerce-deposits'), pricePlaceholder, formatPrice(fullAmount), // Already multiplied by the quantity.
     duration.join(', '));
   }
 
-  return Object(external_wp_i18n_["sprintf"])(
+  return sprintf(
   /* translators: %1$s is the full amount to be paid over the %2$s period of the payment plan. */
-  Object(external_wp_i18n_["__"])('%1$s payable over %2$s', 'woocommerce-deposits'), pricePlaceholder, duration.join(', '));
+  __('%1$s payable over %2$s', 'woocommerce-deposits'), pricePlaceholder, duration.join(', '));
 };
 /**
  * Constructs the duration string from the intervals object.
@@ -243,15 +104,15 @@ const getAggregatedIntervalResolution = intervals => {
 
     switch (key) {
       case 'day':
-        aggregatedIntervals[key]['label'] = Object(external_wp_i18n_["sprintf"])(Object(external_wp_i18n_["_nx"])('%s day', '%s days', interval.amount + aggregatedIntervals.week.amount * 7, 'Used in payment plans price description. 2+ will need plural, 1 will need singular.', 'woocommerce-deposits'), interval.amount + aggregatedIntervals.week.amount * 7);
+        aggregatedIntervals[key]['label'] = sprintf(_nx('%s day', '%s days', interval.amount + aggregatedIntervals.week.amount * 7, 'Used in payment plans price description. 2+ will need plural, 1 will need singular.', 'woocommerce-deposits'), interval.amount + aggregatedIntervals.week.amount * 7);
         break;
 
       case 'month':
-        aggregatedIntervals[key]['label'] = Object(external_wp_i18n_["sprintf"])(Object(external_wp_i18n_["_nx"])('%s month', '%s months', interval.amount, 'Used in payment plans price description. 2+ will need plural, 1 will need singular.', 'woocommerce-deposits'), interval.amount);
+        aggregatedIntervals[key]['label'] = sprintf(_nx('%s month', '%s months', interval.amount, 'Used in payment plans price description. 2+ will need plural, 1 will need singular.', 'woocommerce-deposits'), interval.amount);
         break;
 
       case 'year':
-        aggregatedIntervals[key]['label'] = Object(external_wp_i18n_["sprintf"])(Object(external_wp_i18n_["_nx"])('%s year', '%s years', interval.amount, 'Used in payment plans price description. 2+ will need plural, 1 will need singular.', 'woocommerce-deposits'), interval.amount);
+        aggregatedIntervals[key]['label'] = sprintf(_nx('%s year', '%s years', interval.amount, 'Used in payment plans price description. 2+ will need plural, 1 will need singular.', 'woocommerce-deposits'), interval.amount);
         break;
     }
   }
@@ -265,12 +126,12 @@ const getAggregatedIntervalResolution = intervals => {
 const getPluginSettings = () => {
   const {
     disabled_gateways: disabledGateways
-  } = Object(external_wc_wcSettings_["getSetting"])('woocommerce-deposits_data');
+  } = (0,external_wc_wcSettings_namespaceObject.getSetting)('woocommerce-deposits_data');
   return {
     disabledGateways
   };
 };
-// CONCATENATED MODULE: ./resources/js/frontend/blocks/get-payment-method-callbacks.js
+;// CONCATENATED MODULE: ./resources/js/frontend/blocks/get-payment-method-callbacks.js
 /**
  * Internal dependencies
  */
@@ -303,8 +164,8 @@ const getPaymentMethodCallbacks = () => {
   return callBacksConfig;
 };
 
-/* harmony default export */ var get_payment_method_callbacks = (getPaymentMethodCallbacks);
-// CONCATENATED MODULE: ./resources/js/frontend/blocks/future-payments/index.js
+/* harmony default export */ const get_payment_method_callbacks = (getPaymentMethodCallbacks);
+;// CONCATENATED MODULE: ./resources/js/frontend/blocks/future-payments/index.js
 
 
 /**
@@ -349,17 +210,17 @@ const DepositsFuturePayments = _ref => {
     return null;
   }
 
-  const SHOW_TAXES = Object(external_wc_wcSettings_["getSetting"])('taxesEnabled', true) && Object(external_wc_wcSettings_["getSetting"])('displayCartPricesIncludingTax', false);
-  const currency = Object(external_wc_priceFormat_["getCurrency"])();
-  return Object(external_wp_element_["createElement"])(external_wc_blocksCheckout_["TotalsWrapper"], null, Object(external_wp_element_["createElement"])(external_wc_blocksCheckout_["TotalsItem"], {
+  const SHOW_TAXES = (0,external_wc_wcSettings_namespaceObject.getSetting)('taxesEnabled', true) && (0,external_wc_wcSettings_namespaceObject.getSetting)('displayCartPricesIncludingTax', false);
+  const currency = (0,external_wc_priceFormat_namespaceObject.getCurrency)();
+  return (0,external_wp_element_namespaceObject.createElement)(external_wc_blocksCheckout_namespaceObject.TotalsWrapper, null, (0,external_wp_element_namespaceObject.createElement)(external_wc_blocksCheckout_namespaceObject.TotalsItem, {
     className: "wc-block-components-totals-item wc-block-components-totals-footer-item",
     currency: currency,
     value: futurePaymentAmount,
-    label: Object(external_wp_i18n_["__"])('Future payments', 'woocommerce-deposits'),
-    description: SHOW_TAXES ? Object(external_wp_i18n_["__"])('Including taxes', 'woocommerce-deposits') : null
+    label: (0,external_wp_i18n_namespaceObject.__)('Future payments', 'woocommerce-deposits'),
+    description: SHOW_TAXES ? (0,external_wp_i18n_namespaceObject.__)('Including taxes', 'woocommerce-deposits') : null
   }));
 };
-// CONCATENATED MODULE: ./resources/js/frontend/blocks/discount-applied/index.js
+;// CONCATENATED MODULE: ./resources/js/frontend/blocks/discount-applied/index.js
 
 
 /**
@@ -404,17 +265,17 @@ const DepositsDiscountApplied = _ref => {
     return null;
   }
 
-  const currency = Object(external_wc_priceFormat_["getCurrency"])(); // deferredDiscountAmount is positive, but we need to display it as negative.
+  const currency = (0,external_wc_priceFormat_namespaceObject.getCurrency)(); // deferredDiscountAmount is positive, but we need to display it as negative.
 
-  return Object(external_wp_element_["createElement"])(external_wc_blocksCheckout_["TotalsWrapper"], null, Object(external_wp_element_["createElement"])(external_wc_blocksCheckout_["TotalsItem"], {
+  return (0,external_wp_element_namespaceObject.createElement)(external_wc_blocksCheckout_namespaceObject.TotalsWrapper, null, (0,external_wp_element_namespaceObject.createElement)(external_wc_blocksCheckout_namespaceObject.TotalsItem, {
     className: "wc-block-components-totals-item wc-block-components-totals-discount wc-block-components-totals-footer-item",
     currency: currency,
     value: -deferredDiscountAmount - deferredDiscountTax,
-    label: Object(external_wp_i18n_["__"])('Discount', 'woocommerce-deposits'),
-    description: Object(external_wp_i18n_["__"])('Applied toward future payments', 'woocommerce-deposits')
+    label: (0,external_wp_i18n_namespaceObject.__)('Discount', 'woocommerce-deposits'),
+    description: (0,external_wp_i18n_namespaceObject.__)('Applied toward future payments', 'woocommerce-deposits')
   }));
 };
-// CONCATENATED MODULE: ./resources/js/frontend/blocks/filters/index.js
+;// CONCATENATED MODULE: ./resources/js/frontend/blocks/filters/index.js
 /**
  * External dependencies
  */
@@ -433,7 +294,7 @@ const DepositsDiscountApplied = _ref => {
  */
 
 const registerFilters = () => {
-  Object(external_wc_blocksCheckout_["__experimentalRegisterCheckoutFilters"])('woocommerce-deposits', {
+  (0,external_wc_blocksCheckout_namespaceObject.__experimentalRegisterCheckoutFilters)('woocommerce-deposits', {
     // deposits data here comes from register_endpoint_data /cart registration.
     totalLabel: (label, extensions) => {
       // Bail out early.
@@ -446,7 +307,7 @@ const registerFilters = () => {
       } = extensions['woocommerce-deposits'];
 
       if (hasDeposit) {
-        return Object(external_wp_i18n_["__"])('Due today', 'woocommerce-deposits');
+        return (0,external_wp_i18n_namespaceObject.__)('Due today', 'woocommerce-deposits');
       }
 
       return label;
@@ -484,16 +345,16 @@ const registerFilters = () => {
       if (isDeposit) {
         return 'cart' === context ? sprintf(
         /* translators: %s is the deposit amount to pay immediately (ie: $10). */
-        Object(external_wp_i18n_["__"])('Due today %s', 'woocommerce-deposits'), pricePlaceholder) : sprintf(
+        (0,external_wp_i18n_namespaceObject.__)('Due today %s', 'woocommerce-deposits'), pricePlaceholder) : sprintf(
         /* translators: %s is the deposit amount to pay immediately (ie: $10). */
-        Object(external_wp_i18n_["__"])('%s due today', 'woocommerce-deposits'), pricePlaceholder);
+        (0,external_wp_i18n_namespaceObject.__)('%s due today', 'woocommerce-deposits'), pricePlaceholder);
       }
 
       return pricePlaceholder;
     }
   });
 };
-// CONCATENATED MODULE: ./resources/js/frontend/blocks/index.js
+;// CONCATENATED MODULE: ./resources/js/frontend/blocks/index.js
 
 
 /**
@@ -511,17 +372,16 @@ const registerFilters = () => {
 
  // Handle first-load payment restrictions.
 
-Object(external_wc_wcBlocksRegistry_["registerPaymentMethodExtensionCallbacks"])('woocommerce-deposits', get_payment_method_callbacks());
+(0,external_wc_wcBlocksRegistry_namespaceObject.registerPaymentMethodExtensionCallbacks)('woocommerce-deposits', get_payment_method_callbacks());
 
 const render = () => {
-  return Object(external_wp_element_["createElement"])(external_wp_element_["Fragment"], null, Object(external_wp_element_["createElement"])(external_wc_blocksCheckout_["ExperimentalOrderMeta"], null, Object(external_wp_element_["createElement"])(DepositsDiscountApplied, null), Object(external_wp_element_["createElement"])(DepositsFuturePayments, null)));
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wc_blocksCheckout_namespaceObject.ExperimentalOrderMeta, null, (0,external_wp_element_namespaceObject.createElement)(DepositsDiscountApplied, null), (0,external_wp_element_namespaceObject.createElement)(DepositsFuturePayments, null)));
 };
 
-Object(external_wp_plugins_["registerPlugin"])('woocommerce-deposits', {
+(0,external_wp_plugins_namespaceObject.registerPlugin)('woocommerce-deposits', {
   render,
   scope: 'woocommerce-checkout'
 });
 registerFilters();
-
-/***/ })
-/******/ ]);
+/******/ })()
+;

@@ -19,14 +19,12 @@ class Email extends BasicStorage {
 		$this->placeholder = (string) $placeholder;
 	}
 
-	public function get_view( $context ) {
+	public function get_view( string $context ): ?View {
 		if ( self::CONTEXT_BULK === $context ) {
-			return false;
+			return null;
 		}
 
-		$view = new View\Email();
-
-		return $view->set_placeholder( $this->placeholder );
+		return ( new View\Email() )->set_placeholder( $this->placeholder );
 	}
 
 }

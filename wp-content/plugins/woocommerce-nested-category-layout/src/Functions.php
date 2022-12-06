@@ -1,6 +1,6 @@
 <?php
 /**
- * WooCommerce Nested Category Layout
+ * WooCommerce Nested Category Layout.
  *
  * This source file is subject to the GNU General Public License v3.0
  * that is bundled with this package in the file license.txt.
@@ -20,11 +20,7 @@
  * @copyright Copyright (c) 2012-2022, SkyVerge, Inc. (info@skyverge.com)
  * @license   http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License v3.0
  */
-
-defined( 'ABSPATH' ) or exit;
-
-use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
-
+defined('ABSPATH') or exit;
 
 /**
  * Returns the One True Instance of Nested Category Layout.
@@ -33,7 +29,28 @@ use SkyVerge\WooCommerce\PluginFramework\v5_10_12 as Framework;
  *
  * @return \WC_Nested_Category_Layout
  */
-function wc_nested_category_layout() {
+function wc_nested_category_layout()
+{
+    return \WC_Nested_Category_Layout::instance();
+}
 
-	return \WC_Nested_Category_Layout::instance();
+/**
+ * Helper function to determine value exist in multi dementing array.
+ *
+ * @since 1.18.1
+ * @param string $needle
+ * @param array $haystack
+ * @return bool
+ */
+function wncl_recursive_array_search($needle, $haystack)
+{
+    foreach ($haystack as $key => $value) {
+        $current_key = $key;
+        if ($needle === $value || (is_array($value) &&
+                    wncl_recursive_array_search($needle, $value) !== false)) {
+            return true;
+        }
+    }
+
+    return false;
 }

@@ -3,6 +3,7 @@
 namespace ACP\Column\Post;
 
 use AC;
+use ACP\ConditionalFormat;
 use ACP\Export;
 use ACP\Sorting;
 
@@ -10,7 +11,9 @@ use ACP\Sorting;
  * @since 4.2
  */
 class LatestComment extends AC\Column
-	implements Export\Exportable, Sorting\Sortable {
+	implements Export\Exportable, Sorting\Sortable, ConditionalFormat\Formattable {
+
+	use ConditionalFormat\ConditionalFormatTrait;
 
 	public function __construct() {
 		$this->set_type( 'column-latest_comment' )

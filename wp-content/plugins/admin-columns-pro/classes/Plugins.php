@@ -8,6 +8,8 @@ use AC\PluginInformation;
 class Plugins extends Collection {
 
 	public function __construct( array $items = [] ) {
+		parent::__construct();
+
 		array_map( [ $this, 'add' ], $items );
 	}
 

@@ -7,9 +7,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Member Class
  *
  * @class   YITH_WCMBS_Membership
- * @package Yithemes
- * @since   1.0.0
  * @author  Yithemes
+ * @since   1.0.0
+ * @package Yithemes
  */
 class YITH_WCMBS_Membership {
 
@@ -41,8 +41,8 @@ class YITH_WCMBS_Membership {
 	 * @param int   $membership_id the membership id
 	 * @param array $args          array of meta for creating membership
 	 *
-	 * @since  1.0.0
 	 * @author Leanza Francesco <leanzafrancesco@gmail.com>
+	 * @since  1.0.0
 	 */
 	public function __construct( $membership_id = 0, $args = array() ) {
 		$notify = true;
@@ -101,8 +101,8 @@ class YITH_WCMBS_Membership {
 	/**
 	 * Populate the membership
 	 *
-	 * @return void
 	 * @author Leanza Francesco <leanzafrancesco@gmail.com
+	 * @return void
 	 * @since  1.0.0
 	 */
 	public function populate() {
@@ -119,8 +119,8 @@ class YITH_WCMBS_Membership {
 	/**
 	 * Check if the Membership is valid, controlling if this post exist
 	 *
-	 * @return bool
 	 * @author Leanza Francesco <leanzafrancesco@gmail.com
+	 * @return bool
 	 * @since  1.0.0
 	 */
 	public function is_valid() {
@@ -130,8 +130,8 @@ class YITH_WCMBS_Membership {
 	/**
 	 * Add new membership
 	 *
-	 * @return void
 	 * @author Leanza Francesco <leanzafrancesco@gmail.com
+	 * @return void
 	 * @since  1.0.0
 	 */
 	public function add_membership( $args ) {
@@ -172,8 +172,8 @@ class YITH_WCMBS_Membership {
 	 *
 	 * @param array $meta the meta
 	 *
-	 * @return void
 	 * @author Leanza Francesco <leanzafrancesco@gmail.com
+	 * @return void
 	 * @since  1.0.0
 	 */
 	function update_membership_meta( $meta ) {
@@ -267,7 +267,7 @@ class YITH_WCMBS_Membership {
 						$this->set( 'next_credits_update', $next_update );
 
 						// translators: %s is the new "next credits update" date.
-						$resumed_note .= "\n" . sprintf( __( '"Next credits update" date set to %s.', 'yith-woocommerce-membership' ), date_i18n( wc_date_format(), $next_update ) );
+						$resumed_note .= "\n" . sprintf( __( '"Next credits update" date set to %s.', 'yith-woocommerce-membership' ), $this->get_formatted_date( 'next_credits_update' ) );
 					}
 
 					// Update the membership status.
@@ -343,8 +343,8 @@ class YITH_WCMBS_Membership {
 	/**
 	 * Fill the default metadata with the post meta stored in db
 	 *
-	 * @return array
 	 * @author Leanza Francesco <leanzafrancesco@gmail.com
+	 * @return array
 	 * @since  1.0.0
 	 */
 	function get_membership_meta() {
@@ -360,8 +360,8 @@ class YITH_WCMBS_Membership {
 	/**
 	 * Return an array of all custom fields membership
 	 *
-	 * @return array
 	 * @author Leanza Francesco <leanzafrancesco@gmail.com
+	 * @return array
 	 * @since  1.0.0
 	 */
 	private function get_default_meta_data() {
@@ -409,7 +409,7 @@ class YITH_WCMBS_Membership {
 				$download_limit = $plan->get_download_number_first_term();
 			}
 
-			$today       = strtotime( 'now midnight' );
+			$today       = yith_wcmbs_local_strtotime_midnight_to_utc();
 			$next_update = absint( $this->next_credits_update );
 
 			if ( $next_update <= $today ) {
@@ -434,7 +434,7 @@ class YITH_WCMBS_Membership {
 		if ( $this->credits_update ) {
 			$next_update = strtotime( '+' . $download_limit_period . $download_limit_period_unit, $this->credits_update );
 		} else {
-			$next_update = strtotime( 'now midnight' );
+			$next_update = yith_wcmbs_local_strtotime_midnight_to_utc();
 		}
 
 		return $next_update;
@@ -677,9 +677,7 @@ class YITH_WCMBS_Membership {
 			return '';
 		}
 
-		$date   = intval( $date );
-		$offset = get_option( 'gmt_offset' );
-		$date   += $offset * HOUR_IN_SECONDS;
+		$date = yith_wcmbs_local_strtotime( 'now', intval( $date ) );
 
 		return date_i18n( $format, $date );
 	}
@@ -779,7 +777,7 @@ class YITH_WCMBS_Membership {
 		if ( $this->is_unlimited() ) {
 			$remaining_days = - 1;
 		} else {
-			$remaining_days = ( strtotime( 'midnight', absint( $this->get_expire_date() ) ) - strtotime( 'midnight' ) ) / ( 60 * 60 * 24 );
+			$remaining_days = ( yith_wcmbs_local_strtotime_midnight_to_utc( 'now', absint( $this->get_expire_date() ) ) - yith_wcmbs_local_strtotime_midnight_to_utc() ) / ( 60 * 60 * 24 );
 			$remaining_days = ( $remaining_days > 0 ) ? absint( $remaining_days ) : 0;
 		}
 
@@ -1115,13 +1113,13 @@ class YITH_WCMBS_Membership {
 				}
 
 				if ( $min_delay_time > 0 ) {
-					if ( strtotime( '+' . $min_delay_time . ' days midnight', $start_date ) <= strtotime( 'midnight' ) ) {
+					if ( yith_wcmbs_local_strtotime_midnight_to_utc( '+' . $min_delay_time . ' days', $start_date ) <= yith_wcmbs_local_strtotime_midnight_to_utc() ) {
 						return true;
 					}
 				} else {
 					return true;
 				}
-			} else if ( $delay[ $plan_id ] < 1 || strtotime( '+' . $delay[ $plan_id ] . ' days midnight', $start_date ) <= strtotime( 'midnight' ) ) {
+			} else if ( $delay[ $plan_id ] < 1 || yith_wcmbs_local_strtotime_midnight_to_utc( '+' . $delay[ $plan_id ] . ' days', $start_date ) <= yith_wcmbs_local_strtotime_midnight_to_utc() ) {
 				return true;
 			}
 

@@ -12,7 +12,7 @@ class Actions extends AC\Column\Actions
 	implements Export\Exportable {
 
 	public function export() {
-		return new Export\Model\Disabled( $this );
+		return false;
 	}
 
 }

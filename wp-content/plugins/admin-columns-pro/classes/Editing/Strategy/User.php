@@ -2,30 +2,21 @@
 
 namespace ACP\Editing\Strategy;
 
+use ACP\Editing\RequestHandler;
 use ACP\Editing\Strategy;
-use WP_User;
 
 class User implements Strategy {
 
-	/**
-	 * @param $user
-	 *
-	 * @return bool
-	 */
-	public function user_has_write_permission( $user ) {
-		if ( ! $user instanceof WP_User ) {
-			$user = get_userdata( $user );
+	public function user_can_edit() {
+		return current_user_can( 'edit_users' );
+	}
 
-			if ( ! $user instanceof WP_User ) {
-				return false;
-			}
-		}
+	public function user_can_edit_item( $id ) {
+		return $this->user_can_edit() && current_user_can( 'edit_user', $id );
+	}
 
-		if ( ! current_user_can( 'edit_user', $user->ID ) ) {
-			return false;
-		}
-
-		return true;
+	public function get_query_request_handler() {
+		return new RequestHandler\Query\User();
 	}
 
 }

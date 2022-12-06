@@ -2,14 +2,15 @@
 
 namespace ACP\Editing\Service;
 
-use AC\Request;
 use ACP;
-use ACP\Editing;
 use ACP\Editing\PaginatedOptions;
+use ACP\Editing\PaginatedOptionsFactory;
+use ACP\Editing\Service;
 use ACP\Editing\Storage;
 use ACP\Editing\View;
+use InvalidArgumentException;
 
-class Posts implements Editing\Service, PaginatedOptions {
+class Posts implements Service, PaginatedOptions {
 
 	/**
 	 * @var View\AjaxSelect
@@ -22,17 +23,17 @@ class Posts implements Editing\Service, PaginatedOptions {
 	protected $storage;
 
 	/**
-	 * @var Editing\PaginatedOptionsFactory
+	 * @var PaginatedOptionsFactory
 	 */
 	protected $options_factory;
 
-	public function __construct( View\AjaxSelect $view, Storage $storage, Editing\PaginatedOptionsFactory $options_factory = null ) {
+	public function __construct( View\AjaxSelect $view, Storage $storage, PaginatedOptionsFactory $options_factory = null ) {
 		$this->view = $view;
 		$this->storage = $storage;
 		$this->options_factory = $options_factory ?: new PaginatedOptions\Posts();
 	}
 
-	public function get_view( $context ) {
+	public function get_view( string $context ): ?View {
 		$view = $this->view->set_multiple( true );
 
 		if ( $context === self::CONTEXT_BULK ) {
@@ -42,41 +43,66 @@ class Posts implements Editing\Service, PaginatedOptions {
 		return $view;
 	}
 
-	public function get_value( $id ) {
-		$ids = $this->storage->get( $id );
-
-		if ( empty( $ids ) || ! is_array( $ids ) ) {
-			return [];
-		}
-
-		return array_map( 'get_the_title', array_combine( $ids, $ids ) );
+	private function get_post_title( int $id ) {
+		return get_the_title( $id ) ?: sprintf( __( '#%d (no title)' ), $id );
 	}
 
-	public function update( Request $request ) {
-		$params = $request->get( 'value' );
-		$id = (int) $request->get( 'id' );
+	public function get_value( int $id ) {
+		$ids = $this->get_current_post_ids( $id );
 
-		if ( ! isset( $params['method'] ) ) {
-			$params = [
-				'method' => 'replace',
-				'value'  => $params,
-			];
+		return $ids
+			? array_map( [ $this, 'get_post_title' ], array_combine( $ids, $ids ) )
+			: [];
+	}
+
+	/**
+	 * @param int $id
+	 *
+	 * @return int[]
+	 */
+	private function get_current_post_ids( int $id ) {
+		$ids = $this->storage->get( $id );
+
+		return $ids && is_array( $ids )
+			? array_map( 'intval', array_filter( $ids, 'is_numeric' ) )
+			: [];
+	}
+
+	public function update( int $id, $data ): void {
+		$method = $data['method'] ?? null;
+
+		if ( null === $method ) {
+			$this->storage->update( $id, $data && is_array( $data ) ? $this->sanitize_ids( $data ) : null );
+
+			return;
 		}
 
-		switch ( $params['method'] ) {
-			case 'add':
-				$ids = array_merge( array_keys( $this->get_value( $id ) ), $params['value'] );
+		$ids = $data['value'] ?? [];
 
+		if ( ! is_array( $ids ) ) {
+			throw new InvalidArgumentException( 'Invalid value' );
+		}
+
+		$ids = $this->sanitize_ids( $ids );
+
+		switch ( $method ) {
+			case 'add':
+				if ( $ids ) {
+					$this->storage->update( $id, array_merge( $this->get_current_post_ids( $id ), $ids ) ?: null );
+				}
 				break;
 			case 'remove':
-				$ids = array_diff( array_keys( $this->get_value( $id ) ), $params['value'] );
-
+				if ( $ids ) {
+					$this->storage->update( $id, array_diff( $this->get_current_post_ids( $id ), $ids ) ?: null );
+				}
 				break;
 			default:
-				$ids = $params['value'];
+				$this->storage->update( $id, $ids ?: null );
 		}
+	}
 
-		$this->storage->update( $id, $ids );
+	protected function sanitize_ids( array $ids ): array {
+		return array_map( 'intval', array_unique( array_filter( $ids ) ) );
 	}
 
 	public function get_paginated_options( $search, $page, $id = null ) {

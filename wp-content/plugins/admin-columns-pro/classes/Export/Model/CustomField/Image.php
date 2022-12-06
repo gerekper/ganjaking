@@ -17,7 +17,7 @@ class Image extends Model {
 			$urls[] = strip_tags( $url );
 		}
 
-		return implode( ',', $urls );
+		return implode( ', ', $urls );
 	}
 
 }

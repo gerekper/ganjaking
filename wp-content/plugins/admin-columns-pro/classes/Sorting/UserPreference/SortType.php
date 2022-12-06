@@ -20,11 +20,8 @@ class SortType {
 	 */
 	private $storage;
 
-	/**
-	 * @param string $key
-	 */
 	public function __construct( $key ) {
-		$this->key = $key;
+		$this->key = (string) $key;
 		$this->storage = new AC\Preferences\Site( 'sorted_by' );
 	}
 

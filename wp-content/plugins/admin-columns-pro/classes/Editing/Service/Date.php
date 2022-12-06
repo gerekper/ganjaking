@@ -2,7 +2,6 @@
 
 namespace ACP\Editing\Service;
 
-use AC\Request;
 use ACP\Editing\Service;
 use ACP\Editing\Storage;
 use ACP\Editing\View;
@@ -33,11 +32,11 @@ class Date implements Service {
 		$this->date_format = (string) $date_format;
 	}
 
-	public function get_view( $context ) {
+	public function get_view( string $context ): ?View {
 		return $this->view;
 	}
 
-	public function get_value( $id ) {
+	public function get_value( int $id ) {
 		$value = DateTime::createFromFormat( $this->date_format, $this->storage->get( $id ) );
 
 		return $value
@@ -45,8 +44,8 @@ class Date implements Service {
 			: false;
 	}
 
-	public function update( Request $request ) {
-		$value = $request->get( 'value' );
+	public function update( int $id, $data ): void {
+		$value = $data;
 
 		if ( $value ) {
 			$date_time = DateTime::createFromFormat( 'U', ac_helper()->date->strtotime( $value ) );
@@ -56,7 +55,7 @@ class Date implements Service {
 				: false;
 		}
 
-		return $this->storage->update( $request->get( 'id' ), $value );
+		$this->storage->update( $id, $value );
 	}
 
 }

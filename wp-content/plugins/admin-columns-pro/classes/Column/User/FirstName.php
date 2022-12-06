@@ -3,6 +3,7 @@
 namespace ACP\Column\User;
 
 use AC;
+use ACP\ConditionalFormat;
 use ACP\Editing;
 use ACP\Filtering;
 use ACP\Search;
@@ -12,7 +13,9 @@ use ACP\Sorting;
  * @since 2.0
  */
 class FirstName extends AC\Column\User\FirstName
-	implements Editing\Editable, Filtering\Filterable, Sorting\Sortable, Search\Searchable {
+	implements Editing\Editable, Filtering\Filterable, Sorting\Sortable, Search\Searchable, ConditionalFormat\Formattable {
+
+	use ConditionalFormat\ConditionalFormatTrait;
 
 	public function sorting() {
 		return new Sorting\Model\User\Meta( $this->get_meta_key() );

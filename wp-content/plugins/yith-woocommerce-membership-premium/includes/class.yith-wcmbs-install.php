@@ -8,10 +8,19 @@ if ( ! class_exists( 'YITH_WCMBS_Install' ) ) {
 	 * @since 1.4.0
 	 */
 	class YITH_WCMBS_Install {
+		/**
+		 * Database update callbacks.
+		 *
+		 * @var string[][]
+		 */
 		private static $db_updates = array(
-			'1.4.0' => array(
+			'1.4.0'  => array(
 				'yith_wcmbs_update_140_int_to_string_array_meta',
 				'yith_wcmbs_update_140_db_version',
+			),
+			'1.18.0' => array(
+				'yith_wcmbs_update_1_18_0_clear_scheduled_events',
+				'yith_wcmbs_update_1_18_0_db_version',
 			),
 		);
 

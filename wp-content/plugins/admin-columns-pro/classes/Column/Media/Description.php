@@ -3,6 +3,7 @@
 namespace ACP\Column\Media;
 
 use AC;
+use ACP\ConditionalFormat;
 use ACP\Editing;
 use ACP\Editing\Settings\EditableType;
 use ACP\Editing\Storage;
@@ -11,7 +12,9 @@ use ACP\Search;
 use ACP\Sorting;
 
 class Description extends AC\Column\Media\Description
-	implements Editing\Editable, Filtering\Filterable, Sorting\Sortable, Search\Searchable {
+	implements Editing\Editable, Filtering\Filterable, Sorting\Sortable, Search\Searchable, ConditionalFormat\Formattable {
+
+	use ConditionalFormat\ConditionalFormatTrait;
 
 	public function register_settings() {
 		parent::register_settings();

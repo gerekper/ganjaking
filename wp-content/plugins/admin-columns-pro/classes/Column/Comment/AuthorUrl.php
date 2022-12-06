@@ -3,6 +3,7 @@
 namespace ACP\Column\Comment;
 
 use AC;
+use ACP\ConditionalFormat;
 use ACP\Editing;
 use ACP\Filtering;
 use ACP\Search;
@@ -12,7 +13,9 @@ use ACP\Sorting;
  * @since 4.0
  */
 class AuthorUrl extends AC\Column\Comment\AuthorUrl
-	implements Editing\Editable, Sorting\Sortable, Filtering\Filterable, Search\Searchable {
+	implements Editing\Editable, Sorting\Sortable, Filtering\Filterable, Search\Searchable, ConditionalFormat\Formattable {
+
+	use ConditionalFormat\ConditionalFormatTrait;
 
 	public function sorting() {
 		return new Sorting\Model\OrderBy( 'comment_author_url' );

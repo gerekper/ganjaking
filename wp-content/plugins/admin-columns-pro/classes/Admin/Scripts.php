@@ -4,12 +4,12 @@ namespace ACP\Admin;
 
 use AC\Asset;
 use AC\Asset\Enqueueable;
-use AC\Registrable;
+use AC\Registerable;
 use ACP\Access\PermissionsStorage;
 use ACP\Asset\Script;
 use ACP\Transient\LicenseCheckTransient;
 
-class Scripts implements Registrable {
+class Scripts implements Registerable {
 
 	/**
 	 * @var Asset\Location\Absolute

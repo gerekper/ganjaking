@@ -4,13 +4,13 @@ namespace ACP\QuickAdd\Controller;
 
 use AC\ListScreen;
 use AC\ListScreenRepository\Storage;
-use AC\Registrable;
+use AC\Registerable;
 use AC\Request;
 use AC\Type\ListScreenId;
 use ACP\QuickAdd\Model;
 use RuntimeException;
 
-class AjaxNewItem implements Registrable {
+class AjaxNewItem implements Registerable {
 
 	/**
 	 * @var Storage

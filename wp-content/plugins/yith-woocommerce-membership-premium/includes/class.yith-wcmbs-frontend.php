@@ -16,8 +16,8 @@ if ( ! class_exists( 'YITH_WCMBS_Frontend' ) ) {
 	 * Frontend class.
 	 * The class manage all the Frontend behaviors.
 	 *
-	 * @since    1.0.0
 	 * @author   Leanza Francesco <leanzafrancesco@gmail.com>
+	 * @since    1.0.0
 	 */
 	class YITH_WCMBS_Frontend {
 
@@ -132,6 +132,11 @@ if ( ! class_exists( 'YITH_WCMBS_Frontend' ) ) {
 		public function add_membership_class_to_body( $classes ) {
 			$member             = YITH_WCMBS_Members()->get_member( get_current_user_id() );
 			$membership_classes = array();
+
+			if ( yith_wcmbs_has_full_access() ) {
+				$membership_classes[] = 'yith-wcmbs-has-full-access';
+			}
+
 			if ( $member->is_member() ) {
 				$membership_classes[] = 'yith-wcmbs-member';
 			}

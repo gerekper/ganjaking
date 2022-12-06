@@ -1,4 +1,10 @@
 <?php
+/**
+ * Deposits scheduled order manager
+ *
+ * @package woocommerce-deposits
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -10,14 +16,21 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_Deposits_Scheduled_Order_Manager {
 
-	/** @var object Class Instance */
+	/**
+	 * Class instance
+	 *
+	 * @var WC_Deposits_Scheduled_Order_Manager
+	 */
 	private static $instance;
 
 	/**
 	 * Get the class instance.
 	 */
 	public static function get_instance() {
-		return null === self::$instance ? ( self::$instance = new self ) : self::$instance;
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
 	}
 
 	/**
@@ -37,36 +50,37 @@ class WC_Deposits_Scheduled_Order_Manager {
 	 * Schedule all orders for a payment plan.
 	 * This is important because the tax point is when the order is placed.
 	 *
-	 * @param  WC_Deposits_Plan $payment_plan
-	 * @param  int $original_order_id
+	 * @param  WC_Deposits_Plan $payment_plan Payment plan.
+	 * @param  int              $original_order_id Original order ID.
+	 * @param  array            $item Item data.
 	 */
 	public static function schedule_orders_for_plan( $payment_plan, $original_order_id, $item ) {
 		$schedule          = $payment_plan->get_schedule();
-		$current_timestamp = current_time( 'timestamp' );
+		$current_timestamp = current_time( 'timestamp' ); // phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested
 		$payment_number    = 2;
 		$line_price        = self::_get_normalized_price_before_plan( $payment_plan, $item );
 
-		// Skip first payment - that was taken already
-		$first_payment = array_shift( $schedule );
-		$percent_remaining = $payment_plan->get_total_percent() - $first_payment->amount; // this is a percent, e.g. 100 - 25 = 75
+		// Skip first payment - that was taken already.
+		$first_payment     = array_shift( $schedule );
+		$percent_remaining = $payment_plan->get_total_percent() - $first_payment->amount; // this is a percent, e.g. 100 - 25 = 75.
 
-		// Enforce sanity
+		// Enforce sanity.
 		if ( $percent_remaining <= 0 ) {
 			$original_order = wc_get_order( $original_order_id );
 			$original_order->add_order_note( __( 'Error: Unable to schedule orders for product with payment plan. Reason: Already fully paid.', 'woocommerce-deposits' ) );
 		}
 
 		foreach ( $schedule as $schedule_row ) {
-			// Work out relative timestamp
+			// Work out relative timestamp.
 			$current_timestamp = strtotime( "+{$schedule_row->interval_amount} {$schedule_row->interval_unit}", $current_timestamp );
 
 			// Work out how much the payment will be for
-			// Note: $schedule_row->amount is a percent (e.g. 25)
-			$item['subtotal'] = ( $line_price / 100 ) * $schedule_row->amount; // prior to any discounts
-			$row_discount = round( ( $item['deposit_deferred_discount_ex_tax'] / $percent_remaining ) * $schedule_row->amount, 2 );
-			$item['total'] = $item['subtotal'] - $row_discount;
+			// Note: $schedule_row->amount is a percent (e.g. 25).
+			$item['subtotal'] = ( $line_price / 100 ) * $schedule_row->amount; // prior to any discounts.
+			$row_discount     = round( ( $item['deposit_deferred_discount_ex_tax'] / $percent_remaining ) * $schedule_row->amount, 2 );
+			$item['total']    = $item['subtotal'] - $row_discount;
 
-			// Create order
+			// Create order.
 			WC_Deposits_Order_Manager::create_order( $current_timestamp, $original_order_id, $payment_number, $item, 'scheduled-payment' );
 			$payment_number++;
 		}
@@ -78,18 +92,23 @@ class WC_Deposits_Scheduled_Order_Manager {
 	 * The price_excluding_tax in order item is calculated with total percents
 	 * from payment plan. This method normalize the price again.
 	 *
-	 * @param WC_Deposits_Plan $plan Plan
-	 * @param array            $item Order item
+	 * @param WC_Deposits_Plan $plan Plan.
+	 * @param array            $item Order item.
 	 *
 	 * @return float Line price
 	 */
-	private static function _get_normalized_price_before_plan( $plan, $item ) {
+	private static function _get_normalized_price_before_plan( $plan, $item ) { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 		$total_percent = $plan->get_total_percent();
 
 		$price_excluding_tax = wc_get_price_excluding_tax( $item['product'], array( 'qty' => $item['qty'] ) );
 		$price_after_plan    = ! empty( $item['price_excluding_tax'] ) ? $item['price_excluding_tax'] : $price_excluding_tax;
 
-		$line_price = ( $price_after_plan * 100 ) / $total_percent;
+		// Avoid divide by zero errors.
+		if ( $total_percent > 0 ) {
+			$line_price = ( $price_after_plan * 100 ) / $total_percent;
+		} else {
+			$line_price = 0;
+		}
 
 		return $line_price;
 	}
@@ -102,9 +121,15 @@ class WC_Deposits_Scheduled_Order_Manager {
 	 */
 	public static function invoice_scheduled_orders() {
 		$mailer = WC_Emails::instance();
-		$date   = date( "Y-m-d H:i:s", current_time( 'timestamp' ) );
+		$date   = date( 'Y-m-d H:i:s', current_time( 'timestamp' ) ); // phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested, WordPress.DateTime.RestrictedFunctions.date_date
 
-		$due_orders = wc_get_orders( array( 'date_before' => $date, 'status' => 'wc-scheduled-payment', 'return' => 'ids' ) );
+		$due_orders = wc_get_orders(
+			array(
+				'date_before' => $date,
+				'status'      => 'wc-scheduled-payment',
+				'return'      => 'ids',
+			)
+		);
 
 		if ( $due_orders ) {
 			foreach ( $due_orders as $due_order ) {
@@ -119,12 +144,13 @@ class WC_Deposits_Scheduled_Order_Manager {
 	/**
 	 * Hook into WC_Order::has_status to make the custom order statuses that Deposits creates behave predictably.
 	 * For example, an order with "pending-deposit" status should behave the same as an order with "pending" status.
+	 *
 	 * @since 1.3.1
 	 * @version 1.4.14
 	 *
-	 * @param bool $retval
-	 * @param WC_Order $order
-	 * @param string|array $status_list
+	 * @param bool         $retval Default status.
+	 * @param WC_Order     $order Order.
+	 * @param string|array $status_list List of statuses.
 	 *
 	 * @return bool
 	 */
@@ -133,7 +159,7 @@ class WC_Deposits_Scheduled_Order_Manager {
 			$status_list = array( $status_list );
 		}
 		$order_status = $order->get_status();
-		$status_map = array(
+		$status_map   = array(
 			'partial-payment'   => 'completed',
 			'scheduled-payment' => 'pending',
 			'pending-deposit'   => 'pending',
@@ -145,15 +171,17 @@ class WC_Deposits_Scheduled_Order_Manager {
 	/**
 	 * Get related orders created by deposits for an order ID.
 	 *
-	 * @param  int $order_id
+	 * @param  int $order_id Order ID.
 	 * @return array
 	 */
 	public static function get_related_orders( $order_id ) {
 		$order_ids    = array();
-		$found_orders = wc_get_orders( array(
-			'parent'         => $order_id,
-			'posts_per_page' => -1,
-		) );
+		$found_orders = wc_get_orders(
+			array(
+				'parent'         => $order_id,
+				'posts_per_page' => -1,
+			)
+		);
 
 		foreach ( $found_orders as $found_order ) {
 			if ( is_a( $found_order, 'WC_Order_Refund' ) ) {
@@ -170,10 +198,10 @@ class WC_Deposits_Scheduled_Order_Manager {
 	/**
 	 * When a post is trashed, if its an order, sync scheduled payments.
 	 *
-	 * @param int $id
+	 * @param int $id Post ID.
 	 */
 	public static function trash_post( $id ) {
-		if ( in_array( get_post_type( $id ), wc_get_order_types() ) ) {
+		if ( in_array( get_post_type( $id ), wc_get_order_types(), true ) ) {
 			foreach ( self::get_related_orders( $id ) as $order_id ) {
 				wp_trash_post( $order_id );
 			}
@@ -183,10 +211,10 @@ class WC_Deposits_Scheduled_Order_Manager {
 	/**
 	 * When a post is untrashed, if its an order, sync scheduled payments.
 	 *
-	 * @param int $id
+	 * @param int $id Post ID.
 	 */
 	public static function untrash_post( $id ) {
-		if ( in_array( get_post_type( $id ), wc_get_order_types() ) ) {
+		if ( in_array( get_post_type( $id ), wc_get_order_types(), true ) ) {
 			foreach ( self::get_related_orders( $id ) as $order_id ) {
 				wp_untrash_post( $order_id );
 			}
@@ -196,10 +224,10 @@ class WC_Deposits_Scheduled_Order_Manager {
 	/**
 	 * When a post is deleted, if its an order, sync scheduled payments.
 	 *
-	 * @param int $id
+	 * @param int $id Post ID.
 	 */
 	public static function before_delete_post( $id ) {
-		if ( in_array( get_post_type( $id ), wc_get_order_types() ) ) {
+		if ( in_array( get_post_type( $id ), wc_get_order_types(), true ) ) {
 			foreach ( self::get_related_orders( $id ) as $order_id ) {
 				wp_delete_post( $order_id, true );
 			}

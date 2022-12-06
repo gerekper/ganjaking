@@ -3,6 +3,7 @@
 namespace ACP\Column;
 
 use AC;
+use AC\MetaType;
 use ACP\Editing;
 use ACP\Filtering;
 use ACP\Sorting;
@@ -22,11 +23,11 @@ abstract class Meta extends AC\Column\Meta
 			: new Sorting\Model\Disabled();
 	}
 
-	/**
-	 * @return Editing\Model\Meta
-	 */
 	public function editing() {
-		return new Editing\Model\Meta( $this );
+		return new Editing\Service\Basic(
+			( new Editing\View\Text() )->set_clear_button( true ),
+			new Editing\Storage\Meta( $this->get_meta_key(), new MetaType( $this->get_meta_type() ) )
+		);
 	}
 
 	/**

@@ -4,11 +4,11 @@ namespace ACP\Search;
 
 use AC;
 use AC\Asset\Enqueueable;
-use AC\Registrable;
+use AC\Registerable;
 use ACP;
 use ACP\Search\Settings\HideOnScreen;
 
-abstract class TableScreen implements Registrable {
+abstract class TableScreen implements Registerable {
 
 	/**
 	 * @var AC\ListScreen

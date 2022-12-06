@@ -16,7 +16,7 @@ class Attachment extends Model {
 			$urls[] = wp_get_attachment_url( $media_id );
 		}
 
-		return implode( ',', $urls );
+		return implode( ', ', $urls );
 	}
 
 }

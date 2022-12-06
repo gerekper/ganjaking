@@ -35,7 +35,7 @@ printf( esc_html__( 'Your username is: %s', 'woocommerce-subscriptions-gifting' 
 <?php
 printf(
 	/* Translators: placeholder is a link to "My Account" for setting up the recipient's details. */
-	esc_html__( 'To complete your account we just need you to fill in your shipping address and you to change your password here: %s.', 'woocommerce-subscriptions-gifting' ),
+	esc_html__( 'To complete your account we just need you to fill in your shipping address here: %s.', 'woocommerce-subscriptions-gifting' ),
 	'<a href="' . esc_url( wc_get_endpoint_url( 'new-recipient-account', '', wc_get_page_permalink( 'myaccount' ) ) ) . '">' . esc_html__( 'My Account Details', 'woocommerce-subscriptions-gifting' ) . '</a>'
 );
 ?>

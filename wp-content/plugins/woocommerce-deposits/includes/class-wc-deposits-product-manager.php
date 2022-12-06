@@ -1,4 +1,10 @@
 <?php
+/**
+ * Deposits plan product manager
+ *
+ * @package woocommerce-deposits
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -11,7 +17,7 @@ class WC_Deposits_Product_Manager {
 	/**
 	 * Are deposits enabled for a specific product.
 	 *
-	 * @param  int $product_id
+	 * @param  int $product_id Product ID.
 	 * @return bool
 	 */
 	public static function deposits_enabled( $product_id ) {
@@ -39,7 +45,7 @@ class WC_Deposits_Product_Manager {
 	/**
 	 * Are deposits forced for a specific product?
 	 *
-	 * @param  int $product_id
+	 * @param  int $product_id Product ID.
 	 * @return bool
 	 */
 	public static function deposits_forced( $product_id ) {
@@ -53,7 +59,7 @@ class WC_Deposits_Product_Manager {
 	/**
 	 * Get deposit type.
 	 *
-	 * @param  int $product_id
+	 * @param  int $product_id Product ID.
 	 * @return string
 	 */
 	public static function get_deposit_type( $product_id ) {
@@ -67,7 +73,7 @@ class WC_Deposits_Product_Manager {
 	/**
 	 * Get deposit selected type.
 	 *
-	 * @param  int $product_id
+	 * @param  int $product_id Product ID.
 	 * @return string
 	 */
 	public static function get_deposit_selected_type( $product_id ) {
@@ -81,11 +87,11 @@ class WC_Deposits_Product_Manager {
 	/**
 	 * Does the product have plans?
 	 *
-	 * @param  int  $product_id
+	 * @param  int $product_id Product ID.
 	 * @return int
 	 */
 	public static function has_plans( $product_id ) {
-		$plans = sizeof( array_map( 'absint', array_filter( (array) WC_Deposits_Product_Meta::get_meta( $product_id, '_wc_deposit_payment_plans' ) ) ) );
+		$plans = count( array_map( 'absint', array_filter( (array) WC_Deposits_Product_Meta::get_meta( $product_id, '_wc_deposit_payment_plans' ) ) ) );
 		if ( $plans <= 0 ) {
 			$default_payment_plans = get_option( 'wc_deposits_default_plans', array() );
 			if ( empty( $default_payment_plans ) ) {
@@ -99,14 +105,16 @@ class WC_Deposits_Product_Manager {
 	/**
 	 * Formatted deposit amount for a product based on fixed or %.
 	 *
-	 * @param  int $product_id
+	 * @param  int $product_id Product ID.
 	 * @return string
 	 */
 	public static function get_formatted_deposit_amount( $product_id ) {
 		$product = wc_get_product( $product_id );
 
-		if ( $amount = self::get_deposit_amount_for_display( $product ) ) {
-			$type    = self::get_deposit_type( $product_id );
+		$amount = self::get_deposit_amount_for_display( $product );
+
+		if ( $amount ) {
+			$type = self::get_deposit_type( $product_id );
 
 			if ( $product->is_type( 'booking' ) && 'yes' === WC_Deposits_Product_Meta::get_meta( $product_id, '_wc_deposit_multiple_cost_by_booking_persons' ) ) {
 				$item = __( 'person', 'woocommerce-deposits' );
@@ -115,8 +123,10 @@ class WC_Deposits_Product_Manager {
 			}
 
 			if ( 'percent' === $type ) {
+				/* translators: percent per item/person */
 				return sprintf( __( 'Pay a %1$s deposit per %2$s', 'woocommerce-deposits' ), '<span class="wc-deposits-amount">' . $amount . '</span>', $item );
 			} else {
+				/* translators: amount per item/person */
 				return sprintf( __( 'Pay a deposit of %1$s per %2$s', 'woocommerce-deposits' ), '<span class="wc-deposits-amount">' . $amount . '</span>', $item );
 			}
 		}
@@ -126,8 +136,8 @@ class WC_Deposits_Product_Manager {
 	/**
 	 * Deposit amount for a product based on fixed or %.
 	 *
-	 * @param  WC_Product|int $product
-	 * @param  int $plan_id
+	 * @param  WC_Product|int $product Product.
+	 * @param  int            $plan_id Plan ID.
 	 * @return float|bool
 	 */
 	public static function get_deposit_amount_for_display( $product, $plan_id = 0 ) {
@@ -137,7 +147,7 @@ class WC_Deposits_Product_Manager {
 		$type       = self::get_deposit_type( $product->get_id() );
 		$percentage = false;
 
-		if ( in_array( $type, array( 'fixed', 'percent' ) ) ) {
+		if ( in_array( $type, array( 'fixed', 'percent' ), true ) ) {
 			$amount = WC_Deposits_Product_Meta::get_meta( $product->get_id(), '_wc_deposit_amount' );
 
 			if ( ! $amount ) {
@@ -181,10 +191,10 @@ class WC_Deposits_Product_Manager {
 	/**
 	 * Deposit amount for a product based on fixed or % using actual prices.
 	 *
-	 * @param  WC_Product|int $product
-	 * @param  int $plan_id
-	 * @param  string $context of display Valid values display or order
-	 * @param  float $product_price If the price differs from that set in the product
+	 * @param  WC_Product|int $product Product.
+	 * @param  int            $plan_id Plan ID.
+	 * @param  string         $context of display Valid values display or order.
+	 * @param  float          $product_price If the price differs from that set in the product.
 	 * @return float|bool
 	 */
 	public static function get_deposit_amount( $product, $plan_id = 0, $context = 'display', $product_price = null ) {
@@ -194,7 +204,7 @@ class WC_Deposits_Product_Manager {
 		$type       = self::get_deposit_type( $product->get_id() );
 		$percentage = false;
 
-		if ( in_array( $type, array( 'fixed', 'percent' ) ) ) {
+		if ( in_array( $type, array( 'fixed', 'percent' ), true ) ) {
 			$amount = WC_Deposits_Product_Meta::get_meta( $product->get_id(), '_wc_deposit_amount' );
 
 			if ( ! $amount ) {
@@ -242,11 +252,17 @@ class WC_Deposits_Product_Manager {
 	 * Get correct price/amount depending on tax mode.
 	 *
 	 * @since  1.2.0
-	 * @param  WC_Product $product
-	 * @param  float      $amount
+	 * @param  WC_Product $product Product.
+	 * @param  float      $amount Amount.
 	 * @return float
 	 */
 	protected static function get_price( $product, $amount ) {
-		return wc_get_price_to_display( $product, array( 'qty' => 1, 'price' => $amount ) );
+		return wc_get_price_to_display(
+			$product,
+			array(
+				'qty'   => 1,
+				'price' => $amount,
+			)
+		);
 	}
 }

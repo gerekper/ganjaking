@@ -1,5 +1,8 @@
 *** WooCommerce Nested Category Layout Changelog ***
 
+2022.12.02 - version 1.18.1
+ * Fix - Improve compatibility with WP filters
+
 2022.11.29 - version 1.18.0
  * Misc - Require PHP 7.4 and WordPress 5.6
 

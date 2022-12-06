@@ -2,11 +2,11 @@
 
 namespace ACP;
 
-use AC\Registrable;
+use AC\Registerable;
 use AC\Type\Url;
 use ACP\Access\PermissionsStorage;
 
-class PluginActionLinks implements Registrable {
+class PluginActionLinks implements Registerable {
 
 	/**
 	 * @var string

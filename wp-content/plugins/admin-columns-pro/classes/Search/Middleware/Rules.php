@@ -9,7 +9,7 @@ class Rules {
 	 *
 	 * @return array
 	 */
-	public function __invoke( $rules_raw ) {
+	public function __invoke( string $rules_raw ) {
 		$input = json_decode( $rules_raw );
 
 		if ( ! $input || ! $input->rules ) {

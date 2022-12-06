@@ -3,6 +3,8 @@
 namespace ACP\Sorting\Model\Taxonomy;
 
 use ACP\Sorting\AbstractModel;
+use ACP\Sorting\Model\SqlOrderByFactory;
+use ACP\Sorting\Type\ComputationType;
 
 class MetaCount extends AbstractModel {
 
@@ -26,30 +28,23 @@ class MetaCount extends AbstractModel {
 	public function pre_term_query_callback( $clauses ) {
 		global $wpdb;
 
-		$join_type = $this->show_empty
-			? 'LEFT'
-			: 'INNER';
+		remove_action( 'terms_clauses', [ $this, __FUNCTION__ ] );
 
-		$clauses['fields'] .= ", COUNT( acsort_termmeta.meta_key ) AS acsort_termcount";
+		if ( 'COUNT(*)' === $clauses['fields'] ) {
+			return $clauses;
+		}
+
 		$clauses['join'] .= $wpdb->prepare( "
-			{$join_type} JOIN {$wpdb->termmeta} AS acsort_termmeta 
+			LEFT JOIN {$wpdb->termmeta} AS acsort_termmeta 
 				ON t.term_id = acsort_termmeta.term_id
 				AND acsort_termmeta.meta_key = %s
 		", $this->meta_key );
 
-		if ( ! $this->show_empty ) {
-			$clauses['join'] .= " AND acsort_termmeta.meta_value <> ''";
-		}
-
-		$order = esc_sql( $this->get_order() );
-
-		$clauses['orderby'] = "
+		$clauses['orderby'] = sprintf( "
 			GROUP BY t.term_id 
-			ORDER BY acsort_termcount $order
-		";
+			ORDER BY %s
+		", SqlOrderByFactory::create_with_computation( new ComputationType( ComputationType::COUNT ), 'acsort_termmeta.meta_key', $this->get_order(), true ) );
 		$clauses['order'] = '';
-
-		remove_action( 'terms_clauses', [ $this, __FUNCTION__ ] );
 
 		return $clauses;
 	}

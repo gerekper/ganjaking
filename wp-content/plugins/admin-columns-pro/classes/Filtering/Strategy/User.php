@@ -34,7 +34,7 @@ class User extends Strategy {
 		$values = $wpdb->get_col( "
 			SELECT DISTINCT {$user_field}
 			FROM {$wpdb->users}
-			WHERE {$user_field} <> ''
+			WHERE CAST({$user_field} as CHAR(1)) <> ''
 			ORDER BY 1
 		" );
 

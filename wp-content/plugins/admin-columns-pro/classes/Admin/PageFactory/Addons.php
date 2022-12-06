@@ -43,7 +43,6 @@ class Addons implements PageFactoryInterface {
 		return new Page\Addons(
 			$this->location,
 			$this->integrations,
-			$this->permissions_storage,
 			new AC\Admin\View\Menu( $this->menu_factory->create( 'addons' ) )
 		);
 	}

@@ -3,6 +3,7 @@
 namespace ACP\Sorting\Model\User;
 
 use ACP\Sorting\AbstractModel;
+use ACP\Sorting\Model\SqlOrderByFactory;
 use WP_User_Query;
 
 class FullName extends AbstractModel {
@@ -14,24 +15,23 @@ class FullName extends AbstractModel {
 	}
 
 	public function pre_user_query_callback( WP_User_Query $query ) {
+		remove_action( 'pre_user_query', [ $this, __FUNCTION__ ] );
+
 		global $wpdb;
 
-		$order = esc_sql( $this->get_order() );
-
-		$query->query_fields .= ", CONCAT( acsort_usermeta1.meta_value, acsort_usermeta2.meta_value ) AS acsort_fullname";
 		$query->query_from .= "
-			INNER JOIN {$wpdb->usermeta} AS acsort_usermeta1 ON {$wpdb->users}.ID = acsort_usermeta1.user_id
+			INNER JOIN $wpdb->usermeta AS acsort_usermeta1 ON $wpdb->users.ID = acsort_usermeta1.user_id
 				AND acsort_usermeta1.meta_key = 'first_name'
-			INNER JOIN {$wpdb->usermeta} AS acsort_usermeta2 ON {$wpdb->users}.ID = acsort_usermeta2.user_id
+			INNER JOIN $wpdb->usermeta AS acsort_usermeta2 ON $wpdb->users.ID = acsort_usermeta2.user_id
 				AND acsort_usermeta2.meta_key = 'last_name'
 		";
 
-		$query->query_orderby = "
-			GROUP BY {$wpdb->users}.ID
-			ORDER BY acsort_fullname {$order}, {$wpdb->users}.display_name {$order}
-		";
-
-		remove_action( 'pre_user_query', [ $this, __FUNCTION__ ] );
+		$query->query_orderby = sprintf( "
+			GROUP BY $wpdb->users.ID
+			ORDER BY %s, $wpdb->users.ID %s",
+			SqlOrderByFactory::create_with_concat( [ 'acsort_usermeta1.meta_value', 'acsort_usermeta2.meta_value' ], $this->get_order() ),
+			esc_sql( $this->get_order() )
+		);
 	}
 
 }
