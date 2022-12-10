@@ -173,6 +173,13 @@ function seedprod_pro_admin_enqueue_scripts( $hook_suffix ) {
 			);
 
 			wp_enqueue_style(
+				'seedprod-hotspot-tooltipster-css',
+				SEEDPROD_PRO_PLUGIN_URL . 'public/css/tooltipster.bundle.min.css',
+				false,
+				SEEDPROD_PRO_VERSION
+			);
+
+			wp_enqueue_style(
 				'seedprod-builder-lightbox-index',
 				SEEDPROD_PRO_PLUGIN_URL . 'public/css/seedprod-gallery-block.min.css',
 				false,

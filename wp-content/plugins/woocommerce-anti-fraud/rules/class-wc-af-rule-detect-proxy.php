@@ -52,13 +52,15 @@ class WC_AF_Rule_Detect_Proxy extends WC_AF_Rule {
 			
 			if (json_last_error() === JSON_ERROR_NONE) {
 				
-				$array_data = (array) $res->$ip;
+				if (isset($res->$ip)) {
+					$array_data = (array) $res->$ip;
+				
+					if (array_key_exists('proxy', $array_data)) {
 
-				if (array_key_exists('proxy', $array_data)) {
-
-					if ('yes' == $res->$ip->proxy) {
-						
-						$risk = true;						
+						if ('yes' == $res->$ip->proxy) {
+							
+							$risk = true;						
+						}
 					}
 				}
 				

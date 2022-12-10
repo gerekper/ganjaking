@@ -4,13 +4,13 @@
  * Plugin Name: WooCommerce Anti Fraud
  * Plugin URI: https://woocommerce.com/products/woocommerce-anti-fraud/
  * Description: Score each of your transactions, checking for possible fraud, using a set of advanced scoring rules.
- * Version: 4.7.1
+ * Version: 4.8
  * Author: OPMC Australia Pty Ltd
  * Author URI: https://opmc.biz/
  * Text Domain: woocommerce-anti-fraud
  * Domain Path: /languages
  * License: GPL v3
- * WC tested up to: 7.0
+ * WC tested up to: 7.1
  * WC requires at least: 2.6
  * Woo: 500217:955da0ce83ea5a44fc268eb185e46c41
  *
@@ -221,14 +221,14 @@ class WooCommerce_Anti_Fraud {
 
 				if (!empty($output['city'])) {
 					$g_city = strtolower($output['city']);
+					update_option('html_geo_loc_city', $g_city);
 				} else {
 					$g_countryCode = strtolower($output['countryCode']);
+					update_option('html_geo_loc_cntry', $g_countryCode);
 				}
 
 				$g_state = strtolower($output['principalSubdivision']);
 				update_option('html_geo_loc_state', $g_state);
-				update_option('html_geo_loc_city', $g_city);
-				update_option('html_geo_loc_cntry', $g_countryCode);
 				echo 'success';		
 				die();
 			}
@@ -945,10 +945,13 @@ $loop->the_post();
 	add_action('profile_update', 'sync_woocommerce_email', 10, 2) ;
 
 function sync_woocommerce_email( $user_id, $old_user_data ) {
-	// wc_af_fraud_check_before_payment
 
-	if ($current_user->user_email != $old_user_data->user_email) {
-		wp_update_user( array ( 'ID' => $current_user->ID, 'billing_email' => $current_user->user_email ) ) ;
+	// wc_af_fraud_check_before_payment
+	$user = get_userdata( $user_id );
+	$new_user_email = $user->user_email;
+
+	if ($new_user_email != $old_user_data->user_email) {
+		wp_update_user( array ( 'ID' => $user->ID, 'billing_email' => $new_user_email ) ) ;
 	}
 }
 	//custom code for block order if email or ip in blacklist.

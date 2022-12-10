@@ -48,7 +48,7 @@ function seedprod_pro_create_menus() {
 
 	add_submenu_page(
 		'seedprod_pro',
-		__( 'Landing Pages', 'seedprod-pro' ),
+		__( 'SeedProd', 'seedprod-pro' ),
 		__( 'Landing Pages', 'seedprod-pro' ),
 		apply_filters( 'seedprod_dashboard_menu_capability', 'edit_others_posts' ),
 		'seedprod_pro',
@@ -410,7 +410,11 @@ function seedprod_pro_redirect_to_site() {
 
 	//  popups
 	if ( isset( $_GET['page'] ) && 'seedprod_pro_popup' === $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		wp_safe_redirect( 'admin.php?page=seedprod_pro&sp_om=1#/popups' );
+		if( is_plugin_active( 'optinmonster/optin-monster-wp-api.php' ) ) {
+			wp_safe_redirect( 'admin.php?page=optin-monster-dashboard' );
+		}else{
+			wp_safe_redirect( 'admin.php?page=seedprod_pro&sp_om=1#/popups' );
+		}
 		exit();
 	}
 

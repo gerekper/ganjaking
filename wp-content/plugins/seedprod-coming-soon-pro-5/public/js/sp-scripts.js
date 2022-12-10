@@ -933,3 +933,27 @@ function beforeafterslider(blockId, options) {
 
   jQuery("#sp-toggle-".concat(blockId, " .twentytwenty-container")).twentytwenty(options);
 }
+
+function hotspotTooltips(blockId, items) {
+  var trigger = jQuery("#sp-".concat(blockId, " .sp-hotspot-image")).attr('data-tooltip-trigger');
+  var animation = jQuery("#sp-".concat(blockId, " .sp-hotspot-image")).attr('data-tooltip-animation');
+  var duration = jQuery("#sp-".concat(blockId, " .sp-hotspot-image")).attr('data-tooltip-duration');
+  var position = jQuery("#sp-".concat(blockId, " .sp-hotspot-image")).attr('data-tooltip-position');
+  var showArrow = jQuery("#sp-".concat(blockId, " .sp-hotspot-image")).attr('data-tooltip-show-arrow');
+  var maxWidth = jQuery("#sp-".concat(blockId, " .sp-hotspot-image")).attr('data-tooltip-max-width');
+  items = JSON.parse(items);
+  items.map(function (item, index) {
+    var $myElement = "#sp-".concat(blockId, " #hotspot-").concat(blockId, "-").concat(index);
+    jQuery($myElement).tooltipster({
+      animation: animation,
+      delay: duration,
+      trigger: trigger,
+      side: position,
+      arrow: 'true' === showArrow ? true : false,
+      maxWidth: maxWidth,
+      content: item.tooltipContent,
+      contentCloning: true,
+      contentAsHTML: true
+    });
+  });
+}

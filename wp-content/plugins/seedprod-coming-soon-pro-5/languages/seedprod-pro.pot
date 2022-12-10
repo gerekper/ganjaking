@@ -29,7 +29,7 @@ msgid "Theme Preview Mode Active"
 msgstr ""
 
 #. translators: 1: wordpress.org coming-soon plugin review, 2: wordpress.org coming-soon plugin review
-#: app/bootstrap.php:476
+#: app/bootstrap.php:483
 msgid "Please rate <strong>SeedProd</strong> <a href=\"%1$s\" target=\"_blank\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href=\"%2$s\" target=\"_blank\">WordPress.org</a> to help us spread the word. Thank you from the SeedProd team!"
 msgstr ""
 
@@ -37,7 +37,7 @@ msgstr ""
 msgid "Are you enjoying SeedProd?"
 msgstr ""
 
-#: app/class-seedprod-review.php:102, languages/seedprod-pro.php:500
+#: app/class-seedprod-review.php:102, languages/seedprod-pro.php:104
 msgid "Yes"
 msgstr ""
 
@@ -121,11 +121,11 @@ msgstr ""
 msgid "Could not activate addon. Please refresh page and try again."
 msgstr ""
 
-#: app/functions-addons.php:211, app/functions-addons.php:280, languages/seedprod-pro.php:125
+#: app/functions-addons.php:211, app/functions-addons.php:280, languages/seedprod-pro.php:5668
 msgid "Active"
 msgstr ""
 
-#: app/functions-addons.php:216, app/functions-addons.php:285, languages/seedprod-pro.php:128
+#: app/functions-addons.php:216, app/functions-addons.php:285
 msgid "Inactive"
 msgstr ""
 
@@ -133,7 +133,7 @@ msgstr ""
 msgid "Not Installed"
 msgstr ""
 
-#: app/functions-seedprod-gallery.php:94, languages/seedprod-pro.php:214
+#: app/functions-seedprod-gallery.php:94
 msgid "All"
 msgstr ""
 
@@ -145,39 +145,39 @@ msgstr ""
 msgid "Anyone Logged In"
 msgstr ""
 
-#: app/functions-utils.php:115, languages/seedprod-pro.php:3433
+#: app/functions-utils.php:115, languages/seedprod-pro.php:3349
 msgid "Column"
 msgstr ""
 
-#: app/functions-utils.php:133, languages/seedprod-pro.php:2541
+#: app/functions-utils.php:133, languages/seedprod-pro.php:2445
 msgid "Headline"
 msgstr ""
 
-#: app/functions-utils.php:145, languages/seedprod-pro.php:1407
+#: app/functions-utils.php:145, languages/seedprod-pro.php:722
 msgid "Text"
 msgstr ""
 
-#: app/functions-utils.php:153, languages/seedprod-pro.php:985
+#: app/functions-utils.php:153, languages/seedprod-pro.php:3054
 msgid "List"
 msgstr ""
 
-#: app/functions-utils.php:162, languages/seedprod-pro.php:2054
+#: app/functions-utils.php:162, languages/seedprod-pro.php:1870
 msgid "Button"
 msgstr ""
 
-#: app/functions-utils.php:170, languages/seedprod-pro.php:3092
+#: app/functions-utils.php:170, languages/seedprod-pro.php:2959
 msgid "Image"
 msgstr ""
 
-#: app/functions-utils.php:178, languages/seedprod-pro.php:4070
+#: app/functions-utils.php:178, languages/seedprod-pro.php:4213
 msgid "Video"
 msgstr ""
 
-#: app/functions-utils.php:186, languages/seedprod-pro.php:3315
+#: app/functions-utils.php:186, languages/seedprod-pro.php:3128
 msgid "Divider"
 msgstr ""
 
-#: app/functions-utils.php:195, languages/seedprod-pro.php:5769
+#: app/functions-utils.php:195
 msgid "Spacer"
 msgstr ""
 
@@ -185,11 +185,11 @@ msgstr ""
 msgid " Payment Button"
 msgstr ""
 
-#: app/functions-utils.php:214, languages/seedprod-pro.php:4143
+#: app/functions-utils.php:214, languages/seedprod-pro.php:4272
 msgid "Giveaway"
 msgstr ""
 
-#: app/functions-utils.php:225, languages/seedprod-pro.php:3493
+#: app/functions-utils.php:225, languages/seedprod-pro.php:3437
 msgid "Contact Form"
 msgstr ""
 
@@ -197,7 +197,7 @@ msgstr ""
 msgid "Optin Form"
 msgstr ""
 
-#: app/functions-utils.php:243, languages/seedprod-pro.php:4104
+#: app/functions-utils.php:243, languages/seedprod-pro.php:4254
 msgid "Tabs"
 msgstr ""
 
@@ -209,7 +209,7 @@ msgstr ""
 msgid "Social Profiles"
 msgstr ""
 
-#: app/functions-utils.php:269, languages/seedprod-pro.php:5760
+#: app/functions-utils.php:269, languages/seedprod-pro.php:6083
 msgid "Social Sharing"
 msgstr ""
 
@@ -217,11 +217,11 @@ msgstr ""
 msgid "Animated Headline"
 msgstr ""
 
-#: app/functions-utils.php:288, languages/seedprod-pro.php:5407
+#: app/functions-utils.php:288, languages/seedprod-pro.php:5780
 msgid "Progress Bar"
 msgstr ""
 
-#: app/functions-utils.php:297, languages/seedprod-pro.php:1425
+#: app/functions-utils.php:297, languages/seedprod-pro.php:754
 msgid "Icon"
 msgstr ""
 
@@ -253,19 +253,19 @@ msgstr ""
 msgid "Pricing Table"
 msgstr ""
 
-#: app/functions-utils.php:382, languages/seedprod-pro.php:2537
+#: app/functions-utils.php:382, languages/seedprod-pro.php:5843
 msgid "Anchor"
 msgstr ""
 
-#: app/functions-utils.php:391, languages/seedprod-pro.php:5772
+#: app/functions-utils.php:391, languages/seedprod-pro.php:6092
 msgid "Star Rating"
 msgstr ""
 
-#: app/functions-utils.php:400, languages/seedprod-pro.php:1234
+#: app/functions-utils.php:400, languages/seedprod-pro.php:423
 msgid "Accordion"
 msgstr ""
 
-#: app/functions-utils.php:409, languages/seedprod-pro.php:5683
+#: app/functions-utils.php:409, languages/seedprod-pro.php:5998
 msgid "Shortcode"
 msgstr ""
 
@@ -273,7 +273,7 @@ msgstr ""
 msgid "Login Form"
 msgstr ""
 
-#: app/functions-utils.php:428, languages/seedprod-pro.php:4162
+#: app/functions-utils.php:428, languages/seedprod-pro.php:4291
 msgid "Google Maps"
 msgstr ""
 
@@ -325,231 +325,239 @@ msgstr ""
 msgid "Business Hours"
 msgstr ""
 
-#: app/functions-utils.php:578, app/functions-utils.php:901
+#: app/functions-utils.php:578
+msgid "Price List"
+msgstr ""
+
+#: app/functions-utils.php:587, app/functions-utils.php:910
 msgid "Add To Cart"
 msgstr ""
 
-#: app/functions-utils.php:588
+#: app/functions-utils.php:597
 msgid "Checkout"
 msgstr ""
 
-#: app/functions-utils.php:600, languages/seedprod-pro.php:6201
+#: app/functions-utils.php:609, languages/seedprod-pro.php:6595
 msgid "Cart"
 msgstr ""
 
-#: app/functions-utils.php:613
+#: app/functions-utils.php:622
 msgid "Products Grid"
 msgstr ""
 
-#: app/functions-utils.php:625, languages/seedprod-pro.php:6272
+#: app/functions-utils.php:634, languages/seedprod-pro.php:6686
 msgid "Recent Products"
 msgstr ""
 
-#: app/functions-utils.php:636, languages/seedprod-pro.php:6266
+#: app/functions-utils.php:645, languages/seedprod-pro.php:6680
 msgid "Sale Products"
 msgstr ""
 
-#: app/functions-utils.php:647, languages/seedprod-pro.php:6269
+#: app/functions-utils.php:656, languages/seedprod-pro.php:6683
 msgid "Best Selling Products"
 msgstr ""
 
-#: app/functions-utils.php:656, languages/seedprod-pro.php:6263
+#: app/functions-utils.php:665, languages/seedprod-pro.php:6677
 msgid "Featured Products"
 msgstr ""
 
-#: app/functions-utils.php:665, languages/seedprod-pro.php:6275
+#: app/functions-utils.php:674, languages/seedprod-pro.php:6689
 msgid "Top Rated Products"
 msgstr ""
 
-#: app/functions-utils.php:675, app/functions-utils.php:686, app/functions-utils.php:2380
+#: app/functions-utils.php:684, app/functions-utils.php:695, app/functions-utils.php:2408
 msgid "Posts"
 msgstr ""
 
-#: app/functions-utils.php:697
+#: app/functions-utils.php:706
 msgid "Custom HTML"
 msgstr ""
 
-#: app/functions-utils.php:709
+#: app/functions-utils.php:718, languages/seedprod-pro.php:3791
 msgid "Post Title"
 msgstr ""
 
-#: app/functions-utils.php:721
+#: app/functions-utils.php:730
 msgid "Post Content"
 msgstr ""
 
-#: app/functions-utils.php:733
+#: app/functions-utils.php:742, languages/seedprod-pro.php:3815
 msgid "Post Excerpt"
 msgstr ""
 
-#: app/functions-utils.php:745
+#: app/functions-utils.php:754
 msgid "Featured Image"
 msgstr ""
 
-#: app/functions-utils.php:757
+#: app/functions-utils.php:766
 msgid "Author Box"
 msgstr ""
 
-#: app/functions-utils.php:769
+#: app/functions-utils.php:778
 msgid "Post Comments"
 msgstr ""
 
-#: app/functions-utils.php:781
+#: app/functions-utils.php:790
 msgid "Post Navigation"
 msgstr ""
 
-#: app/functions-utils.php:794
+#: app/functions-utils.php:803
 msgid "Post Info"
 msgstr ""
 
-#: app/functions-utils.php:806
+#: app/functions-utils.php:815, languages/seedprod-pro.php:3812
 msgid "Archive Title"
 msgstr ""
 
-#: app/functions-utils.php:828
+#: app/functions-utils.php:837
 msgid "Site Logo"
 msgstr ""
 
-#: app/functions-utils.php:841, app/functions-utils.php:1074
+#: app/functions-utils.php:850, app/functions-utils.php:1102
 msgid "Template Parts"
 msgstr ""
 
-#: app/functions-utils.php:853
+#: app/functions-utils.php:862
 msgid "Menu Cart"
 msgstr ""
 
-#: app/functions-utils.php:865
+#: app/functions-utils.php:874
 msgid "Product Title"
 msgstr ""
 
-#: app/functions-utils.php:877
+#: app/functions-utils.php:886
 msgid "Product Featured Image"
 msgstr ""
 
-#: app/functions-utils.php:889
+#: app/functions-utils.php:898
 msgid "Product Price"
 msgstr ""
 
-#: app/functions-utils.php:912
+#: app/functions-utils.php:921
 msgid "Product Meta"
 msgstr ""
 
-#: app/functions-utils.php:923
+#: app/functions-utils.php:932
 msgid "Product Content"
 msgstr ""
 
-#: app/functions-utils.php:934
+#: app/functions-utils.php:943
 msgid "Short Description"
 msgstr ""
 
-#: app/functions-utils.php:947
+#: app/functions-utils.php:956
 msgid "Additional Information"
 msgstr ""
 
-#: app/functions-utils.php:958
+#: app/functions-utils.php:967
 msgid "Products Related"
 msgstr ""
 
-#: app/functions-utils.php:970
+#: app/functions-utils.php:979
 msgid "Upsells"
 msgstr ""
 
-#: app/functions-utils.php:982
+#: app/functions-utils.php:991
 msgid "Product Rating"
 msgstr ""
 
-#: app/functions-utils.php:995
+#: app/functions-utils.php:1004
 msgid "Product Stock"
 msgstr ""
 
-#: app/functions-utils.php:1007, languages/seedprod-pro.php:6371
+#: app/functions-utils.php:1016, languages/seedprod-pro.php:6803
 msgid "Archive Products"
 msgstr ""
 
-#: app/functions-utils.php:1018
+#: app/functions-utils.php:1027
 msgid "Product Data Tabs"
 msgstr ""
 
-#: app/functions-utils.php:1031
+#: app/functions-utils.php:1040, languages/seedprod-pro.php:4497
+msgid "Hotspot"
+msgstr ""
+
+#: app/functions-utils.php:1059
 msgid "Counter"
 msgstr ""
 
-#: app/functions-utils.php:1115
+#: app/functions-utils.php:1143
 msgid "Select Time"
 msgstr ""
 
-#: app/functions-utils.php:2337
+#: app/functions-utils.php:2365
 msgid "Post Type"
 msgstr ""
 
-#: app/functions-utils.php:2345
+#: app/functions-utils.php:2373
 msgid "Entire Site"
 msgstr ""
 
-#: app/functions-utils.php:2349
+#: app/functions-utils.php:2377
 msgid "Front Page"
 msgstr ""
 
-#: app/functions-utils.php:2353
+#: app/functions-utils.php:2381
 msgid "Blog Page"
 msgstr ""
 
-#: app/functions-utils.php:2357, languages/seedprod-pro.php:55
+#: app/functions-utils.php:2385
 msgid "Pages"
 msgstr ""
 
-#: app/functions-utils.php:2361
+#: app/functions-utils.php:2389
 msgid "Pages and Posts"
 msgstr ""
 
-#: app/functions-utils.php:2365
+#: app/functions-utils.php:2393
 msgid "Is Child of"
 msgstr ""
 
-#: app/functions-utils.php:2369
+#: app/functions-utils.php:2397
 msgid "Is Attachment"
 msgstr ""
 
-#: app/functions-utils.php:2373
+#: app/functions-utils.php:2401
 msgid "Is 404"
 msgstr ""
 
-#: app/functions-utils.php:2384
+#: app/functions-utils.php:2412
 msgid "Has Category"
 msgstr ""
 
-#: app/functions-utils.php:2388
+#: app/functions-utils.php:2416
 msgid "Has Tag"
 msgstr ""
 
-#: app/functions-utils.php:2396
+#: app/functions-utils.php:2424
 msgid "All Archives"
 msgstr ""
 
-#: app/functions-utils.php:2400
+#: app/functions-utils.php:2428
 msgid "Date Archives"
 msgstr ""
 
-#: app/functions-utils.php:2404, languages/seedprod-pro.php:833
+#: app/functions-utils.php:2432
 msgid "Search Results"
 msgstr ""
 
-#: app/functions-utils.php:2409
+#: app/functions-utils.php:2437
 msgid "Post Type Archive"
 msgstr ""
 
-#: app/functions-utils.php:2440
+#: app/functions-utils.php:2468
 msgid "Product Page"
 msgstr ""
 
-#: app/functions-utils.php:2444
+#: app/functions-utils.php:2472
 msgid "Product Category"
 msgstr ""
 
-#: app/functions-utils.php:2448
+#: app/functions-utils.php:2476
 msgid "Product Tag"
 msgstr ""
 
-#: app/functions-utils.php:2452
+#: app/functions-utils.php:2480
 msgid "Shop Page"
 msgstr ""
 
@@ -562,7 +570,7 @@ msgid "Upgrade PHP"
 msgstr ""
 
 #. translators: 1. License name.
-#: app/license.php:152, languages/seedprod-pro.php:461
+#: app/license.php:152, languages/seedprod-pro.php:53
 msgid "You currently have the <strong>%s</strong> license."
 msgstr ""
 
@@ -578,15 +586,15 @@ msgstr ""
 msgid "New Page"
 msgstr ""
 
-#: app/lpage.php:937
+#: app/lpage.php:942
 msgid "Starts in"
 msgstr ""
 
-#: app/lpage.php:939
+#: app/lpage.php:944
 msgid "Ended"
 msgstr ""
 
-#: app/lpage.php:1100, app/theme-templates.php:809
+#: app/lpage.php:1105, app/theme-templates.php:809
 msgid "<br><br>Please enter a valid license key to access the themes. You can still proceed to create a page with the default theme.<br> <a class='seedprod_no_themes' href='?theme=0'>Click to continue &#8594;</a>"
 msgstr ""
 
@@ -618,15 +626,15 @@ msgstr ""
 msgid "N/A"
 msgstr ""
 
-#: app/render-woocommerce-template-tags.php:295
+#: app/render-woocommerce-template-tags.php:295, languages/seedprod-pro.php:3836
 msgid "Categories"
 msgstr ""
 
-#: app/render-woocommerce-template-tags.php:295, languages/seedprod-pro.php:4920
+#: app/render-woocommerce-template-tags.php:295, languages/seedprod-pro.php:5181
 msgid "Category"
 msgstr ""
 
-#: app/render-woocommerce-template-tags.php:298, languages/seedprod-pro.php:4917
+#: app/render-woocommerce-template-tags.php:298, languages/seedprod-pro.php:3841
 msgid "Tags"
 msgstr ""
 
@@ -638,19 +646,23 @@ msgstr ""
 msgid "SKU"
 msgstr ""
 
-#: app/routes.php:51, app/routes.php:52, languages/seedprod-pro.php:153
+#: app/routes.php:51
+msgid "SeedProd"
+msgstr ""
+
+#: app/routes.php:52
 msgid "Landing Pages"
 msgstr ""
 
-#: app/routes.php:60, app/routes.php:61, app/routes.php:208, app/routes.php:209, languages/seedprod-pro.php:91
+#: app/routes.php:60, app/routes.php:61, app/routes.php:208, app/routes.php:209
 msgid "Theme Builder"
 msgstr ""
 
-#: app/routes.php:69, app/routes.php:70, languages/seedprod-pro.php:97
+#: app/routes.php:69, app/routes.php:70
 msgid "Setup"
 msgstr ""
 
-#: app/routes.php:89, app/routes.php:90, languages/seedprod-pro.php:62
+#: app/routes.php:89, app/routes.php:90
 msgid "Subscribers"
 msgstr ""
 
@@ -658,15 +670,15 @@ msgstr ""
 msgid "Pop-ups"
 msgstr ""
 
-#: app/routes.php:109, app/routes.php:110, languages/seedprod-pro.php:79
+#: app/routes.php:109, app/routes.php:110, languages/seedprod-pro.php:3515
 msgid "Settings"
 msgstr ""
 
-#: app/routes.php:118, app/routes.php:119, languages/seedprod-pro.php:58
+#: app/routes.php:118, app/routes.php:119
 msgid "Growth Tools"
 msgstr ""
 
-#: app/routes.php:127, app/routes.php:128, languages/seedprod-pro.php:10
+#: app/routes.php:127, app/routes.php:128
 msgid "About Us"
 msgstr ""
 
@@ -674,7 +686,7 @@ msgstr ""
 msgid "Request a Feature"
 msgstr ""
 
-#: app/routes.php:146, app/routes.php:147, languages/seedprod-pro.php:94
+#: app/routes.php:146, app/routes.php:147
 msgid "Import / Export"
 msgstr ""
 
@@ -682,7 +694,7 @@ msgstr ""
 msgid "Upgrade to Pro"
 msgstr ""
 
-#: app/routes.php:172, app/routes.php:173, languages/seedprod-pro.php:2178
+#: app/routes.php:172, app/routes.php:173, languages/seedprod-pro.php:2060
 msgid "Templates"
 msgstr ""
 
@@ -726,6028 +738,4204 @@ msgstr ""
 msgid "This page was auto-generated and is a placeholder page for the SeedProd theme. To manage the contents of this page please visit SeedProd > Theme Builder in the left menu in WordPress. "
 msgstr ""
 
-#: languages/seedprod-pro.php:6
-msgid "Changes not saved, are you sure you want to leave?"
-msgstr ""
-
-#: languages/seedprod-pro.php:13
-msgid "Getting Started"
-msgstr ""
-
-#: languages/seedprod-pro.php:16
-msgid "Lite vs Pro"
-msgstr ""
-
-#: languages/seedprod-pro.php:19
-msgid "Yup, we know a thing or two about building awesome products that customers love."
-msgstr ""
-
-#: languages/seedprod-pro.php:22
-msgid "the most popular lead-generation software"
-msgstr ""
-
-#: languages/seedprod-pro.php:25
-msgid "the best WordPress analytics plugin"
-msgstr ""
-
-#: languages/seedprod-pro.php:28
-msgid "the best WordPress forms plugin"
-msgstr ""
-
-#: languages/seedprod-pro.php:31
-msgid "the best WordPress giveaway plugin"
-msgstr ""
-
-#: languages/seedprod-pro.php:34
-msgid "and finally the best WordPress FOMO plugin"
-msgstr ""
-
-#: languages/seedprod-pro.php:37
-msgid "SeedProd Team photo"
-msgstr ""
-
-#: languages/seedprod-pro.php:40
-msgid "The SeedProd Team"
-msgstr ""
-
-#: languages/seedprod-pro.php:43
-msgid "Hello and welcome to SeedProd, the most beginner friendly drag & drop WordPress landing page plugin. At SeedProd, we build software that helps you create beautiful responsive landing pages for your website in minutes."
-msgstr ""
-
-#: languages/seedprod-pro.php:46
-msgid "Over the years, we found that most WordPress landing page plugins were bloated, buggy, slow, and very hard to use. So we started with a simple goal: build a WordPress landing page plugin that’s both easy and powerful."
-msgstr ""
-
-#: languages/seedprod-pro.php:49
-msgid "Our goal is to take the pain out of creating landing pages and make it easy."
-msgstr ""
-
-#: languages/seedprod-pro.php:52
-msgid "SeedProd is brought to you by the same team that’s behind the largest WordPress resource site,"
-msgstr ""
-
-#: languages/seedprod-pro.php:82
-msgid "SeedProd Logo"
-msgstr ""
-
-#: languages/seedprod-pro.php:85
-msgid "Previous message "
-msgstr ""
-
-#: languages/seedprod-pro.php:88
-msgid "Next message"
-msgstr ""
-
-#: languages/seedprod-pro.php:100
-msgid "Theme Template Kit Chooser"
-msgstr ""
-
-#: languages/seedprod-pro.php:103
-msgid "Coming Soon Mode"
-msgstr ""
-
-#: languages/seedprod-pro.php:106
-msgid "Search Landing Pages"
-msgstr ""
-
-#: languages/seedprod-pro.php:109
-msgid "The Coming Soon Page will be available to search engines if your site is not private."
-msgstr ""
-
-#: languages/seedprod-pro.php:112
-msgid "Set up a Coming Soon Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:116
-msgid "Edit Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:121
-msgid "Preview"
-msgstr ""
-
-#: languages/seedprod-pro.php:131
-msgid "Maintenance Mode"
-msgstr ""
-
-#: languages/seedprod-pro.php:134
-msgid "The Maintenance Mode Page will notify search engines that the site is unavailable."
-msgstr ""
-
-#: languages/seedprod-pro.php:137
-msgid "Set up a Maintenance Mode Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:142
-msgid "404 Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:145
-msgid "Replace your default theme 404 page with a custom high converting 404 page."
-msgstr ""
-
-#: languages/seedprod-pro.php:148
-msgid "Set up a 404 Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:156
-msgid "Add New Landing Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:160
-msgid "Edit"
-msgstr ""
-
-#: languages/seedprod-pro.php:169
-msgid "Duplicate"
-msgstr ""
-
-#: languages/seedprod-pro.php:173
-msgid "Last Modified"
-msgstr ""
-
-#: languages/seedprod-pro.php:176
-msgid "You do not have any landing pages yet."
-msgstr ""
-
-#: languages/seedprod-pro.php:179
-msgid "Create New Landing Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:182
-msgid "SeedProd Coming Soon Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:185
-msgid "SeedProd Maintenance Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:188
-msgid "SeedProd 404 Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:191
-msgid "Create Optin, Sales, Webinar, Thank You or any type of Landing Page you need."
-msgstr ""
-
-#: languages/seedprod-pro.php:196
-msgid "Login Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:199
-msgid "Create a Custom Login Page for your website. Optionally replace the default login page."
-msgstr ""
-
-#: languages/seedprod-pro.php:202
-msgid "Set up a Login Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:205
-msgid "SeedProd Login Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:208
-msgid "<strong>Note:</strong> We noticed you have built your theme with SeedProd. Landing Pages are meant to be standalone pages seperate from the design of your site and theme.<br>If you want to create a page to match your theme and use the header and footer, please create a page under <a href='edit.php?post_type=page'>Pages</a> in WordPress. <a href='https://www.seedprod.com/docs/creating-content-pages-for-your-theme/' target='_blank'>Learn More</a>"
-msgstr ""
-
-#: languages/seedprod-pro.php:218
-msgid "Published"
-msgstr ""
-
-#: languages/seedprod-pro.php:222
-msgid "Drafts"
-msgstr ""
-
-#: languages/seedprod-pro.php:226
-msgid "Trash"
-msgstr ""
-
-#: languages/seedprod-pro.php:230
-msgid "Move To Trash"
-msgstr ""
-
-#: languages/seedprod-pro.php:234
-msgid "Restore"
-msgstr ""
-
-#: languages/seedprod-pro.php:238
-msgid "Delete Permanently"
-msgstr ""
-
-#: languages/seedprod-pro.php:248
-msgid "Name"
-msgstr ""
-
-#: languages/seedprod-pro.php:251
-msgid "URL"
-msgstr ""
-
-#: languages/seedprod-pro.php:260
-msgid "Date"
-msgstr ""
-
-#: languages/seedprod-pro.php:267
-msgid "Loading"
-msgstr ""
-
-#: languages/seedprod-pro.php:270
-msgid "Pages Moved to Trash."
-msgstr ""
-
-#: languages/seedprod-pro.php:273
-msgid "Pages Restored."
-msgstr ""
-
-#: languages/seedprod-pro.php:278
-msgid "Are you sure?"
-msgstr ""
-
-#: languages/seedprod-pro.php:282
-msgid "Yes, empty trash!"
-msgstr ""
-
-#: languages/seedprod-pro.php:285
-msgid "Pages Deleted!"
-msgstr ""
-
-#: languages/seedprod-pro.php:289
-msgid "Page Duplicated"
-msgstr ""
-
-#: languages/seedprod-pro.php:292
-msgid "Import / Export your Landing Page data and images"
-msgstr ""
-
-#: languages/seedprod-pro.php:295
-msgid "Import / Export Theme Builder"
-msgstr ""
-
-#: languages/seedprod-pro.php:298
-msgid "Select Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:302
-msgid "Coming Soon Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:306
-msgid "Maintenance Mode Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:309
-msgid "Export Theme Files"
-msgstr ""
-
-#: languages/seedprod-pro.php:312
-msgid "Import Theme Files"
-msgstr ""
-
-#: languages/seedprod-pro.php:315
-msgid "Import Theme Builder"
-msgstr ""
-
-#: languages/seedprod-pro.php:318
-msgid "Please upload zipped files here to import theme data."
-msgstr ""
-
-#: languages/seedprod-pro.php:321
-msgid "Export Theme Builder"
-msgstr ""
-
-#: languages/seedprod-pro.php:324
-msgid "Please upload zipped files here to import a landing page."
-msgstr ""
-
-#: languages/seedprod-pro.php:327
-msgid "Import Landing Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:330
-msgid "Export Landing Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:333
-msgid "Import / Export Pages"
-msgstr ""
-
-#: languages/seedprod-pro.php:336
-msgid "Please enter theme zipped file url to import theme data. "
-msgstr ""
-
-#: languages/seedprod-pro.php:339
-msgid "Enter Import file Url"
-msgstr ""
-
-#: languages/seedprod-pro.php:342
-msgid "Import by Theme Url"
-msgstr ""
-
-#: languages/seedprod-pro.php:345
-msgid "Please select Landing Page."
-msgstr ""
-
-#: languages/seedprod-pro.php:348
-msgid "Invalid import file type."
-msgstr ""
-
-#: languages/seedprod-pro.php:351
-msgid "Please select a zip file to upload."
-msgstr ""
-
-#: languages/seedprod-pro.php:354
-msgid "Import / Export your Theme Builder data and images"
-msgstr ""
-
-#: languages/seedprod-pro.php:357
-msgid "Export Started"
-msgstr ""
-
-#: languages/seedprod-pro.php:360
-msgid "Import Started"
-msgstr ""
-
-#: languages/seedprod-pro.php:363
-msgid "Invalid import file url."
-msgstr ""
-
-#: languages/seedprod-pro.php:366
-msgid "Please enter import file url."
-msgstr ""
-
-#: languages/seedprod-pro.php:369
-msgid "Import not working. Check import url and try again."
-msgstr ""
-
-#: languages/seedprod-pro.php:372
-msgid "Successfully imported."
-msgstr ""
-
-#: languages/seedprod-pro.php:375
-msgid "Import not working. Please try again."
-msgstr ""
-
-#: languages/seedprod-pro.php:382
-msgid "Install"
-msgstr ""
-
-#: languages/seedprod-pro.php:385
-msgid "Deactivate"
-msgstr ""
-
-#: languages/seedprod-pro.php:392
-msgid "Activate"
-msgstr ""
-
-#: languages/seedprod-pro.php:396
+#: languages/seedprod-pro.php:5
 msgid "Status"
 msgstr ""
 
-#: languages/seedprod-pro.php:399
-msgid "PRO Version installed"
-msgstr ""
-
-#: languages/seedprod-pro.php:402
+#: languages/seedprod-pro.php:8
 msgid "Get OptinMonster Now"
 msgstr ""
 
-#: languages/seedprod-pro.php:405
+#: languages/seedprod-pro.php:11
 msgid "OptinMonster is Active - Go to Settings"
 msgstr ""
 
-#: languages/seedprod-pro.php:408
+#: languages/seedprod-pro.php:14
 msgid "Activate OptinMonster"
 msgstr ""
 
-#: languages/seedprod-pro.php:411
+#: languages/seedprod-pro.php:17
 msgid "Activating OptinMonster"
 msgstr ""
 
-#: languages/seedprod-pro.php:417
-msgid "General"
-msgstr ""
-
-#: languages/seedprod-pro.php:420
-msgid "Emails"
-msgstr ""
-
-#: languages/seedprod-pro.php:423
-msgid "Integrations"
-msgstr ""
-
-#: languages/seedprod-pro.php:426
+#: languages/seedprod-pro.php:20
 msgid "License"
 msgstr ""
 
-#: languages/seedprod-pro.php:429
+#: languages/seedprod-pro.php:23
 msgid "Your license key provides access to updates and addons."
 msgstr ""
 
-#: languages/seedprod-pro.php:433
+#: languages/seedprod-pro.php:26
 msgid "You're using <strong>SeedProd Lite</strong> - No License needed. Enjoy!"
 msgstr ""
 
-#: languages/seedprod-pro.php:436
+#: languages/seedprod-pro.php:29
 msgid "To unlock more features consider <a href='%s' target='_blank'>upgrading to PRO</a> . As a valued SeedProd Lite user you'll receive <strong>a discount off the regular price</strong>, automatically applied at checkout! "
 msgstr ""
 
-#: languages/seedprod-pro.php:439
-msgid "If you already have a license key for <a href='%s' target='_blank'>SeedProd Pro</a>, please enter it to Upgrade to the Pro Features. An External Service will be used to verify and connect you to SeedProd."
+#: languages/seedprod-pro.php:32
+msgid "If you already have a license key for <a href='%s' target='_blank'>SeedProd Pro</a>, please enter it to Upgrade to the Pro Features. SeedProd.com will be used to verify and connect you to SeedProd."
 msgstr ""
 
-#: languages/seedprod-pro.php:442
+#: languages/seedprod-pro.php:35
 msgid "License Key"
 msgstr ""
 
-#: languages/seedprod-pro.php:446
+#: languages/seedprod-pro.php:38
 msgid "Enter Your License Key Here"
 msgstr ""
 
-#: languages/seedprod-pro.php:449
+#: languages/seedprod-pro.php:41
 msgid "Recheck Key"
 msgstr ""
 
-#: languages/seedprod-pro.php:452
+#: languages/seedprod-pro.php:44
 msgid "Verify Key"
 msgstr ""
 
-#: languages/seedprod-pro.php:455
+#: languages/seedprod-pro.php:47
 msgid "Deactivate Key"
 msgstr ""
 
-#: languages/seedprod-pro.php:458
+#: languages/seedprod-pro.php:50
 msgid "Connect to SeedProd to install the Pro Version"
 msgstr ""
 
-#: languages/seedprod-pro.php:464
+#: languages/seedprod-pro.php:56
 msgid "Debug Information"
 msgstr ""
 
-#: languages/seedprod-pro.php:467
+#: languages/seedprod-pro.php:59
 msgid "Facebook APP ID"
 msgstr ""
 
-#: languages/seedprod-pro.php:471
+#: languages/seedprod-pro.php:62
 msgid "Global Settings"
 msgstr ""
 
-#: languages/seedprod-pro.php:474
+#: languages/seedprod-pro.php:65
 msgid "Save Settings"
 msgstr ""
 
-#: languages/seedprod-pro.php:477
+#: languages/seedprod-pro.php:68
 msgid "Disable Edit SeedProd Button"
 msgstr ""
 
-#: languages/seedprod-pro.php:480
+#: languages/seedprod-pro.php:71
 msgid "Enable Usage Tracking"
 msgstr ""
 
-#: languages/seedprod-pro.php:520
+#: languages/seedprod-pro.php:137
 msgid "No"
 msgstr ""
 
-#: languages/seedprod-pro.php:524
+#: languages/seedprod-pro.php:140
 msgid "Could not be saved. Please contact Support if you continue to experience this issue."
 msgstr ""
 
-#: languages/seedprod-pro.php:528
+#: languages/seedprod-pro.php:144
 msgid "Saved!"
 msgstr ""
 
-#: languages/seedprod-pro.php:531
+#: languages/seedprod-pro.php:147
 msgid "Looks like you don't have permission to save."
 msgstr ""
 
-#: languages/seedprod-pro.php:534
-msgid "<h1 class='sp-text-2xl sp-text-neutral sp-m-0 sp-mb-4 sp-font-bold'>Template Setup Complete</h1>"
-msgstr ""
-
-#: languages/seedprod-pro.php:537
-msgid "You can close this window and get started editing you page<br> or setup a new page."
-msgstr ""
-
-#: languages/seedprod-pro.php:546
-msgid "Close"
-msgstr ""
-
-#: languages/seedprod-pro.php:549
-msgid "Click the button below to install and activate the following free plugins:"
-msgstr ""
-
-#: languages/seedprod-pro.php:552
-msgid "Install and Activate Plugins"
-msgstr ""
-
-#: languages/seedprod-pro.php:555
-msgid "I'll do it later"
-msgstr ""
-
-#: languages/seedprod-pro.php:558
-msgid "<h1 class=\"sp-text-2xl sp-text-neutral sp-m-0 sp-mb-4 sp-font-bold\">Finishing Up!</h1><p class=\"sp-text-sm sp-text-neutral sp-font-normal\">Please do not refresh or exit this page<br>until this process is complete.<p>"
-msgstr ""
-
-#: languages/seedprod-pro.php:561
-msgid "Setup a Coming Soon Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:564
-msgid "A Coming Soon Page will hide your site from public but you'll still be able to see it and work on it if logged in."
-msgstr ""
-
-#: languages/seedprod-pro.php:567
-msgid "Setup a Maintenance Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:570
-msgid "A Maintenance Page will notify search engines that the site is unavailable."
-msgstr ""
-
-#: languages/seedprod-pro.php:573
-msgid "Setup a Landing Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:576
-msgid "Landing Pages are meant to be standalone pages seperate from the design of your site and theme."
-msgstr ""
-
-#: languages/seedprod-pro.php:579
-msgid "Edit Landing Pages"
-msgstr ""
-
-#: languages/seedprod-pro.php:582
-msgid "Build a Website"
-msgstr ""
-
-#: languages/seedprod-pro.php:585
-msgid "Build your enite Website. Create Headers, Footers, Pages, Posts, Archives, Sidebars, and more."
-msgstr ""
-
-#: languages/seedprod-pro.php:588
-msgid "Select a Theme for my Website"
-msgstr ""
-
-#: languages/seedprod-pro.php:591
-msgid "Edit Theme"
-msgstr ""
-
-#: languages/seedprod-pro.php:594
-msgid "Build a WooCommerce Store"
-msgstr ""
-
-#: languages/seedprod-pro.php:597
-msgid "Create an entire WooCommerce store. Customize product pages, checkout, cart, product grids, and more."
-msgstr ""
-
-#: languages/seedprod-pro.php:600
-msgid "Select a Theme for my Store"
-msgstr ""
-
-#: languages/seedprod-pro.php:603
-msgid "Setup a Login Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:606
-msgid "Create a custom Login page for your website."
-msgstr ""
-
-#: languages/seedprod-pro.php:609
-msgid "Setup a 404 Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:612
-msgid "Create a custom 404 page for your website."
-msgstr ""
-
-#: languages/seedprod-pro.php:615
-msgid "Dismiss Setup"
-msgstr ""
-
-#: languages/seedprod-pro.php:618
-msgid "Finish Setup"
-msgstr ""
-
-#: languages/seedprod-pro.php:621
-msgid "There was an issue completing the setup. Please refresh the page and try again."
-msgstr ""
-
-#: languages/seedprod-pro.php:624
-msgid "Subscribers Overview"
-msgstr ""
-
-#: languages/seedprod-pro.php:627
-msgid "Export to CSV"
-msgstr ""
-
-#: languages/seedprod-pro.php:630
-msgid "All Pages"
-msgstr ""
-
-#: languages/seedprod-pro.php:633
-msgid "Days"
-msgstr ""
-
-#: languages/seedprod-pro.php:636
-msgid "You do not have any subscribers yet."
-msgstr ""
-
-#: languages/seedprod-pro.php:639
-msgid "Go to Pages"
-msgstr ""
-
-#: languages/seedprod-pro.php:642
-msgid "Search Emails"
-msgstr ""
-
-#: languages/seedprod-pro.php:647
-msgid "Email"
-msgstr ""
-
-#: languages/seedprod-pro.php:650
-msgid "Created"
-msgstr ""
-
-#: languages/seedprod-pro.php:658
-msgid "Delete"
-msgstr ""
-
-#: languages/seedprod-pro.php:661
-msgid "Subscribers Deleted"
-msgstr ""
-
-#: languages/seedprod-pro.php:664
-msgid "Exported Started"
-msgstr ""
-
-#: languages/seedprod-pro.php:668
-msgid "All Templates"
-msgstr ""
-
-#: languages/seedprod-pro.php:672
-msgid "Favorite Templates"
-msgstr ""
-
-#: languages/seedprod-pro.php:676
-msgid "Filter:"
-msgstr ""
-
-#: languages/seedprod-pro.php:681
-msgid "No Templates Found"
-msgstr ""
-
-#: languages/seedprod-pro.php:687
-msgid "First Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:693
-msgid "Prev"
-msgstr ""
-
-#: languages/seedprod-pro.php:699
-msgid "Next"
-msgstr ""
-
-#: languages/seedprod-pro.php:705
-msgid "Last Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:709
-msgid "Search templates..."
-msgstr ""
-
-#: languages/seedprod-pro.php:713
-msgid "WooCommerce"
-msgstr ""
-
-#: languages/seedprod-pro.php:716
-msgid "Sort:"
-msgstr ""
-
-#: languages/seedprod-pro.php:719
-msgid "Search Theme Templates"
-msgstr ""
-
-#: languages/seedprod-pro.php:722
-msgid "Theme Templates"
-msgstr ""
-
-#: languages/seedprod-pro.php:725
-msgid "Add New Theme Template"
-msgstr ""
-
-#: languages/seedprod-pro.php:728
-msgid "Edit Design"
-msgstr ""
-
-#: languages/seedprod-pro.php:731
-msgid "You do not have any theme templates yet."
-msgstr ""
-
-#: languages/seedprod-pro.php:734
-msgid "Create New Theme Template"
-msgstr ""
-
-#: languages/seedprod-pro.php:737
-msgid "Create Headers, Footer, Post, Page, Archive and More"
-msgstr ""
-
-#: languages/seedprod-pro.php:740
-msgid "New Theme Template"
-msgstr ""
-
-#: languages/seedprod-pro.php:743
-msgid "Name:"
-msgstr ""
-
-#: languages/seedprod-pro.php:746
-msgid "Example: Main Header, Blog Page, Search Results"
-msgstr ""
-
-#: languages/seedprod-pro.php:749
-msgid "Type:"
-msgstr ""
-
-#: languages/seedprod-pro.php:752
-msgid "Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:755
-msgid "Part"
-msgstr ""
-
-#: languages/seedprod-pro.php:760
-msgid "Header"
-msgstr ""
-
-#: languages/seedprod-pro.php:763
-msgid "Footer"
-msgstr ""
-
-#: languages/seedprod-pro.php:766
-msgid "Priority:"
-msgstr ""
-
-#: languages/seedprod-pro.php:769
-msgid "Conditions:"
-msgstr ""
-
-#: languages/seedprod-pro.php:772
-msgid "Edit Conditions"
-msgstr ""
-
-#: languages/seedprod-pro.php:776
-msgid "Include"
-msgstr ""
-
-#: languages/seedprod-pro.php:780
-msgid "Exclude"
-msgstr ""
-
-#: languages/seedprod-pro.php:784
-msgid "Select Type"
-msgstr ""
-
-#: languages/seedprod-pro.php:787
-msgid "Add Condition"
-msgstr ""
-
-#: languages/seedprod-pro.php:791
-msgid "Save"
-msgstr ""
-
-#: languages/seedprod-pro.php:794
-msgid "Template Updated!"
-msgstr ""
-
-#: languages/seedprod-pro.php:797
-msgid "Theme Preview Mode"
-msgstr ""
-
-#: languages/seedprod-pro.php:818
-msgid "Custom"
-msgstr ""
-
-#: languages/seedprod-pro.php:821
-msgid "Page Type"
-msgstr ""
-
-#: languages/seedprod-pro.php:824
-msgid "Single Post"
-msgstr ""
-
-#: languages/seedprod-pro.php:827
-msgid "Single Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:830
-msgid "Archive"
-msgstr ""
-
-#: languages/seedprod-pro.php:836
-msgid "Custom Conditions"
-msgstr ""
-
-#: languages/seedprod-pro.php:841
-msgid "Select a Type"
-msgstr ""
-
-#: languages/seedprod-pro.php:844
-msgid "Global Part"
-msgstr ""
-
-#: languages/seedprod-pro.php:847
-msgid "Theme Template Kits"
-msgstr ""
-
-#: languages/seedprod-pro.php:850
-msgid "Enable SeedProd Theme"
-msgstr ""
-
-#: languages/seedprod-pro.php:853
-msgid "Single Product"
-msgstr ""
-
-#: languages/seedprod-pro.php:856
-msgid "Archive Product"
-msgstr ""
-
-#: languages/seedprod-pro.php:859
-msgid "Theme has been enabled."
-msgstr ""
-
-#: languages/seedprod-pro.php:862
-msgid "Theme has been disabled."
-msgstr ""
-
-#: languages/seedprod-pro.php:865
-msgid "Could not toggle theme status. Make sure you have permission."
-msgstr ""
-
-#: languages/seedprod-pro.php:868
-msgid "This theme requires a static Home and Blog page be set in WordPress. Would you like for us to automatically create these pages and update the WordPress settings?"
-msgstr ""
-
-#: languages/seedprod-pro.php:871
-msgid "A static Home and Blog page have been created. You can manage these in WordPress by going to Settings > Reading > Your homepage displays:"
-msgstr ""
-
-#: languages/seedprod-pro.php:874
-msgid "Could not create pages. Please check your permissions."
-msgstr ""
-
-#: languages/seedprod-pro.php:877
-msgid "You can manually setup these pages in WordPress by going to Settings > Reading > Your homepage displays:"
-msgstr ""
-
-#: languages/seedprod-pro.php:900
-msgid "Type"
-msgstr ""
-
-#: languages/seedprod-pro.php:903
-msgid "Conditions"
-msgstr ""
-
-#: languages/seedprod-pro.php:906
-msgid "Priority"
-msgstr ""
-
-#: languages/seedprod-pro.php:909
-msgid "Templates Moved to Trash."
-msgstr ""
-
-#: languages/seedprod-pro.php:912
-msgid "Templates Restored."
-msgstr ""
-
-#: languages/seedprod-pro.php:915
-msgid "Templates Deleted!"
-msgstr ""
-
-#: languages/seedprod-pro.php:918
-msgid "Thank you for choosing SeedProd - Easy Drag & Drop Page Builder. A complete solution to create a WordPress Website, Custom Themes, Landing Pages, Coming Soon & Maintenance Mode Pages."
-msgstr ""
-
-#: languages/seedprod-pro.php:921
-msgid "Enter your license key to enable all the features of the plugin."
-msgstr ""
-
-#: languages/seedprod-pro.php:924
-msgid "If you already have a license key for <a href='%s' target='_blank'>SeedProd Pro</a>, please enter it to Upgrade to the Pro Features."
-msgstr ""
-
-#: languages/seedprod-pro.php:927
-msgid "Verify key"
-msgstr ""
-
-#: languages/seedprod-pro.php:930
-msgid "Don't have a license key or need to renew? Visit <a href='%s' target='_blank'  class='sp-text-primary'>seedprod.com</a>"
-msgstr ""
-
-#: languages/seedprod-pro.php:933
-msgid "SeedProd makes it easy to create landing pages in WordPress.<br>You can watch the video tutorial or read our guide on how create your first page."
-msgstr ""
-
-#: languages/seedprod-pro.php:936
-msgid "Setup SeedProd"
-msgstr ""
-
-#: languages/seedprod-pro.php:939
-msgid "Read the Full Guide"
-msgstr ""
-
-#: languages/seedprod-pro.php:942
-msgid "SeedProd Features &amp; Solutions"
-msgstr ""
-
-#: languages/seedprod-pro.php:945
-msgid "SeedProd is both easy to use and extremely powerful. We have tons of<br />helpful features to help you create a successful landing page."
-msgstr ""
-
-#: languages/seedprod-pro.php:948
-msgid "Watch how to create your first landing page"
-msgstr ""
-
-#: languages/seedprod-pro.php:951
-msgid "Robbie the Rabbit the SeedProd mascot"
-msgstr ""
-
-#: languages/seedprod-pro.php:954
-msgid "Watch how to create your first page"
-msgstr ""
-
-#: languages/seedprod-pro.php:957
-msgid "Drag &amp; Drop Page Builder"
-msgstr ""
-
-#: languages/seedprod-pro.php:960
-msgid "Special Upgrade Offer - Save 50% Off"
-msgstr ""
-
-#: languages/seedprod-pro.php:963
-msgid "Save 20%"
-msgstr ""
-
-#: languages/seedprod-pro.php:966
-msgid "Pro"
-msgstr ""
-
-#: languages/seedprod-pro.php:969
-msgid "per year"
-msgstr ""
-
-#: languages/seedprod-pro.php:972
-msgid "\"Want to create a great looking 'coming soon' landing page and grab emails easily? Check out SeedProd\""
-msgstr ""
-
-#: languages/seedprod-pro.php:975
-msgid "Our Drag & Drop Page Builder lets you create great looking pages and layouts fast so you can get your landing page up in minutes. No coding required!"
-msgstr ""
-
-#: languages/seedprod-pro.php:978
-msgid "Upgrade to SeedProd Pro<br />Today and Save"
-msgstr ""
-
-#: languages/seedprod-pro.php:981
-msgid "Upgrade to PRO Now"
-msgstr ""
-
-#: languages/seedprod-pro.php:988
-msgid "\"Just gotta say how awesome SeedProd really is! WordPress freelancers really need this in their repertoire!\""
-msgstr ""
-
-#: languages/seedprod-pro.php:991
-msgid "Landing Page Templates"
-msgstr ""
-
-#: languages/seedprod-pro.php:994
-msgid "Create a variety of landing pages including sales, optin, coming soon, maintenance mode, webinar, and thank you pages. New templates added regularly."
-msgstr ""
-
-#: languages/seedprod-pro.php:998
-msgid "Smart Sections"
-msgstr ""
-
-#: languages/seedprod-pro.php:1001
-msgid "We created professionally designed pre-built sections like headers, calls to action, so you don't need to be a designer to create beautiful layouts."
-msgstr ""
-
-#: languages/seedprod-pro.php:1004
-msgid "Premium Integrations"
-msgstr ""
-
-#: languages/seedprod-pro.php:1007
-msgid "Collect emails with your favorite 3rd party email marketing service providers including MailChimp, ActiveCampaign, ConvertKit, Constant Contact and more..."
-msgstr ""
-
-#: languages/seedprod-pro.php:1010
-msgid "No Coding Skills Needed"
-msgstr ""
-
-#: languages/seedprod-pro.php:1013
-msgid "We've eliminated all the technical barries that keep you from building the perfect landing page."
-msgstr ""
-
-#: languages/seedprod-pro.php:1016
-msgid "Super Fast Loading Pages"
-msgstr ""
-
-#: languages/seedprod-pro.php:1019
-msgid "Bloat free code results in faster loading pages which means your page converts higher."
-msgstr ""
-
-#: languages/seedprod-pro.php:1026
-msgid "Drag & Drop Page Builder"
-msgstr ""
-
-#: languages/seedprod-pro.php:1033
-msgid "80+ PRO Page Blocks"
-msgstr ""
-
-#: languages/seedprod-pro.php:1037
-msgid "Email Marketing Integrations"
-msgstr ""
-
-#: languages/seedprod-pro.php:1045
-msgid "Custom 404 Pages"
-msgstr ""
-
-#: languages/seedprod-pro.php:1052
-msgid "Page Access Controls"
-msgstr ""
-
-#: languages/seedprod-pro.php:1059
-msgid "200+ PRO Page Templates"
-msgstr ""
-
-#: languages/seedprod-pro.php:1066
-msgid "PRO Smart Sections"
-msgstr ""
-
-#: languages/seedprod-pro.php:1070
-msgid "Subscriber Management"
-msgstr ""
-
-#: languages/seedprod-pro.php:1079
-msgid "Saved Templates"
-msgstr ""
-
-#: languages/seedprod-pro.php:1088
-msgid "Plus much more..."
-msgstr ""
-
-#: languages/seedprod-pro.php:1158
+#: languages/seedprod-pro.php:280
 msgid "Content"
 msgstr ""
 
-#: languages/seedprod-pro.php:1231
+#: languages/seedprod-pro.php:420
 msgid "Advanced"
 msgstr ""
 
-#: languages/seedprod-pro.php:1243
+#: languages/seedprod-pro.php:437
 msgid "Add New Item"
 msgstr ""
 
-#: languages/seedprod-pro.php:1254
+#: languages/seedprod-pro.php:455
 msgid "Font Size"
 msgstr ""
 
-#: languages/seedprod-pro.php:1272
+#: languages/seedprod-pro.php:486
 msgid "Space Between"
 msgstr ""
 
-#: languages/seedprod-pro.php:1320
+#: languages/seedprod-pro.php:580
 msgid "Styles"
 msgstr ""
 
-#: languages/seedprod-pro.php:1326
+#: languages/seedprod-pro.php:588
 msgid "List Layout"
 msgstr ""
 
-#: languages/seedprod-pro.php:1337
+#: languages/seedprod-pro.php:606
 msgid "Vertical"
 msgstr ""
 
-#: languages/seedprod-pro.php:1348
+#: languages/seedprod-pro.php:624
 msgid "Horizontal"
 msgstr ""
 
-#: languages/seedprod-pro.php:1368
+#: languages/seedprod-pro.php:661
 msgid "Text Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:1378
+#: languages/seedprod-pro.php:677
 msgid "Spacing"
 msgstr ""
 
-#: languages/seedprod-pro.php:1385
+#: languages/seedprod-pro.php:685
 msgid "Top Margin"
 msgstr ""
 
-#: languages/seedprod-pro.php:1449
+#: languages/seedprod-pro.php:798
 msgid "Choose Your Style"
 msgstr ""
 
-#: languages/seedprod-pro.php:1452
+#: languages/seedprod-pro.php:801
 msgid "Closed Icon Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:1455
+#: languages/seedprod-pro.php:804
 msgid "Closed Icon"
 msgstr ""
 
-#: languages/seedprod-pro.php:1458
+#: languages/seedprod-pro.php:807
 msgid "Open Icon Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:1461
+#: languages/seedprod-pro.php:810
 msgid "Open Icon"
 msgstr ""
 
-#: languages/seedprod-pro.php:1471
+#: languages/seedprod-pro.php:825
 msgid "Header Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:1475
+#: languages/seedprod-pro.php:830
 msgid "Header Open Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:1481
+#: languages/seedprod-pro.php:839
 msgid "Divider Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:1522
+#: languages/seedprod-pro.php:916
 msgid "Background Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:1549
+#: languages/seedprod-pro.php:967
 msgid "Text Shadow"
 msgstr ""
 
-#: languages/seedprod-pro.php:1557
+#: languages/seedprod-pro.php:979
 msgid "Padding"
 msgstr ""
 
-#: languages/seedprod-pro.php:1582
+#: languages/seedprod-pro.php:1015
 msgid "Top"
 msgstr ""
 
-#: languages/seedprod-pro.php:1607
+#: languages/seedprod-pro.php:1051
 msgid "Bottom"
 msgstr ""
 
-#: languages/seedprod-pro.php:1630
+#: languages/seedprod-pro.php:1086
 msgid "Right"
 msgstr ""
 
-#: languages/seedprod-pro.php:1653
+#: languages/seedprod-pro.php:1121
 msgid "Left"
 msgstr ""
 
-#: languages/seedprod-pro.php:1694
+#: languages/seedprod-pro.php:1196
 msgid "Shadow"
 msgstr ""
 
-#: languages/seedprod-pro.php:1741
+#: languages/seedprod-pro.php:1284
 msgid "None"
 msgstr ""
 
-#: languages/seedprod-pro.php:1789
+#: languages/seedprod-pro.php:1375
 msgid "Hairline"
 msgstr ""
 
-#: languages/seedprod-pro.php:1839
+#: languages/seedprod-pro.php:1470
 msgid "Small"
 msgstr ""
 
-#: languages/seedprod-pro.php:1889
+#: languages/seedprod-pro.php:1565
 msgid "Medium"
 msgstr ""
 
-#: languages/seedprod-pro.php:1939
+#: languages/seedprod-pro.php:1660
 msgid "Large"
 msgstr ""
 
-#: languages/seedprod-pro.php:1988
+#: languages/seedprod-pro.php:1753
 msgid "X Large"
 msgstr ""
 
-#: languages/seedprod-pro.php:2036
+#: languages/seedprod-pro.php:1844
 msgid "2X Large"
 msgstr ""
 
-#: languages/seedprod-pro.php:2039
+#: languages/seedprod-pro.php:1847
 msgid "Add To Cart Preview Not Available"
 msgstr ""
 
-#: languages/seedprod-pro.php:2061
+#: languages/seedprod-pro.php:1876
 msgid "Button Text"
 msgstr ""
 
-#: languages/seedprod-pro.php:2091
+#: languages/seedprod-pro.php:1929
 msgid "Size"
 msgstr ""
 
-#: languages/seedprod-pro.php:2097
+#: languages/seedprod-pro.php:1934
 msgid "Vertical Padding"
 msgstr ""
 
-#: languages/seedprod-pro.php:2103
+#: languages/seedprod-pro.php:1939
 msgid "Horizontal Padding"
 msgstr ""
 
-#: languages/seedprod-pro.php:2131
+#: languages/seedprod-pro.php:1987
 msgid "Border Radius"
 msgstr ""
 
-#: languages/seedprod-pro.php:2139
+#: languages/seedprod-pro.php:1998
 msgid "Icons"
 msgstr ""
 
-#: languages/seedprod-pro.php:2148
+#: languages/seedprod-pro.php:2010
 msgid "Before Text Icon"
 msgstr ""
 
-#: languages/seedprod-pro.php:2157
+#: languages/seedprod-pro.php:2022
 msgid "After Text Icon"
 msgstr ""
 
-#: languages/seedprod-pro.php:2186
+#: languages/seedprod-pro.php:2070
 msgid "Tiny"
 msgstr ""
 
-#: languages/seedprod-pro.php:2192
+#: languages/seedprod-pro.php:2075
 msgid "Pill Button"
 msgstr ""
 
-#: languages/seedprod-pro.php:2198
+#: languages/seedprod-pro.php:2080
 msgid "Flat Button"
 msgstr ""
 
-#: languages/seedprod-pro.php:2204
+#: languages/seedprod-pro.php:2085
 msgid "Blue Button"
 msgstr ""
 
-#: languages/seedprod-pro.php:2210
+#: languages/seedprod-pro.php:2090
 msgid "Light Green Button"
 msgstr ""
 
-#: languages/seedprod-pro.php:2216
+#: languages/seedprod-pro.php:2095
 msgid "Green Button"
 msgstr ""
 
-#: languages/seedprod-pro.php:2222
+#: languages/seedprod-pro.php:2100
 msgid "Orange Button"
 msgstr ""
 
-#: languages/seedprod-pro.php:2228
+#: languages/seedprod-pro.php:2105
 msgid "Red Button"
 msgstr ""
 
-#: languages/seedprod-pro.php:2234
+#: languages/seedprod-pro.php:2110
 msgid "Yellow Button"
 msgstr ""
 
-#: languages/seedprod-pro.php:2240
+#: languages/seedprod-pro.php:2115
 msgid "White Button"
 msgstr ""
 
-#: languages/seedprod-pro.php:2246
+#: languages/seedprod-pro.php:2120
 msgid "Grey Button"
 msgstr ""
 
-#: languages/seedprod-pro.php:2252
+#: languages/seedprod-pro.php:2125
 msgid "Black Button"
 msgstr ""
 
-#: languages/seedprod-pro.php:2264
+#: languages/seedprod-pro.php:2144
 msgid "Button Style"
 msgstr ""
 
-#: languages/seedprod-pro.php:2276
+#: languages/seedprod-pro.php:2163
 msgid "Flat"
 msgstr ""
 
-#: languages/seedprod-pro.php:2288
+#: languages/seedprod-pro.php:2182
 msgid "2D"
 msgstr ""
 
-#: languages/seedprod-pro.php:2300
+#: languages/seedprod-pro.php:2201
 msgid "Vintage"
 msgstr ""
 
-#: languages/seedprod-pro.php:2312
+#: languages/seedprod-pro.php:2220
 msgid "Ghost"
 msgstr ""
 
-#: languages/seedprod-pro.php:2319
+#: languages/seedprod-pro.php:2225
 msgid "Button Text Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:2325
+#: languages/seedprod-pro.php:2229
 msgid "Button Background Style"
 msgstr ""
 
-#: languages/seedprod-pro.php:2348
+#: languages/seedprod-pro.php:2266
 msgid "Solid"
 msgstr ""
 
-#: languages/seedprod-pro.php:2355
+#: languages/seedprod-pro.php:2270
 msgid "Gradient"
 msgstr ""
 
-#: languages/seedprod-pro.php:2363
+#: languages/seedprod-pro.php:2275
 msgid "Normal"
 msgstr ""
 
-#: languages/seedprod-pro.php:2369
+#: languages/seedprod-pro.php:2280
 msgid "Hover"
 msgstr ""
 
-#: languages/seedprod-pro.php:2393
+#: languages/seedprod-pro.php:2323
 msgid "Link"
 msgstr ""
 
-#: languages/seedprod-pro.php:2400
+#: languages/seedprod-pro.php:2327
 msgid "Gradient Type"
 msgstr ""
 
-#: languages/seedprod-pro.php:2407
+#: languages/seedprod-pro.php:2331
 msgid "Radial"
 msgstr ""
 
-#: languages/seedprod-pro.php:2414
+#: languages/seedprod-pro.php:2335
 msgid "Linear"
 msgstr ""
 
-#: languages/seedprod-pro.php:2421
+#: languages/seedprod-pro.php:2339
 msgid "Angle"
 msgstr ""
 
-#: languages/seedprod-pro.php:2430
+#: languages/seedprod-pro.php:2344
 msgid "Position"
 msgstr ""
 
-#: languages/seedprod-pro.php:2437
+#: languages/seedprod-pro.php:2348
 msgid "Top Center"
 msgstr ""
 
-#: languages/seedprod-pro.php:2445
+#: languages/seedprod-pro.php:2353
 msgid "Top Left"
 msgstr ""
 
-#: languages/seedprod-pro.php:2453
+#: languages/seedprod-pro.php:2358
 msgid "Top Right"
 msgstr ""
 
-#: languages/seedprod-pro.php:2460
+#: languages/seedprod-pro.php:2362
 msgid "Center Center"
 msgstr ""
 
-#: languages/seedprod-pro.php:2467
+#: languages/seedprod-pro.php:2366
 msgid "Center Left"
 msgstr ""
 
-#: languages/seedprod-pro.php:2474
+#: languages/seedprod-pro.php:2370
 msgid "Center Right"
 msgstr ""
 
-#: languages/seedprod-pro.php:2481
+#: languages/seedprod-pro.php:2374
 msgid "Bottom Center"
 msgstr ""
 
-#: languages/seedprod-pro.php:2489
+#: languages/seedprod-pro.php:2379
 msgid "Bottom Left"
 msgstr ""
 
-#: languages/seedprod-pro.php:2497
+#: languages/seedprod-pro.php:2384
 msgid "Bottom Right"
 msgstr ""
 
-#: languages/seedprod-pro.php:2504
+#: languages/seedprod-pro.php:2388
 msgid "First Color Location"
 msgstr ""
 
-#: languages/seedprod-pro.php:2511
+#: languages/seedprod-pro.php:2392
 msgid "Second Color Location"
 msgstr ""
 
-#: languages/seedprod-pro.php:2518
+#: languages/seedprod-pro.php:2396
 msgid "First Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:2525
+#: languages/seedprod-pro.php:2400
 msgid "Second Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:2528
+#: languages/seedprod-pro.php:2434
+msgid "Custom"
+msgstr ""
+
+#: languages/seedprod-pro.php:2437
 msgid "Additional Information Preview Not Available"
 msgstr ""
 
-#: languages/seedprod-pro.php:2532
-msgid "Align"
+#: languages/seedprod-pro.php:2441
+msgid "Header"
 msgstr ""
 
-#: languages/seedprod-pro.php:2549
+#: languages/seedprod-pro.php:2457
 msgid "Level"
 msgstr ""
 
-#: languages/seedprod-pro.php:2553
+#: languages/seedprod-pro.php:2461
 msgid "h1"
 msgstr ""
 
-#: languages/seedprod-pro.php:2557
+#: languages/seedprod-pro.php:2465
 msgid "h2"
 msgstr ""
 
-#: languages/seedprod-pro.php:2561
+#: languages/seedprod-pro.php:2469
 msgid "h3"
 msgstr ""
 
-#: languages/seedprod-pro.php:2565
+#: languages/seedprod-pro.php:2473
 msgid "h4"
 msgstr ""
 
-#: languages/seedprod-pro.php:2596
+#: languages/seedprod-pro.php:2531
 msgid "Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:2599
+#: languages/seedprod-pro.php:2534
 msgid "Before Headline"
 msgstr ""
 
-#: languages/seedprod-pro.php:2602
+#: languages/seedprod-pro.php:2537
 msgid "After Headline"
 msgstr ""
 
-#: languages/seedprod-pro.php:2609
+#: languages/seedprod-pro.php:2547
 msgid "Style"
 msgstr ""
 
-#: languages/seedprod-pro.php:2612
+#: languages/seedprod-pro.php:2550
 msgid "Highlighted"
 msgstr ""
 
-#: languages/seedprod-pro.php:2616
+#: languages/seedprod-pro.php:2555
 msgid "Rotating"
 msgstr ""
 
-#: languages/seedprod-pro.php:2619
+#: languages/seedprod-pro.php:2559
 msgid "Shape"
 msgstr ""
 
-#: languages/seedprod-pro.php:2622
+#: languages/seedprod-pro.php:2563
 msgid "Circle"
 msgstr ""
 
-#: languages/seedprod-pro.php:2625
+#: languages/seedprod-pro.php:2566
 msgid "Curly"
 msgstr ""
 
-#: languages/seedprod-pro.php:2628
+#: languages/seedprod-pro.php:2569
 msgid "Underline"
 msgstr ""
 
-#: languages/seedprod-pro.php:2632
+#: languages/seedprod-pro.php:2574
 msgid "Double"
 msgstr ""
 
-#: languages/seedprod-pro.php:2635
+#: languages/seedprod-pro.php:2577
 msgid "Double Underline"
 msgstr ""
 
-#: languages/seedprod-pro.php:2638
+#: languages/seedprod-pro.php:2580
 msgid "Underline Zipzag"
 msgstr ""
 
-#: languages/seedprod-pro.php:2641
+#: languages/seedprod-pro.php:2583
 msgid "Diagonal"
 msgstr ""
 
-#: languages/seedprod-pro.php:2644
+#: languages/seedprod-pro.php:2586
 msgid "Strikethrough"
 msgstr ""
 
-#: languages/seedprod-pro.php:2647
+#: languages/seedprod-pro.php:2589
 msgid "X"
 msgstr ""
 
-#: languages/seedprod-pro.php:2650
+#: languages/seedprod-pro.php:2594
 msgid "Animation"
 msgstr ""
 
-#: languages/seedprod-pro.php:2653
+#: languages/seedprod-pro.php:2597
 msgid "Typing"
 msgstr ""
 
-#: languages/seedprod-pro.php:2656
+#: languages/seedprod-pro.php:2600
 msgid "Clip"
 msgstr ""
 
-#: languages/seedprod-pro.php:2661
+#: languages/seedprod-pro.php:2605
 msgid "Flip"
 msgstr ""
 
-#: languages/seedprod-pro.php:2665
+#: languages/seedprod-pro.php:2610
 msgid "Bounce"
 msgstr ""
 
-#: languages/seedprod-pro.php:2668
+#: languages/seedprod-pro.php:2613
 msgid "Roll"
 msgstr ""
 
-#: languages/seedprod-pro.php:2672
+#: languages/seedprod-pro.php:2618
 msgid "Zoom"
 msgstr ""
 
-#: languages/seedprod-pro.php:2675
+#: languages/seedprod-pro.php:2623
 msgid "Fade"
 msgstr ""
 
-#: languages/seedprod-pro.php:2678
+#: languages/seedprod-pro.php:2626
 msgid "Light Speed"
 msgstr ""
 
-#: languages/seedprod-pro.php:2681
+#: languages/seedprod-pro.php:2629
 msgid "Slide Down"
 msgstr ""
 
-#: languages/seedprod-pro.php:2684
+#: languages/seedprod-pro.php:2632
 msgid "Infinite Loop"
 msgstr ""
 
-#: languages/seedprod-pro.php:2687
+#: languages/seedprod-pro.php:2635
 msgid "Duration (ms)"
 msgstr ""
 
-#: languages/seedprod-pro.php:2690
+#: languages/seedprod-pro.php:2638
 msgid "Delay (ms)"
 msgstr ""
 
-#: languages/seedprod-pro.php:2693
+#: languages/seedprod-pro.php:2641
 msgid "Stroke Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:2696
+#: languages/seedprod-pro.php:2644
 msgid "Animation Effects"
 msgstr ""
 
-#: languages/seedprod-pro.php:2699
+#: languages/seedprod-pro.php:2647
 msgid "Scrolling Effect"
 msgstr ""
 
-#: languages/seedprod-pro.php:2702
+#: languages/seedprod-pro.php:2650
 msgid "Mouse Effect"
 msgstr ""
 
-#: languages/seedprod-pro.php:2705
+#: languages/seedprod-pro.php:2653
 msgid "Vertical Scroll"
 msgstr ""
 
-#: languages/seedprod-pro.php:2708
+#: languages/seedprod-pro.php:2656
 msgid "Speed"
 msgstr ""
 
-#: languages/seedprod-pro.php:2711
+#: languages/seedprod-pro.php:2659
 msgid "Viewport"
 msgstr ""
 
-#: languages/seedprod-pro.php:2714
+#: languages/seedprod-pro.php:2662
 msgid "Viewport Top %"
 msgstr ""
 
-#: languages/seedprod-pro.php:2717
+#: languages/seedprod-pro.php:2665
 msgid "Up"
 msgstr ""
 
-#: languages/seedprod-pro.php:2720
+#: languages/seedprod-pro.php:2668
 msgid "Down"
 msgstr ""
 
-#: languages/seedprod-pro.php:2723
+#: languages/seedprod-pro.php:2671
 msgid "Horizontal Scroll"
 msgstr ""
 
-#: languages/seedprod-pro.php:2726
+#: languages/seedprod-pro.php:2674
 msgid "Direction"
 msgstr ""
 
-#: languages/seedprod-pro.php:2729
+#: languages/seedprod-pro.php:2677
 msgid "To Left"
 msgstr ""
 
-#: languages/seedprod-pro.php:2732
+#: languages/seedprod-pro.php:2680
 msgid "To Right"
 msgstr ""
 
-#: languages/seedprod-pro.php:2735
+#: languages/seedprod-pro.php:2683
 msgid "Transparency"
 msgstr ""
 
-#: languages/seedprod-pro.php:2738
+#: languages/seedprod-pro.php:2686
 msgid "Fade Out"
 msgstr ""
 
-#: languages/seedprod-pro.php:2742
+#: languages/seedprod-pro.php:2689
 msgid "Blur"
 msgstr ""
 
-#: languages/seedprod-pro.php:2745
+#: languages/seedprod-pro.php:2692
 msgid "Rotate"
 msgstr ""
 
-#: languages/seedprod-pro.php:2749
+#: languages/seedprod-pro.php:2696
 msgid "Scale"
 msgstr ""
 
-#: languages/seedprod-pro.php:2752
+#: languages/seedprod-pro.php:2699
 msgid "Scale Up"
 msgstr ""
 
-#: languages/seedprod-pro.php:2755
+#: languages/seedprod-pro.php:2702
 msgid "Scale Down"
 msgstr ""
 
-#: languages/seedprod-pro.php:2758
+#: languages/seedprod-pro.php:2705
 msgid "Mouse Track"
 msgstr ""
 
-#: languages/seedprod-pro.php:2761
+#: languages/seedprod-pro.php:2708
 msgid "Opposite"
 msgstr ""
 
-#: languages/seedprod-pro.php:2764
+#: languages/seedprod-pro.php:2711
 msgid "Direct"
 msgstr ""
 
-#: languages/seedprod-pro.php:2767
+#: languages/seedprod-pro.php:2714
 msgid "3D Tilt"
 msgstr ""
 
-#: languages/seedprod-pro.php:2770
+#: languages/seedprod-pro.php:2717
 msgid "Entrance Animation"
 msgstr ""
 
-#: languages/seedprod-pro.php:2773
+#: languages/seedprod-pro.php:2720
 msgid "Select Animation"
 msgstr ""
 
-#: languages/seedprod-pro.php:2776
+#: languages/seedprod-pro.php:2723
 msgid "Fading"
 msgstr ""
 
-#: languages/seedprod-pro.php:2779
+#: languages/seedprod-pro.php:2726
 msgid "Fade In"
 msgstr ""
 
-#: languages/seedprod-pro.php:2782
+#: languages/seedprod-pro.php:2729
 msgid "Fade In Down"
 msgstr ""
 
-#: languages/seedprod-pro.php:2785
+#: languages/seedprod-pro.php:2732
 msgid "Fade In Left"
 msgstr ""
 
-#: languages/seedprod-pro.php:2788
+#: languages/seedprod-pro.php:2735
 msgid "Fade In Right"
 msgstr ""
 
-#: languages/seedprod-pro.php:2791
+#: languages/seedprod-pro.php:2738
 msgid "Fade In Up"
 msgstr ""
 
-#: languages/seedprod-pro.php:2794
+#: languages/seedprod-pro.php:2741
 msgid "Zooming"
 msgstr ""
 
-#: languages/seedprod-pro.php:2797
+#: languages/seedprod-pro.php:2744
 msgid "Zoom In"
 msgstr ""
 
-#: languages/seedprod-pro.php:2800
+#: languages/seedprod-pro.php:2747
 msgid "Zoom In Down"
 msgstr ""
 
-#: languages/seedprod-pro.php:2803
+#: languages/seedprod-pro.php:2750
 msgid "Zoom In Left"
 msgstr ""
 
-#: languages/seedprod-pro.php:2806
+#: languages/seedprod-pro.php:2753
 msgid "Zoom In Right"
 msgstr ""
 
-#: languages/seedprod-pro.php:2809
+#: languages/seedprod-pro.php:2756
 msgid "Zoom In Up"
 msgstr ""
 
-#: languages/seedprod-pro.php:2812
+#: languages/seedprod-pro.php:2759
 msgid "Rotate In"
 msgstr ""
 
-#: languages/seedprod-pro.php:2815
+#: languages/seedprod-pro.php:2762
 msgid "Rotate In Down Left"
 msgstr ""
 
-#: languages/seedprod-pro.php:2818
+#: languages/seedprod-pro.php:2765
 msgid "Rotate In Down Right"
 msgstr ""
 
-#: languages/seedprod-pro.php:2821
+#: languages/seedprod-pro.php:2768
 msgid "Rotate In Up Left"
 msgstr ""
 
-#: languages/seedprod-pro.php:2824
+#: languages/seedprod-pro.php:2771
 msgid "Rotate In Up Right"
 msgstr ""
 
-#: languages/seedprod-pro.php:2827
+#: languages/seedprod-pro.php:2774
 msgid "Attention Seekers"
 msgstr ""
 
-#: languages/seedprod-pro.php:2830
+#: languages/seedprod-pro.php:2777
 msgid "Flash"
 msgstr ""
 
-#: languages/seedprod-pro.php:2833
+#: languages/seedprod-pro.php:2780
 msgid "Pulse"
 msgstr ""
 
-#: languages/seedprod-pro.php:2836
+#: languages/seedprod-pro.php:2783
 msgid "Rubber Band"
 msgstr ""
 
-#: languages/seedprod-pro.php:2839
+#: languages/seedprod-pro.php:2786
 msgid "Shake X"
 msgstr ""
 
-#: languages/seedprod-pro.php:2842
+#: languages/seedprod-pro.php:2789
 msgid "Shake Y"
 msgstr ""
 
-#: languages/seedprod-pro.php:2845
+#: languages/seedprod-pro.php:2792
 msgid "Head Shake"
 msgstr ""
 
-#: languages/seedprod-pro.php:2848
+#: languages/seedprod-pro.php:2796
 msgid "Swing"
 msgstr ""
 
-#: languages/seedprod-pro.php:2851
+#: languages/seedprod-pro.php:2799
 msgid "Tada"
 msgstr ""
 
-#: languages/seedprod-pro.php:2854
+#: languages/seedprod-pro.php:2802
 msgid "Wobble"
 msgstr ""
 
-#: languages/seedprod-pro.php:2857
+#: languages/seedprod-pro.php:2805
 msgid "Jello"
 msgstr ""
 
-#: languages/seedprod-pro.php:2860
+#: languages/seedprod-pro.php:2808
 msgid "Heart Beat"
 msgstr ""
 
-#: languages/seedprod-pro.php:2863
+#: languages/seedprod-pro.php:2811
 msgid "Back In Down"
 msgstr ""
 
-#: languages/seedprod-pro.php:2866
+#: languages/seedprod-pro.php:2814
 msgid "Back In Left"
 msgstr ""
 
-#: languages/seedprod-pro.php:2869
+#: languages/seedprod-pro.php:2817
 msgid "Back In Right"
 msgstr ""
 
-#: languages/seedprod-pro.php:2872
+#: languages/seedprod-pro.php:2820
 msgid "Back In Up"
 msgstr ""
 
-#: languages/seedprod-pro.php:2875
+#: languages/seedprod-pro.php:2823
 msgid "Bounce In Down"
 msgstr ""
 
-#: languages/seedprod-pro.php:2878
+#: languages/seedprod-pro.php:2826
 msgid "Bounce In Left"
 msgstr ""
 
-#: languages/seedprod-pro.php:2881
+#: languages/seedprod-pro.php:2829
 msgid "Bounce In Right"
 msgstr ""
 
-#: languages/seedprod-pro.php:2884
+#: languages/seedprod-pro.php:2832
 msgid "Bounce In Up"
 msgstr ""
 
-#: languages/seedprod-pro.php:2887
+#: languages/seedprod-pro.php:2835
 msgid "Fade In Down Big"
 msgstr ""
 
-#: languages/seedprod-pro.php:2890
+#: languages/seedprod-pro.php:2838
 msgid "Fade In Left Big"
 msgstr ""
 
-#: languages/seedprod-pro.php:2893
+#: languages/seedprod-pro.php:2841
 msgid "Fade In Right Big"
 msgstr ""
 
-#: languages/seedprod-pro.php:2896
+#: languages/seedprod-pro.php:2844
 msgid "Fade In Up Big"
 msgstr ""
 
-#: languages/seedprod-pro.php:2899
+#: languages/seedprod-pro.php:2847
 msgid "Fade In Top Left"
 msgstr ""
 
-#: languages/seedprod-pro.php:2902
+#: languages/seedprod-pro.php:2850
 msgid "Fade In Top Right"
 msgstr ""
 
-#: languages/seedprod-pro.php:2905
+#: languages/seedprod-pro.php:2853
 msgid "Fade In Bottom Left"
 msgstr ""
 
-#: languages/seedprod-pro.php:2908
+#: languages/seedprod-pro.php:2856
 msgid "Fade In Bootom Right"
 msgstr ""
 
-#: languages/seedprod-pro.php:2911
+#: languages/seedprod-pro.php:2859
 msgid "Flip In X"
 msgstr ""
 
-#: languages/seedprod-pro.php:2914
+#: languages/seedprod-pro.php:2862
 msgid "Flip In Y"
 msgstr ""
 
-#: languages/seedprod-pro.php:2917
+#: languages/seedprod-pro.php:2865
 msgid "Light Speed In Left"
 msgstr ""
 
-#: languages/seedprod-pro.php:2920
+#: languages/seedprod-pro.php:2868
 msgid "Light Speed In Right"
 msgstr ""
 
-#: languages/seedprod-pro.php:2923
+#: languages/seedprod-pro.php:2871
 msgid "Roll In"
 msgstr ""
 
-#: languages/seedprod-pro.php:2926
+#: languages/seedprod-pro.php:2874
 msgid "Back In"
 msgstr ""
 
-#: languages/seedprod-pro.php:2929
+#: languages/seedprod-pro.php:2877
 msgid "Bounce In"
 msgstr ""
 
-#: languages/seedprod-pro.php:2932
-msgid "Note: In the preview the animation is applied when you select it. On the live page the animation will be applied whne the element is scrolled into view."
+#: languages/seedprod-pro.php:2880
+msgid "Note: In the preview the animation is applied when you select it. On the live page the animation will be applied when the element is scrolled into view."
 msgstr ""
 
-#: languages/seedprod-pro.php:2935
-msgid "Attributes"
-msgstr ""
-
-#: languages/seedprod-pro.php:2938
-msgid "Custom Class"
-msgstr ""
-
-#: languages/seedprod-pro.php:2941
-msgid "Css ID"
-msgstr ""
-
-#: languages/seedprod-pro.php:2944
-msgid "Background Style"
-msgstr ""
-
-#: languages/seedprod-pro.php:2947
-msgid "Background Position"
-msgstr ""
-
-#: languages/seedprod-pro.php:2950
-msgid "Full Screen Cover - Fixed"
-msgstr ""
-
-#: languages/seedprod-pro.php:2953
-msgid "100% Width Top"
-msgstr ""
-
-#: languages/seedprod-pro.php:2956
-msgid "Repeat Horizontal Top"
-msgstr ""
-
-#: languages/seedprod-pro.php:2959
-msgid "Repeat Horizontal Bottom"
+#: languages/seedprod-pro.php:2920
+msgid "Type"
 msgstr ""
 
 #: languages/seedprod-pro.php:2962
-msgid "Repeat Vertical Center"
-msgstr ""
-
-#: languages/seedprod-pro.php:2965
-msgid "100% Width Bottom"
-msgstr ""
-
-#: languages/seedprod-pro.php:2968
-msgid "Custom Position"
-msgstr ""
-
-#: languages/seedprod-pro.php:2971
-msgid "Background Image"
-msgstr ""
-
-#: languages/seedprod-pro.php:2974
-msgid "Full Screen Contain - Fixed"
-msgstr ""
-
-#: languages/seedprod-pro.php:2977
-msgid "Full Screen Cover"
-msgstr ""
-
-#: languages/seedprod-pro.php:2980
-msgid "Full Screen Contain"
-msgstr ""
-
-#: languages/seedprod-pro.php:2983
-msgid "X Position"
-msgstr ""
-
-#: languages/seedprod-pro.php:2986
-msgid "Y Position"
-msgstr ""
-
-#: languages/seedprod-pro.php:2990
-msgid "Attachment"
-msgstr ""
-
-#: languages/seedprod-pro.php:3005
-msgid "Default"
-msgstr ""
-
-#: languages/seedprod-pro.php:3009
-msgid "Scroll"
-msgstr ""
-
-#: languages/seedprod-pro.php:3013
-msgid "Fixed"
-msgstr ""
-
-#: languages/seedprod-pro.php:3016
-msgid "Repeat"
-msgstr ""
-
-#: languages/seedprod-pro.php:3019
-msgid "No-repeat"
-msgstr ""
-
-#: languages/seedprod-pro.php:3022
-msgid "Repeat-x"
-msgstr ""
-
-#: languages/seedprod-pro.php:3025
-msgid "Repeat-y"
-msgstr ""
-
-#: languages/seedprod-pro.php:3029
-msgid "Auto"
-msgstr ""
-
-#: languages/seedprod-pro.php:3033
-msgid "Cover"
-msgstr ""
-
-#: languages/seedprod-pro.php:3037
-msgid "Contain"
-msgstr ""
-
-#: languages/seedprod-pro.php:3056
-msgid "Width"
-msgstr ""
-
-#: languages/seedprod-pro.php:3064
-msgid "Dim Background"
-msgstr ""
-
-#: languages/seedprod-pro.php:3072
-msgid "Overlay Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:3095
 msgid "Before Image"
 msgstr ""
 
-#: languages/seedprod-pro.php:3098
+#: languages/seedprod-pro.php:2965
 msgid "After Image"
 msgstr ""
 
-#: languages/seedprod-pro.php:3101
+#: languages/seedprod-pro.php:2968
 msgid "Before Label"
 msgstr ""
 
-#: languages/seedprod-pro.php:3104
+#: languages/seedprod-pro.php:2971
 msgid "After Label"
 msgstr ""
 
-#: languages/seedprod-pro.php:3115
+#: languages/seedprod-pro.php:2988
 msgid "Image Size"
 msgstr ""
 
-#: languages/seedprod-pro.php:3120
+#: languages/seedprod-pro.php:2991
+msgid "Align"
+msgstr ""
+
+#: languages/seedprod-pro.php:2998
 msgid "Header Text"
 msgstr ""
 
-#: languages/seedprod-pro.php:3128
+#: languages/seedprod-pro.php:3009
 msgid "Label Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:3131
+#: languages/seedprod-pro.php:3012
 msgid "Orientation"
 msgstr ""
 
-#: languages/seedprod-pro.php:3134
+#: languages/seedprod-pro.php:3015
 msgid "Slider Orientation"
 msgstr ""
 
-#: languages/seedprod-pro.php:3137
+#: languages/seedprod-pro.php:3018
 msgid "Move on Hover"
 msgstr ""
 
-#: languages/seedprod-pro.php:3140
+#: languages/seedprod-pro.php:3027
+msgid "Overlay Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:3030
 msgid "Comparison Handle"
 msgstr ""
 
-#: languages/seedprod-pro.php:3143
+#: languages/seedprod-pro.php:3033
 msgid "Handle Initial Offset"
 msgstr ""
 
-#: languages/seedprod-pro.php:3146
+#: languages/seedprod-pro.php:3036
 msgid "Handle Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:3149
+#: languages/seedprod-pro.php:3039
 msgid "Handle Thickness"
 msgstr ""
 
-#: languages/seedprod-pro.php:3152
+#: languages/seedprod-pro.php:3042
 msgid "Circle Width"
 msgstr ""
 
-#: languages/seedprod-pro.php:3155
+#: languages/seedprod-pro.php:3045
 msgid "Circle Radius"
 msgstr ""
 
-#: languages/seedprod-pro.php:3158
+#: languages/seedprod-pro.php:3048
 msgid "Triangle Size"
 msgstr ""
 
-#: languages/seedprod-pro.php:3161
+#: languages/seedprod-pro.php:3051
 msgid "Before /After Label Styles"
 msgstr ""
 
-#: languages/seedprod-pro.php:3166
-msgid "Border"
-msgstr ""
-
-#: languages/seedprod-pro.php:3183
-msgid "Border Style"
-msgstr ""
-
-#: languages/seedprod-pro.php:3203
-msgid "Dotted"
-msgstr ""
-
-#: languages/seedprod-pro.php:3223
-msgid "Dashed"
-msgstr ""
-
-#: languages/seedprod-pro.php:3241
-msgid "Border Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:3255
-msgid "Border Width"
-msgstr ""
-
-#: languages/seedprod-pro.php:3264
+#: languages/seedprod-pro.php:3069
 msgid "Icon Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:3267
+#: languages/seedprod-pro.php:3072
 msgid "Striped Effect Template"
 msgstr ""
 
-#: languages/seedprod-pro.php:3270
+#: languages/seedprod-pro.php:3075
 msgid "Divider Template"
 msgstr ""
 
-#: languages/seedprod-pro.php:3273
+#: languages/seedprod-pro.php:3078
 msgid "Background Template"
 msgstr ""
 
-#: languages/seedprod-pro.php:3276
+#: languages/seedprod-pro.php:3081
 msgid "Business Days and Timing"
 msgstr ""
 
-#: languages/seedprod-pro.php:3279
+#: languages/seedprod-pro.php:3085
 msgid "Date Font Size"
 msgstr ""
 
-#: languages/seedprod-pro.php:3282
+#: languages/seedprod-pro.php:3089
 msgid "Time Font Size"
 msgstr ""
 
-#: languages/seedprod-pro.php:3285
+#: languages/seedprod-pro.php:3092
 msgid "Date Align"
 msgstr ""
 
-#: languages/seedprod-pro.php:3288
+#: languages/seedprod-pro.php:3095
 msgid "Time Align"
 msgstr ""
 
-#: languages/seedprod-pro.php:3291
+#: languages/seedprod-pro.php:3098
 msgid "Enter Day"
 msgstr ""
 
-#: languages/seedprod-pro.php:3294
+#: languages/seedprod-pro.php:3101
 msgid "Enter Time"
 msgstr ""
 
-#: languages/seedprod-pro.php:3297
+#: languages/seedprod-pro.php:3104
 msgid "Style Day/Time"
 msgstr ""
 
-#: languages/seedprod-pro.php:3302
+#: languages/seedprod-pro.php:3110
 msgid "Time"
 msgstr ""
 
-#: languages/seedprod-pro.php:3305
+#: languages/seedprod-pro.php:3113
 msgid "Day Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:3308
+#: languages/seedprod-pro.php:3116
 msgid "Time Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:3318
+#: languages/seedprod-pro.php:3163
+msgid "Dotted"
+msgstr ""
+
+#: languages/seedprod-pro.php:3198
+msgid "Dashed"
+msgstr ""
+
+#: languages/seedprod-pro.php:3202
 msgid "Weight"
 msgstr ""
 
-#: languages/seedprod-pro.php:3321
+#: languages/seedprod-pro.php:3206
 msgid "Day and Time"
 msgstr ""
 
-#: languages/seedprod-pro.php:3324
+#: languages/seedprod-pro.php:3210
 msgid "Striped Effect"
 msgstr ""
 
-#: languages/seedprod-pro.php:3327
+#: languages/seedprod-pro.php:3214
 msgid "Striped Odd Rows Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:3330
+#: languages/seedprod-pro.php:3218
 msgid "Striped Even Rows Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:3342
+#: languages/seedprod-pro.php:3236
 msgid "Background"
 msgstr ""
 
-#: languages/seedprod-pro.php:3349
+#: languages/seedprod-pro.php:3245
 msgid "Add \"No Follow\""
 msgstr ""
 
-#: languages/seedprod-pro.php:3355
+#: languages/seedprod-pro.php:3250
 msgid "Button Sub Text"
 msgstr ""
 
-#: languages/seedprod-pro.php:3366
+#: languages/seedprod-pro.php:3266
 msgid "Open In New Window"
 msgstr ""
 
-#: languages/seedprod-pro.php:3370
+#: languages/seedprod-pro.php:3269
 msgid "Button Border Width"
 msgstr ""
 
-#: languages/seedprod-pro.php:3375
+#: languages/seedprod-pro.php:3272
 msgid "Button Border Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:3378
+#: languages/seedprod-pro.php:3275
 msgid "Column Width"
 msgstr ""
 
-#: languages/seedprod-pro.php:3394
+#: languages/seedprod-pro.php:3303
 msgid "Layout"
 msgstr ""
 
-#: languages/seedprod-pro.php:3401
+#: languages/seedprod-pro.php:3314
 msgid "Advanced Styles"
 msgstr ""
 
-#: languages/seedprod-pro.php:3405
+#: languages/seedprod-pro.php:3318
 msgid "Content Alignment"
 msgstr ""
 
-#: languages/seedprod-pro.php:3410
+#: languages/seedprod-pro.php:3324
 msgid "Simple"
 msgstr ""
 
-#: languages/seedprod-pro.php:3414
+#: languages/seedprod-pro.php:3328
 msgid "Display"
 msgstr ""
 
-#: languages/seedprod-pro.php:3418
+#: languages/seedprod-pro.php:3332
 msgid "Flex Direction"
 msgstr ""
 
-#: languages/seedprod-pro.php:3422
+#: languages/seedprod-pro.php:3336
 msgid "Justify Content"
 msgstr ""
 
-#: languages/seedprod-pro.php:3426
+#: languages/seedprod-pro.php:3340
 msgid "Align Items"
 msgstr ""
 
-#: languages/seedprod-pro.php:3438
+#: languages/seedprod-pro.php:3354
 msgid "Row"
 msgstr ""
 
-#: languages/seedprod-pro.php:3442
+#: languages/seedprod-pro.php:3358
 msgid "Flex Start"
 msgstr ""
 
-#: languages/seedprod-pro.php:3446
+#: languages/seedprod-pro.php:3362
 msgid "Center"
 msgstr ""
 
-#: languages/seedprod-pro.php:3450
+#: languages/seedprod-pro.php:3366
 msgid "Flex End"
 msgstr ""
 
-#: languages/seedprod-pro.php:3454
+#: languages/seedprod-pro.php:3370
 msgid "Space Around"
 msgstr ""
 
-#: languages/seedprod-pro.php:3458
+#: languages/seedprod-pro.php:3374
 msgid "Space Evenly"
 msgstr ""
 
-#: languages/seedprod-pro.php:3462
+#: languages/seedprod-pro.php:3378
 msgid "Baseline"
 msgstr ""
 
-#: languages/seedprod-pro.php:3466
+#: languages/seedprod-pro.php:3382
 msgid "Stretch"
 msgstr ""
 
-#: languages/seedprod-pro.php:3472
+#: languages/seedprod-pro.php:3407
+msgid "Default"
+msgstr ""
+
+#: languages/seedprod-pro.php:3414
 msgid "Shape Divider"
 msgstr ""
 
-#: languages/seedprod-pro.php:3475
-msgid "Global Colors"
+#: languages/seedprod-pro.php:3421
+msgid "Dim Background"
 msgstr ""
 
-#: languages/seedprod-pro.php:3478
-msgid "Common Colors"
-msgstr ""
-
-#: languages/seedprod-pro.php:3481
-msgid "Recently Used"
-msgstr ""
-
-#: languages/seedprod-pro.php:3484
-msgid "Clear"
-msgstr ""
-
-#: languages/seedprod-pro.php:3487
-msgid "Global Theme Colors"
-msgstr ""
-
-#: languages/seedprod-pro.php:3490
+#: languages/seedprod-pro.php:3424
 msgid "Install Contact Form plugin:"
 msgstr ""
 
-#: languages/seedprod-pro.php:3498
+#: languages/seedprod-pro.php:3429
+msgid "Install"
+msgstr ""
+
+#: languages/seedprod-pro.php:3434
+msgid "Activate"
+msgstr ""
+
+#: languages/seedprod-pro.php:3444
 msgid "(This shortcode will be rendered on the live preview.)"
 msgstr ""
 
-#: languages/seedprod-pro.php:3502
+#: languages/seedprod-pro.php:3449
 msgid "Select a Form"
 msgstr ""
 
-#: languages/seedprod-pro.php:3505
+#: languages/seedprod-pro.php:3452
 msgid "You can use WPForms to build contact forms, surveys, payment forms, and more with just a few clicks."
 msgstr ""
 
-#: languages/seedprod-pro.php:3508
+#: languages/seedprod-pro.php:3455
 msgid "Select"
 msgstr ""
 
-#: languages/seedprod-pro.php:3511
+#: languages/seedprod-pro.php:3458
 msgid "Need to make changes? Edit the selected form."
 msgstr ""
 
-#: languages/seedprod-pro.php:3514
+#: languages/seedprod-pro.php:3461
 msgid "+ New Form"
 msgstr ""
 
-#: languages/seedprod-pro.php:3519
+#: languages/seedprod-pro.php:3465
 msgid "Show"
 msgstr ""
 
-#: languages/seedprod-pro.php:3523
+#: languages/seedprod-pro.php:3469
 msgid "Hide"
 msgstr ""
 
-#: languages/seedprod-pro.php:3527
+#: languages/seedprod-pro.php:3473
 msgid "Form Name"
 msgstr ""
 
-#: languages/seedprod-pro.php:3531
+#: languages/seedprod-pro.php:3477
 msgid "Form Description"
 msgstr ""
 
-#: languages/seedprod-pro.php:3537
+#: languages/seedprod-pro.php:3486
 msgid "Form"
 msgstr ""
 
-#: languages/seedprod-pro.php:3541
+#: languages/seedprod-pro.php:3490
 msgid "Display Options"
 msgstr ""
 
-#: languages/seedprod-pro.php:3544
+#: languages/seedprod-pro.php:3518
 msgid "Countdown Type"
 msgstr ""
 
-#: languages/seedprod-pro.php:3547
+#: languages/seedprod-pro.php:3521
 msgid "Visitor Timer (Evergreen)"
 msgstr ""
 
-#: languages/seedprod-pro.php:3550
+#: languages/seedprod-pro.php:3524
 msgid "DateTime Countdown"
 msgstr ""
 
-#: languages/seedprod-pro.php:3553
+#: languages/seedprod-pro.php:3527
 msgid "Set Timer For"
 msgstr ""
 
-#: languages/seedprod-pro.php:3556
+#: languages/seedprod-pro.php:3530
 msgid "End Date"
 msgstr ""
 
-#: languages/seedprod-pro.php:3559
+#: languages/seedprod-pro.php:3533
 msgid "End Time"
 msgstr ""
 
-#: languages/seedprod-pro.php:3562
+#: languages/seedprod-pro.php:3536
 msgid "Timezone"
 msgstr ""
 
-#: languages/seedprod-pro.php:3565
+#: languages/seedprod-pro.php:3539
 msgid "Action To Take On Expires"
 msgstr ""
 
-#: languages/seedprod-pro.php:3569
+#: languages/seedprod-pro.php:3544
 msgid "Show Message"
 msgstr ""
 
-#: languages/seedprod-pro.php:3573
+#: languages/seedprod-pro.php:3549
 msgid "Redirect"
 msgstr ""
 
-#: languages/seedprod-pro.php:3577
+#: languages/seedprod-pro.php:3554
 msgid "Message"
 msgstr ""
 
-#: languages/seedprod-pro.php:3582
+#: languages/seedprod-pro.php:3561
 msgid "Redirect URL"
 msgstr ""
 
-#: languages/seedprod-pro.php:3585
+#: languages/seedprod-pro.php:3564
 msgid "Customize Labels"
 msgstr ""
 
-#: languages/seedprod-pro.php:3588
+#: languages/seedprod-pro.php:3567
 msgid "Day Label"
 msgstr ""
 
-#: languages/seedprod-pro.php:3591
+#: languages/seedprod-pro.php:3570
 msgid "Hour Label"
 msgstr ""
 
-#: languages/seedprod-pro.php:3594
+#: languages/seedprod-pro.php:3573
 msgid "Minute Label"
 msgstr ""
 
-#: languages/seedprod-pro.php:3597
+#: languages/seedprod-pro.php:3576
 msgid "Second Label"
 msgstr ""
 
-#: languages/seedprod-pro.php:3600
+#: languages/seedprod-pro.php:3579
 msgid "Hours"
 msgstr ""
 
-#: languages/seedprod-pro.php:3603
+#: languages/seedprod-pro.php:3582
 msgid "Minutes"
 msgstr ""
 
-#: languages/seedprod-pro.php:3606
+#: languages/seedprod-pro.php:3585
 msgid "Seconds"
 msgstr ""
 
-#: languages/seedprod-pro.php:3609
+#: languages/seedprod-pro.php:3588
 msgid "Hightlight Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:3612
+#: languages/seedprod-pro.php:3591
 msgid "Restart"
 msgstr ""
 
-#: languages/seedprod-pro.php:3615
+#: languages/seedprod-pro.php:3594
 msgid "Counter Block"
 msgstr ""
 
-#: languages/seedprod-pro.php:3618
+#: languages/seedprod-pro.php:3597
 msgid "Starting Number"
 msgstr ""
 
-#: languages/seedprod-pro.php:3621
+#: languages/seedprod-pro.php:3600
 msgid "Ending Number"
 msgstr ""
 
-#: languages/seedprod-pro.php:3624
+#: languages/seedprod-pro.php:3603
 msgid "Number Prefix"
 msgstr ""
 
-#: languages/seedprod-pro.php:3627
+#: languages/seedprod-pro.php:3606
 msgid "Number Suffix"
 msgstr ""
 
-#: languages/seedprod-pro.php:3630
+#: languages/seedprod-pro.php:3609
 msgid "Animation Duration"
 msgstr ""
 
-#: languages/seedprod-pro.php:3633
+#: languages/seedprod-pro.php:3612
 msgid "Thousands Separator"
 msgstr ""
 
-#: languages/seedprod-pro.php:3637
+#: languages/seedprod-pro.php:3618
 msgid "Separator"
 msgstr ""
 
-#: languages/seedprod-pro.php:3648
+#: languages/seedprod-pro.php:3638
 msgid "Title"
 msgstr ""
 
-#: languages/seedprod-pro.php:3651
+#: languages/seedprod-pro.php:3641
 msgid "Dot"
 msgstr ""
 
-#: languages/seedprod-pro.php:3654
+#: languages/seedprod-pro.php:3644
 msgid "Space"
 msgstr ""
 
-#: languages/seedprod-pro.php:3657
+#: languages/seedprod-pro.php:3647
 msgid "Title Text Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:3660
+#: languages/seedprod-pro.php:3650
 msgid "Number Text Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:3663
+#: languages/seedprod-pro.php:3653
 msgid "Number Align"
 msgstr ""
 
-#: languages/seedprod-pro.php:3666
+#: languages/seedprod-pro.php:3656
 msgid "Title Align"
 msgstr ""
 
-#: languages/seedprod-pro.php:3669
+#: languages/seedprod-pro.php:3659
 msgid "Enter Your HTML"
 msgstr ""
 
-#: languages/seedprod-pro.php:3674
+#: languages/seedprod-pro.php:3662
 msgid "Expand Editor"
 msgstr ""
 
-#: languages/seedprod-pro.php:3677
+#: languages/seedprod-pro.php:3665
 msgid "Custom Code"
 msgstr ""
 
-#: languages/seedprod-pro.php:3680
+#: languages/seedprod-pro.php:3668
 msgid "Edit Custom HMTL"
 msgstr ""
 
-#: languages/seedprod-pro.php:3683
-msgid "Device Visibility"
+#: languages/seedprod-pro.php:3672
+msgid "Close"
 msgstr ""
 
-#: languages/seedprod-pro.php:3686
-msgid "Hide on Desktop"
-msgstr ""
-
-#: languages/seedprod-pro.php:3689
-msgid "Hide on Mobile"
-msgstr ""
-
-#: languages/seedprod-pro.php:3692
-msgid "Z-Index"
-msgstr ""
-
-#: languages/seedprod-pro.php:3695
-msgid "Static"
-msgstr ""
-
-#: languages/seedprod-pro.php:3698
-msgid "Relative"
-msgstr ""
-
-#: languages/seedprod-pro.php:3701
-msgid "Absolute"
-msgstr ""
-
-#: languages/seedprod-pro.php:3704
-msgid "Sticky"
-msgstr ""
-
-#: languages/seedprod-pro.php:3707
-msgid "Offset"
-msgstr ""
-
-#: languages/seedprod-pro.php:3710
-msgid "Overflow"
-msgstr ""
-
-#: languages/seedprod-pro.php:3714
-msgid "Visible"
-msgstr ""
-
-#: languages/seedprod-pro.php:3718
-msgid "Hidden"
-msgstr ""
-
-#: languages/seedprod-pro.php:3721
+#: languages/seedprod-pro.php:3675
 msgid "Solid Line"
 msgstr ""
 
-#: languages/seedprod-pro.php:3733
+#: languages/seedprod-pro.php:3707
+msgid "Width"
+msgstr ""
+
+#: languages/seedprod-pro.php:3722
 msgid "Height"
 msgstr ""
 
-#: languages/seedprod-pro.php:3737
+#: languages/seedprod-pro.php:3728
 msgid "Icon Size"
 msgstr ""
 
-#: languages/seedprod-pro.php:3740
+#: languages/seedprod-pro.php:3731
 msgid "Add Element"
 msgstr ""
 
-#: languages/seedprod-pro.php:3744
+#: languages/seedprod-pro.php:3735
 msgid "HTML Tag"
 msgstr ""
 
-#: languages/seedprod-pro.php:3749
+#: languages/seedprod-pro.php:3740
 msgid "H1"
 msgstr ""
 
-#: languages/seedprod-pro.php:3754
+#: languages/seedprod-pro.php:3745
 msgid "H2"
 msgstr ""
 
-#: languages/seedprod-pro.php:3759
+#: languages/seedprod-pro.php:3750
 msgid "H3"
 msgstr ""
 
-#: languages/seedprod-pro.php:3764
+#: languages/seedprod-pro.php:3755
 msgid "H4"
 msgstr ""
 
-#: languages/seedprod-pro.php:3770
+#: languages/seedprod-pro.php:3763
 msgid "H5"
 msgstr ""
 
-#: languages/seedprod-pro.php:3776
+#: languages/seedprod-pro.php:3771
 msgid "H6"
 msgstr ""
 
-#: languages/seedprod-pro.php:3781
+#: languages/seedprod-pro.php:3776
 msgid "span"
 msgstr ""
 
-#: languages/seedprod-pro.php:3787
-msgid "Insert Dynamic Text"
+#: languages/seedprod-pro.php:3779
+msgid "Insert Dynamic Tags"
 msgstr ""
 
-#: languages/seedprod-pro.php:3790
-msgid "Please enter date/time format"
+#: languages/seedprod-pro.php:3782
+msgid "Dynamic Tags"
 msgstr ""
 
-#: languages/seedprod-pro.php:3793
-msgid "Please select date/time format"
+#: languages/seedprod-pro.php:3785
+msgid "Dynamic Tags draw content from the website, or from the current page/post, changing dynamically according to the Page or Post it’s on. <a href=\"https://www.seedprod.com/docs/dynamic-text\" target=\"_blank\" class=\"sp-text-primary hover:sp-underline\">Learn More</a>"
 msgstr ""
 
-#: languages/seedprod-pro.php:3796
+#: languages/seedprod-pro.php:3788
+msgid "Post Date"
+msgstr ""
+
+#: languages/seedprod-pro.php:3794
+msgid "Select Tag"
+msgstr ""
+
+#: languages/seedprod-pro.php:3797
 msgid "Insert"
 msgstr ""
 
-#: languages/seedprod-pro.php:3803
+#: languages/seedprod-pro.php:3806
 msgid "Cancel"
 msgstr ""
 
-#: languages/seedprod-pro.php:3806
-msgid "Dynamic Text Replacement"
-msgstr ""
-
 #: languages/seedprod-pro.php:3809
-msgid "DateTime"
-msgstr ""
-
-#: languages/seedprod-pro.php:3812
-msgid "Query Parameter"
-msgstr ""
-
-#: languages/seedprod-pro.php:3815
-msgid "Today"
-msgstr ""
-
-#: languages/seedprod-pro.php:3818
-msgid "Tomorrow"
+msgid "Please select a tag"
 msgstr ""
 
 #: languages/seedprod-pro.php:3821
-msgid "Today Date"
-msgstr ""
-
-#: languages/seedprod-pro.php:3824
-msgid "Tomorrow Date"
-msgstr ""
-
-#: languages/seedprod-pro.php:3827
-msgid "Month"
-msgstr ""
-
-#: languages/seedprod-pro.php:3830
-msgid "Next Month"
-msgstr ""
-
-#: languages/seedprod-pro.php:3833
-msgid "Year"
-msgstr ""
-
-#: languages/seedprod-pro.php:3836
-msgid "Select Date Time Format"
-msgstr ""
-
-#: languages/seedprod-pro.php:3839
-msgid "Query Parameters"
-msgstr ""
-
-#: languages/seedprod-pro.php:3842
-msgid "Dynamic Text allows to create evergreen text. You can create date based dynamic text or pass in by query parameter. <a href=\"https://www.seedprod.com/docs/dynamic-text\" target=\"_blank\" class=\"sp-text-primary hover:sp-underline\">Learn More</a>"
-msgstr ""
-
-#: languages/seedprod-pro.php:3845
-msgid "Parameter Name"
-msgstr ""
-
-#: languages/seedprod-pro.php:3848
-msgid "Default Value"
-msgstr ""
-
-#: languages/seedprod-pro.php:3851
-msgid "Please enter parameter name"
-msgstr ""
-
-#: languages/seedprod-pro.php:3854
-msgid "Don't see the date format you need? Click the Learn More link above to learn how to create any date."
-msgstr ""
-
-#: languages/seedprod-pro.php:3857
-msgid "Lazy Loading"
-msgstr ""
-
-#: languages/seedprod-pro.php:3861
-msgid "Faces"
-msgstr ""
-
-#: languages/seedprod-pro.php:3869
-msgid "Target Url"
-msgstr ""
-
-#: languages/seedprod-pro.php:3877
-msgid "Current Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:3886
-msgid "Url Format"
-msgstr ""
-
-#: languages/seedprod-pro.php:3895
-msgid "Plain Permalink"
-msgstr ""
-
-#: languages/seedprod-pro.php:3905
-msgid "Pretty Permalink"
-msgstr ""
-
-#: languages/seedprod-pro.php:3911
-msgid "Facebook Setting"
-msgstr ""
-
-#: languages/seedprod-pro.php:3921
-msgid "Facebook App Id:"
-msgstr ""
-
-#: languages/seedprod-pro.php:3931
-msgid "Like"
-msgstr ""
-
-#: languages/seedprod-pro.php:3941
-msgid "Recommend"
-msgstr ""
-
-#: languages/seedprod-pro.php:3949
-msgid "Order By"
-msgstr ""
-
-#: languages/seedprod-pro.php:3952
-msgid "Social"
-msgstr ""
-
-#: languages/seedprod-pro.php:3955
-msgid "Reverse Time"
-msgstr ""
-
-#: languages/seedprod-pro.php:3963
-msgid "Box Count"
-msgstr ""
-
-#: languages/seedprod-pro.php:3973
-msgid "Color Scheme"
-msgstr ""
-
-#: languages/seedprod-pro.php:3987
-msgid "Light"
-msgstr ""
-
-#: languages/seedprod-pro.php:4001
-msgid "Dark"
-msgstr ""
-
-#: languages/seedprod-pro.php:4004
-msgid "Number of Comments"
-msgstr ""
-
-#: languages/seedprod-pro.php:4013
-msgid "Set your Facebook App ID in the "
-msgstr ""
-
-#: languages/seedprod-pro.php:4023
-msgid "Page Settings"
-msgstr ""
-
-#: languages/seedprod-pro.php:4031
-msgid "You are connected to Facebook App"
-msgstr ""
-
-#: languages/seedprod-pro.php:4038
-msgid "Change App"
-msgstr ""
-
-#: languages/seedprod-pro.php:4041
-msgid "Include full post"
-msgstr ""
-
-#: languages/seedprod-pro.php:4044
-msgid "Allow Full Screen"
-msgstr ""
-
-#: languages/seedprod-pro.php:4047
-msgid "Autoplay"
-msgstr ""
-
-#: languages/seedprod-pro.php:4050
-msgid "Captions"
-msgstr ""
-
-#: languages/seedprod-pro.php:4053
-msgid "Parent Comment"
-msgstr ""
-
-#: languages/seedprod-pro.php:4056
-msgid "Post Link"
-msgstr ""
-
-#: languages/seedprod-pro.php:4059
-msgid "Video Link"
-msgstr ""
-
-#: languages/seedprod-pro.php:4062
-msgid "Comment Link"
-msgstr ""
-
-#: languages/seedprod-pro.php:4066
 msgid "Post"
 msgstr ""
 
-#: languages/seedprod-pro.php:4073
-msgid "Comment"
+#: languages/seedprod-pro.php:3824
+msgid "Archive"
 msgstr ""
 
-#: languages/seedprod-pro.php:4076
-msgid "Share Button"
+#: languages/seedprod-pro.php:3827
+msgid "Post ID"
 msgstr ""
 
-#: languages/seedprod-pro.php:4082
-msgid "Standard"
+#: languages/seedprod-pro.php:3830
+msgid "Post Terms"
 msgstr ""
 
-#: languages/seedprod-pro.php:4087
-msgid "Button Count"
+#: languages/seedprod-pro.php:3833
+msgid "Taxonomy"
 msgstr ""
 
-#: languages/seedprod-pro.php:4090
-msgid "Small Header"
+#: languages/seedprod-pro.php:3844
+msgid "Select Taxonomy"
 msgstr ""
 
-#: languages/seedprod-pro.php:4093
-msgid "Hide Cover Photo"
+#: languages/seedprod-pro.php:3847
+msgid "e.g. ,"
 msgstr ""
 
-#: languages/seedprod-pro.php:4096
-msgid "Profile Photos"
+#: languages/seedprod-pro.php:3850
+msgid "Show Advanced Settings"
 msgstr ""
 
-#: languages/seedprod-pro.php:4099
-msgid "Hide CTA button"
+#: languages/seedprod-pro.php:3853
+msgid "Before"
 msgstr ""
 
-#: languages/seedprod-pro.php:4107
-msgid "Timeline"
+#: languages/seedprod-pro.php:3856
+msgid "After"
 msgstr ""
 
-#: languages/seedprod-pro.php:4110
-msgid "Events"
+#: languages/seedprod-pro.php:3859
+msgid "Fallback"
 msgstr ""
 
-#: languages/seedprod-pro.php:4113
-msgid "Messages"
+#: languages/seedprod-pro.php:3862
+msgid "Post Published"
 msgstr ""
 
-#: languages/seedprod-pro.php:4116
-msgid "Change App Id"
+#: languages/seedprod-pro.php:3865
+msgid "Post Modified"
 msgstr ""
 
-#: languages/seedprod-pro.php:4119
-msgid "Al Text"
+#: languages/seedprod-pro.php:3868
+msgid "Format"
 msgstr ""
 
-#: languages/seedprod-pro.php:4122
-msgid "Click to select an icon"
+#: languages/seedprod-pro.php:3871
+msgid "F j, Y"
 msgstr ""
 
-#: languages/seedprod-pro.php:4125
-msgid "Search icons"
+#: languages/seedprod-pro.php:3874
+msgid "Y-m-d"
 msgstr ""
 
-#: languages/seedprod-pro.php:4128
-msgid "Select a Font Weight"
+#: languages/seedprod-pro.php:3877
+msgid "m/d/Y"
 msgstr ""
 
-#: languages/seedprod-pro.php:4131
-msgid "Normal 400"
+#: languages/seedprod-pro.php:3880
+msgid "d/m/Y"
 msgstr ""
 
-#: languages/seedprod-pro.php:4134
-msgid "Bold 700"
-msgstr ""
-
-#: languages/seedprod-pro.php:4137
-msgid "Submit"
-msgstr ""
-
-#: languages/seedprod-pro.php:4140
-msgid "Install Giveaway plugin:"
-msgstr ""
-
-#: languages/seedprod-pro.php:4146
-msgid "Select a Giveway"
-msgstr ""
-
-#: languages/seedprod-pro.php:4149
-msgid "You can use RafflePress to build viral giveaways in minutes and explode your email list."
-msgstr ""
-
-#: languages/seedprod-pro.php:4152
-msgid "Select a Giveaway"
-msgstr ""
-
-#: languages/seedprod-pro.php:4155
-msgid "Need to make changes? Edit the selected giveaway."
-msgstr ""
-
-#: languages/seedprod-pro.php:4158
-msgid "+ New Giveaway"
-msgstr ""
-
-#: languages/seedprod-pro.php:4165
-msgid "Location"
-msgstr ""
-
-#: languages/seedprod-pro.php:4168
-msgid "Select an Icon"
-msgstr ""
-
-#: languages/seedprod-pro.php:4171
-msgid "All Icons"
-msgstr ""
-
-#: languages/seedprod-pro.php:4174
-msgid "Font Awesome"
-msgstr ""
-
-#: languages/seedprod-pro.php:4177
-msgid "Search icons..."
-msgstr ""
-
-#: languages/seedprod-pro.php:4181
-msgid "Choose Icon"
-msgstr ""
-
-#: languages/seedprod-pro.php:4184
-msgid "Icon Library"
-msgstr ""
-
-#: languages/seedprod-pro.php:4189
-msgid "Caption Align"
-msgstr ""
-
-#: languages/seedprod-pro.php:4194
-msgid "Caption Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:4197
-msgid "Add Images"
-msgstr ""
-
-#: languages/seedprod-pro.php:4203
-msgid "Caption"
-msgstr ""
-
-#: languages/seedprod-pro.php:4209
-msgid "Navigation Color Mode"
-msgstr ""
-
-#: languages/seedprod-pro.php:4213
-msgid "AutoPlay"
-msgstr ""
-
-#: languages/seedprod-pro.php:4219
-msgid "Pause On Hover"
-msgstr ""
-
-#: languages/seedprod-pro.php:4223
-msgid "Autoplay Speed"
-msgstr ""
-
-#: languages/seedprod-pro.php:4227
-msgid "seconds"
-msgstr ""
-
-#: languages/seedprod-pro.php:4231
-msgid "Enable Comment Bubble"
-msgstr ""
-
-#: languages/seedprod-pro.php:4234
-msgid "Carousel Settings"
-msgstr ""
-
-#: languages/seedprod-pro.php:4237
-msgid "Carousel Images"
-msgstr ""
-
-#: languages/seedprod-pro.php:4240
-msgid "Show Caption"
-msgstr ""
-
-#: languages/seedprod-pro.php:4245
-msgid "Slider Image Styles"
-msgstr ""
-
-#: languages/seedprod-pro.php:4259
-msgid "Bottom Drop Shadow"
-msgstr ""
-
-#: languages/seedprod-pro.php:4268
-msgid "Image Border"
-msgstr ""
-
-#: languages/seedprod-pro.php:4282
-msgid "Image Whitespace Padding"
-msgstr ""
-
-#: languages/seedprod-pro.php:4286
-msgid "Choose New Image"
-msgstr ""
-
-#: languages/seedprod-pro.php:4289
-msgid "Use Your"
-msgstr ""
-
-#: languages/seedprod-pro.php:4293
-msgid "Own Image"
-msgstr ""
-
-#: languages/seedprod-pro.php:4300
-msgid "or"
-msgstr ""
-
-#: languages/seedprod-pro.php:4304
-msgid "Stock Images Library"
-msgstr ""
-
-#: languages/seedprod-pro.php:4309
-msgid "Search"
-msgstr ""
-
-#: languages/seedprod-pro.php:4313
-msgid "Use a"
-msgstr ""
-
-#: languages/seedprod-pro.php:4317
-msgid "Stock Image"
-msgstr ""
-
-#: languages/seedprod-pro.php:4321
-msgid "Search images..."
-msgstr ""
-
-#: languages/seedprod-pro.php:4324
-msgid "Add Gallery Images"
-msgstr ""
-
-#: languages/seedprod-pro.php:4330
-msgid "Alt Text"
-msgstr ""
-
-#: languages/seedprod-pro.php:4336
-msgid "No Follow"
-msgstr ""
-
-#: languages/seedprod-pro.php:4339
-msgid "Link Type"
-msgstr ""
-
-#: languages/seedprod-pro.php:4344
-msgid "Custom Link"
-msgstr ""
-
-#: languages/seedprod-pro.php:4347
-msgid "Media - Lightbox"
-msgstr ""
-
-#: languages/seedprod-pro.php:4350
-msgid "Object Fit"
-msgstr ""
-
-#: languages/seedprod-pro.php:4353
-msgid "Fill"
-msgstr ""
-
-#: languages/seedprod-pro.php:4356
-msgid "Border Radius Unit"
-msgstr ""
-
-#: languages/seedprod-pro.php:4359
-msgid "Bulk Actions"
-msgstr ""
-
-#: languages/seedprod-pro.php:4363
-msgid "Apply"
-msgstr ""
-
-#: languages/seedprod-pro.php:4366
-msgid "items"
-msgstr ""
-
-#: languages/seedprod-pro.php:4369
-msgid "No items found."
-msgstr ""
-
-#: languages/seedprod-pro.php:4372
-msgid "Select bulk action"
-msgstr ""
-
-#: languages/seedprod-pro.php:4380
-msgid "Dismiss this message"
-msgstr ""
-
-#: languages/seedprod-pro.php:4388
-msgid "Get SeedProd Pro and Unlock all the Powerful Features"
-msgstr ""
-
-#: languages/seedprod-pro.php:4393
-msgid ""
-"Thanks for being a loyal SeedProd Lite user. Upgrade to\n"
-"SeedProd Pro to unlock all the awesome features and\n"
-"experience why SeedProd is the best WordPress landing\n"
-"page plugin."
-msgstr ""
-
-#: languages/seedprod-pro.php:4404
-msgid "Pro Features:"
-msgstr ""
-
-#: languages/seedprod-pro.php:4409
-msgid "PRO Email Marketing Integrations"
-msgstr ""
-
-#: languages/seedprod-pro.php:4415
-msgid "Email Subscriber Management"
-msgstr ""
-
-#: languages/seedprod-pro.php:4423
-msgid "Bonus:"
-msgstr ""
-
-#: languages/seedprod-pro.php:4431
-msgid "SeedProd Lite users get"
-msgstr ""
-
-#: languages/seedprod-pro.php:4439
-msgid "a discount off the regular price"
-msgstr ""
-
-#: languages/seedprod-pro.php:4447
-msgid "automatically applied at checkout."
-msgstr ""
-
-#: languages/seedprod-pro.php:4455
-msgid "Get SeedProd Pro Today and Unlock all the Powerful Features »"
-msgstr ""
-
-#: languages/seedprod-pro.php:4458
-msgid "More Premium Blocks"
-msgstr ""
-
-#: languages/seedprod-pro.php:4461
-msgid "Capture Emails and Leads"
-msgstr ""
-
-#: languages/seedprod-pro.php:4464
-msgid "Marketing & CRM Integrations"
-msgstr ""
-
-#: languages/seedprod-pro.php:4467
-msgid "Maintenance Access Controls"
-msgstr ""
-
-#: languages/seedprod-pro.php:4470
-msgid "Growing Library of Templates"
-msgstr ""
-
-#: languages/seedprod-pro.php:4473
-msgid "More Design Controls"
-msgstr ""
-
-#: languages/seedprod-pro.php:4476
-msgid "Coming Soon Access Controls"
-msgstr ""
-
-#: languages/seedprod-pro.php:4479
-msgid "Username or Email Address"
-msgstr ""
-
-#: languages/seedprod-pro.php:4482
-msgid "Get New Password"
-msgstr ""
-
-#: languages/seedprod-pro.php:4485
-msgid "New password"
-msgstr ""
-
-#: languages/seedprod-pro.php:4488
-msgid "Hide password"
-msgstr ""
-
-#: languages/seedprod-pro.php:4491
-msgid "Strength indicator"
-msgstr ""
-
-#: languages/seedprod-pro.php:4494
-msgid "Confirm use of weak password"
-msgstr ""
-
-#: languages/seedprod-pro.php:4497
-msgid "Confirm new password"
-msgstr ""
-
-#: languages/seedprod-pro.php:4500
-msgid "Reset Password"
-msgstr ""
-
-#: languages/seedprod-pro.php:4503
-msgid "Back to Log In"
-msgstr ""
-
-#: languages/seedprod-pro.php:4510
-msgid "Fields"
-msgstr ""
-
-#: languages/seedprod-pro.php:4513
-msgid "Label for User field"
-msgstr ""
-
-#: languages/seedprod-pro.php:4516
-msgid "Placeholder for User field"
-msgstr ""
-
-#: languages/seedprod-pro.php:4519
-msgid "Label for Password field"
-msgstr ""
-
-#: languages/seedprod-pro.php:4522
-msgid "Placeholder for Password field"
-msgstr ""
-
-#: languages/seedprod-pro.php:4526
-msgid "Link Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:4529
-msgid "Link Hover Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:4532
-msgid "Label Text Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:4540
-msgid "Field Text Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:4548
-msgid "Field Background Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:4556
-msgid "Field Border Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:4559
-msgid "Button Background Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:4562
-msgid "Field Size"
-msgstr ""
-
-#: languages/seedprod-pro.php:4568
-msgid "Row Spacing"
-msgstr ""
-
-#: languages/seedprod-pro.php:4571
-msgid "Label Spacing"
-msgstr ""
-
-#: languages/seedprod-pro.php:4578
-msgid "Field Border Width"
-msgstr ""
-
-#: languages/seedprod-pro.php:4581
-msgid "Field Border Radius"
-msgstr ""
-
-#: languages/seedprod-pro.php:4587
-msgid "Button Size"
-msgstr ""
-
-#: languages/seedprod-pro.php:4591
-msgid "Success Action"
-msgstr ""
-
-#: languages/seedprod-pro.php:4594
-msgid "Additional Options"
-msgstr ""
-
-#: languages/seedprod-pro.php:4597
-msgid "Remember User Label"
-msgstr ""
-
-#: languages/seedprod-pro.php:4600
-msgid "Lost Password Link Text"
-msgstr ""
-
-#: languages/seedprod-pro.php:4605
-msgid "Colors"
-msgstr ""
-
-#: languages/seedprod-pro.php:4611
-msgid "Label Font"
-msgstr ""
-
-#: languages/seedprod-pro.php:4614
-msgid "Label Font Weight"
-msgstr ""
-
-#: languages/seedprod-pro.php:4617
-msgid "Field Font"
-msgstr ""
-
-#: languages/seedprod-pro.php:4620
-msgid "Field Font Weight"
-msgstr ""
-
-#: languages/seedprod-pro.php:4624
-msgid "Button Font"
-msgstr ""
-
-#: languages/seedprod-pro.php:4627
-msgid "Button Font Weight"
-msgstr ""
-
-#: languages/seedprod-pro.php:4630
-msgid "Logged In Text"
-msgstr ""
-
-#: languages/seedprod-pro.php:4633
-msgid "This text displays in place of a form if the user is already logged in. {user} will be replaced by the user's display name."
-msgstr ""
-
-#: languages/seedprod-pro.php:4636
-msgid "(e.g. 'Remember Me')"
-msgstr ""
-
-#: languages/seedprod-pro.php:4639
-msgid "(e.g. 'Lost your password?')"
-msgstr ""
-
-#: languages/seedprod-pro.php:4642
-msgid "Button Border Radius"
-msgstr ""
-
-#: languages/seedprod-pro.php:4645
-msgid "Field Width"
-msgstr ""
-
-#: languages/seedprod-pro.php:4648
-msgid "Label Text Size"
-msgstr ""
-
-#: languages/seedprod-pro.php:4655
-msgid "Light Input Field"
-msgstr ""
-
-#: languages/seedprod-pro.php:4662
-msgid "No Border Input Field"
-msgstr ""
-
-#: languages/seedprod-pro.php:4669
-msgid "Wide Border Input Field"
-msgstr ""
-
-#: languages/seedprod-pro.php:4676
-msgid "Inner Shadow Input Field"
-msgstr ""
-
-#: languages/seedprod-pro.php:4683
-msgid "Grey Input Field"
-msgstr ""
-
-#: languages/seedprod-pro.php:4690
-msgid "Dark Input Field"
-msgstr ""
-
-#: languages/seedprod-pro.php:4697
-msgid "Bottom Border Field"
-msgstr ""
-
-#: languages/seedprod-pro.php:4704
-msgid "Transparent Input Field"
-msgstr ""
-
-#: languages/seedprod-pro.php:4707
-msgid "Margin"
-msgstr ""
-
-#: languages/seedprod-pro.php:4710
-msgid "Menu Cart Preview Not Available"
-msgstr ""
-
-#: languages/seedprod-pro.php:4713
-msgid "Hide on Empty"
-msgstr ""
-
-#: languages/seedprod-pro.php:4716
-msgid "Show Subtotal"
-msgstr ""
-
-#: languages/seedprod-pro.php:4719
-msgid "Badge Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:4722
-msgid "Badge Text Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:4725
-msgid "default header"
-msgstr ""
-
-#: languages/seedprod-pro.php:4728
-msgid "default body"
-msgstr ""
-
-#: languages/seedprod-pro.php:4731
-msgid "There are no navigation menus in your site."
-msgstr ""
-
-#: languages/seedprod-pro.php:4734
-msgid "URL Link"
-msgstr ""
-
-#: languages/seedprod-pro.php:4737
-msgid "Mobile Menu"
-msgstr ""
-
-#: languages/seedprod-pro.php:4740
-msgid "On"
-msgstr ""
-
-#: languages/seedprod-pro.php:4743
-msgid "Off"
-msgstr ""
-
-#: languages/seedprod-pro.php:4746
-msgid "Hover Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:4749
-msgid "Menu Type"
-msgstr ""
-
-#: languages/seedprod-pro.php:4752
-msgid "WordPress Menu"
-msgstr ""
-
-#: languages/seedprod-pro.php:4755
-msgid "Sub Menu Background Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:4758
-msgid "Sub Menu Border Radius"
-msgstr ""
-
-#: languages/seedprod-pro.php:4761
-msgid "Sub Menu Line Height"
-msgstr ""
-
-#: languages/seedprod-pro.php:4764
-msgid "Sub Menu Border Width"
-msgstr ""
-
-#: languages/seedprod-pro.php:4767
-msgid "Sub Menu Border Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:4770
-msgid "Sub Menu Text Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:4773
-msgid "Sub Menu Hover Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:4776
-msgid "Sub Menu"
-msgstr ""
-
-#: languages/seedprod-pro.php:4779
-msgid "Menus"
-msgstr ""
-
-#: languages/seedprod-pro.php:4783
-msgid "Go to the"
-msgstr ""
-
-#: languages/seedprod-pro.php:4786
-msgid "Menus Screen"
-msgstr ""
-
-#: languages/seedprod-pro.php:4789
-msgid "to manage your menus"
-msgstr ""
-
-#: languages/seedprod-pro.php:4792
-msgid "There are no menus in your site."
-msgstr ""
-
-#: languages/seedprod-pro.php:4795
-msgid "Submit Button"
-msgstr ""
-
-#: languages/seedprod-pro.php:4801
-msgid "Label"
-msgstr ""
-
-#: languages/seedprod-pro.php:4804
-msgid "Required"
-msgstr ""
-
-#: languages/seedprod-pro.php:4807
-msgid "Input Sizes"
-msgstr ""
-
-#: languages/seedprod-pro.php:4810
-msgid "Action To Take"
-msgstr ""
-
-#: languages/seedprod-pro.php:4817
-msgid "Font Family"
-msgstr ""
-
-#: languages/seedprod-pro.php:4820
-msgid "Remove Inline Padding"
-msgstr ""
-
-#: languages/seedprod-pro.php:4823
-msgid "Button text"
-msgstr ""
-
-#: languages/seedprod-pro.php:4826
-msgid "Profile Picture"
-msgstr ""
-
-#: languages/seedprod-pro.php:4829
-msgid "Display Name"
-msgstr ""
-
-#: languages/seedprod-pro.php:4832
-msgid "Biography"
-msgstr ""
-
-#: languages/seedprod-pro.php:4836
-msgid "div"
-msgstr ""
-
-#: languages/seedprod-pro.php:4840
-msgid "p"
-msgstr ""
-
-#: languages/seedprod-pro.php:4843
-msgid "Website"
-msgstr ""
-
-#: languages/seedprod-pro.php:4846
-msgid "Archive Posts"
-msgstr ""
-
-#: languages/seedprod-pro.php:4850
-msgid "Name Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:4853
-msgid "Biography Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:4856
-msgid "Profile Screen"
-msgstr ""
-
-#: languages/seedprod-pro.php:4859
-msgid "to manage your profile."
-msgstr ""
-
-#: languages/seedprod-pro.php:4862
-msgid "Content Policy"
-msgstr ""
-
-#: languages/seedprod-pro.php:4865
-msgid "Author"
-msgstr ""
-
-#: languages/seedprod-pro.php:4868
-msgid "Comments"
-msgstr ""
-
-#: languages/seedprod-pro.php:4871
-msgid "Avatar"
-msgstr ""
-
-#: languages/seedprod-pro.php:4875
-msgid "Layout Settings"
-msgstr ""
-
-#: languages/seedprod-pro.php:4879
-msgid "Add Item"
-msgstr ""
-
-#: languages/seedprod-pro.php:4882
-msgid "Date Format"
-msgstr ""
-
-#: languages/seedprod-pro.php:4885
-msgid "May 14, 2021 (F j, Y)"
-msgstr ""
-
-#: languages/seedprod-pro.php:4888
-msgid "2021-05-14 (Y-m-d)"
-msgstr ""
-
-#: languages/seedprod-pro.php:4891
-msgid "05/14/2021 (m/d/Y)"
-msgstr ""
-
-#: languages/seedprod-pro.php:4894
-msgid "14/05/2021 (d/m/Y)"
-msgstr ""
-
-#: languages/seedprod-pro.php:4897
+#: languages/seedprod-pro.php:3885
 msgid "Custom Date Format"
 msgstr ""
 
-#: languages/seedprod-pro.php:4900
-msgid "Use the letters: l D d j S F m M n Y y"
+#: languages/seedprod-pro.php:3888
+msgid "e.g. Y-m-d"
 msgstr ""
 
-#: languages/seedprod-pro.php:4908
-msgid "Alignment"
-msgstr ""
-
-#: languages/seedprod-pro.php:4911
-msgid "Modified Date"
-msgstr ""
-
-#: languages/seedprod-pro.php:4914
-msgid "Modified Time"
-msgstr ""
-
-#: languages/seedprod-pro.php:4923
-msgid "Terms"
-msgstr ""
-
-#: languages/seedprod-pro.php:4926
-msgid "Time Format"
-msgstr ""
-
-#: languages/seedprod-pro.php:4929
-msgid "9:15 am (g:i a)"
-msgstr ""
-
-#: languages/seedprod-pro.php:4932
-msgid "9:15 AM (g:i A)"
-msgstr ""
-
-#: languages/seedprod-pro.php:4935
-msgid "09:15 (H:i)"
-msgstr ""
-
-#: languages/seedprod-pro.php:4938
-msgid "Custom Time Format"
-msgstr ""
-
-#: languages/seedprod-pro.php:4941
-msgid "Use the letters: g G H i a A"
-msgstr ""
-
-#: languages/seedprod-pro.php:4944
-msgid "Show Icons"
-msgstr ""
-
-#: languages/seedprod-pro.php:4947
-msgid "Posts Query"
-msgstr ""
-
-#: languages/seedprod-pro.php:4950
-msgid "Query Type"
-msgstr ""
-
-#: languages/seedprod-pro.php:4953
-msgid "Manual"
-msgstr ""
-
-#: languages/seedprod-pro.php:4956
-msgid "Query By Post Type"
-msgstr ""
-
-#: languages/seedprod-pro.php:4959
-msgid "Include Selected Post Type(s)"
-msgstr ""
-
-#: languages/seedprod-pro.php:4962
-msgid "- Select Post Type(s) -"
-msgstr ""
-
-#: languages/seedprod-pro.php:4965
-msgid "Query By Category"
-msgstr ""
-
-#: languages/seedprod-pro.php:4969
-msgid "Include Selected Categories"
-msgstr ""
-
-#: languages/seedprod-pro.php:4973
-msgid "- Select Categories -"
-msgstr ""
-
-#: languages/seedprod-pro.php:4976
-msgid "Query By Tag(s)"
-msgstr ""
-
-#: languages/seedprod-pro.php:4979
-msgid "Include Selected Tag(s)"
-msgstr ""
-
-#: languages/seedprod-pro.php:4982
-msgid "- Select Tag(s) -"
-msgstr ""
-
-#: languages/seedprod-pro.php:4985
-msgid "Query By Author(s)"
-msgstr ""
-
-#: languages/seedprod-pro.php:4988
-msgid "Include Selected Author(s)"
-msgstr ""
-
-#: languages/seedprod-pro.php:4991
-msgid "- Select Author(s) -"
-msgstr ""
-
-#: languages/seedprod-pro.php:4997
-msgid "- Select Options -"
-msgstr ""
-
-#: languages/seedprod-pro.php:5000
-msgid "Date Last Modified"
-msgstr ""
-
-#: languages/seedprod-pro.php:5003
-msgid "Comment Count"
-msgstr ""
-
-#: languages/seedprod-pro.php:5009
-msgid "Menu Order"
-msgstr ""
-
-#: languages/seedprod-pro.php:5015
-msgid "Order"
-msgstr ""
-
-#: languages/seedprod-pro.php:5021
-msgid "ASC"
-msgstr ""
-
-#: languages/seedprod-pro.php:5027
-msgid "DESC"
-msgstr ""
-
-#: languages/seedprod-pro.php:5030
-msgid "Query Params"
-msgstr ""
-
-#: languages/seedprod-pro.php:5036
-msgid "Columns"
-msgstr ""
-
-#: languages/seedprod-pro.php:5040
-msgid "Pagination"
-msgstr ""
-
-#: languages/seedprod-pro.php:5043
-msgid "Number Per Pages"
-msgstr ""
-
-#: languages/seedprod-pro.php:5046
-msgid "Show Feature Image"
-msgstr ""
-
-#: languages/seedprod-pro.php:5049
-msgid "Show Title"
-msgstr ""
-
-#: languages/seedprod-pro.php:5052
-msgid "Title Tag"
-msgstr ""
-
-#: languages/seedprod-pro.php:5055
-msgid "Show Meta"
-msgstr ""
-
-#: languages/seedprod-pro.php:5058
-msgid "Show Date Modified"
-msgstr ""
-
-#: languages/seedprod-pro.php:5061
-msgid "Show Author"
-msgstr ""
-
-#: languages/seedprod-pro.php:5064
-msgid "Show Date"
-msgstr ""
-
-#: languages/seedprod-pro.php:5067
-msgid "Show Time"
-msgstr ""
-
-#: languages/seedprod-pro.php:5070
-msgid "Show Comment Count"
-msgstr ""
-
-#: languages/seedprod-pro.php:5073
-msgid "Show Excerpt"
-msgstr ""
-
-#: languages/seedprod-pro.php:5076
+#: languages/seedprod-pro.php:3893
 msgid "Excerpt Length"
 msgstr ""
 
+#: languages/seedprod-pro.php:3896
+msgid "Post Time"
+msgstr ""
+
+#: languages/seedprod-pro.php:3899
+msgid "Post Custom Field"
+msgstr ""
+
+#: languages/seedprod-pro.php:3902
+msgid "Lazy Loading"
+msgstr ""
+
+#: languages/seedprod-pro.php:3906
+msgid "Faces"
+msgstr ""
+
+#: languages/seedprod-pro.php:3919
+msgid "Target Url"
+msgstr ""
+
+#: languages/seedprod-pro.php:3932
+msgid "Current Page"
+msgstr ""
+
+#: languages/seedprod-pro.php:3947
+msgid "Url Format"
+msgstr ""
+
+#: languages/seedprod-pro.php:3962
+msgid "Plain Permalink"
+msgstr ""
+
+#: languages/seedprod-pro.php:3979
+msgid "Pretty Permalink"
+msgstr ""
+
+#: languages/seedprod-pro.php:3988
+msgid "Facebook Setting"
+msgstr ""
+
+#: languages/seedprod-pro.php:4005
+msgid "Facebook App Id:"
+msgstr ""
+
+#: languages/seedprod-pro.php:4022
+msgid "Like"
+msgstr ""
+
+#: languages/seedprod-pro.php:4039
+msgid "Recommend"
+msgstr ""
+
+#: languages/seedprod-pro.php:4052
+msgid "Order By"
+msgstr ""
+
+#: languages/seedprod-pro.php:4055
+msgid "Social"
+msgstr ""
+
+#: languages/seedprod-pro.php:4058
+msgid "Reverse Time"
+msgstr ""
+
+#: languages/seedprod-pro.php:4071
+msgid "Box Count"
+msgstr ""
+
+#: languages/seedprod-pro.php:4088
+msgid "Color Scheme"
+msgstr ""
+
+#: languages/seedprod-pro.php:4113
+msgid "Light"
+msgstr ""
+
+#: languages/seedprod-pro.php:4138
+msgid "Dark"
+msgstr ""
+
+#: languages/seedprod-pro.php:4141
+msgid "Number of Comments"
+msgstr ""
+
+#: languages/seedprod-pro.php:4152
+msgid "Set your Facebook App ID in the "
+msgstr ""
+
+#: languages/seedprod-pro.php:4164
+msgid "Page Settings"
+msgstr ""
+
+#: languages/seedprod-pro.php:4174
+msgid "You are connected to Facebook App"
+msgstr ""
+
+#: languages/seedprod-pro.php:4184
+msgid "Change App"
+msgstr ""
+
+#: languages/seedprod-pro.php:4187
+msgid "Include full post"
+msgstr ""
+
+#: languages/seedprod-pro.php:4190
+msgid "Allow Full Screen"
+msgstr ""
+
+#: languages/seedprod-pro.php:4193
+msgid "Autoplay"
+msgstr ""
+
+#: languages/seedprod-pro.php:4196
+msgid "Captions"
+msgstr ""
+
+#: languages/seedprod-pro.php:4199
+msgid "Parent Comment"
+msgstr ""
+
+#: languages/seedprod-pro.php:4202
+msgid "Post Link"
+msgstr ""
+
+#: languages/seedprod-pro.php:4205
+msgid "Video Link"
+msgstr ""
+
+#: languages/seedprod-pro.php:4208
+msgid "Comment Link"
+msgstr ""
+
+#: languages/seedprod-pro.php:4216
+msgid "Comment"
+msgstr ""
+
+#: languages/seedprod-pro.php:4219
+msgid "Share Button"
+msgstr ""
+
+#: languages/seedprod-pro.php:4228
+msgid "Standard"
+msgstr ""
+
+#: languages/seedprod-pro.php:4235
+msgid "Button Count"
+msgstr ""
+
+#: languages/seedprod-pro.php:4238
+msgid "Small Header"
+msgstr ""
+
+#: languages/seedprod-pro.php:4241
+msgid "Hide Cover Photo"
+msgstr ""
+
+#: languages/seedprod-pro.php:4244
+msgid "Profile Photos"
+msgstr ""
+
+#: languages/seedprod-pro.php:4247
+msgid "Hide CTA button"
+msgstr ""
+
+#: languages/seedprod-pro.php:4257
+msgid "Timeline"
+msgstr ""
+
+#: languages/seedprod-pro.php:4260
+msgid "Events"
+msgstr ""
+
+#: languages/seedprod-pro.php:4263
+msgid "Messages"
+msgstr ""
+
+#: languages/seedprod-pro.php:4266
+msgid "Al Text"
+msgstr ""
+
+#: languages/seedprod-pro.php:4269
+msgid "Install Giveaway plugin:"
+msgstr ""
+
+#: languages/seedprod-pro.php:4275
+msgid "Select a Giveway"
+msgstr ""
+
+#: languages/seedprod-pro.php:4278
+msgid "You can use RafflePress to build viral giveaways in minutes and explode your email list."
+msgstr ""
+
+#: languages/seedprod-pro.php:4281
+msgid "Select a Giveaway"
+msgstr ""
+
+#: languages/seedprod-pro.php:4284
+msgid "Need to make changes? Edit the selected giveaway."
+msgstr ""
+
+#: languages/seedprod-pro.php:4287
+msgid "+ New Giveaway"
+msgstr ""
+
+#: languages/seedprod-pro.php:4294
+msgid "Location"
+msgstr ""
+
+#: languages/seedprod-pro.php:4302
+msgid "Insert Dynamic Text"
+msgstr ""
+
+#: languages/seedprod-pro.php:4305
+msgid "Slide"
+msgstr ""
+
+#: languages/seedprod-pro.php:4308
+msgid "Duration"
+msgstr ""
+
+#: languages/seedprod-pro.php:4317
+msgid "Alt Text"
+msgstr ""
+
+#: languages/seedprod-pro.php:4330
+msgid "Image Border"
+msgstr ""
+
+#: languages/seedprod-pro.php:4339
+msgid "No Follow"
+msgstr ""
+
+#: languages/seedprod-pro.php:4369
+msgid "Border Style"
+msgstr ""
+
+#: languages/seedprod-pro.php:4373
+msgid "Object Fit"
+msgstr ""
+
+#: languages/seedprod-pro.php:4377
+msgid "Fill"
+msgstr ""
+
+#: languages/seedprod-pro.php:4381
+msgid "Cover"
+msgstr ""
+
+#: languages/seedprod-pro.php:4385
+msgid "Contain"
+msgstr ""
+
+#: languages/seedprod-pro.php:4417
+msgid "Border Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:4441
+msgid "Border Width"
+msgstr ""
+
+#: languages/seedprod-pro.php:4467
+msgid "Image Whitespace Padding"
+msgstr ""
+
+#: languages/seedprod-pro.php:4470
+msgid "Fall"
+msgstr ""
+
+#: languages/seedprod-pro.php:4473
+msgid "Icon Position"
+msgstr ""
+
+#: languages/seedprod-pro.php:4476
+msgid "Soft Beat"
+msgstr ""
+
+#: languages/seedprod-pro.php:4479
+msgid "Expand"
+msgstr ""
+
+#: languages/seedprod-pro.php:4482
+msgid "Hotspot Animation"
+msgstr ""
+
+#: languages/seedprod-pro.php:4485
+msgid "Show Arrow"
+msgstr ""
+
+#: languages/seedprod-pro.php:4488
+msgid "Advanced Settings"
+msgstr ""
+
+#: languages/seedprod-pro.php:4491
+msgid "Tooltip Content"
+msgstr ""
+
+#: languages/seedprod-pro.php:4494
+msgid "Add Hotspot"
+msgstr ""
+
+#: languages/seedprod-pro.php:4500
+msgid "Max Width"
+msgstr ""
+
+#: languages/seedprod-pro.php:4508
+msgid "Label"
+msgstr ""
+
+#: languages/seedprod-pro.php:4511
+msgid "Custom Icon Size"
+msgstr ""
+
+#: languages/seedprod-pro.php:4514
+msgid "Min Width"
+msgstr ""
+
+#: languages/seedprod-pro.php:4517
+msgid "Horizontal Orientation"
+msgstr ""
+
+#: languages/seedprod-pro.php:4520
+msgid "Vertical Orientation"
+msgstr ""
+
+#: languages/seedprod-pro.php:4523
+msgid "Text Wrap"
+msgstr ""
+
+#: languages/seedprod-pro.php:4526
+msgid "Tooltip"
+msgstr ""
+
+#: languages/seedprod-pro.php:4529
+msgid "Trigger"
+msgstr ""
+
+#: languages/seedprod-pro.php:4532
+msgid "Click"
+msgstr ""
+
+#: languages/seedprod-pro.php:4535
+msgid "Grow"
+msgstr ""
+
+#: languages/seedprod-pro.php:4538
+msgid "Select an Icon"
+msgstr ""
+
+#: languages/seedprod-pro.php:4541
+msgid "All Icons"
+msgstr ""
+
+#: languages/seedprod-pro.php:4544
+msgid "Font Awesome"
+msgstr ""
+
+#: languages/seedprod-pro.php:4547
+msgid "Search icons..."
+msgstr ""
+
+#: languages/seedprod-pro.php:4551
+msgid "Choose Icon"
+msgstr ""
+
+#: languages/seedprod-pro.php:4554
+msgid "Icon Library"
+msgstr ""
+
+#: languages/seedprod-pro.php:4560
+msgid "Caption Align"
+msgstr ""
+
+#: languages/seedprod-pro.php:4566
+msgid "Caption Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:4569
+msgid "Add Images"
+msgstr ""
+
+#: languages/seedprod-pro.php:4578
+msgid "Caption"
+msgstr ""
+
+#: languages/seedprod-pro.php:4585
+msgid "Navigation Color Mode"
+msgstr ""
+
+#: languages/seedprod-pro.php:4589
+msgid "AutoPlay"
+msgstr ""
+
+#: languages/seedprod-pro.php:4596
+msgid "Pause On Hover"
+msgstr ""
+
+#: languages/seedprod-pro.php:4600
+msgid "Autoplay Speed"
+msgstr ""
+
+#: languages/seedprod-pro.php:4604
+msgid "seconds"
+msgstr ""
+
+#: languages/seedprod-pro.php:4608
+msgid "Enable Comment Bubble"
+msgstr ""
+
+#: languages/seedprod-pro.php:4611
+msgid "Carousel Settings"
+msgstr ""
+
+#: languages/seedprod-pro.php:4614
+msgid "Carousel Images"
+msgstr ""
+
+#: languages/seedprod-pro.php:4624
+msgid "Duplicate"
+msgstr ""
+
+#: languages/seedprod-pro.php:4634
+msgid "Delete"
+msgstr ""
+
+#: languages/seedprod-pro.php:4637
+msgid "Show Caption"
+msgstr ""
+
+#: languages/seedprod-pro.php:4643
+msgid "Slider Image Styles"
+msgstr ""
+
+#: languages/seedprod-pro.php:4666
+msgid "Bottom Drop Shadow"
+msgstr ""
+
+#: languages/seedprod-pro.php:4669
+msgid "Link Type"
+msgstr ""
+
+#: languages/seedprod-pro.php:4675
+msgid "Custom Link"
+msgstr ""
+
+#: languages/seedprod-pro.php:4678
+msgid "Media - Lightbox"
+msgstr ""
+
+#: languages/seedprod-pro.php:4681
+msgid "Border Radius Unit"
+msgstr ""
+
+#: languages/seedprod-pro.php:4684
+msgid "Username or Email Address"
+msgstr ""
+
+#: languages/seedprod-pro.php:4687
+msgid "Get New Password"
+msgstr ""
+
+#: languages/seedprod-pro.php:4690
+msgid "New password"
+msgstr ""
+
+#: languages/seedprod-pro.php:4693
+msgid "Hide password"
+msgstr ""
+
+#: languages/seedprod-pro.php:4696
+msgid "Strength indicator"
+msgstr ""
+
+#: languages/seedprod-pro.php:4699
+msgid "Confirm use of weak password"
+msgstr ""
+
+#: languages/seedprod-pro.php:4702
+msgid "Confirm new password"
+msgstr ""
+
+#: languages/seedprod-pro.php:4705
+msgid "Reset Password"
+msgstr ""
+
+#: languages/seedprod-pro.php:4708
+msgid "Back to Log In"
+msgstr ""
+
+#: languages/seedprod-pro.php:4719
+msgid "Fields"
+msgstr ""
+
+#: languages/seedprod-pro.php:4722
+msgid "Label for User field"
+msgstr ""
+
+#: languages/seedprod-pro.php:4725
+msgid "Placeholder for User field"
+msgstr ""
+
+#: languages/seedprod-pro.php:4728
+msgid "Label for Password field"
+msgstr ""
+
+#: languages/seedprod-pro.php:4731
+msgid "Placeholder for Password field"
+msgstr ""
+
+#: languages/seedprod-pro.php:4735
+msgid "Link Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:4738
+msgid "Link Hover Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:4741
+msgid "Label Text Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:4752
+msgid "Field Text Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:4763
+msgid "Field Background Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:4774
+msgid "Field Border Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:4777
+msgid "Button Background Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:4780
+msgid "Field Size"
+msgstr ""
+
+#: languages/seedprod-pro.php:4789
+msgid "Row Spacing"
+msgstr ""
+
+#: languages/seedprod-pro.php:4792
+msgid "Label Spacing"
+msgstr ""
+
+#: languages/seedprod-pro.php:4801
+msgid "Field Border Width"
+msgstr ""
+
+#: languages/seedprod-pro.php:4804
+msgid "Field Border Radius"
+msgstr ""
+
+#: languages/seedprod-pro.php:4813
+msgid "Button Size"
+msgstr ""
+
+#: languages/seedprod-pro.php:4818
+msgid "Success Action"
+msgstr ""
+
+#: languages/seedprod-pro.php:4821
+msgid "Additional Options"
+msgstr ""
+
+#: languages/seedprod-pro.php:4824
+msgid "Remember User Label"
+msgstr ""
+
+#: languages/seedprod-pro.php:4827
+msgid "Lost Password Link Text"
+msgstr ""
+
+#: languages/seedprod-pro.php:4830
+msgid "Colors"
+msgstr ""
+
+#: languages/seedprod-pro.php:4839
+msgid "Label Font"
+msgstr ""
+
+#: languages/seedprod-pro.php:4842
+msgid "Label Font Weight"
+msgstr ""
+
+#: languages/seedprod-pro.php:4845
+msgid "Field Font"
+msgstr ""
+
+#: languages/seedprod-pro.php:4848
+msgid "Field Font Weight"
+msgstr ""
+
+#: languages/seedprod-pro.php:4851
+msgid "Button Font"
+msgstr ""
+
+#: languages/seedprod-pro.php:4854
+msgid "Button Font Weight"
+msgstr ""
+
+#: languages/seedprod-pro.php:4857
+msgid "Logged In Text"
+msgstr ""
+
+#: languages/seedprod-pro.php:4860
+msgid "This text displays in place of a form if the user is already logged in. {user} will be replaced by the user's display name."
+msgstr ""
+
+#: languages/seedprod-pro.php:4863
+msgid "(e.g. 'Remember Me')"
+msgstr ""
+
+#: languages/seedprod-pro.php:4866
+msgid "(e.g. 'Lost your password?')"
+msgstr ""
+
+#: languages/seedprod-pro.php:4869
+msgid "Button Border Radius"
+msgstr ""
+
+#: languages/seedprod-pro.php:4872
+msgid "Field Width"
+msgstr ""
+
+#: languages/seedprod-pro.php:4875
+msgid "Label Text Size"
+msgstr ""
+
+#: languages/seedprod-pro.php:4886
+msgid "Light Input Field"
+msgstr ""
+
+#: languages/seedprod-pro.php:4897
+msgid "No Border Input Field"
+msgstr ""
+
+#: languages/seedprod-pro.php:4908
+msgid "Wide Border Input Field"
+msgstr ""
+
+#: languages/seedprod-pro.php:4919
+msgid "Inner Shadow Input Field"
+msgstr ""
+
+#: languages/seedprod-pro.php:4930
+msgid "Grey Input Field"
+msgstr ""
+
+#: languages/seedprod-pro.php:4941
+msgid "Dark Input Field"
+msgstr ""
+
+#: languages/seedprod-pro.php:4952
+msgid "Bottom Border Field"
+msgstr ""
+
+#: languages/seedprod-pro.php:4963
+msgid "Transparent Input Field"
+msgstr ""
+
+#: languages/seedprod-pro.php:4966
+msgid "Menu Cart Preview Not Available"
+msgstr ""
+
+#: languages/seedprod-pro.php:4969
+msgid "Hide on Empty"
+msgstr ""
+
+#: languages/seedprod-pro.php:4972
+msgid "Show Subtotal"
+msgstr ""
+
+#: languages/seedprod-pro.php:4975
+msgid "Badge Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:4978
+msgid "Badge Text Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:4981
+msgid "There are no navigation menus in your site."
+msgstr ""
+
+#: languages/seedprod-pro.php:4984
+msgid "URL Link"
+msgstr ""
+
+#: languages/seedprod-pro.php:4987
+msgid "Mobile Menu"
+msgstr ""
+
+#: languages/seedprod-pro.php:4990
+msgid "On"
+msgstr ""
+
+#: languages/seedprod-pro.php:4993
+msgid "Off"
+msgstr ""
+
+#: languages/seedprod-pro.php:4996
+msgid "Hover Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:4999
+msgid "Menu Type"
+msgstr ""
+
+#: languages/seedprod-pro.php:5002
+msgid "WordPress Menu"
+msgstr ""
+
+#: languages/seedprod-pro.php:5005
+msgid "Sub Menu Background Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:5008
+msgid "Sub Menu Border Radius"
+msgstr ""
+
+#: languages/seedprod-pro.php:5011
+msgid "Sub Menu Line Height"
+msgstr ""
+
+#: languages/seedprod-pro.php:5014
+msgid "Sub Menu Border Width"
+msgstr ""
+
+#: languages/seedprod-pro.php:5017
+msgid "Sub Menu Border Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:5020
+msgid "Sub Menu Text Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:5023
+msgid "Sub Menu Hover Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:5026
+msgid "Sub Menu"
+msgstr ""
+
+#: languages/seedprod-pro.php:5029
+msgid "Menus"
+msgstr ""
+
+#: languages/seedprod-pro.php:5034
+msgid "Go to the"
+msgstr ""
+
+#: languages/seedprod-pro.php:5037
+msgid "Menus Screen"
+msgstr ""
+
+#: languages/seedprod-pro.php:5040
+msgid "to manage your menus"
+msgstr ""
+
+#: languages/seedprod-pro.php:5043
+msgid "There are no menus in your site."
+msgstr ""
+
+#: languages/seedprod-pro.php:5046
+msgid "Submit Button"
+msgstr ""
+
+#: languages/seedprod-pro.php:5049
+msgid "Required"
+msgstr ""
+
+#: languages/seedprod-pro.php:5052
+msgid "Input Sizes"
+msgstr ""
+
+#: languages/seedprod-pro.php:5055
+msgid "Action To Take"
+msgstr ""
+
+#: languages/seedprod-pro.php:5064
+msgid "Font Family"
+msgstr ""
+
+#: languages/seedprod-pro.php:5067
+msgid "Remove Inline Padding"
+msgstr ""
+
+#: languages/seedprod-pro.php:5070
+msgid "Button text"
+msgstr ""
+
+#: languages/seedprod-pro.php:5076
+msgid "Name"
+msgstr ""
+
 #: languages/seedprod-pro.php:5079
-msgid "Show Read More"
+msgid "Profile Picture"
 msgstr ""
 
 #: languages/seedprod-pro.php:5082
-msgid "Title Color"
+msgid "Display Name"
 msgstr ""
 
 #: languages/seedprod-pro.php:5085
-msgid "Meta Text"
+msgid "Biography"
 msgstr ""
 
-#: languages/seedprod-pro.php:5088
-msgid "Meta Text Color"
+#: languages/seedprod-pro.php:5089
+msgid "div"
 msgstr ""
 
-#: languages/seedprod-pro.php:5091
-msgid "Excerpt"
+#: languages/seedprod-pro.php:5093
+msgid "p"
 msgstr ""
 
-#: languages/seedprod-pro.php:5094
-msgid "Excerpt Color"
+#: languages/seedprod-pro.php:5096
+msgid "Website"
 msgstr ""
 
-#: languages/seedprod-pro.php:5097
-msgid "Read More Text"
-msgstr ""
-
-#: languages/seedprod-pro.php:5100
-msgid "Read More Text Color"
+#: languages/seedprod-pro.php:5099
+msgid "Archive Posts"
 msgstr ""
 
 #: languages/seedprod-pro.php:5103
-msgid "Pagination Color"
+msgid "Name Color"
 msgstr ""
 
 #: languages/seedprod-pro.php:5106
-msgid "Space Bottom"
+msgid "Biography Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:5109
+msgid "Profile Screen"
 msgstr ""
 
 #: languages/seedprod-pro.php:5112
-msgid "Image Border Color"
+msgid "to manage your profile."
+msgstr ""
+
+#: languages/seedprod-pro.php:5115
+msgid "Content Policy"
 msgstr ""
 
 #: languages/seedprod-pro.php:5118
-msgid "Image Border Width"
+msgid "Author"
 msgstr ""
 
-#: languages/seedprod-pro.php:5121
-msgid "Post Padding"
+#: languages/seedprod-pro.php:5129
+msgid "Date"
 msgstr ""
 
-#: languages/seedprod-pro.php:5124
-msgid "Image Margin"
+#: languages/seedprod-pro.php:5132
+msgid "Comments"
 msgstr ""
 
-#: languages/seedprod-pro.php:5127
-msgid "Post Background Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:5130
-msgid "Normally"
-msgstr ""
-
-#: languages/seedprod-pro.php:5133
-msgid "Features List"
-msgstr ""
-
-#: languages/seedprod-pro.php:5136
-msgid "Plan Name"
+#: languages/seedprod-pro.php:5135
+msgid "Avatar"
 msgstr ""
 
 #: languages/seedprod-pro.php:5139
-msgid "Currency Symbol"
+msgid "Layout Settings"
 msgstr ""
 
-#: languages/seedprod-pro.php:5147
-msgid "Buttons"
+#: languages/seedprod-pro.php:5143
+msgid "Add Item"
 msgstr ""
 
-#: languages/seedprod-pro.php:5150
-msgid "Plan Name Typography"
+#: languages/seedprod-pro.php:5146
+msgid "Date Format"
 msgstr ""
 
-#: languages/seedprod-pro.php:5153
-msgid "Plan Name Color"
+#: languages/seedprod-pro.php:5149
+msgid "May 14, 2021 (F j, Y)"
 msgstr ""
 
-#: languages/seedprod-pro.php:5156
-msgid "Top Button Size"
+#: languages/seedprod-pro.php:5152
+msgid "2021-05-14 (Y-m-d)"
 msgstr ""
 
-#: languages/seedprod-pro.php:5159
-msgid "Top Button"
+#: languages/seedprod-pro.php:5155
+msgid "05/14/2021 (m/d/Y)"
 msgstr ""
 
-#: languages/seedprod-pro.php:5162
-msgid "Bottom Button"
+#: languages/seedprod-pro.php:5158
+msgid "14/05/2021 (d/m/Y)"
 msgstr ""
 
-#: languages/seedprod-pro.php:5166
-msgid "Price"
-msgstr ""
-
-#: languages/seedprod-pro.php:5169
-msgid "Top Size"
+#: languages/seedprod-pro.php:5161
+msgid "Use the letters: l D d j S F m M n Y y"
 msgstr ""
 
 #: languages/seedprod-pro.php:5172
-msgid "Top Button Before Text Icon"
+msgid "Alignment"
 msgstr ""
 
 #: languages/seedprod-pro.php:5175
-msgid "Top Button After Text Icon"
+msgid "Modified Date"
 msgstr ""
 
 #: languages/seedprod-pro.php:5178
-msgid "Regular Price Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:5181
-msgid "$ Dollar"
+msgid "Modified Time"
 msgstr ""
 
 #: languages/seedprod-pro.php:5184
-msgid "€ Euro"
+msgid "Terms"
 msgstr ""
 
 #: languages/seedprod-pro.php:5187
-msgid "฿ Baht"
+msgid "Time Format"
 msgstr ""
 
 #: languages/seedprod-pro.php:5190
-msgid "₣ Franc"
+msgid "9:15 am (g:i a)"
 msgstr ""
 
 #: languages/seedprod-pro.php:5193
-msgid "ƒ Guilder"
+msgid "9:15 AM (g:i A)"
 msgstr ""
 
 #: languages/seedprod-pro.php:5196
-msgid "kr Krona"
+msgid "09:15 (H:i)"
 msgstr ""
 
 #: languages/seedprod-pro.php:5199
-msgid "₤ Lira"
+msgid "Custom Time Format"
 msgstr ""
 
 #: languages/seedprod-pro.php:5202
-msgid "₧ Peseta"
+msgid "Use the letters: g G H i a A"
 msgstr ""
 
 #: languages/seedprod-pro.php:5205
-msgid "₱ Peso"
+msgid "Show Icons"
 msgstr ""
 
 #: languages/seedprod-pro.php:5208
-msgid "£ Pound Sterling"
+msgid "Posts Query"
 msgstr ""
 
 #: languages/seedprod-pro.php:5211
-msgid "R$ Real"
+msgid "Query Type"
 msgstr ""
 
 #: languages/seedprod-pro.php:5214
-msgid "₽ Ruble"
+msgid "Manual"
 msgstr ""
 
 #: languages/seedprod-pro.php:5217
-msgid "₨ Rupee"
+msgid "Query By Post Type"
 msgstr ""
 
 #: languages/seedprod-pro.php:5220
-msgid "₹ Rupee (Indian)"
+msgid "Include Selected Post Type(s)"
 msgstr ""
 
 #: languages/seedprod-pro.php:5223
-msgid "₪ Shekel"
+msgid "- Select Post Type(s) -"
 msgstr ""
 
 #: languages/seedprod-pro.php:5226
-msgid "¥ Yen/Yuan"
+msgid "Query By Category"
 msgstr ""
 
-#: languages/seedprod-pro.php:5229
-msgid "₩ Won"
+#: languages/seedprod-pro.php:5231
+msgid "Include Selected Categories"
 msgstr ""
 
-#: languages/seedprod-pro.php:5232
-msgid "Custom Symbol"
+#: languages/seedprod-pro.php:5236
+msgid "- Select Categories -"
 msgstr ""
 
-#: languages/seedprod-pro.php:5235
-msgid "Period"
+#: languages/seedprod-pro.php:5239
+msgid "Query By Tag(s)"
 msgstr ""
 
-#: languages/seedprod-pro.php:5238
-msgid "Show Regular Price"
+#: languages/seedprod-pro.php:5242
+msgid "Include Selected Tag(s)"
 msgstr ""
 
-#: languages/seedprod-pro.php:5241
-msgid "Regular Price"
+#: languages/seedprod-pro.php:5245
+msgid "- Select Tag(s) -"
 msgstr ""
 
-#: languages/seedprod-pro.php:5244
-msgid "Regular Price Label"
+#: languages/seedprod-pro.php:5248
+msgid "Query By Author(s)"
 msgstr ""
 
-#: languages/seedprod-pro.php:5249
-msgid "Description"
+#: languages/seedprod-pro.php:5251
+msgid "Include Selected Author(s)"
 msgstr ""
 
-#: languages/seedprod-pro.php:5252
-msgid "Show Top Button"
+#: languages/seedprod-pro.php:5254
+msgid "- Select Author(s) -"
 msgstr ""
 
-#: languages/seedprod-pro.php:5255
-msgid "Top Button Text"
+#: languages/seedprod-pro.php:5263
+msgid "- Select Options -"
 msgstr ""
 
-#: languages/seedprod-pro.php:5258
-msgid "Top Button Link"
+#: languages/seedprod-pro.php:5266
+msgid "Date Last Modified"
 msgstr ""
 
-#: languages/seedprod-pro.php:5261
-msgid "Show Bottom Button"
+#: languages/seedprod-pro.php:5269
+msgid "Comment Count"
 msgstr ""
 
-#: languages/seedprod-pro.php:5264
-msgid "Bottom Button Text"
+#: languages/seedprod-pro.php:5278
+msgid "Menu Order"
 msgstr ""
 
-#: languages/seedprod-pro.php:5267
-msgid "Bottom Button Link"
+#: languages/seedprod-pro.php:5287
+msgid "Order"
 msgstr ""
 
-#: languages/seedprod-pro.php:5270
-msgid "Description Color"
+#: languages/seedprod-pro.php:5296
+msgid "ASC"
 msgstr ""
 
-#: languages/seedprod-pro.php:5273
-msgid "Top Button Color"
+#: languages/seedprod-pro.php:5305
+msgid "DESC"
 msgstr ""
 
-#: languages/seedprod-pro.php:5276
-msgid "Features List Color"
+#: languages/seedprod-pro.php:5308
+msgid "Query Params"
 msgstr ""
 
-#: languages/seedprod-pro.php:5279
-msgid "Bottom Button Color"
+#: languages/seedprod-pro.php:5317
+msgid "Columns"
 msgstr ""
 
-#: languages/seedprod-pro.php:5282
-msgid "Bottom Button Size"
+#: languages/seedprod-pro.php:5322
+msgid "Pagination"
 msgstr ""
 
-#: languages/seedprod-pro.php:5285
-msgid "Bottom Button Before Text Icon"
+#: languages/seedprod-pro.php:5325
+msgid "Number Per Pages"
 msgstr ""
 
-#: languages/seedprod-pro.php:5288
-msgid "Bottom Button After Text Icon"
+#: languages/seedprod-pro.php:5328
+msgid "Show Feature Image"
 msgstr ""
 
-#: languages/seedprod-pro.php:5294
-msgid "Price Color"
+#: languages/seedprod-pro.php:5331
+msgid "Show Title"
 msgstr ""
 
-#: languages/seedprod-pro.php:5297
-msgid "Price Superscript"
+#: languages/seedprod-pro.php:5334
+msgid "Title Tag"
 msgstr ""
 
-#: languages/seedprod-pro.php:5300
-msgid "Price Superscript Top"
+#: languages/seedprod-pro.php:5337
+msgid "Show Meta"
 msgstr ""
 
-#: languages/seedprod-pro.php:5303
-msgid "Block"
-msgstr ""
-
-#: languages/seedprod-pro.php:5306
-msgid "Product Content Preview Not Available"
-msgstr ""
-
-#: languages/seedprod-pro.php:5309
-msgid "Product Data Tabs Preview Not Available"
-msgstr ""
-
-#: languages/seedprod-pro.php:5313
-msgid "Tab"
-msgstr ""
-
-#: languages/seedprod-pro.php:5316
-msgid "Panel"
-msgstr ""
-
-#: languages/seedprod-pro.php:5319
-msgid "Heading"
-msgstr ""
-
-#: languages/seedprod-pro.php:5323
-msgid "Heading Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:5326
-msgid "Panel Padding"
-msgstr ""
-
-#: languages/seedprod-pro.php:5329
-msgid "Product Featured Image Preview Not Available"
-msgstr ""
-
-#: languages/seedprod-pro.php:5332
-msgid "Product Meta Preview Not Available"
-msgstr ""
-
-#: languages/seedprod-pro.php:5335
-msgid "View"
-msgstr ""
-
-#: languages/seedprod-pro.php:5338
-msgid "Table"
+#: languages/seedprod-pro.php:5340
+msgid "Show Date Modified"
 msgstr ""
 
 #: languages/seedprod-pro.php:5343
-msgid "Stacked"
+msgid "Show Author"
 msgstr ""
 
 #: languages/seedprod-pro.php:5346
-msgid "Inline"
+msgid "Show Date"
 msgstr ""
 
 #: languages/seedprod-pro.php:5349
-msgid "Product Price Preview Not Available"
+msgid "Show Time"
 msgstr ""
 
 #: languages/seedprod-pro.php:5352
-msgid "Sale Price"
+msgid "Show Comment Count"
 msgstr ""
 
 #: languages/seedprod-pro.php:5355
-msgid "Product Rating Preview Not Available"
+msgid "Show Excerpt"
 msgstr ""
 
 #: languages/seedprod-pro.php:5358
-msgid "Product Related Preview Not Available"
+msgid "Show Read More"
+msgstr ""
+
+#: languages/seedprod-pro.php:5363
+msgid "Border"
 msgstr ""
 
 #: languages/seedprod-pro.php:5367
-msgid "Button Color"
+msgid "Title Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:5371
-msgid "Posts Per Page"
+#: languages/seedprod-pro.php:5370
+msgid "Meta Text"
+msgstr ""
+
+#: languages/seedprod-pro.php:5373
+msgid "Meta Text Color"
 msgstr ""
 
 #: languages/seedprod-pro.php:5376
-msgid "ID"
+msgid "Excerpt"
 msgstr ""
 
-#: languages/seedprod-pro.php:5381
-msgid "Popularity"
+#: languages/seedprod-pro.php:5379
+msgid "Excerpt Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:5387
-msgid "Random"
+#: languages/seedprod-pro.php:5382
+msgid "Read More Text"
 msgstr ""
 
-#: languages/seedprod-pro.php:5393
-msgid "Rating"
+#: languages/seedprod-pro.php:5385
+msgid "Read More Text Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:5398
-msgid "Sale Badge Color"
+#: languages/seedprod-pro.php:5388
+msgid "Pagination Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:5401
-msgid "Product Stock Preview Not Available"
+#: languages/seedprod-pro.php:5391
+msgid "Space Bottom"
 msgstr ""
 
-#: languages/seedprod-pro.php:5404
-msgid "Product Title Preview Not Available"
+#: languages/seedprod-pro.php:5400
+msgid "Image Border Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:5410
-msgid "Bar Text"
+#: languages/seedprod-pro.php:5409
+msgid "Image Border Width"
 msgstr ""
 
-#: languages/seedprod-pro.php:5413
-msgid "Percent"
+#: languages/seedprod-pro.php:5412
+msgid "Post Padding"
 msgstr ""
 
-#: languages/seedprod-pro.php:5416
-msgid "My Text"
+#: languages/seedprod-pro.php:5415
+msgid "Image Margin"
+msgstr ""
+
+#: languages/seedprod-pro.php:5418
+msgid "Post Background Color"
 msgstr ""
 
 #: languages/seedprod-pro.php:5421
-msgid "Drag a new block here"
+msgid "Left Layout Template"
+msgstr ""
+
+#: languages/seedprod-pro.php:5424
+msgid "Right Layout Template"
 msgstr ""
 
 #: languages/seedprod-pro.php:5427
-msgid "Choose your layout:"
+msgid "No Image Template"
 msgstr ""
 
 #: languages/seedprod-pro.php:5430
-msgid "Enter a new block template name:"
+msgid "Price List Items"
+msgstr ""
+
+#: languages/seedprod-pro.php:5433
+msgid "Image Position"
 msgstr ""
 
 #: languages/seedprod-pro.php:5436
-msgid "Save Template"
+msgid "Overall Alignment"
 msgstr ""
 
 #: languages/seedprod-pro.php:5439
-msgid "Column Gutter"
+msgid "Vertical Alignment"
 msgstr ""
 
 #: languages/seedprod-pro.php:5442
-msgid "Row Width"
+msgid "Enter Title"
 msgstr ""
 
-#: languages/seedprod-pro.php:5446
-msgid "Full Screen"
+#: languages/seedprod-pro.php:5445
+msgid "Enter Description"
 msgstr ""
 
-#: languages/seedprod-pro.php:5450
-msgid "Fixed Width"
+#: languages/seedprod-pro.php:5448
+msgid "Actual Price"
 msgstr ""
 
-#: languages/seedprod-pro.php:5454
-msgid "Content Width"
+#: languages/seedprod-pro.php:5451
+msgid "Offering Discount?"
 msgstr ""
 
-#: languages/seedprod-pro.php:5457
-msgid "Search Form Setting"
-msgstr ""
-
-#: languages/seedprod-pro.php:5460
-msgid "Placeholder"
+#: languages/seedprod-pro.php:5455
+msgid "Description Color"
 msgstr ""
 
 #: languages/seedprod-pro.php:5463
-msgid "Button Type"
+msgid "Description"
 msgstr ""
 
 #: languages/seedprod-pro.php:5466
-msgid "Search Background"
+msgid "Title Price Seperator"
 msgstr ""
 
 #: languages/seedprod-pro.php:5469
-msgid "Search Text Color"
+msgid "Link Complete Box"
 msgstr ""
 
 #: languages/seedprod-pro.php:5472
-msgid "Button Background"
+msgid "Price Position"
 msgstr ""
 
-#: languages/seedprod-pro.php:5476
-msgid "Enter a new section template name:"
+#: languages/seedprod-pro.php:5475
+msgid "Below Heading and Description"
 msgstr ""
 
-#: languages/seedprod-pro.php:5479
-msgid "Section Width"
+#: languages/seedprod-pro.php:5478
+msgid "Right of Heading"
 msgstr ""
 
-#: languages/seedprod-pro.php:5483
-msgid "Gallery Not Available"
+#: languages/seedprod-pro.php:5484
+msgid "Price"
 msgstr ""
 
-#: languages/seedprod-pro.php:5487
-msgid "Please add gallery images."
+#: languages/seedprod-pro.php:5494
+msgid "Price Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:5491
-msgid "Loading Gallery Preview"
+#: languages/seedprod-pro.php:5497
+msgid "Discount Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:5495
-msgid "Add Galleries"
-msgstr ""
-
-#: languages/seedprod-pro.php:5499
-msgid "Lazy Load"
+#: languages/seedprod-pro.php:5500
+msgid "Image Area"
 msgstr ""
 
 #: languages/seedprod-pro.php:5503
-msgid "Gallery Images"
+msgid "Rounded"
 msgstr ""
 
-#: languages/seedprod-pro.php:5507
-msgid "Background Overlay"
+#: languages/seedprod-pro.php:5506
+msgid "Normally"
 msgstr ""
 
-#: languages/seedprod-pro.php:5511
-msgid "Media File"
+#: languages/seedprod-pro.php:5509
+msgid "Features List"
+msgstr ""
+
+#: languages/seedprod-pro.php:5512
+msgid "Plan Name"
 msgstr ""
 
 #: languages/seedprod-pro.php:5515
-msgid "Grid"
+msgid "Currency Symbol"
 msgstr ""
 
-#: languages/seedprod-pro.php:5519
-msgid "Justified"
-msgstr ""
-
-#: languages/seedprod-pro.php:5523
-msgid "Row Height"
+#: languages/seedprod-pro.php:5524
+msgid "Buttons"
 msgstr ""
 
 #: languages/seedprod-pro.php:5527
-msgid "Single"
+msgid "Plan Name Typography"
 msgstr ""
 
-#: languages/seedprod-pro.php:5531
-msgid "Multiple"
+#: languages/seedprod-pro.php:5530
+msgid "Plan Name Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:5535
-msgid "Upload Images"
+#: languages/seedprod-pro.php:5533
+msgid "Top Button Size"
+msgstr ""
+
+#: languages/seedprod-pro.php:5536
+msgid "Top Button"
 msgstr ""
 
 #: languages/seedprod-pro.php:5539
-msgid "Aspect Ratio"
+msgid "Bottom Button"
 msgstr ""
 
-#: languages/seedprod-pro.php:5543
-msgid "1:1"
+#: languages/seedprod-pro.php:5542
+msgid "Top Size"
 msgstr ""
 
-#: languages/seedprod-pro.php:5547
-msgid "3:2"
+#: languages/seedprod-pro.php:5545
+msgid "Top Button Before Text Icon"
+msgstr ""
+
+#: languages/seedprod-pro.php:5548
+msgid "Top Button After Text Icon"
 msgstr ""
 
 #: languages/seedprod-pro.php:5551
-msgid "4:3"
+msgid "Regular Price Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:5555
-msgid "9:16"
+#: languages/seedprod-pro.php:5554
+msgid "$ Dollar"
 msgstr ""
 
-#: languages/seedprod-pro.php:5559
-msgid "16:9"
+#: languages/seedprod-pro.php:5557
+msgid "€ Euro"
+msgstr ""
+
+#: languages/seedprod-pro.php:5560
+msgid "฿ Baht"
 msgstr ""
 
 #: languages/seedprod-pro.php:5563
-msgid "21:9"
+msgid "₣ Franc"
 msgstr ""
 
-#: languages/seedprod-pro.php:5567
-msgid "Thumbnail"
+#: languages/seedprod-pro.php:5566
+msgid "ƒ Guilder"
 msgstr ""
 
-#: languages/seedprod-pro.php:5570
-msgid "Lightbox"
+#: languages/seedprod-pro.php:5569
+msgid "kr Krona"
 msgstr ""
 
-#: languages/seedprod-pro.php:5573
-msgid "Custom URL"
+#: languages/seedprod-pro.php:5572
+msgid "₤ Lira"
 msgstr ""
 
-#: languages/seedprod-pro.php:5576
-msgid "Alt"
+#: languages/seedprod-pro.php:5575
+msgid "₧ Peseta"
 msgstr ""
 
-#: languages/seedprod-pro.php:5580
-msgid "Tab Color"
+#: languages/seedprod-pro.php:5578
+msgid "₱ Peso"
 msgstr ""
 
-#: languages/seedprod-pro.php:5583
-msgid "Overlay"
+#: languages/seedprod-pro.php:5581
+msgid "£ Pound Sterling"
 msgstr ""
 
-#: languages/seedprod-pro.php:5586
-msgid "No template parts available."
+#: languages/seedprod-pro.php:5584
+msgid "R$ Real"
 msgstr ""
 
-#: languages/seedprod-pro.php:5589
-msgid "Template Part"
+#: languages/seedprod-pro.php:5587
+msgid "₽ Ruble"
 msgstr ""
 
-#: languages/seedprod-pro.php:5592
-msgid "Select Part"
+#: languages/seedprod-pro.php:5590
+msgid "₨ Rupee"
 msgstr ""
 
-#: languages/seedprod-pro.php:5595
-msgid "No template parts available in SeedProd"
+#: languages/seedprod-pro.php:5593
+msgid "₹ Rupee (Indian)"
 msgstr ""
 
-#: languages/seedprod-pro.php:5598
-msgid "Edit This Template Part"
+#: languages/seedprod-pro.php:5596
+msgid "₪ Shekel"
 msgstr ""
 
-#: languages/seedprod-pro.php:5601
-msgid "Powerful Page Editor"
+#: languages/seedprod-pro.php:5599
+msgid "¥ Yen/Yuan"
 msgstr ""
 
-#: languages/seedprod-pro.php:5604
-msgid "Access Controls"
+#: languages/seedprod-pro.php:5602
+msgid "₩ Won"
 msgstr ""
 
-#: languages/seedprod-pro.php:5607
-msgid "Spread"
+#: languages/seedprod-pro.php:5605
+msgid "Custom Symbol"
 msgstr ""
 
-#: languages/seedprod-pro.php:5610
-msgid "Outline"
+#: languages/seedprod-pro.php:5608
+msgid "Period"
 msgstr ""
 
-#: languages/seedprod-pro.php:5613
-msgid "Inset"
+#: languages/seedprod-pro.php:5611
+msgid "Show Regular Price"
 msgstr ""
 
-#: languages/seedprod-pro.php:5616
-msgid "Mountains"
+#: languages/seedprod-pro.php:5614
+msgid "Regular Price"
 msgstr ""
 
-#: languages/seedprod-pro.php:5619
-msgid "Drops"
+#: languages/seedprod-pro.php:5617
+msgid "Regular Price Label"
 msgstr ""
 
-#: languages/seedprod-pro.php:5622
-msgid "Clouds"
+#: languages/seedprod-pro.php:5620
+msgid "Show Top Button"
 msgstr ""
 
-#: languages/seedprod-pro.php:5625
-msgid "Zigzag"
+#: languages/seedprod-pro.php:5623
+msgid "Top Button Text"
 msgstr ""
 
-#: languages/seedprod-pro.php:5628
-msgid "Pyramids"
+#: languages/seedprod-pro.php:5626
+msgid "Top Button Link"
 msgstr ""
 
-#: languages/seedprod-pro.php:5631
-msgid "Triangle"
+#: languages/seedprod-pro.php:5629
+msgid "Show Bottom Button"
 msgstr ""
 
-#: languages/seedprod-pro.php:5634
-msgid "Triangle Asymmetrical"
+#: languages/seedprod-pro.php:5632
+msgid "Bottom Button Text"
 msgstr ""
 
-#: languages/seedprod-pro.php:5637
-msgid "Tilt"
+#: languages/seedprod-pro.php:5635
+msgid "Bottom Button Link"
 msgstr ""
 
-#: languages/seedprod-pro.php:5640
-msgid "Tilt Opacity"
+#: languages/seedprod-pro.php:5638
+msgid "Top Button Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:5643
-msgid "Fan Opacity"
+#: languages/seedprod-pro.php:5641
+msgid "Features List Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:5646
-msgid "Curve"
+#: languages/seedprod-pro.php:5644
+msgid "Bottom Button Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:5649
-msgid "Curve Asymmetrical"
+#: languages/seedprod-pro.php:5647
+msgid "Bottom Button Size"
 msgstr ""
 
-#: languages/seedprod-pro.php:5652
-msgid "Waves"
+#: languages/seedprod-pro.php:5650
+msgid "Bottom Button Before Text Icon"
 msgstr ""
 
-#: languages/seedprod-pro.php:5655
-msgid "Waves Brush"
+#: languages/seedprod-pro.php:5653
+msgid "Bottom Button After Text Icon"
 msgstr ""
 
-#: languages/seedprod-pro.php:5658
-msgid "Waves Pattern"
+#: languages/seedprod-pro.php:5656
+msgid "Price Superscript"
 msgstr ""
 
-#: languages/seedprod-pro.php:5661
-msgid "Arrow"
+#: languages/seedprod-pro.php:5659
+msgid "Price Superscript Top"
 msgstr ""
 
-#: languages/seedprod-pro.php:5664
-msgid "Split"
+#: languages/seedprod-pro.php:5662
+msgid "Block"
 msgstr ""
 
-#: languages/seedprod-pro.php:5667
-msgid "Book"
-msgstr ""
-
-#: languages/seedprod-pro.php:5670
-msgid "Invert"
+#: languages/seedprod-pro.php:5665
+msgid "Product Data Tabs Preview Not Available"
 msgstr ""
 
 #: languages/seedprod-pro.php:5673
-msgid "Bring to Front"
+msgid "Tab"
 msgstr ""
 
 #: languages/seedprod-pro.php:5676
-msgid "Short Description Preview Not Available"
+msgid "Panel"
 msgstr ""
 
 #: languages/seedprod-pro.php:5679
-msgid "Enter Your Shortcode"
+msgid "Heading"
 msgstr ""
 
-#: languages/seedprod-pro.php:5686
-msgid "Show Shortcode Preview"
+#: languages/seedprod-pro.php:5684
+msgid "Heading Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:5687
+msgid "Panel Padding"
 msgstr ""
 
 #: languages/seedprod-pro.php:5690
-msgid "Facebook"
+msgid "Product Featured Image Preview Not Available"
 msgstr ""
 
-#: languages/seedprod-pro.php:5694
-msgid "Twitter"
+#: languages/seedprod-pro.php:5693
+msgid "Product Meta Preview Not Available"
 msgstr ""
 
-#: languages/seedprod-pro.php:5698
-msgid "LinkedIn"
+#: languages/seedprod-pro.php:5696
+msgid "View"
 msgstr ""
 
-#: languages/seedprod-pro.php:5702
-msgid "Pinterest"
+#: languages/seedprod-pro.php:5699
+msgid "Table"
 msgstr ""
 
-#: languages/seedprod-pro.php:5706
-msgid "YouTube"
+#: languages/seedprod-pro.php:5705
+msgid "Stacked"
 msgstr ""
 
-#: languages/seedprod-pro.php:5709
-msgid "Instagram"
+#: languages/seedprod-pro.php:5708
+msgid "Inline"
 msgstr ""
 
-#: languages/seedprod-pro.php:5712
-msgid "Snapchat"
+#: languages/seedprod-pro.php:5711
+msgid "Product Price Preview Not Available"
 msgstr ""
 
-#: languages/seedprod-pro.php:5715
-msgid "WordPress"
+#: languages/seedprod-pro.php:5714
+msgid "Sale Price"
 msgstr ""
 
-#: languages/seedprod-pro.php:5718
-msgid "Github"
+#: languages/seedprod-pro.php:5717
+msgid "Product Rating Preview Not Available"
 msgstr ""
 
-#: languages/seedprod-pro.php:5721
-msgid "SoundCloud"
-msgstr ""
-
-#: languages/seedprod-pro.php:5724
-msgid "RSS"
-msgstr ""
-
-#: languages/seedprod-pro.php:5727
-msgid "URL (Include https:// for web links)"
-msgstr ""
-
-#: languages/seedprod-pro.php:5730
-msgid "Icon Padding"
+#: languages/seedprod-pro.php:5720
+msgid "Product Related Preview Not Available"
 msgstr ""
 
 #: languages/seedprod-pro.php:5733
-msgid "Phone"
+msgid "Button Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:5736
-msgid "Discord"
-msgstr ""
-
-#: languages/seedprod-pro.php:5739
-msgid "Telegram"
-msgstr ""
-
-#: languages/seedprod-pro.php:5742
-msgid "Facebook Messenger"
+#: languages/seedprod-pro.php:5738
+msgid "Posts Per Page"
 msgstr ""
 
 #: languages/seedprod-pro.php:5745
-msgid "Slack"
+msgid "ID"
 msgstr ""
 
-#: languages/seedprod-pro.php:5748
-msgid "Vimeo"
+#: languages/seedprod-pro.php:5752
+msgid "Popularity"
 msgstr ""
 
-#: languages/seedprod-pro.php:5751
-msgid "Weibo"
+#: languages/seedprod-pro.php:5761
+msgid "Random"
 msgstr ""
 
-#: languages/seedprod-pro.php:5754
-msgid "Whatsapp"
+#: languages/seedprod-pro.php:5770
+msgid "Rating"
 msgstr ""
 
-#: languages/seedprod-pro.php:5757
-msgid "TikTok"
+#: languages/seedprod-pro.php:5777
+msgid "Sale Badge Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:5763
-msgid "Add New Share"
+#: languages/seedprod-pro.php:5783
+msgid "Bar Text"
 msgstr ""
 
-#: languages/seedprod-pro.php:5766
-msgid "Tweet Text"
+#: languages/seedprod-pro.php:5786
+msgid "Percent"
 msgstr ""
 
-#: languages/seedprod-pro.php:5775
-msgid "Star Color"
+#: languages/seedprod-pro.php:5789
+msgid "My Text"
 msgstr ""
 
-#: languages/seedprod-pro.php:5778
-msgid "Empty Star Color"
+#: languages/seedprod-pro.php:5795
+msgid "or"
 msgstr ""
 
-#: languages/seedprod-pro.php:5781
-msgid "Payment Setup"
+#: languages/seedprod-pro.php:5801
+msgid "Drag a new block here"
 msgstr ""
 
-#: languages/seedprod-pro.php:5784
-msgid "Amount"
+#: languages/seedprod-pro.php:5809
+msgid "Choose your layout:"
 msgstr ""
 
-#: languages/seedprod-pro.php:5787
-msgid "Payment Description"
+#: languages/seedprod-pro.php:5812
+msgid "Enter a new block template name:"
 msgstr ""
 
-#: languages/seedprod-pro.php:5790
-msgid "Payment Currency"
+#: languages/seedprod-pro.php:5819
+msgid "Save Template"
 msgstr ""
 
-#: languages/seedprod-pro.php:5793
-msgid "Success URL"
+#: languages/seedprod-pro.php:5822
+msgid "Column Gutter"
 msgstr ""
 
-#: languages/seedprod-pro.php:5796
-msgid "Tab Layout"
+#: languages/seedprod-pro.php:5825
+msgid "Row Width"
 msgstr ""
 
-#: languages/seedprod-pro.php:5799
-msgid "Tab Name"
+#: languages/seedprod-pro.php:5830
+msgid "Full Screen"
 msgstr ""
 
-#: languages/seedprod-pro.php:5802
-msgid "Hide Tab Icon"
+#: languages/seedprod-pro.php:5835
+msgid "Fixed Width"
 msgstr ""
 
-#: languages/seedprod-pro.php:5805
-msgid "Tab Background Color"
+#: languages/seedprod-pro.php:5840
+msgid "Content Width"
 msgstr ""
 
-#: languages/seedprod-pro.php:5808
-msgid "Tab Border Radius"
+#: languages/seedprod-pro.php:5846
+msgid "Search Form Setting"
 msgstr ""
 
-#: languages/seedprod-pro.php:5811
-msgid "Content Border Radius"
+#: languages/seedprod-pro.php:5849
+msgid "Placeholder"
 msgstr ""
 
-#: languages/seedprod-pro.php:5814
-msgid "Content Border Style"
+#: languages/seedprod-pro.php:5852
+msgid "Button Type"
 msgstr ""
 
-#: languages/seedprod-pro.php:5817
-msgid "Content Border Color"
+#: languages/seedprod-pro.php:5855
+msgid "Search Background"
 msgstr ""
 
-#: languages/seedprod-pro.php:5820
-msgid "Content Border Width"
+#: languages/seedprod-pro.php:5858
+msgid "Search Text Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:5823
-msgid "Active Tab Color"
+#: languages/seedprod-pro.php:5861
+msgid "Button Background"
 msgstr ""
 
-#: languages/seedprod-pro.php:5826
-msgid "Active Tab Background"
+#: languages/seedprod-pro.php:5865
+msgid "Enter a new section template name:"
 msgstr ""
 
-#: languages/seedprod-pro.php:5829
-msgid "Content Background"
+#: languages/seedprod-pro.php:5868
+msgid "Section Width"
 msgstr ""
 
-#: languages/seedprod-pro.php:5832
-msgid "Enter Your Templatetag"
+#: languages/seedprod-pro.php:5872
+msgid "Gallery Not Available"
 msgstr ""
 
-#: languages/seedprod-pro.php:5836
-msgid "Templatetag"
+#: languages/seedprod-pro.php:5876
+msgid "Please add gallery images."
 msgstr ""
 
-#: languages/seedprod-pro.php:5839
-msgid "(This templatetag will be rendered on the live preview.)"
-msgstr ""
-
-#: languages/seedprod-pro.php:5842
-msgid "Show Templatetag Preview"
-msgstr ""
-
-#: languages/seedprod-pro.php:5845
-msgid "Add Testimonial"
-msgstr ""
-
-#: languages/seedprod-pro.php:5848
-msgid "Bubble Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:5851
-msgid "Visual Editor"
-msgstr ""
-
-#: languages/seedprod-pro.php:5854
-msgid "Edit HTML"
-msgstr ""
-
-#: languages/seedprod-pro.php:5857
-msgid "Filter by Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:5860
-msgid "Export to a CSV File"
-msgstr ""
-
-#: languages/seedprod-pro.php:5863
-msgid "Premium Email Marketing Integrations"
-msgstr ""
-
-#: languages/seedprod-pro.php:5866
-msgid "Subscribers Over Time"
-msgstr ""
-
-#: languages/seedprod-pro.php:5869
-msgid "See Name and Emails"
-msgstr ""
-
-#: languages/seedprod-pro.php:5874
-msgid "Hide Header"
-msgstr ""
-
-#: languages/seedprod-pro.php:5879
-msgid "Hide Footer"
+#: languages/seedprod-pro.php:5880
+msgid "Loading Gallery Preview"
 msgstr ""
 
 #: languages/seedprod-pro.php:5884
-msgid "Hide Borders"
+msgid "Add Galleries"
 msgstr ""
 
-#: languages/seedprod-pro.php:5889
-msgid "Transparent"
+#: languages/seedprod-pro.php:5888
+msgid "Lazy Load"
 msgstr ""
 
-#: languages/seedprod-pro.php:5894
-msgid "Hide Scrollbar"
+#: languages/seedprod-pro.php:5892
+msgid "Gallery Images"
 msgstr ""
 
-#: languages/seedprod-pro.php:5899
-msgid "Show Replies"
+#: languages/seedprod-pro.php:5896
+msgid "Background Overlay"
 msgstr ""
 
-#: languages/seedprod-pro.php:5904
-msgid "Twitter Handle"
+#: languages/seedprod-pro.php:5900
+msgid "Media File"
 msgstr ""
 
-#: languages/seedprod-pro.php:5910
-msgid "Twitter Setting"
+#: languages/seedprod-pro.php:5903
+msgid "Attachment"
 msgstr ""
 
-#: languages/seedprod-pro.php:5916
-msgid "Language"
+#: languages/seedprod-pro.php:5907
+msgid "Grid"
 msgstr ""
 
-#: languages/seedprod-pro.php:5922
-msgid "Automatic"
+#: languages/seedprod-pro.php:5911
+msgid "Justified"
 msgstr ""
 
-#: languages/seedprod-pro.php:5928
-msgid "English (default)"
+#: languages/seedprod-pro.php:5915
+msgid "Row Height"
 msgstr ""
 
-#: languages/seedprod-pro.php:5934
-msgid "Arabic"
+#: languages/seedprod-pro.php:5919
+msgid "Single"
 msgstr ""
 
-#: languages/seedprod-pro.php:5940
-msgid "Bengali"
+#: languages/seedprod-pro.php:5923
+msgid "Multiple"
 msgstr ""
 
-#: languages/seedprod-pro.php:5946
-msgid "Czech"
+#: languages/seedprod-pro.php:5927
+msgid "Upload Images"
 msgstr ""
 
-#: languages/seedprod-pro.php:5952
-msgid "Danish"
+#: languages/seedprod-pro.php:5931
+msgid "Aspect Ratio"
 msgstr ""
 
-#: languages/seedprod-pro.php:5958
-msgid "German"
+#: languages/seedprod-pro.php:5935
+msgid "1:1"
 msgstr ""
 
-#: languages/seedprod-pro.php:5964
-msgid "Greek"
+#: languages/seedprod-pro.php:5939
+msgid "3:2"
 msgstr ""
 
-#: languages/seedprod-pro.php:5970
-msgid "Spanish"
+#: languages/seedprod-pro.php:5943
+msgid "4:3"
+msgstr ""
+
+#: languages/seedprod-pro.php:5947
+msgid "9:16"
+msgstr ""
+
+#: languages/seedprod-pro.php:5951
+msgid "16:9"
+msgstr ""
+
+#: languages/seedprod-pro.php:5955
+msgid "21:9"
+msgstr ""
+
+#: languages/seedprod-pro.php:5959
+msgid "Thumbnail"
+msgstr ""
+
+#: languages/seedprod-pro.php:5962
+msgid "Lightbox"
+msgstr ""
+
+#: languages/seedprod-pro.php:5965
+msgid "Custom URL"
+msgstr ""
+
+#: languages/seedprod-pro.php:5968
+msgid "Alt"
+msgstr ""
+
+#: languages/seedprod-pro.php:5973
+msgid "Tab Color"
 msgstr ""
 
 #: languages/seedprod-pro.php:5976
-msgid "Persian"
+msgid "Overlay"
+msgstr ""
+
+#: languages/seedprod-pro.php:5979
+msgid "No template parts available."
 msgstr ""
 
 #: languages/seedprod-pro.php:5982
-msgid "Finnish"
+msgid "Template Part"
+msgstr ""
+
+#: languages/seedprod-pro.php:5985
+msgid "Select Part"
 msgstr ""
 
 #: languages/seedprod-pro.php:5988
-msgid "Filipino"
+msgid "No template parts available in SeedProd"
+msgstr ""
+
+#: languages/seedprod-pro.php:5991
+msgid "Edit This Template Part"
 msgstr ""
 
 #: languages/seedprod-pro.php:5994
-msgid "French"
+msgid "Enter Your Shortcode"
 msgstr ""
 
-#: languages/seedprod-pro.php:6000
-msgid "Hebrew"
+#: languages/seedprod-pro.php:6001
+msgid "Show Shortcode Preview"
 msgstr ""
 
-#: languages/seedprod-pro.php:6006
-msgid "Hindi"
+#: languages/seedprod-pro.php:6005
+msgid "Select a Type"
 msgstr ""
 
-#: languages/seedprod-pro.php:6012
-msgid "Hungarian"
+#: languages/seedprod-pro.php:6009
+msgid "Facebook"
 msgstr ""
 
-#: languages/seedprod-pro.php:6018
-msgid "Indonesian"
+#: languages/seedprod-pro.php:6013
+msgid "Twitter"
 msgstr ""
 
-#: languages/seedprod-pro.php:6024
-msgid "Italian"
+#: languages/seedprod-pro.php:6017
+msgid "LinkedIn"
 msgstr ""
 
-#: languages/seedprod-pro.php:6030
-msgid "Japanese"
+#: languages/seedprod-pro.php:6021
+msgid "Pinterest"
 msgstr ""
 
-#: languages/seedprod-pro.php:6036
-msgid "Korean"
+#: languages/seedprod-pro.php:6026
+msgid "YouTube"
 msgstr ""
 
-#: languages/seedprod-pro.php:6042
-msgid "Malay"
+#: languages/seedprod-pro.php:6029
+msgid "Instagram"
 msgstr ""
 
-#: languages/seedprod-pro.php:6048
-msgid "Dutch"
+#: languages/seedprod-pro.php:6032
+msgid "Snapchat"
 msgstr ""
 
-#: languages/seedprod-pro.php:6054
-msgid "Norwegian"
+#: languages/seedprod-pro.php:6035
+msgid "WordPress"
 msgstr ""
 
-#: languages/seedprod-pro.php:6060
-msgid "Polish"
+#: languages/seedprod-pro.php:6038
+msgid "Github"
 msgstr ""
 
-#: languages/seedprod-pro.php:6066
-msgid "Portuguese"
+#: languages/seedprod-pro.php:6041
+msgid "SoundCloud"
 msgstr ""
 
-#: languages/seedprod-pro.php:6072
-msgid "Romanian"
+#: languages/seedprod-pro.php:6044
+msgid "RSS"
 msgstr ""
 
-#: languages/seedprod-pro.php:6078
-msgid "Russian"
+#: languages/seedprod-pro.php:6047
+msgid "Email"
 msgstr ""
 
-#: languages/seedprod-pro.php:6084
-msgid "Swedish"
+#: languages/seedprod-pro.php:6050
+msgid "URL (Include https:// for web links)"
 msgstr ""
 
-#: languages/seedprod-pro.php:6090
-msgid "Thai"
+#: languages/seedprod-pro.php:6053
+msgid "Icon Padding"
 msgstr ""
 
-#: languages/seedprod-pro.php:6096
-msgid "Turkish"
+#: languages/seedprod-pro.php:6056
+msgid "Phone"
 msgstr ""
 
-#: languages/seedprod-pro.php:6102
-msgid "Ukrainian"
+#: languages/seedprod-pro.php:6059
+msgid "Discord"
 msgstr ""
 
-#: languages/seedprod-pro.php:6108
-msgid "Urdu"
+#: languages/seedprod-pro.php:6062
+msgid "Telegram"
 msgstr ""
 
-#: languages/seedprod-pro.php:6114
-msgid "Vietnamese"
+#: languages/seedprod-pro.php:6065
+msgid "Facebook Messenger"
 msgstr ""
 
-#: languages/seedprod-pro.php:6120
-msgid "Chinese (Simplified)"
+#: languages/seedprod-pro.php:6068
+msgid "Slack"
 msgstr ""
 
-#: languages/seedprod-pro.php:6126
-msgid "Chinese (Traditional)"
+#: languages/seedprod-pro.php:6071
+msgid "Vimeo"
 msgstr ""
 
-#: languages/seedprod-pro.php:6129
-msgid "Hide Conversation"
+#: languages/seedprod-pro.php:6074
+msgid "Weibo"
 msgstr ""
 
-#: languages/seedprod-pro.php:6132
-msgid "Hide Photo/Videos/Cards"
+#: languages/seedprod-pro.php:6077
+msgid "Whatsapp"
 msgstr ""
 
-#: languages/seedprod-pro.php:6135
-msgid "Tweet ID"
+#: languages/seedprod-pro.php:6080
+msgid "TikTok"
 msgstr ""
 
-#: languages/seedprod-pro.php:6138
-msgid "Twitter Screen Name"
+#: languages/seedprod-pro.php:6086
+msgid "Add New Share"
 msgstr ""
 
-#: languages/seedprod-pro.php:6141
-msgid "Show Screen Name"
+#: languages/seedprod-pro.php:6089
+msgid "Tweet Text"
 msgstr ""
 
-#: languages/seedprod-pro.php:6144
-msgid "Show Count"
+#: languages/seedprod-pro.php:6095
+msgid "Star Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:6148
-msgid "Via"
+#: languages/seedprod-pro.php:6098
+msgid "Empty Star Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:6152
-msgid "Related"
+#: languages/seedprod-pro.php:6101
+msgid "Tab Layout"
 msgstr ""
 
-#: languages/seedprod-pro.php:6155
-msgid "Url"
+#: languages/seedprod-pro.php:6104
+msgid "Tab Name"
 msgstr ""
 
-#: languages/seedprod-pro.php:6158
-msgid "Hashtags"
+#: languages/seedprod-pro.php:6107
+msgid "Hide Tab Icon"
 msgstr ""
 
-#: languages/seedprod-pro.php:6161
-msgid "Typography"
+#: languages/seedprod-pro.php:6110
+msgid "Tab Background Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:6164
-msgid "Line Height"
+#: languages/seedprod-pro.php:6113
+msgid "Tab Border Radius"
+msgstr ""
+
+#: languages/seedprod-pro.php:6116
+msgid "Content Border Radius"
+msgstr ""
+
+#: languages/seedprod-pro.php:6119
+msgid "Content Border Style"
+msgstr ""
+
+#: languages/seedprod-pro.php:6122
+msgid "Content Border Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:6125
+msgid "Content Border Width"
+msgstr ""
+
+#: languages/seedprod-pro.php:6128
+msgid "Active Tab Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:6131
+msgid "Active Tab Background"
+msgstr ""
+
+#: languages/seedprod-pro.php:6134
+msgid "Content Background"
+msgstr ""
+
+#: languages/seedprod-pro.php:6137
+msgid "Add Testimonial"
+msgstr ""
+
+#: languages/seedprod-pro.php:6140
+msgid "Bubble Color"
+msgstr ""
+
+#: languages/seedprod-pro.php:6143
+msgid "Visual Editor"
+msgstr ""
+
+#: languages/seedprod-pro.php:6146
+msgid "Edit HTML"
+msgstr ""
+
+#: languages/seedprod-pro.php:6153
+msgid "Hide Header"
+msgstr ""
+
+#: languages/seedprod-pro.php:6160
+msgid "Hide Footer"
 msgstr ""
 
 #: languages/seedprod-pro.php:6167
-msgid "Letter Spacing"
+msgid "Hide Borders"
 msgstr ""
 
-#: languages/seedprod-pro.php:6170
-msgid "Letter Case"
-msgstr ""
-
-#: languages/seedprod-pro.php:6175
-msgid "YouTube URL"
-msgstr ""
-
-#: languages/seedprod-pro.php:6178
-msgid "Custom Video Code"
+#: languages/seedprod-pro.php:6174
+msgid "Transparent"
 msgstr ""
 
 #: languages/seedprod-pro.php:6181
-msgid "Product ID"
+msgid "Hide Scrollbar"
 msgstr ""
 
-#: languages/seedprod-pro.php:6184
-msgid "Direct To Checkout"
+#: languages/seedprod-pro.php:6188
+msgid "Show Replies"
 msgstr ""
 
-#: languages/seedprod-pro.php:6191
-msgid "Headers"
+#: languages/seedprod-pro.php:6195
+msgid "Twitter Handle"
 msgstr ""
 
-#: languages/seedprod-pro.php:6196
-msgid "Alerts"
+#: languages/seedprod-pro.php:6204
+msgid "Twitter Setting"
 msgstr ""
 
-#: languages/seedprod-pro.php:6206
-msgid "Payment Section"
+#: languages/seedprod-pro.php:6213
+msgid "Language"
 msgstr ""
 
-#: languages/seedprod-pro.php:6211
-msgid "One Column"
-msgstr ""
-
-#: languages/seedprod-pro.php:6216
-msgid "Two Column"
-msgstr ""
-
-#: languages/seedprod-pro.php:6221
-msgid "Info Highlight Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:6226
-msgid "Error Highlight Color"
+#: languages/seedprod-pro.php:6222
+msgid "Automatic"
 msgstr ""
 
 #: languages/seedprod-pro.php:6231
-msgid "Success Highlight Color"
+msgid "English (default)"
 msgstr ""
 
-#: languages/seedprod-pro.php:6236
-msgid "Cart Border Color"
+#: languages/seedprod-pro.php:6240
+msgid "Arabic"
 msgstr ""
 
-#: languages/seedprod-pro.php:6241
-msgid "Cart Border Width"
+#: languages/seedprod-pro.php:6249
+msgid "Bengali"
 msgstr ""
 
-#: languages/seedprod-pro.php:6246
-msgid "Header Background Color"
+#: languages/seedprod-pro.php:6258
+msgid "Czech"
 msgstr ""
 
-#: languages/seedprod-pro.php:6251
-msgid "Header Font Family"
+#: languages/seedprod-pro.php:6267
+msgid "Danish"
 msgstr ""
 
-#: languages/seedprod-pro.php:6254
-msgid "Products Preview Not Available"
+#: languages/seedprod-pro.php:6276
+msgid "German"
 msgstr ""
 
-#: languages/seedprod-pro.php:6257
-msgid "Query"
+#: languages/seedprod-pro.php:6285
+msgid "Greek"
 msgstr ""
 
-#: languages/seedprod-pro.php:6260
-msgid "All Products"
+#: languages/seedprod-pro.php:6294
+msgid "Spanish"
 msgstr ""
 
-#: languages/seedprod-pro.php:6278
-msgid "Include By"
+#: languages/seedprod-pro.php:6303
+msgid "Persian"
 msgstr ""
 
-#: languages/seedprod-pro.php:6281
-msgid "Exclude By"
+#: languages/seedprod-pro.php:6312
+msgid "Finnish"
 msgstr ""
 
-#: languages/seedprod-pro.php:6284
-msgid "Term"
+#: languages/seedprod-pro.php:6321
+msgid "Filipino"
 msgstr ""
 
-#: languages/seedprod-pro.php:6287
-msgid "Limit"
+#: languages/seedprod-pro.php:6330
+msgid "French"
 msgstr ""
 
-#: languages/seedprod-pro.php:6290
-msgid "Select By SKU"
+#: languages/seedprod-pro.php:6339
+msgid "Hebrew"
 msgstr ""
 
-#: languages/seedprod-pro.php:6293
-msgid "- Select SKU(s) -"
+#: languages/seedprod-pro.php:6348
+msgid "Hindi"
 msgstr ""
 
-#: languages/seedprod-pro.php:6296
-msgid "Select By Category"
+#: languages/seedprod-pro.php:6357
+msgid "Hungarian"
 msgstr ""
 
-#: languages/seedprod-pro.php:6299
-msgid "Select By Tags"
+#: languages/seedprod-pro.php:6366
+msgid "Indonesian"
 msgstr ""
 
-#: languages/seedprod-pro.php:6302
-msgid "- Select Tags -"
+#: languages/seedprod-pro.php:6375
+msgid "Italian"
 msgstr ""
 
-#: languages/seedprod-pro.php:6305
-msgid "Select By Group"
+#: languages/seedprod-pro.php:6384
+msgid "Japanese"
 msgstr ""
 
-#: languages/seedprod-pro.php:6308
-msgid "- Select Group -"
+#: languages/seedprod-pro.php:6393
+msgid "Korean"
 msgstr ""
 
-#: languages/seedprod-pro.php:6311
-msgid "On Sale"
+#: languages/seedprod-pro.php:6402
+msgid "Malay"
 msgstr ""
 
-#: languages/seedprod-pro.php:6314
-msgid "Best Selling"
+#: languages/seedprod-pro.php:6411
+msgid "Dutch"
 msgstr ""
 
-#: languages/seedprod-pro.php:6317
-msgid "Top Rated"
+#: languages/seedprod-pro.php:6420
+msgid "Norwegian"
 msgstr ""
 
-#: languages/seedprod-pro.php:6320
-msgid "Query By Attribute"
-msgstr ""
-
-#: languages/seedprod-pro.php:6323
-msgid "- Select Attribute -"
-msgstr ""
-
-#: languages/seedprod-pro.php:6326
-msgid "- Select Attribute Terms -"
-msgstr ""
-
-#: languages/seedprod-pro.php:6329
-msgid "Include Selected Terms"
-msgstr ""
-
-#: languages/seedprod-pro.php:6332
-msgid "Exclude Selected Terms"
-msgstr ""
-
-#: languages/seedprod-pro.php:6335
-msgid "Include Selected Tags"
-msgstr ""
-
-#: languages/seedprod-pro.php:6338
-msgid "Exclude Selected Tags"
-msgstr ""
-
-#: languages/seedprod-pro.php:6341
-msgid "Exclude Selected Categories"
-msgstr ""
-
-#: languages/seedprod-pro.php:6344
-msgid "Select By Visibility"
-msgstr ""
-
-#: languages/seedprod-pro.php:6347
-msgid "- Select Product Visibility -"
-msgstr ""
-
-#: languages/seedprod-pro.php:6350
-msgid "Catalog"
-msgstr ""
-
-#: languages/seedprod-pro.php:6353
-msgid "Featured"
-msgstr ""
-
-#: languages/seedprod-pro.php:6356
-msgid "Custom Query"
-msgstr ""
-
-#: languages/seedprod-pro.php:6359
-msgid "Select By ID"
-msgstr ""
-
-#: languages/seedprod-pro.php:6362
-msgid "- Select ID(s) -"
-msgstr ""
-
-#: languages/seedprod-pro.php:6365
-msgid "Show Items Count"
-msgstr ""
-
-#: languages/seedprod-pro.php:6368
-msgid "Show Order By"
-msgstr ""
-
-#: languages/seedprod-pro.php:6374
-msgid "(Click 'Apply' on the Widget Settings to see changes)"
-msgstr ""
-
-#: languages/seedprod-pro.php:6377
-msgid "Widget Settings"
-msgstr ""
-
-#: languages/seedprod-pro.php:6380
-msgid "Heading Bottom Margin"
-msgstr ""
-
-#: languages/seedprod-pro.php:6383
-msgid "Visit Docs&nbsp;<i class=\"fas fa-external-link-alt\"></i>"
-msgstr ""
-
-#: languages/seedprod-pro.php:6386
-msgid " is a PRO Feature"
-msgstr ""
-
-#: languages/seedprod-pro.php:6389
-msgid " feature is not available on your plan. Please upgrade to the PRO plan to unlock all these awesome features."
-msgstr ""
-
-#: languages/seedprod-pro.php:6392
-msgid "UPGRADE TO PRO"
-msgstr ""
-
-#: languages/seedprod-pro.php:6395
-msgid "<strong>Bonus:</strong>&nbsp;SeedProd Lite users get a discount off the regular price, automatically applied at checkout."
-msgstr ""
-
-#: languages/seedprod-pro.php:6398
-msgid "Thanks for your interest in SeedProd Pro!<br>If you have any questions or issues just <a href='https://www.seedprod.com/?contact=1' target='_blank'>let us know</a>.<br><br>After purchasing SeedProd Pro, you'll need to download and install the Pro version of the plugin, and then remove the free plugin. <br><br>(Don't worry, all your settings will be preserved.)"
-msgstr ""
-
-#: languages/seedprod-pro.php:6401
-msgid "Upgrade to PRO"
-msgstr ""
-
-#: languages/seedprod-pro.php:6404
-msgid "Increase traffic, engagement, and get more email subscribers. Click below to learn more about all our awesome features."
-msgstr ""
-
-#: languages/seedprod-pro.php:6407
-msgid "Upgrade to Unlock "
-msgstr ""
-
-#: languages/seedprod-pro.php:6410
-msgid "We're sorry, the "
-msgstr ""
-
-#: languages/seedprod-pro.php:6413
-msgid " feature is not available on your plan. Please upgrade your plan to unlock this feature and more!"
-msgstr ""
-
-#: languages/seedprod-pro.php:6416
-msgid "Upgrade with just a click of a button!"
-msgstr ""
-
-#: languages/seedprod-pro.php:6421
-msgid "Are you sure you want to delete?"
-msgstr ""
-
-#: languages/seedprod-pro.php:6426
-msgid "Yes, delete it!"
-msgstr ""
-
-#: languages/seedprod-pro.php:6431
-msgid "Editing:"
-msgstr ""
-
-#: languages/seedprod-pro.php:6434
-msgid "Global CSS Settings"
+#: languages/seedprod-pro.php:6429
+msgid "Polish"
 msgstr ""
 
 #: languages/seedprod-pro.php:6438
-msgid "Header Font"
+msgid "Portuguese"
 msgstr ""
 
-#: languages/seedprod-pro.php:6442
-msgid "Body Text Font"
+#: languages/seedprod-pro.php:6447
+msgid "Romanian"
 msgstr ""
 
-#: languages/seedprod-pro.php:6446
-msgid "Use Video Background"
+#: languages/seedprod-pro.php:6456
+msgid "Russian"
 msgstr ""
 
-#: languages/seedprod-pro.php:6450
-msgid "The video background will not be displayed on mobile devices or in the editor preview."
-msgstr ""
-
-#: languages/seedprod-pro.php:6454
-msgid "Play on auto-loop"
-msgstr ""
-
-#: languages/seedprod-pro.php:6458
-msgid "Enter your custom css below"
-msgstr ""
-
-#: languages/seedprod-pro.php:6462
-msgid "Edit Custom CSS"
-msgstr ""
-
-#: languages/seedprod-pro.php:6466
-msgid "Font Themes Library"
-msgstr ""
-
-#: languages/seedprod-pro.php:6470
-msgid "Search colors..."
+#: languages/seedprod-pro.php:6465
+msgid "Swedish"
 msgstr ""
 
 #: languages/seedprod-pro.php:6474
-msgid "Search fonts..."
+msgid "Thai"
 msgstr ""
 
-#: languages/seedprod-pro.php:6478
-msgid "Links"
+#: languages/seedprod-pro.php:6483
+msgid "Turkish"
 msgstr ""
 
-#: languages/seedprod-pro.php:6482
-msgid "Font Themes"
+#: languages/seedprod-pro.php:6492
+msgid "Ukrainian"
 msgstr ""
 
-#: languages/seedprod-pro.php:6486
-msgid "Color Palettes"
-msgstr ""
-
-#: languages/seedprod-pro.php:6490
-msgid "Fonts"
-msgstr ""
-
-#: languages/seedprod-pro.php:6494
-msgid "Custom CSS"
-msgstr ""
-
-#: languages/seedprod-pro.php:6498
-msgid "All Palettes"
-msgstr ""
-
-#: languages/seedprod-pro.php:6502
-msgid "All Themes"
-msgstr ""
-
-#: languages/seedprod-pro.php:6506
-msgid "Serif"
+#: languages/seedprod-pro.php:6501
+msgid "Urdu"
 msgstr ""
 
 #: languages/seedprod-pro.php:6510
-msgid "Sans Serif"
+msgid "Vietnamese"
 msgstr ""
 
-#: languages/seedprod-pro.php:6514
-msgid "Background Slideshow"
+#: languages/seedprod-pro.php:6519
+msgid "Chinese (Simplified)"
 msgstr ""
 
-#: languages/seedprod-pro.php:6518
-msgid "Slideshow Images"
+#: languages/seedprod-pro.php:6528
+msgid "Chinese (Traditional)"
 msgstr ""
 
-#: languages/seedprod-pro.php:6522
-msgid "Add New Slide"
+#: languages/seedprod-pro.php:6531
+msgid "Hide Conversation"
 msgstr ""
 
-#: languages/seedprod-pro.php:6526
-msgid "The background slideshow will not be shown in the editor preview. The slides will only be displayed in the live preview."
+#: languages/seedprod-pro.php:6534
+msgid "Hide Photo/Videos/Cards"
 msgstr ""
 
-#: languages/seedprod-pro.php:6529
-msgid "Add Custom Color"
+#: languages/seedprod-pro.php:6537
+msgid "Tweet ID"
 msgstr ""
 
-#: languages/seedprod-pro.php:6532
-msgid "Body Text Color"
+#: languages/seedprod-pro.php:6540
+msgid "Twitter Screen Name"
 msgstr ""
 
-#: languages/seedprod-pro.php:6535
-msgid "Show H1 - H6 Settings"
+#: languages/seedprod-pro.php:6543
+msgid "Show Screen Name"
 msgstr ""
 
-#: languages/seedprod-pro.php:6538
-msgid "H1 "
+#: languages/seedprod-pro.php:6546
+msgid "Show Count"
 msgstr ""
 
-#: languages/seedprod-pro.php:6541
-msgid "H1 Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:6544
-msgid "H2 "
-msgstr ""
-
-#: languages/seedprod-pro.php:6547
-msgid "H2 Color"
-msgstr ""
-
-#: languages/seedprod-pro.php:6550
-msgid "H3 "
-msgstr ""
-
-#: languages/seedprod-pro.php:6553
-msgid "H3 Color"
+#: languages/seedprod-pro.php:6551
+msgid "Via"
 msgstr ""
 
 #: languages/seedprod-pro.php:6556
-msgid "H4 "
+msgid "Related"
 msgstr ""
 
 #: languages/seedprod-pro.php:6559
-msgid "H4 Color"
+msgid "Url"
 msgstr ""
 
 #: languages/seedprod-pro.php:6562
-msgid "H5 "
+msgid "Hashtags"
 msgstr ""
 
 #: languages/seedprod-pro.php:6565
-msgid "H5 Color"
+msgid "YouTube URL"
 msgstr ""
 
 #: languages/seedprod-pro.php:6568
-msgid "H6 "
+msgid "Custom Video Code"
 msgstr ""
 
 #: languages/seedprod-pro.php:6571
-msgid "H6 Color"
+msgid "Product ID"
 msgstr ""
 
 #: languages/seedprod-pro.php:6574
-msgid "Body Text"
+msgid "Direct To Checkout"
 msgstr ""
 
-#: languages/seedprod-pro.php:6577
-msgid "Desktop BG"
+#: languages/seedprod-pro.php:6581
+msgid "Headers"
 msgstr ""
 
-#: languages/seedprod-pro.php:6580
-msgid "Mobile BG"
+#: languages/seedprod-pro.php:6588
+msgid "Alerts"
 msgstr ""
 
-#: languages/seedprod-pro.php:6583
-msgid "Row Default Max Width"
+#: languages/seedprod-pro.php:6602
+msgid "Payment Section"
 msgstr ""
 
-#: languages/seedprod-pro.php:6586
-msgid "Forms"
-msgstr ""
-
-#: languages/seedprod-pro.php:6589
-msgid "Field"
-msgstr ""
-
-#: languages/seedprod-pro.php:6592
-msgid "Field Border Style"
-msgstr ""
-
-#: languages/seedprod-pro.php:6595
-msgid "Field Padding"
-msgstr ""
-
-#: languages/seedprod-pro.php:6598
-msgid "Header Default Bottom Margin"
-msgstr ""
-
-#: languages/seedprod-pro.php:6601
-msgid "Paragraph Default Bottom Margin"
-msgstr ""
-
-#: languages/seedprod-pro.php:6604
-msgid "Label Default Bottom Margin"
-msgstr ""
-
-#: languages/seedprod-pro.php:6607
-msgid "Expand All"
-msgstr ""
-
-#: languages/seedprod-pro.php:6610
-msgid "Collapse All"
-msgstr ""
-
-#: languages/seedprod-pro.php:6613
-msgid "Section"
+#: languages/seedprod-pro.php:6609
+msgid "One Column"
 msgstr ""
 
 #: languages/seedprod-pro.php:6616
-msgid "Loading Revisons"
+msgid "Two Column"
 msgstr ""
 
-#: languages/seedprod-pro.php:6619
-msgid "Click to preview version:"
+#: languages/seedprod-pro.php:6623
+msgid "Info Highlight Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:6622
-msgid "Current Version"
+#: languages/seedprod-pro.php:6630
+msgid "Error Highlight Color"
 msgstr ""
 
-#: languages/seedprod-pro.php:6625
-msgid "by"
-msgstr ""
-
-#: languages/seedprod-pro.php:6628
-msgid "There are no revisons to show."
-msgstr ""
-
-#: languages/seedprod-pro.php:6631
-msgid "ago"
-msgstr ""
-
-#: languages/seedprod-pro.php:6634
-msgid "Choose This Section"
-msgstr ""
-
-#: languages/seedprod-pro.php:6638
-msgid "Deleted!"
-msgstr ""
-
-#: languages/seedprod-pro.php:6641
-msgid "All Sections"
+#: languages/seedprod-pro.php:6637
+msgid "Success Highlight Color"
 msgstr ""
 
 #: languages/seedprod-pro.php:6644
-msgid "Favorites"
-msgstr ""
-
-#: languages/seedprod-pro.php:6647
-msgid "Categories:"
+msgid "Cart Border Color"
 msgstr ""
 
 #: languages/seedprod-pro.php:6651
-msgid "Blocks"
+msgid "Cart Border Width"
 msgstr ""
 
-#: languages/seedprod-pro.php:6655
-msgid "Sections"
-msgstr ""
-
-#: languages/seedprod-pro.php:6659
-msgid "Access Control"
-msgstr ""
-
-#: languages/seedprod-pro.php:6662
-msgid "Exclude Default:"
+#: languages/seedprod-pro.php:6658
+msgid "Header Background Color"
 msgstr ""
 
 #: languages/seedprod-pro.php:6665
-msgid "By default we exclude urls with the terms: login, admin, dashboard and account to prevent lockouts."
+msgid "Header Font Family"
 msgstr ""
 
 #: languages/seedprod-pro.php:6668
-msgid "Bypass Cookie:"
+msgid "Products Preview Not Available"
 msgstr ""
 
 #: languages/seedprod-pro.php:6671
-msgid "Use cookies instead of creating a WordPress user for the bypass. Note: this may not work on sites that are cached. Learn More"
+msgid "Query"
 msgstr ""
 
 #: languages/seedprod-pro.php:6674
-msgid "Bypass URL:"
-msgstr ""
-
-#: languages/seedprod-pro.php:6677
-msgid "Bypass URL Expires:"
-msgstr ""
-
-#: languages/seedprod-pro.php:6680
-msgid "Access by IP:"
-msgstr ""
-
-#: languages/seedprod-pro.php:6683
-msgid "Access by Role:"
-msgstr ""
-
-#: languages/seedprod-pro.php:6686
-msgid "By default anyone logged in will see the regular website and not the coming soon page. To override this select Roles that will be given access to see the regular website."
-msgstr ""
-
-#: languages/seedprod-pro.php:6689
-msgid "Include/Exclude URLs:"
+msgid "All Products"
 msgstr ""
 
 #: languages/seedprod-pro.php:6692
-msgid "Show on the Entire Website"
+msgid "Include"
 msgstr ""
 
 #: languages/seedprod-pro.php:6695
-msgid "Show on the Entire Website except for the Blog"
+msgid "Exclude"
 msgstr ""
 
 #: languages/seedprod-pro.php:6698
-msgid "Show on the Home Page Only"
+msgid "Include By"
 msgstr ""
 
 #: languages/seedprod-pro.php:6701
-msgid "Include URLs"
+msgid "Exclude By"
 msgstr ""
 
 #: languages/seedprod-pro.php:6704
-msgid "Exclude URLs"
+msgid "Term"
 msgstr ""
 
 #: languages/seedprod-pro.php:6707
-msgid "By default the Coming Soon/Maintenance page is shown on every page. Use the 'Show on the Home Page Only' option to only show on the home page. Alternatively Include or Exclude URLs."
+msgid "General"
 msgstr ""
 
 #: languages/seedprod-pro.php:6710
-msgid "Enter a phrase above and give your visitors a secret url that will allow them to bypass the Coming Soon page."
+msgid "Limit"
 msgstr ""
 
 #: languages/seedprod-pro.php:6713
-msgid "After the bypass url expires the user will need to revisit the bypass url to regain access."
+msgid "Select By SKU"
 msgstr ""
 
 #: languages/seedprod-pro.php:6716
-msgid "One IP Address per line"
+msgid "- Select SKU(s) -"
 msgstr ""
 
 #: languages/seedprod-pro.php:6719
-msgid "All visitors from certain IP's to bypass the Coming Soon page."
+msgid "Select By Category"
 msgstr ""
 
 #: languages/seedprod-pro.php:6722
-msgid "Put each IP on it's own line. Your current IP is:"
+msgid "Select By Tags"
 msgstr ""
 
 #: languages/seedprod-pro.php:6725
-msgid "Add Role"
+msgid "- Select Tags -"
 msgstr ""
 
 #: languages/seedprod-pro.php:6728
-msgid "Include certain urls to display the Coming Soon or Maintenance Page."
+msgid "Select By Group"
 msgstr ""
 
 #: languages/seedprod-pro.php:6731
-msgid "One per line. You may also enter a page or post id."
+msgid "- Select Group -"
 msgstr ""
 
 #: languages/seedprod-pro.php:6734
-msgid "Exclude certain urls to display the Coming Soon or Maintenance Page."
+msgid "On Sale"
 msgstr ""
 
 #: languages/seedprod-pro.php:6737
-msgid "Example: /about-us/"
+msgid "Best Selling"
 msgstr ""
 
-#: languages/seedprod-pro.php:6741
-msgid "Analytics"
+#: languages/seedprod-pro.php:6740
+msgid "Top Rated"
 msgstr ""
 
-#: languages/seedprod-pro.php:6744
-msgid "Your Analytics settings are being managed by:"
+#: languages/seedprod-pro.php:6743
+msgid "Query By Attribute"
 msgstr ""
 
-#: languages/seedprod-pro.php:6747
-msgid "Edit Analytics Settings"
+#: languages/seedprod-pro.php:6746
+msgid "- Select Attribute -"
 msgstr ""
 
-#: languages/seedprod-pro.php:6751
-msgid "Your SEO settings are being managed by:"
+#: languages/seedprod-pro.php:6749
+msgid "- Select Attribute Terms -"
 msgstr ""
 
-#: languages/seedprod-pro.php:6754
-msgid "Install Google Analytics plugin:"
+#: languages/seedprod-pro.php:6752
+msgid "Include Selected Terms"
 msgstr ""
 
-#: languages/seedprod-pro.php:6757
-msgid "Install MonsterInsights"
+#: languages/seedprod-pro.php:6755
+msgid "Exclude Selected Terms"
 msgstr ""
 
-#: languages/seedprod-pro.php:6760
-msgid "Activate MonsterInsights"
+#: languages/seedprod-pro.php:6758
+msgid "Include Selected Tags"
 msgstr ""
 
-#: languages/seedprod-pro.php:6763
-msgid "Install Analytics plugin:"
+#: languages/seedprod-pro.php:6761
+msgid "Exclude Selected Tags"
+msgstr ""
+
+#: languages/seedprod-pro.php:6764
+msgid "Exclude Selected Categories"
 msgstr ""
 
 #: languages/seedprod-pro.php:6767
-msgid "Custom Domain"
+msgid "Select By Visibility"
 msgstr ""
 
 #: languages/seedprod-pro.php:6770
-msgid "Custom Domain:"
+msgid "- Select Product Visibility -"
 msgstr ""
 
 #: languages/seedprod-pro.php:6773
-msgid "OFF"
+msgid "Visible"
 msgstr ""
 
 #: languages/seedprod-pro.php:6776
-msgid "ON"
+msgid "Catalog"
 msgstr ""
 
 #: languages/seedprod-pro.php:6779
-msgid "Domain Name:"
+msgid "Search"
 msgstr ""
 
 #: languages/seedprod-pro.php:6782
-msgid "Please enter your domain."
+msgid "Hidden"
 msgstr ""
 
 #: languages/seedprod-pro.php:6785
-msgid "Click here to learn more"
+msgid "Featured"
 msgstr ""
 
 #: languages/seedprod-pro.php:6788
-msgid "how to map your custom domain."
+msgid "Custom Query"
 msgstr ""
 
 #: languages/seedprod-pro.php:6791
-msgid "Force HTTPS"
+msgid "Select By ID"
 msgstr ""
 
 #: languages/seedprod-pro.php:6794
-msgid "Only enable this if you have an SSL certificate installed and you wish to redirect users to https://"
+msgid "- Select ID(s) -"
 msgstr ""
 
 #: languages/seedprod-pro.php:6797
-msgid "Please enter a valid URL that will be pointed to this landing page, such as"
+msgid "Show Items Count"
 msgstr ""
 
 #: languages/seedprod-pro.php:6800
-msgid "It should look something like, 'mynewdomain.com' or 'mynewdomain.com/coming-soon'"
-msgstr ""
-
-#: languages/seedprod-pro.php:6803
-msgid "You can leave out the 'http://'. If you are using 'https://', turn on Force HTTPS below."
+msgid "Show Order By"
 msgstr ""
 
 #: languages/seedprod-pro.php:6806
-msgid "Page Title:"
+msgid "(Click 'Apply' on the Widget Settings to see changes)"
 msgstr ""
 
-#: languages/seedprod-pro.php:6810
-msgid "Page URL:"
+#: languages/seedprod-pro.php:6809
+msgid "Apply"
 msgstr ""
 
-#: languages/seedprod-pro.php:6813
-msgid "Page Status:"
+#: languages/seedprod-pro.php:6812
+msgid "Widget Settings"
 msgstr ""
 
-#: languages/seedprod-pro.php:6816
-msgid "Draft"
+#: languages/seedprod-pro.php:6815
+msgid "Heading Bottom Margin"
 msgstr ""
 
-#: languages/seedprod-pro.php:6820
-msgid "Publish"
+#: languages/seedprod-pro.php:6818
+msgid "Visit Docs&nbsp;<i class=\"fas fa-external-link-alt\"></i>"
 msgstr ""
 
-#: languages/seedprod-pro.php:6823
-msgid "\"Powered by SeedProd\""
+#: languages/seedprod-pro.php:6821
+msgid " is a PRO Feature"
 msgstr ""
 
-#: languages/seedprod-pro.php:6826
-msgid "Choose New Template:"
+#: languages/seedprod-pro.php:6824
+msgid " feature is not available on your plan. Please upgrade to the PRO plan to unlock all these awesome features."
 msgstr ""
 
-#: languages/seedprod-pro.php:6829
-msgid "Redirect Mode"
+#: languages/seedprod-pro.php:6827
+msgid "UPGRADE TO PRO"
 msgstr ""
 
-#: languages/seedprod-pro.php:6832
-msgid "Redirect URL: A temporary redirect (302 status) will be created to the url entered."
+#: languages/seedprod-pro.php:6830
+msgid "<strong>Bonus:</strong>&nbsp;SeedProd Lite users get a discount off the regular price, automatically applied at checkout."
 msgstr ""
 
-#: languages/seedprod-pro.php:6835
-msgid "Enable"
+#: languages/seedprod-pro.php:6833
+msgid "Thanks for your interest in SeedProd Pro!<br>If you have any questions or issues just <a href='https://www.seedprod.com/?contact=1' target='_blank'>let us know</a>.<br><br>After purchasing SeedProd Pro, you'll need to download and install the Pro version of the plugin, and then remove the free plugin. <br><br>(Don't worry, all your settings will be preserved.)"
 msgstr ""
 
-#: languages/seedprod-pro.php:6838
-msgid "Redirect URL: A permanent redirect (301 status) will be created to the url entered."
+#: languages/seedprod-pro.php:6836
+msgid "Upgrade to PRO"
 msgstr ""
 
-#: languages/seedprod-pro.php:6841
-msgid "SeedProd Link"
+#: languages/seedprod-pro.php:6839
+msgid "Increase traffic, engagement, and get more email subscribers. Click below to learn more about all our awesome features."
 msgstr ""
 
-#: languages/seedprod-pro.php:6844
-msgid "Enter Your Affiliate URL and Make Money with SeedProd"
+#: languages/seedprod-pro.php:6842
+msgid "Upgrade to Unlock "
 msgstr ""
 
-#: languages/seedprod-pro.php:6847
-msgid "Join our affiliate program"
+#: languages/seedprod-pro.php:6845
+msgid "We're sorry, the "
 msgstr ""
 
-#: languages/seedprod-pro.php:6850
-msgid "and get a 20% commission on all sales generated from your powered by link."
+#: languages/seedprod-pro.php:6848
+msgid " feature is not available on your plan. Please upgrade your plan to unlock this feature and more!"
 msgstr ""
 
-#: languages/seedprod-pro.php:6853
-msgid "Isolation Mode"
+#: languages/seedprod-pro.php:6851
+msgid "Upgrade with just a click of a button!"
 msgstr ""
 
-#: languages/seedprod-pro.php:6856
-msgid "Redirect the Default Login Page"
+#: languages/seedprod-pro.php:6854
+msgid "Are you sure you want to delete?"
 msgstr ""
 
-#: languages/seedprod-pro.php:6859
-msgid "Facebook App ID:"
+#: languages/seedprod-pro.php:6857
+msgid "Yes, delete it!"
+msgstr ""
+
+#: languages/seedprod-pro.php:6860
+msgid "Expand All"
 msgstr ""
 
 #: languages/seedprod-pro.php:6863
-msgid "SEO"
+msgid "Collapse All"
 msgstr ""
 
 #: languages/seedprod-pro.php:6866
-msgid "Yoast SEO"
+msgid "Section"
 msgstr ""
 
 #: languages/seedprod-pro.php:6869
-msgid "Edit this page's SEO Settings"
-msgstr ""
-
-#: languages/seedprod-pro.php:6872
-msgid "Install All In One SEO"
-msgstr ""
-
-#: languages/seedprod-pro.php:6875
-msgid "Activate All in One SEO"
-msgstr ""
-
-#: languages/seedprod-pro.php:6878
-msgid "Install SEO plugin:"
-msgstr ""
-
-#: languages/seedprod-pro.php:6882
-msgid "Scripts"
-msgstr ""
-
-#: languages/seedprod-pro.php:6885
-msgid "Header Scripts:"
-msgstr ""
-
-#: languages/seedprod-pro.php:6888
-msgid "This code will be rendered before the closing &lt;/head&gt; tag."
-msgstr ""
-
-#: languages/seedprod-pro.php:6891
-msgid "Footer Scripts:"
-msgstr ""
-
-#: languages/seedprod-pro.php:6894
-msgid "The code will be rendered before the closing &lt;/body&gt; tag."
-msgstr ""
-
-#: languages/seedprod-pro.php:6897
-msgid "Body Scripts:"
-msgstr ""
-
-#: languages/seedprod-pro.php:6900
-msgid "The code will be rendered after the &lt;body&gt; tag."
-msgstr ""
-
-#: languages/seedprod-pro.php:6903
-msgid "You do not have the proper WordPress permissions to add scripts."
-msgstr ""
-
-#: languages/seedprod-pro.php:6906
 msgid "Design"
 msgstr ""
 
-#: languages/seedprod-pro.php:6909
+#: languages/seedprod-pro.php:6872
 msgid "Connect"
 msgstr ""
 
-#: languages/seedprod-pro.php:6912
+#: languages/seedprod-pro.php:6875
 msgid "You have unsaved changes. Are you sure you want to lose these changes?"
 msgstr ""
 
-#: languages/seedprod-pro.php:6915
+#: languages/seedprod-pro.php:6878
 msgid "Exit Without Saving"
 msgstr ""
 
-#: languages/seedprod-pro.php:6918
+#: languages/seedprod-pro.php:6881
 msgid "template has been saved!"
 msgstr ""
 
-#: languages/seedprod-pro.php:6921
+#: languages/seedprod-pro.php:6884
 msgid "You can find it in your template library when you create a new landing page."
 msgstr ""
 
-#: languages/seedprod-pro.php:6924
+#: languages/seedprod-pro.php:6887
 msgid "Enter a new template name:"
 msgstr ""
 
-#: languages/seedprod-pro.php:6927
+#: languages/seedprod-pro.php:6890
 msgid "Your page has been published!"
 msgstr ""
 
-#: languages/seedprod-pro.php:6930
+#: languages/seedprod-pro.php:6893
+msgid "Publish"
+msgstr ""
+
+#: languages/seedprod-pro.php:6896
 msgid "Unpublish"
 msgstr ""
 
-#: languages/seedprod-pro.php:6933
+#: languages/seedprod-pro.php:6899
 msgid "Schedule"
 msgstr ""
 
-#: languages/seedprod-pro.php:6936
+#: languages/seedprod-pro.php:6902
 msgid "Save as Template"
 msgstr ""
 
-#: languages/seedprod-pro.php:6939
+#: languages/seedprod-pro.php:6905
 msgid "Return to Page Editor"
 msgstr ""
 
-#: languages/seedprod-pro.php:6942
+#: languages/seedprod-pro.php:6908
 msgid "See Live Page"
 msgstr ""
 
-#: languages/seedprod-pro.php:6945
+#: languages/seedprod-pro.php:6911
 msgid "Save and Exit"
 msgstr ""
 
-#: languages/seedprod-pro.php:6948
+#: languages/seedprod-pro.php:6914
 msgid "Help"
 msgstr ""
 
-#: languages/seedprod-pro.php:6951
+#: languages/seedprod-pro.php:6917
+msgid "Save"
+msgstr ""
+
+#: languages/seedprod-pro.php:6920
+msgid "Preview"
+msgstr ""
+
+#: languages/seedprod-pro.php:6923
 msgid "You are about to leave this page and go to the Global CSS page. Continue?"
 msgstr ""
 
-#: languages/seedprod-pro.php:6954
+#: languages/seedprod-pro.php:6926
 msgid "This page is not active. Would you like to activate it now?"
 msgstr ""
 
-#: languages/seedprod-pro.php:6957
+#: languages/seedprod-pro.php:6929
 msgid "Yes, Activate"
 msgstr ""
 
-#: languages/seedprod-pro.php:6960
+#: languages/seedprod-pro.php:6932
 msgid "No, Close"
 msgstr ""
 
-#: languages/seedprod-pro.php:6963
+#: languages/seedprod-pro.php:6935
 msgid "Coming Soon Mode is not active. Would you like to activate it now and show this page to visitors?"
 msgstr ""
 
-#: languages/seedprod-pro.php:6966
+#: languages/seedprod-pro.php:6938
 msgid "Maintenance Mode is not active. Would you like to activate it now and show this page to visitors?"
 msgstr ""
 
-#: languages/seedprod-pro.php:6969
+#: languages/seedprod-pro.php:6941
 msgid "Note: This page will only be shown to users who are logged out. If you logged out and and do not see the correct page you may need to clear your site cache."
 msgstr ""
 
-#: languages/seedprod-pro.php:6972
+#: languages/seedprod-pro.php:6944
 msgid "This page is not published. Would you like to publish it now?"
 msgstr ""
 
-#: languages/seedprod-pro.php:6975
+#: languages/seedprod-pro.php:6947
 msgid "Yes, Publish"
 msgstr ""
 
-#: languages/seedprod-pro.php:6978
+#: languages/seedprod-pro.php:6950
 msgid "Something has prevented the page from being saved."
 msgstr ""
 
-#: languages/seedprod-pro.php:6981
+#: languages/seedprod-pro.php:6953
+msgid "Changes not saved, are you sure you want to leave?"
+msgstr ""
+
+#: languages/seedprod-pro.php:6956
+msgid "Blocks"
+msgstr ""
+
+#: languages/seedprod-pro.php:6959
+msgid "Sections"
+msgstr ""
+
+#: languages/seedprod-pro.php:6962
 msgid "Saved Blocks"
 msgstr ""
 
-#: languages/seedprod-pro.php:6984
+#: languages/seedprod-pro.php:6965
+msgid "Editing:"
+msgstr ""
+
+#: languages/seedprod-pro.php:6968
 msgid "Search blocks..."
 msgstr ""
 
-#: languages/seedprod-pro.php:6987
+#: languages/seedprod-pro.php:6971
+msgid "WooCommerce"
+msgstr ""
+
+#: languages/seedprod-pro.php:6974
 msgid "Widgets"
 msgstr ""
 
-#: languages/seedprod-pro.php:6990
+#: languages/seedprod-pro.php:6977
 msgid "Template Tags"
 msgstr ""
 
-#: languages/seedprod-pro.php:6993
+#: languages/seedprod-pro.php:6980
 msgid "WooCommerce Template Tags"
-msgstr ""
-
-#: languages/seedprod-pro.php:6996
-msgid "&larr; Go Back"
-msgstr ""
-
-#: languages/seedprod-pro.php:6999
-msgid "&larr; Go to Dashboard"
-msgstr ""
-
-#: languages/seedprod-pro.php:7002
-msgid "Choose a New Page Template"
-msgstr ""
-
-#: languages/seedprod-pro.php:7005
-msgid "No Favorited Templates Found"
-msgstr ""
-
-#: languages/seedprod-pro.php:7008
-msgid "No Saved Templates Found"
-msgstr ""
-
-#: languages/seedprod-pro.php:7011
-msgid "Choose This Template"
-msgstr ""
-
-#: languages/seedprod-pro.php:7014
-msgid "Enter your new page details"
-msgstr ""
-
-#: languages/seedprod-pro.php:7017
-msgid "You can always change it later in Page Settings."
-msgstr ""
-
-#: languages/seedprod-pro.php:7020
-msgid "Page Name:"
-msgstr ""
-
-#: languages/seedprod-pro.php:7023
-msgid "Save and Start Editing the Page"
-msgstr ""
-
-#: languages/seedprod-pro.php:7026
-msgid "My Landing Page name goes here"
-msgstr ""
-
-#: languages/seedprod-pro.php:7029
-msgid "You can favorite any template by clicking the heart icon under the page template."
-msgstr ""
-
-#: languages/seedprod-pro.php:7032
-msgid "You can save pages as templates in the builder. Any saved pages will be shown here."
 msgstr ""
 
 #: app/includes/skin.php:82, app/includes/skin53.php:82

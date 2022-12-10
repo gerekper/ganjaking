@@ -41,11 +41,20 @@ class WC_OD_Shipping_Zones {
 	 * Gets the shipping zone.
 	 *
 	 * @since 2.2.0
+	 * @since 2.3.1 Return false if the shipping zone is not found.
 	 *
 	 * @param mixed $the_zone Shipping Zone object or ID.
-	 * @return WC_Shipping_Zone
+	 * @return WC_Shipping_Zone|false
 	 */
 	public static function get_zone( $the_zone ) {
-		return ( $the_zone instanceof WC_Shipping_Zone ? $the_zone : new WC_Shipping_Zone( $the_zone ) );
+		if ( $the_zone instanceof WC_Shipping_Zone ) {
+			return $the_zone;
+		}
+
+		try {
+			return new WC_Shipping_Zone( $the_zone );
+		} catch ( Exception $e ) {
+			return false;
+		}
 	}
 }

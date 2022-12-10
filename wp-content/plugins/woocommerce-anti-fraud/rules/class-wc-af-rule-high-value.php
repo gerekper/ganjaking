@@ -60,6 +60,9 @@ class WC_AF_Rule_High_Value extends WC_AF_Rule {
  			WHERE PM.`meta_key` = '_order_total' AND PM.`meta_value` > 0 AND P.`post_type` = 'shop_order'
 		AND P.`post_status` IN  ( 'wc-completed', 'wc-processing', 'wc-on-hold' ) ", $statuses ) );
 
+		if (!empty($avg_order_total)) {
+			$avg_order_total = round($avg_order_total);
+		}
 		Af_Logger::debug('Average order total : ' . print_r($avg_order_total, true));
 
 		/** 

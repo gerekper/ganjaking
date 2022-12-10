@@ -266,7 +266,7 @@ export const formatDataForChart = (data, filterState) => {
   if (filterState && data && data?.length) {
     dataForChart.labels = data
       .map((obj) =>
-        moment(obj.created_at || obj.search_date || obj.date).format(
+        moment(obj.created_at || obj.search_date || obj.date).locale('en').format(
           "MMM D YYYY"
         )
       )

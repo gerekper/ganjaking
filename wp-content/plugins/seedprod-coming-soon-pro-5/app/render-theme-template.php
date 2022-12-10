@@ -969,6 +969,24 @@ function seedprod_pro_theme_template_enqueue_styles() {
 			);
 		}
 
+		// Hotspot block scripts.
+		if ( in_array( 'hotspot', $seedprod_theme_requirements ) ) {
+			wp_enqueue_script(
+				'seedprod-hotspot-tooltipster-js',
+				SEEDPROD_PRO_PLUGIN_URL . 'public/js/tooltipster.bundle.min.js',
+				array( 'jquery' ),
+				SEEDPROD_PRO_VERSION,
+				true
+			);
+
+			wp_enqueue_style(
+				'seedprod-hotspot-tooltipster-css',
+				SEEDPROD_PRO_PLUGIN_URL . 'public/css/tooltipster.bundle.min.css',
+				false,
+				SEEDPROD_PRO_VERSION
+			);
+		}
+
 		// general scripts
 		wp_enqueue_script(
 			'seedprod-scripts',
@@ -1344,6 +1362,11 @@ function get_the_theme_parts_requirements() {
 	// Counter block
 	if ( strpos( $settings_str, 'counter' ) !== false ) {
 		$seedprod_theme_requirements[] = 'counter';
+	}
+
+	// Hotspot block
+	if ( strpos( $settings_str, 'hotspot' ) !== false ) {
+		$seedprod_theme_requirements[] = 'hotspot';
 	}
 
 	// seedprod gallery blocks

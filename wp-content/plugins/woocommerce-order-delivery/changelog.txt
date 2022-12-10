@@ -1,5 +1,9 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2022-12-07 - version 2.3.1
+* Tweak - Tested compatibility with WC 7.2.
+* Fix - Fixed error when fetching a non-existing shipping zone by ID.
+
 2022-11-29 - version 2.3.0
 * Feature - Assign to the order renewals the same weekday as the previous order delivery date.
 * Feature - Keep the subscription's billing interval between delivery dates on order renewals.

@@ -237,7 +237,7 @@ body.seedprod_page_seedprod_pro_template #wpwrap,body.seedprod_page_seedprod_lit
 .mx-calendar-content .cell.actived{color:#fff;background-color:#f3510a !important}
 .seedprod-img-preview{position:relative;display:inline-block}
 .seedprod-img-preview i{position:absolute;top:4px;right:-6px}
-.seedprod-img-preview img{max-width:100%;max-height:280px}
+.seedprod-img-preview img{max-width:100%;max-height:280px;min-width:50px}
 .sp-slideshow-bg-settings .seedprod-img-preview{cursor:move}
 .sp-slideshow-bg-settings .seedprod-img-preview img{max-width:150px;max-height:150px}
 .sp-slideshow-bg-settings .seedprod-img-preview button:nth-of-type(2){display:none}
@@ -270,7 +270,7 @@ body.seedprod_page_seedprod_pro_template #wpwrap,body.seedprod_page_seedprod_lit
 .seedprod .btn-entry-option:active,.seedprod .btn-entry-option:focus{background-color:#fff !important}
 .btn-entry-option .seedprod-block-option-icon{position:absolute;left:0;height:40px;padding-top:9px;padding-left:10px;padding-right:10px;width:35px;border-top-left-radius:3px;border-bottom-left-radius:3px}
 .btn-entry-option .fa-plus,.btn-entry-option .fa-sync-alt{position:absolute;right:10px;color:#c7c7c7;top:12px}
-#seedprod-add-actions h3{color:#4f394d;font-weight:600;font-size:16px;margin:0 20px;padding:15px 0}
+#seedprod-add-actions h3{color:#4f394d;font-weight:600;font-size:16px;margin:0 20px;padding:15px 0;cursor:pointer}
 .seedprod-modal-mask{position:fixed !important;z-index:99999 !important;top:0 !important;right:0 !important;bottom:0 !important;left:0 !important;overflow-y:auto !important;-webkit-transform:translate3d(0,0,0) !important;transform:translate3d(0,0,0) !important;display:-webkit-box !important;display:-ms-flexbox !important;display:flex !important;-webkit-transition:opacity .3s ease;transition:opacity .3s ease}
 .seedprod-modal-wrapper{display:-webkit-box !important;display:-ms-flexbox !important;display:flex !important;margin:auto !important;width:100% !important;padding-left:80px;padding-right:80px}
 .seedprod-modal-container{width:600px;background-color:#fff;-webkit-box-flex:1 !important;-ms-flex:1 !important;flex:1 !important;width:100% !important;margin:100px auto;padding:0;background-color:#fff;border-radius:10px;-webkit-box-shadow:0 2px 8px rgba(35,8,32,0.6);box-shadow:0 2px 8px rgba(35,8,32,0.6);-webkit-transition:all .3s ease;transition:all .3s ease}

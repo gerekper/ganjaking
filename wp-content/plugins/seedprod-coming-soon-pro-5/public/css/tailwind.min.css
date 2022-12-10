@@ -610,5 +610,19 @@ input[type="password"]{-webkit-appearance:none;-moz-appearance:none;appearance:n
 .sp-counter-wrapper{flex-direction:column}
 .sp-counter-wrapper .sp-counter-title,.sp-counter-wrapper .sp-counter-text-wrapper{display:flex}
 .sp-counter-wrapper .sp-counter-text-wrapper .sp-counter-number-prefix,.sp-counter-wrapper .sp-counter-text-wrapper .sp-counter-number-suffix{white-space:pre-wrap}
-@media(min-width:640px){.sm\:sp-flex{display:flex}
+.sp-hotspot-wrapper{position:relative}
+.hotspot-wrapper{z-index:1;display:flex;align-items:center;justify-content:center;position:absolute}
+.hotspot-repeater-item{left:50%;--hotspot-translate-x:50%;top:50%;--hotspot-translate-y:50%}
+.hotspot-item-inner-circle{border-radius:50%;top:50%;left:50%;padding:10px}
+.hotspot-soft-beat{-webkit-animation-duration:.7s;animation-duration:.7s;-webkit-animation-timing-function:ease;animation-timing-function:ease;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite;-webkit-animation-direction:alternate;animation-direction:alternate;-webkit-animation-fill-mode:none;animation-fill-mode:none;-webkit-animation-play-state:running;animation-play-state:running;-webkit-animation-name:hotspot-soft-beat;animation-name:hotspot-soft-beat}
+.hotspot-expand{-webkit-animation-duration:1.5s;animation-duration:1.5s;-webkit-animation-timing-function:ease;animation-timing-function:ease;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite;-webkit-animation-direction:normal;animation-direction:normal;-webkit-animation-fill-mode:none;animation-fill-mode:none;-webkit-animation-play-state:running;animation-play-state:running;-webkit-animation-name:hotspot-expand;animation-name:hotspot-expand}
+@-webkit-keyframes hotspot-soft-beat{from{-webkit-transform:scale(1);transform:scale(1)}
+to{-webkit-transform:scale(1.1);transform:scale(1.1)}
+}@keyframes hotspot-soft-beat{from{-webkit-transform:scale(1);transform:scale(1)}
+to{-webkit-transform:scale(1.1);transform:scale(1.1)}
+}@-webkit-keyframes hotspot-expand{from{-webkit-transform:scale(0.5);transform:scale(0.5);opacity:1}
+to{-webkit-transform:scale(1);transform:scale(1);opacity:.7}
+}@keyframes hotspot-expand{from{-webkit-transform:scale(0.5);transform:scale(0.5);opacity:1}
+to{-webkit-transform:scale(1);transform:scale(1);opacity:.7}
+}@media(min-width:640px){.sm\:sp-flex{display:flex}
 }

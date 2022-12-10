@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     4.9.0
+ * @version     5.0.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1846,9 +1846,9 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 		 */
 		public function smart_coupons_discount_total_filters() {
 			if ( WCS_SC_Compatibility::is_cart_contains_subscription() && WCS_SC_Compatibility::is_wcs_gte( '2.0.0' ) ) {
-				add_action( 'woocommerce_after_calculate_totals', array( $this, 'smart_coupons_after_calculate_totals' ), 999 );
+				add_action( 'woocommerce_after_calculate_totals', array( $this, 'smart_coupons_after_calculate_totals' ), 9999 );
 			} else {
-				add_action( 'woocommerce_after_calculate_totals', array( $this, 'smart_coupons_after_calculate_totals' ), 999 );
+				add_action( 'woocommerce_after_calculate_totals', array( $this, 'smart_coupons_after_calculate_totals' ), 9999 );
 				global $current_screen;
 				if ( ! empty( $current_screen ) && 'edit-shop_order' !== $current_screen ) {
 					add_filter( 'woocommerce_order_get_total', array( $this, 'smart_coupons_order_discounted_total' ), 10, 2 );

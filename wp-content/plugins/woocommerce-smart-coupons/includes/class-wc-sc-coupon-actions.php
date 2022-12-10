@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.5.0
- * @version     1.3.0
+ * @version     1.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -58,6 +58,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Actions' ) ) {
 			add_filter( 'wc_sc_validate_coupon_amount', array( $this, 'validate_coupon_amount' ), 10, 2 );
 
 			add_filter( 'wc_sc_hold_applied_coupons', array( $this, 'maybe_run_coupon_actions' ), 10, 2 );
+			add_action( 'woocommerce_after_cart_item_quantity_update', array( $this, 'stop_cart_item_quantity_update' ), 99, 4 );
 
 		}
 
@@ -316,7 +317,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Actions' ) ) {
 
 			$coupon_actions = $this->get_coupon_actions( $coupon_code );
 
-			if ( ! empty( $coupon_actions ) ) {
+			if ( ! empty( $coupon_actions ) && ! is_scalar( $coupon_actions ) ) {
 				$product_names = array();
 				foreach ( $coupon_actions as $coupon_action ) {
 					if ( empty( $coupon_action['product_id'] ) ) {
@@ -726,6 +727,36 @@ if ( ! class_exists( 'WC_SC_Coupon_Actions' ) ) {
 				}
 			}
 			return $is_hold;
+		}
+
+		/**
+		 * Stop product update option for action tab products.
+		 *
+		 * @param string  $cart_item_key contains the id of the cart item.
+		 * @param int     $quantity Current quantity of the item.
+		 * @param int     $old_quantity Old quantity of the item.
+		 * @param WC_Cart $cart  Cart object.
+		 * @return void
+		 */
+		public function stop_cart_item_quantity_update( $cart_item_key = '', $quantity = 1, $old_quantity = 1, $cart = object ) {
+
+			if ( empty( $cart_item_key ) || ! is_object( $cart ) || ! is_a( $cart, 'WC_Cart' ) ) {
+				return;
+			}
+
+			$cart_data = is_callable( array( $cart, 'get_cart' ) ) ? $cart->get_cart() : array();
+			$cart_item = ( ! empty( $cart_data[ $cart_item_key ] ) ) ? $cart_data[ $cart_item_key ] : array();
+
+			if ( empty( $cart_item ) ) {
+				return;
+			}
+
+			$applied_coupons = is_callable( array( $cart, 'get_applied_coupons' ) ) ? $cart->get_applied_coupons() : array();
+
+			if ( ! empty( $cart_item['wc_sc_product_source'] ) && in_array( $cart_item['wc_sc_product_source'], $applied_coupons, true ) ) {
+				$cart->cart_contents[ $cart_item_key ]['quantity'] = $old_quantity;
+			}
+
 		}
 
 	}

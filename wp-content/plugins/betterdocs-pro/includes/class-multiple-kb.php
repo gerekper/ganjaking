@@ -527,7 +527,12 @@ class BetterDocs_Multiple_Kb
 			$tax_map = array();
 
 			foreach ($taxes as $tax) {
-				$terms = get_terms($tax);
+				$terms = get_terms(
+					array(
+						'taxonomy' => $tax,
+						'hide_empty' => false
+					)
+				);
 				foreach ($terms as $term)
 					$tax_map[$tax][$term->slug] = $term->term_taxonomy_id;
 			}

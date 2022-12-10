@@ -49,7 +49,10 @@ class WC_AF_Rule_Geo_Location extends WC_AF_Rule {
 			$country = strtolower($order->get_billing_country());
 				
 			$customer_state = $order->get_billing_state();
-			$c_state = strtolower(WC()->countries->get_states( $country )[$customer_state]);
+			$c_state = '';
+			if (isset(WC()->countries->get_states( $country )[$customer_state])) {
+				$c_state = strtolower(WC()->countries->get_states( $country )[$customer_state]);
+			}
 			
 
 			$html_geo_loc_state = get_option('html_geo_loc_state');
@@ -77,7 +80,6 @@ class WC_AF_Rule_Geo_Location extends WC_AF_Rule {
 			$risk = false;
 			Af_Logger::debug('Geo Location rule is disabled.');
 		}
-		fclose($fp);
 		Af_Logger::debug('Geo Location rule risk : ' . ( true === $risk ? 'true' : 'false' ));
 		return $risk;
 

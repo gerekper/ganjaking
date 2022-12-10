@@ -68,6 +68,7 @@ class Betterdocs_Pro_Public
         add_action('betterdocs_live_search_form_footer', array($this, 'srarch_form_footer'), 10, 1);
         add_action('betterdocs_after_live_search_form', array($this, 'popular_srarch'), 10, 1);
         add_action('betterdocs_advance_search_settings', array($this, 'advance_search_settings'));
+        add_filter('child_category_exclude', array( $this, 'child_category_exclude' ), 10, 1);
         add_action('betterdocs_popular_keyword_limit_settings', array($this, 'popular_keyword_limit'));
         add_filter('betterdocs_search_button_text', array($this, 'search_button_text'), 10, 1);
         add_filter('betterdocs_posts_number', array( $this, 'betterdocs_add_note' ), 10, 1 );
@@ -217,6 +218,11 @@ class Betterdocs_Pro_Public
         unset($layouts['layout-3']['pro']);
         unset($layouts['layout-6']['pro']);
         return $layouts;
+    }
+
+    public function child_category_exclude( $settings ){
+        unset( $settings['disable'] );
+        return $settings;
     }
 
     /**
@@ -388,8 +394,9 @@ class Betterdocs_Pro_Public
         $values['betterdocs_popular_docs_number'] = 10;
         $values['search_button_text']             = esc_html__('Search','betterdocs-pro');
         $values['reporting_frequency']            = 'betterdocs_daily';
-        $values['select_reporting_data']        = array('overview', 'top-docs', 'most-search');
+        $values['select_reporting_data']          = array('overview', 'top-docs', 'most-search');
         $values['reporting_subject']              = wp_sprintf( '%s %s', __( 'Weekly Engagement Summary of', 'betterdocs-pro' ),  get_bloginfo( 'name' ) );
+        $values['child_category_exclude']         = 'false';
         return $values;
     }
 
@@ -475,9 +482,10 @@ class Betterdocs_Pro_Public
 
     public function srarch_form_footer($get_args) {
         if ( $get_args['category_search'] == true ) {
+            $exclude_child_terms = BetterDocs_DB::get_settings('child_category_exclude') != 'off' && BetterDocs_DB::get_settings('child_category_exclude') != 'false' ? 'true' : 'false';
             echo '<select class="betterdocs-search-category">
                 <option value="">'.esc_html__('All Categories','betterdocs-pro').'</option>
-                '.BetterDocs_Helper::term_options('doc_category').'
+                '.BetterDocs_Helper::term_options('doc_category', '', $exclude_child_terms).'
             </select>';
         }
 

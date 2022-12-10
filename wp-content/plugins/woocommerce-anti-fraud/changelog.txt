@@ -1,5 +1,8 @@
 *** WooCommerce Anti Fraud ***
 
+2022-12-08 - version 4.8
+* PLUGINS-1949 - PHP8 Compatibility adjustments.
+
 2022-10-24 - version 4.7.1
 * Fix plugin update causing loss of setting values.
 

@@ -69,7 +69,8 @@ $include_gallery_lightbox_sdk        = false;
 $include_gallery_sdk                 = false;
 $include_counter_sdk                 = false;
 $include_seedprod_image_lightbox_sdk = false;
-$include_beforeaftertoggle_sdk  = false;
+$include_beforeaftertoggle_sdk       = false;
+$include_hotspot_sdk                 = false;
 
 
 
@@ -145,6 +146,10 @@ if ( strpos( $settings_str, 'twittertweet' ) !== false ) {
 
 if ( strpos( $settings_str, 'counter' ) !== false ) {
 	$include_counter_sdk = true;
+}
+
+if ( strpos( $settings_str, 'hotspot' ) !== false ) {
+	$include_hotspot_sdk = true;
 }
 
 
@@ -289,6 +294,10 @@ if ( ! empty( $settings ) ) {
 	<link rel="stylesheet" id='seedprod-gallerylightbox-css' href="<?php echo esc_url( $plugin_url ); ?>public/css/seedprod-gallery-block.min.css?ver=<?php echo esc_attr( SEEDPROD_PRO_VERSION ); ?>" type='text/css' media='all' /> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet ?>
 	<?php } ?>
 
+	<?php if ( true === $include_hotspot_sdk ) { ?>
+	<link rel="stylesheet" id='seedprod-hotspot-tooltipster-css' href="<?php echo esc_url( $plugin_url ); ?>public/css/tooltipster.bundle.min.css?ver=<?php echo esc_attr( SEEDPROD_PRO_VERSION ); ?>" type='text/css' media='all' /> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet ?>
+	<?php } ?>
+
 	<?php if ( true === $include_beforeaftertoggle_sdk ) { ?>
 	<link rel='stylesheet' id='seedprod-twentytwenty-css'  href='<?php echo esc_url( $plugin_url ); ?>public/css/before-after-toggle.min.css?ver=<?php echo esc_attr( SEEDPROD_PRO_VERSION ); ?>' type='text/css' media='all' /> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet ?>
 <?php } ?>
@@ -401,6 +410,12 @@ var seeprod_enable_recaptcha = <?php echo (int) $settings->enable_recaptcha; ?>;
 	if ( true === $include_counter_sdk ) {
 		?>
 <script src="<?php echo esc_url( $plugin_url ); ?>public/js/jquery-numerator.min.js" defer></script> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript ?>
+		<?php
+	}
+
+	if ( true === $include_hotspot_sdk ) {
+		?>
+<script src="<?php echo esc_url( $plugin_url ); ?>public/js/tooltipster.bundle.min.js" defer></script> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript ?>
 		<?php
 	}
 	

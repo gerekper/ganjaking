@@ -2087,6 +2087,7 @@ a:focus{outline:0;box-shadow:none}
 .sp-form-input{-webkit-appearance:none !important;-moz-appearance:none !important;appearance:none !important;background-color:#fff !important;border-color:#d3ced2 !important;border-width:1px !important;border-radius:6px !important;padding-top:.5rem !important;padding-right:.5rem !important;padding-bottom:.5rem !important;padding-left:.5rem !important;font-size:1rem !important;line-height:1.5 !important}
 .sp-testimonial>p:before{position:absolute;bottom:-7px;left:33px;display:block;width:14px;height:14px;content:'';background-color:#fff;-webkit-transform:rotate(45deg);transform:rotate(45deg);border-bottom:1px solid transparent;border-right:1px solid rgba(0,0,0,.05)}
 .sp-pro-only{opacity:.5}
+.sp-pro-only button{cursor:pointer !important}
 .sp-cat-active{background-color:#7b6b7a !important;color:#fff !important}
 .sp-cat-active:active,.sp-cat-active:focus{background-color:#7b6b7a !important;color:#fff !important}
 .table-loading{position:relative}

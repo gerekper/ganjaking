@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.9.0
+ * @version     3.0.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -712,22 +712,20 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 			if ( ! empty( $coupon_titles ) ) {
 
 				if ( $this->is_wc_gte_30() ) {
-					$item_qty   = ( ! empty( $order_item ) && is_callable( array( $order_item, 'get_quantity' ) ) ) ? $order_item->get_quantity() : 1;
-					$item_total = ( ! empty( $order_item ) && is_callable( array( $order_item, 'get_total' ) ) ) ? $order_item->get_total() : 0;
-					$item_tax   = ( ! empty( $order_item ) && is_callable( array( $order_item, 'get_total_tax' ) ) ) ? $order_item->get_total_tax() : 0;
+					$item_qty     = ( ! empty( $order_item ) && is_callable( array( $order_item, 'get_quantity' ) ) ) ? $order_item->get_quantity() : 1;
+					$item_total   = ( ! empty( $order_item ) && is_callable( array( $order_item, 'get_total' ) ) ) ? $order_item->get_total() : 0;
+					$item_tax     = ( ! empty( $order_item ) && is_callable( array( $order_item, 'get_total_tax' ) ) ) ? $order_item->get_total_tax() : 0;
+					$item_product = ( ! empty( $order_item ) && is_callable( array( $order_item, 'get_product' ) ) ) ? $order_item->get_product() : null;
 				} else {
-					$item_qty   = ( ! empty( $order_item['qty'] ) ) ? $order_item['qty'] : 1;
-					$item_total = ( ! empty( $order_item['line_total'] ) ) ? $order_item['line_total'] : 0;
-					$item_tax   = ( ! empty( $order_item['line_tax'] ) ) ? $order_item['line_tax'] : 0;
+					$item_qty     = ( ! empty( $order_item['qty'] ) ) ? $order_item['qty'] : 1;
+					$item_total   = ( ! empty( $order_item['line_total'] ) ) ? $order_item['line_total'] : 0;
+					$item_tax     = ( ! empty( $order_item['line_tax'] ) ) ? $order_item['line_tax'] : 0;
+					$item_product = null;
 				}
 
 				$item_sc_called_credit = ( is_a( $order_item, 'WC_Order_Item' ) ) ? $this->get_meta( $order_item, 'sc_called_credit' ) : '';
 
-				if ( ! empty( $item_qty ) ) {
-					$qty = $item_qty;
-				} else {
-					$qty = 1;
-				}
+				$qty = ( ! empty( $item_qty ) ) ? $item_qty : 1;
 
 				foreach ( $coupon_titles as $coupon_title ) {
 
@@ -765,9 +763,8 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 
 						if ( get_post_meta( $coupon_id, 'is_pick_price_of_product', true ) === 'yes' && 'smart_coupon' === $discount_type ) {
 
-							$amount                   = 0;
-							$products_price           = ( ! $prices_include_tax ) ? $item_total : $item_total + $item_tax;
-							$calculated_product_price = $products_price / $qty;
+							$amount                = 0;
+							$sell_sc_at_less_price = get_option( 'smart_coupons_sell_store_credit_at_less_price', 'no' );
 
 							if ( is_object( $order_item ) && is_a( $order_item, 'WC_Order_Item_Product' ) ) {
 								$subtotal     = ( is_callable( array( $order_item, 'get_subtotal' ) ) ) ? $order_item->get_subtotal() : 0;
@@ -775,9 +772,27 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 								$amount       = $subtotal + $subtotal_tax;
 								$amount       = round( $amount, get_option( 'woocommerce_price_num_decimals', 2 ) );
 							}
-							if ( empty( $amount ) ) {
-								$amount = $calculated_product_price;
+
+							if ( 'yes' === $sell_sc_at_less_price ) {
+
+								$args = array(
+									'qty'   => $qty,
+									'price' => ( is_object( $item_product ) && is_callable( array( $item_product, 'get_regular_price' ) ) ) ? $item_product->get_regular_price() : '',
+								);
+
+								if ( ! $prices_include_tax ) {
+									$products_price = function_exists( 'wc_get_price_excluding_tax' ) ? wc_get_price_excluding_tax( $item_product, $args ) : $item_total;
+								} else {
+									$products_price = function_exists( 'wc_get_price_including_tax' ) ? wc_get_price_including_tax( $item_product, $args ) : $item_total + $item_tax;
+								}
+							} else {
+								$products_price = ( ! $prices_include_tax ) ? $item_total : $item_total + $item_tax;
 							}
+
+							$amount = ( empty( $products_price ) ) ? $amount : $products_price;
+
+							$amount = $amount / $qty;
+
 							$amount = apply_filters(
 								'wc_sc_auto_generated_coupon_pick_price_of_product',
 								$amount,

@@ -1464,10 +1464,11 @@ class BetterDocs_Pro_IA {
         $ask_subject = $this->setNempty( 'ask_subject', $this->bdocs_settings ) ? $this->bdocs_settings['ask_subject'] : '[ia_subject]';
         $to = $this->setNempty( 'ask_email', $this->bdocs_settings ) ? $this->bdocs_settings['ask_email'] : get_bloginfo('admin_email');
 
-        $subject = $this->ready_subject( $sanitized_data, $ask_subject );
+        $subject = html_entity_decode( $this->ready_subject( $sanitized_data, $ask_subject ), ENT_QUOTES, 'UTF-8' );
         if( isset( $sanitized_data['subject'] ) ) {
-            $sanitized_data['subject'] = $subject;
+            $sanitized_data['subject'] = html_entity_decode( $subject, ENT_QUOTES, 'UTF-8' );
         }
+
         $files = $request->get_file_params();
         if( ! empty( $files ) ) {
 			if ( ! function_exists( 'wp_handle_upload' ) ) {

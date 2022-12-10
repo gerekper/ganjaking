@@ -25,7 +25,6 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
   function getMetadata(url) {
     var img = new Image();
     img.addEventListener("load", function () {
-      console.log(this.naturalWidth + ' ' + this.naturalHeight);
       return this.naturalWidth;
     });
     img.src = url;
@@ -319,8 +318,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       key: "handleOpen",
       value: function handleOpen(e, index) {
         var ratio = this.config.ratio;
-        var imageElements = this.imageElements; //console.log(e.target);
-
+        var imageElements = this.imageElements;
         var _e$target = e.target,
             width = 100,
             height = 100;
@@ -333,13 +331,17 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         preloaderimg.onload = function () {
           width = preloaderimg.width;
           height = preloaderimg.height;
-          /*
-          var imgtarget = getMetadata(imageElements[index].href);
-          console.log("demo111");
-          console.log(imgtarget);
-          */
-          //var width = imgtarget.width;
+
+          if (window.screen.width <= 768) {
+            if (width > 100) {
+              var canvas_width = 60;
+              var wratio = Math.ceil(width / canvas_width);
+              width = width / wratio;
+              height = height / wratio;
+            }
+          } //var width = imgtarget.width;
           //var height = imgtarget.height;
+
 
           currentImageScale = calcScaleNums(width, height, ratio);
           historyInfo = {
@@ -364,8 +366,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       value: // 关闭预览
       function handleClose() {
         var opacity = this.config.opacity;
-        var current = this.imageElements[this.index]; // console.log(isElementInViewport)
-
+        var current = this.imageElements[this.index];
         /*
         if (isElementInViewport(current)) {
           runAnimation(previewContainer, {
@@ -381,12 +382,12 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
             previewContainer.classList.remove('hiding');
             taggleModel(false);
           });
-           var _getElementRect = getElementRect(current),
+             var _getElementRect = getElementRect(current),
               top = _getElementRect.top,
               left = _getElementRect.left,
               width = _getElementRect.width,
               height = _getElementRect.height;
-           imageEl.style.cssText = "width:".concat(width, "px;height:").concat(height, "px;position: fixed; top: ").concat(top, "px; left: ").concat(left, "px;");
+             imageEl.style.cssText = "width:".concat(width, "px;height:").concat(height, "px;position: fixed; top: ").concat(top, "px; left: ").concat(left, "px;");
         } else {
           */
 
@@ -443,9 +444,6 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         img.src = url;
 
         img.onload = function () {
-          console.log(this.width); //console.log(this.height);
-          //console.log("get meta");
-
           var mydata = this.width;
           return mydata;
         };
@@ -479,6 +477,15 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
               width = _this$imageElements$i.width,
               src = _this$imageElements$i.href; //TODO: 更新图片显示
           */
+
+          if (window.screen.width <= 768) {
+            if (width > 100) {
+              var canvas_width = 60;
+              var wratio = Math.ceil(width / canvas_width);
+              width = width / wratio;
+              height = height / wratio;
+            }
+          }
 
           imageEl.classList.add('moving');
           setImageBaseStyle(imageEl, width, height, windowWidth / 2 - width / 2, windowHeight / 2 - height / 2);
@@ -531,8 +538,6 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         windowWidth = window.innerWidth;
         windowHeight = window.innerHeight;
         this.imageElements = document.querySelectorAll("".concat(this.selector, " a:not(.sp-hidden-items)"));
-        console.log("init");
-        console.log(this.imageElements);
 
         for (var i = 0, len = this.imageElements.length; i < len; i++) {
           this.imageElements[i].classList.add('zoom-in');

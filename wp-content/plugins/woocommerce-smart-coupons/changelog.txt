@@ -1,5 +1,15 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2022.12.08 - version 6.8.0
+* New: Tested upto WordPress 6.1.1
+* Fix: Incorrectly allowing more quantities than the set quantities for products set under Actions (tab)
+* Fix: When creating order at backend applying-removing-reapplying store credit makes calculations differ
+* Fix: Wrong amount generated on store credit coupon when order created from the admin side
+* Fix: Setting 'Sell gift cards at less price?' not considered when order with the coupon product is created from admin
+* Fix: Store Credit discount sets to zero when used with WooCommerce Deposits plugin
+* Fix: Confirm if a loop can be executed on the variable $coupon_actions before execution
+* Update: POT file
+
 2022.11.11 - version 6.7.0
 * New: Usage restriction field 'Excluded emails'
 * Fix: 'For new user only?' setting is not working in a specific case

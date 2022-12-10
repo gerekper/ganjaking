@@ -194,20 +194,21 @@ $email_integration_url = '';
 
 // stripe connect
 $seedprod_stripe_connect_origin = get_option( 'seedprod_stripe_connect_origin' );
-if(empty($seedprod_stripe_connect_origin)){
+if ( empty( $seedprod_stripe_connect_origin ) ) {
 	$seedprod_stripe_connect_origin = wp_generate_uuid4();
-	add_option( 'seedprod_stripe_connect_origin' , $seedprod_stripe_connect_origin );
+	add_option( 'seedprod_stripe_connect_origin', $seedprod_stripe_connect_origin );
 }
 // Set stripe token
-if(!empty($_GET['seedprod_stripe_connect_token'])){
-	if(!empty($_GET['seedprod_stripe_connect_origin'])){
-		if($seedprod_stripe_connect_origin == $_GET['seedprod_stripe_connect_origin']);
-		update_option( 'seedprod_stripe_connect_token' , $_GET['seedprod_stripe_connect_token'] );
+if ( ! empty( $_GET['seedprod_stripe_connect_token'] ) ) {
+	if ( ! empty( $_GET['seedprod_stripe_connect_origin'] ) ) {
+		if ( $seedprod_stripe_connect_origin == $_GET['seedprod_stripe_connect_origin'] ) {
+		}
+		update_option( 'seedprod_stripe_connect_token', $_GET['seedprod_stripe_connect_token'] );
 	}
 }
 // get stripe token
 $seedprod_stripe_connect_token = get_option( 'seedprod_stripe_connect_token' );
-if(empty($seedprod_stripe_connect_token)){
+if ( empty( $seedprod_stripe_connect_token ) ) {
 	$seedprod_stripe_connect_token = '';
 }
 
@@ -240,6 +241,27 @@ if ( ! empty( $seedprod_app_settings ) ) {
 
 $template_preview_path = 'https://assets.seedprod.com/preview-';
 
+
+
+// Get user personalization preferences.
+$user_personalization_preferences = get_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', true );
+
+if ( empty( $user_personalization_preferences ) ) {
+	// Set default settings.
+	$user_personalization_preferences = array(
+		'show_templatetag_settings'             => true,
+		'show_woocommerce_templatetag_settings' => true,
+		'show_entry_settings'                   => true,
+		'show_entry_settings_2'                 => true,
+		'show_entry_settings_4'                 => true,
+		'show_entry_settings_5'                 => true,
+		'show_entry_settings_3'                 => false,
+		'show_layoutnav'                        => false,
+	);
+	add_user_meta( $sp_current_user->ID, 'seedprod_personalization_preferences', wp_json_encode( $user_personalization_preferences ), true );
+} else {
+	$user_personalization_preferences = json_decode( $user_personalization_preferences );
+}
 
 // Pers
 $per                        = array();
@@ -476,7 +498,7 @@ var seedprod_data =
 $seedprod_data = array(
 	'seedprod_web_api'                 => $seedprod_web_api,
 	'seedprod_stripe_connect_token'    => $seedprod_stripe_connect_token,
-	'seedprod_stripe_connect_origin'    => $seedprod_stripe_connect_origin,
+	'seedprod_stripe_connect_origin'   => $seedprod_stripe_connect_origin,
 	'seedprod_settings'                => $seedprod_settings,
 	'mixed_content'                    => $mixed_content,
 	'is_landing_page'                  => $is_landing_page,
@@ -532,6 +554,7 @@ $seedprod_data = array(
 	'per'                              => $per,
 	'active_license'                   => $active_license,
 	'is_theme_template'                => $seedprod_is_theme_template,
+	'personalization_preferences'      => $user_personalization_preferences,
 );
 
 

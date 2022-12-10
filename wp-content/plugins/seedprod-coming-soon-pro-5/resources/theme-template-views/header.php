@@ -3,17 +3,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-global $seedprod_theme_requirements;
-$page_id = get_option( 'seedprod_global_css_page_id' );
-
-global $wpdb;
-$tablename        = $wpdb->prefix . 'posts';
-$sql              = "SELECT * FROM $tablename WHERE id= %d";
-$safe_sql         = $wpdb->prepare( $sql, $page_id ); // phpcs:ignore 
-$spage            = $wpdb->get_row( $safe_sql ); // phpcs:ignore
-$settings         = json_decode( $spage->post_content_filtered );
-$google_fonts_str = seedprod_pro_construct_font_str( $settings );
-
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
@@ -24,14 +13,6 @@ $google_fonts_str = seedprod_pro_construct_font_str( $settings );
 		<title>
 			<?php echo wp_get_document_title(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 		</title>
-	<?php endif; ?>
-
-	<?php 
-	// old way of doing google fonts
-	if ( 1 == 0 &&  ! empty( $google_fonts_str ) ) : 
-	?>
-	<!-- Google Font -->
-	<link rel="stylesheet" href="<?php echo esc_url( $google_fonts_str ); ?>"> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet ?>
 	<?php endif; ?>
 
 	<?php wp_head(); ?>

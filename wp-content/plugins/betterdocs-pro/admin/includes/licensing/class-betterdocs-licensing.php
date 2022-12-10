@@ -316,19 +316,16 @@ class BetterDocs_Licensing {
 			return;
 		}
 
-		// retrieve the license from the database
-		$license = $_POST[ $this->product_slug . '-license-key' ];
+	$license_data = new \stdClass();
+				$license_data->license = 'valid';
+				$license_data->success = true;
 
-		$api_params = array( 
-			'edd_action' => 'activate_license',
-			'license'    => $license,
-		);
+				$license_data->payment_id = 0;
+				$license_data->license_limit = 0;
 
-		$license_data = $this->remote_post( $api_params );
+				$license_data->site_count = 0;
 
-		if( is_wp_error( $license_data ) ) {
-			$message = $license_data->get_error_message();
-		}
+				$license_data->activations_left = 0;
 
 		if ( isset( $license_data->success ) && false === boolval( $license_data->success ) ) {
 
@@ -412,26 +409,16 @@ class BetterDocs_Licensing {
 				return false;
 			}
 
-			$body_args = [
-				'edd_action' => 'check_license',
-				'license' => $this->get_license_key(),
-			];
 
-			$license_data = $this->remote_post( $body_args );
 
-			if ( is_wp_error( $license_data ) ) {
 				$license_data = new \stdClass();
 				$license_data->license = 'valid';
 				$license_data->payment_id = 0;
 				$license_data->license_limit = 0;
 				$license_data->site_count = 0;
 				$license_data->activations_left = 0;
-				$this->set_license_data( $license_data, 30 * MINUTE_IN_SECONDS );
-				$this->set_license_status( $license_data->license );
-			} else {
 				$this->set_license_data( $license_data );
 				$this->set_license_status( $license_data->license );
-			}
 		}
 
 		return $license_data;
@@ -455,12 +442,9 @@ class BetterDocs_Licensing {
 			}
 		}
 
-		$api_params = array(
-			'edd_action' => 'deactivate_license',
-			'license'    => $license,
-		);
+		$license_data = new \stdClass();
+				$license_data->license = 'deactivated';
 
-		$license_data = $this->remote_post( $api_params );
 
 		if( is_wp_error( $license_data ) ) {
 			$message = $license_data->get_error_message();

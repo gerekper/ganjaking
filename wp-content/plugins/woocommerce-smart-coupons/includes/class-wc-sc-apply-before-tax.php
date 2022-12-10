@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.6.0
+ * @version     1.7.0
  * @package     WooCommerce Smart Coupons
  */
 
@@ -420,10 +420,6 @@ if ( ! class_exists( 'WC_SC_Apply_Before_Tax' ) ) {
 				$applied_discount = min( $total_discounting_amount, $credit_left );
 
 				$this->sc_credit_left[ $coupon_code ] = ( $total_discounting_amount < $credit_left ) ? $credit_left - $total_discounting_amount : 0;
-
-				if ( empty( $this->sc_credit_left[ $coupon_code ] ) && array_key_exists( $coupon_code, WC()->cart->sc_items_to_apply_credit ) ) {
-					unset( WC()->cart->sc_items_to_apply_credit[ $coupon_code ] );
-				}
 
 				$discount = $applied_discount / $quantity;
 			}

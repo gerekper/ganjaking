@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.3.0
+ * @version     2.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -64,6 +64,8 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 			add_action( 'woocommerce_cart_is_empty', array( $this, 'maybe_clear_credit_called_session' ) );
 
 			add_action( 'woocommerce_after_checkout_validation', array( $this, 'maybe_required_coupon_delivery_date_time' ), 10, 2 );
+
+			add_action( 'woocommerce_order_status_completed', array( $this, 'cleanup_order_item_meta' ), 9999 );
 
 		}
 
@@ -1010,6 +1012,14 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 					$subtotal      = ( is_callable( array( $values, 'get_subtotal' ) ) ) ? $values->get_subtotal() : 0;
 					$product_price = $subtotal;
 				}
+				if ( wp_doing_ajax() && defined( 'WP_ADMIN' ) && true === WP_ADMIN ) {
+					check_ajax_referer( 'order-item', 'security' );
+					$action   = ( ! empty( $_POST['action'] ) ) ? wc_clean( wp_unslash( $_POST['action'] ) ) : ''; // phpcs:ignore
+					$order_id = ( ! empty( $_POST['order_id'] ) ) ? absint( $_POST['order_id'] ) : 0;
+					if ( ! empty( $order_id ) && 'woocommerce_add_order_item' === $action ) {
+						$product_price = $product_price / $qty;
+					}
+				}
 			} else {
 				if ( empty( $values['data'] ) ) {
 					return;
@@ -1239,6 +1249,24 @@ if ( ! class_exists( 'WC_SC_Purchase_Credit' ) ) {
 						$errors->add( 'validation', __( 'Coupon delivery date and time is a required field.', 'woocommerce-smart-coupons' ) );
 					}
 				}
+			}
+		}
+
+		/**
+		 * Function to cleanup order item meta if not required
+		 *
+		 * @param integer $order_id The order id.
+		 */
+		public function cleanup_order_item_meta( $order_id = 0 ) {
+			if ( empty( $order_id ) ) {
+				return;
+			}
+
+			$order       = wc_get_order( $order_id );
+			$order_items = ( is_object( $order ) && is_callable( array( $order, 'get_items' ) ) ) ? $order->get_items() : array();
+
+			foreach ( $order_items as $item_id => $order_item ) {
+				$this->delete_order_item_meta( $item_id, 'sc_called_credit' );
 			}
 		}
 
