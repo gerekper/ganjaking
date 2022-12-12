@@ -37,7 +37,7 @@ class RequestHandlerFactory {
 			case self::METHOD_BULK_EDITABLE_ROWS :
 				$list_screen = $this->storage->find( new ListScreenId( $request->get( 'layout' ) ) );
 
-				return $list_screen instanceof Editing\BulkDelete\ListScreen
+				return $list_screen instanceof Editing\ListScreen
 					? $list_screen->editing()->get_query_request_handler()
 					: null;
 			default:

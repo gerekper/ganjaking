@@ -24,7 +24,7 @@ final class Post implements RequestHandler {
 
 	private function register() {
 		add_action( 'pre_get_posts', [ $this, 'set_query_vars' ], PHP_INT_MAX - 100 );
-		add_action( 'the_posts', [ $this, 'send' ], 10, 2 );
+		add_filter( 'the_posts', [ $this, 'send' ], 10, 2 );
 	}
 
 	/**
@@ -49,7 +49,7 @@ final class Post implements RequestHandler {
 	 */
 	public function send( $posts, WP_Query $query ) {
 		if ( ! $query->is_main_query() ) {
-			return;
+			return $posts;
 		}
 
 		$post_ids = wp_list_pluck( $posts, 'ID' );

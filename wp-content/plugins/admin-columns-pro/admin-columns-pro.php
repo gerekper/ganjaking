@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Admin Columns Pro
-Version: 6.0.1
+Version: 6.0.2
 Description: Customize columns on the administration screens for post(types), users and other content. Filter and sort content, and edit posts directly from the posts overview. All via an intuitive, easy-to-use drag-and-drop interface.
 Author: AdminColumns.com
 Author URI: https://www.admincolumns.com
@@ -37,7 +37,7 @@ if ( ! is_admin() ) {
 }
 
 define( 'ACP_FILE', __FILE__ );
-define( 'ACP_VERSION', '6.0.1' );
+define( 'ACP_VERSION', '6.0.2' );
 
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
@@ -112,6 +112,10 @@ add_action( 'after_setup_theme', function () {
 	do_action( 'acp/ready', ACP() );
 
 	foreach ( $addons as $key => $addon ) {
+		if ( ! apply_filters( 'acp/addon/' . $key . '/active', true ) ) {
+			continue;
+		}
+
 		$path = 'addons/' . $key;
 		$location = new Absolute(
 			plugin_dir_url( __FILE__ ) . $path,

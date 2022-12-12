@@ -1,10 +1,16 @@
 == Changelog ==
 
+= 6.0.2 =
+Release Date: December 9th, 2022
+
+* [Fixed] Bulk Edit could update posts that were not filtered
+* [Improved] New hook `ac/addon/$addon/active` available to disable autoloaded addons
+
 = 6.0.1 =
 Release Date: December 5th, 2022
 
-* [Fixed] Fatal error on Product Variation when no setting were stored
-* [Fixed] Possible Fatal error for Media Library Assistant version < 3.05
+* [Fixed] Fatal error on Product Variation when no settings were stored
+* [Fixed] Fatal error for the plugin Media Library Assistant with versions below 3.05
 
 = 6.0 =
 Release Date: November 30th, 2022
