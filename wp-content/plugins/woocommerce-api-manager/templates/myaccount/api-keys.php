@@ -95,12 +95,15 @@ if ( ! empty( $user_id ) ) {
                 <tbody>
 				<?php
 				foreach ( $resources as $resource ) {
+					// Refreshing cache here will also delete API cache for activations about to be deleted.
+					WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $resource->order_id );
+
 					// Delete excess API Key activations by activation resource ID.
 					WC_AM_API_ACTIVATION_DATA_STORE()->delete_excess_api_key_activations_by_activation_id( $resource->activation_ids, $resource->activations_purchased_total );
 
-					$product_object          = WC_AM_PRODUCT_DATA_STORE()->get_product_object( $resource->product_id );
-					$parent_product_id       = $resource->parent_id;
-					$is_api                  = WC_AM_PRODUCT_DATA_STORE()->is_api_product( $parent_product_id );
+					$product_object    = WC_AM_PRODUCT_DATA_STORE()->get_product_object( $resource->product_id );
+					$parent_product_id = $resource->parent_id;
+					$is_api            = WC_AM_PRODUCT_DATA_STORE()->is_api_product( $parent_product_id );
 					//$product_permalink       = $product_object->get_permalink();
 					$order_id                = $resource->order_id;
 					$order_completed_status  = WC_AM_ORDER_DATA_STORE()->has_status_completed( $order_id );

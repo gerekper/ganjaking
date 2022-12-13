@@ -224,7 +224,7 @@ class WC_AM_Smart_Cache {
 	/**
 	 * Refresh cached API Resources by order_id.
 	 *
-	 * @since 2.2.4
+	 * @since   2.2.4
 	 *
 	 * @param int $order_id
 	 */
@@ -454,6 +454,34 @@ class WC_AM_Smart_Cache {
 				} catch ( Exception $e ) {
 					WC_AM_LOG()->log_error( PHP_EOL . esc_html__( 'Details from delete_cache() method, random_int() error.', 'woocommerce-api-manager' ) . PHP_EOL . $e, 'delete_cache' );
 				}
+			}
+		}
+	}
+
+	/**
+	 * Delete the Authenticated API Cache including related API Key activations cached.
+	 *
+	 * @since 2.4.9
+	 *
+	 * @param int $order_id
+	 */
+	public function delete_activation_api_cache_by_order_id( $order_id ) {
+		$activation_resources = WC_AM_API_ACTIVATION_DATA_STORE()->get_activation_resources_by_order_id( $order_id );
+
+		/**
+		 * Delete Product specific Authenticated API cache.
+		 *
+		 * @since 2.4.9
+		 */
+		if ( ! WC_AM_FORMAT()->empty( $activation_resources ) ) {
+			foreach ( $activation_resources as $activation_resource ) {
+				$data = array(
+					'api_key'    => $activation_resource->api_key,
+					'product_id' => $activation_resource->product_id,
+					'instance'   => $activation_resource->instance
+				);
+
+				$this->delete_cache( $data, false );
 			}
 		}
 	}

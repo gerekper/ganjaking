@@ -93,8 +93,8 @@ class WC_AM_Order {
 			$user_id = WC_AM_ORDER_DATA_STORE()->get_customer_id( $order );
 
 			if ( ! empty( $user_id ) ) {
-				// Refresh Cache
-				WC_AM_SMART_CACHE()->refresh_cache_by_order_id( $order_id );
+				WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $order_id );
+				WC_AM_SMART_CACHE()->refresh_cache_by_order_id( $order_id, false );
 
 				if ( WCAM()->get_wc_subs_exist() ) {
 					// Updates only WooCommerce Subscription item products marked as API Products.
@@ -574,6 +574,7 @@ class WC_AM_Order {
 		if ( is_array( $order_ids ) && ! empty( $order_ids ) ) {
 			foreach ( $order_ids as $order_id ) {
 				if ( ! empty( $order_id ) ) {
+					WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $order_id );
 					WC_AM_SMART_CACHE()->refresh_cache_by_order_id( $order_id, false );
 
 					$this->api_resource_activations_updater->push_to_queue( array( 'product_id' => $product_id, 'order_id' => $order_id ) );
@@ -605,6 +606,7 @@ class WC_AM_Order {
 		if ( is_array( $order_ids ) && ! empty( $order_ids ) ) {
 			foreach ( $order_ids as $order_id ) {
 				if ( ! empty( $order_id ) ) {
+					WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $order_id );
 					WC_AM_SMART_CACHE()->refresh_cache_by_order_id( $order_id, false );
 
 					$this->api_resource_access_expires_updater->push_to_queue( array( 'product_id' => $product_id, 'order_id' => $order_id, 'product_access_expires' => $product_access_expires ) );

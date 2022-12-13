@@ -906,6 +906,9 @@ class WC_AM_API_Resource_Data_Store {
 				// If the _api_resource_product_id meta value is missing on the product, add it now.
 				WC_AM_PRODUCT_DATA_STORE()->update_missing_api_resource_product_id( $resource->product_id, $resource->parent_id );
 
+				// Refreshing cache here will also delete API cache for activations about to be deleted.
+				WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $resource->order_id );
+
 				// Delete excess API Key activations by activation resource ID.
 				WC_AM_API_ACTIVATION_DATA_STORE()->delete_excess_api_key_activations_by_activation_id( $resource->activation_ids, $resource->activations_purchased_total );
 
@@ -984,6 +987,9 @@ class WC_AM_API_Resource_Data_Store {
 
 					// If the _api_resource_product_id meta value is missing on the product, add it now.
 					WC_AM_PRODUCT_DATA_STORE()->update_missing_api_resource_product_id( $resource->product_id, $resource->parent_id );
+
+					// Refreshing cache here will also delete API cache for activations about to be deleted.
+					WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $resource->order_id );
 
 					// Delete excess API Key activations by activation resource ID.
 					WC_AM_API_ACTIVATION_DATA_STORE()->delete_excess_api_key_activations_by_activation_id( $resource->activation_ids, $resource->activations_purchased_total );

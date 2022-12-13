@@ -1,5 +1,10 @@
 *** WooCommerce API Manager Changelog ***
 
+2022.12.10 - version 2.4.9
+ * Tweak: Don't delete API Key activations when WooCommerce Subscription transitions to on-hold then back to active status when payment is processed.
+ * Tweak: When WooCommerce Subscription changes status delete related Authenticated API cache.
+ * Tweak: Delete the Authenticated API cache for more events to cover edge cases where results may be stale when fresh results are needed.
+
 2022.12.05 - version 2.4.8
  * Tweak: Delete API Key activations when WooCommerce Subscription transitions to on-hold status.
 
