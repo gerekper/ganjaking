@@ -188,10 +188,9 @@
 						that.refreshTimeout = setTimeout( function() {
 							that.fetchFile()
 						}, 5000 );
-					} else {
-						that.setAction( that.getActionForFile( that._string.file ) );
 					}
 
+					that.setAction( that.getActionForFile( that._string.file ) );
 					that.render();
 				});
 			},
@@ -221,7 +220,15 @@
 					return 'loading';
 				}
 
-				return ( file.lastModified ? 'viewing' : 'creating' );
+				switch ( file.status ) {
+					case '':
+						return ( file.lastModified ? 'viewing' : 'creating' );
+					case 'queued':
+					case 'processing':
+						return 'updating';
+					default:
+						return file.status;
+				}
 			},
 
 			setAction: function( action ) {

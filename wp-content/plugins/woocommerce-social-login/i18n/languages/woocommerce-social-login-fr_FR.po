@@ -972,59 +972,6 @@ msgstr ""
 "Un compte d'utilisateur utilisant la même adresse e-mail que ce compte "
 "Amazon existe déjà."
 
-#: includes/providers/class-wc-social-login-provider-yahoo.php:44
-msgid "Yahoo"
-msgstr ""
-
-# @ woocommerce-social-login
-#. translators: Placeholders: %1$s - opening HTML <a> tag, %2$s - closing HTML
-#. </a> tag
-#: includes/providers/class-wc-social-login-provider-yahoo.php:62
-#, fuzzy
-msgid "Need help setting up and configuring Yahoo? %1$sRead the docs%2$s"
-msgstr ""
-"Besoin d'aide pour installer et configurer Facebook? %1$sLire la doc%2$s"
-
-# @ woocommerce-social-login
-#: includes/providers/class-wc-social-login-provider-yahoo.php:102
-#, fuzzy
-msgid "Log in with Yahoo"
-msgstr "Connexion avec Facebook"
-
-# @ woocommerce-social-login
-#: includes/providers/class-wc-social-login-provider-yahoo.php:114
-#, fuzzy
-msgid "Link your account to Yahoo"
-msgstr "Liez votre compte Facebook"
-
-# @ woocommerce-social-login
-#: includes/providers/class-wc-social-login-provider-yahoo.php:126
-#, fuzzy
-msgid "Your Yahoo account is now linked to your account."
-msgstr "Votre compte Facebook est maintenant lié à votre compte."
-
-# @ woocommerce-social-login
-#: includes/providers/class-wc-social-login-provider-yahoo.php:127
-#, fuzzy
-msgid "Yahoo was successfully unlinked from your account."
-msgstr "Votre compte Amazon a été dissocié avec succès de votre compte."
-
-# @ woocommerce-social-login
-#: includes/providers/class-wc-social-login-provider-yahoo.php:128
-#, fuzzy
-msgid "This Yahoo account is already linked to another user account."
-msgstr "Ce compte Facebook est déjà lié à un autre compte d'utilisateur."
-
-# @ woocommerce-social-login
-#: includes/providers/class-wc-social-login-provider-yahoo.php:129
-#, fuzzy
-msgid ""
-"A user account using the same email address as this Yahoo account already "
-"exists."
-msgstr ""
-"Un compte d'utilisateur utilisant la même adresse e-mail que ce compte "
-"Facebook existe déjà."
-
 # @ woocommerce-social-login
 #: includes/widgets/class-wc-social-login-widget.php:44
 msgid "Display social login buttons."

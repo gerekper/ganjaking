@@ -1178,7 +1178,9 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	 * @return void
 	 */
 	public function oauth_redirect() {
-		if ( ! current_user_can( 'manage_options' ) ) {
+		$valid_nonce = isset( $_REQUEST[ 'nonce' ] ) ? wp_verify_nonce( $_REQUEST[ 'nonce' ], 'wc_bookings_google_calendar_wooconnect' ) : false;
+
+		if ( ! current_user_can( 'manage_options' ) || ! $valid_nonce ) {
 			wp_die( esc_html__( 'Permission denied!', 'woocommerce-bookings' ) );
 		}
 
@@ -1984,7 +1986,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		}
 		return add_query_arg(
 			array(
-				'redirect' => WC()->api_request_url( 'wc_bookings_google_calendar_wooconnect' ),
+				'redirect' => WC()->api_request_url( 'wc_bookings_google_calendar_wooconnect' ) . '?nonce=' . wp_create_nonce( 'wc_bookings_google_calendar_wooconnect' ),
 			),
 			self::CONNECT_WOOCOMMERCE_URL . '/login/google'
 		);

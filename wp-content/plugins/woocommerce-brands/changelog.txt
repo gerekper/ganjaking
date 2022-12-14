@@ -1,5 +1,9 @@
 *** Brands Changelog ***
 
+2022-12-13 - version 1.6.40
+* Fix - Release v1.6.39.
+* Tweak - WC 7.2 compatibility.
+
 2022-11-08 - version 1.6.39
 * Fix - Add HPOS compatibility.
 * Tweak - WC 7.1 compatibility.

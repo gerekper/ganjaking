@@ -20,11 +20,6 @@
 			<key name="link_button_text" />
 		</key>
 
-		<key name="wc_social_login_yahoo_settings">
-			<key name="login_button_text" />
-			<key name="link_button_text" />
-		</key>
-
 		<key name="wc_social_login_vkontakte_settings">
 			<key name="login_button_text" />
 			<key name="link_button_text" />

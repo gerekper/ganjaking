@@ -59,6 +59,9 @@ class WC_Box_Office_Order {
 
 		// Logic to not strip HTML tags in the order item meta so that ticket HTML is properly shown
 		add_filter( 'woocommerce_order_item_display_meta_value', array( $this, 'process_ticket_display_meta' ), 10, 3 );
+	
+		// Move ticket to trash if it was refunded and part of an order with other non-refunded items.
+		add_action( 'woocommerce_order_refunded', array( $this, 'move_ticket_to_trash_on_refund' ) );
 	}
 
 	/**
@@ -451,9 +454,9 @@ class WC_Box_Office_Order {
 	/**
 	 * Get tickets purchased in order.
 	 *
-	 * @param  integer $order_id Order ID
-	 * @param  string  $amount   Number of tickets to fetch
-	 * @return array             Array of ticket posts
+	 * @param  int      $order_id   Order ID
+	 * @param  string   $amount     Number of tickets to fetch
+	 * @return array    Array of ticket posts
 	 */
 	public function get_tickets_by_order( $order_id = 0, $amount = 'all' ) {
 
@@ -469,7 +472,7 @@ class WC_Box_Office_Order {
 			'post_type'      => 'event_ticket',
 			'post_status'    => array( 'publish', 'pending' ),
 			'posts_per_page' => $amount,
-			'meta_query' => array(
+			'meta_query'     => array(
 				array(
 					'key'   => '_order',
 					'value' => $order_id,
@@ -664,5 +667,55 @@ class WC_Box_Office_Order {
 		}
 
 		return $meta->value;
+	}
+
+	/**
+	 * Move ticket to trash when it is refunded but other items in the order are not.
+	 *
+	 * @param int $order_id The order ID.
+	 *
+	 * @return void
+	 */
+	public function move_ticket_to_trash_on_refund( $order_id ) {
+		$order = wc_get_order( $order_id );
+		if ( ! is_object( $order ) ) {
+			return;
+		}
+
+		$order_items = $order->get_items();
+
+		// Loop through all the order items to check which one is fully refunded.
+		foreach ( $order_items as $item ) {
+			$item_id         = $item->get_ID();
+			$total_amount    = $item->get_total();
+			$refunded_amount = -1 * $order->get_total_refunded_for_item( $item_id );
+
+			if ( ( $total_amount + $refunded_amount ) > 0 ) {
+				// Not fully refunded.
+				continue;
+			}
+
+			$tickets = get_posts(
+				array(
+					'post_type'   => 'event_ticket',
+					'post_status' => 'any',
+					'fields'      => 'ids',
+					'meta_query'  => array(
+						array(
+							'key'   => '_ticket_order_item_id',
+							'value' => $item_id,
+						),
+					),
+				)
+			);
+
+			if ( is_array( $tickets ) && ! empty( $tickets ) ) {
+				foreach ( $tickets as $ticket_id ) {
+					if ( ! empty( $ticket_id ) ) {
+						wp_trash_post( $ticket_id );
+					}
+				}
+			}
+		}
 	}
 }

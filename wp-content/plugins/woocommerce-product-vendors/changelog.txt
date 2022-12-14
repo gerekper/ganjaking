@@ -1,5 +1,11 @@
 *** Product Vendors Changelog ***
 
+2022-12-13 - version 2.1.70
+* Fix - Compatibility issue with Custom Order Status for WooCommerce plugin.
+* Fix - Other vendor global store availability rules apply on product booking page for logged-in vendor.
+* Update - Fetch vendor data only if current user is a vendor.
+* Update - Set current vendor if not set in usermeta.
+
 2022-11-17 - version 2.1.69
 * Add - Local development instructions and `wp-env` support.
 * Dev - Update node version from 8.9.3 to 16.13.0.

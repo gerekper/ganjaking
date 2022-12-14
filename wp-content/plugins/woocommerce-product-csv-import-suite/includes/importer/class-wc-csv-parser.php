@@ -357,7 +357,9 @@ class WC_CSV_Parser {
 		}
 
 		// Reset dynamically generated meta
-		$postmeta['min_variation_price'] = $postmeta['max_variation_price']	= $postmeta['min_variation_regular_price'] = $postmeta['max_variation_regular_price'] = $postmeta['min_variation_sale_price'] = $postmeta['max_variation_sale_price'] = '';
+		if ( ! $merging ) {
+			$postmeta['min_variation_price'] = $postmeta['max_variation_price'] = $postmeta['min_variation_regular_price'] = $postmeta['max_variation_regular_price'] = $postmeta['min_variation_sale_price'] = $postmeta['max_variation_sale_price'] = '';
+		}
 
 		// upsells
 		if ( isset( $postmeta['upsell_ids'] ) && ! is_array( $postmeta['upsell_ids'] ) ) {
@@ -548,7 +550,6 @@ class WC_CSV_Parser {
 
 						$raw_term = explode( '>', $raw_term );
 						$raw_term = array_map( 'trim', $raw_term );
-						$raw_term = array_map( 'esc_html', $raw_term );
 						$raw_term = array_filter( $raw_term );
 
 						$parent = 0;
@@ -565,26 +566,21 @@ class WC_CSV_Parser {
 								/**
 								 * Check term existance
 								 */
-								$term_may_exist = term_exists( $term, $taxonomy, absint( $parent ) );
+								$term_exists = get_terms( [
+									'taxonomy'   => $taxonomy,
+									'hide_empty' => false,
+									'name'       => $term,
+									'parent'     => $parent,
+								] );
 
-								WC_Product_CSV_Import_Suite::log( sprintf( __( '> > (' . __LINE__ . ') Term %s (%s) exists? %s', 'woocommerce-product-csv-import-suite' ), sanitize_text_field( $term ), esc_html( $taxonomy ), $term_may_exist ? print_r( $term_may_exist, true ) : '-' ) );
-
-								if ( is_array( $term_may_exist ) ) {
-
-									$possible_term = get_term( $term_may_exist['term_id'], $taxonomy );
-
-									if ( $possible_term->parent == $parent ) {
-										$term_id = $term_may_exist['term_id'];
-									}
+								if ( ! empty( $term_exists ) ) {
+									$term_id = $term_exists[0]->term_id;
 								}
 
+								WC_Product_CSV_Import_Suite::log( sprintf( __( '> > (' . __LINE__ . ') Term %s (%s) exists? %s', 'woocommerce-product-csv-import-suite' ), sanitize_text_field( $term ), esc_html( $taxonomy ), $term_id ? esc_html( $term_id ) : '-' ) );
+
 								if ( ! $term_id ) {
-									// Use last term from hierarchy to create slug.
-									$slug = end( $raw_term );
-
-									$slug = is_array( $slug ) ? sanitize_title( implode( '-', $slug ) ) : sanitize_title( $slug );
-
-									$t = wp_insert_term( $term, $taxonomy, array( 'parent' => $parent, 'slug' => $slug ) );
+									$t = wp_insert_term( $term, $taxonomy, array( 'parent' => $parent ) );
 
 									if ( ! is_wp_error( $t ) ) {
 										$term_id = $t['term_id'];
@@ -610,8 +606,7 @@ class WC_CSV_Parser {
 
 					} else {
 
-						$term_id  = '';
-						$raw_term = esc_html( $raw_term );
+						$term_id = '';
 
 						if ( isset( $this->inserted_terms[ $taxonomy ][0][$raw_term] ) ) {
 
@@ -619,9 +614,19 @@ class WC_CSV_Parser {
 
 						} elseif ( $raw_term ) {
 
-							// Check term existance
-							$term_exists 	= term_exists( $raw_term, $taxonomy, 0 );
-							$term_id 		= is_array( $term_exists ) ? $term_exists['term_id'] : 0;
+							/**
+							 * Check term existance
+							 */
+							$term_exists = get_terms( [
+								'taxonomy'   => $taxonomy,
+								'hide_empty' => false,
+								'name'       => $raw_term,
+								'parent'     => 0,
+							] );
+
+							if ( ! empty( $term_exists ) ) {
+								$term_id = $term_exists[0]->term_id;
+							}
 
 							if ( ! $term_id ) {
 								$t = wp_insert_term( trim( $raw_term ), $taxonomy, array( 'parent' => 0 ) );
@@ -930,6 +935,28 @@ class WC_CSV_Parser {
 				if ( $value ) {
 					$skus                      = array_filter( array_map( 'trim', explode( '|', $value ) ) );
 					$product['crosssell_skus'] = $skus;
+				}
+			}
+
+			/**
+			 * Handle `featured` column.
+			 */
+			elseif ( 'featured' === $key ) {
+				$term_may_exist = term_exists( 'featured', 'product_visibility' );
+				$term_id        = $term_may_exist ? $term_may_exist['term_id'] : 0;
+				if ( 'yes' === $value ) {
+					if ( ! $term_id ) {
+						$term    = wp_insert_term( 'featured', 'product_visibility' );
+						$term_id = $term['term_id'];
+					}
+
+					// Add to array
+					$terms_array[] = array(
+						'taxonomy' => 'product_visibility',
+						'terms'    => $term_id,
+					);
+				} elseif ( 'no' === $value && $merging && $term_id ) {
+					wp_remove_object_terms( (int) $post_id, (int) $term_id, 'product_visibility' );
 				}
 			}
 

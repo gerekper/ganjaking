@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Premium\API\JSON\v1;
 
@@ -9,6 +9,7 @@ use MailPoet\API\JSON\Endpoint as APIEndpoint;
 use MailPoet\API\JSON\Error as APIError;
 use MailPoet\Config\AccessControl;
 use MailPoet\Entities\NewsletterEntity;
+use MailPoet\Entities\NewsletterLinkEntity;
 use MailPoet\Entities\ScheduledTaskEntity;
 use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Newsletter\Statistics\NewsletterStatisticsRepository;
@@ -85,13 +86,14 @@ class Stats extends APIEndpoint {
     }
 
     $clickedLinks = $this->statisticsClicksRepository->getClickedLinks($newsletter);
+
     $previewUrl = $this->newsletterUrl->getViewInBrowserUrl($newsletter);
 
     return $this->successResponse(
       $this->statsResponseBuilder->build(
         $newsletter,
         $statistics,
-        $clickedLinks,
+        $this->getClickedLinksWithAggregatedUnsubscribes($clickedLinks),
         $previewUrl
       )
     );
@@ -155,5 +157,33 @@ class Stats extends APIEndpoint {
   public function getProducts(array $data = []) {
     $id = (isset($data['newsletter_id']) ? (int)$data['newsletter_id'] : false);
     return $this->successResponse($this->purchasedProducts->getStats($id));
+  }
+
+  /**
+   * @param array<int|string, array{cnt: int, url: string}> $clickedLinks
+   * @return array<int, array{cnt: int, url: string}>
+   */
+  private function getClickedLinksWithAggregatedUnsubscribes(array $clickedLinks): array {
+    $associativeClickedLinks = array_reduce($clickedLinks, function ($allCounts, $item) {
+      if (in_array($item['url'], NewsletterLinkEntity::UNSUBSCRIBE_LINK_SHORTCODES)) {
+        $cnt = $item['cnt'] + (isset($allCounts[NewsletterLinkEntity::UNSUBSCRIBE_LINK_SHORT_CODE])
+            ? $allCounts[NewsletterLinkEntity::UNSUBSCRIBE_LINK_SHORT_CODE]['cnt']
+            : 0);
+        $allCounts[NewsletterLinkEntity::UNSUBSCRIBE_LINK_SHORT_CODE] = [
+          'cnt' => $cnt,
+          'url' => NewsletterLinkEntity::UNSUBSCRIBE_LINK_SHORT_CODE,
+        ];
+      } else {
+        $allCounts[] = $item;
+      }
+
+      return $allCounts;
+    }, []);
+
+    usort($associativeClickedLinks, function ($a, $b) {
+      return $a['cnt'] > $b['cnt'] ? -1 : 1;
+    });
+
+    return array_values($associativeClickedLinks);
   }
 }

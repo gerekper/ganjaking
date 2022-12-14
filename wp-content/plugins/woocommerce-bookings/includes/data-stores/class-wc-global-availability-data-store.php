@@ -208,6 +208,25 @@ class WC_Global_Availability_Data_Store extends WC_Data_Store_WP {
 	}
 
 	/**
+	 * Should return whether Google event availability rules exists in database.
+	 *
+	 * @since 1.15.69
+	 *
+	 * @return bool
+	 */
+	public function has_google_event() {
+		global $wpdb;
+		$table_name = $wpdb->prefix . self::TABLE_NAME;
+
+		return (bool) $wpdb->get_var(
+			"SELECT ID
+			FROM $table_name
+			WHERE gcal_event_id != ''
+			LIMIT 1"
+		);
+	}
+
+	/**
 	 * Get global availability as array.
 	 *
 	 * @param array  $filters { @see self::build_query() }.

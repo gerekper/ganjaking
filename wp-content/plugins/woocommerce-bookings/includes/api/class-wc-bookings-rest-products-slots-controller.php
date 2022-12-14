@@ -230,6 +230,16 @@ class WC_Bookings_REST_Products_Slots_Controller extends WC_REST_Controller {
 				$resources = array_intersect( $resources, $resource_ids );
 			}
 
+			if ( 'day' === $duration_unit ) {
+				// For days, reset the timestamps to midnight, so it properly intersects
+				// with the booked day blocks and availability can be checked.
+				$min_date = strtotime( 'midnight', $min_date );
+			} else {
+				// Remove the seconds from timestamps, so it properly intersects
+				// with the booked block minutes and availability can be checked.
+				$min_date = $min_date - ( $min_date % 60 );
+			}
+
 			// Get slots for days before and after, which accounts for timezone differences.
 			$start_date = strtotime( '-1 day', $min_date );
 			$end_date   = strtotime( '+1 day', $max_date );

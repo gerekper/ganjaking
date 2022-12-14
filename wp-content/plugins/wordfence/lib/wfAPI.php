@@ -171,7 +171,9 @@ class wfAPI {
 		return array('code' => $this->lastHTTPStatus, 'data' => $data);
 	}
 
-	public function makeAPIQueryString() {
+	public static function generateSiteStats($wordpressVersion = null) {
+		if ($wordpressVersion === null)
+			$wordpressVersion = wfUtils::getWPVersion();
 		$cv = null;
 		$cs = null;
 		if (function_exists('curl_version')) {
@@ -181,7 +183,7 @@ class wfAPI {
 		}
 		
 		$values = array(
-			'wp' => $this->wordpressVersion,
+			'wp' => $wordpressVersion,
 			'wf' => WORDFENCE_VERSION,
 			'ms' => (is_multisite() ? get_blog_count() : false),
 			'h' => wfUtils::wpHomeURL(),
@@ -194,10 +196,14 @@ class wfAPI {
 			'dv' => wfConfig::get('dbVersion', null),
 			'lang' => get_site_option('WPLANG'),
 		);
-		
+
+		return wfUtils::base64url_encode(json_encode($values));
+	}
+
+	public function makeAPIQueryString() {
 		return self::buildQuery(array(
 			'k' => $this->APIKey,
-			's' => wfUtils::base64url_encode(json_encode($values))
+			's' => self::generateSiteStats($this->wordpressVersion)
 		));
 	}
 

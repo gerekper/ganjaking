@@ -4,6 +4,7 @@
  *
  * @package Woocommerce/Bookings
  * @var $availability WC_Global_Availability
+ * @var boolean $show_google_event
  */
 
 $intervals = array();
@@ -53,7 +54,10 @@ $is_rrule           = 'rrule' === $availability['type'];
 
 ?>
 <tr data-id="<?php echo esc_attr( $availability_id ); ?>" <?php echo $is_google ? 'class="google-event"' : ''; ?> >
-	<td class="sort">&nbsp;</td>
+	<?php if ( ! $show_google_event ) : ?>
+		<td class="sort">&nbsp;</td>
+	<?php endif; ?>
+
 	<td><input type="hidden" name="wc_booking_availability_id[]" value="<?php echo esc_attr( $availability_id ); ?>"/>
 		<div class="select wc_booking_availability_type">
 

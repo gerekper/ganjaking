@@ -7,7 +7,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-11-24T10:18:53+00:00\n"
+"POT-Creation-Date: 2022-12-13T03:04:40+00:00\n"
 "PO-Revision-Date: 2022-11-09 17:07:38+0000\n"
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -135,12 +135,12 @@ msgstr "删除 Google 日历中的事件"
 msgid "Deletion Preference"
 msgstr "删除首选项"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:531
+#: includes/admin/class-wc-bookings-details-meta-box.php:528
 msgid "Date should be of the format yyyy-mm-dd and cannot be empty."
 msgstr "日期格式应为 yyyy-mm-dd，且不能为空。"
 
 #: includes/admin/class-wc-bookings-admin.php:677
-#: includes/admin/class-wc-bookings-details-meta-box.php:516
+#: includes/admin/class-wc-bookings-details-meta-box.php:513
 msgid "Start date cannot be greater than end date."
 msgstr "开始日期不得晚于结束日期。"
 
@@ -192,7 +192,7 @@ msgstr "客户端 ID"
 msgid "Connect with a custom Google Calendar App"
 msgstr "连接自定义 Google 日历应用程序"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:217
+#: includes/admin/class-wc-bookings-details-meta-box.php:214
 msgid "Metadata:"
 msgstr "元数据："
 
@@ -1496,8 +1496,8 @@ msgstr "今日预订"
 msgid "All bookings start and end times except where stated differently are displayed in the following timezone: "
 msgstr "除非特殊说明，否则所有预订开始和结束时间均按以下时区显示："
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:516
-#: includes/admin/class-wc-bookings-details-meta-box.php:531
+#: includes/admin/class-wc-bookings-details-meta-box.php:513
+#: includes/admin/class-wc-bookings-details-meta-box.php:528
 #: includes/class-wc-booking-order-manager.php:165
 #: includes/class-wc-booking-order-manager.php:187
 #: includes/class-wc-booking-privacy.php:9
@@ -3036,110 +3036,110 @@ msgstr "要进行设置，您需要设置您的可用性或添加可预订产品
 msgid "You're almost ready to take bookings!"
 msgstr "您就快准备好接受预订了！"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:377
+#: includes/admin/class-wc-bookings-details-meta-box.php:374
 msgid "End time (local timezone):"
 msgstr "结束时间（当地时区）："
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:368
+#: includes/admin/class-wc-bookings-details-meta-box.php:365
 msgid "Start time (local timezone):"
 msgstr "开始时间（当地时区）："
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:359
+#: includes/admin/class-wc-bookings-details-meta-box.php:356
 msgid "End time:"
 msgstr "结束时间："
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:351
+#: includes/admin/class-wc-bookings-details-meta-box.php:348
 msgid "Start time:"
 msgstr "开始时间："
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:345
+#: includes/admin/class-wc-bookings-details-meta-box.php:342
 msgid "Check this box if the booking is for all day."
 msgstr "如果该预订是全天的请选中此栏。"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:344
+#: includes/admin/class-wc-bookings-details-meta-box.php:341
 msgid "All day booking:"
 msgstr "全天预订："
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:336
+#: includes/admin/class-wc-bookings-details-meta-box.php:333
 msgid "End date:"
 msgstr "结束日期："
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:328
+#: includes/admin/class-wc-bookings-details-meta-box.php:325
 msgid "Start date:"
 msgstr "开始日期："
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:324
+#: includes/admin/class-wc-bookings-details-meta-box.php:321
 msgid "Booking date &amp; time"
 msgstr "预定日期和时间"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:250
+#: includes/admin/class-wc-bookings-details-meta-box.php:247
 msgid "Parent booking ID:"
 msgstr "父级预订 ID："
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:243
+#: includes/admin/class-wc-bookings-details-meta-box.php:240
 msgid "Booked product:"
 msgstr "已预订产品："
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:236
+#: includes/admin/class-wc-bookings-details-meta-box.php:233
 msgid "Booking specification"
 msgstr "预订指定"
 
 #. translators: 1: full name 2: user id 3: email
-#: includes/admin/class-wc-bookings-details-meta-box.php:200
+#: includes/admin/class-wc-bookings-details-meta-box.php:197
 msgid "%1$s (#%2$s &ndash; %3$s)"
 msgstr "%1$s (#%2$s &ndash; %3$s)"
 
 #. translators: 1: guest name
-#: includes/admin/class-wc-bookings-details-meta-box.php:193
+#: includes/admin/class-wc-bookings-details-meta-box.php:190
 msgctxt "Admin booking guest placeholder"
 msgid "Guest (%s)"
 msgstr "访客 (%s)"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:190
+#: includes/admin/class-wc-bookings-details-meta-box.php:187
 #: includes/admin/views/html-create-booking-page.php:21
 msgid "Guest"
 msgstr "访客"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:187
+#: includes/admin/class-wc-bookings-details-meta-box.php:184
 msgid "Customer:"
 msgstr "顾客:"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:175
+#: includes/admin/class-wc-bookings-details-meta-box.php:172
 msgid "Booking status:"
 msgstr "预订状态:"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:171
+#: includes/admin/class-wc-bookings-details-meta-box.php:168
 msgid "m"
 msgstr "分钟"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:171
+#: includes/admin/class-wc-bookings-details-meta-box.php:168
 msgid "h"
 msgstr "小时"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:170
+#: includes/admin/class-wc-bookings-details-meta-box.php:167
 msgid "Date created:"
 msgstr "创建日期:"
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:162
+#: includes/admin/class-wc-bookings-details-meta-box.php:159
 msgid "Order ID:"
 msgstr "订单ID："
 
-#: includes/admin/class-wc-bookings-details-meta-box.php:159
+#: includes/admin/class-wc-bookings-details-meta-box.php:156
 msgid "General details"
 msgstr "一般详情"
 
 #. translators: 1: bookings addon title
-#: includes/admin/class-wc-bookings-details-meta-box.php:152
+#: includes/admin/class-wc-bookings-details-meta-box.php:149
 msgid "Booking type: %s"
 msgstr "预订类型： %s"
 
 #. translators: 1: href to order id
-#: includes/admin/class-wc-bookings-details-meta-box.php:147
+#: includes/admin/class-wc-bookings-details-meta-box.php:144
 msgid "Linked to order %s."
 msgstr "已连接至订单 %s。"
 
 #. translators: 1: booking id
-#: includes/admin/class-wc-bookings-details-meta-box.php:140
+#: includes/admin/class-wc-bookings-details-meta-box.php:137
 msgid "Booking #%s details"
 msgstr "预订 #%s 详细信息"
 
@@ -3193,7 +3193,7 @@ msgid "Customer details"
 msgstr "客户详情"
 
 #: includes/admin/class-wc-bookings-create.php:114
-#: includes/admin/class-wc-bookings-details-meta-box.php:604
+#: includes/admin/class-wc-bookings-details-meta-box.php:601
 msgid "Error: Could not create item"
 msgstr "错误 : 未能创建项目"
 
@@ -3340,7 +3340,7 @@ msgid "%1$s: %2$d"
 msgstr "%1$s： %2$d"
 
 #: includes/admin/class-wc-bookings-calendar.php:615
-#: includes/admin/class-wc-bookings-details-meta-box.php:260
+#: includes/admin/class-wc-bookings-details-meta-box.php:257
 #: includes/class-wc-bookings-ics-exporter.php:185
 #: includes/wc-bookings-functions.php:72
 #: templates/emails/admin-booking-cancelled.php:72
@@ -3622,8 +3622,8 @@ msgstr "编辑"
 #: includes/admin/class-wc-bookable-resource-cpt.php:91
 #: includes/admin/class-wc-bookings-cpt.php:272
 #: includes/admin/class-wc-bookings-customer-meta-box.php:116
-#: includes/admin/class-wc-bookings-details-meta-box.php:118
-#: includes/admin/class-wc-bookings-details-meta-box.php:163
+#: includes/admin/class-wc-bookings-details-meta-box.php:115
+#: includes/admin/class-wc-bookings-details-meta-box.php:160
 #: includes/emails/class-wc-email-booking-cancelled.php:88
 #: includes/emails/class-wc-email-booking-confirmed.php:86
 #: includes/emails/class-wc-email-booking-notification.php:92

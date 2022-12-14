@@ -36,7 +36,8 @@ class wfGrant
 					}
 					break 2;
 				}
-				$this->$permission = true;
+				if (property_exists($this, $permission))
+					$this->$permission = true;
 			}
 		}
 	}

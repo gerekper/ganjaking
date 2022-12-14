@@ -2140,8 +2140,8 @@ class wfWAFCronFetchCookieRedactionPatternsEvent extends wfWAFCronEvent {
 		$lastFailure = $storageEngine->getConfig('cookieRedactionLastUpdateFailure', null, 'transient');
 		if ($lastFailure !== null && time() - (int) $lastFailure < self::RETRY_DELAY)
 			return;
-		$api = new wfWafApi($waf);
 		try {
+			$api = new wfWafApi($waf);
 			$response = $api->actionGet('get_cookie_redaction_patterns');
 			if ($response->getStatusCode() === 200) {
 				$body = $response->getBody();
@@ -2159,7 +2159,10 @@ class wfWAFCronFetchCookieRedactionPatternsEvent extends wfWAFCronEvent {
 				error_log('Failed to retrieve cookie redaction patterns, response code: ' . $response->getStatusCode());
 			}
 		}
-		catch(wfWafApiException $e) {
+		catch (wfWafMissingApiKeyException $e) {
+			// This is intentionally ignored as the API key may be missing during initial setup of the plugin
+		}
+		catch (wfWafApiException $e) {
 			error_log('Failed to retrieve cookie redaction patterns: ' . $e->getMessage());
 		}
 		$storageEngine->setConfig('cookieRedactionLastUpdateFailure', time(), 'transient');

@@ -111,7 +111,12 @@ class WC_Booking_Products_Import {
 		if( is_array( $import_types ) ) {
 			$import_types = $import_types[0];
 		}
-		$import_types = maybe_unserialize( $import_types );
+
+		try {
+			$import_types = json_decode( $import_types, true );
+		} catch( TypeError $e ) {
+			$import_types = array();
+		}
 
 		$person_types = array();
 		foreach ( $import_types as $person_type_data ){

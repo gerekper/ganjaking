@@ -34,7 +34,7 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 
 
 	/** plugin version number */
-	const VERSION = '2.11.2';
+	const VERSION = '2.12.0';
 
 	/** @var WC_Social_Login single instance of this plugin */
 	protected static $instance;
@@ -419,7 +419,6 @@ class WC_Social_Login extends Framework\SV_WC_Plugin {
 			'linkedin'  => 'WC_Social_Login_Provider_LinkedIn',
 			'paypal'    => 'WC_Social_Login_Provider_PayPal',
 			'disqus'    => 'WC_Social_Login_Provider_Disqus',
-			'yahoo'     => 'WC_Social_Login_Provider_Yahoo',
 			'vkontakte' => 'WC_Social_Login_Provider_VKontakte',
 		] );
 

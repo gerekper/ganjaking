@@ -116,6 +116,7 @@ class WC_Instagram_Background_Generate_Catalog extends WC_Instagram_Background_P
 			)
 		);
 
+		$initial_data = $data;
 		$catalog_file = $catalog->get_file( $format, 'tmp' );
 
 		// Cancel the process.
@@ -135,11 +136,10 @@ class WC_Instagram_Background_Generate_Catalog extends WC_Instagram_Background_P
 			return false;
 		}
 
-		$limit         = $this->get_limit();
 		$catalog_items = new WC_Instagram_Product_Catalog_Items(
 			$catalog,
 			array(
-				'limit'  => $limit,
+				'limit'  => $this->get_limit(),
 				'offset' => $data['offset'],
 			),
 			'grouped'
@@ -186,9 +186,16 @@ class WC_Instagram_Background_Generate_Catalog extends WC_Instagram_Background_P
 			update_option( $data_option, $data );
 		}
 
-		$this->log( "Processed {$data['offset']} of {$data['total']} products." );
+		// This iteration didn't process any product or variation. Skip the process to avoid lock-in.
+		$skip = ( $data['offset'] === $initial_data['offset'] && $data['variation_offset'] === $initial_data['variation_offset'] );
 
-		if ( $data['offset'] < $data['total'] ) {
+		if ( $skip ) {
+			$this->log( 'No more products found. Finishing the process&hellip;' );
+		} else {
+			$this->log( "Processed {$data['offset']} of {$data['total']} products." );
+		}
+
+		if ( ! $skip && $data['offset'] < $data['total'] ) {
 			update_option( $data_option, $data );
 			$catalog_file->close();
 

@@ -10,6 +10,7 @@ class wfLog {
 	private $wp_version = '';
 	private $db = false;
 	private $googlePattern = '/\.(?:googlebot\.com|google\.[a-z]{2,3}|google\.[a-z]{2}\.[a-z]{2}|1e100\.net)$/i';
+	private $loginsTable, $statusTable;
 	private static $gbSafeCache = array();
 
 	/**
@@ -89,11 +90,7 @@ class wfLog {
 		$this->wp_version = $wp_version;
 		$this->hitsTable = wfDB::networkTable('wfHits');
 		$this->loginsTable = wfDB::networkTable('wfLogins');
-		$this->blocksTable = wfBlock::blocksTable();
-		$this->lockOutTable = wfDB::networkTable('wfLockedOut');
-		$this->throttleTable = wfDB::networkTable('wfThrottleLog');
 		$this->statusTable = wfDB::networkTable('wfStatus');
-		$this->ipRangesTable = wfDB::networkTable('wfBlocksAdv');
 		
 		add_filter('determine_current_user', array($this, '_userIDDetermined'), 99, 1);
 	}

@@ -246,16 +246,17 @@ class WC_Product_Vendors_Utils {
 	public static function get_all_vendor_data( $user_id = null ) {
 		// if param not passed use current user
 		if ( null === $user_id ) {
-			$current_user = wp_get_current_user();
+			$user_id = get_current_user_id();
+		}
 
-			$user_id = $current_user->ID;
+		$vendors = array();
+		if ( ! self::is_vendor( $user_id ) ) {
+			return $vendors;
 		}
 
 		$terms = get_terms( WC_PRODUCT_VENDORS_TAXONOMY, array( 'hide_empty' => false ) );
 
 		$vendor_data = array();
-
-		$vendors = array();
 
 		if ( ! is_array( $terms ) ) {
 			return $vendors;
@@ -425,7 +426,13 @@ class WC_Product_Vendors_Utils {
 			return $vendor_id;
 		}
 
-		return self::get_user_default_vendor( $user_id );
+		$default_vendor = self::get_user_default_vendor( $user_id );
+
+		if ( false !== $default_vendor ) {
+			self::set_user_active_vendor( $default_vendor );
+		}
+
+		return $default_vendor;
 	}
 
 	/**
@@ -1470,35 +1477,23 @@ class WC_Product_Vendors_Utils {
 	/**
 	 * Formats the order status for localization
 	 *
-	 * @since 2.0.21
-	 * @version 2.0.21
+	 * @since   2.0.21
+	 * @since   2.1.70 Use WordPress and Woocommerce status names.
+	 *
 	 * @param string $order_status
+	 *
+	 * @version 2.0.21
 	 */
 	public static function format_order_status( $order_status = '' ) {
+		$wc_order_statuses = array_merge( get_post_statuses(), wc_get_order_statuses() );
+
+		if ( array_key_exists( "wc-$order_status", $wc_order_statuses ) ) {
+			return $wc_order_statuses["wc-$order_status"];
+		}
+
 		switch ( $order_status ) {
-			case 'pending':
-				$order_status = __( 'Pending', 'woocommerce-product-vendors' );
-				break;
-			case 'processing':
-				$order_status = __( 'Processing', 'woocommerce-product-vendors' );
-				break;
-			case 'on-hold':
-				$order_status = __( 'On-hold', 'woocommerce-product-vendors' );
-				break;
-			case 'completed':
-				$order_status = __( 'Completed', 'woocommerce-product-vendors' );
-				break;
-			case 'cancelled':
-				$order_status = __( 'Cancelled', 'woocommerce-product-vendors' );
-				break;
-			case 'refunded':
-				$order_status = __( 'Refunded', 'woocommerce-product-vendors' );
-				break;
 			case 'partial-refunded':
 				$order_status = __( 'Partial Refunded', 'woocommerce-product-vendors' );
-				break;
-			case 'failed':
-				$order_status = __( 'Failed', 'woocommerce-product-vendors' );
 				break;
 			case 'pre-ordered':
 				$order_status = __( 'Pre-ordered', 'woocommerce-product-vendors' );
@@ -1506,11 +1501,8 @@ class WC_Product_Vendors_Utils {
 			case 'partial-payment':
 				$order_status = __( 'Partially Paid', 'woocommerce-product-vendors' );
 				break;
-			case 'trash':
-				$order_status = __( 'Trash', 'woocommerce-product-vendors' );
-				break;
 			default:
-				$order_status = __( 'Unknown', 'woocommerce-product-vendors' );
+				$order_status = ucwords( wc_get_order_status_name( $order_status ) );
 				break;
 		}
 

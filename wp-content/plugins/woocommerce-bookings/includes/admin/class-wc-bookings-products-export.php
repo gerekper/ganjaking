@@ -115,7 +115,7 @@ class WC_Booking_Products_Export {
 	 *
 	 * @param array $types
 	 *
-	 * @return array
+	 * @return string|boolean
 	 */
 	public function convert_types_for_export( $types = array() ) {
 		$converted_types = array();
@@ -132,6 +132,6 @@ class WC_Booking_Products_Export {
 		   	);
 			$converted_types[] = $converted_type;
 		}
-		return serialize( $converted_types );
+		return wp_json_encode( $converted_types );
 	}
 }

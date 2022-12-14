@@ -119,8 +119,15 @@ if (
 		echo '<div class="updated"><p>' . esc_html__( 'Settings saved', 'woocommerce-bookings' ) . '</p></div>';
 	}
 }
-$global_availabilities = WC_Data_Store::load( 'booking-global-availability' )->get_all();
-$show_title            = true;
+
+/* @var WC_Global_Availability_Data_Store $global_availabilities_data_store */
+$global_availabilities_data_store = WC_Data_Store::load( 'booking-global-availability' );
+
+$can_lazy_load_availability_rules  = false;
+$global_availabilities             = $global_availabilities_data_store->get_all();
+$show_title                        = true;
+$show_google_event                 = isset( $_GET['show'] ) && 'google-events' === $_GET['show'];
+$global_availability_rule_per_page = $show_google_event ? 250 : count( $global_availabilities );
 ?>
 
 <form method="post" action="" id="bookings_settings">
@@ -129,6 +136,23 @@ $show_title            = true;
 		<div class="postbox">
 			<div class="inside">
 				<p><?php esc_html_e( 'This section will set the availability of your store (ie Open and closed hours). All bookable products will adopt your store\'s availability.', 'woocommerce-bookings' ); ?></p>
+
+				<ul class="subsubsub">
+					<?php if ( $global_availabilities_data_store->has_google_event() ) : ?>
+						<li class="availability-rules">
+							<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=wc_booking&page=wc_bookings_settings&show=availability-rules' ) ); ?>"
+							   class="<?php echo $show_google_event ? '' : 'current'; ?>">
+								<?php esc_html_e( 'Availability Rules', 'woocommerce-bookings' ); ?>
+							</a> |
+						</li>
+						<li class="google-events">
+							<a href="<?php echo esc_url( admin_url( 'edit.php?post_type=wc_booking&page=wc_bookings_settings&show=google-events' ) ); ?>"
+							   class="<?php echo $show_google_event ? 'current' : ''; ?>">
+								<?php esc_html_e( 'Google Events', 'woocommerce-bookings' ); ?>
+							</a>
+						</li>
+					<?php endif; ?>
+				</ul>
 
 				<?php if ( defined( 'WC_BOOKINGS_ENABLE_STORE_AVAILABILITY_CALENDAR' ) && WC_BOOKINGS_ENABLE_STORE_AVAILABILITY_CALENDAR ) : ?>
 					<div class="wc-bookings-store-availability-nav-classic">
@@ -140,7 +164,9 @@ $show_title            = true;
 					<table class="widefat">
 						<thead>
 							<tr>
-								<th class="sort" width="1%">&nbsp;</th>
+								<?php if ( ! $show_google_event ) : ?>
+									<th class="sort" width="1%">&nbsp;</th>
+								<?php endif; ?>
 								<th><?php esc_html_e( 'Range type', 'woocommerce-bookings' ); ?></th>
 								<th><?php esc_html_e( 'Range', 'woocommerce-bookings' ); ?></th>
 								<th></th>
@@ -152,30 +178,52 @@ $show_title            = true;
 								<th class="remove" width="1%">&nbsp;</th>
 							</tr>
 						</thead>
-						<tfoot>
+						<?php if ( ! $show_google_event ) : ?>
+							<tfoot>
 							<tr>
 								<th colspan="7">
 									<a href="#" class="button add_row" data-row="
-									<?php
+										<?php
 										ob_start();
 										$availability = new WC_Global_Availability();
 										require 'html-booking-availability-fields.php';
 										$html = ob_get_clean();
 										echo esc_attr( $html );
-									?>
-									"><?php esc_html_e( 'Add Range', 'woocommerce-bookings' ); ?></a>
+										?>">
+										<?php esc_html_e( 'Add Range', 'woocommerce-bookings' ); ?>
+									</a>
 									<span class="description"><?php echo esc_html( get_wc_booking_rules_explanation() ); ?></span>
 								</th>
 							</tr>
-						</tfoot>
+							</tfoot>
+						<?php endif; ?>
 						<tbody id="availability_rows">
 							<?php
+							$live_global_availabilities_counter = 0;
 							if ( ! empty( $global_availabilities ) && is_array( $global_availabilities ) ) {
-								foreach ( $global_availabilities as $availability ) {
+								foreach ( $global_availabilities as $index => $availability ) {
 									if ( $availability->has_past() ) {
 										continue;
 									}
+
+									if (
+										// Hide availability rules from Google event store availability rules.
+										( $show_google_event && ! $availability->get_gcal_event_id() ) ||
+										// Hide Google event rules from Google event store availability rules.
+										( ! $show_google_event && $availability->get_gcal_event_id() )
+									) {
+										continue;
+									}
+
 									include 'html-booking-availability-fields.php';
+									++$live_global_availabilities_counter;
+
+									// Check whether availability rules remaining to render.
+									// Remaining availability rules will load by ajax request on client side.
+									if ( $global_availability_rule_per_page === $live_global_availabilities_counter ) {
+										$can_lazy_load_availability_rules = $index !== array_key_last( $global_availabilities );
+										break;
+									}
 								}
 							}
 							?>
@@ -187,8 +235,13 @@ $show_title            = true;
 	</div>
 	<p><?php esc_html_e( 'Past availability are hidden from this list.', 'woocommerce-bookings' ); ?></p>
 	<p class="submit">
-		<input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e( 'Save Changes', 'woocommerce-bookings' ); ?>" />
-		<input type="hidden" name="wc_booking_availability_deleted" value="" class="wc-booking-availability-deleted" />
+		<input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e( 'Save Changes', 'woocommerce-bookings' ); ?>"/>
+		<input type="hidden" name="wc_booking_availability_deleted" value="" class="wc-booking-availability-deleted"/>
 		<?php wp_nonce_field( 'submit_global_availability', 'global_availability_nonce' ); ?>
+
+		<!-- These fields will be used to lazy load availability rules. -->
+		<input type="hidden" name="can-lazy-load-availability-rules" value="<?php echo absint( $can_lazy_load_availability_rules ); ?>" disabled>
+		<input type="hidden" name="lazy_load_availability_rules_nonce" value="<?php echo wp_create_nonce( 'lazy_load_availability_rules' ); ?>" disabled>
+		<input type="hidden" name="availability-rules-per-page" value="<?php echo absint( $global_availability_rule_per_page ); ?>" disabled>
 	</p>
 </form>

@@ -1,7 +1,14 @@
 *** Product CSV Import Suite Changelog ***
 
-2022-11-28 - version 1.10.53
-* Fix - Prevent file upload error.
+2022-12-13 - version 1.10.54
+* Fix - Import removes 'featured' from product.
+* Fix - Importing Categories with an apostrophe creates duplicates.
+* Fix - Unicode character issue for Microsoft Excel.
+* Fix - Variable subscription product price data is lost during import.
+* Fix - Visibility options not importing.
+* Fix - Wrong term slug when there is a parent child relationship term is imported.
+* Tweak - Bump NPM version from 5.5.1 to 8.0.0.
+* Tweak - Bump node version from 8.9.3 to 16.13.0.
 
 2022-11-22 - version 1.10.52
 * Declare support for HPOS.

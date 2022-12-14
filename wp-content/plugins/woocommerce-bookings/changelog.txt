@@ -1,5 +1,15 @@
 *** WooCommerce Bookings Changelog ***
 
+2022-12-13 - version 1.15.69
+* Fix - All products shown as available in Bookings Calendar block.
+* Fix - Google Calendar connection issues.
+* Fix - Inconsistent availability view (months vs days).
+* Fix - JavaScript coding standards (ESLint).
+* Fix - Remote code injection vulnerability in the `Person_types` column while importing bookable products.
+* Fix - Show First and Last days as unavailable if there are no available slots.
+* Tweak - Improve save and rendering performance of Google Calendar event rules via a new, separate page.
+* set minDate based on from_date.
+
 2022-11-24 - version 1.15.68
 * Fix - All time ranges should be checked before marking any block unbookable.
 * Fix - Ensure maximum number of person type not allowed to exceed Max Persons setting.

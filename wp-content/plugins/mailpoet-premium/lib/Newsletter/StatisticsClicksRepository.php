@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Premium\Newsletter;
 
@@ -19,7 +19,7 @@ class StatisticsClicksRepository extends Repository {
 
   /**
    * @param NewsletterEntity $newsletter
-   * @return mixed[]
+   * @return array<int, array{cnt: int, url: string}>
    */
   public function getClickedLinks(NewsletterEntity $newsletter) {
     $query = $this->doctrineRepository
@@ -35,7 +35,13 @@ class StatisticsClicksRepository extends Repository {
     } else {
       $query->groupBy('links.id');
     }
-    return $query->getQuery()->getArrayResult();
+
+    /**
+     *@var array<int, array{cnt: int, url: string}> $result
+     */
+    $result = $query->getQuery()->getArrayResult();
+
+    return $result;
   }
 
   /**

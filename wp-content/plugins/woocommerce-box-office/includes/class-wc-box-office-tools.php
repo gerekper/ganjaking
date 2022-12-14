@@ -101,7 +101,8 @@ class WC_Box_Office_Tools {
 			exit;
 		}
 
-		$ticket_ids = get_posts( array(
+		$product     = wc_get_product( $product_id );
+		$ticket_args = array(
 			'post_type'      => 'event_ticket',
 			'post_status'    => 'any',
 			'posts_per_page' => 1,
@@ -116,8 +117,25 @@ class WC_Box_Office_Tools {
 					'value'   => $product_id,
 				),
 			),
+		);
 
-		) );
+		if ( 'variation' === $product->get_type() ) {
+			$ticket_args['meta_query'] = array(
+				array(
+					'key'   => '_variation_id',
+					'value' => absint( $product_id ),
+				),
+			);
+		} else {
+			$ticket_args['meta_query'] = array(
+				array(
+					'key'   => '_product_id',
+					'value' => absint( $product_id ),
+				),
+			);
+		}
+
+		$ticket_ids = get_posts( $ticket_args );
 
 		$response = '';
 
@@ -370,7 +388,9 @@ class WC_Box_Office_Tools {
 			if ( $job_id ) {
 				add_post_meta( $job_id, '_product_id', $_POST['product_id'] );
 
-				$ticket_ids = get_posts( array(
+				$product = wc_get_product( absint( $_POST['product_id'] ) );
+
+				$ticket_args = array(
 					'post_type'      => 'event_ticket',
 					'posts_per_page' => -1,
 					'post_status'    => array( 'publish' ),
@@ -384,7 +404,25 @@ class WC_Box_Office_Tools {
 							'value' => absint( $_POST['product_id'] ),
 						),
 					),
-				) );
+				);
+
+				if ( 'variation' === $product->get_type() ) {
+					$ticket_args['meta_query'] = array(
+						array(
+							'key'   => '_variation_id',
+							'value' => absint( $_POST['product_id'] ),
+						),
+					);
+				} else {
+					$ticket_args['meta_query'] = array(
+						array(
+							'key'   => '_product_id',
+							'value' => absint( $_POST['product_id'] ),
+						),
+					);
+				}
+
+				$ticket_ids = get_posts( $ticket_args );
 
 				foreach ( $ticket_ids as $ticket_id ) {
 					add_post_meta( $job_id, '_ticket_id', $ticket_id );

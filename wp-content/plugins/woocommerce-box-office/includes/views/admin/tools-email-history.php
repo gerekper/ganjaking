@@ -30,6 +30,9 @@
 				$targets    = get_post_meta( $email->ID, '_ticket_ids', true );
 				$remaining  = (array) get_post_meta( $email->ID, '_ticket_id' );
 				$sent       = count( $targets ) - count( $remaining );
+				$product    = wc_get_product( $product_id );
+				$is_variant = 'variation' === $product->get_type();
+				$parent_id  = $is_variant ? $product->get_parent_id() : false;
 				?>
 
 				<tr class="<?php echo esc_attr( ++$counter % 2 === 0 ? '' : 'alt' ); ?>">
@@ -39,7 +42,7 @@
 						</a>
 					</td>
 					<td>
-						<a href="<?php echo esc_url( admin_url( sprintf( 'post.php?post=%s&action=edit', $product_id ) ) ); ?>">
+						<a href="<?php echo esc_url( admin_url( sprintf( 'post.php?post=%s&action=edit', $parent_id ? $parent_id : $product_id ) ) ); ?>">
 							<?php echo esc_html( get_the_title( $product_id ) ); ?>
 						</a>
 					</td>

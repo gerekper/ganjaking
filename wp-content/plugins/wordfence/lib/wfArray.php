@@ -3,6 +3,7 @@ class wfArray {
 	private $data = "";
 	private $size = 0;
 	private $shiftPtr = 0;
+	private $keys;
 	public function __construct($keys){
 		$this->keys = $keys;
 	}

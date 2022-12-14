@@ -349,7 +349,7 @@ class Setup_Wizard extends Framework\Admin\Setup_Wizard {
 				'default'     => $this->get_current_provider_id(),
 				'label'       => $which_provider_label,
 				'description' => sprintf(
-					esc_html__( 'Not all supported providers are configurable from this screen as some require additional steps.', 'woocommerce-social-login' ) . '<br>' .
+					"<br />" . esc_html__( 'Not all supported providers are configurable from this screen as some require additional steps.', 'woocommerce-social-login' ) . '<br>' .
 					/* translators: Placeholder: %1$s - opening <a> HTML link tag, %2$s - closing </a> HTML link tag */
 					esc_html__( 'You will be able to configure additional providers the %1$splugin settings%2$s.', 'woocommerce-social-login' ),
 					'<a href="' . esc_url( $this->get_plugin()->get_settings_url() ) . '">',  '</a>'

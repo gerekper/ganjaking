@@ -61,7 +61,17 @@ class WC_Booking_Form_Month_Picker extends WC_Booking_Form_Picker {
 		}
 		$to = strtotime( date( 'Y-m-t', strtotime( "+{$max_date['value']} {$max_date['unit']}" ) ) );
 
-		return $this->booking_form->product->get_blocks_in_range( $from, $to );
+		// Get resource ID to get blocks in range according to it.
+		$resources = $this->booking_form->product->get_resources();
+
+		// Get it only if the resource assignment type is "customer".
+		if ( $this->booking_form->product->has_resources() && $resources && $this->booking_form->product->is_resource_assignment_type( 'customer' ) ) {
+			$resource_id_to_check = current( $resources )->ID;
+		} else {
+			$resource_id_to_check = 0;
+		}
+
+		return $this->booking_form->product->get_blocks_in_range( $from, $to, array(), $resource_id_to_check, array(), false, true );
 	}
 
 	/**

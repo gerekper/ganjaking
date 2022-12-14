@@ -3,12 +3,19 @@
 class wfWafApiException extends Exception {
 }
 
+class wfWafMissingApiKeyException extends wfWafApiException {
+}
+
 class wfWafApi {
 
 	private $waf;
+	private $apiKey;
 
 	public function __construct($waf) {
 		$this->waf = $waf;
+		$this->apiKey = $this->getConfig('apiKey');
+		if (empty($this->apiKey))
+			throw new wfWafMissingApiKeyException('No API key is available');
 	}
 
 	private function getConfig($key) {
@@ -36,7 +43,7 @@ class wfWafApi {
 
 	private function buildQueryString($additionalParameters = array()) {
 		$parameters = array(
-			'k' => $this->getConfig('apiKey'),
+			'k' => $this->apiKey,
 			's' => $this->getSiteUrl(),
 			'h' => $this->getHomeUrl(),
 			't' => microtime(true),

@@ -29,7 +29,7 @@ final class WC_Instagram {
 	 *
 	 * @var string
 	 */
-	public $version = '4.3.2';
+	public $version = '4.3.3';
 
 	/**
 	 * Constructor.

@@ -1286,47 +1286,6 @@ msgstr ""
 "Esiste già un profilo utente che utilizza lo stesso indirizzo email di "
 "questo profilo VK."
 
-#: includes/providers/class-wc-social-login-provider-yahoo.php:45
-msgid "Yahoo"
-msgstr "Yahoo"
-
-#. translators: Placeholders: %1$s - opening HTML <a> tag, %2$s - closing HTML
-#. </a> tag
-#: includes/providers/class-wc-social-login-provider-yahoo.php:64
-msgid "Need help setting up and configuring Yahoo? %1$sRead the docs%2$s"
-msgstr ""
-"Hai bisogno di aiuto per installare e configurare Yahoo? %1$sLeggi la "
-"documentazione%2$s"
-
-#: includes/providers/class-wc-social-login-provider-yahoo.php:104
-msgid "Log in with Yahoo"
-msgstr "Accedi con Yahoo"
-
-#: includes/providers/class-wc-social-login-provider-yahoo.php:116
-msgid "Link your account to Yahoo"
-msgstr "Collega il tuo profilo a Yahoo"
-
-#: includes/providers/class-wc-social-login-provider-yahoo.php:128
-msgid "Your Yahoo account is now linked to your account."
-msgstr "Il tuo profilo Yahoo è adesso collegato al tuo profilo utente."
-
-#: includes/providers/class-wc-social-login-provider-yahoo.php:129
-msgid "Yahoo was successfully unlinked from your account."
-msgstr ""
-"Il profilo Yahoo è stato scollegato con successo dal tuo profilo utente."
-
-#: includes/providers/class-wc-social-login-provider-yahoo.php:130
-msgid "This Yahoo account is already linked to another user account."
-msgstr "Questo profilo Yahoo risulta già collegato ad un altro profilo utente."
-
-#: includes/providers/class-wc-social-login-provider-yahoo.php:131
-msgid ""
-"A user account using the same email address as this Yahoo account already "
-"exists."
-msgstr ""
-"Esiste già un profilo utente che utilizza lo stesso indirizzo email di "
-"questo profilo Yahoo."
-
 #: includes/widgets/class-wc-social-login-widget.php:46
 msgid "Display social login buttons."
 msgstr "Mostra i pulsanti di social login."
@@ -1595,10 +1554,6 @@ msgstr "Scollega"
 #~ msgid "VK account was successfully unlinked from your account."
 #~ msgstr ""
 #~ "Il profilo VK è stato scollegato con successo dal tuo profilo utente."
-
-#~ msgid "Yahoo account was successfully unlinked from your account."
-#~ msgstr ""
-#~ "Il profilo Yahoo è stato scollegato con successo dal tuo profilo utente."
 
 #~ msgid "Need help setting up and configuring Disqus? %sRead the docs%s"
 #~ msgstr ""

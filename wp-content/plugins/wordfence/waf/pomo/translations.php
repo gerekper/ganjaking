@@ -226,6 +226,9 @@ if ( ! class_exists( 'wfTranslations', false ) ) :
 	}
 
 	class wfGettext_Translations extends wfTranslations {
+
+		private $_gettext_select_plural_form = null;
+
 		/**
 		 * The gettext implementation of select_plural_form.
 		 *

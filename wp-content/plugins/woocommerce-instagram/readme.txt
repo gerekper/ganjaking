@@ -4,11 +4,11 @@ Tags: woocommerce, instagram, hashtag, product, showcase
 Requires PHP: 5.4
 Requires at least: 4.7
 Tested up to: 6.1
-Stable tag: 4.3.2
+Stable tag: 4.3.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.5
-WC tested up to: 7.1
+WC tested up to: 7.2
 Woo: 260061:ecaa2080668997daf396b8f8a50d891a
 
 == Description ==

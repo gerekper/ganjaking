@@ -43,10 +43,14 @@ class WC_PCSVIS_Exporter {
 		}
 		$filename = sprintf( '%s-%s.csv', $filename_suffix, date_i18n( 'Y_m_d_H_i_s', current_time( 'timestamp' ) ) );
 
+		header( 'Content-Encoding: UTF-8' );
 		header( 'Content-Type: text/csv; charset=UTF-8' );
 		header( 'Content-Disposition: attachment; filename=' . $filename );
 		header( 'Pragma: no-cache' );
 		header( 'Expires: 0' );
+		// This is required for Microsoft Excel to properly display Unicode chars.
+		// Ref: https://gist.github.com/AlexDpy/5eeca35b9564c6ab4b29
+		echo "\xEF\xBB\xBF"; // UTF-8 BOM
 		$fp = fopen('php://output', 'w');
 
 		// Headers

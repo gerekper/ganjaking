@@ -1,16 +1,9 @@
 <?php
 
 class wfOnboardingController {
-	const ONBOARDING_FIRST_EMAILS = 'emails'; //New install, first attempt onboarding, part 1 completed
-	const ONBOARDING_FIRST_LICENSE = 'license'; //New install, first attempt onboarding, part 2 completed
-	const ONBOARDING_FIRST_SKIPPED = 'skipped'; //New install, first attempt onboarding was skipped
-	
-	const ONBOARDING_SECOND_EMAILS = 'emails'; //New install, second attempt onboarding, part 1 completed
-	const ONBOARDING_SECOND_LICENSE = 'license'; //New install, second attempt onboarding, part 2 completed
-	const ONBOARDING_SECOND_SKIPPED = 'skipped'; //New install, second attempt onboarding was skipped
-	
-	const ONBOARDING_THIRD_EMAILS = 'emails'; //New install, third attempt onboarding, part 1 completed
-	const ONBOARDING_THIRD_LICENSE = 'license'; //New install, third attempt onboarding, part 2 completed
+	const ONBOARDING_EMAILS = 'emails'; //New install, part 1 completed
+	const ONBOARDING_LICENSE = 'license'; //New install, part 2 completed
+	const ONBOARDING_SKIPPED = 'skipped'; //New install, onboarding attempt was skipped
 	
 	const TOUR_DASHBOARD = 'dashboard';
 	const TOUR_FIREWALL = 'firewall';
@@ -26,7 +19,7 @@ class wfOnboardingController {
 		$alertEmails = wfConfig::getAlertEmails();
 		$onboardingAttempt1 = wfConfig::get('onboardingAttempt1');
 		if (!empty($alertEmails) && empty($onboardingAttempt1)) {
-			wfConfig::set('onboardingAttempt1', self::ONBOARDING_FIRST_LICENSE); //Mark onboarding as done
+			wfConfig::set('onboardingAttempt1', self::ONBOARDING_LICENSE); //Mark onboarding as done
 			
 			$keys = array(self::TOUR_DASHBOARD, self::TOUR_FIREWALL, self::TOUR_SCAN, self::TOUR_BLOCKING, self::TOUR_LIVE_TRAFFIC);
 			foreach ($keys as $k) {
@@ -48,7 +41,7 @@ class wfOnboardingController {
 							self::shouldShowNewTour(self::TOUR_BLOCKING) || self::shouldShowUpgradeTour(self::TOUR_BLOCKING) ||
 							self::shouldShowNewTour(self::TOUR_LIVE_TRAFFIC) || self::shouldShowUpgradeTour(self::TOUR_LIVE_TRAFFIC) ||
 							self::shouldShowNewTour(self::TOUR_LOGIN_SECURITY) || self::shouldShowUpgradeTour(self::TOUR_LOGIN_SECURITY));
-		if (!self::shouldShowAttempt1() && !self::shouldShowAttempt2() && !self::shouldShowAttempt3() && !$willShowAnyTour) {
+		if (!self::shouldShowAnyAttempt() && !$willShowAnyTour) {
 			return;
 		}
 		
@@ -76,13 +69,16 @@ class wfOnboardingController {
 				)
 			)
 		) {
-			wp_enqueue_style('wordfence-font', wfUtils::getBaseURL() . wfUtils::versionedAsset('css/wf-roboto-font.css'), '', WORDFENCE_VERSION);
-			wp_enqueue_style('wordfence-ionicons-style', wfUtils::getBaseURL() . wfUtils::versionedAsset('css/wf-ionicons.css'), '', WORDFENCE_VERSION);
-			wp_enqueue_style('wordfenceOnboardingCSS', wfUtils::getBaseURL() . wfUtils::versionedAsset('css/wf-onboarding.css'), '', WORDFENCE_VERSION);
-			wp_enqueue_style('wordfence-colorbox-style', wfUtils::getBaseURL() . wfUtils::versionedAsset('css/wf-colorbox.css'), '', WORDFENCE_VERSION);
-			
-			wp_enqueue_script('jquery.wfcolorbox', wfUtils::getBaseURL() . wfUtils::versionedAsset('js/jquery.colorbox-min.js'), array('jquery'), WORDFENCE_VERSION);
+			self::enqueue_assets();
 		}
+	}
+
+	public static function enqueue_assets() {
+		wp_enqueue_style('wordfence-font', wfUtils::getBaseURL() . wfUtils::versionedAsset('css/wf-roboto-font.css'), '', WORDFENCE_VERSION);
+		wp_enqueue_style('wordfence-ionicons-style', wfUtils::getBaseURL() . wfUtils::versionedAsset('css/wf-ionicons.css'), '', WORDFENCE_VERSION);
+		wp_enqueue_style('wordfenceOnboardingCSS', wfUtils::getBaseURL() . wfUtils::versionedAsset('css/wf-onboarding.css'), '', WORDFENCE_VERSION);
+		wp_enqueue_style('wordfence-colorbox-style', wfUtils::getBaseURL() . wfUtils::versionedAsset('css/wf-colorbox.css'), '', WORDFENCE_VERSION);
+		wp_enqueue_script('jquery.wfcolorbox', wfUtils::getBaseURL() . wfUtils::versionedAsset('js/jquery.colorbox-min.js'), array('jquery'), WORDFENCE_VERSION);
 	}
 	
 	/**
@@ -111,17 +107,17 @@ class wfOnboardingController {
 	}
 	
 	public static function _markAttempt1Shown() {
-		wfConfig::set('onboardingAttempt1', self::ONBOARDING_FIRST_SKIPPED); //Only show it once, default to skipped after outputting the first time
+		wfConfig::set('onboardingAttempt1', self::ONBOARDING_SKIPPED); //Only show it once, default to skipped after outputting the first time
 	}
 	
 	public static function shouldShowAttempt1() { //Overlay on plugin page
-		if (wfConfig::get('onboardingAttempt3') == self::ONBOARDING_THIRD_LICENSE) {
+		if (wfConfig::get('onboardingAttempt3') == self::ONBOARDING_LICENSE) {
 			return false;
 		}
 		
 		switch (wfConfig::get('onboardingAttempt1')) {
-			case self::ONBOARDING_FIRST_LICENSE:
-			case self::ONBOARDING_FIRST_SKIPPED:
+			case self::ONBOARDING_LICENSE:
+			case self::ONBOARDING_SKIPPED:
 				return false;
 		}
 		return true;
@@ -132,23 +128,28 @@ class wfOnboardingController {
 			echo wfView::create('onboarding/plugin-header')->render();
 		}
 	}
+
+	private static function needsApiKey() {
+		$key = wfConfig::get('apiKey');
+		return empty($key);
+	}
 	
 	public static function shouldShowAttempt2() { //Header on plugin page
-		if (wfConfig::get('onboardingAttempt3') == self::ONBOARDING_THIRD_LICENSE) {
+		if (wfConfig::get('onboardingAttempt3') == self::ONBOARDING_LICENSE) {
 			return false;
 		}
 		
-		$alertEmails = wfConfig::getAlertEmails();
-		$show = !wfConfig::get('onboardingAttempt2') && empty($alertEmails); //Unset defaults to true, all others false
-		return $show;
+		return !wfConfig::get('onboardingAttempt2') && self::needsApiKey();
 	}
 	
-	public static function shouldShowAttempt3() {
-		if (isset($_GET['page']) && (preg_match('/^Wordfence/', $_GET['page']) || preg_match('/^WFLS/', $_GET['page']))) {
-			$alertEmails = wfConfig::getAlertEmails();
-			return empty($alertEmails);
+	public static function shouldShowAttempt3($dismissable = false) {
+		if (self::needsApiKey()) {
+			if (!$dismissable)
+				return true;
+			$delayedAt = (int) wfConfig::get('onboardingDelayedAt', 0);
+			if (time() - $delayedAt > 43200 /*12 hours in seconds*/)
+				return true;
 		}
-		
 		return false;
 	}
 	
@@ -168,8 +169,7 @@ class wfOnboardingController {
 			return false;
 		}
 		
-		$_shouldShowAttempt3Automatically = (!wfConfig::get('onboardingAttempt3Initial'));
-		return (!wfConfig::get('onboardingAttempt3Initial'));
+		return $_shouldShowAttempt3Automatically = self::shouldShowAttempt3();
 	}
 	
 	public static function willShowNewTour($page) {
@@ -191,4 +191,9 @@ class wfOnboardingController {
 		$key = 'needsUpgradeTour_' . $page;
 		return (!self::shouldShowAttempt3Automatically() && !wfConfig::get('touppPromptNeeded') && wfConfig::get($key));
 	}
+
+	public static function shouldShowAnyAttempt() {
+		return self::shouldShowAttempt1() || self::shouldShowAttempt2() || self::shouldShowAttempt3();
+	}
+
 }

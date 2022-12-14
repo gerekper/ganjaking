@@ -284,7 +284,11 @@ if (!isset($collapseable)) {
 												e.preventDefault();
 												e.stopPropagation();
 
-												window.location.reload(true);
+												<?php if (array_key_exists('wf_deactivate', $_GET)): ?>
+													window.location.href = <?php echo json_encode(wfUtils::wpAdminURL('plugins.php?wf_deactivate=true')); ?>;
+												<?php else: ?>
+													window.location.reload(true);
+												<?php endif ?>
 											});
 											$.wfcolorbox.resize();
 										}

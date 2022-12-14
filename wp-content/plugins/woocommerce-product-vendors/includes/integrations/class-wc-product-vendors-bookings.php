@@ -610,14 +610,22 @@ class WC_Product_Vendors_Bookings {
 	 * Clears the bookings query cache on page load
 	 *
 	 * @since 2.0.1
+	 * @since 2.1.70  Add condition to prevent PHP warning. Access property from valid $current_screen (WP_Screen object)
 	 * @version 2.0.1
 	 * @return bool
 	 */
 	public function clear_bookings_cache() {
 		global $wpdb, $typenow, $current_screen;
 
-		if ( 'wc_booking' === $typenow && is_admin() && ( 'edit-wc_booking' === $current_screen->id || 'wc_booking_page_booking_calendar' === $current_screen->id ) ) {
-
+		if (
+			'wc_booking' === $typenow &&
+			is_admin() &&
+			$current_screen instanceof WP_Screen &&
+			(
+				'edit-wc_booking' === $current_screen->id ||
+				'wc_booking_page_booking_calendar' === $current_screen->id
+			)
+		) {
 			$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '%book_dr%'" );
 		}
 

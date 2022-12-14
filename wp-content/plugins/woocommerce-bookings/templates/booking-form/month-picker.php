@@ -23,20 +23,60 @@ if ( ! defined( 'ABSPATH' ) ) {
 wp_enqueue_script( 'wc-bookings-booking-form' );
 extract( $field );
 
-$fully_booked_months = array_keys( $fully_booked_months );
+$current_resource = '';
+if ( $product->has_resources() ) {
+	if ( $product->is_resource_assignment_type( 'customer' ) ) {
+		// Get currently selected resource.
+		$resources        = $product->get_resource_ids();
+		$current_resource = $resources[0] ?? '';
+	} else {
+		// Get total resources.
+		$resources      = $product->get_resource_ids();
+		$total_resource = count( $resources );
+	}
+} else {
+	$fully_booked_months = array_keys( $fully_booked_months );
+}
+
 ?>
-<div class="form-field form-field-wide">
+<div class="form-field form-field-wide current_resource_<?php echo esc_attr( $current_resource ); ?>">
 	<div class="picker" data-is_range_picker_enabled="<?php echo $is_range_picker_enabled ? 1 : 0; ?>"></div>
 	<?php
 	if ( 'always_visible' !== $display ):
 		?>
 	<span class="label"><?php echo $label; ?></span>:
 	<?php endif; ?>
-	<ul class="block-picker">
+	<ul class="block-picker month-picker">
 		<?php
-		foreach ( $blocks as $block ) {
-			$fully_booked_class = in_array( date( 'Y-n', $block ), $fully_booked_months ) ? 'fully_booked' : '';
-			echo '<li class="' . esc_attr( $fully_booked_class ) . '" data-block="' . esc_attr( date( 'Ym', $block ) ) . '"><a href="#" data-value="' . esc_attr( date( 'Y-m', $block ) ) . '">' . esc_html( date_i18n( 'M Y', $block ) ) . '</a></li>';
+		foreach ( $blocks as $block => $available ) {
+			$fully_booked_class = '';
+			$unavailable_class = 'unavailable' === $available ? ' unavailable' : '';
+
+			$month_year = date( 'Y-n', $block );
+			if ( $product->has_resources() ) {
+				if ( $product->is_resource_assignment_type( 'customer' ) ) {
+					// Mark 'full_booked' only for the current (selected) resource.
+					if ( isset( $fully_booked_months[ $month_year ][ $current_resource ] ) ) {
+						$fully_booked_class = 'fully_booked';
+					}
+				} elseif ( isset( $fully_booked_months[ $month_year ] )
+						   && count( $fully_booked_months[ $month_year ] ) === $total_resource ) {
+					// Mark 'full_booked' only when all resources are out.
+					$fully_booked_class = 'fully_booked';
+				}
+			} else {
+				// Mark 'full_booked' according to the product qty. (when no resources are allocated).
+				$fully_booked_class = in_array( date( 'Y-n', $block ), $fully_booked_months ) ? 'fully_booked' : '';
+			}
+
+			$title = __( 'This month is available', 'woocommerce-bookings' );
+			if ( ! empty( $fully_booked_class ) ) {
+				$title = __( 'This month is fully booked and unavailable', 'woocommerce-bookings' );
+			} else if ( ! empty( $unavailable_class ) ) {
+				$title = __( 'This month is unavailable', 'woocommerce-bookings' );
+			}
+
+			echo '<li class="' . esc_attr( $fully_booked_class ) . esc_attr( $unavailable_class ) . '" data-block="' . esc_attr( date( 'Ym', $block ) ) . '" title="' . esc_attr( $title ) . '"><a href="#" data-value="' . esc_attr( date( 'Y-m', $block ) ) . '">' . esc_html( date_i18n( 'M Y', $block ) ) . '</a></li>';
 		}
 		?>
 	</ul>

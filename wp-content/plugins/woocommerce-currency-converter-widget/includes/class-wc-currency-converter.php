@@ -8,7 +8,7 @@
 /**
  * Currency Converter Main Class
  */
-class WC_Currency_Converter {
+class WC_Currency_Converter extends \Themesquad\WC_Currency_Converter\Plugin {
 
 	/**
 	 * Base Currency
@@ -32,13 +32,6 @@ class WC_Currency_Converter {
 	public $rates;
 
 	/**
-	 * Plugin Settings
-	 *
-	 * @var array
-	 */
-	private $settings;
-
-	/**
 	 * Widget object
 	 *
 	 * @var WooCommerce_Widget_Currency_Converter
@@ -54,33 +47,14 @@ class WC_Currency_Converter {
 
 
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
-	public function __construct() {
-		$this->settings = array(
-			array(
-				'name' => __( 'Open Exchange Rate API', 'woocommerce-currency-converter-widget' ),
-				'type' => 'title',
-				'desc' => '',
-				'id'   => 'woocommerce-currency-converter-widget',
-			),
-			array(
-				'name' => __( 'App Key', 'woocommerce-currency-converter-widget' ),
-				/* translators: %s: Open Exchange signup link */
-				'desc' => sprintf( __( '(optional) If you have an <a href="%s">Open Exchange Rate API app ID</a>, enter it here.', 'woocommerce-currency-converter-widget' ), 'https://openexchangerates.org/signup' ),
-				'id'   => 'wc_currency_converter_app_id',
-				'type' => 'text',
-				'std'  => '',
-			),
-			array(
-				'type' => 'sectionend',
-				'id'   => 'woocommerce-currency-converter-widget',
-			),
-		);
+	protected function __construct() {
+		parent::__construct();
 
 		$rates = get_transient( 'woocommerce_currency_converter_rates' );
-		if ( false === $rates ) {
 
+		if ( false === $rates ) {
 			$app_id      = get_option( 'wc_currency_converter_app_id' );
 			$app_id      = $app_id ? $app_id : 'e65018798d4a4585a8e2c41359cc7f3c';
 			$rates       = wp_remote_retrieve_body( wp_safe_remote_get( 'http://openexchangerates.org/api/latest.json?app_id=' . $app_id ) );
@@ -104,9 +78,7 @@ class WC_Currency_Converter {
 			$this->rates = $rates->rates;
 
 			// Actions.
-			add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
-			add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'update_order_meta' ) );
 			add_action( 'widgets_init', array( $this, 'widgets' ) );
 
 			// Shortcode.
@@ -114,9 +86,6 @@ class WC_Currency_Converter {
 			add_action( 'woocommerce_currency_converter', array( $this, 'get_converter_form' ), 10, 2 );
 		}
 
-		// Settings.
-		add_action( 'woocommerce_settings_general_options_after', array( $this, 'admin_settings' ) );
-		add_action( 'woocommerce_update_options_general', array( $this, 'save_admin_settings' ) );
 		add_action( 'init', array( $this, 'includes' ) );
 	}
 
@@ -139,25 +108,21 @@ class WC_Currency_Converter {
 	}
 
 	/**
-	 * Localisation
-	 */
-	public function load_plugin_textdomain() {
-		load_plugin_textdomain( 'woocommerce-currency-converter-widget', false, dirname( plugin_basename( __DIR__ ) ) . '/languages/' );
-	}
-
-	/**
-	 * Show Admin Settings
+	 * Show Admin Settings.
+	 *
+	 * @deprecated 1.8.0
 	 */
 	public function admin_settings() {
-		woocommerce_admin_fields( $this->settings );
+		wc_deprecated_function( __FUNCTION__, '1.8.0' );
 	}
 
 	/**
-	 * Save Admin Settings
+	 * Save Admin Settings.
+	 *
+	 * @deprecated 1.8.0
 	 */
 	public function save_admin_settings() {
-		woocommerce_update_options( $this->settings );
-		delete_transient( 'woocommerce_currency_converter_rates' );
+		wc_deprecated_function( __FUNCTION__, '1.8.0' );
 	}
 
 	/**
@@ -364,8 +329,7 @@ class WC_Currency_Converter {
 		wp_enqueue_style( 'currency_converter_styles', plugins_url( '/assets/css/converter.css', __DIR__ ), array(), WC_CURRENCY_CONVERTER_VERSION );
 
 		// Scripts.
-		wp_register_script( 'moneyjs', plugins_url( '/assets/js/money' . $suffix . '.js', __DIR__ ), array( 'jquery' ), '0.1.3', true );
-		wp_register_script( 'accountingjs', plugins_url( '/assets/js/accounting' . $suffix . '.js', __DIR__ ), array( 'jquery' ), '0.3.2', true );
+		wp_register_script( 'moneyjs', plugins_url( '/assets/js/money' . $suffix . '.js', __DIR__ ), array(), '0.2.0', true );
 		wp_enqueue_script( 'jquery-cookie' );
 		wp_register_script( 'wc_currency_converter_inline', plugins_url( '/assets/js/conversion_inline' . $suffix . '.js', __DIR__ ), array( 'jquery' ), WC_CURRENCY_CONVERTER_VERSION, true );
 
@@ -375,7 +339,7 @@ class WC_Currency_Converter {
 			array(
 				'jquery',
 				'moneyjs',
-				'accountingjs',
+				'accounting',
 				'jquery-cookie',
 				'wc_currency_converter_inline',
 			),
@@ -515,22 +479,12 @@ class WC_Currency_Converter {
 	/**
 	 * Update order meta with currency information
 	 *
+	 * @deprecated 1.8.0
+	 *
 	 * @param int $order_id Order ID.
 	 */
 	public function update_order_meta( $order_id ) {
-		if ( ! empty( $_COOKIE['woocommerce_current_currency'] ) ) {
-			update_post_meta( $order_id, 'Viewed Currency', wc_clean( $_COOKIE['woocommerce_current_currency'] ) );
-
-			$order_total     = number_format( WC()->cart->total, 2, '.', '' );
-			$store_currency  = get_woocommerce_currency();
-			$target_currency = wc_clean( $_COOKIE['woocommerce_current_currency'] );
-
-			if ( $store_currency && $target_currency && $this->rates->$target_currency && $this->rates->$store_currency ) {
-				$new_order_total = ( $order_total / $this->rates->$store_currency ) * $this->rates->$target_currency;
-				$new_order_total = round( $new_order_total, 2 ) . ' ' . $target_currency;
-				update_post_meta( $order_id, 'Converted Order Total', $new_order_total );
-			}
-		}
+		wc_deprecated_function( __FUNCTION__, '1.8.0', '\Themesquad\WC_Currency_Converter\Checkout::init()' );
 	}
 
 	/**

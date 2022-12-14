@@ -3,8 +3,8 @@ Contributors: mmaunder, wfryan, wfmatt, wfmattr
 Tags: security, firewall, malware scanner, web application firewall, two factor authentication, block hackers, country blocking, clean hacked site, blocklist, waf, login security
 Requires at least: 3.9
 Requires PHP: 5.3
-Tested up to: 6.0
-Stable tag: 7.7.1
+Tested up to: 6.1
+Stable tag: 7.8.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -184,6 +184,22 @@ Secure your website with Wordfence.
 9. Logging in is easy with Wordfence 2FA.
 
 == Changelog ==
+
+= 7.8.2 - December 13, 2022 =
+* Fix: Releasing same changes as 7.8.1, due to wordpress.org error
+
+= 7.8.1 - December 13, 2022 =
+* Improvement: Added more granualar data deletion options to deactivation prompt
+* Improvement: Allowed accessing diagnostics prior to completing registration
+* Fix: Prevented installation prompt from displaying when a license key is already installed but the alert email address has been removed
+
+= 7.8.0 - November 28, 2022 =
+* Improvement: Added feedback when login form is submitted with 2FA
+* Fix: Restored click support on login button when using 2FA with WooCommerce
+* Fix: Corrected display issue with reCAPTCHA score history graph
+* Fix: Prevented errors on PHP caused by corrupted login timestamps
+* Fix: Prevented deprecation notices on PHP 8.2 related to dynamic properties
+* Change: Updated Wordfence registration workflow
 
 = 7.7.1 - October 4, 2022 =
 * Fix: Prevented scan resume attempts from repeating indefinitely when the initial scan stage fails

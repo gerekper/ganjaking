@@ -1269,7 +1269,7 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	/**
 	 * Get Min date.
 	 *
-	 * @return array|bool
+	 * @return array
 	 */
 	public function get_min_date() {
 		$min_date['value'] = apply_filters( 'woocommerce_bookings_min_date_value', $this->get_min_date_value(), $this->get_id() );
@@ -1624,6 +1624,12 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	 */
 	public function get_blocks_in_range( $start_date, $end_date, $intervals = array(), $resource_id = 0, $booked = array(), $get_past_times = false ) {
 
+		// Instead of adding this as a seventh argument, we are doing this to avoid issues with overridden methods.
+		$include_unavailable = false;
+		if ( 7 === func_num_args() && func_get_arg( 6 ) ) {
+			$include_unavailable = (bool) func_get_arg( 6 );
+		}
+
 		$default_interval = 'hour' === $this->get_duration_unit() ? $this->get_duration() * 60 : $this->get_duration();
 
 		if ( empty( $intervals ) ) {
@@ -1639,12 +1645,16 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 		if ( 'day' === $this->get_duration_unit() ) {
 			$blocks_in_range = $this->get_blocks_in_range_for_day( $start_date, $end_date, $resource_id, $booked );
 		} elseif ( 'month' === $this->get_duration_unit() ) {
-			$blocks_in_range = $this->get_blocks_in_range_for_month( $start_date, $end_date, $resource_id );
+			$blocks_in_range = $this->get_blocks_in_range_for_month( $start_date, $end_date, $resource_id, $include_unavailable );
 		} else {
 			$blocks_in_range = $this->get_blocks_in_range_for_hour_or_minutes( $start_date, $end_date, $intervals, $resource_id, $booked, $get_past_times );
 		}
 
-		return array_unique( $blocks_in_range );
+		if ( ! $include_unavailable ) {
+			$blocks_in_range = array_unique( $blocks_in_range );
+		}
+
+		return $blocks_in_range;
 	}
 
 	/**
@@ -1712,9 +1722,9 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 	 *
 	 * @return array
 	 */
-	public function get_blocks_in_range_for_month( $start_date, $end_date, $resource_id ) {
+	public function get_blocks_in_range_for_month( $start_date, $end_date, $resource_id, $include_unavailable = false ) {
 
-		$blocks = array();
+		$blocks = $unavailable_blocks = array();
 
 		if ( 'month' !== $this->get_duration_unit() ) {
 			return $blocks;
@@ -1738,11 +1748,26 @@ class WC_Product_Booking extends WC_Product_Booking_Compatibility {
 			$month = date( 'n', ( $i ? strtotime( "+ {$i} month", $from ) : $from ) );
 
 			if ( ! WC_Product_Booking_Rule_Manager::check_availability_rules_against_date( $this, $resource_id, strtotime( "{$year}-{$month}-01" ) ) ) {
+
+				if ( $include_unavailable ) {
+					$unavailable_blocks[] = strtotime( "+ {$i} month", $from );
+				}
+
 				continue;
 			}
 
 			$blocks[] = strtotime( "+ {$i} month", $from );
 		}
+
+		// Include unavailable to later show as white/not-selectable monthly blocks.
+		if ( $include_unavailable ) {
+			$blocks = array_flip( $blocks );
+			foreach ( $unavailable_blocks as $unavailable_block ) {
+				$blocks[ $unavailable_block ] = 'unavailable';
+			}
+			ksort( $blocks );
+		}
+
 		return $blocks;
 	}
 

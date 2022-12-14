@@ -80,7 +80,8 @@ class WC_Booking_Form {
 		$booking_form_params = array(
 			'cache_ajax_requests'        => 'false',
 			'nonce'                      => array(
-				'get_end_time_html' => wp_create_nonce( 'get_end_time_html' ),
+				'get_end_time_html'           => wp_create_nonce( 'get_end_time_html' ),
+				'show_available_month_blocks' => wp_create_nonce( 'show_available_month_blocks' ),
 			),
 			'ajax_url'                   => admin_url( 'admin-ajax.php' ),
 			'i18n_date_unavailable'      => __( 'This date is unavailable', 'woocommerce-bookings' ),

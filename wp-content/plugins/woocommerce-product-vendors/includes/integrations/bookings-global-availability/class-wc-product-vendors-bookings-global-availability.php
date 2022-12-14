@@ -186,11 +186,21 @@ class WC_Product_Vendors_Bookings_Global_Availability {
 	/**
 	 * Filter global availability by vendor.
 	 *
+	 * @since 2.1.70 Add logic to apply filter to availability rules on  "Bookings > Settings > Store Availability"
+	 *
 	 * @param WC_Global_Availability[] $availabilities All global availability objects.
 	 *
 	 * @return WC_Global_Availability[]
 	 */
 	public function filter_global_availability( array $availabilities ) {
+		global $current_screen;
+
+		if (
+			! ( $current_screen instanceof WP_Screen ) ||
+			'wc_booking_page_wc_bookings_settings' !== $current_screen->id
+		) {
+			return $availabilities;
+		}
 
 		if ( WC_Product_Vendors_Utils::is_vendor() ) {
 			$vendor_id = (int) WC_Product_Vendors_Utils::get_logged_in_vendor();

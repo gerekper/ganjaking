@@ -58,6 +58,9 @@ if ( ! class_exists( 'wfPOMO_Reader', false ) ) :
 		var $endian = 'little';
 		var $_post  = '';
 
+		private $is_overloaded;
+		protected $_pos;
+
 		/**
 		 * PHP5 constructor.
 		 */
@@ -176,6 +179,8 @@ endif;
 
 if ( ! class_exists( 'wfPOMO_FileReader', false ) ) :
 	class wfPOMO_FileReader extends wfPOMO_Reader {
+
+		private $_f;
 
 		/**
 		 * @param string $filename
@@ -331,4 +336,3 @@ if ( ! class_exists( 'wfPOMO_CachedIntFileReader', false ) ) :
 		}
 	}
 endif;
-

@@ -1,5 +1,9 @@
 *** WooCommerce Box Office Changelog ***
 
+2022-12-13 - version 1.1.45
+* Add - Allow emails to be sent to customers who opted for specific variation.
+* Fix - Refunded ticket will be moved to trash upon `full refund`.
+
 2022-11-24 - version 1.1.44
 * Add - Ability to filter tickets by checked-in status.
 * Add - Ensure checkin-in status is added to the export data.

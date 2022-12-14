@@ -1,5 +1,16 @@
 *** Currency Converter Changelog ***
 
+2022-12-07 - version 1.8.0
+* Tweak - Moved the plugin settings to an integration page.
+* Tweak - Added links to the plugin settings, the documentation page, and to get support, in the plugin list.
+* Tweak - Declare compatibility with WooCommerce High-Performance Order Storage (HPOS).
+* Tweak - Tested compatibility up to WC 7.2.
+* Tweak - Tested compatibility with WP 6.1.
+* Tweak - Updated plugin author.
+* Dev - Updated the library `money.js` to version 0.2.0.
+* Dev - Use the library `accounting.js` included in the WC core.
+* Dev - Implement the singleton pattern in the main plugin class.
+
 2022-09-19 - version 1.7.0
 * Tweak - Check the minimum requirements before initializing the extension.
 * Tweak - Added missing descriptions to the translatable strings.

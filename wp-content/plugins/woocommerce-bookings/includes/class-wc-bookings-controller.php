@@ -218,6 +218,54 @@ class WC_Bookings_Controller {
 			return $booked_day_blocks;
 		}
 
+		// Check if the first and the last days are available or not.
+		// The first day may be the minimum bookable day in the future.
+		// And the time is passed enough, leaving no more blocks available
+		// for that day, In that case, already considered available first
+		// day should be marked as unavailable. Same applies to the last day.
+		$first_day_end   = strtotime( '+1 day', $min_date ) - 1;
+		$last_day_starts = strtotime( 'midnight', $max_date );
+
+		$first_day_blocks = $bookable_product->get_blocks_in_range( $min_date, $first_day_end );
+		$last_day_blocks  = $bookable_product->get_blocks_in_range( $last_day_starts, $max_date );
+
+		$no_resources = false;
+		if ( 0 === count( $resource_ids ) ) {
+			$resource_ids = array( 0 );
+			$no_resources = true;
+		}
+		foreach ( $resource_ids as $resource_id ) {
+			$first_day_available_blocks = wc_bookings_get_time_slots( $bookable_product, $first_day_blocks, array(), $resource_id, $min_date, $first_day_end );
+			$last_day_available_blocks  = wc_bookings_get_time_slots( $bookable_product, $last_day_blocks, array(), $resource_id, $last_day_starts, $max_date );
+
+			if ( 0 === count( $first_day_available_blocks ) ) {
+				$min_date_format = date( $default_date_format, $min_date );
+
+				$booked_day_blocks['unavailable_days'][ $min_date_format ][0] = 1;
+				if ( $bookable_product->has_resources() ) {
+					foreach ( $bookable_product->get_resources() as $resource ) {
+						$booked_day_blocks['unavailable_days'][ $min_date_format ][ $resource->ID ] = 1;
+					}
+				}
+			}
+
+			if ( 0 === count( $last_day_available_blocks ) ) {
+				$max_date_format = date( $default_date_format, $max_date );
+
+				$booked_day_blocks['unavailable_days'][ $max_date_format ][0] = 1;
+				if ( $bookable_product->has_resources() ) {
+					foreach ( $bookable_product->get_resources() as $resource ) {
+						$booked_day_blocks['unavailable_days'][ $max_date_format ][ $resource->ID ] = 1;
+					}
+				}
+			}
+		}
+
+		// Reset to default.
+		if ( $no_resources ) {
+			$resource_ids = array();
+		}
+
 		// Get existing bookings and go through them to set partial/fully booked days
 		$existing_bookings = WC_Booking_Data_Store::get_all_existing_bookings( $bookable_product, $min_date, $max_date );
 

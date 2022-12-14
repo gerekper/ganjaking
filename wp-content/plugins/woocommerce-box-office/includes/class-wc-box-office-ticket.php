@@ -219,7 +219,9 @@ class WC_Box_Office_Ticket {
 
 		update_post_meta( $ticket_id, '_product_id', $product->get_id() );
 
-		update_post_meta( $ticket_id, '_variation_id', $data['variation_id'] );
+		if ( isset( $data['variation_id'] ) ) {
+			update_post_meta( $ticket_id, '_variation_id', $data['variation_id'] );
+		}
 
 		update_post_meta( $ticket_id, '_customer_id', $data['customer_id'] );
 

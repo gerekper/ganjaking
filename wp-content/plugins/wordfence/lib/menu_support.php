@@ -1,9 +1,6 @@
 <?php
 if (!defined('WORDFENCE_VERSION')) { exit; }
-if (wfOnboardingController::shouldShowAttempt3()) {
-	echo wfView::create('onboarding/banner')->render();
-}
-else if (wfConfig::get('touppPromptNeeded')) {
+if (!wfOnboardingController::shouldShowAttempt3() && wfConfig::get('touppPromptNeeded')) {
 	echo wfView::create('gdpr/banner')->render();
 }
 
@@ -175,7 +172,7 @@ $support = @json_decode(wfConfig::get('supportContent'), true);
 			<?php endif; ?>
 		</div> <!-- end container -->
 	</div>
-<?php if (wfOnboardingController::shouldShowAttempt3() && (isset($_GET['onboarding']) || wfOnboardingController::shouldShowAttempt3Automatically())): ?>
+<?php if (wfOnboardingController::shouldShowAttempt3()): ?>
 	<?php wfConfig::set('onboardingAttempt3Initial', true); ?>
 	<script type="text/x-jquery-template" id="wfTmpl_onboardingFinal">
 		<?php echo wfView::create('onboarding/modal-final-attempt')->render(); ?>
@@ -229,12 +226,12 @@ $support = @json_decode(wfConfig::get('supportContent'), true);
 							wordfenceExt.onboardingProcessEmails(emails, subscribe, touppAgreed);
 							
 							<?php if (wfConfig::get('isPaid')): ?>
-							wordfenceExt.setOption('onboardingAttempt3', '<?php echo esc_attr(wfOnboardingController::ONBOARDING_THIRD_LICENSE); ?>');
+							wordfenceExt.setOption('onboardingAttempt3', '<?php echo esc_attr(wfOnboardingController::ONBOARDING_LICENSE); ?>');
 							$('#wf-onboarding-banner').slideUp();
 							WFAD.colorboxClose();
 							if (WFAD.tour1) { setTimeout(function() { WFAD.tour1(); }, 500); }
 							<?php else: ?>
-							wordfenceExt.setOption('onboardingAttempt3', '<?php echo esc_attr(wfOnboardingController::ONBOARDING_THIRD_EMAILS); ?>');
+							wordfenceExt.setOption('onboardingAttempt3', '<?php echo esc_attr(wfOnboardingController::ONBOARDING_EMAILS); ?>');
 
 							$('#wf-onboarding-final-attempt-1, .wf-modal-footer').fadeOut(400, function() {
 								$('#wf-onboarding-final-attempt-2').fadeIn();
@@ -260,7 +257,7 @@ $support = @json_decode(wfConfig::get('supportContent'), true);
 						wordfenceExt.onboardingInstallLicense(license,
 							function(res) { //Success
 								if (res.isPaid) {
-									wordfenceExt.setOption('onboardingAttempt3', '<?php echo esc_attr(wfOnboardingController::ONBOARDING_THIRD_LICENSE); ?>');
+									wordfenceExt.setOption('onboardingAttempt3', '<?php echo esc_attr(wfOnboardingController::ONBOARDING_LICENSE); ?>');
 									//$('#wf-onboarding-license-status').addClass('wf-green-dark').removeClass('wf-yellow-dark wf-red-dark').text('You have successfully installed a premium license.').fadeIn();
 									//$('#wf-onboarding-license-install').text('Installed').addClass('wf-disabled');
 									//$('#wf-onboarding-license input').attr('disabled', true);
@@ -288,8 +285,8 @@ $support = @json_decode(wfConfig::get('supportContent'), true);
 									$.wfcolorbox.resize();
 								}
 							},
-							function(res) { //Error
-								$('#wf-onboarding-license-status').addClass('wf-red-dark').removeClass('wf-green-dark wf-yellow-dark').text(res.error).fadeIn();
+							function(error) { //Error
+								$('#wf-onboarding-license-status').addClass('wf-red-dark').removeClass('wf-green-dark wf-yellow-dark').text(error || <?php echo json_encode(__('An unknown error occurred.', 'wordfence')) ?>).fadeIn();
 								$.wfcolorbox.resize();
 							});
 					});
@@ -299,7 +296,7 @@ $support = @json_decode(wfConfig::get('supportContent'), true);
 						e.stopPropagation();
 
 						if ($('#wf-onboarding-final-attempt-2').is(':visible')) {
-							wordfenceExt.setOption('onboardingAttempt3', '<?php echo esc_attr(wfOnboardingController::ONBOARDING_THIRD_LICENSE); ?>');
+							wordfenceExt.setOption('onboardingAttempt3', '<?php echo esc_attr(wfOnboardingController::ONBOARDING_LICENSE); ?>');
 							$('#wf-onboarding-banner').slideUp();
 						}
 

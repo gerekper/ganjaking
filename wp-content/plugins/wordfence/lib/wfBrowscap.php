@@ -84,7 +84,6 @@ class wfBrowscap {
     }
     protected function _loadCache($cache_file){
         $cache_version  = null;
-        $source_version = null;
         $browsers       = array();
         $userAgents     = array();
         $patterns       = array();
@@ -94,7 +93,6 @@ class wfBrowscap {
 
         require $cache_file;
 
-        $this->_source_version = $source_version;
         $this->_browsers       = $browsers;
         $this->_userAgents     = $userAgents;
         $this->_patterns       = $patterns;

@@ -163,7 +163,8 @@ class WC_Bookings_WC_Ajax {
 	public function find_booked_day_blocks() {
 		check_ajax_referer( 'find-booked-day-blocks', 'security' );
 
-		$product_id = absint( $_GET['product_id'] );
+		$product_id  = absint( $_GET['product_id'] );
+		$resource_id = absint( $_GET['resource_id'] );
 
 		if ( empty( $product_id ) ) {
 			wp_send_json_error( 'Missing product ID' );
@@ -176,11 +177,22 @@ class WC_Bookings_WC_Ajax {
 			$product                       = get_wc_product_booking( $product_id );
 			$args['availability_rules']    = array();
 			$args['availability_rules'][0] = $product->get_availability_rules();
-			$args['min_date']              = isset( $_GET['min_date'] ) ? strtotime( $_GET['min_date'] ) : $product->get_min_date();
-			$args['max_date']              = isset( $_GET['max_date'] ) ? strtotime( $_GET['max_date'] ) : $product->get_max_date();
 
-			$min_date        = ( ! isset( $_GET['min_date'] ) ) ? strtotime( "+{$args['min_date']['value']} {$args['min_date']['unit']}", current_time( 'timestamp' ) ) : $args['min_date'];
-			$max_date        = ( ! isset( $_GET['max_date'] ) ) ? strtotime( "+{$args['max_date']['value']} {$args['max_date']['unit']}", current_time( 'timestamp' ) ) : $args['max_date'];
+			$get_min_date = $product->get_min_date();
+			$get_max_date = $product->get_max_date();
+
+			$min_date_bookable = strtotime( "+{$get_min_date['value']} {$get_min_date['unit']}", current_time( 'timestamp' ) );
+			$max_date_bookable = strtotime( "+{$get_max_date['value']} {$get_max_date['unit']}", current_time( 'timestamp' ) );
+
+			// If the date is provided, use it only if it is a valid Unix timestamp, and it is after/before the min/max bookable time.
+			$min_date = $args['min_date'] = isset( $_GET['min_date'] )
+			                                && false !== strtotime( $_GET['min_date'] )
+			                                && strtotime( $_GET['min_date'] ) > $min_date_bookable ? strtotime( $_GET['min_date'] ) : $min_date_bookable;
+
+			$max_date = $args['max_date'] = isset( $_GET['max_date'] )
+			                                && false !== strtotime( $_GET['max_date'] )
+			                                && strtotime( $_GET['max_date'] ) < $max_date_bookable ? strtotime( $_GET['max_date'] ) : $max_date_bookable;
+
 			$timezone_offset = isset( $_GET['timezone_offset'] ) ? $_GET['timezone_offset'] : 0;
 
 			if ( $product->has_resources() ) {
@@ -189,7 +201,7 @@ class WC_Bookings_WC_Ajax {
 				}
 			}
 
-			$booked = WC_Bookings_Controller::find_booked_day_blocks( $product_id, $min_date, $max_date, 'Y-n-j', $timezone_offset );
+			$booked = WC_Bookings_Controller::find_booked_day_blocks( $product_id, $min_date, $max_date, 'Y-n-j', $timezone_offset, array( $resource_id ) );
 
 			$args['partially_booked_days'] = $booked['partially_booked_days'];
 			$args['fully_booked_days']     = $booked['fully_booked_days'];

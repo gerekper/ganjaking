@@ -1259,44 +1259,6 @@ msgid ""
 "exists."
 msgstr "Пользователь с таким email-адресом привязанным к Vk уже существует."
 
-#: includes/providers/class-wc-social-login-provider-yahoo.php:45
-msgid "Yahoo"
-msgstr "Yahoo"
-
-#. translators: Placeholders: %1$s - opening HTML <a> tag, %2$s - closing HTML
-#. </a> tag
-#: includes/providers/class-wc-social-login-provider-yahoo.php:64
-msgid "Need help setting up and configuring Yahoo? %1$sRead the docs%2$s"
-msgstr ""
-"Нужна помощь с настройкой и подключением Yahoo? %1$sПрочитайте документацию"
-"%2$s"
-
-#: includes/providers/class-wc-social-login-provider-yahoo.php:104
-msgid "Log in with Yahoo"
-msgstr "Войти через Yahoo"
-
-#: includes/providers/class-wc-social-login-provider-yahoo.php:116
-msgid "Link your account to Yahoo"
-msgstr "Привязать Аккаунт к Yahoo"
-
-#: includes/providers/class-wc-social-login-provider-yahoo.php:128
-msgid "Your Yahoo account is now linked to your account."
-msgstr "Ваш профиль Yahoo теперь привязан к Аккаунту на нашем сайте."
-
-#: includes/providers/class-wc-social-login-provider-yahoo.php:129
-msgid "Yahoo was successfully unlinked from your account."
-msgstr "Yahoo успешно отключен от вашего Аккаунта."
-
-#: includes/providers/class-wc-social-login-provider-yahoo.php:130
-msgid "This Yahoo account is already linked to another user account."
-msgstr "Этот профиль Yahoo уже подключен к другому Пользователю нашего сайта."
-
-#: includes/providers/class-wc-social-login-provider-yahoo.php:131
-msgid ""
-"A user account using the same email address as this Yahoo account already "
-"exists."
-msgstr "Пользователь с таким email-адресом привязанным к Yahoo уже существует."
-
 #: includes/widgets/class-wc-social-login-widget.php:46
 msgid "Display social login buttons."
 msgstr "Отображать кнопки авторизации через соцсети."

@@ -43,9 +43,13 @@ $selectOptions = array(
 	<li>
 		<ul class="wfls-option">
 			<li class="wfls-option-spacer"></li>
-			<li>
-				<canvas id="wfls-recaptcha-score-history"></canvas>
-				<div class="wfls-center"><a href="#" id="wfls-reset-recaptcha-score-stats" class="wfls-text-small"><?php esc_html_e('Reset Score Statistics', 'wordfence-2fa'); ?></a></div>
+			<li class="wfls-recaptcha-score-history">
+				<div class="wfls-recaptcha-chart-container">
+					<canvas id="wfls-recaptcha-score-history"></canvas>
+				</div>
+				<div class="wfls-center">
+					<a href="#" id="wfls-reset-recaptcha-score-stats" class="wfls-text-small"><?php esc_html_e('Reset Score Statistics', 'wordfence-2fa'); ?></a>
+				</div>
 			</li>
 		</ul>
 	</li>
@@ -76,7 +80,7 @@ $selectOptions = array(
 			});
 		});
 		
-		$(window).on('wfls-tab-change', function(e, target) {
+		$(window).on('wfls-tab-change.recaptcha-score-history', function(e, target) {
 			if (target == 'settings') {
 				var barChartData = {
 					labels: ['0.0', '0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.8', '0.9', '1.0'],
@@ -85,19 +89,7 @@ $selectOptions = array(
 						backgroundColor: 'rgba(75,192,192,0.4)',
 						borderColor: 'rgba(75,192,192,1.0)',
 						borderWidth: 1,
-						data: [
-							<?php echo (int) @$stats['counts'][0]; ?>,
-							<?php echo (int) @$stats['counts'][1]; ?>,
-							<?php echo (int) @$stats['counts'][2]; ?>,
-							<?php echo (int) @$stats['counts'][3]; ?>,
-							<?php echo (int) @$stats['counts'][4]; ?>,
-							<?php echo (int) @$stats['counts'][5]; ?>,
-							<?php echo (int) @$stats['counts'][6]; ?>,
-							<?php echo (int) @$stats['counts'][7]; ?>,
-							<?php echo (int) @$stats['counts'][8]; ?>,
-							<?php echo (int) @$stats['counts'][9]; ?>,
-							<?php echo (int) @$stats['counts'][10]; ?>
-						]
+						data: <?php echo json_encode($stats['counts']) ?>
 					}]
 				};
 
@@ -129,6 +121,7 @@ $selectOptions = array(
 						}
 					}
 				});
+				$(window).off('wfls-tab-change.recaptcha-score-history');
 			}
 		});
 	})(jQuery);

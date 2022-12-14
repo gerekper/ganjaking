@@ -841,12 +841,9 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 	 * @param array $post
 	 */
 	public function set_featured( $product_id, $post ) {
-		$product = wc_get_product( $product_id );
-
 		foreach( $post['postmeta'] as $meta ) {
-			if ( '_featured' === $meta['key'] ) {
-				$product->set_featured( 'yes' === $meta['value'] );
-				$product->save();
+			if ( '_featured' === $meta['key'] && 'yes' === $meta['value'] ) {
+				wp_set_post_terms( $product_id, array( 'featured' ), 'product_visibility', true );
 				break;
 			}
 		}
@@ -1261,12 +1258,20 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 		foreach ( $insert_meta_data as $key => $value ) {
 			if ( $key === '_file_paths' ) {
 				do_action( 'woocommerce_process_product_file_download_paths', $post_id, 0, $value );
-			} else if ( '_stock_status' === $key && 'instock' === $value ) {
-				wp_set_post_terms( $post_id, array( 'exclude_from_catalog', 'exclude_from_search' ), 'product_visibility', false );
+			} elseif ( '_stock_status' === $key && 'outofstock' === $value ) {
+				wp_set_post_terms( $post_id, array( 'exclude-from-catalog', 'exclude-from-search' ), 'product_visibility', true );
 			}
 		}
 
 		if ( $merging ) {
+			// Fix _price meta loosing for any variable products 
+			$product = wc_get_product( $processing_product_id );
+			if ( is_object( $product ) && $product->is_type( 'variable' ) ) {
+				$data_store = WC_Data_Store::load( 'product-' . $product->get_type() );
+				$data_store->sync_price( $product );
+			}
+
+			// Import result
 			$this->add_import_result( 'merged', 'Merge successful', $post_id, $processing_product_title, $processing_product_sku );
 			WC_Product_CSV_Import_Suite::log( sprintf( __('> Finished merging post ID %s.', 'woocommerce-product-csv-import-suite'), $post_id ) );
 		} else {
@@ -1305,7 +1310,9 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 					$terms = array( $terms );
 				}
 
-				$terms_to_set[ $taxonomy ] = array();
+				if ( isset( $terms_to_set[ $taxonomy ] ) && ! is_array( $terms_to_set[ $taxonomy ] ) ) {
+					$terms_to_set[ $taxonomy ] = array();
+				}
 
 				foreach ( $terms as $term_id ) {
 					if ( ! $term_id ) continue;

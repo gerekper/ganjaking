@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/wfWebsite.php';
+
 class wfLicense {
 
 	const TYPE_FREE = 'free';
@@ -18,6 +20,8 @@ class wfLicense {
 	const CONFIG_KEY_TYPE = 'keyType';
 	const CONFIG_HAS_KEY_CONFLICT = 'hasKeyConflict';
 	const CONFIG_TYPE = 'licenseType';
+
+	const REGISTRATION_PAYLOAD_VERSION = 1;
 
 	private static $TYPES = array(
 		self::TYPE_FREE,
@@ -309,7 +313,7 @@ class wfLicense {
 		$this->writeConfig($hasError);
 	}
 
-	public function downgradeToFree(string $apiKey) {
+	public function downgradeToFree($apiKey) {
 		$this->apiKey = $apiKey;
 		$this->type = self::TYPE_FREE;
 		$this->paid = false;
@@ -345,6 +349,46 @@ class wfLicense {
 			self::$current = self::fromConfig();
 		}
 		return self::$current;
+	}
+
+	const REGISTRATION_TOKEN_TTL = 86400; //24 hours
+	const REGISTRATION_TOKEN_KEY = 'wfRegistrationToken';
+	const REGISTRATION_TOKEN_LENGTH = 32;
+
+	public static function getRegistrationToken($refreshTtl = false) {
+		$token = get_transient(self::REGISTRATION_TOKEN_KEY);
+		if ($token === false) {
+			$token = openssl_random_pseudo_bytes(self::REGISTRATION_TOKEN_LENGTH);
+			if ($token === false)
+				throw new Exception('Unable to generate registration token');
+			$token = wfUtils::base64url_encode($token);
+			$refreshTtl = true;
+		}
+		if ($refreshTtl)
+			set_transient(self::REGISTRATION_TOKEN_KEY, $token, self::REGISTRATION_TOKEN_TTL);
+		return $token;
+	}
+
+	public static function validateRegistrationToken($token) {
+		$expected = self::getRegistrationToken();
+		//Note that the length of $expected is publicly known since it's in the plugin source, so differening lengths immediately triggering a false return is not a cause for concern
+		return hash_equals($expected, $token);
+	}
+
+	public static function generateRegistrationLink() {
+		$wfWebsite = wfWebsite::getInstance();
+		$stats = wfAPI::generateSiteStats();
+		$token = self::getRegistrationToken(true);
+		$returnUrl = network_admin_url('admin.php?page=WordfenceInstall');
+		$payload = array(
+			self::REGISTRATION_PAYLOAD_VERSION,
+			$stats,
+			$token,
+			$returnUrl,
+		);
+		$payload = implode(';', $payload);
+		$payload = wfUtils::base64url_encode($payload);
+		return $wfWebsite->getUrl("plugin/registration/{$payload}");
 	}
 
 }

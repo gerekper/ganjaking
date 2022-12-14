@@ -39,6 +39,7 @@ class wordfenceScanner {
 											);
 	/** @var wfScanEngine */
 	protected $scanEngine;
+	private $urlHoover;
 
 	public function __sleep(){
 		return array('path', 'results', 'errorMsg', 'apiKey', 'wordpressVersion', 'urlHoover', 'totalFilesScanned',

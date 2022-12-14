@@ -531,7 +531,7 @@ class Controller_Users {
 				break;
 			case 'wfls_last_login':
 				$value = '-';
-				if (($last = get_user_meta($user_id, 'wfls-last-login', true))) {
+				if (($last = get_user_meta($user_id, 'wfls-last-login', true)) && ctype_digit($last)) {
 					$value = Controller_Time::format_local_time(get_option('date_format') . ' ' . get_option('time_format'), $last);
 				}
 				break;
