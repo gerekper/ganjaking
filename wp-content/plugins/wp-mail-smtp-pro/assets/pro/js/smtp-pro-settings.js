@@ -73,6 +73,8 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 
 			app.pageHolder = $( '.wp-mail-smtp-tab-settings' );
 
+			app.settingsForm = $( '.wp-mail-smtp-connection-settings-form' );
+
 			app.bindActions();
 		},
 
@@ -88,6 +90,7 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 			app.amazonses.loadIdentities();
 			app.multisite.bindActions();
 			app.webhooks.bindActions();
+			app.additionalConnections.bindActions();
 		},
 
 		/**
@@ -160,9 +163,7 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 						icon    = 'check-circle-solid-green';
 						type    = 'green';
 
-						$row.find( '.type, .desc, #wp-mail-smtp-setting-license-key-deactivate' ).show();
-						$row.find( '.type strong' ).text( response.data.type );
-						$licenseKey.prop( 'disabled', true );
+						$( '#wp-mail-smtp-setting-field-license' ).replaceWith( response.data.settings_html );
 					} else {
 						message = response.data;
 						icon    = 'exclamation-circle-regular-red';
@@ -220,18 +221,18 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 
 				$.post( ajaxurl, data, function( response ) {
 
-					var message = response.data,
+					var message,
 						icon,
 						type;
 
 					if ( response.success ) {
+						message = response.data.message;
 						icon = 'check-circle-solid-green';
 						type = 'green';
 
-						$row.find( '#wp-mail-smtp-setting-license-key' ).val( '' );
-						$row.find( '.type strong' ).text( 'lite' );
-						$row.find( '.desc, #wp-mail-smtp-setting-license-key-deactivate' ).hide();
+						$( '#wp-mail-smtp-setting-field-license' ).replaceWith( response.data.settings_html );
 					} else {
+						message = response.data;
 						icon = 'exclamation-circle-regular-red';
 						type = 'red';
 					}
@@ -279,7 +280,7 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 						icon    = 'check-circle-solid-green';
 						type    = 'green';
 
-						$row.find( '.type strong' ).text( response.data.type );
+						$( '#wp-mail-smtp-setting-field-license' ).replaceWith( response.data.settings_html );
 					} else {
 						message = response.data;
 						icon    = 'exclamation-circle-regular-red';
@@ -345,11 +346,11 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 						$( '.js-wp-mail-smtp-providers-amazonses-register-identity' ).trigger( 'click' );
 					}
 				} );
-				app.pageHolder.on( 'click', '.js-wp-mail-smtp-providers-amazonses-register-identity-modal-button', this.openRegisterIdentityModal );
-				app.pageHolder.on( 'click', '.js-wp-mail-smtp-providers-amazonses-identity-delete', this.processIdentityDelete );
-				app.pageHolder.on( 'click', '.js-wp-mail-smtp-providers-amazonses-email-resend', this.processEmailResend );
-				app.pageHolder.on( 'click', '.js-wp-mail-smtp-providers-amazonses-domain-dns-record', this.displayDnsRecord );
-				$( 'form', app.pageHolder ).on( 'submit', this.maybePreventSettingsSave );
+				app.settingsForm.on( 'click', '.js-wp-mail-smtp-providers-amazonses-register-identity-modal-button', this.openRegisterIdentityModal );
+				app.settingsForm.on( 'click', '.js-wp-mail-smtp-providers-amazonses-identity-delete', this.processIdentityDelete );
+				app.settingsForm.on( 'click', '.js-wp-mail-smtp-providers-amazonses-email-resend', this.processEmailResend );
+				app.settingsForm.on( 'click', '.js-wp-mail-smtp-providers-amazonses-domain-dns-record', this.displayDnsRecord );
+				app.settingsForm.on( 'submit', this.maybePreventSettingsSave );
 
 				$( document ).on( 'focus', '.js-wp-mail-smtp-ses-dkim-records-input', function() {
 					$( this ).trigger( 'select' );
@@ -376,10 +377,11 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 						type: 'POST',
 						dataType: 'json',
 						data: {
-							action: 'wp_mail_smtp_pro_providers_ajax',
-							task: 'load_ses_identities',
-							mailer: 'amazonses',
-							nonce: nonce
+							'action': 'wp_mail_smtp_pro_providers_ajax',
+							'task': 'load_ses_identities',
+							'connection_id': wp_mail_smtp_pro.connection_id,
+							'mailer': 'amazonses',
+							'nonce': nonce
 						},
 						beforeSend: function() {
 							app.doingAjax = true;
@@ -521,12 +523,13 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 					type: 'POST',
 					dataType: 'json',
 					data: {
-						action: 'wp_mail_smtp_pro_providers_ajax',
-						task: 'identity_registration',
-						mailer: 'amazonses',
-						type: type,
-						value: value,
-						nonce: nonce
+						'action': 'wp_mail_smtp_pro_providers_ajax',
+						'task': 'identity_registration',
+						'connection_id': wp_mail_smtp_pro.connection_id,
+						'mailer': 'amazonses',
+						'type': type,
+						'value': value,
+						'nonce': nonce
 					},
 					beforeSend: beforeSend
 				};
@@ -642,11 +645,12 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 						type: 'POST',
 						dataType: 'json',
 						data: {
-							action: 'wp_mail_smtp_pro_providers_ajax',
-							task: 'identity_delete',
-							mailer: 'amazonses',
-							value: value,
-							nonce: nonce,
+							'action': 'wp_mail_smtp_pro_providers_ajax',
+							'task': 'identity_delete',
+							'connection_id': wp_mail_smtp_pro.connection_id,
+							'mailer': 'amazonses',
+							'value': value,
+							'nonce': nonce,
 						},
 						beforeSend: function() {
 							app.doingAjax = true;
@@ -788,11 +792,12 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 					type: 'POST',
 					dataType: 'json',
 					data: {
-						action: 'wp_mail_smtp_pro_providers_ajax',
-						task: 'load_dns_records',
-						domain: domain,
-						mailer: 'amazonses',
-						nonce: nonce
+						'action': 'wp_mail_smtp_pro_providers_ajax',
+						'task': 'load_dns_records',
+						'connection_id': wp_mail_smtp_pro.connection_id,
+						'domain': domain,
+						'mailer': 'amazonses',
+						'nonce': nonce
 					},
 					beforeSend: function() {
 						app.doingAjax = true;
@@ -1049,6 +1054,72 @@ WPMailSMTP.Admin.Settings.Pro = WPMailSMTP.Admin.Settings.Pro || ( function( doc
 					.always( function() {
 						app.doingAjax = false;
 					} );
+			}
+		},
+
+		/**
+		 * Additional Connections specific methods.
+		 *
+		 * @since 3.7.0
+		 *
+		 * @type {object}
+		 */
+		additionalConnections: {
+
+			/**
+			 * Register all events.
+			 *
+			 * @since 3.7.0
+			 */
+			bindActions: function() {
+
+				$( document ).on( 'click', '.js-wp-mail-smtp-delete-additional-connection', this.processConnectionDelete );
+			},
+
+			/**
+			 * Process the click on delete connection link.
+			 *
+			 * @since 3.7.0
+			 *
+			 * @param {object} event jQuery event.
+			 */
+			processConnectionDelete: function( event ) {
+
+				event.preventDefault();
+
+				var $self = $( this ),
+					relation = $self.data( 'relation' ),
+					content = wp_mail_smtp_pro.text_delete_connection;
+
+				if ( relation === 'backup' ) {
+					content = wp_mail_smtp_pro.text_delete_backup_connection;
+				} else if ( relation === 'routing' ) {
+					content = wp_mail_smtp_pro.text_delete_smart_routing_connection;
+				}
+
+				$.confirm( {
+					backgroundDismiss: false,
+					escapeKey: true,
+					animationBounce: 1,
+					type: relation === 'none' ? 'orange' : 'red',
+					icon: app.getModalIcon( 'exclamation-circle-solid-' + ( relation === 'none' ? 'orange' : 'red' ) ),
+					title: wp_mail_smtp_pro.text_heads_up_title,
+					content: content,
+					buttons: {
+						confirm: {
+							text: wp_mail_smtp_pro.text_yes_delete,
+							btnClass: 'btn-confirm',
+							keys: [ 'enter' ],
+							action: function() {
+								window.location = $self.attr( 'href' );
+							}
+						},
+						cancel: {
+							text: wp_mail_smtp_pro.text_cancel,
+							btnClass: 'btn-cancel',
+						}
+					}
+				} );
 			}
 		},
 

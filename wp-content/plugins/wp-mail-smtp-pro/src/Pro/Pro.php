@@ -4,16 +4,19 @@ namespace WPMailSMTP\Pro;
 
 use WPMailSMTP\Debug;
 use WPMailSMTP\Options;
+use WPMailSMTP\Pro\AdditionalConnections\AdditionalConnections;
 use WPMailSMTP\Pro\Admin\DashboardWidget;
 use WPMailSMTP\Pro\Alerts\Alerts;
 use WPMailSMTP\Pro\Alerts\Loader as AlertsLoader;
+use WPMailSMTP\Pro\BackupConnections\BackupConnections;
 use WPMailSMTP\Pro\Emails\Logs\Attachments\Attachments;
 use WPMailSMTP\Pro\Emails\Logs\EmailsCollection;
 use WPMailSMTP\Pro\Emails\Logs\Logs;
-use WPMailSMTP\Pro\Emails\Logs\Tracking\Tracking;
-use WPMailSMTP\WP;
 use WPMailSMTP\Pro\Emails\Logs\Reports\Reports;
+use WPMailSMTP\Pro\Emails\Logs\Tracking\Tracking;
 use WPMailSMTP\Pro\Providers\AmazonSES\Options as SESOptions;
+use WPMailSMTP\Pro\SmartRouting\SmartRouting;
+use WPMailSMTP\WP;
 
 /**
  * Class Pro handles all Pro plugin code and functionality registration.
@@ -98,6 +101,8 @@ class Pro {
 		$this->get_providers();
 		$this->get_license();
 		$this->get_site_health()->init();
+		$this->get_additional_connections();
+		$this->get_backup_connections();
 
 		if ( current_user_can( $this->get_logs()->get_manage_capability() ) ) {
 			$this->get_logs_export()->init();
@@ -105,6 +110,9 @@ class Pro {
 
 		// Initialize alerts.
 		( new Alerts() )->hooks();
+
+		// Initialize smart routing.
+		( new SmartRouting() )->hooks();
 
 		// Usage tracking hooks.
 		add_filter( 'wp_mail_smtp_usage_tracking_get_data', [ $this, 'usage_tracking_get_data' ] );
@@ -143,6 +151,22 @@ class Pro {
 			'wp_mail_smtp_core_get_db_repair',
 			function () {
 				return DBRepair::class;
+			}
+		);
+
+		// Use the Pro ConnectionsManager.
+		add_filter(
+			'wp_mail_smtp_core_get_connections_manager',
+			function () {
+				return ConnectionsManager::class;
+			}
+		);
+
+		// Use the Pro MailCatcher.
+		add_filter(
+			'wp_mail_smtp_core_generate_mail_catcher',
+			function () {
+				return version_compare( get_bloginfo( 'version' ), '5.5-alpha', '<' ) ? MailCatcher::class : MailCatcherV6::class;
 			}
 		);
 
@@ -314,6 +338,66 @@ class Pro {
 		}
 
 		return $dashboard_widget;
+	}
+
+	/**
+	 * Load the Additional Connections functionality.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @return AdditionalConnections
+	 */
+	public function get_additional_connections() {
+
+		static $additional_connections;
+
+		if ( ! isset( $additional_connections ) ) {
+
+			/**
+			 * Filter the Additional Connections object.
+			 *
+			 * @since 3.7.0
+			 *
+			 * @param AdditionalConnections $additional_connections The Additional Connections object.
+			 */
+			$additional_connections = apply_filters( 'wp_mail_smtp_pro_get_get_additional_connections', new AdditionalConnections() );
+
+			if ( method_exists( $additional_connections, 'hooks' ) ) {
+				$additional_connections->hooks();
+			}
+		}
+
+		return $additional_connections;
+	}
+
+	/**
+	 * Load the Backup Connections functionality.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @return BackupConnections
+	 */
+	public function get_backup_connections() {
+
+		static $backup_connections;
+
+		if ( ! isset( $backup_connections ) ) {
+
+			/**
+			 * Filter the Backup Connections object.
+			 *
+			 * @since 3.7.0
+			 *
+			 * @param BackupConnections $backup_connections The Backup Connections object.
+			 */
+			$backup_connections = apply_filters( 'wp_mail_smtp_pro_get_get_backup_connections', new BackupConnections() );
+
+			if ( method_exists( $backup_connections, 'hooks' ) ) {
+				$backup_connections->hooks();
+			}
+		}
+
+		return $backup_connections;
 	}
 
 	/**
@@ -538,6 +622,13 @@ class Pro {
 		}
 
 		switch ( $error ) {
+			case 'oauth_invalid_connection':
+				WP::add_admin_notice(
+					esc_html__( 'There was an error while processing the authentication request. The connection was not found. Please try again.', 'wp-mail-smtp-pro' ),
+					WP::ADMIN_NOTICE_ERROR
+				);
+				break;
+
 			case 'microsoft_no_code':
 			case 'zoho_no_code':
 				WP::add_admin_notice(
@@ -752,6 +843,14 @@ class Pro {
 			$data[ 'wp_mail_smtp_pro_alerts_enabled_channel_' . $provider_slug ] = count( $connections );
 		}
 
+		$additional_connections    = $this->get_additional_connections()->get_configured_connections();
+		$backup_connection_enabled = ! empty( Options::init()->get( 'backup_connection', 'connection_id' ) );
+		$smart_routing_enabled     = (bool) Options::init()->get( 'smart_routing', 'enabled' );
+
+		$data['wp_mail_smtp_pro_additional_connections_count'] = count( $additional_connections );
+		$data['wp_mail_smtp_pro_backup_connection_enabled']    = $backup_connection_enabled;
+		$data['wp_mail_smtp_pro_smart_routing_enabled']        = $smart_routing_enabled;
+
 		return $data;
 	}
 
@@ -890,7 +989,11 @@ class Pro {
 				[
 					'type'                    => $type,
 					'value'                   => esc_html( $value ),
-					'domain_dkim_dns_records' => SESOptions::prepare_dkim_dns_records( $value, $domain_dkim_tokens ),
+					'domain_dkim_dns_records' => SESOptions::prepare_dkim_dns_records(
+						$value,
+						$domain_dkim_tokens,
+						wp_mail_smtp()->get_connections_manager()->get_primary_connection()
+					),
 				]
 			);
 		} else {

@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.7.0] - 2022-12-13
+### Added:
+- Backup Connection. Allows to set a Backup Connection which will send the email, if the Primary Connection fails.
+- Smart Routing. Send emails from different additional connections based on your configured conditions.
+- Additional Connections. Allows configuring additional mailers that can be used as a Backup Connection or in Smart Routing.
+
+### Changed:
+- Improved Action Scheduler data cleanup on plugin uninstall.
+- Improved performance for database table's validation checks.
+
+### Fixed:
+- Tasks meta database table error.
+- Gmail mailer authorization error if the oAuth app already had other non mail scopes attached.
+- Email address validation in Setup wizard.
+- Removed unneeded composer libraries autoload code.
+- Conflict detection for plugin Sendinblue - WooCommerce Email Marketing (v3.0+)
+
 ## [3.6.1] - 2022-10-05
 ### Fixed:
 - Setup Wizard steps navigation, when going backwards.

@@ -2,6 +2,7 @@
 
 namespace WPMailSMTP\Pro\Providers\AmazonSES;
 
+use WPMailSMTP\ConnectionInterface;
 use WPMailSMTP\Options as PluginOptions;
 
 if ( ! class_exists( 'WP_List_Table', false ) ) {
@@ -25,16 +26,33 @@ class IdentitiesTable extends \WP_List_Table {
 	protected $options;
 
 	/**
+	 * The Connection object.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @var ConnectionInterface
+	 */
+	private $connection;
+
+	/**
 	 * Set up a constructor that references the parent constructor.
 	 * Using the parent reference to set some default configs.
 	 *
 	 * @since 2.4.0
+	 *
+	 * @param ConnectionInterface $connection The Connection object.
 	 */
-	public function __construct() {
+	public function __construct( $connection = null ) {
 
 		// Set the current screen if doing AJAX to prevent notices.
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 			set_current_screen( 'toplevel_page_wp-mail-smtp' );
+		}
+
+		if ( ! is_null( $connection ) ) {
+			$this->connection = $connection;
+		} else {
+			$this->connection = wp_mail_smtp()->get_connections_manager()->get_primary_connection();
 		}
 
 		$this->options = PluginOptions::init();
@@ -152,7 +170,7 @@ class IdentitiesTable extends \WP_List_Table {
 	 */
 	protected function get_items() {
 
-		$auth = new Auth();
+		$auth = new Auth( $this->connection );
 
 		if ( ! $auth->is_connection_ready() ) {
 			return [];
@@ -164,6 +182,10 @@ class IdentitiesTable extends \WP_List_Table {
 
 		foreach ( $domains as $identity_value => $identity_data ) {
 			$verification_status = $identity_data['VerificationStatus'];
+
+			if ( is_array( $verification_status ) && count( $verification_status ) === 2 ) {
+				$verification_status = $verification_status[1];
+			}
 
 			$txt_token   = empty( $identity_data['VerificationToken'] ) ? null : $identity_data['VerificationToken'];
 			$dkim_tokens = empty( $identity_data['DkimTokens'] ) ? null : $identity_data['DkimTokens'];
@@ -181,7 +203,13 @@ class IdentitiesTable extends \WP_List_Table {
 		}
 
 		foreach ( $emails as $identity_value => $identity_data ) {
-			$data[] = new Identity( $identity_value, Identity::EMAIL_TYPE, $identity_data['VerificationStatus'] );
+			$verification_status = $identity_data['VerificationStatus'];
+
+			if ( is_array( $verification_status ) && count( $verification_status ) === 2 ) {
+				$verification_status = $verification_status[1];
+			}
+
+			$data[] = new Identity( $identity_value, Identity::EMAIL_TYPE, $verification_status );
 		}
 
 		return $data;

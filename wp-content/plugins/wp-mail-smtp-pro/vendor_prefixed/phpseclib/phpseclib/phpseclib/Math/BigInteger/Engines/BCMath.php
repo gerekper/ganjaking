@@ -73,7 +73,7 @@ class BCMath extends \WPMailSMTP\Vendor\phpseclib3\Math\BigInteger\Engines\Engin
         switch (\abs($base)) {
             case 256:
                 // round $len to the nearest 4
-                $len = \strlen($this->value) + 3 & 0xfffffffc;
+                $len = \strlen($this->value) + 3 & ~3;
                 $x = \str_pad($this->value, $len, \chr(0), \STR_PAD_LEFT);
                 $this->value = '0';
                 for ($i = 0; $i < $len; $i += 4) {

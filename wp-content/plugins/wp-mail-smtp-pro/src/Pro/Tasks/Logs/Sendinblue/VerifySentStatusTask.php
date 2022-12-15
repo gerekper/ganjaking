@@ -47,11 +47,18 @@ class VerifySentStatusTask extends VerifySentStatusTaskAbstract {
 			return;
 		}
 
+		$connection = wp_mail_smtp()->get_pro()->get_logs()->get_email_connection( $email );
+
+		// Check if connection exists (was not deleted).
+		if ( empty( $connection ) ) {
+			return;
+		}
+
 		$message_id = $email->get_header( 'Message-ID' );
 
 		// Send the events GET request.
 		try {
-			$api = new Api();
+			$api = new Api( $connection );
 
 			$response = $api->get_smtp_client()->getEmailEventReport( 10, 0, null, null, 2, null, null, null, $message_id );
 

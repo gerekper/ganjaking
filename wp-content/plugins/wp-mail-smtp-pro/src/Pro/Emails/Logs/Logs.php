@@ -2,7 +2,9 @@
 
 namespace WPMailSMTP\Pro\Emails\Logs;
 
+use WP_Error;
 use WPMailSMTP\Admin\Area;
+use WPMailSMTP\ConnectionInterface;
 use WPMailSMTP\MailCatcherInterface;
 use WPMailSMTP\Options;
 use WPMailSMTP\Pro\Emails\Logs\Attachments\Attachments;
@@ -39,6 +41,16 @@ class Logs {
 	 * @var int
 	 */
 	private $current_email_id = 0;
+
+	/**
+	 * Parent email log ID of the current email.
+	 * Used for connected email logs storing.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @var int
+	 */
+	private $current_email_parent_id = 0;
 
 	/**
 	 * Logs constructor.
@@ -110,7 +122,7 @@ class Logs {
 			add_action( 'wp_mail_smtp_mailcatcher_smtp_pre_send_before', [ $this, 'process_smtp_pre_send_before' ] );
 			add_action( 'wp_mail_smtp_mailcatcher_smtp_send_before', [ $this, 'process_smtp_send_before' ] );
 			add_action( 'wp_mail_smtp_mailcatcher_smtp_send_after', [ $this, 'process_smtp_send_after' ], 10, 7 );
-			add_action( 'wp_mail_failed', [ $this, 'process_smtp_fails' ] );
+			add_action( 'wp_mail_smtp_mailcatcher_send_failed', [ $this, 'process_smtp_fails' ] );
 
 			// Actually log emails - Catch All.
 			add_action( 'wp_mail_smtp_mailcatcher_pre_send_before', [ $this, 'process_pre_send_before' ] );
@@ -118,6 +130,15 @@ class Logs {
 
 			// Process AJAX request for deleting all logs.
 			add_action( 'wp_ajax_wp_mail_smtp_delete_all_log_entries', [ $this, 'process_ajax_delete_all_log_entries' ] );
+
+			// Set parent email log ID for backup connection email.
+			add_action(
+				'wp_mail_smtp_pro_backup_connections_send_email_before',
+				function () {
+					$this->set_current_email_parent_id( $this->get_current_email_id() );
+				}
+			);
+			add_action( 'wp_mail_smtp_pro_backup_connections_send_email_after', [ $this, 'reset_current_email_parent_id' ] );
 
 			// Initialize email print preview.
 			( new PrintPreview() )->hooks();
@@ -517,9 +538,19 @@ class Logs {
 
 		global $wpdb;
 
+		static $is_valid = null;
+
+		// Return cached value only if table already exists.
+		if ( $is_valid === true ) {
+			return true;
+		}
+
 		$table = self::get_table_name();
 
-		return (bool) $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s;', $table ) );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching
+		$is_valid = (bool) $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s;', $table ) );
+
+		return $is_valid;
 	}
 
 	/**
@@ -580,6 +611,29 @@ class Logs {
 	public function is_enabled_tracking() {
 
 		return $this->is_enabled_open_email_tracking() || $this->is_enabled_click_link_tracking();
+	}
+
+	/**
+	 * Get the email connection.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @param Email $email Email object.
+	 *
+	 * @return ConnectionInterface
+	 */
+	public function get_email_connection( $email ) {
+
+		$connection_id       = $email->get_connection_id();
+		$connections_manager = wp_mail_smtp()->get_connections_manager();
+
+		if ( ! empty( $connection_id ) ) {
+			$connection = $connections_manager->get_connection( $email->get_connection_id(), false );
+		} else {
+			$connection = $connections_manager->get_primary_connection();
+		}
+
+		return $connection;
 	}
 
 	/**
@@ -811,7 +865,7 @@ class Logs {
 		}
 
 		$this->set_current_email_id(
-			( new SMTP() )->set_source( $mailcatcher )->save_before()
+			( new SMTP() )->set_source( $mailcatcher )->save_before( $this->get_current_email_parent_id() )
 		);
 	}
 
@@ -859,6 +913,29 @@ class Logs {
 	}
 
 	/**
+	 * Process the failed email sending with SMTP.
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param WP_Error $error The WP Error thrown in WP core: `wp_mail_failed` hook.
+	 */
+	public function process_smtp_fails( $error ) {
+
+		if ( ! $this->is_valid_db() || ! is_wp_error( $error ) ) {
+			return;
+		}
+
+		$mailer_slug = wp_mail_smtp()->get_connections_manager()->get_mail_connection()->get_mailer_slug();
+
+		// Process this error only for the Other SMTP, old pepipost SMTP and the default PHP mailer.
+		if ( ! in_array( $mailer_slug, [ 'smtp', 'pepipost', 'mail' ], true ) ) {
+			return;
+		}
+
+		( new SMTP() )->failed( $this->get_current_email_id(), $error );
+	}
+
+	/**
 	 * Save the actual email data before email send.
 	 *
 	 * @since 2.9.0
@@ -872,7 +949,7 @@ class Logs {
 		}
 
 		$this->set_current_email_id(
-			( new Common() )->set_source( $mailcatcher )->save_before()
+			( new Common() )->set_source( $mailcatcher )->save_before( $this->get_current_email_parent_id() )
 		);
 	}
 
@@ -921,6 +998,40 @@ class Logs {
 	}
 
 	/**
+	 * Get the current email parent email log ID.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @return int
+	 */
+	private function get_current_email_parent_id() {
+
+		return $this->current_email_parent_id;
+	}
+
+	/**
+	 * Set the current email parent email log ID.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @param int $email_id The email ID.
+	 */
+	public function set_current_email_parent_id( $email_id ) {
+
+		$this->current_email_parent_id = (int) $email_id;
+	}
+
+	/**
+	 * Reset parent email log ID.
+	 *
+	 * @since 3.7.0
+	 */
+	public function reset_current_email_parent_id() {
+
+		$this->current_email_parent_id = 0;
+	}
+
+	/**
 	 * Get the table name.
 	 *
 	 * @since 1.5.0
@@ -932,27 +1043,6 @@ class Logs {
 		global $wpdb;
 
 		return $wpdb->prefix . 'wpmailsmtp_emails_log';
-	}
-
-	/**
-	 * Process the failed email sending with SMTP.
-	 *
-	 * @since 2.1.0
-	 *
-	 * @param \WP_Error $error The WP Error thrown in WP core: `wp_mail_failed` hook.
-	 */
-	public function process_smtp_fails( $error ) {
-
-		if ( ! $this->is_valid_db() || ! is_wp_error( $error ) ) {
-			return;
-		}
-
-		// Process this error only for the Other SMTP, old pepipost SMTP and the default PHP mailer.
-		if ( ! in_array( Options::init()->get( 'mail', 'mailer' ), [ 'smtp', 'pepipost', 'mail' ], true ) ) {
-			return;
-		}
-
-		( new SMTP() )->failed( $this->get_current_email_id(), $error );
 	}
 
 	/**
@@ -1008,11 +1098,11 @@ class Logs {
 	 * @param int            $email_log_id The Email log ID.
 	 * @param MailerAbstract $mailer       The mailer in use.
 	 */
-	public function run_sent_status_verification( $email_log_id, MailerAbstract $mailer ) {
+	public function run_sent_status_verification( $email_log_id, MailerAbstract $mailer ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 
 		$mailer_name = $mailer->get_mailer_name();
 
-		if ( Webhooks::is_allowed() ) {
+		if ( Webhooks::is_allowed() && $mailer->get_connection()->is_primary() ) {
 			$webhooks_provider = $this->get_webhooks()->get_provider( $mailer_name );
 
 			// Skip AS task verification if webhooks are set up.

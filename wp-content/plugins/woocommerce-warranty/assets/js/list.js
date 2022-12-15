@@ -91,27 +91,40 @@ jQuery( document ).ready( function( $ ) {
 	list.on( 'click', '.rma-upload-button', function( event ) {
 		event.preventDefault();
 
-		var btn = $( this );
+		var request_id = $( this ).data( 'id' );
 
-		// Create the media frame.
-		file_frame = wp.media.frames.file_frame = wp.media( {
-			title: $( this ).data( 'uploader_title' ), button: {
-				text: $( this ).data( 'uploader_button_text' ),
-			}, multiple: false,  // Set to true to allow multiple files to be selected
+		$( '#shipping_label_image_file_' + request_id ).click();
+	} );
+
+	list.on( 'change', '[name="shipping_label_image_file"]', function( e ) {
+		var files = $( this ).prop( 'files' ), request_id = $( this ).data( 'request_id' ), data;
+
+		if ( !files[ 0 ] ) {
+			return;
+		}
+
+		data = new FormData();
+		data.append( 'action', 'warranty_shipping_label_file_upload' );
+		data.append( 'id', request_id );
+		data.append( 'warranty_upload', files[ 0 ] );
+		data.append( 'security', $( this ).data( 'security' ) );
+
+		$.ajax( {
+			url: ajaxurl,
+			type: 'post',
+			data: data,
+			contentType: false,
+			processData: false,
+			dataType: 'json',
+			success: function( response ) {
+				if ( response.success ) {
+					$( '#shipping_label_' + request_id ).val( response.file_url );
+					$( '#shipping_label_id_' + request_id ).val( response.file_id );
+				} else {
+					alert( response.message );
+				}
+			},
 		} );
-
-		// When an image is selected, run a callback.
-		file_frame.on( 'select', function() {
-			// We set multiple to false so only get one image from the uploader
-			attachment = file_frame.state().get( 'selection' ).first().toJSON();
-
-			var request_id = btn.data( 'id' );
-			$( '#shipping_label_' + request_id ).val( attachment.url );
-			$( '#shipping_label_id_' + request_id ).val( attachment.id );
-		} );
-
-		// Finally, open the modal
-		file_frame.open();
 	} );
 
 	list.on( 'click', 'input.request-tracking', function() {
@@ -138,8 +151,10 @@ jQuery( document ).ready( function( $ ) {
 		var tr = $( this ).closest( 'tr' );
 		var td = $( tr ).find( 'td' );
 		$( td ).block( {
-			message: null, overlayCSS: {
-				background: '#fff', opacity: 0.6,
+			message: null,
+			overlayCSS: {
+				background: '#FFFFFF',
+				opacity: 0.6,
 			},
 		} );
 		var provider = '';
@@ -169,8 +184,10 @@ jQuery( document ).ready( function( $ ) {
 		tb_remove();
 
 		table.block( {
-			message: null, overlayCSS: {
-				background: '#fff', opacity: 0.6,
+			message: null,
+			overlayCSS: {
+				background: '#FFFFFF',
+				opacity: 0.6,
 			},
 		} );
 
@@ -256,8 +273,10 @@ jQuery( document ).ready( function( $ ) {
 		var notes_list = container.find( 'ul.admin-notes' );
 
 		container.block( {
-			message: null, overlayCSS: {
-				background: '#fff', opacity: 0.6,
+			message: null,
+			overlayCSS: {
+				background: '#FFFFFF',
+				opacity: 0.6,
 			},
 		} );
 

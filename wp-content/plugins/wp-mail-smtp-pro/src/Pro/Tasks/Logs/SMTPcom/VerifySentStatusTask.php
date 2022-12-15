@@ -53,10 +53,17 @@ class VerifySentStatusTask extends VerifySentStatusTaskAbstract {
 			return;
 		}
 
+		$connection = wp_mail_smtp()->get_pro()->get_logs()->get_email_connection( $email );
+
+		// Check if connection exists (was not deleted).
+		if ( empty( $connection ) ) {
+			return;
+		}
+
 		$message_id = $email->get_header( 'X-Msg-ID' );
 
 		// Get the mailer plugin settings.
-		$mailer_options = Options::init()->get_group( $email->get_mailer() );
+		$mailer_options = $connection->get_options()->get_group( $email->get_mailer() );
 
 		if ( empty( $mailer_options ) ) {
 			return;

@@ -260,10 +260,16 @@ class PrintPreview {
 						<p class="field-value">
 							<?php
 							if ( $provider !== null ) {
-								echo esc_html( $provider->get_title() );
+								$mailer_name = $provider->get_title();
 							} else {
-								echo esc_html( $this->email->get_mailer() );
+								$mailer_name = $this->email->get_mailer();
 							}
+
+							if ( $this->email->get_header( 'X-WP-Mail-SMTP-Connection-Type' ) === 'backup' ) {
+								$mailer_name .= ' ' . esc_html__( '(backup)', 'wp-mail-smtp-pro' );
+							}
+
+							echo esc_html( $mailer_name );
 							?>
 						</p>
 					</div>

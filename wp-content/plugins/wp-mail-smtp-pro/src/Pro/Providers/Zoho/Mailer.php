@@ -3,7 +3,9 @@
 namespace WPMailSMTP\Pro\Providers\Zoho;
 
 use WPMailSMTP\Admin\DebugEvents\DebugEvents;
+use WPMailSMTP\ConnectionInterface;
 use WPMailSMTP\Helpers\Helpers;
+use WPMailSMTP\MailCatcher;
 use WPMailSMTP\Providers\MailerAbstract;
 use WPMailSMTP\Options as PluginOptions;
 use WPMailSMTP\WP;
@@ -48,19 +50,20 @@ class Mailer extends MailerAbstract {
 	 *
 	 * @since 2.3.0
 	 *
-	 * @param \WPMailSMTP\MailCatcher $phpmailer The MailCatcher object.
+	 * @param MailCatcher         $phpmailer  The MailCatcher object.
+	 * @param ConnectionInterface $connection The Connection object.
 	 */
-	public function __construct( $phpmailer ) {
+	public function __construct( $phpmailer, $connection = null ) {
 
 		// Init the client that checks tokens and re-saves them if needed.
-		new Auth();
+		new Auth( $connection );
 
 		// We want to prefill everything from \WPMailSMTP\MailCatcher class, which extends \PHPMailer.
-		parent::__construct( $phpmailer );
+		parent::__construct( $phpmailer, $connection );
 
-		$token        = $this->options->get( $this->mailer, 'access_token' );
-		$domain       = $this->options->get( $this->mailer, 'domain' );
-		$user_details = $this->options->get( $this->mailer, 'user_details' );
+		$token        = $this->connection_options->get( $this->mailer, 'access_token' );
+		$domain       = $this->connection_options->get( $this->mailer, 'domain' );
+		$user_details = $this->connection_options->get( $this->mailer, 'user_details' );
 		$account_id   = ! empty( $user_details['account_id'] ) ? $user_details['account_id'] : '';
 
 		$this->root_url .= $domain . '/api/accounts/' . $account_id . '/';
@@ -89,7 +92,7 @@ class Mailer extends MailerAbstract {
 	/**
 	 * Define the from email and name.
 	 *
-	 * It doesn't support random email, should be the same as used for authentication/connection.
+	 * It doesn't support random email, should be the same as used for OAuth authentication/connection.
 	 *
 	 * @since 2.3.0
 	 *
@@ -98,7 +101,7 @@ class Mailer extends MailerAbstract {
 	 */
 	public function set_from( $email, $name = '' ) {
 
-		$sender = $this->options->get( $this->mailer, 'user_details' );
+		$sender = $this->connection_options->get( $this->mailer, 'user_details' );
 		$from   = sprintf(
 			'"%1$s" <%2$s>',
 			wp_slash( $name ),
@@ -347,7 +350,7 @@ class Mailer extends MailerAbstract {
 		 * With code below we are making sure that Email Log archive and single Email Log
 		 * have the save value for From email header.
 		 */
-		$sender = $this->options->get( $this->mailer, 'user_details' );
+		$sender = $this->connection_options->get( $this->mailer, 'user_details' );
 
 		if ( ! empty( $sender['email'] ) ) {
 			$this->phpmailer->From   = $sender['email'];
@@ -402,9 +405,9 @@ class Mailer extends MailerAbstract {
 
 		$mg_text = [];
 
-		$auth = new Auth();
+		$auth = new Auth( $this->connection );
 
-		$mg_text[] = '<strong>Domain:</strong> ' . (string) PluginOptions::init()->get( $this->mailer, 'domain' );
+		$mg_text[] = '<strong>Domain:</strong> ' . (string) $this->connection_options->get( $this->mailer, 'domain' );
 		$mg_text[] = '<strong>Client ID/Secret:</strong> ' . ( $auth->is_clients_saved() ? 'Yes' : 'No' );
 		$mg_text[] = '<strong>Tokens:</strong> ' . ( ! $auth->is_auth_required() ? 'Yes' : 'No' );
 
@@ -424,12 +427,12 @@ class Mailer extends MailerAbstract {
 			return false;
 		}
 
-		$auth = new Auth();
+		$auth = new Auth( $this->connection );
 
 		if (
 			$auth->is_clients_saved() &&
 			! $auth->is_auth_required() &&
-			! empty( PluginOptions::init()->get( $this->mailer, 'domain' ) )
+			! empty( $this->connection_options->get( $this->mailer, 'domain' ) )
 		) {
 			return true;
 		}

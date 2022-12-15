@@ -45,7 +45,15 @@ class Handler implements HandlerInterface {
 	 */
 	public function can_handle( Alert $alert ) {
 
-		return in_array( $alert->get_type(), [ Alerts::FAILED_EMAIL ], true );
+		return in_array(
+			$alert->get_type(),
+			[
+				Alerts::FAILED_EMAIL,
+				Alerts::FAILED_PRIMARY_EMAIL,
+				Alerts::FAILED_BACKUP_EMAIL,
+			],
+			true
+		);
 	}
 
 	/**
@@ -150,8 +158,18 @@ class Handler implements HandlerInterface {
 
 		$message[] = sprintf( '[%s]', $site_title );
 
-		if ( $alert->get_type() === Alerts::FAILED_EMAIL ) {
-			$message[] = esc_html__( 'Your Site Failed to Send an Email.', 'wp-mail-smtp-pro' );
+		switch ( $alert->get_type() ) {
+			case Alerts::FAILED_EMAIL:
+				$message[] = esc_html__( 'Your Site Failed to Send an Email.', 'wp-mail-smtp-pro' );
+				break;
+
+			case Alerts::FAILED_PRIMARY_EMAIL:
+				$message[] = esc_html__( 'Your Site failed to send an email via the Primary connection, but the email was sent successfully via the Backup connection.', 'wp-mail-smtp-pro' );
+				break;
+
+			case Alerts::FAILED_BACKUP_EMAIL:
+				$message[] = esc_html__( 'Your Site failed to send an email via Primary and Backup connection.', 'wp-mail-smtp-pro' );
+				break;
 		}
 
 		$subject_placeholder = '{{subject}}';

@@ -59,7 +59,7 @@ class Mailer extends MailerAbstract {
 	public function send() {
 
 		// Prepare the auth and client objects.
-		$auth = new Auth();
+		$auth = new Auth( $this->connection );
 
 		$data = [
 			'Content' => [
@@ -139,7 +139,7 @@ class Mailer extends MailerAbstract {
 
 		$debug_items = [];
 
-		$auth = new Auth();
+		$auth = new Auth( $this->connection );
 
 		$debug_items[] = '<strong>Access Key ID/Secret:</strong> ' . ( $auth->is_clients_saved() ? 'Yes' : 'No' );
 
@@ -159,7 +159,7 @@ class Mailer extends MailerAbstract {
 			return false;
 		}
 
-		$auth = new Auth();
+		$auth = new Auth( $this->connection );
 
 		if (
 			$auth->is_clients_saved() &&

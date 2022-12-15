@@ -146,6 +146,15 @@ class Email {
 	protected $initiator_file = '';
 
 	/**
+	 * Parent ID.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @var int
+	 */
+	protected $parent_id = 0;
+
+	/**
 	 * Retrieve a particular email when constructing the object.
 	 *
 	 * @since 1.5.0
@@ -316,7 +325,6 @@ class Email {
 
 		return WP::is_json( $this->headers ) ? $this->headers : '[]';
 	}
-
 
 	/**
 	 * Get a specific header by its name if it exists.
@@ -500,6 +508,18 @@ class Email {
 	}
 
 	/**
+	 * Get the parent's ID.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @return int
+	 */
+	public function get_parent_id() {
+
+		return $this->parent_id;
+	}
+
+	/**
 	 * Get email content type.
 	 *
 	 * @since 2.9.0
@@ -543,6 +563,19 @@ class Email {
 		}
 
 		return $charset;
+	}
+
+	/**
+	 * Get email connection ID.
+	 * If an email was sent via the primary connection, then it returns an empty string.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @return string
+	 */
+	public function get_connection_id() {
+
+		return $this->get_header( 'X-WP-Mail-SMTP-Connection' );
 	}
 
 	/**
@@ -809,19 +842,35 @@ class Email {
 	 */
 	public function set_initiator() {
 
-		$backtrace = $this->get_wpmail_backtrace();
+		$initiator = wp_mail_smtp()->get_wp_mail_initiator();
 
-		if ( empty( $backtrace['file'] ) ) {
+		if ( empty( $initiator->get_file() ) ) {
 			return $this;
 		}
 
-		$this->initiator_file = $backtrace['file'];
+		$this->initiator_file = $initiator->get_file();
 
-		if ( ! empty( $backtrace['line'] ) ) {
-			$this->initiator_file .= ':' . $backtrace['line'];
+		if ( ! empty( $initiator->get_line() ) ) {
+			$this->initiator_file .= ':' . $initiator->get_line();
 		}
 
-		$this->initiator_name = WP::get_initiator_name( $backtrace['file'] );
+		$this->initiator_name = $initiator->get_name();
+
+		return $this;
+	}
+
+	/**
+	 * Set parent ID.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @param int $parent_id Parent ID.
+	 *
+	 * @return Email
+	 */
+	public function set_parent_id( $parent_id ) {
+
+		$this->parent_id = $parent_id;
 
 		return $this;
 	}
@@ -858,6 +907,7 @@ class Email {
 					'attachments'    => $this->attachments,
 					'initiator_name' => $this->initiator_name,
 					'initiator_file' => $this->initiator_file,
+					'parent_id'      => $this->parent_id,
 				],
 				[
 					'id' => $this->get_id(),
@@ -876,6 +926,7 @@ class Email {
 					'%d', // attachments.
 					'%s', // initiator_name.
 					'%s', // initiator_file.
+					'%d', // parent ID.
 				],
 				[
 					'%d',
@@ -901,6 +952,7 @@ class Email {
 					'attachments'    => $this->attachments,
 					'initiator_name' => $this->initiator_name,
 					'initiator_file' => $this->initiator_file,
+					'parent_id'      => $this->parent_id,
 				],
 				[
 					'%s', // message ID.
@@ -916,6 +968,7 @@ class Email {
 					'%d', // attachments.
 					'%s', // initiator_name.
 					'%s', // initiator_file.
+					'%d', // parent ID.
 				]
 			);
 
@@ -1020,29 +1073,5 @@ class Email {
 	public function has_error() {
 
 		return ! empty( $this->get_error_text() );
-	}
-
-	/**
-	 * Get the wpmail function backtrace, if it exists.
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array
-	 */
-	private function get_wpmail_backtrace() {
-
-		$backtrace = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace
-
-		foreach ( $backtrace as $item ) {
-			if ( $item['function'] === 'wp_mail' ) {
-				if ( isset( $item['function'] ) ) {
-					unset( $item['function'] );
-				}
-
-				return $item;
-			}
-		}
-
-		return [];
 	}
 }

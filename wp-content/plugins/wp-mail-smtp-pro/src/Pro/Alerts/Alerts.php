@@ -25,6 +25,28 @@ class Alerts {
 	const FAILED_EMAIL = 'failed_email';
 
 	/**
+	 * Failed primary email alert type slug.
+	 *
+	 * The primary connection failed to send an email, but the backup succeeded.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @var string
+	 */
+	const FAILED_PRIMARY_EMAIL = 'failed_primary_email';
+
+	/**
+	 * Failed backup email alert type slug.
+	 *
+	 * The primary and backup connections failed to send an email.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @var string
+	 */
+	const FAILED_BACKUP_EMAIL = 'failed_backup_email';
+
+	/**
 	 * Register hooks.
 	 *
 	 * @since 3.5.0
@@ -33,7 +55,6 @@ class Alerts {
 
 		add_filter( 'wp_mail_smtp_admin_get_pages', [ $this, 'init_settings_tab' ] );
 
-		add_action( 'wp_mail_smtp_mailcatcher_send_failed', [ $this, 'handle_failed_email' ], 10, 3 );
 		add_action( 'wp_mail_smtp_options_set', [ $this, 'remove_empty_send_to_for_alert_email' ] );
 	}
 
@@ -87,15 +108,23 @@ class Alerts {
 	 * @param string               $error_message Error message.
 	 * @param MailCatcherInterface $mailcatcher   The MailCatcher object.
 	 * @param string               $mail_mailer   Current mailer slug.
+	 * @param string               $failure_type  Failure type.
 	 */
-	public function handle_failed_email( $error_message, $mailcatcher, $mail_mailer ) {
+	public function handle_failed_email( $error_message, $mailcatcher, $mail_mailer, $failure_type = self::FAILED_EMAIL ) {
 
-		// Bail if any of alerts channels is not enabled or it's a test email.
+		$allowed_types = [
+			self::FAILED_EMAIL,
+			self::FAILED_PRIMARY_EMAIL,
+			self::FAILED_BACKUP_EMAIL,
+		];
+
+		// Bail if any of alerts channels is not enabled, or it's a test email.
 		if (
 			! $this->is_enabled() ||
 			$mail_mailer === 'mail' ||
 			$mailcatcher->is_test_email() ||
-			$mailcatcher->is_setup_wizard_test_email()
+			$mailcatcher->is_setup_wizard_test_email() ||
+			! in_array( $failure_type, $allowed_types, true )
 		) {
 			return;
 		}
@@ -142,7 +171,7 @@ class Alerts {
 
 		( new NotifierTask() )
 			->async()
-			->params( self::FAILED_EMAIL, $data )
+			->params( $failure_type, $data )
 			->register();
 	}
 

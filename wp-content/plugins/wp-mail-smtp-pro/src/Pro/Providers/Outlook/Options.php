@@ -2,8 +2,9 @@
 
 namespace WPMailSMTP\Pro\Providers\Outlook;
 
+use WPMailSMTP\Admin\ConnectionSettings;
+use WPMailSMTP\ConnectionInterface;
 use WPMailSMTP\Providers\OptionsAbstract;
-use WPMailSMTP\Options as PluginOptions;
 
 /**
  * Class Options
@@ -22,8 +23,10 @@ class Options extends OptionsAbstract {
 	 *
 	 * @since 1.5.0
 	 * @since 2.3.0 Added supports parameter.
+	 *
+	 * @param ConnectionInterface $connection The Connection object.
 	 */
-	public function __construct() {
+	public function __construct( $connection = null ) {
 
 		parent::__construct(
 			[
@@ -60,7 +63,8 @@ class Options extends OptionsAbstract {
 					'from_email_force' => true,
 					'from_name_force'  => true,
 				],
-			]
+			],
+			$connection
 		);
 	}
 
@@ -94,8 +98,8 @@ class Options extends OptionsAbstract {
 			</div>
 			<div class="wp-mail-smtp-setting-field">
 				<input name="wp-mail-smtp[<?php echo esc_attr( $this->get_slug() ); ?>][client_id]" type="text"
-					value="<?php echo esc_attr( $this->options->get( $this->get_slug(), 'client_id' ) ); ?>"
-					<?php echo $this->options->is_const_defined( $this->get_slug(), 'client_id' ) ? 'disabled' : ''; ?>
+					value="<?php echo esc_attr( $this->connection_options->get( $this->get_slug(), 'client_id' ) ); ?>"
+					<?php echo $this->connection_options->is_const_defined( $this->get_slug(), 'client_id' ) ? 'disabled' : ''; ?>
 					id="wp-mail-smtp-setting-<?php echo esc_attr( $this->get_slug() ); ?>-client_id" spellcheck="false"
 				/>
 			</div>
@@ -108,7 +112,7 @@ class Options extends OptionsAbstract {
 				<label for="wp-mail-smtp-setting-<?php echo esc_attr( $this->get_slug() ); ?>-client_secret"><?php esc_html_e( 'Application Password', 'wp-mail-smtp-pro' ); ?></label>
 			</div>
 			<div class="wp-mail-smtp-setting-field">
-				<?php if ( $this->options->is_const_defined( $this->get_slug(), 'client_secret' ) ) : ?>
+				<?php if ( $this->connection_options->is_const_defined( $this->get_slug(), 'client_secret' ) ) : ?>
 					<input type="text" disabled value="****************************************"
 						id="wp-mail-smtp-setting-<?php echo esc_attr( $this->get_slug() ); ?>-client_secret"
 					/>
@@ -116,7 +120,7 @@ class Options extends OptionsAbstract {
 				<?php else : ?>
 					<input type="password" spellcheck="false"
 						name="wp-mail-smtp[<?php echo esc_attr( $this->get_slug() ); ?>][client_secret]"
-						value="<?php echo esc_attr( $this->options->get( $this->get_slug(), 'client_secret' ) ); ?>"
+						value="<?php echo esc_attr( $this->connection_options->get( $this->get_slug(), 'client_secret' ) ); ?>"
 						id="wp-mail-smtp-setting-<?php echo esc_attr( $this->get_slug() ); ?>-client_secret"
 					/>
 				<?php endif; ?>
@@ -134,7 +138,7 @@ class Options extends OptionsAbstract {
 					value="<?php echo esc_attr( Auth::get_plugin_auth_url() ); ?>"
 					id="wp-mail-smtp-setting-<?php echo esc_attr( $this->get_slug() ); ?>-client_redirect"
 				/>
-				<button type="button" class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-light-grey wp-mail-smtp-setting-copy"
+				<button type="button" class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-grey wp-mail-smtp-setting-copy"
 					title="<?php esc_attr_e( 'Copy URL to clipboard', 'wp-mail-smtp-pro' ); ?>"
 					data-source_id="wp-mail-smtp-setting-<?php echo esc_attr( $this->get_slug() ); ?>-client_redirect">
 					<span class="dashicons dashicons-admin-page"></span>
@@ -171,7 +175,7 @@ class Options extends OptionsAbstract {
 		// Do the processing on the fly, as having ajax here is too complicated.
 		$this->process_provider_remove();
 
-		$auth = new Auth();
+		$auth = new Auth( $this->connection );
 		?>
 
 		<?php if ( $auth->is_clients_saved() ) : ?>
@@ -187,12 +191,12 @@ class Options extends OptionsAbstract {
 
 			<?php else : ?>
 
-				<a href="<?php echo esc_url( wp_nonce_url( wp_mail_smtp()->get_admin()->get_admin_page_url(), 'outlook_remove', 'outlook_remove_nonce' ) ); ?>#wp-mail-smtp-setting-row-<?php echo esc_attr( $this->get_slug() ); ?>-authorize" class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-red js-wp-mail-smtp-provider-remove">
-					<?php esc_html_e( 'Remove Connection', 'wp-mail-smtp-pro' ); ?>
+				<a href="<?php echo esc_url( wp_nonce_url( ( new ConnectionSettings( $this->connection ) )->get_admin_page_url(), 'outlook_remove', 'outlook_remove_nonce' ) ); ?>#wp-mail-smtp-setting-row-<?php echo esc_attr( $this->get_slug() ); ?>-authorize" class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-red js-wp-mail-smtp-provider-remove">
+					<?php esc_html_e( 'Remove OAuth Connection', 'wp-mail-smtp-pro' ); ?>
 				</a>
 				<span class="connected-as">
 					<?php
-					$user = $this->options->get( $this->get_slug(), 'user_details' );
+					$user = $this->connection_options->get( $this->get_slug(), 'user_details' );
 
 					if ( ! empty( $user['email'] ) && ! empty( $user['display_name'] ) ) {
 						printf(
@@ -204,7 +208,7 @@ class Options extends OptionsAbstract {
 					?>
 				</span>
 				<p class="desc">
-					<?php esc_html_e( 'Removing the connection will give you an ability to redo the connection or link to another Microsoft account.', 'wp-mail-smtp-pro' ); ?>
+					<?php esc_html_e( 'Removing the OAuth connection will give you an ability to redo the OAuth connection or link to another Microsoft account.', 'wp-mail-smtp-pro' ); ?>
 				</p>
 
 			<?php endif; ?>
@@ -237,13 +241,11 @@ class Options extends OptionsAbstract {
 			return;
 		}
 
-		$options = PluginOptions::init();
-
-		if ( $options->get( 'mail', 'mailer' ) !== $this->get_slug() ) {
+		if ( $this->connection->get_mailer_slug() !== $this->get_slug() ) {
 			return;
 		}
 
-		$old_opt = $options->get_all_raw();
+		$old_opt = $this->connection_options->get_all_raw();
 
 		foreach ( $old_opt[ $this->get_slug() ] as $key => $value ) {
 			// Unset everything except App ID and Password.
@@ -252,6 +254,6 @@ class Options extends OptionsAbstract {
 			}
 		}
 
-		$options->set( $old_opt );
+		$this->connection_options->set( $old_opt );
 	}
 }

@@ -372,6 +372,7 @@ var WPMailSMTPEmailReports = window.WPMailSMTPEmailReports || ( function( docume
 
 			// Enable/disable single stat view.
 			$( '.js-wp-mail-smtp-toggle-single-stats' ).on( 'click', app.toggleSingleStats );
+			$( '.subject-toggle-single-stats' ).on( 'click', app.subjectToggleSingleStats );
 		},
 
 		/**
@@ -392,49 +393,98 @@ var WPMailSMTPEmailReports = window.WPMailSMTPEmailReports || ( function( docume
 		},
 
 		/**
+		 * Show single stats of a clicked subject.
+		 *
+		 * @since 3.7.0
+		 *
+		 * @param {Event} e Event object.
+		 */
+		subjectToggleSingleStats: function( e ) {
+
+			e.preventDefault();
+
+			const $self = $( this ),
+				$tableRow = $self.closest( 'tr' );
+
+			if ( $tableRow.hasClass( 'wp-mail-smtp-active-row' ) ) {
+				return;
+			}
+
+			app.performToggleSingleStats(
+				$tableRow,
+				$self.data( 'subject' ),
+				$tableRow.find( '.js-wp-mail-smtp-toggle-single-stats' ),
+				false
+			);
+		},
+
+		/**
 		 * Enable/disable single stats view.
 		 *
 		 * @since 3.0.0
+		 * @since 3.7.0 Move the logic to load the stats to `app.performToggleSingleStats()`.
 		 */
 		toggleSingleStats: function() {
 
-			var $self = $( this ),
-				dismiss = $self.hasClass( 'dashicons-dismiss' );
+			const $self = $( this );
 
-			$( '.wp-list-table .wp-mail-smtp-active-row' ).removeClass( 'wp-mail-smtp-active-row' );
-			$( '.wp-list-table .dashicons-dismiss' ).removeClass( 'dashicons-dismiss' ).addClass( 'dashicons-chart-line' );
+			app.performToggleSingleStats(
+				$self.closest( 'tr' ),
+				$self.data( 'subject' ),
+				$self,
+				$self.find( '.dashicons' ).hasClass( 'dashicons-dismiss' )
+			);
+		},
 
-			if ( ! dismiss ) {
-				var subject = $( this ).data( 'subject' ),
-					timespan = el.$timespanSelect.val(),
-					date = el.$dateInput.val();
+		/**
+		 * Toggle single stats of a table row.
+		 *
+		 * @since 3.7.0
+		 *
+		 * @param {object}  $tableRow     Table row of the subject toggled.
+		 * @param {string}  subject       Email subject.
+		 * @param {object}  $toggleButton Graph button.
+		 * @param {boolean} dismiss       Whether the action is to dismiss the single stats.
+		 */
+		performToggleSingleStats: function( $tableRow, subject, $toggleButton, dismiss ) {
 
-				$self.addClass( 'wp-mail-smtp-loading-spin' );
-
-				app.loadSingleStats( subject, timespan, date ).done( function( data ) {
-
-					// Update heading.
-					var $dismissIcon = '<i class="dashicons dashicons-dismiss js-wp-mail-smtp-reset-stats"></i>';
-					el.$reportsTitle.html( subject + $dismissIcon );
-
-					// Update totals and chart.
-					app.updateTotalsUI( data.totals );
-					chart.updateUI( data.by_date_chart_data );
-
-					// Update table state.
-					$self.closest( 'tr' ).addClass( 'wp-mail-smtp-active-row' );
-					$self.removeClass( 'dashicons-chart-line' ).addClass( 'dashicons-dismiss' );
-
-					// Scroll to top.
-					$( 'html, body' ).animate( {
-						scrollTop: $( '.wp-mail-smtp-email-reports' ).offset().top - 50
-					}, 500 );
-				} ).always( function() {
-					$self.removeClass( 'wp-mail-smtp-loading-spin' );
-				} );
-			} else {
+			if ( dismiss ) {
 				app.resetStatsUI();
+				return;
 			}
+
+			// Reset table state.
+			app.resetTableState();
+
+			const $icon = $toggleButton.find( '.dashicons' ),
+				timespan = el.$timespanSelect.val(),
+				date = el.$dateInput.val();
+
+			$icon.addClass( 'wp-mail-smtp-loading-spin' );
+
+			app.loadSingleStats( subject, timespan, date ).done( function( data ) {
+
+				// Update heading.
+				const $dismissIcon = '<i class="dashicons dashicons-dismiss js-wp-mail-smtp-reset-stats"></i>';
+				el.$reportsTitle.html( subject + $dismissIcon );
+
+				// Update totals and chart.
+				app.updateTotalsUI( data.totals );
+				chart.updateUI( data.by_date_chart_data );
+
+				// Update table state.
+				$tableRow.addClass( 'wp-mail-smtp-active-row' );
+
+				$toggleButton.addClass( 'dismiss-single-stats' );
+				$icon.removeClass( 'dashicons-chart-line' ).addClass( 'dashicons-dismiss' );
+
+				// Scroll to top.
+				$( 'html, body' ).animate( {
+					scrollTop: $( '.wp-mail-smtp-email-reports' ).offset().top - 50
+				}, 500 );
+			} ).always( function() {
+				$icon.removeClass( 'wp-mail-smtp-loading-spin' );
+			} );
 		},
 
 		/**
@@ -478,10 +528,22 @@ var WPMailSMTPEmailReports = window.WPMailSMTPEmailReports || ( function( docume
 			// Reset totals and chart.
 			app.updateTotalsUI( wp_mail_smtp_email_reports.stats_totals );
 			chart.updateUI( wp_mail_smtp_email_reports.stats_by_date_chart_data );
+			app.resetTableState();
+		},
+
+		/**
+		 * Reset table state.
+		 *
+		 * @since 3.7.0
+		 */
+		resetTableState: function() {
 
 			// Reset table state.
-			$( '.wp-list-table .wp-mail-smtp-active-row' ).removeClass( 'wp-mail-smtp-active-row' );
-			$( '.wp-list-table .dashicons-dismiss' ).removeClass( 'dashicons-dismiss' ).addClass( 'dashicons-chart-line' );
+			const $wpListTable = $( '.wp-list-table' );
+
+			$wpListTable.find( '.wp-mail-smtp-active-row' ).removeClass( 'wp-mail-smtp-active-row' );
+			$wpListTable.find( '.dashicons-dismiss' ).removeClass( 'dashicons-dismiss' ).addClass( 'dashicons-chart-line' );
+			$wpListTable.find( '.dismiss-single-stats' ).removeClass( 'dismiss-single-stats' );
 		},
 
 		/**

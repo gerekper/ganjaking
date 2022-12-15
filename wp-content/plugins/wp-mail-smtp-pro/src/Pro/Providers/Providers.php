@@ -2,11 +2,11 @@
 
 namespace WPMailSMTP\Pro\Providers;
 
+use WPMailSMTP\Admin\ConnectionSettings;
 use WPMailSMTP\Admin\SetupWizard;
 use WPMailSMTP\Debug;
 use WPMailSMTP\Helpers\Helpers;
 use WPMailSMTP\MailCatcherInterface;
-use WPMailSMTP\Options;
 use WPMailSMTP\Pro\Providers\AmazonSES\Auth as SESAuth;
 use WPMailSMTP\Pro\Providers\AmazonSES\Options as SESOptions;
 use WPMailSMTP\Pro\Providers\Outlook\Auth as MSAuth;
@@ -81,14 +81,30 @@ class Providers {
 
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		$state = sanitize_key( $_GET['state'] );
+		$state = str_replace( 'wp-mail-smtp-', '', $state );
 
-		$nonce = str_replace( 'wp-mail-smtp-', '', $state );
+		list( $nonce, $connection_id ) = array_pad( explode( '-', $state ), 2, false );
 
-		$auth         = new MSAuth();
-		$redirect_url = wp_mail_smtp()->get_admin()->get_admin_page_url();
+		if ( empty( $state ) || empty( $nonce ) || empty( $connection_id ) ) {
+			wp_safe_redirect(
+				add_query_arg( 'error', 'oauth_invalid_state', wp_mail_smtp()->get_admin()->get_admin_page_url() )
+			);
+			exit;
+		}
 
-		$plugin_options       = Options::init();
-		$outlook_options      = $plugin_options->get_group( 'outlook' );
+		$connection = wp_mail_smtp()->get_connections_manager()->get_connection( $connection_id, false );
+
+		if ( $connection === false ) {
+			wp_safe_redirect(
+				add_query_arg( 'error', 'oauth_invalid_connection', wp_mail_smtp()->get_admin()->get_admin_page_url() )
+			);
+			exit;
+		}
+
+		$auth = new MSAuth( $connection );
+
+		$redirect_url         = ( new ConnectionSettings( $connection ) )->get_admin_page_url();
+		$outlook_options      = $connection->get_options()->get_group( 'outlook' );
 		$is_setup_wizard_auth = ! empty( $outlook_options['is_setup_wizard_auth'] );
 
 		if ( $is_setup_wizard_auth ) {
@@ -96,8 +112,6 @@ class Providers {
 
 			$redirect_url = SetupWizard::get_site_url() . '#/step/configure_mailer/outlook';
 		}
-
-		$url = add_query_arg( 'success', 'microsoft_site_linked', $redirect_url );
 
 		if ( ! wp_verify_nonce( $nonce, $auth->state_key ) ) {
 			$url = add_query_arg( 'error', 'microsoft_invalid_nonce', $redirect_url );
@@ -123,6 +137,8 @@ class Providers {
 
 			if ( ! empty( $error ) ) {
 				$url = add_query_arg( 'error', 'microsoft_unsuccessful_oauth', $redirect_url );
+			} else {
+				$url = add_query_arg( 'success', 'microsoft_site_linked', $redirect_url );
 			}
 		}
 
@@ -177,10 +193,10 @@ class Providers {
 	public function enqueue_assets() {
 
 		// CSS.
-		\wp_enqueue_style(
+		wp_enqueue_style(
 			'wp-mail-smtp-admin-pro-settings',
-			\wp_mail_smtp()->pro->assets_url . '/css/smtp-pro-settings.min.css',
-			array( 'wp-mail-smtp-admin' ),
+			wp_mail_smtp()->pro->assets_url . '/css/smtp-pro-settings.min.css',
+			[ 'wp-mail-smtp-admin' ],
 			WPMS_PLUGIN_VER,
 			false
 		);
@@ -188,42 +204,52 @@ class Providers {
 		/*
 		 * JavaScript.
 		 */
-		\wp_enqueue_script(
+		wp_enqueue_script(
 			'wp-mail-smtp-admin-pro-settings',
-			\wp_mail_smtp()->pro->assets_url . '/js/smtp-pro-settings' . WP::asset_min() . '.js',
-			array( 'jquery', 'wp-mail-smtp-admin-jconfirm' ),
+			wp_mail_smtp()->pro->assets_url . '/js/smtp-pro-settings' . WP::asset_min() . '.js',
+			[ 'jquery', 'wp-mail-smtp-admin-jconfirm' ],
 			WPMS_PLUGIN_VER,
 			false
 		);
 
-		\wp_localize_script(
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$connection_id = isset( $_GET['connection_id'] ) ? sanitize_key( $_GET['connection_id'] ) : 'primary';
+
+		wp_localize_script(
 			'wp-mail-smtp-admin-pro-settings',
 			'wp_mail_smtp_pro',
-			array(
-				'ses_text_sending'               => esc_html__( 'Sending...', 'wp-mail-smtp-pro' ),
-				'ses_text_loading'               => esc_html__( 'Loading...', 'wp-mail-smtp-pro' ),
-				'ses_text_sent'                  => esc_html__( 'Sent', 'wp-mail-smtp-pro' ),
-				'ses_text_resend'                => esc_html__( 'Resend', 'wp-mail-smtp-pro' ),
-				'ses_text_email_delete'          => esc_html__( 'Are you sure you want to delete this email address? You will need to add and verify it again if you want to use it in the future.', 'wp-mail-smtp-pro' ),
-				'ses_text_smth_wrong'            => esc_html__( 'Something went wrong, please reload the page and try again.', 'wp-mail-smtp-pro' ),
-				'ses_text_email_invalid'         => esc_html__( 'Please make sure that the email address is valid.', 'wp-mail-smtp-pro' ),
-				'ok'                             => esc_html__( 'OK', 'wp-mail-smtp-pro' ),
-				'plugin_url'                     => esc_url( wp_mail_smtp()->plugin_url ),
-				'icon'                           => esc_html__( 'Icon', 'wp-mail-smtp-pro' ),
-				'error_occurred'                 => esc_html__( 'An error occurred!', 'wp-mail-smtp-pro' ),
-				'ses_text_resend_failed'         => esc_html__( 'Resend failed!', 'wp-mail-smtp-pro' ),
-				'ses_text_cancel'                => esc_html__( 'Cancel', 'wp-mail-smtp-pro' ),
-				'ses_text_close'                 => esc_html__( 'Close', 'wp-mail-smtp-pro' ),
-				'ses_text_yes'                   => esc_html__( 'Yes', 'wp-mail-smtp-pro' ),
-				'ses_text_done'                  => esc_html__( 'Done', 'wp-mail-smtp-pro' ),
-				'ses_text_domain_delete'         => esc_html__( 'Are you sure you want to delete this domain? You will need to add and verify it again if you want to use it in the future.', 'wp-mail-smtp-pro' ),
-				'ses_text_dns_dkim_title'        => esc_html__( 'Add verified domain', 'wp-mail-smtp-pro' ),
-				'ses_text_no_identities'         => esc_html__( 'The AWS SES identities could not load because of an error.', 'wp-mail-smtp-pro' ),
-				'ses_add_identity_modal_content' => SESOptions::prepare_add_new_identity_content(),
-				'ses_add_identity_modal_title'   => SESOptions::prepare_add_new_identity_title(),
-				'loader_white_small'             => wp_mail_smtp()->prepare_loader( 'white', 'sm' ),
-				'nonce'                          => wp_create_nonce( 'wp-mail-smtp-pro-admin' ),
-			)
+			[
+				'ses_text_sending'                     => esc_html__( 'Sending...', 'wp-mail-smtp-pro' ),
+				'ses_text_loading'                     => esc_html__( 'Loading...', 'wp-mail-smtp-pro' ),
+				'ses_text_sent'                        => esc_html__( 'Sent', 'wp-mail-smtp-pro' ),
+				'ses_text_resend'                      => esc_html__( 'Resend', 'wp-mail-smtp-pro' ),
+				'ses_text_email_delete'                => esc_html__( 'Are you sure you want to delete this email address? You will need to add and verify it again if you want to use it in the future.', 'wp-mail-smtp-pro' ),
+				'ses_text_smth_wrong'                  => esc_html__( 'Something went wrong, please reload the page and try again.', 'wp-mail-smtp-pro' ),
+				'ses_text_email_invalid'               => esc_html__( 'Please make sure that the email address is valid.', 'wp-mail-smtp-pro' ),
+				'ok'                                   => esc_html__( 'OK', 'wp-mail-smtp-pro' ),
+				'plugin_url'                           => esc_url( wp_mail_smtp()->plugin_url ),
+				'icon'                                 => esc_html__( 'Icon', 'wp-mail-smtp-pro' ),
+				'error_occurred'                       => esc_html__( 'An error occurred!', 'wp-mail-smtp-pro' ),
+				'ses_text_resend_failed'               => esc_html__( 'Resend failed!', 'wp-mail-smtp-pro' ),
+				'ses_text_cancel'                      => esc_html__( 'Cancel', 'wp-mail-smtp-pro' ),
+				'ses_text_close'                       => esc_html__( 'Close', 'wp-mail-smtp-pro' ),
+				'ses_text_yes'                         => esc_html__( 'Yes', 'wp-mail-smtp-pro' ),
+				'ses_text_done'                        => esc_html__( 'Done', 'wp-mail-smtp-pro' ),
+				'ses_text_domain_delete'               => esc_html__( 'Are you sure you want to delete this domain? You will need to add and verify it again if you want to use it in the future.', 'wp-mail-smtp-pro' ),
+				'ses_text_dns_dkim_title'              => esc_html__( 'Add verified domain', 'wp-mail-smtp-pro' ),
+				'ses_text_no_identities'               => esc_html__( 'The AWS SES identities could not load because of an error.', 'wp-mail-smtp-pro' ),
+				'ses_add_identity_modal_content'       => SESOptions::prepare_add_new_identity_content(),
+				'ses_add_identity_modal_title'         => SESOptions::prepare_add_new_identity_title(),
+				'loader_white_small'                   => wp_mail_smtp()->prepare_loader( 'white', 'sm' ),
+				'nonce'                                => wp_create_nonce( 'wp-mail-smtp-pro-admin' ),
+				'text_heads_up_title'                  => esc_html__( 'Heads up!', 'wp-mail-smtp-pro' ),
+				'text_yes_delete'                      => esc_html__( 'Yes, Delete', 'wp-mail-smtp-pro' ),
+				'text_cancel'                          => esc_html__( 'Cancel', 'wp-mail-smtp-pro' ),
+				'text_delete_connection'               => esc_html__( 'You\'re about to delete a connection. Are you sure you want to proceed?', 'wp-mail-smtp-pro' ),
+				'text_delete_backup_connection'        => esc_html__( 'You\'re about to delete your Backup Connection. Are you sure you want to proceed?', 'wp-mail-smtp-pro' ),
+				'text_delete_smart_routing_connection' => esc_html__( 'You\'re about to delete a connection that is used in Smart Routing. Are you sure you want to proceed? You will need to reconfigure your Smart Routing rules. ', 'wp-mail-smtp-pro' ),
+				'connection_id'                        => $connection_id,
+			]
 		);
 	}
 
@@ -250,7 +276,14 @@ class Providers {
 			wp_send_json_error( $generic_error );
 		}
 
-		$task = isset( $_POST['task'] ) ? sanitize_key( $_POST['task'] ) : '';
+		$connection_id = isset( $_POST['connection_id'] ) ? sanitize_key( $_POST['connection_id'] ) : false;
+		$task          = isset( $_POST['task'] ) ? sanitize_key( $_POST['task'] ) : '';
+
+		$connection = wp_mail_smtp()->get_connections_manager()->get_connection( $connection_id, false );
+
+		if ( $connection === false ) {
+			wp_send_json_error( $generic_error );
+		}
 
 		switch ( $task ) {
 			case 'load_ses_identities':
@@ -258,7 +291,7 @@ class Providers {
 					wp_send_json_error( $generic_error );
 				}
 
-				$ses_options = wp_mail_smtp()->get_providers()->get_options( SESOptions::SLUG );
+				$ses_options = wp_mail_smtp()->get_providers()->get_options( SESOptions::SLUG, $connection );
 
 				wp_send_json_success( $ses_options->prepare_ses_identities_content() );
 
@@ -278,7 +311,7 @@ class Providers {
 					wp_send_json_error( esc_html__( 'Please provide a domain name.', 'wp-mail-smtp-pro' ) );
 				}
 
-				$ses = new SESAuth();
+				$ses = new SESAuth( $connection );
 
 				// Verify domain for easier conditional checking below.
 				$domain_dkim_tokens = ( $type === 'domain' ) ? $ses->do_verify_domain_dkim( $value ) : '';
@@ -295,7 +328,7 @@ class Providers {
 					);
 				} elseif ( $type === 'domain' && ! empty( $domain_dkim_tokens ) ) {
 					wp_send_json_success(
-						SESOptions::prepare_domain_dkim_records_notice( $value, $domain_dkim_tokens )
+						SESOptions::prepare_domain_dkim_records_notice( $value, $domain_dkim_tokens, $connection )
 					);
 				} else {
 					$error = Debug::get_last();
@@ -322,7 +355,7 @@ class Providers {
 					wp_send_json_error( esc_html__( 'Please provide a domain name.', 'wp-mail-smtp-pro' ) );
 				}
 
-				$ses = new SESAuth();
+				$ses = new SESAuth( $connection );
 
 				if ( $ses->do_delete_identity( $value ) === true ) {
 					wp_send_json_success(
@@ -357,7 +390,7 @@ class Providers {
 					wp_send_json_error( esc_html__( 'Please provide a domain name.', 'wp-mail-smtp-pro' ) );
 				}
 
-				$ses = new SESAuth();
+				$ses = new SESAuth( $connection );
 
 				$dkim_tokens = $ses->get_dkim_tokens( $domain );
 
@@ -365,7 +398,7 @@ class Providers {
 					wp_send_json_error( esc_html( $dkim_tokens->get_error_message() ) );
 				}
 
-				wp_send_json_success( SESOptions::prepare_domain_dkim_records_notice( $domain, $dkim_tokens ) );
+				wp_send_json_success( SESOptions::prepare_domain_dkim_records_notice( $domain, $dkim_tokens, $connection ) );
 
 				break;
 		}
@@ -380,7 +413,7 @@ class Providers {
 	 */
 	public function update_php_mailer_properties( $phpmailer ) {
 
-		$mailer = Options::init()->get( 'mail', 'mailer' );
+		$mailer = wp_mail_smtp()->get_connections_manager()->get_mail_connection()->get_mailer_slug();
 
 		/*
 		 * Switch mailer to "sendmail" for Amazon SES. Since we send MIME message via Amazon API,

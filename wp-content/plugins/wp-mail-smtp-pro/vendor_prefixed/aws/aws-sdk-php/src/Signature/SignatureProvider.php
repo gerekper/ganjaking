@@ -3,6 +3,7 @@
 namespace WPMailSMTP\Vendor\Aws\Signature;
 
 use WPMailSMTP\Vendor\Aws\Exception\UnresolvedSignatureException;
+use WPMailSMTP\Vendor\Aws\Token\BearerTokenAuthorization;
 /**
  * Signature providers.
  *
@@ -55,7 +56,7 @@ class SignatureProvider
     public static function resolve(callable $provider, $version, $service, $region)
     {
         $result = $provider($version, $service, $region);
-        if ($result instanceof \WPMailSMTP\Vendor\Aws\Signature\SignatureInterface) {
+        if ($result instanceof \WPMailSMTP\Vendor\Aws\Signature\SignatureInterface || $result instanceof \WPMailSMTP\Vendor\Aws\Token\BearerTokenAuthorization) {
             return $result;
         }
         throw new \WPMailSMTP\Vendor\Aws\Exception\UnresolvedSignatureException("Unable to resolve a signature for {$version}/{$service}/{$region}.\n" . "Valid signature versions include v4 and anonymous.");
@@ -110,6 +111,8 @@ class SignatureProvider
                     return new \WPMailSMTP\Vendor\Aws\Signature\SignatureV4($service, $region, ['use_v4a' => \true]);
                 case 'v4-unsigned-body':
                     return !empty(self::$s3v4SignedServices[$service]) ? new \WPMailSMTP\Vendor\Aws\Signature\S3SignatureV4($service, $region, ['unsigned-body' => 'true']) : new \WPMailSMTP\Vendor\Aws\Signature\SignatureV4($service, $region, ['unsigned-body' => 'true']);
+                case 'bearer':
+                    return new \WPMailSMTP\Vendor\Aws\Token\BearerTokenAuthorization();
                 case 'anonymous':
                     return new \WPMailSMTP\Vendor\Aws\Signature\AnonymousSignature();
                 default:

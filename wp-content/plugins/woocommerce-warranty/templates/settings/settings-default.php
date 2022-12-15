@@ -1,3 +1,13 @@
+<?php
+/**
+ * The template for displaying warranty options.
+ *
+ * @package WooCommerce_Warranty\Templates
+ * @version 2.0.0
+ */
+
+defined( 'ABSPATH' ) || exit;
+?>
 <div id="warranty_settings_default">
 
 	<?php WC_Admin_Settings::output_fields( $settings['default'] ); ?>
@@ -7,7 +17,7 @@
 	jQuery( 'document' ).ready( function( $ ) {
 		$( '#warranty_default_type' ).change( function() {
 			var show_if_addon_warranty    = $( '.show-if-addon_warranty' ),
-			    show_if_included_warranty = $( '.show-if-included_warranty' );
+				show_if_included_warranty = $( '.show-if-included_warranty' );
 
 			show_if_addon_warranty.parents( 'tr' ).hide();
 			show_if_included_warranty.parents( 'tr' ).hide();

@@ -26,7 +26,15 @@ class Handler implements HandlerInterface {
 	 */
 	public function can_handle( Alert $alert ) {
 
-		return in_array( $alert->get_type(), [ Alerts::FAILED_EMAIL ], true );
+		return in_array(
+			$alert->get_type(),
+			[
+				Alerts::FAILED_EMAIL,
+				Alerts::FAILED_PRIMARY_EMAIL,
+				Alerts::FAILED_BACKUP_EMAIL,
+			],
+			true
+		);
 	}
 
 	/**

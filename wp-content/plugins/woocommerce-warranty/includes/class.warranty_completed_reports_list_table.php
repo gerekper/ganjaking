@@ -1,147 +1,153 @@
 <?php
 
-if( ! class_exists( 'WP_List_Table' ) ) {
-    require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+if ( ! class_exists( 'WP_List_Table' ) ) {
+	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
 
 class Warranty_Completed_Reports_List_Table extends WP_List_Table {
 
-    public $valid_orders = array();
+	public $valid_orders = array();
 
-    function __construct( $args = array() ) {
-        parent::__construct($args);
-    }
+	public function __construct( $args = array() ) {
+		parent::__construct( $args );
+	}
 
-    function get_columns(){
-        $columns = array(
-            'order_id'  => __('Order ID', 'wc_warranty'),
-            'status'    => __('RMA Status', 'wc_warranty'),
-            'customer'  => __('Customer Name', 'wc_warranty'),
-            'product'   => __('Product', 'wc_warranty'),
-            'validity'  => __('Validity', 'wc_warranty'),
-            'date'      => __('Order Date', 'wc_warranty')
-        );
-        return $columns;
-    }
+	public function get_columns() {
+		$columns = array(
+			'order_id' => esc_html__( 'Order ID', 'wc_warranty' ),
+			'status'   => esc_html__( 'RMA Status', 'wc_warranty' ),
+			'customer' => esc_html__( 'Customer Name', 'wc_warranty' ),
+			'product'  => esc_html__( 'Product', 'wc_warranty' ),
+			'validity' => esc_html__( 'Validity', 'wc_warranty' ),
+			'date'     => esc_html__( 'Order Date', 'wc_warranty' ),
+		);
 
-    function get_sortable_columns() {
-        $sortable_columns = array(
-            'order_id'  => array('order_id',false),
-            'date'      => array('date',false)
-        );
-        return $sortable_columns;
-    }
+		return $columns;
+	}
 
-    function prepare_items() {
-        global $wpdb;
+	protected function get_sortable_columns() {
+		$sortable_columns = array(
+			'order_id' => array( 'order_id', false ),
+			'date'     => array( 'date', false ),
+		);
 
-        $columns    = $this->get_columns();
-        $hidden     = array();
+		return $sortable_columns;
+	}
 
-        $sortable   = array();
-        $this->_column_headers = array($columns, $hidden, $sortable);
+	public function prepare_items() {
+		$columns = $this->get_columns();
+		$hidden  = array();
 
-        $per_page       = 10;
-        $completed_status = warranty_get_completed_status();
+		$sortable              = array();
+		$this->_column_headers = array( $columns, $hidden, $sortable );
 
-        $args = array(
-            'post_type'     => 'warranty_request',
-            'per_page'      => $per_page,
-            'paged'         => $this->get_pagenum(),
-            'tax_query'     => array(
-                array(
-                    'taxonomy'  => 'shop_warranty_status',
-                    'field'     => 'slug',
-                    'terms'     => $completed_status->slug
-                )
-            )
-        );
+		$per_page         = 10;
+		$completed_status = warranty_get_completed_status();
 
-        if ( isset($_GET['s']) && !empty($_GET['s']) ) {
-            $args['meta_query'][] = array(
-                'key'       => '_order_id',
-                'value'     => $_GET['s'],
-                'compare'   => 'LIKE'
-            );
-        }
+		$args = array(
+			'post_type' => 'warranty_request',
+			'per_page'  => $per_page,
+			'paged'     => $this->get_pagenum(),
+			'tax_query' => array(
+				array(
+					'taxonomy' => 'shop_warranty_status',
+					'field'    => 'slug',
+					'terms'    => $completed_status->slug,
+				),
+			),
+		);
 
-        $query = new WP_Query( $args );
+		if ( ! empty( $_GET['s'] ) ) {
+			$args['meta_query'][] = array(
+				'key'     => '_order_id',
+				'value'   => absint( $_GET['s'] ),
+				'compare' => 'LIKE',
+			);
+		}
 
-        $warranties = array();
-        foreach ( $query->posts as $post ) {
-            $order_id = get_post_meta( $post->ID, '_order_id', true );
-            $order = wc_get_order( $order_id );
+		$warranty_req_query = new WP_Query( $args );
 
-            if ( ! $order ) {
-                continue;
-            }
+		$warranties = array();
+		foreach ( $warranty_req_query->posts as $warranty_req ) {
+			$order_id = get_post_meta( $warranty_req->ID, '_order_id', true );
+			$order    = wc_get_order( $order_id );
 
-            $warranties[] = $post;
-        }
+			if ( ! $order ) {
+				continue;
+			}
 
-        $this->items    = $warranties;
-        $total_items    = count( $warranties );
+			$warranties[] = $warranty_req;
+		}
 
-        $this->items    = $warranties;
+		$this->items = $warranties;
+		$total_items = count( $warranties );
 
-        $this->set_pagination_args( array(
-            'total_items' => $total_items,
-            'per_page'    => $per_page
-        ) );
+		$this->items = $warranties;
 
-        wp_reset_postdata();
-    }
+		$this->set_pagination_args(
+			array(
+				'total_items' => $total_items,
+				'per_page'    => $per_page,
+			)
+		);
 
-    function column_order_id($item) {
-        $order_id     = get_post_meta( $item->ID, '_order_id', true );
-        $order        = wc_get_order( $order_id );
-        $order_number = ( $order ) ? $order->get_order_number() : '-';
+		wp_reset_postdata();
+	}
+
+	public function column_order_id( $item ) {
+		$order_id     = get_post_meta( $item->ID, '_order_id', true );
+		$order        = wc_get_order( $order_id );
+		$order_number = ( $order ) ? $order->get_order_number() : '-';
 		$edit_url     = WC_Warranty_Compatibility::get_order_admin_edit_url( $order_id );
 
 		if ( $edit_url ) {
-			return '<a href="' . esc_url( $edit_url ) . '">' . $order_number . '</a>';	
+			return '<a href="' . esc_url( $edit_url ) . '">' . $order_number . '</a>';
 		}
 
-        return $order_number;
-    }
+		return $order_number;
+	}
 
-    function column_status($item) {
-        $term       = wp_get_post_terms( $item->ID, 'shop_warranty_status' );
-        $status     = isset($term[0]) ? $term[0]->name : '-';
-        return $status;
-    }
+	public function column_status( $item ) {
+		$term   = wp_get_post_terms( $item->ID, 'shop_warranty_status' );
+		$status = isset( $term[0] ) ? $term[0]->name : '-';
 
-    function column_customer($item) {
-        $order_id = get_post_meta( $item->ID, '_order_id', true );
-        $order = wc_get_order( $order_id );
-        $first_name = WC_Warranty_Compatibility::get_order_prop( $order, 'billing_first_name' );
-        $last_name  = WC_Warranty_Compatibility::get_order_prop( $order, 'billing_last_name' );
+		return $status;
+	}
 
-        return $first_name .' '. $last_name;
-    }
+	public function column_customer( $item ) {
+		$order_id   = get_post_meta( $item->ID, '_order_id', true );
+		$order      = wc_get_order( $order_id );
+		$first_name = $order ? $order->get_billing_first_name() : '-';
+		$last_name  = $order ? $order->get_billing_last_name() : '-';
 
-    function column_product($item) {
-	    $products = warranty_get_request_items( $item->ID );
+		return $first_name . ' ' . $last_name;
+	}
 
-	    $out = '';
+	public function column_product( $item ) {
+		$warranty_products = warranty_get_request_items( $item->ID );
 
-	    foreach ( $products as $product ) {
-		    if ( empty( $product['product_id'] ) && empty( $item['product_name'] ) ) {
-			    continue;
-		    }
+		$out = '';
 
-		    if ( $product['product_id'] == 0 ) {
-			    $out .= $item['product_name'] .'<br/>';
-		    } else {
-			    $title = warranty_get_product_title( $product['product_id'] );
-			    $out .= '<a href="post.php?post='. $product['product_id'] .'&action=edit">'. $title .'</a> &times; '. $product['quantity'] .'<br/>';
-		    }
-	    }
+		foreach ( $warranty_products as $warranty_product ) {
+			if ( empty( $warranty_product['product_id'] ) ) {
+				continue;
+			}
 
-	    return $out;
-    }
+			$product = wc_get_product( $warranty_product['product_id'] );
+			if ( ! ( $product instanceof WC_Product ) ) {
+				continue;
+			}
 
-	function column_validity( $item ) {
+			/**
+			 * @var $product \WC_Product
+			 */
+			$out .= '<a href="' . esc_url( admin_url( 'post.php?post=' . $product->get_id() . '&action=edit' ) . '">' . esc_html( $product->get_title() ) ) . '</a> &times; ' . esc_html( $warranty_product['quantity'] ) . '<br/>';
+		}
+
+		return $out;
+	}
+
+	public function column_validity( $item ) {
 		$order_id     = get_post_meta( $item->ID, '_order_id', true );
 		$order        = wc_get_order( $order_id );
 		$item_indexes = array_column( warranty_get_request_items( $item->ID ), 'order_item_index' );
@@ -163,16 +169,16 @@ class Warranty_Completed_Reports_List_Table extends WP_List_Table {
 						$addon = $warranty['addons'][ $addon_index ];
 						$date  = warranty_get_date( $completed, $addon['value'], $addon['duration'] );
 
-						echo $date;
+						echo esc_html( $date );
 					}
 				} elseif ( $warranty['type'] == 'included_warranty' ) {
 					if ( $warranty['length'] == 'lifetime' ) {
-						echo __( 'Lifetime', 'wc_warranty' );
+						esc_html_e( 'Lifetime', 'wc_warranty' );
 					} else {
 						if ( ! empty( $completed ) ) {
 							$date = warranty_get_date( $completed, $warranty['value'], $warranty['duration'] );
 
-							echo $date;
+							echo esc_html( $date );
 						}
 					}
 				}
@@ -181,15 +187,16 @@ class Warranty_Completed_Reports_List_Table extends WP_List_Table {
 		}
 	}
 
-    function column_date($item) {
-        $order_id   = get_post_meta( $item->ID, '_order_id', true );
-        $order      = wc_get_order( $order_id );
-        return date_i18n( WooCommerce_Warranty::get_datetime_format(), strtotime( WC_Warranty_Compatibility::get_order_prop( $order, 'modified_date' ) ) );
-    }
+	public function column_date( $item ) {
+		$order_id = get_post_meta( $item->ID, '_order_id', true );
+		$order    = wc_get_order( $order_id );
 
-    function no_items() {
-        _e( 'No requests found.', 'wc_warranty' );
-    }
+		return $order ? $order->get_date_modified()->date_i18n( WooCommerce_Warranty::get_datetime_format() ) : '-';
+	}
+
+	public function no_items() {
+		esc_html_e( 'No requests found.', 'wc_warranty' );
+	}
 
 }
 
@@ -199,23 +206,24 @@ table.woocommerce_page_warranty_requests #status { width: 200px; }
 .wc-updated p {margin: .5em 0 !important; padding: 2px;}
 </style>';
 
-if ( isset($_GET['updated']) ) {
-    echo '<div class="updated"><p>'. $_GET['updated'] .'</p></div>';
+if ( isset( $_GET['updated'] ) ) {
+	echo '<div class="updated"><p>' . esc_html( $_GET['updated'] ) . '</p></div>';
 }
+
 $completed_table = new Warranty_Completed_Reports_List_Table();
 $completed_table->prepare_items();
 ?>
 
-    <form action="admin.php" method="get" style="margin-top: 20px;">
-        <input type="hidden" name="page" value="warranties-reports" />
-        <input type="hidden" name="status" value="<?php echo $_GET['status']; ?>" />
+	<form action="<?php echo esc_url( admin_url( 'admin.php' ) ); ?>" method="get" style="margin-top: 20px;">
+		<input type="hidden" name="page" value="warranties-reports" />
+		<input type="hidden" name="status" value="<?php echo esc_attr( $_GET['status'] ); ?>" />
 
-        <p class="search-box">
-            <label class="screen-reader-text" for="search"><?php _e('Search', 'wc_warranty') ?>:</label>
-            <input type="search" id="search" name="s" value="<?php _admin_search_query(); ?>" placeholder="Order #" />
-            <?php submit_button( __('Search', 'wc_warranty'), 'button', false, false, array('id' => 'search-submit') ); ?>
-        </p>
-    </form>
+		<p class="search-box">
+			<label class="screen-reader-text" for="search"><?php esc_html_e( 'Search', 'wc_warranty' ); ?>:</label>
+			<input type="search" id="search" name="s" value="<?php _admin_search_query(); ?>" placeholder="Order #" />
+			<?php submit_button( esc_html__( 'Search', 'wc_warranty' ), 'button', false, false, array( 'id' => 'search-submit' ) ); ?>
+		</p>
+	</form>
 
 <?php
 $completed_table->display();

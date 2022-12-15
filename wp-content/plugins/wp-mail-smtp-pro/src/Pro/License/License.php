@@ -47,6 +47,23 @@ class License {
 	 */
 	public function __construct() {
 
+		$options = new Options();
+		$all_opt = $options->get_all();
+		$all_opt['license']['type'] = 'pro';
+		$all_opt['license']['is_expired'] = false;
+		$all_opt['license']['is_disabled'] = false;
+		$all_opt['license']['is_invalid'] = false;
+		$options->set( $all_opt );
+		add_filter( 'wp_mail_smtp_admin_get_pages', function ( $pages ) {
+			remove_action( 'wp_mail_smtp_admin_pages_settings_license_key', array(
+				\WPMailSMTP\Admin\Pages\SettingsTab::class,
+				'display_license_key_field_content',
+			) );
+			add_action( 'wp_mail_smtp_admin_pages_settings_license_key', array( $this, 'display_settings_license_key_field_content' ) );
+			return $pages;
+		} );
+		return;
+		
 		$this->register_updater();
 
 		// Register licensing ajax action (with custom tasks).
@@ -166,71 +183,146 @@ class License {
 	 * @since 1.5.0
 	 *
 	 * @param Options $options The plugin options.
+	 * @param bool    $echo    Whether to output HTML.
 	 */
-	public function display_settings_license_key_field_content( $options ) {
+	public function display_settings_license_key_field_content( $options, $echo = true ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 
-		$key = 'GPL001122334455AA6677BB8899CC000';
-		$type = 'Pro';
-		$license  = $options->get_group( 'license' );
-		$is_valid = ! empty( $key ) &&
-		            ( isset( $license['is_expired'] ) && $license['is_expired'] === false ) &&
-		            ( isset( $license['is_disabled'] ) && $license['is_disabled'] === false ) &&
-		            ( isset( $license['is_invalid'] ) && $license['is_invalid'] === false );
+		$key         = wp_mail_smtp()->get_license_key();
+		$type        = wp_mail_smtp()->get_license_type();
+		$license     = $options->get_group( 'license' );
+		$is_expired  = isset( $license['is_expired'] ) && $license['is_expired'] === true;
+		$is_disabled = isset( $license['is_disabled'] ) && $license['is_disabled'] === true;
+		$is_invalid  = isset( $license['is_invalid'] ) && $license['is_invalid'] === true;
+		$is_valid    = ! empty( $key ) && ! $is_expired && ! $is_disabled && ! $is_invalid;
+
+		$input_class = '';
+
+		if ( $is_valid ) {
+			$input_class = 'wp-mail-smtp-setting-license-key--valid';
+		} elseif ( ! empty( $key ) ) {
+			$input_class = 'wp-mail-smtp-setting-license-key--invalid';
+		}
+
+		ob_start();
 		?>
+		<div id="wp-mail-smtp-setting-field-license">
+			<?php wp_nonce_field( 'wp_mail_smtp_pro_license_nonce', 'wp-mail-smtp-setting-license-nonce' ); ?>
 
-		<?php wp_nonce_field( 'wp_mail_smtp_pro_license_nonce', 'wp-mail-smtp-setting-license-nonce' ); ?>
+			<div class="wp-mail-smtp-setting-field-row">
+				<input type="password" id="wp-mail-smtp-setting-license-key"
+							 value="<?php echo esc_attr( $key ); ?>" name="wp-mail-smtp[license][key]"
+							 class="wp-mail-smtp-setting-license-key<?php echo ! empty( $input_class ) ? ' ' . esc_attr( $input_class ) : ''; ?>"
+							 <?php echo ( $options->is_const_defined( 'license', 'key' ) || $is_valid ) ? 'disabled' : ''; ?>
+				/>
 
-		<div class="wp-mail-smtp-setting-field-row">
-			<input type="password" id="wp-mail-smtp-setting-license-key"
-				<?php echo ( $options->is_const_defined( 'license', 'key' ) || $is_valid ) ? 'disabled' : ''; ?>
-				value="<?php echo esc_attr( $key ); ?>" name="wp-mail-smtp[license][key]"/>
+				<?php if ( $is_expired ) : ?>
+					<a href="<?php echo esc_url( wp_mail_smtp()->get_utm_url( "https://wpmailsmtp.com/checkout/?edd_license_key={$key}", [ 'content' => 'Renew License Button' ] ) ); ?>" target="_blank" rel="noopener noreferrer" id="wp-mail-smtp-setting-license-key-renew" class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-red">
+						<?php esc_html_e( 'Renew License', 'wp-mail-smtp-pro' ); ?>
+					</a>
+				<?php endif; ?>
 
+				<?php if ( empty( $key ) ) : ?>
+					<button type="button" id="wp-mail-smtp-setting-license-key-verify" class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-orange">
+						<?php esc_html_e( 'Verify Key', 'wp-mail-smtp-pro' ); ?>
+					</button>
+				<?php else : ?>
+					<button type="button" id="wp-mail-smtp-setting-license-key-deactivate" class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-grey">
+						<?php esc_html_e( 'Remove Key', 'wp-mail-smtp-pro' ); ?>
+					</button>
+				<?php endif; ?>
+
+			</div>
 
 			<?php
-			// Offer option to deactivate the key.
-			$class = empty( $key ) ? 'wp-mail-smtp-hide' : '';
-			?>
+			$type_message = '';
+			$desc_message = '';
 
-			<button type="button" id="wp-mail-smtp-setting-license-key-deactivate"
-				class="wp-mail-smtp-btn wp-mail-smtp-btn-md wp-mail-smtp-btn-grey <?php echo esc_attr( $class ); ?>">
-				<?php esc_html_e( 'Deactivate Key', 'wp-mail-smtp-pro' ); ?>
-			</button>
-		</div>
-
-		<?php
-		// If we have previously looked up the license type, display it.
-		$class = empty( $type ) ? 'wp-mail-smtp-hide' : '';
-		?>
-
-		<p class="type <?php echo esc_attr( $class ); ?>">
-			<?php
-			printf( /* translators: $s - license type. */
-				esc_html__( 'Your license key type is %s.', 'wp-mail-smtp-pro' ),
-				'<strong>' . esc_html( $type ) . '</strong>'
-			);
-			?>
-		</p>
-
-		<?php
-		// Display the refresh link for non-lite keys only.
-		$class = empty( $type ) || $type === 'Pro' ? 'wp-mail-smtp-hide' : '';
-		?>
-
-		<p class="desc <?php echo esc_attr( $class ); ?>">
-			<?php
-			echo wp_kses(
-				__( 'If your license has been upgraded or is incorrect, <a href="#" id="wp-mail-smtp-setting-license-key-refresh">click here to force a refresh</a>.', 'wp-mail-smtp-pro' ),
-				array(
-					'a' => array(
-						'href' => array(),
-						'id'   => array(),
+			if ( empty( $key ) ) {
+				$desc_message = wp_kses(
+					sprintf( /* translators: %1$s - WP Mail SMTP account dashboard url; %2$s - pricing page url. */
+						__( 'Your license key can be found in your <a href="%1$s" target="_blank" rel="noopener noreferrer">WP Mail SMTP Account Dashboard</a>. Don\'t have a license?  <a href="%2$s" target="_blank" rel="noopener noreferrer">Sign up today!</a>', 'wp-mail-smtp-pro' ),
+						// phpcs:ignore WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound
+						esc_url( wp_mail_smtp()->get_utm_url( 'https://wpmailsmtp.com/account/', [ 'content' => 'License Key Account Dashboard Link' ] ) ),
+						esc_url( wp_mail_smtp()->get_upgrade_link( [ 'content' => 'License Sign Up Today' ] ) )
 					),
-				)
-			);
-			?>
-		</p>
+					[
+						'a' => [
+							'href'   => [],
+							'target' => [],
+							'rel'    => [],
+						],
+					]
+				);
+			} elseif ( $is_valid ) {
+				$type_message = sprintf( /* translators: $s - license type. */
+					esc_html__( 'Your license key level is %s.', 'wp-mail-smtp-pro' ),
+					'<strong>' . esc_html( $type ) . '</strong>'
+				);
 
+				$desc_message = wp_kses(
+					__( 'If your license has been upgraded or is incorrect, then please <a href="#" id="wp-mail-smtp-setting-license-key-refresh">force a refresh</a>.', 'wp-mail-smtp-pro' ),
+					[
+						'a' => [
+							'href' => [],
+							'id'   => [],
+						],
+					]
+				);
+			} elseif ( $is_expired ) {
+				$type_message = wp_kses(
+					__( '<b>Your license has expired.</b> An active license is needed to access some of the Pro features, plugin updates (including security improvements), and our world class support!', 'wp-mail-smtp-pro' ),
+					[
+						'b' => [],
+					]
+				);
+
+				$desc_message = wp_kses(
+					__( 'If your license has been upgraded or is incorrect, then please <a href="#" id="wp-mail-smtp-setting-license-key-refresh">force a refresh</a>.', 'wp-mail-smtp-pro' ),
+					[
+						'a' => [
+							'href' => [],
+							'id'   => [],
+						],
+					]
+				);
+			} elseif ( $is_disabled ) {
+				$type_message = wp_kses(
+					__( '<b>Your license key has been disabled.</b> Please use a different key to continue receiving automatic updates.', 'wp-mail-smtp-pro' ),
+					[
+						'b' => [],
+					]
+				);
+			} elseif ( $is_invalid ) {
+				$type_message = wp_kses(
+					__( '<b>Your license key is invalid.</b> The key no longer exists or the user associated with the key has been deleted. Please use a different key to continue receiving automatic updates.', 'wp-mail-smtp-pro' ),
+					[
+						'b' => [],
+					]
+				);
+			}
+
+			if ( ! empty( $type_message ) ) {
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				printf( '<p class="type">%s</p>', $type_message );
+			}
+
+			if ( ! empty( $desc_message ) ) {
+				// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				printf( '<p class="desc">%s</p>', $desc_message );
+			}
+
+			?>
+		</div>
 		<?php
+
+		$result = ob_get_clean();
+
+		if ( $echo ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $result;
+		}
+
+		return $result;
 	}
 
 	/**
@@ -339,10 +431,11 @@ class License {
 
 		if ( $ajax ) {
 			wp_send_json_success(
-				array(
-					'type'    => $license_type,
-					'message' => $success,
-				)
+				[
+					'type'          => $license_type,
+					'message'       => $success,
+					'settings_html' => $this->display_settings_license_key_field_content( $options, false ),
+				]
 			);
 		}
 
@@ -403,15 +496,10 @@ class License {
 	 *
 	 * @return string|bool
 	 */
-	public function validate_key( $key = '', $forced = false, $ajax = false, $return_status = false ) { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
-		$options = new Options();
-		$all_opt = $options->get_all();
-		$all_opt['license']['type'] = 'pro';
-		$all_opt['license']['is_expired'] = false;
-		$all_opt['license']['is_disabled'] = false;
-		$all_opt['license']['is_invalid'] = false;
-		$options->set( $all_opt );
-		return;
+	public function validate_key( $key = '', $forced = false, $ajax = false, $return_status = false ) { return;
+ 
+ // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
+
 		$validate = $this->perform_remote_request( 'validate-key', [ 'tgm-updater-key' => $key ] );
 		$options  = Options::init();
 		$all_opt  = $options->get_all();
@@ -511,8 +599,9 @@ class License {
 			if ( $ajax ) {
 				wp_send_json_success(
 					[
-						'type'    => $license_type,
-						'message' => $msg,
+						'type'          => $license_type,
+						'message'       => $msg,
+						'settings_html' => $this->display_settings_license_key_field_content( $options, false ),
 					]
 				);
 			}
@@ -576,7 +665,12 @@ class License {
 		$options->set( $raw_settings );
 
 		if ( $ajax ) {
-			wp_send_json_success( $success );
+			wp_send_json_success(
+				[
+					'message'       => $success,
+					'settings_html' => $this->display_settings_license_key_field_content( $options, false ),
+				]
+			);
 		}
 	}
 
@@ -588,7 +682,6 @@ class License {
 	 * @param bool $below_h2
 	 */
 	public function notices( $below_h2 = false ) {
-		return;
 
 		// Grab the option and output any nag dealing with license keys.
 		$options  = Options::init();
@@ -635,7 +728,7 @@ class License {
 								),
 							)
 						),
-						esc_url( wp_mail_smtp()->get_utm_url( 'https://wpmailsmtp.com/login/', 'renew your license key' ) )
+						esc_url( wp_mail_smtp()->get_utm_url( 'https://wpmailsmtp.com/account/licenses/', 'renew your license key' ) )
 					);
 					?>
 				</p>
@@ -780,7 +873,7 @@ class License {
 						],
 					]
 				),
-				esc_url( wp_mail_smtp()->get_utm_url( 'https://wpmailsmtp.com/login/', 'renew your license key' ) )
+				esc_url( wp_mail_smtp()->get_utm_url( 'https://wpmailsmtp.com/account/licenses/', 'renew your license key' ) )
 			);
 
 			return $result;

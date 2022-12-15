@@ -3,6 +3,7 @@
 namespace WPMailSMTP\Pro\Providers\Outlook;
 
 use WPMailSMTP\Admin\DebugEvents\DebugEvents;
+use WPMailSMTP\ConnectionInterface;
 use WPMailSMTP\Helpers\Helpers;
 use WPMailSMTP\MailCatcherInterface;
 use WPMailSMTP\Pro\Migration;
@@ -71,17 +72,18 @@ class Mailer extends MailerAbstract {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param MailCatcherInterface $phpmailer The MailCatcher object.
+	 * @param MailCatcherInterface $phpmailer  The MailCatcher object.
+	 * @param ConnectionInterface  $connection The Connection object.
 	 */
-	public function __construct( $phpmailer ) {
+	public function __construct( $phpmailer, $connection = null ) {
 
 		// Init the client that checks tokens and re-saves them if needed.
-		new Auth();
+		new Auth( $connection );
 
 		// We want to prefill everything from MailCatcher class, which extends PHPMailer.
-		parent::__construct( $phpmailer );
+		parent::__construct( $phpmailer, $connection );
 
-		$token = $this->options->get( $this->mailer, 'access_token' );
+		$token = $this->connection_options->get( $this->mailer, 'access_token' );
 
 		if ( ! empty( $token['access_token'] ) ) {
 			$this->set_header( 'Authorization', 'Bearer ' . $token['access_token'] );
@@ -552,7 +554,7 @@ class Mailer extends MailerAbstract {
 			 * With code below we are making sure that Email Log archive and single Email Log
 			 * have the save value for From email header.
 			 */
-			$sender = $this->options->get( $this->mailer, 'user_details' );
+			$sender = $this->connection_options->get( $this->mailer, 'user_details' );
 
 			if ( ! empty( $sender['email'] ) ) {
 				$this->phpmailer->From   = $sender['email'];
@@ -699,7 +701,7 @@ class Mailer extends MailerAbstract {
 				$description = '';
 
 				if ( $code === 'ErrorAccessDenied' ) {
-					$description = esc_html__( 'Note: this issue could also be caused by hitting the total message size limit. If you are using big attachments, please remove the existing Outlook mailer connection in WP Mail SMTP settings and connect it again. We recently added support for bigger attachments, but the oAuth re-connection is required.', 'wp-mail-smtp-pro' );
+					$description = esc_html__( 'Note: this issue could also be caused by hitting the total message size limit. If you are using big attachments, please remove the existing Outlook mailer OAuth connection in WP Mail SMTP settings and connect it again. We recently added support for bigger attachments, but the oAuth re-connection is required.', 'wp-mail-smtp-pro' );
 				}
 
 				$error_text[] = Helpers::format_error_message( $message, $code, $description );
@@ -722,7 +724,7 @@ class Mailer extends MailerAbstract {
 
 		$mg_text = array();
 
-		$auth = new Auth();
+		$auth = new Auth( $this->connection );
 
 		$mg_text[] = '<strong>App ID/Pass:</strong> ' . ( $auth->is_clients_saved() ? 'Yes' : 'No' );
 		$mg_text[] = '<strong>Tokens:</strong> ' . ( ! $auth->is_auth_required() ? 'Yes' : 'No' );
@@ -743,7 +745,7 @@ class Mailer extends MailerAbstract {
 			return false;
 		}
 
-		$auth = new Auth();
+		$auth = new Auth( $this->connection );
 
 		if (
 			$auth->is_clients_saved() &&
@@ -785,7 +787,7 @@ class Mailer extends MailerAbstract {
 	 */
 	private function set_legacy_from() {
 
-		$sender = $this->options->get( $this->mailer, 'user_details' );
+		$sender = $this->connection_options->get( $this->mailer, 'user_details' );
 
 		$email_address = [
 			'emailAddress' => [
@@ -817,7 +819,7 @@ class Mailer extends MailerAbstract {
 
 		_deprecated_function( __CLASS__ . '::' . __METHOD__, '2.1.1 of WP Mail SMTP plugin' );
 
-		$sender = $this->options->get( $this->mailer, 'user_details' );
+		$sender = $this->connection_options->get( $this->mailer, 'user_details' );
 
 		return [
 			$sender['email'] => [

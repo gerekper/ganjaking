@@ -4,6 +4,8 @@ namespace WPMailSMTP\Vendor\Aws;
 
 use WPMailSMTP\Vendor\Aws\Endpoint\PartitionEndpointProvider;
 use WPMailSMTP\Vendor\Aws\Endpoint\PartitionInterface;
+use WPMailSMTP\Vendor\Aws\EndpointV2\EndpointProviderV2;
+use WPMailSMTP\Vendor\Aws\EndpointV2\EndpointDefinitionProvider;
 class MultiRegionClient implements \WPMailSMTP\Vendor\Aws\AwsClientInterface
 {
     use AwsClientTrait;
@@ -47,8 +49,9 @@ class MultiRegionClient implements \WPMailSMTP\Vendor\Aws\AwsClientInterface
             if (!$value instanceof \WPMailSMTP\Vendor\Aws\Endpoint\PartitionInterface) {
                 throw new \InvalidArgumentException('No valid partition' . ' was provided. Provide a concrete partition or' . ' the name of a partition (e.g., "aws," "aws-cn,"' . ' or "aws-us-gov").');
             }
-            $args['partition'] = $value;
-            $args['endpoint_provider'] = $value;
+            $ruleset = \WPMailSMTP\Vendor\Aws\EndpointV2\EndpointDefinitionProvider::getEndpointRuleset($args['service'], isset($args['version']) ? $args['version'] : 'latest');
+            $partitions = \WPMailSMTP\Vendor\Aws\EndpointV2\EndpointDefinitionProvider::getPartitions();
+            $args['endpoint_provider'] = new \WPMailSMTP\Vendor\Aws\EndpointV2\EndpointProviderV2($ruleset, $partitions);
         }]];
     }
     /**

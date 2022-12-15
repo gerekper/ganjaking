@@ -4,7 +4,9 @@ class MeprAntiCardTestingCtrl extends MeprBaseCtrl {
   public function load_hooks() {
     add_action('mepr_display_general_options', array($this, 'display_options'));
     add_action('mepr_stripe_payment_failed', array($this, 'record_payment_failure'));
-    add_action('mepr_stripe_before_confirm_payment', array($this, 'maybe_block_checkout_ajax'));
+    add_action('mepr_stripe_before_create_payment_client_secret', array($this, 'maybe_block_create_payment_client_secret'));
+    add_action('mepr_stripe_before_confirm_payment', array($this, 'maybe_block_confirm_payment'));
+    add_action('mepr_stripe_before_create_checkout_session', array($this, 'maybe_block_create_checkout_session'));
     add_action('wp_ajax_mepr_anti_card_testing_get_ip', array($this, 'get_detected_ip_ajax'));
   }
 
@@ -254,22 +256,78 @@ class MeprAntiCardTestingCtrl extends MeprBaseCtrl {
       && filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false;
   }
 
-  public function record_payment_failure() {
+  public function record_payment_failure($ip) {
     $mepr_options = MeprOptions::fetch();
 
     if(!$mepr_options->anti_card_testing_enabled) {
       return;
     }
 
-    $ip = self::get_ip();
-
-    if($ip && !self::is_private_ip_address($ip)) {
+    if(self::is_valid_ip_address($ip) && !self::is_private_ip_address($ip)) {
       $failed = (int) get_transient("mepr_failed_payments_$ip");
       set_transient("mepr_failed_payments_$ip", $failed + 1, MeprHooks::apply_filters('mepr_card_testing_timeframe', 2 * HOUR_IN_SECONDS));
     }
   }
 
-  public function maybe_block_checkout_ajax() {
+  public function maybe_block_create_payment_client_secret() {
+    $this->maybe_block_ip();
+
+    if($this->is_ip_blocked()) {
+      wp_send_json_error(__('We are not able to complete your purchase at this time. Please contact us for more information.', 'memberpress'));
+    }
+  }
+
+  public function maybe_block_confirm_payment() {
+    $this->maybe_block_ip();
+
+    if($this->is_ip_blocked()) {
+      wp_send_json(array(
+        'error' => __('We are not able to complete your purchase at this time. Please contact us for more information.', 'memberpress')
+      ));
+    }
+  }
+
+  public function maybe_block_create_checkout_session() {
+    $this->maybe_block_ip();
+
+    if($this->is_ip_blocked()) {
+      wp_send_json(array(
+        'error' => __('We are not able to complete your purchase at this time. Please contact us for more information.', 'memberpress')
+      ));
+    }
+  }
+
+  /**
+   * Is the current IP address blocked?
+   *
+   * @return bool
+   */
+  public function is_ip_blocked() {
+    $mepr_options = MeprOptions::fetch();
+
+    if(!$mepr_options->anti_card_testing_enabled) {
+      return false;
+    }
+
+    $ip = self::get_ip();
+
+    if($ip && !self::is_private_ip_address($ip)) {
+      $blocked_ips = $mepr_options->anti_card_testing_blocked;
+
+      if(!is_array($blocked_ips)) {
+        $blocked_ips = array();
+      }
+
+      return in_array($ip, $blocked_ips, true);
+    }
+
+    return false;
+  }
+
+  /**
+   * Block the current IP address if there have been too many failed payment attempts
+   */
+  protected function maybe_block_ip() {
     $mepr_options = MeprOptions::fetch();
 
     if(!$mepr_options->anti_card_testing_enabled) {
@@ -279,7 +337,6 @@ class MeprAntiCardTestingCtrl extends MeprBaseCtrl {
     $ip = self::get_ip();
 
     if($ip && !self::is_private_ip_address($ip)) {
-      $mepr_options = MeprOptions::fetch();
       $failed = (int) get_transient("mepr_failed_payments_$ip");
       $blocked_ips = $mepr_options->anti_card_testing_blocked;
 
@@ -292,14 +349,6 @@ class MeprAntiCardTestingCtrl extends MeprBaseCtrl {
         $blocked_ips[] = $ip;
         $mepr_options->anti_card_testing_blocked = $blocked_ips;
         $mepr_options->store(false);
-      }
-
-      // Display an error and block the payment if this IP is permanently banned
-      if(in_array($ip, $blocked_ips, true)) {
-        wp_send_json(array(
-          'error' => __('We are not able to complete your purchase at this time. Please contact us for more information.', 'memberpress'),
-          'destroy_payment_method' => true
-        ));
       }
     }
   }

@@ -1,14 +1,27 @@
 <?php
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 
+require_once 'trait-warranty-util.php';
+
 use Automattic\WooCommerce\Admin\Features\Navigation\Menu;
+use WooCommerce\Warranty\Warranty_Util;
 
 if ( ! class_exists( 'Warranty_Admin' ) ) :
+	/**
+	 * Warranty_Admin class
+	 */
 	class Warranty_Admin {
 
+		use Warranty_Util;
+
+		/**
+		 * Number of columns
+		 *
+		 * @var int
+		 */
 		public static $shop_order_columns = 1;
 
 		/**
@@ -21,169 +34,135 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ), 11 );
 			add_action( 'admin_footer', array( $this, 'variable_script' ) );
 
-			// metaboxes
-			add_action( 'woocommerce_process_product_meta', array(
-				$this,
-				'save_product_warranty'
-			) );
-			add_action( 'woocommerce_save_product_variation', array(
-				$this,
-				'save_variation_warranty'
-			), 10, 2 );
+			// metaboxes.
+			add_action( 'woocommerce_process_product_meta', array( $this, 'save_product_warranty' ) );
+			add_action( 'woocommerce_save_product_variation', array( $this, 'save_variation_warranty' ), 10, 2 );
 
-			// order actions
+			// order actions.
 			add_filter( 'woocommerce_order_actions', array( $this, 'add_order_action' ) );
-			add_action( 'woocommerce_order_action_generate_rma', array(
-				$this,
-				'redirect_order_to_rma_form'
-			) );
+			add_action( 'woocommerce_order_action_generate_rma', array( $this, 'redirect_order_to_rma_form' ) );
 
-			// variable products support
-			add_action( 'woocommerce_product_after_variable_attributes', array(
-				$this,
-				'variables_panel'
-			), 10, 3 );
+			// variable products support.
+			add_action( 'woocommerce_product_after_variable_attributes', array( $this, 'variables_panel' ), 10, 3 );
 
-			// Update request from the admin
+			// Update request from the admin.
 			add_action( 'admin_post_warranty_create', array( $this, 'create_warranty' ) );
 			add_action( 'admin_post_warranty_delete', array( $this, 'warranty_delete' ) );
 			add_action( 'admin_post_warranty_print', array( $this, 'warranty_print' ) );
 
-			add_action( 'admin_post_warranty_upload_shipping_label', array(
-				$this,
-				'attach_shipping_label'
-			) );
+			add_action( 'admin_post_warranty_upload_shipping_label', array( $this, 'attach_shipping_label' ) );
 
-			// return stock
-			add_action( 'admin_post_warranty_return_inventory', array(
-				$this,
-				'return_inventory'
-			) );
+			// return stock.
+			add_action( 'admin_post_warranty_return_inventory', array( $this, 'return_inventory' ) );
 
-			// refund order item
+			// refund order item.
 			add_action( 'admin_post_warranty_refund_item', array( $this, 'refund_item' ) );
 
-			// CSV Import
-			add_filter( 'woocommerce_csv_product_post_columns', array(
-				$this,
-				'csv_import_fields'
-			) );
+			// CSV Import.
+			add_filter( 'woocommerce_csv_product_post_columns', array( $this, 'csv_import_fields' ) );
 
-			// bulk edit
+			// bulk edit.
 			add_action( 'admin_post_warranty_bulk_edit', array( $this, 'bulk_edit' ) );
 
-			// save settings
-			add_action( 'admin_post_wc_warranty_settings_update', array(
-				$this,
-				'update_settings'
-			) );
+			// save settings.
+			add_action( 'admin_post_wc_warranty_settings_update', array( $this, 'update_settings' ) );
 
-			add_filter( 'manage_shop_order_posts_columns', array(
-				$this,
-				'count_shop_order_columns'
-			), 1000 );
-			add_action( 'woocommerce_admin_order_actions_end', array(
-				$this,
-				'order_inline_edit_actions'
-			) );
+			add_filter( 'manage_shop_order_posts_columns', array( $this, 'count_shop_order_columns' ), 1000 );
+			add_action( 'woocommerce_admin_order_actions_end', array( $this, 'order_inline_edit_actions' ) );
 			add_action( 'admin_footer', array( $this, 'order_inline_edit_template' ) );
 
-			add_action( 'woocommerce_ajax_add_order_item_meta', array(
-				$this,
-				'add_line_item_warranty_meta'
-			), 10, 2 );
-			add_action( 'woocommerce_before_order_itemmeta', array(
-				$this,
-				'maybe_render_addon_options'
-			), 10, 3 );
-			add_filter( 'woocommerce_hidden_order_itemmeta', array(
-				$this,
-				'hidden_order_item_meta'
-			) );
-			add_action( 'woocommerce_process_shop_order_meta', array(
-				$this,
-				'save_line_item_warranty_indices'
-			), 10, 2 );
-			add_action( 'woocommerce_saved_order_items', array(
-				$this,
-				'save_line_item_warranty_indices'
-			), 9, 2 );
-			add_action( 'woocommerce_saved_order_items', array(
-				$this,
-				'add_addon_price_to_line_item'
-			), 10, 2 );
+			add_action( 'woocommerce_ajax_add_order_item_meta', array( $this, 'add_line_item_warranty_meta' ), 10, 2 );
+			add_action( 'woocommerce_before_order_itemmeta', array( $this, 'maybe_render_addon_options' ), 10, 3 );
+			add_filter( 'woocommerce_hidden_order_itemmeta', array( $this, 'hidden_order_item_meta' ) );
+			add_action( 'woocommerce_process_shop_order_meta', array( $this, 'save_line_item_warranty_indices' ), 10, 2 );
+			add_action( 'woocommerce_saved_order_items', array( $this, 'save_line_item_warranty_indices' ), 9, 2 );
+			add_action( 'woocommerce_saved_order_items', array( $this, 'add_addon_price_to_line_item' ), 10, 2 );
 
 			add_action( 'init', array( $this, 'init' ) );
 		}
 
+		/**
+		 * Init
+		 *
+		 * @return void
+		 */
 		public function init() {
 			add_action( 'woocommerce_product_write_panel_tabs', array( $this, 'panel_data_tab' ) );
-			add_action( 'woocommerce_product_data_panels', array(
-				$this,
-				'panel_add_custom_box'
-			) );
+			add_action( 'woocommerce_product_data_panels', array( $this, 'panel_add_custom_box' ) );
 		}
 
 		/**
 		 * Register the menu items
 		 */
 		public function admin_menu() {
-			add_menu_page( __( 'Warranties', 'wc_warranty' ), __( 'Warranties', 'wc_warranty' ), 'manage_warranties', 'warranties', 'Warranty_Admin::admin_controller', 'dashicons-update', '54.52' );
-			add_submenu_page( 'warranties', __( 'RMA Requests', 'wc_warranty' ), __( 'RMA Requests', 'wc_warranty' ), 'manage_warranties', 'warranties', 'Warranty_Admin::admin_controller' );
-			add_submenu_page( 'warranties', __( 'New Request', 'wc_warranty' ), __( 'New Request', 'wc_warranty' ), 'manage_warranties', 'warranties-new', 'Warranty_Admin::admin_controller' );
-			add_submenu_page( 'warranties', __( 'Manage Warranties', 'wc_warranty' ), __( 'Manage Warranties', 'wc_warranty' ), 'manage_woocommerce', 'warranties-bulk-update', 'Warranty_Admin::admin_controller' );
-			add_submenu_page( 'warranties', __( 'Reports', 'wc_warranty' ), __( 'Reports', 'wc_warranty' ), 'manage_woocommerce', 'warranties-reports', 'Warranty_Admin::admin_controller' );
-			add_submenu_page( 'warranties', __( 'Settings', 'wc_warranty' ), __( 'Settings', 'wc_warranty' ), 'manage_woocommerce', 'warranties-settings', 'Warranty_Admin::admin_controller' );
+			add_menu_page( esc_html__( 'Warranties', 'wc_warranty' ), esc_html__( 'Warranties', 'wc_warranty' ), 'manage_warranties', 'warranties', array( $this, 'admin_controller' ), 'dashicons-update', '54.52' );
+			add_submenu_page( 'warranties', esc_html__( 'RMA Requests', 'wc_warranty' ), esc_html__( 'RMA Requests', 'wc_warranty' ), 'manage_warranties', 'warranties', array( $this, 'admin_controller' ) );
+			add_submenu_page( 'warranties', esc_html__( 'New Request', 'wc_warranty' ), esc_html__( 'New Request', 'wc_warranty' ), 'manage_warranties', 'warranties-new', array( $this, 'admin_controller' ) );
+			add_submenu_page( 'warranties', esc_html__( 'Manage Warranties', 'wc_warranty' ), esc_html__( 'Manage Warranties', 'wc_warranty' ), 'manage_woocommerce', 'warranties-bulk-update', array( $this, 'admin_controller' ) );
+			add_submenu_page( 'warranties', esc_html__( 'Reports', 'wc_warranty' ), esc_html__( 'Reports', 'wc_warranty' ), 'manage_woocommerce', 'warranties-reports', array( $this, 'admin_controller' ) );
+			add_submenu_page( 'warranties', esc_html__( 'Settings', 'wc_warranty' ), esc_html__( 'Settings', 'wc_warranty' ), 'manage_woocommerce', 'warranties-settings', array( $this, 'admin_controller' ) );
 
 			if ( ! class_exists( '\Automattic\WooCommerce\Admin\Features\Navigation\Menu' ) ) {
 				return;
 			}
 
-			Menu::add_plugin_category( array(
+			Menu::add_plugin_category(
+				array(
 					'id'         => 'warranties-category',
-					'title'      => __( 'Warranties', 'wc_warranty' ),
+					'title'      => esc_html__( 'Warranties', 'wc_warranty' ),
 					'capability' => 'manage_warranties',
-				) );
-			Menu::add_plugin_item( array(
+				)
+			);
+			Menu::add_plugin_item(
+				array(
 					'id'         => 'warranties',
 					'parent'     => 'warranties-category',
-					'title'      => __( 'RMA Requests', 'wc_warranty' ),
+					'title'      => esc_html__( 'RMA Requests', 'wc_warranty' ),
 					'url'        => 'admin.php?page=warranties',
 					'capability' => 'manage_warranties',
 					'order'      => 0,
-				) );
-			Menu::add_plugin_item( array(
+				)
+			);
+			Menu::add_plugin_item(
+				array(
 					'id'         => 'warranties-new',
 					'parent'     => 'warranties-category',
-					'title'      => __( 'New Request', 'wc_warranty' ),
+					'title'      => esc_html__( 'New Request', 'wc_warranty' ),
 					'url'        => 'admin.php?page=warranties-new',
 					'capability' => 'manage_warranties',
 					'order'      => 1,
-				) );
-			Menu::add_plugin_item( array(
+				)
+			);
+			Menu::add_plugin_item(
+				array(
 					'id'         => 'warranties-bulk-update',
 					'parent'     => 'warranties-category',
-					'title'      => __( 'Manage Warranties', 'wc_warranty' ),
+					'title'      => esc_html__( 'Manage Warranties', 'wc_warranty' ),
 					'url'        => 'admin.php?page=warranties-bulk-update',
 					'capability' => 'manage_woocommerce',
 					'order'      => 2,
-				) );
-			Menu::add_plugin_item( array(
+				)
+			);
+			Menu::add_plugin_item(
+				array(
 					'id'         => 'warranties-reports',
 					'parent'     => 'warranties-category',
-					'title'      => __( 'Reports', 'wc_warranty' ),
+					'title'      => esc_html__( 'Reports', 'wc_warranty' ),
 					'url'        => 'admin.php?page=warranties-reports',
 					'capability' => 'manage_woocommerce',
 					'order'      => 3,
-				) );
-			Menu::add_plugin_item( array(
+				)
+			);
+			Menu::add_plugin_item(
+				array(
 					'id'         => 'warranties-settings',
 					'parent'     => 'warranties-category',
-					'title'      => __( 'Settings', 'wc_warranty' ),
+					'title'      => esc_html__( 'Settings', 'wc_warranty' ),
 					'url'        => 'admin.php?page=warranties-settings',
 					'capability' => 'manage_woocommerce',
 					'order'      => 4,
-				) );
+				)
+			);
 		}
 
 		/**
@@ -191,16 +170,17 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 		 */
 		public function add_notices() {
 
-			// shipping label attached
-			if ( ! empty( $_GET['post_type'] ) && $_GET['post_type'] == 'shop_order' && ! empty( $_GET['shipping_label_attached'] ) ) {
-				echo '<div class="updated"><p>' . __( 'Shipping label attached', 'wc_warranty' ) . '</p></div>';
+			$get_data = warranty_request_get_data();
+			// shipping label attached.
+			if ( ! empty( $get_data['post_type'] ) && 'shop_order' === $get_data['post_type'] && ! empty( $get_data['shipping_label_attached'] ) ) {
+				echo '<div class="updated"><p>' . esc_html__( 'Shipping label attached', 'wc_warranty' ) . '</p></div>';
 			}
 		}
 
 		/**
 		 * Load scripts and styles selectively, depending on the current screen and page
 		 */
-		function admin_scripts() {
+		public function admin_scripts() {
 			global $woocommerce;
 
 			$pages = array(
@@ -208,28 +188,29 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 				'warranties-new',
 				'warranties-bulk-update',
 				'warranties-reports',
-				'warranties-settings'
+				'warranties-settings',
 			);
 
-			if ( isset( $_GET['page'] ) && in_array( $_GET['page'], $pages ) ) {
+			$get_data = warranty_request_get_data();
+			if ( isset( $get_data['page'] ) && in_array( $get_data['page'], $pages, true ) ) {
 				wp_enqueue_script( 'selectWoo' );
 				wp_enqueue_style( 'select2' );
 				wp_enqueue_script( 'wc-enhanced-select' );
 
-				wp_enqueue_script( 'user-email-search', plugins_url( 'assets/js/user-email-search.js', WooCommerce_Warranty::$plugin_file ), array( 'wc-enhanced-select' ) );
+				wp_enqueue_script( 'user-email-search', plugins_url( 'assets/js/user-email-search.js', WooCommerce_Warranty::$plugin_file ), array( 'wc-enhanced-select' ), WOOCOMMERCE_WARRANTY_VERSION );
 
 				add_thickbox();
 				wp_enqueue_media();
 
 				$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-				wp_register_script( 'jquery-tiptip', WC()->plugin_url() . '/assets/js/jquery-tiptip/jquery.tipTip' . $suffix . '.js', array( 'jquery' ), WC()->version );
+				wp_register_script( 'jquery-tiptip', WC()->plugin_url() . '/assets/js/jquery-tiptip/jquery.tipTip' . $suffix . '.js', array( 'jquery' ), WC()->version, true );
 
-				wp_enqueue_style( 'woocommerce_admin_styles', $woocommerce->plugin_url() . '/assets/css/admin.css' );
+				wp_enqueue_style( 'woocommerce_admin_styles', $woocommerce->plugin_url() . '/assets/css/admin.css', array(), WOOCOMMERCE_WARRANTY_VERSION );
 
 				wp_enqueue_script( 'jquery-blockui', WC()->plugin_url() . '/assets/js/jquery-blockui/jquery.blockUI.min.js', array( 'jquery' ), '2.70', true );
 				wp_enqueue_script( 'jquery-tiptip' );
 				wp_enqueue_script( 'jquery-ui-sortable' );
-				wp_enqueue_script( 'jquery-ui-core', NULL, array( 'jquery' ) );
+				wp_enqueue_script( 'jquery-ui-core', null, array( 'jquery' ) );
 
 				$js = '
 						jQuery(".warranty-delete").click(function(e) {
@@ -251,21 +232,21 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 				}
 			}
 
-			// settings css
+			// settings css.
 			$pages[] = 'wc-settings';
 			$pages[] = 'woocommerce_warranty';
 
-			if ( isset( $_GET['page'] ) ) {
-				if ( $_GET['page'] == 'warranties' ) {
-					wp_enqueue_script( 'warranties_list', plugins_url( 'assets/js/list.js', WooCommerce_Warranty::$plugin_file ), array( 'jquery' ) );
+			if ( isset( $get_data['page'] ) ) {
+				if ( 'warranties' === $get_data['page'] ) {
+					wp_enqueue_script( 'warranties_list', plugins_url( 'assets/js/list.js', WooCommerce_Warranty::$plugin_file ), array( 'jquery' ), WOOCOMMERCE_WARRANTY_VERSION, true );
 				}
 
-				if ( in_array( $_GET['page'], $pages ) ) {
-					wp_enqueue_style( 'warranty_admin_css', plugins_url( 'assets/css/admin.css', WooCommerce_Warranty::$plugin_file ) );
+				if ( in_array( $get_data['page'], $pages, true ) ) {
+					wp_enqueue_style( 'warranty_admin_css', plugins_url( 'assets/css/admin.css', WooCommerce_Warranty::$plugin_file ), array(), WOOCOMMERCE_WARRANTY_VERSION );
 
 					wp_enqueue_script( 'jquery-ui' );
 					wp_enqueue_script( 'jquery-ui-sortable' );
-					wp_enqueue_script( 'warranty_form_builder', plugins_url( 'assets/js/form-builder.js', WooCommerce_Warranty::$plugin_file ) );
+					wp_enqueue_script( 'warranty_form_builder', plugins_url( 'assets/js/form-builder.js', WooCommerce_Warranty::$plugin_file ), array(), WOOCOMMERCE_WARRANTY_VERSION, true );
 
 					$data = array(
 						'help_img_url' => plugins_url() . '/woocommerce/assets/images/help.png',
@@ -278,14 +259,14 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 
 			$screen = get_current_screen();
 
-			if ( $screen->id == 'edit-shop_order' ) {
+			if ( 'edit-shop_order' === $screen->id ) {
 				add_thickbox();
 				wp_enqueue_media();
-				wp_enqueue_style( 'warranty_admin_css', plugins_url( 'assets/css/admin.css', WooCommerce_Warranty::$plugin_file ) );
-				wp_enqueue_script( 'warranty_shop_order', plugins_url( 'assets/js/orders.js', WooCommerce_Warranty::$plugin_file ), array( 'jquery' ) );
+				wp_enqueue_style( 'warranty_admin_css', plugins_url( 'assets/css/admin.css', WooCommerce_Warranty::$plugin_file ), array(), WOOCOMMERCE_WARRANTY_VERSION );
+				wp_enqueue_script( 'warranty_shop_order', plugins_url( 'assets/js/orders.js', WooCommerce_Warranty::$plugin_file ), array( 'jquery' ), WOOCOMMERCE_WARRANTY_VERSION, true );
 			}
 
-			wp_enqueue_style( 'wc-form-builder', plugins_url( 'assets/css/form-builder.css', WooCommerce_Warranty::$plugin_file ) );
+			wp_enqueue_style( 'wc-form-builder', plugins_url( 'assets/css/form-builder.css', WooCommerce_Warranty::$plugin_file ), array(), WOOCOMMERCE_WARRANTY_VERSION );
 
 			$js = '
 					if ( jQuery( \'select.multi-select2\' ).length ) {
@@ -299,13 +280,19 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 				$woocommerce->add_inline_js( $js );
 			}
 
-			if ( self::is_updater_view() ) {
+			if ( $this->is_updater_view() ) {
 				wp_enqueue_style( 'jquery-ui-css', '//ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/base/jquery-ui.css' );
 				wp_enqueue_script( 'jquery-ui-progressbar', false, array( 'jquery', 'jquery-ui' ) );
-				wp_enqueue_script( 'warranty_data_updater', plugins_url( '/assets/js/data-updater.js', WooCommerce_Warranty::$plugin_file ), array(
+				wp_enqueue_script(
+					'warranty_data_updater',
+					plugins_url( '/assets/js/data-updater.js', WooCommerce_Warranty::$plugin_file ),
+					array(
 						'jquery',
-						'jquery-ui-progressbar'
-					) );
+						'jquery-ui-progressbar',
+					),
+					WOOCOMMERCE_WARRANTY_VERSION,
+					true
+				);
 			}
 		}
 
@@ -337,8 +324,8 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 
 						$variable_product_options.on( 'change.warranty', '.variable-warranty-type', function() {
 							var loop                      = $( this ).parents( '.warranty-variation' ).data( 'loop' ),
-							    show_if_included_warranty = $( '.variable_show_if_included_warranty_' + loop ),
-							    show_if_addon_warranty    = $( '.variable_show_if_addon_warranty_' + loop );
+								show_if_included_warranty = $( '.variable_show_if_included_warranty_' + loop ),
+								show_if_addon_warranty    = $( '.variable_show_if_addon_warranty_' + loop );
 
 							show_if_included_warranty.hide();
 							show_if_addon_warranty.hide();
@@ -362,16 +349,16 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 
 						var variable_tmpl = "<tr>\
 								<td valign=\"middle\">\
-									<span class=\"input\"><b>+</b> <?php echo $currency; ?></span>\
+									<span class=\"input\"><b>+</b> <?php echo esc_html( $currency ); ?></span>\
 									<input type=\"text\" name=\"variable_addon_warranty_amount[_loop_][]\" value=\"\" class=\"input-text sized warranty__loop_\" style=\"min-width:50px; width:50px;\" />\
 								</td>\
 								<td valign=\"middle\">\
 									<input type=\"text\" class=\"input-text sized warranty__loop_\" style=\"width:50px;\" name=\"variable_addon_warranty_length_value[_loop_][]\" value=\"\" />\
 									<select name=\"variable_addon_warranty_length_duration[_loop_][]\" class=\"warranty__loop_\" style=\"width: auto !important;\">\
-										<option value=\"days\"><?php _e( 'Days', 'wc_warranty' ); ?></option>\
-										<option value=\"weeks\"><?php _e( 'Weeks', 'wc_warranty' ); ?></option>\
-										<option value=\"months\"><?php _e( 'Months', 'wc_warranty' ); ?></option>\
-										<option value=\"years\"><?php _e( 'Years', 'wc_warranty' ); ?></option>\
+										<option value=\"days\"><?php esc_html_e( 'Days', 'wc_warranty' ); ?></option>\
+										<option value=\"weeks\"><?php esc_html_e( 'Weeks', 'wc_warranty' ); ?></option>\
+										<option value=\"months\"><?php esc_html_e( 'Months', 'wc_warranty' ); ?></option>\
+										<option value=\"years\"><?php esc_html_e( 'Years', 'wc_warranty' ); ?></option>\
 									</select>\
 								</td>\
 								<td><a class=\"button warranty_addon_remove warranty_addon_remove_variable warranty__loop_\" href=\"#\">&times;</a></td>\
@@ -416,33 +403,33 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 		/**
 		 * Adds a 'Warranty' tab to a product's data tabs
 		 */
-		function panel_data_tab() {
-			echo ' <li class="warranty_tab tax_options hide_if_external"><a href="#warranty_product_data"><span>' . __( 'Warranty', 'woocommerce' ) . '</span></a></li>';
+		public function panel_data_tab() {
+			echo ' <li class="warranty_tab tax_options hide_if_external"><a href="#warranty_product_data"><span>' . esc_html__( 'Warranty', 'woocommerce' ) . '</span></a></li>';
 		}
 
 		/**
 		 * Outputs the form for the Warranty data tab
 		 */
-		function panel_add_custom_box() {
-			global $post, $wpdb, $thepostid, $woocommerce;
+		public function panel_add_custom_box() {
+			global $post;
 
 			$warranty_type_value = get_post_meta( $post->ID, '_warranty_type', true );
 
-			if ( trim( $warranty_type_value ) == '' ) {
+			if ( empty( trim( $warranty_type_value ) ) ) {
 				update_post_meta( $post->ID, '_warranty_type', 'no_warranty' );
 				$warranty_type_value = 'no_warranty';
 			}
 
 			$warranty_duration_value = get_post_meta( $post->ID, '_warranty_duration', true );
 
-			if ( trim( $warranty_duration_value ) == '' ) {
+			if ( empty( trim( $warranty_duration_value ) ) ) {
 				update_post_meta( $post->ID, '_warranty_duration', 0 );
 				$warranty_duration_value = 0;
 			}
 
 			$warranty_unit_value = get_post_meta( $post->ID, '_warranty_unit', true );
 
-			if ( trim( $warranty_unit_value ) == '' ) {
+			if ( empty( trim( $warranty_unit_value ) ) ) {
 				update_post_meta( $post->ID, '_warranty_unit', 'day' );
 				$warranty_unit_value = 'day';
 			}
@@ -530,7 +517,7 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 			if ( function_exists( 'wc_enqueue_js' ) ) {
 				wc_enqueue_js( $inline );
 			} else {
-				$woocommerce->add_inline_js( $inline );
+				WC()->add_inline_js( $inline );
 			}
 
 			$warranty         = warranty_get_product_warranty( $post->ID );
@@ -556,7 +543,15 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 			include WooCommerce_Warranty::$base_path . '/templates/admin/product-panel.php';
 		}
 
-		function variables_panel( $loop, $data, $variation ) {
+		/**
+		 * Undocumented function
+		 *
+		 * @param int     $loop           Position in the loop.
+		 * @param array   $variation_data Variation data.
+		 * @param WP_Post $variation      Post data.
+		 * @return void
+		 */
+		public function variables_panel( $loop, $variation_data, $variation ) {
 			$warranty         = warranty_get_product_warranty( $variation->ID, false );
 			$warranty_label   = $warranty['label'];
 			$warranty_default = isset( $warranty['default'] ) ? $warranty['default'] : false;
@@ -572,150 +567,113 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 		/**
 		 * Save product warranty data
 		 *
-		 * @param int $post_ID
+		 * No need to check for a valid nonce because WooCommerce
+		 * does this for us with the woocommerce_meta_nonce.
+		 *
+		 * @param int $product_id WC_Product ID.
+		 * @return void
 		 */
-		public function save_product_warranty( $post_ID ) {
+		public function save_product_warranty( $product_id ) {
 
-			$control = ( isset( $_POST['variable_warranty_control'] ) ) ? $_POST['variable_warranty_control'] : 'parent';
-			update_post_meta( $post_ID, '_warranty_control', $control );
+			$product = wc_get_product( $product_id );
 
-			if ( ! empty( $_POST['product_warranty_default'] ) && $_POST['product_warranty_default'] == 'yes' ) {
-				delete_post_meta( $post_ID, '_warranty' );
-			} elseif ( isset( $_POST['product_warranty_type'] ) ) {
-				if ( $_POST['product_warranty_type'] == 'no_warranty' ) {
-					$product_warranty = array( 'type' => 'no_warranty' );
-					update_post_meta( $post_ID, '_warranty', $product_warranty );
-				} elseif ( $_POST['product_warranty_type'] == 'included_warranty' ) {
-					$product_warranty = array(
-						'type'     => 'included_warranty',
-						'length'   => $_POST['included_warranty_length'],
-						'value'    => $_POST['limited_warranty_length_value'],
-						'duration' => $_POST['limited_warranty_length_duration']
-					);
-					update_post_meta( $post_ID, '_warranty', $product_warranty );
-				} elseif ( $_POST['product_warranty_type'] == 'addon_warranty' ) {
-					$no_warranty = ( isset( $_POST['addon_no_warranty'] ) ) ? $_POST['addon_no_warranty'] : 'no';
-					$amounts     = $_POST['addon_warranty_amount'];
-					$values      = $_POST['addon_warranty_length_value'];
-					$durations   = $_POST['addon_warranty_length_duration'];
-					$addons      = array();
-
-					for ( $x = 0; $x < count( $amounts ); $x ++ ) {
-						if ( ! isset( $amounts[ $x ] ) || ! isset( $values[ $x ] ) || ! isset( $durations[ $x ] ) ) {
-							continue;
-						}
-
-						$addons[] = array(
-							'amount'   => $amounts[ $x ],
-							'value'    => $values[ $x ],
-							'duration' => $durations[ $x ]
-						);
-					}
-
-					$product_warranty = array(
-						'type'               => 'addon_warranty',
-						'addons'             => $addons,
-						'no_warranty_option' => $no_warranty
-					);
-					update_post_meta( $post_ID, '_warranty', $product_warranty );
-				}
-
-				if ( isset( $_POST['warranty_label'] ) ) {
-					update_post_meta( $post_ID, '_warranty_label', stripslashes( $_POST['warranty_label'] ) );
-				}
+			if ( ! $product ) {
+				return;
 			}
+
+			$product->update_meta_data( '_warranty_control', self::post_get_string( 'variable_warranty_control', 'parent' ) );
+
+			if ( self::post_field_equals( 'product_warranty_default', 'yes' ) ) {
+				$product->delete_meta_data( '_warranty' );
+				$product->save();
+				return;
+			}
+
+			if ( self::post_is_empty( 'product_warranty_type' ) ) {
+				return;
+			}
+
+			$label = self::post_get_string( 'warranty_label' );
+			if ( ! empty( $label ) ) {
+				$product->update_meta_data( '_warranty_label', $label );
+			}
+
+			$warranty = self::build_warranty_array( warranty_request_post_data(), self::post_get_string( 'product_warranty_type' ) );
+			if ( ! empty( $warranty ) ) {
+				$product->update_meta_data( '_warranty', $warranty );
+			}
+
+			$product->save();
 		}
 
 		/**
 		 * Save product variation warranty data
 		 *
-		 * @param int $variation_id
-		 * @param int $x
+		 * No need to check for a valid nonce because WooCommerce
+		 * does this for us with the woocommerce_meta_nonce.
+		 *
+		 * @param int        $variation_id WC_Product_Variation ID.
+		 * @param int|string $x the loop index.
+		 * @return void
 		 */
 		public function save_variation_warranty( $variation_id, $x ) {
+			$post_data = warranty_request_post_data();
+			$variation = wc_get_product( $variation_id );
+			$defaults  = isset( $post_data['variable_product_warranty_default'] ) ? $post_data['variable_product_warranty_default'] : array();
+			$types     = isset( $post_data['variable_product_warranty_type'] ) ? $post_data['variable_product_warranty_type'] : array();
+			$labels    = isset( $post_data['variable_warranty_label'] ) ? $post_data['variable_warranty_label'] : array();
 
-			$defaults        = ( isset( $_POST['variable_product_warranty_default'] ) ) ? $_POST['variable_product_warranty_default'] : array();
-			$types           = ( isset( $_POST['variable_product_warranty_type'] ) ) ? $_POST['variable_product_warranty_type'] : array();
-			$labels          = ( isset( $_POST['variable_warranty_label'] ) ) ? $_POST['variable_warranty_label'] : array();
-			$inc_lengths     = ( isset( $_POST['variable_included_warranty_length'] ) ) ? $_POST['variable_included_warranty_length'] : array();
-			$ltd_lengths     = ( isset( $_POST['variable_limited_warranty_length_value'] ) ) ? $_POST['variable_limited_warranty_length_value'] : array();
-			$ltd_durations   = ( isset( $_POST['variable_limited_warranty_length_duration'] ) ) ? $_POST['variable_limited_warranty_length_duration'] : array();
-			$addon_amounts   = ( isset( $_POST['variable_addon_warranty_amount'] ) ) ? $_POST['variable_addon_warranty_amount'] : array();
-			$addon_lengths   = ( isset( $_POST['variable_addon_warranty_length_value'] ) ) ? $_POST['variable_addon_warranty_length_value'] : array();
-			$addon_durations = ( isset( $_POST['variable_addon_warranty_length_duration'] ) ) ? $_POST['variable_addon_warranty_length_duration'] : array();
-			$no_warranties   = ( isset( $_POST['variable_addon_no_warranty'] ) ) ? $_POST['variable_addon_no_warranty'] : array();
-
-			if ( isset( $defaults[ $x ] ) && 'on' == $defaults[ $x ] ) {
-				delete_post_meta( $variation_id, '_warranty' );
-
+			if ( isset( $defaults[ $x ] ) && 'on' === $defaults[ $x ] ) {
+				$variation->delete_meta_data( '_warranty' );
+				$variation->save();
 				return;
 			}
 
-			if ( $types[ $x ] == 'no_warranty' ) {
-				$product_warranty = array( 'type' => 'no_warranty' );
-				update_post_meta( $variation_id, '_warranty', $product_warranty );
-			} elseif ( $types[ $x ] == 'included_warranty' ) {
-				$product_warranty = array(
-					'type'     => 'included_warranty',
-					'length'   => $inc_lengths[ $x ],
-					'value'    => $ltd_lengths[ $x ],
-					'duration' => $ltd_durations[ $x ]
-				);
-				update_post_meta( $variation_id, '_warranty', $product_warranty );
-			} elseif ( $types[ $x ] == 'addon_warranty' ) {
-				$no_warranty = ( isset( $no_warranties[ $x ] ) ) ? $no_warranties[ $x ] : 'no';
-				$amounts     = $addon_amounts[ $x ];
-				$values      = $addon_lengths[ $x ];
-				$durations   = $addon_durations[ $x ];
-				$addons      = array();
-
-				for ( $i = 0; $i < count( $amounts ); $i ++ ) {
-					if ( ! isset( $amounts[ $i ] ) || ! isset( $values[ $i ] ) || ! isset( $durations[ $i ] ) ) {
-						continue;
-					}
-
-					$addons[] = array(
-						'amount'   => $amounts[ $i ],
-						'value'    => $values[ $i ],
-						'duration' => $durations[ $i ]
-					);
-				}
-
-				$product_warranty = array(
-					'type'               => 'addon_warranty',
-					'addons'             => $addons,
-					'no_warranty_option' => $no_warranty
-				);
-				update_post_meta( $variation_id, '_warranty', $product_warranty );
-			}
+			$warranty = self::build_warranty_array_inside_loop( $post_data, $types, $x );
 
 			if ( $labels[ $x ] ) {
-				update_post_meta( $variation_id, '_warranty_label', stripslashes( $labels[ $x ] ) );
+				$variation->update_meta_data( '_warranty_label', sanitize_text_field( stripslashes( $labels[ $x ] ) ) );
 			}
+
+			$variation->update_meta_data( '_warranty', $warranty );
+			$variation->save();
 		}
 
+		/**
+		 * Add generate_rma action to woocommerce_order_actions.
+		 *
+		 * @param array $actions Woocommerce order actions.
+		 * @return array $actions
+		 */
 		public function add_order_action( $actions ) {
 			$actions['generate_rma'] = get_option( 'warranty_button_text', __( 'Create Warranty Request', 'wc_warranty' ) );
 
 			return $actions;
 		}
 
+		/**
+		 * Redirect to Warranty Request Admin Form
+		 *
+		 * @param WC_Order $order WC_Order object.
+		 * @return void
+		 */
 		public function redirect_order_to_rma_form( $order ) {
-			$url = admin_url( 'admin.php?page=warranties-new&search_key=order_id&search_term=' . WC_Warranty_Compatibility::get_order_prop( $order, 'id' ) );
-			wp_redirect( $url );
+			$url = admin_url( 'admin.php?page=warranties-new&search_key=order_id&search_term=' . $order->get_id() );
+			wp_safe_redirect( $url );
 			exit;
 		}
 
 		/**
 		 * Routes the request to the correct page/file
 		 */
-		public static function admin_controller() {
+		public function admin_controller() {
 			global $wpdb;
 
-			$page = isset( $_GET['page'] ) ? $_GET['page'] : 'warranties';
+			$get_data = warranty_request_get_data();
+			$page     = isset( $get_data['page'] ) ? $get_data['page'] : 'warranties';
 
-			if ( self::is_updater_view() ) {
-				self::updater_page();
+			if ( $this->is_updater_view() ) {
+				$this->updater_page();
 
 				return;
 			}
@@ -731,29 +689,35 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 					$searched  = false;
 					$form_view = false;
 
-					if ( ! empty( $_GET['search_key'] ) && ! empty( $_GET['search_term'] ) ) {
+					if ( ! empty( $get_data['search_key'] ) && ! empty( $get_data['search_term'] ) ) {
 						$searched = true;
 
-						if ( $_GET['search_key'] == 'customer' ) {
-							if ( is_email( $_GET['search_term'] ) ) {
-								$sql = $wpdb->prepare( "SELECT DISTINCT post_id AS id
+						if ( 'customer' === $get_data['search_key'] ) {
+							if ( is_email( $get_data['search_term'] ) ) {
+								$sql = $wpdb->prepare(
+									"SELECT DISTINCT post_id AS id
 									FROM {$wpdb->postmeta} pm, {$wpdb->posts} p
 									WHERE pm.post_id = p.ID
 									AND pm.meta_key = '_billing_email'
-									AND pm.meta_value LIKE %s", $_GET['search_term'] );
+									AND pm.meta_value LIKE %s",
+									$get_data['search_term']
+								);
 							} else {
-								$sql = $wpdb->prepare( "SELECT DISTINCT post_id AS id
+								$sql = $wpdb->prepare(
+									"SELECT DISTINCT post_id AS id
 									FROM {$wpdb->postmeta} pm, {$wpdb->posts} p
 									WHERE pm.post_id = p.ID
 									AND pm.meta_key = '_customer_user'
-									AND pm.meta_value LIKE %s", $_GET['search_term'] );
+									AND pm.meta_value LIKE %s",
+									$get_data['search_term']
+								);
 							}
 
 							$orders = $wpdb->get_col( $sql );
 						} else {
-							$orders = array_unique( array_merge( $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT ID AS id FROM {$wpdb->posts} WHERE post_type = 'shop_order' AND ID LIKE %s", $_GET['search_term'] . '%' ) ), $wpdb->get_col( $wpdb->prepare( "SELECT post_id AS id FROM {$wpdb->postmeta} WHERE meta_key = '_order_number' AND meta_value LIKE %s", $_GET['search_term'] . '%' ) ) ) );
+							$orders = array_unique( array_merge( $wpdb->get_col( $wpdb->prepare( "SELECT DISTINCT ID AS id FROM {$wpdb->posts} WHERE post_type = 'shop_order' AND ID LIKE %s", $get_data['search_term'] . '%' ) ), $wpdb->get_col( $wpdb->prepare( "SELECT post_id AS id FROM {$wpdb->postmeta} WHERE meta_key = '_order_number' AND meta_value LIKE %s", $get_data['search_term'] . '%' ) ) ) );
 						}
-					} elseif ( isset( $_GET['order_id'] ) && isset( $_GET['idx'] ) ) {
+					} elseif ( isset( $get_data['order_id'] ) && isset( $get_data['idx'] ) ) {
 						$form_view = true;
 					}
 
@@ -777,22 +741,34 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 			do_action( 'warranty_page_controller' );
 		}
 
-		public static function is_updater_view() {
-			$page = isset( $_GET['page'] ) ? $_GET['page'] : '';
-			$view = isset( $_GET['view'] ) ? $_GET['view'] : '';
+		/**
+		 * Check if you visiting Warranty updater route.
+		 *
+		 * @return boolean
+		 */
+		public function is_updater_view() {
+			$get_data = warranty_request_get_data();
+			$page     = isset( $get_data['page'] ) ? $get_data['page'] : '';
+			$view     = isset( $get_data['view'] ) ? $get_data['view'] : '';
 
-			return ( $page == 'warranties' && $view == 'updater' );
+			return ( 'warranties' === $page && 'updater' === $view );
 		}
 
-		public static function updater_page() {
-			if ( $_GET['act'] == 'migrate_products' ) {
+		/**
+		 * Render Warranty Updater Page.
+		 *
+		 * @return void
+		 */
+		public function updater_page() {
+			$get_data = warranty_request_get_data();
+			if ( isset( $get_data['act'] ) && 'migrate_products' === $get_data['act'] ) {
 				$args = array(
 					'page_title'            => 'Data Update',
 					'return_url'            => admin_url( 'admin.php?page=warranties&warranty-data-updated=true' ),
 					'ajax_endpoint'         => 'warranty_migrate_products',
 					'entity_label_singular' => 'request',
 					'entity_label_plural'   => 'requests',
-					'action_label'          => 'updated'
+					'action_label'          => 'updated',
 				);
 			} else {
 				wp_die( 'Unknown action passed. Please go back and try again' );
@@ -803,113 +779,130 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 
 		/**
 		 * Create a warranty request from POST
+		 *
+		 * @return void|false Redirect and exit on success, return false on failure.
 		 */
 		public function create_warranty() {
-			$order_id = $_POST['order_id'];
-			$type     = $_POST['warranty_request_type'];
-			$qtys     = $_POST['warranty_qty'];
-			$idxs     = array_keys( $qtys );
-			$requests = array();
-			$errors   = array();
+			$post_data = warranty_request_post_data();
+			$order_id  = isset( $post_data['order_id'] ) ? $post_data['order_id'] : 0;
+			$type      = isset( $post_data['warranty_request_type'] ) ? $post_data['warranty_request_type'] : '';
+			$qtys      = isset( $post_data['warranty_qty'] ) ? $post_data['warranty_qty'] : 0;
+			$idxs      = array_keys( $qtys );
+			$requests  = array();
+			$errors    = array();
 
 			$order = wc_get_order( $order_id );
 			$items = $order->get_items();
 
 			$products = array();
-			foreach ( $idxs as $i => $idx ) {
+			foreach ( $idxs as $idx ) {
 				$products[] = ! empty( $items[ $idx ]['variation_id'] ) ? $items[ $idx ]['variation_id'] : $items[ $idx ]['product_id'];
 			}
 
-			$request_id = warranty_create_request( array(
-				'type'       => $type,
-				'order_id'   => $order_id,
-				'product_id' => $products,
-				'index'      => $idxs,
-				'qty'        => $qtys
-			) );
+			if ( ! warranty_user_has_access( wp_get_current_user(), $order ) ) {
+				return false;
+			}
+
+			$request_id = warranty_create_request(
+				array(
+					'type'       => $type,
+					'order_id'   => $order_id,
+					'product_id' => $products,
+					'index'      => $idxs,
+					'qty'        => $qtys,
+				)
+			);
 
 			if ( is_wp_error( $request_id ) ) {
 				$result   = $request_id;
 				$error    = $result->get_error_message( 'wc_warranty' );
 				$errors[] = $error;
 			} else {
-				// save the custom forms
+				// save the custom forms.
 				$result = WooCommerce_Warranty::process_warranty_form( $request_id );
 
 				if ( is_wp_error( $result ) ) {
 					$errors[] = $result->get_error_messages();
-					$back     = 'admin.php?page=warranty_requests&tab=new&order_id=' . $order_id;
+					$back     = admin_url( 'admin.php?page=warranty_requests&tab=new&order_id=' . $order_id );
 					$back     = add_query_arg( 'errors', wp_json_encode( $errors ), $back );
 
 					warranty_delete_request( $request_id );
 
-					wp_redirect( $back );
+					wp_safe_redirect( $back );
 					exit;
 				}
 
 				if ( $order ) {
-					$rma     = get_post_meta( $request_id, '_code', true );
-					$message = sprintf( __( '<a href="admin.php?page=warranties&s=%s">RMA (%s)</a> has been created for %s', 'wc_warranty' ), $rma, $rma, get_the_title( $items[ $idx ]['product_id'] ) );
+					$rma = get_post_meta( $request_id, '_code', true );
+					// translators: %1: anchor opening tag, %2: request code, %3: anchor closing tag, %4: product name.
+					$message = sprintf( esc_html__( '%1$sRMA (%3$s)%2$s has been created for %4$s', 'wc_warranty' ), '<a href="' . esc_url( admin_url( 'admin.php?page=warranties&s=' . $rma ) ) . '">', '</a>', $rma, get_the_title( $items[ $idx ]['product_id'] ) );
 					$order->add_order_note( $message );
 				}
 
-				// set the initial status and send the emails
+				// set the initial status and send the emails.
 				warranty_update_status( $request_id, 'new' );
 			}
 
-			$back = 'admin.php?page=warranties';
-			$back = add_query_arg( 'updated', urlencode( __( 'Warranty request created', 'wc_warranty' ) ), $back );
+			$back = admin_url( 'admin.php?page=warranties' );
+			$back = add_query_arg( 'updated', rawurlencode( esc_html__( 'Warranty request created', 'wc_warranty' ) ), $back );
 
 			if ( ! empty( $errors ) ) {
 				$back = add_query_arg( 'errors', wp_json_encode( $errors ), $back );
 			}
 
-			wp_redirect( $back );
+			wp_safe_redirect( $back );
 			exit;
 		}
 
 		/**
 		 * Handle file upload request and attach the uploaded file to the specified RMA request
+		 *
+		 * @return void
 		 */
 		public function attach_shipping_label() {
 			check_admin_referer( 'shipping_label_image', 'shipping_label_image_upload_nonce' );
-
-			$request_id        = $_POST['request_id'];
+			$post_data         = warranty_request_get_data();
+			$request_id        = isset( $post_data['request_id'] ) ? absint( $post_data['request_id'] ) : 0;
 			$shipping_label_id = media_handle_upload( 'shipping_label_image', $request_id );
 
 			if ( is_int( $shipping_label_id ) ) {
 				add_post_meta( $request_id, '_warranty_shipping_label', $shipping_label_id );
 			}
 
-			if ( isset( $_POST['redirect'] ) ) {
-				$path = 'edit.php?post_type=shop_order&shipping_label_attached=1';
+			if ( isset( $post_data['redirect'] ) ) {
+				$path = admin_url( 'edit.php?post_type=shop_order&shipping_label_attached=1' );
 			} else {
-				$path = 'admin.php?page=warranties&updated=' . urlencode( __( 'Shipping label uploaded', 'wc_warranty' ) );
+				$path = admin_url( 'admin.php?page=warranties&updated=' . rawurlencode( esc_html__( 'Shipping label uploaded', 'wc_warranty' ) ) );
 			}
-			wp_redirect( $path );
+			wp_safe_redirect( $path );
 			exit;
 		}
 
+		/**
+		 * Return inventory.
+		 *
+		 * @return void
+		 */
 		public function return_inventory() {
 
 			check_admin_referer( 'warranty_return_inventory' );
-
-			$request_id = absint( $_REQUEST['id'] );
+			$request_data = warranty_request_data();
+			$request_id   = absint( $request_data['id'] );
 
 			warranty_return_product_stock( $request_id );
 			warranty_update_request( $request_id, array( 'returned' => 'yes' ) );
 
-			wp_redirect( 'admin.php?page=warranties&updated=' . urlencode( __( 'Product stock returned', 'wc_warranty' ) ) );
+			wp_safe_redirect( admin_url( 'admin.php?page=warranties&updated=' . rawurlencode( esc_html__( 'Product stock returned', 'wc_warranty' ) ) ) );
 			exit;
 		}
 
 		public function refund_item() {
 
 			check_admin_referer( 'warranty_update' );
-
-			$request_id = absint( $_REQUEST['id'] );
-			$amount     = ! empty( $_REQUEST['amount'] ) ? $_REQUEST['amount'] : NULL;
-			$add_notice = isset( $_REQUEST['add_notice'] ) ? (bool) $_REQUEST['add_notice'] : false;
+			$request_data = warranty_request_data();
+			$request_id   = absint( $request_data['id'] );
+			$amount       = ! empty( $request_data['amount'] ) ? $request_data['amount'] : null;
+			$add_notice   = isset( $request_data['add_notice'] ) ? (bool) $request_data['add_notice'] : false;
 
 			$refund = warranty_refund_item( $request_id, $amount );
 
@@ -917,12 +910,12 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 				if ( is_wp_error( $refund ) ) {
 					$message = $refund->get_error_message();
 				} else {
-					$message = __( 'Item marked as Refunded', 'wc_warranty' );
+					$message = esc_html__( 'Item marked as Refunded', 'wc_warranty' );
 				}
 				wc_add_notice( $message );
 			}
 
-			wp_redirect( 'admin.php?page=warranties&updated=' . urlencode( $message ) );
+			wp_safe_redirect( admin_url( 'admin.php?page=warranties&updated=' . rawurlencode( $message ) ) );
 			exit;
 		}
 
@@ -939,13 +932,18 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 		/**
 		 * Get the available actions for the warranty based on its status
 		 *
-		 * @param int $id
-		 * @param bool $html Pass TRUE to return in an HTML snippet. Defaults to false
+		 * @param int  $id Warranty Request ID.
+		 * @param bool $html Pass TRUE to return in an HTML snippet. Defaults to false.
 		 *
-		 * @return array|string
+		 * @return array|string|false
 		 */
 		public static function get_warranty_actions( $id, $html = false ) {
-			$request      = warranty_load( $id );
+			$request = warranty_load( $id );
+
+			if ( ! $request ) {
+				return false;
+			}
+
 			$actions      = array();
 			$manage_stock = '';
 
@@ -954,13 +952,13 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 			$product          = wc_get_product( $request['product_id'] );
 			$request_type     = ( ! isset( $request['request_type'] ) ) ? 'replacement' : $request['request_type'];
 
-			// nonces
+			// nonces.
 			$nonces = array(
 				'refund'    => wp_create_nonce( 'warranty_refund_item' ),
 				'coupon'    => wp_create_nonce( 'warranty_send_coupon' ),
 				'status'    => wp_create_nonce( 'warranty_update_status' ),
 				'tracking'  => wp_create_nonce( 'warranty_tracking' ),
-				'inventory' => wp_create_nonce( 'warranty_return_inventory' )
+				'inventory' => wp_create_nonce( 'warranty_return_inventory' ),
 			);
 
 			if ( $product && $product->is_type( 'variation' ) ) {
@@ -974,20 +972,20 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 				$manage_stock = get_post_meta( $request['product_id'], '_manage_stock', true );
 			}
 
-			if ( $request['status'] == $returned && $manage_stock == 'yes' ) {
-				if ( get_post_meta( $request['ID'], '_returned', true ) == 'yes' ) {
+			if ( $request['status'] === $returned && 'yes' === $manage_stock ) {
+				if ( 'yes' === get_post_meta( $request['ID'], '_returned', true ) ) {
 					$actions['inventory-return'] = array(
-						'text'     => __( 'Stock returned', 'wc_warranty' ),
+						'text'     => esc_html__( 'Stock returned', 'wc_warranty' ),
 						'disabled' => true,
-						'class'    => ''
+						'class'    => '',
 					);
 				} else {
 					$actions['inventory-return'] = array(
-						'text'     => __( 'Return Stock', 'wc_warranty' ),
+						'text'     => esc_html__( 'Return Stock', 'wc_warranty' ),
 						'disabled' => false,
 						'data'     => array(
 							'security' => $nonces['inventory'],
-							'id'       => $request['ID']
+							'id'       => $request['ID'],
 						),
 						'class'    => 'warranty-inventory-return',
 					);
@@ -997,30 +995,30 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 			if ( 'completed' === $request['status'] ) {
 				$refunded = get_post_meta( $request['ID'], '_refunded', true );
 
-				if ( $refunded == 'yes' ) {
+				if ( 'yes' === $refunded ) {
 					$request_type = 'refund';
 				}
 
-				if ( $request_type == 'refund' ) {
+				if ( 'refund' === $request_type ) {
 					$item_amount     = warranty_get_item_amount( $request['ID'] );
 					$amount_refunded = get_post_meta( $request['ID'], '_refund_amount', true );
 
 					$actions['item-refund'] = array(
-						'text'     => __( 'Refund Item', 'wc_warranty' ),
+						'text'     => esc_html__( 'Refund Item', 'wc_warranty' ),
 						'disabled' => false,
 						'data'     => array(
 							'security' => $nonces['refund'],
 							'id'       => $request['ID'],
-							'amount'   => $item_amount
+							'amount'   => $item_amount,
 						),
 						'class'    => 'warranty-item-refund',
 					);
-				} elseif ( $request_type == 'coupon' ) {
+				} elseif ( 'coupon' === $request_type ) {
 					$actions['item-coupon'] = array(
-						'text'     => __( 'Send Coupon', 'wc_warranty' ),
+						'text'     => esc_html__( 'Send Coupon', 'wc_warranty' ),
 						'data'     => array(
 							'security' => $nonces['coupon'],
-							'id'       => $request['ID']
+							'id'       => $request['ID'],
 						),
 						'disabled' => false,
 						'class'    => 'warranty-item-coupon',
@@ -1056,10 +1054,11 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 		public function warranty_delete() {
 
 			check_admin_referer( 'warranty_delete' );
+			$request_data = warranty_request_data();
+			$request_id   = isset( $request_data['id'] ) ? $request_data['id'] : 0;
+			warranty_delete_request( $request_id );
 
-			warranty_delete_request( $_REQUEST['id'] );
-
-			wp_redirect( 'admin.php?page=warranties&updated=' . urlencode( __( 'Warranty request deleted', 'wc_warranty' ) ) );
+			wp_safe_redirect( admin_url( 'admin.php?page=warranties&updated=' . rawurlencode( esc_html__( 'Warranty request deleted', 'wc_warranty' ) ) ) );
 			exit;
 		}
 
@@ -1067,250 +1066,234 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 		 * Renders a print-friendly version of the warranty request
 		 */
 		public function warranty_print() {
-			$request_id = absint( $_GET['request'] );
+			$get_data   = warranty_request_get_data();
+			$request_id = absint( $get_data['request'] );
 
 			check_admin_referer( 'warranty_print' );
 
-			$warranty   = warranty_load( $request_id );
-			$order_id   = $warranty['order_id'];
-			$product_id = $warranty['product_id'];
-			$order      = wc_get_order( $order_id );
+			$warranty = warranty_load( $request_id );
+
+			if ( ! $warranty ) {
+				return false;
+			}
 
 			$form   = get_option( 'warranty_form' );
 			$inputs = json_decode( $form['inputs'] );
 
-			// customer
-			$first_name = ( isset( $warranty['first_name'] ) ) ? $warranty['first_name'] : '';
-			$last_name  = ( isset( $warranty['last_name'] ) ) ? $warranty['last_name'] : '';
-			$email      = ( isset( $warranty['email'] ) ) ? $warranty['email'] : '';
-
-			if ( ! $first_name || ! $last_name ) {
-				$first_name = WC_Warranty_Compatibility::get_order_prop( $order, 'billing_first_name' );
-				$last_name  = WC_Warranty_Compatibility::get_order_prop( $order, 'billing_last_name' );
-				$email      = WC_Warranty_Compatibility::get_order_prop( $order, 'billing_email' );
-			}
-
-			// product
-			$product_name = ( isset( $warranty['product_name'] ) ) ? $warranty['product_name'] : '';
-
-			if ( ! $product_name ) {
-				$product       = wc_get_product( $product_id );
-				$product_title = get_the_title( $product_id );
-
-				if ( is_object( $product ) && $product->is_type( 'variation' ) && version_compare( WC_VERSION, '3.0', '<' ) ) {
-					$product_id    = $product->id;
-					$product_title = get_the_title( $product->variation_id );
-				}
-
-				$product_name = $product_title . ' &ndash; #' . $product_id;
-			}
+			$product_name = $warranty['product_name'];
 
 			if ( isset( $warranty['qty'] ) ) {
 				$product_name = $product_name . ' &times; ' . $warranty['qty'];
 			}
 
-			// tracking
-			$tracking_html = '';
-			$tracking      = warranty_get_tracking_data( $warranty['ID'] );
-
-			if ( empty( $tracking ) ) {
-				$tracking_html = '-';
-			} else {
-				if ( ! empty( $tracking['store'] ) ) {
-					$tracking_html .= '<p><strong>' . __( 'Store:', 'wc_warranty' ) . '</strong> ' . $warranty['return_tracking_code'];
-
-					if ( ! empty( $warranty['return_tracking_provider'] ) ) {
-						$tracking_html .= ' (' . ucwords( $warranty['return_tracking_provider'] ) . ')';
-					}
-
-					$tracking_html .= '</p>';
-				}
-
-				if ( ! empty( $tracking['customer'] ) ) {
-					$tracking_html .= '<p><strong>' . __( 'Customer:', 'wc_warranty' ) . '</strong> ' . $warranty['tracking_code'];
-
-					if ( ! empty( $warranty['tracking_provider'] ) ) {
-						$tracking_html .= ' (' . ucwords( $warranty['tracking_provider'] ) . ')';
-					}
-
-					$tracking_html .= '</p>';
-				}
-			}
-
-			// header
-			$logo     = get_option( 'warranty_print_logo', false );
-			$show_url = get_option( 'warranty_print_url', false );
-
-			// array to be passed to the template file
+			// array to be passed to the template file.
 			$args = array(
-				'logo'          => $logo,
-				'show_url'      => $show_url,
-				'tracking_html' => $tracking_html,
+				// header.
+				'logo'          => get_option( 'warranty_print_logo', false ),
+				'show_url'      => get_option( 'warranty_print_url', false ),
+				'tracking_html' => self::get_tracking_html( $warranty ),
 				'product_name'  => $product_name,
-				'first_name'    => $first_name,
-				'last_name'     => $last_name,
-				'email'         => $email,
+				'first_name'    => $warranty['first_name'],
+				'last_name'     => $warranty['last_name'],
+				'email'         => $warranty['email'],
 				'form'          => $form,
 				'inputs'        => $inputs,
 				'warranty'      => $warranty,
-				'order'         => $order
+				'order'         => wc_get_order( $warranty['order_id'] ),
 			);
 
 			wc_get_template( 'print.php', $args, 'wc-warranty', dirname( WooCommerce_Warranty::$plugin_file ) . '/templates/' );
 		}
 
 		/**
+		 * Get tracking html.
+		 *
+		 * @param array $warranty Warranty Request.
+		 * @return string
+		 */
+		private static function get_tracking_html( $warranty ) {
+			$tracking_html = '';
+			$tracking      = warranty_get_tracking_data( $warranty['ID'] );
+			if ( empty( $tracking ) ) {
+				return '-';
+			}
+
+			if ( ! empty( $tracking['store'] ) ) {
+				$tracking_html .= '<p><strong>' . esc_html__( 'Store:', 'wc_warranty' ) . '</strong> ' . $warranty['return_tracking_code'];
+
+				if ( ! empty( $warranty['return_tracking_provider'] ) ) {
+					$tracking_html .= ' (' . ucwords( $warranty['return_tracking_provider'] ) . ')';
+				}
+
+				$tracking_html .= '</p>';
+			}
+
+			if ( ! empty( $tracking['customer'] ) ) {
+				$tracking_html .= '<p><strong>' . esc_html__( 'Customer:', 'wc_warranty' ) . '</strong> ' . $warranty['tracking_code'];
+
+				if ( ! empty( $warranty['tracking_provider'] ) ) {
+					$tracking_html .= ' (' . ucwords( $warranty['tracking_provider'] ) . ')';
+				}
+
+				$tracking_html .= '</p>';
+			}
+
+			return $tracking_html;
+		}
+
+		/**
+		 * If $post['bulk_edit'] is not empty, attempt to bulk edit the
+		 * checked/selected products.
+		 *
+		 * @param array $post The submitted $_POST data.
+		 *
+		 * @return bool FALSE if $post['bulk_edit'] is empty. TRUE otherwise.
+		 */
+		public function maybe_bulk_edit_products( array $post ) {
+			if ( empty( $post['bulk_edit'] ) ) {
+				return false;
+			}
+
+			$product_ids = ! empty( $post['post'] ) ? $post['post'] : array();
+
+			/**
+			 * If there are no product IDs, go ahead and return true
+			 * because there is nothing to change.
+			 */
+			if ( empty( $product_ids ) ) {
+				return true;
+			}
+
+			$unique_product_ids = array_unique( $product_ids );
+			$products           = $this->get_valid_product_objects_from_array( $unique_product_ids );
+
+			/**
+			 * If there are no WC_Product objects, go ahead and return true
+			 * because there is nothing valid to change.
+			 */
+			if ( empty( $products ) ) {
+				return true;
+			}
+
+			$default = ! empty( $post['warranty_default_bulk'] ) ? sanitize_text_field( $post['warranty_default_bulk'] ) : 'no';
+
+			/**
+			 * If we are bulk setting products to use the default warranty,
+			 * we can update the products' metadata and go ahead
+			 * and return true.
+			 */
+			if ( 'yes' === $default ) {
+				foreach ( $products as $product ) {
+					$product->delete_meta_data( '_warranty' );
+					$product->save();
+				}
+
+				return true;
+			}
+
+			$args                                     = array();
+			$args['included_warranty_length']         = ! empty( $post['included_warranty_length_bulk'] ) ? $post['included_warranty_length_bulk'] : '';
+			$args['limited_warranty_length_value']    = ! empty( $post['limited_warranty_length_value_bulk'] ) ? $post['limited_warranty_length_value_bulk'] : '';
+			$args['limited_warranty_length_duration'] = ! empty( $post['limited_warranty_length_duration_bulk'] ) ? $post['limited_warranty_length_duration_bulk'] : '';
+			$args['addon_warranty_amount']            = ! empty( $post['addon_warranty_amount']['bulk'] ) ? $post['addon_warranty_amount']['bulk'] : array();
+			$args['addon_warranty_length_value']      = ! empty( $post['addon_warranty_length_value']['bulk'] ) ? $post['addon_warranty_length_value']['bulk'] : array();
+			$args['addon_warranty_length_duration']   = ! empty( $post['addon_warranty_length_duration']['bulk'] ) ? $post['addon_warranty_length_duration']['bulk'] : array();
+			$args['no_warranty_option']               = ! empty( $post['addon_no_warranty_bulk'] ) ? $post['addon_no_warranty_bulk'] : 'no';
+
+			$warranty_type = ! empty( $post['warranty_type_bulk'] ) ? sanitize_text_field( $post['warranty_type_bulk'] ) : 'no_warranty';
+			$warranty      = self::build_warranty_array( $args, $warranty_type );
+			$label         = ! empty( $post['warranty_label_bulk'] ) ? sanitize_text_field( $post['warranty_label_bulk'] ) : '';
+
+			/**
+			 * Loop through the checked products and update the appropriate
+			 * metadata.
+			 */
+			foreach ( $products as $product ) {
+
+				if ( ! empty( $label ) ) {
+					$product->update_meta_data( '_warranty_label', $label );
+				}
+
+				$product->update_meta_data( '_warranty', $warranty );
+				$product->save();
+			}
+
+			return true;
+		}
+
+		/**
 		 * Process bulk edit request
 		 */
 		public function bulk_edit() {
-			$post = array_map( 'stripslashes_deep', $_POST );
-
-			// catch 'bulk_edit' action
-			if ( ! empty( $post['bulk_edit'] ) ) {
-				$product_ids = $post['post'];
-				$default     = ! empty( $post['warranty_default_bulk'] ) ? $post['warranty_default_bulk'] : 'no';
-				$type        = isset( $post['warranty_type_bulk'] ) ? $post['warranty_type_bulk'] : array();
-				$label       = isset( $post['warranty_label_bulk'] ) ? $post['warranty_label_bulk'] : array();
-				$warranty    = array();
-
-				if ( $default == 'yes' ) {
-					foreach ( $product_ids as $product_id ) {
-						delete_post_meta( $product_id, '_warranty' );
-					}
-
-					wp_redirect( "admin.php?page=warranties-bulk-update&updated=1" );
-					exit;
-				}
-
-				if ( $type == 'included_warranty' ) {
-					$warranty = array(
-						'type'     => 'included_warranty',
-						'length'   => $post['included_warranty_length_bulk'],
-						'value'    => $post['limited_warranty_length_value_bulk'],
-						'duration' => $post['limited_warranty_length_duration_bulk']
-					);
-				} elseif ( $type == 'addon_warranty' ) {
-					$no_warranty = ( isset( $post['addon_no_warranty_bulk'] ) ) ? $post['addon_no_warranty_bulk'] : 'no';
-					$amounts     = $post['addon_warranty_amount']['bulk'];
-					$values      = $post['addon_warranty_length_value']['bulk'];
-					$durations   = $post['addon_warranty_length_duration']['bulk'];
-					$addons      = array();
-
-					for ( $x = 0; $x < count( $amounts ); $x ++ ) {
-						if ( ! isset( $amounts[ $x ] ) || ! isset( $values[ $x ] ) || ! isset( $durations[ $x ] ) ) {
-							continue;
-						}
-
-						$addons[] = array(
-							'amount'   => $amounts[ $x ],
-							'value'    => $values[ $x ],
-							'duration' => $durations[ $x ]
-						);
-					}
-
-					$warranty = array(
-						'type'               => 'addon_warranty',
-						'addons'             => $addons,
-						'no_warranty_option' => $no_warranty
-					);
-				} else {
-					$warranty = array(
-						'type' => 'no_warranty'
-					);
-				}
-
-				if ( isset( $post['warranty_label_bulk'] ) ) {
-					foreach ( $product_ids as $product_id ) {
-						update_post_meta( $product_id, '_warranty_label', $post['warranty_label_bulk'] );
-					}
-				}
-
-				foreach ( $product_ids as $product_id ) {
-					update_post_meta( $product_id, '_warranty', $warranty );
-				}
-
-				wp_redirect( "admin.php?page=warranties-bulk-update&updated=1" );
-				exit;
+			if ( ! isset( $_POST['warranty_admin_bulk_edit'] ) || ! wp_verify_nonce( sanitize_key( $_POST['warranty_admin_bulk_edit'] ), 'warranty_admin_bulk_edit' ) ) {
+				wp_die( esc_html__( 'Edit failed. Please refresh the page and retry.', 'woocommerce-warranty' ) );
 			}
 
-			$ids     = array_keys( $post['warranty_type'] );
-			$type    = $post['warranty_type'];
-			$label   = $post['warranty_label'];
-			$default = $post['warranty_default'];
+			$post_data = warranty_request_post_data();
 
-			foreach ( $ids as $id ) {
-				$warranty = array();
+			// Maybe bulk edit products.
+			$bulk_edited_products = $this->maybe_bulk_edit_products( $post_data );
+			if ( $bulk_edited_products ) {
+				$this->redirect_and_exit();
+			}
 
-				if ( ! empty( $default[ $id ] ) && $default[ $id ] == 'yes' ) {
-					// skip
-					delete_post_meta( $id, '_warranty' );
+			// If warranty_type is empty, we have no products to loop through, so exit.
+			$type = ! empty( $post_data['warranty_type'] ) ? $post_data['warranty_type'] : array();
+			if ( empty( $type ) ) {
+				$this->redirect_and_exit();
+			}
+
+			$product_ids = array_keys( $type );
+
+			$products = $this->get_valid_product_objects_from_array( $product_ids );
+			if ( empty( $products ) ) {
+				$this->redirect_and_exit();
+			}
+
+			$label   = ! empty( $post_data['warranty_label'] ) ? $post_data['warranty_label'] : array();
+			$default = ! empty( $post_data['warranty_default'] ) ? $post_data['warranty_default'] : array();
+
+			foreach ( $products as $product ) {
+				$product_id = $product->get_id();
+
+				if ( ! empty( $default[ $product_id ] ) && 'yes' === $default[ $product_id ] ) {
+					$product->delete_meta_data( '_warranty' );
+					$product->save();
+
 					continue;
 				}
 
-				if ( $type[ $id ] == 'no_warranty' ) {
-					update_post_meta( $id, '_warranty', $warranty );
-				} elseif ( $type[ $id ] == 'included_warranty' ) {
-					$warranty = array(
-						'type'     => 'included_warranty',
-						'length'   => $post['included_warranty_length'][ $id ],
-						'value'    => $post['limited_warranty_length_value'][ $id ],
-						'duration' => $post['limited_warranty_length_duration'][ $id ]
-					);
-					update_post_meta( $id, '_warranty', $warranty );
-				} elseif ( $type[ $id ] == 'addon_warranty' ) {
-					$no_warranty = ( isset( $post['addon_no_warranty'][ $id ] ) ) ? $post['addon_no_warranty'][ $id ] : 'no';
-					$amounts     = ( isset( $post['addon_warranty_amount'][ $id ] ) ) ? $post['addon_warranty_amount'] : array();
-					$values      = ( isset( $post['addon_warranty_length_value'][ $id ] ) ) ? $post['addon_warranty_length_value'] : array();
-					$durations   = ( isset( $post['addon_warranty_length_duration'][ $id ] ) ) ? $post['addon_warranty_length_duration'] : array();
-					$addons      = array();
+				$warranty = self::build_warranty_array_inside_loop( $post_data, $type, $product_id );
 
-					for ( $x = 0; $x < count( $amounts ); $x ++ ) {
-						if ( ! isset( $amounts[ $x ] ) || ! isset( $values[ $x ] ) || ! isset( $durations[ $x ] ) ) {
-							continue;
-						}
-
-						$addons[] = array(
-							'amount'   => $amounts[ $x ],
-							'value'    => $values[ $x ],
-							'duration' => $durations[ $x ]
-						);
-					}
-
-					$warranty = array(
-						'type'               => 'addon_warranty',
-						'addons'             => $addons,
-						'no_warranty_option' => $no_warranty
-					);
-					update_post_meta( $id, '_warranty', $warranty );
+				if ( ! empty( $label[ $product_id ] ) ) {
+					$product->update_meta_data( '_warranty_label', sanitize_text_field( $label[ $product_id ] ) );
 				}
 
-				if ( isset( $post['warranty_label'][ $id ] ) ) {
-					update_post_meta( $id, '_warranty_label', $post['warranty_label'][ $id ] );
-				}
+				$product->update_meta_data( '_warranty', $warranty );
+				$product->save();
 			}
 
-			wp_redirect( "admin.php?page=warranties-bulk-update&updated=1" );
-			exit;
+			$this->redirect_and_exit();
 		}
 
 		public function update_settings() {
-			$post   = stripslashes_deep( $_POST );
-			$tab    = ! empty( $post['tab'] ) ? $post['tab'] : false;
-			$fields = Warranty_Settings::get_settings_fields();
+			$post_data = warranty_request_post_data();
+			$tab       = ! empty( $post_data['tab'] ) ? $post_data['tab'] : false;
+			$fields    = Warranty_Settings::get_settings_fields();
 
-			if ( empty( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'wc_warranty_settings_save' ) ) {
-				die( __( 'Action failed. Please refresh the page and retry.', 'woocommerce' ) );
+			if ( empty( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_key( $_REQUEST['_wpnonce'] ), 'wc_warranty_settings_save' ) ) {
+				die( esc_html__( 'Action failed. Please refresh the page and retry.', 'woocommerce' ) );
 			}
 
 			if ( ! $tab ) {
-				die( __( 'Action failed. Please refresh the page and retry.', 'woocommerce' ) );
+				die( esc_html__( 'Action failed. Please refresh the page and retry.', 'woocommerce' ) );
 			}
 
-			if ( ! empty( $_POST['warranty_override_all'] ) && $_POST['warranty_override_all'] == 'yes' ) {
+			if ( ! empty( $post_data['warranty_override_all'] ) && 'yes' === $post_data['warranty_override_all'] ) {
 				WooCommerce_Warranty::clear_all_product_warranties();
 			}
 
-			if ( ! empty( $_POST['warranty_reset_statuses'] ) && $_POST['warranty_reset_statuses'] == '1' ) {
+			if ( ! empty( $post_data['warranty_reset_statuses'] ) && '1' === $post_data['warranty_reset_statuses'] ) {
 				warranty_reset_statuses();
 			}
 
@@ -1320,7 +1303,7 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 
 			update_option( 'warranty_reset_statuses', 'no' );
 
-			wp_redirect( 'admin.php?page=warranties-settings&tab=' . $tab . '&updated=1' );
+			wp_safe_redirect( admin_url( 'admin.php?page=warranties-settings&tab=' . $tab . '&updated=1' ) );
 			exit;
 		}
 
@@ -1333,14 +1316,14 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 		/**
 		 * Display the RMA button if the order has any outstanding warranty requests
 		 *
-		 * @param WC_Order $order
+		 * @param WC_Order $order WC_Order.
 		 */
 		public function order_inline_edit_actions( $order ) {
-			if ( ! warranty_order_has_warranty_requests( WC_Warranty_Compatibility::get_order_prop( $order, 'id' ) ) ) {
+			if ( ! warranty_order_has_warranty_requests( $order->get_id() ) ) {
 				return;
 			}
 			?>
-			<a class="button tips inline-rma dashicons-before dashicons-controls-repeat" data-tip="<?php echo wc_sanitize_tooltip( __( 'Manage Return', 'wc_warranty' ) ); ?>" href="#"> </a>
+			<a class="button tips inline-rma dashicons-before dashicons-controls-repeat" data-tip="<?php echo wc_sanitize_tooltip( esc_html__( 'Manage Return', 'wc_warranty' ) ); ?>" href="#"> </a>
 			<?php
 		}
 
@@ -1352,367 +1335,402 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 			$screen   = get_current_screen();
 			$statuses = warranty_get_statuses();
 
-			// nonces
+			// nonces.
 			$update_nonce = wp_create_nonce( 'warranty_update' );
 			$coupon_nonce = wp_create_nonce( 'warranty_send_coupon' );
 
 			$requests_str = array(
-				'replacement' => __( 'Replacement item', 'wc_warranty' ),
-				'refund'      => __( 'Refund', 'wc_warranty' ),
-				'coupon'      => __( 'Refund as store credit', 'wc_warranty' )
+				'replacement' => esc_html__( 'Replacement item', 'wc_warranty' ),
+				'refund'      => esc_html__( 'Refund', 'wc_warranty' ),
+				'coupon'      => esc_html__( 'Refund as store credit', 'wc_warranty' ),
 			);
 
-			if ( $screen->id != 'edit-shop_order' || empty( $wp_query->query_vars['post_type'] ) || $wp_query->query_vars['post_type'] != 'shop_order' || ! have_posts() ) {
+			if ( 'edit-shop_order' !== $screen->id || empty( $wp_query->query_vars['post_type'] ) || 'shop_order' !== $wp_query->query_vars['post_type'] || ! have_posts() ) {
 				return;
 			}
 			?>
 			<table style="display: none">
 				<tbody id="inlineedit">
-				<?php
-				foreach ( $wp_query->posts as $post ) :
-					$requests = get_posts( array(
-						'post_type'  => 'warranty_request',
-						'nopaging'   => true,
-						'fields'     => 'ids',
-						'meta_query' => array(
+					<?php
+					foreach ( $wp_query->posts as $post ) :
+						$requests = get_posts(
 							array(
-								'key'   => '_order_id',
-								'value' => $post->ID
+								'post_type'  => 'warranty_request',
+								'nopaging'   => true,
+								'fields'     => 'ids',
+								'meta_query' => array(
+									array(
+										'key'   => '_order_id',
+										'value' => $post->ID,
+									),
+								),
 							)
-						)
-					) );
+						);
 
-					if ( empty( $requests ) ) {
-						continue;
-					}
-					?>
-					<tr id="inline-edit-post-<?php echo $post->ID; ?>" class="inline-edit-row inline-edit-row-post inline-edit-post quick-edit-row quick-edit-row-post inline-edit-order">
-						<td colspan="<?php echo self::$shop_order_columns; ?>">
-							<?php
-							foreach ( $requests as $request_id ):
-								$request = warranty_load( $request_id );
+						if ( empty( $requests ) ) {
+							continue;
+						}
+						?>
+						<tr id="inline-edit-post-<?php echo esc_attr( $post->ID ); ?>" class="inline-edit-row inline-edit-row-post inline-edit-post quick-edit-row quick-edit-row-post inline-edit-order">
+							<td colspan="<?php echo esc_attr( self::$shop_order_columns ); ?>">
+								<?php
+								foreach ( $requests as $request_id ) :
+									$request = warranty_load( $request_id );
 
-								$permissions = get_option( 'warranty_permissions', array() );
-								$term        = wp_get_post_terms( $request['ID'], 'shop_warranty_status' );
-								$status      = ( ! empty( $term ) ) ? $term[0] : $statuses[0];
-								$me          = wp_get_current_user();
-								$readonly    = true;
-								$refunded    = get_post_meta( $request_id, '_refund_amount', true );
-								?>
-								<div class="warranty-request" id="warranty_request_<?php echo $request_id; ?>">
-									<h2><?php printf( __( 'RMA %s', 'wc_warranty' ), $request['code'] ); ?></h2>
+									if ( ! $request ) {
+										continue;
+									}
 
-									<div class="warranty-update-message warranty-updated hidden">
-										<p></p></div>
-
-									<fieldset class="inline-edit-col-right">
-										<div class="inline-edit-col">
-											<h3><?php _e( 'Products', 'wc_warranty' ); ?></h3>
-
-											<?php foreach ( $request['products'] as $request_product ): ?>
-												<div class="field">
-													<span class="label"><?php printf( __( '%s &times; %d', 'wc_warranty' ), get_the_title( $request_product['product_id'] ), $request_product['quantity'] ); ?></span>
-												</div>
-											<?php endforeach; ?>
-
-											<h3><?php _e( 'RMA Data', 'wc_warranty' ); ?></h3>
-
-											<div class="field">
-												<span class="label"><?php _e( 'Request Type:', 'wc_warranty' ); ?></span>
-												<span class="value"><?php echo $requests_str[ $request['request_type'] ]; ?></span>
-											</div>
+									$permissions = get_option( 'warranty_permissions', array() );
+									$term        = wp_get_post_terms( $request['ID'], 'shop_warranty_status' );
+									$status      = ( ! empty( $term ) ) ? $term[0] : $statuses[0];
+									$me          = wp_get_current_user();
+									$readonly    = true;
+									$refunded    = get_post_meta( $request_id, '_refund_amount', true );
+									?>
+									<div class="warranty-request" id="warranty_request_<?php echo esc_attr( $request_id ); ?>">
+										<h2>
 											<?php
-
-											if ( $request['request_type'] == 'refund' && $refunded > 0 ):
-												?>
-												<div class="field">
-													<span class="label"><?php _e( 'Refunded:', 'wc_warranty' ); ?></span>
-													<span class="value"><?php echo wc_price( $refunded ); ?></span>
-												</div>
-											<?php
-											endif;
-
-											$form   = get_option( 'warranty_form' );
-											$inputs = json_decode( $form['inputs'] );
-
-											foreach ( $inputs as $input ) {
-												$key   = $input->key;
-												$type  = $input->type;
-												$field = $form['fields'][ $input->key ];
-
-												if ( $type == 'paragraph' ) {
-													continue;
-												}
-
-												$value = get_post_meta( $request['ID'], '_field_' . $key, true );
-
-												if ( is_array( $value ) ) {
-													$value = implode( ',<br/>', $value );
-												}
-
-												if ( $type == 'file' && ! empty( $value ) ) {
-													$wp_uploads = wp_upload_dir();
-													$value      = '<a href="' . $wp_uploads['baseurl'] . $value . '">' . basename( $value ) . '</a>';
-												}
-
-												if ( empty( $value ) && ! empty( $item['reason'] ) && ! $this->row_reason_injected ) {
-													$value = $item['reason'];
-												}
-
-												if ( ! $value ) {
-													$value = '-';
-												}
-												?>
-												<div class="field">
-													<span class="label"><?php echo $field['name']; ?>:</span>
-													<span class="value"><?php echo wp_kses_post( $value ); ?></span>
-												</div>
-
-												<?php
-											}
+											// translators: Request code.
+											printf( esc_html__( 'RMA %s', 'wc_warranty' ), esc_html( $request['code'] ) );
 											?>
-										</div>
-									</fieldset>
+										</h2>
 
-									<fieldset class="inline-edit-col-left">
-										<div class="inline-edit-col">
-											<?php
-
-											if ( in_array( 'administrator', $me->roles ) ) {
-												$readonly = false;
-											} elseif ( ! isset( $permissions[ $status->slug ] ) || empty( $permissions[ $status->slug ] ) ) {
-												$readonly = false;
-											} elseif ( in_array( $me->ID, $permissions[ $status->slug ] ) ) {
-												$readonly = false;
-											}
-
-											if ( $readonly ) {
-												$status_content = ucfirst( $status->name );
-											} else {
-												$status_content = '<select class="warranty-status" name="status" id="status_' . $request['ID'] . '">';
-
-												foreach ( $statuses as $_status ):
-													$sel            = ( $status->slug == $_status->slug ) ? 'selected' : '';
-													$status_content .= '<option value="' . $_status->slug . '" ' . $sel . '>' . ucfirst( $_status->name ) . '</option>';
-												endforeach;
-
-												$status_content .= '</select>';
-												//<button class="button-primary warranty-update-status" type="button" title="Update" data-id="'. $request['ID'] .'" data-security="'. $nonces['status'] .'"><span>'. __('Update', 'wc_warranty') .'</span></button>';
-											}
-											?>
-
-											<h3><?php _e( 'RMA Status', 'wc_warranty' ); ?></h3>
-											<?php echo $status_content; ?>
-
-											<div class="codes_form closeable">
-												<h4><?php _e( 'Return shipping details', 'wc_warranty' ); ?></h4>
-												<?php
-												$shipping_label_id = get_post_meta( $request['ID'], '_warranty_shipping_label', true );
-
-												if ( $shipping_label_id ) {
-													$lnk = wp_get_attachment_url( $shipping_label_id );
-													echo '<a href="' . $lnk . '"><strong>' . __( 'Download the Shipping Label', 'wc_warranty' ) . '</strong></a>';
-												} else {
-													?>
-													<input name="shipping_label_image" id="shipping_label_<?php echo $request_id; ?>" class="shipping-label-url short-text" type="text" value="" />
-													<input name="shipping_label_image_id" id="shipping_label_id_<?php echo $request_id; ?>" type="hidden" value="" />
-													<input class="rma-upload-button button" type="button" data-id="<?php echo $request_id; ?>" data-uploader_title="<?php _e( 'Set Shipping Label', 'wc_warranty' ); ?>" data-uploader_button_text="<?php _e( 'Set Shipping Label', 'wc_warranty' ); ?>" value="<?php _e( 'Select Shipping Label', 'wc_warranty' ); ?>" />
-													<?php
-												} // End final If Checking the attachment :)
-												?>
-											</div>
+										<div class="warranty-update-message warranty-updated hidden">
+											<p></p>
 										</div>
 
-										<div class="inline-edit-col">
-											<h3><?php _e( 'Return Tracking Details', 'wc_warranty' ); ?></h3>
+										<fieldset class="inline-edit-col-right">
+											<div class="inline-edit-col">
+												<h3><?php esc_html_e( 'Products', 'wc_warranty' ); ?></h3>
 
-											<?php
-											// if tracking code is being requested, notify the admin
-											$class = 'hidden';
-											if ( $request['request_tracking_code'] == 'y' && empty( $request['tracking_code'] ) ):
-												$class = '';
-											endif;
-											?>
-											<div class="codes_form closeable">
-												<div class="wc-tracking-requested warranty-updated <?php echo $class; ?>">
-													<p><?php _e( 'Tracking information requested from customer', 'wc_warranty' ); ?></p>
-												</div>
-
-												<?php
-												// Tracking code hasnt been requested yet
-												if ( $request['request_tracking_code'] != 'y' ):
-													?>
-													<div class="request-tracking-div">
-														<label>
-															<input type="checkbox" name="request_tracking" value="1" />
-															<strong><?php _e( 'Request tracking code from the Customer', 'wc_warranty' ); ?></strong>
-														</label>
+												<?php foreach ( $request['products'] as $request_product ) : ?>
+													<div class="field">
+														<span class="label">
+															<?php
+															// translators: Product title, Quantity.
+															printf( esc_html__( '%1$s &times; %2$d', 'wc_warranty' ), esc_html( get_the_title( $request_product['product_id'] ) ), esc_html( $request_product['quantity'] ) );
+															?>
+														</span>
 													</div>
+												<?php endforeach; ?>
+
+												<h3><?php esc_html_e( 'RMA Data', 'wc_warranty' ); ?></h3>
+
+												<div class="field">
+													<span class="label"><?php esc_html_e( 'Request Type:', 'wc_warranty' ); ?></span>
+													<span class="value"><?php echo esc_html( $requests_str[ $request['request_type'] ] ); ?></span>
+												</div>
 												<?php
-												else: // tracking code requested
-													// if tracking code is not empty, it has already been provided
-													if ( ! empty( $request['tracking_code'] ) ) {
-														echo '<strong>' . __( 'Customer Provided Tracking', 'wc_warranty' ) . ':</strong>&nbsp;';
 
-														if ( ! empty( $request['tracking_provider'] ) ) {
-															$all_providers = array();
+												if ( 'refund' === $request['request_type'] && $refunded > 0 ) :
+													?>
+													<div class="field">
+														<span class="label"><?php esc_html_e( 'Refunded:', 'wc_warranty' ); ?></span> <span class="value"><?php echo wc_price( $refunded ); ?></span>
+													</div>
+													<?php
+												endif;
 
-															foreach ( WooCommerce_Warranty::get_providers() as $providers ) {
-																foreach ( $providers as $provider => $format ) {
-																	$all_providers[ sanitize_title( $provider ) ] = $format;
-																}
-															}
+												$form   = get_option( 'warranty_form' );
+												$inputs = json_decode( $form['inputs'] );
 
-															$provider = $request['tracking_provider'];
-															$link     = $all_providers[ $provider ];
-															$link     = str_replace( '%1$s', $request['tracking_code'], $link );
-															$link     = str_replace( '%2$s', '', $link );
-															printf( __( '%s via %s (<a href="' . $link . '" target="_blank">Track Shipment</a>)', 'wc_warranty' ), $request['tracking_code'], $provider, $link );
-														} else {
-															echo $request['tracking_code'];
-														}
+												foreach ( $inputs as $input ) {
+													$key   = $input->key;
+													$type  = $input->type;
+													$field = $form['fields'][ $input->key ];
+
+													if ( 'paragraph' === $type ) {
+														continue;
 													}
+
+													$value = get_post_meta( $request['ID'], '_field_' . $key, true );
+
+													if ( is_array( $value ) ) {
+														$value = implode( ',<br/>', $value );
+													}
+
+													if ( 'file' === $type && ! empty( $value ) ) {
+														$value = WooCommerce_Warranty::get_uploaded_file_anchor_tag( $value, 'customer' );
+													}
+
+													if ( empty( $value ) && ! empty( $item['reason'] ) && ! $this->row_reason_injected ) {
+														$value = $item['reason'];
+													}
+
+													if ( ! $value ) {
+														$value = '-';
+													}
+													?>
+													<div class="field">
+														<span class="label"><?php echo esc_html( $field['name'] ); ?>:</span> <span class="value"><?php echo wp_kses_post( $value ); ?></span>
+													</div>
+
+													<?php
+												}
+												?>
+											</div>
+										</fieldset>
+
+										<fieldset class="inline-edit-col-left">
+											<div class="inline-edit-col">
+												<?php
+
+												if ( in_array( 'administrator', $me->roles, true ) ) {
+													$readonly = false;
+												} elseif ( ! isset( $permissions[ $status->slug ] ) || empty( $permissions[ $status->slug ] ) ) {
+													$readonly = false;
+												} elseif ( in_array( $me->ID, $permissions[ $status->slug ], true ) ) {
+													$readonly = false;
+												}
+
+												if ( $readonly ) {
+													$status_content = ucfirst( $status->name );
+												} else {
+													$status_content = '<select class="warranty-status" name="status" id="status_' . $request['ID'] . '">';
+
+													foreach ( $statuses as $_status ) :
+														$sel             = ( $status->slug === $_status->slug ) ? 'selected' : '';
+														$status_content .= '<option value="' . $_status->slug . '" ' . $sel . '>' . ucfirst( $_status->name ) . '</option>';
+													endforeach;
+
+													$status_content .= '</select>';
+													// <button class="button-primary warranty-update-status" type="button" title="Update" data-id="'. $request['ID'] .'" data-security="'. $nonces['status'] .'"><span>'. __('Update', 'wc_warranty') .'</span></button>';
+												}
+												?>
+
+												<h3><?php esc_html_e( 'RMA Status', 'wc_warranty' ); ?></h3>
+												<?php
+												echo $status_content; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
+												?>
+
+												<div class="codes_form closeable">
+													<h4><?php esc_html_e( 'Return shipping details', 'wc_warranty' ); ?></h4>
+													<?php
+													$shipping_label_id = get_post_meta( $request['ID'], '_warranty_shipping_label', true );
+
+													if ( $shipping_label_id ) {
+														$lnk = wp_get_attachment_url( $shipping_label_id );
+														echo '<a href="' . esc_url( $lnk ) . '"><strong>' . esc_html__( 'Download the Shipping Label', 'wc_warranty' ) . '</strong></a>';
+													} else {
+														?>
+														<input name="shipping_label_image" id="shipping_label_<?php echo esc_attr( $request_id ); ?>" class="shipping-label-url short-text" type="text" value="" />
+														<input name="shipping_label_image_id" id="shipping_label_id_<?php echo esc_attr( $request_id ); ?>" type="hidden" value="" />
+														<input class="rma-upload-button button" type="button" data-id="<?php echo esc_attr( $request_id ); ?>" data-uploader_title="<?php esc_attr_e( 'Set Shipping Label', 'wc_warranty' ); ?>" data-uploader_button_text="<?php esc_attr_e( 'Set Shipping Label', 'wc_warranty' ); ?>" value="<?php esc_attr_e( 'Select Shipping Label', 'wc_warranty' ); ?>" />
+														<?php
+													} // End final If Checking the attachment :).
+													?>
+												</div>
+											</div>
+
+											<div class="inline-edit-col">
+												<h3><?php esc_html_e( 'Return Tracking Details', 'wc_warranty' ); ?></h3>
+
+												<?php
+												// if tracking code is being requested, notify the admin.
+												$class = 'hidden';
+												if ( 'y' === $request['request_tracking_code'] && empty( $request['tracking_code'] ) ) :
+													$class = '';
 												endif;
 												?>
-											</div>
+												<div class="codes_form closeable">
+													<div class="wc-tracking-requested warranty-updated <?php echo esc_attr( $class ); ?>">
+														<p><?php esc_html_e( 'Tracking information requested from customer', 'wc_warranty' ); ?></p>
+													</div>
 
-											<div class="codes_form closeable">
-												<?php
-												if ( ! empty( $request['return_tracking_provider'] ) ) : ?>
-													<p>
-														<label for="return_tracking_provider_<?php echo $request['ID']; ?>"><strong><?php _e( 'Shipping Provider', 'wc_warranty' ); ?></strong></label>
-														<select class="return_tracking_provider" name="return_tracking_provider" id="return_tracking_provider_<?php echo $request['ID']; ?>">
-															<?php
-															foreach ( WooCommerce_Warranty::get_providers() as $provider_group => $providers ) {
-																echo '<optgroup label="' . $provider_group . '">';
-																foreach ( $providers as $provider => $url ) {
-																	$selected = ( sanitize_title( $provider ) == $request['return_tracking_provider'] ) ? 'selected' : '';
-																	echo '<option value="' . sanitize_title( $provider ) . '" ' . $selected . '>' . $provider . '</option>';
+													<?php
+													// Tracking code hasnt been requested yet.
+													if ( 'y' !== $request['request_tracking_code'] ) :
+														?>
+														<div class="request-tracking-div">
+															<label><input type="checkbox" name="request_tracking" value="1" />
+																<strong><?php esc_html_e( 'Request tracking code from the Customer', 'wc_warranty' ); ?></strong></label>
+														</div>
+														<?php
+													else : // tracking code requested.
+														// if tracking code is not empty, it has already been provided.
+														if ( ! empty( $request['tracking_code'] ) ) {
+															echo '<strong>' . esc_html__( 'Customer Provided Tracking', 'wc_warranty' ) . ':</strong>&nbsp;';
+
+															if ( ! empty( $request['tracking_provider'] ) ) {
+																$all_providers = array();
+
+																foreach ( WooCommerce_Warranty::get_providers() as $providers ) {
+																	foreach ( $providers as $provider => $format ) {
+																		$all_providers[ sanitize_title( $provider ) ] = $format;
+																	}
 																}
-																echo '</optgroup>';
+
+																$provider      = esc_html( $request['tracking_provider'] );
+																$tracking_code = esc_html( $request['tracking_code'] );
+																$link          = $all_providers[ $provider ];
+																$link          = str_replace( '%1$s', $tracking_code, $link );
+																$link          = str_replace( '%2$s', '', $link );
+																printf( __( '%s via %s (<a href="' . esc_url( $link ) . '" target="_blank">Track Shipment</a>)', 'wc_warranty' ), $tracking_code, $provider, $link );
+															} else {
+																echo esc_html( $request['tracking_code'] );
 															}
+														}
+													endif;
+													?>
+												</div>
+
+												<div class="codes_form closeable">
+													<?php
+													if ( ! empty( $request['return_tracking_provider'] ) ) :
+														?>
+														<p>
+															<label for="return_tracking_provider_<?php echo esc_attr( $request['ID'] ); ?>">
+																<strong><?php esc_html_e( 'Shipping Provider', 'wc_warranty' ); ?></strong></label>
+															<select class="return_tracking_provider" name="return_tracking_provider" id="return_tracking_provider_<?php echo esc_attr( $request['ID'] ); ?>">
+																<?php
+																foreach ( WooCommerce_Warranty::get_providers() as $provider_group => $providers ) {
+																	echo '<optgroup label="' . esc_attr( $provider_group ) . '">';
+																	foreach ( $providers as $provider => $url ) {
+																		echo '<option value="' . esc_attr( sanitize_title( $provider ) ) . '" ' . selected( sanitize_title( $provider ), $request['return_tracking_provider'], false ) . '>' . esc_html( $provider ) . '</option>';
+																	}
+																	echo '</optgroup>';
+																}
+																?>
+															</select>
+														</p>
+														<p>
+															<label for="return_tracking_code_<?php echo esc_attr( $request['ID'] ); ?>">
+																<strong><?php esc_html_e( 'Tracking details', 'wc_warranty' ); ?></strong></label>
+															<input type="text" class="tracking_code regular-text" name="return_tracking_code" id="return_tracking_code_<?php echo esc_attr( $request['ID'] ); ?>" value="<?php echo esc_attr( $request['return_tracking_code'] ); ?>" placeholder="<?php esc_attr_e( 'Enter the shipment tracking number', 'wc_warranty' ); ?>" />
+															<span class="description"><?php esc_html_e( 'Shipping Details/Tracking', 'wc_warranty' ); ?></span>
+														</p>
+													<?php else : ?>
+														<p>
+															<label for="return_tracking_code_<?php echo esc_attr( $request['ID'] ); ?>">
+																<strong><?php esc_html_e( 'Tracking details', 'wc_warranty' ); ?></strong></label>
+															<input type="text" class="tracking_code regular-text" name="return_tracking_code" id="return_tracking_code_<?php echo esc_attr( $request['ID'] ); ?>" value="<?php echo esc_attr( $request['return_tracking_code'] ); ?>" placeholder="<?php esc_attr_e( 'Enter the shipment tracking number', 'wc_warranty' ); ?>" />
+															<span class="description"><?php esc_html_e( 'Shipping Details/Tracking', 'wc_warranty' ); ?></span>
+														</p>
+													<?php endif; ?>
+												</div>
+											</div>
+										</fieldset>
+
+										<fieldset class="inline-edit-col-center">
+											<div class="inline-edit-col">
+												<h3><?php esc_html_e( 'Actions', 'wc_warranty' ); ?></h3>
+
+												<div class="actions-block">
+													<?php
+													echo $this->get_warranty_actions( $request['ID'], true ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
+													?>
+												</div>
+											</div>
+										</fieldset>
+										<br class="clear" />
+
+										<div class="submit inline-edit-save">
+											<input type="button" class="button close_tr" value="<?php esc_attr_e( 'Close', 'wc_warranty' ); ?>" />
+
+											<div class="alignright">
+												<a class="button-primary" target="_blank" href="<?php echo esc_url( wp_nonce_url( 'admin-post.php?action=warranty_print&request=' . $request['ID'], 'warranty_print' ) ); ?>"><?php esc_html_e( 'Print', 'wc_warranty' ); ?></a>
+												<input type="button" class="button-primary rma-update" data-id="<?php echo esc_attr( $request_id ); ?>" data-security="<?php echo esc_attr( $update_nonce ); ?>" value="<?php esc_attr_e( 'Update', 'wc_warranty' ); ?>" />
+												<input type="button" class="button-secondary warranty-trash" data-id="<?php echo esc_attr( $request_id ); ?>" data-security="<?php echo esc_attr( wp_create_nonce( 'warranty_delete' ) ); ?>" value="<?php esc_attr_e( 'Delete', 'wc_warranty' ); ?>" />
+											</div>
+										</div>
+
+										<?php
+										if ( 'refund' === $request['request_type'] ) :
+											$item_amount = warranty_get_item_amount( $request_id );
+											$available   = max( 0, $item_amount - floatval( $refunded ) );
+											?>
+											<div id="warranty-refund-modal-<?php echo esc_attr( $request_id ); ?>" style="display:none;">
+												<table class="form-table">
+													<tr>
+														<th>
+															<span class="label"><?php esc_html_e( 'Amount refunded:', 'wc_warranty' ); ?></span>
+														</th>
+														<td>
+															<span class="value">
+															<?php
+															echo wc_price( $refunded ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
 															?>
-														</select>
-													</p>
-													<p>
-														<label for="return_tracking_code_<?php echo $request['ID']; ?>"><strong><?php _e( 'Tracking details', 'wc_warranty' ); ?></strong></label>
-														<input type="text" class="tracking_code regular-text" name="return_tracking_code" id="return_tracking_code_<?php echo $request['ID']; ?>" value="<?php echo $request['return_tracking_code']; ?>" placeholder="<?php _e( 'Enter the shipment tracking number', 'wc_warranty' ); ?>" />
-														<span class="description"><?php _e( 'Shipping Details/Tracking', 'wc_warranty' ); ?></span>
-													</p>
-												<?php else: ?>
-													<p>
-														<label for="return_tracking_code_<?php echo $request['ID']; ?>"><strong><?php _e( 'Tracking details', 'wc_warranty' ); ?></strong></label>
-														<input type="text" class="tracking_code regular-text" name="return_tracking_code" id="return_tracking_code_<?php echo $request['ID']; ?>" value="<?php echo $request['return_tracking_code']; ?>" placeholder="<?php _e( 'Enter the shipment tracking number', 'wc_warranty' ); ?>" />
-														<span class="description"><?php _e( 'Shipping Details/Tracking', 'wc_warranty' ); ?></span>
-													</p>
-												<?php endif; ?>
+																</span>
+														</td>
+													</tr>
+													<tr>
+														<th>
+															<span class="label"><?php esc_html_e( 'Item cost:', 'wc_warranty' ); ?></span>
+														</th>
+														<td>
+															<span class="value">
+															<?php
+															echo wc_price( $item_amount ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
+															?>
+																</span>
+														</td>
+													</tr>
+													<tr>
+														<th>
+															<span class="label"><?php esc_html_e( 'Refund amount:', 'wc_warranty' ); ?></span>
+														</th>
+														<td>
+															<?php echo esc_html( get_woocommerce_currency_symbol() ); ?>
+															<input type="text" class="input-short amount" value="<?php echo esc_attr( $available ); ?>" size="5" />
+														</td>
+													</tr>
+												</table>
+
+												<p class="submit alignright">
+													<input type="button" class="warranty-process-refund button-primary" value="<?php esc_attr_e( 'Process Refund', 'wc_warranty' ); ?>" data-id="<?php echo esc_attr( $request_id ); ?>" data-security="<?php echo esc_attr( $update_nonce ); ?>" />
+												</p>
 											</div>
-										</div>
-									</fieldset>
+											<?php
+										elseif ( 'coupon' === $request['request_type'] ) :
+											$item_amount = warranty_get_item_amount( $request_id );
+											?>
+											<div id="warranty-coupon-modal-<?php echo esc_attr( $request_id ); ?>" style="display:none;">
+												<table class="form-table">
+													<tr>
+														<th>
+															<span class="label"><?php esc_html_e( 'Amount refunded:', 'wc_warranty' ); ?></span>
+														</th>
+														<td>
+															<span class="value">
+															<?php
+															echo wc_price( $refunded ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
+															?>
+																</span>
+														</td>
+													</tr>
+													<tr>
+														<th>
+															<span class="label"><?php esc_html_e( 'Item cost:', 'wc_warranty' ); ?></span>
+														</th>
+														<td>
+															<span class="value">
+															<?php
+															echo wc_price( $item_amount ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped.
+															?>
+																</span>
+														</td>
+													</tr>
+													<tr>
+														<th>
+															<span class="label"><?php esc_html_e( 'Coupon amount:', 'wc_warranty' ); ?></span>
+														</th>
+														<td>
+															<?php echo esc_html( get_woocommerce_currency_symbol() ); ?>
+															<input type="text" class="input-short amount" value="<?php echo esc_attr( $item_amount ); ?>" size="5" />
+														</td>
+													</tr>
+												</table>
 
-									<fieldset class="inline-edit-col-center">
-										<div class="inline-edit-col">
-											<h3><?php _e( 'Actions', 'wc_warranty' ); ?></h3>
-
-											<div class="actions-block">
-												<?php
-												echo self::get_warranty_actions( $request['ID'], true );
-												?>
+												<p class="submit alignright">
+													<input type="button" class="warranty-process-coupon button-primary" value="<?php esc_html_e( 'Send Coupon', 'wc_warranty' ); ?>" data-id="<?php echo esc_attr( $request_id ); ?>" data-security="<?php echo esc_attr( $coupon_nonce ); ?>" />
+												</p>
 											</div>
-										</div>
-									</fieldset>
-									<br class="clear" />
-
-									<div class="submit inline-edit-save">
-										<input type="button" class="button close_tr" value="<?php _e( 'Close', 'wc_warranty' ); ?>" />
-
-										<div class="alignright">
-											<a class="button-primary" target="_blank" href="<?php echo wp_nonce_url( 'admin-post.php?action=warranty_print&request=' . $request['ID'], 'warranty_print' ); ?>"><?php _e( 'Print', 'wc_warranty' ); ?></a>
-											<input type="button" class="button-primary rma-update" data-id="<?php echo $request_id; ?>" data-security="<?php echo $update_nonce; ?>" value="<?php _e( 'Update', 'wc_warranty' ); ?>" />
-											<input type="button" class="button-secondary warranty-trash" data-id="<?php echo $request_id; ?>" data-security="<?php echo wp_create_nonce( 'warranty_delete' ); ?>" value="<?php _e( 'Delete', 'wc_warranty' ); ?>" />
-										</div>
+										<?php endif; ?>
 									</div>
-
-									<?php
-									if ( $request['request_type'] == 'refund' ):
-										$item_amount = warranty_get_item_amount( $request_id );
-										$available = max( 0, $item_amount - floatval( $refunded ) );
-										?>
-										<div id="warranty-refund-modal-<?php echo $request_id; ?>" style="display:none;">
-											<table class="form-table">
-												<tr>
-													<th>
-														<span class="label"><?php _e( 'Amount refunded:', 'wc_warranty' ); ?></span>
-													</th>
-													<td>
-														<span class="value"><?php echo wc_price( $refunded ); ?></span>
-													</td>
-												</tr>
-												<tr>
-													<th>
-														<span class="label"><?php _e( 'Item cost:', 'wc_warranty' ); ?></span>
-													</th>
-													<td>
-														<span class="value"><?php echo wc_price( $item_amount ); ?></span>
-													</td>
-												</tr>
-												<tr>
-													<th>
-														<span class="label"><?php _e( 'Refund amount:', 'wc_warranty' ); ?></span>
-													</th>
-													<td>
-														<?php echo get_woocommerce_currency_symbol(); ?>
-														<input type="text" class="input-short amount" value="<?php echo esc_attr( $available ); ?>" size="5" />
-													</td>
-												</tr>
-											</table>
-
-											<p class="submit alignright">
-												<input type="button" class="warranty-process-refund button-primary" value="<?php _e( 'Process Refund', 'wc_warranty' ); ?>" data-id="<?php echo $request_id; ?>" data-security="<?php echo $update_nonce; ?>" />
-											</p>
-										</div>
-									<?php elseif ( $request['request_type'] == 'coupon' ):
-										$item_amount = warranty_get_item_amount( $request_id );
-										?>
-										<div id="warranty-coupon-modal-<?php echo $request_id; ?>" style="display:none;">
-											<table class="form-table">
-												<tr>
-													<th>
-														<span class="label"><?php _e( 'Amount refunded:', 'wc_warranty' ); ?></span>
-													</th>
-													<td>
-														<span class="value"><?php echo wc_price( $refunded ); ?></span>
-													</td>
-												</tr>
-												<tr>
-													<th>
-														<span class="label"><?php _e( 'Item cost:', 'wc_warranty' ); ?></span>
-													</th>
-													<td>
-														<span class="value"><?php echo wc_price( $item_amount ); ?></span>
-													</td>
-												</tr>
-												<tr>
-													<th>
-														<span class="label"><?php _e( 'Coupon amount:', 'wc_warranty' ); ?></span>
-													</th>
-													<td>
-														<?php echo get_woocommerce_currency_symbol(); ?>
-														<input type="text" class="input-short amount" value="<?php echo esc_attr( $item_amount ); ?>" size="5" />
-													</td>
-												</tr>
-											</table>
-
-											<p class="submit alignright">
-												<input type="button" class="warranty-process-coupon button-primary" value="<?php _e( 'Send Coupon', 'wc_warranty' ); ?>" data-id="<?php echo $request_id; ?>" data-security="<?php echo $coupon_nonce; ?>" />
-											</p>
-										</div>
-									<?php endif; ?>
-								</div>
-							<?php endforeach; ?>
-						</td>
-					</tr>
-				<?php endforeach; ?>
+								<?php endforeach; ?>
+							</td>
+						</tr>
+					<?php endforeach; ?>
 				</tbody>
 			</table>
 			<?php
@@ -1721,25 +1739,25 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 		/**
 		 * Add warranty data to manually added line items
 		 *
-		 * @param array $item
-		 * @param int $item_id
+		 * @param int                 $item_id Order item ID.
+		 * @param WC_Order_Item|false $item WC_Order_Item object.
 		 */
 		public function add_line_item_warranty_meta( $item_id, $item ) {
 			$product_id     = ! empty( $item['variation_id'] ) ? $item['variation_id'] : $item['product_id'];
 			$warranty       = warranty_get_product_warranty( $product_id );
 			$warranty_label = $warranty['label'];
-			$warranty_index = NULL;
+			$warranty_index = null;
 
-			if ( $warranty['type'] == 'no_warranty' ) {
+			if ( 'no_warranty' === $warranty['type'] ) {
 				return;
 			}
 
-			if ( $warranty['type'] == 'addon_warranty' ) {
+			if ( 'addon_warranty' === $warranty['type'] ) {
 				wc_add_order_item_meta( $item_id, '_item_warranty_needs_index', 1 );
-			} elseif ( $warranty['type'] == 'included_warranty' ) {
-				if ( $warranty['length'] == 'lifetime' ) {
+			} elseif ( 'included_warranty' === $warranty['type'] ) {
+				if ( 'lifetime' === $warranty['length'] ) {
 					wc_add_order_item_meta( $item_id, $warranty_label, __( 'Lifetime', 'wc_warranty' ) );
-				} elseif ( $warranty['length'] == 'limited' ) {
+				} elseif ( 'limited' === $warranty['length'] ) {
 					$string = warranty_get_warranty_string( 0, $warranty );
 
 					wc_add_order_item_meta( $item_id, $warranty_label, $string );
@@ -1753,31 +1771,35 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 		 * Allow admins to set the correct warranty addon for a line item. This is mostly used by
 		 * newly added line items from the edit order screen.
 		 *
-		 * @param int $item_id
-		 * @param array $item
-		 * @param WC_Product $product
+		 * @param int        $item_id wC_Order_Item ID.
+		 * @param array      $item wC_Order_Item.
+		 * @param WC_Product $product WC_Product.
 		 */
 		public function maybe_render_addon_options( $item_id, $item, $product ) {
 			global $wc_warranty;
 
-			$warranty    = warranty_get_product_warranty( $product ? $product->get_id() : NULL );
+			if ( ! $product instanceof WC_Product ) {
+				return;
+			}
+
+			$warranty    = warranty_get_product_warranty( $product ? $product->get_id() : null );
 			$needs_index = wc_get_order_item_meta( $item_id, '_item_warranty_needs_index', true );
 
-			if ( $warranty['type'] == 'addon_warranty' && $needs_index ) {
+			if ( 'addon_warranty' === $warranty['type'] && $needs_index ) {
 				$addons = $warranty['addons'];
 				?>
 				<table cellspacing="0" class="display_meta">
 					<tr>
 						<th><?php echo wp_kses_post( $warranty['label'] ); ?>:</th>
 						<td>
-							<select name="warranty_index[<?php echo $item_id; ?>]">
+							<select name="warranty_index[<?php echo esc_attr( $item_id ); ?>]">
 								<?php
-								if ( isset( $warranty['no_warranty_option'] ) && 'yes' == $warranty['no_warranty_option'] ) {
-									echo '<option value="-1">' . __( 'No warranty', 'wc_warranty' ) . '</option>';
+								if ( isset( $warranty['no_warranty_option'] ) && 'yes' === $warranty['no_warranty_option'] ) {
+									echo '<option value="-1">' . esc_html__( 'No warranty', 'wc_warranty' ) . '</option>';
 								}
 								?>
-								<?php foreach ( $addons as $idx => $addon ): ?>
-									<option value="<?php echo $idx; ?>"><?php echo $wc_warranty->get_warranty_string( $addon['value'], $addon['duration'] ); ?></option>
+								<?php foreach ( $addons as $idx => $addon ) : ?>
+									<option value="<?php echo esc_attr( $idx ); ?>"><?php echo esc_html( $wc_warranty->get_warranty_string( $addon['value'], $addon['duration'] ) ); ?></option>
 								<?php endforeach ?>
 							</select>
 						</td>
@@ -1787,6 +1809,12 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 			}
 		}
 
+		/**
+		 * Add hidden order item meta.
+		 *
+		 * @param array $hidden_meta Hidden item meta.
+		 * @return array $hidden_meta
+		 */
 		public function hidden_order_item_meta( $hidden_meta ) {
 			$hidden_meta[] = '_item_warranty_needs_index';
 			$hidden_meta[] = '_item_warranty_selected';
@@ -1800,14 +1828,14 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 		 * we display the available add-ons in a select box. This method stores
 		 * the selected add-on when the order is saved.
 		 *
-		 * @param int $post_id
-		 * @param WP_Post|array $post
+		 * @param int           $post_id Post ID.
+		 * @param WP_Post|array $post WP_Post.
 		 */
 		public function save_line_item_warranty_indices( $post_id, $post ) {
 			$warranty_index = array();
-
-			if ( isset( $_POST['warranty_index'] ) && is_array( $_POST['warranty_index'] ) ) {
-				$warranty_index = $_POST['warranty_index'];
+			$post_data      = warranty_request_post_data();
+			if ( isset( $post_data['warranty_index'] ) && is_array( $post_data['warranty_index'] ) ) {
+				$warranty_index = $post_data['warranty_index'];
 			} elseif ( is_array( $post ) && ! empty( $post['warranty_index'] ) && is_array( $post['warranty_index'] ) ) {
 				$warranty_index = $post['warranty_index'];
 			}
@@ -1821,11 +1849,11 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 
 					$warranty = wc_get_order_item_meta( $item_id, '_item_warranty', true );
 
-					if ( $warranty && $warranty['type'] == 'addon_warranty' ) {
+					if ( isset( $warranty['type'] ) && 'addon_warranty' === $warranty['type'] ) {
 						$addon = isset( $warranty['addons'][ $index ] ) ? $warranty['addons'][ $index ] : false;
 
 						if ( $addon && $addon['amount'] > 0 ) {
-							$total = wc_get_order_item_meta( $item_id, '_line_total', true );
+							$total  = wc_get_order_item_meta( $item_id, '_line_total', true );
 							$total += $addon['amount'];
 							wc_update_order_item_meta( $item_id, '_line_total', $total );
 						}
@@ -1834,6 +1862,13 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 			}
 		}
 
+		/**
+		 * Add addon price to line item.
+		 *
+		 * @param int   $order_id WC_Order ID.
+		 * @param array $items Order items to save.
+		 * @return void
+		 */
 		public function add_addon_price_to_line_item( $order_id, $items ) {
 			$added = 0;
 
@@ -1849,7 +1884,7 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 					wc_delete_order_item_meta( $item_id, '_item_warranty_manually_added' );
 					$warranty = wc_get_order_item_meta( $item_id, '_item_warranty', true );
 
-					if ( $warranty && $warranty['type'] == 'addon_warranty' ) {
+					if ( isset( $warranty['type'] ) && 'addon_warranty' === $warranty['type'] ) {
 						$addon = isset( $warranty['addons'][ $index ] ) ? $warranty['addons'][ $index ] : false;
 
 						if ( $addon && $addon['amount'] > 0 ) {
@@ -1868,6 +1903,40 @@ if ( ! class_exists( 'Warranty_Admin' ) ) :
 			}
 		}
 
+		/**
+		 * Redirect and exit
+		 *
+		 * @return void
+		 */
+		public function redirect_and_exit() {
+			wp_safe_redirect( admin_url( 'admin.php?page=warranties-bulk-update&updated=1' ) );
+			exit;
+		}
+
+		/**
+		 * Get valid WooCommerce Products.
+		 *
+		 * @param int[] $possible_product_ids List of WC_Product IDs.
+		 *
+		 * @return WC_Product[]
+		 */
+		public function get_valid_product_objects_from_array( array $possible_product_ids ) {
+			$products = array();
+			foreach ( $possible_product_ids as $product_id ) {
+				if ( 1 > absint( $product_id ) ) {
+					continue;
+				}
+
+				$product = wc_get_product( $product_id );
+				if ( ! $product instanceof WC_Product ) {
+					continue;
+				}
+
+				$products[] = $product;
+			}
+
+			return $products;
+		}
 	}
 endif;
 

@@ -210,6 +210,7 @@ class Table extends \WP_List_Table {
 		$columns['from']      = esc_html__( 'From', 'wp-mail-smtp-pro' );
 		$columns['to']        = esc_html__( 'To', 'wp-mail-smtp-pro' );
 		$columns['initiator'] = esc_html__( 'Source', 'wp-mail-smtp-pro' );
+		$columns['mailer']    = esc_html__( 'Mailer', 'wp-mail-smtp-pro' );
 		$columns['cc']        = esc_html__( 'CC', 'wp-mail-smtp-pro' );
 		$columns['bcc']       = esc_html__( 'BCC', 'wp-mail-smtp-pro' );
 
@@ -437,6 +438,40 @@ class Table extends \WP_List_Table {
 	public function column_initiator( $item ) {
 
 		return esc_html( $item->get_initiator_name() );
+	}
+
+	/**
+	 * Display the mailer name.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @param Email $item Email object.
+	 *
+	 * @return string
+	 */
+	public function column_mailer( $item ) {
+
+		static $providers = [];
+
+		$mailer_slug = $item->get_mailer();
+
+		if ( ! isset( $providers[ $mailer_slug ] ) ) {
+			$providers[ $mailer_slug ] = wp_mail_smtp()->get_providers()->get_options( $mailer_slug );
+		}
+
+		$provider = $providers[ $mailer_slug ];
+
+		if ( $provider !== null ) {
+			$mailer_name = $provider->get_title();
+		} else {
+			$mailer_name = $mailer_slug;
+		}
+
+		if ( $item->get_header( 'X-WP-Mail-SMTP-Connection-Type' ) === 'backup' ) {
+			$mailer_name .= ' ' . esc_html__( '(backup)', 'wp-mail-smtp-pro' );
+		}
+
+		return esc_html( $mailer_name );
 	}
 
 	/**
@@ -893,11 +928,11 @@ class Table extends \WP_List_Table {
 		?>
 		<div class="alignleft actions wp-mail-smtp-filter-date">
 
-			<input type="text" name="date" class="regular-text wp-mail-smtp-filter-date-selector"
+			<input type="text" name="date" class="regular-text wp-mail-smtp-filter-date-selector wp-mail-smtp-filter-date__control"
 						 placeholder="<?php esc_attr_e( 'Select a date range', 'wp-mail-smtp-pro' ); ?>"
 						 value="<?php echo esc_attr( $date ); ?>">
 
-			<button type="submit" name="action" value="filter_date" class="button">
+			<button type="submit" name="action" value="filter_date" class="button wp-mail-smtp-filter-date__btn">
 				<?php esc_html_e( 'Filter', 'wp-mail-smtp-pro' ); ?>
 			</button>
 

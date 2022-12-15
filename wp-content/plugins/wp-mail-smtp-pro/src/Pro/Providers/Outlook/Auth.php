@@ -2,9 +2,9 @@
 
 namespace WPMailSMTP\Pro\Providers\Outlook;
 
+use WPMailSMTP\ConnectionInterface;
 use WPMailSMTP\Debug;
 use WPMailSMTP\Helpers\Helpers;
-use WPMailSMTP\Options as PluginOptions;
 use WPMailSMTP\Providers\AuthAbstract;
 use WPMailSMTP\Vendor\League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use WPMailSMTP\Vendor\League\OAuth2\Client\Provider\GenericProvider;
@@ -37,17 +37,18 @@ class Auth extends AuthAbstract {
 	 * Auth constructor.
 	 *
 	 * @since 1.0.0
+	 *
+	 * @param ConnectionInterface $connection The Connection object.
 	 */
-	public function __construct() {
+	public function __construct( $connection = null ) {
 
-		$options           = PluginOptions::init();
-		$this->mailer_slug = $options->get( 'mail', 'mailer' );
+		parent::__construct( $connection );
 
 		if ( $this->mailer_slug !== Options::SLUG ) {
 			return;
 		}
 
-		$this->options = $options->get_group( $this->mailer_slug );
+		$this->options = $this->connection_options->get_group( $this->mailer_slug );
 
 		$this->get_client();
 	}
@@ -278,9 +279,8 @@ class Auth extends AuthAbstract {
 			class_exists( '\WPMailSMTP\Vendor\League\OAuth2\Client\Provider\GenericProvider', false ) &&
 			$client instanceof GenericProvider
 		) {
-
 			$url_options = [
-				'state' => 'wp-mail-smtp-' . wp_create_nonce( $this->state_key ),
+				'state' => $this->get_state(),
 				'scope' => $this->get_scopes(),
 			];
 
@@ -322,8 +322,10 @@ class Auth extends AuthAbstract {
 	 */
 	protected function update_user_details( $access_token ) {
 
+		$connection_options = $this->connection->get_options();
+
 		if ( empty( $access_token ) ) {
-			$access_token = new AccessToken( (array) PluginOptions::init()->get( $this->mailer_slug, 'access_token' ) );
+			$access_token = new AccessToken( (array) $connection_options->get( $this->mailer_slug, 'access_token' ) );
 		}
 
 		// Default values.
@@ -358,8 +360,7 @@ class Auth extends AuthAbstract {
 			);
 		}
 
-		$options = PluginOptions::init();
-		$all     = $options->get_all();
+		$all = $connection_options->get_all();
 
 		// To save in DB.
 		$all[ $this->mailer_slug ]['user_details'] = $user;
@@ -368,6 +369,22 @@ class Auth extends AuthAbstract {
 		$this->options['user_details'] = $user;
 
 		// NOTE: These options need to be saved by overwriting all options, because WP automatic updates can cause an issue: GH #575!
-		$options->set( $all, false, true );
+		$connection_options->set( $all, false, true );
+	}
+
+	/**
+	 * Get the state value that should be used for the "state" parameter in the OAuth authorization request.
+	 *
+	 * @since 3.7.0
+	 *
+	 * @return string
+	 */
+	protected function get_state() {
+
+		/*
+		 * Include "wp-mail-smtp" to the state to identify Outlook OAuth requests, since Outlook mailer doesn't use
+		 * a regular auth route because of Microsoft API limitations.
+		 */
+		return 'wp-mail-smtp-' . parent::get_state();
 	}
 }

@@ -364,9 +364,13 @@ class SinglePage extends PageAbstract {
 							<img src="<?php echo esc_url( wp_mail_smtp()->pro->assets_url ); ?>/images/logs/icon-envelope.svg" class="icon" alt="">
 							<?php
 							if ( $provider !== null ) {
-								$mailer_name = '<strong>' . esc_html( wp_mail_smtp()->get_providers()->get_options( $email->get_mailer() )->get_title() ) . '</strong>';
+								$mailer_name = '<strong>' . esc_html( $provider->get_title() ) . '</strong>';
 							} else {
 								$mailer_name = '<code>' . esc_html( $email->get_mailer() ) . '</code>';
+							}
+
+							if ( $email->get_header( 'X-WP-Mail-SMTP-Connection-Type' ) === 'backup' ) {
+								$mailer_name .= ' ' . esc_html__( '(backup)', 'wp-mail-smtp-pro' );
 							}
 
 							printf(

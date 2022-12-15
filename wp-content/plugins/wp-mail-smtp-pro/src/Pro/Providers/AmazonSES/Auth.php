@@ -2,10 +2,10 @@
 
 namespace WPMailSMTP\Pro\Providers\AmazonSES;
 
+use WPMailSMTP\ConnectionInterface;
 use WPMailSMTP\Vendor\Aws\Ses\SesClient;
 use WPMailSMTP\Vendor\Aws\SesV2\SesV2Client;
 use WPMailSMTP\Debug;
-use WPMailSMTP\Options as PluginOptions;
 use WPMailSMTP\Providers\AuthAbstract;
 
 /**
@@ -70,17 +70,18 @@ class Auth extends AuthAbstract {
 	 * Auth constructor.
 	 *
 	 * @since 1.5.0
+	 *
+	 * @param ConnectionInterface $connection The Connection object.
 	 */
-	public function __construct() {
+	public function __construct( $connection = null ) {
 
-		$options           = PluginOptions::init();
-		$this->mailer_slug = $options->get( 'mail', 'mailer' );
+		parent::__construct( $connection );
 
 		if ( $this->mailer_slug !== Options::SLUG ) {
 			return;
 		}
 
-		$this->options = $options->get_group( $this->mailer_slug );
+		$this->options = $this->connection_options->get_group( $this->mailer_slug );
 
 		$this->include_vendor_lib();
 	}

@@ -147,6 +147,7 @@ class Validator
             $this->addError('must be a string or an object that implements ' . '__toString(). Found ' . \WPMailSMTP\Vendor\Aws\describe_type($value));
             return;
         }
+        $value = isset($value) ? $value : '';
         $this->validateRange($shape, \strlen($value), "string length");
         if ($this->constraints['pattern']) {
             $pattern = $shape['pattern'];

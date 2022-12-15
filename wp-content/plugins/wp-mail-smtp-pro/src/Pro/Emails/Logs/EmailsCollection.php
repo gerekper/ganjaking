@@ -358,12 +358,13 @@ class EmailsCollection implements \Countable, \Iterator {
 	 * Order is always in the params, as per our defaults.
 	 *
 	 * @since 1.5.0
+	 * @since 3.7.0 Added secondary order by id to group connected logs.
 	 *
 	 * @return string
 	 */
 	private function build_order() {
 
-		return 'ORDER BY ' . $this->params['orderby'] . ' ' . $this->params['order'];
+		return 'ORDER BY ' . $this->params['orderby'] . ' ' . $this->params['order'] . ', id ' . $this->params['order'];
 	}
 
 	/**

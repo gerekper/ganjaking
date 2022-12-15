@@ -5,7 +5,10 @@ namespace WPMailSMTP\Vendor\Aws;
 use WPMailSMTP\Vendor\Aws\Api\Service;
 use WPMailSMTP\Vendor\Aws\Api\Validator;
 use WPMailSMTP\Vendor\Aws\Credentials\CredentialsInterface;
+use WPMailSMTP\Vendor\Aws\EndpointV2\EndpointProviderV2;
 use WPMailSMTP\Vendor\Aws\Exception\AwsException;
+use WPMailSMTP\Vendor\Aws\Token\TokenAuthorization;
+use WPMailSMTP\Vendor\Aws\Token\TokenInterface;
 use WPMailSMTP\Vendor\GuzzleHttp\Promise;
 use WPMailSMTP\Vendor\GuzzleHttp\Psr7;
 use WPMailSMTP\Vendor\GuzzleHttp\Psr7\LazyOpenStream;
@@ -48,6 +51,9 @@ final class Middleware
         $validator = $validator ?: new \WPMailSMTP\Vendor\Aws\Api\Validator();
         return function (callable $handler) use($api, $validator) {
             return function (\WPMailSMTP\Vendor\Aws\CommandInterface $command, \WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface $request = null) use($api, $validator, $handler) {
+                if ($api->isModifiedModel()) {
+                    $api = new \WPMailSMTP\Vendor\Aws\Api\Service($api->getDefinition(), $api->getProvider());
+                }
                 $operation = $api->getOperation($command->getName());
                 $validator->validate($command->getName(), $operation->getInput(), $command->toArray());
                 return $handler($command, $request);
@@ -59,13 +65,15 @@ final class Middleware
      *
      * @param callable $serializer Function used to serialize a request for a
      *                             command.
+     * @param EndpointProviderV2 | null $endpointProvider
+     * @param array $providerArgs
      * @return callable
      */
-    public static function requestBuilder(callable $serializer)
+    public static function requestBuilder($serializer, $endpointProvider = null, array $providerArgs = null)
     {
-        return function (callable $handler) use($serializer) {
-            return function (\WPMailSMTP\Vendor\Aws\CommandInterface $command) use($serializer, $handler) {
-                return $handler($command, $serializer($command));
+        return function (callable $handler) use($serializer, $endpointProvider, $providerArgs) {
+            return function (\WPMailSMTP\Vendor\Aws\CommandInterface $command) use($serializer, $handler, $endpointProvider, $providerArgs) {
+                return $handler($command, $serializer($command, $endpointProvider, $providerArgs));
             };
         };
     }
@@ -81,14 +89,20 @@ final class Middleware
      *
      * @return callable
      */
-    public static function signer(callable $credProvider, callable $signatureFunction)
+    public static function signer(callable $credProvider, callable $signatureFunction, $tokenProvider = null)
     {
-        return function (callable $handler) use($signatureFunction, $credProvider) {
-            return function (\WPMailSMTP\Vendor\Aws\CommandInterface $command, \WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface $request) use($handler, $signatureFunction, $credProvider) {
+        return function (callable $handler) use($signatureFunction, $credProvider, $tokenProvider) {
+            return function (\WPMailSMTP\Vendor\Aws\CommandInterface $command, \WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface $request) use($handler, $signatureFunction, $credProvider, $tokenProvider) {
                 $signer = $signatureFunction($command);
-                return $credProvider()->then(function (\WPMailSMTP\Vendor\Aws\Credentials\CredentialsInterface $creds) use($handler, $command, $signer, $request) {
-                    return $handler($command, $signer->signRequest($request, $creds));
-                });
+                if ($signer instanceof \WPMailSMTP\Vendor\Aws\Token\TokenAuthorization) {
+                    return $tokenProvider()->then(function (\WPMailSMTP\Vendor\Aws\Token\TokenInterface $token) use($handler, $command, $signer, $request) {
+                        return $handler($command, $signer->authorizeRequest($request, $token));
+                    });
+                } else {
+                    return $credProvider()->then(function (\WPMailSMTP\Vendor\Aws\Credentials\CredentialsInterface $creds) use($handler, $command, $signer, $request) {
+                        return $handler($command, $signer->signRequest($request, $creds));
+                    });
+                }
             };
         };
     }

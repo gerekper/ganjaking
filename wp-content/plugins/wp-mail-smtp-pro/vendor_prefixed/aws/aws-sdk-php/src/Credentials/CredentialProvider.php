@@ -258,10 +258,13 @@ class CredentialProvider
                 return self::reject("Profile {$ssoProfileName} does not exist in {$filename}.");
             }
             $ssoProfile = $profiles[$ssoProfileName];
+            if (!empty($ssoProfile['sso_session'])) {
+                return self::reject("Profile {$ssoProfileName} contains an sso_session and will rely on" . " the token provider instead of the legacy sso credential provider.");
+            }
             if (empty($ssoProfile['sso_start_url']) || empty($ssoProfile['sso_region']) || empty($ssoProfile['sso_account_id']) || empty($ssoProfile['sso_role_name'])) {
                 return self::reject("Profile {$ssoProfileName} in {$filename} must contain the following keys: " . "sso_start_url, sso_region, sso_account_id, and sso_role_name.");
             }
-            $tokenLocation = self::getHomeDir() . '/.aws/sso/cache/' . \utf8_encode(\sha1($ssoProfile['sso_start_url'])) . ".json";
+            $tokenLocation = self::getHomeDir() . '/.aws/sso/cache/' . \sha1($ssoProfile['sso_start_url']) . ".json";
             if (!@\is_readable($tokenLocation)) {
                 return self::reject("Unable to read token file at {$tokenLocation}");
             }

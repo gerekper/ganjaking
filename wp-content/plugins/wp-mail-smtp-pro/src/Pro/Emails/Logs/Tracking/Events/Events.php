@@ -22,6 +22,13 @@ class Events {
 
 		global $wpdb;
 
+		static $is_valid = null;
+
+		// Return cached value only if tables already exists.
+		if ( $is_valid === true ) {
+			return true;
+		}
+
 		$events_table = Tracking::get_events_table_name();
 		$links_table  = Tracking::get_links_table_name();
 
@@ -30,7 +37,9 @@ class Events {
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching
 		$links_exists = (bool) $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s;', $links_table ) );
 
-		return $events_exists && $links_exists;
+		$is_valid = $events_exists && $links_exists;
+
+		return $is_valid;
 	}
 
 	/**

@@ -20,7 +20,7 @@ class Migration extends MigrationAbstract {
 	 *
 	 * @since 1.5.0
 	 */
-	const DB_VERSION = 9;
+	const DB_VERSION = 10;
 
 	/**
 	 * Option key where we save the current DB version for Logs functionality.
@@ -313,6 +313,30 @@ class Migration extends MigrationAbstract {
 		// Save the current version to DB.
 		if ( $result !== false ) {
 			$this->update_db_ver( 9 );
+		}
+	}
+
+	/**
+	 * Add the `parent_id` column to the DB table.
+	 *
+	 * @since 3.7.0
+	 */
+	protected function migrate_to_10() {
+
+		$this->maybe_required_older_migrations( 10 );
+
+		global $wpdb;
+
+		$table = Logs::get_table_name();
+
+		$sql = "ALTER TABLE `$table` ADD `parent_id` INT UNSIGNED NOT NULL DEFAULT '0' AFTER `initiator_file`;";
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
+		$result = $wpdb->query( $sql );
+
+		// Save the current version to DB.
+		if ( $result !== false ) {
+			$this->update_db_ver( 10 );
 		}
 	}
 }

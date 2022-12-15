@@ -2,10 +2,10 @@
 
 namespace WPMailSMTP\Pro\Providers\AmazonSES;
 
+use WPMailSMTP\ConnectionInterface;
 use WPMailSMTP\Debug;
 use WPMailSMTP\Geo;
 use WPMailSMTP\Providers\OptionsAbstract;
-use WPMailSMTP\Options as PluginOptions;
 
 /**
  * Class Options
@@ -25,8 +25,10 @@ class Options extends OptionsAbstract {
 	 * Outlook Options constructor.
 	 *
 	 * @since 1.5.0
+	 *
+	 * @param ConnectionInterface $connection The Connection object.
 	 */
-	public function __construct() {
+	public function __construct( $connection = null ) {
 
 		parent::__construct(
 			array(
@@ -65,7 +67,8 @@ class Options extends OptionsAbstract {
 					'from_email_force' => true,
 					'from_name_force'  => true,
 				],
-			)
+			),
+			$connection
 		);
 	}
 
@@ -101,8 +104,8 @@ class Options extends OptionsAbstract {
 			</div>
 			<div class="wp-mail-smtp-setting-field">
 				<input name="wp-mail-smtp[<?php echo esc_attr( $this->get_slug() ); ?>][client_id]" type="text"
-					value="<?php echo esc_attr( $this->options->get( $this->get_slug(), 'client_id' ) ); ?>"
-					<?php echo $this->options->is_const_defined( $this->get_slug(), 'client_id' ) ? 'disabled' : ''; ?>
+					value="<?php echo esc_attr( $this->connection_options->get( $this->get_slug(), 'client_id' ) ); ?>"
+					<?php echo $this->connection_options->is_const_defined( $this->get_slug(), 'client_id' ) ? 'disabled' : ''; ?>
 					id="wp-mail-smtp-setting-<?php echo esc_attr( $this->get_slug() ); ?>-client_id" spellcheck="false"
 				/>
 			</div>
@@ -117,7 +120,7 @@ class Options extends OptionsAbstract {
 				</label>
 			</div>
 			<div class="wp-mail-smtp-setting-field">
-				<?php if ( $this->options->is_const_defined( $this->get_slug(), 'client_secret' ) ) : ?>
+				<?php if ( $this->connection_options->is_const_defined( $this->get_slug(), 'client_secret' ) ) : ?>
 					<input type="text" disabled value="****************************************"
 						id="wp-mail-smtp-setting-<?php echo esc_attr( $this->get_slug() ); ?>-client_secret"
 					/>
@@ -125,7 +128,7 @@ class Options extends OptionsAbstract {
 				<?php else : ?>
 					<input type="password" spellcheck="false"
 						name="wp-mail-smtp[<?php echo esc_attr( $this->get_slug() ); ?>][client_secret]"
-						value="<?php echo esc_attr( $this->options->get( $this->get_slug(), 'client_secret' ) ); ?>"
+						value="<?php echo esc_attr( $this->connection_options->get( $this->get_slug(), 'client_secret' ) ); ?>"
 						id="wp-mail-smtp-setting-<?php echo esc_attr( $this->get_slug() ); ?>-client_secret"
 					/>
 				<?php endif; ?>
@@ -142,9 +145,9 @@ class Options extends OptionsAbstract {
 			</div>
 			<div class="wp-mail-smtp-setting-field">
 				<?php
-				if ( $this->get_slug() === $this->options->get( 'mail', 'mailer' ) ) {
+				if ( $this->get_slug() === $this->connection->get_mailer_slug() ) {
 					$is_region_guessed = false;
-					$current_region    = Auth::prepare_region( $this->options->get( $this->get_slug(), 'region' ) );
+					$current_region    = Auth::prepare_region( $this->connection_options->get( $this->get_slug(), 'region' ) );
 
 					if ( empty( $current_region ) ) {
 						$current_region = $this->get_closest_region();
@@ -153,7 +156,7 @@ class Options extends OptionsAbstract {
 					}
 					?>
 					<select
-						<?php echo $this->options->is_const_defined( $this->get_slug(), 'region' ) ? 'disabled' : ''; ?>
+						<?php echo $this->connection_options->is_const_defined( $this->get_slug(), 'region' ) ? 'disabled' : ''; ?>
 						name="wp-mail-smtp[<?php echo esc_attr( $this->get_slug() ); ?>][region]"
 						id="wp-mail-smtp-setting-<?php echo esc_attr( $this->get_slug() ); ?>-region">
 						<option value=""><?php esc_html_e( '--- Select region ---', 'wp-mail-smtp-pro' ); ?></option>
@@ -184,7 +187,7 @@ class Options extends OptionsAbstract {
 			<div class="wp-mail-smtp-setting-field">
 				<div class="js-wp-mail-smtp-ses-identities-setting">
 					<?php
-						$ses_settings = $this->options->get_group( $this->get_slug() );
+						$ses_settings = $this->connection_options->get_group( $this->get_slug() );
 
 						if (
 							empty( $ses_settings['client_id'] ) ||
@@ -216,13 +219,13 @@ class Options extends OptionsAbstract {
 
 		ob_start();
 
-		if ( ! $this->get_slug() === $this->options->get( 'mail', 'mailer' ) ) {
+		if ( ! $this->get_slug() === $this->connection->get_mailer_slug() ) {
 			echo '<p class="inline-notice inline-error">' . esc_html( $this->get_connection_not_ready_error_text() ) . '</p>';
 
 			return ob_get_clean();
 		}
 
-		$auth = new Auth();
+		$auth = new Auth( $this->connection );
 
 		if ( ! $auth->is_connection_ready() ) {
 			echo '<p class="inline-notice inline-error">' . esc_html( $this->get_connection_not_ready_error_text() ) . '</p>';
@@ -231,7 +234,8 @@ class Options extends OptionsAbstract {
 		}
 
 		// Prepare the SES identities.
-		$table = new IdentitiesTable();
+		$table = new IdentitiesTable( $this->connection );
+
 		$table->prepare_items();
 
 		$error = Debug::get_last();
@@ -373,16 +377,17 @@ class Options extends OptionsAbstract {
 	 *
 	 * @since 3.3.0
 	 *
-	 * @param string $domain      Domain.
-	 * @param array  $dkim_tokens DKIM tokens.
+	 * @param string              $domain      Domain.
+	 * @param array               $dkim_tokens DKIM tokens.
+	 * @param ConnectionInterface $connection  The Connection object.
 	 *
 	 * @return array
 	 */
-	public static function prepare_dkim_dns_records( $domain, $dkim_tokens ) {
+	public static function prepare_dkim_dns_records( $domain, $dkim_tokens, $connection = null ) {
 
 		$result = [];
 
-		$region = PluginOptions::init()->get( self::SLUG, 'region' );
+		$region = $connection->get_options()->get( self::SLUG, 'region' );
 
 		if ( ! empty( $region ) ) {
 			$region = Auth::prepare_region( $region );
@@ -413,12 +418,13 @@ class Options extends OptionsAbstract {
 	 *
 	 * @since 3.3.0
 	 *
-	 * @param string $domain      Domain.
-	 * @param array  $dkim_tokens DKIM tokens.
+	 * @param string              $domain      Domain.
+	 * @param array               $dkim_tokens DKIM tokens.
+	 * @param ConnectionInterface $connection  The Connection object.
 	 *
 	 * @return string
 	 */
-	public static function prepare_domain_dkim_records_notice( $domain, $dkim_tokens ) {
+	public static function prepare_domain_dkim_records_notice( $domain, $dkim_tokens, $connection = null ) {
 
 		ob_start();
 		?>
@@ -438,7 +444,7 @@ class Options extends OptionsAbstract {
 					</div>
 				</div>
 
-				<?php foreach ( self::prepare_dkim_dns_records( $domain, $dkim_tokens ) as $record ) : ?>
+				<?php foreach ( self::prepare_dkim_dns_records( $domain, $dkim_tokens, $connection ) as $record ) : ?>
 					<div class="wp-mail-smtp-ses-dkim-records__row wp-mail-smtp-ses-dkim-records__row--record">
 						<div class="wp-mail-smtp-ses-dkim-records__col wp-mail-smtp-ses-dkim-records__col--record">
 							<input type="text" class="js-wp-mail-smtp-ses-dkim-records-input" value="<?php echo esc_attr( $record['name'] ); ?>" readonly="readonly"/>

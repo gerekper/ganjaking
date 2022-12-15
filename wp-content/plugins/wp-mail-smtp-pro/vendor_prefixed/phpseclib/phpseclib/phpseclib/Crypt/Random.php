@@ -88,7 +88,7 @@ abstract class Random
             \ini_set('session.use_cookies', 0);
             \session_cache_limiter('');
             \session_start();
-            $v = (isset($_SERVER) ? self::safe_serialize($_SERVER) : '') . (isset($_POST) ? self::safe_serialize($_POST) : '') . (isset($_GET) ? self::safe_serialize($_GET) : '') . (isset($_COOKIE) ? self::safe_serialize($_COOKIE) : '') . self::safe_serialize($GLOBALS) . self::safe_serialize($_SESSION) . self::safe_serialize($_OLD_SESSION);
+            $v = (isset($_SERVER) ? self::safe_serialize($_SERVER) : '') . (isset($_POST) ? self::safe_serialize($_POST) : '') . (isset($_GET) ? self::safe_serialize($_GET) : '') . (isset($_COOKIE) ? self::safe_serialize($_COOKIE) : '') . (\version_compare(\PHP_VERSION, '8.1.0', '>=') ? \serialize($GLOBALS) : self::safe_serialize($GLOBALS)) . self::safe_serialize($_SESSION) . self::safe_serialize($_OLD_SESSION);
             $v = $seed = $_SESSION['seed'] = \sha1($v, \true);
             if (!isset($_SESSION['count'])) {
                 $_SESSION['count'] = 0;

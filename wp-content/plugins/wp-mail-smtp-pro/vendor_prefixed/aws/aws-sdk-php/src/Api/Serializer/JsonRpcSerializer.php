@@ -4,6 +4,8 @@ namespace WPMailSMTP\Vendor\Aws\Api\Serializer;
 
 use WPMailSMTP\Vendor\Aws\Api\Service;
 use WPMailSMTP\Vendor\Aws\CommandInterface;
+use WPMailSMTP\Vendor\Aws\EndpointV2\EndpointProviderV2;
+use WPMailSMTP\Vendor\Aws\EndpointV2\EndpointV2SerializerTrait;
 use WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request;
 use WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface;
 /**
@@ -12,6 +14,7 @@ use WPMailSMTP\Vendor\Psr\Http\Message\RequestInterface;
  */
 class JsonRpcSerializer
 {
+    use EndpointV2SerializerTrait;
     /** @var JsonBody */
     private $jsonFormatter;
     /** @var string */
@@ -36,14 +39,21 @@ class JsonRpcSerializer
      * When invoked with an AWS command, returns a serialization array
      * containing "method", "uri", "headers", and "body" key value pairs.
      *
-     * @param CommandInterface $command
+     * @param CommandInterface $command Command to serialize into a request.
+     * @param $endpointProvider Provider used for dynamic endpoint resolution.
+     * @param $clientArgs Client arguments used for dynamic endpoint resolution.
      *
      * @return RequestInterface
      */
-    public function __invoke(\WPMailSMTP\Vendor\Aws\CommandInterface $command)
+    public function __invoke(\WPMailSMTP\Vendor\Aws\CommandInterface $command, $endpointProvider = null, $clientArgs = null)
     {
-        $name = $command->getName();
-        $operation = $this->api->getOperation($name);
-        return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request($operation['http']['method'], $this->endpoint, ['X-Amz-Target' => $this->api->getMetadata('targetPrefix') . '.' . $name, 'Content-Type' => $this->contentType], $this->jsonFormatter->build($operation->getInput(), $command->toArray()));
+        $operationName = $command->getName();
+        $operation = $this->api->getOperation($operationName);
+        $commandArgs = $command->toArray();
+        $headers = ['X-Amz-Target' => $this->api->getMetadata('targetPrefix') . '.' . $operationName, 'Content-Type' => $this->contentType];
+        if ($endpointProvider instanceof \WPMailSMTP\Vendor\Aws\EndpointV2\EndpointProviderV2) {
+            $this->setRequestOptions($endpointProvider, $command, $operation, $commandArgs, $clientArgs, $headers);
+        }
+        return new \WPMailSMTP\Vendor\GuzzleHttp\Psr7\Request($operation['http']['method'], $this->endpoint, $headers, $this->jsonFormatter->build($operation->getInput(), $commandArgs));
     }
 }

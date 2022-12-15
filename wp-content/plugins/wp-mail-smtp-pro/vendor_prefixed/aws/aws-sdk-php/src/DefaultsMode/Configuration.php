@@ -44,7 +44,9 @@ class Configuration implements \WPMailSMTP\Vendor\Aws\DefaultsMode\Configuration
                     }
                 } else {
                     if (isset($settingValue['override'])) {
-                        $this->{$settingName} = $settingValue['override'];
+                        if (\property_exists($this, $settingName)) {
+                            $this->{$settingName} = $settingValue['override'];
+                        }
                     }
                 }
             }

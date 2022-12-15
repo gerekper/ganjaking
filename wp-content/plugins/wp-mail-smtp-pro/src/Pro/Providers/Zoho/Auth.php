@@ -2,9 +2,11 @@
 
 namespace WPMailSMTP\Pro\Providers\Zoho;
 
+use WPMailSMTP\Admin\ConnectionSettings;
+use WPMailSMTP\Admin\SetupWizard;
+use WPMailSMTP\ConnectionInterface;
 use WPMailSMTP\Vendor\League\OAuth2\Client\Token\AccessToken;
 use WPMailSMTP\Debug;
-use WPMailSMTP\Options as PluginOptions;
 use WPMailSMTP\Pro\Providers\Zoho\Auth\Zoho;
 use WPMailSMTP\Providers\AuthAbstract;
 
@@ -19,17 +21,18 @@ class Auth extends AuthAbstract {
 	 * Auth constructor.
 	 *
 	 * @since 2.3.0
+	 *
+	 * @param ConnectionInterface $connection The Connection object.
 	 */
-	public function __construct() {
+	public function __construct( $connection = null ) {
 
-		$options           = PluginOptions::init();
-		$this->mailer_slug = $options->get( 'mail', 'mailer' );
+		parent::__construct( $connection );
 
 		if ( $this->mailer_slug !== Options::SLUG ) {
 			return;
 		}
 
-		$this->options = $options->get_group( $this->mailer_slug );
+		$this->options = $this->connection_options->get_group( $this->mailer_slug );
 
 		$this->get_client();
 	}
@@ -58,7 +61,7 @@ class Auth extends AuthAbstract {
 				'clientId'     => $this->options['client_id'],
 				'clientSecret' => $this->options['client_secret'],
 				'redirectUri'  => self::get_plugin_auth_url(),
-				'state'        => wp_create_nonce( $this->state_key ),
+				'state'        => $this->get_state(),
 			]
 		);
 
@@ -168,8 +171,8 @@ class Auth extends AuthAbstract {
 			'account_id'   => '',
 		];
 
-		$options    = PluginOptions::init();
-		$from_email = $options->get( 'mail', 'from_email' );
+		$connection_options = $this->connection->get_options();
+		$from_email         = $connection_options->get( 'mail', 'from_email' );
 
 		try {
 			$resource_owner = $this->get_client()->getResourceOwner( $access_token );
@@ -196,7 +199,7 @@ class Auth extends AuthAbstract {
 		// To save in currently retrieved options array.
 		$this->options['user_details'] = $user;
 
-		$options->set( $updated_settings, false, false );
+		$connection_options->set( $updated_settings, false, false );
 	}
 
 	/**
@@ -205,19 +208,34 @@ class Auth extends AuthAbstract {
 	 *
 	 * @since 2.3.0
 	 */
-	public function process() {
+	public function process() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 
-		$redirect_url         = wp_mail_smtp()->get_admin()->get_admin_page_url();
+		$redirect_url         = ( new ConnectionSettings( $this->connection ) )->get_admin_page_url();
 		$is_setup_wizard_auth = ! empty( $this->options['is_setup_wizard_auth'] );
 
 		if ( $is_setup_wizard_auth ) {
 			$this->update_is_setup_wizard_auth( false );
 
-			$redirect_url = \WPMailSMTP\Admin\SetupWizard::get_site_url() . '#/step/configure_mailer/zoho';
+			$redirect_url = SetupWizard::get_site_url() . '#/step/configure_mailer/zoho';
 		}
 
-		// Verify the nonce that should be returned in the state parameter.
-		if ( isset( $_GET['state'] ) && ! wp_verify_nonce( sanitize_key( $_GET['state'] ), $this->state_key ) ) {
+		if ( ! ( isset( $_GET['tab'] ) && $_GET['tab'] === 'auth' ) ) {
+			wp_safe_redirect( $redirect_url );
+			exit;
+		}
+
+		$state = isset( $_GET['state'] ) ? sanitize_key( $_GET['state'] ) : false;
+
+		if ( empty( $state ) ) {
+			wp_safe_redirect(
+				add_query_arg( 'error', 'oauth_invalid_state', $redirect_url )
+			);
+		}
+
+		list( $nonce ) = array_pad( explode( '-', $state ), 1, false );
+
+		// Verify the nonce.
+		if ( ! wp_verify_nonce( $nonce, $this->state_key ) ) {
 			wp_safe_redirect(
 				add_query_arg(
 					'error',
@@ -225,11 +243,6 @@ class Auth extends AuthAbstract {
 					$redirect_url
 				)
 			);
-			exit;
-		}
-
-		if ( ! ( isset( $_GET['tab'] ) && $_GET['tab'] === 'auth' ) ) {
-			wp_safe_redirect( $redirect_url );
 			exit;
 		}
 

@@ -114,7 +114,11 @@ class Table extends \WP_List_Table {
 	 */
 	public function column_subject( $item ) {
 
-		return esc_html( $item['subject'] );
+		return sprintf(
+			'<a href="#" class="subject-toggle-single-stats" data-subject="%1$s">%2$s</a>',
+			esc_attr( $item['subject'] ),
+			esc_html( $item['subject'] )
+		);
 	}
 
 	/**
@@ -235,7 +239,10 @@ class Table extends \WP_List_Table {
 	 */
 	public function column_graph( $item ) {
 
-		return '<i class="dashicons dashicons-chart-line js-wp-mail-smtp-toggle-single-stats" data-subject="' . esc_attr( $item['subject'] ) . '"></i>';
+		return sprintf(
+			'<button type="button" class="js-wp-mail-smtp-toggle-single-stats" data-subject="%s"><i class="dashicons dashicons-chart-line"></i></button>',
+			esc_attr( $item['subject'] )
+		);
 	}
 
 	/**
@@ -356,7 +363,7 @@ class Table extends \WP_List_Table {
 
 		?>
 		<div class="alignleft actions wp-mail-smtp-filter-date">
-			<select name="timespan">
+			<select name="timespan" class="wp-mail-smtp-filter-date__control">
 				<?php
 				foreach ( $timespans as $value => $label ) {
 					printf(
@@ -369,11 +376,11 @@ class Table extends \WP_List_Table {
 				?>
 			</select>
 
-			<input type="text" name="date" class="regular-text wp-mail-smtp-filter-date-selector"
+			<input type="text" name="date" class="regular-text wp-mail-smtp-filter-date-selector wp-mail-smtp-filter-date__control"
 						 placeholder="<?php esc_attr_e( 'Select a date range', 'wp-mail-smtp-pro' ); ?>"
 						 value="<?php echo esc_attr( $date ); ?>">
 
-			<button type="submit" class="button">
+			<button type="submit" class="button wp-mail-smtp-filter-date__btn">
 				<?php esc_html_e( 'Filter', 'wp-mail-smtp-pro' ); ?>
 			</button>
 		</div>

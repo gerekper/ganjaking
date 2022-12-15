@@ -44,10 +44,13 @@ class SMTP {
 	 *
 	 * @since 1.5.0
 	 *
+	 * @param int $parent_email_id Parent email log ID.
+	 *
 	 * @return int
 	 */
-	public function save_before() {
+	public function save_before( $parent_email_id = 0 ) {
 
+		$mailer_slug = wp_mail_smtp()->get_connections_manager()->get_mail_connection()->get_mailer_slug();
 		$headers     = explode( $this->mailcatcher->get_line_ending(), $this->mailcatcher->createHeader() );
 		$attachments = count( $this->mailcatcher->getAttachments() );
 		$people      = $this->get_people();
@@ -55,14 +58,16 @@ class SMTP {
 
 		try {
 			$email = new Email();
+
 			$email
 				->set_subject( $this->mailcatcher->Subject )
 				->set_people( $people )
 				->set_headers( array_filter( $headers ) )
 				->set_attachments( $attachments )
-				->set_mailer( Options::init()->get( 'mail', 'mailer' ) )
+				->set_mailer( $mailer_slug )
 				->set_status( Email::STATUS_UNSENT )
-				->set_initiator();
+				->set_initiator()
+				->set_parent_id( $parent_email_id );
 
 			if ( wp_mail_smtp()->pro->get_logs()->is_enabled_content() ) {
 				$email

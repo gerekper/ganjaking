@@ -180,13 +180,22 @@ class Attachments {
 
 		global $wpdb;
 
+		static $is_valid = null;
+
+		// Return cached value only if tables already exists.
+		if ( $is_valid === true ) {
+			return true;
+		}
+
 		$attachment_files_table  = self::get_attachment_files_table_name();
 		$email_attachments_table = self::get_email_attachments_table_name();
 
 		$files_exists  = (bool) $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s;', $attachment_files_table ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching
 		$attach_exists = (bool) $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s;', $email_attachments_table ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching
 
-		return $files_exists && $attach_exists;
+		$is_valid = $files_exists && $attach_exists;
+
+		return $is_valid;
 	}
 
 	/**
