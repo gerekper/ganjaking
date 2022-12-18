@@ -25,10 +25,9 @@ class WPSEO_Premium_Expose_Shortlinks implements WPSEO_WordPress_Integration {
 	 * @return array Admin localization object.
 	 */
 	public function expose_shortlinks( $input ) {
-		$input['shortlinks.keyword_synonyms_info']            = WPSEO_Shortlinker::get( 'https://yoa.st/kd1' );
-		$input['shortlinks.site_structure_metabox']           = WPSEO_Shortlinker::get( 'https://yoa.st/site-structure-metabox' );
-		$input['shortlinks.notification_internal_link']       = WPSEO_Shortlinker::get( 'https://yoa.st/notification-internal-link' );
-		$input['shortlinks.inclusive_language_analysis_info'] = WPSEO_Shortlinker::get( 'https://yoa.st/inclusive-language-analysis' );
+		$input['shortlinks.keyword_synonyms_info']      = WPSEO_Shortlinker::get( 'https://yoa.st/kd1' );
+		$input['shortlinks.site_structure_metabox']     = WPSEO_Shortlinker::get( 'https://yoa.st/site-structure-metabox' );
+		$input['shortlinks.notification_internal_link'] = WPSEO_Shortlinker::get( 'https://yoa.st/notification-internal-link' );
 
 		return $input;
 	}

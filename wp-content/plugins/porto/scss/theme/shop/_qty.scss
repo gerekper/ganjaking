@@ -1,0 +1,70 @@
+
+div.quantity {
+    display: inline-flex;
+    position: relative;
+    /*min-width: 4.1429em;
+    margin-#{$right}: .8571em;*/
+    text-align: $left;
+    vertical-align: middle;
+    &.hidden { display: none !important; }
+    .qty {
+        -moz-appearance: textfield;
+        text-align: center;
+        width: 2.5em;
+        height: 36px;
+        padding-left: 0;
+        padding-right: 0;
+        background: none;
+        border-color: var(--porto-gray-2);
+    }
+    .minus,
+    .plus {
+        position: relative;
+        width: 2em;
+        height: 36px;
+        line-height: 1;
+        border: 1px solid var(--porto-gray-2);
+        padding: 0;
+        outline: none;
+        text-indent: -9999px;
+        background: none;
+        color: var(--porto-heading-color);
+        &:hover {
+            color: var(--porto-primary-color);
+        }
+        &:before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 9px;
+            border-top: 1px solid;
+            margin-top: -.5px;
+            margin-left: -4.5px;
+        }
+    }
+    .plus {
+        #{$left}: -1px;
+        &:after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            height: 9px;
+            border-left: 1px solid;
+            margin-top: -4.5px;
+            margin-left: -.5px;
+        }
+
+    }
+    .minus {
+        #{$left}: 1px;
+    }
+}
+
+.quantity {
+    .qty {
+        font-family: var(--porto-add-to-cart-ff), var(--porto-body-ff), sans-serif;
+        color: var(--porto-heading-color);
+    }
+}

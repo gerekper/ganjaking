@@ -8,7 +8,7 @@
 
  * Description: Handle dropshipping from your WooCommerce. Create a packing slip, and notify the vendor when an order is paid. Import inventory updates via CSV from your vendors.
 
- * Version: 4.5
+ * Version: 4.6
 
  * Author: OPMC Australia Pty Ltd
 
@@ -20,7 +20,7 @@
 
  * Requires at least: 4.5
 
- * Tested up to: 6.0
+ * Tested up to: 6.1
 
  * Copyright: © 2009-2018 WooThemes.
 
@@ -46,7 +46,7 @@
 
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly.
 
 /**
 
@@ -74,7 +74,7 @@ woothemes_queue_update( plugin_basename( __FILE__ ), '403b956c6bd33bb70b089df260
  * Dropshipping Pro Release Notice
 
  */
-/* check if Dropshipping Pro is active */
+/** Check if Dropshipping Pro is active */
 function is_dropshipping_pro_active() {
     $active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
 	foreach ( $active_plugins as $plugin ) {
@@ -86,9 +86,14 @@ function is_dropshipping_pro_active() {
     return false;
 }
 
+/**
+
+ * Function dropshipping_pro_admin_notice
+
+ */
 function dropshipping_pro_admin_notice(){
     global $pagenow;
-    if ( $pagenow == 'index.php' && is_dropshipping_pro_active() == false) {
+    if ( 'index.php' == $pagenow  &&  false ==  is_dropshipping_pro_active()) {
          echo '<div class="notice notice-info is-dismissible">
              <p>Pro Add-on for WooCommerce Dropshipping - Now Released!</p>
 			 <p>Add marketing and customization features to the WooCommerce Dropshipping Plugin with Pro Add-on for WooCommerce Dropshipping.  <a href="https://woocommerce.com/products/pro-add-on-for-woocommerce-dropshipping/" target="_blank">Find out more!</a></p>
@@ -120,8 +125,13 @@ if (!ini_get('allow_url_fopen') == 1)
 
 }
 
-if ( ! function_exists( 'wcbd_allow_url_fopen' ) ) { 
+if ( ! function_exists( 'wcbd_allow_url_fopen' ) ) {
 
+	/**
+
+	* Dropshipping wcbd_allow_url_fopen
+
+	*/
 	function wcbd_allow_url_fopen() {
 
 		/* translators: 1: href link to Fileinfo extension php doc */
@@ -149,15 +159,19 @@ if ( ! function_exists( 'wcbd_allow_url_fopen' ) ) {
  * @return object WC_Dropshipping
 
  */
-
-function WC_Dropshipping() {
+function w_c_dropshipping() {
 
 	return WC_Dropshipping::instance();
 
-} // End WC_Dropshipping()
+} // End w_c_dropshipping()
 
-WC_Dropshipping();
+w_c_dropshipping();
 
+/**
+
+ * Start WC_Dropshipping Class
+
+ */
 final class WC_Dropshipping {
 
 	/**
@@ -174,14 +188,61 @@ final class WC_Dropshipping {
 
 	private static $_instance = null;
 
+	/**
+	 * Returns the main instance of WC_Dropshipping to prevent the need to use globals.
+	 * @param Data_table $data_table is a veriable used in dropshipping
+	 *
+	 * @return Data_table
+	 * Returns the main instance of WC_Dropshipping to prevent the need to use globals.
+	 *
+	 * @var 	object
+	 */
 	public $data_table = '';
 
+	/**
+	 * Returns the main instance of WC_Dropshipping to prevent the need to use globals.
+	 * @param Base_path $base_path is a veriable used in dropshipping
+	 *
+	 * @return Base_path
+	 * Returns the main instance of WC_Dropshipping to prevent the need to use globals.
+	 *
+	 * @var 	object
+	 */
 	public $base_path = '';
 
+	/**
+	 * Returns the main instance of WC_Dropshipping to prevent the need to use globals.
+	 * @param Admin $admin is a veriable used in dropshipping
+	 *
+	 * @return Admin
+	 * Returns the main instance of WC_Dropshipping to prevent the need to use globals.
+	 *
+	 * @var 	object
+	 */
 	public $admin = null;
 
+	/**
+	 * Returns the main instance of WC_Dropshipping to prevent the need to use globals.
+	 * @param Plugin_slug $plugin_slug is a veriable used in dropshipping
+	 *
+	 * @return Plugin_slug
+	 * Returns the main instance of WC_Dropshipping to prevent the need to use globals.
+	 *
+	 * @var 	object
+	 */
 	public $plugin_slug = '';
 
+	/**
+
+	* Returns the main instance of __construct to prevent the need to use globals.
+
+	*
+
+	* @since  1.0.0
+
+	* @return object Construct
+
+	*/
 	public function __construct() {
 
 		$this->version = '3';
@@ -192,7 +253,7 @@ final class WC_Dropshipping {
 
 		require_once( 'woocommerce-dropshipping-functions.php' );
 
-		// Include AliExpress file
+		// Include AliExpress file.
 
 		require_once( 'ali-api/woocommerce_aliexpress.php' );
 
@@ -222,7 +283,7 @@ final class WC_Dropshipping {
 
 		add_filter( 'admin_menu', array( $this, 'admin_menu' ) );
 		add_action("admin_menu", array( $this,"graph_report_options_submenu"));
-		
+
 		add_filter("aliexpress_product_discount_pro",array($this,'aliexpress_product_discount'),10,3);
 		add_filter("aliexpress_product_price_calculator_pro",array($this,'aliexpress_product_price_calculator'),10,3);
 		add_filter("cdiscount_product_add_pro",array($this,'cdiscount_product_add'),10,3);
@@ -230,7 +291,18 @@ final class WC_Dropshipping {
 		add_filter("update_aliexpress_tracking_number_pro",array($this,'update_aliexpress_tracking_number'),10,3);
 
 	}
-	
+
+	/**
+
+	* Returns the main instance of Graph_report_options_submenu to prevent the need to use globals.
+
+	*
+
+	* @since  1.0.0
+
+	* @return object Graph_report_options_submenu
+
+	*/
 	public function graph_report_options_submenu() {
 		 $this->page_id = add_submenu_page(
 		 'woocommerce',
@@ -242,40 +314,58 @@ final class WC_Dropshipping {
 		 );
 		 }
 
-		 public function graph_report_page() {
+		  /**
 
-		      require('templates/graph-reports.php');
-		 }
+		* Returns the main instance of Init to prevent the need to use globals.
 
+		*
+
+		* @since  1.0.0
+
+		* @return object Graph_report_page
+
+		*/
+		public function graph_report_page() {
+
+			require('templates/graph-reports.php');
+	   }
+
+	    /**
+
+		* Returns the main instance of Init to prevent the need to use globals.
+
+		*
+
+		* @since  1.0.0
+
+		* @return object Init
+
+		*/
 		 public function init () {
 
 			load_plugin_textdomain( 'woocommerce-dropshipping', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
-	
+
 			do_action( 'wc_dropship_manager_init' );
-	
+
 			if ( is_admin() ) {
-	
+
 				require_once('inc/class-wc-dropshipping-admin.php');
-	
+
 				require_once('inc/class-wc-dropshipping-settings.php');
-				
-				//include_once(WC()->plugin_path().'/includes/admin/reports/class-wc-admin-report.php');			
-	
-				//require_once('inc/class-wc-report-sales-by-supplier.php');
-				
+
 				$active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
-	
+
 				foreach ( $active_plugins as $plugin ) {
-					
+
 					if ( strpos( $plugin, 'woocommerce.php' ) ) {
-					
-						include_once(WC()->plugin_path().'/includes/admin/reports/class-wc-admin-report.php');		
+
+						include_once(WC()->plugin_path().'/includes/admin/reports/class-wc-admin-report.php');
 						require_once('inc/class-wc-report-sales-by-supplier.php');
 					}
 				}
-	
+
 				$this->admin = new WC_Dropshipping_Admin();
-	
+
 			}
 			if( !function_exists( 'is_plugin_inactive' ) ) :
 				require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
@@ -283,81 +373,136 @@ final class WC_Dropshipping {
 			if( !class_exists( 'WooCommerce' ) ) :
 				add_action( 'admin_init', 'yourplugin_deactivate' );
 				add_action( 'admin_notices', 'yourplugin_admin_notice' );
+
+				 /**
+
+				* Returns the main instance of Init to prevent the need to use globals.
+
+				*
+
+				* @since  1.0.0
+
+				* @return object Yourplugin_deactivate
+
+				*/
 				function yourplugin_deactivate() {
 					deactivate_plugins( plugin_basename( __FILE__ ) );
 					echo "<script>window.location.reload();</script>";
 				}
+
+				/**
+
+				* Returns the main instance of Init to prevent the need to use globals.
+
+				*
+
+				* @since  1.0.0
+
+				* @return object Yourplugin
+
+				*/
 				function yourplugin_admin_notice() {
 					echo '<div class="error"><p><strong>WooCommerce</strong> must be installed and activated to use this WooCommerce Dropshipping Plugin.</p></div>';
 					if( isset( $_GET['activate'] ) ) unset( $_GET['activate'] );
 				}
 			endif;
-	
+
 			require_once('inc/class-wc-dropshipping-orders.php');
-	
+
 			$this->orders = new WC_Dropshipping_Orders();
-	
+
 			require_once('inc/class-wc-dropshipping-checkout.php');
-	
+
 			$this->checkout = new WC_Dropshipping_Checkout();
-	
+
 			require_once( 'inc/class-wc-dropshipping-dashboard.php' );
-	
+
 			$this->dashboard = new WC_Dropshipping_Dashboard();
-	
-			// Limit Capabilities of Dropshipper
-	
+
+			// Limit Capabilities of Dropshipper.
+
 			add_action( 'wp_before_admin_bar_render', array($this, 'limit_dropshipper_capabilities'), 99 );
-			
+
 			add_action('wp_dashboard_setup', array($this, 'remove_dashboard_widgets') , 20);
-	
-			// Make temporary folder for uploading attachments after that files get auto remove after base64 encode
-	
+
+			// Make temporary folder for uploading attachments after that files get auto remove after base64 encode.
+
 			$upload = wp_upload_dir();
-	
+
 			$upload_dir = $upload['basedir'];
-	
+
 			$upload_dir = $upload_dir . '/droptmp';
-	
+
 			if (! is_dir($upload_dir)) {
-	
+
 				mkdir( $upload_dir, 0777 );
-	
+
 				$upload_convert = wp_upload_dir();
-	
+
 				$upload_convert = $upload_convert['basedir'];
-	
+
 				$upload_dir_convert = $upload_convert . '/droptmp/convert';
-	
+
 				if (! is_dir($upload_dir_convert)) {
-	
+
 					mkdir( $upload_dir_convert, 0777 );
-	
+
 				}
-	
+
 			}
-	
+
 		}
-	
+
+		/**
+
+		* Start actaliexpress_product_discountivate
+
+		*/
         public function aliexpress_product_discount(){
             echo "Aliexpress Product Discount<br/>";
-         } 
-        
+         }
+
+		 /**
+
+		* Start aliexpress_product_price_calculator
+
+		*/
         public function aliexpress_product_price_calculator(){
             echo "Aliexpress Product Price Calculator<br/>";
-          }      
-        
+          }
+
+		  /**
+
+		* Start cdiscount_product_add
+
+		*/
         public function cdiscount_product_add(){
             echo "Cdiscount Product Add<br/>";
           }
-         
+
+		/**
+
+		* Start banggood_product_add
+
+		*/
         public function banggood_product_add(){
             echo "Banggood Product Add<br/>";
-          }  
+          }
+
+		/**
+
+		* Start update_aliexpress_tracking_number
+
+		*/
         public function update_aliexpress_tracking_number(){
             echo "Update Aliexpress Tracking Number<br/>";
-          } 
-	
+          }
+
+	/**
+
+	* Start activate
+
+	*/
 	public function activate() {
 		/**
 		 * Function install_wc_customer_service_plugin.
@@ -409,11 +554,31 @@ final class WC_Dropshipping {
 	}
 
 	/**
-
-	 * Plugin page links
+	 * Plugin actions
+	 *
+	 * @param actions $actions
+	 *
+	 * Plugin actions
+	 *
+	 * Plugin plugin_file
+	 *
+	 * @param plugin_file $plugin_file
+	 *
+	 * Plugin plugin_file
+	 *
+	 * Plugin plugin_data
+	 *
+	 * @param plugin_data $plugin_data
+	 *
+	 * Plugin plugin_data
+	 *
+	 * Plugin context
+	 *
+	 * @param context $context
+	 *
+	 * Plugin context
 
 	 */
-
 	 function wc_dropshipping_plugin_links( $actions, $plugin_file, $plugin_data, $context ) {
 
 		 $new_actions = array();
@@ -428,6 +593,13 @@ final class WC_Dropshipping {
 
 		 }
 
+
+	/**
+	 * Get the show_admin_notice_options
+	 *
+	 *	@param options $options
+	 *
+	 */
 	function show_admin_notice_options(){
 
 		$options = get_option( 'wc_dropship_manager' );
@@ -436,7 +608,7 @@ final class WC_Dropshipping {
 
 			if (!empty($options['show_admin_notice_option'])){
 
-				if ($options['show_admin_notice_option'] == '1'){
+				if ( '1' == $options['show_admin_notice_option']){
 
 					add_action( 'admin_notices', array($this, 'plugin_activation_notice' ));
 
@@ -448,6 +620,11 @@ final class WC_Dropshipping {
 
 	}
 
+	/**
+	 *
+	 * Get the plugin_activation_notice
+	 *
+	 */
 	function plugin_activation_notice(){
 
 		$class = 'notice notice-info';
@@ -456,14 +633,17 @@ final class WC_Dropshipping {
 
 		$message2 = __( 'and hit the "Save Changes" button', 'woocommerce-dropshipping' );
 
-		$url = get_site_url().'/wp-admin/admin.php?page=wc-settings&tab=wc_dropship_settings'; 
+		$url = get_site_url().'/wp-admin/admin.php?page=wc-settings&tab=wc_dropship_settings';
 
 		printf( '<div class="%1$s"><p>%2$s <a href="%3$s">Dropshipping Settings</a> %4$s.</p></div>', esc_attr( $class ), esc_html( $message ), esc_url( $url ), esc_html( $message2 ) );
 
 	}
 
-	// Get the current logged in user
-
+	/**
+	 *
+	 * Get the current logged in user
+	 *
+	 */
 	public function get_current_user(){
 
 		if( is_user_logged_in() ) {
@@ -482,30 +662,33 @@ final class WC_Dropshipping {
 
 	}
 
-	// Limit dropshipper capabilities
-
+	/**
+	 *
+	 * Limit dropshipper capabilities
+	 *
+	 */
 	public function limit_dropshipper_capabilities(){
 
 		$role = $this->get_current_user();
 
-		if ($role !== false){
+		if ( false !== $role){
 
-			if ( $role === 'dropshipper') {
+			if ( 'dropshipper' === $role ) {
 
 				global $wp_admin_bar;
-				
+
                 $all_nodes = $wp_admin_bar->get_nodes();
-                
+
                 $except = array('user-actions','user-info','edit-profile','logout','site-name','view-site','view-store','top-secondary','my-account');
 
                 foreach($all_nodes as $key => $val) {
-                    
+
                     if(!in_array($key,$except)) {
-                        
+
                         $current_node = $all_nodes[$key];
-                        
+
                         $wp_admin_bar->remove_node($key);
-                        
+
                     }
                 }
 
@@ -516,24 +699,34 @@ final class WC_Dropshipping {
 		}
 
 	}
-	
+
+	/**
+
+	 * Plugin init_supplier_taxonomy
+
+	 */
 	public function remove_dashboard_widgets() {
-	    
+
 	    $role = $this->get_current_user();
-	    
-		if ($role !== false){
-		    
-			if ( $role === 'dropshipper') {
-			    
+
+		if ( false !== $role ){
+
+			if ( 'dropshipper' === $role ) {
+
 	            global $wp_meta_boxes;
                 unset($wp_meta_boxes['dashboard']);
                 echo '<style>#dashboard-widgets .postbox-container .empty-container{display: none;}</style>';
-        
+
 			}
 		}
-        
+
 	}
 
+	/**
+
+	 * Plugin init_supplier_taxonomy
+
+	 */
 	public function init_supplier_taxonomy() {
 
 		$args = array(
@@ -592,19 +785,38 @@ final class WC_Dropshipping {
 
 	}
 
-	// Make these columns sortable
+	/**
 
+	 * Plugin page links
+
+	 */
 	public function make_dropship_supplier_column_sort() {
 
 		 return array('taxonomy-dropship_supplier' => 'taxonomy-dropship_supplier' );
 
 	}
 
+
+	/**
+	 * Plugin clauses variable for data
+	 * @param clauses $clauses
+	 *
+	 *
+	 * Plugin $clauses variable for data
+	 *
+	 * Plugin clauses variable for data
+	 * @param wp_query $wp_query
+	 *
+	 *
+	 * Plugin $wp_query variable for data
+	 *
+
+	 */
 	public function dropship_supplier_column_orderby($clauses, $wp_query) {
 
 		global $wpdb;
 
-		if(isset( $wp_query->query['orderby'] ) && $wp_query->query['orderby'] == 'taxonomy-dropship_supplier' )
+		if(isset( $wp_query->query['orderby'] ) && 'taxonomy-dropship_supplier' == $wp_query->query['orderby'] )
 
 		{
 
@@ -638,6 +850,11 @@ final class WC_Dropshipping {
 
 	}
 
+	/**
+
+	 * Plugin page links
+
+	 */
 	public function uninstall(){
 
 		wp_unschedule_hook('ali_run_cron_prod_check');
@@ -646,6 +863,12 @@ final class WC_Dropshipping {
 
 	}
 
+
+	/**
+
+	 * Plugin page links
+
+	 */
 	public function change_cost_of_goods_key(){
 
 		if ( get_option('cog_meta_key') != 'completed' ){
@@ -664,6 +887,11 @@ final class WC_Dropshipping {
 
 	}
 
+	/**
+
+	 * Plugin page links
+
+	 */
 	public function admin_menu() {
 
 		add_menu_page(
@@ -698,6 +926,11 @@ final class WC_Dropshipping {
 
 	}
 
+	/**
+
+	 * Plugin page links
+
+	 */
 	public function add_dashboard_sub_menu(){
 
 		require_once 'templates/wc-dropshipping-dashboard.php';
@@ -718,12 +951,11 @@ final class WC_Dropshipping {
 
 	 * @static
 
-	 * @see WC_Dropshipping()
+	 * @see w_c_dropshipping()
 
 	 * @return Main WC_Dropshipping instance
 
 	 */
-
 	public static function instance () {
 
 		if ( is_null( self::$_instance ) )

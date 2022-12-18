@@ -1,0 +1,102 @@
+@keyframes menuFadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.menuFadeInUp {
+    @include animation-name(menuFadeInUp);
+}
+
+@keyframes menuFadeInDown {
+    0% {
+        opacity: 0.8;
+        transform: translateY(-10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.menuFadeInDown {
+    @include animation-name(menuFadeInDown);
+}
+
+@keyframes arrowFadeInDown {
+    0% {
+        opacity: 0.8;
+        transform: translateY(-10px) rotate(-45deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotate(-45deg);
+    }
+}
+
+@keyframes menuFadeInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.menuFadeInLeft {
+    @include animation-name(menuFadeInLeft);
+}
+
+@keyframes menuFadeInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.menuFadeInRight {
+    @include animation-name(menuFadeInRight);
+}
+
+@keyframes menuFadeInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes menuFadeInFromLeft {
+    0% {
+        opacity: 0;
+        margin-#{$left}: -20px;
+    }
+
+    100% {
+        opacity: 1;
+        margin-#{$left}: 0;
+    }
+}
+.menuFadeInFromLeft {
+    @include animation-name(menuFadeInFromLeft);
+}

@@ -17,7 +17,7 @@ class Preload
     public static function add_preloads($html) {
 
         if(!empty(Config::$options['preload']['critical_images'])) {
-            self::add_critical_image_preloads($html);
+            self::add_critical_image_preloads($html, Utilities::clean_html($html));
         }
 
         if(!empty(Config::$options['preload']['preload']) && is_array(Config::$options['preload']['preload'])) {
@@ -105,14 +105,23 @@ class Preload
                                     $url = site_url($url);
                                 }
 
-                                $ver = $scripts_arr[$line['url']]->ver;
+                                if(strpos($url, '?') === false) {
 
-                                if(empty($ver)) {
-                                    $ver = get_bloginfo('version');
+                                    $ver = $scripts_arr[$line['url']]->ver;
+
+                                    if(empty($ver)) {
+                                        $ver = get_bloginfo('version');
+                                    }
                                 }
 
                                 $line['url'] = $url . (!empty($ver) ? '?ver=' . $ver : '');
                             }
+                            else {
+                                continue;
+                            }
+                        }
+                        else {
+                            continue;
                         }
                     }
                 }
@@ -143,10 +152,10 @@ class Preload
     }
 
     //add critical image preloads
-    public static function add_critical_image_preloads(&$html) {
+    public static function add_critical_image_preloads(&$html, $clean_html) {
 
         //match all image formats
-        preg_match_all('#(<picture.*?)?<img([^>]+?)\/?>(?><\/picture>)?#is', $html, $matches, PREG_SET_ORDER);
+        preg_match_all('#(<picture.*?)?<img([^>]+?)\/?>(?><\/picture>)?#is', $clean_html, $matches, PREG_SET_ORDER);
 
         if(!empty($matches)) {
 
@@ -203,7 +212,7 @@ class Preload
     //generate preload link from att string
     private static function generate_critical_image_preload($att_string) {
         if(!empty($att_string)) {
-            $atts = perfmatters_lazyload_get_atts_array($att_string);
+            $atts = Utilities::get_atts_array($att_string);
             $src = $atts['data-src'] ?? $atts['src'] ?? '';
             self::$preloads[] = '<link rel="preload" href="' . $src . '" as="image"' . (!empty($atts['srcset']) ? ' imagesrcset="' . $atts['srcset'] . '"' : '') . (!empty($atts['sizes']) ? ' imagesizes="' . $atts['sizes'] . '"' : '') . ' />';
         }

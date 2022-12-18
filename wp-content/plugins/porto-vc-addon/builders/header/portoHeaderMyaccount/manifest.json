@@ -1,0 +1,19 @@
+{
+  "elements": {
+    "portoHeaderMyaccount": {
+      "settings": {
+        "name": "Porto Header My Account",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-hb.jpg",
+        "metaDescription": "Porto VC element to display my account icon in header"
+      }
+    }
+  },
+  "categories": {
+    "Icon": {
+      "elements": [
+        "portoHeaderMyaccount"
+      ]
+    }
+  }
+}

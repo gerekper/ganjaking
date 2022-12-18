@@ -1,0 +1,120 @@
+.mobile-sidebar .sidebar-toggle {
+    display: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    #{$right}: -40px;
+    top: 20%;
+    margin: auto;
+    font-size: 17px;
+    line-height: 38px;
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid var(--porto-input-bc);
+    border-#{$left}-width: 0;
+    color: var(--porto-body-color);
+    @include transition(.2s ease-in-out);
+
+    i {
+        &:before {
+            content: $fa-var-sliders-h;
+        }
+    }
+
+    &:hover {
+        color: var(--porto-primary-color);
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, .15);
+    }
+}
+.sidebar-overlay {
+    display: none;
+
+    &.active {
+        display: block;
+        background: #000;
+        position: fixed;
+        #{$left}: 0;
+        #{$right}: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 8999;
+        min-height: 100vh;
+        opacity: .35;
+        @include transition(opacity .2s ease-in-out);
+    }
+}
+
+@media #{$screen-normal} {
+    .mobile-sidebar {
+        &.sidebar {
+            position: fixed;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        margin-top: 0 !important;
+        padding-#{$left}: 0 !important;
+        padding-#{$right}: 0 !important;
+        height: 100%;
+        width: 260px;
+        top: 0;
+        bottom: 0;
+        #{$left}: 0;
+        z-index: 9000;
+        transform: translateX(if-ltr(-100%, 100%));
+        @include transition(transform .2s ease-in-out);
+        background: var(--porto-body-bg);
+
+        .sidebar-toggle {
+            display: block;
+            background: var(--porto-body-bg);
+        }
+        > [data-plugin-sticky] {
+           height: 100%;
+        }
+        .widget {
+            margin-top: 0;
+        }
+
+        .sidebar-content {
+            display: block;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            height: 100%;
+            padding: 20px;
+            -webkit-overflow-scrolling: touch;
+
+            &::-webkit-scrollbar {
+                width: 5px;
+            }
+            &::-webkit-scrollbar-thumb {
+                border-radius: 0px;
+                background: var(--porto-gray-2);
+            }
+        }
+    }
+
+    html.sidebar-opened {
+        body {
+            > * {
+                z-index: 0;
+            }
+        }
+        .mobile-sidebar {
+            z-index: 9000;
+            @include transition(transform .3s);
+            transform: translateX(0);
+            .sidebar-toggle {
+                i {
+                    &:before {
+                        content: $fa-var-times;
+                    }
+                }
+            }
+        }
+        .page-wrapper {
+            #{$left}: 260px;
+            overflow: visible
+        }
+    }
+}

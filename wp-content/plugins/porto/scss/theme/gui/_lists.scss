@@ -1,0 +1,343 @@
+/* List */
+li {
+    line-height: var(--porto-body-lh);
+}
+ul {
+    &.list {
+        &.icons li {
+            a {
+                color: var(--porto-body-color);
+            }
+            i {
+                margin-#{$right}: 5px;
+            }
+        }
+    }
+    &.icons {
+        list-style: none;
+    }
+}
+
+.list {
+    li {
+        margin-bottom: 13px;
+    }
+    &.pull-left li {
+        text-align: $left;
+    }
+    &.list-icons {
+        list-style: none;
+        padding-left: 0;
+        padding-right: 0;
+        li {
+            position: relative;
+            padding-#{$left}: 25px;
+            i {
+                position: absolute;
+                #{$left}: 0;
+                top: 5px;
+                color: var(--porto-primary-color);
+                border-color: var(--porto-primary-color);
+            }
+        }
+
+        &.list-icons-style-2 {
+            li {
+                padding-top: 5px;
+                padding-#{$left}: 36px;
+                i {
+                    border: 1px solid;
+                    border-radius: 50%;
+                    width: 25px;
+                    height: 25px;
+                    text-align: center;
+                    padding: 4px;
+                }
+            }
+        }
+
+        &.list-icons-style-3 {
+            li {
+                padding-top: 5px;
+                padding-#{$left}: 36px;
+                i {
+                    background-color: var(--porto-primary-color);
+                    color: var(--porto-primary-color-inverse);
+                    border-radius: 50%;
+                    width: 25px;
+                    height: 25px;
+                    text-align: center;
+                    padding: 5px;
+                }
+            }
+        }
+
+        &.list-icons-sm {
+            li {
+                padding-#{$left}: 13px;
+                margin-bottom: 5px;
+                i {
+                    font-size: 0.9em;
+                    top: 7px;
+                }
+            }
+
+            &.list-icons-style-2 {
+                li {
+                    padding-#{$left}: 32px;
+                    i {
+                        width: 20px;
+                        height: 20px;
+                        padding: 3px;
+                    }
+                }
+            }
+
+            &.list-icons-style-3 {
+                li {
+                    padding-#{$left}: 32px;
+                    i {
+                        width: 20px;
+                        height: 20px;
+                        padding: 5px 3px 3px;
+                    }
+                }
+            }
+
+        }
+
+        &.list-icons-lg {
+            li {
+                padding-top: 5px;
+                padding-#{$left}: 32px;
+                i {
+                    font-size: 1.5em;
+                }
+            }
+
+            &.list-icons-style-2 {
+                li {
+                    padding-top: 8px;
+                    padding-#{$left}: 42px;
+                    i {
+                        width: 30px;
+                        height: 30px;
+                        padding: 4px;
+                    }
+                }
+            }
+
+            &.list-icons-style-3 {
+                li {
+                    padding-top: 8px;
+                    padding-#{$left}: 42px;
+                    i {
+                        width: 30px;
+                        height: 30px;
+                        padding: 4px;
+                    }
+                }
+            }
+        }
+
+        &.list-icons-reverse {
+            li {
+                text-align: $right;
+                padding-#{$right}: 25px;
+                padding-#{$left}: 0;
+                i {
+                    position: absolute;
+                    #{$left}: auto;
+                    #{$right}: 0;
+                    top: 5px;
+                }
+            }
+
+            &.list-icons-style-2 {
+                li {
+                    padding-#{$right}: 36px;
+                }
+            }
+
+            &.list-icons-style-3 {
+                li {
+                    padding-#{$right}: 36px;
+                }
+            }
+
+            &.list-icons-sm {
+                li {
+                    padding-#{$left}: 0;
+                    padding-#{$right}: 13px;
+                }
+                &.list-icons-style-2 {
+                    li {
+                        padding-#{$right}: 32px;
+                    }
+                }
+
+                &.list-icons-style-3 {
+                    li {
+                        padding-#{$right}: 32px;
+                    }
+                }
+            }
+
+            &.list-icons-lg {
+                li {
+                    padding-#{$left}: 0;
+                    padding-#{$right}: 32px;
+                }
+                &.list-icons-style-2 {
+                    li {
+                        padding-#{$right}: 42px;
+                    }
+                }
+
+                &.list-icons-style-3 {
+                    li {
+                        padding-#{$right}: 42px;
+                    }
+                }
+            }
+        }
+    }
+
+    &.list-borders {
+        li {
+            border-bottom: 1px solid #eaeaea;
+            margin-top: 9px;
+            margin-bottom: 0;
+            padding-bottom: 9px;
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
+    }
+
+    &.list-side-borders {
+        border-#{$left}: 1px solid #eaeaea;
+        padding-#{$left}: 10px;
+    }
+
+    &.list-ordened {
+        counter-reset: custom-counter;
+        list-style: none;
+        li {
+            position: relative;
+            padding-#{$left}: 22px;
+            &:before {
+                position: absolute;
+                top: 0;
+                #{$left}: 0;
+                content: counter(custom-counter);
+                counter-increment: custom-counter;
+                font-weight: 700;
+                color: var(--porto-primary-color);
+                border-color: var(--porto-primary-color);
+            }
+        }
+
+        &.list-ordened-style-2, &.list-ordened-style-3 {
+            li {
+                padding-#{$left}: 32px;
+                &:before {
+                    border-radius: 100%;
+                    border-style: solid;
+                    border-width: 1px;
+                    min-width: 26px;
+                    padding: 0;
+                    text-align: center;
+                }
+            }
+        }
+
+        &.list-ordened-style-3 {
+            li {
+                &:before {
+                    background: var(--porto-primary-color);
+                    color: var(--porto-primary-color-inverse);
+                    border: 0;
+                }
+            }
+        }
+
+    }
+
+    &.list-unstyled {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+/* Sitemap */
+ul[class^="wsp-"] {
+    margin-bottom: 30px;
+    padding: 0;
+    list-style: none;
+    ul {
+        margin-bottom: 5px;
+        margin-top: 5px;
+        list-style: none;
+    }
+}
+h2[class^="wsp-"] {
+    font-size: 1.2em;
+    font-weight: 700;
+    line-height: 24px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.fontawesome-icon-list,
+.sample-icon-list {
+    margin-top: 22px;
+
+    > div {
+        height: 32px;
+        line-height: 32px;
+        font-size: 11px;
+        color: var(--porto-color-price);
+
+        &:hover {
+            &, & .text-muted {
+                color: var(--porto-primary-color);
+            }
+            i {
+                font-size: 28px;
+                vertical-align: -6px;
+            }
+        }
+    }
+
+    i {
+        display: inline-block;
+        background-image: none;
+        font-size: 14px;
+        margin-#{$right}: 4px;
+        text-align: center;
+        width: 32px;
+    }
+}
+
+.link-hover-style-1 a {
+    display: inline-block;
+}
+.link-hover-style-1 a:hover {
+    transform: translateX(3px);
+}
+
+/* theme colors */
+/* secondary, tertiary, quaternary, dark, light */
+@each $state in $color_states_not_primary {
+    .list-#{nth($state,1)} .list-icons li i,
+    .list-#{nth($state,1)}.list-ordened li:before {
+        border-color: var(--porto-#{nth($state,1)}-color);
+        color: var(--porto-#{nth($state,1)}-color);
+    }
+    .list-#{nth($state,1)}.list-icons.list-icons-style-3 li i,
+    .list-#{nth($state,1)}.list-ordened.list-ordened-style-3 li:before {
+        background-color: var(--porto-#{nth($state,1)}-color);
+        color: var(--porto-#{nth($state,1)}-color-inverse, #{nth($state,3)});
+    }
+}

@@ -1,0 +1,140 @@
+
+.product-image {
+    display: block;
+    position: relative;
+    border: none;
+    width: 100%;
+    padding: 0;
+
+    &:hover {
+        z-index: 1;
+    }
+
+    .inner {
+        display: block;
+        overflow: hidden;
+        position: relative;
+    }
+
+    img {
+        display: inline-block;
+        width: 100%;
+        height: auto;
+        @include transition($image-transition);
+        transform: translateZ(0);
+    }
+
+	.viewcart {
+		font-size: 1.25rem;
+        color: var(--porto-primary-color);
+		border-radius: 50%;
+		position: absolute;
+		top: 0; bottom: 0;
+		left: 0; right: 0;
+		margin: auto;
+		z-index: 3;
+		text-align: center;
+		width: 2.2em;
+		height: 2.2em;
+		line-height: 2.1em;
+		display: none;
+		opacity: 0;
+		@include transition($transition);
+
+		&:before {
+			font-family: "Simple-Line-Icons";
+			content: "\e04e";
+		}
+
+		&:hover {
+            background-color: var(--porto-primary-color);
+			color: #fff;
+		}
+	}
+
+    .labels {
+        line-height: 1;
+        color: $color-white;
+        font-weight: $font-weight-semibold;
+        text-transform: uppercase;
+        position: absolute;
+        z-index: 2;
+        top: .8em;
+        font-size: 10px;
+        #{$left}: .8em;
+        text-align: center;
+
+        .onhot,
+        .onsale,
+        .onnew {
+            padding: 5px 11px;
+            margin-bottom: 5px;
+        }
+
+        .onnew {
+            @include background(linear-gradient(135deg, var(--porto-new-bgc, #08c) 0, var(--porto-new-bgc, #0169fe) 80%));
+        }
+
+        .tooltip {
+            font-weight: normal;
+            text-transform: none;
+            white-space: nowrap;
+            z-index: 100;
+        }
+    }
+
+    .stock {
+        position: absolute;
+        z-index: 1;
+        background: var(--porto-label-bg1);
+        color: var(--porto-heading-color);
+        top: 0; bottom: 0; left: 0; right: 0;
+        width: 10em;
+        height: 3em; line-height: 3em;
+        margin: auto;
+        font-weight: $font-weight-semibold;
+        text-transform: uppercase;
+        text-align: center;
+        //opacity: 0;
+        @include transition($transition);
+    }
+
+    &, & .viewcart, & .stock {
+        background: var(--porto-normal-bg);
+    }
+
+    &:hover {
+        .stock {
+            //bottom: 0;
+            //opacity: 1;
+        }
+    }
+}
+
+.yith-wcbm-badge {
+    margin: 0;
+
+    img {
+        margin: 0 !important;
+        border-radius: 0;
+        opacity: 1 !important;
+    }
+
+    .products & {
+        margin: 0;
+        img {
+            margin: 0 !important;
+        }
+    }
+}
+
+.product-image .labels .onhot,
+.summary-before .labels .onhot {
+    background: var(--porto-hot-color, $hot-bg);
+    color: var(--porto-hot-color-inverse, #fff)
+}
+.product-image .labels .onsale,
+.summary-before .labels .onsale {
+    background: var(--porto-sale-color, $sale-bg);
+    color: var(--porto-sale-color-inverse, #fff)
+}

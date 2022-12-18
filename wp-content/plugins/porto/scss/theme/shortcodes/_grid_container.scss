@@ -1,0 +1,51 @@
+/* Porto Grid Container */
+.porto-grid-container {
+    position: relative;
+
+    .porto-grid-item {
+        float: $left;
+        max-width: 100%;
+
+        > .wpb_single_image {
+            margin-bottom: 0;
+
+            .vc_single_image-wrapper:hover {
+                background: #000;
+                @include transition(opacity 0.35s);
+            }
+
+            a {
+                display: block;
+            }
+
+            .vc_single_image-wrapper {
+                width: 100%;
+                display: block;
+            }
+
+            img {
+                width: 100%;
+                @include transition(opacity 0.35s);
+
+                &:hover {
+                    opacity: .9;
+                }
+            }
+        }
+    }
+}
+
+.porto-preset-layout {
+    .porto-grid-item > *, .vc_porto_grid_item > *, .porto-ultimate-content-box-container, .porto-ultimate-content-box, .porto-ibanner, .porto-ibanner > img,
+    .elementor-section,
+    .porto-grid-item > .elementor-widget-wrap > .elementor-widget-image,
+    .porto-grid-item > .elementor-column-wrap > .elementor-widget-wrap > .elementor-widget-image {
+        height: 100%;
+        margin-bottom: 0;
+    }
+    .porto-grid-item > .elementor-widget-wrap > .elementor-widget-image *,
+    .porto-grid-item > .elementor-column-wrap > .elementor-widget-wrap > .elementor-widget-image * {
+        height: 100%;
+        object-fit: cover;
+    }
+}

@@ -6,7 +6,7 @@ if ( function_exists( 'register_block_type' ) ) {
 		array(
 			'editor_script'   => 'porto_blocks',
 			'render_callback' => function( $atts, $content = null ) {
-				$atts = shortcode_atts(
+				$settings = shortcode_atts(
 					array(
 						'add_container'         => '',
 						'bg_color'              => '',
@@ -37,132 +37,162 @@ if ( function_exists( 'register_block_type' ) ) {
 					),
 					$atts
 				);
-				if( 'none' == $atts['top_divider_type'] ) {
-					$atts['top_divider_type'] = '';
+				if( 'none' == $settings['top_divider_type'] ) {
+					$settings['top_divider_type'] = '';
 				}
-				if( 'none' == $atts['bottom_divider_type'] ) {
-					$atts['bottom_divider_type'] = '';
+				if( 'none' == $settings['bottom_divider_type'] ) {
+					$settings['bottom_divider_type'] = '';
 				}
-				$classes = array( 'vc_section', 'porto-section' );
 
-				if( ! ( empty( $atts['top_divider_type'] ) && empty( $atts['bottom_divider_type'] ) ) ) {
+				if ( apply_filters( 'porto_is_tb_rendering', false ) ) { // in rendering post type builder items
+					$classes = array( 'porto-section' );
+				} else {
+					$classes = array( 'vc_section', 'porto-section' );
+				}
+
+				if ( ! $settings['add_container'] ) {
+					if ( ! empty( $atts['flex_container'] ) ) {
+						$classes[] = 'flex-container';
+					}
+					if ( ! empty( $atts['flex_wrap'] ) ) {
+						$classes[] = 'flex-wrap';
+					}
+					if ( ! empty( $atts['valign'] ) ) {
+						$classes[] = 'align-items-' . $atts['valign'];
+					}
+					if ( ! empty( $atts['halign'] ) ) {
+						$classes[] = 'justify-content-' . $atts['halign'];
+					}
+				}
+
+				if( ! ( empty( $settings['top_divider_type'] ) && empty( $settings['bottom_divider_type'] ) ) ) {
 					$classes[] = 'section-with-shape-divider';
 				}
 
 				$attrs   = '';
 				$style   = '';
-				if ( $atts['bg_video'] ) {
+				if ( $settings['bg_video'] ) {
 					wp_enqueue_script( 'jquery-vide' );
 					$classes[] = 'section-video';
-					$attrs .= ' data-video-path="' . esc_url( str_replace( '.mp4', '', $atts['bg_video'] ) ) . '"';
+					$attrs .= ' data-video-path="' . esc_url( str_replace( '.mp4', '', $settings['bg_video'] ) ) . '"';
 					$attrs .= ' data-plugin-video-background';
 					$attrs .= ' data-plugin-options="{\'posterType\': \'jpg\', \'position\': \'50% 50%\', \'overlay\': true}"';
-				} elseif ( $atts['bg_img_url'] ) {
-					if ( $atts['parallax_speed'] ) {
+				} elseif ( $settings['bg_img_url'] ) {
+					if ( $settings['parallax_speed'] ) {
 						wp_enqueue_script( 'skrollr' );
 						$classes[] = 'section-parallax';
-						$attrs    .= ' data-plugin-parallax data-plugin-options="' . esc_attr( json_encode( array( 'speed' => $atts['parallax_speed'] ) ) ) . '" data-image-src="' . esc_url( $atts['bg_img_url'] ) . '"';
+						$attrs    .= ' data-plugin-parallax data-plugin-options="' . esc_attr( json_encode( array( 'speed' => $settings['parallax_speed'] ) ) ) . '" data-image-src="' . esc_url( $settings['bg_img_url'] ) . '"';
 					} else {
-						$style .= 'background-image: url(' . esc_url( $atts['bg_img_url'] ) . ');';
+						$style .= 'background-image: url(' . esc_url( $settings['bg_img_url'] ) . ');';
 					}
-					if ( $atts['bg_repeat'] ) {
-						$style .= 'background-repeat:' . $atts['bg_repeat'] . ';';
+					if ( $settings['bg_repeat'] ) {
+						$style .= 'background-repeat:' . $settings['bg_repeat'] . ';';
 					}
-					if ( $atts['bg_pos'] ) {
-						$style .= 'background-position:' . $atts['bg_pos'] . ';';
+					if ( $settings['bg_pos'] ) {
+						$style .= 'background-position:' . $settings['bg_pos'] . ';';
 					}
-					if ( $atts['bg_size'] ) {
-						$style .= 'background-size:' . $atts['bg_size'] . ';';
+					if ( $settings['bg_size'] ) {
+						$style .= 'background-size:' . $settings['bg_size'] . ';';
 					}
 				}
-				if ( $atts['bg_color'] ) {
-					$style .= 'background-color:' . $atts['bg_color'] . ';';
+				if ( $settings['bg_color'] ) {
+					$style .= 'background-color:' . $settings['bg_color'] . ';';
 				}
 				if ( $style ) {
 					$attrs .= ' style="' . esc_attr( $style ) . '"';
 				}
 
-				if ( $atts['add_container'] ) {
+				if ( $settings['add_container'] ) {
 					$classes[] = 'porto-inner-container';
 				}
-				if ( $atts['align'] ) {
-					$classes[] = 'align' . $atts['align'];
+				if ( $settings['align'] ) {
+					$classes[] = 'align' . $settings['align'];
 				}
-				if ( $atts['className'] ) {
-					$classes[] = trim( $atts['className'] );
+				if ( $settings['className'] ) {
+					$classes[] = trim( $settings['className'] );
 				}
-				$output = '<' . esc_html( $atts['tag'] ) . ' class="' . esc_attr( implode( ' ', $classes ) ) . '"' . $attrs . '>';
+				$output = '<' . esc_html( $settings['tag'] ) . ' class="' . esc_attr( apply_filters( 'porto_elements_wrap_css_class', implode( ' ', $classes ), $atts, 'section' ) ) . '"' . $attrs . '>';
 
-				if( ! empty( $atts['top_divider_type'] ) ) {
+				if( ! empty( $settings['top_divider_type'] ) ) {
 					$top_divider_attr = array(
 						'shape-divider',
 					);
-					if( ! empty( $atts['top_divider_class'] ) ) {
-						$top_divider_attr[] = $atts['top_divider_class'];
+					if( ! empty( $settings['top_divider_class'] ) ) {
+						$top_divider_attr[] = $settings['top_divider_class'];
 					}
-					if( ! empty( $atts['top_divider_invert'] ) && ! empty( $atts['top_divider_flip'] ) ) {
-						$top_divider_attr[] = 'shape-divider-reverse-xy';		
-					} elseif( ! empty( $atts['top_divider_invert'] ) ) {
+					if( ! empty( $settings['top_divider_invert'] ) && ! empty( $settings['top_divider_flip'] ) ) {
+						$top_divider_attr[] = 'shape-divider-reverse-xy';
+					} elseif( ! empty( $settings['top_divider_invert'] ) ) {
 						$top_divider_attr[] = 'shape-divider-reverse-x';
-					} elseif( ! empty( $atts['top_divider_flip'] ) ) {
+					} elseif( ! empty( $settings['top_divider_flip'] ) ) {
 						$top_divider_attr[] = 'shape-divider-reverse-y';
 					}
-					if ( ! empty( $atts['top_divider_height'] ) ) {
-						$unit = preg_replace( '/[0-9.]/', '', $atts['top_divider_height'] );
+					if ( ! empty( $settings['top_divider_height'] ) ) {
+						$unit = preg_replace( '/[0-9.]/', '', $settings['top_divider_height'] );
 						if ( ! $unit ) {
-							$atts['top_divider_height'] .= 'px';
+							$settings['top_divider_height'] .= 'px';
 						}
 					}
 
-					$output .= '<div class="' . implode( ' ', $top_divider_attr ) . '" style="' . ( empty( $atts['top_divider_color'] ) ? '' : 'fill:' . $atts['top_divider_color'] . ';'  ) . ( empty( $atts['top_divider_height'] ) ? '' : 'height:' . $atts['top_divider_height'] . ';'  ) .'">';
-					if( 'custom' == $atts['top_divider_type'] ) {
-						$output .= $atts['top_divider_custom'];
+					$output .= '<div class="' . implode( ' ', $top_divider_attr ) . '" style="' . ( empty( $settings['top_divider_color'] ) ? '' : 'fill:' . $settings['top_divider_color'] . ';'  ) . ( empty( $settings['top_divider_height'] ) ? '' : 'height:' . $settings['top_divider_height'] . ';'  ) .'">';
+					if( 'custom' == $settings['top_divider_type'] ) {
+						$output .= $settings['top_divider_custom'];
 					} else {
-						$output .= porto_sh_commons( 'shape_divider' )[$atts['top_divider_type']];
+						$output .= porto_sh_commons( 'shape_divider' )[$settings['top_divider_type']];
 					}
 					$output .= '</div>';
 				}
 
-				if ( $atts['add_container'] ) {
-					$output .= '<div class="container">';
+				if ( $settings['add_container'] ) {
+					$container_cls = 'container';
+					if ( ! empty( $atts['flex_container'] ) ) {
+						$container_cls .= ' flex-container';
+					}
+					if ( ! empty( $atts['flex_wrap'] ) ) {
+						$container_cls .= ' flex-wrap';
+					}
+					if ( ! empty( $atts['valign'] ) ) {
+						$container_cls .= ' align-items-' . $atts['valign'];
+					}
+					$output .= '<div class="' . $container_cls . '">';
 				}
 					$output .= do_shortcode( $content );
-				if ( $atts['add_container'] ) {
+				if ( $settings['add_container'] ) {
 					$output .= '</div>';
 				}
 
 
-				if( ! empty( $atts['bottom_divider_type'] ) ) {
+				if( ! empty( $settings['bottom_divider_type'] ) ) {
 					$bottom_divider_attr = array(
 						'shape-divider shape-divider-bottom',
 					);
-					if( ! empty( $atts['bottom_divider_class'] ) ) {
-						$bottom_divider_attr[] = $atts['bottom_divider_class'];
+					if( ! empty( $settings['bottom_divider_class'] ) ) {
+						$bottom_divider_attr[] = $settings['bottom_divider_class'];
 					}
-					if( ! empty( $atts['bottom_divider_invert'] ) && ! empty( $atts['bottom_divider_flip'] ) ) {
+					if( ! empty( $settings['bottom_divider_invert'] ) && ! empty( $settings['bottom_divider_flip'] ) ) {
 						$bottom_divider_attr[] = 'shape-divider-reverse-xy';		
-					} elseif( ! empty( $atts['bottom_divider_invert'] ) ) {
+					} elseif( ! empty( $settings['bottom_divider_invert'] ) ) {
 						$bottom_divider_attr[] = 'shape-divider-reverse-x';
-					} elseif( ! empty( $atts['bottom_divider_flip'] ) ) {
+					} elseif( ! empty( $settings['bottom_divider_flip'] ) ) {
 						$bottom_divider_attr[] = 'shape-divider-reverse-y';
 					}
-					if ( ! empty( $atts['bottom_divider_height'] ) ) {
-						$unit = preg_replace( '/[0-9.]/', '', $atts['bottom_divider_height'] );
+					if ( ! empty( $settings['bottom_divider_height'] ) ) {
+						$unit = preg_replace( '/[0-9.]/', '', $settings['bottom_divider_height'] );
 						if ( ! $unit ) {
-							$atts['bottom_divider_height'] .= 'px';
+							$settings['bottom_divider_height'] .= 'px';
 						}
 					}
 
-					$output .= '<div class="' . implode( ' ', $bottom_divider_attr ) . '" style="' . ( empty( $atts['bottom_divider_color'] ) ? '' : 'fill:' . $atts['bottom_divider_color'] . ';'  ) . ( empty( $atts['bottom_divider_height'] ) ? '' : 'height:' . $atts['bottom_divider_height'] . ';'  ) .'">';
-					if( 'custom' == $atts['bottom_divider_type'] ) {
-						$output .= $atts['bottom_divider_custom'];
+					$output .= '<div class="' . implode( ' ', $bottom_divider_attr ) . '" style="' . ( empty( $settings['bottom_divider_color'] ) ? '' : 'fill:' . $settings['bottom_divider_color'] . ';'  ) . ( empty( $settings['bottom_divider_height'] ) ? '' : 'height:' . $settings['bottom_divider_height'] . ';'  ) .'">';
+					if( 'custom' == $settings['bottom_divider_type'] ) {
+						$output .= $settings['bottom_divider_custom'];
 					} else {
-						$output .= porto_sh_commons( 'shape_divider' )[$atts['bottom_divider_type']];
+						$output .= porto_sh_commons( 'shape_divider' )[$settings['bottom_divider_type']];
 					}
 					$output .= '</div>';
 				}
 
-				$output .= '</' . esc_html( $atts['tag'] ) . '>';
+				$output .= '</' . esc_html( $settings['tag'] ) . '>';
 
 				return $output;
 			},

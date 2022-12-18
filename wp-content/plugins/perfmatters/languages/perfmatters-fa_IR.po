@@ -1,0 +1,1948 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Perfmatters\n"
+"POT-Creation-Date: 2022-09-05 17:06-0700\n"
+"PO-Revision-Date: 2022-10-19 09:22+0330\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fa_IR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: perfmatters.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;"
+"esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;"
+"__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#. translators: the plugin name.
+#: EDD_SL_Plugin_Updater.php:257
+#, php-format
+msgid "There is a new version of %1$s available."
+msgstr "این نسخه جدید %1$s دردسترس است."
+
+#: EDD_SL_Plugin_Updater.php:263
+msgid "Contact your network administrator to install the update."
+msgstr "با مدیر شبکه خود تماس برای آپدیت تماس بگیرید."
+
+#. translators: 1. opening anchor tag, do not translate 2. the new plugin version 3. closing anchor tag, do not translate.
+#: EDD_SL_Plugin_Updater.php:268
+#, php-format
+msgid "%1$sView version %2$s details%3$s."
+msgstr "%1$sمشاهده جزئیات%2$s نسخه%3$s."
+
+#: EDD_SL_Plugin_Updater.php:276
+#, php-format
+msgid "%1$sView version %2$s details%3$s or %4$supdate now%5$s."
+msgstr "%1$s مشاهده جزئیات %2$s نسخه%3$s یا%4$s اکنون بروز رسانی نمایید%5$s."
+
+#: EDD_SL_Plugin_Updater.php:287
+msgid "Update now."
+msgstr "بروزرسانی نمایید."
+
+#: EDD_SL_Plugin_Updater.php:519
+msgid "You do not have permission to install plugin updates"
+msgstr "برای نصب بروزرسانی افزونه مجوز ندارید"
+
+#: EDD_SL_Plugin_Updater.php:519
+msgid "Error"
+msgstr "خطا"
+
+#: inc/admin.php:24
+msgid "General"
+msgstr "بخش عمومی"
+
+#: inc/admin.php:25 inc/settings.php:507
+msgid "Assets"
+msgstr "اسکریپت ها"
+
+#: inc/admin.php:26 inc/settings.php:827
+msgid "Preloading"
+msgstr "پیش بارگذاری"
+
+#: inc/admin.php:27 inc/classes/Meta.php:121 inc/settings.php:913
+msgid "Lazy Loading"
+msgstr "بارگذاری تنبل"
+
+#: inc/admin.php:28 inc/settings.php:1095
+msgid "Fonts"
+msgstr "فونت ها"
+
+#: inc/admin.php:29
+msgid "CDN"
+msgstr "شبکه تحویل محتوا CDN"
+
+#: inc/admin.php:30
+msgid "Analytics"
+msgstr "آنالیتیکس"
+
+#: inc/admin.php:80 inc/settings.php:1458
+msgid "Plugin"
+msgstr "افزونه"
+
+#: inc/admin.php:81 inc/settings.php:1556
+msgid "Database"
+msgstr "پایگاه داده"
+
+#: inc/classes/DatabaseOptimizer.php:41
+msgid "There is already an existing database optimization process running."
+msgstr "در حال حاضر یک فرآیند بهینه سازی پایگاه داده موجود در حال اجرا است."
+
+#: inc/classes/DatabaseOptimizer.php:100
+msgid "Database optimization is running in the background."
+msgstr "بهینه سازی پایگاه داده در پس زمینه در حال اجرا است."
+
+#: inc/classes/DatabaseOptimizer.php:118
+msgid "Database optimization completed. The following items were removed:"
+msgstr "بهینه سازی پایگاه داده تکمیل شد. موارد زیر حذف شد:"
+
+#: inc/classes/DatabaseOptimizer.php:129
+msgid "Database optimization completed. No optimizations found."
+msgstr "بهینه سازی پایگاه داده تکمیل شد. هیچ بهینه سازی یافت نشد."
+
+#: inc/classes/DatabaseOptimizer.php:156
+msgid "Once Weekly"
+msgstr "هفته‌ای یک بار"
+
+#: inc/classes/DatabaseOptimizer.php:163
+msgid "Once Monthly"
+msgstr "یک بار در ماه"
+
+#: inc/classes/DatabaseOptimizer.php:206
+msgid "Revisions"
+msgstr "بازبینی‌ها"
+
+#: inc/classes/DatabaseOptimizer.php:207
+msgid "Auto Drafts"
+msgstr "پیش نویس خودکار"
+
+#: inc/classes/DatabaseOptimizer.php:208 inc/settings.php:1591
+msgid "Trashed Posts"
+msgstr "نوشته‌های داخل زباله دان"
+
+#: inc/classes/DatabaseOptimizer.php:209 inc/settings.php:1606
+msgid "Spam Comments"
+msgstr "دیدگاه‌های اسپم"
+
+#: inc/classes/DatabaseOptimizer.php:210 inc/settings.php:1621
+msgid "Trashed Comments"
+msgstr "دیدگاه‌های زباله‌دان"
+
+#: inc/classes/DatabaseOptimizer.php:211
+msgid "Expired transients"
+msgstr "داده‌های گذرای منقضی شده"
+
+#: inc/classes/DatabaseOptimizer.php:212
+msgid "Transients"
+msgstr "داده‌های گذرا"
+
+#: inc/classes/DatabaseOptimizer.php:213 inc/settings.php:1666
+msgid "Tables"
+msgstr "جداول"
+
+#: inc/classes/Meta.php:70 inc/settings.php:757 inc/settings.php:765
+msgid "Clear Used CSS"
+msgstr "پاکسازی CSSهای استفاده شده"
+
+#: inc/classes/Meta.php:109
+msgid "Defer JavaScript"
+msgstr "جاوا اسکریپت را به تعویق بیندازید"
+
+#: inc/classes/Meta.php:113 inc/settings.php:578
+msgid "Delay JavaScript"
+msgstr "تاخیر در جاوا اسکریپت"
+
+#: inc/classes/Meta.php:117
+msgid "Unused CSS"
+msgstr "CSS استفاده نشده"
+
+#: inc/classes/Meta.php:125
+msgid "Instant Page"
+msgstr "صفحه فوری"
+
+#: inc/functions.php:107
+#, php-format
+msgid "No feed available, please visit the <a href='%s'>homepage</a>!"
+msgstr "فیدی دردسترس نیست، لطفا صفحه <a href='%s'>خانه</a>را مشاهده کنین!"
+
+#: inc/functions.php:170
+msgid "Sorry, you do not have permission to make REST API requests."
+msgstr "متأسفیم، شما اجازه درخواست REST API را ندارید."
+
+#: inc/functions.php:306 inc/functions.php:399 inc/functions.php:404
+msgid "Comments are disabled."
+msgstr "دیدگاه غیرفعال است."
+
+#: inc/functions.php:606 inc/functions.php:626 inc/functions.php:1278
+#: inc/functions_script_manager.php:1498 inc/functions_script_manager.php:1506
+msgid "Perfmatters Warning"
+msgstr "اخطار افزونه"
+
+#: inc/functions.php:607
+msgid ""
+"WP_POST_REVISIONS is already enabled somewhere else on your site. We suggest only enabling "
+"this feature in one place."
+msgstr ""
+"WP_POST_REVISIONS در جایی از سایت شما فعال است. پیشنهاد میکنیم تنها در یک محل این ویژگی فعال "
+"باشد."
+
+#: inc/functions.php:627
+msgid ""
+"AUTOSAVE_INTERVAL is already enabled somewhere else on your site. We suggest only enabling "
+"this feature in one place."
+msgstr "AUTOSAVE_INTERVAL جای دیگری فعال است. پیشنهاد می کنیم فقط در یک جا فعال باشد."
+
+#: inc/functions.php:1016 inc/settings.php:442
+msgid "This has been disabled."
+msgstr "غیرفعال شده است."
+
+#: inc/functions.php:1279
+msgid "Local Analytics is enabled but no Tracking ID is set."
+msgstr "آنالیتیکس محلی فعال است اما شناسه رهگیری تنظیم نشده است."
+
+#: inc/functions.php:1401
+msgid "Used CSS cleared."
+msgstr "CSS استفاده شده پاک شد."
+
+#: inc/functions.php:1416
+msgid "Local fonts cleared."
+msgstr "فونت محلی پاک شد."
+
+#: inc/functions.php:1437
+msgid "Successfully restored default options."
+msgstr "گزینه های پیش فرض با موفقیت بازیابی شد."
+
+#: inc/functions.php:1446
+msgid "No meta options selected."
+msgstr "هیچ گزینه متا انتخاب نشده است."
+
+#: inc/functions.php:1466
+msgid "Meta options purged."
+msgstr "گزینه های متا پاک شد."
+
+#: inc/functions.php:1469
+msgid "Meta options not purged."
+msgstr "گزینه های متا پاک نشده اند."
+
+#: inc/functions.php:1503
+msgid "No import file given."
+msgstr "فایل وارداتی داده نشده است."
+
+#: inc/functions.php:1511
+msgid "Please upload a valid .json file."
+msgstr "لطفاً یک فایل .json معتبر آپلود کنید."
+
+#: inc/functions.php:1526
+msgid "Successfully imported Perfmatters settings."
+msgstr "تنظیمات Perfmatters با موفقیت وارد شد."
+
+#: inc/functions_lazy_load.php:490
+msgid "video"
+msgstr "ویدئو"
+
+#: inc/functions_script_manager.php:49 inc/functions_script_manager.php:61
+#: inc/functions_script_manager.php:102 inc/script_manager.php:169 inc/script_manager.php:215
+#: inc/settings.php:512
+msgid "Script Manager"
+msgstr "مدیریت اسکریپت"
+
+#: inc/functions_script_manager.php:64
+msgid "Close Script Manager"
+msgstr "مدیر اسکریپت را ببندید"
+
+#: inc/functions_script_manager.php:132 inc/script_manager.php:414
+msgid "Save"
+msgstr "ذخیره"
+
+#: inc/functions_script_manager.php:133
+msgid "Saving"
+msgstr "ذخیره کردن"
+
+#: inc/functions_script_manager.php:134 inc/functions_script_manager.php:1214
+msgid "Settings saved successfully!"
+msgstr "تنظیمات با موفقیت ذخیره شد!"
+
+#: inc/functions_script_manager.php:135
+msgid "Settings failed to update."
+msgstr "تنظیمات به روز نشد."
+
+#: inc/functions_script_manager.php:136
+msgid "No disabled location selected."
+msgstr "هیچ مکان غیرفعالی انتخاب نشده است."
+
+#: inc/functions_script_manager.php:137
+msgid "No options were changed."
+msgstr "هیچ گزینه ای تغییر نکرد."
+
+#: inc/functions_script_manager.php:301
+msgid "Status"
+msgstr "وضعیت"
+
+#: inc/functions_script_manager.php:302
+msgid "Script"
+msgstr "اسکریپت"
+
+#: inc/functions_script_manager.php:303
+msgid "Type"
+msgstr "تایپ کنید"
+
+#: inc/functions_script_manager.php:304
+msgid "Size"
+msgstr "اندازه"
+
+#: inc/functions_script_manager.php:330
+msgid "MU Mode is currently enabled, the above settings will apply to the entire plugin."
+msgstr "حالت MU در حال حاضر فعال است، تنظیمات فوق برای کل افزونه اعمال می شود."
+
+#: inc/functions_script_manager.php:333
+msgid "The above settings will apply to all assets in this group."
+msgstr "تنظیمات فوق برای همه دارایی های این گروه اعمال می شود."
+
+#: inc/functions_script_manager.php:399
+msgid "Depends on"
+msgstr "بستگی دارد به"
+
+#: inc/functions_script_manager.php:412
+msgid "Required by"
+msgstr "مورد نیاز توسط"
+
+#: inc/functions_script_manager.php:485 inc/script_manager.php:330
+msgid "MU Mode"
+msgstr "حالت MU"
+
+#: inc/functions_script_manager.php:491 inc/script_manager_css.php:619
+msgid "ON"
+msgstr "روشن"
+
+#: inc/functions_script_manager.php:492 inc/script_manager_css.php:633
+msgid "OFF"
+msgstr "خاموش"
+
+#: inc/functions_script_manager.php:516 inc/settings.php:1709
+msgid "Disabled"
+msgstr "غیرفعال"
+
+#: inc/functions_script_manager.php:530
+msgid "Everywhere"
+msgstr "همه جا"
+
+#: inc/functions_script_manager.php:548 inc/functions_script_manager.php:714 inc/settings.php:423
+msgid "404 Template"
+msgstr "پوسته 404"
+
+#: inc/functions_script_manager.php:563 inc/functions_script_manager.php:728
+msgid "Current URL"
+msgstr "URL کنونی"
+
+#: inc/functions_script_manager.php:651 inc/functions_script_manager.php:816
+msgid "Users"
+msgstr "کاربران"
+
+#: inc/functions_script_manager.php:653 inc/functions_script_manager.php:665
+#: inc/functions_script_manager.php:818 inc/functions_script_manager.php:830 inc/settings.php:309
+#: inc/settings.php:328 inc/settings.php:348 inc/settings.php:376 inc/settings.php:422
+#: inc/settings.php:602 inc/settings.php:691 inc/settings.php:711 inc/settings.php:869
+#: inc/settings.php:942 inc/settings.php:1287 inc/settings.php:1306
+msgid "Default"
+msgstr "پیش فرض"
+
+#: inc/functions_script_manager.php:654 inc/functions_script_manager.php:819
+msgid "Logged In"
+msgstr "وارد شده"
+
+#: inc/functions_script_manager.php:655 inc/functions_script_manager.php:820
+msgid "Logged Out"
+msgstr "خارج شده"
+
+#: inc/functions_script_manager.php:663 inc/functions_script_manager.php:828
+msgid "Devices"
+msgstr "دستگاه ها"
+
+#: inc/functions_script_manager.php:666 inc/functions_script_manager.php:831
+#: inc/settings.php:1979
+msgid "Desktop"
+msgstr "دسکتاپ"
+
+#: inc/functions_script_manager.php:667 inc/functions_script_manager.php:832
+#: inc/settings.php:1980
+msgid "Mobile"
+msgstr "موبایل"
+
+#: inc/functions_script_manager.php:675 inc/functions_script_manager.php:840
+msgid "Regex"
+msgstr "عبارات Regex"
+
+#: inc/functions_script_manager.php:693
+msgid "Exceptions"
+msgstr "استثناها"
+
+#: inc/functions_script_manager.php:1499 inc/script_manager.php:355
+msgid "MU plugin version mismatch."
+msgstr "عدم تطابق نسخه افزونه MU."
+
+#: inc/functions_script_manager.php:1499 inc/functions_script_manager.php:1507
+#: inc/script_manager.php:194 inc/script_manager.php:326 inc/script_manager.php:338
+#: inc/settings.php:2193
+msgid "View Documentation"
+msgstr "مشاهده مستندات"
+
+#: inc/functions_script_manager.php:1507 inc/script_manager.php:364
+msgid "MU plugin file not found."
+msgstr "فایل افزونه MU یافت نشد."
+
+#: inc/license.php:64 perfmatters.php:173
+msgid "License"
+msgstr "کد لایسنس"
+
+#: inc/license.php:71
+msgid "License Key"
+msgstr "کد لایسنس"
+
+#: inc/license.php:78
+msgid "Save License"
+msgstr "ذخیره لایسنس"
+
+#: inc/license.php:82
+msgid "Remove License"
+msgstr "حذف لایسنس"
+
+#: inc/license.php:85
+msgid "Save or remove your license key."
+msgstr "لایسنس خود را ذخیره یا حذف کنید."
+
+#: inc/license.php:111 inc/license.php:118
+msgid "Activate License"
+msgstr "فعال کردن لایسنس"
+
+#: inc/license.php:114
+msgid "Deactivate License"
+msgstr "غیرفعال کردن لایسنس"
+
+#: inc/license.php:115
+msgid "License is activated."
+msgstr "لایسنس فعال شده است."
+
+#: inc/license.php:119
+msgid "License is not activated."
+msgstr "لایسنس فعال نشده است."
+
+#: inc/license.php:122
+msgid ""
+"Unlimited License needed for use in a multisite environment. Please contact support to upgrade."
+msgstr ""
+"لایسنس نامحدود برای استفاده در مولتی سایت مورد نیاز است. لطفا برای ارتقاء با پشتیبانی تماس "
+"بگیرید."
+
+#: inc/license.php:131
+msgid "License Status"
+msgstr "وضعیت لایسنس"
+
+#: inc/license.php:136
+msgid "Renew Your License for Updates + Support!"
+msgstr "لایسنس خود را برای پشتیبانی و بروزرسانی تمدید کنید!"
+
+#: inc/license.php:145
+msgid "Licenses Used"
+msgstr "لایسنس های استفاده شده"
+
+#: inc/license.php:153
+msgid "Expiration Date"
+msgstr "تاریخ انقضا"
+
+#: inc/license.php:154
+msgid "Lifetime"
+msgstr "مادام العمر"
+
+#: inc/network.php:21
+msgid "Network Access"
+msgstr "دسترسی شبکه"
+
+#: inc/network.php:26
+msgid "Choose who has access to manage Perfmatters plugin settings."
+msgstr "انتخاب کنید چه کسی به مدیریت تنظیمات افزونه دسترسی داشته باشد."
+
+#: inc/network.php:32
+msgid "Network Default"
+msgstr "پیشفرض شبکه"
+
+#: inc/network.php:37
+msgid "Choose a subsite that you want to pull default settings from."
+msgstr "سایت فرعی را انتخاب کنید که می‌خواهید تنظیمات پیش‌فرض را از آن انجام دهید."
+
+#: inc/network.php:44 inc/settings.php:1465
+msgid "Clean Uninstall"
+msgstr "پاکسازی حذف"
+
+#: inc/network.php:51 inc/settings.php:1472
+msgid ""
+"When enabled, this will cause all Perfmatters options data to be removed from your database "
+"when the plugin is uninstalled."
+msgstr ""
+"هنگامی که فعال باشد، این باعث می‌شود که تمام داده‌های گزینه‌های Perfmatters از پایگاه داده شما "
+"حذف شوند، وقتی افزونه حذف شود."
+
+#: inc/network.php:65
+msgid "Site Admins (Default)"
+msgstr "مدیران سایت (پیشفرض)"
+
+#: inc/network.php:66
+msgid "Super Admins Only"
+msgstr "فقط سوپر ادمین"
+
+#: inc/network.php:82
+msgid "None"
+msgstr "هیچ"
+
+#: inc/network.php:132 inc/network.php:171
+msgid "Default settings applied!"
+msgstr "تنظیمات پیشفرض اعمال شد!"
+
+#: inc/network.php:136
+msgid "Select a site that is not already the Network Default."
+msgstr "سایتی را انتخاب کنید که قبلاً پیش فرض شبکه نیست."
+
+#: inc/network.php:141 inc/network.php:181
+msgid "Network Default not set."
+msgstr "پیشفرض شبکه تنظیم نشده است."
+
+#: inc/network.php:146
+msgid "Error: Blog Not Found."
+msgstr "خطا: بلاگ یافت نشد."
+
+#: inc/network.php:176
+msgid "No available sites found."
+msgstr "سایت دردسترسی یافت نشد."
+
+#: inc/network.php:187
+msgid "Options saved."
+msgstr "تنظیمات ذخیره شد."
+
+#: inc/network.php:211 inc/network.php:226
+msgid "Apply Default Settings"
+msgstr "اعمال تنظیمات پیشفرض"
+
+#: inc/network.php:214
+msgid ""
+"Select a site from the dropdown and click to apply the settings from your network default "
+"(above)."
+msgstr ""
+"یک سایت را از منوی کشویی انتخاب کنید و برای اعمال تنظیمات از پیش فرض شبکه خود (در بالا) کلیک "
+"کنید."
+
+#: inc/network.php:219
+msgid "Select a Site"
+msgstr "انتخاب یک سایت"
+
+#: inc/network.php:230
+msgid ""
+"Apply the settings from your network default to all sites. Depending on the amount, this may "
+"take a while."
+msgstr ""
+"تنظیمات را از شبکه پیش‌فرض خود در همه سایت‌ها اعمال کنید. بسته به مقدار، ممکن است مدتی طول بکشد."
+
+#: inc/network.php:232
+msgid "Apply Default Settings to All Sites"
+msgstr "تنظیمات پیشفرض را به همه سایت ها اعمال کنید"
+
+#: inc/network.php:232
+msgid "Are you sure? This will permanently overwrite all Perfmatters options for all subsites."
+msgstr ""
+"مطمئنی؟ با این کار همه گزینه های Perfmatters برای همه زیر سایت ها به طور دائم بازنویسی می شود."
+
+#: inc/script_manager.php:170 inc/script_manager_global.php:6
+msgid "Global View"
+msgstr "نمای کلی"
+
+#: inc/script_manager.php:171 inc/script_manager.php:285 perfmatters.php:192
+msgid "Settings"
+msgstr "پیکربندی"
+
+#: inc/script_manager.php:193
+msgid ""
+"We recommend testing Script Manager changes on a staging/dev site first, as you could break "
+"your site's appearance."
+msgstr ""
+"توصیه می‌کنیم ابتدا تغییرات Script Manager را روی یک سایت staging/dev آزمایش کنید، زیرا "
+"می‌توانید ظاهر سایت خود را خراب کنید."
+
+#: inc/script_manager.php:200
+msgid "You are in Testing Mode. Changes will only be visible to logged-in admins."
+msgstr ""
+"شما در حالت تست هستید. تغییرات فقط برای مدیرانی که وارد سیستم شده اند قابل مشاهده خواهند بود."
+
+#: inc/script_manager.php:216
+msgid "Manage scripts loading on the current page."
+msgstr "بارگیری اسکریپت ها در صفحه فعلی را مدیریت کنید."
+
+#: inc/script_manager.php:240
+msgid "Total size"
+msgstr "اندازه کل"
+
+#: inc/script_manager.php:268
+msgid "The Script Manager does not support AMP pages."
+msgstr "مدیر اسکریپت از صفحات AMP پشتیبانی نمی کند."
+
+#: inc/script_manager.php:271
+msgid "Loading Scripts"
+msgstr "بارگیری اسکریپت ها"
+
+#: inc/script_manager.php:286
+msgid "View and manage all of your Script Manager settings."
+msgstr "همه تنظیمات مدیریت اسکریپت خود را مشاهده و مدیریت کنید."
+
+#: inc/script_manager.php:297
+msgid "Display Archives"
+msgstr "نمایش آرشیوها"
+
+#: inc/script_manager.php:304
+msgid ""
+"Add WordPress archives to your Script Manager selection options. Archive posts will no longer "
+"be grouped with their post type."
+msgstr ""
+"آرشیوهای وردپرس را به گزینه های انتخاب مدیر اسکریپت خود اضافه کنید. پست های آرشیو دیگر با نوع "
+"پست خود گروه بندی نمی شوند."
+
+#: inc/script_manager.php:308
+msgid "Display Dependencies"
+msgstr "نمایش وابستگی ها"
+
+#: inc/script_manager.php:315
+msgid "Show dependencies for each script."
+msgstr "نمایش وابستگی برای هر اسکریپت."
+
+#: inc/script_manager.php:319
+msgid "Testing Mode"
+msgstr "حالت تست"
+
+#: inc/script_manager.php:326
+msgid "Restrict your Script Manager configuration to logged-in admins only."
+msgstr "پیکربندی مدیر اسکریپت خود را فقط به مدیران وارد شده محدود کنید."
+
+#: inc/script_manager.php:338
+msgid ""
+"Must-use (MU) mode requires elevated permissions and a file to be copied into the mu-plugins "
+"directory. This gives you more control and the ability to disable plugin queries, inline CSS, "
+"etc."
+msgstr ""
+"حالت Must-use (MU) به مجوزهای بالا و کپی شدن یک فایل در فهرست mu-plugins نیاز دارد. این به شما "
+"کنترل بیشتر و توانایی غیرفعال کردن پرس و جوهای افزونه، CSS درون خطی و غیره را می دهد."
+
+#: inc/script_manager.php:340
+msgid "Warning"
+msgstr "هشدار"
+
+#: inc/script_manager.php:340
+msgid ""
+"Any previous plugin-level disables will now disable the entire plugin. Please review your "
+"existing Script Manager configuration before enabling this option."
+msgstr ""
+"هرگونه غیرفعال کردن قبلی در سطح افزونه اکنون کل افزونه را غیرفعال می کند. لطفاً قبل از فعال "
+"کردن این گزینه، پیکربندی مدیریت اسکریپت موجود خود را بررسی کنید."
+
+#: inc/script_manager.php:359
+msgid "MU plugin installed."
+msgstr "افزونه MU نصب شده است."
+
+#: inc/script_manager.php:374
+msgid "Hide Disclaimer"
+msgstr "پنهان کردن سلب مسئولیت"
+
+#: inc/script_manager.php:381
+msgid "Hide the disclaimer message box across all Script Manager views."
+msgstr "کادر پیام سلب مسئولیت را در همه نماهای مدیر اسکریپت پنهان کنید."
+
+#: inc/script_manager.php:385 inc/script_manager.php:389
+msgid "Reset Script Manager"
+msgstr "بازنشانی مدیر اسکریپت"
+
+#: inc/script_manager.php:392
+msgid "Remove and reset all of your existing Script Manager settings."
+msgstr "تمام تنظیمات مدیریت اسکریپت موجود خود را حذف و بازنشانی کنید."
+
+#: inc/script_manager.php:434
+msgid ""
+"Are you sure? This will remove and reset all of your existing Script Manager settings and "
+"cannot be undone!"
+msgstr ""
+"مطمئنی؟ این همه تنظیمات مدیریت اسکریپت موجود شما را حذف و بازنشانی می‌کند و قابل بازگشت نیست!"
+
+#: inc/script_manager_global.php:7
+msgid ""
+"This is a visual representation of the Script Manager configuration across your entire site."
+msgstr "این یک نمایش بصری از پیکربندی مدیر اسکریپت در کل سایت شما است."
+
+#: inc/script_manager_global.php:40
+msgid "Handle"
+msgstr "رسیدگی"
+
+#: inc/script_manager_global.php:41
+msgid "Setting"
+msgstr "تنظیمات"
+
+#: inc/script_manager_global.php:129
+msgid "You don't have any scripts disabled yet."
+msgstr "شما هنوز هیچ اسکریپتی غیرفعال ندارید."
+
+#: inc/settings.php:13 perfmatters.php:168
+msgid "Options"
+msgstr "تنظیمات"
+
+#: inc/settings.php:18
+msgid "Disable Emojis"
+msgstr "غیرفعال کردن ایموجی"
+
+#: inc/settings.php:24
+msgid "Removes WordPress Emojis JavaScript file (wp-emoji-release.min.js)."
+msgstr "فایل جاوا اسکریپت Emojis وردپرس (wp-emoji-release.min.js) را حذف می کند."
+
+#: inc/settings.php:31
+msgid "Disable Dashicons"
+msgstr "غیرفعال کردن Dashicons"
+
+#: inc/settings.php:37
+msgid "Disables dashicons on the front end when not logged in."
+msgstr "وقتی وارد سیستم نشده‌اید،dashicons فرانت را غیرفعال می‌کند."
+
+#: inc/settings.php:44
+msgid "Disable Embeds"
+msgstr "غرفعال کردن Embeds"
+
+#: inc/settings.php:50
+msgid "Removes WordPress Embed JavaScript file (wp-embed.min.js)."
+msgstr "فایل جاوا اسکریپت جاسازی وردپرس (wp-embed.min.js) را حذف می کند."
+
+#: inc/settings.php:57
+msgid "Disable XML-RPC"
+msgstr "غیرفعال کردن XML-RPC"
+
+#: inc/settings.php:63
+msgid "Disables WordPress XML-RPC functionality."
+msgstr "عملکرد XML-RPC وردپرس را غیرفعال می کند."
+
+#: inc/settings.php:70
+msgid "Remove jQuery Migrate"
+msgstr "حذف مهاجرت jQuery"
+
+#: inc/settings.php:76
+msgid "Removes jQuery Migrate JavaScript file (jquery-migrate.min.js)."
+msgstr "فایل جاوا اسکریپت jQuery Migrate (jquery-migrate.min.js) را حذف می کند."
+
+#: inc/settings.php:83
+msgid "Hide WP Version"
+msgstr "مخفی کردن نسخه وردپرس"
+
+#: inc/settings.php:89
+msgid "Removes WordPress version meta tag."
+msgstr "متا تگ نسخه وردپرس را حذف می کند."
+
+#: inc/settings.php:96
+msgid "Remove wlwmanifest Link"
+msgstr "حذف پیوندهای wlwmanifest"
+
+#: inc/settings.php:102
+msgid "Remove wlwmanifest (Windows Live Writer) link tag."
+msgstr "برچسب پیوند wlwmanifest (Windows Live Writer) را حذف کنید."
+
+#: inc/settings.php:109
+msgid "Remove RSD Link"
+msgstr "حذف پیوند RSD"
+
+#: inc/settings.php:115
+msgid "Remove RSD (Real Simple Discovery) link tag."
+msgstr "برچسب پیوند RSD (Real Simple Discovery) را حذف کنید."
+
+#: inc/settings.php:122
+msgid "Remove Shortlink"
+msgstr "حذف شورت لینک"
+
+#: inc/settings.php:128
+msgid "Remove Shortlink link tag."
+msgstr "برچسب پیوند کوتاه را حذف کنید."
+
+#: inc/settings.php:135
+msgid "Disable RSS Feeds"
+msgstr "غیرفعال کردن RSS"
+
+#: inc/settings.php:141
+msgid "Disable WordPress generated RSS feeds and 301 redirect URL to parent."
+msgstr "فیدهای RSS تولید شده وردپرس را غیرفعال کنید و URL 301 را به والد هدایت کنید."
+
+#: inc/settings.php:148
+msgid "Remove RSS Feed Links"
+msgstr "حذف لینک های RSS"
+
+#: inc/settings.php:154
+msgid "Disable WordPress generated RSS feed link tags."
+msgstr "برچسب های پیوند RSS ایجاد شده توسط وردپرس را غیرفعال کنید."
+
+#: inc/settings.php:161
+msgid "Disable Self Pingbacks"
+msgstr "غیرفعال کردن Pingbacks"
+
+#: inc/settings.php:167
+msgid "Disable Self Pingbacks (generated when linking to an article on your own blog)."
+msgstr ""
+"Pingbacks خود را غیرفعال کنید (در هنگام پیوند دادن به مقاله در وبلاگ خودتان ایجاد می شود)."
+
+#: inc/settings.php:174
+msgid "Disable REST API"
+msgstr "غیرفعال کردن REST API"
+
+#: inc/settings.php:182
+msgid "Default (Enabled)"
+msgstr "پیشفرض (فعال)"
+
+#: inc/settings.php:183
+msgid "Disable for Non-Admins"
+msgstr "غیرفعال برای غیر مدیران"
+
+#: inc/settings.php:184
+msgid "Disable When Logged Out"
+msgstr "غیرفعال هنگامی که خارج از حساب هستید"
+
+#: inc/settings.php:186
+msgid ""
+"Disables REST API requests and displays an error message if the requester doesn't have "
+"permission."
+msgstr ""
+"درخواست‌های REST API را غیرفعال می‌کند و اگر درخواست‌کننده مجوز نداشته باشد، یک پیام خطا نمایش "
+"می‌دهد."
+
+#: inc/settings.php:193
+msgid "Remove REST API Links"
+msgstr "حذف لینک های REST API"
+
+#: inc/settings.php:199
+msgid ""
+"Removes REST API link tag from the front end and the REST API header link from page requests."
+msgstr ""
+"برچسب پیوند REST API را از قسمت جلویی و پیوند سرصفحه REST API را از درخواست‌های صفحه حذف می‌کند."
+
+#: inc/settings.php:206
+msgid "Disable Google Maps"
+msgstr "غیرفعال کردن نقشه گوگل"
+
+#: inc/settings.php:213
+msgid "Removes any instances of Google Maps being loaded across your entire site."
+msgstr "هر نمونه ای از Google Maps را که در کل سایت شما بارگیری می شود حذف می کند."
+
+#: inc/settings.php:220
+msgid "Exclude Post IDs"
+msgstr "صرف نظر از شناسه نوشته"
+
+#: inc/settings.php:229
+msgid "Prevent Google Maps from being disabled on specific post IDs. Format: comma separated"
+msgstr ""
+"از غیرفعال شدن Google Maps در شناسه‌های نوشته خاص جلوگیری کنید. فرمت: با ویرگول جدا شده است"
+
+#: inc/settings.php:236
+msgid "Disable Password Strength Meter"
+msgstr "غرفعال کردن سنجش قدرت رمزعبور"
+
+#: inc/settings.php:242
+msgid ""
+"Removes WordPress and WooCommerce Password Strength Meter scripts from non essential pages."
+msgstr "اسکریپت های سنجش قدرت کلمه عبور وردپرس و ووکامرس را از صفحات غیر ضروری حذف می کند."
+
+#: inc/settings.php:249
+msgid "Disable Comments"
+msgstr "غیرفعال کردن دیدگاه"
+
+#: inc/settings.php:255
+msgid "Disables WordPress comments across your entire site."
+msgstr "نظرات وردپرس را در کل سایت خود غیرفعال کنید."
+
+#: inc/settings.php:262
+msgid "Remove Comment URLs"
+msgstr "حذف لینک دیدگاه ها"
+
+#: inc/settings.php:268
+msgid "Removes the WordPress comment author link and website field from blog posts."
+msgstr "لینک نویسنده نظر وردپرس و فیلد وب سایت را از پست های وبلاگ حذف می کند."
+
+#: inc/settings.php:275
+msgid "Add Blank Favicon"
+msgstr "افزودن فاویکون خالی"
+
+#: inc/settings.php:281
+msgid ""
+"Adds a blank favicon to your WordPress header, which will prevent a missing favicon or 404 "
+"error. If you already have a favicon on your site, you should leave this off. "
+msgstr ""
+"یک فاویکون خالی به هدر وردپرس شما اضافه می کند که از خطای فاویکون از دست رفته یا 404 جلوگیری "
+"می کند. اگر قبلاً یک فاویکون در سایت خود دارید، بیخیال این مورد شوید. "
+
+#: inc/settings.php:288
+msgid "Remove Global Styles"
+msgstr "حذف استایل سراسری"
+
+#: inc/settings.php:294
+msgid "Remove the inline global styles (CSS and SVG code) related to duotone filters."
+msgstr "استایل های سراسری درون خطی (کد CSS و SVG) مربوط به فیلترهای duotone را حذف کنید."
+
+#: inc/settings.php:301
+msgid "Disable Heartbeat"
+msgstr "غیرفعال کردن Heartbeat"
+
+#: inc/settings.php:310
+msgid "Disable Everywhere"
+msgstr "غیرفعال کردن همه جا"
+
+#: inc/settings.php:311
+msgid "Only Allow When Editing Posts/Pages"
+msgstr "فقط مجاز هنگام ویرایش نوشته/برگه"
+
+#: inc/settings.php:313
+msgid ""
+"Disable WordPress Heartbeat everywhere or in certain areas (used for auto saving and revision "
+"tracking)."
+msgstr ""
+"ضربان قلب وردپرس را در همه جا یا در مناطق خاصی غیرفعال کنید (برای ذخیره خودکار و ردیابی "
+"بازبینی استفاده می شود)."
+
+#: inc/settings.php:320
+msgid "Heartbeat Frequency"
+msgstr "فرکانس Heartbeat"
+
+#: inc/settings.php:328 inc/settings.php:329 inc/settings.php:330 inc/settings.php:331
+#, php-format
+msgid "%s Seconds"
+msgstr "%s ثانیه"
+
+#: inc/settings.php:333
+msgid "Controls how often the WordPress Heartbeat API is allowed to run."
+msgstr "تعداد دفعات مجاز اجرای API ضربان قلب وردپرس را کنترل می کند."
+
+#: inc/settings.php:340
+msgid "Limit Post Revisions"
+msgstr "محدودکردن پیشنویس نوشته"
+
+#: inc/settings.php:349
+msgid "Disable Post Revisions"
+msgstr "بازبینی نوشته را غیرفعال کنید"
+
+#: inc/settings.php:361
+msgid "Limits the maximum amount of revisions that are allowed for posts and pages."
+msgstr "حداکثر بازبینی مجاز برای نوشته ها و برگه ها را محدود می کند."
+
+#: inc/settings.php:368
+msgid "Autosave Interval"
+msgstr "مدت زمان چرخه ذخیره خودکار"
+
+#: inc/settings.php:376
+msgid "Minute"
+msgstr "دقیقه"
+
+#: inc/settings.php:377
+msgid "Disable Autosave Interval"
+msgstr "مدت زمان چرخه ذخیره خودکار را غیرفعال کنید"
+
+#: inc/settings.php:378 inc/settings.php:379 inc/settings.php:380 inc/settings.php:381
+#: inc/settings.php:382 inc/settings.php:383 inc/settings.php:384 inc/settings.php:385
+#: inc/settings.php:386
+msgid "Minutes"
+msgstr "دقیقه"
+
+#: inc/settings.php:388
+msgid "Controls how often WordPress will auto save posts and pages while editing."
+msgstr "میزان دفعات ذخیره خودکار نوشته ها و برگه ها را حین ویرایش کنترل می کند."
+
+#: inc/settings.php:393
+msgid "Login URL"
+msgstr "آدرس ورود"
+
+#: inc/settings.php:398
+msgid "Custom Login URL"
+msgstr "آدرس ورود سفارشی"
+
+#: inc/settings.php:407
+msgid ""
+"When set, this will change your WordPress login URL (slug) to the provided string and will "
+"block wp-admin and wp-login endpoints from being directly accessed."
+msgstr ""
+"هنگامی که تنظیم شود، URL ورود به وردپرس شما (نامک) را به رشته ارائه شده تغییر می دهد و دسترسی "
+"مستقیم به نقاط پایانی wp-admin و wp-login را مسدود می کند."
+
+#: inc/settings.php:414
+msgid "Disabled Behavior"
+msgstr "غیرفعال کردن رفتار"
+
+#: inc/settings.php:422 inc/settings.php:434
+msgid "Message"
+msgstr "پیام"
+
+#: inc/settings.php:424
+msgid "Home URL"
+msgstr "URL خانه"
+
+#: inc/settings.php:427
+msgid "Change what happens when an original login endpoint is visited."
+msgstr "وقتی از یک نقطه پایانی ورود اصلی بازدید می‌شود، اتفاقی که می‌افتد را تغییر دهید."
+
+#: inc/settings.php:443
+msgid "Change the disabled message that is displayed."
+msgstr "پیام غیرفعال نمایش داده شده را تغییر دهید."
+
+#: inc/settings.php:455
+msgid "Disable Scripts"
+msgstr "غیرفعال کردن اسکریپت"
+
+#: inc/settings.php:461
+msgid "Disables WooCommerce scripts and styles except on product, cart, and checkout pages."
+msgstr "اسکریپت‌ها و سبک‌های ووکامرس را غیرفعال می‌کند، به جز در صفحات محصول، سبد خرید و پرداخت."
+
+#: inc/settings.php:468
+msgid "Disable Cart Fragmentation"
+msgstr "غیرفعال کردن Cart Fragmentation"
+
+#: inc/settings.php:474
+msgid "Completely disables WooCommerce cart fragmentation script."
+msgstr "اسکریپت fragmentation سبد خرید ووکامرس را به طور کامل غیرفعال می کند."
+
+#: inc/settings.php:481
+msgid "Disable Status Meta Box"
+msgstr "غیرفعال کردن وضعیت متاباکس"
+
+#: inc/settings.php:487
+msgid "Disables WooCommerce status meta box from the WP Admin Dashboard."
+msgstr "باکس متا وضعیت ووکامرس را از پیشخوان مدیریت غیرفعال می کند."
+
+#: inc/settings.php:494
+msgid "Disable Widgets"
+msgstr "غیرفعال کردن ابزارک ها"
+
+#: inc/settings.php:500
+msgid "Disables all WooCommerce widgets."
+msgstr "غیرفعال کردن همه ابزارک های ووکامرس."
+
+#: inc/settings.php:519
+msgid ""
+"Enables the Perfmatters Script Manager, which gives you the ability to disable CSS and JS "
+"files on a page by page basis."
+msgstr ""
+"مدیریت اسکریپت Perfmatters را فعال می کند، که به شما امکان می دهد فایل های CSS و JS را صفحه به "
+"صفحه غیرفعال کنید."
+
+#: inc/settings.php:524
+msgid "JavaScript"
+msgstr "جاوا اسکریپت (پشتیبانی فارسی: یوسف زاده)"
+
+#: inc/settings.php:529
+msgid "Defer Javascript"
+msgstr "تعویق جاوا اسکریپت"
+
+#: inc/settings.php:536
+msgid "Add the defer attribute to your JavaScript files."
+msgstr "افزودن ویژگی defer به فایل های جاوا اسکریپت."
+
+#: inc/settings.php:544
+msgid "Include jQuery"
+msgstr "شامل jQuery"
+
+#: inc/settings.php:551
+msgid ""
+"Many plugins and themes require jQuery. We recommend either testing jQuery deferral separately "
+"or leaving this option turned off."
+msgstr ""
+"بسیاری از افزونه ها و قالب ها به jQuery نیاز دارند. توصیه می کنیم یا به طور جداگانه تعویق "
+"jQuery را آزمایش کنید یا این گزینه را خاموش بگذارید."
+
+#: inc/settings.php:552
+msgid "Allow jQuery core to be deferred. We recommend testing this separately or leaving it off."
+msgstr ""
+"اجازه دهید هسته jQuery به تعویق بیفتد. توصیه می کنیم این را جداگانه آزمایش کنید یا آن را کنار "
+"بگذارید."
+
+#: inc/settings.php:560
+msgid "Exclude from Deferral"
+msgstr "از تعویق خارج شود"
+
+#: inc/settings.php:570
+msgid ""
+"Exclude specific JavaScript files from deferral. Exclude a file by adding the source URL "
+"(example.js). Format: one per line"
+msgstr ""
+"فایل های خاص جاوا اسکریپت را از تعویق حذف کنید. با افزودن URL منبع (example.js) یک فایل را حذف "
+"کنید. فرمت: یکی در هر خط"
+
+#: inc/settings.php:585
+msgid "Delay JavaScript from loading until user interaction."
+msgstr "جاوا اسکریپت را از بارگیری تا زمان تعامل با کاربر به تاخیر بیندازید."
+
+#: inc/settings.php:593
+msgid "Delay Behavior"
+msgstr "رفتار تاخیری"
+
+#: inc/settings.php:602
+msgid "Only Delay Specified Scripts"
+msgstr "فقط اسکریپت های مشخص شده را به تاخیر انداخت"
+
+#: inc/settings.php:603
+msgid "Delay All Scripts"
+msgstr "همه اسکریپت ها را به تاخیر انداخت"
+
+#: inc/settings.php:605
+msgid "Choose the method used to delay scripts."
+msgstr "روش مورد استفاده برای به تاخیر انداختن اسکریپت ها را انتخاب کنید."
+
+#: inc/settings.php:613
+msgid "Delayed Scripts"
+msgstr "اسکریپت های تاخیری"
+
+#: inc/settings.php:623
+msgid ""
+"Delay specific JavaScript files by adding the source URL (example.js), or delay an inline "
+"script by adding a unique string from that script. Format: one per line"
+msgstr ""
+"با افزودن URL منبع (example.js)، فایل‌های جاوا اسکریپت خاص را به تاخیر بیندازید، یا با افزودن "
+"یک رشته منحصر به فرد از آن اسکریپت، یک اسکریپت درون خطی را به تاخیر بیندازید. فرمت: یکی در هر "
+"خط"
+
+#: inc/settings.php:631
+msgid "Excluded from Delay"
+msgstr "صرف نظر از تاخیر"
+
+#: inc/settings.php:641
+msgid ""
+"Exclude specific JavaScript files from delay by adding the source URL (example.js), or exclude "
+"an inline script by adding a unique string from that script. Format: one per line"
+msgstr ""
+"با افزودن URL منبع (example.js)، فایل‌های جاوا اسکریپت خاص را از تأخیر حذف کنید، یا با افزودن "
+"یک رشته منحصر به فرد از آن اسکریپت، یک اسکریپت درون خطی را حذف کنید. فرمت: یکی در هر خط"
+
+#: inc/settings.php:649
+msgid "Delay Timeout"
+msgstr "وقفه تاخیر"
+
+#: inc/settings.php:656
+msgid "Load delayed scripts after a set amount of time if no user interaction has been detected."
+msgstr ""
+"اسکریپت های تاخیری را پس از مدت زمان مشخصی بارگیری کنید اگر هیچ تعاملی با کاربر شناسایی نشد."
+
+#: inc/settings.php:662
+msgid "CSS"
+msgstr "سی اس اس"
+
+#: inc/settings.php:667
+msgid "Remove Unused CSS"
+msgstr "حذف CSS بدون استفاده"
+
+#: inc/settings.php:674
+msgid "Remove unused CSS from your stylesheets and print out used CSS inline in the header."
+msgstr ""
+"CSS استفاده نشده را از استایل خود حذف کنید و CSS استفاده شده را به صورت درون خطی در هدر چاپ "
+"کنید."
+
+#: inc/settings.php:682
+msgid "Used CSS Method"
+msgstr "از روش CSS استفاده شده است"
+
+#: inc/settings.php:691
+msgid "Inline"
+msgstr "داخلی"
+
+#: inc/settings.php:692
+msgid "File"
+msgstr "پرونده"
+
+#: inc/settings.php:694
+msgid "Choose how the used CSS will be included."
+msgstr "نحوه گنجاندن CSS مورد استفاده را انتخاب کنید."
+
+#: inc/settings.php:702
+msgid "Stylesheet Behavior"
+msgstr "رفتار استایل"
+
+#: inc/settings.php:711
+msgid "Delay"
+msgstr "تاخیر"
+
+#: inc/settings.php:712
+msgid "Async"
+msgstr "همگام"
+
+#: inc/settings.php:713 inc/settings.php:1952 inc/settings.php:2057
+msgid "Remove"
+msgstr "حذف"
+
+#: inc/settings.php:715
+msgid "Choose how the original stylesheets (unused CSS) will be included."
+msgstr "نحوه گنجاندن استایل های اصلی (CSS استفاده نشده) را انتخاب کنید."
+
+#: inc/settings.php:723
+msgid "Excluded Stylesheets"
+msgstr "صرف نظر استایل ها"
+
+#: inc/settings.php:732
+msgid ""
+"Exclude specific stylesheets from unused CSS removal by adding a unique portion of the source "
+"URL (example.css). Format: one per line"
+msgstr ""
+"با افزودن یک بخش منحصر به فرد از URL منبع (example.css) استایل های خاصی را از حذف CSS استفاده "
+"نشده حذف کنید. فرمت: یکی در هر خط"
+
+#: inc/settings.php:740
+msgid "Excluded Selectors"
+msgstr "صرف نظر Selectors"
+
+#: inc/settings.php:749
+msgid ""
+"Exclude specific CSS selectors from being removed by adding the element ID, class name, etc. "
+"(#id, .class). Format: one per line"
+msgstr ""
+"صرف نظر از selectors معین CSS از حذف شدن توسط افزودن شناسه عنصر، نام کلاس، و ...و (#id, ."
+"class). فرمت: یکی در هر خط"
+
+#: inc/settings.php:767
+msgid "Remove all existing unused CSS files that have been generated."
+msgstr "تمام فایل های CSS استفاده نشده موجود را که تولید شده اند حذف کنید."
+
+#: inc/settings.php:772
+msgid "Code"
+msgstr "کد"
+
+#: inc/settings.php:777
+msgid "Add Header Code"
+msgstr "کد هدر را اضافه کنید"
+
+#: inc/settings.php:786
+msgid "Code added here will be printed in the head section on every page of your website."
+msgstr "کد اضافه شده در اینجا در قسمت head در هر صفحه وب سایت شما چاپ می شود."
+
+#: inc/settings.php:795
+msgid "Add Body Code"
+msgstr "کد body را اضافه کنید"
+
+#: inc/settings.php:804
+msgid "Code added here will be printed below the opening body tag on every page of your website."
+msgstr "کد اضافه شده در اینجا در زیر تگ body باز در هر صفحه از وب سایت شما چاپ می شود."
+
+#: inc/settings.php:812
+msgid "Add Footer Code"
+msgstr "کد فوتر اضافه کنید"
+
+#: inc/settings.php:821
+msgid "Code added here will be printed above the closing body tag on every page of your website."
+msgstr "کد اضافه شده در اینجا در بالای برچسب body بسته شدن در هر صفحه از وب سایت شما چاپ می شود."
+
+#: inc/settings.php:832
+msgid "Enable Instant Page"
+msgstr "صفحه فوری را فعال کنید"
+
+#: inc/settings.php:839
+msgid ""
+"Automatically prefetch URLs in the background after a user hovers over a link. This results in "
+"almost instantaneous load times and improves the user experience."
+msgstr ""
+"پس از اینکه کاربر ماوس را روی لینک قرار می‌دهد، به‌طور خودکار URL‌ها را در پس‌زمینه واکشی می‌کند. "
+"این منجر به زمان بارگذاری تقریباً آنی می شود و تجربه کاربر را بهبود می بخشد."
+
+#: inc/settings.php:846
+msgid "Preload"
+msgstr "پیش بارگذاری"
+
+#: inc/settings.php:853
+msgid ""
+"Preload allows you to specify resources (such as fonts or CSS) needed right away during a page "
+"load. This helps fix render-blocking resource warnings. Format: https://example.com/font.woff2"
+msgstr ""
+"پیش بارگذاری به شما امکان می دهد منابع (مانند فونت ها یا CSS) را بلافاصله در طول بارگذاری صفحه "
+"مشخص کنید. این به رفع هشدارهای منبع مسدودکننده رندر(render-blocking resource) کمک می کند. "
+"فرمت: https://example.com/font.woff2"
+
+#: inc/settings.php:860
+msgid "Preload Critical Images"
+msgstr "تصاویر مهم را از پیش بارگذاری کنید"
+
+#: inc/settings.php:876
+msgid "Automatically preload leading images to help decrease Largest Contentful Paint (LCP)."
+msgstr ""
+"به طور خودکار تصاویر پیشرو را از پیش بارگذاری کنید تا به کاهش بزرگترین رنگ محتوایی (LCP) کمک "
+"کنید."
+
+#: inc/settings.php:883
+msgid "Preconnect"
+msgstr "پیش اتصال"
+
+#: inc/settings.php:890
+msgid ""
+"Preconnect allows the browser to set up early connections before an HTTP request, eliminating "
+"roundtrip latency and saving time for users. Format: https://example.com"
+msgstr ""
+"پیش اتصال به مرورگر اجازه می‌دهد تا قبل از درخواست HTTP، اتصالات اولیه را راه‌اندازی کند و تأخیر "
+"رفت و برگشت را از بین ببرد و در زمان کاربران صرفه‌جویی کند. فرمت: https://example.com"
+
+#: inc/settings.php:897
+msgid "DNS Prefetch"
+msgstr "پیش واکشی DNS"
+
+#: inc/settings.php:907
+msgid "Resolve domain names before a user clicks. Format: //example.com (one per line)"
+msgstr "قبل از کلیک کاربر، نام دامنه را حل کنید. فرمت: //example.com (یکی در هر خط)"
+
+#: inc/settings.php:918
+msgid "Images"
+msgstr "تصاویر"
+
+#: inc/settings.php:925
+msgid "Enable lazy loading on images."
+msgstr "فعال کردن بارگذاری تنبل تصاویر."
+
+#: inc/settings.php:933
+msgid "Exclude Leading Images"
+msgstr "صرف نظر از تصاویر پیشرو"
+
+#: inc/settings.php:949
+msgid "Exclude a certain number of images starting from the top of the page."
+msgstr "تعداد معینی از تصاویر را که از بالای صفحه شروع می شود صرف نظر کنید."
+
+#: inc/settings.php:957
+msgid "iFrames and Videos"
+msgstr "آیفریم و ویدئوها"
+
+#: inc/settings.php:964
+msgid "Enable lazy loading on iframes and videos."
+msgstr "فعال کردن بارگذاری تنبل در آیفریم ها و ویدئوها."
+
+#: inc/settings.php:972
+msgid "YouTube Preview Thumbnails"
+msgstr "تصویر بندانگشتی پیشنمایش یوتیوب"
+
+#: inc/settings.php:979
+msgid ""
+"Swap out YouTube iFrames with preview thumbnails. The original iFrame is loaded when the "
+"thumbnail is clicked."
+msgstr ""
+"آیفریم یوتیوب را با تصاویر کوچک پیش‌نمایش تعویض کنید. هنگامی که روی تصویر کوچک کلیک می شود، "
+"آیفریم اصلی بارگیری می شود."
+
+#: inc/settings.php:987
+msgid "Exclude from Lazy Loading"
+msgstr "صرف نظر کردن از بارگذاری تنبل"
+
+#: inc/settings.php:997
+msgid ""
+"Exclude specific elements from lazy loading. Exclude an element by adding the source URL "
+"(example.png) or by adding any unique portion of its attribute string (class=\"example\"). "
+"Format: one per line"
+msgstr ""
+"عناصر خاص را از بارگذاری تنبل حذف کنید. یک عنصر را با افزودن URL منبع (example.png) یا با "
+"افزودن هر بخش منحصربه‌فردی از رشته ویژگی آن (class=\"example\") حذف کنید. فرمت: یکی در هر خط"
+
+#: inc/settings.php:1004
+msgid "Threshold"
+msgstr "آستانه"
+
+#: inc/settings.php:1014
+msgid ""
+"Extend the lazy loading threshold allowing images to load before they are visible in the "
+"viewport."
+msgstr ""
+"آستانه بارگذاری تنبل را گسترش دهید تا به تصاویر اجازه بارگیری قبل از قابل مشاهده شدن در پنجره "
+"نمایش داده شود."
+
+#: inc/settings.php:1021
+msgid "DOM Monitoring"
+msgstr "نظارت DOM"
+
+#: inc/settings.php:1028
+msgid "Watch for changes in the DOM and dynamically lazy load newly added elements."
+msgstr "مراقب تغییرات در DOM و بارگذاری پویا تنبل عناصر جدید اضافه شده باشید."
+
+#: inc/settings.php:1035
+msgid "Add Missing Image Dimensions"
+msgstr "اضافه کردن ابعاد تصویر از دست رفته"
+
+#: inc/settings.php:1042
+msgid "Add missing width and height attributes to images."
+msgstr "ویژگی های عرض و ارتفاع از دست رفته را به تصاویر اضافه کنید."
+
+#: inc/settings.php:1049
+msgid "Fade In"
+msgstr "محوشدن"
+
+#: inc/settings.php:1056
+msgid "Add fade in effect when images are loaded in."
+msgstr "هنگامی که تصاویر بارگذاری می شوند، جلوه محو شدن را اضافه کنید."
+
+#: inc/settings.php:1063
+msgid "CSS Background Images"
+msgstr "تصاویر پس زمینه CSS"
+
+#: inc/settings.php:1070
+msgid "Allow lazy loading of background images coming from (CSS) stylesheets."
+msgstr "بارگذاری تنبل تصاویر پس‌زمینه که از شیوه نامه‌های (CSS) می‌آیند را مجاز کنید."
+
+#: inc/settings.php:1078
+msgid "Background Selectors"
+msgstr "انتخابگرهای پس زمینه"
+
+#: inc/settings.php:1088
+msgid ""
+"Lazy load a CSS background image by adding a unique selector (ID or class) found on the "
+"element that the background image has been applied to. Format: one per line"
+msgstr ""
+"بارگذاری تنبل یک تصویر پس‌زمینه CSS را با افزودن یک انتخابگر منحصر به فرد (ID یا کلاس) که روی "
+"عنصری که تصویر پس‌زمینه روی آن اعمال شده است، بارگیری می‌کند. فرمت: یکی در هر خط"
+
+#: inc/settings.php:1100
+msgid "Disable Google Fonts"
+msgstr "غیرفعال کردن فونت گوگل"
+
+#: inc/settings.php:1108
+msgid "Removes any instances of Google Fonts being loaded across your entire site."
+msgstr "هر نمونه از فونت های گوگل را که در کل سایت شما بارگیری می شود ، حذف می کند."
+
+#: inc/settings.php:1115
+msgid "Display Swap"
+msgstr "مبادله نمایش"
+
+#: inc/settings.php:1123
+msgid "Add the font-display swap property to your Google Fonts."
+msgstr "به فونت گوگل font-display swap اضافه کنید."
+
+#: inc/settings.php:1130
+msgid "Local Google Fonts"
+msgstr "فونت گوگل محلی"
+
+#: inc/settings.php:1138
+msgid "Host Google Font files locally on your server or CDN."
+msgstr "فونت های گوگل را در هاست یا CDN خود میزبانی کنید."
+
+#: inc/settings.php:1145 inc/settings.php:1197 inc/settings.php:1380
+msgid "CDN URL"
+msgstr "آدرس CDN"
+
+#: inc/settings.php:1155
+msgid ""
+"Use your CDN URL when referencing Google Font files inside a parent stylesheet. Example: "
+"https://cdn.example.com"
+msgstr ""
+"هنگام ارجاع به فایل‌های فونت Google در یک شیوه نامه والد، از URL CDN خود استفاده کنید. مثال: "
+"https://cdn.example.com"
+
+#: inc/settings.php:1162 inc/settings.php:1170
+msgid "Clear Local Fonts"
+msgstr "پاکسازی فونت های محلی"
+
+#: inc/settings.php:1172
+msgid "Remove all existing local Google Font files and stylesheets."
+msgstr "همه فونت های گوگل و استایل های محلی را حذف کنید."
+
+#: inc/settings.php:1183
+msgid "Enable CDN Rewrite"
+msgstr "فعالسازی بازنویسی CDN"
+
+#: inc/settings.php:1190
+msgid "Enables rewriting of your site URLs with your CDN URLs which can be configured below."
+msgstr ""
+"بازنویسی URL های سایت شما را با URL های CDN شما فعال می کند که می توانند در زیر پیکربندی شوند."
+
+#: inc/settings.php:1206
+msgid "Enter your CDN URL without the trailing backslash. Example: https://cdn.example.com"
+msgstr "URL CDN خود را بدون بک اسلش آخر وارد کنید. مثال: https://cdn.example.com"
+
+#: inc/settings.php:1213
+msgid "Included Directories"
+msgstr "شامل دایرکتوری ها"
+
+#: inc/settings.php:1222
+msgid ""
+"Enter any directories you would like to be included in CDN rewriting, separated by commas (,). "
+"Default: wp-content,wp-includes"
+msgstr ""
+"دایرکتوری هایی را که می خواهید در بازنویسی CDN گنجانده شود را وارد کنید، با کاما (،) از هم جدا "
+"شوند. پیش فرض: wp-content, wp-includes"
+
+#: inc/settings.php:1229
+msgid "CDN Exclusions"
+msgstr "استثناهای CDN"
+
+#: inc/settings.php:1238
+msgid ""
+"Enter any directories or file extensions you would like to be excluded from CDN rewriting, "
+"separated by commas (,). Default: .php"
+msgstr ""
+"دایرکتوری ها یا پسوندهای فایلی را که می خواهید از بازنویسی CDN حذف شوند را وارد کنید، با کاما "
+"(،) از هم جدا شوند. پیش فرض: .php"
+
+#: inc/settings.php:1244
+msgid "Google Analytics"
+msgstr "گوگل آنالیتیکس"
+
+#: inc/settings.php:1249
+msgid "Enable Local Analytics"
+msgstr "فعالسازی آنالیتیکس محلی"
+
+#: inc/settings.php:1256
+msgid "Enable syncing of the Google Analytics script to your own server."
+msgstr "همگام سازی اسکریپت Google Analytics را با سرور خود فعال کنید."
+
+#: inc/settings.php:1263
+msgid "Tracking ID"
+msgstr "شناسه رهگیری"
+
+#: inc/settings.php:1271
+msgid "Input your Google Analytics tracking or measurement ID."
+msgstr "شناسه ردیابی یا اندازه گیری Google Analytics خود را وارد کنید."
+
+#: inc/settings.php:1278
+msgid "Tracking Code Position"
+msgstr "موقعیت کد رهگیری"
+
+#: inc/settings.php:1287
+msgid "Header"
+msgstr "هدر"
+
+#: inc/settings.php:1288
+msgid "Footer"
+msgstr "فوتر"
+
+#: inc/settings.php:1290
+msgid ""
+"Load your analytics script in the header (default) or footer of your site. Default: Header"
+msgstr ""
+"اسکریپت تجزیه و تحلیل خود را در هدر (پیش فرض) یا پاورقی سایت خود بارگیری کنید. پیش فرض: سرصفحه"
+
+#: inc/settings.php:1297
+msgid "Script Type"
+msgstr "نوع اسکریپت"
+
+#: inc/settings.php:1309
+msgid "Minimal"
+msgstr "مینیمال"
+
+#: inc/settings.php:1310
+msgid "Minimal Inline"
+msgstr "حداقل درون خطی"
+
+#: inc/settings.php:1313
+msgid "Choose which script method you would like to use."
+msgstr "روش اسکریپت مورد نظر خود را انتخاب کنید."
+
+#: inc/settings.php:1320
+msgid "Disable Display Features"
+msgstr "غیرفعال کردن ویژگی های نمایش"
+
+#: inc/settings.php:1328
+msgid "Disable remarketing and advertising which generates a 2nd HTTP request."
+msgstr "غیرفعال کردن بازاریابی مجدد و تبلیغات که دومین درخواست HTTP را ایجاد می کند."
+
+#: inc/settings.php:1335
+msgid "Anonymize IP"
+msgstr "ناشناس کردن IP"
+
+#: inc/settings.php:1343
+msgid "Shorten visitor IP to comply with privacy restrictions in some countries."
+msgstr "IP بازدیدکننده را برای رعایت محدودیت های حریم خصوصی در برخی کشورها کوتاه کنید."
+
+#: inc/settings.php:1350
+msgid "Track Logged In Admins"
+msgstr "ردیابی مدیران وارد شده"
+
+#: inc/settings.php:1357
+msgid "Include logged-in WordPress admins in your Google Analytics reports."
+msgstr "مدیران وردپرس وارد شده را در گزارش های Google Analytics خود بگنجانید."
+
+#: inc/settings.php:1364
+msgid "Adjusted Bounce Rate"
+msgstr "نرخ پرش تعدیل شده"
+
+#: inc/settings.php:1373
+msgid "Set a timeout limit in seconds to better evaluate the quality of your traffic. (1-100)"
+msgstr "برای ارزیابی بهتر کیفیت ترافیک خود، محدودیت زمانی را در چند ثانیه تعیین کنید. (1-100)"
+
+#: inc/settings.php:1390
+msgid ""
+"Use your CDN URL when referencing analytics.js from inside gtag.js. Example: https://cdn."
+"example.com"
+msgstr ""
+"هنگام ارجاع به analytics.js از داخل gtag.js از URL CDN خود استفاده کنید. مثال: https://cdn."
+"example.com"
+
+#: inc/settings.php:1397
+msgid "Use MonsterInsights"
+msgstr "از MonsterInsights استفاده کنید"
+
+#: inc/settings.php:1405
+msgid ""
+"Allows MonsterInsights to manage your Google Analytics while still using the locally hosted "
+"gtag.js file generated by Perfmatters."
+msgstr ""
+"به MonsterInsights اجازه می‌دهد تا Google Analytics شما را مدیریت کند در حالی که هنوز از فایل "
+"gtag.js میزبانی شده محلی تولید شده توسط Perfmatters استفاده می‌کند."
+
+#: inc/settings.php:1412
+msgid "Enable AMP Support"
+msgstr "پشتیبانی AMP را فعال کنید"
+
+#: inc/settings.php:1420
+msgid ""
+"Enable support for analytics tracking on AMP sites. This is not a local script, but a native "
+"AMP script."
+msgstr ""
+"پشتیبانی از ردیابی تجزیه و تحلیل را در سایت های AMP فعال کنید. این یک اسکریپت محلی نیست، بلکه "
+"یک اسکریپت AMP بومی است."
+
+#: inc/settings.php:1427
+msgid "Dual Tracking"
+msgstr "رهگیری دوگانه"
+
+#: inc/settings.php:1435
+msgid "Run Google Analytics 4 and Universal Analytics simultaneously."
+msgstr "Google Analytics 4 و Universal Analytics را به طور همزمان اجرا کنید."
+
+#: inc/settings.php:1442
+msgid "Measurement ID"
+msgstr "شناسه اندازه گیری"
+
+#: inc/settings.php:1451
+msgid "Input your Google Analytics 4 measurement ID."
+msgstr "شناسه اندازه گیری Google Analytics 4 خود را وارد کنید."
+
+#: inc/settings.php:1481
+msgid "Accessibility Mode"
+msgstr "حالت دسترسی"
+
+#: inc/settings.php:1489
+msgid ""
+"Disable the use of visual UI elements in the plugin settings such as checkbox toggles and "
+"hovering tooltips."
+msgstr ""
+"غیرفعال کردن استفاده از عناصر رابط کاربری بصری در تنظیمات افزونه مانند جابه‌جایی‌های چک باکس و "
+"راهنمای ابزار شناور."
+
+#: inc/settings.php:1496 inc/settings.php:1503
+msgid "Restore Default Options"
+msgstr "بازیابی گزینه های پیش فرض"
+
+#: inc/settings.php:1504
+msgid ""
+"Are you sure? This will remove all existing plugin options and restore them to their default "
+"states."
+msgstr ""
+"مطمئنی؟ با این کار تمام گزینه های افزونه موجود حذف می شود و آنها به حالت پیش فرض خود باز می "
+"گردند."
+
+#: inc/settings.php:1506
+msgid "Restore all plugin options to their default settings."
+msgstr "تمام گزینه های افزونه را به تنظیمات پیش فرض خود بازگردانید."
+
+#: inc/settings.php:1513 inc/settings.php:1521 inc/settings.php:2078
+msgid "Purge Meta Options"
+msgstr "تخلیه گزینه های متا"
+
+#: inc/settings.php:1522
+msgid ""
+"Are you sure? This will delete all existing Perfmatters meta options for all posts from the "
+"database."
+msgstr ""
+"مطمئنی؟ با این کار تمام گزینه های متا Perfmatters موجود برای همه نوشته ها از پایگاه داده حذف "
+"می شود."
+
+#: inc/settings.php:1523
+msgid "Permanently delete all existing Perfmatters meta options from your database."
+msgstr "تمام گزینه های متا Perfmatters موجود را برای همیشه از پایگاه داده خود حذف کنید."
+
+#: inc/settings.php:1530
+msgid "Export Settings"
+msgstr "برون بری تنظیمات"
+
+#: inc/settings.php:1537
+msgid "Export Plugin Settings"
+msgstr "برون بری تنظیمات افزونه"
+
+#: inc/settings.php:1539
+msgid ""
+"Export your Perfmatters settings for this site as a .json file. This lets you easily import "
+"the configuration into another site."
+msgstr ""
+"تنظیمات Perfmatters خود را برای این سایت به عنوان فایل json. برون بری کنید. این به شما امکان "
+"می دهد پیکربندی را به راحتی به سایت دیگری وارد کنید."
+
+#: inc/settings.php:1546
+msgid "Import Settings"
+msgstr "درون ریزی تنظیمات"
+
+#: inc/settings.php:1551
+msgid "Import Perfmatters settings from an exported .json file."
+msgstr "تنظیمات Perfmatters را از یک فایل json. درون ریزی کنید."
+
+#: inc/settings.php:1561
+msgid "Post Revisions"
+msgstr "ذخیره خودکار نوشته ها"
+
+#: inc/settings.php:1569
+msgid ""
+"Include post revisions in your database optimization. This also includes revisions for pages "
+"and custom post types."
+msgstr ""
+"ویرایش های نوشته را در بهینه سازی پایگاه داده خود بگنجانید. این همچنین شامل بازبینی‌هایی برای "
+"صفحات و انواع نوشته های سفارشی می‌شود."
+
+#: inc/settings.php:1576
+msgid "Post Auto-Drafts"
+msgstr "پیشنویس خودکار نوشته"
+
+#: inc/settings.php:1584
+msgid ""
+"Include post auto-drafts in your database optimization. This also includes auto-drafts for "
+"pages and custom post types."
+msgstr ""
+"پیش نویس های خودکار پست را در بهینه سازی پایگاه داده خود بگنجانید. این همچنین شامل پیش‌نویس‌های "
+"خودکار برای صفحات و انواع پست سفارشی می‌شود."
+
+#: inc/settings.php:1599
+msgid ""
+"Include trashed posts in your database optimization. This also includes trashed pages and "
+"custom post types."
+msgstr ""
+"نوشته های سطل زباله را در بهینه سازی پایگاه داده خود بگنجانید. این شامل صفحات حذف شده و انواع "
+"پست سفارشی نیز می شود."
+
+#: inc/settings.php:1614
+msgid "Include spam comments in your database optimization."
+msgstr "نظرات اسپم را در بهینه سازی پایگاه داده خود بگنجانید."
+
+#: inc/settings.php:1629
+msgid "Include trashed comments in your database optimization."
+msgstr "نظرات سطل زباله را در بهینه سازی پایگاه داده خود بگنجانید."
+
+#: inc/settings.php:1636
+msgid "Expired Transients"
+msgstr "موارد گذرا منقضی شده"
+
+#: inc/settings.php:1644
+msgid "Include expired transients in your database optimization."
+msgstr "گذراهای منقضی شده را در بهینه سازی پایگاه داده خود بگنجانید."
+
+#: inc/settings.php:1651
+msgid "All Transients"
+msgstr "همه گذرا"
+
+#: inc/settings.php:1659
+msgid "Include all transients in your database optimization."
+msgstr "تمام گذراها را در بهینه سازی پایگاه داده خود بگنجانید."
+
+#: inc/settings.php:1674
+msgid "Include tables in your database optimization."
+msgstr "جداول را در بهینه سازی پایگاه داده خود بگنجانید."
+
+#: inc/settings.php:1681
+msgid "Optimize Database"
+msgstr "بهینه سازی پایگاه داده"
+
+#: inc/settings.php:1688
+msgid "Optimize Now"
+msgstr "بهینه سازی کن"
+
+#: inc/settings.php:1691
+msgid ""
+"This will make permanent changes that cannot be reverted! Are you sure you want to proceed "
+"with optimization?"
+msgstr ""
+"این تغییرات دائمی را ایجاد می کند که قابل بازگرداندن نیست! آیا مطمئن هستید که می خواهید به "
+"بهینه سازی ادامه دهید؟"
+
+#: inc/settings.php:1692
+msgid ""
+"Run a one-time optimization of your WordPress database based on the selected options above. "
+"This process runs in the background."
+msgstr ""
+"یک بهینه سازی یکباره پایگاه داده وردپرس خود را بر اساس گزینه های انتخاب شده در بالا اجرا کنید. "
+"این فرآیند در پس زمینه اجرا می شود."
+
+#: inc/settings.php:1699
+msgid "Scheduled Optimization"
+msgstr "بهینه سازی زمانبندی شده"
+
+#: inc/settings.php:1710
+msgid "Daily"
+msgstr "روزانه"
+
+#: inc/settings.php:1711
+msgid "Weekly"
+msgstr "هفتگی"
+
+#: inc/settings.php:1712
+msgid "Monthly"
+msgstr "ماهانه"
+
+#: inc/settings.php:1714
+msgid ""
+"Schedule a routine optimization of your WordPress database based on the selected options "
+"above. This process runs in the background and starts immediately after saving."
+msgstr ""
+"یک بهینه سازی معمول پایگاه داده وردپرس خود را بر اساس گزینه های انتخاب شده در بالا برنامه ریزی "
+"کنید. این فرآیند در پس زمینه اجرا می شود و بلافاصله پس از ذخیره شروع می شود."
+
+#: inc/settings.php:1937 inc/settings.php:2031
+msgid "Add New"
+msgstr "افزودن"
+
+#: inc/settings.php:1971
+msgid "Select Type"
+msgstr "انتخاب نوع"
+
+#: inc/settings.php:1978
+msgid "All Devices"
+msgstr "همه دستگاه ها"
+
+#: inc/settings.php:1983
+msgid "Location"
+msgstr "منطقه"
+
+#: inc/settings.php:2091
+msgid "Import Plugin Settings"
+msgstr "درون ریزی تنظیمات افزونه"
+
+#: inc/settings.php:2171
+#, php-format
+msgid "Click %s to view documentation."
+msgstr "برای مشاهده مستندات %s کلیک کنید."
+
+#: inc/settings.php:2214
+msgid "Revisions Found"
+msgstr "بازبینی ها پیدا شد"
+
+#: inc/settings.php:2218
+msgid "Auto-Drafts Found"
+msgstr "پیشنویس خودکار یافت شد"
+
+#: inc/settings.php:2222
+msgid "Trashed Posts Found"
+msgstr "نوشته های سطل زباله پیدا شد"
+
+#: inc/settings.php:2226
+msgid "Spam Comments Found"
+msgstr "دیدگاه اسپم یافت شد"
+
+#: inc/settings.php:2230
+msgid "Trashed Comments Found"
+msgstr "دیدگاه زباله دان یافت شد"
+
+#: inc/settings.php:2235
+msgid "Expired Transients Found"
+msgstr "موارد گذرا منقضی شده یافت شد"
+
+#: inc/settings.php:2239
+msgid "Transients Found"
+msgstr "گذرا پیدا شد"
+
+#: inc/settings.php:2243
+msgid "Unoptimized Tables Found"
+msgstr "جداول بهینه نشده پیدا شد"
+
+#: inc/settings.php:2247
+msgid ""
+"Setting a new schedule will run the database optimization process immediately after saving "
+"your changes."
+msgstr ""
+"تنظیم یک زمان بندی جدید، بلافاصله پس از ذخیره تغییرات شما، فرآیند بهینه سازی پایگاه داده را "
+"اجرا می کند."
+
+#: inc/support.php:4 inc/support.php:7
+msgid "Documentation"
+msgstr "مستندات"
+
+#: inc/support.php:6
+msgid ""
+"Need help? Check out our in-depth documentation. Every feature has a step-by-step walkthrough."
+msgstr "کمک خواستن؟ مستندات عمیق ما را بررسی کنید. هر ویژگی دارای یک قدم به قدم است."
+
+#: inc/support.php:13 inc/support.php:16
+msgid "Contact Us"
+msgstr "تماس با ما"
+
+#: inc/support.php:15
+msgid ""
+"If you have questions or problems, please send us a message. We’ll get back to you as soon as "
+"possible."
+msgstr "اگر سوال یا مشکلی دارید، لطفا به ما پیام دهید. ما در اسرع وقت با شما تماس خواهیم گرفت."
+
+#: inc/support.php:22
+msgid "Frequently Asked Questions"
+msgstr "سوالات متداول"
+
+#: inc/support.php:26
+msgid "How do I license activate the plugin?"
+msgstr "چگونه لایسنس را در افزونه فعال کنم؟"
+
+#: inc/support.php:27
+msgid "How do I update the plugin?"
+msgstr "چگونه افزونه را بروزرسانی کنم؟"
+
+#: inc/support.php:28
+msgid "How do I upgrade my license?"
+msgstr "چگونه می توانم لایسنس خود را ارتقاء دهم؟"
+
+#: inc/support.php:29
+msgid "Where can I view the changelog?"
+msgstr "کجا می تونم لیست تغییرات را مشاهده کنم؟"
+
+#: inc/support.php:30
+msgid "Where can I sign up for the affiliate program?"
+msgstr "کجا در برنامه بازاریابی ثبت نام کنم؟"
+
+#: inc/support.php:33
+msgid "How do I disable scripts on a per post/page basis?"
+msgstr "چگونه هر اسکریپت را در برگه یا نوشته غیرفعال کنم؟"
+
+#: inc/support.php:34
+msgid "How do I delay JavaScript?"
+msgstr "چگونه جاوااسکریپت را به صورت تاخیری پیاده سازی کنم؟"
+
+#: inc/support.php:35
+msgid "How do I remove unused CSS?"
+msgstr "چگونه استایل CSS بلا استفاده را حذف کنم؟"
+
+#: inc/support.php:36
+msgid "How do I lazy load images and videos?"
+msgstr "چگونه تصاویر و ویدئوها را به صورت بارگذاری تنبل پیاده سازی کنم؟"
+
+#: inc/support.php:37
+msgid "How do I host Google Analytics locally?"
+msgstr "چگونه گوگل آنالیتیکس را در هاست خود بارگذاری کنم؟"
+
+#: perfmatters.php:137 perfmatters.php:176
+msgid "Support"
+msgstr "پشتیبانی"
+
+#: perfmatters.php:165
+msgid "Network"
+msgstr "شبکه"
+
+#: perfmatters.php:169
+msgid "Tools"
+msgstr "ابزارها"
+
+#: perfmatters.php:180
+msgid "Speed Up Guide"
+msgstr "راهنمای افزایش سرعت"
+
+#. Plugin Name of the plugin/theme
+msgid "Perfmatters"
+msgstr "پرفومترز"
+
+#. Plugin URI of the plugin/theme
+msgid "https://perfmatters.io/"
+msgstr "https://perfmatters.io/"
+
+#. Description of the plugin/theme
+msgid ""
+"Perfmatters is a lightweight performance plugin developed to speed up your WordPress site."
+msgstr "افزونه ای برای افزایش سرعت و عملکرد سایت وردپرس با حجم کم می باشد."
+
+#. Author of the plugin/theme
+msgid "forgemedia"
+msgstr "forgemedia"
+
+#. Author URI of the plugin/theme
+msgid "https://forgemedia.io/"
+msgstr "https://forgemedia.io/"

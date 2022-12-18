@@ -17,7 +17,7 @@ if ( ! class_exists( 'Porto_Block_Check' ) ) :
 				( ! defined( 'VCV_VERSION' ) || ! vchelper( 'AccessEditorPostType' )->isEditorEnabled( PortoBuilders::BUILDER_SLUG ) ) ) {
 				return;
 			}*/
-			if ( ! post_type_exists( PortoBuilders::BUILDER_SLUG ) ) {
+			if ( ! class_exists( 'PortoBuilders' ) || ! post_type_exists( PortoBuilders::BUILDER_SLUG ) ) {
 				return;
 			}
 
@@ -57,7 +57,7 @@ if ( ! class_exists( 'Porto_Block_Check' ) ) :
 						if ( ! isset( $used_blocks['el']['product'] ) ) {
 							$used_blocks['el']['product'] = array();
 						}
-						if ( 'builder' == $porto_settings['product-single-content-layout'] && isset( $porto_settings['product-single-content-builder'] ) && ( $post_id == $porto_settings['product-single-content-builder'] || $post->post_name == $porto_settings['product-single-content-builder'] ) && ! in_array( $post_id, $used_blocks['el']['product'] ) ) {
+						if ( isset( $porto_settings['product-single-content-layout'] ) && 'builder' == $porto_settings['product-single-content-layout'] && isset( $porto_settings['product-single-content-builder'] ) && ( $post_id == $porto_settings['product-single-content-builder'] || $post->post_name == $porto_settings['product-single-content-builder'] ) && ! in_array( $post_id, $used_blocks['el']['product'] ) ) {
 							$used_blocks['el']['product'][] = (int) $post_id;
 							set_theme_mod( '_used_blocks', $used_blocks );
 						}
@@ -65,7 +65,7 @@ if ( ! class_exists( 'Porto_Block_Check' ) ) :
 						if ( ! isset( $used_blocks['vc']['product'] ) ) {
 							$used_blocks['vc']['product'] = array();
 						}
-						if ( 'builder' == $porto_settings['product-single-content-layout'] && isset( $porto_settings['product-single-content-builder'] ) && ( $post_id == $porto_settings['product-single-content-builder'] || $post->post_name == $porto_settings['product-single-content-builder'] ) && ! in_array( $post_id, $used_blocks['vc']['product'] ) ) {
+						if ( isset( $porto_settings['product-single-content-layout'] ) && 'builder' == $porto_settings['product-single-content-layout'] && isset( $porto_settings['product-single-content-builder'] ) && ( $post_id == $porto_settings['product-single-content-builder'] || $post->post_name == $porto_settings['product-single-content-builder'] ) && ! in_array( $post_id, $used_blocks['vc']['product'] ) ) {
 							$used_blocks['vc']['product'][] = (int) $post_id;
 							set_theme_mod( '_used_blocks', $used_blocks );
 						}

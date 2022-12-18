@@ -1,0 +1,109 @@
+/* Visual Composer Separator */
+.vc_separator h4 {
+    margin-top: 0;
+    font-size: 1.1429em;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.vc_text_separator {
+    margin-bottom: 25px;
+    border: none;
+    h1, h2, h3, h4, h5, h6, p, div {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    div {
+        top: auto;
+        background-color: transparent;
+    }
+    .vc_icon_element.vc_icon_element-outer .vc_icon_element-inner {
+        padding: 0;
+    }
+    .vc_icon_element:not(.vc_icon_element-have-style) + h4 {
+        margin-#{$left}: -0.5em;
+        padding-#{$right}: 1em;
+    }
+}
+
+.vc_separator.vc_separator_align_left {
+    h1, h2 {
+        padding: side-values(0 15px 0 0);
+    }
+    h3, h4 {
+        padding: side-values(0 12px 0 0);
+    }
+    h5, h6, p, div {
+        padding: side-values(0 10px 0 0);
+    }
+}
+
+.vc_separator.vc_separator_align_right {
+    h1, h2 {
+        padding: side-values(0 0 0 15px);
+    }
+    h3, h4 {
+        padding: side-values(0 0 0 12px);
+    }
+    h5, h6, p, div {
+        padding: side-values(0 0 0 10px);
+    }
+}
+
+.vc_separator.vc_separator_align_center {
+    h1, h2 {
+        padding: side-values(0 15px);
+    }
+    h3, h4 {
+        padding: side-values(0 12px);
+    }
+    h5, h6, p, div {
+        padding: side-values(0 10px);
+    }
+}
+
+.vc_separator .vc_sep_holder {
+    &.vc_sep_holder_l,
+    &.vc_sep_holder_r {
+        .vc_sep_line {
+            border: none;
+            background: var(--porto-normal-bc);
+            &.dashed {
+                background: none;
+                position: relative;
+                &:after {
+                    content: "";
+                    display: block;
+                    height: 0;
+                    position: absolute;
+                    top: 50%;
+                    margin-top: -1px;
+                    width: 100%;
+                    border: 1px dashed var(--porto-normal-bc);
+                }
+            }
+            &.solid {
+                background: var(--porto-normal-bc);
+            }
+            &.pattern {
+                background: none;
+                position: relative;
+                &:after {
+                    background: transparent url(#{$theme_uri}/images/patterns/worn_dots.png) repeat 0 0;
+                    content: "";
+                    display: block;
+                    height: 15px;
+                    position: absolute;
+                    top: 50%;
+                    margin-top: -7px;
+                    width: 100%;
+                }
+                &.pattern-2 {
+                    &:after {
+                        background-image: url(#{$theme_uri}/images/patterns/az_subtle.png);
+                    }
+                }
+            }
+        }
+    }
+}

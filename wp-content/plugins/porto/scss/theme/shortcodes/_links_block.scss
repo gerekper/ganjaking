@@ -1,0 +1,77 @@
+/* Porto Links */
+
+.porto-links-block {
+    border: 1px solid var(--porto-gray-2);
+    background: var(--porto-widget-bgc);
+
+    .links-title {
+        background: var(--porto-title-bgc);
+        border-bottom: 1px solid var(--porto-gray-2);
+        font-size: 1em;
+        font-weight: $font-weight-bold;
+        line-height: 14px;
+        color: var(--porto-heading-color);
+        padding: 15px 20px;
+        margin: 0;
+        text-transform: uppercase;
+        position: relative;
+        letter-spacing: 0.12px;
+        @include transition($transition);
+
+        i {
+            margin-#{$right}: 5px;
+            &.icon-image {
+                display: inline-block;
+                max-width: 20px;
+            }
+        }
+    }
+
+    .links-content {
+        ul {
+            list-style: none;
+            padding: 5px 0;
+            margin: 0;
+        }
+    }
+
+    li.porto-links-item {
+        display: block;
+
+        &:first-child {
+            > a,
+            > span {
+                border-top-width: 0;
+            }
+        }
+
+        > a,
+        > span {
+            display: block;
+            font-size: 1em;
+            line-height: 20px;
+            color: var(--porto-color-price);
+            letter-spacing: 0.10px;
+            padding: 11px 6px 10px;
+            margin: 0 10px -1px;
+            text-decoration: none;
+            border-top: 1px solid var(--porto-gray-2);
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        i {
+            margin-#{$right}: 12px;
+            font-size: 20px;
+            float: $left;
+            &.icon-image {
+                display: inline-block;
+                vertical-align: middle;
+                float: none;
+                max-width: 20px;
+            }
+        }
+    }
+}

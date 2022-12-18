@@ -304,7 +304,7 @@ class UpdraftPlus_Backup_History {
 	 * @param Array|String $only_add_this_file - if set to an array (with keys 'file' and (optionally) 'label'), then a file will only be taken notice of if the filename matches the 'file' key (and the label will be associated with the backup set)
 	 * @param Boolean	   $debug			   - include debugging messages. These will be keyed with keys beginning 'debug-' so that they can be distinguished.
 	 *
-	 * @return Array - an array of messages which the caller may wish to display to the user. N.B. Messages are not necessarily just strings.
+	 * @return Array - an array of messages which the caller may wish to display to the user. N.B. Messages are not necessarily just strings, but may be.
 	 */
 	public static function rebuild($remote_scan = false, $only_add_this_file = false, $debug = false) {
 

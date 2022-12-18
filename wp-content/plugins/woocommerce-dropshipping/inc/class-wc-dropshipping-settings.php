@@ -1,1240 +1,1192 @@
 <?php
 
-if (!defined('ABSPATH')) {
+if ( ! defined( 'ABSPATH' ) ) {
 
-    exit; // Exit if accessed directly } if ( ! class_exists( 'WC_DS_Settings' ) ) :
+	exit; // Exit if accessed directly } if ( ! class_exists( 'WC_DS_Settings' ) ) :
 }
 
 if ( ! class_exists( 'WC_DS_Settings' ) ) :
-    
-    function wc_ds_add_settings($settings) {
 
-        /**         
-        * Settings class 
-        */ 
-        
-        class WC_DS_Settings extends WC_Settings_Page {
+	function wc_ds_add_settings( $settings ) {
 
-            /**
-             * The request response 
-             * 
-             * @var array 
-             */ 
+		/**
+		 * Settings class
+		 */
 
-            private $response = null;
-            
-            /**
-             * The error message
-             *
-             * @var string
-             */
+		class WC_DS_Settings extends WC_Settings_Page {
 
-            private $error_message = '';
+			/**
+			 * The request response
+			 *
+			 * @var array
+			 */
 
-            /**
-             * Setup settings class 
-             */ 
+			private $response = null;
 
-            const SETTINGS_NAMESPACE = 'dropshipping';
+			/**
+			 * The error message
+			 *
+			 * @var string
+			 */
 
-            public function __construct() {
+			private $error_message = '';
 
-                $this->id = 'wc_dropship_settings';
+			/**
+			 * Setup settings class
+			 */
 
-                $this->label = __('Dropshipping', 'wc_dropship_settings');
+			const SETTINGS_NAMESPACE = 'dropshipping';
 
-                add_filter('woocommerce_settings_tabs_array', array($this, 'add_settings_page'), 20);
+			public function __construct() {
 
-                add_action('woocommerce_settings_' . $this->id, array($this, 'output'));
-            }
+				$this->id = 'wc_dropship_settings';
 
-            /**
-             * Get settings array
-             *
-             * @param string $current_section Optional. Defaults to empty string.
-             * @return array Array of settings
-             */ 
+				$this->label = __( 'Dropshipping', 'wc_dropship_settings' );
 
-            public function get_settings($current_section = '') {
+				add_filter( 'woocommerce_settings_tabs_array', array( $this, 'add_settings_page' ), 20 );
 
-                $base_name = explode('/', plugin_basename(__FILE__));
+				add_action( 'woocommerce_settings_' . $this->id, array( $this, 'output' ) );
+			}
 
-                wp_enqueue_style('wc_dropshipping_checkout_style', plugins_url() . '/' . $base_name[0] . '/assets/css/custom.css');
+			/**
+			 * Get settings array
+			 *
+			 * @param string $current_section Optional. Defaults to empty string.
+			 * @return array Array of settings
+			 */
 
-                // Tab to update options //global $current_section; 
+			public function get_settings( $current_section = '' ) {
 
-                if (isset($_POST) && !empty($_POST)) {
+				$base_name = explode( '/', plugin_basename( __FILE__ ) );
 
-                    $options = get_option('wc_dropship_manager');
-	
-                    foreach ($_POST as $key => $opt) {
+				wp_enqueue_style( 'wc_dropshipping_checkout_style', plugins_url() . '/' . $base_name[0] . '/assets/css/custom.css' );
 
-                        if ($key != 'submit')
-                            $options[$key] = $_POST[$key];
-                    }
+				// Tab to update options //global $current_section;
 
-                    if (isset($_POST['supp_notification'])) {
+				if ( isset( $_POST ) && ! empty( $_POST ) ) {
 
-                        $options['supp_notification'] = '1';
-                    } else {
+					$options = get_option( 'wc_dropship_manager' );
 
-                        $options['supp_notification'] = '0';
-                    }
+					foreach ( $_POST as $key => $opt ) {
 
-                    if (isset($_POST['csv_inmail'])) {
+						if ( $key != 'submit' ) {
+							$options[ $key ] = $_POST[ $key ];
+						}
+					}
 
-                        $options['csv_inmail'] = '1';
-                    } else {
+					if ( isset( $_POST['supp_notification'] ) ) {
 
-                        $options['csv_inmail'] = '0';
-                    }
+						$options['supp_notification'] = '1';
+					} else {
 
-                    if (isset($_POST['billing_phone'])) {
+						$options['supp_notification'] = '0';
+					}
 
-                        $options['billing_phone'] = '1';
-                    } else {
+					if ( isset( $_POST['csv_inmail'] ) ) {
 
-                        $options['billing_phone'] = '0';
-                    }
+						$options['csv_inmail'] = '1';
+					} else {
 
-                    if (isset($_POST['email_supplier'])) {
+						$options['csv_inmail'] = '0';
+					}
 
-                        $options['email_supplier'] = '1';
-                    } else {
+					if ( isset( $_POST['billing_phone'] ) ) {
 
-                        $options['email_supplier'] = '0';
-                    }
+						$options['billing_phone'] = '1';
+					} else {
 
-                    if (isset($_POST['hide_suppliername'])) {
+						$options['billing_phone'] = '0';
+					}
 
-                        $options['hide_suppliername'] = '1';
-                    } else {
+					if ( isset( $_POST['email_supplier'] ) ) {
 
-                        $options['hide_suppliername'] = '0';
-                    }
+						$options['email_supplier'] = '1';
+					} else {
 
-                    if (isset($_POST['hide_suppliername_on_product_page'])) {
+						$options['email_supplier'] = '0';
+					}
 
-                        $options['hide_suppliername_on_product_page'] = '1';
-                    } else {
+					if ( isset( $_POST['hide_suppliername'] ) ) {
 
-                        $options['hide_suppliername_on_product_page'] = '0';
-                    }
+						$options['hide_suppliername'] = '1';
+					} else {
 
-                    if (isset($_POST['hideorderdetail_suppliername'])) {
+						$options['hide_suppliername'] = '0';
+					}
 
-                        $options['hideorderdetail_suppliername'] = '1';
-                    } else {
+					if ( isset( $_POST['hide_suppliername_on_product_page'] ) ) {
 
-                        $options['hideorderdetail_suppliername'] = '0';
-                    }
+						$options['hide_suppliername_on_product_page'] = '1';
+					} else {
 
-                    if (isset($_POST['full_information'])) {
+						$options['hide_suppliername_on_product_page'] = '0';
+					}
 
-                        $options['full_information'] = '1';
-                    } else {
+					if ( isset( $_POST['hideorderdetail_suppliername'] ) ) {
 
-                        $options['full_information'] = '0';
-                    }
+						$options['hideorderdetail_suppliername'] = '1';
+					} else {
 
-                    if (isset($_POST['show_logo'])) {
+						$options['hideorderdetail_suppliername'] = '0';
+					}
 
-                        $options['show_logo'] = '1';
-                    } else {
+					if ( isset( $_POST['full_information'] ) ) {
 
-                        $options['show_logo'] = '0';
-                    }
+						$options['full_information'] = '1';
+					} else {
 
-                    if (isset($_POST['order_date'])) {
+						$options['full_information'] = '0';
+					}
 
-                        $options['order_date'] = '1';
-                    } else {
+					if ( isset( $_POST['show_logo'] ) ) {
 
-                        $options['order_date'] = '0';
-                    }
+						$options['show_logo'] = '1';
+					} else {
 
-                    if (isset($_POST['smtp_check'])) {
+						$options['show_logo'] = '0';
+					}
 
-                        $options['smtp_check'] = '1';
-                    } else {
+					if ( isset( $_POST['order_date'] ) ) {
 
-                        $options['smtp_check'] = '0';
-                    }
+						$options['order_date'] = '1';
+					} else {
 
-                    if (isset($_POST['std_mail'])) {
+						$options['order_date'] = '0';
+					}
 
-                        $options['std_mail'] = '1';
-                    } else {
+					if ( isset( $_POST['smtp_check'] ) ) {
 
-                        $options['std_mail'] = '0';
-                    }
+						$options['smtp_check'] = '1';
+					} else {
 
-                    if (isset($_POST['checkout_order_number'])) {
+						$options['smtp_check'] = '0';
+					}
 
-                        $options['checkout_order_number'] = '1';
-                    } else {
+					if ( isset( $_POST['std_mail'] ) ) {
 
-                        $options['checkout_order_number'] = '0';
-                    }
+						$options['std_mail'] = '1';
+					} else {
 
-                    if (isset($_POST['show_pay_type'])) {
+						$options['std_mail'] = '0';
+					}
 
-                        $options['show_pay_type'] = '1';
-                    } else {
+					if ( isset( $_POST['checkout_order_number'] ) ) {
 
-                        $options['show_pay_type'] = '0';
-                    }
+						$options['checkout_order_number'] = '1';
+					} else {
 
-                    if (isset($_POST['cnf_mail'])) {
+						$options['checkout_order_number'] = '0';
+					}
 
-                        $options['cnf_mail'] = '1';
-                    } else {
+					if ( isset( $_POST['show_pay_type'] ) ) {
 
-                        $options['cnf_mail'] = '0';
-                    }
+						$options['show_pay_type'] = '1';
+					} else {
 
-                    if (isset($_POST['cc_mail'])) {
+						$options['show_pay_type'] = '0';
+					}
 
-                        $options['cc_mail'] = '1';
-                    } else {
+					if ( isset( $_POST['cnf_mail'] ) ) {
 
-                        $options['cc_mail'] = '0';
-                    }                                    
+						$options['cnf_mail'] = '1';
+					} else {
 
-                    /** Staert Hide client info 5.6
-                     * created at : 13/10/2022
-                     * Updated at : 
-                    */
-                    if (isset($_POST['hide_client_info_Suppliers'])) {
+						$options['cnf_mail'] = '0';
+					}
 
-                        $options['hide_client_info_Suppliers'] = '1';
-                    } else {
+					if ( isset( $_POST['cc_mail'] ) ) {
 
-                        $options['hide_client_info_Suppliers'] = '0';
-                    }
-                     /** End Hide client info */ 
-                    
-                    /** Supplier Email Notifications */ 
-                    if (isset($_POST['view_order'])) {
+						$options['cc_mail'] = '1';
+					} else {
 
-                        $options['view_order'] = '1';
-                    } else {
+						$options['cc_mail'] = '0';
+					}
 
-                        $options['view_order'] = '0';
-                    }
+					/** Staert Hide client info 5.6
+					 * created at : 13/10/2022
+					 * Updated at :
+					*/
+					if ( isset( $_POST['hide_client_info_Suppliers'] ) ) {
 
-                    if (isset($_POST['renewal_email'])) {
+						$options['hide_client_info_Suppliers'] = '1';
+					} else {
 
-                        $options['renewal_email'] = '1';
-                    } else {
+						$options['hide_client_info_Suppliers'] = '0';
+					}
+					 /** End Hide client info */
 
-                        $options['renewal_email'] = '0';
-                    }
-                    /** End Supplier Email Notifications */ 
-                    
-                    //Start hide contact_info_Suppliers
-                    if (isset($_POST['hide_contact_info_Suppliers'])) {
+					/** Supplier Email Notifications */
+					if ( isset( $_POST['view_order'] ) ) {
 
-                        $options['hide_contact_info_Suppliers'] = '1';
-                    } else {
+						$options['view_order'] = '1';
+					} else {
 
-                        $options['hide_contact_info_Suppliers'] = '0';
-                    } 
-                    //End hide contact_info_Suppliers
+						$options['view_order'] = '0';
+					}
 
-                    //store add_shipping_add
-                    if (isset($_POST['store_add_shipping_add'])) {
+					if ( isset( $_POST['renewal_email'] ) ) {
 
-                        $options['store_add_shipping_add'] = '1';
-                    } else {
+						$options['renewal_email'] = '1';
+					} else {
 
-                        $options['store_add_shipping_add'] = '0';
-                    } 
-                    //store add_shipping_add
+						$options['renewal_email'] = '0';
+					}
+					/** End Supplier Email Notifications */
 
-                    //specific deli_location
-                    if (isset($_POST['specific_deli_location'])) {
+					// Start hide contact_info_Suppliers
+					if ( isset( $_POST['hide_contact_info_Suppliers'] ) ) {
 
-                        $options['specific_deli_location'] = '1';
-                    } else {
+						$options['hide_contact_info_Suppliers'] = '1';
+					} else {
 
-                        $options['specific_deli_location'] = '0';
-                    } 
+						$options['hide_contact_info_Suppliers'] = '0';
+					}
+					// End hide contact_info_Suppliers
 
-                    //specific deli_location
-                    
+					// store add_shipping_add
+					if ( isset( $_POST['store_add_shipping_add'] ) ) {
 
-                    if (isset($_POST['from_name'])) {
+						$options['store_add_shipping_add'] = '1';
+					} else {
 
-                        $options['from_name'] = $_POST['from_name'];
-                    } else {
+						$options['store_add_shipping_add'] = '0';
+					}
+					// store add_shipping_add
 
-                        $options['from_name'] = '';
-                    }
+					if ( isset( $_POST['from_name'] ) ) {
 
-                    if (isset($_POST['from_email'])) {
+						$options['from_name'] = $_POST['from_name'];
+					} else {
 
-                        $options['from_email'] = $_POST['from_email'];
-                    } else {
+						$options['from_name'] = '';
+					}
 
-                        $options['from_email'] = '';
-                    }
+					if ( isset( $_POST['from_email'] ) ) {
 
-                    if (isset($_POST['hide_shipping_price'])) {
+						$options['from_email'] = $_POST['from_email'];
+					} else {
 
-                        $options['hide_shipping_price'] = '1';
-                    } else {
+						$options['from_email'] = '';
+					}
 
-                        $options['hide_shipping_price'] = '0';
-                    }
+					if ( isset( $_POST['hide_shipping_price'] ) ) {
 
-                    if (isset($_POST['hide_tax'])) {
+						$options['hide_shipping_price'] = '1';
+					} else {
 
-                        $options['hide_tax'] = '1';
-                    } else {
+						$options['hide_shipping_price'] = '0';
+					}
 
-                        $options['hide_tax'] = '0';
-                    }
+					if ( isset( $_POST['hide_tax'] ) ) {
 
-                    if (isset($_POST['total_price'])) {
+						$options['hide_tax'] = '1';
+					} else {
 
-                        $options['total_price'] = '1';
-                    } else {
+						$options['hide_tax'] = '0';
+					}
 
-                        $options['total_price'] = '0';
-                    }
+					if ( isset( $_POST['total_price'] ) ) {
 
-                    if (isset($_POST['product_price'])) {
+						$options['total_price'] = '1';
+					} else {
 
-                        $options['product_price'] = '1';
-                    } else {
+						$options['total_price'] = '0';
+					}
 
-                        $options['product_price'] = '0';
-                    }
+					if ( isset( $_POST['product_price'] ) ) {
 
-                    if (isset($_POST['shipping'])) {
+						$options['product_price'] = '1';
+					} else {
 
-                        $options['shipping'] = '1';
-                    } else {
+						$options['product_price'] = '0';
+					}
 
-                        $options['shipping'] = '0';
-                    }
+					if ( isset( $_POST['shipping'] ) ) {
 
-                    if (isset($_POST['payment_method'])) {
+						$options['shipping'] = '1';
+					} else {
 
-                        $options['payment_method'] = '1';
-                    } else {
+						$options['shipping'] = '0';
+					}
 
-                        $options['payment_method'] = '0';
-                    }
+					if ( isset( $_POST['payment_method'] ) ) {
 
-                    if (isset($_POST['cost_of_goods'])) {
+						$options['payment_method'] = '1';
+					} else {
 
-                        $options['cost_of_goods'] = '1';
-                    } else {
+						$options['payment_method'] = '0';
+					}
 
-                        $options['cost_of_goods'] = '0';
-                    }
+					if ( isset( $_POST['cost_of_goods'] ) ) {
 
-                    if (isset($_POST['show_gst_supplier_email'])) {
+						$options['cost_of_goods'] = '1';
+					} else {
 
-                        $options['show_gst_supplier_email'] = '1';
-                    } else {
+						$options['cost_of_goods'] = '0';
+					}
 
-                        $options['show_gst_supplier_email'] = '0';
-                    }
+					if ( isset( $_POST['show_gst_supplier_email'] ) ) {
 
-                    if (isset($_POST['billing_address'])) {
+						$options['show_gst_supplier_email'] = '1';
+					} else {
 
-                        $options['billing_address'] = '1';
-                    } else {
+						$options['show_gst_supplier_email'] = '0';
+					}
 
-                        $options['billing_address'] = '0';
-                    }
+					if ( isset( $_POST['billing_address'] ) ) {
 
-                    if (isset($_POST['shipping_address'])) {
+						$options['billing_address'] = '1';
+					} else {
 
-                        $options['shipping_address'] = '1';
-                    } else {
+						$options['billing_address'] = '0';
+					}
 
-                        $options['shipping_address'] = '0';
-                    }
+					if ( isset( $_POST['shipping_address'] ) ) {
 
-                    if (isset($_POST['product_image'])) {
+						$options['shipping_address'] = '1';
+					} else {
 
-                        $options['product_image'] = '1';
-                    } else {
+						$options['shipping_address'] = '0';
+					}
 
-                        $options['product_image'] = '0';
-                    }
+					if ( isset( $_POST['product_image'] ) ) {
 
-                    if (isset($_POST['store_name'])) {
+						$options['product_image'] = '1';
+					} else {
 
-                        $options['store_name'] = '1';
-                    } else {
+						$options['product_image'] = '0';
+					}
 
-                        $options['store_name'] = '0';
-                    }
+					if ( isset( $_POST['store_name'] ) ) {
 
-                    if (isset($_POST['store_address'])) {
+						$options['store_name'] = '1';
+					} else {
 
-                        $options['store_address'] = '1';
-                    } else {
+						$options['store_name'] = '0';
+					}
 
-                        $options['store_address'] = '0';
-                    }
+					if ( isset( $_POST['store_address'] ) ) {
 
-                    if (isset($_POST['complete_email'])) {
+						$options['store_address'] = '1';
+					} else {
 
-                        $options['complete_email'] = '1';
-                    } else {
+						$options['store_address'] = '0';
+					}
 
-                        $options['complete_email'] = '0';
-                    }
+					if ( isset( $_POST['complete_email'] ) ) {
 
-                    if (isset($_POST['order_complete_link'])) {
+						$options['complete_email'] = '1';
+					} else {
 
-                        $options['order_complete_link'] = '1';
-                    } else {
+						$options['complete_email'] = '0';
+					}
 
-                        $options['order_complete_link'] = '0';
-                    }
+					if ( isset( $_POST['order_complete_link'] ) ) {
 
+						$options['order_complete_link'] = '1';
+					} else {
 
-                    if (isset($_POST['type_of_package'])) {
+						$options['order_complete_link'] = '0';
+					}
 
-                        $options['type_of_package'] = '1';
-                    } else {
+					if ( isset( $_POST['type_of_package'] ) ) {
 
-                        $options['type_of_package'] = '0';
-                    }
+						$options['type_of_package'] = '1';
+					} else {
 
-                    if (isset($_POST['customer_note'])) {
+						$options['type_of_package'] = '0';
+					}
 
-                        $options['customer_note'] = '1';
-                    } else {
+					if ( isset( $_POST['customer_note'] ) ) {
 
-                        $options['customer_note'] = '0';
-                    }
-					
-					if ( isset($_POST['customer_email' ] ) ) {
+						$options['customer_note'] = '1';
+					} else {
+
+						$options['customer_note'] = '0';
+					}
+
+					if ( isset( $_POST['customer_email'] ) ) {
 						$options['customer_email'] = '1';
 					} else {
 						$options['customer_email'] = '0';
 					}
 
-                    // Aliexpress Settings get POST 
+					// Aliexpress Settings get POST
 
-                    if (isset($_POST['ali_cbe_enable_name'])) {
+					if ( isset( $_POST['ali_cbe_enable_name'] ) ) {
 
-                        $options['ali_cbe_enable_name'] = '1';
-                    } else {
+						$options['ali_cbe_enable_name'] = '1';
+					} else {
 
-                        $options['ali_cbe_enable_name'] = '0';
-                    }
+						$options['ali_cbe_enable_name'] = '0';
+					}
 
-                    if (isset($_POST['ali_cbe_price_rate_name'])) {
+					if ( isset( $_POST['ali_cbe_price_rate_name'] ) ) {
 
-                        $options['ali_cbe_price_rate_name'] = $_POST['ali_cbe_price_rate_name'];
-                    } else {
+						$options['ali_cbe_price_rate_name'] = $_POST['ali_cbe_price_rate_name'];
+					} else {
 
-                        $options['ali_cbe_price_rate'] = '';
-                    }
+						$options['ali_cbe_price_rate'] = '';
+					}
 
-                    if (isset($_POST['ali_cbe_price_rate_value_name'])) {
+					if ( isset( $_POST['ali_cbe_price_rate_value_name'] ) ) {
 
-                        if ($options['ali_cbe_price_rate_value_name'] < 1 || !is_numeric($options['ali_cbe_price_rate_value_name'])) {
+						if ( $options['ali_cbe_price_rate_value_name'] < 1 || ! is_numeric( $options['ali_cbe_price_rate_value_name'] ) ) {
 
-                            $options['ali_cbe_price_rate_value_name'] = 0;
-                        } else {
+							$options['ali_cbe_price_rate_value_name'] = 0;
+						} else {
 
-                            $options['ali_cbe_price_rate_value_name'] = $_POST['ali_cbe_price_rate_value_name'];
-                        }
-                    } else {
+							$options['ali_cbe_price_rate_value_name'] = $_POST['ali_cbe_price_rate_value_name'];
+						}
+					} else {
 
-                        $options['ali_cbe_price_rate_value_name'] = 0;
-                    }
+						$options['ali_cbe_price_rate_value_name'] = 0;
+					}
 
-			
+					update_option( 'wc_dropship_manager', $options );
+				}
 
-                    update_option('wc_dropship_manager', $options);
-                }
+				$options = get_option( 'wc_dropship_manager' );
 
-                $options = get_option('wc_dropship_manager');
+				if ( isset( $options['supp_notification'] ) ) {
 
-                //echo '<pre>'; print_r($options); echo '</pre>'; 
+					$supp_notification = $options['supp_notification'];
+				} else {
 
-                if (isset($options['supp_notification'])) {
+					$supp_notification = '';
+				}
 
-                    $supp_notification = $options['supp_notification'];
-                } else {
+				if ( isset( $options['csv_inmail'] ) ) {
 
-                    $supp_notification = '';
-                }
+					$csvcheck = $options['csv_inmail'];
+				} else {
 
-                if (isset($options['csv_inmail'])) {
+					$csvcheck = '';
+				}
 
-                    $csvcheck = $options['csv_inmail'];
-                } else {
+				if ( isset( $_POST['packing_slip_header'] ) ) {
 
-                    $csvcheck = '';
-                }
+					if ( '' != $_POST['packing_slip_header'] ) {
 
-                if (isset($_POST['packing_slip_header'])) {
+						$options['packing_slip_header'] = $_POST['packing_slip_header'];
+					} else {
 
-                    if ('' != $_POST['packing_slip_header']) {
+						$options['packing_slip_header'] = '';
+					}
+				}
 
-                        $options['packing_slip_header'] = $_POST['packing_slip_header'];
-                    } else {
+				if ( isset( $options['full_information'] ) ) {
 
-                        $options['packing_slip_header'] = '';
-                    }
-                }
+					$full_information = $options['full_information'];
+				} else {
 
-                
+					$full_information = '';
+				}
 
-                if (isset($options['full_information'])) {
+				if ( isset( $options['show_logo'] ) ) {
 
-                    $full_information = $options['full_information'];
-                } else {
+					$show_logo = $options['show_logo'];
+				} else {
 
-                    $full_information = '';
-                }
+					$show_logo = '';
+				}
 
-                if (isset($options['show_logo'])) {
+				if ( isset( $options['order_date'] ) ) {
 
-                    $show_logo = $options['show_logo'];
-                } else {
+					$order_date = $options['order_date'];
+				} else {
 
-                    $show_logo = '';
-                }
+					$order_date = '';
+				}
 
-                if (isset($options['order_date'])) {
+				if ( isset( $options['smtp_check'] ) ) {
 
-                    $order_date = $options['order_date'];
-                } else {
+					$smtp_check = $options['smtp_check'];
+				} else {
 
-                    $order_date = '';
-                }
+					$smtp_check = '';
+				}
 
-                if (isset($options['smtp_check'])) {
+				if ( isset( $options['std_mail'] ) ) {
 
-                    $smtp_check = $options['smtp_check'];
-                } else {
+					$std_mail = $options['std_mail'];
+				} else {
 
-                    $smtp_check = '';
-                }
+					$std_mail = '';
+				}
 
-                if (isset($options['std_mail'])) {
+				if ( isset( $options['checkout_order_number'] ) ) {
 
-                    $std_mail = $options['std_mail'];
-                } else {
+					$checkout_order_number = $options['checkout_order_number'];
+				} else {
 
-                    $std_mail = '';
-                }
+					$checkout_order_number = 0;
+				}
 
-                if (isset($options['checkout_order_number'])) {
+				if ( isset( $options['show_pay_type'] ) ) {
 
-                    $checkout_order_number = $options['checkout_order_number'];
-                } else {
+					$show_pay_type = $options['show_pay_type'];
+				} else {
 
-                    $checkout_order_number = 0;
-                }
+					$show_pay_type = '';
+				}
 
-                if (isset($options['show_pay_type'])) {
+				if ( isset( $options['cnf_mail'] ) ) {
 
-                    $show_pay_type = $options['show_pay_type'];
-                } else {
+					$cnf_mail = $options['cnf_mail'];
+				} else {
 
-                    $show_pay_type = '';
-                }
+					$cnf_mail = '';
+				}
 
-                if (isset($options['cnf_mail'])) {
+				if ( isset( $options['cc_mail'] ) ) {
 
-                    $cnf_mail = $options['cnf_mail'];
-                } else {
+					$cc_mail = $options['cc_mail'];
+				} else {
 
-                    $cnf_mail = '';
-                }
+					$cc_mail = '';
+				}
 
-                if (isset($options['cc_mail'])) {
+				/** hide client_info_Suppliers */
+				if ( isset( $options['hide_client_info_Suppliers'] ) ) {
 
-                    $cc_mail = $options['cc_mail'];
-                } else {
+					$hide_client_info_Suppliers = $options['hide_client_info_Suppliers'];
+				} else {
 
-                    $cc_mail = '';
-                }
+					$hide_client_info_Suppliers = '';
+				}
+				// hide client_info_Suppliers
 
-                /** hide client_info_Suppliers */
-                if (isset($options['hide_client_info_Suppliers'])) {
+				// Supplier Email Notifications
+				if ( isset( $options['view_order'] ) ) {
 
-                    $hide_client_info_Suppliers = $options['hide_client_info_Suppliers'];
-                } else {
+					$view_order = $options['view_order'];
+				} else {
 
-                    $hide_client_info_Suppliers = '';
-                }
-                // hide client_info_Suppliers
-                 
-                // Supplier Email Notifications 
-                if (isset($options['view_order'])) {
+					$view_order = '';
+				}
 
-                    $view_order = $options['view_order'];
-                } else {
+				if ( isset( $options['renewal_email'] ) ) {
 
-                    $view_order = '';
-                }
+					$renewal_email = $options['renewal_email'];
+				} else {
 
-                if (isset($options['renewal_email'])) {
+					$renewal_email = '';
+				}
+				// End Supplier Email Notifications
 
-                    $renewal_email = $options['renewal_email'];
-                } else {
+				// hide contact_info_Suppliers
+				if ( isset( $options['hide_contact_info_Suppliers'] ) ) {
 
-                    $renewal_email = '';
-                }
-                // End Supplier Email Notifications
+					$hide_contact_info_Suppliers = $options['hide_contact_info_Suppliers'];
+				} else {
 
-                //hide contact_info_Suppliers
-                if (isset($options['hide_contact_info_Suppliers'])) {
+					$hide_contact_info_Suppliers = '';
+				}
+				// hide contact_info_Suppliers
 
-                    $hide_contact_info_Suppliers = $options['hide_contact_info_Suppliers'];
-                } else {
+				// store add_shipping_add
+				if ( isset( $options['store_add_shipping_add'] ) ) {
 
-                    $hide_contact_info_Suppliers = '';
-                }
-                //hide contact_info_Suppliers
+					$store_add_shipping_add = $options['store_add_shipping_add'];
+				} else {
 
-                //store add_shipping_add
-                if (isset($options['store_add_shipping_add'])) {
+					$store_add_shipping_add = '';
+				}
+				// store add_shipping_add
 
-                    $store_add_shipping_add = $options['store_add_shipping_add'];
-                } else {
+				if ( isset( $options['from_name'] ) ) {
 
-                    $store_add_shipping_add = '';
-                }
-                //store add_shipping_add 
+					$from_name = $options['from_name'];
+				} else {
 
-                //specific deli_location
-                if (isset($options['specific_deli_location'])) {
+					$from_name = '';
+				}
 
-                    $specific_deli_location = $options['specific_deli_location'];
-                } else {
+				if ( isset( $options['from_email'] ) ) {
 
-                    $specific_deli_location = '';
-                }
+					$from_email = $options['from_email'];
+				} else {
 
-                //specific deli_location
+					$from_email = '';
+				}
 
-                if (isset($options['from_name'])) {
+				if ( isset( $options['hide_shipping_price'] ) ) {
 
-                    $from_name = $options['from_name'];
-                } else {
+					$hide_shipping_price = $options['hide_shipping_price'];
+				} else {
 
-                    $from_name = '';
-                }
+					$hide_shipping_price = '';
+				}
 
-                if (isset($options['from_email'])) {
+				if ( isset( $options['hide_tax'] ) ) {
 
-                    $from_email = $options['from_email'];
-                } else {
+					$hide_tax = $options['hide_tax'];
+				} else {
 
-                    $from_email = '';
-                }
+					$hide_tax = '';
+				}
 
-                if (isset($options['hide_shipping_price'])) {
+				if ( isset( $options['total_price'] ) ) {
 
-                    $hide_shipping_price = $options['hide_shipping_price'];
-                } else {
+					$total_price = $options['total_price'];
+				} else {
 
-                    $hide_shipping_price = '';
-                }
+					$total_price = '';
+				}
 
-                if (isset($options['hide_tax'])) {
+				if ( isset( $options['product_price'] ) ) {
 
-                    $hide_tax = $options['hide_tax'];
-                } else {
+					$product_price = $options['product_price'];
+				} else {
 
-                    $hide_tax = '';
-                }
+					$product_price = '';
+				}
 
-                if (isset($options['total_price'])) {
+				if ( isset( $options['shipping'] ) ) {
 
-                    $total_price = $options['total_price'];
-                } else {
+					$shipping = $options['shipping'];
+				} else {
 
-                    $total_price = '';
-                }
+					$shipping = '';
+				}
 
-                if (isset($options['product_price'])) {
+				if ( isset( $options['cost_of_goods'] ) ) {
 
-                    $product_price = $options['product_price'];
-                } else {
+					$cost_of_goods = $options['cost_of_goods'];
+				} else {
 
-                    $product_price = '';
-                }
+					$cost_of_goods = '';
+				}
 
-                if (isset($options['shipping'])) {
+				if ( isset( $options['show_gst_supplier_email'] ) ) {
 
-                    $shipping = $options['shipping'];
-                } else {
+					$show_gst_supplier_email = $options['show_gst_supplier_email'];
+				} else {
 
-                    $shipping = '';
-                }
+					$show_gst_supplier_email = '';
+				}
 
-                if (isset($options['cost_of_goods'])) {
+				if ( isset( $options['billing_address'] ) ) {
 
-                    $cost_of_goods = $options['cost_of_goods'];
-                } else {
+					$billing_address = $options['billing_address'];
+				} else {
 
-                    $cost_of_goods = '';
-                }
+					$billing_address = '';
+				}
 
-                if (isset($options['show_gst_supplier_email'])) {
+				if ( isset( $options['billing_phone'] ) ) {
 
-                    $show_gst_supplier_email = $options['show_gst_supplier_email'];
-                } else {
+					$billing_phone = $options['billing_phone'];
+				} else {
 
-                    $show_gst_supplier_email = '';
-                }
+					$billing_phone = '';
+				}
 
-                if (isset($options['billing_address'])) {
+				if ( isset( $options['email_supplier'] ) ) {
 
-                    $billing_address = $options['billing_address'];
-                } else {
+					$email_supplier = $options['email_supplier'];
+				} else {
 
-                    $billing_address = '';
-                }
+					$email_supplier = '';
+				}
 
-                if (isset($options['billing_phone'])) {
+				if ( isset( $options['hide_suppliername'] ) ) {
 
-                    $billing_phone = $options['billing_phone'];
-                } else {
+					$hide_suppliername = $options['hide_suppliername'];
+				} else {
 
-                    $billing_phone = '';
-                }
+					$hide_suppliername = '';
+				}
 
-                if (isset($options['email_supplier'])) {
+				if ( isset( $options['hide_suppliername_on_product_page'] ) ) {
 
-                    $email_supplier = $options['email_supplier'];
-                } else {
+					$hide_suppliername_on_product_page = $options['hide_suppliername_on_product_page'];
+				} else {
 
-                    $email_supplier = '';
-                }
+					$hide_suppliername_on_product_page = '';
+				}
 
-                if (isset($options['hide_suppliername'])) {
+				if ( isset( $options['hideorderdetail_suppliername'] ) ) {
 
-                    $hide_suppliername = $options['hide_suppliername'];
-                } else {
+					$hideorderdetail_suppliername = $options['hideorderdetail_suppliername'];
+				} else {
 
-                    $hide_suppliername = '';
-                }
+					$hideorderdetail_suppliername = '';
+				}
 
-                if (isset($options['hide_suppliername_on_product_page'])) {
+				if ( isset( $options['shipping_address'] ) ) {
 
-                    $hide_suppliername_on_product_page = $options['hide_suppliername_on_product_page'];
-                } else {
+					$shipping_address = $options['shipping_address'];
+				} else {
 
-                    $hide_suppliername_on_product_page = '';
-                }
+					$shipping_address = '';
+				}
 
-                if (isset($options['hideorderdetail_suppliername'])) {
+				if ( isset( $options['product_image'] ) ) {
 
-                    $hideorderdetail_suppliername = $options['hideorderdetail_suppliername'];
-                } else {
+					$product_image = $options['product_image'];
+				} else {
 
-                    $hideorderdetail_suppliername = '';
-                }
+					$product_image = '';
+				}
 
-                if (isset($options['shipping_address'])) {
+				if ( isset( $options['store_name'] ) ) {
 
-                    $shipping_address = $options['shipping_address'];
-                } else {
+					$store_name = $options['store_name'];
+				} else {
 
-                    $shipping_address = '';
-                }
+					$store_name = '';
+				}
 
-                if (isset($options['product_image'])) {
+				if ( isset( $options['store_address'] ) ) {
 
-                    $product_image = $options['product_image'];
-                } else {
+					$store_address = $options['store_address'];
+				} else {
 
-                    $product_image = '';
-                }
+					$store_address = '';
+				}
 
-                if (isset($options['store_name'])) {
+				if ( isset( $options['complete_email'] ) ) {
 
-                    $store_name = $options['store_name'];
-                } else {
+					$complete_email = $options['complete_email'];
+				} else {
 
-                    $store_name = '';
-                }
+					$complete_email = '';
+				}
 
-                if (isset($options['store_address'])) {
+				if ( isset( $options['order_complete_link'] ) ) {
 
-                    $store_address = $options['store_address'];
-                } else {
+					$order_complete_link = $options['order_complete_link'];
+				} else {
 
-                    $store_address = '';
-                }
+					$order_complete_link = '';
+				}
 
-                if (isset($options['complete_email'])) {
+				if ( isset( $options['type_of_package'] ) ) {
 
-                    $complete_email = $options['complete_email'];
-                } else {
+					$type_of_package = $options['type_of_package'];
+				} else {
 
-                    $complete_email = '';
-                }
+					$type_of_package = '';
+				}
 
-                if (isset($options['order_complete_link'])) {
+				if ( isset( $options['customer_note'] ) ) {
 
-                    $order_complete_link = $options['order_complete_link'];
-                } else {
+					$customer_note = $options['customer_note'];
+				} else {
 
-                    $order_complete_link = '';
-                }
+					$customer_note = '';
+				}
 
-               
-
-                if (isset($options['type_of_package'])) {
-
-                    $type_of_package = $options['type_of_package'];
-                } else {
-
-                    $type_of_package = '';
-                }
-
-                if (isset($options['customer_note'])) {
-
-                    $customer_note = $options['customer_note'];
-                } else {
-
-                    $customer_note = '';
-                }
-				
-				if (isset($options['customer_email'])) {
+				if ( isset( $options['customer_email'] ) ) {
 					$customer_email = $options['customer_email'];
 				} else {
 					$customer_email = '';
 				}
-				
-				if ($customer_email == '1') {
+
+				if ( $customer_email == '1' ) {
 					$customer_email = ' checked="checked" ';
 				} else {
 					$customer_email = ' ';
 				}
 
-                // Aliexpress Settings for setting variable creation 
+				// Aliexpress Settings for setting variable creation
 
-                if (isset($options['ali_cbe_enable_name'])) {
+				if ( isset( $options['ali_cbe_enable_name'] ) ) {
 
-                    $ali_cbe_enable_setting = $options['ali_cbe_enable_name'];
-                } else {
+					$ali_cbe_enable_setting = $options['ali_cbe_enable_name'];
+				} else {
 
-                    $ali_cbe_enable_setting = '';
-                }
+					$ali_cbe_enable_setting = '';
+				}
 
-                if (isset($options['ali_cbe_price_rate_name'])) {
+				if ( isset( $options['ali_cbe_price_rate_name'] ) ) {
 
-                    if ($options['ali_cbe_price_rate_name'] == 'ali_cbe_price_rate_percent_offset') {
+					if ( $options['ali_cbe_price_rate_name'] == 'ali_cbe_price_rate_percent_offset' ) {
 
-                        $ali_cbe_price_rate_selected_1 = 'selected';
+						$ali_cbe_price_rate_selected_1 = 'selected';
 
-                        $ali_cbe_price_rate_selected_2 = '';
-                    } else {
+						$ali_cbe_price_rate_selected_2 = '';
+					} else {
 
-                        $ali_cbe_price_rate_selected_1 = '';
+						$ali_cbe_price_rate_selected_1 = '';
 
-                        $ali_cbe_price_rate_selected_2 = 'selected';
-                    }
-                }
+						$ali_cbe_price_rate_selected_2 = 'selected';
+					}
+				}
 
-                // if (isset($options['ali_cbe_price_rate_value_name'])) { // $ali_cbe_price_rate_value_setting = $options['ali_cbe_price_rate_value_name']; // } else { // $ali_cbe_price_rate_value_setting = ''; // } // For Checked Checkbox 
+				// if (isset($options['ali_cbe_price_rate_value_name'])) { // $ali_cbe_price_rate_value_setting = $options['ali_cbe_price_rate_value_name']; // } else { // $ali_cbe_price_rate_value_setting = ''; // } // For Checked Checkbox
 
-                if ($csvcheck == '1') {
+				if ( $csvcheck == '1' ) {
 
-                    $csvInMail = ' checked="checked" ';
-                } else {
+					$csvInMail = ' checked="checked" ';
+				} else {
 
-                    $csvInMail = ' ';
-                }
+					$csvInMail = ' ';
+				}
 
-                if ($supp_notification == '1') {
+				if ( $supp_notification == '1' ) {
 
-                    $supp_notification_attr = ' checked="checked" ';
-                } else {
+					$supp_notification_attr = ' checked="checked" ';
+				} else {
 
-                    $supp_notification_attr = ' ';
-                }
+					$supp_notification_attr = ' ';
+				}
 
-                if ($full_information == '1') {
+				if ( $full_information == '1' ) {
 
-                    $checkfull = ' checked="checked" ';
+					$checkfull = ' checked="checked" ';
 
-                    $disabledPdfOptions = '';
-                } else {
+					$disabledPdfOptions = '';
+				} else {
 
-                    $checkfull = ' ';
+					$checkfull = ' ';
 
-                    $disabledPdfOptions = 'disabled';
-                }
+					$disabledPdfOptions = 'disabled';
+				}
 
-                if ($show_logo == '1') {
+				if ( $show_logo == '1' ) {
 
-                    $logoshow = ' checked="checked" ';
+					$logoshow = ' checked="checked" ';
 
-                    $show_logo_option = 'style="display:block"';
-                } else {
+					$show_logo_option = 'style="display:block"';
+				} else {
 
-                    $logoshow = ' ';
+					$logoshow = ' ';
 
-                    $show_logo_option = 'style="display:none"';
-                }
+					$show_logo_option = 'style="display:none"';
+				}
 
-                if ($order_date == '1') {
+				if ( $order_date == '1' ) {
 
-                    $date_order = ' checked="checked" ';
-                } else {
+					$date_order = ' checked="checked" ';
+				} else {
 
-                    $date_order = ' ';
-                }
+					$date_order = ' ';
+				}
 
-                if ($smtp_check == '1') {
+				if ( $smtp_check == '1' ) {
 
-                    $check_smtp = ' checked="checked" ';
-                } else {
+					$check_smtp = ' checked="checked" ';
+				} else {
 
-                    $check_smtp = ' ';
-                }
+					$check_smtp = ' ';
+				}
 
-                if ($std_mail == '1' || $std_mail == '') {
+				if ( $std_mail == '1' || $std_mail == '' ) {
 
-                    $std_mail = ' checked="checked" ';
-                } else {
+					$std_mail = ' checked="checked" ';
+				} else {
 
-                    $std_mail = ' ';
-                }
+					$std_mail = ' ';
+				}
 
-                if ($checkout_order_number == '1') {
+				if ( $checkout_order_number == '1' ) {
 
-                    $checkout_order_number = ' checked="checked" ';
-                } else {
+					$checkout_order_number = ' checked="checked" ';
+				} else {
 
-                    $checkout_order_number = ' ';
-                }
+					$checkout_order_number = ' ';
+				}
 
-                if ($show_pay_type == '1' || $show_pay_type == '') {
+				if ( $show_pay_type == '1' || $show_pay_type == '' ) {
 
-                    $show_pay_type = ' checked="checked" ';
-                } else {
+					$show_pay_type = ' checked="checked" ';
+				} else {
 
-                    $show_pay_type = ' ';
-                }
+					$show_pay_type = ' ';
+				}
 
-                if ($cnf_mail == '1') {
+				if ( $cnf_mail == '1' ) {
 
-                    $cnf_mail = ' checked="checked" ';
-                } else {
+					$cnf_mail = ' checked="checked" ';
+				} else {
 
-                    $cnf_mail = ' ';
-                }
+					$cnf_mail = ' ';
+				}
 
-                if ($cc_mail == '1' || $cc_mail == '') {
+				if ( $cc_mail == '1' || $cc_mail == '' ) {
 
-                    $cc_mail = ' checked="checked" ';
-                } else {
+					$cc_mail = ' checked="checked" ';
+				} else {
 
-                    $cc_mail = ' ';
-                }
+					$cc_mail = ' ';
+				}
 
+				// hide client_info_Suppliers
+				if ( $hide_client_info_Suppliers == '1' || $hide_client_info_Suppliers == '' ) {
 
-                //hide client_info_Suppliers
-                if ( $hide_client_info_Suppliers == '1' || $hide_client_info_Suppliers == '' ) {
+					$hide_client_info_Suppliers = ' checked="checked" ';
+				} else {
 
-                    $hide_client_info_Suppliers = ' checked="checked" ';
-                } else {
+					$hide_client_info_Suppliers = ' ';
+				}
+				// hide client_info_Suppliers
 
-                    $hide_client_info_Suppliers = ' ';
-                }
-                //hide client_info_Suppliers
+				// Supplier Email Notifications
+				if ( $view_order == '1' || $view_order == '' ) {
 
-                // Supplier Email Notifications
-                if ( $view_order == '1' || $view_order == '' ) {
+					$view_order = ' checked="checked" ';
+				} else {
 
-                    $view_order = ' checked="checked" ';
-                } else {
+					$view_order = ' ';
+				}
 
-                    $view_order = ' ';
-                }
+				if ( $renewal_email == '1' || $renewal_email == '' ) {
 
-                if ( $renewal_email == '1' || $renewal_email == '' ) {
+					$renewal_email = ' checked="checked" ';
+				} else {
 
-                    $renewal_email = ' checked="checked" ';
-                } else {
+					$renewal_email = ' ';
+				}
+				// End Supplier Email Notifications
 
-                    $renewal_email = ' ';
-                } 
-                // End Supplier Email Notifications
+				// hide contact_info_Suppliers
+				if ( $hide_contact_info_Suppliers == '1' || $hide_contact_info_Suppliers == '' ) {
 
-                //hide contact_info_Suppliers
-                if ( $hide_contact_info_Suppliers == '1' || $hide_contact_info_Suppliers == '' ) {
+					$hide_contact_info_Suppliers = ' checked="checked" ';
+				} else {
 
-                    $hide_contact_info_Suppliers = ' checked="checked" ';
-                } else {
+					$hide_contact_info_Suppliers = ' ';
+				}
+				// hide contact_info_Suppliers
 
-                    $hide_contact_info_Suppliers = ' ';
-                }
-                //hide contact_info_Suppliers
+				// store add_shipping_add
+				if ( $store_add_shipping_add == '1' || $store_add_shipping_add == '' ) {
 
-                //store add_shipping_add
-                if ( $store_add_shipping_add == '1' || $store_add_shipping_add == '' ) {
+					$store_add_shipping_add = ' checked="checked" ';
+				} else {
 
-                    $store_add_shipping_add = ' checked="checked" ';
-                } else {
+					$store_add_shipping_add = ' ';
+				}
+				// store add_shipping_add
 
-                    $store_add_shipping_add = ' ';
-                }
-                //store add_shipping_add
+				if ( $hide_shipping_price == '1' || $hide_shipping_price == '' ) {
 
-                //specific deli_location
-                if ( $specific_deli_location == '1' || $specific_deli_location == '' ) {
+					$hide_shipping_price = ' checked="checked" ';
+				} else {
 
-                    $specific_deli_location = ' checked="checked" ';
-                    $location_option = 'style="display:block"';
-                } else {
+					$hide_shipping_price = ' ';
+				}
 
-                    $location_option = 'style="display:hide"';
-                }
+				if ( $hide_tax == '1' ) {
 
-               
-                //specific deli_location
+					$hide_tax = ' checked="checked" ';
+				} else {
 
-                if ($hide_shipping_price == '1' || $hide_shipping_price == '') {
+					$hide_tax = ' ';
+				}
 
-                    $hide_shipping_price = ' checked="checked" ';
-                } else {
+				if ( $total_price == '1' ) {
 
-                    $hide_shipping_price = ' ';
-                }
+					$total_price = ' checked="checked" ';
+				} else {
 
-                if ($hide_tax == '1') {
+					$total_price = ' ';
+				}
 
-                    $hide_tax = ' checked="checked" ';
-                } else {
+				if ( $product_price == '1' ) {
 
-                    $hide_tax = ' ';
-                }
+					$price_product = ' checked="checked" ';
 
-                if ($total_price == '1') {
+					$product_price_option = 'style="display:block"';
+				} else {
 
-                    $total_price = ' checked="checked" ';
-                } else {
+					$price_product = ' ';
 
-                    $total_price = ' ';
-                }
+					$product_price_option = 'style="display:hide"';
+				}
 
-                if ($product_price == '1') {
+				if ( $shipping == '1' ) {
 
-                    $price_product = ' checked="checked" ';
+					$product_shipping = ' checked="checked" ';
 
-                    $product_price_option = 'style="display:block"';
-                } else {
+					$show_shipping_information_option = 'style="display:block"';
+				} else {
 
-                    $price_product = ' ';
+					$product_shipping = ' ';
 
-                    $product_price_option = 'style="display:hide"';
-                }
+					$show_shipping_information_option = 'style="display:hide"';
+				}
 
-                if ($shipping == '1') {
+				if ( $cost_of_goods == '1' || $cost_of_goods == '' ) {
 
-                    $product_shipping = ' checked="checked" ';
+					$cost_of_goods = ' checked="checked" ';
+				} else {
 
-                    $show_shipping_information_option = 'style="display:block"';
-                } else {
+					$cost_of_goods = ' ';
+				}
 
-                    $product_shipping = ' ';
+				if ( $show_gst_supplier_email == '1' || $show_gst_supplier_email == '' ) {
 
-                    $show_shipping_information_option = 'style="display:hide"';
-                }
+					$show_gst_supplier_email = ' checked="checked" ';
+				} else {
 
-                if ($cost_of_goods == '1' || $cost_of_goods == '') {
+					$show_gst_supplier_email = ' ';
+				}
 
-                    $cost_of_goods = ' checked="checked" ';
-                } else {
+				if ( $billing_address == '1' ) {
 
-                    $cost_of_goods = ' ';
-                }
+					$address_billing = ' checked="checked" ';
 
-                if ($show_gst_supplier_email == '1' || $show_gst_supplier_email == '') {
+					$billing_address_option = 'style="display:block"';
+				} else {
 
-                    $show_gst_supplier_email = ' checked="checked" ';
-                } else {
+					$address_billing = ' ';
 
-                    $show_gst_supplier_email = ' ';
-                }
+					$billing_address_option = 'style="display:hide"';
+				}
 
-                if ($billing_address == '1') {
+				if ( $billing_phone == '1' ) {
 
-                    $address_billing = ' checked="checked" ';
+					$phone_billing = ' checked="checked" ';
+				} else {
 
-                    $billing_address_option = 'style="display:block"';
-                } else {
+					$phone_billing = ' ';
+				}
 
-                    $address_billing = ' ';
+				if ( $email_supplier == '1' ) {
 
-                    $billing_address_option = 'style="display:hide"';
-                }
+					$supplier_email = ' checked="checked" ';
+				} else {
 
-                if ($billing_phone == '1') {
+					$supplier_email = ' ';
+				}
 
-                    $phone_billing = ' checked="checked" ';
-                } else {
+				if ( $hide_suppliername == '1' ) {
 
-                    $phone_billing = ' ';
-                }
+					$suppliername_hide = ' checked="checked" ';
+				} else {
 
-                if ($email_supplier == '1') {
+					$suppliername_hide = ' ';
+				}
 
-                    $supplier_email = ' checked="checked" ';
-                } else {
+				if ( $hide_suppliername_on_product_page == '1' ) {
 
-                    $supplier_email = ' ';
-                }
+					$hide_suppliername_on_product_page = ' checked="checked" ';
+				} else {
 
-                if ($hide_suppliername == '1') {
+					$hide_suppliername_on_product_page = ' ';
+				}
 
-                    $suppliername_hide = ' checked="checked" ';
-                } else {
+				if ( $hideorderdetail_suppliername == '1' ) {
 
-                    $suppliername_hide = ' ';
-                }
+					$suppliername_hideorderdetail = ' checked="checked" ';
+				} else {
 
-                if ($hide_suppliername_on_product_page == '1') {
+					$suppliername_hideorderdetail = ' ';
+				}
 
-                    $hide_suppliername_on_product_page = ' checked="checked" ';
-                } else {
+				if ( $shipping_address == '1' ) {
 
-                    $hide_suppliername_on_product_page = ' ';
-                }
+					$address_shipping = ' checked="checked" ';
 
-                if ($hideorderdetail_suppliername == '1') {
+					$shipping_address_option = 'style="display:block"';
+				} else {
 
-                    $suppliername_hideorderdetail = ' checked="checked" ';
-                } else {
+					$address_shipping = ' ';
 
-                    $suppliername_hideorderdetail = ' ';
-                }
+					$shipping_address_option = 'style="display:hide"';
+				}
 
-                if ($shipping_address == '1') {
+				if ( $product_image == '1' ) {
 
-                    $address_shipping = ' checked="checked" ';
+					$image_product = ' checked="checked" ';
 
-                    $shipping_address_option = 'style="display:block"';
-                } else {
+					$product_image_option = 'style="display:block"';
+				} else {
 
-                    $address_shipping = ' ';
+					$image_product = ' ';
 
-                    $shipping_address_option = 'style="display:hide"';
-                }
+					$product_image_option = 'style="display:hide"';
+				}
 
-                if ($product_image == '1') {
+				if ( $store_name == '1' ) {
 
-                    $image_product = ' checked="checked" ';
+					$name_store = ' checked="checked" ';
+				} else {
 
-                    $product_image_option = 'style="display:block"';
-                } else {
+					$name_store = ' ';
+				}
 
-                    $image_product = ' ';
+				if ( $store_address == '1' ) {
 
-                    $product_image_option = 'style="display:hide"';
-                }
+					$address_store = ' checked="checked" ';
+				} else {
 
-                if ($store_name == '1') {
+					$address_store = ' ';
+				}
 
-                    $name_store = ' checked="checked" ';
-                } else {
+				if ( $complete_email == '1' ) {
 
-                    $name_store = ' ';
-                }
+					$email_complete = ' checked="checked" ';
+				} else {
 
-                if ($store_address == '1') {
+					$email_complete = ' ';
+				}
 
-                    $address_store = ' checked="checked" ';
-                } else {
+				if ( $order_complete_link == '1' ) {
 
-                    $address_store = ' ';
-                }
+					$link_complete_order = ' checked="checked" ';
+				} else {
 
-                if ($complete_email == '1') {
+					$link_complete_order = ' ';
+				}
 
-                    $email_complete = ' checked="checked" ';
-                } else {
+				if ( $type_of_package == '1' ) {
 
-                    $email_complete = ' ';
-                }
+					$type_of_package = ' checked="checked" ';
 
-                if ($order_complete_link == '1') {
+					$type_of_package_option = 'style="display:block"';
+				} else {
 
-                    $link_complete_order = ' checked="checked" ';
-                } else {
+					$type_of_package = ' ';
 
-                    $link_complete_order = ' ';
-                }
+					$type_of_package_option = 'style="display:hide"';
+				}
 
-                if ($type_of_package == '1') {
+				if ( $customer_note == '1' ) {
 
-                    $type_of_package = ' checked="checked" ';
+					$customer_note = ' checked="checked" ';
+				} else {
 
-                    $type_of_package_option = 'style="display:block"';
-                } else {
+					$customer_note = ' ';
+				}
 
-                    $type_of_package = ' ';
+				// Aliexpress Settings for checkbox value
 
-                    $type_of_package_option = 'style="display:hide"';
-                }
+				if ( $ali_cbe_enable_setting == '1' ) {
 
-                if ($customer_note == '1') {
+					$ali_cbe_enable_checkbox = ' checked="checked" ';
+				} else {
 
-                    $customer_note = ' checked="checked" ';
-                } else {
+					$ali_cbe_enable_checkbox = ' ';
+				}
 
-                    $customer_note = ' ';
-                }
+				if ( isset( $options['ali_cbe_price_rate_value_name'] ) ) {
 
-                // Aliexpress Settings for checkbox value 
+					if ( $options['ali_cbe_price_rate_value_name'] < 1 || ! is_numeric( $options['ali_cbe_price_rate_value_name'] ) ) {
 
-                if ($ali_cbe_enable_setting == '1') {
+						$options['ali_cbe_price_rate_value_name'] = 0;
+					}
+				}
 
-                    $ali_cbe_enable_checkbox = ' checked="checked" ';
-                } else {
+				$woocommerce_url = plugins_url() . '/woocommerce/';
 
-                    $ali_cbe_enable_checkbox = ' ';
-                }
+				// echo '<form method="post" id="mainform" action="" enctype="multipart/form-data">';
 
-                if (isset($options['ali_cbe_price_rate_value_name'])) {
+				echo '<ul class="wc-dropship-setting-tabs">
 
-                    if ($options['ali_cbe_price_rate_value_name'] < 1 || !is_numeric($options['ali_cbe_price_rate_value_name'])) {
+                    <li data-id="general_settings" class="active">General Settings</li>
 
-                        $options['ali_cbe_price_rate_value_name'] = 0;
-                    }
-                }
-               
-			
-		    
-              
-                $woocommerce_url = plugins_url() . '/woocommerce/';
+                    <li data-id="supplier_email_notifications">Supplier Email Notifications</li>
 
-                //echo '<form method="post" id="mainform" action="" enctype="multipart/form-data">'; 
+                    <li data-id="packing_slips">Packing Slips</li>
 
-                echo '<ul class="wc-dropship-setting-tabs"> 
+                    <li data-id="customised_supplier_emails">Customised Supplier Emails</li>
 
-                    <li data-id="general_settings" class="active">General Settings</li> 
-
-                    <li data-id="supplier_email_notifications">Supplier Email Notifications</li> 
-
-                    <li data-id="packing_slips">Packing Slips</li> 
-
-                    <li data-id="customised_supplier_emails">Customised Supplier Emails</li> 
-
-                    <li data-id="smtp_options">SMTP Options</li> 
+                    <li data-id="smtp_options">SMTP Options</li>
 
 				</ul>';
 
@@ -1242,681 +1194,679 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 				echo '<h3>AliExpress Chrome Browser Extension (CBE) Settings</h3>';
 
-				echo '<table> 
+				echo '<table>
 
-					<tr> 
-                        <td> 
-                        <span> 
+					<tr>
+                        <td>
+                        <span>
 
-                            <td><input name="ali_cbe_enable_name" id="ali_cbe_enable_name" type="checkbox" ' . $ali_cbe_enable_checkbox . ' /></td> 
+                            <td><input name="ali_cbe_enable_name" id="ali_cbe_enable_name" type="checkbox" ' . $ali_cbe_enable_checkbox . ' /></td>
 
-                        </span> 
+                        </span>
 
-                        <td> 
+                        <td>
 
-					   <td><h4><label for="ali_cbe_enable_name">Enable Support for the AliExpress CBE:</label></h4></td> 
-					</tr> 
+					   <td><h4><label for="ali_cbe_enable_name">Enable Support for the AliExpress CBE:</label></h4></td>
+					</tr>
 
 				</table>';
 
-				if (isset($ali_cbe_enable_setting)) {
+				if ( isset( $ali_cbe_enable_setting ) ) {
 
-					if ($ali_cbe_enable_setting == '1') {
+					if ( $ali_cbe_enable_setting == '1' ) {
 
-					   echo '<table> 
+						echo '<table>
 
-                            <tr> 
+                            <tr>
 
-                                <td><h4>Generate AliExpress API Key: </h4></td> 
+                                <td><h4>Generate AliExpress API Key: </h4></td>
 
-                                <td> 
-                                    <span> 
+                                <td>
+                                    <span>
                                         <button type="button" id="generate_ali_key" class="button-primary">Generate AliExpress API Key</button>
-                                    </span> 
-                                <td> 
-                            </tr> 
+                                    </span>
+                                <td>
+                            </tr>
                         </table>';
 
-    					echo '<table> 
+						echo '<table>
 
-                            <tr id="hide_key"> 
-                                <td id="ali_api_key"></td> 
-                            </tr> 
+                            <tr id="hide_key">
+                                <td id="ali_api_key"></td>
+                            </tr>
 
     					</table>';
 
-    					echo '<table> 
+						echo '<table>
 
-                            <tr> 
+                            <tr>
 
-                                <td><h4>Price Markup Method:</h4></td> 
+                                <td><h4>Price Markup Method:</h4></td>
 
-                                <td><img class="help_tip" data-tip="This setting controls whether the prices listed for products on your WooCommerce store are marked up by a given percentage or by a fixed amount when compared to the AliExpress supplier&apos;s prices" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                <td><img class="help_tip" data-tip="This setting controls whether the prices listed for products on your WooCommerce store are marked up by a given percentage or by a fixed amount when compared to the AliExpress supplier&apos;s prices" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
                                 <td>
 
-                                    <span> 
-                                        <td> 
-                                            <select name="ali_cbe_price_rate_name"> 
+                                    <span>
+                                        <td>
+                                            <select name="ali_cbe_price_rate_name">
 
-                                            <option value="ali_cbe_price_rate_percent_offset" ' . @$ali_cbe_price_rate_selected_1 . '>Percentage Offset</option> 
+                                            <option value="ali_cbe_price_rate_percent_offset" ' . @$ali_cbe_price_rate_selected_1 . '>Percentage Offset</option>
 
-                                            <option value="ali_cbe_fixed_price_offset"' . @$ali_cbe_price_rate_selected_2 . '>Fixed Amount Offset</option> 
+                                            <option value="ali_cbe_fixed_price_offset"' . @$ali_cbe_price_rate_selected_2 . '>Fixed Amount Offset</option>
 
                                             </select>
                                         </td>
-                                    </span> 
+                                    </span>
                                 <td>
-                            </tr> 
+                            </tr>
                         </table>';
 
-						echo '<table> 
+						echo '<table>
 
-                            <tr> 
-                                <td><h4>Markup Offset Value:</h4></td> 
+                            <tr>
+                                <td><h4>Markup Offset Value:</h4></td>
 
                                 <td><img class="help_tip" data-tip="This setting will either contain a percentage or fixed amount based on the chosen price markup method above" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-                                <td> 
-                                    <span> 
-                                        <td><input name="ali_cbe_price_rate_value_name" value="' . @$options['ali_cbe_price_rate_value_name'] . '" size="5" /></td> 
-                                    </span> 
-                                <td> 
-                            </tr> 
+                                <td>
+                                    <span>
+                                        <td><input name="ali_cbe_price_rate_value_name" value="' . @$options['ali_cbe_price_rate_value_name'] . '" size="5" /></td>
+                                    </span>
+                                <td>
+                            </tr>
                         </table>';
-                    }
-                }
+					}
+				}
 
 				echo '</div>';
 
 				echo '<div class="drop-setting-section" id="supplier_email_notifications">';
 
-				        echo '<h3>Supplier Email Notifications</h3> 
+						echo '<h3>Supplier Email Notifications</h3>
 
-                        <p>When an order&apos;s status switches to processing, emails are sent to each supplier to notify them to ship their products. You can set a custom message for the suppliers in the box below to be included in these emails</p> 
+                        <p>When an order&apos;s status switches to processing, emails are sent to each supplier to notify them to ship their products. You can set a custom message for the suppliers in the box below to be included in these emails</p>
 
-                        <table> 
-                            <tr> 
-                                <td><label for="email_order_note">Email order note:</label></td> 
-                                <td><img class="help_tip" data-tip="This note will appear on emails that suppliers will receive with your order notifications" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                        <table>
+                            <tr>
+                                <td><label for="email_order_note">Email order note:</label></td>
+                                <td><img class="help_tip" data-tip="This note will appear on emails that suppliers will receive with your order notifications" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                <td><textarea name="email_order_note" id="email_order_note" cols="45" >' . @$options['email_order_note'] . '</textarea></td> 
-                            </tr> 
+                                <td><textarea name="email_order_note" id="email_order_note" cols="45" >' . @$options['email_order_note'] . '</textarea></td>
+                            </tr>
                         </table>';
 
-                        echo '<p></p>
+						echo '<p></p>
 
-                            <table> 
+                            <table>
                                 <tr>
-                                    <td><input name="view_order" id="view_order" class="view_order" type="checkbox" ' . $view_order . '  /></td> 
+                                    <td><input name="view_order" id="view_order" class="view_order" type="checkbox" ' . $view_order . '  /></td>
 
-                                    <td><label for="view_order">Include \'View order\' link in suppliers email:</label></td> 
+                                    <td><label for="view_order">Include \'View order\' link in suppliers email:</label></td>
 
                                     <td><img class="help_tip" data-tip="If checked this option will not send subscription renewal email\'s to suppliers" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-                                </tr> 
+                                </tr>
 
                             </table>
 
-                            <table> 
+                            <table>
                                 <tr>
-                                    <td><input name="renewal_email" id="renewal_email" class="view_order" type="checkbox" ' . $renewal_email . '  /></td> 
+                                    <td><input name="renewal_email" id="renewal_email" class="view_order" type="checkbox" ' . $renewal_email . '  /></td>
 
-                                    <td><label for="renewal_email">Do not send renewal email to suppliers:</label></td> 
+                                    <td><label for="renewal_email">Do not send renewal email to suppliers:</label></td>
 
                                     <td><img class="help_tip" data-tip="If checked this option will not send subscription renewal email\'s to suppliers" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
-                                </tr> 
+                                </tr>
 
                             </table>';
 
+							echo '<h3>.CSV File Inventory Update Settings</h3>
 
-					        echo '<h3>.CSV File Inventory Update Settings</h3> 
+                            <p>These options relate to how your store processes data imported from CSV spreadsheet files, if you receive them from your supplier</p>
 
-                            <p>These options relate to how your store processes data imported from CSV spreadsheet files, if you receive them from your supplier</p> 
+                            <table>
 
-                            <table> 
+                                <tr>
 
-                                <tr> 
+                                    <td><label for="inventory_pad">Inventory Padding:</label></td>
 
-                                    <td><label for="inventory_pad">Inventory Padding:</label></td> 
+                                    <td><img class="help_tip" data-tip="If the supplier&apos;s stock falls below this number on an imported spreadsheet, the item will be considered out of stock in your store. <br>Set this to zero if you want to directly use the inventory numbers your supplier gives you, or higher if you want to ensure that they don&apos;t sell out of their products before you make a sale." src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                    <td><img class="help_tip" data-tip="If the supplier&apos;s stock falls below this number on an imported spreadsheet, the item will be considered out of stock in your store. <br>Set this to zero if you want to directly use the inventory numbers your supplier gives you, or higher if you want to ensure that they don&apos;t sell out of their products before you make a sale." src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
-
-                                    <td><input name="inventory_pad" value="' . @$options['inventory_pad'] . '" size="1" /></td> 
-                                </tr> 			
+                                    <td><input name="inventory_pad" value="' . @$options['inventory_pad'] . '" size="1" /></td>
+                                </tr>
                             </table>';
 
 					echo '</div>';
 
 					echo '<div class="drop-setting-section" id="packing_slips">';
 
-					echo '<h3>Packing Slips</h3> 
+					echo '<h3>Packing Slips</h3>
 
-					   <table> 
-                            <tr> 
-                                <td><input name="full_information" id="full_information" class="fullinfo miscellaneous_packing_slip_options_master_checkbox" type="checkbox" ' . $checkfull . ' /></td> 
+					   <table>
+                            <tr>
+                                <td><input name="full_information" id="full_information" class="fullinfo miscellaneous_packing_slip_options_master_checkbox" type="checkbox" ' . $checkfull . ' /></td>
 
-                                <td><label for="full_information"><b>Attach PDF to supplier Email?:</b></label></td> 
-                                </tr> 
-                            </table> 
-    					<br/><br/> 
+                                <td><label for="full_information"><b>Attach PDF to supplier Email?:</b></label></td>
+                                </tr>
+                            </table>
+    					<br/><br/>
 
-    					<div class="packing-slip-sections"> 
+    					<div class="packing-slip-sections">
 
-    					<h4>Header</h4> 
+    					<h4>Header</h4>
 
-    					<table> 
-                            <tr> 
-                                <td><label for="packing_slip_header">Packing Slip Title:</label></td> 
+    					<table>
+                            <tr>
+                                <td><label for="packing_slip_header">Packing Slip Title:</label></td>
 
-                                <td><img class="help_tip" data-tip="This will be the custom title of the packing slip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                <td><img class="help_tip" data-tip="This will be the custom title of the packing slip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                <td><input name="packing_slip_header" value="' . @$options['packing_slip_header'] . '" size="100" /></td> 
-                            </tr> 
-                        </table> 
-                        <p></p> 
+                                <td><input name="packing_slip_header" value="' . @$options['packing_slip_header'] . '" size="100" /></td>
+                            </tr>
+                        </table>
+                        <p></p>
 
-                        <table> 
+                        <table>
 
-                            <tr> 
+                            <tr>
 
-                                <td><input name="show_logo" id="show_logo" class="miscellaneous_packing_slip_options_checkbox_false" data-id="show_logo" type="checkbox" ' . $logoshow . '  /></td> 
+                                <td><input name="show_logo" id="show_logo" class="miscellaneous_packing_slip_options_checkbox_false" data-id="show_logo" type="checkbox" ' . $logoshow . '  /></td>
 
-                                <td><label for="show_logo">Show logo in the header:</label></td> 
-                            </tr> 
-                        </table> 
+                                <td><label for="show_logo">Show logo in the header:</label></td>
+                            </tr>
+                        </table>
 
-                        <p></p> 
+                        <p></p>
 
-                        <div class="show_logo" ' . $show_logo_option . '> 
+                        <div class="show_logo" ' . $show_logo_option . '>
 
-                            <p style="margin-left:50px;"><b>NOTE:</b> For best results, please keep logo dimensions within 200x60 px</p> 
+                            <p style="margin-left:50px;"><b>NOTE:</b> For best results, please keep logo dimensions within 200x60 px</p>
 
-                            <table style="margin-left:50px;"> 
+                            <table style="margin-left:50px;">
 
-                                <tr> 
+                                <tr>
 
-                                    <td style="width:150px"><label for="packing_slip_url_to_logo" >Url to Logo:</label></td> 
+                                    <td style="width:150px"><label for="packing_slip_url_to_logo" >Url to Logo:</label></td>
 
-                                    <td><img class="help_tip" data-tip="Please specify the URL where your company&apos;s logo can be found" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                    <td><img class="help_tip" data-tip="Please specify the URL where your company&apos;s logo can be found" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                    <td><input name="packing_slip_url_to_logo" value="' . @$options['packing_slip_url_to_logo'] . '" size="75" /></td> 
-                                </tr> 
-                            </table> 
-                            <p></p> 
+                                    <td><input name="packing_slip_url_to_logo" value="' . @$options['packing_slip_url_to_logo'] . '" size="75" /></td>
+                                </tr>
+                            </table>
+                            <p></p>
 
-                            <table style="margin-left:50px;"> 
-                                <tr> 
-                                    <td style="width:150px"><label for="packing_slip_url_to_logo_width" >Logo Width:</label></td> 
+                            <table style="margin-left:50px;">
+                                <tr>
+                                    <td style="width:150px"><label for="packing_slip_url_to_logo_width" >Logo Width:</label></td>
 
-                                    <td><img class="help_tip" data-tip="Please specify the width of your company logo in pixels" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                    <td><img class="help_tip" data-tip="Please specify the width of your company logo in pixels" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
                                     <td><input name="packing_slip_url_to_logo_width" value="' . @$options['packing_slip_url_to_logo_width'] . '" size="1" />
-                                    </td> 
-                                </tr> 
+                                    </td>
+                                </tr>
                             </table>
                         </div>';
 
-                        echo '<p></p> 
+						echo '<p></p>
 
-                            <table> 
-                                <tr> 
-                                    <td><input name="order_date" id="show_order_date" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $date_order . '  /></td> 
+                            <table>
+                                <tr>
+                                    <td><input name="order_date" id="show_order_date" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $date_order . '  /></td>
 
-                                    <td><label for="show_order_date">Show order date beside order number:</label></td> 
-                                </tr> 
+                                    <td><label for="show_order_date">Show order date beside order number:</label></td>
+                                </tr>
                             </table>';
 
-						echo '<p></p> 
+						echo '<p></p>
 
-                            <table> 
-                                <tr> 
-                                    <td><input name="shipping" id="show_shipping_information" data-id="show_shipping_information" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $product_shipping . '  /></td> 
+                            <table>
+                                <tr>
+                                    <td><input name="shipping" id="show_shipping_information" data-id="show_shipping_information" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $product_shipping . '  /></td>
 
-                                    <td><label for="show_shipping_information">Show shipping information:</label></td> 
-                                </tr> 
+                                    <td><label for="show_shipping_information">Show shipping information:</label></td>
+                                </tr>
                             </table>';
 
-						echo '<p></p> 
+						echo '<p></p>
 
-                            <div class="inner-toggle show_shipping_information" ' . $show_shipping_information_option . '> 
+                            <div class="inner-toggle show_shipping_information" ' . $show_shipping_information_option . '>
 
-                                <p style="margin-left:50px;"><b>NOTE:</b> For best results, please make sure that any custom terms or phrases listed below are kept to a reasonable length. If your terms are too long, it may cause text wrapping and alignment issues with your packing slips.</p> 
+                                <p style="margin-left:50px;"><b>NOTE:</b> For best results, please make sure that any custom terms or phrases listed below are kept to a reasonable length. If your terms are too long, it may cause text wrapping and alignment issues with your packing slips.</p>
 
-                                <table style="margin-left:50px;"> 
-                                    <tr> 
-                                        <td style="width:150px"><label for="dropship_chosen_shipping_method" >Chosen Shipping Method Label:</label></td> 
+                                <table style="margin-left:50px;">
+                                    <tr>
+                                        <td style="width:150px"><label for="dropship_chosen_shipping_method" >Chosen Shipping Method Label:</label></td>
 
-                                        <td><img class="help_tip" data-tip="Please specify chosen Shipping Method Label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                        <td><img class="help_tip" data-tip="Please specify chosen Shipping Method Label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                        <td><input name="dropship_chosen_shipping_method" value="' . @$options['dropship_chosen_shipping_method'] . '" size="30" maxlength="50" /></td> 
-                                    </tr> 
-                                </table> 
-                                <p></p> 
+                                        <td><input name="dropship_chosen_shipping_method" value="' . @$options['dropship_chosen_shipping_method'] . '" size="30" maxlength="50" /></td>
+                                    </tr>
+                                </table>
+                                <p></p>
 
-                                <table style="margin-left:50px;"> 
-                                    <tr> 
-                                        <td style="width:150px"><label for="dropship_payment_type" >Payment Type Label:</label></td> 
+                                <table style="margin-left:50px;">
+                                    <tr>
+                                        <td style="width:150px"><label for="dropship_payment_type" >Payment Type Label:</label></td>
 
-                                        <td><img class="help_tip" data-tip="Please specify chosen Payment Type Label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                        <td><img class="help_tip" data-tip="Please specify chosen Payment Type Label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
                                         <td><input name="dropship_payment_type" value="' . @$options['dropship_payment_type'] . '" size="30" maxlength="50"/></td>
-                                    </tr> 
+                                    </tr>
                                 </table>
                             </div>';
 
-						echo '<p></p> 
+						echo '<p></p>
 
-                            <table> 
-                                <tr> 
-                                    <td><input name="customer_note" id="show_customer_note" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $customer_note . '  /></td> 
+                            <table>
+                                <tr>
+                                    <td><input name="customer_note" id="show_customer_note" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $customer_note . '  /></td>
 
-                                    <td><label for="show_customer_note">Display the "Customer Note" into the Dropshipper packing slip:</label></td> 
-                                </tr> 
+                                    <td><label for="show_customer_note">Display the "Customer Note" into the Dropshipper packing slip:</label></td>
+                                </tr>
                             </table>
                         </div>';
-                        
-                        echo '<br/><br/> 
 
-                            <div class="packing-slip-sections"> 
-                                <h4>Products</h4> 
+						echo '<br/><br/>
 
-                                <table> 
-                                    <tr> 
-                                        <td><input name="product_image" id="product_image" data-id="product_image" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $image_product . '  /></td> 
+                            <div class="packing-slip-sections">
+                                <h4>Products</h4>
 
-                                        <td><label for="product_image">Show product thumbnail image:</label></td> 
-                                    </tr> 
-                                </table> 
-                                <p></p> 
+                                <table>
+                                    <tr>
+                                        <td><input name="product_image" id="product_image" data-id="product_image" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $image_product . '  /></td>
 
-                                <div class="inner-toggle product_image" ' . $product_image_option . '> 
+                                        <td><label for="product_image">Show product thumbnail image:</label></td>
+                                    </tr>
+                                </table>
+                                <p></p>
 
-                                    <table style="margin-left:50px;"> 
-                                        <tr> 
-                                            <td style="width:150px"><label for="dropship_image" >Image Label:</label></td> 
+                                <div class="inner-toggle product_image" ' . $product_image_option . '>
 
-                                            <td><img class="help_tip" data-tip="Please specify Image Label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                    <table style="margin-left:50px;">
+                                        <tr>
+                                            <td style="width:150px"><label for="dropship_image" >Image Label:</label></td>
 
-                                            <td><input name="dropship_image" value="' . @$options['dropship_image'] . '" size="30" maxlength="50" /></td> 
-                                        </tr> 
+                                            <td><img class="help_tip" data-tip="Please specify Image Label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
+
+                                            <td><input name="dropship_image" value="' . @$options['dropship_image'] . '" size="30" maxlength="50" /></td>
+                                        </tr>
                                     </table>
                                 </div>';
 
-                            echo '<p></p> 
+							echo '<p></p>
 
-                                <table> 
-                                    <tr> 
-                                    <td style="width:150px"><label for="dropship_sku" >SKU Label:</label></td> 
+                                <table>
+                                    <tr>
+                                    <td style="width:150px"><label for="dropship_sku" >SKU Label:</label></td>
 
-                                    <td><img class="help_tip" data-tip="Please specify SKU label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                    <td><img class="help_tip" data-tip="Please specify SKU label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                    <td><input name="dropship_sku" value="' . @$options['dropship_sku'] . '" size="30" maxlength="50" /></td> 
-                                    </tr> 
-                                </table> 
+                                    <td><input name="dropship_sku" value="' . @$options['dropship_sku'] . '" size="30" maxlength="50" /></td>
+                                    </tr>
+                                </table>
 
-                                <table> 
-                                    <tr> 
-                                        <td style="width:150px"><label for="dropship_product" >Product Label:</label></td> 
+                                <table>
+                                    <tr>
+                                        <td style="width:150px"><label for="dropship_product" >Product Label:</label></td>
 
-                                        <td><img class="help_tip" data-tip="Please specify Product label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                        <td><img class="help_tip" data-tip="Please specify Product label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                        <td><input name="dropship_product" value="' . @$options['dropship_product'] . '" size="30" maxlength="50" /></td> 
-                                    </tr> 
-                                </table> 
+                                        <td><input name="dropship_product" value="' . @$options['dropship_product'] . '" size="30" maxlength="50" /></td>
+                                    </tr>
+                                </table>
 
-                                <table> 
-                                    <tr> 
-                                        <td style="width:150px"><label for="dropship_quantity">Quantity Label:</label></td> 
+                                <table>
+                                    <tr>
+                                        <td style="width:150px"><label for="dropship_quantity">Quantity Label:</label></td>
 
-                                        <td><img class="help_tip" data-tip="Please specify Quantity label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                        <td><img class="help_tip" data-tip="Please specify Quantity label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                        <td><input name="dropship_quantity" value="' . @$options['dropship_quantity'] . '" size="30" maxlength="50"/></td> 
-                                    </tr> 
+                                        <td><input name="dropship_quantity" value="' . @$options['dropship_quantity'] . '" size="30" maxlength="50"/></td>
+                                    </tr>
                                 </table>';
 
-                            echo '<p></p> 
+							echo '<p></p>
 
-                                <table> 
-                                    <tr> 
-                                        <td><input name="type_of_package" id="type_of_package" data-id="type_of_package" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $type_of_package . '  /></td> 
+                                <table>
+                                    <tr>
+                                        <td><input name="type_of_package" id="type_of_package" data-id="type_of_package" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $type_of_package . '  /></td>
 
-                                        <td><label for="type_of_package">Additional field in the "Add/Edit Product" to specify the "Type of Package" 
+                                        <td><label for="type_of_package">Additional field in the "Add/Edit Product" to specify the "Type of Package"
 
-                                        <img class="help_tip" data-tip="This will also be added as an additional column in the packing slip" style="margin: 0 0 0 0px;" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16">: </label></td> 
-                                    </tr> 
+                                        <img class="help_tip" data-tip="This will also be added as an additional column in the packing slip" style="margin: 0 0 0 0px;" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16">: </label></td>
+                                    </tr>
                                 </table>';
 
-                            echo '<p></p> 
+							echo '<p></p>
 
-                                <div class="inner-toggle type_of_package" ' . $type_of_package_option . '> 
-                                    <table style="margin-left:50px;"> 
-                                        <tr> 
-                                            <td style="width:150px"><label for="type_of_package_conversion">Type Of Package Label:</label></td> 
+                                <div class="inner-toggle type_of_package" ' . $type_of_package_option . '>
+                                    <table style="margin-left:50px;">
+                                        <tr>
+                                            <td style="width:150px"><label for="type_of_package_conversion">Type Of Package Label:</label></td>
 
-                                            <td><img class="help_tip" data-tip="Please specify Type Of Package label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                            <td><img class="help_tip" data-tip="Please specify Type Of Package label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                            <td><input name="type_of_package_conversion" value="' . @$options['type_of_package_conversion'] . '" size="30" maxlength="50"/></td> 
-                                        </tr> 
+                                            <td><input name="type_of_package_conversion" value="' . @$options['type_of_package_conversion'] . '" size="30" maxlength="50"/></td>
+                                        </tr>
                                     </table>
                                 </div>';
 
-                            echo '<p></p> 
+							echo '<p></p>
 
-                                <table> 
-                                    <tr> 
-                                        <td><input name="product_price" id="product_price" data-id="product_price" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $price_product . '  /></td> 
+                                <table>
+                                    <tr>
+                                        <td><input name="product_price" id="product_price" data-id="product_price" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $price_product . '  /></td>
 
-                                        <td><label for="product_price">Show product prices:</label></td> 
-                                    </tr> 
+                                        <td><label for="product_price">Show product prices:</label></td>
+                                    </tr>
                                 </table>';
 
-                            echo '<p></p> 
+							echo '<p></p>
 
-                                <div class="inner-toggle product_price" ' . $product_price_option . '> 
+                                <div class="inner-toggle product_price" ' . $product_price_option . '>
 
-                                    <table style="margin-left:50px;"> 
-                                        <tr> 
-                                            <td style="width:150px"><label for="dropship_price">Price Label:</label></td> 
+                                    <table style="margin-left:50px;">
+                                        <tr>
+                                            <td style="width:150px"><label for="dropship_price">Price Label:</label></td>
 
-                                            <td><img class="help_tip" data-tip="Please specify Price label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                            <td><img class="help_tip" data-tip="Please specify Price label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
                                             <td><input name="dropship_price" value="' . @$options['dropship_price'] . '" size="30" maxlength="50" /></td>
-                                        </tr> 
+                                        </tr>
                                     </table>
                                 </div>';
 
-                            echo '<p></p> 
+							echo '<p></p>
 
-                                <table> 
-                                    <tr> 
-                                        <td><input name="cost_of_goods" id="cost_of_goods" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $cost_of_goods . '  /></td> 
+                                <table>
+                                    <tr>
+                                        <td><input name="cost_of_goods" id="cost_of_goods" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $cost_of_goods . '  /></td>
 
                                         <td><label for="cost_of_goods">Show Cost instead of Sell Price?:</label></td>
-                                    </tr> 
+                                    </tr>
                                 </table>';
 
-                            echo '<p></p> 
+							echo '<p></p>
 
-                                <table> 
-                                    <tr> 
-                                        <td><input name="show_gst_supplier_email" id="show_gst_supplier_email" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $show_gst_supplier_email . '  /></td> 
+                                <table>
+                                    <tr>
+                                        <td><input name="show_gst_supplier_email" id="show_gst_supplier_email" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $show_gst_supplier_email . '  /></td>
 
                                         <td><label for="show_gst_supplier_email">Show GST Tax Split.</label></td>
-                                    </tr> 
+                                    </tr>
                                 </table> ';
-		    
-		    	echo '<p></p> 
 
-                                
+				echo '<p></p>
+
+
                             </div>';
-	
 
-                            echo '<br/><br/> 
+							echo '<br/><br/>
 
-                                <div class="packing-slip-sections"> 
-                                    <h4>Company & Detail</h4> 
+                                <div class="packing-slip-sections">
+                                    <h4>Company & Detail</h4>
 
-                                    <table> 
-                                        <tr> 
-                                        <td style="width:150px"><label for="packing_slip_company_name" >Company Name:</label></td> 
+                                    <table>
+                                        <tr>
+                                        <td style="width:150px"><label for="packing_slip_company_name" >Company Name:</label></td>
 
-                                        <td><img class="help_tip" data-tip="Please enter the name of your company" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                        <td><img class="help_tip" data-tip="Please enter the name of your company" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                        <td><input name="packing_slip_company_name" value="' . @$options['packing_slip_company_name'] . '" size="30" /></td> 
-                                        </tr> 
+                                        <td><input name="packing_slip_company_name" value="' . @$options['packing_slip_company_name'] . '" size="30" /></td>
+                                        </tr>
                                     </table>';
 
-                                echo '<p></p> 
+								echo '<p></p>
 
-                                    <div class="inner-toggle"> 
+                                    <div class="inner-toggle">
 
-                                        <table style="margin-left:50px;"> 
-                                            <tr> 
-                                            <td ><label for="dropship_company_address">Company Address Label:</label></td> 
+                                        <table style="margin-left:50px;">
+                                            <tr>
+                                            <td ><label for="dropship_company_address">Company Address Label:</label></td>
 
-                                            <td><img class="help_tip" data-tip="Please specify the Company Address Label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                            <td><img class="help_tip" data-tip="Please specify the Company Address Label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                            <td><input name="dropship_company_address" value="' . @$options['dropship_company_address'] . '" size="30" maxlength="50" /></td> 
-                                            </tr> 
-                                            </tr> 
+                                            <td><input name="dropship_company_address" value="' . @$options['dropship_company_address'] . '" size="30" maxlength="50" /></td>
+                                            </tr>
+                                            </tr>
                                         </table>
                                     </div>';
 
-                                echo '<p></p> 
+								echo '<p></p>
 
-                                    <table> 
+                                    <table>
 
-                                        <tr> 
-                                            <td style="width:150px"><label for="packing_slip_address" >Address:</label></td> 
+                                        <tr>
+                                            <td style="width:150px"><label for="packing_slip_address" >Address:</label></td>
 
-                                            <td><img class="help_tip" data-tip="Please enter your company&apos;s mailing address. This address will appear on your packing slips" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                            <td><img class="help_tip" data-tip="Please enter your company&apos;s mailing address. This address will appear on your packing slips" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                            <td><input name="packing_slip_address" value="' . @$options['packing_slip_address'] . '" size="50" /></td> 
-                                        </tr> 
-                                    </table> 
-                                    <p></p> 
-                                    <table> 
-                                        <tr> 
-                                        <td style="width:150px"><label for="packing_slip_customer_service_email" >Customer Service Email:</label></td> 
+                                            <td><input name="packing_slip_address" value="' . @$options['packing_slip_address'] . '" size="50" /></td>
+                                        </tr>
+                                    </table>
+                                    <p></p>
+                                    <table>
+                                        <tr>
+                                        <td style="width:150px"><label for="packing_slip_customer_service_email" >Customer Service Email:</label></td>
 
-                                        <td><img class="help_tip" data-tip="Please enter the email address at which customers can reach your company if they have service issues" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                        <td><img class="help_tip" data-tip="Please enter the email address at which customers can reach your company if they have service issues" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                        <td><input name="packing_slip_customer_service_email" value="' . @$options['packing_slip_customer_service_email'] . '" size="30" /></td> 
-                                        </tr> 
-                                    </table> 
+                                        <td><input name="packing_slip_customer_service_email" value="' . @$options['packing_slip_customer_service_email'] . '" size="30" /></td>
+                                        </tr>
+                                    </table>
 
-                                    <p></p> 
+                                    <p></p>
 
-                                    <table> 
-                                        <tr> 
-                                        <td style="width:150px"><label for="packing_slip_customer_service_phone">Customer Service Phone Number:</label></td> 
+                                    <table>
+                                        <tr>
+                                        <td style="width:150px"><label for="packing_slip_customer_service_phone">Customer Service Phone Number:</label></td>
 
-                                        <td><img class="help_tip" data-tip="Please enter the phone number at which customers can reach your company if they have service issues" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                        <td><img class="help_tip" data-tip="Please enter the phone number at which customers can reach your company if they have service issues" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                        <td><input name="packing_slip_customer_service_phone" value="' . @$options['packing_slip_customer_service_phone'] . '" size="10" /></td> 
-                                        </tr> 
+                                        <td><input name="packing_slip_customer_service_phone" value="' . @$options['packing_slip_customer_service_phone'] . '" size="10" /></td>
+                                        </tr>
                                     </table>';
 
-                                echo '<p></p> 
+								echo '<p></p>
 
-                                    <table> 
-                                        <tr> 
-                                            <td><input name="shipping_address" id="shipping_address" data-id="shipping_address" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $address_shipping . '  /></td> 
+                                    <table>
+                                        <tr>
+                                            <td><input name="shipping_address" id="shipping_address" data-id="shipping_address" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $address_shipping . '  /></td>
 
-                                            <td><label for="shipping_address">Show shipping address at the bottom:</label></td> 
-                                        </tr> 
+                                            <td><label for="shipping_address">Show shipping address at the bottom:</label></td>
+                                        </tr>
                                     </table>';
 
-                                echo '<p></p> 
+								echo '<p></p>
 
-                                    <div class="inner-toggle shipping_address" ' . $shipping_address_option . '> 
+                                    <div class="inner-toggle shipping_address" ' . $shipping_address_option . '>
 
-                                        <table style="margin-left:50px;"> 
-                                            <tr> 
-                                                <td style="width:150px"><label for="dropship_shipping_address_email">Shipping Address Label:</label></td> 
+                                        <table style="margin-left:50px;">
+                                            <tr>
+                                                <td style="width:150px"><label for="dropship_shipping_address_email">Shipping Address Label:</label></td>
 
-                                                <td><img class="help_tip" data-tip="Please specify Shipping Address Label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                                <td><img class="help_tip" data-tip="Please specify Shipping Address Label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                                <td><input name="dropship_shipping_address_email" value="' . @$options['dropship_shipping_address_email'] . '" size="30" maxlength="50" /></td> 
-                                            </tr> 
+                                                <td><input name="dropship_shipping_address_email" value="' . @$options['dropship_shipping_address_email'] . '" size="30" maxlength="50" /></td>
+                                            </tr>
                                         </table>
                                     </div>';
 
-								echo '<p></p> 
+								echo '<p></p>
 
-                                    <table> 
-                                        <tr> 
-                                            <td><input name="billing_address" id="billing_address" data-id="billing_address" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $address_billing . '  /></td> 
+                                    <table>
+                                        <tr>
+                                            <td><input name="billing_address" id="billing_address" data-id="billing_address" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $address_billing . '  /></td>
 
-                                            <td><label for="billing_address">Show billing address at the bottom:</label></td> 
-                                        </tr> 
+                                            <td><label for="billing_address">Show billing address at the bottom:</label></td>
+                                        </tr>
                                     </table>';
 
-								echo '<p></p> 
+								echo '<p></p>
 
-                                    <div class="inner-toggle billing_address" ' . $billing_address_option . '> 
+                                    <div class="inner-toggle billing_address" ' . $billing_address_option . '>
 
-                                        <table style="margin-left:50px;"> 
+                                        <table style="margin-left:50px;">
 
-                                            <tr> 
+                                            <tr>
 
-                                            <td style="width:150px"><label for="dropship_billing_address_email">Billing Address Label:</label></td> 
+                                            <td style="width:150px"><label for="dropship_billing_address_email">Billing Address Label:</label></td>
 
-                                            <td><img class="help_tip" data-tip="Please specify Billing Address Label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                            <td><img class="help_tip" data-tip="Please specify Billing Address Label" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                            <td><input name="dropship_billing_address_email" value="' . @$options['dropship_billing_address_email'] . '" size="30" maxlength="50"/></td> 
+                                            <td><input name="dropship_billing_address_email" value="' . @$options['dropship_billing_address_email'] . '" size="30" maxlength="50"/></td>
 
-                                            </tr> 
+                                            </tr>
                                         </table>
                                     </div>
                                 </div>';
 
-                            if (empty(@$options['dropship_additional_comment'])) {
+				if ( empty( @$options['dropship_additional_comment'] ) ) {
 
-							    $additionalCommentDefault = ''; 
-								
-                            } else {
-								//$additionalCommentDefault = '';
-								$additionalCommentDefault =  @$options['dropship_additional_comment'];
-							}
+					$additionalCommentDefault = '';
+
+				} else {
+					// $additionalCommentDefault = '';
+					$additionalCommentDefault = @$options['dropship_additional_comment'];
+				}
 
 							echo '<br/><br/>
-                                <div class="packing-slip-sections"> 
+                                <div class="packing-slip-sections">
 
-                                    <h4>Footer</h4> 
-                                    <p><b>Any additional comment to be displayed</b></p> 
-                                    <p>Max length: 200 characters</p> 
-                                    <p>NOTE: Please make sure this content as small as possible so that it fits properly at the bottom of Pdf slip.</p> 
+                                    <h4>Footer</h4>
+                                    <p><b>Any additional comment to be displayed</b></p>
+                                    <p>Max length: 200 characters</p>
+                                    <p>NOTE: Please make sure this content as small as possible so that it fits properly at the bottom of Pdf slip.</p>
 
-                                    <table> 
-                                        <tr> 
-                                        <td style="width:150px"><label for="dropship_additional_comment" >Comments:</label></td> 
+                                    <table>
+                                        <tr>
+                                        <td style="width:150px"><label for="dropship_additional_comment" >Comments:</label></td>
 
-                                        <td><img class="help_tip" data-tip="Please specify Additional Comment" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                        <td><img class="help_tip" data-tip="Please specify Additional Comment" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                        <td><textarea name="dropship_additional_comment" maxlength="200" rows="6" cols="45">' . $additionalCommentDefault . '</textarea></td> 
-                                        </tr> 
+                                        <td><textarea name="dropship_additional_comment" maxlength="200" rows="6" cols="45">' . $additionalCommentDefault . '</textarea></td>
+                                        </tr>
                                     </table>';
 
-                                    echo '<p></p> 
+									echo '<p></p>
 
-                                        <table> 
-                                            <tr> 
-                                                <td style="width:150px"><label for="packing_slip_thankyou">Thank You Message:</label></td> 
+                                        <table>
+                                            <tr>
+                                                <td style="width:150px"><label for="packing_slip_thankyou">Thank You Message:</label></td>
 
-                                                <td><img class="help_tip" data-tip="This message will appear at the bottom of the packing slip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                                <td><img class="help_tip" data-tip="This message will appear at the bottom of the packing slip" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
                                                 <td><textarea name="packing_slip_thankyou" cols="45" >' . @$options['packing_slip_thankyou'] . '</textarea></td>
-                                            </tr> 
+                                            </tr>
 
                                         </table>
                                 </div>';
 
 							echo '<br/><br/>';
 
-							echo '<div class="packing-slip-sections"> 
+							echo '<div class="packing-slip-sections">
 
-                                <h4>Send Order Details to Suppliers</h4> 
-                                <p></p> 
-                                <table> 
-                                    <tr> 
-                                        <td><input name="supp_notification" id="supp_notification" type="checkbox" ' . $supp_notification_attr . ' /></td> 
-
-                                        <td><label for="supp_notification">Do not send email notifications to supplier:</label></td> 
-                                    </tr> 
-                                </table> 
-
-                                <p>This option controls whether or not you want to send a .CSV spreadsheet file as an attachment with the regular order notification emails that are sent to your suppliers</p> 
-
-                                <table> 
-                                    <tr> 
-                                        <td><input name="csv_inmail" id="csv_inmail" class="" type="checkbox" ' . $csvInMail . ' /></td> 
-
-                                        <td><label for="csv_inmail">Send CSV with Supplier Notifications:</label></td> 
-                                    </tr> 
-                                </table>
-                            </div>';
-
-							echo '<p></p> 
-
-                                <table> 
-                                    <tr> 
-                                    <td><input name="total_price" id="total_price" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $total_price . '  /></td> 
-
-                                    <td><label for="total_price">Show the total price in the packing slip:</label></td> 
-                                    </tr> 
-                                </table>';
-
-                            echo '<p></p> 
-
-                                <table> 
-                                    <tr> 
-                                        <td><input name="hide_shipping_price" id="hide_shipping_price" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $hide_shipping_price . '  /></td> 
-
-                                        <td><label for="hide_shipping_price">Hide the shipping cost in the packing slip:</label></td> 
-                                    </tr> 
-                                </table>';
-
-                            echo '<p></p> 
-
-                                <table> 
-                                    <tr> 
-                                        <td><input name="hide_tax" id="hide_tax" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $hide_tax . '  /></td> 
-
-                                        <td><label for="hide_tax">Hide Tax in supplier email:</label></td> 
-                                    </tr> 
-
-                                </table>';
-
-                            echo '<p></p> 
-
-                                <table> 
-                                    <tr> 
-                                        <td><input name="billing_phone" id="show_customer_phone" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $phone_billing . '  /></td> 
-
-                                        <td><label for="show_customer_phone">Include the customer&apos;s phone number in the packing slip:</label></td> 
-                                    </tr> 
-                                </table>';
-
-                            echo '<p></p> 
-
+                                <h4>Send Order Details to Suppliers</h4>
+                                <p></p>
                                 <table>
-                                    <tr> 
-                                        <td><input name="hide_suppliername" id="hidesuppliername" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $suppliername_hide . '  /></td> 
+                                    <tr>
+                                        <td><input name="supp_notification" id="supp_notification" type="checkbox" ' . $supp_notification_attr . ' /></td>
 
-                                        <td><label for="hidesuppliername">Hide the supplier names on order confirmation emails:</label></td> 
+                                        <td><label for="supp_notification">Do not send email notifications to supplier:</label></td>
                                     </tr>
-                                </table>';
+                                </table>
 
-							echo '<p></p> 
+                                <p>This option controls whether or not you want to send a .CSV spreadsheet file as an attachment with the regular order notification emails that are sent to your suppliers</p>
 
                                 <table>
                                     <tr>
-                                        <td><input name="hide_suppliername_on_product_page" id="hide_suppliername_on_product_page" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $hide_suppliername_on_product_page . '  /></td> 
+                                        <td><input name="csv_inmail" id="csv_inmail" class="" type="checkbox" ' . $csvInMail . ' /></td>
 
-                                        <td><label for="hide_suppliername_on_product_page">Show supplier names on product pages:</label></td> 
-                                    </tr> 
+                                        <td><label for="csv_inmail">Send CSV with Supplier Notifications:</label></td>
+                                    </tr>
+                                </table>
+                            </div>';
+
+							echo '<p></p>
+
+                                <table>
+                                    <tr>
+                                    <td><input name="total_price" id="total_price" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $total_price . '  /></td>
+
+                                    <td><label for="total_price">Show the total price in the packing slip:</label></td>
+                                    </tr>
                                 </table>';
 
-                            echo '<p></p> 
+							echo '<p></p>
 
-                                <table> 
-                                    <tr> 
-                                        <td><input name="hideorderdetail_suppliername" id="hideorderdetail_suppliername" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $suppliername_hideorderdetail . '  /></td> 
+                                <table>
+                                    <tr>
+                                        <td><input name="hide_shipping_price" id="hide_shipping_price" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $hide_shipping_price . '  /></td>
 
-                                        <td><label for="hideorderdetail_suppliername">Hide supplier names on the Order Details page:</label></td> 
-                                    </tr> 
+                                        <td><label for="hide_shipping_price">Hide the shipping cost in the packing slip:</label></td>
+                                    </tr>
                                 </table>';
 
-                            echo '<p></p> 
+							echo '<p></p>
 
-                                <table> 
-                                    <tr> 
-                                        <td><input name="show_pay_type" id="show_pay_type" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $show_pay_type . '  /></td> 
+                                <table>
+                                    <tr>
+                                        <td><input name="hide_tax" id="hide_tax" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $hide_tax . '  /></td>
+
+                                        <td><label for="hide_tax">Hide Tax in supplier email:</label></td>
+                                    </tr>
+
+                                </table>';
+
+							echo '<p></p>
+
+                                <table>
+                                    <tr>
+                                        <td><input name="billing_phone" id="show_customer_phone" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $phone_billing . '  /></td>
+
+                                        <td><label for="show_customer_phone">Include the customer&apos;s phone number in the packing slip:</label></td>
+                                    </tr>
+                                </table>';
+
+							echo '<p></p>
+
+                                <table>
+                                    <tr>
+                                        <td><input name="hide_suppliername" id="hidesuppliername" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $suppliername_hide . '  /></td>
+
+                                        <td><label for="hidesuppliername">Hide the supplier names on order confirmation emails:</label></td>
+                                    </tr>
+                                </table>';
+
+							echo '<p></p>
+
+                                <table>
+                                    <tr>
+                                        <td><input name="hide_suppliername_on_product_page" id="hide_suppliername_on_product_page" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $hide_suppliername_on_product_page . '  /></td>
+
+                                        <td><label for="hide_suppliername_on_product_page">Show supplier names on product pages:</label></td>
+                                    </tr>
+                                </table>';
+
+							echo '<p></p>
+
+                                <table>
+                                    <tr>
+                                        <td><input name="hideorderdetail_suppliername" id="hideorderdetail_suppliername" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $suppliername_hideorderdetail . '  /></td>
+
+                                        <td><label for="hideorderdetail_suppliername">Hide supplier names on the Order Details page:</label></td>
+                                    </tr>
+                                </table>';
+
+							echo '<p></p>
+
+                                <table>
+                                    <tr>
+                                        <td><input name="show_pay_type" id="show_pay_type" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $show_pay_type . '  /></td>
 
                                         <td><label for="show_pay_type">Show "Payment Type" in the notification email:</label></td>
                                     </tr>
                                 </table>';
-                            echo '<p></p>
+							echo '<p></p>
                                 <table>
                                     <tr>
                                         <td><input name="customer_email" id="customer_email" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $customer_email . '  /></td>
@@ -1924,361 +1874,353 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
                                     </tr>
                                 </table>';
 
-							echo '<p></p> 
+							echo '<p></p>
 
                                 <table>
                                     <tr>
-                                        <td><input name="store_name" id="store_name" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $name_store . '  /></td> 
+                                        <td><input name="store_name" id="store_name" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $name_store . '  /></td>
 
                                         <td><label for="store_name">Include store name in the order notification CSV filename:</label></td>
                                     </tr>
                                 </table>';
 
-                            echo '<p></p> 
-
-                                <table> 
-                                    <tr> 
-                                        <td><input name="store_address" id="store_address" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $address_store . '  /></td> 
-
-                                        <td><label for="store_address">Include the store&apos;s URL in the order notification CSV filename:</label></td> 
-                                    </tr> 
-                                </table>';
-
-                            echo '<p></p> 
+							echo '<p></p>
 
                                 <table>
                                     <tr>
-                                        <td><input name="complete_email" id="complete_email" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $email_complete . '  /></td> 
+                                        <td><input name="store_address" id="store_address" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $address_store . '  /></td>
+
+                                        <td><label for="store_address">Include the store&apos;s URL in the order notification CSV filename:</label></td>
+                                    </tr>
+                                </table>';
+
+							echo '<p></p>
+
+                                <table>
+                                    <tr>
+                                        <td><input name="complete_email" id="complete_email" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $email_complete . '  /></td>
 
                                         <td><label for="complete_email">Send an additional email to the supplier when the order is completed:</label></td>
                                     </tr>
                                 </table>';
 
-                            echo '<p></p> 
+							echo '<p></p>
 
-                                <table> 
-                                    <tr> 
-                                        <td><input name="order_complete_link" id="order_complete_link" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $link_complete_order . '  /></td> 
+                                <table>
+                                    <tr>
+                                        <td><input name="order_complete_link" id="order_complete_link" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $link_complete_order . '  /></td>
 
                                         <td><label for="order_complete_link">Allow suppliers to mark their orders as shipped by clicking a link on the email, without logging in to your store:</label></td>
                                     </tr>
                                 </table>';
 
-                            echo '<p></p> 
+							echo '<p></p>
 
-                                <table> 
-                                    <tr> 
-                                        <td><input name="email_supplier" id="email_supplier" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $supplier_email . '  /></td> 
+                                <table>
+                                    <tr>
+                                        <td><input name="email_supplier" id="email_supplier" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $supplier_email . '  /></td>
 
                                         <td><label for="email_supplier">When an admin creates a new supplier, send registration details to the supplier&apos;s email:</label></td>
                                     </tr>
                                 </table>';
 
-                            echo '<p></p> 
+							echo '<p></p>
 
-                                <table> 
+                                <table>
 
-                                    <tr> 
+                                    <tr>
 
-                                        <td><input name="cnf_mail" id="cnf_mail" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $cnf_mail . '  /></td> 
+                                        <td><input name="cnf_mail" id="cnf_mail" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $cnf_mail . '  /></td>
 
-                                        <td><label for="cnf_mail">Notify via email when suppliers open order notification emails 
+                                        <td><label for="cnf_mail">Notify via email when suppliers open order notification emails
 
                                         : <img class="help_tip" data-tip="A notification will be sent to your store when a supplier opens order notification emails that you send out." style="margin: 0 0 0 0px;" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"> </label></td>
                                     </tr>
                                 </table>';
 
-                            echo '<p></p> 
+							echo '<p></p>
 
-                                <table> 
+                                <table>
                                     <tr>
-                                        <td><input name="std_mail" id="std_mail" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $std_mail . '  /></td> 
+                                        <td><input name="std_mail" id="std_mail" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $std_mail . '  /></td>
 
-                                        <td><label for="std_mail">Use the standard WooCommerce mail format for email notification:</label></td> 
+                                        <td><label for="std_mail">Use the standard WooCommerce mail format for email notification:</label></td>
                                     </tr>
                                 </table>';
 
-                            echo '<p></p> 
+							echo '<p></p>
 
-                                <table> 
-                                    <tr> 
-                                        <td><input name="checkout_order_number" id="checkout_order_number" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $checkout_order_number . '  /></td> 
+                                <table>
+                                    <tr>
+                                        <td><input name="checkout_order_number" id="checkout_order_number" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $checkout_order_number . '  /></td>
 
-                                        <td><label for="checkout_order_number">Include order number field on checkout</label></td> 
-                                    </tr> 
+                                        <td><label for="checkout_order_number">Include order number field on checkout</label></td>
+                                    </tr>
 
                                 </table>';
 
-                            echo '<p></p> 
-								<table> 
+							echo '<p></p>
+								<table>
                                 <tr>
-                                    <td><input name="cc_mail" id="cc_mail" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $cc_mail . '  /></td> 
+                                    <td><input name="cc_mail" id="cc_mail" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $cc_mail . '  /></td> ';
 
-                                    <td><label for="cc_mail">Don&apos;t cc: the store admin when sending order notification emails to suppliers</label></td> 
-                                </tr> 
+									echo '<td><label for="cc_mail">Don&apos;t cc: the store admin when sending order notification emails to suppliers</label></td>
+                                </tr>
 
                             </table>';
 
-                            // echo '<p></p> 
-							// 	<table> 
-                            //     <tr>
-                            //         <td><input name="hide_client_info_Suppliers" id="hide_client_info_Suppliers" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $hide_client_info_Suppliers . '  /></td> 
+							echo '<p></p>
+                            <table>
+                                <tr>
+                                    <td><input type="checkbox" name="hide_client_info_Suppliers"          id="hide_client_info_Suppliers" class="miscellaneous_packing_slip_options_checkbox_false hide_client_info_Suppliers"  tabIndex="1" onClick="ckChange(this)" ' . $hide_client_info_Suppliers . '></td> ';
 
-                            //         <td><label for="hide_client_info_Suppliers">Hide Client info in Suppliers Order list dashboard.</label> '; 
-                                    
-                            //         echo '</td> 
-                            //     </tr> 
+									echo '
 
-                            // </table>';
+                                    <td><label for="hide_client_info_Suppliers">Hide Client info in Suppliers Order list dashboard.</label></td>
+                                </tr>
+                            </table>';
 
-                            // echo '<p></p> 
-							// 	<table> 
-                            //     <tr>
-                            //         <td><input name="hide_contact_info_Suppliers" id="hide_contact_info_Suppliers" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $hide_contact_info_Suppliers . '  /></td> 
+							echo '<p></p>
+                            <table>
+                                <tr>
+                                    <td><input type="checkbox" name="hide_contact_info_Suppliers" id="hide_contact_info_Suppliers" class="miscellaneous_packing_slip_options_checkbox_false"  value="1" tabIndex="1" onClick="ckChange(this)" ' . $hide_contact_info_Suppliers . '></td>
 
-                            //         <td><label for="hide_contact_info_Suppliers">Hide Contact Info in Suppliers Order list dashboard.</label></td> 
-                            //     </tr> 
+                                    <td><label for="hide_contact_info_Suppliers">Hide Contact Info in Suppliers Order list dashboard.</label></td>
+                                </tr>
+                            </table>';
 
-                            // </table>';
+				if ( $hide_client_info_Suppliers == ' checked="checked" ' ) {
 
-                            // echo '<p></p> 
-							// 	<table> 
-                            //     <tr>
-                            //         <td><input name="store_add_shipping_add" id="store_add_shipping_add" class="miscellaneous_packing_slip_options_checkbox_false" type="checkbox" ' . $store_add_shipping_add . '  /></td> 
+					echo '<p></p>
+								<table>
+									<tr>
+										<td><input name="store_add_shipping_add" id="store_add_shipping_add" class="miscellaneous_packing_slip_options_checkbox_false store_add_shipping_add" type="checkbox" value="1" tabIndex="1" onClick="ckChange(this)" ' . $store_add_shipping_add . ' disabled= "true"/></td>
 
-                            //         <td><label for="store_add_shipping_add">Enable store address as shipping address in Suppliers Order list dashboard.</label></td> 
-                            //     </tr> 
+										<td><label for="store_add_shipping_add" disabled= "true">Enable store address as shipping address in Suppliers Order list dashboard.</label></td>
+									</tr>
 
-                            // </table>';
+								</table>';
+				} else {
 
-                            // echo '<p></p> 
-							// 	<table> 
-                            //     <tr>
-                            //         <td><input name="specific_deli_location" id="specific_deli_location" data-id="specific_deli_location" class="miscellaneous_packing_slip_options_checkbox" type="checkbox" ' . $specific_deli_location . '  /></td> 
+					echo '<p></p>
+                            <table>
+                            <tr>
+                                <td><input name="store_add_shipping_add" id="store_add_shipping_add" class="miscellaneous_packing_slip_options_checkbox_false store_add_shipping_add" type="checkbox" value="1" tabIndex="1" onClick="ckChange(this)" ' . $store_add_shipping_add . ' /></td>
 
-                            //         <td><label for="specific_deli_location">Enable specific delivery location for the supplier.</label></td> 
-                            //     </tr> 
+                                <td><label for="store_add_shipping_add">Enable store address as shipping address in Suppliers Order list dashboard.</label></td>
+                            </tr>
 
-                            // </table>
-
-                            // <div class="inner-toggle specific_deli_location" ' . $location_option . '> 
-
-                            //     <table style="margin-left:50px;"> 
-                            //         <tr> 
-                            //             <td style="width:150px"><label for="specific_deli_location">Enter Location :</label></td> 
-
-                            //             <td><img class="help_tip" data-tip="Please specify Location" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
-
-                            //             <td><input name="location_option" value="' . @$options['location_option'] . '" size="30" maxlength="50" /></td>
-                            //         </tr>
-                            //     </table>
-                            // </div>
+                        </table>';
+				}
 						echo '</div>
 
 						<div class="drop-setting-section" id="customised_supplier_emails">
 
-						<h3>Customised Supplier Emails</h3> 
+						<h3>Customised Supplier Emails</h3>
 
-                       <p></p> 
+                       <p></p>
                         <div style="';
-                         if ( class_exists( 'WC_DS_Settings_Pro' ) ) { echo 'width:50%;';} else { echo 'width:100%;';} 
-                         echo 'display:inline-block; float:left;">
-                        <table> 
+				if ( class_exists( 'WC_DS_Settings_Pro' ) ) {
+					echo 'width:50%;';
+				} else {
+					echo 'width:100%;';}
+						 echo 'display:inline-block; float:left;">
+                        <table>
 
-                            <p></p> 
+                            <p></p>
 
-                            <tr> 
+                            <tr>
                              <td>
-                             <div class="packing-slip-sections"> 
+                             <div class="packing-slip-sections">
 
-        					<h4>Packing Slip : </h4> 
-    							<table> 
+        					<h4>Packing Slip : </h4>
+    							<table>
     							<tr>
-                                <td class="woocommerce-segmented-selection"><label for="supplier_email_packing_slip_title_color" >Title Color:</label></td> 
+                                <td class="woocommerce-segmented-selection"><label for="supplier_email_packing_slip_title_color" >Title Color:</label></td>
 
-                                <td><img class="help_tip" data-tip="EX: #000" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                <td><img class="help_tip" data-tip="EX: #000" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
                                 <td><input name="supplier_email_packing_slip_title_color" class="drop_color" type="text" value="' . @$options['supplier_email_packing_slip_title_color'] . '" size="30" /></td>
                                 </td>
                                 </tr>
-                                  
-                            
 
-                            <tr> 
-                                <td><label for="supplier_email_packing_slip_title_font_size" >Title Font Size:</label></td> 
 
-                                <td><img class="help_tip" data-tip="EX: 24px" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
 
-                                <td><input name="supplier_email_packing_slip_title_font_size" type="text" value="' . @$options['supplier_email_packing_slip_title_font_size'] . '" size="30" /></td> 
-                            </tr> 
-                           
+                            <tr>
+                                <td><label for="supplier_email_packing_slip_title_font_size" >Title Font Size:</label></td>
+
+                                <td><img class="help_tip" data-tip="EX: 24px" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
+
+                                <td><input name="supplier_email_packing_slip_title_font_size" type="text" value="' . @$options['supplier_email_packing_slip_title_font_size'] . '" size="30" /></td>
+                            </tr>
+
  </table>
-                            </div> 
+                            </div>
                             </td>
                              </tr>
                               <tr><td colspan="3" height="40"></td></tr>
-                        <tr> 
+                        <tr>
                              <td>
-                             <div class="packing-slip-sections woocommerce-customer-effort-score__selection"> 
+                             <div class="packing-slip-sections woocommerce-customer-effort-score__selection">
 
-        					<h4>Email : </h4> 
-    							<table>       
-					        <tr> 
+        					<h4>Email : </h4>
+    							<table>
+					        <tr>
 
-                                <td class="woocommerce-segmented-selection"><label for="supplier_email_background_color" >Background Color:</label></td> 
+                                <td class="woocommerce-segmented-selection"><label for="supplier_email_background_color" >Background Color:</label></td>
 
-                                <td><img class="help_tip" data-tip="EX: #000" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                <td><img class="help_tip" data-tip="EX: #000" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
                                 <td><input name="supplier_email_background_color" class="drop_color" type="text" value="' . @$options['supplier_email_background_color'] . '" size="30" /></td>
-                            </tr> 
+                            </tr>
 
-                            <tr> 
-                                <td><label for="supplier_email_order_note_font_size"> Order Note Font Size :</label></td> 
+                            <tr>
+                                <td><label for="supplier_email_order_note_font_size"> Order Note Font Size :</label></td>
 
-                                <td><img class="help_tip" data-tip="EX: 14px" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                <td><img class="help_tip" data-tip="EX: 14px" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                <td><input name="supplier_email_order_note_font_size" type="text" value="' . @$options['supplier_email_order_note_font_size'] . '" size="30" /></td> 
-                            </tr> 
-                            <tr> 
-                                <td><label for="supplier_email_order_note_font_color">Order Note Font Color :</label></td> 
+                                <td><input name="supplier_email_order_note_font_size" type="text" value="' . @$options['supplier_email_order_note_font_size'] . '" size="30" /></td>
+                            </tr>
+                            <tr>
+                                <td><label for="supplier_email_order_note_font_color">Order Note Font Color :</label></td>
 
-                                <td><img class="help_tip" data-tip="EX: #000" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                <td><img class="help_tip" data-tip="EX: #000" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
                                 <td><input name="supplier_email_order_note_font_color" class="drop_color" type="text" value="' . @$options['supplier_email_order_note_font_color'] . '" size="30" /></td>
-                            </tr> 
+                            </tr>
 
-                            <tr> 
+                            <tr>
 
-                                <td><label for="supplier_email_footer_message_font_size">Footer Message Font Size :</label></td> 
+                                <td><label for="supplier_email_footer_message_font_size">Footer Message Font Size :</label></td>
 
-                                <td><img class="help_tip" data-tip="EX: 14px" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                <td><img class="help_tip" data-tip="EX: 14px" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                <td><input name="supplier_email_footer_message_font_size" type="text" value="' . @$options['supplier_email_footer_message_font_size'] . '" size="30" /></td> 
-                            </tr> 
+                                <td><input name="supplier_email_footer_message_font_size" type="text" value="' . @$options['supplier_email_footer_message_font_size'] . '" size="30" /></td>
+                            </tr>
 
-                            <tr> 
-                                <td><label for="supplier_email_footer_message_font_color">Footer Message Font Color :</label></td> 
+                            <tr>
+                                <td><label for="supplier_email_footer_message_font_color">Footer Message Font Color :</label></td>
 
-                                <td><img class="help_tip" data-tip="EX: #000" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                <td><img class="help_tip" data-tip="EX: #000" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
                                 <td><input name="supplier_email_footer_message_font_color" class="drop_color" type="text" value="' . @$options['supplier_email_footer_message_font_color'] . '" size="30" /></td>
-                            </tr> 
+                            </tr>
                         </table>
                         </div>
                         </td>
                         </tr>
-                       
-                       <tr> 
+
+                       <tr>
                              <td>
-                             <div class="packing-slip-sections woocommerce-customer-effort-score__selection"> 
+                             <div class="packing-slip-sections woocommerce-customer-effort-score__selection">
 
-        					<h4>Email Body : </h4> 
-    							<table>       
-                            <tr> 
-                                <td class="woocommerce-segmented-selection"><label for="supplier_email_body_font_size" >Font Size:</label></td> 
+        					<h4>Email Body : </h4>
+    							<table>
+                            <tr>
+                                <td class="woocommerce-segmented-selection"><label for="supplier_email_body_font_size" >Font Size:</label></td>
 
-                                <td><img class="help_tip" data-tip="EX: 18px" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                <td><img class="help_tip" data-tip="EX: 18px" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
                                 <td><input name="supplier_email_body_font_size" type="text" value="' . @$options['supplier_email_body_font_size'] . '" size="30" /></td>
-                            </tr> 
+                            </tr>
 
-                            <tr> 
-                                <td><label for="supplier_email_body_font_color" >Font Color:</label></td> 
+                            <tr>
+                                <td><label for="supplier_email_body_font_color" >Font Color:</label></td>
 
-                                <td><img class="help_tip" data-tip="EX: #000" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                <td><img class="help_tip" data-tip="EX: #000" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
                                 <td><input name="supplier_email_body_font_color" class="drop_color" type="text" value="' . @$options['supplier_email_body_font_color'] . '" size="30" /></td>
-                            </tr> 
+                            </tr>
                          </table>
                         </div>
                         </td>
                         </tr>
-                        <tr> 
+                        <tr>
                              <td>
-                             <div class="packing-slip-sections woocommerce-customer-effort-score__selection"> 
+                             <div class="packing-slip-sections woocommerce-customer-effort-score__selection">
 
-        					<h4>Email Bottom : </h4> 
-    							<table> 
-                            <tr> 
-                                <td class="woocommerce-segmented-selection"><label for="supplier_email_bottom_sub_heading_font_size" >Sub Heading Font Size:</label></td> 
+        					<h4>Email Bottom : </h4>
+    							<table>
+                            <tr>
+                                <td class="woocommerce-segmented-selection"><label for="supplier_email_bottom_sub_heading_font_size" >Sub Heading Font Size:</label></td>
 
-                                <td><img class="help_tip" data-tip="EX: 14px" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                <td><img class="help_tip" data-tip="EX: 14px" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
                                 <td><input name="supplier_email_bottom_sub_heading_font_size" type="text" value="' . @$options['supplier_email_bottom_sub_heading_font_size'] . '" size="30" /></td>
-                            </tr> 
+                            </tr>
 
-                            <tr> 
-                                <td><label for="supplier_email_bottom_sub_heading_font_color" >Sub Heading Font Color:</label></td> 
+                            <tr>
+                                <td><label for="supplier_email_bottom_sub_heading_font_color" >Sub Heading Font Color:</label></td>
 
-                                <td><img class="help_tip" data-tip="EX: #000" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                <td><img class="help_tip" data-tip="EX: #000" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
                                 <td><input name="supplier_email_bottom_sub_heading_font_color" class="drop_color" type="text" value="' . @$options['supplier_email_bottom_sub_heading_font_color'] . '" size="30" /></td>
-                            </tr> 
+                            </tr>
 
-                            <tr> 
-                                <td><label for="supplier_email_bottom_sub_heading_content_font_size" >Sub Heading Content Font Size:</label></td> 
+                            <tr>
+                                <td><label for="supplier_email_bottom_sub_heading_content_font_size" >Sub Heading Content Font Size:</label></td>
 
-                                <td><img class="help_tip" data-tip="EX: 14px" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                <td><img class="help_tip" data-tip="EX: 14px" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
-                                <td><input name="supplier_email_bottom_sub_heading_content_font_size" type="text" value="' . @$options['supplier_email_bottom_sub_heading_content_font_size'] . '" size="30" /></td> 
-                            </tr> 
+                                <td><input name="supplier_email_bottom_sub_heading_content_font_size" type="text" value="' . @$options['supplier_email_bottom_sub_heading_content_font_size'] . '" size="30" /></td>
+                            </tr>
 
-                            <tr> 
-                                <td><label for="supplier_email_bottom_sub_heading_content_color" >Sub Heading Content Color:</label></td> 
+                            <tr>
+                                <td><label for="supplier_email_bottom_sub_heading_content_color" >Sub Heading Content Color:</label></td>
 
-                                <td><img class="help_tip" data-tip="EX: #000" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td> 
+                                <td><img class="help_tip" data-tip="EX: #000" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></td>
 
                                 <td><input name="supplier_email_bottom_sub_heading_content_color" class="drop_color" type="text" value="' . @$options['supplier_email_bottom_sub_heading_content_color'] . '" size="30" /></td>
                             </tr>
-                            
+
                             </table>
                         </div>
                         </td>
                         </tr>
                         </table>
                         </div>';
-                         if ( class_exists( 'WC_DS_Settings_Pro' ) ) {
-                             $data ="";
-                             apply_filters("add_extra_supplier_email_dropshipping_pro_settings",$data);
-                         }
-                     echo '</div>';
+				if ( class_exists( 'WC_DS_Settings_Pro' ) ) {
+					$data = '';
+					apply_filters( 'add_extra_supplier_email_dropshipping_pro_settings', $data );
+				}
+					 echo '</div>';
 
-                    echo '<div class="drop-setting-section" id="smtp_options">';
+					echo '<div class="drop-setting-section" id="smtp_options">';
 
-                        echo '<h3>SMTP Options</h3> 
+						echo '<h3>SMTP Options</h3>
 
-                            <p></p> 
-                            <table> 
+                            <p></p>
+                            <table>
                                 <tr>
-                                    <td><input name="smtp_check" id="smtp_check" type="checkbox" ' . $check_smtp . ' /></td> 
+                                    <td><input name="smtp_check" id="smtp_check" type="checkbox" ' . $check_smtp . ' /></td>
 
                                     <td><label for="smtp_check">Check this option if you are using SMTP to send emails from your WooCommerce store:</label></td>
-                                </tr> 
+                                </tr>
                             </table>';
 
-                        echo '<h2>Email Sender Information (if left empty, emails sent from the store will use default WooCommerce settings)</h2> 
+						echo '<h2>Email Sender Information (if left empty, emails sent from the store will use default WooCommerce settings)</h2>
 
                             <table class="form-table">
-                                <tbody> 
+                                <tbody>
                                     <tr valign="top">
-                                        <th scope="row" class="titledesc"> 
+                                        <th scope="row" class="titledesc">
 
                                             <label for="from_name">Emails sent from the store should show this sender name: <img class="help_tip" data-tip="This option will override default functionality of woocommerce" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></label>
-                                        </th> 
+                                        </th>
 
-                                        <td class="forminp forminp-text"> 
+                                        <td class="forminp forminp-text">
 
-                                            <input name="from_name" id="from_name" type="text" size="30" value="' . $from_name . '" class="" placeholder=""> 
-                                        </td> 
-                                    </tr> 
+                                            <input name="from_name" id="from_name" type="text" size="30" value="' . $from_name . '" class="" placeholder="">
+                                        </td>
+                                    </tr>
 
-                                    <tr valign="top"> 
-                                        <th scope="row" class="titledesc"> 
+                                    <tr valign="top">
+                                        <th scope="row" class="titledesc">
                                             <label for="from_email">Emails sent from the store should show this sender email address:<img class="help_tip" data-tip="This option will override default WooCommerce functionality" src="' . $woocommerce_url . 'assets/images/help.png" height="16" width="16"></label>
-                                        </th> 
+                                        </th>
 
-                                        <td class="forminp forminp-email"> 
-                                            <input name="from_email" id="from_email" type="email" size="30" value="' . $from_email . '" class="" placeholder="" multiple="multiple"> 
+                                        <td class="forminp forminp-email">
+                                            <input name="from_email" id="from_email" type="email" size="30" value="' . $from_email . '" class="" placeholder="" multiple="multiple">
 
                                             <input type="hidden" name="show_admin_notice_option" value="0" />
                                         </td>
@@ -2291,30 +2233,30 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 					echo '<div class="slidesection_bkp">
 					 <p></p>';
 
-                return apply_filters('woocommerce_get_settings_' . $this->id, array(), $current_section);
-            }
+				return apply_filters( 'woocommerce_get_settings_' . $this->id, array(), $current_section );
+			}
 
-            /**
-             *
-             * Output the settings 
-             */ 
+			/**
+			 *
+			 * Output the settings
+			 */
 
-            public function output() {
+			public function output() {
 
-                global $current_section;
+				global $current_section;
 
-                $settings = $this->get_settings($current_section);
+				$settings = $this->get_settings( $current_section );
 
-                WC_Admin_Settings::output_fields($settings);
-            }
+				WC_Admin_Settings::output_fields( $settings );
+			}
 
-        }
+		}
 
-        $settings[] = new WC_DS_Settings();
+		$settings[] = new WC_DS_Settings();
 
-        return $settings;
-    }
+		return $settings;
+	}
 
-    add_filter('woocommerce_get_settings_pages', 'wc_ds_add_settings', 15);
+	add_filter( 'woocommerce_get_settings_pages', 'wc_ds_add_settings', 15 );
 
-    endif;
+	endif;

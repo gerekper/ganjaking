@@ -12,40 +12,118 @@ $image_opacity = $image_opacity_on_hover = $target = $link_title  = $rel = '';
 extract(
 	shortcode_atts(
 		array(
-			'banner_title'           => '',
-			'banner_desc'            => '',
-			'banner_image'           => '',
-			'banner_video'           => '',
-			'enable_sound'           => '',
-			'banner_effect'          => '',
-			'effect_duration'        => '30',
-			'particle_effect'        => '',
-			'lazyload'               => '',
-			'image_opacity'          => '1',
-			'image_opacity_on_hover' => '1',
-			'banner_style'           => '',
-			'banner_title_font_size' => '',
-			'banner_color_bg'        => '',
-			'banner_color_title'     => '',
-			'banner_color_desc'      => '',
-			'banner_link'            => '',
-			'min_height'             => '',
-			'add_container'          => '',
-			'parallax'               => '',
-			'overlay_color'          => '',
-			'overlay_opacity'        => 0.08,
-			'box_shadow'             => '',
-			'el_class'               => '',
-			'css_ibanner'            => '',
-			'className'              => '',
-			'animation_type'         => '',
-			'animation_duration'     => 1000,
-			'animation_delay'        => 0,
-			'align'                  => '',
+			'banner_title'                   => '',
+			'banner_desc'                    => '',
+			'img_source'                     => '',
+			'dynamic_content'                => '',
+			'banner_image'                   => '',
+			'banner_video'                   => '',
+			'enable_sound'                   => '',
+			'banner_effect'                  => '',
+			'effect_duration'                => '30',
+			'particle_effect'                => '',
+			'lazyload'                       => '',
+			'image_opacity'                  => '1',
+			'image_opacity_on_hover'         => '1',
+			'banner_style'                   => '',
+			'banner_title_font_size'         => '',
+			'banner_color_bg'                => '',
+			'banner_color_title'             => '',
+			'banner_color_desc'              => '',
+			'link_source'                    => '',
+			'banner_link'                    => '',
+			'min_height'                     => '',
+			'add_container'                  => '',
+			'parallax'                       => '',
+			'parallax_scale'                 => '',
+			'parallax_scale_invert'          => '',
+			'overlay_color'                  => '',
+			'overlay_opacity'                => 0.08,
+			'box_shadow'                     => '',
+			'el_class'                       => '',
+			'css_ibanner'                    => '',
+			'className'                      => '',
+			'animation_type'                 => '',
+			'animation_duration'             => 1000,
+			'animation_delay'                => 0,
+			'align'                          => '',
+
+			'enable_image_dynamic'           => false,
+			'image_dynamic_source'           => '',
+			'image_dynamic_content'          => '',
+			'image_dynamic_fallback'         => '',
+
+			'enable_link_dynamic'            => false,
+			'link_dynamic_source'            => '',
+			'link_dynamic_content'           => '',
+			'link_dynamic_content_meta_link' => '',
+			'link_dynamic_fallback'          => '',
 		),
 		$atts
 	)
 );
+
+if ( 'dynamic' == $img_source && $dynamic_content && ! empty( $dynamic_content['source'] ) ) {
+	$field_name = '';
+	if ( 'post' == $dynamic_content['source'] ) {
+		if ( isset( $dynamic_content['post_info'] ) ) {
+			$field_name = $dynamic_content['post_info'];
+		}
+	} else {
+		if ( isset( $dynamic_content[ $dynamic_content['source'] ] ) ) {
+			$field_name = $dynamic_content[ $dynamic_content['source'] ];
+		}
+	}
+	if ( $field_name ) {
+		$banner_image = apply_filters( 'porto_dynamic_tags_content', '', null, $dynamic_content['source'], $field_name );
+	}
+}
+
+if ( 'dynamic' == $link_source && $link_dynamic_content && ! empty( $link_dynamic_content['source'] ) ) {
+	$field_name = '';
+	if ( 'post' == $link_dynamic_content['source'] ) {
+		if ( isset( $link_dynamic_content['post_info'] ) ) {
+			$field_name = $link_dynamic_content['post_info'];
+		}
+	} else {
+		if ( isset( $link_dynamic_content[ $link_dynamic_content['source'] ] ) ) {
+			$field_name = $link_dynamic_content[ $link_dynamic_content['source'] ];
+		}
+	}
+	if ( $field_name ) {
+		$banner_link = apply_filters( 'porto_dynamic_tags_content', '', null, $link_dynamic_content['source'], $field_name );
+	}
+}
+
+if ( $enable_image_dynamic ) {
+	if ( ! empty( $image_dynamic_content ) ) {
+		$image = Porto_Func_Dynamic_Tags_Content::get_instance()->dynamic_get_data( $image_dynamic_source, $image_dynamic_content, 'image' );
+		if ( is_string( $image ) ) {
+			$image = array(
+				'id' => attachment_url_to_postid( $image ),
+			);
+		}
+		if ( ! empty( $image['id'] ) ) {
+			$banner_image = $image['id'];
+		}
+	}
+	if ( empty( $banner_image ) && ! empty( $image_dynamic_fallback ) ) {
+		$banner_image = $image_dynamic_fallback;
+	}
+}
+
+// dynamic link
+if ( $enable_link_dynamic ) {
+	if ( ( 'meta_field' == $link_dynamic_source ) && ! empty( $link_dynamic_content_meta_link ) ) {
+		$banner_link = Porto_Func_Dynamic_Tags_Content::get_instance()->dynamic_get_data( $link_dynamic_source, $link_dynamic_content_meta_link, 'link' );
+	}
+	if ( ! empty( $link_dynamic_content ) ) {
+		$banner_link = Porto_Func_Dynamic_Tags_Content::get_instance()->dynamic_get_data( $link_dynamic_source, $link_dynamic_content, 'link' );
+	}
+	if ( empty( $banner_link ) && ! empty( $link_dynamic_fallback ) ) {
+		$banner_link = $link_dynamic_fallback;
+	}
+}
 
 if ( 'none' == $banner_effect ) {
 	$banner_effect = '';
@@ -122,7 +200,7 @@ if ( $banner_image ) {
 			if ( $min_height ) {
 				$unit = trim( preg_replace( '/[0-9.]/', '', $min_height ) );
 				if ( ! $unit || 'px' == $unit ) {
-					if ( is_array( $image_meta ) && is_array( $image_meta['sizes'] ) ) {
+					if ( is_array( $image_meta ) && is_array( $image_meta['sizes'] ) && ! empty( $image_meta['width'] ) ) {
 						$ratio = $image_meta['height'] / $image_meta['width'];
 						foreach ( $image_meta['sizes'] as $key => $size ) {
 							if ( $size['width'] * (float) $ratio < (int) $min_height ) {
@@ -162,7 +240,7 @@ if ( $banner_image ) {
 }
 
 if ( $banner_link ) {
-	if ( function_exists( 'vc_build_link' ) ) {
+	if ( function_exists( 'vc_build_link' ) && ! $enable_link_dynamic ) {
 		$href = vc_build_link( $banner_link );
 		if ( ! empty( $href['url'] ) ) {
 			$link       = ( isset( $href['url'] ) && $href['url'] ) ? $href['url'] : '';
@@ -271,12 +349,18 @@ if ( $align ) {
 }
 
 // lazy load background image
+if ( class_exists( 'Porto_Critical' ) ) {
+	$preloads = Porto_Critical::get_instance()->get_preloads();
+}
 if ( isset( $porto_settings_optimize['lazyload'] ) && $porto_settings_optimize['lazyload'] ) {
 	preg_match( '/\.vc_custom_[^}]*(background-image:[^(]*([^)]*)|background:\s#[A-Fa-f0-9]{3,6}\s*url\(([^)]*))/', $css_ibanner, $matches );
 	if ( ! empty( $matches[2] ) || ! empty( $matches[3] ) ) {
-		$image_url     = ! empty( $matches[2] ) ? $matches[2] : $matches[3];
-		$opacity_attr .= ' data-original="' . esc_url( trim( str_replace( array( '(', ')' ), '', $image_url ) ) ) . '"';
-		$classes      .= ' porto-lazyload';
+		$image_url = ! empty( $matches[2] ) ? $matches[2] : $matches[3];
+		$image_url = esc_url( trim( str_replace( array( '(', ')' ), '', $image_url ) ) );
+		if ( empty( $preloads ) || ( isset( $preloads ) && is_array( $preloads ) && ! in_array( $image_url, $preloads ) ) ) {
+			$opacity_attr .= ' data-original="' . $image_url . '"';
+			$classes      .= ' porto-lazyload';
+		}
 	}
 }
 
@@ -288,16 +372,23 @@ if ( $parallax && $banner_image ) {
 	} else {
 		$image_url = $banner_image;
 	}
+	if ( $parallax_scale ) {
+		$opacity_attr .= ' data-parallax-scale';
+		if ( $parallax_scale_invert ) {
+			$opacity_attr .= '="invert"';
+		}
+	}
 	$opacity_attr .= ' data-plugin-parallax data-plugin-options="' . esc_attr( json_encode( array( 'speed' => $parallax ) ) ) . '"';
 	$opacity_attr .= ' data-image-src="' . esc_url( $image_url ) . '"';
 	$classes      .= ' has-parallax-bg';
 }
 
-$output .= '<div id="' . esc_attr( $interactive_banner_id ) . '" class="' . esc_attr( $classes ) . '" style="' . esc_attr( $banner_style_inline ) . '"' . $opacity_attr . '>';
+$output .= '<div id="' . esc_attr( $interactive_banner_id ) . '" class="' . esc_attr( apply_filters( 'porto_elements_wrap_css_class', $classes, $atts, 'interactive-banner' ) ) . '" style="' . esc_attr( $banner_style_inline ) . '"' . $opacity_attr . '>';
 if ( $internal_styles ) {
-	$output .= '<style scope="scope">';
-	$output .= $internal_styles;
-	$output .= '</style>';
+	$inline_style  = '<style scope="scope">';
+	$inline_style .= $internal_styles;
+	$inline_style .= '</style>';
+	$output       .= porto_filter_inline_css( $inline_style, false );
 }
 
 // video banner

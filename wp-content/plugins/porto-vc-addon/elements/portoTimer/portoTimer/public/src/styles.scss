@@ -1,0 +1,51 @@
+/* Count Down */
+.porto_countdown {
+    width: 100%;
+    height: auto;
+    display: block;
+    line-height: 1;
+    margin-bottom: 35px;
+    text-align: center
+}
+.porto_countdown:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+.porto_countdown .porto_countdown-row {
+    display: block;
+    margin: 0 auto
+}
+.porto_countdown .porto_countdown-section {
+    display: inline-block;
+    margin-bottom: 15px
+}
+.porto_countdown .porto_countdown-section .porto_countdown-amount {
+    min-width: 1em;
+    max-width: 100%;
+    min-height: 1em;
+    line-height: 1em;
+    padding: 0;
+    margin: 0 auto;
+    box-sizing: content-box
+}
+.porto_countdown .porto_countdown-section .porto_countdown-period {
+    padding: 0 4px;
+}
+.porto_countdown.porto-cd-s1 .porto_countdown-section {
+    padding: 0 7px
+}
+.porto_countdown.porto-cd-s1 .porto_countdown-section .porto_countdown-amount {
+    display: inline-block
+}
+.porto_countdown.porto-cd-s2 .porto_countdown-section {
+    padding: 0 15px
+}
+.porto_countdown.porto-cd-s2 .porto_countdown-section .porto_countdown-amount {
+    display: block
+}
+.porto_countdown.porto-cd-s2 .porto_countdown-section .porto_countdown-period {
+    margin-top: 7px;
+    width: 100%;
+    display: block
+}

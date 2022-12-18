@@ -12,7 +12,7 @@ function porto_load_portfolios_category_shortcode() {
 			'name'        => 'Porto ' . __( 'Portfolios Categories', 'porto-functionality' ),
 			'base'        => 'porto_portfolios_category',
 			'category'    => __( 'Porto', 'porto-functionality' ),
-			'description' => __( 'Show portfolio categories by beautiful layouts. e.g. masonry, slider, grid and so on', 'porto-functionality' ),
+			'description' => __( 'Show portfolio categories', 'porto-functionality' ),
 			'icon'        => 'far fa-folder-open',
 			'params'      => array(
 				array(
@@ -64,15 +64,16 @@ function porto_load_portfolios_category_shortcode() {
 					),
 				),
 				array(
-					'type'       => 'dropdown',
-					'heading'    => __( 'Portfolios Counter', 'porto-functionality' ),
-					'param_name' => 'portfolios_counter',
-					'std'        => 'show',
-					'value'      => array(
+					'type'        => 'dropdown',
+					'heading'     => __( 'Portfolios Counter', 'porto-functionality' ),
+					'param_name'  => 'portfolios_counter',
+					'description' => __( 'Show the number of portfolios in the category.', 'porto-functionality' ),
+					'std'         => 'show',
+					'value'       => array(
 						__( 'Show', 'porto-functionality' ) => 'show',
 						__( 'Hide', 'porto-functionality' ) => 'hide',
 					),
-					'dependency' => array(
+					'dependency'  => array(
 						'element' => 'category_layout',
 						'value'   => array( 'stripes', 'parallax' ),
 					),
@@ -90,9 +91,141 @@ function porto_load_portfolios_category_shortcode() {
 					'param_name'  => 'cat_in',
 				),
 				$custom_class,
-			//$animation_type,
-			//$animation_duration,
-			//$animation_delay
+
+				array(
+					'type'       => 'porto_param_heading',
+					'param_name' => 'title_style',
+					'text'       => esc_html__( 'Title', 'porto-functionality' ),
+					'group'      => __( 'Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'porto_typography',
+					'heading'    => __( 'Typography', 'porto-functionality' ),
+					'param_name' => 'title_tg',
+					'selectors'  => array(
+						'{{WRAPPER}} .portfolio-item-title, {{WRAPPER}} .thumb-info .thumb-info-title, {{WRAPPER}} .portfolio-parallax h2',
+					),
+					'group'      => __( 'Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'heading'    => __( 'Color', 'porto-functionality' ),
+					'param_name' => 'title_clr',
+					'selectors'  => array(
+						'{{WRAPPER}} .portfolio-item-title, {{WRAPPER}} .thumb-info .thumb-info-title, {{WRAPPER}} .portfolio-parallax h2' => 'color: {{VALUE}};',
+					),
+					'group'      => __( 'Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'heading'    => __( 'Background Color', 'porto-functionality' ),
+					'param_name' => 'title_bgc',
+					'selectors'  => array(
+						'{{WRAPPER}} .portfolio-item-title, {{WRAPPER}} .thumb-info .thumb-info-title, {{WRAPPER}} .portfolio-parallax h2' => 'background-color: {{VALUE}};',
+					),
+					'group'      => __( 'Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'porto_dimension',
+					'heading'    => __( 'Margin', 'porto-functionality' ),
+					'param_name' => 'title_mg',
+					'selectors'  => array(
+						'{{WRAPPER}} .portfolio-item-title, {{WRAPPER}} .thumb-info .thumb-info-title, {{WRAPPER}} .portfolio-parallax h2' => 'margin: {{TOP}} {{RIGHT}} {{BOTTOM}} {{LEFT}};',
+					),
+					'group'      => __( 'Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'porto_dimension',
+					'heading'    => __( 'Padding', 'porto-functionality' ),
+					'param_name' => 'title_pd',
+					'selectors'  => array(
+						'{{WRAPPER}} .portfolio-item-title, {{WRAPPER}} .thumb-info .thumb-info-title, {{WRAPPER}} .portfolio-parallax h2' => 'padding: {{TOP}} {{RIGHT}} {{BOTTOM}} {{LEFT}};',
+					),
+					'group'      => __( 'Style', 'porto-functionality' ),
+				),
+
+				array(
+					'type'       => 'porto_param_heading',
+					'param_name' => 'pc_style',
+					'text'       => esc_html__( 'Portfolios Counter', 'porto-functionality' ),
+					'dependency' => array(
+						'element' => 'portfolios_counter',
+						'value'   => 'show',
+					),
+					'group'      => __( 'Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'porto_typography',
+					'heading'    => __( 'Typography', 'porto-functionality' ),
+					'param_name' => 'pc_tg',
+					'selectors'  => array(
+						'{{WRAPPER}} .thumb-info-icons .thumb-info-icon, {{WRAPPER}} .thumb-info-bottom-info .thumb-info-type, {{WRAPPER}} .portfolio-parallax h2',
+					),
+					'dependency' => array(
+						'element' => 'portfolios_counter',
+						'value'   => 'show',
+					),
+					'group'      => __( 'Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'heading'    => __( 'Color', 'porto-functionality' ),
+					'param_name' => 'pc_clr',
+					'selectors'  => array(
+						'{{WRAPPER}} .thumb-info-icons .thumb-info-icon, {{WRAPPER}} .thumb-info-bottom-info .thumb-info-type' => 'color: {{VALUE}};',
+					),
+					'dependency' => array(
+						'element' => 'portfolios_counter',
+						'value'   => 'show',
+					),
+					'group'      => __( 'Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'heading'    => __( 'Background Color', 'porto-functionality' ),
+					'param_name' => 'pc_bgc',
+					'selectors'  => array(
+						'{{WRAPPER}} .thumb-info-icons .thumb-info-icon, {{WRAPPER}} .thumb-info-bottom-info .thumb-info-type' => 'background-color: {{VALUE}} !important;',
+					),
+					'dependency' => array(
+						'element' => 'portfolios_counter',
+						'value'   => 'show',
+					),
+					'group'      => __( 'Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'porto_dimension',
+					'heading'    => __( 'Padding', 'porto-functionality' ),
+					'param_name' => 'pc_pd',
+					'selectors'  => array(
+						'{{WRAPPER}} .thumb-info-icons .thumb-info-icon, {{WRAPPER}} .thumb-info-bottom-info .thumb-info-type' => 'padding: {{TOP}} {{RIGHT}} {{BOTTOM}} {{LEFT}};',
+					),
+					'dependency' => array(
+						'element' => 'portfolios_counter',
+						'value'   => 'show',
+					),
+					'group'      => __( 'Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'number',
+					'heading'    => __( 'Border Radius', 'porto-functionality' ),
+					'param_name' => 'pc_br',
+					'min'        => 1,
+					'max'        => 50,
+					'suffix'     => 'px',
+					'selectors'  => array(
+						'{{WRAPPER}} .thumb-info-icons .thumb-info-icon, {{WRAPPER}} .thumb-info-bottom-info .thumb-info-type' => 'border-radius: {{VALUE}}px;',
+					),
+					'dependency' => array(
+						'element' => 'portfolios_counter',
+						'value'   => 'show',
+					),
+					'group'      => __( 'Style', 'porto-functionality' ),
+				),
+
+				//$animation_type,
+				//$animation_duration,
+				//$animation_delay
 			),
 		)
 	);

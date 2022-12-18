@@ -2,7 +2,7 @@
 /**
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.themepunch.com/
- * @copyright 2022 ThemePunch
+ * @copyright 2021 ThemePunch
  */
 
 if(!defined('ABSPATH')) exit();

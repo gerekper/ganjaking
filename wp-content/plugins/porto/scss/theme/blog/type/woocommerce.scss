@@ -1,0 +1,83 @@
+// DIRECTIONAL
+// ---------------------------------------------------------------
+$rtl: 0;
+$dir: ltr !default;
+
+@import "../../theme-imports";
+
+
+article.post-woocommerce .post-date,
+article.post-woocommerce > .read-more,
+.pagination>a, .pagination>span,
+.pagination .prev, .pagination .next,
+.sidebar-content .widget-title,
+.widget .tagcloud,
+input[type="submit"], .btn,
+.related-posts .read-more, .wp-block-tag-cloud a { font-family: var(--porto-h3-ff, var(--porto-body-ff)), sans-serif }
+article.post-full > .btn,
+.pagination>.dots { color: var(--porto-primary-color) !important; }
+.pagination>a:hover, .pagination>a:focus, .pagination>span.current { background-color: var(--porto-primary-color); color: #fff; }
+
+.post.format-video .mejs-container .mejs-controls { opacity: 0; transition: opacity .25s; }
+.post.format-video .img-thumbnail:hover .mejs-container .mejs-controls { opacity: 1; }
+article.post-woocommerce { margin-#{$left}: 90px; }
+article.post-woocommerce:after { content: ''; display: block; clear: both; }
+article.post-woocommerce h2.entry-title { color: var(--porto-heading-color); font-size: 22px; font-weight: 600; letter-spacing: normal; line-height: 1.2; margin-bottom: 15px; }
+article.post-woocommerce h2.entry-title a { color: inherit; }
+article.post-woocommerce .post-image,
+article.post-woocommerce .post-date { margin-#{$left}: -90px; }
+article.post-woocommerce .post-date { width: 60px; }
+article.post-woocommerce .post-date .day { font-size: 1.75rem; color: var(--porto-heading-color); font-weight: 400; border: 1px solid #e3e3e3; border-bottom: none; }
+body.dark article.post-woocommerce .post-date .day {border: 1px solid lighten($color-dark, 8%);}
+body article.post-woocommerce .post-date .day { color: var(--porto-heading-color); background: none; }
+article.post-woocommerce .post-date .month { font-size: 14px; text-transform: uppercase; }
+article.post-woocommerce .post-meta { display: inline-block; margin-bottom: 6px; }
+article.post-woocommerce > .read-more { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; float: #{$right}; }
+article.post-woocommerce > .read-more:after { content: '\f04b'; font-family: 'Font Awesome 5 Free'; font-weight: 900; margin-#{$left}: 3px; position: relative; top: -1px; }
+article.post-woocommerce .post-content { padding-bottom: 20px; border-bottom: 1px solid rgba(0, 0, 0, 0.06); margin-bottom: 15px; }
+article.post-woocommerce .post-meta { font-size: 13px; text-transform: uppercase; font-weight: 600; letter-spacing: 0; }
+article.post-woocommerce .post-meta a { color: #7b858a; }
+article.post-woocommerce .post-meta i,
+article.post-woocommerce .post-meta .post-views-icon.dashicons { font-size: 16px !important; }
+article.post-woocommerce .post-excerpt { font-size: 15px; line-height: 27px; color: #7b858a; }
+article.post-woocommerce .owl-carousel .owl-nav [class*="owl-"] { background: none; border: none; color: #9a9996; font-size: 30px; }
+article.post-woocommerce .owl-carousel .owl-nav .owl-prev { #{$left}: 20px; }
+article.post-woocommerce .owl-carousel .owl-nav .owl-next { #{$right}: 20px; }
+article.post-woocommerce .owl-carousel .owl-nav .owl-prev:before { content: '\e829'; }
+article.post-woocommerce .owl-carousel .owl-nav .owl-next:before { content: '\e828'; }
+
+.pagination>a, .pagination>span { padding: 0; min-width: 2.6em; width: auto; height: 2.8em; background: #d1f0ff; border: none; line-height: 2.8em; font-size: 15px; padding: 0 1em; }
+.pagination-wrap .pagination>a, .pagination-wrap .pagination>span { margin: 0 4px 8px; }
+.pagination>.dots { background: none; }
+.pagination .prev,
+.pagination .next { text-indent: 0; text-transform: uppercase; background: #272723; color: #fff; width: auto; }
+.pagination .prev:before,
+.pagination .next:before { display: none; }
+.pagination .prev i,
+.pagination .next i { font-size: 18px; }
+.pagination .prev i:before { content: '\f104'; }
+.pagination .next i:before { content: '\f105'; }
+.pagination span.dots { min-width: 1.8em; font-size: 15px; }
+
+/* sidebar */
+.widget .tagcloud a,
+.widget .wp-block-tag-cloud a { font-size: 14px !important; text-transform: uppercase; color: var(--porto-body-bg); background: #272723; padding: 12px 22px; border: none; border-radius: 3px; letter-spacing: 0.05em; }
+body.dark {
+    .widget .tagcloud a,
+    .widget .wp-block-tag-cloud a {
+        background: #fff;
+    } 
+}
+
+.sidebar-content { border: 1px solid var(--porto-slide-bgc); padding: 20px; }
+.sidebar-content .widget:last-child { margin-bottom: 0; }
+.sidebar-content .widget .widget-title { font-size: 17px; font-weight: 400; }
+.widget-recent-posts { line-height: 1.25; }
+.widget-recent-posts a { color: var(--porto-heading-color); font-size: 16px; font-weight: 600; line-height: 1.25; }
+.post-item-small .post-date { margin-top: 10px; }
+.post-item-small .post-image img { width: 60px; margin-#{$right}: 5px; margin-bottom: 5px; }
+.widget_categories>ul li { padding: side-values(10px 0 10px 15px); }
+.widget>ul li>ul { margin-top: 10px; }
+.widget>ul { font-size: 14px; }
+.widget_categories > ul li:before { border: none; content: '\e81a'; font-family: 'porto'; font-size: 15px; color: #222529; margin-#{$right}: 15px; width: auto; height: auto; position: relative; top: -1px }
+.widget>ul { border-bottom: none; }

@@ -1,0 +1,19 @@
+{
+  "elements": {
+    "portoButton": {
+      "settings": {
+        "name": "Porto Button",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-porto-button.jpg",
+        "metaDescription": "Advanced Porto Button with beautiful hover effect to attract developer's attention."
+      }
+    }
+  },
+  "categories": {
+    "Misc": {
+      "elements": [
+        "portoButton"
+      ]
+    }
+  }
+}

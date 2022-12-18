@@ -4,8 +4,8 @@ Donate link: https://perfmatters.io
 Tags: perfmatters
 Requires at least: 5.5
 Requires PHP: 7.0
-Tested up to: 6.0.3
-Stable tag: 2.0.0
+Tested up to: 6.1.1
+Stable tag: 2.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,11 +35,35 @@ Check out our [documentation](https://perfmatters.io/docs/) for more information
 
 == Changelog ==
 
+= 2.0.2 - 12.15.2022 =
+* Fixed an issue that was preventing Removed Unused CSS from running correctly in certain cases when Advanced Options were toggled on.
+* Translation updates.
+
+= 2.0.1 - 12.14.2022 =
+* Added new toggle to Show Advanced Options in the Perfmatters UI.
+* Added new advanced option to Disable Click Delay in JavaScript section.
+* Added new advanced option to Enable FastClick in JavaScript section.
+* Added new advanced option to specify a CDN URL in CSS section.
+* Added new Local Redirect option to existing login URL disabled behavior selection.
+* Added new perfmatters_buffer_excluded_extensions filter.
+* Added new perfmatters_rucss_excluded_stylesheets filter.
+* Added additional built-in exclusions for Remove Unused CSS for better compatibility with Elementor, Divi, Slider Revolution, OptimizePress, and WordPress core.
+* Added additional logic in MU Mode to more reliably retrieve the ID for certain custom post types.
+* Moved lazyload functions to new class structure to be more inline with current codebase.
+* Modified regex for lazy loading inline background images to support additional formats.
+* Integrated lazyload functions into the main output buffer to allow interaction with other existing features.
+* Fixed an issue where dynamic preloads were not recognizing existing query strings in some cases.
+* Fixed a PHP warning that would show up in some cases by adding additional string check when looping through rewrite array.
+* Fixed an issue with MU Mode where sometimes the wrong plugin would get disabled if there were multiple plugins using similar directory paths.
+* Fixed an issue where images inside script tags were being picked up by the Preload Critical Images function.
+* Translation updates.
+
 = 2.0.0 - 10.18.2022 =
 * Added new system for query string timestamps for Used CSS file method to help see changes quicker in environments with caching.
 * Added support for ?perfmattersoff query string which gives the ability to quickly prevent the majority of Perfmatters features from running on the front end for testing purposes.
 * Added additional support for updating the plugin via WP-CLI.
 * Made some changes to admin bar menu item. There is now a Perfmatters top-level admin bar menu item that links to our plugin settings page. The Script Manager and Clear Used CSS function can be accessed by hovering over that main menu item if those features are enabled.
+* Added new toggle in tools to Hide Admin Bar Menu.
 * Disabled certain features from running on WooCommerce cart, checkout, and account pages for better compatibility.
 * Increased site limit in dropdowns on Multisite network settings page.
 * Added additional compatibility styles to the Script Manager.

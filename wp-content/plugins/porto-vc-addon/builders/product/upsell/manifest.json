@@ -1,0 +1,19 @@
+{
+	"elements": {
+		"portoSpUpsell": {
+			"settings": {
+				"name": "Upsell Products",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-porto-sp.jpg",
+				"metaDescription": "Porto VC element to display upsell products"
+			}
+		}
+	},
+	"categories": {
+		"WooCommerce": {
+			"elements": [
+				"portoSpUpsell"
+			]
+		}
+	}
+}

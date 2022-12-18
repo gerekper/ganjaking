@@ -7,7 +7,7 @@ if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed.');
 
 // Converted to multi-options (Feb 2017-) and previous options conversion removed: Yes
 
-if (!class_exists('UpdraftPlus_BackupModule')) require_once(UPDRAFTPLUS_DIR.'/methods/backup-module.php');
+if (!class_exists('UpdraftPlus_BackupModule')) updraft_try_include_file('methods/backup-module.php', 'require_once');
 
 // Fix a potential problem for users who had the short-lived 1.12.35-1.12.38 free versions (see: https://wordpress.org/support/topic/1-12-37-dropbox-auth-broken/page/2/#post-8981457)
 // Can be removed after a few months
@@ -190,8 +190,8 @@ class UpdraftPlus_BackupModule_dropbox extends UpdraftPlus_BackupModule {
 		$opts = $this->get_options();
 		
 		if (empty($opts['tk_access_token'])) {
-			$this->log('You do not appear to be authenticated with Dropbox (1)');
-			$this->log(__('You do not appear to be authenticated with Dropbox', 'updraftplus'), 'error');
+			$this->log('You are not authenticated with Dropbox (1)');
+			$this->log(__('You are not authenticated with Dropbox', 'updraftplus'), 'error');
 			return false;
 		}
 		
@@ -208,7 +208,7 @@ class UpdraftPlus_BackupModule_dropbox extends UpdraftPlus_BackupModule {
 
 		try {
 			$dropbox = $this->bootstrap();
-			if (false === $dropbox) throw new Exception(__('You do not appear to be authenticated with Dropbox', 'updraftplus'));
+			if (false === $dropbox) throw new Exception(__('You are not authenticated with Dropbox', 'updraftplus'));
 			$this->log("access gained; setting chunk size to: ".round($chunk_size/1024, 1)." KB");
 			$dropbox->setChunkSize($chunk_size);
 		} catch (Exception $e) {
@@ -478,8 +478,8 @@ class UpdraftPlus_BackupModule_dropbox extends UpdraftPlus_BackupModule {
 		$opts = $this->get_options();
 
 		if (empty($opts['tk_access_token'])) {
-			$this->log('You do not appear to be authenticated with Dropbox (3)');
-			$this->log(sprintf(__('You do not appear to be authenticated with %s (whilst deleting)', 'updraftplus'), 'Dropbox'), 'warning');
+			$this->log('You are not authenticated with Dropbox (3)');
+			$this->log(sprintf(__('You are not authenticated with %s (whilst deleting)', 'updraftplus'), 'Dropbox'), 'warning');
 			return 'authentication_fail';
 		}
 
@@ -524,8 +524,8 @@ class UpdraftPlus_BackupModule_dropbox extends UpdraftPlus_BackupModule {
 		$opts = $this->get_options();
 
 		if (empty($opts['tk_access_token'])) {
-			$this->log('You do not appear to be authenticated with Dropbox (4)');
-			$this->log(sprintf(__('You do not appear to be authenticated with %s', 'updraftplus'), 'Dropbox'), 'error');
+			$this->log('You are not authenticated with Dropbox (4)');
+			$this->log(sprintf(__('You are not authenticated with %s', 'updraftplus'), 'Dropbox'), 'error');
 			return false;
 		}
 
@@ -635,7 +635,7 @@ class UpdraftPlus_BackupModule_dropbox extends UpdraftPlus_BackupModule {
 				<td>
 					{{#if is_authenticated}}
 					<?php
-						echo "<p><strong>".__('(You appear to be already authenticated).', 'updraftplus')."</strong>";
+						echo "<p><strong>".__('(You are already authenticated).', 'updraftplus')."</strong>";
 						$this->get_deauthentication_link();
 						echo '</p>';
 					?>
@@ -875,7 +875,7 @@ class UpdraftPlus_BackupModule_dropbox extends UpdraftPlus_BackupModule {
 				$quota_info = $dropbox->quotaInfo(array('timeout' => 190));
 
 				if (empty($quota_info['code']) || "200" != $quota_info['code']) {
-					$message .= " (".__('though part of the returned information was not as expected - your mileage may vary', 'updraftplus').")". $quota_info['code'];
+					$message .= " (".__('though part of the returned information was not as expected - whether this indicates a real problem cannot be determined', 'updraftplus').")". $quota_info['code'];
 					if (!empty($accountinfo_err)) $message .= "<br>".htmlspecialchars($accountinfo_err);
 				} else {
 					$body = $quota_info['body'];
@@ -952,14 +952,14 @@ class UpdraftPlus_BackupModule_dropbox extends UpdraftPlus_BackupModule {
 		// Dropbox APIv1 is dead, but we'll keep the variable in case v3 is ever announced
 		$dropbox_api = 'Dropbox2';
 
-		include_once(UPDRAFTPLUS_DIR.'/includes/'.$dropbox_api.'/API.php');
-		include_once(UPDRAFTPLUS_DIR.'/includes/'.$dropbox_api.'/Exception.php');
-		include_once(UPDRAFTPLUS_DIR.'/includes/'.$dropbox_api.'/OAuth/Consumer/ConsumerAbstract.php');
-		include_once(UPDRAFTPLUS_DIR.'/includes/'.$dropbox_api.'/OAuth/Storage/StorageInterface.php');
-		include_once(UPDRAFTPLUS_DIR.'/includes/'.$dropbox_api.'/OAuth/Storage/Encrypter.php');
-		include_once(UPDRAFTPLUS_DIR.'/includes/'.$dropbox_api.'/OAuth/Storage/WordPress.php');
-		include_once(UPDRAFTPLUS_DIR.'/includes/'.$dropbox_api.'/OAuth/Consumer/Curl.php');
-		// require_once(UPDRAFTPLUS_DIR.'/includes/'.$dropbox_api.'/OAuth/Consumer/WordPress.php');
+		updraft_try_include_file('includes/'.$dropbox_api.'/API.php', 'include_once');
+		updraft_try_include_file('includes/'.$dropbox_api.'/Exception.php', 'include_once');
+		updraft_try_include_file('includes/'.$dropbox_api.'/OAuth/Consumer/ConsumerAbstract.php', 'include_once');
+		updraft_try_include_file('includes/'.$dropbox_api.'/OAuth/Storage/StorageInterface.php', 'include_once');
+		updraft_try_include_file('includes/'.$dropbox_api.'/OAuth/Storage/Encrypter.php', 'include_once');
+		updraft_try_include_file('includes/'.$dropbox_api.'/OAuth/Storage/WordPress.php', 'include_once');
+		updraft_try_include_file('includes/'.$dropbox_api.'/OAuth/Consumer/Curl.php', 'include_once');
+		// updraft_try_include_file('includes/'.$dropbox_api.'/OAuth/Consumer/WordPress.php', 'require_once');
 
 		$opts = $this->get_options();
 
@@ -971,6 +971,8 @@ class UpdraftPlus_BackupModule_dropbox extends UpdraftPlus_BackupModule {
 		// Set the callback URL
 		$callbackhome = UpdraftPlus_Options::admin_page_url().'?page=updraftplus&action=updraftmethod-dropbox-auth';
 		$callback = defined('UPDRAFTPLUS_DROPBOX_AUTH_RETURN_URL') ? UPDRAFTPLUS_DROPBOX_AUTH_RETURN_URL : 'https://auth.updraftplus.com/auth/dropbox/';
+
+		if (defined('UPDRAFTPLUS_CUSTOM_DROPBOX_APP') && UPDRAFTPLUS_CUSTOM_DROPBOX_APP) $callback = $callbackhome;
 		
 		$instance_id = $this->get_instance_id();
 		// Instantiate the Encrypter and storage objects

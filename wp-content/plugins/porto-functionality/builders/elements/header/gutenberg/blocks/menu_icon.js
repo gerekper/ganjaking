@@ -3,7 +3,7 @@
  * 
  * @since 6.1.0
  */
-( function ( wpI18n, wpBlocks, wpElement, wpEditor, wpBlockEditor, wpComponents, wpData, lodash ) {
+( function( wpI18n, wpBlocks, wpElement, wpEditor, wpBlockEditor, wpComponents, wpData, lodash ) {
     "use strict";
 
     var __ = wpI18n.__,
@@ -18,7 +18,7 @@
 
     const PortoTypographyControl = window.portoTypographyControl;
 
-    const PortoHBMenuIcon = function ( { attributes, setAttributes, name } ) {
+    const PortoHBMenuIcon = function( { attributes, setAttributes, name } ) {
 
         let internalStyle = '';
 
@@ -27,7 +27,7 @@
             if ( attributes.size ) {
                 let unitVal = attributes.size;
                 const unit = unitVal.trim().replace( /[0-9.]/g, '' );
-                if ( ! unit ) {
+                if ( !unit ) {
                     unitVal += 'px';
                 }
                 internalStyle += 'font-size:' + unitVal + ';';
@@ -82,7 +82,7 @@
                             { internalStyle }
                         </style>
                     ) }
-                    <div class="d-none d-lg-block">
+                    <div className="d-none d-lg-block">
                         {
                             __( 'Mobile Menu Toggle', 'porto-functionality' )
                         }
@@ -120,7 +120,7 @@
             },
         },
         edit: PortoHBMenuIcon,
-        save: function () {
+        save: function() {
             return null;
         }
     } );

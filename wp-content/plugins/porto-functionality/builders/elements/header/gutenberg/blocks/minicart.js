@@ -26,7 +26,7 @@
         if ( attributes.icon_size ) {
             let unitVal = attributes.icon_size;
             const unit = unitVal.trim().replace( /[0-9.]/g, '' );
-            if ( ! unit ) {
+            if ( !unit ) {
                 unitVal += 'px';
             }
             internalStyle += '#mini-cart .minicart-icon{font-size:' + unitVal + '}';
@@ -39,15 +39,15 @@
             if ( attributes.icon_mr ) {
                 let unitVal = attributes.icon_mr;
                 const unit = unitVal.trim().replace( /[0-9.]/g, '' );
-                if ( ! unit ) {
-                   unitVal += 'px';
+                if ( !unit ) {
+                    unitVal += 'px';
                 }
                 internalStyle += 'margin-right:' + unitVal + ';';
             }
             if ( attributes.icon_ml ) {
                 let unitVal = attributes.icon_ml;
                 const unit = unitVal.trim().replace( /[0-9.]/g, '' );
-                if ( ! unit ) {
+                if ( !unit ) {
                     unitVal += 'px';
                 }
                 internalStyle += 'margin-left:' + unitVal;
@@ -60,7 +60,7 @@
             if ( attributes.text_font_size ) {
                 let unitVal = attributes.text_font_size;
                 const unit = unitVal.trim().replace( /[0-9.]/g, '' );
-                if ( ! unit ) {
+                if ( !unit ) {
                     unitVal += 'px';
                 }
                 text_style_escaped += 'font-size:' + unitVal + ';';
@@ -74,7 +74,7 @@
             if ( attributes.text_line_height ) {
                 let unitVal = attributes.text_line_height;
                 const unit = unitVal.trim().replace( /[0-9.]/g, '' );
-                if ( ! unit && unitVal > 3 ) {
+                if ( !unit && unitVal > 3 ) {
                     unitVal += 'px';
                 }
                 text_style_escaped += 'line-height:' + unitVal + ';';
@@ -82,7 +82,7 @@
             if ( typeof attributes.text_ls != 'undefined' && '' !== attributes.text_ls ) {
                 let unitVal = attributes.text_ls;
                 const unit = unitVal.trim().replace( /[0-9.]/g, '' );
-                if ( ! unit ) {
+                if ( !unit ) {
                     unitVal += 'px';
                 }
                 text_style_escaped += 'letter-spacing:' + unitVal + ';';
@@ -98,7 +98,7 @@
             if ( attributes.price_font_size ) {
                 let unitVal = attributes.price_font_size;
                 const unit = unitVal.trim().replace( /[0-9.]/g, '' );
-                if ( ! unit ) {
+                if ( !unit ) {
                     unitVal += 'px';
                 }
                 price_style_escaped += 'font-size:' + unitVal + ';';
@@ -109,7 +109,7 @@
             if ( attributes.price_line_height ) {
                 let unitVal = attributes.price_line_height;
                 const unit = unitVal.trim().replace( /[0-9.]/g, '' );
-                if ( ! unit && unitVal > 3 ) {
+                if ( !unit && unitVal > 3 ) {
                     unitVal += 'px';
                 }
                 price_style_escaped += 'line-height:' + unitVal + ';';
@@ -117,7 +117,7 @@
             if ( typeof attributes.price_ls != 'undefined' && '' !== attributes.price_ls ) {
                 let unitVal = attributes.price_ls;
                 const unit = unitVal.trim().replace( /[0-9.]/g, '' );
-                if ( ! unit ) {
+                if ( !unit ) {
                     unitVal += 'px';
                 }
                 price_style_escaped += 'letter-spacing:' + unitVal + ';';
@@ -151,14 +151,6 @@
                         value={ attributes.icon_cl }
                         onChange={ ( value ) => { setAttributes( { icon_cl: value } ); } }
                     />
-                    { ( 'minicart-inline' === attributes.type || 'minicart-text' === attributes.type ) && (
-                        <TextControl
-                            label={ __( 'Mini Cart Text', 'porto-functionality' ) }
-                            help={ __( 'If you have any trouble with this setting, please use Porto -> Theme Options -> Header -> Mini Cart Text instead.', 'porto-functionality' ) }
-                            value={ attributes.cart_text }
-                            onChange={ ( value ) => { setAttributes( { cart_text: value } ); } }
-                        />
-                    ) }
                     <TextControl
                         label={ __( 'Icon Size', 'porto-functionality' ) }
                         value={ attributes.icon_size }
@@ -254,7 +246,7 @@
                     ) }
                     <ServerSideRender
                         block={ name }
-                        attributes={ { type: attributes.type, content_type: attributes.content_type, icon_cl: attributes.icon_cl, cart_text: attributes.cart_text, className: attributes.className } }
+                        attributes={ { type: attributes.type, content_type: attributes.content_type, icon_cl: attributes.icon_cl, className: attributes.className } }
                     />
                 </Disabled>
             </>
@@ -271,7 +263,7 @@
         attributes: {
             type: {
                 type: 'string',
-                default: 'minicart-arrow-alt',
+                default: '',
             },
             content_type: {
                 type: 'string',
@@ -280,9 +272,6 @@
             icon_cl: {
                 type: 'string',
                 default: '',
-            },
-            cart_text: {
-                type: 'string',
             },
             icon_size: {
                 type: 'string',

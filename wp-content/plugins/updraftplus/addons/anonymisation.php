@@ -35,6 +35,27 @@ class UpdraftPlus_Anonymisation_Functions {
 	}
 
 	/**
+	 * This function adds database anonymisation options to the migration UI
+	 *
+	 * @param string $output - the current migration options UI
+	 *
+	 * @return string - the altered migration options UI
+	 */
+	public static function updraftplus_migration_anonymisation_options($output) {
+
+		global $updraftplus;
+
+		$output = '<em>'.__('These options can anonymize personal data in your database backup.', 'updraftplus').' '.__('N.B. Anonymized information cannot be recovered; the original non-anonymized data will be absent from the backup.', 'updraftplus').'</em><br>';
+		
+		$output .= '<label class="updraft_checkbox" for="updraftplus_migration_backupnow_db_anon_all"><input type="checkbox" id="updraftplus_migration_backupnow_db_anon_all">'.__('Anonymize personal data for all users except the logged-in user', 'updraftplus').'</label>';
+		
+		$output .= '<label class="updraft_checkbox" for="updraftplus_migration_backupnow_db_anon_non_staff"><input type="checkbox" id="updraftplus_migration_backupnow_db_anon_non_staff">'.__('Anonymize personal data for all users except staff', 'updraftplus').' <a href="'.$updraftplus->get_url('anon_backups').'" target="_blank">'.__('Learn more', 'updraftplus').'</a></label>';
+		
+
+		return $output;
+	}
+
+	/**
 	 * This function adds database anonymisation options to the clone creation UI
 	 *
 	 * @param string $output - the current clone options UI
@@ -188,6 +209,7 @@ class UpdraftPlus_Anonymisation_Functions {
 }
 
 add_filter('updraft_backupnow_database_showmoreoptions', 'UpdraftPlus_Anonymisation_Functions::backupnow_database_showmoreoptions', 10, 2);
+add_filter('updraftplus_migration_additional_ui', 'UpdraftPlus_Anonymisation_Functions::updraftplus_migration_anonymisation_options');
 add_filter('updraftplus_clone_additional_ui', 'UpdraftPlus_Anonymisation_Functions::updraftplus_clone_anonymisation_options');
 
 add_action('pre_database_backup_setup', 'UpdraftPlus_Anonymisation_Functions::setup_anonymisation_settings');

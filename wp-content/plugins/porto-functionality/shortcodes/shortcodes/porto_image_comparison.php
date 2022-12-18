@@ -17,91 +17,155 @@ function porto_load_image_comparison_shortcode() {
 			'icon'        => 'far fa-object-ungroup',
 			'category'    => __( 'Porto', 'porto-functionality' ),
 			'description' => __( 'Compares two images by moving divider handle.', 'porto-functionality' ),
-			'params'      => array(
+			'params'      => array_merge(
+				Porto_Wpb_Dynamic_Tags::get_instance()->dynamic_wpb_tags( 'image', 'before' ),
 				array(
-					'type'        => 'attach_image',
-					'heading'     => __( 'Before Image', 'porto-functionality' ),
-					'param_name'  => 'before_img',
-					'admin_label' => true,
-					'description' => __( 'Upload a before image to display.', 'porto-functionality' ),
-				),
-				array(
-					'type'        => 'attach_image',
-					'heading'     => __( 'After Image', 'porto-functionality' ),
-					'param_name'  => 'after_img',
-					'admin_label' => true,
-					'description' => __( 'Upload a after image to display.', 'porto-functionality' ),
-				),
-				array(
-					'type'       => 'porto_button_group',
-					'heading'    => __( 'Handle Orientation', 'porto-functionality' ),
-					'param_name' => 'orientation',
-					'value'      => array(
-						'horizontal' => array(
-							'title' => esc_html__( 'Horizontal', 'porto-functionality' ),
-						),
-						'vertical'   => array(
-							'title' => esc_html__( 'Vertical', 'porto-functionality' ),
+					array(
+						'type'        => 'attach_image',
+						'heading'     => __( 'Before Image', 'porto-functionality' ),
+						'param_name'  => 'before_img',
+						'admin_label' => true,
+						'description' => __( 'Upload a before image to display.', 'porto-functionality' ),
+						'dependency'  => array(
+							'element'  => 'enable_image_before_dynamic',
+							'is_empty' => true,
 						),
 					),
-					'std'        => 'horizontal',
 				),
+				Porto_Wpb_Dynamic_Tags::get_instance()->dynamic_wpb_tags( 'image', 'after' ),
 				array(
-					'type'        => 'number',
-					'heading'     => __( 'Handle Offset', 'porto-functionality' ),
-					'param_name'  => 'offset',
-					'value'       => 50,
-					'min'         => 0,
-					'max'         => 100,
-					'step'        => 1,
-					'description' => __( 'Controls the left or top position of the handle on page load.', 'porto-functionality' ),
-				),
-				array(
-					'type'       => 'porto_button_group',
-					'heading'    => __( 'Handle Movement Control', 'porto-functionality' ),
-					'param_name' => 'movement',
-					'value'      => array(
-						'click'       => array(
-							'title' => esc_html__( 'Drag & Click', 'porto-functionality' ),
-						),
-						'handle_only' => array(
-							'title' => esc_html__( 'Drag Only', 'porto-functionality' ),
-						),
-						'hover'       => array(
-							'title' => esc_html__( 'Hover', 'porto-functionality' ),
+					array(
+						'type'        => 'attach_image',
+						'heading'     => __( 'After Image', 'porto-functionality' ),
+						'param_name'  => 'after_img',
+						'admin_label' => true,
+						'description' => __( 'Upload a after image to display.', 'porto-functionality' ),
+						'dependency'  => array(
+							'element'  => 'enable_image_after_dynamic',
+							'is_empty' => true,
 						),
 					),
-					'std'        => 'click',
-				),
-				array(
-					'type'        => 'textfield',
-					'heading'     => __( 'Icon Class (ex: fas fa-pencil-alt)', 'porto-functionality' ),
-					'param_name'  => 'icon_cl',
-					'value'       => '',
-					'description' => __( 'Inputs the css class of the icon which is located in handle.', 'porto-functionality' ),
-				),
-				array(
-					'type'       => 'colorpicker',
-					'heading'    => __( 'Handle Color', 'porto-functionality' ),
-					'param_name' => 'handle_color',
-					'value'      => '',
-					'selectors'  => array(
-						'{{WRAPPER}} .porto-image-comparison-handle' => 'color: {{VALUE}};',
+					array(
+						'type'        => 'checkbox',
+						'heading'     => esc_html__( 'Hide Overlay', 'porto-functionality' ),
+						'description' => esc_html__( 'Turn on to hide hover overlay.', 'porto-functionality' ),
+						'param_name'  => 'hide_overlay',
 					),
-				),
-				array(
-					'type'       => 'colorpicker',
-					'heading'    => __( 'Handle Background Color', 'porto-functionality' ),
-					'param_name' => 'handle_bg_color',
-					'value'      => '',
-					'selectors'  => array(
-						'{{WRAPPER}} .porto-image-comparison-handle' => 'background-color: {{VALUE}};',
+					array(
+						'type'       => 'porto_button_group',
+						'heading'    => __( 'Handle Orientation', 'porto-functionality' ),
+						'param_name' => 'orientation',
+						'value'      => array(
+							'horizontal' => array(
+								'title' => esc_html__( 'Horizontal', 'porto-functionality' ),
+							),
+							'vertical'   => array(
+								'title' => esc_html__( 'Vertical', 'porto-functionality' ),
+							),
+						),
+						'std'        => 'horizontal',
 					),
-				),
-				$animation_type,
-				$animation_duration,
-				$animation_delay,
-				$custom_class,
+					array(
+						'type'        => 'number',
+						'heading'     => __( 'Handle Offset', 'porto-functionality' ),
+						'param_name'  => 'offset',
+						'value'       => 50,
+						'min'         => 0,
+						'max'         => 100,
+						'step'        => 1,
+						'description' => __( 'Controls the left or top position of the handle on page load.', 'porto-functionality' ),
+					),
+					array(
+						'type'       => 'porto_button_group',
+						'heading'    => __( 'Handle Movement Control', 'porto-functionality' ),
+						'param_name' => 'movement',
+						'value'      => array(
+							'click'       => array(
+								'title' => esc_html__( 'Drag & Click', 'porto-functionality' ),
+							),
+							'handle_only' => array(
+								'title' => esc_html__( 'Drag Only', 'porto-functionality' ),
+							),
+							'hover'       => array(
+								'title' => esc_html__( 'Hover', 'porto-functionality' ),
+							),
+						),
+						'std'        => 'click',
+					),
+					array(
+						'type'        => 'textfield',
+						'heading'     => __( 'Icon Class (ex: fas fa-pencil-alt)', 'porto-functionality' ),
+						'param_name'  => 'icon_cl',
+						'value'       => '',
+						'description' => __( 'Inputs the css class of the icon which is located in handle.', 'porto-functionality' ),
+					),
+					array(
+						'type'       => 'colorpicker',
+						'heading'    => __( 'Handle Color', 'porto-functionality' ),
+						'param_name' => 'handle_color',
+						'selectors'  => array(
+							'{{WRAPPER}} .porto-image-comparison-handle' => 'color: {{VALUE}};',
+						),
+						'group'      => __( 'Handle', 'porto-functionality' ),
+					),
+					array(
+						'type'       => 'colorpicker',
+						'heading'    => __( 'Handle Background Color', 'porto-functionality' ),
+						'param_name' => 'handle_bg_color',
+						'selectors'  => array(
+							'{{WRAPPER}} .porto-image-comparison-handle' => 'background-color: {{VALUE}};',
+						),
+						'group'      => __( 'Handle', 'porto-functionality' ),
+					),
+					array(
+						'type'       => 'porto_number',
+						'heading'    => __( 'Icon Size', 'porto-functionality' ),
+						'param_name' => 'handle_icon_sz',
+						'units'      => array( 'px', 'em' ),
+						'group'      => __( 'Handle', 'porto-functionality' ),
+						'selectors'  => array(
+							'{{WRAPPER}} .porto-image-comparison-handle' => 'font-size: {{VALUE}}{{UNIT}};',
+						),
+						'dependency' => array(
+							'element'   => 'icon_cl',
+							'not_empty' => true,
+						),
+					),
+					array(
+						'type'       => 'porto_number',
+						'heading'    => __( 'Handle Size', 'porto-functionality' ),
+						'param_name' => 'handle_sz',
+						'units'      => array( 'px', 'em' ),
+						'group'      => __( 'Handle', 'porto-functionality' ),
+						'selectors'  => array(
+							'{{WRAPPER}} .porto-image-comparison-handle' => '--porto-handle-sz: {{VALUE}}{{UNIT}};',
+						),
+					),
+					array(
+						'type'       => 'porto_number',
+						'heading'    => __( 'Thickness', 'porto-functionality' ),
+						'param_name' => 'handle_thickness',
+						'units'      => array( 'px', 'em' ),
+						'group'      => __( 'Handle', 'porto-functionality' ),
+						'selectors'  => array(
+							'{{WRAPPER}} .porto-image-comparison-handle' => '--porto-handle-bar: {{VALUE}}{{UNIT}};',
+						),
+					),
+					array(
+						'type'       => 'porto_number',
+						'heading'    => __( 'Radius', 'porto-functionality' ),
+						'param_name' => 'handle_radius',
+						'units'      => array( 'px', '%' ),
+						'group'      => __( 'Handle', 'porto-functionality' ),
+						'selectors'  => array(
+							'{{WRAPPER}} .porto-image-comparison-handle' => 'border-radius: {{VALUE}}{{UNIT}};',
+						),
+					),
+					$animation_type,
+					$animation_duration,
+					$animation_delay,
+					$custom_class,
+				)
 			),
 		)
 	);

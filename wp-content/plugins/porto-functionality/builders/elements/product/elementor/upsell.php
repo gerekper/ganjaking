@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Porto Elementor widget to display Upsell products on the single product page when using custom product layout
  *
- * @since 5.4.0
+ * @since 1.7.1
  */
 
 use Elementor\Controls_Manager;
@@ -31,6 +31,14 @@ class Porto_Elementor_CP_Upsell_Widget extends Porto_Elementor_CP_Related_Widget
 
 	public function get_keywords() {
 		return array( 'product', 'upsell' );
+	}
+
+	public function get_icon() {
+		return 'eicon-product-upsell';
+	}
+
+	public function get_custom_help_url() {
+		return 'https://www.portotheme.com/wordpress/porto/documentation/single-product-builder-elements/';
 	}
 
 	protected function render() {

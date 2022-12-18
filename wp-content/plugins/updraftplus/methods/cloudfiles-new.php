@@ -8,7 +8,7 @@ use OpenCloud\Rackspace;
 // New SDK - https://github.com/rackspace/php-opencloud and http://docs.rackspace.com/sdks/guide/content/php.html
 // Uploading: https://github.com/rackspace/php-opencloud/blob/master/docs/userguide/ObjectStore/Storage/Object.md
 
-require_once(UPDRAFTPLUS_DIR.'/methods/openstack-base.php');
+updraft_try_include_file('methods/openstack-base.php', 'require_once');
 
 class UpdraftPlus_BackupModule_cloudfiles_opencloudsdk extends UpdraftPlus_BackupModule_openstack_base {
 
@@ -27,7 +27,7 @@ class UpdraftPlus_BackupModule_cloudfiles_opencloudsdk extends UpdraftPlus_Backu
 		$authurl = $opts['authurl'];
 		$region = (!empty($opts['region'])) ? $opts['region'] : null;
 
-		include_once(UPDRAFTPLUS_DIR.'/vendor/autoload.php');
+		updraft_try_include_file('vendor/autoload.php', 'include_once');
 
 		// The new authentication APIs don't match the values we were storing before
 		$new_authurl = ('https://lon.auth.api.rackspacecloud.com' == $authurl || 'uk' == $authurl) ? Rackspace::UK_IDENTITY_ENDPOINT : Rackspace::US_IDENTITY_ENDPOINT;

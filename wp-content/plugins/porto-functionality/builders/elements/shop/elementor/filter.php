@@ -26,7 +26,7 @@ class Porto_Elementor_SB_Filter_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_keywords() {
-		return array( 'filter', 'shop', 'toggle', 'widget' );
+		return array( 'filter', 'shop', 'toggle', 'widget', 'sidebar' );
 	}
 
 	public function get_icon() {
@@ -37,28 +37,56 @@ class Porto_Elementor_SB_Filter_Widget extends \Elementor\Widget_Base {
 		return array();
 	}
 
-	protected function _register_controls() {
+	public function get_style_depends() {
+		$depends = array();
+		return $depends;
+	}
+
+	public function get_custom_help_url() {
+		return 'https://www.portotheme.com/wordpress/porto/documentation/shop-builder-elements/';
+	}
+
+	protected function register_controls() {
 		$this->start_controls_section(
 			'section_filter_layout',
 			array(
-				'label' => __( 'Filter Toggle', 'porto-functionality' ),
+				'label' => __( 'Filter', 'porto-functionality' ),
 			)
 		);
 
 		$this->add_control(
 			'notice_skin',
 			array(
-				'type' => Controls_Manager::RAW_HTML,
-				'raw' => __( 'To change the Products Archive’s layout, go to Porto / Theme Options / WooCommerce / Product Archives.', 'porto-functionality' ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'raw'             => esc_html__( 'You can use this widget to show / hide the shop sidebar in "Horizontal Filter 1" and "Off Canvas" filter layout.', 'porto-functionality' ),
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
+			)
+		);
+
+		$this->add_control(
+			'notice_skin2',
+			array(
+				'type'            => Controls_Manager::RAW_HTML,
+				'raw'             => esc_html__( 'This widget displays sidebar widgets in "Woo Category Filter" sidebar when using "Horizontal Filter 2" filter layout.', 'porto-functionality' ),
+				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
+			)
+		);
+
+		$this->add_control(
+			'notice_skin1',
+			array(
+				'type'            => Controls_Manager::RAW_HTML,
+				/* translators: starting and ending A tags */
+				'raw'             => sprintf( esc_html__( 'You can set these layouts in %1$sTheme Options -> WooCommerce -> Product Archives -> Filter Layout%2$s.', 'porto-functionality' ), '<a href="' . esc_url( admin_url( 'themes.php?page=porto_settings' ) ) . '" target="_blank">', '</a>' ),
+				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info fw-bold',
 			)
 		);
 
 		$this->add_control(
 			'notice_wrong_data',
 			array(
-				'type' => Controls_Manager::RAW_HTML,
-				'raw' => __( 'The editor\'s preview might look different from the live site. Please check the frontend.', 'porto-functionality' ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'raw'             => __( 'The editor\'s preview might look different from the live site. Please check the frontend.', 'porto-functionality' ),
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 			)
 		);

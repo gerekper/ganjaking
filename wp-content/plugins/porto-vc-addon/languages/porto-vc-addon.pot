@@ -1,0 +1,72 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Porto Visual Composer Addon\n"
+"POT-Creation-Date: 2022-01-05 16:40+0800\n"
+"PO-Revision-Date: 2017-10-10 00:07+0800\n"
+"Last-Translator: porto <porto@example.com>\n"
+"Language-Team: porto <porto@example.com>\n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: elements/portoProductsFilter/portoProductsFilter/PortoProductsFilterController.php:35
+msgid "Category"
+msgstr ""
+
+#: elements/portoProductsFilter/portoProductsFilter/PortoProductsFilterController.php:39
+msgid "Price"
+msgstr ""
+
+#: inc/elements_setup.php:337
+msgid "Porto Settings"
+msgstr ""
+
+#: inc/elements_setup.php:338
+msgid "Layout & Sidebar"
+msgstr ""
+
+#: inc/elements_setup.php:339
+msgid "Apply Changes"
+msgstr ""
+
+#: inc/elements_setup.php:340
+msgid "Use selected layout and sidebar options."
+msgstr ""
+
+#: inc/elements_setup.php:341
+msgid "Wrap as Container"
+msgstr ""
+
+#: inc/elements_setup.php:342
+msgid "Layout"
+msgstr ""
+
+#: inc/elements_setup.php:343
+msgid "Sidebar"
+msgstr ""
+
+#: inc/elements_setup.php:344
+msgid "You can create the sidebar under Appearance - Sidebars."
+msgstr ""
+
+#: inc/elements_setup.php:351
+msgid "Header Type"
+msgstr ""
+
+#: init.php:146
+msgid "is enabled but not effective. It requires Porto Functionality to work."
+msgstr ""
+
+#: init.php:160
+msgid "is enabled but not effective. It requires Visual Composer to work."
+msgstr ""

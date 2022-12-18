@@ -1,0 +1,271 @@
+/* Info Box */
+.porto-sicon-box .porto-icon,
+.porto-sicon-box .img-icon {
+    transition: transform .2s linear;
+}
+.porto-sicon-box .porto-sicon-img {
+    overflow: hidden
+}
+.porto-sicon-title {
+    margin: 3px 0;
+}
+.default-icon .porto-sicon-title:not(:last-child) {
+    margin: 0 0 3px;
+}
+.porto-sicon-header > p:last-child {
+    margin-bottom: 0;
+}
+.porto-sicon-description {
+    width: 100%;
+    display: block;
+    line-height: var(--porto-body-lh, 24px);
+    margin-top: 0;
+}
+.porto-sicon-header +.porto-sicon-description {
+    margin-top: 16px
+}
+.porto-sicon-read {
+    display: block;
+    padding: 5px 0;
+    text-decoration: none;
+    .wpb_wrapper & {
+        color: var(--porto-primary-color);
+        &:hover {
+            color: var(--porto-primary-light-5);
+        }
+    }
+}
+a.porto-sicon-box-link {
+    text-decoration: none;
+    border: none;
+    display: block
+}
+.porto-sicon-box-link:hover > .porto-sicon-title {
+    color: inherit
+}
+.porto-sicon-box.default-icon {
+    display: flex;
+    align-items: center;
+}
+.porto-sicon-box.flex-wrap {
+    .porto-sicon-header {
+        flex: 1;
+        min-width: 50%
+    }
+}
+.default-icon .porto-sicon-default .porto-icon,
+.default-icon .porto-sicon-default .porto-sicon-img {
+    margin-#{$right}: 15px;
+}
+.top-icon .porto-sicon-header,
+.top-icon .porto-sicon-description {
+    display: block;
+    margin: 0 auto
+}
+.top-icon .porto-sicon-header {
+    p:last-child {
+        margin-bottom: 0;
+    }
+    margin-bottom: 1rem;
+}
+.top-icon .porto-sicon-description {
+    margin-top: 15px
+}
+.top-icon .porto-sicon-header+.porto-sicon-description {
+    margin-top: 0
+}
+.porto-sicon-box.left-icon,
+.porto-sicon-box.right-icon {
+    display: flex;
+}
+.left-icon .porto-sicon-left .porto-icon,
+.left-icon .porto-sicon-left .porto-sicon-img {
+    margin-#{$right}: 20px;
+}
+.left-icon .porto-sicon-body,
+.right-icon .porto-sicon-body {
+    flex: 1;
+    max-width: 100%;
+}
+
+.porto-sicon-box.top-icon {
+    text-align: center
+}
+/*.porto-sicon-box .porto-just-icon-wrapper {
+    line-height: 1em;
+}*/
+
+.right-icon .porto-sicon-right .porto-icon,
+.right-icon .porto-sicon-right .porto-sicon-img {
+    margin-#{$left}: 15px;
+}
+.right-icon .porto-sicon-body,
+.right-icon .porto-sicon-body *,
+.right-icon .porto-sicon-header .porto-sicon-title,
+.right-icon .porto-sicon-description {
+    text-align: $right;
+}
+/*.right-icon .porto-sicon-description,
+.right-icon .porto-sicon-header {
+    float: $right;
+    width: 100%
+}*/
+.heading-right-icon .porto-sicon-heading-right {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%
+}
+.porto-sicon-heading-right+.porto-sicon-description {
+    margin-top: 10px
+}
+.heading-right-icon .porto-sicon-heading-right .porto-icon,
+.heading-right-icon .porto-sicon-heading-right .porto-sicon-img {
+    margin-#{$left}: 15px;
+}
+.heading-right-icon .porto-sicon-header {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%
+}
+.heading-right-icon .porto-sicon-header,
+.heading-right-icon .porto-sicon-description,
+.heading-right-icon .porto-sicon-description * {
+    text-align: $right;
+}
+
+html {
+    .top-icon {
+        .porto-just-icon-wrapper {
+            margin-bottom: 15px;
+        }
+        h3.porto-sicon-title {
+            margin-top: 0;
+        }
+        h2.porto-sicon-title {
+            margin-top: 0;
+        }
+    }
+}
+h3.porto-sicon-title {
+    font-size: 1.4em;
+    font-weight: 400;
+    text-transform: none;
+    line-height: 1.2;
+    small {
+        font-size: 75%;
+        display: block;
+        margin: 2px 0 4px;
+    }
+
+    .featured-box .porto-sicon-header & {
+        color: var(--porto-primary-color);
+    }
+}
+.porto-sicon-read {
+    margin-top: 10px;
+}
+
+.info-box-small,
+.info-box-small-wrap {
+    .porto-sicon-box {
+        margin-bottom: 15px;
+    }
+    .porto-sicon-header + .porto-sicon-description {
+        margin-top: 7px;
+    }
+}
+.porto-sicon-box {
+    margin-bottom: 20px;
+    /*.fa {
+        font-family: "FontAwesome" !important;
+    }*/
+}
+.porto-sicon-box.top-icon.text-left,
+.porto-sicon-box.bottom-icon.text-left,
+.porto-sicon-box.top-icon.text-start,
+.porto-sicon-box.bottom-icon.text-start {
+    .porto-sicon-header,
+    .porto-sicon-description {
+        text-align: $left !important;
+    }
+}
+.porto-sicon-box.top-icon.text-right,
+.porto-sicon-box.bottom-icon.text-right,
+.porto-sicon-box.top-icon.text-end,
+.porto-sicon-box.bottom-icon.text-end {
+    .porto-sicon-header,
+    .porto-sicon-description {
+        text-align: $right !important;
+    }
+}
+/* effects */
+.porto-sicon-box {
+    &.style_2:hover .porto-icon, &.style_2:hover .img-icon {
+        transform: scale(1.15, 1.15);
+    }
+    &.style_2:hover .porto-u-circle-img .img-icon {
+        transform: translate(-50%, -50%) scale(1.15, 1.15);
+    }
+    &.style_3:hover .porto-icon, &.style_3:hover .img-icon {
+        transform: translateY(-4px);
+    }
+    &.style_3:hover .porto-u-circle-img .img-icon {
+        transform: translate(-50%, -60%);
+    }
+    &.hover-icon-left:hover {
+        .porto-icon, .img-icon {
+            transform: translateX(-6px);
+        }
+    }
+    &.hover-icon-left:hover .porto-u-circle-img .img-icon {
+        transform: translate(-60%, -50%);
+    }
+    &.hover-icon-right:hover {
+        .porto-icon, .img-icon {
+            transform: translateX(6px);
+        }
+    }
+    &.hover-icon-right:hover .porto-u-circle-img .img-icon {
+        transform: translate(-40%, -50%);
+    }
+
+    .porto-icon, .porto-sicon-img {
+        vertical-align: middle
+    }
+
+    &.featured-icon {
+        h3.porto-sicon-title {
+            font-weight: $font-weight-semibold;
+        }
+
+        .porto-icon {
+            border-radius: 35px;
+            color: #fff;
+            margin-#{$right}: 10px;
+            height: 35px;
+            position: relative;
+            text-align: center;
+            width: 35px;
+            background: transparent;
+            border: 1px solid var(--porto-gray-2);
+            line-height: 32px;
+            &:after {
+                border-radius: 50%;
+                box-sizing: initial;
+                content: "";
+                display: block;
+                height: 100%;
+                #{$left}: -4px;
+                padding: 1px;
+                position: absolute;
+                top: -4px;
+                width: 100%;
+                border: 3px solid var(--porto-gray-3);
+            }
+
+            i {
+                line-height: 35px;
+            }
+        }
+    }
+}

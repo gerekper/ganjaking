@@ -1,28 +1,7 @@
 <?php
 
 // Porto Product Categories
-if ( function_exists( 'register_block_type' ) ) {
-	register_block_type(
-		'porto/porto-product-categories',
-		array(
-			'editor_script'   => 'porto_blocks',
-			'render_callback' => 'porto_shortcode_product_categories',
-		)
-	);
-}
-add_shortcode( 'porto_product_categories', 'porto_shortcode_product_categories' );
 add_action( 'vc_after_init', 'porto_load_product_categories_shortcode' );
-
-function porto_shortcode_product_categories( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_woo_template( 'porto_product_categories' ) ) {
-		if ( isset( $atts['className'] ) ) {
-			$atts['el_class'] = $atts['className'];
-		}
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_product_categories_shortcode() {
 	$animation_type     = porto_vc_animation_type();
@@ -52,8 +31,8 @@ function porto_load_product_categories_shortcode() {
 						'heading'     => __( 'View mode', 'porto-functionality' ),
 						'param_name'  => 'view',
 						'value'       => array(
-							__( 'Grid', 'porto-functionality' )   => 'grid',
-							__( 'Slider', 'porto-functionality' ) => 'products-slider',
+							__( 'Grid', 'porto-functionality' )            => 'grid',
+							__( 'Slider', 'porto-functionality' )          => 'products-slider',
 							__( 'Grid - Creative', 'porto-functionality' ) => 'creative',
 						),
 						'admin_label' => true,
@@ -143,10 +122,10 @@ function porto_load_product_categories_shortcode() {
 						'std'        => '',
 					),
 					array(
-						'type'       => 'dropdown',
-						'heading'    => __( 'Text Position', 'porto-functionality' ),
-						'param_name' => 'text_position',
-						'value'      => array(
+						'type'        => 'dropdown',
+						'heading'     => __( 'Text Position', 'porto-functionality' ),
+						'param_name'  => 'text_position',
+						'value'       => array(
 							__( 'Inner Middle Left', 'porto-functionality' ) => 'middle-left',
 							__( 'Inner Middle Center', 'porto-functionality' ) => 'middle-center',
 							__( 'Inner Middle Right', 'porto-functionality' ) => 'middle-right',
@@ -155,7 +134,8 @@ function porto_load_product_categories_shortcode() {
 							__( 'Inner Bottom Right', 'porto-functionality' ) => 'bottom-right',
 							__( 'Outside', 'porto-functionality' )           => 'outside-center',
 						),
-						'std'        => 'middle-center',
+						'qa_selector' => 'li.product-category:first-child .thumb-info-title',
+						'std'         => 'middle-center',
 					),
 					array(
 						'type'       => 'textfield',
@@ -170,6 +150,8 @@ function porto_load_product_categories_shortcode() {
 						'value'      => array(
 							__( 'Dark', 'porto-functionality' )  => 'dark',
 							__( 'Light', 'porto-functionality' ) => 'light',
+							__( 'Primary', 'porto-functionality' ) => 'primary',
+							__( 'Secondary', 'porto-functionality' ) => 'secondary',
 						),
 						'std'        => 'light',
 					),
@@ -229,25 +211,29 @@ function porto_load_product_categories_shortcode() {
 							__( 'None', 'porto-functionality' )  => 'none',
 						),
 						'std'         => '',
+						'group'       => __( 'Category Option', 'porto-functionality' ),
 					),
 					array(
-						'type'        => 'checkbox',
-						'heading'     => __( 'Display sub categories', 'porto-functionality' ),
-						'param_name'  => 'show_sub_cats',
-						'value'       => array( __( 'Yes', 'js_composer' ) => 'yes' ),
+						'type'       => 'checkbox',
+						'heading'    => __( 'Display sub categories', 'porto-functionality' ),
+						'param_name' => 'show_sub_cats',
+						'value'      => array( __( 'Yes', 'js_composer' ) => 'yes' ),
+						'group'      => __( 'Category Option', 'porto-functionality' ),
 					),
 					array(
 						'type'        => 'checkbox',
 						'heading'     => __( 'Display a featured product', 'porto-functionality' ),
-						'description' => __( 'If you check this option, a featured product in each category will be displayed under the product category.', 'porto-functionality' ),
+						'description' => __( 'If you check this option, a featured product in each category will be displayed under the product category. This option isn\'t available to "Grid-Creative" of "View".', 'porto-functionality' ),
 						'param_name'  => 'show_featured',
 						'value'       => array( __( 'Yes', 'js_composer' ) => 'yes' ),
+						'group'       => __( 'Category Option', 'porto-functionality' ),
 					),
 					array(
 						'type'       => 'checkbox',
 						'heading'    => __( 'Hide products count', 'porto-functionality' ),
 						'param_name' => 'hide_count',
 						'value'      => array( __( 'Yes', 'js_composer' ) => 'yes' ),
+						'group'      => __( 'Category Option', 'porto-functionality' ),
 					),
 					array(
 						'type'       => 'dropdown',
@@ -258,6 +244,7 @@ function porto_load_product_categories_shortcode() {
 							__( 'Display product count on hover', 'porto-functionality' ) => 'show-count-on-hover',
 						),
 						'std'        => '',
+						'group'      => __( 'Category Option', 'porto-functionality' ),
 					),
 					array(
 						'type'       => 'dropdown',
@@ -269,10 +256,229 @@ function porto_load_product_categories_shortcode() {
 						),
 						'value'      => porto_sh_commons( 'image_sizes' ),
 						'std'        => '',
+						'group'      => __( 'Category Option', 'porto-functionality' ),
+					),
+					array(
+						'type'        => 'porto_number',
+						'heading'     => __( 'Image Border Radius', 'porto-functionality' ),
+						'description' => __( 'To control the border radius of image', 'porto-functionality' ),
+						'param_name'  => 'thumb_border_radius',
+						'units'       => array( 'px', '%' ),
+						'dependency'  => array(
+							'element' => 'media_type',
+							'value'   => array( '' ),
+						),
+						'selectors'   => array(
+							'{{WRAPPER}} .thumb-info .thumb-info-wrapper' => 'border-radius: {{VALUE}}{{UNIT}};',
+						),
+						'qa_selector' => 'li.product-category:first-child',
+						'group'       => __( 'Style', 'porto-functionality' ),
+					),
+					array(
+						'type'        => 'porto_number',
+						'heading'     => __( 'Min Height of Text', 'porto-functionality' ),
+						'description' => __( 'To control the min height of category', 'porto-functionality' ),
+						'param_name'  => 'thumb_min_height',
+						'units'       => array( 'px' ),
+						'dependency'  => array(
+							'element' => 'media_type',
+							'value'   => array( 'none' ),
+						),
+						'selectors'   => array(
+							'{{WRAPPER}} .product-category .thumb-info' => 'min-height: {{VALUE}}{{UNIT}};',
+						),
+						'group'       => __( 'Style', 'porto-functionality' ),
+					),
+					array(
+						'type'        => 'porto_dimension',
+						'heading'     => __( 'Icon Padding (px)', 'porto-functionality' ),
+						'description' => __( 'To control the icon padding', 'porto-functionality' ),
+						'param_name'  => 'icon_padding',
+						'value'       => '',
+						'dependency'  => array(
+							'element' => 'media_type',
+							'value'   => array( 'icon' ),
+						),
+						'selectors'   => array(
+							'{{WRAPPER}} .thumb-info i' => 'padding: {{TOP}} {{RIGHT}} {{BOTTOM}} {{LEFT}};',
+						),
+						'group'       => __( 'Style', 'porto-functionality' ),
+					),
+					array(
+						'type'        => 'porto_number',
+						'heading'     => __( 'Icon Border Radius', 'porto-functionality' ),
+						'description' => __( 'To control the border radius of icon background.', 'porto-functionality' ),
+						'param_name'  => 'icon_border_radius',
+						'units'       => array( 'px', '%' ),
+						'dependency'  => array(
+							'element' => 'media_type',
+							'value'   => array( 'icon' ),
+						),
+						'selectors'   => array(
+							'{{WRAPPER}} .cat-has-icon .thumb-info i' => 'border-radius: {{VALUE}}{{UNIT}};',
+						),
+						'group'       => __( 'Style', 'porto-functionality' ),
+					),
+					array(
+						'type'       => 'porto_param_heading',
+						'param_name' => 'bg_color',
+						'text'       => __( 'Background color', 'porto-functionality' ),
+						'group'      => __( 'Style', 'porto-functionality' ),
+						'dependency' => array(
+							'element' => 'media_type',
+							'value'   => array( 'none', 'icon' ),
+						),
+					),
+					array(
+						'type'        => 'colorpicker',
+						'heading'     => __( 'Background Color', 'porto-functionality' ),
+						'description' => __( 'To set category background color', 'porto-functionality' ),
+						'param_name'  => 'thumb_bg_color',
+						'dependency'  => array(
+							'element' => 'media_type',
+							'value'   => array( 'none', 'icon' ),
+						),
+						'selectors'   => array(
+							'{{WRAPPER}} .thumb-info' => 'background-color: {{VALUE}};',
+						),
+						'group'       => __( 'Style', 'porto-functionality' ),
+					),
+					array(
+						'type'        => 'colorpicker',
+						'heading'     => __( 'Background Hover Color', 'porto-functionality' ),
+						'description' => __( 'To set category background hover color', 'porto-functionality' ),
+						'param_name'  => 'thumb_bg_color_hover',
+						'dependency'  => array(
+							'element' => 'media_type',
+							'value'   => array( 'none', 'icon' ),
+						),
+						'selectors'   => array(
+							'{{WRAPPER}} .thumb-info:hover' => 'background-color: {{VALUE}};',
+						),
+						'group'       => __( 'Style', 'porto-functionality' ),
+					),
+					array(
+						'type'        => 'colorpicker',
+						'heading'     => __( 'Icon Background Color', 'porto-functionality' ),
+						'description' => __( 'To set icon background color', 'porto-functionality' ),
+						'param_name'  => 'icon_bg_color',
+						'dependency'  => array(
+							'element' => 'media_type',
+							'value'   => array( 'icon' ),
+						),
+						'selectors'   => array(
+							'{{WRAPPER}} .cat-has-icon .thumb-info i' => 'background-color: {{VALUE}};',
+						),
+						'group'       => __( 'Style', 'porto-functionality' ),
+					),
+					array(
+						'type'        => 'colorpicker',
+						'heading'     => __( 'Icon Background Hover Color', 'porto-functionality' ),
+						'description' => __( 'To set icon background hover color', 'porto-functionality' ),
+						'param_name'  => 'icon_bg_color_hover',
+						'dependency'  => array(
+							'element' => 'media_type',
+							'value'   => array( 'icon' ),
+						),
+						'selectors'   => array(
+							'{{WRAPPER}} .cat-has-icon .thumb-info:hover i' => 'background-color: {{VALUE}};',
+						),
+						'group'       => __( 'Style', 'porto-functionality' ),
+					),
+					array(
+						'type'        => 'porto_typography',
+						'heading'     => __( 'Title Typography', 'porto-functionality' ),
+						'param_name'  => 'title_typo',
+						'description' => __( 'To control the title typography', 'porto-functionality' ),
+						'selectors'   => array(
+							'{{WRAPPER}} .product-category .thumb-info h3',
+						),
+						'qa_selector' => 'li.product-category:first-child .thumb-info h3',
+						'group'       => __( 'Text Style', 'porto-functionality' ),
+					),
+					array(
+						'type'        => 'porto_typography',
+						'heading'     => __( 'Category Typography', 'porto-functionality' ),
+						'param_name'  => 'category_typo',
+						'description' => __( 'To control the category typography', 'porto-functionality' ),
+						'dependency'  => array(
+							'element'   => 'show_sub_cats',
+							'not_empty' => true,
+						),
+						'selectors'   => array(
+							'{{WRAPPER}} .sub-categories li',
+						),
+						'group'       => __( 'Text Style', 'porto-functionality' ),
+					),
+					array(
+						'type'        => 'porto_typography',
+						'heading'     => __( 'Product Count Typography', 'porto-functionality' ),
+						'description' => __( 'To control the count typography', 'porto-functionality' ),
+						'param_name'  => 'product_count',
+						'dependency'  => array(
+							'element'  => 'hide_count',
+							'is_empty' => true,
+						),
+						'selectors'   => array(
+							'{{WRAPPER}} .product-category .thumb-info-type',
+						),
+						'group'       => __( 'Text Style', 'porto-functionality' ),
+					),
+					array(
+						'type'        => 'porto_typography',
+						'heading'     => __( 'Icon Typography', 'porto-functionality' ),
+						'description' => __( 'To control the icon typography', 'porto-functionality' ),
+						'param_name'  => 'icon_typo',
+						'dependency'  => array(
+							'element' => 'media_type',
+							'value'   => array( 'icon' ),
+						),
+						'selectors'   => array(
+							'{{WRAPPER}} .thumb-info i',
+						),
+						'group'       => __( 'Text Style', 'porto-functionality' ),
+					),
+					array(
+						'type'        => 'colorpicker',
+						'heading'     => __( 'Color', 'porto-functionality' ),
+						'param_name'  => 'text_normal_color',
+						'description' => __( 'To control the color of category', 'porto-functionality' ),
+						'selectors'   => array(
+							'{{WRAPPER}} .thumb-info-title' => 'color: {{VALUE}} !important;',
+							'{{WRAPPER}} .thumb-info i' => 'color: {{VALUE}} !important;',
+						),
+						'group'       => __( 'Text Style', 'porto-functionality' ),
+					),
+					array(
+						'type'        => 'colorpicker',
+						'heading'     => __( 'Hover Color', 'porto-functionality' ),
+						'description' => __( 'To control the hover color of category', 'porto-functionality' ),
+						'param_name'  => 'text_hover_color',
+						'selectors'   => array(
+							'{{WRAPPER}} .thumb-info:hover .thumb-info-title' => 'color: {{VALUE}} !important;',
+							'{{WRAPPER}} .thumb-info:hover i' => 'color: {{VALUE}} !important;',
+							'{{WRAPPER}} .thumb-info .thumb-info-inner' => 'transition: none;',
+						),
+						'group'       => __( 'Text Style', 'porto-functionality' ),
+					),
+					array(
+						'type'       => 'porto_dimension',
+						'heading'    => __( 'Text Padding (px)', 'porto-functionality' ),
+						'param_name' => 'thumb_padding',
+						'value'      => '',
+						'dependency' => array(
+							'element' => 'media_type',
+							'value'   => array( 'icon', 'none' ),
+						),
+						'selectors'  => array(
+							'{{WRAPPER}} .product-category:not(.cat-has-icon) .thumb-info .thumb-info-title' => 'padding: {{TOP}} {{RIGHT}} {{BOTTOM}} {{LEFT}};',
+							'{{WRAPPER}} .product-category.cat-has-icon .thumb-info' => 'padding: {{TOP}} {{RIGHT}} {{BOTTOM}} {{LEFT}};',
+						),
+						'group'      => __( 'Text Style', 'porto-functionality' ),
 					),
 					$custom_class,
 				),
-				porto_vc_product_slider_fields(),
+				porto_vc_product_slider_fields( 'products-slider', 'dots-style-1' ),
 				array(
 					array(
 						'type'        => 'textfield',

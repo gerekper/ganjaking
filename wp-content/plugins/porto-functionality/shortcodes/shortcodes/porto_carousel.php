@@ -38,10 +38,19 @@ function porto_load_carousel_shortcode() {
 					),
 				),
 				array(
+					'type'        => 'checkbox',
+					'heading'     => __( 'Disable Mouse Drag', 'porto-functionality' ),
+					'description' => __( 'This option will disapprove Mouse Drag.', 'porto-functionality' ),
+					'param_name'  => 'disable_mouse_drag',
+				),
+				array(
 					'type'       => 'textfield',
-					'heading'    => __( 'Item Margin', 'porto-functionality' ),
+					'heading'    => __( 'Item Margin (px)', 'porto-functionality' ),
 					'param_name' => 'margin',
 					'value'      => 10,
+					'selectors'  => array(
+						'{{WRAPPER}}' => '--porto-el-spacing: {{VALUE}}px;',
+					),
 				),
 				array(
 					'type'       => 'checkbox',
@@ -102,6 +111,7 @@ function porto_load_carousel_shortcode() {
 						__( 'Middle Outside', 'porto-functionality' ) => 'nav-pos-outside',
 						__( 'Top', 'porto-functionality' ) => 'show-nav-title',
 						__( 'Bottom', 'porto-functionality' ) => 'nav-bottom',
+						__( 'Custom', 'porto-functionality' ) => 'custom-pos',
 					),
 					'dependency' => array(
 						'element'   => 'show_nav',
@@ -116,7 +126,7 @@ function porto_load_carousel_shortcode() {
 					'value'      => porto_sh_commons( 'carousel_nav_types' ),
 					'dependency' => array(
 						'element' => 'nav_pos',
-						'value'   => array( '', 'nav-pos-inside', 'nav-pos-outside', 'nav-bottom' ),
+						'value'   => array( '', 'nav-pos-inside', 'nav-pos-outside', 'nav-bottom', 'custom-pos' ),
 					),
 					'group'      => __( 'Navigation', 'porto-functionality' ),
 				),
@@ -132,9 +142,10 @@ function porto_load_carousel_shortcode() {
 					'heading'    => __( 'Dots Position', 'porto-functionality' ),
 					'param_name' => 'dots_pos',
 					'value'      => array(
-						__( 'Outside', 'porto-functionality' ) => '',
-						__( 'Inside', 'porto-functionality' ) => 'nav-inside',
+						__( 'Outside', 'porto-functionality' )          => '',
+						__( 'Inside', 'porto-functionality' )           => 'nav-inside',
 						__( 'Top beside title', 'porto-functionality' ) => 'show-dots-title',
+						__( 'Custom', 'porto-functionality' )           => 'custom-dots',
 					),
 					'dependency' => array(
 						'element'   => 'show_dots',
@@ -157,6 +168,125 @@ function porto_load_carousel_shortcode() {
 					'group'      => __( 'Navigation', 'porto-functionality' ),
 				),
 				array(
+					'type'        => 'porto_number',
+					'heading'     => __( 'Top Position', 'porto-functionality' ),
+					'description' => __( 'You should choose one from the "Top Position" and the "Bottom Position"', 'porto-functionality' ),
+					'param_name'  => 'dots_pos_top',
+					'units'       => array( 'px', 'rem', '%' ),
+					'dependency'  => array(
+						'element' => 'dots_pos',
+						'value'   => 'custom-dots',
+					),
+					'responsive'  => true,
+					'selectors'   => array(
+						'{{WRAPPER}} .owl-dots' => 'top: {{VALUE}}{{UNIT}} !important;',
+					),
+					'qa_selector' => '.owl-dots > .owl-dot:first-child',
+					'group'       => __( 'Dots Style', 'porto-functionality' ),
+				),
+				array(
+					'type'        => 'porto_number',
+					'heading'     => __( 'Bottom Position', 'porto-functionality' ),
+					'description' => __( 'You should choose one from the "Top Position" and the "Bottom Position"', 'porto-functionality' ),
+					'param_name'  => 'dots_pos_bottom',
+					'units'       => array( 'px', 'rem', '%' ),
+					'dependency'  => array(
+						'element' => 'dots_pos',
+						'value'   => 'custom-dots',
+					),
+					'responsive'  => true,
+					'selectors'   => array(
+						'{{WRAPPER}} .owl-dots' => 'bottom: {{VALUE}}{{UNIT}} !important;',
+					),
+					'group'       => __( 'Dots Style', 'porto-functionality' ),
+				),
+				array(
+					'type'        => 'porto_number',
+					'heading'     => __( 'Left Position', 'porto-functionality' ),
+					'description' => __( 'You should choose one from the "Left Position" and the "Right Position".', 'porto-functionality' ),
+					'param_name'  => 'dots_pos_left',
+					'units'       => array( 'px', 'rem', '%' ),
+					'dependency'  => array(
+						'element' => 'dots_pos',
+						'value'   => 'custom-dots',
+					),
+					'responsive'  => true,
+					'selectors'   => array(
+						'{{WRAPPER}} .owl-dots' => 'left: {{VALUE}}{{UNIT}} !important;',
+					),
+					'group'       => __( 'Dots Style', 'porto-functionality' ),
+				),
+				array(
+					'type'        => 'porto_number',
+					'heading'     => __( 'Right Position', 'porto-functionality' ),
+					'description' => __( 'You should choose one from the "Left Position" and the "Right Position".', 'porto-functionality' ),
+					'param_name'  => 'dots_pos_right',
+					'units'       => array( 'px', 'rem', '%' ),
+					'dependency'  => array(
+						'element' => 'dots_pos',
+						'value'   => 'custom-dots',
+					),
+					'responsive'  => true,
+					'selectors'   => array(
+						'{{WRAPPER}} .owl-dots' => 'right: {{VALUE}}{{UNIT}} !important;',
+					),
+					'group'       => __( 'Dots Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'param_name' => 'dots_br_color',
+					'heading'    => __( 'Dots Color', 'porto-functionality' ),
+					'separator'  => 'before',
+					'dependency' => array(
+						'element' => 'dots_style',
+						'value'   => 'dots-style-1',
+					),
+					'selectors'  => array(
+						'{{WRAPPER}} .owl-dot span' => 'border-color: {{VALUE}} !important;',
+					),
+					'group'      => __( 'Dots Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'param_name' => 'dots_abr_color',
+					'heading'    => __( 'Dots Active Color', 'porto-functionality' ),
+					'dependency' => array(
+						'element' => 'dots_style',
+						'value'   => 'dots-style-1',
+					),
+					'selectors'  => array(
+						'{{WRAPPER}} .owl-dot.active span, {{WRAPPER}} .owl-dot:hover span' => 'color: {{VALUE}} !important; border-color: {{VALUE}} !important;',
+					),
+					'group'      => __( 'Dots Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'param_name' => 'dots_bg_color',
+					'heading'    => __( 'Dots Color', 'porto-functionality' ),
+					'separator'  => 'before',
+					'dependency' => array(
+						'element'            => 'dots_style',
+						'value_not_equal_to' => 'dots-style-1',
+					),
+					'selectors'  => array(
+						'{{WRAPPER}} .owl-dot span' => 'background-color: {{VALUE}} !important;',
+					),
+					'group'      => __( 'Dots Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'param_name' => 'dots_abg_color',
+					'heading'    => __( 'Dots Active Color', 'porto-functionality' ),
+					'dependency' => array(
+						'element'            => 'dots_style',
+						'value_not_equal_to' => 'dots-style-1',
+					),
+					'selectors'  => array(
+						'{{WRAPPER}} .owl-dot.active span, {{WRAPPER}} .owl-dot:hover span' => 'background-color: {{VALUE}} !important;',
+					),
+					'group'      => __( 'Dots Style', 'porto-functionality' ),
+				),
+				array(
 					'type'       => 'dropdown',
 					'heading'    => __( 'Dots Align', 'porto-functionality' ),
 					'param_name' => 'dots_align',
@@ -170,6 +300,173 @@ function porto_load_carousel_shortcode() {
 						'value'   => array( 'nav-inside' ),
 					),
 					'group'      => __( 'Navigation', 'porto-functionality' ),
+				),
+				array(
+					'type'        => 'porto_number',
+					'heading'     => __( 'Nav Font Size', 'porto-functionality' ),
+					'param_name'  => 'nav_fs',
+					'dependency'  => array(
+						'element'   => 'show_nav',
+						'not_empty' => true,
+					),
+					'separator'   => 'before',
+					'selectors'   => array(
+						'{{WRAPPER}} .owl-nav button' => 'font-size: {{VALUE}}px !important;',
+					),
+					'qa_selector' => '.owl-nav > .owl-prev',
+					'group'       => __( 'Nav Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'porto_number',
+					'heading'    => __( 'Nav Width', 'porto-functionality' ),
+					'param_name' => 'nav_width',
+					'units'      => array( 'px', 'rem', '%' ),
+					'dependency' => array(
+						'element' => 'nav_type',
+						'value'   => array( '', 'rounded-nav', 'big-nav', 'nav-style-3' ),
+					),
+					'selectors'  => array(
+						'{{WRAPPER}} .owl-nav button' => 'width: {{VALUE}}{{UNIT}} !important;',
+					),
+					'group'      => __( 'Nav Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'porto_number',
+					'heading'    => __( 'Nav Height', 'porto-functionality' ),
+					'param_name' => 'nav_height',
+					'units'      => array( 'px', 'rem', '%' ),
+					'dependency' => array(
+						'element' => 'nav_type',
+						'value'   => array( '', 'rounded-nav', 'big-nav', 'nav-style-3' ),
+					),
+					'selectors'  => array(
+						'{{WRAPPER}} .owl-nav button' => 'height: {{VALUE}}{{UNIT}} !important;',
+					),
+					'group'      => __( 'Nav Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'porto_number',
+					'heading'    => __( 'Border Radius', 'porto-functionality' ),
+					'param_name' => 'nav_br',
+					'units'      => array( 'px', '%' ),
+					'dependency' => array(
+						'element' => 'nav_type',
+						'value'   => array( '', 'rounded-nav', 'big-nav', 'nav-style-3' ),
+					),
+					'selectors'  => array(
+						'{{WRAPPER}} .owl-nav button' => 'border-radius: {{VALUE}}{{UNIT}} !important;',
+					),
+					'group'      => __( 'Nav Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'porto_number',
+					'heading'    => __( 'Horizontal Position', 'porto-functionality' ),
+					'param_name' => 'nav_h_pos',
+					'units'      => array( 'px', 'rem', '%' ),
+					'dependency' => array(
+						'element' => 'nav_pos',
+						'value'   => array( 'custom-pos', 'show-nav-title' ),
+					),
+					'responsive' => true,
+					'selectors'  => array(
+						'{{WRAPPER}} .owl-nav button.owl-prev' => 'left: {{VALUE}}{{UNIT}} !important;',
+						'{{WRAPPER}} .owl-nav button.owl-next' => 'right: {{VALUE}}{{UNIT}} !important;',
+					),
+					'group'      => __( 'Nav Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'porto_number',
+					'heading'    => __( 'Vertical Position', 'porto-functionality' ),
+					'param_name' => 'nav_v_pos',
+					'units'      => array( 'px', 'rem', '%' ),
+					'dependency' => array(
+						'element' => 'nav_pos',
+						'value'   => array( 'custom-pos', 'show-nav-title' ),
+					),
+					'responsive' => true,
+					'selectors'  => array(
+						'{{WRAPPER}} .owl-nav' => 'top: {{VALUE}}{{UNIT}} !important;',
+					),
+					'group'      => __( 'Nav Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'param_name' => 'nav_color',
+					'heading'    => __( 'Nav Color', 'porto-functionality' ),
+					'dependency' => array(
+						'element'   => 'show_nav',
+						'not_empty' => true,
+					),
+					'separator'  => 'before',
+					'selectors'  => array(
+						'{{WRAPPER}} .owl-nav button' => 'color: {{VALUE}} !important;',
+					),
+					'group'      => __( 'Nav Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'param_name' => 'nav_h_color',
+					'heading'    => __( 'Hover Nav Color', 'porto-functionality' ),
+					'dependency' => array(
+						'element'   => 'show_nav',
+						'not_empty' => true,
+					),
+					'selectors'  => array(
+						'{{WRAPPER}} .owl-nav button:not(.disabled):hover' => 'color: {{VALUE}} !important;',
+					),
+					'group'      => __( 'Nav Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'param_name' => 'nav_bg_color',
+					'heading'    => __( 'Background Color', 'porto-functionality' ),
+					'dependency' => array(
+						'element' => 'nav_type',
+						'value'   => array( '', 'big-nav', 'nav-style-3' ),
+					),
+					'selectors'  => array(
+						'{{WRAPPER}} .owl-nav button' => 'background-color: {{VALUE}} !important;',
+					),
+					'group'      => __( 'Nav Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'param_name' => 'nav_h_bg_color',
+					'heading'    => __( 'Hover Background Color', 'porto-functionality' ),
+					'dependency' => array(
+						'element' => 'nav_type',
+						'value'   => array( '', 'big-nav', 'nav-style-3' ),
+					),
+					'selectors'  => array(
+						'{{WRAPPER}} .owl-nav button:not(.disabled):hover' => 'background-color: {{VALUE}} !important;',
+					),
+					'group'      => __( 'Nav Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'param_name' => 'nav_br_color',
+					'heading'    => __( 'Nav Border Color', 'porto-functionality' ),
+					'dependency' => array(
+						'element' => 'nav_type',
+						'value'   => array( 'rounded-nav' ),
+					),
+					'selectors'  => array(
+						'{{WRAPPER}} .owl-nav button' => 'border-color: {{VALUE}} !important;',
+					),
+					'group'      => __( 'Nav Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'param_name' => 'nav_h_br_color',
+					'heading'    => __( 'Hover Nav Border Color', 'porto-functionality' ),
+					'dependency' => array(
+						'element' => 'nav_type',
+						'value'   => array( 'rounded-nav' ),
+					),
+					'selectors'  => array(
+						'{{WRAPPER}} .owl-nav button:not(.disabled):hover' => 'border-color: {{VALUE}} !important;',
+					),
+					'group'      => __( 'Nav Style', 'porto-functionality' ),
 				),
 				array(
 					'type'       => 'porto_animation_type',

@@ -21,7 +21,7 @@ if (!is_array(UpdraftPlus_Options::get_updraft_option('updraft_ftp')) && '' != U
 	UpdraftPlus_Options::delete_updraft_option('updraft_ftp_login');
 }
 
-if (!class_exists('UpdraftPlus_BackupModule')) require_once(UPDRAFTPLUS_DIR.'/methods/backup-module.php');
+if (!class_exists('UpdraftPlus_BackupModule')) updraft_try_include_file('methods/backup-module.php', 'require_once');
 
 class UpdraftPlus_BackupModule_ftp extends UpdraftPlus_BackupModule {
 
@@ -41,7 +41,7 @@ class UpdraftPlus_BackupModule_ftp extends UpdraftPlus_BackupModule {
 
 		if ('' == trim($server) || '' == trim($user) || '' == trim($pass)) return new WP_Error('no_settings', sprintf(__('No %s settings were found', 'updraftplus'), 'FTP'));
 
-		if (!class_exists('UpdraftPlus_ftp_wrapper')) include_once(UPDRAFTPLUS_DIR.'/includes/ftp.class.php');
+		if (!class_exists('UpdraftPlus_ftp_wrapper')) updraft_try_include_file('includes/ftp.class.php', 'include_once');
 
 		$port = 21;
 		if (preg_match('/^(.*):(\d+)$/', $server, $matches)) {

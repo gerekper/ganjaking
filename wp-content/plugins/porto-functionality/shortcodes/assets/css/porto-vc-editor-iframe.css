@@ -12,6 +12,102 @@
 .vc_welcome .vc_ui-btn-group { order: 2 }
 .vc_welcome { padding: 40px 20px }
 
+.vc_vc_column, .vc_vc_column_inner,
+.row > .vc_col-sm-12,
+.row > .vc_column_container { padding-left: calc(var(--bs-gutter-x) / 2); padding-right: calc(var(--bs-gutter-x) / 2); }
+.vc_vc_column:not(.col-half-section), .vc_vc_column_inner:not(.col-half-section) { max-width: 100% }
+.vc_vc_column > .vc_column_container, .vc_vc_column > .vc_column_container > .vc_column-inner,
+.vc_vc_column_inner > .vc_column_container, .vc_vc_column_inner > .vc_column_container > .vc_column-inner { height: 100% }
+.content-grid .content-grid-item.vc_column_container > .vc_column-inner,
+.vc_vc_column > .align-items-center > .vc_column-inner,
+.vc_vc_column > .align-items-end > .vc_column-inner,
+.vc_vc_column > .align-items-start > .vc_column-inner,
+.vc_vc_column_inner > .align-items-center > .vc_column-inner,
+.vc_vc_column_inner > .align-items-end > .vc_column-inner,
+.vc_vc_column_inner > .align-items-start > .vc_column-inner { height: auto }
+.no-padding > .vc_vc_column,
+.no-padding > .vc_vc_column_inner,
+.vc_row-no-padding > .vc_vc_column,
+.vc_row-no-padding > .vc_vc_column_inner,
+.vc_column-gap-1 > .vc_vc_column, .vc_column-gap-1 > .vc_vc_column_inner,
+.vc_column-gap-2 > .vc_vc_column, .vc_column-gap-2 > .vc_vc_column_inner,
+.vc_column-gap-3 > .vc_vc_column, .vc_column-gap-3 > .vc_vc_column_inner,
+.vc_column-gap-4 > .vc_vc_column, .vc_column-gap-4 > .vc_vc_column_inner,
+.vc_column-gap-5 > .vc_vc_column, .vc_column-gap-5 > .vc_vc_column_inner,
+.vc_column-gap-10 > .vc_vc_column, .vc_column-gap-10 > .vc_vc_column_inner,
+.vc_column-gap-15 > .vc_vc_column, .vc_column-gap-15 > .vc_vc_column_inner,
+.vc_column-gap-20 > .vc_vc_column, .vc_column-gap-20 > .vc_vc_column_inner,
+.vc_column-gap-25 > .vc_vc_column, .vc_column-gap-25 > .vc_vc_column_inner,
+.vc_column-gap-30 > .vc_vc_column, .vc_column-gap-30 > .vc_vc_column_inner,
+.vc_column-gap-35 > .vc_vc_column, .vc_column-gap-35 > .vc_vc_column_inner,
+.content-grid > .vc_vc_column,
+.content-grid > .vc_vc_column_inner { padding-left: 0; padding-right: 0 }
+.vc_row:after { content: ''; display: table; clear: both }
+
+.porto-ibanner { overflow: visible; min-height: 60px }
+.porto-ibanner-layer { min-width: 20px }
+.compose-mode .vc_porto_interactive_banner:hover { z-index: 9 }
+.compose-mode .vc_porto_single_product_next_prev_nav { position: static; }
+
+.compose-mode .vc_element .vc_element-container[class^="porto-"]:before,
+.compose-mode .vc_element .vc_element-container[class^="porto-"]:after { content: ''; display: block; min-height: .1px; }
+.vc_empty-placeholder,
+.compose-mode .vc_element.vc_vc_row>.vc_row>.vc_vc_column>.wpb_column>.vc_element-container>.vc_vc_row_inner .vc_vc_column_inner,
+.tab-content > .vc_element:last-child > div,
+.porto-ibanner-layer > .vc_element:last-child > div,
+.accordion .card-body > .vc_element:last-child > div { margin-bottom: 0 }
+.compose-mode .wpb_column>.wpb_wrapper>.vc_element:last-child>.wpb_content_element { margin-bottom: 35px }
+.vc_row .vc_vc_column > .vc_column_container>.wpb_wrapper.vc_column-inner,
+.vc_row-has-fill+.vc_vc_row>.vc_row>.vc_vc_column>.vc_column_container>.vc_column-inner,
+.compose-mode .vc_vc_row>[data-vc-full-width=true],
+.compose-mode .vc_vc_row_inner,
+.compose-mode .vc_vc_section>[data-vc-full-width=true],
+.compose-mode .vc_vc_row>.vc_parallax,
+.compose-mode .vc_vc_section>.vc_parallax,
+.compose-mode .vc_col-sm-1 .vc_vc_accordion,
+.compose-mode .vc_col-sm-1 .vc_vc_tour,
+.compose-mode .vc_col-sm-2 .vc_vc_accordion,
+.compose-mode .vc_col-sm-2 .vc_vc_tour,
+.compose-mode .vc_col-sm-3 .vc_vc_accordion,
+.compose-mode .vc_col-sm-3 .vc_vc_tour,
+.compose-mode .vc_col-sm-4 .vc_vc_accordion,
+.compose-mode .vc_col-sm-4 .vc_vc_tour { padding-top: 0 }
+.compose-mode .vc_vc_row>[data-vc-full-width=true].section { padding-top: 50px }
+.compose-mode .vc_empty-shortcode-element.vc_vc_separator { min-height: 4px; padding-top: 1px; padding-bottom: 1px }
+.compose-mode .vc_container-block[class*=" vc_porto_"] { min-height: 60px; }
+.compose-mode .vc_container-block.vc_porto_interactive_banner_layer,
+.compose-mode .vc_element .porto-ibanner-layer { min-height: 20px }
+.compose-mode .vc_element.vc_hold-active > .vc_controls { opacity: 1; animation: fadeOut .7s; }
+.compose-mode .vc_control-btn-append:before { content: none }
+.compose-mode .vc_control-btn-append .vc_btn-content { padding: 7px; border-radius: 0 }
+.compose-mode .vc_control-btn-append { position: static }
+.compose-mode .vc_controls-column>div>.vc_active.vc_element .vc_advanced,.compose-mode .vc_controls-column>div>.vc_active.vc_parent .vc_advanced,.compose-mode .vc_controls-container>div>.vc_active.vc_element .vc_advanced,.compose-mode .vc_controls-container>div>.vc_active.vc_parent .vc_advanced,.compose-mode .vc_controls-row>div>.vc_active.vc_element .vc_advanced,.compose-mode .vc_controls-row>div>.vc_active.vc_parent .vc_advanced { width: 150px }
+.compose-mode .vc_controls-column>div>.vc_active.parent-vc_row .vc_advanced,.compose-mode .vc_controls-column>div>.vc_active.parent-vc_row_inner .vc_advanced,.compose-mode .vc_controls-container>div>.vc_active.parent-vc_row .vc_advanced,.compose-mode .vc_controls-container>div>.vc_active.parent-vc_row_inner .vc_advanced,.compose-mode .vc_controls-row>div>.vc_active.parent-vc_row .vc_advanced,.compose-mode .vc_controls-row>div>.vc_active.parent-vc_row_inner .vc_advanced { width: 180px }
+.compose-mode .vc_controls-column>div>.vc_active.element-vc_column .vc_advanced,.compose-mode .vc_controls-column>div>.vc_active.element-vc_column_inner .vc_advanced,.compose-mode .vc_controls-container>div>.vc_active.element-vc_column .vc_advanced,.compose-mode .vc_controls-container>div>.vc_active.element-vc_column_inner .vc_advanced,.compose-mode .vc_controls-row>div>.vc_active.element-vc_column .vc_advanced,.compose-mode .vc_controls-row>div>.vc_active.element-vc_column_inner .vc_advanced { width: 120px }
+.compose-mode .vc_control-btn-prepend .vc-c-icon-add:after,
+.compose-mode .vc_control-btn-append .vc-c-icon-add:after { content: "\f060"; font-family: 'Font Awesome 5 Free'; font-weight: 900; position: absolute; font-size: .5em; bottom: -3px; left: -3px; }
+.compose-mode .vc_control-btn-append .vc-c-icon-add:after { content: "\f061"; left: auto; right: -3px; }
+.compose-mode .vc_control-btn .vc-composer-icon { display: block }
+.vc_column-inner > .vc_container-block[class*=" vc_porto_"]:first-child > .vc_controls > .vc_controls-out-tl { left: 280px; z-index: 1003 }
+.vc_column-inner .vc_container-block[class*=" vc_porto_"] .vc_container-block[class*=" vc_porto_"]:first-child > .vc_controls > .vc_controls-out-tl { left: 0; top: 0 }
+.vc_column-inner .vc_container-block[class*=" vc_porto_"] .vc_container-block[class*=" vc_porto_"] > .vc_controls > .vc_controls-out-tl { z-index: 1004 }
+.vc_column-inner .vc_container-block[class*=" vc_porto_"] .vc_container-block[class*=" vc_porto_"]:first-child .vc_container-block[class*=" vc_porto_"]:first-child > .vc_controls > .vc_controls-out-tl { left: 3px; top: 30px }
+.compose-mode .vc_container-block.vc_porto_interactive_banner_layer > .vc_controls > .vc_controls-out-tl { top: -30px !important; left: -2px !important }
+
+.compose-mode .vc_container-block[class*=" vc_porto_"]:hover { outline: 1px dashed rgba(0, 136, 204, .4) }
+.vc_row-has-fill > .vc_row > .vc_vc_column > .vc_column_container > .vc_column-inner > .vc_container-block[class*=" vc_porto_"],
+.vc_row-has-fill > .vc_vc_column_inner > .vc_column_container > .vc_column-inner > .vc_container-block[class*=" vc_porto_"] { margin-top: 0 }
+.compose-mode .vc_container-block.vc_porto_interactive_banner_layer,
+.compose-mode .vc_container-block.h-100[class*=" vc_porto_"] { margin-top: 0; margin-bottom: 0 }
+.compose-mode .curved-border .vc_container-block[class*=" vc_porto_"] { margin-bottom: 0 }
+.compose-mode .curved-border-top .vc_container-block[class*=" vc_porto_"] { margin-top: 0; margin-bottom: 30px }
+.wpb_tab.vc_clearfix:after { display: block; }
+.wpb_tabs .nav-tabs .nav-item { margin-bottom: -1px; }
+.tabs-vertical:before, .tabs-vertical:after { content: none }
+.header-builder .vc_column-inner > *:not(.vc_vc_row_inner) { margin-right: .875rem }
+.header-builder .vc_column-inner > *:last-child { margin-right: 0 }
+.compose-mode .page-content > .vc_vc_row:nth-child(2):hover { z-index: 1002 }
+
 .rtl .vc_ui-help-block:before { margin-right: 0; margin-left: .125rem }
 .rtl .vc_welcome .vc_ui-button .vc-composer-icon { padding: 0 0 0 .5em }
 .rtl.compose-mode .vc_controls > .vc_controls-out-tl > .vc_element > :first-child .vc_btn-content,
@@ -21,3 +117,139 @@
 .rtl.compose-mode .vc_controls-column>div>.vc_element :last-child .vc_btn-content,
 .rtl.compose-mode .vc_controls-container>div>.vc_element :last-child .vc_btn-content,
 .rtl.compose-mode .vc_controls-row>div>.vc_element :last-child .vc_btn-content { border-radius: 3px 0 0 3px }
+.rtl.compose-mode .vc_control-btn-prepend .vc-c-icon-add:after,
+.rtl.compose-mode .vc_control-btn-append .vc-c-icon-add:after { left: auto; right: -3px; }
+.rtl.compose-mode .vc_control-btn-append .vc-c-icon-add:after { right: auto; left: -3px; }
+.rtl .vc_column-inner > .vc_container-block[class*=" vc_porto_"]:first-child > .vc_controls > .vc_controls-out-tl { right: 280px; left: auto; }
+.rtl .vc_column-inner .vc_container-block[class*=" vc_porto_"] .vc_container-block[class*=" vc_porto_"]:first-child > .vc_controls > .vc_controls-out-tl { right: 0; left: auto; }
+.rtl .vc_column-inner .vc_container-block[class*=" vc_porto_"] .vc_container-block[class*=" vc_porto_"]:first-child .vc_container-block[class*=" vc_porto_"]:first-child > .vc_controls > .vc_controls-out-tl { right: 3px; left: auto; }
+.rtl.compose-mode .vc_container-block.vc_porto_interactive_banner_layer > .vc_controls > .vc_controls-out-tl { right: -2px !important; left: auto !important; }
+.rtl .header-builder .vc_column-inner > *:not(.vc_vc_row_inner) { margin-left: .875rem; margin-right: 0; }
+.rtl .header-builder .vc_column-inner > *:last-child { margin-left: 0; margin-right: auto; }
+
+/*
+ * Quick Access
+ * 
+ * @since 2.6.0
+ * @see elementor/asserts/preview.css
+ */
+ .porto-qa-item {
+    width: 30px;
+    height: 30px !important;
+    background-color: #08c;
+    color: #fff;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 1px rgb(60 67 74 / 15%);
+    text-align: center;
+    padding: 3px !important;
+    line-height: 1 !important;
+    z-index: 9999;
+    border-radius: 50%;
+    animation: both .4s qa-appear;
+}
+.porto-qa-item svg {
+    fill: #fff;
+    min-width: 20px;
+    min-height: 20px;
+    width: 20px;
+    height: 20px;
+    margin: auto;
+}
+.porto-qa-item .region {
+    position: absolute;
+    top: 13px;
+    left: 13px;
+    border: 3px solid #08c;
+    border-radius: 4px;
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
+}
+.porto-qa-item:hover .region {
+    opacity: 1;
+    visibility: visible;
+}
+.sidebar-menu>li.menu-item .popup,
+.sidebar-menu .narrow ul.sub-menu ul.sub-menu {
+    animation: none !important;
+}
+.mega-menu>li.menu-item.open .popup {
+    top: 100%;
+    transform: translate3d(0,0,0)
+}
+@keyframes qa-appear {
+    20%,40%,60%,80%,from,to {
+        animation-timing-function: cubic-bezier(0.215,0.610,0.355,1.000)
+    }
+
+    0% {
+        opacity: 0;
+        transform: scale3d(.3,.3,.3)
+    }
+
+    20% {
+        transform: scale3d(1.1,1.1,1.1)
+    }
+
+    40% {
+        transform: scale3d(.9,.9,.9)
+    }
+
+    60% {
+        opacity: 1;
+        transform: scale3d(1.03,1.03,1.03)
+    }
+
+    80% {
+        transform: scale3d(.97,.97,.97)
+    }
+
+    to {
+        opacity: 1;
+        transform: scale3d(1,1,1)
+    }
+}
+
+/*
+ * Go To the Type Builder
+ *
+ * @since 2.6.0
+ */
+.porto-tb-item {
+    position: relative;
+}
+.overlay-slidetop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    background-color: rgb(0,136,204,0.7);
+    overflow: hidden;
+    width: 100%;
+    animation: overlayDown .5s both;
+    z-index: 99;
+}
+.overlay-slidetop a {
+    display: block;
+    --porto-ov-size: 50px;
+    width: var(--porto-ov-size);
+    height: var(--porto-ov-size);
+    line-height: var(--porto-ov-size);
+    background: #fff;
+    font-size: calc( var(--porto-ov-size) / 2 );
+    text-align: center;
+    border-radius: 50%;
+}
+.overlay-slidetop i {
+    line-height: inherit;
+    color: var(--porto-dark-color);
+}
+.overlay-slidetop a:hover i {
+    animation: navItemArrow ease-out .3s;
+}
+@keyframes overlayDown {
+    from { bottom: 100%; height: 0; } 
+    to {  bottom: 0; height: 100%; }  
+}

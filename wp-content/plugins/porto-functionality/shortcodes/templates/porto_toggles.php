@@ -28,17 +28,18 @@ if ( $size ) {
 }
 
 if ( 'custom' == $skin && $color ) {
-	$sc_class  = 'toggles' . rand();
-	$el_class .= ' ' . $sc_class;
-	$output   .= '<style>';
+	$sc_class     = 'toggles' . rand();
+	$el_class    .= ' ' . $sc_class;
+	$inline_style = '<style>';
 	if ( 'toggle-simple' == $type ) {
-		$output .= '.' . $sc_class . '.toggle-simple .toggle > label:after { background-color: ' . $color . ' }';
+		$inline_style .= '.' . $sc_class . '.toggle-simple .toggle > label:after { background-color: ' . $color . ' }';
 	} else {
-		$output .= '.' . $sc_class . ' .toggle label { border-left-color: ' . $color . '; border-right-color: ' . $color . '; color: ' . $color . ' }';
-		$output .= '.' . $sc_class . ' .toggle.active > label { background-color: ' . $color . '; border-color: ' . $color . '; color: #ffffff }';
-		$output .= '.' . $sc_class . ' .toggle > label:after { background-color: ' . $color . ' }';
+		$inline_style .= '.' . $sc_class . ' .toggle label { border-left-color: ' . $color . '; border-right-color: ' . $color . '; color: ' . $color . ' }';
+		$inline_style .= '.' . $sc_class . ' .toggle.active > label { background-color: ' . $color . '; border-color: ' . $color . '; color: #ffffff }';
+		$inline_style .= '.' . $sc_class . ' .toggle > label:after { background-color: ' . $color . ' }';
 	}
-	$output .= '</style>';
+	$inline_style .= '</style>';
+	$output       .= porto_filter_inline_css( $inline_style, false );
 }
 
 if ( 'custom' != $skin ) {

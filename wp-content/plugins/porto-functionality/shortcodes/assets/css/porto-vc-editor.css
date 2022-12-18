@@ -29,6 +29,7 @@
 .vc_btn-save-draft:after { content: "\f0c7" }
 .vc_navbar .vc_btn-save-draft { border-left: 1px solid #3f444a !important }
 .vc_message { top: 3rem }
+.vc_backend_message.show-message { position: fixed; text-align: center; bottom: 2rem; width: 15%; left: 50%; transform: translateX(-50%); }
 .vc_add-element-container .wpb-content-layouts a { font-weight: 500 }
 .composer-switch .logo-icon { display: none }
 .composer-inner-switch { border-radius: 4px; overflow: hidden }
@@ -111,6 +112,8 @@
 .wpb_edit_form_elements .porto-responsive-control .porto-responsive-span li:nth-child(4) { font-size: 12px }
 .wpb_edit_form_elements .porto-responsive-control .porto-responsive-span li:nth-child(5) { font-size: 12px }
 .wpb_edit_form_elements .porto-responsive-control .porto-responsive-span:before { content: ""; position: absolute; right: 13px; top: -4px; border-bottom: 5px solid #222; border-left: 5px solid transparent; border-right: 5px solid transparent }
+.wpb_el_type_porto_param_heading > .wpb_element_label { margin-top: 10px; font-size: 1.2em; font-weight: 700; color: #222529; }
+.d-none { display: none !important; }
 
 @media (max-width: 575px) {
 	.vc_navbar .vc_navbar-btn { padding-left: 1rem; padding-right: 1rem }
@@ -140,6 +143,15 @@
 .vc_add-element-container .wpb-elements-list.vc_filter-all .wpb-layout-element-button.vc_element-deprecated[data-element="vc_accordion_tab"] {
 	display: block
 }
+
+.vc-c-icon-layout_large-desktop:before { font-family: 'porto'; content: "\e85e" }
+
+/* Frontend Tool Bar Override */
+div.porto-toolbar a:nth-child(3) { transform: translate(calc(-1 * var(--porto-toolbar-offset))) rotate(60deg); }
+div.porto-toolbar a:nth-child(3):before { transform: rotate(-60deg); }
+div.porto-toolbar a:nth-child(4) { transform: translate(calc(-1 * var(--porto-toolbar-offset))) rotate(120deg); }
+
+
 
 .rtl .vc_navbar .vc_navbar-btn:after { float: left; top: -1.5px; margin-right: .6em; margin-left: 0 }
 .rtl #vc_button-update:after { content: "\f053" }

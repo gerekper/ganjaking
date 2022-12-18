@@ -122,6 +122,16 @@ abstract class UpdraftPlus_BackupModule {
 	}
 
 	/**
+	 * Get partial templates associated to the corresponding backup module (remote storage object)
+	 * N.B. This method would normally be over-ridden by the child.
+	 *
+	 * @return Array an associative array keyed by name of the partial templates
+	 */
+	public function get_partial_templates() {
+		return array();
+	}
+	
+	/**
 	 * Check whether options have been set up by the user, or not
 	 * This method would normally be over-ridden by the child.
 	 *

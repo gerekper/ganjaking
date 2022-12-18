@@ -96,7 +96,7 @@ if ( 'preset' == $layout ) {
 			} else {
 				for ( $index = 2; $index <= 100; $index++ ) {
 					$r_w = round( $w * $index, 1 );
-					if ( (float)( (int) $r_w ) === $r_w ) { //integer
+					if ( (float) ( (int) $r_w ) === $r_w ) { //integer
 						$gcd = porto_gcd( $r_w, $index );
 						$arr = array( $r_w / $gcd, $index / $gcd );
 					}
@@ -121,6 +121,10 @@ if ( 'preset' == $layout ) {
 				$unit_num  .= esc_attr( $unit );
 				$grid_sizer = ' style="width:' . $unit_num . '; flex: 0 0 ' . $unit_num . '"';
 			}
+		} elseif ( 1 === count( $fractions ) ) {
+			$unit_num   = $numerators[0] / $denominators[0];
+			$unit_num  .= esc_attr( $unit );
+			$grid_sizer = ' style="width:' . $unit_num . '; flex: 0 0 ' . $unit_num . '"';
 		}
 	}
 }
@@ -139,26 +143,26 @@ $gutter_size_number  = preg_replace( '/[^.0-9]/', '', $gutter_size );
 $gutter_size         = str_replace( $gutter_size_number, (float) ( $gutter_size_number / 2 ), $gutter_size );
 $gutter_size_escaped = esc_html( $gutter_size );
 
-$output .= '<style scope="scope">';
-$output .= '#grid-' . $rand_escaped . ' .porto-grid-item { padding: ' . $gutter_size_escaped . '; }';
-$output .= '#grid-' . $rand_escaped . ' { margin: -' . $gutter_size_escaped . ' -' . $gutter_size_escaped . ' ' . $gutter_size_escaped . '; }';
+$inline_style  = '#grid-' . $rand_escaped . ' .porto-grid-item { padding: ' . $gutter_size_escaped . '; }';
+$inline_style .= '#grid-' . $rand_escaped . ' { margin: -' . $gutter_size_escaped . ' -' . $gutter_size_escaped . ' ' . $gutter_size_escaped . '; }';
 if ( 'preset' == $layout ) {
 	ob_start();
 	porto_creative_grid_style( $porto_grid_layout, $grid_height_number, 'grid-' . $rand_escaped, false, false, $unit, $iso_options['itemSelector'] );
-	$output .= ob_get_clean();
+	$inline_style .= ob_get_clean();
 } elseif ( ! empty( $max_width ) ) {
-	$output .= '@media (max-width:' . esc_html( $max_width ) . ') {';
-	$output .= '#grid-' . $rand_escaped . ' { height: auto !important }';
-	$output .= '#grid-' . $rand_escaped . ' .porto-grid-item:first-child { margin-top: 0 }';
-	$output .= '#grid-' . $rand_escaped . ' .porto-grid-item { width: 100% !important; position: static !important; float: none }';
-	$output .= '}';
+	$inline_style .= '@media (max-width:' . esc_html( $max_width ) . ') {';
+	$inline_style .= '#grid-' . $rand_escaped . ' { height: auto !important }';
+	$inline_style .= '#grid-' . $rand_escaped . ' .porto-grid-item:first-child { margin-top: 0 }';
+	$inline_style .= '#grid-' . $rand_escaped . ' .porto-grid-item { width: 100% !important; position: static !important; float: none }';
+	$inline_style .= '}';
 }
 if ( function_exists( 'vc_is_inline' ) && vc_is_inline() ) {
-	$output .= '.porto-grid-container .porto-grid-item { float: none; } .porto-grid-container .vc_porto_grid_item { float: left; }';
-	$output .= '.porto-grid-container .porto-grid-item .wpb_single_image { margin-bottom: 0; }';
+	$inline_style .= '.porto-grid-container .porto-grid-item { float: none; } .porto-grid-container .vc_porto_grid_item { float: left; }';
+	$inline_style .= '.porto-grid-container .porto-grid-item .wpb_single_image { margin-bottom: 0; }';
 }
-$output .= '</style>';
-
-$output .= '</div>';
+if ( $inline_style ) {
+	$output .= '<style>' . $inline_style . '</style>';
+}
+$output       .= '</div>';
 
 echo porto_filter_output( $output );

@@ -59,6 +59,7 @@ if ( ! $show_icon ) {
 if ( 'custom' == $skin && ( $box_style || $box_effect || $icon_class ) ) {
 	$sc_class  = 'porto-content-box' . rand();
 	$el_class .= ' ' . $sc_class;
+	ob_start();
 	?>
 	<style>
 	<?php
@@ -177,6 +178,7 @@ if ( 'custom' == $skin && ( $box_style || $box_effect || $icon_class ) ) {
 	?>
 	</style>
 	<?php
+	porto_filter_inline_css( ob_get_clean() );
 }
 
 if ( $bg_type ) {

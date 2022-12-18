@@ -1,0 +1,96 @@
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    scroll-behavior: auto;
+  }
+}
+
+html {
+    direction: $dir;
+    overflow-x: hidden;
+    box-shadow: none !important;
+    font-size: calc( 16px * var(--porto-mobile-fs-scale, 1) );
+}
+
+body {
+    font: var(--porto-body-fst, normal) var(--porto-body-fw, 400) var(--porto-body-fs, 14px)/var(--porto-body-lh, 24px) var(--porto-body-ff), sans-serif;
+    letter-spacing: var(--porto-body-ls, 0);
+    color: var(--porto-body-color);
+}
+
+a {
+    &:hover {
+        color: var(--porto-primary-light-5);
+    }
+    &:focus,
+    &:active {
+        color: var(--porto-primary-dark-5);
+    }
+}
+
+.color-body,
+.color-body a,
+.color-body a:hover,
+.color-body a:focus {
+    color: var(--porto-body-color);
+}
+
+.clear {
+    float: none;
+    clear: both;
+}
+
+.f-left, .pull-left {
+    float: $left;
+}
+.f-right, .pull-right {
+    float: $right;
+}
+.f-none {
+    float: none;
+}
+.hide, .sticky-header .d-sticky-header-none {
+    display: none !important;
+}
+
+.row:before, .row:after {
+    content: none
+}
+
+.row-align-items-center .row {
+    align-items: center;
+}
+
+a.nolink {
+    pointer-events: none;
+}
+
+[data-plugin-sticky] {
+    position: relative;
+    z-index: 8;
+}
+
+[data-plugin-sticky], .porto-sticky {
+    will-change: position, top, bottom, left;
+    padding-bottom: 1px
+}
+
+.pin-wrapper {
+    width: 100%
+}
+
+.z-index-1 {
+    z-index: 1;
+}
+
+input {
+    max-width: 100%
+}
+
+@media (min-width: 992px) {
+    @for $i from 1 through 12 {
+        $infix: floor(100 / 12 * $i);
+        .w-lg-#{$infix} {
+            width: #{100% / 12 * $i}!important
+        }
+    }
+}

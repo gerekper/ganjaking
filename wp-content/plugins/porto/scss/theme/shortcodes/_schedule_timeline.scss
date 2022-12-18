@@ -1,0 +1,295 @@
+// Porto Schedule Timeline
+.border-transparent {
+	border-color: transparent;
+}
+.no-box-shadow {
+	box-shadow: none !important;
+}
+.timeline-circle {
+	position: relative;
+	margin-#{$left}: 25px;
+	width: 118px;
+	height: 118px;
+	border-radius: 50%;
+	border-width: 1px;
+	border-style: solid;
+	z-index: 2;
+	box-shadow: 0px 11px 21px 0px rgba(229, 232, 235, 0.75);
+	.circle-dotted {
+		position: absolute;
+		padding: 16px;
+		width: 106px;
+		height: 106px;
+		top: 5px;
+		#{$left}: 5px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-style: dashed;
+		border-width: 1px;
+		border-radius: 50%;
+		overflow: hidden;
+	}
+	.step-title {
+		font-size: 1.5em;
+		line-height: 1.5;
+		display: block;
+	}
+	&.circle-light {
+		border-color: #e6ebeb;
+		.circle-dotted {
+			border-color: #e6ebeb;
+		}
+	}
+}
+
+.timeline-balloon {
+	position: relative;
+	&::before {
+		content: '';
+		position: absolute;
+		top: -35px;
+		#{$left}: calc( 84px - var(--porto-step-line-width, 1px) / 2 );
+		width: var(--porto-step-line-width, 1px);
+		height: 120%;
+		background-color: #e6ebeb;
+	}
+	&:last-of-type::before {
+		height: 75px;
+	}
+	.balloon-cell {
+		display: table-cell;
+		vertical-align: top;
+		width: 100%;
+	}
+	.balloon-time {
+		padding-top: 25px;
+		width: 93px;
+		white-space: nowrap;
+		.time-text {
+			display: inline-block;
+			vertical-align: middle;
+			width: 72px;
+			font-size: .9em;
+			font-weight: 700;
+			color: var(--porto-heading-color);
+			white-space: normal;
+			line-height: 1.4;
+		}
+		.time-dot {
+			position: relative;
+			width: 25px;
+			height: 25px;
+			display: inline-block;
+			vertical-align: middle;
+			&::before {
+				content: '';
+				position: absolute;
+				width: 19px;
+				height: 19px;
+				top: 50%;
+				left: 50%;
+				border: 2px solid var(--porto-primary-color);
+				border-radius: 50%;
+				transform: translate(-50%, -50%);
+			}
+			&::after {
+				content: '';
+				position: absolute;
+				width: 7px;
+				height: 7px;
+				top: 50%;
+				left: 50%;
+				border-radius: 50%;
+				transform: translate(-50%, -50%);
+				background-color: var(--porto-primary-color);
+			}
+		}
+	}
+	.balloon-content {
+		position: relative;
+		margin-#{$left}: 34px;
+		padding: 25px;
+		padding-#{$right}: 15px;
+		border-width: 1px;
+		border-style: solid;
+		border-radius: 3px;
+		border-color: #e6ebeb;
+		display: flex;
+		&.balloon-shadow {
+			box-shadow: 0px 11px 21px 0px rgba(229, 232, 235, 0.75);
+		}
+		.balloon-arrow {
+			position: absolute;
+			width: 20px;
+			height: 20px;
+			top: 35px;
+			#{$left}: -15px;
+			border-width: 1px;
+			border-style: solid;
+			border-#{$right}: none;
+			border-bottom: none;
+			border-color: #e6ebeb;
+			background-color: inherit;
+			@if $rtl == 1{
+				transform: rotate(45deg);
+				transform-origin: right top;
+			} @else {
+				transform: rotate(-45deg);
+				transform-origin: left top;
+			}
+		}
+		.balloon-photo {
+			height: 64px;
+			width: 64px;
+			margin-#{$right}: 25px;
+		}
+	}
+}
+
+@media (max-width: 767px) {
+	.timeline-circle {
+		margin: 0px auto 35px !important;
+	}
+	.timeline-balloon {
+		&:before {
+			#{$left}: 50%;
+		}
+		.balloon-time {
+			.time-dot {
+				display: none;
+			}
+			.time-text {
+				position: absolute;
+				top: -11px;
+				left: 50%;
+				text-align: center;
+				background: #FFF;
+				border-width: 1px;
+				border-style: solid;
+				border-radius: 3px;
+				border-color: #e6ebeb;
+				padding: 5px 0px;
+				z-index: 1;
+				transform: translateX(-50%);
+			}
+		}
+		.balloon-content {
+			margin-#{$left}: 5px;
+		}
+	}
+}
+
+.porto-process {
+	.process-step {
+		display: flex;
+		position: relative;
+		padding-bottom: 60px;
+		overflow: hidden;
+		&:first-child {
+			.process-step-circle:before {
+				display: none;
+			}
+		}
+		&:last-child {
+			padding-bottom: 20px;
+			.process-step-circle:after {
+				display: none;
+			}
+		}
+	}
+	.process-step-circle {
+		display: flex;
+		flex: 0 0 auto;
+		justify-content: center;
+		width: 60px;
+		height: 60px;
+		text-align: center;
+		border: var(--porto-step-circle-bw, 2px) solid var(--porto-primary-color, #ccc);
+		border-radius: 50%;
+		align-items: center;
+		position: relative;
+		transition: .2s;
+		margin: side-values(5px 15px 0 0);
+		font-size: 1.6em;
+		letter-spacing: -1px;
+		color: var(--porto-dark-color, $color-black);
+		&:before,
+		&:after {
+			content: '';
+			width: var(--porto-step-line-width, 2px);
+			background-color: #ededed;
+			position: absolute;
+			height: 300px;
+			top: 58px;
+			left: calc( 30px - var(--porto-step-line-width, 2px) / 2 - var(--porto-step-circle-bw, 2px) );
+		}
+		&:before {
+			top: auto;
+			bottom: 100%;
+			height: 58px;
+			margin-bottom: 2px;
+		}
+	}
+}
+
+.process-step-content {
+	max-width: 100%;
+	.step-item-title {
+		font-size: 1.2em;
+		margin-bottom: .25rem;
+		font-weight: 700;
+	}
+}
+
+.porto-process {
+	&.process-horizontal {
+		text-align: center;
+		@media (min-width: 992px) {
+			display: flex;
+		}
+		.process-step {
+			align-items: center;
+			flex-direction: column;
+			justify-content: center;
+			flex: 1;
+			padding: 0 1.5rem;
+			margin-bottom: 2.5rem;
+			overflow: visible;
+			@media (min-width: 992px) {
+				&:before {
+					content: '';
+					height: var(--porto-step-line-width, 2px);
+					background-color: #ededed;
+					position: absolute;
+					width: 50%;
+					top: calc( 45px - var(--porto-step-line-width, 2px) / 2 );
+					#{$left}: 75%;
+				}
+				&:last-child:before {
+					content: none;
+				}
+			}
+		}
+		.process-step-circle {
+			flex: none;
+			width: 90px;
+			height: 90px;
+			margin: 0;
+			i {
+				font-size: 1.5em;
+			}
+			&:before,
+			&:after {
+				content: none;
+			}
+		}
+		.process-step-content {
+			padding-top: 20px;
+			h4 {
+				font-size: 1.5em;
+				margin-bottom: .5rem;
+			}
+		}
+	}
+}

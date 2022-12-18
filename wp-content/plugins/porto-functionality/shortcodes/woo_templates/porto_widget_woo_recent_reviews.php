@@ -8,7 +8,6 @@ extract(
 			'view'               => 'grid',
 			'columns'            => 2,
 			'show_desc'          => '',
-
 			'navigation'         => 1,
 			'nav_pos'            => '',
 			'nav_pos2'           => '',
@@ -18,7 +17,6 @@ extract(
 			'dots_pos'           => '',
 			'autoplay'           => '',
 			'autoplay_timeout'   => 5000,
-
 			'animation_type'     => '',
 			'animation_duration' => 1000,
 			'animation_delay'    => 0,
@@ -27,12 +25,27 @@ extract(
 		$atts
 	)
 );
-
+if ( ! is_array( $atts ) ) {
+	$atts = array();
+}
 if ( ! $title ) {
 	$atts['title'] = '';
 }
 
+// Backward compatibility
+if ( ! isset( $atts['dots_style'] ) ) {
+	$dots_style = 'dots-style-1';
+}
+
+if ( empty( $dots_style ) ) {
+	$dots_style = '';
+}
+
 $el_class = porto_shortcode_extract_class( $el_class );
+
+if ( ! empty( $shortcode_class ) ) {
+	$el_class .= $shortcode_class;
+}
 
 $output = '<div class="vc_widget_woo_recent_reviews wpb_content_element' . esc_attr( $el_class ) . '"';
 if ( $animation_type ) {
@@ -108,8 +121,13 @@ if ( 2 !== (int) $columns && 'grid' == $view ) {
 		}
 	}
 
-	if ( $pagination && $dots_pos ) {
-		$wrapper_class .= ' ' . $dots_pos;
+	if ( $pagination ) {
+		if ( $dots_pos ) {
+			$wrapper_class .= ' ' . $dots_pos;
+		}
+		if ( 'dots-style-1' == $dots_style ) {
+			$wrapper_class .= ' dots-style-1';
+		}
 	}
 
 	$options = json_encode( $options );

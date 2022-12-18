@@ -15,7 +15,7 @@ class UpdraftCentral_UpdraftPlus_Commands extends UpdraftCentral_Commands {
 	
 		parent::__construct($rc);
 	
-		if (!class_exists('UpdraftPlus_Commands')) include_once(UPDRAFTPLUS_DIR.'/includes/class-commands.php');
+		if (!class_exists('UpdraftPlus_Commands')) updraft_try_include_file('includes/class-commands.php', 'include_once');
 		$this->commands = new UpdraftPlus_Commands($this);
 		
 	}

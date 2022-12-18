@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Porto Elementor widget to display sticky navigation
  *
- * @since 6.3.0
+ * @since 2.3.0
  */
 
 use Elementor\Controls_Manager;
@@ -35,12 +35,21 @@ class Porto_Elementor_Sticky_Nav_Widget extends \Elementor\Widget_Base {
 		return 'eicon-navigation-horizontal';
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 
 		$this->start_controls_section(
 			'section_sticky_nav',
 			array(
 				'label' => __( 'Sticky Navigation', 'porto-functionality' ),
+			)
+		);
+
+		$this->add_control(
+			'description_nav',
+			array(
+				'type'            => Controls_Manager::RAW_HTML,
+				'raw'             => sprintf( esc_html__( 'Please don\'t put this widget on sticky header.', 'porto-functionality' ), '<b>', '</b>' ),
+				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 			)
 		);
 
@@ -80,7 +89,7 @@ class Porto_Elementor_Sticky_Nav_Widget extends \Elementor\Widget_Base {
 			array(
 				'name'     => 'typography',
 				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
-				'label'    => __( 'Link Typograhy', 'porto-functionality' ),
+				'label'    => __( 'Link Typography', 'porto-functionality' ),
 				'selector' => '.elementor-element-{{ID}} .nav-pills > li > a, .elementor-element-{{ID}} .nav-pills > li > span',
 			)
 		);
@@ -88,66 +97,11 @@ class Porto_Elementor_Sticky_Nav_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'skin',
 			array(
-				'type'    => Controls_Manager::SELECT,
-				'label'   => __( 'Skin Color', 'porto-functionality' ),
-				'options' => array_combine( array_values( porto_sh_commons( 'colors' ) ), array_keys( porto_sh_commons( 'colors' ) ) ),
-				'default' => 'custom',
-			)
-		);
-
-		$this->add_control(
-			'link_color1',
-			array(
-				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Link Color', 'porto-functionality' ),
-				'selectors' => array(
-					'.elementor-element-{{ID}} .nav-pills > li > a' => 'color: {{VALUE}};',
-				),
-				'condition' => array(
-					'skin' => 'custom',
-				),
-			)
-		);
-
-		$this->add_control(
-			'link_bg_color1',
-			array(
-				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Link Background Color', 'porto-functionality' ),
-				'selectors' => array(
-					'.elementor-element-{{ID}} .nav-pills > li > a' => 'background-color: {{VALUE}};',
-				),
-				'condition' => array(
-					'skin' => 'custom',
-				),
-			)
-		);
-
-		$this->add_control(
-			'link_acolor1',
-			array(
-				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Link Active Color', 'porto-functionality' ),
-				'selectors' => array(
-					'.elementor-element-{{ID}} .nav-pills > li.active > a' => 'color: {{VALUE}};',
-				),
-				'condition' => array(
-					'skin' => 'custom',
-				),
-			)
-		);
-
-		$this->add_control(
-			'link_abg_color1',
-			array(
-				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Link Active Background Color', 'porto-functionality' ),
-				'selectors' => array(
-					'.elementor-element-{{ID}} .nav-pills > li.active > a' => 'background-color: {{VALUE}};',
-				),
-				'condition' => array(
-					'skin' => 'custom',
-				),
+				'type'      => Controls_Manager::SELECT,
+				'label'     => __( 'Skin Color', 'porto-functionality' ),
+				'options'   => array_combine( array_values( porto_sh_commons( 'colors' ) ), array_keys( porto_sh_commons( 'colors' ) ) ),
+				'default'   => 'custom',
+				'separator' => 'before',
 			)
 		);
 
@@ -160,6 +114,35 @@ class Porto_Elementor_Sticky_Nav_Widget extends \Elementor\Widget_Base {
 					'.elementor-element-{{ID}} .nav-pills > li > a, .elementor-element-{{ID}} .nav-pills > li > span' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 				'size_units' => array( 'px', 'em', 'rem' ),
+			)
+		);
+
+		$this->add_control(
+			'link_border_width',
+			array(
+				'type'      => Controls_Manager::SLIDER,
+				'label'     => __( 'Border Bottom Width', 'porto-functionality' ),
+				'range'     => array(
+					'px' => array(
+						'step' => 1,
+						'min'  => 1,
+						'max'  => 100,
+					),
+				),
+				'selectors' => array(
+					'.elementor-element-{{ID}} .nav li a, .elementor-element-{{ID}} .nav li span' => 'border-bottom: {{SIZE}}{{UNIT}} solid;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'fill_wrap',
+			array(
+				'type'        => Controls_Manager::SWITCHER,
+				'label'       => __( 'Fill the wrap', 'porto-functionality' ),
+				'selectors'   => array(
+					'.elementor-element-{{ID}} .nav li' => 'flex:1; text-align:center;',
+				),
 			)
 		);
 
@@ -216,14 +199,17 @@ class Porto_Elementor_Sticky_Nav_Widget extends \Elementor\Widget_Base {
 		$repeater->add_control(
 			'icon_cl',
 			array(
-				'type'             => Controls_Manager::ICONS,
-				'label'            => __( 'Icon', 'porto-functionality' ),
-				'fa4compatibility' => 'icon',
-				'default'          => array(
+				'type'                   => Controls_Manager::ICONS,
+				'label'                  => __( 'Icon', 'porto-functionality' ),
+				'fa4compatibility'       => 'icon',
+				'skin'                   => 'inline',
+				'exclude_inline_options' => array( 'svg' ),
+				'label_block'            => false,
+				'default'                => array(
 					'value'   => 'fas fa-star',
 					'library' => 'fa-solid',
 				),
-				'condition'        => array(
+				'condition'              => array(
 					'show_icon' => 'yes',
 					'icon_type' => 'icon',
 				),
@@ -257,9 +243,9 @@ class Porto_Elementor_Sticky_Nav_Widget extends \Elementor\Widget_Base {
 			'link_color1',
 			array(
 				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Link Color', 'porto-functionality' ),
+				'label'     => __( 'Color', 'porto-functionality' ),
 				'selectors' => array(
-					'.elementor-element-{{ID}} .nav-pills {{CURRENT_ITEM}} > a' => 'color: {{VALUE}};',
+					'.elementor-element-{{ID}} .nav-pills {{CURRENT_ITEM}} > a, .elementor-element-{{ID}} .nav-pills {{CURRENT_ITEM}} > span' => 'color: {{VALUE}};',
 				),
 				'condition' => array(
 					'skin' => 'custom',
@@ -270,22 +256,34 @@ class Porto_Elementor_Sticky_Nav_Widget extends \Elementor\Widget_Base {
 			'link_bg_color1',
 			array(
 				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Link Background Color', 'porto-functionality' ),
+				'label'     => __( 'Background Color', 'porto-functionality' ),
 				'selectors' => array(
-					'.elementor-element-{{ID}} .nav-pills {{CURRENT_ITEM}} > a' => 'background-color: {{VALUE}};',
+					'.elementor-element-{{ID}} .nav-pills {{CURRENT_ITEM}} > a, .elementor-element-{{ID}} .nav-pills {{CURRENT_ITEM}} > span' => 'background-color: {{VALUE}};',
 				),
 				'condition' => array(
 					'skin' => 'custom',
 				),
 			)
 		);
+
+		$repeater->add_control(
+			'link_border_color1',
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'label'     => __( 'Border Color', 'porto-functionality' ),
+				'selectors' => array(
+					'.elementor-element-{{ID}} .nav-pills.nav > {{CURRENT_ITEM}} > a, .elementor-element-{{ID}} .nav-pills.nav > {{CURRENT_ITEM}} > span' => 'border-bottom-color: {{VALUE}};',
+				),
+			)
+		);
+
 		$repeater->add_control(
 			'link_acolor1',
 			array(
 				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Link Active Color', 'porto-functionality' ),
+				'label'     => __( 'Active Color', 'porto-functionality' ),
 				'selectors' => array(
-					'.elementor-element-{{ID}} .nav-pills {{CURRENT_ITEM}}.active > a' => 'color: {{VALUE}};',
+					'.elementor-element-{{ID}} .nav-pills {{CURRENT_ITEM}}.active > a, .elementor-element-{{ID}} .nav-pills {{CURRENT_ITEM}}:hover > a' => 'color: {{VALUE}};',
 				),
 				'condition' => array(
 					'skin' => 'custom',
@@ -296,12 +294,23 @@ class Porto_Elementor_Sticky_Nav_Widget extends \Elementor\Widget_Base {
 			'link_abg_color1',
 			array(
 				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Link Active Background Color', 'porto-functionality' ),
+				'label'     => __( 'Active Background Color', 'porto-functionality' ),
 				'selectors' => array(
-					'.elementor-element-{{ID}} .nav-pills {{CURRENT_ITEM}}.active > a' => 'background-color: {{VALUE}};',
+					'.elementor-element-{{ID}} .nav-pills {{CURRENT_ITEM}}.active > a, .elementor-element-{{ID}} .nav-pills {{CURRENT_ITEM}}:hover > a' => 'background-color: {{VALUE}};',
 				),
 				'condition' => array(
 					'skin' => 'custom',
+				),
+			)
+		);
+
+		$repeater->add_control(
+			'link_aborder_color1',
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'label'     => __( 'Active Border Color', 'porto-functionality' ),
+				'selectors' => array(
+					'.elementor-element-{{ID}} .nav-pills.nav > {{CURRENT_ITEM}}.active > a, .elementor-element-{{ID}} .nav-pills.nav > {{CURRENT_ITEM}}:hover > a' => 'border-bottom-color: {{VALUE}};',
 				),
 			)
 		);
@@ -329,6 +338,113 @@ class Porto_Elementor_Sticky_Nav_Widget extends \Elementor\Widget_Base {
 				'default' => $presets,
 			)
 		);
+
+		$this->start_controls_tabs(
+			'Link Color'
+		);
+
+			$this->start_controls_tab(
+				'link_color_normal',
+				array(
+					'label' => esc_html__( 'Normal', 'porto-functionality' ),
+				)
+			);
+				$this->add_control(
+					'link_color1',
+					array(
+						'type'      => Controls_Manager::COLOR,
+						'label'     => __( 'Color', 'porto-functionality' ),
+						'selectors' => array(
+							'.elementor-element-{{ID}} .nav-pills > li > a, .elementor-element-{{ID}} .nav-pills > li > span' => 'color: {{VALUE}};',
+						),
+						'condition' => array(
+							'skin' => 'custom',
+						),
+					)
+				);
+
+				$this->add_control(
+					'link_bg_color1',
+					array(
+						'type'      => Controls_Manager::COLOR,
+						'label'     => __( 'Background Color', 'porto-functionality' ),
+						'selectors' => array(
+							'.elementor-element-{{ID}} .nav-pills > li > a, .elementor-element-{{ID}} .nav-pills > li > span' => 'background-color: {{VALUE}};',
+						),
+						'condition' => array(
+							'skin' => 'custom',
+						),
+					)
+				);
+
+				$this->add_control(
+					'link_border_color1',
+					array(
+						'type'      => Controls_Manager::COLOR,
+						'label'     => __( 'Border Color', 'porto-functionality' ),
+						'selectors' => array(
+							'.elementor-element-{{ID}} .nav-pills.nav > li > a, .elementor-element-{{ID}} .nav-pills.nav > li > span' => 'border-bottom-color: {{VALUE}};',
+						),
+						'condition' => array(
+							'link_border_width[size]!' => '',
+						),
+					)
+				);
+
+			$this->end_controls_tab();
+
+			$this->start_controls_tab(
+				'link_color_active',
+				array(
+					'label' => esc_html__( 'Active', 'porto-functionality' ),
+				)
+			);
+
+				$this->add_control(
+					'link_acolor1',
+					array(
+						'type'      => Controls_Manager::COLOR,
+						'label'     => __( 'Active Color', 'porto-functionality' ),
+						'selectors' => array(
+							'.elementor-element-{{ID}} .nav-pills > li.active > a, .elementor-element-{{ID}} .nav-pills > li:hover > a' => 'color: {{VALUE}};',
+						),
+						'condition' => array(
+							'skin' => 'custom',
+						),
+					)
+				);
+
+				$this->add_control(
+					'link_abg_color1',
+					array(
+						'type'      => Controls_Manager::COLOR,
+						'label'     => __( 'Active Background Color', 'porto-functionality' ),
+						'selectors' => array(
+							'.elementor-element-{{ID}} .nav-pills > li.active > a, .elementor-element-{{ID}} .nav-pills > li:hover > a' => 'background-color: {{VALUE}};',
+						),
+						'condition' => array(
+							'skin' => 'custom',
+						),
+					)
+				);
+
+				$this->add_control(
+					'link_aborder_color1',
+					array(
+						'type'      => Controls_Manager::COLOR,
+						'label'     => __( 'Active Border Color', 'porto-functionality' ),
+						'selectors' => array(
+							'.elementor-element-{{ID}} .nav-pills.nav > li.active a, .elementor-element-{{ID}} .nav-pills.nav > li:hover a' => 'border-bottom-color: {{VALUE}};',
+						),
+						'condition' => array(
+							'link_border_width[size]!' => '',
+						),
+					)
+				);
+
+			$this->end_controls_tab();
+
+		$this->end_controls_tabs();
 
 		$this->end_controls_section();
 	}

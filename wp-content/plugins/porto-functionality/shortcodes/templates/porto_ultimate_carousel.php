@@ -115,9 +115,9 @@ switch ( $dots_icon_type ) {
 		break;
 }
 
+$design_style = '';
 if ( defined( 'VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG' ) ) {
-	$desing_style = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, vc_shortcode_custom_css_class( $css_ad_caraousel, ' ' ), 'porto_ultimate_carousel', $atts );
-	$desing_style = esc_attr( $desing_style );
+	$design_style = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, vc_shortcode_custom_css_class( $css_ad_caraousel, ' ' ), 'porto_ultimate_carousel', $atts );
 }
 if ( 'single' == $slide_to_scroll ) {
 	$slide_to_scroll = 1;
@@ -253,7 +253,7 @@ if ( 'off' !== $dots_icon && '' !== $dots_icon ) {
 ob_start();
 $uniqid = uniqid( rand() );
 
-echo '<div id="porto-carousel-' . esc_attr( $uniqid ) . '" class="porto-carousel-wrapper ' . esc_attr( $desing_style ) . ' ' . esc_attr( $el_class ) . '" data-gutter="' . esc_attr( $item_space ) . '" data-rtl="' . esc_attr( $site_rtl ) . '" >';
+echo '<div id="porto-carousel-' . esc_attr( $uniqid ) . '" class="porto-carousel-wrapper' . ( $design_style ? ' ' . esc_attr( $design_style ) : '' ) . ( $el_class ? ' ' . esc_attr( trim( $el_class ) ) : '' ) . '" data-gutter="' . esc_attr( $item_space ) . '" data-rtl="' . esc_attr( $site_rtl ) . '" >';
 echo '<div class="porto-ultimate-carousel porto-carousel-' . $uid_escaped . ' " ' . $wrap_data . '>';
 porto_override_shortcodes( $item_space, $item_animation );
 echo do_shortcode( $content );
@@ -262,25 +262,37 @@ echo '</div>';
 echo '</div>';
 ?>
 <script>
-	jQuery(document).ready(function ($) {
-		if ($.fn.slick) {
-			$('.porto-carousel-<?php echo $uid_escaped; ?>').slick({<?php echo $settings_escaped; ?>});
+	(function(){
+		var porto_inc_slick_js = function() {
+			( function( $ ) {
+				if ( $.fn.slick ) {
+					$('.porto-carousel-<?php echo $uid_escaped; ?>').slick({<?php echo $settings_escaped; ?>});
+				} else {
+				<?php if ( wp_script_is( 'porto_shortcodes_ultimate_carousel_loader_js', 'registered' ) ) : ?>
+					var c = document.createElement("script");
+					c.src = "<?php echo wp_scripts()->registered['jquery-slick']->src; ?>";
+					if (!$('script[src="' + c.src + '"]').length) {
+						document.getElementsByTagName("body")[0].appendChild(c);
+					}
+					c = document.createElement("script");
+					c.src = "<?php echo wp_scripts()->registered['porto_shortcodes_ultimate_carousel_loader_js']->src; ?>";
+					if (!$('script[src="' + c.src + '"]').length) {
+						document.getElementsByTagName("body")[0].appendChild(c);
+					}
+					setTimeout(function() {
+						if ($.fn.slick) { $('.porto-carousel-<?php echo $uid_escaped; ?>').slick({<?php echo $settings_escaped; ?>}); }
+					}, 300);
+				<?php endif; ?>
+				}
+			} )( jQuery );
+		};
+
+		if ( window.theme && theme.isLoaded ) {
+			porto_inc_slick_js();
 		} else {
-			var c = document.createElement("script");
-			c.src = "<?php echo wp_scripts()->registered['jquery-slick']->src; ?>";
-			if (!$('script[src="' + c.src + '"]').length) {
-				document.getElementsByTagName("body")[0].appendChild(c);
-			}
-			c = document.createElement("script");
-			c.src = "<?php echo wp_scripts()->registered['porto_shortcodes_ultimate_carousel_loader_js']->src; ?>";
-			if (!$('script[src="' + c.src + '"]').length) {
-				document.getElementsByTagName("body")[0].appendChild(c);
-			}
-			setTimeout(function() {
-				if ($.fn.slick) { $('.porto-carousel-<?php echo $uid_escaped; ?>').slick({<?php echo $settings_escaped; ?>}); }
-			}, 300);
+			window.addEventListener( 'load', porto_inc_slick_js );
 		}
-	});
+	})();
 </script>
 <?php
 echo ob_get_clean();

@@ -1,0 +1,102 @@
+// =============================================================================
+// TYPOGRAPHY
+// =============================================================================
+// weights
+$font-weight-semilight: 200;
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extrabold: 800;
+
+// spacement
+$spacement-increment: 5px;
+$spacement-xs: $spacement-increment;
+$spacement-sm: $spacement-xs + $spacement-increment;
+$spacement-md: $spacement-sm + $spacement-increment;
+$spacement-lg: $spacement-md + $spacement-increment;
+$spacement-xl: $spacement-lg + $spacement-increment;
+$spacement-xlg: $spacement-xl + $spacement-increment;
+
+// =============================================================================
+// COLORS
+// =============================================================================
+$color-arrow-hover: #fff;
+$color-white: #fff;
+$color-old-price: #a7a7a7;
+$color-black: #000;
+$color-default: #f2f2f2;
+
+$color-dark: #212529;
+$color-dark-inverse: #FFF;
+
+$hot-bg: #62b959;
+$sale-bg: #e27c7c;
+
+// Light Version
+$light-bg: #FFF;
+
+$color-muted: #999;
+
+// =============================================================================
+// TRANSITION
+// =============================================================================
+$transition: .25s;
+//$image-transition: .25s ease-out;
+$image-transition: opacity .3s ease-in-out;
+$btn-transition: opacity .6s ease-in-out;
+
+// =============================================================================
+// Screen Sizes
+// =============================================================================
+$screen-normal: "(max-width: 991px)";
+$screen-medium: "(max-width: 767px)";
+$screen-small: "(max-width: 575px)";
+
+// =============================================================================
+// Box Shadows
+// =============================================================================
+$wrapper-shadow: 0 0 4px rgba(0, 0, 0, .15);
+$menu-wide-box-shadow: 0 10px 25px rgba(0, 0, 0, .15);
+$menu-narrow-box-shadow: 0 5px 8px rgba(0, 0, 0, .15);
+$sidebarmenu-wide-box-shadow: 0 0 25px rgba(0, 0, 0, .15);
+$sidebarmenu-narrow-box-shadow: 0 0 12px rgba(0, 0, 0, .1);
+
+$form-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .04);
+$table-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .04);
+
+$color-primary: #CCC;
+$color-primary-inverse: #FFF;
+
+$color-secondary: #E36159;
+$color-secondary-inverse: #FFF;
+
+$color-tertiary: #2BAAB1;
+$color-tertiary-inverse: #FFF;
+
+$color-quaternary: lighten($color-dark, 8%);
+$color-quaternary-inverse: #FFF;
+
+$color-light: $color-white;
+$color-light-inverse: $color-dark;
+
+$color-success: #47a447;
+$color-success-inverse: #FFF;
+
+$color-warning: #ed9c28;
+$color-warning-inverse: #FFF;
+
+$color-danger: #d2322d;
+$color-danger-inverse: #FFF;
+
+$color-info: #5bc0de;
+$color-info-inverse: #FFF;
+
+// states list
+$states: (success $color-success $color-success-inverse) (warning $color-warning $color-warning-inverse) (danger $color-danger $color-danger-inverse) (info $color-info $color-info-inverse);
+
+$color_states: (primary $color-primary $color-primary-inverse) (secondary $color-secondary $color-secondary-inverse) (tertiary $color-tertiary $color-tertiary-inverse) (quaternary $color-quaternary $color-quaternary-inverse) (dark $color-dark $color-dark-inverse) (light $color-light $color-light-inverse);
+
+$color_states_not_primary: (secondary $color-secondary $color-secondary-inverse) (tertiary $color-tertiary $color-tertiary-inverse) (quaternary $color-quaternary $color-quaternary-inverse) (dark $color-dark $color-dark-inverse) (light $color-light $color-light-inverse);
+
+@import "fontawesome_variables";

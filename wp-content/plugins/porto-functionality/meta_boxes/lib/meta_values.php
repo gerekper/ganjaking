@@ -3,7 +3,7 @@
  * Function for Content Type
  */
 if ( ! function_exists( 'array_insert_before' ) ) :
-	function array_insert_before( $key, array &$array, $new_key, $new_value ) {
+	function array_insert_before( $key, &$array, $new_key, $new_value ) {
 		if ( array_key_exists( $key, $array ) ) {
 			$new = array();
 			foreach ( $array as $k => $value ) {
@@ -14,7 +14,7 @@ if ( ! function_exists( 'array_insert_before' ) ) :
 			}
 			return $new;
 		}
-		return false;
+		return $array;
 	}
 endif;
 
@@ -31,7 +31,7 @@ if ( ! function_exists( 'array_insert_after' ) ) :
 			}
 			return $new;
 		}
-		return false;
+		return $array;
 	}
 endif;
 

@@ -20,6 +20,9 @@ extract(
 );
 
 if ( 'schedule' == $type ) {
+	if ( ! empty( $shortcode_class ) ) {
+		$result .= '<div class="' . trim( esc_attr( $shortcode_class ) ) . '">';
+	}
 	if ( $title || $subtitle ) {
 
 		$el_class = porto_shortcode_extract_class( $el_class );
@@ -44,10 +47,14 @@ if ( 'schedule' == $type ) {
 	ob_start();
 	include porto_shortcode_template( 'porto_step_item' );
 	$result .= ob_get_clean();
+
+	if ( ! empty( $shortcode_class ) ) {
+		$result .= '</div>';
+	}
 } elseif ( 'history' == $type ) {
 	global $porto_schedule_timeline_count;
 	$porto_schedule_timeline_count = 0;
-	$result                       .= '<section class="timeline">';
+	$result                       .= '<section class="timeline' . ( empty( $shortcode_class ) ? '' : ' ' . trim( esc_attr( $shortcode_class ) ) ) . '">';
 		$result                   .= '<div class="timeline-body">';
 		ob_start();
 		include porto_shortcode_template( 'porto_step_item' );
@@ -60,7 +67,7 @@ if ( 'schedule' == $type ) {
 	$el_class = porto_shortcode_extract_class( $el_class );
 	global $porto_schedule_step_count;
 	$porto_schedule_step_count = 0;
-	$result                   .= '<div class="porto-process' . ( $is_horizontal ? ' process-horizontal' : '' ) . ( $el_class ? esc_attr( $el_class ) : '' ) . '">';
+	$result                   .= '<div class="porto-process' . ( $is_horizontal ? ' process-horizontal' : '' ) . ( $el_class ? esc_attr( $el_class ) : '' ) . ( empty( $shortcode_class ) ? '' : ' ' . trim( esc_attr( $shortcode_class ) ) ) . '">';
 	ob_start();
 	include porto_shortcode_template( 'porto_step_item' );
 	$result                   .= ob_get_clean();

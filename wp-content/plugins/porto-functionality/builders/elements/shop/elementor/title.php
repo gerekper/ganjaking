@@ -37,7 +37,11 @@ class Porto_Elementor_SB_Title_Widget extends \Elementor\Widget_Base {
 		return array();
 	}
 
-	protected function _register_controls() {
+	public function get_custom_help_url() {
+		return 'https://www.portotheme.com/wordpress/porto/documentation/shop-builder-elements/';
+	}
+
+	protected function register_controls() {
 		$this->start_controls_section(
 			'section_title_layout',
 			array(
@@ -85,8 +89,38 @@ class Porto_Elementor_SB_Title_Widget extends \Elementor\Widget_Base {
 			array(
 				'name'     => 'title_font',
 				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
-				'label'    => __( 'Typograhy', 'porto-functionality' ),
+				'label'    => __( 'Typography', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .entry-title',
+			)
+		);
+
+		$this->add_responsive_control(
+			'align',
+			array(
+				'label'     => esc_html__( 'Alignment', 'porto-functionality' ),
+				'type'      => Controls_Manager::CHOOSE,
+				'options'   => array(
+					'left'    => array(
+						'title' => esc_html__( 'Left', 'porto-functionality' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center'  => array(
+						'title' => esc_html__( 'Center', 'porto-functionality' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'right'   => array(
+						'title' => esc_html__( 'Right', 'porto-functionality' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+					'justify' => array(
+						'title' => esc_html__( 'Justified', 'porto-functionality' ),
+						'icon'  => 'eicon-text-align-justify',
+					),
+				),
+				'default'   => '',
+				'selectors' => array(
+					'{{WRAPPER}}' => 'text-align: {{VALUE}};',
+				),
 			)
 		);
 

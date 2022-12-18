@@ -1,0 +1,339 @@
+#nav-panel {
+    font-size: .9em;
+    display: none;
+    transition: transform .2s ease-in-out;
+    padding-bottom: 15px;
+    position: relative;
+
+    .header-builder-p & {
+        padding-top: 15px;
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .mobile-nav-wrap {
+        padding: 0 !important;
+        min-height: 6rem;
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+        &::-webkit-scrollbar-thumb {
+            border-radius: 0px;
+        }
+    }
+
+    > .container, > .container > div {
+        display: block !important;
+    }
+
+    .accordion-menu {
+        .arrow:before,
+        .open > .arrow:before {
+            font-family: 'porto';
+            content: "\e81c";
+        }
+
+        > li {
+            > a {
+                text-transform: uppercase;
+                font-weight: 700;
+            }
+        }
+
+        li {
+            padding-top: 1px;
+            padding-bottom: 1px;
+            border-bottom: 1px solid #e8e8e8;
+            > a {
+                margin-top: 0;
+            }
+        }
+
+        .sub-menu {
+            margin-#{$left}: 20px;
+            padding-#{$left}: 0;
+        }
+    }
+
+    .menu-wrap:last-child .accordion-menu:last-child li:last-child, .accordion-menu li li:last-child { border-bottom: none; }
+}
+
+#nav-panel {
+    .welcome-msg {
+        text-align: center;
+        display: block;
+        padding: 15px 10px;
+
+        p {
+            margin: 5px 0;
+        }
+
+        .pull-left,
+        .pull-right {
+            float: none !important;
+        }
+    }
+
+    .accordion-menu {
+        display: block;
+        font-size: .8571em;
+
+        li.menu-item.active > a,
+        li.menu-item.active > .arrow{
+            color: #fff
+        }
+        .arrow {
+            background: none !important;
+            #{$right}: 5px;
+            top: 0;
+            width: 30px;
+            height: 35px;
+            line-height: 35px;
+        }
+    }
+
+    .mobile-menu {
+        font-size: 1em;
+    }
+
+    .switcher-wrap {
+        margin: 15px 0;
+    }
+
+    .woocs-switcher {
+        li,
+        li > h5 {
+            cursor: pointer !important;
+        }
+    }
+
+    .menu-custom-block {
+        margin: 15px 0;
+
+        a,
+        span {
+            display: block;
+        }
+
+        a {
+            padding: 5px 6px;
+            text-decoration: none;
+        }
+    }
+
+    .share-links {
+        font-size: 1em;
+        margin: 15px 0;
+        padding: 0 5px;
+        text-align: center;
+    }
+}
+
+#nav-panel .mobile-nav-wrap {
+    max-height: 50vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    transition: max-height 1.2s;
+}
+
+#nav-panel .skeleton-body {
+    max-height: 6rem;
+}
+
+/* Side navigation */
+#side-nav-panel {
+    position: fixed;
+    height: 100%;
+    width: 260px;
+    padding-top: 27px;
+    top: 0;
+    bottom: 0;
+    font-size: .9em;
+    #{$left}: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 9001;
+    background-color: #1d1e20;
+    color: #fff;
+    -webkit-overflow-scrolling: touch;
+    transform: translateX(if-ltr(-260px, 260px));
+    transition: transform .3s;
+
+    & > .porto-ajax-loading {
+        top: 50%;
+    }
+
+    &.panel-left  {
+        #{$left}: 0;
+        #{$right}: auto;
+        @if $rtl == 1 {
+            transform: translateX(260px);
+        } @else {
+            transform: translateX(-260px);
+        }
+    }
+
+    &.panel-right  {
+        #{$right}: 0;
+        #{$left}: auto;
+        @if $rtl == 1 {
+            transform: translateX(-260px);
+        } @else {
+            transform: translateX(260px);
+        }
+    }
+
+    .side-nav-panel-close {
+        display: block;
+        color: #fff;
+        position: absolute;
+        top: 10px;
+        #{$right}: 14.5px;
+        text-align: center;
+        text-decoration: none;
+        padding: 4px 8px;
+        line-height: 1em;
+    }
+
+    .accordion-menu {
+        > li.menu-item {
+            > a {
+                text-transform: uppercase;
+            }
+        }
+        .arrow {
+            font-family: 'porto';
+            font-size: 15px;
+            &:before {
+                content: '\e81c';
+            }
+        }
+        .open > .arrow:before {
+            content: '\e81b';
+        }
+        li:not(:last-child) {
+            border-bottom: 1px solid #242527;
+        }
+    }
+}
+
+.panel-overlay {
+    opacity: 0;
+
+    &.active {
+        background: #000;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 8999;
+        min-height: 100vh;
+        opacity: .35;
+        @include transition(opacity .2s);
+    }
+}
+
+html.panel-opened {
+    body {
+        > * {
+            z-index: 0;
+        }
+    }
+
+    #side-nav-panel {
+        transform: translateX(0);
+    }
+}
+
+#side-nav-panel {
+    .welcome-msg {
+        text-align: center;
+        display: block;
+        margin: 15px 0;
+        padding: 0 10px;
+
+        p {
+            margin: 5px 0;
+        }
+
+        .pull-left,
+        .pull-right {
+            float: none !important;
+        }
+    }
+
+    .accordion-menu {
+        font-size: 1em;
+        .arrow {
+            #{$right}: 5px;
+        }
+    }
+
+    .mobile-menu {
+        font-size: 1em;
+    }
+
+    .switcher-wrap {
+        margin: 15px 0;
+        padding: 0 10px;
+    }
+
+    .woocs-switcher {
+        li,
+        li > h5 {
+            cursor: pointer !important;
+        }
+    }
+
+    .menu-wrap {
+        margin: 15px 0;
+        padding: 0 10px;
+    }
+
+    .menu-custom-block {
+        margin: 15px 0;
+        padding: 0 10px;
+
+        a,
+        span {
+            display: block;
+        }
+
+        a,
+        span {
+            padding: 5px 6px;
+            text-decoration: none;
+        }
+    }
+
+    .share-links {
+        font-size: 1em;
+        margin: 15px 0;
+        padding: 0 5px;
+        text-align: center;
+    }
+    .switcher-wrap {
+        ul {
+            margin-#{$left}: 0;
+        }
+    }
+}
+@media (max-width: 991px) {
+    #nav-panel .mobile-menu .hidden-item,
+    #side-nav-panel .mobile-menu .hidden-item {
+        padding: 0;
+        border: none;
+    }
+    #nav-panel .mobile-menu .hidden-item:last-child {
+        margin-bottom: -2px;
+    }
+    #side-nav-panel .mobile-menu .hidden-item:last-child {
+        margin-bottom: -1px;
+    }
+}
+
+// IOS Compatibility
+body.ios .mobile-menu .menu-item-has-children:not(.active) > a {
+    max-width: calc(100% - 35px);
+}

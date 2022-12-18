@@ -167,6 +167,11 @@ input.labelauty.dropbox + label > span.labelauty-unchecked-image {
 	background-image: url( ../../images/icons/dropbox.png );
 }
 
+input.labelauty.pcloud + label > span.labelauty-checked-image,
+input.labelauty.pcloud + label > span.labelauty-unchecked-image {
+	background-image: url( ../../images/icons/pcloud.png );
+}
+
 input.labelauty.ftp + label > span.labelauty-checked-image,
 input.labelauty.ftp + label > span.labelauty-unchecked-image {
 	background-image: url( ../../images/icons/folder.png );

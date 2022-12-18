@@ -1,0 +1,33 @@
+#toplevel_page_porto .dashicons-porto-logo {
+	background: url(images/favicon.svg) center center no-repeat;
+	background-size: 50%;
+	opacity: .6;
+}
+#toplevel_page_porto:hover .dashicons-porto-logo {
+	background-image: url(images/favicon-blue.svg);
+	opacity: 1;
+}
+#toplevel_page_porto.wp-has-current-submenu .dashicons-porto-logo {
+	background-image: url(images/favicon.svg);
+	opacity: 1;
+}
+#wp-admin-bar-porto .ab-item .ab-icon {
+	width: 20px;
+	height: 20px
+}
+#wp-admin-bar-porto .ab-item .ab-icon:before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: url(images/favicon.svg) center 70% no-repeat;
+	background-size: 90%;
+	transition: none;
+	opacity: .6;
+}
+#wp-admin-bar-porto:hover .ab-item .ab-icon:before {
+	background-image: url(images/favicon-blue.svg);
+	opacity: 1;
+}

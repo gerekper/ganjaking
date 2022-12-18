@@ -4,7 +4,7 @@ if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed.');
 
 // Converted to multi-options (Feb 2017-) and previous options conversion removed: Yes
 
-if (!class_exists('UpdraftPlus_BackupModule')) require_once(UPDRAFTPLUS_DIR.'/methods/backup-module.php');
+if (!class_exists('UpdraftPlus_BackupModule')) updraft_try_include_file('methods/backup-module.php', 'require_once');
 
 class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 
@@ -850,11 +850,11 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 		}
 
 		if ((!class_exists('UDP_Google_Config') || !class_exists('UDP_Google_Client') || !class_exists('UDP_Google_Service_Drive') || !class_exists('UDP_Google_Http_Request')) && !function_exists('google_api_php_client_autoload_updraftplus')) {
-			include_once(UPDRAFTPLUS_DIR.'/includes/Google/autoload.php');
+			updraft_try_include_file('includes/Google/autoload.php', 'include_once');
 		}
 
 		if (!class_exists('UpdraftPlus_Google_Http_MediaFileUpload')) {
-			include_once(UPDRAFTPLUS_DIR.'/includes/google-extensions.php');
+			updraft_try_include_file('includes/google-extensions.php', 'include_once');
 		}
 
 		$config = new UDP_Google_Config();
@@ -979,7 +979,7 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 			if (empty($opts['settings'][$instance_id]['user_id'])) {
 				$old_client_id = (empty($opts['settings'][$instance_id]['clientid'])) ? '' : $opts['settings'][$instance_id]['clientid'];
 				if (!empty($opts['settings'][$instance_id]['token']) && $old_client_id != $storage_options['clientid']) {
-					include_once(UPDRAFTPLUS_DIR.'/methods/googledrive.php');
+					updraft_try_include_file('methods/googledrive.php', 'include_once');
 					$updraftplus->register_wp_http_option_hooks();
 					$googledrive = new UpdraftPlus_BackupModule_googledrive();
 					$googledrive->gdrive_auth_revoke(false);
@@ -1303,6 +1303,13 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 		return $this->upload_file($file, $parent_id, false);
 	}
 	
+	/**
+	 * Download method: takes a base name, and brings it back from the cloud storage into the internal directory.
+	 *
+	 * @param String $file The specific file to be downloaded from the Cloud Storage
+	 *
+	 * @return Boolean - success or failure state
+	 */
 	public function download($file) {
 
 		global $updraftplus;
@@ -1346,15 +1353,18 @@ class UpdraftPlus_BackupModule_googledrive extends UpdraftPlus_BackupModule {
 
 		$download_to = $updraftplus->backups_dir_location().'/'.$file;
 
-		$existing_size = (file_exists($download_to)) ? filesize($download_to) : 0;
+		$existing_size = file_exists($download_to) ? filesize($download_to) : 0;
 
 		if ($existing_size >= $size) {
 			$this->log('download: was already downloaded ('.filesize($download_to)."/$size bytes)");
 			return true;
 		}
 
-		// Chunk in units of 2MB
+		// We only need a chunk size because the API library won't accept a file handle - otherwise, we could download the whole range. But testing (150Mb/s connection) shows that after 32MB almost all the gains have been realised.
 		$chunk_size = 2097152;
+		while ($updraftplus->verify_free_memory($chunk_size * 3) && $chunk_size <= 20971520) {
+			$chunk_size = $chunk_size * 2;
+		}
 
 		try {
 			while ($existing_size < $size) {

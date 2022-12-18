@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Porto Elementor widget to display products.
  *
- * @since 5.1.0
+ * @since 1.5.0
  */
 
 use Elementor\Controls_Manager;
@@ -43,10 +43,10 @@ class Porto_Elementor_Products_Widget extends \Elementor\Widget_Base {
 		}
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 		$order_by_values  = array_slice( porto_vc_woo_order_by(), 1 );
 		$order_way_values = array_slice( porto_vc_woo_order_way(), 1 );
-		$slider_options   = porto_update_vc_options_to_elementor( porto_vc_product_slider_fields() );
+		$slider_options   = porto_update_vc_options_to_elementor( porto_vc_product_slider_fields( 'products-slider', 'dots-style-1' ) );
 
 		$slider_options['nav_pos2']['condition']['navigation']       = 'yes';
 		$slider_options['nav_type']['condition']['navigation']       = 'yes';
@@ -103,8 +103,8 @@ class Porto_Elementor_Products_Widget extends \Elementor\Widget_Base {
 			'category',
 			array(
 				'type'        => 'porto_ajaxselect2',
-				'label'       => __( 'Category IDs or slugs', 'porto-functionality' ),
-				'description' => __( 'comma separated list of category ids or slugs', 'porto-functionality' ),
+				'label'       => __( 'Select Categories', 'porto-functionality' ),
+				'description' => __( 'comma separated list of categories', 'porto-functionality' ),
 				'multiple'    => 'true',
 				'options'     => 'product_cat',
 				'label_block' => true,
@@ -115,8 +115,8 @@ class Porto_Elementor_Products_Widget extends \Elementor\Widget_Base {
 			'ids',
 			array(
 				'type'        => 'porto_ajaxselect2',
-				'label'       => __( 'Product IDs', 'porto-functionality' ),
-				'description' => __( 'comma separated list of product ids', 'porto-functionality' ),
+				'label'       => __( 'Select Products', 'porto-functionality' ),
+				'description' => __( 'comma separated list of products', 'porto-functionality' ),
 				'multiple'    => 'true',
 				'options'     => 'product',
 				'label_block' => true,
@@ -156,13 +156,13 @@ class Porto_Elementor_Products_Widget extends \Elementor\Widget_Base {
 			array(
 				'type'        => Controls_Manager::SELECT,
 				'label'       => __( 'Order way for Date', 'porto-functionality' ),
-				'options'     => array_combine( array_values( $order_way_values ), array_keys( $order_way_values ) ),
+				'options'     => array_flip( $order_way_values ),
 				/* translators: %s: Wordpres codex page */
 				'description' => sprintf( __( 'Designates the ascending or descending order. More at %s.', 'porto-functionality' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
-				'condition' => array(
+				'condition'   => array(
 					'orderby' => 'date',
 				),
-				'default' => 'DESC',
+				'default'     => 'DESC',
 			)
 		);
 
@@ -171,13 +171,13 @@ class Porto_Elementor_Products_Widget extends \Elementor\Widget_Base {
 			array(
 				'type'        => Controls_Manager::SELECT,
 				'label'       => __( 'Order way for ID', 'porto-functionality' ),
-				'options'     => array_combine( array_values( $order_way_values ), array_keys( $order_way_values ) ),
+				'options'     => array_flip( $order_way_values ),
 				/* translators: %s: Wordpres codex page */
 				'description' => sprintf( __( 'Designates the ascending or descending order. More at %s.', 'porto-functionality' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
-				'condition' => array(
+				'condition'   => array(
 					'orderby' => 'id',
 				),
-				'default' => 'DESC',
+				'default'     => 'DESC',
 			)
 		);
 
@@ -189,10 +189,10 @@ class Porto_Elementor_Products_Widget extends \Elementor\Widget_Base {
 				'options'     => array_combine( array_values( $order_way_values ), array_keys( $order_way_values ) ),
 				/* translators: %s: Wordpres codex page */
 				'description' => sprintf( __( 'Designates the ascending or descending order. More at %s.', 'porto-functionality' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
-				'condition' => array(
+				'condition'   => array(
 					'orderby' => 'title',
 				),
-				'default' => 'DESC',
+				'default'     => 'DESC',
 			)
 		);
 
@@ -204,10 +204,10 @@ class Porto_Elementor_Products_Widget extends \Elementor\Widget_Base {
 				'options'     => array_combine( array_values( $order_way_values ), array_keys( $order_way_values ) ),
 				/* translators: %s: Wordpres codex page */
 				'description' => sprintf( __( 'Designates the ascending or descending order. More at %s.', 'porto-functionality' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
-				'condition' => array(
+				'condition'   => array(
 					'orderby' => 'rand',
 				),
-				'default' => 'DESC',
+				'default'     => 'DESC',
 			)
 		);
 
@@ -219,10 +219,10 @@ class Porto_Elementor_Products_Widget extends \Elementor\Widget_Base {
 				'options'     => array_combine( array_values( $order_way_values ), array_keys( $order_way_values ) ),
 				/* translators: %s: Wordpres codex page */
 				'description' => sprintf( __( 'Designates the ascending or descending order. More at %s.', 'porto-functionality' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
-				'condition' => array(
+				'condition'   => array(
 					'orderby' => 'menu_order',
 				),
-				'default' => 'DESC',
+				'default'     => 'DESC',
 			)
 		);
 
@@ -234,10 +234,10 @@ class Porto_Elementor_Products_Widget extends \Elementor\Widget_Base {
 				'options'     => array_combine( array_values( $order_way_values ), array_keys( $order_way_values ) ),
 				/* translators: %s: Wordpres codex page */
 				'description' => sprintf( __( 'Designates the ascending or descending order. More at %s.', 'porto-functionality' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
-				'condition' => array(
+				'condition'   => array(
 					'orderby' => 'price',
 				),
-				'default' => 'DESC',
+				'default'     => 'DESC',
 			)
 		);
 
@@ -249,10 +249,10 @@ class Porto_Elementor_Products_Widget extends \Elementor\Widget_Base {
 				'options'     => array_combine( array_values( $order_way_values ), array_keys( $order_way_values ) ),
 				/* translators: %s: Wordpres codex page */
 				'description' => sprintf( __( 'Designates the ascending or descending order. More at %s.', 'porto-functionality' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
-				'condition' => array(
+				'condition'   => array(
 					'orderby' => 'popularity',
 				),
-				'default' => 'DESC',
+				'default'     => 'DESC',
 			)
 		);
 
@@ -264,10 +264,10 @@ class Porto_Elementor_Products_Widget extends \Elementor\Widget_Base {
 				'options'     => array_combine( array_values( $order_way_values ), array_keys( $order_way_values ) ),
 				/* translators: %s: Wordpres codex page */
 				'description' => sprintf( __( 'Designates the ascending or descending order. More at %s.', 'porto-functionality' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
-				'condition' => array(
+				'condition'   => array(
 					'orderby' => 'rating',
 				),
-				'default' => 'DESC',
+				'default'     => 'DESC',
 			)
 		);
 		$this->add_control(
@@ -357,17 +357,22 @@ class Porto_Elementor_Products_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'spacing',
 			array(
-				'type'        => Controls_Manager::SLIDER,
-				'label'       => __( 'Column Spacing (px)', 'porto-functionality' ),
-				'description' => __( 'Leave blank if you use theme default value.', 'porto-functionality' ),
-				'range'       => array(
+				'type'               => Controls_Manager::SLIDER,
+				'label'              => __( 'Column Spacing (px)', 'porto-functionality' ),
+				'description'        => __( 'Leave blank if you use theme default value.', 'porto-functionality' ),
+				'range'              => array(
 					'px' => array(
 						'step' => 1,
 						'min'  => 0,
 						'max'  => 100,
 					),
 				),
-				'condition'   => array(
+				'render_type'        => 'template',
+				'frontend_available' => true,
+				'selectors'          => array(
+					'.elementor-element-{{ID}} .porto-products' => '--porto-el-spacing: {{SIZE}}px;',
+				),
+				'condition'          => array(
 					'view' => array( 'grid', 'creative', 'products-slider' ),
 				),
 			)
@@ -424,10 +429,11 @@ class Porto_Elementor_Products_Widget extends \Elementor\Widget_Base {
 				'condition' => array(
 					'view' => array( 'list', 'grid', 'divider' ),
 				),
+				'separator' => 'before',
 				'options'   => array(
 					''          => __( 'No pagination', 'porto-functionality' ),
-					'default'   => __( 'Default' ),
-					'load_more' => __( 'Load more' ),
+					'default'   => __( 'Default', 'porto-functionality' ),
+					'load_more' => __( 'Load more', 'porto-functionality' ),
 				),
 			)
 		);
@@ -439,6 +445,7 @@ class Porto_Elementor_Products_Widget extends \Elementor\Widget_Base {
 				'label'       => __( 'Product Layout', 'porto-functionality' ),
 				'description' => __( 'Select position of add to cart, add to wishlist, quickview.', 'porto-functionality' ),
 				'options'     => array_combine( array_values( porto_sh_commons( 'products_addlinks_pos' ) ), array_keys( porto_sh_commons( 'products_addlinks_pos' ) ) ),
+				'qa_selector' => 'li.product-col:nth-child(2)',
 			)
 		);
 
@@ -450,6 +457,7 @@ class Porto_Elementor_Products_Widget extends \Elementor\Widget_Base {
 				'options'     => array_combine( array_values( porto_woo_sort_by() ), array_keys( porto_woo_sort_by() ) ),
 				'multiple'    => true,
 				'label_block' => true,
+				'separator'   => 'before',
 			)
 		);
 
@@ -500,8 +508,9 @@ class Porto_Elementor_Products_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'category_filter',
 			array(
-				'type'  => Controls_Manager::SWITCHER,
-				'label' => __( 'Show category filter', 'porto-functionality' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'label'       => __( 'Show Category filter', 'porto-functionality' ),
+				'qa_selector' => 'li.product-col:first-child',
 			)
 		);
 
@@ -524,6 +533,7 @@ class Porto_Elementor_Products_Widget extends \Elementor\Widget_Base {
 				'type'        => Controls_Manager::SWITCHER,
 				'label'       => __( 'Use simple layout?', 'porto-functionality' ),
 				'description' => __( 'If you check this option, it will display product title and price only.', 'porto-functionality' ),
+				'separator'   => 'before',
 			)
 		);
 
@@ -585,24 +595,32 @@ class Porto_Elementor_Products_Widget extends \Elementor\Widget_Base {
 
 		foreach ( $slider_options as $key => $opt ) {
 			unset( $opt['condition']['view'] );
-			$this->add_control( $key, $opt );
+			if ( ! empty( $opt['responsive'] ) ) {
+				$this->add_responsive_control( $key, $opt );
+			} else {
+				$this->add_control( $key, $opt );
+			}
 		}
 
 		$this->end_controls_section();
 	}
 
 	protected function render() {
-		$atts = $this->get_settings_for_display();
-
+		$atts                 = $this->get_settings_for_display();
+		$atts['page_builder'] = 'elementor';
 		if ( $template = porto_shortcode_woo_template( 'porto_products' ) ) {
 			if ( empty( $atts['spacing'] ) ) {
 				$atts['spacing'] = '';
 			}
-			if ( ! empty( $atts['category'] ) && is_array( $atts['category'] ) ) {
-				$atts['category'] = implode( ',', $atts['category'] );
+			if ( is_array( $atts['category'] ) ) {
+				$atts['category'] = trim( implode( ',', $atts['category'] ) );
 			}
-			if ( ! empty( $atts['ids'] ) && is_array( $atts['ids'] ) ) {
-				$atts['ids'] = implode( ',', $atts['ids'] );
+			if ( is_array( $atts['ids'] ) ) {
+				if ( ! empty( $atts['ids'] ) ) {
+					$atts['ids'] = implode( ',', $atts['ids'] );
+				} else {
+					$atts['ids'] = '';
+				}
 			}
 			include $template;
 		}

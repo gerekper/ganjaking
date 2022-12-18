@@ -1,0 +1,19 @@
+{
+	"elements": {
+		"portoPricingTable": {
+			"settings": {
+				"name": "Porto Pricing Table",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-pricing-table.jpg",
+				"metaDescription": "Simple filled or outline pricing table to display prices of your products or services."
+			}
+		}
+	},
+	"categories": {
+		"Testimonial": {
+			"elements": [
+				"portoPricingTable"
+			]
+		}
+	}
+}

@@ -1,0 +1,151 @@
+@import 'variables';
+
+$fa-font-path:                "../fonts/fontawesome_optimized";
+
+@import 'mixins';
+@import 'core';
+@import 'larger';
+@import 'fixed-width';
+@import 'list';
+@import 'bordered-pulled';
+@import 'animated';
+@import 'rotated-flipped';
+@import 'stacked';
+
+/* Solid */
+.#{$fa-css-prefix}-search:before { content: fa-content($fa-var-search); }
+.#{$fa-css-prefix}-heart:before { content: fa-content($fa-var-heart); }
+.#{$fa-css-prefix}-star:before { content: fa-content($fa-var-star); }
+.#{$fa-css-prefix}-user:before { content: fa-content($fa-var-user); }
+.#{$fa-css-prefix}-film:before { content: fa-content($fa-var-film); }
+.#{$fa-css-prefix}-th:before { content: fa-content($fa-var-th); }
+.#{$fa-css-prefix}-check:before { content: fa-content($fa-var-check); }
+.#{$fa-css-prefix}-times:before { content: fa-content($fa-var-times); }
+.#{$fa-css-prefix}-search-plus:before { content: fa-content($fa-var-search-plus); }
+.#{$fa-css-prefix}-cog:before { content: fa-content($fa-var-cog); }
+.#{$fa-css-prefix}-tag:before { content: fa-content($fa-var-tag); }
+.#{$fa-css-prefix}-tags:before { content: fa-content($fa-var-tags); }
+.#{$fa-css-prefix}-book:before { content: fa-content($fa-var-book); }
+.#{$fa-css-prefix}-adjust:before { content: fa-content($fa-var-adjust); }
+.#{$fa-css-prefix}-play:before { content: fa-content($fa-var-play); }
+.#{$fa-css-prefix}-chevron-left:before { content: fa-content($fa-var-chevron-left); }
+.#{$fa-css-prefix}-chevron-right:before { content: fa-content($fa-var-chevron-right); }
+.#{$fa-css-prefix}-check-circle:before { content: fa-content($fa-var-check-circle); }
+.#{$fa-css-prefix}-info-circle:before { content: fa-content($fa-var-info-circle); }
+.#{$fa-css-prefix}-arrow-left:before { content: fa-content($fa-var-arrow-left); }
+.#{$fa-css-prefix}-arrow-right:before { content: fa-content($fa-var-arrow-right); }
+.#{$fa-css-prefix}-share:before { content: fa-content($fa-var-share); }
+.#{$fa-css-prefix}-plus:before { content: fa-content($fa-var-plus); }
+.#{$fa-css-prefix}-exclamation-circle:before { content: fa-content($fa-var-exclamation-circle); }
+.#{$fa-css-prefix}-exclamation-triangle:before { content: fa-content($fa-var-exclamation-triangle); }
+.#{$fa-css-prefix}-comment:before { content: fa-content($fa-var-comment); }
+.#{$fa-css-prefix}-chevron-up:before { content: fa-content($fa-var-chevron-up); }
+.#{$fa-css-prefix}-chevron-down:before { content: fa-content($fa-var-chevron-down); }
+.#{$fa-css-prefix}-shopping-cart:before { content: fa-content($fa-var-shopping-cart); }
+.#{$fa-css-prefix}-folder-open:before { content: fa-content($fa-var-folder-open); }
+.#{$fa-css-prefix}-cogs:before { content: fa-content($fa-var-cogs); }
+.#{$fa-css-prefix}-comments:before { content: fa-content($fa-var-comments); }
+.#{$fa-css-prefix}-trophy:before { content: fa-content($fa-var-trophy); }
+.#{$fa-css-prefix}-phone:before { content: fa-content($fa-var-phone); }
+.#{$fa-css-prefix}-rss:before { content: fa-content($fa-var-rss); }
+.#{$fa-css-prefix}-globe:before { content: fa-content($fa-var-globe); }
+.#{$fa-css-prefix}-users:before { content: fa-content($fa-var-users); }
+.#{$fa-css-prefix}-link:before { content: fa-content($fa-var-link); }
+.#{$fa-css-prefix}-bars:before { content: fa-content($fa-var-bars); }
+.#{$fa-css-prefix}-truck:before { content: fa-content($fa-var-truck); }
+.#{$fa-css-prefix}-caret-left:before { content: fa-content($fa-var-caret-left); }
+.#{$fa-css-prefix}-caret-right:before { content: fa-content($fa-var-caret-right); }
+.#{$fa-css-prefix}-envelope:before { content: fa-content($fa-var-envelope); }
+.#{$fa-css-prefix}-bolt:before { content: fa-content($fa-var-bolt); }
+.#{$fa-css-prefix}-coffee:before { content: fa-content($fa-var-coffee); }
+.#{$fa-css-prefix}-angle-double-left:before { content: fa-content($fa-var-angle-double-left); }
+.#{$fa-css-prefix}-angle-double-right:before { content: fa-content($fa-var-angle-double-right); }
+.#{$fa-css-prefix}-angle-left:before { content: fa-content($fa-var-angle-left); }
+.#{$fa-css-prefix}-angle-right:before { content: fa-content($fa-var-angle-right); }
+.#{$fa-css-prefix}-angle-up:before { content: fa-content($fa-var-angle-up); }
+.#{$fa-css-prefix}-angle-down:before { content: fa-content($fa-var-angle-down); }
+.#{$fa-css-prefix}-desktop:before { content: fa-content($fa-var-desktop); }
+.#{$fa-css-prefix}-spinner:before { content: fa-content($fa-var-spinner); }
+.#{$fa-css-prefix}-code:before { content: fa-content($fa-var-code); }
+.#{$fa-css-prefix}-location-arrow:before { content: fa-content($fa-var-location-arrow); }
+.#{$fa-css-prefix}-exclamation:before { content: fa-content($fa-var-exclamation); }
+.#{$fa-css-prefix}-puzzle-piece:before { content: fa-content($fa-var-puzzle-piece); }
+.#{$fa-css-prefix}-rocket:before { content: fa-content($fa-var-rocket); }
+.#{$fa-css-prefix}-bullseye:before { content: fa-content($fa-var-bullseye); }
+.#{$fa-css-prefix}-dollar-sign:before { content: fa-content($fa-var-dollar-sign); }
+.#{$fa-css-prefix}-file:before { content: fa-content($fa-var-file); }
+.#{$fa-css-prefix}-thumbs-up:before { content: fa-content($fa-var-thumbs-up); }
+.#{$fa-css-prefix}-paper-plane:before { content: fa-content($fa-var-paper-plane); }
+.#{$fa-css-prefix}-share-alt:before { content: fa-content($fa-var-share-alt); }
+.#{$fa-css-prefix}-paint-brush:before { content: fa-content($fa-var-paint-brush); }
+.#{$fa-css-prefix}-user-plus:before { content: fa-content($fa-var-user-plus); }
+.#{$fa-css-prefix}-sync-alt:before { content: fa-content($fa-var-sync-alt); }
+.#{$fa-css-prefix}-pencil-alt:before { content: fa-content($fa-var-pencil-alt); }
+.#{$fa-css-prefix}-long-arrow-alt-left:before { content: fa-content($fa-var-long-arrow-alt-left); }
+.#{$fa-css-prefix}-long-arrow-alt-right:before { content: fa-content($fa-var-long-arrow-alt-right); }
+.#{$fa-css-prefix}-long-arrow-alt-down:before { content: fa-content($fa-var-long-arrow-alt-down); }
+.#{$fa-css-prefix}-external-link-alt:before { content: fa-content($fa-var-external-link-alt); }
+.#{$fa-css-prefix}-cloud-download-alt:before { content: fa-content($fa-var-cloud-download-alt); }
+.#{$fa-css-prefix}-map-marker-alt:before { content: fa-content($fa-var-map-marker-alt); }
+.#{$fa-css-prefix}-mobile-alt:before { content: fa-content($fa-var-mobile-alt); }
+.#{$fa-css-prefix}-reply:before { content: fa-content($fa-var-reply); }
+.#{$fa-css-prefix}-tablet-alt:before { content: fa-content($fa-var-tablet-alt); }
+.#{$fa-css-prefix}-filter:before { content: fa-content($fa-var-filter); }
+.#{$fa-css-prefix}-list-ul:before { content: fa-content($fa-var-list-ul); }
+
+.#{$fa-css-prefix}-music:before { content: fa-content($fa-var-music); }
+.#{$fa-css-prefix}-quote-left:before { content: fa-content($fa-var-quote-left); }
+.#{$fa-css-prefix}-camera-retro:before { content: fa-content($fa-var-camera-retro); }
+.#{$fa-css-prefix}-file-alt:before { content: fa-content($fa-var-file-alt); }
+.#{$fa-css-prefix}-times-circle:before { content: fa-content($fa-var-times-circle); }
+.#{$fa-css-prefix}-plus-square:before { content: fa-content($fa-var-plus-square); }
+.#{$fa-css-prefix}-sign-in-alt:before { content: fa-content($fa-var-sign-in-alt); }
+.#{$fa-css-prefix}-caret-up:before { content: fa-content($fa-var-caret-up); }
+.#{$fa-css-prefix}-caret-down:before { content: fa-content($fa-var-caret-down); }
+.#{$fa-css-prefix}-minus:before { content: fa-content($fa-var-minus); }
+.#{$fa-css-prefix}-sliders-h:before { content: fa-content($fa-var-sliders-h); }
+
+
+/* Regular */
+.#{$fa-css-prefix}-clock:before { content: fa-content($fa-var-clock); }
+.#{$fa-css-prefix}-image:before { content: fa-content($fa-var-image); }
+.#{$fa-css-prefix}-edit:before { content: fa-content($fa-var-edit); }
+.#{$fa-css-prefix}-calendar-alt:before { content: fa-content($fa-var-calendar-alt); }
+.#{$fa-css-prefix}-folder:before { content: fa-content($fa-var-folder); }
+.#{$fa-css-prefix}-chart-bar:before { content: fa-content($fa-var-chart-bar); }
+.#{$fa-css-prefix}-bell:before { content: fa-content($fa-var-bell); }
+.#{$fa-css-prefix}-circle:before { content: fa-content($fa-var-circle); }
+.#{$fa-css-prefix}-calendar:before { content: fa-content($fa-var-calendar); }
+.#{$fa-css-prefix}-dot-circle:before { content: fa-content($fa-var-dot-circle); }
+.#{$fa-css-prefix}-life-ring:before { content: fa-content($fa-var-life-ring); }
+.#{$fa-css-prefix}-object-group:before { content: fa-content($fa-var-object-group); }
+
+.#{$fa-css-prefix}-check-square:before { content: fa-content($fa-var-check-square); }
+
+/* Brands */
+.#{$fa-css-prefix}-twitter-square:before { content: fa-content($fa-var-twitter-square); }
+.#{$fa-css-prefix}-facebook-square:before { content: fa-content($fa-var-facebook-square); }
+.#{$fa-css-prefix}-linkedin:before { content: fa-content($fa-var-linkedin); }
+.#{$fa-css-prefix}-twitter:before { content: fa-content($fa-var-twitter); }
+.#{$fa-css-prefix}-pinterest:before { content: fa-content($fa-var-pinterest); }
+.#{$fa-css-prefix}-google-plus-square:before { content: fa-content($fa-var-google-plus-square); }
+.#{$fa-css-prefix}-google-plus-g:before { content: fa-content($fa-var-google-plus-g); }
+.#{$fa-css-prefix}-linkedin-in:before { content: fa-content($fa-var-linkedin-in); }
+.#{$fa-css-prefix}-youtube:before { content: fa-content($fa-var-youtube); }
+.#{$fa-css-prefix}-xing:before { content: fa-content($fa-var-xing); }
+.#{$fa-css-prefix}-instagram:before { content: fa-content($fa-var-instagram); }
+.#{$fa-css-prefix}-flickr:before { content: fa-content($fa-var-flickr); }
+.#{$fa-css-prefix}-tumblr:before { content: fa-content($fa-var-tumblr); }
+.#{$fa-css-prefix}-skype:before { content: fa-content($fa-var-skype); }
+.#{$fa-css-prefix}-vk:before { content: fa-content($fa-var-vk); }
+.#{$fa-css-prefix}-google:before { content: fa-content($fa-var-google); }
+.#{$fa-css-prefix}-reddit:before { content: fa-content($fa-var-reddit); }
+.#{$fa-css-prefix}-yelp:before { content: fa-content($fa-var-yelp); }
+.#{$fa-css-prefix}-whatsapp:before { content: fa-content($fa-var-whatsapp); }
+.#{$fa-css-prefix}-vimeo-v:before { content: fa-content($fa-var-vimeo-v); }
+.#{$fa-css-prefix}-facebook-f:before { content: fa-content($fa-var-facebook-f); }
+.#{$fa-css-prefix}-telegram-plane:before { content: fa-content($fa-var-telegram-plane); }
+.#{$fa-css-prefix}-youtube-square:before { content: fa-content($fa-var-youtube-square); }
+.#{$fa-css-prefix}-weixin:before { content: fa-content($fa-var-weixin); }
+.#{$fa-css-prefix}-tiktok:before { content: fa-content($fa-var-tiktok); }
+.#{$fa-css-prefix}-tripadvisor:before { content: fa-content($fa-var-tripadvisor); }

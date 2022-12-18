@@ -5,7 +5,7 @@ Plugin Name: UpdraftPlus - Backup/Restore
 Plugin URI: https://updraftplus.com
 Description: Backup and restore: take backups locally, or backup to Amazon S3, Dropbox, Google Drive, Rackspace, (S)FTP, WebDAV & email, on automatic schedules.
 Author: UpdraftPlus.Com, DavidAnderson
-Version: 2.22.23.25
+Version: 2.22.24.26
 Update URI: https://updraftplus.com/
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -83,8 +83,34 @@ if (!defined('UPDRAFTPLUS_BINZIP_OPTS')) {
 	define('UPDRAFTPLUS_BINZIP_OPTS', $zip_binzip_opts);
 }
 
+/**
+ * A wrapper for (require|include)(_once)? that will first check for existence, and direct the user what to do (since the traditional PHP error messages aren't clear enough for all users)
+ *
+ * @param String $path the file path to check
+ * @param String $method the method to load the file
+ */
+function updraft_try_include_file($path, $method = 'include') {
+
+	$file_to_include = UPDRAFTPLUS_DIR.'/'.$path;
+
+	if (!file_exists($file_to_include)) {
+		trigger_error(sprintf(__('The expected file %s is missing from your UpdraftPlus installation.', 'updraftplus').' '.__('Most likely, WordPress did not correctly unpack the plugin when installing it. You should de-install and then re-install the plugin (your settings and data will be retained).'), $file_to_include), E_USER_WARNING);
+	}
+
+	if ('include' === $method) {
+		include($file_to_include);
+	} elseif ('include_once' === $method) {
+		include_once($file_to_include);
+	} elseif ('require' === $method) {
+		require($file_to_include);
+	} else {
+		require_once($file_to_include);
+	}
+	
+}
+
 // Load add-ons and files that may or may not be present, depending on where the plugin was distributed
-if (is_file(UPDRAFTPLUS_DIR.'/autoload.php')) require_once(UPDRAFTPLUS_DIR.'/autoload.php');
+if (is_file(UPDRAFTPLUS_DIR.'/autoload.php')) updraft_try_include_file('autoload.php', 'require_once');
 
 if (!function_exists('updraftplus_modify_cron_schedules')) :
 /**
@@ -140,15 +166,15 @@ if (is_dir(UPDRAFTPLUS_DIR.'/addons') && $dir_handle = opendir(UPDRAFTPLUS_DIR.'
 			$phpinclude = preg_match("/IncludePHP: (\S+)/", $header, $matches) ? $matches[1] : false;
 			if (false === $phprequires || version_compare(PHP_VERSION, $phprequires, '>=')) {
 				$updraftplus_have_addons++;
-				if ($phpinclude) include_once(UPDRAFTPLUS_DIR.'/'.$phpinclude);
-				include_once(UPDRAFTPLUS_DIR.'/addons/'.$e);
+				if ($phpinclude) updraft_try_include_file(''.$phpinclude, 'include_once');
+				updraft_try_include_file('addons/'.$e, 'include_once');
 			}
 		}
 	}
 	@closedir($dir_handle);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
 }
 
-if (is_file(UPDRAFTPLUS_DIR.'/udaddons/updraftplus-addons.php')) require_once(UPDRAFTPLUS_DIR.'/udaddons/updraftplus-addons.php');
+if (is_file(UPDRAFTPLUS_DIR.'/udaddons/updraftplus-addons.php')) updraft_try_include_file('udaddons/updraftplus-addons.php', 'require_once');
 
 if (!file_exists(UPDRAFTPLUS_DIR.'/class-updraftplus.php') || !file_exists(UPDRAFTPLUS_DIR.'/options.php')) {
 	/**
@@ -160,7 +186,7 @@ if (!file_exists(UPDRAFTPLUS_DIR.'/class-updraftplus.php') || !file_exists(UPDRA
 	add_action('all_admin_notices', 'updraftplus_incomplete_install_warning');
 } else {
 
-	include_once(UPDRAFTPLUS_DIR.'/class-updraftplus.php');
+	updraft_try_include_file('class-updraftplus.php', 'include_once');
 	$updraftplus = new UpdraftPlus();
 	$GLOBALS['updraftplus'] = $updraftplus;
 	$updraftplus->have_addons = $updraftplus_have_addons;
@@ -216,4 +242,4 @@ function updraftplus_build_mysqldump_list() {
 }
 
 // Do this even if the missing files detection above fired, as the "missing files" detection above has a greater chance of showing the user useful info
-if (!class_exists('UpdraftPlus_Options')) require_once(UPDRAFTPLUS_DIR.'/options.php');
+if (!class_exists('UpdraftPlus_Options')) updraft_try_include_file('options.php', 'require_once');

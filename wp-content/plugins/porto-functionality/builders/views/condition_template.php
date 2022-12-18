@@ -2,10 +2,9 @@
 if ( ( ! is_singular() && ! isset( $_GET['post'] ) && ! isset( $_GET['post_id'] ) ) && empty( $is_page_layout ) ) {
 	return;
 }
-if ( ! $builder_type || ! in_array( $builder_type, array( 'header', 'footer', 'shop', 'product', 'popup', 'block' ) ) ) {
+if ( ! $builder_type || ! in_array( $builder_type, array( 'header', 'footer', 'shop', 'archive', 'single', 'product', 'popup', 'block' ) ) ) {
 	return;
 }
-
 	$first_conds        = apply_filters(
 		'porto_builder_condition_first',
 		array(
@@ -15,9 +14,9 @@ if ( ! $builder_type || ! in_array( $builder_type, array( 'header', 'footer', 's
 		)
 	);
 	$first_cond_default = '';
-	if ( 'shop' == $builder_type ) {
+	if ( 'shop' == $builder_type || 'archive' == $builder_type ) {
 		$first_cond_default = 'archive';
-	} elseif ( 'product' == $builder_type ) {
+	} elseif ( 'product' == $builder_type || 'single' == $builder_type ) {
 		$first_cond_default = 'single';
 	}
 
@@ -26,11 +25,13 @@ if ( ! $builder_type || ! in_array( $builder_type, array( 'header', 'footer', 's
 	foreach ( $_post_types as $post_type => $object ) {
 		$post_types[ $post_type ] = $object->label;
 	}
-
 	if ( 'product' == $builder_type || 'shop' == $builder_type ) {
 		$post_types = array(
 			'product' => __( 'Product', 'porto-functionaltiy' ),
 		);
+	}
+	if ( 'archive' == $builder_type || 'single' == $builder_type ) {
+		unset( $post_types['product'] );
 	}
 	$post_types = apply_filters( 'porto_builder_post_types', $post_types );
 
@@ -46,7 +47,6 @@ if ( ! $builder_type || ! in_array( $builder_type, array( 'header', 'footer', 's
 	} else {
 		$taxonomies = array( '' => '' );
 	}
-
 	foreach ( $post_types as $post_type => $label ) {
 		$post_type_taxonomies = get_object_taxonomies( $post_type, 'objects' );
 		$post_type_taxonomies = wp_filter_object_list(
@@ -56,11 +56,13 @@ if ( ! $builder_type || ! in_array( $builder_type, array( 'header', 'footer', 's
 				'show_in_nav_menus' => true,
 			)
 		);
-		if ( empty( $post_type_taxonomies ) ) {
+		if ( empty( $post_type_taxonomies ) && in_array( $post_type, array( 'page', 'e-landing-page', 'product' ) ) ) {
 			continue;
 		}
 
 		$taxonomies[ $post_type ] = array(
+			/* translators: post type name */
+			'archive/all' . $post_type => sprintf( __( 'All %s Archives', 'porto-functionaltiy' ), $label ),
 			/* translators: post type name */
 			'archive/' . $post_type => sprintf( __( '%s Archive', 'porto-functionaltiy' ), $label ),
 			/* translators: post type name */
@@ -75,33 +77,40 @@ if ( ! $builder_type || ! in_array( $builder_type, array( 'header', 'footer', 's
 
 	$second_cond_default = '';
 
-	/* load saved values */
-	$conditions = get_post_meta( $post_id, '_porto_builder_conditions', true );
 	?>
-
 <div class="porto-panel porto-builder-cond-wrap porto-setup-wizard<?php echo empty( $conditions ) ? ' notsaved' : ''; ?>">
-<?php
-$has_condition = true;
-if ( empty( $conditions ) ) {
-	$conditions    = array( array( $first_cond_default, $second_cond_default, '' ) );
-	$has_condition = false;
-}
-?>
+	<?php
+	if ( empty( $conditions ) ) {
+		$conditions = array( 'condition_template' => array( $first_cond_default, $second_cond_default, '' ) );
+	} else {
+		$conditions = array_merge( $conditions, array( 'condition_template' => array( $first_cond_default, $second_cond_default, '' ) ) );
+	}
+	?>
 	<p class="porto-logo">
 		<img src="<?php echo PORTO_URI . '/images/logo/logo-default-slim.png'; ?>" width="111" alt="">
 	</p>
 	<h2><?php esc_html_e( 'Where do you want to display this template?', 'porto-functionaltiy' ); ?></h2>
-	<p><?php esc_html_e( 'This will override all other settings such as Theme Options, meta box settings, etc.', 'porto-functionaltiy' ); ?></p>
+	<p style="margin-bottom: 0"><?php esc_html_e( 'This will override all other settings such as Theme Options, meta box settings, etc.', 'porto-functionaltiy' ); ?></p>
+	<p style="margin-top: 0"><?php esc_html_e( 'The last saved template will have higher priority if several templates are applied under same condition.', 'porto-functionaltiy' ); ?></p>
 	<form method="POST" class="postoptions">
-	<?php foreach ( $conditions as $index => $condition ) : ?>
-		<div class="porto-builder-condition"<?php echo ! $has_condition ? ' style="display: none"' : ''; ?>>
-			<select class="condition condition-type" name="type[]"<?php disabled( 'shop' == $builder_type || 'product' == $builder_type, true ); ?>>
+
+	<?php
+	foreach ( $conditions as $index => $condition ) :
+		?>
+		<div class="porto-builder-condition <?php echo ( 'condition_template' === $index ) ? ' porto-builder-condition-template' : ''; ?>" <?php echo ( 'condition_template' === $index ) ? ' style="display: none"' : ''; ?>>
+			<?php if ( ! empty( $duplicted_conditions ) && ! empty( $duplicted_conditions[ $index ] ) ) : ?>
+				<div class="duplicated-conditions">
+					<?php /* translators: starting and ending bold tags, template name */ ?>
+					<?php printf( _n( 'Following template was applied under this condition: %s.', 'Following templates were applied under this condition: %s.', count( $duplicted_conditions[ $index ] ), 'porto-functionaltiy' ), '<b>' . implode( ', ', $duplicted_conditions[ $index ] ) . '</b>' ); ?>
+				</div>
+			<?php endif; ?>
+			<select class="condition condition-type" name="type[]"<?php disabled( 'shop' == $builder_type || 'archive' == $builder_type || 'product' == $builder_type || 'single' == $builder_type, true ); ?>>
 			<?php foreach ( $first_conds as $type => $label ) : ?>
 				<option value="<?php echo esc_attr( $type ); ?>"<?php selected( $condition[0], $type, true ); ?>><?php echo esc_html( $label ); ?></option>
 			<?php endforeach; ?>
 			</select>
-		<?php if ( 'shop' == $builder_type || 'product' == $builder_type ) : ?>
-			<input type="hidden" name="type[]" value="<?php echo esc_html( $condition[0] ); ?>">
+		<?php if ( 'shop' == $builder_type || 'archive' == $builder_type || 'product' == $builder_type || 'single' == $builder_type ) : ?>
+			<input type="hidden" name="type[]" value="<?php echo esc_attr( $condition[0] ); ?>">
 		<?php endif; ?>
 			<select class="condition condition-object-type" name="object_type[]">
 			<?php foreach ( $taxonomies as $type => $val ) : ?>
@@ -123,8 +132,8 @@ if ( empty( $conditions ) ) {
 				<a href="#" class="condition-cancel" style="display: none"><i class="fas fa-times"></i></a>
 				<div class="live-search-list"></div>
 			</div>
-			<a href="#" class="condition-close condition-btn" title="<?php esc_html_e( 'Close', 'porto-functionaltiy' ); ?>"><i class="fas fa-times"></i></a>
-			<a href="#" class="condition-clone condition-btn" title="<?php esc_html_e( 'Clone', 'porto-functionaltiy' ); ?>"><i class="far fa-clone"></i></a>
+			<a href="#" class="condition-close condition-btn" title="<?php esc_attr_e( 'Close', 'porto-functionaltiy' ); ?>"><i class="fas fa-times"></i></a>
+			<a href="#" class="condition-clone condition-btn" title="<?php esc_attr_e( 'Clone', 'porto-functionaltiy' ); ?>"><i class="far fa-clone"></i></a>
 		</div>
 	<?php endforeach; ?>
 		<input type="hidden" name="post_id" value="<?php echo (int) $post_id; ?>">

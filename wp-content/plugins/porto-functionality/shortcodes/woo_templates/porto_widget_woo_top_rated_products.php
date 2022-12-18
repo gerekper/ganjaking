@@ -14,6 +14,9 @@ extract(
 	)
 );
 
+if ( ! is_array( $atts ) ) {
+	$atts = array();
+}
 if ( ! $title ) {
 	$atts['title'] = '';
 }

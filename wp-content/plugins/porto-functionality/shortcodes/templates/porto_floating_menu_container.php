@@ -33,46 +33,57 @@ $output                         .= '</div>';
 echo porto_filter_output( $output );
 ?>
 <script>
-jQuery(document).ready(function($) {
-	/*
-	* Floating Menu Movement
-	*/
-	var menuFloatingAnim = {
-		$menuFloating: $('.floating-menu .floating-menu-body > .floating-menu-row'),
+( function() {
+	var porto_init_floating_menu = function() {
+		( function( $ ) {
 
-		build: function() {
-			var self = this;
-			self.init();
-		},
-		init: function(){
-			var self  = this,
-				divisor = 0;
+			/*
+			* Floating Menu Movement
+			*/
+			var menuFloatingAnim = {
+				$menuFloating: $('.floating-menu .floating-menu-body > .floating-menu-row'),
 
-			$(window).on('scroll', function() {
-				var scrollPercent = 100 * $(window).scrollTop() / ($(document).height() - $(window).height()),
-					st = $(this).scrollTop(),
-					divisor = $(document).height() / $(window).height();
-				if (divisor < 1.5) {
-					return;
+				build: function() {
+					var self = this;
+					self.init();
+				},
+				init: function(){
+					var self  = this,
+						divisor = 0;
+
+					$(window).on('scroll', function() {
+						var scrollPercent = 100 * $(window).scrollTop() / ($(document).height() - $(window).height()),
+							st = $(this).scrollTop(),
+							divisor = $(document).height() / $(window).height();
+						if (divisor < 1.5) {
+							return;
+						}
+						var endValue = ($(document).height() - $(window).height()) / divisor,
+							offsetPx = st / divisor,
+							offsetTop = parseInt(self.$menuFloating.css('top'), 10);
+						if (endValue - offsetTop - 40 < self.$menuFloating.height()) {
+							offsetPx *= self.$menuFloating.height() / ( endValue - offsetTop - 40 );
+						}
+
+						self.$menuFloating.css({
+							transform : 'translateY( calc('+ scrollPercent +'vh - '+ offsetPx +'px) )' 
+						});
+					});
 				}
-				var endValue = ($(document).height() - $(window).height()) / divisor,
-					offsetPx = st / divisor,
-					offsetTop = parseInt(self.$menuFloating.css('top'), 10);
-				if (endValue - offsetTop - 40 < self.$menuFloating.height()) {
-					offsetPx *= self.$menuFloating.height() / ( endValue - offsetTop - 40 );
+			}
+
+			if( $('.floating-menu').length ) {
+				if( $(window).height() > 700 ) {
+					menuFloatingAnim.build();
 				}
+			}
+		} )( window.jQuery );
+	};
 
-				self.$menuFloating.css({
-					transform : 'translateY( calc('+ scrollPercent +'vh - '+ offsetPx +'px) )' 
-				});
-			});
-		}
+	if ( window.theme && theme.isLoaded ) {
+		porto_init_floating_menu();
+	} else {
+		window.addEventListener( 'load', porto_init_floating_menu );
 	}
-
-	if( $('.floating-menu').length ) {
-		if( $(window).height() > 700 ) {
-			menuFloatingAnim.build();
-		}
-	}
-});
+} )();
 </script>

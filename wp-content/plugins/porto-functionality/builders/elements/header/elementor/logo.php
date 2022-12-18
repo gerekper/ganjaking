@@ -33,7 +33,11 @@ class Porto_Elementor_HB_Logo_Widget extends \Elementor\Widget_Base {
 		return 'porto-icon-circle-thin';
 	}
 
-	protected function _register_controls() {
+	public function get_custom_help_url() {
+		return 'https://www.portotheme.com/wordpress/porto/documentation/porto-logo-element/';
+	}
+
+	protected function register_controls() {
 
 		$this->start_controls_section(
 			'section_hb_logo',
@@ -41,7 +45,14 @@ class Porto_Elementor_HB_Logo_Widget extends \Elementor\Widget_Base {
 				'label' => __( 'Logo', 'porto-functionality' ),
 			)
 		);
-
+			$this->add_control(
+				'description_logo',
+				array(
+					'type'            => Controls_Manager::RAW_HTML,
+					'raw'             => sprintf( esc_html__( 'Please see %1$sTheme Options -> Logo%2$s panel.', 'porto-functionality' ), '<b>', '</b>' ),
+					'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
+				)
+			);
 		$this->end_controls_section();
 	}
 

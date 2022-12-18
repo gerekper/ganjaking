@@ -1,0 +1,19 @@
+{
+  "elements": {
+    "portoHeaderMenuicon": {
+      "settings": {
+        "name": "Porto Header Mobile Menu",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-hb.jpg",
+        "metaDescription": "Porto VC element to display mobile menu toggle in header"
+      }
+    }
+  },
+  "categories": {
+    "Icon": {
+      "elements": [
+        "portoHeaderMenuicon"
+      ]
+    }
+  }
+}

@@ -186,7 +186,7 @@ class UpdraftPlus_Addon_Reporting {
 <h1><?php echo get_bloginfo('name').': '.__('Backup Report', 'updraftplus');?></h1>
 <p style="float: left; clear: left; margin: 0 0 8px;"><em><?php printf(__('Backup made by %s', 'updraftplus'), '<a href="https://updraftplus.com" target="_blank">UpdraftPlus '.$updraftplus->version); ?></a></em></p>
 <?php
-	if (!class_exists('UpdraftPlus_Notices')) include_once(UPDRAFTPLUS_DIR.'/includes/updraftplus-notices.php');
+	if (!class_exists('UpdraftPlus_Notices')) updraft_try_include_file('includes/updraftplus-notices.php', 'include_once');
 	global $updraftplus_notices;
 	$ws_advert = $updraftplus_notices->do_notice(false, 'report', true);
 	if ($ws_advert) {
@@ -319,11 +319,11 @@ class UpdraftPlus_Addon_Reporting {
 	}
 
 	public function report_finished() {
+		global $phpmailer;
 		remove_filter('wp_mail_content_type', array($this, 'wp_mail_content_type'), 8);
 		remove_action('phpmail_init', array($this, 'phpmailer_init'));
 		if (empty($this->html)) return;
-		global $phpmailer;
-		if (is_object($phpmailer) && is_a($phpmailer, 'PHPMailer')) {
+		if (is_object($phpmailer) && (is_a($phpmailer, 'PHPMailer') || is_a($phpmailer, 'PHPMailer\PHPMailer\PHPMailer'))) {
 // $phpmailer->AltBody = '';
 // $phpmailer->Body = '';
 // $phpmailer->ContentType = 'text/plain';

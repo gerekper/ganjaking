@@ -1,0 +1,48 @@
+#infscr-loading {
+    position: absolute;
+    top: 100%;
+    left: 0; right: 0;
+    width: 100%;
+    height: 0;
+    text-align: center;
+
+    img {
+        display: none !important;
+    }
+
+    .page-faqs & {
+        margin-top: -40px;
+    }
+}
+
+.pagination.load-more {
+    span,
+    a,
+    .next:before {
+        display: none;
+    }
+    .next {
+        display: block;
+        float: none;
+        padding: 1.0833em 2.5em;
+        font-size: 12px;
+        line-height: 1.3333;
+        border-width: 1px;
+        width: 100%;
+        height: auto;
+        text-indent: 0;
+        border-color: #e7e7e7;
+        background: none;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #555;
+        transition: background-color .2s, color .2s, border-color .2s, opacity .2s;
+    }
+}
+.pagination-wrap.load-more {
+    position: relative;
+    margin: 25px 0;
+    .bounce-loader {
+        display: none;
+    }
+}

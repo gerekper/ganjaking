@@ -2,8 +2,8 @@
 
 if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
 
-if (!class_exists('Updraft_Restorer_Skin')) require_once(UPDRAFTPLUS_DIR.'/includes/updraft-restorer-skin.php');
-if (!class_exists('UpdraftPlus_Search_Replace')) require_once(UPDRAFTPLUS_DIR.'/includes/class-search-replace.php');
+if (!class_exists('Updraft_Restorer_Skin')) updraft_try_include_file('includes/updraft-restorer-skin.php', 'require_once');
+if (!class_exists('UpdraftPlus_Search_Replace')) updraft_try_include_file('includes/class-search-replace.php', 'require_once');
 
 class Updraft_Restorer {
 
@@ -272,7 +272,7 @@ class Updraft_Restorer {
 
 		$this->is_multisite = is_multisite();
 
-		require_once(UPDRAFTPLUS_DIR.'/includes/class-database-utility.php');
+		updraft_try_include_file('includes/class-database-utility.php', 'require_once');
 		
 		if (!class_exists('WP_Upgrader')) include_once(ABSPATH.'wp-admin/includes/class-wp-upgrader.php');
 		$this->skin = $skin;
@@ -948,7 +948,7 @@ class Updraft_Restorer {
 		} elseif ('.tar' == strtolower(substr($package, -4, 4)) || '.tar.gz' == strtolower(substr($package, -7, 7)) || '.tar.bz2' == strtolower(substr($package, -8, 8))) {
 			if (!class_exists('UpdraftPlus_Archive_Tar')) {
 				if (false === strpos(get_include_path(), UPDRAFTPLUS_DIR.'/includes/PEAR')) set_include_path(UPDRAFTPLUS_DIR.'/includes/PEAR'.PATH_SEPARATOR.get_include_path());
-				include_once(UPDRAFTPLUS_DIR.'/includes/PEAR/Archive/Tar.php');
+				updraft_try_include_file('includes/PEAR/Archive/Tar.php', 'include_once');
 			}
 
 			$p_compress = null;
@@ -2035,6 +2035,7 @@ class Updraft_Restorer {
 		$cache_sub_directories = array('cache', 'wphb-cache', 'endurance-page-cache');
 		foreach ($cache_sub_directories as $sub_dir) {
 			if (!is_dir(WP_CONTENT_DIR.'/'.$sub_dir)) continue;
+			$updraftplus->log("Purging cache directory: ".WP_CONTENT_DIR.'/'.$sub_dir);
 			UpdraftPlus_Filesystem_Functions::remove_local_directory(WP_CONTENT_DIR.'/'.$sub_dir, true);
 		}
 	}
@@ -4156,17 +4157,21 @@ class Updraft_Restorer {
 							update_option('cctm_data', $cctm_data);
 						}
 					}
+				}
+
+				if ($table == $import_table_prefix.$mprefix.'options') {
 					// Another - http://www.elegantthemes.com/gallery/elegant-builder/
 					$elegant_data = $wpdb->get_row($wpdb->prepare("SELECT option_value FROM $new_table_name WHERE option_name = %s LIMIT 1", 'et_images_temp_folder'));
 					if (!empty($elegant_data->option_value)) {
 						$dbase = basename($elegant_data->option_value);
 						$wp_upload_dir = wp_upload_dir();
 						$edir = $wp_upload_dir['basedir'];
-						if (!is_dir($edir.'/'.$dbase)) @mkdir($edir.'/'.$dbase);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+						$new_dir = $edir.'/'.$dbase;
+						if (!is_dir($new_dir)) @mkdir($new_dir, 0775, true);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
 						$updraftplus->log_e("Elegant themes theme builder plugin data detected: resetting temporary folder");
-						update_option('et_images_temp_folder', $edir.'/'.$dbase);
+						$wpdb->update($new_table_name, array('option_value' => $new_dir), array('option_name' => 'et_images_temp_folder'));
 					}
-
+					
 					// check if current restoration is a migration
 					if (!empty($this->restore_options['updraft_restorer_replacesiteurl'])) {
 						$wp_rocket_settings = $wpdb->get_row($wpdb->prepare("SELECT option_value FROM $new_table_name WHERE option_name = %s LIMIT 1", 'wp_rocket_settings'));
@@ -4177,7 +4182,7 @@ class Updraft_Restorer {
 							// if WP Rocket settings is found and cdn is enabled
 							if (isset($wp_rocket_settings['cdn'])) {
 								unset($wp_rocket_settings['cdn']);
-								update_option('wp_rocket_settings', $wp_rocket_settings);
+								$wpdb->update($new_table_name, array('option_value' => serialize($wp_rocket_settings)), array('option_name' => 'wp_rocket_settings'));
 
 								$updraftplus->log_e("WP Rocket CDN option detected: disabling the option");
 							}

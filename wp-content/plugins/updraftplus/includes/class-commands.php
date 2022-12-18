@@ -121,7 +121,7 @@ class UpdraftPlus_Commands {
 		}
 
 		if (!empty($params['db_anon_all']) || !empty($params['db_anon_non_staff'])) {
-			if (!class_exists('UpdraftPlus_Anonymisation_Functions')) include_once(UPDRAFTPLUS_DIR.'/addons/anonymisation.php');
+			if (!class_exists('UpdraftPlus_Anonymisation_Functions')) updraft_try_include_file('addons/anonymisation.php', 'include_once');
 
 			add_filter('updraft_backupnow_options', 'UpdraftPlus_Anonymisation_Functions::updraftplus_backup_anonymisation_options', 10, 2);
 			add_filter('updraftplus_initial_jobdata', 'UpdraftPlus_Anonymisation_Functions::updraftplus_backup_anonymisation_jobdata', 10, 2);
@@ -185,7 +185,7 @@ class UpdraftPlus_Commands {
 	
 	private function _load_ud_admin() {
 		if (!defined('UPDRAFTPLUS_DIR') || !is_file(UPDRAFTPLUS_DIR.'/admin.php')) return false;
-		include_once(UPDRAFTPLUS_DIR.'/admin.php');
+		updraft_try_include_file('admin.php', 'include_once');
 		global $updraftplus_admin;
 		return $updraftplus_admin;
 	}
@@ -287,6 +287,7 @@ class UpdraftPlus_Commands {
 			'settings' => $output,
 			'remote_storage_options' => $remote_storage_options_and_templates['options'],
 			'remote_storage_templates' => $remote_storage_options_and_templates['templates'],
+			'remote_storage_partial_templates' => $remote_storage_options_and_templates['partial_templates'],
 			'meta' => apply_filters('updraftplus_get_settings_meta', array()),
 			'updraftplus_version' => $updraftplus->version,
 		);
@@ -1201,5 +1202,14 @@ class UpdraftPlus_Commands {
 		$response['html'] = $html;
 
 		return $response;
+	}
+
+	/**
+	 * This function will add updraft_dismiss_admin_warning_litespeed option to hide litespeed admin warning after dismissed
+	 *
+	 * @return void
+	 */
+	public function dismiss_admin_warning_litespeed() {
+		UpdraftPlus_Options::update_updraft_option('updraft_dismiss_admin_warning_litespeed', true);
 	}
 }

@@ -3,16 +3,20 @@
  * Plugin Name: WooCommerce 360° Image
  * Plugin URI: https://woocommerce.com/products/woocommerce-360-image/
  * Description: Add a 360° image rotation display your product listings in WooCommerce.
- * Version: 1.1.21
- * Author: WooCommerce
- * Author URI: https://woocommerce.com/
- * License: GPL-2.0+
+ * Version: 1.2.1
+ * Author: Themesquad
+ * Author URI: https://themesquad.com/
+ * Requires at least: 4.4
+ * Tested up to: 6.0
  * Domain: woocommerce-360-image
- * Woo: 512186:24eb2cfa3738a66bf3b2587876668cd2
- * Tested up to: 5.7
- * WC tested up to: 5.3
+ * Domain Path: /languages
+ *
  * WC requires at least: 3.0
- * Copyright (c) 2020 WooCommerce
+ * WC tested up to: 6.5
+ * Woo: 512186:24eb2cfa3738a66bf3b2587876668cd2
+ *
+ * License: GNU General Public License v3.0
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @package woocommerce-360-image
  */
@@ -23,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'WC_360_IMAGE_VERSION' ) ) {
-	define( 'WC_360_IMAGE_VERSION', '1.1.21' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_360_IMAGE_VERSION', '1.2.1' ); // WRCS: DEFINED_VERSION.
 }
 
 // Load main class and register activation function.

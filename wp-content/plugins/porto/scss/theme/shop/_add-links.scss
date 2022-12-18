@@ -1,0 +1,221 @@
+
+.add-links .add_to_cart_read_more,
+.add-links .add_to_cart_button,
+.yith-wcwl-add-to-wishlist a,
+.yith-wcwl-add-to-wishlist span:not(.yith-wcwl-tooltip),
+.add-links-wrap .quickview,
+.product-image .yith-compare {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    font-size: inherit;
+    text-align: center;
+    vertical-align: top;
+    transition: opacity .25s, background-color .25s, color .25s, border-color .25s, left .25s, right .25s;
+    background-color: var(--porto-shop-add-links-bg-color);
+    border: 1px solid var(--porto-shop-add-links-border-color, transparent);
+    color: var(--porto-shop-add-links-color, $color-dark);
+}
+
+.yith-wcwl-add-to-wishlist a,
+.yith-wcwl-add-to-wishlist span,
+.add-links-wrap .quickview {
+    &:before {
+        display: inline-block;
+    }
+}
+
+.add-links .button:hover,
+.add-links .button:focus,
+.add-links .quickview:hover,
+.yith-wcwl-add-to-wishlist a:hover,
+.product-image .yith-compare:hover,
+li.product-default:hover .add-links .add_to_cart_button,
+li.product-default:hover .add-links .add_to_cart_read_more {
+    background-color: var(--porto-primary-color);
+    border-color: var(--porto-primary-color);
+    color: var(--porto-primary-color-inverse, $color-light);
+}
+
+.product-summary-wrap .yith-wcwl-add-to-wishlist a,
+.product-summary-wrap .yith-wcwl-add-to-wishlist a:hover,
+.product-summary-wrap .yith-wcwl-add-to-wishlist span:not(.yith-wcwl-tooltip) { background: none; border: none; }
+
+.add-links {
+    .add_to_cart_button,
+	.add_to_cart_read_more,
+	.yith-compare {
+        padding: 0 .625rem;
+        font-size: .75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        z-index: 1;
+        white-space: nowrap;
+        &:before {
+            content: "\f061";
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            margin-#{$right}: 5px;
+            position: relative;
+            float: $left;
+        }
+	}
+	
+	.yith-compare:before {
+		content: "\e810";
+		font-family: 'porto';
+	}
+    .yith-compare.added::before {
+        content: "\f00c";
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+        line-height: 36px;
+    }
+
+    .add_to_cart_button {
+        .product-type-simple &:before {
+            font-family: "Porto";
+            content: "\e8ba";
+            font-size: 1rem;
+            font-weight: 600;
+            font-size: .9375rem;
+        }
+        &.loading.viewcart-style-1:after {
+            content: "";
+            opacity: .5;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background: var(--porto-normal-bg);
+        }
+    }
+
+    .add_to_cart_button,
+    .add_to_cart_read_more,
+	.quickview,
+	.yith-compare {
+        height: 36px;
+        line-height: 34px;
+        min-width: 36px;
+    }
+}
+
+.yith-wcwl-add-to-wishlist {
+    margin-top: 0;
+    line-height: 1;
+    vertical-align: top;
+
+    a,
+    span:not(.yith-wcwl-tooltip) {
+        width: 36px;
+        height: 36px;
+        line-height: 34px;
+        padding: 0;
+        text-indent: -9999em;;
+
+        &:before {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            text-indent: 0;
+            font-size: 1rem;
+            font-family: 'Porto';
+        }
+    }
+
+    .add_to_wishlist:before {
+        content: '\e889';
+    }
+
+    .yith-wcwl-wishlistaddedbrowse a:before,
+    .yith-wcwl-wishlistexistsbrowse a:before,
+    .yith-wcwl-add-button a.view-wishlist:before {
+        content: '\e88a';
+        color: var(--porto-sale-color, $sale-bg);
+    }
+
+    .delete_item:before {
+        content: '\e88a';
+    }
+
+    + .clear,
+    a i {
+        display: none;
+    }
+
+    .feedback,
+    img.ajax-loading {
+        display: none !important
+    }
+}
+
+.product-layout-image .yith-wcwl-add-to-wishlist, .summary-before .yith-wcwl-add-to-wishlist {
+    .yith-wcwl-add-button > a:first-child, .yith-wcwl-wishlistexistsbrowse > a {
+        padding-#{$left}: 20px;
+        &::before {
+            right: unset;
+        }
+    }
+    a, span {
+        width: unset;
+        text-indent: unset;
+    }
+    a:hover {
+        color: var( --porto-primary-color );
+        background-color: var( --porto-primary-color-inverse, $color-light );
+        border-color: var( --porto-primary-color-inverse, $color-light );
+    }
+} 
+
+li.product-outimage_aq_onimage .add-links .quickview {
+    background-color: var( --porto-primary-color );
+    color: var( --porto-primary-color-inverse, $color-light );
+}
+.add-links .quickview {
+    width: 36px;
+    /*border-color: #d8d8d6;
+    background: none;*/
+    text-indent: -9999px;
+    text-transform: uppercase;
+    font-size: 13px;
+
+    &:before {
+        content: $fa-var-external-link-alt;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        text-indent: 0;
+        font-family: 'Font Awesome 5 Free';
+        font-size: 1.1em;
+        font-weight: 900;
+    }
+
+    &.loading:after {
+        content: "";
+        opacity: .5;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: var(--porto-normal-bg);
+    }
+}
+
+.single-add-to-cart .type-product .single_add_to_cart_button {
+    &:before {
+        content: none;
+    }
+
+    &:after {
+        content: "\f00c";
+        margin-#{$left}: 10px;
+        font-size: 16px;
+        font-family: 'Font Awesome 5 Free';
+        font-weight: 900;
+    }
+}

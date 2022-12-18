@@ -1,0 +1,19 @@
+{
+	"elements": {
+		"portoTab": {
+			"settings": {
+				"name": "Porto Tabs",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-porto-tab.jpg",
+				"metaDescription": "Add 'Tab Content' elements here."
+			}
+		}
+	},
+	"categories": {
+		"Tabs": {
+			"elements": [
+				"portoTab"
+			]
+		}
+	}
+}

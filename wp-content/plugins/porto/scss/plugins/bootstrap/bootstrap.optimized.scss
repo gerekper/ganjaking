@@ -1,0 +1,87 @@
+/*!
+ * Bootstrap v5.0.1 (https://getbootstrap.com/)
+ * Copyright 2011-2021 The Bootstrap Authors
+ * Copyright 2011-2021 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ */
+
+// scss-docs-start import-stack
+// Configuration
+@import "functions";
+@import "variables";
+@import "mixins";
+
+@import "migrate";
+
+@import "utilities";
+
+/* bootstrap row */
+.col-xxl, .col-xxl-1, .col-xxl-2, .col-xxl-3, .col-xxl-4, .col-xxl-5, .col-xxl-6, .col-xxl-7, .col-xxl-8, .col-xxl-9, .col-xxl-10, .col-xxl-11, .col-xxl-12, .col-xxl-auto,
+.col-xl, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-auto,
+.col-lg, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9,
+.col-lg-10, .col-lg-11, .col-lg-12, .col-lg-auto,
+.col-md, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md-auto,
+.col-sm, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-auto {
+  width: 100%;
+  flex: 0 0 auto
+}
+
+// Layout & components
+@import "root";
+@import "reboot";
+@import "type";
+@import "images";
+@import "containers";
+@import "grid";
+@import "tables";
+@import "forms";
+@import "buttons";
+@import "transitions";
+@import "dropdown";
+@import "button-group";
+@import "nav";
+/*@import "navbar";*/
+@import "card";
+@import "accordion";
+@import "breadcrumb";
+@import "pagination";
+/*@import "badge";*/
+@import "alert";
+@import "progress";
+/*@import "list-group";*/
+@import "close";
+/*@import "toasts";*/
+/*@import "modal";*/
+@import "tooltip";
+@import "popover";
+/*@import "carousel";*/
+@import "spinners";
+@import "offcanvas";
+
+// Helpers
+@import "helpers";
+
+// Utilities
+@import "utilities/api";
+// scss-docs-end import-stack
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -5px;
+  margin-left: -5px;
+
+  > [class*="col-"] {
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+
+  > * {
+    max-width: 100%
+  }
+}
+
+.container, .container-fluid {
+  padding-left: $grid-gutter-width / 2;
+  padding-right: $grid-gutter-width / 2;
+}

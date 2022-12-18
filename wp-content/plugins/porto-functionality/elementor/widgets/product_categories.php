@@ -8,10 +8,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Porto Elementor widget to display products.
  *
- * @since 5.2.0
+ * @since 1.5.2
  */
 
 use Elementor\Controls_Manager;
+use Elementor\Group_Control_Typography;
+use Elementor\Group_Control_Box_Shadow;
 
 class Porto_Elementor_Product_Categories_Widget extends \Elementor\Widget_Base {
 
@@ -43,18 +45,18 @@ class Porto_Elementor_Product_Categories_Widget extends \Elementor\Widget_Base {
 		}
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 		$order_way_values = array_slice( porto_vc_woo_order_way(), 1 );
-		$slider_options   = porto_update_vc_options_to_elementor( porto_vc_product_slider_fields() );
+		$slider_options   = porto_update_vc_options_to_elementor( porto_vc_product_slider_fields( 'products-slider', 'dots-style-1' ) );;
 
-		$slider_options['nav_pos2']['condition']['navigation']       = 'yes';
-		$slider_options['nav_type']['condition']['navigation']       = 'yes';
-		$slider_options['autoplay_timeout']['condition']['autoplay'] = 'yes';
-
+		$slider_options['nav_pos2']['condition']['navigation']        = 'yes';
+		$slider_options['nav_type']['condition']['navigation']        = 'yes';
+		$slider_options['autoplay_timeout']['condition']['autoplay']  = 'yes';
+		
 		$this->start_controls_section(
 			'section_product_categories',
 			array(
-				'label' => __( 'Products Selector', 'porto-functionality' ),
+				'label' => __( 'Selector', 'porto-functionality' ),
 			)
 		);
 
@@ -149,7 +151,7 @@ class Porto_Elementor_Product_Categories_Widget extends \Elementor\Widget_Base {
 		$this->start_controls_section(
 			'section_products_layout',
 			array(
-				'label' => __( 'Products Layout', 'porto-functionality' ),
+				'label' => __( 'Layout', 'porto-functionality' ),
 			)
 		);
 
@@ -256,9 +258,9 @@ class Porto_Elementor_Product_Categories_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'text_position',
 			array(
-				'type'    => Controls_Manager::SELECT,
-				'label'   => __( 'Text Position', 'porto-functionality' ),
-				'options' => array(
+				'type'        => Controls_Manager::SELECT,
+				'label'       => __( 'Text Position', 'porto-functionality' ),
+				'options'     => array(
 					'middle-left'    => __( 'Inner Middle Left', 'porto-functionality' ),
 					'middle-center'  => __( 'Inner Middle Center', 'porto-functionality' ),
 					'middle-right'   => __( 'Inner Middle Right', 'porto-functionality' ),
@@ -267,7 +269,8 @@ class Porto_Elementor_Product_Categories_Widget extends \Elementor\Widget_Base {
 					'bottom-right'   => __( 'Inner Bottom Right', 'porto-functionality' ),
 					'outside-center' => __( 'Outside', 'porto-functionality' ),
 				),
-				'default' => 'middle-center',
+				'default'     => 'middle-center',
+				'qa_selector' => 'li.product-category:first-child .thumb-info-title',
 			)
 		);
 
@@ -290,14 +293,25 @@ class Porto_Elementor_Product_Categories_Widget extends \Elementor\Widget_Base {
 			)
 		);
 
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_product_categories_option',
+			array(
+				'label' => __( 'Option', 'porto-functionality' ),
+			)
+		);
+
 		$this->add_control(
 			'text_color',
 			array(
 				'type'    => Controls_Manager::SELECT,
 				'label'   => __( 'Text Color', 'porto-functionality' ),
 				'options' => array(
-					'dark'  => __( 'Dark', 'porto-functionality' ),
-					'light' => __( 'Light', 'porto-functionality' ),
+					'dark'      => __( 'Dark', 'porto-functionality' ),
+					'light'     => __( 'Light', 'porto-functionality' ),
+					'primary'   => __( 'Primary', 'porto-functionality' ),
+					'secondary' => __( 'Secondary', 'porto-functionality' ),
 				),
 				'default' => 'light',
 			)
@@ -331,7 +345,7 @@ class Porto_Elementor_Product_Categories_Widget extends \Elementor\Widget_Base {
 			array(
 				'type'        => Controls_Manager::SWITCHER,
 				'label'       => __( 'Display a featured product', 'porto-functionality' ),
-				'description' => __( 'If you check this option, a featured product in each category will be displayed under the product category.', 'porto-functionality' ),
+				'description' => __( 'If you check this option, a featured product in each category will be displayed under the product category. This option isn\'t available to "Grid-Creative" of "View".', 'porto-functionality' ),
 			)
 		);
 
@@ -396,21 +410,354 @@ class Porto_Elementor_Product_Categories_Widget extends \Elementor\Widget_Base {
 
 		foreach ( $slider_options as $key => $opt ) {
 			unset( $opt['condition']['view'] );
-			$this->add_control( $key, $opt );
+			if( ! empty( $opt['responsive'] ) ) {
+				$this->add_responsive_control( $key, $opt );
+			} else {
+				$this->add_control( $key, $opt );
+			}
 		}
 
 		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_style_option',
+			array(
+				'label'       => __( 'Style', 'porto-functionality' ),
+				'tab'         => Controls_Manager::TAB_STYLE,
+				'qa_selector' => 'li.product-category:first-child',
+			)
+		);
+
+			$this->add_control(
+				'thumb_border_radius',
+				array(
+					'type'       => Controls_Manager::SLIDER,
+					'label'      => __( 'Image Border Radius', 'porto-functionality' ),
+					'range'      => array(
+						'px' => array(
+							'step' => 1,
+							'min'  => 0,
+							'max'  => 100,
+						),
+						'%'  => array(
+							'step' => 1,
+							'min'  => 0,
+							'max'  => 100,
+						),
+					),
+					'size_units' => array(
+						'px',
+						'%',
+					),
+					'condition'  => array(
+						'media_type' => '',
+					),
+					'selectors'  => array(
+						'{{WRAPPER}} .thumb-info .thumb-info-wrapper' => 'border-radius: {{SIZE}}{{UNIT}};',
+					),
+				)
+			);
+
+			$this->add_control(
+				'thumb_min_height',
+				array(
+					'type'      => Controls_Manager::SLIDER,
+					'label'     => __( 'Min Height of Text', 'porto-functionality' ),
+					'range'     => array(
+						'px' => array(
+							'step' => 1,
+							'min'  => 0,
+							'max'  => 100,
+						),
+					),
+					'condition' => array(
+						'media_type' => 'none',
+					),
+					'selectors' => array(
+						'{{WRAPPER}} .product-category .thumb-info' => 'min-height: {{SIZE}}{{UNIT}};',
+					),
+				)
+			);
+
+			$this->add_control(
+				'icon_padding',
+				array(
+					'label'      => esc_html__( 'Icon Padding', 'porto-functionality' ),
+					'type'       => Controls_Manager::DIMENSIONS,
+					'size_units' => array(
+						'px',
+						'em',
+					),
+					'selectors'  => array(
+						'{{WRAPPER}} .thumb-info i' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					),
+					'condition'  => array(
+						'media_type' => array( 'icon' ),
+					),
+				)
+			);
+
+			$this->add_control(
+				'icon_border_radius',
+				array(
+					'type'       => Controls_Manager::SLIDER,
+					'label'      => __( 'Icon Border Radius', 'porto-functionality' ),
+					'range'      => array(
+						'px' => array(
+							'step' => 1,
+							'min'  => 0,
+							'max'  => 100,
+						),
+						'%'  => array(
+							'step' => 1,
+							'min'  => 0,
+							'max'  => 100,
+						),
+					),
+					'size_units' => array(
+						'px',
+						'%',
+					),
+					'condition'  => array(
+						'media_type' => 'icon',
+					),
+					'selectors'  => array(
+						'{{WRAPPER}} .cat-has-icon .thumb-info i' => 'border-radius: {{SIZE}}{{UNIT}};',
+					),
+				)
+			);
+
+			$this->start_controls_tabs(
+				'thumb_bg_tab',
+				array(
+					'condition' => array(
+						'media_type' => array( 'none', 'icon' ),
+					),
+				)
+			);
+
+				$this->start_controls_tab(
+					'normal',
+					array(
+						'label' => esc_html__( 'Normal', 'porto-functionality' ),
+					)
+				);
+
+					$this->add_control(
+						'thumb_bg_color',
+						array(
+							'type'      => Controls_Manager::COLOR,
+							'label'     => __( 'Background Color', 'porto-functionality' ),
+							'selectors' => array(
+								'{{WRAPPER}} .thumb-info' => 'background-color: {{VALUE}};',
+							),
+						)
+					);
+
+					$this->add_control(
+						'icon_bg_color',
+						array(
+							'type'      => Controls_Manager::COLOR,
+							'label'     => __( 'Icon Background Color', 'porto-functionality' ),
+							'selectors' => array(
+								'{{WRAPPER}} .cat-has-icon .thumb-info i' => 'background-color: {{VALUE}};',
+							),
+							'condition' => array(
+								'media_type' => array( 'icon' ),
+							),
+						)
+					);
+
+				$this->end_controls_tab();
+
+				$this->start_controls_tab(
+					'hover',
+					array(
+						'label' => esc_html__( 'Hover', 'porto-functionality' ),
+					)
+				);
+
+					$this->add_control(
+						'thumb_bg_color_hover',
+						array(
+							'type'      => Controls_Manager::COLOR,
+							'label'     => __( 'Background Hover Color', 'porto-functionality' ),
+							'selectors' => array(
+								'{{WRAPPER}} .thumb-info:hover' => 'background-color: {{VALUE}};',
+							),
+						)
+					);
+
+					$this->add_control(
+						'icon_bg_color_hover',
+						array(
+							'type'      => Controls_Manager::COLOR,
+							'label'     => __( 'Icon Background Hover Color', 'porto-functionality' ),
+							'selectors' => array(
+								'{{WRAPPER}} .cat-has-icon .thumb-info:hover i' => 'background-color: {{VALUE}};',
+							),
+							'condition' => array(
+								'media_type' => array( 'icon' ),
+							),
+						)
+					);
+
+				$this->end_controls_tab();
+
+			$this->end_controls_tabs();
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'text_style_option',
+			array(
+				'label'       => __( 'Text Style', 'porto-functionality' ),
+				'tab'         => Controls_Manager::TAB_STYLE,
+				'qa_selector' => 'li.product-category:first-child .thumb-info-title a',
+			)
+		);
+
+			$this->add_control(
+				'text_title',
+				array(
+					'type'  => Controls_Manager::HEADING,
+					'label' => __( 'Typography', 'porto-functionality' ),
+				)
+			);
+
+			$this->add_group_control(
+				Group_Control_Typography::get_type(),
+				array(
+					'name'     => 'title_typo',
+					'label'    => __( 'Title Typography', 'porto-functionality' ),
+					'selector' => '{{WRAPPER}} .thumb-info h3',
+				)
+			);
+
+			$this->add_group_control(
+				Group_Control_Typography::get_type(),
+				array(
+					'name'      => 'category_typo',
+					'label'     => __( 'Category Typography', 'porto-functionality' ),
+					'selector'  => '{{WRAPPER}} .sub-categories li',
+					'condition' => array(
+						'show_sub_cats' => 'yes',
+					),
+				)
+			);
+
+			$this->add_group_control(
+				Group_Control_Typography::get_type(),
+				array(
+					'name'      => 'product_count',
+					'label'     => __( 'Product Count Typography', 'porto-functionality' ),
+					'selector'  => '{{WRAPPER}} .thumb-info-type',
+					'condition' => array(
+						'hide_count' => '',
+					),
+				)
+			);
+
+			$this->add_group_control(
+				Group_Control_Typography::get_type(),
+				array(
+					'name'      => 'icon_typo',
+					'label'     => __( 'Icon Typography', 'porto-functionality' ),
+					'selector'  => '{{WRAPPER}} .thumb-info i',
+					'condition' => array(
+						'media_type' => array( 'icon' ),
+					),
+
+				)
+			);
+
+			$this->add_control(
+				'thumb_padding',
+				array(
+					'label'      => esc_html__( 'Text Padding', 'porto-functionality' ),
+					'type'       => Controls_Manager::DIMENSIONS,
+					'size_units' => array(
+						'px',
+						'em',
+					),
+					'selectors'  => array(
+						'{{WRAPPER}} .product-category:not(.cat-has-icon) .thumb-info .thumb-info-title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+						'{{WRAPPER}} .product-category.cat-has-icon .thumb-info' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					),
+					'condition'  => array(
+						'media_type' => array( 'none', 'icon' ),
+					),
+				)
+			);
+
+			$this->start_controls_tabs( 'text_color_tab' );
+
+				$this->start_controls_tab(
+					'text_normal',
+					array(
+						'label' => esc_html__( 'Normal', 'porto-functionality' ),
+					)
+				);
+
+					$this->add_control(
+						'text_normal_color',
+						array(
+							'type'      => Controls_Manager::COLOR,
+							'label'     => __( 'Color', 'porto-functionality' ),
+							'selectors' => array(
+								'{{WRAPPER}} .thumb-info-title' => 'color: {{VALUE}};',
+								'{{WRAPPER}} .thumb-info i'     => 'color: {{VALUE}};',
+							),
+						)
+					);
+
+				$this->end_controls_tab();
+
+				$this->start_controls_tab(
+					'text_hover',
+					array(
+						'label' => esc_html__( 'Hover', 'porto-functionality' ),
+					)
+				);
+
+					$this->add_control(
+						'text_hover_color',
+						array(
+							'type'      => Controls_Manager::COLOR,
+							'label'     => __( 'Hover Color', 'porto-functionality' ),
+							'selectors' => array(
+								'{{WRAPPER}} .thumb-info:hover .thumb-info-title' => 'color: {{VALUE}};',
+								'{{WRAPPER}} .thumb-info:hover i' => 'color: {{VALUE}};',
+								'{{WRAPPER}} .thumb-info .thumb-info-inner' => 'transition: none;',
+							),
+						)
+					);
+
+				$this->end_controls_tab();
+
+			$this->end_controls_tabs();
+
+		$this->end_controls_section();
+
 	}
 
 	protected function render() {
 		$atts = $this->get_settings_for_display();
-
+		$atts['page_builder'] = 'elementor';
+		
 		if ( $template = porto_shortcode_woo_template( 'porto_product_categories' ) ) {
 			if ( ! empty( $atts['parent'] ) && is_array( $atts['parent'] ) ) {
 				$atts['parent'] = implode( ',', $atts['parent'] );
 			}
-			if ( ! empty( $atts['ids'] ) && is_array( $atts['ids'] ) ) {
-				$atts['ids'] = implode( ',', $atts['ids'] );
+			if ( is_array( $atts['ids'] ) ) {
+				if ( ! empty( $atts['ids'] ) ) {
+					$atts['ids'] = implode( ',', $atts['ids'] );
+				} else {
+					$atts['ids'] = '';
+				}
+			}
+			if ( ! empty( $atts['thumb_border_radius'] ) && ! empty( $atts['thumb_border_radius']['size'] ) ) {
+				$atts['thumb_border_radius'] = $atts['thumb_border_radius']['size'] . $atts['thumb_border_radius']['unit'];
 			}
 			include $template;
 		}

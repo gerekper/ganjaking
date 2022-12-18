@@ -1,0 +1,76 @@
+
+.shopswatchinput {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.wcvaswatchinput {
+    text-decoration: none !important;
+    margin: 0 1px;
+}
+
+.wcvashopswatchlabel,
+.wcvaswatchlabel {
+    cursor:pointer;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    display:inline-block;
+    transition: .1s ease-in;
+
+    line-height: 1.0000;
+
+    border: 1px solid var(--porto-normal-bg);
+    box-shadow: 0 0 0 1px var(--porto-gray-4);
+}
+
+.wcvashopswatchlabel {
+    width: 24px !important;
+    height: 24px !important;
+
+    .wcvaswatchinput.active & {
+        border: 1px solid var(--porto-color-price);
+    }
+}
+
+.swatchinput {
+    display: inline-block;
+    padding-#{$right}: 7px;
+    padding-bottom: 6px;
+    margin-top: -3px;
+}
+.belowtext {
+    display: table-cell;
+    vertical-align: bottom;
+    padding-bottom: 16px;
+    font-weight: bold;
+}
+.wcvaswatch input {
+    margin: 0;
+    padding: 0;
+    display: none;
+    @include appearance(none);
+}
+
+.wcvaswatchlabel {
+    border-width: 2px;
+    .wcvaswatch input:active + & {
+        opacity: .9;
+    }
+
+    .wcvaswatch input:checked + & {
+        -webkit-filter: none;
+        -ms-filter: none;
+        filter: none;
+        border: 2px solid var(--porto-color-price);
+    }
+}
+
+.wcvaround {
+    border-radius: 50%;
+    outline: solid 0 #9C9999;
+}
+
+input.wcva_attribute_radio {
+    margin-#{$right}: 5px;
+}

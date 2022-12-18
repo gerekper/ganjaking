@@ -1,0 +1,19 @@
+{
+	"elements": {
+		"portoHeading": {
+			"settings": {
+				"name": "Porto Heading",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-heading.jpg",
+				"metaDescription": "Selected google fonts with additional styling allows adding eye-catching titles"
+			}
+		}
+	},
+	"categories": {
+		"Text block": {
+			"elements": [
+				"portoHeading"
+			]
+		}
+	}
+}

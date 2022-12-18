@@ -30,13 +30,13 @@ class Keyword_Integration implements Integration_Interface {
 	/**
 	 * Enhances the array of posts that share their focus keywords with the post's related keywords by adding posts' ids with the same related keywords.
 	 *
-	 * @param array $usage    The array of posts' ids that share their focus keywords with the post.
-	 * @param int   $post_id  The id of the post we're finding the usage of related keywords for.
+	 * @param array $usage   The array of posts' ids that share their focus keywords with the post.
+	 * @param int   $post_id The id of the post we're finding the usage of related keywords for.
 	 *
 	 * @return array The filtered array of posts' ids.
 	 */
 	public function add_posts_for_related_keywords( $usage, $post_id ) {
-		$additional_keywords = json_decode( WPSEO_Meta::get_value( 'focuskeywords', $post_id ), true );
+		$additional_keywords = \json_decode( WPSEO_Meta::get_value( 'focuskeywords', $post_id ), true );
 
 		if ( empty( $additional_keywords ) ) {
 			return $usage;
@@ -65,7 +65,7 @@ class Keyword_Integration implements Integration_Interface {
 			'meta_query'     => [
 				[
 					'key'     => '_yoast_wpseo_focuskeywords',
-					'value'   => sprintf( '"keyword":"%s"', $keyword ),
+					'value'   => \sprintf( '"keyword":"%s"', $keyword ),
 					'compare' => 'LIKE',
 				],
 			],
@@ -74,11 +74,11 @@ class Keyword_Integration implements Integration_Interface {
 			'post_type'      => 'any',
 
 			/*
-			* We only need to return zero, one or two results:
-			* - Zero: keyword hasn't been used before
-			* - One: Keyword has been used once before
-			* - Two or more: Keyword has been used twice or more before
-			*/
+			 * We only need to return zero, one or two results:
+			 * - Zero: keyword hasn't been used before
+			 * - One: Keyword has been used once before
+			 * - Two or more: Keyword has been used twice or more before
+			 */
 			'posts_per_page' => 2,
 		];
 		$get_posts = new WP_Query( $query );

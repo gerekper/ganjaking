@@ -2,7 +2,7 @@
 
 if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed.');
 
-require_once(UPDRAFTPLUS_DIR.'/methods/s3.php');
+updraft_try_include_file('methods/s3.php', 'require_once');
 
 /**
  * Converted to multi-options (Feb 2017-) and previous options conversion removed: Yes

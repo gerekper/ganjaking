@@ -1,0 +1,22 @@
+{
+  "elements": {
+    "portoRecentMember": {
+      "settings": {
+        "name": "Porto Recent Members",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-porto-recent-member.jpg",
+        "metaDescription": "Porto element to display recent members carousel."
+      },
+      "phpFiles": [
+        "PortoRecentMemberController.php"
+      ]
+    }
+  },
+  "categories": {
+    "Misc": {
+      "elements": [
+        "portoRecentMember"
+      ]
+    }
+  }
+}

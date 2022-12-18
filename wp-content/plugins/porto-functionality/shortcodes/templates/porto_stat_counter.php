@@ -22,7 +22,6 @@ extract(
 			'icon_border_spacing'      => '50',
 			'icon_link'                => '',
 			'icon_animation'           => '',
-			'animation_type'           => '',
 			'counter_title'            => '',
 			'counter_value'            => '1250',
 			'counter_sep'              => ',',
@@ -56,6 +55,10 @@ extract(
 			'suf_pref_line_height'     => '',
 			'suf_pref_font_style'      => '',
 			'css_stat_counter'         => '',
+
+			'animation_type'           => '',
+			'animation_duration'       => '',
+			'animation_delay'          => '',
 			'className'                => '',
 		),
 		$atts
@@ -172,8 +175,15 @@ if ( $counter_color_txt ) {
 	$title_style .= 'color:' . esc_attr( $counter_color_txt ) . ';';
 }
 
-if ( 'none' !== $animation_type ) {
-	$css_trans = 'data-appear-animation="' . esc_attr( $animation_type ) . '"';
+$wrapper_attributes = '';
+if ( 'none' !== $animation_type && $animation_type ) {
+	$wrapper_attributes .= ' data-appear-animation="' . esc_attr( $animation_type ) . '"';
+	if ( $animation_delay ) {
+		$wrapper_attributes .= ' data-appear-animation-delay="' . esc_attr( $animation_delay ) . '"';
+	}
+	if ( $animation_duration && 1000 != $animation_duration ) {
+		$wrapper_attributes .= ' data-appear-animation-duration="' . absint( $animation_duration ) . '"';
+	}
 }
 
 if ( $font_size_counter ) {
@@ -240,7 +250,7 @@ if ( $el_class ) {
 }
 $ic_position = 'stats-' . $icon_position;
 $ic_class    = 'porto-sicon-' . $icon_position;
-$output      = '<div class="stats-block ' . esc_attr( $ic_position ) . ' ' . esc_attr( $class ) . ' ' . esc_attr( $css_stat_counter ) . '">';
+$output      = '<div class="stats-block ' . esc_attr( $ic_position ) . ( $class ? ' ' . esc_attr( $class ) : '' ) . ( $css_stat_counter ? ' ' . esc_attr( $css_stat_counter ) : '' ) . '"' . $wrapper_attributes . '>';
 	$id      = 'counter_' . uniqid( rand() );
 if ( '' == $counter_sep ) {
 	$counter_sep = 'none';
@@ -281,19 +291,29 @@ if ( wp_script_is( 'countup', 'registered' ) && ( ! isset( $porto_shortcode_coun
 	$porto_shortcode_counter_use = true;
 	?>
 <script>
-	jQuery(document).ready(function($) {
-		if (typeof countUp == "undefined") {
-			var c = document.createElement("script");
-			c.src = "<?php echo wp_scripts()->registered['countup']->src; ?>";
-			if (!$('script[src="' + c.src + '"]').length) {
-				document.getElementsByTagName("body")[0].appendChild(c);
-			}
-			c = document.createElement("script");
-			c.src = "<?php echo wp_scripts()->registered['porto_shortcodes_countup_loader_js']->src; ?>";
-			if (!$('script[src="' + c.src + '"]').length) {
-				document.getElementsByTagName("body")[0].appendChild(c);
-			}
+	( function() {
+		var porto_inc_counter_js = function() {
+			( function( $ ) {
+				if (typeof countUp == "undefined") {
+					var c = document.createElement("script");
+					c.src = "<?php echo wp_scripts()->registered['countup']->src; ?>";
+					if (!$('script[src="' + c.src + '"]').length) {
+						document.getElementsByTagName("body")[0].appendChild(c);
+					}
+					c = document.createElement("script");
+					c.src = "<?php echo wp_scripts()->registered['porto_shortcodes_countup_loader_js']->src; ?>";
+					if (!$('script[src="' + c.src + '"]').length) {
+						document.getElementsByTagName("body")[0].appendChild(c);
+					}
+				}
+			} )( jQuery );
+		};
+
+		if ( window.theme && theme.isLoaded ) {
+			porto_inc_counter_js();
+		} else {
+			window.addEventListener( 'load', porto_inc_counter_js );
 		}
-	});
+	} )();
 </script>
 <?php endif; ?>

@@ -1,0 +1,22 @@
+{
+  "elements": {
+    "portoRecentPortfolios": {
+      "settings": {
+        "name": "Porto Recent Portfolios",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-recent-portfolios.jpg",
+        "metaDescription": "Porto vc element to display recent portfolios slider."
+      },
+      "phpFiles": [
+        "PortoRecentPortfoliosController.php"
+      ]
+    }
+  },
+  "categories": {
+    "Misc": {
+      "elements": [
+        "portoRecentPortfolios"
+      ]
+    }
+  }
+}

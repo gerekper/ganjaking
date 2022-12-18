@@ -1,0 +1,185 @@
+@charset "UTF-8";
+div#main {
+  overflow: hidden;
+}
+
+.product-layout-transparent .product-summary-wrap,
+.product-layout-transparent .img-thumbnail,
+.product-layout-transparent .product-summary-wrap:before,
+.product-layout-transparent .product-summary-wrap:after,
+.product-layout-transparent .product-summary-wrap .zoomContainer .zoomWindow {
+  background-color: #f4f4f4;
+}
+
+body.dark .product-layout-transparent .product-summary-wrap .zoomContainer .zoomWindow {
+  background-color: #2c3237;
+}
+
+.product-layout-transparent .product-summary-wrap {
+  position: relative;
+  padding-top: 40px;
+  margin-bottom: 40px;
+}
+
+.product-layout-transparent .product-summary-wrap:before,
+.product-layout-transparent .product-summary-wrap:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 30vw;
+  height: 100%;
+}
+
+.product-layout-transparent .product-summary-wrap:before {
+  right: 100%;
+}
+
+.product-layout-transparent .product-summary-wrap:after {
+  left: 100%;
+}
+
+.product-layout-transparent .entry-summary .quantity .qty {
+  background: none;
+}
+
+.product-layout-transparent .summary-before {
+  margin-bottom: 29px;
+}
+
+.product-layout-transparent .summary {
+  margin-bottom: 40px;
+  padding-top: 10px;
+}
+
+.product-layout-transparent .product-nav {
+  top: 10px;
+}
+
+#main.boxed .product-layout-transparent .product-summary-wrap {
+  padding-top: var(--porto-grid-gutter-width);
+  margin-bottom: var(--porto-grid-gutter-width);
+}
+
+#main.boxed .product-layout-transparent .summary-before {
+  margin-bottom: calc( var(--porto-grid-gutter-width) - 11px );
+}
+
+#main.boxed .product-layout-transparent .summary {
+  margin-bottom: var(--porto-grid-gutter-width);
+}
+
+.product-layout-transparent .summary-before {
+  margin-top: -5px;
+  padding: 0 calc( var(--porto-grid-gutter-width) / 2 - 5px );
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+}
+
+.product-layout-transparent .summary-before .product-images {
+  width: 80%;
+  order: 2;
+  padding: 5px;
+}
+
+.product-layout-transparent .summary-before .product-thumbnails {
+  width: 20%;
+}
+
+body.boxed .product-layout-transparent .summary-before .product-thumbnails {
+  padding-left: 10px;
+}
+
+.woocommerce-tabs .resp-tabs-list {
+  display: none;
+}
+
+.woocommerce-tabs h2.resp-accordion {
+  display: block;
+}
+
+.woocommerce-tabs h2.resp-accordion:before {
+  font-size: 20px;
+  font-weight: 400;
+  position: relative;
+  top: -5px;
+}
+
+.woocommerce-tabs .tab-content {
+  border-top: none;
+}
+
+.product-thumbs-vertical-slider .slick-arrow {
+  text-indent: -9999px;
+  width: 40px;
+  height: 30px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  text-shadow: none;
+  background: none;
+  font-size: 30px;
+  color: var(--porto-heading-color);
+  cursor: pointer;
+}
+
+.product-thumbs-vertical-slider .slick-arrow:before {
+  content: "";
+  font-family: Porto;
+  text-indent: 0;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  line-height: 25px;
+  top: 0;
+}
+
+.product-thumbs-vertical-slider .slick-next:before {
+  content: "";
+}
+
+.product-thumbs-vertical-slider .slick-next {
+  margin-top: 10px;
+}
+
+.product-thumbs-vertical-slider .img-thumbnail {
+  padding: 5px;
+  border: none;
+}
+
+.product-thumbs-vertical-slider .img-thumbnail img {
+  width: 100%;
+  height: auto;
+  transform: none;
+  border: 1px solid #f4f4f4;
+}
+
+.product-thumbs-vertical-slider .img-thumbnail.selected img {
+  border-color: var(--porto-primary-color);
+}
+
+@media (max-width: 767px) {
+  .product-thumbs-vertical-slider .slick-prev, .product-thumbs-vertical-slider .slick-next {
+    display: block !important;
+  }
+}
+.product-layout-transparent .woocommerce-tabs .tab-content {
+  background: none;
+}
+
+#product-tab {
+  margin-bottom: 1.25rem;
+}
+
+.product-layout-transparent .product-thumbnails .img-thumbnail {
+  cursor: pointer;
+}
+
+.product-layout-transparent .summary-before .labels {
+  right: calc(20% + .4em);
+}
+
+.product-layout-transparent .product-summary-wrap .variations {
+  min-width: 60%;
+}

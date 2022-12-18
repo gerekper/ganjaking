@@ -1,0 +1,19 @@
+{
+	"elements": {
+		"portoProgressBar": {
+			"settings": {
+				"name": "Porto Progress Bar",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-progressbar.jpg",
+				"metaDescription": "Porto VC element to display a animated progress bar"
+			}
+		}
+	},
+	"categories": {
+		"Charts": {
+			"elements": [
+				"portoProgressBar"
+			]
+		}
+	}
+}

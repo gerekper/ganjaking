@@ -23,6 +23,9 @@ extract(
 );
 
 $el_class = porto_shortcode_extract_class( $el_class );
+if ( ! empty( $shortcode_class ) ) {
+	$el_class .= $shortcode_class;
+}
 
 switch ( $icon_type ) {
 	case 'simpleline':
@@ -40,31 +43,6 @@ if ( ! $show_icon ) {
 }
 
 if ( $label ) {
-
-	if ( 'custom' == $skin && ( $link_color || $link_bg_color || $link_acolor || $link_abg_color ) ) {
-		$sc_class_escaped = 'nav-link' . rand();
-		$el_class        .= ' ' . $sc_class_escaped;
-		?>
-		<style>
-		<?php
-		if ( $link_color ) :
-			?>
-			.porto-sticky-nav .nav-pills > li.<?php echo $sc_class_escaped; ?> > a { color: <?php echo esc_html( $link_color ); ?> !important; }<?php endif; ?>
-		<?php
-		if ( $link_bg_color ) :
-			?>
-			.porto-sticky-nav .nav-pills > li.<?php echo $sc_class_escaped; ?> > a { background-color: <?php echo esc_html( $link_bg_color ); ?> !important; }<?php endif; ?>
-		<?php
-		if ( $link_acolor ) :
-			?>
-			.porto-sticky-nav .nav-pills > li.<?php echo $sc_class_escaped; ?>.active > a { color: <?php echo esc_html( $link_acolor ); ?> !important; }<?php endif; ?>
-		<?php
-		if ( $link_abg_color ) :
-			?>
-			.porto-sticky-nav .nav-pills > li.<?php echo $sc_class_escaped; ?>.active > a { background-color: <?php echo esc_html( $link_abg_color ); ?> !important; }<?php endif; ?>
-		</style>
-		<?php
-	}
 
 	if ( ! empty( $_id ) ) {
 		$el_class = trim( $el_class . ' ' . 'elementor-repeater-item-' . $_id );

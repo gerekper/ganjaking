@@ -1,5 +1,15 @@
 *** WooCommerce 360 Image Changelog ***
 
+2022-12-15 - version 1.2.1
+* Tweak - Updated plugin author.
+* Fix - Fixed error when using the shortcode on a non-single product page.
+
+2022-05-25 - version 1.2.0
+* Fix - Add renovate bot configuration.
+* Fix - fix: composer 2.2 excludes handling.
+* Tweak - WC 6.5 compatibility.
+* Tweak - WP 6.0 compatibility.
+
 2021-05-11 - version 1.1.21
 * Fix - Change jQuery load function to on( 'load ).
 * Fix - Fixes the gallery jumping to the top of the page on click.

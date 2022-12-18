@@ -1,6 +1,12 @@
 <?php
 $load_posts_only = function_exists( 'porto_is_ajax' ) && porto_is_ajax() && isset( $_GET['load_posts_only'] );
-if ( $load_posts_only ) {
+
+/**
+ * Do not render block in ajax requests
+ *
+ * load_posts_only: 2 means this block is rending template builder content
+ */
+if ( $load_posts_only && '2' != $_GET['load_posts_only'] ) {
 	return false;
 }
 
@@ -81,10 +87,10 @@ if ( $id || $name ) {
 			}
 			$builder_type = get_post_meta( $post_id, PortoBuilders::BUILDER_TAXONOMY_SLUG, true );
 			if ( ! $builder_type ) {
-				$builder_type = __( 'Template', 'porto' );
+				$builder_type = __( 'Template', 'porto-functionality' );
 			}
 			/* translators: template name */
-			$before_html = '<div class="pb-edit-link" data-title="' . sprintf( esc_html__( 'Edit %s: %s', 'porto' ), esc_attr( $builder_type ), esc_attr( get_the_title( $post_id ) ) ) . '" data-link="' . esc_url( $edit_link ) . '"></div>';
+			$before_html = '<div class="pb-edit-link" data-title="' . sprintf( esc_html__( 'Edit %1$s: %2$s', 'porto-functionality' ), esc_attr( $builder_type ), esc_attr( get_the_title( $post_id ) ) ) . '" data-link="' . esc_url( $edit_link ) . '"></div>';
 		}
 
 		$the_post = get_post( $post_id, null, 'display' );
@@ -113,21 +119,41 @@ if ( $id || $name ) {
 			$shortcodes_custom_css .= $css_file->get_content();
 
 			$post_content  = $before_html;
-			$post_content .= '<div class="porto-block' . ( function_exists( 'porto_is_elementor_preview' ) && porto_is_elementor_preview() && is_single( $post_id ) ? '" data-el_cls="elementor elementor-' . intval( $post_id ) : ' elementor elementor-' . intval( $post_id ) ) . '">';
+			$post_content .= '<div class="porto-block' . ( function_exists( 'porto_is_elementor_preview' ) && porto_is_elementor_preview() ? '" data-elementor-title="' . esc_attr__( 'Template', 'porto-functionality' ) . '" data-elementor-id="' . intval( $post_id ) . '" data-el_cls="elementor elementor-' . intval( $post_id ) : ' elementor elementor-' . intval( $post_id ) ) . '" data-id="' . intval( $post_id ) . '">';
 			if ( 'fluid' == $inner_container ) {
 				$post_content .= '<div class="container-fluid">';
 			}
 			ob_start();
+
+			/**
+			 * Update doucment object to current block to fix some Elementor pro widgets' issues
+			 *
+			 * @since 2.3.0
+			 */
+			$document          = Elementor\Plugin::$instance->documents->get_doc_for_frontend( $post_id );
+			$document_switched = false;
+			if ( $document && $document->is_built_with_elementor() ) {
+				Elementor\Plugin::$instance->documents->switch_to_document( $document );
+				$document_switched = true;
+			}
+
 			foreach ( $elements_data as $element_data ) {
-
 				$element = Elementor\Plugin::$instance->elements_manager->create_element_instance( $element_data );
-
 				if ( ! $element ) {
 					continue;
 				}
-
 				$element->print_element();
 			}
+
+			/**
+			 * Restore document object
+			 *
+			 * @since 2.3.0
+			 */
+			if ( $document_switched ) {
+				Elementor\Plugin::$instance->documents->restore_document();
+			}
+
 			$post_content .= ob_get_clean();
 			if ( 'fluid' == $inner_container ) {
 				$post_content .= '</div>';
@@ -549,6 +575,12 @@ if ( $id || $name ) {
 				}
 			}
 
+			//block Styles
+			$css = get_post_meta( $post_id, 'porto_blocks_style_options_css', true );
+			if ( $css ) {
+				$shortcodes_custom_css .= wp_strip_all_tags( $css );
+			}
+
 			if ( function_exists( 'porto_the_content' ) ) {
 				$post_content = porto_the_content( $post_content, false );
 			} else {
@@ -566,7 +598,7 @@ if ( $id || $name ) {
 					$output .= ' data-appear-animation-duration="' . esc_attr( $animation_duration ) . '"';
 				}
 			}
-			$output .= '>';
+			$output .= ' data-id="' . absint( $post_id ) . '">';
 
 			if ( 'fluid' == $inner_container ) {
 				$output .= '<div class="container-fluid">';
@@ -578,9 +610,10 @@ if ( $id || $name ) {
 		}
 		$shortcodes_custom_css .= get_post_meta( $post_id, 'custom_css', true );
 		if ( $shortcodes_custom_css ) {
-			$output .= '<style>';
-			$output .= wp_strip_all_tags( preg_replace( '#<style[^>]*>(.*)</style>#is', '$1', $shortcodes_custom_css ) );
-			$output .= '</style>';
+			$inline_style_css  = '<style>';
+			$inline_style_css .= wp_strip_all_tags( preg_replace( '#<style[^>]*>(.*)</style>#is', '$1', $shortcodes_custom_css ) );
+			$inline_style_css .= '</style>';
+			$output           .= porto_filter_inline_css( $inline_style_css, false );
 		}
 
 		if ( 'yes' == $inner_container ) {

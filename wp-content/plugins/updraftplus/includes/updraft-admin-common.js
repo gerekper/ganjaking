@@ -125,7 +125,7 @@ function updraft_delete(key, nonce, showremote) {
 }
 
 function updraft_remote_storage_tab_activation(the_method){
-	jQuery('.updraftplusmethod').hide();
+	jQuery('.updraftplusmethod').not('.error').hide();
 	jQuery('.remote-tab').data('active', false);
 	jQuery('.remote-tab').removeClass('nav-tab-active');
 	jQuery('.updraftplusmethod.'+the_method).show();
@@ -182,6 +182,8 @@ function updraft_remote_storage_tabs_setup() {
 	jQuery(set).each(function(ind, obj) {
 		var ser = jQuery(obj).val();
 		
+		jQuery('.error.updraftplusmethod.'+ser).show();
+
 		if (jQuery(obj).attr('id') != 'updraft_servicecheckbox_none') {
 			anychecked++;
 		}
@@ -218,11 +220,13 @@ function updraft_remote_storage_tabs_setup() {
 			if (null != serv && '' != serv) {
 				if (jQuery(this).is(':checked')) {
 					anychecked++;
+					jQuery('.error.updraftplusmethod.'+serv).show();
 					jQuery('.remote-tab-'+serv).fadeIn();
 					updraft_remote_storage_tab_activation(serv);
 					if (jQuery('#updraft-navtab-settings-content #updraft_report_row_no_addon').length && 'email' === serv) set_email_report_storage_interface(true);
 				} else {
 					anychecked--;
+					jQuery('.error.updraftplusmethod.'+serv).hide();
 					jQuery('.remote-tab-'+serv).hide();
 					// Check if this was the active tab, if yes, switch to another
 					if (jQuery('.remote-tab-'+serv).data('active') == true) {
@@ -2014,6 +2018,15 @@ jQuery(function($) {
 		}
 	});
 	
+	$('div.ud-phpseclib-notice').on('click', 'button.notice-dismiss', function (event) {
+		event.stopImmediatePropagation();
+		updraft_send_command('dismiss_phpseclib_notice', null, function(resp, status, response) {
+			if (!resp.hasOwnProperty('success') || 1 !== resp.success) {
+				console.log(resp);
+				alert(updraftlion.unexpectedresponse+' '+response);
+			}
+		});
+	});
 
 	// Delete button
 	$('#updraft-navtab-backups-content').on('click', '.js--delete-selected-backups', function(e) {
@@ -3044,12 +3057,25 @@ jQuery(function($) {
 		$('#backupnow_database_moreoptions').toggle();
 	});
 
+	$('#updraft-navtab-migrate-content').on('click', '#backupnow_database_showmoreoptions', function (e) {
+		e.preventDefault();
+		$('#updraft-navtab-migrate-content #backupnow_database_moreoptions').toggle();
+	});
+
 	$('#backupnow_db_anon_all').on('click', function(e) {
 		if ($('#backupnow_db_anon_non_staff').prop('checked')) $('#backupnow_db_anon_non_staff').prop("checked", false);
 	});
 
 	$('#backupnow_db_anon_non_staff').on('click', function(e) {
 		if ($('#backupnow_db_anon_all').prop('checked')) $('#backupnow_db_anon_all').prop("checked", false);
+	});
+
+	$('#updraft-navtab-migrate-content').on('click', '#updraftplus_migration_backupnow_db_anon_all', function() {
+		if ($('#updraftplus_migration_backupnow_db_anon_non_staff').prop('checked')) $('#updraftplus_migration_backupnow_db_anon_non_staff').prop("checked", false);
+	});
+
+	$('#updraft-navtab-migrate-content').on('click', '#updraftplus_migration_backupnow_db_anon_non_staff', function() {
+		if ($('#updraftplus_migration_backupnow_db_anon_all').prop('checked')) $('#updraftplus_migration_backupnow_db_anon_all').prop("checked", false);
 	});
 
 	$('#updraft-navtab-migrate-content').on('click', '#updraftplus_clone_backupnow_db_anon_all', function() {
@@ -4472,6 +4498,10 @@ jQuery(function($) {
 		e.preventDefault();
 		jQuery('.updraft_restore_plugins_options').prop('checked', false);
 	});
+	jQuery('.updraftmessage.admin-warning-litespeed').on('click', '.notice-dismiss', function(e) {
+		e.preventDefault();
+		updraft_send_command('dismiss_admin_warning_litespeed', 1, function (response) {});
+	});
 });
 
 // UpdraftPlus Vault
@@ -4956,6 +4986,9 @@ jQuery(function($) {
 		for (var method in updraftlion.remote_storage_templates) {
 			if ('undefined' != typeof updraftlion.remote_storage_options[method] && not_instance_ids.length < Object.keys(updraftlion.remote_storage_options[method]).length) {
 				var template = Handlebars.compile(updraftlion.remote_storage_templates[method]);
+				for (var partial_template_name in updraftlion.remote_storage_partial_templates[method]) {
+					Handlebars.registerPartial(partial_template_name, Handlebars.compile(updraftlion.remote_storage_partial_templates[method][partial_template_name]));
+				}
 				var first_instance = true;
 				var instance_count = 1;
 				for (var instance_id in updraftlion.remote_storage_options[method]) {

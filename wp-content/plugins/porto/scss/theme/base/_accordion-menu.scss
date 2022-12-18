@@ -1,0 +1,91 @@
+
+.accordion-menu {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: .9em;
+
+    > li,
+    ul.sub-menu > li {
+        position: relative;
+    }
+
+    li.menu-item {
+        margin: 0;
+        > a {
+            position: relative;
+            display: block;
+            outline: medium none;
+            text-decoration: none;
+            text-align: $left;
+            margin: 1px 0 0;
+            padding: 5px 6px;
+            line-height: 25px;
+            font-weight: $font-weight-normal;
+            @include transition($transition);
+            font-family: inherit;
+            font-size: inherit;
+
+            > i {
+                width: 18px;
+                text-align: center;
+            }
+            > i,
+            > .avatar {
+                margin-#{$right}: 5px;
+            }
+            > .avatar img {
+                margin-top: -5px;
+                margin-bottom: -4px;
+            }
+            > [class*='flag-'] {
+                display: inline-block;
+                width: 16px;
+                height: 11px;
+                margin-top: -3px;
+                margin-#{$right}: 6px;
+                margin-#{$left}: 1px;
+                vertical-align: middle;
+                line-height: 0;
+                &:before {
+                    display: none;
+                }
+            }
+        }
+        &.has-sub {
+            > a {
+                padding-#{$right}: 33px;
+            }
+        }
+    }
+
+    ul.sub-menu {
+        display: none;
+        list-style: none;
+        margin: 0;
+        padding: side-values(0 0 0 10px);
+    }
+
+    .arrow {
+        position: absolute;
+        top: 4px;
+        #{$right}: 0;
+        display: block;
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+        text-align: center;
+        line-height: 25px;
+        vertical-align: top;
+        z-index: 10;
+        @include transition($transition);
+
+        &:before {
+            content: $fa-var-plus;
+        }
+    }
+
+    .open > .arrow:before {
+        content: $fa-var-minus;
+    }
+}

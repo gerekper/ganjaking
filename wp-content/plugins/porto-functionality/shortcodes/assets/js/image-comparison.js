@@ -33,7 +33,8 @@
 				width1 = 0,
 				height1 = 0,
 				this_left = 0,
-				this_top = 0;
+				this_top = 0,
+				resize_timer = null;
 
 			var moveEnter = function( e ) {
 				if ( ( e.distX > e.distY && e.distX < -e.distY || e.distX < e.distY && e.distX > -e.distY ) && 'vertical' !== orientation ) {
@@ -62,11 +63,17 @@
 			};
 
 			$( window ).on( 'resize.porto-image-comparison', function( e ) {
-				var w = $before_img.width(),
-					h = $before_img.height(),
-					t = { w: w + 'px', h: h + 'px', cw: w * offset_ratio + 'px', ch: h * offset_ratio + 'px' };
-				$handle.css( 'vertical' === orientation ? 'top' : 'left','vertical' === orientation ? h * offset_ratio : w * offset_ratio );
-				resizeFn( $this, $before_img, $after_img, orientation, t );
+				if ( resize_timer ) {
+					clearTimeout( resize_timer );
+				}
+
+				resize_timer = setTimeout( function() {
+					var w = $before_img.width(),
+						h = $before_img.height(),
+						t = { w: w + 'px', h: h + 'px', cw: w * offset_ratio + 'px', ch: h * offset_ratio + 'px' };
+					$handle.css( 'vertical' === orientation ? 'top' : 'left','vertical' === orientation ? h * offset_ratio : w * offset_ratio );
+					resizeFn( $this, $before_img, $after_img, orientation, t );
+				}, 300 );
 			} );
 
 			var moveTarget = 'handle_only' == handle_action ? $handle : $this;

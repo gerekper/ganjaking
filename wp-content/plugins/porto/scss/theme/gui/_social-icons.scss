@@ -1,0 +1,393 @@
+/* Social Icons */
+
+.share-links {
+    vertical-align: middle;
+    a {
+        font-size: .8rem;
+        color: #fff;
+        text-indent: -9999em;
+        text-align: center;
+        width: 2.2857em;
+        height: 2.2857em;
+        display: inline-block;
+        margin: side-values(.2857em .5714em .2857em 0);
+        position: relative;
+        vertical-align: middle;
+        @include transition($transition);
+        @include transform(translate3d(0,0,0));
+
+        &:before {
+            font-family: 'Font Awesome 5 Brands';
+            text-indent: 0;
+            position: absolute;
+            left: 0; right: 0; top: 0; bottom: 0;
+            line-height: 23px;
+            height: 22px;
+            margin: auto;
+            z-index: 2;
+        }
+
+        &:hover, &:focus {
+            opacity: 0.9;
+            color: #fff;
+        }
+    }
+    &.disable-br {
+        a {
+            border-radius: 0 !important;
+        }
+    }
+    .share-twitter {
+        background: #1aa9e1;
+        //&:hover { color: #fff; background: lighten(#1aa9e1, 10%); }
+        &:before { content: $fa-var-twitter; }
+    }
+    .share-facebook {
+        background: #3b5a9a;
+        //&:hover { color: #fff; background: lighten(#3b5a9a, 10%); }
+        &:before { content: $fa-var-facebook-f; }
+    }
+    .share-linkedin {
+        background: #0073b2;
+        //&:hover { color: #fff; background: lighten(#0073b2, 10%); }
+        &:before { content: $fa-var-linkedin-in; }
+    }
+    .share-rss {
+        background: #ff8201;
+        //&:hover { color: #fff; background: lighten(#ff8201, 10%); }
+        &:before { content: $fa-var-rss; }
+    }
+    .share-googleplus {
+        background: #dd4b39;
+        //&:hover { color: #fff; background: lighten(#dd4b39, 10%); }
+        &:before { content: $fa-var-google-plus-g; }
+    }
+    .share-pinterest {
+        background: #cc2127;
+        //&:hover { color: #fff; background: lighten(#cc2127, 10%); }
+        &:before { content: $fa-var-pinterest; }
+    }
+    .share-youtube {
+        background: #c3191e;
+        //&:hover { color: #fff; background: lighten(#c3191e, 10%); }
+        &:before { content: $fa-var-youtube; }
+    }
+    .share-instagram {
+        background: #7c4a3a;
+        //&:hover { color: #fff; background: lighten(#7c4a3a, 10%); }
+        &:before { content: $fa-var-instagram; }
+    }
+    .share-skype {
+        background: #00b0f6;
+        //&:hover { color: #fff; background: lighten(#00b0f6, 10%); }
+        &:before { content: $fa-var-skype; }
+    }
+    .share-email {
+        background: #dd4b39;
+        //&:hover { color: #fff; background: lighten(#dd4b39, 10%); }
+        &:before { content: $fa-var-envelope; font-weight: 400; }
+    }
+    .share-vk {
+        background: #6383a8;
+        //&:hover { color: #fff; background: lighten(#6383a8, 10%); }
+        &:before { content: $fa-var-vk; }
+    }
+    .share-xing {
+        background: #1a7576;
+        //&:hover { color: #fff; background: lighten(#1a7576, 10%); }
+        &:before { content: $fa-var-xing; }
+    }
+    .share-tumblr {
+        background: #304e6c;
+        //&:hover { color: #fff; background: lighten(#304e6c, 10%); }
+        &:before { content: $fa-var-tumblr; }
+    }
+    .share-reddit {
+        background: #ff4107;
+        //&:hover { color: #fff; background: lighten(#ff4107, 10%); }
+        &:before { content: $fa-var-reddit; }
+    }
+    .share-vimeo {
+        background: #52b8ea;
+        //&:hover { color: #fff; background: lighten(#52b8ea, 10%); }
+        &:before { content: $fa-var-vimeo-v; }
+    }
+    .share-telegram {
+        background: #0088cc;
+        //&:hover { color: #fff; background: lighten(#0088cc, 10%); }
+        &:before { content: $fa-var-telegram-plane; }
+    }
+    .share-yelp {
+        background: #c41200;
+        //&:hover { color: #fff; background: lighten(#c41200, 10%); }
+        &:before { content: $fa-var-yelp; }
+    }
+    .share-flickr {
+        background: #0063DC;
+        //&:hover { color: #fff; background: lighten(#0063DC, 10%); }
+        &:before { content: $fa-var-flickr; }
+    }
+    .share-whatsapp {
+        background: #3c8a38;
+        //&:hover { color: #fff; background: lighten(#3c8a38, 10%); }
+        &:before { content: $fa-var-whatsapp; }
+    }
+    .share-wechat {
+        background: #7bb22e;
+        &:before { content: $fa-var-weixin; }
+    }
+    .share-tiktok {
+        background: #010101;
+        &:before { content: $fa-var-tiktok; }
+    }
+    &.default-skin {
+        a {
+            color: #fff !important;
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+        .share-twitter {
+            background: #1aa9e1 !important;
+        }
+        .share-facebook {
+            background: #3b5a9a !important;
+        }
+        .share-linkedin {
+            background: #0073b2 !important;
+        }
+        .share-rss {
+            background: #ff8201 !important;
+        }
+        .share-googleplus {
+            background: #dd4b39 !important;
+        }
+        .share-pinterest {
+            background: #cc2127 !important;
+        }
+        .share-youtube {
+            background: #c3191e !important;
+        }
+        .share-instagram {
+            background: #7c4a3a !important;
+        }
+        .share-skype {
+            background: #00b0f6 !important;
+        }
+        .share-email {
+            background: #dd4b39 !important;
+        }
+        .share-vk {
+            background: #6383a8 !important;
+        }
+        .share-xing {
+            background: #1a7576 !important;
+        }
+        .share-tumblr {
+            background: #304e6c !important;
+        }
+        .share-reddit {
+            background: #ff4107 !important;
+        }
+        .share-vimeo {
+            background: #52b8ea !important;
+        }
+        .share-telegram {
+            background: #0088cc !important;
+        }
+        .share-yelp {
+            background: #c41200 !important;
+        }
+        .share-flickr {
+            background: #0063DC !important;
+        }
+        .share-whatsapp {
+            background: #3c8a38 !important;
+        }
+        .share-wechat {
+            background: #7bb22e !important;
+        }
+        .share-tiktok {
+            background: #010101 !important;
+        }
+    }
+}
+
+.follow-us,
+.header-wrapper.header-side-nav,
+.header-corporate {
+    .share-links {
+        a:hover { opacity: 1; }
+        /*.share-twitter:hover { background: #1aa9e1; }
+        .share-facebook:hover { background: #3b5a9a; }
+        .share-linkedin:hover { background: #0073b2; }
+        .share-rss:hover { background: #ff8201; }
+        .share-googleplus:hover { background: #dd4b39; }
+        .share-pinterest:hover { background: #cc2127; }
+        .share-youtube:hover { background: #c3191e; }
+        .share-instagram:hover { background: #7c4a3a; }
+        .share-skype:hover { background: #00b0f6; }
+        .share-email:hover { background: #dd4b39; }
+        .share-vk:hover { background: #6383a8; }
+        .share-xing:hover { background: #1a7576; }
+        .share-tumblr:hover { background: #304e6c; }
+        .share-reddit:hover { background: #ff4107; }
+        .share-vimeo:hover { background: #52b8ea; }
+        .share-telegram:hover { background: #0088cc; }
+        .share-yelp:hover { background: #c41200; }
+        .share-flickr:hover { background: #0063DC; }
+        .share-whatsapp:hover { background: #3c8a38; }*/
+    }
+}
+
+
+/* Advance Layout */
+.member-share-advance.post-share-advance-bg {
+    background: transparent;
+    padding: 0 0 30px;
+    height: 35px;
+    transition: max-height .4s, background .4s;
+    &:hover {
+        background: #fff;
+        .fa-share-alt {
+            background: #4dbb6d;
+        }
+    }
+}
+
+.thumb-info {
+    .thumb-info-wrapper.member-social-adv-main {
+        overflow: visible;
+    }
+}
+.thumb-member-container {
+    display: block;
+    position: relative;
+    >a {
+        overflow: hidden;
+        display: block;
+    }
+}
+
+.member-social-adv-main {
+    .member-image {
+        margin-bottom: 0;
+    }
+}
+
+.member-share-advance.share-links {
+    z-index: 9;
+    .fa-share-alt {
+        background: #58605a;
+    }
+    .share-links {
+        a {
+            background: none !important
+        }
+    }
+    .post-share-advance-bg {
+        background: transparent;
+        transition: max-height .4s, background .4s;
+        &:hover {
+        background: #fff;
+        .fa-share-alt {
+            background: #4dbb6d;
+        }
+    }
+    }
+    .thumb-info-social-icons {
+        padding: 8px 0 !important;
+    }
+    a {
+        width: 100%;
+    }
+    .share-facebook {
+        color: #4d70a8 !important;
+    }
+    .share-twitter {
+        color: #1aa9e1 !important;
+    }
+    .share-linkedin {
+        color: #0077b5 !important;
+    }
+    .share-googleplus {
+        color: #dd4b39 !important;
+    }
+    .share-pinterest {
+        color: #cc2127 !important;
+    }
+    .share-email {
+        color: #dd4b39 !important;
+    }
+    .share-vk {
+        color: #6383a8 !important;
+    }
+    .share-xing {
+        color: #1a7576 !important;
+    }
+    .share-tumblr {
+        color: #304e6c !important;
+    }
+    .share-reddit {
+        color: #ff4107 !important;
+    }
+    .share-vimeo {
+        color: #52b8ea !important;
+    }
+    .share-instagram {
+        color: #964b00 !important;
+    }
+    .share-whatsapp {
+        color: #3c8a38 !important;
+    }
+}
+.member-share-advance.post-share-advance-bg {
+    &:hover {
+        .share-links {
+            a {
+                opacity: 0.5;
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
+
+.page-share[class*="position"] {
+    position: fixed;
+    top: 150px;
+    margin: 0;
+    padding: 0;
+    z-index: 99999;
+    &.position-left{
+        #{$left}: 0;
+        @if $rtl == 1{
+            .tooltip.left .tooltip-arrow {
+                right: 0;
+                left: auto;
+                border-width: side-values(5px 5px 5px 0px);
+                border-left-color: #000;
+            }
+        }
+    }
+    &.position-right{
+        #{$right}: 0;
+        @if $rtl == 1{
+            .tooltip.right .tooltip-arrow {
+                left: 0;
+                right: auto;
+                border-width: side-values(5px 0px 5px 5px);
+                border-right-color: #000;
+            }
+        }
+    }
+    .share-links a{
+        display: block;
+        margin:0;
+    }
+}
+
+.post-share > span {
+    vertical-align: middle;
+}

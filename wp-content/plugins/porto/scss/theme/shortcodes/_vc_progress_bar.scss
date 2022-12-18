@@ -1,0 +1,147 @@
+/* Visual Composer Progress Bar */
+.vc_progress_bar .vc_single_bar.progress,
+.progress {
+    height: 20px;
+    margin-bottom: 15px;
+    box-shadow: none;
+    overflow: visible;
+    background: var(--porto-gray-3);
+    &,
+    & .progress-bar {
+        border-radius: 20px;
+    }
+
+    &.progress-border-radius {
+        &,
+        & .progress-bar {
+            border-radius: 3px;
+        }
+    }
+
+    &.progress-no-border-radius {
+        &,
+        & .progress-bar {
+            border-radius: 0;
+        }
+    }
+
+    &.progress-sm {
+        height: 10px;
+        .progress-bar {
+            line-height: 10px;
+        }
+    }
+
+    &.progress-lg {
+        height: 35px;
+        .progress-bar {
+            font-size: 13px;
+            line-height: 35px;
+        }
+    }
+}
+.section-dark .vc_progress_bar .vc_single_bar.progress {
+    background: var(--porto-dark-light-7);
+}
+.vc_progress_bar .vc_single_bar.progress .vc_bar,
+.progress-bar {
+    float: $left;
+    background-color: #CCC;
+    box-shadow: none;
+    position: relative;
+
+    @each $state in $states {
+        &.progress-bar-#{nth($state,1)} {
+            background-color: #{nth($state,2)};
+            color: #{nth($state,3)};
+        }
+    }
+}
+
+.progress-bar-tooltip {
+    position: absolute;
+    padding: 4px 8px;
+    background-color: #333;
+    color: #fff;
+    line-height: 15px;
+    font-size: 11px;
+    display: block;
+    position: absolute;
+    bottom: 100%;
+    margin-bottom: 5px;
+    #{$right}: 5px;
+    opacity: 0;
+    transition: opacity .4s;
+    &:after {
+        border-color: #333 transparent;
+        border-style: solid;
+        border-width: 5px 5px 0;
+        bottom: -5px;
+        content: "";
+        display: block;
+        #{$left}: 13px;
+        position: absolute;
+        width: 0;
+    }
+}
+
+.vc_progress_bar .vc_single_bar.progress {
+    &.bar_blue {
+        .vc_bar {
+            background-color: #0074CC;
+        }
+    }
+    &.bar_turquoise {
+        .vc_bar {
+            background-color: #49afcd;
+        }
+    }
+    &.bar_green {
+        .vc_bar {
+            background-color: #5bb75b;
+        }
+    }
+    &.bar_orange {
+        .vc_bar {
+            background-color: #faa732;
+        }
+    }
+    &.bar_red {
+        .vc_bar {
+            background-color: #da4f49;
+        }
+    }
+    &.bar_black {
+        .vc_bar {
+            background-color: #414141;
+        }
+    }
+}
+.vc_progress_bar {
+    .vc_single_bar .progress-bar {
+        display: flex;
+        overflow: visible;
+        flex-direction: row;
+        align-items: center
+    }
+    .vc_label_units {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    @keyframes progress-bar-stripes1 {
+        0% { background-position-x: 40px; }
+    }
+    .vc_single_bar .vc_bar.animated {
+        animation-name: progress-bar-stripes1;
+    }
+}
+
+.vc_progress_bar .progress-bar-tooltip .vc_label_units {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.progress-bar {
+    width: 0%
+}

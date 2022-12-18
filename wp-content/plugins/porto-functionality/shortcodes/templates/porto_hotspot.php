@@ -1,5 +1,4 @@
 <?php
-
 extract(
 	shortcode_atts(
 		array(
@@ -28,6 +27,9 @@ extract(
 	)
 );
 
+if ( ( ! isset( $content ) || empty( $content ) ) && isset( $atts['content'] ) ) {
+	$content = $atts['content'];
+}
 switch ( $icon_type ) {
 	case 'simpleline':
 		if ( $icon_simpleline ) {
@@ -98,10 +100,16 @@ if ( $inline_style ) {
 	<i class="porto-hotspot-icon <?php echo esc_attr( $icon ); ?>"<?php echo porto_filter_output( $icon_inline_style ); ?>></i>
 	<div class="popup-wrap">
 	<?php
-	if ( 'html' == $type && $content ) {
-		echo do_shortcode( $content );
+	if ( 'html' == $type && ! empty( $content ) ) {
+		echo do_shortcode( porto_strip_script_tags( $content ) );
 	} elseif ( 'product' == $type && $id ) {
-		echo do_shortcode( '[porto_product id="' . intval( $id ) . '" addlinks_pos="' . esc_attr( $addlinks_pos ) . '"]' );
+		if ( apply_filters( 'porto_legacy_mode', true ) ) {
+			echo do_shortcode( '[porto_product id="' . intval( $id ) . '" addlinks_pos="' . esc_attr( $addlinks_pos ) . '"]' );
+		} else { // if soft mode
+			global $porto_woocommerce_loop;
+			$porto_woocommerce_loop['addlinks_pos'] = $addlinks_pos;
+			echo do_shortcode( '[product id="' . $id . '" columns="1"]' );
+		}
 	} elseif ( 'block' == $type && $block ) {
 		if ( is_numeric( $block ) ) {
 			echo do_shortcode( '[porto_block id="' . intval( $block ) . '"]' );

@@ -29,7 +29,7 @@ class UpdraftCentral_UpdraftVault_Commands extends UpdraftCentral_Commands {
 			$vault = $storage_objects_and_ids['updraftvault']['object'];
 			$vault->set_options($opts, false, $instance_id);
 		} else {
-			if (!class_exists('UpdraftPlus_BackupModule_updraftvault')) include_once(UPDRAFTPLUS_DIR.'/methods/updraftvault.php');
+			if (!class_exists('UpdraftPlus_BackupModule_updraftvault')) updraft_try_include_file('methods/updraftvault.php', 'include_once');
 			$vault = new UpdraftPlus_BackupModule_updraftvault();
 		}
 

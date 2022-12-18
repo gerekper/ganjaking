@@ -1,0 +1,238 @@
+
+/* Buttons */
+.porto-btn {
+    border: inherit;
+    border-radius: 0;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1.4em;
+    color: inherit;
+    background: transparent;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0px;
+    padding: 25px 80px;
+    outline: 0;
+    text-align: center;
+    position: relative;
+    transition: .3s;
+    overflow: hidden;
+    z-index: 1;
+    max-width: 100%;
+    visibility: visible;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden
+}
+.porto-btn:after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    transition: .3s
+}
+.porto-btn-data {
+    z-index: 3;
+    position: inherit;
+    display: block;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    color: inherit
+}
+a.porto-btn {
+    background: inherit;
+    color: inherit
+}
+a.porto-btn:hover {
+    color: inherit;
+}
+a.porto-btn:hover,
+a.porto-btn:focus,
+a.porto-btn:active,
+a.porto-btn:visited {
+    color: inherit;
+    background: inherit;
+    box-shadow: inherit;
+    outline: 0
+}
+.porto-btn-ctn-left {
+    display: block;
+    text-align: $left;
+}
+.porto-btn-ctn-center {
+    display: block;
+    text-align: center
+}
+.porto-btn-ctn-right {
+    display: block;
+    text-align: $right;
+}
+.porto-btn-ctn-inline {
+    display: inline-block;
+    text-align: center
+}
+a.porto-btn-mini {
+    padding: 5px 10px
+}
+a.porto-btn-small {
+    padding: 8px 16px
+}
+a.porto-btn-normal {
+    padding: 15px 30px
+}
+a.porto-btn-large {
+    padding: 21px 42px
+}
+.porto-btn-block {
+    display: block;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0;
+    padding-right: 0
+}
+a.porto-btn-custom {
+    padding: 0;
+}
+@media(max-width:768px) {
+    a.porto-btn-small {
+        padding: 6px 12px;
+    }
+    a.porto-btn-normal {
+        padding: 10px 24px;
+    }
+    a.porto-btn-large {
+        padding: 12px 36px;
+    }
+}
+.porto-btn-hover {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    background: transparent;
+    z-index: 2;
+    @include transition(all 0.3s)
+}
+.porto-btn-fade-bg .porto-btn-hover {
+    background: rgba(255, 255, 255, 0);
+    opacity: 0
+}
+.porto-btn-fade-bg:hover .porto-btn-hover {
+    opacity: 1
+}
+.porto-btn-top-bg .porto-btn-hover {
+    top: -100%;
+    background: #ccc
+}
+.porto-btn-top-bg:hover .porto-btn-hover {
+    top: 0;
+    opacity: 1;
+}
+.porto-btn-bottom-bg .porto-btn-hover {
+    top: 100%;
+    background: #ccc
+}
+.porto-btn-bottom-bg:hover .porto-btn-hover {
+    top: 0;
+    opacity: 1;
+}
+.porto-btn-left-bg .porto-btn-hover {
+    #{$left}: -100%;
+    background: #ccc
+}
+.porto-btn-left-bg:hover .porto-btn-hover {
+    #{$left}: 0;
+    opacity: 1;
+}
+.porto-btn-right-bg .porto-btn-hover {
+    #{$left}: 100%;
+    background: #ccc
+}
+.porto-btn-right-bg:hover .porto-btn-hover {
+    #{$left}: 0;
+    opacity: 1;
+}
+.porto-btn-center-hz-bg .porto-btn-hover {
+    width: 0;
+    height: 103%;
+    top: 50%;
+    #{$left}: 50%;
+    background: #ccc;
+    opacity: 0;
+    @if $rtl == 1{
+        -webkit-transform: translateX(50%) translateY(-50%);
+        transform: translateX(50%) translateY(-50%)
+    }
+    @else {
+         -webkit-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%)
+    }
+}
+.porto-btn-center-hz-bg:hover .porto-btn-hover {
+    width: 90%;
+    opacity: 1
+}
+.porto-btn-center-hz-bg:active .porto-btn-hover {
+    width: 101%;
+    opacity: 1
+}
+.porto-btn-center-vt-bg .porto-btn-hover {
+    width: 101%;
+    height: 0;
+    top: 50%;
+    #{$left}: 50%;
+    background: #ccc;
+    opacity: 0;
+    @if $rtl == 1{
+        transform: translateX(50%) translateY(-50%)
+    }
+    @else {
+        transform: translateX(-50%) translateY(-50%)
+    }
+}
+.porto-btn-center-vt-bg:hover .porto-btn-hover {
+    height: 75%;
+    opacity: 1
+}
+.porto-btn-center-vt-bg:active .porto-btn-hover {
+    height: 130%;
+    opacity: 1
+}
+.porto-btn-center-dg-bg .porto-btn-hover {
+    width: 100%;
+    height: 0;
+    top: 50%;
+    #{$left}: 50%;
+    background: #ccc;
+    opacity: 0;
+    @if $rtl == 1{
+        transform: translateX(50%) translateY(-50%) rotate(-45deg)
+    }
+    @else {
+        transform: translateX(-50%) translateY(-50%) rotate(45deg)
+    }
+}
+.porto-btn-center-dg-bg:hover .porto-btn-hover {
+    height: 260%;
+    opacity: 1
+}
+.porto-btn-center-dg-bg:active .porto-btn-hover {
+    height: 400%;
+    opacity: 1
+}
+.no-porto-btn-shadow {
+    box-shadow: none !important;
+    transition: all 50ms linear !important
+}
+.porto-btn-hover {
+    opacity: 0;
+}
+.porto-btn-hover-active {
+    opacity: 1;
+}
+html .vc_col-has-fill .porto-btn.porto-adjust-bottom-margin {
+    margin-bottom: 0;
+}

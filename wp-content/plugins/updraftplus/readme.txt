@@ -2,8 +2,8 @@
 Contributors: Backup with UpdraftPlus, DavidAnderson, DNutbourne, aporter, snightingale, bcrodua
 Tags: backup, restore, database backup, wordpress backup, cloud backup, s3, dropbox, google drive, onedrive, ftp, backups
 Requires at least: 3.2
-Tested up to: 6.0
-Stable tag: 1.22.23
+Tested up to: 6.1
+Stable tag: 1.22.24
 Author URI: https://updraftplus.com
 Donate link: https://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -14,7 +14,7 @@ Backup and restoration made easy. Complete backups; manual or scheduled (backup 
 
 <a href="https://updraftplus.com">UpdraftPlus</a> simplifies backups and restoration. It is the world's highest ranking and most popular scheduled backup plugin, with over three million currently-active installs. Backup your files and database backups into the cloud and restore with a single click!
 
-Backup into the cloud directly to Dropbox, Google Drive, Amazon S3 (or compatible), UpdraftVault, Rackspace Cloud, FTP, DreamObjects, Openstack Swift, and email. The paid version also allows you to back up to Microsoft OneDrive, Microsoft Azure, Google Cloud Storage, Backblaze B2, SFTP, SCP, and WebDAV.
+Backup into the cloud directly to Dropbox, Google Drive, Amazon S3 (or compatible), UpdraftVault, Rackspace Cloud, FTP, DreamObjects, Openstack Swift, and email. The paid version also allows you to back up to Microsoft OneDrive, Microsoft Azure, Google Cloud Storage, Backblaze B2, SFTP, SCP, pCloud and WebDAV.
 
 [vimeo https://vimeo.com/154870690]
 
@@ -160,7 +160,7 @@ This problem is probably caused by your account being starved of resources by yo
 
 = If my site gets hacked and the backups don’t work, is there anything I can do? =
 
-Unfortunately not; since this is free software, there’s no warranty and no guarantee. It’s up to you to verify that UpdraftPlus is creating your backups correctly.
+Since this is free software, there’s no warranty and no guarantee. You should verify that UpdraftPlus is creating your backups correctly - for example, by using UpdraftClone to clone your site to temporary hosting, or any other method.
 
 == Changelog ==
 
@@ -169,6 +169,40 @@ The <a href="https://updraftplus.com/news/">UpdraftPlus backup blog</a> is the b
 N.B. Paid versions of UpdraftPlus Backup / Restore have a version number which is 1 higher in the first digit, and has an extra component on the end, but the changelog below still applies. i.e. changes listed for 1.16.32.x of the free version correspond to changes made in 2.16.32.x of the paid version.
 
 
+= 1.22.24 - 14/Dec/2022 =
+
+* FEATURE: Support PHP 8.2 in UpdraftClone
+* FEATURE: pCloud protocol support (Premium)
+* FIX: Add missing support for custom Dropbox app refresh tokens
+* FIX: After sending email report, other emails that follow would contain leftover data from the previous email report
+* FIX: Javascript hook that is used to show "Automatic backup before update" dialog box when pressing "Install Update Now" button on the WP Plugins page had made the same button on WP Updates page not respond to a press
+* FIX: Potentially not storing the size of new files in the backup history
+* FIX: Pressing "Rescan remote storage" using WebDAV can show an error message
+* FIX: Prevent a fatal error when logging PHP events using the exported "central" folder on the remote site
+* FIX: Prevent an error that occurs on WordPress 6.1 when managing and creating post/page from UpdraftCentral
+* FIX: Prevent fatal error when rescanning if internal directory was unusable
+* TWEAK: Ability to permanently dismiss Litespeed warning
+* TWEAK: Add admin notice to inform the user to upgrade their PHP to version 5.3 or higher due to changes in phpseclib requirements in future releases
+* TWEAK: Add "#[\ReturnTypeWillChange]" attribute to Google Drive API for suppressing PHP 8.1 deprecation notices
+* TWEAK: Add the ability to anonymize personal data in the database backup when using migrator
+* TWEAK: Advise users if files in the plugin are missing
+* TWEAK: Discourage page caches from caching UpdraftClone intermediate pages
+* TWEAK: "Dismiss from main dashboard" button sometimes doesn't work
+* TWEAK: Fix missing FTP admin notices when clicking on other remote storage method
+* TWEAK: Hive off the AWS S3 SDK into a separate plugin (UpdraftPlus now always uses its own, more lightweight, SDK) - https://github.com/DavidAnderson684/updraftplus-aws-sdk
+* TWEAK: Improve the Handlebars template of the Amazon S3 remote storage by taking PHP code out of it
+* TWEAK: Improve the Handlebars template of the DreamObjects remote storage by taking PHP code out of it
+* TWEAK: Improve wording in plugin by removing ambiguous wordings
+* TWEAK: Increase the Google Cloud (Premium) downloading minimum chunk size for faster downloads
+* TWEAK: In Premium / Extensions tab add notices for AIOS and Easy Updates Manager
+* TWEAK: Log the list of blocks that failed to re-assemble in Microsoft Azure.
+* TWEAK: Make the Google Drive downloading algorithms adapt to available memory - cut the total download time by 2/3 in testing
+* TWEAK: Prevent a PHP notice upon UpdraftClone startup
+* TWEAK: Prevent deprecation notice on PHP 8+ if opening a zero-size zip file
+* TWEAK: Replace the use of $_SERVER['SERVER_NAME'] variable with network_site_url() function because the array key is not defined in WP-CLI and might not be defined on some server-side cron tasks, resulting in a PHP log message
+* TWEAK: Set a global context for $wp_file_descriptions context so that it gets assigned to correctly, preventing a subtle visual change in the theme editor
+* TWEAK: Use built-in logging for WebDAV
+* TWEAK: WP Rocket - disable CDN upon migration completion for multisite since key will be invalid
 
 = 1.22.23 - 29/Sep/2022 =
 
@@ -1634,4 +1668,4 @@ Reliance upon any non-English translation is at your own risk; UpdraftPlus can g
 We recognise and thank those mentioned at https://updraftplus.com/acknowledgements/ for code and/or libraries used and/or modified under the terms of their open source licences.
 
 == Upgrade Notice ==
-* 1.22.23: Various tweaks and fixes. See changelog for full details. A recommended update for all.
+* 1.22.24: Various tweaks and fixes. See changelog for full details. A recommended update for all.

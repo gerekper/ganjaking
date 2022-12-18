@@ -252,7 +252,7 @@ jQuery(document).ready(function() {
 	});
 
 	/**
-	 * Dispaly additional permastructure settings
+	 * Display additional permastructure settings
 	 */
 	jQuery('#permalink-manager').on('click', '.permastruct-toggle-button a', function() {
 		jQuery(this).parents('.field-container').find('.permastruct-toggle').slideToggle();
@@ -534,7 +534,7 @@ jQuery(document).ready(function() {
 				return true;
       },
 			error: function(xhr, status, error_data) {
-				alert('Tthere was a problem running this tool and the process could not be completed. You can find more details in browser\'s console log.')
+				alert('There was a problem running this tool and the process could not be completed. You can find more details in browser\'s console log.')
 				console.log('Status: ' + status);
 				console.log('Please send the debug data to contact@permalinkmanager.pro:\n\n' + xhr.responseText);
 

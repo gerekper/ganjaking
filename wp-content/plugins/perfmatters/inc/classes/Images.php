@@ -27,7 +27,7 @@ class Images
             foreach($images as $image) {
 
                 //get image attributes array
-                $image_atts = perfmatters_lazyload_get_atts_array($image[1]);
+                $image_atts = Utilities::get_atts_array($image[1]);
 
                 if(!empty($image_atts['src'])) {
 

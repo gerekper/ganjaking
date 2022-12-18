@@ -1,6 +1,6 @@
 <?php
-if ( empty( $atts['icon_color_bg'] ) && ! isset( $atts['title_google_font_style_font_size'] ) ) {
-	$atts['icon_color_bg'] = 'transparent';
+if ( is_array( $atts ) && empty( $atts['icon_color_bg'] ) && ! isset( $atts['title_google_font_style_font_size'] ) ) {
+	$atts['icon_color_bg'] = '';
 }
 
 $icon_type  = $icon_img = $img_width = $icon = $icon_color = $icon_color_bg = $icon_size = $icon_style = $icon_border_style = $icon_border_radius = $icon_color_border = $icon_border_size = $icon_border_spacing = $el_class = $animation_type = $title = $link = $hover_effect = $pos = $read_more = $read_text = $pos = $css_class = $desc_font_line_height = $title_font_line_height = $heading_tag = '';
@@ -30,6 +30,8 @@ extract(
 			'hover_effect'                 => 'style_1',
 			'pos'                          => 'default',
 			'h_align'                      => 'center',
+			'h_align_tablet'               => '',
+			'h_align_mobile'               => '',
 			'read_more'                    => 'none',
 			'read_text'                    => 'Read More',
 			'heading_tag'                  => 'h3',
@@ -66,12 +68,12 @@ extract(
 			'animation_type1'              => '',
 			'animation_duration'           => '',
 			'animation_delay'              => '',
+			'page_builder'                 => '',
 		),
 		$atts,
 		'porto_info_box'
 	)
 );
-
 if ( ( ! isset( $content ) || empty( $content ) ) && isset( $atts['content'] ) ) {
 	$content = $atts['content'];
 }
@@ -113,7 +115,7 @@ if ( 'heading-right' == $pos || 'right' == $pos ) {
 	$icon_margin_left  = $icon_margin_right;
 	$icon_margin_right = '';
 }
-$box_icon = do_shortcode( '[porto_icon icon_type="' . $icon_type . '" icon="' . trim( $icon ) . '" icon_img="' . $icon_img . '" img_width="' . $img_width . '" icon_size="' . $icon_size . '" icon_color="' . $icon_color . '" icon_style="' . $icon_style . '" icon_color_bg="' . $icon_color_bg . '" icon_color_border="' . $icon_color_border . '"  icon_border_style="' . $icon_border_style . '" icon_border_size="' . $icon_border_size . '" icon_border_radius="' . $icon_border_radius . '" icon_border_spacing="' . $icon_border_spacing . '" animation_type="' . $animation_type . '" icon_margin_bottom="' . $icon_margin_bottom . '" icon_margin_left="' . $icon_margin_left . '" icon_margin_right="' . $icon_margin_right . '"' . ( 'top' == $pos && $h_align && 'center' != $h_align ? ' icon_align="' . $h_align . '"' : '' ) . ']' );
+$box_icon = do_shortcode( '[porto_icon icon_type="' . $icon_type . '" icon="' . trim( $icon ) . '" icon_img="' . $icon_img . '" img_width="' . $img_width . '" icon_size="' . $icon_size . '" icon_color="' . $icon_color . '" icon_style="' . $icon_style . '" icon_color_bg="' . $icon_color_bg . '" icon_color_border="' . $icon_color_border . '"  icon_border_style="' . $icon_border_style . '" icon_border_size="' . $icon_border_size . '" icon_border_radius="' . $icon_border_radius . '" icon_border_spacing="' . $icon_border_spacing . '" animation_type="' . $animation_type . '" icon_margin_bottom="' . $icon_margin_bottom . '" icon_margin_left="' . $icon_margin_left . '" icon_margin_right="' . $icon_margin_right . '"' . ']' );
 $classes  = 'porto-sicon-box';
 if ( $inf_design_style ) {
 	$classes .= ' ' . $inf_design_style;
@@ -136,12 +138,13 @@ if ( $pos ) {
 		$classes .= ' flex-wrap';
 	}
 	if ( 'top' == $pos && $h_align && 'center' != $h_align ) {
-		if ( 'left' == $h_align ) {
-			$h_align = 'start';
-		} elseif ( 'right' == $h_align ) {
-			$h_align = 'end';
+		// Backward Compatibility
+		if ( ( false === strpos( $h_align, '{' ) && '' == $page_builder ) ) {
+			$classes .= ' text-' . $h_align;
 		}
-		$classes .= ' text-' . $h_align;
+		if ( 'elementor' == $page_builder && '' != $h_align && '' == $h_align_tablet && '' == $h_align_mobile ) {
+			$classes .= ' text-' . $h_align;
+		}
 	}
 }
 

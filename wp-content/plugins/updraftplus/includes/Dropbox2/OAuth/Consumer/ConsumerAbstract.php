@@ -270,13 +270,26 @@ abstract class Dropbox_ConsumerAbstract
 
         $access_token = $this->storage->get('access_token');
         
-        $params = array(
-            'code' => 'ud_dropbox_code',
-            'refresh_token' => $access_token->refresh_token,
-            'headers' => apply_filters('updraftplus_auth_headers', ''),
-        );
+        if ($this->callback == $this->callbackhome) {
+            $url = UpdraftPlus_Dropbox_API::API_URL_V2 . self::ACCESS_TOKEN_METHOD;
 
-        $response = $this->fetch('POST', $this->callback, '' , $params);
+            $params = array(
+                'grant_type' => 'refresh_token',
+                'refresh_token' => $access_token->refresh_token,
+                'client_id' => $this->consumerKey,
+                'client_secret' => $this->consumerSecret,
+            );
+        } else {
+            $url = $this->callback;
+
+            $params = array(
+                'code' => 'ud_dropbox_code',
+                'refresh_token' => $access_token->refresh_token,
+                'headers' => apply_filters('updraftplus_auth_headers', ''),
+            );
+        }
+
+        $response = $this->fetch('POST', $url, '' , $params);
         
         if ("200" != $response['code']) {
             $updraftplus->log('Failed to refresh access token error code: '.$response['code']);
@@ -288,7 +301,8 @@ abstract class Dropbox_ConsumerAbstract
             return;
         }
 
-        $body = json_decode(base64_decode($response['body']));
+        // If the request comes from the auth server (master app refreshing a token) then we need to decode the response into an object before we can use it.
+        $body = is_object($response['body']) ? $response['body'] : json_decode(base64_decode($response['body']));
 
         if (isset($body->access_token) && isset($body->expires_in)) {
             $access_token->oauth_token_secret = $body->access_token;
@@ -402,6 +416,8 @@ abstract class Dropbox_ConsumerAbstract
                     'headers' => $headers,
                 );
             }
+            // if grant_type is set and it's value is refresh_token, then this is a custom app trying to get a new access token using their refresh token. So we don't want to send an access token and break the request.
+            if (isset($additional['grant_type']) && 'refresh_token' == $additional['grant_type']) unset($params['access_token']);
         } else {
 	        // Generate a random string for the request
 	        $nonce = md5(microtime(true) . uniqid('', true));

@@ -1,16 +1,8 @@
 <?php
 
 // Porto Widget Woo Products
-add_shortcode( 'porto_product_attribute_filter', 'porto_shortcode_product_attribute_filter' );
 add_action( 'vc_after_init', 'porto_load_shortcode_product_attribute_filter' );
 
-function porto_shortcode_product_attribute_filter( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_woo_template( 'porto_product_attribute_filter' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_shortcode_product_attribute_filter() {
 	$attribute_array      = array();
@@ -33,7 +25,7 @@ function porto_load_shortcode_product_attribute_filter() {
 			'base'        => 'porto_product_attribute_filter',
 			'icon'        => 'fas fa-cart-arrow-down',
 			'category'    => __( 'WooCommerce', 'porto-functionality' ),
-			'description' => __( 'Display a list of attributes to filter products.', 'woocommerce' ),
+			'description' => __( 'Display a list of attributes to filter products.', 'porto-functionality' ),
 			'params'      => array(
 				array(
 					'type'       => 'dropdown',
@@ -57,8 +49,8 @@ function porto_load_shortcode_product_attribute_filter() {
 					'heading'    => __( 'Display type', 'woocommerce' ),
 					'param_name' => 'display_type',
 					'value'      => array(
-						__( 'Dropdown', 'woocommerce' )   => 'dropdown',
-						__( 'List', 'woocommerce' )       => 'list',
+						__( 'Dropdown', 'woocommerce' ) => 'dropdown',
+						__( 'List', 'woocommerce' )     => 'list',
 						__( 'Label', 'porto-functionality' ) => 'label',
 					),
 				),

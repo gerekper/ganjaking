@@ -8,10 +8,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Porto Elementor widget to display members.
  *
- * @since 5.4.1
+ * @since 1.7.2
  */
 
 use Elementor\Controls_Manager;
+use Elementor\Group_Control_Box_Shadow;
 
 class Porto_Elementor_Members_Widget extends \Elementor\Widget_Base {
 
@@ -37,13 +38,13 @@ class Porto_Elementor_Members_Widget extends \Elementor\Widget_Base {
 
 	public function get_script_depends() {
 		if ( ( isset( $_REQUEST['action'] ) && 'elementor' == $_REQUEST['action'] ) || isset( $_REQUEST['elementor-preview'] ) ) {
-			return array( 'porto-elementor-widgets-js' );
+			return array( 'porto-jquery-infinite-scroll', 'porto-infinite-scroll', 'porto-elementor-widgets-js' );
 		} else {
 			return array();
 		}
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 
 		$this->start_controls_section(
 			'section_members',
@@ -71,6 +72,28 @@ class Porto_Elementor_Members_Widget extends \Elementor\Widget_Base {
 					'advanced' => __( 'Advanced', 'porto-functionality' ),
 				),
 				'default' => '',
+			)
+		);
+
+		$this->add_control(
+			'spacing',
+			array(
+				'type'        => Controls_Manager::SLIDER,
+				'label'       => __( 'Column Spacing (px)', 'porto-functionality' ),
+				'description' => __( 'Leave blank if you use theme default value.', 'porto-functionality' ),
+				'range'       => array(
+					'px' => array(
+						'step' => 1,
+						'min'  => 0,
+						'max'  => 100,
+					),
+				),
+				'selectors'   => array(
+					'.elementor-element-{{ID}} .members-container' => '--porto-el-spacing: {{SIZE}}px;--bs-gutter-x: {{SIZE}}px;',
+				),
+				'condition'   => array(
+					'style' => array( '' ),
+				),
 			)
 		);
 
@@ -103,10 +126,14 @@ class Porto_Elementor_Members_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'hover_image_effect',
 			array(
-				'label'   => __( 'Hover Image Effect', 'porto-functionality' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => array_combine( array_values( porto_sh_commons( 'custom_zoom' ) ), array_keys( porto_sh_commons( 'custom_zoom' ) ) ),
-				'default' => 'zoom',
+				'label'       => __( 'Hover Image Effect', 'porto-functionality' ),
+				'description' => __( 'Controls the hover effect of image.', 'porto' ),
+				'type'        => Controls_Manager::SELECT,
+				'options'     => array_combine( array_values( porto_sh_commons( 'custom_zoom' ) ), array_keys( porto_sh_commons( 'custom_zoom' ) ) ),
+				'default'     => 'zoom',
+				'condition'   => array(
+					'style' => array( '' ),
+				),
 			)
 		);
 
@@ -179,7 +206,7 @@ class Porto_Elementor_Members_Widget extends \Elementor\Widget_Base {
 			'number',
 			array(
 				'type'    => Controls_Manager::NUMBER,
-				'label'   => __( 'Members Count', 'porto-functionality' ),
+				'label'   => __( 'Members Count (per page)', 'porto-functionality' ),
 				'default' => 8,
 				'min'     => 1,
 				'max'     => 100,
@@ -208,8 +235,15 @@ class Porto_Elementor_Members_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'pagination',
 			array(
-				'type'  => Controls_Manager::SWITCHER,
-				'label' => __( 'Show Pagination', 'porto-functionality' ),
+				'type'    => Controls_Manager::SELECT,
+				'label'   => __( 'Pagination Style', 'porto-functionality' ),
+				'options' => array(
+					''          => __( 'None', 'porto-functionality' ),
+					'yes'       => __( 'Ajax Pagination', 'porto-functionality' ),
+					'infinite'  => __( 'Infinite Scroll', 'porto-functionality' ),
+					'load_more' => __( 'Load More (Button)', 'porto-functionality' ),
+				),
+				'default' => '',
 			)
 		);
 
@@ -217,15 +251,49 @@ class Porto_Elementor_Members_Widget extends \Elementor\Widget_Base {
 			'filter',
 			array(
 				'type'  => Controls_Manager::SWITCHER,
-				'label' => __( 'Show Filter', 'porto-functionality' ),
+				'label' => __( 'Show Category Filter', 'porto-functionality' ),
+			)
+		);
+
+		$this->add_control(
+			'filter_style',
+			array(
+				'type'      => Controls_Manager::SELECT,
+				'label'     => __( 'Filter Style', 'porto-functionality' ),
+				'options'   => array(
+					''        => __( 'Style 1', 'porto-functionality' ),
+					'style-2' => __( 'Style 2', 'porto-functionality' ),
+					'style-3' => __( 'Style 3', 'porto-functionality' ),
+				),
+				'default'   => '',
+				'condition' => array(
+					'filter' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'filter_type',
+			array(
+				'type'      => Controls_Manager::SELECT,
+				'label'     => __( 'Filter Type', 'porto-functionality' ),
+				'options'   => array(
+					''     => __( 'Filter using Javascript/CSS', 'porto-functionality' ),
+					'ajax' => __( 'Ajax Loading', 'porto-functionality' ),
+				),
+				'default'   => '',
+				'condition' => array(
+					'filter' => 'yes',
+				),
 			)
 		);
 
 		$this->add_control(
 			'ajax_load',
 			array(
-				'type'  => Controls_Manager::SWITCHER,
-				'label' => __( 'Enable Ajax Load', 'porto-functionality' ),
+				'type'        => Controls_Manager::SWITCHER,
+				'label'       => __( 'Enable Ajax Load', 'porto-functionality' ),
+				'description' => __( 'If enabled, member content should be displayed at the top of members or on modal when you click member item in the list.', 'porto-functionality' ),
 			)
 		);
 
@@ -239,6 +307,359 @@ class Porto_Elementor_Members_Widget extends \Elementor\Widget_Base {
 				),
 			)
 		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_title_style',
+			array(
+				'label'       => esc_html__( 'Name', 'porto-functionality' ),
+				'tab'         => Controls_Manager::TAB_STYLE,
+				'qa_selector' => '.member:first-child .entry-title strong, .member:first-child .thumb-info-title, .member:first-child .member-name',
+			)
+		);
+			$this->add_group_control(
+				Elementor\Group_Control_Typography::get_type(),
+				array(
+					'name'     => 'title_tg',
+					'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
+					'label'    => __( 'Typography', 'porto-functionality' ),
+					'selector' => '.elementor-element-{{ID}} .entry-title strong, {{WRAPPER}} .thumb-info-title, .elementor-element-{{ID}} .member-name',
+				)
+			);
+			$this->add_control(
+				'title_clr',
+				array(
+					'type'      => Controls_Manager::COLOR,
+					'label'     => __( 'Color', 'porto-functionality' ),
+					'selectors' => array(
+						'.elementor-element-{{ID}} .entry-title, {{WRAPPER}} .thumb-info-title, .elementor-element-{{ID}} .member-name' => 'color: {{VALUE}};',
+					),
+				)
+			);
+			$this->add_control(
+				'title_pd',
+				array(
+					'label'     => __( 'Padding', 'porto-functionality' ),
+					'type'      => Controls_Manager::DIMENSIONS,
+					'selectors' => array(
+						'.elementor-element-{{ID}} .entry-title, {{WRAPPER}} .thumb-info-title, .elementor-element-{{ID}} .member-name' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+					),
+				)
+			);
+
+			$this->start_controls_tabs( 'members_title_style' );
+				$this->start_controls_tab(
+					'members_title_normal',
+					array(
+						'label'     => __( 'Normal', 'porto-functionality' ),
+						'condition' => array(
+							'style' => array( '' ),
+						),
+					)
+				);
+				$this->add_control(
+					'title_bgc',
+					array(
+						'type'      => Controls_Manager::COLOR,
+						'label'     => __( 'Background Color', 'porto-functionality' ),
+						'selectors' => array(
+							'{{WRAPPER}} .thumb-info-title' => 'background-color: {{VALUE}};',
+						),
+						'condition' => array(
+							'style' => array( '' ),
+						),
+					)
+				);
+				$this->end_controls_tab();
+				$this->start_controls_tab(
+					'members_title_hover',
+					array(
+						'label'     => __( 'Hover', 'porto-functionality' ),
+						'condition' => array(
+							'style' => array( '' ),
+						),
+					)
+				);
+				$this->add_control(
+					'title_bgc_hover',
+					array(
+						'type'      => Controls_Manager::COLOR,
+						'label'     => __( 'Background Color', 'porto-functionality' ),
+						'selectors' => array(
+							'.elementor-element-{{ID}} .thumb-info:hover .thumb-info-title' => 'background-color: {{VALUE}};',
+						),
+						'condition' => array(
+							'style' => array( '' ),
+						),
+					)
+				);
+				$this->end_controls_tab();
+			$this->end_controls_tabs();
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_cats_style',
+			array(
+				'label'       => esc_html__( 'Categories', 'porto-functionality' ),
+				'tab'         => Controls_Manager::TAB_STYLE,
+				'condition'   => array(
+					'style' => array( '' ),
+					'view'  => 'outimage_cat',
+				),
+				'qa_selector' => '.member:first-child .member-cats',
+			)
+		);
+			$this->add_group_control(
+				Elementor\Group_Control_Typography::get_type(),
+				array(
+					'name'     => 'cats_tg',
+					'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
+					'label'    => __( 'Typography', 'porto-functionality' ),
+					'selector' => '.elementor-element-{{ID}} .member-cats',
+				)
+			);
+			$this->add_control(
+				'cats_clr',
+				array(
+					'type'      => Controls_Manager::COLOR,
+					'label'     => __( 'Color', 'porto-functionality' ),
+					'selectors' => array(
+						'.elementor-element-{{ID}} .member-cats' => 'color: {{VALUE}};',
+					),
+				)
+			);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_meta_style',
+			array(
+				'label'       => esc_html__( 'Role', 'porto-functionality' ),
+				'tab'         => Controls_Manager::TAB_STYLE,
+				'qa_selector' => '.member:first-child .thumb-info-type,.member:first-child .member-role',
+			)
+		);
+			$this->add_group_control(
+				Elementor\Group_Control_Typography::get_type(),
+				array(
+					'name'     => 'meta_tg',
+					'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
+					'label'    => __( 'Typography', 'porto-functionality' ),
+					'selector' => '.elementor-element-{{ID}} .thumb-info-type, .elementor-element-{{ID}} .member-role',
+				)
+			);
+			$this->add_control(
+				'meta_clr',
+				array(
+					'type'      => Controls_Manager::COLOR,
+					'label'     => __( 'Color', 'porto-functionality' ),
+					'selectors' => array(
+						'.elementor-element-{{ID}} .thumb-info-type, .elementor-element-{{ID}} .member-role' => 'color: {{VALUE}};',
+					),
+				)
+			);
+			$this->add_control(
+				'meta_pd',
+				array(
+					'label'     => __( 'Padding', 'porto-functionality' ),
+					'type'      => Controls_Manager::DIMENSIONS,
+					'selectors' => array(
+						'.elementor-element-{{ID}} .thumb-info-type, .elementor-element-{{ID}} .member-role' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+					),
+				)
+			);
+
+			$this->add_control(
+				'meta_bgc',
+				array(
+					'type'      => Controls_Manager::COLOR,
+					'label'     => __( 'Background Color', 'porto-functionality' ),
+					'selectors' => array(
+						'.elementor-element-{{ID}} .thumb-info-type' => 'background-color: {{VALUE}};',
+					),
+					'condition' => array(
+						'style' => array( '' ),
+					),
+				)
+			);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_desc_style',
+			array(
+				'label'       => esc_html__( 'Description', 'porto-functionality' ),
+				'tab'         => Controls_Manager::TAB_STYLE,
+				'qa_selector' => '.member:first-child .thumb-info-caption-text,.member:first-child .member-overview p',
+			)
+		);
+			$this->add_group_control(
+				Elementor\Group_Control_Typography::get_type(),
+				array(
+					'name'     => 'desc_tg',
+					'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
+					'label'    => __( 'Typography', 'porto-functionality' ),
+					'selector' => '.elementor-element-{{ID}} .thumb-info-caption-text, .elementor-element-{{ID}} .thumb-info-caption-text p, .elementor-element-{{ID}} .member-overview p',
+				)
+			);
+			$this->add_control(
+				'desc_clr',
+				array(
+					'type'      => Controls_Manager::COLOR,
+					'label'     => __( 'Color', 'porto-functionality' ),
+					'selectors' => array(
+						'.elementor-element-{{ID}} .thumb-info-caption-text, .elementor-element-{{ID}} .member-overview p' => 'color: {{VALUE}};',
+					),
+				)
+			);
+			$this->add_control(
+				'desc_pd',
+				array(
+					'label'     => __( 'Padding', 'porto-functionality' ),
+					'type'      => Controls_Manager::DIMENSIONS,
+					'selectors' => array(
+						'.elementor-element-{{ID}} .thumb-info-caption-text, .elementor-element-{{ID}} .member-overview p' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+					),
+				)
+			);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_social_icons_style',
+			array(
+				'label'       => esc_html__( 'Social Icons', 'porto-functionality' ),
+				'tab'         => Controls_Manager::TAB_STYLE,
+				'qa_selector' => '.member:first-child .share-links',
+			)
+		);
+			$this->add_control(
+				'icon_fs',
+				array(
+					'type'       => Controls_Manager::SLIDER,
+					'label'      => __( 'Icon Font Size', 'porto-functionality' ),
+					'range'      => array(
+						'px' => array(
+							'step' => 1,
+							'min'  => 6,
+							'max'  => 50,
+						),
+						'em' => array(
+							'step' => 0.1,
+							'min'  => 0.1,
+							'max'  => 5,
+						),
+					),
+					'size_units' => array(
+						'px',
+						'em',
+					),
+					'selectors'  => array(
+						'.elementor-element-{{ID}} .share-links a' => 'font-size: {{SIZE}}{{UNIT}};',
+					),
+				)
+			);
+			$this->add_control(
+				'icon_width',
+				array(
+					'type'       => Controls_Manager::SLIDER,
+					'label'      => __( 'Icon Width and Height', 'porto-functionality' ),
+					'range'      => array(
+						'px' => array(
+							'step' => 1,
+							'min'  => 0,
+							'max'  => 100,
+						),
+						'em' => array(
+							'step' => 0.1,
+							'min'  => 0.1,
+							'max'  => 10,
+						),
+					),
+					'size_units' => array(
+						'px',
+						'em',
+					),
+					'selectors'  => array(
+						'.elementor-element-{{ID}} .share-links a' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
+					),
+				)
+			);
+
+			$this->start_controls_tabs( 'tabs_icon_style' );
+				$this->start_controls_tab(
+					'tab_icon_normal',
+					array(
+						'label' => __( 'Normal', 'porto-functionality' ),
+					)
+				);
+					$this->add_control(
+						'icon_color',
+						array(
+							'type'      => Controls_Manager::COLOR,
+							'label'     => __( 'Color', 'porto-functionality' ),
+							'selectors' => array(
+								'.elementor-element-{{ID}} .share-links a:not(:hover)' => 'color: {{VALUE}};',
+							),
+						)
+					);
+
+					$this->add_control(
+						'icon_color_bg',
+						array(
+							'type'      => Controls_Manager::COLOR,
+							'label'     => __( 'Background Color', 'porto-functionality' ),
+							'selectors' => array(
+								'.elementor-element-{{ID}} .share-links a:not(:hover)' => 'background-color: {{VALUE}};',
+							),
+						)
+					);
+					$this->add_group_control(
+						Group_Control_Box_Shadow::get_type(),
+						array(
+							'name'     => 'icon_box_shadow',
+							'selector' => '.elementor-element-{{ID}} .share-links a',
+						)
+					);
+				$this->end_controls_tab();
+
+				$this->start_controls_tab(
+					'tab_icon_hover',
+					array(
+						'label' => __( 'Hover', 'porto-functionality' ),
+					)
+				);
+					$this->add_control(
+						'icon_hover_color',
+						array(
+							'type'      => Controls_Manager::COLOR,
+							'label'     => __( 'Hover Color', 'porto-functionality' ),
+							'selectors' => array(
+								'.elementor-element-{{ID}} .share-links a:hover' => 'color: {{VALUE}};',
+							),
+						)
+					);
+					$this->add_control(
+						'icon_hover_color_bg',
+						array(
+							'type'      => Controls_Manager::COLOR,
+							'label'     => __( 'Hover Background Color', 'porto-functionality' ),
+							'selectors' => array(
+								'.elementor-element-{{ID}} .share-links a:hover' => 'background-color: {{VALUE}};',
+							),
+						)
+					);
+					$this->add_group_control(
+						Group_Control_Box_Shadow::get_type(),
+						array(
+							'name'     => 'icon_box_shadow_hover',
+							'selector' => '.elementor-element-{{ID}} .share-links a:hover',
+						)
+					);
+				$this->end_controls_tab();
+			$this->end_controls_tabs();
 
 		$this->end_controls_section();
 	}

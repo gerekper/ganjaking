@@ -8,10 +8,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Porto Elementor widget to display headings.
  *
- * @since 5.1.0
+ * @since 1.5.0
  */
 
 use Elementor\Controls_Manager;
+use Elementor\Group_Control_Background;
 
 class Porto_Elementor_Ultimate_Heading_Widget extends \Elementor\Widget_Base {
 
@@ -35,7 +36,11 @@ class Porto_Elementor_Ultimate_Heading_Widget extends \Elementor\Widget_Base {
 		return 'eicon-heading';
 	}
 
-	protected function _register_controls() {
+	public function get_custom_help_url() {
+		return 'https://www.portotheme.com/wordpress/porto/documentation/effects-in-porto-heading/';
+	}
+
+	protected function register_controls() {
 
 		$this->start_controls_section(
 			'section_ultimate_heading',
@@ -60,7 +65,18 @@ class Porto_Elementor_Ultimate_Heading_Widget extends \Elementor\Widget_Base {
 			'enable_typewriter',
 			array(
 				'type'  => Controls_Manager::SWITCHER,
-				'label' => __( 'Enable typewriter effect', 'porto-functionality' ),
+				'label' => __( 'Enable Typewriter Effect', 'porto-functionality' ),
+			)
+		);
+		$this->add_control(
+			'enable_typeword',
+			array(
+				'type'        => Controls_Manager::SWITCHER,
+				'label'       => __( 'Effect By Words', 'porto-functionality' ),
+				'description' => __( 'Animate the words one by one.', 'porto-functionality' ),
+				'condition'   => array(
+					'enable_typewriter' => 'yes',
+				),
 			)
 		);
 		$this->add_control(
@@ -86,15 +102,28 @@ class Porto_Elementor_Ultimate_Heading_Widget extends \Elementor\Widget_Base {
 			)
 		);
 		$this->add_control(
-			'typewriter_width',
+			'typewriter_speed',
 			array(
 				'type'      => Controls_Manager::NUMBER,
-				'label'     => __( 'Input min width that can work. (px)', 'porto-functionality' ),
+				'label'     => __( 'Animation Speed(ms)', 'porto-functionality' ),
+				'default'   => '50',
 				'condition' => array(
 					'enable_typewriter' => 'yes',
 				),
 			)
 		);
+		$this->add_control(
+			'typewriter_width',
+			array(
+				'type'      => Controls_Manager::NUMBER,
+				'label'     => __( 'Min width that can work(px).', 'porto-functionality' ),
+				'separator' => 'after',
+				'condition' => array(
+					'enable_typewriter' => 'yes',
+				),
+			)
+		);
+
 		$this->add_control(
 			'content',
 			array(
@@ -122,16 +151,28 @@ class Porto_Elementor_Ultimate_Heading_Widget extends \Elementor\Widget_Base {
 			)
 		);
 
-		$this->add_control(
+		$this->add_responsive_control(
 			'alignment',
 			array(
-				'type'    => Controls_Manager::SELECT,
+				'type'    => Controls_Manager::CHOOSE,
 				'label'   => __( 'Alignment', 'porto-functionality' ),
 				'options' => array(
-					'inherit' => __( 'Inherit', 'porto-functionality' ),
-					'center'  => __( 'Center', 'porto-functionality' ),
-					'left'    => __( 'Left', 'porto-functionality' ),
-					'right'   => __( 'Right', 'porto-functionality' ),
+					'center'  => array(
+						'title' => __( 'Center', 'porto-functionality' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'left'    => array(
+						'title' => __( 'left', 'porto-functionality' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'right'   => array(
+						'title' => __( 'Right', 'porto-functionality' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+					'inherit' => array(
+						'title' => __( 'Inherit', 'porto-functionality' ),
+						'icon'  => 'eicon-text-align-justify',
+					),
 				),
 				'default' => 'center',
 			)
@@ -228,7 +269,7 @@ class Porto_Elementor_Ultimate_Heading_Widget extends \Elementor\Widget_Base {
 			array(
 				'name'     => 'main_heading_typography',
 				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
-				'label'    => __( 'Main Heading Typograhy', 'porto-functionality' ),
+				'label'    => __( 'Main Heading Typography', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .porto-u-main-heading > *',
 			)
 		);
@@ -257,7 +298,7 @@ class Porto_Elementor_Ultimate_Heading_Widget extends \Elementor\Widget_Base {
 			array(
 				'name'     => 'sub_heading_typography',
 				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
-				'label'    => __( 'Sub Heading Typograhy', 'porto-functionality' ),
+				'label'    => __( 'Sub Heading Typography', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .porto-u-sub-heading',
 			)
 		);
@@ -308,11 +349,150 @@ class Porto_Elementor_Ultimate_Heading_Widget extends \Elementor\Widget_Base {
 			$this->add_control( $key, $opt );
 		}
 
+		$this->add_control(
+			'floating_img',
+			array(
+				'type'      => Controls_Manager::MEDIA,
+				'label'     => __( 'Floating Image', 'porto-functionality' ),
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_control(
+			'floating_offset',
+			array(
+				'type'        => Controls_Manager::NUMBER,
+				'label'       => __( 'Floating Offset', 'porto-functionality' ),
+				'description' => __( 'Control the offset from the cursor.', 'porto-functionality' ),
+				'default'     => '0',
+				'condition'   => array(
+					'floating_img[id]!' => '',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		// Highlight Animation
+		$this->start_controls_section(
+			'section_highlight',
+			array(
+				'label'   => __( 'Highlight', 'porto-functionality' ),
+				'tab'     => Controls_Manager::TAB_STYLE,
+				'default' => '',
+			)
+		);
+
+		$this->add_control(
+			'enable_highlight',
+			array(
+				'type'    => Controls_Manager::SWITCHER,
+				'label'   => __( 'Enable Highlight Animation', 'porto-functionality' ),
+				'default' => '',
+			)
+		);
+
+		$this->add_control(
+			'desc_highlight',
+			array(
+				'type'            => Controls_Manager::RAW_HTML,
+				'raw'             => esc_html__( 'For highlight, the main heading should have the HTML Mark Text element. For example, A<mark>B</mark>C.', 'porto-functionality' ),
+				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
+				'condition'       => array(
+					'enable_highlight' => 'yes',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			array(
+				'name'        => 'hlight_bg',
+				'types'       => array( 'classic', 'gradient' ),
+				'exclude'     => array( 'image' ),
+				'selector'    => '.elementor-element-{{ID}} .heading-highlight mark:before',
+				'description' => __( 'Control the highlight background.', 'porto-functionality' ),
+				'condition'   => array(
+					'enable_highlight' => 'yes',
+				),
+			)
+		);
+
+		$this->add_control(
+			'animation_hlight_delay',
+			array(
+				'type'      => Controls_Manager::TEXT,
+				'label'     => __( 'Highlight Animation Delay(ms)', 'porto-functionality' ),
+				'selectors' => array(
+					'.elementor-element-{{ID}} .heading-highlight mark:before' => 'animation-delay: {{SIZE}}ms;',
+				),
+				'condition' => array(
+					'enable_highlight' => 'yes',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'hlight_height',
+			array(
+				'type'        => Controls_Manager::SLIDER,
+				'label'       => __( 'Height(%)', 'porto-functionality' ),
+				'size_units'  => array(
+					'%',
+				),
+				'selectors'   => array(
+					'.elementor-element-{{ID}} .heading-highlight mark:before' => 'height: {{SIZE}}%;',
+				),
+				'description' => __( 'Control the height of the highlight.', 'porto-functionality' ),
+				'separator'   => 'before',
+				'condition'   => array(
+					'enable_highlight' => 'yes',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'hlight_bottom',
+			array(
+				'type'        => Controls_Manager::SLIDER,
+				'label'       => __( 'Vertical Position(%)', 'porto-functionality' ),
+				'size_units'  => array(
+					'%',
+				),
+				'selectors'   => array(
+					'.elementor-element-{{ID}} .heading-highlight mark:before' => 'bottom: {{SIZE}}%;',
+				),
+				'description' => __( 'Control the bottom position of the highlight.', 'porto-functionality' ),
+				'condition'   => array(
+					'enable_highlight' => 'yes',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'hlight_left',
+			array(
+				'type'        => Controls_Manager::SLIDER,
+				'label'       => __( 'Horizontal Position(%)', 'porto-functionality' ),
+				'size_units'  => array(
+					'%',
+				),
+				'selectors'   => array(
+					'.elementor-element-{{ID}} .heading-highlight mark:before' => 'left: {{SIZE}}%;',
+				),
+				'description' => __( 'Control the left position of the highlight.', 'porto-functionality' ),
+				'condition'   => array(
+					'enable_highlight' => 'yes',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 	}
 
 	protected function render() {
-		$atts = $this->get_settings_for_display();
+		$atts                 = $this->get_settings_for_display();
+		$atts['page_builder'] = 'elementor';
 
 		$this->add_inline_editing_attributes( 'main_heading' );
 		$main_heading_attrs_escaped = ' ' . $this->get_render_attribute_string( 'main_heading' );
@@ -326,11 +506,19 @@ class Porto_Elementor_Ultimate_Heading_Widget extends \Elementor\Widget_Base {
 		?>
 		<#
 			view.addRenderAttribute( 'wrapper', 'class', 'porto-u-heading' );
-			view.addRenderAttribute( 'wrapper', 'data-hspacer', settings.spacer );
-			view.addRenderAttribute( 'wrapper', 'data-halign', settings.alignment );
-			view.addRenderAttribute( 'wrapper', 'style', 'text-align: ' + settings.alignment );
 
-			var spacer_style = '', line = '';
+			var spacer_style = '', line = '', custom_style = '', wrapper_class = 'elementor-element-' + view.$el.data('id');
+
+			view.addRenderAttribute( 'wrapper', 'class', wrapper_class );
+
+			custom_style = '.' + wrapper_class + '{text-align:' + settings.alignment + ';}';
+			if ( settings.alignment_tablet ) {
+				custom_style += ' @media(max-width:' + elementor.breakpoints.responsiveConfig.activeBreakpoints.tablet.value + 'px) {.' + wrapper_class + '{text-align:' + settings.alignment_tablet + '}}';
+			}
+			if ( settings.alignment_mobile ) {
+				custom_style += ' @media(max-width: ' + elementor.breakpoints.responsiveConfig.activeBreakpoints.mobile.value + 'px) {.' + wrapper_class + '{text-align:' + settings.alignment_mobile + '}}';
+			}
+
 			if ( 'no_spacer' != settings.spacer && settings.spacer_margin_bottom ) {
 				var unit = settings.spacer_margin_bottom.replace( /[0-9.]/, '' );
 				if ( ! unit ){
@@ -344,9 +532,33 @@ class Porto_Elementor_Ultimate_Heading_Widget extends \Elementor\Widget_Base {
 				line_style_inline += 'border-bottom-width:' + settings.line_height.size + 'px;';
 				line_style_inline += 'border-color:' + settings.line_color + ';';
 				line_style_inline += 'width:' + settings.line_width + ( 'auto' == settings.line_width ? ';' : 'px;' );
+				
 				if ( 'center' != settings.alignment ) {
-					line_style_inline += 'margin-' + settings.alignment + ': 0';
+					if ( 'inherit' == settings.alignment ) {
+						custom_style += ' .' + wrapper_class + ' .porto-u-headings-line{float:left;}';
+					} else {
+						custom_style += ' .' + wrapper_class + ' .porto-u-headings-line{' + 'float:' + settings.alignment + ';}';
+					}
 				}
+				if ( settings.alignment_tablet ) {
+					custom_style += ' @media(max-width:' + elementor.breakpoints.responsiveConfig.activeBreakpoints.tablet.value + 'px){.' + wrapper_class + ' .porto-u-headings-line{';
+					if ( 'center' == settings.alignment_tablet ) {
+						custom_style += 'float: unset;';
+					} else if ( 'inherit' != settings.alignment_tablet ) {
+						custom_style += 'float: ' + settings.alignment_tablet + ';';
+					}
+					custom_style += '}}';
+				}
+				if ( settings.alignment_mobile ) {					
+					custom_style += ' @media(max-width: ' + elementor.breakpoints.responsiveConfig.activeBreakpoints.mobile.value + 'px){.' + wrapper_class + ' .porto-u-headings-line{';
+					if ( 'center' == settings.alignment_mobile ) {
+						custom_style += 'float: unset;';
+					} else if ( 'inherit' != settings.alignment_mobile ) {
+						custom_style += 'float: ' + settings.alignment_mobile + ';';
+					} 
+					custom_style += '}}';
+				}
+
 				spacer_style += 'height:' + settings.line_height.size + 'px;';
 				line = '<span class="porto-u-headings-line" style="' + line_style_inline + '"></span>';
 			}
@@ -361,13 +573,25 @@ class Porto_Elementor_Ultimate_Heading_Widget extends \Elementor\Widget_Base {
 				}
 				view.addRenderAttribute( 'main_heading', 'style', 'margin-bottom:' + settings.main_heading_margin_bottom );
 			}
+			if ( settings.main_heading ) {
+				view.addRenderAttribute( 'main_heading_wrap', 'class', 'porto-u-main-heading' );
+				if ( settings.enable_highlight ) {
+					view.addRenderAttribute( 'main_heading_wrap', 'class', 'heading-highlight' );
+					view.addRenderAttribute( 'main_heading_wrap', 'data-appear-animation', 'highlightProgress' );
+				}
+			}
+
 			if ( settings.enable_typewriter ) {
 				var typewriter = {
 					startDelay: 0,
-					minWindowWidth: 0
+					minWindowWidth: 0,
+					animationSpeed: 50
 				}
 				if( settings.typewriter_delay ) {
 					typewriter[ 'startDelay' ] = parseInt( settings.typewriter_delay, 10 );
+				}
+				if( settings.typewriter_speed ) {
+					typewriter[ 'animationSpeed' ] = parseInt( settings.typewriter_speed, 10 );
 				}
 				if( settings.typewriter_width ) {
 					typewriter[ 'minWindowWidth' ] = parseInt( settings.typewriter_width, 10 );
@@ -375,9 +599,24 @@ class Porto_Elementor_Ultimate_Heading_Widget extends \Elementor\Widget_Base {
 				if( settings.typewriter_animation ) {
 					typewriter[ 'animationName' ] = settings.typewriter_animation;
 				}
-				view.addRenderAttribute( 'main_heading', 'data-plugin-animated-letters', '' );
+				if ( settings.enable_typeword ) {
+					typewriter['contentType'] = 'word';
+					view.addRenderAttribute( 'main_heading', 'data-plugin-animated-words', '' );
+				} else {
+					view.addRenderAttribute( 'main_heading', 'data-plugin-animated-letters', '' );
+				}
 				view.addRenderAttribute( 'main_heading', 'data-plugin-options', JSON.stringify( typewriter ) );
 			}
+
+			if ( settings.floating_img.id ) {
+				view.addRenderAttribute( 'wrapper', 'class', 'thumb-info-floating-element-wrapper' );
+				var imgfloating = { 'offset': 0 };
+				if ( settings.floating_offset ) {
+					imgfloating['offset'] = settings.floating_offset;
+				}
+				view.addRenderAttribute( 'wrapper', 'data-plugin-tfloating', JSON.stringify( imgfloating ) );
+			}
+
 			view.addInlineEditingAttributes( 'main_heading' );
 			if ( settings.sub_heading_margin_bottom || '0' == settings.sub_heading_margin_bottom ) {
 				var unit = settings.sub_heading_margin_bottom.replace( /[0-9.]/, '' );
@@ -387,14 +626,20 @@ class Porto_Elementor_Ultimate_Heading_Widget extends \Elementor\Widget_Base {
 				view.addRenderAttribute( 'sub_heading', 'style', 'margin-bottom:' + settings.sub_heading_margin_bottom );
 			}
 
-			let extra_attr = porto_elementor_add_floating_options( settings );
+			let extra_attr = '';
+			if ( typeof porto_elementor_add_floating_options != 'undefined' ) {
+				extra_attr = porto_elementor_add_floating_options( settings );
+			}
 		#>
 		<div {{{ view.getRenderAttributeString( 'wrapper' ) }}}{{ extra_attr }}>
+		<# if ( custom_style ){ #>
+			<style>{{{custom_style}}}</style>
+		<# } #>
 		<# if ( 'top' == settings.spacer_position ) { #>
 			<div {{{ view.getRenderAttributeString( 'spacer' ) }}}>{{{ line }}}</div>
 		<# } #>
-		<# if ( settings.main_heading ) { #>
-			<div class="porto-u-main-heading"><{{{ settings.heading_tag }}} {{{ view.getRenderAttributeString( 'main_heading' ) }}}>{{{ settings.main_heading }}}</{{{ settings.heading_tag }}}></div>
+		<# if ( settings.main_heading ) {#>
+			<div {{{ view.getRenderAttributeString( 'main_heading_wrap' ) }}}"><{{{ settings.heading_tag }}} {{{ view.getRenderAttributeString( 'main_heading' ) }}}>{{{ settings.main_heading }}}</{{{ settings.heading_tag }}}></div>
 		<# } #>
 		<# if ( 'middle' == settings.spacer_position ) { #>
 			<div {{{ view.getRenderAttributeString( 'spacer' ) }}}>{{{ line }}}</div>
@@ -404,6 +649,9 @@ class Porto_Elementor_Ultimate_Heading_Widget extends \Elementor\Widget_Base {
 		<# } #>
 		<# if ( 'bottom' == settings.spacer_position ) { #>
 			<div {{{ view.getRenderAttributeString( 'spacer' ) }}}>{{{ line }}}</div>
+		<# } #>
+		<# if ( settings.floating_img.id ) { #>
+			<span class="thumb-info-floating-element d-none"><img src="{{{settings.floating_img.url}}}"/></span>
 		<# } #>
 		</div>
 		<?php

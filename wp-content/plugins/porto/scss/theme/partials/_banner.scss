@@ -1,0 +1,47 @@
+
+.banner-container {
+    position: relative;
+    z-index: 0;
+
+    .banner-fixed {
+        position: fixed;
+        top: 0;
+    }
+
+    .master-slider {
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    .ms-thumb-list {
+        padding-bottom: 6px;
+    }
+
+    .ms-thumb-frame {
+        opacity: 1;
+        border: 3px solid rgba(0, 0, 0, .25);
+        box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, .25) inset;
+        @include transition(.3s ease-out);
+    }
+
+    .ms-thumb-frame:hover,
+    .ms-thumb-frame-selected {
+        border-color: #fff;
+    }
+
+    .side-nav & {
+        margin-top: -1px;
+
+        .master-slider {
+            max-width: none;
+        }
+    }
+}
+
+#banner-wrapper.banner-wrapper-boxed {
+    padding-left: 0;
+    padding-right: 0;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+}

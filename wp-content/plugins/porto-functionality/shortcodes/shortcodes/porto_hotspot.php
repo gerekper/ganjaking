@@ -1,56 +1,56 @@
 <?php
 
-// Porto Hotspot
+// Porto Hotspot for Gutenberg
 if ( function_exists( 'register_block_type' ) ) {
 	register_block_type(
 		'porto/porto-hotspot',
 		array(
 			'attributes'      => array(
-				'type' => array(
-					'type' => 'string',
+				'type'         => array(
+					'type'    => 'string',
 					'default' => 'html',
 				),
-				'content' => array(
-					'type' => 'string',
+				'content'      => array(
+					'type'    => 'string',
 					'default' => '',
 				),
-				'id' => array(
+				'id'           => array(
 					'type' => 'integer',
 				),
 				'addlinks_pos' => array(
-					'type' => 'string',
+					'type'    => 'string',
 					'default' => '',
 				),
-				'block' => array(
+				'block'        => array(
 					'type' => 'integer',
 				),
-				'icon' => array(
-					'type' => 'string',
-					'default' => ''
+				'icon'         => array(
+					'type'    => 'string',
+					'default' => '',
 				),
-				'pos' => array(
-					'type' => 'string',
-					'default' => 'right'
+				'pos'          => array(
+					'type'    => 'string',
+					'default' => 'right',
 				),
-				'x' => array(
+				'x'            => array(
 					'type' => 'integer',
 				),
-				'y' => array(
+				'y'            => array(
 					'type' => 'integer',
 				),
-				'size' => array(
+				'size'         => array(
 					'type' => 'string',
 				),
-				'icon_size' => array(
+				'icon_size'    => array(
 					'type' => 'string',
 				),
-				'color' => array(
+				'color'        => array(
 					'type' => 'string',
 				),
-				'bg_color' => array(
+				'bg_color'     => array(
 					'type' => 'string',
 				),
-				'el_class' => array(
+				'el_class'     => array(
 					'type' => 'string',
 				),
 			),
@@ -224,13 +224,13 @@ function porto_load_hotspot_shortcode() {
 				array(
 					'type'        => 'textfield',
 					'heading'     => __( 'Spot Size', 'porto-functionality' ),
-					'description' => __('Enter value including any valid CSS unit, ex: 30px.', 'porto-functionality'),
+					'description' => __( 'Enter value including any valid CSS unit, ex: 30px.', 'porto-functionality' ),
 					'param_name'  => 'size',
 				),
 				array(
 					'type'        => 'textfield',
 					'heading'     => __( 'Icon Size', 'porto-functionality' ),
-					'description' => __('Enter value including any valid CSS unit, ex: 30px.', 'porto-functionality'),
+					'description' => __( 'Enter value including any valid CSS unit, ex: 30px.', 'porto-functionality' ),
 					'param_name'  => 'icon_size',
 				),
 				array(

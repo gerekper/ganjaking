@@ -53,10 +53,6 @@ class Yoast_WooCommerce_SEO {
 	 * @return void
 	 */
 	protected function initialize() {
-		if ( $this->is_woocommerce_page( filter_input( INPUT_GET, 'page' ) ) ) {
-			$this->register_i18n_promo_class();
-		}
-
 		// Make sure the options property is always current.
 		add_action( 'init', [ 'WPSEO_Option_Woo', 'register_option' ] );
 
@@ -1027,26 +1023,6 @@ class Yoast_WooCommerce_SEO {
 			[ $this, 'get_product_var_mpn' ],
 			'basic',
 			'The product\'s MPN identifier.'
-		);
-	}
-
-	/**
-	 * Register the promotion class for our GlotPress instance.
-	 *
-	 * @link https://github.com/Yoast/i18n-module
-	 */
-	protected function register_i18n_promo_class() {
-		new Yoast_I18n_v3(
-			[
-				'textdomain'     => 'yoast-woo-seo',
-				'project_slug'   => 'woocommerce-seo',
-				'plugin_name'    => 'Yoast WooCommerce SEO',
-				'hook'           => 'wpseo_admin_promo_footer',
-				'glotpress_url'  => 'http://translate.yoast.com/gp/',
-				'glotpress_name' => 'Yoast Translate',
-				'glotpress_logo' => 'http://translate.yoast.com/gp-templates/images/Yoast_Translate.svg',
-				'register_url'   => 'http://translate.yoast.com/gp/projects#utm_source=plugin&utm_medium=promo-box&utm_campaign=wpseo-woo-i18n-promo',
-			]
 		);
 	}
 

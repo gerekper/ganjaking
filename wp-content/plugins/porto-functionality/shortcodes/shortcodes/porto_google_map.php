@@ -1,6 +1,5 @@
 <?php
 // Porto Google Map
-add_action( 'wp_enqueue_scripts', 'porto_google_map_script', 1 );
 add_action( 'vc_after_init', 'porto_load_google_map_shortcode' );
 add_action( 'save_post', 'porto_check_google_map_shortcode', 10, 1 );
 
@@ -16,14 +15,6 @@ function porto_check_google_map_shortcode( $post_id ) {
 			delete_post_meta( $post_id, 'porto_page_use_google_map_api' );
 		}
 	}
-}
-
-function porto_google_map_script() {
-	global $porto_settings;
-	$map_protocol = 'http' . ( ( is_ssl() ) ? 's' : '' );
-	$map_key      = ( ! empty( $porto_settings['gmap_api'] ) ? 'key=' . $porto_settings['gmap_api'] . '&' : '' );
-	$map_api      = $map_protocol . '://maps.googleapis.com/maps/api/js?' . $map_key . 'language=' . substr( get_locale(), 0, 2 );
-	wp_register_script( 'googleapis', $map_api, null, null, false );
 }
 
 function porto_load_google_map_shortcode() {

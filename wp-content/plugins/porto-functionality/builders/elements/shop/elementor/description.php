@@ -37,7 +37,11 @@ class Porto_Elementor_SB_Description_Widget extends \Elementor\Widget_Base {
 		return array();
 	}
 
-	protected function _register_controls() {
+	public function get_custom_help_url() {
+		return 'https://www.portotheme.com/wordpress/porto/documentation/shop-builder-elements/';
+	}
+
+	protected function register_controls() {
 		$this->start_controls_section(
 			'section_description_layout',
 			array(
@@ -68,7 +72,7 @@ class Porto_Elementor_SB_Description_Widget extends \Elementor\Widget_Base {
 			array(
 				'name'     => 'desc_font',
 				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
-				'label'    => __( 'Typograhy', 'porto-functionality' ),
+				'label'    => __( 'Typography', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}}, {{WRAPPER}} p',
 			)
 		);
@@ -88,6 +92,29 @@ class Porto_Elementor_SB_Description_Widget extends \Elementor\Widget_Base {
 	}
 
 	protected function render() {
-		do_action( 'woocommerce_archive_description' );
+		if ( function_exists( 'porto_is_elementor_preview' ) && porto_is_elementor_preview() ) {
+			ob_start();
+			/**
+			 * Hook: woocommerce_archive_description.
+			 *
+			 * @hooked woocommerce_taxonomy_archive_description - 10
+			 * @hooked woocommerce_product_archive_description - 10
+			 */
+			do_action( 'woocommerce_archive_description' );
+			$desc = ob_get_clean();
+			if ( $desc ) {
+				echo porto_strip_script_tags( $desc );
+			} else {
+				echo '<p>' . esc_html__( 'Category description', 'porto-functionality' ) . '</p>';
+			}
+		} else {
+			/**
+			 * Hook: woocommerce_archive_description.
+			 *
+			 * @hooked woocommerce_taxonomy_archive_description - 10
+			 * @hooked woocommerce_product_archive_description - 10
+			 */
+			do_action( 'woocommerce_archive_description' );
+		}
 	}
 }

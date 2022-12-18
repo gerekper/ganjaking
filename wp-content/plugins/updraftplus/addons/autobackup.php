@@ -1015,10 +1015,10 @@ ENDHERE;
 							}
 							$('div#plugin-information-footer a#plugin_update_from_iframe, div#plugin-information-footer a.button').off('click');
 							$('div#plugin-information-footer a#plugin_update_from_iframe, div#plugin-information-footer a.button').on('click', function(e) {
-								e.preventDefault();
 								var target = window.parent === window ? null : window.parent;
 								$.support.postMessage = !! window.postMessage;
 								if (false === $.support.postMessage || null === target || -1 !== window.parent.location.pathname.indexOf('update-core.php')) return;
+								e.preventDefault();
 								for	(var idx in plugin_update_from_iframe_event_handlers) {
 									// it's going to execute all event handlers that previously were bound to $('div#plugin-information-footer a#plugin_update_from_iframe, div#plugin-information-footer a.button') and were set to off
 									if ("function" === typeof plugin_update_from_iframe_event_handlers[idx]) plugin_update_from_iframe_event_handlers[idx].call(this, e);

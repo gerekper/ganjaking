@@ -111,7 +111,7 @@ if ( ! class_exists( 'WC_360_Image_Shortcode' ) ) {
 					$attachment_ids = WC_360_Image_Utils::get_gallery_ids( $product );
 
 					// Only continue if there are gallery images
-					if ( $attachment_ids ) {
+					if ( ! empty( $attachment_ids ) ) {
 
 						do_action( 'wc360_shortcode_before_image' );
 

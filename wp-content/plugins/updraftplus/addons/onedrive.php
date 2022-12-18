@@ -16,8 +16,8 @@ if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
 
 // Converted to multi-options (Feb 2017-) and previous options conversion removed: Yes
 
-if (!class_exists('UpdraftPlus_RemoteStorage_Addons_Base_v2')) require_once(UPDRAFTPLUS_DIR.'/methods/addon-base-v2.php');
-if (!class_exists('UpdraftPlus_OneDrive_Account')) require_once(UPDRAFTPLUS_DIR.'/includes/class-onedrive-account.php');
+if (!class_exists('UpdraftPlus_RemoteStorage_Addons_Base_v2')) updraft_try_include_file('methods/addon-base-v2.php', 'require_once');
+if (!class_exists('UpdraftPlus_OneDrive_Account')) updraft_try_include_file('includes/class-onedrive-account.php', 'require_once');
 
 class UpdraftPlus_Addons_RemoteStorage_onedrive extends UpdraftPlus_RemoteStorage_Addons_Base_v2 {
 
@@ -619,7 +619,7 @@ class UpdraftPlus_Addons_RemoteStorage_onedrive extends UpdraftPlus_RemoteStorag
 	 */
 	public function do_bootstrap($opts) {
 	
-		include_once(UPDRAFTPLUS_DIR.'/includes/onedrive/onedrive.php');
+		updraft_try_include_file('includes/onedrive/onedrive.php', 'include_once');
 		global $updraftplus;
 		
 		$opts = $this->get_options();
@@ -1030,7 +1030,7 @@ class UpdraftPlus_Addons_RemoteStorage_onedrive extends UpdraftPlus_RemoteStorag
 	 */
 	private function auth_request() {
 
-		include_once(UPDRAFTPLUS_DIR.'/includes/onedrive/onedrive.php');
+		updraft_try_include_file('includes/onedrive/onedrive.php', 'include_once');
 	
 		$opts = $this->get_options();
 		$use_master = $this->use_master($opts);
@@ -1104,7 +1104,7 @@ class UpdraftPlus_Addons_RemoteStorage_onedrive extends UpdraftPlus_RemoteStorag
 			$client_id = (empty($opts['clientid'])) ? '' : $opts['clientid'];
 		}
 	
-		include_once(UPDRAFTPLUS_DIR.'/includes/onedrive/onedrive.php');
+		updraft_try_include_file('includes/onedrive/onedrive.php', 'include_once');
 		
 		if (!$use_master) {
 			$callback = UpdraftPlus_Options::admin_page_url().'?page=updraftplus&action=updraftmethod-onedrive-auth';
@@ -1293,7 +1293,7 @@ class UpdraftPlus_Addons_RemoteStorage_onedrive extends UpdraftPlus_RemoteStorag
 				'de' => __('OneDrive Germany', 'updraftplus'),
 			),
 			'authentication_label' => sprintf(__('Authenticate with %s', 'updraftplus'), 'OneDrive'),
-			'authentication_already_authenticated_label' => __('(You appear to be already authenticated).', 'updraftplus'),
+			'authentication_already_authenticated_label' => __('(You are already authenticated).', 'updraftplus'),
 			'deauthentication_link_text' => sprintf(__("Follow this link to remove these settings for %s.", 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
 			'deauthentication_nonce' => wp_create_nonce($this->get_id().'_deauth_nonce'),
 			'account_warning_label' => __('Ensure you are logged into the correct account before continuing.', 'updraftplus'),

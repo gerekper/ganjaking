@@ -3,7 +3,7 @@ if ( empty( $atts ) ) {
 	return;
 }
 $shortcode_css = '';
-if ( $atts['font_size'] ) {
+if ( ! empty( $atts['font_size'] ) ) {
 	$unit = trim( preg_replace( '/[0-9.]/', '', $atts['font_size'] ) );
 	if ( ! $unit ) {
 		$atts['font_size'] .= 'px';

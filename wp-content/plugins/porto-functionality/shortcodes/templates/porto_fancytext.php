@@ -7,7 +7,7 @@ $id                  = uniqid( rand() );
 extract(
 	shortcode_atts(
 		array(
-			'fancytext_strings'         => '',
+			'fancytext_strings'         => 'incredibly' . PHP_EOL . 'respecially',
 			'fancytext_prefix'          => '',
 			'fancytext_suffix'          => '',
 			'fancytext_tag'             => 'h2',
@@ -40,9 +40,10 @@ extract(
 		$atts
 	)
 );
-
 wp_enqueue_script( 'porto_word_rotator' );
-
+if ( ( $ticker_wait_time && $ticker_wait_time < 0 ) || empty( $ticker_wait_time ) ) {
+	$ticker_wait_time = 2500;
+}
 $string_inline_style = $word_rotate_inline = $prefsuf_style = $css_design_style = '';
 
 if ( defined( 'VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG' ) ) {

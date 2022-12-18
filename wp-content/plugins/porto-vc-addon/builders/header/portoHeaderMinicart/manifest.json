@@ -1,0 +1,19 @@
+{
+  "elements": {
+    "portoHeaderMinicart": {
+      "settings": {
+        "name": "Porto Header Mini Cart",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-hb.jpg",
+        "metaDescription": "Porto VC element to display mini cart in header"
+      }
+    }
+  },
+  "categories": {
+    "Icon": {
+      "elements": [
+        "portoHeaderMinicart"
+      ]
+    }
+  }
+}

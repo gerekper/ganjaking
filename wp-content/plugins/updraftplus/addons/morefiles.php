@@ -206,7 +206,7 @@ class UpdraftPlus_Addons_MoreFiles {
 
 		if ('.zip' == strtolower(substr($zipfile, -4, 4))) {
 
-			if (!class_exists('UpdraftPlus_PclZip')) include(UPDRAFTPLUS_DIR.'/includes/class-zip.php');
+			if (!class_exists('UpdraftPlus_PclZip')) updraft_try_include_file('includes/class-zip.php', 'include');
 			$zip = new UpdraftPlus_PclZip;
 
 			if (!$zip->open($zipfile)) {
@@ -239,7 +239,7 @@ class UpdraftPlus_Addons_MoreFiles {
 
 			if (!class_exists('UpdraftPlus_Archive_Tar')) {
 				if (false === strpos(get_include_path(), UPDRAFTPLUS_DIR.'/includes/PEAR')) set_include_path(UPDRAFTPLUS_DIR.'/includes/PEAR'.PATH_SEPARATOR.get_include_path());
-				include_once(UPDRAFTPLUS_DIR.'/includes/PEAR/Archive/Tar.php');
+				updraft_try_include_file('includes/PEAR/Archive/Tar.php', 'include_once');
 			}
 
 			$p_compress = null;
@@ -919,7 +919,7 @@ class UpdraftPlus_Addons_MoreFiles {
 
 		global $updraftplus;
 		
-		if (!class_exists('UpdraftPlus_PclZip')) include(UPDRAFTPLUS_DIR.'/includes/class-zip.php');
+		if (!class_exists('UpdraftPlus_PclZip')) updraft_try_include_file('includes/class-zip.php', 'include');
 
 		$updraft_dir = $updraftplus->backups_dir_location();
 

@@ -13,7 +13,23 @@ if ( ! class_exists( 'PortoBuildersShop' ) ) :
 
 		private $display_wpb_elements = false;
 
-		private $elements = array(
+		/**
+		 * Is legacy mode?
+		 *
+		 * @access protected
+		 * @since 2.3.0
+		 */
+		protected $legacy_mode = true;
+
+		/**
+		 * Is shop builder related pages?
+		 *
+		 * @since 2.4.0
+		 */
+		protected $is_shop_builder_layout = false;
+
+		public static $elements = array(
+			'archives',
 			'products',
 			'toolbox',
 			'sort',
@@ -30,6 +46,10 @@ if ( ! class_exists( 'PortoBuildersShop' ) ) :
 		 * Constructor
 		 */
 		public function __construct() {
+			$this->legacy_mode = apply_filters( 'porto_legacy_mode', true );
+			if ( ! $this->legacy_mode ) { // if soft mode
+				self::$elements = array_diff( self::$elements, array( 'products' ) );
+			}
 			if ( defined( 'ELEMENTOR_VERSION' ) ) {
 				if ( is_admin() && isset( $_GET['action'] ) && 'elementor' === $_GET['action'] ) {
 					add_action(
@@ -46,7 +66,7 @@ if ( ! class_exists( 'PortoBuildersShop' ) ) :
 					);
 				}
 
-				add_action( 'elementor/widgets/widgets_registered', array( $this, 'add_elementor_elements' ), 10, 1 );
+				add_action( 'elementor/widgets/register', array( $this, 'add_elementor_elements' ), 10, 1 );
 			}
 
 			if ( defined( 'WPB_VC_VERSION' ) ) {
@@ -60,14 +80,13 @@ if ( ! class_exists( 'PortoBuildersShop' ) ) :
 				add_action(
 					'template_redirect',
 					function() {
-						$should_add_shortcodes = false;
 						if ( ( is_singular( PortoBuilders::BUILDER_SLUG ) && 'shop' == get_post_meta( get_the_ID(), PortoBuilders::BUILDER_TAXONOMY_SLUG, true ) ) || ! empty( $_GET['vcv-ajax'] ) || ( function_exists( 'porto_is_ajax' ) && porto_is_ajax() && ! empty( $_GET[ PortoBuilders::BUILDER_SLUG ] ) ) ) {
-							$should_add_shortcodes = true;
+							$this->is_shop_builder_layout = true;
 						} elseif ( function_exists( 'porto_check_builder_condition' ) && porto_check_builder_condition( 'shop' ) ) {
-							$should_add_shortcodes = true;
+							$this->is_shop_builder_layout = true;
 						}
 
-						if ( $should_add_shortcodes ) {
+						if ( $this->is_shop_builder_layout ) {
 							$this->add_shortcodes();
 						}
 					}
@@ -76,97 +95,256 @@ if ( ! class_exists( 'PortoBuildersShop' ) ) :
 				add_action(
 					'admin_init',
 					function() {
-						$should_add_shortcodes = false;
+						$this->is_shop_builder_layout = false;
 						if ( wp_doing_ajax() && isset( $_REQUEST['action'] ) && 'vc_save' == $_REQUEST['action'] ) {
-							$should_add_shortcodes = true;
+							$this->is_shop_builder_layout = true;
 						} elseif ( isset( $_POST['action'] ) && 'editpost' == $_POST['action'] && isset( $_POST['post_type'] ) && PortoBuilders::BUILDER_SLUG == $_POST['post_type'] ) {
-							$should_add_shortcodes = true;
+							$this->is_shop_builder_layout = true;
 						}
 
-						if ( $should_add_shortcodes ) {
+						if ( $this->is_shop_builder_layout ) {
 							$this->add_shortcodes();
 						}
 					}
 				);
 			}
 
-			if ( defined( 'VCV_VERSION' ) ) {
-				if ( is_admin() ) {
-					add_action(
-						'vcv:api',
-						function( $api ) {
-							if ( function_exists( 'porto_is_vc_preview' ) && porto_is_vc_preview() && isset( $_GET['vcv-source-id'] ) ) {
-								$post_id = $_GET['vcv-source-id'];
-								$terms   = wp_get_post_terms( $post_id, PortoBuilders::BUILDER_TAXONOMY_SLUG, array( 'fields' => 'names' ) );
-								if ( isset( $terms[0] ) && 'shop' == $terms[0] ) {
-									$base_url = rtrim( plugins_url( basename( dirname( PORTO_FUNC_FILE ) ) ), '\\/' ) . '/builders/elements/shop/vc';
-
-									/**
-									 * @var \VisualComposer\Modules\Elements\ApiController $elementsApi
-									*/
-									$elements_api = $api->elements;
-
-									foreach ( $this->elements as $tag ) {
-										$tag           = 'portoShop' . ucfirst( str_replace( '-', '', $tag ) );
-										$manifest_path = __DIR__ . '/vc/' . $tag . '/manifest.json';
-										$element_url   = $base_url . '/' . $tag;
-										$elements_api->add( $manifest_path, $element_url );
-									}
-								}
-							}
-						},
-						10
-					);
-				}
-			}
-
 			$this->add_gutenberg_elements();
+
+			add_filter( 'porto_shop_builder_set_preview', array( $this, 'set_preview' ) );
+			add_action( 'porto_shop_builder_unset_preview', array( $this, 'unset_preview' ) );
 		}
 
 		public function add_elementor_elements( $self ) {
-			$load_widgets = false;
 			if ( is_admin() ) {
 				if ( is_singular( PortoBuilders::BUILDER_SLUG ) && 'shop' == get_post_meta( get_the_ID(), PortoBuilders::BUILDER_TAXONOMY_SLUG, true ) ) {
-					$load_widgets = true;
+					$this->is_shop_builder_layout = true;
 				} elseif ( wp_doing_ajax() && isset( $_REQUEST['action'] ) && 'elementor_ajax' == $_REQUEST['action'] && ! empty( $_POST['editor_post_id'] ) ) {
-					$load_widgets = true;
+					$this->is_shop_builder_layout = true;
 				}
+			} elseif ( function_exists( 'porto_check_builder_condition' ) && porto_check_builder_condition( 'shop' ) ) {
+				$this->is_shop_builder_layout = true;
 			}
-			if ( $load_widgets ) {
-				foreach ( $this->elements as $element ) {
+			if ( $this->is_shop_builder_layout ) {
+				foreach ( $this::$elements as $element ) {
 					if ( 'toolbox' == $element ) {
 						continue;
 					}
 					include_once PORTO_BUILDERS_PATH . 'elements/shop/elementor/' . $element . '.php';
 					$class_name = 'Porto_Elementor_SB_' . ucfirst( str_replace( '-', '_', $element ) ) . '_Widget';
 					if ( class_exists( $class_name ) ) {
-						$self->register_widget_type( new $class_name( array(), array( 'widget_name' => $class_name ) ) );
+						$self->register( new $class_name( array(), array( 'widget_name' => $class_name ) ) );
 					}
 				}
 			}
 		}
 
+		/**
+		 * Set preview for editor and template view
+		 *
+		 * @since 2.4.0
+		 */
+		public function set_preview() {
+			if ( ! is_archive() && $this->is_shop_builder_layout ) {
+				global $wp_query, $post, $product;
+
+				$this->original = array(
+					'wp_query' => $wp_query,
+					'post'     => $post,
+					'product'  => empty( $product ) ? '' : $product,
+				);
+
+				// Get current options
+				$posts = new WP_Query;
+				$posts->query(
+					array(
+						'post_type'           => 'product',
+						'post_status'         => 'publish',
+						'posts_per_page'      => apply_filters( 'loop_shop_per_page', get_option( 'posts_per_page', 12 ) ),
+						'ignore_sticky_posts' => true,
+					)
+				);
+				$wp_query = $posts;
+				WC()->query->product_query( $wp_query );
+
+				wc_setup_loop();
+
+				return true;
+			}
+
+			return false;
+		}
+
+		/**
+		 * Unset preview for editor and template view
+		 *
+		 * @since 2.4.0
+		 */
+		public function unset_preview() {
+			global $wp_query;
+			if ( ! empty( $this->original ) && $this->original['wp_query'] !== $wp_query ) {
+				global $post, $product;
+
+				$wp_query = $this->original['wp_query'];
+				if ( ! empty( $this->original['post'] ) ) {
+					$post = $this->original['post'];
+				}
+				if ( ! empty( $this->original['product'] ) ) {
+					$product = $this->original['product'];
+				}
+				unset( $this->original );
+			}
+		}
+
 		private function add_shortcodes() {
-			$shortcodes = $this->elements;
+			$shortcodes = $this::$elements;
 			foreach ( $shortcodes as $tag ) {
+				if ( 'archives' == $tag ) {
+					continue;
+				}
 				$shortcode_name = str_replace( '-', '_', $tag );
 				add_shortcode(
 					'porto_sb_' . $shortcode_name,
 					function( $atts, $content = null ) use ( $tag ) {
 						ob_start();
-						$el_class = isset( $atts['el_class'] ) ? trim( $atts['el_class'] ) : '';
+						$shortcode_name = 'porto_sb_' . str_replace( '-', '_', $tag );
+						$el_class       = isset( $atts['el_class'] ) ? trim( $atts['el_class'] ) : '';
+						$internal_css   = '';
 
 						if ( 'products' == $tag && is_singular( PortoBuilders::BUILDER_SLUG ) ) {
 							if ( $template = porto_shortcode_woo_template( 'porto_products' ) ) {
+								$shortcode_class = 'wpb_custom_' . PortoShortcodesClass::get_global_hashcode(
+									$atts,
+									'porto_sb_products',
+									array(
+										array(
+											'param_name' => 'dots_pos_top',
+											'selectors'  => true,
+										),
+										array(
+											'param_name' => 'dots_pos_bottom',
+											'selectors'  => true,
+										),
+										array(
+											'param_name' => 'dots_pos_left',
+											'selectors'  => true,
+										),
+										array(
+											'param_name' => 'dots_pos_right',
+											'selectors'  => true,
+										),
+										array(
+											'param_name' => 'dots_br_color',
+											'selectors'  => true,
+										),
+										array(
+											'param_name' => 'dots_abr_color',
+											'selectors'  => true,
+										),
+										array(
+											'param_name' => 'dots_bg_color',
+											'selectors'  => true,
+										),
+										array(
+											'param_name' => 'dots_abg_color',
+											'selectors'  => true,
+										),
+										array(
+											'param_name' => 'nav_fs',
+											'selectors'  => true,
+										),
+										array(
+											'param_name' => 'nav_width',
+											'selectors'  => true,
+										),
+										array(
+											'param_name' => 'nav_height',
+											'selectors'  => true,
+										),
+										array(
+											'param_name' => 'nav_br',
+											'selectors'  => true,
+										),
+										array(
+											'param_name' => 'nav_h_pos',
+											'selectors'  => true,
+										),
+										array(
+											'param_name' => 'nav_v_pos',
+											'selectors'  => true,
+										),
+										array(
+											'param_name' => 'nav_color',
+											'selectors'  => true,
+										),
+										array(
+											'param_name' => 'nav_h_color',
+											'selectors'  => true,
+										),
+										array(
+											'param_name' => 'nav_bg_color',
+											'selectors'  => true,
+										),
+										array(
+											'param_name' => 'nav_h_bg_color',
+											'selectors'  => true,
+										),
+										array(
+											'param_name' => 'nav_br_color',
+											'selectors'  => true,
+										),
+										array(
+											'param_name' => 'nav_h_br_color',
+											'selectors'  => true,
+										),
+									)
+								);
+								$internal_css    = PortoShortcodesClass::generate_wpb_css( 'porto_sb_products', $atts );
 								echo '<div class="archive-products">';
 								include $template;
 								echo '</div>';
 							}
 						} else {
+
+							// Shortcode class
+							if ( 'toggle' == $tag ) {
+								$params_keys = array( 'fs', 'spacing', 'clr', 'active_clr', 'w', 'h', 'bs', 'bw', 'bc', 'bc_active' );
+							} elseif ( 'result' == $tag || 'description' == $tag ) {
+								$params_keys = array( 'tg', 'clr' );
+							} elseif ( 'sort' == $tag || 'count' == $tag ) {
+								$params_keys = array( 'label_hide', 'label_color', 'label_typography', 'select_color', 'select_typography', 'select_padding', 'spacing' );
+							}
+							$params = array();
+							if ( ! empty( $params_keys ) ) {
+								foreach ( $params_keys as $k ) {
+									$params[] = array(
+										'param_name' => $k,
+										'selectors'  => true,
+									);
+								}
+							}
+
+							if ( ! empty( $params ) ) {
+								$shortcode_class = 'wpb_custom_' . PortoShortcodesClass::get_global_hashcode( $atts, $shortcode_name, $params );
+							}
+
+							$internal_css = PortoShortcodesClass::generate_wpb_css( $shortcode_name, $atts );
+
 							include PORTO_BUILDERS_PATH . '/elements/shop/wpb/' . $tag . '.php';
 						}
 
-						return ob_get_clean();
+						$result = ob_get_clean();
+						if ( $result && $internal_css ) {
+							$first_tag_index = strpos( $result, '>' );
+							if ( $first_tag_index ) {
+								$internal_css = porto_filter_inline_css( $internal_css, false );
+								if ( $internal_css ) {
+									$result = substr( $result, 0, $first_tag_index + 1 ) . '<style>' . wp_strip_all_tags( $internal_css ) . '</style>' . substr( $result, $first_tag_index + 1 );
+								}
+							}
+						}
+
+						return $result;
 					}
 				);
 			}
@@ -185,194 +363,206 @@ if ( ! class_exists( 'PortoBuildersShop' ) ) :
 
 			$custom_class = porto_vc_custom_class();
 
-			vc_map(
-				array(
-					'name'     => __( 'Shop Products', 'porto-functionality' ),
-					'base'     => 'porto_sb_products',
-					'icon'     => 'fas fa-cart-arrow-down',
-					'category' => __( 'Shop Builder', 'porto-functionality' ),
-					'params'   => array_merge(
-						array(
+			do_action( 'porto_archive_builder_add_wpb_elements', 'shop', $custom_class );
+
+			if ( $this->legacy_mode ) {
+				vc_map(
+					array(
+						'name'     => __( 'Shop Products', 'porto-functionality' ),
+						'base'     => 'porto_sb_products',
+						'icon'     => 'fas fa-cart-arrow-down',
+						'category' => __( 'Shop Builder', 'porto-functionality' ),
+						'params'   => array_merge(
 							array(
-								'type'        => 'dropdown',
-								'heading'     => __( 'View mode', 'porto-functionality' ),
-								'param_name'  => 'view',
-								'value'       => porto_sh_commons( 'products_view_mode' ),
-								'admin_label' => true,
-							),
-							array(
-								'type'       => 'porto_image_select',
-								'heading'    => __( 'Grid Layout', 'porto-functionality' ),
-								'param_name' => 'grid_layout',
-								'dependency' => array(
-									'element' => 'view',
-									'value'   => array( 'creative' ),
+								array(
+									'type'       => 'porto_param_heading',
+									'param_name' => 'notice_wrong_data',
+									'text'       => __( 'This element was deprecated in 6.3.0. Please use Type Builder Archives instead.', 'porto-functionality' ),
 								),
-								'std'        => '1',
-								'value'      => porto_sh_commons( 'masonry_layouts' ),
-							),
-							array(
-								'type'       => 'number',
-								'heading'    => __( 'Grid Height (px)', 'porto-functionality' ),
-								'param_name' => 'grid_height',
-								'dependency' => array(
-									'element' => 'view',
-									'value'   => array( 'creative' ),
+								array(
+									'type'        => 'dropdown',
+									'heading'     => __( 'View mode', 'porto-functionality' ),
+									'param_name'  => 'view',
+									'value'       => porto_sh_commons( 'products_view_mode' ),
+									'admin_label' => true,
 								),
-								'suffix'     => 'px',
-								'std'        => 600,
-							),
-							array(
-								'type'        => 'number',
-								'heading'     => __( 'Column Spacing (px)', 'porto-functionality' ),
-								'description' => __( 'Leave blank if you use theme default value.', 'porto-functionality' ),
-								'param_name'  => 'spacing',
-								'dependency'  => array(
-									'element' => 'view',
-									'value'   => array( 'grid', 'creative', 'products-slider' ),
+								array(
+									'type'       => 'porto_image_select',
+									'heading'    => __( 'Grid Layout', 'porto-functionality' ),
+									'param_name' => 'grid_layout',
+									'dependency' => array(
+										'element' => 'view',
+										'value'   => array( 'creative' ),
+									),
+									'std'        => '1',
+									'value'      => porto_sh_commons( 'masonry_layouts' ),
 								),
-								'suffix'      => 'px',
-								'std'         => '',
-							),
-							array(
-								'type'       => 'dropdown',
-								'heading'    => __( 'Columns', 'porto-functionality' ),
-								'param_name' => 'columns',
-								'dependency' => array(
-									'element' => 'view',
-									'value'   => array( 'products-slider', 'grid', 'divider' ),
+								array(
+									'type'       => 'number',
+									'heading'    => __( 'Grid Height (px)', 'porto-functionality' ),
+									'param_name' => 'grid_height',
+									'dependency' => array(
+										'element' => 'view',
+										'value'   => array( 'creative' ),
+									),
+									'suffix'     => 'px',
+									'std'        => 600,
 								),
-								'std'        => '4',
-								'value'      => porto_sh_commons( 'products_columns' ),
-							),
-							array(
-								'type'       => 'dropdown',
-								'heading'    => __( 'Columns on mobile ( <= 575px )', 'porto-functionality' ),
-								'param_name' => 'columns_mobile',
-								'dependency' => array(
-									'element' => 'view',
-									'value'   => array( 'products-slider', 'grid', 'divider', 'list' ),
-								),
-								'std'        => '',
-								'value'      => array(
-									__( 'Default', 'porto-functionality' ) => '',
-									'1' => '1',
-									'2' => '2',
-									'3' => '3',
-								),
-							),
-							array(
-								'type'        => 'dropdown',
-								'heading'     => __( 'Product Layout', 'porto-functionality' ),
-								'description' => __( 'Select position of add to cart, add to wishlist, quickview.', 'porto-functionality' ),
-								'param_name'  => 'addlinks_pos',
-								'value'       => porto_sh_commons( 'products_addlinks_pos' ),
-							),
-							array(
-								'type'       => 'number',
-								'heading'    => __( 'Overlay Background Opacity (%)', 'porto-functionality' ),
-								'param_name' => 'overlay_bg_opacity',
-								'dependency' => array(
-									'element' => 'addlinks_pos',
-									'value'   => array( 'onimage2', 'onimage3' ),
-								),
-								'suffix'     => '%',
-								'std'        => '30',
-							),
-							array(
-								'type'       => 'dropdown',
-								'heading'    => __( 'Image Size', 'porto-functionality' ),
-								'param_name' => 'image_size',
-								'dependency' => array(
-									'element' => 'view',
-									'value'   => array( 'products-slider', 'grid', 'divider', 'list' ),
-								),
-								'value'      => porto_sh_commons( 'image_sizes' ),
-								'std'        => '',
-							),
-							$custom_class,
-							array(
-								'type'       => 'porto_param_heading',
-								'param_name' => 'title_text_typography',
-								'text'       => __( 'Product Title settings', 'porto-functionality' ),
-								'group'      => 'Style',
-							),
-							array(
-								'type'       => 'checkbox',
-								'heading'    => __( 'Use theme default font family?', 'porto-functionality' ),
-								'param_name' => 'title_use_theme_fonts',
-								'value'      => array( __( 'Yes', 'js_composer' ) => 'yes' ),
-								'std'        => 'yes',
-								'group'      => 'Style',
-							),
-							array(
-								'type'       => 'google_fonts',
-								'param_name' => 'title_google_font',
-								'settings'   => array(
-									'fields' => array(
-										'font_family_description' => __( 'Select Font Family.', 'porto-functionality' ),
-										'font_style_description'  => __( 'Select Font Style.', 'porto-functionality' ),
+								array(
+									'type'        => 'number',
+									'heading'     => __( 'Column Spacing (px)', 'porto-functionality' ),
+									'description' => __( 'Leave blank if you use theme default value.', 'porto-functionality' ),
+									'param_name'  => 'spacing',
+									'dependency'  => array(
+										'element' => 'view',
+										'value'   => array( 'grid', 'creative', 'products-slider' ),
+									),
+									'suffix'      => 'px',
+									'std'         => '',
+									'selectors'   => array(
+										'{{WRAPPER}}' => '--porto-el-spacing: {{VALUE}}px;',
 									),
 								),
-								'dependency' => array(
-									'element'            => 'title_use_theme_fonts',
-									'value_not_equal_to' => 'yes',
+								array(
+									'type'       => 'dropdown',
+									'heading'    => __( 'Columns', 'porto-functionality' ),
+									'param_name' => 'columns',
+									'dependency' => array(
+										'element' => 'view',
+										'value'   => array( 'products-slider', 'grid', 'divider' ),
+									),
+									'std'        => '4',
+									'value'      => porto_sh_commons( 'products_columns' ),
 								),
-								'group'      => 'Style',
-							),
-							array(
-								'type'        => 'textfield',
-								'heading'     => __( 'Font Size', 'porto-functionality' ),
-								'param_name'  => 'title_font_size',
-								'admin_label' => true,
-								'group'       => 'Style',
-							),
-							array(
-								'type'        => 'dropdown',
-								'heading'     => __( 'Font Weight', 'porto-functionality' ),
-								'param_name'  => 'title_font_weight',
-								'value'       => array(
-									__( 'Default', 'porto-functionality' ) => '',
-									'100' => '100',
-									'200' => '200',
-									'300' => '300',
-									'400' => '400',
-									'500' => '500',
-									'600' => '600',
-									'700' => '700',
-									'800' => '800',
-									'900' => '900',
+								array(
+									'type'       => 'dropdown',
+									'heading'    => __( 'Columns on mobile ( <= 575px )', 'porto-functionality' ),
+									'param_name' => 'columns_mobile',
+									'dependency' => array(
+										'element' => 'view',
+										'value'   => array( 'products-slider', 'grid', 'divider', 'list' ),
+									),
+									'std'        => '',
+									'value'      => array(
+										__( 'Default', 'porto-functionality' ) => '',
+										'1' => '1',
+										'2' => '2',
+										'3' => '3',
+									),
 								),
-								'admin_label' => true,
-								'group'       => 'Style',
+								array(
+									'type'        => 'dropdown',
+									'heading'     => __( 'Product Layout', 'porto-functionality' ),
+									'description' => __( 'Select position of add to cart, add to wishlist, quickview.', 'porto-functionality' ),
+									'param_name'  => 'addlinks_pos',
+									'value'       => porto_sh_commons( 'products_addlinks_pos' ),
+								),
+								array(
+									'type'       => 'number',
+									'heading'    => __( 'Overlay Background Opacity (%)', 'porto-functionality' ),
+									'param_name' => 'overlay_bg_opacity',
+									'dependency' => array(
+										'element' => 'addlinks_pos',
+										'value'   => array( 'onimage2', 'onimage3' ),
+									),
+									'suffix'     => '%',
+									'std'        => '30',
+								),
+								array(
+									'type'       => 'dropdown',
+									'heading'    => __( 'Image Size', 'porto-functionality' ),
+									'param_name' => 'image_size',
+									'dependency' => array(
+										'element' => 'view',
+										'value'   => array( 'products-slider', 'grid', 'divider', 'list' ),
+									),
+									'value'      => porto_sh_commons( 'image_sizes' ),
+									'std'        => '',
+								),
+								$custom_class,
+								array(
+									'type'       => 'porto_param_heading',
+									'param_name' => 'title_text_typography',
+									'text'       => __( 'Product Title settings', 'porto-functionality' ),
+									'group'      => __( 'Style', 'porto-functionality' ),
+								),
+								array(
+									'type'       => 'checkbox',
+									'heading'    => __( 'Use theme default font family?', 'porto-functionality' ),
+									'param_name' => 'title_use_theme_fonts',
+									'value'      => array( __( 'Yes', 'js_composer' ) => 'yes' ),
+									'std'        => 'yes',
+									'group'      => __( 'Style', 'porto-functionality' ),
+								),
+								array(
+									'type'       => 'google_fonts',
+									'param_name' => 'title_google_font',
+									'settings'   => array(
+										'fields' => array(
+											'font_family_description' => __( 'Select Font Family.', 'porto-functionality' ),
+											'font_style_description'  => __( 'Select Font Style.', 'porto-functionality' ),
+										),
+									),
+									'dependency' => array(
+										'element' => 'title_use_theme_fonts',
+										'value_not_equal_to' => 'yes',
+									),
+									'group'      => __( 'Style', 'porto-functionality' ),
+								),
+								array(
+									'type'        => 'textfield',
+									'heading'     => __( 'Font Size', 'porto-functionality' ),
+									'param_name'  => 'title_font_size',
+									'admin_label' => true,
+									'group'       => 'Style',
+								),
+								array(
+									'type'        => 'dropdown',
+									'heading'     => __( 'Font Weight', 'porto-functionality' ),
+									'param_name'  => 'title_font_weight',
+									'value'       => array(
+										__( 'Default', 'porto-functionality' ) => '',
+										'100' => '100',
+										'200' => '200',
+										'300' => '300',
+										'400' => '400',
+										'500' => '500',
+										'600' => '600',
+										'700' => '700',
+										'800' => '800',
+										'900' => '900',
+									),
+									'admin_label' => true,
+									'group'       => 'Style',
+								),
+								array(
+									'type'        => 'textfield',
+									'heading'     => __( 'Line Height', 'porto-functionality' ),
+									'param_name'  => 'title_line_height',
+									'admin_label' => true,
+									'group'       => 'Style',
+								),
+								array(
+									'type'        => 'textfield',
+									'heading'     => __( 'Letter Spacing', 'porto-functionality' ),
+									'param_name'  => 'title_ls',
+									'admin_label' => true,
+									'group'       => 'Style',
+								),
+								array(
+									'type'       => 'colorpicker',
+									'class'      => '',
+									'heading'    => __( 'Color', 'porto-functionality' ),
+									'param_name' => 'title_color',
+									'value'      => '',
+									'group'      => __( 'Style', 'porto-functionality' ),
+								),
 							),
-							array(
-								'type'        => 'textfield',
-								'heading'     => __( 'Line Height', 'porto-functionality' ),
-								'param_name'  => 'title_line_height',
-								'admin_label' => true,
-								'group'       => 'Style',
-							),
-							array(
-								'type'        => 'textfield',
-								'heading'     => __( 'Letter Spacing', 'porto-functionality' ),
-								'param_name'  => 'title_ls',
-								'admin_label' => true,
-								'group'       => 'Style',
-							),
-							array(
-								'type'       => 'colorpicker',
-								'class'      => '',
-								'heading'    => __( 'Color', 'porto-functionality' ),
-								'param_name' => 'title_color',
-								'value'      => '',
-								'group'      => 'Style',
-							),
+							porto_vc_product_slider_fields()
 						),
-						porto_vc_product_slider_fields()
-					),
-				)
-			);
+					)
+				);
+			}
 
 			vc_map(
 				array(
@@ -392,12 +582,81 @@ if ( ! class_exists( 'PortoBuildersShop' ) ) :
 
 			vc_map(
 				array(
-					'name'     => __( 'Sort By', 'porto-functionality' ),
-					'base'     => 'porto_sb_sort',
-					'icon'     => 'fas fa-sort-alpha-down',
-					'category' => __( 'Shop Builder', 'porto-functionality' ),
-					'as_child' => array( 'only' => 'porto_sb_toolbox' ),
-					'params'   => array(
+					'name'        => __( 'Sort By', 'porto-functionality' ),
+					'base'        => 'porto_sb_sort',
+					'icon'        => 'fas fa-sort-alpha-down',
+					'category'    => __( 'Shop Builder', 'porto-functionality' ),
+					'description' => __( 'Displays a select box which allows to sort products by popularity, price, rating, etc.', 'porto-functionality' ),
+					'as_child'    => array( 'only' => 'porto_sb_toolbox' ),
+					'params'      => array(
+						array(
+							'type'       => 'dropdown',
+							'heading'    => esc_html__( 'Label Visibility', 'porto-functionality' ),
+							'param_name' => 'label_hide',
+							'value'      => array(
+								__( 'Default', 'porto-functionality' ) => '',
+								__( 'Hide', 'porto-functionality' )    => 'none',
+							),
+							'selectors'  => array(
+								'{{WRAPPER}} label' => 'display: {{VALUE}};',
+							),
+						),
+						array(
+							'type'        => 'colorpicker',
+							'heading'     => esc_html__( 'Label Color', 'porto-functionality' ),
+							'description' => esc_html__( 'Controls color of label.', 'porto-functionality' ),
+							'param_name'  => 'label_color',
+							'selectors'   => array(
+								'{{WRAPPER}} label' => 'color: {{VALUE}};',
+							),
+						),
+						array(
+							'type'       => 'porto_typography',
+							'heading'    => esc_html__( 'Label Typography', 'porto-functionality' ),
+							'param_name' => 'label_typography',
+							'selectors'  => array(
+								'{{WRAPPER}} label',
+							),
+						),
+
+						array(
+							'heading'     => esc_html__( 'Select box Color', 'porto-functionality' ),
+							'description' => esc_html__( 'Controls color of select box.', 'porto-functionality' ),
+							'type'        => 'colorpicker',
+							'param_name'  => 'select_color',
+							'selectors'   => array(
+								'{{WRAPPER}} select' => 'color: {{VALUE}};',
+							),
+						),
+						array(
+							'type'       => 'porto_typography',
+							'param_name' => 'select_typography',
+							'heading'    => esc_html__( 'Select box Typography', 'porto-functionality' ),
+							'selectors'  => array(
+								'{{WRAPPER}} select',
+							),
+						),
+						array(
+							'type'        => 'porto_dimension',
+							'heading'     => esc_html__( 'Select box Padding', 'porto-functionality' ),
+							'description' => esc_html__( 'Controls padding of select box.', 'porto-functionality' ),
+							'param_name'  => 'select_padding',
+							'selectors'   => array(
+								'{{WRAPPER}} select' => 'padding: {{TOP}} {{RIGHT}} {{BOTTOM}} {{LEFT}};',
+							),
+						),
+						array(
+							'heading'     => esc_html__( 'Spacing', 'porto-functionality' ),
+							'type'        => 'number',
+							'param_name'  => 'spacing',
+							'description' => esc_html__( 'Controls spacing between label and select box.', 'porto-functionality' ),
+							'min'         => 0,
+							'max'         => 20,
+							'suffix'      => 'px',
+							'selectors'   => array(
+								'{{WRAPPER}} label' => 'margin-' . ( is_rtl() ? 'left' : 'right' ) . ': {{VALUE}}px',
+							),
+						),
 						$custom_class,
 					),
 				)
@@ -405,12 +664,29 @@ if ( ! class_exists( 'PortoBuildersShop' ) ) :
 
 			vc_map(
 				array(
-					'name'     => __( 'Products Result Count', 'porto-functionality' ),
-					'base'     => 'porto_sb_result',
-					'icon'     => 'fas fa-text-width',
-					'category' => __( 'Shop Builder', 'porto-functionality' ),
-					'as_child' => array( 'only' => 'porto_sb_toolbox' ),
-					'params'   => array(
+					'name'        => __( 'Products Result Count', 'porto-functionality' ),
+					'base'        => 'porto_sb_result',
+					'icon'        => 'fas fa-text-width',
+					'category'    => __( 'Shop Builder', 'porto-functionality' ),
+					'description' => __( 'Displays the products result count.', 'porto-functionality' ),
+					'as_child'    => array( 'only' => 'porto_sb_toolbox' ),
+					'params'      => array(
+						array(
+							'type'       => 'porto_typography',
+							'heading'    => esc_html__( 'Typography', 'porto-functionality' ),
+							'param_name' => 'tg',
+							'selectors'  => array(
+								'{{WRAPPER}} .woocommerce-result-count',
+							),
+						),
+						array(
+							'type'       => 'colorpicker',
+							'heading'    => esc_html__( 'Color', 'porto-functionality' ),
+							'param_name' => 'clr',
+							'selectors'  => array(
+								'{{WRAPPER}} .woocommerce-result-count' => 'color: {{VALUE}};',
+							),
+						),
 						$custom_class,
 					),
 				)
@@ -418,12 +694,81 @@ if ( ! class_exists( 'PortoBuildersShop' ) ) :
 
 			vc_map(
 				array(
-					'name'     => __( 'Count Per Page', 'porto-functionality' ),
-					'base'     => 'porto_sb_count',
-					'icon'     => 'fas fa-list-ul',
-					'category' => __( 'Shop Builder', 'porto-functionality' ),
-					'as_child' => array( 'only' => 'porto_sb_toolbox' ),
-					'params'   => array(
+					'name'        => __( 'Count Per Page', 'porto-functionality' ),
+					'base'        => 'porto_sb_count',
+					'icon'        => 'fas fa-list-ul',
+					'category'    => __( 'Shop Builder', 'porto-functionality' ),
+					'as_child'    => array( 'only' => 'porto_sb_toolbox' ),
+					'description' => __( 'You can set these values using WooCommerce -> Product Archives -> Products per Page in Theme Options. This displays pagination together when pagination is disabled in Type Builder Archives element.', 'porto-functionality' ),
+					'params'      => array(
+						array(
+							'type'       => 'dropdown',
+							'heading'    => esc_html__( 'Label Visibility', 'porto-functionality' ),
+							'param_name' => 'label_hide',
+							'value'      => array(
+								__( 'Default', 'porto-functionality' ) => '',
+								__( 'Hide', 'porto-functionality' )    => 'none',
+							),
+							'selectors'  => array(
+								'{{WRAPPER}} label' => 'display: {{VALUE}};',
+							),
+						),
+						array(
+							'type'        => 'colorpicker',
+							'heading'     => esc_html__( 'Label Color', 'porto-functionality' ),
+							'description' => esc_html__( 'Controls color of label.', 'porto-functionality' ),
+							'param_name'  => 'label_color',
+							'selectors'   => array(
+								'{{WRAPPER}} label' => 'color: {{VALUE}};',
+							),
+						),
+						array(
+							'type'       => 'porto_typography',
+							'heading'    => esc_html__( 'Label Typography', 'porto-functionality' ),
+							'param_name' => 'label_typography',
+							'selectors'  => array(
+								'{{WRAPPER}} label',
+							),
+						),
+
+						array(
+							'heading'     => esc_html__( 'Select box Color', 'porto-functionality' ),
+							'description' => esc_html__( 'Controls color of select box.', 'porto-functionality' ),
+							'type'        => 'colorpicker',
+							'param_name'  => 'select_color',
+							'selectors'   => array(
+								'{{WRAPPER}} select' => 'color: {{VALUE}};',
+							),
+						),
+						array(
+							'type'       => 'porto_typography',
+							'param_name' => 'select_typography',
+							'heading'    => esc_html__( 'Select box Typography', 'porto-functionality' ),
+							'selectors'  => array(
+								'{{WRAPPER}} select',
+							),
+						),
+						array(
+							'type'        => 'porto_dimension',
+							'heading'     => esc_html__( 'Select box Padding', 'porto-functionality' ),
+							'description' => esc_html__( 'Controls padding of select box.', 'porto-functionality' ),
+							'param_name'  => 'select_padding',
+							'selectors'   => array(
+								'{{WRAPPER}} select' => 'padding: {{TOP}} {{RIGHT}} {{BOTTOM}} {{LEFT}};',
+							),
+						),
+						array(
+							'heading'     => esc_html__( 'Spacing', 'porto-functionality' ),
+							'type'        => 'number',
+							'param_name'  => 'spacing',
+							'description' => esc_html__( 'Controls spacing between label and select box.', 'porto-functionality' ),
+							'min'         => 0,
+							'max'         => 20,
+							'suffix'      => 'px',
+							'selectors'   => array(
+								'{{WRAPPER}} label' => 'margin-' . ( is_rtl() ? 'left' : 'right' ) . ': {{VALUE}}px',
+							),
+						),
 						$custom_class,
 					),
 				)
@@ -431,12 +776,229 @@ if ( ! class_exists( 'PortoBuildersShop' ) ) :
 
 			vc_map(
 				array(
-					'name'     => __( 'Grid / List Toggle', 'porto-functionality' ),
-					'base'     => 'porto_sb_toggle',
-					'icon'     => 'fas fa-th-list',
-					'category' => __( 'Shop Builder', 'porto-functionality' ),
-					'as_child' => array( 'only' => 'porto_sb_toolbox' ),
-					'params'   => array(
+					'name'        => esc_html__( 'Grid / List Toggle', 'porto-functionality' ),
+					'base'        => 'porto_sb_toggle',
+					'icon'        => 'fas fa-th-list',
+					'category'    => esc_html__( 'Shop Builder', 'porto-functionality' ),
+					'as_child'    => array( 'only' => 'porto_sb_toolbox' ),
+					'description' => esc_html__( 'Displays the toggle buttons to switch products layout in grid and list view.', 'porto-functionality' ),
+					'params'      => array(
+						array(
+							'type'       => 'dropdown',
+							'heading'    => esc_html__( 'Grid Icon Type', 'porto-functionality' ),
+							'param_name' => 'icon_grid_type',
+							'value'      => array(
+								__( 'Font Awesome', 'porto-functionality' ) => 'fontawesome',
+								__( 'Simple Line Icon', 'porto-functionality' ) => 'simpleline',
+								__( 'Porto Icon', 'porto-functionality' ) => 'porto',
+							),
+						),
+						array(
+							'type'       => 'iconpicker',
+							'heading'    => esc_html__( 'Grid Icon', 'porto-functionality' ),
+							'param_name' => 'icon_grid',
+							'dependency' => array(
+								'element' => 'icon_grid_type',
+								'value'   => 'fontawesome',
+							),
+						),
+						array(
+							'type'       => 'iconpicker',
+							'heading'    => esc_html__( 'Grid Icon', 'porto-functionality' ),
+							'param_name' => 'icon_grid_simpleline',
+							'settings'   => array(
+								'type'         => 'simpleline',
+								'iconsPerPage' => 4000,
+							),
+							'dependency' => array(
+								'element' => 'icon_grid_type',
+								'value'   => 'simpleline',
+							),
+						),
+						array(
+							'type'       => 'iconpicker',
+							'heading'    => esc_html__( 'Grid Icon', 'porto-functionality' ),
+							'param_name' => 'icon_grid_porto',
+							'settings'   => array(
+								'type'         => 'porto',
+								'iconsPerPage' => 4000,
+							),
+							'dependency' => array(
+								'element' => 'icon_grid_type',
+								'value'   => 'porto',
+							),
+						),
+						array(
+							'type'       => 'dropdown',
+							'heading'    => esc_html__( 'List Icon Type', 'porto-functionality' ),
+							'param_name' => 'icon_list_type',
+							'value'      => array(
+								esc_html__( 'Font Awesome', 'porto-functionality' ) => 'fontawesome',
+								esc_html__( 'Simple Line Icon', 'porto-functionality' ) => 'simpleline',
+								esc_html__( 'Porto Icon', 'porto-functionality' ) => 'porto',
+							),
+						),
+						array(
+							'type'       => 'iconpicker',
+							'heading'    => esc_html__( 'List Icon', 'porto-functionality' ),
+							'param_name' => 'icon_list',
+							'dependency' => array(
+								'element' => 'icon_list_type',
+								'value'   => 'fontawesome',
+							),
+						),
+						array(
+							'type'       => 'iconpicker',
+							'heading'    => esc_html__( 'List Icon', 'porto-functionality' ),
+							'param_name' => 'icon_list_simpleline',
+							'settings'   => array(
+								'type'         => 'simpleline',
+								'iconsPerPage' => 4000,
+							),
+							'dependency' => array(
+								'element' => 'icon_list_type',
+								'value'   => 'simpleline',
+							),
+						),
+						array(
+							'type'       => 'iconpicker',
+							'heading'    => esc_html__( 'List Icon', 'porto-functionality' ),
+							'param_name' => 'icon_list_porto',
+							'settings'   => array(
+								'type'         => 'porto',
+								'iconsPerPage' => 4000,
+							),
+							'dependency' => array(
+								'element' => 'icon_list_type',
+								'value'   => 'porto',
+							),
+						),
+						array(
+							'type'       => 'number',
+							'heading'    => esc_html__( 'Icon Size (px)', 'porto-functionality' ),
+							'param_name' => 'fs',
+							'min'        => 0,
+							'max'        => 50,
+							'suffix'     => 'px',
+							'selectors'  => array(
+								'{{WRAPPER}} > a' => 'font-size: {{VALUE}}px;',
+							),
+						),
+						array(
+							'type'        => 'number',
+							'heading'     => esc_html__( 'Item Spacing (px)', 'porto-functionality' ),
+							'description' => esc_html__( 'Adjust spacing between toggle buttons.', 'porto-functionality' ),
+							'param_name'  => 'spacing',
+							'min'         => 0,
+							'max'         => 20,
+							'suffix'      => 'px',
+							'selectors'   => array(
+								'{{WRAPPER}} #grid' => 'margin-' . ( is_rtl() ? 'left' : 'right' ) . ': {{VALUE}}px;',
+							),
+						),
+						array(
+							'type'        => 'colorpicker',
+							'heading'     => esc_html__( 'Color', 'porto-functionality' ),
+							'description' => esc_html__( 'Controls the color of the button.', 'porto-functionality' ),
+							'param_name'  => 'clr',
+							'selectors'   => array(
+								'{{WRAPPER}} a:not(.active)' => 'color: {{VALUE}};',
+							),
+						),
+						array(
+							'type'        => 'colorpicker',
+							'heading'     => esc_html__( 'Active Color', 'porto-functionality' ),
+							'description' => esc_html__( 'Controls the active color of the button.', 'porto-functionality' ),
+							'param_name'  => 'active_clr',
+							'selectors'   => array(
+								'{{WRAPPER}} .active' => 'color: {{VALUE}};',
+							),
+						),
+
+						array(
+							'type'       => 'number',
+							'heading'    => esc_html__( 'Width (px)', 'porto-functionality' ),
+							'param_name' => 'w',
+							'min'        => 0,
+							'max'        => 100,
+							'suffix'     => 'px',
+							'selectors'  => array(
+								'{{WRAPPER}} > a' => 'width: {{VALUE}}px;',
+							),
+							'group'      => __( 'Style', 'porto-functionality' ),
+						),
+						array(
+							'type'       => 'number',
+							'heading'    => esc_html__( 'Height (px)', 'porto-functionality' ),
+							'param_name' => 'h',
+							'min'        => 0,
+							'max'        => 100,
+							'suffix'     => 'px',
+							'selectors'  => array(
+								'{{WRAPPER}} > a' => 'height: {{VALUE}}px;',
+							),
+							'group'      => __( 'Style', 'porto-functionality' ),
+						),
+						array(
+							'type'       => 'dropdown',
+							'heading'    => __( 'Border Style', 'porto-functionality' ),
+							'param_name' => 'bs',
+							'std'        => '',
+							'value'      => array(
+								__( 'Default', 'porto-functionality' ) => '',
+								__( 'None', 'porto-functionality' )   => 'none',
+								__( 'Solid', 'porto-functionality' )  => 'solid',
+								__( 'Dashed', 'porto-functionality' ) => 'dashed',
+								__( 'Dotted', 'porto-functionality' ) => 'dotted',
+								__( 'Double', 'porto-functionality' ) => 'double',
+								__( 'Inset', 'porto-functionality' )  => 'inset',
+								__( 'Outset', 'porto-functionality' ) => 'outset',
+							),
+							'selectors'  => array(
+								'{{WRAPPER}} > a' => 'border-style: {{VALUE}};',
+							),
+							'group'      => __( 'Style', 'porto-functionality' ),
+						),
+						array(
+							'type'       => 'porto_number',
+							'heading'    => __( 'Border Width', 'porto-functionality' ),
+							'param_name' => 'bw',
+							'units'      => array( 'px' ),
+							'dependency' => array(
+								'element'            => 'bs',
+								'value_not_equal_to' => array( 'none' ),
+							),
+							'selectors'  => array(
+								'{{WRAPPER}} > a' => 'border-width: {{VALUE}}{{UNIT}};',
+							),
+							'group'      => __( 'Style', 'porto-functionality' ),
+						),
+						array(
+							'type'       => 'colorpicker',
+							'heading'    => __( 'Border Color', 'porto-functionality' ),
+							'param_name' => 'bc',
+							'dependency' => array(
+								'element'            => 'bs',
+								'value_not_equal_to' => array( 'none' ),
+							),
+							'selectors'  => array(
+								'{{WRAPPER}}.gridlist-toggle > a' => 'border-color: {{VALUE}};',
+							),
+							'group'      => __( 'Style', 'porto-functionality' ),
+						),
+						array(
+							'type'       => 'colorpicker',
+							'heading'    => __( 'Active Border Color', 'porto-functionality' ),
+							'param_name' => 'bc_active',
+							'dependency' => array(
+								'element'            => 'bs',
+								'value_not_equal_to' => array( 'none' ),
+							),
+							'selectors'  => array(
+								'{{WRAPPER}} > a.active' => 'border-color: {{VALUE}};',
+							),
+							'group'      => __( 'Style', 'porto-functionality' ),
+						),
 						$custom_class,
 					),
 				)
@@ -444,32 +1006,43 @@ if ( ! class_exists( 'PortoBuildersShop' ) ) :
 
 			vc_map(
 				array(
-					'name'     => __( 'Filter Toggle', 'porto-functionality' ),
-					'base'     => 'porto_sb_filter',
-					'icon'     => 'fas fa-toggle-off',
-					'category' => __( 'Shop Builder', 'porto-functionality' ),
-					'as_child' => array( 'only' => 'porto_sb_toolbox' ),
-					'params'   => array(),
+					'name'                    => __( 'Filter Toggle', 'porto-functionality' ),
+					'base'                    => 'porto_sb_filter',
+					'icon'                    => 'fas fa-toggle-off',
+					'category'                => __( 'Shop Builder', 'porto-functionality' ),
+					'description'             => __( 'Displays a toggle button or filtering widgets according to "Filter Layout" in Theme Options.', 'porto-functionality' ),
+					'as_child'                => array( 'only' => 'porto_sb_toolbox' ),
+					'show_settings_on_create' => false,
+					'params'                  => array(
+						array(
+							'type'       => 'porto_param_heading',
+							'param_name' => 'desc',
+							'text'       => __( 'Displays a toggle button or filtering widgets according to "Filter Layout" in Theme Options.', 'porto-functionality' ),
+						),
+					),
 				)
 			);
 
 			vc_map(
 				array(
-					'name'     => __( 'Shop Hooks', 'porto-functionality' ),
-					'base'     => 'porto_sb_actions',
-					'icon'     => 'fas fa-cart-arrow-down',
-					'category' => __( 'Shop Builder', 'porto-functionality' ),
-					'params'   => array(
+					'name'        => __( 'Shop Hooks', 'porto-functionality' ),
+					'base'        => 'porto_sb_actions',
+					'icon'        => 'fas fa-cart-arrow-down',
+					'category'    => __( 'Shop Builder', 'porto-functionality' ),
+					'description' => __( 'Renders WooCommerce supported WordPress actions.', 'porto-functionality' ),
+					'params'      => array(
 						array(
 							'type'        => 'dropdown',
 							'heading'     => __( 'action', 'porto-functionality' ),
 							'param_name'  => 'action',
 							'value'       => array(
+								''                             => '',
 								'woocommerce_before_shop_loop' => 'woocommerce_before_shop_loop',
-								'woocommerce_after_shop_loop' => 'woocommerce_after_shop_loop',
+								'woocommerce_after_shop_loop'  => 'woocommerce_after_shop_loop',
 							),
 							'admin_label' => true,
 						),
+						$custom_class,
 					),
 				)
 			);
@@ -537,47 +1110,20 @@ if ( ! class_exists( 'PortoBuildersShop' ) ) :
 					'category' => __( 'Shop Builder', 'porto-functionality' ),
 					'params'   => array(
 						array(
-							'type'        => 'textfield',
-							'heading'     => __( 'Font Size', 'porto-functionality' ),
-							'param_name'  => 'font_size',
-							'admin_label' => true,
-						),
-						array(
-							'type'        => 'dropdown',
-							'heading'     => __( 'Font Weight', 'porto-functionality' ),
-							'param_name'  => 'font_weight',
-							'value'       => array(
-								__( 'Default', 'porto-functionality' ) => '',
-								'100' => '100',
-								'200' => '200',
-								'300' => '300',
-								'400' => '400',
-								'500' => '500',
-								'600' => '600',
-								'700' => '700',
-								'800' => '800',
-								'900' => '900',
+							'type'       => 'porto_typography',
+							'heading'    => esc_html__( 'Typography', 'porto-functionality' ),
+							'param_name' => 'tg',
+							'selectors'  => array(
+								'{{WRAPPER}}',
 							),
-							'admin_label' => true,
-						),
-						array(
-							'type'        => 'textfield',
-							'heading'     => __( 'Line Height', 'porto-functionality' ),
-							'param_name'  => 'line_height',
-							'admin_label' => true,
-						),
-						array(
-							'type'        => 'textfield',
-							'heading'     => __( 'Letter Spacing', 'porto-functionality' ),
-							'param_name'  => 'ls',
-							'admin_label' => true,
 						),
 						array(
 							'type'       => 'colorpicker',
-							'class'      => '',
-							'heading'    => __( 'Color', 'porto-functionality' ),
-							'param_name' => 'color',
-							'value'      => '',
+							'heading'    => esc_html__( 'Color', 'porto-functionality' ),
+							'param_name' => 'clr',
+							'selectors'  => array(
+								'{{WRAPPER}}' => 'color: {{VALUE}};',
+							),
 						),
 						$custom_class,
 					),

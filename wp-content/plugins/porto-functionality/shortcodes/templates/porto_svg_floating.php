@@ -2,7 +2,7 @@
 extract(
 	shortcode_atts(
 		array(
-			'float_svg' => '',
+			'float_svg'          => '',
 			'float_path'         => '',
 			'float_duration'     => 10000,
 			'float_easing'       => 'easingQuadraticInOut',
@@ -23,7 +23,7 @@ wp_enqueue_script( 'porto-kute' );
 
 $wrapper = '<div';
 if ( $el_class ) {
-	$wrapper .= ' class=' . $el_class;
+	$wrapper .= ' class="' . $el_class . '"';
 }
 
 if ( $animation_type ) {
@@ -39,7 +39,7 @@ $wrapper .= '>';
 if ( ! empty( $el_class ) || $animation_type ) {
 	echo porto_filter_output( $wrapper );
 }
-if( 'wpb' == $page_builder ) {
+if ( 'wpb' == $page_builder ) {
 	$float_svg = rawurldecode( base64_decode( porto_strip_script_tags( $float_svg ) ) );
 }
 
@@ -55,25 +55,35 @@ if ( ! is_array( $float_path ) && ! empty( $float_path ) ) {
 if ( ! empty( $float_path ) && count( $float_path ) > 0 ) :
 	?>
 <script>
-	jQuery(document).ready(function($) {
-		if (typeof KUTE != 'undefined') {
-			<?php foreach ( $float_path as $path ) : ?>
-				<?php $path = trim( $path ); ?>
-				if( $('<?php echo porto_filter_output( $path ); ?>').get(0) ) {
-					var shape1 = KUTE.fromTo('<?php echo porto_filter_output( $path ); ?>', {
-						path: '<?php echo porto_filter_output( $path ); ?>' 
-					}, { 
-						path: '<?php echo porto_filter_output( str_replace( 'start', 'end', $path ) ); ?>' 
-					}, {
-						duration: <?php echo porto_filter_output( $float_duration ); ?>,
-						easing	: '<?php echo porto_filter_output( $float_easing ); ?>',
-						repeat: <?php echo porto_filter_output( $float_repeat ); ?>,
-						repeatDelay: <?php echo porto_filter_output( $float_repeat_delay ); ?>,
-						yoyo: <?php echo empty( $float_yoyo ) ? esc_js( 'false' ) : esc_js( 'true' ); ?>
-					}).start();
+	( function() {
+		var porto_init_svg_floating = function() {
+			( function( $ ) {
+				if (typeof KUTE != 'undefined') {
+					<?php foreach ( $float_path as $path ) : ?>
+						<?php $path = trim( $path ); ?>
+						if( $('<?php echo porto_filter_output( $path ); ?>').get(0) ) {
+							var shape1 = KUTE.fromTo('<?php echo porto_filter_output( $path ); ?>', {
+								path: '<?php echo porto_filter_output( $path ); ?>' 
+							}, { 
+								path: '<?php echo porto_filter_output( str_replace( 'start', 'end', $path ) ); ?>' 
+							}, {
+								duration: <?php echo porto_filter_output( $float_duration ); ?>,
+								easing	: '<?php echo porto_filter_output( $float_easing ); ?>',
+								repeat: <?php echo porto_filter_output( $float_repeat ); ?>,
+								repeatDelay: <?php echo porto_filter_output( $float_repeat_delay ); ?>,
+								yoyo: <?php echo empty( $float_yoyo ) ? esc_js( 'false' ) : esc_js( 'true' ); ?>
+							}).start();
+						}
+					<?php endforeach; ?>
 				}
-			<?php endforeach; ?>
+			} )( window.jQuery );
+		};
+
+		if ( window.theme && theme.isLoaded ) {
+			porto_init_svg_floating();
+		} else {
+			window.addEventListener( 'load', porto_init_svg_floating );
 		}
-	});
+	} )();
 </script>
 <?php endif; ?>

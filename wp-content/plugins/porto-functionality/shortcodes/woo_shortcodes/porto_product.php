@@ -1,16 +1,8 @@
 <?php
 
 // Porto Product
-add_shortcode( 'porto_product', 'porto_shortcode_product' );
-add_action( 'vc_after_init', 'porto_load_product_shortcode' );
 
-function porto_shortcode_product( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_woo_template( 'porto_product' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
+add_action( 'vc_after_init', 'porto_load_product_shortcode' );
 
 function porto_load_product_shortcode() {
 	$animation_type     = porto_vc_animation_type();
@@ -105,28 +97,4 @@ function porto_load_product_shortcode() {
 		class WPBakeryShortCode_Porto_Product extends WPBakeryShortCode {
 		}
 	}
-}
-
-function porto_shortcode_product_id_callback( $query ) {
-	if ( class_exists( 'Vc_Vendor_Woocommerce' ) ) {
-		$vc_vendor_wc = new Vc_Vendor_Woocommerce();
-		return $vc_vendor_wc->productIdAutocompleteSuggester( $query );
-	}
-	return '';
-}
-
-function porto_shortcode_product_id_render( $query ) {
-	if ( class_exists( 'Vc_Vendor_Woocommerce' ) ) {
-		$vc_vendor_wc = new Vc_Vendor_Woocommerce();
-		return $vc_vendor_wc->productIdAutocompleteRender( $query );
-	}
-	return '';
-}
-
-function porto_shortcode_product_id_param_value( $current_value, $param_settings, $map_settings, $atts ) {
-	if ( class_exists( 'Vc_Vendor_Woocommerce' ) ) {
-		$vc_vendor_wc = new Vc_Vendor_Woocommerce();
-		return $vc_vendor_wc->productIdDefaultValue( $current_value, $param_settings, $map_settings, $atts );
-	}
-	return '';
 }

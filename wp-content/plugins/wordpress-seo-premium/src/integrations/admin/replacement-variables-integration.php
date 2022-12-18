@@ -48,10 +48,12 @@ class Replacement_Variables_Integration implements Integration_Interface {
 			return;
 		}
 
+		// phpcs:disable WordPress.PHP.NoSilencedErrors.Discouraged -- This deprecation will be addressed later.
 		$get_action = \filter_input( \INPUT_GET, 'action', \FILTER_SANITIZE_STRING );
 		$get_page   = \filter_input( \INPUT_GET, 'page', \FILTER_SANITIZE_STRING );
+		// phpcs:enable
 
-		if ( $get_page !== 'wpseo_titles' && $get_page !== 'wpseo_settings' && $get_action !== 'elementor' && ! $this->load_metabox( $this->get_current_page() ) ) {
+		if ( $get_page !== 'wpseo_titles' && $get_page !== 'wpseo_page_settings' && $get_action !== 'elementor' && ! $this->load_metabox( $this->get_current_page() ) ) {
 			return;
 		}
 
@@ -61,7 +63,7 @@ class Replacement_Variables_Integration implements Integration_Interface {
 
 		$draft_js_external_script_location = 'https://yoast.com/shared-assets/scripts/wp-seo-premium-draft-js-plugins-source-2.0.0.min.js';
 
-		if ( \file_exists( WPSEO_PREMIUM_PATH . 'assets/js/external/draft-js-emoji-picker.min.js' ) ) {
+		if ( \file_exists( \WPSEO_PREMIUM_PATH . 'assets/js/external/draft-js-emoji-picker.min.js' ) ) {
 			$draft_js_external_script_location = \plugins_url( 'wordpress-seo-premium/assets/js/external/draft-js-emoji-picker.min.js' );
 		}
 

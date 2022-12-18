@@ -19,7 +19,7 @@ This file contains the classes:
 - UpdraftPlus_ftp_wrapper
 */
 
-if (!class_exists('UpdraftPlus_RemoteStorage_Addons_Base_v2')) require_once(UPDRAFTPLUS_DIR.'/methods/addon-base-v2.php');
+if (!class_exists('UpdraftPlus_RemoteStorage_Addons_Base_v2')) updraft_try_include_file('methods/addon-base-v2.php', 'require_once');
 
 // Do not instantiate the storage object (as that is instantiated on demand), but only the helper
 new UpdraftPlus_Addons_RemoteStorage_sftp_helper;

@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Porto Image Gallery widget
  *
- * @since 6.2.0
+ * @since 2.2.0
  */
 
 use Elementor\Controls_Manager;
@@ -41,7 +41,7 @@ class Porto_Elementor_360degree_Image_Viewer_Widget extends \Elementor\Widget_Ba
 		}
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 
 		$this->start_controls_section(
 			'section_360_degree_image_viewer',
@@ -88,12 +88,117 @@ class Porto_Elementor_360degree_Image_Viewer_Widget extends \Elementor\Widget_Ba
 		$this->add_control(
 			'friction',
 			array(
-				'type'    => Controls_Manager::NUMBER,
-				'label'   => __( 'Friction', 'porto-functionality' ),
-				'default' => 0.33,
-				'min'     => 0.01,
-				'max'     => 1.00,
-				'step'    => 0.01,
+				'type'        => Controls_Manager::NUMBER,
+				'label'       => __( 'Friction', 'porto-functionality' ),
+				'description' => __( 'Ratio value used to calculate the dragging width per one frame when dragging image', 'porto-functionality' ),
+				'default'     => 0.33,
+				'min'         => 0.01,
+				'max'         => 1.00,
+				'step'        => 0.01,
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_bar_style',
+			array(
+				'label'     => esc_html__( 'Bar', 'porto-functionality' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+			)
+		);
+		$this->add_control(
+			'bar_w',
+			array(
+				'type'       => Controls_Manager::SLIDER,
+				'label'      => __( 'Width', 'porto-functionality' ),
+				'range'      => array(
+					'px' => array(
+						'step' => 1,
+						'min'  => 100,
+						'max'  => 800,
+					),
+					'em' => array(
+						'step' => 1,
+						'min'  => 10,
+						'max'  => 80,
+					),
+					'%' => array(
+						'step' => 1,
+						'min'  => 1,
+						'max'  => 100,
+					),
+				),
+				'size_units' => array(
+					'px',
+					'em',
+					'%',
+				),
+				'selectors'  => array(
+					'.elementor-element-{{ID}} .cd-product-viewer-handle' => 'width: {{SIZE}}{{UNIT}}; max-width: none;',
+				),
+			)
+		);
+		$this->add_control(
+			'bar_h',
+			array(
+				'type'       => Controls_Manager::SLIDER,
+				'label'      => __( 'Height', 'porto-functionality' ),
+				'range'      => array(
+					'px' => array(
+						'step' => 1,
+						'min'  => 0,
+						'max'  => 20,
+					),
+					'em' => array(
+						'step' => 0.1,
+						'min'  => 0.1,
+						'max'  => 2,
+					),
+				),
+				'size_units' => array(
+					'px',
+					'em',
+				),
+				'selectors'  => array(
+					'.elementor-element-{{ID}} .cd-product-viewer-handle' => 'height: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+		$this->add_control(
+			'bar_br',
+			array(
+				'type'       => Controls_Manager::SLIDER,
+				'label'      => __( 'Border Radius', 'porto-functionality' ),
+				'range'      => array(
+					'px' => array(
+						'step' => 1,
+						'min'  => 0,
+						'max'  => 10,
+					),
+					'%' => array(
+						'step' => 1,
+						'min'  => 0,
+						'max'  => 100,
+					),
+				),
+				'size_units' => array(
+					'px',
+					'%',
+				),
+				'selectors'  => array(
+					'.elementor-element-{{ID}} .cd-product-viewer-handle' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+		$this->add_control(
+			'bar_bg',
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'label'     => __( 'Background Color', 'porto-functionality' ),
+				'selectors' => array(
+					'.elementor-element-{{ID}} .cd-product-viewer-handle .fill' => 'background-color: {{VALUE}};',
+				),
 			)
 		);
 

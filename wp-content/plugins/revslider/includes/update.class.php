@@ -2,7 +2,7 @@
 /**
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.themepunch.com/
- * @copyright 2022 ThemePunch
+ * @copyright 2019 ThemePunch
  */
  
 if(!defined('ABSPATH')) exit();
@@ -46,11 +46,8 @@ class RevSliderUpdate {
 		$this->_check_updates();
 
 		if(isset($transient) && !isset($transient->response)){
-			if(!is_object($transient)) $transient = new stdClass();
 			$transient->response = array();
 		}
-		if(!isset($this->data))			return $transient;
-		if(!isset($this->data->basic))	return $transient;
 		
 		if(!empty($this->data->basic) && is_object($this->data->basic)){
 			$version = (isset($this->data->basic->version)) ? $this->data->basic->version : $this->data->basic->new_version;
@@ -71,8 +68,6 @@ class RevSliderUpdate {
 		$this->_check_updates();
 
 		if(isset($args->slug) && $args->slug == $this->plugin_slug && $action == 'plugin_information'){
-			if(!isset($this->data))			return $result;
-			if(!isset($this->data->full))	return $result;
 			if(is_object($this->data->full) && !empty($this->data->full)){
 				$result = $this->data->full;
 			}
@@ -102,7 +97,8 @@ class RevSliderUpdate {
 			$data = $this->_retrieve_update_info();
 			
 			update_option('revslider-update-check', time());
-			if(isset($data->basic)){
+			if(isset($data->basic)) {
+				
 				$this->data->checked = time();
 				$this->data->basic	 = $data->basic;
 				$this->data->full	 = $data->full;
@@ -110,6 +106,7 @@ class RevSliderUpdate {
 				update_option('revslider-stable-version', $data->full->stable);
 				update_option('revslider-latest-version', $data->full->version);
 			}
+			
 		}
 		
 		// Save results
@@ -151,23 +148,21 @@ class RevSliderUpdate {
 	public function _retrieve_version_info(){
 		$rslb		= RevSliderGlobals::instance()->get('RevSliderLoadBalancer');
 		$last_check	= get_option('revslider-update-check-short');
-
+		
 		// Check for updates
 		if($last_check == false || time() - $last_check > 172800 || $this->force == true){
-			do_action('revslider-retrieve_version_info', $this);
 			update_option('revslider-update-check-short', time());
 			
-			$hash		= ($this->force === true) ? '' : get_option('revslider-update-hash', '');
-			$purchase	= (get_option('revslider-valid', 'false') == 'true') ? get_option('revslider-code', '') : '';
-			$data		= array(
+			$hash = ($this->force === true) ? '' : get_option('revslider-update-hash', '');
+			$purchase = (get_option('revslider-valid', 'false') == 'true') ? get_option('revslider-code', '') : '';
+			$data = array(
 				'version' => urlencode(RS_REVISION),
 				'item' => urlencode(RS_PLUGIN_SLUG),
 				'hash' => urlencode($hash),
-				'code' => urlencode($purchase),
-				'addition' => apply_filters('revslider_retrieve_version_info_addition', array())
+				'code' => urlencode($purchase)
 			);
-
-			$request	= $rslb->call_url($this->remote_url, $data, 'updates');
+			
+			$request = $rslb->call_url($this->remote_url, $data, 'updates');
 			$version_info = wp_remote_retrieve_body($request);
 			
 			if(wp_remote_retrieve_response_code($request) != 200 || is_wp_error($version_info)){

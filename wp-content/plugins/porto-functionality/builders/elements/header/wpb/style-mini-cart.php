@@ -11,9 +11,7 @@ if ( ! empty( $atts['icon_size'] ) ) {
 	}
 	echo '#mini-cart .minicart-icon{font-size:' . esc_html( $atts['icon_size'] ) . '}';
 }
-if ( ! empty( $atts['icon_color'] ) ) {
-	echo '#mini-cart .cart-subtotal, #mini-cart .minicart-icon{color:' . esc_html( $atts['icon_color'] ) . '}';
-}
+
 if ( ! empty( $atts['icon_mr'] ) || ! empty( $atts['icon_ml'] ) ) {
 	echo '#mini-cart .cart-icon{';
 	if ( ! empty( $atts['icon_mr'] ) ) {

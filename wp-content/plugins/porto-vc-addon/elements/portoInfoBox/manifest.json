@@ -1,0 +1,19 @@
+{
+	"elements": {
+		"portoInfoBox": {
+			"settings": {
+				"name": "Porto Info Box",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-infobox.jpg",
+				"metaDescription": "Add icon box with custom font icon."
+			}
+		}
+	},
+	"categories": {
+		"Icon": {
+			"elements": [
+				"portoInfoBox"
+			]
+		}
+	}
+}

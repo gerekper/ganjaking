@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitd0e476652da7848a948854e9a3571450
+class ComposerStaticInit1ceda8e5b6bbf97aad035ad1587f91ef
 {
     public static $prefixLengthsPsr4 = array (
         'C' => 
@@ -142,8 +142,6 @@ class ComposerStaticInitd0e476652da7848a948854e9a3571450
         'WPSEO_WooCommerce_Utils' => __DIR__ . '/../..' . '/classes/woocommerce-utils.php',
         'WPSEO_WooCommerce_Yoast_Ids' => __DIR__ . '/../..' . '/classes/woocommerce-yoast-ids.php',
         'WPSEO_WooCommerce_Yoast_Tab' => __DIR__ . '/../..' . '/classes/woocommerce-yoast-tab.php',
-        'Yoast_I18n_WordPressOrg_v3' => __DIR__ . '/..' . '/yoast/i18n-module/src/i18n-wordpressorg-v3.php',
-        'Yoast_I18n_v3' => __DIR__ . '/..' . '/yoast/i18n-module/src/i18n-v3.php',
         'Yoast_WooCommerce_Dependencies' => __DIR__ . '/../..' . '/classes/woocommerce-dependencies.php',
         'Yoast_WooCommerce_SEO' => __DIR__ . '/../..' . '/classes/woocommerce-seo.php',
     );
@@ -151,9 +149,9 @@ class ComposerStaticInitd0e476652da7848a948854e9a3571450
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitd0e476652da7848a948854e9a3571450::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitd0e476652da7848a948854e9a3571450::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitd0e476652da7848a948854e9a3571450::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1ceda8e5b6bbf97aad035ad1587f91ef::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1ceda8e5b6bbf97aad035ad1587f91ef::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1ceda8e5b6bbf97aad035ad1587f91ef::$classMap;
 
         }, null, ClassLoader::class);
     }

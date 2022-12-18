@@ -6,7 +6,7 @@ if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed.');
 // @codingStandardsIgnoreLine
 use OpenCloud\OpenStack;
 
-require_once(UPDRAFTPLUS_DIR.'/methods/openstack-base.php');
+updraft_try_include_file('methods/openstack-base.php', 'require_once');
 
 class UpdraftPlus_BackupModule_openstack extends UpdraftPlus_BackupModule_openstack_base {
 
@@ -32,7 +32,7 @@ class UpdraftPlus_BackupModule_openstack extends UpdraftPlus_BackupModule_openst
 
 		if (empty($user) || empty($password) || empty($authurl)) throw new Exception(__('Authorisation failed (check your credentials)', 'updraftplus'));// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- $user, $password and $authurl being extracted in extract() line 29
 
-		include_once(UPDRAFTPLUS_DIR.'/vendor/autoload.php');
+		updraft_try_include_file('vendor/autoload.php', 'include_once');
 		global $updraftplus;
 		$updraftplus->log("OpenStack authentication URL: ".$authurl);// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable -- $authurl being extracted in extract() line 29
 

@@ -20,5 +20,8 @@ if ( ! empty( $step_item_list ) ) {
 		}
 	}
 } elseif ( ! empty( $content ) ) {
+	global $porto_steps_type;
+	$porto_steps_type = $type;
 	echo do_shortcode( $content );
+	unset( $GLOBALS['porto_steps_type'] );
 }

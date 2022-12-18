@@ -2,6 +2,7 @@
 
 namespace Yoast\WP\SEO\Premium\Initializers;
 
+use Automattic\WooCommerce\Utilities\FeaturesUtil;
 use Yoast\WP\SEO\Conditionals\No_Conditionals;
 use Yoast\WP\SEO\Initializers\Initializer_Interface;
 
@@ -23,8 +24,8 @@ class Woocommerce implements Initializer_Interface {
 	 * Declares compatibility with the WooCommerce HPOS feature.
 	 */
 	public function declare_custom_order_tables_compatibility() {
-		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
-			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WPSEO_PREMIUM_FILE, true );
+		if ( \class_exists( FeaturesUtil::class ) ) {
+			FeaturesUtil::declare_compatibility( 'custom_order_tables', \WPSEO_PREMIUM_FILE, true );
 		}
 	}
 }

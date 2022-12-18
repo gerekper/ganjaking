@@ -1,16 +1,7 @@
 <?php
 
 // Porto One Page Category Products
-add_shortcode( 'porto_one_page_category_products', 'porto_shortcode_one_page_category_products' );
 add_action( 'vc_after_init', 'porto_load_one_page_category_products_shortcode' );
-
-function porto_shortcode_one_page_category_products( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_woo_template( 'porto_one_page_category_products' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_one_page_category_products_shortcode() {
 	$custom_class     = porto_vc_custom_class();
@@ -27,6 +18,11 @@ function porto_load_one_page_category_products_shortcode() {
 			'description' => __( 'Display one page navigation of product categories and products by category.', 'porto-functionality' ),
 			'params'      => array_merge(
 				array(
+					array(
+						'type'       => 'porto_param_heading',
+						'param_name' => 'description_format',
+						'text'       => esc_html__( 'Before using, please set the icon and image of product categories.', 'porto-functionality' ),
+					),
 					array(
 						'type'        => 'dropdown',
 						'heading'     => __( 'Category Order by', 'js_composer' ),
@@ -69,16 +65,17 @@ function porto_load_one_page_category_products_shortcode() {
 						'admin_label' => true,
 					),
 					array(
-						'type'        => 'checkbox',
+						'type'        => 'hidden',
 						'heading'     => __( 'Ajax load', 'porto-functionality' ),
 						'description' => __( 'Show category products one by one category using ajax infinite load when the page is scrolling to the bottom.', 'porto-functionality' ),
 						'param_name'  => 'infinite_scroll',
-						'std'         => '',
+						'std'         => 'yes',
 						'value'       => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
 						'dependency'  => array(
 							'element'   => 'show_products',
 							'not_empty' => true,
 						),
+						'group'       => __( 'Product Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'        => 'dropdown',
@@ -92,6 +89,7 @@ function porto_load_one_page_category_products_shortcode() {
 							'element'   => 'show_products',
 							'not_empty' => true,
 						),
+						'group'       => __( 'Product Layout', 'porto-functionality' ),
 						'admin_label' => true,
 					),
 					array(
@@ -103,6 +101,7 @@ function porto_load_one_page_category_products_shortcode() {
 							'element'   => 'show_products',
 							'not_empty' => true,
 						),
+						'group'       => __( 'Product Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'       => 'dropdown',
@@ -114,6 +113,7 @@ function porto_load_one_page_category_products_shortcode() {
 						),
 						'std'        => '4',
 						'value'      => porto_sh_commons( 'products_columns' ),
+						'group'      => __( 'Product Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'       => 'dropdown',
@@ -130,6 +130,7 @@ function porto_load_one_page_category_products_shortcode() {
 							'2' => '2',
 							'3' => '3',
 						),
+						'group'      => __( 'Product Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'       => 'dropdown',
@@ -140,6 +141,7 @@ function porto_load_one_page_category_products_shortcode() {
 							'value'   => array( 'products-slider', 'grid' ),
 						),
 						'value'      => porto_sh_commons( 'products_column_width' ),
+						'group'      => __( 'Product Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'        => 'dropdown',
@@ -152,6 +154,7 @@ function porto_load_one_page_category_products_shortcode() {
 							'element'   => 'show_products',
 							'not_empty' => true,
 						),
+						'group'       => __( 'Product Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'        => 'dropdown',
@@ -164,6 +167,7 @@ function porto_load_one_page_category_products_shortcode() {
 							'element'   => 'show_products',
 							'not_empty' => true,
 						),
+						'group'       => __( 'Product Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'        => 'dropdown',
@@ -175,6 +179,7 @@ function porto_load_one_page_category_products_shortcode() {
 							'element'   => 'show_products',
 							'not_empty' => true,
 						),
+						'group'       => __( 'Product Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'       => 'dropdown',
@@ -182,10 +187,130 @@ function porto_load_one_page_category_products_shortcode() {
 						'param_name' => 'image_size',
 						'value'      => porto_sh_commons( 'image_sizes' ),
 						'std'        => '',
+						'dependency' => array(
+							'element'   => 'show_products',
+							'not_empty' => true,
+						),
+						'group'      => __( 'Product Layout', 'porto-functionality' ),
 					),
+
+					array(
+						'type'       => 'checkbox',
+						'heading'    => __( 'Position Fixed?', 'porto-functionality' ),
+						'param_name' => 'sticky_pos',
+						'group'      => __( 'Position', 'porto-functionality' ),
+						'dependency' => array(
+							'element'   => 'show_products',
+							'not_empty' => true,
+						),
+					),
+
+					array(
+						'type'       => 'porto_number',
+						'heading'    => __( 'Top', 'porto-functionality' ),
+						'param_name' => 'sticky_top',
+						'units'      => array( 'px', '%' ),
+						'dependency' => array(
+							'element'   => 'sticky_pos',
+							'not_empty' => true,
+						),
+						'selectors'  => array(
+							'{{WRAPPER}}' => '--porto-one-page-category-fix-top: {{VALUE}}{{UNIT}};',
+						),
+						'group'      => __( 'Position', 'porto-functionality' ),
+					),
+					array(
+						'type'       => 'porto_number',
+						'heading'    => __( 'Left', 'porto-functionality' ),
+						'param_name' => 'sticky_left',
+						'units'      => array( 'px', '%' ),
+						'dependency' => array(
+							'element'   => 'sticky_pos',
+							'not_empty' => true,
+						),
+						'selectors'  => array(
+							'{{WRAPPER}}' => '--porto-one-page-category-fix-left: {{VALUE}}{{UNIT}};',
+						),
+						'group'      => __( 'Position', 'porto-functionality' ),
+					),
+					array(
+						'type'       => 'porto_number',
+						'heading'    => __( 'Right', 'porto-functionality' ),
+						'param_name' => 'sticky_right',
+						'units'      => array( 'px', '%' ),
+						'dependency' => array(
+							'element'   => 'sticky_pos',
+							'not_empty' => true,
+						),
+						'selectors'  => array(
+							'{{WRAPPER}}' => '--porto-one-page-category-fix-right: {{VALUE}}{{UNIT}};',
+						),
+						'group'      => __( 'Position', 'porto-functionality' ),
+					),
+					array(
+						'type'       => 'porto_number',
+						'heading'    => __( 'Bottom', 'porto-functionality' ),
+						'param_name' => 'sticky_bottom',
+						'units'      => array( 'px', '%' ),
+						'dependency' => array(
+							'element'   => 'sticky_pos',
+							'not_empty' => true,
+						),
+						'selectors'  => array(
+							'{{WRAPPER}}' => '--porto-one-page-category-fix-bottom: {{VALUE}}{{UNIT}};',
+						),
+						'group'      => __( 'Position', 'porto-functionality' ),
+					),
+
+					array(
+						'type'       => 'porto_number',
+						'heading'    => __( 'Top Space', 'porto-functionality' ),
+						'param_name' => 'space_top',
+						'units'      => array( 'px' ),
+						'selectors'  => array(
+							'{{WRAPPER}}' => '--porto-one-page-category-top-space: {{VALUE}}{{UNIT}};',
+						),
+						'group'      => __( 'List Style', 'porto-functionality' ),
+					),
+
+					array(
+						'type'       => 'porto_number',
+						'heading'    => __( 'Space between the category list items', 'porto-functionality' ),
+						'param_name' => 'list_space_vertical',
+						'units'      => array( 'px' ),
+						'selectors'  => array(
+							'{{WRAPPER}}' => '--porto-one-page-category-space-vertical: {{VALUE}}{{UNIT}};',
+						),
+						'group'      => __( 'List Style', 'porto-functionality' ),
+					),
+
+					array(
+						'type'       => 'porto_number',
+						'heading'    => __( 'Space between the category list items (< 768px)', 'porto-functionality' ),
+						'param_name' => 'list_space_horizontal',
+						'units'      => array( 'px' ),
+						'selectors'  => array(
+							'{{WRAPPER}}' => '--porto-one-page-category-space-horizontal: {{VALUE}}{{UNIT}};',
+						),
+						'group'      => __( 'List Style', 'porto-functionality' ),
+					),
+					array(
+						'type'       => 'colorpicker',
+						'heading'    => __( 'Background Color', 'porto-functionality' ),
+						'param_name' => 'list_bg',
+						'dependency' => array(
+							'element' => 'display_type',
+							'value'   => array( '' ),
+						),
+						'selectors'  => array(
+							'{{WRAPPER}}.porto-onepage-category .category-list' => 'background-color: {{VALUE}};',
+						),
+						'group'      => __( 'List Style', 'porto-functionality' ),
+					),
+
 					$custom_class,
 				),
-				porto_vc_product_slider_fields()
+				porto_vc_product_slider_fields( 'products-slider', 'dots-style-1' )
 			),
 		)
 	);

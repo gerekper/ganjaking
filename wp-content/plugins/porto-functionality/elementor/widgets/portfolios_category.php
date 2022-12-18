@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Porto Elementor widget to display portfolio categories.
  *
- * @since 5.4.4
+ * @since 1.7.5
  */
 
 use Elementor\Controls_Manager;
@@ -43,13 +43,13 @@ class Porto_Elementor_Portfolios_Category_Widget extends \Elementor\Widget_Base 
 		}
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 		$order_way_values = array_slice( porto_vc_woo_order_way(), 1 );
 
 		$this->start_controls_section(
 			'section_portfolio_categories',
 			array(
-				'label' => __( 'Portfolio Categories Layout', 'porto-functionality' ),
+				'label' => __( 'Layout', 'porto-functionality' ),
 			)
 		);
 
@@ -58,7 +58,6 @@ class Porto_Elementor_Portfolios_Category_Widget extends \Elementor\Widget_Base 
 			array(
 				'label'       => __( 'Title', 'porto-functionality' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => '',
 				'placeholder' => __( 'Title', 'porto-functionality' ),
 			)
 		);
@@ -113,14 +112,15 @@ class Porto_Elementor_Portfolios_Category_Widget extends \Elementor\Widget_Base 
 		$this->add_control(
 			'portfolios_counter',
 			array(
-				'type'      => Controls_Manager::SELECT,
-				'label'     => __( 'Portfolios Counter', 'porto-functionality' ),
-				'default'   => 'show',
-				'options'   => array(
+				'type'        => Controls_Manager::SELECT,
+				'label'       => __( 'Portfolios Counter', 'porto-functionality' ),
+				'description' => __( 'Show the number of portfolios in the category.', 'porto-functionality' ),
+				'default'     => 'show',
+				'options'     => array(
 					'show' => __( 'Show', 'porto-functionality' ),
 					'hide' => __( 'Hide', 'porto-functionality' ),
 				),
-				'condition' => array(
+				'condition'   => array(
 					'category_layout' => array( 'stripes', 'parallax' ),
 				),
 			)
@@ -178,6 +178,151 @@ class Porto_Elementor_Portfolios_Category_Widget extends \Elementor\Widget_Base 
 			)
 		);
 
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_portfolio_title_style',
+			array(
+				'label' => esc_html__( 'Title', 'porto-functionality' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+		$this->add_group_control(
+			Elementor\Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'title_tg',
+				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
+				'label'    => __( 'Typography', 'porto-functionality' ),
+				'selector' => '.elementor-element-{{ID}} .portfolio-item-title, {{WRAPPER}} .thumb-info-title, .elementor-element-{{ID}} .portfolio-parallax h2',
+			)
+		);
+		$this->add_control(
+			'title_clr',
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'label'     => __( 'Color', 'porto-functionality' ),
+				'selectors' => array(
+					'.elementor-element-{{ID}} .portfolio-item-title, {{WRAPPER}} .thumb-info-title, .elementor-element-{{ID}} .portfolio-parallax h2' => 'color: {{VALUE}};',
+				),
+			)
+		);
+		$this->add_control(
+			'title_bgc',
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'label'     => __( 'Background Color', 'porto-functionality' ),
+				'selectors' => array(
+					'.elementor-element-{{ID}} .portfolio-item-title, {{WRAPPER}} .thumb-info-title, .elementor-element-{{ID}} .portfolio-parallax h2' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+		$this->add_control(
+			'title_mg',
+			array(
+				'label'      => __( 'Margin', 'porto-functionality' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array(
+					'px',
+					'em',
+					'rem',
+				),
+				'selectors'  => array(
+					'.elementor-element-{{ID}} .portfolio-item-title, {{WRAPPER}} .thumb-info-title, .elementor-element-{{ID}} .portfolio-parallax h2' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				),
+			)
+		);
+		$this->add_control(
+			'title_pd',
+			array(
+				'label'      => __( 'Padding', 'porto-functionality' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array(
+					'px',
+					'em',
+					'rem',
+				),
+				'selectors'  => array(
+					'.elementor-element-{{ID}} .portfolio-item-title, {{WRAPPER}} .thumb-info-title, .elementor-element-{{ID}} .portfolio-parallax h2' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				),
+			)
+		);
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_portfolio_pc_style',
+			array(
+				'label'     => esc_html__( 'Portfolios Counter', 'porto-functionality' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => array(
+					'category_layout'    => array( 'stripes', 'parallax' ),
+					'portfolios_counter' => 'show',
+				),
+			)
+		);
+		$this->add_group_control(
+			Elementor\Group_Control_Typography::get_type(),
+			array(
+				'name'     => 'pc_tg',
+				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
+				'label'    => __( 'Typography', 'porto-functionality' ),
+				'selector' => '.elementor-element-{{ID}} .thumb-info-icons .thumb-info-icon, .elementor-element-{{ID}} .thumb-info-bottom-info .thumb-info-type',
+			)
+		);
+		$this->add_control(
+			'pc_clr',
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'label'     => __( 'Color', 'porto-functionality' ),
+				'selectors' => array(
+					'.elementor-element-{{ID}} .thumb-info-icons .thumb-info-icon, .elementor-element-{{ID}} .thumb-info-bottom-info .thumb-info-type' => 'color: {{VALUE}};',
+				),
+			)
+		);
+		$this->add_control(
+			'pc_bgc',
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'label'     => __( 'Background Color', 'porto-functionality' ),
+				'selectors' => array(
+					'.elementor-element-{{ID}} .thumb-info-icons .thumb-info-icon, .elementor-element-{{ID}} .thumb-info-bottom-info .thumb-info-type' => 'background-color: {{VALUE}} !important;',
+				),
+			)
+		);
+		$this->add_control(
+			'pc_pd',
+			array(
+				'label'      => __( 'Padding', 'porto-functionality' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array(
+					'px',
+					'em',
+					'rem',
+				),
+				'selectors'  => array(
+					'.elementor-element-{{ID}} .thumb-info-icons .thumb-info-icon, .elementor-element-{{ID}} .thumb-info-bottom-info .thumb-info-type' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				),
+			)
+		);
+		$this->add_control(
+			'pc_br',
+			array(
+				'type'      => Controls_Manager::SLIDER,
+				'label'     => __( 'Border Radius (px)', 'porto-functionality' ),
+				'range'     => array(
+					'px' => array(
+						'step' => 1,
+						'min'  => 1,
+						'max'  => 100,
+					),
+				),
+				'default'   => array(
+					'unit' => 'px',
+				),
+				'selectors' => array(
+					'.elementor-element-{{ID}} .thumb-info-icons .thumb-info-icon, .elementor-element-{{ID}} .thumb-info-bottom-info .thumb-info-type' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
 		$this->end_controls_section();
 	}
 

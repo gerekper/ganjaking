@@ -1,0 +1,17 @@
+:root {
+	--porto-container-width: 1140px;
+	--porto-grid-gutter-width: 30px;
+	--porto-column-spacing: 10px;
+	--porto-skin-color: #0088cc;
+	--porto-secondary-color: #e36159;
+	--porto-tertiary-color: #2baab1;
+	--porto-quaternary-color: #383f48;
+	--porto-dark-color: #212529;
+	--porto-light-color: #ffffff;
+	--porto-body-font-family: "Open Sans";
+	--porto-body-font-weight: 400;
+	--porto-body-font-size: 14px;
+	--porto-body-line-height: 1.7142;
+	--porto-body-letter-spacing: 0;
+	--porto-body-color: #777;
+}

@@ -20,7 +20,7 @@ function open_dropshipper_dialog(my_id) {
 			}
 		}]
 	});
-} 
+}
 
 function js_save_dropshipper_shipping_info(my_order_id, my_info) {
 	var data = {
@@ -43,7 +43,7 @@ function js_save_dropshipper_shipping_info(my_order_id, my_info) {
 
 // Ajax callback for send aliexpress API key in admin mailbox
 
-jQuery(document).ready(function() { 
+jQuery(document).ready(function() {
    jQuery("#generate_ali_key").click(function () {
 	    var data = {
 	        'action': 'email_ali_api_key',
@@ -60,9 +60,9 @@ jQuery(document).ready(function() {
     });
 });
 
-jQuery(document).ready(function() { 
-	
-	jQuery( '.drop_color' ).wpColorPicker(); 
+jQuery(document).ready(function() {
+
+	jQuery( '.drop_color' ).wpColorPicker();
 
 	jQuery(document).on('click', '.hidecbe', function() {
 
@@ -81,7 +81,7 @@ jQuery(document).ready(function() {
 	    });
 
     });
-	
+
 	jQuery('.wc-dropship-setting-tabs li').click(function(){
 		jQuery('.wc-dropship-setting-tabs li').removeClass('active');
 		jQuery('.drop-setting-section').removeClass('active');
@@ -92,24 +92,24 @@ jQuery(document).ready(function() {
 });
 // Ajax callback for Aliexpress related product open in diffrent tab
 
-jQuery(document).ready(function($) { 
+jQuery(document).ready(function($) {
    $("#send_supplier_email").click(function () {
-	   
+
 	   var termval = [];
 	   $('.term_id_value:checked').each(function() {
-			termval.push($(this).val()); 
+			termval.push($(this).val());
 	   });
-	   if(termval !=''){	
-		   $(this).html('Sending...');		
+	   if(termval !=''){
+		   $(this).html('Sending...');
 		   var ajaxurl = $(this).data('ajax-url');
-		   var order_id = $(this).data('order-id');	   
+		   var order_id = $(this).data('order-id');
 		   $.ajax({
 				url: ajaxurl,
 				data: { termval : termval, order_id : order_id, action : 'send_supplier_email' },
 				type: 'post',
 				dataType: 'json',
 				success: function(response) {
-					$("#send_supplier_email").html('Successfully Send');		
+					$("#send_supplier_email").html('Successfully Send');
 				},
 				error: function(e){
 					$("#send_supplier_email").html('Successfully Send');
@@ -119,7 +119,7 @@ jQuery(document).ready(function($) {
 		   alert('Please select at least one supplier');
 	   }
 	});
-	
+
 	$('.miscellaneous_packing_slip_options_master_checkbox').click(function () {
 		if($(this).is(':checked')){
 			if(document.getElementById("email_order_note").value == ''){
@@ -130,57 +130,111 @@ jQuery(document).ready(function($) {
 		}
 	   /*if($(this).is(':checked')){
 		  $('.miscellaneous_packing_slip_options_checkbox_false').removeAttr("disabled");
-		  $('.miscellaneous_packing_slip_options_checkbox').removeAttr("disabled");	
+		  $('.miscellaneous_packing_slip_options_checkbox').removeAttr("disabled");
 		  $('.miscellaneous_packing_slip_options_checkbox').prop('checked', true);
 		  $('.inner-toggle').show();
 	   }else{
-		  $('.inner-toggle').hide(); 
+		  $('.inner-toggle').hide();
 		  $('.miscellaneous_packing_slip_options_checkbox_false').attr("disabled", true);
 		  $('.miscellaneous_packing_slip_options_checkbox').attr("disabled", true);
 		  $('.miscellaneous_packing_slip_options_checkbox').prop('checked', false);
 		  $('.miscellaneous_packing_slip_options_checkbox').removeProp( "luggageCode" );
 	   }*/
 	});
-	
+
 	$('.miscellaneous_packing_slip_options_checkbox').click(function () {
 		var dataId = $(this).data('id');
-	   if($(this).is(':checked')){	
+	   if($(this).is(':checked')){
 		  $('.'+dataId).show();
 	   }else{
-		  $('.'+dataId).hide(); 
+		  $('.'+dataId).hide();
 	   }
-	   
+
 	});
 
 	$('.view_order').click(function () {
 		var dataId = $(this).data('id');
-	   if($(this).is(':checked')){	
+	   if($(this).is(':checked')){
 		  $('.'+dataId).show();
 	   }else{
-		  $('.'+dataId).hide(); 
+		  $('.'+dataId).hide();
 	   }
-	   
+
 	});
-	
+
+
+
 	$('#show_logo').click(function (){
 	   if($('#show_logo').is(':checked')){
 		  $('.show_logo').show();
 	   }else{
-		  $('.show_logo').hide(); 
+		  $('.show_logo').hide();
 	   }
 	});
-	
+
 });
 
-$(document).ready(function(){
-    $(".order_button_email").click(function(){
-        $(".order_button_email").attr("checked", "checked");
+jQuery(document).ready(function(){
+    jQuery(".order_button_email").click(function(){
+        jQuery(".order_button_email").attr("checked", "checked");
     });
 });
 
-/*jQuery(document).ready(function() { 
+jQuery(document).ready(function(){
+    jQuery('.hide_client_info_Suppliers').on('change', function(){
+        if(jQuery('.hide_client_info_Suppliers:checked').length){
+
+            jQuery('.store_add_shipping_add').prop('disabled', true);
+            jQuery('.store_add_shipping_add').prop('checked', false);
+            return;
+        }
+
+        jQuery('.store_add_shipping_add').prop('disabled', false);
+    });
+});
+
+// $(document).ready(function(){
+// 	alert('Hiiiii');	$('#hide_client_info_Suppliers').click(function (){
+// 		if($('#hide_client_info_Suppliers').is(':checked')){
+// 		$('.hide_contact_info_Suppliers').disabled = true;
+// 		}else{
+// 		$('.hide_contact_info_Suppliers').disabled = false;
+// 		}
+// 	});
+// });
+
+
+// function ckChange() {
+// 	var ckName = document.getElementsByClass(".progress");
+// 	alert('Hiiiiii');
+// 	if (checked.checked) {
+// 	  for (var i = 0; i < ckName.length; i++) {
+// 		if(!ckName[i].checked){
+// 			ckName[i].disabled = true;
+// 		}else{
+// 			ckName[i].disabled = false;
+// 		}
+// 	  }
+// 	} else {
+// 	  for (var i = 0; i < ckName.length; i++) {
+// 		ckName[i].disabled = false
+// 	  }
+// 	}
+
+//   }
+
+//   $(function() {
+//     enable_cb();
+//     $(".progress").click(enable_cb);
+// });
+
+// function enable_cb() {
+//     $("input.progress").prop("disabled", !this.checked);
+// }
+
+/*jQuery(document).ready(function() {
    jQuery("#opmc_ali_place_order").click(function () {
-	   var order_id = jQuery('#order_id').val();	   
+	   var order_id = jQuery('#order_id').val();
 	   var	$ = jQuery;
 	   var ajaxurl = jQuery("#opmc_ali_place_order").attr("url");
 	    data = { action: 'get_order_data', id: order_id};

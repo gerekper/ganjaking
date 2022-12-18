@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Porto Elementor widget to display html, block content or product on hover.
  *
- * @since 6.0
+ * @since 2.0
  */
 
 use Elementor\Controls_Manager;
@@ -35,7 +35,7 @@ class Porto_Elementor_Hotspot_Widget extends \Elementor\Widget_Base {
 		return 'eicon-image-hotspot';
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 
 		$this->start_controls_section(
 			'section_hotspot',
@@ -112,13 +112,128 @@ class Porto_Elementor_Hotspot_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'icon_cl',
 			array(
-				'type'             => Controls_Manager::ICONS,
-				'label'            => __( 'Icon', 'porto-functionality' ),
-				'fa4compatibility' => 'icon',
-				'default'          => array(
+				'type'                   => Controls_Manager::ICONS,
+				'label'                  => __( 'Icon', 'porto-functionality' ),
+				'fa4compatibility'       => 'icon',
+				'skin'                   => 'inline',
+				'exclude_inline_options' => array( 'svg' ),
+				'label_block'            => false,
+				'default'                => array(
 					'value'   => '',
 					'library' => 'fa-solid',
 				),
+			)
+		);
+
+		$this->add_control(
+			'spot_style',
+			array(
+				'label'     => esc_html__( 'Spot Style', 'porto-functionality' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_responsive_control(
+			'size1',
+			array(
+				'type'       => Controls_Manager::SLIDER,
+				'label'      => __( 'Spot Size', 'porto-functionality' ),
+				'range'      => array(
+					'%'   => array(
+						'step' => 1,
+						'min'  => 1,
+						'max'  => 100,
+					),
+					'px'  => array(
+						'step' => 1,
+						'min'  => 1,
+						'max'  => 200,
+					),
+					'rem' => array(
+						'step' => 0.1,
+						'min'  => 1,
+						'max'  => 10,
+					),
+				),
+				'size_units' => array(
+					'%',
+					'px',
+					'rem',
+				),
+				'default'    => array(
+					'unit' => 'px',
+				),
+				'selectors'  => array(
+					'.elementor-element-{{ID}} .porto-hotspot' => 'width: {{SIZE}}{{UNIT}};height: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'icon_size1',
+			array(
+				'type'       => Controls_Manager::SLIDER,
+				'label'      => __( 'Icon Size', 'porto-functionality' ),
+				'range'      => array(
+					'em'  => array(
+						'step' => 0.1,
+						'min'  => 0.1,
+						'max'  => 5,
+					),
+					'px'  => array(
+						'step' => 1,
+						'min'  => 1,
+						'max'  => 100,
+					),
+					'rem' => array(
+						'step' => 0.1,
+						'min'  => 0.1,
+						'max'  => 5,
+					),
+				),
+				'size_units' => array(
+					'em',
+					'px',
+					'rem',
+				),
+				'default'    => array(
+					'unit' => 'px',
+				),
+				'selectors'  => array(
+					'.elementor-element-{{ID}} .porto-hotspot-icon' => 'font-size: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'color1',
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'label'     => __( 'Icon Color', 'porto-functionality' ),
+				'selectors' => array(
+					'{{WRAPPER}} i' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'bg_color1',
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'label'     => __( 'Background Color', 'porto-functionality' ),
+				'selectors' => array(
+					'.elementor-element-{{ID}} .porto-hotspot' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'hotspot_pos',
+			array(
+				'label' => __( 'Position', 'porto-functionality' ),
 			)
 		);
 
@@ -181,101 +296,8 @@ class Porto_Elementor_Hotspot_Widget extends \Elementor\Widget_Base {
 			)
 		);
 
-		$this->add_responsive_control(
-			'size1',
-			array(
-				'type'       => Controls_Manager::SLIDER,
-				'label'      => __( 'Spot Size', 'porto-functionality' ),
-				'range'      => array(
-					'%'   => array(
-						'step' => 1,
-						'min'  => 1,
-						'max'  => 100,
-					),
-					'px'  => array(
-						'step' => 1,
-						'min'  => 1,
-						'max'  => 200,
-					),
-					'rem' => array(
-						'step' => 0.1,
-						'min'  => 1,
-						'max'  => 10,
-					),
-				),
-				'size_units' => array(
-					'%',
-					'px',
-					'rem',
-				),
-				'default'    => array(
-					'unit' => 'px',
-				),
-				'selectors'  => array(
-					'.elementor-element-{{ID}} .porto-hotspot' => 'width: {{SIZE}}{{UNIT}};height: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_responsive_control(
-			'icon_size1',
-			array(
-				'type'       => Controls_Manager::SLIDER,
-				'label'      => __( 'Icon Size', 'porto-functionality' ),
-				'range'      => array(
-					'em'   => array(
-						'step' => 0.1,
-						'min'  => 0.1,
-						'max'  => 5,
-					),
-					'px'  => array(
-						'step' => 1,
-						'min'  => 1,
-						'max'  => 100,
-					),
-					'rem' => array(
-						'step' => 0.1,
-						'min'  => 0.1,
-						'max'  => 5,
-					),
-				),
-				'size_units' => array(
-					'em',
-					'px',
-					'rem',
-				),
-				'default'    => array(
-					'unit' => 'px',
-				),
-				'selectors'  => array(
-					'.elementor-element-{{ID}} .porto-hotspot-icon' => 'font-size: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'color1',
-			array(
-				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Icon Color', 'porto-functionality' ),
-				'selectors' => array(
-					'{{WRAPPER}} i' => 'color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'bg_color1',
-			array(
-				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Background Color', 'porto-functionality' ),
-				'selectors' => array(
-					'.elementor-element-{{ID}} .porto-hotspot' => 'background-color: {{VALUE}};',
-				),
-			)
-		);
-
 		$this->end_controls_section();
+
 	}
 
 	protected function render() {

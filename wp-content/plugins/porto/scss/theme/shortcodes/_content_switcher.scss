@@ -1,0 +1,78 @@
+/* Content Switcher */
+.content-switcher-wrapper {
+
+    &.tabs {
+        margin-bottom: 0;
+    }
+
+    .switch-input {
+        position: relative;
+        width: 5em;
+        height: 2.5em;
+        font-size: 9px;
+        margin-left: 30px;
+        margin-right: 30px;
+
+        .switch-toggle {
+            width: 0;
+            height: 0;
+            opacity: 0;
+        }
+
+        .switcher-label {
+            transition: color .3s;
+        }
+    }
+
+    .toggle-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border: 1px solid rgba(0, 0, 0, 0.25);
+        border-radius: 2em;
+        background-color: #fff;
+        transition: background-color .3s, border-color .3s;
+        cursor: pointer;
+        overflow: hidden;
+
+        &::before {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1.7em;
+            height: 1.7em;
+            left: 0.4em;
+            content: '';
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.25);
+            transition: left .3s, background-color .3s;
+        }
+    }
+
+    .switch-toggle:checked+.toggle-button {
+        &::before {
+            left: calc(2.9em - 2px);
+        }
+    }
+
+
+    .switch-content {
+        display: none;
+
+        &.active {
+            display: block;
+        }
+    }
+
+    .content-switch {
+        align-items: center;
+        text-align: center;
+    }
+
+    .tab-content {
+        border: 0;
+        box-shadow: none;
+    }
+}

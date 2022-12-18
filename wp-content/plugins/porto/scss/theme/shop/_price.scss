@@ -1,0 +1,49 @@
+
+.price {
+    line-height: 1;
+    font-weight: $font-weight-semibold;
+    font-size: 2.5714em;
+}
+
+.price,
+td.product-subtotal,
+td.product-total,
+td.order-total,
+tr.cart-subtotal {
+    color: var(--porto-color-price);
+}
+.price,
+td.product-price,
+td.product-subtotal,
+td.product-total,
+td.order-total,
+tr.cart-subtotal {
+    .price {
+        font-size: 1em;
+    }
+
+    .currency,
+    .decimal {
+        font-size: .75em;
+        font-weight: $font-weight-normal;
+    }
+    .currency {
+        .decimal {
+            font-size: 1em;
+        }
+    }
+
+    ins {
+        display: inline-block;
+        text-decoration: none;
+        vertical-align: baseline;
+    }
+    del,
+    .from {
+        display: inline-block;
+        color: $color-old-price;
+        font-size: .8em;
+        margin-#{$right}: .2143em;
+        vertical-align: baseline;
+    }
+}

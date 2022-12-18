@@ -1,0 +1,83 @@
+.porto-hotspot {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	background: #fb7070;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	line-height: 20px;
+	font-size: 8px;
+	cursor: pointer;
+	&:before {
+		content: '';
+		position: absolute;
+		left: -10px;
+		right: -10px;
+		top: -10px;
+		bottom: -10px;
+	}
+	.porto-products, ul.products, .products .product-col {
+		margin-bottom: 0;
+	}
+	i {
+		color: #fff;
+		line-height: inherit;
+	}
+	.popup-wrap {
+		text-align: $left;
+		cursor: default;
+		position: absolute;
+		z-index: 29;
+		padding: 20px;
+		min-width: 250px;
+		background: #fff;
+		box-shadow: 0 0 30px rgba(0, 0, 0, .06);
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity .3s, transform .3s, visibility .3s;
+		@media #{$screen-small} {
+			min-width: 160px;
+			padding: 10px;
+		}
+	}
+	&.pos-right .popup-wrap {
+		left: calc(100% + 10px);
+		transform: translate(-8px, -20%);
+	}
+	&.pos-left .popup-wrap {
+		right: calc(100% + 10px);
+		transform: translate(8px, -20%);
+	}
+	&.pos-right:hover .popup-wrap,
+	&.pos-left:hover .popup-wrap {
+		transform: translate(0, -20%);
+	}
+	&.pos-top .popup-wrap {
+		left: 50%;
+		bottom: calc(100% + 10px);
+		transform: translate(-50%, -8px);
+	}
+	&.pos-bottom .popup-wrap {
+		left: 50%;
+		top: calc(100% + 10px);
+		transform: translate(-50%, 8px);
+	}
+	&.pos-top:hover .popup-wrap,
+	&.pos-bottom:hover .popup-wrap {
+		transform: translate(-50%, 0);
+	}
+	&:hover .popup-wrap {
+		visibility: visible;
+		opacity: 1;
+	}
+}
+
+.elementor-element.elementor-widget-porto_hotspot {
+	position: absolute;
+	width: auto
+}
+.elementor-widget-porto_hotspot .porto-hotspot {
+	position: static
+}

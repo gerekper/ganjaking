@@ -20,7 +20,9 @@ class Porto_Block_Widget extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
-		extract( $args );
+		if ( is_array( $args ) ) {
+		    extract( $args );
+		}
 
 		$title = '';
 		if ( isset( $instance['title'] ) ) {

@@ -1,0 +1,109 @@
+/* Porto Concept */
+.porto-concept {
+    width: 100%;
+    overflow: hidden;
+    background: url(#{$theme_uri}/images/concept.png) no-repeat center 0;
+    strong {
+        display: block;
+        font-family: var(--porto-alt-ff, var(--porto-body-ff)), sans-serif;
+        font-size: 1.8em;
+        font-weight: normal;
+        position: relative;
+        margin-top: 30px;
+    }
+    .row {
+        position: relative;
+        > div:nth-of-type(2) > .process-image {
+            margin-top: 95px;
+        }
+    }
+    .process-image {
+        width: 160px;
+        height: 175px;
+        margin: 120px auto 0 auto;
+        padding-bottom: 50px;
+        position: relative;
+        z-index: 1;
+        background: url(#{$theme_uri}/images/concept-item.png) no-repeat 0 0;
+        img {
+            border-radius: 150px;
+            margin: 8px;
+            width: 144px;
+        }
+    }
+    .our-work {
+        margin-top: 52px;
+        font-size: 2.2em;
+    }
+    .project-image {
+        width: 350px;
+        height: 420px;
+        margin: side-values(15px 0 0 -30px);
+        padding-bottom: 45px;
+        position: relative;
+        z-index: 1;
+        background: url(#{$theme_uri}/images/concept-item.png) no-repeat 100% 0;
+        img {
+            width: 338px;
+        }
+    }
+    .sun {
+        width: 60px;
+        height: 56px;
+        display: block;
+        position: absolute;
+        #{$left}: 0;
+        top: 65px;
+        background: url(#{$theme_uri}/images/concept-icons.png) no-repeat 0 0;
+    }
+    .cloud {
+        width: 116px;
+        height: 56px;
+        display: block;
+        position: absolute;
+        #{$left}: 53%;
+        top: 35px;
+        background: url(#{$theme_uri}/images/concept-icons.png) no-repeat 100% 0;
+    }
+}
+
+.porto-concept strong,
+.fc-slideshow nav .fc-left i,
+.fc-slideshow nav .fc-right i {
+    color: var(--porto-primary-color);
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+
+    .porto-concept {
+        background: none;
+        .project-image {
+            margin: 60px auto 0 auto;
+        }
+        .process-image {
+            margin-top: 60px;
+        }
+    }
+
+}
+
+@media (max-width: 575px) {
+
+    .porto-concept {
+        .project-image {
+            background-position: 0 0;
+            margin-#{$left}: auto;
+            max-width: 160px;
+            max-height: 250px;
+        }
+        .fc-slideshow {
+            max-height: 145px;
+            max-width: 145px;
+            img {
+                max-height: 145px;
+                max-width: 145px;
+            }
+        }
+    }
+}

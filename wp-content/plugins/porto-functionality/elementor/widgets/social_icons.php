@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Porto Social Icons widget
  *
- * @since 6.2.0
+ * @since 2.2.0
  */
 
 use Elementor\Controls_Manager;
@@ -33,7 +33,7 @@ class Porto_Elementor_Social_Icons_Widget extends \Elementor\Widget_Base {
 		return 'Simple-Line-Icons-social-facebook';
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 
 		$this->start_controls_section(
 			'section_social_icons',
@@ -45,8 +45,9 @@ class Porto_Elementor_Social_Icons_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'source',
 			array(
-				'type'  => Controls_Manager::HEADING,
-				'label' => __( 'Please select social links in Porto -> Theme Options -> Header -> Social Links.', 'porto-functionality' ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'raw'             => sprintf( esc_html__( 'Please see %1$sTheme Options -> Header -> Social Links%2$s panel.', 'porto-functionality' ), '<b>', '</b>' ),
+				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 			)
 		);
 
@@ -78,52 +79,117 @@ class Porto_Elementor_Social_Icons_Widget extends \Elementor\Widget_Base {
 		);
 
 		$this->add_control(
-			'icon_color',
+			'icon_width',
 			array(
-				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Color', 'porto-functionality' ),
-				'default'   => '',
-				'selectors' => array(
-					'.elementor-element-{{ID}} a:not(:hover)' => 'color: {{VALUE}};',
+				'type'       => Controls_Manager::SLIDER,
+				'label'      => __( 'Icon Width and Height', 'porto-functionality' ),
+				'range'      => array(
+					'px' => array(
+						'step' => 1,
+						'min'  => 0,
+						'max'  => 100,
+					),
+					'em' => array(
+						'step' => 0.1,
+						'min'  => 0.1,
+						'max'  => 10,
+					),
+				),
+				'size_units' => array(
+					'px',
+					'em',
+				),
+				'selectors'  => array(
+					'.elementor-element-{{ID}} a' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
 
-		$this->add_control(
-			'icon_hover_color',
-			array(
-				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Hover Color', 'porto-functionality' ),
-				'default'   => '',
-				'selectors' => array(
-					'.elementor-element-{{ID}} a:hover' => 'color: {{VALUE}};',
-				),
-			)
-		);
+		$this->start_controls_tabs( 'tabs_icon_style' );
+			$this->start_controls_tab(
+				'tab_icon_normal',
+				array(
+					'label' => __( 'Normal', 'porto-functionality' ),
+				)
+			);
+				$this->add_control(
+					'icon_color',
+					array(
+						'type'      => Controls_Manager::COLOR,
+						'label'     => __( 'Color', 'porto-functionality' ),
+						'selectors' => array(
+							'.elementor-element-{{ID}} .share-links a:not(:hover)' => 'color: {{VALUE}};',
+						),
+					)
+				);
 
-		$this->add_control(
-			'icon_color_bg',
-			array(
-				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Icon Background Color', 'porto-functionality' ),
-				'default'   => '',
-				'selectors' => array(
-					'.elementor-element-{{ID}} a:not(:hover)' => 'background: {{VALUE}};',
-				),
-			)
-		);
+				$this->add_control(
+					'icon_color_bg',
+					array(
+						'type'      => Controls_Manager::COLOR,
+						'label'     => __( 'Background Color', 'porto-functionality' ),
+						'selectors' => array(
+							'.elementor-element-{{ID}} .share-links a:not(:hover)' => 'background: {{VALUE}};',
+						),
+					)
+				);
 
-		$this->add_control(
-			'icon_hover_color_bg',
-			array(
-				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Icon Hover Background Color', 'porto-functionality' ),
-				'default'   => '',
-				'selectors' => array(
-					'.elementor-element-{{ID}} a:hover' => 'background: {{VALUE}};',
-				),
-			)
-		);
+				$this->add_control(
+					'icon_color_border',
+					array(
+						'type'      => Controls_Manager::COLOR,
+						'label'     => __( 'Border Color', 'porto-functionality' ),
+						'selectors' => array(
+							'.elementor-element-{{ID}} a' => 'border-color: {{VALUE}};',
+						),
+						'condition' => array(
+							'icon_border_style!' => '',
+						),
+					)
+				);
+			$this->end_controls_tab();
+
+			$this->start_controls_tab(
+				'tab_icon_hover',
+				array(
+					'label' => __( 'Hover', 'porto-functionality' ),
+				)
+			);
+				$this->add_control(
+					'icon_hover_color',
+					array(
+						'type'      => Controls_Manager::COLOR,
+						'label'     => __( 'Hover Color', 'porto-functionality' ),
+						'selectors' => array(
+							'{{WRAPPER}} a:hover' => 'color: {{VALUE}};',
+						),
+					)
+				);
+				$this->add_control(
+					'icon_hover_color_bg',
+					array(
+						'type'      => Controls_Manager::COLOR,
+						'label'     => __( 'Hover Background Color', 'porto-functionality' ),
+						'selectors' => array(
+							'.elementor-element-{{ID}} a:hover' => 'background: {{VALUE}};',
+						),
+					)
+				);
+				$this->add_control(
+					'icon_hover_color_border',
+					array(
+						'type'      => Controls_Manager::COLOR,
+						'label'     => __( 'Hover Border Color', 'porto-functionality' ),
+						'selectors' => array(
+							'.elementor-element-{{ID}} a:hover' => 'border-color: {{VALUE}};',
+						),
+						'condition' => array(
+							'icon_border_style!' => '',
+						),
+					)
+				);
+			$this->end_controls_tab();
+		$this->end_controls_tabs();
 
 		$this->add_control(
 			'icon_border_style',
@@ -143,18 +209,7 @@ class Porto_Elementor_Social_Icons_Widget extends \Elementor\Widget_Base {
 				'selectors' => array(
 					'.elementor-element-{{ID}} a' => 'border-style: {{VALUE}};',
 				),
-			)
-		);
-
-		$this->add_control(
-			'icon_color_border',
-			array(
-				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Icon Border Color', 'porto-functionality' ),
-				'value'     => '',
-				'selectors' => array(
-					'.elementor-element-{{ID}} a' => 'border-color: {{VALUE}};',
-				),
+				'separator' => 'before',
 			)
 		);
 
@@ -182,6 +237,9 @@ class Porto_Elementor_Social_Icons_Widget extends \Elementor\Widget_Base {
 				'selectors'  => array(
 					'.elementor-element-{{ID}} a' => 'border-width: {{SIZE}}{{UNIT}};',
 				),
+				'condition'  => array(
+					'icon_border_style!' => '',
+				),
 			)
 		);
 
@@ -200,33 +258,7 @@ class Porto_Elementor_Social_Icons_Widget extends \Elementor\Widget_Base {
 				'selectors' => array(
 					'.elementor-element-{{ID}} a' => 'border-radius: {{SIZE}}{{UNIT}};',
 				),
-			)
-		);
-
-		$this->add_control(
-			'icon_width',
-			array(
-				'type'       => Controls_Manager::SLIDER,
-				'label'      => __( 'Icon Width and Height', 'porto-functionality' ),
-				'range'      => array(
-					'px' => array(
-						'step' => 1,
-						'min'  => 0,
-						'max'  => 100,
-					),
-					'em' => array(
-						'step' => 0.1,
-						'min'  => 0.1,
-						'max'  => 10,
-					),
-				),
-				'size_units' => array(
-					'px',
-					'em',
-				),
-				'selectors'  => array(
-					'.elementor-element-{{ID}} a' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
-				),
+				'separator' => 'after',
 			)
 		);
 
@@ -238,12 +270,12 @@ class Porto_Elementor_Social_Icons_Widget extends \Elementor\Widget_Base {
 				'type'       => Controls_Manager::SLIDER,
 				'label'      => __( 'Spacing between icons', 'porto-functionality' ),
 				'range'      => array(
-					'px' => array(
+					'px'  => array(
 						'step' => 1,
 						'min'  => 0,
 						'max'  => 100,
 					),
-					'em' => array(
+					'em'  => array(
 						'step' => 0.1,
 						'min'  => 0.1,
 						'max'  => 10,

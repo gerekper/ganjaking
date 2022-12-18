@@ -94,7 +94,8 @@ class CSS
                     'woocommerce-smallscreen.css',
                     '/uploads/oxygen/css/', //oxygen
                     '/uploads/bb-plugin/cache/', //beaver builder
-                    '/uploads/generateblocks/' //generateblocks
+                    '/uploads/generateblocks/', //generateblocks
+                    '/et-cache/' //divi
                 );
                 if(!empty(Config::$options['assets']['rucss_excluded_stylesheets'])) {
                     $stylesheet_exclusions = array_merge($stylesheet_exclusions, Config::$options['assets']['rucss_excluded_stylesheets']);
@@ -111,7 +112,8 @@ class CSS
                 if(!$used_css_exists) {
 
                     //get local stylesheet path
-                    $url = str_replace(trailingslashit(apply_filters('perfmatters_local_stylesheet_url', site_url())), '', explode('?', $stylesheet[1])[0]);
+                    $url = str_replace(trailingslashit(apply_filters('perfmatters_local_stylesheet_url', (!empty(Config::$options['assets']['rucss_cdn_url']) ? Config::$options['assets']['rucss_cdn_url'] : site_url()))), '', explode('?', $stylesheet[1])[0]);
+
                     $file = str_replace('/wp-content', '/', WP_CONTENT_DIR) . $url;
 
                     //make sure local file exists
@@ -285,10 +287,13 @@ class CSS
             '.wp-embed-responsive', //core
             '.wp-block-embed',
             '.wp-block-embed__wrapper',
+            '.wp-caption',
             '#elementor-device-mode', //elementor
             '.elementor-nav-menu',
+            '.elementor-has-item-ratio',
             '.ast-header-break-point', //astra
-            '.dropdown-nav-special-toggle' //kadence
+            '.dropdown-nav-special-toggle', //kadence
+            'rs-fw-forcer' //rev slider
         );
         if(!empty(Config::$options['assets']['rucss_excluded_selectors'])) {
             self::$excluded_selectors = array_merge(self::$excluded_selectors, Config::$options['assets']['rucss_excluded_selectors']);

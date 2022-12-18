@@ -52,6 +52,11 @@ function porto_load_page_header_shortcode() {
 			'controls'    => 'full',
 			'params'      => array(
 				array(
+					'type'       => 'porto_param_heading',
+					'param_name' => 'description_header',
+					'text'       => esc_html__( 'Please see Theme Options -> Breadcrumbs.  If the type is different with theme option, it doesn\'t work well.', 'porto-functionality' ),
+				),
+				array(
 					'type'        => 'dropdown',
 					'heading'     => __( 'Breadcrumbs Type', 'porto-functionality' ),
 					'param_name'  => 'breadcrumbs_type',
@@ -68,56 +73,168 @@ function porto_load_page_header_shortcode() {
 					'admin_label' => true,
 				),
 				array(
+					'type'       => 'checkbox',
+					'param_name' => 'hide_page_title',
+					'std'        => '',
+					'heading'    => __( 'Hide Page Title', 'porto-functionality' ),
+					'group'      => __( 'Page Title', 'porto-functionality' ),
+				),
+				array(
 					'type'        => 'textfield',
 					'heading'     => __( 'Page Title', 'porto-functionality' ),
 					'param_name'  => 'page_title',
 					'value'       => '',
 					'description' => __( 'Please leave this field blank to display default page title.', 'porto-functionality' ),
 					'admin_label' => true,
+					'dependency'  => array(
+						'element'  => 'hide_page_title',
+						'is_empty' => true,
+					),
+					'group'       => __( 'Page Title', 'porto-functionality' ),
 				),
+				array(
+					'type'       => 'porto_typography',
+					'heading'    => __( 'Page Title', 'porto-functionality' ),
+					'param_name' => 'page_title_font_size',
+					'group'      => __( 'Page Title', 'porto-functionality' ),
+					'selectors'  => array(
+						'.page-top .page-title',
+					),
+					'dependency' => array(
+						'element'  => 'hide_page_title',
+						'is_empty' => true,
+					),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'heading'    => __( 'Color', 'porto-functionality' ),
+					'param_name' => 'page_title_color',
+					'dependency' => array(
+						'element'  => 'hide_page_title',
+						'is_empty' => true,
+					),
+					'group'      => __( 'Page Title', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'number',
+					'heading'    => __( 'Margin Bottom', 'porto-functionality' ),
+					'param_name' => 'page_title_margin_bottom',
+					'dependency' => array(
+						'element'  => 'hide_page_title',
+						'is_empty' => true,
+					),
+					'group'      => __( 'Page Title', 'porto-functionality' ),
+				),
+
 				array(
 					'type'        => 'textfield',
 					'heading'     => __( 'Page Sub Title', 'porto-functionality' ),
 					'param_name'  => 'page_sub_title',
 					'value'       => '',
 					'admin_label' => true,
+					'group'       => __( 'Page Subtitle', 'porto-functionality' ),
+					'description' => __( 'Please leave this field blank to display default page subtitle.', 'porto-functionality' ),
+				),
+
+				array(
+					'type'       => 'porto_typography',
+					'heading'    => __( 'Page Subtitle', 'porto-functionality' ),
+					'param_name' => 'page_subtitle_font',
+					'group'      => __( 'Page Subtitle', 'porto-functionality' ),
+					'selectors'  => array(
+						'.page-top .page-sub-title',
+					),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'heading'    => __( 'Sub Title Color', 'porto-functionality' ),
+					'param_name' => 'page_subtitle_color',
+					'group'      => __( 'Page Subtitle', 'porto-functionality' ),
 				),
 				array(
 					'type'       => 'checkbox',
 					'param_name' => 'hide_breadcrumb',
+					'heading'    => __( 'Hide Breadcrumbs', 'porto-functionality' ),
 					'value'      => array(
 						__( 'Hide Breadcrumbs', 'porto-functionality' ) => 'yes',
+					),
+					'group'      => __( 'Path', 'porto-functionality' ),
+				),
+
+				array(
+					'type'       => 'porto_typography',
+					'heading'    => __( 'Breadcrumb Path', 'porto-functionality' ),
+					'param_name' => 'breadcrumbs_font',
+					'group'      => __( 'Path', 'porto-functionality' ),
+					'dependency' => array(
+						'element'  => 'hide_breadcrumb',
+						'is_empty' => true,
+					),
+					'selectors'  => array(
+						'.page-top .breadcrumbs-wrap ul.breadcrumb > li',
+					),
+				),
+				array(
+					'type'       => 'porto_number',
+					'heading'    => __( 'Delimiter Font Size', 'porto-functionality' ),
+					'param_name' => 'delimiter_font_size',
+					'units'      => array( 'px', 'rem' ),
+					'group'      => __( 'Path', 'porto-functionality' ),
+					'dependency' => array(
+						'element'  => 'hide_breadcrumb',
+						'is_empty' => true,
+					),
+					'selectors'  => array(
+						'.page-top ul.breadcrumb > li i.delimiter' => 'font-size: {{VALUE}}{{UNIT}}',
 					),
 				),
 				array(
 					'type'       => 'colorpicker',
 					'heading'    => __( 'Breadcrumbs Text Color', 'porto-functionality' ),
 					'param_name' => 'breadcrumbs_text_color',
+					'group'      => __( 'Path', 'porto-functionality' ),
+					'dependency' => array(
+						'element'  => 'hide_breadcrumb',
+						'is_empty' => true,
+					),
 				),
 				array(
 					'type'       => 'colorpicker',
 					'heading'    => __( 'Breadcrumbs Link Color', 'porto-functionality' ),
 					'param_name' => 'breadcrumbs_link_color',
+					'group'      => __( 'Path', 'porto-functionality' ),
+					'dependency' => array(
+						'element'  => 'hide_breadcrumb',
+						'is_empty' => true,
+					),
 				),
 				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Page Title Font Size', 'porto-functionality' ),
-					'param_name' => 'page_title_font_size',
+					'type'        => 'textfield',
+					'heading'     => __( 'Margin Top', 'porto-functionality' ),
+					'description' => __( 'Controls the margin top of breadcrumb path.', 'porto-functionality' ),
+					'param_name'  => 'bc_margin_top',
+					'group'       => __( 'Path', 'porto-functionality' ),
+					'selectors'   => array(
+						'.page-top .breadcrumbs-wrap' => 'margin-top: {{VALUE}};',
+					),
+					'dependency'  => array(
+						'element'  => 'hide_breadcrumb',
+						'is_empty' => true,
+					),
 				),
 				array(
-					'type'       => 'colorpicker',
-					'heading'    => __( 'Page Title Color', 'porto-functionality' ),
-					'param_name' => 'page_title_color',
-				),
-				array(
-					'type'       => 'number',
-					'heading'    => __( 'Page Title Margin Bottom', 'porto-functionality' ),
-					'param_name' => 'page_title_margin_bottom',
-				),
-				array(
-					'type'       => 'colorpicker',
-					'heading'    => __( 'Page Sub Title Color', 'porto-functionality' ),
-					'param_name' => 'page_subtitle_color',
+					'type'        => 'textfield',
+					'heading'     => __( 'Margin Bottom', 'porto-functionality' ),
+					'description' => __( 'Controls the margin bottom of breadcrumb path.', 'porto-functionality' ),
+					'param_name'  => 'bc_margin_bottom',
+					'group'       => __( 'Path', 'porto-functionality' ),
+					'selectors'   => array(
+						'.page-top .breadcrumbs-wrap' => 'margin-bottom: {{VALUE}};',
+					),
+					'dependency'  => array(
+						'element'  => 'hide_breadcrumb',
+						'is_empty' => true,
+					),
 				),
 				$custom_class,
 				$animation_type,

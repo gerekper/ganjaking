@@ -15,7 +15,8 @@
     function get_values_from_hidden_field(t) {
         var mv = t.find(".porto-bs-result-value").val() || null;
         if (mv != null) {
-          var vals = mv.split("|");
+          var vals = mv.split("|"),
+            has_style = false;
           $.each(vals, function(i, vl) {
               if (vl != '') {
                   var splitval = vl.split(":");
@@ -40,9 +41,10 @@
                                     }
                           break;
                     case 'style':   t.find(".porto-bs-select").find("option[value=" + splitval[1] + "]").attr("selected", true);
-                                    if(splitval[1]==='none' || splitval[1]==='inherit' ) {
+                                    if(splitval[1]==='none' || splitval[1]==='inherit' || ! splitval[1] ) {
                                       t.find('.porto-bs-input-block, .porto-bs-colorpicker-block').hide();
                                     }
+                                    has_style = true;
                           break;
                     default:
                               t.find('.porto-bs-input').each(function(input_index, elem) {
@@ -57,9 +59,12 @@
                   }
               }
           });
+          if ( ! has_style ) {
+            t.find('.porto-bs-input-block, .porto-bs-colorpicker-block').hide();
+          }
         } else {
           var s = t.find('.porto-bs-select option:selected').val();
-          if( s==='none' || s==='inherit' ) {
+          if( s==='none' || s==='inherit' || ! s ) {
             t.find('.porto-bs-input-block, .porto-bs-colorpicker-block').hide();
           }
         }
@@ -99,7 +104,7 @@
             var s = $(this).val();
             
             if(typeof s != 'undefined' && s != null) {
-              if( s==='none' || s==='inherit' ) {
+              if( s==='none' || s==='inherit' || ! s ) {
 
                 t.find('.porto-bs-input-block, .porto-bs-colorpicker-block').hide();
               } else {

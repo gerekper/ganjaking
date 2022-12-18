@@ -125,7 +125,7 @@ class UpdraftPlus_Addons_Importer {
 				}
 				break;
 			case 'wpb2d':
-				if (!class_exists('UpdraftPlus_PclZip') && file_exists(UPDRAFTPLUS_DIR.'/includes/class-zip.php')) include_once(UPDRAFTPLUS_DIR.'/includes/class-zip.php');
+				if (!class_exists('UpdraftPlus_PclZip')) updraft_try_include_file('includes/class-zip.php', 'include_once');
 				global $updraftplus;
 				$updraft_dir = trailingslashit($updraftplus->backups_dir_location());
 				if (file_exists($updraft_dir.$entry) && class_exists('UpdraftPlus_PclZip')) {

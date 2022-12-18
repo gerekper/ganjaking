@@ -2,7 +2,7 @@
 /**
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.themepunch.com/
- * @copyright 2022 ThemePunch
+ * @copyright 2020 ThemePunch
  * @since	  6.2.0
  */
 

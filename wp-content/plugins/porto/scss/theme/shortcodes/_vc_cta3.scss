@@ -1,0 +1,72 @@
+/* Visual Composer Call to Action */
+.vc_general.vc_cta3 {
+    padding: 32px 55px;
+    .dir-arrow {
+        position: absolute;
+        top: -35px;
+        #{$left}: 70%;
+    }
+
+    &.vc_cta3-style-custom {
+        border: 1px solid var(--porto-gray-2);
+    }
+
+    &.vc_cta3-color-white.vc_cta3-style-flat {
+        color: var(--porto-body-color);
+    }
+}
+.vc_general.vc_cta3.vc_cta3-shape-rounded {
+    border-radius: 10px;
+}
+
+.vc_general.vc_cta3 h2 {
+    font-size: 1.8em;
+    font-weight: $font-weight-normal;
+    line-height: 30px;
+}
+.vc_general.vc_cta3 h2,
+.vc_general.vc_cta3 h4 {
+    margin: 0 0 9px;
+    color: var(--porto-dark-color);
+}
+.vc_general.vc_cta3.vc_cta3-style-flat .vc_cta3-content-header h2,
+.vc_general.vc_cta3.vc_cta3-style-flat .vc_cta3-content-header h4 {
+    color: var(--porto-dark-color);
+}
+.vc_general.vc_cta3 p {
+    font-size: 1.2em;
+}
+
+@media (min-width: 768px) {
+    .vc_cta3_content-container {
+        display: table;
+        width: 100%;
+    }
+    .vc_general.vc_cta3.vc_cta3-actions-right .vc_cta3-content {
+        width: 75%;
+        padding-#{$right}: 25px;
+        padding-#{$left}: 0;
+    }
+    .vc_general.vc_cta3.vc_cta3-actions-right .vc_cta3-actions,
+    .vc_general.vc_cta3.vc_cta3-actions-left .vc_cta3-actions {
+        width: 25%;
+    }
+    .vc_general.vc_cta3.vc_cta3-actions-left .vc_cta3-content {
+        width: 75%;
+        padding-#{$left}: 25px;
+        padding-#{$right}: 0;
+    }
+}
+
+@media #{$screen-medium} {
+    .vc_general.vc_cta3 .dir-arrow {
+        display: none;
+    }
+    .vc_general.vc_cta3.vc_cta3-actions-left .vc_cta3-actions,
+    .vc_general.vc_cta3.vc_cta3-actions-right .vc_cta3-actions {
+        padding-top: 30px;
+        > div:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

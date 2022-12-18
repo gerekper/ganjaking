@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Porto Elementor widget to display fancy text which displays ratating words.
  *
- * @since 5.4.2
+ * @since 1.7.3
  */
 
 use Elementor\Controls_Manager;
@@ -43,7 +43,7 @@ class Porto_Elementor_Fancytext_Widget extends \Elementor\Widget_Base {
 		}
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 
 		$this->start_controls_section(
 			'section_fancytext',
@@ -66,6 +66,11 @@ class Porto_Elementor_Fancytext_Widget extends \Elementor\Widget_Base {
 				'type'        => Controls_Manager::TEXTAREA,
 				'label'       => __( 'Fancy Text', 'porto-functionality' ),
 				'description' => __( 'Enter each string on a new line', 'porto-functionality' ),
+				'default'     => __(
+					'incredibly
+especially',
+					'porto-functionality'
+				),
 			)
 		);
 
@@ -145,6 +150,15 @@ class Porto_Elementor_Fancytext_Widget extends \Elementor\Widget_Base {
 		);
 
 		$this->add_control(
+			'fancy_heading',
+			array(
+				'type'      => Controls_Manager::HEADING,
+				'label'     => __( 'Fancy Text', 'porto-functionality' ),
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_control(
 			'fancytext_tag',
 			array(
 				'type'    => Controls_Manager::SELECT,
@@ -167,7 +181,7 @@ class Porto_Elementor_Fancytext_Widget extends \Elementor\Widget_Base {
 			array(
 				'name'     => 'fancy_text_typography',
 				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
-				'label'    => __( 'Fancy Text Typograhy', 'porto-functionality' ),
+				'label'    => __( 'Typography', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .word-rotator-items',
 			)
 		);
@@ -176,7 +190,7 @@ class Porto_Elementor_Fancytext_Widget extends \Elementor\Widget_Base {
 			'fancytext_color1',
 			array(
 				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Fancy Text Color', 'porto-functionality' ),
+				'label'     => __( 'Color', 'porto-functionality' ),
 				'selectors' => array(
 					'{{WRAPPER}} .word-rotator-items' => 'color: {{VALUE}};',
 				),
@@ -187,7 +201,16 @@ class Porto_Elementor_Fancytext_Widget extends \Elementor\Widget_Base {
 			'ticker_background',
 			array(
 				'type'  => Controls_Manager::COLOR,
-				'label' => __( 'Fancy Text Background', 'porto-functionality' ),
+				'label' => __( 'Background', 'porto-functionality' ),
+			)
+		);
+
+		$this->add_control(
+			'prefsuf_heading',
+			array(
+				'type'      => Controls_Manager::HEADING,
+				'label'     => __( 'Prefix and Suffix Text', 'porto-functionality' ),
+				'separator' => 'before',
 			)
 		);
 
@@ -196,7 +219,7 @@ class Porto_Elementor_Fancytext_Widget extends \Elementor\Widget_Base {
 			array(
 				'name'     => 'fancy_prefsuf_text_typography',
 				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
-				'label'    => __( 'Prefix Suffix Typograhy', 'porto-functionality' ),
+				'label'    => __( 'Typography', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .word-rotate-prefix, {{WRAPPER}} .word-rotate-suffix',
 			)
 		);
@@ -205,7 +228,7 @@ class Porto_Elementor_Fancytext_Widget extends \Elementor\Widget_Base {
 			'sufpref_color1',
 			array(
 				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Prefix & Suffix Text Color', 'porto-functionality' ),
+				'label'     => __( 'Color', 'porto-functionality' ),
 				'selectors' => array(
 					'{{WRAPPER}} .word-rotate-prefix, {{WRAPPER}} .word-rotate-suffix' => 'color: {{VALUE}};',
 				),
@@ -216,7 +239,7 @@ class Porto_Elementor_Fancytext_Widget extends \Elementor\Widget_Base {
 			'sufpref_bg_color1',
 			array(
 				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Prefix & Suffix Background Color', 'porto-functionality' ),
+				'label'     => __( 'Background Color', 'porto-functionality' ),
 				'selectors' => array(
 					'{{WRAPPER}} .word-rotate-prefix, {{WRAPPER}} .word-rotate-suffix' => 'background-color: {{VALUE}};',
 				),

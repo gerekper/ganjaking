@@ -1,16 +1,8 @@
 <?php
 
 // Porto Widget Woo Product Tags
-add_shortcode( 'porto_widget_woo_product_tags', 'porto_shortcode_widget_woo_product_tags' );
 add_action( 'vc_after_init', 'porto_load_widget_woo_product_tags_shortcode' );
 
-function porto_shortcode_widget_woo_product_tags( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_woo_template( 'porto_widget_woo_product_tags' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_widget_woo_product_tags_shortcode() {
 	$animation_type     = porto_vc_animation_type();
@@ -26,7 +18,7 @@ function porto_load_widget_woo_product_tags_shortcode() {
 			'icon'        => 'fas fa-cart-arrow-down',
 			'category'    => __( 'WooCommerce Widgets', 'porto-functionality' ),
 			'class'       => 'wpb_vc_wp_widget',
-			'description' => __( 'Your most used product tags in cloud format.', 'woocommerce' ),
+			'description' => __( 'Your most used product tags in cloud format.', 'porto-functionality' ),
 			'params'      => array(
 				array(
 					'type'        => 'textfield',

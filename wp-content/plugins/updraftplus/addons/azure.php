@@ -14,7 +14,7 @@ Latest Change: 1.13.12
 
 if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
 
-if (!class_exists('UpdraftPlus_RemoteStorage_Addons_Base_v2')) require_once(UPDRAFTPLUS_DIR.'/methods/addon-base-v2.php');
+if (!class_exists('UpdraftPlus_RemoteStorage_Addons_Base_v2')) updraft_try_include_file('methods/addon-base-v2.php', 'require_once');
 
 class UpdraftPlus_Addons_RemoteStorage_azure extends UpdraftPlus_RemoteStorage_Addons_Base_v2 {
 
@@ -240,6 +240,26 @@ class UpdraftPlus_Addons_RemoteStorage_azure extends UpdraftPlus_RemoteStorage_A
 			$message = $e->getMessage().' ('.get_class($e).') (line: '.$e->getLine().', file: '.$e->getFile().')';
 			$this->log("service error: ".$message);
 			$this->log($message, 'error');
+
+			try {
+				// Retrieves the list of blocks that have been uploaded as part of a block blob.
+				$blob_blocks = $storage->listBlobBlocks($opts['container'], $directory.$file);
+
+				$block_list = array();
+				foreach ($blob_blocks->getCommittedBlocks() as $key => $value) $block_list[] = base64_decode($key);
+				$block_list = empty($block_list) ? '-' : implode(', ', $block_list);
+				$this->log('committed blocks: '.$block_list);
+
+				$block_list = array();
+				foreach ($blob_blocks->getUncommittedBlocks() as $key => $value) $block_list[] = base64_decode($key);
+				$block_list = empty($block_list) ? '-' : implode(', ', $block_list);
+				$this->log('uncommitted blocks: '.$block_list);
+			} catch (Exception $e) {
+				$message = $e->getMessage().' ('.get_class($e).') (line: '.$e->getLine().', file: '.$e->getFile().')';
+				$this->log("service error: ".$message);
+				$this->log($message, 'error');
+			}
+			
 			return false;
 		}
 		// Prevent bloat
@@ -473,8 +493,8 @@ class UpdraftPlus_Addons_RemoteStorage_azure extends UpdraftPlus_RemoteStorage_A
 
 		// The Azure SDK requires PEAR modules - specifically,  HTTP_Request2, Mail_mime, and Mail_mimeDecode; however, an analysis of the used code paths shows that we only need HTTP_Request2
 		if (false === strpos(get_include_path(), UPDRAFTPLUS_DIR.'/includes/PEAR')) set_include_path(UPDRAFTPLUS_DIR.'/includes/PEAR'.PATH_SEPARATOR.get_include_path());
-		include_once(UPDRAFTPLUS_DIR.'/includes/WindowsAzure/WindowsAzure.php');
-		include_once(UPDRAFTPLUS_DIR.'/includes/azure-extensions.php');
+		updraft_try_include_file('includes/WindowsAzure/WindowsAzure.php', 'include_once');
+		updraft_try_include_file('includes/azure-extensions.php', 'include_once');
 		// use WindowsAzure\Common\ServicesBuilder;
 		
 		// set up connection string

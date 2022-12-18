@@ -14,7 +14,7 @@ Latest Change: 1.15.3
 
 if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
 
-if (!class_exists('UpdraftPlus_RemoteStorage_Addons_Base_v2')) require_once(UPDRAFTPLUS_DIR.'/methods/addon-base-v2.php');
+if (!class_exists('UpdraftPlus_RemoteStorage_Addons_Base_v2')) updraft_try_include_file('methods/addon-base-v2.php', 'require_once');
 /**
  * Possible enhancements:
  * - Investigate porting to WP HTTP API so that curl is not required
@@ -612,7 +612,7 @@ class UpdraftPlus_Addons_RemoteStorage_backblaze extends UpdraftPlus_RemoteStora
 
 			if (!is_array($opts)) $opts = $this->get_options();
 	
-			if (!class_exists('UpdraftPlus_Backblaze_CurlClient')) include_once UPDRAFTPLUS_DIR.'/includes/Backblaze/CurlClient.php';
+			if (!class_exists('UpdraftPlus_Backblaze_CurlClient')) updraft_try_include_file('includes/Backblaze/CurlClient.php', 'include_once');
 
 			if (empty($opts['account_id']) || empty($opts['key'])) return new WP_Error('no_settings', __('No settings were found', 'updraftplus').' (Backblaze)');
 			

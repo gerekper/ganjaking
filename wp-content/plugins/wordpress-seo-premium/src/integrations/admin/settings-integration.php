@@ -29,7 +29,7 @@ class Settings_Integration implements Integration_Interface {
 	/**
 	 * Constructs Settings_Integration.
 	 *
-	 * @param WPSEO_Admin_Asset_Manager $asset_manager The WPSEO_Admin_Asset_Manager.
+	 * @param WPSEO_Admin_Asset_Manager $asset_manager       The WPSEO_Admin_Asset_Manager.
 	 * @param Current_Page_Helper       $current_page_helper The Current_Page_Helper.
 	 */
 	public function __construct( WPSEO_Admin_Asset_Manager $asset_manager, Current_Page_Helper $current_page_helper ) {
@@ -55,7 +55,7 @@ class Settings_Integration implements Integration_Interface {
 	 */
 	public function register_hooks() {
 		// Are we on the settings page?
-		if ( $this->current_page_helper->get_current_yoast_seo_page() === 'wpseo_settings' ) {
+		if ( $this->current_page_helper->get_current_yoast_seo_page() === 'wpseo_page_settings' ) {
 			\add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
 		}
 	}

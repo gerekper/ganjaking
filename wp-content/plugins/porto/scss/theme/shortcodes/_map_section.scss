@@ -1,0 +1,26 @@
+
+/* Porto Map Section */
+.porto-map-section {
+    padding-top: 164px;
+    margin: 15px -#{$grid-gutter-space}px 0;
+    background: url(#{$theme_uri}/images/map.png) center 0 no-repeat;
+
+    .map-content {
+        background-color: rgba(247, 247, 247, 0.5);
+        padding: 90px 0 40px;
+        min-height: 400px;
+        margin-top: 0;
+
+        #main.main-boxed & {
+            padding-left: #{$grid-gutter-space}px;
+            padding-right: #{$grid-gutter-space}px;
+        }
+
+        article.post,
+        .post-item {
+            .post-date .day {
+                background-color: #fff;
+            }
+        }
+    }
+}

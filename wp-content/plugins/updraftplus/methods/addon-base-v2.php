@@ -18,7 +18,7 @@ do_credentials_test_deletefile($testfile, $posted_settings)
 // Uses job options: Yes
 // Uses single-array storage: Yes
 
-if (!class_exists('UpdraftPlus_BackupModule')) require_once(UPDRAFTPLUS_DIR.'/methods/backup-module.php');
+if (!class_exists('UpdraftPlus_BackupModule')) updraft_try_include_file('methods/backup-module.php', 'require_once');
 
 /**
  * Note that the naming of this class is historical. There is nothing inherent which restricts it to add-ons, or requires add-ons to use it. It is just an abstraction layer that results in needing to write less code for the storage module.

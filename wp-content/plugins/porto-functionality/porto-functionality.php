@@ -3,7 +3,7 @@
 Plugin Name: Porto Theme - Functionality
 Plugin URI: http://themeforest.net/user/p-themes
 Description: Adds functionality such as Shortcodes, Post Types and Widgets to Porto Theme
-Version: 2.2.1
+Version: 2.6.1
 Author: P-Themes
 Author URI: http://themeforest.net/user/p-themes
 License: GPL2
@@ -17,17 +17,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Porto_Functionality {
 
-	private $widgets     = array( 'block', 'recent_posts', 'recent_portfolios', 'twitter_tweets', 'contact_info', 'follow_us' );
-	private $woo_widgets = array( 'price_filter_list' );
+	private $widgets     = array( 'block', 'recent_posts', 'twitter_tweets' );
+	private $woo_widgets = array();
 
 	/**
 	 * Constructor
 	 *
 	 * @since 1.0
-	 *
-	*/
+	 */
 	public function __construct() {
-
 		// Load text domain
 		add_action( 'plugins_loaded', array( $this, 'load' ) );
 
@@ -51,6 +49,13 @@ class Porto_Functionality {
 		// define contants
 		$this->define_constants( $active_plugins );
 
+		/**
+		 * Load Soft Mode
+		 *
+		 * @since 2.3.0
+		 */
+		require_once PORTO_SOFT_MODE_PATH . 'setup.php';
+
 		// add shortcodes
 		if ( ! in_array( 'porto-shortcodes/porto-shortcodes.php', $active_plugins ) ) {
 			$this->load_shortcodes();
@@ -61,43 +66,72 @@ class Porto_Functionality {
 			$this->load_content_types();
 		}
 
+		// include critical css wizard
+		require_once PORTO_CRITICAL_PATH . 'init.php';
+
 		// add porto builders
 		require_once PORTO_BUILDERS_PATH . 'init.php';
 
+		// include maintenance
+		require_once dirname( __FILE__ ) . '/maintenance/init.php';
+
 		// add meta library
 		require_once( PORTO_META_BOXES_PATH . 'lib/meta_values.php' );
-		require_once( PORTO_META_BOXES_PATH . 'lib/meta_fields.php' );
+		if ( is_admin() || isset( $_REQUEST['vc_post_id'] ) ) {
+			require_once( PORTO_META_BOXES_PATH . 'lib/meta_fields.php' );
+		}
+
+		// Disable Gutenberg editing
+		if ( defined( 'ELEMENTOR_VERSION' ) || defined( 'WPB_VC_VERSION' ) || ( empty( $porto_settings['enable-gfse'] ) || true != $porto_settings['enable-gfse'] ) ) {
+			add_filter( 'theme_file_path', array( $this, 'disable_gutenberg_editing' ), 99, 2 );
+		}
+	}
+
+	/**
+	 * Disable Gutenberg Editing
+	 *
+	 * @since 2.5.1
+	 */
+        public function disable_gutenberg_editing( $path = false, $file = false ) {
+		if ( 'templates/index.html' == $file || 'block-templates/index.html' == $file ) {
+			return false;
+		}
+		return $path;
 	}
 
 	// load plugin text domain
 	public function load() {
-		load_plugin_textdomain( 'porto-functionality', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
+		if ( ! defined( 'ELEMENTOR_VERSION' ) && ! defined( 'WPB_VC_VERSION' ) ) {
+			require_once dirname( __FILE__ ) . '/maintenance/porto-gutenberg-fse.php';
+		}
+
+		load_plugin_textdomain( 'porto-functionality', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+		if ( apply_filters( 'porto_legacy_mode', true ) ) { // legacy mode
+			$this->widgets       = array_merge( $this->widgets, array( 'recent_portfolios', 'contact_info', 'follow_us' ) );
+			$this->woo_widgets[] = 'price_filter_list';
+			if ( class_exists( 'Woocommerce' ) ) {
+				$this->load_woocommerce_widgets();
+			}
+		}
 		// load porto widgets
 		$this->load_widgets();
-		if ( class_exists( 'Woocommerce' ) ) {
-			$this->load_woocommerce_widgets();
-		}
 
 		// add metaboxes
 		require_once( PORTO_META_BOXES_PATH . 'meta_boxes.php' );
-
+		if ( defined( 'ELEMENTOR_VERSION' ) || defined( 'WPB_VC_VERSION' ) ) {
+			include_once 'conditional-rendering/init.php';
+		}
 		if ( defined( 'ELEMENTOR_VERSION' ) ) {
 			/**
 			 * Register Elementor widgets and settings
 			 */
 			require_once( dirname( PORTO_META_BOXES_PATH ) . '/elementor/init.php' );
 		}
-
-		if ( defined( 'VCV_VERSION' ) ) {
-			/**
-			 * Register Visual Composer elements and settings
-			 */
-			require_once( dirname( PORTO_META_BOXES_PATH ) . '/visualcomposer/init.php' );
-		}
 	}
 
 	public function init() {
+
 		// add async attribute
 		add_filter( 'script_loader_tag', array( $this, 'script_add_async_attribute' ), 10, 2 );
 
@@ -121,13 +155,15 @@ class Porto_Functionality {
 	}
 
 	public function woocommerce_yith_ajax_filter( $posts, $query = false ) {
-		remove_filter( 'the_posts', array( YITH_WCAN()->frontend, 'the_posts' ), 15 );
+		if ( class_exists( 'WooCommerce' ) ) {
+			remove_filter( 'the_posts', array( YITH_WCAN()->frontend, 'the_posts' ), 15 );
+		}
 		return $posts;
 	}
 
 	public function script_add_async_attribute( $tag, $handle ) {
 		// add script handles to the array below
-		$scripts_to_async = array( 'jquery-magnific-popup', 'modernizr', 'porto-theme-async', 'jquery-flipshow', 'porto_shortcodes_flipshow_loader_js' );
+		$scripts_to_async = array( 'jquery-magnific-popup', 'modernizr', 'porto-theme-async', 'jquery-flipshow', 'porto_shortcodes_flipshow_loader_js', 'jquery-hoverdir' );
 		if ( in_array( $handle, $scripts_to_async ) ) {
 			return str_replace( ' src', ' async="async" src', $tag );
 		}
@@ -165,8 +201,11 @@ class Porto_Functionality {
 	protected function define_constants( $active_plugins ) {
 
 		define( 'PORTO_FUNC_FILE', __FILE__ );
+		define( 'PORTO_FUNC_PLUGIN_BASE', plugin_basename( PORTO_FUNC_FILE ) );
 		define( 'PORTO_META_BOXES_PATH', dirname( __FILE__ ) . '/meta_boxes/' );
 		define( 'PORTO_BUILDERS_PATH', dirname( __FILE__ ) . '/builders/' );
+		define( 'PORTO_CRITICAL_PATH', dirname( __FILE__ ) . '/critical-css/' );
+		define( 'PORTO_SOFT_MODE_PATH', dirname( __FILE__ ) . '/soft-mode/' );
 		define( 'PORTO_FUNC_URL', plugin_dir_url( __FILE__ ) );
 		if ( ! in_array( 'porto-shortcodes/porto-shortcodes.php', $active_plugins ) ) {
 			define( 'PORTO_SHORTCODES_URL', PORTO_FUNC_URL . 'shortcodes/' );

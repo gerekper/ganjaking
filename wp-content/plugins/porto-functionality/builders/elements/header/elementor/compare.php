@@ -33,7 +33,11 @@ class Porto_Elementor_HB_Compare_Widget extends \Elementor\Widget_Base {
 		return 'porto-icon-compare-link';
 	}
 
-	protected function _register_controls() {
+	public function get_custom_help_url() {
+		return 'https://www.portotheme.com/wordpress/porto/documentation/porto-compare-icon-element/';
+	}
+
+	protected function register_controls() {
 
 		$this->start_controls_section(
 			'section_hb_compare',
@@ -45,10 +49,13 @@ class Porto_Elementor_HB_Compare_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'icon_cl',
 			array(
-				'type'             => Controls_Manager::ICONS,
-				'label'            => __( 'Icon', 'porto-functionality' ),
-				'fa4compatibility' => 'icon',
-				'default'          => array(
+				'type'                   => Controls_Manager::ICONS,
+				'label'                  => __( 'Icon', 'porto-functionality' ),
+				'fa4compatibility'       => 'icon',
+				'skin'                   => 'inline',
+				'exclude_inline_options' => array( 'svg' ),
+				'label_block'            => false,
+				'default'                => array(
 					'value'   => '',
 					'library' => '',
 				),
@@ -87,9 +94,30 @@ class Porto_Elementor_HB_Compare_Widget extends \Elementor\Widget_Base {
 			array(
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Color', 'porto-functionality' ),
-				'default'   => '',
 				'selectors' => array(
 					'#header .elementor-element-{{ID}} .yith-woocompare-open' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'badge_color',
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'label'     => __( 'Badge Color', 'porto-functionality' ),
+				'selectors' => array(
+					'.elementor-element-{{ID}} .compare-count' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'badge_bg_color',
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'label'     => __( 'Badge Background Color', 'porto-functionality' ),
+				'selectors' => array(
+					'.elementor-element-{{ID}} .compare-count' => 'background-color: {{VALUE}};',
 				),
 			)
 		);

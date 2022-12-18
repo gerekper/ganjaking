@@ -2,7 +2,7 @@
 
 if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
 
-if (!class_exists('UpdraftPlus_PclZip')) require_once(UPDRAFTPLUS_DIR.'/includes/class-zip.php');
+if (!class_exists('UpdraftPlus_PclZip')) updraft_try_include_file('includes/class-zip.php', 'require_once');
 
 /**
  * This file contains code that is only needed/loaded when a backup is running
@@ -140,7 +140,7 @@ class UpdraftPlus_Backup {
 		$this->updraft_dir = $updraftplus->backups_dir_location();
 		
 
-		require_once(UPDRAFTPLUS_DIR.'/includes/class-database-utility.php');
+		updraft_try_include_file('includes/class-database-utility.php', 'require_once');
 
 		if ('no' === $backup_files) {
 			$this->use_zip_object = 'UpdraftPlus_PclZip';
@@ -258,7 +258,7 @@ class UpdraftPlus_Backup {
 				if (!function_exists('get_mu_plugins')) include_once(ABSPATH.'wp-admin/includes/plugin.php');
 				$mu_plugins = get_mu_plugins();
 				if (count($mu_plugins) == 0) {
-					$updraftplus->log("There appear to be no mu-plugins to backup. Will not raise an error.");
+					$updraftplus->log("There are no mu-plugins to backup. Will not raise an error.");
 					$flag_error = false;
 				}
 			}
@@ -413,7 +413,7 @@ class UpdraftPlus_Backup {
 
 			$objname = "UpdraftPlus_BackupModule_${service}";
 			if (!class_exists($objname) && file_exists(UPDRAFTPLUS_DIR.'/methods/'.$service.'.php')) {
-				include_once(UPDRAFTPLUS_DIR.'/methods/'.$service.'.php');
+				updraft_try_include_file('methods/'.$service.'.php', 'include_once');
 			}
 			if (class_exists($objname)) {
 				$remote_obj = new $objname;
@@ -445,6 +445,8 @@ class UpdraftPlus_Backup {
 
 			if ($updraftplus->is_uploaded($file) || !is_file($this->updraft_dir.'/'.$file)) return;
 			
+			$updraftplus->jobdata_set('filesize-'.$whichone.$index, filesize($this->updraft_dir.'/'.$file));
+
 			$backupable_entities = $updraftplus->get_backupable_file_entities(true);
 			$undone_files = array();
 
@@ -1893,9 +1895,9 @@ class UpdraftPlus_Backup {
 		if ('wp' == $whichdb) {
 			if (!$found_options_table) {
 				if ($is_multisite) {
-					$updraftplus->log(__('The database backup appears to have failed', 'updraftplus').' - '.__('no options or sitemeta table was found', 'updraftplus'), 'warning', 'optstablenotfound');
+					$updraftplus->log(__('The database backup has failed', 'updraftplus').' - '.__('no options or sitemeta table was found', 'updraftplus'), 'warning', 'optstablenotfound');
 				} else {
-					$updraftplus->log(__('The database backup appears to have failed', 'updraftplus').' - '.__('the options table was not found', 'updraftplus'), 'warning', 'optstablenotfound');
+					$updraftplus->log(__('The database backup has failed', 'updraftplus').' - '.__('the options table was not found', 'updraftplus'), 'warning', 'optstablenotfound');
 				}
 				$time_this_run = time()-$updraftplus->opened_log_time;
 				if ($time_this_run > 2000) {
@@ -4254,13 +4256,23 @@ class UpdraftPlus_Backup {
 				}
 
 				if (file_exists($zipfile)) {
-					$opencode = $zip->open($zipfile);
 					$original_size = filesize($zipfile);
-					clearstatcache();
+					// PHP 8.1 throws a deprecation notice if opening a zero-size file with ZipArchive, so in that situation, we remove and re-create it
+					if ($original_size > 0) {
+						$opencode = $zip->open($zipfile);
+						clearstatcache();
+					} elseif (0 === $original_size) {
+						unlink($zipfile);
+					} else {
+						$opencode = false;
+					}
 				} else {
-					$create_code = defined('ZIPARCHIVE::CREATE') ? ZIPARCHIVE::CREATE : 1;
-					$opencode = $zip->open($zipfile, $create_code);
 					$original_size = 0;
+				}
+				
+				if (0 === $original_size) {
+					$create_code = (version_compare(PHP_VERSION, '5.2.12', '>') && defined('ZIPARCHIVE::CREATE')) ? ZIPARCHIVE::CREATE : 1;
+					$opencode = $zip->open($zipfile, $create_code);
 				}
 
 				if (true !== $opencode) return new WP_Error('no_open', sprintf(__('Failed to open the zip file (%s) - %s', 'updraftplus'), $zipfile, $zip->last_error));
@@ -4321,7 +4333,7 @@ class UpdraftPlus_Backup {
 		} elseif ($warn) {
 			$warn_msg = __('A zip error occurred', 'updraftplus').' - ';
 			if (!empty($quota_low)) {
-				$warn_msg = sprintf(__('your web hosting account appears to be full; please see: %s', 'updraftplus'), 'https://updraftplus.com/faqs/how-much-free-disk-space-do-i-need-to-create-a-backup/');
+				$warn_msg = sprintf(__('your web hosting account is full; please see: %s', 'updraftplus'), 'https://updraftplus.com/faqs/how-much-free-disk-space-do-i-need-to-create-a-backup/');
 			} else {
 				$warn_msg .= __('check your log for more details.', 'updraftplus');
 			}

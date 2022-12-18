@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Porto Elementor widget to display a advanced google map.
  *
- * @since 5.4.4
+ * @since 1.7.5
  */
 
 use Elementor\Controls_Manager;
@@ -43,7 +43,7 @@ class Porto_Elementor_Google_Map_Widget extends \Elementor\Widget_Base {
 		}
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 
 		$floating_options = porto_update_vc_options_to_elementor( porto_shortcode_floating_fields() );
 

@@ -271,48 +271,16 @@ function porto_load_portfolios_shortcode() {
 					),
 				),
 				array(
-					'type'       => 'colorpicker',
-					'class'      => '',
-					'heading'    => __( 'Info Color', 'porto-functionality' ),
-					'param_name' => 'info_color',
-					'value'      => '',
-					'dependency' => array(
-						'element' => 'info_view',
-						'value'   => array( 'left-info-no-bg' ),
-					),
-				),
-				array(
-					'type'        => 'textfield',
-					'heading'     => __( 'Portfolio Indexes to use custom info color', 'porto-functionality' ),
-					'param_name'  => 'custom_portfolios',
-					'std'         => '',
-					'description' => __( 'comma separated list of portfolio indexes', 'porto-functionality' ),
+					'type'        => 'dropdown',
+					'heading'     => __( 'Info View Type Style', 'porto-functionality' ),
+					'description' => __( 'Not to show info or show a plus icon instead for even items.', 'porto' ),
+					'param_name'  => 'info_view_type_style',
 					'dependency'  => array(
-						'element' => 'info_view',
-						'value'   => array( 'left-info-no-bg' ),
+						'element' => 'view',
+						'value'   => array( 'classic', 'default', 'full' ),
 					),
-				),
-				array(
-					'type'       => 'colorpicker',
-					'class'      => '',
-					'heading'    => __( 'Info Color for custom portfolios', 'porto-functionality' ),
-					'param_name' => 'info_color2',
-					'value'      => '',
-					'dependency' => array(
-						'element'   => 'custom_portfolios',
-						'not_empty' => true,
-					),
-				),
-				array(
-					'type'       => 'dropdown',
-					'heading'    => __( 'Info View Type Style', 'porto-functionality' ),
-					'param_name' => 'info_view_type_style',
-					'dependency' => array(
-						'element' => 'portfolio_layout',
-						'value'   => array( 'grid', 'masonry', 'timeline', 'creative', 'masonry-creative' ),
-					),
-					'std'        => '',
-					'value'      => array(
+					'std'         => '',
+					'value'       => array(
 						__( 'Standard', 'porto-functionality' )  => '',
 						__( 'Alternate', 'porto-functionality' ) => 'alternate-info',
 						__( 'Alternate with Plus', 'porto-functionality' ) => 'alternate-with-plus',
@@ -327,11 +295,12 @@ function porto_load_portfolios_shortcode() {
 					'std'        => '',
 				),
 				array(
-					'type'       => 'dropdown',
-					'heading'    => __( 'Image Overlay Background', 'porto-functionality' ),
-					'param_name' => 'thumb_bg',
-					'std'        => '',
-					'value'      => array(
+					'type'        => 'dropdown',
+					'heading'     => __( 'Image Overlay Background', 'porto-functionality' ),
+					'description' => __( 'Controls the overlay background of featured image.', 'porto' ),
+					'param_name'  => 'thumb_bg',
+					'std'         => '',
+					'value'       => array(
 						__( 'Standard', 'porto-functionality' ) => '',
 						__( 'Darken', 'porto-functionality' ) => 'darken',
 						__( 'Lighten', 'porto-functionality' ) => 'lighten',
@@ -339,11 +308,12 @@ function porto_load_portfolios_shortcode() {
 					),
 				),
 				array(
-					'type'       => 'dropdown',
-					'heading'    => __( 'Hover Image Effect', 'porto-functionality' ),
-					'param_name' => 'thumb_image',
-					'std'        => '',
-					'value'      => array(
+					'type'        => 'dropdown',
+					'heading'     => __( 'Hover Image Effect', 'porto-functionality' ),
+					'param_name'  => 'thumb_image',
+					'description' => __( 'Controls the hover effect of image.', 'porto' ),
+					'std'         => '',
+					'value'       => array(
 						__( 'Standard', 'porto-functionality' ) => '',
 						__( 'Zoom', 'porto-functionality' ) => 'zoom',
 						__( 'Slow Zoom', 'porto-functionality' ) => 'slow-zoom',
@@ -351,15 +321,16 @@ function porto_load_portfolios_shortcode() {
 					),
 				),
 				array(
-					'type'       => 'dropdown',
-					'heading'    => __( 'Image Counter', 'porto-functionality' ),
-					'param_name' => 'image_counter',
-					'dependency' => array(
+					'type'        => 'dropdown',
+					'heading'     => __( 'Image Counter', 'porto-functionality' ),
+					'description' => __( 'Show the featured image count.', 'porto' ),
+					'param_name'  => 'image_counter',
+					'dependency'  => array(
 						'element' => 'portfolio_layout',
 						'value'   => array( 'grid', 'masonry', 'timeline' ),
 					),
-					'std'        => '',
-					'value'      => array(
+					'std'         => '',
+					'value'       => array(
 						__( 'Default', 'porto-functionality' ) => '',
 						__( 'Show', 'porto-functionality' ) => 'show',
 						__( 'Hide', 'porto-functionality' ) => 'hide',
@@ -413,7 +384,7 @@ function porto_load_portfolios_shortcode() {
 				),
 				array(
 					'type'       => 'textfield',
-					'heading'    => __( 'Portfolios Count', 'porto-functionality' ),
+					'heading'    => __( 'Portfolios Count (per page)', 'porto-functionality' ),
 					'param_name' => 'number',
 					'value'      => '8',
 				),
@@ -428,8 +399,9 @@ function porto_load_portfolios_shortcode() {
 					'param_name' => 'load_more_posts',
 					'std'        => '',
 					'value'      => array(
-						__( 'Select', 'porto-functionality' ) => '',
-						__( 'Pagination', 'porto-functionality' ) => 'pagination',
+						__( 'None', 'porto-functionality' ) => '',
+						__( 'Ajax Pagination', 'porto-functionality' ) => 'pagination',
+						__( 'Infinite Scroll', 'porto-functionality' ) => 'infinite',
 						__( 'Load More (Button)', 'porto-functionality' ) => 'load-more-btn',
 					),
 				),
@@ -450,7 +422,7 @@ function porto_load_portfolios_shortcode() {
 				),
 				array(
 					'type'       => 'checkbox',
-					'heading'    => __( 'Show Filter', 'porto-functionality' ),
+					'heading'    => __( 'Show Category Filter', 'porto-functionality' ),
 					'param_name' => 'filter',
 					'value'      => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 				),
@@ -470,12 +442,26 @@ function porto_load_portfolios_shortcode() {
 					),
 				),
 				array(
-					'type'       => 'checkbox',
-					'heading'    => __( 'Enable Ajax Load', 'porto-functionality' ),
-					'param_name' => 'ajax_load',
-					'value'      => array( __( 'Yes', 'js_composer' ) => 'yes' ),
+					'type'       => 'dropdown',
+					'heading'    => __( 'Filter Type', 'porto-functionality' ),
+					'param_name' => 'filter_type',
+					'std'        => '',
+					'value'      => array(
+						__( 'Filter using Javascript/CSS', 'porto-functionality' ) => '',
+						__( 'Ajax Loading', 'porto-functionality' ) => 'ajax',
+					),
+					'dependency' => array(
+						'element'   => 'filter',
+						'not_empty' => true,
+					),
 				),
-
+				array(
+					'type'        => 'checkbox',
+					'heading'     => __( 'Enable Ajax Load', 'porto-functionality' ),
+					'description' => __( 'If enabled, portfolio content should be displayed at the top of portfolios or on modal when you click portfolio item in the list.', 'porto-functionality' ),
+					'param_name'  => 'ajax_load',
+					'value'       => array( __( 'Yes', 'js_composer' ) => 'yes' ),
+				),
 				array(
 					'type'       => 'checkbox',
 					'heading'    => __( 'Ajax Load on Modal', 'porto-functionality' ),
@@ -486,8 +472,67 @@ function porto_load_portfolios_shortcode() {
 					),
 					'value'      => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 				),
-
 				$custom_class,
+
+				array(
+					'type'       => 'porto_typography',
+					'heading'    => __( 'Title Typography', 'porto-functionality' ),
+					'param_name' => 'title_tg',
+					'selectors'  => array(
+						'{{WRAPPER}} .thumb-info .thumb-info-title',
+					),
+					'group'      => __( 'Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'heading'    => __( 'Title Color', 'porto-functionality' ),
+					'param_name' => 'info_color',
+					'selectors'  => array(
+						'{{WRAPPER}} .thumb-info .thumb-info-title' => 'color: {{VALUE}};',
+					),
+					'group'      => __( 'Style', 'porto-functionality' ),
+				),
+				array(
+					'type'        => 'textfield',
+					'heading'     => __( 'Portfolio Indexes to use custom info color', 'porto-functionality' ),
+					'param_name'  => 'custom_portfolios',
+					'description' => __( 'Please input comma separated list of portfolio indexes. This doesn\'t work for Timeline Layout.', 'porto-functionality' ),
+					'dependency'  => array(
+						'element' => 'info_view',
+						'value'   => array( 'left-info-no-bg' ),
+					),
+					'group'       => __( 'Style', 'porto-functionality' ),
+				),
+				array(
+					'type'        => 'colorpicker',
+					'heading'     => __( 'Title Color for custom portfolios', 'porto-functionality' ),
+					'param_name'  => 'info_color2',
+					'description' => __( 'This color will be used for the titles of custom portfolios which are added in above option.', 'porto-functionality' ),
+					'dependency'  => array(
+						'element'   => 'custom_portfolios',
+						'not_empty' => true,
+					),
+					'group'       => __( 'Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'heading'    => __( 'Title Background Color', 'porto-functionality' ),
+					'param_name' => 'title_bgc',
+					'selectors'  => array(
+						'{{WRAPPER}} .thumb-info .thumb-info-title' => 'background-color: {{VALUE}};',
+					),
+					'group'      => __( 'Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'porto_dimension',
+					'heading'    => __( 'Title Padding', 'porto-functionality' ),
+					'param_name' => 'title_pd',
+					'selectors'  => array(
+						'{{WRAPPER}} .thumb-info .thumb-info-title' => 'padding: {{TOP}} {{RIGHT}} {{BOTTOM}} {{LEFT}};',
+					),
+					'group'      => __( 'Style', 'porto-functionality' ),
+				),
+
 				$animation_type,
 				$animation_duration,
 				$animation_delay,

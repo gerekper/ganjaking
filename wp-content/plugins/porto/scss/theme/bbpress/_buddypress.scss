@@ -1,0 +1,265 @@
+
+#buddypress {
+    @include clearfix();
+    margin-bottom: 30px;
+}
+
+#buddypress div.pagination .pagination-links {
+    margin-#{$right}: 0;
+
+    a,
+    span.current {
+        border: 1px solid var(--porto-input-bc);
+        padding: 0 .5em;
+        line-height: 2.1em;
+        min-width: 2.2em;
+        height: 2.2em;
+        text-align: center;
+        vertical-align: top;
+        display: block;
+        float: $left;
+        margin: side-values(2px 0 2px 4px);
+        text-decoration: none;
+
+        &:hover {
+            background: var(--porto-gray-1);
+            border: 1px solid var(--porto-gray-2);
+        }
+    }
+
+    span.dots {
+        display: block;
+        float: $left;
+        padding: 1px 4px;
+        margin-#{$left}: 5px;
+        border-width: 0;
+        min-width: 0;
+        padding: 0;
+    }
+
+    a:hover,
+    a:focus,
+    span.current {
+        background: var(--porto-primary-color);
+        border-color: var(--porto-primary-color);
+        font-weight: $font-weight-normal;
+        color: $color-arrow-hover;
+    }
+
+    .prev,
+    .next {
+        text-indent: -9999px;
+        width: 2.2em;
+        overflow: hidden;
+        position: relative;
+
+        &:before {
+            font-family: 'Font Awesome 5 Free'; font-weight: 900;
+            position: absolute;
+            top: 1px;
+            left: 0;
+            right: 0;
+            text-indent: 0;
+        }
+    }
+
+    .prev:before {
+        content: if-ltr($fa-var-caret-left, $fa-var-caret-right);
+    }
+
+    .next:before {
+        content: if-ltr($fa-var-caret-right, $fa-var-caret-left);
+    }
+}
+
+#buddypress form#whats-new-form #whats-new-content {
+    margin-#{$left}: 50px;
+}
+#buddypress form#whats-new-form p.activity-greeting {
+    margin-#{$left}: 70px;
+}
+#buddypress form#whats-new-form textarea {
+    width: 100%;
+    min-height: 30px;
+}
+#buddypress #whats-new:focus {
+    border-color: var(--porto-input-bc) !important;
+    outline-color: var(--porto-input-bc);
+}
+#buddypress .activity-list .activity-content .activity-header img.avatar {
+    margin: side-values(0 5px 2px 0) !important;
+}
+#buddypress .activity-list li.load-more a,
+#buddypress .activity-list li.load-newest a {
+    text-decoration: none;
+}
+#buddypress div.dir-search {
+    margin: 0 0 15px 0;
+}
+#buddypress div.dir-search input[type=text],
+#buddypress li.groups-members-search input[type=text] {
+    font-size: 14px;
+    padding: 6px 8px;
+    line-height: 1.42857;
+}
+
+.bp-avatar-nav li.current a {
+    font-weight: normal;
+}
+#buddypress .standard-form input[type=text] {
+    width: 100%;
+}
+#buddypress .standard-form label,
+#buddypress .standard-form span.label {
+    padding-left: 0;
+    padding-right: 0;
+
+    input {
+        position: static;
+        margin-#{$left}: 0;
+        margin-#{$right}: 5px;
+    }
+}
+#buddypress form [disabled="disabled"] {
+    opacity: .8;
+}
+#buddypress .standard-form#sidebar-login-form input[type=text],
+#buddypress .standard-form#sidebar-login-form input[type=password],
+#buddypress .standard-form#sidebar-login-form input[type=email] {
+    padding: 6px 8px;
+    width: 100%;
+}
+#buddypress .standard-form #basic-details-section input[type=password],
+#buddypress .standard-form #basic-details-section input[type=email],
+#buddypress .standard-form #blog-details-section input#signup_blog_url {
+    width: 100%;
+}
+#buddypress .standard-form#signup_form input[type=text],
+#buddypress .standard-form#signup_form textarea,
+#buddypress .form-allowed-tags,
+#buddypress #commentform input[type=text],
+#buddypress #commentform textarea {
+    width: 100%;
+}
+#buddypress .standard-form textarea {
+    width: 100%;
+}
+#buddypress .standard-form#send-reply textarea {
+    width: 100%;
+}
+#buddypress .standard-form div.submit input {
+    margin-#{$right}: 0;
+}
+#buddypress button,
+#buddypress a.button,
+#buddypress input[type=submit],
+#buddypress input[type=button],
+#buddypress input[type=reset],
+#buddypress ul.button-nav li a,
+#buddypress div.generic-button a,
+#buddypress .comment-reply-link,
+a.bp-title-button {
+    font-size: 14px;
+    padding: 6px 12px;
+    background: var(--porto-primary-color);
+    border-color: var(--porto-primary-color);
+    color: var(--porto-primary-color-inverse, #fff);
+
+    &:hover, &:focus {
+        background: var(--porto-primary-dark-5);
+        border-color: var(--porto-primary-dark-5);
+        color: var(--porto-primary-color-inverse, #fff);
+    }
+}
+#buddypress ul.button-nav li.current a,
+#buddypress input[type="submit"].pending,
+#buddypress input[type="button"].pending,
+#buddypress input[type="reset"].pending,
+#buddypress input[type="submit"].disabled,
+#buddypress input[type="button"].disabled,
+#buddypress input[type="reset"].disabled,
+#buddypress input[type="submit"][disabled=disabled],
+#buddypress button.pending,
+#buddypress button.disabled,
+#buddypress div.pending a,
+#buddypress a.disabled {
+    background: var(--porto-primary-dark-5);
+    border-color: var(--porto-primary-dark-5);
+    color: var(--porto-primary-color-inverse, #fff);
+}
+#buddypress a.loading:hover,
+#buddypress input.loading:hover {
+    color: #fff;
+}
+#buddypress table.profile-fields {
+    margin-top: 20px;
+}
+#buddypress table.notifications tr td.label,
+#buddypress table.notifications-settings tr td.label,
+#buddypress table.profile-fields tr td.label,
+#buddypress table.wp-profile-fields tr td.label,
+#buddypress table.messages-notices tr td.label,
+#buddypress table.forum tr td.label {
+    display: table-cell;
+    font-size: 1em;
+    font-weight: $font-weight-semibold;
+    text-align: $right;
+}
+#buddypress div.item-list-tabs ul li a span {
+    border-radius: 50%;
+    padding: 2px 6px;
+}
+#buddypress div.item-list-tabs ul li.selected a,
+#buddypress div.item-list-tabs ul li.current a {
+    opacity: 1;
+    font-weight: $font-weight-normal;
+    background: var(--porto-primary-color);
+    color: var(--porto-primary-color-inverse, #fff);
+}
+#buddypress div.item-list-tabs#subnav {
+    margin: 10px 0 20px;
+}
+#buddypress div.profile h4 {
+    margin-bottom: 15px;
+}
+#buddypress #profile-edit-form ul.button-nav {
+    padding-left: 0;
+    padding-right: 0;
+}
+#buddypress .field-visibility-settings,
+#buddypress .field-visibility-settings-toggle,
+#buddypress .field-visibility-settings-notoggle {
+    margin-top: 5px;
+}
+#buddypress .field-visibility-settings .radio {
+    padding-left: 0;
+    padding-right: 0;
+}
+@media only screen and (max-width: 767px ){
+    #buddypress .standard-form #basic-details-section,
+    #buddypress .standard-form #blog-details-section,
+    #buddypress .standard-form #profile-details-section {
+        float: none;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+@media only screen and (max-width: 575px ){
+    #buddypress div.dir-search input[type="text"] {
+        margin-bottom: 0;
+        width: auto;
+    }
+}
+
+@keyframes loader-pulsate {
+    from {
+        background: var(--porto-primary-color);
+        border-color: var(--porto-primary-color);
+        box-shadow: none;
+    }
+    to {
+        background: var(--porto-primary-dark-5);
+        border-color: var(--porto-primary-dark-5);
+        box-shadow: none;
+    }
+}

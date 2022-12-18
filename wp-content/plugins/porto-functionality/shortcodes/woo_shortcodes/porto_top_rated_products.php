@@ -1,20 +1,7 @@
 <?php
 
 // Porto Top Rated Products
-add_shortcode( 'porto_top_rated_products', 'porto_shortcode_top_rated_products' );
 add_action( 'vc_after_init', 'porto_load_top_rated_products_shortcode' );
-
-function porto_shortcode_top_rated_products( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_woo_template( 'porto_products' ) ) {
-		if ( ! is_array( $atts ) ) {
-			$atts = array();
-		}
-		$atts['shortcode'] = 'top_rated_products';
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_top_rated_products_shortcode() {
 	$animation_type     = porto_vc_animation_type();
@@ -105,6 +92,9 @@ function porto_load_top_rated_products_shortcode() {
 						),
 						'suffix'      => 'px',
 						'std'         => '',
+						'selectors'   => array(
+							'{{WRAPPER}}' => '--porto-el-spacing: {{VALUE}}px;',
+						),
 					),
 					array(
 						'type'        => 'number',
@@ -204,7 +194,7 @@ function porto_load_top_rated_products_shortcode() {
 					),
 					$custom_class,
 				),
-				porto_vc_product_slider_fields(),
+				porto_vc_product_slider_fields( 'products-slider', 'dots-style-1' ),
 				array(
 					$animation_type,
 					$animation_duration,

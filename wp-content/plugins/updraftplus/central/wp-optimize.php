@@ -109,21 +109,20 @@ class WP_Optimize_Host extends UpdraftCentral_Host {
 	}
 
 	/**
-	 * Logs the given message
+	 * Logs the given line
 	 *
-	 * @param string $message Message to insert into the log.
-	 * @param array  $context array with variables used in $message like in template,
-	 * 						  for ex.
-	 *						  $message = 'Hello {message}';
-	 * 						  $context = ['message' => 'world']
-	 * 						  'Hello world' string will be saved in log.
+	 * @param string         $line    The log line
+	 * @param string         $level   The log level: notice, warning, error, etc.
+	 * @param boolean|string $uniq_id Each of these will only be logged once
+	 *
+	 * @return void
 	 */
-	public function log($message, $context = array()) {
+	public function log($line, $level = 'notice', $uniq_id = false) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
 		global $wp_optimize;
 
 		if ($wp_optimize) {
 			if (is_callable(array($wp_optimize, 'log'))) {
-				call_user_func(array($wp_optimize, 'log'), $message, $context);
+				call_user_func(array($wp_optimize, 'log'), $line);
 			}
 		}
 	}

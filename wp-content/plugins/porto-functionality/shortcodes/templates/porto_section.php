@@ -145,6 +145,7 @@ if ( $is_section ) {
 		$divider_class_escaped = 'divider' . rand();
 		if ( $show_divider_icon && $divider_icon_class && 'custom' == $divider_icon_skin && ( $divider_icon_color || $divider_icon_bg_color || $divider_icon_border_color || $divider_icon_wrap_border_color ) ) :
 			$divider_classes[] = $divider_class_escaped;
+			ob_start();
 			?>
 			<style>
 			<?php
@@ -191,6 +192,7 @@ endif;
 			?>
 				</style>
 			<?php
+			porto_filter_inline_css( ob_get_clean() );
 		endif;
 
 		$divider_output = '<div class="' . implode( ' ', $divider_classes ) . '"' . $divider_inline_style . '>';

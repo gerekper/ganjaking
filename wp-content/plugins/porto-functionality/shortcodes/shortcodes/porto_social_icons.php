@@ -31,39 +31,28 @@ function porto_load_social_icons_element() {
 					),
 				),
 				array(
-					'type'       => 'colorpicker',
-					'heading'    => __( 'Color', 'porto-functionality' ),
-					'param_name' => 'icon_color',
-					'value'      => '',
+					'type'       => 'textfield',
+					'heading'    => __( 'Icon Width and Height', 'porto-functionality' ),
+					'param_name' => 'icon_border_spacing',
 					'selectors'  => array(
-						'{{WRAPPER}} a:not(:hover)' => 'color: {{VALUE}};',
+						'{{WRAPPER}} a' => 'width: {{VALUE}};height: {{VALUE}};',
 					),
 				),
 				array(
-					'type'       => 'colorpicker',
-					'heading'    => __( 'Hover Color', 'porto-functionality' ),
-					'param_name' => 'icon_hover_color',
-					'value'      => '',
+					'type'       => 'porto_number',
+					'heading'    => __( 'Spacing between icons', 'porto-functionality' ),
+					'param_name' => 'icon_spacing',
+					'units'      => array( 'px', 'rem', 'em' ),
 					'selectors'  => array(
-						'{{WRAPPER}} a:hover' => 'color: {{VALUE}};',
+						'{{WRAPPER}} a' => 'margin-' . $right . ': {{VALUE}}{{UNIT}};',
 					),
 				),
 				array(
-					'type'       => 'colorpicker',
-					'heading'    => __( 'Icon Background Color', 'porto-functionality' ),
-					'param_name' => 'icon_color_bg',
-					'value'      => '',
+					'type'       => 'textfield',
+					'heading'    => __( 'Icon Border Radius', 'porto-functionality' ),
+					'param_name' => 'icon_border_radius',
 					'selectors'  => array(
-						'{{WRAPPER}} a:not(:hover)' => 'background-color: {{VALUE}};',
-					),
-				),
-				array(
-					'type'       => 'colorpicker',
-					'heading'    => __( 'Icon Hover Background Color', 'porto-functionality' ),
-					'param_name' => 'icon_hover_color_bg',
-					'value'      => '',
-					'selectors'  => array(
-						'{{WRAPPER}} a:hover' => 'background-color: {{VALUE}};',
+						'{{WRAPPER}} a' => 'border-radius: {{VALUE}};',
 					),
 				),
 				array(
@@ -85,15 +74,6 @@ function porto_load_social_icons_element() {
 					),
 				),
 				array(
-					'type'       => 'colorpicker',
-					'heading'    => __( 'Icon Border Color', 'porto-functionality' ),
-					'param_name' => 'icon_color_border',
-					'value'      => '',
-					'selectors'  => array(
-						'{{WRAPPER}} a' => 'border-color: {{VALUE}};',
-					),
-				),
-				array(
 					'type'       => 'porto_number',
 					'heading'    => __( 'Icon Border Width', 'porto-functionality' ),
 					'param_name' => 'icon_border_size',
@@ -101,30 +81,65 @@ function porto_load_social_icons_element() {
 					'selectors'  => array(
 						'{{WRAPPER}} a' => 'border-width: {{VALUE}}{{UNIT}};',
 					),
-				),
-				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Icon Border Radius', 'porto-functionality' ),
-					'param_name' => 'icon_border_radius',
-					'selectors'  => array(
-						'{{WRAPPER}} a' => 'border-radius: {{VALUE}};',
+					'dependency' => array(
+						'element'   => 'icon_border_style',
+						'not_empty' => true,
 					),
 				),
 				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Icon Width and Height', 'porto-functionality' ),
-					'param_name' => 'icon_border_spacing',
+					'type'       => 'colorpicker',
+					'heading'    => __( 'Color', 'porto-functionality' ),
+					'param_name' => 'icon_color',
 					'selectors'  => array(
-						'{{WRAPPER}} a' => 'width: {{VALUE}};height: {{VALUE}};',
+						'{{WRAPPER}}.share-links a:not(:hover)' => 'color: {{VALUE}};',
 					),
 				),
 				array(
-					'type'       => 'porto_number',
-					'heading'    => __( 'Spacing between icons', 'porto-functionality' ),
-					'param_name' => 'icon_spacing',
-					'units'      => array( 'px', 'rem', 'em' ),
+					'type'       => 'colorpicker',
+					'heading'    => __( 'Icon Background Color', 'porto-functionality' ),
+					'param_name' => 'icon_color_bg',
 					'selectors'  => array(
-						'{{WRAPPER}} a' => 'margin-' . $right . ': {{VALUE}}{{UNIT}};',
+						'{{WRAPPER}}.share-links a:not(:hover)' => 'background-color: {{VALUE}};',
+					),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'heading'    => __( 'Icon Border Color', 'porto-functionality' ),
+					'param_name' => 'icon_color_border',
+					'selectors'  => array(
+						'{{WRAPPER}} a' => 'border-color: {{VALUE}};',
+					),
+					'dependency' => array(
+						'element'   => 'icon_border_style',
+						'not_empty' => true,
+					),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'heading'    => __( 'Hover Color', 'porto-functionality' ),
+					'param_name' => 'icon_hover_color',
+					'selectors'  => array(
+						'{{WRAPPER}} a:hover' => 'color: {{VALUE}};',
+					),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'heading'    => __( 'Hover Background Color', 'porto-functionality' ),
+					'param_name' => 'icon_hover_color_bg',
+					'selectors'  => array(
+						'{{WRAPPER}} a:hover' => 'background-color: {{VALUE}};',
+					),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'heading'    => __( 'Hover Border Color', 'porto-functionality' ),
+					'param_name' => 'icon_hover_color_border',
+					'selectors'  => array(
+						'{{WRAPPER}} a:hover' => 'border-color: {{VALUE}};',
+					),
+					'dependency' => array(
+						'element'   => 'icon_border_style',
+						'not_empty' => true,
 					),
 				),
 				$custom_class,

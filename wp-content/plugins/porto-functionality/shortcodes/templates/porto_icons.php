@@ -4,10 +4,11 @@ $align = $el_class = '';
 extract(
 	shortcode_atts(
 		array(
-			'align'     => '',
-			'el_class'  => '',
-			'css_icon'  => '',
-			'className' => '',
+			'align'        => '',
+			'hover_effect' => '',
+			'el_class'     => '',
+			'css_icon'     => '',
+			'className'    => '',
 		),
 		$atts
 	)
@@ -28,15 +29,18 @@ if ( $className ) {
 
 $classes = 'porto-u-icons';
 if ( $icon_design_css ) {
-	$classes .= ' ' . esc_attr( $icon_design_css );
+	$classes .= ' ' . $icon_design_css;
 }
 if ( $align ) {
-	$classes .= ' ' . esc_attr( $align );
+	$classes .= ' ' . $align;
+}
+if ( $hover_effect ) {
+	$classes .= ' has-effect ' . $hover_effect;
 }
 if ( $el_class ) {
-	$classes .= ' ' . esc_attr( $el_class );
+	$classes .= ' ' . $el_class;
 }
-$output  = '<div class="' . $classes . '">';
+$output  = '<div class="' . esc_attr( $classes ) . '">';
 $output .= do_shortcode( $content );
 $output .= '</div>';
 

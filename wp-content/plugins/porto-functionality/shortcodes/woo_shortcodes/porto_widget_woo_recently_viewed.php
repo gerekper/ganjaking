@@ -1,16 +1,8 @@
 <?php
 
 // Porto Widget Woo Recently Viewed
-add_shortcode( 'porto_widget_woo_recently_viewed', 'porto_shortcode_widget_woo_recently_viewed' );
-add_action( 'vc_after_init', 'porto_load_widget_woo_recently_viewed_shortcode' );
 
-function porto_shortcode_widget_woo_recently_viewed( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_woo_template( 'porto_widget_woo_recently_viewed' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
+add_action( 'vc_after_init', 'porto_load_widget_woo_recently_viewed_shortcode' );
 
 function porto_load_widget_woo_recently_viewed_shortcode() {
 	$animation_type     = porto_vc_animation_type();
@@ -26,7 +18,7 @@ function porto_load_widget_woo_recently_viewed_shortcode() {
 			'icon'        => 'fas fa-cart-arrow-down',
 			'category'    => __( 'WooCommerce Widgets', 'porto-functionality' ),
 			'class'       => 'wpb_vc_wp_widget',
-			'description' => __( 'Display a list of recently viewed products.', 'woocommerce' ),
+			'description' => __( 'Display a list of recently viewed products.', 'porto-functionality' ),
 			'params'      => array(
 				array(
 					'type'        => 'textfield',

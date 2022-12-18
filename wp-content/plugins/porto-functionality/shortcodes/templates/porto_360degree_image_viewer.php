@@ -36,22 +36,22 @@ if ( $img_source && $img_preview ) {
 			$animation_attrs .= ' data-appear-animation-duration="' . esc_attr( $animation_duration ) . '"';
 		}
 	}
-	$output .= '<div class="cd-product-viewer-wrapper' . ( $el_class ? ' ' . esc_attr( $el_class ) : '' ) . '" data-frame="' . ( (int) $frame_count ) . '" data-friction="' . ( (float) $friction ) . '">';
-		$output .= '<div>';
-			$output .= '<figure class="product-viewer"' . $animation_attrs . '>';
+	$output             .= '<div class="cd-product-viewer-wrapper' . ( $el_class ? ' ' . esc_attr( $el_class ) : '' ) . '" data-frame="' . ( (int) $frame_count ) . '" data-friction="' . ( (float) $friction ) . '">';
+		$output         .= '<div>';
+			$output     .= '<figure class="product-viewer"' . $animation_attrs . '>';
 				$output .= wp_get_attachment_image( (int) $img_preview, 'full' );
 				$output .= '<div class="product-sprite" data-image="' . esc_url( $img_source ) . '" style="background-image: url(' . esc_url( $img_source ) . ');"></div>';
-			$output .= '</figure>';
+			$output     .= '</figure>';
 
-			$output .= '<div class="cd-product-viewer-handle">';
-				$output .= '<span class="fill"></span>';
-				$output .= '<span class="handle">';
-					$output .= esc_html__( 'Handle', 'porto-shortcodes' );
+			$output         .= '<div class="cd-product-viewer-handle">';
+				$output     .= '<span class="fill"></span>';
+				$output     .= '<span class="handle">';
+					$output .= esc_html__( 'Handle', 'porto-functionality' );
 					$output .= '<span class="bars"></span>';
-				$output .= '</span>';
-			$output .= '</div>';
-		$output .= '</div>';
-	$output .= '</div>';
+				$output     .= '</span>';
+			$output         .= '</div>';
+		$output             .= '</div>';
+	$output                 .= '</div>';
 }
 
 echo porto_filter_output( $output );

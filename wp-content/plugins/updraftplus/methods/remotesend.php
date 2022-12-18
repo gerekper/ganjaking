@@ -2,7 +2,7 @@
 
 if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
 
-if (!class_exists('UpdraftPlus_RemoteStorage_Addons_Base_v2')) require_once(UPDRAFTPLUS_DIR.'/methods/addon-base-v2.php');
+if (!class_exists('UpdraftPlus_RemoteStorage_Addons_Base_v2')) updraft_try_include_file('methods/addon-base-v2.php', 'require_once');
 
 class UpdraftPlus_BackupModule_remotesend extends UpdraftPlus_RemoteStorage_Addons_Base_v2 {
 
@@ -451,7 +451,7 @@ class UpdraftPlus_BackupModule_remotesend extends UpdraftPlus_RemoteStorage_Addo
 		// Don't call self::log() - this then requests options (to get the label), causing an infinite loop.
 	
 		global $updraftplus, $updraftplus_admin;
-		if (empty($updraftplus_admin)) include_once(UPDRAFTPLUS_DIR.'/admin.php');
+		if (empty($updraftplus_admin)) updraft_try_include_file('admin.php', 'include_once');
 		
 		$clone_job = $updraftplus->jobdata_get('clone_job');
 		

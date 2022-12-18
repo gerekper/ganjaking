@@ -11,21 +11,21 @@ function porto_load_schedule_timeline_item_shortcode() {
 
 	vc_map(
 		array(
-			'name'        => __( 'Schedule Timeline Item', 'porto-functionality' ),
+			'name'        => __( 'Step Item', 'porto-functionality' ),
 			'base'        => 'porto_schedule_timeline_item',
 			'category'    => __( 'Porto', 'porto-functionality' ),
-			'description' => __( 'Show schedule by beautiful timeline', 'porto-functionality' ),
+			'description' => __( 'Show schedule by beautiful timeline, history or step', 'porto-functionality' ),
 			'icon'        => 'far fa-calendar',
 			'as_child'    => array( 'only' => 'porto_schedule_timeline_container' ),
 			'params'      => array(
 				array(
-					'type'       => 'textfield',
-					'heading'    => __( 'Subtitle/time', 'porto-functionality' ),
-					'param_name' => 'subtitle',
+					'type'        => 'textfield',
+					'heading'     => __( 'Time Text', 'porto-functionality' ),
+					'param_name'  => 'subtitle',
+					'description' => __( 'Please input the text which describes time or current step. This is not working for "Step" type.', 'porto-functionality' ),
 				),
 				array(
 					'type'        => 'dropdown',
-					'class'       => '',
 					'heading'     => __( 'Icon to display:', 'porto-functionality' ),
 					'param_name'  => 'icon_type',
 					'value'       => array(
@@ -57,10 +57,8 @@ function porto_load_schedule_timeline_item_shortcode() {
 				),
 				array(
 					'type'       => 'iconpicker',
-					'class'      => '',
-					'heading'    => __( 'Icon ', 'porto-functionality' ),
+					'heading'    => __( 'Icon', 'porto-functionality' ),
 					'param_name' => 'icon',
-					'value'      => '',
 					'dependency' => array(
 						'element' => 'icon_type',
 						'value'   => array( 'fontawesome' ),
@@ -94,13 +92,13 @@ function porto_load_schedule_timeline_item_shortcode() {
 				),
 				array(
 					'type'        => 'textfield',
-					'heading'     => __( 'Heading', 'porto-functionality' ),
+					'heading'     => __( 'Item Title', 'porto-functionality' ),
 					'param_name'  => 'heading',
 					'admin_label' => true,
 				),
 				array(
 					'type'       => 'textarea_html',
-					'heading'    => __( 'Details', 'porto-functionality' ),
+					'heading'    => __( 'Description', 'porto-functionality' ),
 					'param_name' => 'content',
 				),
 				array(
@@ -110,7 +108,7 @@ function porto_load_schedule_timeline_item_shortcode() {
 				),
 				array(
 					'type'       => 'label',
-					'heading'    => __( 'Heading Settings', 'porto-functionality' ),
+					'heading'    => __( 'Title Settings', 'porto-functionality' ),
 					'param_name' => 'label',
 					'group'      => 'Typography',
 				),
@@ -122,7 +120,7 @@ function porto_load_schedule_timeline_item_shortcode() {
 				),
 				array(
 					'type'       => 'label',
-					'heading'    => __( 'Subtitle Settings', 'porto-functionality' ),
+					'heading'    => __( 'Time Text Settings', 'porto-functionality' ),
 					'param_name' => 'label',
 					'group'      => 'Typography',
 				),

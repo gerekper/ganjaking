@@ -1,0 +1,167 @@
+/* yith wishlist pro compatibility */
+.yith-wcwl-dropdown {
+    font-size: .875rem;
+    text-align: $left;
+    a {
+        text-indent: 0;
+        width: auto !important;
+        opacity: 1 !important;
+        vertical-align: baseline;
+        line-height: inherit;
+        height: auto;
+        border: none !important;
+        background: none !important;
+        color: inherit !important;
+        overflow: visible !important;
+        &:hover {
+            color: initial !important
+        }
+    }
+
+    .add_to_wishlist:before {
+        content: none !important
+    }
+    .yes-js .product-outimage_aq_onimage &,
+    .yes-js .product-onimage &,
+    .yes-js .product-onimage2 &,
+    .yes-js .product-onimage3 &,
+    .yes-js .product-wq_onimage & {
+        #{$right}: 0
+    }
+    .yes-js .product-awq_onimage & {
+        #{$left}: -80px;
+    }
+}
+.yes-js .product-onimage .product-image {
+    position: static
+}
+.yith-wcwl-add-button.with-dropdown {
+    padding: 0;
+    min-height: 2rem;
+    .product-onimage3 & {
+        z-index: 4 !important
+    }
+}
+.yes-js .yith-wcwl-add-button ul.yith-wcwl-dropdown {
+    top: 100%
+}
+.yith-wcwl-add-button ul.yith-wcwl-dropdown li:before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+}
+.woocommerce-wishlist .page-wrapper,
+.woocommerce-wishlist #main {
+    position: static;
+}
+.wishlist_table.traditional {
+    tr td.product-arrange {
+        text-align: center;
+    }
+}
+.shop_table.wishlist_table {
+    input[type="number"] {
+        max-width: 80px;
+    }
+    &:not(.traditional) {
+        font-size: 120%;
+        .product-thumbnail img {
+            max-width: 100%;
+        }
+    }
+    &.traditional tr td.product-arrange {
+        text-align: center;
+    }
+    &.modern_grid,
+    &.images_grid {
+        display: flex;
+        flex-wrap: wrap;
+        width: auto;
+        padding: 0;
+        .product-remove {
+            box-shadow: none;
+        }
+    }
+    // Modern Grid Table Layout
+    &.modern_grid {
+        .product-thumbnail {
+            width: 30%;
+        }
+        @media ( max-width: 1220px ) {
+            li {
+                width: 50%;
+            }
+        }    
+    } 
+    .item-details {
+        .product-name {
+            width: 100%;
+        }
+    }
+    &.mobile:not(.traditional) {
+        border: none;
+        padding-left: 0;
+        box-shadow: none;
+    }
+    .item-details,
+    .additional-info-wrapper {
+        .label {
+            color: inherit;
+            line-height: 2;
+        }
+        tr {
+            border: none;
+            display: table-row;
+        }
+        td {
+            display: table-cell;
+            vertical-align: middle !important;
+        }
+        .yith-compare {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
+    }
+    // Image Grid
+    &.images_grid {
+        @media ( max-width: 1220px ) {
+            li {
+                width: 33.33%;
+            }
+            .product-thumbnail > a,
+            .product-thumbnail img {
+                width: 100%;
+            }
+        }  
+        .product-thumbnail {
+            width: 100%;
+        }
+        .quickview {
+            position: relative;
+            opacity: 1;
+            visibility: visible;
+        }
+        .product-name {
+            font-size: 1rem;
+            margin-top: 2.5rem;
+            text-align: center;
+        }
+    }
+}
+
+.yith-wcwl-add-to-wishlist {
+    .yith-wcwl-tooltip {
+        text-indent: 0;
+        display: inline-block !important;
+        min-width: 100px;
+        .product-outimage & {
+            top: -100%;
+            &:before { 
+                top: 100%;
+                transform: rotate(180deg);;
+            }
+        }
+    }
+    .count-add-to-wishlist > span {
+        line-height: inherit;
+    }
+} 

@@ -1,0 +1,40 @@
+// Make sure the charset is set appropriately
+@charset "UTF-8";
+
+/*****************************************************************/
+/*
+/*** 1. Config Variables
+/*** 2. FontAwesome Icon
+/*** 3. Elusive Icon
+/*** 4. Owl Carousel
+/*** 5. jQuery Fancybox
+/*** 6. Simple Line Icons
+/*** 7. Magnific Popup
+/*** 8. jQuery Selectric
+/*
+/*****************************************************************/
+
+// DIRECTIONAL
+// ---------------------------------------------------------------
+$rtl: 0;
+$dir: ltr !default;
+
+@import "plugins/directional";
+@import "plugins/skin";
+
+@import "plugins/fontawesome/fontawesome_optimized";
+@import "plugins/fontawesome/brands";
+@import "plugins/fontawesome/regular";
+@import "plugins/fontawesome/solid";
+@import "plugins/owlcarousel/owl.animate";
+@import "plugins/owlcarousel/owl.autoheight";
+@import "plugins/owlcarousel/owl.carousel";
+@import "plugins/owlcarousel/owl.lazyload";
+@import "plugins/owlcarousel/owl.video";
+@import "plugins/owlcarousel/owl.theme.default";
+@import "plugins/jquery.fancybox/jquery.fancybox";
+@import "plugins/Simple-Line-Icons/Simple-Line-Icons";
+@import "plugins/magnific-popup/main";
+@import "plugins/jquery.selectric/selectric";
+@import "theme/porto-font/porto-font";
+@import "plugins/jquery.scrollbar/jquery.scrollbar";

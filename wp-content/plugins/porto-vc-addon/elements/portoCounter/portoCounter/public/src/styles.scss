@@ -1,0 +1,130 @@
+div.stats-des > div.counter_prefix,
+div.stats-desc > div.counter_suffix {
+    display: inline
+}
+.stats-block {
+    display: block;
+    margin-bottom: 35px
+}
+.stats-block .stats-number {
+    display: inline
+}
+.stats-block .stats-number,
+div.stats-desc > div.counter_prefix,
+div.stats-desc > div.counter_suffix {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1;
+}
+div.stats-desc > div.counter_suffix {
+    display: none;
+}
+.stats-block .stats-text {
+    font-size: 18px;
+    width: 100%;
+    text-align: inherit
+}
+.stats-left .porto-sicon-left {
+    display: table-cell;
+    padding-right: 15px;
+}
+.stats-left .stats-desc {
+    text-align: left;
+    display: table-cell;
+    vertical-align: middle;
+    box-sizing: content-box;
+    width: auto
+}
+.stats-top .porto-sicon-top,
+.stats-top .stats-desc {
+    width: 100%;
+    display: block;
+    text-align: center
+}
+.stats-top .porto-icon,
+.stats-top .img-icon {
+    margin: 0 auto
+}
+.stats-top .porto-sicon-img {
+    margin: 0 auto
+}
+.stats-top .stats-number {
+    padding: 8px 0
+}
+.stats-right.stats-block {
+    display: inline-block;
+    width: 100%
+}
+.stats-right .porto-sicon-right {
+    display: table-cell;
+    padding-left: 15px;
+}
+.stats-right .stats-desc {
+    text-align: right;
+    display: table-cell;
+    vertical-align: middle
+}
+.stats-block.stats-left,
+.stats-block.stats-right {
+    direction: ltr
+}
+.stats-block {
+    .porto-icon.none {
+        margin-bottom: 5px;
+    }
+    .stats-text {
+        font-weight: 100;
+        font-size: 20px;
+        line-height: 1;
+    }
+    &.counter-single-line {
+        text-align: center;
+
+        > div {
+            display: inline-block;
+            vertical-align: baseline;
+            text-align: center;
+        }
+    }
+    &.counter-with-border {
+        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.04);
+        padding: 25px;
+    }
+    &.counter-inline {
+        margin-bottom: 20px;
+        .porto-sicon-top,
+        .stats-desc {
+            text-align: left;
+        }
+        .stats-number,
+        div.stats-desc > div.counter_prefix,
+        div.stats-desc > div.counter_suffix {
+            font-size: 14px;
+        }
+        div.counter_prefix,
+        div.counter_suffix {
+            font-weight: 400;
+        }
+    }
+}
+
+.rtl .stats-block.stats-left,
+.rtl .stats-block.stats-right {
+	direction: rtl
+}
+.rtl .stats-left .stats-desc,
+.rtl .stats-block.counter-inline .porto-sicon-top,
+.rtl .stats-block.counter-inline .stats-desc {
+	text-align: right
+}
+.rtl .stats-right .stats-desc {
+	text-align: left
+}
+.rtl .stats-left .porto-sicon-left  {
+	padding-left: 15px;
+	padding-right: 0
+}
+.rtl .stats-right .porto-sicon-right {
+	padding-left: 0;
+	padding-right: 15px
+}

@@ -10,10 +10,10 @@ class HTTP_WebDAV_Client_parse_lock_response
     {
         $xml_parser = xml_parser_create_ns("UTF-8", " ");
         xml_set_element_handler($xml_parser,
-                                array(&$this, "_startElement"),
-                                array(&$this, "_endElement"));
+                                array($this, "_startElement"),
+                                array($this, "_endElement"));
         xml_set_character_data_handler($xml_parser,
-                                       array(&$this, "_data"));
+                                       array($this, "_data"));
         xml_parser_set_option($xml_parser,
                               XML_OPTION_CASE_FOLDING, false);
 
@@ -23,7 +23,7 @@ class HTTP_WebDAV_Client_parse_lock_response
     }
     
 
-    function _startElement($parser, $name, $attrs) 
+    private function _startElement($parser, $name, $attrs) 
     {
         if (strstr($name, " ")) {
             list($ns, $tag) = explode(" ", $name);
@@ -41,14 +41,14 @@ class HTTP_WebDAV_Client_parse_lock_response
         }
     }
 
-    function _data($parser, $data) 
+    private function _data($parser, $data) 
     {
         if ($this->collect_locktoken) {
             $this->locktoken .= $data;
         }
     }
 
-    function _endElement($parser, $name) 
+    private function _endElement($parser, $name) 
     {
         if (strstr($name, " ")) {
             list($ns, $tag) = explode(" ", $name);

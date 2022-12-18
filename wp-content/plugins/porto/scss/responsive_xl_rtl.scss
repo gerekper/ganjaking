@@ -1,0 +1,10 @@
+// Make sure the charset is set appropriately
+@charset "UTF-8";
+
+// DIRECTIONAL
+// ---------------------------------------------------------------
+$rtl: 1;
+$dir: rtl !default;
+$theme_uri: ".." !default;
+
+@import "theme/_theme-responsive-xl";

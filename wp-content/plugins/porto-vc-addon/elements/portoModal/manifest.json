@@ -1,0 +1,19 @@
+{
+	"elements": {
+		"portoModal": {
+			"settings": {
+				"name": "Porto Dialog Box",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-modal.jpg",
+				"metaDescription": "Add bootstrap modal box in your site."
+			}
+		}
+	},
+	"categories": {
+		"Misc": {
+			"elements": [
+				"portoModal"
+			]
+		}
+	}
+}

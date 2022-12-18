@@ -1,16 +1,7 @@
 <?php
 
 // Porto Widget Woo Recent Reviews
-add_shortcode( 'porto_widget_woo_recent_reviews', 'porto_shortcode_widget_woo_recent_reviews' );
 add_action( 'vc_after_init', 'porto_load_widget_woo_recent_reviews_shortcode' );
-
-function porto_shortcode_widget_woo_recent_reviews( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_woo_template( 'porto_widget_woo_recent_reviews' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_widget_woo_recent_reviews_shortcode() {
 	$animation_type     = porto_vc_animation_type();
@@ -26,7 +17,7 @@ function porto_load_widget_woo_recent_reviews_shortcode() {
 			'icon'        => 'fas fa-cart-arrow-down',
 			'category'    => __( 'WooCommerce Widgets', 'porto-functionality' ),
 			'class'       => 'wpb_vc_wp_widget',
-			'description' => __( 'Display a list of your most recent reviews on your site.', 'woocommerce' ),
+			'description' => __( 'Display a list of your most recent reviews on your site.', 'porto-functionality' ),
 			'params'      => array_merge(
 				array(
 					array(
@@ -60,13 +51,13 @@ function porto_load_widget_woo_recent_reviews_shortcode() {
 					),
 					array(
 						'type'       => 'checkbox',
-						'heading'    => __( 'Show Description', 'woocommerce' ),
+						'heading'    => __( 'Show Description', 'porto-functionality' ),
 						'param_name' => 'show_desc',
 						'value'      => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 					),
 					$custom_class,
 				),
-				porto_vc_product_slider_fields(),
+				porto_vc_product_slider_fields( 'products-slider', 'dots-style-1' ),
 				array(
 					$animation_type,
 					$animation_duration,

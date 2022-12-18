@@ -66,7 +66,7 @@ class Buffer
 
         //check for invalid urls
         $current_url = home_url($_SERVER['REQUEST_URI']);
-        $matches = array('.xml', '.txt', '.php');
+        $matches = apply_filters('perfmatters_buffer_excluded_extensions', array('.xml', '.txt', '.php'));
         foreach($matches as $match) {
             if(stripos($current_url, $match) !== false) {
                 return false;

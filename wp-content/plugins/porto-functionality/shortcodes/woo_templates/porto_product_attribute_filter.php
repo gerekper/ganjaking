@@ -98,12 +98,22 @@ if ( 'list' == $display_type ) {
 	echo '</form>';
 	wc_enqueue_js(
 		"
-			jQuery( '.porto_dropdown_product_attributes' ).on('change', function() {
-				if ( jQuery(this).val() != '' ) {
-					var this_page = jQuery(this).find('option:selected').data('url');
-					location.href = this_page;
+			( function() {
+				var porto_init_product_af = function() {
+					jQuery( '.porto_dropdown_product_attributes' ).on('change', function() {
+						if ( jQuery(this).val() != '' ) {
+							var this_page = jQuery(this).find('option:selected').data('url');
+							location.href = this_page;
+						}
+					});
+				};
+
+				if ( window.theme && theme.isLoaded ) {
+					porto_init_product_af();
+				} else {
+					window.addEventListener( 'load', porto_init_product_af );
 				}
-			});
+			} )();
 		"
 	);
 }

@@ -5,8 +5,8 @@ namespace Yoast\WP\SEO\Premium\Integrations\Front_End;
 use WP_Query;
 use Yoast\WP\SEO\Conditionals\Front_End_Conditional;
 use Yoast\WP\SEO\Helpers\Options_Helper;
-use Yoast\WP\SEO\Helpers\Url_Helper;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
+use Yoast\WP\SEO\Helpers\Redirect_Helper;
 
 /**
  * Class Crawl_Cleanup_Searches.
@@ -31,12 +31,21 @@ class Crawl_Cleanup_Searches implements Integration_Interface {
 	private $options_helper;
 
 	/**
+	 * The redirect helper.
+	 *
+	 * @var Redirect_Helper
+	 */
+	private $redirect_helper;
+
+	/**
 	 * Crawl_Cleanup_Searches integration constructor.
 	 *
-	 * @param Options_Helper $options_helper The option helper.
+	 * @param Options_Helper  $options_helper  The option helper.
+	 * @param Redirect_Helper $redirect_helper The redirect helper.
 	 */
-	public function __construct( Options_Helper $options_helper ) {
-		$this->options_helper = $options_helper;
+	public function __construct( Options_Helper $options_helper, Redirect_Helper $redirect_helper ) {
+		$this->options_helper  = $options_helper;
+		$this->redirect_helper = $redirect_helper;
 	}
 
 	/**
@@ -108,7 +117,7 @@ class Crawl_Cleanup_Searches implements Integration_Interface {
 			$proper_url = \home_url( '/' );
 
 			if ( \intval( \get_query_var( 'paged' ) ) > 1 ) {
-				$proper_url .= sprintf( 'page/%s/', \get_query_var( 'paged' ) );
+				$proper_url .= \sprintf( 'page/%s/', \get_query_var( 'paged' ) );
 				unset( $args['paged'] );
 			}
 
@@ -159,8 +168,7 @@ class Crawl_Cleanup_Searches implements Integration_Interface {
 			$to_url = \get_home_url();
 		}
 
-		\wp_safe_redirect( $to_url, 301, 'Yoast Search Filtering: ' . $reason );
-		exit;
+		$this->redirect_helper->do_safe_redirect( $to_url, 301, 'Yoast Search Filtering: ' . $reason );
 	}
 
 	/**
@@ -169,9 +177,20 @@ class Crawl_Cleanup_Searches implements Integration_Interface {
 	 * @return void
 	 */
 	private function limit_characters() {
-		$s = \get_search_query();
+
+		// Decode the url to make the string length the actual length instead of an inflated length due to encoded characters.
+		// We pass false here because we want it to make sure that we get as raw as data as we can get. Because we are working with lengths and don't want to be thrown of by encoding.
+		$s = \html_entity_decode( \get_search_query( false ), ENT_COMPAT, 'UTF-8' );
+		// Strip these specific characters to make sure that it will never end on a \ " ' because they get escaped with an extra \.
+		if ( \mb_substr( $s, -1 ) === '\\' || \mb_substr( $s, -1 ) === '"' || \mb_substr( $s, -1 ) === "'" ) {
+			$s = \mb_substr( $s, 0, -2 );
+		}
+		// Check the length of the decoded string to see if characters need to be stripped.
 		if ( \mb_strlen( $s, 'UTF-8' ) > $this->options_helper->get( 'search_character_limit' ) ) {
+			// Remove all characters from the string, so you get exactly the limit.
 			$new_s = \mb_substr( $s, 0, $this->options_helper->get( 'search_character_limit' ), 'UTF-8' );
+
+			// Re-encode the url so you could have 3-4 characters more in the final string due to encoding.
 			$this->redirect_away( 'Your search exceeded the number of allowed characters.', \get_bloginfo( 'url' ) . '/?s=' . \rawurlencode( $new_s ) );
 		}
 	}
@@ -186,6 +205,7 @@ class Crawl_Cleanup_Searches implements Integration_Interface {
 	private function has_emoji( $text ) {
 		$emojis_regex = '/([^-\p{L}\x00-\x7F]+)/u';
 		\preg_match( $emojis_regex, $text, $matches );
+
 		return ! empty( $matches );
 	}
 }

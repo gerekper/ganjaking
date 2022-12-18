@@ -291,7 +291,7 @@ function porto_vc_custom_class() {
 	);
 }
 
-function porto_vc_product_slider_fields() {
+function porto_vc_product_slider_fields( $condition_val = 'products-slider', $dots_style_default = '' ) {
 	return array(
 		array(
 			'type'       => 'checkbox',
@@ -300,7 +300,7 @@ function porto_vc_product_slider_fields() {
 			'std'        => 'yes',
 			'dependency' => array(
 				'element' => 'view',
-				'value'   => array( 'products-slider' ),
+				'value'   => array( $condition_val ),
 			),
 			'value'      => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 			'group'      => __( 'Slider Options', 'porto-functionality' ),
@@ -329,6 +329,7 @@ function porto_vc_product_slider_fields() {
 				__( 'Default', 'porto-functionality' ) => '',
 				__( 'Inside', 'porto-functionality' )  => 'nav-pos-inside',
 				__( 'Outside', 'porto-functionality' ) => 'nav-pos-outside',
+				__( 'Custom', 'porto-functionality' )  => 'custom-pos',
 			),
 			'dependency' => array(
 				'element' => 'nav_pos',
@@ -365,7 +366,7 @@ function porto_vc_product_slider_fields() {
 			'std'        => '',
 			'dependency' => array(
 				'element' => 'view',
-				'value'   => array( 'products-slider' ),
+				'value'   => array( $condition_val ),
 			),
 			'value'      => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 			'group'      => __( 'Slider Options', 'porto-functionality' ),
@@ -376,8 +377,12 @@ function porto_vc_product_slider_fields() {
 			'param_name' => 'dots_pos',
 			'std'        => '',
 			'value'      => array(
-				__( 'Bottom', 'porto-functionality' )    => '',
-				__( 'Top right', 'porto-functionality' ) => 'show-dots-title-right',
+				__( 'Bottom', 'porto-functionality' )      => '',
+				__( 'Top Right', 'porto-functionality' )   => 'show-dots-title-right',
+				__( 'Inside Right', 'porto-functionality' ) => 'nav-inside',
+				__( 'Inside Center', 'porto-functionality' ) => 'nav-inside nav-inside-center',
+				__( 'Inside Left', 'porto-functionality' ) => 'nav-inside nav-inside-left',
+				__( 'Custom', 'porto-functionality' )      => 'custom-dots',
 			),
 			'dependency' => array(
 				'element'   => 'pagination',
@@ -389,7 +394,7 @@ function porto_vc_product_slider_fields() {
 			'type'       => 'dropdown',
 			'heading'    => __( 'Dots Style', 'porto-functionality' ),
 			'param_name' => 'dots_style',
-			'std'        => '',
+			'std'        => $dots_style_default,
 			'value'      => array(
 				__( 'Default', 'porto-functionality' ) => '',
 				__( 'Circle inner dot', 'porto-functionality' ) => 'dots-style-1',
@@ -412,7 +417,7 @@ function porto_vc_product_slider_fields() {
 			'std'        => '',
 			'dependency' => array(
 				'element' => 'view',
-				'value'   => array( 'products-slider' ),
+				'value'   => array( $condition_val ),
 			),
 			'group'      => __( 'Slider Options', 'porto-functionality' ),
 		),
@@ -426,6 +431,293 @@ function porto_vc_product_slider_fields() {
 			),
 			'value'      => 5000,
 			'group'      => __( 'Slider Options', 'porto-functionality' ),
+		),
+		array(
+			'type'        => 'porto_number',
+			'heading'     => __( 'Top Position', 'porto-functionality' ),
+			'description' => __( 'You should choose one from the "Top Position" and the "Bottom Position".', 'porto-functionality' ),
+			'param_name'  => 'dots_pos_top',
+			'units'       => array( 'px', 'rem', '%' ),
+			'dependency'  => array(
+				'element' => 'dots_pos',
+				'value'   => 'custom-dots',
+			),
+			'responsive'  => true,
+			'separator'   => 'before',
+			'qa_selector' => '.owl-dots > .owl-dot:first-child',
+			'selectors'   => array(
+				'{{WRAPPER}} .owl-dots' => 'top: {{VALUE}}{{UNIT}} !important;',
+			),
+			'group'       => __( 'Dots Style', 'porto-functionality' ),
+		),
+		array(
+			'type'        => 'porto_number',
+			'heading'     => __( 'Bottom Position', 'porto-functionality' ),
+			'description' => __( 'You should choose one from the "Top Position" and the "Bottom Position".', 'porto-functionality' ),
+			'param_name'  => 'dots_pos_bottom',
+			'units'       => array( 'px', 'rem', '%' ),
+			'dependency'  => array(
+				'element' => 'dots_pos',
+				'value'   => 'custom-dots',
+			),
+			'responsive'  => true,
+			'selectors'   => array(
+				'{{WRAPPER}} .owl-dots' => 'bottom: {{VALUE}}{{UNIT}} !important;',
+			),
+			'group'       => __( 'Dots Style', 'porto-functionality' ),
+		),
+		array(
+			'type'        => 'porto_number',
+			'heading'     => __( 'Left Position', 'porto-functionality' ),
+			'description' => __( 'You should choose one from the "Left Position" and the "Right Position".', 'porto-functionality' ),
+			'param_name'  => 'dots_pos_left',
+			'units'       => array( 'px', 'rem', '%' ),
+			'dependency'  => array(
+				'element' => 'dots_pos',
+				'value'   => 'custom-dots',
+			),
+			'responsive'  => true,
+			'selectors'   => array(
+				'{{WRAPPER}} .owl-dots' => 'left: {{VALUE}}{{UNIT}} !important;',
+			),
+			'group'       => __( 'Dots Style', 'porto-functionality' ),
+		),
+		array(
+			'type'        => 'porto_number',
+			'heading'     => __( 'Right Position', 'porto-functionality' ),
+			'description' => __( 'You should choose one from the "Left Position" and the "Right Position".', 'porto-functionality' ),
+			'param_name'  => 'dots_pos_right',
+			'units'       => array( 'px', 'rem', '%' ),
+			'dependency'  => array(
+				'element' => 'dots_pos',
+				'value'   => 'custom-dots',
+			),
+			'responsive'  => true,
+			'selectors'   => array(
+				'{{WRAPPER}} .owl-dots' => 'right: {{VALUE}}{{UNIT}} !important;',
+			),
+			'group'       => __( 'Dots Style', 'porto-functionality' ),
+		),
+		array(
+			'type'       => 'colorpicker',
+			'param_name' => 'dots_br_color',
+			'heading'    => __( 'Dots Color', 'porto-functionality' ),
+			'separator'  => 'before',
+			'dependency' => array(
+				'element' => 'dots_style',
+				'value'   => 'dots-style-1',
+			),
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-dot span' => 'border-color: {{VALUE}} !important;',
+			),
+			'group'      => __( 'Dots Style', 'porto-functionality' ),
+		),
+		array(
+			'type'       => 'colorpicker',
+			'param_name' => 'dots_abr_color',
+			'heading'    => __( 'Dots Active Color', 'porto-functionality' ),
+			'dependency' => array(
+				'element' => 'dots_style',
+				'value'   => 'dots-style-1',
+			),
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-dot.active span, {{WRAPPER}} .owl-dot:hover span' => 'color: {{VALUE}} !important; border-color: {{VALUE}} !important;',
+			),
+			'group'      => __( 'Dots Style', 'porto-functionality' ),
+		),
+		array(
+			'type'       => 'colorpicker',
+			'param_name' => 'dots_bg_color',
+			'heading'    => __( 'Dots Color', 'porto-functionality' ),
+			'separator'  => 'before',
+			'dependency' => array(
+				'element'            => 'dots_style',
+				'value_not_equal_to' => 'dots-style-1',
+			),
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-dot span' => 'background-color: {{VALUE}} !important;',
+			),
+			'group'      => __( 'Dots Style', 'porto-functionality' ),
+		),
+		array(
+			'type'       => 'colorpicker',
+			'param_name' => 'dots_abg_color',
+			'heading'    => __( 'Dots Active Color', 'porto-functionality' ),
+			'dependency' => array(
+				'element'            => 'dots_style',
+				'value_not_equal_to' => 'dots-style-1',
+			),
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-dot.active span, {{WRAPPER}} .owl-dot:hover span' => 'background-color: {{VALUE}} !important;',
+			),
+			'group'      => __( 'Dots Style', 'porto-functionality' ),
+		),
+		array(
+			'type'       => 'porto_number',
+			'heading'    => __( 'Nav Font Size(px)', 'porto-functionality' ),
+			'param_name' => 'nav_fs',
+			'dependency' => array(
+				'element'   => 'navigation',
+				'not_empty' => true,
+			),
+			'separator'  => 'before',
+			'qa_selector' => '.owl-nav > .owl-prev',
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-nav button' => 'font-size: {{VALUE}}px !important;',
+			),
+			'group'      => __( 'Navigation', 'porto-functionality' ),
+		),
+		array(
+			'type'       => 'porto_number',
+			'heading'    => __( 'Nav Width', 'porto-functionality' ),
+			'param_name' => 'nav_width',
+			'units'      => array( 'px', 'rem', '%' ),
+			'dependency' => array(
+				'element' => 'nav_type',
+				'value'   => array( '', 'rounded-nav', 'big-nav', 'nav-style-3' ),
+			),
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-nav button' => 'width: {{VALUE}}{{UNIT}} !important;',
+			),
+			'group'      => __( 'Navigation', 'porto-functionality' ),
+		),
+		array(
+			'type'       => 'porto_number',
+			'heading'    => __( 'Nav Height', 'porto-functionality' ),
+			'param_name' => 'nav_height',
+			'units'      => array( 'px', 'rem', '%' ),
+			'dependency' => array(
+				'element' => 'nav_type',
+				'value'   => array( '', 'rounded-nav', 'big-nav', 'nav-style-3' ),
+			),
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-nav button' => 'height: {{VALUE}}{{UNIT}} !important;',
+			),
+			'group'      => __( 'Navigation', 'porto-functionality' ),
+		),
+		array(
+			'type'       => 'porto_number',
+			'heading'    => __( 'Border Radius', 'porto-functionality' ),
+			'param_name' => 'nav_br',
+			'units'      => array( 'px', '%' ),
+			'dependency' => array(
+				'element' => 'nav_type',
+				'value'   => array( '', 'rounded-nav', 'big-nav', 'nav-style-3' ),
+			),
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-nav button' => 'border-radius: {{VALUE}}{{UNIT}} !important;',
+			),
+			'group'      => __( 'Navigation', 'porto-functionality' ),
+		),
+		array(
+			'type'       => 'porto_number',
+			'heading'    => __( 'Horizontal Position', 'porto-functionality' ),
+			'param_name' => 'nav_h_pos',
+			'units'      => array( 'px', 'rem', '%' ),
+			'dependency' => array(
+				'element' => 'nav_pos2',
+				'value'   => array( 'custom-pos', 'show-nav-title' ),
+			),
+			'responsive' => true,
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-nav button.owl-prev' => 'left: {{VALUE}}{{UNIT}} !important;',
+				'{{WRAPPER}} .owl-nav button.owl-next' => 'right: {{VALUE}}{{UNIT}} !important;',
+			),
+			'group'      => __( 'Navigation', 'porto-functionality' ),
+		),
+		array(
+			'type'       => 'porto_number',
+			'heading'    => __( 'Vertical Position', 'porto-functionality' ),
+			'param_name' => 'nav_v_pos',
+			'units'      => array( 'px', 'rem', '%' ),
+			'dependency' => array(
+				'element' => 'nav_pos2',
+				'value'   => array( 'custom-pos', 'show-nav-title' ),
+			),
+			'responsive' => true,
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-nav' => 'top: {{VALUE}}{{UNIT}} !important;',
+			),
+			'group'      => __( 'Navigation', 'porto-functionality' ),
+		),
+		array(
+			'type'       => 'colorpicker',
+			'param_name' => 'nav_color',
+			'heading'    => __( 'Nav Color', 'porto-functionality' ),
+			'dependency' => array(
+				'element'   => 'navigation',
+				'not_empty' => true,
+			),
+			'separator'  => 'before',
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-nav button' => 'color: {{VALUE}} !important;',
+			),
+			'group'      => __( 'Navigation', 'porto-functionality' ),
+		),
+		array(
+			'type'       => 'colorpicker',
+			'param_name' => 'nav_h_color',
+			'heading'    => __( 'Hover Nav Color', 'porto-functionality' ),
+			'dependency' => array(
+				'element'   => 'navigation',
+				'not_empty' => true,
+			),
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-nav button:not(.disabled):hover' => 'color: {{VALUE}} !important;',
+			),
+			'group'      => __( 'Navigation', 'porto-functionality' ),
+		),
+		array(
+			'type'       => 'colorpicker',
+			'param_name' => 'nav_bg_color',
+			'heading'    => __( 'Background Color', 'porto-functionality' ),
+			'dependency' => array(
+				'element' => 'nav_type',
+				'value'   => array( '', 'big-nav', 'nav-style-3' ),
+			),
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-nav button' => 'background-color: {{VALUE}} !important;',
+			),
+			'group'      => __( 'Navigation', 'porto-functionality' ),
+		),
+		array(
+			'type'       => 'colorpicker',
+			'param_name' => 'nav_h_bg_color',
+			'heading'    => __( 'Hover Background Color', 'porto-functionality' ),
+			'dependency' => array(
+				'element' => 'nav_type',
+				'value'   => array( '', 'big-nav', 'nav-style-3' ),
+			),
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-nav button:not(.disabled):hover' => 'background-color: {{VALUE}} !important;',
+			),
+			'group'      => __( 'Navigation', 'porto-functionality' ),
+		),
+		array(
+			'type'       => 'colorpicker',
+			'param_name' => 'nav_br_color',
+			'heading'    => __( 'Nav Border Color', 'porto-functionality' ),
+			'dependency' => array(
+				'element' => 'nav_type',
+				'value'   => array( 'rounded-nav' ),
+			),
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-nav button' => 'border-color: {{VALUE}} !important;',
+			),
+			'group'      => __( 'Navigation', 'porto-functionality' ),
+		),
+		array(
+			'type'       => 'colorpicker',
+			'param_name' => 'nav_h_br_color',
+			'heading'    => __( 'Hover Nav Border Color', 'porto-functionality' ),
+			'dependency' => array(
+				'element' => 'nav_type',
+				'value'   => array( 'rounded-nav' ),
+			),
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-nav button:not(.disabled):hover' => 'border-color: {{VALUE}} !important;',
+			),
+			'group'      => __( 'Navigation', 'porto-functionality' ),
 		),
 	);
 }
@@ -546,7 +838,7 @@ function porto_vc_woo_order_by() {
 		esc_html__( 'Price', 'porto-functionality' )      => 'price',
 		esc_html__( 'Popularity', 'porto-functionality' ) => 'popularity',
 	);
-	if ( wc_review_ratings_enabled() ) {
+	if ( class_exists( 'Woocommerce' ) && wc_review_ratings_enabled() ) {
 		$result[ esc_html__( 'Rating', 'porto-functionality' ) ] = 'rating';
 	}
 	return $result;
@@ -559,7 +851,7 @@ function porto_woo_sort_by() {
 		__( 'Date', 'porto-functionality' )    => 'date',
 		__( 'On Sale', 'porto-functionality' ) => 'onsale',
 	);
-	if ( wc_review_ratings_enabled() ) {
+	if ( class_exists( 'Woocommerce' ) && wc_review_ratings_enabled() ) {
 		$result[ __( 'Rating', 'porto-functionality' ) ] = 'rating';
 	}
 	return $result;
@@ -1739,6 +2031,9 @@ if ( ! function_exists( 'vc_iconpicker_type_porto' ) ) {
 			array( 'porto-icon-tablet' => 'Tablet' ),
 			array( 'porto-icon-callin' => 'Phone, Call in' ),
 			array( 'porto-icon-atmark' => 'Email, Address, At' ),
+			array( 'porto-icon-paypal' => 'Paypal, Payment' ),
+			array( 'porto-icon-verisign' => 'Verisign, Payment' ),
+			array( 'porto-icon-visa' => 'Visa, Payment' ),
 		);
 
 		return array_merge( $icons, $porto_icons );
@@ -4583,7 +4878,7 @@ if ( function_exists( 'vc_add_shortcode_param' ) ) {
  *          esc_html__( 'Price', 'porto-functionality' )    => 'price',
  *          esc_html__( 'Rating', 'porto-functionality' )   => 'rating',
  *          esc_html__( 'Attribute', 'porto-functionality' ) => 'attribute',
- *          esc_html__( 'Add To Cart', 'porto-functionality' ) => 'addtocart',
+ *          esc_html__( 'Add to cart', 'porto-functionality' ) => 'addtocart',
  *          esc_html__( 'Compare', 'porto-functionality' )  => 'compare',
  *          esc_html__( 'Quickview', 'porto-functionality' ) => 'quickview',
  *          esc_html__( 'Wishlist', 'porto-functionality' ) => 'wishlist',
@@ -4682,6 +4977,10 @@ function porto_number_callback( $settings, $value ) {
 	if ( $is_responsive ) {
 		$class .= ' porto-responsive-control';
 	}
+
+	$responsive_value = array(
+		'xl' => '',
+	);
 	if ( ! empty( $value ) ) {
 		$responsive_value = json_decode( $value, true );
 	} else {
@@ -4743,7 +5042,7 @@ function porto_number_callback( $settings, $value ) {
 			?>
 			<input type="<?php echo esc_attr( $with_unit ? 'text' : 'number' ); ?>"
 			class="porto-wpb-number simple-value"
-			value="<?php echo esc_html( $value ); ?>"
+			value="<?php echo esc_attr( $value ); ?>"
 			/>
 			<?php
 		}
@@ -4825,12 +5124,12 @@ function porto_dimension_callback( $settings, $value ) {
 		<div class="<?php echo esc_attr( $dimension_class ); ?>">
 		<input type="text"
 			class="porto-wpb-dimension"
-			value="<?php echo esc_attr( $responsive_value[ $dimension ]['xl'] ); ?>"
-			data-xl="<?php echo ( isset( $responsive_value[ $dimension ]['xl'] ) ? esc_attr( $responsive_value[ $dimension ]['xl'] ) : '' ); ?>"
-			data-lg="<?php echo ( isset( $responsive_value[ $dimension ]['lg'] ) ? esc_attr( $responsive_value[ $dimension ]['lg'] ) : '' ); ?>"
-			data-md="<?php echo ( isset( $responsive_value[ $dimension ]['md'] ) ? esc_attr( $responsive_value[ $dimension ]['md'] ) : '' ); ?>"
-			data-sm="<?php echo ( isset( $responsive_value[ $dimension ]['sm'] ) ? esc_attr( $responsive_value[ $dimension ]['sm'] ) : '' ); ?>"
-			data-xs="<?php echo ( isset( $responsive_value[ $dimension ]['xs'] ) ? esc_attr( $responsive_value[ $dimension ]['xs'] ) : '' ); ?>"
+			value="<?php echo ! empty( $responsive_value ) ? esc_attr( $responsive_value[ $dimension ]['xl'] ) : ''; ?>"
+			data-xl="<?php echo ( ! empty( $responsive_value ) && isset( $responsive_value[ $dimension ]['xl'] ) ? esc_attr( $responsive_value[ $dimension ]['xl'] ) : '' ); ?>"
+			data-lg="<?php echo ( ! empty( $responsive_value ) && isset( $responsive_value[ $dimension ]['lg'] ) ? esc_attr( $responsive_value[ $dimension ]['lg'] ) : '' ); ?>"
+			data-md="<?php echo ( ! empty( $responsive_value ) && isset( $responsive_value[ $dimension ]['md'] ) ? esc_attr( $responsive_value[ $dimension ]['md'] ) : '' ); ?>"
+			data-sm="<?php echo ( ! empty( $responsive_value ) && isset( $responsive_value[ $dimension ]['sm'] ) ? esc_attr( $responsive_value[ $dimension ]['sm'] ) : '' ); ?>"
+			data-xs="<?php echo ( ! empty( $responsive_value ) && isset( $responsive_value[ $dimension ]['xs'] ) ? esc_attr( $responsive_value[ $dimension ]['xs'] ) : '' ); ?>"
 			/>
 		<label><?php echo esc_html( $label ); ?></label>
 		</div>
@@ -4925,26 +5224,27 @@ function porto_button_group_callback( $settings, $value ) {
 	if ( empty( $values ) ) {
 		return;
 	}
-
+	
 	if ( is_array( $value ) ) { // if std value does not exist
 		$value = array_keys( $values )[0];
 	}
 
-	if ( '/' == $value ) {
+	if ( '/' == $value || '{' == $value ) {
 		$value = '';
 	}
-
+	
 	if ( $is_responsive ) {
 		$class .= ' porto-responsive-control';
 		$attr  .= "data-width='xl'";
 
+		
 		if ( null == json_decode( $value, true ) ) {
 			$value = array( 'xl' => $value );
 		} else {
 			$value = json_decode( $value, true );
 		}
 	}
-
+	
 	$keys = array_keys( $values[ array_keys( $values )[0] ] );
 	if ( in_array( 'image', $keys ) ) {
 		$class .= ' image-button';
@@ -5005,7 +5305,8 @@ function porto_button_group_callback( $settings, $value ) {
 	}
 
 	$output .= '</div>';
-	$output .= '<input type="hidden" name="' . esc_attr( $param_name ) . '" class="wpb_vc_param_value ' . esc_attr( $settings['param_name'] ) . ' ' . esc_attr( $type ) . '_field" value="' . ( is_array( $value ) ? json_encode( $value ) : $value ) . '" />';
+
+	$output .= '<input type="hidden" name="' . esc_attr( $param_name ) . '" class="wpb_vc_param_value ' . esc_attr( $settings['param_name'] ) . ' ' . esc_attr( $type ) . '_field" value=' . ( is_array( $value ) ? json_encode( $value ) : $value ) . ' />';
 	return $output;
 }
 
@@ -5016,7 +5317,7 @@ function porto_button_group_callback( $settings, $value ) {
  *      'type'       => 'porto_typography',
  *      'heading'    => __( 'Button Typography', 'porto-functionality' ),
  *      'param_name' => 'btn_font',
- *      'group'      => 'Style',
+ *      'group'      => __( 'Style', 'porto-functionality' ),
  *      'selectors'  => array(
  *          '{{WRAPPER}}.btn'
  *      )
@@ -5091,6 +5392,7 @@ function porto_typography_callback( $settings, $value ) {
 	}
 
 	$text_transform = array(
+		''           => esc_html__( 'Default', 'porto-functionality' ),
 		'none'       => esc_html__( 'None', 'porto-functionality' ),
 		'lowercase'  => esc_html__( 'Lowercase', 'porto-functionality' ),
 		'uppercase'  => esc_html__( 'Uppercase', 'porto-functionality' ),
@@ -5098,7 +5400,17 @@ function porto_typography_callback( $settings, $value ) {
 		'inherit'    => esc_html__( 'Inherit', 'porto-functionality' ),
 	);
 	if ( function_exists( 'porto_include_google_font' ) ) {
-		$fonts         = array_merge( porto_include_google_font(), array( 'Inherit', 'Default' ) );
+		$fonts        = array_merge( porto_include_google_font(), array( 'Inherit', 'Default' ) );
+		$custom_fonts = get_option( 'porto_custom_fonts', array() );
+		if ( ! empty( $custom_fonts ) ) {
+			foreach ( $custom_fonts as $c_fonts ) {
+				if ( ! empty( $c_fonts ) ) {
+					foreach ( $c_fonts as $c_font_name => $font_fields ) {
+						$fonts[] = str_replace( '+', ' ', $c_font_name );
+					}
+				}
+			}
+		}
 		$font_variants = array(
 			'100',
 			'100italic',
@@ -5127,7 +5439,7 @@ function porto_typography_callback( $settings, $value ) {
 	?>
 
 	<div class="porto-wpb-typography-toggle">
-		<p><?php echo esc_html__( ! empty( $typography ) ? 'Family: ' . $typography['family'] . ' | Variant: ' . $typography['variant'] . ' | Size: ' . $typography['font_size'] : 'Default' ); ?></p>
+		<p><?php echo esc_html__( ! empty( $typography ) ? 'Family: ' . $typography['family'] . ' | Variant: ' . $typography['variant'] . ' | Size: ' . ( isset( $typography['font_size'] ) ? $typography['font_size'] : '' ) : 'Default' ); ?></p>
 	</div>
 	<div class="porto-wpb-typography-controls" style="display: none;">
 		<div class="porto-wpb-typoraphy-form">
@@ -5138,6 +5450,7 @@ function porto_typography_callback( $settings, $value ) {
 					if ( ! empty( $fonts ) ) {
 						foreach ( $fonts as $font_data ) :
 							$is_active = false;
+							$font_data = str_replace( '%2C', ',', $font_data );
 							if ( $font_data == $typography['family'] ) {
 								$is_active = true;
 							}
@@ -5150,7 +5463,7 @@ function porto_typography_callback( $settings, $value ) {
 					?>
 				</select>
 			</div>
-			<p style="padding: 0 .5em;">If you want to use other Google font, please add it in Theme Options -> Skin -> Typography -> Custom Font.</p>
+			<p style="padding: 0 .5em;">If you want to use other font, please add it in Theme Options -> Skin -> Typography -> Custom Font.</p>
 		</div>
 		<div class="porto-wpb-typoraphy-form">
 			<div class="wpb_element_label"><?php esc_html_e( 'Font Variants', 'porto-functionality' ); ?></div>
@@ -5169,22 +5482,22 @@ function porto_typography_callback( $settings, $value ) {
 				</select>
 			</div>
 		</div>
-		<div class="porto-wpb-typoraphy-form cols-2">
+		<div class="porto-wpb-typoraphy-form<?php echo isset( $settings['line_height'] ) && ! $settings['line_height'] ? '' : ' cols-2'; ?>">
 			<div class="wpb_element_label"><?php esc_html_e( 'Font Size', 'porto-functionality' ); ?></div>
 			<div class="porto-vc-font-size-container">
-				<input type="string" name="font-size" class="porto-vc-font-size" value="<?php echo esc_attr( $typography['font_size'] ); ?>" />
+				<input type="string" name="font-size" class="porto-vc-font-size" value="<?php echo isset( $typography['font_size'] ) ? esc_attr( $typography['font_size'] ) : ''; ?>" />
 			</div>
 		</div>
-		<div class="porto-wpb-typoraphy-form cols-2">
+		<div class="porto-wpb-typoraphy-form cols-2<?php echo isset( $settings['line_height'] ) && ! $settings['line_height'] ? ' d-none' : ''; ?>">
 			<div class="wpb_element_label"><?php esc_html_e( 'Line Height', 'porto-functionality' ); ?></div>
 			<div class="porto-vc-line-height-container">
-				<input type="string" name="line-height" class="porto-vc-line-height" value="<?php echo esc_attr( $typography['line_height'] ); ?>"  />
+				<input type="string" name="line-height" class="porto-vc-line-height" value="<?php echo isset( $typography['line_height'] ) ? esc_attr( $typography['line_height'] ) : ''; ?>"  />
 			</div>
 		</div>
 		<div class="porto-wpb-typoraphy-form cols-2">
 			<div class="wpb_element_label"><?php esc_html_e( 'Letter Spacing', 'porto-functionality' ); ?></div>
 			<div class="porto-vc-letter-spacing-container">
-				<input type="string" name="letter-spacing" class="porto-vc-letter-spacing" value="<?php echo esc_attr( $typography['letter_spacing'] ); ?>"  />
+				<input type="string" name="letter-spacing" class="porto-vc-letter-spacing" value="<?php echo isset( $typography['letter_spacing'] ) ? esc_attr( $typography['letter_spacing'] ) : ''; ?>"  />
 			</div>
 		</div>
 		<div class="porto-wpb-typoraphy-form cols-2">
@@ -5194,7 +5507,7 @@ function porto_typography_callback( $settings, $value ) {
 					<?php
 					foreach ( $text_transform as $key => $label ) {
 						?>
-						<option value="<?php echo esc_attr( $key ); ?>" <?php echo esc_attr( $key == $typography['text_transform'] ? 'selected' : '' ); ?>><?php echo esc_html( $label ); ?></option>
+						<option value="<?php echo esc_attr( $key ); ?>" <?php echo isset( $typography['text_transform'] ) && $key == $typography['text_transform'] ? 'selected' : ''; ?>><?php echo esc_html( $label ); ?></option>
 						<?php
 					}
 					?>
@@ -5216,7 +5529,7 @@ function porto_param_heading_callback( $settings, $value ) {
 	$param_name = isset( $settings['param_name'] ) ? $settings['param_name'] : '';
 	$class      = isset( $settings['class'] ) ? ' ' . $settings['class'] : '';
 	$text       = isset( $settings['text'] ) ? $settings['text'] : '';
-	$output     = '<h4 ' . $dependency . ' class="porto-admin-shortcodes-heading' . esc_attr( $class ) . '">' . esc_html( $text ) . '</h4>';
+	$output     = '<h4 ' . $dependency . ' class="porto-admin-shortcodes-heading' . esc_attr( $class ) . '">' . porto_strip_script_tags( $text ) . '</h4>';
 	$output    .= '<input type="hidden" name="' . esc_attr( $settings['param_name'] ) . '" class="wpb_vc_param_value porto-param-heading ' . esc_attr( $settings['param_name'] ) . ' ' . esc_attr( $settings['type'] ) . '_field" value="' . esc_attr( $value ) . '" ' . $dependency . '/>';
 	return $output;
 }
@@ -5248,6 +5561,7 @@ function porto_boxshadow_callback( $settings, $value ) {
 	$html             .= '<div class="porto-bs-select-block">';
 		$html         .= '<div class="porto-bs-select-wrap">';
 			$html     .= '<select class="porto-bs-select" >';
+				$html .= '<option value="">' . esc_html__( 'Default', 'porto-functionality' ) . '</option>';
 				$html .= '<option value="none">' . esc_html__( 'None', 'porto-functionality' ) . '</option>';
 				$html .= '<option value="inherit"' . ( isset( $settings['default_style'] ) && 'inherit' == $settings['default_style'] ? ' selected="selected"' : '' ) . '>' . esc_html__( 'Inherit', 'porto-functionality' ) . '</option>';
 				$html .= '<option value="inset"' . ( isset( $settings['default_style'] ) && 'inset' == $settings['default_style'] ? ' selected="selected"' : '' ) . '>' . esc_html__( 'Inset', 'porto-functionality' ) . '</option>';
@@ -5340,7 +5654,7 @@ function porto_get_box_shadow( $content = null, $data = '' ) {
 				if ( ! empty( $value ) ) {
 					$string = explode( ':', $value );
 					if ( is_array( $string ) ) {
-						if ( ! empty( $string[1] ) && 'outset' != $string[1] ) {
+						if ( ! empty( $string[1] ) /*&& 'outset' != $string[1] */ ) {
 							$mainarr[ $string[0] ] = $string[1];
 						}
 					}
@@ -5350,7 +5664,7 @@ function porto_get_box_shadow( $content = null, $data = '' ) {
 
 		$strkeys = '';
 		if ( ! empty( $mainarr ) ) {
-			if ( isset( $mainarr['color'] ) && $mainarr['color'] ) {
+			if ( isset( $mainarr['color'] ) && $mainarr['color'] && ! empty( $mainarr['style'] ) ) {
 				$strkeys .= isset( $mainarr['horizontal'] ) && 'px' != $mainarr['horizontal'] ? $mainarr['horizontal'] : '0';
 				$strkeys .= ' ';
 				$strkeys .= isset( $mainarr['vertical'] ) && 'px' != $mainarr['vertical'] ? $mainarr['vertical'] : '0';
@@ -5360,7 +5674,9 @@ function porto_get_box_shadow( $content = null, $data = '' ) {
 				$strkeys .= isset( $mainarr['spread'] ) && 'px' != $mainarr['spread'] ? $mainarr['spread'] : '0';
 				$strkeys .= ' ';
 				$strkeys .= $mainarr['color'];
-				$strkeys .= isset( $mainarr['style'] ) && $mainarr['style'] ? ' ' . $mainarr['style'] : '';
+				$strkeys .= isset( $mainarr['style'] ) && $mainarr['style'] && 'outset' != $mainarr['style'] ? ' ' . $mainarr['style'] : '';
+			} elseif ( isset( $mainarr['style'] ) && in_array( $mainarr['style'], array( 'inherit', 'none' ) ) ) {
+				$strkeys .= $mainarr['style'];
 			}
 		}
 
@@ -5374,10 +5690,12 @@ function porto_get_box_shadow( $content = null, $data = '' ) {
 					break;
 				case 'css':
 				default:
-					$result = 'box-shadow:' . $strkeys . ';';
+					if ( $strkeys ) {
+						$result = 'box-shadow:' . $strkeys . ';';
+					}
 					break;
 			}
-		} else {
+		} elseif ( $strkeys ) {
 			$result = 'box-shadow:' . $strkeys . ';';
 		}
 	}
@@ -5389,7 +5707,12 @@ function porto_image_select_callback( $settings, $value ) {
 	$html  = '';
 	$html .= '<ul class="porto-sc-image-select">';
 	foreach ( $settings['value'] as $img => $key ) {
-		$html .= '<li data-id="' . esc_attr( $key ) . '"' . ( $key === $value ? ' class="active"' : '' ) . '><img src="' . esc_url( PORTO_SHORTCODES_URL . 'assets/images/' . $img ) . '" alt="" /></li>';
+		$html .= '<li data-id="' . esc_attr( $key ) . '"' . ( $key === $value ? ' class="active"' : '' ) . '>';
+		$html .= '<img src="' . esc_url( PORTO_SHORTCODES_URL . 'assets/images/' . $img ) . '" alt="" />';
+		if ( ! empty( $settings['display_label'] ) ) {
+			$html .= '<span class="porto-image-select-label">' . esc_html( str_replace( '-', ' ', $key ) ) . '</span>';
+		}
+		$html .= '</li>';
 	}
 	$html .= '</ul>';
 	$html .= '<input type="hidden" name="' . esc_attr( $settings['param_name'] ) . '" class="wpb_vc_param_value ' . esc_attr( $settings['param_name'] ) . ' ' . esc_attr( $settings['type'] ) . '_field" value="' . esc_attr( $value ) . '" ' . ' />';
@@ -6201,7 +6524,7 @@ if ( ! function_exists( 'porto_creative_grid_style' ) ) :
 			$max_width = floor( $width_number * 1000000 ) / 10000;
 			echo esc_html( $selector ) . ' .grid-col-' . esc_html( $width ) . '{ flex: 0 0 auto; width: ' . $max_width . '%; }';
 		}
-		echo esc_html( $selector ) . ' .grid-col-sizer { flex: 0 0 ' . ( floor( 1000000 / $max_col ) / 10000 ) . '%; width: ' . ( floor( 1000000 / $max_col ) / 10000 ) . '% }';
+		echo esc_html( $selector ) . ' .grid-col-sizer { flex: 0 0 auto; width: ' . ( floor( 1000000 / $max_col ) / 10000 ) . '% }';
 		foreach ( $heights as $height ) {
 			$height_arr = explode( '-', $height );
 			if ( count( $height_arr ) > 1 ) {
@@ -6295,7 +6618,8 @@ if ( ! function_exists( 'porto_update_vc_options_to_elementor' ) ) :
 			return false;
 		}
 
-		$arr_key = '';
+		$arr_key          = '';
+		$replace_selector = false;
 		foreach ( $arr as $key => $option ) {
 			if ( is_array( $option ) && is_numeric( $key ) ) {
 				$result = porto_update_vc_options_to_elementor( $option );
@@ -6315,6 +6639,11 @@ if ( ! function_exists( 'porto_update_vc_options_to_elementor' ) ) :
 					}
 				} elseif ( 'checkbox' == $option ) {
 					$arr['type'] = \Elementor\Controls_Manager::SWITCHER;
+				} elseif ( 'porto_number' == $option ) {
+					$arr['type']      = \Elementor\Controls_Manager::SLIDER;
+					$replace_selector = true;
+				} elseif ( 'colorpicker' == $option ) {
+					$arr['type'] = \Elementor\Controls_Manager::COLOR;
 				}
 			} elseif ( 'param_name' == $key ) {
 				unset( $arr[ $key ] );
@@ -6336,7 +6665,33 @@ if ( ! function_exists( 'porto_update_vc_options_to_elementor' ) ) :
 					$arr['condition'] = array( $option['element'] => $option['value'] );
 				} elseif ( isset( $option['element'] ) && isset( $option['not_empty'] ) ) {
 					$arr['condition'] = array( $option['element'] . '!' => '' );
+				} elseif ( isset( $option['element'] ) && isset( $option['value_not_equal_to'] ) ) {
+					$arr['condition'] = array( $option['element'] . '!' => $option['value_not_equal_to'] );
 				}
+
+				if ( isset( $arr_key ) && in_array( $arr_key, array( 'dots_pos_top', 'dots_pos_bottom', 'dots_pos_left', 'dots_pos_right', 'dots_br_color', 'dots_abr_color', 'dots_bg_color', 'dots_abg_color' ) ) ) {
+					$arr['condition'] = array_merge(
+						$arr['condition'],
+						array(
+							'pagination' => 'yes',
+						)
+					);
+				} else if ( isset( $arr_key ) && in_array( $arr_key, array( 'nav_fs', 'nav_width', 'nav_height', 'nav_br', 'nav_h_pos', 'nav_v_pos', 'nav_color', 'nav_h_color', 'nav_bg_color', 'nav_h_bg_color', 'nav_br_color', 'nav_h_br_color' ) ) ) {
+					$arr['condition'] = array_merge(
+						$arr['condition'],
+						array(
+							'navigation' => 'yes',
+						)
+					);
+				}
+			} elseif ( 'units' == $key ) {
+				unset( $arr[ $key ] );
+				$arr['size_units'] = $option;
+			} elseif ( 'selectors' == $key && $replace_selector ) {
+				foreach ( $option as $key => $value ) {
+					$option[ $key ] = str_replace( '{{VALUE}}', '{{SIZE}}', $value );
+				}
+				$arr['selectors'] = $option;
 			}
 		}
 		unset( $arr['group'] );
@@ -6537,3 +6892,93 @@ if ( ! function_exists( 'porto_get_mpx_options' ) ) :
 		return $mpx_opts;
 	}
 endif;
+
+if ( ! function_exists( 'porto_generate_rand' ) ) :
+	function porto_generate_rand( $length = 31 ) {
+
+		$valid_characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+		$rand             = '';
+		for ( $n = 0; $n < $length; $n++ ) {
+
+			$which_character = rand( 0, strlen( $valid_characters ) - 1 );
+			$rand           .= substr( $valid_characters, $which_character, 1 );
+		}
+
+		return $rand;
+	}
+endif;
+
+/**
+ * Echo or Return inline css.
+ * This function only uses for composed by style tag.
+ *
+ * @since 2.3.0
+ */
+if ( ! function_exists( 'porto_filter_inline_css' ) ) :
+	function porto_filter_inline_css( $inline_css, $is_echo = true ) {
+		if ( ! class_exists( 'Porto_Performance' ) ) {
+			return;
+		}
+		if ( empty( Porto_Performance::$defer_style ) ) { // not defer loading, only return and echo
+			if ( $is_echo ) {
+				echo porto_filter_output( $inline_css );
+			} else {
+				return $inline_css;
+			}
+		} else {
+			if ( 'no' == Porto_Performance::has_merged_css() ) {
+				global $porto_body_merged_css;
+				if ( isset( $porto_body_merged_css ) ) {
+					$inline_css             = str_replace( PHP_EOL, '', $inline_css );
+					$inline_css             = preg_replace( '/<style.*?>/s', '', $inline_css ) ? : $inline_css;
+					$inline_css             = preg_replace( '/<\/style.*?>/s', '', $inline_css ) ? : $inline_css;
+					$porto_body_merged_css .= $inline_css;
+				}
+			}
+			return '';
+		}
+	}
+endif;
+
+/**
+ * Get installed time.
+ *
+ * @since 2.5.0
+ */
+if ( ! function_exists( 'porto_installed_time' ) ) :
+	function porto_installed_time() {
+		$installed_time = get_option( 'porto_installed_time' );
+
+		if ( ! $installed_time ) {
+			$installed_time = time();
+
+			update_option( 'porto_installed_time', $installed_time );
+		}
+
+		return $installed_time;
+	}
+endif;
+
+function porto_shortcode_product_id_callback( $query ) {
+	if ( class_exists( 'Vc_Vendor_Woocommerce' ) ) {
+		$vc_vendor_wc = new Vc_Vendor_Woocommerce();
+		return $vc_vendor_wc->productIdAutocompleteSuggester( $query );
+	}
+	return '';
+}
+
+function porto_shortcode_product_id_render( $query ) {
+	if ( class_exists( 'Vc_Vendor_Woocommerce' ) ) {
+		$vc_vendor_wc = new Vc_Vendor_Woocommerce();
+		return $vc_vendor_wc->productIdAutocompleteRender( $query );
+	}
+	return '';
+}
+
+function porto_shortcode_product_id_param_value( $current_value, $param_settings, $map_settings, $atts ) {
+	if ( class_exists( 'Vc_Vendor_Woocommerce' ) ) {
+		$vc_vendor_wc = new Vc_Vendor_Woocommerce();
+		return $vc_vendor_wc->productIdDefaultValue( $current_value, $param_settings, $map_settings, $atts );
+	}
+	return '';
+}

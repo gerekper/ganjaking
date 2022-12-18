@@ -1,0 +1,35 @@
+.porto-heading.border-middle-left,
+.porto-heading.border-middle-center,
+.porto-heading.border-middle-right {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.porto-heading .border-bottom {
+  border-bottom-style: solid;
+}
+.porto-heading.has-border:before {
+  margin-right: 1em;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+.porto-heading.has-border:after {
+  margin-left: 1em;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+.porto-heading.border-middle-left:after {
+  content: '';
+}
+.porto-heading.border-middle-right:before {
+  content: '';
+}
+.porto-heading.border-middle-center:before,
+.porto-heading.border-middle-center:after {
+  content: '';
+}

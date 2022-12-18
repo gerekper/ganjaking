@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Porto Elementor widget to give effects to all widgets.
  *
- * @since 6.2.0
+ * @since 2.2.0
  */
 
 use Elementor\Controls_Manager;

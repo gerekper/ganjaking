@@ -1716,8 +1716,8 @@ body.admin-color-midnight .button.button-remove:focus {
 }
 
 .updraft-more-plugins img {
-	max-width: 200px;
-	width: 100%;
+	max-width: 80%;
+	max-height: 30%;
 	display: inline-block;
 }
 

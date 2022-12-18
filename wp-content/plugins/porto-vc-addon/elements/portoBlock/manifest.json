@@ -1,0 +1,22 @@
+{
+  "elements": {
+    "portoBlock": {
+      "settings": {
+        "name": "Porto Block",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-block.jpg",
+        "metaDescription": "Porto VC element to display Porto block content"
+      },
+      "phpFiles": [
+        "PortoBlocksController.php"
+      ]
+    }
+  },
+  "categories": {
+    "Section": {
+      "elements": [
+        "portoBlock"
+      ]
+    }
+  }
+}

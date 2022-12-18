@@ -11,7 +11,7 @@ extract(
 			'icon_porto'         => '',
 			'icon_image'         => '',
 			'icon_size'          => '14',
-			'box_style'          => '',
+			'box_style'          => 'feature-box-style-1',
 			'box_dir'            => '',
 			'animation_type'     => '',
 			'animation_duration' => 1000,
@@ -40,7 +40,7 @@ switch ( $icon_type ) {
 if ( ! $show_icon ) {
 	$icon_class = '';
 }
-if ( '' == $box_style || 'feature-box-style-3' == $box_style || 'feature-box-style-6' == $box_style ) {
+if ( '' == $box_style || 'feature-box-style-1' == $box_style || 'feature-box-style-3' == $box_style || 'feature-box-style-6' == $box_style ) {
 	if ( 'icon-image' != $icon_class && $icon_size > 20 ) {
 		$num               = (float) $icon_size * 1.7;
 		$icon_circle_style = ' style="width:' . $num . 'px;height:' . $num . 'px;line-height:' . ( $num - 2 ) . 'px;"';

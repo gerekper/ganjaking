@@ -66,10 +66,10 @@ class Frontend_Inspector implements Integration_Interface {
 			$menu_args = [
 				'parent' => $menu_identifier,
 				'id'     => self::FRONTEND_INSPECTOR_SUBMENU_IDENTIFIER,
-				'title'  => sprintf(
+				'title'  => \sprintf(
 					'%1$s <span class="yoast-badge yoast-beta-badge">%2$s</span>',
-					__( 'Front-end SEO inspector', 'wordpress-seo-premium' ),
-					__( 'Beta', 'wordpress-seo-premium' )
+					\__( 'Front-end SEO inspector', 'wordpress-seo-premium' ),
+					\__( 'Beta', 'wordpress-seo-premium' )
 				),
 				'href'   => '#wpseo-frontend-inspector',
 				'meta'   => [

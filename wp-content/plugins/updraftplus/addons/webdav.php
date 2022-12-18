@@ -21,7 +21,7 @@ if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
 
 // In PHP 5.2, the instantiation of the class has to be after it is defined, if the class is extending a class from another file. Hence, that has been moved to the end of this file.
 
-if (!class_exists('UpdraftPlus_RemoteStorage_Addons_Base_v2')) require_once(UPDRAFTPLUS_DIR.'/methods/addon-base-v2.php');
+if (!class_exists('UpdraftPlus_RemoteStorage_Addons_Base_v2')) updraft_try_include_file('methods/addon-base-v2.php', 'require_once');
 if (!defined('STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT')) define('STREAM_CRYPTO_METHOD_TLSv1_2_CLIENT', 33); // phpcs:ignore Generic.NamingConventions.UpperCaseConstantName.ConstantNotUpperCase
 
 class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_Addons_Base_v2 {
@@ -29,7 +29,6 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * The size of chunk upload
 	 *
-	 * @access private
 	 * @var    integer
 	 */
 	private $upload_chunk_size = 2097152;
@@ -37,7 +36,6 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * The size of chunk download
 	 *
-	 * @access private
 	 * @var    integer
 	 */
 	private $download_chunk_size = 5242880;
@@ -45,23 +43,20 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * User-Agent: header string
 	 *
-	 * @access private
 	 * @var    string
 	 */
-	private $userAgent;
+	private $user_agent;
 
 	/**
 	 * Content-type: header string
 	 *
-	 * @access private
 	 * @var    string
 	 */
-	private $contentType = "application/octet-stream";
+	private $content_type = "application/octet-stream";
 
 	/**
 	 * The http or https resource URL
 	 *
-	 * @access private
 	 * @var    string  url
 	 */
 	private $url = false;
@@ -69,7 +64,6 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * The resource URL path
 	 *
-	 * @access private
 	 * @var    string  path
 	 */
 	private $path = false;
@@ -77,7 +71,6 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * File position indicator
 	 *
-	 * @access private
 	 * @var    int     offset in bytes
 	 */
 	private $position = 0;
@@ -85,7 +78,6 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * File status information cache
 	 *
-	 * @access private
 	 * @var    array   stat information
 	 */
 	private $stat = array();
@@ -93,7 +85,6 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * User name for authentication
 	 *
-	 * @access private
 	 * @var    string  name
 	 */
 	private $user = false;
@@ -101,7 +92,6 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * Password for authentication
 	 *
-	 * @access private
 	 * @var    string  password
 	 */
 	private $pass = false;
@@ -109,7 +99,6 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * WebDAV protocol levels supported by the server
 	 *
-	 * @access private
 	 * @var    array   level entries
 	 */
 	private $dav_level = array();
@@ -117,7 +106,6 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * HTTP methods supported by the server
 	 *
-	 * @access private
 	 * @var    array   method entries
 	 */
 	private $dav_allow = array();
@@ -125,7 +113,6 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * Directory content cache
 	 *
-	 * @access private
 	 * @var    array   filename entries
 	 */
 	private $dirfiles = false;
@@ -133,7 +120,6 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * Current readdir() position
 	 *
-	 * @access private
 	 * @var    int
 	 */
 	private $dirpos = 0;
@@ -141,7 +127,6 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * Remember if end of file was reached
 	 *
-	 * @access private
 	 * @var    bool
 	 */
 	private $eof = false;
@@ -149,7 +134,6 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * Lock token
 	 *
-	 * @access private
 	 * @var    string
 	 */
 	private $locktoken = false;
@@ -171,7 +155,7 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 		$this->is_supress_initial_remote_404_log = true;
 		$this->method = 'webdav';
 		$this->desc = 'WebDAV';
-		$this->userAgent = 'UpdraftPlus/'.$updraftplus->version;
+		$this->user_agent = 'UpdraftPlus/'.$updraftplus->version;
 	}
 
 	/**
@@ -179,9 +163,9 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	 */
 	public function load_libraries() {
 		set_include_path(UPDRAFTPLUS_DIR.'/includes/PEAR'.PATH_SEPARATOR.get_include_path());
-		require_once UPDRAFTPLUS_DIR.'/includes/PEAR/HTTP/Request2.php';
-		require_once UPDRAFTPLUS_DIR.'/includes/PEAR/HTTP/WebDAV/Tools/_parse_propfind_response.php';
-		require_once UPDRAFTPLUS_DIR.'/includes/PEAR/HTTP/WebDAV/Tools/_parse_lock_response.php';
+		updraft_try_include_file('includes/PEAR/HTTP/Request2.php', 'require_once');
+		updraft_try_include_file('includes/PEAR/HTTP/WebDAV/Tools/_parse_propfind_response.php', 'require_once');
+		updraft_try_include_file('includes/PEAR/HTTP/WebDAV/Tools/_parse_lock_response.php', 'require_once');
 	}
 
 	/**
@@ -468,7 +452,7 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 
 		$url = preg_replace('/^http/i', 'webdav', untrailingslashit($posted_settings['url']));
 		
-		@$this->mkdir($url);// phpcs:ignore Generic.PHP.NoSilencedErrors.Discouraged
+		$this->mkdir($url);
 		
 		// $updraftplus_webdav_filepath shold have readable file path when file is being send on the webdav filesystem
 		if ('webdav' == $this->method) {
@@ -572,7 +556,6 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 		$read_buffer_size = 131072;
 
 		if (isset($this->upload_chunk_size)) {
-			// @codingStandardsIgnoreLine
 			$read_buffer_size = min($this->upload_chunk_size, 1048576);
 			$this->log(sprintf("Upload chunk size: successfully changed to %d bytes", $this->upload_chunk_size));
 		}
@@ -593,7 +576,6 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 				$bytes_left = $chunk_end - $chunk_start;
 				while ($bytes_left > 0) {
 					if ($buf = fread($rh, $read_buffer_size)) {
-						// if (fwrite($fh, $buf, strlen($buf))) {
 						if ($this->write($buf)) {
 							$bytes_left = $bytes_left - strlen($buf);
 							if (time()-$last_time > 15) {
@@ -601,11 +583,11 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 								touch($file);
 							}
 						} else {
-							$this->log(sprintf(__("Chunk %s: A %s error occurred", 'updraftplus'), $i, 'write'), 'error');
+							$this->log("Chunk $i: A write error occurred");
 							return false;
 						}
 					} else {
-						$this->log(sprintf(__("Chunk %s: A %s error occurred", 'updraftplus'), $i, 'read'), 'error');
+						$this->log("Chunk $i: A read error occurred");
 						return false;
 					}
 				}
@@ -618,12 +600,10 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 		try {
 			if (!$this->connection_close()) {
 				$this->log('Upload failed (fclose error)');
-				$this->log(__('Upload failed', 'updraftplus'), 'error');
 				return false;
 			}
 		} catch (Exception $e) {
 			$this->log('Upload failed (fclose exception; class='.get_class($e).'): '.$e->getMessage());
-			$this->log(__('Upload failed', 'updraftplus'), 'error');
 			return false;
 		}
 		fclose($rh);
@@ -756,9 +736,8 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 			$read_buffer_size = 262144;
 			
 			if (isset($this->download_chunk_size)) {
-				// @codingStandardsIgnoreLine
 				$read_buffer_size = $this->download_chunk_size;
-				$this->log(sprintf(__("Download chunk size successfully changed to %d", 'updraftplus'), $this->download_chunk_size));
+				$this->log(sprintf("Download chunk size successfully changed to %d", 'updraftplus'), $this->download_chunk_size);
 			}
 
 			if ($start_offset) {
@@ -785,9 +764,9 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * Method for open connection
 	 *
-	 * @access public
 	 * @param  string $path resource URL
-	 * @param  string $mode flags
+	 * @param  string $mode flag
+	 *
 	 * @return bool   true on success
 	 */
 	public function connection_open($path, $mode = null) {
@@ -872,13 +851,14 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 			default:
 				// Log only if the condition was not expected
 				if ($this->error_404_should_be_logged) {
-					trigger_error("file not found: ".UpdraftPlus_HTTP_Error_Descriptions::get_http_status_code_description(404));
+					$msg = UpdraftPlus_HTTP_Error_Descriptions::get_http_status_code_description(404);
+					$this->log(sprintf("File not found (404): %s", $msg));
 				}
 				return false;
 		}
 		
 		// 'w' -> open for writing, truncate existing files
-		if (strpos($mode, "w") !== false) {
+		if (false !== strpos($mode, 'w')) {
 			try {
 				$req = $this->_startRequest(HTTP_Request2::METHOD_PUT);
 
@@ -904,8 +884,6 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 
 	/**
 	 * Method for close connection
-	 *
-	 * @access public
 	 */
 	public function connection_close() {
 		global $updraftplus, $updraftplus_webdav_filepath;
@@ -946,24 +924,21 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * Method for retrieving information about a file resource
 	 *
-	 * @access public
 	 * @return array  stat entries
 	 */
 	public function stat() {
-		// we already have collected the needed information
-		// in connection_open() :)
 		return $this->stat;
 	}
 
 	/**
 	 * Method for reading a file resource
 	 *
-	 * @access public
 	 * @param  int $count requested byte count
+	 *
 	 * @return string read data
 	 */
 	public function read($count) {
-		// do some math
+
 		$start = $this->position;
 		$end   = $start + $count - 1;
 
@@ -975,7 +950,6 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 			}
 			$req->setHeader("Range", "bytes=$start-$end");
 
-			// go! go! go!
 			$result = $req->send();
 		} catch (Exception $e) {
 			if (preg_match("/Malformed response: /i", $e->getMessage(), $matches)) {
@@ -1023,8 +997,8 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * Method for writing a file resource
 	 *
-	 * @access public
 	 * @param  string $buffer data to write
+	 *
 	 * @return int    number of bytes actually written
 	 */
 	public function write($buffer) {
@@ -1095,7 +1069,8 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 					// You lie!
 					return 1 + $end - $start;
 				} else {
-					trigger_error("Unexpected HTTP response code: ".UpdraftPlus_HTTP_Error_Descriptions::get_http_status_code_description($result->getStatus()));
+					$msg = UpdraftPlus_HTTP_Error_Descriptions::get_http_status_code_description($result->getStatus());
+					$this->log(sprintf("Unexpected HTTP response code (%s): %s", $result->getStatus(), $msg));
 					return false;
 				}
 				
@@ -1112,7 +1087,8 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 				}
 				
 			default:
-				trigger_error("Unexpected HTTP response code: ".UpdraftPlus_HTTP_Error_Descriptions::get_http_status_code_description($result->getStatus()));
+				$msg = UpdraftPlus_HTTP_Error_Descriptions::get_http_status_code_description($result->getStatus());
+				$this->log(sprintf("Unexpected HTTP response code (%s): %s", $result->getStatus(), $msg));
 				return false;
 		}
 
@@ -1146,20 +1122,18 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * Method for returning an end-of-file on a file pointer
 	 *
-	 * @access public
 	 * @return bool   true if end of file was reached
 	 */
 	public function eof() {
-		// another simple one
 		return $this->eof;
 	}
 
 	/**
 	 * Method for seeking to specific location of file resource
 	 *
-	 * @access public
 	 * @param  int $pos    position to seek to
 	 * @param  int $whence seek mode
+	 *
 	 * @return bool   true on success
 	 */
 	public function seek($pos, $whence) {
@@ -1189,8 +1163,8 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * Method for reading directory
 	 *
-	 * @access public
 	 * @param  string $path directory resource URL
+	 *
 	 * @return bool   true on success
 	 */
 	public function opendir($path) {
@@ -1255,7 +1229,8 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 			default:
 				// any other response state indicates an error
 				if ($this->error_404_should_be_logged) {
-					trigger_error("file not found: ".UpdraftPlus_HTTP_Error_Descriptions::get_http_status_code_description(404));
+					$msg = UpdraftPlus_HTTP_Error_Descriptions::get_http_status_code_description($result->getStatus());
+					$this->log(sprintf("File not found (404): %s", $msg));
 				}
 				return false;
 		}
@@ -1265,7 +1240,6 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * Method for reading directory
 	 *
-	 * @access public
 	 * @return string filename
 	 */
 	public function readdir() {
@@ -1286,8 +1260,8 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * Method for creating a new directory
 	 *
-	 * @access public
 	 * @param string $path collection URL to be created
+	 *
 	 * @return bool   true on access
 	 */
 	public function mkdir($path) {
@@ -1320,7 +1294,7 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 			case 405: // directory already created
 				return true;
 			default:
-				trigger_error("mkdir failed - ". $stat);
+				$this->log(sprintf("mkdir failed - %s", $stat));
 				return false;
 		}
 	}
@@ -1328,7 +1302,6 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * Method for removing a file
 	 *
-	 * @access public
 	 * @param string $path resource URL to be removed
 	 * @return bool   true on success
 	 */
@@ -1374,8 +1347,8 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * Helper function for URL analysis
 	 *
-	 * @access private
 	 * @param string $path original request URL
+	 *
 	 * @return bool true on success else false
 	 */
 	private function _parse_url($path) {
@@ -1392,13 +1365,17 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 				$url['scheme'] = "https";
 				break;
 			default:
-				trigger_error("only 'webdav:' and 'webdavs:' are supported, not '$url[scheme]:'");
+				$this->log(sprintf("only 'webdav:' and 'webdavs:' are supported, not '%s'", $url['scheme'].':'));
 				return false;
 		}
 
 		// if a TCP port is specified we have to add it after the host
 		if (isset($url['port'])) {
 			$url['host'] .= ":$url[port]";
+		}
+
+		if (!isset($url['path'])) {
+			$url['path'] = '';
 		}
 
 		// store the plain path for possible later use
@@ -1421,7 +1398,6 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * Helper function for WebDAV OPTIONS detection
 	 *
-	 * @access private
 	 * @return bool    true on success else false
 	 */
 	private function _check_options() {
@@ -1443,7 +1419,10 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 
 		if ($result->getStatus() != 200) {
 			// If the status is 301 we want to return false so the calling code can deal with it but not trigger any errors on the front end
-			if ($result->getStatus() != 301) trigger_error(UpdraftPlus_HTTP_Error_Descriptions::get_http_status_code_description($result->getStatus()) . ' returned when checking WebDAV server options using URL: ' . $this->url . ' response: ' . json_encode($result->getBody()));
+			if ($result->getStatus() != 301) {
+				$msg = UpdraftPlus_HTTP_Error_Descriptions::get_http_status_code_description($result->getStatus());
+				$this->log(sprintf('%s returned when checking WebDAV server options using URL: %s response: %s', $msg." (".$result->getStatus().")", $this->url, json_encode($result->getBody())));
+			}
 			return false;
 		}
 
@@ -1455,7 +1434,7 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 		}
 		if (!isset($this->dav_level["1"])) {
 			// we need at least DAV Level 1 conformance
-			trigger_error('WebDAV server must be at least DAV level 1 conformance');
+			$this->log('WebDAV server must be at least DAV level 1 conformance');
 			return false;
 		}
 		
@@ -1476,8 +1455,8 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 	/**
 	 * Method for locking a file resource
 	 *
-	 * @access private
 	 * @param string $mode lock mode
+	 *
 	 * @return bool true on success else false
 	 */
 	private function lock($mode) {
@@ -1561,8 +1540,8 @@ class UpdraftPlus_Addons_RemoteStorage_webdav extends UpdraftPlus_RemoteStorage_
 
 		// We need to set this to fix a bug in an old nginx as  it sends a response body for HEAD requests which is a violation of RFC 2616 and fixed in newer nginx versions (https://pear.php.net/bugs/bug.php?id=20227)
 		$req->setHeader('Accept-Encoding', 'identity');
-		$req->setHeader('User-agent', $this->userAgent);
-		$req->setHeader('Content-type', $this->contentType);
+		$req->setHeader('User-agent', $this->user_agent);
+		$req->setHeader('Content-type', $this->content_type);
 
 		$req->setMethod($method);
 

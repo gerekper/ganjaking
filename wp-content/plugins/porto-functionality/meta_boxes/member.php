@@ -179,17 +179,22 @@ function porto_member_skin_meta_fields() {
 
 // Show Meta Boxes
 add_action( 'add_meta_boxes', 'porto_add_member_meta_boxes' );
-function porto_add_member_meta_boxes() {
-	if ( ! function_exists( 'get_current_screen' ) ) {
-		return;
-	}
-	global $porto_settings;
-	$screen = get_current_screen();
-	if ( function_exists( 'add_meta_box' ) && $screen && 'post' == $screen->base && 'member' == $screen->id ) {
-		add_meta_box( 'member-meta-box', __( 'Member Options', 'porto-functionality' ), 'porto_member_meta_box', 'member', 'normal', 'high' );
-		add_meta_box( 'view-meta-box', __( 'View Options', 'porto-functionality' ), 'porto_member_view_meta_box', 'member', 'normal', 'low' );
-		if ( $porto_settings['show-content-type-skin'] ) {
-			add_meta_box( 'skin-meta-box', __( 'Skin Options', 'porto-functionality' ), 'porto_member_skin_meta_box', 'member', 'normal', 'low' );
+if ( ! function_exists( 'porto_add_member_meta_boxes' ) ) {
+	/**
+	 * @todo 2.3.0 Legacy Mode
+	 */
+	function porto_add_member_meta_boxes() {
+		if ( ! function_exists( 'get_current_screen' ) ) {
+			return;
+		}
+		global $porto_settings;
+		$screen = get_current_screen();
+		if ( function_exists( 'add_meta_box' ) && $screen && 'post' == $screen->base && 'member' == $screen->id ) {
+			add_meta_box( 'member-meta-box', __( 'Member Options', 'porto-functionality' ), 'porto_member_meta_box', 'member', 'normal', 'high' );
+			add_meta_box( 'view-meta-box', __( 'View Options', 'porto-functionality' ), 'porto_member_view_meta_box', 'member', 'normal', 'low' );
+			if ( $porto_settings['show-content-type-skin'] ) {
+				add_meta_box( 'skin-meta-box', __( 'Skin Options', 'porto-functionality' ), 'porto_member_skin_meta_box', 'member', 'normal', 'low' );
+			}
 		}
 	}
 }
@@ -243,6 +248,9 @@ function porto_member_protected_meta( $protected, $meta_key, $meta_type ) {
 ////////////////////////////////////////////////////////////////////////
 
 // Taxonomy Meta Fields
+/**
+ * @deprecated 2.3.0
+ */
 function porto_member_cat_meta_fields() {
 	global $porto_settings;
 
@@ -291,29 +299,45 @@ $variable_name        = $taxonomy . 'meta';
 $wpdb->$variable_name = $table_name;
 
 // Add Meta Fields when edit taxonomy
-add_action( 'member_cat_edit_form_fields', 'porto_edit_member_cat_meta_fields', 100, 2 );
-function porto_edit_member_cat_meta_fields( $tag, $taxonomy ) {
-	if ( 'member_cat' !== $taxonomy ) {
-		return;
+if ( ! function_exists( 'porto_edit_member_cat_meta_fields' ) ) {
+	add_action( 'member_cat_edit_form_fields', 'porto_edit_member_cat_meta_fields', 100, 2 );
+	/**
+	 * @deprecated 2.3.0
+	 */
+	function porto_edit_member_cat_meta_fields( $tag, $taxonomy ) {
+		_deprecated_function( __METHOD__, '2.3.0', sprintf( '<b>%s</b> in %s', esc_html__( 'Porto Soft Mode', 'porto-functionality' ), esc_html__( 'Optimize Wizard', 'porto-functionality' ) ) );
+		if ( 'member_cat' !== $taxonomy ) {
+			return;
+		}
+		porto_edit_tax_meta_fields( $tag, $taxonomy, porto_member_cat_meta_fields() );
 	}
-	porto_edit_tax_meta_fields( $tag, $taxonomy, porto_member_cat_meta_fields() );
 }
 
 // Save Meta Values
-add_action( 'edit_term', 'porto_save_member_cat_meta_values', 100, 3 );
-function porto_save_member_cat_meta_values( $term_id, $tt_id, $taxonomy ) {
-	if ( 'member_cat' !== $taxonomy ) {
-		return;
+if ( ! function_exists( 'porto_save_member_cat_meta_values' ) ) {
+	add_action( 'edit_term', 'porto_save_member_cat_meta_values', 100, 3 );
+	/**
+	 * @deprecated 2.3.0
+	 */
+	function porto_save_member_cat_meta_values( $term_id, $tt_id, $taxonomy ) {
+		if ( 'member_cat' !== $taxonomy ) {
+			return;
+		}
+		porto_create_tax_meta_table( $taxonomy );
+		return porto_save_tax_meta_values( $term_id, $taxonomy, porto_member_cat_meta_fields() );
 	}
-	porto_create_tax_meta_table( $taxonomy );
-	return porto_save_tax_meta_values( $term_id, $taxonomy, porto_member_cat_meta_fields() );
 }
 
 // Delete Meta Values
-add_action( 'delete_term', 'porto_delete_member_cat_meta_values', 10, 5 );
-function porto_delete_member_cat_meta_values( $term_id, $tt_id, $taxonomy, $deleted_term, $object_ids ) {
-	if ( 'member_cat' !== $taxonomy ) {
-		return;
+if ( ! function_exists( 'porto_delete_member_cat_meta_values' ) ) {
+	add_action( 'delete_term', 'porto_delete_member_cat_meta_values', 10, 5 );
+	/**
+	 * @deprecated 2.3.0
+	 */
+	function porto_delete_member_cat_meta_values( $term_id, $tt_id, $taxonomy, $deleted_term, $object_ids ) {
+		if ( 'member_cat' !== $taxonomy ) {
+			return;
+		}
+		return porto_delete_tax_meta_values( $term_id, $taxonomy, porto_member_cat_meta_fields() );
 	}
-	return porto_delete_tax_meta_values( $term_id, $taxonomy, porto_member_cat_meta_fields() );
 }

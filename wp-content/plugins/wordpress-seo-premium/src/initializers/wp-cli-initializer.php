@@ -21,7 +21,7 @@ class Wp_Cli_Initializer implements Initializer_Interface {
 	 * @return void
 	 */
 	public function initialize() {
-		if ( \defined( 'WP_CLI' ) && WP_CLI ) {
+		if ( \defined( 'WP_CLI' ) && \WP_CLI ) {
 			\add_action( 'plugins_loaded', [ $this, 'wpseo_cli_init' ], 20 );
 		}
 	}

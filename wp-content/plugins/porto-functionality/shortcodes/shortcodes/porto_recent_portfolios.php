@@ -6,104 +6,104 @@ if ( function_exists( 'register_block_type' ) ) {
 		'porto/porto-recent-portfolios',
 		array(
 			'attributes'      => array(
-				'title' => array(
+				'title'            => array(
 					'type' => 'string',
 				),
-				'view' => array(
-					'type' => 'string',
+				'view'             => array(
+					'type'    => 'string',
 					'default' => 'classic',
 				),
-				'info_view' => array(
-					'type' => 'string',
+				'info_view'        => array(
+					'type'    => 'string',
 					'default' => '',
 				),
-				'image_size' => array(
+				'image_size'       => array(
 					'type' => 'string',
 				),
-				'thumb_bg' => array(
-					'type' => 'string',
+				'thumb_bg'         => array(
+					'type'    => 'string',
 					'default' => '',
 				),
-				'thumb_image' => array(
-					'type' => 'string',
-					'default' => ''
+				'thumb_image'      => array(
+					'type'    => 'string',
+					'default' => '',
 				),
-				'ajax_load' => array(
+				'ajax_load'        => array(
 					'type' => 'boolean',
 				),
-				'ajax_modal' => array(
+				'ajax_modal'       => array(
 					'type' => 'boolean',
 				),
-				'number' => array(
-					'type' => 'integer',
+				'number'           => array(
+					'type'    => 'integer',
 					'default' => 8,
 				),
-				'cats' => array(
+				'cats'             => array(
 					'type' => 'string',
 				),
-				'post_in' => array(
+				'post_in'          => array(
 					'type' => 'string',
 				),
-				'items' => array(
+				'items'            => array(
 					'type' => 'integer',
 				),
-				'items_desktop' => array(
-					'type' => 'integer',
+				'items_desktop'    => array(
+					'type'    => 'integer',
 					'default' => 4,
 				),
-				'items_tablets' => array(
-					'type' => 'integer',
+				'items_tablets'    => array(
+					'type'    => 'integer',
 					'default' => 3,
 				),
-				'items_mobile' => array(
-					'type' => 'integer',
+				'items_mobile'     => array(
+					'type'    => 'integer',
 					'default' => 2,
 				),
-				'items_row' => array(
-					'type' => 'integer',
+				'items_row'        => array(
+					'type'    => 'integer',
 					'default' => 1,
 				),
-				'slider_config' => array(
-					'type' => 'boolean',
+				'slider_config'    => array(
+					'type'    => 'boolean',
 					'default' => false,
 				),
-				'show_nav' => array(
-					'type' => 'boolean',
+				'show_nav'         => array(
+					'type'    => 'boolean',
 					'default' => false,
 				),
-				'show_nav_hover' => array(
-					'type' => 'boolean',
+				'show_nav_hover'   => array(
+					'type'    => 'boolean',
 					'default' => false,
 				),
-				'nav_pos' => array(
-					'type' => 'string',
+				'nav_pos'          => array(
+					'type'    => 'string',
 					'default' => '',
 				),
-				'nav_pos2' => array(
+				'nav_pos2'         => array(
 					'type' => 'string',
 				),
-				'nav_type' => array(
+				'nav_type'         => array(
 					'type' => 'string',
 				),
-				'show_dots' => array(
-					'type' => 'boolean',
+				'show_dots'        => array(
+					'type'    => 'boolean',
 					'default' => false,
 				),
-				'dots_pos' => array(
+				'dots_pos'         => array(
 					'type' => 'string',
 				),
-				'dots_style' => array(
+				'dots_style'       => array(
 					'type' => 'string',
 				),
-				'autoplay' => array(
-					'type' => 'boolean',
+				'autoplay'         => array(
+					'type'    => 'boolean',
 					'default' => false,
 				),
 				'autoplay_timeout' => array(
-					'type' => 'integer',
+					'type'    => 'integer',
 					'default' => 5000,
 				),
-				'el_class'             => array(
+				'el_class'         => array(
 					'type' => 'string',
 				),
 			),
@@ -131,10 +131,12 @@ function porto_load_recent_portfolios_shortcode() {
 	$animation_duration = porto_vc_animation_duration();
 	$animation_delay    = porto_vc_animation_delay();
 	$custom_class       = porto_vc_custom_class();
+	$order_by_values    = porto_vc_order_by();
+	$order_way_values   = porto_vc_woo_order_way();
 
 	vc_map(
 		array(
-			'name'        => 'Porto ' . __( 'Recent Portfolios', 'porto-functionality' ),
+			'name'        => 'Porto ' . __( 'Portfolios Carousel', 'porto-functionality' ),
 			'base'        => 'porto_recent_portfolios',
 			'category'    => __( 'Porto', 'porto-functionality' ),
 			'description' => __( 'Show portfolios by slider', 'porto-functionality' ),
@@ -168,18 +170,19 @@ function porto_load_recent_portfolios_shortcode() {
 					),
 				),
 				array(
-					'type'        => 'textfield',
-					'heading'     => __( 'Image Size', 'porto-functionality' ),
-					'param_name'  => 'image_size',
-					'std'         => '',
-					'description' => __( 'Enter image size (Example: "thumbnail", "medium", "large", "full" or other sizes defined by theme). Alternatively enter size in pixels (Example: 200x100 (Width x Height)).', 'js_composer' ),
+					'type'       => 'dropdown',
+					'heading'    => __( 'Image Size', 'porto-functionality' ),
+					'param_name' => 'image_size',
+					'value'      => porto_sh_commons( 'image_sizes' ),
+					'std'        => '',
 				),
 				array(
-					'type'       => 'dropdown',
-					'heading'    => __( 'Image Overlay Background', 'porto-functionality' ),
-					'param_name' => 'thumb_bg',
-					'std'        => '',
-					'value'      => array(
+					'type'        => 'dropdown',
+					'heading'     => __( 'Image Overlay Background', 'porto-functionality' ),
+					'description' => __( 'Controls the overlay background of featured image.', 'porto' ),
+					'param_name'  => 'thumb_bg',
+					'std'         => '',
+					'value'       => array(
 						__( 'Standard', 'porto-functionality' ) => '',
 						__( 'Darken', 'porto-functionality' ) => 'darken',
 						__( 'Lighten', 'porto-functionality' ) => 'lighten',
@@ -187,21 +190,23 @@ function porto_load_recent_portfolios_shortcode() {
 					),
 				),
 				array(
-					'type'       => 'dropdown',
-					'heading'    => __( 'Hover Image Effect', 'porto-functionality' ),
-					'param_name' => 'thumb_image',
-					'std'        => '',
-					'value'      => array(
+					'type'        => 'dropdown',
+					'heading'     => __( 'Hover Image Effect', 'porto-functionality' ),
+					'description' => __( 'Controls the hover effect of image.', 'porto' ),
+					'param_name'  => 'thumb_image',
+					'std'         => '',
+					'value'       => array(
 						__( 'Standard', 'porto-functionality' ) => '',
 						__( 'Zoom', 'porto-functionality' ) => 'zoom',
 						__( 'No Zoom', 'porto-functionality' ) => 'no-zoom',
 					),
 				),
 				array(
-					'type'       => 'checkbox',
-					'heading'    => __( 'Enable Ajax Load', 'porto-functionality' ),
-					'param_name' => 'ajax_load',
-					'value'      => array( __( 'Yes', 'js_composer' ) => 'yes' ),
+					'type'        => 'checkbox',
+					'heading'     => __( 'Enable Ajax Load', 'porto-functionality' ),
+					'param_name'  => 'ajax_load',
+					'description' => __( 'If enabled, portfolio content should be displayed at the top of portfolios or on modal when you click portfolio item in the list.', 'porto-functionality' ),
+					'value'       => array( __( 'Yes', 'js_composer' ) => 'yes' ),
 				),
 				array(
 					'type'       => 'checkbox',
@@ -233,10 +238,43 @@ function porto_load_recent_portfolios_shortcode() {
 					'param_name'  => 'post_in',
 				),
 				array(
+					'type'        => 'dropdown',
+					'heading'     => __( 'Order by', 'porto-functionality' ),
+					'param_name'  => 'orderby',
+					'value'       => $order_by_values,
+					/* translators: %s: Wordpres codex page */
+					'description' => sprintf( __( 'Select how to sort retrieved portfolios. More at %s.', 'porto-functionality' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
+				),
+				array(
+					'type'        => 'dropdown',
+					'heading'     => __( 'Order way', 'porto-functionality' ),
+					'param_name'  => 'order',
+					'value'       => $order_way_values,
+					/* translators: %s: Wordpres codex page */
+					'description' => sprintf( __( 'Designates the ascending or descending order. More at %s.', 'porto-functionality' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
+				),
+
+				array(
+					'type'       => 'number',
+					'heading'    => __( 'Column Spacing (px)', 'porto-functionality' ),
+					'param_name' => 'spacing',
+					'min'        => 0,
+					'max'        => 60,
+					'step'       => 1,
+					'selectors'  => array(
+						'{{WRAPPER}}' => '--porto-el-spacing: {{VALUE}}px;',
+					),
+				),
+
+				array(
+					'type'       => 'porto_param_heading',
+					'param_name' => 'description_items',
+					'text'       => esc_html__( 'Responsive Items', 'porto-functionality' ),
+				),
+				array(
 					'type'       => 'textfield',
 					'heading'    => __( 'Items to show on Large Desktop', 'porto-functionality' ),
 					'param_name' => 'items',
-					'value'      => '',
 				),
 				array(
 					'type'       => 'textfield',
@@ -344,6 +382,44 @@ function porto_load_recent_portfolios_shortcode() {
 					'group'      => __( 'Slider Options', 'porto-functionality' ),
 				),
 				$custom_class,
+
+				array(
+					'type'       => 'porto_typography',
+					'heading'    => __( 'Title Typography', 'porto-functionality' ),
+					'param_name' => 'title_tg',
+					'selectors'  => array(
+						'{{WRAPPER}} .thumb-info .thumb-info-title',
+					),
+					'group'      => __( 'Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'heading'    => __( 'Title Color', 'porto-functionality' ),
+					'param_name' => 'title_clr',
+					'selectors'  => array(
+						'{{WRAPPER}} .thumb-info .thumb-info-title' => 'color: {{VALUE}};',
+					),
+					'group'      => __( 'Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'heading'    => __( 'Title Background Color', 'porto-functionality' ),
+					'param_name' => 'title_bgc',
+					'selectors'  => array(
+						'{{WRAPPER}} .thumb-info .thumb-info-title' => 'background-color: {{VALUE}};',
+					),
+					'group'      => __( 'Style', 'porto-functionality' ),
+				),
+				array(
+					'type'       => 'porto_dimension',
+					'heading'    => __( 'Title Padding', 'porto-functionality' ),
+					'param_name' => 'title_pd',
+					'selectors'  => array(
+						'{{WRAPPER}} .thumb-info .thumb-info-title' => 'padding: {{TOP}} {{RIGHT}} {{BOTTOM}} {{LEFT}};',
+					),
+					'group'      => __( 'Style', 'porto-functionality' ),
+				),
+
 				$animation_type,
 				$animation_duration,
 				$animation_delay,

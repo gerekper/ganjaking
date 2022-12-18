@@ -374,7 +374,7 @@ foreach ($default_options as $k => $v) {
 		<td>
 			<?php
 				if (!empty($options['include_adverts'])) {
-					if (!class_exists('UpdraftPlus_Notices')) include_once(UPDRAFTPLUS_DIR.'/includes/updraftplus-notices.php');
+					if (!class_exists('UpdraftPlus_Notices')) updraft_try_include_file('includes/updraftplus-notices.php', 'include_once');
 					global $updraftplus_notices;
 					$updraftplus_notices->do_notice(false, 'bottom');
 				}

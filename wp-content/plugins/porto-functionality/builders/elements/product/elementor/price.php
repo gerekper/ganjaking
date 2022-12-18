@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Porto Elementor widget to display product price on the single product page when using custom product layout
  *
- * @since 5.4.0
+ * @since 1.7.1
  */
 
 use Elementor\Controls_Manager;
@@ -31,7 +31,15 @@ class Porto_Elementor_CP_Price_Widget extends \Elementor\Widget_Base {
 		return array( 'product', 'price', 'cost' );
 	}
 
-	protected function _register_controls() {
+	public function get_icon() {
+		return 'eicon-product-price';
+	}
+
+	public function get_custom_help_url() {
+		return 'https://www.portotheme.com/wordpress/porto/documentation/single-product-builder-elements/';
+	}
+
+	protected function register_controls() {
 
 		$this->start_controls_section(
 			'section_cp_price',
@@ -45,7 +53,7 @@ class Porto_Elementor_CP_Price_Widget extends \Elementor\Widget_Base {
 			array(
 				'name'     => 'price_font',
 				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
-				'label'    => __( 'Typograhy', 'porto-functionality' ),
+				'label'    => __( 'Typography', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .price',
 			)
 		);
@@ -61,12 +69,24 @@ class Porto_Elementor_CP_Price_Widget extends \Elementor\Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'old_price_color',
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'label'     => __( 'Old Price Color', 'porto-functionality' ),
+				'selectors' => array(
+					'{{WRAPPER}} .price del' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
 		$this->end_controls_section();
 	}
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		if ( class_exists( 'PortoCustomProduct' ) ) {
+			$settings['page_builder'] = 'elementor';
 			echo PortoCustomProduct::get_instance()->shortcode_single_product_price( $settings );
 		}
 	}

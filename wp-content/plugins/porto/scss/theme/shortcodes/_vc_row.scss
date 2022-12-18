@@ -1,0 +1,50 @@
+/* Row Video Background */
+/* Video */
+.section-video {
+    -webkit-transform: translate3d(0, 0, 0);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    padding: 50px 0;
+    position: relative;
+    overflow: hidden;
+    min-width: 100%;
+    > div:first-child {
+        padding: 0
+    }
+}
+.section-video.skrollable {
+    position: absolute;
+    #{$left}: 0;
+    top: 0;
+    padding: 0;
+}
+.section-video video {
+    max-width: none;
+}
+.section-video .container {
+    position: relative;
+    z-index: 3;
+}
+
+.section-video .video-overlay {
+    background: transparent url(#{$theme_uri}/images/video-overlay.png) repeat 0 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.section-video.video-overlay-dark .video-overlay {
+    background-image: url(#{$theme_uri}/images/video-overlay-dark.png);
+}
+
+html.boxed .section-video > div:first-child {
+    z-index: 0 !important;
+}
+
+html.boxed .section-video > div:first-child video {
+    z-index: 0 !important;
+}

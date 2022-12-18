@@ -1,0 +1,71 @@
+/* -------------------------------------------
+    Critical Wizard
+        1. Form Style
+        2. Table Form
+        3. Progress Bar
+        4. Temp Iframe
+---------------------------------------------- */
+
+
+// 1. Form Style
+#porto-critical-form {
+    label {
+        margin-bottom: 5px;
+        &.disabled,
+        &.disabled ~ .select2-container,
+        &.disabled ~ br {
+            display: none;
+        }
+    }
+    .form-control,
+    .select2-container {
+        display: block;
+        width: 100%;
+        height: 43px;
+    }
+    .select2-container--default .select2-selection--multiple {
+        border-color: var(--porto-light-color);
+        border-radius: 4px;
+    }
+}
+// 2. Table Form
+
+
+// 3. Progress Bar 
+
+.porto-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    overflow: hidden;
+}
+.porto-progress-bar {
+    background-color: #08c;
+    height: 100%;
+    width: 0;
+    border-radius: 0 4px 4px 0;
+    transition: width .6s;
+    &.failed {
+        background-color: #d2322d;
+    }
+    &.animate-progress {
+        background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+        background-size: 5rem 5rem;
+        animation: 2s ease-in-out infinite progress-bar-stripes;
+        @keyframes progress-bar-stripes {
+            0% {
+                background-position-x: 5rem;
+            }
+        }
+    }
+}
+
+// 4. Temp Iframe
+.temp-iframe {
+    position: fixed;
+    z-index: -1000;
+    opacity: 0;
+    top: 50px;
+}

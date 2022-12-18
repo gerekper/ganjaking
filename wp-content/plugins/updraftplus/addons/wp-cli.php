@@ -210,7 +210,7 @@ class UpdraftPlus_CLI_Command extends WP_CLI_Command {
 	 */
 	private function set_commands_object() {
 		if (!isset($this->commands)) {
-			if (!class_exists('UpdraftPlus_Commands')) include_once(UPDRAFTPLUS_DIR.'/includes/class-commands.php');
+			if (!class_exists('UpdraftPlus_Commands')) updraft_try_include_file('includes/class-commands.php', 'include_once');
 			$this->commands = new UpdraftPlus_Commands($this);
 		}
 	}
@@ -307,7 +307,7 @@ class UpdraftPlus_CLI_Command extends WP_CLI_Command {
 	 */
 	private function _load_ud_admin() {
 		if (!defined('UPDRAFTPLUS_DIR') || !is_file(UPDRAFTPLUS_DIR.'/admin.php')) return false;
-		include_once(UPDRAFTPLUS_DIR.'/admin.php');
+		updraft_try_include_file('admin.php', 'include_once');
 		global $updraftplus_admin;
 		return $updraftplus_admin;
 	}

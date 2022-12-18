@@ -1,0 +1,16 @@
+/*
+Theme Name: Porto
+Theme URI: https://www.portotheme.com/wordpress/porto
+Author: P-THEMES
+Author URI: https://www.portotheme.com/
+Description: Porto Responsive Wordpress + eCommerce Theme.
+Version: 6.6.1
+License: Commercial
+License URI: http://themeforest.net/licenses/regular_extended
+Tags: woocommerce, business, corporate, e-commerce, blog, news, education, food-and-drink, portfolio, responsive, blue, black, green, white, light, dark, red, two-columns, three-columns, four-columns, left-sidebar, right-sidebar, fixed-layout, responsive-layout, custom-menu, editor-style, featured-images, flexible-header, full-width-template, microformats, post-formats, rtl-language-support, sticky-post, theme-options, translation-ready, accessibility-ready, block-styles, custom-background, custom-colors, custom-header, custom-logo, footer-widgets, template-editing, grid-layout, one-column, wide-blocks
+Text Domain: porto
+*/
+
+/*************** ADD YOUR CUSTOM CSS HERE  ***************/
+
+.bypostauthor { display: block; }

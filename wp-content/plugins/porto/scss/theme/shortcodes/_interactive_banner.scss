@@ -1,0 +1,353 @@
+/* Porto Interactive banner */
+.porto-ibanner,
+.porto-ibanner > img {
+    display: block;
+    position: relative
+}
+.porto-ibanner {
+    z-index: 1;
+    overflow: hidden;
+    margin: 0 0 35px;
+    text-align: center;
+
+    > img {
+        width: 100%;
+        border: none;
+        padding: 0;
+        margin: 0;
+        min-height: inherit;
+        object-fit: cover;
+        transition: transform .5s, opacity .5s;
+        -webkit-backface-visibility: hidden;
+        &.porto-lazyload:not(.lazy-load-loaded) {
+            visibility: hidden;
+        }
+    }
+    &.has-parallax-bg {
+        > img {
+            opacity: 0;
+            width: 66%;
+        }
+    }
+}
+.porto-ibanner-layer {
+    text-align: $left;
+    font-size: 1rem;
+    position: absolute;
+    z-index: 10;
+    > *:last-child {
+        margin-bottom: 0;
+    }
+    @media #{$screen-normal} {
+        font-size: .875rem;
+    }
+    @media #{$screen-medium} {
+        font-size: .8125rem;
+    }
+    @media #{$screen-small} {
+        font-size: .75rem;
+    }
+}
+.porto-ibanner .porto-ibanner-desc {
+    padding: 15px;
+    /*color: #fff;*/
+    font-size: 1em;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transition: opacity .3s;
+    &.no-padding {
+        padding: 0;
+    }
+    .porto-ibanner-container {
+        position: relative;
+        height: 100%;
+    }
+    &:before, &:after {
+        pointer-events: none
+    }
+}
+.porto-ibanner .porto-ibanner-desc,
+.porto-ibanner .porto-ibanner-link {
+    position: absolute;
+    top: 0;
+    #{$left}: 0;
+    width: 100%;
+    height: 100%
+}
+.porto-ibanner .porto-ibanner-content {
+    font-size: .8125em;
+    line-height: 1.6
+}
+.porto-ibanner .porto-ibanner-title,
+.porto-ibanner p {
+    letter-spacing: normal;
+    padding: 0;
+    margin: 0;
+    font-size: inherit;
+    line-height: inherit;
+    font-weight: inherit;
+    text-decoration: inherit;
+    font-style: inherit;
+    color: inherit
+}
+.porto-ibanner a.porto-ibanner-link {
+    display: block;
+    z-index: 7;
+    opacity: 0;
+    @if $rtl == 1{
+        background: 100% 0
+    }
+    @else {
+        background: 0 0
+    }
+}
+
+/* hover effect */
+
+.porto-ibe-effect-1:before,.porto-ibe-effect-1:after { content: ''; position: absolute; opacity: 1; z-index: 2; }
+.porto-ibe-effect-1:before { background: rgba(255,255,255,0.3); bottom: 0; left: 50%; right: 51%; top: 0 }
+.porto-ibe-effect-1:after { bottom: 50%; left: 0; right: 0; top: 50% }
+.porto-ibe-effect-1:hover:before,.porto-ibe-effect-1:hover:after { left: 0; right: 0; opacity: 0; transition: 0.5s linear }
+.porto-ibe-effect-2,.porto-ibe-effect-3 { overflow: hidden; position: relative }
+.porto-ibe-effect-2:before,.porto-ibe-effect-2:after { content: ''; position: absolute; background: rgba(255,255,255,0.6); height: 100%; left: 0; opacity: 0.4; top: 0; transition: 0.9s; width: 100%; z-index: 2; }
+.porto-ibe-effect-2:before { transform: translate(105%,0%) }
+.porto-ibe-effect-2:after { transform: translate(-105%,0%) }
+.porto-ibe-effect-2:hover:before,.porto-ibe-effect-2:hover:after { opacity: 0; transform: none }
+.porto-ibe-effect-3:before { content: ''; position: absolute; top: 0; left: 50%; width: 120%; height: 60px; background: rgba(255,255,255,0.1); transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,-150%,0); transition: 0.5s linear; backface-visibility: hidden; z-index: 2; }
+.porto-ibe-effect-3:hover:before { top: 100%; left: -100%; transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,200%,0) }
+.porto-ibe-effect-4:before,.porto-ibe-effect-4:after { content: ''; position: absolute; background: rgba(255,255,255,0.1); opacity: 1; transition: 0.5s; z-index: 2; }
+.porto-ibe-effect-4:before { bottom: 0; left: 50%; right: 51%; top: 0 }
+.porto-ibe-effect-4:after { bottom: 50%; left: 0; right: 0; top: 50% }
+.porto-ibe-effect-4:hover:before,.porto-ibe-effect-4:hover:after { left: 0; right: 0; top: 0; bottom: 0; opacity: 0.5 }
+
+.porto-ibe-zoom:hover > img {
+    transform: scale(1.08, 1.08);
+}
+.porto-ibe-fadein {
+    .porto-ibanner-desc, .porto-ibanner-layer {
+        opacity: 0;
+    }
+    &:hover {
+        .porto-ibanner-desc, .porto-ibanner-layer {
+            opacity: 1;
+        }
+    }
+}
+.porto-ibe-fadeout:hover {
+    .porto-ibanner-desc, .porto-ibanner-layer {
+        opacity: 0;
+    }
+}
+.porto-ibe-boxshadow {
+    transition: box-shadow .3s
+}
+.porto-ibe-overlay:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    z-index: 1;
+    pointer-events: none;
+    transition: opacity .4s
+}
+.porto-ibe-style1 img {
+    width: 100%
+}
+.porto-ibe-style1 .porto-ibanner-desc:before {
+    position: absolute;
+    content: "";
+    top: 0;
+    #{$left}: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    -webkit-transform: translate3d(0, 50%, 0);
+    transform: translate3d(0, 50%, 0)
+}
+.porto-ibe-style1 .porto-ibanner-title {
+    position: absolute;
+    top: 50%;
+    #{$left}: 0;
+    width: 100%;
+    transition: transform .35s, color .35s;
+    -webkit-transform: translate3d(0, -50%, 0);
+    transform: translate3d(0, -50%, 0)
+}
+.porto-ibe-style1 .porto-ibanner-content,
+.porto-ibe-style1 .porto-ibanner-desc::before {
+    transition: opacity .35s, transform .35s;
+    transition: opacity .35s, transform .35s, -webkit-transform .35s
+}
+.porto-ibe-style1 .porto-ibanner-content {
+    position: absolute;
+    bottom: 0;
+    #{$left}: 0;
+    padding: 15px;
+    width: 100%;
+    max-height: 50%;
+    opacity: 0;
+    -webkit-transform: translate3d(0, 10px, 0);
+    transform: translate3d(0, 10px, 0)
+}
+.porto-ibe-style1:hover .porto-ibanner-title {
+    color: #fff;
+    -webkit-transform: translate3d(0, -40px, 0);
+    transform: translate3d(0, -40px, 0)
+}
+.porto-ibe-style1:hover .porto-ibanner-content,
+.porto-ibe-style1:hover .porto-ibanner-desc:before {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0)
+}
+
+.porto-ibe-style2 .porto-ibanner-desc {
+    top: auto;
+    bottom: 0;
+    padding: 15px;
+    height: auto;
+    background: #F2F2F2;
+    color: #3c4a50;
+    transition: transform .35s;
+    transition: transform .35s, -webkit-transform .35s;
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0)
+}
+.porto-ibe-style2 .porto-ibanner-content {
+    position: absolute;
+    top: auto;
+    bottom: 100%;
+    #{$left}: 0;
+    width: 100%;
+    padding: 25px;
+    color: #fff;
+    text-transform: none;
+    opacity: 0;
+    transition: opacity .35s
+}
+.porto-ibe-style2 .porto-ibanner-title {
+    transition: transform .35s;
+    transition: transform .35s, -webkit-transform .35s;
+    -webkit-transform: translate3d(0, 200%, 0);
+    transform: translate3d(0, 200%, 0);
+    text-align: center
+}
+.porto-ibe-style2:hover .porto-ibanner-content,
+.porto-ibe-style2:hover .porto-ibanner-content * {
+    opacity: 1!important;
+    z-index: 99!important;
+    -webkit-backface-visibility: hidden!important;
+    backface-visibility: hidden!important
+}
+.porto-ibe-style2:hover .porto-ibanner-desc,
+.porto-ibe-style2:hover .porto-ibanner-title {
+    transform: translateY(0)
+}
+.porto-ibe-style2:hover .porto-ibanner-title {
+    transition-delay: .05s
+}
+.porto-ibanner.porto-ibe-style2 .porto-ibanner-toggle-size {
+    #{$left}: 50%;
+    width: auto!important;
+    height: 100%;
+    max-width: none;
+    @if $rtl == 1{
+        transform: translateX(50%)
+    }
+    @else {
+        transform: translateX(-50%)
+    }
+}
+
+/* Kenburns Effect and Particle Effect */
+
+.owl-item.active .banner-effect {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+}
+.owl-item:not(.active) .banner-effect {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+}
+.banner-effect {
+    transition: visibility .3s, opacity .3s;
+}
+.banner-effect-wrapper {
+    overflow: hidden;
+    z-index: 1;
+}
+
+.banner-effect,
+.banner-effect-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0
+}
+
+@keyframes kenBurnsToRight {
+    0% { transform: scale(1.2) }
+    to { transform: scale(1) }
+}
+
+.kenBurnsToRight { animation-name: kenBurnsToRight; animation-timing-function: linear; transform-origin: right }
+
+@keyframes kenBurnsToLeft { 
+    0% { transform: scale(1.2) }
+    to { transform: scale(1) }
+}
+
+.kenBurnsToLeft { animation-name: kenBurnsToLeft; animation-timing-function: linear; transform-origin: left }
+
+.kenBurnsToLeftTop { animation-name: kenBurnsToLeft; animation-timing-function: linear; transform-origin: left top }
+
+.kenBurnsToRightTop { animation-name: kenBurnsToRight; animation-timing-function: linear; transform-origin: right top }
+
+.particle-effect {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden
+}
+
+.snowfall {
+    background-image: url(#{$theme_uri}/images/effects/s1.png),url(#{$theme_uri}/images/effects/s2.png),url(#{$theme_uri}/images/effects/s3.png);
+    animation: snow 10s linear infinite;
+    z-index: 1
+}
+
+@keyframes snow {
+    0% { background-position: 0px 0px,0px 0px,0px 0px }
+    50% { background-position: 500px 500px,100px 300px,-200px 250px }
+    to { background-position: 400px 800px,300px 600px,-200px 400px }
+}
+
+.effect-snow {
+    background-image: url(#{$theme_uri}/images/effects/s4.png),url(#{$theme_uri}/images/effects/s5.png);
+    animation: snowsecond 20s linear infinite
+}
+
+@keyframes snowsecond {
+    0% { background-position: 0px 0px,0px 0px,0px 0px }
+    to { background-position: 500px 1000px,400px 400px,300px 300px }
+}
+
+.sparkle {
+    background-image: url(#{$theme_uri}/images/effects/sparkle1.png),url(#{$theme_uri}/images/effects/sparkle2.png);
+    animation: sparkle 60s linear infinite
+}
+
+@keyframes sparkle {
+    0% { background-position: 0px 0px,0px 0px,0px 0px }
+    to { background-position: -500px -1000px,-400px -400px,300px 300px }
+}

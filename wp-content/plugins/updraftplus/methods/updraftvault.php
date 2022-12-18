@@ -2,7 +2,7 @@
 
 if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed.');
 
-require_once(UPDRAFTPLUS_DIR.'/methods/s3.php');
+updraft_try_include_file('methods/s3.php', 'require_once');
 
 class UpdraftPlus_BackupModule_updraftvault extends UpdraftPlus_BackupModule_s3 {
 

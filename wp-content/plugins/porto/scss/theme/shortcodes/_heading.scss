@@ -1,0 +1,118 @@
+/* Porto heading */
+.porto-u-heading {
+    text-align: center;
+    margin-bottom: 17px;
+
+    mark {
+        display: inline-block;
+        color: inherit;
+        padding: 0;
+        background-color: transparent;
+    }
+
+    [data-appear-animation="highlightProgress"] {
+        opacity: 1;
+    }
+}
+
+.porto-u-heading .porto-u-main-heading h1,
+.porto-u-heading .porto-u-main-heading h2,
+.porto-u-heading .porto-u-main-heading h3,
+.porto-u-heading .porto-u-main-heading h4,
+.porto-u-heading .porto-u-main-heading h5,
+.porto-u-heading .porto-u-main-heading h6 {
+    margin: 0;
+    padding: 0;
+    line-height: normal
+}
+
+.porto-u-heading-spacer {
+    margin: 0 auto;
+    padding: 0;
+    position: relative;
+    overflow: hidden
+}
+
+.porto-u-heading-spacer .porto-icon {
+    vertical-align: text-top
+}
+
+.porto-u-heading-spacer img {
+    vertical-align: middle;
+    box-shadow: none !important;
+    max-width: 100%
+}
+
+.porto-u-heading-spacer.line_with_icon:before {
+    content: "";
+    position: absolute;
+    bottom: 50%;
+    #{$right}: 0;
+    border-width: 0;
+    top: 50%
+}
+
+.porto-u-heading-spacer.line_with_icon:after {
+    content: "";
+    position: absolute;
+    bottom: 50%;
+    #{$left}: 0;
+    border-width: 0;
+    top: 50%
+}
+
+.porto-u-headings-line {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.porto-u-sub-heading {
+    margin: 0 auto
+}
+
+.porto-u-sub-heading div,
+.porto-u-sub-heading p {
+    font-family: inherit !important;
+    font-weight: inherit !important;
+    font-size: inherit !important;
+    color: inherit !important;
+    line-height: inherit !important;
+    letter-spacing: inherit
+}
+
+.porto-u-heading p {
+    word-break: normal;
+    word-wrap: normal;
+}
+
+.thumb-info-floating-element-clone {
+    position: fixed;
+    pointer-events: none;
+    transform: scale(0.1);
+}
+
+.heading-highlight {
+    mark {
+        position: relative;
+        z-index: 2;
+
+        &:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            height: 100%;
+            bottom: 0;
+            z-index: -1;
+            width: 0%;
+        }
+
+    }
+
+    &.appear-animation-visible mark:before {
+        animation: highlightProgress 1s both;
+    }
+
+}

@@ -3,7 +3,7 @@
 Plugin Name: Perfmatters
 Plugin URI: https://perfmatters.io/
 Description: Perfmatters is a lightweight performance plugin developed to speed up your WordPress site.
-Version: 2.0.0
+Version: 2.0.2
 Author: forgemedia
 Author URI: https://forgemedia.io/
 License: GPLv2 or later
@@ -18,7 +18,7 @@ Domain Path: /languages
 define('PERFMATTERS_STORE_URL', 'https://perfmatters.io/');
 define('PERFMATTERS_ITEM_ID', 696);
 define('PERFMATTERS_ITEM_NAME', 'perfmatters');
-define('PERFMATTERS_VERSION', '2.0.0');
+define('PERFMATTERS_VERSION', '2.0.2');
 
 function perfmatters_plugins_loaded() {
 
@@ -39,7 +39,9 @@ function perfmatters_plugins_loaded() {
     //initialize classes that filter the buffer
     Perfmatters\Fonts::init();
     Perfmatters\Images::init();
+	Perfmatters\LazyLoad::init_iframes();
     Perfmatters\Preload::init();
+    Perfmatters\LazyLoad::init();
     Perfmatters\CSS::init();
     Perfmatters\CDN::init();
     Perfmatters\JS::init();
@@ -497,7 +499,6 @@ register_uninstall_hook(__FILE__, 'perfmatters_uninstall');
 require_once plugin_dir_path(__FILE__) . 'EDD_SL_Plugin_Updater.php';
 require_once plugin_dir_path(__FILE__) . 'inc/settings.php';
 require_once plugin_dir_path(__FILE__) . 'inc/functions.php';
-require_once plugin_dir_path(__FILE__) . 'inc/functions_lazy_load.php';
 require_once plugin_dir_path(__FILE__) . 'inc/functions_script_manager.php';
 require_once plugin_dir_path(__FILE__) . 'inc/network.php';
 

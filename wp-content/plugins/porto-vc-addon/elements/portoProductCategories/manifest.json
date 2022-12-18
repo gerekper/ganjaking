@@ -1,0 +1,22 @@
+{
+	"elements": {
+		"portoProductCategories": {
+			"settings": {
+				"name": "Porto Product Categories",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-product-categories.jpg",
+				"metaDescription": "Show products in a particular category."
+			},
+			"phpFiles": [
+				"PortoProductCategoriesController.php"
+			]
+		}
+	},
+	"categories": {
+		"WooCommerce": {
+			"elements": [
+				"portoProductCategories"
+			]
+		}
+	}
+}

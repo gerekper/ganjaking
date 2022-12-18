@@ -1,0 +1,33 @@
+// DIRECTIONAL
+// ---------------------------------------------------------------
+$rtl: 0;
+$dir: ltr !default;
+
+@import "../../theme-imports";
+
+
+@media (min-width: 1200px) {
+    .product-summary-wrap .summary-before { flex: 0 0 auto; width: 54%; }
+    .product-summary-wrap .summary { flex: 0 0 auto; width: 46%; }
+}
+.woocommerce-tabs .resp-tabs-list { display: none; }
+.woocommerce-tabs h2.resp-accordion { display: block; }
+.woocommerce-tabs h2.resp-accordion:before { font-size: 20px; font-weight: 400; position: relative; top: -4px; }
+.woocommerce-tabs .tab-content { border-top: none; padding-#{$left}: 20px; }
+.left-sidebar .widget_product_categories {
+    border: 1px solid #e7e7e7;
+    padding: 15px 30px; 
+}
+body.dark .left-sidebar .widget_product_categories {
+    border-color: lighten( $color-dark, 8% );
+}
+
+.left-sidebar .widget_product_categories .current > a { color: var(--porto-heading-color); text-transform: uppercase; }
+.left-sidebar .widget_product_categories li .toggle { font-size: 14px; }
+.left-sidebar .widget_product_categories li > .toggle:before { font-family: 'Porto'; content: '\e81c'; font-weight: 700; }
+.left-sidebar .widget_product_categories li.current >.toggle:before,
+.left-sidebar .widget_product_categories li.open >.toggle:before { content: '\e81b'; }
+.left-sidebar .widget_product_categories li.closed > .toggle:before { content: '\e81c'; }
+.sidebar .product-categories li > a { color: #7a7d82; font-weight: 600; }
+.product-images .zoom { opacity: 1; }
+#product-tab:not(:last-child) { margin-bottom: 2rem; }

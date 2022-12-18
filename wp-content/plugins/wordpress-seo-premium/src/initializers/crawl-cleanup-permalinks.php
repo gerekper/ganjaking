@@ -144,7 +144,7 @@ class Crawl_Cleanup_Permalinks implements Initializer_Interface {
 	 */
 	public function clean_permalinks() {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- We're not processing anything yet...
-		if ( \is_robots() || \get_query_var( 'sitemap' ) || empty( $_GET ) ) {
+		if ( \is_robots() || \get_query_var( 'sitemap' ) || empty( $_GET ) || \is_user_logged_in() ) {
 			return;
 		}
 

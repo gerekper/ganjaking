@@ -1,4 +1,8 @@
 <?php
+global $porto_settings;
+$singular_name = ! empty( $porto_settings['portfolio-singular-name'] ) ? $porto_settings['portfolio-singular-name'] : __( 'Portfolio', 'porto-functionality' );
+$plural_name   = ! empty( $porto_settings['portfolio-name'] ) ? $porto_settings['portfolio-name'] : __( 'Portfolios', 'porto-functionality' );
+
 $output      = $title = $category_layout = $info_view = $thumb_image = $portfolios_counter = $cat_in = $number = $el_class = $hover_image_class = '';
 $classes_arr = $cat_ids_arr = array();
 
@@ -64,10 +68,17 @@ switch ( $info_view ) {
 	default:
 		$classes_arr[] = 'thumb-info-basic-info';
 }
+if ( ! empty( $porto_settings['portfolio-archive-thumb-bg'] ) ) {
+	$classes_arr[] = 'thumb-info-' . esc_attr( $porto_settings['portfolio-archive-thumb-bg'] );
+}
 
 $classes = implode( ' ', $classes_arr );
 
 $el_class = porto_shortcode_extract_class( $el_class );
+
+if ( ! empty( $shortcode_class ) ) {
+	$el_class .= ' ' . trim( $shortcode_class );
+}
 
 switch ( $category_layout ) {
 
@@ -117,7 +128,7 @@ switch ( $category_layout ) {
 			)
 		);
 
-		$output     .= '<div class="portfolio-' . esc_attr( $category_layout ) . ' ' . esc_attr( $el_class ) . '">';
+		$output     .= '<div class="portfolio-' . esc_attr( $category_layout ) . ( $el_class ? ' ' . esc_attr( $el_class ) : '' ) . '">';
 			$output .= '<div class="porto-carousel owl-carousel owl-theme nav-center custom-carousel-arrows-style m-none" data-plugin-options=\'' . json_encode( $carousel_options ) . '\'>';
 
 		foreach ( $cats as $cat ) {
@@ -162,7 +173,7 @@ switch ( $category_layout ) {
 					$output .= '<span class="thumb-info-inner">' . $cat_title . '</span>';
 				if ( 'show' == $portfolios_counter ) {
 					/* translators: %s: Portfolio count */
-					$output .= '<span class="thumb-info-type">' . sprintf( _n( '%d Portfolio', '%d Portfolios', $term_count, 'porto-functionality' ), number_format_i18n( $term_count ) ) . '</span>';
+					$output .= '<span class="thumb-info-type">' . esc_html( sprintf( __( '%1$d %2$s', 'porto-functionality' ), number_format_i18n( $term_count ), $term_count > 1 ? $plural_name : $singular_name ) ) . '</span>';
 				}
 					$output .= '</span>';
 			}
@@ -191,9 +202,14 @@ switch ( $category_layout ) {
 			$cat_title   = $cat->name;
 			$cat_img_id  = porto_get_image_id( esc_url( get_metadata( 'portfolio_cat', $cat_id, 'category_image', true ) ) );
 			$cat_img_arr = wp_get_attachment_image_src( $cat_img_id, 'portfolio-cat-parallax' );
-			$cat_img_url = $cat_img_arr[0];
-			$term        = get_term( $cat_id, 'portfolio_cat' );
-			$term_count  = $term->count;
+			if ( $cat_img_arr && ! is_wp_error( $cat_img_arr ) ) {
+				$cat_img_url = $cat_img_arr[0];
+			} else {
+				$cat_img_url = '';
+			}
+
+			$term       = get_term( $cat_id, 'portfolio_cat' );
+			$term_count = $term->count;
 
 
 			$output .= '<a href="' . get_term_link( $cat_id ) . '" class="text-decoration-none">';
@@ -222,7 +238,7 @@ switch ( $category_layout ) {
 					$output .= '<span class="thumb-info-inner">' . $cat_title . '</span>';
 				if ( 'show' == $portfolios_counter ) {
 					/* translators: %s: Portfolio count */
-					$output .= '<span class="thumb-info-type">' . sprintf( _n( '%d Portfolio', '%d Portfolios', $term_count, 'porto-functionality' ), number_format_i18n( $term_count ) ) . '</span>';
+					$output .= '<span class="thumb-info-type">' . esc_html( sprintf( __( '%1$d %2$s', 'porto-functionality' ), number_format_i18n( $term_count ), $term_count > 1 ? $plural_name : $singular_name ) ) . '</span>';
 				}
 					$output .= '</span>';
 

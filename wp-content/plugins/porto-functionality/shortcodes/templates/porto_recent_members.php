@@ -73,6 +73,8 @@ if ( $slider_config ) {
 	}
 }
 
+global $porto_settings;
+
 if ( ! empty( $items ) ) {
 	$options['items'] = (int) $items;
 }
@@ -80,7 +82,7 @@ $options['lg']     = (int) $items_desktop;
 $options['md']     = (int) $items_tablets;
 $options['sm']     = (int) $items_mobile;
 $options['xs']     = 1;
-$options['margin'] = $spacing || '0' == $spacing ? absint( $spacing ) : 25;
+$options['margin'] = $spacing || '0' == $spacing ? absint( $spacing ) : (int) $porto_settings['grid-gutter-width'];
 
 if ( $ajax_load ) {
 	$options['loop'] = false;
@@ -99,6 +101,7 @@ if ( $items_tablets ) {
 if ( $items_mobile ) {
 	$carousel_class .= ' ccols-sm-' . (int) $items_mobile;
 }
+$carousel_class .= ' has-ccols-spacing';
 
 $options   = json_encode( $options );
 $items_row = (int) $items_row;
@@ -129,8 +132,11 @@ if ( $cats ) {
 $posts = new WP_Query( $args );
 
 if ( $posts->have_posts() ) {
+	if ( ! empty( $shortcode_class ) ) {
+		$el_class .= ' ' . trim( $shortcode_class );
+	}
 	$el_class = porto_shortcode_extract_class( $el_class );
-	$output   = '<div class="porto-recent-members wpb_content_element ' . esc_attr( $el_class ) . '"';
+	$output   = '<div class="porto-recent-members wpb_content_element ' . esc_attr( trim( $el_class ) ) . '"';
 	if ( $animation_type ) {
 		$output .= ' data-appear-animation="' . esc_attr( $animation_type ) . '"';
 		if ( $animation_delay ) {

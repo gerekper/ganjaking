@@ -1,0 +1,19 @@
+{
+	"elements": {
+		"portoShopCount": {
+			"settings": {
+				"name": "Shop Builder - Count",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-porto-sp.jpg",
+				"metaDescription": "Porto VC element to display count in Shop page"
+			}
+		}
+	},
+	"categories": {
+		"WooCommerce": {
+			"elements": [
+				"portoShopCount"
+			]
+		}
+	}
+}

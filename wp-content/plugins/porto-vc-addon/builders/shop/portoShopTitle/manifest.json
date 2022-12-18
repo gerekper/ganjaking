@@ -1,0 +1,19 @@
+{
+	"elements": {
+		"portoShopTitle": {
+			"settings": {
+				"name": "Shop Builder - Title",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-porto-sp.jpg",
+				"metaDescription": "Porto VC element to display title in Shop page"
+			}
+		}
+	},
+	"categories": {
+		"WooCommerce": {
+			"elements": [
+				"portoShopTitle"
+			]
+		}
+	}
+}

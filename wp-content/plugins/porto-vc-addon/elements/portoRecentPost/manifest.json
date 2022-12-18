@@ -1,0 +1,22 @@
+{
+  "elements": {
+    "portoRecentPost": {
+      "settings": {
+        "name": "Porto Recent Posts",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-porto-recent-post.jpg",
+        "metaDescription": "Show posts by carousel using Porto Recent Posts."
+      },
+      "phpFiles": [
+        "PortoRecentPostController.php"
+      ]
+    }
+  },
+  "categories": {
+    "Misc": {
+      "elements": [
+        "portoRecentPost"
+      ]
+    }
+  }
+}

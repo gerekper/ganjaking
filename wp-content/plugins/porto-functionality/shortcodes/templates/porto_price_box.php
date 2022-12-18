@@ -3,16 +3,16 @@ $output = $title = $desc = $is_popular = $popular_label = $price = $skin = $show
 extract(
 	shortcode_atts(
 		array(
-			'title'              => '',
-			'desc'               => '',
+			'title'              => __( 'Professional', 'porto-functionality' ),
+			'desc'               => __( 'Most Popular', 'porto-functionality' ),
 			'is_popular'         => false,
-			'popular_label'      => '',
+			'popular_label'      => __( 'Popular', 'porto-functionality' ),
 			'price'              => '',
 			'price_unit'         => '',
 			'price_label'        => '',
 			'skin'               => 'custom',
 			'show_btn'           => false,
-			'btn_label'          => '',
+			'btn_label'          => __( 'Get In Touch', 'porto-functionality' ),
 			'btn_action'         => 'open_link',
 			'btn_link'           => '',
 			'popup_iframe'       => '',
@@ -33,6 +33,10 @@ extract(
 );
 
 $el_class = porto_shortcode_extract_class( $el_class );
+
+if ( ! empty( $shortcode_class ) ) {
+	$el_class .= ' ' . $shortcode_class;
+}
 
 if ( $is_popular ) {
 	$el_class .= ' most-popular';
@@ -63,7 +67,7 @@ if ( 'bottom' !== $btn_pos ) {
 
 if ( 'open_link' === $btn_action ) {
 	$link = ( '||' === $btn_link ) ? '' : $btn_link;
-	if ( function_exists( 'vc_build_link' ) ) {
+	if ( function_exists( 'vc_build_link' ) && is_string( $link ) ) {
 		$link     = vc_build_link( $link );
 		$use_link = false;
 		if ( strlen( $link['url'] ) > 0 ) {

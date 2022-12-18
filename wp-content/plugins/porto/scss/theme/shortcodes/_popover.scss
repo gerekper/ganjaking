@@ -1,0 +1,8 @@
+/* theme colors */
+/* primary, secondary, tertiary, quaternary, dark, light */
+@each $state in $color_states {
+    html .popover-#{nth($state,1)} .popover-title {
+        background-color: var(--porto-#{nth($state,1)}-color) !important;
+        color: var(--porto-#{nth($state,1)}-color-inverse, #{nth($state,3)}) !important;
+    }
+}

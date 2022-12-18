@@ -1,0 +1,104 @@
+.container-fluid .vce-row-container {
+	margin-left: calc( var(--porto-fluid-spacing) * -1 );
+	margin-right: calc( var(--porto-fluid-spacing) * -1 );
+	width: calc( 100% + 2 * var(--porto-fluid-spacing) )
+}
+.container-fluid .no-inner-container,
+.vce-row[data-vce-stretch-content="true"],
+.vce-row.vce-element--has-background  {
+	padding-left: var(--porto-fluid-spacing);
+	padding-right: var(--porto-fluid-spacing)
+}
+.vce-row.vce-element--has-background {
+	padding-top: var(--porto-fluid-spacing)
+}
+.container-fluid .vce-row .no-inner-container {
+	padding-left: 0;
+	padding-right: 0
+}
+
+.container-fluid .vce-row-container .vce-row-container {
+	margin-left: 0;
+	margin-right: 0;
+	width: 100%
+}
+
+.vcwb .porto-ibanner {
+	margin-bottom: 0
+}
+.fullscreen-carousel .vce-element-porto-banner-wrapper,
+.fullscreen-carousel .vce-element-porto-banner-wrapper .porto-ibanner,
+.fullscreen-carousel .vce-element-porto-banner-wrapper img  {
+	height: 100%
+}
+.vc-porto-overlay {
+	opacity: .3
+}
+.vcvhelper[data-vcvs-html^="[porto_"] {
+	transition: opacity .2s
+}
+
+a.porto-heading-wrap {
+	display: inline-block
+}
+
+/* header builder */
+.vce-row.header-main {
+	display: block
+}
+.header-builder-p {
+	[class^="vce-porto-hb-"] {
+		display: inline-block;
+		vertical-align: middle;
+		margin-#{$right}: .875rem;
+		&:last-child {
+			margin-#{$right}: 0
+		}
+	}
+
+	.vce-col-content > *:not(.vce-row-container) {
+		margin-#{$right}: .875rem;
+		margin-bottom: 0;
+		max-width: 100%
+	}
+	.vce-col-content > *:last-child {
+		margin-#{$right}: 0
+	}
+
+	.vce-col-content {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap
+	}
+	.vce-col-content > .vce-row-container {
+		flex: 0 0 100%;
+		max-width: 100%
+	}
+	.porto-block .porto-block .vce-col-content {
+		display: block
+	}
+	.vce-col-content > *:last-child,
+	.porto-block .porto-block .vce-col-content > * {
+		margin-#{$right}: 0
+	}
+}
+
+.vce-col.vce-col--md-flex-1 {
+	flex: 1;
+	width: auto;
+	align-self: center
+}
+.vce-col.vce-col--md-flex-auto {
+	flex: none;
+	width: auto;
+	align-self: center
+}
+.porto-header-preset text {
+	text-transform: none
+}
+.vce-col.vce-col--md-flex-1:last-child .vce-col-content {
+	justify-content: flex-end
+}
+.vce-col.vce-col--md-flex-1:nth-child(2):not(:last-child) .vce-col-content {
+	justify-content: center
+}

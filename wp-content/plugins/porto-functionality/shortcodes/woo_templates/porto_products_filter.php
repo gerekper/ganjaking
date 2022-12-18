@@ -9,7 +9,6 @@ extract(
 			'price_format'  => '',
 			'hide_empty'    => '',
 			'display_type'  => '',
-			'query_type'    => 'or',
 			'submit_class'  => '',
 			'submit_value'  => '',
 			'el_class'      => '',
@@ -20,6 +19,9 @@ extract(
 
 $el_class = porto_shortcode_extract_class( $el_class );
 
+if ( ! empty( $shortcode_class ) ) {
+	$el_class .= ' ' . $shortcode_class;
+}
 if ( empty( $filter_areas ) ) {
 	return;
 }
@@ -29,7 +31,6 @@ if ( empty( $display_type ) ) {
 } else {
 	echo '<div class="porto_products_filter_form widget' . ( $el_class ? ' ' . esc_attr( $el_class ) : '' ) . '">';
 }
-
 if ( ! is_array( $filter_areas ) ) {
 	$filter_areas = explode( ',', $filter_areas );
 }
@@ -199,7 +200,6 @@ foreach ( $filter_areas as $index => $area ) {
 		}
 	}
 }
-
 if ( empty( $display_type ) ) {
 	echo '<button type="button" class="btn-submit' . ( $submit_class ? ' ' . esc_attr( trim( $submit_class ) ) : '' ) . '">' . esc_html( $submit_value ? $submit_value : __( 'Submit', 'porto-functionality' ) ) . '</button>';
 

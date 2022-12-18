@@ -1,0 +1,606 @@
+/* Icon Featured */
+.icon-featured {
+    --porto-icon-featured: 110px;
+    display: inline-block;
+    position: relative;
+    width: var(--porto-icon-featured);
+    height: var(--porto-icon-featured);
+    line-height: var(--porto-icon-featured);
+    margin: 15px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 40px;
+    text-align: center;
+    z-index: 1;
+    
+    &:after {
+        pointer-events: none;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        content: '';
+        @include box-sizing(content-box);
+    }
+    img {
+        position: absolute;
+        top: 0; bottom: 0; left: 0; right: 0;
+        margin: auto; padding: 0;
+    }
+}
+
+.featured-box .icon-featured:after {
+    border-color: var(--porto-primary-color);
+}
+
+/* Featured Box */
+.featured-box {
+    position: relative;
+    min-height: 100px;
+    background: var(--porto-light-1);
+    border: 1px solid var(--porto-gray-2);
+    box-shadow: 0 2px 4px 0px rgba(0, 0, 0, .05);
+    margin: 20px auto;
+    text-align: center;
+    z-index: 1;
+
+    &.align-left {
+        text-align: $left;
+    }
+    &.align-center {
+        text-align: center;
+    }
+    &.align-right {
+        text-align: $right;
+    }
+    &.align-justify {
+        text-align: justify;
+    }
+
+    .woocommerce &,
+    .woocommerce-page &{
+        h2,
+        h3,
+        h4 {
+            font-size: 1.3em;
+            font-weight: 400;
+            letter-spacing: -.7px;
+            line-height: 1.42857;
+            color: var(--porto-primary-color);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+
+            &:first-child {
+                margin-top: -5px;
+            }
+        }
+        header {
+            h2,
+            h3,
+            h4 {
+                font-size: 1.1em;
+                margin-top: 0 !important;
+            }
+        }
+    }
+    h4,
+    .wpb_heading {
+        font-size: 1.3em;
+        font-weight: 400;
+        letter-spacing: -0.7px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    .box-content {
+        padding: 30px var(--porto-grid-gutter-width) 10px var(--porto-grid-gutter-width);
+        border-top: 4px solid var(--porto-gray-bg, #dfdfdf);
+        position: relative;
+        top: -1px;
+
+        @media #{$screen-medium} {
+            padding: 25px var(--porto-column-spacing) 5px var(--porto-column-spacing);
+        }
+    }
+    .learn-more {
+        display: block;
+        margin-top: 10px;
+    }
+
+    .porto-sicon-box {
+        margin-top: 15px;
+        margin-bottom: 25px;
+    }
+
+    .wpb_content_element {
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        margin-bottom: 0px;
+        padding: 10px 0px;
+    }
+
+    &.porto-user-box {
+        border-top-color: var(--porto-primary-color);
+    }
+}
+
+/* Featured Box Left */
+.featured-box-text-left,
+.featured-box-text-start {
+    text-align: $left;
+}
+
+/* Featured Boxes - Flat */
+.featured-boxes-flat .featured-box {
+    box-shadow: none;
+    margin: 10px 0;
+
+    .box-content {
+        background: var(--porto-light-1);
+        margin-top: 65px;
+    }
+
+    .icon-featured {
+        --porto-icon-featured: 90px;
+        position: relative;
+        top: -37px;
+        padding: 0;
+        margin: -100px 0 -15px;
+        font-size: 38px;   
+    }
+}
+
+/* Featured Boxes - Style 2 */
+.featured-boxes-style-2 .featured-box {
+    background: none;
+    border: 0;
+    margin: 10px 0;
+    box-shadow: none;
+
+    .box-content {
+        border: 0;
+        padding: 0;
+    }
+
+    .icon-featured {
+        --porto-icon-featured: 75px;
+        font-size: 30px;
+        padding: 0;
+        margin-top: 0;
+    }
+}
+
+/* Featured Boxes - Style 3 */
+.featured-boxes-style-3 {
+    .featured-box {
+        margin: 10px 0;
+
+        .icon-featured {
+            --porto-icon-featured: 75px;
+            padding: 0;
+            margin-top: -35px;
+            font-size: 30px;
+            background: var(--porto-body-bg);
+            border: 3px solid #ccc;
+        }
+        .box-content {
+            display: inline-block;
+        }
+    }
+
+    &:not(.featured-boxes-flat) {
+        .featured-box {
+            background: none;
+            border: 0;
+            box-shadow: none;
+
+            .box-content {
+                border: 0;
+                padding: 0;
+            }
+        }
+    }
+}
+
+/* Featured Boxes - Style 4 */
+.featured-boxes-style-4 .featured-box {
+    background: none;
+    border: 0;
+    margin: 10px 0;
+    box-shadow: none;
+
+    .box-content {
+        border: 0;
+        padding: 0;
+    }
+
+    .icon-featured {
+        --porto-icon-featured: 45px;
+        font-size: 40px;
+        padding: 0;
+        margin-top: 0;
+        margin-bottom: 10px;
+        background: transparent;
+        border-radius: 0;
+    }
+}
+
+/* Featured Boxes - Style 5, 6 and 7 */
+.featured-boxes-style-5, .featured-boxes-style-6, .featured-boxes-style-7 {
+    .featured-box {
+        background: none;
+        border: 0;
+        box-shadow: none;
+        margin: 10px 0;
+
+        .box-content {
+            border: 0;
+            padding: 0;
+
+            h4 {
+                color: var(--porto-heading-color);
+            }
+        }
+
+        .icon-featured {
+            --porto-icon-featured: 75px;
+            font-size: 30px;
+            padding: 0;
+            margin-top: 0;
+            margin-bottom: 10px;
+            background: var(--porto-normal-bg);
+            border: 1px solid var(--porto-gray-2);
+        }
+    }
+}
+
+/* Featured Boxes - Style 6 */
+.featured-boxes-style-6 {
+    .featured-box {
+        .icon-featured {
+            &:after {
+                border-radius: 50%;
+                box-sizing: content-box;
+                content: "";
+                display: block;
+                height: 100%;
+                #{$left}: -6px;
+                padding: 1px;
+                position: absolute;
+                top: -6px;
+                width: 100%;
+                border: 5px solid var(--porto-gray-3);
+            }
+        }
+
+    }
+}
+
+/* Featured Boxes - Style 8 */
+.featured-boxes-style-8 {
+    .featured-box {
+
+        .icon-featured {
+            --porto-icon-featured: 75px;
+            font-size: 30px;
+            padding: 0;
+            margin: -38px 0 -16px;
+            border: 0;
+            background: var(--porto-light-1);
+            &:after {
+                display: none;
+            }
+        }
+
+    }
+}
+
+/* Effects */
+.featured-box-effect-1 {
+    .icon-featured:after {
+        top: -7px;
+        #{$left}: -7px;
+        padding: 7px;
+        @include transition(transform .2s, opacity .2s);
+        transform: scale(1);
+        opacity: 0;
+        box-shadow: 0 0 0 3px var(--porto-light-1);
+    }
+    &:hover {
+        .icon-featured:after {
+            transform: scale(.8);
+            opacity: 1;
+        }
+    }
+}
+
+.featured-box-effect-2 {
+    .icon-featured:after {
+        top: -7px;
+        #{$left}: -7px;
+        padding: 7px;
+        box-shadow: 0 0 0 3px var(--porto-primary-color);
+        @include transition(transform .2s, opacity .2s);
+        transform: scale(.8);
+        opacity: 0;
+    }
+    &:hover {
+        .icon-featured:after {
+            transform: scale(.95);
+            opacity: 1;
+        }
+    }
+}
+
+.featured-box-effect-3 {
+    .icon-featured:after {
+        top: 0;
+        #{$left}: 0;
+        box-shadow: 0 0 0 10px var(--porto-primary-color);
+        transform: scale(.9);
+        @include transition(transform .2s, opacity .2s);
+        opacity: 0;
+    }
+    &:hover {
+        .icon-featured {
+            background: var(--porto-primary-color);
+            color: #fff !important;
+            &:after {
+                transform: scale(1);
+                opacity: .8;
+            }
+        }
+    }
+}
+
+.featured-box-effect-4 {
+    .icon-featured {
+        transform: scale(1);
+        @include transition(transform .2s, transform .2s);
+    }
+    &:hover {
+        .icon-featured {
+            transform: scale(1.15);
+        }
+    }
+}
+
+.featured-box-effect-5 {
+    .icon-featured {
+        overflow: hidden;
+        @include transition(all .3s);
+    }
+    &:hover {
+        .icon-featured {
+            @include animation(toRightFromLeft .3s forwards);
+        }
+    }
+}
+
+@keyframes toRightFromLeft {
+    49% {
+        transform: translate(100%);
+    }
+    50% {
+        opacity: 0;
+        transform: translate(-100%);
+    }
+    51% {
+        opacity: 1;
+    }
+}
+
+.featured-box-effect-6 {
+    .icon-featured:after {
+        @include transition(all .2s);
+    }
+    &:hover {
+        .box-content {
+            .icon-featured:after {
+                transform: scale(1.1);
+            }
+        }
+    }
+}
+
+.featured-box-effect-7 {
+    .icon-featured:after {
+        opacity: 0;
+        box-shadow: 3px 3px #d5d5d5;
+        transform: rotate(-90deg);
+        @include transition(opacity .2s, transform .2s);
+        #{$left}: 0;
+        top: -1px;
+    }
+    &:hover {
+        .icon-featured:after {
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+    }
+    .icon-featured:before {
+        transform: scale(0.8);
+        opacity: .7;
+        @include transition(transform .2s, opacity .2s);
+    }
+    &:hover {
+        .icon-featured:before {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+}
+
+/* WPB Feature Box */
+.feature-box {
+    display: flex;
+
+    h4 {
+        color: var(--porto-heading-color);
+    }
+    .porto-feature-box & .feature-box-icon {
+        background-color: transparent;
+    }
+    &.align-items-center .feature-box-icon {
+        top: 0;
+    }
+    .feature-box-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        top: 7px;
+        height: 1px;
+        min-width: 4.32em;
+        min-height: 4.32em;
+        padding: 0.8em;
+        font-size: 10px;
+        color: #fff;
+        border-radius: 50%;
+        i {
+            color: var(--porto-primary-color);
+        }
+    }
+    .feature-box-info {
+        flex: 1;
+        padding-#{$left}: 15px;
+    }
+}
+.feature-box {
+    &.feature-box-style-1 .feature-box-icon {
+        background-color: var(--porto-primary-color);
+        i {
+            color: #fff;
+        }
+    }
+    &.feature-box-style-2 {
+        .feature-box-icon {
+            top: 0;
+            i {
+                font-size: 2.7em;
+            }
+        }
+    }
+    &.feature-box-style-3 {
+        .feature-box-icon {
+            border: 1px solid var(--porto-primary-color);
+            line-height: 32px;
+        }
+    }
+    &.feature-box-style-4 {
+        flex-wrap: wrap;
+        .feature-box-icon {
+            flex-basis: 100%;
+            justify-content: flex-start;
+            padding: 0 0 1.2rem 0;
+            i {
+                font-size: 2.35em;
+                width: auto;
+                height: auto;
+            }
+        }
+        .feature-box-info {
+            clear: both;
+            padding-#{$left}: 0;
+        }
+    }
+    &.feature-box-style-5 {
+        .feature-box-icon {
+            top: 0;
+            padding: 1em 1.4em;
+            min-width: 5em;
+            i {
+                font-size: 2.75em;
+            }
+        }
+    }
+    &.feature-box-style-6 {
+        .feature-box-icon {
+            line-height: 32px;
+            border: 1px solid var(--porto-gray-2);
+            &:after {
+                content: "";
+                display: block;
+                position: absolute;
+                top: -4px;
+                width: 100%;
+                height: 100%;
+                #{$left}: -4px;
+                padding: 1px;
+                border: 3px solid var(--porto-gray-3);
+                border-radius: 50%;
+                box-sizing: initial;
+            }
+            i {
+                color: #a9a9a9;
+            }
+        }
+    }
+}
+
+/* Reverse All Resolutions */
+.feature-box.reverse-allres {
+    text-align: $right;
+    flex-direction: row-reverse;
+}
+
+.feature-box.reverse-allres .feature-box-info {
+    padding-#{$right}: 15px;
+    padding-#{$left}: 0;
+}
+
+.feature-box.reverse-allres.feature-box-style-4 .feature-box-icon {
+    justify-content: flex-end;
+}
+
+.feature-box.reverse-allres.feature-box-style-4 .feature-box-info {
+    padding-#{$right}: 0;
+}
+/* Reverse */
+@media (min-width: 992px) {
+    .feature-box.reverse {
+        text-align: $right;
+        flex-direction: row-reverse;
+        .feature-box-info {
+            padding-#{$right}: 15px;
+            padding-#{$left}: 0;
+        }
+        .feature-box-icon {
+            justify-content: flex-end;
+        }
+        &.feature-box-style-2 {
+            .feature-box-info {
+                padding-#{$right}: 60px;
+            }
+        }
+        &.feature-box-style-4 {
+            .feature-box-info {
+                padding-#{$right}: 0;
+            }
+        }
+    }
+}
+
+/* Full Width */
+.featured-boxes-full {
+    .featured-box-full {
+        text-align: center;
+        padding: 55px;
+        i, h1, h2, h3, h4, h5, h6, p, a {
+            color: #fff;
+            padding: 0;
+            margin: 0;
+        }
+        i {
+            font-size: 3.9em;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
+        }
+        p {
+            padding-top: 12px;
+            opacity: .8;
+        }
+    }
+}

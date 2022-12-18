@@ -1,0 +1,57 @@
+/* Wordpress Gutenberg Columns */
+.page-content {
+	> *.alignwide {
+		margin-left: auto;
+		margin-right: auto;
+		clear: both;
+		@media only screen and (min-width: 768px) {
+			width: 100%;
+			max-width: 100%;
+		}
+	}
+
+	> *.alignfull {
+		position: relative;
+		max-width: none;
+	}
+}
+
+.wp-block-categories-list,
+.wp-block-categories-list ul,
+.wp-block-archives-list,
+.wp-block-archives-list ul,
+.wp-block-latest-posts,
+.wp-block-latest-posts ul {
+	list-style: none;
+	padding-#{$left}: 0;
+}
+.wp-block-categories-list li > ul,
+.wp-block-archives-list li > ul,
+.wp-block-latest-posts li > ul {
+	margin-top: 8px;
+	margin-bottom: -8px;
+	margin-#{$left}: -5px;
+}
+
+.wp-block-quote:not(.is-large):not(.is-style-large) {
+	border-left: 5px solid #eee;
+	margin: 0 0 1rem 0;
+	padding: 0.5rem 1rem;
+}
+
+.wp-block-pullquote {
+	padding: 0;
+	border: none;
+	blockquote {
+		padding: 2em;
+		text-align: $left;
+		border-#{$left}-color: var(--porto-primary-color);
+		cite {
+			color: #666;
+		}
+	}
+}
+
+.porto-heading > a {
+	color: inherit
+}

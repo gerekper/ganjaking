@@ -8,10 +8,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Porto Elementor widget to display stat counters.
  *
- * @since 5.1.0
+ * @since 1.5.0
  */
 
 use Elementor\Controls_Manager;
+use Elementor\Group_Control_Border;
 
 class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 
@@ -35,7 +36,15 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 		return 'eicon-counter';
 	}
 
-	protected function _register_controls() {
+	public function get_script_depends() {
+		if ( ( isset( $_REQUEST['action'] ) && 'elementor' == $_REQUEST['action'] ) || isset( $_REQUEST['elementor-preview'] ) ) {
+			return array( 'countup', 'porto_shortcodes_countup_loader_js' );
+		} else {
+			return array();
+		}
+	}
+
+	protected function register_controls() {
 
 		$this->start_controls_section(
 			'section_stat_counter',
@@ -86,6 +95,123 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 				'condition'   => array(
 					'icon_type' => array( 'custom' ),
 				),
+			)
+		);
+
+		$this->add_control(
+			'icon_position',
+			array(
+				'type'        => Controls_Manager::SELECT,
+				'label'       => __( 'Icon Position', 'porto-functionality' ),
+				'options'     => array(
+					'top'   => __( 'Top', 'porto-functionality' ),
+					'right' => __( 'Right', 'porto-functionality' ),
+					'left'  => __( 'Left', 'porto-functionality' ),
+				),
+				'default'     => 'top',
+				'description' => __( 'Enter Position of Icon', 'porto-functionality' ),
+			)
+		);
+
+		$this->add_control(
+			'counter_title',
+			array(
+				'type'        => Controls_Manager::TEXTAREA,
+				'label'       => __( 'Counter Title', 'porto-functionality' ),
+				'description' => __( 'Enter title for stats counter block.', 'porto-functionality' ),
+				'dynamic'     => array(
+					'active' => true,
+				),
+			)
+		);
+
+		$this->add_control(
+			'counter_value',
+			array(
+				'type'        => Controls_Manager::TEXT,
+				'label'       => __( 'Counter Value', 'porto-functionality' ),
+				'default'     => '1250',
+				'description' => __( 'Enter number for counter without any special character. You may enter a decimal number. Eg 12.76', 'porto-functionality' ),
+				'dynamic'     => array(
+					'active' => true,
+				),
+			)
+		);
+
+		$this->add_control(
+			'counter_sep',
+			array(
+				'type'        => Controls_Manager::TEXT,
+				'label'       => __( 'Thousands Separator', 'porto-functionality' ),
+				'default'     => ',',
+				'description' => __( 'Enter character for thousanda separator. e.g. \',\' will separate 125000 into 125,000', 'porto-functionality' ),
+			)
+		);
+
+		$this->add_control(
+			'counter_decimal',
+			array(
+				'type'        => Controls_Manager::TEXT,
+				'label'       => __( 'Replace Decimal Point With', 'porto-functionality' ),
+				'default'     => '.',
+				'description' => __( "Did you enter a decimal number (Eg - 12.76) The decimal point '.' will be replaced with value that you will enter above.", 'porto-functionality' ),
+			)
+		);
+
+		$this->add_control(
+			'counter_prefix',
+			array(
+				'type'        => Controls_Manager::TEXT,
+				'label'       => __( 'Counter Value Prefix', 'porto-functionality' ),
+				'description' => __( 'Enter prefix for counter value', 'porto-functionality' ),
+			)
+		);
+
+		$this->add_control(
+			'counter_suffix',
+			array(
+				'type'        => Controls_Manager::TEXT,
+				'label'       => __( 'Counter Value Suffix', 'porto-functionality' ),
+				'description' => __( 'Enter suffix for counter value', 'porto-functionality' ),
+			)
+		);
+
+		$this->add_control(
+			'speed',
+			array(
+				'type'        => Controls_Manager::NUMBER,
+				'label'       => __( 'Counter rolling time', 'porto-functionality' ),
+				'default'     => 3,
+				'min'         => 1,
+				'max'         => 10,
+				'description' => __( 'How many seconds the counter should roll?', 'porto-functionality' ),
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_counter_style_icon',
+			array(
+				'label' => __( 'Icon', 'porto-functionality' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'icon_style',
+			array(
+				'type'        => Controls_Manager::SELECT,
+				'label'       => __( 'Icon Style', 'porto-functionality' ),
+				'description' => __( 'Circle Image is worked for only image icon.', 'porto-functionality' ),
+				'options'     => array(
+					'none'       => __( 'Simple', 'porto-functionality' ),
+					'circle'     => __( 'Circle Background', 'porto-functionality' ),
+					'circle_img' => __( 'Circle Image', 'porto-functionality' ),
+					'square'     => __( 'Square Background', 'porto-functionality' ),
+					'advanced'   => __( 'Design your own', 'porto-functionality' ),
+				),
+				'default'     => 'none',
 			)
 		);
 
@@ -156,22 +282,6 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 		);
 
 		$this->add_control(
-			'icon_style',
-			array(
-				'type'    => Controls_Manager::SELECT,
-				'label'   => __( 'Icon Style', 'porto-functionality' ),
-				'options' => array(
-					'none'       => __( 'Simple', 'porto-functionality' ),
-					'circle'     => __( 'Circle Background', 'porto-functionality' ),
-					'circle_img' => __( 'Circle Image', 'porto-functionality' ),
-					'square'     => __( 'Square Background', 'porto-functionality' ),
-					'advanced'   => __( 'Design your own', 'porto-functionality' ),
-				),
-				'default' => 'none',
-			)
-		);
-
-		$this->add_control(
 			'icon_color_bg',
 			array(
 				'type'        => Controls_Manager::COLOR,
@@ -189,74 +299,13 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'icon_border_style',
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
 			array(
-				'type'        => Controls_Manager::SELECT,
-				'label'       => __( 'Icon Border Style', 'porto-functionality' ),
-				'options'     => array(
-					''       => __( 'None', 'porto-functionality' ),
-					'solid'  => __( 'Solid', 'porto-functionality' ),
-					'dashed' => __( 'Dashed', 'porto-functionality' ),
-					'dotted' => __( 'Dotted', 'porto-functionality' ),
-					'double' => __( 'Double', 'porto-functionality' ),
-					'inset'  => __( 'Inset', 'porto-functionality' ),
-					'outset' => __( 'Outset', 'porto-functionality' ),
-				),
-				'default'     => '',
-				'description' => __( 'Select the border style for icon.', 'porto-functionality' ),
-				'condition'   => array(
+				'name'      => 'icon_bd',
+				'selector'  => '{{WRAPPER}} .porto-sicon-img, {{WRAPPER}} .porto-icon.advanced',
+				'condition' => array(
 					'icon_style' => array( 'circle_img', 'advanced' ),
-				),
-				'selectors'   => array(
-					'{{WRAPPER}} .porto-sicon-img'     => 'border-style: {{VALUE}};',
-					'{{WRAPPER}} .porto-icon.advanced' => 'border-style: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'icon_color_border',
-			array(
-				'type'        => Controls_Manager::COLOR,
-				'label'       => __( 'Border Color', 'porto-functionality' ),
-				'value'       => '#333333',
-				'description' => __( 'Select border color for icon.', 'porto-functionality' ),
-				'condition'   => array(
-					'icon_style'         => array( 'circle_img', 'advanced' ),
-					'icon_border_style!' => '',
-				),
-				'selectors'   => array(
-					'{{WRAPPER}} .porto-sicon-img'     => 'border-color: {{VALUE}};',
-					'{{WRAPPER}} .porto-icon.advanced' => 'border-color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'icon_border_size',
-			array(
-				'type'        => Controls_Manager::SLIDER,
-				'label'       => __( 'Border Width', 'porto-functionality' ),
-				'range'       => array(
-					'px' => array(
-						'step' => 1,
-						'min'  => 1,
-						'max'  => 10,
-					),
-				),
-				'default'     => array(
-					'unit' => 'px',
-					'size' => 1,
-				),
-				'description' => __( 'Thickness of the border.', 'porto-functionality' ),
-				'condition'   => array(
-					'icon_style'         => array( 'circle_img', 'advanced' ),
-					'icon_border_style!' => '',
-				),
-				'selectors'   => array(
-					'{{WRAPPER}} .porto-sicon-img'     => 'border-width: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .porto-icon.advanced' => 'border-width: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -265,7 +314,7 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 			'icon_border_radius',
 			array(
 				'type'      => Controls_Manager::SLIDER,
-				'label'     => __( 'Border Radius', 'porto-functionality' ),
+				'label'     => __( 'Border Radius (px)', 'porto-functionality' ),
 				'range'     => array(
 					'px' => array(
 						'step' => 1,
@@ -287,8 +336,34 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'icon_border_spacing',
 			array(
+				'type'      => Controls_Manager::SLIDER,
+				'label'     => __( 'Background Size', 'porto-functionality' ),
+				'range'     => array(
+					'px' => array(
+						'step' => 1,
+						'min'  => 0,
+						'max'  => 500,
+					),
+				),
+				'default'   => array(
+					'unit' => 'px',
+					'size' => 50,
+				),
+				'condition' => array(
+					'icon_style' => array( 'advanced' ),
+					'icon_type!' => 'custom',
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .porto-icon.advanced' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}; line-height: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'icon_pd',
+			array(
 				'type'        => Controls_Manager::SLIDER,
-				'label'       => __( 'Background Size', 'porto-functionality' ),
+				'label'       => __( 'Spacing', 'porto-functionality' ),
 				'range'       => array(
 					'px' => array(
 						'step' => 1,
@@ -303,108 +378,38 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 				'description' => __( 'Spacing from center of the icon till the boundary of border / background', 'porto-functionality' ),
 				'condition'   => array(
 					'icon_style' => array( 'circle_img', 'advanced' ),
+					'icon_type'  => 'custom',
 				),
 				'selectors'   => array(
 					'{{WRAPPER}} .porto-sicon-img.porto-u-circle-img:before' => 'border-width: calc({{SIZE}}{{UNIT}} + 1px);',
-					'{{WRAPPER}} .porto-sicon-img'     => 'padding: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .porto-icon.advanced' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}; line-height: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .porto-sicon-img' => 'padding: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
 
 		$this->add_control(
-			'icon_position',
+			'icon_margin',
 			array(
-				'type'        => Controls_Manager::SELECT,
-				'label'       => __( 'Icon Position', 'porto-functionality' ),
-				'options'     => array(
-					'top'   => __( 'Top', 'porto-functionality' ),
-					'right' => __( 'Right', 'porto-functionality' ),
-					'left'  => __( 'Left', 'porto-functionality' ),
+				'label'       => esc_html__( 'Icon Margin', 'porto-functionality' ),
+				'type'        => Controls_Manager::DIMENSIONS,
+				'size_units'  => array(
+					'px',
+					'em',
+					'rem',
 				),
-				'default'     => 'top',
-				'description' => __( 'Enter Position of Icon', 'porto-functionality' ),
-			)
-		);
-
-		$this->add_control(
-			'counter_title',
-			array(
-				'type'        => Controls_Manager::TEXTAREA,
-				'label'       => __( 'Counter Title', 'porto-functionality' ),
-				'description' => __( 'Enter title for stats counter block.', 'porto-functionality' ),
-				'dynamic'     => array(
-					'active' => true,
+				'selectors'   => array(
+					'{{WRAPPER}} .porto-icon, {{WRAPPER}} .porto-sicon-img' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
-			)
-		);
-
-		$this->add_control(
-			'counter_value',
-			array(
-				'type'        => Controls_Manager::TEXT,
-				'label'       => __( 'Counter Value', 'porto-functionality' ),
-				'default'     => '1250',
-				'description' => __( 'Enter number for counter without any special character. You may enter a decimal number. Eg 12.76', 'porto-functionality' ),
-			)
-		);
-
-		$this->add_control(
-			'counter_sep',
-			array(
-				'type'        => Controls_Manager::TEXT,
-				'label'       => __( 'Thousands Separator', 'porto-functionality' ),
-				'default'     => ',',
-				'description' => __( 'Enter character for thousanda separator. e.g. \',\' will separate 125000 into 125,000', 'porto-functionality' ),
-			)
-		);
-
-		$this->add_control(
-			'counter_decimal',
-			array(
-				'type'        => Controls_Manager::TEXT,
-				'label'       => __( 'Replace Decimal Point With', 'porto-functionality' ),
-				'default'     => '.',
-				'description' => __( "Did you enter a decimal number (Eg - 12.76) The decimal point '.' will be replaced with value that you will enter above.", 'porto-functionality' ),
-			)
-		);
-
-		$this->add_control(
-			'counter_prefix',
-			array(
-				'type'        => Controls_Manager::TEXT,
-				'label'       => __( 'Counter Value Prefix', 'porto-functionality' ),
-				'description' => __( 'Enter prefix for counter value', 'porto-functionality' ),
-			)
-		);
-
-		$this->add_control(
-			'counter_suffix',
-			array(
-				'type'        => Controls_Manager::TEXT,
-				'label'       => __( 'Counter Value Suffix', 'porto-functionality' ),
-				'description' => __( 'Enter suffix for counter value', 'porto-functionality' ),
-			)
-		);
-
-		$this->add_control(
-			'speed',
-			array(
-				'type'        => Controls_Manager::NUMBER,
-				'label'       => __( 'Counter rolling time', 'porto-functionality' ),
-				'default'     => 3,
-				'min'         => 1,
-				'max'         => 10,
-				'description' => __( 'How many seconds the counter should roll?', 'porto-functionality' ),
+				'qa_selector' => '.porto-icon, .porto-sicon-img',
 			)
 		);
 
 		$this->end_controls_section();
 
 		$this->start_controls_section(
-			'section_stat_counter_font_options',
+			'section_counter_style_text',
 			array(
-				'label' => __( 'Typography', 'porto-functionality' ),
+				'label' => __( 'Text', 'porto-functionality' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -414,7 +419,7 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 			array(
 				'name'     => 'title_google_font_style',
 				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
-				'label'    => __( 'Counter Title Typograhy', 'porto-functionality' ),
+				'label'    => __( 'Counter Title Typography', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .stats-text',
 			)
 		);
@@ -423,11 +428,12 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 			'counter_color_txt1',
 			array(
 				'type'        => Controls_Manager::COLOR,
-				'label'       => __( 'Title Color', 'porto-functionality' ),
+				'label'       => __( 'Counter Title Color', 'porto-functionality' ),
 				'description' => __( 'Select text color for counter title.', 'porto-functionality' ),
 				'selectors'   => array(
 					'{{WRAPPER}} .stats-text' => 'color: {{VALUE}};',
 				),
+				'qa_selector' => '.stats-text',
 			)
 		);
 
@@ -436,7 +442,7 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 			array(
 				'name'     => 'desc_google_font_style',
 				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
-				'label'    => __( 'Counter Value Typograhy', 'porto-functionality' ),
+				'label'    => __( 'Counter Value Typography', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .stats-number',
 			)
 		);
@@ -450,6 +456,7 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 				'selectors'   => array(
 					'{{WRAPPER}} .stats-number' => 'color: {{VALUE}};',
 				),
+				'qa_selector' => '.stats-number',
 			)
 		);
 
@@ -458,7 +465,7 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 			array(
 				'name'     => 'suf_pref_google_font_style',
 				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
-				'label'    => __( 'Counter suffix-prefix Typograhy', 'porto-functionality' ),
+				'label'    => __( 'Counter suffix-prefix Typography', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .counter_prefix, {{WRAPPER}} .counter_suffix',
 			)
 		);
@@ -472,6 +479,7 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 				'selectors'   => array(
 					'{{WRAPPER}} .counter_prefix, {{WRAPPER}} .counter_suffix' => 'color: {{VALUE}};',
 				),
+				'qa_selector' => '.counter_prefix, .counter_suffix',
 			)
 		);
 
@@ -479,7 +487,7 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 			'spacing',
 			array(
 				'type'        => Controls_Manager::SLIDER,
-				'label'       => __( 'Spacing', 'porto-functionality' ),
+				'label'       => __( 'Spacing between Title & Value', 'porto-functionality' ),
 				'range'       => array(
 					'px'  => array(
 						'step' => 1,
@@ -502,6 +510,7 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 				'selectors'   => array(
 					'{{WRAPPER}} .stats-text' => 'margin-top: {{SIZE}}{{UNIT}};',
 				),
+				'qa_selector' => '.stats-desc',
 			)
 		);
 
@@ -558,6 +567,8 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 		$atts['icon_border_spacing'] = '';
 		$atts['font_size_title']     = '';
 		$atts['font_size_counter']   = '';
+		$atts['icon_color']          = '';
+		$atts['icon_color_bg']       = '';
 		if ( is_array( $atts['icon_img'] ) && isset( $atts['icon_img']['id'] ) ) {
 			$atts['icon_img'] = (int) $atts['icon_img']['id'];
 		}
@@ -569,6 +580,7 @@ class Porto_Elementor_Stat_Counter_Widget extends \Elementor\Widget_Base {
 			if ( function_exists( 'porto_is_elementor_preview' ) && porto_is_elementor_preview() ) {
 				$counter_init_value = $atts['counter_value'];
 			}
+
 			include $template;
 		}
 	}

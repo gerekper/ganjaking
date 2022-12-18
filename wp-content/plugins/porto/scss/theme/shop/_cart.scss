@@ -1,0 +1,269 @@
+.woocommerce-cart {
+	.shipping_calculator {
+		h2 {
+			margin-top: 0;
+			a {
+				cursor: default;
+			}
+		}
+	}
+
+	.shipping-form-wrap .shipping-calculator-form {
+		display: block !important;
+		height: auto !important;
+	}
+
+	.shipping-calculator-form {
+		margin-top: 10px;
+	}
+}
+
+.shop_table {
+	.product-thumbnail {
+		img {
+			max-width: 80px;
+		}
+	}
+}
+
+.cross-sells {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.shop_table.responsive.cart-total,
+.shop_table.shop_table_responsive.cart-total {
+	tbody {
+		tr:first-child {
+			th,
+			td {
+				border-top-width: 0;
+			}
+		}
+	}
+	th {
+		width: 25%;
+	}
+	@media #{$screen-medium} {
+		th,
+		td {
+			width: 100%;
+			text-align: $left;
+		}
+	}
+}
+
+#shipping_method {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	li:not(:last-child) {
+		padding-bottom: 12px;
+	}
+}
+
+.wc-proceed-to-checkout .btn {
+	font-size: 15px;
+	letter-spacing: -.015em;
+	margin-bottom: 10px;
+}
+
+.woocommerce-shipping-destination {
+	line-height: 26px;
+}
+
+.wc-proceed-to-checkout {
+	margin-bottom: 20px;
+	margin-bottom: 20px;
+	text-align: $left;
+}
+
+.cart_totals,
+.review-order.shop_table {
+	h2 {
+		margin-top: 0;
+		color: var(--porto-primary-color);
+		a {
+			color: inherit
+		}
+	}
+
+	.order-total {
+		.amount {
+			font-size: 22px;
+			color: var(--porto-heading-color);
+		}
+	}
+}
+
+/* Cart V2 */
+.cart-v2 {
+	.heading-primary{
+		font-size: 20px;
+		line-height: 27px;
+		margin: 0 0 20px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.proceed-to-checkout {
+		letter-spacing: normal;
+	}
+	.shipping-calculator-form {
+			display: block !important;
+		}
+
+	#coupon_code {
+		padding: 11px 12px;
+	}
+	.card.card-default {
+		padding: 24px 30px;
+    	border: 2px solid var(--porto-gray-5);
+		.card-body {
+			tbody {
+				tr {
+					border-bottom: 1px solid var(--porto-gray-2);
+					&:last-child {
+						border-bottom: none;
+					}
+					th {
+						padding: 10px;
+						font-weight: 400;
+						line-height: 1.4;
+						text-align: #{$left} !important;
+					}
+					td {
+						padding: 10px;
+						line-height: 1.4;
+						text-align: #{$left} !important;
+						&:last-child {
+							color: var(--porto-color-price);
+							text-align: #{$right} !important;
+							font-weight: 400;
+						}
+					}
+				}
+				.order-total {
+					th { 
+						padding: 18px 12px; 
+					}
+				}
+			}
+		}
+	}
+}
+.checkout-v2 {
+	.checkout_coupon {
+		display: block !important;
+	}
+}
+.card.card-default {
+	.card-header.arrow {
+		a {
+			position: relative;
+			padding-#{$right}: 40px;
+			font-size: 13px;
+			font-weight: 700;
+			letter-spacing: 0 !important;
+			&:before {
+				border: none;
+				color: $color-dark;
+				font-family: 'porto';
+				content: "\e81b";
+				width: 26px;
+				height: 26px;
+				display: block;
+				position: absolute;
+				#{$right}: 15px;
+				top: 50%;
+				margin-top: -13px;
+				text-align: center;
+				line-height: 26px;
+				font-size: 17px;
+				background-color: transparent;
+			}
+		}
+		a.collapsed {
+			&:before {
+				content: "\e81c";
+			}
+		}
+	}
+}
+
+.card.card-default {
+	.card-header.arrow {
+		a {
+			&:hover {
+				&:before {
+					background-color: transparent;
+					border-color: transparent;
+					color: $color-dark;
+				}
+			}
+		}
+	}
+}
+
+/* Shop Table */
+.shop_table.cart-table {
+		th {
+		&.product-thumbnail {
+			width: 16%;
+		}
+		&.product-name {
+			width: 33%;
+		}
+		&.product-price {
+			width: 	14%;
+		}
+	}
+	.product-subtotal .amount {
+		font-size: 16px;
+		font-weight: 600;
+		color: var(--porto-heading-color);
+	}
+	.actions {
+		input[type="text"]::placeholder {
+			font-size: 12px;
+			font-weight: 500;
+			color: #999;
+		}
+		button {
+			padding: 12px 24px;
+		}
+	}
+}
+
+td.product-total,
+td.order-total {
+	font-weight: 400 !important;
+}
+
+.cart_totals_toggle .card-header a {
+	display: block;
+	padding: 10px 20px;
+}
+
+.cart_totals_toggle .card-header {
+	padding: 0;
+	border-bottom: none;
+}
+
+.cart_totals_toggle .card:not(:first-child) {
+	margin-top: 5px;
+}
+
+
+.also-bought .products-slider.show-nav-title .owl-nav {
+	margin-top: -32px;
+}
+
+i.cart-empty, i.wishlist-empty {
+	font-size: 100px;
+	color: #d3d3d4;
+}
+
+.cart-empty-page .woocommerce-info { 
+	text-align: center;
+}

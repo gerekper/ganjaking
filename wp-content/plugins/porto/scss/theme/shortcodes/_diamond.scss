@@ -1,0 +1,152 @@
+// Diamonds
+.porto-diamonds {
+    font-size: 0;
+    margin: 40px auto;
+    position: relative;
+    text-align: center;
+    max-width: 1110px;
+    padding: side-values(50px 0 12px 57px);
+
+    > li {
+        display: inline-block;
+        font-size: 18px;
+        margin-#{$right}: 135px;
+    }
+
+    .diamond {
+        background: #f4f4f4;
+        display: block;
+        height: 243px;
+        overflow: hidden;
+        position: relative;
+        text-decoration: none;
+        width: 245px;
+        overflow: hidden;
+        @if $rtl == 1{
+            transform: rotate(45deg);
+        }
+        @else {
+            transform: rotate(-45deg);
+        }
+
+        &:after {
+            transition: .2s;
+            content: " ";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            #{$left}: 0;
+            background: #000;
+            opacity: 0;
+            transform: scale(0);
+            z-index: 100;
+        }
+
+        &:hover {
+            &:after {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+
+            .content {
+                &:after {
+                    opacity: 0.8;
+                    transform: scale(1);
+                }
+            }
+
+        }
+    }
+
+    .content {
+        display: table-cell;
+        height: 255px;
+        padding: side-values(0 8px 0 6px);
+        @if $rtl == 1{
+            transform: rotate(-45deg);
+        }
+        @else {
+            transform: rotate(45deg);
+        }
+        text-align: center;
+        vertical-align: middle;
+        width: 255px;
+        position: relative;
+
+        &:after {
+            @include transition (all .2s);
+            color: #fff;
+            content: "\e091";
+            font-family: "simple-line-icons";
+            font-size: 28px;
+            #{$left}: 26%;
+            margin: -6px -12px;
+            opacity: 0;
+            position: absolute;
+            top: 49%;
+            z-index: 1000;
+            transform: scale(2);
+        }
+
+        img {
+            margin-#{$left}: -50%;
+            max-width: 375px;
+        }
+    }
+
+    .diamond-sm {
+        &, & .content {
+            width: 123px;
+            height: 123px;
+        }
+        .content {
+            img {
+                max-width: 195px;
+            }
+            &:after {
+                #{$left}: 24%;
+                top: 49%;
+            }
+        }
+
+    }
+}
+
+@media (min-width: #{$screen-lg}px) {
+    .porto-diamonds > li:nth-child(3) { margin-#{$right}: 0; }
+    .porto-diamonds > li:nth-child(4) { #{$right}: 143px; top: 9px; position: absolute; }
+    .porto-diamonds > li:nth-child(5) { margin-#{$left}: 516px; margin-top: -70px; }
+    .porto-diamonds > li:nth-child(6) { position: absolute; margin: side-values(-8px 0 0 -27px); }
+    .porto-diamonds > li:nth-child(7) { position: absolute; margin: side-values(93px 0 0 -133px); }
+}
+@media (max-width: #{$screen-lg - 1}px) {
+    .porto-diamonds { width: 748px; margin: 0 auto; padding: side-values(75px 0 0 75px); }
+    .porto-diamonds > li { margin: 0; position: static; float: $left }
+    .porto-diamonds > li:nth-child(2n+1) { clear: both; }
+    .porto-diamonds > li:nth-child(2n+2) { margin: side-values(200px auto -50px 55px) }
+    .porto-diamonds > li:last-child { margin-bottom: 50px; }
+    .porto-diamonds:after { content: ''; display: block; clear: both }
+    .porto-diamonds > li:nth-child(5), .porto-diamonds > li:nth-child(6), .porto-diamonds > li:nth-child(7) { float: $right }
+    .porto-diamonds > li:nth-child(7) { margin-top: 40px }
+}
+
+@media (max-width: 748px) {
+    .porto-diamonds {
+        margin: side-values(40px 0 0 -222px);
+        padding: side-values(25px 0 0 50%);
+        width: 445px;
+    }
+
+    .lightbox .porto-diamonds > li {
+        float: none;
+        clear: both;
+        margin: side-values(45px 0 115px 95px);
+        display: block;
+    }
+
+    .porto-diamonds > li:nth-child(4), .porto-diamonds > li:nth-child(6), .porto-diamonds > li:nth-child(7) {
+        margin-#{$left}: 158px
+    }
+}
+

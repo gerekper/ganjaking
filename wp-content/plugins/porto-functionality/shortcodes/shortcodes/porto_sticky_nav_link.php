@@ -11,7 +11,7 @@ function porto_load_sticky_nav_link_shortcode() {
 			'name'        => 'Porto ' . __( 'Sticky Nav Link', 'porto-functionality' ),
 			'base'        => 'porto_sticky_nav_link',
 			'category'    => __( 'Porto', 'porto-functionality' ),
-			'description' => __( 'Stick navigation', 'porto-functionality' ),
+			'description' => __( 'Sticky navigation', 'porto-functionality' ),
 			'icon'        => 'porto_vc_sticky_nav_link',
 			'as_child'    => array( 'only' => 'porto_sticky_nav' ),
 			'params'      => array(
@@ -90,6 +90,9 @@ function porto_load_sticky_nav_link_shortcode() {
 					'type'       => 'colorpicker',
 					'heading'    => __( 'Link Color', 'porto-functionality' ),
 					'param_name' => 'link_color',
+					'selectors'  => array(
+						'.porto-sticky-nav .nav-pills > li{{WRAPPER}} > a, .porto-sticky-nav .nav-pills > li{{WRAPPER}} > span' => 'color: {{VALUE}};',
+					),
 					'dependency' => array(
 						'element' => 'skin',
 						'value'   => array( 'custom' ),
@@ -99,6 +102,9 @@ function porto_load_sticky_nav_link_shortcode() {
 					'type'       => 'colorpicker',
 					'heading'    => __( 'Link Background Color', 'porto-functionality' ),
 					'param_name' => 'link_bg_color',
+					'selectors'  => array(
+						'.porto-sticky-nav .nav-pills > li{{WRAPPER}} > a, .porto-sticky-nav .nav-pills > li{{WRAPPER}} > span' => 'background-color: {{VALUE}};',
+					),
 					'dependency' => array(
 						'element' => 'skin',
 						'value'   => array( 'custom' ),
@@ -106,8 +112,19 @@ function porto_load_sticky_nav_link_shortcode() {
 				),
 				array(
 					'type'       => 'colorpicker',
+					'heading'    => __( 'Link Border Color', 'porto-functionality' ),
+					'param_name' => 'link_br_color',
+					'selectors'  => array(
+						'.porto-sticky-nav .nav-pills > li{{WRAPPER}} > a, .porto-sticky-nav .nav-pills > li{{WRAPPER}} > span' => 'border-bottom-color: {{VALUE}};',
+					),
+				),
+				array(
+					'type'       => 'colorpicker',
 					'heading'    => __( 'Link Active Color', 'porto-functionality' ),
 					'param_name' => 'link_acolor',
+					'selectors'  => array(
+						'.porto-sticky-nav .nav-pills > li{{WRAPPER}}.active > a, .porto-sticky-nav .nav-pills > li{{WRAPPER}}:hover > a' => 'color: {{VALUE}};',
+					),
 					'dependency' => array(
 						'element' => 'skin',
 						'value'   => array( 'custom' ),
@@ -117,9 +134,20 @@ function porto_load_sticky_nav_link_shortcode() {
 					'type'       => 'colorpicker',
 					'heading'    => __( 'Link Active Background Color', 'porto-functionality' ),
 					'param_name' => 'link_abg_color',
+					'selectors'  => array(
+						'.porto-sticky-nav .nav-pills > li{{WRAPPER}}.active > a, .porto-sticky-nav .nav-pills > li{{WRAPPER}}:hover > a' => 'background-color: {{VALUE}};',
+					),
 					'dependency' => array(
 						'element' => 'skin',
 						'value'   => array( 'custom' ),
+					),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'heading'    => __( 'Link Active Border Color', 'porto-functionality' ),
+					'param_name' => 'link_abr_color',
+					'selectors'  => array(
+						'.porto-sticky-nav .nav-pills > li{{WRAPPER}}.active > a, .porto-sticky-nav .nav-pills > li{{WRAPPER}}:hover > a' => 'border-bottom-color: {{VALUE}};',
 					),
 				),
 				$custom_class,

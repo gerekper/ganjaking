@@ -6,7 +6,6 @@
  */
 
 use Yoast\WP\SEO\Premium\Helpers\Prominent_Words_Helper;
-use Yoast\WP\SEO\Premium\Initializers\Inclusive_Language_Analysis_Initializer;
 use Yoast\WP\SEO\Premium\Integrations\Admin\Prominent_Words\Indexing_Integration;
 
 /**
@@ -117,10 +116,9 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 	 * @return void
 	 */
 	public function send_data_to_assets() {
-		$analysis_seo                = new WPSEO_Metabox_Analysis_SEO();
-		$content_analysis            = new WPSEO_Metabox_Analysis_Readability();
-		$analysis_inclusive_language = \YoastSEOPremium()->classes->get( Inclusive_Language_Analysis_Initializer::class );
-		$assets_manager              = new WPSEO_Admin_Asset_Manager();
+		$analysis_seo     = new WPSEO_Metabox_Analysis_SEO();
+		$content_analysis = new WPSEO_Metabox_Analysis_Readability();
+		$assets_manager   = new WPSEO_Admin_Asset_Manager();
 
 		$data = [
 			'restApi'                         => $this->get_rest_api_config(),
@@ -129,45 +127,10 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 			'licensedURL'                     => WPSEO_Utils::get_home_url(),
 			'settingsPageUrl'                 => admin_url( 'admin.php?page=wpseo_dashboard#top#features' ),
 			'integrationsTabURL'              => admin_url( 'admin.php?page=wpseo_integrations' ),
-			'inclusiveLanguageScoreLabels'    => [
-				'na'   => sprintf(
-				/* translators: %1$s expands to the opening anchor tag, %2$s to the closing anchor tag, %3$s to the inclusive language score. */
-					__( '%1$sInclusive language%2$s: %3$s', 'wordpress-seo-premium' ),
-					'<a href="#yoast-inclusive-language-analysis-collapsible-metabox">',
-					'</a>',
-					'<strong>' . __( 'Not available', 'wordpress-seo-premium' ) . '</strong>'
-				),
-				'bad'  => sprintf(
-				/* translators: %1$s expands to the opening anchor tag, %2$s to the closing anchor tag, %3$s to the inclusive language score. */
-					__( '%1$sInclusive language%2$s: %3$s', 'wordpress-seo-premium' ),
-					'<a href="#yoast-inclusive-language-analysis-collapsible-metabox">',
-					'</a>',
-					'<strong>' . __( 'Needs improvement', 'wordpress-seo-premium' ) . '</strong>'
-				),
-				'ok'   => sprintf(
-				/* translators: %1$s expands to the opening anchor tag, %2$s to the closing anchor tag, %3$s to the inclusive language score. */
-					__( '%1$sInclusive language%2$s: %3$s', 'wordpress-seo-premium' ),
-					'<a href="#yoast-inclusive-language-analysis-collapsible-metabox">',
-					'</a>',
-					'<strong>' . __( 'OK', 'wordpress-seo-premium' ) . '</strong>'
-				),
-				'good' => sprintf(
-				/* translators: %1$s expands to the opening anchor tag, %2$s to the closing anchor tag, %3$s to the inclusive language score. */
-					__( '%1$sInclusive language%2$s: %3$s', 'wordpress-seo-premium' ),
-					'<a href="#yoast-inclusive-language-analysis-collapsible-metabox">',
-					'</a>',
-					'<strong>' . __( 'Good', 'wordpress-seo-premium' ) . '</strong>'
-				),
-			],
 			'commonsScriptUrl'                => \plugins_url(
 				'assets/js/dist/commons-premium-' . $assets_manager->flatten_version( WPSEO_PREMIUM_VERSION ) . WPSEO_CSSJS_SUFFIX . '.js',
 				WPSEO_PREMIUM_FILE
 			),
-			'inclusiveLanguageScriptUrl'      => \plugins_url(
-				'assets/js/dist/register-inclusive-language-' . $assets_manager->flatten_version( WPSEO_PREMIUM_VERSION ) . WPSEO_CSSJS_SUFFIX . '.js',
-				WPSEO_PREMIUM_FILE
-			),
-			'inclusiveLanguageAnalysisActive' => $analysis_inclusive_language->is_enabled(),
 			'premiumAssessmentsScriptUrl'     => \plugins_url(
 				'assets/js/dist/register-premium-assessments-' . $assets_manager->flatten_version( WPSEO_PREMIUM_VERSION ) . WPSEO_CSSJS_SUFFIX . '.js',
 				WPSEO_PREMIUM_FILE
@@ -353,7 +316,8 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 	 * @return string The post type.
 	 */
 	protected function get_current_post_type() {
-		$post = filter_input( INPUT_GET, 'post', FILTER_SANITIZE_STRING );
+		// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- This deprecation will be addressed later.
+		$post = filter_input( INPUT_GET, 'post', @FILTER_SANITIZE_STRING );
 
 		if ( $post ) {
 			return get_post_type( get_post( $post ) );
@@ -362,7 +326,7 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 		return filter_input(
 			INPUT_GET,
 			'post_type',
-			FILTER_SANITIZE_STRING,
+			@FILTER_SANITIZE_STRING, // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- This deprecation will be addressed later.
 			[
 				'options' => [
 					'default' => 'post',

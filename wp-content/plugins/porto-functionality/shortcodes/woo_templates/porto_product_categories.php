@@ -29,7 +29,6 @@ extract(
 			'hide_count'         => '',
 			'hover_effect'       => '',
 			'image_size'         => '',
-
 			'navigation'         => 1,
 			'nav_pos'            => '',
 			'nav_pos2'           => '',
@@ -37,21 +36,40 @@ extract(
 			'show_nav_hover'     => false,
 			'pagination'         => 0,
 			'dots_pos'           => '',
-			'dots_style'         => '',
 			'stage_padding'      => '',
 			'autoplay'           => '',
 			'autoplay_timeout'   => 5000,
-
 			'animation_type'     => '',
 			'animation_duration' => 1000,
 			'animation_delay'    => 0,
 			'el_class'           => '',
+			'className'          => '',
+			'page_builder'       => '',
 		),
 		$atts
 	)
 );
 
-$el_class = porto_shortcode_extract_class( $el_class );
+// Backward compatibility
+if ( ! isset( $atts['dots_style'] ) ) {
+	$dots_style = 'dots-style-1';
+} else {
+	$dots_style = $atts['dots_style'];
+	if ( 'elementor' == $page_builder ) {
+		if ( ( '' == $dots_style ) && ! array_key_exists( 'dots_br_color', $atts ) ) {
+			$dots_style = 'dots-style-1';
+		}
+	}
+}
+
+$el_class  = porto_shortcode_extract_class( $el_class );
+$el_class .= ' porto-product-category-widget';
+if ( ! empty( $shortcode_class ) ) {
+	$el_class .= $shortcode_class;
+}
+if ( ! empty( $className ) ) {
+	$el_class .= $className;
+}
 
 if ( $hide_count ) {
 	$el_class .= ' hide-count';
@@ -74,7 +92,7 @@ $hide_empty = $hide_empty ? 1 : 0;
 
 $wrapper_id = 'porto-product-categories-' . rand( 1000, 9999 );
 
-$output = '<div id="' . $wrapper_id . '" class="porto-products wpb_content_element' . ( $el_class ? ' ' . esc_attr( $el_class ) : '' ) . '"';
+$output = '<div id="' . $wrapper_id . '" class="porto-products wpb_content_element' . ( $el_class ? ' ' . esc_attr( trim( $el_class ) ) : '' ) . '"';
 if ( $animation_type ) {
 	$output .= ' data-appear-animation="' . esc_attr( $animation_type ) . '"';
 	if ( $animation_delay ) {
@@ -130,8 +148,9 @@ if ( $pagination ) {
 	if ( $dots_pos ) {
 		$wrapper_class .= ' ' . $dots_pos;
 	}
-	if ( $dots_style ) {
-		$wrapper_class .= ' ' . $dots_style;
+
+	if ( 'dots-style-1' == $dots_style ) {
+		$wrapper_class .= ' dots-style-1';
 	}
 }
 
@@ -185,11 +204,10 @@ if ( 'creative' == $view ) {
 
 if ( '0' == $overlay_bg_opacity || ( '15' != $overlay_bg_opacity && $overlay_bg_opacity ) ) {
 	echo '<style>';
-		echo '#' . $wrapper_id . ' li.product-category .thumb-info-wrapper:after { background-color: rgba(27, 27, 23, ' . ( (int) $overlay_bg_opacity / 100 ) . '); }';
-		echo '#' . $wrapper_id . ' li.product-category:hover .thumb-info-wrapper:after { background-color: rgba(27, 27, 23, ' . ( ( $overlay_bg_opacity > 45 ? (int) $overlay_bg_opacity - 15 : (int) $overlay_bg_opacity + 15 ) / 100 ) . '); }';
+	echo '#' . $wrapper_id . ' li.product-category .thumb-info-wrapper:after { background-color: rgba(27, 27, 23, ' . ( (int) $overlay_bg_opacity / 100 ) . '); }';
+	echo '#' . $wrapper_id . ' li.product-category:hover .thumb-info-wrapper:after { background-color: rgba(27, 27, 23, ' . ( ( $overlay_bg_opacity > 45 ? (int) $overlay_bg_opacity - 15 : (int) $overlay_bg_opacity + 15 ) / 100 ) . '); }';
 	echo '</style>';
 }
-
 if ( ! empty( $ids ) ) {
 	$orderby = 'include';
 	$order   = 'ASC';
@@ -202,6 +220,6 @@ if ( 'products-slider' == $view ) {
 
 $output .= '</div>';
 
-	unset( $GLOBALS['porto_woocommerce_loop'] );
+unset( $GLOBALS['porto_woocommerce_loop'] );
 
 echo porto_filter_output( $output );

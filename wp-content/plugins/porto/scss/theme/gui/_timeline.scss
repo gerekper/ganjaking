@@ -1,0 +1,263 @@
+/* Timeline */
+section.timeline {
+    width: 100%;
+    margin: 50px 0 0;
+    position: relative;
+    float: $left;
+    padding-bottom: 120px;
+
+    &:after {
+        background: rgb(80,80,80);
+        background: linear-gradient(to bottom, rgba(80,80,80,0) 0%, rgb(80,80,80) 8%, rgb(80,80,80) 92%, rgba(80,80,80,0) 100%);
+        content: '';
+        display: block;
+        height: 100%;
+        position: absolute;
+        top: -60px;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 3px;
+        z-index: 0;
+        opacity: .35;
+    }
+    .timeline-date, .timeline-box {
+        box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .04);
+        position: relative;
+        z-index: 1;
+    }
+    .timeline-date {
+        display: block;
+        clear: both;
+        width: 200px;
+        height: 45px;
+        padding: 5px;
+        margin: 0 auto 10px;
+        border: 1px solid var(--porto-gray-5);
+        background: var(--porto-normal-bg);
+        h3 {
+            display: block;
+            text-align: center;
+            text-transform: uppercase;
+            color: var(--porto-primary-color);
+            font-size: 0.9em;
+            font-weight: 700;
+            line-height: 32px;
+            margin: 2px 0 0;
+        }
+    }
+    .timeline-title {
+        padding: 12px;
+        background: var(--porto-gray-1);
+        h4 {
+            padding: 0;
+            margin: 0;
+            color: #171717;
+            font-size: 1.4em;
+        }
+        a {
+            color: #171717;
+        }
+        .timeline-title-tags {
+            color: #B1B1B1;
+            font-size: 0.9em;
+            a {
+                color: #B1B1B1;
+                font-size: 0.9em;
+            }
+        }
+    }
+    .timeline-box {
+        margin: 20px 22px 10px;
+        padding: 18px;
+        width: calc(50% - 44px);
+        float: $left;
+        margin-bottom: 30px;
+        background: var(--porto-normal-bg);
+        border: 1px solid var(--porto-gray-5);
+        &:before {
+            background: var(--porto-primary-color);
+            box-shadow: 0 0 0 3px #fff, 0 0 0 6px var(--porto-primary-color);
+        }
+        &.left {
+            clear: both;
+            &:before {
+                content: "";
+                border-radius: 50%;
+                height: 8px;
+                width: 8px;
+                position: absolute;
+                #{$right}: -27px;
+                top: 22px;
+            }
+            &:after {
+                content: "";
+                transform: rotate(45deg);
+                width: 14px;
+                height: 14px;
+                position: absolute;
+                #{$right}: -8px;
+                top: 20px;
+                z-index: 0;
+                background: inherit;
+                border-#{$right}: 1px solid var(--porto-gray-5);
+                border-top: 1px solid var(--porto-gray-5);
+            }
+        }
+        &.right {
+            clear: $right;
+            float: $right;
+            margin-top: 40px;
+            &:before {
+                content: "";
+                border-radius: 50%;
+                height: 8px;
+                #{$left}: -27px;
+                position: absolute;
+                top: 32px;
+                width: 8px;
+            }
+            &:after {
+                content: "";
+                transform: rotate(45deg);
+                #{$left}: -8px;
+                height: 14px;
+                position: absolute;
+                top: 30px;
+                width: 14px;
+                z-index: 0;
+                background: inherit;
+                border-#{$left}: 1px solid var(--porto-gray-5);
+                border-bottom: 1px solid var(--porto-gray-5);
+            }
+        }
+        .img-thumbnail {
+            &,
+            & img {
+                padding: 0;
+                border: 0;
+            }
+        }
+        .owl-carousel {
+            border-radius: 0;
+            padding: 0;
+            border: 0;
+            box-shadow: none;
+
+            .owl-stage-outer {
+                border-radius: 0;
+            }
+        }
+        .thumb-info {
+            &, img {
+                border: 0;
+                padding: 0;
+                margin: 0;
+                border-radius: 0;
+            }
+            .thumb-info-wrapper {
+                border: 0;
+                padding: 0;
+                margin: 0;
+                border-radius: 0;
+                &:after {
+                    border-radius: 0;
+                    bottom: 0;
+                    #{$left}: 0;
+                    #{$right}: 0;
+                    top: 0;
+                }
+            }
+        }
+        .thumb-info-side-image {
+            .thumb-info-side-image-wrapper {
+                padding: 0;
+            }
+        }
+    }
+}
+
+.timeline {
+    .timeline-item-title {
+        font-size: 1em;
+        margin: 1rem 0 0.25rem;
+        font-weight: 700;
+    }
+    .timeline-item-content {
+        font-size: .9em;
+        p {
+            font-size: inherit;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+/* Responsive */
+@media #{$screen-medium} {
+
+    .column2 section.timeline {
+        width: 74%;
+        margin: 50px 13% 0;
+    }
+
+    section.timeline .timeline-box {
+        float: none;
+        clear: both;
+        right: auto;
+        left: auto;
+        margin: 25px auto;
+        max-width: 80%;
+        width: auto;
+
+        .column2 & {
+            max-width: 80%;
+        }
+        &.right {
+            float: none;
+            clear: both;
+            right: auto;
+            left: auto;
+            margin: 25px auto;
+            max-width: 80%;
+            width: auto;
+            .column2 & {
+                max-width: 80%;
+            }
+        }
+        &.left:after, &.right:after, &.left:before, &.right:before {
+            display: none;
+        }
+    }
+}
+
+@media #{$screen-small} {
+
+    section.timeline {
+        width: auto;
+        float: none;
+        margin-left: 0;
+        margin-right: 0;
+
+        .column2 & {
+            margin-left: 0;
+            margin-right: 0;
+            width: auto;
+        }
+        .timeline-box {
+            margin: 15px auto;
+            max-width: 90%;
+            .column2 & {
+                max-width: 90%;
+            }
+            &.right {
+                margin: 15px auto;
+                max-width: 90%;
+                .column2 & {
+                    max-width: 90%;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,253 @@
+/* Section Featured */
+.section {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 50px 0;
+    background-color: var(--porto-gray-7);
+    border-top: 5px solid var(--porto-gray-8);
+
+    &.section-center {
+        text-align: center;
+    }
+
+    &.section-text-light {
+        color: #fff;
+        h1, h2, h3, h4, h5, h6 {
+            color: #fff;
+        }
+
+        p {
+            color: darken(#fff, 10%);
+        }
+    }
+
+    &.section-background {
+        background-repeat: repeat;
+        border: 0;
+    }
+
+    &.section-overlay {
+        position: relative;
+        &:before {
+            content: "";
+            background: url("../images/video-overlay.png") repeat scroll 0 0 transparent;
+            bottom: 0;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 100%;
+        }
+    }
+
+    &.section-video {
+        background: none !important;
+        border: 0;
+    }
+
+    &.section-parallax {
+        background-color: transparent;
+        border: 0;
+    }
+
+    &.section-with-divider {
+        margin: 56px 0 35px;
+        .section-divider {
+            margin: -56px 0 44px;
+        }
+    }
+
+    &.section-with-divider-footer {
+        margin: 35px 0 56px;
+        position: relative;
+        .section-divider {
+            margin: 44px 0 -56px;
+        }
+    }
+
+    &.section-footer {
+        margin-bottom: -50px;
+    }
+
+    .porto-section:last-child {
+        > div > *:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    &.section-no-borders {
+        border-width: 0;
+    }
+}
+
+.porto-section {
+    position: relative;
+    /*z-index: 0;*/
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+.flex-container {
+    display: flex;
+}
+
+.section-parallax > .parallax-background {
+    z-index: 0;
+}
+
+.section-parallax > * {
+    position: relative;
+    z-index: 1;
+}
+
+.section-with-shape-divider {
+    position: relative;
+    overflow: hidden;
+    .shape-divider {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 80px;
+        z-index: 1;
+        svg {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 50%;
+            height: 100%;
+            transform: translate3d(-50%, 0, 0);
+        }
+        &.shape-divider-bottom {
+            top: auto;
+            bottom: 0;
+        }
+        &.shape-divider-reverse-x {
+            transform: rotateX(180deg);
+        }
+        &.shape-divider-reverse-y {
+            transform: rotateY(180deg);
+        }
+        &.shape-divider-reverse-xy {
+            transform: rotateY(180deg) rotateX(180deg);
+        }
+    }
+}
+
+@media (min-width: 1921px) {
+    .section-with-shape-divider .shape-divider svg {
+        width: 100%;
+    }
+}
+
+/* half container */
+.col-half-section {
+    width: 100%;
+    min-height: 1px;
+    position: relative;
+    max-width: calc( var(--porto-container-width) / 2 - var(--porto-grid-gutter-width) );
+    .elementor-column & {
+        max-width: calc( var(--porto-container-width) / 2 );
+    }
+}
+
+.col-half-section-right {
+    @if $rtl == 1 {
+        justify-self: flex-start;
+    }
+    @else {
+        justify-self: flex-end;
+    }
+    margin-left: auto
+}
+
+.row.no-padding .col-half-section,
+.elementor-column-gap-no .col-half-section {
+    padding-left: var(--porto-res-spacing);
+    padding-right: var(--porto-res-spacing);
+}
+
+@media (min-width: 992px) {
+    .row.no-padding .col-half-section {
+        max-width: calc(var(--porto-container-width) / 2);
+    }
+    .row.no-padding > .section .col-half-section {
+        max-width: calc(var(--porto-container-width) / 2 - var(--porto-grid-gutter-width));
+    }
+}
+
+@media #{$screen-normal} {
+    .col-half-section {
+        max-width: 360px;
+    }
+    .col-half-section.col-fullwidth-md {
+        max-width: 720px;
+        margin-left: auto;
+        margin-right: auto;
+        justify-self: auto
+    }
+}
+@media #{$screen-medium} {
+    .col-half-section {
+        max-width: 540px;
+        margin-left: auto;
+        margin-right: auto;
+        justify-self: auto
+    }
+}
+
+
+.section.section-text-dark,
+.section.section-text-dark h1,
+.section.section-text-dark h2,
+.section.section-text-dark h3,
+.section.section-text-dark h4,
+.section.section-text-dark h5,
+.section.section-text-dark h6 {
+    color: #222529
+}
+.section.section-text-dark p {
+    color: lighten(#222529, 10%);
+}
+
+/* theme colors */
+/* primary, secondary, tertiary, quaternary, dark, light */
+@each $state in $color_states {
+    .section.section-#{nth($state,1)} {
+        background-color: var(--porto-#{nth($state,1)}-color) !important;
+        color: var(--porto-#{nth($state,1)}-color-inverse, #{nth($state,3)});
+        border-color: var(--porto-#{nth($state,1)}-dark-5) !important;
+
+        &:not([class*=" section-text-"]) p {
+            color: var(--porto-#{nth($state,1)}-inverse-dark-10)
+        }
+    }
+
+    .section.section-#{nth($state,1)}:not([class*=" section-text-"]) h1,
+    .section.section-#{nth($state,1)}:not([class*=" section-text-"]) h2,
+    .section.section-#{nth($state,1)}:not([class*=" section-text-"]) h3,
+    .section.section-#{nth($state,1)}:not([class*=" section-text-"]) h4,
+    .section.section-#{nth($state,1)}:not([class*=" section-text-"]) h5,
+    .section.section-#{nth($state,1)}:not([class*=" section-text-"]) h6,
+    .section.section-#{nth($state,1)}-scale-2 .sort-source-style-2 > li > a,
+    .section.section-#{nth($state,1)}-scale-2 .sort-source-style-2 > li > a:focus,
+    .section.section-#{nth($state,1)}-scale-2 .sort-source-style-2 > li > a:hover {
+        color: var(--porto-#{nth($state,1)}-color-inverse, #{nth($state,3)});
+    }
+
+    .section.section-#{nth($state,1)}-scale-2 {
+        background-color: var(--porto-#{nth($state,1)}-dark-10) !important;
+        border-color: var(--porto-#{nth($state,1)}-dark-15) !important;
+    }
+    .section.section-#{nth($state,1)}-scale-2 .sort-source-style-2 > li.active > a:after {
+        border-top-color: var(--porto-#{nth($state,1)}-dark-10)
+    }
+}
+.parallax-scale-wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}

@@ -33,10 +33,9 @@ function porto_load_blog_shortcode() {
 			'params'      => array_merge(
 				array(
 					array(
-						'type'        => 'textfield',
-						'heading'     => __( 'Title', 'porto-functionality' ),
-						'param_name'  => 'title',
-						'admin_label' => true,
+						'type'       => 'porto_param_heading',
+						'param_name' => 'description_layout',
+						'text'       => esc_html__( 'Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'        => 'dropdown',
@@ -82,47 +81,6 @@ function porto_load_blog_shortcode() {
 						),
 					),
 					array(
-						'type'        => 'dropdown',
-						'heading'     => __( 'Post Style', 'porto-functionality' ),
-						'description' => __( 'Only "Hover Info" and "Hover Info 2" styles are available for "Grid - Creative" Blog Layout, "Simple Grid", "Simple List" and "Widget Style" styles are available for only "Grid" and "Masonry" blog layouts, and "Modern" style is available for only "Grid" and "Slider" layout.', 'porto-functionality' ),
-						'param_name'  => 'post_style',
-						'dependency'  => array(
-							'element' => 'post_layout',
-							'value'   => array( 'grid', 'masonry', 'timeline', 'creative', 'masonry-creative', 'slider' ),
-						),
-						'value'       => array(
-							__( 'Theme Options', 'porto-functionality' ) => '',
-							__( 'Default', 'porto-functionality' ) => 'default',
-							__( 'Default - Date on Image', 'porto-functionality' ) => 'date',
-							__( 'Default - Author Picture', 'porto-functionality' ) => 'author',
-							__( 'Post Carousel Style', 'porto-functionality' ) => 'related',
-							__( 'Hover Info', 'porto-functionality' ) => 'hover_info',
-							__( 'Hover Info 2', 'porto-functionality' ) => 'hover_info2',
-							__( 'With Borders', 'porto-functionality' ) => 'padding',
-							__( 'Simple Grid', 'porto-functionality' ) => 'grid',
-							__( 'Simple List', 'porto-functionality' ) => 'list',
-							__( 'Widget Style', 'porto-functionality' ) => 'widget',
-							__( 'Modern', 'porto-functionality' ) => 'modern',
-						),
-						'admin_label' => true,
-					),
-					array(
-						'type'       => 'dropdown',
-						'heading'    => __( 'Post Meta Type', 'porto-functionality' ),
-						'param_name' => 'meta_type',
-						'dependency' => array(
-							'element' => 'post_style',
-							'value'   => array( 'list', 'hover_info', 'hover_info2' ),
-						),
-						'std'        => '',
-						'value'      => array(
-							__( 'None', 'porto-functionality' ) => '',
-							__( 'Show Date', 'porto-functionality' ) => 'date',
-							__( 'Show Categories', 'porto-functionality' ) => 'cat',
-							__( 'Show Date & Categories', 'porto-functionality' ) => 'both',
-						),
-					),
-					array(
 						'type'       => 'dropdown',
 						'heading'    => __( 'Columns', 'porto-functionality' ),
 						'param_name' => 'columns',
@@ -142,6 +100,11 @@ function porto_load_blog_shortcode() {
 							'value'   => array( 'grid', 'masonry', 'creative', 'masonry-creative' ),
 						),
 						'value'      => array( __( 'Yes', 'js_composer' ) => 'yes' ),
+					),
+					array(
+						'type'       => 'porto_param_heading',
+						'param_name' => 'description_query',
+						'text'       => esc_html__( 'Query', 'porto-functionality' ),
 					),
 					array(
 						'type'        => 'textfield',
@@ -179,6 +142,59 @@ function porto_load_blog_shortcode() {
 						'description' => sprintf( __( 'Designates the ascending or descending order. More at %s.', 'porto-functionality' ), '<a href="http://codex.wordpress.org/Class_Reference/WP_Query#Order_.26_Orderby_Parameters" target="_blank">WordPress codex page</a>' ),
 					),
 					array(
+						'type'       => 'porto_param_heading',
+						'param_name' => 'description_blog',
+						'text'       => esc_html__( 'Blog', 'porto-functionality' ),
+					),
+					array(
+						'type'        => 'textfield',
+						'heading'     => __( 'Title', 'porto-functionality' ),
+						'param_name'  => 'title',
+						'admin_label' => true,
+					),
+					array(
+						'type'        => 'dropdown',
+						'heading'     => __( 'Post Style', 'porto-functionality' ),
+						'description' => __( 'Only "Hover Info" and "Hover Info 2" styles are available for "Grid - Creative" Blog Layout, "Simple Grid", "Simple List" and "Widget Style" styles are available for only "Grid" and "Masonry" blog layouts, and "Modern" style is available for only "Grid" and "Slider" layout.', 'porto-functionality' ),
+						'param_name'  => 'post_style',
+						'dependency'  => array(
+							'element' => 'post_layout',
+							'value'   => array( 'grid', 'masonry', 'timeline', 'creative', 'masonry-creative', 'slider' ),
+						),
+						'value'       => array(
+							__( 'Theme Options', 'porto-functionality' ) => '',
+							__( 'Default', 'porto-functionality' ) => 'default',
+							__( 'Default - Date on Image', 'porto-functionality' ) => 'date',
+							__( 'Default - Author Picture', 'porto-functionality' ) => 'author',
+							__( 'Post Carousel Style', 'porto-functionality' ) => 'related',
+							__( 'Hover Info', 'porto-functionality' ) => 'hover_info',
+							__( 'Hover Info 2', 'porto-functionality' ) => 'hover_info2',
+							__( 'With Borders', 'porto-functionality' ) => 'padding',
+							__( 'Simple Grid', 'porto-functionality' ) => 'grid',
+							__( 'Simple List', 'porto-functionality' ) => 'list',
+							__( 'Widget Style', 'porto-functionality' ) => 'widget',
+							__( 'Modern', 'porto-functionality' ) => 'modern',
+						),
+						'qa_selector' => '.post:first-of-type',
+						'admin_label' => true,
+					),
+					array(
+						'type'       => 'dropdown',
+						'heading'    => __( 'Post Meta Type', 'porto-functionality' ),
+						'param_name' => 'meta_type',
+						'dependency' => array(
+							'element' => 'post_style',
+							'value'   => array( 'hover_info', 'hover_info2' ),
+						),
+						'std'        => '',
+						'value'      => array(
+							__( 'None', 'porto-functionality' ) => '',
+							__( 'Show Date', 'porto-functionality' ) => 'date',
+							__( 'Show Categories', 'porto-functionality' ) => 'cat',
+							__( 'Show Date & Categories', 'porto-functionality' ) => 'both',
+						),
+					),
+					array(
 						'type'       => 'textfield',
 						'heading'    => __( 'Excerpt Length', 'porto-functionality' ),
 						'param_name' => 'excerpt_length',
@@ -212,6 +228,128 @@ function porto_load_blog_shortcode() {
 							'element' => 'post_layout',
 							'value'   => array( 'grid', 'masonry', 'timeline', 'slider' ),
 						),
+					),
+
+					array(
+						'type'        => 'porto_typography',
+						'heading'     => __( 'Title', 'porto-functionality' ),
+						'param_name'  => 'title_font',
+						'selectors'   => array(
+							'{{WRAPPER}} .post .entry-title, {{WRAPPER}} .post .porto-post-title, {{WRAPPER}} .post .thumb-info-title',
+						),
+						'qa_selector' => '.post:first-of-type .entry-title,.post:first-of-type .porto-post-title,.post:first-of-type .thumb-info-title',
+						'group'       => __( 'Post Title', 'porto-functionality' ),
+					),
+					array(
+						'type'       => 'colorpicker',
+						'param_name' => 'title_color',
+						'heading'    => __( 'Color', 'porto-functionality' ),
+						'selectors'  => array(
+							'{{WRAPPER}} .post .entry-title a:not(:hover), {{WRAPPER}} .post .porto-post-title a:not(:hover), {{WRAPPER}} .post .thumb-info-title, {{WRAPPER}} .post-medium-alt .entry-title' => 'color: {{VALUE}};',
+						),
+						'group'      => __( 'Post Title', 'porto-functionality' ),
+					),
+					array(
+						'type'       => 'porto_dimension',
+						'heading'    => __( 'Margin', 'porto-functionality' ),
+						'param_name' => 'title_margin',
+						'selectors'  => array(
+							'{{WRAPPER}} .post .entry-title, {{WRAPPER}} .post .porto-post-title, {{WRAPPER}} .post .thumb-info-title' => 'margin: {{TOP}} {{RIGHT}} {{BOTTOM}} {{LEFT}};',
+						),
+						'group'      => __( 'Post Title', 'porto-functionality' ),
+					),
+					array(
+						'type'        => 'porto_typography',
+						'heading'     => __( 'Excerpt', 'porto-functionality' ),
+						'param_name'  => 'excerpt_font',
+						'selectors'   => array(
+							'{{WRAPPER}} .post-excerpt',
+						),
+						'qa_selector' => '.post:first-of-type .post-excerpt',
+						'group'       => __( 'Excerpt', 'porto-functionality' ),
+					),
+					array(
+						'type'       => 'colorpicker',
+						'param_name' => 'excerpt_color',
+						'heading'    => __( 'Color', 'porto-functionality' ),
+						'selectors'  => array(
+							'{{WRAPPER}} .post-excerpt' => 'color: {{VALUE}};',
+						),
+						'group'      => __( 'Excerpt', 'porto-functionality' ),
+					),
+					array(
+						'type'       => 'porto_dimension',
+						'heading'    => __( 'Margin', 'porto-functionality' ),
+						'param_name' => 'excerpt_margin',
+						'selectors'  => array(
+							'{{WRAPPER}} .post-excerpt' => 'margin: {{TOP}} {{RIGHT}} {{BOTTOM}} {{LEFT}};',
+						),
+						'group'      => __( 'Excerpt', 'porto-functionality' ),
+					),
+					array(
+						'type'        => 'porto_typography',
+						'heading'     => __( 'Meta', 'porto-functionality' ),
+						'param_name'  => 'meta_font',
+						'selectors'   => array(
+							'{{WRAPPER}} .post .post-meta',
+						),
+						'qa_selector' => '.post:first-of-type .post-meta',
+						'group'       => __( 'Meta', 'porto-functionality' ),
+					),
+					array(
+						'type'       => 'colorpicker',
+						'param_name' => 'meta_color',
+						'heading'    => __( 'Color', 'porto-functionality' ),
+						'selectors'  => array(
+							'{{WRAPPER}} .post .post-meta' => 'color: {{VALUE}};',
+						),
+						'group'      => __( 'Meta', 'porto-functionality' ),
+					),
+					array(
+						'type'       => 'colorpicker',
+						'param_name' => 'meta_link_color',
+						'heading'    => __( 'Link Color', 'porto-functionality' ),
+						'selectors'  => array(
+							'{{WRAPPER}} .post-meta a:not(:hover)' => 'color: {{VALUE}};',
+						),
+						'group'      => __( 'Meta', 'porto-functionality' ),
+					),
+					array(
+						'type'       => 'porto_dimension',
+						'heading'    => __( 'Margin', 'porto-functionality' ),
+						'param_name' => 'meta_margin',
+						'selectors'  => array(
+							'{{WRAPPER}} .post-meta' => 'margin: {{TOP}} {{RIGHT}} {{BOTTOM}} {{LEFT}};',
+						),
+						'group'      => __( 'Meta', 'porto-functionality' ),
+					),
+					array(
+						'type'       => 'porto_typography',
+						'heading'    => __( 'Button Typography', 'porto-functionality' ),
+						'param_name' => 'read_more_font',
+						'selectors'  => array(
+							'{{WRAPPER}} .post .btn, {{WRAPPER}} .btn-readmore',
+						),
+						'group'      => __( 'Read More', 'porto-functionality' ),
+					),
+					array(
+						'type'       => 'colorpicker',
+						'param_name' => 'read_more_color',
+						'heading'    => __( 'Color', 'porto-functionality' ),
+						'selectors'  => array(
+							'{{WRAPPER}} .post .btn:not(:hover), {{WRAPPER}} .btn-readmore:not(:hover)' => 'color: {{VALUE}};',
+						),
+						'group'      => __( 'Read More', 'porto-functionality' ),
+					),
+					array(
+						'type'       => 'porto_dimension',
+						'heading'    => __( 'Margin', 'porto-functionality' ),
+						'param_name' => 'read_more_margin',
+						'selectors'  => array(
+							'{{WRAPPER}} .post .btn, {{WRAPPER}} .btn-readmore' => 'margin: {{TOP}} {{RIGHT}} {{BOTTOM}} {{LEFT}};',
+							'{{WRAPPER}} .btn-readmore:not(.btn)' => 'display: block;',
+						),
+						'group'      => __( 'Read More', 'porto-functionality' ),
 					),
 					$custom_class,
 				),

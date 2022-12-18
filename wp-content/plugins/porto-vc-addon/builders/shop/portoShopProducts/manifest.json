@@ -1,0 +1,19 @@
+{
+	"elements": {
+		"portoShopProducts": {
+			"settings": {
+				"name": "Shop Builder - Products",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-porto-sp.jpg",
+				"metaDescription": "Porto VC element to display Shop products in Product Archive"
+			}
+		}
+	},
+	"categories": {
+		"WooCommerce": {
+			"elements": [
+				"portoShopProducts"
+			]
+		}
+	}
+}

@@ -1,0 +1,19 @@
+.porto-u-icons {
+    display: block;
+    margin-bottom: 35px;
+    line-height: 1;
+    &.has-effect {
+        .porto-icon {
+            transition: transform .3s, opacity .3s;
+        }
+    }
+}
+.porto-icons-left.porto-u-icons {
+    text-align: $left;
+}
+.porto-icons-center.porto-u-icons {
+    text-align: center
+}
+.porto-icons-right.porto-u-icons {
+    text-align: $right;
+}

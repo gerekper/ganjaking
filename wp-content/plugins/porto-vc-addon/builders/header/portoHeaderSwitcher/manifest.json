@@ -1,0 +1,19 @@
+{
+  "elements": {
+    "portoHeaderSwitcher": {
+      "settings": {
+        "name": "Porto Header Switcher",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-hb.jpg",
+        "metaDescription": "Porto VC element to display language or currency switcher in header"
+      }
+    }
+  },
+  "categories": {
+    "Hero section": {
+      "elements": [
+        "portoHeaderSwitcher"
+      ]
+    }
+  }
+}

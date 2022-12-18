@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Porto Elementor widget to display a circular bar.
  *
- * @since 5.4.1
+ * @since 1.7.2
  */
 
 use Elementor\Controls_Manager;
@@ -43,7 +43,7 @@ class Porto_Elementor_Circular_Bar_Widget extends \Elementor\Widget_Base {
 		}
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 
 		$this->start_controls_section(
 			'section_circular_bar',
@@ -52,153 +52,297 @@ class Porto_Elementor_Circular_Bar_Widget extends \Elementor\Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'title',
+			$this->add_control(
+				'view',
+				array(
+					'type'    => Controls_Manager::SELECT,
+					'label'   => __( 'View Type', 'porto-functionality' ),
+					'options' => array_combine( array_values( porto_vc_commons( 'circular_view_type' ) ), array_keys( porto_vc_commons( 'circular_view_type' ) ) ),
+				)
+			);
+
+			$this->add_control(
+				'icon_cl',
+				array(
+					'type'                   => Controls_Manager::ICONS,
+					'label'                  => __( 'Select Icon', 'porto-functionality' ),
+					'description'            => __( 'Please select the icon.', 'porto-functionality' ),
+					'fa4compatibility'       => 'icon',
+					'skin'                   => 'inline',
+					'exclude_inline_options' => array( 'svg' ),
+					'label_block'            => false,
+					'default'                => array(
+						'value'   => 'fas fa-star',
+						'library' => 'fa-solid',
+					),
+					'condition'              => array(
+						'view' => 'only-icon',
+					),
+				)
+			);
+
+			$this->add_control(
+				'title',
+				array(
+					'label'       => __( 'Title', 'porto-functionality' ),
+					'type'        => Controls_Manager::TEXT,
+					'description' => __( 'Please input the title.', 'porto-functionality' ),
+					'condition'   => array(
+						'view!' => 'only-icon',
+					),
+				)
+			);
+
+			$this->add_control(
+				'value',
+				array(
+					'label'     => __( 'Percent Value', 'porto-functionality' ),
+					'type'      => Controls_Manager::NUMBER,
+					'separator' => 'before',
+				)
+			);
+
+			$this->add_control(
+				'label_value',
+				array(
+					'label'       => __( 'Label Value', 'porto-functionality' ),
+					'type'        => Controls_Manager::NUMBER,
+					'description' => __( 'Enter label for circular bar.', 'porto-functionality' ),
+					'condition'   => array(
+						'view' => '',
+					),
+				)
+			);
+
+			$this->add_control(
+				'units',
+				array(
+					'type'        => Controls_Manager::TEXT,
+					'label'       => __( 'Units', 'porto-functionality' ),
+					'description' => __( 'Enter measurement units (Example: %, px, points, etc).', 'porto-functionality' ),
+					'condition'   => array(
+						'view' => '',
+					),
+				)
+			);
+
+			$this->add_control(
+				'view_size',
+				array(
+					'type'        => Controls_Manager::SELECT,
+					'label'       => __( 'View Size', 'porto-functionality' ),
+					'description' => __( 'Instead of this, you would better use options in style tab.', 'porto-functionality' ),
+					'options'     => array_combine( array_values( porto_vc_commons( 'circular_view_size' ) ), array_keys( porto_vc_commons( 'circular_view_size' ) ) ),
+					'condition'   => array(
+						'view!' => 'only-icon',
+					),
+				)
+			);
+
+			$this->add_control(
+				'linecap',
+				array(
+					'type'        => Controls_Manager::SELECT,
+					'label'       => __( 'Line Cap', 'porto-functionality' ),
+					'description' => __( 'Choose how the ending of the bar line looks like.', 'porto-functionality' ),
+					'options'     => array(
+						'round'  => __( 'Round', 'porto-functionality' ),
+						'square' => __( 'Square', 'porto-functionality' ),
+					),
+				)
+			);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_circular_bar_style',
 			array(
-				'label' => __( 'Title', 'porto-functionality' ),
-				'type'  => Controls_Manager::TEXT,
+				'label' => __( 'Style', 'porto-functionality' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
+			$this->add_control(
+				'size',
+				array(
+					'type'    => Controls_Manager::NUMBER,
+					'label'   => __( 'Bar Size', 'porto-functionality' ),
+					'default' => 175,
+					'min'     => 10,
+					'max'     => 500,
+				)
+			);
 
-		$this->add_control(
-			'value',
-			array(
-				'label' => __( 'Percent Value', 'porto-functionality' ),
-				'type'  => Controls_Manager::NUMBER,
-			)
-		);
+			$this->add_control(
+				'trackcolor',
+				array(
+					'type'        => Controls_Manager::COLOR,
+					'label'       => __( 'Track Color', 'porto-functionality' ),
+					'default'     => porto_is_dark_skin() ? '#2e353e' : '#eeeeee',
+					'description' => __( 'Choose the color of the track. Please clear this if you want to use the default color.', 'porto-functionality' ),
+				)
+			);
 
-		$this->add_control(
-			'label_value',
-			array(
-				'label'       => __( 'Label Value', 'porto-functionality' ),
-				'type'        => Controls_Manager::NUMBER,
-				'description' => __( 'Enter label for circular bar.', 'porto-functionality' ),
-			)
-		);
+			$this->add_control(
+				'barcolor',
+				array(
+					'type'        => Controls_Manager::COLOR,
+					'label'       => __( 'Bar color', 'porto-functionality' ),
+					'description' => __( 'Select pie chart color. Please clear this if you want to use the default color.', 'porto-functionality' ),
+				)
+			);
 
-		$this->add_control(
-			'units',
-			array(
-				'type'        => Controls_Manager::TEXT,
-				'label'       => __( 'Units', 'porto-functionality' ),
-				'description' => __( 'Enter measurement units (Example: %, px, points, etc).', 'porto-functionality' ),
-			)
-		);
+			$this->add_control(
+				'scalecolor',
+				array(
+					'type'        => Controls_Manager::COLOR,
+					'label'       => __( 'Scale Color', 'porto-functionality' ),
+					'description' => __( 'Choose the color of the scale. Please clear this if you want to hide the scale.', 'porto-functionality' ),
+				)
+			);
 
-		$this->add_control(
-			'view',
-			array(
-				'type'    => Controls_Manager::SELECT,
-				'label'   => __( 'View Type', 'porto-functionality' ),
-				'options' => array_combine( array_values( porto_vc_commons( 'circular_view_type' ) ), array_keys( porto_vc_commons( 'circular_view_type' ) ) ),
-			)
-		);
+			$this->add_control(
+				'speed',
+				array(
+					'type'    => Controls_Manager::NUMBER,
+					'label'   => __( 'Animation Speed (ms)', 'porto-functionality' ),
+					'default' => 2500,
+				)
+			);
 
-		$this->add_control(
-			'icon_cl',
+			$this->add_control(
+				'line',
+				array(
+					'type'    => Controls_Manager::NUMBER,
+					'label'   => __( 'Line Width (px)', 'porto-functionality' ),
+					'default' => 14,
+					'min'     => 1,
+					'max'     => 50,
+				)
+			);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_circular_bar_title',
 			array(
-				'type'             => Controls_Manager::ICONS,
-				'label'            => __( 'Select FontAwesome Icon', 'porto-functionality' ),
-				'fa4compatibility' => 'icon',
-				'condition'        => array(
-					'view' => 'only-icon',
+				'label'     => __( 'Title', 'porto-functionality' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => array(
+					'view!' => 'only-icon',
 				),
 			)
 		);
+			$this->add_group_control(
+				Elementor\Group_Control_Typography::get_type(),
+				array(
+					'name'     => 'title_typography',
+					'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
+					'label'    => __( 'Typography', 'porto-functionality' ),
+					'selector' => '{{WRAPPER}} strong',
+				)
+			);
+			$this->add_control(
+				'title_color',
+				array(
+					'type'      => Controls_Manager::COLOR,
+					'label'     => __( 'Color', 'porto-functionality' ),
+					'selectors' => array(
+						'{{WRAPPER}} strong' => 'color: {{VALUE}};',
+					),
+				)
+			);
+			$this->add_control(
+				'title_pos',
+				array(
+					'type'       => Controls_Manager::SLIDER,
+					'label'      => __( 'Top Position', 'porto-functionality' ),
+					'size_units' => array(
+						'%',
+						'px',
+					),
+					'selectors'  => array(
+						'{{WRAPPER}} strong' => 'top: {{SIZE}}{{UNIT}};',
+					),
+				)
+			);
+		$this->end_controls_section();
 
-		$this->add_control(
-			'icon_color',
+		$this->start_controls_section(
+			'section_circular_bar_value',
 			array(
-				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Icon Color', 'porto-functionality' ),
+				'label'     => __( 'Value', 'porto-functionality' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => array(
+					'view' => '',
+				),
+			)
+		);
+			$this->add_group_control(
+				Elementor\Group_Control_Typography::get_type(),
+				array(
+					'name'     => 'value_typography',
+					'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
+					'label'    => __( 'Typography', 'porto-functionality' ),
+					'selector' => '{{WRAPPER}} label',
+				)
+			);
+			$this->add_control(
+				'value_color',
+				array(
+					'type'      => Controls_Manager::COLOR,
+					'label'     => __( 'Color', 'porto-functionality' ),
+					'selectors' => array(
+						'{{WRAPPER}} label' => 'color: {{VALUE}};',
+					),
+				)
+			);
+			$this->add_control(
+				'value_pos',
+				array(
+					'type'       => Controls_Manager::SLIDER,
+					'label'      => __( 'Position', 'porto-functionality' ),
+					'size_units' => array(
+						'%',
+						'px',
+					),
+					'selectors'  => array(
+						'{{WRAPPER}} label' => 'top: {{SIZE}}{{UNIT}};',
+					),
+				)
+			);
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_circular_bar_icon',
+			array(
+				'label'     => __( 'Icon', 'porto-functionality' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => array(
 					'view' => 'only-icon',
 				),
 			)
 		);
-
-		$this->add_control(
-			'view_size',
-			array(
-				'type'    => Controls_Manager::SELECT,
-				'label'   => __( 'View Size', 'porto-functionality' ),
-				'options' => array_combine( array_values( porto_vc_commons( 'circular_view_size' ) ), array_keys( porto_vc_commons( 'circular_view_size' ) ) ),
-			)
-		);
-
-		$this->add_control(
-			'linecap',
-			array(
-				'type'        => Controls_Manager::SELECT,
-				'label'       => __( 'Line Cap', 'porto-functionality' ),
-				'description' => __( 'Choose how the ending of the bar line looks like.', 'porto-functionality' ),
-				'options'     => array(
-					'round'  => __( 'Round', 'porto-functionality' ),
-					'square' => __( 'Square', 'porto-functionality' ),
-				),
-			)
-		);
-
-		$this->add_control(
-			'size',
-			array(
-				'type'    => Controls_Manager::NUMBER,
-				'label'   => __( 'Bar Size', 'porto-functionality' ),
-				'default' => 175,
-				'min'     => 10,
-				'max'     => 500,
-			)
-		);
-
-		$this->add_control(
-			'trackcolor',
-			array(
-				'type'        => Controls_Manager::COLOR,
-				'label'       => __( 'Track Color', 'porto-functionality' ),
-				'default'     => porto_is_dark_skin() ? '#2e353e' : '#eeeeee',
-				'description' => __( 'Choose the color of the track. Please clear this if you want to use the default color.', 'porto-functionality' ),
-			)
-		);
-
-		$this->add_control(
-			'barcolor',
-			array(
-				'type'        => Controls_Manager::COLOR,
-				'label'       => __( 'Bar color', 'porto-functionality' ),
-				'description' => __( 'Select pie chart color. Please clear this if you want to use the default color.', 'porto-functionality' ),
-			)
-		);
-
-		$this->add_control(
-			'scalecolor',
-			array(
-				'type'        => Controls_Manager::COLOR,
-				'label'       => __( 'Scale Color', 'porto-functionality' ),
-				'description' => __( 'Choose the color of the scale. Please clear this if you want to hide the scale.', 'porto-functionality' ),
-			)
-		);
-
-		$this->add_control(
-			'speed',
-			array(
-				'type'    => Controls_Manager::NUMBER,
-				'label'   => __( 'Animation Speed (ms)', 'porto-functionality' ),
-				'default' => 2500,
-			)
-		);
-
-		$this->add_control(
-			'line',
-			array(
-				'type'    => Controls_Manager::NUMBER,
-				'label'   => __( 'Line Width (px)', 'porto-functionality' ),
-				'default' => 14,
-				'min'     => 1,
-				'max'     => 50,
-			)
-		);
-
+			$this->add_control(
+				'icon_size',
+				array(
+					'type'       => Controls_Manager::SLIDER,
+					'label'      => __( 'Size', 'porto-functionality' ),
+					'size_units' => array(
+						'px',
+						'em',
+					),
+					'selectors'  => array(
+						'{{WRAPPER}} i' => 'font-size: {{SIZE}}{{UNIT}};',
+					),
+				)
+			);
+			$this->add_control(
+				'icon_color',
+				array(
+					'type'  => Controls_Manager::COLOR,
+					'label' => __( 'Color', 'porto-functionality' ),
+				)
+			);
 		$this->end_controls_section();
 	}
 
@@ -244,7 +388,7 @@ class Porto_Elementor_Circular_Bar_Widget extends \Elementor\Widget_Base {
 		<div {{{ view.getRenderAttributeString( 'wrapper' ) }}}>
 			<div class="circular-bar-chart" {{{ view.getRenderAttributeString( 'innerWrapper' ) }}}>
 			<#
-				if ( 'only-icon' == settings.view && settings.icon && settings.icon_cl.value ) {
+				if ( 'only-icon' == settings.view && settings.icon_cl && settings.icon_cl.value ) {
 					view.addRenderAttribute( 'icon', 'class', settings.icon_cl.value );
 					if ( settings.icon_color ) {
 						view.addRenderAttribute( 'icon', 'style', 'color:' + settings.icon_color );

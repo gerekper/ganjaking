@@ -1,0 +1,22 @@
+{
+	"elements": {
+		"portoPortfolios": {
+			"settings": {
+				"name": "Porto Portfolios",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-portfolios.jpg",
+				"metaDescription": "Show portfolios by beautiful layouts. e.g. masonry, slider, grid and so on."
+			},
+			"phpFiles": [
+				"PortoPortfoliosController.php"
+			]
+		}
+	},
+	"categories": {
+		"Misc": {
+			"elements": [
+				"portoPortfolios"
+			]
+		}
+	}
+}

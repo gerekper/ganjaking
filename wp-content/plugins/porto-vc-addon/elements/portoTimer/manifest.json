@@ -1,0 +1,19 @@
+{
+  "elements": {
+    "portoTimer": {
+      "settings": {
+        "name": "Porto Timer",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-timer.jpg",
+        "metaDescription": "Porto VC element to display count down timer"
+      }
+    }
+  },
+  "categories": {
+    "Feature": {
+      "elements": [
+        "portoTimer"
+      ]
+    }
+  }
+}

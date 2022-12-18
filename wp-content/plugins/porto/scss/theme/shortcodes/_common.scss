@@ -1,0 +1,100 @@
+.porto-sicon-description p,
+.porto-sicon-description div,
+.info-circle-text p,
+.info-circle-text div,
+.timeline-header>div p,
+.timeline-header>div div,
+.porto-u-list-desc p,
+.porto-u-list-desc div,
+.porto-btn-text,
+span.middle-text p,
+span.middle-text div {
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    line-height: inherit;
+    color: inherit;
+}
+
+.porto-btn-ctn-center,
+.porto-btn-ctn-left,
+.porto-btn-ctn-right,
+.porto-map-wrapper.porto-adjust-bottom-margin,
+.info-wrapper.porto-adjust-bottom-margin,
+.porto-u-list-icon-wrapper.porto-adjust-bottom-margin {
+    margin-bottom: 35px;
+}
+
+/* Porto Block */
+#banner-wrapper,
+#content-top,
+#content-bottom {
+    .porto-block {
+        overflow: hidden;
+    }
+}
+
+.porto-portfolio {
+    position: relative;
+}
+
+.call-to-action-in-footer {
+    position: relative;
+    padding: 60px 0;
+}
+.call-to-action-in-footer .vc_cta3-container {
+    margin-bottom: 0;
+}
+.call-to-action-in-footer:before {
+    content: "";
+    display: block;
+    position: absolute;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid var(--porto-body-bg);
+    height: 20px;
+    width: 20px;
+    top: -5px;
+    left: 50%;
+    margin-left: -20px;
+}
+
+.porto-modal-trigger {
+    cursor: pointer;
+}
+
+/* Animated Letters */
+[data-plugin-animated-letters] {
+    opacity: 0;
+    visibility: hidden;
+}
+
+[data-plugin-animated-letters].initialized {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Animated Letters - Type Writer Effect */
+@keyframes typeWriterFlash {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.letters-wrapper + .typeWriter:last-child {
+    position: relative;
+    padding-right: 4px;
+}
+
+.letters-wrapper + .typeWriter:last-child:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 2px;
+    background: #212121;
+    animation-name: typeWriterFlash;
+    animation-iteration-count: infinite;
+    animation-duration: 600ms;
+}

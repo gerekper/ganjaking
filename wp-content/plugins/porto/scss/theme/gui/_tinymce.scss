@@ -1,0 +1,307 @@
+/*
+/**
+ * Table of Contents:
+ *
+ * 5.0 - Alignment
+ * 6.0 - Tables
+ * 7.0 - Images
+ * 8.0 - Galleries
+ * 9.0 - Audio/Video
+ * 10.0 - RTL
+ * ----------------------------------------------------------------------------
+ */
+
+/**
+ * 5.0 Alignment
+ * ----------------------------------------------------------------------------
+ */
+
+.alignleft {
+    float: $left;
+    margin: side-values(4px 24px 7px 0);
+}
+
+.alignright {
+    float: $right;
+    margin: side-values(4px 0 7px 24px);
+}
+
+.aligncenter {
+    clear: both;
+    display: block;
+    margin: 4px auto 7px;
+    text-align: center;
+}
+
+blockquote.alignleft,
+blockquote.alignright {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 17px;
+    width: 50%;
+}
+
+blockquote.alignleft p,
+blockquote.alignright p {
+    margin-bottom: 17px;
+}
+
+
+/**
+ * 6.0 Tables
+ * ----------------------------------------------------------------------------
+ */
+
+.mceItemTable {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-width: side-values(1px 0 0 1px);
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 14px;
+    line-height: 1.2857142857;
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+.mceItemTable th,
+.mceItemTable caption {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-width: side-values(0 1px 1px 0);
+    font-weight: 700;
+    padding: 8px;
+    text-align: $left;
+    text-transform: uppercase;
+    vertical-align: baseline;
+}
+
+.mceItemTable td {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-width: side-values(0 1px 1px 0);
+    font-family: Lato, sans-serif;
+    font-size: 14px;
+    padding: 8px;
+    vertical-align: baseline;
+}
+
+
+/**
+ * 7.0 Images
+ * ----------------------------------------------------------------------------
+ */
+
+.wp-caption {
+    background: transparent;
+    border: none;
+    color: #767676;
+    margin: 0 0 24px 0;
+    max-width: 100%;
+    padding: 0;
+    text-align: $left;
+}
+
+.html5-captions .wp-caption {
+    padding: 0;
+}
+
+.wp-caption.alignleft {
+    margin: side-values(7px 14px 7px 0);
+    text-align: $left;
+}
+
+.html5-captions .wp-caption.alignleft {
+    margin-#{$right}: 24px;
+}
+
+.wp-caption.alignright {
+    margin: side-values(7px 0 7px 14px);
+    text-align: $right;
+}
+
+.wp-caption.alignright img,
+.wp-caption.alignright .wp-caption-dd {
+    padding-#{$left}: 10px;
+}
+
+.html5-captions .wp-caption.alignright {
+    margin-#{$left}: 24px;
+}
+
+.html5-captions .wp-caption.alignright img,
+.html5-captions .wp-caption.alignright .wp-caption-dd {
+    padding: 0;
+}
+
+.wp-caption.aligncenter {
+    margin: 7px auto;
+}
+
+.wp-caption-dt {
+    margin: 0;
+}
+
+.wp-caption .wp-caption-text,
+.wp-caption-dd {
+    font-size: 12px;
+    font-style: italic;
+    line-height: 1.5;
+    margin: 9px 0;
+    padding: side-values(0 10px 0 0); /* Avoid the caption to overflow the width of the image because wp-caption has 10px wider width */
+    text-align: $left;
+}
+
+.mceTemp + ul,
+.mceTemp + ol {
+    list-style-position: inside;
+}
+
+/**
+ * 8.0 Gallery
+ * -----------------------------------------------------------------------------
+ */
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.gallery-item {
+    width: 100%;
+    padding: var(--porto-column-spacing);
+}
+
+@for $i from 2 through 9 {
+    .gallery-columns-#{$i} .gallery-item {
+        max-width: percentage( 1 / $i );
+    }
+}
+
+.gallery .gallery-caption {
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 0;
+    max-height: 50%;
+    padding: 6px 8px;
+    text-align: center;
+    width: 100%;
+}
+
+.gallery-columns-7 .gallery-caption,
+.gallery-columns-8 .gallery-caption,
+.gallery-columns-9 .gallery-caption {
+    display: none;
+}
+
+
+/**
+ * 9.0 Audio/Video
+ * ----------------------------------------------------------------------------
+ */
+ 
+/*.mejs-mediaelement,
+.mejs-container .mejs-controls {
+    background: #000;
+}
+
+.mejs-controls .mejs-time-rail .mejs-time-loaded,
+.mejs-controls .mejs-horizontal-volume-slider .mejs-horizontal-volume-current {
+    background: #fff;
+}
+
+.mejs-controls .mejs-time-rail .mejs-time-current {
+    background: #24890d;
+}
+
+.mejs-controls .mejs-time-rail .mejs-time-total,
+.mejs-controls .mejs-horizontal-volume-slider .mejs-horizontal-volume-total {
+    background: rgba(255, 255, 255, .33);
+}
+
+.mejs-controls .mejs-time-rail span,
+.mejs-controls .mejs-horizontal-volume-slider .mejs-horizontal-volume-total,
+.mejs-controls .mejs-horizontal-volume-slider .mejs-horizontal-volume-current {
+    border-radius: 0;
+}
+
+.mejs-overlay-loading {
+    background: transparent;
+}
+
+.mejs-overlay-button {
+    background-color: #fff;
+    background-image: none;
+    border-radius: 2px;
+    box-shadow: 1px 1px 1px rgba(0,0,0,.8);
+    color: #000;
+    height: 36px;
+    margin-left: -24px;
+    width: 48px;
+}
+
+.mejs-overlay-button:before {
+    content: '\f452';
+    display: inline-block;
+    font: normal 32px/1.125 Genericons;
+    position: absolute;
+    top: 1px;
+    left: 10px;
+}
+
+.mejs-controls .mejs-button button:focus {
+    outline: none;
+}
+
+.mejs-controls .mejs-button button {
+    background: none;
+    color: #fff;
+    display: inline-block;
+    font: normal 16px/1 Genericons;
+}
+
+.mejs-playpause-button.mejs-play button:before {
+    content: '\f452';
+}
+
+.mejs-playpause-button.mejs-pause button:before {
+    content: '\f448';
+}
+
+.mejs-volume-button.mejs-mute button:before {
+    content: '\f109';
+    font-size: 20px;
+    position: absolute;
+    top: -2px;
+    left: 0;
+}
+
+.mejs-volume-button.mejs-unmute button:before {
+    content: '\f109';
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+
+.mejs-fullscreen-button button:before {
+    content: '\f474';
+}
+
+.mejs-fullscreen-button.mejs-unfullscreen button:before {
+    content: '\f406';
+}
+
+.mejs-overlay:hover .mejs-overlay-button {
+    background-color: #24890d;
+    color: #fff;
+}
+
+.mejs-controls .mejs-button button:hover {
+    color: #41a62a;
+}*/
+
+/**
+ * more styles
+ * ----------------------------------------------------------------------------
+ */
+
+.size-full {
+    max-width: 100%;
+    height: auto;
+}

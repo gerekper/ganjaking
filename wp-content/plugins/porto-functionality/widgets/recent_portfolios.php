@@ -42,7 +42,10 @@ class Porto_Recent_Portfolios_Widget extends WP_Widget {
 		$options['single']      = 'small' == $view ? true : false;
 		$options['animateIn']   = '';
 		$options['animateOut']  = '';
-		$options                = json_encode( $options );
+		if ( 'small' != $view ) {
+			$options['margin'] = 20;
+		}
+		$options = json_encode( $options );
 
 		$args = array(
 			'post_type'      => 'portfolio',
@@ -81,41 +84,51 @@ class Porto_Recent_Portfolios_Widget extends WP_Widget {
 			}
 
 			?>
-			<div class="<?php echo (int) $number > (int) $items ? 'row' : '', 'small' == $view ? ' gallery-row' : ''; ?>">
-				<div
-				<?php if ( $number > $items ) : ?>
-					class="portfolio-carousel porto-carousel owl-carousel show-nav-title" data-plugin-options="<?php echo esc_attr( $options ); ?>"<?php endif; ?>>
-					<?php
-					$count = 0;
-					while ( $portfolios->have_posts() ) {
-						$portfolios->the_post();
+			<?php if ( 'small' == $view ) : ?>
+			<div class="gallery-row">
+			<?php endif; ?>
+			<div
+			<?php if ( $number > $items ) : ?>
+				class="portfolio-carousel porto-carousel owl-carousel show-nav-title" data-plugin-options="<?php echo esc_attr( $options ); ?>"<?php endif; ?>>
+				<?php
+				$count = 0;
+				while ( $portfolios->have_posts() ) {
+					$portfolios->the_post();
 
-						if ( 0 == $count % $items ) {
-							echo '<div class="portfolio-slide">';
-						}
-						if ( 'simple' == $view ) {
-							echo '<div class="portfolio-item">';
-								echo '<div class="portfolio-cats">' . porto_filter_output( get_the_term_list( get_the_ID(), 'portfolio_cat', '', ', ', '' ) ) . '</div>';
-								echo '<h5 class="portfolio-item-title">';
-								echo '<a href="' . esc_url( get_the_permalink() ) . '">';
-								the_title();
-								echo '</a>';
-								echo '</h5>';
-								echo '<a class="btn-view-more" href="' . esc_url( get_the_permalink() ) . '">' . esc_html__( 'View More', 'porto-functionality' ) . '</a>';
-							echo '</div>';
-						} else {
-							get_template_part( 'content', 'portfolio-item' . ( 'small' == $view ? '-small' : '' ) );
-						}
-
-						if ( $count % $items == $items - 1 ) {
-							echo '</div>';
-						}
-
-						$count++;
+					if ( 0 == $count % $items ) {
+						echo '<div class="portfolio-slide">';
 					}
-					?>
-				</div>
+					if ( 'simple' == $view ) {
+						echo '<div class="portfolio-item">';
+							echo '<div class="portfolio-cats">' . porto_filter_output( get_the_term_list( get_the_ID(), 'portfolio_cat', '', ', ', '' ) ) . '</div>';
+							echo '<h5 class="portfolio-item-title">';
+							echo '<a href="' . esc_url( get_the_permalink() ) . '">';
+							the_title();
+							echo '</a>';
+							echo '</h5>';
+							echo '<a class="btn-view-more" href="' . esc_url( get_the_permalink() ) . '">' . esc_html__( 'View More', 'porto-functionality' ) . '</a>';
+						echo '</div>';
+					} else {
+						get_template_part( 'content', 'portfolio-item' . ( 'small' == $view ? '-small' : '' ) );
+					}
+
+					if ( $count % $items == $items - 1 || $count == $number - 1 ) {
+						echo '</div>';
+					}
+
+					$count++;
+				}
+
+				if ( 0 != $count % $items && $count != $number ) {
+					echo '</div>';
+				}
+				?>
 			</div>
+			<?php
+			if ( 'small' == $view ) {
+				echo '</div>';
+			}
+			?>
 			<a class="btn-flat pt-right btn-xs view-more" href="<?php echo get_post_type_archive_link( 'portfolio' ); ?>"><?php esc_html_e( 'View More', 'porto-functionality' ); ?> <i class="fas fa-arrow-<?php echo is_rtl() ? 'left' : 'right'; ?>"></i></a>
 			<?php
 

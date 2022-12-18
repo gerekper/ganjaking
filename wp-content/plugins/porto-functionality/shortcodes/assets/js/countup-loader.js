@@ -13,12 +13,13 @@ if (typeof portoInitStatCounter == 'undefined') {
                 obj = this;
             }
             var $obj = jQuery(obj),
-                endNum = parseFloat($obj.find('.stats-number').attr('data-counter-value'));
-            var Num = ($obj.find('.stats-number').attr('data-counter-value'))+' ';
-            var speed = parseInt($obj.find('.stats-number').attr('data-speed'));
-            var ID = $obj.find('.stats-number').attr('data-id');
-            var sep = $obj.find('.stats-number').attr('data-separator');
-            var dec = $obj.find('.stats-number').attr('data-decimal');
+                $num_obj = $obj.find('.stats-number'),
+                endNum = parseFloat($num_obj.attr('data-counter-value'));
+            var Num = ($num_obj.attr('data-counter-value'))+' ';
+            var speed = parseInt($num_obj.attr('data-speed'));
+            var ID = $num_obj.attr('data-id');
+            var sep = $num_obj.attr('data-separator');
+            var dec = $num_obj.attr('data-decimal');
             var dec_count = Num.split(".");
             if(dec_count[1]){
                 dec_count = dec_count[1].length-1;
@@ -40,10 +41,14 @@ if (typeof portoInitStatCounter == 'undefined') {
                 separator : sep,
                 decimal : dec
             }
+            if ( ! ID ) {
+                ID = $num_obj.get(0);
+            }
             var counter = new countUp(ID, 0, endNum, dec_count, speed, settings),
                 endTrigger = function() {
-                    if (jQuery('#' + ID).next('.counter_suffix').length > 0) {
-                        jQuery('#' + ID).next('.counter_suffix').css('display', 'inline');
+                    var $suffix_obj = typeof ID == 'string' ? jQuery('#' + ID).next('.counter_suffix') : $num_obj.next('.counter_suffix');
+                    if ($suffix_obj.length) {
+                        $suffix_obj.css('display', 'inline');
                     }
                 };
             setTimeout(function(){

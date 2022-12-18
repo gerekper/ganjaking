@@ -86,7 +86,7 @@ class UpdraftPlusAddons2 {
 		// Over-ride update mechanism for the plugin
 		if (is_readable(UPDRAFTPLUS_DIR.'/vendor/yahnis-elsts/plugin-update-checker/plugin-update-checker.php')) {
 
-			include_once(UPDRAFTPLUS_DIR.'/vendor/yahnis-elsts/plugin-update-checker/plugin-update-checker.php');
+			updraft_try_include_file('vendor/yahnis-elsts/plugin-update-checker/plugin-update-checker.php', 'include_once');
 
 			add_filter('puc_check_now-'.$this->slug, array($this, 'puc_check_now'), 10, 3);
 			add_filter('puc_retain_fields-'.$this->slug, array($this, 'puc_retain_fields'));
@@ -269,7 +269,7 @@ class UpdraftPlusAddons2 {
 				$dismissed_until = UpdraftPlus_Options::get_updraft_option('updraftplus_dismissedexpiry', 0);
 				if ($dismissed_until <= time()) {
 					$do_expiry_check = true;
-					$dismiss = '<div style="float:right; position: relative; top:-24px;" class="ud-expiry-dismiss"><a href="'.esc_url(UpdraftPlus::get_current_clean_url()).'" onclick="jQuery(\'.ud-expiry-dismiss\').parent().slideUp(); jQuery.post(ajaxurl, {action: \'updraft_ajax\', subaction: \'dismissexpiry\', nonce: \''.wp_create_nonce('updraftplus-credentialtest-nonce').'\' });">'.sprintf(__('Dismiss from main dashboard (for %s weeks)', 'updraftplus'), 2).'</a></div>';
+					$dismiss = '<div style="float:right; position: relative; top:-24px;" class="ud-expiry-dismiss"><a href="#" onclick="jQuery(\'.ud-expiry-dismiss\').parent().slideUp(); jQuery.post(ajaxurl, {action: \'updraft_ajax\', subaction: \'dismissexpiry\', nonce: \''.wp_create_nonce('updraftplus-credentialtest-nonce').'\' })">'.sprintf(__('Dismiss from main dashboard (for %s weeks)', 'updraftplus'), 2).'</a></div>';
 				}
 			}
 		}

@@ -1,0 +1,50 @@
+/* History */
+.porto-history {
+    margin: 25px 0;
+    padding: 0;
+    clear: both;
+    .featured-box h4 {
+        margin: 0 0 -27px 0;
+        padding: 0;
+    }
+    p {
+        margin-#{$left}: 53px;
+    }
+    .thumb {
+        width: 227px;
+        height: 160px;
+        margin: 0 0 30px;
+        padding: 0;
+        float: $left;
+        img {
+            border-radius: 150px;
+            margin: 7px 8px;
+            width: 145px;
+            height: 145px;
+        }
+    }
+    .featured-box {
+        text-align: $left;
+        margin-#{$left}: 225px;
+        margin-bottom: 50px;
+        min-height: 115px;
+
+        .box-content {
+            border-top-color: var(--porto-primary-color);
+        }
+    }
+}
+
+/* Responsive */
+@media (max-width: 650px) {
+
+    .porto-history {
+        .thumb {
+            display: none;
+        }
+        .featured-box {
+            margin-#{$left}: 0;
+        }
+    }
+
+}

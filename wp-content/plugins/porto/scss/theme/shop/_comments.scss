@@ -1,0 +1,169 @@
+#comments {
+    h2 {
+        margin-top: 0;
+    }
+}
+
+.commentlist {
+    list-style: none;
+    margin: 15px 0;
+    padding: 0;
+    @include clearfix;
+    li {
+        clear: both;
+        margin-bottom: 20px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        .comment_container {
+            @media #{$screen-small} {
+                background: var(--porto-title-bgc);
+                padding: 10px 10px 15px;
+            }
+        }
+        .comment-text {
+            padding: 20px;
+            position: relative;
+            background: var(--porto-title-bgc);
+
+            @media #{$screen-small} {
+                padding: 0;
+                background: transparent;
+            }
+
+            p {
+                font-size: 0.9em;
+                line-height: 21px;
+                margin: 0;
+                padding: 0;
+            }
+            .meta {
+                font-size: 1em;
+                margin: 0;
+                strong {
+                    display: inline-block;
+                    line-height: 21px;
+                    margin: 0;
+                    padding: 0 0 5px 0;
+                    @media #{$screen-small} {
+                        display: block;
+                        padding-bottom: 0;
+                    }
+                }
+                time {
+                    color: #999;
+                    font-size: 0.9em;
+                }
+            }
+        }
+    }
+}
+
+.comment-reply-title {
+    font-size: 1.4em;
+    font-weight: 400;
+    line-height: 27px;
+    margin: 0 0 14px 0;
+}
+
+.comment-form-rating {
+    label {
+        display: inline-block;
+        margin-#{$right}: 10px;
+        margin-bottom: 0;
+    }
+    .stars {
+        display: inline-block;
+        position: relative;
+        top: -.5em;
+        white-space: nowrap;
+
+        span a {
+            position: absolute;
+            top: 0;
+            #{$left}: 0;
+            font-size: 14px;
+            text-indent: -9999em;
+            transition: .2s;
+
+            &:before {
+                color: #706f6c;
+                content: "";
+                position: absolute;
+                #{$left}: 0;
+                height: 24px;
+                text-indent: 0;
+                letter-spacing: 1px;
+            }
+            &:hover {
+                &:before {
+                    color: #706f6c;
+                }
+            }
+        }
+
+        .star-1 {
+            z-index: 10;
+            &:before {
+                width: 17px;
+            }
+            &:hover,
+            &.active {
+                &:before {
+                    content: $fa-var-star;
+                }
+            }
+        }
+        .star-2 {
+            z-index: 9;
+            &:before {
+                width: 34px;
+            }
+            &:hover,
+            &.active {
+                &:before {
+                    content: $fa-var-star$fa-var-star;
+                }
+            }
+        }
+        .star-3 {
+            z-index: 8;
+            &:before {
+                width: 51px;
+            }
+            &:hover,
+            &.active {
+                &:before {
+                    content: $fa-var-star$fa-var-star$fa-var-star;
+                }
+            }
+        }
+        .star-4 {
+            z-index: 7;
+            &:before {
+                width: 68px;
+            }
+            &:hover,
+            &.active {
+                &:before {
+                    content: $fa-var-star$fa-var-star$fa-var-star$fa-var-star;
+                }
+            }
+        }
+        .star-5 {
+            z-index: 6;
+            &:before {
+                content: $fa-var-star$fa-var-star$fa-var-star$fa-var-star$fa-var-star;
+                font-weight: 400;
+            }
+            &:hover,
+            &.active {
+                &:before {
+                    font-weight: 900;
+                }
+            }
+        }
+    }
+}

@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Porto Image Comparison widget
  *
- * @since 6.2.0
+ * @since 2.2.0
  */
 
 use Elementor\Controls_Manager;
@@ -33,6 +33,10 @@ class Porto_Elementor_Image_Comparison_Widget extends \Elementor\Widget_Base {
 		return 'eicon-image-before-after';
 	}
 
+	public function get_custom_help_url() {
+		return 'https://www.portotheme.com/wordpress/porto/documentation/image-comparison-widget/';
+	}
+
 	public function get_script_depends() {
 		if ( ( isset( $_REQUEST['action'] ) && 'elementor' == $_REQUEST['action'] ) || isset( $_REQUEST['elementor-preview'] ) ) {
 			return array( 'porto-elementor-widgets-js', 'jquery-event-move', 'porto-image-comparison' );
@@ -41,7 +45,7 @@ class Porto_Elementor_Image_Comparison_Widget extends \Elementor\Widget_Base {
 		}
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 
 		$this->start_controls_section(
 			'section_image_comparison',
@@ -50,131 +54,226 @@ class Porto_Elementor_Image_Comparison_Widget extends \Elementor\Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'before_img',
-			array(
-				'type'        => Controls_Manager::MEDIA,
-				'label'       => __( 'Before Image', 'porto-functionality' ),
-				'description' => __( 'Upload a before image to display.', 'porto-functionality' ),
-				'dynamic'     => array(
-					'active' => true,
-				),
-			)
-		);
+			$this->start_controls_tabs( 'tabs_image' );
+				$this->start_controls_tab(
+					'tab_image_before',
+					array(
+						'label' => __( 'Before', 'porto-functionality' ),
+					)
+				);
+					$this->add_control(
+						'before_img',
+						array(
+							'type'        => Controls_Manager::MEDIA,
+							'label'       => __( 'Before Image', 'porto-functionality' ),
+							'description' => __( 'Upload a before image to display.', 'porto-functionality' ),
+							'dynamic'     => array(
+								'active' => true,
+							),
+						)
+					);
+				$this->end_controls_tab();
 
-		$this->add_control(
-			'after_img',
-			array(
-				'type'        => Controls_Manager::MEDIA,
-				'label'       => __( 'After Image', 'porto-functionality' ),
-				'description' => __( 'Upload a after image to display.', 'porto-functionality' ),
-				'dynamic'     => array(
-					'active' => true,
-				),
-			)
-		);
+				$this->start_controls_tab(
+					'tab_image_after',
+					array(
+						'label' => __( 'After', 'porto-functionality' ),
+					)
+				);
+					$this->add_control(
+						'after_img',
+						array(
+							'type'        => Controls_Manager::MEDIA,
+							'label'       => __( 'After Image', 'porto-functionality' ),
+							'description' => __( 'Upload a after image to display.', 'porto-functionality' ),
+							'dynamic'     => array(
+								'active' => true,
+							),
+						)
+					);
+				$this->end_controls_tab();
+			$this->end_controls_tabs();
 
-		$this->add_control(
-			'orientation',
-			array(
-				'label'              => __( 'Handle Orientation', 'porto-functionality' ),
-				'type'               => Controls_Manager::CHOOSE,
-				'options'            => array(
-					'horizontal' => array(
-						'title' => __( 'Horizontal', 'porto-functionality' ),
-						'icon'  => 'eicon-navigation-horizontal',
+			$this->add_control(
+				'hide_overlay',
+				array(
+					'type'        => Controls_Manager::SWITCHER,
+					'label'       => __( 'Hide Overlay', 'porto-functionality' ),
+					'description' => __( 'Turn on to hide hover overlay.', 'porto-functionality' ),
+					'separator'   => 'before',
+				)
+			);
+
+			$this->add_control(
+				'orientation',
+				array(
+					'label'              => __( 'Handle Orientation', 'porto-functionality' ),
+					'type'               => Controls_Manager::CHOOSE,
+					'options'            => array(
+						'horizontal' => array(
+							'title' => __( 'Horizontal', 'porto-functionality' ),
+							'icon'  => 'eicon-navigation-horizontal',
+						),
+						'vertical'   => array(
+							'title' => __( 'Vertical', 'porto-functionality' ),
+							'icon'  => 'eicon-navigation-vertical',
+						),
 					),
-					'vertical'   => array(
-						'title' => __( 'Vertical', 'porto-functionality' ),
-						'icon'  => 'eicon-navigation-vertical',
+					'default'            => 'horizontal',
+					'frontend_available' => true,
+				)
+			);
+
+			$this->add_control(
+				'offset',
+				array(
+					'type'        => Controls_Manager::SLIDER,
+					'label'       => __( 'Handle Offset', 'porto-functionality' ),
+					'description' => __( 'Controls the left or top position of the handle on page load.', 'porto-functionality' ),
+					'range'       => array(
+						'px' => array(
+							'step' => 1,
+							'min'  => 0,
+							'max'  => 100,
+						),
 					),
-				),
-				'default'            => 'horizontal',
-				'frontend_available' => true,
-			)
-		);
-
-		$this->add_control(
-			'offset',
-			array(
-				'type'        => Controls_Manager::SLIDER,
-				'label'       => __( 'Handle Offset', 'porto-functionality' ),
-				'description' => __( 'Controls the left or top position of the handle on page load.', 'porto-functionality' ),
-				'range'       => array(
-					'px' => array(
-						'step' => 1,
-						'min'  => 0,
-						'max'  => 100,
+					'default'     => array(
+						'unit' => 'px',
+						'size' => 50,
 					),
-				),
-				'default'     => array(
-					'unit' => 'px',
-					'size' => 50,
-				),
-				'size_units'  => array(
-					'px',
-				),
-			)
-		);
-
-		$this->add_control(
-			'movement',
-			array(
-				'label'              => __( 'Handle Movement Control', 'porto-functionality' ),
-				'type'               => Controls_Manager::CHOOSE,
-				'options'            => array(
-					'click'       => array(
-						'title' => __( 'Drag & Click', 'porto-functionality' ),
-						'icon'  => 'eicon-click',
+					'size_units'  => array(
+						'px',
 					),
-					'handle_only' => array(
-						'title' => __( 'Drag only', 'porto-functionality' ),
-						'icon'  => 'eicon-drag-n-drop',
+				)
+			);
+
+			$this->add_control(
+				'movement',
+				array(
+					'label'              => __( 'Handle Movement Control', 'porto-functionality' ),
+					'type'               => Controls_Manager::CHOOSE,
+					'options'            => array(
+						'click'       => array(
+							'title' => __( 'Drag & Click', 'porto-functionality' ),
+							'icon'  => 'eicon-click',
+						),
+						'handle_only' => array(
+							'title' => __( 'Drag only', 'porto-functionality' ),
+							'icon'  => 'eicon-drag-n-drop',
+						),
+						'hover'       => array(
+							'title' => __( 'Hover', 'porto-functionality' ),
+							'icon'  => 'eicon-cursor-move',
+						),
 					),
-					'hover'       => array(
-						'title' => __( 'Hover', 'porto-functionality' ),
-						'icon'  => 'eicon-cursor-move',
+					'default'            => 'click',
+					'frontend_available' => true,
+				)
+			);
+
+			$this->add_control(
+				'icon_cl',
+				array(
+					'label'       => __( 'Icon Class (ex: fas fa-pencil-alt)', 'porto-functionality' ),
+					'type'        => Controls_Manager::TEXT,
+					'default'     => '',
+					'description' => __( 'Inputs the css class of the icon which is located in handle.', 'porto-functionality' ),
+				)
+			);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_handle_style',
+			array(
+				'tab'   => Controls_Manager::TAB_STYLE,
+				'label' => __( 'Handle', 'porto-functionality' ),
+			)
+		);
+			$this->add_control(
+				'handle_color',
+				array(
+					'type'      => Controls_Manager::COLOR,
+					'label'     => __( 'Handle Color', 'porto-functionality' ),
+					'selectors' => array(
+						'.elementor-element-{{ID}} .porto-image-comparison-handle' => 'color: {{VALUE}};',
 					),
-				),
-				'default'            => 'click',
-				'frontend_available' => true,
-			)
-		);
+				)
+			);
 
-		$this->add_control(
-			'icon_cl',
-			array(
-				'label'       => __( 'Icon Class (ex: fas fa-pencil-alt)', 'porto-functionality' ),
-				'type'        => Controls_Manager::TEXT,
-				'default'     => '',
-				'description' => __( 'Inputs the css class of the icon which is located in handle.', 'porto-functionality' ),
-			)
-		);
+			$this->add_control(
+				'handle_bg_color',
+				array(
+					'type'      => Controls_Manager::COLOR,
+					'label'     => __( 'Handle Background Color', 'porto-functionality' ),
+					'selectors' => array(
+						'.elementor-element-{{ID}} .porto-image-comparison-handle' => 'background-color: {{VALUE}};',
+					),
+				)
+			);
 
-		$this->add_control(
-			'handle_color',
-			array(
-				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Handle Color', 'porto-functionality' ),
-				'default'   => '',
-				'selectors' => array(
-					'.elementor-element-{{ID}} .porto-image-comparison-handle' => 'color: {{VALUE}};',
-				),
-			)
-		);
+			$this->add_control(
+				'handle_icon_sz',
+				array(
+					'type'       => Controls_Manager::SLIDER,
+					'label'      => __( 'Icon Size', 'porto-functionality' ),
+					'size_units' => array(
+						'px',
+						'em',
+					),
+					'condition'  => array(
+						'icon_cl!' => '',
+					),
+					'selectors'  => array(
+						'.elementor-element-{{ID}} .porto-image-comparison-handle' => 'font-size: {{SIZE}}{{UNIT}};',
+					),
+				)
+			);
 
-		$this->add_control(
-			'handle_bg_color',
-			array(
-				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Handle Background Color', 'porto-functionality' ),
-				'default'   => '',
-				'selectors' => array(
-					'.elementor-element-{{ID}} .porto-image-comparison-handle' => 'background-color: {{VALUE}};',
-				),
-			)
-		);
+			$this->add_control(
+				'handle_sz',
+				array(
+					'type'       => Controls_Manager::SLIDER,
+					'label'      => __( 'Handle Size', 'porto-functionality' ),
+					'size_units' => array(
+						'px',
+						'em',
+					),
+					'selectors'  => array(
+						'.elementor-element-{{ID}} .porto-image-comparison-handle' => '--porto-handle-sz: {{SIZE}}{{UNIT}};',
+					),
+				)
+			);
 
+			$this->add_control(
+				'handle_thickness',
+				array(
+					'type'       => Controls_Manager::SLIDER,
+					'label'      => __( 'Thickness', 'porto-functionality' ),
+					'size_units' => array(
+						'px',
+						'em',
+					),
+					'selectors'  => array(
+						'.elementor-element-{{ID}} .porto-image-comparison-handle' => '--porto-handle-bar: {{SIZE}}{{UNIT}};',
+					),
+				)
+			);
+
+			$this->add_control(
+				'handle_radius',
+				array(
+					'type'       => Controls_Manager::SLIDER,
+					'label'      => __( 'Radius', 'porto-functionality' ),
+					'size_units' => array(
+						'px',
+						'%',
+					),
+					'selectors'  => array(
+						'.elementor-element-{{ID}} .porto-image-comparison-handle' => 'border-radius: {{SIZE}}{{UNIT}};',
+					),
+				)
+			);
 		$this->end_controls_section();
 	}
 
@@ -183,10 +282,10 @@ class Porto_Elementor_Image_Comparison_Widget extends \Elementor\Widget_Base {
 
 		if ( $template = porto_shortcode_template( 'porto_image_comparison' ) ) {
 			if ( is_array( $atts['before_img'] ) && ! empty( $atts['before_img']['id'] ) ) {
-				$atts['before_img']  = (int) $atts['before_img']['id'];
+				$atts['before_img'] = (int) $atts['before_img']['id'];
 			}
 			if ( is_array( $atts['after_img'] ) && ! empty( $atts['after_img']['id'] ) ) {
-				$atts['after_img']  = (int) $atts['after_img']['id'];
+				$atts['after_img'] = (int) $atts['after_img']['id'];
 			}
 
 			if ( is_array( $atts['offset'] ) && isset( $atts['offset']['size'] ) ) {
@@ -211,7 +310,7 @@ class Porto_Elementor_Image_Comparison_Widget extends \Elementor\Widget_Base {
 			if ( settings.icon_cl ) {
 				view.addRenderAttribute( 'handle', 'class', settings.icon_cl );
 			} else {
-				view.addRenderAttribute( 'handle', 'class', 'Simple-Line-Icons-cursor-move' );
+				view.addRenderAttribute( 'handle', 'class', 'porto-compare-icon' );
 			}
 
 			var before_html = '', after_html = '';
@@ -225,6 +324,16 @@ class Porto_Elementor_Image_Comparison_Widget extends \Elementor\Widget_Base {
 		<div {{{ view.getRenderAttributeString( 'wrapper' ) }}}>
 			{{{ before_html }}}
 			{{{ after_html }}}
+			<#
+			if ( ! settings.hide_overlay ) {
+				#>
+				<div class="porto-image-comparison-overlay">
+					<div class="before-label"></div>
+					<div class="after-label"></div>
+				</div>
+			<#
+			}
+			#>
 			<div class="porto-image-comparison-handle">
 				<i {{{ view.getRenderAttributeString( 'handle' ) }}}></i>
 			</div>

@@ -1,0 +1,31 @@
+/* Scroll to Top */
+html {
+    #topcontrol {
+        background: rgba(64, 64, 64, .75);
+        color: #FFF;
+        width: 49px;
+        height: 48px;
+        #{$right}: 10px;
+        text-align: center;
+        z-index: 1040;
+        @include transition(background 0.3s ease-out);
+
+        i {
+            position: absolute;
+            height: 24px;
+            line-height: 24px;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    }
+}
+
+/* Responsive */
+@media #{$screen-medium} {
+    html #topcontrol {
+        display: none;
+    }
+}

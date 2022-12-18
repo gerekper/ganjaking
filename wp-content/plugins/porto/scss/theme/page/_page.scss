@@ -1,0 +1,43 @@
+
+/* Page Slideshow */
+.page-slideshow {
+    text-align: center;
+}
+
+.page-meta {
+    > * {
+        display: block;
+    }
+}
+
+.page-share {
+    margin-top: 15px;
+    margin-bottom: 30px;
+    padding: 20px 0 0;
+
+    h3 {
+        display: inline-block;
+        font-size: 1.8em;
+        font-weight: 200;
+        margin: 5px 15px 10px;
+        text-transform: none;
+
+        i {
+            margin-#{$right}: 7px;
+        }
+    }
+    .share-links {
+        display: inline-block;
+        margin-top: -5px;
+    }
+
+    &.container {
+        margin-bottom: 70px;
+    }
+}
+
+.page-content:after {
+    content: '';
+    display: table;
+    clear: both;
+}

@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * register new custom tabs to elementor editor
  *
- * @since 6.2.0
+ * @since 2.2.0
  */
 
 use Elementor\Controls_Manager;

@@ -63,9 +63,9 @@ if ( ! class_exists( 'WC_360_Image_Display' ) ) {
 			}
 
 			$product        = wc_get_product();
-			$attachment_ids = $product ? WC_360_Image_Utils::get_gallery_ids( $product ) : false;
+			$attachment_ids = WC_360_Image_Utils::get_gallery_ids( $product );
 
-			return ! empty( $attachment_ids ) && sizeof( $attachment_ids ) > 1;
+			return ! empty( $attachment_ids );
 		}
 
 		/**
@@ -195,7 +195,7 @@ if ( ! class_exists( 'WC_360_Image_Display' ) ) {
 			$attachment_ids = WC_360_Image_Utils::get_gallery_ids( $product );
 
 			// If image size set and have gallery images
-			if ( isset( $image_size_array['width'] ) && $attachment_ids ) {
+			if ( isset( $image_size_array['width'] ) && ! empty( $attachment_ids ) ) {
 				// Dimensions of Image (based on set image size)
 				$width = $shortcode_width ? $shortcode_width : $image_size_array['width'];
 				$crop  = $image_size_array['crop'];
@@ -246,11 +246,9 @@ if ( ! class_exists( 'WC_360_Image_Display' ) ) {
 			$attachment_ids = WC_360_Image_Utils::get_gallery_ids( $product );
 			$image_js_array = array();
 
-			if ( $attachment_ids ) {
-				foreach ( $attachment_ids as $attachment_id ) {
-					$image_src        = wp_get_attachment_image_src( $attachment_id, apply_filters( 'wc360_output_image_size', 'full' ) );
-					$image_js_array[] = $image_src[0];
-				}
+			foreach ( $attachment_ids as $attachment_id ) {
+				$image_src        = wp_get_attachment_image_src( $attachment_id, apply_filters( 'wc360_output_image_size', 'full' ) );
+				$image_js_array[] = $image_src[0];
 			}
 
 			return $image_js_array;

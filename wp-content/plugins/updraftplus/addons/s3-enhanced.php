@@ -11,8 +11,6 @@ RequiresPHP: 5.5
 
 if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
 
-use Aws\Iam\IamClient;
-
 new UpdraftPlus_Addon_S3_Enhanced;
 
 class UpdraftPlus_Addon_S3_Enhanced {
@@ -26,6 +24,65 @@ class UpdraftPlus_Addon_S3_Enhanced {
 		add_filter('updraft_s3_apikeysetting', array($this, 'apikeysettings'));
 		add_action('updraft_s3_print_new_api_user_form', array($this, 's3_print_new_api_user_form'));
 		add_filter('updraft_s3_newuser_go', array($this, 'newuser_go'), 10, 2);
+		add_filter('updraft_s3_partial_templates', array($this, 'get_partial_templates'), 10);
+		add_filter('updraft_s3_template_properties', array($this, 'partial_template_properties'));
+	}
+
+	/**
+	 * Get partial templates of the S3 remote storage, the partial template is recognised by its name. To find out a name of partial template, look for the partial call syntax in the template, it's enclosed by double curly braces (i.e. {{> partial_template_name }})
+	 *
+	 * @param Array $partial_templates A collection of filterable partial templates
+	 * @return Array an associative array keyed by name of the partial templates
+	 */
+	public function get_partial_templates($partial_templates) {
+		ob_start();
+		?>
+			<tr class="{{get_template_css_classes true}}">
+				<td colspan="2">
+				{{#> updraft_s3_apikeysetting}}
+				<a href="{{updraftplus_premium_url}}" target="_blank"><em>{{api_key_setting_default_label}}</em></a>
+				{{/updraft_s3_apikeysetting}}
+				</td>
+			</tr>
+		<?php
+		if (!isset($partial_templates['s3_additional_configuration_top'])) $partial_templates['s3_additional_configuration_top'] = '';
+		$partial_templates['s3_additional_configuration_top'] .= ob_get_clean();
+		$updraft_s3_apikeysetting = apply_filters('updraft_s3_apikeysetting', '');
+		if ('' !== $updraft_s3_apikeysetting) {
+			if (!isset($partial_templates['updraft_s3_apikeysetting'])) $partial_templates['updraft_s3_apikeysetting'] = '';
+			$partial_templates['updraft_s3_apikeysetting'] .= $updraft_s3_apikeysetting;
+		}
+		$extra_storage_options_configuration_template = apply_filters('updraft_s3_extra_storage_options_configuration_template', '');
+		if ('' !== $extra_storage_options_configuration_template) {
+			if (!isset($partial_templates['s3_additional_configuration_bottom'])) $partial_templates['s3_additional_configuration_bottom'] = '';
+			$partial_templates['s3_additional_configuration_bottom'] .= $extra_storage_options_configuration_template;
+		}
+		return $partial_templates;
+	}
+
+	/**
+	 * This method is hooked to a filter and going to be accessed by any code within WordPress environment, so instead of sanitising each value in this method and/or using any other technique to prevent XSS attacks, just make sure each partial template has all variables escaped
+	 */
+	public function partial_template_properties() {
+		global $updraftplus;
+		return array(
+			'api_key_setting_default_label' => __('To create a new IAM sub-user and access key that has access only to this bucket, upgrade to Premium.', 'updraftplus'),
+			'api_key_setting_premium_label' => __('If you have an AWS admin user, then you can use this wizard to quickly create a new AWS (IAM) user with access to only this bucket (rather than your whole account)', 'updraftplus'),
+			'input_storage_class_label' => __('Storage class', 'updraftplus'),
+			'input_storage_class_aria' => __('Read more about storage classes', 'updraftplus'),
+			'input_storage_class_text' => __('(Read more)', 'updraftplus'),
+			'input_storage_class_option_labels' => array(
+				'STANDARD' => __('Standard', 'updraftplus'),
+				'STANDARD_IA' => __('Standard (infrequent access)', 'updraftplus'),
+				'INTELLIGENT_TIERING' => __('Intelligent Tiering', 'updraftplus'),
+			),
+			'input_server_encryption_label' => __('Server-side encryption', 'updraftplus'),
+			'input_server_encryption_aria' => __('Read more about server-side encryption', 'updraftplus'),
+			'input_server_encryption_text' => __('(Read more)', 'updraftplus'),
+			'input_server_encryption_title' => __("Check this box to use Amazon's server-side encryption", 'updraftplus'),
+			'updraftplus_current_clean_url' => esc_url(UpdraftPlus::get_current_clean_url()),
+			'updraftplus_premium_url' => $updraftplus->get_url('premium'),
+		);
 	}
 
 	/**
@@ -48,26 +105,30 @@ class UpdraftPlus_Addon_S3_Enhanced {
 	 * This method gives template string to the page for the extra storage options.
 	 *
 	 * @param  Object $existing_partial_template_str - partial templete string to which this outputted template appended
-	 * @param  Object $backup_module_object          - This is an instance of the remote storage object.
 	 *
 	 * @return String - the partial template, ready for substitutions to be carried out
 	 */
-	public function extra_storage_options_configuration_template($existing_partial_template_str, $backup_module_object) {
-		$classes = $backup_module_object->get_css_classes();
-		return $existing_partial_template_str.'<tr class="'.$classes.'">
-			<th>'.__('Storage class', 'updraftplus').':<br><a aria-label="'.__('Read more about storage classes', 'updraftplus').'" href="https://aws.amazon.com/s3/storage-classes/" target="_blank"><em>'.__('(Read more)', 'updraftplus').'</em></a></th>
+	public function extra_storage_options_configuration_template($existing_partial_template_str) {
+		ob_start();
+		?>
+		{{! Any value in the below template should be escaped using double curly braces, so please make sure no value is an raw format that is triple-stashed }}
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_storage_class_label}}:<br><a aria-label="{{input_storage_class_aria}}" href="https://aws.amazon.com/s3/storage-classes/" target="_blank"><em>{{input_storage_class_text}}</em></a></th>
 			<td>
-				<select '.$backup_module_object->output_settings_field_name_and_id('rrs', true).' data-updraft_settings_test="rrs">
-					<option value="STANDARD" {{#ifeq "STANDARD" rrs}}selected="selected"{{/ifeq}}>'.__('Standard', 'updraftplus').'</option>
-					<option value="STANDARD_IA" {{#ifeq "STANDARD_IA" rrs}}selected="selected"{{/ifeq}}>'.__('Standard (infrequent access)', 'updraftplus').'</option>
-					<option value="INTELLIGENT_TIERING" {{#ifeq "INTELLIGENT_TIERING" rrs}}selected="selected"{{/ifeq}}>'.__('Intelligent Tiering', 'updraftplus').'</option>
+				<select id="{{get_template_input_attribute_value "id" "rrs"}}" name="{{get_template_input_attribute_value "name" "rrs"}}" data-updraft_settings_test="rrs">
+					{{#each input_storage_class_option_labels}}
+						<option {{#ifeq ../rrs @key}}selected="selected"{{/ifeq}} value="{{@key}}">{{this}}</option>
+					{{/each}}
 				</select>
 			</td>
 		</tr>
-		<tr class="'.$classes.'">
-			<th>'.__('Server-side encryption', 'updraftplus').':<br><a aria-label="'.__('Read more about server-side encryption', 'updraftplus').'" href="https://aws.amazon.com/blogs/aws/new-amazon-s3-server-side-encryption/" target="_blank"><em>'.__('(Read more)', 'updraftplus').'</em></a></th>
-			<td><input data-updraft_settings_test="server_side_encryption" title="'.__("Check this box to use Amazon's server-side encryption", 'updraftplus').'" type="checkbox" '.$backup_module_object->output_settings_field_name_and_id('server_side_encryption', true).' value="1" {{#ifeq "1" server_side_encryption}}checked="checked"{{/ifeq}}/></td>
-		</tr>';
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_server_encryption_label}}:<br><a aria-label="{{input_server_encryption_aria}}" href="https://aws.amazon.com/blogs/aws/new-amazon-s3-server-side-encryption/" target="_blank"><em>{{input_server_encryption_text}}</em></a></th>
+			<td><input data-updraft_settings_test="server_side_encryption" title="{{input_server_encryption_title}}" type="checkbox" id="{{get_template_input_attribute_value "id" "server_side_encryption"}}" name="{{get_template_input_attribute_value "name" "server_side_encryption"}}" value="1" {{#ifeq "1" server_side_encryption}}checked="checked"{{/ifeq}}/></td>
+		</tr>
+		<?php
+		$existing_partial_template_str = ob_get_clean();
+		return $existing_partial_template_str;
 	}
 	
 	/**
@@ -90,8 +151,18 @@ class UpdraftPlus_Addon_S3_Enhanced {
 		add_action('admin_footer', array($this, 'admin_footer'));
 	}
 
+	/**
+	 * Compose partial template that deals with apikeysettings
+	 *
+	 * @param String $msg A filterable partial templates
+	 * @return String the partial template, ready for substitutions to be carried out
+	 */
 	public function apikeysettings($msg) {
-		$msg = '<a href="'.esc_url(UpdraftPlus::get_current_clean_url()).'" id="updraft_s3_newapiuser_{{instance_id}}" class="updraft_s3_newapiuser" data-instance_id="{{instance_id}}"">'.__('If you have an AWS admin user, then you can use this wizard to quickly create a new AWS (IAM) user with access to only this bucket (rather than your whole account)', 'updraftplus').'</a>';
+		ob_start();
+		?>
+		<a href="{{updraftplus_current_clean_url}}" id="updraft_s3_newapiuser_{{instance_id}}" class="updraft_s3_newapiuser" data-instance_id="{{instance_id}}">{{api_key_setting_premium_label}}</a>
+		<?php
+		$msg = ob_get_clean();
 		return $msg;
 	}
 
@@ -142,7 +213,7 @@ class UpdraftPlus_Addon_S3_Enhanced {
 	
 		global $updraftplus;
 	
-		include_once(UPDRAFTPLUS_DIR.'/methods/s3.php');
+		updraft_try_include_file('methods/s3.php', 'include_once');
 		
 		$method = new UpdraftPlus_BackupModule_s3;
 	

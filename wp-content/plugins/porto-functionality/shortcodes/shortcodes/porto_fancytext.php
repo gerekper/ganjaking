@@ -31,6 +31,11 @@ function porto_load_fancytext_shortcode() {
 					'param_name'  => 'fancytext_strings',
 					'description' => __( 'Enter each string on a new line', 'porto-functionality' ),
 					'admin_label' => true,
+					'std'         => __(
+						'incredibly
+especially',
+						'porto-functionality'
+					),
 				),
 				array(
 					'type'       => 'textfield',

@@ -1,0 +1,22 @@
+{
+  "elements": {
+    "portoMember": {
+      "settings": {
+        "name": "Porto Member",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-porto-member.jpg",
+        "metaDescription": "Show members by beautiful layout using Porto Member. f.e it consists of many layout masonry, grid, creative, slider and so on."
+      },
+      "phpFiles": [
+        "PortoMemberController.php"
+      ]
+    }
+  },
+  "categories": {
+    "Misc": {
+      "elements": [
+        "portoMember"
+      ]
+    }
+  }
+}

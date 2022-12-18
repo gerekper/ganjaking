@@ -1,0 +1,46 @@
+/* Blockquote */
+blockquote {
+    font-size: 1em;
+}
+
+/* Paragraphs */
+p {
+    margin: 0 0 1.25rem;
+    &.featured {
+        font-size: 1.6em;
+        line-height: 1.5em;
+    }
+    .alternative-font {
+        display: inline-block;
+        margin-top: -15px;
+        position: relative;
+        top: 3px;
+        margin-bottom: -6px;
+    }
+}
+
+b, strong {
+    font-weight: $font-weight-bold;
+}
+
+/* Labels */
+.label-dark,
+.label-dark:hover {
+    background: #111;
+    text-decoration: none;
+    font-weight: normal;
+}
+
+/* Alternative Font Style */
+.alternative-font {
+    font-family: var(--porto-alt-ff, var(--porto-body-ff)), sans-serif;
+    font-size: 1.6em;
+    color: var(--porto-primary-color);
+}
+
+.single h4.sub-title {
+    font-size: 1.2em;
+    strong {
+        font-weight: 800;
+    }
+}

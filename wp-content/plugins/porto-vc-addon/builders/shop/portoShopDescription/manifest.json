@@ -1,0 +1,19 @@
+{
+	"elements": {
+		"portoShopDescription": {
+			"settings": {
+				"name": "Shop Builder - Description",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-porto-sp.jpg",
+				"metaDescription": "Porto VC element to display description in Shop page"
+			}
+		}
+	},
+	"categories": {
+		"WooCommerce": {
+			"elements": [
+				"portoShopDescription"
+			]
+		}
+	}
+}

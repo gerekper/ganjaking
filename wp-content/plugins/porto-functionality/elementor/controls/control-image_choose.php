@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Porto Image_Choose Control
  *
- * @since 5.2.2
+ * @since 1.5.4
  */
 
 use Elementor\Base_Data_Control;
@@ -29,6 +29,9 @@ class Porto_Control_Image_Choose extends Base_Data_Control {
 					<label class="elementor-choices-label" for="<?php echo $control_uid; ?>">
 						<img src="<?php echo esc_url( PORTO_SHORTCODES_URL . 'assets/images/' ); ?>{{{ options }}}">
 						<span class="elementor-screen-only">{{{ options }}}</span>
+						<# if ( data.display_label ) { #>
+							<span class="porto-image-select-label">{{{ value.replace( /-/g, ' ' ) }}}</span>
+						<# } #>
 					</label>
 					<# } ); #>
 				</div>

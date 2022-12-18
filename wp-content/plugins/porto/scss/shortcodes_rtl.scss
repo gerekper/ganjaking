@@ -1,0 +1,13 @@
+// Make sure the charset is set appropriately
+@charset "UTF-8";
+
+// DIRECTIONAL
+// ---------------------------------------------------------------
+$rtl: 1;
+$dir: rtl !default;
+$theme_uri: ".." !default;
+
+@import "theme/theme-imports";
+@import "config_shortcodes";
+
+.inline-block { display: inline-block; }

@@ -14,8 +14,11 @@ extract(
 			'thumb_image'        => '',
 			'number'             => 8,
 			'post_in'            => '',
+			'orderby'            => '',
+			'order'              => '',
 			'cats'               => '',
 			'cat'                => '',
+			'spacing'            => '',
 			'items'              => '',
 			'items_desktop'      => 4,
 			'items_tablets'      => 3,
@@ -86,6 +89,10 @@ $options['md'] = (int) $items_tablets;
 $options['sm'] = (int) $items_mobile;
 
 $carousel_class .= ' has-ccols ccols-1';
+if ( 'full' != $view ) {
+	$options['margin'] = $spacing || '0' == $spacing ? absint( $spacing ) : (int) $porto_settings['grid-gutter-width'];
+	$carousel_class   .= ' has-ccols-spacing';
+}
 if ( ! empty( $items ) ) {
 	$carousel_class .= ' ccols-xl-' . (int) $items;
 }
@@ -112,7 +119,7 @@ if ( $items_row < 1 ) {
 
 $args = array(
 	'post_type'      => 'portfolio',
-	'posts_per_page' => $number,
+	'posts_per_page' => (int) $number,
 );
 
 if ( ! $cats ) {
@@ -130,6 +137,13 @@ if ( $cats ) {
 	);
 }
 
+if ( $orderby ) {
+	$args['orderby'] = $orderby;
+}
+if ( $order ) {
+	$args['order'] = $order;
+}
+
 if ( $post_in ) {
 	$args['post__in'] = explode( ',', $post_in );
 	$args['orderby']  = 'post__in';
@@ -140,7 +154,11 @@ $posts = new WP_Query( $args );
 if ( $posts->have_posts() ) {
 	$el_class = porto_shortcode_extract_class( $el_class );
 
-	$output = '<div class="porto-recent-portfolios ' . esc_attr( $view ) . ' wpb_content_element ' . esc_attr( $el_class ) . '"';
+	if ( ! empty( $shortcode_class ) ) {
+		$el_class .= ' ' . $shortcode_class;
+	}
+
+	$output = '<div class="porto-recent-portfolios ' . esc_attr( $view ) . ' wpb_content_element' . ( $el_class ? ' ' . esc_attr( trim( $el_class ) ) : '' ) . '"';
 	if ( $animation_type ) {
 		$output .= ' data-appear-animation="' . esc_attr( $animation_type ) . '"';
 		if ( $animation_delay ) {
@@ -187,37 +205,31 @@ if ( $posts->have_posts() ) {
 		</div>
 	<?php endif; ?>
 
-	<?php if ( 'full' != $view ) : ?>
-	<div class="row">
-	<?php endif; ?>
-		<div class="portfolio-carousel porto-carousel owl-carousel<?php echo esc_attr( $carousel_class ); ?>" data-plugin-options="<?php echo esc_attr( $options ); ?>">
-		<?php
-			$i    = 0;
-			$args = array();
-		if ( $image_size ) {
-			$args['image_size'] = $image_size;
+	<div class="portfolio-carousel porto-carousel owl-carousel<?php echo esc_attr( $carousel_class ); ?>" data-plugin-options="<?php echo esc_attr( $options ); ?>">
+	<?php
+		$i    = 0;
+		$args = array();
+	if ( $image_size ) {
+		$args['image_size'] = $image_size;
+	}
+	while ( $posts->have_posts() ) {
+		$posts->the_post();
+		global $previousday;
+		unset( $previousday );
+
+		if ( 0 == $i % $items_row ) {
+			echo '<div class="portfolio-slide">';
 		}
-		while ( $posts->have_posts() ) {
-			$posts->the_post();
-			global $previousday;
-			unset( $previousday );
 
-			if ( 0 == $i % $items_row ) {
-				echo '<div class="portfolio-slide">';
-			}
+		porto_get_template_part( 'content', 'portfolio-item', $args );
 
-			porto_get_template_part( 'content', 'portfolio-item', $args );
-
-			if ( $i % $items_row == $items_row - 1 ) {
-				echo '</div>';
-			}
-			$i++;
+		if ( $i % $items_row == $items_row - 1 ) {
+			echo '</div>';
 		}
-		?>
-		</div>
-	<?php if ( 'full' != $view ) : ?>
+		$i++;
+	}
+	?>
 	</div>
-	<?php endif; ?>
 
 	<?php
 	if ( $ajax_load ) :

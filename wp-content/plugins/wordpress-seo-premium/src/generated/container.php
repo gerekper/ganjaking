@@ -62,6 +62,7 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\helpers\\options_helper' => 'Yoast\\WP\\SEO\\Helpers\\Options_Helper',
             'yoast\\wp\\seo\\helpers\\post_type_helper' => 'Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper',
             'yoast\\wp\\seo\\helpers\\prominent_words_helper' => 'Yoast\\WP\\SEO\\Helpers\\Prominent_Words_Helper',
+            'yoast\\wp\\seo\\helpers\\redirect_helper' => 'Yoast\\WP\\SEO\\Helpers\\Redirect_Helper',
             'yoast\\wp\\seo\\helpers\\request_helper' => 'Yoast\\WP\\SEO\\Helpers\\Request_Helper',
             'yoast\\wp\\seo\\helpers\\robots_helper' => 'Yoast\\WP\\SEO\\Helpers\\Robots_Helper',
             'yoast\\wp\\seo\\helpers\\url_helper' => 'Yoast\\WP\\SEO\\Helpers\\Url_Helper',
@@ -97,7 +98,6 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\premium\\helpers\\prominent_words_helper' => 'Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper',
             'yoast\\wp\\seo\\premium\\helpers\\zapier_helper' => 'Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper',
             'yoast\\wp\\seo\\premium\\initializers\\crawl_cleanup_permalinks' => 'Yoast\\WP\\SEO\\Premium\\Initializers\\Crawl_Cleanup_Permalinks',
-            'yoast\\wp\\seo\\premium\\initializers\\inclusive_language_analysis_initializer' => 'Yoast\\WP\\SEO\\Premium\\Initializers\\Inclusive_Language_Analysis_Initializer',
             'yoast\\wp\\seo\\premium\\initializers\\index_now_key' => 'Yoast\\WP\\SEO\\Premium\\Initializers\\Index_Now_Key',
             'yoast\\wp\\seo\\premium\\initializers\\plugin' => 'Yoast\\WP\\SEO\\Premium\\Initializers\\Plugin',
             'yoast\\wp\\seo\\premium\\initializers\\redirect_handler' => 'Yoast\\WP\\SEO\\Premium\\Initializers\\Redirect_Handler',
@@ -203,6 +203,7 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Helpers\\Options_Helper' => 'getOptionsHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Post_Type_Helper' => 'getPostTypeHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Prominent_Words_Helper' => 'getProminentWordsHelperService',
+            'Yoast\\WP\\SEO\\Helpers\\Redirect_Helper' => 'getRedirectHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Request_Helper' => 'getRequestHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Robots_Helper' => 'getRobotsHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Url_Helper' => 'getUrlHelperService',
@@ -238,7 +239,6 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper' => 'getProminentWordsHelper2Service',
             'Yoast\\WP\\SEO\\Premium\\Helpers\\Zapier_Helper' => 'getZapierHelper2Service',
             'Yoast\\WP\\SEO\\Premium\\Initializers\\Crawl_Cleanup_Permalinks' => 'getCrawlCleanupPermalinksService',
-            'Yoast\\WP\\SEO\\Premium\\Initializers\\Inclusive_Language_Analysis_Initializer' => 'getInclusiveLanguageAnalysisInitializerService',
             'Yoast\\WP\\SEO\\Premium\\Initializers\\Index_Now_Key' => 'getIndexNowKeyService',
             'Yoast\\WP\\SEO\\Premium\\Initializers\\Plugin' => 'getPluginService',
             'Yoast\\WP\\SEO\\Premium\\Initializers\\Redirect_Handler' => 'getRedirectHandler2Service',
@@ -742,6 +742,16 @@ class Cached_Container extends Container
     }
 
     /**
+     * Gets the public 'Yoast\WP\SEO\Helpers\Redirect_Helper' shared service.
+     *
+     * @return \Yoast\WP\SEO\Helpers\Redirect_Helper
+     */
+    protected function getRedirectHelperService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Helpers\\Redirect_Helper'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\Helpers\\Redirect_Helper');
+    }
+
+    /**
      * Gets the public 'Yoast\WP\SEO\Helpers\Request_Helper' shared service.
      *
      * @return \Yoast\WP\SEO\Helpers\Request_Helper
@@ -988,7 +998,6 @@ class Cached_Container extends Container
         $instance->register_migration('premium', '20210827093024', 'Yoast\\WP\\SEO\\Premium\\Config\\Migrations\\AddIndexOnIndexableIdAndStem');
         $instance->register_initializer('Yoast\\WP\\SEO\\Premium\\Database\\Migration_Runner_Premium');
         $instance->register_initializer('Yoast\\WP\\SEO\\Premium\\Initializers\\Crawl_Cleanup_Permalinks');
-        $instance->register_initializer('Yoast\\WP\\SEO\\Premium\\Initializers\\Inclusive_Language_Analysis_Initializer');
         $instance->register_initializer('Yoast\\WP\\SEO\\Premium\\Initializers\\Index_Now_Key');
         $instance->register_initializer('Yoast\\WP\\SEO\\Premium\\Initializers\\Plugin');
         $instance->register_initializer('Yoast\\WP\\SEO\\Premium\\Initializers\\Redirect_Handler');
@@ -1191,16 +1200,6 @@ class Cached_Container extends Container
     protected function getCrawlCleanupPermalinksService()
     {
         return $this->services['Yoast\\WP\\SEO\\Premium\\Initializers\\Crawl_Cleanup_Permalinks'] = new \Yoast\WP\SEO\Premium\Initializers\Crawl_Cleanup_Permalinks(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Current_Page_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Current_Page_Helper'] : $this->getCurrentPageHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : $this->getOptionsHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Url_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Url_Helper'] : $this->getUrlHelperService()) && false ?: '_'});
-    }
-
-    /**
-     * Gets the public 'Yoast\WP\SEO\Premium\Initializers\Inclusive_Language_Analysis_Initializer' shared autowired service.
-     *
-     * @return \Yoast\WP\SEO\Premium\Initializers\Inclusive_Language_Analysis_Initializer
-     */
-    protected function getInclusiveLanguageAnalysisInitializerService()
-    {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Initializers\\Inclusive_Language_Analysis_Initializer'] = new \Yoast\WP\SEO\Premium\Initializers\Inclusive_Language_Analysis_Initializer(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : $this->getOptionsHelperService()) && false ?: '_'});
     }
 
     /**
@@ -1440,7 +1439,7 @@ class Cached_Container extends Container
      */
     protected function getCrawlCleanupSearchesService()
     {
-        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Front_End\\Crawl_Cleanup_Searches'] = new \Yoast\WP\SEO\Premium\Integrations\Front_End\Crawl_Cleanup_Searches(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : $this->getOptionsHelperService()) && false ?: '_'});
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Front_End\\Crawl_Cleanup_Searches'] = new \Yoast\WP\SEO\Premium\Integrations\Front_End\Crawl_Cleanup_Searches(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : $this->getOptionsHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Redirect_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Redirect_Helper'] : $this->getRedirectHelperService()) && false ?: '_'});
     }
 
     /**

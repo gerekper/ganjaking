@@ -45,6 +45,18 @@ class Porto_Recent_Posts_Widget extends WP_Widget {
 		$options['single']      = 'small' == $view ? true : false;
 		$options['animateIn']   = '';
 		$options['animateOut']  = '';
+
+		$carousel_class = 'has-ccols has-ccols-spacing ccols-1 ccols-lg-1';
+		if ( $options['md'] > 1 ) {
+			$carousel_class .= ' ccols-md-' . (int) $options['md'];
+		}
+		if ( $options['sm'] > 1 ) {
+			$carousel_class .= ' ccols-sm-' . (int) $options['sm'];
+		}
+
+		if ( (int) $number > $items ) {
+			$carousel_class .= ' post-carousel porto-carousel owl-carousel show-nav-title';
+		}
 		$options                = json_encode( $options );
 
 		$args = array(
@@ -67,36 +79,34 @@ class Porto_Recent_Posts_Widget extends WP_Widget {
 			}
 
 			?>
-			<div<?php echo (int) $number > $items ? ' class="row"' : ''; ?>>
-				<div<?php echo (int) $number > $items ? ' class="post-carousel porto-carousel owl-carousel show-nav-title" data-plugin-options="' . esc_attr( $options ) . '"' : ''; ?>>
-					<?php
-					$count = 0;
-					while ( $posts->have_posts() ) {
-						$posts->the_post();
-						global $previousday;
-						unset( $previousday );
+			<div class="<?php echo esc_attr( $carousel_class ); ?>">
+				<?php
+				$count = 0;
+				while ( $posts->have_posts() ) {
+					$posts->the_post();
+					global $previousday;
+					unset( $previousday );
 
-						if ( 0 == $count % $items ) {
-							echo '<div class="post-slide">';
-						}
-
-						if ( $show_image ) {
-							get_template_part( 'content', 'post-item' . ( 'small' == $view ? '-small' : '' ) );
-						} else {
-							get_template_part( 'content', 'post-item-no-image' . ( 'small' == $view ? '-small' : '' ) );
-						}
-
-						if ( $count % $items == $items - 1 || $count == $number - 1 ) {
-							echo '</div>';
-						}
-
-						$count++;
+					if ( 0 == $count % $items ) {
+						echo '<div class="post-slide">';
 					}
-					if ( 0 != $count % $items && $count != $number ) {
+
+					if ( $show_image ) {
+						get_template_part( 'content', 'post-item' . ( 'small' == $view ? '-small' : '' ) );
+					} else {
+						get_template_part( 'content', 'post-item-no-image' . ( 'small' == $view ? '-small' : '' ) );
+					}
+
+					if ( $count % $items == $items - 1 || $count == $number - 1 ) {
 						echo '</div>';
 					}
-					?>
-				</div>
+
+					$count++;
+				}
+				if ( 0 != $count % $items && $count != $number ) {
+					echo '</div>';
+				}
+				?>
 			</div>
 			<?php
 

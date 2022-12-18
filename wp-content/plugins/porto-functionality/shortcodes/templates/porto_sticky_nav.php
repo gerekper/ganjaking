@@ -22,37 +22,13 @@ extract(
 );
 
 $el_class = porto_shortcode_extract_class( $el_class );
-
+if ( ! empty( $shortcode_class ) ) {
+	$el_class .= $shortcode_class;
+}
 $style = '';
 if ( $bg_color ) {
 	$style = 'background-color:' . esc_attr( $bg_color ) . ';';
 }
-
-if ( 'custom' == $skin && ( $link_color || $link_bg_color || $link_acolor || $link_abg_color ) ) {
-	$sc_class_escaped = 'porto-sticky-nav' . rand();
-	$el_class        .= ' ' . $sc_class_escaped;
-	?>
-	<style>
-	<?php
-	if ( $link_color ) :
-		?>
-		.<?php echo $sc_class_escaped; ?> .nav-pills > li > a { color: <?php echo esc_html( $link_color ); ?> !important; }<?php endif; ?>
-	<?php
-	if ( $link_bg_color ) :
-		?>
-		.<?php echo $sc_class_escaped; ?> .nav-pills > li > a { background-color: <?php echo esc_html( $link_bg_color ); ?> !important; }<?php endif; ?>
-	<?php
-	if ( $link_acolor ) :
-		?>
-		.<?php echo $sc_class_escaped; ?> .nav-pills > li.active > a { color: <?php echo esc_html( $link_acolor ); ?> !important; }<?php endif; ?>
-	<?php
-	if ( $link_abg_color ) :
-		?>
-		.<?php echo $sc_class_escaped; ?> .nav-pills > li.active > a { background-color: <?php echo esc_html( $link_abg_color ); ?> !important; }<?php endif; ?>
-	</style>
-	<?php
-}
-
 $options             = array();
 $options['minWidth'] = (int) $min_width;
 $options             = json_encode( $options );

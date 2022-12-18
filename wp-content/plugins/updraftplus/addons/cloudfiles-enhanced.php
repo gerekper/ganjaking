@@ -96,8 +96,8 @@ class UpdraftPlus_Addon_CloudFilesEnhanced {
 		if (empty($use_settings['location'])) $use_settings['location'] = 'us';
 		if (empty($use_settings['region'])) $use_settings['region'] = 'DFW';
 		
-		include_once(UPDRAFTPLUS_DIR.'/methods/cloudfiles.php');
-		include_once(UPDRAFTPLUS_DIR.'/vendor/autoload.php');
+		updraft_try_include_file('methods/cloudfiles.php', 'include_once');
+		updraft_try_include_file('vendor/autoload.php', 'include_once');
 		$method = new UpdraftPlus_BackupModule_cloudfiles;
 		$useservercerts = !empty($use_settings['useservercerts']);
 		$disableverify = !empty($use_settings['disableverify']);

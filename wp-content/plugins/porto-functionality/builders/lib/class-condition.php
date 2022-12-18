@@ -37,10 +37,10 @@ if ( ! class_exists( 'Porto_Builder_Condition' ) ) :
 			}
 
 			add_action( 'wp_ajax_porto_builder_search_posts', array( $this, 'ajax_search' ) );
-			add_action( 'wp_ajax_nopriv_porto_builder_search_posts', array( $this, 'ajax_search' ) );
 
 			add_action( 'wp_ajax_porto_builder_save_condition', array( $this, 'save_condition' ) );
-			add_action( 'wp_ajax_nopriv_porto_builder_save_condition', array( $this, 'save_condition' ) );
+
+			add_action( 'wp_ajax_porto_builder_check_condition', array( $this, 'check_condition' ) );
 		}
 
 		/**
@@ -67,9 +67,9 @@ if ( ! class_exists( 'Porto_Builder_Condition' ) ) :
 				apply_filters(
 					'porto_builder',
 					array(
-						'nonce' => wp_create_nonce( 'porto-builder-condition-nonce' ),
+						'nonce'    => wp_create_nonce( 'porto-builder-condition-nonce' ),
 						'list_url' => esc_url( admin_url( 'edit.php?post_type=' . PortoBuilders::BUILDER_SLUG . '&' . PortoBuilders::BUILDER_TAXONOMY_SLUG . '=' . $this->builder_type ) ),
-						'i18n' => array(
+						'i18n'     => array(
 							'display_condition' => esc_html__( 'Display Conditions', 'porto-functionality' ),
 							'back_to_list'      => esc_html__( 'Back To List', 'porto-functionality' ),
 						),
@@ -79,8 +79,10 @@ if ( ! class_exists( 'Porto_Builder_Condition' ) ) :
 		}
 
 		public function builder_condition_template() {
-			$post_id      = $this->post_id;
-			$builder_type = $this->builder_type;
+			$post_id              = $this->post_id;
+			$builder_type         = $this->builder_type;
+			$conditions           = get_post_meta( $post_id, '_porto_builder_conditions', true );
+			$duplicted_conditions = $this->get_duplicated_conditions( $conditions );
 			include_once PORTO_BUILDERS_PATH . 'views/condition_template.php';
 		}
 
@@ -292,14 +294,131 @@ if ( ! class_exists( 'Porto_Builder_Condition' ) ) :
 			}
 			update_post_meta( $post_id, '_porto_builder_conditions', $conditions );
 
+			/**
+			 * trigger post update to update modified date
+			 *
+			 * @since 2.3.0
+			 */
+			wp_update_post( array( 'ID' => $post_id ) );
+
 			if ( ! $direct_call ) {
 				wp_send_json_success();
 			}
 		}
 
 		public function add_condition_control( $list ) {
-			$list[] = array( 'porto_builder_condition', '<li><a href="javascript:;" class="vc_icon-btn porto-condition-button" id="porto-condition-button" title="' . esc_attr__( 'Porto Builder Condition', 'porto-functionality' ) . '"><i class="fas fa-network-wired"></i></a></li>' );
+			$list[] = array( 'porto_builder_condition', '<li><a href="javascript:;" class="vc_icon-btn porto-condition-button porto-important-feature" id="porto-condition-button" title="' . esc_attr__( 'Porto Builder Condition', 'porto-functionality' ) . '"><i class="fas fa-network-wired"></i></a></li>' );
 			return $list;
+		}
+
+		/**
+		 * Ajax action to check duplicated conditions
+		 *
+		 * @since 2.3.0
+		 */
+		public function check_condition( $direct_call = false, $post_id = false  ) {
+			if ( $direct_call ) {
+				if ( ! $post_id ) {
+					return false;
+				}
+				$this->post_id      = $post_id;
+			} else {
+				check_ajax_referer( 'porto-builder-condition-nonce', 'nonce' );
+				if ( empty( $_POST['post_id'] ) || empty( $_POST['condition'] ) ) {
+					wp_send_json_error();
+					return;
+				}
+				$this->post_id      = (int) $_POST['post_id'];
+			}
+
+			
+			$this->builder_type = get_post_meta( $this->post_id, PortoBuilders::BUILDER_TAXONOMY_SLUG, true );
+			if ( ! $this->builder_type ) {
+				wp_send_json_error();
+				return;
+			}
+
+			$d_conditions = $this->get_duplicated_conditions( array( $_POST['condition'] ) );
+			if ( ! empty( $d_conditions ) && ! empty( $d_conditions[0] ) ) {
+				wp_send_json_success( sprintf( _n( 'Following template was applied under this condition: %s.', 'Following templates were applied under this condition: %s.', count( $d_conditions[0] ), 'porto-functionaltiy' ), '<b>' . implode( ', ', $d_conditions[0] ) . '</b>' ) );
+			}
+			wp_send_json_success();
+		}
+
+		/**
+		 * Get templates which have duplicated conditions
+		 *
+		 * @since 2.3.0
+		 */
+		public function get_duplicated_conditions( $conditions, $post_id = '', $builder_type = '' ) {
+			if ( ! empty( $post_id ) ) {
+				$this->post_id = $post_id;
+			}
+			if ( ! empty( $builder_type ) ) {
+				$this->builder_type = $builder_type;
+			}
+			if ( ! $this->post_id || ! $this->builder_type || empty( $conditions ) || ! is_array( $conditions ) ) {
+				return false;
+			}
+
+			$all_type_builders_query = new WP_Query(
+				array(
+					'post_type'      => PortoBuilders::BUILDER_SLUG,
+					'post_status'    => 'publish',
+					'posts_per_page' => 100,
+					'fields'         => 'ids',
+					'post__not_in'   => array( $this->post_id ),
+					'orderby'        => 'modified',
+					'order'          => 'DESC',
+					'meta_query'     => array(
+						'relation' => 'AND',
+						array(
+							'key'   => PortoBuilders::BUILDER_TAXONOMY_SLUG,
+							'value' => $this->builder_type,
+						),
+						array(
+							'key'     => '_porto_builder_conditions',
+							'compare' => 'EXISTS',
+						),
+					),
+				)
+			);
+			$result = array();
+			if ( is_array( $all_type_builders_query->posts ) && ! empty( $all_type_builders_query->posts ) ) {
+				$other_builder_conditions = array();
+
+				foreach ( $all_type_builders_query->posts as $p_id ) {
+					$other_builder_conditions[ $p_id ] = get_post_meta( $p_id, '_porto_builder_conditions', true );
+				}
+
+				foreach ( $other_builder_conditions as $p_id => $other_conditions ) {
+					if ( empty( $other_conditions ) || ! is_array( $other_conditions ) ) {
+						continue;
+					}
+					if ( defined( 'VCV_VERSION' ) && 'fe' == get_post_meta( $p_id, 'vcv-be-editor', true ) ) {
+						$edit_link = admin_url( 'post.php?post=' . absint( $p_id ) . '&action=edit&vcv-action=frontend&vcv-source-id=' . absint( $p_id ) . '' );
+					} elseif ( defined( 'ELEMENTOR_VERSION' ) && get_post_meta( $p_id, '_elementor_edit_mode', true ) ) {
+						$edit_link = admin_url( 'post.php?post=' . absint( $p_id ) . '&action=elementor' );
+					} else {
+						$edit_link = admin_url( 'post.php?post=' . absint( $p_id ) . '&action=edit' );
+					}
+					foreach ( $conditions as $index => $condition ) {
+						if ( empty( $condition ) || ! is_array( $condition ) ) {
+							continue;
+						}
+						foreach ( $other_conditions as $other_condition ) {
+							if ( empty( array_diff_assoc( $condition, $other_condition ) ) ) {
+								if ( ! isset( $result[ $index ] ) ) {
+									$result[ $index ] = array();
+								}
+
+								$result[ $index ][ $p_id ] = '<a href="' . esc_url( $edit_link ) . '" target="_blank">' . esc_html( get_the_title( $p_id ) ) . '</a>';
+							}
+						}
+					}
+				}
+			}
+			return $result;
 		}
 	}
 endif;

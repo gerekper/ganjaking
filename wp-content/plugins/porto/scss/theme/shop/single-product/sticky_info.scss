@@ -1,0 +1,47 @@
+// DIRECTIONAL
+// ---------------------------------------------------------------
+$rtl: 0;
+$dir: ltr !default;
+
+@import "../../theme-imports";
+
+
+div#main { overflow: hidden; }
+.product-layout-sticky_info .product-images { margin-bottom: 0; }
+.product-images .img-thumbnail:not(:last-child) { margin-bottom: 4px; }
+.product-images .img-thumbnail .inner { cursor: resize; }
+.product-images .img-thumbnail img { width: 100%; height: auto; }
+.product-images:hover .zoom { opacity: 0; }
+.product-images .img-thumbnail:hover .zoom { opacity: 1; background: none; }
+.product-layout-sticky_info .product-summary-wrap .variations .filter-item-list { margin-top: 0; }
+.product-layout-sticky_info .filter-item-list .filter-color { width: 28px; height: 28px; }
+.product-layout-sticky_info .woocommerce-widget-layered-nav-list a:not(.filter-color),
+.product-layout-sticky_info .filter-item-list .filter-item { line-height: 26px; font-size: 13px; color: var(--porto-heading-color); background-color: #f4f4f4; }
+body.dark .product-layout-sticky_info .filter-item-list .filter-item {
+    background-color: lighten($color-dark, 5%)
+}
+.product-nav:before { line-height: 32px; }
+.single-product .share-links a { border-radius: 20px; background: #4c4c4c; margin-#{$right}: 0.2em; }
+.single-product .product-share > * { display: inline-block; }
+.product-share label { margin-#{$right}: 15px; }
+.woocommerce-tabs { clear: both; background: #f4f4f4; padding-top: 70px; padding-bottom: 70px; position: relative; }
+body.dark .woocommerce-tabs { background: lighten($color-dark, 5%) }
+body.boxed .woocommerce-tabs,
+.main-boxed .woocommerce-tabs { background: none; padding-top: 20px; padding-bottom: 0; }
+.woocommerce-tabs .tab-content { background: none; }
+.woocommerce-tabs:before, .woocommerce-tabs:after { content: ''; position: absolute; width: 30vw; height: 100%; top: 0; background: inherit; }
+.woocommerce-tabs:before { right: 100%; }
+.woocommerce-tabs:after { left: 100%; }
+.product-layout-sticky_info .product-share { margin-bottom: 40px; }
+.single-product-custom-block { margin-bottom: 2em; }
+@media (min-width: 992px) {
+    .product-layout-sticky_info .product-share { float: #{$right}; }
+    .single-product-custom-block { float: #{$left}; }
+    .single-product-custom-block { width: 50%; padding-#{$right}: calc( var(--porto-grid-gutter-width) / 2 ); }
+    .woocommerce-tabs .resp-tabs-list li { font-size: 18px; margin-#{$right}: 50px; }
+}
+.woocommerce-tabs .resp-tabs-list { text-align: center; }
+.woocommerce-tabs .resp-tabs-list li { position: relative; bottom: -1px; border-bottom-color: transparent !important; }
+.product-layout-sticky_info .product-summary-wrap .yith-wcwl-add-to-wishlist,
+.product-layout-sticky_info .product-summary-wrap .yith-compare { margin: 0 .5rem 5px }
+.product-layout-sticky_info .related.products { margin-top: 2.5rem; }

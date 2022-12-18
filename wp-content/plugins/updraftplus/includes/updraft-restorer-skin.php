@@ -56,7 +56,7 @@ global $updraftplus;
 $wp_version = $updraftplus->get_wordpress_version();
 
 if (version_compare($wp_version, '5.3', '>=')) {
-	if (!class_exists('Updraft_Restorer_Skin')) require_once(UPDRAFTPLUS_DIR.'/includes/updraft-restorer-skin-compatibility.php');
+	if (!class_exists('Updraft_Restorer_Skin')) updraft_try_include_file('includes/updraft-restorer-skin-compatibility.php', 'require_once');
 } else {
 	class Updraft_Restorer_Skin extends Updraft_Restorer_Skin_Main {
 

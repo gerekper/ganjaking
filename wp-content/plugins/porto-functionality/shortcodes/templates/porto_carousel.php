@@ -6,7 +6,7 @@ if ( ! empty( $atts['nav_pos2'] ) && empty( $atts['nav_pos'] ) ) {
 	$atts['nav_pos'] = $atts['nav_pos2'];
 }
 
-$output = $stage_padding = $margin = $autoplay = $autoplay_timeout = $autoplay_hover_pause = $items = $items_lg = $items_md = $items_sm = $items_xs = $show_nav = $show_nav_hover = $nav_pos = $nav_type = $show_dots = $dots_pos = $dots_align = $animate_in = $animate_out = $loop = $center = $video = $lazyload = $merge = $mergeFit = $mergeFit_lg = $mergeFit_md = $mergeFit_sm = $animation_type = $animation_duration = $animation_delay = $el_class = '';
+$output = $stage_padding = $margin = $autoplay = $disable_mouse_drag = $autoplay_timeout = $autoplay_hover_pause  = $items = $items_lg = $items_md = $items_sm = $items_xs = $show_nav = $show_nav_hover = $nav_pos = $nav_type = $show_dots = $dots_pos = $dots_align = $animate_in = $animate_out = $loop = $center = $video = $lazyload = $merge = $mergeFit = $mergeFit_lg = $mergeFit_md = $mergeFit_sm = $animation_type = $animation_duration = $animation_delay = $el_class = '';
 
 if ( ! empty( $atts['items_responsive'] ) ) {
 	$atts['items_responsive'] = json_decode( str_replace( '``', '"', $atts['items_responsive'] ), true );
@@ -21,6 +21,7 @@ extract(
 		array(
 			'stage_padding'        => 40,
 			'show_items_padding'   => '',
+			'disable_mouse_drag'   => false,
 			'margin'               => 10,
 			'autoplay'             => false,
 			'autoplay_timeout'     => 5000,
@@ -74,6 +75,9 @@ if ( $className ) {
 if ( $stage_padding && empty( $show_items_padding ) ) {
 	$el_class .= ' stage-margin';
 }
+if ( ! empty( $shortcode_class ) ) {
+	$el_class .= ' ' . trim( $shortcode_class );
+}
 
 if ( $show_nav ) {
 	if ( $nav_pos ) {
@@ -96,11 +100,12 @@ if ( $show_dots ) {
 	}
 	$el_class .= ' ' . $dots_align;
 }
-
 $options                       = array();
 $options['stagePadding']       = (int) $stage_padding;
 $options['margin']             = (int) $margin;
 $options['autoplay']           = $autoplay;
+$options['mouseDrag']          = ! $disable_mouse_drag;
+$options['touchDrag']          = ! $disable_mouse_drag;
 $options['autoplayTimeout']    = (int) $autoplay_timeout;
 $options['autoplayHoverPause'] = $autoplay_hover_pause;
 $options['items']              = (int) $items;
@@ -124,6 +129,9 @@ $classes = array( 'porto-carousel', 'owl-carousel' );
 
 if ( strpos( $el_class, 'porto-standable-carousel' ) === false ) {
 	$classes[] = 'has-ccols';
+	if ( $margin ) {
+		$classes[] = 'has-ccols-spacing';
+	}
 	if ( (int) $items > 1 ) {
 		$classes[] = 'ccols-xl-' . $items;
 	}

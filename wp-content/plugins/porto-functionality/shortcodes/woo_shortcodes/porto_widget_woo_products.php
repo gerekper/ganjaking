@@ -40,7 +40,7 @@ if ( function_exists( 'register_block_type' ) ) {
 	);
 }
 
-add_shortcode( 'porto_widget_woo_products', 'porto_shortcode_widget_woo_products' );
+// add_shortcode( 'porto_widget_woo_products', 'porto_shortcode_widget_woo_products' );
 add_action( 'vc_after_init', 'porto_load_widget_woo_products_shortcode' );
 
 function porto_shortcode_widget_woo_products( $atts, $content = null ) {

@@ -3,7 +3,10 @@
  * 
  * @since 6.1.0
  */
-( function ( wpI18n, wpBlocks, wpElement, wpEditor, wpBlockEditor, wpComponents, wpData, lodash ) {
+
+import { portoAddHelperClasses } from '../../../../../shortcodes/assets/blocks/controls/editor-extra-classes';
+
+( function( wpI18n, wpBlocks, wpElement, wpEditor, wpBlockEditor, wpComponents, wpData, lodash ) {
     "use strict";
 
     var __ = wpI18n.__,
@@ -13,7 +16,14 @@
         Disabled = wpComponents.Disabled,
         ServerSideRender = wp.serverSideRender;
 
-    const PortoHBLogo = function ( { attributes, setAttributes, name } ) {
+    const PortoHBLogo = function( { attributes, setAttributes, name, clientId } ) {
+
+        // add helper classes to parent block element
+        let elCls = attributes.className;
+        if ( elCls ) {
+            portoAddHelperClasses( elCls, clientId );
+        }
+
         return (
             <>
                 <InspectorControls key="inspector">
@@ -41,7 +51,7 @@
             }
         },
         edit: PortoHBLogo,
-        save: function () {
+        save: function() {
             return null;
         }
     } );

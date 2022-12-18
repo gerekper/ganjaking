@@ -1,0 +1,13 @@
+@mixin transition($prop, $time, $easing){
+	transition: $prop $time $easing;
+}
+
+@mixin rounded($value){
+	border-radius: $value;
+}
+
+@mixin transform($prop){
+	-webkit-transform: $prop;
+    -ms-transform: $prop;
+	transform: $prop;
+}

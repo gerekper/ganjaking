@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Porto Elementor widget to display a button.
  *
- * @since 5.2.0
+ * @since 1.5.2
  */
 
 use Elementor\Controls_Manager;
@@ -28,14 +28,14 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_keywords() {
-		return array( 'button', 'btn', 'link' );
+		return array( 'button', 'btn', 'link', 'contact' );
 	}
 
 	public function get_icon() {
 		return 'eicon-button';
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 
 		$floating_options = porto_update_vc_options_to_elementor( porto_shortcode_floating_fields() );
 
@@ -62,8 +62,11 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'link',
 			array(
-				'label' => __( 'Link', 'porto-functionality' ),
-				'type'  => Controls_Manager::URL,
+				'label'   => __( 'Link', 'porto-functionality' ),
+				'type'    => Controls_Manager::URL,
+				'dynamic' => array(
+					'active' => true,
+				),
 			)
 		);
 
@@ -93,6 +96,40 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 					'xl' => __( 'Extra Large', 'porto-functionality' ),
 				),
 				'default' => 'md',
+			)
+		);
+
+		$this->add_responsive_control(
+			'align',
+			array(
+				'label'              => __( 'Alignment', 'elementor' ),
+				'type'               => Controls_Manager::CHOOSE,
+				'options'            => array(
+					'left'    => array(
+						'title' => __( 'Left', 'elementor' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'center'  => array(
+						'title' => __( 'Center', 'elementor' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'right'   => array(
+						'title' => __( 'Right', 'elementor' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+					'justify' => array(
+						'title' => __( 'Justified', 'elementor' ),
+						'icon'  => 'eicon-text-align-justify',
+					),
+				),
+				'default'            => '',
+				'selectors'          => array(
+					'{{WRAPPER}}' => 'text-align: {{VALUE}};',
+				),
+				'frontend_available' => true,
+				'condition'          => array(
+					'is_block' => '',
+				),
 			)
 		);
 
@@ -135,13 +172,46 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 				)
 			);
 		endif;
+		$this->add_control(
+			'hover_text_effect',
+			array(
+				'type'        => Controls_Manager::SELECT,
+				'label'       => __( 'Select Hover Text Effect', 'porto-functionality' ),
+				'description' => __( 'Select the type of effct you want on hover', 'porto-functionality' ),
+				'options'     => array(
+					''                        => __( 'No Effect', 'porto-functionality' ),
+					'hover-text-switch-left'  => __( 'Switch Left', 'porto-functionality' ),
+					'hover-text-switch-up'    => __( 'Switch Up', 'porto-functionality' ),
+					'hover-text-marquee-left' => __( 'Marquee Left', 'porto-functionality' ),
+					'hover-text-marquee-up'   => __( 'Marquee Up', 'porto-functionality' ),
+					'hover-text-marquee-down' => __( 'Marquee Down', 'porto-functionality' ),
+				),
+				'label_block' => true,
+				'condition'   => array(
+					'title!'     => '',
+					'show_arrow' => '',
+				),
+			)
+		);
+
+		$this->add_control(
+			'el_class',
+			array(
+				'label' => __( 'Custom Class', 'porto-functionality' ),
+				'type'  => Controls_Manager::TEXT,
+			)
+		);
 
 		$this->add_control(
 			'icon_cls',
 			array(
-				'type'             => Controls_Manager::ICONS,
-				'label'            => __( 'Icon', 'porto-functionality' ),
-				'fa4compatibility' => 'icon',
+				'type'                   => Controls_Manager::ICONS,
+				'label'                  => __( 'Icon', 'porto-functionality' ),
+				'fa4compatibility'       => 'icon',
+				'skin'                   => 'inline',
+				'exclude_inline_options' => array( 'svg' ),
+				'label_block'            => false,
+				'separator'              => 'before',
 			)
 		);
 
@@ -165,16 +235,19 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 			'hover_effect',
 			array(
 				'type'        => Controls_Manager::SELECT,
-				'label'       => __( 'Select Hover Effect type', 'porto-functionality' ),
+				'label'       => __( 'Select Hover Icon Effect', 'porto-functionality' ),
 				'description' => __( 'Select the type of effct you want on hover', 'porto-functionality' ),
 				'options'     => array(
-					''                 => __( 'No Effect', 'porto-functionality' ),
-					'hover-icon-zoom'  => __( 'Icon Zoom', 'porto-functionality' ),
-					'hover-icon-up'    => __( 'Icon Slide Up', 'porto-functionality' ),
-					'hover-icon-left'  => __( 'Icon Slide Left', 'porto-functionality' ),
-					'hover-icon-right' => __( 'Icon Slide Right', 'porto-functionality' ),
+					''                            => __( 'No Effect', 'porto-functionality' ),
+					'hover-icon-dash'             => __( 'Icon Dash', 'porto-functionality' ),
+					'hover-icon-zoom'             => __( 'Icon Zoom', 'porto-functionality' ),
+					'hover-icon-up'               => __( 'Icon Slide Up', 'porto-functionality' ),
+					'hover-icon-left'             => __( 'Icon Slide Left', 'porto-functionality' ),
+					'hover-icon-right'            => __( 'Icon Slide Right', 'porto-functionality' ),
+					'hover-icon-pulse-left-right' => __( 'Icon Slide Right & Left', 'porto-functionality' ),
+					'hover-icon-pulse-infnite'    => __( 'Icon Slide Infinite', 'porto-functionality' ),
 				),
-				'default'     => '',
+				'label_block' => true,
 				'condition'   => array(
 					'icon_cls[value]!' => '',
 				),
@@ -184,39 +257,11 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'show_arrow',
 			array(
-				'type'  => Controls_Manager::SWITCHER,
-				'label' => __( 'Show Animation Arrow?', 'porto-functionality' ),
-			)
-		);
-
-		$this->add_responsive_control(
-			'align',
-			array(
-				'label'              => __( 'Alignment', 'elementor' ),
-				'type'               => Controls_Manager::CHOOSE,
-				'options'            => array(
-					'left'    => array(
-						'title' => __( 'Left', 'elementor' ),
-						'icon'  => 'eicon-text-align-left',
-					),
-					'center'  => array(
-						'title' => __( 'Center', 'elementor' ),
-						'icon'  => 'eicon-text-align-center',
-					),
-					'right'   => array(
-						'title' => __( 'Right', 'elementor' ),
-						'icon'  => 'eicon-text-align-right',
-					),
-					'justify' => array(
-						'title' => __( 'Justified', 'elementor' ),
-						'icon'  => 'eicon-text-align-justify',
-					),
+				'type'      => Controls_Manager::SWITCHER,
+				'label'     => __( 'Show Animation Arrow?', 'porto-functionality' ),
+				'condition' => array(
+					'hover_text_effect' => '',
 				),
-				'default'            => '',
-				'selectors'          => array(
-					'{{WRAPPER}}' => 'text-align: {{VALUE}};',
-				),
-				'frontend_available' => true,
 			)
 		);
 
@@ -235,11 +280,18 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 			array(
 				'name'     => 'btn_typograhy',
 				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
-				'label'    => __( 'Typograhy', 'porto-functionality' ),
+				'label'    => __( 'Typography', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .btn',
 			)
 		);
 
+		$this->start_controls_tabs( 'btn_color_tabs' );
+		$this->start_controls_tab(
+			'btn_color_default',
+			array(
+				'label' => esc_html__( 'Default', 'porto-functinoality' ),
+			)
+		);
 		$this->add_control(
 			'btn_color',
 			array(
@@ -272,7 +324,14 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 				),
 			)
 		);
+		$this->end_controls_tab();
 
+		$this->start_controls_tab(
+			'btn_color_hover',
+			array(
+				'label' => esc_html__( 'Hover', 'porto-functinoality' ),
+			)
+		);
 		$this->add_control(
 			'btn_hover_color',
 			array(
@@ -305,6 +364,9 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 				),
 			)
 		);
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
 
 		$this->add_responsive_control(
 			'padding',
@@ -315,6 +377,7 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 					'{{WRAPPER}} .btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				),
 				'size_units' => array( 'px', 'em', 'rem' ),
+				'separator'  => 'before',
 			)
 		);
 
@@ -324,9 +387,9 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'icon_size',
 			array(
-				'type'       => Controls_Manager::SLIDER,
-				'label'      => __( 'Icon Size', 'porto-functionality' ),
-				'range'      => array(
+				'type'        => Controls_Manager::SLIDER,
+				'label'       => __( 'Icon Size', 'porto-functionality' ),
+				'range'       => array(
 					'px'  => array(
 						'step' => 1,
 						'min'  => 0,
@@ -343,17 +406,18 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 						'max'  => 5,
 					),
 				),
-				'size_units' => array(
+				'size_units'  => array(
 					'px',
 					'rem',
 					'em',
 				),
-				'selectors'  => array(
+				'selectors'   => array(
 					'{{WRAPPER}} .btn-icon i' => 'font-size: {{SIZE}}{{UNIT}};',
 				),
-				'condition'  => array(
+				'condition'   => array(
 					'icon_cls[value]!' => '',
 				),
+				'qa_selector' => '.btn-icon i',
 			)
 		);
 
@@ -385,8 +449,8 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 					'em',
 				),
 				'selectors'  => array(
-					'{{WRAPPER}} .btn-icon-right i' => 'margin-' . $left . ': {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .btn-icon-left i' => 'margin-' . $right . ': {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .btn-icon i'       => "margin-{$right}: {{SIZE}}{{UNIT}};",
+					'{{WRAPPER}} .btn-icon-right i' => "margin-{$left}: {{SIZE}}{{UNIT}};margin-{$right}: 0;",
 				),
 				'condition'  => array(
 					'icon_cls[value]!' => '',
@@ -437,6 +501,10 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 				btn_classes += ' btn-block';
 			}
 
+			if ( settings.el_class ) {
+				btn_classes +=' ' + settings.el_class;
+			} 
+
 			if ( 'round' == settings.shape ) {
 				btn_classes += ' btn-full-rounded';
 			}
@@ -454,7 +522,16 @@ class Porto_Elementor_Button_Widget extends \Elementor\Widget_Base {
 
 			view.addInlineEditingAttributes( 'title' );
 
-			let extra_attr = porto_elementor_add_floating_options( settings );
+			if ( settings.hover_text_effect && settings.title ) {
+				btn_classes += ' btn-hover-text-effect ' + settings.hover_text_effect;
+				view.addRenderAttribute( 'title', 'class', 'btn-text' );
+				view.addRenderAttribute( 'title', 'data-text', settings.title );
+			}
+
+			let extra_attr = '';
+			if ( typeof porto_elementor_add_floating_options != 'undefined' ) {
+				extra_attr = porto_elementor_add_floating_options( settings );
+			}
 		#>
 		<a href="{{ settings.link.url }}" class="btn{{ btn_classes }}"{{ extra_attr }}>
 		<#

@@ -1,5 +1,6 @@
+
 <?php
-      
+
 /**
  * Order details table shown in emails.
  *
@@ -20,7 +21,7 @@ defined( 'ABSPATH' ) || exit;
 
 
 $text_align = is_rtl() ? 'right' : 'left';
-global  $woocommerce;   
+global  $woocommerce;
 do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plain_text, $email ); ?>
 
 <h2>
@@ -38,14 +39,14 @@ do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plai
 </h2>
 
 <div style="margin-bottom: 40px;">
-	<?php 
+	<?php
 		$options = get_option( 'wc_dropship_manager' );
 		$split_gst_amount = $options['show_gst_supplier_email'];
 	?>
 	<table class="td" cellspacing="0" cellpadding="6" style="width: 100%; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; text-align:center;" border="1">
 		<thead>
 			<tr>
-				<?php if( $split_gst_amount == 0 ){ ?>
+				<?php if( 0 == $split_gst_amount ){ ?>
 					<th class="td" scope="col" style="text-align:<?php echo esc_attr( $text_align ); ?>; width:30%;"><?php esc_html_e( 'Product', 'woocommerce-dropshipping' ); ?></th>
 
 					<th class="td" scope="col" style="text-align:<?php echo esc_attr( $text_align ); ?>; width:20%;"><?php esc_html_e( 'Quantity', 'woocommerce-dropshipping' ); ?></th>
@@ -56,8 +57,8 @@ do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plai
 
 				<?php }?>
 
-				
-				<?php if( $split_gst_amount == 1 ){ ?>
+
+				<?php if( 1 == $split_gst_amount ){ ?>
 
 				<th class="td" scope="col" style="text-align:<?php echo esc_attr( $text_align ); ?>;"><?php esc_html_e( 'Price (excl GST)', 'woocommerce-dropshipping' ); ?></th>
 
@@ -67,7 +68,7 @@ do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plai
 
 				<th class="td" scope="col" style="text-align:<?php echo esc_attr( $text_align ); ?>;"><?php esc_html_e( 'Amount Payable (Incl GST)', 'woocommerce-dropshipping' ); ?></th>
 
-				<?php } elseif( $split_gst_amount == 0 ){?>
+				<?php } elseif( 0 == $split_gst_amount ){?>
 
 				<th class="td" scope="col" style="text-align:<?php echo esc_attr( $text_align ); ?>; width:40%;"><?php esc_html_e( 'Price', 'woocommerce-dropshipping' ); ?></th>
 
@@ -76,46 +77,44 @@ do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plai
 
 					<?php }?>
 
-				<!-- <th class="td" scope="col" style="text-align:<?php //echo esc_attr( $text_align ); ?>;"><?php //esc_html_e( 'GST Amount', 'woocommerce-dropshipping' ); ?></th> -->
 
-				
 			</tr>
 		</thead>
 		<tbody>
-		   
-		       
+
+
 			<?php
-        			
+
                    	$items = $order->get_items();
                    	foreach( $items as $item_id => $item ) {
                     $product = $item->get_product();
-                    $sub_total =$item->get_quantity()* wc_get_price_excluding_tax( $product ); 
-                    $total_gst = $item->get_subtotal_tax(); 
-                     
+                    $sub_total =$item->get_quantity()* wc_get_price_excluding_tax( $product );
+                    $total_gst = $item->get_subtotal_tax();
+
                     ?>
-         <tr>  
+         <tr>
 		 	<td><?php echo $item->get_name();?><br/><?php echo $product->get_sku();?></td>
 			<td><?php echo $item->get_quantity();?></td>
 			<td><?php echo wc_price(wc_get_price_excluding_tax( $product ));?></td>
 
-			<?php if( $split_gst_amount == 1 ){ ?>
+			<?php if( 1 == $split_gst_amount ){ ?>
 				<td><?php echo wc_price($item->get_quantity()* wc_get_price_excluding_tax( $product ));?></td>
-				<td><?php echo  wc_price($item->get_subtotal_tax());?></td>  
+				<td><?php echo  wc_price($item->get_subtotal_tax());?></td>
 				<td><?php echo wc_price(($item->get_quantity()* wc_get_price_excluding_tax( $product ))+$item->get_total_tax());?></td>
 			<?php } else{?>
 				<td style="display:none"><?php echo wc_price($item->get_quantity()* wc_get_price_excluding_tax( $product ));?></td>
-				<td style="display:none"><?php echo  wc_price($item->get_subtotal_tax());?></td>  
-				<td style="display:none"><?php echo wc_price(($item->get_quantity()* wc_get_price_excluding_tax( $product ))+$item->get_total_tax());?></td> 
+				<td style="display:none"><?php echo  wc_price($item->get_subtotal_tax());?></td>
+				<td style="display:none"><?php echo wc_price(($item->get_quantity()* wc_get_price_excluding_tax( $product ))+$item->get_total_tax());?></td>
 			<?php }?>
-		 
+
 		</tr>
 <?php
-           
+
                    }
-                   
-                   
-            
-            
+
+
+
+
 
 		/*	echo wc_get_email_order_items( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				$order,
@@ -129,30 +128,30 @@ do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plai
 			);*/
 			?>
 
-			<tr style="font-weight:bold;">           
+			<tr style="font-weight:bold;">
              	<td>Subtotal</td>
 		        <td>&nbsp;</td>
-				<?php if( $split_gst_amount == 1 ){ ?>
+				<?php if( 1 == $split_gst_amount ){ ?>
 					<td>&nbsp;</td>
 				<?php }else{?>
 					<td style="display:none">&nbsp;</td>
 				<?php }?>
 		        <td><?php echo wc_price(floatval($sub_total));?></td>
 
-				<?php if( $split_gst_amount == 1 ){ ?>
+				<?php if( 1 == $split_gst_amount ){ ?>
 
-					<td><?php echo  wc_price(floatval( $total_gst));?></td>  
-					<td><?php echo wc_price(floatval((($sub_total+$total_gst)*100))/100);?></td> 
+					<td><?php echo  wc_price(floatval( $total_gst));?></td>
+					<td><?php echo wc_price(floatval((($sub_total+$total_gst)*100))/100);?></td>
 				<?php }else{ ?>
-					<td style="display:none"><?php echo  wc_price(floatval( $total_gst));?></td>  
-					<td style="display:none"><?php echo wc_price(floatval((($sub_total+$total_gst)*100))/100);?></td> 
+					<td style="display:none"><?php echo  wc_price(floatval( $total_gst));?></td>
+					<td style="display:none"><?php echo wc_price(floatval((($sub_total+$total_gst)*100))/100);?></td>
 				<?php }?>
 		    </tr>
 
-			
+
 		</tbody>
 		<tfoot>
-		<?php if( $split_gst_amount == 0 ){ ?>
+		<?php if( 0 == $split_gst_amount ){ ?>
 			<?php
 			$item_totals = $order->get_order_item_totals();
 
@@ -162,7 +161,7 @@ do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plai
 					$i++;
 					if(wp_kses_post( $total['label'] )!="Subtotal:"){
 					?>
-					
+
 					<tr>
 						<th class="td" scope="row" colspan="2" style="text-align:<?php echo esc_attr( $text_align ); ?>; <?php echo ( 1 === $i ) ? 'border-top-width: 4px;' : ''; ?>"><?php echo wp_kses_post( $total['label'] ); ?></th>
 						<td class="td"  colspan="2" style="text-align:<?php echo esc_attr( $text_align ); ?>; <?php echo ( 1 === $i ) ? 'border-top-width: 4px;' : ''; ?>"><?php echo wp_kses_post( $total['value'] ); ?></td>
@@ -187,7 +186,7 @@ do_action( 'woocommerce_email_before_order_table', $order, $sent_to_admin, $plai
 					$i++;
 					if(wp_kses_post( $total['label'] )!="Subtotal:"){
 					?>
-					
+
 					<tr>
 						<th class="td" scope="row" colspan="4" style="text-align:<?php echo esc_attr( $text_align ); ?>; <?php echo ( 1 === $i ) ? 'border-top-width: 4px;' : ''; ?>"><?php echo wp_kses_post( $total['label'] ); ?></th>
 						<td class="td"  colspan="2" style="text-align:<?php echo esc_attr( $text_align ); ?>; <?php echo ( 1 === $i ) ? 'border-top-width: 4px;' : ''; ?>"><?php echo wp_kses_post( $total['value'] ); ?></td>

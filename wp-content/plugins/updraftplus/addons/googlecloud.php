@@ -18,7 +18,7 @@ Potential enhancements:
 
 if (!defined('UPDRAFTPLUS_DIR')) die('No direct access allowed');
 
-if (!class_exists('UpdraftPlus_RemoteStorage_Addons_Base_v2')) require_once(UPDRAFTPLUS_DIR.'/methods/addon-base-v2.php');
+if (!class_exists('UpdraftPlus_RemoteStorage_Addons_Base_v2')) updraft_try_include_file('methods/addon-base-v2.php', 'require_once');
 
 class UpdraftPlus_Addons_RemoteStorage_googlecloud extends UpdraftPlus_RemoteStorage_Addons_Base_v2 {
 
@@ -194,7 +194,7 @@ class UpdraftPlus_Addons_RemoteStorage_googlecloud extends UpdraftPlus_RemoteSto
 		}
 
 		if (!class_exists('UpdraftPlus_Google_Http_MediaFileUpload')) {
-			include_once(UPDRAFTPLUS_DIR.'/includes/google-extensions.php');
+			updraft_try_include_file('includes/google-extensions.php', 'include_once');
 		}
 		
 // (('.zip' == substr($basename, -4, 4)) ? 'application/zip' : 'application/octet-stream'),
@@ -327,7 +327,7 @@ class UpdraftPlus_Addons_RemoteStorage_googlecloud extends UpdraftPlus_RemoteSto
 
 		if (empty($link)) return false;
 
-		return $updraftplus->chunked_download($file, $this, $remote_size, true, $link, $this->chunk_size);
+		return $updraftplus->chunked_download($file, $this, $remote_size, true, $link, min($this->chunk_size, 5242880));
 		
 	}
 	
@@ -655,7 +655,7 @@ class UpdraftPlus_Addons_RemoteStorage_googlecloud extends UpdraftPlus_RemoteSto
 		}
 
 		if ((!class_exists('UDP_Google_Config') || !class_exists('UDP_Google_Client') || !class_exists('UDP_Google_Service_Storage') || !class_exists('UDP_Google_Http_Request')) && !function_exists('google_api_php_client_autoload_updraftplus')) {
-			include_once(UPDRAFTPLUS_DIR.'/includes/Google/autoload.php');
+			updraft_try_include_file('includes/Google/autoload.php', 'include_once');
 		}
 
 		$config = new UDP_Google_Config();
@@ -773,7 +773,7 @@ class UpdraftPlus_Addons_RemoteStorage_googlecloud extends UpdraftPlus_RemoteSto
 				$google['settings'][$instance_id]['token'] = $old_token;
 			}
 			if (!empty($opts['settings'][$instance_id]['token']) && $old_client_id != $google['settings'][$instance_id]['clientid']) {
-				include_once(UPDRAFTPLUS_DIR.'/methods/googlecloud.php');
+				updraft_try_include_file('methods/googlecloud.php', 'include_once');
 				$updraftplus->register_wp_http_option_hooks();
 				$googlecloud = new UpdraftPlus_BackupModule_googlecloud();
 				$googlecloud->gcloud_auth_revoke(false);
@@ -1307,7 +1307,7 @@ class UpdraftPlus_Addons_RemoteStorage_googlecloud extends UpdraftPlus_RemoteSto
 			'authentication_label' => __('Authenticate with Google'),
 			'authentication_label2' => wp_kses(sprintf(__("<strong>After</strong> you have saved your settings (by clicking 'Save Changes' below), then come back here once and follow this link to complete authentication with %s.", 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]), $this->allowed_html_for_content_sanitisation()),
 			'authentication_link_text' => sprintf(__('Sign in with %s', 'updraftplus'), 'Google'),
-			'authentication_already_authenticated_label' => wp_kses(__("<strong>(You appear to be already authenticated,</strong> though you can authenticate again to refresh your access if you've had a problem).", 'updraftplus'), $this->allowed_html_for_content_sanitisation()),
+			'authentication_already_authenticated_label' => wp_kses(__("<strong>(You are already authenticated,</strong> though you can authenticate again to refresh your access if you've had a problem).", 'updraftplus'), $this->allowed_html_for_content_sanitisation()),
 			'deauthentication_link_text' => sprintf(__("Follow this link to remove these settings for %s.", 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
 			'deauthentication_nonce' => wp_create_nonce($this->get_id().'_deauth_nonce'),
 		);

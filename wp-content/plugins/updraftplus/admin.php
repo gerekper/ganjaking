@@ -15,9 +15,9 @@ class UpdraftPlus_Admin {
 
 	private $backups_instance_ids;
 
-	private $auth_instance_ids = array('dropbox' => array(), 'onedrive' => array(), 'googledrive' => array(), 'googlecloud' => array());
+	private $auth_instance_ids = array('dropbox' => array(), 'pcloud' => array(), 'onedrive' => array(), 'googledrive' => array(), 'googlecloud' => array());
 
-	private $clone_php_versions = array('5.4', '5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1');
+	private $clone_php_versions = array('5.4', '5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2');
 
 	private $storage_service_without_settings;
 
@@ -193,6 +193,24 @@ class UpdraftPlus_Admin {
 				}
 			}
 		}
+
+		if ('pcloud' === $services || (is_array($services) && in_array('pcloud', $services))) {
+			$settings = UpdraftPlus_Storage_Methods_Interface::update_remote_storage_options_format('pcloud');
+			
+			if (is_wp_error($settings)) {
+				if (!isset($this->storage_module_option_errors)) $this->storage_module_option_errors = '';
+				$this->storage_module_option_errors .= "pCloud (".$settings->get_error_code()."): ".$settings->get_error_message();
+				add_action('all_admin_notices', array($this, 'show_admin_warning_multiple_storage_options'));
+				$updraftplus->log_wp_error($settings, true, true);
+			} elseif (!empty($settings['settings'])) {
+				foreach ($settings['settings'] as $instance_id => $storage_options) {
+					if (empty($storage_options['pclauth'])) {
+						if (!in_array($instance_id, $this->auth_instance_ids['pcloud'])) $this->auth_instance_ids['pcloud'][] = $instance_id;
+						if (false === has_action('all_admin_notices', array($this, 'show_admin_warning_pcloud'))) add_action('all_admin_notices', array($this, 'show_admin_warning_pcloud'));
+					}
+				}
+			}
+		}
 		
 		if ('onedrive' === $services || (is_array($services) && in_array('onedrive', $services))) {
 			$settings = UpdraftPlus_Storage_Methods_Interface::update_remote_storage_options_format('onedrive');
@@ -291,6 +309,10 @@ class UpdraftPlus_Admin {
 		if ($updraftplus->is_restricted_hosting('only_one_backup_per_month')) {
 			add_action('all_admin_notices', array($this, 'show_admin_warning_one_backup_per_month'));
 		}
+
+		if (!$updraftplus->phpseclib_requirements_met()) {
+			add_action('all_admin_notices', array($this, 'show_admin_warning_phpseclib'));
+		}
 	}
 	
 	private function setup_all_admin_notices_udonly($service, $override = false) {// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable -- Filter use
@@ -319,7 +341,7 @@ class UpdraftPlus_Admin {
 		}
 
 		// LiteSpeed has a generic problem with terminating cron jobs
-		if (isset($_SERVER['SERVER_SOFTWARE']) && strpos($_SERVER['SERVER_SOFTWARE'], 'LiteSpeed') !== false) {
+		if (false == UpdraftPlus_Options::get_updraft_option('updraft_dismiss_admin_warning_litespeed') && isset($_SERVER['SERVER_SOFTWARE']) && strpos($_SERVER['SERVER_SOFTWARE'], 'LiteSpeed') !== false) {
 			if (!is_file(ABSPATH.'.htaccess') || !preg_match('/noabort/i', file_get_contents(ABSPATH.'.htaccess'))) {
 				add_action('all_admin_notices', array($this, 'show_admin_warning_litespeed'));
 			}
@@ -348,6 +370,10 @@ class UpdraftPlus_Admin {
 		// If the plugin was not able to connect to a UDC account due to lack of licences
 		if (isset($_GET['udc_connect']) && 0 == $_GET['udc_connect']) {
 			add_action('all_admin_notices', array($this, 'show_admin_warning_udc_couldnt_connect'));
+		}
+
+		if (!$updraftplus->phpseclib_requirements_met()) {
+			add_action('all_admin_notices', array($this, 'show_admin_warning_phpseclib'));
 		}
 	}
 	
@@ -548,7 +574,7 @@ class UpdraftPlus_Admin {
 			$this->setup_all_admin_notices_global($service);
 		}
 		
-		if (!class_exists('Updraft_Dashboard_News')) include_once(UPDRAFTPLUS_DIR.'/includes/class-updraft-dashboard-news.php');
+		if (!class_exists('Updraft_Dashboard_News')) updraft_try_include_file('includes/class-updraft-dashboard-news.php', 'include_once');
 
 		$news_translations = array(
 			'product_title' => 'UpdraftPlus',
@@ -564,7 +590,7 @@ class UpdraftPlus_Admin {
 
 		// New-install admin tour
 		if ((!defined('UPDRAFTPLUS_ENABLE_TOUR') || UPDRAFTPLUS_ENABLE_TOUR) && (!defined('UPDRAFTPLUS_THIS_IS_CLONE') || !UPDRAFTPLUS_THIS_IS_CLONE)) {
-			include_once(UPDRAFTPLUS_DIR.'/includes/updraftplus-tour.php');
+			updraft_try_include_file('includes/updraftplus-tour.php', 'include_once');
 		}
 
 		if ('index.php' == $GLOBALS['pagenow'] && UpdraftPlus_Options::user_can_manage()) {
@@ -584,11 +610,15 @@ class UpdraftPlus_Admin {
 		}
 		
 		// Next, the actions that only come on the UpdraftPlus page
-		if (UpdraftPlus_Options::admin_page() != $pagenow || empty($_REQUEST['page']) || 'updraftplus' != $_REQUEST['page']) return;
+		if (UpdraftPlus_Options::admin_page() != $pagenow || empty($_REQUEST['page']) || 'updraftplus' != $_REQUEST['page']) {
+			// autobackup addon may enqueue admin-common.js and load the same script, so for the javascript we just need to make sure we call stopImmediatePropagation() to prevent other listeners of the same event from being called
+			add_action('admin_print_footer_scripts', array($this, 'print_phpseclib_notice_scripts'));
+			return;
+		}
 		$this->setup_all_admin_notices_udonly($service);
 
 		global $updraftplus_checkout_embed;
-		if (!class_exists('Updraft_Checkout_Embed')) include_once UPDRAFTPLUS_DIR.'/includes/checkout-embed/class-udp-checkout-embed.php';
+		if (!class_exists('Updraft_Checkout_Embed')) updraft_try_include_file('includes/checkout-embed/class-udp-checkout-embed.php', 'include_once');
 
 		// Create an empty list (usefull for testing, thanks to the filter bellow)
 		$checkout_embed_products = array();
@@ -897,11 +927,11 @@ class UpdraftPlus_Admin {
 			'phpinfo' => __('PHP information', 'updraftplus'),
 			'delete_old_dirs' => __('Delete Old Directories', 'updraftplus'),
 			'raw' => __('Raw backup history', 'updraftplus'),
-			'notarchive' => __('This file does not appear to be an UpdraftPlus backup archive (such files are .zip or .gz files which have a name like: backup_(time)_(site name)_(code)_(type).(zip|gz)).', 'updraftplus').' '.__('However, UpdraftPlus archives are standard zip/SQL files - so if you are sure that your file has the right format, then you can rename it to match that pattern.', 'updraftplus'),
-			'notarchive2' => '<p>'.__('This file does not appear to be an UpdraftPlus backup archive (such files are .zip or .gz files which have a name like: backup_(time)_(site name)_(code)_(type).(zip|gz)).', 'updraftplus').'</p> '.apply_filters('updraftplus_if_foreign_then_premium_message', '<p><a href="'.$updraftplus->get_url('premium').'">'.__('If this is a backup created by a different backup plugin, then UpdraftPlus Premium may be able to help you.', 'updraftplus').'</a></p>'),
+			'notarchive' => __('This file is not an UpdraftPlus backup archive (such files are .zip or .gz files which have a name like: backup_(time)_(site name)_(code)_(type).(zip|gz)).', 'updraftplus').' '.__('However, UpdraftPlus archives are standard zip/SQL files - so if you are sure that your file has the right format, then you can rename it to match that pattern.', 'updraftplus'),
+			'notarchive2' => '<p>'.__('This file is not an UpdraftPlus backup archive (such files are .zip or .gz files which have a name like: backup_(time)_(site name)_(code)_(type).(zip|gz)).', 'updraftplus').'</p> '.apply_filters('updraftplus_if_foreign_then_premium_message', '<p><a href="'.$updraftplus->get_url('premium').'">'.__('If this is a backup created by a different backup plugin, then UpdraftPlus Premium may be able to help you.', 'updraftplus').'</a></p>'),
 			'makesure' => __('(make sure that you were trying to upload a zip file previously created by UpdraftPlus)', 'updraftplus'),
 			'uploaderror' => __('Upload error:', 'updraftplus'),
-			'notdba' => __('This file does not appear to be an UpdraftPlus encrypted database archive (such files are .gz.crypt files which have a name like: backup_(time)_(site name)_(code)_db.crypt.gz).', 'updraftplus'),
+			'notdba' => __('This file is not an UpdraftPlus encrypted database archive (such files are .gz.crypt files which have a name like: backup_(time)_(site name)_(code)_db.crypt.gz).', 'updraftplus'),
 			'uploaderr' => __('Upload error', 'updraftplus'),
 			'followlink' => __('Follow this link to attempt decryption and download the database file to your computer.', 'updraftplus'),
 			'thiskey' => __('This decryption key will be attempted:', 'updraftplus'),
@@ -993,6 +1023,7 @@ class UpdraftPlus_Admin {
 			// For remote storage handlebarsjs template
 			'remote_storage_options' => $remote_storage_options_and_templates['options'],
 			'remote_storage_templates' => $remote_storage_options_and_templates['templates'],
+			'remote_storage_partial_templates' => $remote_storage_options_and_templates['partial_templates'],
 			'remote_storage_methods' => $backup_methods,
 			'instance_enabled' => __('Currently enabled', 'updraftplus'),
 			'instance_disabled' => __('Currently disabled', 'updraftplus'),
@@ -1123,7 +1154,7 @@ class UpdraftPlus_Admin {
 		?>
 		<?php
 			if (!class_exists('UpdraftPlus_Addon_Autobackup')) {
-				if (!class_exists('UpdraftPlus_Notices')) include_once(UPDRAFTPLUS_DIR.'/includes/updraftplus-notices.php');
+				if (!class_exists('UpdraftPlus_Notices')) updraft_try_include_file('includes/updraftplus-notices.php', 'include_once');
 				global $updraftplus_notices;
 				echo apply_filters('updraftplus_autobackup_blurb', $updraftplus_notices->do_notice('autobackup', 'autobackup', true));
 			} else {
@@ -1271,7 +1302,7 @@ class UpdraftPlus_Admin {
 
 			include_once(ABSPATH.'wp-admin/admin-header.php');
 			
-			if (!class_exists('UpdraftPlus_Notices')) include_once(UPDRAFTPLUS_DIR.'/includes/updraftplus-notices.php');
+			if (!class_exists('UpdraftPlus_Notices')) updraft_try_include_file('includes/updraftplus-notices.php', 'include_once');
 			global $updraftplus_notices;
 			$updraftplus_notices->do_notice('autobackup', 'autobackup');
 		}
@@ -1336,11 +1367,26 @@ class UpdraftPlus_Admin {
 	}
 
 	public function show_admin_warning_litespeed() {
-		$this->show_admin_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__('Your website is hosted using the %s web server.', 'updraftplus'), 'LiteSpeed').' <a href="'.apply_filters('updraftplus_com_link', "https://updraftplus.com/faqs/i-am-having-trouble-backing-up-and-my-web-hosting-company-uses-the-litespeed-webserver/").'" target="_blank">'.__('Please consult this FAQ if you have problems backing up.', 'updraftplus').'</a>');
+		$this->show_admin_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__('Your website is hosted using the %s web server.', 'updraftplus'), 'LiteSpeed').' <a href="'.apply_filters('updraftplus_com_link', "https://updraftplus.com/faqs/i-am-having-trouble-backing-up-and-my-web-hosting-company-uses-the-litespeed-webserver/").'" target="_blank">'.__('Please consult this FAQ if you have problems backing up.', 'updraftplus').'</a>', 'updated admin-warning-litespeed notice is-dismissible');
 	}
 
 	public function show_admin_debug_warning() {
 		$this->show_admin_warning('<strong>'.__('Notice', 'updraftplus').':</strong> '.__('UpdraftPlus\'s debug mode is on. You may see debugging notices on this page not just from UpdraftPlus, but from any other plugin installed. Please try to make sure that the notice you are seeing is from UpdraftPlus before you raise a support request.', 'updraftplus').'</a>');
+	}
+
+	/**
+	 * Show dismissible PHPSecLib's admin notice on all admin pages, except UpdraftPlus plugin page
+	 */
+	public function show_admin_warning_phpseclib() {
+		global $updraftplus, $pagenow, $plugin_page;
+		static $printed = false;
+		if ($printed) return;
+		$dismissible = (UpdraftPlus_Options::admin_page() !== $pagenow || 'updraftplus' !== $plugin_page) && (!isset($_REQUEST['action']) || 'updraft_savesettings' !== $_REQUEST['action']);
+		$class = '';
+		if ($dismissible && true == UpdraftPlus_Options::get_updraft_option('updraft_dismiss_phpseclib_notice', false)) return;
+		if ($dismissible) $class = 'ud-phpseclib-notice is-dismissible';
+		$this->show_admin_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.$updraftplus->get_phpseclib_warning_msg(), "notice notice-warning $class");
+		$printed = true;
 	}
 
 	/**
@@ -1362,6 +1408,13 @@ class UpdraftPlus_Admin {
 	 */
 	public function show_admin_warning_dropbox() {
 		$this->get_method_auth_link('dropbox');
+	}
+
+	/**
+	 * Output authorisation links for any un-authorised Dropbox settings instances
+	 */
+	public function show_admin_warning_pcloud() {
+		$this->get_method_auth_link('pcloud');
 	}
 
 	/**
@@ -1691,7 +1744,7 @@ class UpdraftPlus_Admin {
 		$data_in_get = array('get_log', 'get_fragment');
 		
 		// UpdraftPlus_WPAdmin_Commands extends UpdraftPlus_Commands - i.e. all commands are in there
-		if (!class_exists('UpdraftPlus_WPAdmin_Commands')) include_once(UPDRAFTPLUS_DIR.'/includes/class-wpadmin-commands.php');
+		if (!class_exists('UpdraftPlus_WPAdmin_Commands')) updraft_try_include_file('includes/class-wpadmin-commands.php', 'include_once');
 		$commands = new UpdraftPlus_WPAdmin_Commands($this);
 		
 		if (method_exists($commands, $subaction)) {
@@ -2182,12 +2235,16 @@ class UpdraftPlus_Admin {
 		if (!empty($messages) && is_array($messages)) {
 			$noutput = '';
 			foreach ($messages as $msg) {
-				if (empty($msg['code']) || 'file-listing' != $msg['code']) {
-					$noutput .= '<li>'.(empty($msg['desc']) ? '' : $msg['desc'].': ').'<em>'.$msg['message'].'</em></li>';
-				}
-				if (!empty($msg['data'])) {
-					$key = $msg['method'].'-'.$msg['service_instance_id'];
-					$data[$key] = $msg['data'];
+				if (is_string($msg)) {
+					$noutput .= '<li><em>'.$msg.'</em></li>';
+				} else {
+					if (empty($msg['code']) || 'file-listing' != $msg['code']) {
+						$noutput .= '<li>'.(empty($msg['desc']) ? '' : $msg['desc'].': ').'<em>'.$msg['message'].'</em></li>';
+					}
+					if (!empty($msg['data'])) {
+						$key = $msg['method'].'-'.$msg['service_instance_id'];
+						$data[$key] = $msg['data'];
+					}
 				}
 			}
 			if ($noutput) {
@@ -2933,7 +2990,7 @@ class UpdraftPlus_Admin {
 
 			if (empty($success_advert) && empty($this->no_settings_warning)) {
 
-				if (!class_exists('UpdraftPlus_Notices')) include_once(UPDRAFTPLUS_DIR.'/includes/updraftplus-notices.php');
+				if (!class_exists('UpdraftPlus_Notices')) updraft_try_include_file('includes/updraftplus-notices.php', 'include_once');
 				global $updraftplus_notices;
 				
 				$backup_history = UpdraftPlus_Backup_History::get_history();
@@ -4170,7 +4227,7 @@ class UpdraftPlus_Admin {
 					echo "jQuery('.none').show();\n";
 				}
 				foreach ($updraftplus->backup_methods as $method => $description) {
-					// already done: require_once(UPDRAFTPLUS_DIR.'/methods/'.$method.'.php');
+					// already done: updraft_try_include_file('methods/'.$method.'.php', 'require_once');
 					$call_method = "UpdraftPlus_BackupModule_$method";
 					if (method_exists($call_method, 'config_print_javascript_onready')) {
 						$method_objects[$method]->config_print_javascript_onready();
@@ -4491,7 +4548,7 @@ class UpdraftPlus_Admin {
 
 				$ide = __('Press here to download or browse', 'updraftplus').' '.strtolower($info['description']);
 				$ide .= ' '.sprintf(__('(%d archive(s) in set, total %s).', 'updraftplus'), $howmanyinset, '%UP_backups_total_file_size%');
-				if ($index_missing) $ide .= ' '.__('You appear to be missing one or more archives from this multi-archive set.', 'updraftplus');
+				if ($index_missing) $ide .= ' '.__('You are missing one or more archives from this multi-archive set.', 'updraftplus');
 
 				$entities .= $set_contents.'/';
 				if (!empty($backup['meta_foreign'])) {
@@ -5685,7 +5742,7 @@ ENDHERE;
 			$vault = $storage_objects_and_ids['updraftvault']['object'];
 			$vault->set_options($opts, false, $instance_id);
 		} else {
-			include_once(UPDRAFTPLUS_DIR.'/methods/updraftvault.php');
+			updraft_try_include_file('methods/updraftvault.php', 'include_once');
 			$vault = new UpdraftPlus_BackupModule_updraftvault();
 		}
 
@@ -5967,7 +6024,7 @@ ENDHERE;
 	 * @return object
 	 */
 	public function get_updraftcentral_cloud() {
-		if (!class_exists('UpdraftPlus_UpdraftCentral_Cloud')) include_once(UPDRAFTPLUS_DIR.'/includes/updraftcentral.php');
+		if (!class_exists('UpdraftPlus_UpdraftCentral_Cloud')) updraft_try_include_file('includes/updraftcentral.php', 'include_once');
 		return new UpdraftPlus_UpdraftCentral_Cloud();
 	}
 
@@ -6255,5 +6312,35 @@ ENDHERE;
 			$this->do_updraft_download_backup($findexes, $type, $timestamp, 2, false, '');
 			exit; // we don't need anything else but an exit
 		}
+	}
+
+	/**
+	 * Print the phpseclib-notice-related scripts
+	 */
+	public function print_phpseclib_notice_scripts() {
+		static $printed = false;
+
+		if ($printed) return;
+		$printed = true;
+		?>
+	<script>
+		jQuery(function($) {
+			$('div.ud-phpseclib-notice').on('click', 'button.notice-dismiss', function (event) {
+				event.stopImmediatePropagation();
+				$.ajax(ajaxurl, {
+					type: 'POST',
+					data: {
+						action: 'updraft_ajax',
+						subaction: 'dismiss_phpseclib_notice',
+						nonce: '<?php echo wp_create_nonce('updraftplus-credentialtest-nonce'); ?>',
+					},
+					error: function(xhr, status, error_code) {
+						alert(error_code+':'+status);
+					}
+				});
+			});
+		});
+	</script>
+		<?php
 	}
 }

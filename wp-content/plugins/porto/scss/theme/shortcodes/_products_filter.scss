@@ -1,0 +1,50 @@
+.porto_products_filter_form {
+	--porto-product-filter-submit-width: 100%;
+	--porto-product-filter-select-width: 100%;
+	--porto-product-filter-submit-width-md: 100%;
+	--porto-product-filter-select-width-md: 100%;
+	--porto-product-filter-space: 0px;
+	--porto-product-filter-space-md: 0px;
+	.widget-title {
+		width: 100%;
+	}
+	select, .btn-submit {
+		display: block;
+		width: 100%;
+		margin-bottom: .5rem;
+	}
+	.btn-submit {
+		margin-top: 1rem;
+		text-align: center;
+		overflow: hidden;
+		width: var(--porto-product-filter-submit-width);
+	}
+	select {
+		width: calc( var(--porto-product-filter-select-width) - var(--porto-product-filter-space));
+		margin-right: var(--porto-product-filter-space);
+	}
+	.ul + .ul {
+		margin-top: 0px;
+	}
+}
+
+@media (max-width: 991px){
+	.porto_products_filter_form {
+		.btn-submit {
+			width: var(--porto-product-filter-submit-width-md);
+		}
+		select {
+			width: calc( var(--porto-product-filter-select-width-md) - var(--porto-product-filter-space-md));
+			margin-right: var(--porto-product-filter-space-md);
+		}
+	}
+}
+
+@media (max-width: 480px){
+	.porto_products_filter_form {
+		.btn-submit, select {
+			width: 100%;
+			margin-right: 0;
+		}
+	}
+}

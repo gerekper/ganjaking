@@ -434,15 +434,27 @@ class UpdraftCentral_Posts_Commands extends UpdraftCentral_Commands {
 			$block_registry = WP_Block_Type_Registry::get_instance();
 			foreach ($block_registry->get_all_registered() as $block_type) {
 				if (!empty($block_type->style)) {
-					$style_handles[] = $block_type->style;
+					if (is_array($block_type->style)) {
+						$style_handles = array_merge($style_handles, $block_type->style);
+					} else {
+						$style_handles[] = $block_type->style;
+					}
 				}
 
 				if (!empty($block_type->editor_style)) {
-					$style_handles[] = $block_type->editor_style;
+					if (is_array($block_type->editor_style)) {
+						$style_handles = array_merge($style_handles, $block_type->editor_style);
+					} else {
+						$style_handles[] = $block_type->editor_style;
+					}
 				}
 
 				if (!empty($block_type->script)) {
-					$script_handles[] = $block_type->script;
+					if (is_array($block_type->script)) {
+						$script_handles = array_merge($script_handles, $block_type->script);
+					} else {
+						$script_handles[] = $block_type->script;
+					}
 				}
 			}
 		}

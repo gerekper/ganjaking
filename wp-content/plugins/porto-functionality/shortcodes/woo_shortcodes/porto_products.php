@@ -1,25 +1,7 @@
 <?php
 
 // Porto Products
-if ( function_exists( 'register_block_type' ) ) {
-	register_block_type(
-		'porto/porto-products',
-		array(
-			'editor_script'   => 'porto_blocks',
-			'render_callback' => 'porto_shortcode_products',
-		)
-	);
-}
-add_shortcode( 'porto_products', 'porto_shortcode_products' );
 add_action( 'vc_after_init', 'porto_load_products_shortcode' );
-
-function porto_shortcode_products( $atts, $content = null ) {
-	ob_start();
-	if ( $template = porto_shortcode_woo_template( 'porto_products' ) ) {
-		include $template;
-	}
-	return ob_get_clean();
-}
 
 function porto_load_products_shortcode() {
 	$animation_type     = porto_vc_animation_type();
@@ -36,7 +18,6 @@ function porto_load_products_shortcode() {
 	if ( ! empty( $porto_settings['woo-pre-order'] ) ) {
 		$status_values[ __( 'Pre-Order', 'porto-functionality' ) ] = 'pre_order';
 	}
-
 	// woocommerce products
 	vc_map(
 		array(
@@ -95,6 +76,7 @@ function porto_load_products_shortcode() {
 						'param_name'  => 'view',
 						'value'       => porto_sh_commons( 'products_view_mode' ),
 						'admin_label' => true,
+						'group'       => __( 'Products Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'       => 'porto_image_select',
@@ -106,6 +88,7 @@ function porto_load_products_shortcode() {
 						),
 						'std'        => '1',
 						'value'      => porto_sh_commons( 'masonry_layouts' ),
+						'group'      => __( 'Products Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'       => 'number',
@@ -117,6 +100,7 @@ function porto_load_products_shortcode() {
 						),
 						'suffix'     => 'px',
 						'std'        => 600,
+						'group'      => __( 'Products Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'        => 'number',
@@ -129,6 +113,10 @@ function porto_load_products_shortcode() {
 						),
 						'suffix'      => 'px',
 						'std'         => '',
+						'selectors'   => array(
+							'{{WRAPPER}}' => '--porto-el-spacing: {{VALUE}}px;',
+						),
+						'group'       => __( 'Products Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'       => 'dropdown',
@@ -140,6 +128,7 @@ function porto_load_products_shortcode() {
 						),
 						'std'        => '4',
 						'value'      => porto_sh_commons( 'products_columns' ),
+						'group'      => __( 'Products Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'       => 'dropdown',
@@ -156,6 +145,7 @@ function porto_load_products_shortcode() {
 							'2' => '2',
 							'3' => '3',
 						),
+						'group'      => __( 'Products Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'       => 'dropdown',
@@ -166,6 +156,7 @@ function porto_load_products_shortcode() {
 							'value'   => array( 'products-slider', 'grid', 'divider' ),
 						),
 						'value'      => porto_sh_commons( 'products_column_width' ),
+						'group'      => __( 'Products Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'       => 'dropdown',
@@ -181,6 +172,7 @@ function porto_load_products_shortcode() {
 							__( 'Default' )   => 'default',
 							__( 'Load more' ) => 'load_more',
 						),
+						'group'      => __( 'Products Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'        => 'number',
@@ -195,6 +187,7 @@ function porto_load_products_shortcode() {
 						'param_name' => 'show_sort',
 						'std'        => '',
 						'value'      => porto_woo_sort_by(),
+						'group'      => __( 'Products Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'       => 'textfield',
@@ -204,6 +197,7 @@ function porto_load_products_shortcode() {
 							'element' => 'show_sort',
 							'value'   => 'popular',
 						),
+						'group'      => __( 'Products Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'       => 'textfield',
@@ -213,6 +207,7 @@ function porto_load_products_shortcode() {
 							'element' => 'show_sort',
 							'value'   => 'date',
 						),
+						'group'      => __( 'Products Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'       => 'textfield',
@@ -222,6 +217,7 @@ function porto_load_products_shortcode() {
 							'element' => 'show_sort',
 							'value'   => 'rating',
 						),
+						'group'      => __( 'Products Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'       => 'textfield',
@@ -231,6 +227,7 @@ function porto_load_products_shortcode() {
 							'element' => 'show_sort',
 							'value'   => 'onsale',
 						),
+						'group'      => __( 'Products Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'        => 'checkbox',
@@ -238,6 +235,8 @@ function porto_load_products_shortcode() {
 						'param_name'  => 'category_filter',
 						'std'         => '',
 						'admin_label' => true,
+						'group'       => __( 'Products Layout', 'porto-functionality' ),
+						'qa_selector' => 'li.product-col:first-child',
 					),
 					array(
 						'type'        => 'dropdown',
@@ -248,6 +247,7 @@ function porto_load_products_shortcode() {
 							__( 'Horizontal', 'porto-functionality' ) => 'horizontal',
 						),
 						'description' => __( 'This field is used only when using "sort by" or "category filter".', 'porto-functionality' ),
+						'group'       => __( 'Products Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'        => 'autocomplete',
@@ -443,6 +443,8 @@ function porto_load_products_shortcode() {
 						'description' => __( 'Select position of add to cart, add to wishlist, quickview.', 'porto-functionality' ),
 						'param_name'  => 'addlinks_pos',
 						'value'       => porto_sh_commons( 'products_addlinks_pos' ),
+						'group'       => __( 'Products Layout', 'porto-functionality' ),
+						'qa_selector' => 'li.product-col:nth-child(2)',
 					),
 					array(
 						'type'        => 'checkbox',
@@ -450,6 +452,7 @@ function porto_load_products_shortcode() {
 						'description' => __( 'If you check this option, it will display product title and price only.', 'porto-functionality' ),
 						'param_name'  => 'use_simple',
 						'std'         => 'no',
+						'group'       => __( 'Products Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'       => 'number',
@@ -461,6 +464,7 @@ function porto_load_products_shortcode() {
 						),
 						'suffix'     => '%',
 						'std'        => '30',
+						'group'      => __( 'Products Layout', 'porto-functionality' ),
 					),
 					array(
 						'type'       => 'dropdown',
@@ -472,10 +476,11 @@ function porto_load_products_shortcode() {
 						),
 						'value'      => porto_sh_commons( 'image_sizes' ),
 						'std'        => '',
+						'group'      => __( 'Products Layout', 'porto-functionality' ),
 					),
 					$custom_class,
 				),
-				porto_vc_product_slider_fields(),
+				porto_vc_product_slider_fields( 'products-slider', 'dots-style-1' ),
 				array(
 					$animation_type,
 					$animation_duration,

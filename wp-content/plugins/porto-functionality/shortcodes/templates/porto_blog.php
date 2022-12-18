@@ -47,6 +47,12 @@ extract(
 		$atts
 	)
 );
+
+if ( function_exists( 'vc_is_inline' ) && vc_is_inline() ) {
+	// wpb frontend editor
+	wp_enqueue_script( 'isotope' );
+}
+
 if ( 'masonry' == $post_layout ) {
 	wp_enqueue_script( 'isotope' );
 }
@@ -106,6 +112,9 @@ if ( $posts->have_posts() ) {
 		} else {
 			$el_class = $className;
 		}
+	}
+	if ( ! empty( $shortcode_class ) ) {
+		$el_class .= ' ' . $shortcode_class;
 	}
 
 	$wrapper_id = 'porto-blog-' . rand( 1000, 9999 );
@@ -216,9 +225,9 @@ if ( $posts->have_posts() ) {
 				}
 			}
 
-			$options           = array( 'themeConfig' => true );
-			$options['items']  = (int) $columns;
-			$options['lg']     = (int) $columns;
+			$options          = array( 'themeConfig' => true );
+			$options['items'] = (int) $columns;
+			$options['lg']    = (int) $columns;
 			if ( '0' == $margin || ! empty( $margin ) ) {
 				$options['margin'] = (int) $margin;
 			} else {
@@ -279,8 +288,10 @@ if ( $posts->have_posts() ) {
 	}
 
 	if ( $excerpt_length ) {
-		$global_excerpt_length                         = $porto_settings['blog-excerpt-length'];
-		$global_post_excerpt_length                    = $porto_settings['post-related-excerpt-length'];
+		if ( isset( $porto_settings['blog-excerpt-length'] ) ) {
+			$global_excerpt_length      = $porto_settings['blog-excerpt-length'];
+			$global_post_excerpt_length = $porto_settings['post-related-excerpt-length'];
+		}
 		$porto_settings['blog-excerpt-length']         = $excerpt_length;
 		$porto_settings['post-related-excerpt-length'] = $excerpt_length;
 	}
@@ -291,7 +302,7 @@ if ( $posts->have_posts() ) {
 	}
 	$template_name = $post_layout;
 	if ( 'modern' == $post_style && 'grid' == $post_layout ) {
-		$template_name  = $post_style;
+		$template_name = $post_style;
 		if ( empty( $options ) ) {
 			$column_classes = porto_grid_post_column_class( $columns );
 		}
@@ -311,7 +322,7 @@ if ( $posts->have_posts() ) {
 			get_template_part( 'content', 'blog-' . $template_name );
 		}
 	}
-	if ( $excerpt_length ) {
+	if ( isset( $global_excerpt_length ) ) {
 		$porto_settings['blog-excerpt-length']         = $global_excerpt_length;
 		$porto_settings['post-related-excerpt-length'] = $global_post_excerpt_length;
 	}

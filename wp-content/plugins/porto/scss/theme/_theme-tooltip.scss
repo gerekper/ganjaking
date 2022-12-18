@@ -1,0 +1,122 @@
+/* header, footer tooltip */
+@keyframes tooltip-animation {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes tooltip-color {
+    0% {
+        color: #fff;
+    }
+    50% {
+        color: #333;
+    }
+    100% {
+        color: #fff;
+    }
+}
+@keyframes tooltip-color-white {
+    0% {
+        color: #444;
+    }
+    50% {
+        color: #fff;
+    }
+    100% {
+        color: #444;
+    }
+}
+#header,
+.footer {
+    .porto-tooltip {
+        position: absolute !important;
+        #{$right}: 0;
+        top: 5px;
+        width: 20px;
+
+        @media #{$screen-small} {
+            display: none !important;
+        }
+    }
+
+    .tooltip-icon {
+        cursor: pointer;
+        border: 1px solid #000;
+        color: #000;
+        border-radius: 50%;
+        display: block;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        line-height: 20px;
+        font-size: 10px;
+        position: relative;
+        #{$right}: 5px;
+
+        @include transition(all .2s ease-in-out);
+        @include animation(tooltip-animation 1s ease-in infinite);
+    }
+
+    .tooltip-popup {
+        display: none;
+        position: absolute;
+        #{$right}: 0;
+        text-align : $left;
+        top: -2px;
+        width: 300px;
+        background-color: #111;
+        box-shadow: 0 0 8px rgba(255,255,255,.5);
+        padding: 20px;
+        border-radius: 10px;
+        font-size: 12px;
+        line-height: 1.4;
+        color: #fff;
+        z-index: 2000;
+
+        h4 {
+            font-size: 16px;
+            color: #fff;
+        }
+
+        p {
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        em {
+            font-size: 10px;
+        }
+    }
+
+    .tooltip-close {
+        cursor: pointer;
+        position: absolute;
+        #{$right}: 10px;
+        top: 10px;
+        color: #fff;
+    }
+}
+
+#header .porto-tooltip {
+    z-index: 1000;
+}
+
+.footer .porto-tooltip {
+    top: 30px;
+    #{$right}: 15px;
+}
+
+@media (min-width: 992px) {
+    .header-wrapper.header-side-nav {
+        #header .tooltip-popup {
+            #{$left}: -5px;
+            #{$right}: auto;
+        }
+    }
+}

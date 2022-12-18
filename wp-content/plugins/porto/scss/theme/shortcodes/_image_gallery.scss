@@ -1,0 +1,190 @@
+.porto-gallery {
+    img {
+        display: block;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    figure {
+        overflow: hidden;        position: relative;
+        margin-bottom: 0;
+    }
+    &.porto-ig-boxshadow figure {
+        overflow: visible;
+    }
+
+    > figure {
+        padding: calc(var(--porto-el-spacing) / 2);
+    }
+
+    .image-wrapper {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+    }
+
+    &.porto-gallery-grid,
+    &.porto-gallery-creative,
+    &.porto-gallery-masonry {
+        flex-wrap: wrap;
+        &.has-ccols-spacing>* {
+            padding-top: calc(var(--porto-el-spacing, var(--porto-grid-gutter-width)) / 2);
+            padding-bottom: calc(var(--porto-el-spacing, var(--porto-grid-gutter-width)) / 2);
+        }
+    }
+
+    &.porto-preset-layout {
+        a > figure,
+        img {
+            height: 100%
+        }
+    }
+
+    &.align-items-center, &.align-items-end, &.align-items-stretch {
+        .owl-stage {
+            display: flex;
+        }
+        .owl-item {
+            flex: 0 0 auto;
+        }
+    }
+
+    &.align-items-center {
+        .owl-stage {
+            align-items: center;
+        }
+    }
+
+    &.align-items-end {
+        .owl-stage {
+            align-items: flex-end;
+        }
+    }
+
+    &.align-items-stretch {
+        img {
+            height: 100%
+        }
+    }
+
+    &.align-items-stretch .owl-item figure {
+        height: 100%
+    }
+}
+
+/* hover effect */
+.porto-ig-effect-1 figure:before,
+.porto-ig-effect-1 figure:after { content: ''; position: absolute; opacity: 1; z-index: 1; }
+.porto-ig-effect-1 figure:before { background: rgba(255,255,255,0.3); bottom: 0; left: 50%; right: 51%; top: 0 }
+.porto-ig-effect-1 figure:after { bottom: 50%; left: 0; right: 0; top: 50% }
+.porto-ig-effect-1 figure:hover:before,
+.porto-ig-effect-1 figure:hover:after { left: 0; right: 0; opacity: 0; transition: 0.5s linear }
+.porto-ig-effect-2 figure:before,
+.porto-ig-effect-2 figure:after { content: ''; position: absolute; background: rgba(255,255,255,0.6); height: 100%; left: 0; opacity: 0.4; top: 0; transition: 0.9s; width: 100%; z-index: 1; }
+.porto-ig-effect-2 figure:before { transform: translate(105%,0%) }
+.porto-ig-effect-2 figure:after { transform: translate(-105%,0%) }
+.porto-ig-effect-2 figure:hover:before,
+.porto-ig-effect-2 figure:hover:after { opacity: 0; transform: none }
+.porto-ig-effect-3 figure:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 120%;
+    height: 60px;
+    background: rgba(255,255,255,0.1);
+    transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,-150%,0);
+    transition: 0.5s linear;
+    backface-visibility: hidden;
+    z-index: 1;
+}
+.porto-ig-effect-3 figure:hover:before { top: 100%; left: -100%; transform: scale3d(1.9,1.4,1) rotate3d(0,0,1,45deg) translate3d(0,200%,0) }
+.porto-ig-effect-4 figure:before,
+.porto-ig-effect-4 figure:after { content: ''; position: absolute; background: rgba(255,255,255,0.1); opacity: 1; transition: 0.5s; z-index: 1; }
+.porto-ig-effect-4 figure:before { bottom: 0; left: 50%; right: 51%; top: 0 }
+.porto-ig-effect-4 figure:after { bottom: 50%; left: 0; right: 0; top: 50% }
+.porto-ig-effect-4 figure:hover:before,
+.porto-ig-effect-4 figure:hover:after { left: 0; right: 0; top: 0; bottom: 0; opacity: 0.5 }
+
+.porto-ig-zoom figure {
+    img {
+        transition: transform .3s;
+    }
+    &:hover img {
+        transform: scale(1.08, 1.08) translateZ(0);
+    }
+}
+
+.porto-ig-fadein figure:not(.grid-col-sizer), .porto-ig-overlay figure:not(.grid-col-sizer) {
+    &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        transition: opacity .4s;
+        background: rgba(0, 0, 0, .5);
+    }
+}
+.porto-gallery-grid , .porto-gallery-masonry, .porto-gallery-creative {
+    &.porto-ig-fadein>figure:before, 
+    &.porto-ig-overlay>figure:before{
+        left: calc(var(--porto-el-spacing, 0px ) / 2);
+        top: calc(var(--porto-el-spacing, 0px ) / 2);
+        right: calc(var(--porto-el-spacing, 0px ) / 2);
+        bottom: calc(var(--porto-el-spacing, 0px ) / 2);
+    }
+}
+
+.porto-gallery.porto-carousel figure:before {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.porto-ig-fadein figure {
+    &:hover:before {
+        opacity: 0;
+    }
+}
+.porto-ig-overlay figure {
+    &:before {
+        opacity: 0;
+    }
+    &:hover:before {
+        opacity: 1;
+    }
+}
+
+.porto-ig-overlay-icon .hover-overlay ,
+.porto-ig-overlay-icon figure {
+    .fill {
+        background: rgba(33, 37, 41, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity .3s;
+        i {
+            transition: transform .3s;
+            transform: translateY(-30%);
+        }
+    }
+    &:hover .fill {
+        opacity: 1;
+        i {
+            transform: translateY(0%);
+        }
+    }
+}
+
+.porto-ig-boxshadow figure img {
+    transition: box-shadow .3s;
+    &:hover {
+        box-shadow: 0 0 20px rgba(0, 0, 0, .1);
+    }
+}

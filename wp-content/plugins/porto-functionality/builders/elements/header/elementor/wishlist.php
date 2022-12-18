@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Porto Header Builder Wishlist Icon widget
  *
- * @since 6.0
+ * @since 2.0
  */
 
 use Elementor\Controls_Manager;
@@ -33,7 +33,11 @@ class Porto_Elementor_HB_Wishlist_Widget extends \Elementor\Widget_Base {
 		return 'porto-icon-wishlist-2';
 	}
 
-	protected function _register_controls() {
+	public function get_custom_help_url() {
+		return 'https://www.portotheme.com/wordpress/porto/documentation/porto-wishlist-icon-element/';
+	}
+
+	protected function register_controls() {
 
 		$this->start_controls_section(
 			'section_hb_wishlist',
@@ -45,10 +49,13 @@ class Porto_Elementor_HB_Wishlist_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'icon_cl',
 			array(
-				'type'             => Controls_Manager::ICONS,
-				'label'            => __( 'Icon', 'porto-functionality' ),
-				'fa4compatibility' => 'icon',
-				'default'          => array(
+				'type'                   => Controls_Manager::ICONS,
+				'label'                  => __( 'Icon', 'porto-functionality' ),
+				'fa4compatibility'       => 'icon',
+				'skin'                   => 'inline',
+				'exclude_inline_options' => array( 'svg' ),
+				'label_block'            => false,
+				'default'                => array(
 					'value'   => '',
 					'library' => '',
 				),
@@ -87,13 +94,75 @@ class Porto_Elementor_HB_Wishlist_Widget extends \Elementor\Widget_Base {
 			array(
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Color', 'porto-functionality' ),
-				'default'   => '',
 				'selectors' => array(
 					'#header .elementor-element-{{ID}} .my-wishlist' => 'color: {{VALUE}};',
 				),
 			)
 		);
 
+		$this->add_control(
+			'sticky_color',
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'label'     => __( 'Color In Sticky', 'porto-functionality' ),
+				'selectors' => array(
+					'#header.sticky-header .elementor-element-{{ID}} .my-wishlist' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'hover_color',
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'label'     => __( 'Hover Color', 'porto-functionality' ),
+				'selectors' => array(
+					'#header .elementor-element-{{ID}} .my-wishlist:hover' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'sticky_hover_color',
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'label'     => __( 'Hover Color In Sticky', 'porto-functionality' ),
+				'selectors' => array(
+					'#header.sticky-header .elementor-element-{{ID}} .my-wishlist:hover' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'badge_color',
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'label'     => __( 'Badge Color', 'porto-functionality' ),
+				'selectors' => array(
+					'.elementor-element-{{ID}} .wishlist-count' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'badge_bg_color',
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'label'     => __( 'Badge Background Color', 'porto-functionality' ),
+				'selectors' => array(
+					'.elementor-element-{{ID}} .wishlist-count' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'offcanvas',
+			array(
+				'type'        => Controls_Manager::SWITCHER,
+				'label'       => __( 'Off Canvas ?', 'porto-functionality' ),
+				'description' => __( 'Controls to show the wishlist dropdown as off canvas.', 'porto-functionality' ),
+			)
+		);
 		$this->end_controls_section();
 	}
 
@@ -109,11 +178,19 @@ class Porto_Elementor_HB_Wishlist_Widget extends \Elementor\Widget_Base {
 					$icon_cl = $settings['icon_cl']['value'];
 				}
 			}
+			global $porto_settings;
+			if ( isset( $porto_settings['wl-offcanvas'] ) ) {
+				$backup_offcanvas = $porto_settings['wl-offcanvas'];
+			}
+			$porto_settings['wl-offcanvas'] = ! empty( $settings['offcanvas'] ) ? true : false;
 			if ( function_exists( 'porto_wishlist' ) ) {
 				echo porto_wishlist( '', $icon_cl );
 			} else {
 				$wc_count = yith_wcwl_count_products();
 				echo '<a href="' . esc_url( YITH_WCWL()->get_wishlist_url() ) . '"' . ' title="' . esc_attr__( 'Wishlist', 'porto' ) . '" class="my-wishlist"><i class="' . esc_attr( $icon_cl ) . '"></i><span class="wishlist-count">' . intval( $wc_count ) . '</span></a>';
+			}
+			if ( isset( $backup_offcanvas ) ) {
+				$porto_settings['wl-offcanvas'] = $backup_offcanvas;
 			}
 		}
 	}

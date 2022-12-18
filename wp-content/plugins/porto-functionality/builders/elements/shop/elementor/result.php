@@ -10,6 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 
 use Elementor\Controls_Manager;
+use Elementor\Core\Schemes\Color;
+use Elementor\Core\Schemes\Typography;
+use Elementor\Group_Control_Typography;
 
 class Porto_Elementor_SB_Result_Widget extends \Elementor\Widget_Base {
 
@@ -37,7 +40,11 @@ class Porto_Elementor_SB_Result_Widget extends \Elementor\Widget_Base {
 		return array();
 	}
 
-	protected function _register_controls() {
+	public function get_custom_help_url() {
+		return 'https://www.portotheme.com/wordpress/porto/documentation/shop-builder-elements/';
+	}
+
+	protected function register_controls() {
 		$this->start_controls_section(
 			'section_count_layout',
 			array(
@@ -45,21 +52,23 @@ class Porto_Elementor_SB_Result_Widget extends \Elementor\Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'notice_skin',
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
 			array(
-				'type' => Controls_Manager::RAW_HTML,
-				'raw' => __( 'To change the Products Archive’s layout, go to Porto / Theme Options / WooCommerce / Product Archives.', 'porto-functionality' ),
-				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
+				'name'     => 'tg',
+				'label'    => esc_html__( 'Typography', 'porto-functionality' ),
+				'selector' => '.elementor-element-{{ID}} .woocommerce-result-count',
 			)
 		);
 
 		$this->add_control(
-			'notice_wrong_data',
+			'clr',
 			array(
-				'type' => Controls_Manager::RAW_HTML,
-				'raw' => __( 'The editor\'s preview might look different from the live site. Please check the frontend.', 'porto-functionality' ),
-				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
+				'label'     => esc_html__( 'Color', 'porto-functionality' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'.elementor-element-{{ID}} .woocommerce-result-count' => 'color: {{VALUE}};',
+				),
 			)
 		);
 

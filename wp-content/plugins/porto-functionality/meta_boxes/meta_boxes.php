@@ -152,7 +152,7 @@ function porto_show_meta_field( $meta_field ) {
 			<h3><?php echo esc_html( $title ); ?></h3>
 			<div class="metainner">
 				<div class="box-option">
-					<select name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $name ); ?>">
+					<select name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $name ); ?>"<?php echo empty( $meta_field['el_class'] ) ? '' : ' class="' . esc_attr( $meta_field['el_class'] ) . '"'; ?>>
 						<?php if ( ! is_array( $options ) || ! in_array( '', array_keys( $options ) ) ) : ?>
 							<option value=""><?php esc_html_e( 'Select', 'porto-functionality' ); ?></option>
 						<?php endif; ?>
@@ -167,6 +167,46 @@ function porto_show_meta_field( $meta_field ) {
 							endforeach;
 						endif
 						?>
+					</select>
+				</div>
+				<?php if ( $desc ) : ?>
+				<div class="box-info">
+					<label for="<?php echo esc_attr( $name ); ?>">
+					<?php
+						echo wp_kses(
+							$desc,
+							array(
+								'em'     => array(),
+								'i'      => array(),
+								'strong' => array(),
+								'a'      => array(
+									'class' => array(),
+									'href'  => array(),
+								),
+							)
+						);
+					?>
+					</label>
+				</div>
+			<?php endif; ?>
+			</div>
+		</div>
+		<?php
+	endif;
+
+	if ( 'ajaxselect2' == $type ) : // select
+		if ( $meta_value && is_array( $meta_value ) ) {
+			$meta_value = implode( ',', $meta_value );
+		}
+		?>
+		<div class="metabox" <?php echo porto_filter_output( $required ); ?>>
+			<h3><?php echo esc_html( $title ); ?></h3>
+			<div class="metainner">
+				<div class="box-option">
+					<select class="porto-ajaxselect2<?php echo empty( $meta_field['el_class'] ) ? '' : ' ' . esc_attr( $meta_field['el_class'] ); ?>" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $name ); ?>" data-option="<?php echo isset( $meta_field['option'] ) ? esc_attr( $meta_field['option'] ) : ''; ?>" data-value="<?php echo esc_attr( $meta_value ); ?>">
+						<?php if ( ! is_array( $options ) || ! in_array( '', array_keys( $options ) ) ) : ?>
+							<option value=""><?php esc_html_e( 'Select', 'porto-functionality' ); ?></option>
+						<?php endif; ?>
 					</select>
 				</div>
 				<?php if ( $desc ) : ?>

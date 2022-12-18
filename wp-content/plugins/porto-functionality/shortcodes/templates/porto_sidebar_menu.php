@@ -20,9 +20,13 @@ if ( ! class_exists( 'porto_sidebar_navwalker' ) ) {
 	return;
 }
 
-global $porto_settings;
+if ( ! empty( $shortcode_class ) ) {
+	$el_class .= ' ' . $shortcode_class;
+}
 
-$output .= '<div class="widget_sidebar_menu main-sidebar-menu' . ( $el_class ? ' ' . esc_attr( $el_class ) : '' ) . '">';
+global $porto_settings, $porto_settings_optimize;
+
+$output .= '<div class="widget_sidebar_menu main-sidebar-menu' . ( $el_class ? ' ' . esc_attr( trim( $el_class ) ) : '' ) . '"' . ( $nav_menu && ! empty( $porto_settings_optimize['lazyload_menu'] ) ? ' data-menu="' . esc_attr( $nav_menu ) . '"' : '' ) . '>';
 if ( $title ) {
 	$output .= '<div class="widget-title">';
 
@@ -36,12 +40,7 @@ if ( $title ) {
 
 $nav_menu_html_escaped = '';
 if ( $nav_menu ) {
-	global $porto_settings_optimize;
-	if ( ! empty( $porto_settings_optimize['lazyload_menu'] ) ) {
-		$optimize_backup = $porto_settings_optimize['lazyload_menu'];
-		$porto_settings_optimize['lazyload_menu'] = '';
-	}
-	$args                  = array(
+	$args = array(
 		'container'   => '',
 		'menu_class'  => 'sidebar-menu',
 		'before'      => '',
@@ -53,10 +52,22 @@ if ( $nav_menu ) {
 		'menu'        => $nav_menu,
 		'echo'        => false,
 	);
+	if ( ! empty( $porto_settings_optimize['lazyload_menu'] ) ) {
+		//$optimize_backup = $porto_settings_optimize['lazyload_menu'];
+		//$porto_settings_optimize['lazyload_menu'] = '';
+		$args['depth'] = 2;
+
+		add_filter( 'porto_lazymenu_depth', '__return_true' );
+	}
+
 	$nav_menu_html_escaped = wp_nav_menu( $args );
 
-	if ( isset( $optimize_backup ) ) {
+	/*if ( isset( $optimize_backup ) ) {
 		$porto_settings_optimize['lazyload_menu'] = $optimize_backup;
+	}*/
+
+	if ( ! empty( $porto_settings_optimize['lazyload_menu'] ) ) {
+		remove_filter( 'porto_lazymenu_depth', '__return_true' );
 	}
 }
 if ( ! $nav_menu_html_escaped ) {

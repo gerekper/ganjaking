@@ -1,0 +1,25 @@
+/* Porto Google Map */
+.porto-map-wrapper{
+    box-sizing:content-box;
+}
+.porto_google_map {
+    min-width: 0 !important;
+    width: 100% !important;
+    position: relative !important;
+    background: #E5E3DF;
+}
+.porto_google_map img {
+    max-width: initial !important
+}
+.gmap-border {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 4px;
+    overflow: hidden;
+}
+.gmap-rounded {
+    &,
+    .porto_google_map {
+        overflow: hidden;
+    }
+}

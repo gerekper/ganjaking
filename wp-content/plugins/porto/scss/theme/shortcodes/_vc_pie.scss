@@ -1,0 +1,73 @@
+/* Circular Bars */
+.circular-bar {
+    text-align: center;
+    margin-bottom: 25px;
+    .circular-bar-chart {
+        position: relative;
+    }
+    strong {
+        display: block;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 30px;
+        position: absolute;
+        top: 37%;
+        width: 80%;
+        #{$left}: 10%;
+        text-align: center;
+    }
+    label {
+        display: block;
+        font-weight: 100;
+        font-size: 17px;
+        line-height: 20px;
+        position: absolute;
+        top: 52%;
+        width: 80%;
+        #{$left}: 10%;
+        text-align: center;
+        &:first-child {
+            top: 50%;
+            margin-top: -10px;
+        }
+    }
+
+    &.only-icon {
+        i {
+            display: block;
+            font-weight: 600;
+            font-size: 38px;
+            line-height: 30px;
+            position: absolute;
+            top: 42%;
+            width: 80%;
+            #{$left}: 10%;
+            text-align: center;
+        }
+        .fas, .fab, .far {
+            color: var(--porto-primary-color);
+        }
+    }
+
+    &.single-line {
+        strong {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+
+    &.circular-bar-sm {
+        label {
+            font-size: 14px;
+            top: 38%;
+            margin-top: 0;
+        }
+    }
+
+    &.circular-bar-lg {
+        strong {
+            font-size: 20px;
+            top: 42%;
+        }
+    }
+}

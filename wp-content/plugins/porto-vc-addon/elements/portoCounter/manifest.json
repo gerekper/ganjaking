@@ -1,0 +1,19 @@
+{
+	"elements": {
+		"portoCounter": {
+			"settings": {
+				"name": "Porto Counter",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-counter.jpg",
+				"metaDescription": "A simple number count up element to show your progress with an eye-cathcing animation."
+			}
+		}
+	},
+	"categories": {
+		"Counter": {
+			"elements": [
+				"portoCounter"
+			]
+		}
+	}
+}

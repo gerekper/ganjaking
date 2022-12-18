@@ -1,0 +1,19 @@
+{
+  "elements": {
+    "portoMasonryItem": {
+      "settings": {
+        "name": "Porto Masonry Item",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-porto-masonry-item.jpg",
+        "metaDescription": "Display grid layouts created by Porto Masonry."
+      }
+    }
+  },
+  "categories": {
+    "Misc": {
+      "elements": [
+        "portoMasonryItem"
+      ]
+    }
+  }
+}

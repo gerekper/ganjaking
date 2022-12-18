@@ -9,40 +9,95 @@ $rel                = $btn_line_height = $target = $link_title = '';
 extract(
 	shortcode_atts(
 		array(
-			'btn_title'                => '',
-			'btn_link'                 => '',
-			'btn_size'                 => 'porto-btn-normal',
-			'btn_width'                => '',
-			'btn_height'               => '',
-			'btn_padding_left'         => '',
-			'btn_padding_top'          => '',
-			'btn_hover'                => 'porto-btn-no-hover-bg',
-			'btn_bg_color'             => '#e0e0e0',
-			'btn_radius'               => '',
-			'btn_bg_color_hover'       => '',
-			'btn_title_color_hover'    => '',
-			'btn_border_style'         => '',
-			'btn_color_border'         => '',
-			'btn_color_border_hover'   => '',
-			'btn_border_size'          => '',
-			'btn_font_use_theme_fonts' => '',
-			'btn_font'                 => '',
-			'btn_font_family'          => '',
-			'btn_font_style'           => '',
-			'btn_title_color'          => '#000000',
-			'btn_font_size'            => '',
-			'btn_line_height'          => '',
-			'btn_align'                => 'porto-btn-left',
-			'rel'                      => '',
-			'el_class'                 => '',
-			'css_adv_btn'              => '',
-			'animation_type'           => '',
-			'animation_delay'          => '',
-			'animation_duration'       => '',
+			'btn_title'                        => '',
+			'btn_link'                         => '',
+			'btn_size'                         => 'porto-btn-normal',
+			'btn_width'                        => '',
+			'btn_height'                       => '',
+			'btn_padding_left'                 => '',
+			'btn_padding_top'                  => '',
+			'btn_hover'                        => 'porto-btn-no-hover-bg',
+			'btn_bg_color'                     => '#e0e0e0',
+			'btn_radius'                       => '',
+			'btn_bg_color_hover'               => '',
+			'btn_title_color_hover'            => '',
+			'btn_border_style'                 => '',
+			'btn_color_border'                 => '',
+			'btn_color_border_hover'           => '',
+			'btn_border_size'                  => '',
+			'btn_font_use_theme_fonts'         => '',
+			'btn_font'                         => '',
+			'btn_font_family'                  => '',
+			'btn_font_style'                   => '',
+			'btn_title_color'                  => '#000000',
+			'btn_font_size'                    => '',
+			'btn_line_height'                  => '',
+			'btn_align'                        => 'porto-btn-left',
+			'rel'                              => '',
+			'el_class'                         => '',
+			'css_adv_btn'                      => '',
+			'animation_type'                   => '',
+			'animation_delay'                  => '',
+			'animation_duration'               => '',
+
+			// dynamic field
+			'enable_field_dynamic'             => false,
+			'field_dynamic_source'             => '',
+			'field_dynamic_content'            => '',
+			'field_dynamic_content_meta_field' => '',
+			'field_dynamic_before'             => '',
+			'field_dynamic_after'              => '',
+			'field_dynamic_fallback'           => '',
+			'date_format'                      => '',
+
+			// dynamic link
+			'enable_link_dynamic'              => false,
+			'link_dynamic_source'              => '',
+			'link_dynamic_content'             => '',
+			'link_dynamic_content_meta_link'   => '',
+			'link_dynamic_fallback'            => '',
 		),
 		$atts
 	)
 );
+
+//dynamic text
+if ( $enable_field_dynamic ) {
+	if ( ( 'meta_field' == $field_dynamic_source ) && ! empty( $field_dynamic_content_meta_field ) ) {
+		$btn_title = Porto_Func_Dynamic_Tags_Content::get_instance()->dynamic_get_data( $field_dynamic_source, $field_dynamic_content_meta_field, 'field' );
+	}
+	if ( ! empty( $field_dynamic_content ) ) {
+		if ( ! empty( $date_format ) ) {
+			$field_dynamic_content = array(
+				'field_dynamic_content' => $field_dynamic_content,
+				'date_format'           => $date_format,
+			);
+		}
+		$btn_title = Porto_Func_Dynamic_Tags_Content::get_instance()->dynamic_get_data( $field_dynamic_source, $field_dynamic_content, 'field' );
+	}
+	if ( empty( $btn_title ) ) {
+		$btn_title = $field_dynamic_fallback;
+	}
+
+	$btn_title = $field_dynamic_before . $btn_title . $field_dynamic_after;
+}
+
+// dynamic link
+$dynamic_link = false;
+if ( $enable_link_dynamic ) {
+	if ( ( 'meta_field' == $link_dynamic_source ) && ! empty( $link_dynamic_content_meta_link ) ) {
+		$btn_link = Porto_Func_Dynamic_Tags_Content::get_instance()->dynamic_get_data( $link_dynamic_source, $link_dynamic_content_meta_link, 'link' );
+	}
+	if ( ! empty( $link_dynamic_content ) ) {
+		$btn_link = Porto_Func_Dynamic_Tags_Content::get_instance()->dynamic_get_data( $link_dynamic_source, $link_dynamic_content, 'link' );
+	}
+	if ( empty( $btn_link ) ) {
+		$btn_link = $link_dynamic_fallback;
+	}
+
+	$dynamic_link = true;
+}
+
 $style            = $hover_style = $btn_style_inline = $link_attrs = $shadow_click = $shadow_color = $box_shadow = $main_extra_class = '';
 $main_extra_class = $el_class;
 $el_class         = $css_btn_design = '';
@@ -50,7 +105,7 @@ $el_class        .= ' ';
 $uniqid           = uniqid();
 
 if ( ! empty( $shortcode_class ) ) {
-	$el_class .= $shortcode_class . ' ';
+	$el_class .= ' ' . $shortcode_class . ' ';
 }
 
 $vc_version    = ( defined( 'WPB_VC_VERSION' ) ) ? WPB_VC_VERSION : 0;
@@ -60,10 +115,16 @@ if ( defined( 'VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG' ) ) {
 	$css_btn_design = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, vc_shortcode_custom_css_class( $css_adv_btn, ' ' ), 'porto_buttons', $atts );
 }
 
-	$shadow_click = 'none';
-$alt              = 'icon';
-if ( $btn_link && function_exists( 'vc_build_link' ) ) {
-	$href = vc_build_link( $btn_link );
+$shadow_click = 'none';
+$alt          = 'icon';
+if ( $btn_link ) {
+	if ( $dynamic_link ) {
+		$href = array(
+			'url' => $btn_link,
+		);
+	} elseif ( function_exists( 'vc_build_link' ) ) {
+		$href = vc_build_link( $btn_link );
+	}
 	if ( isset( $href['url'] ) && $href['url'] ) {
 		$url        = ( isset( $href['url'] ) && $href['url'] ) ? $href['url'] : '';
 		$target     = ( isset( $href['target'] ) && $href['target'] ) ? "target='" . esc_attr( trim( $href['target'] ) ) . "'" : '';
@@ -143,7 +204,7 @@ if ( $btn_align ) {
 	$el_class .= ' ' . esc_attr( $btn_align ) . ' ';
 }
 
-$el_class .= $main_extra_class;
+$el_class .= ' ' . $main_extra_class;
 
 $output .= '<a class="porto-btn' . ( $css_btn_design ? ' ' . esc_attr( $css_btn_design ) : '' ) . ' ' . esc_attr( $is_vc_49_plus ) . ' ' . esc_attr( $btn_size ) . ' ' . esc_attr( $btn_hover ) . esc_attr( $el_class ) . '"' . $link_attrs . ' data-hover="' . esc_attr( $btn_title_color_hover ) . '" data-border-color="' . esc_attr( $btn_color_border ) . '" data-bg="' . esc_attr( $btn_bg_color ) . '" data-hover-bg="' . esc_attr( $btn_bg_color_hover ) . '" data-border-hover="' . esc_attr( $btn_color_border_hover ) . '" data-shadow-click="' . esc_attr( $shadow_click ) . '" data-shadow="' . esc_attr( $box_shadow ) . '" style="' . esc_attr( $style ) . '">';
 

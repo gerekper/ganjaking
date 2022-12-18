@@ -15,7 +15,7 @@ class UpdraftPlus_S3Exception extends Exception {
 	}
 }
 
-if (!class_exists('UpdraftPlus_BackupModule')) require_once(UPDRAFTPLUS_DIR.'/methods/backup-module.php');
+if (!class_exists('UpdraftPlus_BackupModule')) updraft_try_include_file('methods/backup-module.php', 'require_once');
 
 class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 
@@ -100,9 +100,9 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 
 		if (!class_exists($class_to_use)) {
 			if ('UpdraftPlus_S3_Compat' == $class_to_use) {
-				include_once(UPDRAFTPLUS_DIR.'/includes/S3compat.php');
+				updraft_try_include_file('includes/S3compat.php', 'include_once');
 			} else {
-				include_once(UPDRAFTPLUS_DIR.'/includes/S3.php');
+				updraft_try_include_file('includes/S3.php', 'include_once');
 			}
 		}
 		
@@ -199,7 +199,7 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 		
 			// Catch a specific PHP engine bug - see HS#6364
 			if ('UpdraftPlus_S3_Compat' == $use_s3_class && is_a($e, 'InvalidArgumentException') && false !== strpos('Invalid signature type: s3', $e->getMessage())) {
-				include_once(UPDRAFTPLUS_DIR.'/includes/S3.php');
+				updraft_try_include_file('includes/S3.php', 'include_once');
 				$use_s3_class = 'UpdraftPlus_S3';
 				$try_again = true;
 			} else {
@@ -895,15 +895,29 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 
 	/**
 	 * Get the pre configuration template
-	 *
-	 * @return String - the template
 	 */
 	public function get_pre_configuration_template() {
-		$this->get_pre_configuration_template_engine('s3', 'S3', 'Amazon S3', 'AWS', 'https://aws.amazon.com/console/', '<img src="'. UPDRAFTPLUS_URL .'/images/aws_logo.png" alt="Amazon Web Services">');
+		?>
+		<tr class="{{get_template_css_classes false}} S3_pre_config_container">
+			<td colspan="2">
+				<img src="{{storage_image_url}}" alt="Amazon Web Services"><br>
+				{{{xmlwriter_existence_label}}}
+				{{{simplexmlelement_existence_label}}}
+				{{{curl_existence_label}}}
+				<br>
+				<p>
+				{{{console_url}}}
+				{{{ssl_certificates_errors_link_text}}}
+				{{{faqs}}}
+				</p>
+			</td>
+		</tr>
+		<?php
 	}
 
 	/**
 	 * Get pre configuration template engine for remote method which is S3 Compatible
+	 * DEVELOPER NOTE: Please don't use/call this method anymore as it is currently used by Amazon S3 and S3-Compatible (Generic) storage, and it's consider to be removed in future versions. Once Amazon S3 and S3-Compatible templates are CSP-compliant, this should be removed and should be placed in the class child instead of the base class.
 	 *
 	 * @param String $key             Remote storage method key which is unique
 	 * @param String $whoweare_short  Remote storage method short name which is prefix of field label generally
@@ -954,7 +968,37 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 	public function get_configuration_template() {
 		// White: https://d36cz9buwru1tt.cloudfront.net/Powered-by-Amazon-Web-Services.jpg
 		// Black: https://awsmedia.s3.amazonaws.com/AWS_logo_poweredby_black_127px.png
-		return $this->get_configuration_template_engine('s3', 'S3', 'Amazon S3', 'AWS', 'https://aws.amazon.com/console/', '<img src="'. UPDRAFTPLUS_URL .'/images/aws_logo.png" alt="Amazon Web Services">');
+		// return $this->get_configuration_template_engine('s3', 'S3', 'Amazon S3', 'AWS', 'https://aws.amazon.com/console/', '<img src="'. UPDRAFTPLUS_URL .'/images/aws_logo.png" alt="Amazon Web Services">');
+		ob_start();
+		?>
+		{{#> s3_additional_configuration_top}}
+		{{/s3_additional_configuration_top}}
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_access_key_label}}:</th>
+			<td><input class="updraft_input--wide udc-wd-600" data-updraft_settings_test="accesskey" type="text" autocomplete="off" id="{{get_template_input_attribute_value "id" "accesskey"}}" name="{{get_template_input_attribute_value "name" "accesskey"}}" value="{{accesskey}}" /></td>
+		</tr>
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_secret_key_label}}:</th>
+			<td><input class="updraft_input--wide udc-wd-600" data-updraft_settings_test="secretkey" type="{{input_secret_key_type}}" autocomplete="off" id="{{get_template_input_attribute_value "id" "secretkey"}}" name="{{get_template_input_attribute_value "name" "secretkey"}}" value="{{secretkey}}" /></td>
+		</tr>
+		<tr class="{{get_template_css_classes true}}">
+			<th>{{input_location_label}}:</th>
+			<td>{{method_id}}://<input class="updraft_input--wide udc-wd-600" data-updraft_settings_test="path" title="{{input_location_title}}" type="text" id="{{get_template_input_attribute_value "id" "path"}}" name="{{get_template_input_attribute_value "name" "path"}}" value="{{path}}" /></td>
+		</tr>
+		{{#> s3_additional_configuration_bottom}}
+		{{/s3_additional_configuration_bottom}}
+		{{{get_template_test_button_html "Amazon S3"}}}
+		<?php
+		return ob_get_clean();
+	}
+
+	/**
+	 * Get partial templates associated to the corresponding backup module (remote storage object)
+	 *
+	 * @return Array an associative array keyed by names of the partial template
+	 */
+	public function get_partial_templates() {
+		return wp_parse_args(apply_filters('updraft_'.$this->get_id().'_partial_templates', array()), parent::get_partial_templates());
 	}
 	
 	/**
@@ -969,6 +1013,7 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 	
 	/**
 	 * Get configuration template engine for remote method which is S3 Compatible
+	 * DEVELOPER NOTE: Please don't use/call this method anymore as it is currently used by Amazon S3 and S3-Compatible (Generic) storage, and it's consider to be removed in future versions. Once Amazon S3 and S3-Compatible templates are CSP-compliant, this should be removed and should be placed in the class child instead of the base class.
 	 *
 	 * @param String $key             Remote storage method key which is unique
 	 * @param String $whoweare_short  Remote storage method short name which is prefix of field label generally
@@ -1025,6 +1070,32 @@ class UpdraftPlus_BackupModule_s3 extends UpdraftPlus_BackupModule {
 	 */
 	protected function get_partial_configuration_template_for_endpoint() {
 		return '';
+	}
+
+	/**
+	 * Retrieve a list of template properties by taking all the persistent variables and methods of the parent class and combining them with the ones that are unique to this module, also the necessary HTML element attributes and texts which are also unique only to this backup module
+	 * NOTE: Please sanitise all strings that are required to be shown as HTML content on the frontend side (i.e. wp_kses()), or any other technique to prevent XSS attacks that could come via WP hooks
+	 *
+	 * @return Array an associative array keyed by names that describe themselves as they are
+	 */
+	public function get_template_properties() {
+		global $updraftplus, $updraftplus_admin;
+		$properties = array(
+			'storage_image_url' => UPDRAFTPLUS_URL .'/images/aws_logo.png',
+			'console_url' => wp_kses(sprintf(__('Get your access key and secret key from your <a href="%s">%s console</a>, then pick a (globally unique - all %s users) bucket name (letters and numbers) (and optionally a path) to use for storage. This bucket will be created for you if it does not already exist.', 'updraftplus'), 'https://aws.amazon.com/console/', 'AWS', $updraftplus->backup_methods[$this->get_id()]), $this->allowed_html_for_content_sanitisation()),
+			'xmlwriter_existence_label' => !apply_filters('updraftplus_s3_xmlwriter_exists', 'UpdraftPlus_S3_Compat' != $this->indicate_s3_class() || !class_exists('XMLWriter')) ? wp_kses($updraftplus_admin->show_double_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__("Your web server's PHP installation does not include a required module (%s). Please contact your web hosting provider's support and ask for them to enable it.", 'updraftplus'), 'XMLWriter'), $this->get_id(), false), $this->allowed_html_for_content_sanitisation()) : '',
+			'simplexmlelement_existence_label' => !apply_filters('updraftplus_s3_simplexmlelement_exists', class_exists('SimpleXMLElement')) ? wp_kses($updraftplus_admin->show_double_warning('<strong>'.__('Warning', 'updraftplus').':</strong> '.sprintf(__("Your web server's PHP installation does not include a required module (%s). Please contact your web hosting provider's support.", 'updraftplus'), 'SimpleXMLElement').' '.sprintf(__("UpdraftPlus's %s module <strong>requires</strong> %s. Please do not file any support requests; there is no alternative.", 'updraftplus'), $updraftplus->backup_methods[$this->get_id()], 'SimpleXMLElement'), $this->get_id(), false), $this->allowed_html_for_content_sanitisation()) : '',
+			'curl_existence_label' => wp_kses($updraftplus_admin->curl_check($updraftplus->backup_methods[$this->get_id()], true, $this->get_id().' hide-in-udc', false), $this->allowed_html_for_content_sanitisation()),
+			'ssl_certificates_errors_link_text' => wp_kses('<a href="'.apply_filters("updraftplus_com_link", "https://updraftplus.com/faqs/i-get-ssl-certificate-errors-when-backing-up-andor-restoring/").'" target="_blank">'.__('If you see errors about SSL certificates, then please go here for help.', 'updraftplus').'</a>', $this->allowed_html_for_content_sanitisation()),
+			'faqs' => wp_kses('<a href="'.apply_filters("updraftplus_com_link", "https://updraftplus.com/faq-category/amazon-s3/").'" target="_blank">'.sprintf(__('Other %s FAQs.', 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]).'</a>', $this->allowed_html_for_content_sanitisation()),
+			'input_access_key_label' => sprintf(__('%s access key', 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
+			'input_secret_key_label' => sprintf(__('%s secret key', 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
+			'input_secret_key_type' => apply_filters('updraftplus_admin_secret_field_type', 'password'),
+			'input_location_label' => sprintf(__('%s location', 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
+			'input_location_title' => __('Enter only a bucket name or a bucket and path. Examples: mybucket, mybucket/mypath', 'updraftplus'),
+			'input_test_label' => sprintf(__('Test %s Settings', 'updraftplus'), $updraftplus->backup_methods[$this->get_id()]),
+		);
+		return wp_parse_args(apply_filters('updraft_'.$this->get_id().'_template_properties', array()), wp_parse_args($properties, $this->get_persistent_variables_and_methods()));
 	}
 	
 	/**

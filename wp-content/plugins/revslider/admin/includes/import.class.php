@@ -2,7 +2,7 @@
 /**
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.themepunch.com/
- * @copyright 2022 ThemePunch
+ * @copyright 2019 ThemePunch
  */
  
 if(!defined('ABSPATH')) exit();
@@ -93,8 +93,7 @@ class RevSliderSliderImport extends RevSliderSlider {
 			$slider = new RevSliderSliderImport();
 			$slider->init_by_id($this->slider_id);
 			$upd = new RevSliderPluginUpdate();
-
-			$upd->set_import(true);
+			
 			$upd->upgrade_slider_to_latest($slider);
 			//RevSliderPluginUpdate::upgrade_slider_to_latest($slider);
 			
@@ -502,7 +501,6 @@ class RevSliderSliderImport extends RevSliderSlider {
 		
 		//update slider params
 		$params = $this->get_val($this->slider_data, 'params');
-		$params['imported'] = true; //set that we are an imported slider
 		if($this->exists){
 			$params['title'] = $this->get_param('title');
 			$params['alias'] = $this->get_param('alias');
@@ -583,7 +581,6 @@ class RevSliderSliderImport extends RevSliderSlider {
 		
 		//update slider params
 		$params = $this->get_val($this->slider_data, 'params');
-		$params['imported'] = true; //set that we are an imported slider
 		
 		//check if we are a premium slider
 		if($this->get_val($params, 'pakps', false) === true && $this->_truefalse(get_option('revslider-valid', 'false')) === false){

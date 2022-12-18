@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Porto Elementor widget to display related products on the single product page when using custom product layout
  *
- * @since 5.4.0
+ * @since 1.7.1
  */
 
 use Elementor\Controls_Manager;
@@ -31,7 +31,15 @@ class Porto_Elementor_CP_Related_Widget extends \Elementor\Widget_Base {
 		return array( 'product', 'related' );
 	}
 
-	protected function _register_controls() {
+	public function get_icon() {
+		return 'eicon-product-related';
+	}
+
+	public function get_custom_help_url() {
+		return 'https://www.portotheme.com/wordpress/porto/documentation/single-product-builder-elements/';
+	}
+
+	protected function register_controls() {
 
 		$this->start_controls_section(
 			'section_cp_related',

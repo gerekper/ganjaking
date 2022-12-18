@@ -12,6 +12,7 @@ use Elementor\Controls_Manager;
 class Porto_Elementor_Column extends Elementor\Element_Column {
 
 	public function before_render() {
+		global $porto_section;
 		$settings = $this->get_settings_for_display();
 
 		$has_background_overlay = in_array( $settings['background_overlay_background'], array( 'classic', 'gradient' ), true ) ||
@@ -39,12 +40,42 @@ class Porto_Elementor_Column extends Elementor\Element_Column {
 				),
 			)
 		);
+
+		if ( 'tab_content' === $settings['as_banner_layer'] ) {
+			$pane_id = $this->get_data( 'id' );
+			if ( isset( $porto_section['section'] ) && 'tab' == $porto_section['section'] ) {
+				$porto_section['tab_data'][] = array(
+					'title'    => $settings['tab_content_title'],
+					'icon'     => $settings['tab_content_icon'],
+					'icon_pos' => $settings['tab_icon_pos'],
+					'id'       => $pane_id,
+				);
+			}
+			$this->add_render_attribute(
+				array(
+					'_wrapper' => array(
+						'class' => array( 'tab-pane' ),
+						'id'    => array( 'tab-' . $pane_id ),
+					),
+				)
+			);
+			if ( isset( $porto_section['index'] ) ) {
+				if ( 0 == $porto_section['index'] ) {
+					$this->add_render_attribute(
+						array(
+							'_wrapper' => array(
+								'class' => array( 'active' ),
+							),
+						)
+					);
+				}
+				$porto_section['index'] = ++$porto_section['index'];
+			}
+		}
 		?>
-		<<?php
-		// PHPCS - the method get_html_tag is safe.
+		<<?php	// PHPCS - the method get_html_tag is safe.
 		echo $this->get_html_tag(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		?> <?php $this->print_render_attribute_string( '_wrapper' ); ?>>
-
 		<?php
 		if ( 'banner' === $settings['as_banner_layer'] ) {
 			if ( ! empty( $settings['banner_image'] ) && ! empty( $settings['banner_image']['id'] ) ) {
@@ -98,7 +129,7 @@ class Porto_Elementor_Column extends Elementor\Element_Column {
 						$settings_min_height = (int) $settings['min_height_mobile']['size'];
 					}
 				}
-				if ( $settings_min_height && is_array( $image_meta ) && is_array( $image_meta['sizes'] ) ) {
+				if ( $settings_min_height && is_array( $image_meta ) && is_array( $image_meta['sizes'] ) && ! empty( $image_meta['width'] ) ) {
 					$ratio = $image_meta['height'] / $image_meta['width'];
 					foreach ( $image_meta['sizes'] as $key => $size ) {
 						if ( $size['width'] * (float) $ratio < $settings_min_height ) {
@@ -182,8 +213,9 @@ function porto_elementor_column_custom_control( $self, $args ) {
 	$self->start_controls_section(
 		'section_column_additional',
 		array(
-			'label' => esc_html__( 'Porto Settings', 'porto-functionality' ),
-			'tab'   => Controls_Manager::TAB_LAYOUT,
+			'label'       => esc_html__( 'Porto Additional Settings', 'porto-functionality' ),
+			'tab'         => Controls_Manager::TAB_LAYOUT,
+			'qa_selector' => '>.elementor-element-populated',
 		)
 	);
 
@@ -193,13 +225,15 @@ function porto_elementor_column_custom_control( $self, $args ) {
 			'type'    => Controls_Manager::SELECT,
 			'label'   => esc_html__( 'Use as', 'porto-functionality' ),
 			'options' => array(
-				''          => esc_html__( 'Default', 'porto-functionality' ),
-				'carousel'  => esc_html__( 'Carousel', 'porto-functionality' ),
-				'yes'       => esc_html__( 'Banner Layer', 'porto-functionality' ),
-				'grid_item' => esc_html__( 'Creative Grid Item', 'porto-functionality' ),
-				'banner'    => esc_html__( 'One Layer Banner', 'porto-functionality' ),
-				'is_half'   => esc_html__( 'Half Contanier', 'porto-functionality' ),
-				'sticky'    => esc_html__( 'Sticky Container', 'porto-functionality' ),
+				''            => esc_html__( 'Default', 'porto-functionality' ),
+				'carousel'    => esc_html__( 'Carousel', 'porto-functionality' ),
+				'yes'         => esc_html__( 'Banner Layer', 'porto-functionality' ),
+				'grid_item'   => esc_html__( 'Creative Grid Item', 'porto-functionality' ),
+				'banner'      => esc_html__( 'One Layer Banner', 'porto-functionality' ),
+				'is_half'     => esc_html__( 'Half Contanier', 'porto-functionality' ),
+				'sticky'      => esc_html__( 'Sticky Container', 'porto-functionality' ),
+				'tab_content' => esc_html__( 'Tab Content', 'porto-functionality' ),
+				'split_layer' => esc_html__( 'Split Layer', 'porto-functionality' ),
 			),
 		)
 	);
@@ -214,6 +248,18 @@ function porto_elementor_column_custom_control( $self, $args ) {
 			'max'       => 100,
 			'step'      => 1,
 			'condition' => array(
+				'as_banner_layer' => 'carousel',
+			),
+		)
+	);
+
+	$self->add_control(
+		'disable_mouse_drag',
+		array(
+			'type'        => Controls_Manager::SWITCHER,
+			'label'       => esc_html__( 'Disable Mouse Drag', 'porto-functionality' ),
+			'description' => esc_html__( 'This option will disapprove Mouse Drag.', 'porto-functionality' ),
+			'condition'   => array(
 				'as_banner_layer' => 'carousel',
 			),
 		)
@@ -240,14 +286,30 @@ function porto_elementor_column_custom_control( $self, $args ) {
 	$self->add_control(
 		'item_margin',
 		array(
-			'label'       => esc_html__( 'Item Margin (px)', 'porto-functionality' ),
-			'type'        => Controls_Manager::NUMBER,
-			'default'     => 0,
-			'min'         => '0',
-			'max'         => '100',
-			'step'        => '1',
-			'placeholder' => '0',
-			'condition'   => array(
+			'label'              => esc_html__( 'Item Margin (px)', 'porto-functionality' ),
+			'type'               => Controls_Manager::NUMBER,
+			'default'            => 0,
+			'min'                => '0',
+			'max'                => '100',
+			'step'               => '1',
+			'placeholder'        => '0',
+			'render_type'        => 'template',
+			'frontend_available' => true,
+			'selectors'          => array(
+				'.elementor-element-{{ID}} > .elementor-column-wrap > .porto-carousel, .elementor-element-{{ID}} > .porto-carousel' => '--porto-el-spacing: {{VALUE}}px;',
+			),
+			'condition'          => array(
+				'as_banner_layer' => 'carousel',
+			),
+		)
+	);
+
+	$self->add_control(
+		'set_loop',
+		array(
+			'type'      => Controls_Manager::SWITCHER,
+			'label'     => esc_html__( 'Infinite Loop', 'porto-functionality' ),
+			'condition' => array(
 				'as_banner_layer' => 'carousel',
 			),
 		)
@@ -287,6 +349,7 @@ function porto_elementor_column_custom_control( $self, $args ) {
 				'nav-pos-outside' => esc_html__( 'Middle Outside', 'porto-functionality' ),
 				'show-nav-title'  => esc_html__( 'Top', 'porto-functionality' ),
 				'nav-bottom'      => esc_html__( 'Bottom', 'porto-functionality' ),
+				'custom-pos'      => esc_html__( 'Custom', 'porto-functionality' ),
 			),
 			'condition' => array(
 				'as_banner_layer' => 'carousel',
@@ -312,10 +375,232 @@ function porto_elementor_column_custom_control( $self, $args ) {
 	);
 
 	$self->add_control(
+		'slide_nav_fs',
+		array(
+			'type'        => Controls_Manager::SLIDER,
+			'label'       => esc_html__( 'Nav Font Size', 'porto-functionality' ),
+			'size_units'  => array(
+				'px',
+				'rem',
+				'%',
+			),
+			'selectors'   => array(
+				'{{WRAPPER}} .owl-nav button' => 'font-size: {{SIZE}}px !important;',
+			),
+			'qa_selector' => '.owl-nav > .owl-prev',
+			'separator'   => 'before',
+			'condition'   => array(
+				'as_banner_layer' => 'carousel',
+				'show_nav'        => 'yes',
+			),
+		)
+	);
+
+	$self->add_control(
+		'slide_nav_width',
+		array(
+			'type'       => Controls_Manager::SLIDER,
+			'label'      => esc_html__( 'Nav Width', 'porto-functionality' ),
+			'size_units' => array(
+				'px',
+				'rem',
+				'%',
+			),
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-nav button' => 'width: {{SIZE}}{{UNIT}} !important;',
+			),
+			'condition'  => array(
+				'as_banner_layer' => 'carousel',
+				'show_nav'        => 'yes',
+				'nav_type'        => array( '', 'rounded-nav', 'big-nav', 'nav-style-3' ),
+			),
+		)
+	);
+
+	$self->add_control(
+		'slide_nav_height',
+		array(
+			'type'       => Controls_Manager::SLIDER,
+			'label'      => esc_html__( 'Nav Height', 'porto-functionality' ),
+			'size_units' => array(
+				'px',
+				'rem',
+				'%',
+			),
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-nav button' => 'height: {{SIZE}}{{UNIT}} !important;',
+			),
+			'condition'  => array(
+				'as_banner_layer' => 'carousel',
+				'show_nav'        => 'yes',
+				'nav_type'        => array( '', 'rounded-nav', 'big-nav', 'nav-style-3' ),
+			),
+		)
+	);
+
+	$self->add_control(
+		'slide_nav_br',
+		array(
+			'type'       => Controls_Manager::SLIDER,
+			'label'      => esc_html__( 'Border Radius', 'porto-functionality' ),
+			'size_units' => array(
+				'px',
+				'%',
+			),
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-nav button' => 'border-radius: {{SIZE}}{{UNIT}} !important;',
+			),
+			'condition'  => array(
+				'as_banner_layer' => 'carousel',
+				'show_nav'        => 'yes',
+				'nav_type'        => array( '', 'rounded-nav', 'big-nav', 'nav-style-3' ),
+			),
+		)
+	);
+
+	$self->add_responsive_control(
+		'slide_nav_h_pos',
+		array(
+			'type'       => Controls_Manager::SLIDER,
+			'label'      => esc_html__( 'Horizontal Position', 'porto-functionality' ),
+			'size_units' => array(
+				'px',
+				'rem',
+				'%',
+			),
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-nav button.owl-prev' => 'left: {{SIZE}}{{UNIT}} !important;',
+				'{{WRAPPER}} .owl-nav button.owl-next' => 'right: {{SIZE}}{{UNIT}} !important;',
+			),
+			'condition'  => array(
+				'as_banner_layer' => 'carousel',
+				'show_nav'        => 'yes',
+				'nav_pos'         => array( 'custom-pos', 'show-nav-title' ),
+			),
+		)
+	);
+
+	$self->add_responsive_control(
+		'slide_nav_v_pos',
+		array(
+			'type'       => Controls_Manager::SLIDER,
+			'label'      => esc_html__( 'Vertical Position', 'porto-functionality' ),
+			'size_units' => array(
+				'px',
+				'rem',
+				'%',
+			),
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-nav' => 'top: {{SIZE}}{{UNIT}} !important;',
+			),
+			'condition'  => array(
+				'as_banner_layer' => 'carousel',
+				'show_nav'        => 'yes',
+				'nav_pos'         => array( 'custom-pos', 'show-nav-title' ),
+			),
+		)
+	);
+
+	$self->add_control(
+		'slide_nav_color',
+		array(
+			'label'     => esc_html__( 'Nav Color', 'porto-functionality' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => array(
+				'{{WRAPPER}} .owl-nav button' => 'color: {{VALUE}} !important;',
+			),
+			'condition' => array(
+				'as_banner_layer' => 'carousel',
+				'show_nav'        => 'yes',
+			),
+		)
+	);
+
+	$self->add_control(
+		'slide_nav_h_color',
+		array(
+			'label'     => esc_html__( 'Hover Nav Color', 'porto-functionality' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => array(
+				'{{WRAPPER}} .owl-nav button:not(.disabled):hover' => 'color: {{VALUE}} !important;',
+			),
+			'condition' => array(
+				'as_banner_layer' => 'carousel',
+				'show_nav'        => 'yes',
+			),
+		)
+	);
+
+	$self->add_control(
+		'slide_nav_bg_color',
+		array(
+			'label'     => esc_html__( 'Nav Color', 'porto-functionality' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => array(
+				'{{WRAPPER}} .owl-nav button' => 'background-color: {{VALUE}} !important;',
+			),
+			'condition' => array(
+				'as_banner_layer' => 'carousel',
+				'show_nav'        => 'yes',
+				'nav_type'        => array( '', 'big-nav', 'nav-style-3' ),
+			),
+		)
+	);
+
+	$self->add_control(
+		'slide_nav_h_bg_color',
+		array(
+			'label'     => esc_html__( 'Hover Background Color', 'porto-functionality' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => array(
+				'{{WRAPPER}} .owl-nav button:not(.disabled):hover' => 'background-color: {{VALUE}} !important;',
+			),
+			'condition' => array(
+				'as_banner_layer' => 'carousel',
+				'show_nav'        => 'yes',
+				'nav_type'        => array( '', 'big-nav', 'nav-style-3' ),
+			),
+		)
+	);
+
+	$self->add_control(
+		'slide_nav_br_color',
+		array(
+			'label'     => esc_html__( 'Nav Border Color', 'porto-functionality' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => array(
+				'{{WRAPPER}} .owl-nav button' => 'border-color: {{VALUE}} !important;',
+			),
+			'condition' => array(
+				'as_banner_layer' => 'carousel',
+				'show_nav'        => 'yes',
+				'nav_type'        => 'rounded-nav',
+			),
+		)
+	);
+
+	$self->add_control(
+		'slide_nav_h_br_color',
+		array(
+			'label'     => esc_html__( 'Hover Nav Border Color', 'porto-functionality' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => array(
+				'{{WRAPPER}} .owl-nav button:not(.disabled):hover' => 'border-color: {{VALUE}} !important;',
+			),
+			'condition' => array(
+				'as_banner_layer' => 'carousel',
+				'show_nav'        => 'yes',
+				'nav_type'        => 'rounded-nav',
+			),
+		)
+	);
+
+	$self->add_control(
 		'show_dots',
 		array(
 			'type'      => Controls_Manager::SWITCHER,
 			'label'     => esc_html__( 'Show Dots', 'porto-functionality' ),
+			'separator' => 'before',
 			'condition' => array(
 				'as_banner_layer' => 'carousel',
 			),
@@ -347,10 +632,162 @@ function porto_elementor_column_custom_control( $self, $args ) {
 				''                => esc_html__( 'Outside', 'porto-functionality' ),
 				'nav-inside'      => esc_html__( 'Inside', 'porto-functionality' ),
 				'show-dots-title' => esc_html__( 'Top beside title', 'porto-functionality' ),
+				'custom-dots'     => esc_html__( 'Custom', 'porto-functionality' ),
 			),
 			'condition' => array(
 				'as_banner_layer' => 'carousel',
 				'show_dots'       => 'yes',
+			),
+		)
+	);
+
+	$self->add_responsive_control(
+		'dots_pos_top',
+		array(
+			'type'       => Controls_Manager::SLIDER,
+			'label'      => esc_html__( 'Top Position', 'porto-functionality' ),
+			'size_units' => array(
+				'px',
+				'rem',
+				'%',
+			),
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-dots' => 'top: {{SIZE}}{{UNIT}} !important;',
+			),
+			'qa_selector' => '.owl-dots > .owl-dot:first-child',
+			'condition'  => array(
+				'as_banner_layer' => 'carousel',
+				'dots_pos'        => 'custom-dots',
+				'show_dots'       => 'yes',
+			),
+		)
+	);
+
+	$self->add_responsive_control(
+		'dots_pos_bottom',
+		array(
+			'type'       => Controls_Manager::SLIDER,
+			'label'      => esc_html__( 'Bottom Position', 'porto-functionality' ),
+			'size_units' => array(
+				'px',
+				'rem',
+				'%',
+			),
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-dots' => 'bottom: {{SIZE}}{{UNIT}} !important;',
+			),
+			'condition'  => array(
+				'as_banner_layer' => 'carousel',
+				'dots_pos'        => 'custom-dots',
+				'show_dots'       => 'yes',
+			),
+		)
+	);
+
+	$self->add_responsive_control(
+		'dots_pos_left',
+		array(
+			'type'       => Controls_Manager::SLIDER,
+			'label'      => esc_html__( 'left Position', 'porto-functionality' ),
+			'size_units' => array(
+				'px',
+				'rem',
+				'%',
+			),
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-dots' => 'left: {{SIZE}}{{UNIT}} !important;',
+			),
+			'condition'  => array(
+				'as_banner_layer' => 'carousel',
+				'dots_pos'        => 'custom-dots',
+				'show_dots'       => 'yes',
+			),
+		)
+	);
+
+	$self->add_responsive_control(
+		'dots_pos_right',
+		array(
+			'type'       => Controls_Manager::SLIDER,
+			'label'      => esc_html__( 'Right Position', 'porto-functionality' ),
+			'size_units' => array(
+				'px',
+				'rem',
+				'%',
+			),
+			'selectors'  => array(
+				'{{WRAPPER}} .owl-dots' => 'right: {{SIZE}}{{UNIT}} !important;',
+			),
+			'condition'  => array(
+				'as_banner_layer' => 'carousel',
+				'dots_pos'        => 'custom-dots',
+				'show_dots'       => 'yes',
+			),
+		)
+	);
+
+	$self->add_control(
+		'dots_br_color',
+		array(
+			'label'     => esc_html__( 'Dots Color', 'porto-functionality' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => array(
+				'{{WRAPPER}} .owl-dot span' => 'border-color: {{VALUE}} !important;',
+			),
+			'separator' => 'before',
+			'condition' => array(
+				'as_banner_layer' => 'carousel',
+				'show_dots'       => 'yes',
+				'dots_style'      => 'dots-style-1',
+			),
+		)
+	);
+
+	$self->add_control(
+		'dots_abr_color',
+		array(
+			'label'     => esc_html__( 'Dots Active Color', 'porto-functionality' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => array(
+				'{{WRAPPER}} .owl-dot.active span, {{WRAPPER}} .owl-dot:hover span' => 'color: {{VALUE}} !important; border-color: {{VALUE}} !important;',
+			),
+			'condition' => array(
+				'as_banner_layer' => 'carousel',
+				'show_dots'       => 'yes',
+				'dots_style'      => 'dots-style-1',
+			),
+		)
+	);
+
+	$self->add_control(
+		'dots_bg_color',
+		array(
+			'label'     => esc_html__( 'Dots Color', 'porto-functionality' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => array(
+				'{{WRAPPER}} .owl-dot span' => 'background-color: {{VALUE}} !important;',
+			),
+			'separator' => 'before',
+			'condition' => array(
+				'as_banner_layer' => 'carousel',
+				'show_dots'       => 'yes',
+				'dots_style'      => '',
+			),
+		)
+	);
+
+	$self->add_control(
+		'dots_abg_color',
+		array(
+			'label'     => esc_html__( 'Dots Active Color', 'porto-functionality' ),
+			'type'      => Controls_Manager::COLOR,
+			'selectors' => array(
+				'{{WRAPPER}} .owl-dot.active span, {{WRAPPER}} .owl-dot:hover span' => 'background-color: {{VALUE}} !important;',
+			),
+			'condition' => array(
+				'as_banner_layer' => 'carousel',
+				'show_dots'       => 'yes',
+				'dots_style'      => '',
 			),
 		)
 	);
@@ -377,6 +814,7 @@ function porto_elementor_column_custom_control( $self, $args ) {
 		array(
 			'type'      => Controls_Manager::SWITCHER,
 			'label'     => esc_html__( 'Auto Play', 'porto-functionality' ),
+			'separator' => 'before',
 			'condition' => array(
 				'as_banner_layer' => 'carousel',
 			),
@@ -430,6 +868,9 @@ function porto_elementor_column_custom_control( $self, $args ) {
 			'condition'   => array(
 				'as_banner_layer' => 'banner',
 			),
+			'dynamic'     => array(
+				'active' => true,
+			),
 		)
 	);
 
@@ -451,7 +892,7 @@ function porto_elementor_column_custom_control( $self, $args ) {
 			'type'      => Controls_Manager::COLOR,
 			'label'     => esc_html__( 'Background Color', 'porto-functionality' ),
 			'selectors' => array(
-				'{{WRAPPER}} > img' => 'background-color: {{VALUE}};',
+				'{{WRAPPER}}' => 'background-color: {{VALUE}};',
 			),
 			'condition' => array(
 				'as_banner_layer' => 'banner',
@@ -861,6 +1302,181 @@ function porto_elementor_column_custom_control( $self, $args ) {
 	);
 
 	$self->add_control(
+		'animate_in',
+		array(
+			'label'     => esc_html__( 'Item Animation In', 'porto-functionality' ),
+			'type'      => Controls_Manager::TEXT,
+			'condition' => array(
+				'as_banner_layer' => 'carousel',
+			),
+		)
+	);
+
+	$self->add_control(
+		'animate_out',
+		array(
+			'label'     => esc_html__( 'Item Animation Out', 'porto-functionality' ),
+			'type'      => Controls_Manager::TEXT,
+			'condition' => array(
+				'as_banner_layer' => 'carousel',
+			),
+		)
+	);
+
+	$self->add_control(
+		'tab_description',
+		array(
+			'label'     => sprintf(esc_html__( 'Read this %sarticle%s to find out more about this settings.', 'porto-functionality' ), '<a href="https://www.portotheme.com/wordpress/porto/documentation/section-tab/" target="_blank">','</a>' ) ,
+			'type'      => Controls_Manager::HEADING,
+			'condition' => array(
+				'as_banner_layer' => 'tab_content',
+			),
+		)
+	);
+
+	$self->add_control(
+		'tab_content_title',
+		array(
+			'type'      => Controls_Manager::TEXT,
+			'label'     => esc_html__( 'Nav Title', 'porto-functionality' ),
+			'default'   => esc_html__( 'Nav Title', 'porto-functionality' ),
+			'condition' => array(
+				'as_banner_layer' => 'tab_content',
+			),
+		)
+	);
+
+	$self->add_control(
+		'tab_navs_up_icon_pos',
+		array(
+			'label'       => esc_html__( 'Navs Position', 'porto-functionality' ),
+			'description' => esc_html__( 'Controls alignment of nav titles. Choose from Start, Center, End.', 'porto-functionality' ),
+			'type'        => Controls_Manager::CHOOSE,
+			'options'     => array(
+				'left'   => array(
+					'title' => esc_html__( 'Start', 'porto-functionality' ),
+					'icon'  => 'eicon-text-align-left',
+				),
+				'center' => array(
+					'title' => esc_html__( 'Center', 'porto-functionality' ),
+					'icon'  => 'eicon-text-align-center',
+				),
+				'right'  => array(
+					'title' => esc_html__( 'End', 'porto-functionality' ),
+					'icon'  => 'eicon-text-align-right',
+				),
+			),
+			'selectors'   => array(
+				'.section-tabs .nav-item[pane-id="{{ID}}"] .nav-link' => 'text-align: {{VALUE}};',
+				'.section-tabs .nav-item[pane-id="{{ID}}"]:not(.nav-icon-up) .nav-link' => 'justify-content: {{VALUE}};',
+			),
+			'condition'   => array(
+				'as_banner_layer' => 'tab_content',
+			),
+		)
+	);
+
+	$self->add_control(
+		'tab_content_icon',
+		array(
+			'type'                   => Controls_Manager::ICONS,
+			'label'                  => __( 'Icon', 'porto-functionality' ),
+			'fa4compatibility'       => 'icon',
+			'skin'                   => 'inline',
+			'exclude_inline_options' => array( 'svg' ),
+			'label_block'            => false,
+			'condition'              => array(
+				'as_banner_layer' => 'tab_content',
+			),
+		)
+	);
+
+	$self->add_control(
+		'tab_icon_pos',
+		array(
+			'label'       => esc_html__( 'Nav Type With Icon', 'porto-functionality' ),
+			'description' => esc_html__( 'Choose icon position of each tab nav. Choose from Left, Up, Right, Bottom.', 'porto-functionality' ),
+			'default'     => 'left',
+			'label_block' => false,
+			'type'        => Controls_Manager::CHOOSE,
+			'options'     => array(
+				'up'   => array(
+					'title' => esc_html__( 'Up', 'porto-functionality' ),
+					'icon'  => 'eicon-v-align-top',
+				),
+				'left' => array(
+					'title' => esc_html__( 'Left', 'porto-functionality' ),
+					'icon'  => 'eicon-h-align-left',
+				),
+			),
+			'condition'   => array(
+				'as_banner_layer'          => 'tab_content',
+				'tab_content_icon[value]!' => '',
+			),
+		)
+	);
+
+	$self->add_control(
+		'tab_icon_space',
+		array(
+			'label'       => esc_html__( 'Nav Icon Spacing (px)', 'porto-functionality' ),
+			'description' => esc_html__( 'Controls spacing between icon and label in nav item.', 'porto-functionality' ),
+			'type'        => Controls_Manager::SLIDER,
+			'range'       => array(
+				'px' => array(
+					'step' => 1,
+					'min'  => 1,
+					'max'  => 50,
+				),
+			),
+			'condition'   => array(
+				'as_banner_layer'          => 'tab_content',
+				'tab_content_icon[value]!' => '',
+			),
+			'selectors'   => array(
+				'.section-tabs .nav-item.nav-icon-up[pane-id="{{ID}}"] .nav-link i' => 'margin-bottom: {{SIZE}}px;',
+				'.section-tabs .nav-item:not(.nav-icon-up)[pane-id="{{ID}}"] .nav-link i' => 'margin-right: {{SIZE}}px;',
+			),
+		)
+	);
+
+	$self->add_control(
+		'tab_icon_size',
+		array(
+			'label'       => esc_html__( 'Nav Icon Size (px)', 'porto-functionality' ),
+			'description' => esc_html__( 'Controls icon size of tab item header.', 'porto-functionality' ),
+			'type'        => Controls_Manager::SLIDER,
+			'range'       => array(
+				'px' => array(
+					'step' => 1,
+					'min'  => 1,
+					'max'  => 50,
+				),
+			),
+			'condition'   => array(
+				'as_banner_layer'          => 'tab_content',
+				'tab_content_icon[value]!' => '',
+			),
+			'selectors'   => array(
+				'.section-tabs .nav-item[pane-id="{{ID}}"] .nav-link i' => 'font-size: {{SIZE}}px;',
+			),
+		)
+	);
+
+	/* Start Split Layer */
+	$self->add_control(
+		'split_description',
+		array(
+			'type'      => Controls_Manager::HEADING,
+			'label'     => sprintf( esc_html__( 'The Hover Split option of the parent section should be selected. Read this %sarticle%s to find out more about this settings.', 'porto-functionality' ), '<a href="https://www.portotheme.com/wordpress/porto/documentation/how-to-use-hover-split-effect/" target="_blank">','</a>' ),
+			'condition' => array(
+				'as_banner_layer' => array( 'split_layer' ),
+			),
+		)
+	);
+	/* End Split Layer */
+
+	$self->add_control(
 		'porto_el_cls',
 		array(
 			'label'     => esc_html__( 'Extra Class', 'porto-functionality' ),
@@ -978,49 +1594,51 @@ function porto_elementor_print_column_template( $content, $self ) {
 			extra_style = '',
 			extra_class1 = '',
 			extra_attr = '',
+			extra_widget_attr = '',
 			before_html = '';
 		if ( 'yes' == settings.as_banner_layer || 'banner' == settings.as_banner_layer ) {
-			extra_class += ' porto-ibanner-layer';
+			let extra_widget_style = '';
+			extra_class1 += ' porto-ibanner-layer';
 			if (50 == Number(settings.horizontal.size)) {
 				if (50 == Number(settings.vertical.size)) {
-					extra_style += 'left: 50%;top: 50%;transform: translate(-50%, -50%);';
+					extra_widget_style += 'left: 50%;top: 50%;transform: translate(-50%, -50%);';
 				} else {
-					extra_style += 'left: 50%;transform: translateX(-50%);';
+					extra_widget_style += 'left: 50%;transform: translateX(-50%);';
 				}
 			} else if (50 > Number(settings.horizontal.size)) {
-				extra_style += 'left:' + Number(settings.horizontal.size) + '%;';
+				extra_widget_style += 'left:' + Number(settings.horizontal.size) + '%;';
 			} else {
-				extra_style += 'right:' + (100 - Number(settings.horizontal.size)) + '%;';
+				extra_widget_style += 'right:' + (100 - Number(settings.horizontal.size)) + '%;';
 			}
 
 			if (50 == Number(settings.vertical.size)) {
 				if (50 != Number(settings.horizontal.size)) {
-					extra_style += 'top: 50%;transform: translateY(-50%);';
+					extra_widget_style += 'top: 50%;transform: translateY(-50%);';
 				}
 			} else if (50 > Number(settings.vertical.size)) {
-				extra_style += 'top:' + Number(settings.vertical.size) + '%;';
+				extra_widget_style += 'top:' + Number(settings.vertical.size) + '%;';
 			} else {
-				extra_style += 'bottom:' + (100 - Number(settings.vertical.size)) + '%;';
+				extra_widget_style += 'bottom:' + (100 - Number(settings.vertical.size)) + '%;';
 			}
 
-			if (extra_style) {
-				extra_style = ' style="' + extra_style + '"';
+			if (extra_widget_style) {
+				extra_widget_attr += ' style="' + extra_widget_style + '"';
 			}
 
 			if ( settings.css_anim_type ) {
-				extra_style += ' data-appear-animation="' + settings.css_anim_type + '"';
+				extra_widget_attr += ' data-appear-animation="' + settings.css_anim_type + '"';
 				if ( settings.css_anim_type ) {
-					extra_style += ' data-appear-animation-delay="' + Number( settings.css_anim_delay ) + '"';
+					extra_widget_attr += ' data-appear-animation-delay="' + Number( settings.css_anim_delay ) + '"';
 				}
 				if ( settings.css_anim_duration ) {
-					extra_style += ' data-appear-animation-duration="' + Number( settings.css_anim_duration ) + '"';
+					extra_widget_attr += ' data-appear-animation-duration="' + Number( settings.css_anim_duration ) + '"';
 				}
 			}
 
 			if ( 'banner' == settings.as_banner_layer ) {
-				extra_style += ' data-wrap_cls="porto-ibanner' + ( settings.hover_effect ? ' ' + settings.hover_effect : '' ) + '"';
+				extra_widget_attr += ' data-wrap_cls="porto-ibanner' + ( settings.hover_effect ? ' ' + settings.hover_effect : '' ) + '"';
 				if ( 'yes' == settings.add_container ) {
-					extra_style += ' data-add_container="1"';
+					extra_widget_attr += ' data-add_container="1"';
 				}
 
 				var image = {
@@ -1094,6 +1712,10 @@ function porto_elementor_print_column_template( $content, $self ) {
 				}
 			}
 
+			if ( settings.item_margin ) {
+				extra_class1 += ' has-ccols-spacing';
+			}
+
 			if ( Number( settings.items.size ) > 1 ) {
 				extra_class1 += ' ccols-xl-' + Number( settings.items.size );
 			}
@@ -1115,6 +1737,27 @@ function porto_elementor_print_column_template( $content, $self ) {
 			extra_options["responsive"][elementorFrontend.config.breakpoints['xs']] = Math.max(Number( settings.items_mobile.size ), 1);
 			extra_options["responsive"][elementorFrontend.config.breakpoints['sm']] = Math.max(Number( settings.items_tablet.size ) - 1, Number( settings.items_mobile.size ), 1);
 			extra_options["responsive"][elementorFrontend.config.breakpoints['md']] = Math.max(Number( settings.items_tablet.size ), 1);
+			if( settings.set_loop ){
+				if('yes' == settings.set_loop){
+					extra_options["loop"] = true;
+				} else {
+					extra_options["loop"] = false;
+				}
+			}
+
+			if( settings.disable_mouse_drag && 'yes' == settings.disable_mouse_drag){
+				extra_options["mouseDrag"] = false;
+				extra_options["touchDrag"] = false;
+			} else {
+				extra_options["mouseDrag"] = true;
+				extra_options["touchDrag"] = true;
+			}
+			if( settings.animate_out ){
+				extra_options["animateOut"] = settings.animate_out;
+			}
+			if(settings.animate_in ){
+				extra_options["animateIn"] = settings.animate_in;
+			}
 			if (Math.max(Number( settings.items.size ), 1) > Math.max(Number( settings.items_tablet.size ), 1) + 1) {
 				extra_options["responsive"][elementorFrontend.config.breakpoints['lg']] = Math.max(Number( settings.items.size ) - 1, 1);
 				extra_options["responsive"][elementorFrontend.config.breakpoints['xl']] = Math.max(Number( settings.items.size ), 1);
@@ -1162,15 +1805,40 @@ function porto_elementor_print_column_template( $content, $self ) {
 				extra_options['autoFit'] = true;
 			}
 			extra_style += ' data-plugin-options=' + JSON.stringify( extra_options );
+		} else if( 'tab_content' == settings.as_banner_layer ) {
+			if( settings.tab_content_title ){
+				extra_attr += ' data-tab-title="' + settings.tab_content_title + '"';
+			}
+			if ( settings.tab_content_icon && settings.tab_content_icon.value ) {
+				extra_attr += ' data-tab-icon="' + settings.tab_content_icon.value + '"';
+			}
+			if( settings.tab_icon_pos ){
+				extra_attr += ' data-tab-pos="' + settings.tab_icon_pos + '"';
+			}
+		} else if ( 'split_layer' == settings.as_banner_layer ) {
+			extra_class += ' split-slide';
 		}
 		if (settings.parallax_speed.size) {
 			extra_class += ' porto-parallax';
 			extra_style += ' data-parallax-speed=' + parseFloat(settings.parallax_speed.size);
-		}
-		extra_attr += porto_elementor_add_floating_options( settings );
 
-		if (settings.as_banner_layer && settings.porto_el_cls) {
-			if ('carousel' == settings.as_banner_layer) {
+			if (settings.parallax_horizontal) {
+				extra_style += ' data-parallax-type=' + 'horizontal';
+			}
+			if ( settings.parallax_scale ) {
+				if ( settings.parallax_scale_invert ) {
+					extra_style += ' data-parallax-scale=' + 'invert';
+				} else {
+					extra_style += ' data-parallax-scale';
+				}
+			}
+		}
+		if ( typeof porto_elementor_add_floating_options != 'undefined' ) {
+			extra_attr += porto_elementor_add_floating_options( settings );
+		}
+
+		if ( settings.as_banner_layer && settings.porto_el_cls ) {
+			if ( 'carousel' == settings.as_banner_layer || 'yes' == settings.as_banner_layer || 'banner' == settings.as_banner_layer ) {
 				extra_class1 += ' ' + settings.porto_el_cls;
 			} else {
 				extra_class += ' ' + settings.porto_el_cls;
@@ -1184,10 +1852,10 @@ function porto_elementor_print_column_template( $content, $self ) {
 	<?php if ( $legacy_enabled ) : ?>
 	<div class="elementor-column-wrap{{ extra_class }}"{{{ extra_style }}}>
 		<div class="elementor-background-overlay"></div>
-		<div class="elementor-widget-wrap{{ extra_class1 }}"{{ extra_attr }}></div>
+		<div class="elementor-widget-wrap{{ extra_class1 }}"{{{ extra_attr }}}{{{ extra_widget_attr }}}></div>
 	</div>
 	<?php else : ?>
-	<div class="elementor-widget-wrap{{ extra_class }}{{ extra_class1 }}"{{{ extra_style }}}{{ extra_attr }}>
+		<div class="elementor-widget-wrap{{ extra_class }}{{ extra_class1 }}"{{{ extra_style }}}{{{ extra_attr }}}{{{ extra_widget_attr }}}>
 		{{{ before_html }}}
 	</div>
 		<?php
@@ -1237,7 +1905,7 @@ function porto_elementor_column_add_custom_attrs( $self ) {
 			$extra_class[] = esc_attr( $settings['porto_el_cls'] );
 		}
 
-		$wrapper_name = $legacy_enabled ? '_inner_wrapper' : '_widget_wrapper';
+		$wrapper_name = '_widget_wrapper';
 		$self->add_render_attribute( $wrapper_name, 'class', $extra_class );
 		if ( $extra_style ) {
 			$self->add_render_attribute( $wrapper_name, 'style', $extra_style );
@@ -1284,6 +1952,10 @@ function porto_elementor_column_add_custom_attrs( $self ) {
 			}
 		}
 
+		if ( $settings['item_margin'] ) {
+			$extra_class[] = 'has-ccols-spacing';
+		}
+
 		if ( (int) $items > 1 ) {
 			$extra_class[] = 'ccols-xl-' . intval( $items );
 		}
@@ -1298,11 +1970,30 @@ function porto_elementor_column_add_custom_attrs( $self ) {
 
 		$extra_options                = array();
 		$extra_options['margin']      = '' !== $settings['item_margin'] ? (int) $settings['item_margin'] : 0;
-		$extra_options['items']       = $items;
+		$extra_options['items']       = (int) $items;
 		$extra_options['nav']         = 'yes' == $settings['show_nav'];
 		$extra_options['dots']        = 'yes' == $settings['show_dots'];
 		$extra_options['themeConfig'] = true;
-
+		if ( isset( $settings['set_loop'] ) ) {
+			if ( 'yes' == $settings['set_loop'] ) {
+				$extra_options['loop'] = true;
+			} else {
+				$extra_options['loop'] = false;
+			}
+		}
+		if ( isset( $settings['disable_mouse_drag'] ) && 'yes' == $settings['disable_mouse_drag'] ) {
+			$extra_options['mouseDrag'] = false;
+			$extra_options['touchDrag'] = false;
+		} else {
+			$extra_options['mouseDrag'] = true;
+			$extra_options['touchDrag'] = true;
+		}
+		if ( ! empty( $settings['animate_out'] ) ) {
+			$extra_options['animateOut'] = $settings['animate_out'];
+		}
+		if ( ! empty( $settings['animate_in'] ) ) {
+			$extra_options['animateIn'] = $settings['animate_in'];
+		}
 		$breakpoints = Elementor\Core\Responsive\Responsive::get_breakpoints();
 		if ( 1 !== intval( $items ) ) {
 			$extra_options['responsive'] = array( $breakpoints['xs'] => (int) $items_mobile );
@@ -1380,6 +2071,8 @@ function porto_elementor_column_add_custom_attrs( $self ) {
 		}
 		$self->add_render_attribute( $wrapper_name, 'class', $extra_class );
 		$self->add_render_attribute( $wrapper_name, 'data-plugin-options', $options );
+	} elseif ( 'split_layer' == $settings['as_banner_layer'] ){
+		$self->add_render_attribute( '_wrapper', 'class', 'split-slide' );
 	} else {
 		global $porto_grid_layout, $porto_item_count, $porto_grid_type;
 		$is_inner = $self->get_data( 'isInner' );
@@ -1410,6 +2103,17 @@ function porto_elementor_column_add_custom_attrs( $self ) {
 		$wrapper_name = $legacy_enabled ? '_inner_wrapper' : '_widget_wrapper';
 		$self->add_render_attribute( $wrapper_name, 'data-plugin-parallax', '' );
 		$self->add_render_attribute( $wrapper_name, 'data-plugin-options', '{"speed": ' . floatval( $settings['parallax_speed']['size'] ) . '}' );
+
+		if ( ! empty( $settings['parallax_horizontal'] ) ) {
+			$self->add_render_attribute( $wrapper_name, 'data-parallax-type', 'horizontal' );
+		}
+		if ( ! empty( $settings['parallax_scale'] ) ) {
+			if ( ! empty( $settings['parallax_scale_invert'] ) ) {
+				$self->add_render_attribute( $wrapper_name, 'data-parallax-scale', 'invert' );
+			} else {
+				$self->add_render_attribute( $wrapper_name, 'data-parallax-scale', '' );
+			}
+		}
 		wp_enqueue_script( 'skrollr' );
 	}
 

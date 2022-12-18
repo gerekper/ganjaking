@@ -3,6 +3,17 @@
 // helper class for parsing PROPFIND response bodies
 class HTTP_WebDAV_Client_parse_propfind_response
 {
+
+	public $urls;
+	public $success;
+
+	private $_depth;
+	private $_tmpprop;
+	private $_tmphref;
+	private $_tmpvals;
+	private $_tmpdata;
+	private $_tmpstat;
+	
 	// get requested properties as array containing name/namespace pairs
 	public function __construct($response)
 	{
@@ -12,10 +23,10 @@ class HTTP_WebDAV_Client_parse_propfind_response
 
 		$xml_parser = xml_parser_create_ns("UTF-8", " ");
 		xml_set_element_handler($xml_parser,
-								array(&$this, "_startElement"),
-								array(&$this, "_endElement"));
+								array($this, "_startElement"),
+								array($this, "_endElement"));
 		xml_set_character_data_handler($xml_parser,
-									   array(&$this, "_data"));
+									   array($this, "_data"));
 		xml_parser_set_option($xml_parser, XML_OPTION_CASE_FOLDING,
 							  false);
 		$this->success = xml_parse($xml_parser, $response, true);
@@ -24,8 +35,7 @@ class HTTP_WebDAV_Client_parse_propfind_response
 		unset($this->_depth);
 	}
 
-
-	function _startElement($parser, $name, $attrs)
+	private function _startElement($parser, $name, $attrs)
 	{
 		if (strstr($name, " ")) {
 			list($ns, $tag) = explode(" ", $name);
@@ -49,7 +59,7 @@ class HTTP_WebDAV_Client_parse_propfind_response
 		$this->_depth++;
 	}
 
-	function _endElement($parser, $name)
+	private function _endElement($parser, $name)
 	{
 		if (strstr($name, " ")) {
 			list($ns, $tag) = explode(" ", $name);
@@ -102,7 +112,7 @@ class HTTP_WebDAV_Client_parse_propfind_response
 				break;
 			case 'creationdate':
 				$t = preg_split("/[^[:digit:]]/", $this->_tmpdata);
-				$this->_tmpprop['ctime'] = mktime($t[3], $t[4], $t[5], $t[1], $t[2], (int)$t[0]);
+				$this->_tmpprop['ctime'] = mktime((int) $t[3], (int) $t[4], (int) $t[5], (int) $t[1], (int) $t[2], (int) $t[0]);
 				unset($t);
 				break;
 			case 'getcontentlength':
@@ -121,12 +131,12 @@ class HTTP_WebDAV_Client_parse_propfind_response
 		unset($this->_tmpdata);
 	}
 
-	function _data($parser, $data)
+	private function _data($parser, $data)
 	{
 		$this->_tmpdata = $data;
 	}
 
-	function stat($href = false)
+	public function stat($href = false)
 	{
 		if ($href) {
 			// TODO

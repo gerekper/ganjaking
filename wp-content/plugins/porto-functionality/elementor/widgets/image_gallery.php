@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Porto Image Gallery widget
  *
- * @since 6.2.0
+ * @since 2.2.0
  */
 
 use Elementor\Controls_Manager;
@@ -33,22 +33,28 @@ class Porto_Elementor_Image_Gallery_Widget extends \Elementor\Widget_Base {
 		return 'eicon-photo-library';
 	}
 
+	public function get_custom_help_url() {
+		return 'https://www.portotheme.com/wordpress/porto/documentation/how-to-add-hover-dir-effects-to-elements/';
+	}
+
 	public function get_script_depends() {
 		if ( ( isset( $_REQUEST['action'] ) && 'elementor' == $_REQUEST['action'] ) || isset( $_REQUEST['elementor-preview'] ) ) {
-			return array( 'porto-elementor-widgets-js', 'isotope' );
+			if ( ! wp_style_is( 'jquery-hoverdir', 'registered' ) ) {
+				wp_register_script( 'jquery-hoverdir', PORTO_SHORTCODES_URL . 'assets/js/jquery.hoverdir.min.js', array( 'jquery-core', 'modernizr' ), PORTO_SHORTCODES_VERSION, true );
+			}
+			return array( 'porto-elementor-widgets-js', 'isotope', 'modernizr', 'jquery-hoverdir' );
 		} else {
 			return array();
 		}
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 
 		$slider_options = porto_update_vc_options_to_elementor( porto_vc_product_slider_fields() );
 
 		$slider_options['nav_pos2']['condition']['navigation']       = 'yes';
 		$slider_options['nav_type']['condition']['navigation']       = 'yes';
 		$slider_options['autoplay_timeout']['condition']['autoplay'] = 'yes';
-
 		$this->start_controls_section(
 			'section_image_gallery',
 			array(
@@ -64,6 +70,101 @@ class Porto_Elementor_Image_Gallery_Widget extends \Elementor\Widget_Base {
 				'default'     => array(),
 				'show_label'  => false,
 				'description' => esc_html__( 'Select images from media library.', 'porto-functionality' ),
+			)
+		);
+
+		$this->add_control(
+			'click_action',
+			array(
+				'type'        => Controls_Manager::SELECT,
+				'label'       => __( 'On click image', 'porto-functionality' ),
+				'description' => __( 'Select action for click on image.', 'porto-functionality' ),
+				'options'     => array(
+					''         => __( 'None', 'porto-functionality' ),
+					'imgurl'   => __( 'Link to large image', 'porto-functionality' ),
+					'lightbox' => __( 'Open Lightbox', 'porto-functionality' ),
+				),
+				'default'     => '',
+				'condition'   => array(
+					'images!' => '',
+				),
+			)
+		);
+
+		$this->add_control(
+			'hover_effect',
+			array(
+				'type'        => Controls_Manager::SELECT,
+				'label'       => esc_html__( 'Hover Effect', 'porto-functionality' ),
+				'options'     => array(
+					''             => esc_html__( 'None', 'porto-functionality' ),
+					'zoom'         => esc_html__( 'Zoom', 'porto-functionality' ),
+					'fadein'       => esc_html__( 'Fade In', 'porto-functionality' ),
+					'overlay'      => esc_html__( 'Add Overlay', 'porto-functionality' ),
+					'boxshadow'    => esc_html__( 'Add Box Shadow', 'porto-functionality' ),
+					'overlay-icon' => esc_html__( 'Overlay Icon', 'porto-functionality' ),
+					'effect-1'     => esc_html__( 'Effect 1', 'porto-functionality' ),
+					'effect-2'     => esc_html__( 'Effect 2', 'porto-functionality' ),
+					'effect-3'     => esc_html__( 'Effect 3', 'porto-functionality' ),
+					'effect-4'     => esc_html__( 'Effect 4', 'porto-functionality' ),
+					'hoverdir'     => esc_html__( 'Hoverdir', 'porto-functionality' ),
+				),
+				'qa_selector' => '.porto-gallery',
+				'default'     => '',
+				'condition'   => array(
+					'images!' => '',
+				),
+			)
+		);
+
+		$this->add_control(
+			'auto_width',
+			array(
+				'type'        => Controls_Manager::SWITCHER,
+				'label'       => __( 'Width Auto', 'porto-functionality' ),
+				'description' => __( 'Set the width of image.', 'porto-functionality' ),
+				'condition'   => array(
+					'view'         => array( 'grid', 'slider' ),
+					'hover_effect' => array( '', 'zoom', 'boxshadow', 'effect-1', 'effect-2', 'effect-3', 'effect-4' ),
+				),
+				'selectors'   => array(
+					'.elementor-element-{{ID}} .porto-gallery img' => 'width: auto; margin-left: auto; margin-right: auto;',
+				),
+			)
+		);
+
+		$this->add_control(
+			'mx_width',
+			array(
+				'type'        => Controls_Manager::SLIDER,
+				'label'       => __( 'Max Width (px)', 'porto-functionality' ),
+				'description' => __( 'Set the max width of image.', 'porto-functionality' ),
+				'range'       => array(
+					'px' => array(
+						'step' => 1,
+						'min'  => 1,
+						'max'  => 200,
+					),
+				),
+				'default'     => array(
+					'unit' => 'px',
+				),
+				'condition'   => array(
+					'view'         => array( 'grid', 'slider' ),
+					'hover_effect' => array( '', 'zoom', 'boxshadow', 'effect-1', 'effect-2', 'effect-3', 'effect-4' ),
+				),
+				'selectors'   => array(
+					'.elementor-element-{{ID}} .porto-gallery img' => 'max-width: {{SIZE}}px; margin-left: auto; margin-right: auto;',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_image_layout',
+			array(
+				'label' => __( 'Layout', 'porto-functionality' ),
 			)
 		);
 
@@ -136,19 +237,21 @@ class Porto_Elementor_Image_Gallery_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'spacing',
 			array(
-				'type'      => Controls_Manager::SLIDER,
-				'label'     => __( 'Column Spacing (px)', 'porto-functionality' ),
-				'range'     => array(
+				'type'               => Controls_Manager::SLIDER,
+				'label'              => __( 'Column Spacing (px)', 'porto-functionality' ),
+				'range'              => array(
 					'px' => array(
 						'step' => 1,
 						'min'  => 0,
 						'max'  => 100,
 					),
 				),
-				'default'   => array(
+				'default'            => array(
 					'unit' => 'px',
 				),
-				'selectors' => array(
+				'render_type'        => 'template',
+				'frontend_available' => true,
+				'selectors'          => array(
 					'.elementor-element-{{ID}} .porto-gallery' => '--porto-el-spacing: {{SIZE}}px;',
 				),
 			)
@@ -168,6 +271,7 @@ class Porto_Elementor_Image_Gallery_Widget extends \Elementor\Widget_Base {
 					'6' => 6,
 					'7' => 7,
 					'8' => 8,
+					'9' => 9,
 				),
 				'default'     => '4',
 				'description' => esc_html__( 'Select number of columns to display.', 'porto-functionality' ),
@@ -229,6 +333,161 @@ class Porto_Elementor_Image_Gallery_Widget extends \Elementor\Widget_Base {
 		$this->end_controls_section();
 
 		$this->start_controls_section(
+			'section_style_options',
+			array(
+				'label' => __( 'Style Options', 'porto-functionality' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			)
+		);
+
+		$this->add_control(
+			'overlay_bgc',
+			array(
+				'label'     => __( 'Overlay Background Color', 'porto-functionality' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array(
+					'images!'      => '',
+					'hover_effect' => array( 'fadein', 'overlay', 'overlay-icon', 'hoverdir' ),
+				),
+				'selectors' => array(
+					'.elementor-element-{{ID}} .porto-ig-fadein figure:before, .elementor-element-{{ID}} .porto-ig-overlay-icon figure:before, .elementor-element-{{ID}} .porto-ig-overlay figure:before, .elementor-element-{{ID}} .hover-effect-dir .fill, .elementor-element-{{ID}} .porto-ig-overlay-icon .fill' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'icon_cl',
+			array(
+				'type'                   => Controls_Manager::ICONS,
+				'label'                  => __( 'Overlay Icon', 'porto-functionality' ),
+				'fa4compatibility'       => 'icon',
+				'skin'                   => 'inline',
+				'exclude_inline_options' => array( 'svg' ),
+				'condition'              => array(
+					'images!'       => '',
+					'hover_effect'  => array( 'overlay-icon', 'hoverdir' ),
+					'click_action!' => '',
+				),
+			)
+		);
+
+		$this->add_control(
+			'icon_size',
+			array(
+				'type'       => Controls_Manager::SLIDER,
+				'label'      => __( 'Icon Size', 'porto-functionality' ),
+				'range'      => array(
+					'px'  => array(
+						'step' => 1,
+						'min'  => 0,
+						'max'  => 100,
+					),
+					'em'  => array(
+						'step' => 0.1,
+						'min'  => 0,
+						'max'  => 10,
+					),
+					'rem' => array(
+						'step' => 0.1,
+						'min'  => 0,
+						'max'  => 10,
+					),
+				),
+				'default'    => array(
+					'unit' => 'px',
+				),
+				'size_units' => array(
+					'px',
+					'em',
+					'rem',
+				),
+				'condition'  => array(
+					'images!'       => '',
+					'hover_effect'  => array( 'overlay-icon', 'hoverdir' ),
+					'click_action!' => '',
+				),
+				'selectors'  => array(
+					'.elementor-element-{{ID}} .fill .centered-icon' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}; line-height: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'icon_fs',
+			array(
+				'type'       => Controls_Manager::SLIDER,
+				'label'      => __( 'Icon Font Size', 'porto-functionality' ),
+				'range'      => array(
+					'px'  => array(
+						'step' => 1,
+						'min'  => 0,
+						'max'  => 50,
+					),
+					'em'  => array(
+						'step' => 0.1,
+						'min'  => 0,
+						'max'  => 5,
+					),
+					'rem' => array(
+						'step' => 0.1,
+						'min'  => 0,
+						'max'  => 5,
+					),
+				),
+				'default'    => array(
+					'unit' => 'px',
+				),
+				'size_units' => array(
+					'px',
+					'em',
+					'rem',
+				),
+				'condition'  => array(
+					'images!'       => '',
+					'hover_effect'  => array( 'overlay-icon', 'hoverdir' ),
+					'click_action!' => '',
+				),
+				'selectors'  => array(
+					'.elementor-element-{{ID}} .fill .centered-icon' => 'font-size: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'icon_bgc',
+			array(
+				'label'     => __( 'Overlay Icon Background Color', 'porto-functionality' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array(
+					'images!'       => '',
+					'hover_effect'  => array( 'overlay-icon', 'hoverdir' ),
+					'click_action!' => '',
+				),
+				'selectors' => array(
+					'.elementor-element-{{ID}} .fill .centered-icon' => 'background-color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'icon_clr',
+			array(
+				'label'     => __( 'Overlay Icon Color', 'porto-functionality' ),
+				'type'      => Controls_Manager::COLOR,
+				'condition' => array(
+					'images!'       => '',
+					'hover_effect'  => array( 'overlay-icon', 'hoverdir' ),
+					'click_action!' => '',
+				),
+				'selectors' => array(
+					'.elementor-element-{{ID}} .fill .centered-icon' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_section();
+
+		$this->start_controls_section(
 			'section_slider_options',
 			array(
 				'label'     => __( 'Slider Options', 'porto-functionality' ),
@@ -241,7 +500,11 @@ class Porto_Elementor_Image_Gallery_Widget extends \Elementor\Widget_Base {
 
 		foreach ( $slider_options as $key => $opt ) {
 			unset( $opt['condition']['view'] );
-			$this->add_control( $key, $opt );
+			if ( ! empty( $opt['responsive'] ) ) {
+				$this->add_responsive_control( $key, $opt );
+			} else {
+				$this->add_control( $key, $opt );
+			}
 		}
 
 		$this->end_controls_section();
@@ -252,14 +515,17 @@ class Porto_Elementor_Image_Gallery_Widget extends \Elementor\Widget_Base {
 
 		if ( $template = porto_shortcode_template( 'porto_image_gallery' ) ) {
 			$atts['columns'] = array(
-				'xl'  => isset( $atts['columns_xl'] ) ? (int) $atts['columns_xl'] : ( isset( $atts['columns'] ) ? (int) $atts['columns'] : 0 ),
-				'lg'  => isset( $atts['columns'] ) ? (int) $atts['columns'] : 0,
-				'md'  => isset( $atts['columns_tablet'] ) ? (int) $atts['columns_tablet'] : 0,
-				'sm'  => isset( $atts['columns_mobile'] ) ? (int) $atts['columns_mobile'] : 0,
-				'min' => isset( $atts['columns_min'] ) ? (int) $atts['columns_min'] : 0,
+				'xl'  => ! empty( $atts['columns_xl'] ) ? (int) $atts['columns_xl'] : ( ! empty( $atts['columns'] ) ? (int) $atts['columns'] : 0 ),
+				'lg'  => ! empty( $atts['columns'] ) ? (int) $atts['columns'] : 0,
+				'md'  => ! empty( $atts['columns_tablet'] ) ? (int) $atts['columns_tablet'] : 0,
+				'sm'  => ! empty( $atts['columns_mobile'] ) ? (int) $atts['columns_mobile'] : 0,
+				'min' => ! empty( $atts['columns_min'] ) ? (int) $atts['columns_min'] : 0,
 			);
 			if ( ! empty( $atts['spacing'] ) ) {
 				$atts['spacing'] = $atts['spacing']['size'];
+			}
+			if ( isset( $atts['icon_cl'] ) && isset( $atts['icon_cl']['value'] ) ) {
+				$atts['icon_cl'] = $atts['icon_cl']['value'];
 			}
 
 			include $template;

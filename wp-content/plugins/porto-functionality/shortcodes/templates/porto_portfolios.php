@@ -1,50 +1,55 @@
 <?php
 $output = $title = $portfolio_layout = $columns = $view = $info_view = $info_view_style = $thumb_bg = $thumb_image = $image_counter = $cat = $cats = $post_in = $number = $slider = $load_more_posts = $load_more = $view_more = $view_more_class = $filter = $pagination = $animation_type = $animation_duration = $animation_delay = $ajax_load = $ajax_modal = $el_class = '';
 global $portfolio_num;
+
+$default_atts = array(
+	'title'                => '',
+	'portfolio_layout'     => 'timeline',
+	'grid_layout'          => '1',
+	'grid_height'          => '600',
+	'spacing'              => '',
+	'masonry_layout'       => '1',
+
+	'content_animation'    => '',
+	'columns'              => '3',
+	'view'                 => 'classic',
+	'info_view'            => '',
+	'info_color'           => '',
+	'custom_portfolios'    => '',
+	'info_color2'          => '',
+	'info_view_type_style' => '',
+	'thumb_bg'             => '',
+	'thumb_image'          => '',
+	'image_counter'        => '',
+	'cats'                 => '',
+	'cat'                  => '',
+	'post_in'              => '',
+	'orderby'              => '',
+	'order'                => '',
+	'slider'               => '',
+	'number'               => 8,
+	'excerpt_length'       => '',
+	'view_more'            => false,
+	'load_more_posts'      => '',
+	'view_more_class'      => '',
+	'filter'               => false,
+	'pagination'           => false,
+	'ajax_load'            => false,
+	'ajax_modal'           => false,
+	'animation_type'       => '',
+	'animation_duration'   => 1000,
+	'animation_delay'      => 0,
+	'el_class'             => '',
+	'show_lightbox_icon'   => '',
+	'filter_style'         => '',
+	'filter_type'          => '',
+	'image_size'           => '',
+	'posts_wrap_cls'       => '',
+);
+
 extract(
 	shortcode_atts(
-		array(
-			'title'                => '',
-			'portfolio_layout'     => 'timeline',
-			'grid_layout'          => '1',
-			'grid_height'          => '600',
-			'spacing'              => '',
-			'masonry_layout'       => '1',
-
-			'content_animation'    => '',
-			'columns'              => '3',
-			'view'                 => 'classic',
-			'info_view'            => '',
-			'info_color'           => '',
-			'custom_portfolios'    => '',
-			'info_color2'          => '',
-			'info_view_type_style' => '',
-			'thumb_bg'             => '',
-			'thumb_image'          => '',
-			'image_counter'        => '',
-			'cats'                 => '',
-			'cat'                  => '',
-			'post_in'              => '',
-			'orderby'              => '',
-			'order'                => '',
-			'slider'               => '',
-			'number'               => 8,
-			'excerpt_length'       => '',
-			'view_more'            => false,
-			'load_more_posts'      => '',
-			'view_more_class'      => '',
-			'filter'               => false,
-			'pagination'           => false,
-			'ajax_load'            => false,
-			'ajax_modal'           => false,
-			'animation_type'       => '',
-			'animation_duration'   => 1000,
-			'animation_delay'      => 0,
-			'el_class'             => '',
-			'show_lightbox_icon'   => '',
-			'filter_style'         => '',
-			'image_size'           => '',
-		),
+		$default_atts,
 		$atts
 	)
 );
@@ -65,7 +70,7 @@ if ( $cats ) {
 	$args['tax_query'] = array(
 		array(
 			'taxonomy' => 'portfolio_cat',
-			'field'    => 'term_id',
+			'field'    => is_numeric( $cat[0] ) ? 'term_id' : 'slug',
 			'terms'    => $cat,
 		),
 	);
@@ -100,33 +105,36 @@ $posts = new WP_Query( $args );
 
 $portfolio_taxs = array();
 
-	global $porto_settings;
+global $porto_settings;
 
 if ( $filter ) {
-	$taxs = get_categories(
-		array(
-			'taxonomy' => 'portfolio_cat',
-			'orderby'  => isset( $porto_settings['portfolio-cat-orderby'] ) ? $porto_settings['portfolio-cat-orderby'] : 'name',
-			'order'    => isset( $porto_settings['portfolio-cat-order'] ) ? $porto_settings['portfolio-cat-order'] : 'asc',
-		)
+	$tax_args = array(
+		'taxonomy'   => 'portfolio_cat',
+		'hide_empty' => true,
+		'orderby'    => isset( $porto_settings['portfolio-cat-orderby'] ) ? $porto_settings['portfolio-cat-orderby'] : 'name',
+		'order'      => isset( $porto_settings['portfolio-cat-order'] ) ? $porto_settings['portfolio-cat-order'] : 'asc',
 	);
+	if ( ! empty( $cats ) && is_numeric( $cat[0] ) ) {
+		$tax_args['include'] = sanitize_text_field( $cats );
+	}
+	$taxs = get_terms( $tax_args );
 
 	foreach ( $taxs as $tax ) {
 		$portfolio_taxs[ urldecode( $tax->slug ) ] = $tax->name;
 	}
 
-	if ( is_array( $posts->posts ) && ! empty( $posts->posts ) ) {
+	if ( empty( $filter_type ) && 'infinite' != $load_more_posts && 'load-more-btn' != $load_more_posts && is_array( $posts->posts ) && ! empty( $posts->posts ) ) {
 		$posts_portfolio_taxs = array();
 		foreach ( $posts->posts as $post ) {
-			$post_taxs = wp_get_post_terms( $post->ID, 'portfolio_cat', array( 'fields' => 'all' ) );
+			$post_taxs = wp_get_post_terms( $post->ID, 'portfolio_cat', array( 'fields' => 'id=>slug' ) );
 			if ( is_array( $post_taxs ) && ! empty( $post_taxs ) ) {
-				foreach ( $post_taxs as $post_tax ) {
-					if ( is_array( $cat ) && ! empty( $cat ) && in_array( $post_tax->term_id, $cat ) ) {
-						$posts_portfolio_taxs[ urldecode( $post_tax->slug ) ] = $post_tax->name;
+				foreach ( $post_taxs as $post_tax_id => $post_tax_slug ) {
+					if ( is_array( $cat ) && ! empty( $cat ) && in_array( $post_tax_id, $cat ) ) {
+						$posts_portfolio_taxs[ urldecode( $post_tax_slug ) ] = 1;
 					}
 
 					if ( empty( $cat ) || ! isset( $cat ) ) {
-						$posts_portfolio_taxs[ urldecode( $post_tax->slug ) ] = $post_tax->name;
+						$posts_portfolio_taxs[ urldecode( $post_tax_slug ) ] = 1;
 					}
 				}
 			}
@@ -140,7 +148,7 @@ if ( $filter ) {
 	}
 }
 
-$shortcode_id = md5( json_encode( $atts ) );
+$shortcode_id = porto_generate_rand( 4 );
 
 if ( $posts->have_posts() ) {
 	$el_class = porto_shortcode_extract_class( $el_class );
@@ -168,31 +176,33 @@ if ( $posts->have_posts() ) {
 
 	if ( 'left-info-no-bg' == $info_view ) {
 		$style_printed = false;
+		$inline_style  = '';
 		if ( $info_color ) {
 			$style_printed = true;
 
-			$output .= '<style>';
-			$output .= '#' . porto_filter_output( $wrapper_id ) . ' .thumb-info .thumb-info-title { color: ' . esc_attr( $info_color ) . ' }';
+			$inline_style .= '<style>';
+			$inline_style .= '#' . $wrapper_id . ' .thumb-info .thumb-info-title { color: ' . esc_attr( $info_color ) . ' }';
 		}
 		if ( $custom_portfolios && $info_color2 ) {
 			if ( ! $style_printed ) {
 				$style_printed = true;
 
-				$output .= '<style>';
+				$inline_style .= '<style>';
 			}
 			$custom_portfolios = explode( ',', $custom_portfolios );
 			foreach ( $custom_portfolios as $index => $p ) {
 				if ( $index ) {
-					$output .= ',';
+					$inline_style .= ',';
 				}
-				$output .= '#' . porto_filter_output( $wrapper_id ) . ' article.portfolio:nth-child(' . trim( $p ) . ') .thumb-info-title';
+				$inline_style .= '#' . $wrapper_id . ' article.portfolio:nth-child(' . trim( $p ) . ') .thumb-info-title';
 			}
-			$output .= '{ color: ' . esc_attr( $info_color2 ) . ' }';
+			$inline_style .= '{ color: ' . esc_attr( $info_color2 ) . ' }';
 		}
 
 		if ( $style_printed ) {
-			$output .= '</style>';
+			$inline_style .= '</style>';
 		}
+		$output .= $inline_style;
 	}
 
 	global $porto_portfolio_columns, $porto_portfolio_view, $porto_portfolio_thumb, $porto_portfolio_thumb_style, $porto_portfolio_thumb_bg, $porto_portfolio_thumb_image, $porto_portfolio_slider, $porto_portfolio_image_counter, $porto_portfolio_ajax_load, $porto_portfolio_ajax_modal, $porto_portfolio_thumbs_html, $porto_portfolio_show_zoom;
@@ -216,14 +226,48 @@ if ( $posts->have_posts() ) {
 		$porto_portfolio_show_zoom = ( 'show' == $show_lightbox_icon );
 	}
 
-	ob_start(); ?>
+	ob_start();
 
-	<?php
+	$wrap_cls   = 'page-portfolios clearfix portfolios-' . $portfolio_layout;
+	$wrap_attrs = ' id="porto_portfolios_' . porto_generate_rand( 4 ) . '"';
+	if ( ! empty( $shortcode_class ) ) {
+		$wrap_cls .= ' ' . trim( $shortcode_class );
+	}
+	if ( ! empty( $title ) ) {
+		$wrap_cls .= ' m-t-lg';
+	}
+	if ( $load_more_posts ) {
+		$wrap_cls   .= ' porto-ajax-load';
+		$wrap_attrs .= ' data-post_type="portfolio" data-post_layout="' . esc_attr( 'creative' == $portfolio_layout || 'masonry-creative' == $portfolio_layout ? 'masonry' : $portfolio_layout ) . '"';
+
+		if ( 'pagination' == $load_more_posts ) {
+			$wrap_cls .= ' load-ajax';
+		} elseif ( 'load-more-btn' == $load_more_posts ) {
+			$wrap_cls .= ' load-more';
+			wp_enqueue_script( 'porto-jquery-infinite-scroll' );
+		} else {
+			$wrap_cls .= ' load-infinite';
+			wp_enqueue_script( 'porto-jquery-infinite-scroll' );
+		}
+	}
+	if ( 'ajax' == $filter_type || $load_more_posts ) {
+		// extra options
+		$options = array();
+		foreach ( $default_atts as $key => $val ) {
+			if ( ! empty( $atts[ $key ] ) ) {
+				$options[ $key ] = $atts[ $key ];
+			}
+		}
+		$wrap_attrs .= ' data-ajax_load_options="' . esc_attr( json_encode( $options ) ) . '"';
+
+		wp_enqueue_script( 'porto-infinite-scroll' );
+	}
+
 	if ( isset( $porto_settings['portfolio-archive-link-zoom'] ) && $porto_settings['portfolio-archive-link-zoom'] ) :
 		?>
-		<div class="portfolios-lightbox<?php echo ! $porto_settings['portfolio-archive-img-lightbox-thumb'] ? '' : ' with-thumbs'; ?>"><?php endif; ?>
+		<div class="portfolios-lightbox<?php echo empty( $porto_settings['portfolio-archive-img-lightbox-thumb'] ) ? '' : ' with-thumbs'; ?>"><?php endif; ?>
 
-	<div class="page-portfolios portfolios-<?php echo esc_attr( $portfolio_layout ); ?> clearfix <?php echo ! empty( $title ) ? 'm-t-lg' : ''; ?>">
+	<div class="<?php echo esc_attr( $wrap_cls ); ?>"<?php echo porto_filter_output( $wrap_attrs ); ?>>
 
 	<?php if ( $ajax_load && ! $ajax_modal ) : ?>
 		<div id="portfolioAjaxBox" class="ajax-box">
@@ -237,7 +281,7 @@ if ( $posts->have_posts() ) {
 	<?php endif; ?>
 
 	<?php if ( is_array( $portfolio_taxs ) && ! empty( $portfolio_taxs ) ) : ?>
-		<ul class="portfolio-filter nav sort-source<?php echo ! empty( $filter_style ) ? ' sort-source-' . esc_attr( $filter_style ) : ' nav-pills'; ?>">
+		<ul class="portfolio-filter nav sort-source<?php echo ! empty( $filter_style ) ? ' sort-source-' . esc_attr( $filter_style ) : ' nav-pills', 'ajax' == $filter_type ? ' porto-ajax-filter' : ''; ?>">
 			<li class="active" data-filter="*"><a href="#"><?php esc_html_e( 'Show All', 'porto-functionality' ); ?></a></li>
 			<?php foreach ( $portfolio_taxs as $portfolio_tax_slug => $portfolio_tax_name ) : ?>
 				<li data-filter="<?php echo esc_attr( $portfolio_tax_slug ); ?>"><a href="#"><?php echo esc_html( $portfolio_tax_name ); ?></a></li>
@@ -255,6 +299,13 @@ if ( $posts->have_posts() ) {
 
 	<?php
 	$is_creative_layout = false;
+	$container_attrs    = '';
+
+	// infinite scrolling
+	if ( ( 'infinite' == $load_more_posts || 'load-more-btn' == $load_more_posts ) && $posts->max_num_pages ) {
+		$container_attrs .= ' data-cur_page="' . ( $paged ? (int) $paged : 1 ) . '" data-max_page="' . intval( $posts->max_num_pages ) . '"';
+	}
+
 	if ( 'timeline' == $portfolio_layout ) :
 		global $prev_post_year, $prev_post_month, $first_timeline_loop, $post_count;
 
@@ -262,21 +313,34 @@ if ( $posts->have_posts() ) {
 		$prev_post_month     = null;
 		$first_timeline_loop = false;
 		$post_count          = 1;
+
+		if ( ! empty( $_REQUEST['last_date'] ) ) {
+			$arr = explode( '-', sanitize_text_field( $_REQUEST['last_date'] ) );
+			if ( 2 == count( $arr ) ) {
+				$prev_post_year  = $arr[0];
+				$prev_post_month = $arr[1];
+			}
+		}
 		?>
 
 		<section class="timeline">
 
-			<div class="timeline-body">
+			<div class="timeline-body portfolios-container<?php echo empty( $posts_wrap_cls ) ? '' : ' ' . esc_attr( $posts_wrap_cls ); ?>"<?php echo porto_filter_output( $container_attrs ); ?>>
 
 		<?php
 	else :
-		$classes         = array();
-		$container_attrs = '';
+		$classes = array( 'portfolios-container' );
+		if ( ! empty( $posts_wrap_cls ) ) {
+			$classes[] = esc_attr( $posts_wrap_cls );
+		}
+
 		if ( 'grid' == $portfolio_layout || 'masonry' == $portfolio_layout || 'creative' == $portfolio_layout || 'masonry-creative' == $portfolio_layout || ( $filter && is_array( $portfolio_taxs ) && ! empty( $portfolio_taxs ) ) ) {
 			$classes[] = 'portfolio-row';
 		}
 		if ( 'grid' == $portfolio_layout || 'masonry' == $portfolio_layout || 'creative' == $portfolio_layout || 'masonry-creative' == $portfolio_layout ) {
-			$classes[] = 'portfolio-row-' . esc_attr( $portfolio_columns );
+			if ( $portfolio_columns ) {
+				$classes[] = 'portfolio-row-' . esc_attr( $portfolio_columns );
+			}
 			$classes[] = esc_attr( $portfolio_view );
 		}
 
@@ -295,11 +359,23 @@ if ( $posts->have_posts() ) {
 			$porto_post_count        = 0;
 			$is_creative_layout      = true;
 
+			if ( $paged && (int) $paged > 1 && ( 'infinite' == $load_more_posts || $load_more ) ) {
+				$porto_post_count = (int) $number * ( (int) $paged - 1 ) % count( $porto_grid_layout );
+			}
+
 			$grid_height_number = trim( preg_replace( '/[^0-9]/', '', $grid_height ) );
 			$unit               = trim( str_replace( $grid_height_number, '', $grid_height ) );
 			porto_creative_grid_style( $porto_grid_layout, $grid_height_number, $wrapper_id, $spacing || 0 === $spacing || '0' === $spacing ? $spacing : false, true, $unit, 'article.portfolio' );
 
-			$container_attrs .= ' data-plugin-masonry data-plugin-options="' . esc_attr( json_encode( array( 'itemSelector' => '.portfolio', 'animationEngine' => 'best-available', 'masonry' => array( 'columnWidth' => '.grid-col-sizer' ) ) ) ) . '"';
+			$container_attrs .= ' data-plugin-masonry data-plugin-options="' . esc_attr(
+				json_encode(
+					array(
+						'itemSelector'    => '.portfolio',
+						'animationEngine' => 'best-available',
+						'masonry'         => array( 'columnWidth' => '.grid-col-sizer' ),
+					)
+				)
+			) . '"';
 		}
 		?>
 		<div class="<?php echo implode( ' ', $classes ); ?>"<?php echo porto_filter_output( $container_attrs ); ?>>
@@ -317,7 +393,9 @@ if ( $posts->have_posts() ) {
 		$image_size['content_animation'] = $content_animation;
 	}
 	if ( $excerpt_length ) {
-		$global_excerpt_length                      = $porto_settings['portfolio-excerpt-length'];
+		if ( isset( $porto_settings['portfolio-excerpt-length'] ) ) {
+			$global_excerpt_length = $porto_settings['portfolio-excerpt-length'];
+		}
 		$porto_settings['portfolio-excerpt-length'] = $excerpt_length;
 	}
 	while ( $posts->have_posts() ) {
@@ -328,10 +406,10 @@ if ( $posts->have_posts() ) {
 	if ( $is_creative_layout ) {
 		echo '<div class="grid-col-sizer"></div>';
 	}
-	if ( $excerpt_length ) {
+	if ( isset( $global_excerpt_length ) ) {
 		$porto_settings['portfolio-excerpt-length'] = $global_excerpt_length;
 	}
-	if ( $porto_settings['portfolio-archive-img-lightbox-thumb'] && ( 'medium' == $portfolio_layout || 'full' == $portfolio_layout || 'large' == $portfolio_layout ) ) {
+	if ( ! empty( $porto_settings['portfolio-archive-img-lightbox-thumb'] ) && ( 'medium' == $portfolio_layout || 'full' == $portfolio_layout || 'large' == $portfolio_layout ) ) {
 		while ( $posts->have_posts() ) {
 			global $post;
 			$posts->the_post();
@@ -361,7 +439,7 @@ if ( $posts->have_posts() ) {
 	?>
 
 	<?php
-	if ( $porto_settings['portfolio-archive-img-lightbox-thumb'] ) :
+	if ( ! empty( $porto_settings['portfolio-archive-img-lightbox-thumb'] ) ) :
 		$thumbs_carousel_options = array(
 			'items'  => 15,
 			'loop'   => false,

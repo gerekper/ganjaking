@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Porto Elementor widget to display a modal dialog.
  *
- * @since 5.4.0
+ * @since 1.7.1
  */
 
 use Elementor\Controls_Manager;
@@ -35,7 +35,7 @@ class Porto_Elementor_Modal_Widget extends \Elementor\Widget_Base {
 		return 'eicon-lightbox-expand';
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 
 		$this->start_controls_section(
 			'section_modal_box',

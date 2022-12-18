@@ -56,7 +56,11 @@ class Zapier_Classic_Editor implements Integration_Interface {
 	 *
 	 * @return void
 	 */
-	public function add_publishbox_text( WP_Post $post ) {
+	public function add_publishbox_text( $post ) {
+		if ( ! \is_a( $post, 'WP_Post' ) ) {
+			return;
+		}
+
 		if ( ! $this->zapier_helper->is_post_type_supported( $post->post_type ) ) {
 			return;
 		}
@@ -75,7 +79,6 @@ class Zapier_Classic_Editor implements Integration_Interface {
 					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The content is already escaped.
 					WPSEO_Admin_Utils::get_new_tab_message() . '</a>'
 				);
-
 			}
 			else {
 				\printf(
@@ -87,7 +90,6 @@ class Zapier_Classic_Editor implements Integration_Interface {
 					// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The content is already escaped.
 					WPSEO_Admin_Utils::get_new_tab_message() . '</a>'
 				);
-
 			}
 			?>
 			</span>

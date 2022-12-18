@@ -1,0 +1,61 @@
+/* Preview Image Lazy Loader */
+.porto-preview-image {
+	margin-bottom: #{$grid-gutter-space}px;
+	.lazy {
+		display: block;
+		background-position: top center;
+		background-size: 100%;
+		z-index: 2;
+
+		+ .fa-spin{
+			background: transparent none repeat scroll 0 0;
+			color: #ccc;
+			font-size: 25px;
+			left: 50%;
+			margin: -13px;
+			position: absolute;
+			top: 50%;
+			z-index: 1;
+		}
+	}
+}
+
+/* Thumb Info Ribbon */
+.thumb-info-ribbon {
+    background: var(--porto-primary-color);
+    color: var(--porto-primary-color-inverse);
+    position: absolute;
+    margin: side-values(-16px 0 0 0);
+    padding: side-values(5px 13px 6px);
+    #{$right}: 15px;
+    z-index: 1;
+    &:before {
+        border-#{$right}: 10px solid var(--porto-primary-dark-15);
+        border-top: 16px solid transparent;
+        content: "";
+        display: block;
+        height: 0;
+        #{$left}: -10px;
+        position: absolute;
+        top: 0;
+        width: 7px;
+    }
+    span {
+        font-family: var(--porto-alt-ff, var(--porto-body-ff)), sans-serif;
+        font-size: 1.1em;
+    }
+}
+
+
+/* theme colors */
+/* secondary, tertiary, quaternary, dark, light */
+@each $state in $color_states_not_primary {
+    .thumb-info-ribbon-#{nth($state,1)} {
+        background-color: var(--porto-#{nth($state,1)}-color);
+        color: var(--porto-#{nth($state,1)}-color-inverse, #{nth($state,3)});
+
+        &:before {
+            border-#{$right}-color: var(--porto-#{nth($state,1)}-dark-15);
+        }
+    }
+}

@@ -612,7 +612,7 @@ class UpdraftPlus_Filesystem_Functions {
 		
 		$class_to_use = ('ziparchive' == $method) ? 'UpdraftPlus_ZipArchive' : 'UpdraftPlus_PclZip';
 
-		if (!class_exists($class_to_use)) require_once(UPDRAFTPLUS_DIR.'/includes/class-zip.php');
+		if (!class_exists($class_to_use)) updraft_try_include_file('includes/class-zip.php', 'require_once');
 		
 		$updraftplus->log('Unzipping '.basename($file).' to '.$to.' using '.$class_to_use.', starting index '.$starting_index);
 		

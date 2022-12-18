@@ -68,7 +68,7 @@ class Dropbox_Encrypter
         
         $updraftplus->ensure_phpseclib('Crypt_Rijndael');
 
-        if (!function_exists('crypt_random_string')) require_once(UPDRAFTPLUS_DIR.'/vendor/phpseclib/phpseclib/phpseclib/Crypt/Random.php');
+        if (!function_exists('crypt_random_string')) updraft_try_include_file('vendor/phpseclib/phpseclib/phpseclib/Crypt/Random.php', 'require_once');
         
         $iv = crypt_random_string(self::IV_SIZE);
         

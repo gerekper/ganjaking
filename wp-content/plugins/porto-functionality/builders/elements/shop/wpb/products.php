@@ -29,7 +29,6 @@ extract(
 		$atts
 	)
 );
-
 if ( ( ! isset( $atts['title_use_theme_fonts'] ) || 'yes' !== $atts['title_use_theme_fonts'] ) && ! empty( $atts['title_google_font'] ) ) {
 	$google_fonts_data = porto_sc_parse_google_font( $atts['title_google_font'] );
 	if ( $google_fonts_data ) {
@@ -67,7 +66,14 @@ if ( 'products-slider' == $view ) {
 	$addlinks_pos = 'onimage';
 }
 
-global $porto_woocommerce_loop;
+global $porto_woocommerce_loop, $woocommerce_loop;
+
+if ( empty( $porto_woocommerce_loop ) ) {
+	$porto_woocommerce_loop = array();
+}
+if ( empty( $woocommerce_loop ) ) {
+	$woocommerce_loop = array();
+}
 
 if ( ! empty( $porto_woocommerce_loop ) ) {
 	$porto_woocommerce_loop_backup = $porto_woocommerce_loop;
@@ -78,7 +84,7 @@ $porto_woocommerce_loop['columns'] = $columns;
 if ( $columns_mobile ) {
 	$porto_woocommerce_loop['columns_mobile'] = $columns_mobile;
 }
-$porto_woocommerce_loop['addlinks_pos'] = $addlinks_pos;
+$woocommerce_loop['addlinks_pos'] = $addlinks_pos;
 
 if ( 'products-slider' == $view ) {
 	$porto_woocommerce_loop['pagination'] = $pagination;
@@ -128,7 +134,6 @@ if ( $wrapper_class ) {
 if ( $image_size ) {
 	$porto_woocommerce_loop['image_size'] = $image_size;
 }
-
 if ( 'creative' == $view || ( 'grid' == $view && '' !== $spacing ) || ( '0' == $overlay_bg_opacity || ( '30' != $overlay_bg_opacity && $overlay_bg_opacity ) ) ) {
 	echo '<style scope="scope">';
 
@@ -165,7 +170,6 @@ if ( 'creative' == $view || ( 'grid' == $view && '' !== $spacing ) || ( '0' == $
 	echo '#' . $wrapper_id . ' li.product { padding-left: ' . ( (int) $spacing / 2 ) . 'px; padding-right: ' . ( (int) $spacing / 2 ) . 'px; margin-bottom: ' . ( (int) $spacing ) . 'px; }';
 	echo '</style>';
 }
-
 $skeleton_lazyload = apply_filters( 'porto_skeleton_lazyload', ! empty( $porto_settings['show-skeleton-screen'] ) && in_array( 'shop', $porto_settings['show-skeleton-screen'] ) && ! porto_is_ajax(), 'archive-product' );
 
 if ( $skeleton_lazyload ) {
@@ -247,6 +251,8 @@ if ( 'products-slider' == $view ) {
 }
 
 echo '</div>';
+
+add_filter( 'porto_sb_products_rendered', '__return_true' );
 
 if ( isset( $porto_woocommerce_loop_backup ) && ! empty( $porto_woocommerce_loop_backup ) ) {
 	global $porto_woocommerce_loop;

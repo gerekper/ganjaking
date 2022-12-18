@@ -1,0 +1,91 @@
+
+// Animation Performance
+@mixin performance() {
+	-webkit-transform: translate3d(0, 0, 0);
+	-webkit-backface-visibility: hidden;
+	-webkit-perspective: 1000;
+}
+
+@mixin opacity($opacity) {
+    opacity: $opacity;
+}
+
+@mixin button-variant($color, $background, $border) {
+    color: $color;
+    background-color: $background;
+    border-color: $border;
+
+    &:focus {
+        color: $color;
+        background-color: darken($background, 5%);
+        border-color: darken($border, 5%);
+    }
+    &:hover {
+        color: $color;
+        background-color: darken($background, 5%);
+        border-color: darken($border, 5%);
+    }
+    &:active,
+    &.active,
+    .open > &.dropdown-toggle {
+        color: $color;
+        background-color: darken($background, 5%);
+        border-color: darken($border, 5%);
+    }
+    &:active,
+    &.active,
+    .open > &.dropdown-toggle {
+        background-image: none;
+    }
+    &.disabled,
+    &[disabled],
+    fieldset[disabled] & {
+        &,
+        &:hover,
+        &:focus,
+        &.focus,
+        &:active,
+        &.active {
+            background-color: $background;
+            border-color: $border;
+        }
+    }
+
+    .badge {
+        color: $background;
+        background-color: $color;
+    }
+}
+
+@mixin animate-spin {
+    animation: spin .75s infinite linear;
+    display: inline-block;
+}
+
+@mixin display-flex {
+    display: flex;
+}
+@mixin flex-wrap($wrap) {
+    flex-wrap: $wrap;
+}
+@mixin flex($prop) {
+    flex: $prop;
+}
+
+// CSS for responsive
+// Use @include mq(lg, max) for max-width or @include mq(lg)
+@mixin mq($mq-breakpoint, $mq-width: 'min-width', $mq-breakpoints: $breakpoints) {
+    @if $mq-width == 'max' {
+        $mq-width: 'max-width';
+        $mq-breakpoints: $max-breakpoints;
+    }
+
+    // If $mq-breakpoint is a key that exists in this
+    @if map-has-key($mq-breakpoints, $mq-breakpoint) {
+        $mq-breakpoint: map-get($mq-breakpoints, $mq-breakpoint);
+    }
+
+    @media (#{$mq-width}: #{$mq-breakpoint}) {
+        @content;
+    }
+}

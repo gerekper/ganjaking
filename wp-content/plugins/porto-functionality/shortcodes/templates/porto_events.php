@@ -17,7 +17,12 @@ extract(
 	)
 );
 
-
+if ( ! empty( $shortcode_class ) ) {
+	$el_class .= ' ' . $shortcode_class;
+}
+if ( empty( $atts['page_builder'] ) && ! empty( $el_class ) ) {
+	echo '<div class="' . esc_attr( $el_class ) . '">';
+}
 switch ( $event_type ) {
 	case 'next':
 		$event_layout = 'grid';
@@ -122,3 +127,7 @@ if ( isset( $event_column ) && '2' == $event_column ) {
 $event_countdown_vc = '';
 
 wp_reset_postdata();
+
+if ( empty( $atts['page_builder'] ) && ! empty( $el_class ) ) {
+	echo '</div>';
+}

@@ -1,0 +1,44 @@
+
+#yith-wcwl-popup-message {
+    border-width: 4px 0 0;
+    border-color: var(--porto-primary-color);
+    font-weight: $font-weight-semibold;
+    line-height: 1.5;
+    color: var(--porto-body-color);
+    padding: 15px 20px;
+    width: 250px;
+    margin-left: -125px !important;
+    background: var(--porto-body-bg);
+    border-radius: 0;
+    box-shadow: 0 0 5px rgba(0,0,0,.5);
+}
+
+.yith-wcan-sort-by ul.orderby li.orderby-wrapper a.active,
+a.yith-wcan-onsale-button.active,
+a.yith-wcan-instock-button.active,
+a.yith-wcan-price-link.active,
+ul.yith-wcan-list li.chosen a {
+    position: relative;
+    padding-#{$left}: 16px !important;
+    &:before, &:after {
+        content: '';
+        position: absolute;
+        color: #777;
+        top: 50%;
+    }
+    &:before {
+        width: 11px;
+        left: 0;
+        margin-top: -1px;
+        border-top: 1px solid;
+        -webkit-transform: rotateZ(45deg);
+        transform: rotateZ(45deg);
+    }
+    &:after {
+        height: 11px;
+        left: 5px;
+        -webkit-transform: translateY(-50%) rotateZ(45deg);
+        transform: translateY(-50%) rotateZ(45deg);
+        border-left: 1px solid;
+    }
+}

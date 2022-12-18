@@ -16,6 +16,7 @@ extract(
 			'show_metas'         => true,
 			'show_image'         => true,
 			'excerpt_length'     => 20,
+			'spacing'            => '',
 			'items'              => '',
 			'items_desktop'      => 4,
 			'items_tablets'      => 3,
@@ -41,7 +42,21 @@ extract(
 
 global $porto_settings;
 
-$carousel_class         = '';
+$carousel_class = ' has-ccols ccols-1';
+if ( ! empty( $items ) ) {
+	$carousel_class .= ' ccols-xl-' . (int) $items;
+}
+if ( $items_desktop ) {
+	$carousel_class .= ' ccols-lg-' . (int) $items_desktop;
+}
+if ( $items_tablets ) {
+	$carousel_class .= ' ccols-md-' . (int) $items_tablets;
+}
+if ( $items_mobile ) {
+	$carousel_class .= ' ccols-sm-' . (int) $items_mobile;
+}
+$carousel_class .= ' has-ccols-spacing';
+
 $options                = array();
 $options['themeConfig'] = true;
 if ( $slider_config ) {
@@ -71,13 +86,17 @@ if ( $slider_config ) {
 		}
 	}
 }
+
+global $porto_settings;
+
 if ( ! empty( $items ) ) {
 	$options['items'] = (int) $items;
 }
-$options['lg'] = (int) $items_desktop;
-$options['md'] = (int) $items_tablets;
-$options['sm'] = (int) $items_mobile;
-$options       = json_encode( $options );
+$options['lg']     = (int) $items_desktop;
+$options['md']     = (int) $items_tablets;
+$options['sm']     = (int) $items_mobile;
+$options['margin'] = $spacing || '0' == $spacing ? absint( $spacing ) : (int) $porto_settings['grid-gutter-width'];
+$options           = json_encode( $options );
 
 $items_row = (int) $items_row;
 if ( $items_row < 1 ) {
@@ -103,6 +122,9 @@ if ( $posts->have_posts() ) {
 	$el_class = porto_shortcode_extract_class( $el_class );
 	if ( $className ) {
 		$el_class .= ' ' . $className;
+	}
+	if ( ! empty( $shortcode_class ) ) {
+		$el_class .= ' ' . trim( $shortcode_class );
 	}
 
 	$output = '<div class="porto-recent-posts wpb_content_element ' . esc_attr( $el_class ) . '"';
@@ -135,7 +157,9 @@ if ( $posts->have_posts() ) {
 	$porto_post_excerpt_length = $excerpt_length;
 
 	if ( isset( $porto_settings ) ) {
-		$prev_post_metas = $porto_settings['post-metas'];
+		if ( isset( $porto_settings['post-metas'] ) ) {
+			$prev_post_metas = $porto_settings['post-metas'];
+		}
 
 		if ( ! $show_metas ) {
 			$porto_settings['post-metas'] = array();
@@ -144,45 +168,43 @@ if ( $posts->have_posts() ) {
 
 	ob_start();
 	?>
-	<div class="row">
-		<div class="post-carousel porto-carousel owl-carousel<?php echo esc_attr( $carousel_class ); ?>" data-plugin-options="<?php echo esc_attr( $options ); ?>">
-			<?php
-			$i = 0;
-			$tag_closed = true;
-			while ( $posts->have_posts() ) {
-				$posts->the_post();
-				global $previousday;
-				unset( $previousday );
+	<div class="post-carousel porto-carousel owl-carousel<?php echo esc_attr( $carousel_class ); ?>" data-plugin-options="<?php echo esc_attr( $options ); ?>">
+		<?php
+		$i          = 0;
+		$tag_closed = true;
+		while ( $posts->have_posts() ) {
+			$posts->the_post();
+			global $previousday;
+			unset( $previousday );
 
-				if ( 0 == $i % $items_row ) {
-					echo '<div class="post-slide' . ( $items_row > 1 ? ' no-single' : '' ) . '">';
-					$tag_closed = false;
-				}
-
-				if ( $show_image ) {
-					get_template_part( 'content', 'post-item' );
-				} else {
-					get_template_part( 'content', 'post-item-no-image' );
-				}
-
-				if ( $i % $items_row == $items_row - 1 ) {
-					echo '</div>';
-					$tag_closed = true;
-				}
-				$i++;
+			if ( 0 == $i % $items_row ) {
+				echo '<div class="post-slide' . ( $items_row > 1 ? ' no-single' : '' ) . '">';
+				$tag_closed = false;
 			}
-			if ( ! $tag_closed ) {
+
+			if ( $show_image ) {
+				get_template_part( 'content', 'post-item' );
+			} else {
+				get_template_part( 'content', 'post-item-no-image' );
+			}
+
+			if ( $i % $items_row == $items_row - 1 ) {
 				echo '</div>';
+				$tag_closed = true;
 			}
-			?>
-		</div>
+			$i++;
+		}
+		if ( ! $tag_closed ) {
+			echo '</div>';
+		}
+		?>
 	</div>
 	<?php
 	$output .= ob_get_clean();
 
 	$porto_post_view = $porto_post_author = $porto_post_btn_style = $porto_post_btn_size = $porto_post_btn_color = $porto_post_image_size = $porto_post_excerpt_length = '';
 
-	if ( isset( $porto_settings ) ) {
+	if ( isset( $prev_post_metas ) ) {
 		$porto_settings['post-metas'] = $prev_post_metas;
 	}
 

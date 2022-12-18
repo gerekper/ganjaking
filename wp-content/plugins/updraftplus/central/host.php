@@ -21,6 +21,7 @@ abstract class UpdraftCentral_Host {
 	abstract protected function is_host_dir_set();
 	abstract protected function get_host_dir();
 	abstract protected function get_version();
+	abstract public function log($line, $level = 'notice', $uniq_id = false);
 
 	/**
 	 * Class constructor

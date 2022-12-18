@@ -16,9 +16,14 @@
 	font-family: inherit;
 }
 
+.porto-builder-cond-wrap p {
+	line-height: 1.6
+}
+
 .porto-builder-condition {
 	display: flex;
 	align-items: center;
+	flex-wrap: wrap;
 	margin: 0 -5px 10px;
 }
 
@@ -88,4 +93,17 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+}
+
+.duplicated-conditions {
+	width: 100%;
+	color: #e36159;
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 1.5
+}
+.duplicated-conditions a {
+	color: inherit;
+	font-weight: 700;
+	text-decoration: underline;
 }

@@ -1,0 +1,501 @@
+/* Visual Composer Buttons */
+.btn-inverse {
+    @include button-variant(#fff, #333, #2d2d2d);
+}
+
+.btn {
+    margin: 0;
+}
+.btn-block {
+    padding-right: 0;
+    padding-left: 0;
+}
+.vc_btn3.vc_btn3-size-md {
+    border-radius: 4px;
+}
+
+.btn,
+.btn-group-md > .btn,
+.vc_btn3.vc_btn3-size-md {
+    padding: 0.533rem 0.933rem;
+    font-size: 0.8rem;
+    line-height: 1.42857;
+}
+
+.btn-xl,
+.vc_btn3.vc_btn3-size-xl {
+    font-size: 1rem;
+    padding: 0.8rem 2rem;
+}
+
+.btn-lg,
+.btn-group-lg > .btn,
+.vc_btn3.vc_btn3-size-lg,
+.cart-actions .button,
+.checkout-button,
+#place_order,
+input.submit.btn-lg, input.btn.btn-lg[type="submit"], input.button.btn-lg[type="submit"] {
+    padding: 0.5rem 0.875rem;
+    font-size: 0.875rem;
+    line-height: 1.3333;
+}
+
+.btn-sm,
+.btn-group-sm > .btn,
+.vc_btn3.vc_btn3-size-sm {
+    padding: 0.3rem 0.65rem;
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+
+.btn-xs,
+.btn-group-xs > .btn
+.vc_btn3.vc_btn3-size-xs {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.7rem;
+    line-height: 1.5;
+}
+
+
+/* Buttons */
+.btn,
+.button,
+input.submit,
+input[type="submit"] {
+    transition: color .15s, background-color .15s, border-color .15s, box-shadow .15s, transform .2s;
+    cursor: pointer;
+}
+
+button {
+    border: 1px solid #ccc;
+}
+
+.button {
+    display: inline-block;
+    text-align: center;
+    font-weight: 400;
+    vertical-align: middle;
+    touch-action: manipulation;
+    padding: 8px 12px;
+    white-space: nowrap;
+    line-height: 1.5;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    &:disabled {
+        cursor: default;
+    }
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.btn-default {
+    color: #666;
+    &.btn {
+        background: #fff;
+        box-shadow: none !important;
+        border-color: var(--porto-input-bc);
+        &[disabled], &[disabled]:hover {
+            background: #fff;
+            border-color: rgba(0, 0, 0, .09);
+        }
+        &:hover {
+            background-color: #f2f2f2;
+            border-color: rgba(0, 0, 0, .06);
+        }
+    }
+    &.btn-borders {
+        background: none;
+    }
+    &[type="submit"] {
+        
+    }
+}
+
+/* Outline */
+.btn-outline {
+    border-width: 2px;
+}
+
+/* Icons    */
+.btn-icon {
+    display: inline-flex;
+    align-items: center
+}
+.btn-icon i {
+    margin-#{$right}: 10px;
+}
+
+.btn-icon-right i {
+    margin-#{$right}: 0;
+    margin-#{$left}: 10px;
+}
+
+.btn-icon-only i {
+    margin-#{$right}: 0
+}
+
+.button,
+input.submit,
+[type="submit"],
+.geodir-search [type="button"],
+.geodir-search [type="submit"],
+#geodir-wrapper [type="button"],
+#geodir-wrapper [type="submit"] {
+    background-color: var(--porto-primary-color);
+    border-color: var(--porto-primary-color);
+    color: var(--porto-primary-color-inverse);
+    &:hover, &:focus, &:active {
+        background-color: var(--porto-primary-dark-5);
+        border-color: var(--porto-primary-dark-5);
+        color: var(--porto-primary-color-inverse);
+    }
+}
+
+/* success, warning, info, danger */
+@each $state in $states {
+    .btn-#{nth($state,1)} {
+        background-color: #{nth($state,2)};
+        border-color: #{nth($state,2)} #{nth($state,2)} darken(nth($state,2), 10%);
+        color: #{nth($state,3)};
+
+        &:hover,
+        &:active,
+        &:focus {
+            border-color: lighten(nth($state,2), 10%) lighten(nth($state,2), 10%) #{nth($state,2)};
+            background-color: lighten(nth($state,2), 7%);
+            color: #{nth($state,3)};
+        }
+    }
+}
+
+/* primary, secondary, tertiary, quaternary, dark, light */
+@each $state in $color_states {
+    .btn-#{nth($state,1)} {
+        background-color: var( --porto-#{nth($state,1)}-color, #{nth($state,2)} );
+        border-color: var( --porto-#{nth($state,1)}-color, #{nth($state,2)} ) var( --porto-#{nth($state,1)}-color, #{nth($state,2)} ) var( --porto-#{nth($state,1)}-dark-10, darken(nth($state,2), 10%) );
+        color: var( --porto-#{nth($state,1)}-color-inverse, #{nth($state,3)} );
+
+        &:hover,
+        &:active,
+        &:focus {
+            border-color: var( --porto-#{nth($state,1)}-light-10, lighten(nth($state,2), 10%) ) var( --porto-#{nth($state,1)}-light-10, lighten(nth($state,2), 10%) ) var( --porto-#{nth($state,1)}-color, #{nth($state,2)} );
+            background-color: var( --porto-#{nth($state,1)}-light-7, lighten(nth($state,2), 7%) );
+            color: var( --porto-#{nth($state,1)}-color-inverse, #{nth($state,3)} );
+        }
+
+        &.dropdown-toggle {
+            border-#{$left}-color: var( --porto-#{nth($state,1)}-dark-5, darken(nth($state,2), 5%) );
+        }
+    }
+}
+
+/* disabled */
+.button[disabled],
+[type="button"][disabled],
+[type="submit"][disabled],
+fieldset[disabled] .button
+fieldset[disabled] [type="button"],
+fieldset[disabled] [type="submit"] {
+    opacity: .65;
+    pointer-events: none
+}
+
+/* Border Buttons */
+.btn-borders {
+    border-width: 2px;
+    background: transparent;
+    padding: 0.483rem 1.0625rem;
+}
+
+@each $state in $states {
+    .btn-borders {
+        &.btn-#{nth($state,1)} {
+            border-color: #{nth($state,2)};
+            color: #{nth($state,2)};
+            &:hover, &:focus, &:active {
+                background-color: #{nth($state,2)};
+                border-color: #{nth($state,2)} !important;
+                color: #{nth($state,3)};
+            }
+        }
+    }
+}
+
+@each $state in $color_states {
+    .btn-borders {
+        &.btn-#{nth($state,1)} {
+            border-color: var( --porto-#{nth($state,1)}-color, #{nth($state,2)} );
+            color: var( --porto-#{nth($state,1)}-color, #{nth($state,2)} );
+            &:hover, &:focus, &:active {
+                background-color: var( --porto-#{nth($state,1)}-color, #{nth($state,2)} );
+                border-color: var( --porto-#{nth($state,1)}-color, #{nth($state,2)} ) !important;
+                color: var( --porto-#{nth($state,1)}-color-inverse, #{nth($state,3)} );
+            }
+        }
+    }
+}
+
+/* Border Buttons - Sizes */
+.btn-borders.btn-xl {
+    padding: 0.75rem 2rem;
+}
+.btn-borders.btn-lg, .btn-group-lg > .btn-borders.btn {
+    padding: 0.45rem 1rem;
+}
+
+.btn-borders.btn-sm, .btn-group-sm > .btn-borders.btn {
+    border-width: 2px;
+    padding: 0.25rem 0.65rem;
+}
+
+.btn-borders.btn-xs, .btn-group-xs > .btn-borders.btn {
+    padding: 0.15rem 0.5rem;
+    border-width: 1px;
+}
+
+/* 3D Buttons */
+.btn-3d {
+    border-bottom-width: 3px;
+}
+
+.btn-3d.btn-sm, .btn-group-sm > .btn-3d.btn {
+    border-width: 2px;
+}
+
+.btn-3d.btn-xs, .btn-group-xs > .btn-3d.btn {
+    border-width: 1px;
+}
+
+.btn-flat {
+    display: inline-block;
+}
+
+.btn-modern {
+    text-transform: uppercase;
+    font-size: .75rem;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    &.btn-xl {
+        font-size: 1rem;
+        padding: 1.25em 3.125em;
+    }
+    &.btn-lg {
+        font-size: .875rem;
+        padding: 1rem 2.25rem;
+    }
+    &.btn-sm {
+        font-size: .7rem;
+        padding: .7rem 1.4rem
+    }
+    &.btn-xs {
+        font-size: .625rem;
+        padding: .6rem 1.2rem;
+    }
+}
+
+.box-shadow-2 .btn, .btn.box-shadow-2 {
+    box-shadow: 0 15px 30px -15px rgba(0, 0, 0, .45);
+}
+
+/* Arrow Button */
+.btn-arrow {
+    font-weight: 600;
+    &:not(.btn-borders) {
+        background: none !important;
+        border: none !important;
+    }
+    &:focus {
+        box-shadow: none !important;
+    }
+
+    .icon-wrapper {
+        background-color: #ccc;
+        display: inline-block;
+        height: 25px;
+        line-height: 24px;
+        width: 24px;
+        border-radius: 50%;
+        margin-#{$left}: 8px;
+        transition: .1s linear;
+    }
+    &:hover .icon-wrapper {
+        transform: translateX(5px);
+    }
+    i {
+        color: $color-white;
+        font-size: 8px;
+        top: -1px;
+        position: relative;
+    }
+}
+@each $state in $color_states {
+    .btn-arrow.btn-#{nth($state,1)} {
+        color: var( --porto-#{nth($state,1)}-color, #{nth($state,2)} );
+        .icon-wrapper {
+            background-color: var( --porto-#{nth($state,1)}-color, #{nth($state,2)} );
+            box-shadow: 2px 3px 18px -3px var( --porto-#{nth($state,1)}-color, #{nth($state,2)} );
+        }
+    }
+}
+
+.btn.btn-full-rounded {
+    border-radius: 2em;
+}
+
+.btn-gray {
+    background-color: #eee;
+    color: #222529;
+    &:hover {
+        background-color: #f4f4f4;
+        color: #222529;
+    }
+}
+
+/* Hover Icon effects */
+@keyframes btnArrowEffect1 {
+    0% { transform: translateX(0);}
+    51% { transform: translateX(20px); opacity: 1; }
+    52% { opacity: 0; transform: translateX(-20px); }
+    53% { opacity: 0; }
+    54% { opacity: 1; }
+    100% { transform: translateX(0); }
+}
+.btn {
+    i {
+        display: inline-block;
+        transition: transform .25s linear;
+        line-height: 1;
+    }
+}
+.btn.hover-icon-zoom:hover i,
+.porto-u-icons.hover-icon-zoom .porto-icon:hover {
+    transform: scale(1.15, 1.15);
+}
+.btn.hover-icon-up:hover i,
+.porto-u-icons.hover-icon-up .porto-icon:hover {
+    transform: translateY(-4px);
+}
+.btn.hover-icon-left:hover i,
+.porto-u-icons.hover-icon-left .porto-icon:hover {
+    transform: translateX(-6px);
+}
+.btn.hover-icon-right:hover i,
+.porto-u-icons.hover-icon-right .porto-icon:hover {
+    transform: translateX(6px);
+}
+.btn.hover-icon-pulse-left-right:hover i,
+.porto-u-icons.hover-icon-pulse-left-right .porto-icon:hover {
+    animation: btnArrowEffect1 ease-out .3s;
+}
+.btn.hover-icon-pulse-infnite:hover i,
+.porto-u-icons.hover-icon-pulse-infnite .porto-icon:hover {
+    left: auto !important;
+    animation: navItemArrow .6s linear infinite;
+}
+.btn.hover-icon-dash:hover i,
+.porto-u-icons.hover-icon-dash .porto-icon:hover {
+    animation: dashAnim ease-out .3s;
+}
+
+/* Hover Text effects */
+@keyframes btnMarqueeLeft {
+    100% {
+        transform: translateX(-200%);
+    }
+}
+@keyframes btnMarqueeUp {
+    100% {
+        transform: translateY(-200%);
+    }
+}
+@keyframes btnMarqueeDown {
+    100% {
+        transform: translateY(200%);
+    }
+}
+.btn-hover-text-effect {
+    overflow: hidden;
+    .btn-text {
+        transition: opacity .65s, transform .85s;
+        &:after {
+            content: attr(data-text);
+            position: absolute;
+            white-space: nowrap;
+            top: 50%;
+            opacity: 0;
+            transition: inherit;
+        }
+    }
+    &:hover .btn-text:after {
+        opacity: 1;
+    }
+}
+.btn-text {
+    display: inline-block;
+    position: relative;
+    z-index: 3;
+}
+.btn {
+    &.hover-text-switch-left {
+        .btn-text:after {
+            left: 100%;
+            transform: translate(50%, -50%);
+        }
+        &:hover .btn-text {
+            transform: translateX(-200%);
+            &:after {
+                transform: translate(100%, -50%);
+            }
+        }
+    }
+
+    &.hover-text-switch-up {
+        .btn-text:after {
+            left: 50%;
+            transform: translate(-50%, 100%);
+        }
+        &:hover .btn-text {
+            transform: translateY(-200%);
+            &:after {
+                transform: translate(-50%, 150%);
+            }
+        }
+    }
+
+    &.hover-text-marquee-left {
+        .btn-text:after {
+            left: 100%;
+            transform: translate(100%, -50%);
+        }
+
+        &:hover .btn-text {
+            animation: btnMarqueeLeft 2s linear infinite;
+        }
+    }
+
+    &.hover-text-marquee-up {
+        .btn-text:after {
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%, 100%);
+        }
+
+        &:hover .btn-text {
+            animation: btnMarqueeUp 1s linear infinite;
+        }
+    }
+
+    &.hover-text-marquee-down {
+        .btn-text:after {
+            top: -100%;
+            left: 50%;
+            transform: translate(-50%, -100%);
+        }
+
+        &:hover .btn-text {
+            animation: btnMarqueeDown 1s linear infinite;
+        }
+    }
+}

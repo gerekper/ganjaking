@@ -83,15 +83,22 @@ if ( 'image' == $modal_on && $btn_img ) {
 	$html .= '<div data-trigger-id="' . esc_attr( $trigger_id ) . '" data-type="' . $content_type . '" class="porto-modal-trigger porto-onload" data-overlay-class="' . esc_attr( $modal_style ) . '"' . ( $modal_onload_timeout ? ' data-timeout="' . ( (float) $modal_onload_timeout * 1000 ) . '"' : '' ) . '></div>';
 } elseif ( 'custom-selector' == $modal_on && $modal_on_selector ) {
 	$html .= '<script>
-	(function($){
-		$(document).ready(function(){
-			var selector = "' . esc_js( $modal_on_selector ) . '";
-			$(selector).addClass("porto-modal-trigger");
-			$(selector).attr("data-trigger-id", "' . esc_js( $trigger_id ) . '");
-			$(selector).attr("data-type", "' . esc_js( $content_type ) . '");
-			$(selector).attr("data-overlay-class", "' . esc_js( $modal_style ) . '");
-		});
-	})(jQuery);
+	( function() {
+		var porto_init_modal = function() {
+			var selector = "' . esc_js( $modal_on_selector ) . '",
+				$selector = jQuery(selector);
+			$selector.addClass("porto-modal-trigger");
+			$selector.attr("data-trigger-id", "' . esc_js( $trigger_id ) . '");
+			$selector.attr("data-type", "' . esc_js( $content_type ) . '");
+			$selector.attr("data-overlay-class", "' . esc_js( $modal_style ) . '");
+		};
+
+		if ( window.jQuery ) {
+			porto_init_modal();
+		} else {
+			document.addEventListener( "DOMContentLoaded", porto_init_modal );
+		}
+	} )();
 	</script>';
 }
 

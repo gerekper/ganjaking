@@ -54,7 +54,7 @@ $rand             = '';
 $length           = 32;
 for ( $n = 1; $n < $length; $n++ ) {
 	$which_character = rand( 0, strlen( $valid_characters ) - 1 );
-	$rand           .= $valid_characters{$which_character};
+	$rand           .= substr( $valid_characters, $which_character, 1 );
 }
 
 switch ( $lightbox_type ) {

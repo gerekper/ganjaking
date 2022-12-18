@@ -49,7 +49,7 @@ if ( 'nav-top' == $atts['location'] ) {
 	}
 
 	if ( ! empty( $atts['hover_color'] ) ) {
-		echo '#header .top-links > li.menu-item:hover > a {color:' . esc_html( $atts['hover_color'] ) . '}';
+		echo ' #header .top-links > li.menu-item.has-sub:hover > a, #header .top-links > li.menu-item:hover > a {color:' . esc_html( $atts['hover_color'] ) . '}';
 	}
 } elseif ( 'main-toggle-menu' == $atts['location'] ) {
 	if ( ! empty( $atts['font_size'] ) || ! empty( $atts['font_weight'] ) || ! empty( $atts['text_transform'] ) || ! empty( $atts['line_height'] ) || ! empty( $atts['letter_spacing'] ) || ! empty( $atts['padding'] ) || ! empty( $atts['color'] ) || ! empty( $atts['bgcolor'] ) ) {
@@ -92,10 +92,12 @@ if ( 'nav-top' == $atts['location'] ) {
 		if ( ! empty( $atts['color'] ) ) {
 			echo 'color:' . esc_html( $atts['color'] ) . ';';
 		}
-		if ( ! empty( $atts['bgcolor'] ) ) {
-			echo 'background-color:' . esc_html( $atts['bgcolor'] );
-		}
 		echo '}';
+		if ( ! empty( $atts['bgcolor'] ) ) {
+			echo '#main-toggle-menu .menu-title, #main-toggle-menu.show-always .menu-title {';
+			echo 'background-color:' . esc_html( $atts['bgcolor'] );
+			echo '}';
+		}
 	}
 
 	if ( ! empty( $atts['popup_width'] ) ) {

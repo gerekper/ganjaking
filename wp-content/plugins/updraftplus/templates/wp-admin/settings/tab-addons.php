@@ -324,15 +324,25 @@ if ($updraftplus_checkout_embed) {
 		<h2><?php _e('More great plugins by the Updraft Team', 'updraftplus'); ?></h2>
 		<div class="updraft-more-plugins">
 			<div class="udp-box">
-				<h3><img src="<?php echo UPDRAFTPLUS_URL; ?>/images/other-plugins/updraft-central.png" alt="UpdraftCentral"></h3>
-				<p><?php _e('Manage multiple WordPress sites from one central dashboard', 'updraftplus'); ?></p>
-				<a aria-label="UpdraftCentral. <?php echo __('Manage multiple WordPress sites from one central dashboard', 'updraftplus').'. '.__('Find out more', 'updraftplus'); ?>" target="_blank" href="https://updraftcentral.com/?utm_source=updraftplus&utm_medium=cross-sell&utm_campaign=addons-tab"><?php _e('Find out more', 'updraftplus'); ?></a>
+				<img src="<?php echo UPDRAFTPLUS_URL.'/images/other-plugins/wp-optimize.png'; ?>" alt="WP-Optimize">
+				<p><?php _e('Makes your site fast and efficient. It cleans the database, compresses images and caches pages for ultimate speed.', 'updraftplus'); ?></p>
+				<a aria-label="<?php echo 'WP-Optimize. '.__('Makes your site fast and efficient. It cleans the database, compresses images and caches pages for ultimate speed.', 'updraftplus').' '.__('Find out more', 'updraftplus'); ?>" target="_blank" href="https://getwpo.com/?utm_source=updraftplus&utm_medium=cross-sell&utm_campaign=addons-tab"><?php _e('Find out more', 'updraftplus'); ?></a>
 			</div>
 			<div class="udp-box">
-				<h3><img src="<?php echo UPDRAFTPLUS_URL; ?>/images/other-plugins/wp-optimize.png" alt="WP Optimize"></h3>
-				<p><?php _e('Keep your database fast and efficient', 'updraftplus'); ?></p>
-				<a aria-label="WP Optimize. <?php echo __('Keep your database fast and efficient', 'updraftplus').'. '.__('Find out more', 'updraftplus'); ?>" target="_blank" href="https://getwpo.com/?utm_source=updraftplus&utm_medium=cross-sell&utm_campaign=addons-tab"><?php _e('Find out more', 'updraftplus'); ?></a>
+				<img src="<?php echo UPDRAFTPLUS_URL.'/images/other-plugins/aios.png'; ?>" alt="All In One WP Security & Firewall">
+				<p><?php _e('A comprehensive and easy to use security plugin and site scanning service.', 'updraftplus'); ?></p>
+				<a aria-label="<?php echo htmlspecialchars('All In One WP Security & Firewall. ').__('A comprehensive and easy to use security plugin and site scanning service.', 'updraftplus').' '.__('Find out more', 'updraftplus'); ?>" target="_blank" href="https://aiosplugin.com/"><?php _e('Find out more', 'updraftplus'); ?></a>
+			</div>
+			<div class="udp-box">
+				<img src="<?php echo UPDRAFTPLUS_URL.'/images/other-plugins/updraft-central.png'; ?>" alt="UpdraftCentral">
+				<p><?php _e('Highly efficient way to manage, optimize, update and backup multiple websites from one place.', 'updraftplus'); ?></p>
+				<a aria-label="<?php echo 'UpdraftCentral. '.__('Highly efficient way to manage, optimize, update and backup multiple websites from one place.', 'updraftplus').' '.__('Find out more', 'updraftplus'); ?>" target="_blank" href="https://updraftplus.com/updraftcentral/?utm_source=updraftplus&utm_medium=cross-sell&utm_campaign=addons-tab"><?php _e('Find out more', 'updraftplus'); ?></a>
+			</div>
+			<div class="udp-box">
+				<img src="<?php echo UPDRAFTPLUS_URL.'/images/other-plugins/easy-updates-manager-logo.png'; ?>" alt="EasyUpdatesManager">
+				<p><?php _e('Keeps your WordPress site up to date and bug free.', 'updraftplus'); ?></p>
+				<a aria-label="<?php echo 'EasyUpdatesManager. '.__('Keeps your WordPress site up to date and bug free.', 'updraftplus').' '.__('Find out more', 'updraftplus'); ?>" target="_blank" href="https://easyupdatesmanager.com/"><?php _e('Find out more', 'updraftplus'); ?></a>
 			</div>
 		</div>
-	</section>	
+	</section>
 </div>

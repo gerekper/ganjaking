@@ -1,0 +1,25 @@
+@for $i from 1 through 12 {
+    .vc_col-xl-#{$i} {
+        width: percentage( $i / 12 );
+    }
+    .vc_col-xl-offset-#{$i} {
+        margin-left: percentage( $i / 12 );
+    }
+}
+
+@for $i from 1 through 5 {
+    .vc_col-xl-#{$i}\/5 {
+        width: percentage( $i / 5 );
+    }
+    .vc_col-xl-offset-#{$i}\/5 {
+        margin-left: percentage( $i / 5 );
+    }
+}
+
+.compose-mode .vc_hidden-lg, .view-mode .vc_hidden-lg {
+    opacity: 1;
+}
+
+.compose-mode .vc_hidden-xl, .view-mode .vc_hidden-xl {
+    opacity: .5;
+}

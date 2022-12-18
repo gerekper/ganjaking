@@ -1,0 +1,86 @@
+
+// adsense container
+body {
+    // banner container
+    .banner-container {
+        strong {
+            font-weight: 600;
+        }
+        small {
+            font-size: 11px;
+            display: block;
+        }
+        .porto-ibanner-title {
+            line-height: 1;
+            text-align: $left;
+        }
+    }
+    .banner-title-bottom {
+        .porto-ibanner-title {
+            #{$left}: 0;
+        }
+    }
+    .banner-title-top {
+        .porto-ibanner-title {
+            top: 0;
+            #{$left}: 0;
+            small {
+                font-size: 8px;
+            }
+        }
+    }
+}
+
+/* Highlighted Word */
+@keyframes pencilAnimation {
+    from {
+        width: 0;
+    }
+    to {
+        width: 74px;
+    }
+}
+.highlighted-word {
+    position: relative;
+}
+.highlighted-word.highlighted-word-animation-1 {
+    &:after {
+        content: '';
+        position: absolute;
+        right: calc(100% - 74px);
+        bottom: -6px;
+        background: url(../images/pencil-blue-line.png);
+        width: 0;
+        height: 15px;
+        animation: pencilAnimation .5s ease 2s;
+        animation-fill-mode: forwards;
+        overflow: hidden;
+        transform: rotate(180deg);
+    }
+    &.light:after {
+        filter: brightness(0) invert(1);
+    }
+}
+
+// newsletter wrap
+.newsletter-wrap input[type="checkbox"] {
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    border: 1px solid #ccc; 
+    width: 1.25rem; 
+    height: 1.25rem; 
+    margin-top: -0.2rem; 
+    margin-left: 1px; 
+    outline: none; 
+    border-radius: 3px; 
+    color: #555;
+    &:checked:before {
+        content: "\f00c"; 
+        font-family: "Font Awesome 5 Free"; 
+        font-weight: 900;     
+        display: flex;
+        align-items: center;
+        line-height: 20px;
+        justify-content: center; 
+    }
+}

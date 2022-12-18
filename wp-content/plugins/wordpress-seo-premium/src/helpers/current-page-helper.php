@@ -42,7 +42,8 @@ class Current_Page_Helper {
 	 * @return string The post type.
 	 */
 	public function get_current_post_type() {
-		$post = \filter_input( \INPUT_GET, 'post', \FILTER_SANITIZE_STRING );
+		// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- This deprecation will be addressed later.
+		$post = \filter_input( \INPUT_GET, 'post', @\FILTER_SANITIZE_STRING );
 
 		if ( $post ) {
 			return \get_post_type( \get_post( $post ) );
@@ -51,7 +52,7 @@ class Current_Page_Helper {
 		return \filter_input(
 			\INPUT_GET,
 			'post_type',
-			\FILTER_SANITIZE_STRING,
+			@\FILTER_SANITIZE_STRING, // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- This deprecation will be addressed later.
 			[
 				'options' => [
 					'default' => 'post',
@@ -77,14 +78,14 @@ class Current_Page_Helper {
 			return (string) \filter_input(
 				\INPUT_POST,
 				'taxonomy',
-				\FILTER_SANITIZE_STRING
+				@\FILTER_SANITIZE_STRING // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- This deprecation will be addressed later.
 			);
 		}
 
 		return (string) \filter_input(
 			\INPUT_GET,
 			'taxonomy',
-			\FILTER_SANITIZE_STRING
+			@\FILTER_SANITIZE_STRING // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- This deprecation will be addressed later.
 		);
 	}
 }

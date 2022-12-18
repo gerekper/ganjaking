@@ -3,6 +3,7 @@
 namespace Yoast\WP\SEO\Premium\Integrations\Third_Party;
 
 use WP_Post;
+use WPSEO_Admin_Asset_Manager;
 use WPSEO_Capability_Utils;
 use WPSEO_Custom_Fields_Plugin;
 use WPSEO_Language_Utils;
@@ -19,10 +20,8 @@ use WPSEO_Utils;
 use Yoast\WP\SEO\Conditionals\Third_Party\Elementor_Edit_Conditional;
 use Yoast\WP\SEO\Integrations\Integration_Interface;
 use Yoast\WP\SEO\Premium\Helpers\Prominent_Words_Helper;
-use Yoast\WP\SEO\Premium\Initializers\Inclusive_Language_Analysis_Initializer;
 use Yoast\WP\SEO\Premium\Integrations\Admin\Prominent_Words\Indexing_Integration;
 use Yoast\WP\SEO\Premium\Integrations\Admin\Replacement_Variables_Integration;
-use WPSEO_Admin_Asset_Manager;
 
 /**
  * Elementor integration class for Yoast SEO Premium.
@@ -144,9 +143,8 @@ class Elementor_Premium implements Integration_Interface {
 	 * @return void
 	 */
 	public function send_data_to_assets() {
-		$analysis_seo                = new WPSEO_Metabox_Analysis_SEO();
-		$analysis_inclusive_language = \YoastSEOPremium()->classes->get( Inclusive_Language_Analysis_Initializer::class );
-		$assets_manager              = new WPSEO_Admin_Asset_Manager();
+		$analysis_seo   = new WPSEO_Metabox_Analysis_SEO();
+		$assets_manager = new WPSEO_Admin_Asset_Manager();
 
 		$data = [
 			'restApi'                         => $this->get_rest_api_config(),
@@ -155,23 +153,18 @@ class Elementor_Premium implements Integration_Interface {
 			'settingsPageUrl'                 => \admin_url( 'admin.php?page=wpseo_dashboard#top#features' ),
 			'integrationsTabURL'              => \admin_url( 'admin.php?page=wpseo_integrations' ),
 			'commonsScriptUrl'                => \plugins_url(
-				'assets/js/dist/commons-premium-' . $assets_manager->flatten_version( WPSEO_PREMIUM_VERSION ) . WPSEO_CSSJS_SUFFIX . '.js',
-				WPSEO_PREMIUM_FILE
+				'assets/js/dist/commons-premium-' . $assets_manager->flatten_version( \WPSEO_PREMIUM_VERSION ) . \WPSEO_CSSJS_SUFFIX . '.js',
+				\WPSEO_PREMIUM_FILE
 			),
-			'inclusiveLanguageScriptUrl'      => \plugins_url(
-				'assets/js/dist/register-inclusive-language-' . $assets_manager->flatten_version( WPSEO_PREMIUM_VERSION ) . WPSEO_CSSJS_SUFFIX . '.js',
-				WPSEO_PREMIUM_FILE
-			),
-			'inclusiveLanguageAnalysisActive' => $analysis_inclusive_language->is_enabled(),
 			'premiumAssessmentsScriptUrl'     => \plugins_url(
-				'assets/js/dist/register-premium-assessments-' . $assets_manager->flatten_version( WPSEO_PREMIUM_VERSION ) . WPSEO_CSSJS_SUFFIX . '.js',
-				WPSEO_PREMIUM_FILE
+				'assets/js/dist/register-premium-assessments-' . $assets_manager->flatten_version( \WPSEO_PREMIUM_VERSION ) . \WPSEO_CSSJS_SUFFIX . '.js',
+				\WPSEO_PREMIUM_FILE
 			),
 		];
-		if ( \defined( 'YOAST_SEO_TEXT_FORMALITY' ) && YOAST_SEO_TEXT_FORMALITY === true ) {
+		if ( \defined( 'YOAST_SEO_TEXT_FORMALITY' ) && \YOAST_SEO_TEXT_FORMALITY === true ) {
 			$data['textFormalityScriptUrl'] = \plugins_url(
-				'assets/js/dist/register-text-formality-' . $assets_manager->flatten_version( WPSEO_PREMIUM_VERSION ) . WPSEO_CSSJS_SUFFIX . '.js',
-				WPSEO_PREMIUM_FILE
+				'assets/js/dist/register-text-formality-' . $assets_manager->flatten_version( \WPSEO_PREMIUM_VERSION ) . \WPSEO_CSSJS_SUFFIX . '.js',
+				\WPSEO_PREMIUM_FILE
 			);
 		}
 		$data = \array_merge( $data, $this->get_post_metabox_config() );
@@ -290,7 +283,8 @@ class Elementor_Premium implements Integration_Interface {
 	 * @return string The post type.
 	 */
 	protected function get_current_post_type() {
-		$post = \filter_input( \INPUT_GET, 'post', \FILTER_SANITIZE_STRING );
+		// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- This deprecation will be addressed later.
+		$post = \filter_input( \INPUT_GET, 'post', @\FILTER_SANITIZE_STRING );
 
 		if ( $post ) {
 			return \get_post_type( \get_post( $post ) );
@@ -299,7 +293,7 @@ class Elementor_Premium implements Integration_Interface {
 		return \filter_input(
 			\INPUT_GET,
 			'post_type',
-			\FILTER_SANITIZE_STRING,
+			@\FILTER_SANITIZE_STRING, // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- This deprecation will be addressed later.
 			[
 				'options' => [
 					'default' => 'post',

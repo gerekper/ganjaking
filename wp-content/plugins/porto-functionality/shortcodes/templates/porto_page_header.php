@@ -3,16 +3,22 @@ extract(
 	shortcode_atts(
 		array(
 			'breadcrumbs_type'         => '',
+			'hide_page_title'          => '',
 			'page_title'               => '',
 			'page_sub_title'           => '',
 			'hide_breadcrumb'          => '',
+			'not_render_home'          => '',
+			'bc_margin_top'            => '',
+			'bc_margin_bottom'         => '',
 			'breadcrumbs_text_color'   => '',
 			'breadcrumbs_link_color'   => '',
 			'page_title_font_size'     => '',
 			'page_title_color'         => '',
 			'page_title_margin_bottom' => '',
 			'page_subtitle_color'      => '',
+			'delimiter_font_size'      => '',
 			'animation_type'           => '',
+			'page_builder'             => 'bakery',
 			'animation_duration'       => 1000,
 			'animation_delay'          => 0,
 			'el_class'                 => '',
@@ -20,6 +26,9 @@ extract(
 		$atts
 	)
 );
+if ( $not_render_home && is_front_page() ) {
+	return;
+}
 
 if ( empty( $breadcrumbs_type ) ) {
 	global $porto_settings;
@@ -38,33 +47,35 @@ if ( $animation_type ) {
 	}
 }
 echo '>';
+	ob_start();
 	echo '<style>';
 		echo '.page-top { background: none; border-bottom: none; } .page-top .page-title:not(.b-none):after { display: none; }';
-
-if ( $breadcrumbs_text_color ) {
-	echo '.page-top .breadcrumbs-wrap { color: ' . esc_html( $breadcrumbs_text_color ) . ' }';
-}
-if ( $breadcrumbs_link_color ) {
-	echo '.page-top .breadcrumbs-wrap a { color: ' . esc_html( $breadcrumbs_link_color ) . ' }';
-}
-if ( $page_title_color || $page_title_font_size || $page_title_margin_bottom ) {
-	echo '.page-top .page-title {';
-	if ( $page_title_color ) {
-		echo 'color: ' . esc_html( $page_title_color ) . ';';
+if ( 'bakery' === $page_builder ) {
+	if ( $breadcrumbs_text_color ) {
+		echo '.page-top .breadcrumbs-wrap { color: ' . esc_html( $breadcrumbs_text_color ) . '}';
 	}
-	if ( $page_title_font_size ) {
-		echo 'font-size: ' . esc_html( $page_title_font_size ) . ( is_numeric( $page_title_font_size ) ? 'px' : '' ) . ';';
+	if ( $breadcrumbs_link_color ) {
+		echo '.page-top .breadcrumbs-wrap a { color: ' . esc_html( $breadcrumbs_link_color ) . ' }';
 	}
-	if ( $page_title_margin_bottom ) {
-		echo 'margin-bottom: ' . esc_html( $page_title_margin_bottom ) . ( is_numeric( $page_title_margin_bottom ) ? 'px' : '' ) . ';';
+	if ( $page_title_color || $page_title_font_size || $page_title_margin_bottom ) {
+		echo '.page-top .page-title {';
+		if ( $page_title_color ) {
+			echo 'color: ' . esc_html( $page_title_color ) . ';';
+		}
+		if ( $page_title_font_size && ! strpos( $page_title_font_size, 'family' ) ) {
+			echo 'font-size: ' . esc_html( $page_title_font_size ) . ( is_numeric( $page_title_font_size ) ? 'px' : '' ) . ';';
+		}
+		if ( $page_title_margin_bottom ) {
+			echo 'margin-bottom: ' . esc_html( $page_title_margin_bottom ) . ( is_numeric( $page_title_margin_bottom ) ? 'px' : '' ) . ';';
+		}
+		echo '}';
 	}
-	echo '}';
-}
-if ( $page_subtitle_color ) {
-	echo '.page-top .page-sub-title { color: ' . esc_html( $page_subtitle_color ) . ' }';
+	if ( $page_subtitle_color ) {
+		echo '.page-top .page-sub-title { color: ' . esc_html( $page_subtitle_color ) . ' }';
+	}
 }
 	echo '</style>';
-
+	porto_filter_inline_css( ob_get_clean() );
 	$args = array();
 if ( $page_title ) {
 	$args['porto_shortcode_title'] = $page_title;
@@ -76,6 +87,11 @@ if ( $hide_breadcrumb ) {
 	$args['hide_breadcrumb'] = true;
 }
 	$args['is_shortcode'] = true;
+
+if ( ! empty( $hide_page_title ) ) {
+	$args['hide_page_title'] = true;
+}
+
 	porto_get_template_part( 'page_header/page_header_' . $breadcrumbs_type, null, $args );
 
 echo '</div>';

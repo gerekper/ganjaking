@@ -77,5 +77,8 @@ if ( ! empty( $atts['icon_hover_color'] ) || ! empty( $atts['icon_hover_color_bg
 	if ( ! empty( $atts['icon_hover_color_bg'] ) ) {
 		echo 'background-color:' . esc_html( $atts['icon_hover_color_bg'] ) . ';';
 	}
+	if ( ! empty( $atts['icon_hover_color_border'] ) ) {
+		echo 'border-color:' . esc_html( $atts['icon_hover_color_border'] ) . ';';
+	}
 	echo '}';
 }

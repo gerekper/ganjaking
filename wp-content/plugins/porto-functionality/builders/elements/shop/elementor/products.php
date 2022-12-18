@@ -26,7 +26,7 @@ class Porto_Elementor_SB_Products_Widget extends \Elementor\Widget_Base {
 	}
 
 	public function get_keywords() {
-		return array( 'products', 'shop', 'woocommerce' );
+		return array( 'products', 'shop', 'woocommerce', 'archive' );
 	}
 
 	public function get_icon() {
@@ -41,7 +41,11 @@ class Porto_Elementor_SB_Products_Widget extends \Elementor\Widget_Base {
 		}
 	}
 
-	protected function _register_controls() {
+	public function get_custom_help_url() {
+		return 'https://www.portotheme.com/wordpress/porto/documentation/shop-builder-elements/';
+	}
+
+	protected function register_controls() {
 		$order_by_values  = array_slice( porto_vc_woo_order_by(), 1 );
 		$order_way_values = array_slice( porto_vc_woo_order_way(), 1 );
 		$slider_options   = porto_update_vc_options_to_elementor( porto_vc_product_slider_fields() );
@@ -60,8 +64,9 @@ class Porto_Elementor_SB_Products_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'notice_skin',
 			array(
-				'type' => Controls_Manager::RAW_HTML,
-				'raw' => __( 'To change the Products Archive’s layout, go to Porto / Theme Options / WooCommerce / Product Archives.', 'porto-functionality' ),
+				'type'            => Controls_Manager::RAW_HTML,
+				/* translators: starting and ending bold tags */
+				'raw'             => sprintf( esc_html__( 'To change the Products Archive’s layout, go to %1$sPorto / Theme Options / WooCommerce / Product Archives%2$s.', 'porto-functionality' ), '<b>', '</b>' ),
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 			)
 		);
@@ -69,8 +74,8 @@ class Porto_Elementor_SB_Products_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'notice_wrong_data',
 			array(
-				'type' => Controls_Manager::RAW_HTML,
-				'raw' => __( 'The editor\'s preview might look different from the live site. Please check the frontend.', 'porto-functionality' ),
+				'type'            => Controls_Manager::RAW_HTML,
+				'raw'             => sprintf( esc_html__( 'This widget was deprecated in 6.3.0. Please use %1$sType Builder Archives%2$s widget instead.', 'porto-functionality' ), '<b>', '</b>' ),
 				'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 			)
 		);
@@ -113,17 +118,21 @@ class Porto_Elementor_SB_Products_Widget extends \Elementor\Widget_Base {
 		$this->add_control(
 			'spacing',
 			array(
-				'type'        => Controls_Manager::SLIDER,
-				'label'       => __( 'Column Spacing (px)', 'porto-functionality' ),
-				'description' => __( 'Leave blank if you use theme default value.', 'porto-functionality' ),
-				'range'       => array(
+				'type'               => Controls_Manager::SLIDER,
+				'label'              => __( 'Column Spacing (px)', 'porto-functionality' ),
+				'description'        => __( 'Leave blank if you use theme default value.', 'porto-functionality' ),
+				'range'              => array(
 					'px' => array(
 						'step' => 1,
 						'min'  => 0,
 						'max'  => 100,
 					),
 				),
-				'condition'   => array(
+				'frontend_available' => true,
+				'selectors'          => array(
+					'.elementor-element-{{ID}} .porto-products' => '--porto-el-spacing: {{SIZE}}px;',
+				),
+				'condition'          => array(
 					'view' => array( 'grid', 'creative', 'products-slider' ),
 				),
 			)
@@ -228,7 +237,11 @@ class Porto_Elementor_SB_Products_Widget extends \Elementor\Widget_Base {
 
 		foreach ( $slider_options as $key => $opt ) {
 			unset( $opt['condition']['view'] );
-			$this->add_control( $key, $opt );
+			if ( ! empty( $opt['responsive'] ) ) {
+				$this->add_responsive_control( $key, $opt );
+			} else {
+				$this->add_control( $key, $opt );
+			}
 		}
 
 		$this->end_controls_section();
@@ -246,7 +259,7 @@ class Porto_Elementor_SB_Products_Widget extends \Elementor\Widget_Base {
 			array(
 				'name'     => 'title_google_font_style',
 				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
-				'label'    => __( 'Product Title Typograhy', 'porto-functionality' ),
+				'label'    => __( 'Product Title Typography', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .woocommerce-loop-product__title',
 			)
 		);
@@ -267,7 +280,7 @@ class Porto_Elementor_SB_Products_Widget extends \Elementor\Widget_Base {
 			array(
 				'name'     => 'price_google_font_style',
 				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
-				'label'    => __( 'Price Typograhy', 'porto-functionality' ),
+				'label'    => __( 'Price Typography', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .price',
 			)
 		);

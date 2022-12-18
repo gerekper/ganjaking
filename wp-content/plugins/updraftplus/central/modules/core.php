@@ -437,7 +437,7 @@ class UpdraftCentral_Core_Commands extends UpdraftCentral_Commands {
 	 */
 	private function _load_ud_admin() {
 		if (!defined('UPDRAFTPLUS_DIR') || !is_file(UPDRAFTPLUS_DIR.'/admin.php')) return false;
-		include_once(UPDRAFTPLUS_DIR.'/admin.php');
+		updraft_try_include_file('admin.php', 'include_once');
 		global $updraftplus_admin;
 		return $updraftplus_admin;
 	}

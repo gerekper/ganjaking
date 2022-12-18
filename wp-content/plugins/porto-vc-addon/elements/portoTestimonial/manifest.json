@@ -1,0 +1,19 @@
+{
+	"elements": {
+		"portoTestimonial": {
+			"settings": {
+				"name": "Porto Testimonial",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-testimonial.jpg",
+				"metaDescription": "Add testimonials to your site to share what customers are saying about services."
+			}
+		}
+	},
+	"categories": {
+		"Testimonial": {
+			"elements": [
+				"portoTestimonial"
+			]
+		}
+	}
+}

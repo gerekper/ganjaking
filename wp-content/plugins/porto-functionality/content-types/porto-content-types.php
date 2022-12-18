@@ -12,6 +12,9 @@ class PortoContentTypesClass {
 		// Load Functions
 		include_once( PORTO_CONTENT_TYPES_LIB . 'general.php' );
 
+		// Add Custom Post Type
+		add_filter( 'available_posts_grid_post_types', array( $this, 'add_addon_post_types' ) );
+
 		// Register content types
 		add_action( 'init', array( $this, 'addFaqContentType' ) );
 		add_action( 'init', array( $this, 'addMemberContentType' ) );
@@ -159,6 +162,41 @@ class PortoContentTypesClass {
 		);
 
 		include_once( PORTO_CONTENT_TYPES_LIB . 'faq.php' );
+	}
+
+	/**
+	 * Register Custom Post Types
+	 *
+	 * @since 2.3.0
+	 * @access public
+	 */
+	function add_addon_post_types( $available_post_types ) {
+		$_post_types = get_post_types(
+			array(
+				'public'            => true,
+				'show_in_nav_menus' => true,
+			),
+			'objects',
+			'and'
+		);
+
+		$disabled_post_types = array( 'attachment', 'porto_builder', 'page', 'e-landing-page', 'product' );
+		foreach ( $disabled_post_types as $disabled ) {
+			unset( $_post_types[ $disabled ] );
+		}
+
+		$post_types = array();
+		foreach ( $_post_types as $key => $p_type ) {
+			$post_types[ $key ] = esc_html( $p_type->label );
+		}
+		$post_types = apply_filters( 'porto_posts_grid_post_types', $post_types );
+
+		foreach ( $post_types as $key => $value ) {
+			if ( ! in_array( $key, $available_post_types ) ) {
+				$available_post_types[] = $key;
+			}
+		}
+		return $available_post_types;
 	}
 
 	// Register member content type

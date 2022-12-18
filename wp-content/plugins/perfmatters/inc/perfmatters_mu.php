@@ -3,7 +3,7 @@
 Plugin Name: Perfmatters MU
 Plugin URI: https://perfmatters.io/
 Description: Perfmatters is a lightweight performance plugin developed to speed up your WordPress site.
-Version: 2.0.0
+Version: 2.0.2
 Author: forgemedia
 Author URI: https://forgemedia.io/
 License: GPLv2 or later
@@ -160,7 +160,15 @@ function perfmatters_mu_disable_plugins($plugins) {
                 //remove plugin from list
                 $m_array = preg_grep('/^' . $handle . '.*/', $plugins);
                 if(!empty($m_array) && is_array($m_array)) {
-                    unset($plugins[key($m_array)]);
+                    if(count($m_array) > 1) {
+                        $single_array = preg_grep('/' . $handle . '\.php/', $m_array);
+                    }
+                    if(!empty($single_array)) {
+                        unset($plugins[key($single_array)]);
+                    }
+                    else {
+                        unset($plugins[key($m_array)]);
+                    }
                 }
             }
         }
@@ -427,6 +435,10 @@ function perfmatters_url_to_postid($url) {
             $post_types = array();
             foreach ($rewrite as $key => $value) {
 
+                if(!is_string($value)) {
+                    continue;
+                }
+
                 if(preg_match('/post_type=([^&]+)/i', $value, $matched)){
 
                     if(isset($matched[1]) && !in_array($matched[1], $post_types)){
@@ -525,20 +537,33 @@ function perfmatters_url_to_postid($url) {
 
                     foreach ($rewrite as $key => $value) {
 
-                        if(preg_match('/\?([^&]+)=([^&]+)/i', $value, $matched)){
+                        if(!is_string($value)) {
+                            continue;
+                        }
 
-                            if(isset($matched[1]) && !in_array($matched[1], $post_types) && array_key_exists($matched[1], $query_vars)){
+                        if(preg_match('/\?([^&]+)=([^&]+)/i', $value, $matched)) {
 
-                                $post_types[] = $matched[1];
+                            if(isset($matched[1]) && !in_array($matched[1], $post_types)) {
 
-                                $args = array(
-                                        'name'      => $query_vars[$matched[1]],
-                                        'post_type' => $matched[1],
-                                        'showposts' => 1,
-                                    );
+                                if(array_key_exists($matched[1], $query_vars)) {
+                                    $arg_name = $query_vars[$matched[1]];
+                                }
+                                elseif(!empty($query_vars['name'])) {
+                                    $arg_name = $query_vars['name'];
+                                }
 
-                                if ( $post = get_posts( $args ) ) {
-                                    return $post[0]->ID;
+                                if(!empty($arg_name)) {
+                                    $post_types[] = $matched[1];
+
+                                    $args = array(
+                                            'name'      => $arg_name,
+                                            'post_type' => $matched[1],
+                                            'showposts' => 1,
+                                        );
+
+                                    if ( $post = get_posts( $args ) ) {
+                                        return $post[0]->ID;
+                                    }
                                 }
                             }
                         }

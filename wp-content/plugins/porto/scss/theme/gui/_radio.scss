@@ -1,0 +1,100 @@
+/*
+    1. Porto Checkbox
+    2. Porto Radio
+*/
+.porto-checkbox,
+.porto-radio {
+    position: relative;
+    display: block;
+    min-height: 1.5rem;
+    padding-left: 1.6rem;
+    vertical-align: middle !important;
+    &:focus {
+        outline: none;
+    }
+    .porto-control-label {
+        position: static;
+        margin-bottom: 0;
+        font-size: 12px;
+        &::before, &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 20px;
+            height: 20px; 
+            margin-top: -10px
+        }
+    }
+    .porto-control-input {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+    }
+    &.porto-control-disable {
+        padding-left: 0;
+        .porto-control-label::before,
+        .porto-control-label::after {
+            content: none;
+        }
+    }
+}
+
+.porto-checkbox {
+    .porto-control-label {
+        &::before {
+            pointer-events: none;
+            user-select: none;
+            background-color: #ffffff;
+            border: 1px solid #c2c0ca;
+        }
+        &::after {
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 50% 50%;
+            opacity: 0;
+            transition: opacity .3s;
+        }
+    }
+    .porto-control-input:checked {
+        & ~ .porto-control-label {
+            &::after {
+                background-image: url(../images/custom-checkbox.svg);
+                opacity: 1;
+            }
+            &::before {
+                background-color: transparent;
+            }
+        }
+    }
+}
+
+.porto-radio {
+    padding-left: 1.8rem;
+    .porto-control-label {
+        font-size: 13px;
+        &::before {
+            left: 0;
+            pointer-events: none;
+            user-select: none;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+        }
+        &::after {
+            left: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            background-color: var(--porto-primary-color);
+            opacity: 0;
+            transition: opacity .3s;
+            margin-top: -6px
+        }
+    }
+    .porto-control-input:checked {
+        & ~ .porto-control-label::after {
+            opacity: 1;
+        }
+    }
+}

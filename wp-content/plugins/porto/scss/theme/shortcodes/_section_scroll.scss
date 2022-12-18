@@ -1,0 +1,78 @@
+.section-scroll-dots-navigation {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 50%;
+    #{$right}: 30px;
+    border-radius: 35px;
+    padding: 9.6px;
+    padding: 0.6rem;
+    z-index: 10;
+    -webkit-transform: translate3d(0, -50%, 0);
+    transform: translate3d(0, -50%, 0);
+
+    > ul > li {
+        position: relative;
+        margin-bottom: 4.8px;
+        margin-bottom: 0.3rem;
+        > a {
+            position: relative;
+            width: 8px;
+            height: 8px;
+            display: block;
+            margin: .3rem .3rem .6rem;
+            border-radius: 4px;
+            background: rgba(204, 204, 204, .5);
+            transition: background .3s;
+        }
+        &.active > a {
+            background: #ccc;
+        }
+        span {
+            position: absolute;
+            top: 50%;
+            #{$right}: calc(100% + 20px);
+            background: #fff;
+            color: #212529;
+            font-size: 0.8rem;
+            font-weight: 800;
+            padding: 0.2rem 1rem;
+            border-radius: 4px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            -webkit-transform: translate3d(0, -50%, 0);
+            transform: translate3d(0, -50%, 0);
+            transition: opacity .3s;
+            text-transform: uppercase;
+            box-shadow: 0 0 4px 3px rgba(0, 0, 0, .06);
+            &:after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                #{$left}: 100%;
+                width: 0;
+                height: 0;
+                border-top: 6px solid transparent;
+                border-bottom: 6px solid transparent;
+                border-#{$left}: 6px solid #f7f7f7;
+                -webkit-transform: translate3d(0, -50%, 0);
+                transform: translate3d(0, -50%, 0);
+            }
+        }
+        &:hover span {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+    &.dots-nav-light {
+        > ul > li {
+            > a {
+                background: rgba(255, 255, 255, .3);
+            }
+            &.active > a {
+                background: #fff;
+            }
+        }
+    }
+}

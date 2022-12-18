@@ -1,0 +1,22 @@
+{
+	"elements": {
+		"portoSidebarMenu": {
+			"settings": {
+				"name": "Porto Sidebar Menu",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-sidebar-menu.jpg",
+				"metaDescription": "Porto VC element to display sidebar menu on the page."
+			},
+			"phpFiles": [
+				"PortoSidebarMenuController.php"
+			]
+		}
+	},
+	"categories": {
+		"Misc": {
+			"elements": [
+				"portoSidebarMenu"
+			]
+		}
+	}
+}

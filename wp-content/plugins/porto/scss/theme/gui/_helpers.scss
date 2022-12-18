@@ -1,0 +1,300 @@
+// STATES
+// -----------------------------------------------------------------------------
+.text-muted {
+    color: $color-muted !important;
+}
+
+// COLORs
+// -----------------------------------------------------------------------------
+.text-light {
+    color: #fff !important;
+
+    &.wpb_text_column p {
+        color: #fff !important;
+    }
+}
+
+// WEIGHTS
+// -----------------------------------------------------------------------------
+.font-weight-light,
+.text-weight-light {
+    font-weight: $font-weight-light;
+    * {
+        font-weight: $font-weight-light;
+    }
+}
+.font-weight-normal,
+.text-weight-normal {
+    font-weight: $font-weight-normal;
+    * {
+        font-weight: $font-weight-normal;
+    }
+}
+.font-weight-semibold,
+.text-weight-semibold {
+    font-weight: $font-weight-semibold;
+    * {
+        font-weight: $font-weight-semibold;
+    }
+}
+.font-weight-bold,
+.text-weight-bold {
+    font-weight: $font-weight-bold;
+    * {
+        font-weight: $font-weight-bold;
+    }
+}
+.font-weight-medium {
+    font-weight: 500;
+}
+.font-weight-extra-bold {
+    font-weight: $font-weight-extrabold;
+}
+
+// TEXT OTHERS
+// -----------------------------------------------------------------------------
+
+/* Close */
+.mfp-close,
+.mfp-close-btn-in .mfp-close {
+    text-indent: -9999px;
+    -webkit-transform: rotateZ(45deg);
+    transform: rotateZ(45deg);
+    width: 41px;
+    height: 41px;
+    color: #838383;
+    &:before, &:after {
+        content: '';
+        position: absolute;
+    }
+    &:before {
+        width: 17px;
+        top: 20px;
+        left: 12px;
+        border-top: 1px solid;
+    }
+    &:after {
+        height: 17px;
+        top: 12px;
+        left: 20px;
+        border-left: 1px solid;
+    }
+}
+
+.mfp-image-holder .mfp-close, .mfp-iframe-holder .mfp-close {
+    text-align: $left;
+    &:before, &:after {
+        color: #fff;
+    }
+}
+
+.mfp-iframe-holder .mfp-close {
+    top: -37px;
+    width: 40px;
+    height: 40px;
+    &:before {
+        width: 16px;
+        top: 19px;
+        left: 12px;
+        border-top-width: 2px;
+    }
+    &:after {
+        height: 16px;
+        top: 12px;
+        left: 19px;
+        border-left-width: 2px;
+    }
+}
+
+.mfp-wrap {
+    direction: ltr;
+
+    body.rtl & {
+        direction: rtl;
+    }
+    ~ .select2-container {
+        z-index: 9043;
+    }
+}
+
+.mfp-content {
+    direction: if-ltr(ltr, rtl);
+}
+
+/* No Margins */
+.mfp-no-margins {
+    img.mfp-img {
+        padding: 0;
+    }
+    .mfp-figure:after {
+        top: 0;
+        bottom: 0;
+    }
+    .mfp-container {
+        padding: 0;
+    }
+}
+
+.mfp-content {
+    .mfp-figure figure:before {
+        background: #f3f3f3;
+        content: "";
+        position: absolute;
+        width: 100%;
+        top: 40px; bottom: 40px;
+    }
+    .mfp-figure img.mfp-img {
+        position: relative;
+    }
+    figcaption {
+        margin-top: 0
+    }
+}
+
+/* Zoom */
+.mfp-with-zoom {
+    .mfp-container, &.mfp-bg {
+        opacity: 0.001;
+        -webkit-backface-visibility: hidden;
+        @include transition(all .3s ease-out);
+    }
+    &.mfp-ready {
+        .mfp-container {
+            opacity: 1;
+        }
+        &.mfp-bg {
+            opacity: 0.8;
+        }
+    }
+    &.mfp-removing {
+        .mfp-container, &.mfp-bg {
+            opacity: 0;
+        }
+    }
+}
+
+/* Animnate */
+.my-mfp-zoom-in {
+    .zoom-anim-dialog {
+        opacity: 0;
+        @include transition(all .2s ease-in-out);
+        transform: scale(0.8);
+    }
+    &.mfp-ready .zoom-anim-dialog {
+        opacity: 1;
+        transform: scale(1);
+    }
+    &.mfp-removing .zoom-anim-dialog {
+        transform: scale(.8);
+        opacity: 0;
+    }
+    &.mfp-bg {
+        opacity: 0.001;
+        /* Chrome opacity transition bug */
+        @include transition(opacity .3s ease-out);
+    }
+    &.mfp-ready.mfp-bg {
+        opacity: .8;
+    }
+    &.mfp-removing.mfp-bg {
+        opacity: 0;
+    }
+}
+
+.my-mfp-slide-bottom {
+    .zoom-anim-dialog {
+        opacity: 0;
+        @include transition(all .2s ease-out);
+        transform: translateY(-20px) perspective(600px) rotateX(10deg);
+    }
+    &.mfp-ready .zoom-anim-dialog {
+        opacity: 1;
+        transform: translateY(0) perspective(600px) rotateX(0);
+    }
+    &.mfp-removing .zoom-anim-dialog {
+        opacity: 0;
+        transform: translateY(-10px) perspective(600px) rotateX(10deg);
+    }
+    &.mfp-bg {
+        opacity: 0.01;
+        @include transition(opacity .3s ease-out);
+    }
+    &.mfp-ready.mfp-bg {
+        opacity: .8;
+    }
+    &.mfp-removing.mfp-bg {
+        opacity: 0;
+    }
+}
+.popup-builder .mfp-content {
+	position: static;
+}
+/* Popup Block */
+.dialog {
+    padding: 20px 25px;
+    text-align: $left;
+    max-width: 600px;
+    margin: 40px auto;
+    position: relative;
+    background: var(--porto-body-bg);
+
+    &.dialog-xs {
+        max-width: 200px;
+    }
+    &.dialog-sm {
+        max-width: 400px;
+    }
+    &.dialog-md {
+        max-width: 600px;
+    }
+    &.dialog-lg {
+        max-width: 900px;
+    }
+}
+
+/* White Popup Block */
+.white-popup-block {
+    background: #fff;
+    padding: 20px 30px;
+    text-align: $left;
+    max-width: 600px;
+    margin: 40px auto;
+    position: relative;
+    &.white-popup-block-xs {
+        max-width: 200px;
+    }
+    &.white-popup-block-sm {
+        max-width: 400px;
+    }
+    &.white-popup-block-md {
+        max-width: 600px;
+    }
+    &.white-popup-block-lg {
+        max-width: 900px;
+    }
+}
+
+/* Popup */
+.popup-inline-content,
+.mfp-content .ajax-container {
+    background: var(--porto-body-bg);
+    margin: 40px auto;
+    max-width: 1170px;
+    padding: 20px 25px;
+    position: relative;
+    text-align: $left;
+    display: none;
+
+    @media #{$screen-medium} {
+        padding: 20px 12px;
+    }
+}
+
+.loading-overlay {
+    background: var(--porto-body-bg);
+}
+
+.mfp-content .ajax-container,
+.mfp-wrap .popup-inline-content {
+    display: block;
+}

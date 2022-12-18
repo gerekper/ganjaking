@@ -1,0 +1,19 @@
+{
+	"elements": {
+		"portoSpCart": {
+			"settings": {
+				"name": "Single Product Cart Form",
+				"metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+				"metaPreviewUrl": "[publicPath]/preview-porto-sp.jpg",
+				"metaDescription": "Porto VC element to display single product cart form"
+			}
+		}
+	},
+	"categories": {
+		"WooCommerce": {
+			"elements": [
+				"portoSpCart"
+			]
+		}
+	}
+}

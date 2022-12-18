@@ -1,0 +1,113 @@
+/* Visual Composer Grid */
+.row {
+    &.vc_column-gap-1 {
+        --bs-gutter-x: 1px;
+    }
+    &.vc_column-gap-2 {
+        --bs-gutter-x: 2px;
+    }
+    &.vc_column-gap-3 {
+        --bs-gutter-x: 3px;
+    }
+    &.vc_column-gap-4 {
+        --bs-gutter-x: 4px;
+    }
+    &.vc_column-gap-5 {
+        --bs-gutter-x: 5px;
+    }
+    &.vc_column-gap-10 {
+        --bs-gutter-x: 10px;
+    }
+    &.vc_column-gap-15 {
+        --bs-gutter-x: 15px;
+    }
+    &.vc_column-gap-20 {
+        --bs-gutter-x: 20px;
+    }
+    &.vc_column-gap-25 {
+        --bs-gutter-x: 25px;
+    }
+    &.vc_column-gap-30 {
+        --bs-gutter-x: 30px;
+    }
+    &.vc_column-gap-35 {
+        --bs-gutter-x: 35px;
+    }
+
+    &[class*="vc_column-gap-"] {
+        margin-left: calc(var(--bs-gutter-x) / -2);
+        margin-right: calc(var(--bs-gutter-x) / -2);
+    }
+}
+
+.container-fluid .top-row {
+    margin-left: calc( var(--porto-fluid-spacing) * -1 );
+    margin-right: calc( var(--porto-fluid-spacing) * -1 );
+
+    &[class*="vc_column-gap-"] {
+        padding-left: calc(var(--porto-fluid-spacing) - calc( var(--bs-gutter-x) / 2) );
+        padding-right: calc(var(--porto-fluid-spacing) - calc( var(--bs-gutter-x) / 2) );
+    }
+}
+
+.vc_column_container > .vc_column-inner {
+    padding: 0;
+}
+.vc_row .vc_column_container > .wpb_wrapper.vc_column-inner {
+    padding-top: 0;
+}
+
+/* Visual Composer Alert */
+body {
+    .wpb_alert {
+        padding: 15px;
+        .messagebox_text {
+            background-image: none;
+            padding-#{$left}: 0;
+        }
+    }
+    .vc_message_box-icon > * {
+        transform: translate(-50%, -50%);
+    }
+}
+.vc_message_box .alert-link {
+    font-weight: bold;
+}
+
+/* Visual Composer Slider */
+body {
+    .wpb_gallery .wpb_flexslider .flex-control-nav {
+        bottom: -50px;
+    }
+}
+
+/* Visual Composer Flickr */
+.wpb_content_element {
+    &.wpb_flickr_widget {
+        margin-bottom: 15px;
+    }
+}
+
+/* Visual Composer Others */
+
+/* Nivo Slider */
+.wpb_gallery .theme-default {
+    .nivoSlider {
+        box-shadow: none;
+    }
+    .nivo-controlNav {
+        padding-top: 20px;
+    }
+}
+.wpb_gallery {
+    &.nav-right {
+        .nivo-controlNav {
+            float: $right;
+        }
+    }
+    &.nav-left {
+        .nivo-controlNav {
+            float: $left;
+        }
+    }
+}

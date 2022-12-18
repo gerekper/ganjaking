@@ -48,13 +48,20 @@ class Porto_Control_Ajaxselect2 extends \Elementor\Base_Data_Control {
 		<div class="elementor-control-field">
 			<label for="<?php echo esc_attr( $control_uid ); ?>" class="elementor-control-title">{{{ data.label }}}</label>
 			<div class="elementor-control-input-wrapper">
-				<# var multiple = ( data.multiple ) ? 'multiple' : ''; #>
+				<#
+					var multiple = ( data.multiple ) ? 'multiple' : '', condition_name = '';
+					if ( -1 !== data.options.indexOf( '%' ) ) {
+						condition_name = data.options.split( '%' )[1];
+						data.options = data.options.replace( '%', '' ).replace( '%', '' );
+					}
+				#>
 				<select 
 					id="<?php echo esc_attr( $control_uid ); ?>"
 					class="elementor-ajaxselect2" 
 					type="porto_ajaxselect2" {{ multiple }} 
 					data-setting="{{ data.name }}"
 					data-ajax-url="<?php echo esc_url( $rest_uri ) . '/{{data.options}}/'; ?>"
+					data-condition="{{ condition_name }}"
 				>
 				</select>
 			</div>

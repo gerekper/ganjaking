@@ -28,7 +28,10 @@ extract(
 		$atts
 	)
 );
-$el_class  = porto_shortcode_extract_class( $el_class );
+$el_class = porto_shortcode_extract_class( $el_class );
+if ( ! empty( $shortcode_class ) ) {
+	$el_class .= ' ' . $shortcode_class;
+}
 $img_attrs = '';
 if ( ! $photo_url && $photo_id ) {
 	$image = wp_get_attachment_image_src( $photo_id, 'thumbnail' );
@@ -117,7 +120,7 @@ if ( 'transparent' == $view ) {
 			$output .= '<div class="testimonial-arrow-down"></div>';
 		}
 	}
-	$output .= '<div class="testimonial-author clearfix">';
+	$output .= '<div class="testimonial-author">';
 	if ( $photo_url ) {
 		switch ( $style ) {
 			case 'testimonial-style-2':

@@ -1,0 +1,74 @@
+/* Boxed Layout */
+
+body.boxed {
+    padding: 25px 0;
+
+    @media #{$screen-medium} {
+        padding: 0;
+    }
+
+    #header {
+        border-top-width: 0;
+    }
+
+    .banner-container {
+        overflow: hidden;
+    }
+
+    .page-wrapper {
+        background: var(--porto-body-bg);
+        border-top: 5px solid var(--porto-primary-color);
+        border-bottom-color: var(--porto-dark-color, #222529);
+        margin: 0 auto;
+        box-shadow: $wrapper-shadow;
+
+        @media #{$screen-medium} {
+            width: 100% !important;
+            border-width: 0;
+            border-radius: 0;
+            overflow: hidden;
+        }
+    }
+}
+
+#main.main-boxed,
+#main.boxed {
+    .porto-container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+body.boxed {
+    #main.wide {
+        .porto-wrap-container {
+            max-width: none;
+            margin: 0;
+            padding: 0;
+        }
+    }
+
+    #header {
+        &.sticky-header {
+            @media (min-width: 768px) {
+                .header-main.sticky {
+                    max-width: calc( 720px + var(--porto-grid-gutter-width) );
+                }
+            }
+            .header-main.sticky,
+            .main-menu-wrap {
+                margin-left: auto;
+                margin-right: auto;
+
+                @media (min-width: 992px) {
+                    max-width: calc( 960px + var(--porto-grid-gutter-width) );
+                }
+            }
+        }
+    }
+
+    .fixed-header #header,
+    .footer-wrapper.fixed {
+        position: absolute;
+    }
+}

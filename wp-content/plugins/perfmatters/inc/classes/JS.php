@@ -14,6 +14,10 @@ class JS
 			//actions + filters
 			add_filter('perfmatters_output_buffer_template_redirect', array('Perfmatters\JS', 'optimize'));
 		}
+
+		if(!empty(Config::$options['assets']['fastclick'])) {
+			add_filter('wp_head', array('Perfmatters\JS', 'print_fastclick'));
+		}
 	}
 
 	//add defer tag to js files in html
@@ -57,7 +61,7 @@ class JS
 		//loop through scripts
 		foreach($matches[0] as $i => $tag) {
 
-			$atts_array = !empty($matches[2][$i]) ? perfmatters_lazyload_get_atts_array($matches[2][$i]) : array();
+			$atts_array = !empty($matches[2][$i]) ? Utilities::get_atts_array($matches[2][$i]) : array();
 			
 			//skip if type is not javascript
 			if(isset($atts_array['type']) && stripos($atts_array['type'], 'javascript') == false) {
@@ -99,7 +103,8 @@ class JS
 						'lazyload',
 						'lazyLoadInstance',
 						'lazysizes',
-						'customize-support'
+						'customize-support',
+						'fastclick'
 					);
 
 					if(!empty(Config::$options['assets']['delay_js_exclusions']) && is_array(Config::$options['assets']['delay_js_exclusions'])) {
@@ -137,7 +142,7 @@ class JS
 						$atts_array['data-rocketlazyloadscript'] = "1";
 					}
 
-	    			$delayed_atts_string = perfmatters_lazyload_get_atts_string($atts_array);
+	    			$delayed_atts_string = Utilities::get_atts_string($atts_array);
 	                $delayed_tag = sprintf('<script %1$s>', $delayed_atts_string) . (!empty($delay_js_behavior) ? $matches[3][$i] : '') . '</script>';
 
 	    			//replace new full tag in html
@@ -200,7 +205,7 @@ class JS
 	  		}
 	  		else {
 	  			$script = '<script type="text/javascript" id="perfmatters-delayed-scripts-js">';
-	  				$script.= 'const pmDelayClick=' . json_encode(apply_filters('perfmatters_delay_js_delay_click', true)) . ';';
+	  				$script.= 'const pmDelayClick=' . json_encode(apply_filters('perfmatters_delay_js_delay_click', empty(Config::$options['assets']['disable_click_delay']))) . ';';
 		  			if(!empty($timeout)) {
 		  				$script.= 'const pmDelayTimer=setTimeout(pmTriggerDOMListener,' . $timeout . '*1000);';
 		  			}  
@@ -216,5 +221,25 @@ class JS
 	  			return $script;
 	  		}
 	  	}
+	}
+
+	//print fastclick js
+	public static function print_fastclick() {
+
+		if(is_admin()) {
+			return;
+		}
+
+		if(isset($_GET['perfmattersoff'])) {
+			return;
+		}
+
+		//exclude specific woocommerce pages
+	    if(function_exists('is_woocommerce') && (is_cart() || is_checkout() || is_account_page())) {
+	        return;
+	    }
+
+		echo '<script src="' . plugins_url('perfmatters/vendor/fastclick/fastclick.min.js') . '"></script>';
+		echo '<script>"addEventListener"in document&&document.addEventListener("DOMContentLoaded",function(){FastClick.attach(document.body)},!1);</script>';
 	}
 }

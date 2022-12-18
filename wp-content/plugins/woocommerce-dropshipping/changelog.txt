@@ -1,5 +1,11 @@
 *** WooCommerce AliExpress Dropshipping Changelog ***
 
+2022-12-15 - version 4.6
+* PLUGINS-1803 - Naming function collisions changes.
+* PLUGINS-1616 - Update deprecated functions.
+* PLUGINS-1661 - Fix compatibility with other custom ID number generator plugin.
+* PLUGINS-1818 - Suppliers account customisation.
+
 2022-10-31 - version 4.5
 * PLUGINS-1792 - Fix GST tax split on emails and settings.
 * PLUGINS-1644 - Implement Woo dependency.

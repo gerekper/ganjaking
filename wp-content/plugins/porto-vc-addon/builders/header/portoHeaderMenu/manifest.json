@@ -1,0 +1,19 @@
+{
+  "elements": {
+    "portoHeaderMenu": {
+      "settings": {
+        "name": "Porto Header Menu",
+        "metaThumbnailUrl": "[publicPath]/porto-thumbnail.svg",
+        "metaPreviewUrl": "[publicPath]/preview-hb.jpg",
+        "metaDescription": "Porto VC element to display navigation in header"
+      }
+    }
+  },
+  "categories": {
+    "Hero section": {
+      "elements": [
+        "portoHeaderMenu"
+      ]
+    }
+  }
+}

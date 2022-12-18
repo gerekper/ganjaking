@@ -349,7 +349,7 @@ class UpdraftPlus_Addons_Migrator {
 
 		if (empty($updraftplus_restorer) || !is_a($updraftplus_restorer, 'Updraft_Restorer')) {
 			// Needed for the UpdraftPlus_WPDB class and Updraft_Restorer::sql_exec() method
-			include_once(UPDRAFTPLUS_DIR.'/restorer.php');
+			updraft_try_include_file('restorer.php', 'include_once');
 			$updraftplus_restorer = new Updraft_Restorer(null, null, true);
 			add_filter('updraftplus_logline', array($updraftplus_restorer, 'updraftplus_logline'), 10, 5);
 			$updraftplus_restorer->search_replace_obj->updraftplus_restore_db_pre();
@@ -1372,7 +1372,7 @@ class UpdraftPlus_Addons_Migrator {
 	}
 }
 
-if (!class_exists('UpdraftPlus_Addons_Migrator_RemoteSend_UI')) require_once(UPDRAFTPLUS_DIR.'/includes/class-remote-send.php');
+if (!class_exists('UpdraftPlus_Addons_Migrator_RemoteSend_UI')) updraft_try_include_file('includes/class-remote-send.php', 'require_once');
 if (!class_exists('UpdraftPlus_Addons_Migrator_RemoteSend')) {
 	class UpdraftPlus_Addons_Migrator_RemoteSend extends UpdraftPlus_RemoteSend {
 
@@ -1685,9 +1685,15 @@ if (!class_exists('UpdraftPlus_Addons_Migrator_RemoteSend')) {
 					var backupnow_nofiles = 0; 
 					if ('' == onlythisfileentity) { backupnow_nofiles = 1; } 
 				
-					var backupnow_nocloud = 1; 
+					var backupnow_nocloud = 1;
+
+					var db_anon_all = jQuery('#updraft-navtab-migrate-content #updraftplus_migration_backupnow_db_anon_all').is(':checked') ? 1 : 0;
+					var db_anon_non_staff = jQuery('#updraft-navtab-migrate-content #updraftplus_migration_backupnow_db_anon_non_staff').is(':checked') ? 1 : 0;
+
 					var extradata = {
-						services: 'remotesend/'+site_id
+						services: 'remotesend/'+site_id,
+						db_anon_all: db_anon_all,
+						db_anon_non_staff: db_anon_non_staff,
 					};
 				
 					if (jQuery('#remotesend_backupnow_cloud').is(':checked')) { 

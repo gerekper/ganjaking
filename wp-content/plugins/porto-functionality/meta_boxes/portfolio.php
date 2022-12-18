@@ -162,17 +162,22 @@ function porto_portfolio_skin_meta_fields() {
 
 // Show Meta Boxes
 add_action( 'add_meta_boxes', 'porto_add_portfolio_meta_boxes' );
-function porto_add_portfolio_meta_boxes() {
-	if ( ! function_exists( 'get_current_screen' ) ) {
-		return;
-	}
-	global $porto_settings;
-	$screen = get_current_screen();
-	if ( function_exists( 'add_meta_box' ) && $screen && 'post' == $screen->base && 'portfolio' == $screen->id ) {
-		add_meta_box( 'portfolio-meta-box', __( 'Portfolio Options', 'porto-functionality' ), 'porto_portfolio_meta_box', 'portfolio', 'normal', 'high' );
-		add_meta_box( 'view-meta-box', __( 'View Options', 'porto-functionality' ), 'porto_portfolio_view_meta_box', 'portfolio', 'normal', 'low' );
-		if ( $porto_settings['show-content-type-skin'] ) {
-			add_meta_box( 'skin-meta-box', __( 'Skin Options', 'porto-functionality' ), 'porto_portfolio_skin_meta_box', 'portfolio', 'normal', 'low' );
+if ( ! function_exists( 'porto_add_portfolio_meta_boxes' ) ) {
+	/**
+	 * @todo 2.3.0 Legacy Mode
+	 */
+	function porto_add_portfolio_meta_boxes() {
+		if ( ! function_exists( 'get_current_screen' ) ) {
+			return;
+		}
+		global $porto_settings;
+		$screen = get_current_screen();
+		if ( function_exists( 'add_meta_box' ) && $screen && 'post' == $screen->base && 'portfolio' == $screen->id ) {
+			add_meta_box( 'portfolio-meta-box', __( 'Portfolio Options', 'porto-functionality' ), 'porto_portfolio_meta_box', 'portfolio', 'normal', 'high' );
+			add_meta_box( 'view-meta-box', __( 'View Options', 'porto-functionality' ), 'porto_portfolio_view_meta_box', 'portfolio', 'normal', 'low' );
+			if ( $porto_settings['show-content-type-skin'] ) {
+				add_meta_box( 'skin-meta-box', __( 'Skin Options', 'porto-functionality' ), 'porto_portfolio_skin_meta_box', 'portfolio', 'normal', 'low' );
+			}
 		}
 	}
 }
@@ -226,184 +231,190 @@ function porto_portfolio_protected_meta( $protected, $meta_key, $meta_type ) {
 ////////////////////////////////////////////////////////////////////////
 
 // Taxonomy Meta Fields
-function porto_portfolio_cat_meta_fields() {
-	global $porto_settings;
+if ( ! function_exists( 'porto_portfolio_cat_meta_fields' ) ) {
+	/**
+	 * @todo 2.3.0   Legacy Mode
+	 */
+	function porto_portfolio_cat_meta_fields() {
+		global $porto_settings;
 
-	$meta_fields = porto_ct_default_view_meta_fields();
-	// Category Image
-	$meta_fields = array_insert_before(
-		'loading_overlay',
-		$meta_fields,
-		'category_image',
-		array(
-			'name'  => 'category_image',
-			'title' => __( 'Category Image', 'porto-functionality' ),
-			'type'  => 'upload',
-		)
-	);
-	// Portfolio Options
-	$meta_fields = array_insert_before(
-		'loading_overlay',
-		$meta_fields,
-		'portfolio_options',
-		array(
-			'name'  => 'portfolio_options',
-			'title' => __( 'Archive Options', 'porto-functionality' ),
-			'desc'  => __( 'Change default theme options.', 'porto-functionality' ),
-			'type'  => 'checkbox',
-		)
-	);
+		$meta_fields = porto_ct_default_view_meta_fields();
+		// Category Image
+		$meta_fields = array_insert_before(
+			'loading_overlay',
+			$meta_fields,
+			'category_image',
+			array(
+				'name'  => 'category_image',
+				'title' => __( 'Category Image', 'porto-functionality' ),
+				'type'  => 'upload',
+			)
+		);
+		// Portfolio Options
+		$meta_fields = array_insert_before(
+			'loading_overlay',
+			$meta_fields,
+			'portfolio_options',
+			array(
+				'name'  => 'portfolio_options',
+				'title' => __( 'Archive Options', 'porto-functionality' ),
+				'desc'  => __( 'Change default theme options.', 'porto-functionality' ),
+				'type'  => 'checkbox',
+			)
+		);
 
-	// Infinite Scroll
-	$meta_fields = array_insert_after(
-		'portfolio_options',
-		$meta_fields,
-		'portfolio_infinite',
-		array(
-			'name'     => 'portfolio_infinite',
-			'title'    => __( 'Infinite Scroll', 'porto-functionality' ),
-			'desc'     => __( 'Disable infinite scroll.', 'porto-functionality' ),
-			'type'     => 'checkbox',
-			'required' => array(
-				'name'  => 'portfolio_options',
-				'value' => 'portfolio_options',
-			),
-		)
-	);
+		// Infinite Scroll
+		$meta_fields = array_insert_after(
+			'portfolio_options',
+			$meta_fields,
+			'portfolio_infinite',
+			array(
+				'name'     => 'portfolio_infinite',
+				'title'    => __( 'Infinite Scroll', 'porto-functionality' ),
+				'desc'     => __( 'Disable infinite scroll.', 'porto-functionality' ),
+				'type'     => 'checkbox',
+				'required' => array(
+					'name'  => 'portfolio_options',
+					'value' => 'portfolio_options',
+				),
+			)
+		);
 
-	// Layout
-	$meta_fields = array_insert_after(
-		'portfolio_infinite',
-		$meta_fields,
-		'portfolio_layout',
-		array(
-			'name'     => 'portfolio_layout',
-			'title'    => __( 'Portfolio Layout', 'porto-functionality' ),
-			'type'     => 'radio',
-			'default'  => 'grid',
-			'options'  => porto_ct_portfolio_archive_layouts(),
-			'required' => array(
-				'name'  => 'portfolio_options',
-				'value' => 'portfolio_options',
-			),
-		)
-	);
-	// Grid Columns
-	$meta_fields = array_insert_after(
-		'portfolio_layout',
-		$meta_fields,
-		'portfolio_grid_columns',
-		array(
-			'name'     => 'portfolio_grid_columns',
-			'title'    => __( 'Columns in Grid, Masonry Layout', 'porto-functionality' ),
-			'type'     => 'radio',
-			'default'  => '4',
-			'options'  => array(
-				'1' => __( '1 Column', 'porto-functionality' ),
-				'2' => __( '2 Columns', 'porto-functionality' ),
-				'3' => __( '3 Columns', 'porto-functionality' ),
-				'4' => __( '4 Columns', 'porto-functionality' ),
-				'5' => __( '5 Columns', 'porto-functionality' ),
-				'6' => __( '6 Columns', 'porto-functionality' ),
-			),
-			'required' => array(
-				'name'  => 'portfolio_options',
-				'value' => 'portfolio_options',
-			),
-		)
-	);
-	// Grid View
-	$meta_fields = array_insert_after(
-		'portfolio_grid_columns',
-		$meta_fields,
-		'portfolio_grid_view',
-		array(
-			'name'     => 'portfolio_grid_view',
-			'title'    => __( 'View Type in Grid, Masonry Layout', 'porto-functionality' ),
-			'type'     => 'radio',
-			'default'  => 'default',
-			'options'  => array(
-				'default'  => __( 'Default', 'porto-functionality' ),
-				'full'     => __( 'No Margin', 'porto-functionality' ),
-				'outimage' => __( 'Out of Image', 'porto-functionality' ),
-			),
-			'required' => array(
-				'name'  => 'portfolio_options',
-				'value' => 'portfolio_options',
-			),
-		)
-	);
-	// Info View Type
-	$meta_fields = array_insert_after(
-		'portfolio_grid_view',
-		$meta_fields,
-		'portfolio_archive_thumb',
-		array(
-			'name'     => 'portfolio_archive_thumb',
-			'title'    => __( 'Info View Type in Grid, Masonry, Timeline Layout', 'porto-functionality' ),
-			'type'     => 'radio',
-			'default'  => 'left-info',
-			'options'  => array(
-				'left-info'        => __( 'Left Info', 'porto-functionality' ),
-				'centered-info'    => __( 'Centered Info', 'porto-functionality' ),
-				'bottom-info'      => __( 'Bottom Info', 'porto-functionality' ),
-				'bottom-info-dark' => __( 'Bottom Info Dark', 'porto-functionality' ),
-				'hide-info-hover'  => __( 'Hide Info Hover', 'porto-functionality' ),
-			),
-			'required' => array(
-				'name'  => 'portfolio_options',
-				'value' => 'portfolio_options',
-			),
-		)
-	);
-	// Image Overlay Background
-	$meta_fields = array_insert_after(
-		'portfolio_archive_thumb',
-		$meta_fields,
-		'portfolio_archive_thumb_bg',
-		array(
-			'name'     => 'portfolio_archive_thumb_bg',
-			'title'    => __( 'Image Overlay Background', 'porto-functionality' ),
-			'type'     => 'radio',
-			'default'  => 'darken',
-			'options'  => array(
-				'darken'          => __( 'Darken', 'porto-functionality' ),
-				'lighten'         => __( 'Lighten', 'porto-functionality' ),
-				'hide-wrapper-bg' => __( 'Transparent', 'porto-functionality' ),
-			),
-			'required' => array(
-				'name'  => 'portfolio_options',
-				'value' => 'portfolio_options',
-			),
-		)
-	);
-	// Image Hover Effect
-	$meta_fields = array_insert_after(
-		'portfolio_archive_thumb_bg',
-		$meta_fields,
-		'portfolio_archive_thumb_image',
-		array(
-			'name'     => 'portfolio_archive_thumb_image',
-			'title'    => __( 'Hover Image Effect', 'porto-functionality' ),
-			'type'     => 'radio',
-			'default'  => 'zoom',
-			'options'  => array(
-				'zoom'    => __( 'Zoom', 'porto-functionality' ),
-				'no-zoom' => __( 'No Zoom', 'porto-functionality' ),
-			),
-			'required' => array(
-				'name'  => 'portfolio_options',
-				'value' => 'portfolio_options',
-			),
-		)
-	);
+		// Layout
+		$meta_fields = array_insert_after(
+			'portfolio_infinite',
+			$meta_fields,
+			'portfolio_layout',
+			array(
+				'name'     => 'portfolio_layout',
+				'title'    => __( 'Portfolio Layout', 'porto-functionality' ),
+				'type'     => 'radio',
+				'default'  => 'grid',
+				'options'  => porto_ct_portfolio_archive_layouts(),
+				'required' => array(
+					'name'  => 'portfolio_options',
+					'value' => 'portfolio_options',
+				),
+			)
+		);
+		// Grid Columns
+		$meta_fields = array_insert_after(
+			'portfolio_layout',
+			$meta_fields,
+			'portfolio_grid_columns',
+			array(
+				'name'     => 'portfolio_grid_columns',
+				'title'    => __( 'Columns in Grid, Masonry Layout', 'porto-functionality' ),
+				'type'     => 'radio',
+				'default'  => '4',
+				'options'  => array(
+					'1' => __( '1 Column', 'porto-functionality' ),
+					'2' => __( '2 Columns', 'porto-functionality' ),
+					'3' => __( '3 Columns', 'porto-functionality' ),
+					'4' => __( '4 Columns', 'porto-functionality' ),
+					'5' => __( '5 Columns', 'porto-functionality' ),
+					'6' => __( '6 Columns', 'porto-functionality' ),
+				),
+				'required' => array(
+					'name'  => 'portfolio_options',
+					'value' => 'portfolio_options',
+				),
+			)
+		);
+		// Grid View
+		$meta_fields = array_insert_after(
+			'portfolio_grid_columns',
+			$meta_fields,
+			'portfolio_grid_view',
+			array(
+				'name'     => 'portfolio_grid_view',
+				'title'    => __( 'View Type in Grid, Masonry Layout', 'porto-functionality' ),
+				'type'     => 'radio',
+				'default'  => 'default',
+				'options'  => array(
+					'default'  => __( 'Default', 'porto-functionality' ),
+					'full'     => __( 'No Margin', 'porto-functionality' ),
+					'outimage' => __( 'Out of Image', 'porto-functionality' ),
+				),
+				'required' => array(
+					'name'  => 'portfolio_options',
+					'value' => 'portfolio_options',
+				),
+			)
+		);
+		// Info View Type
+		$meta_fields = array_insert_after(
+			'portfolio_grid_view',
+			$meta_fields,
+			'portfolio_archive_thumb',
+			array(
+				'name'     => 'portfolio_archive_thumb',
+				'title'    => __( 'Info View Type in Grid, Masonry, Timeline Layout', 'porto-functionality' ),
+				'type'     => 'radio',
+				'default'  => 'left-info',
+				'options'  => array(
+					'left-info'        => __( 'Left Info', 'porto-functionality' ),
+					'centered-info'    => __( 'Centered Info', 'porto-functionality' ),
+					'bottom-info'      => __( 'Bottom Info', 'porto-functionality' ),
+					'bottom-info-dark' => __( 'Bottom Info Dark', 'porto-functionality' ),
+					'hide-info-hover'  => __( 'Hide Info Hover', 'porto-functionality' ),
+				),
+				'required' => array(
+					'name'  => 'portfolio_options',
+					'value' => 'portfolio_options',
+				),
+			)
+		);
+		// Image Overlay Background
+		$meta_fields = array_insert_after(
+			'portfolio_archive_thumb',
+			$meta_fields,
+			'portfolio_archive_thumb_bg',
+			array(
+				'name'     => 'portfolio_archive_thumb_bg',
+				'title'    => __( 'Image Overlay Background', 'porto-functionality' ),
+				'type'     => 'radio',
+				'default'  => 'darken',
+				'options'  => array(
+					'darken'          => __( 'Darken', 'porto-functionality' ),
+					'lighten'         => __( 'Lighten', 'porto-functionality' ),
+					'hide-wrapper-bg' => __( 'Transparent', 'porto-functionality' ),
+				),
+				'required' => array(
+					'name'  => 'portfolio_options',
+					'value' => 'portfolio_options',
+				),
+			)
+		);
+		// Image Hover Effect
+		$meta_fields = array_insert_after(
+			'portfolio_archive_thumb_bg',
+			$meta_fields,
+			'portfolio_archive_thumb_image',
+			array(
+				'name'     => 'portfolio_archive_thumb_image',
+				'title'    => __( 'Hover Image Effect', 'porto-functionality' ),
+				'type'     => 'radio',
+				'default'  => 'zoom',
+				'options'  => array(
+					'zoom'    => __( 'Zoom', 'porto-functionality' ),
+					'no-zoom' => __( 'No Zoom', 'porto-functionality' ),
+				),
+				'required' => array(
+					'name'  => 'portfolio_options',
+					'value' => 'portfolio_options',
+				),
+			)
+		);
 
-	if ( isset( $porto_settings['show-category-skin'] ) && $porto_settings['show-category-skin'] ) {
-		$meta_fields = array_merge( $meta_fields, porto_ct_default_skin_meta_fields( true ) );
+		if ( isset( $porto_settings['show-category-skin'] ) && $porto_settings['show-category-skin'] ) {
+			$meta_fields = array_merge( $meta_fields, porto_ct_default_skin_meta_fields( true ) );
+		}
+
+		return $meta_fields;
 	}
-
-	return $meta_fields;
 }
+
 
 $taxonomy             = 'portfolio_cat';
 $table_name           = $wpdb->prefix . $taxonomy . 'meta';

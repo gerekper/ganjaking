@@ -3,7 +3,10 @@
  * 
  * @since 6.1.0
  */
-( function ( wpI18n, wpBlocks, wpElement, wpEditor, wpBlockEditor, wpComponents, wpData, lodash ) {
+
+import { portoAddHelperClasses } from '../../../../../shortcodes/assets/blocks/controls/editor-extra-classes';
+
+( function( wpI18n, wpBlocks, wpElement, wpEditor, wpBlockEditor, wpComponents, wpData, lodash ) {
     "use strict";
 
     var __ = wpI18n.__,
@@ -30,7 +33,7 @@
         </Placeholder>
     );
 
-    const PortoHBSearchForm = function ( { attributes, setAttributes, name } ) {
+    const PortoHBSearchForm = function( { attributes, setAttributes, name, clientId } ) {
 
         let internalStyle = '';
         if ( attributes.toggle_size || attributes.toggle_color ) {
@@ -38,10 +41,10 @@
             if ( attributes.toggle_size ) {
                 let unitVal = attributes.toggle_size;
                 const unit = unitVal.trim().replace( /[0-9.]/g, '' );
-                if ( ! unit ) {
+                if ( !unit ) {
                     unitVal += 'px';
                 }
-                internalStyle += 'font-size:'+ unitVal + ';';
+                internalStyle += 'font-size:' + unitVal + ';';
             }
             if ( attributes.toggle_color ) {
                 internalStyle += 'color:' + attributes.toggle_color;
@@ -52,7 +55,7 @@
         if ( attributes.input_size ) {
             let unitVal = attributes.input_size;
             const unit = unitVal.trim().replace( /[0-9.]/g, '' );
-            if ( ! unit ) {
+            if ( !unit ) {
                 unitVal += 'px';
             }
             internalStyle += '#header .searchform input, #header .searchform.searchform-cats input{width:' + unitVal + '}';
@@ -61,7 +64,7 @@
         if ( attributes.height ) {
             let unitVal = attributes.height;
             const unit = unitVal.trim().replace( /[0-9.]/g, '' );
-            if ( ! unit ) {
+            if ( !unit ) {
                 unitVal += 'px';
             }
             internalStyle += '#header .searchform input, #header .searchform select, #header .searchform .selectric .label, #header .searchform button{height:' + unitVal + '; line-height:' + unitVal + '}';
@@ -84,7 +87,7 @@
         if ( typeof attributes.border_radius != 'undefined' && attributes.border_radius.length ) {
             let unitVal = attributes.border_radius;
             const unit = unitVal.trim().replace( /[0-9.]/g, '' );
-            if ( ! unit ) {
+            if ( !unit ) {
                 unitVal += 'px';
             }
             let border_radius_selectors = '#header .searchform { border-radius: %s }';
@@ -102,6 +105,12 @@
             internalStyle += '#header .searchform input, #header .searchform select, #header .searchform .selectric, #header .searchform .selectric-hover .selectric, #header .searchform .selectric-open .selectric, #header .searchform .autocomplete-suggestions, #header .searchform .selectric-items{border-color:' + attributes.divider_color + '}';
         }
 
+        // add helper classes to parent block element
+        let elCls = attributes.className;
+        if ( elCls ) {
+            portoAddHelperClasses( elCls, clientId );
+        }
+
         return (
             <>
                 <InspectorControls key="inspector">
@@ -113,21 +122,21 @@
                     <SelectControl
                         label={ __( 'Show category filter', 'porto-functionality' ) }
                         value={ attributes.category_filter }
-                        options={ [ { 'label': __( 'Theme Options', 'porto-functionality' ), 'value': '' }, { 'label': __( 'Yes', 'porto-functionality' ), 'value': 'yes' }, { 'label': __( 'No', 'porto-functionality' ), 'value': 'no' } ] }
+                        options={ [{ 'label': __( 'Theme Options', 'porto-functionality' ), 'value': '' }, { 'label': __( 'Yes', 'porto-functionality' ), 'value': 'yes' }, { 'label': __( 'No', 'porto-functionality' ), 'value': 'no' }] }
                         onChange={ ( value ) => { setAttributes( { category_filter: value } ); } }
                     />
                     { 'yes' === attributes.category_filter && (
                         <SelectControl
                             label={ __( 'Show category filter on Mobile', 'porto-functionality' ) }
                             value={ attributes.category_filter_mobile }
-                            options={ [ { 'label': __( 'Theme Options', 'porto-functionality' ), 'value': '' }, { 'label': __( 'Yes', 'porto-functionality' ), 'value': 'yes' }, { 'label': __( 'No', 'porto-functionality' ), 'value': 'no' } ] }
+                            options={ [{ 'label': __( 'Theme Options', 'porto-functionality' ), 'value': '' }, { 'label': __( 'Yes', 'porto-functionality' ), 'value': 'yes' }, { 'label': __( 'No', 'porto-functionality' ), 'value': 'no' }] }
                             onChange={ ( value ) => { setAttributes( { category_filter_mobile: value } ); } }
                         />
                     ) }
                     <SelectControl
                         label={ __( 'Popup Position', 'porto-functionality' ) }
                         value={ attributes.popup_pos }
-                        options={ [ { 'label': __( 'Default', 'porto-functionality' ), 'value': '' }, { 'label': __( 'Left', 'porto-functionality' ), 'value': 'left' }, { 'label': __( 'Center', 'porto-functionality' ), 'value': 'center' }, { 'label': __( 'Right', 'porto-functionality' ), 'value': 'right' } ] }
+                        options={ [{ 'label': __( 'Default', 'porto-functionality' ), 'value': '' }, { 'label': __( 'Left', 'porto-functionality' ), 'value': 'left' }, { 'label': __( 'Center', 'porto-functionality' ), 'value': 'center' }, { 'label': __( 'Right', 'porto-functionality' ), 'value': 'right' }] }
                         onChange={ ( value ) => { setAttributes( { popup_pos: value } ); } }
                         help={ __( 'This works for only "Popup 1" and "Popup 2" and "Form" search layout on mobile. You can change search layout using Porto -> Theme Options -> Header -> Search Form -> Search Layout.', 'porto-functionality' ) }
                     />
@@ -252,7 +261,7 @@
             },
         },
         edit: PortoHBSearchForm,
-        save: function () {
+        save: function() {
             return null;
         }
     } );

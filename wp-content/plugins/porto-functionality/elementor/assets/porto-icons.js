@@ -161,5 +161,8 @@
 "phone-call",
 "tablet",
 "callin",
-"atmark"
+"atmark",
+"paypal",
+"verisign",
+"visa"
 ]}

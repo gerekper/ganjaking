@@ -5,7 +5,7 @@ $output = $subtitle = $image_url = $image_id = $heading = $shadow = $heading_col
 extract(
 	shortcode_atts(
 		array(
-			'item_type'          => 'schedule',
+			'item_type'          => empty( $GLOBALS['porto_steps_type'] ) ? 'schedule' : $GLOBALS['porto_steps_type'],
 			'subtitle'           => '',
 			'icon_type'          => 'custom',
 			'icon'               => '',
@@ -31,7 +31,8 @@ $el_class = porto_shortcode_extract_class( $el_class );
 switch ( $icon_type ) {
 	case 'custom':
 		if ( ! $image_url && $image_id ) {
-			$image_url = wp_get_attachment_url( $image_id );
+			$image_size = 'history' == $item_type ? 'full' : 'thumbnail';
+			$image_url  = wp_get_attachment_image_url( $image_id, $image_size );
 		}
 
 		$image_url = str_replace( array( 'http:', 'https:' ), '', $image_url );
@@ -50,7 +51,7 @@ if ( 'history' == $item_type || isset( $porto_schedule_timeline_count ) ) {
 	$porto_schedule_timeline_count++;
 
 	if ( $subtitle ) {
-		$output .= '<div class="timeline-date"><h3' . ( $subtitle_color ? ' style="color:' . esc_attr( $subtitle_color ) . '"' : '' ) . ' class="time-text step-item-subtitle font-weight-bold font-size-sm">' . esc_html( $subtitle ) . '</h3></div>';
+		$output .= '<div class="timeline-date"><h3' . ( $subtitle_color ? ' style="color:' . esc_attr( $subtitle_color ) . '"' : '' ) . ' class="time-text step-item-subtitle">' . esc_html( $subtitle ) . '</h3></div>';
 	}
 	$attrs = '';
 	if ( $animation_type ) {
@@ -115,7 +116,7 @@ if ( 'history' == $item_type || isset( $porto_schedule_timeline_count ) ) {
 } else {
 	$output         .= '<div class="timeline-balloon p-b-lg m-b-sm ' . esc_attr( $el_class ) . '">';
 		$output     .= '<div class="balloon-cell balloon-time">';
-			$output .= '<span' . ( $subtitle_color ? ' style="color:' . esc_attr( $subtitle_color ) . ' !important"' : '' ) . ' class="time-text step-item-subtitle text-color-dark font-weight-bold font-size-sm">' . esc_html( $subtitle ) . '</span>';
+			$output .= '<span' . ( $subtitle_color ? ' style="color:' . esc_attr( $subtitle_color ) . ' !important"' : '' ) . ' class="time-text step-item-subtitle">' . esc_html( $subtitle ) . '</span>';
 			$output .= '<div class="time-dot background-color-light"></div>';
 		$output     .= '</div>';
 		$output     .= '<div class="balloon-cell"';
@@ -134,7 +135,7 @@ if ( 'history' == $item_type || isset( $porto_schedule_timeline_count ) ) {
 		$output .= ' balloon-shadow ';
 	}
 			$output     .= 'background-color-light">';
-				$output .= '<span class="balloon-arrow background-color-light"></span>';
+				$output .= '<span class="balloon-arrow"></span>';
 	if ( 'custom' == $icon_type && $image_url ) {
 		$output     .= '<div class="balloon-photo">';
 			$output .= '<img src="' . esc_url( $image_url ) . '" class="img-responsive img-circle" alt="' . esc_attr( $heading ) . '">';
@@ -144,11 +145,11 @@ if ( 'history' == $item_type || isset( $porto_schedule_timeline_count ) ) {
 	}
 				$output .= '<div class="balloon-description">';
 	if ( $heading ) {
-		$output .= '<h5' . ( $heading_color ? ' style="color:' . esc_attr( $heading_color ) . ' !important"' : '' ) . ' class="step-item-title text-color-dark font-weight-bold p-t-xs m-none">' . esc_html( $heading ) . '</h5>';
+		$output .= '<h5' . ( $heading_color ? ' style="color:' . esc_attr( $heading_color ) . ' !important"' : '' ) . ' class="step-item-title text-color-dark font-weight-bold p-t-xs">' . esc_html( $heading ) . '</h5>';
 	}
 
 	if ( $content ) {
-		$output .= '<p class="font-weight-normal m-t-sm m-b-xs">' . do_shortcode( $content ) . '</p>';
+		$output .= '<div class="step-item-desc">' . do_shortcode( $content ) . '</div>';
 	}
 				$output .= '</div>';
 			$output     .= '</div>';

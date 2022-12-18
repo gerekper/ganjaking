@@ -8,10 +8,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Porto Elementor widget to display icon boxes.
  *
- * @since 5.1.0
+ * @since 1.5.0
  */
 
 use Elementor\Controls_Manager;
+use Elementor\Group_Control_Border;
 
 class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 
@@ -35,12 +36,59 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 		return 'eicon-info-box';
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 
 		$this->start_controls_section(
 			'section_info_box',
 			array(
 				'label' => __( 'Info Box', 'porto-functionality' ),
+			)
+		);
+
+		$this->add_control(
+			'pos',
+			array(
+				'type'        => Controls_Manager::SELECT,
+				'label'       => __( 'Layout', 'porto-functionality' ),
+				'options'     => array(
+					'default'       => __( 'Icon at Left with heading', 'porto-functionality' ),
+					'heading-right' => __( 'Icon at Right with heading', 'porto-functionality' ),
+					'left'          => __( 'Icon at Left', 'porto-functionality' ),
+					'right'         => __( 'Icon at Right', 'porto-functionality' ),
+					'top'           => __( 'Icon at Top', 'porto-functionality' ),
+				),
+				'default'     => 'default',
+				'description' => __( 'Select icon position. Icon box style will be changed according to the icon position.', 'porto-functionality' ),
+			)
+		);
+
+		$this->add_responsive_control(
+			'h_align',
+			array(
+				'type'        => Controls_Manager::CHOOSE,
+				'label'       => __( 'Horizontal Align', 'porto-functionality' ),
+				'options'     => array(
+					'center'     => array(
+						'title' => esc_html__( 'Center', 'porto-functionality' ),
+						'icon'  => 'eicon-text-align-center',
+					),
+					'left'   => array(
+						'title' => esc_html__( 'left', 'porto-functionality' ),
+						'icon'  => 'eicon-text-align-left',
+					),
+					'right'   => array(
+						'title' => esc_html__( 'Right', 'porto-functionality' ),
+						'icon'  => 'eicon-text-align-right',
+					),
+				),
+				'default'    => 'center',
+				'condition'  => array(
+					'pos' => 'top',
+				),
+				'render_type' => 'template',
+				'selectors'   => array(
+					'.elementor-element-{{ID}} .porto-sicon-box.top-icon' => 'text-align: {{VALUE}};',
+				),
 			)
 		);
 
@@ -96,230 +144,6 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 				'label'     => __( 'External Image Url', 'porto-functionality' ),
 				'condition' => array(
 					'icon_type' => array( 'custom' ),
-				),
-			)
-		);
-
-		$this->add_control(
-			'img_width',
-			array(
-				'type'        => Controls_Manager::SLIDER,
-				'label'       => __( 'Image Width', 'porto-functionality' ),
-				'range'       => array(
-					'px' => array(
-						'step' => 1,
-						'min'  => 16,
-						'max'  => 512,
-					),
-				),
-				'default'     => array(
-					'unit' => 'px',
-					'size' => 48,
-				),
-				'description' => __( 'Provide image width', 'porto-functionality' ),
-				'condition'   => array(
-					'icon_type' => 'custom',
-				),
-				'selectors'   => array(
-					'{{WRAPPER}} .porto-sicon-img' => 'font-size: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'icon_size',
-			array(
-				'type'      => Controls_Manager::SLIDER,
-				'label'     => __( 'Icon Size', 'porto-functionality' ),
-				'range'     => array(
-					'px' => array(
-						'step' => 1,
-						'min'  => 12,
-						'max'  => 72,
-					),
-				),
-				'default'   => array(
-					'unit' => 'px',
-					'size' => 32,
-				),
-				'condition' => array(
-					'icon_type' => 'icon',
-				),
-				'selectors' => array(
-					'{{WRAPPER}} .porto-icon' => 'font-size: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'icon_color',
-			array(
-				'type'      => Controls_Manager::COLOR,
-				'label'     => __( 'Color', 'porto-functionality' ),
-				'default'   => '#333333',
-				'condition' => array(
-					'icon_type' => 'icon',
-				),
-				'selectors' => array(
-					'{{WRAPPER}} .porto-icon'     => 'color: {{VALUE}};',
-					'{{WRAPPER}} .porto-icon svg' => 'fill: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'icon_style',
-			array(
-				'type'    => Controls_Manager::SELECT,
-				'label'   => __( 'Icon Style', 'porto-functionality' ),
-				'options' => array(
-					'none'       => __( 'Simple', 'porto-functionality' ),
-					'circle'     => __( 'Circle Background', 'porto-functionality' ),
-					'circle_img' => __( 'Circle Image', 'porto-functionality' ),
-					'square'     => __( 'Square Background', 'porto-functionality' ),
-					'advanced'   => __( 'Design your own', 'porto-functionality' ),
-				),
-				'default' => 'none',
-			)
-		);
-
-		$this->add_control(
-			'icon_color_bg',
-			array(
-				'type'        => Controls_Manager::COLOR,
-				'label'       => __( 'Background Color', 'porto-functionality' ),
-				'default'     => '#ffffff',
-				'description' => __( 'Select background color for icon.', 'porto-functionality' ),
-				'condition'   => array(
-					'icon_style' => array( 'circle', 'circle_img', 'square', 'advanced' ),
-				),
-				'selectors'   => array(
-					'{{WRAPPER}} .porto-sicon-img.porto-u-circle-img:before' => 'border-color: {{VALUE}};',
-					'{{WRAPPER}} .porto-sicon-img' => 'background: {{VALUE}};',
-					'{{WRAPPER}} .porto-icon'      => 'background: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'icon_border_style',
-			array(
-				'type'        => Controls_Manager::SELECT,
-				'label'       => __( 'Icon Border Style', 'porto-functionality' ),
-				'options'     => array(
-					''       => __( 'None', 'porto-functionality' ),
-					'solid'  => __( 'Solid', 'porto-functionality' ),
-					'dashed' => __( 'Dashed', 'porto-functionality' ),
-					'dotted' => __( 'Dotted', 'porto-functionality' ),
-					'double' => __( 'Double', 'porto-functionality' ),
-					'inset'  => __( 'Inset', 'porto-functionality' ),
-					'outset' => __( 'Outset', 'porto-functionality' ),
-				),
-				'default'     => '',
-				'description' => __( 'Select the border style for icon.', 'porto-functionality' ),
-				'condition'   => array(
-					'icon_style' => array( 'circle_img', 'advanced' ),
-				),
-				'selectors'   => array(
-					'{{WRAPPER}} .porto-sicon-img'     => 'border-style: {{VALUE}};',
-					'{{WRAPPER}} .porto-icon.advanced' => 'border-style: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'icon_color_border',
-			array(
-				'type'        => Controls_Manager::COLOR,
-				'label'       => __( 'Border Color', 'porto-functionality' ),
-				'value'       => '#333333',
-				'description' => __( 'Select border color for icon.', 'porto-functionality' ),
-				'condition'   => array(
-					'icon_style'         => array( 'circle_img', 'advanced' ),
-					'icon_border_style!' => '',
-				),
-				'selectors'   => array(
-					'{{WRAPPER}} .porto-sicon-img'     => 'border-color: {{VALUE}};',
-					'{{WRAPPER}} .porto-icon.advanced' => 'border-color: {{VALUE}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'icon_border_size',
-			array(
-				'type'        => Controls_Manager::SLIDER,
-				'label'       => __( 'Border Width', 'porto-functionality' ),
-				'range'       => array(
-					'px' => array(
-						'step' => 1,
-						'min'  => 1,
-						'max'  => 10,
-					),
-				),
-				'default'     => array(
-					'unit' => 'px',
-					'size' => 1,
-				),
-				'description' => __( 'Thickness of the border.', 'porto-functionality' ),
-				'condition'   => array(
-					'icon_style'         => array( 'circle_img', 'advanced' ),
-					'icon_border_style!' => '',
-				),
-				'selectors'   => array(
-					'{{WRAPPER}} .porto-sicon-img'     => 'border-width: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .porto-icon.advanced' => 'border-width: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'icon_border_radius',
-			array(
-				'type'      => Controls_Manager::SLIDER,
-				'label'     => __( 'Border Radius', 'porto-functionality' ),
-				'range'     => array(
-					'px' => array(
-						'step' => 1,
-						'min'  => 1,
-						'max'  => 500,
-					),
-				),
-				'default'   => array(
-					'unit' => 'px',
-					'size' => 500,
-				),
-				'selectors' => array(
-					'{{WRAPPER}} .porto-sicon-img'     => 'border-radius: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .porto-icon.advanced' => 'border-radius: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'icon_border_spacing',
-			array(
-				'type'        => Controls_Manager::SLIDER,
-				'label'       => __( 'Background Size', 'porto-functionality' ),
-				'range'       => array(
-					'px' => array(
-						'step' => 1,
-						'min'  => 0,
-						'max'  => 500,
-					),
-				),
-				'default'     => array(
-					'unit' => 'px',
-					'size' => 50,
-				),
-				'description' => __( 'Spacing from center of the icon till the boundary of border / background', 'porto-functionality' ),
-				'condition'   => array(
-					'icon_style' => array( 'circle_img', 'advanced' ),
-				),
-				'selectors'   => array(
-					'{{WRAPPER}} .porto-sicon-img.porto-u-circle-img:before' => 'border-width: calc({{SIZE}}{{UNIT}} + 1px);',
-					'{{WRAPPER}} .porto-sicon-img'     => 'padding: {{SIZE}}{{UNIT}};',
-					'{{WRAPPER}} .porto-icon.advanced' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}; line-height: {{SIZE}}{{UNIT}};',
 				),
 			)
 		);
@@ -381,6 +205,9 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 				'condition'   => array(
 					'read_more' => array( 'box', 'title', 'more' ),
 				),
+				'dynamic'     => array(
+					'active' => true,
+				),
 			)
 		);
 
@@ -414,46 +241,229 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 			)
 		);
 
-		$this->add_control(
-			'pos',
+		$this->end_controls_section();
+
+		$this->start_controls_section(
+			'section_info_box_style_icon',
 			array(
-				'type'        => Controls_Manager::SELECT,
-				'label'       => __( 'Box Style', 'porto-functionality' ),
-				'options'     => array(
-					'default'       => __( 'Icon at Left with heading', 'porto-functionality' ),
-					'heading-right' => __( 'Icon at Right with heading', 'porto-functionality' ),
-					'left'          => __( 'Icon at Left', 'porto-functionality' ),
-					'right'         => __( 'Icon at Right', 'porto-functionality' ),
-					'top'           => __( 'Icon at Top', 'porto-functionality' ),
-				),
-				'default'     => 'default',
-				'description' => __( 'Select icon position. Icon box style will be changed according to the icon position.', 'porto-functionality' ),
+				'label' => __( 'Icon', 'porto-functionality' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
 
 		$this->add_control(
-			'h_align',
+			'icon_style',
 			array(
-				'type'      => Controls_Manager::SELECT,
-				'label'     => __( 'Horizontal Align', 'porto-functionality' ),
-				'options'   => array(
-					'left'   => __( 'Left', 'porto-functionality' ),
-					'right'  => __( 'Right', 'porto-functionality' ),
-					'center' => __( 'Center', 'porto-functionality' ),
+				'type'    => Controls_Manager::SELECT,
+				'label'   => __( 'Icon Style', 'porto-functionality' ),
+				'options' => array(
+					'none'       => __( 'Simple', 'porto-functionality' ),
+					'circle'     => __( 'Circle Background', 'porto-functionality' ),
+					'circle_img' => __( 'Circle Image', 'porto-functionality' ),
+					'square'     => __( 'Square Background', 'porto-functionality' ),
+					'advanced'   => __( 'Design your own', 'porto-functionality' ),
 				),
-				'default'   => 'center',
+				'default' => 'none',
+			)
+		);
+
+		$this->add_control(
+			'img_width',
+			array(
+				'type'        => Controls_Manager::SLIDER,
+				'label'       => __( 'Image Width', 'porto-functionality' ),
+				'range'       => array(
+					'px' => array(
+						'step' => 1,
+						'min'  => 16,
+						'max'  => 512,
+					),
+				),
+				'default'     => array(
+					'unit' => 'px',
+					'size' => 48,
+				),
+				'description' => __( 'Provide image width', 'porto-functionality' ),
+				'condition'   => array(
+					'icon_type' => 'custom',
+				),
+				'selectors'   => array(
+					'{{WRAPPER}} .porto-sicon-img' => 'font-size: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'icon_size',
+			array(
+				'type'      => Controls_Manager::SLIDER,
+				'label'     => __( 'Font Size (px)', 'porto-functionality' ),
+				'range'     => array(
+					'px' => array(
+						'step' => 1,
+						'min'  => 12,
+						'max'  => 72,
+					),
+				),
+				'default'   => array(
+					'unit' => 'px',
+					'size' => 32,
+				),
 				'condition' => array(
-					'pos' => 'top',
+					'icon_type' => 'icon',
 				),
+				'selectors' => array(
+					'{{WRAPPER}} .porto-icon' => 'font-size: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'icon_color',
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'label'     => __( 'Color', 'porto-functionality' ),
+				'default'   => '#333333',
+				'condition' => array(
+					'icon_type' => 'icon',
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .porto-icon'     => 'color: {{VALUE}};',
+					'{{WRAPPER}} .porto-icon svg' => 'fill: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'icon_color_bg',
+			array(
+				'type'        => Controls_Manager::COLOR,
+				'label'       => __( 'Background Color', 'porto-functionality' ),
+				'default'     => '#ffffff',
+				'description' => __( 'Select background color for icon.', 'porto-functionality' ),
+				'condition'   => array(
+					'icon_style' => array( 'circle', 'circle_img', 'square', 'advanced' ),
+				),
+				'selectors'   => array(
+					'{{WRAPPER}} .porto-sicon-img.porto-u-circle-img:before' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .porto-sicon-img' => 'background: {{VALUE}};',
+					'{{WRAPPER}} .porto-icon'      => 'background: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'      => 'icon_bd',
+				'selector'  => '{{WRAPPER}} .porto-sicon-img, {{WRAPPER}} .porto-icon.advanced',
+				'condition' => array(
+					'icon_style' => array( 'circle_img', 'advanced' ),
+				),
+			)
+		);
+
+		$this->add_control(
+			'icon_border_radius',
+			array(
+				'type'      => Controls_Manager::SLIDER,
+				'label'     => __( 'Border Radius (px)', 'porto-functionality' ),
+				'range'     => array(
+					'px' => array(
+						'step' => 1,
+						'min'  => 1,
+						'max'  => 200,
+					),
+				),
+				'default'   => array(
+					'unit' => 'px',
+					'size' => 200,
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .porto-sicon-img'     => 'border-radius: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .porto-icon.advanced' => 'border-radius: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'icon_border_spacing',
+			array(
+				'type'        => Controls_Manager::SLIDER,
+				'label'       => __( 'Size (px)', 'porto-functionality' ),
+				'range'       => array(
+					'px' => array(
+						'step' => 1,
+						'min'  => 0,
+						'max'  => 500,
+					),
+				),
+				'default'     => array(
+					'unit' => 'px',
+					'size' => 50,
+				),
+				'description' => __( 'Icon width and height', 'porto-functionality' ),
+				'condition'   => array(
+					'icon_style' => array( 'advanced' ),
+					'icon_type!' => 'custom',
+				),
+				'selectors'   => array(
+					'{{WRAPPER}} .porto-icon.advanced' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}; line-height: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'icon_pd',
+			array(
+				'type'        => Controls_Manager::SLIDER,
+				'label'       => __( 'Spacing', 'porto-functionality' ),
+				'range'       => array(
+					'px' => array(
+						'step' => 1,
+						'min'  => 0,
+						'max'  => 500,
+					),
+				),
+				'default'     => array(
+					'unit' => 'px',
+					'size' => 50,
+				),
+				'description' => __( 'Spacing from center of the icon till the boundary of border / background', 'porto-functionality' ),
+				'condition'   => array(
+					'icon_style' => array( 'circle_img', 'advanced' ),
+					'icon_type'  => 'custom',
+				),
+				'selectors'   => array(
+					'{{WRAPPER}} .porto-sicon-img.porto-u-circle-img:before' => 'border-width: calc({{SIZE}}{{UNIT}} + 1px);',
+					'{{WRAPPER}} .porto-sicon-img' => 'padding: {{SIZE}}{{UNIT}};',
+				),
+			)
+		);
+
+		$this->add_control(
+			'icon_margin',
+			array(
+				'label'       => esc_html__( 'Icon Margin', 'porto-functionality' ),
+				'type'        => Controls_Manager::DIMENSIONS,
+				'size_units'  => array(
+					'px',
+					'em',
+					'rem',
+				),
+				'selectors'   => array(
+					'{{WRAPPER}} .porto-icon, {{WRAPPER}} .porto-sicon-img' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				),
+				'qa_selector' => '.porto-icon, .porto-sicon-img',
 			)
 		);
 
 		$this->end_controls_section();
 
 		$this->start_controls_section(
-			'section_info_box_font_options',
+			'section_info_box_style_title',
 			array(
-				'label' => __( 'Style', 'porto-functionality' ),
+				'label' => __( 'Text', 'porto-functionality' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
 		);
@@ -481,7 +491,7 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 			array(
 				'name'     => 'title_google_font_style',
 				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
-				'label'    => __( 'Title Typograhy', 'porto-functionality' ),
+				'label'    => __( 'Title Typography', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .porto-sicon-title',
 			)
 		);
@@ -497,12 +507,44 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 			)
 		);
 
+		$this->add_control(
+			'title_margin_bottom',
+			array(
+				'type'        => Controls_Manager::SLIDER,
+				'label'       => __( 'Title Margin Bottom', 'porto-functionality' ),
+				'range'       => array(
+					'px'  => array(
+						'step' => 1,
+						'min'  => 0,
+						'max'  => 100,
+					),
+					'rem' => array(
+						'step' => 0.1,
+						'min'  => 0,
+						'max'  => 10,
+					),
+				),
+				'default'     => array(
+					'unit' => 'px',
+				),
+				'size_units'  => array(
+					'px',
+					'rem',
+				),
+				'selectors'   => array(
+					'{{WRAPPER}} .porto-sicon-title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
+				),
+				'qa_selector' => '.porto-sicon-title',
+				'separator'   => 'after',
+			)
+		);
+
 		$this->add_group_control(
 			Elementor\Group_Control_Typography::get_type(),
 			array(
 				'name'     => 'sub_title_google_font_style',
 				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
-				'label'    => __( 'Sub Title Typograhy', 'porto-functionality' ),
+				'label'    => __( 'Sub Title Typography', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .porto-sicon-header p',
 			)
 		);
@@ -515,6 +557,7 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 				'selectors' => array(
 					'{{WRAPPER}} .porto-sicon-header p' => 'color: {{VALUE}};',
 				),
+				'separator' => 'after',
 			)
 		);
 
@@ -523,7 +566,7 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 			array(
 				'name'     => 'desc_google_font_style',
 				'scheme'   => Elementor\Core\Schemes\Typography::TYPOGRAPHY_1,
-				'label'    => __( 'Description Typograhy', 'porto-functionality' ),
+				'label'    => __( 'Description Typography', 'porto-functionality' ),
 				'selector' => '{{WRAPPER}} .porto-sicon-description',
 			)
 		);
@@ -540,131 +583,11 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 		);
 
 		$this->add_control(
-			'icon_margin_bottom',
-			array(
-				'type'       => Controls_Manager::SLIDER,
-				'label'      => __( 'Icon Margin Bottom', 'porto-functionality' ),
-				'range'      => array(
-					'px'  => array(
-						'step' => 1,
-						'min'  => 0,
-						'max'  => 100,
-					),
-					'rem' => array(
-						'step' => 0.1,
-						'min'  => 0,
-						'max'  => 10,
-					),
-				),
-				'default'    => array(
-					'unit' => 'px',
-				),
-				'size_units' => array(
-					'px',
-					'rem',
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} .porto-just-icon-wrapper' => 'margin-bottom: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'icon_margin_left',
-			array(
-				'type'       => Controls_Manager::SLIDER,
-				'label'      => __( 'Icon Margin Left', 'porto-functionality' ),
-				'range'      => array(
-					'px'  => array(
-						'step' => 1,
-						'min'  => 0,
-						'max'  => 100,
-					),
-					'rem' => array(
-						'step' => 0.1,
-						'min'  => 0,
-						'max'  => 10,
-					),
-				),
-				'default'    => array(
-					'unit' => 'px',
-				),
-				'size_units' => array(
-					'px',
-					'rem',
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} .porto-icon, {{WRAPPER}} .porto-sicon-img' => 'margin-' . ( is_rtl() ? 'right' : 'left' ) . ': {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'icon_margin_right',
-			array(
-				'type'       => Controls_Manager::SLIDER,
-				'label'      => __( 'Icon Margin Right', 'porto-functionality' ),
-				'range'      => array(
-					'px'  => array(
-						'step' => 1,
-						'min'  => 0,
-						'max'  => 100,
-					),
-					'rem' => array(
-						'step' => 0.1,
-						'min'  => 0,
-						'max'  => 10,
-					),
-				),
-				'default'    => array(
-					'unit' => 'px',
-				),
-				'size_units' => array(
-					'px',
-					'rem',
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} .porto-icon, {{WRAPPER}} .porto-sicon-img' => 'margin-' . ( is_rtl() ? 'left' : 'right' ) . ': {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_control(
-			'title_margin_bottom',
-			array(
-				'type'       => Controls_Manager::SLIDER,
-				'label'      => __( 'Title Margin Bottom', 'porto-functionality' ),
-				'range'      => array(
-					'px'  => array(
-						'step' => 1,
-						'min'  => 0,
-						'max'  => 100,
-					),
-					'rem' => array(
-						'step' => 0.1,
-						'min'  => 0,
-						'max'  => 10,
-					),
-				),
-				'default'    => array(
-					'unit' => 'px',
-				),
-				'size_units' => array(
-					'px',
-					'rem',
-				),
-				'selectors'  => array(
-					'{{WRAPPER}} .porto-sicon-title' => 'margin-bottom: {{SIZE}}{{UNIT}};',
-				),
-			)
-		);
-
-		$this->add_control(
 			'sub_title_margin_bottom',
 			array(
-				'type'       => Controls_Manager::SLIDER,
-				'label'      => __( 'Header Margin Bottom', 'porto-functionality' ),
-				'range'      => array(
+				'type'        => Controls_Manager::SLIDER,
+				'label'       => __( 'Spacing between Title & Description', 'porto-functionality' ),
+				'range'       => array(
 					'px'  => array(
 						'step' => 1,
 						'min'  => 0,
@@ -676,16 +599,17 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 						'max'  => 10,
 					),
 				),
-				'default'    => array(
+				'default'     => array(
 					'unit' => 'px',
 				),
-				'size_units' => array(
+				'size_units'  => array(
 					'px',
 					'rem',
 				),
-				'selectors'  => array(
+				'selectors'   => array(
 					'{{WRAPPER}} .porto-sicon-header' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				),
+				'qa_selector' => '.porto-sicon-description',
 			)
 		);
 
@@ -728,17 +652,26 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 			$this->add_render_attribute( 'title', 'class', 'porto-sicon-title' );
 			$this->add_inline_editing_attributes( 'subtitle' );
 			$this->add_inline_editing_attributes( 'content', 'advanced' );
-			$title_attrs_escaped             = ' ' . $this->get_render_attribute_string( 'title' );
-			$subtitle_attrs_escaped          = ' ' . $this->get_render_attribute_string( 'subtitle' );
-			$desc_attrs_escaped              = ' ' . $this->get_render_attribute_string( 'content' );
-			$atts['icon_color']              = '';
-			$atts['icon_color_bg']           = '';
-			$atts['icon_color_border']       = '';
-			$atts['icon_border_style']       = '';
-			$atts['icon_margin_bottom']      = '';
-			$atts['icon_margin_right']       = '';
+			$title_attrs_escaped       = ' ' . $this->get_render_attribute_string( 'title' );
+			$subtitle_attrs_escaped    = ' ' . $this->get_render_attribute_string( 'subtitle' );
+			$desc_attrs_escaped        = ' ' . $this->get_render_attribute_string( 'content' );
+			$atts['icon_color']        = '';
+			$atts['icon_color_bg']     = '';
+			$atts['icon_color_border'] = '';
+			$atts['icon_border_style'] = '';
+			if ( isset( $atts['icon_margin_right'] ) && isset( $atts['icon_margin_right']['size'] ) && ( $atts['icon_margin_right']['size'] || '0' == $atts['icon_margin_right']['size'] ) && ! empty( $atts['icon_margin_right']['unit'] ) ) {
+				$atts['icon_margin_right'] = $atts['icon_margin_right']['size'] . $atts['icon_margin_right']['unit'];
+			} else {
+				$atts['icon_margin_right'] = '';
+			}
+			if ( isset( $atts['icon_margin_bottom'] ) && isset( $atts['icon_margin_bottom']['size'] ) && ( $atts['icon_margin_bottom']['size'] || '0' == $atts['icon_margin_bottom']['size'] ) && ! empty( $atts['icon_margin_bottom']['unit'] ) ) {
+				$atts['icon_margin_bottom'] = $atts['icon_margin_bottom']['size'] . $atts['icon_margin_bottom']['unit'];
+			} else {
+				$atts['icon_margin_bottom'] = '';
+			}
 			$atts['title_margin_bottom']     = '';
 			$atts['sub_title_margin_bottom'] = '';
+			$atts['page_builder'] = 'elementor';
 			include $template;
 		}
 	}
@@ -750,9 +683,6 @@ class Porto_Elementor_Info_Box_Widget extends \Elementor\Widget_Base {
 				settings.icon_img.url = settings.icon_img_url;
 			}
 			view.addRenderAttribute( 'wrapper', 'class', 'porto-sicon-box' );
-			if ( 'top' == settings.pos && 'center' != settings.h_align && settings.h_align ) {
-				view.addRenderAttribute( 'wrapper', 'class', 'text-' + settings.h_align );
-			}
 			if ( settings.hover_effect ) {
 				view.addRenderAttribute( 'wrapper', 'class', settings.hover_effect );
 			}
