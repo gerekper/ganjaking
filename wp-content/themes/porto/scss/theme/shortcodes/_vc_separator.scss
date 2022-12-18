@@ -63,19 +63,11 @@
 }
 
 .vc_separator .vc_sep_holder {
-    &.vc_sep_holder_l {
-        .vc_sep_line {
-            border: none;
-        }
-    }
-    &.vc_sep_holder_r {
-        .vc_sep_line {
-            border: none;
-        }
-    }
     &.vc_sep_holder_l,
     &.vc_sep_holder_r {
         .vc_sep_line {
+            border: none;
+            background: var(--porto-normal-bc);
             &.dashed {
                 background: none;
                 position: relative;
@@ -87,7 +79,11 @@
                     top: 50%;
                     margin-top: -1px;
                     width: 100%;
+                    border: 1px dashed var(--porto-normal-bc);
                 }
+            }
+            &.solid {
+                background: var(--porto-normal-bc);
             }
             &.pattern {
                 background: none;

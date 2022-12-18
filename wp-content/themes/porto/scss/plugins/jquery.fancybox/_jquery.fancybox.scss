@@ -1,4 +1,4 @@
-/*! fancyBox v2.1.5 fancyapps.com | fancyapps.com/fancybox/#license */
+/* fancyBox v2.1.5 fancyapps.com | fancyapps.com/fancybox/#license */
 .fancybox-wrap,
 .fancybox-skin,
 .fancybox-outer,
@@ -324,5 +324,5 @@ a.fancybox-close.fancybox-newsletter-close {
 	}
 }
 .fancybox-skin {
-	background: #fff none repeat scroll 0 0;
+	background: var(--porto-body-bg,#fff);
 }

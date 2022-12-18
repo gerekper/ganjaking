@@ -46,7 +46,7 @@ if ( ! class_exists( 'Porto_Video_Thumbnail' ) ) :
 					?>
 
 					<div class="img-thumbnail">
-						<a href="#" class="porto-video-thumbnail-viewer"><img src="<?php echo esc_url( $poster ); ?>" alt=""></a>
+						<a href="#" class="porto-video-thumbnail-viewer"><img src="<?php echo esc_url( $poster ); ?>" alt="poster image"></a>
 						<script type="text/template" class="porto-video-thumbnail-data">
 							<figure class="post-media fit-video">
 								<?php echo do_shortcode( '[video src="' . esc_url( $url ) . '" poster="' . esc_url( $poster ) . '"]' ); ?>

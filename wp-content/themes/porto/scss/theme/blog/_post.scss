@@ -7,11 +7,17 @@
     }
     .entry-title {
         font-weight: 700;
+        color: var(--porto-primary-color);
     }
 }
 
-.comment-form-cookies-consent > label {
-    display: inline
+.comment-form-cookies-consent {
+    & > * {
+        vertical-align: middle;
+    }
+    & > label {
+        display: inline
+    }
 }
 
 /* Post Slideshow */
@@ -34,12 +40,16 @@ article.post,
         text-align: center;
         width: 40px;
 
-        .month {
+        .month, .format {
+            display: block;
             box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.07) inset;
-            color: #FFF;
+            background: var(--porto-primary-color);
+            color: #fff;
+        }
+
+        .month {
             font-size: 0.9em;
             padding: 0 0 2px;
-            display: block;
         }
         .day {
             display: block;
@@ -47,12 +57,14 @@ article.post,
             font-weight: 500;
             font-weight: bold;
             padding: 10px 0;
+            background: var(--porto-gray-1);
+            color: var(--porto-primary-color);
         }
 
         .sticky {
-            background: #62b959;
+            background: var(--porto-hot-color, #62b959);
             box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.07) inset;
-            color: #FFF;
+            color: var(--porto-hot-color-inverse, #FFF);
             font-size: 0.9em;
             padding: 2px 0 0;
             margin-top: 5px;
@@ -60,9 +72,6 @@ article.post,
         }
 
         .format {
-            display: block;
-            box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.07) inset;
-            color: #FFF;
             font-size: 1.2857em;
             padding: 0;
             line-height: 40px;
@@ -79,7 +88,7 @@ article.post,
     .read-more, .read-more-block {
         font-size: .9em;
         font-weight: 600;
-        color: $color_dark;
+        color: var(--porto-heading-color);
     }
     h4.title-short {
         margin-bottom: 2px;
@@ -123,7 +132,6 @@ article {
         }
 
         .post-image {
-            position: relative;
             margin-bottom: 15px;
             /*img {
                 width: auto;
@@ -221,8 +229,16 @@ article {
 }
 
 /* Post Block */
-.post-block {
-    margin-bottom: 3rem;
+.post-image {
+    position: relative;
+}
+.porto-single-page {
+    .post-block {
+        margin-bottom: 3rem;
+    }
+    .post-share-advance {
+        margin-bottom: 0
+    }
 }
 .post-block,
 .post-share,
@@ -259,7 +275,7 @@ article.portfolio .comment-respond {
 }
 
 .post-share-advance-bg {
-  background: $color-quaternary;
+  background: var(--porto-quaternary-color, $color-quaternary);
   border-radius: 50px;
   float: $right;
   height: 100%;
@@ -282,10 +298,10 @@ article.post-title-simple .post-share-advance.post-block.post-share {
 .post-share-advance {
   &.post-share { border-top: none; }
   .fa-share-alt {
-    background: $color-quaternary;
+    background: var(--porto-quaternary-color, $color-quaternary);
     border-radius: 50px;
     bottom: 0;
-    color: $color-quaternary-inverse;
+    color: var(--porto-quaternary-color-inverse, $color-quaternary-inverse);
     height: 40px;
     line-height: 40px;
     position: absolute;
@@ -301,17 +317,7 @@ article.post-title-simple .post-share-advance.post-block.post-share {
     white-space: nowrap;
   }
   .share-links a:first-child {
-    opacity: 0;
     margin-top: 12px;
-  }
-  &:hover .share-links a:first-child {
-    opacity: 0.5;
-    &:hover {
-      opacity: 1;
-    }
-  }
-  .share-links a {
-    display: block;
   }
 }
 
@@ -320,13 +326,12 @@ article.post-title-simple .post-share-advance.post-block.post-share {
 }
 
 .post-share-advance {
-  .fa-share-alt {
-    color: $color-quaternary-inverse;
-  }
   .share-links {
     a {
+      display: block;
+      background: none;
       margin-#{$right}: 0;
-      opacity: 0.5;
+      opacity: .5;
       &:hover {
         opacity: 1;
       }
@@ -349,15 +354,12 @@ article.post-title-simple .post-share-advance.post-block.post-share {
         }
     }
     p {
-        font-size: 0.9em;
+        font-size: .9em;
         line-height: 22px;
         margin: 0;
         padding: 0;
         .name {
-            font-size: 1.3em;
-            a {
-                text-decoration: none;
-            }
+            font-size: 1.3em
         }
     }
     .img-thumbnail {
@@ -410,12 +412,14 @@ ul.comments {
         border-bottom: 15px solid transparent;
         #{$left}: -15px;
         border-top: 15px solid transparent;
+        border-#{$right}: 15px solid var(--porto-gray-1);
         height: 0;
         position: absolute;
         top: 28px;
         width: 0;
     }
     .comment-block {
+        background: var(--porto-gray-1);
         padding: 20px 20px 35px;
         position: relative;
         p {
@@ -443,6 +447,10 @@ ul.comments {
         }
     }
     @media #{$screen-medium} {
+        li {
+            padding-#{$left}: 10px;
+            border-#{$left}: 8px solid var(--porto-gray-2);
+        }
         ul.children > li,
         > li {
             padding: 0 0 0 10px;
@@ -469,26 +477,23 @@ ul.comments {
 }
 
 /* Leave a Comment */
-article {
-    .comment-respond {
-        margin-top: 3rem;
-        padding-bottom: 0;
-        h3 {
-            margin: 0 0 40px;
-        }
-    }
-    #cancel-comment-reply-link {
-        margin-#{$left}: 10px;
+.comment-respond {
+    margin-top: 3rem;
+    padding-bottom: 0;
+    h3 {
+        margin: 0 0 40px;
     }
 }
-
+#cancel-comment-reply-link {
+    margin-#{$left}: 10px;
+}
 .comment-form {
     padding: 30px 30px 10px;
-    background: #f7f7f7;
+    background: var(--porto-gray-7);
     border-radius: 5px;
     label {
         font-weight: 700;
-        color: $color-dark;
+        color: var(--porto-heading-color);
         &:first-child {
             display: block;
         }
@@ -585,6 +590,7 @@ article {
             .cat-names {
                 font-weight: $font-weight-semibold;
                 text-transform: uppercase;
+                color: var(--porto-primary-color);
                 a {
                     text-decoration: none;
                     text-transform: uppercase;
@@ -594,6 +600,15 @@ article {
                 float: $right;
             }
         }
+    }
+}
+
+.post-item.style-5 .post-meta {
+    a {
+        color: var(--porto-secondary-color);
+    }
+    .post-views-icon.dashicons {
+        color: var(--porto-primary-color)
     }
 }
 
@@ -646,6 +661,7 @@ article {
     padding-top: 15px;
     padding-bottom: 15px;
     line-height: 20px;
+    border-top: 1px dotted var(--porto-gray-2);
     @include clearfix();
 
     &:first-child {
@@ -667,6 +683,11 @@ article {
 
     h5 {
         margin-bottom: 0;
+    }
+
+    .widget .row &,
+    .elementor-widget .row & {
+        margin: 0 var(--porto-column-spacing);
     }
 }
 
@@ -728,6 +749,7 @@ article {
             font-weight: 600;
             display: block;
             a {
+                background-color: var(--porto-dark-color, $color-dark);
                 color: #fff;
                 text-decoration: none;
                 display: inline-block;
@@ -738,9 +760,10 @@ article {
         }
     }
     .post-item-list {
+        margin-bottom: var(--porto-grid-gutter-width);
         @media (min-width: 576px) {
-            display: -ms-flexbox; display: flex;
-            -ms-flex-align: center; align-items: center;
+            display: flex;
+            align-items: center;
             .post-image {
                 flex: 0 0 auto;
                 width: 34%;
@@ -775,6 +798,7 @@ article {
         .post-medium .post-media {
             float: $left;
             width: 40%;
+            margin-#{$right}: var(--porto-grid-gutter-width);
         }
     }
 }
@@ -793,6 +817,10 @@ article {
 }
 .post-modern .post-meta > span:after {
     content: '|'; margin-#{$left}: 8px
+}
+.post-meta-divider > span:not(:last-child):after {
+    content:'|';
+    margin-right: 0;
 }
 .post-modern .post-meta > span:last-child:after {
     content: none
@@ -813,4 +841,28 @@ article {
     font-size: .6875rem;
     text-transform: uppercase;
     color: #999
+}
+
+article.post-medium .post-image.single {
+    margin-bottom: var(--porto-grid-gutter-width);
+}
+
+.post-item.post-title-simple .post-title,
+.post-item.post-title-simple .post-title h2,
+.post-item.post-title-simple .entry-title,
+article.post-title-simple .entry-title a:not(:hover),
+.post-item.post-title-simple .entry-title a {
+    color: var(--porto-h2-color, var(--porto-heading-color));
+}
+
+// Post Format Widget
+.format {    
+    box-shadow: 0 -1px 0 0 rgb(0 0 0 / 7%) inset;
+    background: var(--porto-primary-color);
+    color: #fff;
+    font-size: 18px;
+    border-radius: 2px;
+    i {
+        padding: 11px;
+    }
 }

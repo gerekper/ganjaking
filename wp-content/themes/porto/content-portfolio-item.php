@@ -1,12 +1,12 @@
 <?php
 global $porto_settings, $post, $porto_portfolio_view, $porto_portfolio_thumb, $porto_portfolio_thumb_bg, $porto_portfolio_thumb_image, $porto_portfolio_ajax_load, $porto_portfolio_ajax_modal;
 
-$portfolio_view        = ( $porto_portfolio_view && 'classic' != $porto_portfolio_view ) ? $porto_portfolio_view : $porto_settings['portfolio-related-style'];
-$portfolio_thumb       = $porto_portfolio_thumb ? $porto_portfolio_thumb : $porto_settings['portfolio-related-thumb'];
-$portfolio_thumb_bg    = $porto_portfolio_thumb_bg ? $porto_portfolio_thumb_bg : $porto_settings['portfolio-related-thumb-bg'];
-$portfolio_thumb_image = $porto_portfolio_thumb_image ? ( 'zoom' == $porto_portfolio_thumb_image ? '' : $porto_portfolio_thumb_image ) : $porto_settings['portfolio-related-thumb-image'];
-$portfolio_show_link   = $porto_settings['portfolio-related-link'];
-$portfolio_show_zoom   = $porto_settings['portfolio-zoom'];
+$portfolio_view        = ( $porto_portfolio_view && 'classic' != $porto_portfolio_view ) ? $porto_portfolio_view : ( isset( $porto_settings['portfolio-related-style'] ) ? $porto_settings['portfolio-related-style'] : '' );
+$portfolio_thumb       = $porto_portfolio_thumb ? $porto_portfolio_thumb : ( isset( $porto_settings['portfolio-related-thumb'] ) ? $porto_settings['portfolio-related-thumb'] : '' );
+$portfolio_thumb_bg    = $porto_portfolio_thumb_bg ? $porto_portfolio_thumb_bg : ( isset( $porto_settings['portfolio-related-thumb-bg'] ) ? $porto_settings['portfolio-related-thumb-bg'] : 'lighten' );
+$portfolio_thumb_image = $porto_portfolio_thumb_image ? ( 'zoom' == $porto_portfolio_thumb_image ? '' : $porto_portfolio_thumb_image ) : ( isset( $porto_settings['portfolio-related-thumb-image'] ) ? $porto_settings['portfolio-related-thumb-image'] : '' );
+$portfolio_show_link   = isset( $porto_settings['portfolio-related-link'] ) ? $porto_settings['portfolio-related-link'] : true;
+$portfolio_show_zoom   = isset( $porto_settings['portfolio-zoom'] ) ? $porto_settings['portfolio-zoom'] : false;
 $portfolio_ajax        = false;
 $portfolio_ajax_modal  = false;
 
@@ -35,7 +35,7 @@ if ( $archive_image ) {
 	$featured_images = porto_get_featured_images();
 }
 $portfolio_link     = get_post_meta( $post->ID, 'portfolio_link', true );
-$show_external_link = $porto_settings['portfolio-external-link'];
+$show_external_link = isset( $porto_settings['portfolio-external-link'] ) ? $porto_settings['portfolio-external-link'] : false;
 
 $count = count( $featured_images );
 
@@ -109,10 +109,10 @@ if ( $count ) :
 							</span>
 							<?php
 						else :
-							if ( $porto_settings['portfolio-archive-readmore'] ) :
+							if ( ! empty( $porto_settings['portfolio-archive-readmore'] ) ) :
 								?>
 								<span class="thumb-info-title">
-									<span class="thumb-info-inner"><?php echo ! $porto_settings['portfolio-archive-readmore-label'] ? esc_html__( 'View Project...', 'porto' ) : porto_strip_script_tags( $porto_settings['portfolio-archive-readmore-label'] ); ?></span>
+									<span class="thumb-info-inner"><?php echo empty( $porto_settings['portfolio-archive-readmore-label'] ) ? esc_html__( 'View Project...', 'porto' ) : porto_strip_script_tags( $porto_settings['portfolio-archive-readmore-label'] ); ?></span>
 								</span>
 								<?php
 							endif;
@@ -146,7 +146,7 @@ if ( $count ) :
 					if ( has_excerpt() ) {
 						the_excerpt();
 					} else {
-						echo porto_get_excerpt( $porto_settings['portfolio-excerpt-length'], false );
+						echo porto_get_excerpt( isset( $porto_settings['portfolio-excerpt-length'] ) ? $porto_settings['portfolio-excerpt-length'] : 80, false );
 					}
 					?>
 				</div>

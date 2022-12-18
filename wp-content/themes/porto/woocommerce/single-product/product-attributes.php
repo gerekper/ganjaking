@@ -13,14 +13,14 @@ if ( version_compare( $porto_woo_version, '3.6', '<' ) ) :
 	<table class="table table-striped shop_attributes">
 		<?php if ( $display_dimensions && $product->has_weight() ) : ?>
 			<tr>
-				<th><?php esc_html_e( 'Weight', 'porto' ); ?></th>
+				<th><?php esc_html_e( 'Weight', 'woocommerce' ); ?></th>
 				<td class="product_weight"><?php echo esc_html( wc_format_weight( $product->get_weight() ) ); ?></td>
 			</tr>
 		<?php endif; ?>
 
 		<?php if ( $display_dimensions && $product->has_dimensions() ) : ?>
 			<tr>
-				<th><?php esc_html_e( 'Dimensions', 'porto' ); ?></th>
+				<th><?php esc_html_e( 'Dimensions', 'woocommerce' ); ?></th>
 				<td class="product_dimensions"><?php echo esc_html( wc_format_dimensions( $product->get_dimensions( false ) ) ); ?></td>
 			</tr>
 		<?php endif; ?>

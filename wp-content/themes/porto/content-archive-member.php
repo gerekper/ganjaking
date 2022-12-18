@@ -1,11 +1,16 @@
 <?php
 global $post, $porto_settings, $porto_layout, $porto_member_columns, $porto_member_role, $porto_member_view, $porto_member_overview, $porto_member_socials, $porto_member_ajax_load, $porto_member_ajax_modal, $porto_custom_zoom;
-$member_columns    = $porto_member_columns ? $porto_member_columns : $porto_settings['member-columns'];
+$member_columns    = $porto_member_columns ? $porto_member_columns : ( isset( $porto_settings['member-columns'] ) ? $porto_settings['member-columns'] : 4 );
 $porto_custom_zoom = $porto_custom_zoom ? $porto_custom_zoom : ( empty( $porto_settings['custom-member-zoom'] ) ? 'zoom' : 'no_zoom' );
 $post_class        = array();
 $post_class[]      = 'member';
-$member_id         = get_the_ID();
-$item_cats         = get_the_terms( $member_id, 'member_cat' );
+
+if ( ! empty( $post_classes ) ) {
+	$post_class[] = trim( $post_classes );
+}
+
+$member_id = get_the_ID();
+$item_cats = get_the_terms( $member_id, 'member_cat' );
 if ( $item_cats ) {
 	foreach ( $item_cats as $item_cat ) {
 		$post_class[] = urldecode( $item_cat->slug );
@@ -21,10 +26,10 @@ if ( isset( $porto_settings['member-social-link-style'] ) && 'advance' == $porto
 
 $featured_images    = porto_get_featured_images();
 $member_link        = get_post_meta( $member_id, 'member_link', true );
-$show_external_link = $porto_settings['member-external-link'];
-$member_show_zoom   = $porto_settings['member-zoom'];
-$member_ajax        = $porto_settings['member-archive-ajax'];
-$member_ajax_modal  = $porto_settings['member-archive-ajax-modal'];
+$show_external_link = isset( $porto_settings['member-external-link'] ) ? $porto_settings['member-external-link'] : false;
+$member_show_zoom   = isset( $porto_settings['member-zoom'] ) ? $porto_settings['member-zoom'] : false;
+$member_ajax        = isset( $porto_settings['member-archive-ajax'] ) ? $porto_settings['member-archive-ajax'] : false;
+$member_ajax_modal  = isset( $porto_settings['member-archive-ajax-modal'] ) ? $porto_settings['member-archive-ajax-modal'] : false;
 if ( 'yes' == $porto_member_ajax_load ) {
 	$member_ajax = true;
 } elseif ( 'no' == $porto_member_ajax_load ) {
@@ -36,7 +41,7 @@ if ( 'yes' == $porto_member_ajax_modal ) {
 	$member_ajax_modal = false;
 }
 $thumb_class = 'thumb-info-hide-wrapper-bg';
-$view_type   = $porto_settings['member-view-type'];
+$view_type   = isset( $porto_settings['member-view-type'] ) ? $porto_settings['member-view-type'] : '';
 if ( $porto_member_view && 'classic' != $porto_member_view ) {
 	if ( 'onimage' == $porto_member_view ) {
 		$view_type = 0;
@@ -49,7 +54,7 @@ if ( $porto_member_view && 'classic' != $porto_member_view ) {
 	}
 }
 if ( $view_type ) {
-	if ( $porto_settings['member-archive-readmore'] ) {
+	if ( ! empty( $porto_settings['member-archive-readmore'] ) ) {
 		$thumb_class = 'thumb-info-centered-info';
 	}
 }
@@ -69,9 +74,9 @@ if ( count( $featured_images ) ) :
 	$attachment_id = $featured_images[0]['attachment_id'];
 	$attachment    = porto_get_attachment( $attachment_id );
 	if ( 2 == $member_columns ) {
-		$attachment_medium = porto_get_attachment( $attachment_id, 'full' == $porto_settings['member-image-size'] ? 'full' : 'member-two' );
+		$attachment_medium = porto_get_attachment( $attachment_id, ( isset( $porto_settings['member-image-size'] ) && 'full' == $porto_settings['member-image-size'] ) ? 'full' : 'member-two' );
 	} else {
-		$attachment_medium = porto_get_attachment( $attachment_id, 'full' == $porto_settings['member-image-size'] ? 'full' : 'member' );
+		$attachment_medium = porto_get_attachment( $attachment_id, ( isset( $porto_settings['member-image-size'] ) && 'full' == $porto_settings['member-image-size'] ) ? 'full' : 'member' );
 	}
 	if ( $attachment && $attachment_medium ) :
 		$role         = get_post_meta( $member_id, 'member_role', true );
@@ -86,7 +91,7 @@ if ( count( $featured_images ) ) :
 		}
 		$show_info = false;
 
-		if ( 2 == $view_type || 3 == $view_type || 'yes' == $porto_member_overview || ( ! $porto_member_overview && $porto_settings['member-overview'] ) ) {
+		if ( 2 == $view_type || 3 == $view_type || 'yes' == $porto_member_overview || ( ! $porto_member_overview && ! empty( $porto_settings['member-overview'] ) ) ) {
 			$show_info = true;
 		}
 
@@ -110,7 +115,7 @@ if ( count( $featured_images ) ) :
 		$share_whatsapp   = get_post_meta( $member_id, 'member_whatsapp', true );
 
 		$target = ( isset( $porto_settings['member-social-target'] ) && $porto_settings['member-social-target'] ) ? ' target="_blank"' : '';
-		if ( ( 'yes' == $porto_member_socials || ( ! $porto_member_socials && $porto_settings['member-socials'] ) ) && ( $share_facebook || $share_twitter || $share_linkedin || $share_googleplus || $share_pinterest || $share_email || $share_vk || $share_xing || $share_tumblr || $share_reddit || $share_vimeo || $share_instagram || $share_whatsapp ) ) :
+		if ( ( 'yes' == $porto_member_socials || ( ! $porto_member_socials && ! empty( $porto_settings['member-socials'] ) ) ) && ( $share_facebook || $share_twitter || $share_linkedin || $share_googleplus || $share_pinterest || $share_email || $share_vk || $share_xing || $share_tumblr || $share_reddit || $share_vimeo || $share_instagram || $share_whatsapp ) ) :
 			$share_links_escaped .= '<span class="thumb-info-social-icons share-links ' . ( $show_info ? '' : ' b-none' ) . ( ! $view_type ? '' : ' mx-0' ) . ( 3 == $view_type ? ' text-center' : '' ) . '">';
 
 			if ( ! empty( $porto_settings['member-social-nofollow'] ) ) {
@@ -199,7 +204,7 @@ if ( count( $featured_images ) ) :
 							<img class="img-responsive" width="<?php echo esc_attr( $attachment_medium['width'] ); ?>" height="<?php echo esc_attr( $attachment_medium['height'] ); ?>" src="<?php echo esc_url( $attachment_medium['src'] ); ?>" alt="<?php echo esc_attr( $attachment_medium['alt'] ); ?>" />
 							</a>
 
-							<?php if ( 'yes' == $porto_member_overview || ( ! $porto_member_overview && $porto_settings['member-overview'] ) || 'yes' == $porto_member_socials || ( ! $porto_member_socials && $porto_settings['member-socials'] ) ) : ?>
+							<?php if ( 'yes' == $porto_member_overview || ( ! $porto_member_overview && ! empty( $porto_settings['member-overview'] ) ) || 'yes' == $porto_member_socials || ( ! $porto_member_socials && ! empty( $porto_settings['member-socials'] ) ) ) : ?>
 								<?php if ( isset( $social_links_adv_pos ) && $social_links_adv_pos ) : ?>
 
 								<div class="share-links post-share-advance member-share-advance">
@@ -224,10 +229,10 @@ if ( count( $featured_images ) ) :
 							</span>
 								<?php
 							endif;
-							if ( $view_type && $porto_settings['member-archive-readmore'] ) :
+							if ( $view_type && ! empty( $porto_settings['member-archive-readmore'] ) ) :
 								?>
 							<span class="thumb-info-title">
-								<span class="thumb-info-inner"><?php echo ! $porto_settings['member-archive-readmore-label'] ? esc_html__( 'View More...', 'porto' ) : wp_kses_post( $porto_settings['member-archive-readmore-label'] ); ?></span>
+								<span class="thumb-info-inner"><?php echo empty( $porto_settings['member-archive-readmore-label'] ) ? esc_html__( 'View More...', 'porto' ) : wp_kses_post( $porto_settings['member-archive-readmore-label'] ); ?></span>
 							</span>
 							<?php endif; ?>
 						<?php if ( $member_show_zoom ) : ?>
@@ -244,23 +249,23 @@ if ( count( $featured_images ) ) :
 							$show_info = true;
 							if ( $member_columns > 4 ) :
 								?>
-								<h5 class="m-t-md m-b-none"><?php the_title(); ?></h5>
+								<h5 class="member-name m-t-md m-b-none"><?php the_title(); ?></h5>
 							<?php else : ?>
-								<h4 class="m-t-md m-b-<?php echo ! $role ? 'sm' : 'none'; ?>"><?php the_title(); ?></h4>
+								<h4 class="member-name m-t-md m-b-<?php echo ! $role ? 'sm' : 'none'; ?>"><?php the_title(); ?></h4>
 								<?php
 							endif;
 							if ( $role ) :
 								?>
-								<p class="m-b-sm color-body"><?php echo wp_kses_post( $role ); ?></p>
+								<p class="member-role m-b-sm color-body"><?php echo wp_kses_post( $role ); ?></p>
 							<?php endif; ?>
 							<?php
 						elseif ( 4 == $view_type ) :
 							$show_info = true;
 							?>
 							<?php if ( $role ) : ?>
-								<p class="m-t-md mb-0 color-primary"><?php echo wp_kses_post( $role ); ?></p>
+								<p class="member-role m-t-md mb-0"><?php echo wp_kses_post( $role ); ?></p>
 							<?php endif; ?>
-								<h4><?php the_title(); ?></h4>
+								<h4 class="member-name<?php echo ! $role ? ' m-t-md' : ''; ?>"><?php the_title(); ?></h4>
 						<?php endif; ?>
 						<?php
 						if ( 3 == $view_type ) :
@@ -269,12 +274,12 @@ if ( count( $featured_images ) ) :
 							<div class="thumb-info-caption">
 								<div class="thumb-info-caption-title">
 									<?php if ( $cats_escaped ) : ?>
-										<span class="font-weight-light color-body text-md"><?php echo porto_filter_output( $cats_escaped ); ?></span>
+										<span class="member-cats"><?php echo porto_filter_output( $cats_escaped ); ?></span>
 									<?php endif; ?>
-									<h4 class="m-b-none text-lg"><?php the_title(); ?></h4>
+									<h4 class="member-name m-b-none text-lg"><?php the_title(); ?></h4>
 									<?php
 									if ( 'yes' == $porto_member_role ) {
-										echo '<p>' . wp_kses_post( $role ) . '</p>'; }
+										echo '<p class="member-role">' . wp_kses_post( $role ) . '</p>'; }
 									?>
 									<i class="view-more Simple-Line-Icons-arrow-right-circle font-weight-semibold"></i>
 								</div>
@@ -282,16 +287,16 @@ if ( count( $featured_images ) ) :
 						<?php endif; ?>
 						</a>
 
-						<?php if ( 'yes' == $porto_member_overview || ( ! $porto_member_overview && $porto_settings['member-overview'] ) || 'yes' == $porto_member_socials || ( ! $porto_member_socials && $porto_settings['member-socials'] ) ) : ?>
+						<?php if ( 'yes' == $porto_member_overview || ( ! $porto_member_overview && ! empty( $porto_settings['member-overview'] ) ) || 'yes' == $porto_member_socials || ( ! $porto_member_socials && ! empty( $porto_settings['member-socials'] ) ) ) : ?>
 						<div class="thumb-info-caption">
-							<?php if ( 'yes' == $porto_member_overview || ( ! $porto_member_overview && $porto_settings['member-overview'] ) ) : ?>
-								<div class="thumb-info-caption-text<?php echo ! $view_type ? '' : ' p-t-none'; ?>">
+							<?php if ( 'yes' == $porto_member_overview || ( ! $porto_member_overview && ! empty( $porto_settings['member-overview'] ) ) ) : ?>
+								<div class="thumb-info-caption-text<?php echo ! $view_type || 3 == $view_type ? '' : ' p-t-none'; ?>">
 									<?php
 									$show_info       = true;
 									$member_overview = get_post_meta( $member_id, 'member_overview', true );
-									if ( $porto_settings['member-excerpt'] ) {
+									if ( ! empty( $porto_settings['member-excerpt'] ) ) {
 										$member_overview = porto_strip_tags( porto_the_content( $member_overview, false ) );
-										$limit           = $porto_settings['member-excerpt-length'] ? $porto_settings['member-excerpt-length'] : 15;
+										$limit           = ! empty( $porto_settings['member-excerpt-length'] ) ? $porto_settings['member-excerpt-length'] : 15;
 										$member_overview = explode( ' ', $member_overview, $limit );
 										if ( count( $member_overview ) >= $limit ) {
 											array_pop( $member_overview );

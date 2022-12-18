@@ -389,7 +389,7 @@ if ( class_exists( 'WC_Vendors' ) ) :
 		$vendor_id = WCV_Vendors::get_vendor_id( $vendor_shop );
 		$shop_name = get_user_meta( $vendor_id, 'pv_shop_name', true );
 		if ( $vendor_shop ) {
-			if ( $porto_settings['porto_wcvendors_shop_description'] ) {
+			if ( ! empty( $porto_settings['porto_wcvendors_shop_description'] ) ) {
 				$product_id = get_the_ID();
 				$author     = WCV_Vendors::get_vendor_from_product( $product_id );
 				$link       = WCV_Vendors::get_vendor_shop_page( $author );
@@ -406,7 +406,7 @@ if ( class_exists( 'WC_Vendors' ) ) :
 					<div class="vendor-profile-bg">
 				<?php } ?>
 						<div class="overlay-vendor-effect">
-						<?php if ( $porto_settings['porto_wcvendors_shop_avatar'] ) { ?>
+						<?php if ( ! empty( $porto_settings['porto_wcvendors_shop_avatar'] ) ) { ?>
 							<div class="vendor_userimg">
 								<div class="profile-img">
 									<a href="<?php echo esc_url( $link ); ?>"> <?php echo get_avatar( $vendor_id, 80 ); ?></a>
@@ -420,7 +420,7 @@ if ( class_exists( 'WC_Vendors' ) ) :
 						<?php
 							$author = WCV_Vendors::get_vendor_from_product( get_the_ID() );
 							$user   = get_userdata( $author );
-						if ( $porto_settings['porto_wcvendors_shop_profile'] ) {
+						if ( ! empty( $porto_settings['porto_wcvendors_shop_profile'] ) ) {
 							if ( $porto_settings['porto_wcvendors_phone'] ) {
 								if ( isset( $user->phone_number ) && $user->phone_number ) {
 									?>
@@ -479,7 +479,7 @@ if ( class_exists( 'WC_Vendors' ) ) :
 		if ( class_exists( 'Woocommerce' ) && is_product() ) {
 			$shop_name = get_user_meta( $post->post_author, 'pv_shop_name', true );
 			?>
-			<?php if ( $porto_settings['porto_single_wcvendors_product_description'] ) { ?>
+			<?php if ( ! empty( $porto_settings['porto_single_wcvendors_product_description'] ) ) { ?>
 				<?php
 					$product_id = get_the_ID();
 					$author     = WCV_Vendors::get_vendor_from_product( $product_id );
@@ -572,22 +572,20 @@ if ( class_exists( 'WC_Vendors' ) ) :
 endif;
 
 // Woocommerce Vendor End
-
-
 if ( ! function_exists( 'porto_settings_google_fonts' ) ) :
 	function porto_settings_google_fonts() {
 		return array(
 			'body'                  => array( '400', '500', '600', '700' ),
 			'alt'                   => array( '400', '700' ),
-			'h1'                    => array( '200', '300', '400', '600', '700', '800' ),
-			'h2'                    => array( '200', '300', '400', '500', '600', '700', '800' ),
-			'h3'                    => array( '200', '300', '400', '500', '600', '700', '800' ),
-			'h4'                    => array( '200', '300', '400', '500', '600', '700', '800' ),
-			'h5'                    => array( '200', '300', '400', '500', '600', '700', '800' ),
-			'h6'                    => array( '200', '300', '400', '500', '600', '700', '800' ),
+			'h1'                    => array( '400', '600', '700', '800' ),
+			'h2'                    => array( '400', '500', '600', '700', '800' ),
+			'h3'                    => array( '400', '500', '600', '700', '800' ),
+			'h4'                    => array( '400', '500', '600', '700', '800' ),
+			'h5'                    => array( '400', '500', '600', '700', '800' ),
+			'h6'                    => array( '400', '500', '600', '700', '800' ),
 			'paragraph'             => array( '400', '600', '700' ),
 			'footer'                => array( '400', '600', '700' ),
-			'footer-heading'        => array( '200', '300', '400', '500', '600', '700', '800' ),
+			'footer-heading'        => array( '400', '500', '600', '700', '800' ),
 			'shortcode-testimonial' => array( '400', '700' ),
 			'menu'                  => array(),
 			'menu-side'             => array(),
@@ -596,6 +594,7 @@ if ( ! function_exists( 'porto_settings_google_fonts' ) ) :
 			'custom1'               => array( '400', '600', '700' ),
 			'custom2'               => array( '400', '600', '700' ),
 			'custom3'               => array( '400', '600', '700' ),
+			'account-menu'          => array( '400' ),
 		);
 	}
 endif;
@@ -624,17 +623,16 @@ if ( ! function_exists( 'porto_get_post_type_items' ) ) :
 		$result = array();
 
 		$args = array(
-			'post_type'   => $post_type,
-			'post_status' => 'publish',
-			'showposts'   => -1,
-			'order'       => 'ASC',
-			'orderby'     => 'title',
+			'post_type'      => $post_type,
+			'post_status'    => 'publish',
+			'posts_per_page' => -1,
+			'order'          => 'ASC',
+			'orderby'        => 'title',
 		);
 
 		if ( $args && count( $args_extended ) ) {
 			$args = array_merge( $args, $args_extended );
 		}
-
 		$query = new WP_Query( $args );
 
 		if ( $query->have_posts() ) {
@@ -827,15 +825,87 @@ if ( ! function_exists( 'porto_is_shop' ) ) :
 	}
 endif;
 
+/**
+ * whether the page has ptu archive page layout or not
+ *
+ * @since 6.4.0
+ *
+ * @return string|false $ptu_post_type Unlimted Post Type on success, false on failure.
+ */
+if ( ! function_exists( 'porto_has_ptu_archive_layout' ) ) :
+	function porto_has_ptu_archive_layout() {
+		if ( class_exists( 'Post_Types_Unlimited' ) ) {
+			$ptu_post_type = get_post_type();
+			if ( ! $ptu_post_type ) {
+				$ptu_post_type = get_query_var( 'post_type' );
+				if ( ! $ptu_post_type ) {
+					return false;
+				}
+			}
+			global $porto_settings;
+			if ( isset( $porto_settings ) && isset( $porto_settings[ $ptu_post_type . '-ptu-archive-layout' ] ) ) {
+				return $ptu_post_type;
+			}
+		}
+		return false;
+	}
+endif;
+
+/**
+ * whether the page has ptu single page layout or not
+ *
+ * @since 6.4.0
+ *
+ * @return string|false $ptu_post_type  Unlimted Post Type on success, false on failure.
+ */
+if ( ! function_exists( 'porto_has_ptu_single_layout' ) ) :
+	function porto_has_ptu_single_layout() {
+		if ( class_exists( 'Post_Types_Unlimited' ) ) {
+			$ptu_post_type = get_post_type();
+			if ( ! $ptu_post_type ) {
+				$ptu_post_type = get_query_var( 'post_type' );
+				if ( ! $ptu_post_type ) {
+					return false;
+				}
+			}
+			global $porto_settings;
+			if ( isset( $porto_settings ) && isset( $porto_settings[ $ptu_post_type . '-ptu-single-layout' ] ) ) {
+				return $ptu_post_type;
+			}
+		}
+		return false;
+	}
+endif;
+
+if ( ! function_exists( 'porto_is_archive' ) ) :
+	function porto_is_archive() {
+		$result = false;
+		if ( is_archive() ) {
+			$result = true;
+		}
+		return apply_filters( 'porto_is_archive', $result );
+	}
+endif;
+
 if ( ! function_exists( 'porto_is_elementor_preview' ) ) :
 	function porto_is_elementor_preview() {
 		if ( ! defined( 'ELEMENTOR_VERSION' ) ) {
 			return false;
 		}
-		if ( ( isset( $_REQUEST['action'] ) && 'elementor' == $_REQUEST['action'] ) || isset( $_REQUEST['elementor-preview'] ) ) {
+		if ( ( isset( $_REQUEST['action'] ) && ( 'elementor' == $_REQUEST['action'] || 'elementor_ajax' == $_REQUEST['action'] ) ) || isset( $_REQUEST['elementor-preview'] ) ) {
 			return true;
 		}
 		return false;
+	}
+endif;
+
+if ( ! function_exists( 'porto_vc_is_inline' ) ) :
+	function porto_vc_is_inline() {
+		if ( function_exists( 'vc_is_inline' ) ) {
+			return vc_is_inline();
+		} else {
+			return false;
+		}
 	}
 endif;
 
@@ -1067,6 +1137,12 @@ if ( ! function_exists( 'porto_check_using_page_builder_block' ) ) :
 				}
 				$result = array_merge( $result, $used_blocks['post_c'][ $post_id ] );
 			}
+			if ( ! is_singular( 'product' ) ) {
+				$builder_id = porto_check_builder_condition( 'single' );
+				if ( $builder_id && 'el' === $page_builder && get_post_meta( $builder_id, '_elementor_edit_mode', true ) && get_post_meta( $builder_id, '_elementor_data', true ) ) {
+					$result[] = $builder_id;
+				}
+			}
 		} else {
 			$term_id_type = porto_get_id_type();
 			if ( $term_id_type ) {
@@ -1079,6 +1155,17 @@ if ( ! function_exists( 'porto_check_using_page_builder_block' ) ) :
 			}
 		}
 
+		if ( is_404() ) {
+			global $porto_settings;
+			if ( ! empty( $porto_settings['error-block'] ) ) {
+				global $wpdb;
+				$post_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = 'porto_builder' AND post_name = %s", sanitize_text_field( $porto_settings['error-block'] ) ) );
+				if ( $post_id && ( ( defined( 'ELEMENTOR_VERSION' ) && get_post_meta( $post_id, '_elementor_edit_mode', true ) && get_post_meta( $post_id, '_elementor_data', true ) ) || ( defined( 'VCV_VERSION' ) && get_post_meta( $post_id, 'vcv-pageContent', true ) ) ) ) {
+					$result[] = (int) $post_id;
+				}
+			}
+		}
+
 		return array_unique( $result, SORT_NUMERIC );
 	}
 endif;
@@ -1086,11 +1173,17 @@ endif;
 if ( ! function_exists( 'porto_check_builder_condition' ) ) :
 
 	function porto_check_builder_condition( $location = 'header' ) {
+
+		global $porto_block_template;
+		if ( ! empty( $porto_block_template ) ) {
+			return false;
+		}
+
 		global $porto_settings;
 		if ( 'header' == $location && 'header_builder_p' != $porto_settings['header-type-select'] ) {
 			return false;
 		}
-		if ( isset( $porto_settings['conditions'] ) && isset( $porto_settings['conditions'][ $location ] ) ) {
+		if ( isset( $porto_settings['conditions'], $porto_settings['conditions'][ $location ] ) ) {
 			return $porto_settings['conditions'][ $location ];
 		}
 
@@ -1098,6 +1191,12 @@ if ( ! function_exists( 'porto_check_builder_condition' ) ) :
 		if ( ! empty( $porto_settings_optimize['disabled_pbs'] ) && is_array( $porto_settings_optimize['disabled_pbs'] ) && in_array( $location, $porto_settings_optimize['disabled_pbs'] ) ) {
 			$porto_settings['conditions'][ $location ] = false;
 			return false;
+		}
+
+		// ajax category filter
+		if ( ( 'archive' == $location || 'shop' == $location ) && porto_is_ajax() && ! empty( $_REQUEST['builder_id'] ) ) {
+			$porto_settings['conditions'][ $location ] = (int) $_REQUEST['builder_id'];
+			return (int) $_REQUEST['builder_id'];
 		}
 
 		if ( ! isset( $porto_settings['conditions'] ) ) {
@@ -1131,7 +1230,7 @@ if ( ! function_exists( 'porto_check_builder_condition' ) ) :
 					}
 				}
 			}
-		} elseif ( is_archive() ) {
+		} elseif ( is_archive() && ! is_author() && ! is_date() && ! is_search() ) {
 			$queried_obj = get_queried_object();
 			if ( $queried_obj && property_exists( $queried_obj, 'term_id' ) ) {
 				$term_id    = $queried_obj->term_id;
@@ -1160,7 +1259,15 @@ if ( ! function_exists( 'porto_check_builder_condition' ) ) :
 			} elseif ( is_author() && ! empty( $builder_conditions[ $location ]['archive/author'] ) && get_post( $builder_conditions[ $location ]['archive/author'] ) ) {
 				$porto_settings['conditions'][ $location ] = (int) $builder_conditions[ $location ]['archive/author'];
 				return (int) $builder_conditions[ $location ]['archive/author'];
-			} elseif ( ! empty( $builder_conditions[ $location ] ) ) {
+			} else {
+				$archive_post_type = '';
+				if ( is_archive() ) {
+					global $wp_query;
+					$archive_post_type = isset( $wp_query->query_vars ) && ! empty( $wp_query->query_vars['post_type'] ) ? $wp_query->query_vars['post_type'] : '';
+					if ( ! $archive_post_type ) {
+						$archive_post_type = get_post_type();
+					}
+				}
 				foreach ( $builder_conditions[ $location ] as $c => $object_id ) {
 					if ( ! $object_id || ( false === strpos( $c, 'single/' ) && false === strpos( $c, 'taxonomy/' ) && false === strpos( $c, 'archive/' ) ) || ! get_post( $object_id ) ) {
 						continue;
@@ -1188,12 +1295,37 @@ if ( ! function_exists( 'porto_check_builder_condition' ) ) :
 					} elseif ( ( 'category' == $c && is_category() ) || ( 'post_tag' == $c && is_tag() ) || ( 'archive/post' == $c && is_home() ) ) {
 						$porto_settings['conditions'][ $location ] = (int) $object_id;
 						return (int) $object_id;
-					} elseif ( class_exists( 'Woocommerce' ) && ( ( 'product_cat' == $c && is_product_category() ) || ( 'product_tag' == $c && is_product_tag() ) || ( 'archive/product' == $c && ( is_shop() || is_product_category() || is_product_tag() || ( is_archive() && 'product' == get_post_type() ) ) ) ) ) {
+					} elseif ( 'archive/allpost' == $c && ( is_home() || is_category() || is_tag() || ( is_archive() && 'post' == $archive_post_type ) ) ) {
+						$porto_settings['conditions'][ $location ] = (int) $object_id;
+						return (int) $object_id;
+					} elseif ( class_exists( 'Woocommerce' ) && ( ( 'product_cat' == $c && is_product_category() ) || ( 'product_tag' == $c && is_product_tag() ) || ( 'archive/product' == $c && is_shop() ) ) ) {
+						$porto_settings['conditions'][ $location ] = (int) $object_id;
+						return (int) $object_id;
+					} elseif ( class_exists( 'Woocommerce' ) && ( 'archive/allproduct' == $c && ( is_shop() || is_product_category() || is_product_tag() || ( is_archive() && 'product' == $archive_post_type ) ) ) ) {
 						$porto_settings['conditions'][ $location ] = (int) $object_id;
 						return (int) $object_id;
 					} elseif ( false === strpos( $c, 'archive/' ) && is_tax( $c ) ) {
 						$porto_settings['conditions'][ $location ] = (int) $object_id;
 						return (int) $object_id;
+					} elseif ( 0 === strpos( $c, 'archive/all' ) ) {
+						$c = str_replace( 'archive/all', '', $c );
+						$f = 'is_porto_' . $c . 's_page';
+						if ( ( function_exists( $f ) && $f() ) || is_post_type_archive( $c ) || ( is_archive() && $c == $archive_post_type ) ) {
+							$porto_settings['conditions'][ $location ] = (int) $object_id;
+							return (int) $object_id;
+						}
+						if ( is_tax() ) { // taxonomy page
+							$taxonomy_post_type = get_taxonomy( get_queried_object()->taxonomy )->object_type;
+							if ( isset( $taxonomy_post_type ) ) {
+								if ( is_array( $taxonomy_post_type ) ) {
+									$taxonomy_post_type = $taxonomy_post_type[0];
+								}
+								if ( $c == $taxonomy_post_type ) { // All member archives page => member_cat like
+									$porto_settings['conditions'][ $location ] = (int) $object_id;
+									return (int) $object_id;
+								}
+							}
+						}
 					} elseif ( 0 === strpos( $c, 'archive/' ) ) {
 						$c = str_replace( 'archive/', '', $c );
 						$f = 'is_porto_' . $c . 's_page';
@@ -1232,5 +1364,157 @@ endif;
 if ( ! function_exists( 'wp_slash_strings_only' ) ) :
 	function wp_slash_strings_only( $val ) {
 		return $val;
+	}
+endif;
+
+/**
+ * Get the current page id.
+ *
+ * @return bool|int
+ * @since 6.3.0
+ */
+if ( ! function_exists( 'porto_current_page_id' ) ) :
+	function porto_current_page_id() {
+		global $wp_query;
+		if ( is_404() ) { // 404 page
+			return '404-page';
+		}
+		if ( is_search() ) { // search page
+			if ( ! empty( $_REQUEST['post_type'] ) ) {
+				return 'search-page-' . $_REQUEST['post_type'];
+			}
+			return 'search-page';
+		}
+		if ( is_home() && get_option( 'show_on_front' ) && get_option( 'page_for_posts' ) ) {
+			return get_option( 'page_for_posts' );
+		}
+		if ( ! $wp_query ) {
+			return false;
+		}
+		$page_id = get_queried_object_id();
+
+		// Shop page.
+		if ( ! is_admin() && class_exists( 'WooCommerce' ) && is_shop() ) {
+			return (int) get_option( 'woocommerce_shop_page_id' );
+		}
+		// Product Category and Tag Page.
+		if ( ! is_admin() && class_exists( 'WooCommerce' ) && ( ! is_shop() && ( is_tax( 'product_cat' ) || is_tax( 'product_tag' ) ) ) ) {
+			return $page_id . '-archive';
+		}
+		// Homepage.
+		if ( 'posts' === get_option( 'show_on_front' ) && is_home() ) {
+			return $page_id;
+		}
+		if ( ! is_singular() && is_archive() ) {
+			if ( empty( $page_id ) ) {
+				$page_id = get_post_type();
+				if ( is_tax() ) {
+					$queried = get_queried_object();
+					if ( isset( $queried ) && ! empty( $queried->slug ) && ! empty( $queried->taxonomy ) ) {
+						$page_id .= '-' . $queried->slug . '-' . $queried->taxonomy;
+					}
+				}
+			}
+			return $page_id . '-archive';
+		}
+		if ( ! is_singular() ) {
+			return false;
+		}
+		return $page_id;
+	}
+endif;
+
+/**
+ * Echo or Return inline css.
+ * This function only uses for composed by style tag.
+ *
+ * @since 6.3.0
+ */
+if ( ! function_exists( 'porto_filter_inline_css' ) ) :
+	function porto_filter_inline_css( $inline_css, $is_echo = true ) {
+		if ( ! class_exists( 'Porto_Performance' ) ) {
+			return;
+		}
+		if ( empty( Porto_Performance::$defer_style ) ) { // not defer loading, only return and echo
+			if ( $is_echo ) {
+				echo porto_filter_output( $inline_css );
+			} else {
+				return $inline_css;
+			}
+		} else {
+			if ( 'no' == Porto_Performance::has_merged_css() ) {
+				global $porto_body_merged_css;
+				if ( isset( $porto_body_merged_css ) ) {
+					$inline_css             = str_replace( PHP_EOL, '', $inline_css );
+					$inline_css             = preg_replace( '/<style.*?>/s', '', $inline_css ) ? : $inline_css;
+					$inline_css             = preg_replace( '/<\/style.*?>/s', '', $inline_css ) ? : $inline_css;
+					$porto_body_merged_css .= $inline_css;
+				}
+			}
+			return '';
+		}
+	}
+endif;
+
+/**
+ * Check if current page is amp.
+ *
+ * @since 6.3.0
+ */
+if ( ! function_exists( 'porto_is_amp_endpoint' ) ) {
+	function porto_is_amp_endpoint() {
+		return function_exists( 'is_amp_endpoint' ) && is_amp_endpoint();
+	}
+}
+
+/**
+ * Add body class for particular purpose.
+ *
+ * @since 6.3.0
+ */
+add_filter( 'body_class', 'porto_add_body_class' );
+if ( ! function_exists( 'porto_add_body_class' ) ) {
+	function porto_add_body_class( $classes ) {
+		global $porto_settings;
+		if ( ! empty( $porto_settings['border-radius'] ) ) {
+			$classes[] = 'porto-rounded';
+		}
+		if ( isset( $porto_settings['breadcrumbs-bottom-border'] ) && ! empty( $porto_settings['breadcrumbs-bottom-border']['border-top'] ) && '0px' != $porto_settings['breadcrumbs-bottom-border']['border-top'] ) {
+			$classes[] = 'porto-breadcrumbs-bb';
+		}
+		return $classes;
+	}
+}
+
+
+/**
+ * Allow webp images to upload
+ *
+ * @since 6.3.0
+ */
+add_filter(
+	'upload_mimes',
+	function( $mimes ) {
+		$mimes['webp'] = 'image/webp';
+		return $mimes;
+	}
+);
+
+/**
+ * Get installed time.
+ *
+ * @since 6.5.0
+ */
+if ( ! function_exists( 'porto_installed_time' ) ) :
+	function porto_installed_time() {
+		$installed_time = get_option( 'porto_installed_time' );
+
+		if ( ! $installed_time ) {
+			$installed_time = time();
+
+			update_option( 'porto_installed_time', $installed_time );
+		}
+
+		return $installed_time;
 	}
 endif;

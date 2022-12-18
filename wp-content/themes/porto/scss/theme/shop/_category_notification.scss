@@ -29,6 +29,7 @@
 	i.porto-ajax-loader {
 		display: inline-block;
 		border: 2px solid transparent;
+		border-top-color: var(--porto-primary-color);
 		width: 40px;
 		height: 40px;
 		vertical-align: middle;
@@ -105,6 +106,7 @@ li.product-col {
 	}
 }
 .style-2 > .success-message-container {
+	border-top: 4px solid var(--porto-primary-color);
 	.product-name {
 		font-size: 14px;
 		margin: 5px 0 10px;
@@ -160,6 +162,9 @@ li.product-col {
 }
 
 .success-message-container {
+	.product-name a:not(:hover) {
+		color: var( --porto-dark-color, $color-dark );
+	}
 	.woocommerce-loop-product__title {
 		font-size: .75rem;
 		font-weight: 700;
@@ -168,7 +173,6 @@ li.product-col {
 		margin: 0 0 .25rem;
 	}
 	.product-loop-title:hover {
-		text-decoration: none;
 		> .woocommerce-loop-product__title {
 			color: inherit;
 		}
@@ -182,7 +186,6 @@ li.product-col {
 		font-size: inherit
 	}
 	a:hover {
-		text-decoration: none;
 		.product-title {
 			color: inherit;
 		}

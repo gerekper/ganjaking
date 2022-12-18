@@ -6,8 +6,8 @@
  */
 
 global $porto_settings, $porto_layout, $woocommerce_loop, $porto_woocommerce_loop;
-$cols         = $porto_settings['product-cols'];
-$addlinks_pos = $porto_settings['category-addlinks-pos'];
+$cols         = isset( $porto_settings['product-cols'] ) ? $porto_settings['product-cols'] : 3;
+$addlinks_pos = isset( $porto_settings['category-addlinks-pos'] ) ? $porto_settings['category-addlinks-pos'] : 'default';
 
 $attrs = '';
 
@@ -33,69 +33,16 @@ if ( isset( $porto_woocommerce_loop['column_width'] ) && $porto_woocommerce_loop
 	$item_width = $woocommerce_loop['column_width'];
 }
 
-switch ( $cols ) {
-	case 1:
-		$cols_md = 1;
-		$cols_xs = 1;
-		$cols_ls = 1;
-		break;
-	case 2:
-		$cols_md = 2;
-		$cols_xs = 2;
-		$cols_ls = 1;
-		break;
-	case 3:
-		$cols_md = 3;
-		$cols_xs = 2;
-		$cols_ls = 1;
-		break;
-	case 4:
-		$cols_md = 3;
-		$cols_xs = 3;
-		$cols_ls = 2;
-		break;
-	case 5:
-		$cols_md = 4;
-		$cols_xs = 3;
-		$cols_ls = 2;
-		break;
-	case 6:
-		$cols_md = 4;
-		$cols_xs = 3;
-		$cols_ls = 2;
-		break;
-	case 7:
-		if ( porto_is_wide_layout( $porto_layout ) ) {
-			$cols    = 6;
-			$cols_xl = 7;
-		}
-		$cols_md = 5;
-		$cols_xs = 3;
-		$cols_ls = 2;
-		break;
-	case 8:
-		if ( porto_is_wide_layout( $porto_layout ) ) {
-			$cols    = 7;
-			$cols_xl = 8;
-		}
-		$cols_md = 6;
-		$cols_xs = 4;
-		$cols_ls = 2;
-		break;
-	case 9:
-		if ( porto_is_wide_layout( $porto_layout ) ) {
-			$cols    = 8;
-			$cols_xl = 9;
-		}
-		$cols_md = 7;
-		$cols_xs = 5;
-		$cols_ls = 3;
-		break;
-	default:
-		$cols    = 4;
-		$cols_md = 3;
-		$cols_xs = 2;
-		$cols_ls = 1;
+$cols_arr = porto_generate_shop_columns( $cols, $porto_layout );
+if ( is_array( $cols_arr ) ) {
+	$cols_ls = $cols_arr[0];
+	$cols_xs = $cols_arr[1];
+	$cols_md = $cols_arr[2];
+	$cols    = $cols_arr[3];
+
+	if ( count( $cols_arr ) > 4 ) {
+		$cols_xl = $cols_arr[4];
+	}
 }
 
 switch ( $item_width ) {
@@ -339,7 +286,9 @@ if ( ! empty( $porto_settings['show-skeleton-screen'] ) && in_array( 'shop', $po
 	}
 }
 
-if ( ( isset( $porto_settings['product-quickview'] ) && $porto_settings['product-quickview'] ) || ( isset( $porto_settings['show_swatch'] ) && $porto_settings['show_swatch'] ) ) {
+$legacy_mode = apply_filters( 'porto_legacy_mode', true );
+$legacy_mode = ( $legacy_mode && ! empty( $porto_settings['product-quickview'] ) ) || ! $legacy_mode;
+if ( $legacy_mode || ! empty( $porto_settings['show_swatch'] ) ) {
 	// load wc variation script
 	wp_enqueue_script( 'wc-add-to-cart-variation' );
 }

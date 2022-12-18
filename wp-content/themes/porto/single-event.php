@@ -3,49 +3,54 @@
 <?php
 
 global $porto_settings, $porto_layout;
-?>
+$builder_id = porto_check_builder_condition( 'single' );
+if ( $builder_id && 'publish' == get_post_status( $builder_id ) ) {
+	echo do_shortcode( '[porto_block id="' . esc_attr( $builder_id ) . '"]' );
+} else {
+	?>
 
-<?php
-if ( have_posts() ) :
-	the_post();
-	$event_start_date = get_post_meta( $post->ID, 'event_start_date', true );
-	$event_start_time = get_post_meta( $post->ID, 'event_start_time', true );
-	$event_location   = get_post_meta( $post->ID, 'event_location', true );
-	$event_count_down = get_post_meta( $post->ID, 'event_time_counter', true );
-	$event_link       = get_post_meta( $post->ID, 'event_link', true );
+	<?php
+	if ( have_posts() ) :
+		the_post();
+		global $post;
+		$event_start_date = get_post_meta( $post->ID, 'event_start_date', true );
+		$event_start_time = get_post_meta( $post->ID, 'event_start_time', true );
+		$event_location   = get_post_meta( $post->ID, 'event_location', true );
+		$event_count_down = get_post_meta( $post->ID, 'event_time_counter', true );
+		$event_link       = get_post_meta( $post->ID, 'event_link', true );
 
-	if ( '' == $event_count_down ) {
-		$show_count_down = $porto_settings['event-single-countdown'];
-	} elseif ( 'show' == $event_count_down ) {
-		$show_count_down = true;
-	} else {
-		$show_count_down = false;
-	}
+		if ( '' == $event_count_down ) {
+			$show_count_down = isset( $porto_settings['event-single-countdown'] ) ? $porto_settings['event-single-countdown'] : true;
+		} elseif ( 'show' == $event_count_down ) {
+			$show_count_down = true;
+		} else {
+			$show_count_down = false;
+		}
 
-	if ( isset( $event_start_date ) && $event_start_date ) {
-		$has_event_date   = true;
-		$event_date_parts = explode( '/', $event_start_date );
+		if ( isset( $event_start_date ) && $event_start_date ) {
+			$has_event_date   = true;
+			$event_date_parts = explode( '/', $event_start_date );
 
-		if ( isset( $event_date_parts ) && count( $event_date_parts ) == 3 ) {
-			$has_event_date      = true;
-			$event_year_numeric  = isset( $event_date_parts[0] ) ? trim( $event_date_parts[0] ) : '';
-			$event_month_numeric = isset( $event_date_parts[1] ) ? trim( $event_date_parts[1] ) : '';
-			$event_date_numeric  = isset( $event_date_parts[2] ) ? trim( $event_date_parts[2] ) : '';
-			$event_month_short   = date( 'M', mktime( 0, 0, 0, $event_month_numeric, 1 ) );
+			if ( isset( $event_date_parts ) && count( $event_date_parts ) == 3 ) {
+				$has_event_date      = true;
+				$event_year_numeric  = isset( $event_date_parts[0] ) ? trim( $event_date_parts[0] ) : '';
+				$event_month_numeric = isset( $event_date_parts[1] ) ? trim( $event_date_parts[1] ) : '';
+				$event_date_numeric  = isset( $event_date_parts[2] ) ? trim( $event_date_parts[2] ) : '';
+				$event_month_short   = date( 'M', mktime( 0, 0, 0, $event_month_numeric, 1 ) );
+			} else {
+				$has_event_date = false;
+			}
 		} else {
 			$has_event_date = false;
 		}
-	} else {
-		$has_event_date = false;
-	}
 
-	if ( isset( $event_start_time ) && $event_start_time ) {
-		$event_time_js_format = date( 'H:i', strtotime( $event_start_time ) );
-	} else {
-		$event_time_js_format = '00:00:00';
-	}
+		if ( isset( $event_start_time ) && $event_start_time ) {
+			$event_time_js_format = date( 'H:i', strtotime( $event_start_time ) );
+		} else {
+			$event_time_js_format = '00:00:00';
+		}
 
-	?>
+		?>
 <section class="section section-no-border background-color-light m-none">
 	<div class="container">
 		<div class="row custom-negative-margin-2 m-b-xlg">
@@ -75,20 +80,20 @@ tick_sep_size="desktop:17px;"]'
 					?>
 					</span> 
 				<?php endif; ?>
-				<?php
+					<?php
 					$thumbnail = get_the_post_thumbnail_url();
 					$alt_text  = get_post_meta( get_post_thumbnail_id(), '_wp_attachment_image_alt', true );
-				if ( $thumbnail ) {
-					echo '<img src="' . esc_url( $thumbnail ) . '" alt="' . esc_attr( $alt_text ) . '" class="img-responsive custom-border-1 custom-box-shadow" />';
-				}
-				?>
+					if ( $thumbnail ) {
+						echo '<img src="' . esc_url( $thumbnail ) . '" alt="' . esc_attr( $alt_text ) . '" class="img-responsive custom-border-1 custom-box-shadow" />';
+					}
+					?>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-lg-12">
 				<article class="custom-post-event background-color-light">
-				<?php if ( $has_event_date ) : ?>
+					<?php if ( $has_event_date ) : ?>
 					<div class="post-event-date background-color-primary center"> 
 						<span class="month text-uppercase custom-secondary-font text-color-light"><?php echo esc_html( $event_month_short ); ?></span> 
 						<span class="day font-weight-bold text-color-light"><?php echo esc_html( $event_date_numeric ); ?></span> 
@@ -120,5 +125,6 @@ tick_sep_size="desktop:17px;"]'
 		</div>
 	</div>
 </section>
-<?php endif; ?>
-<?php get_footer(); ?>
+	<?php endif; ?>
+<?php }
+get_footer(); ?>

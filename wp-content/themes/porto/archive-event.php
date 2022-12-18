@@ -1,17 +1,21 @@
 <?php get_header(); ?>
 
 <?php
+$builder_id = porto_check_builder_condition( 'archive' );
+if ( $builder_id && 'publish' == get_post_status( $builder_id ) ) {
+	echo do_shortcode( '[porto_block id="' . esc_attr( $builder_id ) . '"]' );
+} else {
 	global $porto_settings, $porto_layout;
-	$event_layout = $porto_settings['event-archive-layout'];
-?>
+	$event_layout = isset( $porto_settings['event-archive-layout'] ) ? $porto_settings['event-archive-layout'] : 'list';
+	?>
 <div id="content" role="main" class="container">
 
-	<?php if ( ! is_search() && $porto_settings['event-title'] ) : ?>
+	<?php if ( ! is_search() && ! empty( $porto_settings['event-title'] ) ) : ?>
 		<?php
 		if ( 'widewidth' === $porto_layout ) :
 			?>
 			<div class="container"><?php endif; ?>
-		<?php if ( $porto_settings['event-sub-title'] ) : ?>
+		<?php if ( ! empty( $porto_settings['event-sub-title'] ) ) : ?>
 			<h2 class="m-b-xs"><?php echo wp_kses_post( $porto_settings['event-title'] ); ?></h2>
 			<p class="lead m-b-xl"><?php echo wp_kses_post( $porto_settings['event-sub-title'] ); ?></p>
 		<?php else : ?>
@@ -30,7 +34,7 @@
 		'orderby'     => 'meta_value',
 	);
 
-	$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : ( ( get_query_var( 'page' ) ) ? get_query_var( 'page' ) : 1 );
+	$paged         = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : ( ( get_query_var( 'page' ) ) ? get_query_var( 'page' ) : 1 );
 	$args['paged'] = $paged;
 
 	$event_query = new WP_Query( $args );
@@ -63,4 +67,5 @@
 	<?php endif; ?>
 </div>
 
+<?php } ?>
 <?php get_footer(); ?>

@@ -8,10 +8,12 @@ article {
             }
         }
 
-        h2 a,
-        h4 a {
-            text-decoration: none;
+        .comment-respond {
+            border-top: 1px solid var(--porto-input-bc);
+            padding-top: 3rem;
+            margin-top: 0;
         }
+
         &.media {
             display: block;
         }
@@ -103,9 +105,11 @@ h5.portfolio-details-title {
 
 .portfolio-info {
     margin: 7px 0 10px;
-    float: $right;
-    .page-portfolios & {
+    /*.page-portfolios & {
         margin-top: 2px;
+    }*/
+    @media (min-width: 576px) {
+        float: $right;
     }
     ul {
         list-style: none;
@@ -117,6 +121,7 @@ h5.portfolio-details-title {
             padding-#{$right}: 8px;
             margin-#{$right}: 8px;
             font-size: 0.9em;
+            border-#{$right}: 1px solid var(--porto-gray-2);
             &:last-child {
                 border-#{$right}: 0;
                 padding-#{$right}: 0;
@@ -124,7 +129,6 @@ h5.portfolio-details-title {
             }
             a {
                 cursor: pointer;
-                text-decoration: none;
                 color: #b1b1b1;
             }
             i,
@@ -175,33 +179,8 @@ h5.portfolio-details-title {
         margin-bottom: 10px;
     }
     .related-portfolios {
+        background: var(--porto-gray-7);
         padding: 5rem 0 4rem;
-    }
-}
-.related-portfolios {
-
-    &.full {
-        .row {
-            margin-left: 0;
-            margin-right: 0;
-        }
-    }
-}
-
-.row > .portfolio-carousel {
-    width: 100%;
-    padding: 0;
-}
-.portfolio-carousel {
-    .portfolio-item {
-        margin: 0 15px 5px;
-        &.full {
-            margin: 0;
-            max-width: 100%;
-        }
-    }
-    &.owl-carousel .owl-dots {
-        margin-top: 0;
     }
 }
 
@@ -249,12 +228,12 @@ ul {
         }
     }
     .row > & {
-        display: -ms-flexbox;
         display: flex;
-        -ms-flex-wrap: wrap; flex-wrap: wrap;
+        flex-wrap: wrap;
     }
 }
 .portfolio-item {
+    word-wrap: break-word;
     &.outimage {
         text-align: center;
     }
@@ -263,6 +242,7 @@ ul {
             .portfolio-like,
             .portfolio-liked {
                 i {
+                    color: var(--porto-primary-color-inverse);
                     text-shadow: none;
                 }
             }
@@ -272,6 +252,9 @@ ul {
                 }
             }
         }
+    }
+    &:hover .thumb-info-icons .thumb-info-icon {
+        background-color: var(--porto-tertiary-color, $color-tertiary) !important;
     }
 }
 
@@ -382,6 +365,7 @@ ul {
         float: $left;
         margin-top: 0;
         width: 100%;
+        padding: 0 var(--porto-column-spacing) var(--porto-grid-gutter-width);
     }
 
     .portfolio-col-1 {
@@ -515,19 +499,6 @@ ul {
         padding-left: 0 !important;
         padding-right: 0 !important;
     }
-
-    .vc_row[data-vc-full-width],
-    .vc_row[data-vc-stretch-content] {
-        &,
-        body.boxed &,
-        #main.main-boxed & {
-            position: relative;
-            width: 100% !important;
-            #{$left}: 0 !important;
-            margin: 0 !important;
-            max-width: 100% !important;
-        }
-    }
 }
 
 .portfolio-load-more-loader {
@@ -555,25 +526,23 @@ ul {
         display: inline-block;
         cursor: pointer;
         padding: 6px 12px;
-        text-decoration: none;
     }
 }
 
 .sort-source-style-2 {
+    background: var(--porto-primary-color);
     margin: 0 auto;
     > li {
         float: none;
         display: inline-block;
         > a {
             &, &:focus, &:hover {
-                background: transparent;
+                background: none;
                 color: #FFF;
-                display: inline-block;
                 border-radius: 0;
                 margin: 0;
                 padding: 18px 28px;
                 position: relative;
-                text-decoration: none;
             }
             &:after {
                 @include transition (margin 0.3s);
@@ -581,7 +550,7 @@ ul {
                 height: 0;
                 border-left: 20px solid transparent;
                 border-right: 20px solid transparent;
-                border-top: 15px solid #CCC;
+                border-top: 15px solid var(--porto-primary-color);
                 content: " ";
                 display: block;
                 position: absolute;
@@ -608,15 +577,19 @@ ul {
 
 .sort-source-style-3 {
     margin-bottom: 2rem;
-    -ms-flex-pack: center; justify-content: center;
+    justify-content: center;
     font-size: .8em;
     text-transform: uppercase;
     > li {
+        > a {
+            color: var(--porto-body-color);
+        }
         &.active {
             > a {
                 background: none !important;
-                border-bottom: 3px solid #ccc;
+                border-bottom: 3px solid var(--porto-primary-color);
                 border-radius: 0;
+                color: var(--porto-primary-color)
             }
         }
     }
@@ -802,13 +775,19 @@ html.gecko {
     font-size: .75em;
     font-weight: 700;
     text-transform: uppercase;
-    text-decoration: none;
     padding: .25rem .5rem;
-    margin: 0.125rem;
+    margin: .125rem;
     border-radius: 1rem;
     line-height: 1;
+    &, &:hover {
+        background: var(--porto-heading-color);
+        color: var(--porto-body-bg);
+    }
 }
 .share-links-block {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
     .share-links a {
         border-radius: 50%;
         width: 28px;
@@ -818,13 +797,11 @@ html.gecko {
         margin: 2px;
         &:not(:hover) {
             background: none;
-            color: #333;
+            color: var(--porto-heading-color);
         }
     }
     h5 {
-        float: $left;
         margin: side-values(0 15px 0 0);
-        line-height: 35px;
         font-size: .8em;
         font-weight: 700;
         text-transform: uppercase;
@@ -840,7 +817,7 @@ html.gecko {
     &.portfolio-iso-active {
         overflow: visible;
         max-height: none;
-        .bounce-loader {
+        > .bounce-loader {
             display: none;
         }
         > .portfolio-row {

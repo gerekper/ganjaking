@@ -77,11 +77,7 @@ $featured_images = porto_get_featured_images();
 			<div class="<?php echo 'wide-left-sidebar' == $porto_layout || 'wide-right-sidebar' == $porto_layout || 'wide-both-sidebar' == $porto_layout ? 'm-t-lg m-b-xl' : ''; ?>">
 				<?php if ( $share_enabled ) : ?>
 				<div class="page-share<?php echo 'widewidth' == $porto_layout ? ' container' : ''; ?>">
-					<?php if ( 'without-icon' == $porto_settings['post-title-style'] ) : ?>
-
-					<?php else : ?>
-						<h3><i class="fas fa-share"></i><?php esc_html_e( 'Share this post', 'porto' ); ?></h3>
-					<?php endif; ?>
+					<h3><i class="fas fa-share"></i><?php esc_html_e( 'Share this post', 'porto' ); ?></h3>
 					<?php get_template_part( 'share' ); ?>
 				</div>
 				<?php endif; ?>

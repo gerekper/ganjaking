@@ -1,0 +1,59 @@
+/* Cursor Effect */
+.cursor-outer {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 40px;
+	height: 40px;
+	border: 1px solid var(--porto-primary-color);
+	border-radius: 100%;
+	pointer-events: none;
+	z-index: 9998;
+	transition: ease-out all .08s .010s;
+	&.cursor-outer-fit {
+		left: 0 !important;
+		top: 0 !important;
+	}
+}
+
+.cursor-inner {
+	position: fixed;
+	left: 20px;
+	top: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--porto-primary-color);
+	margin-top: calc( var(--porto-cursor-inner-size, 0) / -2 );
+	margin-left: calc( var(--porto-cursor-inner-size, 0) / -2 );
+	border-radius: 100%;
+	pointer-events: none;
+	z-index: 9999;
+	transition: all .08s ease-out;
+}
+
+.cursor-inner-icon {
+	font-size: var(--porto-cursor-inner-fs, 6px);
+	min-width: 1em;
+	margin-top: calc( var(--porto-cursor-inner-size, 1em) / -2 );
+	margin-left: calc( var(--porto-cursor-inner-size, 1em) / -2 );
+}
+
+.cursor-hover-visible {
+	opacity: 0;
+
+	&.cursor-outer-hover, &.cursor-inner-hover {
+		opacity: 1
+	}
+}
+
+.hide-mouse-cursor {
+	cursor: none;
+	a,
+	button,
+	input,
+	textarea,
+	.mfp-auto-cursor .mfp-content {
+		cursor: none !important;
+	}
+}

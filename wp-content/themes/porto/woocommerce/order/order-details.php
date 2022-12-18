@@ -35,7 +35,7 @@ $show_downloads        = $order->has_downloadable_item() && $order->is_download_
 
 	<h2 class="woocommerce-order-details__title d-none"><?php esc_html_e( 'Order details', 'woocommerce' ); ?></h2>
 	<div class="featured-boxes pt-4 pb-3 p-l-lg p-r-lg">
-		<h4 class="card-sub-title text-md"><?php esc_html_e( 'YOUR ORDER', 'porto' ); ?></h4>
+		<h4 class="card-sub-title text-md"><?php esc_html_e( 'Your order', 'woocommerce' ); ?></h4>
 		<table class="woocommerce-table woocommerce-table--order-details shop_table order_details text-v-dark">
 			<thead>
 				<tr>

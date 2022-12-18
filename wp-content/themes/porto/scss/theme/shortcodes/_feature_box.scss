@@ -1,0 +1,7 @@
+/* theme colors */
+/* primary, secondary, tertiary, quaternary, dark, light */
+@each $state in $color_states {
+    .feature-box .feature-box-icon-#{nth($state,1)} {
+        background-color: var(--porto-#{nth($state,1)}-color);
+    }
+}

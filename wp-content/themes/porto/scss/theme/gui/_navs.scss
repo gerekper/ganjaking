@@ -1,11 +1,11 @@
 
 /* Navs */
 .nav {
-    > li {
+    /*> li {
         > a:hover, > a:focus {
             background: transparent;
         }
-    }
+    }*/
     i.icon-image {
         display: inline-block;
         max-width: 20px;
@@ -27,9 +27,9 @@ ul {
                 padding: side-values(8px 0 8px 20px);
                 display: block;
                 color: #666;
-                font-size: 0.9em;
-                text-decoration: none;
+                font-size: .9em;
                 line-height: 20px;
+                border-bottom: 1px solid var(--porto-input-bc);
                 &:before {
                     content: "\f054";
                     display: inline-block;
@@ -44,7 +44,7 @@ ul {
                 }
             }
             > a.active, &.active > a {
-                font-weight: bold;
+                font-weight: 700;
             }
             ul {
                 list-style: none;
@@ -80,6 +80,16 @@ ul {
                 }
             }
         }
+
+        &.show-bg-active {
+            .active > a,
+            a.active {
+                background-color: var(--porto-gray-3);
+                &:hover {
+                    background-color: var(--porto-gray-5);
+                }
+            }
+        }
     }
 
     &.narrow {
@@ -90,41 +100,36 @@ ul {
             }
         }
     }
+}
 
-    &.nav-pills > li > a.active {
-        background-color: #CCC;
-        &:hover, &:focus {
-            background-color: #CCC;
-        }
-    }
-    &.nav-pills-center {
-        text-align: center;
-        -webkit-justify-content: center; -ms-flex-pack: center; justify-content: center;
-        > li {
-            display: inline-block;
-            float: none;
-        }
-    }
-    &.nav-pills-left {
-        > li {
-            float: $left;
-        }
-    }
-    &.nav-pills-right {
-        > li {
-            float: $right;
-        }
-    }
-    &.nav-pills-justify {
-        display: -ms-flexbox;
-        display: flex;
-        > li {
-            float: none;
-            text-align: center;
-            width: 100%;
-        }
+.nav-pills > li {
+    &.active > a,
+    > a.active {
+        background-color: var(--porto-primary-color);
+        color: var( --porto-primary-color-inverse, $color-light );
     }
 }
+.nav-pills-center {
+    text-align: center;
+    justify-content: center;
+    > li {
+        display: inline-block;
+        float: none;
+    }
+}
+.nav-pills-left {
+    justify-content: flex-start;
+}
+.nav-pills-right {
+    justify-content: flex-end;
+}
+.nav-pills-justify {
+    > li {
+        text-align: center;
+        width: 100%;
+    }
+}
+
 .nav-pills .nav-link .active {
     background-color: transparent;
 }
@@ -136,31 +141,24 @@ ul {
 /* Nav Secondary */
 .nav-secondary {
     background: #fafafa;
-    margin: 0;
     padding: 20px 0;
-    text-align: center;
     z-index: 100;
     .nav-pills {
-        display: block;
+        justify-content: center;
         > li {
-            display: inline-block;
             a,
             span {
-                font-size: 12px;
-                font-style: normal;
+                display: block;
+                font-size: .75rem;
                 font-weight: 600;
                 line-height: 20px;
                 padding: 10px 13px;
                 text-transform: uppercase;
-                display: inline-block;
                 i {
-                    font-size: 14px;
-                    margin-#{$right}: 5px;
+                    font-size: .875rem;
+                    margin-#{$right}: .3125rem;
                 }
             }
-        }
-        a {
-            text-decoration: none;
         }
     }
     &.sticky-active {

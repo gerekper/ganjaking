@@ -80,7 +80,7 @@ if ( is_admin() ) {
 		}
 
 		$rewrite_required = false;
-		if ( ( isset( $changed_values['product-single-content-layout'] ) && 'builder' == $plugin_options['product-single-content-layout'] ) || isset( $changed_values['portfolio-skill-slug-name'] ) ) {
+		if ( ( isset( $changed_values['product-single-content-layout'] ) && 'builder' == $plugin_options['product-single-content-layout'] ) || isset( $changed_values['portfolio-skill-slug-name'] ) || isset( $changed_values['woo-pre-order'] ) || isset( $changed_values['enable-gfse'] ) ) {
 			$rewrite_required = true;
 		}
 		if ( ! $rewrite_required ) {
@@ -103,7 +103,14 @@ if ( is_admin() ) {
 		}
 	}
 
-	function porto_import_theme_settings( $plugin_options, $imported_options ) {
+	function porto_import_theme_settings( $plugin_options, $imported_options = '' ) {
+		/**
+		 * @see extension_import_export.php line 95
+		 */ 
+		if ( doing_action( 'redux/options/porto_settings/import' ) && is_array( $plugin_options ) && isset( $plugin_options[1] ) && 'remove_cookie' == $plugin_options[1] ) {
+			return;
+		}
+
 		// import header builder settings
 		if ( isset( $imported_options['header_builder_layouts'] ) && is_array( $imported_options['header_builder_layouts'] ) ) {
 			update_option( 'porto_header_builder_layouts', $imported_options['header_builder_layouts'] );
@@ -113,6 +120,18 @@ if ( is_admin() ) {
 		}
 		if ( isset( $imported_options['header_builder_elements'] ) && is_array( $imported_options['header_builder_elements'] ) ) {
 			update_option( 'porto_header_builder_elements', $imported_options['header_builder_elements'] );
+		}
+
+		global $porto_settings_optimize;
+		if ( isset( $imported_options['legacy_mode'] ) ) {
+			if ( empty( $porto_settings_optimize ) ) {
+				$porto_settings_optimize = array();
+			}
+			$porto_settings_optimize['legacy_mode'] = $imported_options['legacy_mode'];
+			update_option( 'porto_settings_optimize', $porto_settings_optimize );
+		} elseif ( isset( $porto_settings_optimize['legacy_mode'] ) ) {
+			unset( $porto_settings_optimize['legacy_mode'] );
+			update_option( 'porto_settings_optimize', $porto_settings_optimize );
 		}
 
 		if ( is_rtl() ) {
@@ -163,6 +182,53 @@ if ( is_admin() ) {
 	function porto_restore_empty_theme_options( &$plugin_options, $old_options, $last_changed_values ) {
 		if ( isset( $plugin_options ) && isset( $old_options ) ) {
 			$plugin_options = wp_parse_args( $plugin_options, $old_options );
+		}
+	}
+
+	/**
+	 * Clear cache from third party cache plugins such as WP Super Cache, W3 Total Cache, WPEngine, Autoptimize Cache and LiteSpeed Cache
+	 *
+	 * @since 6.4.0
+	 */
+	function porto_reset_third_party_caches() {
+		// WP Super Cache
+		if ( function_exists( 'wp_cache_clean_cache' ) ) {
+			global $file_prefix;
+			wp_cache_clean_cache( $file_prefix );
+		}
+
+		// W3 Total Cache
+		if ( function_exists( 'w3tc_flush_posts' ) ) {
+			w3tc_flush_posts();
+		}
+
+		// SG CachePress
+		if ( class_exists( 'SG_CachePress_Supercacher' ) ) {
+			if ( method_exists( 'SG_CachePress_Supercacher', 'purge_cache' ) ) {
+				SG_CachePress_Supercacher::purge_cache();
+			}
+		}
+
+		// WPEngine-hosted sites
+		if ( class_exists( 'WpeCommon' ) ) {
+			if ( method_exists( 'WpeCommon', 'purge_memcached' ) ) {
+				WpeCommon::purge_memcached();
+			}
+			if ( method_exists( 'WpeCommon', 'clear_maxcdn_cache' ) ) {
+				WpeCommon::clear_maxcdn_cache();
+			}
+			if ( method_exists( 'WpeCommon', 'purge_varnish_cache' ) ) {
+				WpeCommon::purge_varnish_cache();
+			}
+		}
+
+		// Autoptimize Cache
+		if ( class_exists( 'autoptimizeCache' ) && method_exists( 'autoptimizeCache', 'clearall' ) ) {
+			autoptimizeCache::clearall();
+		}
+		// LiteSpeed Cache
+		if ( class_exists( 'LiteSpeed_Cache_API' ) && method_exists( 'LiteSpeed_Cache_API', 'purge_all' ) ) {
+			LiteSpeed_Cache_API::purge_all();
 		}
 	}
 }
@@ -341,8 +407,19 @@ function porto_compile_css( $process = null ) {
 	}
 }
 
-function porto_save_theme_settings() {
+function porto_save_theme_settings( $plugin_options = array() ) {
+	/**
+	 * @see extension_import_export.php line 95
+	 */ 
+	if ( doing_action( 'redux/options/porto_settings/import' ) && is_array( $plugin_options ) && isset( $plugin_options[1] ) && 'remove_cookie' == $plugin_options[1] ) {
+		return;
+	}
 	do_action( 'porto_admin_save_theme_settings' );
+
+	// reset third party caches
+	if ( is_admin() ) {
+		porto_reset_third_party_caches();
+	}
 }
 
 if ( ! function_exists( 'porto_restore_default_options_for_old_versions' ) ) :

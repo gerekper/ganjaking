@@ -10,10 +10,8 @@ $grid-gutter-space: <?php echo (int) $porto_settings['grid-gutter-width']; ?> !d
 <?php if ( defined( 'WPB_VC_VERSION' ) ) : ?>
 	@import "theme/shortcodes/wpb_general";
 <?php endif; ?>
-<?php if ( defined( 'WPB_VC_VERSION' ) || defined( 'VCV_VERSION' ) ) : ?>
-	<?php if ( ! in_array( 'vc_tabs', $unused_shortcode_list ) || ! in_array( 'vc_tour', $unused_shortcode_list ) ) : ?>
+<?php if ( ( ( ! in_array( 'vc_tabs', $unused_shortcode_list ) || ! in_array( 'vc_tour', $unused_shortcode_list ) ) && ( defined( 'WPB_VC_VERSION' ) || defined( 'VCV_VERSION' ) ) ) || ( ! defined( 'WPB_VC_VERSION' ) && defined( 'ELEMENTOR_VERSION' ) ) ) : ?>
 	@import "theme/shortcodes/tabs";
-	<?php endif; ?>
 <?php endif; ?>
 <?php if ( class_exists( 'Woocommerce' ) || ( defined( 'WPB_VC_VERSION' ) && ( ! in_array( 'vc_accordion', $unused_shortcode_list ) || ! in_array( 'vc_accordion_tab', $unused_shortcode_list ) ) ) || ( ! defined( 'WPB_VC_VERSION' ) && ! defined( 'ELEMENTOR_VERSION' ) ) ) : ?>
 @import "theme/shortcodes/accordion";
@@ -32,6 +30,9 @@ $grid-gutter-space: <?php echo (int) $porto_settings['grid-gutter-width']; ?> !d
 
 <?php if ( ! in_array( 'porto_preview_image', $unused_shortcode_list ) ) : ?>
 @import "theme/shortcodes/preview_image";
+<?php endif; ?>
+<?php if ( ! in_array( 'porto_image_frame', $unused_shortcode_list ) ) : ?>
+@import "theme/shortcodes/image_frame";
 <?php endif; ?>
 <?php if ( ! in_array( 'porto_buttons', $unused_shortcode_list ) ) : ?>
 @import "theme/shortcodes/buttons";
@@ -111,6 +112,12 @@ $grid-gutter-space: <?php echo (int) $porto_settings['grid-gutter-width']; ?> !d
 <?php if ( ! in_array( 'porto_image_gallery', $unused_shortcode_list ) ) : ?>
 	@import "theme/shortcodes/image_gallery";
 <?php endif; ?>
+<?php if ( ! in_array( 'porto_scroll_progress', $unused_shortcode_list ) ) : ?>
+	@import "theme/shortcodes/scroll_progress";
+<?php endif; ?>
+<?php if ( ! in_array( 'porto_cursor_effect', $unused_shortcode_list ) ) : ?>
+	@import "theme/shortcodes/cursor_effect";
+<?php endif; ?>
 
 <?php if ( defined( 'WPB_VC_VERSION' ) ) : ?>
 	<?php if ( ! in_array( 'vc_btn', $unused_shortcode_list ) ) : ?>
@@ -160,5 +167,21 @@ $grid-gutter-space: <?php echo (int) $porto_settings['grid-gutter-width']; ?> !d
 <?php endif; ?>
 <?php if ( class_exists( 'Woocommerce' ) && class_exists( 'WOOF' ) ) : ?>
 @import "theme/shortcodes/woof";
+<?php endif; ?>
+<?php if ( class_exists( 'Woocommerce' ) && class_exists( 'WooCommerce_Waitlist_Plugin' ) ) : ?>
+@import "theme/shortcodes/wcwl";
+<?php endif; ?>
+
+<?php if ( ! in_array( 'porto_blockquote', $unused_shortcode_list ) ) : ?>
+@import "theme/shortcodes/blockquote";
+<?php endif; ?>
+<?php if ( ! in_array( 'porto_popover', $unused_shortcode_list ) ) : ?>
+@import "theme/shortcodes/popover";
+<?php endif; ?>
+<?php if ( ! in_array( 'porto_feature_box', $unused_shortcode_list ) ) : ?>
+@import "theme/shortcodes/feature_box";
+<?php endif; ?>
+<?php if ( ! in_array( 'porto_content_switcher', $unused_shortcode_list ) ) : ?>
+@import "theme/shortcodes/content_switcher";
 <?php endif; ?>
 .inline-block { display: inline-block; }

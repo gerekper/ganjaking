@@ -18,10 +18,10 @@ $porto_woo_version = porto_get_woo_version_number();
 							<thead>
 								<tr>
 									<th class="product-thumbnail">&nbsp;</th>
-									<th class="product-name"><span><?php esc_html_e( 'Product', 'porto' ); ?></span></th>
-									<th class="product-price"><span><?php esc_html_e( 'Price', 'porto' ); ?></span></th>
-									<th class="product-quantity"><span><?php esc_html_e( 'Quantity', 'porto' ); ?></span></th>
-									<th class="product-subtotal text-center text-md-right"><span><?php esc_html_e( 'Subtotal', 'porto' ); ?></span></th>
+									<th class="product-name"><span><?php esc_html_e( 'Product', 'woocommerce' ); ?></span></th>
+									<th class="product-price"><span><?php esc_html_e( 'Price', 'woocommerce' ); ?></span></th>
+									<th class="product-quantity"><span><?php esc_html_e( 'Quantity', 'woocommerce' ); ?></span></th>
+									<th class="product-subtotal text-center text-md-right"><span><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></span></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -48,7 +48,7 @@ $porto_woo_version = porto_get_woo_version_number();
 														sprintf(
 															'<a href="%s" class="remove remove-product position-absolute" aria-label="%s" data-product_id="%s" data-product_sku="%s" data-cart_id="%s"></a>',
 															esc_url( function_exists( 'wc_get_cart_remove_url' ) ? wc_get_cart_remove_url( $cart_item_key ) : WC()->cart->get_remove_url( $cart_item_key ) ),
-															esc_attr__( 'Remove this item', 'porto' ),
+															esc_attr__( 'Remove this item', 'woocommerce' ),
 															esc_attr( $product_id ),
 															esc_attr( $_product->get_sku() ),
 															esc_attr( $cart_item_key )
@@ -122,7 +122,7 @@ $porto_woo_version = porto_get_woo_version_number();
 														<button type="submit" class="button wc-action-btn wc-action-sm" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>"><?php esc_html_e( 'Apply coupon', 'woocommerce' ); ?></button>
 														<?php do_action( 'woocommerce_cart_coupon' ); ?>
 													</div>
-													<button type="submit" class="button wc-action-btn wc-action-sm" name="update_cart" value="<?php esc_attr_e( 'Update Cart', 'porto' ); ?>"><?php esc_html_e( 'Update Cart', 'porto' ); ?></button>
+													<button type="submit" class="button wc-action-btn wc-action-sm" name="update_cart" value="<?php esc_attr_e( 'Update cart', 'woocommerce' ); ?>"><?php esc_html_e( 'Update cart', 'woocommerce' ); ?></button>
 												</div>
 											</div>
 

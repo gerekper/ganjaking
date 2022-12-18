@@ -7,14 +7,14 @@ $portfolio_info = get_post_meta( $post->ID, 'portfolio_info', true );
 $share          = porto_get_meta_value( 'portfolio_share' );
 $post_class     = array();
 $post_class[]   = 'portfolio-' . $portfolio_layout;
-if ( 'without-icon' == $porto_settings['post-title-style'] ) {
+if ( isset( $porto_settings['post-title-style'] ) && 'without-icon' == $porto_settings['post-title-style'] ) {
 	$post_class[] = 'post-title-simple';
 }
 ?>
 
 <article <?php post_class( $post_class ); ?>>
 
-	<?php if ( $porto_settings['portfolio-page-nav'] ) : ?>
+	<?php if ( ! empty( $porto_settings['portfolio-page-nav'] ) ) : ?>
 	<div class="portfolio-title<?php echo 'widewidth' === $porto_layout ? ' container m-t-lg' : ''; ?>">
 		<div class="row">
 			<div class="portfolio-nav-all col-lg-1">
@@ -51,7 +51,7 @@ if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 				$slideshow_type = 'images';
 			}
 
-			$show_external_link = $porto_settings['portfolio-external-link'];
+			$show_external_link = isset( $porto_settings['portfolio-external-link'] ) ? $porto_settings['portfolio-external-link'] : false;
 
 			if ( 'none' != $slideshow_type ) :
 				?>
@@ -63,11 +63,11 @@ if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 						$slider_type         = get_post_meta( $post->ID, 'slider_type', true );
 						$slider_thumbs_count = get_post_meta( $post->ID, 'slider_thumbs_count', true );
 						if ( ! $slider_type ) {
-							$slider_type         = $porto_settings['portfolio-slider'];
-							$slider_thumbs_count = $porto_settings['portfolio-slider-thumbs-count'];
+							$slider_type         = isset( $porto_settings['portfolio-slider'] ) ? $porto_settings['portfolio-slider'] : 'without-thumbs';
+							$slider_thumbs_count = isset( $porto_settings['portfolio-slider-thumbs-count'] ) ? $porto_settings['portfolio-slider-thumbs-count'] : '4';
 						}
 						if ( ! $slider_thumbs_count ) {
-							$slider_thumbs_count = $porto_settings['portfolio-slider-thumbs-count'];
+							$slider_thumbs_count = isset( $porto_settings['portfolio-slider-thumbs-count'] ) ? $porto_settings['portfolio-slider-thumbs-count'] : '4';
 						}
 						?>
 						<div class="portfolio-image<?php echo 1 == $image_count ? ' single' : ''; ?>">
@@ -75,7 +75,7 @@ if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 							if ( 'with-thumbs' == $slider_type ) :
 								$lightbox         = false;
 								$lightbox_options = '';
-								if ( $porto_settings['portfolio-zoom'] ) {
+								if ( ! empty( $porto_settings['portfolio-zoom'] ) ) {
 									$lightbox                               = true;
 									$lightbox_options                       = array();
 									$lightbox_options['delegate']           = 'a';
@@ -189,12 +189,12 @@ if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 															false,
 															array(
 																'class'    => 'owl-lazy img-responsive',
-																'src'      => esc_url( $placeholder[0] ),
+																'src'      => porto_is_amp_endpoint() ? esc_url( $attachment['src'] ) : esc_url( $placeholder[0] ),
 																'data-src' => esc_url( $attachment['src'] ),
 															)
 														);
 													?>
-													<?php if ( $porto_settings['portfolio-zoom'] ) : ?>
+													<?php if ( ! empty( $porto_settings['portfolio-zoom'] ) ) : ?>
 														<span class="zoom" data-src="<?php echo esc_url( $attachment['src'] ); ?>" data-title="<?php echo esc_attr( $attachment['caption'] ); ?>"><i class="fas fa-search"></i></span>
 													<?php endif; ?>
 												</div>
@@ -227,7 +227,7 @@ if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 				}
 			endif;
 
-			if ( $porto_settings['share-enable'] && 'no' !== $share && ( 'yes' === $share || ( 'yes' !== $share && $porto_settings['portfolio-share'] ) ) ) :
+			if ( $porto_settings['share-enable'] && 'no' !== $share && ( 'yes' === $share || ( 'yes' !== $share && ! empty( $porto_settings['portfolio-share'] ) ) ) ) :
 				?>
 				<hr class="tall">
 				<div class="share-links-block">
@@ -240,15 +240,15 @@ if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 		<?php else : ?>
 		<div class="col-lg-12">
 		<?php endif; ?>
-			<div class="portfolio-info m-t-none pt-none">
+			<div class="portfolio-info mt-md-0 pt-none">
 				<ul>
-					<?php if ( in_array( 'like', $porto_settings['portfolio-metas'] ) ) : ?>
+					<?php if ( isset( $porto_settings['portfolio-metas'] ) && in_array( 'like', $porto_settings['portfolio-metas'] ) ) : ?>
 						<li>
 							<?php echo porto_portfolio_like(); ?>
 						</li>
 						<?php
 					endif;
-					if ( in_array( 'date', $porto_settings['portfolio-metas'] ) ) :
+					if ( isset( $porto_settings['portfolio-metas'] ) && in_array( 'date', $porto_settings['portfolio-metas'] ) ) :
 						?>
 						<li>
 							<i class="far fa-calendar-alt"></i> <?php echo get_the_date(); ?>
@@ -256,7 +256,7 @@ if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 						<?php
 					endif;
 					$cat_list = get_the_term_list( $post->ID, 'portfolio_cat', '', ', ', '' );
-					if ( in_array( 'cats', $porto_settings['portfolio-metas'] ) && $cat_list ) :
+					if ( isset( $porto_settings['portfolio-metas'] ) && in_array( 'cats', $porto_settings['portfolio-metas'] ) && $cat_list ) :
 						?>
 						<li>
 							<i class="fas fa-tags"></i> <?php echo porto_filter_output( $cat_list ); ?>
@@ -312,10 +312,10 @@ if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 	</div>
 
 	<div class="<?php echo 'widewidth' === $porto_layout ? ' container' : ''; ?>">
-		<?php if ( $porto_settings['portfolio-author'] ) : ?>
+		<?php if ( ! empty( $porto_settings['portfolio-author'] ) ) : ?>
 			<div class="post-gap"></div>
 			<div class="post-block post-author clearfix">
-				<?php if ( 'without-icon' == $porto_settings['post-title-style'] ) : ?>
+				<?php if ( isset( $porto_settings['post-title-style'] ) && 'without-icon' == $porto_settings['post-title-style'] ) : ?>
 					<h4><?php esc_html_e( 'Author', 'porto' ); ?></h4>
 				<?php else : ?>
 					<h3><i class="fas fa-user"></i><?php esc_html_e( 'Author', 'porto' ); ?></h3>
@@ -328,7 +328,7 @@ if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 			</div>
 		<?php endif; ?>
 
-		<?php if ( $porto_settings['portfolio-comments'] ) : ?>
+		<?php if ( ! empty( $porto_settings['portfolio-comments'] ) ) : ?>
 			<div class="post-gap"></div>
 			<?php
 			wp_reset_postdata();

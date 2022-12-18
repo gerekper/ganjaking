@@ -6,6 +6,7 @@
     letter-spacing: normal;
     font-weight: $font-weight-bold;
     text-transform: uppercase;
+    color: var(--porto-heading-color);
     margin-top: 0;
     margin-bottom: 1.25rem;
     position: relative;
@@ -24,66 +25,6 @@
 }
 
 .master-slider {
-    direction: ltr;
-
-    .ms-container {
-        .ms-nav-prev,
-        .ms-nav-next,
-        .ms-slide-vpbtn,
-        .ms-video-btn {
-            background: transparent;
-            border-radius: 0;
-            font-family: 'Font Awesome 5 Free'; font-weight: 900;
-            font-size: 2.8571em;
-            text-align: center;
-            line-height: 1;
-            margin-top: -25px;
-            width: 50px;
-            height: 50px;
-
-            &:before {
-                text-shadow: 0 0 3px #fff;
-                font-size: 1.5em;
-                line-height: 50px;
-                display: block;
-            }
-        }
-        .ms-nav-prev {
-            left: 0;
-            &:before {
-                content: $fa-var-angle-left;
-            }
-        }
-        .ms-nav-next {
-            right: 0;
-            &:before {
-                content: $fa-var-angle-right;
-            }
-        }
-
-        .ms-slide-vpbtn,
-        .ms-video-btn {
-            &:before {
-                content: $fa-var-play;
-                font-size: 1.1em;
-                text-shadow: none;
-            }
-        }
-
-        .ms-bullet {
-            background-image: none;
-            width: 10px;
-            height: 10px;
-            border-radius: 20px;
-            margin: 5px 7px !important;
-            opacity: .5;
-        }
-
-        .ms-bullet-selected {
-            opacity: 1;
-        }
-    }
-
     .ms-slide {
         overflow: hidden;
     }
@@ -165,6 +106,16 @@
         height: auto;
         padding: 20px 0;
 
+        &.tp-leftarrow, &.tp-rightarrow {
+            background-color: var(--porto-primary-color);
+            border-color: var(--porto-primary-color);
+            color: var(--porto-primary-color-inverse);
+            &:hover, &:focus, &:active {
+                background-color: var(--porto-primary-dark-5);
+                border-color: var(--porto-primary-dark-5);
+            }
+        }
+
         &.tp-leftarrow {
             left: -30px !important;
             right: auto !important;
@@ -174,6 +125,7 @@
                 position: relative;
                 left: -1px;
                 top: 1px;
+                color: inherit;
             }
         }
         &.tp-rightarrow {
@@ -185,6 +137,7 @@
                 position: relative;
                 left: 2px;
                 top: 1px;
+                color: inherit;
             }
         }
     }
@@ -226,11 +179,11 @@
     #main.main-boxed &,
     .mfp-content .ajax-container & {
         width: auto;
-        margin-left: -25px;
-        margin-right: -25px;
+        margin-left: calc( var(--porto-grid-gutter-width) * -1 );
+        margin-right: calc( var(--porto-grid-gutter-width) * -1 );
         @media #{$screen-medium} {
-            margin-left: -12px;
-            margin-right: -12px;
+            margin-left: calc( var(--porto-column-spacing) * -1 );
+            margin-right: calc( var(--porto-column-spacing) * -1 );
         }
     }
 }
@@ -276,5 +229,30 @@
         left: 49%;
         transform: translate3d(-50%, 0, 0);
         animation: sliderScrollButton 2s ease infinite;
+    }
+}
+
+body.porto-dm-slider {
+    .owl-carousel:not(.owl-loaded) {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        &::-webkit-scrollbar {
+            height: 7px;
+            width: 4px;
+        }
+        &::-webkit-scrollbar-thumb {
+            margin-#{$right}: 2px;
+            background: rgba(#000, 0);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background .3s;
+        }
+
+        &:hover::-webkit-scrollbar-thumb {
+            background: rgba(#000, 0.25);
+        }
+    }
+    .product-thumbnails {
+        display: none;
     }
 }

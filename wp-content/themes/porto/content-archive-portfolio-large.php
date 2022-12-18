@@ -26,15 +26,15 @@ if ( $archive_image ) {
 }
 $portfolio_link = get_post_meta( $post->ID, 'portfolio_link', true );
 
-$show_external_link        = $porto_settings['portfolio-external-link'];
-$portfolio_thumb_bg        = $porto_portfolio_thumb_bg ? $porto_portfolio_thumb_bg : $porto_settings['portfolio-archive-thumb-bg'];
-$portfolio_thumb_image     = $porto_portfolio_thumb_image ? ( 'zoom' == $porto_portfolio_thumb_image ? '' : $porto_portfolio_thumb_image ) : $porto_settings['portfolio-archive-thumb-image'];
-$portfolio_show_link       = $porto_settings['portfolio-archive-link'];
-$portfolio_show_all_images = $porto_settings['portfolio-archive-all-images'];
-$portfolio_images_count    = $porto_settings['portfolio-archive-images-count'];
-$portfolio_show_zoom       = $porto_settings['portfolio-archive-zoom'];
-$portfolio_ajax            = $porto_settings['portfolio-archive-ajax'];
-$portfolio_ajax_modal      = $porto_settings['portfolio-archive-ajax-modal'];
+$show_external_link        = isset( $porto_settings['portfolio-external-link'] ) ? $porto_settings['portfolio-external-link'] : false;
+$portfolio_thumb_bg        = $porto_portfolio_thumb_bg ? $porto_portfolio_thumb_bg : ( isset( $porto_settings['portfolio-archive-thumb-bg'] ) ? $porto_settings['portfolio-archive-thumb-bg'] : 'lighten' );
+$portfolio_thumb_image     = $porto_portfolio_thumb_image ? ( 'zoom' == $porto_portfolio_thumb_image ? '' : $porto_portfolio_thumb_image ) : ( isset( $porto_settings['portfolio-archive-thumb-image'] ) ? $porto_settings['portfolio-archive-thumb-image'] : '' );
+$portfolio_show_link       = isset( $porto_settings['portfolio-archive-link'] ) ? $porto_settings['portfolio-archive-link'] : true;
+$portfolio_show_all_images = isset( $porto_settings['portfolio-archive-all-images'] ) ? $porto_settings['portfolio-archive-all-images'] : false;
+$portfolio_images_count    = isset( $porto_settings['portfolio-archive-images-count'] ) ? $porto_settings['portfolio-archive-images-count'] : '2';
+$portfolio_show_zoom       = isset( $porto_settings['portfolio-archive-zoom'] ) ? $porto_settings['portfolio-archive-zoom'] : false;
+$portfolio_ajax            = isset( $porto_settings['portfolio-archive-ajax'] ) ? $porto_settings['portfolio-archive-ajax'] : false;
+$portfolio_ajax_modal      = isset( $porto_settings['portfolio-archive-ajax-modal'] ) ? $porto_settings['portfolio-archive-ajax-modal'] : false;
 
 if ( 'yes' == $porto_portfolio_ajax_load ) {
 	$portfolio_ajax = true;
@@ -89,7 +89,7 @@ $zoom_src   = array();
 $zoom_title = array();
 
 $portfolio_show_link_zoom = false;
-if ( $porto_settings['portfolio-archive-link-zoom'] ) {
+if ( ! empty( $porto_settings['portfolio-archive-link-zoom'] ) ) {
 	$portfolio_show_link_zoom  = true;
 	$portfolio_show_zoom       = false;
 	$portfolio_show_link       = false;
@@ -186,13 +186,13 @@ if ( $ajax_attr_escaped ) {
 
 			<div class="portfolio-info"<?php echo isset( $content_animation ) && $content_animation ? ' data-appear-animation="fadeIn" data-appear-animation-delay="600"' : ''; ?>>
 				<ul>
-					<?php if ( in_array( 'like', $porto_settings['portfolio-metas'] ) ) : ?>
+					<?php if ( isset( $porto_settings['portfolio-metas'] ) && in_array( 'like', $porto_settings['portfolio-metas'] ) ) : ?>
 						<li>
 							<?php echo porto_portfolio_like(); ?>
 						</li>
 						<?php
 					endif;
-					if ( in_array( 'date', $porto_settings['portfolio-metas'] ) ) :
+					if ( isset( $porto_settings['portfolio-metas'] ) && in_array( 'date', $porto_settings['portfolio-metas'] ) ) :
 						?>
 						<li>
 							<i class="far fa-calendar-alt"></i> <?php echo get_the_date(); ?>
@@ -200,7 +200,7 @@ if ( $ajax_attr_escaped ) {
 						<?php
 					endif;
 					$cat_list_escaped = get_the_term_list( $post->ID, 'portfolio_cat', '', ', ', '' );
-					if ( in_array( 'cats', $porto_settings['portfolio-metas'] ) && $cat_list_escaped ) :
+					if ( isset( $porto_settings['portfolio-metas'] ) && in_array( 'cats', $porto_settings['portfolio-metas'] ) && $cat_list_escaped ) :
 						?>
 						<li>
 							<i class="fas fa-tags"></i><?php echo ! $cat_list_escaped ? '' : ' ' . $cat_list_escaped; ?>
@@ -229,11 +229,11 @@ if ( $ajax_attr_escaped ) {
 				<h4 class="entry-title"<?php echo ! empty( $animation_attrs ) ? $animation_attrs . ' data-appear-animation-delay="600"' : ''; ?>><a href="<?php echo ! $show_external_link || ! $portfolio_link ? esc_url( get_the_permalink() ) : esc_url( $portfolio_link ); ?>"><?php the_title(); ?></a></h4>
 			<?php endif; ?>
 
-			<?php if ( $porto_settings['portfolio-show-content'] ) : ?>
+			<?php if ( ! empty( $porto_settings['portfolio-show-content'] ) ) : ?>
 				<div class="m-t-md"<?php echo ! empty( $animation_attrs ) ? $animation_attrs . ' data-appear-animation-delay="800"' : ''; ?>>
 				<?php
 				porto_render_rich_snippets( false );
-				if ( $porto_settings['portfolio-excerpt'] ) {
+				if ( ! empty( $porto_settings['portfolio-excerpt'] ) ) {
 					if ( has_excerpt() ) {
 						the_excerpt();
 					} else {

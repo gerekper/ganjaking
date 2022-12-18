@@ -14,7 +14,7 @@ $sub_title  = isset( $porto_shortcode_sub_title ) ? $porto_shortcode_sub_title :
 $hide_title = ! $title || ! $page_title;
 
 if ( isset( $is_shortcode ) ) {
-	$hide_title  = false;
+	$hide_title  = isset( $hide_page_title ) ? true : false;
 	$breadcrumbs = isset( $hide_breadcrumb ) ? false : true;
 }
 ?>

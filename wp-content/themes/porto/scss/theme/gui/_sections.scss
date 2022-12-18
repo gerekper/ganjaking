@@ -1,18 +1,10 @@
-/* Section Title */
-.section-title {
-    font-size: 1.1429em;
-    line-height: 1.4;
-    font-weight: $font-weight-bold;
-    text-transform: uppercase;
-    margin-bottom: 1.25em;
-    letter-spacing: normal;
-}
-
 /* Section Featured */
 .section {
     margin-top: 30px;
     margin-bottom: 30px;
     padding: 50px 0;
+    background-color: var(--porto-gray-7);
+    border-top: 5px solid var(--porto-gray-8);
 
     &.section-center {
         text-align: center;
@@ -38,7 +30,6 @@
         position: relative;
         &:before {
             content: "";
-            display: block;
             background: url("../images/video-overlay.png") repeat scroll 0 0 transparent;
             bottom: 0;
             height: 100%;
@@ -90,66 +81,14 @@
     }
 }
 
-.vc_row,
-.vc_column_container {
-    &.section {
-        &.section-with-divider {
-            .section-divider {
-                position: absolute;
-                #{$left}: 0;
-                width: 100%;
-                top: 50px;
-            }
-        }
-
-        &.section-with-divider-footer {
-            .section-divider {
-                position: absolute;
-                #{$left}: 0;
-                width: 100%;
-                bottom: 55px;
-            }
-        }
-    }
-}
-
-@media (min-width: 768px) {
-    .vc_row-o-full-height > .container > .row,
-    .vc_row-o-equal-height > .container > .row > .vc_column_container > .vc_column-inner {
-        height: 100%;
-    }
-}
-.vc_row-o-columns-middle > .container > .row {
-    -ms-flex-align: center;
-    align-items: center;
-}
-
-.vc_column_container.section {
-    margin: 0;
-    padding: 50px var(--porto-column-spacing, 15px);
-}
-
-.vc_row.section > .vc_column_container,
-.vc_row.section > .porto-container > .vc_row > .vc_column_container,
-.vc_column_container.section {
-    .wpb_wrapper {
-        > div:last-child {
-            margin-bottom: 0;
-        }
-    }
-}
-
 .porto-section {
     position: relative;
     /*z-index: 0;*/
     padding-top: 50px;
-    padding-bottom: 50px
+    padding-bottom: 50px;
 }
-.porto-section.vc_section {
-    padding-left: 0;
-    padding-right: 0;
-    margin-left: 0;
-    margin-right: 0
+.flex-container {
+    display: flex;
 }
 
 .section-parallax > .parallax-background {
@@ -201,24 +140,14 @@
     }
 }
 
-.row.no-padding > .vc_column_container.section {
-    padding-left: var(--porto-res-spacing, 15px);
-    padding-right: var(--porto-res-spacing, 15px);
-    .col-half-section {
-        padding-left: 0;
-        padding-right: 0
-    }
-}
-
-
 /* half container */
 .col-half-section {
     width: 100%;
     min-height: 1px;
     position: relative;
-    max-width: calc(var(--porto-container-width) / 2 - var(--porto-grid-gutter-width));
+    max-width: calc( var(--porto-container-width) / 2 - var(--porto-grid-gutter-width) );
     .elementor-column & {
-        max-width: calc(var(--porto-container-width) / 2);
+        max-width: calc( var(--porto-container-width) / 2 );
     }
 }
 
@@ -234,8 +163,8 @@
 
 .row.no-padding .col-half-section,
 .elementor-column-gap-no .col-half-section {
-    padding-left: var(--porto-res-spacing, 15px);
-    padding-right: var(--porto-res-spacing, 15px);
+    padding-left: var(--porto-res-spacing);
+    padding-right: var(--porto-res-spacing);
 }
 
 @media (min-width: 992px) {
@@ -265,4 +194,60 @@
         margin-right: auto;
         justify-self: auto
     }
+}
+
+
+.section.section-text-dark,
+.section.section-text-dark h1,
+.section.section-text-dark h2,
+.section.section-text-dark h3,
+.section.section-text-dark h4,
+.section.section-text-dark h5,
+.section.section-text-dark h6 {
+    color: #222529
+}
+.section.section-text-dark p {
+    color: lighten(#222529, 10%);
+}
+
+/* theme colors */
+/* primary, secondary, tertiary, quaternary, dark, light */
+@each $state in $color_states {
+    .section.section-#{nth($state,1)} {
+        background-color: var(--porto-#{nth($state,1)}-color) !important;
+        color: var(--porto-#{nth($state,1)}-color-inverse, #{nth($state,3)});
+        border-color: var(--porto-#{nth($state,1)}-dark-5) !important;
+
+        &:not([class*=" section-text-"]) p {
+            color: var(--porto-#{nth($state,1)}-inverse-dark-10)
+        }
+    }
+
+    .section.section-#{nth($state,1)}:not([class*=" section-text-"]) h1,
+    .section.section-#{nth($state,1)}:not([class*=" section-text-"]) h2,
+    .section.section-#{nth($state,1)}:not([class*=" section-text-"]) h3,
+    .section.section-#{nth($state,1)}:not([class*=" section-text-"]) h4,
+    .section.section-#{nth($state,1)}:not([class*=" section-text-"]) h5,
+    .section.section-#{nth($state,1)}:not([class*=" section-text-"]) h6,
+    .section.section-#{nth($state,1)}-scale-2 .sort-source-style-2 > li > a,
+    .section.section-#{nth($state,1)}-scale-2 .sort-source-style-2 > li > a:focus,
+    .section.section-#{nth($state,1)}-scale-2 .sort-source-style-2 > li > a:hover {
+        color: var(--porto-#{nth($state,1)}-color-inverse, #{nth($state,3)});
+    }
+
+    .section.section-#{nth($state,1)}-scale-2 {
+        background-color: var(--porto-#{nth($state,1)}-dark-10) !important;
+        border-color: var(--porto-#{nth($state,1)}-dark-15) !important;
+    }
+    .section.section-#{nth($state,1)}-scale-2 .sort-source-style-2 > li.active > a:after {
+        border-top-color: var(--porto-#{nth($state,1)}-dark-10)
+    }
+}
+.parallax-scale-wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }

@@ -25,12 +25,15 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Shortcode class
  * @var WPBakeryShortCode_Vc_Row $this
  */
-$el_class        = $full_height = $parallax_speed_bg = $parallax_speed_video = $full_width = $flex_row = $columns_placement = $content_placement = $parallax = $parallax_image = $css = $el_id = $video_bg = $video_bg_url = $video_bg_parallax = $css_animation = $top_divider_type = $top_divider_custom = $top_divider_color = $top_divider_height = $top_divider_flip = $top_divider_invert = $bottom_divider_type = $bottom_divider_custom = $bottom_divider_color = $bottom_divider_height = $bottom_divider_flip = $bottom_divider_invert = $is_container = $top_divider_class = $bottom_divider_class = '';
+$el_class        = $full_height = $parallax_speed_bg = $parallax_speed_video = $full_width = $flex_row = $columns_placement = $content_placement = $parallax = $parallax_image = $css = $el_id = $video_bg = $video_bg_url = $video_bg_parallax = $css_animation = $top_divider_type = $top_divider_custom = $top_divider_color = $top_divider_height = $top_divider_flip = $top_divider_invert = $bottom_divider_type = $bottom_divider_custom = $bottom_divider_color = $bottom_divider_height = $bottom_divider_flip = $bottom_divider_invert = $is_container = $top_divider_class = $bottom_divider_class = $conditional_render = '';
 $disable_element = '';
 $output          = $after_output = '';
 $atts            = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
-
+$conditional_render = (array) vc_param_group_parse_atts( $conditional_render );
+if ( ! empty( $conditional_render ) && ! empty( $conditional_render[0]['condition_a'] ) && ! apply_filters( 'porto_wpb_should_render', true, $conditional_render ) ) {
+	return;
+}
 if ( 'none' == $top_divider_type ) {
 	$top_divider_type = '';
 }

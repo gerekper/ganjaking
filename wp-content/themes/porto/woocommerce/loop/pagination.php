@@ -11,13 +11,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $wp_query, $porto_settings, $porto_layout;
 
+$builder_id = porto_check_builder_condition( 'shop' );
+
 if ( $porto_settings['category-item'] ) {
 	$per_page = explode( ',', $porto_settings['category-item'] );
 } else {
 	$per_page = explode( ',', '12,24,36' );
 }
 
-$page_count = porto_loop_shop_per_page();
+if ( $builder_id && empty( $_GET['count'] ) ) {
+	$page_count = '';
+} else {
+	$page_count = porto_loop_shop_per_page();
+}
 
 $total = isset( $total ) ? $total : $wp_query->max_num_pages;
 
@@ -26,9 +32,12 @@ echo '<nav class="woocommerce-pagination' . ( isset( $porto_settings['product-in
 	?>
 	<form class="woocommerce-viewing" method="get">
 
-		<label><?php esc_html_e( 'Show', 'porto' ); ?>: </label>
+		<label><?php esc_html_e( 'Show', 'woocommerce' ); ?>: </label>
 
 		<select name="count" class="count">
+		<?php if ( $builder_id ) : ?>
+			<option value="" <?php selected( $page_count, '' ); ?>><?php esc_html_e( 'Default', 'porto' ); ?></option>
+		<?php endif; ?>
 			<?php foreach ( $per_page as $count ) : ?>
 				<option value="<?php echo esc_attr( $count ); ?>" <?php selected( $page_count, $count ); ?>><?php echo esc_html( $count ); ?></option>
 			<?php endforeach; ?>
@@ -56,7 +65,7 @@ echo '<nav class="woocommerce-pagination' . ( isset( $porto_settings['product-in
 	</form>
 <?php
 
-if ( $total <= 1 ) {
+if ( $total <= 1 || ( isset( $porto_settings['shop_pg_type'] ) && 'none' != $porto_settings['shop_pg_type'] ) ) {
 	echo '</nav>';
 	return;
 }

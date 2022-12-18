@@ -14,8 +14,8 @@ global $product, $porto_settings, $porto_product_layout;
 if ( empty( $product ) || ! $product->exists() ) {
 	return;
 }
-$related = wc_get_related_products( $product->get_id(), $porto_settings['product-related-count'] );
-if ( sizeof( $related ) === 0 || ! $porto_settings['product-related'] ) {
+$related = wc_get_related_products( $product->get_id(), ! empty( $porto_settings['product-related-count'] ) ? $porto_settings['product-related-count'] : 5 );
+if ( sizeof( $related ) === 0 || empty( $porto_settings['product-related'] ) ) {
 	return;
 }
 
@@ -25,7 +25,7 @@ $args = apply_filters(
 		'post_type'           => 'product',
 		'ignore_sticky_posts' => 1,
 		'no_found_rows'       => 1,
-		'posts_per_page'      => $porto_settings['product-related-count'],
+		'posts_per_page'      => isset( $porto_settings['product-related-count'] ) ? $porto_settings['product-related-count'] : '10',
 		'orderby'             => $orderby,
 		'post__in'            => $related,
 		'post__not_in'        => array( $product->get_id() ),
@@ -45,7 +45,7 @@ if ( 'left_sidebar' == $porto_product_layout ) {
 if ( $products->have_posts() ) :
 	global $porto_woocommerce_loop;
 
-	$porto_woocommerce_loop['columns'] = isset( $porto_settings['product-related-cols'] ) ? $porto_settings['product-related-cols'] : $porto_settings['product-cols'];
+	$porto_woocommerce_loop['columns'] = isset( $porto_settings['product-related-cols'] ) ? $porto_settings['product-related-cols'] : ( isset( $porto_settings['product-cols'] ) ? $porto_settings['product-cols'] : 3 );
 
 	if ( ! $porto_woocommerce_loop['columns'] ) {
 		$porto_woocommerce_loop['columns'] = 4;
@@ -68,7 +68,7 @@ if ( $products->have_posts() ) :
 				$porto_woocommerce_loop['view']       = 'products-slider';
 				$porto_woocommerce_loop['navigation'] = false;
 				$porto_woocommerce_loop['pagination'] = true;
-				$porto_woocommerce_loop['el_class']   = 'show-dots-title-right';
+				$porto_woocommerce_loop['el_class']   = 'show-dots-title-right dots-style-1';
 
 				woocommerce_product_loop_start();
 				?>

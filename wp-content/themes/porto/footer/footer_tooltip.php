@@ -1,7 +1,7 @@
 <?php
 global $porto_settings;
 
-$tooltip_content = apply_filters( 'porto_footer_tooltip', $porto_settings['show-footer-tooltip'] ? $porto_settings['footer-tooltip'] : '' );
+$tooltip_content = apply_filters( 'porto_footer_tooltip', ! empty( $porto_settings['show-footer-tooltip'] ) ? $porto_settings['footer-tooltip'] : '' );
 if ( $tooltip_content ) :
 	?>
 	<div class="porto-tooltip">

@@ -13,7 +13,7 @@ endif;
 if ( have_comments() ) :
 	?>
 	<div class="post-block post-comments clearfix" id="comments">
-		<?php if ( 'without-icon' == $porto_settings['post-title-style'] ) : ?>
+		<?php if ( isset( $porto_settings['post-title-style'] ) && 'without-icon' == $porto_settings['post-title-style'] ) : ?>
 			<h4>
 			<?php
 				printf(

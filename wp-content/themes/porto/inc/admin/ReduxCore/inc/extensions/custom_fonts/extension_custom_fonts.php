@@ -156,6 +156,8 @@ if ( ! class_exists( 'ReduxFramework_extension_custom_fonts' ) ) {
 
 			add_filter( 'tiny_mce_before_init', array( $this, 'extend_tinymce_dropdown' ) );
 
+			update_option( 'porto_custom_fonts', $this->custom_fonts );
+
 		}
 
 
@@ -378,27 +380,34 @@ if ( ! class_exists( 'ReduxFramework_extension_custom_fonts' ) ) {
 
 			if ( isset( $_REQUEST['type'] ) && $_REQUEST['type'] == 'delete' ) {
 
+				$section_name = '';
 				if ( $_REQUEST['section'] == 'Custom Fonts' ) {
-
-					$_REQUEST['section'] = 'custom';
-
+					$section_name = 'custom';
 				}
 
 				if ( $_REQUEST['section'] == 'Fonts Squirrel' ) {
-
-					$_REQUEST['section'] = 'fontssquirrel';
-
+					$section_name = 'fontssquirrel';
 				}
 
 				try {
 
-					$this->filesystem->delete( $this->upload_dir . $_REQUEST['section'] . '/' . $_REQUEST['name'] . '/', true, 'd' );
+					$this->filesystem->delete( $this->upload_dir . $section_name . '/' . $_REQUEST['name'] . '/', true, 'd' );
 
 					$result = array(
-
 						'type' => 'success',
-
 					);
+
+					/**
+					 * update custom fonts list
+					 *
+					 * @since 6.5.0
+					 */
+					if ( isset( $this->custom_fonts[ $_REQUEST['section'] ] ) && ! empty( $this->custom_fonts[ $_REQUEST['section'] ][ $_REQUEST['name'] ] ) ) {
+						unset( $this->custom_fonts[ $_REQUEST['section'] ][ $_REQUEST['name'] ] );
+						update_option( 'porto_custom_fonts', $this->custom_fonts );
+
+						$this->generateCSS();
+					}
 
 					echo json_encode( $result );
 

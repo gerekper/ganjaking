@@ -1,28 +1,31 @@
 <?php get_header(); ?>
-
 <?php
-global $porto_settings, $portfolio_columns, $wp_query, $porto_layout, $porto_portfolio_view, $porto_portfolio_thumb, $porto_portfolio_thumb_bg, $porto_portfolio_thumb_image, $porto_portfolio_thumbs_html;
+$builder_id = porto_check_builder_condition( 'archive' );
+if ( $builder_id && 'publish' == get_post_status( $builder_id ) ) {
+	echo do_shortcode( '[porto_block id="' . esc_attr( $builder_id ) . '"]' );
+} else {
+	global $porto_settings, $portfolio_columns, $wp_query, $porto_layout, $porto_portfolio_view, $porto_portfolio_thumb, $porto_portfolio_thumb_bg, $porto_portfolio_thumb_image, $porto_portfolio_thumbs_html;
 
-$term    = $wp_query->queried_object;
-$term_id = $term->term_id;
+	$term    = $wp_query->queried_object;
+	$term_id = $term->term_id;
 
-$portfolio_options = get_metadata( $term->taxonomy, $term->term_id, 'portfolio_options', true ) == 'portfolio_options' ? true : false;
+	$portfolio_options = get_metadata( $term->taxonomy, $term->term_id, 'portfolio_options', true ) == 'portfolio_options' ? true : false;
 
-$portfolio_layout   = $portfolio_options ? get_metadata( $term->taxonomy, $term->term_id, 'portfolio_layout', true ) : $porto_settings['portfolio-layout'];
-$portfolio_infinite = Porto_Infinite_Scroll::get_instance()->is_infinite();
+	$portfolio_layout   = $portfolio_options ? get_metadata( $term->taxonomy, $term->term_id, 'portfolio_layout', true ) : ( isset( $porto_settings['portfolio-layout'] ) ? $porto_settings['portfolio-layout'] : 'grid' );
+	$portfolio_infinite = Porto_Infinite_Scroll::get_instance()->is_infinite();
 
-$portfolio_columns = '';
-$portfolio_view    = '';
-if ( 'grid' == $portfolio_layout || 'masonry' == $portfolio_layout ) {
-	$portfolio_columns = $portfolio_options ? get_metadata( $term->taxonomy, $term->term_id, 'portfolio_grid_columns', true ) : $porto_settings['portfolio-grid-columns'];
-	$portfolio_view    = $portfolio_options ? get_metadata( $term->taxonomy, $term->term_id, 'portfolio_grid_view', true ) : $porto_settings['portfolio-grid-view'];
-}
+	$portfolio_columns = '';
+	$portfolio_view    = '';
+	if ( 'grid' == $portfolio_layout || 'masonry' == $portfolio_layout ) {
+		$portfolio_columns = $portfolio_options ? get_metadata( $term->taxonomy, $term->term_id, 'portfolio_grid_columns', true ) : ( isset( $porto_settings['portfolio-grid-columns'] ) ? $porto_settings['portfolio-grid-columns'] : '4' );
+		$portfolio_view    = $portfolio_options ? get_metadata( $term->taxonomy, $term->term_id, 'portfolio_grid_view', true ) : ( isset( $porto_settings['portfolio-grid-view'] ) ? $porto_settings['portfolio-grid-view'] : 'default' );
+	}
 
-$porto_portfolio_view        = $portfolio_view;
-$porto_portfolio_thumb       = $portfolio_options ? get_metadata( $term->taxonomy, $term->term_id, 'portfolio_archive_thumb', true ) : $porto_settings['portfolio-archive-thumb'];
-$porto_portfolio_thumb_bg    = $portfolio_options ? get_metadata( $term->taxonomy, $term->term_id, 'portfolio_archive_thumb_bg', true ) : $porto_settings['portfolio-archive-thumb-bg'];
-$porto_portfolio_thumb_image = $portfolio_options ? get_metadata( $term->taxonomy, $term->term_id, 'portfolio_archive_thumb_image', true ) : $porto_settings['portfolio-archive-thumb-image'];
-?>
+	$porto_portfolio_view        = $portfolio_view;
+	$porto_portfolio_thumb       = $portfolio_options ? get_metadata( $term->taxonomy, $term->term_id, 'portfolio_archive_thumb', true ) : ( isset( $porto_settings['portfolio-archive-thumb'] ) ? $porto_settings['portfolio-archive-thumb'] : '' );
+	$porto_portfolio_thumb_bg    = $portfolio_options ? get_metadata( $term->taxonomy, $term->term_id, 'portfolio_archive_thumb_bg', true ) : ( isset( $porto_settings['portfolio-archive-thumb-bg'] ) ? $porto_settings['portfolio-archive-thumb-bg'] : 'lighten' );
+	$porto_portfolio_thumb_image = $portfolio_options ? get_metadata( $term->taxonomy, $term->term_id, 'portfolio_archive_thumb_image', true ) : ( isset( $porto_settings['portfolio-archive-thumb-image'] ) ? $porto_settings['portfolio-archive-thumb-image'] : '' );
+	?>
 
 <div id="content" role="main">
 
@@ -35,13 +38,13 @@ $porto_portfolio_thumb_image = $portfolio_options ? get_metadata( $term->taxonom
 	<?php if ( have_posts() ) : ?>
 
 		<?php
-		if ( $porto_settings['portfolio-archive-link-zoom'] ) :
+		if ( ! empty( $porto_settings['portfolio-archive-link-zoom'] ) ) :
 			?>
-			<div class="portfolios-lightbox<?php echo ! $porto_settings['portfolio-archive-img-lightbox-thumb'] ? '' : ' with-thumbs'; ?>"><?php endif; ?>
+			<div class="portfolios-lightbox<?php echo empty( $porto_settings['portfolio-archive-img-lightbox-thumb'] ) ? '' : ' with-thumbs'; ?>"><?php endif; ?>
 
 		<div class="page-portfolios portfolios-<?php echo esc_attr( $portfolio_layout ); ?> clearfix">
 
-			<?php if ( $porto_settings['portfolio-archive-ajax'] && ! $porto_settings['portfolio-archive-ajax-modal'] ) : ?>
+			<?php if ( ! empty( $porto_settings['portfolio-archive-ajax'] ) && empty( $porto_settings['portfolio-archive-ajax-modal'] ) ) : ?>
 				<div id="portfolioAjaxBox" class="ajax-box">
 					<div class="bounce-loader">
 						<div class="bounce1"></div>
@@ -53,7 +56,7 @@ $porto_portfolio_thumb_image = $portfolio_options ? get_metadata( $term->taxonom
 			<?php endif; ?>
 
 			<?php
-			if ( 'hide' !== $porto_settings['portfolio-cat-sort-pos'] ) {
+			if ( isset( $porto_settings['portfolio-cat-sort-pos'] ) && 'hide' !== $porto_settings['portfolio-cat-sort-pos'] ) {
 				if ( 'sidebar' === $porto_settings['portfolio-cat-sort-pos'] && ! ( 'widewidth' == $porto_layout || 'fullwidth' == $porto_layout ) ) {
 					add_action( 'porto_before_sidebar', 'porto_show_portfolio_tax_filter', 1 );
 				} elseif ( 'content' === $porto_settings['portfolio-cat-sort-pos'] ) {
@@ -142,7 +145,7 @@ $porto_portfolio_thumb_image = $portfolio_options ? get_metadata( $term->taxonom
 				?>
 
 				<?php
-				if ( $porto_settings['portfolio-archive-img-lightbox-thumb'] ) :
+				if ( ! empty( $porto_settings['portfolio-archive-img-lightbox-thumb'] ) ) :
 					$thumbs_carousel_options = array(
 						'items'  => 15,
 						'loop'   => false,
@@ -174,7 +177,7 @@ $porto_portfolio_thumb_image = $portfolio_options ? get_metadata( $term->taxonom
 		<?php wp_reset_postdata(); ?>
 
 		<?php
-		if ( $porto_settings['portfolio-archive-link-zoom'] ) :
+		if ( ! empty( $porto_settings['portfolio-archive-link-zoom'] ) ) :
 			?>
 			</div><?php endif; ?>
 
@@ -193,5 +196,5 @@ $porto_portfolio_thumb_image = $portfolio_options ? get_metadata( $term->taxonom
 	?>
 
 </div>
-
+<?php } ?>
 <?php get_footer(); ?>

@@ -53,7 +53,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 									echo '<a href="' . esc_url( $download['download_url'] ) . '" class="woocommerce-MyAccount-downloads-file button alt wc-action-btn px-4">' . esc_html( $download['download_name'] ) . '</a>';
 									break;
 								case 'download-remaining':
-									echo is_numeric( $download['downloads_remaining'] ) ? esc_html( $download['downloads_remaining'] ) : esc_html__( 'Infinity', 'porto' );
+									echo is_numeric( $download['downloads_remaining'] ) ? esc_html( $download['downloads_remaining'] ) : esc_html__( '&infin;', 'woocommerce' );
 									break;
 								case 'download-expires':
 									if ( ! empty( $download['access_expires'] ) ) {

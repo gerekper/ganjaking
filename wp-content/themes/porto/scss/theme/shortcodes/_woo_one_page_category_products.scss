@@ -1,6 +1,17 @@
 .porto-onepage-category {
+    --porto-one-page-category-space-vertical: 0px;
+    --porto-one-page-category-space-horizontal: 10px;
+    --porto-one-page-category-top-space: 60px;
+    --porto-one-page-category-fix-left: 0px;
+    --porto-one-page-category-fix-top: 0px;
+    --porto-one-page-category-fix-bottom: 0px;
+    @media (min-width: 768px) {
+        .product-cats li {
+            margin-bottom: var(--porto-one-page-category-space-vertical);
+        }
+    }
     &:not(.show-products) {
-        position: absolute;
+        position: relative;
         #{$left}: 0;
         top: 0;
         width: 80px;
@@ -10,7 +21,7 @@
         }
     }
     &.show-products {
-        display: -ms-flexbox; display: flex;
+        display: flex;
     }
     &.ajax-load {
         .category-section:not(.ajax-loaded) .category-title {
@@ -26,7 +37,7 @@
         width: 80px;
         position: relative;
         z-index: 9;
-        padding-top: 60px;
+        padding-top: var(--porto-one-page-category-top-space);
     }
     .product-cats {
         list-style: none;
@@ -67,6 +78,7 @@
                 visibility: visible;
                 width: auto;
                 padding-#{$right}: 50px;
+                padding-#{$left}: 5px;
             }
         }
         .category-icon {
@@ -77,6 +89,7 @@
             font-size: 1.6875rem;
             vertical-align: middle;
             img {
+                display: block;
                 max-height: 100%;
                 object-fit: cover;
             }
@@ -102,18 +115,17 @@
     .category-section {
         min-height: 1px;
         .category-title {
-            display: -ms-flexbox; display: flex;
+            display: flex;
             align-items: center;
+            flex-wrap: wrap;
             margin-bottom: 25px;
             position: relative;
-            .category-link {
-                margin-#{$left}: auto;
-            }
             .btn {
                 padding: 10px 30px;
             }
             .dropdown {
                 position: static;
+                margin: side-values(.5rem auto .5rem 0);
             }
         }
         .cat-title {
@@ -173,14 +185,13 @@
         margin-left: auto;
         margin-right: auto;
         margin: 20px -20px 20px;
-        padding: 50px 0;
+        padding: 10px 0;
         border-radius: 5px;
         @media (min-width: 768px) and (max-width: 991px) {
             font-size: 14px;
         }
         @media (max-width: 767px) {
             width: calc(100% + 2px);
-            padding: 20px 0;
             margin-left: -1px;
             margin-right: -1px;
         }
@@ -208,8 +219,8 @@
             display: none;
         }
         > .cat-item {
-            text-align: $left;
-            padding: 20px 4% 10px;
+            text-align: center;
+            padding: 10px 4%;
             margin-bottom: 0;
             border-#{$left}: 1px solid #bebebe;
             &:first-child {
@@ -227,7 +238,6 @@
             }
             a {
                 display: inline-block;
-                padding: 9px 0;
             }
         }
     }
@@ -243,11 +253,11 @@
             margin-top: 30px;
         }
         .product-cats {
-            display: -ms-flexbox; display: flex;
-            -ms-flex-wrap: wrap; flex-wrap: wrap;
+            display: flex;
+            flex-wrap: wrap;
             li {
                 width: auto;
-                margin-#{$right}: 10px;
+                margin-#{$right}: var(--porto-one-page-category-space-horizontal);
             }
             .category-icon {
                 width: 60px;
@@ -269,5 +279,16 @@
             padding-top: 30px;
             padding-bottom: 30px;
         }
+    }
+}
+@media (min-width: 768px){
+    .porto-onepage-category.fixed-list > .category-list {
+        position: fixed;   
+        left: var(--porto-one-page-category-fix-left);
+        right: var(--porto-one-page-category-fix-right);
+        top: var(--porto-one-page-category-fix-top);
+        bottom: var(--porto-one-page-category-fix-bottom);
+        z-index: 1001;
+        overflow: hidden;
     }
 }

@@ -20,9 +20,10 @@ function porto_custom_css_classes_for_elements( $class_string, $tag ) {
 	if ( ! ( function_exists( 'vc_is_inline' ) && vc_is_inline() ) && ( 'vc_column' == $tag || 'vc_column_inner' == $tag ) ) {
 		//$class_string = str_replace( 'vc_column_container', '', $class_string );
 		if ( preg_match_all( '/vc_col-(\w{2})-(\d{1,2})(\/5|)($| )/', $class_string, $matches ) ) {
-			$class_string = str_replace( array( 'vc_col-lg-offset-', 'vc_col-md-offset-', 'vc_col-sm-offset-', 'vc_col-xs-offset-' ), array( 'offset-xl-', 'offset-lg-', 'offset-md-', 'offset-' ), $class_string );
+			$class_string = str_replace( array( 'vc_col-xl-offset-', 'vc_col-lg-offset-', 'vc_col-md-offset-', 'vc_col-sm-offset-', 'vc_col-xs-offset-' ), array( 'offset-xxl-', 'offset-xl-', 'offset-lg-', 'offset-md-', 'offset-' ), $class_string );
 			if ( isset( $matches[1] ) && isset( $matches[2] ) ) {
 				$size_array = array(
+					'-xl' => '-xxl',
 					'-lg' => '-xl',
 					'-md' => '-lg',
 					'-sm' => '-md',
@@ -43,9 +44,9 @@ function porto_custom_css_classes_for_elements( $class_string, $tag ) {
 			$class_string = preg_replace( '/ col-(\w{2})-12/', '', $class_string );
 		}*/
 		if ( preg_match( '/vc_hidden-(\w{2})/', $class_string ) ) {
-			$class_string = str_replace( array( 'vc_hidden-lg', 'vc_hidden-md', 'vc_hidden-sm', 'vc_hidden-xs' ), array( 'd-xl-none', 'd-lg-none d-xl-block', 'd-md-none d-lg-block', 'd-none d-md-block' ), $class_string );
-			$screens      = array( '', 'md', 'lg', 'xl' );
-			for ( $i = 0; $i <= 3; $i++ ) {
+			$class_string = str_replace( array( 'vc_hidden-xl', 'vc_hidden-lg', 'vc_hidden-md', 'vc_hidden-sm', 'vc_hidden-xs' ), array( 'd-xxl-none', 'd-xl-none d-xxl-block', 'd-lg-none d-xl-block', 'd-md-none d-lg-block', 'd-none d-md-block' ), $class_string );
+			$screens      = array( '', 'md', 'lg', 'xl', 'xxl' );
+			for ( $i = 0; $i <= 4; $i++ ) {
 				if ( 0 == $i ) {
 					$screen = ' d';
 				} else {
@@ -55,7 +56,7 @@ function porto_custom_css_classes_for_elements( $class_string, $tag ) {
 					$class_string = str_replace( $screen . '-block', '', $class_string );
 				}
 			}
-			for ( $i = 3; $i >= 1; $i-- ) {
+			for ( $i = 4; $i >= 1; $i-- ) {
 				if ( 1 == $i ) {
 					$screen = ' d';
 				} else {
@@ -78,10 +79,11 @@ function porto_load_shortcodes() {
 
 	if ( function_exists( 'vc_map' ) ) {
 		global $porto_settings;
-		$dark = porto_is_dark_skin();
+		$porto_cur_version = get_option( 'porto_version', '1.0' );
+		$dark              = porto_is_dark_skin();
 
 		$section_group      = __( 'Porto Options', 'porto' );
-		$sticky_group       = __( 'Sticky Options', 'porto' );
+		$addon_group        = __( 'Porto Addons', 'porto' );
 		$animation_group    = __( 'Animation', 'porto' );
 		$animation_type     = array(
 			'type'       => 'porto_theme_animation_type',
@@ -169,6 +171,9 @@ function porto_load_shortcodes() {
 			'group'       => $animation_group,
 		);
 
+		$left  = is_rtl() ? 'right' : 'left';
+		$right = is_rtl() ? 'left' : 'right';
+
 		/* ---------------------------- */
 		/* Customize Section
 		/* ---------------------------- */
@@ -176,9 +181,10 @@ function porto_load_shortcodes() {
 			'vc_section',
 			array(
 				array(
-					'type'       => 'checkbox',
-					'heading'    => esc_html__( 'Wrap as container', 'porto' ),
-					'param_name' => 'is_container',
+					'type'        => 'checkbox',
+					'heading'     => esc_html__( 'Wrap as container', 'porto' ),
+					'param_name'  => 'is_container',
+					'qa_selector' => '>.vc_section',
 				),
 				array(
 					'type'        => 'dropdown',
@@ -373,6 +379,7 @@ function porto_load_shortcodes() {
 				'value'       => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
 				'group'       => $section_group,
 				'admin_label' => true,
+				'qa_selector' => '>.vc_row',
 			)
 		);
 		vc_add_param(
@@ -761,191 +768,386 @@ function porto_load_shortcodes() {
 				'group'      => $section_group,
 			)
 		);
-		vc_add_param(
-			'vc_row',
-			array(
-				'type'        => 'checkbox',
-				'heading'     => __( 'Enable Sticky Options?', 'porto' ),
-				'param_name'  => 'is_sticky',
-				'value'       => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
-				'group'       => $sticky_group,
-				'admin_label' => true,
-			)
-		);
-		vc_add_param(
-			'vc_row',
-			array(
-				'type'       => 'textfield',
-				'heading'    => __( 'Container Selector', 'porto' ),
-				'param_name' => 'sticky_container_selector',
-				'value'      => '.main-content',
-				'dependency' => array(
-					'element'   => 'is_sticky',
-					'not_empty' => true,
-				),
-				'group'      => $sticky_group,
-			)
-		);
-		vc_add_param(
-			'vc_row',
-			array(
-				'type'       => 'textfield',
-				'heading'    => __( 'Min Width (unit: px)', 'porto' ),
-				'param_name' => 'sticky_min_width',
-				''           => __( 'Wll be disabled if window width is smaller than min width', 'porto' ),
-				'value'      => 767,
-				'dependency' => array(
-					'element'   => 'is_sticky',
-					'not_empty' => true,
-				),
-				'group'      => $sticky_group,
-			)
-		);
-		vc_add_param(
-			'vc_row',
-			array(
-				'type'       => 'textfield',
-				'heading'    => __( 'Top (unit: px)', 'porto' ),
-				'param_name' => 'sticky_top',
-				''           => __( 'Top position when active', 'porto' ),
-				'value'      => 110,
-				'dependency' => array(
-					'element'   => 'is_sticky',
-					'not_empty' => true,
-				),
-				'group'      => $sticky_group,
-			)
-		);
-		vc_add_param(
-			'vc_row',
-			array(
-				'type'       => 'textfield',
-				'heading'    => __( 'Bottom (unit: px)', 'porto' ),
-				'param_name' => 'sticky_bottom',
-				''           => __( 'Bottom position when active', 'porto' ),
-				'value'      => 0,
-				'dependency' => array(
-					'element'   => 'is_sticky',
-					'not_empty' => true,
-				),
-				'group'      => $sticky_group,
-			)
-		);
-		vc_add_param(
-			'vc_row',
-			array(
-				'type'       => 'textfield',
-				'heading'    => __( 'Active Class', 'porto' ),
-				'param_name' => 'sticky_active_class',
-				'value'      => 'sticky-active',
-				'dependency' => array(
-					'element'   => 'is_sticky',
-					'not_empty' => true,
-				),
-				'group'      => $sticky_group,
-			)
-		);
-		vc_add_param( 'vc_row', $animation_type );
-		vc_add_param( 'vc_row', $animation_duration );
-		vc_add_param( 'vc_row', $animation_delay );
 
-		vc_add_param(
-			'vc_row_inner',
+		// add sticky options
+		vc_add_params(
+			'vc_row',
 			array(
-				'type'        => 'checkbox',
-				'heading'     => __( 'Wrap as Container', 'porto' ),
-				'param_name'  => 'wrap_container',
-				'value'       => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
-				'admin_label' => true,
-			)
-		);
-		vc_add_param(
-			'vc_row_inner',
-			array(
-				'type'        => 'checkbox',
-				'heading'     => __( 'Enable Sticky Options?', 'porto' ),
-				'param_name'  => 'is_sticky',
-				'value'       => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
-				'group'       => $sticky_group,
-				'admin_label' => true,
-			)
-		);
-		vc_add_param(
-			'vc_row_inner',
-			array(
-				'type'       => 'textfield',
-				'heading'    => __( 'Container Selector', 'porto' ),
-				'param_name' => 'sticky_container_selector',
-				'value'      => '.vc_row',
-				'dependency' => array(
-					'element'   => 'is_sticky',
-					'not_empty' => true,
+				array(
+					'type'       => 'porto_param_heading',
+					'param_name' => 'desc_row_addon',
+					'text'       => sprintf( esc_html__( 'Read this %1$sarticle%2$s to find out more about Porto Addons.', 'porto' ), '<a target="_blank" href="https://www.portotheme.com/wordpress/porto/documentation/wpbakery-porto-addons/">', '</a>' ),
+					'group'      => $addon_group,
 				),
-				'group'      => $sticky_group,
+				array(
+					'type'        => 'checkbox',
+					'heading'     => __( 'Enable Sticky Options?', 'porto' ),
+					'param_name'  => 'is_sticky',
+					'value'       => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
+					'group'       => $addon_group,
+					'admin_label' => true,
+				),
+				array(
+					'type'       => 'textfield',
+					'heading'    => __( 'Container Selector', 'porto' ),
+					'param_name' => 'sticky_container_selector',
+					'value'      => '.main-content',
+					'dependency' => array(
+						'element'   => 'is_sticky',
+						'not_empty' => true,
+					),
+					'group'      => $addon_group,
+				),
+				array(
+					'type'       => 'textfield',
+					'heading'    => __( 'Min Width (unit: px)', 'porto' ),
+					'param_name' => 'sticky_min_width',
+					''           => __( 'Wll be disabled if window width is smaller than min width', 'porto' ),
+					'value'      => 767,
+					'dependency' => array(
+						'element'   => 'is_sticky',
+						'not_empty' => true,
+					),
+					'group'      => $addon_group,
+				),
+				array(
+					'type'       => 'textfield',
+					'heading'    => __( 'Top (unit: px)', 'porto' ),
+					'param_name' => 'sticky_top',
+					''           => __( 'Top position when active', 'porto' ),
+					'value'      => 110,
+					'dependency' => array(
+						'element'   => 'is_sticky',
+						'not_empty' => true,
+					),
+					'group'      => $addon_group,
+				),
+				array(
+					'type'       => 'textfield',
+					'heading'    => __( 'Bottom (unit: px)', 'porto' ),
+					'param_name' => 'sticky_bottom',
+					''           => __( 'Bottom position when active', 'porto' ),
+					'value'      => 0,
+					'dependency' => array(
+						'element'   => 'is_sticky',
+						'not_empty' => true,
+					),
+					'group'      => $addon_group,
+				),
+				array(
+					'type'       => 'textfield',
+					'heading'    => __( 'Active Class', 'porto' ),
+					'param_name' => 'sticky_active_class',
+					'value'      => 'sticky-active',
+					'dependency' => array(
+						'element'   => 'is_sticky',
+						'not_empty' => true,
+					),
+					'group'      => $addon_group,
+				),
 			)
 		);
-		vc_add_param(
+
+		// add animation options
+		vc_add_params(
+			'vc_row',
+			array(
+				$animation_type,
+				$animation_duration,
+				$animation_delay,
+			)
+		);
+
+		// add scroll parallax effect
+		vc_add_params(
+			'vc_row',
+			array(
+				array(
+					'type'        => 'checkbox',
+					'heading'     => __( 'Scroll Parallax?', 'porto' ),
+					'description' => __( 'Section\'s width changes when scrolling page.', 'porto' ),
+					'param_name'  => 'scroll_parallax',
+					'value'       => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
+					'group'       => $addon_group,
+				),
+				array(
+					'type'       => 'porto_button_group',
+					'heading'    => __( 'CSS Unit', 'porto' ),
+					'param_name' => 'scroll_unit',
+					'std'        => 'vw',
+					'value'      => array(
+						'vw' => array(
+							'title' => 'vw',
+						),
+						'%'  => array(
+							'title' => '%',
+						),
+					),
+					'dependency' => array(
+						'element'   => 'scroll_parallax',
+						'not_empty' => true,
+					),
+					'group'      => $addon_group,
+				),
+				array(
+					'type'       => 'number',
+					'heading'    => __( 'Start Width', 'porto' ),
+					'param_name' => 'scroll_parallax_width',
+					'std'        => 40,
+					'min'        => 10,
+					'max'        => 90,
+					'step'       => 1,
+					'dependency' => array(
+						'element'   => 'scroll_parallax',
+						'not_empty' => true,
+					),
+					'group'      => $addon_group,
+				),
+			)
+		);
+
+		// add particles effect
+		vc_add_params(
+			'vc_row',
+			array(
+				array(
+					'type'       => 'checkbox',
+					'heading'    => __( 'Particles Effect?', 'porto' ),
+					'param_name' => 'particles_effect',
+					'value'      => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
+					'group'      => $addon_group,
+				),
+				array(
+					'type'       => 'attach_image',
+					'heading'    => __( 'Particles Image', 'porto' ),
+					'param_name' => 'particles_img',
+					'dependency' => array(
+						'element'   => 'particles_effect',
+						'not_empty' => true,
+					),
+					'group'      => $addon_group,
+				),
+				array(
+					'type'       => 'dropdown',
+					'heading'    => __( 'Particles Hover Effect', 'porto' ),
+					'param_name' => 'particles_hover_effect',
+					'value'      => array(
+						__( 'None', 'porto' )    => '',
+						__( 'Grab', 'porto' )    => 'grab',
+						__( 'Bubble', 'porto' )  => 'bubble',
+						__( 'Repulse', 'porto' ) => 'repulse',
+					),
+					'std'        => '',
+					'dependency' => array(
+						'element'   => 'particles_img',
+						'not_empty' => true,
+					),
+					'group'      => $addon_group,
+				),
+				array(
+					'type'       => 'dropdown',
+					'heading'    => __( 'Particles Click Effect', 'porto' ),
+					'param_name' => 'particles_click_effect',
+					'value'      => array(
+						__( 'None', 'porto' )    => '',
+						__( 'Grab', 'porto' )    => 'grab',
+						__( 'Bubble', 'porto' )  => 'bubble',
+						__( 'Repulse', 'porto' ) => 'repulse',
+						__( 'Push', 'porto' )    => 'push',
+						__( 'Remove', 'porto' )  => 'remove',
+					),
+					'std'        => '',
+					'dependency' => array(
+						'element'   => 'particles_img',
+						'not_empty' => true,
+					),
+					'group'      => $addon_group,
+				),
+			)
+		);
+
+		// add mouse hover split effect
+		vc_add_params(
+			'vc_row',
+			array(
+				array(
+					'type'        => 'checkbox',
+					'heading'     => __( 'Mouse Hover Split?', 'porto' ),
+					'param_name'  => 'hover_split',
+					'value'       => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
+					'description' => __( 'For Hover Split, the row should have two split slide columns.', 'porto' ),
+					'group'       => $addon_group,
+				),
+				array(
+					'type'        => 'textfield',
+					'heading'     => __( 'Min Height', 'porto' ),
+					'description' => __( 'Control the min height of split slide. Default is 300px.', 'porto' ),
+					'param_name'  => 'split_mh',
+					'dependency'  => array(
+						'element'   => 'hover_split',
+						'not_empty' => true,
+					),
+					'group'       => $addon_group,
+				),
+			)
+		);
+
+		// add Scroll Effect In Viewport
+		vc_add_params(
+			'vc_row',
+			array(
+				array(
+					'type'       => 'porto_param_heading',
+					'param_name' => 'desc_scroll_inviewport',
+					'text'       => __( 'Please don\'t use the background option in the "Design Options" tab.', 'porto' ),
+					'group'      => $addon_group,
+				),
+				array(
+					'type'        => 'checkbox',
+					'heading'     => __( 'Scroll Effect In Viewport?', 'porto' ),
+					'param_name'  => 'scroll_inviewport',
+					'description' => esc_html__( 'Section\'s background color changes when scrolling page.', 'porto' ),
+					'group'       => $addon_group,
+				),
+				array(
+					'type'        => 'colorpicker',
+					'heading'     => __( 'Inside Background Color', 'porto' ),
+					'param_name'  => 'scroll_bg',
+					'description' => esc_html__( 'Actual Background Color in the viewport.', 'porto' ),
+					'dependency'  => array(
+						'element'   => 'scroll_inviewport',
+						'not_empty' => true,
+					),
+					'group'       => $addon_group,
+				),
+				array(
+					'type'        => 'colorpicker',
+					'heading'     => __( 'Outside Background Color', 'porto' ),
+					'param_name'  => 'scroll_bg_inout',
+					'description' => esc_html__( 'Background Color for entering or exit.', 'porto' ),
+					'dependency'  => array(
+						'element'   => 'scroll_inviewport',
+						'not_empty' => true,
+					),
+					'group'       => $addon_group,
+				),
+				array(
+					'type'        => 'porto_number',
+					'heading'     => __( 'Top Offset(px)', 'porto' ),
+					'param_name'  => 'scroll_top_mode',
+					'description' => esc_html__( 'Background Color for entering or exit.', 'porto' ),
+					'dependency'  => array(
+						'element'   => 'scroll_inviewport',
+						'not_empty' => true,
+					),
+					'group'       => $addon_group,
+				),
+				array(
+					'type'       => 'porto_number',
+					'heading'    => __( 'Bottom Offset(px)', 'porto' ),
+					'param_name' => 'scroll_bottom_mode',
+					'dependency' => array(
+						'element'   => 'scroll_inviewport',
+						'not_empty' => true,
+					),
+					'group'      => $addon_group,
+				),
+			)
+		);
+		/* ---------------------------- */
+		/* Customize Inner Row
+		/* ---------------------------- */
+
+		// add sticky options
+		vc_add_params(
 			'vc_row_inner',
 			array(
-				'type'       => 'textfield',
-				'heading'    => __( 'Min Width (unit: px)', 'porto' ),
-				'param_name' => 'sticky_min_width',
-				''           => __( 'Wll be disabled if window width is smaller than min width', 'porto' ),
-				'value'      => 767,
-				'dependency' => array(
-					'element'   => 'is_sticky',
-					'not_empty' => true,
+				array(
+					'type'        => 'checkbox',
+					'heading'     => __( 'Wrap as Container', 'porto' ),
+					'param_name'  => 'wrap_container',
+					'value'       => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
+					'admin_label' => true,
 				),
-				'group'      => $sticky_group,
+				array(
+					'type'        => 'checkbox',
+					'heading'     => __( 'Enable Sticky Options?', 'porto' ),
+					'param_name'  => 'is_sticky',
+					'value'       => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
+					'group'       => $addon_group,
+					'admin_label' => true,
+					'qa_selector' => '>.vc_row',
+				),
+				array(
+					'type'       => 'textfield',
+					'heading'    => __( 'Container Selector', 'porto' ),
+					'param_name' => 'sticky_container_selector',
+					'value'      => '.vc_row',
+					'dependency' => array(
+						'element'   => 'is_sticky',
+						'not_empty' => true,
+					),
+					'group'      => $addon_group,
+				),
+				array(
+					'type'       => 'textfield',
+					'heading'    => __( 'Min Width (unit: px)', 'porto' ),
+					'param_name' => 'sticky_min_width',
+					''           => __( 'Wll be disabled if window width is smaller than min width', 'porto' ),
+					'value'      => 767,
+					'dependency' => array(
+						'element'   => 'is_sticky',
+						'not_empty' => true,
+					),
+					'group'      => $addon_group,
+				),
+				array(
+					'type'       => 'textfield',
+					'heading'    => __( 'Top (unit: px)', 'porto' ),
+					'param_name' => 'sticky_top',
+					''           => __( 'Top position when active', 'porto' ),
+					'value'      => 110,
+					'dependency' => array(
+						'element'   => 'is_sticky',
+						'not_empty' => true,
+					),
+					'group'      => $addon_group,
+				),
+				array(
+					'type'       => 'textfield',
+					'heading'    => __( 'Bottom (unit: px)', 'porto' ),
+					'param_name' => 'sticky_bottom',
+					''           => __( 'Bottom position when active', 'porto' ),
+					'value'      => 0,
+					'dependency' => array(
+						'element'   => 'is_sticky',
+						'not_empty' => true,
+					),
+					'group'      => $addon_group,
+				),
+				array(
+					'type'       => 'textfield',
+					'heading'    => __( 'Active Class', 'porto' ),
+					'param_name' => 'sticky_active_class',
+					'value'      => 'sticky-active',
+					'dependency' => array(
+						'element'   => 'is_sticky',
+						'not_empty' => true,
+					),
+					'group'      => $addon_group,
+				),
 			)
 		);
-		vc_add_param(
+
+		// add animation options
+		vc_add_params(
 			'vc_row_inner',
 			array(
-				'type'       => 'textfield',
-				'heading'    => __( 'Top (unit: px)', 'porto' ),
-				'param_name' => 'sticky_top',
-				''           => __( 'Top position when active', 'porto' ),
-				'value'      => 110,
-				'dependency' => array(
-					'element'   => 'is_sticky',
-					'not_empty' => true,
-				),
-				'group'      => $sticky_group,
+				$animation_type,
+				$animation_duration,
+				$animation_delay,
 			)
 		);
-		vc_add_param(
-			'vc_row_inner',
-			array(
-				'type'       => 'textfield',
-				'heading'    => __( 'Bottom (unit: px)', 'porto' ),
-				'param_name' => 'sticky_bottom',
-				''           => __( 'Bottom position when active', 'porto' ),
-				'value'      => 0,
-				'dependency' => array(
-					'element'   => 'is_sticky',
-					'not_empty' => true,
-				),
-				'group'      => $sticky_group,
-			)
-		);
-		vc_add_param(
-			'vc_row_inner',
-			array(
-				'type'       => 'textfield',
-				'heading'    => __( 'Active Class', 'porto' ),
-				'param_name' => 'sticky_active_class',
-				'value'      => 'sticky-active',
-				'dependency' => array(
-					'element'   => 'is_sticky',
-					'not_empty' => true,
-				),
-				'group'      => $sticky_group,
-			)
-		);
-		vc_add_param( 'vc_row_inner', $animation_type );
-		vc_add_param( 'vc_row_inner', $animation_duration );
-		vc_add_param( 'vc_row_inner', $animation_delay );
 
 		/* ---------------------------- */
 		/* Customize Column
@@ -1323,6 +1525,7 @@ function porto_load_shortcodes() {
 				'value'       => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
 				'group'       => $section_group,
 				'admin_label' => true,
+				'qa_selector' => '>.vc_column_container',
 			)
 		);
 		vc_add_param(
@@ -1342,11 +1545,11 @@ function porto_load_shortcodes() {
 		vc_add_param(
 			'vc_column',
 			array(
-				'type'        => 'textfield',
-				'heading'     => __( 'Custom CSS Class for Half container', 'porto' ),
-				'param_name'  => 'half_css',
-				'group'       => $section_group,
-				'dependency'  => array(
+				'type'       => 'textfield',
+				'heading'    => __( 'Custom CSS Class for Half container', 'porto' ),
+				'param_name' => 'half_css',
+				'group'      => $section_group,
+				'dependency' => array(
 					'element'   => 'is_half',
 					'not_empty' => true,
 				),
@@ -1355,14 +1558,24 @@ function porto_load_shortcodes() {
 		vc_add_param(
 			'vc_column',
 			array(
+				'type'       => 'porto_param_heading',
+				'param_name' => 'desc_column_addon',
+				'text'       => sprintf( esc_html__( 'Read this %1$sarticle%2$s to find out more about Porto Addons.', 'porto' ), '<a target="_blank" href="https://www.portotheme.com/wordpress/porto/documentation/porto-addons-for-wpbakery-column/">', '</a>' ),
+				'group'      => $addon_group,
+			),
+		);
+		vc_add_param(
+			'vc_column',
+			array(
 				'type'        => 'checkbox',
 				'heading'     => __( 'Enable Sticky Options?', 'porto' ),
 				'param_name'  => 'is_sticky',
 				'value'       => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
-				'group'       => $sticky_group,
+				'group'       => $addon_group,
 				'admin_label' => true,
 			)
 		);
+
 		vc_add_param(
 			'vc_column',
 			array(
@@ -1374,7 +1587,7 @@ function porto_load_shortcodes() {
 					'element'   => 'is_sticky',
 					'not_empty' => true,
 				),
-				'group'      => $sticky_group,
+				'group'      => $addon_group,
 			)
 		);
 		vc_add_param(
@@ -1389,7 +1602,7 @@ function porto_load_shortcodes() {
 					'element'   => 'is_sticky',
 					'not_empty' => true,
 				),
-				'group'      => $sticky_group,
+				'group'      => $addon_group,
 			)
 		);
 		vc_add_param(
@@ -1404,7 +1617,7 @@ function porto_load_shortcodes() {
 					'element'   => 'is_sticky',
 					'not_empty' => true,
 				),
-				'group'      => $sticky_group,
+				'group'      => $addon_group,
 			)
 		);
 		vc_add_param(
@@ -1419,7 +1632,7 @@ function porto_load_shortcodes() {
 					'element'   => 'is_sticky',
 					'not_empty' => true,
 				),
-				'group'      => $sticky_group,
+				'group'      => $addon_group,
 			)
 		);
 		vc_add_param(
@@ -1433,12 +1646,32 @@ function porto_load_shortcodes() {
 					'element'   => 'is_sticky',
 					'not_empty' => true,
 				),
-				'group'      => $sticky_group,
+				'group'      => $addon_group,
 			)
 		);
-		vc_add_param( 'vc_column', $animation_type );
-		vc_add_param( 'vc_column', $animation_duration );
-		vc_add_param( 'vc_column', $animation_delay );
+
+		// add mouse hover split effect
+		vc_add_params(
+			'vc_column',
+			array(
+				array(
+					'type'        => 'checkbox',
+					'heading'     => __( 'Hover Split Layer', 'porto' ),
+					'param_name'  => 'split_layer',
+					'value'       => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
+					'description' => __( 'The Hover Split option of the parent row should be selected.', 'porto' ),
+					'group'       => $addon_group,
+				),
+				$animation_type,
+				$animation_duration,
+				$animation_delay,
+				$floating_start_pos,
+				$floating_speed,
+				$floating_transition,
+				$floating_horizontal,
+				$floating_duration,
+			)
+		);
 
 		vc_add_param(
 			'vc_column_inner',
@@ -1447,8 +1680,9 @@ function porto_load_shortcodes() {
 				'heading'     => __( 'Enable Sticky Options?', 'porto' ),
 				'param_name'  => 'is_sticky',
 				'value'       => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
-				'group'       => $sticky_group,
+				'group'       => $addon_group,
 				'admin_label' => true,
+				'qa_selector' => '.vc_column_container',
 			)
 		);
 		vc_add_param(
@@ -1462,7 +1696,7 @@ function porto_load_shortcodes() {
 					'element'   => 'is_sticky',
 					'not_empty' => true,
 				),
-				'group'      => $sticky_group,
+				'group'      => $addon_group,
 			)
 		);
 		vc_add_param(
@@ -1477,7 +1711,7 @@ function porto_load_shortcodes() {
 					'element'   => 'is_sticky',
 					'not_empty' => true,
 				),
-				'group'      => $sticky_group,
+				'group'      => $addon_group,
 			)
 		);
 		vc_add_param(
@@ -1492,7 +1726,7 @@ function porto_load_shortcodes() {
 					'element'   => 'is_sticky',
 					'not_empty' => true,
 				),
-				'group'      => $sticky_group,
+				'group'      => $addon_group,
 			)
 		);
 		vc_add_param(
@@ -1507,217 +1741,282 @@ function porto_load_shortcodes() {
 					'element'   => 'is_sticky',
 					'not_empty' => true,
 				),
-				'group'      => $sticky_group,
+				'group'      => $addon_group,
 			)
 		);
-		vc_add_param(
+		vc_add_params(
 			'vc_column_inner',
 			array(
-				'type'       => 'textfield',
-				'heading'    => __( 'Active Class', 'porto' ),
-				'param_name' => 'sticky_active_class',
-				'value'      => 'sticky-active',
-				'dependency' => array(
-					'element'   => 'is_sticky',
-					'not_empty' => true,
+				array(
+					'type'       => 'textfield',
+					'heading'    => __( 'Active Class', 'porto' ),
+					'param_name' => 'sticky_active_class',
+					'value'      => 'sticky-active',
+					'dependency' => array(
+						'element'   => 'is_sticky',
+						'not_empty' => true,
+					),
+					'group'      => $addon_group,
 				),
-				'group'      => $sticky_group,
+				$animation_type,
+				$animation_duration,
+				$animation_delay,
 			)
 		);
-		vc_add_param( 'vc_column_inner', $animation_type );
-		vc_add_param( 'vc_column_inner', $animation_duration );
-		vc_add_param( 'vc_column_inner', $animation_delay );
 
 		/* ---------------------------- */
 		/* Customize Custom Heading
 		/* ---------------------------- */
-		vc_add_param(
+		if ( version_compare( $porto_cur_version, '6.3.0', '>=' ) ) {
+			vc_remove_param( 'vc_custom_heading', 'source' );
+			$param               = WPBMap::getParam( 'vc_custom_heading', 'text' );
+			$param['dependency'] = array(
+				'element'  => 'enable_field_dynamic',
+				'is_empty' => true,
+			);
+			$param['weight']     = 2;
+			vc_update_shortcode_param( 'vc_custom_heading', $param );
+			porto_dynamic_vc_param( 'vc_custom_heading', 'field', 3 );
+			porto_dynamic_vc_param( 'vc_custom_heading', 'link', 1 );
+			$param               = WPBMap::getParam( 'vc_custom_heading', 'link' );
+			$param['dependency'] = array(
+				'element'  => 'enable_link_dynamic',
+				'is_empty' => true,
+			);
+			vc_update_shortcode_param( 'vc_custom_heading', $param );
+		}
+		vc_add_params(
 			'vc_custom_heading',
 			array(
-				'type'       => 'dropdown',
-				'heading'    => __( 'Text Transform', 'porto' ),
-				'param_name' => 'text_transform',
-				'std'        => '',
-				'value'      => array(
-					__( 'None', 'porto' )       => '',
-					__( 'Uppercase', 'porto' )  => 'text-uppercase',
-					__( 'Lowercase', 'porto' )  => 'text-lowercase',
-					__( 'Capitalize', 'porto' ) => 'text-capitalize',
+				array(
+					'type'       => 'dropdown',
+					'heading'    => __( 'Text Transform', 'porto' ),
+					'param_name' => 'text_transform',
+					'std'        => '',
+					'value'      => array(
+						__( 'None', 'porto' )       => '',
+						__( 'Uppercase', 'porto' )  => 'text-uppercase',
+						__( 'Lowercase', 'porto' )  => 'text-lowercase',
+						__( 'Capitalize', 'porto' ) => 'text-capitalize',
+					),
+					'group'      => $section_group,
 				),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_custom_heading',
-			array(
-				'type'       => 'dropdown',
-				'heading'    => __( 'Font Weight', 'porto' ),
-				'param_name' => 'font_weight',
-				'std'        => '',
-				'value'      => array(
-					__( 'Default', 'porto' ) => '',
-					'100'                    => '100',
-					'200'                    => '200',
-					'300'                    => '300',
-					'400'                    => '400',
-					'500'                    => '500',
-					'600'                    => '600',
-					'700'                    => '700',
-					'800'                    => '800',
-					'900'                    => '900',
+				array(
+					'type'       => 'dropdown',
+					'heading'    => __( 'Font Weight', 'porto' ),
+					'param_name' => 'font_weight',
+					'std'        => '',
+					'value'      => array(
+						__( 'Default', 'porto' ) => '',
+						'100'                    => '100',
+						'200'                    => '200',
+						'300'                    => '300',
+						'400'                    => '400',
+						'500'                    => '500',
+						'600'                    => '600',
+						'700'                    => '700',
+						'800'                    => '800',
+						'900'                    => '900',
+					),
+					'group'      => $section_group,
 				),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_custom_heading',
-			array(
-				'type'       => 'dropdown',
-				'heading'    => __( 'Skin Color', 'porto' ),
-				'param_name' => 'skin',
-				'std'        => 'custom',
-				'value'      => porto_vc_commons( 'colors' ),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_custom_heading',
-			array(
-				'type'       => 'textfield',
-				'heading'    => __( 'Letter Spacing', 'porto' ),
-				'param_name' => 'letter_spacing',
-				'std'        => '',
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_custom_heading',
-			array(
-				'type'       => 'checkbox',
-				'heading'    => __( 'Enable typewriter effect', 'porto' ),
-				'param_name' => 'enable_typewriter',
-				'value'      => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_custom_heading',
-			array(
-				'type'       => 'textfield',
-				'heading'    => __( 'Animation Name e.g: typeWriter, fadeIn and so on.', 'porto' ),
-				'param_name' => 'typewriter_animation',
-				'value'      => 'fadeIn',
-				'dependency' => array(
-					'element'   => 'enable_typewriter',
-					'not_empty' => true,
+				array(
+					'type'       => 'dropdown',
+					'heading'    => __( 'Skin Color', 'porto' ),
+					'param_name' => 'skin',
+					'std'        => 'custom',
+					'value'      => porto_vc_commons( 'colors' ),
+					'group'      => $section_group,
 				),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_custom_heading',
-			array(
-				'type'       => 'textfield',
-				'heading'    => __( 'Start Delay(ms)', 'porto' ),
-				'param_name' => 'typewriter_delay',
-				'value'      => '',
-				'dependency' => array(
-					'element'   => 'enable_typewriter',
-					'not_empty' => true,
+				array(
+					'type'       => 'textfield',
+					'heading'    => __( 'Letter Spacing', 'porto' ),
+					'param_name' => 'letter_spacing',
+					'std'        => '',
+					'group'      => $section_group,
 				),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_custom_heading',
-			array(
-				'type'       => 'textfield',
-				'heading'    => __( 'Please input min width that can work. (px)', 'porto' ),
-				'param_name' => 'typewriter_width',
-				'value'      => '',
-				'dependency' => array(
-					'element'   => 'enable_typewriter',
-					'not_empty' => true,
+				array(
+					'type'        => 'checkbox',
+					'heading'     => __( 'Enable Typewriter Effect', 'porto' ),
+					'param_name'  => 'enable_typewriter',
+					'value'       => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
+					'group'       => $section_group,
+					'qa_selector' => '.vc_custom_heading',
 				),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_custom_heading',
-			array(
-				'type'       => 'checkbox',
-				'heading'    => __( 'Show Border', 'porto' ),
-				'param_name' => 'show_border',
-				'value'      => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_custom_heading',
-			array(
-				'type'       => 'dropdown',
-				'heading'    => __( 'Border Skin Color', 'porto' ),
-				'param_name' => 'border_skin',
-				'std'        => 'custom',
-				'value'      => porto_vc_commons( 'colors' ),
-				'dependency' => array(
-					'element'   => 'show_border',
-					'not_empty' => true,
+				array(
+					'type'        => 'checkbox',
+					'heading'     => __( 'Effect By Words', 'porto' ),
+					'description' => __( 'Animate the words one by one.', 'porto' ),
+					'param_name'  => 'enable_typeword',
+					'value'       => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
+					'dependency'  => array(
+						'element'   => 'enable_typewriter',
+						'not_empty' => true,
+					),
+					'group'       => $section_group,
 				),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_custom_heading',
-			array(
-				'type'       => 'colorpicker',
-				'heading'    => __( 'Border Color', 'porto' ),
-				'param_name' => 'border_color',
-				'dependency' => array(
-					'element' => 'border_skin',
-					'value'   => array( 'custom' ),
+				array(
+					'type'       => 'textfield',
+					'heading'    => __( 'Animation Name e.g: typeWriter, fadeIn and so on.', 'porto' ),
+					'param_name' => 'typewriter_animation',
+					'value'      => 'fadeIn',
+					'dependency' => array(
+						'element'   => 'enable_typewriter',
+						'not_empty' => true,
+					),
+					'group'      => $section_group,
 				),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_custom_heading',
-			array(
-				'type'       => 'dropdown',
-				'heading'    => __( 'Border Type', 'porto' ),
-				'param_name' => 'border_type',
-				'value'      => porto_vc_commons( 'heading_border_type' ),
-				'dependency' => array(
-					'element'   => 'show_border',
-					'not_empty' => true,
+				array(
+					'type'       => 'textfield',
+					'heading'    => __( 'Start Delay(ms)', 'porto' ),
+					'param_name' => 'typewriter_delay',
+					'value'      => '',
+					'dependency' => array(
+						'element'   => 'enable_typewriter',
+						'not_empty' => true,
+					),
+					'group'      => $section_group,
 				),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_custom_heading',
-			array(
-				'type'       => 'dropdown',
-				'heading'    => __( 'Border Size', 'porto' ),
-				'param_name' => 'border_size',
-				'value'      => porto_vc_commons( 'heading_border_size' ),
-				'dependency' => array(
-					'element'   => 'show_border',
-					'not_empty' => true,
+				array(
+					'type'       => 'textfield',
+					'heading'    => __( 'Animation Speed(ms)', 'porto' ),
+					'param_name' => 'typewriter_speed',
+					'std'        => '50',
+					'dependency' => array(
+						'element'   => 'enable_typewriter',
+						'not_empty' => true,
+					),
+					'group'      => $section_group,
 				),
-				'group'      => $section_group,
+				array(
+					'type'       => 'textfield',
+					'heading'    => __( 'Please input min width that can work. (px)', 'porto' ),
+					'param_name' => 'typewriter_width',
+					'value'      => '',
+					'dependency' => array(
+						'element'   => 'enable_typewriter',
+						'not_empty' => true,
+					),
+					'group'      => $section_group,
+				),
+				array(
+					'type'       => 'checkbox',
+					'heading'    => __( 'Show Border', 'porto' ),
+					'param_name' => 'show_border',
+					'value'      => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
+					'group'      => $section_group,
+				),
+				array(
+					'type'       => 'dropdown',
+					'heading'    => __( 'Border Skin Color', 'porto' ),
+					'param_name' => 'border_skin',
+					'std'        => 'custom',
+					'value'      => porto_vc_commons( 'colors' ),
+					'dependency' => array(
+						'element'   => 'show_border',
+						'not_empty' => true,
+					),
+					'group'      => $section_group,
+				),
+				array(
+					'type'       => 'colorpicker',
+					'heading'    => __( 'Border Color', 'porto' ),
+					'param_name' => 'border_color',
+					'dependency' => array(
+						'element' => 'border_skin',
+						'value'   => array( 'custom' ),
+					),
+					'group'      => $section_group,
+				),
+				array(
+					'type'       => 'dropdown',
+					'heading'    => __( 'Border Type', 'porto' ),
+					'param_name' => 'border_type',
+					'value'      => porto_vc_commons( 'heading_border_type' ),
+					'dependency' => array(
+						'element'   => 'show_border',
+						'not_empty' => true,
+					),
+					'group'      => $section_group,
+				),
+				array(
+					'type'       => 'dropdown',
+					'heading'    => __( 'Border Size', 'porto' ),
+					'param_name' => 'border_size',
+					'value'      => array_merge(
+						porto_vc_commons( 'heading_border_size' ),
+						array(
+							esc_html__( 'Custom', 'porto' ) => 'custom',
+						)
+					),
+					'dependency' => array(
+						'element'   => 'show_border',
+						'not_empty' => true,
+					),
+					'group'      => $section_group,
+				),
+				array(
+					'type'       => 'number',
+					'heading'    => __( 'Border Size (px)', 'porto' ),
+					'param_name' => 'border_size_px',
+					'min'        => 1,
+					'max'        => 30,
+					'step'       => 1,
+					'selectors'  => array(
+						'{{WRAPPER}} .heading-tag:before' => 'border-top-width: {{VALUE}}px;',
+						'{{WRAPPER}} .heading-tag:after'  => 'border-top-width: {{VALUE}}px;',
+						'{{WRAPPER}}.heading-bottom-border .heading-tag, {{WRAPPER}}.heading-bottom-double-border .heading-tag' => 'border-bottom-width: {{VALUE}}px;',
+					),
+					'dependency' => array(
+						'element' => 'border_size',
+						'value'   => array( 'custom' ),
+					),
+					'group'      => $section_group,
+				),
+				array(
+					'type'       => 'porto_number',
+					'heading'    => __( 'Spacing Between Text & Border', 'porto' ),
+					'param_name' => 'border_spacing',
+					'units'      => array( 'px', 'em', 'rem' ),
+					'selectors'  => array(
+						'{{WRAPPER}} .heading-tag:before' => 'margin-' . $right . ': {{VALUE}}{{UNIT}};',
+						'{{WRAPPER}} .heading-tag:after'  => 'margin-' . $left . ': {{VALUE}}{{UNIT}};',
+						'{{WRAPPER}}.heading-bottom-border .heading-tag, {{WRAPPER}}.heading-bottom-double-border .heading-tag' => 'padding-bottom: {{VALUE}}{{UNIT}};',
+					),
+					'dependency' => array(
+						'element'   => 'show_border',
+						'not_empty' => true,
+					),
+					'group'      => $section_group,
+				),
+				array(
+					'type'       => 'attach_image',
+					'heading'    => __( 'Floating Image', 'porto' ),
+					'param_name' => 'floating_img',
+					'group'      => __( 'Animation', 'porto' ),
+				),
+				array(
+					'type'        => 'number',
+					'heading'     => __( 'Floating Offset', 'porto' ),
+					'param_name'  => 'floating_offset',
+					'description' => __( 'Control the offset from the cursor.', 'porto' ),
+					'dependency'  => array(
+						'element'   => 'floating_img',
+						'not_empty' => true,
+					),
+					'group'       => __( 'Animation', 'porto' ),
+				),
+				$animation_type,
+				$animation_duration,
+				$animation_delay,
+				$floating_start_pos,
+				$floating_speed,
+				$floating_transition,
+				$floating_horizontal,
+				$floating_duration,
 			)
 		);
 		vc_remove_param( 'vc_custom_heading', 'css_animation' );
-		vc_add_param( 'vc_custom_heading', $animation_type );
-		vc_add_param( 'vc_custom_heading', $animation_duration );
-		vc_add_param( 'vc_custom_heading', $animation_delay );
-
-		vc_add_param( 'vc_custom_heading', $floating_start_pos );
-		vc_add_param( 'vc_custom_heading', $floating_speed );
-		vc_add_param( 'vc_custom_heading', $floating_transition );
-		vc_add_param( 'vc_custom_heading', $floating_horizontal );
-		vc_add_param( 'vc_custom_heading', $floating_duration );
 
 		/* ---------------------------- */
 		/* Customize Tabs, Tab
@@ -2645,175 +2944,173 @@ function porto_load_shortcodes() {
 				'group'      => $section_group,
 			)
 		);
-		vc_add_param(
+		/* ---------------------------- */
+		/* Customize Button
+		/* ---------------------------- */
+		if ( version_compare( $porto_cur_version, '6.3.0', '>=' ) ) {
+			// Dynamic Field
+			porto_dynamic_vc_param( 'vc_btn', 'field', 3 );
+			$param               = WPBMap::getParam( 'vc_btn', 'title' );
+			$param['dependency'] = array(
+				'element'  => 'enable_field_dynamic',
+				'is_empty' => true,
+			);
+			$param['weight']     = 2;
+			vc_update_shortcode_param( 'vc_btn', $param );
+			// Dynamic Link
+			porto_dynamic_vc_param( 'vc_btn', 'link', 1 );
+			$param               = WPBMap::getParam( 'vc_btn', 'link' );
+			$param['dependency'] = array(
+				'element'  => 'enable_link_dynamic',
+				'is_empty' => true,
+			);
+			vc_update_shortcode_param( 'vc_btn', $param );
+		}
+
+		vc_add_params(
 			'vc_btn',
 			array(
-				'type'       => 'dropdown',
-				'heading'    => __( 'Skin Color', 'porto' ),
-				'param_name' => 'skin',
-				'std'        => 'custom',
-				'value'      => array_merge(
-					porto_vc_commons( 'colors' ),
-					array(
-						__( 'Default', 'porto' ) => 'default',
-					)
+				array(
+					'type'       => 'dropdown',
+					'heading'    => __( 'Skin Color', 'porto' ),
+					'param_name' => 'skin',
+					'std'        => 'custom',
+					'value'      => array_merge(
+						porto_vc_commons( 'colors' ),
+						array(
+							__( 'Default', 'porto' ) => 'default',
+						)
+					),
+					'group'      => $section_group,
 				),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_btn',
-			array(
-				'type'       => 'dropdown',
-				'heading'    => __( 'Color Scale', 'porto' ),
-				'param_name' => 'scale',
-				'std'        => '',
-				'value'      => array(
-					__( 'Default', 'porto' ) => '',
-					__( 'Scale 2', 'porto' ) => 'scale-2',
+				array(
+					'type'       => 'dropdown',
+					'heading'    => __( 'Contextual Classes', 'porto' ),
+					'param_name' => 'contextual',
+					'value'      => porto_vc_commons( 'contextual' ),
+					'group'      => $section_group,
 				),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_btn',
-			array(
-				'type'       => 'dropdown',
-				'heading'    => __( 'Contextual Classes', 'porto' ),
-				'param_name' => 'contextual',
-				'value'      => porto_vc_commons( 'contextual' ),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_btn',
-			array(
-				'type'       => 'textfield',
-				'heading'    => __( 'Font Size', 'porto' ),
-				'param_name' => 'btn_fs',
-				'value'      => '',
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_btn',
-			array(
-				'type'       => 'dropdown',
-				'heading'    => __( 'Font Weight', 'porto' ),
-				'param_name' => 'btn_fw',
-				'std'        => '',
-				'value'      => array(
-					__( 'Default', 'porto' ) => '',
-					'100'                    => '100',
-					'200'                    => '200',
-					'300'                    => '300',
-					'400'                    => '400',
-					'500'                    => '500',
-					'600'                    => '600',
-					'700'                    => '700',
-					'800'                    => '800',
-					'900'                    => '900',
+				array(
+					'type'       => 'textfield',
+					'heading'    => __( 'Font Size', 'porto' ),
+					'param_name' => 'btn_fs',
+					'value'      => '',
+					'group'      => $section_group,
 				),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_btn',
-			array(
-				'type'       => 'textfield',
-				'heading'    => __( 'Letter Spacing', 'porto' ),
-				'param_name' => 'btn_ls',
-				'value'      => '',
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_btn',
-			array(
-				'type'       => 'textfield',
-				'heading'    => __( 'Button Left / Right Padding', 'porto-functionality' ),
-				'param_name' => 'btn_px',
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_btn',
-			array(
-				'type'       => 'textfield',
-				'heading'    => __( 'Button Top / Bottom Padding', 'porto-functionality' ),
-				'param_name' => 'btn_py',
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_btn',
-			array(
-				'type'       => 'porto_number',
-				'heading'    => __( 'Icon Size', 'porto-functionality' ),
-				'param_name' => 'btn_icon_size',
-				'units'      => array( 'px', 'rem', 'em' ),
-				'group'      => $section_group,
-				'selectors'  => array(
-					'{{WRAPPER}}.btn .vc_btn3-icon' => 'font-size: {{VALUE}}{{UNIT}};',
+				array(
+					'type'       => 'dropdown',
+					'heading'    => __( 'Font Weight', 'porto' ),
+					'param_name' => 'btn_fw',
+					'std'        => '',
+					'value'      => array(
+						__( 'Default', 'porto' ) => '',
+						'100'                    => '100',
+						'200'                    => '200',
+						'300'                    => '300',
+						'400'                    => '400',
+						'500'                    => '500',
+						'600'                    => '600',
+						'700'                    => '700',
+						'800'                    => '800',
+						'900'                    => '900',
+					),
+					'group'      => $section_group,
+				),
+				array(
+					'type'       => 'textfield',
+					'heading'    => __( 'Letter Spacing', 'porto' ),
+					'param_name' => 'btn_ls',
+					'value'      => '',
+					'group'      => $section_group,
+				),
+				array(
+					'type'       => 'textfield',
+					'heading'    => __( 'Button Left / Right Padding', 'porto' ),
+					'param_name' => 'btn_px',
+					'group'      => $section_group,
+				),
+				array(
+					'type'       => 'textfield',
+					'heading'    => __( 'Button Top / Bottom Padding', 'porto' ),
+					'param_name' => 'btn_py',
+					'group'      => $section_group,
+				),
+				array(
+					'type'       => 'porto_number',
+					'heading'    => __( 'Icon Size', 'porto' ),
+					'param_name' => 'btn_icon_size',
+					'units'      => array( 'px', 'rem', 'em' ),
+					'group'      => $section_group,
+					'selectors'  => array(
+						'{{WRAPPER}}.btn .vc_btn3-icon' => 'font-size: {{VALUE}}{{UNIT}};',
+					),
+					'dependency' => array(
+						'element' => 'add_icon',
+						'value'   => 'true',
+					),
+				),
+				array(
+					'type'       => 'porto_number',
+					'heading'    => __( 'Spacing between Icon and Text', 'porto' ),
+					'param_name' => 'btn_icon_spacing',
+					'units'      => array( 'px', 'rem', 'em' ),
+					'group'      => $section_group,
+					'selectors'  => array(
+						'{{WRAPPER}}.btn.vc_btn3-icon-right:not(.vc_btn3-o-empty) .vc_btn3-icon' => 'padding-' . $left . ': {{VALUE}}{{UNIT}};',
+						'{{WRAPPER}}.btn.vc_btn3-icon-left:not(.vc_btn3-o-empty) .vc_btn3-icon' => 'padding-' . $right . ': {{VALUE}}{{UNIT}};',
+					),
+					'dependency' => array(
+						'element' => 'add_icon',
+						'value'   => 'true',
+					),
+				),
+				array(
+					'type'        => 'checkbox',
+					'heading'     => __( 'Show as Label', 'porto' ),
+					'description' => __( 'Show button as general link.', 'porto' ),
+					'param_name'  => 'label',
+					'value'       => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
+					'group'       => $section_group,
+					'dependency'  => array(
+						'element'  => 'hover_text_effect',
+						'is_empty' => true,
+					),
+				),
+				array(
+					'type'        => 'checkbox',
+					'heading'     => __( 'Show Pointer Arrow', 'porto' ),
+					'description' => __( 'Turn on to show pointer animation arrow.', 'porto' ),
+					'param_name'  => 'show_arrow',
+					'value'       => array( __( 'Yes', 'porto' ) => 'yes' ),
+					'group'       => $section_group,
+					'dependency'  => array(
+						'element'  => 'hover_text_effect',
+						'is_empty' => true,
+					),
+				),
+				array(
+					'type'        => 'checkbox',
+					'heading'     => __( 'Is Arrow Button?', 'porto' ),
+					'description' => __( 'Show arrow button instead of icon.', 'porto' ),
+					'param_name'  => 'btn_arrow',
+					'value'       => array( __( 'Yes', 'porto' ) => 'yes' ),
+					'group'       => $section_group,
+					'dependency'  => array(
+						'element'            => 'add_icon',
+						'value_not_equal_to' => 'true',
+					),
+				),
+				array(
+					'type'        => 'textfield',
+					'heading'     => __( 'Extra Class', 'porto' ),
+					'description' => __( 'This class is appended to the button tag, not to its wrapper.', 'porto' ),
+					'param_name'  => 'el_cls',
+					'value'       => '',
+					'group'       => $section_group,
 				),
 			)
 		);
-		$left  = is_rtl() ? 'right' : 'left';
-		$right = is_rtl() ? 'left' : 'right';
-		vc_add_param(
-			'vc_btn',
-			array(
-				'type'       => 'porto_number',
-				'heading'    => __( 'Spacing between Icon and Text', 'porto-functionality' ),
-				'param_name' => 'btn_icon_spacing',
-				'units'      => array( 'px', 'rem', 'em' ),
-				'group'      => $section_group,
-				'selectors'  => array(
-					'{{WRAPPER}}.vc_btn3-icon-right:not(.vc_btn3-o-empty) .vc_btn3-icon' => 'padding-' . $left . ': {{VALUE}}{{UNIT}};',
-					'{{WRAPPER}}.vc_btn3-icon-left:not(.vc_btn3-o-empty) .vc_btn3-icon' => 'padding-' . $right . ': {{VALUE}}{{UNIT}};',
-				),
-			)
-		);
-		vc_add_param(
-			'vc_btn',
-			array(
-				'type'       => 'textfield',
-				'heading'    => __( 'Extra Class', 'porto' ),
-				'param_name' => 'el_cls',
-				'value'      => '',
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_btn',
-			array(
-				'type'       => 'checkbox',
-				'heading'    => __( 'Show as Label', 'porto' ),
-				'param_name' => 'label',
-				'value'      => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_btn',
-			array(
-				'type'       => 'checkbox',
-				'heading'    => __( 'Show pointer arrow', 'porto' ),
-				'param_name' => 'show_arrow',
-				'value'      => array( __( 'Yes', 'porto' ) => 'yes' ),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_btn',
-			array(
-				'type'       => 'checkbox',
-				'heading'    => __( 'Is Arrow Button?', 'porto' ),
-				'param_name' => 'btn_arrow',
-				'value'      => array( __( 'Yes', 'porto' ) => 'yes' ),
-				'group'      => $section_group,
-			)
-		);
+
 		$param = WPBMap::getParam( 'vc_btn', 'size' );
 		$param['value'][ __( 'Extra Large', 'porto' ) ] = 'xl';
 		vc_update_shortcode_param( 'vc_btn', $param );
@@ -2828,57 +3125,67 @@ function porto_load_shortcodes() {
 		vc_update_shortcode_param( 'vc_btn', $param );
 
 		vc_remove_param( 'vc_btn', 'css_animation' );
-		vc_add_param( 'vc_btn', $animation_type );
-		vc_add_param( 'vc_btn', $animation_duration );
-		vc_add_param( 'vc_btn', $animation_delay );
-
-		vc_add_param( 'vc_btn', $floating_start_pos );
-		vc_add_param( 'vc_btn', $floating_speed );
-		vc_add_param( 'vc_btn', $floating_transition );
-		vc_add_param( 'vc_btn', $floating_horizontal );
-		vc_add_param( 'vc_btn', $floating_duration );
+		vc_add_params( 'vc_btn', array( $animation_type, $animation_duration, $animation_delay, $floating_start_pos, $floating_speed, $floating_transition, $floating_horizontal, $floating_duration ) );
 
 		$param = WPBMap::getParam( 'vc_btn', 'i_type' );
 		$param['value'][ __( 'Porto Icon', 'porto' ) ] = 'porto';
 		vc_update_shortcode_param( 'vc_btn', $param );
-		vc_add_param(
+		vc_add_params(
 			'vc_btn',
 			array(
-				'type'       => 'iconpicker',
-				'heading'    => __( 'Icon', 'porto-functionality' ),
-				'param_name' => 'i_icon_porto',
-				'settings'   => array(
-					'type'         => 'porto',
-					'iconsPerPage' => 4000,
+				array(
+					'type'       => 'iconpicker',
+					'heading'    => __( 'Icon', 'porto' ),
+					'param_name' => 'i_icon_porto',
+					'settings'   => array(
+						'type'         => 'porto',
+						'iconsPerPage' => 4000,
+					),
+					'dependency' => array(
+						'element' => 'i_type',
+						'value'   => 'porto',
+					),
 				),
-				'dependency' => array(
-					'element' => 'i_type',
-					'value'   => 'porto',
+				array(
+					'type'        => 'dropdown',
+					'class'       => '',
+					'heading'     => __( 'Select Hover Icon Effect', 'porto' ),
+					'param_name'  => 'hover_effect',
+					'value'       => array(
+						__( 'No Effect', 'porto' )        => '',
+						__( 'Icon Dash', 'porto' )        => 'hover-icon-dash',
+						__( 'Icon Zoom', 'porto' )        => 'hover-icon-zoom',
+						__( 'Icon Slide Up', 'porto' )    => 'hover-icon-up',
+						__( 'Icon Slide Left', 'porto' )  => 'hover-icon-left',
+						__( 'Icon Slide Right', 'porto' ) => 'hover-icon-right',
+						__( 'Icon Slide Right & Left', 'porto' ) => 'hover-icon-pulse-left-right',
+						__( 'Icon Slide Infinite', 'porto' ) => 'hover-icon-pulse-infnite',
+					),
+					'dependency'  => array(
+						'element' => 'add_icon',
+						'value'   => 'true',
+					),
+					'description' => __( 'Select the type of effct you want on hover', 'porto' ),
+				),
+				array(
+					'type'        => 'dropdown',
+					'class'       => '',
+					'heading'     => __( 'Select Hover Text Effect', 'porto' ),
+					'param_name'  => 'hover_text_effect',
+					'value'       => array(
+						__( 'No Effect', 'porto' )    => '',
+						__( 'Switch Left', 'porto' )  => 'hover-text-switch-left',
+						__( 'Switch Up', 'porto' )    => 'hover-text-switch-up',
+						__( 'Marquee Left', 'porto' ) => 'hover-text-marquee-left',
+						__( 'Marquee Up', 'porto' )   => 'hover-text-marquee-up',
+						__( 'Marquee Down', 'porto' ) => 'hover-text-marquee-down',
+					),
+					'description' => __( 'Select the type of effct you want on hover', 'porto' ),
 				),
 			)
 		);
-		vc_add_param(
-			'vc_btn',
-			array(
-				'type'        => 'dropdown',
-				'class'       => '',
-				'heading'     => __( 'Select Hover Effect type', 'porto-functionality' ),
-				'param_name'  => 'hover_effect',
-				'value'       => array(
-					__( 'No Effect', 'porto-functionality' ) => '',
-					__( 'Icon Zoom', 'porto-functionality' ) => 'hover-icon-zoom',
-					__( 'Icon Slide Up', 'porto-functionality' ) => 'hover-icon-up',
-					__( 'Icon Slide Left', 'porto-functionality' ) => 'hover-icon-left',
-					__( 'Icon Slide Right', 'porto-functionality' ) => 'hover-icon-right',
-				),
-				'dependency'  => array(
-					'element' => 'add_icon',
-					'value'   => 'true',
-				),
-				'description' => __( 'Select the type of effct you want on hover', 'porto-functionality' ),
-			)
-		);
-		$update_params = array( 'el_id', 'el_class', 'custom_onclick', 'custom_onclick_code' );
+
+		$update_params = array( 'custom_onclick', 'custom_onclick_code', 'el_id', 'el_class' );
 		foreach ( $update_params as $p_name ) {
 			$param = WPBMap::getParam( 'vc_btn', $p_name );
 			if ( ! empty( $param ) && isset( $param['param_name'] ) ) {
@@ -2890,6 +3197,27 @@ function porto_load_shortcodes() {
 		/* ---------------------------- */
 		/* Add Single Image Parameters
 		/* ---------------------------- */
+		if ( version_compare( $porto_cur_version, '6.3.0', '>=' ) ) {
+			// Dynamic Image
+			//Title
+			$param           = WPBMap::getParam( 'vc_single_image', 'title' );
+			$param['weight'] = 3;
+			vc_update_shortcode_param( 'vc_single_image', $param );
+			// Image source
+			$param           = WPBMap::getParam( 'vc_single_image', 'source' );
+			$param['weight'] = 3;
+			vc_update_shortcode_param( 'vc_single_image', $param );
+
+			// Dynamic Switcher
+			porto_dynamic_vc_param( 'vc_single_image', 'image', 2, 'source', 'media_library' );
+
+			$param               = WPBMap::getParam( 'vc_single_image', 'image' );
+			$param['dependency'] = array(
+				'element'  => 'enable_image_dynamic',
+				'is_empty' => true,
+			);
+			vc_update_shortcode_param( 'vc_single_image', $param );
+		}
 		vc_add_param(
 			'vc_single_image',
 			array(
@@ -2945,93 +3273,250 @@ function porto_load_shortcodes() {
 				'group'      => $section_group,
 			)
 		);
-		vc_add_param(
+		vc_add_params(
 			'vc_single_image',
 			array(
-				'type'       => 'checkbox',
-				'heading'    => __( 'Show Hover Effect', 'porto' ),
-				'param_name' => 'hover_effect',
-				'value'      => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
-				'group'      => $section_group,
+				array(
+					'type'       => 'checkbox',
+					'heading'    => __( 'Show Hover Effect', 'porto' ),
+					'param_name' => 'hover_effect',
+					'value'      => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
+					'group'      => $section_group,
+				),
+				$animation_type,
+				$animation_duration,
+				$animation_delay,
+				$floating_start_pos,
+				$floating_speed,
+				$floating_transition,
+				$floating_horizontal,
+				$floating_duration,
 			)
 		);
 		vc_remove_param( 'vc_single_image', 'css_animation' );
-		vc_add_param( 'vc_single_image', $animation_type );
-		vc_add_param( 'vc_single_image', $animation_duration );
-		vc_add_param( 'vc_single_image', $animation_delay );
-
-		vc_add_param( 'vc_single_image', $floating_start_pos );
-		vc_add_param( 'vc_single_image', $floating_speed );
-		vc_add_param( 'vc_single_image', $floating_transition );
-		vc_add_param( 'vc_single_image', $floating_horizontal );
-		vc_add_param( 'vc_single_image', $floating_duration );
 
 		/* ---------------------------- */
 		/* Customize Progress Bar
 		/* ---------------------------- */
-		vc_add_param(
+		vc_add_params(
 			'vc_progress_bar',
 			array(
-				'type'        => 'dropdown',
-				'heading'     => __( 'Contextual Classes', 'porto' ),
-				'param_name'  => 'contextual',
-				'value'       => porto_vc_commons( 'contextual' ),
-				'admin_label' => true,
-				'group'       => $section_group,
+				array(
+					'type'       => 'porto_param_heading',
+					'param_name' => 'pb_style',
+					'text'       => esc_html__( 'Progress Bars', 'porto' ),
+					'group'      => $section_group,
+				),
+				array(
+					'type'        => 'dropdown',
+					'heading'     => __( 'Contextual Classes', 'porto' ),
+					'param_name'  => 'contextual',
+					'value'       => porto_vc_commons( 'contextual' ),
+					'admin_label' => true,
+					'group'       => $section_group,
+				),
+				array(
+					'type'       => 'checkbox',
+					'heading'    => __( 'Enable Animation', 'porto' ),
+					'param_name' => 'animation',
+					'std'        => 'yes',
+					'value'      => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
+					'group'      => $section_group,
+				),
+				array(
+					'type'       => 'dropdown',
+					'heading'    => __( 'Border Radius', 'porto' ),
+					'param_name' => 'border_radius',
+					'value'      => array_merge(
+						porto_vc_commons( 'progress_border_radius' ),
+						array(
+							__( 'Custom', 'porto' ) => 'custom',
+						)
+					),
+					'group'      => $section_group,
+				),
+				array(
+					'type'       => 'porto_dimension',
+					'heading'    => __( 'Bar Border Radius', 'porto' ),
+					'param_name' => 'bar_br',
+					'selectors'  => array(
+						'{{WRAPPER}} .vc_single_bar.progress' => 'border-radius: {{TOP}} {{RIGHT}} {{BOTTOM}} {{LEFT}};',
+						'{{WRAPPER}} .vc_single_bar.progress .progress-bar' => 'border-radius: {{TOP}} {{RIGHT}} {{BOTTOM}} {{LEFT}};',
+					),
+					'dependency' => array(
+						'element' => 'border_radius',
+						'value'   => array( 'custom' ),
+					),
+					'group'      => $section_group,
+				),
+				array(
+					'type'       => 'dropdown',
+					'heading'    => __( 'Size', 'porto' ),
+					'param_name' => 'size',
+					'value'      => array_merge(
+						porto_vc_commons( 'progress_size' ),
+						array(
+							__( 'Custom', 'porto' ) => 'custom',
+						)
+					),
+					'group'      => $section_group,
+				),
+				array(
+					'type'       => 'porto_number',
+					'heading'    => __( 'Bar height', 'porto' ),
+					'param_name' => 'bar_h',
+					'units'      => array( 'px', 'em', 'rem' ),
+					'selectors'  => array(
+						'{{WRAPPER}} .vc_single_bar.progress' => 'height: {{VALUE}}{{UNIT}};',
+					),
+					'dependency' => array(
+						'element' => 'size',
+						'value'   => array( 'custom' ),
+					),
+					'group'      => $section_group,
+				),
+				array(
+					'type'        => 'textfield',
+					'heading'     => __( 'Start Width of Progress Bar', 'porto' ),
+					'description' => 'ex: 2em or 30px, etc',
+					'param_name'  => 'min_width',
+					'group'       => $section_group,
+				),
+				array(
+					'type'       => 'porto_number',
+					'heading'    => __( 'Spacing Between', 'porto' ),
+					'param_name' => 'spacing',
+					'units'      => array( 'px', 'em', 'rem' ),
+					'selectors'  => array(
+						'{{WRAPPER}} .vc_single_bar.progress' => 'margin-bottom: {{VALUE}}{{UNIT}};',
+					),
+					'group'      => $section_group,
+				),
+
+				array(
+					'type'       => 'porto_param_heading',
+					'param_name' => 'pb_title_style',
+					'text'       => esc_html__( 'Title', 'porto' ),
+					'group'      => $section_group,
+				),
+				array(
+					'type'       => 'porto_typography',
+					'heading'    => __( 'Title Typography', 'porto' ),
+					'param_name' => 'title_tg',
+					'selectors'  => array(
+						'{{WRAPPER}} .progress-label',
+					),
+					'group'      => $section_group,
+				),
+				array(
+					'type'       => 'colorpicker',
+					'heading'    => __( 'Title Color', 'porto' ),
+					'param_name' => 'title_clr',
+					'selectors'  => array(
+						'{{WRAPPER}} .progress-label' => 'color: {{VALUE}};',
+					),
+					'group'      => $section_group,
+				),
+
+				array(
+					'type'       => 'porto_param_heading',
+					'param_name' => 'pb_percent_style',
+					'text'       => esc_html__( 'Percent Text', 'porto' ),
+					'group'      => $section_group,
+					'dependency' => array(
+						'element'   => 'units',
+						'not_empty' => true,
+					),
+				),
+				array(
+					'type'       => 'checkbox',
+					'heading'    => __( 'Show Percentage as Tooltip', 'porto' ),
+					'param_name' => 'tooltip',
+					'std'        => 'yes',
+					'value'      => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
+					'group'      => $section_group,
+					'dependency' => array(
+						'element'   => 'units',
+						'not_empty' => true,
+					),
+				),
+				array(
+					'type'       => 'porto_button_group',
+					'heading'    => __( 'Percent Alignment', 'porto' ),
+					'param_name' => 'percent_align',
+					'value'      => array(
+						'flex-start' => array(
+							'title' => esc_html__( 'Left', 'porto' ),
+							'icon'  => 'fas fa-align-left',
+							'label' => esc_html__( 'Left', 'porto' ),
+						),
+						''           => array(
+							'title' => esc_html__( 'Center', 'porto' ),
+							'icon'  => 'fas fa-align-center',
+							'label' => esc_html__( 'Center', 'porto' ),
+						),
+						'flex-end'   => array(
+							'title' => esc_html__( 'Right', 'porto' ),
+							'icon'  => 'fas fa-align-right',
+							'label' => esc_html__( 'Right', 'porto' ),
+						),
+					),
+					'std'        => '',
+					'dependency' => array(
+						'element'  => 'tooltip',
+						'is_empty' => true,
+					),
+					'selectors'  => array(
+						'{{WRAPPER}} .progress-bar' => 'justify-content: {{VALUE}};',
+					),
+					'group'      => $section_group,
+				),
+				array(
+					'type'       => 'porto_dimension',
+					'heading'    => __( 'Percent Padding', 'porto' ),
+					'param_name' => 'percent_pd',
+					'selectors'  => array(
+						'{{WRAPPER}} .progress-bar-tooltip, {{WRAPPER}} .vc_label_units' => 'padding: {{TOP}} {{RIGHT}} {{BOTTOM}} {{LEFT}};',
+					),
+					'group'      => $section_group,
+					'dependency' => array(
+						'element'   => 'units',
+						'not_empty' => true,
+					),
+				),
+				array(
+					'type'       => 'porto_typography',
+					'heading'    => __( 'Percent Typography', 'porto' ),
+					'param_name' => 'percent_tg',
+					'selectors'  => array(
+						'{{WRAPPER}} .vc_label_units',
+					),
+					'group'      => $section_group,
+					'dependency' => array(
+						'element'   => 'units',
+						'not_empty' => true,
+					),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'heading'    => __( 'Percent Color', 'porto' ),
+					'param_name' => 'percent_clr',
+					'selectors'  => array(
+						'{{WRAPPER}} .vc_label_units' => 'color: {{VALUE}};',
+					),
+					'group'      => $section_group,
+					'dependency' => array(
+						'element'   => 'units',
+						'not_empty' => true,
+					),
+				),
 			)
 		);
-		vc_add_param(
-			'vc_progress_bar',
-			array(
-				'type'       => 'checkbox',
-				'heading'    => __( 'Enable Animation', 'porto' ),
-				'param_name' => 'animation',
-				'std'        => 'yes',
-				'value'      => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_progress_bar',
-			array(
-				'type'       => 'checkbox',
-				'heading'    => __( 'Show Percentage as Tooltip', 'porto' ),
-				'param_name' => 'tooltip',
-				'std'        => 'yes',
-				'value'      => array( __( 'Yes, please', 'js_composer' ) => 'yes' ),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_progress_bar',
-			array(
-				'type'       => 'dropdown',
-				'heading'    => __( 'Border Radius', 'porto' ),
-				'param_name' => 'border_radius',
-				'value'      => porto_vc_commons( 'progress_border_radius' ),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_progress_bar',
-			array(
-				'type'       => 'dropdown',
-				'heading'    => __( 'Size', 'porto' ),
-				'param_name' => 'size',
-				'value'      => porto_vc_commons( 'progress_size' ),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_progress_bar',
-			array(
-				'type'        => 'textfield',
-				'heading'     => __( 'Min Width', 'porto' ),
-				'description' => 'ex: 2em or 30px, etc',
-				'param_name'  => 'min_width',
-				'group'       => $section_group,
-			)
-		);
+
+		// move Design Options tab to the end
+		$css_param = WPBMap::getParam( 'vc_progress_bar', 'css' );
+		vc_remove_param( 'vc_progress_bar', 'css' );
+		vc_add_param( 'vc_progress_bar', $css_param );
 
 		/* ---------------------------- */
 		/* Customize Pie Chart
@@ -3049,197 +3534,297 @@ function porto_load_shortcodes() {
 			__( 'Black', 'js_composer' )     => 'btn-inverse',
 		);
 
-		vc_add_param(
+		vc_add_params(
 			'vc_pie',
 			array(
-				'type'        => 'dropdown',
-				'heading'     => __( 'Type', 'porto' ),
-				'param_name'  => 'type',
-				'std'         => 'custom',
-				'value'       => array(
-					__( 'Porto Circular Bar', 'porto' ) => 'custom',
-					__( 'VC Pie Chart', 'porto' )       => 'default',
+				array(
+					'type'        => 'dropdown',
+					'heading'     => __( 'Type', 'porto' ),
+					'param_name'  => 'type',
+					'std'         => 'custom',
+					'value'       => array(
+						__( 'Porto Circular Bar', 'porto' ) => 'custom',
+						__( 'VC Pie Chart', 'porto' ) => 'default',
+					),
+					'description' => __( 'Select pie chart type.', 'porto' ),
+					'admin_label' => true,
+					'group'       => $section_group,
 				),
-				'description' => __( 'Select pie chart type.', 'porto' ),
-				'admin_label' => true,
-				'group'       => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_pie',
-			array(
-				'type'               => 'dropdown',
-				'heading'            => __( 'Bar color', 'porto' ),
-				'param_name'         => 'color',
-				'value'              => $colors_arr, //$pie_colors,
-				'description'        => __( 'Select pie chart color.', 'js_composer' ),
-				'dependency'         => array(
-					'element' => 'type',
-					'value'   => array( 'default' ),
+				array(
+					'type'               => 'dropdown',
+					'heading'            => __( 'Bar color', 'porto' ),
+					'param_name'         => 'color',
+					'value'              => $colors_arr, //$pie_colors,
+					'description'        => __( 'Select pie chart color.', 'js_composer' ),
+					'dependency'         => array(
+						'element' => 'type',
+						'value'   => array( 'default' ),
+					),
+					'param_holder_class' => 'vc_colored-dropdown',
+					'group'              => $section_group,
 				),
-				'param_holder_class' => 'vc_colored-dropdown',
-				'group'              => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_pie',
-			array(
-				'type'       => 'dropdown',
-				'heading'    => __( 'View Type', 'porto' ),
-				'param_name' => 'view',
-				'dependency' => array(
-					'element' => 'type',
-					'value'   => array( 'custom' ),
+				array(
+					'type'       => 'dropdown',
+					'heading'    => __( 'View Type', 'porto' ),
+					'param_name' => 'view',
+					'dependency' => array(
+						'element' => 'type',
+						'value'   => array( 'custom' ),
+					),
+					'value'      => porto_vc_commons( 'circular_view_type' ),
+					'group'      => $section_group,
 				),
-				'value'      => porto_vc_commons( 'circular_view_type' ),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_pie',
-			array(
-				'type'       => 'iconpicker',
-				'heading'    => __( 'Select FontAwesome Icon', 'porto' ),
-				'param_name' => 'icon',
-				'dependency' => array(
-					'element' => 'view',
-					'value'   => array( 'only-icon' ),
+				array(
+					'type'       => 'iconpicker',
+					'heading'    => __( 'Select FontAwesome Icon', 'porto' ),
+					'param_name' => 'icon',
+					'value'      => 'fas fa-star',
+					'dependency' => array(
+						'element' => 'view',
+						'value'   => array( 'only-icon' ),
+					),
+					'group'      => $section_group,
 				),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_pie',
-			array(
-				'type'       => 'colorpicker',
-				'heading'    => __( 'Icon Color', 'porto' ),
-				'param_name' => 'icon_color',
-				'dependency' => array(
-					'element' => 'view',
-					'value'   => array( 'only-icon' ),
+				array(
+					'type'        => 'dropdown',
+					'heading'     => __( 'View Size', 'porto' ),
+					'description' => __( 'Instead of this, you would better use options in style tab.', 'porto' ),
+					'param_name'  => 'view_size',
+					'dependency'  => array(
+						'element'            => 'view',
+						'value_not_equal_to' => 'only-icon',
+					),
+					'value'       => porto_vc_commons( 'circular_view_size' ),
+					'group'       => $section_group,
 				),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_pie',
-			array(
-				'type'       => 'dropdown',
-				'heading'    => __( 'View Size', 'porto' ),
-				'param_name' => 'view_size',
-				'dependency' => array(
-					'element' => 'type',
-					'value'   => array( 'custom' ),
+				array(
+					'type'        => 'textfield',
+					'heading'     => __( 'Bar Size', 'porto' ),
+					'param_name'  => 'size',
+					'std'         => 175,
+					'dependency'  => array(
+						'element' => 'type',
+						'value'   => array( 'custom' ),
+					),
+					'description' => __( 'Enter the size of the chart in px.', 'porto' ),
+					'group'       => $section_group,
 				),
-				'value'      => porto_vc_commons( 'circular_view_size' ),
-				'group'      => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_pie',
-			array(
-				'type'        => 'textfield',
-				'heading'     => __( 'Bar Size', 'porto' ),
-				'param_name'  => 'size',
-				'std'         => 175,
-				'dependency'  => array(
-					'element' => 'type',
-					'value'   => array( 'custom' ),
+				array(
+					'type'        => 'colorpicker',
+					'heading'     => __( 'Track Color', 'porto' ),
+					'param_name'  => 'trackcolor',
+					'std'         => $dark ? '#2e353e' : '#eeeeee',
+					'dependency'  => array(
+						'element' => 'type',
+						'value'   => array( 'custom' ),
+					),
+					'description' => __( 'Choose the color of the track. Please clear this if you want to use the default color.', 'porto' ),
+					'group'       => $section_group,
 				),
-				'description' => __( 'Enter the size of the chart in px.', 'porto' ),
-				'group'       => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_pie',
-			array(
-				'type'        => 'colorpicker',
-				'heading'     => __( 'Track Color', 'porto' ),
-				'param_name'  => 'trackcolor',
-				'std'         => $dark ? '#2e353e' : '#eeeeee',
-				'dependency'  => array(
-					'element' => 'type',
-					'value'   => array( 'custom' ),
+				array(
+					'type'        => 'colorpicker',
+					'heading'     => __( 'Bar color', 'porto' ),
+					'param_name'  => 'barcolor',
+					'dependency'  => array(
+						'element' => 'type',
+						'value'   => array( 'custom' ),
+					),
+					'description' => __( 'Select pie chart color. Please clear this if you want to use the default color.', 'porto' ),
+					'group'       => $section_group,
 				),
-				'description' => __( 'Choose the color of the track. Please clear this if you want to use the default color.', 'porto' ),
-				'group'       => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_pie',
-			array(
-				'type'        => 'colorpicker',
-				'heading'     => __( 'Bar color', 'porto' ),
-				'param_name'  => 'barcolor',
-				'dependency'  => array(
-					'element' => 'type',
-					'value'   => array( 'custom' ),
+				array(
+					'type'        => 'colorpicker',
+					'heading'     => __( 'Scale color', 'porto' ),
+					'param_name'  => 'scalecolor',
+					'dependency'  => array(
+						'element' => 'type',
+						'value'   => array( 'custom' ),
+					),
+					'description' => __( 'Choose the color of the scale. Please clear this if you want to hide the scale.', 'porto' ),
+					'group'       => $section_group,
 				),
-				'description' => __( 'Select pie chart color. Please clear this if you want to use the default color.', 'porto' ),
-				'group'       => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_pie',
-			array(
-				'type'        => 'colorpicker',
-				'heading'     => __( 'Scale color', 'porto' ),
-				'param_name'  => 'scalecolor',
-				'dependency'  => array(
-					'element' => 'type',
-					'value'   => array( 'custom' ),
+				array(
+					'type'        => 'textfield',
+					'heading'     => __( 'Animation Speed', 'porto' ),
+					'param_name'  => 'speed',
+					'std'         => 2500,
+					'dependency'  => array(
+						'element' => 'type',
+						'value'   => array( 'custom' ),
+					),
+					'description' => __( 'Enter the animation speed in milliseconds.', 'porto' ),
+					'group'       => $section_group,
 				),
-				'description' => __( 'Choose the color of the scale. Please clear this if you want to hide the scale.', 'porto' ),
-				'group'       => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_pie',
-			array(
-				'type'        => 'textfield',
-				'heading'     => __( 'Animation Speed', 'porto' ),
-				'param_name'  => 'speed',
-				'std'         => 2500,
-				'dependency'  => array(
-					'element' => 'type',
-					'value'   => array( 'custom' ),
+				array(
+					'type'        => 'textfield',
+					'heading'     => __( 'Line Width', 'porto' ),
+					'param_name'  => 'line',
+					'std'         => 14,
+					'dependency'  => array(
+						'element' => 'type',
+						'value'   => array( 'custom' ),
+					),
+					'description' => __( 'Enter the width of the line bar in px.', 'porto' ),
+					'group'       => $section_group,
 				),
-				'description' => __( 'Enter the animation speed in milliseconds.', 'porto' ),
-				'group'       => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_pie',
-			array(
-				'type'        => 'textfield',
-				'heading'     => __( 'Line Width', 'porto' ),
-				'param_name'  => 'line',
-				'std'         => 14,
-				'dependency'  => array(
-					'element' => 'type',
-					'value'   => array( 'custom' ),
+				array(
+					'type'        => 'dropdown',
+					'heading'     => __( 'Line Cap', 'porto' ),
+					'param_name'  => 'linecap',
+					'std'         => 'round',
+					'value'       => array(
+						__( 'Round', 'porto' )  => 'round',
+						__( 'Square', 'porto' ) => 'square',
+					),
+					'dependency'  => array(
+						'element' => 'type',
+						'value'   => array( 'custom' ),
+					),
+					'description' => __( 'Choose how the ending of the bar line looks like.', 'porto' ),
+					'group'       => $section_group,
 				),
-				'description' => __( 'Enter the width of the line bar in px.', 'porto' ),
-				'group'       => $section_group,
-			)
-		);
-		vc_add_param(
-			'vc_pie',
-			array(
-				'type'        => 'dropdown',
-				'heading'     => __( 'Line Cap', 'porto' ),
-				'param_name'  => 'linecap',
-				'std'         => 'round',
-				'value'       => array(
-					__( 'Round', 'porto' )  => 'round',
-					__( 'Square', 'porto' ) => 'square',
+				array(
+					'type'       => 'porto_param_heading',
+					'param_name' => 'heading_title',
+					'text'       => __( 'Title Style', 'porto' ),
+					'dependency' => array(
+						'element'            => 'view',
+						'value_not_equal_to' => 'only-icon',
+					),
+					'group'      => __( 'Style', 'porto' ),
 				),
-				'dependency'  => array(
-					'element' => 'type',
-					'value'   => array( 'custom' ),
+				array(
+					'type'        => 'porto_typography',
+					'heading'     => __( 'Title Typography', 'porto' ),
+					'description' => __( 'Controls the typography of the title.', 'porto' ),
+					'param_name'  => 'title_porto_typography',
+					'selectors'   => array(
+						'{{WRAPPER}} strong',
+					),
+					'group'       => __( 'Style', 'porto' ),
+					'dependency'  => array(
+						'element'            => 'view',
+						'value_not_equal_to' => 'only-icon',
+					),
 				),
-				'description' => __( 'Choose how the ending of the bar line looks like.', 'porto' ),
-				'group'       => $section_group,
+				array(
+					'type'       => 'colorpicker',
+					'heading'    => __( 'Title Color', 'porto' ),
+					'param_name' => 'title_color',
+					'selectors'  => array(
+						'{{WRAPPER}} strong' => 'color: {{VALUE}};',
+					),
+					'group'      => __( 'Style', 'porto' ),
+					'dependency' => array(
+						'element'            => 'view',
+						'value_not_equal_to' => 'only-icon',
+					),
+				),
+				array(
+					'type'        => 'porto_number',
+					'heading'     => __( 'Top Position', 'porto' ),
+					'description' => __( 'Controls the top position of title.', 'porto' ),
+					'param_name'  => 'title_pos',
+					'units'       => array( '%', 'px' ),
+					'group'       => __( 'Style', 'porto' ),
+					'selectors'   => array(
+						'{{WRAPPER}}.circular-bar strong' => 'top: {{VALUE}}{{UNIT}};',
+					),
+					'dependency'  => array(
+						'element'            => 'view',
+						'value_not_equal_to' => 'only-icon',
+					),
+				),
+				array(
+					'type'       => 'porto_param_heading',
+					'param_name' => 'heading_value',
+					'text'       => __( 'Value Style', 'porto' ),
+					'dependency' => array(
+						'element'  => 'view',
+						'is_empty' => true,
+					),
+					'group'      => __( 'Style', 'porto' ),
+				),
+				array(
+					'type'        => 'porto_typography',
+					'heading'     => __( 'Value Typography', 'porto' ),
+					'description' => __( 'Controls the typography of the value.', 'porto' ),
+					'param_name'  => 'value_porto_typography',
+					'selectors'   => array(
+						'{{WRAPPER}} label',
+					),
+					'group'       => __( 'Style', 'porto' ),
+					'dependency'  => array(
+						'element'  => 'view',
+						'is_empty' => true,
+					),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'heading'    => __( 'Value Color', 'porto' ),
+					'param_name' => 'value_color',
+					'selectors'  => array(
+						'{{WRAPPER}} label' => 'color: {{VALUE}};',
+					),
+					'group'      => __( 'Style', 'porto' ),
+					'dependency' => array(
+						'element'  => 'view',
+						'is_empty' => true,
+					),
+				),
+				array(
+					'type'        => 'porto_number',
+					'heading'     => __( 'Value Position', 'porto' ),
+					'description' => __( 'Controls the top position of value.', 'porto' ),
+					'param_name'  => 'value_pos',
+					'units'       => array( '%', 'px' ),
+					'group'       => __( 'Style', 'porto' ),
+					'selectors'   => array(
+						'{{WRAPPER}} label' => 'top: {{VALUE}}{{UNIT}};',
+					),
+					'dependency'  => array(
+						'element'  => 'view',
+						'is_empty' => true,
+					),
+				),
+				array(
+					'type'       => 'porto_param_heading',
+					'param_name' => 'heading_icon',
+					'text'       => __( 'Icon Style', 'porto' ),
+					'dependency' => array(
+						'element' => 'view',
+						'value'   => 'only-icon',
+					),
+					'group'      => __( 'Style', 'porto' ),
+				),
+				array(
+					'type'        => 'porto_number',
+					'heading'     => __( 'Icon Size', 'porto' ),
+					'description' => __( 'Controls the size of the icon.', 'porto' ),
+					'param_name'  => 'icon_size',
+					'units'       => array( 'px' ),
+					'group'       => __( 'Style', 'porto' ),
+					'selectors'   => array(
+						'{{WRAPPER}}.only-icon i' => 'font-size: {{VALUE}}{{UNIT}};',
+					),
+					'dependency'  => array(
+						'element' => 'view',
+						'value'   => 'only-icon',
+					),
+				),
+				array(
+					'type'       => 'colorpicker',
+					'heading'    => __( 'Icon Color', 'porto' ),
+					'param_name' => 'icon_color',
+					'selectors'  => array(
+						'{{WRAPPER}} i' => 'color: {{VALUE}};',
+					),
+					'group'      => __( 'Style', 'porto' ),
+					'dependency' => array(
+						'element' => 'view',
+						'value'   => 'only-icon',
+					),
+				),
 			)
 		);
 
@@ -3257,7 +3842,22 @@ function porto_load_shortcodes() {
 
 	}
 }
-
+function porto_dynamic_vc_param( $widget, $dynamic_type, $weight, $dependency = '', $flag = '' ) {
+	if ( ! class_exists( 'Porto_Wpb_Dynamic_Tags' ) ) {
+		return;
+	}
+	$params = Porto_Wpb_Dynamic_Tags::get_instance()->dynamic_wpb_tags( $dynamic_type );
+	foreach ( $params as $key => $value ) {
+		$value['weight'] = $weight;
+		if ( 0 == $key && 'image' == $dynamic_type ) {
+			$value['dependency'] = array(
+				'element' => $dependency,
+				'value'   => array( $flag ),
+			);
+		}
+		vc_add_param( $widget, $value );
+	}
+}
 add_action( 'vc_after_init', 'porto_vc_enable_deprecated_shortcodes' );
 
 function porto_vc_enable_deprecated_shortcodes() {
@@ -3351,4 +3951,19 @@ if ( is_admin() ) :
 			}
 		}
 	endif;
+endif;
+
+/**
+ * Update column offset template path to add xxl settings (> 1400px) to column
+ *
+ * @since 6.3.0
+ */
+add_filter( 'vc_path_filter', 'porto_vc_path_filter' );
+if ( ! function_exists( 'porto_vc_path_filter' ) ) :
+	function porto_vc_path_filter( $path ) {
+		if ( false !== strpos( $path, 'params/column_offset/template.tpl.php' ) ) {
+			$path = PORTO_DIR . '/vc_templates/params/column_offset/template.tpl.php';
+		}
+		return $path;
+	}
 endif;

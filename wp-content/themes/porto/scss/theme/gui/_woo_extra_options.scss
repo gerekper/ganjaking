@@ -3,15 +3,17 @@
     font-size: 16px;
     font-weight: $font-weight-normal;
     line-height: 27px;
+    color: var(--porto-primary-color);
 }
 
 .tm-collapse {
     background-image: none;
     background-color: transparent;
-    border: 1px solid;
+    border: 1px solid var(--porto-widget-bc);
     padding: 0;
 
     .tm-section-label {
+        background: var(--porto-gray-1);
         padding: 10px 15px;
 
         .tm-arrow {
@@ -38,6 +40,7 @@
 .tm-box {
     padding: 10px 15px;
     margin: 15px 0 0;
+    border: 1px solid var(--porto-gray-5);
 }
 
 .tm-epo-totals {
@@ -71,6 +74,7 @@
 
         &.final {
             font-size: 2.5714em;
+            color: var(--porto-primary-color);
         }
     }
 }

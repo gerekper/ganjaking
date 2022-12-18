@@ -18,6 +18,10 @@ if ( ! class_exists( 'Porto_Live_Search' ) ) :
 		public function __construct() {
 			global $porto_settings;
 
+			if ( porto_is_amp_endpoint() ) {
+				return;
+			}
+
 			if ( ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) || ! isset( $porto_settings['search-live'] ) || ! $porto_settings['search-live'] ) {
 				return;
 			}
@@ -28,7 +32,7 @@ if ( ! class_exists( 'Porto_Live_Search' ) ) :
 		}
 
 		public function add_script() {
-			wp_enqueue_script( 'porto-live-search', PORTO_LIB_URI . '/live-search/live-search.js', false, PORTO_VERSION, true );
+			wp_enqueue_script( 'porto-live-search', PORTO_LIB_URI . '/live-search/live-search.min.js', array( 'jquery-core' ), PORTO_VERSION, true );
 			wp_localize_script(
 				'porto-live-search',
 				'porto_live_search',
@@ -58,12 +62,15 @@ if ( ! class_exists( 'Porto_Live_Search' ) ) :
 			if ( ! isset( $_REQUEST['post_type'] ) || empty( $_REQUEST['post_type'] ) || 'product' == $_REQUEST['post_type'] ) {
 				if ( class_exists( 'Woocommerce' ) ) {
 					$posts = $this->search_products( 'product', $args );
-					if ( isset( $porto_settings['search-sku'] ) && $porto_settings['search-sku'] ) {
+					$search_by = isset( $porto_settings['search-by'] ) ? $porto_settings['search-by'] : array();
+
+					if ( in_array( 'sku', $search_by ) ) {
 						$posts = array_merge( $posts, $this->search_products( 'sku', $args ) );
 					}
-					if ( isset( $porto_settings['search-product_tag'] ) && $porto_settings['search-product_tag'] ) {
+					if ( in_array( 'product_tag', $search_by ) ) {
 						$posts = array_merge( $posts, $this->search_products( 'tag', $args ) );
 					}
+
 				}
 				if ( ! isset( $_REQUEST['post_type'] ) || empty( $_REQUEST['post_type'] ) ) {
 					$posts = array_merge( $posts, $this->search_posts( $args, $query ) );

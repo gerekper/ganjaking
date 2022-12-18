@@ -63,13 +63,13 @@
 }
 
 @mixin display-flex {
-    display: -webkit-flex; display: -ms-flexbox; display: flex;
+    display: flex;
 }
 @mixin flex-wrap($wrap) {
-    -webkit-flex-wrap: $wrap; -ms-flex-wrap: $wrap; flex-wrap: $wrap;
+    flex-wrap: $wrap;
 }
 @mixin flex($prop) {
-    -webkit-flex: $prop; -ms-flex: $prop; flex: $prop;
+    flex: $prop;
 }
 
 // CSS for responsive

@@ -33,7 +33,9 @@ b, strong {
 
 /* Alternative Font Style */
 .alternative-font {
+    font-family: var(--porto-alt-ff, var(--porto-body-ff)), sans-serif;
     font-size: 1.6em;
+    color: var(--porto-primary-color);
 }
 
 .single h4.sub-title {

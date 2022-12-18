@@ -123,11 +123,11 @@ if ( ! class_exists( 'Porto_Pre_Order_Myaccount' ) ) :
 
 		private function get_all_pre_orders_query() {
 			$args = array(
-				'post_type'   => wc_get_order_types(),
-				'post_status' => array_keys( wc_get_order_statuses() ),
-				'numberposts' => - 1,
-				'fields'      => 'ids',
-				'meta_query'  => array(
+				'post_type'      => wc_get_order_types(),
+				'post_status'    => array_keys( wc_get_order_statuses() ),
+				'posts_per_page' => 100,
+				'fields'         => 'ids',
+				'meta_query'     => array(
 					array(
 						'key'   => '_customer_user',
 						'value' => get_current_user_id(),

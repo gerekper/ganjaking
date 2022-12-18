@@ -13,10 +13,10 @@ if ( porto_is_ajax() ) {
 
 <div class="blocks-wrapper mfp-hide">
 	<div class="category-list">
-		<h2><img src="<?php echo PORTO_URI; ?>/images/logo/porto_studio.jpg" alt="<?php esc_html_e( 'Porto Studio', 'porto' ); ?>"></h2>
+		<h2><img src="<?php echo PORTO_URI; ?>/images/logo/porto_studio.jpg" alt="<?php esc_attr_e( 'Porto Studio', 'porto' ); ?>"></h2>
 		<p><?php esc_html_e( 'Quickly get a project started with any of our examples:', 'porto' ); ?></p>
 		<ul>
-			<li style="display: none;"><a href="#" data-filter-by="0"<?php echo isset( $total_pages ) ? ' data-total-page="' . intval( $total_pages ) . '"' : ''; ?>><?php esc_html_e( 'Latest', 'porto' ); ?></a></li>
+			<li><a href="#" data-filter-by="0"<?php echo isset( $total_pages ) ? ' data-total-page="' . intval( $total_pages ) . '"' : '', 0 === (int) $default_category_id ? ' class="active"' : ''; ?>><?php esc_html_e( 'All', 'porto' ); ?><span><?php echo isset( $total_count ) ? (int) $total_count : ''; ?></span></a></li>
 		<?php foreach ( $block_categories as $category ) : ?>
 			<?php if ( $category['count'] > 0 ) : ?>
 				<li><a href="#" data-filter-by="<?php echo (int) $category['id']; ?>" data-total-page="<?php echo (int) ( $category['total'] ); ?>"<?php echo (int) $category['id'] == (int) $default_category_id ? ' class="active"' : ''; ?>><?php echo esc_html( $category['title'] ); ?><span><?php echo (int) $category['count']; ?></span></a></li>
@@ -24,8 +24,9 @@ if ( porto_is_ajax() ) {
 		<?php endforeach; ?>
 		</ul>
 	</div>
-	<div class="blocks-section">
-		<div class="demo-filter">
+	<div class="blocks-section active">
+		<div class="demo-filter"<?php echo isset( $filter_total_pages ) ? ' data-total-page="' . ( (int) $filter_total_pages ) . '"' : ''; ?>>
+			<input type="search" name="s" id="s" value="" placeholder="<?php esc_attr_e( 'Search', 'porto' ); ?>" style="margin-right: 1.5rem" />
 			<?php
 			if ( ! class_exists( 'Porto_Theme_Setup_Wizard' ) ) {
 				require_once PORTO_ADMIN . '/setup_wizard/setup_wizard.php';
@@ -51,7 +52,7 @@ if ( porto_is_ajax() ) {
 					<?php endif; ?>
 				<?php endforeach; ?>
 			</select>
-			<button class="btn btn-primary" disabled="disabled"><?php esc_html_e( 'Submit', 'porto' ); ?></button>
+			<button class="btn btn-primary"><?php esc_html_e( 'Submit', 'porto' ); ?></button>
 			<a href="#" class="demo-filter-trigger"><i class="fas fa-filter"></i> <?php esc_html_e( 'Filters', 'porto' ); ?></a>
 		</div>
 		<div class="blocks-list">

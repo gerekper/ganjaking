@@ -1,16 +1,20 @@
 <?php get_header(); ?>
 
 <?php
-
 $post_type = ( isset( $_GET['post_type'] ) && $_GET['post_type'] ) ? sanitize_text_field( $_GET['post_type'] ) : null;
 if ( isset( $post_type ) && locate_template( 'archive-' . $post_type . '.php' ) ) {
 	get_template_part( 'archive', $post_type );
 	exit;
 }
 
+$builder_id = porto_check_builder_condition( 'archive' );
+if ( $builder_id && 'publish' == get_post_status( $builder_id ) ) {
+	echo do_shortcode( '[porto_block id="' . esc_attr( $builder_id ) . '"]' );
+	get_footer();
+	exit;
+}
 global $porto_settings;
-
-$post_layout = $porto_settings['post-layout'];
+$post_layout = isset( $porto_settings['post-layout'] ) ? $porto_settings['post-layout'] : 'large';
 ?>
 
 	<div id="content" role="main">
@@ -28,7 +32,7 @@ $post_layout = $porto_settings['post-layout'];
 				?>
 
 				<div class="blog-posts posts-<?php echo esc_attr( $post_layout ); ?> <?php
-				if ( $porto_settings['post-style'] ) {
+				if ( ! empty( $porto_settings['post-style'] ) ) {
 					echo 'blog-posts-' . esc_attr( $porto_settings['post-style'] ); }
 				?>
 				">
@@ -38,7 +42,7 @@ $post_layout = $porto_settings['post-layout'];
 			<?php } elseif ( 'grid' == $post_layout || 'masonry' == $post_layout ) { ?>
 
 				<div class="blog-posts posts-<?php echo esc_attr( $post_layout ); ?> <?php
-				if ( $porto_settings['post-style'] ) {
+				if ( ! empty( $porto_settings['post-style'] ) ) {
 					echo 'blog-posts-' . esc_attr( $porto_settings['post-style'] ); }
 				?>
 				">

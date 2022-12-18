@@ -18,7 +18,7 @@ div.bbp-breadcrumb {
 .bbp-pagination-links {
     a,
     span.current {
-        border: 1px solid;
+        border: 1px solid var(--porto-input-bc);
         padding: 0 .5em;
         line-height: 2.1em;
         min-width: 2.2em;
@@ -32,6 +32,8 @@ div.bbp-breadcrumb {
 
         &:hover {
             opacity: 1;
+            background: var(--porto-gray-1);
+            border: 1px solid var(--porto-gray-2);
         }
     }
 
@@ -80,7 +82,7 @@ div.bbp-breadcrumb {
 
 .bbp-topic-pagination {
     a {
-        border: 1px solid;
+        border: 1px solid var(--porto-input-bc);
         text-align: center;
         text-decoration: none;
 
@@ -101,6 +103,12 @@ div.bbp-breadcrumb {
 
 div.bbp-submit-wrapper {
     margin-bottom: 15px;
+}
+
+#bbpress-forums {
+    div.wp-editor-container {
+        border: 1px solid var(--porto-gray-5);
+    }
 }
 
 #bbpress-forums #bbp-your-profile fieldset {
@@ -169,8 +177,19 @@ div.bbp-submit-wrapper {
     #bbp-single-user-details {
         #bbp-user-navigation {
             li.current a {
+                background: var(--porto-gray-1);
                 opacity: 1;
             }
+        }
+    }
+
+    .bbp-topic-pagination,
+    .bbp-pagination {
+        a:hover,
+        a:focus,
+        span.current {
+            background-color: var(--porto-primary-color);
+            border-color: var(--porto-primary-color);
         }
     }
 }

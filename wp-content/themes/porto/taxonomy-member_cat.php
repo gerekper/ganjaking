@@ -1,14 +1,18 @@
 <?php get_header(); ?>
 
 <?php
-global $porto_settings, $wp_query;
+$builder_id = porto_check_builder_condition( 'archive' );
+if ( $builder_id && 'publish' == get_post_status( $builder_id ) ) {
+	echo do_shortcode( '[porto_block id="' . esc_attr( $builder_id ) . '"]' );
+} else {
+	global $porto_settings, $wp_query;
 
-$term    = $wp_query->queried_object;
-$term_id = $term->term_id;
+	$term    = $wp_query->queried_object;
+	$term_id = $term->term_id;
 
-$member_options = get_metadata( $term->taxonomy, $term->term_id, 'member_options', true ) == 'member_options' ? true : false;
+	$member_options = get_metadata( $term->taxonomy, $term->term_id, 'member_options', true ) == 'member_options' ? true : false;
 
-?>
+	?>
 
 <div id="content" role="main">
 
@@ -22,7 +26,7 @@ $member_options = get_metadata( $term->taxonomy, $term->term_id, 'member_options
 
 		<div class="page-members clearfix">
 
-			<?php if ( $porto_settings['member-archive-ajax'] ) : ?>
+			<?php if ( ! empty( $porto_settings['member-archive-ajax'] ) ) : ?>
 				<div id="memberAjaxBox" class="ajax-box">
 					<div class="bounce-loader">
 						<div class="bounce1"></div>
@@ -37,7 +41,7 @@ $member_options = get_metadata( $term->taxonomy, $term->term_id, 'member_options
 				</div>
 			<?php endif; ?>
 
-			<div class="member-row members-container row ccols-wrap <?php echo porto_generate_column_classes( $porto_settings['member-columns'] ); ?>">
+			<div class="member-row members-container row ccols-wrap <?php echo porto_generate_column_classes( isset( $porto_settings['member-columns'] ) ? $porto_settings['member-columns'] : 4 ); ?>">
 				<?php
 				while ( have_posts() ) {
 					the_post();
@@ -59,5 +63,5 @@ $member_options = get_metadata( $term->taxonomy, $term->term_id, 'member_options
 
 	<?php endif; ?>
 </div>
-
+<?php } ?>
 <?php get_footer(); ?>

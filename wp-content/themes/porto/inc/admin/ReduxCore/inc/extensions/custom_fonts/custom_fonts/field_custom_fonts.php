@@ -49,8 +49,8 @@ if ( ! class_exists( 'ReduxFramework_custom_fonts' ) ) {
 				$value = '';
 			}
 			$this->parent = $parent;
-			$this->field = $field;
-			$this->value = $value;
+			$this->field  = $field;
+			$this->value  = $value;
 
 			if ( empty( $this->extension_dir ) ) {
 
@@ -103,6 +103,8 @@ if ( ! class_exists( 'ReduxFramework_custom_fonts' ) ) {
 			$this->field['custom_fonts'] = apply_filters( "redux/{$this->parent->args['opt_name']}/field/typography/custom_fonts", array() );
 
 			$has_fonts = false;
+
+			echo '<div id="info-desc_info" class="redux-normal  porto-important-note redux-notice-field redux-field-info" style="margin: 0 0 2rem;"><p class="redux-info-desc">' . sprintf( esc_html__( '%1$sImportant Note:%2$s To know in full about the Custom Fonts, read this %3$s article%4$s.', 'porto' ), '<b>', '</b>', '<a href="//www.portotheme.com/wordpress/porto/documentation/how-to-use-custom-font/" target="_blank">', '</a>' ) . '</p></div>';
 
 			if ( ! empty( $this->field['custom_fonts'] ) ) {
 

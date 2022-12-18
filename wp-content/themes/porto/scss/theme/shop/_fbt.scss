@@ -1,0 +1,13 @@
+/*
+ * Compatibility with YITH FBT and PRO
+ *
+ *
+ * @since 6.6.0 
+ **/
+ .yith-wfbt-item .price {
+    font-size: inherit;
+}
+.yith-wfbt-slider-wrapper .yith-wfbt-products-list {
+    margin-left: 0;
+    margin-right: 0;
+}

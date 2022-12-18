@@ -44,6 +44,9 @@
             #{$left}: 10%;
             text-align: center;
         }
+        .fas, .fab, .far {
+            color: var(--porto-primary-color);
+        }
     }
 
     &.single-line {

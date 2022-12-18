@@ -20,19 +20,12 @@ div.stats-desc > div.counter_suffix {
 div.stats-desc > div.counter_suffix {
     display: none;
 }
-.stats-block .stats-text {
-    font-size: 18px;
-    width: 100%;
-    text-align: inherit
-}
+
 .stats-left .porto-sicon-left {
-    display: table-cell;
     padding-#{$right}: 15px;
 }
 .stats-left .stats-desc {
     text-align: $left;
-    display: table-cell;
-    vertical-align: middle;
     box-sizing: content-box;
     width: auto
 }
@@ -57,13 +50,10 @@ div.stats-desc > div.counter_suffix {
     width: 100%
 }
 .stats-right .porto-sicon-right {
-    display: table-cell;
     padding-#{$left}: 15px;
 }
 .stats-right .stats-desc {
     text-align: $right;
-    display: table-cell;
-    vertical-align: middle
 }
 .stats-block.stats-left,
 .stats-block.stats-right {
@@ -73,15 +63,19 @@ div.stats-desc > div.counter_suffix {
     @else {
         direction: ltr
     }
+    display: flex;
+    align-items: center;
 }
 .stats-block {
     .porto-icon.none {
         margin-bottom: 5px;
     }
     .stats-text {
-        font-weight: 100;
+        font-weight: 200;
         font-size: 20px;
         line-height: 1;
+        width: 100%;
+        text-align: inherit;
     }
     &.counter-single-line {
         text-align: center;
@@ -93,6 +87,7 @@ div.stats-desc > div.counter_suffix {
         }
     }
     &.counter-with-border {
+        border: 1px solid var(--porto-gray-2);
         box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.04);
         padding: 25px;
     }
@@ -111,5 +106,19 @@ div.stats-desc > div.counter_suffix {
         div.counter_suffix {
             font-weight: $font-weight-normal;
         }
+    }
+
+    &.counter-alternative .stats-number {
+        font-family: var(--porto-alt-ff),sans-serif;
+    }
+}
+
+/* theme colors */
+/* primary, econdary, tertiary, quaternary, dark, light */
+@each $state in $color_states {
+    .stats-block.counter-#{nth($state,1)} .stats-number,
+    .stats-block.counter-#{nth($state,1)} div.counter_prefix,
+    .stats-block.counter-#{nth($state,1)} div.counter_suffix {
+        color: var(--porto-#{nth($state,1)}-color);
     }
 }

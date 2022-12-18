@@ -2,7 +2,7 @@
 
 global $porto_settings;
 
-if ( ( is_singular( 'portfolio' ) && in_array( 'quote', $porto_settings['portfolio-metas'] ) ) || ( ! is_singular( 'portfolio' ) && isset( $porto_settings['portfolio-show-testimonial'] ) && $porto_settings['portfolio-show-testimonial'] ) ) :
+if ( ( is_singular( 'portfolio' ) && isset( $porto_settings['portfolio-metas'] ) && in_array( 'quote', $porto_settings['portfolio-metas'] ) ) || ( ! is_singular( 'portfolio' ) && isset( $porto_settings['portfolio-show-testimonial'] ) && $porto_settings['portfolio-show-testimonial'] ) ) :
 	global $post;
 	$portfolio_author_quote = get_post_meta( $post->ID, 'portfolio_author_quote', true );
 	if ( $portfolio_author_quote ) :

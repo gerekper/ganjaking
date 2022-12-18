@@ -27,6 +27,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Progress_Bar
  */
+
+$original_atts = $atts;
+
 $output = '';
 $atts   = vc_map_get_attributes( $this->getShortcode(), $atts );
 $atts   = $this->convertAttributesToNewProgressBar( $atts );
@@ -75,10 +78,27 @@ if ( '' !== $bgcolor ) {
 }
 
 $class_to_filter  = 'vc_progress_bar wpb_content_element';
-$class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class );
-$css_class        = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
+$class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtraClass( $el_class ) . ' ' . $this->getCSSAnimation( $css_animation );
+$css_class        = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, trim( $class_to_filter ), $this->settings['base'], $atts );
 
-$output  = '<div class="' . esc_attr( $css_class ) . '">';
+if ( class_exists( 'WPBMap' ) ) {
+	$sc = WPBMap::getShortCode( 'vc_progress_bar' );
+	if ( ! empty( $sc['params'] ) && class_exists( 'PortoShortcodesClass' ) && method_exists( 'PortoShortcodesClass', 'get_global_hashcode' ) ) {
+		foreach ( $original_atts as $key => $item ) {
+			if ( false !== strpos( $item, '"' ) ) {
+				$original_atts[ $key ] = str_replace( '"', '``', $item );
+			}
+		}
+		$css_class   .= ' wpb_custom_' . PortoShortcodesClass::get_global_hashcode( $original_atts, 'vc_progress_bar', $sc['params'] );
+		$internal_css = PortoShortcodesClass::generate_wpb_css( 'vc_progress_bar', $original_atts );
+	}
+}
+
+$output = '<div class="' . esc_attr( $css_class ) . '">';
+if ( ! empty( $internal_css ) ) {
+	// only wpbakery frontend editor
+	$output .= wp_strip_all_tags( $internal_css );
+}
 $output .= wpb_widget_title(
 	array(
 		'title'      => $title,
@@ -111,7 +131,7 @@ foreach ( $values as $data ) {
 foreach ( $graph_lines_data as $line ) {
 	$output .= '<div class="progress-label"><span' . $line['txtcolor'] . '>' . wp_kses_post( $line['label'] ) . '</span></div>';
 	$unit    = ( '' !== $units ) ? ' <span class="vc_label_units">' . wp_kses_post( $line['value'] . $units ) . '</span>' : '';
-	$output .= '<div class="vc_general vc_single_bar progress' . esc_attr( $bgcolor ) . ( $border_radius ? ' progress-' . esc_attr( $border_radius ) : '' ) . ( $size ? ' progress-' . esc_attr( $size ) : '' ) . ( ( isset( $line['color'] ) && 'custom' !== $line['color'] ) ?
+	$output .= '<div class="vc_general vc_single_bar progress' . ( isset( $line['color'] ) && 'custom' !== $line['color'] ? '' : esc_attr( $bgcolor ) ) . ( $border_radius && 'custom' != $border_radius ? ' progress-' . esc_attr( $border_radius ) : '' ) . ( $size && 'custom' != $size ? ' progress-' . esc_attr( $size ) : '' ) . ( ( isset( $line['color'] ) && 'custom' !== $line['color'] ) ?
 			' vc_progress-bar-color-' . esc_attr( $line['color'] ) : '' )
 		. '">';
 	if ( $max_value > 100.00 ) {

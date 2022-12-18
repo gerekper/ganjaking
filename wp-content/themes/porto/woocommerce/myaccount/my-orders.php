@@ -41,7 +41,7 @@ if ( $customer_orders ) : ?>
 <div class="featured-box align-left">
 	<div class="box-content">
 
-		<h2><?php echo apply_filters( 'woocommerce_my_account_my_orders_title', esc_html__( 'Recent Orders', 'porto' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h2>
+		<h2><?php echo apply_filters( 'woocommerce_my_account_my_orders_title', esc_html__( 'Recent orders', 'woocommerce' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h2>
 
 		<table class="shop_table responsive my_account_orders">
 
@@ -69,7 +69,7 @@ if ( $customer_orders ) : ?>
 									<?php do_action( 'woocommerce_my_account_my_orders_column_' . $column_id, $order ); ?>
 								<?php elseif ( 'order-number' === $column_id ) : ?>
 									<a href="<?php echo esc_url( $order->get_view_order_url() ); ?>">
-										<?php echo esc_html_x( '#', 'hash before order number', 'porto' ) . $order->get_order_number(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+										<?php echo esc_html_x( '#', 'hash before order number', 'woocommerce' ) . $order->get_order_number(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 									</a>
 								<?php elseif ( 'order-date' === $column_id ) : ?>
 									<time datetime="<?php echo date( 'Y-m-d', strtotime( $order->order_date ) ); ?>" title="<?php echo esc_attr( strtotime( $order->order_date ) ); ?>"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $order->order_date ) ); ?></time>
@@ -77,21 +77,21 @@ if ( $customer_orders ) : ?>
 									<?php echo wc_get_order_status_name( $order->get_status() ); ?>
 								<?php elseif ( 'order-total' === $column_id ) : ?>
 									<?php /* translators: 1: formatted order total 2: total order items */ ?>
-									<?php echo sprintf( _n( '%1$s for %2$s item', '%1$s for %2$s items', $item_count, 'porto' ), $order->get_formatted_order_total(), $item_count ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+									<?php echo sprintf( _n( '%1$s for %2$s item', '%1$s for %2$s items', $item_count, 'woocommerce' ), $order->get_formatted_order_total(), $item_count ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 								<?php elseif ( 'order-actions' === $column_id ) : ?>
 									<?php
 										$actions = array(
 											'pay'    => array(
 												'url'  => $order->get_checkout_payment_url(),
-												'name' => __( 'Pay', 'porto' ),
+												'name' => __( 'Pay', 'woocommerce' ),
 											),
 											'view'   => array(
 												'url'  => $order->get_view_order_url(),
-												'name' => __( 'View', 'porto' ),
+												'name' => __( 'View', 'woocommerce' ),
 											),
 											'cancel' => array(
 												'url'  => $order->get_cancel_order_url( wc_get_page_permalink( 'myaccount' ) ),
-												'name' => __( 'Cancel', 'porto' ),
+												'name' => __( 'Cancel', 'woocommerce' ),
 											),
 										);
 

@@ -112,7 +112,7 @@ global $porto_settings, $porto_layout;
 				?>
 
 				<?php get_template_part( 'header/header_tooltip' ); ?>
-				<a class="mobile-toggle" href="#"><i class="fas fa-bars"></i></a>
+				<a class="mobile-toggle" aria-label="Mobile Menu" href="#"><i class="fas fa-bars"></i></a>
 			</div>
 		</div>
 		<?php get_template_part( 'header/mobile_menu' ); ?>

@@ -33,6 +33,7 @@
         > li {
             text-shadow: none;
             text-transform: uppercase;
+            line-height: inherit;
             a {
                 display: inline-block;
                 border-color: transparent;
@@ -64,10 +65,8 @@
     }
     .page-title {
         display: inline-block;
-        font-size: 2.2em;
-        font-weight: 400;
+        font: 400 2.2em/1.2 var(--porto-h1-ff), var(--porto-body-ff), sans-serif;
         margin: 0;
-        line-height: 1.2;
         position: relative;
         letter-spacing: -.05em;
         text-transform: none;
@@ -90,7 +89,7 @@
     .sort-source {
         position: absolute;
         bottom: 0;
-        @include clearfix;
+        #{$right}: var(--porto-column-spacing);
 
         > li {
             float: none;
@@ -98,6 +97,7 @@
 
             &.active > a {
                 background: transparent !important;
+                color: var(--porto-primary-color);
             }
         }
 
@@ -125,8 +125,8 @@
         width: 65px;
         background: transparent !important;
         border: none !important;
-        & .product-nav .product-link{
-            color: #000000;
+        & .product-nav .product-link {
+            color: #000;
         }
     }
 }
@@ -172,4 +172,9 @@
     padding-right: 0;
     margin-left: auto;
     margin-right: auto;
+
+    .page-top {
+        padding-left: var(--porto-column-spacing);
+        padding-right: var(--porto-column-spacing);
+    }
 }

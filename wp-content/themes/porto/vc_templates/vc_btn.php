@@ -67,6 +67,24 @@ $floating_transition = 'yes';
 $floating_horizontal = '';
 $floating_duration   = '';
 
+
+// dynamic field
+$enable_field_dynamic             = false;
+$field_dynamic_source             = '';
+$field_dynamic_content            = '';
+$field_dynamic_content_meta_field = '';
+$field_dynamic_before             = '';
+$field_dynamic_after              = '';
+$field_dynamic_fallback           = '';
+
+// dynamic link
+$enable_link_dynamic            = false;
+$link_dynamic_source            = '';
+$link_dynamic_content           = '';
+$link_dynamic_content_meta_link = '';
+$link_dynamic_fallback          = '';
+$date_format                    = '';
+
 $colors = array(
 	'blue'        => '#5472d2',
 	'turquoise'   => '#00c1cf',
@@ -87,27 +105,77 @@ $colors = array(
 	'white'       => '#ffffff',
 );
 
+$original_atts = $atts;
+
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
 
-$sc = WPBMap::getShortCode( 'vc_btn' );
-if ( ! empty( $sc['params'] ) && class_exists( 'PortoShortcodesClass' ) ) {
-	foreach ( $atts as $key => $item ) {
-		if ( in_array( $key, array( 'btn_icon_size', 'btn_icon_spacing' ) ) ) {
-			$atts[ $key ] = str_replace( '"', '``', $item );
-		}
+//dynamic text
+if ( $enable_field_dynamic ) {
+	if ( ( 'meta_field' == $field_dynamic_source ) && ! empty( $field_dynamic_content_meta_field ) ) {
+		$title = Porto_Func_Dynamic_Tags_Content::get_instance()->dynamic_get_data( $field_dynamic_source, $field_dynamic_content_meta_field, 'field' );
 	}
-	$shortcode_class = ' wpb_custom_' . PortoShortcodesClass::get_global_hashcode( $atts, 'vc_btn', $sc['params'] );
-	if ( empty( $el_cls ) ) {
-		$el_cls = $shortcode_class;
-	} else {
-		$el_cls .= ' ' . $shortcode_class;
+	if ( ! empty( $field_dynamic_content ) ) {
+		if ( ! empty( $date_format ) ) {
+			$field_dynamic_content = array(
+				'field_dynamic_content' => $field_dynamic_content,
+				'date_format'           => $date_format,
+			);
+		}
+		$title = Porto_Func_Dynamic_Tags_Content::get_instance()->dynamic_get_data( $field_dynamic_source, $field_dynamic_content, 'field' );
+	}
+	if ( empty( $title ) ) {
+		$title = $field_dynamic_fallback;
+	}
+
+	$title = $field_dynamic_before . $title . $field_dynamic_after;
+}
+
+// dynamic link
+$dynamic_link = false;
+if ( $enable_link_dynamic ) {
+	if ( ( 'meta_field' == $link_dynamic_source ) && ! empty( $link_dynamic_content_meta_link ) ) {
+		$link = Porto_Func_Dynamic_Tags_Content::get_instance()->dynamic_get_data( $link_dynamic_source, $link_dynamic_content_meta_link, 'link' );
+	}
+	if ( ! empty( $link_dynamic_content ) ) {
+		$link = Porto_Func_Dynamic_Tags_Content::get_instance()->dynamic_get_data( $link_dynamic_source, $link_dynamic_content, 'link' );
+	}
+	if ( empty( $link ) ) {
+		$link = $link_dynamic_fallback;
+	}
+
+	$dynamic_link = true;
+}
+if ( class_exists( 'WPBMap' ) ) {
+	$sc = WPBMap::getShortCode( 'vc_btn' );
+	if ( ! empty( $sc['params'] ) && class_exists( 'PortoShortcodesClass' ) && method_exists( 'PortoShortcodesClass', 'get_global_hashcode' ) ) {
+		foreach ( $original_atts as $key => $item ) {
+			if ( in_array( $key, array( 'btn_icon_size', 'btn_icon_spacing' ) ) ) {
+				$original_atts[ $key ] = str_replace( '"', '``', $item );
+			}
+		}
+		$shortcode_class = ' wpb_custom_' . PortoShortcodesClass::get_global_hashcode( $original_atts, 'vc_btn', $sc['params'] );
+		if ( empty( $el_cls ) ) {
+			$el_cls = $shortcode_class;
+		} else {
+			$el_cls .= ' ' . $shortcode_class;
+		}
+		$internal_css = PortoShortcodesClass::generate_wpb_css( 'vc_btn', $original_atts );
 	}
 }
 
 //parse link
-$link     = ( '||' === $link ) ? '' : $link;
-$link     = vc_build_link( $link );
+$link = ( '||' === $link ) ? '' : $link;
+if ( $dynamic_link ) {
+	$link = array(
+		'url'    => $link,
+		'target' => '',
+		'title'  => '',
+		'rel'    => '',
+	);
+} else {
+	$link = vc_build_link( $link );
+}
 $use_link = false;
 if ( strlen( $link['url'] ) > 0 ) {
 	$use_link = true;
@@ -139,6 +207,12 @@ if ( $contextual || 'custom' !== $skin ) {
 }
 
 $button_html = $title;
+if ( ! empty( $hover_text_effect ) && $title ) {
+	$button_html = '<span class="btn-text" data-text="' . esc_attr( $title ) . '">' . $button_html . '</span>';
+
+	$button_classes[] = 'btn-hover-text-effect';
+	$button_classes[] = $hover_text_effect;
+}
 
 if ( '' === trim( $title ) ) {
 	$button_classes[] = 'vc_btn3-o-empty';
@@ -256,6 +330,7 @@ if ( ! ( $contextual || 'custom' !== $skin ) ) {
 		$gradient_css_hover[] = 'background-position: 100% 0';
 
 		$uid = uniqid();
+		ob_start();
 		echo '<style>.vc_btn3-style-' . esc_html( $style ) . '.vc_btn-gradient-btn-' . $uid . ':hover,.vc_btn3-style-' . esc_html( $style ) . '.vc_btn-gradient-btn-' . $uid . ':focus{' . esc_html(
 			implode(
 				';',
@@ -268,6 +343,7 @@ if ( ! ( $contextual || 'custom' !== $skin ) ) {
 				$gradient_css
 			)
 		) . ';' . '}</style>';
+		porto_filter_inline_css( ob_get_clean() );
 		$button_classes[] = 'vc_btn-gradient-btn-' . $uid;
 		$attributes[]     = 'data-vc-gradient-1="' . esc_attr( $gradient_color_1 ) . '"';
 		$attributes[]     = 'data-vc-gradient-2="' . esc_attr( $gradient_color_2 ) . '"';
@@ -354,13 +430,6 @@ if ( $button_classes ) {
 				$button_classes[] = 'btn-' . $skin;
 			}
 		}
-		if ( $scale ) {
-			if ( $label ) {
-				$button_classes[] = 'label-' . $skin . '-' . $scale;
-			} else {
-				$button_classes[] = 'btn-' . $skin . '-' . $scale;
-			}
-		}
 	} elseif ( ! $contextual && ! $label && 'custom' == $skin ) {
 		$button_classes[] = 'btn';
 	}
@@ -368,7 +437,7 @@ if ( $button_classes ) {
 		$button_classes[] = 'btn-arrow';
 		$button_html     .= '<span class="icon-wrapper"><i class="fas fa-chevron-right"></i></span>';
 	}
-	$button_classes = esc_attr( apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $button_classes ) ), $this->settings['base'], $atts ) );
+	$button_classes = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, implode( ' ', array_filter( $button_classes ) ), $this->settings['base'], $atts );
 	$attributes[]   = 'class="' . esc_attr( trim( $button_classes ) ) . '"';
 
 	if ( 'custom' === $style ) {
@@ -451,6 +520,10 @@ if ( ! empty( $el_id ) ) {
 ?>
 <div class="<?php echo trim( esc_attr( $css_class ) ); ?>" <?php echo implode( ' ', $wrapper_attributes ); ?>>
 	<?php
+	if ( ! empty( $internal_css ) ) {
+		// only wpbakery frontend editor
+		echo '<style>' . wp_strip_all_tags( $internal_css ) . '</style>';
+	}
 	if ( $use_link ) {
 		echo '<a ' . $attributes . '>' . $button_html . '</a>';
 	} else {

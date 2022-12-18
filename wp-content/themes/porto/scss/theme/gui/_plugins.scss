@@ -1,6 +1,6 @@
 .menu-item {
     &[class*="col-"] {
-        -ms-flex: none; flex: none;
+        flex: none;
         width: auto;
         max-width: none;
         min-height: 0;
@@ -11,6 +11,7 @@
 
 .wpcf7 .wpcf7-validation-errors,
 .wpcf7 .ajax-loader { display: none !important; background: none !important; }
+.wpcf7-spinner { position: absolute }
 
 rs-module i[class^="fa-"], rs-module i[class*=" fa-"] { font-family: 'Font Awesome 5 Free'; font-weight: 900; }
 rs-module [class^="fa-"]:before, rs-module [class*=" fa-"]:before { font-family: inherit; font-weight: inherit; }
@@ -18,6 +19,7 @@ rs-module [class^="fa-"]:before, rs-module [class*=" fa-"]:before { font-family:
 .accordion-menu .arrow,
 #main-toggle-menu .menu-title .toggle,
 .mega-menu .narrow li.menu-item-has-children > a:before,
+.sidebar-menu .narrow li.menu-item-has-children > a:before,
 .page-top ul.breadcrumb > li .delimiter,
 .widget_sidebar_menu .widget-title .toggle,
 .side-menu-slide .menu-item-has-children > a:after,
@@ -35,15 +37,15 @@ ul[class^="wsp-"] li a:before,
 .star-rating,
 .mejs-overlay-button:before,
 .comment-form-rating .stars span a:before {
-	font-family: 'Font Awesome 5 Free';
-	font-weight: 900;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .sidebar-menu li.menu-item > .arrow:before {
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .porto-tooltip-wrap {
@@ -62,24 +64,26 @@ ul[class^="wsp-"] li a:before,
 }
 .porto-tooltip-wrap .tooltip-inner a {
     color: #fff;
-    text-decoration: none;
     font-weight: 600;
     font-size: 12px
+}
+.porto-tooltip-wrap .tooltip-arrow:before {
+    opacity: .7;
+    transition: opacity .2s
 }
 .porto-tooltip-wrap.bs-tooltip-top .tooltip-arrow:before {
     top: 0;
     border-top-color: #0071a1;
-    opacity: .7;
-    transition: opacity .2s
 }
 .porto-tooltip-wrap.bs-tooltip-bottom .tooltip-arrow::before {
     bottom: 0;
     border-bottom-color: #0071a1;
-    opacity: .7;
-    transition:opacity .2s
 }
-.porto-tooltip-wrap.bs-tooltip-top:hover .tooltip-arrow::before,
-.porto-tooltip-wrap.bs-tooltip-bottom:hover .tooltip-arrow::before {
+.porto-tooltip-wrap.bs-tooltip-end .tooltip-arrow::before {
+    right: 0;
+    border-right-color: #0071a1;
+}
+.porto-tooltip-wrap:hover .tooltip-arrow::before{
     opacity: 1
 }
 /* fix Bootstrap tooltip on magnific popup */
@@ -118,5 +122,83 @@ ul[class^="wsp-"] li a:before,
     }
     .wpforms-field:not(:last-child) {
         margin-bottom: .875rem
+    }
+}
+
+.page-wrapper .fdm-item-image {
+    background-color: var(--porto-normal-bg);
+    border: 1px solid var(--porto-gray-5);
+    padding: 0;
+}
+
+.fdm-item-panel .fdm-item-title {
+    color: var(--porto-h4-color, var(--porto-heading-color));
+}
+
+.porto-lazyload:not(img):not(.lazy-load-loaded) {
+    background-color: var(--porto-gray-1);
+}
+.porto-lazyload:not(.lazy-load-loaded)[data-oi$=".png"] {
+    opacity: 0
+}
+
+// Mouse Hover Split
+.mouse-hover-split.slide-wrapper {
+    flex-wrap: nowrap !important;
+    display: block !important;
+    overflow: hidden;
+    position: relative !important;
+
+    >.split-slide {
+        display: grid;
+        overflow: hidden;
+        position: absolute;
+        height: 100%;
+        
+        &:not(.slide-left) {
+            width: 100% !important;
+        }
+
+        >* {
+            margin: 0px;
+            width: 100%;
+        }
+
+        &:first-child {
+            z-index: 2;
+            width: 100%;
+        }
+
+        &:nth-child(2) {
+            z-index: 1;
+        }
+    }
+}
+
+// Horizontal Scroller
+.horizontal-scroller-wrapper {
+    width: 100%;
+}
+
+.horizontal-scroller {
+    height: 100vh;
+
+    .horizontal-scroller-items {
+        height: 100%;
+        display: flex;
+        overflow: hidden;
+
+        >* {
+            width: calc(100%/var(--porto-hscroll-md-width, 1)) !important;
+            flex: 0 0 auto;
+
+            @media (min-width: 992px) {
+                width: calc(100%/var(--porto-hscroll-lg-width, 3)) !important;
+            }
+        }
+    }
+
+    .horizontal-scroller-item {
+        flex: 0 0 auto;
     }
 }

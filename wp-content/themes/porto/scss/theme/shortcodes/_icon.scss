@@ -51,7 +51,7 @@
 .porto-sicon-img.porto-u-circle {
     width: 1em;
     min-height: 1em;
-    background: rgba(214, 214, 214, 0.44);
+    background: rgba(214, 214, 214, .44);
     border-radius: 50%;
     padding: .5em
 }
@@ -71,8 +71,6 @@
     left: 50%;
     z-index: 0;
     max-width: none !important;
-    -webkit-transform: translate3d(-50%, -50%, 0);
-    -ms-transform: translate3d(-50%, -50%, 0);
     transform: translate3d(-50%, -50%, 0);
 }
 .porto-sicon-img.porto-u-circle-img.porto-u-img-tall img {
@@ -81,22 +79,21 @@
 }
 .porto-sicon-img.porto-u-circle-img:before {
     content: '';
-    display: block;
     position: absolute;
     top: 0;
-    right: 0;
+    width: auto;
     bottom: 0;
     left: 0;
-    border-style: solid;
-    border-color: #fff;
-    border-width: 0;
+    right: 0;
+    margin: 0;
+    border: 0px solid #fff;
     border-radius: 100%;
     z-index: 1;
 }
 .porto-sicon-img.porto-u-square {
     width: 1em;
     min-height: 1em;
-    background: rgba(214, 214, 214, 0.44);
+    background: rgba(214, 214, 214, .44);
     border-radius: 0;
     padding: .5em
 }

@@ -32,7 +32,7 @@ h2.resp-accordion {
 }
 
 .resp-tab-active {
-    border: 1px solid #c1c1c1;
+    border: 1px solid #e7e7e7;
     border-bottom: none;
     margin-bottom: -1px !important;
     padding: 12px 14px 14px 14px !important;
@@ -48,25 +48,25 @@ h2.resp-accordion {
 }
 
 .resp-tab-content {
-    border: 1px solid #c1c1c1;
+    border: 1px solid var(--porto-gray-2);
 }
 
 h2.resp-accordion {
     font-size: 13px;
-    border: 1px solid #c1c1c1;
-    border-top: 0 solid #c1c1c1;
+    border: 1px solid #e7e7e7;
+    border-top: 0 solid #e7e7e7;
     margin: 0;
     padding: 10px 15px;
 }
 
 h2.resp-tab-active {
-    border-bottom: 0 solid #c1c1c1 !important;
+    border-bottom: 0 solid #e7e7e7 !important;
     margin-bottom: 0 !important;
     padding: 10px 15px !important;
 }
 
 h2.resp-tab-title:last-child {
-    border-bottom: 12px solid #c1c1c1 !important;
+    border-bottom: 12px solid #e7e7e7 !important;
     background: blue;
 }
 /*-----------Vertical tabs-----------*/
@@ -86,7 +86,7 @@ h2.resp-tab-title:last-child {
 .resp-vtabs .resp-tabs-container {
     padding: 0;
     background-color: #fff;
-    border: 1px solid #c1c1c1;
+    border: 1px solid #e7e7e7;
     float: $left;
     width: 68%;
     min-height: 250px;
@@ -98,7 +98,7 @@ h2.resp-tab-title:last-child {
 }
 
 .resp-vtabs li.resp-tab-active {
-    border: 1px solid #c1c1c1;
+    border: 1px solid #e7e7e7;
     border-#{$right}: none;
     background-color: #fff;
     position: relative;
@@ -114,7 +114,7 @@ h2.resp-tab-title:last-child {
     margin-top: 3px;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
-    border-top: 12px solid #c1c1c1;
+    border-top: 12px solid #e7e7e7;
 }
 
 h2.resp-tab-active span.resp-arrow {
@@ -132,11 +132,11 @@ h2.resp-tab-active {
     display: block;
 }
 .resp-easy-accordion .resp-tab-content {
-    border: 1px solid #c1c1c1;
+    border: 1px solid #e7e7e7;
 }
 
 .resp-easy-accordion .resp-tab-content:last-child {
-    border-bottom: 1px solid #c1c1c1 !important;
+    border-bottom: 1px solid #e7e7e7 !important;
 }
 
 .resp-jfit {
@@ -149,7 +149,7 @@ h2.resp-tab-active {
 }
 
 h2.resp-accordion:first-child {
-    border-top: 1px solid #c1c1c1 !important;
+    border-top: 1px solid #e7e7e7 !important;
 }
 
 /*Here your can change the breakpoint to set the accordion, when screen resolution changed*/
@@ -163,7 +163,7 @@ h2.resp-accordion:first-child {
     }
 
     .resp-vtabs .resp-tab-content {
-        border: 1px solid #C1C1C1;
+        border: 1px solid #e7e7e7;
     }
 
     .resp-vtabs .resp-tabs-container {
@@ -177,6 +177,6 @@ h2.resp-accordion:first-child {
         display:none !important;
     }
     .resp-vtabs .resp-tab-content:last-child {
-        border-bottom: 1px solid #c1c1c1 !important;
+        border-bottom: 1px solid #e7e7e7 !important;
     }
 }

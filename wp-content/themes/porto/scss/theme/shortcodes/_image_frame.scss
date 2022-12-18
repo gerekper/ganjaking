@@ -1,0 +1,8 @@
+/* theme colors */
+/* secondary, tertiary, quaternary, dark, light */
+@each $state in $color_states_not_primary {
+    .thumb-info-social-icons a.thumb-info-social-links-#{nth($state,1)} {
+        background-color: var(--porto-#{nth($state,1)}-color);
+        color: var(--porto-#{nth($state,1)}-color-inverse, #{nth($state,3)});
+    }
+}

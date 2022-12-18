@@ -4,15 +4,15 @@ global $porto_settings;
 
 $post_layout = 'large';
 
-$show_date    = in_array( 'date', $porto_settings['post-metas'] );
-$show_format  = $porto_settings['post-format'] && get_post_format();
+$show_date    = isset( $porto_settings['post-metas'] ) && in_array( 'date', $porto_settings['post-metas'] );
+$show_format  = ! empty( $porto_settings['post-format'] ) && get_post_format();
 $post_class   = array();
 $post_class[] = 'post-' . $post_layout;
 if ( ! ( $show_date || $show_format ) ) {
 	$post_class[] = 'hide-post-date';
 }
 
-if ( 'without-icon' == $porto_settings['post-title-style'] ) {
+if ( isset( $porto_settings['post-title-style'] ) && 'without-icon' == $porto_settings['post-title-style'] ) {
 	$post_class[] = 'post-title-simple';
 }
 
@@ -39,16 +39,16 @@ if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 	<?php endif; ?>
 
 	<div class="post-content">
-		<?php if ( $porto_settings['post-title'] ) : ?>
+		<?php if ( ! empty( $porto_settings['post-title'] ) ) : ?>
 			<h2 class="entry-title"><?php the_title(); ?></h2>
 		<?php endif; ?>
 		<?php porto_render_rich_snippets( false ); ?>
 
 		<!-- Post meta before content -->
 		<?php
-			if ( 'after' !== $porto_settings['post-meta-position'] ) {
-				get_template_part( 'views/posts/single/meta' );
-			}
+		if ( isset( $porto_settings['post-meta-position'] ) && 'after' !== $porto_settings['post-meta-position'] ) {
+			get_template_part( 'views/posts/single/meta' );
+		}
 		?>
 
 		<div class="entry-content">
@@ -69,20 +69,20 @@ if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 
 		<!-- Post meta after content -->
 		<?php
-			if ( 'after' === $porto_settings['post-meta-position'] ) {
-				get_template_part( 'views/posts/single/meta' );
-			}
+		if ( isset( $porto_settings['post-meta-position'] ) && 'after' === $porto_settings['post-meta-position'] ) {
+			get_template_part( 'views/posts/single/meta' );
+		}
 		?>
 
 	</div>
 
-	<?php if ( 'advance' !== $porto_settings['post-share-position'] ) : ?>
+	<?php if ( isset( $porto_settings['post-share-position'] ) && 'advance' !== $porto_settings['post-share-position'] ) : ?>
 		<?php porto_get_template_part( 'views/posts/single/share' ); ?>
 	<?php endif; ?>
 
 	<?php porto_get_template_part( 'views/posts/single/author' ); ?>
 
-	<?php if ( $porto_settings['post-comments'] ) : ?>
+	<?php if ( isset( $porto_settings['post-comments'] ) ? $porto_settings['post-comments'] : true ) : ?>
 		<?php
 		wp_reset_postdata();
 		comments_template();

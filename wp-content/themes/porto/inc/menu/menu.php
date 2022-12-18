@@ -735,7 +735,7 @@ class Porto_Walker_Nav_Menu_Edit extends Walker_Nav_Menu {
 	<div class="menu-item-actions description-wide submitbox">
 		<?php if ( 'custom' != $item->type && false !== $original_title ) : ?>
 		<p class="link-to-original">
-			<?php printf( 'Original: %s', '<a href="' . esc_attr( $item->url ) . '">' . esc_html( $original_title ) . '</a>' ); ?>
+			<?php printf( 'Original: %s', '<a href="' . esc_url( $item->url ) . '">' . esc_html( $original_title ) . '</a>' ); ?>
 		</p>
 		<?php endif; ?>
 		<a class="item-delete submitdelete deletion" id="delete-<?php echo esc_attr( $item_id ); ?>" href="<?php
@@ -787,6 +787,10 @@ if ( ! class_exists( 'porto_top_navwalker' ) ) {
 
 		// add classes to ul sub menus
 		function display_element( $element, &$children_elements, $max_depth, $depth, $args, &$output ) {
+			if ( apply_filters( 'porto_lazymenu_depths', false ) ) {
+				$max_depth = 1;
+			}
+
 			if ( empty( $depth ) ) {
 				$depth = 0;
 			}
@@ -800,7 +804,6 @@ if ( ! class_exists( 'porto_top_navwalker' ) ) {
 		// add popup class to ul sub-menus
 		function start_lvl( &$output, $depth = 0, $args = array() ) {
 			$indent = str_repeat( "\t", $depth );
-
 			if ( 0 == $depth ) {
 				$out_div = '<div class="popup"' . ( empty( $args->popup_max_width ) ? '' : ' data-popup-mw="' . intval( $args->popup_max_width ) . '"' ) . '><div class="inner" style="' . esc_attr( $args->popup_style ) . '">';
 			} else {
@@ -873,10 +876,10 @@ if ( ! class_exists( 'porto_top_navwalker' ) ) {
 					$popup_cols = ' ' . $item->popup_cols;
 
 					$popup_bg_image  = $item->popup_bg_image ? 'background-image:url(' . str_replace( array( 'http://', 'https://' ), array( '//', '//' ), $item->popup_bg_image ) . ');' : '';
-					$popup_bg_pos    = $item->popup_bg_pos ? ';background-position:' . $item->popup_bg_pos . ';' : '';
-					$popup_bg_repeat = $item->popup_bg_repeat ? ';background-repeat:' . $item->popup_bg_repeat . ';' : '';
-					$popup_bg_size   = $item->popup_bg_size ? ';background-size:' . $item->popup_bg_size . ';' : '';
-					$popup_max_width = $item->popup_max_width ? ';max-width:' . (int) $item->popup_max_width . 'px;' : '';
+					$popup_bg_pos    = $item->popup_bg_pos ? 'background-position:' . $item->popup_bg_pos . ';' : '';
+					$popup_bg_repeat = $item->popup_bg_repeat ? 'background-repeat:' . $item->popup_bg_repeat . ';' : '';
+					$popup_bg_size   = $item->popup_bg_size ? 'background-size:' . $item->popup_bg_size . ';' : '';
+					$popup_max_width = $item->popup_max_width ? 'max-width:' . (int) $item->popup_max_width . 'px;' : '';
 
 					$popup_style = str_replace( '"', '\'', $item->popup_style . $popup_bg_image . $popup_bg_pos . $popup_bg_repeat . $popup_bg_size . $popup_max_width );
 
@@ -896,9 +899,9 @@ if ( ! class_exists( 'porto_top_navwalker' ) ) {
 				$sub_popup_style = '';
 				if ( $item->popup_style || $item->popup_bg_image || $item->popup_bg_pos || $item->popup_bg_repeat || $item->popup_bg_size ) {
 					$sub_popup_image  = $item->popup_bg_image ? 'background-image:url(' . str_replace( array( 'http://', 'https://' ), array( '//', '//' ), $item->popup_bg_image ) . ');' : '';
-					$sub_popup_pos    = $item->popup_bg_pos ? ';background-position:' . $item->popup_bg_pos . ';' : '';
-					$sub_popup_repeat = $item->popup_bg_repeat ? ';background-repeat:' . $item->popup_bg_repeat . ';' : '';
-					$sub_popup_size   = $item->popup_bg_size ? ';background-size:' . $item->popup_bg_size . ';' : '';
+					$sub_popup_pos    = $item->popup_bg_pos ? 'background-position:' . $item->popup_bg_pos . ';' : '';
+					$sub_popup_repeat = $item->popup_bg_repeat ? 'background-repeat:' . $item->popup_bg_repeat . ';' : '';
+					$sub_popup_size   = $item->popup_bg_size ? 'background-size:' . $item->popup_bg_size . ';' : '';
 					$sub_popup_style  = ' style="' . esc_attr( str_replace( '"', '\'', $item->popup_style ) . $sub_popup_image . $sub_popup_pos . $sub_popup_repeat . $sub_popup_size ) . '"';
 				}
 				$cols = (float) $item->cols;
@@ -965,14 +968,14 @@ if ( ! class_exists( 'porto_top_navwalker' ) ) {
 			$item_output      .= $args->after;
 			$args->popup_style = $popup_style;
 
-			if ( 0 == $depth && $args->has_children ) {
+			if ( 0 == $depth && $args->has_children && 'view_switcher' != $args->theme_location && 'currency_switcher' != $args->theme_location ) {
 				global $porto_settings_optimize;
 				if ( ! empty( $porto_settings_optimize['lazyload_menu'] ) ) {
 					$cols_html = '';
 					if ( 'wide' == $item->popup_type ) {
 						$cols_html .= str_repeat( '<li></li>', $item->popup_cols ? intval( str_replace( 'col-', '', $item->popup_cols ) ) : 4 );
 					}
-					$popup_cols = ' ' . $item->popup_cols;
+					$popup_cols   = ' ' . $item->popup_cols;
 					$item_output .= '<div class="popup"><div class="inner" style="' . esc_attr( $args->popup_style ) . '"><ul class="sub-menu skeleton-body">' . $cols_html . '</ul></div></div>';
 				}
 			}
@@ -989,6 +992,10 @@ if ( ! class_exists( 'porto_sidebar_navwalker' ) ) {
 
 		// add classes to ul sub menus
 		function display_element( $element, &$children_elements, $max_depth, $depth, $args, &$output ) {
+			if ( apply_filters( 'porto_lazymenu_depths', false ) ) {
+				$max_depth = 1;
+			}
+
 			if ( empty( $depth ) ) {
 				$depth = 0;
 			}
@@ -1068,10 +1075,10 @@ if ( ! class_exists( 'porto_sidebar_navwalker' ) ) {
 					$popup_cols = ' ' . $item->popup_cols;
 
 					$popup_bg_image  = $item->popup_bg_image ? 'background-image:url(' . str_replace( array( 'http://', 'https://' ), array( '//', '//' ), $item->popup_bg_image ) . ');' : '';
-					$popup_bg_pos    = $item->popup_bg_pos ? ';background-position:' . $item->popup_bg_pos . ';' : '';
-					$popup_bg_repeat = $item->popup_bg_repeat ? ';background-repeat:' . $item->popup_bg_repeat . ';' : '';
-					$popup_bg_size   = $item->popup_bg_size ? ';background-size:' . $item->popup_bg_size . ';' : '';
-					$popup_max_width = $item->popup_max_width ? ';max-width:' . (int) $item->popup_max_width . 'px;' : '';
+					$popup_bg_pos    = $item->popup_bg_pos ? 'background-position:' . $item->popup_bg_pos . ';' : '';
+					$popup_bg_repeat = $item->popup_bg_repeat ? 'background-repeat:' . $item->popup_bg_repeat . ';' : '';
+					$popup_bg_size   = $item->popup_bg_size ? 'background-size:' . $item->popup_bg_size . ';' : '';
+					$popup_max_width = $item->popup_max_width ? 'max-width:' . (int) $item->popup_max_width . 'px;' : '';
 
 					$popup_style = str_replace( '"', '\'', $item->popup_style . $popup_bg_image . $popup_bg_pos . $popup_bg_repeat . $popup_bg_size . $popup_max_width );
 					if ( $item->popup_max_width ) {
@@ -1088,9 +1095,9 @@ if ( ! class_exists( 'porto_sidebar_navwalker' ) ) {
 				$sub_popup_style = '';
 				if ( $item->popup_style || $item->popup_bg_image || $item->popup_bg_pos || $item->popup_bg_repeat || $item->popup_bg_size ) {
 					$sub_popup_image  = $item->popup_bg_image ? 'background-image:url(' . str_replace( array( 'http://', 'https://' ), array( '//', '//' ), $item->popup_bg_image ) . ');' : '';
-					$sub_popup_pos    = $item->popup_bg_pos ? ';background-position:' . $item->popup_bg_pos . ';' : '';
-					$sub_popup_repeat = $item->popup_bg_repeat ? ';background-repeat:' . $item->popup_bg_repeat . ';' : '';
-					$sub_popup_size   = $item->popup_bg_size ? ';background-size:' . $item->popup_bg_size . ';' : '';
+					$sub_popup_pos    = $item->popup_bg_pos ? 'background-position:' . $item->popup_bg_pos . ';' : '';
+					$sub_popup_repeat = $item->popup_bg_repeat ? 'background-repeat:' . $item->popup_bg_repeat . ';' : '';
+					$sub_popup_size   = $item->popup_bg_size ? 'background-size:' . $item->popup_bg_size . ';' : '';
 					$sub_popup_style  = ' style="' . esc_attr( str_replace( '"', '\'', $item->popup_style ) . $sub_popup_image . $sub_popup_pos . $sub_popup_repeat . $sub_popup_size ) . '"';
 				}
 				$cols = (float) $item->cols;
@@ -1121,7 +1128,7 @@ if ( ! class_exists( 'porto_sidebar_navwalker' ) ) {
 				$current_a .= ' has-preview';
 			}
 
-			$attributes .= $current_a  ? ' class="' . $current_a . '"' : '';
+			$attributes .= $current_a ? ' class="' . $current_a . '"' : '';
 			$item_output = $args->before;
 			if ( '' == $item->hide ) {
 				if ( '' == $item->nolink ) {
@@ -1173,7 +1180,7 @@ if ( ! class_exists( 'porto_sidebar_navwalker' ) ) {
 					if ( 'wide' == $item->popup_type ) {
 						$cols_html .= str_repeat( '<li></li>', $item->popup_cols ? intval( str_replace( 'col-', '', $item->popup_cols ) ) : 4 );
 					}
-					$popup_cols = ' ' . $item->popup_cols;
+					$popup_cols   = ' ' . $item->popup_cols;
 					$item_output .= '<div class="popup"><div class="inner" style="' . esc_attr( $args->popup_style ) . '"><ul class="sub-menu skeleton-body">' . $cols_html . '</ul></div></div>';
 				}
 			}
@@ -1192,6 +1199,10 @@ if ( ! class_exists( 'porto_accordion_navwalker' ) ) {
 
 		// add classes to ul sub menus
 		function display_element( $element, &$children_elements, $max_depth, $depth, $args, &$output ) {
+			if ( apply_filters( 'porto_lazymenu_depths', false ) ) {
+				$max_depth = 1;
+			}
+
 			if ( empty( $depth ) ) {
 				$depth = 0;
 			}
@@ -1269,7 +1280,7 @@ if ( ! class_exists( 'porto_accordion_navwalker' ) ) {
 				$current_a .= ' current ';
 			}
 
-			$attributes .= $current_a ? ' class="' . $current_a . '"'  : '';
+			$attributes .= $current_a ? ' class="' . $current_a . '"' : '';
 			$item_output = $args->before;
 
 			if ( '' == $item->hide && '' == $item->mobile_hide ) {
@@ -1287,8 +1298,8 @@ if ( ! class_exists( 'porto_accordion_navwalker' ) ) {
 						$item_style .= 'color:' . $item->tip_color . ';';
 					}
 					if ( $item->tip_bg ) {
-						$item_style .= 'background:' .$item->tip_bg . ';';
-						$item_style .= 'border-color:' .$item->tip_bg . ';';
+						$item_style .= 'background:' . $item->tip_bg . ';';
+						$item_style .= 'border-color:' . $item->tip_bg . ';';
 					}
 					$item_output .= '<span class="tip" style="' . esc_attr( $item_style ) . '">' . esc_html( $item->tip_label ) . '</span>';
 				}
@@ -1309,10 +1320,9 @@ if ( ! class_exists( 'porto_accordion_navwalker' ) ) {
 // Menu Ajax Loading
 if ( ! function_exists( 'porto_action_lazyload_menu' ) ) :
 	function porto_action_lazyload_menu() {
-		if ( isset( $_POST['action'] ) && 'porto_lazyload_menu' == $_POST['action'] && isset( $_POST['menu_type'] ) /*&& wp_verify_nonce( $_POST['nonce'], 'porto-nonce' )*/) {
+		if ( isset( $_POST['action'] ) && 'porto_lazyload_menu' == $_POST['action'] && isset( $_POST['menu_type'] ) /*&& wp_verify_nonce( $_POST['nonce'], 'porto-nonce' )*/ ) {
 			// phpcs:disable WordPress.Security.NonceVerification.NoNonceVerification
 			global $porto_settings_optimize, $porto_layout;
-			$on_pageload = ( isset( $porto_settings_optimize['lazyload_menu'] ) && 'pageload' == $porto_settings_optimize['lazyload_menu'] );
 			echo '<div class="menu-lazyload">';
 			$porto_settings_optimize['lazyload_menu'] = '';
 
@@ -1322,9 +1332,16 @@ if ( ! function_exists( 'porto_action_lazyload_menu' ) ) :
 			}
 
 			if ( 'sidebar_menu' == $_POST['menu_type'] ) {
-				echo porto_sidebar_menu(); // phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
+				if ( ! empty( $_POST['menu_id'] ) ) {
+					if ( $template = porto_shortcode_template( 'porto_sidebar_menu' ) ) {
+						$atts = array( 'nav_menu' => sanitize_text_field( $_POST['menu_id'] ) );
+						include $template;
+					}
+				} else {
+					echo porto_sidebar_menu(); // phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
+				}
 			} elseif ( 'secondary_menu' == $_POST['menu_type'] ) {
-				echo porto_main_menu(); // phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
+				// echo porto_main_menu(); // phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
 				echo porto_secondary_menu(); // phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
 			} elseif ( 'main_menu' == $_POST['menu_type'] ) {
 				echo porto_main_menu(); // phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
@@ -1332,8 +1349,7 @@ if ( ! function_exists( 'porto_action_lazyload_menu' ) ) :
 				echo porto_header_side_menu();
 			} elseif ( 'toggle_menu' == $_POST['menu_type'] ) {
 				echo porto_main_toggle_menu();
-			}
-			if ( 'mobile_menu' == $_POST['menu_type'] || $on_pageload ) {
+			} elseif ( 'mobile_menu' == $_POST['menu_type'] ) {
 				global $porto_settings;
 				get_template_part( 'header/mobile_menu' );
 				if ( isset( $porto_settings['mobile-panel-type'] ) && 'side' === $porto_settings['mobile-panel-type'] ) {

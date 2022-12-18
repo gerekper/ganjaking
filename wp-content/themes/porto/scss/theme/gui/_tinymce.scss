@@ -165,11 +165,12 @@ blockquote.alignright p {
 
 .gallery-item {
     width: 100%;
+    padding: var(--porto-column-spacing);
 }
 
 @for $i from 2 through 9 {
     .gallery-columns-#{$i} .gallery-item {
-        max-width: calc(100% / #{ $i });
+        max-width: percentage( 1 / $i );
     }
 }
 

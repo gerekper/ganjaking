@@ -2,7 +2,7 @@
 global $porto_settings, $porto_layout;
 ?>
 <header id="header" class="header-separate header-1 sticky-menu-header<?php echo ! $porto_settings['logo-overlay'] || ! $porto_settings['logo-overlay']['url'] ? '' : ' logo-overlay-header'; ?>">
-	<?php if ( $porto_settings['show-header-top'] ) : ?>
+	<?php if ( ! empty( $porto_settings['show-header-top'] ) ) : ?>
 	<div class="header-top">
 		<div class="container">
 			<div class="header-left">
@@ -60,7 +60,7 @@ global $porto_settings, $porto_layout;
 	<div class="header-main">
 		<div class="container header-row">
 			<div class="header-left">
-				<a class="mobile-toggle" href="#"><i class="fas fa-bars"></i></a>
+				<a class="mobile-toggle" href="#" aria-label="Mobile Menu"><i class="fas fa-bars"></i></a>
 				<?php
 				// show logo
 				echo porto_logo();
@@ -76,12 +76,23 @@ global $porto_settings, $porto_layout;
 				<div class="header-minicart">
 					<?php
 					// show contact info and mini cart
-					$contact_info = $porto_settings['header-contact-info'];
+					$contact_info = isset( $porto_settings['header-contact-info'] ) ? $porto_settings['header-contact-info'] : '';
 
 					if ( $contact_info ) {
-						echo '<div class="header-contact">' . do_shortcode( $contact_info ) . '</div>';
+						echo '<div class="header-contact">';
+						echo do_shortcode( $contact_info );
 					}
-
+					if ( ! empty( $porto_settings['header-woo-icon'] ) ) {
+						if ( in_array( 'account', $porto_settings['header-woo-icon'] ) && class_exists( 'Woocommerce' ) ) {
+							echo porto_account_menu( '' );
+						}
+						if ( in_array( 'wishlist', $porto_settings['header-woo-icon'] ) ) {
+							echo porto_wishlist( '' );
+						}
+					}
+					if ( $contact_info ) {
+						echo '</div>';
+					}
 					echo porto_minicart();
 					?>
 				</div>
@@ -118,14 +129,28 @@ global $porto_settings, $porto_layout;
 					echo porto_filter_output( $main_menu );
 					?>
 				</div>
-				<?php if ( $porto_settings['show-sticky-searchform'] || $porto_settings['show-sticky-minicart'] || ( isset( $porto_settings['show-sticky-contact-info'] ) && $porto_settings['show-sticky-contact-info'] ) ) : ?>
+				<?php if ( $porto_settings['show-sticky-searchform'] || $porto_settings['show-sticky-minicart'] || ! empty( $porto_settings['show-sticky-contact-info'] ) ) : ?>
 					<div class="menu-right">
 						<?php
 						// show search form
 						echo porto_search_form();
 
-						if ( isset( $porto_settings['show-sticky-contact-info'] ) && $porto_settings['show-sticky-contact-info'] && $contact_info ) {
-							echo '<div class="header-contact">' . do_shortcode( $contact_info ) . '</div>';
+						if ( ! empty( $porto_settings['show-sticky-contact-info'] ) ) {
+							if ( $contact_info ) {
+								echo '<div class="header-contact">';
+								echo do_shortcode( $contact_info );
+							}
+							if ( ! empty( $porto_settings['header-woo-icon'] ) ) {
+								if ( in_array( 'account', $porto_settings['header-woo-icon'] ) && class_exists( 'Woocommerce' ) ) {
+									echo porto_account_menu( '' );
+								}
+								if ( in_array( 'wishlist', $porto_settings['header-woo-icon'] ) ) {
+									echo porto_wishlist( '' );
+								}
+							}
+							if ( $contact_info ) {
+								echo '</div>';
+							}
 						}
 
 						// show mini cart

@@ -36,6 +36,7 @@
         font-weight: 700;
         text-transform: uppercase;
         color: #555;
+        transition: background-color .2s, color .2s, border-color .2s, opacity .2s;
     }
 }
 .pagination-wrap.load-more {

@@ -104,7 +104,7 @@ table.compare-list tbody th {
 }
 
 table.dataTable.compare-list .title th,
-table.dataTable.compare-list .add-to-cart th,
+table.dataTable.compare-list .add-to-cart:not(.repeated) th,
 table.dataTable.compare-list .price:not(.repeated) th {
     color: #fff;
     font-size: 0;
@@ -112,12 +112,12 @@ table.dataTable.compare-list .price:not(.repeated) th {
     padding: 5px 10px;
 }
 table.dataTable.compare-list .title td,
-table.dataTable.compare-list .add-to-cart td,
+table.dataTable.compare-list .add-to-cart:not(.repeated) td,
 table.dataTable.compare-list .price:not(.repeated) td {
     border-top: none;
     padding: 5px 10px;
 }
-table.dataTable.compare-list .add-to-cart td {
+table.dataTable.compare-list .add-to-cart:not(.repeated) td {
     padding-bottom: 10px;
 }
 

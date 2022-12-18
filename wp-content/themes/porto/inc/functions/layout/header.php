@@ -53,3 +53,8 @@ if ( ! function_exists( 'porto_action_add_loading_overlay' ) ) :
 		}
 	}
 endif;
+
+// wp_body_open function introduced in WP 5.2.
+if ( function_exists( 'wp_body_open' ) ) :
+	add_action( 'porto_before_wrapper', 'wp_body_open', 5 );
+endif;

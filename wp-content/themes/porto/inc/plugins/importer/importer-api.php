@@ -12,15 +12,16 @@ class Porto_Importer_API {
 	protected $path_demo = '';
 
 	protected $url = array(
-		'changelog'        => PORTO_API_URL . 'download/changelog.php',
-		'theme_version'    => PORTO_API_URL . 'download/theme_version.php',
-		'theme'            => PORTO_API_URL . 'download/theme.php',
-		'plugins_version'  => PORTO_API_URL . 'download/plugins_version.php',
-		'plugins'          => PORTO_API_URL . 'download/plugins.php',
-		'demos'            => PORTO_API_URL . 'download/demos.php',
-		'blocks'           => PORTO_API_URL . 'download/blocks.php',
-		'block_categories' => PORTO_API_URL . 'download/block_categories.php',
-		'blocks_content'   => PORTO_API_URL . 'download/block_content.php',
+		'changelog'         => PORTO_API_URL . 'download/changelog.php',
+		'theme_version'     => PORTO_API_URL . 'download/theme_version.php',
+		'rollback_versions' => PORTO_API_URL . 'download/rollback_versions.php',
+		'theme'             => PORTO_API_URL . 'download/theme.php',
+		'plugins_version'   => PORTO_API_URL . 'download/plugins_version.php',
+		'plugins'           => PORTO_API_URL . 'download/plugins.php',
+		'demos'             => PORTO_API_URL . 'download/demos.php',
+		'blocks'            => PORTO_API_URL . 'download/blocks.php',
+		'block_categories'  => PORTO_API_URL . 'download/block_categories.php',
+		'blocks_content'    => PORTO_API_URL . 'download/block_content.php',
 	);
 
 	public function __construct( $demo = false ) {
@@ -219,6 +220,28 @@ class Porto_Importer_API {
 			return false;
 		}
 		return $response['version'];
+	}
+
+	/**
+	 * Get the rollback versions
+	 * 
+	 * @since 6.3.0
+	 */
+	public function get_rollback_versions() {
+		$args = $this->generate_args( false );
+		$url  = $this->get_url( 'rollback_versions' );
+		if ( isset( $args['code'] ) ) {
+			$url = add_query_arg( 'code', $args['code'], $url );
+		}
+		$response = $this->get_response( $url );
+		if ( is_wp_error( $response ) ) {
+			return false;
+		}
+		if ( empty( $response['versions'] ) ) {
+			return false;
+		}
+		
+		return $response['versions'];
 	}
 
 	public function is_localhost() {

@@ -1,0 +1,64 @@
+/* Section WP Bakery */
+.vc_row,
+.vc_column_container {
+    &.section {
+        &.section-with-divider {
+            .section-divider {
+                position: absolute;
+                #{$left}: 0;
+                width: 100%;
+                top: 50px;
+            }
+        }
+
+        &.section-with-divider-footer {
+            .section-divider {
+                position: absolute;
+                #{$left}: 0;
+                width: 100%;
+                bottom: 55px;
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .vc_row-o-full-height > .container > .row,
+    .vc_row-o-equal-height > .container > .row > .vc_column_container > .vc_column-inner {
+        height: 100%;
+    }
+}
+.vc_row-o-columns-middle > .container > .row {
+    align-items: center;
+}
+
+.vc_column_container.section {
+    margin: 0;
+    padding: 50px var(--porto-column-spacing, 15px);
+}
+
+.vc_row.section > .vc_column_container,
+.vc_row.section > .porto-container > .vc_row > .vc_column_container,
+.vc_column_container.section {
+    .wpb_wrapper {
+        > div:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.porto-section.vc_section {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0
+}
+
+.row.no-padding > .vc_column_container.section {
+    padding-left: var(--porto-res-spacing, 15px);
+    padding-right: var(--porto-res-spacing, 15px);
+    .col-half-section {
+        padding-left: 0;
+        padding-right: 0
+    }
+}

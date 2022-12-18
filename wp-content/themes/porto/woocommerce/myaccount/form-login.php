@@ -11,9 +11,8 @@
  * the readme will list any important changes.
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
- * @author  WooThemes
- * @package WooCommerce/Templates
- * @version 4.1.0
+ * @package WooCommerce\Templates
+ * @version 7.0.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -153,7 +152,7 @@ function print_porto_social_login() {
 
 						<?php else : ?>
 
-							<p><?php esc_html_e( 'A password will be sent to your email address.', 'woocommerce' ); ?></p>
+							<p><?php esc_html_e( 'A link to set a new password will be sent to your email address.', 'woocommerce' ); ?></p>
 
 						<?php endif; ?>
 

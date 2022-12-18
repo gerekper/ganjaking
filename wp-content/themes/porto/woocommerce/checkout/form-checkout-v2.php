@@ -43,7 +43,7 @@ $get_checkout_url = wc_get_checkout_url();
 			<div id="order_review" class="woocommerce-checkout-review-order">
 				<div class="row">
 					<div class="col-lg-6">
-						<h3><?php esc_html_e( 'Order Review', 'porto' ); ?></h3>
+						<h3><?php esc_html_e( 'Order review', 'porto' ); ?></h3>
 						<?php do_action( 'woocommerce_checkout_order_review' ); ?>
 					</div>
 				</div>

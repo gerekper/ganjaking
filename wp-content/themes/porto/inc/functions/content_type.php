@@ -177,10 +177,14 @@ function porto_meta_layout() {
 			$sidebar2 = isset( $porto_settings['faq-archive-sidebar2'] ) ? $porto_settings['faq-archive-sidebar2'] : '';
 		} elseif ( function_exists( 'is_porto_events_page' ) && is_porto_events_page() && ( $archive_page = is_porto_events_page() ) ) {
 			if ( $default ) {
-				$value = $porto_settings['event-archive-layout'];
+				$value = isset( $porto_settings['event-archive-layout'] ) ? $porto_settings['event-archive-layout'] : 'list';
 			} else {
 				$value = get_post_meta( $archive_page, 'layout', true );
 			}
+		} elseif ( $ptu_post_type = porto_has_ptu_archive_layout() ) {
+			$value    = $porto_settings[ $ptu_post_type . '-ptu-archive-layout' ];
+			$sidebar  = isset( $porto_settings[ $ptu_post_type . '-ptu-archive-sidebar' ] ) ? $porto_settings[ $ptu_post_type . '-ptu-archive-sidebar' ] : '';
+			$sidebar2 = isset( $porto_settings[ $ptu_post_type . '-ptu-archive-sidebar2' ] ) ? $porto_settings[ $ptu_post_type . '-ptu-archive-sidebar2' ] : '';
 		} else {
 			if ( is_post_type_archive( 'portfolio' ) ) {
 				$value    = $porto_settings['portfolio-archive-layout'];
@@ -195,7 +199,7 @@ function porto_meta_layout() {
 				$sidebar  = $porto_settings['faq-archive-sidebar'];
 				$sidebar2 = isset( $porto_settings['faq-archive-sidebar2'] ) ? $porto_settings['faq-archive-sidebar2'] : '';
 			} elseif ( is_post_type_archive( 'event' ) ) {
-				$value = $porto_settings['event-archive-layout'];
+				$value = isset( $porto_settings['event-archive-layout'] ) ? $porto_settings['event-archive-layout'] : 'list';
 			} else {
 				$term = get_queried_object();
 				if ( $term && isset( $term->taxonomy ) && isset( $term->term_id ) ) {
@@ -269,9 +273,15 @@ function porto_meta_layout() {
 						$sidebar = 'blog-sidebar';
 						break;
 					default:
-						$value    = $porto_settings['layout'];
-						$sidebar  = $porto_settings['sidebar'];
-						$sidebar2 = '';
+						if ( $ptu_post_type = porto_has_ptu_single_layout() ) {
+							$value    = $porto_settings[ $ptu_post_type . '-ptu-single-layout' ];
+							$sidebar  = isset( $porto_settings[ $ptu_post_type . '-ptu-single-sidebar' ] ) ? $porto_settings[ $ptu_post_type . '-ptu-single-sidebar' ] : '';
+							$sidebar2 = isset( $porto_settings[ $ptu_post_type . '-ptu-single-sidebar2' ] ) ? $porto_settings[ $ptu_post_type . '-ptu-single-sidebar2' ] : '';
+						} else {
+							$value    = $porto_settings['layout'];
+							$sidebar  = $porto_settings['sidebar'];
+							$sidebar2 = '';
+						}
 				}
 			} else {
 				$value    = get_post_meta( get_the_ID(), 'layout', true );
@@ -291,7 +301,6 @@ function porto_meta_layout() {
 	if ( empty( $sidebar2 ) ) {
 		$sidebar2 = empty( $porto_settings['sidebar2'] ) ? 'secondary-sidebar' : $porto_settings['sidebar2'];
 	}
-
 	if ( ! in_array( $value, porto_options_sidebars() ) ) {
 		$sidebar  = '';
 		$sidebar2 = '';
@@ -301,21 +310,20 @@ function porto_meta_layout() {
 
 	$have_sidebar_menu = porto_have_sidebar_menu();
 	if ( 'both-sidebar' == $value || 'wide-both-sidebar' == $value ) {
-		if ( ! ( ( $sidebar && is_active_sidebar( $sidebar ) ) || $have_sidebar_menu ) ) {
+		if ( ! ( ( $sidebar && is_registered_sidebar( $sidebar ) && is_active_sidebar( $sidebar ) ) || $have_sidebar_menu ) ) {
 			$value   = str_replace( 'both-sidebar', 'right-sidebar', $value );
 			$sidebar = $sidebar2;
 		}
-		if ( ! ( ( $sidebar2 && is_active_sidebar( $sidebar2 ) ) || $have_sidebar_menu ) ) {
+		if ( ! ( ( $sidebar2 && is_registered_sidebar( $sidebar2 ) && is_active_sidebar( $sidebar2 ) ) || $have_sidebar_menu ) ) {
 			$value = str_replace( 'both-sidebar', 'left-sidebar', $value );
 		}
 	}
-	if ( ( 'left-sidebar' == $value || 'right-sidebar' == $value ) && ! ( ( $sidebar && is_active_sidebar( $sidebar ) ) || $have_sidebar_menu ) ) {
+	if ( ( 'left-sidebar' == $value || 'right-sidebar' == $value ) && ! ( ( $sidebar && is_registered_sidebar( $sidebar ) && is_active_sidebar( $sidebar ) ) || $have_sidebar_menu ) ) {
 		$value = 'fullwidth';
 	}
-	if ( ( 'wide-left-sidebar' == $value || 'wide-right-sidebar' == $value ) && ! ( ( $sidebar && is_active_sidebar( $sidebar ) ) || $have_sidebar_menu ) ) {
+	if ( ( 'wide-left-sidebar' == $value || 'wide-right-sidebar' == $value ) && ! ( ( $sidebar && is_registered_sidebar( $sidebar ) && is_active_sidebar( $sidebar ) ) || $have_sidebar_menu ) ) {
 		$value = 'widewidth';
 	}
-
 	return apply_filters( 'porto_meta_layout', array( $value, $sidebar, $sidebar2 ) );
 }
 function porto_meta_default_layout() {
@@ -337,7 +345,7 @@ function porto_meta_default_layout() {
 		} elseif ( function_exists( 'is_porto_faqs_page' ) && is_porto_faqs_page() ) {
 			$value = $porto_settings['faq-archive-layout'];
 		} elseif ( function_exists( 'is_porto_events_page' ) && is_porto_events_page() ) {
-			$value = $porto_settings['event-archive-layout'];
+			$value = isset( $porto_settings['event-archive-layout'] ) ? $porto_settings['event-archive-layout'] : 'list';
 		} else {
 			if ( is_post_type_archive( 'portfolio' ) ) {
 				$value = $porto_settings['portfolio-archive-layout'];
@@ -346,7 +354,7 @@ function porto_meta_default_layout() {
 			} elseif ( is_post_type_archive( 'faq' ) ) {
 				$value = $porto_settings['faq-archive-layout'];
 			} elseif ( is_post_type_archive( 'event' ) ) {
-				$value = $porto_settings['event-archive-layout'];
+				$value = isset( $porto_settings['event-archive-layout'] ) ? $porto_settings['event-archive-layout'] : 'list';
 			} else {
 				$term = get_queried_object();
 				if ( $term && isset( $term->taxonomy ) ) {
@@ -440,8 +448,8 @@ function porto_portfolio_sub_title( $post = null ) {
 		$post = $GLOBALS['post'];
 	}
 	$output = '';
-	if ( $post ) {
-		global $porto_settings;
+	global $porto_settings;
+	if ( $post && isset( $porto_settings['portfolio-subtitle'] ) ) {
 		switch ( $porto_settings['portfolio-subtitle'] ) {
 			case 'like':
 				$output .= porto_portfolio_like();

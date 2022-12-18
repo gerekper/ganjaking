@@ -10,12 +10,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $porto_settings, $product, $woocommerce_loop;
-
-$wishlist  = class_exists( 'YITH_WCWL' ) && $porto_settings['product-wishlist'];
-$quickview = $porto_settings['product-quickview'];
-$compare   = false;
-if ( defined( 'YITH_WOOCOMPARE' ) && isset( $porto_settings['product-compare'] ) ) {
-	$compare = $porto_settings['product-compare'];
+$legacy_mode   = apply_filters( 'porto_legacy_mode', true );
+$wishlist_mode = ( $legacy_mode && ! empty( $porto_settings['product-wishlist'] ) ) || ! $legacy_mode;
+$wishlist      = class_exists( 'YITH_WCWL' ) && $wishlist_mode;
+$quickview     = isset( $porto_settings['product-quickview'] ) ? $porto_settings['product-quickview'] : true;
+$compare       = false;
+if ( defined( 'YITH_WOOCOMPARE' ) ) {
+	if ( ( $legacy_mode && ! empty( $porto_settings['product-compare'] ) ) || ! $legacy_mode ) {
+		$compare = true;
+	}
 }
 
 $porto_woo_version = porto_get_woo_version_number();

@@ -58,6 +58,6 @@ if ( 'out-of-stock' == $availability['class'] ) {
 	}
 } else {
 	if ( empty( $porto_settings['add-to-cart-notification'] ) ) {
-		echo '<div data-link="' . esc_url( get_permalink( wc_get_page_id( 'cart' ) ) ) . '" class="viewcart' . ' viewcart-' . $product->get_id() . '" title="' . esc_attr__( 'View Cart', 'porto' ) . '"></div>';
+		echo '<div data-link="' . esc_url( get_permalink( wc_get_page_id( 'cart' ) ) ) . '" class="viewcart' . ' viewcart-' . $product->get_id() . '" title="' . esc_attr__( 'View cart', 'woocommerce' ) . '"></div>';
 	}
 }

@@ -715,9 +715,13 @@ if ( ! class_exists( 'ReduxFramework' ) ) {
 			$this->transients['last_save'] = time();
 
 			if ( ! empty( $value ) ) {
-
+				foreach ( $value as $key => $opt ) {
+					if ( 0 === strpos( $key, 'desc_info' ) ) {
+						unset( $value[ $key] );
+					}
+				}
 				$this->options = $value;
-
+				
 				if ( $this->args['database'] === 'transient' ) {
 					set_transient( $this->args['opt_name'] . '-transient', $value, $this->args['transient_time'] );
 				} elseif ( $this->args['database'] === 'theme_mods' ) {

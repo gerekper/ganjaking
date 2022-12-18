@@ -9,18 +9,18 @@ $share          = porto_get_meta_value( 'portfolio_share' );
 
 $post_class   = array();
 $post_class[] = 'portfolio-' . $portfolio_layout;
-if ( ! $porto_settings['portfolio-page-nav'] && 'fullwidth' === $porto_layout ) {
+if ( empty( $porto_settings['portfolio-page-nav'] ) && 'fullwidth' === $porto_layout ) {
 	$post_class[] = ' m-t-n-xl';
 }
 
-if ( 'without-icon' == $porto_settings['post-title-style'] ) {
+if ( isset( $porto_settings['post-title-style'] ) && 'without-icon' == $porto_settings['post-title-style'] ) {
 	$post_class[] = 'post-title-simple';
 }
 ?>
 
 <article <?php post_class( $post_class ); ?>>
 
-	<?php if ( $porto_settings['portfolio-page-nav'] ) : ?>
+	<?php if ( ! empty( $porto_settings['portfolio-page-nav'] ) ) : ?>
 	<div class="portfolio-title<?php echo ( 'widewidth' === $porto_layout ? ' container m-t-lg' : '' ); ?>">
 		<div class="row m-b-xl">
 			<div class="portfolio-nav-all col-lg-1">
@@ -76,93 +76,104 @@ if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 				</rs-module>
 			</rs-module-wrap>
 			<script>
-				(function($) {
-					'use strict';
+				( function() {
+					var porto_init_rs_carousel = function() {
+						( function( $ ) {
+							'use strict';
 
-					var revapi5;
+							var revapi5;
 
-					if ( window.RS_MODULES === undefined ) window.RS_MODULES = {};
-					if ( RS_MODULES.modules === undefined ) RS_MODULES.modules = {};
-					RS_MODULES.modules[ 'revslider51' ] = {
-						init: function() {
-							revapi5 = $( '#revolutionSliderCarousel' );
-							if ( revapi5 == undefined || revapi5.revolution == undefined ) {
-								revslider_showDoubleJqueryError("revolutionSliderCarousel");
-								return;
-							}
-							revapi5.revolutionInit( {
-								sliderType: "carousel",
-								sliderLayout: "<?php echo ( porto_get_wrapper_type() == 'boxed' || 'boxed' == $porto_settings['main-wrapper'] || ( porto_is_ajax() && isset( $_POST['ajax_action'] ) && 'portfolio_ajax_modal' == $_POST['ajax_action'] ) ) ? 'auto' : 'fullwidth'; ?>",
-								dottedOverlay: "none",
-								delay: 4000,
-								navigation: {
-									keyboardNavigation: "off",
-									keyboard_direction: "horizontal",
-									mouseScrollNavigation: "off",
-									onHoverStop: "off",
-									arrows: {
-										style: "tparrows-carousel",
-										enable: true,
-										hide_onmobile: false,
-										hide_onleave: false,
-										tmp: '',
-										left: {
-											h_align: "left",
-											v_align: "center",
-											h_offset: 30,
-											v_offset: 0
-										},
-										right: {
-											h_align: "right",
-											v_align: "center",
-											h_offset: 30,
-											v_offset: 0
-										}
+							if ( window.RS_MODULES === undefined ) window.RS_MODULES = {};
+							if ( RS_MODULES.modules === undefined ) RS_MODULES.modules = {};
+							RS_MODULES.modules[ 'revslider51' ] = {
+								init: function() {
+									revapi5 = $( '#revolutionSliderCarousel' );
+									if ( revapi5 == undefined || revapi5.revolution == undefined ) {
+										revslider_showDoubleJqueryError("revolutionSliderCarousel");
+										return;
 									}
-								},
-								carousel: {
-									maxRotation: 65,
-									vary_rotation: "on",
-									minScale: 55,
-									vary_scale: "off",
-									horizontal_align: "center",
-									vertical_align: "center",
-									fadeout: "on",
-									vary_fade: "on",
-									maxVisibleItems: 5,
-									infinity: "on",
-									space: -100,
-									stretch: "off"
-								},
-								gridwidth: 600,
-								gridheight: 600,
-								lazyType: "none",
-								shadow: 0,
-								spinner: "off",
-								stopLoop: "on",
-								stopAfterLoops: 0,
-								stopAtSlide: 3,
-								shuffle: "off",
-								//autoHeight: "off",
-								disableProgressBar: "on",
-								hideThumbsOnMobile: "off",
-								hideSliderAtLimit: 0,
-								hideCaptionAtLimit: 0,
-								hideAllCaptionAtLilmit: 0,
-								debugMode: false,
-								fallbacks: {
-									simplifyAll: "off",
-									nextSlideOnWindowFocus: "off",
-									disableFocusListener: false
-								},
-							} );
-						}
+									revapi5.revolutionInit( {
+										sliderType: "carousel",
+										sliderLayout: "<?php echo ( porto_get_wrapper_type() == 'boxed' || 'boxed' == $porto_settings['main-wrapper'] || ( porto_is_ajax() && isset( $_POST['ajax_action'] ) && 'portfolio_ajax_modal' == $_POST['ajax_action'] ) ) ? 'auto' : 'fullwidth'; ?>",
+										dottedOverlay: "none",
+										delay: 4000,
+										navigation: {
+											keyboardNavigation: "off",
+											keyboard_direction: "horizontal",
+											mouseScrollNavigation: "off",
+											onHoverStop: "off",
+											arrows: {
+												style: "tparrows-carousel",
+												enable: true,
+												hide_onmobile: false,
+												hide_onleave: false,
+												tmp: '',
+												left: {
+													h_align: "left",
+													v_align: "center",
+													h_offset: 30,
+													v_offset: 0
+												},
+												right: {
+													h_align: "right",
+													v_align: "center",
+													h_offset: 30,
+													v_offset: 0
+												}
+											}
+										},
+										carousel: {
+											maxRotation: 65,
+											vary_rotation: "on",
+											minScale: 55,
+											vary_scale: "off",
+											horizontal_align: "center",
+											vertical_align: "center",
+											fadeout: "on",
+											vary_fade: "on",
+											maxVisibleItems: 5,
+											infinity: "on",
+											space: -100,
+											stretch: "off"
+										},
+										gridwidth: 600,
+										gridheight: 600,
+										lazyType: "none",
+										shadow: 0,
+										spinner: "off",
+										stopLoop: "on",
+										stopAfterLoops: 0,
+										stopAtSlide: 3,
+										shuffle: "off",
+										//autoHeight: "off",
+										disableProgressBar: "on",
+										hideThumbsOnMobile: "off",
+										hideSliderAtLimit: 0,
+										hideCaptionAtLimit: 0,
+										hideAllCaptionAtLilmit: 0,
+										debugMode: false,
+										fallbacks: {
+											simplifyAll: "off",
+											nextSlideOnWindowFocus: "off",
+											disableFocusListener: false
+										},
+									} );
+								}
+							};
+
+							if ( window.RS_MODULES.checkMinimal !== undefined ) {
+								window.RS_MODULES.checkMinimal();
+							}
+
+						} )( window.jQuery );
 					};
 
-					if ( window.RS_MODULES.checkMinimal !== undefined ) {
-						window.RS_MODULES.checkMinimal();
+					if ( window.jQuery ) {
+						porto_init_rs_carousel();
+					} else {
+						document.addEventListener( 'DOMContentLoaded', porto_init_rs_carousel );
 					}
-				}).apply(this, [jQuery]);
+				} )();
 			</script>
 				<?php
 			endif;
@@ -189,13 +200,13 @@ if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 	<div class="m-t-xl<?php echo ( 'widewidth' === $porto_layout ? ' container' : '' ); ?>">
 		<div class="portfolio-info pt-none">
 			<ul>
-				<?php if ( in_array( 'like', $porto_settings['portfolio-metas'] ) ) : ?>
+				<?php if ( isset( $porto_settings['portfolio-metas'] ) && in_array( 'like', $porto_settings['portfolio-metas'] ) ) : ?>
 					<li>
 						<?php echo porto_portfolio_like(); ?>
 					</li>
 					<?php
 				endif;
-				if ( in_array( 'date', $porto_settings['portfolio-metas'] ) ) :
+				if ( isset( $porto_settings['portfolio-metas'] ) && in_array( 'date', $porto_settings['portfolio-metas'] ) ) :
 					?>
 					<li>
 						<i class="far fa-calendar-alt"></i> <?php echo get_the_date(); ?>
@@ -203,7 +214,7 @@ if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 					<?php
 				endif;
 				$cat_list = get_the_term_list( $post->ID, 'portfolio_cat', '', ', ', '' );
-				if ( in_array( 'cats', $porto_settings['portfolio-metas'] ) && $cat_list ) :
+				if ( isset( $porto_settings['portfolio-metas'] ) && in_array( 'cats', $porto_settings['portfolio-metas'] ) && $cat_list ) :
 					?>
 					<li>
 						<i class="fas fa-tags"></i> <?php echo porto_filter_output( $cat_list ); ?>
@@ -250,7 +261,7 @@ if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 
 				</div>
 
-				<?php if ( $porto_settings['share-enable'] && 'no' !== $share && ( 'yes' === $share || ( 'yes' !== $share && $porto_settings['portfolio-share'] ) ) ) : ?>
+				<?php if ( $porto_settings['share-enable'] && 'no' !== $share && ( 'yes' === $share || ( 'yes' !== $share && ! empty( $porto_settings['portfolio-share'] ) ) ) ) : ?>
 					<hr class="tall">
 					<div class="share-links-block">
 						<h5><?php esc_html_e( 'Share', 'porto' ); ?></h5>
@@ -281,10 +292,10 @@ if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 			</div>
 		</div>
 
-		<?php if ( $porto_settings['portfolio-author'] ) : ?>
+		<?php if ( ! empty( $porto_settings['portfolio-author'] ) ) : ?>
 			<div class="post-gap"></div>
 			<div class="post-block post-author clearfix">
-				<?php if ( 'without-icon' == $porto_settings['post-title-style'] ) : ?>
+				<?php if ( isset( $porto_settings['post-title-style'] ) && 'without-icon' == $porto_settings['post-title-style'] ) : ?>
 					<h4><?php esc_html_e( 'Author', 'porto' ); ?></h4>
 				<?php else : ?>
 					<h3><i class="fas fa-user"></i><?php esc_html_e( 'Author', 'porto' ); ?></h3>
@@ -297,7 +308,7 @@ if ( 'without-icon' == $porto_settings['post-title-style'] ) {
 			</div>
 		<?php endif; ?>
 
-		<?php if ( $porto_settings['portfolio-comments'] ) : ?>
+		<?php if ( ! empty( $porto_settings['portfolio-comments'] ) ) : ?>
 			<div class="post-gap"></div>
 			<?php
 			wp_reset_postdata();

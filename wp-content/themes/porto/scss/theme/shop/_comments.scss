@@ -19,12 +19,14 @@
 
         .comment_container {
             @media #{$screen-small} {
+                background: var(--porto-title-bgc);
                 padding: 10px 10px 15px;
             }
         }
         .comment-text {
             padding: 20px;
             position: relative;
+            background: var(--porto-title-bgc);
 
             @media #{$screen-small} {
                 padding: 0;
@@ -84,8 +86,7 @@
             #{$left}: 0;
             font-size: 14px;
             text-indent: -9999em;
-            @include transition(all .2s);
-            text-decoration: none;
+            transition: .2s;
 
             &:before {
                 color: #706f6c;

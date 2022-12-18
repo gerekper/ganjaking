@@ -28,6 +28,10 @@
         margin-#{$left}: 225px;
         margin-bottom: 50px;
         min-height: 115px;
+
+        .box-content {
+            border-top-color: var(--porto-primary-color);
+        }
     }
 }
 

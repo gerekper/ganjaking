@@ -27,7 +27,7 @@ $formatted_destination    = str_replace( '<br/>', ', ', $formatted_destination )
 ?>
 <?php if ( 'v2' == porto_cart_version() && is_cart() ) : ?>
 	<?php if ( $available_methods ) : ?>
-		<h4 class="m-b-sm"><?php esc_html_e( 'Shipping', 'porto' ); ?></h4>
+		<h4 class="m-b-sm"><?php esc_html_e( 'Shipping', 'woocommerce' ); ?></h4>
 		<ul id="shipping_method" class="woocommerce-shipping-methods mb-2">
 			<?php foreach ( $available_methods as $method ) : ?>
 				<li>

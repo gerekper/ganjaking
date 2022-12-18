@@ -42,14 +42,19 @@
 if ( ! defined( 'YITH_WCWL' ) ) {
 	exit;
 } // Exit if accessed directly
+
+$has_quantity_type = has_filter( 'woocommerce_loop_add_to_cart_link', 'porto_woocommerce_display_quantity_input_on_shop_page' );
+if ( $has_quantity_type ) {
+	remove_filter( 'woocommerce_loop_add_to_cart_link', 'porto_woocommerce_display_quantity_input_on_shop_page', 10, 2 );
+}
 ?>
 
 <!-- WISHLIST TABLE -->
-<table class="shop_table cart wishlist_table wishlist_view traditional responsive" data-pagination="<?php echo esc_attr( $pagination ); ?>" data-per-page="<?php echo esc_attr( $per_page ); ?>" data-page="<?php echo esc_attr( $current_page ); ?>" data-id="<?php echo $wishlist_id; ?>" data-token="<?php echo $wishlist_token; ?>">
+<table class="shop_table cart wishlist_table wishlist_view traditional responsive<?php echo ! $enable_drag_n_drop ? '' : ' sortable', function_exists( 'yith_wcwl_is_mobile' ) && yith_wcwl_is_mobile() ? ' mobile' : ''; ?> " data-pagination="<?php echo esc_attr( $pagination ); ?>" data-per-page="<?php echo absint( $per_page ); ?>" data-page="<?php echo absint( $current_page ); ?>" data-id="<?php echo esc_attr( $wishlist_id ); ?>" data-token="<?php echo esc_attr( $wishlist_token ); ?>">
 
 	<?php $column_count = 2; ?>
 
-	<thead class="<?php echo $wishlist && $wishlist->has_items() ? '' : 'd-none'; ?>">
+	<thead class="<?php echo ! $wishlist || ! $wishlist->has_items() ? 'd-none' : ''; ?>">
 	<tr>
 		<?php
 		if ( $show_cb ) :
@@ -133,6 +138,7 @@ if ( ! defined( 'YITH_WCWL' ) ) {
 
 	<tbody class="wishlist-items-wrapper">
 	<?php
+
 	if ( $wishlist && $wishlist->has_items() ) :
 		foreach ( $wishlist_items as $item ) :
 			/**
@@ -145,7 +151,6 @@ if ( ! defined( 'YITH_WCWL' ) ) {
 			$product      = $item->get_product();
 			$availability = $product->get_availability();
 			$stock_status = isset( $availability['class'] ) ? $availability['class'] : false;
-
 			if ( $product && $product->exists() ) :
 				?>
 				<tr id="yith-wcwl-row-<?php echo esc_attr( $item->get_product_id() ); ?>" data-row-id="<?php echo esc_attr( $item->get_product_id() ); ?>">
@@ -161,7 +166,7 @@ if ( ! defined( 'YITH_WCWL' ) ) {
 					<td class="product-thumbnail">
 						<div class="position-relative">
 							<a href="<?php echo esc_url( get_permalink( apply_filters( 'woocommerce_in_cart_product', $item->get_product_id() ) ) ); ?>">
-								<?php echo $product->get_image(); ?>
+								<?php echo wp_kses_post( $product->get_image() ); ?>
 							</a>
 							<a href="<?php echo esc_url( add_query_arg( 'remove_from_wishlist', $item->get_product_id() ) ); ?>" class="remove remove_from_wishlist" title="<?php echo apply_filters( 'yith_wcwl_remove_product_wishlist_message_title', __( 'Remove this product', 'yith-woocommerce-wishlist' ) ); ?>"></a>
 						</div>
@@ -283,10 +288,9 @@ if ( ! defined( 'YITH_WCWL' ) ) {
 								<?php do_action( 'yith_wcwl_table_product_after_move_to_another_wishlist', $item, $wishlist ); ?>
 
 							<?php endif; ?>
-
 							<!-- Remove from wishlist -->
 							<?php if ( $repeat_remove_button ) : ?>
-								<a href="<?php echo esc_url( $item->get_remove_url() ); ?>" class="remove_from_wishlist button" title="<?php echo esc_html( apply_filters( 'yith_wcwl_remove_product_wishlist_message_title', __( 'Remove this product', 'yith-woocommerce-wishlist' ) ) ); ?>"><?php esc_html_e( 'Remove', 'yith-woocommerce-wishlist' ); ?></a>
+								<a href="<?php echo method_exists( 'YITH_WCWL_Wishlist_Item' , 'get_remove_url' ) ? esc_url( $item->get_remove_url() ) : '#'; ?>" class="remove_from_wishlist button" title="<?php echo esc_attr( apply_filters( 'yith_wcwl_remove_product_wishlist_message_title', __( 'Remove this product', 'yith-woocommerce-wishlist' ) ) ); ?>"><?php esc_html_e( 'Remove', 'yith-woocommerce-wishlist' ); ?></a>
 							<?php endif; ?>
 
 							<?php do_action( 'yith_wcwl_table_after_product_cart', $item, $wishlist ); ?>
@@ -295,7 +299,7 @@ if ( ! defined( 'YITH_WCWL' ) ) {
 
 					<?php if ( $enable_drag_n_drop ) : ?>
 						<td class="product-arrange ">
-							<i class="fa fa-arrows"></i>
+							<i class="fas fa-arrows-alt"></i>
 							<input type="hidden" name="items[<?php echo esc_attr( $item->get_product_id() ); ?>][position]" value="<?php echo esc_attr( $item->get_position() ); ?>" />
 						</td>
 					<?php endif; ?>
@@ -314,7 +318,7 @@ if ( ! defined( 'YITH_WCWL' ) ) {
 		<tr class="border-0 py-0">
 			<td colspan="<?php echo esc_attr( $column_count ); ?>" class="px-3 text-center">
 				<a class="woocommerce-Button button btn-v-dark btn-go-shop" href="<?php echo esc_url( apply_filters( 'woocommerce_return_to_shop_redirect', wc_get_page_permalink( 'shop' ) ) ); ?>">
-					<?php esc_html_e( 'GO SHOP', 'porto' ); ?>
+					<?php esc_html_e( 'Go shopping', 'woocommerce' ); ?>
 				</a>
 			</td>
 		</tr>
@@ -330,3 +334,7 @@ if ( ! defined( 'YITH_WCWL' ) ) {
 	</tbody>
 
 </table>
+<?php
+if ( $has_quantity_type ) {
+	add_filter( 'woocommerce_loop_add_to_cart_link', 'porto_woocommerce_display_quantity_input_on_shop_page', 10, 2 );
+}

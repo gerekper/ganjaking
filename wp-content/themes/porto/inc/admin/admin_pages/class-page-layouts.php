@@ -4,6 +4,9 @@
  *
  * @since 6.2.0
  */
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 if ( ! class_exists( 'Porto_Page_Layouts' ) ) :
 	class Porto_Page_Layouts {
 
@@ -19,6 +22,7 @@ if ( ! class_exists( 'Porto_Page_Layouts' ) ) :
 			add_action( 'wp_ajax_porto_page_layouts_remove_condition', array( $this, 'remove_condition' ) );
 			add_action( 'wp_ajax_porto_page_layouts_open_page', array( $this, 'get_page_url' ) );
 			add_action( 'wp_ajax_porto_page_layouts_save_condition', array( $this, 'save_condition' ) );
+			add_action( 'wp_ajax_porto_page_layouts_check_condition', array( $this, 'check_condition' ) );
 			if ( defined( 'PORTO_BUILDERS_PATH' ) ) {
 				require_once PORTO_BUILDERS_PATH . 'lib/class-condition.php';
 				$this->condition = new Porto_Builder_Condition( true );
@@ -62,10 +66,12 @@ if ( ! class_exists( 'Porto_Page_Layouts' ) ) :
 		public function builder_condition_template() {
 			check_ajax_referer( 'porto-page-layouts-nonce', '_nonce' );
 			if ( ! empty( $_REQUEST['builder_id'] ) ) {
-				$post_id      = (int) $_REQUEST['builder_id'];
-				$builder_type = get_post_meta( $post_id, PortoBuilders::BUILDER_TAXONOMY_SLUG, true );
+				$post_id        = (int) $_REQUEST['builder_id'];
+				$builder_type   = get_post_meta( $post_id, PortoBuilders::BUILDER_TAXONOMY_SLUG, true );
 				$is_page_layout = true;
 				if ( defined( 'PORTO_BUILDERS_PATH' ) ) {
+					$conditions           = get_post_meta( $post_id, '_porto_builder_conditions', true );
+					$duplicted_conditions = $this->condition->get_duplicated_conditions( $conditions, $post_id, $builder_type );
 					include_once PORTO_BUILDERS_PATH . 'views/condition_template.php';
 				}
 			}
@@ -76,6 +82,16 @@ if ( ! class_exists( 'Porto_Page_Layouts' ) ) :
 			check_ajax_referer( 'porto-page-layouts-nonce', '_nonce' );
 			if ( ! empty( $this->condition ) ) {
 				$this->condition->ajax_search( true );
+			}
+			die();
+		}
+
+		public function check_condition() {
+			check_ajax_referer( 'porto-page-layouts-nonce', '_nonce' );
+			if ( ! empty( $this->condition ) ) {
+				if ( ! empty( $_POST['post_id'] ) ) {
+					$this->condition->check_condition( true, (int) $_POST['post_id'] );
+				}
 			}
 			die();
 		}
@@ -174,76 +190,98 @@ if ( ! class_exists( 'Porto_Page_Layouts' ) ) :
 			}
 			$this->get_template_list();
 			$this->options = array(
-				'header'             => array(
-					'note' => array(
+				'header'        => array(
+					'note'           => array(
 						'control' => 'heading',
 						'label'   => sprintf( esc_html__( 'Select one of existing headers or %1$screate a new header%2$s.', 'porto' ), '<a href="' . esc_url( admin_url( 'edit.php?post_type=porto_builder&porto_builder_type=header' ) ) . '" target="_blank">', '</a>' ),
 					),
 					'builder-blocks' => array(
-						'control'     => 'select',
-						'label'       => esc_html__( 'Select Header', 'porto' ),
-						'choices'     => $this->template_list['header'],
+						'control' => 'select',
+						'label'   => esc_html__( 'Select Header', 'porto' ),
+						'choices' => $this->template_list['header'],
 					),
 				),
-				'footer'             => array(
-					'note' => array(
+				'footer'        => array(
+					'note'           => array(
 						'control' => 'heading',
 						'label'   => sprintf( esc_html__( 'Select one of existing footers or %1$screate a new footer%2$s.', 'porto' ), '<a href="' . esc_url( admin_url( 'edit.php?post_type=porto_builder&porto_builder_type=footer' ) ) . '" target="_blank">', '</a>' ),
 					),
 					'builder-blocks' => array(
-						'control'     => 'select',
-						'label'       => esc_html__( 'Select Footer', 'porto' ),
-						'choices'     => $this->template_list['footer'],
+						'control' => 'select',
+						'label'   => esc_html__( 'Select Footer', 'porto' ),
+						'choices' => $this->template_list['footer'],
 					),
 				),
-				'shop'             => array(
-					'note' => array(
+				'shop'          => array(
+					'note'           => array(
 						'control' => 'heading',
 						'label'   => sprintf( esc_html__( 'Select one of existing product archive templates or %1$screate a new shop%2$s.', 'porto' ), '<a href="' . esc_url( admin_url( 'edit.php?post_type=porto_builder&porto_builder_type=shop' ) ) . '" target="_blank">', '</a>' ),
 					),
 					'builder-blocks' => array(
-						'control'     => 'select',
-						'label'       => esc_html__( 'Select Product Archive Template', 'porto' ),
-						'choices'     => $this->template_list['shop'],
+						'control' => 'select',
+						'label'   => esc_html__( 'Select Product Archive Template', 'porto' ),
+						'choices' => $this->template_list['shop'],
 					),
 				),
-				'product'             => array(
-					'note' => array(
+				'archive'       => array(
+					'note'           => array(
+						'control' => 'heading',
+						'label'   => sprintf( esc_html__( 'Select one of existing post archive templates or %1$screate a new archive%2$s.', 'porto' ), '<a href="' . esc_url( admin_url( 'edit.php?post_type=porto_builder&porto_builder_type=shop' ) ) . '" target="_blank">', '</a>' ),
+					),
+					'builder-blocks' => array(
+						'control' => 'select',
+						'label'   => esc_html__( 'Select Archive Template', 'porto' ),
+						'choices' => $this->template_list['archive'],
+					),
+				),
+				'single'        => array(
+					'note'           => array(
+						'control' => 'heading',
+						'label'   => sprintf( esc_html__( 'Select one of existing post single templates or %1$screate a new single%2$s.', 'porto' ), '<a href="' . esc_url( admin_url( 'edit.php?post_type=porto_builder&porto_builder_type=shop' ) ) . '" target="_blank">', '</a>' ),
+					),
+					'builder-blocks' => array(
+						'control' => 'select',
+						'label'   => esc_html__( 'Select Single Template', 'porto' ),
+						'choices' => $this->template_list['single'],
+					),
+				),
+				'product'       => array(
+					'note'           => array(
 						'control' => 'heading',
 						'label'   => sprintf( esc_html__( 'Select one of existing single product templates or %1$screate a new single product%2$s.', 'porto' ), '<a href="' . esc_url( admin_url( 'edit.php?post_type=porto_builder&porto_builder_type=product' ) ) . '" target="_blank">', '</a>' ),
 					),
 					'builder-blocks' => array(
-						'control'     => 'select',
-						'label'       => esc_html__( 'Select Single Product Template', 'porto' ),
-						'choices'     => $this->template_list['product'],
+						'control' => 'select',
+						'label'   => esc_html__( 'Select Single Product Template', 'porto' ),
+						'choices' => $this->template_list['product'],
 					),
 				),
-				'popup'             => array(
-					'note' => array(
+				'popup'         => array(
+					'note'           => array(
 						'control' => 'heading',
 						'label'   => sprintf( esc_html__( 'Select one of existing popup templates or %1$screate a new popup%2$s.', 'porto' ), '<a href="' . esc_url( admin_url( 'edit.php?post_type=porto_builder&porto_builder_type=popup' ) ) . '" target="_blank">', '</a>' ),
 					),
 					'builder-blocks' => array(
-						'control'     => 'select',
-						'label'       => esc_html__( 'Select Popup Template', 'porto' ),
-						'choices'     => $this->template_list['popup'],
+						'control' => 'select',
+						'label'   => esc_html__( 'Select Popup Template', 'porto' ),
+						'choices' => $this->template_list['popup'],
 					),
 				),
-				'right-sidebar'     => array(
+				'right-sidebar' => array(
 					'note' => array(
 						'control' => 'heading',
 						'label'   => sprintf( esc_html__( '%1$sRegister sidebars.%3$s Change page layout and set sidebar on %2$sTheme Option%3$s Panel', 'porto' ), '<a href="' . esc_url( admin_url( 'themes.php?page=multiple_sidebars' ) ) . '" target="_blank">', '<a href="' . esc_url( admin_url( 'themes.php?page=porto_settings' ) ) . '" target="_blank">', '</a>' ),
 					),
 				),
-				'block'             => array(
-					'note' => array(
+				'block'         => array(
+					'note'           => array(
 						'control' => 'heading',
 						'label'   => sprintf( esc_html__( 'Select one of existing blocks or %1$screate a new block%2$s.', 'porto' ), '<a href="' . esc_url( admin_url( 'edit.php?post_type=porto_builder&porto_builder_type=block' ) ) . '" target="_blank">', '</a>' ),
 					),
 					'builder-blocks' => array(
-						'control'     => 'select',
-						'label'       => esc_html__( 'Select Block', 'porto' ),
-						'choices'     => $this->template_list['block'],
+						'control' => 'select',
+						'label'   => esc_html__( 'Select Block', 'porto' ),
+						'choices' => $this->template_list['block'],
 					),
 				),
 			);
@@ -251,12 +289,12 @@ if ( ! class_exists( 'Porto_Page_Layouts' ) ) :
 		}
 
 		public function get_template_list() {
-			$types               = array( 'header', 'footer', 'block', 'popup', 'product', 'shop' );
+			$types               = array( 'header', 'footer', 'block', 'popup', 'product', 'shop', 'archive', 'single' );
 			$this->template_list = array();
 
 			// builder templates
 			foreach ( $types as $type ) {
-				$posts = get_posts(
+				$posts                            = get_posts(
 					array(
 						'post_type'   => 'porto_builder',
 						'meta_key'    => 'porto_builder_type',
@@ -264,7 +302,7 @@ if ( ! class_exists( 'Porto_Page_Layouts' ) ) :
 						'numberposts' => -1,
 					)
 				);
-				$this->template_list[ $type ]['']   = sprintf( esc_html__( 'Select %1$s', 'porto' ), ucfirst( $type ) );
+				$this->template_list[ $type ][''] = sprintf( esc_html__( 'Select %1$s', 'porto' ), ucfirst( $type ) );
 
 				foreach ( $posts as $post ) {
 					$this->template_list[ $type ][ $post->ID ] = $post->post_title;
@@ -274,7 +312,7 @@ if ( ! class_exists( 'Porto_Page_Layouts' ) ) :
 			// sidebar
 			global $wp_registered_sidebars;
 
-			$this->template_list['sidebar']['']   = esc_html__( 'Select Sidebar', 'porto' );
+			$this->template_list['sidebar'][''] = esc_html__( 'Select Sidebar', 'porto' );
 
 			foreach ( $wp_registered_sidebars as $key => $value ) {
 				$this->template_list['sidebar'][ $key ] = $value['name'];
@@ -293,9 +331,9 @@ if ( ! class_exists( 'Porto_Page_Layouts' ) ) :
 					<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $selected_block, $key ); ?>><?php echo esc_html( $value ); ?></option>
 				<?php } ?>
 				</select>
-				<a href="#" class="layout-action layout-action-condition" title="<?php esc_html_e( 'Display Condition', 'porto' ); ?>"><i class="fas fa-cog"></i></a>
-				<a href="#" class="layout-action layout-action-open" title="<?php esc_html_e( 'Open', 'porto' ); ?>"><i class="fas fa-edit"></i></a>
-				<a href="#" class="layout-action layout-action-remove" title="<?php esc_html_e( 'Remove', 'porto' ); ?>"><i class="fas fa-times"></i></a>
+				<a href="#" class="layout-action layout-action-condition" title="<?php esc_attr_e( 'Display Condition', 'porto' ); ?>"><i class="fas fa-cog"></i></a>
+				<a href="#" class="layout-action layout-action-open" title="<?php esc_attr_e( 'Open', 'porto' ); ?>"><i class="fas fa-edit"></i></a>
+				<a href="#" class="layout-action layout-action-remove" title="<?php esc_attr_e( 'Remove', 'porto' ); ?>"><i class="fas fa-times"></i></a>
 			<?php } elseif ( 'text' == $args['control'] ) { ?>
 
 				<label><?php echo esc_html( $args['label'] ); ?></label>

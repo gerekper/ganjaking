@@ -41,12 +41,13 @@ $porto_color_lib = PortoColorLib::getInstance();
 
 <?php
 /* menu */
-if ( ! empty( $b['header-text-color'] ) ) : ?>
+if ( ! empty( $b['header-text-color'] ) ) :
+	?>
 	#header,
 	#header .header-main .header-contact .nav-top > li > a,
 	#header .top-links > li.menu-item:before { color: <?php echo esc_html( $b['header-text-color'] ); ?> }
 <?php endif; ?>
-<?php if ( $b['header-link-color']['regular'] ) : ?>
+<?php if ( ! empty( $b['header-link-color']['regular'] ) ) : ?>
 	.header-main .header-contact a,
 	#header .tooltip-icon,
 	#header .top-links > li.menu-item > a,
@@ -63,7 +64,7 @@ if ( ! empty( $b['header-text-color'] ) ) : ?>
 	#header .header-top,
 	.header-top .top-links > li.menu-item:after { color: <?php echo esc_html( $b['header-top-text-color'] ); ?> }
 <?php endif; ?>
-<?php if ( $b['header-top-link-color']['regular'] ) : ?>
+<?php if ( ! empty( $b['header-top-link-color']['regular'] ) ) : ?>
 	.header-top .header-contact a,
 	.header-top .custom-html a:not(.btn),
 	#header .header-top .top-links > li.menu-item > a,
@@ -159,6 +160,9 @@ if ( ! empty( $b['header-text-color'] ) ) : ?>
 <?php if ( ! empty( $b['minicart-item-color'] ) ) : ?>
 	#mini-cart .cart-items, #mini-cart .cart-items-text { color: <?php echo esc_html( $b['minicart-item-color'] ); ?> }
 <?php endif; ?>
+<?php if ( ! empty( $b['minicart-item-bg-color'] ) ) : ?>
+	#mini-cart .cart-items { background-color: <?php echo esc_html( $b['minicart-item-bg-color'] ); ?> }
+<?php endif; ?>
 
 /* social icons */
 <?php if ( ( (int) $header_type >= 10 && (int) $header_type <= 17 ) || empty( $header_type ) ) : ?>
@@ -167,5 +171,5 @@ if ( ! empty( $b['header-text-color'] ) ) : ?>
 <?php endif; ?>
 
 /* header vertical divider */
-#header .separator { border-left: 1px solid <?php echo porto_filter_output( $porto_color_lib->isColorDark( $b['header-link-color']['regular'] ) ? 'rgba(0, 0, 0, .04)' : 'rgba(255, 255, 255, .09)' ); ?> }
-#header .header-top .separator { border-left-color: <?php echo porto_filter_output( $porto_color_lib->isColorDark( $b['header-top-link-color']['regular'] ) ? 'rgba(0, 0, 0, .04)' : 'rgba(255, 255, 255, .09)' ); ?> }
+#header .separator { border-left: 1px solid <?php echo porto_filter_output( $porto_color_lib->isColorDark( isset( $b['header-link-color']['regular'] ) ? $b['header-link-color']['regular'] : '' ) ? 'rgba(0, 0, 0, .04)' : 'rgba(255, 255, 255, .09)' ); ?> }
+#header .header-top .separator { border-left-color: <?php echo porto_filter_output( $porto_color_lib->isColorDark( isset( $b['header-top-link-color']['regular'] ) ? $b['header-top-link-color']['regular'] : '' ) ? 'rgba(0, 0, 0, .04)' : 'rgba(255, 255, 255, .09)' ); ?> }

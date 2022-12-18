@@ -23,11 +23,11 @@ $porto_woo_version = porto_get_woo_version_number();
 <div class="woocommerce-billing-fields clearfix">
 	<?php if ( wc_ship_to_billing_address_only() && WC()->cart->needs_shipping() ) : ?>
 
-		<h3><?php esc_html_e( 'Billing &amp; Shipping', 'porto' ); ?></h3>
+		<h3><?php esc_html_e( 'Billing &amp; Shipping', 'woocommerce' ); ?></h3>
 
 	<?php else : ?>
 
-		<h3><?php esc_html_e( 'Billing details', 'porto' ); ?></h3>
+		<h3><?php esc_html_e( 'Billing details', 'woocommerce' ); ?></h3>
 
 	<?php endif; ?>
 
@@ -55,7 +55,7 @@ $porto_woo_version = porto_get_woo_version_number();
 
 			<p class="form-row form-row-wide create-account porto-checkbox">
 				<input class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox porto-control-input" id="createaccount" <?php checked( ( true === $checkout->get_value( 'createaccount' ) || ( true === apply_filters( 'woocommerce_create_account_default_checked', false ) ) ), true ); ?> type="checkbox" name="createaccount" value="1" />
-				<label class="woocommerce-form__label woocommerce-form__label-for-checkbox form-check porto-control-label ps-1 font-size-md" for="createaccount"><span><?php esc_html_e( 'Create an account?', 'porto' ); ?></span></label>
+				<label class="woocommerce-form__label woocommerce-form__label-for-checkbox form-check porto-control-label ps-1 font-size-md" for="createaccount"><span><?php esc_html_e( 'Create an account?', 'woocommerce' ); ?></span></label>
 			</p>
 
 		<?php endif; ?>

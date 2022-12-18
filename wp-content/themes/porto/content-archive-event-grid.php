@@ -11,7 +11,7 @@ if ( isset( $event_countdown_vc ) && $event_countdown_vc ) {
 }
 
 if ( empty( $event_count_down ) ) {
-	$show_count_down = $porto_settings['event-archive-countdown'];
+	$show_count_down = isset( $porto_settings['event-archive-countdown'] ) ? $porto_settings['event-archive-countdown'] : true;
 } elseif ( 'show' == $event_count_down ) {
 	$show_count_down = true;
 } else {
@@ -43,7 +43,7 @@ if ( isset( $event_start_time ) && $event_start_time ) {
 ?>
 
 <!--<h2 class="text-color-dark font-weight-bold">Next Event</h2>-->
-<article class="thumb-info custom-thumb-info custom-box-shadow m-b-md"> 
+<article class="thumb-info custom-thumb-info custom-box-shadow m-b-md<?php echo empty( $post_classes ) ? '' : ' ' . esc_attr( trim( $post_classes ) ); ?>"> 
 	<?php
 	$thumbnail = get_the_post_thumbnail_url();
 	$image_alt = get_post_meta( get_post_thumbnail_id(), '_wp_attachment_image_alt', true );
@@ -89,9 +89,9 @@ string_seconds2="Secs"]'
 
 		<div class="thumb-info-caption-text">
 			<span class="event-date d-none"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $event_start_date ) ); ?></span>
-			<h4 class="font-weight-bold mb-sm"> <a href="<?php the_permalink(); ?>" class="text-decoration-none custom-secondary-font text-color-dark"> <?php the_title(); ?> </a> </h4>
+			<h4 class="porto-post-title"> <a href="<?php the_permalink(); ?>"> <?php the_title(); ?> </a> </h4>
 			<?php
-			if ( $porto_settings['event-excerpt'] ) {
+			if ( ! empty( $porto_settings['event-excerpt'] ) ) {
 				echo porto_get_excerpt( $porto_settings['event-excerpt-length'], false );
 			} else {
 				porto_the_content();

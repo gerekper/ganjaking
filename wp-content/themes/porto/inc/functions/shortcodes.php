@@ -377,7 +377,7 @@ if ( ! function_exists( 'porto_image_resize' ) ) :
 					$thumb_size[] = $thumb_matches[0][0]; // width
 					$thumb_size[] = $thumb_matches[0][0]; // height
 				} else {
-					$thumb_size = false;
+					return false;
 				}
 			}
 		}

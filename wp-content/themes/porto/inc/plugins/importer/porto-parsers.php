@@ -618,7 +618,7 @@ if ( ! class_exists( 'PORTO_WXR_Parser_Regex' ) ) {
 						continue;
 					}
 					if ( $in_post ) {
-						$post .= $importline . "\n";
+						$post .= $importline/* . "\n"*/;
 					}
 				}
 

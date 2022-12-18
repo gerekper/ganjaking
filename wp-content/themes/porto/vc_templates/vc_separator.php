@@ -200,15 +200,15 @@ if ( $inline_style ) {
 }
 
 if ( $custom_css ) {
-	echo '<style>' . $custom_css . '</style>';
+	porto_filter_inline_css( '<style>' . $custom_css . '</style>' );
 }
 
 if ( $icon_class ) {
 	$divider_class = 'divider' . rand();
 	if ( 'custom' == $icon_skin && ( $icon_color || $icon_bg_color || $icon_border_color || $icon_wrap_border_color ) ) :
 		$css_class .= ' ' . $divider_class;
+		ob_start();
 		?>
-
 		<style>
 		<?php
 		if ( $icon_color || $icon_bg_color || $icon_border_color ) :
@@ -255,6 +255,7 @@ endif;
 		?>
 		</style>
 		<?php
+		porto_filter_inline_css( ob_get_clean() );
 	endif;
 
 	echo '<div class="divider ' . esc_attr( $css_class ) . '"' . $inline_style . '>';

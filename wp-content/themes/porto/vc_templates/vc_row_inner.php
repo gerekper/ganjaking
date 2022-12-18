@@ -84,12 +84,18 @@ if ( ! empty( $el_id ) ) {
 
 // lazy load background image
 global $porto_settings_optimize;
+if ( class_exists( 'Porto_Critical' ) ) {
+	$preloads = Porto_Critical::get_instance()->get_preloads();
+}
 if ( isset( $porto_settings_optimize['lazyload'] ) && $porto_settings_optimize['lazyload'] && ! vc_is_inline() ) {
 	preg_match( '/\.vc_custom_[^}]*(background-image:[^(]*([^)]*)|background:\s#[A-Fa-f0-9]{3,6}\s*url\(([^)]*))/', $css, $matches );
 	if ( ! empty( $matches[2] ) || ! empty( $matches[3] ) ) {
-		$image_url            = ! empty( $matches[2] ) ? $matches[2] : $matches[3];
-		$wrapper_attributes[] = 'data-original="' . esc_url( trim( str_replace( array( '(', ')' ), '', $image_url ) ) ) . '"';
-		$css_classes[]        = 'porto-lazyload';
+		$image_url = ! empty( $matches[2] ) ? $matches[2] : $matches[3];
+		$image_url = esc_url( trim( str_replace( array( '(', ')' ), '', $image_url ) ) );
+		if ( empty( $preloads ) || ( isset( $preloads ) && is_array( $preloads ) && ! in_array( $image_url, $preloads ) ) ) {
+			$wrapper_attributes[] = 'data-original="' . $image_url . '"';
+			$css_classes[]        = 'porto-lazyload';
+		}
 	}
 }
 

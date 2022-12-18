@@ -11,7 +11,6 @@
 
         > a {
             display: block;
-            text-decoration: none;
             text-align: $left;
             position: relative;
             margin-top: 0;
@@ -68,6 +67,7 @@
                 max-width: none;
                 .thumb-info-wrapper {
                     display: block;
+                    background: var(--porto-light-1);
                     border: 0;
                     box-shadow: 0 0 3px rgba(0, 0, 0, .15);
                     margin: 0;
@@ -105,6 +105,29 @@
         margin: 0;
         padding: 0;
         list-style: none;
+    }
+
+    .narrow {
+        li.menu-item-has-children {
+            > a {
+                &:before {
+                    /*content: if-ltr($fa-var-caret-right, $fa-var-caret-left);*/
+                    content: if-ltr($fa-var-chevron-right, $fa-var-chevron-left);
+                    float: $right;
+                    margin-#{$right}: -1px;
+                    font-size: .5rem;
+                    opacity: .7;
+                    transition: margin-#{$right} .2s;
+                }
+
+                .thumb-info-preview {
+                    display: none;
+                }
+            }
+            &:hover > a:before {
+                margin-#{$right}: -7px;
+            }
+        }
     }
 }
 
@@ -177,10 +200,6 @@
     > li.menu-item {
         float: $left;
 
-        &.narrow {
-            position: relative;
-        }
-
         &.has-sub > a {
             .thumb-info-preview {
                 display: none;
@@ -193,6 +212,7 @@
             font-weight: 700;
             line-height: 20px;
             padding: 9px 12px 8px;
+            text-transform: var(--porto-menu-text-transform);
 
             > i {
                 width: auto;
@@ -257,19 +277,21 @@
 
     .wide {
         .popup {
-            border-top: 3px solid #ccc;
+            border-top: 3px solid var(--porto-primary-color);
             box-shadow: $menu-wide-box-shadow;
             display: none;
             #{$right}: auto;
             #{$left}: 0;
+            color: var(--porto-body-color);
 
             > .inner {
                 padding: 10px;
+                background: var(--porto-normal-bg);
 
                 > ul.sub-menu {
                     max-width: 100%;
                     @include display-flex;
-                    -ms-flex-wrap: wrap; flex-wrap: wrap;
+                    flex-wrap: wrap;
 
                     > .menu-block-item {
                         margin-bottom: -20px;
@@ -287,6 +309,13 @@
             > a.has-preview {
                 display: inline-block;
             }
+
+            li.menu-item > a {
+                color: var(--porto-body-color);
+                &:hover {
+                    background: var(--porto-mainmenu-popup-text-hbg-color, var(--porto-gray-3));
+                }
+            }
         }
 
         li.sub {
@@ -296,6 +325,8 @@
                 font-size: 1em;
                 font-weight: 600;
                 padding-bottom: 5px;
+                color: var(--porto-heading-color);
+                text-transform: var(--porto-menu-text-transform);
             }
 
             ul.sub-menu {
@@ -325,7 +356,8 @@
             min-width: 200px;
             padding: 5px 0;
             box-shadow: $menu-narrow-box-shadow;
-            border-top: 0 solid #ccc;
+            border-top: 0 solid var(--porto-primary-color);
+            background: var(--porto-primary-color);
             z-index: 10;
 
             ul.sub-menu {
@@ -344,9 +376,9 @@
             > a {
                 color: #fff;
                 font-weight: 400;
-                padding: 8px 18px;
+                padding: 8px var(--porto-submenu-item-lrp, 18px);
                 font-size: .9em;
-                border-bottom: 1px solid rgba(255, 255, 255, .2);
+                border-bottom: var(--porto-submenu-item-bbw, 1px) solid rgba(255, 255, 255, .2);
                 white-space: nowrap;
             }
             &:last-child {
@@ -354,32 +386,17 @@
                     border-bottom-width: 0;
                 }
             }
-            &:hover > ul.sub-menu {
-                opacity: 1;
-                display: block;
+            &:hover {
+                > a {
+                    background-color: var(--porto-primary-light-5);
+                }
+                > ul.sub-menu {
+                    opacity: 1;
+                    display: block;
+                }
             }
         }
 
-        li.menu-item-has-children {
-            > a {
-                &:before {
-                    /*content: if-ltr($fa-var-caret-right, $fa-var-caret-left);*/
-                    content: if-ltr($fa-var-chevron-right, $fa-var-chevron-left);
-                    float: $right;
-                    margin-#{$right}: -1px;
-                    font-size: .5rem;
-                    opacity: .7;
-                    transition: margin-#{$right} .2s;
-                }
-
-                .thumb-info-preview {
-                    display: none;
-                }
-            }
-            &:hover > a:before {
-                margin-#{$right}: -7px;
-            }
-        }
         &.pos-left {
             .popup {
                 #{$left}: 0px;
@@ -619,6 +636,7 @@
             top: 0;
             left: 0;
             opacity: 0;
+            background: var(--porto-primary-color)
         }
     }
     &:not(:hover) > li.menu-item.active,
@@ -645,4 +663,11 @@
             #{$right}: 0;
         }
     }
+}
+
+.header-side .sidebar-menu > li.menu-item > a,
+.main-sidebar-menu .sidebar-menu > li.menu-item > a,
+.main-sidebar-menu .sidebar-menu .menu-custom-item a,
+.porto-view-switcher .narrow li.menu-item > a {
+    text-transform: var(--porto-menu-text-transform);
 }

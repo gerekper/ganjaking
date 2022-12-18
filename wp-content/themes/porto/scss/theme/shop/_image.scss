@@ -26,6 +26,7 @@
 
 	.viewcart {
 		font-size: 1.25rem;
+        color: var(--porto-primary-color);
 		border-radius: 50%;
 		position: absolute;
 		top: 0; bottom: 0;
@@ -46,6 +47,7 @@
 		}
 
 		&:hover {
+            background-color: var(--porto-primary-color);
 			color: #fff;
 		}
 	}
@@ -69,14 +71,6 @@
             margin-bottom: 5px;
         }
 
-        .onhot {
-            background: $hot-bg;
-        }
-
-        .onsale {
-            background: $sale-bg;
-        }
-
         .onnew {
             @include background(linear-gradient(135deg, var(--porto-new-bgc, #08c) 0, var(--porto-new-bgc, #0169fe) 80%));
         }
@@ -92,7 +86,8 @@
     .stock {
         position: absolute;
         z-index: 1;
-        color: #000;
+        background: var(--porto-label-bg1);
+        color: var(--porto-heading-color);
         top: 0; bottom: 0; left: 0; right: 0;
         width: 10em;
         height: 3em; line-height: 3em;
@@ -102,6 +97,10 @@
         text-align: center;
         //opacity: 0;
         @include transition($transition);
+    }
+
+    &, & .viewcart, & .stock {
+        background: var(--porto-normal-bg);
     }
 
     &:hover {
@@ -127,4 +126,15 @@
             margin: 0 !important;
         }
     }
+}
+
+.product-image .labels .onhot,
+.summary-before .labels .onhot {
+    background: var(--porto-hot-color, $hot-bg);
+    color: var(--porto-hot-color-inverse, #fff)
+}
+.product-image .labels .onsale,
+.summary-before .labels .onsale {
+    background: var(--porto-sale-color, $sale-bg);
+    color: var(--porto-sale-color-inverse, #fff)
 }

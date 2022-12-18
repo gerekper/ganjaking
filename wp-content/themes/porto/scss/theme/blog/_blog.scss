@@ -5,6 +5,7 @@
     @include clearfix();
 
     article {
+        border-bottom: 1px solid var(--porto-normal-bc);
         margin-bottom: 50px;
         padding-bottom: 1rem;
 
@@ -42,7 +43,7 @@
     .pagination,
     .page-links {
         float: none;
-        -ms-flex-pack: center; justify-content: center;
+        justify-content: center;
 
         > a,
         > span {
@@ -57,7 +58,7 @@
 
     > a,
     > span {
-        border: 1px solid;
+        border: 1px solid var(--porto-gray-5);
         margin-#{$left}: -1px;
         float: $left;
         display: inline-block;
@@ -76,13 +77,15 @@
 
     span.current {
         color: $color-arrow-hover;
+        background: var(--porto-primary-color);
+        border-color: var(--porto-primary-color);
     }
     a:hover,
     a:focus {
         position: relative;
         z-index: 2;
-        background-color: #e9ecef;
-        border-color: #dee2e6;
+        background-color: var(--porto-gray-5);
+        border-color: var(--porto-gray-5);
     }
 }
 
@@ -112,6 +115,10 @@
 .pagination .next:before,
 .page-links .nextpagelink:before {
     content: if-ltr($fa-var-angle-right, $fa-var-angle-left);
+}
+
+.load-infinite .pagination {
+    display: none
 }
 
 /* Post pages */
@@ -250,12 +257,16 @@
             padding: 0 .6em;
             border-radius: 2px;
             margin: side-values(0 .6em .6em 0);
+            background: var(--porto-primary-color);
         }
     }
 }
 
 .blog-posts-hover_info,
 .blog-posts-hover_info2 {
+    article.post {
+        margin-bottom: var(--porto-grid-gutter-width);
+    }
     .post-date {
         position: absolute;
         top: 10px;
@@ -297,6 +308,8 @@
 /* post style for timeline, masonry and grid type */
 .blog-posts-padding {
     .grid-box {
+        background: var(--porto-normal-bg);
+        border: 1px solid var(--porto-gray-2);
         box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.04);
         padding: 18px;
         position: relative;
@@ -333,4 +346,14 @@
 	i {
 		display: none;
 	}
+}
+
+/* archive posts */
+.porto-post-title {
+    a {
+        color: inherit;
+        &:hover {
+            color: var(--porto-primary-color)
+        }
+    }
 }

@@ -300,8 +300,38 @@
 	"breadcrumbs-text-color":"#ffffff",
 	"breadcrumbs-link-color":"#ffffff",
 	"breadcrumbs-title-color":"#ffffff",
+	"breadcrumbs-title-font":{
+		"google":true,
+		"font-weight":"",
+		"font-family":"",
+		"font-size":"",
+		"line-height":"",
+		"letter-spacing":""
+	},
+	"breadcrumbs-subtitle-font":{
+		"google":true,
+		"font-weight":"",
+		"font-family":"",
+		"font-size":"",
+		"line-height":"",
+		"letter-spacing":""
+	},
+	"breadcrumbs-path-font":{
+		"google":true,
+		"font-weight":"",
+		"font-family":"",
+		"font-size":"",
+		"line-height":"",
+		"letter-spacing":""
+	},
 	"breadcrumbs-subtitle-color":"#ffffff",
 	"breadcrumbs-subtitle-margin":{
+		"margin-top":0,
+		"margin-bottom":0,
+		"margin-left":0,
+		"margin-right":0
+	},
+	"breadcrumbs-path-margin":{
 		"margin-top":0,
 		"margin-bottom":0,
 		"margin-left":0,
@@ -318,6 +348,9 @@
 	},
 	"footer-ribbon-bg-color":"#0088cc",
 	"footer-ribbon-text-color":"#ffffff",
+	"footer-bottom-bg":{
+		"background-color":"#1c2023"
+	},
 	"footer-bottom-link-color":{
 		"regular":"#ffffff",
 		"hover":"#ffffff"
@@ -330,7 +363,6 @@
 	"mobile-menu-toggle-bg-color":"",
 
 	"panel-border-color":"#e8e8e8",
-	"panel-link-hbgcolor":"#f5f5f5",
 	"panel-link-color":{
 		"regular":"",
 		"hover":""
@@ -343,16 +375,14 @@
 		"hover":"#777777"
 	},
 	"show-account-dropdown": false,
-	"account-dropdown-font":{
+	"account-menu-font":{
 		"google":true,
 		"font-weight":"400",
-		"font-family":"Open Sans",
 		"font-size":"11px",
 		"line-height":"16.5px"
 	},
-	"account-dropdown-bg-color":"transparent",
-	"account-dropdown-hbg-color":"#ffffff",
-	"account-dropdown-link-color":{
+	"account-dropdown-bgc":"#ffffff",
+	"account-dropdown-lc":{
 		"regular":"#777777",
 		"hover":"#777777"
 	},
@@ -534,7 +564,6 @@
 	"faq-archive-layout":"fullwidth",
 	"faq-infinite":true,
 	"error-block":"error-404",
-	"woo-show-rating":true,
 	"product-archive-layout":"left-sidebar",
 	"category-item":"10,25,50",
 	"category-view-mode":"",

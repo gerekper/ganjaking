@@ -43,8 +43,31 @@ $floating_transition = 'yes';
 $floating_horizontal = '';
 $floating_duration   = '';
 
-$atts   = vc_map_get_attributes( $this->getShortcode(), $atts );
+
+// dynamic image
+$enable_image_dynamic   = false;
+$image_dynamic_source   = '';
+$image_dynamic_content  = '';
+$image_dynamic_fallback = '';
+
+$atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
+//dynamic text
+$dynamic_image = false;
+if ( $enable_image_dynamic ) {
+	if ( ! empty( $image_dynamic_content ) ) {
+		$image = Porto_Func_Dynamic_Tags_Content::get_instance()->dynamic_get_data( $image_dynamic_source, $image_dynamic_content, 'image' );
+		if ( is_string( $image ) ) {
+			$image = array(
+				'id' => attachment_url_to_postid( $image ),
+			);
+		}
+	}
+	if ( empty( $image['id'] ) && ! empty( $image_dynamic_fallback ) ) {
+		$image = array( 'id' => $image_dynamic_fallback );
+	}
+	$dynamic_image = true;
+}
 
 $default_src = vc_asset_url( 'vc/no_image.png' );
 
@@ -74,7 +97,16 @@ switch ( $source ) {
 				$img_id = 0;
 			}
 		} else {
-			$img_id = preg_replace( '/[^\d]/', '', $image );
+			if ( $dynamic_image && ! empty( $image ) ) {
+				$img_id = $image['id'];
+				
+				// If id is image link
+				if ( false !== strpos( $img_id, 'http' )  ) {
+					$img_id = attachment_url_to_postid( $img_id );
+				}
+			} else {
+				$img_id = preg_replace( '/[^\d]/', '', $image );
+			}
 		}
 
 		// set rectangular
@@ -82,7 +114,7 @@ switch ( $source ) {
 			$style    = preg_replace( '/_circle_2$/', '_circle', $style );
 			$img_size = $this->getImageSquareSize( $img_id, $img_size );
 		}
-
+		
 		if ( ! $img_size ) {
 			$img_size = 'medium';
 		}
@@ -94,6 +126,13 @@ switch ( $source ) {
 				'class'      => 'vc_single_image-img',
 			)
 		);
+		
+		if ( isset( $img['thumbnail'] ) && false !== strpos( $img['thumbnail'], 'width="0" height="0"' ) ) {
+			$img_size_arr = explode( 'x', $img_size );
+			if ( 2 === count( $img_size_arr ) && is_numeric( $img_size_arr[0] ) && is_numeric( $img_size_arr[1] ) ) {
+				$img['thumbnail'] = str_replace( 'width="0" height="0"', 'width="' . absint( $img_size_arr[0] ) . '" height="' . absint( $img_size_arr[1] ) . '"', $img['thumbnail'] );
+			}
+		}
 
 		// don't show placeholder in public version if post doesn't have featured image
 		if ( 'featured_image' === $source ) {
@@ -162,8 +201,8 @@ switch ( $onclick ) {
 		wp_enqueue_script( 'prettyphoto' );
 		wp_enqueue_style( 'prettyphoto' );
 
-		$a_attrs['class'] = 'prettyphoto';
-		$a_attrs['data-rel']   = 'prettyPhoto[rel-' . get_the_ID() . '-' . wp_rand() . ']';
+		$a_attrs['class']    = 'prettyphoto';
+		$a_attrs['data-rel'] = 'prettyPhoto[rel-' . get_the_ID() . '-' . wp_rand() . ']';
 
 		// backward compatibility
 		if ( ! porto_has_class( 'prettyphoto', $el_class ) && 'external_link' === $source ) {
@@ -249,7 +288,10 @@ if ( $animation_type ) {
 		$wrapper_attributes .= ' data-appear-animation-duration="' . esc_attr( $animation_duration ) . '"';
 	}
 } elseif ( $floating_start_pos && $floating_speed ) {
-	$floating_options = array( 'startPos' => $floating_start_pos, 'speed' => $floating_speed );
+	$floating_options = array(
+		'startPos' => $floating_start_pos,
+		'speed'    => $floating_speed,
+	);
 	if ( $floating_transition ) {
 		$floating_options['transition'] = true;
 	} else {

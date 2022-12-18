@@ -8,7 +8,30 @@ html {
     direction: $dir;
     overflow-x: hidden;
     box-shadow: none !important;
-    font-size: 16px;
+    font-size: calc( 16px * var(--porto-mobile-fs-scale, 1) );
+}
+
+body {
+    font: var(--porto-body-fst, normal) var(--porto-body-fw, 400) var(--porto-body-fs, 14px)/var(--porto-body-lh, 24px) var(--porto-body-ff), sans-serif;
+    letter-spacing: var(--porto-body-ls, 0);
+    color: var(--porto-body-color);
+}
+
+a {
+    &:hover {
+        color: var(--porto-primary-light-5);
+    }
+    &:focus,
+    &:active {
+        color: var(--porto-primary-dark-5);
+    }
+}
+
+.color-body,
+.color-body a,
+.color-body a:hover,
+.color-body a:focus {
+    color: var(--porto-body-color);
 }
 
 .clear {
@@ -34,15 +57,7 @@ html {
 }
 
 .row-align-items-center .row {
-    -ms-flex-align: center;
     align-items: center;
-}
-
-/* Responsive */
-@media (max-width: 575px) {
-    body {
-        font-size: 13px;
-    }
 }
 
 a.nolink {
@@ -75,7 +90,7 @@ input {
     @for $i from 1 through 12 {
         $infix: floor(100 / 12 * $i);
         .w-lg-#{$infix} {
-            width: #{100 / 12 * $i}% !important
+            width: #{100% / 12 * $i}!important
         }
     }
 }

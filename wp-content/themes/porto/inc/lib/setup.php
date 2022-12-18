@@ -49,7 +49,7 @@ if ( class_exists( 'Woocommerce' ) && isset( $porto_settings['woo-pre-order'] ) 
 
 // Sales Poopup
 if ( class_exists( 'Woocommerce' ) && isset( $porto_settings['woo-sales-popup'] ) && $porto_settings['woo-sales-popup'] &&
-	( ! wp_is_mobile() || ( isset( $porto_settings['woo-sales-poopup-mobile'] ) && $porto_settings['woo-sales-popup-mobile'] ) ) ) {
+	( ! wp_is_mobile() || ( isset( $porto_settings['woo-sales-popup-mobile'] ) && $porto_settings['woo-sales-popup-mobile'] ) ) ) {
 	require PORTO_LIB . '/lib/woocommerce-sales-popup/init.php';
 }
 

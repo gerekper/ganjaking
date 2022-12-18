@@ -60,7 +60,7 @@ global $porto_settings, $porto_layout;
 	<div class="header-main">
 		<div class="container header-row">
 			<div class="header-left">
-				<a class="mobile-toggle" href="#"><i class="fas fa-bars"></i></a>
+				<a class="mobile-toggle" href="#" aria-label="Mobile Menu"><i class="fas fa-bars"></i></a>
 				<?php
 				// show logo
 				echo porto_logo();
@@ -81,7 +81,19 @@ global $porto_settings, $porto_layout;
 					$contact_info = $porto_settings['header-contact-info'];
 
 					if ( $contact_info ) {
-						echo '<div class="header-contact">' . do_shortcode( $contact_info ) . '</div>';
+						echo '<div class="header-contact">';
+						echo do_shortcode( $contact_info );
+					}
+					if ( ! empty( $porto_settings['header-woo-icon'] ) ) {
+						if ( in_array( 'account', $porto_settings['header-woo-icon'] ) && class_exists( 'Woocommerce' ) ) {
+							echo porto_account_menu( '' );
+						}
+						if ( in_array( 'wishlist', $porto_settings['header-woo-icon'] ) ) {
+							echo porto_wishlist( '' );
+						}
+					}
+					if ( $contact_info ) {
+						echo '</div>';
 					}
 
 					// show mini cart

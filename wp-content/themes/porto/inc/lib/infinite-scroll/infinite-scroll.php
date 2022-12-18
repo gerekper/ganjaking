@@ -99,11 +99,13 @@ if ( ! class_exists( 'Porto_Infinite_Scroll' ) ) :
 						}
 					}
 				}
+
+				$global_setting_name = ( 'post' == $post_type ? 'blog-infinite' : $post_type . '-infinite' );
 				if ( ( 'post' == $post_type || 'portfolio' == $post_type || 'member' == $post_type ) && ( $term = get_queried_object() ) && isset( $term->term_id ) ) {
 					$term_options = get_metadata( $term->taxonomy, $term->term_id, $post_type . '_options', true ) == $post_type . '_options' ? true : false;
-					$is_infinite  = $term_options ? ( get_metadata( $term->taxonomy, $term->term_id, $post_type . '_infinite', true ) != $post_type . '_infinite' ? true : false ) : $porto_settings[ 'post' == $post_type ? 'blog-infinite' : $post_type . '-infinite' ];
+					$is_infinite  = $term_options ? ( get_metadata( $term->taxonomy, $term->term_id, $post_type . '_infinite', true ) != $post_type . '_infinite' ? true : false ) : ( ! empty( $porto_settings[ $global_setting_name ] ) && 'ajax' != $porto_settings[ $global_setting_name ] ? $porto_settings[ $global_setting_name ] : false );
 				} elseif ( $post_type ) {
-					$is_infinite = isset( $porto_settings[ 'post' == $post_type ? 'blog-infinite' : $post_type . '-infinite' ] ) ? $porto_settings[ 'post' == $post_type ? 'blog-infinite' : $post_type . '-infinite' ] : $is_infinite;
+					$is_infinite = isset( $porto_settings[ $global_setting_name ] ) ? ( $porto_settings[ $global_setting_name ] && 'ajax' != $porto_settings[ $global_setting_name ] ? $porto_settings[ $global_setting_name ] : false ) : $is_infinite;
 				}
 				$this->post_type = $post_type;
 			}
@@ -131,6 +133,7 @@ if ( ! class_exists( 'Porto_Infinite_Scroll' ) ) :
 
 		public function add_scripts() {
 			$this->is_infinite = $this->check_if_infinite();
+
 			if ( $this->is_infinite ) {
 				$post_type = $this->post_type;
 				if ( class_exists( 'Woocommerce' ) ) {
@@ -138,8 +141,9 @@ if ( ! class_exists( 'Porto_Infinite_Scroll' ) ) :
 				} else {
 					$required = array( 'imagesloaded', 'porto-theme' );
 				}
-				wp_enqueue_script( 'jquery-infinite-scroll', PORTO_URI . '/js/libs/jquery.infinite-scroll.min.js', $required, '2.1.0', true );
-				wp_enqueue_script( 'porto-infinite-scroll', PORTO_LIB_URI . '/infinite-scroll/infinite-scroll.min.js', array( 'jquery-infinite-scroll' ), PORTO_VERSION, true );
+
+				wp_enqueue_script( 'porto-jquery-infinite-scroll', PORTO_URI . '/js/libs/jquery.infinite-scroll.min.js', $required, '2.1.0', true );
+				wp_enqueue_script( 'porto-infinite-scroll', PORTO_LIB_URI . '/infinite-scroll/infinite-scroll.min.js', array( 'porto-jquery-infinite-scroll' ), PORTO_VERSION, true );
 
 				if ( 'post' == $post_type || 'portfolio' == $post_type ) {
 					$item_selector = '.' . $post_type . 's-container .' . $post_type . ', .' . $post_type . 's-container .timeline-date';
@@ -150,10 +154,12 @@ if ( ! class_exists( 'Porto_Infinite_Scroll' ) ) :
 				}
 
 				global $wp_query;
+
+				$builder_id   = porto_check_builder_condition( 'product' == $post_type ? 'shop' : 'archive' );
 				$page_num     = get_query_var( 'paged' ) ? intval( get_query_var( 'paged' ) ) : 1;
 				$page_link    = get_pagenum_link( 999999999 );
 				$page_max_num = $wp_query->max_num_pages;
-				$page_path    = str_replace( '999999999', '%cur_page%', add_query_arg( 'load_posts_only', '1', $page_link ) );
+				$page_path    = str_replace( '999999999', '%cur_page%', add_query_arg( 'load_posts_only', $builder_id ? '2' : '1', $page_link ) );
 				$page_path    = str_replace( '&#038;', '&amp;', $page_path );
 				$page_path    = str_replace( '#038;', '&amp;', $page_path );
 
@@ -169,6 +175,9 @@ if ( ! class_exists( 'Porto_Infinite_Scroll' ) ) :
 				);
 
 				wp_localize_script( 'porto-infinite-scroll', 'porto_infinite_scroll', apply_filters( 'porto_infinite_scroll_params', $params ) );
+			} else {
+				wp_register_script( 'porto-jquery-infinite-scroll', PORTO_URI . '/js/libs/jquery.infinite-scroll.min.js', array(), '2.1.0', true );
+				wp_register_script( 'porto-infinite-scroll', PORTO_LIB_URI . '/infinite-scroll/infinite-scroll.min.js', array('porto-theme'), PORTO_VERSION, true );
 			}
 		}
 	}

@@ -18,12 +18,6 @@
 }
 
 #header {
-    a,
-    a:hover {
-        text-decoration: none;
-        outline: none;
-    }
-
     .header-top,
     .header-main {
         .container {
@@ -65,6 +59,10 @@
             .fixed-header & {
                 min-height: 0;
             }
+        }
+        
+        &.header-main-auto .container {
+            min-height: auto !important;
         }
 
         .header-left {
@@ -182,6 +180,7 @@
             margin-right: 0;
             top: 0;
             z-index: 1001;
+            box-shadow: 0 0 3px 0 var(--porto-normal-bc);
 
             .container {
                 &.absolute {
@@ -219,6 +218,7 @@
 
             &,
             .fixed-header & {
+                box-shadow: 0 0 3px 0 var(--porto-normal-bc);
                 &.menu-flat,
                 &.menu-flat-border {
                     padding: 0;
@@ -305,12 +305,20 @@
     margin-left: auto;
     margin-right: auto;
 
-    #header {
-        &.sticky-header {
-            .header-main.sticky,
-            .main-menu-wrap {
-                margin-left: auto;
-                margin-right: auto;
+    .sticky-header {
+        .header-main.sticky {
+            @media (min-width: 768px) {
+                max-width: calc( 720px + var(--porto-grid-gutter-width) );
+            }
+        }
+
+        .header-main.sticky,
+        .main-menu-wrap {
+            margin-left: auto;
+            margin-right: auto;
+
+            @media (min-width: 992px) {
+                max-width: calc( 960px + var(--porto-grid-gutter-width) );
             }
         }
     }
@@ -323,6 +331,7 @@
         padding: 0;
         min-width: 80px;
         line-height: 0;
+        max-width: var(--porto-logo-mw);
 
         a {
             display: inline-block;
@@ -340,6 +349,7 @@
     }
     &.sticky-header {
         .logo {
+            max-width: var(--porto-sticky-logo-mw);
             .sticky-logo {
                 display: inline-block;
             }
@@ -369,6 +379,9 @@
 }
 
 // Currency, View Switcher, Top Navigation, Welcome Message
+.no-flag li.menu-item>a>[class*='flag-'] {
+    display: none;
+}
 .switcher-wrap {
     ul + ul {
         margin-#{$left}: 11px;
@@ -413,7 +426,7 @@
             margin-#{$right}: 0;
             > a {
                 font-size: 1em;
-                font-weight: normal;
+                font-weight: var(--porto-header-top-link-fw, 400);
                 padding: 0 5px;
                 line-height: 26px;
             }
@@ -552,6 +565,16 @@
 }
 
 /* Search Form */
+@media #{$screen-normal} {
+    #header .search-lg-auto {
+        .searchform-popup,
+        &.searchform-popup {
+            .searchform {
+                width: auto;
+            }
+        }
+    }
+}
 #header {
     .searchform {
         border: 1px solid #ccc;
@@ -741,7 +764,6 @@
             padding: 10px .5em;
             line-height: 1.5em;
             min-height: 0;
-            @include clearfix();
             text-align: $left;
 
             .yith_wcas_result_image {
@@ -963,7 +985,7 @@
 .main-menu-wrap .container,
 .autocomplete-suggestion {
     @include display-flex;
-    -webkit-align-items: center; -ms-flex-align: center; align-items: center;
+    align-items: center;
 }
 
 /* Social Links */
@@ -974,7 +996,6 @@
         font-weight: 400;
 
         > a {
-            transition: .3s;
             box-shadow: 0 1px 1px 0 rgba(0, 0, 0, .2);
         }
     }
@@ -999,7 +1020,7 @@
         position: relative;
         cursor: pointer;
         min-width: 40px;
-        -webkit-justify-content: center; -ms-flex-pack: center; justify-content: center;
+        justify-content: center;
         &:before {
             content: '';
             position: absolute;
@@ -1019,9 +1040,9 @@
         &:after {
             content: '';
             border-width: 1px 1px 0 0;
-            border-color: #f4f4f4;
+            border-color: var(--porto-title-bgc);
             border-style: solid;
-            background: #fff;
+            background: var(--porto-normal-bg);
             width: 14px;
             height: 14px;
             position: absolute;
@@ -1068,12 +1089,13 @@
         font-size: .8125rem;
         line-height: 1.5;
         border-radius: 0;
+        background: var(--porto-normal-bg);
     }
 
     .widget_shopping_cart {
         li.empty {
             text-align: center;
-            -webkit-justify-content: center; -ms-flex-pack: center; justify-content: center;
+            justify-content: center;
             padding: 8px 0 0;
             font-weight: 400;
         }
@@ -1101,25 +1123,29 @@
     }
     li:not(.empty) {
         padding: 15px 10px;
-        border-bottom: 1px solid #e7e7e7;
+        border-bottom: 1px solid var(--porto-gray-2);
     }
 }
 #mini-cart, .wishlist-popup {
     .product-details {
-        padding-top: 0;
         position: static;
-        max-width: calc( 100% - 80px );
+        padding-top: 0;
         a {
             overflow: visible;
             white-space: normal;
         }
     }
     .product-image {
-        -ms-flex-order: 2;
-        order: 2;
         margin-#{$right}: 0 !important;
-        @include flex(0 0 80px);
+        order: 2;
+    }
+}
+#mini-cart, .wishlist-popup .wishlist-item {
+    .product-image {
         width: 80px;
+    }
+    .product-details {
+        width: calc( 100% - 80px );
     }
 }
 
@@ -1137,9 +1163,9 @@
 
     .total-count {
         padding: 12px 10px;
-        border-bottom: solid 1px #e7e7e7;
+        border-bottom: solid 1px var(--porto-gray-2);
         a {
-            color: #474747;
+            color: var(--porto-heading-color);
             &:hover {
                 text-decoration: underline;
             }
@@ -1153,16 +1179,19 @@
 
     .buttons {
         a {
-            font-size: .75rem;
+            font: 600 .75rem/1.5 var(--porto-add-to-cart-ff), var(--porto-body-ff), sans-serif;
             letter-spacing: .025em;
             text-transform: uppercase;
             padding: .875rem 1.5rem;
             border-radius: 2px;
             float: none;
             width: 100%;
-            font-weight: 600;
             margin-bottom: 10px;
         }
+    }
+
+    .cart-items-text {
+        font-size: var(--porto-body-fs, 14px);
     }
 
     /* mini cart types */
@@ -1275,6 +1304,7 @@
 }
 
 #mini-cart .cart_list,
+.wishlist-offcanvas .wishlist-popup,
 .minicart-offcanvas .widget_shopping_cart_content {
     overflow-x: hidden;
     overflow-y: auto;
@@ -1289,6 +1319,7 @@
         font-size: 1.25rem;
     }
     .widget_shopping_cart_content {
+        font-family: var(--porto-h3-ff, var(--porto-body-ff)), sans-serif;
         height: 100%;
     }
     .cart-popup {
@@ -1339,16 +1370,17 @@
 .my-wishlist .wishlist-count,
 header .compare-count,
 .gutenberg-hb .compare-count {
+    --porto-badge-size: 16px;
     position: absolute;
-    #{$right}: -8px;
+    #{$right}: calc( -1 * var(--porto-badge-size) / 2 );
     top: -5px;
     font-size: 10px;
     font-weight: 600;
     text-align: center;
-    width: 16px;
-    height: 16px;
-    line-height: 16px;
-    border-radius: 8px;
+    width: var(--porto-badge-size);
+    height: var(--porto-badge-size);
+    line-height: var(--porto-badge-size);
+    border-radius: 50%;
     overflow: hidden;
     color: #fff;
     background-color: #ff5b5b;
@@ -1451,11 +1483,11 @@ html:not(.touch):not(.no-touch) #mini-cart:hover {
 
         .menu-left {
             padding-#{$right}: 25px;
+            animation: menuFadeInDown .3s;
         }
         .menu-left,
         .menu-right {
             display: block;
-            animation: menuFadeInDown .3s;
             min-width: 75px;
             white-space: nowrap;
         }
@@ -1536,6 +1568,10 @@ html:not(.touch):not(.no-touch) #mini-cart:hover {
         line-height: 22px;
         font-weight: $font-weight-semibold;
         font-size: .8571em;
+
+        a {
+            text-transform: var(--porto-menu-text-transform);
+        }
 
         a,
         span {
@@ -1780,12 +1816,12 @@ html:not(.touch):not(.no-touch) #mini-cart:hover {
 }
 
 .header-row {
-    -webkit-flex-flow: row nowrap; -ms-flex-flow: row nowrap; flex-flow: row nowrap;
-    -webkit-align-items: center; -ms-flex-align: center; align-items: center;
-    -webkit-justify-content: space-between; -ms-flex-pack: justify; justify-content: space-between;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
     > div {
-        -webkit-align-items: center; -ms-flex-align: center; align-items: center;
+        align-items: center;
         max-height: 100%;
         max-width: 100%;
     }
@@ -1794,40 +1830,36 @@ html:not(.touch):not(.no-touch) #mini-cart:hover {
     .header-center,
     .header-col-wide {
         @include display-flex;
-        -webkit-flex-wrap: wrap; -ms-flex-wrap: wrap; flex-wrap: wrap;
+        flex-wrap: wrap;
     }
     .header-left {
         margin-#{$right}: auto;
-        -webkit-justify-content: flex-start; -ms-flex-pack: start; justify-content: flex-start;
+        justify-content: flex-start;
     }
     .header-center {
         margin: 0 auto;
         padding-left: 15px;
         padding-right: 15px;
-        -webkit-justify-content: center; -ms-flex-pack: center; justify-content: center;
+        justify-content: center;
         &:only-child {
             flex: 0 0 100%;
         }
     }
     .header-right {
         margin-#{$left}: auto;
-        -webkit-justify-content: flex-end; -ms-flex-pack: end; justify-content: flex-end;
+        justify-content: flex-end;
     }
     .header-grow {
-        -webkit-flex: 1;
-        -ms-flex: 1;
         flex: 1;
-        -ms-flex-negative: 1;
-        -ms-flex-preferred-size: auto;
     }
     .header-col-wide {
-        -webkit-align-items: center; -ms-flex-align: center; align-items: center;
+        align-items: center;
         width: 100%;
     }
 }
 .header-center {
     .header-col-wide {
-        -webkit-justify-content: center; -ms-flex-pack: center; justify-content: center;
+        justify-content: center;
     }
 }
 .header-col, .header-col-wide {
@@ -1888,6 +1920,7 @@ html:not(.touch):not(.no-touch) #mini-cart:hover {
         min-width: 200px;
         z-index: 112;
         .autocomplete-suggestions {
+            font-family: var(--porto-body-ff), sans-serif;
             max-height: 70vh;
             overflow-x: hidden;
             overflow-y: auto;

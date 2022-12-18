@@ -1,19 +1,23 @@
 .filter-item-list,
 .single_variation_wrap .variations_button,
 .single-product form.cart:not(.variations_form) {
-    display: -ms-flexbox; display: flex;
-    -ms-flex-wrap: wrap; flex-wrap: wrap;
-    -ms-flex-align: center; align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .product_title {
     font-size: 2em;
     font-weight: $font-weight-semibold;
     margin-bottom: 0.5em;
+    color: var(--porto-color-price);
     a {
-        text-decoration: none;
+        color: inherit;
+        &:hover, &:focus {
+            color: var(--porto-primary-color);
+        }
     }
-    &.show-product-nav{
+    &.show-product-nav {
         width: calc(100% - 52px);
     }
 }
@@ -40,9 +44,9 @@
 
     a {
         display: block;
-        color: #222529;
+        color: var(--porto-heading-color);
         &:hover, &:focus {
-            color: #222529;
+            color: var(--porto-heading-color);
         }
     }
 
@@ -51,11 +55,10 @@
         width: 28px;
         height: 28px;
         line-height: 23px;
-        border: 2px solid #e7e7e7;
+        border: 2px solid var(--porto-gray-2);
         border-radius: 14px;
         display: inline-block;
         text-align: center;
-        text-decoration: none;
         font-family: "porto";
 
         &.disabled {
@@ -115,16 +118,23 @@
         z-index: 999;
 
         &:before {
-            border-bottom: 7px solid #222529;
+            border-bottom: 7px solid var(--porto-heading-color);
             border-left: 7px solid transparent !important;
             border-right: 7px solid transparent !important;
             content: "";
             position: absolute;
-            top: -5px;
+            top: -5px
+        }
+
+        .page-top & {
+            color: var(--porto-body-color);
+            &:before {
+                border-bottom-color: var(--porto-primary-color);
+            }
         }
 
         .box-content {
-            border-top: 3px solid #222529;
+            border-top: 3px solid var(--porto-heading-color);
         }
 
         .product-image {
@@ -146,7 +156,7 @@
                 font-size: 12px;
                 font-weight: 600;
                 text-align: center;
-                color: #797876;
+                color: var(--porto-color-price);
             }
 
             .amount {
@@ -154,6 +164,7 @@
                 font-weight: $font-weight-semibold;
                 line-height: 1;
                 vertical-align: middle;
+                color: var(--porto-color-price);
                 .currency,
                 .decimal {
                     font-size: .75em;
@@ -246,7 +257,7 @@
             content: "\e8ba";
             font-family: "Porto";
             margin-right: .5rem;
-            font-size: 1.125rem;
+            font-size: 1.2857em;
             line-height: 1;
         }
         @media #{$screen-normal} {
@@ -266,16 +277,30 @@
         text-align: $left;
 
         a,
-        span { 
+        span:not(.yith-wcwl-tooltip) {
+            color: var(--porto-wishlist-color, #302e2a);
             width: auto;
             text-indent: 0;
             overflow: visible;
             border: none;
             background: none;
-            color: inherit;
             border-radius: 0;
         }
     }
+
+    .yith-wcwl-add-to-wishlist a,
+    .yith-wcwl-add-to-wishlist span {
+        &:hover, &:focus {
+            color: var(--porto-wishlist-color-inverse, var(--porto-primary-color));
+        }
+    }
+    .yith-wcwl-add-to-wishlist a span:not(.yith-wcwl-tooltip) {
+        &, &:hover {
+            color: inherit;
+        }
+        transition: none
+    }
+
     /*.compare.button {
         width: auto;
         text-indent: 0;
@@ -324,18 +349,12 @@
             a {
                 display: inline-block;
                 font-weight: 700;
+                color: var(--porto-heading-color);
             }
         }
     }
     .share-links {
         margin: 2.2143em 0 0;
-    }
-    .product-stock,
-    .posted_in,
-    .sku_wrapper,
-    .tags {
-        display: block;
-        margin-bottom: .25rem;
     }
     .share-links {
         margin-bottom: 1.0714em;
@@ -350,6 +369,20 @@
         hr {
             display: none;
         }
+    }
+
+    .price {
+        color: var(--porto-heading-color);
+    }
+}
+
+.product_meta {
+    .posted_in,
+    .sku_wrapper,
+    .product-stock,
+    .tags  {
+        display: block;
+        margin-bottom: .25rem;
     }
 }
 
@@ -375,49 +408,50 @@
             @media #{$screen-small} {
                 padding-#{$left}: 0;
             }
-            .img-thumbnail {
-                position: absolute;
-                #{$left}: 0;
-                top: 0;
+        }
+        .img-thumbnail {
+            position: absolute;
+            #{$left}: 0;
+            top: 0;
+
+            img {
+                max-width: 80px;
+                height: auto;
+            }
+
+            @media #{$screen-small} {
+                position: static;
+                margin: side-values(0 12px 10px 0);
+                float: $left;
 
                 img {
-                    max-width: 80px;
-                    height: auto;
-                }
-
-                @media #{$screen-small} {
-                    position: static;
-                    margin: side-values(0 12px 10px 0);
-                    float: $left;
-
-                    img {
-                        max-width: 60px;
-                    }
+                    max-width: 60px;
                 }
             }
-            .comment-text {
-                min-height: 90px;
+        }
+        .comment-text {
+            min-height: 90px;
 
-                &:before {
-                    content: "";
-                    border-bottom: 15px solid transparent;
-                    #{$left}: -15px;
-                    border-top: 15px solid transparent;
-                    height: 0;
-                    position: absolute;
-                    top: 28px;
-                    width: 0;
+            &:before {
+                content: "";
+                border-bottom: 15px solid transparent;
+                #{$left}: -15px;
+                border-top: 15px solid transparent;
+                border-#{$right}: 15px solid var(--porto-gray-1);
+                height: 0;
+                position: absolute;
+                top: 28px;
+                width: 0;
 
-                    @media #{$screen-small} {
-                        display: none;
-                    }
+                @media #{$screen-small} {
+                    display: none;
                 }
             }
-            .star-rating {
-                float: $right;
-                @media #{$screen-small} {
-                    float: none;
-                }
+        }
+        .star-rating {
+            float: $right;
+            @media #{$screen-small} {
+                float: none;
             }
         }
     }
@@ -425,6 +459,9 @@
 
 div.products {
     margin-bottom: 1.875rem;
+}
+.products-container {
+    list-style: none
 }
 .products.related {
     padding-bottom: 1.875rem;
@@ -455,6 +492,7 @@ div.products {
         z-index: 7;
         top: .8em;
         #{$left}: .8em;
+        margin-#{$left}: var(--porto-column-spacing);
 
         .onhot,
         .onsale,
@@ -465,18 +503,17 @@ div.products {
             display: block;
         }
 
-        .onhot {
-            background: $hot-bg;
-        }
-
-        .onsale {
-            background: $sale-bg;
-        }
-
         .onnew {
             @include background(linear-gradient(135deg, var(--porto-new-bgc, #08c) 0, var(--porto-new-bgc, #0169fe) 80%));
         }
     }
+
+    .ms-lightbox-btn { background-color: var(--porto-primary-color); }
+    .ms-lightbox-btn:hover { background-color: var(--porto-primary-light-5); }
+    .ms-nav-next:before,
+    .ms-nav-prev:before,
+    .ms-thumblist-fwd:before,
+    .ms-thumblist-bwd:before { color: var(--porto-primary-color); }
 }
 
 .product-images {
@@ -487,6 +524,7 @@ div.products {
         border-radius: 100%;
         bottom: 4px;
         cursor: pointer;
+        background-color: var(--porto-primary-color);
         color: #FFF;
         display: block;
         height: 30px;
@@ -564,6 +602,7 @@ div.products {
             display: inline-block;
             position: absolute;
             font-size: 15px;
+            color: var(--porto-primary-color);
             width: 30px;
             height: 30px;
             text-align: center;
@@ -606,9 +645,13 @@ div.products {
         }
     }
     .img-thumbnail {
-        border: 1px solid transparent;
+        border: 1px solid var(--porto-gray-1);
         transition: border-color .2s;
     }
+}
+.product-thumbs-slider.owl-carousel .owl-item.selected .img-thumbnail,
+html:not(.touch) .product-thumbs-slider .owl-item:hover .img-thumbnail {
+    border: 2px solid var(--porto-heading-color);
 }
 
 .variations {
@@ -626,11 +669,14 @@ div.products {
         line-height: 1;
         padding: .4375rem .5rem;
         margin-top: .7em;
-        background: #f4f4f4;
+        background: var(--porto-gray-1);
         color: inherit;
         font-size: .625rem;
         text-transform: uppercase;
-        text-decoration: none;
+        &:hover {
+            background: var(--porto-primary-color);
+            color: var(--porto-primary-color-inverse);
+        }
     }
     tr {
         td {
@@ -658,8 +704,8 @@ div.products {
 .single_variation_wrap,
 .single-product .cart:not(.variations_form) {
     padding: 1.25rem 0 1rem;
-    border-top: 1px solid #e7e7e7;
-    border-bottom: 1px solid #e7e7e7;
+    border-top: 1px solid var(--porto-gray-2);
+    border-bottom: 1px solid var(--porto-gray-2);
     margin-top: 1rem;
 }
 
@@ -714,7 +760,7 @@ h2.resp-accordion {
 .woocommerce-tabs {
     .tab-content {
         border: none;
-        border-top: solid 1px #e7e7e7;
+        border-top: solid 1px var(--porto-gray-2);
         box-shadow: none;
         padding: 30px 0 15px;
         @media #{$screen-medium} {
@@ -723,7 +769,7 @@ h2.resp-accordion {
         p {
             font-size: 14px;
             font-weight: 400;
-            letter-spacing: 0.005em;
+            letter-spacing: .005em;
             line-height: 1.9;
         }
     }
@@ -737,10 +783,13 @@ h2.resp-accordion {
             border: none !important;
             border-bottom: 2px solid transparent !important;
             padding: 7px 0 !important;
-            border-radius: 0;
+            border-radius: 0 !important;
             margin-#{$right}: 35px;
+            &:hover, &.resp-tab-active {
+                border-color: var(--porto-heading-color) !important;
+            }
             &.resp-tab-active {
-                color: #222529 !important;
+                color: var(--porto-heading-color) !important;
             }
         }
     }
@@ -751,7 +800,7 @@ h2.resp-accordion {
         background: none !important;
         text-transform: uppercase;
         font-weight: bold;
-        color: #313131;
+        color: var(--porto-heading-color);
         &:before {
             content: '\e81c';
             font-family: 'porto';
@@ -760,7 +809,7 @@ h2.resp-accordion {
         }
     }
     h2.resp-tab-active {
-        border-bottom: 2px solid !important;
+        border-bottom: 2px solid var(--porto-primary-color) !important;
         &:before {
             content: '\e81b';
         }
@@ -785,6 +834,9 @@ h2.resp-accordion {
         }
         &:last-child {
             border-bottom-width: 0 !important;
+        }
+        &.resp-tab-active {
+            border-bottom: 2px solid var(--porto-primary-color) !important;
         }
     }
 }
@@ -832,10 +884,9 @@ h2.resp-accordion {
             display: inline-block;
             vertical-align: middle;
             margin: side-values(15px .5rem 0 0);
-            font-size: .75rem;
+            font: 700 .75rem/1 var(--porto-add-to-cart-ff), var(--porto-body-ff), sans-serif;
             text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: -0.015em;
+            letter-spacing: -.015em;
             + .clear {
                 display: block;
             }
@@ -848,9 +899,7 @@ h2.resp-accordion {
             }
         }
         .price {
-            font-size: 1.5rem;
-            line-height: 1;
-            font-weight: 600;
+            font: 600 1.5rem/1 var(--porto-add-to-cart-ff), var(--porto-body-ff), sans-serif;
             letter-spacing: -0.02em;
             .price { margin-top: 0; margin-bottom: 0; }
             del { letter-spacing: 0; }
@@ -860,13 +909,11 @@ h2.resp-accordion {
             height: 34px;
             margin-top: 15px;
             padding: 0;
-            font-size: 12px;
-            font-weight: 700;
-            line-height: 34px;
-            background: transparent;
-            color: #212529;
+            color: var(--porto-wishlist-color, #302e2a);
+            font: 700 12px/34px var(--porto-add-to-cart-ff), var(--porto-body-ff), sans-serif;
+            background: none;
             text-transform: uppercase;
-            &::before {
+            &:before {
                 content: "\e810";
                 margin-right: 0.25rem;
                 font-family: 'porto';
@@ -880,8 +927,8 @@ h2.resp-accordion {
             &:hover, &:hover::before,
             &:focus, &:focus::before,
             &:active, &:active::before {
-                color: var(--bs-primary);
-                background: transparent;
+                color: var(--porto-primary-color);
+                background: none;
             }
         }
         .share-links {
@@ -891,6 +938,12 @@ h2.resp-accordion {
                 height: 32px;
                 border-radius: 16px;
                 margin: side-values(0.2857em 0.1em 0.2857em 0);
+
+                &:not(:hover) {
+                    background: none;
+                    color: var(--porto-heading-color);
+                    border: 2px solid #e7e7e7
+                }
             }
             margin: 0;
         }
@@ -914,7 +967,10 @@ h2.resp-accordion {
             bottom: auto;
             #{$right}: auto;
         }
-        .yith-wcwl-wishlistexistsbrowse a:before, .yith-wcwl-wishlistaddedbrowse a:before, .yith-wcwl-add-to-wishlist .delete_item:before {
+        .yith-wcwl-wishlistexistsbrowse a:before, 
+        .yith-wcwl-wishlistaddedbrowse a:before, 
+        .yith-wcwl-add-to-wishlist .delete_item:before,
+        .yith-wcwl-add-button a.view-wishlist:before {
             position: static;
             margin-right: .125rem;
             line-height: 1;
@@ -924,7 +980,7 @@ h2.resp-accordion {
     .product_title {
         font-size: 1.875rem;
         line-height: 1.2;
-        color: #222529;
+        color: var(--porto-heading-color);
         letter-spacing: -0.01em;
         font-weight: 700;
         margin-bottom: 0.2em;
@@ -943,7 +999,7 @@ h2.resp-accordion {
             span:before {
                 color: #ff5b5b;
             }
-            font-size: 13px;
+            font-size: 1em;
             top: 1px;
         }
         &:after {
@@ -974,7 +1030,7 @@ h2.resp-accordion {
 
     ul.product_list_widget li .product-image {
         width: 75px;
-        -ms-flex: 0 0 75px; flex: 0 0 75px;
+        flex: 0 0 75px;
         margin-#{$right}: 15px;
     }
     ul.product_list_widget li .product-details {
@@ -984,28 +1040,24 @@ h2.resp-accordion {
 
 .single-product .product-summary-wrap,
 .shop_table.cart-table {
-        .quantity {
-            margin-#{$right}: .5rem;
-            .minus, .plus {
-                width: 30px;
-                height: 3rem;
-                border: solid 1px #e7e7e7;
-                color: #222529;
-                border-radius: 0;
-            }
-            .qty {
-                width: 44px;
-                height: 3rem;
-                font-size: 1rem;
-                font-weight: 700;
-                text-align: center;
-                line-height: 14px;
-                border-radius: 0;
-                border-width: 1px 0 1px 0;
-                border-color: #e7e7e7;
-            }
+    .quantity {
+        margin-#{$right}: .5rem;
+        .minus, .plus {
+            width: 30px;
+            height: 3rem;
+            border-radius: 0;
+        }
+        .qty {
+            width: 44px;
+            height: 3rem;
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 14px;
+            border-radius: 0;
+            border-width: 1px 0 1px 0;
         }
     }
+}
 
 .single_add_to_cart_button,
 .view-cart-btn {
@@ -1019,6 +1071,12 @@ h2.resp-accordion {
     font-weight: 700;
     line-height: 3rem;
     border: none;
+}
+
+.single_add_to_cart_button {
+    font-family: var(--porto-add-to-cart-ff, var(--porto-body-ff)), sans-serif;
+    background: var(--porto-heading-color);
+    color: var(--porto-body-bg);
 }
 
 .view-cart-btn {
@@ -1079,15 +1137,14 @@ h2.resp-accordion {
 
     a.disabled {
         cursor: not-allowed;
-        text-decoration: none;
-        opacity: 0.5;
+        opacity: .5;
     }
 }
 
 .woocommerce-widget-layered-nav-list a:not(.filter-color),
 .filter-item-list .filter-item {
     padding: 0;
-    border: 1px solid #e9e9e9;
+    border: 1px solid var(--porto-gray-5);
     display: block;
     line-height: 24px;
     padding: 0 8px;
@@ -1096,11 +1153,14 @@ h2.resp-accordion {
     text-align: center;
     font-size: 11px;
     color: inherit;
-    text-decoration: none;
 }
 
+.woocommerce-widget-layered-nav-list .chosen a:not(.filter-color),
+.filter-item-list .active .filter-item,
 .filter-item-list .filter-item:not(.disabled):hover {
-    color: $color-white;
+    background-color: var(--porto-primary-color);
+    border-color: var(--porto-primary-color);
+    color: var(--porto-primary-color-inverse);
 }
 
 .filter-item-list .filter-image {
@@ -1119,7 +1179,8 @@ h2.resp-accordion {
     max-width: 100%;
 }
 .label-pre-order {
-    font-size: .9em
+    font-size: .9em;
+    color: var(--porto-primary-color);
 }
 
 // Video Popup
@@ -1159,4 +1220,107 @@ h2.resp-accordion {
 		object-fit: cover;
         outline: none
 	}
+}
+
+/* daily sale */
+.sale-product-daily-deal .daily-deal-title,
+.sale-product-daily-deal .porto_countdown {
+    font-family: 'Oswald', var(--porto-h3-ff), var(--porto-body-ff), sans-serif;
+    text-transform: uppercase
+}
+.entry-summary .sale-product-daily-deal {
+    margin-top: 10px;
+    .porto_countdown {
+        margin-bottom: 5px
+    }
+    .porto_countdown-section {
+        background-color: var(--porto-primary-color);
+        color: #fff;
+        margin-left: 1px;
+        margin-right: 1px;
+        display: block;
+        float: $left;
+        max-width: calc(25% - 2px);
+        min-width: 64px;
+        padding: 12px 10px
+    }
+    .porto_countdown .porto_countdown-amount {
+        display: block;
+        font-size: 18px;
+        font-weight: 700
+    }
+    .porto_countdown-period {
+        font-size: 10px
+    }
+    
+    &:after {
+        content: '';
+        display: table;
+        clear: both
+    }
+}
+
+.products .sale-product-daily-deal {
+    position: absolute; left: 10px; right: 10px; bottom: 10px; color: #fff; padding: 5px 0; text-align: center;
+    &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 100%;
+        top: 0;
+        height: 100%;
+        background: var(--porto-primary-color);
+        opacity: 0.7
+    }
+    > h5,
+    > div {
+        position: relative;
+        z-index: 1
+    }
+    .daily-deal-title {
+        display: inline-block;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 400;
+        margin-bottom: 0;
+        margin-#{$right}: 1px
+    }
+    .porto_countdown {
+        float: none;
+        display: inline-block;
+        margin-bottom: 0;
+        width: auto
+    }
+    .porto_countdown-section {
+        padding: 0;
+        margin-bottom: 0
+    }
+    .porto_countdown-section:first-child:after {
+        content: ',';
+        margin-#{$right}: 2px
+    }
+    .porto_countdown-amount,
+    .porto_countdown-period {
+        font-size: 13px;
+        font-weight: 500;
+        padding: 0 1px
+    }
+    .porto_countdown-section:last-child .porto_countdown-period {
+        padding: 0
+    }
+    &:after {
+        content: '';
+        display: table;
+        clear: both
+    }
+}
+
+.porto-products.outimage .products.list li,
+.porto-products.default .products.list li,
+.porto-products.onhover .products.list li,
+.porto-products.onimage .products.list li,
+.porto-products.theme_option .products.list li {
+    .add-links .yith-compare {
+        display: none;
+    }
 }

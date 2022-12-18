@@ -6,7 +6,8 @@
     }
     blockquote {
         border: 0;
-        color: #fff;
+        background: var(--porto-primary-light-5);
+        color: var(--porto-primary-color-inverse);
         margin: 0;
         padding: 2.5rem 4rem 2.5rem 4.5rem;
         position: relative;
@@ -30,13 +31,13 @@
     .testimonial-arrow-down {
         border-#{$left}: 11px solid transparent;
         border-#{$right}: 11px solid transparent;
-        border-top: 8px solid var(--porto-skin-light-5, #ccc);
+        border-top: 8px solid var(--porto-primary-light-5);
         height: 0;
         margin: side-values(0 0 0 40px);
         width: 0;
         &.reversed {
             border-top: none;
-            border-bottom: 8px solid var(--porto-skin-light-5, #ccc);
+            border-bottom: 8px solid var(--porto-primary-light-5);
         }
     }
 
@@ -54,6 +55,7 @@
             margin-bottom: 2px;
             font-size: 1rem;
             font-weight: $font-weight-bold;
+            color: var(--porto-heading-color);
         }
         span {
             color: #666;
@@ -77,6 +79,7 @@
         blockquote {
             background: transparent !important;
             padding: 20px;
+            color: var(--porto-body-color);
             &:before {
                 display: none;
             }
@@ -106,7 +109,9 @@
 .testimonial {
     &.testimonial-style-3 {
         blockquote {
+            background: var(--porto-gray-3);
             padding: 12px 30px;
+            color: var(--porto-body-color);
             &:before {
                 top: 5px;
                 #{$left}: 9px;
@@ -117,6 +122,7 @@
                 bottom: -5px;
             }
             p {
+                font-family: var(--porto-body-ff), sans-serif;
                 font-size: 1em;
                 font-style: normal;
             }
@@ -128,6 +134,7 @@
             }
         }
         .testimonial-arrow-down {
+            border-top: 10px solid var(--porto-gray-3);
             margin-#{$left}: 20px;
         }
     }
@@ -137,12 +144,15 @@
 .testimonial {
     &.testimonial-style-4 {
         padding: 7px;
-        border: 1px solid;
+        border: 1px solid var(--porto-gray-bg);
         box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.04);
+        border-left-color: var(--porto-gray-5);
+        border-right-color: var(--porto-gray-5);
 
         blockquote {
             background: transparent !important;
             padding: 12px 30px;
+            color: var(--porto-body-color);
             &:before {
                 top: 5px;
                 #{$left}: 9px;
@@ -153,6 +163,7 @@
                 bottom: -5px;
             }
             p {
+                font-family: var(--porto-body-ff), sans-serif;
                 font-size: 1em;
                 font-style: normal;
             }
@@ -181,10 +192,12 @@
         blockquote {
             background: transparent !important;
             padding: 6px 20px;
+            color: var(--porto-body-color);
             &:before {
                 display: none;
             }
             p {
+                font-family: var(--porto-body-ff), sans-serif;
                 font-size: 1.2em;
                 font-style: normal;
             }
@@ -196,6 +209,7 @@
             display: block;
             padding: 15px 0 0;
             margin: 12px 0 0;
+            border-top: 1px solid var(--porto-gray-3);
             img {
                 margin: 0 auto 10px;
             }
@@ -216,6 +230,7 @@
             background: transparent !important;
             border: 0;
             padding: 0 10%;
+            color: var(--porto-body-color);
             &:before {
                 display: none;
             }
@@ -262,6 +277,7 @@
         text-align: center;
         blockquote {
             background: transparent !important;
+            color: var(--porto-body-color);
             &:before, &:after {
                 display: block !important;
                 #{$left}: 10px;
@@ -373,4 +389,16 @@
 
 .vc_parallax blockquote p {
     line-height: 1.6;
+}
+
+/* theme colors */
+/* primary, secondary, tertiary, quaternary, dark, light */
+@each $state in $color_states {
+    html .testimonial-#{nth($state,1)} blockquote {
+        background-color: var(--porto-#{nth($state,1)}-light-5);
+    }
+
+    html .testimonial-#{nth($state,1)} .testimonial-arrow-down {
+        border-top-color: var(--porto-#{nth($state,1)}-light-5);
+    }
 }

@@ -3,6 +3,14 @@
     .woocommerce {
         @include clearfix();
         margin: 0 -10px;
+        > .row {
+            margin-left: calc(10px - var(--porto-column-spacing));
+            margin-right: calc(10px - var(--porto-column-spacing));
+        }
+        > .col-md-6, > .col-lg-10 {
+            padding-right: calc(var(--porto-grid-gutter-width) / 2);
+            padding-left: calc(var(--porto-grid-gutter-width) / 2);
+        }
     }
 
     .woocommerce-MyAccount-navigation {
@@ -23,15 +31,14 @@
                 display: block;
                 position: relative;
                 a {
-                    @include transition (background 0.1s);
+                    @include transition (background .1s);
                     padding: side-values(8px 0 8px 0);
                     display: block;
-                    color: #777;
+                    color: var(--porto-body-color);
                     font-size: 1em;
                     font-weight: 500;
                     letter-spacing: -.025em;
-                    text-decoration: none;
-                    &:before {
+                    /*&:before {
                         content: "";
                         display: inline-block;
                         width: 0;
@@ -41,13 +48,17 @@
                         position: absolute;
                         top: 15px;
                         #{$left}: 10px;
-                    }
+                    }*/
                     &:hover {
                         text-decoration: none;
                     }
                 }
                 &.is-active > a {
-                    font-weight: bold;
+                    font-weight: 700;
+                    color: var(--porto-heading-color);
+                }
+                &:not(:last-child) a {
+                    border-bottom: 1px solid var(--porto-gray-5);
                 }
                 ul {
                     list-style: none;
@@ -166,7 +177,47 @@
 
 .order-info {
     mark {
+        display: block;
         background: transparent;
+        color: var(--porto-heading-color);
         padding: 0;
+    }
+}
+
+.porto-social-login-section {
+    &.false-modal {
+        a {
+            padding: 17px 12px;
+            margin-bottom: 20px;
+        }
+        i {
+            margin-right: 5px;
+            &.fa-facebook-f {
+                width: 25px;
+                height: 25px;
+                line-height: 35px;
+                vertical-align: middle; 
+                color: #3a589d;
+                background: #fff;
+                border-radius: 50%;
+            }
+        }
+        span {
+            letter-spacing: -.03em;
+        }
+    }
+
+    .social-button:hover i.fa-facebook-f {
+        color: var(--porto-primary-color);
+    }
+}
+
+#login-form-popup .register-btn {
+    margin: 20px 0 0;
+    color: var(--porto-heading-color);
+    letter-spacing: -.025em;
+    outline: none;
+    &:hover {
+        color: var(--porto-primary-color);
     }
 }

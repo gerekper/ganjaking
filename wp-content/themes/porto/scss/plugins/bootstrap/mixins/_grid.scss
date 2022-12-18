@@ -28,7 +28,6 @@
 
 @mixin make-col($size: false, $columns: $grid-columns) {
   @if $size {
-    flex: 0 0 auto;
     width: percentage($size / $columns);
   } @else {
     flex: 1 1 0;
@@ -37,7 +36,6 @@
 }
 
 @mixin make-col-auto() {
-  flex: 0 0 auto;
   width: auto;
 }
 

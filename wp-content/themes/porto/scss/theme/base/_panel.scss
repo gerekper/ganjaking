@@ -159,6 +159,10 @@
     transform: translateX(if-ltr(-260px, 260px));
     transition: transform .3s;
 
+    & > .porto-ajax-loading {
+        top: 50%;
+    }
+
     &.panel-left  {
         #{$left}: 0;
         #{$right}: auto;
@@ -327,4 +331,9 @@ html.panel-opened {
     #side-nav-panel .mobile-menu .hidden-item:last-child {
         margin-bottom: -1px;
     }
+}
+
+// IOS Compatibility
+body.ios .mobile-menu .menu-item-has-children:not(.active) > a {
+    max-width: calc(100% - 35px);
 }

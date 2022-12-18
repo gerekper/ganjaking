@@ -12,7 +12,6 @@
         display: inline-block;
         margin: side-values(.2857em .5714em .2857em 0);
         position: relative;
-        text-decoration: none;
         vertical-align: middle;
         @include transition($transition);
         @include transform(translate3d(0,0,0));
@@ -30,9 +29,6 @@
 
         &:hover, &:focus {
             opacity: 0.9;
-            color: #fff;
-        }
-        #footer &:hover {
             color: #fff;
         }
     }
@@ -217,8 +213,7 @@
     }
 }
 
-.widget.follow-us,
-/*#footer .widget.follow-us,*/
+.follow-us,
 .header-wrapper.header-side-nav,
 .header-corporate {
     .share-links {
@@ -251,6 +246,7 @@
     background: transparent;
     padding: 0 0 30px;
     height: 35px;
+    transition: max-height .4s, background .4s;
     &:hover {
         background: #fff;
         .fa-share-alt {
@@ -286,13 +282,12 @@
     }
     .share-links {
         a {
-            &:first-child {
-                opacity: 0.5;
-            }
+            background: none !important
         }
     }
     .post-share-advance-bg {
         background: transparent;
+        transition: max-height .4s, background .4s;
         &:hover {
         background: #fff;
         .fa-share-alt {
@@ -301,7 +296,7 @@
     }
     }
     .thumb-info-social-icons {
-        padding: 10px 0 !important;
+        padding: 8px 0 !important;
     }
     a {
         width: 100%;
@@ -391,4 +386,8 @@
         display: block;
         margin:0;
     }
+}
+
+.post-share > span {
+    vertical-align: middle;
 }

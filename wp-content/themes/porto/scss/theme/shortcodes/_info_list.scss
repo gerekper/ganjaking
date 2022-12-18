@@ -7,9 +7,8 @@
     line-height: 1.5;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-align: center; align-items: center;
+    align-items: center;
 }
 .porto-info-list .porto-info-icon {
     margin-#{$right}: 18px;

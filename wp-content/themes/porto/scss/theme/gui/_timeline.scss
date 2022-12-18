@@ -33,11 +33,13 @@ section.timeline {
         height: 45px;
         padding: 5px;
         margin: 0 auto 10px;
+        border: 1px solid var(--porto-gray-5);
+        background: var(--porto-normal-bg);
         h3 {
             display: block;
             text-align: center;
             text-transform: uppercase;
-            color: #757575;
+            color: var(--porto-primary-color);
             font-size: 0.9em;
             font-weight: 700;
             line-height: 32px;
@@ -46,6 +48,7 @@ section.timeline {
     }
     .timeline-title {
         padding: 12px;
+        background: var(--porto-gray-1);
         h4 {
             padding: 0;
             margin: 0;
@@ -70,9 +73,11 @@ section.timeline {
         width: calc(50% - 44px);
         float: $left;
         margin-bottom: 30px;
+        background: var(--porto-normal-bg);
+        border: 1px solid var(--porto-gray-5);
         &:before {
-            background: var(--porto-skin-color, #08c);
-            box-shadow: 0 0 0 3px #fff, 0 0 0 6px var(--porto-skin-color, #08c);
+            background: var(--porto-primary-color);
+            box-shadow: 0 0 0 3px #fff, 0 0 0 6px var(--porto-primary-color);
         }
         &.left {
             clear: both;
@@ -94,6 +99,9 @@ section.timeline {
                 #{$right}: -8px;
                 top: 20px;
                 z-index: 0;
+                background: inherit;
+                border-#{$right}: 1px solid var(--porto-gray-5);
+                border-top: 1px solid var(--porto-gray-5);
             }
         }
         &.right {
@@ -118,6 +126,9 @@ section.timeline {
                 top: 30px;
                 width: 14px;
                 z-index: 0;
+                background: inherit;
+                border-#{$left}: 1px solid var(--porto-gray-5);
+                border-bottom: 1px solid var(--porto-gray-5);
             }
         }
         .img-thumbnail {
@@ -164,6 +175,9 @@ section.timeline {
             }
         }
     }
+}
+
+.timeline {
     .timeline-item-title {
         font-size: 1em;
         margin: 1rem 0 0.25rem;

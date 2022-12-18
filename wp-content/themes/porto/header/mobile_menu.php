@@ -40,7 +40,7 @@ if ( ! $is_load_menu ) {
 				echo '<div class="menu-wrap">' . $menu . '</div>';
 			}
 
-			if ( ( ! $is_preset || 1 == $header_type || 3 == $header_type || 4 == $header_type || 9 == $header_type || 13 == $header_type || 14 == $header_type ) && $porto_settings['menu-block'] ) {
+			if ( ( ! $is_preset || 1 == $header_type || 3 == $header_type || 4 == $header_type || 9 == $header_type || 13 == $header_type || 14 == $header_type ) && ! empty( $porto_settings['menu-block'] ) ) {
 				echo '<div class="menu-custom-block">' . wp_kses_post( $porto_settings['menu-block'] ) . '</div>';
 			}
 

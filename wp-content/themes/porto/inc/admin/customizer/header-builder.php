@@ -150,7 +150,9 @@ class Porto_Header_Builder {
 		$header_layouts = get_option( 'porto_header_builder_layouts', array() );
 		if ( ! empty( $header_layouts ) ) {
 			foreach ( $header_layouts as $key => $layout ) {
-				$header_layouts[ $key ] = $layout['name'];
+				if ( isset( $layout['name'] ) ) {
+					$header_layouts[ $key ] = $layout['name'];
+				}
 			}
 		}
 

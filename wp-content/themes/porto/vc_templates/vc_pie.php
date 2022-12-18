@@ -34,11 +34,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 $title            = $output = '';
 $is_wpb_rendering = defined( 'WPB_VC_VERSION' ) && $this instanceof WPBakeryShortCode_Vc_Pie;
+$original_atts    = $atts;
 if ( $is_wpb_rendering ) {
 	$atts = $this->convertOldColorsToNew( $atts );
 	$atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 }
 extract( $atts );
+
 
 if ( 'default' == $type ) {
 
@@ -103,6 +105,24 @@ if ( 'default' == $type ) {
 
 	echo porto_filter_output( $output );
 } else {
+	if ( class_exists( 'WPBMap' ) ) {
+		$sc = WPBMap::getShortCode( 'vc_pie' );
+		if ( ! empty( $sc['params'] ) && class_exists( 'PortoShortcodesClass' ) && method_exists( 'PortoShortcodesClass', 'get_global_hashcode' ) ) {
+			foreach ( $original_atts as $key => $item ) {
+				if ( in_array( $key, array( 'title_porto_typography', 'value_porto_typography', 'title_pos', 'value_pos', 'icon_size' ) ) ) {
+					$original_atts[ $key ] = str_replace( '"', '``', $item );
+				}
+			}
+			$shortcode_class = ' wpb_custom_' . PortoShortcodesClass::get_global_hashcode( $original_atts, 'vc_pie', $sc['params'] );
+			if ( empty( $el_class ) ) {
+				$el_class = $shortcode_class;
+			} else {
+				$el_class .= ' ' . $shortcode_class;
+			}
+		}
+		$internal_css = PortoShortcodesClass::generate_wpb_css( 'vc_pie', $original_atts );
+	}
+
 	wp_enqueue_script( 'easypiechart' );
 
 	global $porto_settings;
@@ -136,7 +156,11 @@ if ( 'default' == $type ) {
 		}
 		$css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $css_class . ' ' . vc_shortcode_custom_css_class( $css, ' ' ), $this->settings['base'], $atts );
 	}
-	$output      = '<div class= "' . esc_attr( $css_class ) . '">';
+	$output = '<div class= "' . esc_attr( $css_class ) . '">';
+	if ( ! empty( $internal_css ) ) {
+		// only wpbakery frontend editor
+		$output .= '<style>' . wp_strip_all_tags( $internal_css ) . '</style>';
+	}
 		$output .= '<div class="circular-bar-chart" data-percent="' . esc_attr( $value ) . '" data-plugin-options="' . esc_attr( $options ) . '" style="height:' . esc_attr( $size ) . 'px">';
 	if ( 'only-icon' == $view && $icon ) {
 		$output .= '<i class="' . esc_attr( $icon ) . '"' . ( $icon_color ? ' style="color:' . esc_attr( $icon_color ) . '"' : '' ) . '></i>';

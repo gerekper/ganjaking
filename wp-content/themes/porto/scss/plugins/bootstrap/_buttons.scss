@@ -6,18 +6,19 @@
   display: inline-block;
   font-family: $btn-font-family;
   font-weight: $btn-font-weight;
-  line-height: $btn-line-height;
+  /*line-height: $btn-line-height;*/
   color: $body-color;
   text-align: center;
   text-decoration: if($link-decoration == none, null, none);
   white-space: $btn-white-space;
   vertical-align: middle;
-  cursor: if($enable-button-pointers, pointer, null);
+  /*cursor: if($enable-button-pointers, pointer, null);*/
   user-select: none;
   background-color: transparent;
   border: $btn-border-width solid transparent;
-  @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-border-radius);
-  @include transition($btn-transition);
+  border-radius: $btn-border-radius;
+  /*@include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-border-radius);
+  @include transition($btn-transition);*/
 
   &:hover {
     color: $body-color;
@@ -56,7 +57,7 @@
 //
 
 // scss-docs-start btn-variant-loops
-@each $color, $value in $theme-colors {
+/*@each $color, $value in $theme-colors {
   .btn-#{$color} {
     @include button-variant($value, $value);
   }
@@ -66,7 +67,7 @@
   .btn-outline-#{$color} {
     @include button-outline-variant($value);
   }
-}
+}*/
 // scss-docs-end btn-variant-loops
 
 

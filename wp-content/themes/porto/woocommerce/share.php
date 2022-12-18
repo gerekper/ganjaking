@@ -45,14 +45,17 @@ if ( ! $share_enabled && is_page() && get_option( 'yith_wcwl_wishlist_page_id' )
 
 	do_action( 'yith_wcwl_before_wishlist_share', $wishlist );
 	?>
-<div class="page-share wishlist-share">
+<div class="page-share wishlist-share yith-wcwl-share">
 		<h3 class="yith-wcwl-share-title"><i class="fas fa-share"></i><?php echo esc_html( $share_title ); ?></h3>
 		<?php
 			porto_get_template_part(
 				'share',
 				null,
 				array(
-					'share_link_url' => $share_link_url,
+					'share_link_url'   => $share_link_url,
+					'share_link_title' => $share_link_title,
+					'share_summary'    => $share_summary,
+					'share_image_url'  => $share_image_url,
 				)
 			);
 		?>

@@ -37,7 +37,7 @@ if ( $notes ) :
 				<li class="comment note">
 					<div class="comment_container">
 						<div class="comment-text">
-							<p class="meta"><?php echo date_i18n( esc_html__( 'l jS \o\f F Y, h:ia', 'porto' ), strtotime( $note->comment_date ) ); ?></p>
+							<p class="meta"><?php echo date_i18n( esc_html__( 'l jS \o\f F Y, h:ia', 'woocommerce' ), strtotime( $note->comment_date ) ); ?></p>
 							<div class="description">
 								<?php echo function_exists( 'porto_shortcode_format_content' ) ? porto_shortcode_format_content( $note->comment_content ) : wp_kses_post( $note->comment_content ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 							</div>

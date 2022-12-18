@@ -72,7 +72,7 @@ class Porto_Elementor_Compatibility {
 	/**
 	 * Intialize Elementor style variables which are able to updated in Elementor -> Settings -> Style.
 	 */
-	public function init_options() {
+	public function init_options( $add_kit = false ) {
 		global $porto_settings;
 		$changed = false;
 
@@ -113,7 +113,18 @@ class Porto_Elementor_Compatibility {
 				update_option( '_elementor_general_settings', $general_settings );
 			}
 		} else {
-			$default_kit = get_option( 'elementor_active_kit', 0 );
+			$default_kit = false;
+			$kit         = Elementor\Plugin::$instance->kits_manager->get_active_kit();
+			if ( ! $kit->get_id() && $add_kit ) {
+				// Create elementor default kit
+				$default_kit = Elementor\Plugin::$instance->kits_manager->create_default();
+				if ( $default_kit ) {
+					update_option( Elementor\Core\Kits\Manager::OPTION_ACTIVE, $default_kit );
+				}
+			} elseif ( $kit->get_id() ) {
+				$default_kit = $kit->get_id();
+			}
+
 			if ( $default_kit ) {
 				$general_settings = get_post_meta( $default_kit, '_elementor_page_settings', true );
 				if ( empty( $general_settings ) ) {
@@ -147,9 +158,9 @@ class Porto_Elementor_Compatibility {
 					$changed                                 = true;
 				}
 
-				if ( ! isset( $general_settings['viewport_tablet'] ) || '992' != $general_settings['viewport_tablet'] || '992' != get_option( 'elementor_viewport_lg', '1025' ) ) {
-					$general_settings['viewport_tablet'] = '992';
-					update_option( 'elementor_viewport_lg', '992' );
+				if ( ! isset( $general_settings['viewport_tablet'] ) || '991' != $general_settings['viewport_tablet'] || '991' != get_option( 'elementor_viewport_lg', '1025' ) ) {
+					$general_settings['viewport_tablet'] = '991';
+					update_option( 'elementor_viewport_lg', '991' );
 					$changed = true;
 				}
 

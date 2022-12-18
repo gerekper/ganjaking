@@ -148,7 +148,7 @@ class Redux_Customizer_Panel extends WP_Customize_Panel {
 					</span>
 					<# if ( data.description ) { #>
 						<button class="customize-help-toggle dashicons dashicons-editor-help" tabindex="0" aria-expanded="false">
-							<span class="screen-reader-text"><?php esc_attr_e( 'Help', 'redux-framework' ); ?></span></button>
+							<span class="screen-reader-text"><?php esc_html_e( 'Help', 'redux-framework' ); ?></span></button>
 						<# } #>
 				</div>
 				<# if ( data.description ) { #>

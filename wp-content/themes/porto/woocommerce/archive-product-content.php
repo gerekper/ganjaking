@@ -7,7 +7,7 @@ if ( class_exists( 'WC_Prdctfltr' ) ) {
 	$porto_settings['category-ajax'] = false;
 }
 
-if ( $porto_settings['category-ajax'] ) {
+if ( ! empty( $porto_settings['category-ajax'] ) ) {
 	// fix price slider issue
 	$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 	wp_register_script( 'wc-jquery-ui-touchpunch', WC()->plugin_url() . '/assets/js/jquery-ui-touch-punch/jquery-ui-touch-punch' . $suffix . '.js', array( 'jquery-ui-slider' ), WC_VERSION, true );
@@ -35,6 +35,40 @@ if ( $porto_settings['category-ajax'] ) {
 
 <?php
 	$builder_id = porto_check_builder_condition( 'shop' );
+
+if ( woocommerce_product_loop() ) {
+	global $woocommerce_loop;
+
+	if ( ! ( isset( $woocommerce_loop['category-view'] ) && $woocommerce_loop['category-view'] ) ) {
+		if ( ! is_array( $woocommerce_loop ) ) {
+			$woocommerce_loop = array();
+		}
+		$woocommerce_loop['category-view'] = isset( $porto_settings['category-view-mode'] ) ? $porto_settings['category-view-mode'] : '';
+
+		$term = get_queried_object();
+		if ( $term && isset( $term->taxonomy ) && isset( $term->term_id ) ) {
+			$cols = get_metadata( $term->taxonomy, $term->term_id, 'product_cols', true );
+			if ( ! $cols ) {
+				$cols = isset( $porto_settings['product-cols'] ) ? $porto_settings['product-cols'] : 3;
+			}
+
+			$addlinks_pos = get_metadata( $term->taxonomy, $term->term_id, 'addlinks_pos', true );
+			if ( ! $addlinks_pos ) {
+				$addlinks_pos = isset( $porto_settings['category-addlinks-pos'] ) ? $porto_settings['category-addlinks-pos'] : 'default';
+			}
+
+			$view_mode = get_metadata( $term->taxonomy, $term->term_id, 'view_mode', true );
+
+			$woocommerce_loop['columns']        = $cols;
+			$woocommerce_loop['columns_mobile'] = isset( $porto_settings['product-cols-mobile'] ) ? $porto_settings['product-cols-mobile'] : '2';
+			$woocommerce_loop['addlinks_pos']   = $addlinks_pos;
+			if ( $view_mode ) {
+				$woocommerce_loop['category-view'] = $view_mode;
+			}
+		}
+	}
+}
+
 if ( ! $builder_id ) {
 	/**
 	 * Hook: woocommerce_archive_description.
@@ -43,10 +77,8 @@ if ( ! $builder_id ) {
 	 * @hooked woocommerce_product_archive_description - 10
 	 */
 	do_action( 'woocommerce_archive_description' );
-}
 
-if ( ( function_exists( 'woocommerce_product_loop' ) && woocommerce_product_loop() ) || ( ! function_exists( 'woocommerce_product_loop' ) && have_posts() ) ) {
-	if ( ! $builder_id ) {
+	if ( woocommerce_product_loop() ) {
 		/**
 		 * Hook: woocommerce_before_shop_loop.
 		 *
@@ -55,43 +87,13 @@ if ( ( function_exists( 'woocommerce_product_loop' ) && woocommerce_product_loop
 		 * @hooked woocommerce_catalog_ordering - 30
 		 */
 		do_action( 'woocommerce_before_shop_loop' );
-	}
 
-	global $woocommerce_loop;
-
-	if ( ! ( isset( $woocommerce_loop['category-view'] ) && $woocommerce_loop['category-view'] ) ) {
-		$woocommerce_loop['category-view'] = isset( $porto_settings['category-view-mode'] ) ? $porto_settings['category-view-mode'] : '';
-
-		$term = get_queried_object();
-		if ( $term && isset( $term->taxonomy ) && isset( $term->term_id ) ) {
-			$cols = get_metadata( $term->taxonomy, $term->term_id, 'product_cols', true );
-			if ( ! $cols ) {
-				$cols = $porto_settings['product-cols'];
-			}
-
-			$addlinks_pos = get_metadata( $term->taxonomy, $term->term_id, 'addlinks_pos', true );
-			if ( ! $addlinks_pos ) {
-				$addlinks_pos = $porto_settings['category-addlinks-pos'];
-			}
-
-			$view_mode = get_metadata( $term->taxonomy, $term->term_id, 'view_mode', true );
-
-			$woocommerce_loop['columns']        = $cols;
-			$woocommerce_loop['columns_mobile'] = $porto_settings['product-cols-mobile'];
-			$woocommerce_loop['addlinks_pos']   = $addlinks_pos;
-			if ( $view_mode ) {
-				$woocommerce_loop['category-view'] = $view_mode;
-			}
+		global $woocommerce_loop;
+		if ( is_shop() && ! is_product_category() ) {
+			$woocommerce_loop['columns']        = isset( $porto_settings['shop-product-cols'] ) ? $porto_settings['shop-product-cols'] : '3';
+			$woocommerce_loop['columns_mobile'] = isset( $porto_settings['shop-product-cols-mobile'] ) ? $porto_settings['shop-product-cols-mobile'] : '2';
 		}
-	}
 
-
-	if ( is_shop() && ! is_product_category() ) {
-		$woocommerce_loop['columns']        = $porto_settings['shop-product-cols'];
-		$woocommerce_loop['columns_mobile'] = $porto_settings['shop-product-cols-mobile'];
-	}
-
-	if ( ! $builder_id ) {
 		echo '<div class="archive-products">';
 		$skeleton_lazyload = apply_filters( 'porto_skeleton_lazyload', ! empty( $porto_settings['show-skeleton-screen'] ) && in_array( 'shop', $porto_settings['show-skeleton-screen'] ) && ! porto_is_ajax(), 'archive-product' );
 		if ( $skeleton_lazyload ) {
@@ -108,7 +110,7 @@ if ( ( function_exists( 'woocommerce_product_loop' ) && woocommerce_product_loop
 
 			remove_filter( 'woocommerce_product_loop_start', 'woocommerce_maybe_show_product_subcategories' );
 		}
-			woocommerce_product_loop_start();
+		woocommerce_product_loop_start();
 
 		if ( $skeleton_lazyload ) {
 			$porto_woocommerce_loop['el_class'] = str_replace( 'skeleton-loading', 'skeleton-body', $porto_woocommerce_loop['el_class'] );
@@ -177,33 +179,34 @@ if ( ( function_exists( 'woocommerce_product_loop' ) && woocommerce_product_loop
 		 */
 		do_action( 'woocommerce_after_shop_loop' );
 	} else {
-		echo do_shortcode( '[porto_block id="' . esc_attr( $builder_id ) . '"]' );
+
+		global $porto_shop_filter_layout;
+		if ( isset( $porto_shop_filter_layout ) && 'horizontal2' == $porto_shop_filter_layout ) {
+			do_action( 'woocommerce_before_shop_loop' );
+		} else {
+			?>
+		<div class="shop-loop-before" style="display:none;"> </div>
+	<?php } ?>
+
+		<div class="archive-products">
+		<?php
+			/**
+			 * Hook: woocommerce_no_products_found.
+			 *
+			 * @hooked wc_no_products_found - 10
+			 */
+			do_action( 'woocommerce_no_products_found' );
+		?>
+		</div>
+
+		<div class="shop-loop-after clearfix" style="display:none;"> </div>
+
+		<?php
 	}
 } else {
-
-	global $porto_shop_filter_layout;
-	if ( isset( $porto_shop_filter_layout ) && 'horizontal2' == $porto_shop_filter_layout ) {
-		do_action( 'woocommerce_before_shop_loop' );
-	} else {
-		?>
-	<div class="shop-loop-before" style="display:none;"> </div>
-<?php } ?>
-
-	<div class="archive-products">
-	<?php
-		/**
-		 * Hook: woocommerce_no_products_found.
-		 *
-		 * @hooked wc_no_products_found - 10
-		 */
-		do_action( 'woocommerce_no_products_found' );
-	?>
-	</div>
-
-	<div class="shop-loop-after clearfix" style="display:none;"> </div>
-
-	<?php
+	echo do_shortcode( '[porto_block id="' . esc_attr( $builder_id ) . '"]' );
 }
+
 	/**
 	 * Hook: woocommerce_after_main_content.
 	 *

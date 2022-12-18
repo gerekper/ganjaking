@@ -53,8 +53,8 @@
 				</tr>
 				<tr>
 					<td>
-						<h4><?php esc_html_e( 'Compile all css', 'porto' ); ?></h4>
-						<p><?php esc_html_e( 'This tool will compile shortcodes css, bootstrap css and dynamic styles.', 'porto' ); ?></p>
+						<h4><?php esc_html_e( 'Compile all css & Clear merged css and js', 'porto' ); ?></h4>
+						<p><?php esc_html_e( 'This tool will compile shortcodes css, bootstrap css and dynamic styles and clear merged stylesheet and javascript.', 'porto' ); ?></p>
 					</td>
 					<td>
 						<a href="<?php echo esc_url( admin_url( 'admin.php?page=porto-tools&action=compile_css&_wpnonce=' . $nonce ) ); ?>" class="btn btn-primary"><?php esc_html_e( 'Compile CSS', 'porto' ); ?></a>

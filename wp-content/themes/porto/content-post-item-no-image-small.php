@@ -1,7 +1,7 @@
 <?php
 global $porto_settings;
 
-$show_date = in_array( 'date', $porto_settings['post-metas'] );
+$show_date = isset( $porto_settings['post-metas'] ) && in_array( 'date', $porto_settings['post-metas'] );
 ?>
 <div class="post-item-small">
 	<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>

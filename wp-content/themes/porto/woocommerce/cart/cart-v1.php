@@ -16,10 +16,10 @@ $porto_woo_version = porto_get_woo_version_number();
 				<tr>
 					<th class="product-remove">&nbsp;</th>
 					<th class="product-thumbnail">&nbsp;</th>
-					<th class="product-name"><?php esc_html_e( 'Product Name', 'porto' ); ?></th>
-					<th class="product-price"><?php esc_html_e( 'Unit Price', 'porto' ); ?></th>
-					<th class="product-quantity"><?php esc_html_e( 'Qty', 'porto' ); ?></th>
-					<th class="product-subtotal"><?php esc_html_e( 'Subtotal', 'porto' ); ?></th>
+					<th class="product-name"><?php esc_html_e( 'Product', 'woocommerce' ); ?></th>
+					<th class="product-price"><?php esc_html_e( 'Price', 'woocommerce' ); ?></th>
+					<th class="product-quantity"><?php esc_html_e( 'Quantity', 'woocommerce' ); ?></th>
+					<th class="product-subtotal"><?php esc_html_e( 'Subtotal', 'woocommerce' ); ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -38,7 +38,7 @@ $porto_woo_version = porto_get_woo_version_number();
 										sprintf(
 											'<a href="%s" class="remove remove-product" aria-label="%s" data-product_id="%s" data-product_sku="%s" data-cart_id="%s">&times;</a>',
 											esc_url( function_exists( 'wc_get_cart_remove_url' ) ? wc_get_cart_remove_url( $cart_item_key ) : WC()->cart->get_remove_url( $cart_item_key ) ),
-											esc_attr__( 'Remove this item', 'porto' ),
+											esc_attr__( 'Remove this item', 'woocommerce' ),
 											esc_attr( $product_id ),
 											esc_attr( $_product->get_sku() ),
 											esc_attr( $cart_item_key )
@@ -71,7 +71,7 @@ $porto_woo_version = porto_get_woo_version_number();
 								echo function_exists( 'wc_get_formatted_cart_item_data' ) ? wc_get_formatted_cart_item_data( $cart_item ) : WC()->cart->get_item_data( $cart_item );
 								// Backorder notification
 								if ( $_product->backorders_require_notification() && $_product->is_on_backorder( $cart_item['quantity'] ) ) {
-									echo '<p class="backorder_notification">' . esc_html__( 'Available on backorder', 'porto' ) . '</p>';
+									echo '<p class="backorder_notification">' . esc_html__( 'Available on backorder', 'woocommerce' ) . '</p>';
 								}
 								?>
 							</td>
@@ -115,7 +115,7 @@ $porto_woo_version = porto_get_woo_version_number();
 					<td colspan="6" class="actions">
 						<?php if ( version_compare( $porto_woo_version, '2.5', '<' ) ? WC()->cart->coupons_enabled() : wc_coupons_enabled() ) { ?>
 							<div class="coupon pt-left">
-								<label for="coupon_code"><?php esc_html_e( 'Coupon:', 'porto' ); ?></label> <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" /> <input type="submit" class="btn btn-default" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>" />
+								<label for="coupon_code"><?php esc_html_e( 'Coupon:', 'woocommerce' ); ?></label> <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'woocommerce' ); ?>" /> <input type="submit" class="btn btn-default" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'woocommerce' ); ?>" />
 								<?php do_action( 'woocommerce_cart_coupon' ); ?>
 							</div>
 						<?php } ?>

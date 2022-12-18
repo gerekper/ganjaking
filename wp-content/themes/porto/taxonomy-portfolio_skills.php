@@ -1,24 +1,26 @@
 <?php get_header(); ?>
-
 <?php
-global $porto_settings, $portfolio_columns, $wp_query;
+$builder_id = porto_check_builder_condition( 'archive' );
+if ( $builder_id && 'publish' == get_post_status( $builder_id ) ) {
+	echo do_shortcode( '[porto_block id="' . esc_attr( $builder_id ) . '"]' );
+} else {
+	global $porto_settings, $portfolio_columns, $wp_query;
 
-$term    = $wp_query->queried_object;
-$term_id = $term->term_id;
+	$term    = $wp_query->queried_object;
+	$term_id = $term->term_id;
 
-$portfolio_layout = $porto_settings['portfolio-layout'];
+	$portfolio_layout = isset( $porto_settings['portfolio-layout'] ) ? $porto_settings['portfolio-layout'] : 'grid';
 
-$portfolio_columns = '';
-$portfolio_view    = '';
-if ( 'grid' == $portfolio_layout || 'masonry' == $portfolio_layout ) {
-	$portfolio_columns = $porto_settings['portfolio-grid-columns'];
-	$portfolio_view    = $porto_settings['portfolio-grid-view'];
-}
+	$portfolio_columns = '';
+	$portfolio_view    = '';
+	if ( 'grid' == $portfolio_layout || 'masonry' == $portfolio_layout ) {
+		$portfolio_columns = isset( $porto_settings['portfolio-grid-columns'] ) ? $porto_settings['portfolio-grid-columns'] : '4';
+		$portfolio_view    = isset( $porto_settings['portfolio-grid-view'] ) ? $porto_settings['portfolio-grid-view'] : 'default';
+	}
 
-?>
+	?>
 
 <div id="content" role="main">
-
 	<?php if ( category_description() ) : ?>
 		<div class="page-content">
 			<?php echo category_description(); ?>
@@ -28,13 +30,13 @@ if ( 'grid' == $portfolio_layout || 'masonry' == $portfolio_layout ) {
 	<?php if ( have_posts() ) : ?>
 
 		<?php
-		if ( $porto_settings['portfolio-archive-link-zoom'] ) :
+		if ( ! empty( $porto_settings['portfolio-archive-link-zoom'] ) ) :
 			?>
 			<div class="portfolios-lightbox"><?php endif; ?>
 
 		<div class="page-portfolios portfolios-<?php echo esc_attr( $portfolio_layout ); ?> clearfix">
 
-			<?php if ( $porto_settings['portfolio-archive-ajax'] && ! $porto_settings['portfolio-archive-ajax-modal'] ) : ?>
+			<?php if ( ! empty( $porto_settings['portfolio-archive-ajax'] ) && empty( $porto_settings['portfolio-archive-ajax-modal'] ) ) : ?>
 				<div id="portfolioAjaxBox" class="ajax-box">
 					<div class="bounce-loader">
 						<div class="bounce1"></div>
@@ -87,7 +89,7 @@ if ( 'grid' == $portfolio_layout || 'masonry' == $portfolio_layout ) {
 		<?php wp_reset_postdata(); ?>
 
 		<?php
-		if ( $porto_settings['portfolio-archive-link-zoom'] ) :
+		if ( ! empty( $porto_settings['portfolio-archive-link-zoom'] ) ) :
 			?>
 			</div><?php endif; ?>
 
@@ -98,5 +100,5 @@ if ( 'grid' == $portfolio_layout || 'masonry' == $portfolio_layout ) {
 	<?php endif; ?>
 
 </div>
-
+<?php } ?>
 <?php get_footer(); ?>

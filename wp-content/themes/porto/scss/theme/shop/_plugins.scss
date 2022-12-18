@@ -1,11 +1,14 @@
 
 #yith-wcwl-popup-message {
     border-width: 4px 0 0;
+    border-color: var(--porto-primary-color);
     font-weight: $font-weight-semibold;
     line-height: 1.5;
+    color: var(--porto-body-color);
     padding: 15px 20px;
     width: 250px;
     margin-left: -125px !important;
+    background: var(--porto-body-bg);
     border-radius: 0;
     box-shadow: 0 0 5px rgba(0,0,0,.5);
 }

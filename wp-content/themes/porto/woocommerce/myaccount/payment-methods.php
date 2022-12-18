@@ -37,7 +37,7 @@ do_action( 'woocommerce_before_account_payment_methods', $has_methods ); ?>
 							} elseif ( 'method' === $column_id ) {
 								if ( ! empty( $method['method']['last4'] ) ) {
 									/* translators: 1: credit card type 2: payment method */
-									echo sprintf( esc_html__( '%1$s ending in %2$s', 'porto' ), esc_html( wc_get_credit_card_type_label( $method['method']['brand'] ) ), esc_html( $method['method']['last4'] ) );
+									echo sprintf( esc_html__( '%1$s ending in %2$s', 'woocommerce' ), esc_html( wc_get_credit_card_type_label( $method['method']['brand'] ) ), esc_html( $method['method']['last4'] ) );
 								} else {
 									echo esc_html( wc_get_credit_card_type_label( $method['method']['brand'] ) );
 								}
@@ -56,9 +56,9 @@ do_action( 'woocommerce_before_account_payment_methods', $has_methods ); ?>
 		<?php endforeach; ?>
 	</table>
 <?php else : ?>
-	<p class="woocommerce-Message woocommerce-Message--info"><?php esc_html_e( 'No saved methods found.', 'porto' ); ?></p>
+	<p class="woocommerce-Message woocommerce-Message--info"><?php esc_html_e( 'No saved methods found.', 'woocommerce' ); ?></p>
 <?php endif; ?>
 
 <?php do_action( 'woocommerce_after_account_payment_methods', $has_methods ); ?>
 
-<a class="button btn-lg m-b" href="<?php echo esc_url( wc_get_endpoint_url( 'add-payment-method' ) ); ?>"><?php esc_html_e( 'Add Payment Method', 'porto' ); ?></a>
+<a class="button btn-lg m-b" href="<?php echo esc_url( wc_get_endpoint_url( 'add-payment-method' ) ); ?>"><?php esc_html_e( 'Add payment method', 'woocommerce' ); ?></a>

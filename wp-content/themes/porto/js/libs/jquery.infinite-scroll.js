@@ -80,6 +80,7 @@
             var instance = this,
             opts = instance.options;
             opts.v = '2.0b2.120520';
+
             // if behavior is defined and this function is extended, call that instead of default
             if (!!opts.behavior && this['_binding_'+opts.behavior] !== undefined) {
                 this['_binding_'+opts.behavior].call(this);
@@ -284,7 +285,6 @@
             if (xhr === 'end' || opts.state.isBeyondMaxPage) {
                 this._showdonemsg();
             }
-
             opts.state.isDone = true;
             opts.state.currPage = 1; // if you need to go back to this instance
             opts.state.isPaused = false;
@@ -318,6 +318,19 @@
                     }
                     break;
                 case 'append':
+                    // start porto related code
+                    if ( this.element.closest( '.archive-products' ).length ) {
+                        var $count = $( '.woocommerce-result-count' );
+                        if ( $count.length ) {
+                            data = '<div>' + data + '</div>';
+                            var $newCount = $( data ).find( '.woocommerce-result-count' ).eq( 0 );
+                            if ( $newCount.length ) {
+                                $count.replaceWith( $newCount );
+                            }
+                        }
+                    }
+                    // end porto related code
+
                     var children = box.children();
                     // if it didn't return anything
                     if (children.length === 0) {

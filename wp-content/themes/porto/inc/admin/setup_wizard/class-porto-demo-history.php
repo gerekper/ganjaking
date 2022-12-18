@@ -75,7 +75,7 @@ class Porto_Demo_History {
 		if ( empty( $this->demo_history['widgets'] ) && empty( $this->demo_history['sidebars_widgets'] ) && empty( $this->demo_history['sbg_sidebars'] ) ) {
 			$this->demo_history['widgets']          = $this->fetch_widgets();
 			$this->demo_history['sidebars_widgets'] = get_option( 'sidebars_widgets' );
-			$this->demo_history['sbg_sidebars']     = get_option( 'sbg_sidebars' );
+			$this->demo_history['sbg_sidebars']     = get_option( 'sbg_sidebars', array() );
 			$this->update_demo_history();
 		}
 	}
@@ -257,6 +257,18 @@ class Porto_Demo_History {
 
 		} elseif ( 'options' == $type ) {
 			if ( ! empty( $this->demo_history['options'] ) ) {
+				if ( ! class_exists( 'ReduxFrameworkInstances' ) ) {
+					// include redux framework core functions
+					require_once( PORTO_ADMIN . '/ReduxCore/framework.php' );
+					if ( ! class_exists( 'Redux_Framework_porto_settings' ) ) {
+						require_once( PORTO_ADMIN . '/theme_options/settings.php' );
+						require_once( PORTO_ADMIN . '/theme_options/save_settings.php' );
+					} else {
+						global $reduxPortoSettings;
+						$reduxPortoSettings->initSettings();
+					}
+				}
+
 				$redux = ReduxFrameworkInstances::get_instance( 'porto_settings' );
 				$redux->set_options( $this->demo_history['options'] );
 			}

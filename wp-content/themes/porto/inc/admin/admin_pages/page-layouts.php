@@ -12,7 +12,6 @@
 				'subtitle'    => __( 'Create page layouts and assign them to different pages with display condition.', 'porto' ),
 			)
 		);
-
 		$nonce = wp_create_nonce( 'porto-page-layouts' );
 		?>
 	<main style="display: block">
@@ -20,59 +19,65 @@
 			<div class="layout-box">
 				<h3 class="layout-header">
 					<a href="#" class="back"><i class="fas fa-arrow-left"></i></a>
-					Page Layout for Template Bulider
+					<?php esc_html_e( 'Page Layout for Template Bulider', 'porto' ); ?>
 				</h3>
 				<div class="layout porto-layout">
 					<div class="block popup-builder layout-part" data-part="popup">
-						<p>Popup Builder for Any Page</p>
-					</div>
+						<p><?php esc_html_e( 'Popup Builder for Any Page', 'porto' ); ?></p>
+					</div>				
 					<div class="top-block layout-part" data-part="top-block">
-						<p>Top</p>
+						<p><?php esc_html_e( 'Top', 'porto' ); ?></p>
 					</div>
 					<div class="header layout-part" data-part="header">
-						<p>Header</p>
+						<p><?php esc_html_e( 'Header', 'porto' ); ?></p>
 					</div>
 					<div class="banner-block layout-part" data-part="banner-block">
-						<p>Banner</p>
+						<p><?php esc_html_e( 'Banner', 'porto' ); ?></p>
 					</div>
 					<div class="content-top-block layout-part" data-part="content-top-block">
-						<p>Content Top</p>
-					</div>
+						<p><?php esc_html_e( 'Content Top', 'porto' ); ?></p>
+					</div>										
 					<div class="content-wrapper">
 						<div class="content">
 							<div class="block content-inner-top-block layout-part" data-part="content-inner-top-block">
-								<p>Content Inner top</p>
+								<p><?php esc_html_e( 'Content Inner top', 'porto' ); ?></p>
+							</div>						
+							<div class="block single layout-part" data-part="single">
+								<p><?php esc_html_e( 'Single', 'porto' ); ?></p>
+							</div>			
+							<div class="block archive layout-part" data-part="archive">
+								<p><?php esc_html_e( 'Archive', 'porto' ); ?></p>
 							</div>
 							<div class="block single-product layout-part" data-part="product">
-								<p>Single Product</p>
-							</div>
+								<p><?php esc_html_e( 'Single Product', 'porto' ); ?></p>
+							</div>					
 							<div class="block product-archive layout-part" data-part="shop">
-								<p>Product Archive</p>
+								<p><?php esc_html_e( 'Product Archive', 'porto' ); ?></p>
 							</div>
 							<div class="block content-inner-bottom-block layout-part" data-part="content-inner-bottom-block">
-								<p>Content Inner Bottom</p>
+								<p><?php esc_html_e( 'Content Inner Bottom', 'porto' ); ?></p>
 							</div>
 						</div>
 						<div class="right-sidebar layout-part" data-part="right-sidebar">
-							<p>Sidebar</p>
+							<p><?php esc_html_e( 'Sidebar', 'porto' ); ?></p>
 						</div>
 					</div>
 					<div class="content-bottom-block layout-part" data-part="content-bottom-block">
-						<p>Content Bottom</p>
-					</div>
+						<p><?php esc_html_e( 'Content Bottom', 'porto' ); ?></p>
+					</div>						
 					<div class="footer layout-part" data-part="footer">
-						<p>Footer</p>
+						<p><?php esc_html_e( 'Footer', 'porto' ); ?></p>
 					</div>
 					<div class="bottom-block layout-part" data-part="bottom-block">
-						<p>Bottom</p>
-					</div>
+						<p><?php esc_html_e( 'Bottom', 'porto' ); ?></p>
+					</div>						
 				</div>
 				<div class="part-options">
-				</div>
+				</div>				
 			</div>
 		</div>
 		<?php
-		$parts = array( 'header', 'product', 'shop', 'popup', 'footer', 'top-block', 'banner-block', 'content-top-block', 'content-inner-top-block', 'content-inner-bottom-block', 'right-sidebar', 'content-bottom-block', 'bottom-block' );
+		$parts = array( 'header', 'product', 'shop', 'single', 'archive', 'popup', 'footer', 'top-block', 'banner-block', 'content-top-block', 'content-inner-top-block', 'content-inner-bottom-block', 'right-sidebar', 'content-bottom-block', 'bottom-block' );
 		foreach ( $parts as &$part ) :
 			ob_start();
 			$backup_part = $part;
@@ -84,7 +89,7 @@
 				foreach ( $this->template_list[ $part ] as $page_id => $page_title ) {
 					/* load saved values */
 					$conditions = get_post_meta( $page_id, '_porto_builder_conditions', true );
-					$block_pos = get_post_meta( $page_id, '_porto_block_pos', true );
+					$block_pos  = get_post_meta( $page_id, '_porto_block_pos', true );
 					if ( ! empty( $conditions ) && ( ( 'block' == $part && ! empty( $block_pos ) && 'block_' . $backup_part == $block_pos ) || ( 'block' != $part ) ) ) {
 						$this->add_control( 'builder-blocks', $this->options[ $part ]['builder-blocks'], $page_id );
 					}
@@ -92,7 +97,7 @@
 				$this->add_control( 'builder-blocks', $this->options[ $part ]['builder-blocks'], 'preset' );
 				?>
 			<div class="add-new-layout">
-				<a href="#">Add New Layout Condition</a>
+				<a href="#"><?php esc_html_e( 'Add New Layout Condition', 'porto' ); ?></a>
 			</div>
 				<?php
 			endif;

@@ -1,7 +1,13 @@
 /* List */
+li {
+    line-height: var(--porto-body-lh);
+}
 ul {
     &.list {
         &.icons li {
+            a {
+                color: var(--porto-body-color);
+            }
             i {
                 margin-#{$right}: 5px;
             }
@@ -30,6 +36,8 @@ ul {
                 position: absolute;
                 #{$left}: 0;
                 top: 5px;
+                color: var(--porto-primary-color);
+                border-color: var(--porto-primary-color);
             }
         }
 
@@ -53,7 +61,8 @@ ul {
                 padding-top: 5px;
                 padding-#{$left}: 36px;
                 i {
-                    color: #fff;
+                    background-color: var(--porto-primary-color);
+                    color: var(--porto-primary-color-inverse);
                     border-radius: 50%;
                     width: 25px;
                     height: 25px;
@@ -223,7 +232,9 @@ ul {
                 #{$left}: 0;
                 content: counter(custom-counter);
                 counter-increment: custom-counter;
-                font-weight: bold;
+                font-weight: 700;
+                color: var(--porto-primary-color);
+                border-color: var(--porto-primary-color);
             }
         }
 
@@ -244,7 +255,8 @@ ul {
         &.list-ordened-style-3 {
             li {
                 &:before {
-                    color: #FFF;
+                    background: var(--porto-primary-color);
+                    color: var(--porto-primary-color-inverse);
                     border: 0;
                 }
             }
@@ -285,8 +297,12 @@ h2[class^="wsp-"] {
         height: 32px;
         line-height: 32px;
         font-size: 11px;
+        color: var(--porto-color-price);
 
         &:hover {
+            &, & .text-muted {
+                color: var(--porto-primary-color);
+            }
             i {
                 font-size: 28px;
                 vertical-align: -6px;
@@ -309,4 +325,19 @@ h2[class^="wsp-"] {
 }
 .link-hover-style-1 a:hover {
     transform: translateX(3px);
+}
+
+/* theme colors */
+/* secondary, tertiary, quaternary, dark, light */
+@each $state in $color_states_not_primary {
+    .list-#{nth($state,1)} .list-icons li i,
+    .list-#{nth($state,1)}.list-ordened li:before {
+        border-color: var(--porto-#{nth($state,1)}-color);
+        color: var(--porto-#{nth($state,1)}-color);
+    }
+    .list-#{nth($state,1)}.list-icons.list-icons-style-3 li i,
+    .list-#{nth($state,1)}.list-ordened.list-ordened-style-3 li:before {
+        background-color: var(--porto-#{nth($state,1)}-color);
+        color: var(--porto-#{nth($state,1)}-color-inverse, #{nth($state,3)});
+    }
 }

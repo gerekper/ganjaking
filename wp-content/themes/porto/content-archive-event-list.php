@@ -10,7 +10,7 @@ global $porto_settings, $porto_layout;
 	$event_count_down = get_post_meta( $post->ID, 'event_time_counter', true );
 
 if ( empty( $event_count_down ) ) {
-	$show_count_down = $porto_settings['event-single-countdown'];
+	$show_count_down = isset( $porto_settings['event-single-countdown'] ) ? $porto_settings['event-single-countdown'] : true;
 } elseif ( 'show' == $event_count_down ) {
 	$show_count_down = true;
 } else {
@@ -65,7 +65,7 @@ if ( isset( $event_start_time ) && $event_start_time ) {
 		</div>
 		<h4 class="font-weight-bold text-color-dark"> <a href="<?php the_permalink(); ?>" class="text-decoration-none custom-secondary-font text-color-dark"> <?php the_title(); ?> </a> </h4>
 		<?php
-		if ( $porto_settings['event-excerpt'] ) {
+		if ( ! empty( $porto_settings['event-excerpt'] ) ) {
 			echo porto_get_excerpt( $porto_settings['event-excerpt-length'], false );
 		} else {
 			porto_the_content();

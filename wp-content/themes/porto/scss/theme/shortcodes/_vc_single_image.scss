@@ -25,6 +25,17 @@ div.wpb_single_image {
                 margin-bottom: -4px;
             }
         }
+
+        &.vc_box_shadow_border,
+        &.vc_box_shadow_border_circle {
+            background: var(--porto-normal-bg);
+        }
+
+        &.vc_box_outline.vc_box_border_grey,
+        &.vc_box_outline_circle.vc_box_border_grey {
+            background: var(--porto-normal-bg);
+            border-color: var(--porto-gray-5);
+        }
     }
 
     .porto-vc-zoom {
@@ -80,6 +91,7 @@ div.wpb_single_image {
         }
 
         .zoom-icon {
+            background: var(--porto-primary-color);
             color: #fff;
             border-radius: 100%;
             width: 30px;
@@ -91,6 +103,10 @@ div.wpb_single_image {
             bottom: 8px;
             #{$right}: 8px;
             text-align: center;
+
+            &:hover {
+                background-color: var(--porto-primary-light-5);
+            }
 
             &:before {
                 font-family: "Font Awesome 5 Free";

@@ -1,0 +1,38 @@
+/* WooCommerce WaitList Styles */
+.wcwl_intro > p {
+    margin-bottom: 0;
+    font-size: 14px;
+}
+.woocommerce-message.wcwl_notice {
+    margin: -1rem;
+    padding-left: 1rem;
+    background: #47a447;
+    font-size: 13px;
+    color: #fff;
+}
+.wcwl_notice > div {
+    display: inline-block;
+}
+.wcwl_elements {
+    padding: 1rem;
+    background-color: #f2f3f5;
+
+    .wcwl_control > .woocommerce_waitlist {
+        margin-bottom: 0;
+    }
+}
+.wcwl_optin {
+    input {
+        vertical-align: middle;
+    }
+    label {
+        display: inline;
+        font-size: 12px;
+    }
+}
+.wcwl_email_elements  {
+    margin-top: 1rem;
+    .wcwl_email {
+        width: 100%;
+    }
+}

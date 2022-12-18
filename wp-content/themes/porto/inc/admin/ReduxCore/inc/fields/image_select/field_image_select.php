@@ -72,6 +72,8 @@ if ( ! class_exists( 'ReduxFramework_image_select' ) ) {
 
 				foreach ( $this->field['options'] as $k => $v ) {
 
+					$field_class = $this->field['class'];
+
 					if ( ! is_array( $v ) ) {
 						$v = array( 'img' => $v );
 					}
@@ -123,9 +125,9 @@ if ( ! class_exists( 'ReduxFramework_image_select' ) ) {
 					$presets   = '';
 					$is_preset = false;
 
-					$this->field['class'] .= ' noUpdate ';
+					$field_class .= ' noUpdate ';
 					if ( isset( $this->field['presets'] ) && $this->field['presets'] !== false ) {
-						$this->field['class'] = trim( $this->field['class'] );
+						$field_class = trim( $field_class );
 						if ( ! isset( $v['presets'] ) ) {
 							$v['presets'] = array();
 						}
@@ -167,7 +169,7 @@ if ( ! class_exists( 'ReduxFramework_image_select' ) ) {
 						$presets   = ' data-presets="' . htmlspecialchars( json_encode( $v['presets'] ), ENT_QUOTES, 'UTF-8' ) . '"';
 						$is_preset = true;
 
-						$this->field['class'] = trim( $this->field['class'] ) . ' redux-presets';
+						$field_class = trim( $field_class ) . ' redux-presets';
 					}
 
 					$is_preset_class = $is_preset ? '-preset-' : ' ';
@@ -181,7 +183,7 @@ if ( ! class_exists( 'ReduxFramework_image_select' ) ) {
 					echo '<li class="redux-image-select">';
 					echo '<label class="' . $selected . ' redux-image-select' . $is_preset_class . $this->field['id'] . '_' . $x . '" for="' . $this->field['id'] . '_' . ( array_search( $k, array_keys( $this->field['options'] ) ) + 1 ) . '">';
 
-					echo '<input type="radio" class="' . $this->field['class'] . '" id="' . $this->field['id'] . '_' . ( array_search( $k, array_keys( $this->field['options'] ) ) + 1 ) . '" name="' . $this->field['name'] . $this->field['name_suffix'] . '" value="' . $theValue . '" ' . checked( $this->value, $theValue, false ) . $presets . $merge . '/>';
+					echo '<input type="radio" class="' . $field_class . '" id="' . $this->field['id'] . '_' . ( array_search( $k, array_keys( $this->field['options'] ) ) + 1 ) . '" name="' . $this->field['name'] . $this->field['name_suffix'] . '" value="' . $theValue . '" ' . checked( $this->value, $theValue, false ) . $presets . $merge . '/>';
 					if ( ! empty( $this->field['tiles'] ) && $this->field['tiles'] == true ) {
 						echo '<span class="tiles ' . $v['class'] . '" style="background-image: url(' . $v['img'] . ');" rel="' . $v['img'] . '"">&nbsp;</span>';
 					} else {

@@ -32,13 +32,6 @@
 	margin-bottom: -8px;
 	margin-#{$left}: -5px;
 }
-.wp-block-categories-list,
-.wp-block-archives-list,
-.wp-block-latest-posts {
-	a {
-		text-decoration: none;
-	}
-}
 
 .wp-block-quote:not(.is-large):not(.is-style-large) {
 	border-left: 5px solid #eee;
@@ -52,6 +45,7 @@
 	blockquote {
 		padding: 2em;
 		text-align: $left;
+		border-#{$left}-color: var(--porto-primary-color);
 		cite {
 			color: #666;
 		}

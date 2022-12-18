@@ -33,6 +33,11 @@
 .porto-ibanner-layer {
     text-align: $left;
     font-size: 1rem;
+    position: absolute;
+    z-index: 10;
+    > *:last-child {
+        margin-bottom: 0;
+    }
     @media #{$screen-normal} {
         font-size: .875rem;
     }
@@ -98,7 +103,6 @@
 }
 
 /* hover effect */
-
 
 .porto-ibe-effect-1:before,.porto-ibe-effect-1:after { content: ''; position: absolute; opacity: 1; z-index: 2; }
 .porto-ibe-effect-1:before { background: rgba(255,255,255,0.3); bottom: 0; left: 50%; right: 51%; top: 0 }
@@ -171,7 +175,6 @@
     width: 100%;
     transition: transform .35s, color .35s;
     -webkit-transform: translate3d(0, -50%, 0);
-    -ms-transform: translate3d(0, -50%, 0);
     transform: translate3d(0, -50%, 0)
 }
 .porto-ibe-style1 .porto-ibanner-content,
@@ -260,16 +263,21 @@
     }
 }
 
-.porto-ibanner-layer {
-    position: absolute;
-    z-index: 10;
-    > *:last-child {
-        margin-bottom: 0;
-    }
-}
-
 /* Kenburns Effect and Particle Effect */
 
+.owl-item.active .banner-effect {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+}
+.owl-item:not(.active) .banner-effect {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+}
+.banner-effect {
+    transition: visibility .3s, opacity .3s;
+}
 .banner-effect-wrapper {
     overflow: hidden;
     z-index: 1;

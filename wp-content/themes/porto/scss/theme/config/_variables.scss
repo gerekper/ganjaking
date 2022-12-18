@@ -77,6 +77,9 @@ $color-tertiary-inverse: #FFF;
 $color-quaternary: lighten($color-dark, 8%);
 $color-quaternary-inverse: #FFF;
 
+$color-light: $color-white;
+$color-light-inverse: $color-dark;
+
 $color-success: #47a447;
 $color-success-inverse: #FFF;
 
@@ -90,6 +93,10 @@ $color-info: #5bc0de;
 $color-info-inverse: #FFF;
 
 // states list
-$states: (primary $color-primary $color-primary-inverse) (success $color-success $color-success-inverse) (warning $color-warning $color-warning-inverse) (danger $color-danger $color-danger-inverse) (info $color-info $color-info-inverse) (dark $color-dark $color-dark-inverse);
+$states: (success $color-success $color-success-inverse) (warning $color-warning $color-warning-inverse) (danger $color-danger $color-danger-inverse) (info $color-info $color-info-inverse);
+
+$color_states: (primary $color-primary $color-primary-inverse) (secondary $color-secondary $color-secondary-inverse) (tertiary $color-tertiary $color-tertiary-inverse) (quaternary $color-quaternary $color-quaternary-inverse) (dark $color-dark $color-dark-inverse) (light $color-light $color-light-inverse);
+
+$color_states_not_primary: (secondary $color-secondary $color-secondary-inverse) (tertiary $color-tertiary $color-tertiary-inverse) (quaternary $color-quaternary $color-quaternary-inverse) (dark $color-dark $color-dark-inverse) (light $color-light $color-light-inverse);
 
 @import "fontawesome_variables";

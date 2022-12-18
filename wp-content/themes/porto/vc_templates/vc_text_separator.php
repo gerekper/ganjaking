@@ -41,7 +41,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var $this WPBakeryShortcode_Vc_Text_Separator
  */
 
-$css = $title_align = $el_width = $style = $title = $align = $color = $accent_color = $el_class = $layout = $border_width = $add_icon = $i_type = $i_icon_fontawesome = $i_icon_openiconic = $i_icon_typicons = $i_icon_entypo = $i_icon_linecons = $i_color = $i_custom_color = $i_background_style = $i_background_color = $i_custom_background_color = $i_size = $i_css_animation = '';
+$css  = $title_align = $el_width = $style = $title = $align = $color = $accent_color = $el_class = $layout = $border_width = $add_icon = $i_type = $i_icon_fontawesome = $i_icon_openiconic = $i_icon_typicons = $i_icon_entypo = $i_icon_linecons = $i_color = $i_custom_color = $i_background_style = $i_background_color = $i_custom_background_color = $i_size = $i_css_animation = '';
 $atts = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
 
@@ -126,7 +126,7 @@ $class_to_filter .= vc_shortcode_custom_css_class( $css, ' ' ) . $this->getExtra
 $css_class        = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, $class_to_filter, $this->settings['base'], $atts );
 
 if ( $custom_css ) {
-	echo '<style>' . $custom_css . '</style>';
+	porto_filter_inline_css( '<style>' . $custom_css . '</style>' );
 }
 
 $icon = '';

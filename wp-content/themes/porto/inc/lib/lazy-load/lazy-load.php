@@ -38,7 +38,7 @@ if ( ! function_exists( 'porto_generate_placeholder' ) ) :
 		}
 
 		$upload_dir         = wp_upload_dir();
-		$placeholder_height = round( $height * ( $placeholder_width / $width ) );
+		$placeholder_height = floor( $height * ( $placeholder_width / $width ) );
 		$placeholder_path   = $upload_dir['basedir'] . '/porto_placeholders/' . $placeholder_width . 'x' . $placeholder_height . '.jpg';
 		$placeholder_url    = $upload_dir['baseurl'] . '/porto_placeholders/' . $placeholder_width . 'x' . $placeholder_height . '.jpg';
 		if ( file_exists( $placeholder_path ) ) {
@@ -117,6 +117,9 @@ if ( ! class_exists( 'Porto_LazyLoad_Images' ) ) :
 			/*if ( false !== strpos( $content, 'data-oi' ) ) {
 				return $content;
 			}*/
+			if ( class_exists( 'Porto_Critical' ) ) {
+				$preloads = Porto_Critical::get_instance()->get_preloads();
+			}
 
 			$matches = array();
 			preg_match_all( '/<img[\s\r\n]+.*?>/is', $content, $matches );
@@ -127,6 +130,19 @@ if ( ! class_exists( 'Porto_LazyLoad_Images' ) ) :
 			global $porto_settings;
 
 			foreach ( $matches[0] as $img_html ) {
+				if ( ! empty( $preloads ) ) {
+					$skip = false;
+					foreach ( $preloads as $preload ) {
+						if ( false !== strpos( $img_html, $preload ) ) {
+							$skip = true;
+							break;
+						}
+					}
+					if ( $skip ) {
+						continue;
+					}
+				}
+
 				if ( false !== strpos( $img_html, 'data-oi' ) || false !== strpos( $img_html, 'data-original' ) || false !== strpos( $img_html, 'data-src' ) || preg_match( "/src=['\"]data:image/is", $img_html ) || false !== strpos( $img_html, 'rev-slidebg' ) || false !== strpos( $img_html, 'porto-skip-lz' ) ) {
 					continue;
 				}
@@ -172,7 +188,7 @@ if ( ! class_exists( 'Porto_LazyLoad_Images' ) ) :
 		}
 	}
 
-	if ( ! is_admin() && ! is_customize_preview() ) {
+	if ( ! is_admin()/* && ! is_customize_preview()*/ ) {
 		add_action( 'init', array( 'Porto_LazyLoad_Images', 'init' ) );
 	}
 endif;

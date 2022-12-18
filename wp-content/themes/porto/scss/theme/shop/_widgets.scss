@@ -1,4 +1,3 @@
-
 .widget_product_categories,
 .widget_price_filter,
 .widget_layered_nav,
@@ -28,11 +27,11 @@
         margin: 1.0714em 5%;
         width: 90%;
         padding: 0.8em 1em;
-        box-shadow: 0 0 2px rgba(0, 0, 0, 0.3) inset;
+        box-shadow: 0 0 2px rgba(0, 0, 0, .3) inset;
     }
 
     .widget-title {
-        color: #222529;
+        color: var(--porto-heading-color);
         font-weight: $font-weight-semibold;
         line-height: 1.4;
         padding: 0;
@@ -40,36 +39,20 @@
         text-transform: uppercase;
         @include transition($transition);
     }
-
     ul, ol {
         li {
             position: relative;
             border-width: 0;
             padding: 0;
             > a {
-                text-decoration: none;
                 display: inline-block;
                 padding: 4px 0;
+                color: var(--porto-body-color)
             }
 
-            .toggle {
-                cursor: pointer;
-                display: inline-block;
-                text-align: center;
-                position: absolute;
-                #{$right}: -5px;
-                top: 4px;
-                margin: 0;
-                padding: 0;
-                width: 24px;
-                height: 24px;
-                line-height: 23px;
-                font-family: 'Font Awesome 5 Free'; font-weight: 900;
-
-                &:before {
-                    content: $fa-var-plus-square;
-                    font-size: 1.2em;
-                }
+            .toggle:before {
+                content: $fa-var-plus-square;
+                font-size: 1.2em;
             }
 
             &.open,
@@ -116,15 +99,51 @@
         }
     }
 }
+.wc-block-product-categories,
+.widget_product_categories,
+.widget_price_filter,
+.widget_layered_nav,
+.widget_layered_nav_filters,
+.widget_rating_filter,
+.sidebar-box {
+    li .toggle {
+        cursor: pointer;
+        display: inline-block;
+        text-align: center;
+        position: absolute;
+        #{$right}: -5px;
+        top: 4px;
+        margin: 0;
+        padding: 0;
+        width: 24px;
+        height: 24px;
+        line-height: 23px;
+        font-family: 'Font Awesome 5 Free'; font-weight: 900;
+        color: var(--porto-primary-color);
+        &:hover {
+            color: var(--porto-primary-light-5)
+        }
+    }
+}
+.widget_product_categories,
+.widget_layered_nav,
+.widget_layered_nav_filters,
+.widget_rating_filter {
+    ul a:hover, ul a:focus, li.chosen > a, li.current > a {
+        color: var(--porto-primary-color);
+    }
+}
 
 .widget {
-    .widget-title {
+    .widget-title,
+    .wp-block-group__inner-container > h2 {
          position: relative;
         .toggle {
             display: inline-block;
             width: 1.8571em;
             height: 1.8571em;
             line-height: 1.7572em;
+            color: var(--porto-gray-4);
             position: absolute;
             #{$right}: -7px;
             top: 50%;
@@ -158,7 +177,8 @@
     }
 
     &.closed {
-        .widget-title {
+        .widget-title,
+        .wp-block-group__inner-container > h2 {
             border-bottom-width: 0;
             .toggle {
                 &:before {
@@ -180,6 +200,7 @@
                 top: 0;
                 #{$right}: 0;
                 padding-top: 4px;
+                color: var(--porto-body-color-light-5);
             }
         }
     }
@@ -191,6 +212,7 @@
         margin-bottom: .3571em;
     }
     .price_slider {
+        background: var(--porto-slide-bgc);
         margin-top: 1.4286em;
         margin-bottom: 2.1428em;
         border-width: 0;
@@ -199,10 +221,10 @@
     .price_slider_amount {
         line-height: 2em;
         font-size: .8751em;
-        display: -ms-flexbox; display: flex;
-        -ms-flex-align: center; align-items: center;
-        -ms-flex-wrap: wrap; flex-wrap: wrap;
-        -ms-flex-pack: between; justify-content: space-between;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: space-between;
         .button {
             padding: .4em 1.25em;
             text-transform: uppercase;
@@ -228,9 +250,7 @@
         top: 50%;
         margin-top: -5.5px;
         border-radius: 6px;
-        border-width: 0;
-        background-image: none;
-        /*box-shadow: 0 1px 2px rgba(0,0,0,.3);*/
+        background: var(--porto-primary-color);
 
         &:last-child {
             margin-left: -10px;
@@ -240,10 +260,7 @@
         position:absolute;
         z-index: 1;
         font-size: .7em;
-        display:block;
-        border: 0;
         box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .38) inset;
-        background-image: none;
     }
     #min_price,
     #max_price {
@@ -282,6 +299,10 @@
                     content: $fa-var-times-circle;
                     margin-#{$right}: .3571em;
                     display: inline-block;
+                    color: var(--porto-primary-color);
+                }
+                &:hover:before {
+                    color: var(--porto-primary-light-5);
                 }
             }
         }
@@ -304,6 +325,7 @@
 
 .widget_layered_nav .yith-wcan-select-wrapper {
     border-width: 1px;
+    border-color: var(--porto-widget-bc);
     padding: 10px 0;
     ul.yith-wcan-select.yith-wcan {
         padding-top: 0;
@@ -320,6 +342,7 @@
                 a {
                     background-image: none;
                     position: relative;
+                    color: var(--porto-primary-color);
                     &:before {
                         content: $fa-var-times;
                         font-family: 'Font Awesome 5 Free'; font-weight: 900;
@@ -333,6 +356,11 @@
             a {
                 padding: 0 12px;
                 border-width: 0;
+            }
+            &:hover {
+                a {
+                    color: var(--porto-primary-color);
+                }
             }
         }
     }
@@ -360,7 +388,9 @@
                     margin: side-values(4px 4px 4px 0);
                     box-shadow: 1px 1px 0 rgba(0,0,0,.35);
                 }
-
+                &.chosen a {
+                    border-color: var(--porto-color-price);
+                }
             }
         }
         ul.yith-wcan-label {
@@ -372,10 +402,20 @@
                     margin: side-values(3px 6px 3px 0);
                     padding: 4px 8px;
                     line-height: 16px;
+                    background: var(--porto-body-bg);
+                    border: 1px solid var(--porto-gray-5);
+                    color: var(--porto-body-color)
                 }
                 &.chosen a,
                 a:hover {
                     color: $color-white;
+                    background: var(--porto-primary-color);
+                    border-color: var(--porto-primary-color);
+                }
+
+                &.chosen a:hover {
+                    background: var(--porto-primary-light-5);
+                    border-color: var(--porto-primary-light-5);
                 }
             }
         }
@@ -393,7 +433,7 @@ ul.product_list_widget {
     border-width: 0 !important;
     li {
         @include display-flex;
-        -ms-flex-align: center; align-items: center;
+        align-items: center;
         border-width: 0;
         position: relative;
         padding: .5rem 0;
@@ -409,24 +449,6 @@ ul.product_list_widget {
                 height: auto;
             }
 
-            /*.img-effect {
-                img {
-                    position: relative;
-                    left: 0;
-                }
-
-                .hover-image {
-                    margin-right: -100%;
-                }
-            }
-
-            &:hover {
-                .img-effect {
-                    img {
-                        left: -100%;
-                    }
-                }
-            }*/
             .img-effect {
                 img {
                     position: relative;
@@ -462,10 +484,10 @@ ul.product_list_widget {
         width: calc(100% - 104px);
         a {
             display: block;
-            text-decoration: none;
             font-size: 1.0769em;
             line-height: 1.4;
             white-space: nowrap;
+            color: var(--porto-dark-color);
             overflow: hidden;
             text-overflow: ellipsis;
             margin-bottom: .5rem;
@@ -475,6 +497,7 @@ ul.product_list_widget {
             font-weight: $font-weight-semibold;
             line-height: 1;
             vertical-align: middle;
+            color: var(--porto-color-price);
             .currency,
             .decimal {
                 font-size: .75em;
@@ -537,6 +560,7 @@ ul.product_list_widget {
         bottom: 0;
         opacity: .6;
         display: none;
+        background: var(--porto-normal-bg);
         &:before {
             content: "\f110";
             font-family: "porto";
@@ -555,7 +579,7 @@ ul.product_list_widget {
     }
 }
 
-ul.cart_list{
+ul.cart_list {
     li {
         &.empty {
             padding-#{$left}: 0;
@@ -591,7 +615,7 @@ ul.cart_list{
 
 .widget_recent_reviews {
     .product_list_widget {
-        -ms-flex-wrap: wrap; flex-wrap: wrap;
+        flex-wrap: wrap;
         li {
             padding: .5rem 1%;
             display: block;
@@ -599,11 +623,13 @@ ul.cart_list{
             a {
                 display: block;
                 position: relative;
+                color: var(--porto-body-color);
             }
             img {
                 width: 96px;
                 border: none;
                 display: block;
+                background: var(--porto-normal-bg);
                 margin: 0 auto 10px;
             }
             .star-rating {
@@ -618,6 +644,7 @@ ul.cart_list{
 
 // Woocommerce shopping cart
 .widget_shopping_cart {
+    color: var(--porto-body-color);
     .total {
         padding: .7143em 0;
         margin: 0;
@@ -626,6 +653,7 @@ ul.cart_list{
         .amount {
             font-size: 1.4286em;
             font-weight: $font-weight-semibold;
+            color: var(--porto-primary-color);
             .currency,
             .decimal {
                 font-size: .75em;
@@ -683,7 +711,7 @@ ul.cart_list{
 }
 
 .widget_shopping_cart .product-details .remove-product,
-.wishlist_table .remove_from_wishlist,
+.wishlist_table.traditional .remove_from_wishlist:not(.button),
 .wishlist-popup .remove_from_wishlist,
 .shop_table.cart-table a.remove {
     padding: 0;
@@ -694,7 +722,6 @@ ul.cart_list{
     width: 20px;
     height: 20px;
     line-height: 20px;
-    text-decoration: none;
     font-size: 11px;
     background-color: #fff;
     color: #222529;
@@ -703,7 +730,8 @@ ul.cart_list{
     z-index: 3;
     &:before {
         content: $fa-var-times;
-        font-family: 'Font Awesome 5 Free'; font-weight: 900;
+        font-family: 'Font Awesome 5 Free'; 
+        font-weight: 900;
     }
 }
 
@@ -831,10 +859,56 @@ ul.cart_list{
         display: block;
         @include clearfix();
         text-align: $right;
+        color: var(--porto-body-color-light-5);
     }
 }
 
 .woocommerce-widget-layered-nav-list {
-    display: -ms-flexbox; display: flex;
-    -ms-flex-wrap: wrap; flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+// Gutenberg product categories
+.wp-block-group__inner-container {
+    > h2 {
+        position: relative;
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 0;
+    }
+    &.closed >h2 {
+        border-bottom-width: 0;
+        .toggle:before {
+            display: block;
+        }
+    }
+}
+.wc-block-product-categories {
+    li {
+        position: relative;
+        padding: 4px 0;
+        .toggle:before {
+            font-size: 1.2em;
+        } 
+    }
+    > ul {
+        ul {
+            display: none;
+            padding-left: 1.0714em;
+        }
+        .current-active > a {
+            color: var(--porto-primary-color);
+        }
+    }
+}
+
+.wc-block-product-categories-list-item > a {
+    color: var(--porto-body-color)
+}
+
+.wc-block-product-categories,
+.widget_product_categories {
+    .count {
+        color: var(--porto-body-color-light-5)
+    }
 }

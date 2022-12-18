@@ -1,5 +1,10 @@
 <?php
 global $porto_settings, $porto_layout, $porto_sidebar, $porto_sidebar2, $porto_mobile_toggle;
+
+if ( empty( $porto_layout ) && empty( $porto_sidebar ) ) {
+	porto_action_head();
+	global $porto_layout, $porto_sidebar, $porto_sidebar2;
+}
 wp_reset_postdata();
 $content_bottom       = porto_get_meta_value( 'content_bottom' );
 $content_inner_bottom = porto_get_meta_value( 'content_inner_bottom' );

@@ -77,16 +77,7 @@ if ( ! porto_is_ajax() ) : ?>
 				</tr>
 				<?php do_action( 'woocommerce_cart_totals_after_order_total' ); ?>
 			</table>
-			<?php if ( version_compare( $porto_woo_version, '2.5', '<' ) && WC()->cart->get_cart_tax() ) : ?>
-				<p class="wc-cart-shipping-notice"><small>
-				<?php
-					/* translators: %s: Country name */
-					$estimated_text = WC()->customer->is_customer_outside_base() && ! WC()->customer->has_calculated_shipping() ? sprintf( ' ' . __( ' (taxes estimated for %s)', 'porto' ), WC()->countries->estimated_for_prefix() . WC()->countries->countries[ WC()->countries->get_base_country() ] ) : '';
-					/* translators: %s: Estimated text */
-					printf( __( 'Note: Shipping and taxes are estimated%s and will be updated during checkout based on your billing and shipping information.', 'porto' ), $estimated_text );
-				?>
-						</small></p>
-			<?php endif; ?>
+
 			<div class="wc-proceed-to-checkout">
 				<?php do_action( 'woocommerce_proceed_to_checkout' ); ?>
 			</div>

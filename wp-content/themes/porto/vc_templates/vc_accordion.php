@@ -35,14 +35,15 @@ $el_class  = $this->getExtraClass( $el_class );
 $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, 'accordion ' . $el_class . ' ' . $type . ( 'custom' == $type && 'custom' != $skin ? ' accordion-' . $skin . ' ' : '' ) . ' ' . $size, $this->settings['base'] );
 
 if ( 'custom' == $type && 'custom' == $skin && ( $heading_color || $heading_bg_color ) ) {
-	$output .= '<style>';
+	$inline_style = '<style>';
 	if ( $heading_color ) {
-		$output .= '#' . $id . '.accordion .card-header a { color: ' . esc_html( $heading_color ) . ' }';
+		$inline_style .= '#' . $id . '.accordion .card-header a { color: ' . esc_html( $heading_color ) . ' }';
 	}
 	if ( $heading_bg_color ) {
-		$output .= '#' . $id . '.accordion .card-header { background-color: ' . esc_html( $heading_bg_color ) . ' }';
+		$inline_style .= '#' . $id . '.accordion .card-header { background-color: ' . esc_html( $heading_bg_color ) . ' }';
 	}
-	$output .= '</style>';
+	$inline_style .= '</style>';
+	$output       .= $inline_style;
 }
 
 $output .= '<div class="' . esc_attr( $css_class ) . '" id="' . $id . '" data-collapsible="' . esc_attr( $collapsible ) . '" data-active-tab="' . esc_attr( $active_tab ) . '"' . ( isset( $use_accordion ) && $use_accordion ? ' data-use-accordion="yes"' : '' ) . '>'; //data-interval="'.$interval.'"

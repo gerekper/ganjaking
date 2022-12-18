@@ -1,15 +1,18 @@
 <?php get_header(); ?>
 
 <?php
+$builder_id = porto_check_builder_condition( 'archive' );
+if ( $builder_id && 'publish' == get_post_status( $builder_id ) ) {
+	echo do_shortcode( '[porto_block id="' . esc_attr( $builder_id ) . '"]' );
+} else {
+	global $porto_settings, $wp_query;
 
-global $porto_settings, $wp_query;
+	$term    = $wp_query->queried_object;
+	$term_id = $term->term_id;
 
-$term    = $wp_query->queried_object;
-$term_id = $term->term_id;
+	$faq_infinite = $porto_settings['faq-infinite'];
 
-$faq_infinite = $porto_settings['faq-infinite'];
-
-?>
+	?>
 
 <div id="content" role="main">
 
@@ -102,5 +105,5 @@ $faq_infinite = $porto_settings['faq-infinite'];
 	<?php endif; ?>
 
 </div>
-
+	<?php } ?>
 <?php get_footer(); ?>

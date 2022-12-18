@@ -30,7 +30,7 @@ if ( $skeleton_lazyload && ( ( function_exists( 'vc_is_inline' ) && vc_is_inline
 }
 if ( $skeleton_lazyload ) {
 	$porto_settings['skeleton_lazyload'] = true;
-	if ( apply_filters( 'porto_skeleton_lazyload_product_desc_only', class_exists( 'WeDevs_Dokan' ) || class_exists( 'WCFM' ) || class_exists( 'Uni_Cpo' ) ) ) {
+	if ( apply_filters( 'porto_skeleton_lazyload_product_desc_only', class_exists( 'WeDevs_Dokan' ) || class_exists( 'WCFM' ) || class_exists( 'Uni_Cpo' ) || class_exists( 'WooCommerce_Waitlist_Plugin' ) ) ) {
 		$porto_settings['skeleton_lazyload_product_desc'] = true;
 		$skeleton_lazyload                                = false;
 	}
@@ -48,6 +48,14 @@ if ( $skeleton_lazyload ) {
 $builder_id = porto_check_builder_condition( 'product' );
 if ( $builder_id || 'builder' == $porto_product_layout ) :
 	if ( $builder_id ) {
+		
+		// Remove wishlist in single product builder
+		if ( defined( 'YITH_WCWL' ) && function_exists( 'YITH_WCWL_Frontend' ) ) {
+			remove_action( 'woocommerce_single_product_summary', array( YITH_WCWL_Frontend(), 'print_button' ), 31 );
+			remove_action( 'woocommerce_product_thumbnails', array( YITH_WCWL_Frontend(), 'print_button' ), 21 );
+			remove_action( 'woocommerce_after_single_product_summary', array( YITH_WCWL_Frontend(), 'print_button' ), 11 );
+		}
+
 		echo do_shortcode( '[porto_block id="' . intval( $builder_id ) . '"]' );
 		if ( function_exists( 'vc_is_inline' ) && vc_is_inline() ) {
 			the_content();

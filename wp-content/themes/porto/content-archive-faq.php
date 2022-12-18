@@ -4,6 +4,11 @@ global $post;
 
 $post_class   = array();
 $post_class[] = 'faq';
+
+if ( ! empty( $post_classes ) ) {
+	$post_class[] = trim( $post_classes );
+}
+
 $item_cats    = get_the_terms( $post->ID, 'faq_cat' );
 if ( $item_cats ) :
 	foreach ( $item_cats as $item_cat ) {

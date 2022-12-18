@@ -181,7 +181,7 @@ if ( ! class_exists( 'ReduxFramework_slides' ) ) {
 				$hide = ' hide';
 
 				echo '<div class="screenshot' . $hide . '">';
-				echo '<a class="of-uploaded-image" href="">';
+				echo '<a class="of-uploaded-image" href="#">';
 				echo '<img class="redux-slides-image" id="image_image_id_' . $x . '" src="" alt="fieldslides" target="_blank" rel="external" />';
 				echo '</a>';
 				echo '</div>';

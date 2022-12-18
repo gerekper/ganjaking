@@ -1,0 +1,68 @@
+// WP Bakery
+@import "gui/sections-wpb";
+@import "layouts/layout_wpb";
+
+/* frontend editor */
+.compose-mode .vc_element[class*="vc_porto_hb_"] {
+	display: inline-block;
+	vertical-align: middle;
+	margin-#{$right}: .875rem;
+
+	&:last-child {
+		margin-#{$right}: 0
+	}
+}
+
+/* Header Builder */
+.header-builder-p {
+	.vc_column-inner {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+
+		& > *:not(.vc_row) {
+			margin-#{$right}: .875rem
+		}
+		& > *:last-child {
+			margin-#{$right}: 0
+		}
+		& > .vc_row,
+		& > .vc_vc_row_inner {
+			width: calc( 100% + var(--porto-grid-gutter-width) )
+		}
+	}
+
+	.vc_row-o-content-middle>.vc_column_container>.vc_column-inner {
+		flex-direction: row;
+		justify-content: flex-start
+	}
+
+	.porto-block {
+		.porto-block .vc_column-inner {
+			display: block;
+
+			> * {
+				margin-#{$right}: 0
+			}
+		}
+	}
+}
+
+#header.header-builder-p .header-main .container > div {
+	display: flex
+}
+.wpb-flex-1, .vc_column_container.flex-1 {
+	flex: 1;
+}
+.wpb-flex-auto, .vc_column_container.flex-auto {
+	width: auto;
+	flex: none
+}
+.wpb-flex-1:last-child .vc_column-inner,
+.vc_column_container.flex-1:last-child .vc_column-inner {
+	justify-content: flex-end
+}
+.wpb-flex-1:nth-child(2):not(:last-child) .vc_column-inner,
+.vc_column_container.flex-1:nth-child(2):not(:last-child) .vc_column-inner {
+	justify-content: center
+}

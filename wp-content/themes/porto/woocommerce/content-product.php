@@ -19,6 +19,9 @@ if ( ! $product || ! $product->is_visible() ) {
 
 // Extra post classes
 $classes = array( 'product-col' );
+if ( ! empty( $product_classes ) ) {
+	$classes[] = trim( $product_classes );
+}
 
 if ( ( function_exists( 'wc_get_loop_prop' ) && ! wc_get_loop_prop( 'is_paginated' ) ) || isset( $porto_woocommerce_loop['view'] ) || ! isset( $_COOKIE['gridcookie'] ) || 'list' != $_COOKIE['gridcookie'] ) {
 	if ( ! isset( $porto_woocommerce_loop['view'] ) || 'list' != $porto_woocommerce_loop['view'] ) {
@@ -76,7 +79,7 @@ if ( isset( $porto_settings['catalog-enable'] ) && $porto_settings['catalog-enab
 
 	<div class="product-image">
 
-		<a <?php echo porto_filter_output( $more_target ); ?> href="<?php echo esc_url( $more_link ); ?>">
+		<a <?php echo porto_filter_output( $more_target ); ?> href="<?php echo esc_url( $more_link ); ?>" aria-label="product">
 			<?php
 
 				/**
@@ -88,7 +91,12 @@ if ( isset( $porto_settings['catalog-enable'] ) && $porto_settings['catalog-enab
 				do_action( 'woocommerce_before_shop_loop_item_title' );
 			?>
 		</a>
-	<?php if ( ( ! isset( $porto_woocommerce_loop['widget'] ) || ! $porto_woocommerce_loop['widget'] ) && ( ! isset( $porto_woocommerce_loop['use_simple_layout'] ) || ! $porto_woocommerce_loop['use_simple_layout'] ) && isset( $woocommerce_loop['addlinks_pos'] ) && ! empty( $woocommerce_loop['addlinks_pos'] ) && ( ! in_array( $woocommerce_loop['addlinks_pos'], array( 'default', 'onhover', 'outimage' ) ) || ( class_exists( 'YITH_WCWL' ) && $porto_settings['product-wishlist'] && 'onimage' == $woocommerce_loop['addlinks_pos'] ) ) && ( ! isset( $porto_woocommerce_loop['view'] ) || 'list' != $porto_woocommerce_loop['view'] ) ) : ?>
+	<?php
+	$legacy_mode = apply_filters( 'porto_legacy_mode', true );
+	$legacy_mode = ( $legacy_mode && ! empty( $porto_settings['product-wishlist'] ) ) || ! $legacy_mode;
+
+	if ( ( ! isset( $porto_woocommerce_loop['widget'] ) || ! $porto_woocommerce_loop['widget'] ) && ( ! isset( $porto_woocommerce_loop['use_simple_layout'] ) || ! $porto_woocommerce_loop['use_simple_layout'] ) && isset( $woocommerce_loop['addlinks_pos'] ) && ! empty( $woocommerce_loop['addlinks_pos'] ) && ( ! in_array( $woocommerce_loop['addlinks_pos'], array( 'default', 'onhover', 'outimage' ) ) || ( class_exists( 'YITH_WCWL' ) && $legacy_mode && 'onimage' == $woocommerce_loop['addlinks_pos'] ) ) && ( ! isset( $porto_woocommerce_loop['view'] ) || 'list' != $porto_woocommerce_loop['view'] ) ) :
+		?>
 		<div class="links-on-image">
 			<?php do_action( 'porto_woocommerce_loop_links_on_image' ); ?>
 		</div>

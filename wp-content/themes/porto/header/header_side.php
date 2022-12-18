@@ -2,7 +2,7 @@
 global $porto_settings, $porto_layout;
 ?>
 <header id="header" class="header-side sticky-menu-header<?php echo ! $porto_settings['logo-overlay'] || ! $porto_settings['logo-overlay']['url'] ? '' : ' logo-overlay-header'; ?>" data-plugin-sticky data-plugin-options="<?php echo esc_attr( '{"autoInit": true, "minWidth": 992, "containerSelector": ".page-wrapper","autoFit":true, "paddingOffsetBottom": 0, "paddingOffsetTop": 0}' ); ?>">
-	<div class="header-main<?php echo 'none' == $porto_settings['minicart-type'] || ! class_exists( 'WooCommerce' ) ? '' : ' show-minicart'; ?>">
+	<div class="header-main<?php echo ( isset( $porto_settings['minicart-type'] ) && 'none' == $porto_settings['minicart-type'] || ! class_exists( 'WooCommerce' ) ) ? '' : ' show-minicart'; ?>">
 
 		<div class="side-top">
 			<div class="container">
@@ -20,12 +20,15 @@ global $porto_settings, $porto_layout;
 					<?php
 					// my account
 					if ( class_exists( 'WooCommerce' ) && ( 'simple' == porto_get_minicart_type() || 'none' == porto_get_minicart_type() ) ) {
-						echo '<a href="' . esc_url( wc_get_page_permalink( 'myaccount' ) ) . '"' . ' title="' . esc_attr__( 'My Account', 'porto' ) . '" class="my-account"><i class="porto-icon-user-2"></i></a>';
-
-						// wishlist icon
-						if ( defined( 'YITH_WCWL' ) ) {
-							$wc_count = yith_wcwl_count_products();
-							echo '<a href="' . esc_url( YITH_WCWL()->get_wishlist_url() ) . '"' . ' title="' . esc_attr__( 'Wishlist', 'porto' ) . '" class="my-wishlist"><i class="porto-icon-wishlist-2"></i></a>';
+						$el_class = '';
+						if ( ! is_user_logged_in() && empty( $porto_settings['woo-account-login-style'] ) ) {
+							$el_class = ' porto-link-login';
+						}
+						if ( in_array( 'account', $porto_settings['header-woo-icon'] ) ) {
+							echo porto_account_menu( $el_class );
+						}
+						if ( in_array( 'wishlist', $porto_settings['header-woo-icon'] ) ) {
+							echo porto_wishlist( '' );
 						}
 					}
 					?>
@@ -60,7 +63,7 @@ global $porto_settings, $porto_layout;
 					echo porto_filter_output( $sidebar_menu );
 				endif;
 				?>
-				<a class="mobile-toggle" href="#"><i class="fas fa-bars"></i></a>
+				<a class="mobile-toggle" aria-label="Mobile Menu" href="#"><i class="fas fa-bars"></i></a>
 
 				<div class="d-xl-none d-lg-none inline-block">
 					<?php echo porto_filter_output( $minicart ); ?>
@@ -76,7 +79,7 @@ global $porto_settings, $porto_layout;
 				<div class="side-bottom">
 					<?php
 					// show contact info and mini cart
-					$contact_info = $porto_settings['header-contact-info'];
+					$contact_info = isset( $porto_settings['header-contact-info'] ) ? $porto_settings['header-contact-info'] : '';
 
 					if ( $contact_info ) {
 						echo '<div class="header-contact">' . do_shortcode( $contact_info ) . '</div>';
@@ -90,7 +93,7 @@ global $porto_settings, $porto_layout;
 
 					<?php
 					// show copyright
-					$copyright = $porto_settings['header-copyright'];
+					$copyright = isset( $porto_settings['header-copyright'] ) ? $porto_settings['header-copyright'] : '';
 
 					if ( $copyright ) {
 						echo '<div class="header-copyright">' . do_shortcode( $copyright ) . '</div>';

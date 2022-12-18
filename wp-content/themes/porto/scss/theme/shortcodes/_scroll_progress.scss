@@ -1,0 +1,103 @@
+.porto-scroll-progress {
+	width: 100%;
+	pointer-events: none;
+	-webkit-appearance: none;
+	appearance: none;
+	border: 0;
+	background-color: #f4f4f4;
+	&::-webkit-progress-bar {
+		background-color: #f4f4f4;
+	}
+	&::-moz-progress-bar {
+		border: 0;
+	}
+
+	&::-moz-progress-bar {
+		background-color: var(--porto-primary-color);
+	}
+	&::-webkit-progress-value {
+		background-color: var(--porto-primary-color);
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	.admin-bar &.fixed-top {
+		top: 32px;
+
+		@media screen and (max-width: 782px) {
+			top: 46px;
+		}
+
+		@media screen and (max-width: 600px) {
+			top: 0
+		}
+	}
+
+	&.fixed-under-header {
+		display: none
+	}
+}
+
+.porto-scroll-progress-circle {
+	position: fixed;
+	z-index: 1299;
+	right: 1.25rem;
+	bottom: 1.25rem;
+	width: 3rem;
+	height: 3rem;
+	padding: 1px;
+	background: none;
+	font-size: .75rem;
+	pointer-events: auto;
+	opacity: 0;
+	transform: translateY(20px);
+	transition: opacity .3s, transform .3s;
+
+	&.show {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	&.pos-bl, &.pos-tl {
+		left: 1.25rem;
+		right: auto
+	}
+
+	&.pos-tl, &.pos-tr {
+		top: 1.25rem;
+		bottom: auto
+	}
+
+	svg {
+		border-radius: 50px;
+		overflow: visible
+	}
+
+	i {
+		position: absolute;
+		width: 80%;
+		height: 80%;
+		left: 10%;
+		top: 10%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #fff;
+		border-radius: 50%;
+		z-index: 1;
+		background-color: var(--porto-dark-color);
+	}
+
+	circle {
+		stroke: var(--porto-primary-color);
+		stroke-width: 4px;
+		stroke-linecap: round;
+		stroke-dasharray: 1,400;
+	}
+
+	@media (max-width: 767px) {
+		display: none
+	}
+}

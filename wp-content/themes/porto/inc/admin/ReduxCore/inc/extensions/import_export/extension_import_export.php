@@ -92,7 +92,7 @@ if ( ! class_exists( 'ReduxFramework_extension_import_export' ) ) {
 				)
 			);
 
-			do_action( "redux/options/{$this->parent->args['opt_name']}/import", array( $this, 'remove_cookie' ) );
+			//do_action( "redux/options/{$this->parent->args['opt_name']}/import", array( $this, 'remove_cookie' ) );
 
 			$this->is_field = Redux_Helpers::isFieldInUse( $parent, 'import_export' );
 

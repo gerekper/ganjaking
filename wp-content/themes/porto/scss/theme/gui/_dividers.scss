@@ -4,7 +4,10 @@ hr {
     opacity: 1;
     border: 0;
     height: 1px;
-    margin: 22px 0;
+    &, .elementor & {
+        margin: 1.375rem 0;
+    }
+
     &.hide {
         display: none !important;
     }
@@ -37,6 +40,7 @@ hr {
     i {
         text-align: center;
         border-radius: 50px;
+        background: var(--porto-body-bg);
         color: #a9a9a9;
         display: inline-block;
         height: 50px;
@@ -106,13 +110,20 @@ hr {
 
     &.divider-style-2 {
         i {
+            background: var(--porto-gray-1);
             color: #a9a9a9;
         }
+    }
+
+    &.divider-style-3 i,
+    &.divider-style-4 i {
+        border: 1px solid var(--porto-gray-2);
     }
 
     &.divider-style-4 {
         i {
             &:after {
+                border: 3px solid var(--porto-gray-1);
                 border-radius: 50%;
                 box-sizing: content-box;
                 content: "";
@@ -168,6 +179,10 @@ hr {
         &.taller {
             margin: 46px 0;
         }
+
+        &.divider-light hr {
+            background: var(--porto-gray-2);
+        }
     }
 }
 
@@ -183,6 +198,7 @@ hr, .divider {
             top: 50%;
             margin-top: -1px;
             width: 100%;
+            border: 1px solid var(--porto-normal-bc);
         }
     }
     &.pattern {
@@ -206,6 +222,11 @@ hr, .divider {
     }
 }
 
+hr.solid,
+.divider.divider-solid {
+    background: var(--porto-normal-bc);
+}
+
 .porto-separator {
     margin: 0 0 22px;
     &.short {
@@ -223,9 +244,6 @@ hr, .divider {
 
         &.align_left {
             margin: side-values(0 auto 0 0);
-        }
-        &.align_center {
-            margin: 0 auto;
         }
         &.align_right {
             margin: side-values(0 0 0 auto);

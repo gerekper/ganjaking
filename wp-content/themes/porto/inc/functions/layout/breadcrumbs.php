@@ -39,7 +39,7 @@ function porto_breadcrumbs() {
 	if ( ! is_front_page() ) {
 		$output .= porto_breadcrumbs_link( __( 'Home', 'porto' ), apply_filters( 'woocommerce_breadcrumb_home_url', home_url() ) );
 	} elseif ( is_home() ) {
-		$output .= porto_breadcrumbs_link( $porto_settings['blog-title'] );
+		$output .= porto_breadcrumbs_link( isset( $porto_settings['blog-title'] ) ? $porto_settings['blog-title'] : esc_html__( 'Blog', 'porto' ) );
 	}
 
 	// add woocommerce shop page link
@@ -83,10 +83,10 @@ function porto_breadcrumbs() {
 					$output .= porto_breadcrumbs_link( get_the_title( get_option( 'page_for_posts', true ) ), get_permalink( get_option( 'page_for_posts' ) ) );
 				}
 				/* translators: %s: Tag name */
-				$output .= sprintf( '<li>' . esc_html__( 'Tag - %s', 'porto' ) . '</li>', $html );
+				$output .= sprintf( '<li>' . esc_html__( 'Tag', 'porto' ) . '&nbsp;-&nbsp;%s</li>', $html );
 			} elseif ( is_tax( 'product_tag' ) ) {
 				/* translators: %s: Tag name */
-				$output .= sprintf( '<li>' . esc_html__( 'Product Tag - %s', 'porto' ) . '</li>', $html );
+				$output .= sprintf( '<li>' . esc_html__( 'Product Tag', 'porto' ) . '&nbsp;-&nbsp;%s</li>', $html );
 			} else {
 				if ( is_category() && get_option( 'show_on_front' ) == 'page' && ( isset( $porto_settings['breadcrumbs-blog-link'] ) && $porto_settings['breadcrumbs-blog-link'] ) ) {
 					$output .= porto_breadcrumbs_link( get_the_title( get_option( 'page_for_posts', true ) ), get_permalink( get_option( 'page_for_posts' ) ) );
@@ -155,7 +155,7 @@ function porto_breadcrumbs() {
 				if ( get_option( 'show_on_front' ) == 'page' ) {
 					$output .= porto_breadcrumbs_link( get_the_title( get_option( 'page_for_posts', true ) ) );
 				} else {
-					$output .= porto_breadcrumbs_link( $porto_settings['blog-title'] );
+					$output .= porto_breadcrumbs_link( isset( $porto_settings['blog-title'] ) ? $porto_settings['blog-title'] : esc_html__( 'Blog', 'porto' ) );
 				}
 			}
 		}

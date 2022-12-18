@@ -66,13 +66,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Row
  */
-$el_class        = $full_height = $parallax_speed_bg = $parallax_speed_video = $full_width = $equal_height = $flex_row = $columns_placement = $content_placement = $parallax = $parallax_image = $css = $el_id = $video_bg = $video_bg_url = $video_bg_parallax = $no_padding = '';
+$el_class        = $full_height = $parallax_speed_bg = $parallax_speed_video = $full_width = $equal_height = $flex_row = $columns_placement = $content_placement = $parallax = $parallax_image = $css = $el_id = $video_bg = $video_bg_url = $video_bg_parallax = $no_padding = $conditional_render = '';
 $disable_element = '';
 global $porto_settings, $porto_layout;
 $output = $after_output = '';
 $atts   = vc_map_get_attributes( $this->getShortcode(), $atts );
 extract( $atts );
-
+$conditional_render = (array) vc_param_group_parse_atts( $conditional_render );
+if ( ! empty( $conditional_render ) && ! empty( $conditional_render[0]['condition_a'] ) && ! apply_filters( 'porto_wpb_should_render', true, $conditional_render ) ) {
+	return;
+}
 wp_enqueue_script( 'wpb_composer_front_js' );
 
 $el_class = $this->getExtraClass( $el_class );
@@ -81,6 +84,7 @@ $css_classes = array(
 	'vc_row',
 	'wpb_row', //deprecated
 	'vc_row-fluid',
+	'top-row', // added from 6.3.0
 	$el_class,
 	vc_shortcode_custom_css_class( $css ),
 );
@@ -202,6 +206,7 @@ if ( $is_section && $show_divider ) {
 	$divider_class = 'divider' . rand();
 	if ( $show_divider_icon && $divider_icon_class && 'custom' == $divider_icon_skin && ( $divider_icon_color || $divider_icon_bg_color || $divider_icon_border_color || $divider_icon_wrap_border_color ) ) :
 		$divider_classes[] = $divider_class;
+		ob_start();
 		?>
 		<style>
 		<?php
@@ -246,8 +251,9 @@ if ( $is_section && $show_divider ) {
 			<?php
 			endif;
 		?>
-			</style>
+		</style>
 		<?php
+		porto_filter_inline_css( ob_get_clean() );
 	endif;
 
 	$divider_output = '<div class="' . esc_attr( implode( ' ', $divider_classes ) ) . '"' . $divider_inline_style . '>';
@@ -381,14 +387,48 @@ if ( $wrap_container ) {
 	$css_classes[] = 'flex-row-reverse';
 }
 
+// Mouse Hover Split
+if ( ! empty( $atts['hover_split'] ) ) {
+	$split_class = ' mouse-hover-split slide-wrapper';
+	$split_style = 'style="min-height:' . ( ! empty( $atts['split_mh'] ) ? esc_attr( $atts['split_mh'] ) : '300px' ) . ';"';
+}
+
+if ( ! empty( $split_class ) && ! $wrap_container ) {
+	$css_classes[]        = $split_class;
+	$wrapper_attributes[] = $split_style;
+}
+
 // lazy load background image
 global $porto_settings_optimize;
+if ( class_exists( 'Porto_Critical' ) ) {
+	$preloads = Porto_Critical::get_instance()->get_preloads();
+}
 if ( isset( $porto_settings_optimize['lazyload'] ) && $porto_settings_optimize['lazyload'] && ! vc_is_inline() ) {
 	preg_match( '/\.vc_custom_[^}]*(background-image:[^(]*([^)]*)|background:\s#[A-Fa-f0-9]{3,6}\s*url\(([^)]*))/', $css, $matches );
 	if ( ! empty( $matches[2] ) || ! empty( $matches[3] ) ) {
-		$image_url            = ! empty( $matches[2] ) ? $matches[2] : $matches[3];
-		$wrapper_attributes[] = 'data-original="' . esc_url( trim( str_replace( array( '(', ')' ), '', $image_url ) ) ) . '"';
-		$css_classes[]        = 'porto-lazyload';
+		$image_url = ! empty( $matches[2] ) ? $matches[2] : $matches[3];
+		$image_url = esc_url( trim( str_replace( array( '(', ')' ), '', $image_url ) ) );
+		if ( empty( $preloads ) || ( isset( $preloads ) && is_array( $preloads ) && ! in_array( $image_url, $preloads ) ) ) {
+			$wrapper_attributes[] = 'data-original="' . $image_url . '"';
+			$css_classes[]        = 'porto-lazyload';
+		}
+	}
+}
+
+// particles effect
+if ( ! empty( $atts['particles_effect'] ) && defined( 'PORTO_SHORTCODES_VERSION' ) && ! empty( $atts['particles_img'] ) && is_numeric( $atts['particles_img'] ) ) {
+	$img_data = wp_get_attachment_image_src( $atts['particles_img'], 'full' );
+	if ( ! empty( $img_data ) && ! is_wp_error( $img_data ) ) {
+		$css_classes[]         = 'p-relative';
+		$particles_opts        = array();
+		$particles_opts['src'] = esc_url( $img_data[0] );
+		$particles_opts['w']   = (int) $img_data[1];
+		$particles_opts['h']   = (int) $img_data[2];
+		$particles_opts['he']  = isset( $atts['particles_hover_effect'] ) ? $atts['particles_hover_effect'] : '';
+		$particles_opts['ce']  = isset( $atts['particles_click_effect'] ) ? $atts['particles_click_effect'] : '';
+
+		wp_enqueue_script( 'particles', PORTO_SHORTCODES_URL . 'assets/js/particles.min.js', array(), PORTO_SHORTCODES_VERSION, true );
+		wp_enqueue_script( 'porto-particles-loader', PORTO_SHORTCODES_URL . 'assets/js/porto-particles-loader.min.js', array( 'particles' ), PORTO_SHORTCODES_VERSION, true );
 	}
 }
 
@@ -403,6 +443,42 @@ if ( $animation_type ) {
 	if ( $animation_duration && 1000 != $animation_duration ) {
 		$wrapper_attributes[] = 'data-appear-animation-duration="' . esc_attr( $animation_duration ) . '"';
 	}
+}
+
+// scroll parallax
+if ( ! empty( $atts['scroll_parallax'] ) && defined( 'PORTO_SHORTCODES_VERSION' ) ) {
+	$sp_options = array( 'cssValueStart' => empty( $atts['scroll_parallax_width'] ) ? 40 : absint( $atts['scroll_parallax_width'] ) );
+	if ( ! empty( $atts['scroll_unit'] ) ) {
+		$sp_options['cssValueUnit'] = esc_attr( $atts['scroll_unit'] );
+	}
+
+	$wrapper_attributes[] = 'data-plugin="scroll-parallax"';
+	$wrapper_attributes[] = 'data-sp-options="' . esc_attr( json_encode( $sp_options ) ) . '"';
+
+	wp_enqueue_script( 'porto-scroll-parallax', PORTO_SHORTCODES_URL . 'assets/js/porto-scroll-parallax.min.js', array( 'jquery-core' ), PORTO_SHORTCODES_VERSION, true );
+}
+
+
+if ( ! empty( $atts['scroll_inviewport'] ) ) {
+	$extra_options = array();
+	if ( ! empty( $atts['scroll_bg'] ) ) {
+		$extra_options['styleIn'] = array(
+			'background-color' => $atts['scroll_bg'],
+		);
+	}
+	if ( ! empty( $atts['scroll_bg_inout'] ) ) {
+		$extra_options['styleOut'] = array(
+			'background-color' => $atts['scroll_bg_inout'],
+		);
+	}
+	if ( ! empty( $atts['scroll_top_mode'] ) ) {
+		$extra_options['modTop'] = '-' . abs( $atts['scroll_top_mode'] ) . 'px';
+	}
+	if ( ! empty( $atts['scroll_bottom_mode'] ) ) {
+		$extra_options['modBottom'] = '-' . abs( $atts['scroll_bottom_mode'] ) . 'px';
+	}
+	$wrapper_attributes[] = 'data-inviewport-style';
+	$wrapper_attributes[] = 'data-plugin-options="' . esc_attr( json_encode( $extra_options ) ) . '"';
 }
 
 $output .= '<div ' . implode( ' ', $wrapper_attributes ) . '>';
@@ -420,13 +496,19 @@ if ( 'mp4' === $video_type && ! empty( $parallax ) ) {
 	$output                       .= '<div class="section-video skrollable skrollable-between ' . esc_attr( $parallax_css_classes ) . '" ' . implode( ' ', $parallax_wrapper_attributes ) . '></div>';
 }
 
+// particles effect
+if ( ! empty( $particles_opts ) ) {
+	$output .= '<div id="particles-' . porto_generate_rand( 4 ) . '" class="particles-wrapper fill" data-plugin-options="' . esc_attr( json_encode( $particles_opts ) ) . '"></div>';
+}
+
+// Mouse Hover Split
 if ( $wrap_container ) {
 	$align_items_cls_arr = array(
 		'middle' => 'align-items-center',
 		'top'    => 'align-items-start',
 		'bottom' => 'align-items-end',
 	);
-	$output             .= '<div class="porto-wrap-container container"><div class="row' . ( empty( $atts['gap'] ) || ! vc_is_inline() ? '' : ' vc_row' ) . ( $content_placement ? ' ' . $align_items_cls_arr[ $content_placement ] : '' ) . ( ! empty( $atts['gap'] ) && empty( $no_padding ) ? ' vc_column-gap-' . esc_attr( $atts['gap'] ) : '' ) . ( ! empty( $rtl_reverse ) && is_rtl() ? ' flex-row-reverse' : '' ) . '">';
+	$output             .= '<div class="porto-wrap-container container"><div class="row' . ( empty( $atts['gap'] ) || ! vc_is_inline() ? '' : ' vc_row' ) . ( $content_placement ? ' ' . $align_items_cls_arr[ $content_placement ] : '' ) . ( ! empty( $atts['gap'] ) && empty( $no_padding ) ? ' vc_column-gap-' . esc_attr( $atts['gap'] ) : '' ) . ( ! empty( $rtl_reverse ) && is_rtl() ? ' flex-row-reverse' : '' ) . ( ! empty( $split_class ) ? esc_attr( $split_class ) : '' ) . '"' . ( ! empty( $split_style ) ? ' ' . esc_attr( $split_style ) : '' ) . '>';
 }
 
 if ( $is_sticky ) {

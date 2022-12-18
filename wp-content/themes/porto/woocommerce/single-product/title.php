@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 global $porto_settings;
 ?>
-<h2 class="product_title entry-title<?php echo ! $porto_settings['product-nav'] ? '' : ' show-product-nav'; ?>">
+<h1 class="product_title entry-title<?php echo ( apply_filters( 'porto_legacy_mode', true ) && ! $porto_settings['product-nav'] ) ? '' : ' show-product-nav'; ?>">
 	<?php if ( porto_is_ajax() ) : ?>
 	<a href="<?php the_permalink(); ?>">
 	<?php endif; ?>
@@ -18,4 +18,4 @@ global $porto_settings;
 	<?php if ( porto_is_ajax() ) : ?>
 	</a>
 	<?php endif; ?>
-</h2>
+</h1>

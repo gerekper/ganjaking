@@ -13,7 +13,7 @@ $porto_woo_version = porto_get_woo_version_number();
 <div class="cart_totals<?php echo WC()->customer->has_calculated_shipping() ? ' calculated_shipping' : ''; ?>">
 	<div class="cart_totals_toggle">
 		<div class="card card-default">
-			<h4 class="card-sub-title text-md m-b-md pb-1"><?php esc_html_e( 'CART TOTALS', 'porto' ); ?></h4>
+			<h4 class="card-sub-title text-md text-uppercase m-b-md pb-1"><?php esc_html_e( 'Cart totals', 'woocommerce' ); ?></h4>
 			<div id="panel-cart-total">
 				<div class="card-body p-0">
 					<table class="responsive cart-total" cellspacing="0">
@@ -69,24 +69,14 @@ $porto_woo_version = porto_get_woo_version_number();
 
 						<?php do_action( 'woocommerce_cart_totals_before_order_total' ); ?>
 						<tr class="order-total">
-							<th><h4 class="text-md mb-0"><?php esc_html_e( 'Total', 'porto' ); ?></h4></th>
+							<th><h4 class="text-md mb-0"><?php esc_html_e( 'Total', 'woocommerce' ); ?></h4></th>
 							<td><?php wc_cart_totals_order_total_html(); ?></td>
 						</tr>
 						<?php do_action( 'woocommerce_cart_totals_after_order_total' ); ?>
 					</table>
-					<?php if ( version_compare( $porto_woo_version, '2.5', '<' ) && WC()->cart->get_cart_tax() ) : ?>
-						<p class="wc-cart-shipping-notice"><small>
-						<?php
-							$cc = WC()->countries->countries[ WC()->countries->get_base_country() ];
-							/* translators: %s: Country name */
-							$estimated_text = WC()->customer->is_customer_outside_base() && ! WC()->customer->has_calculated_shipping() ? sprintf( ' ' . __( ' (taxes estimated for %s)', 'porto' ), WC()->countries->estimated_for_prefix() . $cc ) : '';
-							/* translators: %s: Esitimated text */
-							printf( __( 'Note: Shipping and taxes are estimated%s and will be updated during checkout based on your billing and shipping information.', 'porto' ), $estimated_text );
-						?>
-						</small></p>
-					<?php endif; ?>
+
 					<div class="wc-proceed-to-checkout">
-						<a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="btn btn-v-dark w-100 m-t-lg py-3"><?php esc_html_e( 'Proceed to checkout', 'porto' ); ?><i class="vc_btn3-icon fas fa-arrow-right ps-3"></i></a>
+						<a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="btn btn-v-dark w-100 m-t-lg py-3"><?php esc_html_e( 'Proceed to checkout', 'woocommerce' ); ?><i class="vc_btn3-icon fas fa-arrow-right ps-3"></i></a>
 					</div>
 				</div>
 			</div>

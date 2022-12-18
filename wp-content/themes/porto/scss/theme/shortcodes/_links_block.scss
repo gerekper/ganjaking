@@ -1,13 +1,16 @@
 /* Porto Links */
 
 .porto-links-block {
-    border: 1px solid;
+    border: 1px solid var(--porto-gray-2);
+    background: var(--porto-widget-bgc);
 
     .links-title {
-        border-bottom: 1px solid;
+        background: var(--porto-title-bgc);
+        border-bottom: 1px solid var(--porto-gray-2);
         font-size: 1em;
         font-weight: $font-weight-bold;
         line-height: 14px;
+        color: var(--porto-heading-color);
         padding: 15px 20px;
         margin: 0;
         text-transform: uppercase;
@@ -47,11 +50,12 @@
             display: block;
             font-size: 1em;
             line-height: 20px;
-            color: #465157 !important;
+            color: var(--porto-color-price);
             letter-spacing: 0.10px;
             padding: 11px 6px 10px;
             margin: 0 10px -1px;
             text-decoration: none;
+            border-top: 1px solid var(--porto-gray-2);
         }
 
         a:hover {

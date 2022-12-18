@@ -52,7 +52,7 @@ span.middle-text div {
     position: absolute;
     border-left: 20px solid transparent;
     border-right: 20px solid transparent;
-    border-top: 20px solid #FFF;
+    border-top: 20px solid var(--porto-body-bg);
     height: 20px;
     width: 20px;
     top: -5px;

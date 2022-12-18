@@ -14,9 +14,8 @@
     padding: 25px 80px;
     outline: 0;
     text-align: center;
-    text-decoration: none;
     position: relative;
-    transition: all .3s;
+    transition: .3s;
     overflow: hidden;
     z-index: 1;
     max-width: 100%;
@@ -28,7 +27,7 @@
     content: '';
     position: absolute;
     z-index: -1;
-    transition: all .3s
+    transition: .3s
 }
 .porto-btn-data {
     z-index: 3;
@@ -45,7 +44,6 @@ a.porto-btn {
 }
 a.porto-btn:hover {
     color: inherit;
-    text-decoration: none
 }
 a.porto-btn:hover,
 a.porto-btn:focus,

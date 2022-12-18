@@ -2,7 +2,17 @@
 /**
  * Add payment method form form
  *
- * @version     4.3.0
+ * This template can be overridden by copying it to yourtheme/woocommerce/myaccount/form-add-payment-method.php.
+ *
+ * HOWEVER, on occasion WooCommerce will need to update template files and you
+ * (the theme developer) will need to copy the new files to your theme to
+ * maintain compatibility. We try to do this as little as possible, but it does
+ * happen. When this occurs the version of the template file will be bumped and
+ * the readme will list any important changes.
+ *
+ * @see https://docs.woocommerce.com/document/template-structure/
+ * @package WooCommerce\Templates
+ * @version 7.0.1
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -20,8 +30,7 @@ $porto_woo_version = porto_get_woo_version_number();
 
 $available_gateways = WC()->payment_gateways->get_available_payment_gateways();
 
-if ( $available_gateways ) :
-	?>
+if ( $available_gateways ) : ?>
 	<form id="add_payment_method" method="post">
 		<div id="payment" class="woocommerce-Payment">
 			<ul class="woocommerce-PaymentMethods payment_methods methods">
@@ -38,7 +47,7 @@ if ( $available_gateways ) :
 							<label for="payment_method_<?php echo esc_attr( $gateway->id ); ?>"><?php echo wp_kses_post( $gateway->get_title() ); ?> <?php echo wp_kses_post( $gateway->get_icon() ); ?></label>
 						<?php
 						if ( $gateway->has_fields() || $gateway->get_description() ) {
-							echo '<div class="woocommerce-PaymentBox woocommerce-PaymentBox--' . $gateway->id . ' payment_box payment_method_' . $gateway->id . '" style="display: none;">';
+							echo '<div class="woocommerce-PaymentBox woocommerce-PaymentBox--' . esc_attr( $gateway->id ) . ' payment_box payment_method_' . esc_attr( $gateway->id ) . '" style="display: none;">';
 							$gateway->payment_fields();
 							echo '</div>';
 						}
@@ -53,7 +62,7 @@ if ( $available_gateways ) :
 
 			<div class="form-row clearfix">
 				<?php wp_nonce_field( 'woocommerce-add-payment-method', 'woocommerce-add-payment-method-nonce' ); ?>
-				<button type="submit" class="woocommerce-Button woocommerce-Button--alt button btn-lg pt-right alt" id="place_order" value="<?php esc_attr_e( 'Add Payment Method', 'porto' ); ?>"><?php esc_html_e( 'Add Payment Method', 'porto' ); ?></button>
+				<button type="submit" class="woocommerce-Button woocommerce-Button--alt button btn-lg pt-right alt<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>" id="place_order" value="<?php esc_attr_e( 'Add payment method', 'woocommerce' ); ?>"><?php esc_html_e( 'Add payment method', 'woocommerce' ); ?></button>
 				<input type="hidden" name="woocommerce_add_payment_method" id="woocommerce_add_payment_method" value="1" />
 			</div>
 		</div>

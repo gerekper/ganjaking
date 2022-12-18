@@ -89,8 +89,9 @@ if ( ! class_exists( 'Porto_Pre_Order_Admin' ) ) :
 				$pre_order      = isset( $_POST['_porto_pre_order'][ $index ] ) ? 'yes' : '';
 				$pre_order_date = $_POST['_porto_pre_order_date'][ $index ];
 			}
+
 			update_post_meta( $post_id, '_porto_pre_order', $pre_order );
-			update_post_meta( $post_id, '_porto_pre_order_date', sanitize_title( $pre_order_date ) );
+			update_post_meta( $post_id, '_porto_pre_order_date', empty( $pre_order_date ) ? '' : sanitize_title( $pre_order_date ) );
 		}
 
 		public function save_parent_pre_order( $post_id ) {
@@ -102,11 +103,11 @@ if ( ! class_exists( 'Porto_Pre_Order_Admin' ) ) :
 			unset( $order_statuses['wc-completed'] );
 
 			$args = array(
-				'post_type'   => wc_get_order_types(),
-				'post_status' => array_keys( $order_statuses ),
-				'fields'      => 'ids',
-				'numberposts' => - 1,
-				'meta_query'  => array(
+				'post_type'      => wc_get_order_types(),
+				'post_status'    => array_keys( $order_statuses ),
+				'fields'         => 'ids',
+				'posts_per_page' => -1,
+				'meta_query'     => array(
 					array(
 						'key'     => '_porto_pre_order',
 						'value'   => 'yes',

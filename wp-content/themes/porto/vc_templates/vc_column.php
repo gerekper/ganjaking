@@ -54,13 +54,23 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Shortcode class
  * @var $this WPBakeryShortCode_VC_Column
  */
-$parallax_speed_bg = $parallax_speed_video = $parallax = $parallax_image = $video_bg = $video_bg_url = $video_bg_parallax = '';
+$parallax_speed_bg = $parallax_speed_video = $parallax = $parallax_image = $video_bg = $video_bg_url = $video_bg_parallax = $conditional_render = '';
 $el_id             = '';
 $output            = '';
 $is_half           = '';
-$atts              = vc_map_get_attributes( $this->getShortcode(), $atts );
-extract( $atts );
 
+$floating_start_pos  = '';
+$floating_speed      = '';
+$floating_transition = 'yes';
+$floating_horizontal = '';
+$floating_duration   = '';
+
+$atts = vc_map_get_attributes( $this->getShortcode(), $atts );
+extract( $atts );
+$conditional_render = (array) vc_param_group_parse_atts( $conditional_render );
+if ( ! empty( $conditional_render ) && ! empty( $conditional_render[0]['condition_a'] ) && ! apply_filters( 'porto_wpb_should_render', true, $conditional_render ) ) {
+	return;
+}
 $width = wpb_translateColumnWidthToSpan( $width );
 $width = vc_column_offset_class_merge( $offset, $width );
 
@@ -74,6 +84,10 @@ $css_classes = array(
 
 if ( vc_is_inline() ) {
 	$css_classes[] = 'wpb_column';
+}
+
+if ( ! empty( $split_layer ) ) {
+	$css_classes[] = 'split-slide';
 }
 
 if ( $is_section ) {
@@ -166,6 +180,7 @@ if ( $is_section && $show_divider ) {
 	$divider_class = 'divider' . rand();
 	if ( $show_divider_icon && $divider_icon_class && 'custom' == $divider_icon_skin && ( $divider_icon_color || $divider_icon_bg_color || $divider_icon_border_color || $divider_icon_wrap_border_color ) ) :
 		$divider_classes[] = $divider_class;
+		ob_start();
 		?>
 		<style>
 		<?php
@@ -212,6 +227,7 @@ endif;
 		?>
 			</style>
 		<?php
+		porto_filter_inline_css( ob_get_clean() );
 	endif;
 
 	$divider_output = '<div class="' . esc_attr( implode( ' ', $divider_classes ) ) . '"' . $divider_inline_style . '>';
@@ -284,12 +300,18 @@ if ( ! $use_inner_col ) {
 
 // lazy load background image
 global $porto_settings_optimize;
+if ( class_exists( 'Porto_Critical' ) ) {
+	$preloads = Porto_Critical::get_instance()->get_preloads();
+}
 if ( isset( $porto_settings_optimize['lazyload'] ) && $porto_settings_optimize['lazyload'] && ! vc_is_inline() ) {
 	preg_match( '/\.vc_custom_[^}]*(background-image:[^(]*([^)]*)|background:\s#[A-Fa-f0-9]{3,6}\s*url\(([^)]*))/', $css, $matches );
 	if ( ! empty( $matches[2] ) || ! empty( $matches[3] ) ) {
-		$image_url            = ! empty( $matches[2] ) ? $matches[2] : $matches[3];
-		$wrapper_attributes[] = 'data-original="' . esc_url( trim( str_replace( array( '(', ')' ), '', $image_url ) ) ) . '"';
-		$css_classes[]        = 'porto-lazyload';
+		$image_url = ! empty( $matches[2] ) ? $matches[2] : $matches[3];
+		$image_url = esc_url( trim( str_replace( array( '(', ')' ), '', $image_url ) ) );
+		if ( ( empty( $preloads ) || ( isset( $preloads ) && is_array( $preloads ) && ! in_array( $image_url, $preloads ) ) ) ) {
+			$wrapper_attributes[] = 'data-original="' . $image_url . '"';
+			$css_classes[]        = 'porto-lazyload';
+		}
 	}
 }
 
@@ -305,6 +327,25 @@ if ( $animation_type ) {
 	if ( $animation_duration && 1000 != $animation_duration ) {
 		$wrapper_attributes[] = 'data-appear-animation-duration="' . esc_attr( $animation_duration ) . '"';
 	}
+} elseif ( $floating_start_pos && $floating_speed ) {
+	$floating_options = array(
+		'startPos' => $floating_start_pos,
+		'speed'    => $floating_speed,
+	);
+	if ( $floating_transition ) {
+		$floating_options['transition'] = true;
+	} else {
+		$floating_options['transition'] = false;
+	}
+	if ( $floating_horizontal ) {
+		$floating_options['horizontal'] = true;
+	} else {
+		$floating_options['horizontal'] = false;
+	}
+	if ( $floating_duration ) {
+		$floating_options['transitionDuration'] = absint( $floating_duration );
+	}
+	$wrapper_attributes[] = ' data-plugin-float-element data-plugin-options="' . esc_attr( json_encode( $floating_options ) ) . '"';
 }
 if ( ! empty( $el_id ) ) {
 	$wrapper_attributes[] = 'id="' . esc_attr( $el_id ) . '"';

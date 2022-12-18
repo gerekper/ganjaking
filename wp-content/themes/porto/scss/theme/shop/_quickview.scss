@@ -10,6 +10,9 @@
 
     @media #{$screen-medium} {
         width: auto;
+        &.skeleton-body {
+            width: calc( 100vw - 40px );
+        }
     }
 
     @media #{$screen-small} {

@@ -53,7 +53,7 @@ $localized_table_text = apply_filters( 'wpml_translate_single_string', $table_te
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
 	<meta name="viewport" content="width=device-width" />
-	<link rel="profile" href="http://gmpg.org/xfn/11" />
+	<link rel="profile" href="https://gmpg.org/xfn/11" />
 
 	<?php wp_head(); ?>
 
@@ -62,7 +62,6 @@ $localized_table_text = apply_filters( 'wpml_translate_single_string', $table_te
 	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Poppins:400,600,700" />
 	<link rel="stylesheet" href="<?php echo YITH_WOOCOMPARE_URL; ?>assets/css/colorbox.css"/>
 	<link rel="stylesheet" href="<?php echo YITH_WOOCOMPARE_URL; ?>assets/css/jquery.dataTables.css"/>
-	<link rel="stylesheet" href="<?php echo esc_url( $theme_style_url ); ?>" type="text/css" />
 	<link rel="stylesheet" href="<?php echo esc_url( $this->stylesheet_url() ); ?>" type="text/css" />
 
 	<style type="text/css">

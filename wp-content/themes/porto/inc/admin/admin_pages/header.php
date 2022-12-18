@@ -29,6 +29,6 @@
 	</div>
 	<div class="header-right">
 		<?php /* translators: theme version */ ?>
-		<div class="porto-logo"><img src="<?php echo PORTO_URI . '/images/logo/logo_white_small.png'; ?>" alt=""><span class="version"><?php printf( __( 'version %s', 'porto' ), PORTO_VERSION ); ?></span></div>
+		<div class="porto-logo"><img src="<?php echo PORTO_URI . '/images/logo/logo_white_small.png'; ?>" alt="Porto"><span class="version"><?php printf( __( 'version %s', 'porto' ), PORTO_VERSION ); ?></span></div>
 	</div>
 </div>

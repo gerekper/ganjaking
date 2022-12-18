@@ -6,6 +6,23 @@ function porto_check_theme_options() {
 	include PORTO_ADMIN . '/theme_options/default_options.php';
 	$options                = ob_get_clean();
 	$porto_default_settings = json_decode( $options, true );
+
+	global $porto_settings_optimize;
+	$legacy_mode = true;
+	if ( isset( $porto_settings_optimize['legacy_mode'] ) ) {
+		$legacy_mode = $porto_settings_optimize['legacy_mode'];
+	} else {
+		$legacy_mode = true;
+	}
+
+	if ( class_exists( 'Porto_Soft_Mode' ) && ! $legacy_mode ) {
+		$should_remove = Porto_Soft_Mode::$should_remove;
+		foreach ( $should_remove as $value ) {
+			if ( isset( $porto_default_settings[ $value ] ) ) {
+				unset( $porto_default_settings[ $value ] );
+			}
+		}
+	}
 	foreach ( $porto_default_settings as $key => $value ) {
 		if ( is_array( $value ) ) {
 			foreach ( $value as $key1 => $value1 ) {

@@ -8,7 +8,7 @@ function porto_page_title() {
 
 	if ( ! is_front_page() ) {
 
-	} elseif ( is_home() ) {
+	} elseif ( is_home() && isset( $porto_settings['blog-title'] ) ) {
 		$output .= $porto_settings['blog-title'];
 	}
 
@@ -94,7 +94,9 @@ function porto_page_title() {
 				if ( get_option( 'show_on_front' ) == 'page' ) {
 					$output .= get_the_title( get_option( 'page_for_posts', true ) );
 				} else {
-					$output .= $porto_settings['blog-title'];
+					if ( isset( $porto_settings['blog-title'] ) ) {
+						$output .= $porto_settings['blog-title'];
+					}
 				}
 			}
 		}

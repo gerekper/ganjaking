@@ -1,8 +1,16 @@
 <?php
 global $porto_settings, $porto_layout, $post, $porto_member_socials;
-$member_advance_layout = $porto_settings['member-page-style'];
+$member_advance_layout = isset( $porto_settings['member-page-style'] ) ? $porto_settings['member-page-style'] : false;
+
+$member_cls = array( 'member' );
+$item_cats  = get_the_terms( get_the_ID(), 'member_cat' );
+if ( $item_cats ) {
+	foreach ( $item_cats as $item_cat ) {
+		$member_cls[] = urldecode( $item_cat->slug );
+	}
+}
 ?>
-<article <?php post_class( 'member' ); ?>>
+<article <?php post_class( $member_cls ); ?>>
 
 <?php
 	$social_share = isset( $porto_member_socials ) && 'no' === $porto_member_socials ? false : true;
@@ -141,11 +149,11 @@ if ( $social_share ) {
 												array(
 													'class' => 'owl-lazy img-responsive',
 													'data-src' => esc_url( $attachment_medium['src'] ),
-													'src' => esc_url( $placeholder[0] ),
+													'src' => porto_is_amp_endpoint() ? esc_url( $attachment_medium['src'] ) : esc_url( $placeholder[0] ),
 												)
 											);
 										?>
-										<?php if ( $porto_settings['member-zoom'] ) : ?>
+										<?php if ( ! empty( $porto_settings['member-zoom'] ) ) : ?>
 											<span class="zoom" data-src="<?php echo esc_url( $attachment['src'] ); ?>" data-title="<?php echo esc_attr( $attachment['caption'] ); ?>"><i class="fas fa-search"></i></span>
 											<?php
 											if ( ! is_singular( 'member' ) ) :
@@ -172,7 +180,7 @@ if ( $social_share ) {
 				</div>
 				<?php
 			endif;
-			if ( $social_share && 'below_thumb' == $porto_settings['member-socials-pos'] && isset( $social_links_adv_pos ) && ! $social_links_adv_pos ) :
+			if ( $social_share && isset( $porto_settings['member-socials-pos'] ) && 'below_thumb' == $porto_settings['member-socials-pos'] && isset( $social_links_adv_pos ) && ! $social_links_adv_pos ) :
 				?>
 			<div class="share-links-block">
 				<h5><?php esc_html_e( 'Follow Me', 'porto' ); ?></h5>
@@ -193,7 +201,7 @@ if ( $social_share ) {
 			<?php porto_render_rich_snippets( false ); ?>
 			<?php echo ! $role ? '' : '<h4 class="member-role">' . esc_html( $role ) . '</h4>'; ?>
 
-			<?php if ( $social_share && 'before' == $porto_settings['member-socials-pos'] && isset( $social_links_adv_pos ) && ! $social_links_adv_pos ) : ?>
+			<?php if ( $social_share && isset( $porto_settings['member-socials-pos'] ) && 'before' == $porto_settings['member-socials-pos'] && isset( $social_links_adv_pos ) && ! $social_links_adv_pos ) : ?>
 				<div class="share-links-block mb-4">
 					<h5><?php esc_html_e( 'Follow Me', 'porto' ); ?></h5>
 					<?php echo porto_filter_output( $share_links ); ?>
@@ -202,7 +210,7 @@ if ( $social_share ) {
 			<?php
 				echo porto_output_tagged_content( get_post_meta( $post->ID, 'member_overview', true ) );
 			?>
-			<?php if ( $member_link || ! is_singular( 'member' ) || ( $social_share && $share_links && '' == $porto_settings['member-socials-pos'] && isset( $social_links_adv_pos ) && ! $social_links_adv_pos ) ) : ?>
+			<?php if ( $member_link || ! is_singular( 'member' ) || ( $social_share && $share_links && isset( $porto_settings['member-socials-pos'] ) && '' == $porto_settings['member-socials-pos'] && isset( $social_links_adv_pos ) && ! $social_links_adv_pos ) ) : ?>
 				<hr class="tall">
 			<?php endif; ?>
 			<div class="row align-items-center">
@@ -219,7 +227,7 @@ if ( $social_share ) {
 				<?php endif; ?>
 				</div>
 			<?php endif; ?>
-			<?php if ( $social_share && '' == $porto_settings['member-socials-pos'] && isset( $social_links_adv_pos ) && ! $social_links_adv_pos ) : ?>
+			<?php if ( $social_share && isset( $porto_settings['member-socials-pos'] ) && '' == $porto_settings['member-socials-pos'] && isset( $social_links_adv_pos ) && ! $social_links_adv_pos ) : ?>
 				<div class="col-lg-6 share-links-block<?php echo ! $member_link ? '' : ' d-flex justify-content-lg-end'; ?>">
 					<h5><?php esc_html_e( 'Follow Me', 'porto' ); ?></h5>
 					<?php echo porto_filter_output( $share_links ); ?>

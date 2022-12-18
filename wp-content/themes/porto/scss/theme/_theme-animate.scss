@@ -18,10 +18,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 .animated,
 .appear-animation {
-    @include animation-fill-mode(both);
-    @include animation-duration(1s);
+	@include animation-fill-mode(both);
+	@include animation-duration(1s);
 }
 
+[data-plugin-animated-letters] .animated.letter,
+[data-plugin-animated-words] .animated-words-item {
+	display: inline-block;
+}
 .appear-animation-visible {
 	opacity: 1;
 }
@@ -32,7 +36,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .flash {
-    @include animation-name(flash);
+	@include animation-name(flash);
 }
 
 @keyframes shake {
@@ -42,7 +46,37 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .shake {
-    @include animation-name(shake);
+	@include animation-name(shake);
+}
+
+@keyframes rubberBand {
+    from,to {
+        transform: scale3d(1,1,1)
+    }
+
+    30% {
+        transform: scale3d(1.25,.75,1)
+    }
+
+    40% {
+        transform: scale3d(.75,1.25,1)
+    }
+
+    50% {
+        transform: scale3d(1.15,.85,1)
+    }
+
+    65% {
+        transform: scale3d(.95,1.05,1)
+    }
+
+    75% {
+        transform: scale3d(1.05,.95,1)
+    }
+}
+
+.rubberBand {
+    @include animation-name(rubberBand);
 }
 
 @keyframes bounce {
@@ -52,7 +86,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .bounce {
-    @include animation-name(bounce);
+	@include animation-name(bounce);
 }
 
 @keyframes tada {
@@ -64,7 +98,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .tada {
-    @include animation-name(tada);
+	@include animation-name(tada);
 }
 
 @keyframes swing {
@@ -76,8 +110,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .swing {
-    transform-origin: top center;
-    @include animation-name(swing);
+	transform-origin: top center;
+	@include animation-name(swing);
 }
 
 /* originally authored by Nick Pettit - https: //github.com/nickpettit/glide */
@@ -110,8 +144,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .wiggle {
-    @include animation-name(wiggle);
-    @include animation-timing-function(ease-in);
+	@include animation-name(wiggle);
+	@include animation-timing-function(ease-in);
 }
 
 /* originally authored by Nick Pettit - https: //github.com/nickpettit/glide */
@@ -147,7 +181,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .fadeInUp {
-    @include animation-name(fadeInUp);
+	@include animation-name(fadeInUp);
 }
 
 @keyframes fadeInDown {
@@ -163,7 +197,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .fadeInDown {
-    @include animation-name(fadeInDown);
+	@include animation-name(fadeInDown);
 }
 
 @keyframes fadeInLeft {
@@ -179,7 +213,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .fadeInLeft {
-    @include animation-name(fadeInLeft);
+	@include animation-name(fadeInLeft);
 }
 
 @keyframes fadeInRight {
@@ -195,7 +229,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .fadeInRight {
-    @include animation-name(fadeInRight);
+	@include animation-name(fadeInRight);
 }
 
 @keyframes fadeInUpBig {
@@ -211,7 +245,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .fadeInUpBig {
-    @include animation-name(fadeInUpBig);
+	@include animation-name(fadeInUpBig);
 }
 
 @keyframes fadeInDownBig {
@@ -227,7 +261,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .fadeInDownBig {
-    @include animation-name(fadeInDownBig);
+	@include animation-name(fadeInDownBig);
 }
 
 @keyframes fadeInLeftBig {
@@ -243,7 +277,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .fadeInLeftBig {
-    @include animation-name(fadeInLeftBig);
+	@include animation-name(fadeInLeftBig);
 }
 
 @keyframes fadeInRightBig {
@@ -259,7 +293,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .fadeInRightBig {
-    @include animation-name(fadeInRightBig);
+	@include animation-name(fadeInRightBig);
 }
 
 @keyframes bounceIn {
@@ -284,7 +318,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .bounceIn {
-    @include animation-name(bounceIn);
+	@include animation-name(bounceIn);
 }
 
 @keyframes bounceInUp {
@@ -309,7 +343,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .bounceInUp {
-    @include animation-name(bounceInUp);
+	@include animation-name(bounceInUp);
 }
 
 @keyframes bounceInDown {
@@ -334,7 +368,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .bounceInDown {
-    @include animation-name(bounceInDown);
+	@include animation-name(bounceInDown);
 }
 
 @keyframes bounceInLeft {
@@ -359,7 +393,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .bounceInLeft {
-    @include animation-name(bounceInLeft);
+	@include animation-name(bounceInLeft);
 }
 
 @keyframes bounceInRight {
@@ -384,7 +418,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .bounceInRight {
-    @include animation-name(bounceInRight);
+	@include animation-name(bounceInRight);
 }
 
 @keyframes rotateIn {
@@ -402,7 +436,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .rotateIn {
-    @include animation-name(rotateIn);
+	@include animation-name(rotateIn);
 }
 
 @keyframes rotateInUpLeft {
@@ -420,7 +454,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .rotateInUpLeft {
-    @include animation-name(rotateInUpLeft);
+	@include animation-name(rotateInUpLeft);
 }
 
 @keyframes rotateInDownLeft {
@@ -438,7 +472,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .rotateInDownLeft {
-    @include animation-name(rotateInDownLeft);
+	@include animation-name(rotateInDownLeft);
 }
 
 @keyframes rotateInUpRight {
@@ -456,7 +490,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .rotateInUpRight {
-    @include animation-name(rotateInUpRight);
+	@include animation-name(rotateInUpRight);
 }
 
 @keyframes rotateInDownRight {
@@ -474,114 +508,114 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 }
 
 .rotateInDownRight {
-    @include animation-name(rotateInDownRight);
+	@include animation-name(rotateInDownRight);
 }
 
 @keyframes zoomIn {
-  0% {
-    opacity: 0;
-    transform: scale(.3);
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
+	0% {
+		opacity: 0;
+		transform: scale(.3);
+	}
+	50% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
 }
 .zoomIn {
-  animation-name: zoomIn;
+	animation-name: zoomIn;
 }
 
 @keyframes slideInRight {
-  0% {
-    opacity: 1;
-    transform: translateX(2000px);
-  }
-  100% {
-	opacity: 1;
-    transform: translateX(0);
-  }
+	0% {
+		opacity: 1;
+		transform: translateX(2000px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
 }
 .slideInRight {
-  animation-name: slideInRight;
+	animation-name: slideInRight;
 }
 
 @keyframes slideInUp {
 	0% {
-		-webkit-transform:translate3d(0,100%,0);
-		transform:translate3d(0,100%,0);
-		visibility:visible
+		-webkit-transform: translate3d(0, 100%, 0);
+		transform: translate3d(0, 100%, 0);
+		visibility: visible
 	}
-	to{
-		transform:translateZ(0)
+	to {
+		transform: translateZ(0)
 	}
 }
 .slideInUp {
-	animation-name:slideInUp
+	animation-name: slideInUp
 }
 
 @keyframes slideOutLeft {
-  0% {
-	opacity: 1;
-    transform: translateX(0);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(-2000px);
-  }
+	0% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(-2000px);
+	}
 }
 .slideOutLeft {
-  animation-name: slideOutLeft;
+	animation-name: slideOutLeft;
 }
 
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
+	0% {
+		transform: rotate(0deg);
+	}
 
-    100% {
-        transform: rotate(359deg);
-    }
+	100% {
+		transform: rotate(359deg);
+	}
 }
 @keyframes wave {
-  0% {
-    transform: rotateZ(0deg) translate3d(0,10%,0) rotateZ(0deg);
-  }
+	0% {
+		transform: rotateZ(0deg) translate3d(0, 10%, 0) rotateZ(0deg);
+	}
 
-  100% {
-    transform: rotateZ(360deg) translate3d(0,10%,0) rotateZ(-360deg);
-  }
+	100% {
+		transform: rotateZ(360deg) translate3d(0, 10%, 0) rotateZ(-360deg);
+	}
 }
 @keyframes navItemArrow {
-    0% {
-        position: relative;
-        right: -1px;
-    }
+	0% {
+		position: relative;
+		right: -1px;
+	}
 
-    50% {
-        position: relative;
-        right: 3px;
-    }
+	50% {
+		position: relative;
+		right: 3px;
+	}
 
-    100% {
-        position: relative;
-        right: -1px;
-    }
+	100% {
+		position: relative;
+		right: -1px;
+	}
 }
 @keyframes arrowLeftRight {
-    0% {
-        transform: translateX(0);
-    }
+	0% {
+		transform: translateX(0);
+	}
 
-    50% {
-        transform: translateX(3px);
-    }
+	50% {
+		transform: translateX(3px);
+	}
 
-    100% {
-        transform: translateX(0);
-    }
+	100% {
+		transform: translateX(0);
+	}
 }
 @keyframes slide-in {
 	0% {
@@ -617,16 +651,16 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 	}
 }
 @keyframes maskUp {
-    from {
-        transform: translate(0, 100%);
-    }
+	from {
+		transform: translate(0, 100%);
+	}
 
-    to {
-        transform: translate(0, 0);
-    }
+	to {
+		transform: translate(0, 0);
+	}
 }
 .maskUp {
-    animation-name: maskUp;
+	animation-name: maskUp;
 }
 @keyframes sliderScrollButton {
 	0% {
@@ -704,3 +738,58 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   100% { transform: perspective(400px); }
 }
 .flipInY { -webkit-backface-visibility: visible !important; backface-visibility: visible !important; animation-name: flipInY; }
+.highlight {
+	position: relative;
+	animation-name: highlightAnim;
+	background-size: 200%;
+	background-position: 0;
+	transition: background-position .8s;
+	background-image: none;
+	background-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 50%, rgba(0, 136, 204, 0.2) 0);
+}
+@keyframes highlightAnim {
+	from {
+		background-position: 0;
+	}
+	to {
+		background-position: -100%;
+	}
+}
+
+@keyframes highlightProgress {
+	from {
+		width: 0%;
+	}
+
+	to {
+		width: 100%;
+	}
+}
+
+@keyframes dashAnim {
+	0% {
+		transform: translateX(0);
+	}
+
+	51% {
+		transform: translateX(20px);
+		opacity: 1;
+	}
+
+	52% {
+		opacity: 0;
+		transform: translateX(-20px);
+	}
+
+	53% {
+		opacity: 0;
+	}
+
+	54% {
+		opacity: 1;
+	}
+
+	100% {
+		transform: translateX(0);
+	}
+}

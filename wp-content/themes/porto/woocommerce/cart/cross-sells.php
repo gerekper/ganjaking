@@ -29,7 +29,7 @@ if ( $cross_sells && $porto_settings['product-crosssell'] ) : ?>
 			$porto_woocommerce_loop['pagination'] = true;
 			$porto_woocommerce_loop['el_class']   = 'show-dots-title-right';
 
-			$porto_woocommerce_loop['columns'] = isset( $porto_settings['product-related-cols'] ) ? $porto_settings['product-related-cols'] : $porto_settings['product-cols'];
+			$porto_woocommerce_loop['columns'] = isset( $porto_settings['product-related-cols'] ) ? $porto_settings['product-related-cols'] : ( isset( $porto_settings['product-cols'] ) ? $porto_settings['product-cols'] : 3 );
 			if ( ! $porto_woocommerce_loop['columns'] ) {
 				$porto_woocommerce_loop['columns'] = 4;
 			}

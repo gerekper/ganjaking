@@ -763,7 +763,7 @@ if ( class_exists( 'WP_Importer' ) ) {
 				// Export gets meta straight from the DB so could have a serialized string
 				$value = maybe_unserialize( $meta['value'] );
 
-				add_term_meta( $term_id, wp_slash( $key ), wp_slash_strings_only( $value ) );
+				add_term_meta( $term_id, wp_slash( $key ), wp_slash( $value ) );
 
 				/**
 				 * Fires after term meta is imported.
@@ -891,6 +891,19 @@ if ( class_exists( 'WP_Importer' ) ) {
 
 						$postdata = apply_filters( 'wp_import_post_data_processed', $postdata, $post );
 						$postdata = wp_slash( $postdata );
+
+						/**
+						 * reset page template to fix wp_update_post is failed due to page template
+						 *
+						 * @since 6.3.0
+						 */
+						$old_page_template = get_post_meta( $post_id, '_wp_page_template', 'default' );
+						if ( $old_page_template && 'default' !== $old_page_template ) {
+							$page_templates = wp_get_theme()->get_page_templates( get_post( $post_id ) );
+							if ( ! isset( $page_templates[ $old_page_template ] ) ) {
+								update_post_meta( $post_id, '_wp_page_template', 'default' );
+							}
+						}
 
 						$comment_post_ID = $post_id = wp_update_post( $postdata, true );
 
@@ -1116,7 +1129,7 @@ if ( class_exists( 'WP_Importer' ) ) {
 
 							foreach ( $comment['commentmeta'] as $meta ) {
 								$value = maybe_unserialize( $meta['value'] );
-								add_comment_meta( $inserted_comments[ $key ], wp_slash( $meta['key'] ), wp_slash_strings_only( $value ) );
+								add_comment_meta( $inserted_comments[ $key ], wp_slash( $meta['key'] ), wp_slash( $value ) );
 							}
 
 							$num_comments++;
@@ -1167,7 +1180,7 @@ if ( class_exists( 'WP_Importer' ) ) {
 							if ( $post_exists ) {
 								delete_post_meta( $post_id, $key );
 							}
-							add_post_meta( $post_id, wp_slash( $key ), wp_slash_strings_only( $value ) );
+							add_post_meta( $post_id, wp_slash( $key ), wp_slash( $value ) );
 
 							do_action( 'import_post_meta', $post_id, $key, $value );
 
@@ -1206,8 +1219,15 @@ if ( class_exists( 'WP_Importer' ) ) {
 							$_POST['object_id'][]   = $condition[2];
 							$_POST['object_name'][] = $condition[3];
 						}
+						if ( 'block' == get_post_meta( $post_id, 'porto_builder_type', true ) ) {
+							$block_type = get_post_meta( $post_id, '_porto_block_pos', true );
+							if ( $block_type && 0 === strpos( $block_type, 'block_' ) ) {
+								$block_type         = str_replace( 'block_', '', $block_type );
+								$_POST['data_part'] = $block_type;
+							}
+						}
 						$cls->save_condition( true, (int) $post_id );
-						unset( $_POST['type'], $_POST['object_type'], $_POST['object_id'], $_POST['object_name'] );
+						unset( $_POST['type'], $_POST['object_type'], $_POST['object_id'], $_POST['object_name'], $_POST['data_part'] );
 					}
 
 					// regenerate Visual Composer css
@@ -1235,7 +1255,17 @@ if ( class_exists( 'WP_Importer' ) ) {
 					$value[ $key ] = $this->vcv_update_urls( $v );
 				}
 			} else {
-				$value = str_replace( 'PORTO_FUNC_URI', str_replace( '/shortcodes/', '', PORTO_SHORTCODES_URL ), $value );
+				if ( defined( 'PORTO_VC_ADDON_URL' ) ) {
+					$value = str_replace(
+						array(
+							'PORTO_FUNC_URI%2Fvisualcomposer',
+							'PORTO_FUNC_URI/visualcomposer',
+							'PORTO_VC_ADDON_URI',
+						),
+						PORTO_VC_ADDON_URL,
+						$value
+					);
+				}
 				$value = str_replace( 'PORTO_PLUGINS_URI', esc_url( plugins_url() ), $value );
 				$value = str_replace( 'PORTO_URI', esc_url( PORTO_URI . '/' ), $value );
 			}

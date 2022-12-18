@@ -34,10 +34,10 @@
         li {
             list-style: none;
             display: inline-block;
-            margin-#{$left}: 15px;
+            margin-#{$right}: 15px;
             font-size: 0.9em;
-            &:first-child {
-                margin-#{$left}: 0;
+            &:last-child {
+                margin-#{$right}: 0;
             }
             i {
                 font-size: 1.2em;

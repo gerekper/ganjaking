@@ -63,7 +63,7 @@ do_action( 'woocommerce_before_account_downloads', $has_downloads ); ?>
 											<?php if ( ! empty( $download['access_expires'] ) ) : ?>
 												<time datetime="<?php echo date( 'Y-m-d', strtotime( $download['access_expires'] ) ); ?>" title="<?php echo esc_attr( strtotime( $download['access_expires'] ) ); ?>"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $download['access_expires'] ) ); ?></time>
 											<?php else : ?>
-												<?php esc_html_e( 'Never', 'porto' ); ?>
+												<?php esc_html_e( 'Never', 'woocommerce' ); ?>
 											<?php endif; ?>
 											<?php
 										break;
@@ -73,7 +73,7 @@ do_action( 'woocommerce_before_account_downloads', $has_downloads ); ?>
 											$actions = array(
 												'download' => array(
 													'url'  => $download['download_url'],
-													'name' => __( 'Download', 'porto' ),
+													'name' => __( 'Download', 'woocommerce' ),
 												),
 											);
 											$actions = apply_filters( 'woocommerce_account_download_actions', $actions, $download );
@@ -102,7 +102,7 @@ do_action( 'woocommerce_before_account_downloads', $has_downloads ); ?>
 	<div class="woocommerce-Message woocommerce-Message--info">
 		<p><?php esc_html_e( 'No downloads available yet.', 'woocommerce' ); ?></p>
 		<a class="woocommerce-Button button wc-action-btn mt-3 px-4" href="<?php echo esc_url( apply_filters( 'woocommerce_return_to_shop_redirect', wc_get_page_permalink( 'shop' ) ) ); ?>">
-			<?php esc_html_e( 'Go shop', 'porto' ); ?>
+			<?php esc_html_e( 'Go shopping', 'woocommerce' ); ?>
 		</a>
 	</div>
 <?php endif; ?>

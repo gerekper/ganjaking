@@ -12,6 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $woocommerce_loop, $porto_woocommerce_loop, $porto_settings, $porto_layout, $porto_products_cols_lg, $porto_products_cols_md, $porto_products_cols_xs, $porto_products_cols_ls;
 
 $extra_class = '';
+if ( ! empty( $product_classes ) ) {
+	$extra_class = trim( $product_classes );
+}
 if ( isset( $porto_woocommerce_loop['view'] ) && 'creative' == $porto_woocommerce_loop['view'] && ! empty( $porto_woocommerce_loop['grid_layout'] ) && isset( $porto_woocommerce_loop['grid_layout'][ $woocommerce_loop['cat_loop'] % count( $porto_woocommerce_loop['grid_layout'] ) ] ) ) {
 	$grid_layout  = $porto_woocommerce_loop['grid_layout'][ $woocommerce_loop['cat_loop'] % count( $porto_woocommerce_loop['grid_layout'] ) ];
 	$extra_class .= 'grid-col-' . $grid_layout['width'] . ' grid-col-md-' . $grid_layout['width_md'] . ' grid-height-' . $grid_layout['height'];
@@ -23,7 +26,7 @@ $woocommerce_loop['cat_loop']++;
 $class = 'product-category product-col ' . esc_attr( apply_filters( 'product_cat_class', $extra_class, '', $category ) );
 
 if ( ! $porto_products_cols_lg ) {
-	$cols = $porto_settings['product-cols'];
+	$cols = isset( $porto_settings['product-cols'] ) ? $porto_settings['product-cols'] : 3;
 	if ( in_array( $porto_layout, porto_options_sidebars() ) ) {
 		if ( 8 == $cols || 7 == $cols ) {
 			$cols = 6;
@@ -79,7 +82,7 @@ if ( ! $porto_products_cols_lg ) {
 	}
 }
 
-$view_type = isset( $porto_woocommerce_loop['category-view'] ) ? $porto_woocommerce_loop['category-view'] : ( '2' == $porto_settings['cat-view-type'] ? 'category-pos-outside' : '' );
+$view_type = isset( $porto_woocommerce_loop['category-view'] ) ? $porto_woocommerce_loop['category-view'] : ( isset( $porto_settings['cat-view-type'] ) && '2' == $porto_settings['cat-view-type'] ? 'category-pos-outside' : '' );
 if ( isset( $porto_woocommerce_loop['product_categories_media_type'] ) && 'icon' == $porto_woocommerce_loop['product_categories_media_type'] ) {
 	$category_icon = get_metadata( $category->taxonomy, $category->term_id, 'category_icon', true );
 } else {
@@ -106,11 +109,11 @@ if ( isset( $porto_woocommerce_loop['product_categories_show_sub_cats'] ) && $po
 
 	?>
 <?php if ( $whole_link ) : ?>
-	<a href="<?php echo get_term_link( $category->slug, 'product_cat' ); ?>">
+	<a href="<?php echo get_term_link( $category->slug, 'product_cat' ); ?>" aria-label="category">
 <?php endif; ?>
 		<div class="thumb-info <?php echo ! $view_type ? '' : ' align-center'; ?>">
 		<?php if ( ! $whole_link ) : ?>
-			<a href="<?php echo get_term_link( $category->slug, 'product_cat' ); ?>">
+			<a href="<?php echo get_term_link( $category->slug, 'product_cat' ); ?>" aria-label="category">
 		<?php endif; ?>
 			<?php if ( $category_icon ) : ?>
 				<?php do_action( 'porto_woocommerce_before_subcategory_title', $category ); ?>
@@ -148,7 +151,7 @@ if ( isset( $porto_woocommerce_loop['product_categories_show_sub_cats'] ) && $po
 					}
 					?>
 					<?php if ( ! $whole_link ) : ?>
-						<a href="<?php echo get_term_link( $category->slug, 'product_cat' ); ?>">
+						<a href="<?php echo get_term_link( $category->slug, 'product_cat' ); ?>" aria-label="category">
 					<?php endif; ?>
 						<h3 class="sub-title thumb-info-inner"><?php echo esc_html( $category->name ); ?></h3>
 					<?php if ( ! $whole_link ) : ?>
@@ -161,7 +164,7 @@ if ( isset( $porto_woocommerce_loop['product_categories_show_sub_cats'] ) && $po
 								?>
 							<span class="thumb-info-type">
 								<?php /* translators: %s: Products count */ ?>
-								<?php printf( esc_html__( '%s Products', 'porto' ), $count_html ); ?>
+								<?php printf( _n( '%s product', '%s products', $category->count, 'woocommerce' ), $count_html ); ?>
 							</span>
 								<?php
 							endif;
@@ -179,14 +182,14 @@ if ( isset( $porto_woocommerce_loop['product_categories_show_sub_cats'] ) && $po
 <?php endif; ?>
 
 	<?php if ( 'category-pos-outside' == $view_type ) : ?>
-		<a href="<?php echo get_term_link( $category->slug, 'product_cat' ); ?>"><h4 class="m-t-md m-b-none"><?php echo esc_html( $category->name ); ?></h4></a>
+		<a href="<?php echo get_term_link( $category->slug, 'product_cat' ); ?>" aria-label="category"><h4 class="m-t-md m-b-none"><?php echo esc_html( $category->name ); ?></h4></a>
 		<?php
 		if ( $category->count > 0 ) :
 			$count_html = apply_filters( 'woocommerce_subcategory_count_html', ' <mark class="count">' . ( (int) $category->count ) . '</mark>', $category );
 			if ( $count_html ) :
 				?>
 				<?php /* translators: %s: Products count */ ?>
-			<p class="m-b-sm"><?php printf( esc_html__( '%s Products', 'porto' ), $count_html ); ?></p>
+			<p class="m-b-sm"><?php printf( _n( '%s product', '%s products', $category->count, 'woocommerce' ), $count_html ); ?></p>
 				<?php
 			endif;
 		endif;

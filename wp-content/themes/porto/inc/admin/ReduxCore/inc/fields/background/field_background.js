@@ -69,7 +69,6 @@
                         },
 
                         clear: function( e, ui ) {
-                            $( this ).val( ui.color.toString() );
                             redux_change( $( this ).parent().find( '.redux-color-init' ) );
                             redux.field_objects.background.preview( $( this ) );
                         }

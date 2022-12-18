@@ -9,18 +9,28 @@
     margin: 0 1px;
 }
 
-.wcvashopswatchlabel {
+.wcvashopswatchlabel,
+.wcvaswatchlabel {
     cursor:pointer;
     background-size: contain;
     background-repeat: no-repeat;
 
     display:inline-block;
-    @include transition(all 100ms ease-in);
+    transition: .1s ease-in;
 
     line-height: 1.0000;
 
+    border: 1px solid var(--porto-normal-bg);
+    box-shadow: 0 0 0 1px var(--porto-gray-4);
+}
+
+.wcvashopswatchlabel {
     width: 24px !important;
     height: 24px !important;
+
+    .wcvaswatchinput.active & {
+        border: 1px solid var(--porto-color-price);
+    }
 }
 
 .swatchinput {
@@ -43,13 +53,7 @@
 }
 
 .wcvaswatchlabel {
-    cursor: pointer;
-    background-size: contain;
-    background-repeat: no-repeat;
-    display:inline-block;
-    @include transition(all .1s ease-in);
-    line-height: 1.0000;
-
+    border-width: 2px;
     .wcvaswatch input:active + & {
         opacity: .9;
     }
@@ -58,6 +62,7 @@
         -webkit-filter: none;
         -ms-filter: none;
         filter: none;
+        border: 2px solid var(--porto-color-price);
     }
 }
 

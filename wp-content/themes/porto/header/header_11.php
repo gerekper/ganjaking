@@ -104,7 +104,7 @@ global $porto_settings, $porto_layout;
 
 				<?php get_template_part( 'header/header_tooltip' ); ?>
 
-				<a class="mobile-toggle<?php echo ( isset( $porto_settings['menu-toggle-bg-color'] ) && $porto_settings['menu-toggle-bg-color'] ) ? ' background-color-primary text-color-light' : ''; ?>"><i class="fas fa-bars"></i></a>
+				<a aria-label="Mobile Menu" href="#" class="mobile-toggle<?php echo ( isset( $porto_settings['menu-toggle-bg-color'] ) && $porto_settings['menu-toggle-bg-color'] ) ? ' background-color-primary text-color-light' : ''; ?>"><i class="fas fa-bars"></i></a>
 			</div>
 		</div>
 		<?php get_template_part( 'header/mobile_menu' ); ?>

@@ -63,7 +63,3 @@
 .text-xl-end {
 	text-align: $right !important;
 }
-
-@media (min-width: 1600px) {
-	.wp-block, .container { max-width: var(--porto-container-width, 1200px); }
-}

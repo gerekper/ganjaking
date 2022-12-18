@@ -58,8 +58,22 @@ $dark-default-text: #808697;
 
 $link-decoration: none;
 
+<?php if ( isset( $porto_settings['body-font'] ) && ! empty( $porto_settings['body-font']['font-family'] ) ) : ?>
+	$font-family-base: <?php echo esc_html( $porto_settings['body-font']['font-family'] ); ?>, sans-serif;
+<?php endif; ?>
+<?php if ( $b['body-font']['font-weight'] && ( 400 !== (int) $b['body-font']['font-weight'] ) ) : ?>
+	$font-weight-base: <?php echo esc_html( $b['body-font']['font-weight'] ); ?>;
+<?php endif; ?>
+<?php if ( $b['body-font']['font-size'] ) : ?>
+	$font-size-base: <?php echo esc_html( $b['body-font']['font-size'] ); ?>;
+<?php endif; ?>
+<?php if ( $b['body-font']['line-height'] ) : ?>
+	$line-height-base: <?php echo esc_html( $b['body-font']['line-height'] ); ?>;
+<?php endif; ?>
+$body-color: <?php echo isset( $b['body-font'], $b['body-font-color'] ) ? esc_html( $b['body-font-color'] ) : '#777'; ?>;
+
 <?php if ( $dark ) : ?>
-	$body-bg: $color-dark-3 !default;
+	$body-bg: #1d2127 !default;
 
 	// Colors
 	$gray-base:              #fff !default;
@@ -173,9 +187,9 @@ $link-decoration: none;
 	$dropdown-link-hover-bg:         #f5f5f5 !default;
 
 	// Tabs
-	$nav-tabs-border-color:                     #eee !default;
-	$nav-tabs-link-active-border-color:			#eee !default;
-	$nav-tabs-link-hover-border-color:          #eee !default;
+	$nav-tabs-border-color:                     #e7e7e7 !default;
+	$nav-tabs-link-active-border-color:			#e7e7e7 !default;
+	$nav-tabs-link-hover-border-color:          #e7e7e7 !default;
 
 	// Pagination
 	$pagination-border-color:              #ddd !default;

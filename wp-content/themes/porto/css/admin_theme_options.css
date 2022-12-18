@@ -78,9 +78,18 @@
 .wp-admin .redux-sidebar .redux-group-menu li.activeChild.hasSubSections .active a:after,
 .wp-admin .redux-sidebar .redux-group-menu li.active.hasSubSections a:after { border-width: 10px 8px; margin-top: -10px; z-index: 1 }
 
-.redux-group-tab[data-rel="20"] tr, .redux-group-tab[data-rel="20"] td { display: block; }
-.redux-group-tab[data-rel="20"] td { margin-top: -30px; }
+/* .redux-group-tab[data-rel="20"] tr, .redux-group-tab[data-rel="20"] td { display: block; }
+.redux-group-tab[data-rel="20"] td { margin-top: -30px; } */
 .form-table th { vertical-align: middle;  }
+
+/* Important Note */
+.porto-important-note { padding: 1.6rem; color: #3c763d; background-color: #dff0d8; border-width: 0; border-radius: 4px; }
+.porto-important-note .redux-info-desc { font-size: 14px; }
+.porto-important-note strong { color: rgb(72 106 43); }
+.porto-redux-section span { color: red; }
+
+/* Custom Css field */
+.ace-editor-area.ace_editor { font-size: 14px; line-height: 21px; }
 
 .rtl .redux-container .button, .rtl .redux-container .button-primary, .rtl .redux-container .button-secondary { margin-right: 0; margin-left: .75rem }
 .rtl .redux-container .porto-theme-options-search,

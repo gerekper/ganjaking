@@ -16,14 +16,13 @@
         a {
             display: block;
             padding: 10px 20px;
-            &:hover, &:focus {
-                text-decoration: none;
-            }
+            color: var(--porto-primary-color);
             i {
                 display: inline-block;
                 margin-#{$right}: 8px;
                 position: relative;
                 top: 1px;
+                color: inherit;
                 &.icon-image {
                     max-width: 20px;
                     position: relative;
@@ -68,10 +67,10 @@
     }
     &.panel-modern {
         .card {
-            border: 4px solid #f7f7f7;
+            border: 4px solid var(--porto-gray-7);
         }
         .card-header {
-            background-color: #f7f7f7;
+            background-color: var(--porto-gray-7);
             border-radius: 0;
         }
         &.gray-scale-1 {
@@ -103,7 +102,7 @@
         .card {
             border: 0;
             box-shadow: none;
-            border-bottom: 1px solid;
+            border-bottom: 1px solid var(--porto-gray-5);
             border-radius: 0;
         }
         .card-header a {
@@ -126,5 +125,17 @@
     }
     .card {
         border-color: #ededed;
+    }
+}
+
+/* theme colors */
+/* primary, secondary, tertiary, quaternary, dark, light */
+@each $state in $color_states {
+    .accordion.accordion-#{nth($state,1)} .card-header {
+        background-color: var(--porto-#{nth($state,1)}-color) !important;
+
+        a {
+            color: var(--porto-#{nth($state,1)}-color-inverse, #{nth($state,3)});
+        }
     }
 }

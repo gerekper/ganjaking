@@ -4,11 +4,12 @@
 	$show_date = isset( $args ) && ! empty( $args['show_date'] );
 ?>
 
-<div class="post-meta">
-	<?php if ( $show_date && in_array( 'date', $porto_settings['post-metas'] ) ) : ?>
+<div class="post-meta <?php echo ( ! empty( $args['el_class'] ) ) ? $args['el_class'] : ''; ?>">
+	<?php if ( $show_date && isset( $porto_settings['post-metas'] ) && in_array( 'date', $porto_settings['post-metas'] ) ) : ?>
 		<span class="meta-date"><i class="far fa-calendar-alt"></i> <?php echo get_the_date(); ?></span>
 	<?php endif; ?>
-	<?php if ( in_array( 'author', $porto_settings['post-metas'] ) ) :
+	<?php
+	if ( isset( $porto_settings['post-metas'] ) && in_array( 'author', $porto_settings['post-metas'] ) ) :
 		?>
 		<span class="meta-author">
 		<?php if ( ! $hide_icon ) : ?>
@@ -19,10 +20,10 @@
 		<?php endif; ?>
 			<?php the_author_posts_link(); ?>
 		</span>
-	<?php
+		<?php
 	endif;
 	$cats_list = get_the_category_list( ', ' );
-	if ( $cats_list && in_array( 'cats', $porto_settings['post-metas'] ) ) :
+	if ( $cats_list && isset( $porto_settings['post-metas'] ) && in_array( 'cats', $porto_settings['post-metas'] ) ) :
 		?>
 		<span class="meta-cats">
 		<?php if ( ! $hide_icon ) : ?>
@@ -33,7 +34,7 @@
 	<?php endif; ?>
 	<?php
 	$tags_list = get_the_tag_list( '', ', ' );
-	if ( $tags_list && in_array( 'tags', $porto_settings['post-metas'] ) ) :
+	if ( $tags_list && isset( $porto_settings['post-metas'] ) && in_array( 'tags', $porto_settings['post-metas'] ) ) :
 		?>
 		<span class="meta-tags">
 		<?php if ( ! $hide_icon ) : ?>
@@ -43,7 +44,7 @@
 		</span>
 	<?php endif; ?>
 	<?php
-	if ( in_array( 'comments', $porto_settings['post-metas'] ) ) :
+	if ( isset( $porto_settings['post-metas'] ) && in_array( 'comments', $porto_settings['post-metas'] ) ) :
 		?>
 		<span class="meta-comments">
 		<?php if ( ! $hide_icon ) : ?>
@@ -53,9 +54,9 @@
 		</span>
 	<?php endif; ?>
 
-	<?php if ( in_array( 'like', $porto_settings['post-metas'] ) ) : ?>
+	<?php if ( isset( $porto_settings['post-metas'] ) && in_array( 'like', $porto_settings['post-metas'] ) ) : ?>
 		<span class="meta-like">
-			<?php echo porto_blog_like(); ?>
+			<?php echo porto_blog_like( true ); ?>
 		</span>
 	<?php endif; ?>
 

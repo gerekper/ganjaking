@@ -70,12 +70,14 @@
         position: absolute;
         top: 4px;
         #{$right}: 0;
+        display: block;
         width: 25px;
         height: 25px;
         cursor: pointer;
         text-align: center;
         line-height: 25px;
         vertical-align: top;
+        z-index: 10;
         @include transition($transition);
 
         &:before {

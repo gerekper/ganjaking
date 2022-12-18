@@ -33,7 +33,7 @@
     }
 }
 #header,
-#footer {
+.footer {
     .porto-tooltip {
         position: absolute !important;
         #{$right}: 0;
@@ -107,7 +107,7 @@
     z-index: 1000;
 }
 
-#footer .porto-tooltip {
+.footer .porto-tooltip {
     top: 30px;
     #{$right}: 15px;
 }

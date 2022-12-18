@@ -6,6 +6,14 @@
         top: -35px;
         #{$left}: 70%;
     }
+
+    &.vc_cta3-style-custom {
+        border: 1px solid var(--porto-gray-2);
+    }
+
+    &.vc_cta3-color-white.vc_cta3-style-flat {
+        color: var(--porto-body-color);
+    }
 }
 .vc_general.vc_cta3.vc_cta3-shape-rounded {
     border-radius: 10px;
@@ -19,6 +27,11 @@
 .vc_general.vc_cta3 h2,
 .vc_general.vc_cta3 h4 {
     margin: 0 0 9px;
+    color: var(--porto-dark-color);
+}
+.vc_general.vc_cta3.vc_cta3-style-flat .vc_cta3-content-header h2,
+.vc_general.vc_cta3.vc_cta3-style-flat .vc_cta3-content-header h4 {
+    color: var(--porto-dark-color);
 }
 .vc_general.vc_cta3 p {
     font-size: 1.2em;

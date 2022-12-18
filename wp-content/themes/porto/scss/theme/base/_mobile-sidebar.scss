@@ -11,8 +11,9 @@
     line-height: 38px;
     text-align: center;
     text-decoration: none;
-    border: 1px solid;
+    border: 1px solid var(--porto-input-bc);
     border-#{$left}-width: 0;
+    color: var(--porto-body-color);
     @include transition(.2s ease-in-out);
 
     i {
@@ -22,6 +23,7 @@
     }
 
     &:hover {
+        color: var(--porto-primary-color);
         box-shadow: 1px 1px 3px rgba(0, 0, 0, .15);
     }
 }
@@ -61,9 +63,11 @@
         z-index: 9000;
         transform: translateX(if-ltr(-100%, 100%));
         @include transition(transform .2s ease-in-out);
+        background: var(--porto-body-bg);
 
         .sidebar-toggle {
             display: block;
+            background: var(--porto-body-bg);
         }
         > [data-plugin-sticky] {
            height: 100%;
@@ -79,6 +83,14 @@
             height: 100%;
             padding: 20px;
             -webkit-overflow-scrolling: touch;
+
+            &::-webkit-scrollbar {
+                width: 5px;
+            }
+            &::-webkit-scrollbar-thumb {
+                border-radius: 0px;
+                background: var(--porto-gray-2);
+            }
         }
     }
 

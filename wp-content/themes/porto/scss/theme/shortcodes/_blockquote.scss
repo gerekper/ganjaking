@@ -1,0 +1,7 @@
+/* theme colors */
+/* primary, secondary, tertiary, quaternary, dark, light */
+@each $state in $color_states {
+    html .blockquote-#{nth($state,1)} {
+        border-color: var(--porto-#{nth($state,1)}-color) !important;
+    }
+}

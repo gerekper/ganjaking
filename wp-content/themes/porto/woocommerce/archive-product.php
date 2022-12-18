@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$load_posts_only = porto_is_ajax() && isset( $_GET['load_posts_only'] );
+$load_posts_only = porto_is_ajax() && isset( $_REQUEST['load_posts_only'] );
 
 if ( ! $load_posts_only ) {
 	get_header( 'shop' );

@@ -158,6 +158,7 @@ foreach ( $tabs as $tab ) {
 		if ( $show_icon && $icon_class ) {
 			if ( 'tabs-simple' == $type ) {
 				if ( 'custom' == $icon_skin && ( $icon_color || $icon_bg_color || $icon_border_color || $icon_wrap_border_color || $icon_shadow_color || $icon_hcolor || $icon_hbg_color || $icon_hborder_color || $icon_wrap_hborder_color || $icon_hshadow_color ) ) :
+					ob_start();
 					?>
 					<style>
 					<?php
@@ -299,6 +300,7 @@ endif;
 					?>
 					</style>
 					<?php
+					porto_filter_inline_css( ob_get_clean() );
 				endif;
 				if ( 'custom' != $icon_skin ) {
 					$icon_effect .= ' featured-box-' . $icon_skin;
@@ -365,6 +367,7 @@ $css_class = apply_filters( VC_SHORTCODE_CUSTOM_CSS_FILTER_TAG, trim( $element .
 if ( 'custom' == $skin && $color ) {
 	$tabs_class = 'tabs' . rand();
 	$css_class .= ' ' . $tabs_class;
+	ob_start();
 	?>
 	<style>
 	<?php
@@ -449,6 +452,7 @@ if ( 'custom' == $skin && $color ) {
 	?>
 	</style>
 	<?php
+	porto_filter_inline_css( ob_get_clean() );
 }
 
 if ( 'custom' != $skin ) {

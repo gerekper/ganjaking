@@ -236,6 +236,7 @@
     max-width: 600px;
     margin: 40px auto;
     position: relative;
+    background: var(--porto-body-bg);
 
     &.dialog-xs {
         max-width: 200px;
@@ -276,6 +277,7 @@
 /* Popup */
 .popup-inline-content,
 .mfp-content .ajax-container {
+    background: var(--porto-body-bg);
     margin: 40px auto;
     max-width: 1170px;
     padding: 20px 25px;
@@ -286,6 +288,10 @@
     @media #{$screen-medium} {
         padding: 20px 12px;
     }
+}
+
+.loading-overlay {
+    background: var(--porto-body-bg);
 }
 
 .mfp-content .ajax-container,

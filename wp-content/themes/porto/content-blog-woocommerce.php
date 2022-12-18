@@ -2,30 +2,30 @@
 global $porto_settings;
 
 $post_layout  = 'woocommerce';
-$show_date    = in_array( 'date', $porto_settings['post-metas'] );
-$show_format  = $porto_settings['post-format'] && get_post_format();
+$show_date    = isset( $porto_settings['post-metas'] ) && in_array( 'date', $porto_settings['post-metas'] );
+$show_format  = ! empty( $porto_settings['post-format'] ) && get_post_format();
 $post_class   = array();
 $post_class[] = 'post post-' . $post_layout;
 if ( ! ( $show_date || $show_format ) ) {
 	$post_class[] = 'hide-post-date';
 }
-if ( 'without-icon' == $porto_settings['post-title-style'] ) {
+if ( isset( $porto_settings['post-title-style'] ) && 'without-icon' == $porto_settings['post-title-style'] ) {
 	$post_class[] = 'post-title-simple';
 }
 $post_meta  = '';
 $post_meta .= '<div class="post-meta ' . ( empty( $porto_settings['post-metas'] ) ? ' d-none' : '' ) . '">';
-if ( in_array( 'author', $porto_settings['post-metas'] ) ) {
+if ( isset( $porto_settings['post-metas'] ) && in_array( 'author', $porto_settings['post-metas'] ) ) {
 	$post_meta .= '<span class="meta-author"><i class="far fa-user"></i>' . esc_html__( 'By ', 'porto' ) . get_the_author_posts_link() . '</span>';
 }
 	$cats_list = get_the_category_list( ', ' );
-if ( $cats_list && in_array( 'cats', $porto_settings['post-metas'] ) ) {
+if ( $cats_list && isset( $porto_settings['post-metas'] ) && in_array( 'cats', $porto_settings['post-metas'] ) ) {
 	$post_meta .= '<span class="meta-cats"><i class="far fa-folder"></i>' . porto_filter_output( $cats_list ) . '</span>';
 }
 	$tags_list = get_the_tag_list( '', ', ' );
-if ( $tags_list && in_array( 'tags', $porto_settings['post-metas'] ) ) {
+if ( $tags_list && isset( $porto_settings['post-metas'] ) && in_array( 'tags', $porto_settings['post-metas'] ) ) {
 	$post_meta .= '<span class="meta-tags"><i class="far fa-envelope"></i>' . porto_filter_output( $tags_list ) . '</span>';
 }
-if ( in_array( 'comments', $porto_settings['post-metas'] ) ) {
+if ( isset( $porto_settings['post-metas'] ) && in_array( 'comments', $porto_settings['post-metas'] ) ) {
 	$post_meta .= '<span class="meta-comments"><i class="far fa-comments"></i>' . get_comments_popup_link( __( '0 Comments', 'porto' ), __( '1 Comment', 'porto' ), '% ' . __( 'Comments', 'porto' ) ) . '</span>';
 }
 if ( function_exists( 'Post_Views_Counter' ) && 'manual' == Post_Views_Counter()->options['display']['position'] && in_array( 'post', (array) Post_Views_Counter()->options['general']['post_types_count'] ) ) {
@@ -34,7 +34,7 @@ if ( function_exists( 'Post_Views_Counter' ) && 'manual' == Post_Views_Counter()
 		$post_meta .= $post_count;
 	}
 }
-if ( in_array( 'like', $porto_settings['post-metas'] ) ) {
+if ( isset( $porto_settings['post-metas'] ) && in_array( 'like', $porto_settings['post-metas'] ) ) {
 	$post_meta .= '<span class="meta-like">' . porto_blog_like() . '</span>';
 }
 $post_meta .= '</div>';
@@ -71,7 +71,7 @@ $post_meta .= '</div>';
 	<?php endif; ?>
 	<!-- Post meta before content -->
 	<?php
-	if ( 'before' === $porto_settings['post-meta-position'] ) {
+	if ( isset( $porto_settings['post-meta-position'] ) && 'before' === $porto_settings['post-meta-position'] ) {
 		echo porto_filter_output( $post_meta );}
 	?>
 
@@ -79,7 +79,7 @@ $post_meta .= '</div>';
 		<h2 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 		<?php
 		porto_render_rich_snippets( false );
-		if ( $porto_settings['blog-excerpt'] ) {
+		if ( ! empty( $porto_settings['blog-excerpt'] ) ) {
 			echo porto_get_excerpt( $porto_settings['blog-excerpt-length'], false );
 		} else {
 			echo '<div class="entry-content">';
@@ -102,9 +102,9 @@ $post_meta .= '</div>';
 
 	<!-- Post meta after content -->
 	<?php
-		if ( 'before' !== $porto_settings['post-meta-position'] ) {
-			echo porto_filter_output( $post_meta );
-		}
+	if ( isset( $porto_settings['post-meta-position'] ) && 'before' !== $porto_settings['post-meta-position'] ) {
+		echo porto_filter_output( $post_meta );
+	}
 	?>
 
 	<a class="btn btn-xs btn-primary text-xs text-uppercase float-sm-end mt-1" href="<?php echo esc_url( apply_filters( 'the_permalink', get_permalink() ) ); ?>"><?php esc_html_e( 'Read more...', 'porto' ); ?></a>

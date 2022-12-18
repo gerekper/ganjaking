@@ -28,9 +28,25 @@ if ( defined( 'WPSEO_VERSION' ) ) {
 }
 
 /**
+ * Include Rank Math SEO Compatibility class
+ * 
+ * @since 6.5.2
+ */
+if ( defined( 'RANK_MATH_VERSION' ) ) {
+	include_once PORTO_PLUGINS . '/compatibility/class-porto-rank-math-seo-compatibility.php';
+}
+
+/**
+ * Include AMP Compatibility class
+ */
+if ( defined( 'AMP__VERSION' ) ) {
+	include_once PORTO_PLUGINS . '/compatibility/class-porto-amp-compatibility.php';
+}
+
+/**
  * Initialize TGM plugins
  */
-if ( current_user_can( 'manage_options' ) ) {
+if ( ( current_user_can( 'manage_options' ) && wp_doing_ajax() ) || ( is_admin() && ! is_customize_preview() ) ) {
 	class PortoTGMPlugins {
 
 		/**
@@ -58,6 +74,13 @@ if ( current_user_can( 'manage_options' ) ) {
 				'required'  => false,
 				'url'       => 'woocommerce/woocommerce.php',
 				'image_url' => PORTO_PLUGINS_URI . '/images/woocommerce.png',
+			),
+			array(
+				'name'      => 'HubSpot - CRM, Email Marketing, Live Chat, Forms & Analytics',
+				'slug'      => 'leadin',
+				'required'  => false,
+				'url'       => 'leadin/leadin.php',
+				'image_url' => PORTO_PLUGINS_URI . '/images/hubspot.png',
 			),
 			array(
 				'name'      => 'Contact Form 7',
@@ -163,6 +186,30 @@ if ( current_user_can( 'manage_options' ) ) {
 				'visibility' => 'hidden',
 			),
 			array(
+				'name'       => 'Post Types Unlimited',
+				'slug'       => 'post-types-unlimited',
+				'required'   => false,
+				'url'        => 'post-types-unlimited/post-types-unlimited.php',
+				'image_url'  => PORTO_PLUGINS_URI . '/images/plugins.png',
+				'visibility' => 'hidden',
+			),
+			array(
+				'name'       => 'Advanced Custom Fields',
+				'slug'       => 'advanced-custom-fields',
+				'required'   => false,
+				'url'        => 'advanced-custom-fields/acf.php',
+				'image_url'  => PORTO_PLUGINS_URI . '/images/acf-logo.png',
+				'visibility' => 'hidden',
+			),
+			array(
+				'name'       => 'PWA for WP',
+				'slug'       => 'pwa-for-wp',
+				'required'   => false,
+				'url'        => 'pwa-for-wp/pwa-for-wp.php',
+				'image_url'  => PORTO_PLUGINS_URI . '/images/plugins.png',
+				'visibility' => 'hidden',
+			),
+			array(
 				'name'       => 'Customizer Search',
 				'slug'       => 'customizer-search',
 				'required'   => false,
@@ -186,14 +233,14 @@ if ( current_user_can( 'manage_options' ) ) {
 				'visibility' => 'speed_wizard',
 				'desc'       => 'This plugin generates static html files from your dynamic WordPress blog.',
 			),
-			array(
+			/*array(
 				'name'       => 'Fast Velocity Minify',
 				'slug'       => 'fast-velocity-minify',
 				'required'   => false,
 				'url'        => 'fast-velocity-minify/fvm.php',
 				'visibility' => 'speed_wizard',
 				'desc'       => 'This plugin reduces HTTP requests by merging CSS & Javascript files into groups of files, while attempting to use the least amount of files as possible.',
-			),
+			),*/
 		);
 
 		public function __construct() {

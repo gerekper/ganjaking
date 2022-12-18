@@ -13,7 +13,7 @@ global $product, $porto_settings;
 
 $upsells = $product->get_upsell_ids();
 
-if ( sizeof( $upsells ) === 0 || ! $porto_settings['product-upsells'] ) {
+if ( sizeof( $upsells ) === 0 || empty( $porto_settings['product-upsells'] ) ) {
 	return;
 }
 
@@ -35,7 +35,7 @@ $products = new WP_Query( $args );
 if ( $products->have_posts() ) :
 	global $porto_woocommerce_loop;
 
-	$porto_woocommerce_loop['columns'] = isset( $porto_settings['product-upsells-cols'] ) ? $porto_settings['product-upsells-cols'] : $porto_settings['product-cols'];
+	$porto_woocommerce_loop['columns'] = isset( $porto_settings['product-upsells-cols'] ) ? $porto_settings['product-upsells-cols'] : ( isset( $porto_settings['product-cols'] ) ? $porto_settings['product-cols'] : 3 );
 
 	if ( ! $porto_woocommerce_loop['columns'] ) {
 		$porto_woocommerce_loop['columns'] = 4;

@@ -106,7 +106,7 @@
 		background: #f4f4f4;
 		transition: color .3s, background-color .3s;
 		&:hover {
-			background-color: var(--bs-primary);
+			background-color: var(--porto-primary-color);
 		}
 	}
 
@@ -175,8 +175,8 @@
 		font-weight: 600;
 		transition: background-color .3s;
 		&:hover {
-			background-color: var(--bs-primary) !important;
-			border-color: var(--bs-primary) !important;
+			background-color: var(--porto-primary-color) !important;
+			border-color: var(--porto-primary-color) !important;
 		}
 	}	
 }
@@ -245,7 +245,7 @@ ul.products li.product-default, ul.products li.product-wq_onimage {
 		}
 	}
 	ul.wcfmmp-store-wrap li .store-content {
-		border-bottom-color: var(--bs-primary);
+		border-bottom-color: var(--porto-primary-color);
 	}
 	.wcfm_catalog_enquiry .wcfmfa {
 		font-weight: 700;
@@ -259,7 +259,7 @@ ul.products li.product-default, ul.products li.product-wq_onimage {
 		text-transform: uppercase;
 		box-shadow: none !important;
 		&:hover {
-			background-color: var(--bs-primary) !important;
+			background-color: var(--porto-primary-color) !important;
 			color: #fff !important;
 		}
 	}
@@ -435,7 +435,7 @@ ul.products li.product-default, ul.products li.product-wq_onimage {
 				width: 100%;
 				margin-right: 0;
 				&.active {
-					border-left: 4px solid var(--bs-primary)!important;
+					border-left: 4px solid var(--porto-primary-color)!important;
 				}
 			}
 		}

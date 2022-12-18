@@ -35,7 +35,8 @@ class Porto_Admin_Tools {
 		if ( ! current_user_can( 'administrator' ) || ! isset( $_GET['page'] ) || 'porto-tools' != $_GET['page'] ) {
 			return;
 		}
-
+		require_once( PORTO_ADMIN . '/theme_options/settings.php' );
+		require_once( PORTO_ADMIN . '/theme_options/save_settings.php' ); //compile css
 		$result_success = true;
 		$message        = '';
 		if ( ! empty( $_GET['action'] ) ) {
@@ -60,6 +61,17 @@ class Porto_Admin_Tools {
 				$result = porto_compile_css( 'shortcodes' );
 				porto_compile_css( 'bootstrap_rtl' );
 				porto_compile_css( 'bootstrap' );
+
+				$upload_dir  = wp_upload_dir();
+				$upload_path = $upload_dir['basedir'] . '/porto_merged_resources/';
+				if ( file_exists( $upload_path ) ) {
+					foreach ( scandir( $upload_path ) as $file ) {
+						if ( ! is_dir( $file ) ) {
+							unlink( $upload_path . $file );
+						}
+					}
+					rmdir( $upload_path );
+				}
 				do_action( 'porto_admin_save_theme_settings' );
 				if ( ! $result ) {
 					$result_success = false;

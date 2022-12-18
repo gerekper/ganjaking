@@ -2,7 +2,7 @@
 global $porto_settings, $porto_layout;
 ?>
 <header id="header" class="header-corporate header-10<?php echo ! $porto_settings['logo-overlay'] || ! $porto_settings['logo-overlay']['url'] ? '' : ' logo-overlay-header'; ?>">
-	<?php if ( $porto_settings['show-header-top'] ) : ?>
+	<?php if ( ! empty( $porto_settings['show-header-top'] ) ) : ?>
 		<div class="header-top">
 			<div class="container">
 				<div class="header-left">
@@ -58,7 +58,7 @@ global $porto_settings, $porto_layout;
 				<div class="header-right-top">
 					<?php
 					// show contact info and top navigation
-					$contact_info = $porto_settings['header-contact-info'];
+					$contact_info = isset( $porto_settings['header-contact-info'] ) ? $porto_settings['header-contact-info'] : '';
 
 					if ( $contact_info ) {
 						echo '<div class="header-contact">' . do_shortcode( $contact_info ) . '</div>';
@@ -77,7 +77,7 @@ global $porto_settings, $porto_layout;
 					</div>
 					<?php echo porto_header_socials(); ?>
 
-					<a class="mobile-toggle" href="#"><i class="fas fa-bars"></i></a>
+					<a class="mobile-toggle" href="#" aria-label="Mobile Menu"><i class="fas fa-bars"></i></a>
 				</div>
 
 				<?php get_template_part( 'header/header_tooltip' ); ?>

@@ -5,8 +5,8 @@
     }
 }
 .widget_sidebar_menu {
-    border: 1px solid;
-    background: #fff;
+    background: var(--porto-normal-bg);
+    border: 1px solid var(--porto-gray-5);
     margin-top: 0;
 
     + .widget-block {
@@ -32,11 +32,13 @@
     }
 
     .widget-title {
-        border-bottom: 1px solid;
+        background: var(--porto-title-bgc);
+        border-bottom: 1px solid var(--porto-gray-5);
         font-size: 1.0714em;
         font-weight: $font-weight-bold;
-        letter-spacing: 0.001em;
+        letter-spacing: .001em;
         line-height: 18px;
+        color: #444;
         padding: 12px 15px;
         margin: 0;
         text-transform: uppercase;
@@ -56,6 +58,9 @@
             cursor: pointer;
             text-align: center;
             @include transition($transition);
+            background: var(--porto-body-bg);
+            border: 1px solid var(--porto-gray-2);
+            color: var(--porto-gray-4);
 
             &:before {
                 content: $fa-var-caret-up;
@@ -63,6 +68,8 @@
 
             &:hover {
                 color: $color-white;
+                border-color: var(--porto-primary-color);
+                background: var(--porto-primary-color);
             }
 
             &.closed {
@@ -77,7 +84,7 @@
 .sidebar-menu {
     > li.menu-item {
         margin-top: 1px;
-
+        
         &:first-child {
             margin-top: 0;
             > a {
@@ -99,9 +106,14 @@
             line-height: 17px;
             padding: 11.5px 5px;
             margin: 0 10px;
+            border-top: 1px solid var(--porto-gray-2);
+            color: #444;
         }
 
         &.active {
+            > a {
+                color: var(--porto-primary-color);
+            }
             &:hover {
                 > a {
                     color: #fff;
@@ -109,10 +121,12 @@
             }
         }
         &:hover {
+            background: var(--porto-primary-color);
             > a {
                 color: #fff;
                 position: relative;
                 z-index: 1;
+                border-top-color: var(--porto-primary-color);
             }
         }
 
@@ -130,29 +144,39 @@
             position: absolute;
             top: 0;
             bottom: 0;
-            #{$right}: 10px;
+            #{$right}: 0;
+            width: 30px;
             height: 30px;
             line-height: 30px;
             margin: auto;
             text-align: center;
 
-            @media #{$screen-normal} {
-                &,
-                .right-sidebar & {
-                    margin: 0;
-                    top: 7px;
-                }
-            }
-
             &:before {
                 font-family: 'porto';
                 content: if-ltr('\e81a', '\e819');
+                color: #838b90;
+            }
+        }
+
+        @media #{$screen-normal} {
+            > .arrow {
+                margin: 0;
+                top: 7px;
+                transform: rotate(0);
+                transition: transform .3s;
+                z-index: 2;
+                cursor: pointer;
+            }
+
+            &.open > .arrow {
+                margin-top: 1px;
+                transform: rotate(90deg);
             }
         }
     }
 
     > li.menu-item > .arrow {
-        #{$right}: 25px;
+        #{$right}: 14px;
     }
 
     .popup {
@@ -167,10 +191,12 @@
         font-size: .9em;
         font-weight: 400;
         line-height: 20px;
+        color: var(--porto-body-color);
 
         @media #{$screen-normal} {
             position: static;
             margin-bottom: -1px;
+            animation: none !important;
         }
 
         .right-sidebar & {
@@ -198,11 +224,11 @@
                 display: none;
             }
             margin-#{$left}: if-ltr(-1px, 0);
-            border-#{$left}: 10px solid #ccc;
+            border-#{$left}: 10px solid var(--porto-primary-color);
 
             .right-sidebar & {
                 border-#{$left}-width: 0;
-                border-#{$right}: 10px solid #ccc;
+                border-#{$right}: 10px solid var(--porto-primary-dark-10);
                 margin-#{$left}: 0;
                 margin-#{$right}: -1px;
             }
@@ -210,6 +236,7 @@
             > .inner {
                 padding: 10px;
                 margin-#{$left}: -5px;
+                background: var(--porto-normal-bg);
 
                 .right-sidebar & {
                     margin-#{$left}: 0;
@@ -218,7 +245,11 @@
 
                 > ul.sub-menu {
                     max-width: 100%;
-                    display: -ms-flexbox; display: flex;
+                    display: flex;
+
+                    @media #{$screen-normal} {
+                        display: block;
+                    }
 
                     > .menu-block-item {
                         margin-bottom: -20px;
@@ -263,6 +294,8 @@
                 font-size: 1.0833em;
                 font-weight: 600;
                 padding-bottom: 5px;
+                color: var(--porto-heading-color);
+                text-transform: var(--porto-menu-text-transform);
             }
 
             > a:not(.nolink):hover { text-decoration: underline; }
@@ -314,8 +347,10 @@
                 display: none;
 
                 @media #{$screen-normal} {
+                    display: block;
                     position: static;
                     padding: side-values(0 0 0 5px);
+                    animation: none !important;
                 }
 
                 .right-sidebar & {
@@ -385,9 +420,11 @@
             margin: 0 10px -1px;
             padding: 11.5px 5px;
             display: block;
-            text-decoration: none;
+            border-top: 1px solid var(--porto-gray-2);
+            color: #444;
 
             &:hover {
+                background: var(--porto-primary-color);
                 color: #fff;
                 margin-left: 0;
                 margin-right: 0;
@@ -498,7 +535,7 @@
     }
     .close {
         opacity: 0;
-        transition: all .3s;
+        transition: .3s;
         float: #{$right};
         font-size: 1.5rem;
         font-weight: 700;
@@ -512,7 +549,7 @@
             width: 0;
             height: 1px;
             background: #333;
-            transition: all .3s;
+            transition: .3s;
             transform-origin: 50% 0;
             &:nth-child(1) {
                 transform: translateX(-50%) rotate(45deg);
@@ -525,7 +562,7 @@
     &.active {
         .close {
             opacity: 1;
-            transition: all .3s;
+            transition: .3s;
             span {
                 width: 80%;
                 transition: inherit;
@@ -584,7 +621,6 @@
 
     .narrow ul.sub-menu ul.sub-menu,
     > li.menu-item .popup {
-        -webkit-animation: none;
         animation: none;
     }
 
@@ -627,7 +663,6 @@
     }
     > li.menu-item .popup,
     .narrow ul.sub-menu ul.sub-menu {
-        -webkit-animation-name: menuFadeInFromLeft;
         animation-name: menuFadeInFromLeft;
     }
      > li.menu-item:hover > .popup,
@@ -675,21 +710,21 @@
 
 /* slide type */
 .side-menu-slide {
-    display: -ms-flexbox; display: flex;
-    -ms-flex-direction: column; flex-direction: column;
-    -ms-flex-wrap: wrap; flex-wrap: wrap;
-    -ms-flex-pack: center; justify-content: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
     height: 100%;
-    transition: all .35s;
+    transition: .35s;
     &.next-menu {
         -webkit-transform: translate3d(-100%, 0, 0) !important;
         transform: translate3d(-100%, 0, 0) !important;
     }
     ul.sub-menu {
         position: absolute !important;
-        display: -ms-flexbox !important; display: flex !important;
-        -ms-flex-direction: column; flex-direction: column;
-        -ms-flex-pack: center; justify-content: center;
+        display: flex !important;
+        flex-direction: column;
+        justify-content: center;
         width: 100%;
         height: 100%;
         top: 50% !important;
@@ -702,7 +737,7 @@
         -webkit-transform: translate3d(0, -50%, 0) !important;
         transform: translate3d(0, -50%, 0) !important;
         visibility: hidden;
-        transition: all .35s;
+        transition: .35s;
         &.next-menu {
             -webkit-transform: translate3d(-100%, -50%, 0) !important;
             transform: translate3d(-100%, -50%, 0) !important;
@@ -828,11 +863,11 @@
         top: 0;
         width: 100%;
         height: 100%;
-        z-index: 1001;
-        background: rgba(51, 51, 51, 0.99);
-        display: -ms-flexbox; display: flex;
-        -ms-flex-align: center; align-items: center;
-        -ms-flex-pack: center; justify-content: center;
+        z-index: 1002;
+        background: rgba(51, 51, 51, .99);
+        display: flex;
+        align-items: center;
+        justify-content: center;
         transition: background .25s;
         margin: 0 !important;
         .hamburguer-btn {

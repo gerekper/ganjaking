@@ -22,20 +22,18 @@
 		height: 106px;
 		top: 5px;
 		#{$left}: 5px;
-		display: -ms-flexbox; display: flex;
-		-ms-flex-align: center; align-items: center;
-		-ms-flex-pack: center; justify-content: center;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		border-style: dashed;
 		border-width: 1px;
 		border-radius: 50%;
 		overflow: hidden;
 	}
-	.circle-center {
-		> span:first-child {
-			font-size: 1.5em;
-			line-height: 1.5;
-			display: block;
-		}
+	.step-title {
+		font-size: 1.5em;
+		line-height: 1.5;
+		display: block;
 	}
 	&.circle-light {
 		border-color: #e6ebeb;
@@ -51,8 +49,8 @@
 		content: '';
 		position: absolute;
 		top: -35px;
-		#{$left}: 83px;
-		width: 1px;
+		#{$left}: calc( 84px - var(--porto-step-line-width, 1px) / 2 );
+		width: var(--porto-step-line-width, 1px);
 		height: 120%;
 		background-color: #e6ebeb;
 	}
@@ -72,6 +70,11 @@
 			display: inline-block;
 			vertical-align: middle;
 			width: 72px;
+			font-size: .9em;
+			font-weight: 700;
+			color: var(--porto-heading-color);
+			white-space: normal;
+			line-height: 1.4;
 		}
 		.time-dot {
 			position: relative;
@@ -86,10 +89,8 @@
 				height: 19px;
 				top: 50%;
 				left: 50%;
-				border-style: solid;
-				border-width: 2px;
+				border: 2px solid var(--porto-primary-color);
 				border-radius: 50%;
-				-webkit-transform: translate(-50%, -50%);
 				transform: translate(-50%, -50%);
 			}
 			&::after {
@@ -100,8 +101,8 @@
 				top: 50%;
 				left: 50%;
 				border-radius: 50%;
-				-webkit-transform: translate(-50%, -50%);
 				transform: translate(-50%, -50%);
+				background-color: var(--porto-primary-color);
 			}
 		}
 	}
@@ -114,6 +115,7 @@
 		border-style: solid;
 		border-radius: 3px;
 		border-color: #e6ebeb;
+		display: flex;
 		&.balloon-shadow {
 			box-shadow: 0px 11px 21px 0px rgba(229, 232, 235, 0.75);
 		}
@@ -128,31 +130,19 @@
 			border-#{$right}: none;
 			border-bottom: none;
 			border-color: #e6ebeb;
+			background-color: inherit;
 			@if $rtl == 1{
-				-webkit-transform: rotate(45deg);
 				transform: rotate(45deg);
-				-webkit-transform-origin: right top;
 				transform-origin: right top;
 			} @else {
-				-webkit-transform: rotate(-45deg);
 				transform: rotate(-45deg);
-				-webkit-transform-origin: left top;
-				transform-origin: left top;	
-				
+				transform-origin: left top;
 			}
 		}
 		.balloon-photo {
-			display: table-cell;
-			vertical-align: top;
 			height: 64px;
 			width: 64px;
-		}
-		.balloon-description {
-			display: table-cell;
-			padding-#{$left}: 25px;
-			p {
-				line-height: 1.6;
-			}
+			margin-#{$right}: 25px;
 		}
 	}
 }
@@ -181,7 +171,6 @@
 				border-color: #e6ebeb;
 				padding: 5px 0px;
 				z-index: 1;
-				-webkit-transform: translateX(-50%);
 				transform: translateX(-50%);
 			}
 		}
@@ -193,7 +182,6 @@
 
 .porto-process {
 	.process-step {
-		display: -ms-flexbox;
 		display: flex;
 		position: relative;
 		padding-bottom: 60px;
@@ -211,14 +199,13 @@
 		}
 	}
 	.process-step-circle {
-		display: -ms-flexbox;
 		display: flex;
 		flex: 0 0 auto;
 		justify-content: center;
 		width: 60px;
 		height: 60px;
 		text-align: center;
-		border: 2px solid var(--porto-skin-color, #ccc);
+		border: var(--porto-step-circle-bw, 2px) solid var(--porto-primary-color, #ccc);
 		border-radius: 50%;
 		align-items: center;
 		position: relative;
@@ -230,13 +217,12 @@
 		&:before,
 		&:after {
 			content: '';
-			width: 2px;
-			display: block;
+			width: var(--porto-step-line-width, 2px);
 			background-color: #ededed;
 			position: absolute;
 			height: 300px;
 			top: 58px;
-			left: 28px;
+			left: calc( 30px - var(--porto-step-line-width, 2px) / 2 - var(--porto-step-circle-bw, 2px) );
 		}
 		&:before {
 			top: auto;
@@ -245,28 +231,27 @@
 			margin-bottom: 2px;
 		}
 	}
-	.process-step-content {
-		max-width: 100%;
-		h4 {
-			font-size: 1.2em;
-			margin-bottom: .25rem;
-			font-weight: 700;
-		}
+}
+
+.process-step-content {
+	max-width: 100%;
+	.step-item-title {
+		font-size: 1.2em;
+		margin-bottom: .25rem;
+		font-weight: 700;
 	}
+}
+
+.porto-process {
 	&.process-horizontal {
 		text-align: center;
 		@media (min-width: 992px) {
-			display: -ms-flexbox;
 			display: flex;
 		}
 		.process-step {
-			-ms-flex-align: center;
 			align-items: center;
-			-ms-flex-direction: column;
 			flex-direction: column;
-			-ms-flex-pack: center;
 			justify-content: center;
-			-ms-flex: 1;
 			flex: 1;
 			padding: 0 1.5rem;
 			margin-bottom: 2.5rem;
@@ -274,12 +259,11 @@
 			@media (min-width: 992px) {
 				&:before {
 					content: '';
-					height: 2px;
-					display: block;
+					height: var(--porto-step-line-width, 2px);
 					background-color: #ededed;
 					position: absolute;
 					width: 50%;
-					top: 45px;
+					top: calc( 45px - var(--porto-step-line-width, 2px) / 2 );
 					#{$left}: 75%;
 				}
 				&:last-child:before {
@@ -288,7 +272,6 @@
 			}
 		}
 		.process-step-circle {
-			-ms-flex: none;
 			flex: none;
 			width: 90px;
 			height: 90px;

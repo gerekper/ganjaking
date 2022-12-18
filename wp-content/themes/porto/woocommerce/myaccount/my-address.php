@@ -48,8 +48,8 @@ $col    = 1;
 	<div class="box-content">
 		<h2 class="page-title m-b"><?php echo esc_html( $page_title ); ?></h2>
 <?php endif; ?>
-<h3 class="account-sub-title mb-2 mt-2"><i class="Simple-Line-Icons-pointer align-middle m-r-sm"></i><?php esc_html_e( 'Addresses', 'woocommerce' ); ?></h3>
-<p class="myaccount_address font-weight-medium m-b-none">
+<h3 class="account-sub-title my-2"><i class="Simple-Line-Icons-pointer align-middle m-r-sm"></i><?php esc_html_e( 'Addresses', 'woocommerce' ); ?></h3>
+<p class="myaccount_address font-weight-medium mb-0">
 	<?php echo apply_filters( 'woocommerce_my_account_my_address_description', esc_html__( 'The following addresses will be used on the checkout page by default.', 'woocommerce' ) ); ?>
 </p>
 

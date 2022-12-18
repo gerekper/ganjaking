@@ -5,8 +5,8 @@ $page_header_type = porto_get_meta_value( 'porto_page_header_shortcode_type' );
 $page_header_type = $page_header_type ? $page_header_type : porto_get_meta_value( 'breadcrumbs_type' );
 $page_header_type = $page_header_type ? $page_header_type : ( $porto_settings['breadcrumbs-type'] ? $porto_settings['breadcrumbs-type'] : '1' );
 
-$breadcrumbs = $porto_settings['show-breadcrumbs'] ? porto_get_meta_value( 'breadcrumbs', true ) : false;
-$page_title  = $porto_settings['show-pagetitle'] ? porto_get_meta_value( 'page_title', true ) : false;
+$breadcrumbs    = $porto_settings['show-breadcrumbs'] ? porto_get_meta_value( 'breadcrumbs', true ) : false;
+$page_title     = $porto_settings['show-pagetitle'] ? porto_get_meta_value( 'page_title', true ) : false;
 $woo_breadcrumb = empty( $porto_settings['woo-show-default-page-header'] ) ? false : $porto_settings['woo-show-default-page-header'];
 if ( ( is_front_page() && is_home() ) || is_front_page() ) {
 	$breadcrumbs = false;
@@ -14,7 +14,7 @@ if ( ( is_front_page() && is_home() ) || is_front_page() ) {
 }
 ?>
 <?php
-if ( class_exists('Woocommerce') && ( is_cart() || is_checkout() ) && $woo_breadcrumb ) :
+if ( class_exists( 'Woocommerce' ) && ( is_cart() || is_checkout() ) && $woo_breadcrumb ) :
 	?>
 	<div class="woo-page-header page-header-8">
 		<ul class="breadcrumb text-center">

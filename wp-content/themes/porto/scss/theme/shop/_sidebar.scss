@@ -3,15 +3,18 @@
 .woocommerce-page {
     &.archive {
         .sidebar-content {
-            border: 1px solid #e7e7e7;
+            border: 1px solid var(--porto-gray-5);
             .widget-title { padding: 0; background: none; border: none; }
             .porto-separator { display: none; }
-            aside.widget { border-bottom: 1px solid #e7e7e7; margin-bottom: 0; margin-top: 0; padding: 20px; }
+            aside.widget { border-bottom: 1px solid var(--porto-gray-5); margin-bottom: 0; margin-top: 0; padding: 20px; }
             aside.widget:last-child { border-bottom: none; }
             aside.widget .widget { margin-bottom: 0; }
-            .widget > *:last-child {
-                margin-bottom: 0;
-                padding-bottom: 0;
+            .widget,
+            .wp-block-group__inner-container {
+                > *:last-child {
+                    margin-bottom: 0;
+                    padding-bottom: 0;
+                }
             }
         }
         @media #{$screen-normal} {
@@ -28,8 +31,11 @@
 }
 
 .sidebar .product-categories li > a { font-size: 14px; font-weight: 500; }
-.widget_product_categories ul li .toggle { font-size: 11px; color: #222529 !important; font-family: Porto; }
-.widget_product_categories ul li .toggle:before { content: "\e81c"; }
-.widget_product_categories ul li.current > .toggle:before,
-.widget_product_categories ul li.open > .toggle:before { content: "\e81b"; }
-.widget_product_categories ul li.closed > .toggle:before { content: "\e81c"; }
+.widget_product_categories,
+.wc-block-product-categories {
+    ul li .toggle { font-size: 11px; color: #222529 !important; font-family: Porto; }
+    ul li .toggle:before { content: "\e81c"; }
+    ul li.current > .toggle:before,
+    ul li.open > .toggle:before { content: "\e81b"; }
+    ul li.closed > .toggle:before { content: "\e81c"; }
+} 

@@ -1,14 +1,12 @@
 /* Scroll to Top */
 html {
     #topcontrol {
-        background: #404040;
-        background: rgba(64, 64, 64, 0.75);
+        background: rgba(64, 64, 64, .75);
         color: #FFF;
         width: 49px;
         height: 48px;
         #{$right}: 10px;
         text-align: center;
-        text-decoration: none;
         z-index: 1040;
         @include transition(background 0.3s ease-out);
 
