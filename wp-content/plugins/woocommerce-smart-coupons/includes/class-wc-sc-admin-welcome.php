@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.2.0
+ * @version     1.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -377,8 +377,9 @@ if ( ! class_exists( 'WC_SC_Admin_Welcome' ) ) {
 							'ans' => esc_html__( 'No. Coupon code should not have any spaces in the name, Eg, Coupon code should be “gift-certificate” & not “gift certificate”.', 'woocommerce-smart-coupons' ),
 						),
 						array(
-							'que' => esc_html__( 'What’s the URL to a coupon, so it’s automatically inserted when visiting?', 'woocommerce-smart-coupons' ),
-							'ans' => esc_html__( 'URL of coupon should be like this:', 'woocommerce-smart-coupons' ) . ' <code>https://www.mysite.com/?coupon-code=discount5</code> ' . esc_html__( '. Replace www.mysite.com with your own site URL and replace discount5 with the your coupon code.', 'woocommerce-smart-coupons' ),
+							'que' => esc_html__( 'What\'s the URL to a coupon, so it\'s automatically inserted when visiting?', 'woocommerce-smart-coupons' ),
+							/* translators: Documentation link for 'How to Apply Single or Multiple Coupons on Click of a Link' */
+							'ans' => esc_html__( 'URL of coupon should be like this:', 'woocommerce-smart-coupons' ) . ' <code>https://www.mysite.com/?coupon-code=discount5&sc-page=shop</code> ' . esc_html__( '. Replace www.mysite.com with your own site URL and replace discount5 with the your coupon code.', 'woocommerce-smart-coupons' ) . ' ' . sprintf( esc_html__( 'For more details you can refer to this article: %s', 'woocommerce-smart-coupons' ), '<a href="https://woocommerce.com/document/smart-coupons/how-to-apply-single-or-multiple-coupons-on-click-of-a-link/" target="_blank">' . esc_html__( 'How to Apply Single or Multiple Coupons on Click of a Link', 'woocommerce-smart-coupons' ) . '</a>' ),
 						),
 						array(
 							'que' => esc_html__( 'Do not want to tie store credit to be used by only one customer? / Can a customer send a gift certificate to themselves to pass on to someone else?', 'woocommerce-smart-coupons' ),
@@ -390,7 +391,8 @@ if ( ! class_exists( 'WC_SC_Admin_Welcome' ) ) {
 						),
 						array(
 							'que' => esc_html__( 'Is there any reference file for creating an import file for coupons?', 'woocommerce-smart-coupons' ),
-							'ans' => esc_html__( 'There is one file which is located inside the plugin. The file name is', 'woocommerce-smart-coupons' ) . ' <code>sample.csv</code> ' . esc_html__( 'If you want to import coupon through file, the file should be like', 'woocommerce-smart-coupons' ) . ' <code>sample.csv</code>',
+							/* translators: 1. File name 2. File download link */
+							'ans' => sprintf( esc_html__( 'There is one file which is located inside the plugin. You can download the %1$s file from %2$s.', 'woocommerce-smart-coupons' ), '<code>sample.csv</code>', '<a href="' . esc_url( plugins_url( dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/sample.csv' ) ) . '">' . esc_html__( 'here', 'woocommerce-smart-coupons' ) . '</a>' ) . ' ' . esc_html__( 'If you want to import coupon through file, the file should be like', 'woocommerce-smart-coupons' ) . ' <code>sample.csv</code>',
 						),
 						array(
 							'que' => esc_html__( 'Available coupons are not visible on Cart, Checkout & My Account page?', 'woocommerce-smart-coupons' ),
@@ -414,11 +416,12 @@ if ( ! class_exists( 'WC_SC_Admin_Welcome' ) ) {
 						),
 						array(
 							'que' => esc_html__( 'Does Smart Coupons allow printing of coupon as Gift Card?', 'woocommerce-smart-coupons' ),
-							'ans' => esc_html__( 'No, it doesn\'t provide any feature which enables you to take a printout of the generated coupon, but if you can take printout from your email, you can use it as an alternative.', 'woocommerce-smart-coupons' ),
+							/* translators: Documentation link for 'How to Print Coupons' */
+							'ans' => sprintf( esc_html__( 'Yes, Smart Coupons does provide a feature for printing coupons. For more details, check this article: %s', 'woocommerce-smart-coupons' ), '<a href="https://woocommerce.com/document/smart-coupons/how-to-print-coupons/" target="_blank">' . esc_html__( 'How to Print Coupons', 'woocommerce-smart-coupons' ) . '</a>' ),
 						),
 						array(
 							'que' => esc_html__( 'Is it possible to have a coupon for each variation of the variable product?', 'woocommerce-smart-coupons' ),
-							'ans' => esc_html__( 'No, currently, you cannot set a coupon for each variation.', 'woocommerce-smart-coupons' ),
+							'ans' => esc_html__( 'From version 4.11.0, you can add/link coupons to product variations as well. This feature is not available in a version lower than 4.11.0.', 'woocommerce-smart-coupons' ),
 						),
 						array(
 							'que' => esc_html__( 'Is Smart Coupons compatible with WooCommerce Subscriptions?', 'woocommerce-smart-coupons' ),
@@ -430,11 +433,11 @@ if ( ! class_exists( 'WC_SC_Admin_Welcome' ) ) {
 						),
 						array(
 							'que' => esc_html__( 'How does automatic payment by store credit work with Subscriptions?', 'woocommerce-smart-coupons' ),
-							'ans' => esc_html__( 'Customers can apply store credit on a subscription during purchase of subscription. If the same store credit has sufficient balance, it’ll keep applying it to renewals till the remainder in store credit is higher than renewal price. Customers will be able to apply store credit only during signup. They will not get an option to apply store credit in renewals. But if the store credit will not have sufficient balance to pay for the renewals, then the order will go into pending mode. Now when the customer will go to pay for this renewal order, they’ll get an option to apply store credit again. To activate the subscription again, the customer will have to pay for the renewals. When the customer is paying for the renewals from their account, then in that process they can use the same store credit which didn’t have the sufficient balance, again & pay for the remaining amount.', 'woocommerce-smart-coupons' ),
+							'ans' => esc_html__( 'Customers can apply store credit on a subscription during purchase of subscription. If the same store credit has sufficient balance, it\'ll keep applying it to renewals till the remainder in store credit is higher than renewal price. Customers will be able to apply store credit only during signup. They will not get an option to apply store credit in renewals. But if the store credit will not have sufficient balance to pay for the renewals, then the order will go into pending mode. Now when the customer will go to pay for this renewal order, they\'ll get an option to apply store credit again. To activate the subscription again, the customer will have to pay for the renewals. When the customer is paying for the renewals from their account, then in that process they can use the same store credit which didn\'t have the sufficient balance, again & pay for the remaining amount.', 'woocommerce-smart-coupons' ),
 						),
 						array(
 							'que' => esc_html__( 'Is it possible to partially pay for a subscription with store credit and the remainder by another method?', 'woocommerce-smart-coupons' ),
-							'ans' => esc_html__( 'No, this is possible only in those cases where subscription amount is more than store credit’s balance. If store credit’s balance is more than subscription’s total then your bank account or credit card will not be charged.', 'woocommerce-smart-coupons' ),
+							'ans' => esc_html__( 'No, this is possible only in those cases where subscription amount is more than store credit\'s balance. If store credit\'s balance is more than subscription\'s total then your bank account or credit card will not be charged.', 'woocommerce-smart-coupons' ),
 						),
 						array(
 							'que' => esc_html__( 'Is Smart Coupons WPML compatible?', 'woocommerce-smart-coupons' ),
@@ -442,7 +445,8 @@ if ( ! class_exists( 'WC_SC_Admin_Welcome' ) ) {
 						),
 						array(
 							'que' => esc_html__( 'I\'m using WPML & WPML provides support for multi-currency, but Smart Coupons only changes currency symbol & the price value remains same. Can Smart Coupons change the currency symbol and the price value associated with it?', 'woocommerce-smart-coupons' ),
-							'ans' => esc_html__( 'Currently, It can only change the currency symbol the price value remains the same. Smart Coupon is not compatible with multi-currency plugin. You may find this in some future version.', 'woocommerce-smart-coupons' ),
+							/* translators: Link for the plugin 'Aelia Currency Switcher for WooCommerce' */
+							'ans' => sprintf( esc_html__( 'Currently, Smart Coupons is compatible with %s. But it is not compatible with any other multi-currency plugin or with WPML.', 'woocommerce-smart-coupons' ), '<a href="https://aelia.co/shop/currency-switcher-woocommerce/" target="_blank">' . esc_html__( 'Aelia Currency Switcher for WooCommerce', 'woocommerce-smart-coupons' ) . '</a>' ),
 						),
 					);
 

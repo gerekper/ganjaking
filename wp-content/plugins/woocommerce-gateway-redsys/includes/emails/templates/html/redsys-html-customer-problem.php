@@ -11,8 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 do_action( 'woocommerce_email_header', $email_heading, $email );
 $order       = new wc_order( $order_id );
-$ds_error    = get_post_meta( $order->get_id(), '_redsys_error_payment_ds_error_value' );
-$ds_response = get_post_meta( $order->get_id(), '_redsys_error_payment_ds_response_value' );
+$ds_error    = WCRed()->get_order_meta( $order->get_id(), '_redsys_error_payment_ds_error_value', true );
+$ds_response = WCRed()->get_order_meta( $order->get_id(), '_redsys_error_payment_ds_response_value', true );
 ?>
 
 	<p><?php printf( __( 'The order #%d has been cancelled. Order Details:', 'woocommerce-redsys' ), esc_html__( $order->get_order_number() ) ); ?></p>

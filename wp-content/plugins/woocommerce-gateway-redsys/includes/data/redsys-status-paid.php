@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright: (C) 2013 - 2022 José Conti
+ * Copyright: (C) 2013 - 2023 José Conti
  *
  * @package WooCommerce Redsys Gateway
  */
@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Copyright: (C) 2013 - 2022 José Conti
+ * Copyright: (C) 2013 - 2023 José Conti
  */
 function redsys_return_status_paid() {
 
@@ -20,6 +20,10 @@ function redsys_return_status_paid() {
 		'redsys-pbankt',
 		'redsys-wait',
 		'cancelled',
+		'failed',
+		'on-hold',
+		'pending-deposit',
+		'redsys-pre',
 	);
 	return $status;
 }

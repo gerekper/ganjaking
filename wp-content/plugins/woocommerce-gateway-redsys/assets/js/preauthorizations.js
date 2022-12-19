@@ -1,5 +1,5 @@
 /*
-* Copyright: (C) 2013 - 2022 José Conti
+* Copyright: (C) 2013 - 2023 José Conti
 */
 jQuery( function ( $ ) {
 	var redsys_buttom_confirm_pre = {

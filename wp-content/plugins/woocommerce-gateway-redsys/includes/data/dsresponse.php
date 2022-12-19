@@ -1,12 +1,12 @@
 <?php
 
 /*
-* Copyright: (C) 2013 - 2022 José Conti
+* Copyright: (C) 2013 - 2023 José Conti
 */	
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /*
-* Copyright: (C) 2013 - 2022 José Conti
+* Copyright: (C) 2013 - 2023 José Conti
 */
 function redsys_return_dsresponse() {
 	return array(
@@ -119,6 +119,9 @@ function redsys_return_dsresponse() {
 		'0106' => 'Intentos de PIN excedidos',
 		'0116' => 'Disponible Insuficiente',
 		'0118' => 'Tarjeta no Registrada',
+		'0172'  => 'Denegada, no repetir.',
+		'0173'  => 'Denegada, no repetir sin actualizar datos de tarjeta.',
+		'0174'  => 'Denegada, no repetir antes de 72 horas.',
 		'0912' => 'Emisor no Disponible',
 		'9912' => 'Emisor no Disponible',
 		'0125' => 'Tarjeta no efectiva',
@@ -140,6 +143,9 @@ function redsys_return_dsresponse() {
 		'106'  => 'Intentos de PIN excedidos',
 		'125'  => 'Tarjeta no efectiva',
 		'129'  => 'Código de seguridad (CVV2/CVC2) incorrecto',
+		'172'  => 'Denegada, no repetir.',
+		'173'  => 'Denegada, no repetir sin actualizar datos de tarjeta.',
+		'174'  => 'Denegada, no repetir antes de 72 horas.',
 		'180'  => 'Tarjeta ajena al servicio',
 		'184'  => 'Error en la autenticación del titular',
 		'190'  => 'Denegación del emisor sin especificar motivo',

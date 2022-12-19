@@ -21,7 +21,7 @@
 * Redsys Servicios de Procesamiento, S.L., CIF B85955367
 */
 
-class RedsysAPIWs{
+class WooRedsysAPIWS{
 
 	/******  Array de DatosEntrada ******/
 	var $vars_pay = array();

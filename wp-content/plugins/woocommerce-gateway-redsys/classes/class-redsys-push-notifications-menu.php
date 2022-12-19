@@ -8,7 +8,7 @@ class Redsys_Push_Notifications_Menu {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	public static function init() {
 		add_filter( 'woocommerce_settings_tabs_array', __CLASS__ . '::add_settings_tab', 50 );
@@ -26,7 +26,7 @@ class Redsys_Push_Notifications_Menu {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	public static function add_settings_tab( $settings_tabs ) {
 		$settings_tabs['settings_tab_redsys_push'] = __( 'Redsys Push Notifications', 'woocommerce-redsys' );
@@ -43,7 +43,7 @@ class Redsys_Push_Notifications_Menu {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	public static function settings_tab() {
 		echo WCRed()->return_help_notice(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -60,7 +60,7 @@ class Redsys_Push_Notifications_Menu {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	public static function update_settings() {
 		woocommerce_update_options( self::get_settings() );
@@ -74,7 +74,7 @@ class Redsys_Push_Notifications_Menu {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	public static function get_settings() {
 

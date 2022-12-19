@@ -1,25 +1,27 @@
 <?php
 
 /*
-* Copyright: (C) 2013 - 2022 José Conti
+* Copyright: (C) 2013 - 2023 José Conti
 */
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 
 /*
-* Copyright: (C) 2013 - 2022 José Conti
+* Copyright: (C) 2013 - 2023 José Conti
 */
 function redsys_return_languages() {
-	
+
 	return array(
-		'1'	  => 'Español',
-		'2'	  => 'English - Inglés',
-		'3'	  => 'Català',
-		'4'	  => 'Français - Frances',
-		'5'	  => 'Deutsch - Aleman',
-		'6'	  => 'Nederlands - Holandes',
-		'7'	  => 'Italiano',
-		'8'	  => 'Svenska - Sueco',
-		'9'	  => 'Português',
+		'1'   => 'Español',
+		'2'   => 'English - Inglés',
+		'3'   => 'Català',
+		'4'   => 'Français - Frances',
+		'5'   => 'Deutsch - Aleman',
+		'6'   => 'Nederlands - Holandes',
+		'7'   => 'Italiano',
+		'8'   => 'Svenska - Sueco',
+		'9'   => 'Português',
 		'10'  => 'Valencià',
 		'11'  => 'Polski - Polaco',
 		'12'  => 'Galego',

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.2.0
+ * @version     1.3.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -205,7 +205,7 @@ if ( ! class_exists( 'WC_SC_Coupon_Parser' ) ) {
 		public function parse_data( $file ) {
 
 			// Set locale.
-			$enc = mb_detect_encoding( $file, 'UTF-8, ISO-8859-1', true );
+			$enc = $this->mb_detect_encoding( $file, 'UTF-8, ISO-8859-1', true );
 			if ( $enc ) {
 				setlocale( LC_ALL, 'en_US.' . $enc );
 			}

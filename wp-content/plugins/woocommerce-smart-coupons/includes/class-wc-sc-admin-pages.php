@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     1.8.0
+ * @version     1.9.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -613,9 +613,6 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 					</h2>
 				</div>
 				<?php
-				if ( ! function_exists( 'mb_detect_encoding' ) && 'send-smart-coupons' !== $tab ) {
-					echo '<div class="message error"><p><strong>' . esc_html__( 'Required', 'woocommerce-smart-coupons' ) . ':</strong> ' . esc_html__( 'Please install and enable PHP extension', 'woocommerce-smart-coupons' ) . ' <code>mbstring</code> <a href="http://www.php.net/manual/en/mbstring.installation.php" target="_blank">' . esc_html__( 'Click here', 'woocommerce-smart-coupons' ) . '</a> ' . esc_html__( 'for more details.', 'woocommerce-smart-coupons' ) . '</p></div>';
-				}
 
 				switch ( $tab ) {
 					case 'send-smart-coupons':

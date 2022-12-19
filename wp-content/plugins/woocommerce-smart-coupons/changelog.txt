@@ -1,5 +1,11 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2022.12.16 - version 6.9.0
+* Fix: Fatal error: Uncaught Error: Call to undefined function mb_detect_encoding
+* Fix: When refunding an order that is paid by store credit, receiving PHP Fatal error: There has been a critical error on this website. Uncaught TypeError: gmdate(): Argument #2 ($timestamp) must be of type ?int, string given
+* Update: FAQs included in the plugin
+* Update: POT file
+
 2022.12.08 - version 6.8.0
 * New: Tested upto WordPress 6.1.1
 * Fix: Incorrectly allowing more quantities than the set quantities for products set under Actions (tab)

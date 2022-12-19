@@ -3,28 +3,33 @@
 /**
  * Package: WooCommerce Redsys Gateway
  * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
- * Copyright: (C) 2013 - 2022 José Conti
+ * Copyright: (C) 2013 - 2023 José Conti
  */
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+use Automattic\WooCommerce\Utilities\OrderUtil;
+use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
 /**
  * Package: WooCommerce Redsys Gateway
  * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
- * Copyright: (C) 2013 - 2022 José Conti
+ * Copyright: (C) 2013 - 2023 José Conti
  */
-function add_redsys_meta_box() {
-	if ( WCRed()->is_redsys_order( get_the_ID() ) ) {
+function add_redsys_meta_box( $post_or_order_object ) {
 
-		$date         = WCRed()->get_order_date( get_the_ID() );
-		$hour         = WCRed()->get_order_hour( get_the_ID() );
-		$auth         = WCRed()->get_order_auth( get_the_ID() );
-		$number       = WCRed()->get_order_mumber( get_the_ID() );
-		$paygold_link = WCRed()->get_order_pay_gold_link( get_the_ID() );
+	$order_id = ( $post_or_order_object instanceof WP_Post ) ? wc_get_order( $post_or_order_object->ID ) : $post_or_order_object;
+
+	if ( WCRed()->is_redsys_order( $order_id ) ) {
+
+		$date         = WCRed()->get_order_date( $order_id );
+		$hour         = WCRed()->get_order_hour( $order_id );
+		$auth         = WCRed()->get_order_auth( $order_id );
+		$number       = WCRed()->get_order_mumber( $order_id );
+		$paygold_link = WCRed()->get_order_pay_gold_link( $order_id );
 
 		echo '<h4>' . esc_html__( 'Payment Details', 'woocommerce-redsys' ) . '</h4>';
-		echo '<p><strong>' . esc_html__( 'Paid with', 'woocommerce-redsys' ) . ': </strong><br />' . WCRed()->get_gateway( get_the_ID() ) . '</p>';
+		echo '<p><strong>' . esc_html__( 'Paid with', 'woocommerce-redsys' ) . ': </strong><br />' . WCRed()->get_gateway( $order_id ) . '</p>';
 		if ( $number ) {
 			echo '<p><strong>' . esc_html__( 'Redsys Order Number', 'woocommerce-redsys' ) . ': </strong><br />' . esc_html( $number ) . '</p>';
 		}
@@ -49,7 +54,7 @@ add_action( 'woocommerce_admin_order_data_after_billing_address', 'add_redsys_me
 /**
  * Package: WooCommerce Redsys Gateway
  * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
- * Copyright: (C) 2013 - 2022 José Conti
+ * Copyright: (C) 2013 - 2023 José Conti
  */
 function redsys_tab( $tabs ) {
 	$tabs['redsys'] = array(
@@ -64,7 +69,7 @@ add_filter( 'woocommerce_product_data_tabs', 'redsys_tab' );
 /**
  * Package: WooCommerce Redsys Gateway
  * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
- * Copyright: (C) 2013 - 2022 José Conti
+ * Copyright: (C) 2013 - 2023 José Conti
  */
 // Adding content to custom panel
 function redsys_tab_panel() {
@@ -80,22 +85,34 @@ function redsys_tab_panel() {
 			woocommerce_wp_checkbox( $field );
 			?>
 		</div>
+		<div class="options_group">
+			<?php
+			$field = array(
+				'id'          => '_redsyspreauth',
+				'label'       => __( 'Preauthorization', 'woocommerce-redsys' ),
+				'description' => __( 'This product requires preauthorization. Check this option and Redsys will preauthorize the order.', 'woocommerce-redsys' ),
+			);
+			woocommerce_wp_checkbox( $field );
+			?>
+		</div>
 	</div>
 	<?php
 }
 add_action( 'woocommerce_product_data_panels', 'redsys_tab_panel' );
 
-// Saving data
+// Saving data.
 /**
  * Package: WooCommerce Redsys Gateway
  * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
- * Copyright: (C) 2013 - 2022 José Conti
+ * Copyright: (C) 2013 - 2023 José Conti
  */
 function save_redsys_product( $post_id ) {
 
-	$product      = wc_get_product( $post_id );
-	$redsystokenr = isset( $_POST['_redsystokenr'] ) ? $_POST['_redsystokenr'] : 'no';
+	$product       = wc_get_product( $post_id );
+	$redsystokenr  = isset( $_POST['_redsystokenr'] ) ? $_POST['_redsystokenr'] : 'no';
+	$redsyspreauth = isset( $_POST['_redsyspreauth'] ) ? $_POST['_redsyspreauth'] : 'no';
 	$product->update_meta_data( '_redsystokenr', $redsystokenr );
+	$product->update_meta_data( '_redsyspreauth', $redsyspreauth );
 	$product->save();
 }
 add_action( 'woocommerce_process_product_meta', 'save_redsys_product' );
@@ -104,22 +121,42 @@ add_action( 'woocommerce_process_product_meta', 'save_redsys_product' );
 /**
  * Package: WooCommerce Redsys Gateway
  * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
- * Copyright: (C) 2013 - 2022 José Conti
+ * Copyright: (C) 2013 - 2023 José Conti
  */
-function paygold_metabox() {
-	global $post, $typenow;
+function paygold_metabox( $post_or_order_object ) {
 
-	if ( 'shop_order' !== $typenow ) {
-		return;
+	$debug  = new WC_Logger();
+	$screen = wc_get_container()->get( CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled()
+		? wc_get_page_screen_id( 'shop-order' )
+		: 'shop_order';
+
+	// $order_id = ( $post_or_order_object instanceof WP_Post ) ? wc_get_order( $post_or_order_object->ID ) : $post_or_order_object;
+
+	if ( isset( $_GET['id'] ) ) {
+		$order_id = $_GET['id'];
+	} else {
+		$order_id = $_GET['post'];
 	}
+	$debug->add( 'metabox', '$order_id: ' . $order_id );
+	if ( WCRed()->order_exist( $order_id ) ) {
+		$debug->add( 'metabox', 'Is shop_order' );
+		$order   = WCRed()->get_order( $order_id );
+		$gateway = $order->get_payment_method();
 
-	$status   = get_post_status( $post );
-	$order    = new WC_Order( $post );
-	$gateway  = $order->get_payment_method();
-	$order_id = $post->ID;
+		$debug->add( 'metabox', '$gateway: ' . $gateway );
 
-	if ( WCRed()->is_gateway_enabled( 'paygold' ) && ! WCRed()->is_paid( $order_id ) && 'paygold' === $gateway ) {
-		add_meta_box( 'paygold', __( 'Send PayGold Link', 'woocommerce-redsys' ), 'paygold_meta_box_content', 'shop_order', 'normal', 'core' );
+		if ( WCRed()->is_gateway_enabled( 'paygold' ) && ! WCRed()->is_paid( $order_id ) && 'paygold' === $gateway ) {
+			add_meta_box(
+				'paygold',
+				__( 'Send PayGold Link', 'woocommerce-redsys' ),
+				'paygold_meta_box_content',
+				$screen,
+				'normal',
+				'core'
+			);
+		}
+	} else {
+		$debug->add( 'metabox', 'Is NOT shop_order' );
 	}
 }
 add_action( 'add_meta_boxes', 'paygold_metabox' );
@@ -127,7 +164,7 @@ add_action( 'add_meta_boxes', 'paygold_metabox' );
 /**
  * Package: WooCommerce Redsys Gateway
  * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
- * Copyright: (C) 2013 - 2022 José Conti
+ * Copyright: (C) 2013 - 2023 José Conti
  */
 function paygold_meta_box_content( $post ) {
 
@@ -177,12 +214,13 @@ function paygold_meta_box_content( $post ) {
 /**
  * Package: WooCommerce Redsys Gateway
  * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
- * Copyright: (C) 2013 - 2022 José Conti
+ * Copyright: (C) 2013 - 2023 José Conti
  */
-function paygold_metabox_save( $post_id ) {
+function paygold_metabox_save( $order_id ) {
 
-	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-		return;
+	if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+		$debug = new WC_Logger();
+		$debug->add( 'metabox', 'arrive to $paygold_metabox_save' );
 	}
 
 	if ( ! isset( $_POST['paygold_box_nonce'] ) || ! wp_verify_nonce( $_POST['paygold_box_nonce'], 'paygold_meta_box_nonce' ) ) {
@@ -199,17 +237,29 @@ function paygold_metabox_save( $post_id ) {
 		return;
 	}
 
-	if ( isset( $_POST['select_paygold_type'] ) ) {
-		$type = esc_attr( $_POST['select_paygold_type'] );
-		update_post_meta( $post_id, '_paygold_link_type', $type );
-	}
+	/* if ( isset( $_GET['id'] ) ) {
+		$order_id = $_GET['id'];
+	} else {
+		$order_id = $_GET['post'];
+	} */
 
-	if ( isset( $_POST['sms_email_send_paygold'] ) ) {
+	if ( isset( $_POST['select_paygold_type'] ) && isset( $_POST['sms_email_send_paygold'] ) ) {
+		$type    = esc_attr( $_POST['select_paygold_type'] );
 		$send_to = esc_attr( $_POST['sms_email_send_paygold'] );
-		update_post_meta( $post_id, '_paygold_link_send_to', $send_to );
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			$debug->add( 'metabox', '$order_id: ' . $order_id );
+			$debug->add( 'metabox', '$type: ' . $type );
+			$debug->add( 'metabox', '$send_to: ' . $send_to );
+		}
+		$data   = array(
+			'user_id'     => '',
+			'token_type'  => '',
+			'send_type'   => $type,
+			'send_to'     => $send_to,
+			'description' => $description,
+		);
+		$result = WCRed()->send_paygold_link( $order_id, $data );
+		WCRed()->set_order_paygold_link( $order_id, $result );
 	}
-
-	$result = WCRed()->send_paygold_link( $post_id );
-	WCRed()->set_order_paygold_link( $post_id, $result );
 }
-add_action( 'save_post', 'paygold_metabox_save' );
+add_action( 'woocommerce_process_shop_order_meta', 'paygold_metabox_save' );

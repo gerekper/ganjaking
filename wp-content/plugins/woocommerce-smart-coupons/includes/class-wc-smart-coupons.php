@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     5.0.0
+ * @version     5.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -5917,6 +5917,58 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 			$date_expires = intval( $date_expires );
 			$date_expires = ( ! empty( $date_expires ) ) ? $date_expires : null;
 			return $date_expires;
+		}
+
+		/**
+		 * Compatible function for mb_detect_encoding.
+		 *
+		 * (c) Fabien Potencier <fabien@symfony.com>
+		 *
+		 * @author Nicolas Grekas <p@tchwork.com>
+		 *
+		 * @param string  $string The string to be checked.
+		 * @param mixed   $encodings List of encoding.
+		 * @param boolean $strict Strict checking or not.
+		 * @return mixed
+		 */
+		public function mb_detect_encoding( $string, $encodings = null, $strict = false ) {
+
+			if ( function_exists( 'mb_detect_encoding' ) ) {
+				return mb_detect_encoding( $string, $encodings, $strict );
+			}
+
+			if ( null === $encodings ) {
+				$encodings = array( 'ASCII', 'UTF-8' );
+			} else {
+				if ( ! is_array( $encodings ) ) {
+					$encodings = array_map( 'trim', explode( ',', $encodings ) );
+				}
+				$encodings = array_map( 'strtoupper', $encodings );
+			}
+
+			foreach ( $encodings as $enc ) {
+				switch ( $enc ) {
+					case 'ASCII':
+						if ( ! preg_match( '/[\x80-\xFF]/', $string ) ) {
+							return $enc;
+						}
+						break;
+
+					case 'UTF8':
+					case 'UTF-8':
+						if ( preg_match( '//u', $string ) ) {
+							return 'UTF-8';
+						}
+						break;
+
+					default:
+						if ( 0 === strncmp( $enc, 'ISO-8859-', 9 ) ) {
+							return $enc;
+						}
+				}
+			}
+
+			return false;
 		}
 
 		/**

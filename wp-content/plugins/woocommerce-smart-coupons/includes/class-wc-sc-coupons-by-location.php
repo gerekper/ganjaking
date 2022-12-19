@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.5.0
+ * @version     1.6.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -214,7 +214,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Location' ) ) {
 					foreach ( $this->countries as $country ) {
 						echo '<option value="' . esc_attr( $country ) . '"';
 						if ( ! empty( $this->additional_locations ) ) {
-							$encoding        = mb_detect_encoding( $country, 'UTF-8, ISO-8859-1', true );
+							$encoding        = $this->mb_detect_encoding( $country, 'UTF-8, ISO-8859-1', true );
 							$decoded_country = ( false !== $encoding ) ? html_entity_decode( $country, ENT_COMPAT, $encoding ) : $country;
 							echo esc_attr( selected( in_array( $decoded_country, $this->additional_locations, true ) ) );
 						}
@@ -228,7 +228,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Location' ) ) {
 						foreach ( $this->global_additional_locations as $list ) {
 							echo '<option value="' . esc_attr( $list ) . '"';
 							if ( ! empty( $this->additional_locations ) ) {
-								$encoding     = mb_detect_encoding( $list, 'UTF-8, ISO-8859-1', true );
+								$encoding     = $this->mb_detect_encoding( $list, 'UTF-8, ISO-8859-1', true );
 								$decoded_list = ( false !== $encoding ) ? html_entity_decode( $list, ENT_COMPAT, $encoding ) : $list;
 								echo esc_attr( selected( in_array( $decoded_list, $this->additional_locations, true ) ) );
 							}
@@ -596,7 +596,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Location' ) ) {
 			$wc_countries         = array_map( 'strtolower', WC()->countries->countries );
 
 			foreach ( $wc_countries as $index => $country ) {
-				$encoding               = mb_detect_encoding( $country, 'UTF-8, ISO-8859-1', true );
+				$encoding               = $this->mb_detect_encoding( $country, 'UTF-8, ISO-8859-1', true );
 				$wc_countries[ $index ] = ( false !== $encoding ) ? html_entity_decode( $country, ENT_COMPAT, $encoding ) : $country;
 			}
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright: (C) 2013 - 2022 José Conti
+ * Copyright: (C) 2013 - 2023 José Conti
  *
  * @package WooCommerce Redsys Gateway
  */
@@ -11,8 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function redsys_is_private_product( $user_id, $product_id ) {
 
-	$is_active     = get_post_meta( $product_id, 'redsys_private_active', true );
-	$user_selected = maybe_unserialize( get_post_meta( get_the_ID(), 'redsys_users_private' ) );
+	$is_active     = WCRed()->get_order_meta( $product_id, 'redsys_private_active', true );
+	$user_selected = maybe_unserialize( WCRed()->get_order_meta( get_the_ID(), 'redsys_users_private' ) );
 
 	if ( 'yes' === $is_active && in_array( esc_html( $user_id ), $user_selected['0'], true ) ) {
 		return false;
@@ -24,7 +24,7 @@ function redsys_is_private_product( $user_id, $product_id ) {
 }
 
 /*
-* Copyright: (C) 2013 - 2022 José Conti
+* Copyright: (C) 2013 - 2023 José Conti
 */
 function redsys_make_private() {
 	global $post, $wp_query;
@@ -52,7 +52,7 @@ add_action( 'wp', 'redsys_make_private' );
  * Adding a custom tab
  */
 /*
-* Copyright: (C) 2013 - 2022 José Conti
+* Copyright: (C) 2013 - 2023 José Conti
 */
 function redsys_private_product_tab( $tabs ) {
 
@@ -67,12 +67,12 @@ add_filter( 'woocommerce_product_data_tabs', 'redsys_private_product_tab' );
 
 // Adding content to custom panel
 /*
-* Copyright: (C) 2013 - 2022 José Conti
+* Copyright: (C) 2013 - 2023 José Conti
 */
 function redsys_private_product_tab_panel() {
 
 	$users         = get_users();
-	$user_selected = maybe_unserialize( get_post_meta( get_the_ID(), 'redsys_users_private' ) );
+	$user_selected = maybe_unserialize( WCRed()->get_order_meta( get_the_ID(), 'redsys_users_private' ) );
 	?>
 	<div id="redsys_private_product" class="panel woocommerce_options_panel">
 		<div class="options_group">
@@ -106,7 +106,7 @@ add_action( 'woocommerce_product_data_panels', 'redsys_private_product_tab_panel
 
 // Saving data
 /*
-* Copyright: (C) 2013 - 2022 José Conti
+* Copyright: (C) 2013 - 2023 José Conti
 */
 function redsys_save_private_product( $post_id ) {
 
@@ -120,7 +120,7 @@ function redsys_save_private_product( $post_id ) {
 add_action( 'woocommerce_process_product_meta', 'redsys_save_private_product' );
 
 /*
-* Copyright: (C) 2013 - 2022 José Conti
+* Copyright: (C) 2013 - 2023 José Conti
 */
 function redsys_load_scripts_product() {
 	global $current_screen;
@@ -131,7 +131,7 @@ function redsys_load_scripts_product() {
 add_action( 'admin_enqueue_scripts', 'redsys_load_scripts_product' );
 
 /*
-* Copyright: (C) 2013 - 2022 José Conti
+* Copyright: (C) 2013 - 2023 José Conti
 */
 function redsys_private_product_query( $q ) {
 

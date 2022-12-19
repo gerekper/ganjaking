@@ -27,8 +27,9 @@ class WC_REST_Redsys {
 			$this->namespace,
 			'/' . $this->rest_base,
 			array(
-				'methods'  => 'GET',
-				'callback' => array( $this, 'get_custom' ),
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'get_custom' ),
+				'permission_callback' => '__return_true',
 			)
 		);
 	}

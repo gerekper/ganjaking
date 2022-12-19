@@ -73,19 +73,20 @@ class Redsys_Push_Notifications {
 	public function call( $message = false, $recipient = false, $identifier = false ) {
 
 		if ( $message && $this->is_active() ) {
-			$this->log->add( 'pushredsys', '/******************************************/' );
-			$this->log->add( 'pushredsys', '  LLega la petición a la clase Call  ' );
-			$this->log->add( 'pushredsys', '/******************************************/' );
+			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+				$this->log->add( 'pushredsys', '/******************************************/' );
+				$this->log->add( 'pushredsys', '  LLega la petición a la clase Call  ' ); 
+				$this->log->add( 'pushredsys', '/******************************************/' );
+			}
 
 			$access_token  = $this->get_access_token();
 			$mobile_app_id = $this->get_mobile_app_id();
 			if ( ! $identifier ) {
 				$identifier = $this->identifier();
 			}
-			$identifier = $this->identifier();
-			$json       = '{"mobileAppId":' . $mobile_app_id . ',"text":"' . $message . '","recipients":[{"identifier":"' . $identifier . '"}]}';
-			$url        = 'https://api.catapush.com/1/messages';
-			$response   = wp_remote_post(
+			$json     = '{"mobileAppId":' . $mobile_app_id . ',"text":"' . $message . '","recipients":[{"identifier":"' . $identifier . '"}]}';
+			$url      = 'https://api.catapush.com/1/messages';
+			$response = wp_remote_post(
 				$url,
 				array(
 					'body'    => $json,
@@ -96,7 +97,9 @@ class Redsys_Push_Notifications {
 					),
 				)
 			);
-			$this->log->add( 'pushredsys', wp_remote_retrieve_body( $response ) );
+			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+				$this->log->add( 'pushredsys', wp_remote_retrieve_body( $response ) );
+			}
 		}
 	}
 }

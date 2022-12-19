@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright: (C) 2013 - 2022 José Conti
+ * Copyright: (C) 2013 - 2023 José Conti
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 /**
- * Copyright: (C) 2013 - 2022 José Conti
+ * Copyright: (C) 2013 - 2023 José Conti
  */
 class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	var $notify_url;
@@ -20,7 +20,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	public function __construct() {
 
@@ -86,7 +86,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	function is_valid_for_use() {
 		if ( ! in_array( get_woocommerce_currency(), WCRed()->allowed_currencies(), true ) ) {
@@ -104,7 +104,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	public function admin_options() {
 		?>
@@ -153,7 +153,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	function init_form_fields() {
 
@@ -196,7 +196,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 			'multisitesttings' => array(
 				'title'       => __( 'Use in Network', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
-				'label'       => __( 'Use this setting arround all Network', 'woocommerce-redsys' ),
+				'label'       => __( 'Use this setting around all Network', 'woocommerce-redsys' ),
 				'description' => '',
 				'default'     => 'no',
 			),
@@ -376,7 +376,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	function check_user_test_mode( $userid ) {
 
@@ -463,11 +463,11 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	function disable_bizum( $available_gateways ) {
 
-		if ( ! is_admin() ) {
+		if ( ! is_admin() && WCRed()->is_gateway_enabled( 'bizumredsys' ) ) {
 			$total = (int) WC()->cart->total;
 			$limit = (int) $this->transactionlimit;
 			if ( ! empty( $limit ) && $limit > 0 ) {
@@ -492,7 +492,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	function get_redsys_url_gateway( $user_id, $type = 'rd' ) {
 
@@ -566,7 +566,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	function get_redsys_sha256( $user_id ) {
 
@@ -617,7 +617,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	function get_redsys_args( $order ) {
 
@@ -633,6 +633,8 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 		$product_description = WCRed()->product_description( $order, $this->id );
 		$merchant_name       = $this->commercename;
 		$currency            = $currency_codes[ get_woocommerce_currency() ];
+		$name                = 'José';
+		$lastname            = 'Conti';
 
 		if ( class_exists( 'SitePress' ) ) {
 			$gatewaylanguage = WCRed()->get_lang_code( ICL_LANGUAGE_CODE );
@@ -663,6 +665,8 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 			'url_ok'              => $url_ok,
 			'product_description' => $product_description,
 			'merchant_name'       => $merchant_name,
+			'name'                => $name,
+			'lastname'            => $lastname,
 		);
 
 		if ( has_filter( 'bizum_modify_data_to_send' ) ) {
@@ -676,12 +680,19 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 			}
 		}
 
+		if ( 'yes' === $redsys->debug ) {
+			$redsys->log->add( 'bizumredsys', ' ' );
+			$redsys->log->add( 'bizumredsys', 'Date sent to Bizum, $bizum_data_send: ' . print_r( $bizum_data_send, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			$redsys->log->add( 'bizumredsys', ' ' );
+		}
+
 		// redsys Args.
-		$miobj = new RedsysAPI();
+		$miobj = new WooRedsysAPI();
 		$miobj->setParameter( 'DS_MERCHANT_AMOUNT', $bizum_data_send['order_total_sign'] );
 		$miobj->setParameter( 'DS_MERCHANT_ORDER', $bizum_data_send['transaction_id2'] );
 		$miobj->setParameter( 'DS_MERCHANT_MERCHANTCODE', $bizum_data_send['customer'] );
 		$miobj->setParameter( 'DS_MERCHANT_CURRENCY', $bizum_data_send['currency'] );
+		$miobj->setParameter( 'DS_MERCHANT_TITULAR', $bizum_data_send['name'] . ' ' . $bizum_data_send['lastname'] );
 		$miobj->setParameter( 'DS_MERCHANT_TRANSACTIONTYPE', $bizum_data_send['transaction_type'] );
 		$miobj->setParameter( 'DS_MERCHANT_TERMINAL', $bizum_data_send['DSMerchantTerminal'] );
 		$miobj->setParameter( 'DS_MERCHANT_MERCHANTURL', $bizum_data_send['final_notify_url'] );
@@ -709,6 +720,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'bizumredsys', 'Helping to understand the encrypted code: ' );
 			$this->log->add( 'bizumredsys', 'DS_MERCHANT_AMOUNT: ' . $bizum_data_send['order_total_sign'] );
 			$this->log->add( 'bizumredsys', 'DS_MERCHANT_ORDER: ' . $bizum_data_send['transaction_id2'] );
+			$this->log->add( 'bizumredsys', 'DS_MERCHANT_TITULAR: ' . $bizum_data_send['name'] . ' ' . $bizum_data_send['lastname'] );
 			$this->log->add( 'bizumredsys', 'DS_MERCHANT_MERCHANTCODE: ' . $bizum_data_send['customer'] );
 			$this->log->add( 'bizumredsys', 'DS_MERCHANT_CURRENCY' . $bizum_data_send['currency'] );
 			$this->log->add( 'bizumredsys', 'DS_MERCHANT_TRANSACTIONTYPE: ' . $bizum_data_send['transaction_type'] );
@@ -734,7 +746,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	function generate_redsys_form( $order_id ) {
 		global $woocommerce;
@@ -795,7 +807,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	function process_payment( $order_id ) {
 		$order = WCRed()->get_order( $order_id );
@@ -814,7 +826,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	function receipt_page( $order ) {
 		echo '<p>' . esc_html__( 'Thank you for your order, please click the button below to pay with Bizum.', 'woocommerce-redsys' ) . '</p>';
@@ -827,7 +839,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	function check_ipn_request_is_valid() {
 
@@ -839,14 +851,14 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 			$version           = $_POST['Ds_SignatureVersion'];
 			$data              = $_POST['Ds_MerchantParameters'];
 			$remote_sign       = $_POST['Ds_Signature'];
-			$mi_obj             = new RedsysAPI();
+			$mi_obj             = new WooRedsysAPI();
 			$decodec           = $mi_obj->decodeMerchantParameters( $data );
 			$order_id          = $mi_obj->getParameter( 'Ds_Order' );
 			$ds_merchant_code  = $mi_obj->getParameter( 'Ds_MerchantCode' );
 			$secretsha256      = get_transient( 'redsys_signature_' . sanitize_text_field( $order_id ) );
 			$order1            = $order_id;
 			$order2            = WCRed()->clean_order_number( $order1 );
-			$secretsha256_meta = get_post_meta( $order2, '_redsys_secretsha256', true );
+			$secretsha256_meta = WCRed()->get_order_meta( $order2, '_redsys_secretsha256', true );
 
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'bizumredsys', ' ' );
@@ -906,14 +918,14 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 			$version           = $_POST['Ds_SignatureVersion'];
 			$data              = $_POST['Ds_MerchantParameters'];
 			$remote_sign       = $_POST['Ds_Signature'];
-			$mi_obj             = new RedsysAPI();
+			$mi_obj             = new WooRedsysAPI();
 			$decodec           = $mi_obj->decodeMerchantParameters( $data );
 			$order_id          = $mi_obj->getParameter( 'Ds_Order' );
 			$ds_merchant_code  = $mi_obj->getParameter( 'Ds_MerchantCode' );
 			$secretsha256      = get_transient( 'redsys_signature_' . sanitize_text_field( $order_id ) );
 			$order1            = $order_id;
 			$order2            = WCRed()->clean_order_number( $order1 );
-			$secretsha256_meta = get_post_meta( $order2, '_redsys_secretsha256', true );
+			$secretsha256_meta = WCRed()->get_order_meta( $order2, '_redsys_secretsha256', true );
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'bizumredsys', 'HTTP Notification received: ' . print_r( $_POST, true ) );
 			}
@@ -942,7 +954,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	function check_ipn_response() {
 		@ob_clean();
@@ -965,7 +977,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	function successful_request( $posted ) {
 
@@ -989,7 +1001,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'bizumredsys', ' ' );
 		}
 
-		$mi_obj             = new RedsysAPI();
+		$mi_obj             = new WooRedsysAPI();
 		$usesecretsha256   = $this->secretsha256;
 		$dscardnumbercompl = '';
 		$dsexpiration      = '';
@@ -1061,13 +1073,13 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 				set_transient( $order->get_id() . '_redsys_refund', 'yes' );
 
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumredsys', 'update_post_meta to "refund yes"' );
+					$this->log->add( 'bizumredsys', 'WCRed()->update_order_meta to "refund yes"' );
 				}
 				$status = $order->get_status();
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'bizumredsys', 'New Status in request: ' . $status );
 				}
-				$order->add_order_note( __( 'Order Payment refunded', 'woocommerce-redsys' ) );
+				$order->add_order_note( __( 'Order Payment refunded by Redsys', 'woocommerce-redsys' ) );
 				return;
 			}
 			$order->add_order_note( __( 'There was an error refunding', 'woocommerce-redsys' ) );
@@ -1101,7 +1113,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'bizumredsys', ' ' );
 			}
 			if ( ! empty( $order1 ) ) {
-				update_post_meta( $order->get_id(), '_payment_order_number_redsys', $order1 );
+				WCRed()->update_order_meta( $order->get_id(), '_payment_order_number_redsys', $order1 );
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'bizumredsys', '_payment_order_number_redsys saved: ' . $order1 );
 				}
@@ -1113,7 +1125,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 				}
 			}
 			if ( ! empty( $dsdate ) ) {
-				update_post_meta( $order->get_id(), '_payment_date_redsys', $dsdate );
+				WCRed()->update_order_meta( $order->get_id(), '_payment_date_redsys', $dsdate );
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'bizumredsys', '_payment_date_redsys saved: ' . $dsdate );
 				}
@@ -1125,7 +1137,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 				}
 			}
 			if ( ! empty( $dsdate ) ) {
-				update_post_meta( $order->get_id(), '_payment_terminal_redsys', $dstermnal );
+				WCRed()->update_order_meta( $order->get_id(), '_payment_terminal_redsys', $dstermnal );
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'bizumredsys', '_payment_terminal_redsys saved: ' . $dstermnal );
 				}
@@ -1137,7 +1149,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 				}
 			}
 			if ( ! empty( $dshour ) ) {
-				update_post_meta( $order->get_id(), '_payment_hour_redsys', $dshour );
+				WCRed()->update_order_meta( $order->get_id(), '_payment_hour_redsys', $dshour );
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'bizumredsys', '_payment_hour_redsys saved: ' . $dshour );
 				}
@@ -1149,7 +1161,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 				}
 			}
 			if ( ! empty( $id_trans ) ) {
-				update_post_meta( $order->get_id(), '_authorisation_code_redsys', $authorisation_code );
+				WCRed()->update_order_meta( $order->get_id(), '_authorisation_code_redsys', $authorisation_code );
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'bizumredsys', '_authorisation_code_redsys saved: ' . $authorisation_code );
 				}
@@ -1161,7 +1173,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 				}
 			}
 			if ( ! empty( $currency_code ) ) {
-				update_post_meta( $order->get_id(), '_corruncy_code_redsys', $currency_code );
+				WCRed()->update_order_meta( $order->get_id(), '_corruncy_code_redsys', $currency_code );
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'bizumredsys', '_corruncy_code_redsys saved: ' . $currency_code );
 				}
@@ -1173,7 +1185,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 				}
 			}
 			if ( ! empty( $dscardcountry ) ) {
-				update_post_meta( $order->get_id(), '_card_country_redsys', $dscardcountry );
+				WCRed()->update_order_meta( $order->get_id(), '_card_country_redsys', $dscardcountry );
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'bizumredsys', '_card_country_redsys saved: ' . $dscardcountry );
 				}
@@ -1185,7 +1197,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 				}
 			}
 			if ( ! empty( $dscargtype ) ) {
-				update_post_meta( $order->get_id(), '_card_type_redsys', 'C' === $dscargtype ? 'Credit' : 'Debit' );
+				WCRed()->update_order_meta( $order->get_id(), '_card_type_redsys', 'C' === $dscargtype ? 'Credit' : 'Debit' );
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'bizumredsys', '_card_type_redsys saved: ' . $dscargtype );
 				}
@@ -1198,7 +1210,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 			}
 			// This meta is essential for later use.
 			if ( ! empty( $secretsha256 ) ) {
-				update_post_meta( $order->get_id(), '_redsys_secretsha256', $secretsha256 );
+				WCRed()->update_order_meta( $order->get_id(), '_redsys_secretsha256', $secretsha256 );
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'bizumredsys', '_redsys_secretsha256 saved: ' . $secretsha256 );
 				}
@@ -1210,7 +1222,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 				}
 			}
 			if ( ! empty( $dscode ) ) {
-				update_post_meta( $order->get_id(), '_order_fuc_redsys', $dscode );
+				WCRed()->update_order_meta( $order->get_id(), '_order_fuc_redsys', $dscode );
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'bizumredsys', '_order_fuc_redsys: ' . $dscode );
 				}
@@ -1225,6 +1237,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 			$order->add_order_note( __( 'HTTP Notification received - payment completed', 'woocommerce-redsys' ) );
 			$order->add_order_note( __( 'Authorization code: ', 'woocommerce-redsys' ) . $authorisation_code );
 			$order->payment_complete();
+
 			if ( 'completed' === $this->orderdo ) {
 				$order->update_status( 'completed', __( 'Order Completed by Bizum', 'woocommerce-redsys' ) );
 			}
@@ -1237,6 +1250,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'bizumredsys', '/******************************************/' );
 				$this->log->add( 'bizumredsys', ' ' );
 			}
+			do_action( 'bizum_post_payment_complete', $order->get_id() );
 		} else {
 
 			$ds_response_value = WCRed()->get_error( $response );
@@ -1244,12 +1258,12 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 
 			if ( $ds_response_value ) {
 				$order->add_order_note( __( 'Order cancelled by Redsys: ', 'woocommerce-redsys' ) . $ds_response_value );
-				update_post_meta( $order_id, '_redsys_error_payment_ds_response_value', $ds_response_value );
+				WCRed()->update_order_meta( $order_id, '_redsys_error_payment_ds_response_value', $ds_response_value );
 			}
 
 			if ( $ds_error_value ) {
 				$order->add_order_note( __( 'Order cancelled by Redsys: ', 'woocommerce-redsys' ) . $ds_error_value );
-				update_post_meta( $order_id, '_redsys_error_payment_ds_response_value', $ds_error_value );
+				WCRed()->update_order_meta( $order_id, '_redsys_error_payment_ds_response_value', $ds_error_value );
 			}
 			if ( 'yes' === $this->debug ) {
 				if ( $ds_response_value ) {
@@ -1270,19 +1284,27 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 			$order->update_status( 'cancelled', __( 'Order cancelled by Redsys Bizum', 'woocommerce-redsys' ) );
 			$order->add_order_note( __( 'Order cancelled by Redsys Bizum', 'woocommerce-redsys' ) );
 			WC()->cart->empty_cart();
+			if ( ! $ds_response_value ) {
+				$ds_response_value = '';
+			}
+			if ( ! $ds_error_value ) {
+				$ds_error_value = '';
+			}
+			$error = $ds_response_value . ' ' . $ds_error_value;
+			do_action( 'bizum_post_payment_error', $order->get_id(), $error );
 		}
 	}
 
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	function ask_for_refund( $order_id, $transaction_id, $amount ) {
 
 		// post code to REDSYS.
 		$order          = WCRed()->get_order( $order_id );
-		$terminal       = get_post_meta( $order_id, '_payment_terminal_redsys', true );
+		$terminal       = WCRed()->get_order_meta( $order_id, '_payment_terminal_redsys', true );
 		$currency_codes = WCRed()->get_currencies();
 		$user_id        = $order->get_user_id();
 		$secretsha256   = $this->get_redsys_sha256( $user_id );
@@ -1298,7 +1320,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'bizumredsys', __( 'Terminal : ', 'woocommerce-redsys' ) . $terminal );
 		}
 		$transaction_type  = '3';
-		$secretsha256_meta = get_post_meta( $order_id, '_redsys_secretsha256', true );
+		$secretsha256_meta = WCRed()->get_order_meta( $order_id, '_redsys_secretsha256', true );
 		if ( $secretsha256_meta ) {
 			$secretsha256 = $secretsha256_meta;
 			if ( 'yes' === $this->debug ) {
@@ -1318,10 +1340,10 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 			$final_notify_url = $this->notify_url;
 		}
 		$redsys_adr        = $this->get_redsys_url_gateway( $user_id );
-		$autorization_code = get_post_meta( $order_id, '_authorisation_code_redsys', true );
-		$autorization_date = get_post_meta( $order_id, '_payment_date_redsys', true );
-		$currencycode      = get_post_meta( $order_id, '_corruncy_code_redsys', true );
-		$order_fuc         = get_post_meta( $order_id, '_order_fuc_redsys', true );
+		$autorization_code = WCRed()->get_order_meta( $order_id, '_authorisation_code_redsys', true );
+		$autorization_date = WCRed()->get_order_meta( $order_id, '_payment_date_redsys', true );
+		$currencycode      = WCRed()->get_order_meta( $order_id, '_corruncy_code_redsys', true );
+		$order_fuc         = WCRed()->get_order_meta( $order_id, '_order_fuc_redsys', true );
 
 		if ( ! $order_fuc ) {
 			$order_fuc = $this->customer;
@@ -1351,7 +1373,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 			}
 		}
 
-		$mi_obj = new RedsysAPI();
+		$mi_obj = new WooRedsysAPI();
 		$mi_obj->setParameter( 'DS_MERCHANT_AMOUNT', $amount );
 		$mi_obj->setParameter( 'DS_MERCHANT_ORDER', $transaction_id );
 		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTCODE', $order_fuc );
@@ -1424,7 +1446,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	function check_redsys_refund( $order_id ) {
 		// check postmeta.
@@ -1448,14 +1470,14 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	public function process_refund( $order_id, $amount = null, $reason = '' ) {
 		// Do your refund here. Refund $amount for the order with ID $order_id _transaction_id.
 		set_time_limit( 0 );
 		$order = wc_get_order( $order_id );
 
-		$transaction_id = get_post_meta( $order_id, '_payment_order_number_redsys', true );
+		$transaction_id = WCRed()->get_redsys_order_number( $order_id );
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'bizumredsys', __( '$order_id#: ', 'woocommerce-redsys' ) . $transaction_id );
 		}
@@ -1533,7 +1555,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	public function warning_checkout_test_mode_bizum() {
 		if ( 'yes' === $this->testmode && WCRed()->is_gateway_enabled( $this->id ) ) {
@@ -1554,7 +1576,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	function check_user_show_payment_method( $userid = false ) {
 
@@ -1582,7 +1604,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Package: WooCommerce Redsys Gateway
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2022 José Conti
+	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	function show_payment_method( $available_gateways ) {
 
@@ -1604,7 +1626,7 @@ class WC_Gateway_Bizum_Redsys extends WC_Payment_Gateway {
 	}
 }
 /**
- * Copyright: (C) 2013 - 2022 José Conti
+ * Copyright: (C) 2013 - 2023 José Conti
  */
 function woocommerce_add_gateway_bizum_redsys( $methods ) {
 		$methods[] = 'WC_Gateway_Bizum_Redsys';

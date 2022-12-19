@@ -4,13 +4,13 @@
  * Plugin Name: WooCommerce Anti Fraud
  * Plugin URI: https://woocommerce.com/products/woocommerce-anti-fraud/
  * Description: Score each of your transactions, checking for possible fraud, using a set of advanced scoring rules.
- * Version: 4.8
+ * Version: 4.9
  * Author: OPMC Australia Pty Ltd
  * Author URI: https://opmc.biz/
  * Text Domain: woocommerce-anti-fraud
  * Domain Path: /languages
  * License: GPL v3
- * WC tested up to: 7.1
+ * WC tested up to: 7.2
  * WC requires at least: 2.6
  * Woo: 500217:955da0ce83ea5a44fc268eb185e46c41
  *
@@ -198,6 +198,61 @@ class WooCommerce_Anti_Fraud {
 		add_action('wp_enqueue_scripts', array($this,'add_scripts_to_pages'), 9999);
 		add_action( 'wp_ajax_my_action_geo_country', array($this, 'my_action_geo_country' ));
 		add_action( 'wp_ajax_nopriv_my_action_geo_country', array($this, 'my_action_geo_country' ) );
+		add_action( 'wp_ajax_my_dismiss_notice', array($this,'my_dismiss_notice') );
+		if ( empty( get_option( 'my_notice_dismisseds' ) ) ) {
+			add_action( 'admin_notices', array($this, 'my_admin_notice') );
+		} 
+		/*else {
+			if ( !empty( get_option( 'my_notice_dismisseds' ) ) &&  !empty( get_option( 'my_notice_dismisseds_time' ) ) ) {
+
+				$now = get_option( 'my_notice_dismisseds_time' );  
+				$open = date_parse($now)['hour'];
+				if (24 == $open) {
+					delete_option( 'my_notice_dismisseds');
+					delete_option( 'my_notice_dismisseds_time');
+					add_action( 'admin_notices', array($this, 'my_admin_notice') );
+				}
+			}
+		}*/
+	}
+
+	public function my_admin_notice() {
+		
+		$wc_af_enable_recaptcha_checkout = get_option('wc_af_enable_recaptcha_checkout');
+		if ('yes' != $wc_af_enable_recaptcha_checkout) {
+			
+			?>
+			<div class="notice error is-dismissible" >
+
+				<p>
+				<?php 
+					/* translators: 1. start of link, 2. end of link. */
+					printf( esc_html__( 'Please consider enabling reCaptcha in the Anti Fraud plugin %1$ssettings%2$s to help prevent Velocity attacks.', 'woocommerce-anti-fraud' ), '<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=wc_af&section=minfraud_recaptcha_settings' ) ) . '">', '</a>' ); 
+				?>
+					 </p>
+			</div>
+			<script type="text/javascript">
+				jQuery(document).ready(function(){
+				jQuery(document).on( 'click', '.notice-dismiss', function() {
+					//alert('It will again appear after 24 hours.');
+					jQuery.ajax({
+						url: ajaxurl,
+						data: {
+							action: 'my_dismiss_notice'
+						}
+					});
+				});
+			});
+			</script>
+			<?php
+		}
+	}
+
+	public function my_dismiss_notice() {
+		$now = gmdate('Y-m-d H:i:s');
+		update_option( 'my_notice_dismisseds', 1 );
+		//update_option( 'my_notice_dismisseds_time', $now );
+
 	}
 
 	public function my_action_geo_country() {

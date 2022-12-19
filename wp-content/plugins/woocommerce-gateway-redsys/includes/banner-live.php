@@ -83,7 +83,7 @@ function redsys_add_notice_banner_live() {
 	if ( ! $url ) {
 		$url = 'https://api.joseconti.com/banner-live-en.php';
 	}
-	$data = wp_remote_get( $url, array( 'timeout' => 3 ) );
+	$data = wp_remote_get( $url, array( 'timeout' => 5 ) );
 	if ( is_wp_error( $data ) ) {
 		return;
 	}
@@ -97,7 +97,7 @@ function redsys_add_notice_banner_live() {
 	$button_link = $array_respuesta['button_link'];
 	$button_text = $array_respuesta['button_text'];
 
-	if ( 'hide' === $new_id ) {
+	if ( 'hide' === $new_id || ! $new_id ) {
 		return;
 	}
 	if ( 'hide' === $button_link ) {

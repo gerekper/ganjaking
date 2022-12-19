@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       5.2.0
- * @version     1.4.0
+ * @version     1.5.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -498,6 +498,9 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 						$sc_refunded_user         = $this->get_order_item_meta( $item_id, 'sc_refunded_user_id', true );
 						$sc_refunded_timestamp    = $this->get_order_item_meta( $item_id, 'sc_refunded_timestamp', true );
 					}
+					if ( empty( $sc_refunded_timestamp ) ) {
+						$sc_refunded_timestamp = time() + $this->wc_timezone_offset();
+					}
 					$sc_refunded_discount     = empty( $sc_refunded_discount ) ? 0 : $sc_refunded_discount;
 					$sc_refunded_discount_tax = empty( $sc_refunded_discount_tax ) ? 0 : $sc_refunded_discount_tax;
 
@@ -583,7 +586,13 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 		 * @param string    $format date format.
 		 * @return string  date format string
 		 */
-		protected function format_date( $date, $format = 'F j, Y, H:i a' ) {
+		protected function format_date( $date, $format = '' ) {
+			if ( ! is_int( $date ) ) {
+				$date = intval( $date );
+			}
+			if ( empty( $format ) ) {
+				$format = get_option( 'date_format', 'F j, Y' ) . ' ' . get_option( 'time_format', 'g:i a' );
+			}
 			return gmdate( $format, $date );
 		}
 

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.8.6
- * @version     1.8.0
+ * @version     1.9.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1039,7 +1039,7 @@ if ( ! class_exists( 'WC_SC_Background_Coupon_Importer' ) ) {
 				$file_position = isset( $posted_data['file_position'] ) && is_numeric( $posted_data['file_position'] ) ? $posted_data['file_position'] : 0;
 
 				// Set locale.
-				$encoding = mb_detect_encoding( $csvfilename, 'UTF-8, ISO-8859-1', true );
+				$encoding = $this->mb_detect_encoding( $csvfilename, 'UTF-8, ISO-8859-1', true );
 				if ( $encoding ) {
 					setlocale( LC_ALL, 'en_US.' . $encoding );
 				}

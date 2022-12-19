@@ -1,6 +1,6 @@
 <?php
 /*
-* Copyright: (C) 2013 - 2022 José Conti
+* Copyright: (C) 2013 - 2023 José Conti
 */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
