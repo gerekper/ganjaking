@@ -229,7 +229,7 @@ if ($updraftplus_checkout_embed) {
 					<td>
 						<img src="<?php echo UPDRAFTPLUS_URL.'/images/addons-images/morestorage.png';?>" alt="<?php esc_attr_e('Additional storage', 'updraftplus');?>" width="80" height="80" class="udp-premium-image">
 						<h4><?php _e('Additional and enhanced remote storage locations', 'updraftplus');?></h4>
-						<p><?php _e('Get enhanced versions of the free remote storage options (Dropbox, Google Drive & S3) and even more remote storage options like OneDrive, SFTP, Azure, WebDAV and more with UpdraftPlus Premium.', 'updraftplus');?></p>
+						<p><?php echo htmlspecialchars(__('Get enhanced versions of the free remote storage options (Dropbox, Google Drive & S3) and even more remote storage options like OneDrive, SFTP, Azure, WebDAV, Backblaze and more with UpdraftPlus Premium.', 'updraftplus'));?></p>
 					</td>
 					<td>
 						<p><span class="dashicons dashicons-no-alt" aria-label="<?php esc_attr_e('No', 'updraftplus');?>"></span></p>

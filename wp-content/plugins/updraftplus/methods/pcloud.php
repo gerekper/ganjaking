@@ -2,7 +2,7 @@
 
 if (!defined('UPDRAFTPLUS_DIR')) die('No direct access.');
 
-if (class_exists('UpdraftPlus_Addons_RemoteStorage_onedrive')) {
+if (class_exists('UpdraftPlus_Addons_RemoteStorage_pcloud')) {
 
 	class UpdraftPlus_BackupModule_pcloud extends UpdraftPlus_Addons_RemoteStorage_pcloud {
 		public function __construct() {

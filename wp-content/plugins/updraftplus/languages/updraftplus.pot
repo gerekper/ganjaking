@@ -8082,7 +8082,7 @@ msgid "Additional and enhanced remote storage locations"
 msgstr ""
 
 #: src/templates/wp-admin/settings/tab-addons.php:232
-msgid "Get enhanced versions of the free remote storage options (Dropbox, Google Drive & S3) and even more remote storage options like OneDrive, SFTP, Azure, WebDAV and more with UpdraftPlus Premium."
+msgid "Get enhanced versions of the free remote storage options (Dropbox, Google Drive & S3) and even more remote storage options like OneDrive, SFTP, Azure, WebDAV, Backblaze and more with UpdraftPlus Premium."
 msgstr ""
 
 #: src/templates/wp-admin/settings/tab-addons.php:245
