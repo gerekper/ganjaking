@@ -4,7 +4,7 @@
  * @since: 5.0
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.sliderrevolution.com/
- * @copyright 2019 ThemePunch
+ * @copyright 2022 ThemePunch
  */
 
 if(!defined('ABSPATH')) exit();

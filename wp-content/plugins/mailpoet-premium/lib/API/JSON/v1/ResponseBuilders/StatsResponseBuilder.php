@@ -7,7 +7,9 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Entities\NewsletterSegmentEntity;
+use MailPoet\Entities\ScheduledTaskEntity;
 use MailPoet\Entities\SegmentEntity;
+use MailPoet\Entities\SendingQueueEntity;
 use MailPoet\Newsletter\Statistics\NewsletterStatistics;
 use MailPoetVendor\Doctrine\Common\Collections\ArrayCollection;
 
@@ -17,10 +19,10 @@ class StatsResponseBuilder {
   /**
    * @param NewsletterEntity $newsletter
    * @param NewsletterStatistics $statistics
-   * @param array<array> $clickedLinks
+   * @param array<array<string, int|string>> $clickedLinks
    * @param string $previewUrl
    *
-   * @return array<string, int|string|array|null>
+   * @return array<string, int|string|array<string, mixed>|null>
    */
   public function build(
     NewsletterEntity $newsletter,
@@ -28,10 +30,9 @@ class StatsResponseBuilder {
     array $clickedLinks,
     string $previewUrl
   ): array {
-    $queue = $newsletter->getLatestQueue();
-    $task = $queue->getTask();
     $segments = $newsletter->getNewsletterSegments();
-    return [
+
+    $result = [
       'id' => (string)$newsletter->getId(),
       'subject' => $newsletter->getSubject(),
       'sender_address' => $newsletter->getSenderAddress(),
@@ -41,22 +42,32 @@ class StatsResponseBuilder {
       'segments' => $this->buildSegments($segments),
       'hash' => $newsletter->getHash(),
       'type' => $newsletter->getType(),
-      'queue' => [
-        'id' => $queue->getId(),
-        'scheduled_at' => is_null($task->getScheduledAt()) ? null : $task->getScheduledAt()->format(self::DATE_FORMAT),
-        'created_at' => ($createdAt = $task->getCreatedAt()) ? $createdAt->format(self::DATE_FORMAT) : null,
-      ],
       'statistics' => $statistics->asArray(),
       'total_sent' => $statistics->getTotalSentCount(),
       'ga_campaign' => $newsletter->getGaCampaign(),
       'clicked_links' => $clickedLinks,
       'preview_url' => $previewUrl,
     ];
+
+    $queue = $newsletter->getLatestQueue();
+
+    if ($queue instanceof SendingQueueEntity) {
+      $task = $queue->getTask();
+      if ($task instanceof ScheduledTaskEntity) {
+        $result['queue'] = [
+          'id' => $queue->getId(),
+          'scheduled_at' => is_null($task->getScheduledAt()) ? null : $task->getScheduledAt()->format(self::DATE_FORMAT),
+          'created_at' => ($createdAt = $task->getCreatedAt()) ? $createdAt->format(self::DATE_FORMAT) : null,
+        ];
+      }
+    }
+
+    return $result;
   }
 
   /**
    * @param ArrayCollection<int, NewsletterSegmentEntity> $segments
-   * @return array<array>
+   * @return array<array<string, int|string>>
    */
   private function buildSegments($segments): array {
     $result = [];

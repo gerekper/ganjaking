@@ -52,7 +52,7 @@ class Bounces {
   /**
    * @param array<string, mixed> $data
    *
-   * @return array<string, mixed>
+   * @return array{count: int, filters: array, groups: array, items: array}
    */
   public function get($data = []): array {
     $definition = $this->parseData($data);
@@ -94,9 +94,10 @@ class Bounces {
 
     $subscriberTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
     $bouncesTable = $this->entityManager->getClassMetadata(StatisticsBounceEntity::class)->getTableName();
+    $searchString = $definition->getSearch();
 
-    if (!empty($definition->getSearch())) {
-      $searchConstraint = $this->getSearchConstraint($definition);
+    if (is_string($searchString) && !empty($searchString)) {
+      $searchConstraint = $this->getSearchConstraint($searchString);
       if ($searchConstraint === null) {
         // Nothing was found by search
         return null;
@@ -120,9 +121,9 @@ class Bounces {
       . 'WHERE bounces.newsletter_id = "' . $newsletterId . '" ' . $searchConstraint;
   }
 
-  private function getSearchConstraint(Listing\ListingDefinition $definition): ?string {
+  private function getSearchConstraint(string $searchString): ?string {
     // Search recipients
-    $search = trim($definition->getSearch());
+    $search = trim($searchString);
     $search = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $search); // escape for 'LIKE'
     $qb = $this->entityManager->getConnection()->createQueryBuilder();
     $qb->addSelect('id')

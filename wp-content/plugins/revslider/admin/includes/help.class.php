@@ -2,7 +2,7 @@
 /**
 * @author    ThemePunch <info@themepunch.com>
 * @link      https://www.themepunch.com/
-* @copyright 2019 ThemePunch
+* @copyright 2022 ThemePunch
 */
 if(!defined('ABSPATH')) exit();
 
@@ -1052,9 +1052,9 @@ class RevSliderHelp {
 								)
 							),
 							'photoset' => array(
-								$t => __("Photoset", 'revsliderhelp'),
+								$t => __("Album", 'revsliderhelp'),
 								$h => "source.flickr.photoSet",
-								$k => array("flickr", "photoset", "flickr photoset", "flickr photos"),
+								$k => array("flickr", "photoset", "album", "flickr album", "flickr photoset", "flickr photos"),
 								$d => __("Select the photo album you wish to include from the Flickr account", 'revsliderhelp'),
 								$a => $u . "module-content/#flickr",
 								$hl => array(
@@ -2078,6 +2078,58 @@ class RevSliderHelp {
 					),
 					'gst_sl_3' => array(
 						'layout' => array(
+							'orientation' => array(
+								$t => __("Carousel Orientation", 'revsliderhelp'),
+								$h => "carousel.orientation",
+								$k => array("carousel", "orientation", "direction"),
+								$d => __("Changes carousel orientation to allow you to drag either horizontally or vertically", 'revsliderhelp'),
+								$a => $u . "carousel-settings/",
+								$hl => array(
+									$dp => array(array($p => 'settings.orientation', $v => 'carousel', $o => 'slider_layout_type_carousel')), 
+									$m => "#module_settings_trigger, #gst_sl_3", 
+									$st => '#form_slidergeneral_caroussel', 
+									$f => "#sr_ca_orient"
+								)
+							),
+							'Justify' => array(
+								$t => __("Keep Aspect Ratio(Justify)", 'revsliderhelp'),
+								$h => "carousel.justify",
+								$k => array("carousel", "justify", "orientation"),
+								$d => __("Keep aspect ratio of the Carousel Items to use the same height with auto width.", 'revsliderhelp'),
+								$a => $u . "carousel-settings/",
+								$hl => array(
+									$dp => array(array($p => 'settings.justify', $v => 'carousel', $o => 'slider_layout_type_carousel')), 
+									$m => "#module_settings_trigger, #gst_sl_3", 
+									$st => '#form_slidergeneral_caroussel', 
+									$f => "#sr_ca_justi"
+								)
+							),
+							'vertical_visibility' => array(
+								$t => __("Prev/Next Visibility", 'revsliderhelp'),
+								$h => "carousel.prevNextVis",
+								$k => array("carousel", "vertical space", "vertical visibility", "prev next visibility"),
+								$d => __("Determines visiblity of previous and next slides. A value of 100px will show 50px of previous and next slides. If value is set in percent for example 50% then 25% of previous slide will be visible, and 25% of next slide.", 'revsliderhelp'),
+								$a => $u . "carousel-settings/",
+								$hl => array(
+									$dp => array(array($p => 'settings.prevNextVis', $v => 'carousel', $o => 'slider_layout_type_carousel')), 
+									$m => "#module_settings_trigger, #gst_sl_3", 
+									$st => '#form_slidergeneral_caroussel', 
+									$f => "#sr_ca_pdt"
+								)
+							),
+							'snap' => array(
+								$t => __("Carousel Snap", 'revsliderhelp'),
+								$h => "carousel.snap",
+								$k => array("carousel", "vertical snap", "horizontal snap", "snap"),
+								$d => __("Snap carousel to slides based on slides alignment settings.", 'revsliderhelp'),
+								$a => $u . "carousel-settings/",
+								$hl => array(
+									$dp => array(array($p => 'settings.snap', $v => 'carousel', $o => 'slider_layout_type_carousel')), 
+									$m => "#module_settings_trigger, #gst_sl_3", 
+									$st => '#form_slidergeneral_caroussel', 
+									$f => "#sr_ca_snap"
+								)
+							),
 							'infinity_scroll' => array(
 								$t => __("Infinity Scroll", 'revsliderhelp'),
 								$h => "carousel.infinity",
@@ -2089,6 +2141,19 @@ class RevSliderHelp {
 									$m => "#module_settings_trigger, #gst_sl_3", 
 									$st => '#form_slidergeneral_caroussel', 
 									$f => "#sr_ca_inf"
+								)
+							),
+							'stopOnClick' => array(
+								$t => __("Stop Progress On Click", 'revsliderhelp'),
+								$h => "carousel.stopOnClick",
+								$k => array("carousel", "stop", "scroll", "stop on click"),
+								$d => __("Autorotate progress will get stopped if user clicks on slider", 'revsliderhelp'),
+								$a => $u . "carousel-settings/",
+								$hl => array(
+									$dp => array(array($p => 'settings.type', $v => 'carousel', $o => 'slider_layout_type_carousel')), 
+									$m => "#module_settings_trigger, #gst_sl_3", 
+									$st => '#form_slidergeneral_caroussel', 
+									$f => "#sr_ca_socl"
 								)
 							),
 							'layers_visible' => array(
@@ -2235,9 +2300,78 @@ class RevSliderHelp {
 									$st => '#form_slidergeneral_caroussel_animation', 
 									$f => "#sr_ca_speed"
 								)
+							),
+							'overshoot' => array(
+								$t => __("Overshoot", 'revsliderhelp'),
+								$h => "carousel.overshoot",
+								$k => array("carousel", "carousel bounce", "carousel overshoot", "physics"),
+								$d => __("This option mimics physics when you drag and throw carousel quickly, carousel will smoothly go past the predicted slide and animate back to target slide using ease set by user.", 'revsliderhelp'),
+								$a => $u . "carousel-settings/",
+								$hl => array(
+									$dp => array(array($p => 'settings.overshoot', $v => 'carousel', $o => 'slider_layout_type_carousel')), 
+									$m => "#module_settings_trigger, #gst_sl_3", 
+									$st => '#form_slidergeneral_caroussel_animation', 
+									$f => "#sr_ca_overshoot"
+								)
 							)
 						),
 						'effects' => array(
+							'spin' => array(
+								$di => "slider_carousel_spin",
+								$t => __("Spin", 'revsliderhelp'),
+								$h => "carousel.spin",
+								$k => array("carousel", "carousel spin", "2d spin", "3d spin", "spin"),
+								$d => __("Set carousel to spin in 2d or 3d space, change angle settings to determine direction of the spin.", 'revsliderhelp'),
+								$a => $u . "carousel-settings/",
+								$hl => array(
+									$dp => array(array($p => 'settings.spin', $v => 'carousel', $o => 'slider_layout_type_carousel')), 
+									$m => "#module_settings_trigger, #gst_sl_3", 
+									$st => '#form_slidergeneral_caroussel_effects', 
+									$f => "#sr_ca_spin"
+								)
+							),
+							'spin_angle' => array(
+								$di => "slider_carousel_spinangle",
+								$t => __("Spin Angle", 'revsliderhelp'),
+								$h => "carousel.spinAngle",
+								$k => array("carousel", "spin", "spin angle", "spin angle spacing"),
+								$d => __("Sets the angle between two slides for spin effect. In 2D spin, angle determines spin direction. In 3D spin, angle determines if slides will spin inwards or outwards in 3D space.", 'revsliderhelp'),
+								$a => $u . "carousel-settings/",
+								$hl => array(
+									$dp => array(array($p => 'settings.spinAngle', $v => 'carousel', $o => 'slider_layout_type_carousel')), 
+									$m => "#module_settings_trigger, #gst_sl_3", 
+									$st => '#form_slidergeneral_caroussel_effects', 
+									$f => "#sr_ca_spinangle"
+								)
+							),
+							'skewX' => array(
+								$di => "slider_carousel_skewx",
+								$t => __("Carousel Skew", 'revsliderhelp'),
+								$h => "carousel.skewX",
+								$k => array("carousel", "skew", "drag skew"),
+								$d => __("Entire carousel will horizontally skew based on angle set and based on current speed of carousel", 'revsliderhelp'),
+								$a => $u . "carousel-settings/",
+								$hl => array(
+									$dp => array(array($p => 'settings.skewX', $v => 'carousel', $o => 'slider_layout_type_carousel')), 
+									$m => "#module_settings_trigger, #gst_sl_3", 
+									$st => '#form_slidergeneral_caroussel_effects', 
+									$f => "#sr_ca_skewxall"
+								)
+							),
+							'skewY' => array(
+								$di => "slider_carousel_skewy",
+								$t => __("Carousel SkewY", 'revsliderhelp'),
+								$h => "carousel.skewY",
+								$k => array("carousel", "skew", "drag skew"),
+								$d => __("Entire carousel will vertically skew based on angle set and based on current speed of carousel", 'revsliderhelp'),
+								$a => $u . "carousel-settings/",
+								$hl => array(
+									$dp => array(array($p => 'settings.skewY', $v => 'carousel', $o => 'slider_layout_type_carousel')), 
+									$m => "#module_settings_trigger, #gst_sl_3", 
+									$st => '#form_slidergeneral_caroussel_effects', 
+									$f => "#sr_ca_skewyall"
+								)
+							),
 							'fade' => array(
 								$di => "slider_carousel_fadeout",
 								$t => __("Fade Items", 'revsliderhelp'),
@@ -4877,6 +5011,19 @@ class RevSliderHelp {
 							)
 						),
 						'image_background' => array(
+							'cross_origin_video' => array(
+								$t => __("Cross Origin Video", 'revsliderhelp'),
+								$h => "bg.crossOriginVideo",
+								$k => array("cross origin video", "video background"),
+								$d => __("By default videos are not requested with CORS header and you may get CORS error (Cross-Origin Request Blocked), to resolve it please enable this option. If your third party server does not deliver videos with CORS permission then you will get CORS error. In that case either use videos from same server as your website's origin or enable CORS permissions for videos on third party server.", 'revsliderhelp'),
+								$a => $u . "slide-background/#video",
+								$hl => array(
+									$dp => array(array($p => '#slide#.slide.bg.type', $v => 'html5', $o => 'slide_bg_type')),
+									$m => "#module_slide_trigger, #gst_slide_1", 
+									$st => '#form_slidebg_source', 
+									$f => "*[data-r='bg.crossOriginVideo']"
+								)
+							),
 							'image_from_stream' => array(
 								$t => __("Image from Stream", 'revsliderhelp'),
 								$h => "bg.imageFromStream",
@@ -6837,6 +6984,19 @@ class RevSliderHelp {
 										$m => "#module_layers_trigger, #gst_layer_1", 
 										$st => '#form_layercontent_content_video', 
 										$f => "#layer_video_autoplay"
+									)
+								),
+								'pauseOnSlideChange' => array(
+									$t => __("Autoplay", 'revsliderhelp'),
+									$h => "media.pauseOnSlideChange",
+									$k => array("pause video", "carousel video pause", "carousel change pause"),
+									$d => __("Pauses video on carousel change even if video layer is set to be visible always", 'revsliderhelp'),
+									$a => $u . "layer-video-audio-settings/",
+									$hl => array(
+										$dp => array('layerselected::video||audio'), 
+										$m => "#module_layers_trigger, #gst_layer_1", 
+										$st => '#form_layercontent_content_video', 
+										$f => "#layer_video_pauseOnSlideChange"
 									)
 								),
 								'loop' => array(

@@ -2,7 +2,7 @@
 /**
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.themepunch.com/
- * @copyright 2019 ThemePunch
+ * @copyright 2022 ThemePunch
  */
 
 if(!defined('ABSPATH')) exit();
@@ -142,8 +142,11 @@ require_once(RS_PLUGIN_PATH . 'admin/views/modals-copyright.php');
 							<div class="selected_placeholder"><i class="norightmargin material-icons">content_copy</i></div>
 							<div id="duplicate_layer_list" class="tool_dd_wrap outicon_dd_rwap">
 								<div id="do_duplicate_layer" class="toolbar_listelement"><i class="material-icons">content_copy</i><?php _e('Duplicate', 'revslider');?><span class="shortcuttext"><span class="shortcut_cmdctrl">ctrl</span>J</span></div>
-								<div id="do_copy_layer" class="toolbar_listelement"><i class="material-icons">content_paste</i><?php _e('Copy', 'revslider');?><span class="shortcuttext"><span class="shortcut_cmdctrl">ctrl</span>C</span></div>
-								<div id="do_paste_layer" class="toolbar_listelement disabled"><i class="material-icons">file_download</i><?php _e('Paste', 'revslider');?><span class="shortcuttext"><span class="shortcut_cmdctrl">ctrl</span>V</span></div>
+								<div id="do_copy_layer" class="toolbar_listelement"><i class="material-icons">content_paste</i><?php _e('Copy', 'revslider');?><span class="shortcuttext"><span class="shortcut_cmdctrl">ctrl</span>C</span></div>								
+								<div id="do_paste_layer" class="toolbar_listelement disabled"><i class="material-icons">file_download</i><?php _e('Paste', 'revslider');?><span class="shortcuttext"><span class="shortcut_cmdctrl">ctrl</span>V</span></div>								
+								<div id="do_copy_clipboard_layer" class="toolbar_listelement"><i class="material-icons">pending_actions</i><?php _e('Copy to Clipboard', 'revslider');?><span class="shortcuttext"><span class="shortcut_alt">Alt</span><span class="shortcut_shift">Shift</span>C</span></div>
+								<div id="do_paste_clipboard_layer" class="toolbar_listelement"><i class="material-icons">content_paste_go</i><?php _e('Paste from Clipboard', 'revslider');?><span class="shortcuttext"><span class="shortcut_alt">Alt</span><span class="shortcut_shift">Shift</span>V</span></div>
+
 							</div>
 						</div><!--
 						--><div id="do_delete_layer" class="toolbar_btn justicon"><i class="norightmargin material-icons">delete</i></div><!--

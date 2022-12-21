@@ -4,7 +4,7 @@
  * @since: 5.0
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.sliderrevolution.com/
- * @copyright 2019 ThemePunch
+ * @copyright 2022 ThemePunch
  */
 
 if(!defined('ABSPATH')) exit();
@@ -266,7 +266,8 @@ class RevSliderFacebook extends RevSliderFunctions {
 		if (empty($id)) return;
 
 		$prefix = self::TRANSIENT_PREFIX . $id;
-		$wpdb->query($wpdb->prepare("DELETE FROM $wpdb->options WHERE `option_name` LIKE '%%%s%%'", $wpdb->esc_like($prefix)));
+		$wpdb->query($wpdb->prepare("DELETE FROM $wpdb->options WHERE `option_name` LIKE '%s'", '%'.$prefix.'%'));
+		//$wpdb->query($wpdb->prepare("DELETE FROM $wpdb->options WHERE `option_name` LIKE '%%%s%%'", $wpdb->esc_like($prefix)));
 	}
 
 }

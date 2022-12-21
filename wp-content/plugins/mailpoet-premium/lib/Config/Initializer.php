@@ -66,6 +66,8 @@ class Initializer {
       $this,
       'setup',
     ]);
+
+    $this->setupAutomations();
   }
 
   public function setup() {
@@ -88,15 +90,18 @@ class Initializer {
 
     $this->hooks->init();
 
+    if (!defined(self::INITIALIZED)) {
+      define(self::INITIALIZED, true);
+    }
+  }
+
+  private function setupAutomations() {
+
     // automation
     $subscriberLimitReached = $this->subscribers->check();
     $premiumFeaturesEnabled = $this->subscribers->hasValidPremiumKey() && !$subscriberLimitReached;
     if ($premiumFeaturesEnabled) {
       $this->automationEngine->initialize();
-    }
-
-    if (!defined(self::INITIALIZED)) {
-      define(self::INITIALIZED, true);
     }
   }
 

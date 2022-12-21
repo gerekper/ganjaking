@@ -5,7 +5,7 @@
  * This file is used to markup the admin-facing aspects of the plugin.
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.themepunch.com/
- * @copyright 2019 ThemePunch
+ * @copyright 2022 ThemePunch
  */
  
 if(!defined('ABSPATH')) exit();
@@ -107,6 +107,9 @@ if ($wpml->wpml_exists()) {
 					--></div><!--
 					--><div class="slidebg_html5_settings slide_bg_settings slidebg_vimeo_settings slidebg_youtube_settings"><!--
 						--><longoption><i class="material-icons">language</i><label_a ><?php _e('Video from Stream if exists', 'revslider');?></label_a><input type="checkbox" class="easyinit slideinput" data-r="bg.videoFromStream"></longoption><!--
+					--></div><!--
+					--><div class="slidebg_html5_settings slide_bg_settings"><!--
+						--><longoption><i class="material-icons">language</i><label_a ><?php _e('CrossOrigin Video', 'revslider');?></label_a><input type="checkbox" class="easyinit slideinput" data-r="bg.crossOriginVideo"></longoption><!--
 					--></div><!--
 				--></div>
 			</div><!-- SOURCE END -->
@@ -342,7 +345,7 @@ if ($wpml->wpml_exists()) {
 				<div class="form_inner_header"><i class="material-icons">blur_on</i><?php _e('Filters', 'revslider');?></div>
 				<!--<div class="form_intoaccordion" data-trigger="#sl_fbg_l1_3"><i class="material-icons">arrow_drop_down</i></div>-->
 				<div class="collapsable">
-					<label_a><?php _e('BG Filter', 'revslider');?></label_a><select data-theme="dark" id="slide_bg_filter" class="slideinput tos2 nosearchbox easyinit" data-evtparam="double" data-show=".*val*_warning" data-hide=".filter_warning" data-evt="updateslidebasic" data-unselect=".filter_selector" data-select="#filter_*val*"  data-r="bg.mediaFilter">
+					<label_a><?php _e('BG Filter', 'revslider');?></label_a><select data-theme="dark" id="slide_bg_filter" class="slideinput tos2 nosearchbox easyinit" data-evtparam="double" data-show=".*val*_warning" data-hide=".filter_warning" data-evt="updateslidebasicmediafilter" data-unselect=".filter_selector" data-select="#filter_*val*"  data-r="bg.mediaFilter">
 								<option value="none">No Filter</option>
 									<option value="_1977">1977</option>
 									<option value="aden">Aden</option>
@@ -395,6 +398,8 @@ if ($wpml->wpml_exists()) {
 						<labelhalf><i class="material-icons vmi">sms_failed</i></labelhalf>
 						<contenthalf><div class="function_info"><?php _e('The Filter may not work with HTML5 Videos in Internet Explorer and Edge Browsers', 'revslider');?></div></contenthalf>
 					</row>
+					
+					
 					
 				</div><!-- END OF COLLAPSABLE -->
 			</div><!-- END OF FILTER SETTINGS -->

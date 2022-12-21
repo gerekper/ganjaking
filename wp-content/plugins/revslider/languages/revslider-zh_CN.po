@@ -4545,7 +4545,7 @@ msgstr "模块尺寸"
 #: admin/views/builder-nav-forms.php:291 admin/views/builder-nav-forms.php:447
 #: admin/views/builder-nav-forms.php:630
 #: admin/views/builder-layer-forms.php:442
-msgid "Aligment"
+msgid "Alignment"
 msgstr "对准"
 
 #: admin/views/builder-nav-forms.php:124 admin/views/builder-nav-forms.php:177

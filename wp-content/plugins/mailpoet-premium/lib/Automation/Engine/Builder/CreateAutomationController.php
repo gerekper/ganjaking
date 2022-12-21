@@ -26,6 +26,11 @@ class CreateAutomationController {
     $this->automationValidator = $automationValidator;
   }
 
+  /**
+   * @param array{steps: array<string, array<mixed>>, name: string} $data
+   *
+   * @return Automation
+   */
   public function createAutomation(array $data): Automation {
     $steps = [];
     foreach ($data['steps'] as $index => $step) {

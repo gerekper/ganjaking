@@ -5,7 +5,7 @@
  * This file is used to markup the admin-facing aspects of the plugin.
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.themepunch.com/
- * @copyright 2019 ThemePunch
+ * @copyright 2022 ThemePunch
  */
  
 if(!defined('ABSPATH')) exit();
@@ -483,6 +483,12 @@ if(!defined('ABSPATH')) exit();
 											<input type="text" readonly  class="api-input withlabel" id="apiapi11" value="revapi.revkill();">
 											<div class="buttonextension basic_action_button insertineditor mini_action_button onlyicon" data-insertfrom="#apiapi11"><i class="material-icons">add</i></div>
 										</div>
+
+										<label_a origtitle="<?php _e("Animate a Layer to a predefined Frame", 'revslider');?>"><?php _e("Go To Frame", 'revslider')?></label_a><!--
+										--><div class="input_with_buttonextenstion">
+											<input type="text" readonly  class="api-input withlabel" id="apiapi16" value="revapi.revGoToFrame({layerid:'',frame:'',children:true})">
+											<div class="buttonextension basic_action_button insertineditor mini_action_button onlyicon" data-insertfrom="#apiapi16"><i class="material-icons">add</i></div>
+										</div>
 									</div>
 
 								<!-- API EVENTS-->
@@ -521,6 +527,9 @@ if(!defined('ABSPATH')) exit();
 
 										<label_full><?php _e("Layer Events", 'revslider')?></label_full><div class="basic_action_button insertineditor mini_action_button onlyicon" data-insertfrom="#apievent11"><i class="material-icons">add</i></div><span class="linebreak"></span>
 										<textarea id="apievent11" class="api_area"  readonly style="height:150px">revapi.bind("revolution.slide.layeraction",function (e,data) {&#013;   //data.eventtype - <?php _e('Layer Action (enterstage, enteredstage, leavestage,leftstage)', 'revslider');?>&#013;   //data.layertype - <?php _e('Layer Type (image,video,html)', 'revslider');?>&#013;   //data.layersettings - <?php _e('Default Settings for Layer', 'revslider');?>&#013;   //data.layer - <?php _e('Layer as jQuery Object', 'revslider');?>&#013;});</textarea>
+
+										<label_full><?php _e("Any Modal Opens", 'revslider')?></label_full><div class="basic_action_button insertineditor mini_action_button onlyicon" data-insertfrom="#apievent12"><i class="material-icons">add</i></div><span class="linebreak"></span>
+										<textarea id="apievent12"  class="api_area" readonly style="height:135px">jQuery.fn.revolution.document.on('RS_MODALOPENED', function() {&#013;});</textarea>
 									</div><!-- COLLAPSED -->
 
 							</div>
@@ -758,7 +767,7 @@ if(!defined('ABSPATH')) exit();
 						<!-- INPUT FIELD LIST OF THE SELECTED ACTION -->
 						<div id="action_inputs">
 							<div id="action_interaction_wrap">
-								<select style="display:none !important" id="action_interaction" data-unselect=".layer_action_interaction_selector" data-select="#action_interaction*val*" class="easyinit" data-r="actions.action.#actionindex#.tooltip_event"><option value="click"><?php _e('Click', 'revslider');?></option><option value="mouseenter"><?php _e('Mouse Enter', 'revslider');?></option><option value="mouseleave"><?php _e('Mouse Leave', 'revslider');?></option></select>
+								<!--<select style="display:none !important" id="action_interaction" data-unselect=".layer_action_interaction_selector" data-select="#action_interaction*val*" class="easyinit" data-r="actions.action.#actionindex#.tooltip_event"><option value="click">Click</option><option value="mouseenter">Mouse Enter</option><option value="mouseleave">Mouse Leave</option></select>-->
 								<label_a><?php _e('Interaction', 'revslider');?></label_a><select id="action_interaction" class="easyinit actioninput tos2 nosearchbox" data-r="actions.action.#actionindex#.tooltip_event"><option value="click"><?php _e('Click', 'revslider');?></option><option value="mouseenter"><?php _e('Mouse Enter', 'revslider');?></option><option value="mouseleave"><?php _e('Mouse Leave', 'revslider');?></option></select>				
 							</div>
 							<!--<label_icon class="triggerselect layer_action_interaction_selector twostatetrigger material-icons selected mirrorhorizontal" data-select="#action_interaction" data-val="click" id="action_interaction_click">near_me</label_icon>
@@ -766,8 +775,10 @@ if(!defined('ABSPATH')) exit();
 							<label_icon class="triggerselect layer_action_interaction_selector twostatetrigger material-icons" data-select="#action_interaction" data-val="mouseleave" id="action_interaction_mouseleave">file_upload</label_icon>-->
 							<!-- TYPE OF ACTION -->
 							<label_a><?php _e('Action Type', 'revslider');?></label_a><div class="input_presets_wrap" id="layer_action_type"><div id="layer_action_fake"></div><input type="text" readonly  class="easyinit actioninput" data-r="actions.action.#actionindex#.action" value=""><i class="material-icons input_presets_dropdown">more_vert</i></div>
-							
+														
+							<div id="actions_extension_area"></div>
 							<div class="div20"></div>
+							<div id="actions_extension_settings_area"></div>
 
 							<!-- SIMPLE LINK SETTINGS -->
 							<div id="la_settings_link_menu" class="la_settings" style="margin-bottom:20px !important">
@@ -828,7 +839,7 @@ if(!defined('ABSPATH')) exit();
 
 							<!-- LAYER TARGET -->
 							<div id="la_settings_layertarget" class="la_settings">
-								<label_a><?php _e('Target Layer', 'revslider');?></label_a><select id="la_layer_target" data-evt="refreshActionView" data-theme="layer_selector_drop_down" data-r="actions.action.#actionindex#.layer_target" class="easyinit actioninput nosearchbox tos2"></select>					
+								<label_a><?php _e('Target Layer', 'revslider');?></label_a><select id="la_layer_target" data-evt="refreshActionView" data-theme="layer_selector_drop_down" data-r="actions.action.#actionindex#.layer_target" class="easyinit actioninput searchbox tos2"></select>					
 							</div>
 							
 

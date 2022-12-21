@@ -256,3 +256,8 @@ span.ddTP_C.ddTP_C--autowidthinmodal.ddTP_C--open {z-index: 1000005;}
 
 #ol_footer .rs_fh_right .ddTP_C .ddTP_S--single { line-height: 50px; height: 50px; }
 
+
+/* Extensions for Labels , Groups,   after adding Hierarchy in Layer Target Lists*/
+li.ddTP_RO--highlighted:first-child .ddTP_R__group { margin-top:0px;}
+li.ddTP_RO:first-child .ddTP_R__group { margin-top:0px;}
+.ddTP_S__rendered span.niddsr { margin-left:0px !important}

@@ -2,7 +2,7 @@
 /**
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.themepunch.com/
- * @copyright 2019 ThemePunch
+ * @copyright 2022 ThemePunch
  */
 
 if(!defined('ABSPATH')) exit();
@@ -27,6 +27,7 @@ class RevSliderFront extends RevSliderFunctions {
 
 	public function __construct(){		
 		add_action('wp_enqueue_scripts', array('RevSliderFront', 'add_actions'));
+		add_filter('wp_img_tag_add_loading_attr', array('RevSliderFront', 'check_lazy_loading'), 99, 3);
 	}
 	
 	
@@ -179,7 +180,10 @@ class RevSliderFront extends RevSliderFunctions {
 		
 	}
 	
-	
+	public static function welcome_screen_activate(){
+		set_transient('_revslider_welcome_screen_activation_redirect', true, 60);
+	}
+
 	/**
 	 * Add Meta Generator Tag in FrontEnd
 	 * @since: 5.0
@@ -292,7 +296,14 @@ class RevSliderFront extends RevSliderFunctions {
 			}
 		</script>
 		<?php
-}
+	}
+	
+	/**
+	 * check that loading="lazy" is not written in slider HTML
+	 **/
+	public static function check_lazy_loading($value, $image, $context){
+		return (strpos($image, 'tp-rs-img') !== false) ? false : $value;
+	}
 
 	/**
 	 * add admin nodes
@@ -414,7 +425,7 @@ class RevSliderFront extends RevSliderFunctions {
 				try {								
 					var pw = document.getElementById(e.c).parentNode.offsetWidth,
 						newh;
-					pw = pw===0 || isNaN(pw) ? window.RSIW : pw;
+					pw = pw===0 || isNaN(pw) || (e.l=="fullwidth" || e.layout=="fullwidth") ? window.RSIW : pw;
 					e.tabw = e.tabw===undefined ? 0 : parseInt(e.tabw);
 					e.thumbw = e.thumbw===undefined ? 0 : parseInt(e.thumbw);
 					e.tabh = e.tabh===undefined ? 0 : parseInt(e.tabh);
@@ -466,7 +477,7 @@ class RevSliderFront extends RevSliderFunctions {
 				try {
 					var pw = document.getElementById(e.c).parentNode.offsetWidth,
 						newh;
-					pw = pw===0 || isNaN(pw) ? window.RSIW : pw;
+					pw = pw===0 || isNaN(pw) || (e.l=="fullwidth" || e.layout=="fullwidth") ? window.RSIW : pw;
 					e.tabw = e.tabw===undefined ? 0 : parseInt(e.tabw);
 					e.thumbw = e.thumbw===undefined ? 0 : parseInt(e.thumbw);
 					e.tabh = e.tabh===undefined ? 0 : parseInt(e.tabh);
@@ -701,6 +712,10 @@ class RevSliderFront extends RevSliderFunctions {
 			
 			if(isset($shortcodes[1]) && $shortcodes[1] !== ''){
 				foreach($shortcodes[1] as $s){
+					if(strpos($s, '"') !== false){
+						$s = explode('"', $s);
+						$s = (isset($s[0])) ? $s[0] : '';
+					}
 					if(!RevSliderSlider::alias_exists($s)) continue;
 					
 					$sldr = new RevSliderSlider();

@@ -3,7 +3,7 @@
  * @version: 1.2 (13.12.2017)
  * @author ThemePunch
 ************************************************/
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
+/*@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');*/
 
 
 
@@ -177,25 +177,38 @@
   - REVOLUTION BUILDER MODAL -
 ***********************************/
 
+.rbm_deco {position:absolute; z-index:100;}
+
+#rbm_tracking_firstgo { width:680px;  height:700px;  background-image:url(../images/tracking/bg.jpg);background-size:cover;background-position:top center; background-repeat:no-repeat}
+#rbm_tracking_firstgo .rbm_des_rocket  { width:185px; height:181px;  top:-75px; left:0px; background-image:url(../images/tracking/rocket.png);background-size:contain;background-position:center center; background-repeat:no-repeat}
+#rbm_tracking_firstgo .rbm_des_charts  { width:159px; height:167px;  top:81px; left:489px; background-image:url(../images/tracking/charts.png);background-size:contain;background-position:center center; background-repeat:no-repeat; }
+#rbm_tracking_firstgo .rbm_des_rsicon  { width:50px; height:50px;  top:120px; left:315px; background-image:url(../images/tracking/rsicon.png);background-size:contain;background-position:center center; background-repeat:no-repeat;box-shadow:0px 30px 50px rgba(0,0,0,0.25)}
 #rbm_notactive_warning,
 #rbm_notactiveaddon_warning { width:680px;  background-color:#202224; background-image:url(../images/warningbg.jpg);background-size:contain;background-position:top center; background-repeat:no-repeat}
 
 #rbm_notactiveaddon_warning .rbm_content,
 #rbm_notactive_warning .rbm_content { padding:50px 40px;}
+#rbm_tracking_firstgo .rbm_content{ padding:75px 40px 50px;}
 
+#rbm_tracking_firstgo .mcg_page_title,
 #rbm_notactiveaddon_warning .mcg_page_title,
 #rbm_notactive_warning .mcg_page_title { margin-bottom:10px; line-height:30px; font-size:25px; font-weight:500}
 
 #rbm_notactive_warning .simpletext.smalllink,
 #rbm_notactive_warning .simpletext a.smalllink,
+#rbm_tracking_firstgo .simpletext.smalllink,
+#rbm_tracking_firstgo .simpletext a.smalllink,
 #rbm_notactiveaddon_warning .simpletext.smalllink,
 #rbm_notactiveaddon_warning .simpletext a.smalllink{  font-size:14px; line-height:30px; color:#7b7c7d; }
 
 #rbm_notactiveaddon_warning .simpletext.smalllink:hover,
 #rbm_notactiveaddon_warning .simpletext a.smalllink:hover,
+#rbm_tracking_firstgo .simpletext.smalllink:hover,
+#rbm_tracking_firstgo .simpletext a.smalllink:hover,
 #rbm_notactive_warning .simpletext a.smalllink:hover,
 #rbm_notactive_warning .simpletext.smalllink:hover {   color:#fff}
 
+#rbm_tracking_firstgo .simpletext,
 #rbm_notactive_warning .simpletext,
 #rbm_notactiveaddon_warning .simpletext { font-size:14px; line-height: 20px; font-weight:400; color:#7b7c7d; opacity:1;}
 .dr_warningbox {
@@ -204,9 +217,15 @@
   padding:20px 25px; box-sizing: border-box;text-align: center;
 }
 
+.tracking_content_box { padding:55px; background:#2a2c2f; margin-top:108px; text-align: center;}
+.tracking_content_box .mcg_page_subtitle { font-size:17px; line-height:23px; color:#fff; font-weight:400;}
+ 
 .dr_warningbox .mcg_page_subtitle { font-size:17px; line-height:20px; color:#fff; font-weight:400;}
+.tracking_content_box .mcg_page_content,
 .dr_warningbox .mcg_page_content { font-size:14px; line-height:20px; color:#fff; opacity:0.5;font-weight:400;}
 .dr_warningbox .material-icons { line-height:20px; font-size:25px;}
+
+.tracking_content_box .mcg_page_content { margin-top:25px; font-weight:400}
 #rbm_notactive_warning .mcg_page_title.warningtext {margin-bottom:0px; color:#ff2021}
 
 .warningicon { color:#ff2021}
@@ -243,6 +262,17 @@
   width:auto !important;
 }
 
+graybutton#rbm_track_disable,
+purplebutton#rbm_track_enable
+ {
+  font-weight: 500;
+  width:150px;
+  line-height: 35px;
+  padding:0px 25px;
+  font-size: 15px;
+}
+
+purplebutton#rbm_track_enable:hover,
 #rbm_notactiveaddon_warning .bluebutton:hover,
 #rbm_notactive_warning .bluebutton:hover,
 #rbm_notactiveaddon_warning purplebutton:hover,

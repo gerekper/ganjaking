@@ -2,7 +2,7 @@
 /**
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.themepunch.com/
- * @copyright 2019 ThemePunch
+ * @copyright 2022 ThemePunch
  */
 
 if(!defined('ABSPATH')) exit();
@@ -75,9 +75,52 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		global $pagenow;
 		if(!in_array($this->get_val($_GET, 'page'), $this->pages) && !$this->is_edit_page() && (!isset($pagenow) || $pagenow !== 'plugins.php')) return;
 		
-		wp_enqueue_style('rs-open-sans', '//fonts.googleapis.com/css?family=Open+Sans:400,300,700,600,800');
-		wp_enqueue_style('rs-roboto', '//fonts.googleapis.com/css?family=Roboto');
-		wp_enqueue_style('tp-material-icons', '//fonts.googleapis.com/icon?family=Material+Icons');
+		$f	 = new RevSliderFunctions();
+		$gs	 = $f->get_global_settings();
+		$fdl = $f->get_val($gs, 'fontdownload', 'off');
+		if($fdl === 'off'){
+			$url_css = $f->modify_fonts_url('https://fonts.googleapis.com/css?family=');
+			$url_material = str_replace('css?', 'icon?', $url_css);
+			wp_enqueue_style('rs-open-sans', $url_css.'Open+Sans:400,300,700,600,800');
+			wp_enqueue_style('rs-roboto', $url_css.'Roboto');
+			wp_enqueue_style('tp-material-icons', $url_material.'Material+Icons');
+		}elseif($fdl === 'preload'){
+			$fonts = array('Open Sans' => 'Open+Sans:400%2C300%2C700%2C600%2C800', 'Roboto' => 'Roboto:400%2C300%2C700%2C500');//, 'Material Icons' => 'Material+Icons'
+			$html = $f->preload_fonts($fonts);
+			if(!empty($html)) echo $html;
+			echo "\n<style>@font-face {
+	font-family: 'Material Icons';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Material Icons'),
+	local('MaterialIcons-Regular'),
+	url(".RS_PLUGIN_URL."public/assets/fonts/material/MaterialIcons-Regular.woff2) format('woff2'),
+	url(".RS_PLUGIN_URL."public/assets/fonts/material/MaterialIcons-Regular.woff) format('woff'),  
+	url(".RS_PLUGIN_URL."public/assets/fonts/material/MaterialIcons-Regular.ttf) format('truetype');
+}
+.material-icons {
+	font-family: 'Material Icons';
+	font-weight: normal;
+	font-style: normal;
+		font-size: inherit;
+	display: inline-block;  
+	text-transform: none;
+	letter-spacing: normal;
+	word-wrap: normal;
+	white-space: nowrap;
+	direction: ltr;
+	vertical-align: top;
+	line-height: inherit;
+	/* Support for IE. */
+	font-feature-settings: 'liga';
+	
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	-moz-osx-font-smoothing: grayscale;
+}
+</style>\n";
+		}//disable => load on your own
+		
 		//wp_enqueue_style('revslider-global-styles', RS_PLUGIN_URL . 'admin/assets/css/global.css', array(), RS_REVISION);
 		wp_enqueue_style(array('wp-jquery-ui', 'wp-jquery-ui-core', 'wp-jquery-ui-dialog', 'wp-color-picker'));
 		wp_enqueue_style('revbuilder-color-picker-css', RS_PLUGIN_URL . 'admin/assets/css/tp-color-picker.css', array(), RS_REVISION);
@@ -455,7 +498,6 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 
 		$upgrade->force = in_array($this->get_val($_REQUEST, 'checkforupdates', 'false'), array('true', true), true);
 		$upgrade->_retrieve_version_info();
-		
 		$upgrade->add_update_checks();
 	}
 
@@ -763,6 +805,22 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 			if(!in_array($action, $no_cache)) $this->flush_wp_cache();
 			
 			switch($action){
+				case 'load_google_font':
+					$google_font = $this->get_val($data, 'font', '');
+					$this->download_collected_fonts($google_font);
+					$this->ajax_response_success('', '');
+				break;
+				case 'collect_google_fonts':
+
+					$page = $this->get_val($data, 'page', 1);
+					$return = $this->collect_used_fonts(true, true, $page);
+
+					$this->ajax_response_data($return);
+				break;
+				case 'delete_full_fonts_cache':
+					$this->delete_google_fonts();
+					$this->ajax_response_success(__('Successfully deleted all fonts cache', 'revslider'));
+				break;
 				case 'activate_plugin':
 					$result	 = false;
 					$code	 = trim($this->get_val($data, 'code'));
@@ -1367,7 +1425,8 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 				case 'update_global_settings':
 					$global = $this->get_val($data, 'global_settings', array());
 					if(!empty($global)){
-						$return = $this->set_global_settings($global);
+						$update = $this->get_val($data, 'update', false);
+						$return = $this->set_global_settings($global, $update);
 						if($return === true){
 							$this->ajax_response_success(__('Global Settings saved/updated', 'revslider'));
 						}else{
@@ -2171,23 +2230,23 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 					$this->ajax_response_success(__('Successfully fetched Facebook albums', 'revslider'), array('html' => implode(' ', $return)));
 				break;
 				case 'get_flickr_photosets':
-					$error = __('Could not fetch flickr photosets', 'revslider');
+					$error = __('Could not fetch flickr album', 'revslider');
 					if(!empty($data['url']) && !empty($data['key'])){
 						$flickr = new RevSliderFlickr($data['key']);
 						$user_id = $flickr->get_user_from_url($data['url']);
 						$return = $flickr->get_photo_sets($user_id, $data['count'], $data['set']);
 						if(!empty($return)){
-							$this->ajax_response_success(__('Successfully fetched flickr photosets', 'revslider'), array('data' => array('html' => implode(' ', $return))));
+							$this->ajax_response_success(__('Successfully fetched flickr albums', 'revslider'), array('data' => array('html' => implode(' ', $return))));
 						}else{
-							$error = __('Could not fetch flickr photosets', 'revslider');
+							$error = __('Could not fetch flickr albums', 'revslider');
 						}
 					}else{
 						if(empty($data['url']) && empty($data['key'])){
-							$this->ajax_response_success(__('Cleared Photosets', 'revslider'), array('html' => implode(' ', $return)));
+							$this->ajax_response_success(__('Cleared Albums', 'revslider'), array('html' => implode(' ', $return)));
 						}elseif(empty($data['url'])){
-							$error = __('No User URL - Could not fetch flickr photosets', 'revslider');
+							$error = __('No User URL - Could not fetch flickr albums', 'revslider');
 						}else{
-							$error = __('No API KEY - Could not fetch flickr photosets', 'revslider');
+							$error = __('No API KEY - Could not fetch flickr albums', 'revslider');
 						}
 					}
 					
@@ -2212,10 +2271,6 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 					$cache->clear_all_transients();
 					
 					$this->ajax_response_success(__('Slider Revolution internal cache was fully cleared', 'revslider'));
-				break;
-				case 'trigger_font_deletion':
-					$this->delete_google_fonts();
-					$this->ajax_response_success(__('Downloaded Google Fonts will be updated', 'revslider'));
 				break;
 				case 'get_same_aspect_ratio':
 					$images = $this->get_val($data, 'images', array());
@@ -2494,10 +2549,6 @@ class RevSliderAdmin extends RevSliderFunctionsAdmin {
 		}catch(Exception $e){
 			$this->show_error($this->view, $e->getMessage());
 		}
-	}
-
-	public static function welcome_screen_activate(){
-		set_transient('_revslider_welcome_screen_activation_redirect', true, 60);
 	}
 
 	public function open_welcome_page(){

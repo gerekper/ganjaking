@@ -304,6 +304,8 @@ body.rtl #rs_notices_wrapper { left: 0px; right:auto; }
 /* LAYERS */
 body.rtl ._group_lock_toggle_ { left: 0px; right: auto; }
 
+body.rtl #reset_lock_media_size_layer .icon_trigger_wrap { left: auto; right: -10px; top: 3px; }
+
 body.rtl .undo_redo_wrap .tool_dd_wrap:before {
 	left: 0px; right: auto;
 	 background: linear-gradient(to left, rgba(41,44,46,0) 0%, rgba(41,44,46,1) 100%);

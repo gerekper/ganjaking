@@ -39,14 +39,19 @@ class SubscriberDetailedStatsResponseBuilder {
 
   /**
    * @param SubscriberNewsletterStats[] $newslettersStats
-   * @return array<array>
+   * @return array<int, array<string, mixed>>
    */
   public function build(array $newslettersStats): array {
     $response = [];
 
     foreach ($newslettersStats as $stats) {
       $item = $this->buildNewsletter($stats->getNewsletter());
-      $item['actions'][] = $this->buildOpen($stats->getOpen());
+      $openStats = $stats->getOpen();
+
+      if ($openStats instanceof StatisticsOpenEntity) {
+        $item['actions'][] = $this->buildOpen($openStats);
+      }
+
       foreach ($stats->getClicks() as $click) {
         $item['actions'][] = $this->buildClick($click);
       }
@@ -58,7 +63,7 @@ class SubscriberDetailedStatsResponseBuilder {
   /**
    * @param NewsletterEntity $newsletter
    *
-   * @return array<string, mixed>
+   * @return array{id: int|null, preview_url: string, subject: string, sent_at: non-empty-string|null, actions: array{}}
    */
   private function buildNewsletter(NewsletterEntity $newsletter): array {
     $sentAt = $newsletter->getSentAt();

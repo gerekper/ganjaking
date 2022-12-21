@@ -2,7 +2,7 @@
 /**
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.themepunch.com/
- * @copyright 2019 ThemePunch
+ * @copyright 2022 ThemePunch
  */
 
 if(!defined('ABSPATH')) exit();
@@ -66,7 +66,7 @@ if(!defined('ABSPATH')) exit();
 					<select style="display:none" id="sr_progbaralignrver" data-evt="sliderProgressUpdate" data-evtparam="progressbar" data-unselect=".progressbar_selector" data-select="#progressbar_selector_*RVAL*-*val*" data-rval="settings.general.progressbar.horizontal" class="sliderinput easyinit" data-r="general.progressbar.vertical" data-triggerinp="#generalprogressbaroffsety"  data-triggerinpval="0"><option value="top"><?php _e('Top', 'revslider');?></option><option value="center"><?php _e('Center', 'revslider');?></option><option value="bottom"><?php _e('Bottom', 'revslider');?></option></select>					
 					<row class="direktrow">
 						<onelong>
-							<label_a><?php _e('Aligment', 'revslider');?></label_a>
+							<label_a><?php _e('Alignment', 'revslider');?></label_a>
 							<div class="bg_alignselector_wrap">
 								<div class="bg_align_row">
 									<div data-type="progressbar" class=" progressbar_selector bg_alignselector" data-select="#sr_progbaralignrhor,#sr_progbaralignrver" data-val="left,top" id="progressbar_selector_left-top"></div>
@@ -151,7 +151,7 @@ if(!defined('ABSPATH')) exit();
 
 					<row class="direktrow">
 						<onelong>
-							<label_a><?php _e('Aligment', 'revslider');?></label_a>
+							<label_a><?php _e('Alignment', 'revslider');?></label_a>
 							<div class="bg_alignselector_wrap">
 								<div class="bg_align_row">
 									<div data-type="arrows" class="navaligntrigger left_arrow_position_selector bg_alignselector" data-select="#sr_leftarrhor,#sr_leftarrver" data-val="left,top" id="left_arrow_position_selector_left-top"></div>
@@ -205,7 +205,7 @@ if(!defined('ABSPATH')) exit();
 					<select style="display:none" data-evt="sliderNavPositionUpdate" data-evtparam="arrows" id="sr_rightarrver" data-unselect=".right_arrow_position_selector" data-select="#right_arrow_position_selector_*RVAL*-*val*" data-rval="settings.nav.arrows.right.horizontal" class="sliderinput easyinit" data-r="nav.arrows.right.vertical" data-triggerinp="#nav_arrows_right_offsety"  data-triggerinpval="0"><option value="top"><?php _e('Top', 'revslider');?></option><option value="center"><?php _e('Center', 'revslider');?></option><option value="bottom"><?php _e('Bottom', 'revslider');?></option></select>
 					<row class="direktrow">
 						<onelong>
-							<label_a><?php _e('Aligment', 'revslider');?></label_a>
+							<label_a><?php _e('Alignment', 'revslider');?></label_a>
 							<div class="bg_alignselector_wrap">
 								<div class="bg_align_row">
 									<div data-type="arrows" class="navaligntrigger right_arrow_position_selector bg_alignselector" data-select="#sr_rightarrhor,#sr_rightarrver" data-val="left,top" id="right_arrow_position_selector_left-top"></div>
@@ -347,7 +347,7 @@ if(!defined('ABSPATH')) exit();
 					<select style="display:none" data-evt="sliderNavPositionUpdate" data-evtparam="bullets" id="sr_bulletsver" data-unselect=".bulletspos_selector" data-select="#bulletspos_selector_*RVAL*-*val*" data-rval="settings.nav.bullets.horizontal" class="sliderinput easyinit" data-r="nav.bullets.vertical" data-triggerinp="#nav_bullets_offsety" data-triggerinpval="0"><option value="top"><?php _e('Top', 'revslider');?></option><option value="center"><?php _e('Center', 'revslider');?></option><option value="bottom"><?php _e('Bottom', 'revslider');?></option></select>
 					<row class="direktrow">
 						<onelong>
-							<label_a><?php _e('Aligment', 'revslider');?></label_a>
+							<label_a><?php _e('Alignment', 'revslider');?></label_a>
 							<div class="bg_alignselector_wrap">
 								<div class="bg_align_row">
 									<div data-type="bullets" class="navaligntrigger bulletspos_selector bg_alignselector" data-select="#sr_bulletshor,#sr_bulletsver" data-val="left,top" id="bulletspos_selector_left-top"></div>
@@ -504,7 +504,7 @@ if(!defined('ABSPATH')) exit();
 					<select style="display:none" data-evt="sliderNavPositionUpdate" data-evtparam="tabs" id="sr_tabsver" data-unselect=".tabspos_selector" data-select="#tabspos_selector_*RVAL*-*val*" data-rval="settings.nav.tabs.horizontal" class="sliderinput easyinit" data-r="nav.tabs.vertical" data-triggerinp="#nav_tabs_offsety" data-triggerinpval="0"><option value="top"><?php _e('Top', 'revslider');?></option><option value="center"><?php _e('Center', 'revslider');?></option><option value="bottom"><?php _e('Bottom', 'revslider');?></option></select>
 					<row class="direktrow">
 						<onelong>
-							<label_a><?php _e('Aligment', 'revslider');?></label_a>
+							<label_a><?php _e('Alignment', 'revslider');?></label_a>
 							<div class="bg_alignselector_wrap">
 								<div class="bg_align_row">
 									<div data-type="tabs" class="navaligntrigger tabspos_selector bg_alignselector" data-select="#sr_tabshor,#sr_tabsver" data-val="left,top" id="tabspos_selector_left-top"></div>
@@ -699,7 +699,7 @@ if(!defined('ABSPATH')) exit();
 					<select style="display:none" data-evt="sliderNavPositionUpdate" data-evtparam="thumbs" id="sr_thumbsver" data-unselect=".thumbspos_selector" data-select="#thumbspos_selector_*RVAL*-*val*" data-rval="settings.nav.thumbs.horizontal" class="sliderinput easyinit" data-r="nav.thumbs.vertical" data-triggerinp="#nav_thumbs_offsety" data-triggerinpval="0"><option value="top"><?php _e('Top', 'revslider');?></option><option value="center"><?php _e('Center', 'revslider');?></option><option value="bottom"><?php _e('Bottom', 'revslider');?></option></select>
 					<row class="direktrow">
 						<onelong>
-							<label_a><?php _e('Aligment', 'revslider');?></label_a>
+							<label_a><?php _e('Alignment', 'revslider');?></label_a>
 							<div class="bg_alignselector_wrap">
 								<div class="bg_align_row">
 									<div data-type="thumbs" class="navaligntrigger thumbspos_selector bg_alignselector" data-select="#sr_thumbshor,#sr_thumbsver" data-val="left,top" id="thumbspos_selector_left-top"></div>

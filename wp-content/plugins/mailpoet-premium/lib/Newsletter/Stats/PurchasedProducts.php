@@ -62,7 +62,7 @@ class PurchasedProducts {
 
   /**
    * @param StatisticsWooCommercePurchaseEntity[] $purchases
-   * @return array<int, array>
+   * @return array<int, array<string, int|float|string>>
    */
   private function getStatsForPurchases($purchases) {
     $result = [];

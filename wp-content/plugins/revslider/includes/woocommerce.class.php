@@ -2,7 +2,7 @@
 /**
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.themepunch.com/
- * @copyright 2019 ThemePunch
+ * @copyright 2022 ThemePunch
  */
  
 if(!defined('ABSPATH')) exit();
@@ -53,7 +53,6 @@ class RevSliderWooCommerce extends RevSliderFunctions {
 	 * @before: RevSliderWooCommerce::getPriceQuery()
 	 */
 	private static function get_price_query($from, $to, $meta_tag){
-		
 		$from	= (empty($from)) ? 0 : $from;
 		$to		= (empty($to)) ? 9999999999 : $to;
 		$query	= array(
@@ -68,29 +67,26 @@ class RevSliderWooCommerce extends RevSliderFunctions {
 	
 	
 	/**
+	 * check if in pricerange
+	 */
+	private static function check_price_range($from, $to, $check){
+		$from	= (empty($from)) ? 0 : $from;
+		$to		= (empty($to)) ? 9999999999 : $to;
+		
+		return ($check > $from && $check < $to) ? true : false;
+	}
+	
+	
+	/**
 	 * get meta query for filtering woocommerce posts.
 	 * before: RevSliderWooCommerce::getMetaQuery();
+	 * @6.5.23: removed _regular_price and _sale_price here, will be later checked under filter_products_by_price() to add the children
 	 */
 	public static function get_meta_query($args){
-		$f = RevSliderGlobals::instance()->get('RevSliderFunctions');
-		$reg_price_from		= $f->get_val($args, array('source', 'woo', 'regPriceFrom'));
-		$reg_price_to		= $f->get_val($args, array('source', 'woo', 'regPriceTo'));
-		$sale_price_from	= $f->get_val($args, array('source', 'woo', 'salePriceFrom'));
-		$sale_price_to		= $f->get_val($args, array('source', 'woo', 'salePriceTo'));
-		
-		$query			= array();
-		$meta_query		= array();
-		$tax_query		= array();
-		
-		//get regular price array
-		if(!empty($reg_price_from) || !empty($reg_price_to)){
-			$meta_query[] = self::get_price_query($reg_price_from, $reg_price_to, '_regular_price');
-		}
-		
-		//get sale price array
-		if(!empty($sale_price_from) || !empty($sale_price_to)){
-			$meta_query[] = self::get_price_query($sale_price_from, $sale_price_to, '_sale_price');
-		}
+		$f			= RevSliderGlobals::instance()->get('RevSliderFunctions');
+		$query		= array();
+		$meta_query	= array();
+		$tax_query	= array();
 		
 		if($f->get_val($args, array('source', 'woo', 'inStockOnly')) == true){
 			$meta_query[] = array(
@@ -116,15 +112,90 @@ class RevSliderWooCommerce extends RevSliderFunctions {
 			'operator' => 'NOT IN',
 		);
 		
-		if(!empty($meta_query)){
-			$query['meta_query'] = $meta_query;
-		}
-		
-		if(!empty($tax_query)){
-			$query['tax_query'] = $tax_query;
-		}
+		if(!empty($meta_query))	$query['meta_query'] = $meta_query;
+		if(!empty($tax_query))	$query['tax_query'] = $tax_query;
 		
 		return $query;
+	}
+
+
+	/**
+	 * filter posts by sales prices, also check for child products
+	 * @since: 6.5.23
+	 */
+	public static function filter_products_by_price($posts, $args){
+		if(empty($posts)) return $posts;
+
+		$f					= RevSliderGlobals::instance()->get('RevSliderFunctions');
+		$is_30				= RevSliderWooCommerce::version_check('3.0');
+		$reg_price_from		= $f->get_val($args, array('source', 'woo', 'regPriceFrom'));
+		$reg_price_to		= $f->get_val($args, array('source', 'woo', 'regPriceTo'));
+		$sale_price_from	= $f->get_val($args, array('source', 'woo', 'salePriceFrom'));
+		$sale_price_to		= $f->get_val($args, array('source', 'woo', 'salePriceTo'));
+		$post_types			= $f->get_val($args, array('source', 'woo', 'types'), 'any');
+
+		$meta_query = array();
+		//get regular price array
+		if(!empty($reg_price_from) || !empty($reg_price_to)){
+			$meta_query[] = self::get_price_query($reg_price_from, $reg_price_to, '_regular_price');
+		}
+		
+		//get sale price array
+		if(!empty($sale_price_from) || !empty($sale_price_to)){
+			$meta_query[] = self::get_price_query($sale_price_from, $sale_price_to, '_sale_price');
+		}
+
+		$_good_posts = array();
+		foreach($posts as $key => $post){
+			$product_id = $f->get_val($post, 'ID'); // ID of parent product
+			$product    = ($is_30) ? wc_get_product($product_id) : get_product($product_id);
+
+			if($product === false){
+				$_good_posts[] = $post;
+				unset($posts[$key]);
+				continue;
+			}
+			
+			//check if current post is okay with _regular_price and _sale_price
+			if(!empty($reg_price_from) || !empty($reg_price_to) || !empty($sale_price_from) || !empty($sale_price_to)){
+				$meta			= get_post_meta($product_id);
+				$in_reg_range	= false;
+				$in_sale_range	= false;
+				if(!empty($reg_price_from) || !empty($reg_price_to)){
+					$in_reg_range	= self::check_price_range($reg_price_from, $reg_price_to, $f->get_val($meta, '_regular_price'));
+				}
+				if(!empty($sale_price_from) || !empty($sale_price_to)){
+					$in_sale_range	= self::check_price_range($sale_price_from, $sale_price_to, $f->get_val($meta, '_sale_price'));
+				}
+
+				if($in_reg_range || $in_sale_range){
+					$_good_posts[] = $post;
+					continue;
+				}else{
+					unset($posts[$key]);
+				}
+			}
+			
+			if(!empty($meta_query)){
+				$my_posts	= new WP_Query(
+					array(
+						'post_parent'	=> $product_id, // ID of a page, post, or custom type
+						'post_type'		=> $post_types,
+						'meta_query'	=> $meta_query
+					)
+				);
+				$_posts		= $my_posts->posts;
+				if(!empty($_posts)){
+					foreach($_posts as $child_post){
+						$_good_posts[] = $child_post;
+					}
+				}
+			}else{
+				$_good_posts[] = $post;
+			}
+		}
+
+		return $_good_posts;
 	}
 	
 	
@@ -143,6 +214,27 @@ class RevSliderWooCommerce extends RevSliderFunctions {
 		);
 		
 		return $sort_by;
+	}
+
+	/**
+	 * since WooCommerce 3.0 this function is deprecated as it could lead to performance issues
+	 * this is a 1to1 copy of the named function without the deprecation message
+	 **/
+	public static function get_total_stock($product){
+		if ( sizeof( $product->get_children() ) > 0 ) {
+			$total_stock = max( 0, $product->get_stock_quantity() );
+
+			foreach ( $product->get_children() as $child_id ) {
+				if ( 'yes' === get_post_meta( $child_id, '_manage_stock', true ) ) {
+					$stock = get_post_meta( $child_id, '_stock', true );
+					$total_stock += max( 0, wc_stock_amount( $stock ) );
+				}
+			}
+		} else {
+			$total_stock = $product->get_stock_quantity();
+		}
+		
+		return wc_stock_amount( $total_stock );
 	}
 	
 }	//end of the class

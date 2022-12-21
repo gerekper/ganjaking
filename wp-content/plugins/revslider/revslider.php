@@ -6,9 +6,13 @@ Description: Slider Revolution - More than just a WordPress Slider
 Author: ThemePunch
 Text Domain: revslider
 Domain Path: /languages
-Version: 6.5.20
+Version: 6.6.8
 Author URI: https://themepunch.com/
 */
+
+update_option( 'revslider-valid', 'true' );
+update_option( 'revslider-code', 'activated' );
+update_option( 'revslider-temp-active-notice', 'false' );
 
 // If this file is called directly, abort.
 if(!defined('WPINC')){ die; }
@@ -17,7 +21,7 @@ if(class_exists('RevSliderFront')){
 	die('ERROR: It looks like you have more than one instance of Slider Revolution installed. Please remove additional instances for this plugin to work again.');
 }
 
-define('RS_REVISION',			'6.5.20');
+define('RS_REVISION',			'6.6.8');
 define('RS_PLUGIN_PATH',		plugin_dir_path(__FILE__));
 define('RS_PLUGIN_SLUG_PATH',	plugin_basename(__FILE__));
 define('RS_PLUGIN_FILE_PATH',	__FILE__);
@@ -25,7 +29,7 @@ define('RS_PLUGIN_SLUG',		apply_filters('set_revslider_slug', 'revslider'));
 define('RS_PLUGIN_URL',			get_rs_plugin_url());
 define('RS_PLUGIN_URL_CLEAN',	str_replace(array('http://', 'https://'), '//', RS_PLUGIN_URL));
 define('RS_DEMO',				false);
-define('RS_TP_TOOLS',			'6.5.18'); //holds the version of the tp-tools script, load only the latest!
+define('RS_TP_TOOLS',			'6.6.8'); //holds the version of the tp-tools script, load only the latest!
 
 global $revslider_fonts;
 global $revslider_is_preview_mode;
@@ -198,9 +202,10 @@ try{
 		require_once(RS_PLUGIN_PATH . 'admin/includes/newsletter.class.php');
 		require_once(RS_PLUGIN_PATH . 'admin/revslider-admin.class.php');
 		require_once(RS_PLUGIN_PATH . 'includes/update.class.php');
+		require_once(RS_PLUGIN_PATH . 'admin/includes/tracking.class.php');
 		//require_once(RS_PLUGIN_PATH . 'admin/includes/debug.php');
-
-		$rs_admin = new RevSliderAdmin();
+		$rstrack	= new RevSliderTracking();
+		$rs_admin	= new RevSliderAdmin();
 	}else{
 		require_once(RS_PLUGIN_PATH . 'public/includes/functions-public.class.php');
 
@@ -242,7 +247,7 @@ try{
 	}
 
 	register_activation_hook(__FILE__, array('RevSliderFront', 'create_tables'));
-	register_activation_hook(__FILE__, array('RevSliderAdmin', 'welcome_screen_activate'));
+	register_activation_hook(__FILE__, array('RevSliderFront', 'welcome_screen_activate'));
 	add_action('plugins_loaded', array('RevSliderFront', 'create_tables'));
 	add_action('plugins_loaded', array('RevSliderPluginUpdate', 'do_update_checks')); //add update checks
 	add_action('plugins_loaded', array('RevSliderPageTemplate', 'get_instance'));

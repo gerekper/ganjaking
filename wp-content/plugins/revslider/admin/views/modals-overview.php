@@ -5,7 +5,7 @@
  * This file is used to markup the admin-facing aspects of the plugin.
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.themepunch.com/
- * @copyright 2019 ThemePunch
+ * @copyright 2022 ThemePunch
  */
  
 if(!defined('ABSPATH')) exit();
@@ -77,6 +77,24 @@ if(!defined('ABSPATH')) exit();
 	</div>
 </div>
 
+<!-- GOOGLE FONTS PRECACHING -->
+<div class="_TPRB_ rb-modal-wrapper" data-modal="rbm_googleprecaching" style="z-index:1000010 !important">
+	<div class="rb-modal-inner">
+		<div class="rb-modal-content">
+			<div id="rbm_googleprecaching" class="rb_modal form_inner">
+				<div class="rbm_header"><i class="rbm_symbol material-icons">font_download</i><span class="rbm_title"><?php _e('Google Fonts Precaching', 'revslider');?></span><i class="rbm_close material-icons">close</i></div>
+				<div class="rbm_content">					
+					<div class="modal_fields_title"><span id="rs-fontprecache-amount">0 of 14</span> <?php _e('Google Fonts Precached', 'revslider'); ?></div>
+					<div class="div5"></div>
+					<div style="margin-bottom:0px; line-height:15px;" class="modal_fields_title"><?php _e('Currently Precaching the', 'revslider'); ?> <strong>"<span id="rs-fontprecaching"><strong>Open Sans</strong></span>"</strong> <?php _e('Google Font', 'revslider'); ?></div>
+					<div style="font-weight:400;margin-bottom:0px; font-size:12px; line-height:15px" class="modal_fields_title">(<?php _e('Approximate Remaining Time:', 'revslider'); ?> <span id="aproxgloadtime"></span><?php _e('sec', 'revslider'); ?>)</div>							
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
 <!--GLOBAL SETTINGS MODAL-->
 <div class="_TPRB_ rb-modal-wrapper" data-modal="rbm_globalsettings">
 	<div class="rb-modal-inner">
@@ -108,7 +126,8 @@ if(!defined('ABSPATH')) exit();
 										<option selected="selected" value="unset"><?php _e('Unset','revslider');?></option>
 										<option value="anonymous"><?php _e('Anonymous', 'revslider');?></option>
 										<option value="use-credentials"><?php _e('Use Credentials', 'revslider');?></option>
-									</select><span class="linebreak"></span>
+									</select><span class="linebreak"></span>						
+						<label_a><?php _e('Slider Revolution Analytics Sharing', 'revslider');?></label_a><input type="checkbox" data-evt="udpateTrackingEnv" class="easyinit globalinput callEvent" data-r="globals.trackingOnOff"><span class="linebreak"></span>
 						<div class="div25"></div>
 						<div class="ale_i_title"><?php _e('Page Loading Optimization', 'revslider');?></div>
 						<hr class="general_hr">
@@ -126,11 +145,16 @@ if(!defined('ABSPATH')) exit();
 						<div class="div25"></div>						
 						<label_a><?php _e('Enable Google Fonts download', 'revslider');?></label_a><select id="fontdownload" name="fontdownload" data-theme="inmodal" class="globalinput easyinit nosearchbox tos2" data-r="globals.fontdownload">
 										<option selected="selected" value="off"><?php _e('Load from Google','revslider');?></option>
-										<option value="preload"><?php _e('Cache Fonts Local', 'revslider');?></option>
+										<option value="preload"><?php _e('Cache Fonts Locally', 'revslider');?></option>
 										<option value="disable"><?php _e('Disable, Load on your own', 'revslider');?></option>
 									</select><span class="linebreak"></span>
-						<label_a><?php _e('Optional Google Fonts loading URL', 'revslider');?></label_a><input type="text" class="easyinit globalinput" data-r="globals.fonturl" placeholder="<?php _e('(ie. http://fonts.useso.com/css?family for chinese Environment)', 'revslider');?>"><span class="linebreak"></span>
-						<label_a></label_a><div id="rs_trigger_font_deletion" class="basic_action_button autosize"><i class="material-icons">build</i><?php _e('Update Preload Fonts', 'revslider'); ?></div>
+						<div></div>
+						<div style="text-align:right">
+							<div style="display:inline-block margin-right:10px" id="rs-grid-delete-fonts-cache" class="basic_action_button autosize"><i class="material-icons">spellcheck</i><?php _e('Clear and Recache Fonts', 'revslider');?></div><!--
+							--><div style="display:inline-block;" id="rs-grid-preload-fonts-cache" class="basic_action_button autosize"><i class="material-icons">text_increase</i><?php _e('Update Font Cache', 'revslider');?></div>							
+						</div>
+						<div class="div25"></div>
+						<label_a><?php _e('Optional Google Fonts loading URL', 'revslider');?></label_a><input type="text" class="easyinit globalinput" data-r="globals.fonturl" placeholder="<?php _e('(ie. http://fonts.useso.com/css?family for chinese Environment)', 'revslider');?>"><span class="linebreak"></span>						
 					</div><!--
 					--><div class="rbm_general_half" style="padding-left:20px;">
 						<div class="ale_i_title"><?php _e('Default Layout Grid Breakpoints', 'revslider');?></div>

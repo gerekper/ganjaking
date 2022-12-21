@@ -2,7 +2,7 @@
 /**
  * @author    ThemePunch <info@themepunch.com>
  * @link      https://www.themepunch.com/
- * @copyright 2019 ThemePunch
+ * @copyright 2022 ThemePunch
  */
 
 if(!defined('ABSPATH')) exit();
@@ -22,6 +22,7 @@ class RevSliderSlider extends RevSliderFunctions {
 	public $inited			= false;
 	public $map;
 	public $template_slider	= false;
+	public $is_woocommerce	= false;
 
 	/**
 	 * @var RevSliderSlide
@@ -262,7 +263,6 @@ class RevSliderSlider extends RevSliderFunctions {
 	 * @param bool $show_error
 	 */
 	public function init_by_mixed($mixed, $show_error = true){
-
 		if(is_numeric($mixed)){
 			$this->init_by_id($mixed, $show_error);
 		}else{
@@ -282,13 +282,9 @@ class RevSliderSlider extends RevSliderFunctions {
 		$this->validate_numeric($sid, 'Slider ID');
 		
 		$slider_data = $wpdb->get_row($wpdb->prepare("SELECT * FROM ". $wpdb->prefix . RevSliderFront::TABLE_SLIDER ." WHERE id = %d", $sid), ARRAY_A);
-		if(empty($slider_data) && !is_admin() && $show_error === true){
-			throw new Exception('Slider not found.');
-		}
+		if(empty($slider_data) && !is_admin() && $show_error === true) $this->throw_error('Slider not found.');
 		
-		if(!empty($slider_data)){
-			$this->init_by_data($slider_data);
-		}
+		if(!empty($slider_data)) $this->init_by_data($slider_data);
 	}
 	
 	
@@ -307,12 +303,10 @@ class RevSliderSlider extends RevSliderFunctions {
 			$slider_data = $wpdb->get_row($wpdb->prepare("SELECT * FROM ". $wpdb->prefix . RevSliderFront::TABLE_SLIDER ." WHERE alias = %s", $alias), ARRAY_A);
 		}
 		if(empty($slider_data) && !is_admin() && $show_error === true){
-			throw new Exception('Slider with alias '.sanitize_text_field(esc_attr($alias)).' not found.');
+			$this->throw_error('Slider with alias '.sanitize_text_field(esc_attr($alias)).' not found.');
 		}
 		
-		if(!empty($slider_data)){
-			$this->init_by_data($slider_data);
-		}
+		if(!empty($slider_data)) $this->init_by_data($slider_data);
 	}
 	
 	
@@ -607,13 +601,19 @@ class RevSliderSlider extends RevSliderFunctions {
 	public function get_slider_by_param_string($string, $templates = false){
 		global $wpdb;
 		
-		$sql = "SELECT * FROM ". $wpdb->prefix . RevSliderFront::TABLE_SLIDER ." WHERE ";
 		$string = (array)$string;
+		if(empty($string)) return array();
+
+		$sql = "SELECT * FROM ". $wpdb->prefix . RevSliderFront::TABLE_SLIDER ." WHERE ";
 		$add = '';
+		
 		if($templates === true) $sql .= "(";
 		
-		foreach($string as $v){
-			$sql .= $add. "params LIKE '%%%s%%'";
+		foreach($string as $k => $v){
+			//$sql .= $add. "params LIKE '%%%s%%'";
+			$string[$k] = '%'.$v.'%';
+			
+			$sql .= $add. "params LIKE %s";
 			if($add === '') $add = " OR ";
 		}
 		if($templates === true) $sql .= ") AND `type` != 'template'";
@@ -1324,15 +1324,24 @@ class RevSliderSlider extends RevSliderFunctions {
 	 * get sliders array - function don't belong to the object!
 	 * @before: RevSliderSlider::getArrSliders();
 	 */
-	public function get_sliders($templates = false){
+	public function get_sliders($templates = false, $page = 0){
 		global $wpdb, $rs_do_init_action;
 		
 		$rs_do_init_action = false;
 		$sliders	= array();
 		$do_order	= 'id';
 		$direction	= 'ASC';
-		
-		$slider_data = $wpdb->get_results($wpdb->prepare("SELECT * FROM ".$wpdb->prefix . RevSliderFront::TABLE_SLIDER." WHERE `type` != 'folder' ORDER BY %s %s", array($do_order, $direction)), ARRAY_A); //WHERE `type` = '' OR `type` IS NULL 
+		$page		= intval($page);
+		$type		= ($templates === true) ? '' : " AND `type` != 'template'";
+		$limit		= '';
+
+		if($page > 0){
+			$end	= 50 * $page;
+			$start	= $end - 50;
+			$limit	= ' LIMIT '.$start.', '.$end;
+		}
+
+		$slider_data = $wpdb->get_results($wpdb->prepare("SELECT * FROM ".$wpdb->prefix . RevSliderFront::TABLE_SLIDER." WHERE `type` != 'folder' ". $type ." ORDER BY %s %s".$limit, array($do_order, $direction)), ARRAY_A); //WHERE `type` = '' OR `type` IS NULL 
 		if(!empty($slider_data)){
 			foreach($slider_data as $data){
 				$slider = new RevSliderSlider();
@@ -1450,6 +1459,10 @@ class RevSliderSlider extends RevSliderFunctions {
 		
 		if($static_id !== false){
 			$slide->init_by_static_id($static_id);
+			$params = $slide->get_params_for_export();
+			if(!isset($params['static'])) $params['static'] = array();
+			$params['static']['isstatic'] = true;
+			
 			$static_slide[] = array(
 				'params'		=> $slide->get_params_for_export(),
 				'slide_order'	=> $slide->get_order(),
@@ -2111,7 +2124,7 @@ class RevSliderSlider extends RevSliderFunctions {
 		$max_allowed = 999999;
 		$sourcetype	 = $this->get_param('sourcetype', 'gallery');
 		$additions	 = array();
-		
+		$max_posts	 = 0;
 		switch($sourcetype){
 			case 'facebook':
 				$facebook = RevSliderGlobals::instance()->get('RevSliderFacebook');
@@ -2188,41 +2201,43 @@ class RevSliderSlider extends RevSliderFunctions {
 				$max_allowed = 50;
 			break;
 			case 'vimeo':
-				$vimeo = new RevSliderVimeo($this->get_param(array('source', 'vimeo', 'transient'), '1200'));
-				$vimeo_type = $this->get_param(array('source', 'vimeo', 'typeSource'));
-				
+				$vimeo		= new RevSliderVimeo($this->get_param(array('source', 'vimeo', 'transient'), '1200'));
+				$vimeo_type	= $this->get_param(array('source', 'vimeo', 'typeSource'));
+				$max_posts	= $this->get_param(array('source', 'vimeo', 'count'), '25');
+				$max_allowed = 60;
+				if(intval($max_posts) > $max_allowed) $max_posts = $max_allowed;
+
 				switch($vimeo_type){
 					case 'user':
-						$posts = $vimeo->get_vimeo_videos($vimeo_type, $this->get_param(array('source', 'vimeo', 'userName')));
+						$posts = $vimeo->get_vimeo_videos($vimeo_type, $this->get_param(array('source', 'vimeo', 'userName')), $max_posts);
 					break;
 					case 'channel':
-						$posts = $vimeo->get_vimeo_videos($vimeo_type, $this->get_param(array('source', 'vimeo', 'channelName')));
+						$posts = $vimeo->get_vimeo_videos($vimeo_type, $this->get_param(array('source', 'vimeo', 'channelName')), $max_posts);
 					break;
 					case 'group':
-						$posts = $vimeo->get_vimeo_videos($vimeo_type, $this->get_param(array('source', 'vimeo', 'groupName')));
+						$posts = $vimeo->get_vimeo_videos($vimeo_type, $this->get_param(array('source', 'vimeo', 'groupName')), $max_posts);
 					break;
 					case 'album':
-						$posts = $vimeo->get_vimeo_videos($vimeo_type, $this->get_param(array('source', 'vimeo', 'albumId')));
+						$posts = $vimeo->get_vimeo_videos($vimeo_type, $this->get_param(array('source', 'vimeo', 'albumId')), $max_posts);
 					break;
 					default:
 					break;
 				}
 				
 				$additions['vim_type'] = $this->get_param(array('source', 'vimeo', 'typeSource'), 'user');
-				$max_posts	 = $this->get_param(array('source', 'vimeo', 'count'), '25');
-				$max_allowed = 60;
 			break;
 			default:
 				global $rs_preview_mode;
 				if($rs_preview_mode){
 					$admin = new RevSliderAdmin();
-					$admin->ajax_response_error(__('Some Settings in Slider <strong>Source may not complete</strong>.<br>Please Complete All Settings in Slider Sources.', 'revslider'));
+					$admin->ajax_response_error(__('Make sure that the stream settings are properly selected in "Module General Options -> Content -> Stream Settings".', 'revslider'));
 				}else{
-					$this->throw_error(__('Sorry, this Social Stream cannot be displayed.', 'revslider'));
+					$this->throw_error(__('Make sure that the stream settings are properly selected in "Module General Options -> Content -> Stream Settings".', 'revslider'));
 				}
 			break;
 		}
-		
+
+		$max_posts = intval($max_posts);
 		if($max_posts < 0) $max_posts *= -1;
 		
 		$posts = apply_filters('revslider_pre_mod_stream_data', $posts, $sourcetype, $this->id);
@@ -2238,15 +2253,14 @@ class RevSliderSlider extends RevSliderFunctions {
 			global $rs_preview_mode;
 			if($rs_preview_mode){
 				$admin = new RevSliderAdmin();
-				$admin->ajax_response_error(__('Some Settings in Slider <strong>Source may not complete</strong>.<br>Please Complete All Settings in Slider Sources.', 'revslider'));
+				$admin->ajax_response_error(__('Make sure that the stream settings are properly selected in "Module General Options -> Content -> Stream Settings".', 'revslider'));
 			}else{
-				$this->throw_error(__('Sorry, this Social Stream cannot be displayed.', 'revslider'));
+				$this->throw_error(__('Make sure that the stream settings are properly selected in "Module General Options -> Content -> Stream Settings".', 'revslider'));
 			}
 		}
 		
 		$i = 0;
 		$tk = 0;
-		
 		
 		foreach($posts as $data){
 			if(empty($data)) continue; //ignore empty entries, like from instagram
@@ -2315,6 +2329,7 @@ class RevSliderSlider extends RevSliderFunctions {
 		$max_posts	= (empty($max_posts) || !is_numeric($max_posts)) ? -1 : $max_posts;
 		$post_types	= $this->get_param(array('source', 'woo', 'types'), 'any');
 		$addition	= array();
+		$this->is_woocommerce = true;
 		
 		if($published == true){ //Events integration
 			$addition['post_status'] = 'publish';
@@ -2552,16 +2567,19 @@ class RevSliderSlider extends RevSliderFunctions {
 			$query = array_merge($query, $addition);
 		}
 		
-		$query = apply_filters('revslider_get_posts', $query, $slider_id);
-		
+		$query		= apply_filters('revslider_get_posts', $query, $slider_id);
 		$full_posts	= new WP_Query($query);
 		$posts		= $full_posts->posts;
 		
-		foreach($posts as $key => $post){
-			$arr_post = (method_exists($post, 'to_array')) ? $post->to_array() : (array)$post;
-			$arr_post['categories'] = $this->get_post_categories($post, $tax);
-			
-			$posts[$key] = $arr_post;
+		if($this->is_woocommerce) $posts = RevSliderWooCommerce::filter_products_by_price($posts, $this->get_params());
+
+		if(!empty($posts)){
+			foreach($posts as $key => $post){
+				$arr_post = (method_exists($post, 'to_array')) ? $post->to_array() : (array)$post;
+				$arr_post['categories'] = $this->get_post_categories($post, $tax);
+				
+				$posts[$key] = $arr_post;
+			}
 		}
 		
 		return $posts;

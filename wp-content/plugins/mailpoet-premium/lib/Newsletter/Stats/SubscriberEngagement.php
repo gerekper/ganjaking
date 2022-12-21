@@ -95,7 +95,7 @@ class SubscriberEngagement {
   /**
    * @param array<string, mixed> $data
    *
-   * @return array<string, mixed>
+   * @return array{count: int, filters: array, groups: array, items: array}
    */
   public function get($data = []): array {
     $definition = $this->parseData($data);

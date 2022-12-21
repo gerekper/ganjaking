@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the MailPoet Premium plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet Premium 4.2.0\n"
+"Project-Id-Version: MailPoet Premium 4.3.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-12-12T13:29:54+00:00\n"
+"POT-Creation-Date: 2022-12-19T21:32:38+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -205,6 +205,37 @@ msgstr ""
 msgid "Missing subscriber id."
 msgstr ""
 
+#: lib/Automation/Integrations/MailPoetPremium/Actions/AddTagAction.php:38
+#: assets/dist/js/premium.js:2
+msgid "Add tag"
+msgstr ""
+
+#. translators: %d is the ID of the tag, which was not found.
+#: lib/Automation/Integrations/MailPoetPremium/Actions/AddTagAction.php:51
+msgid "Tag %d was not found."
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Actions/AddToListAction.php:36
+#: assets/dist/js/premium.js:2
+msgid "Add to list"
+msgstr ""
+
+#. translators: %d is the ID of the segment
+#: lib/Automation/Integrations/MailPoetPremium/Actions/AddToListAction.php:74
+#: lib/Automation/Integrations/MailPoetPremium/Actions/RemoveFromListAction.php:83
+msgid "Segment with ID '%s' not found."
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Actions/RemoveFromListAction.php:36
+#: assets/dist/js/premium.js:2
+msgid "Remove from list"
+msgstr ""
+
+#: lib/Automation/Integrations/MailPoetPremium/Actions/RemoveTagAction.php:36
+#: assets/dist/js/premium.js:2
+msgid "Remove tag"
+msgstr ""
+
 #: lib/Automation/Integrations/MailPoetPremium/Actions/UnsubscribeAction.php:49
 msgid "Unsubscribe"
 msgstr ""
@@ -244,6 +275,7 @@ msgid "View MailPoet settings"
 msgstr ""
 
 #: lib/Config/Hooks.php:68
+#: assets/dist/js/premium.js:2
 msgid "Settings"
 msgstr ""
 
@@ -322,6 +354,90 @@ msgstr ""
 #: assets/dist/js/premium.js:2
 msgid "Delete step"
 msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Tags to add"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Please select a tag"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Add a tag or multiple tags to a subscriber."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Not set up yet."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Add \"%s\" tag"
+msgid_plural "Add \"%s\" tags"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/dist/js/premium.js:2
+msgid "Tags to remove"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Remove a tag or multiple tags from a subscriber"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Remove a \"%s\" tag"
+msgid_plural "Remove \"%s\" tags"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/dist/js/premium.js:2
+msgid "Do not trigger automations"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Adding a subscriber to a list won't trigger other automations"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Trigger settings"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Lists to subscribe to:"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Please select a list"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Add a subscriber to a list."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Add to the \"%s\" list"
+msgid_plural "Add to \"%s\" lists"
+msgstr[0] ""
+msgstr[1] ""
+
+#: assets/dist/js/premium.js:2
+msgid "Not set up yet"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Lists to unsubscribe from:"
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Remove a subscriber from a list."
+msgstr ""
+
+#: assets/dist/js/premium.js:2
+msgid "Remove from the \"%s\" list"
+msgid_plural "Remove from \"%s\" lists"
+msgstr[0] ""
+msgstr[1] ""
 
 #: assets/dist/js/premium.js:2
 msgid "New automation"
