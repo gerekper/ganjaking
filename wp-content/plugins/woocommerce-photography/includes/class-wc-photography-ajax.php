@@ -67,7 +67,10 @@ class WC_Photography_Ajax {
 
 		if ( $collections_query ) {
 			foreach ( $collections_query as $collection ) {
-				$found_collections[] = array( 'id' => $collection->term_id, 'text' => html_entity_decode( $collection->name ) );
+				$found_collections[] = array(
+					'id'   => $collection->term_id,
+					'text' => html_entity_decode( $collection->name ),
+				);
 			}
 		}
 
@@ -100,30 +103,19 @@ class WC_Photography_Ajax {
 				$_collections = array_map( 'absint', $_collections );
 
 				foreach ( $_collections as $collection_id ) {
-					$collection = get_term( $collection_id, 'images_collections' );
+					$collection                    = get_term( $collection_id, 'images_collections' );
 					$collections[ $collection_id ] = $collection->name;
 				}
 			}
 		}
 
-		$image_metadata = wp_get_attachment_metadata( $image_id );
-		if ( ! empty( $image_metadata['image_meta']['title'] ) ) {
-			$title = $image_metadata['image_meta']['title'];
-		} elseif ( ! empty( $collections ) ) {
-			$first_collection = current( $collections );
-
-			/* translators: 1: image id 2: first collection name */
-			$title = sprintf( __( 'Photography #%1$d from %2$s', 'woocommerce-photography' ), $image_id, $first_collection );
-		} else {
-			/* translators: 1: image id */
-			$title = sprintf( __( 'Photography #%d', 'woocommerce-photography' ), $image_id );
-		}
+		$title = wc_photography_get_product_title( $image_id, $collections );
 
 		$args = array(
-			'post_title'   => $title,
-			'post_status'  => 'publish',
-			'post_type'    => 'product',
-			'post_author'  => get_current_user_id(),
+			'post_title'  => $title,
+			'post_status' => 'publish',
+			'post_type'   => 'product',
+			'post_author' => get_current_user_id(),
 		);
 
 		if ( ! empty( $image_metadata['image_meta']['caption'] ) ) {
@@ -155,8 +147,8 @@ class WC_Photography_Ajax {
 		// Sku.
 		if ( isset( $_POST['sku_pattern'] ) && '' != $_POST['sku_pattern'] ) {
 			$sku_pattern = $wpdb->esc_like( $_POST['sku_pattern'] );
-			$last_sku = $wpdb->get_var( $wpdb->prepare( "SELECT meta_value FROM $wpdb->postmeta WHERE meta_key = '_sku' AND meta_value LIKE %s ORDER BY post_id DESC LIMIT 1", '%' . $sku_pattern . '%' ) );
-			$_sku = absint( str_replace( $sku_pattern, '', $last_sku ) );
+			$last_sku    = $wpdb->get_var( $wpdb->prepare( "SELECT meta_value FROM $wpdb->postmeta WHERE meta_key = '_sku' AND meta_value LIKE %s ORDER BY post_id DESC LIMIT 1", '%' . $sku_pattern . '%' ) );
+			$_sku        = absint( str_replace( $sku_pattern, '', $last_sku ) );
 			$_sku++;
 			$sku = $sku_pattern . $_sku;
 
@@ -191,15 +183,18 @@ class WC_Photography_Ajax {
 
 		do_action( 'wc_photography_batch_upload', $id, $image_id, $sku, $regular_price, $collections );
 
-		$response = apply_filters( 'wc_photography_batch_upload_response', array(
-			'id'              => $id,
-			'image_id'        => $image_id,
-			'thumbnail'       => wp_get_attachment_thumb_url( $image_id ),
-			'collections_ids' => implode( ',', array_keys( $collections ) ),
-			'collections'     => $collections,
-			'price'           => $regular_price,
-			'sku'             => $sku,
-		) );
+		$response = apply_filters(
+			'wc_photography_batch_upload_response',
+			array(
+				'id'              => $id,
+				'image_id'        => $image_id,
+				'thumbnail'       => wp_get_attachment_thumb_url( $image_id ),
+				'collections_ids' => implode( ',', array_keys( $collections ) ),
+				'collections'     => $collections,
+				'price'           => $regular_price,
+				'sku'             => $sku,
+			)
+		);
 
 		wp_send_json( $response );
 	}
@@ -247,7 +242,13 @@ class WC_Photography_Ajax {
 			if ( isset( $image['caption'] ) ) {
 				$caption = wp_strip_all_tags( $image['caption'] );
 
-				wp_update_post( array( 'ID' => $image_id, 'post_content' => $caption, 'post_excerpt' => $caption ) );
+				wp_update_post(
+					array(
+						'ID'           => $image_id,
+						'post_content' => $caption,
+						'post_excerpt' => $caption,
+					)
+				);
 			}
 
 			$collections = array();
@@ -294,7 +295,12 @@ class WC_Photography_Ajax {
 				WC_Photography_WC_Compat::update_term_meta( $collection->term_id, 'visibility', $visibility );
 				do_action( 'wc_photography_ajax_add_collection', $collection->term_id, $settings, $visibility );
 
-				wp_send_json_success( array( 'id' => $collection->term_id, 'text' => html_entity_decode( $collection->name ) ) );
+				wp_send_json_success(
+					array(
+						'id'   => $collection->term_id,
+						'text' => html_entity_decode( $collection->name ),
+					)
+				);
 			}
 		}
 

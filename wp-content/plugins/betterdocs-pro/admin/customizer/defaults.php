@@ -556,7 +556,60 @@ if ( ! function_exists( 'betterdocs_get_option_defaults_pro' ) ) :
 			'betterdocs_archive_other_categories_button_padding_top' => '12',
 			'betterdocs_archive_other_categories_button_padding_right' => '30',
 			'betterdocs_archive_other_categories_button_padding_bottom' => '13',
-			'betterdocs_archive_other_categories_button_padding_left' => '29'
+			'betterdocs_archive_other_categories_button_padding_left' => '29',
+			'betterdocs_faq_switch_mkb' => true,
+			'betterdocs_select_specific_faq_mkb' => 'all',
+			'betterdocs_select_faq_template_mkb' => 'layout-1',
+			'betterdocs_faq_title_text_mkb' => esc_html__('Frequently Asked Questions', 'betterdocs-pro'),
+			'betterdocs_faq_title_margin_mkb_layout_1' => array(
+				'input1'  	=> 0,
+				'input2'  	=> 0,
+				'input3'  	=> 0,
+				'input4'  	=> 0,
+			),
+			'betterdocs_faq_title_color_mkb_layout_1' => '#15063F',
+			'betterdocs_faq_title_font_size_mkb_layout_1' => '30',
+			'betterdocs_faq_category_title_color_mkb_layout_1' => '#15063F',
+			'betterdocs_faq_category_name_font_size_mkb_layout_1' => '25',
+			'betterdocs_faq_category_name_padding_mkb_layout_1' => array(
+				'input1'  	=> 20,
+				'input2'  	=> 20,
+				'input3'  	=> 20,
+				'input4'  	=> 20,
+			),
+			'betterdocs_faq_list_color_mkb_layout_1' => '#2f3b48',
+			'betterdocs_faq_list_background_color_mkb_layout_1' => '#f0f1f5',
+			'betterdocs_faq_list_content_background_color_mkb_layout_1' => '#fbfcff',
+			'betterdocs_faq_list_font_size_mkb_layout_1' => '17',
+			'betterdocs_faq_list_padding_mkb_layout_1' => array(
+				'input1'  	=> 20,
+				'input2'  	=> 20,
+				'input3'  	=> 20,
+				'input4'  	=> 20,
+			),
+			'betterdocs_faq_category_title_color_mkb_layout_2' => '#15063F',
+			'betterdocs_faq_category_name_font_size_mkb_layout_2' => '25',
+			'betterdocs_faq_category_name_padding_mkb_layout_2' => array(
+				'input1'  	=> 20,
+				'input2'  	=> 20,
+				'input3'  	=> 20,
+				'input4'  	=> 20,
+			),
+			'betterdocs_faq_list_color_mkb_layout_2' => '#2f3b48',
+			'betterdocs_faq_list_background_color_mkb_layout_2' => '#fff',
+			'betterdocs_faq_list_content_background_color_mkb_layout_2' => '#fff',
+			'betterdocs_faq_list_font_size_mkb_layout_2' => '17',
+			'betterdocs_faq_list_padding_mkb_layout_2' => array(
+				'input1'  	=> 20,
+				'input2'  	=> 20,
+				'input3'  	=> 20,
+				'input4'  	=> 20
+			),
+			'betterdocs_faq_list_content_font_size_mkb_layout_1' => '15',
+			'betterdocs_faq_list_content_font_size_mkb_layout_2' => '15',
+			'betterdocs_faq_list_content_color_mkb_layout_1'  => '#7B7B7B',
+			'betterdocs_faq_list_content_color_mkb_layout_2'  => '#7B7B7B',
+			'betterdocs_faq_section_mkb_seperator' => ''
 		);
 		return apply_filters( 'betterdocs_option_defaults_pro', $betterdocs_defaults_pro );
 	}
@@ -644,4 +697,261 @@ if( ! function_exists( 'betterdocs_generate_output_pro' ) ) :
 
 endif;
 
- ?>
+
+if( ! function_exists( 'betterdocs_dimension_padding_generator_pro' ) ) :
+    function betterdocs_dimension_padding_generator_pro($key, $measure = 'px', $important = false) {
+        
+        $important = $important ? ' !important' : '';
+        $saved_options = get_theme_mods();
+        if( is_array($saved_options) && array_key_exists( $key, $saved_options ) ) {
+            $valueArr = (array) json_decode(betterdocs_get_option($key));
+        } else {
+            $default = betterdocs_get_option_defaults_pro();
+            $valueArr = isset( $default[$key] ) ? $default[$key] : '';
+        }
+
+        $dimensionArr = [];
+        $dimensionAttr = '';
+        $input1 = '';
+        $input2 = '';
+        $input3 = '';
+        $input4 = '';
+        $measure = isset($valueArr['data_unit']) ? $valueArr['data_unit'] : $measure;
+
+        if ( $valueArr['input1'] !== '' ) {
+            $input1 = $valueArr['input1'] . $measure;
+        } else {
+            $input1 = '0' . $measure;
+        }
+        if ( $input1 !== '' ) {
+            $dimensionArr[] = $input1;
+        }
+        
+        if ( $valueArr['input2'] !== '' ) {
+            $input2 = $valueArr['input2'] . $measure;
+        } else {
+            $input2 = '0' . $measure;
+        }
+        if ( $input2 !== '' ) {
+            $dimensionArr[] = $input2;
+        }
+        
+        if ( $valueArr['input3'] !== '' ) {
+            $input3 = $valueArr['input3'] . $measure;
+        } else {
+            $input3 = '0' . $measure;
+        }
+        if ( $input3 !== '' ) {
+            $dimensionArr[] = $input3;
+        }
+        
+        if ( $valueArr['input4'] !== '' ) {
+            $input4 = $valueArr['input4'] . $measure;
+        } else {
+            $input4 = '0' . $measure;
+        }
+        if ( $input4 !== '' ) {
+            $dimensionArr[] = $input4;
+        }
+
+        if ( count($dimensionArr) > 0 ) {
+            $dimensionAttr = "padding: " . implode(' ', $dimensionArr) . $important . ";";
+        }
+        
+        return $dimensionAttr;
+    }
+endif;
+
+if( ! function_exists( 'betterdocs_dimension_border_radius_generator_pro' ) ) :
+    function betterdocs_dimension_border_radius_generator_pro($key, $measure = 'px', $important = false) {
+        
+        $important = $important ? ' !important' : '';
+        $saved_options = get_theme_mods();
+        if( is_array($saved_options) && array_key_exists( $key, $saved_options ) ) {
+            $valueArr = (array) json_decode(betterdocs_get_option($key));
+        } else {
+            $default = betterdocs_get_option_defaults_pro();
+            $valueArr = isset( $default[$key] ) ? $default[$key] : '';
+        }
+
+        $dimensionArr = [];
+        $dimensionAttr = '';
+        $input1 = '';
+        $input2 = '';
+        $input3 = '';
+        $input4 = '';
+        $measure = isset($valueArr['data_unit']) ? $valueArr['data_unit'] : $measure;
+
+        if ( $valueArr['input1'] !== '' ) {
+            $input1 = $valueArr['input1'] . $measure;
+        } else {
+            $input1 = '0' . $measure;
+        }
+        if ( $input1 !== '' ) {
+            $dimensionArr[] = $input1;
+        }
+        
+        if ( $valueArr['input2'] !== '' ) {
+            $input2 = $valueArr['input2'] . $measure;
+        } else {
+            $input2 = '0' . $measure;
+        }
+        if ( $input2 !== '' ) {
+            $dimensionArr[] = $input2;
+        }
+        
+        if ( $valueArr['input3'] !== '' ) {
+            $input3 = $valueArr['input3'] . $measure;
+        } else {
+            $input3 = '0' . $measure;
+        }
+        if ( $input3 !== '' ) {
+            $dimensionArr[] = $input3;
+        }
+        
+        if ( $valueArr['input4'] !== '' ) {
+            $input4 = $valueArr['input4'] . $measure;
+        } else {
+            $input4 = '0' . $measure;
+        }
+        if ( $input4 !== '' ) {
+            $dimensionArr[] = $input4;
+        }
+
+        if ( count($dimensionArr) > 0 ) {
+            $dimensionAttr = "border-radius: " . implode(' ', $dimensionArr) . $important . ";";
+        }
+        
+        return $dimensionAttr;
+    }
+endif;
+
+if( ! function_exists( 'betterdocs_dimension_margin_generator_pro' ) ) :
+    function betterdocs_dimension_margin_generator_pro($key, $measure = 'px', $important = false) {
+        
+        $important = $important ? ' !important' : '';
+        $saved_options = get_theme_mods();
+        if( is_array($saved_options) && array_key_exists( $key, $saved_options ) ) {
+            $valueArr = (array) json_decode(betterdocs_get_option($key));
+        } else {
+            $default = betterdocs_get_option_defaults_pro();
+            $valueArr = isset( $default[$key] ) ? $default[$key] : '';
+        }
+
+        $dimensionArr = [];
+        $dimensionAttr = '';
+        $input1 = '';
+        $input2 = '';
+        $input3 = '';
+        $input4 = '';
+        $measure = isset($valueArr['data_unit']) ? $valueArr['data_unit'] : $measure;
+
+        if ( $valueArr['input1'] !== '' ) {
+            $input1 = $valueArr['input1'] . $measure;
+        } else {
+            $input1 = '0' . $measure;
+        }
+        if ( $input1 !== '' ) {
+            $dimensionArr[] = $input1;
+        }
+        
+        if ( $valueArr['input2'] !== '' ) {
+            $input2 = $valueArr['input2'] . $measure;
+        } else {
+            $input2 = '0' . $measure;
+        }
+        if ( $input2 !== '' ) {
+            $dimensionArr[] = $input2;
+        }
+        
+        if ( $valueArr['input3'] !== '' ) {
+            $input3 = $valueArr['input3'] . $measure;
+        } else {
+            $input3 = '0' . $measure;
+        }
+        if ( $input3 !== '' ) {
+            $dimensionArr[] = $input3;
+        }
+        
+        if ( $valueArr['input4'] !== '' ) {
+            $input4 = $valueArr['input4'] . $measure;
+        } else {
+            $input4 = '0' . $measure;
+        }
+        if ( $input4 !== '' ) {
+            $dimensionArr[] = $input4;
+        }
+
+        if ( count($dimensionArr) > 0 ) {
+            $dimensionAttr = "margin: " . implode(' ', $dimensionArr) . $important . ";";
+        }
+        
+        return $dimensionAttr;
+    }
+endif;
+
+if( ! function_exists( 'betterdocs_dimension_border_width_generator_pro' ) ) :
+    function betterdocs_dimension_border_width_generator_pro($key, $measure = 'px', $important = false) {
+        
+        $important = $important ? ' !important' : '';
+        $saved_options = get_theme_mods();
+        if( is_array($saved_options) && array_key_exists( $key, $saved_options ) ) {
+            $valueArr = (array) json_decode(betterdocs_get_option($key));
+        } else {
+            $default = betterdocs_get_option_defaults_pro();
+            $valueArr = isset( $default[$key] ) ? $default[$key] : '';
+        }
+
+        $dimensionArr = [];
+        $dimensionAttr = '';
+        $input1 = '';
+        $input2 = '';
+        $input3 = '';
+        $input4 = '';
+        $measure = isset($valueArr['data_unit']) ? $valueArr['data_unit'] : $measure;
+
+        if ( $valueArr['input1'] !== '' ) {
+            $input1 = $valueArr['input1'] . $measure;
+        } else {
+            $input1 = '0' . $measure;
+        }
+        if ( $input1 !== '' ) {
+            $dimensionArr[] = $input1;
+        }
+        
+        if ( $valueArr['input2'] !== '' ) {
+            $input2 = $valueArr['input2'] . $measure;
+        } else {
+            $input2 = '0' . $measure;
+        }
+        if ( $input2 !== '' ) {
+            $dimensionArr[] = $input2;
+        }
+        
+        if ( $valueArr['input3'] !== '' ) {
+            $input3 = $valueArr['input3'] . $measure;
+        } else {
+            $input3 = '0' . $measure;
+        }
+        if ( $input3 !== '' ) {
+            $dimensionArr[] = $input3;
+        }
+        
+        if ( $valueArr['input4'] !== '' ) {
+            $input4 = $valueArr['input4'] . $measure;
+        } else {
+            $input4 = '0' . $measure;
+        }
+        if ( $input4 !== '' ) {
+            $dimensionArr[] = $input4;
+        }
+
+        if ( count($dimensionArr) > 0 ) {
+            $dimensionAttr = "border-width: " . implode(' ', $dimensionArr) . $important . ";";
+        }
+        
+        return $dimensionAttr;
+    }
+endif;
+
+?>

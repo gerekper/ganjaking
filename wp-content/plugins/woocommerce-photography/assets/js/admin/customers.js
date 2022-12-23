@@ -26,7 +26,7 @@
 					quietMillis: 200,
 					data: function ( term ) {
 						return {
-							term: WCPhotographyCustomerParams.isLessThanWC30 ? term : term.term,
+							term: term.term,
 							action: 'wc_photography_search_collections',
 							security: WCPhotographyCustomerParams.search_collections_nonce
 						};
@@ -38,20 +38,6 @@
 					}
 				}
 			};
-
-			if ( WCPhotographyCustomerParams.isLessThanWC30 ) {
-				select2_args.initSelection = function( element, callback ) {
-					var data = JSON.parse( element.attr( 'data-selected' ) );
-
-					return callback( data );
-				};
-
-				select2_args.formatSelection = function( data ) {
-					return '<div class="selected-option" data-id="' + data.id + '">' + data.text + '</div>';
-				};
-
-				select2_args.ajax.results = select2_args.ajax.processResults;
-			}
 
 			target.select2( select2_args ).addClass( 'enhanced' );
 		}
@@ -93,40 +79,10 @@
 					button.prop( 'disabled', false ).next( '.loading' ).remove();
 
 					if ( response.success ) {
-						if ( WCPhotographyCustomerParams.isLessThanWC30 ) {
-							var select = $( 'input.wc-photography-collections-select', wrap ),
-								items  = [],
-								values = [];
-
-							// Include the new collection.
-							$( '.selected-option', wrap ).each( function( index, val ) {
-								var current = $( val );
-
-								items.push({
-									id: current.attr( 'data-id' ),
-									text: current.text()
-								});
-
-								values.push( current.attr( 'data-id' ) );
-							});
-
-							items.push( response.data );
-							values.push( response.data.id );
-
-							select
-								.attr( 'data-selected', JSON.stringify( items ) )
-								.val( values.toString() );
-
-							initCollectionsSelect( select );
-
-							// Toggle the add new collections field.
-							$( '.fields', wrap ).toggle();
-						} else {
-							var select = $( '.wc-photography-collections-select' );
-							var option = new Option( response.data.text, response.data.id );
-							option.selected = true;
-							select.append( option );
-						}
+						var select = $( '.wc-photography-collections-select' ),
+						 option = new Option( response.data.text, response.data.id );
+						option.selected = true;
+						select.append( option );
 					} else {
 						button.after( '<div class="error inline message">' + WCPhotographyCustomerParams.collection_error + '</div>' );
 					}

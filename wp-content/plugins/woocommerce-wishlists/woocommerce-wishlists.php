@@ -3,11 +3,11 @@
  * Plugin Name: WooCommerce WishLists
  * Plugin URI: https://woocommerce.com/products/woocommerce-wishlists/
  * Description:  WooCommerce Wishlists allows you to create public and personal wishlists.
- * Version: 2.2.6
+ * Version: 2.2.8
  * Author: Element Stark
  * Author URI: https://www.elementstark.com
  * Requires at least: 3.1
- * Tested up to: 5.8
+ * Tested up to: 6.2
 
  * Text Domain: wc_wishlist
  * Domain Path: /lang/
@@ -17,21 +17,16 @@
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
  * WC requires at least: 3.8.0
- * WC tested up to: 6.0
+ * WC tested up to: 7.2
  * Woo: 171144:6bd20993ea96333eab6931ec2adc6d63
  */
 
 /**
  * Required functions
  */
-if ( ! function_exists( 'woothemes_queue_update' ) ) {
+if ( ! function_exists( 'is_woocommerce_active' ) ) {
 	require_once( 'woo-includes/woo-functions.php' );
 }
-
-/**
- * Plugin updates
- */
-woothemes_queue_update( plugin_basename( __FILE__ ), '6bd20993ea96333eab6931ec2adc6d63', '171144' );
 
 
 if ( is_woocommerce_active() ) {
@@ -160,7 +155,7 @@ if ( is_woocommerce_active() ) {
 				WC_Wishlists_Settings_Admin::instance();
 				WC_Wishlists_Wishlist_Admin::instance();
 
-				//@see classes/class-wc-wishlists-admin-controller.php for further comments. 
+				//@see classes/class-wc-wishlists-admin-controller.php for further comments.
 				//include 'classes/class-wc-wishlists-admin-controller.php';
 				//WC_Wishlists_Admin_Controller::register();
 			}
@@ -234,7 +229,7 @@ if ( is_woocommerce_active() ) {
 			}
 
 			// Insert your custom endpoint.
-			$items['account-wishlists'] = apply_filters('woocommerce_wishlists_account_menu_label', __( 'Wishlists', 'wc_wishlist' ));
+			$items['account-wishlists'] = apply_filters( 'woocommerce_wishlists_account_menu_label', __( 'Wishlists', 'wc_wishlist' ) );
 
 			if ( $logout ) {
 				// Insert back the logout item.
@@ -262,7 +257,7 @@ if ( is_woocommerce_active() ) {
 
 		public function process_request() {
 			if ( is_page() ) {
-				if ( is_page( WC_Wishlists_Pages::get_page_id( 'view-a-list' ) ) && empty( $_GET['wlid'] ) ) {
+				if ( is_page( WC_Wishlists_Pages::get_page_id( 'view-a-list' ) ) && empty( $_REQUEST['wlid'] ) ) {
 
 					WC_Wishlist_Compatibility::wc_add_error( __( 'Please select a list first', 'wc_wishlist' ) );
 
@@ -271,7 +266,7 @@ if ( is_woocommerce_active() ) {
 					die();
 				}
 
-				if ( is_page( WC_Wishlists_Pages::get_page_id( 'edit-my-list' ) ) && empty( $_GET['wlid'] ) ) {
+				if ( is_page( WC_Wishlists_Pages::get_page_id( 'edit-my-list' ) ) && empty( $_REQUEST['wlid'] ) ) {
 
 					WC_Wishlist_Compatibility::wc_add_error( __( 'Please select a list first', 'wc_wishlist' ) );
 
@@ -306,23 +301,28 @@ if ( is_woocommerce_active() ) {
 
 		public function bind_wishlist_button() {
 			$product = wc_get_product( get_the_ID() );
+			if ( empty( $product ) ) {
+				return;
+			}
 
 			$template_hook = 'woocommerce_after_add_to_cart_button';
 
 
 			$template_hook = apply_filters( 'woocommerce_wishlists_template_location', $template_hook, $product->get_id() );
 
-			if ( ( $product->is_in_stock() || $product->backorders_allowed() ) && ! $product->is_type( 'external' ) ) {
-				add_action( $template_hook, array( $this, 'add_to_wishlist_button' ), 1000 );
-				add_action( 'wc_cvo_after_single_variation', array( $this, 'add_to_wishlist_button' ) );
-			} elseif ( $product->is_type( 'simple' ) ) {
-				//Use woocommerce_simple_add_to_cart action from wc-template-functions.php file. 
-				add_action( 'woocommerce_simple_add_to_cart', array( $this, 'add_wishlist_form' ) );
-			} elseif ( $product->is_type( 'variable' ) ) {
-				add_action( $template_hook, array( $this, 'add_to_wishlist_button' ) );
-			} elseif ( $product->is_type( 'external' ) ) {
-				add_action( $template_hook, array( $this, 'add_wishlist_form_to_external_products' ) );
-			}
+            if ($template_hook) {
+	            if ( ( $product->is_in_stock() || $product->backorders_allowed() ) && ! $product->is_type( 'external' ) ) {
+		            add_action( $template_hook, array( $this, 'add_to_wishlist_button' ), 1000 );
+		            add_action( 'wc_cvo_after_single_variation', array( $this, 'add_to_wishlist_button' ) );
+	            } elseif ( $product->is_type( 'simple' ) ) {
+		            //Use woocommerce_simple_add_to_cart action from wc-template-functions.php file.
+		            add_action( 'woocommerce_simple_add_to_cart', array( $this, 'add_wishlist_form' ) );
+	            } elseif ( $product->is_type( 'variable' ) ) {
+		            add_action( $template_hook, array( $this, 'add_to_wishlist_button' ) );
+	            } elseif ( $product->is_type( 'external' ) ) {
+		            add_action( $template_hook, array( $this, 'add_wishlist_form_to_external_products' ) );
+	            }
+            }
 		}
 
 		public function add_to_wishlist_button() {
@@ -349,8 +349,8 @@ if ( is_woocommerce_active() ) {
 						$add_to_wishlist_args['btn_class'][] = 'wl-add-to';
 						$add_to_wishlist_args['btn_class'][] = 'wl-add-to-single';
 
-						//Updated to redirect the user to the new list screen if auto generate guest lists are disabled. 
-						////Default is to automatically generate a guest list with generic information. 
+						//Updated to redirect the user to the new list screen if auto generate guest lists are disabled.
+						////Default is to automatically generate a guest list with generic information.
 						$add_to_wishlist_args['single_id'] = WC_Wishlists_Settings::get_setting( 'wc_wishlist_autocreate', 'yes' ) == 'yes' ? '' : 'session';
 					}
 
@@ -445,11 +445,11 @@ if ( is_woocommerce_active() ) {
 
 				$enabled = WC_Wishlists_Settings::get_setting( 'wc_wishlist_notifications_enabled', false );
 				if ( empty( $enabled ) ) {
-					//Disable the notifications by default. 
+					//Disable the notifications by default.
 					WC_Wishlists_Settings::set_setting( 'wc_wishlist_notifications_enabled', 'disabled' );
 				}
 
-				WC_Wishlists_Cron::register(); //Register the cron job. 
+				WC_Wishlists_Cron::register(); //Register the cron job.
 				WC_Wishlists_Settings::set_setting( 'wc_wishlists_db_version_cron', $this->cron_version );
 			}
 		}
@@ -641,12 +641,12 @@ if ( is_woocommerce_active() ) {
 		public function add_session_message() {
 			if ( WC_Wishlist_Compatibility::WC()->session && WC_Wishlist_Compatibility::WC()->session->has_session() ) {
 				$session_items = WC_Wishlists_Wishlist_Item_Collection::get_items_from_session();
-				if ( !is_page( WC_Wishlists_Pages::get_page_id( 'create-a-list' ) ) ) {
+				if ( ! is_page( WC_Wishlists_Pages::get_page_id( 'create-a-list' ) ) ) {
 					if ( $session_items && count( $session_items ) ) {
 						$action = '<a class="wishlist-message-dismiss" href="' . self::nonce_url( 'clear-session-items', add_query_arg( array( 'wlaction' => 'clear-session-items' ) ) ) . '">' . __( 'Cancel', 'wc_wishlist' ) . '</a>';
 
 						$message = sprintf( __( 'You have %s items ready to move to a new list.  <a href="%s">Create a list</a>', 'wc_wishlist' ), count( $session_items ), WC_Wishlists_Pages::get_url_for( 'create-a-list' ) ) . $action;
-						if ( !wc_has_notice( $message ) ) {
+						if ( ! wc_has_notice( $message ) ) {
 							wc_add_notice( $message );
 						}
 					}
@@ -715,7 +715,7 @@ if ( is_woocommerce_active() ) {
 						$is_users_list = $wishlist->get_wishlist_owner() == WC_Wishlists_User::get_wishlist_key();
 						$fb_message    = $is_users_list ? __( 'Check out my wishlist at ', 'wc_wishlist' ) . get_bloginfo( 'name' ) . ' ' : __( 'Found an interesting list of products at ', 'wc_wishlist' ) . get_bloginfo( 'name' ) . ' ';
 
-						$fb_message = apply_filters('woocommerce_wishlists_share_fb', $fb_message, $wishlist, $is_users_list);
+						$fb_message = apply_filters( 'woocommerce_wishlists_share_fb', $fb_message, $wishlist, $is_users_list );
 
 						if ( $maybe_image_url ) {
 							echo '<meta property="og:type" content="blog"/>';
@@ -724,8 +724,8 @@ if ( is_woocommerce_active() ) {
 						}
 
 						?>
-						<?php $e_facebook  = WC_Wishlists_Settings::get_setting( 'wc_wishlists_sharing_facebook', 'yes' ) == 'yes'; ?>
-						<?php if ($e_facebook): ?>
+						<?php $e_facebook = WC_Wishlists_Settings::get_setting( 'wc_wishlists_sharing_facebook', 'yes' ) == 'yes'; ?>
+						<?php if ( $e_facebook ): ?>
                             <script>(function (d, s, id) {
                                     var js, fjs = d.getElementsByTagName(s)[0];
                                     if (d.getElementById(id)) return;

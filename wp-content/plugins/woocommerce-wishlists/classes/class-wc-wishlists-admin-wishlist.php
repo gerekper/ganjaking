@@ -418,7 +418,7 @@ class WC_Wishlists_Wishlist_Admin {
 
 
 		$args = wp_parse_args( $args, $defaults );
-		$args = apply_filters( 'wc_wishlists_udpate_list_args', $args );
+		$args = apply_filters( 'wc_wishlists_update_list_args', $args );
 
 		if ( $defaults['wishlist_status'] == 'temporary' && $args['wishlist_owner'] != $defaults['wishlist_owner'] ) {
 			//Admin is assigning this list to a user.

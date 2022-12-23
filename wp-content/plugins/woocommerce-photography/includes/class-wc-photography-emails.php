@@ -28,7 +28,7 @@ class WC_Photography_Emails {
 	 */
 	public function emails( $emails ) {
 		if ( ! isset( $emails['WC_Email_Photography_New_Collection'] ) ) {
-			$emails['WC_Email_Photography_New_Collection'] = include( 'emails/class-wc-mail-photography-new-collection.php' );
+			$emails['WC_Email_Photography_New_Collection'] = include 'emails/class-wc-mail-photography-new-collection.php';
 		}
 
 		return $emails;

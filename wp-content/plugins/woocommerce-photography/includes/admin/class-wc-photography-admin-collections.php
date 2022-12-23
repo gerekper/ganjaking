@@ -43,9 +43,9 @@ class WC_Photography_Admin_Collections {
 	 * @return string
 	 */
 	public function collections_edit_fields( $term, $taxonomy ) {
-		$visibility	    = WC_Photography_WC_Compat::get_term_meta( $term->term_id, 'visibility', true );
-		$image 			= '';
-		$thumbnail_id 	= absint( WC_Photography_WC_Compat::get_term_meta( $term->term_id, 'thumbnail_id', true ) );
+		$visibility   = WC_Photography_WC_Compat::get_term_meta( $term->term_id, 'visibility', true );
+		$image        = '';
+		$thumbnail_id = absint( WC_Photography_WC_Compat::get_term_meta( $term->term_id, 'thumbnail_id', true ) );
 		if ( $thumbnail_id ) {
 			$image = wp_get_attachment_thumb_url( $thumbnail_id );
 		} else {
@@ -100,7 +100,7 @@ class WC_Photography_Admin_Collections {
 	 *
 	 * @param array $columns
 	 * @param mixed $column
-	 * @param int $id
+	 * @param int   $id
 	 *
 	 * @return array
 	 */
@@ -141,7 +141,7 @@ class WC_Photography_Admin_Collections {
 	/**
 	 * Custom collections row actions.
 	 *
-	 * @param  array $actions
+	 * @param  array  $actions
 	 * @param  string $collection
 	 *
 	 * @return array

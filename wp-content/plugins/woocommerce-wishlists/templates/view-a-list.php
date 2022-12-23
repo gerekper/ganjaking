@@ -158,6 +158,7 @@ $wlitemcat  = isset( $_GET['wlitemcat'] ) ? $_GET['wlitemcat'] : 0;
 				if ( sizeof( $wishlist_items ) > 0 ) :
 					foreach ( $wishlist_items as $wishlist_item_key => $item ) :
 						$_product = wc_get_product( $item['data'] );
+						$product_permalink = apply_filters( 'woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink( $item ) : '', $item, $wishlist_item_key );
 
 						if ( $_product->exists() && $item['quantity'] > 0 ) :
 							?>
@@ -170,14 +171,11 @@ $wlitemcat  = isset( $_GET['wlitemcat'] ) ? $_GET['wlitemcat'] : 0;
                                 </td>
                                 <td class="product-name" data-title="<?php _e( 'Product', 'wc_wishlist' ); ?>">
 									<?php
-									if ( WC_Wishlist_Compatibility::is_wc_version_gte_2_1() ) {
-										if ( ! $_product->is_visible() ) {
-											echo apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $item, $wishlist_item_key );
-										} else {
-											echo apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', esc_url( is_array( $item['variation'] ) ? add_query_arg( $item['variation'], $_product->get_permalink() ) : $_product->get_permalink() ), $_product->get_name() ), $item, $wishlist_item_key );
-										}
+
+									if ( !$product_permalink ) {
+										echo apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $item, $wishlist_item_key ) . '&nbsp;';
 									} else {
-										printf( '<a href="%s">%s</a>', esc_url( get_permalink( apply_filters( 'woocommerce_in_cart_product_id', $item['product_id'] ) ) ), apply_filters( 'woocommerce_in_wishlist_product_title', $_product->get_name(), $_product, $wishlist_item_key ) );
+										echo apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $_product->get_name() ), $item, $wishlist_item_key );
 									}
 
 

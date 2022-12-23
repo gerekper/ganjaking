@@ -316,17 +316,14 @@ class BetterDocs_Licensing {
 			return;
 		}
 
+		// retrieve the license from the database
 	$license_data = new \stdClass();
 				$license_data->license = 'valid';
 				$license_data->success = true;
-
 				$license_data->payment_id = 0;
 				$license_data->license_limit = 0;
-
 				$license_data->site_count = 0;
-
 				$license_data->activations_left = 0;
-
 		if ( isset( $license_data->success ) && false === boolval( $license_data->success ) ) {
 
 			switch( $license_data->error ) {
@@ -410,7 +407,6 @@ class BetterDocs_Licensing {
 			}
 
 
-
 				$license_data = new \stdClass();
 				$license_data->license = 'valid';
 				$license_data->payment_id = 0;
@@ -442,9 +438,8 @@ class BetterDocs_Licensing {
 			}
 		}
 
-		$license_data = new \stdClass();
+				$license_data = new \stdClass();
 				$license_data->license = 'deactivated';
-
 
 		if( is_wp_error( $license_data ) ) {
 			$message = $license_data->get_error_message();

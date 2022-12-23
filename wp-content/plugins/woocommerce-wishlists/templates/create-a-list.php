@@ -92,7 +92,7 @@ $args = wp_parse_args( $post_args, $defaults );
                                value="<?php echo empty( $args['wishlist_first_name'] ) ? esc_attr( $current_user->user_firstname ) : esc_attr( $args['wishlist_first_name'] ); ?>"/>
 					<?php else : ?>
                         <input type="text" name="wishlist_first_name" id="wishlist_first_name" class="input-text"
-                               value="<?php echo esc_attr_e( $args['wishlist_first_name'] ); ?>"/>
+                               value="<?php echo esc_attr( $args['wishlist_first_name'] ); ?>"/>
 					<?php endif; ?>
                 </p>
                 <p class="form-row form-row-last">
@@ -104,7 +104,7 @@ $args = wp_parse_args( $post_args, $defaults );
 
 					<?php else : ?>
                         <input type="text" name="wishlist_last_name" id="wishlist_last_name" class="input-text"
-                               value="<?php echo esc_attr_e( $args['wishlist_last_name'] ); ?>"/>
+                               value="<?php echo esc_attr( $args['wishlist_last_name'] ); ?>"/>
 					<?php endif; ?>
                 </p>
                 <div class="wl-clear"></div>

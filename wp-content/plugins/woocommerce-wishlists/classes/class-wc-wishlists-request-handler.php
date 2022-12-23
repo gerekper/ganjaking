@@ -40,7 +40,7 @@ class WC_Wishlists_Request_Handler {
 							break;
 						case 'quantity-add-to-cart' :
 							$result = self::bulk_update_action(); //update the qquantity first
-							$result = self::bulk_edit_action(); //this will call add to cart. 
+							$result = self::bulk_edit_action(); //this will call add to cart.
 							break;
 						default:
 							$result = self::bulk_edit_action();
@@ -486,7 +486,7 @@ class WC_Wishlists_Request_Handler {
 					return false;
 				}
 
-				if ( ! apply_filters( 'woocommerce_wishlist_user_can_purcahse', true, $product_data ) ) {
+				if ( ! apply_filters( 'woocommerce_wishlist_user_can_purchase', true, $product_data ) ) {
 					WC_Wishlist_Compatibility::wc_add_notice( sprintf( __( 'Purchases are currently disabled for %s', 'wc_wishlist' ), $product_data->get_title() ), 'error' );
 
 					return false;
@@ -535,10 +535,11 @@ class WC_Wishlists_Request_Handler {
 				$add_on_data = apply_filters( 'woocommerce_copy_cart_item_data', $add_on_data, (int) $wishlist_item['product_id'], $wishlist_item );
 				$quantity    = isset( $_GET['quantity'] ) && $_GET['quantity'] ? $_GET['quantity'] : $cart_item['quantity'];
 
-				if ( WC()->cart->add_to_cart( (int) $cart_item['product_id'], $quantity, $cart_item['variation_id'], $cart_item['variation'], $add_on_data ) ) {
+				$passed_validation = apply_filters( 'woocommerce_add_to_cart_validation', true, $cart_item['product_id'], $quantity );
+				if ($passed_validation && WC()->cart->add_to_cart( (int) $cart_item['product_id'], $quantity, $cart_item['variation_id'], $cart_item['variation'], $add_on_data ) ) {
 
 					if ( ! $suppress_messages ) {
-						$message = sprintf( __( 'Product successfully added to your cart.', 'wc_wishlist' ) );
+						$message = __( 'Product successfully added to your cart.', 'wc_wishlist' );
 						$message = apply_filters( 'wc_add_to_cart_message_html', $message, array($cart_item['product_id']=>$quantity), false ); // hacked by MRV
 						WC_Wishlist_Compatibility::wc_add_notice( $message );
 					}

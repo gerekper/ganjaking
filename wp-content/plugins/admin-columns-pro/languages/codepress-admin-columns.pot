@@ -1380,6 +1380,10 @@ msgstr ""
 msgid "No parent post types available."
 msgstr ""
 
+#: admin-columns-pro/addons/woocommerce/classes/ListTable/ProductVariation.php:132, admin-columns-pro/classes/Editing/Asset/Script/Table.php:87, admin-columns-pro/addons/woocommerce/classes/Filtering/Product/Thumb.php:12, admin-columns-pro/addons/woocommerce/classes/Filtering/Product/Thumb.php:13
+msgid "Image"
+msgstr ""
+
 #: admin-columns-pro/addons/woocommerce/classes/ListTable/ProductVariation.php:223
 msgid "Search Variable Product"
 msgstr ""
@@ -1494,10 +1498,6 @@ msgstr ""
 
 #: admin-columns-pro/classes/Editing/Asset/Script/Table.php:86
 msgid "Media"
-msgstr ""
-
-#: admin-columns-pro/classes/Editing/Asset/Script/Table.php:87, admin-columns-pro/addons/woocommerce/classes/Filtering/Product/Thumb.php:12, admin-columns-pro/addons/woocommerce/classes/Filtering/Product/Thumb.php:13
-msgid "Image"
 msgstr ""
 
 #: admin-columns-pro/classes/Editing/Asset/Script/Table.php:88

@@ -40,7 +40,7 @@ class Date extends Field {
 	}
 
 	public function export() {
-		return new Export\Field\Date( $this->column );
+		return new Export\Field\Date( $this->column, $this->has_time() ? 'Y-m-d H:i:s' : 'Y-m-d' );
 	}
 
 	public function search() {

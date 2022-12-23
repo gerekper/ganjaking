@@ -9,15 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $product;
 
-if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.3', '>=' ) ) {
-	$class = '';
-} else {
-	$class = ' legacy-quantity';
-}
-
 ?>
 
-<div class="photography-quantity<?php echo $class; ?>">
+<div class="photography-quantity">
 
 <?php
 	woocommerce_quantity_input( array(

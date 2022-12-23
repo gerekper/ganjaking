@@ -29,6 +29,10 @@ class Field extends AC\Column\Meta
 	public function get_value( $id ) {
 		$fields = tribe_get_custom_fields( $id );
 
+		if ( ! is_array( $fields ) ) {
+			return $this->get_empty_char();
+		}
+
 		$label = $this->get( 'label' );
 
 		if ( ! array_key_exists( $label, $fields ) ) {

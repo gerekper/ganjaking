@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce WishLists 2.2.6\n"
+"Project-Id-Version: WooCommerce WishLists 2.2.8\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-wishlists\n"
-"POT-Creation-Date: 2022-01-08 17:25:55+00:00\n"
+"POT-Creation-Date: 2022-12-20 14:42:12+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,9 +28,9 @@ msgstr ""
 #: dist/woocommerce-wishlists/classes/class-wc-wishlists-admin-settings.php:69
 #: dist/woocommerce-wishlists/classes/class-wc-wishlists-installer.php:23
 #: dist/woocommerce-wishlists/templates/my-account-lists.php:3
-#: dist/woocommerce-wishlists/woocommerce-wishlists.php:237
+#: dist/woocommerce-wishlists/woocommerce-wishlists.php:232
 #: dist/woocommerce-wishlists/woocommerce-wishlists.php:488
-#: templates/my-account-lists.php:3 woocommerce-wishlists.php:237
+#: templates/my-account-lists.php:3 woocommerce-wishlists.php:232
 #: woocommerce-wishlists.php:488
 msgid "Wishlists"
 msgstr ""
@@ -221,10 +221,11 @@ msgstr ""
 #: dist/woocommerce-wishlists/classes/class-wc-wishlists-admin-settings.php:321
 #: dist/woocommerce-wishlists/templates/edit-my-list.php:127
 #: dist/woocommerce-wishlists/templates/edit-my-list.php:236
+#: dist/woocommerce-wishlists/templates/saved-for-later.php:78
 #: dist/woocommerce-wishlists/templates/view-a-list.php:136
 #: dist/woocommerce-wishlists/templates/view-a-list.php:221
 #: templates/edit-my-list.php:127 templates/edit-my-list.php:236
-#: templates/view-a-list.php:136 templates/view-a-list.php:221
+#: templates/view-a-list.php:136 templates/view-a-list.php:219
 msgid "Ordered"
 msgstr ""
 
@@ -763,6 +764,7 @@ msgstr ""
 #: classes/class-wc-wishlists-admin-wishlist.php:672
 #: dist/woocommerce-wishlists/classes/class-wc-wishlists-admin-wishlist.php:672
 #: dist/woocommerce-wishlists/templates/edit-my-list.php:125
+#: dist/woocommerce-wishlists/templates/saved-for-later.php:10
 #: dist/woocommerce-wishlists/templates/view-a-list.php:134
 #: templates/edit-my-list.php:125 templates/view-a-list.php:134
 msgid "Qty"
@@ -949,10 +951,10 @@ msgstr ""
 #: dist/woocommerce-wishlists/classes/class-wc-wishlists-request-handler.php:13
 #: dist/woocommerce-wishlists/classes/class-wc-wishlists-request-handler.php:439
 #: dist/woocommerce-wishlists/classes/class-wc-wishlists-request-handler.php:446
-#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:344
-#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:351
+#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:347
+#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:354
 #: dist/woocommerce-wishlists/woocommerce-wishlists.php:623
-#: woocommerce-wishlists-api.php:344 woocommerce-wishlists-api.php:351
+#: woocommerce-wishlists-api.php:347 woocommerce-wishlists-api.php:354
 #: woocommerce-wishlists.php:623
 msgid "Action failed. Please refresh the page and retry."
 msgstr ""
@@ -1116,13 +1118,13 @@ msgstr ""
 msgid "You cannot add another &quot;%s&quot; to your cart."
 msgstr ""
 
-#: classes/class-wc-wishlists-request-handler.php:541
-#: dist/woocommerce-wishlists/classes/class-wc-wishlists-request-handler.php:541
+#: classes/class-wc-wishlists-request-handler.php:542
+#: dist/woocommerce-wishlists/classes/class-wc-wishlists-request-handler.php:542
 msgid "Product successfully added to your cart."
 msgstr ""
 
-#: classes/class-wc-wishlists-request-handler.php:549
-#: dist/woocommerce-wishlists/classes/class-wc-wishlists-request-handler.php:549
+#: classes/class-wc-wishlists-request-handler.php:550
+#: dist/woocommerce-wishlists/classes/class-wc-wishlists-request-handler.php:550
 msgid "Unable to add product to the cart. Please try again"
 msgstr ""
 
@@ -1169,6 +1171,21 @@ msgstr ""
 #: classes/class-wc-wishlists-rest-controller.php:89
 #: dist/woocommerce-wishlists/classes/class-wc-wishlists-rest-controller.php:89
 msgid "The list items."
+msgstr ""
+
+#: classes/class-wc-wishlists-rest-controller.php:111
+#: dist/woocommerce-wishlists/classes/class-wc-wishlists-rest-controller.php:111
+msgid "Unique identifier for the post."
+msgstr ""
+
+#: classes/class-wc-wishlists-rest-controller.php:135
+#: dist/woocommerce-wishlists/classes/class-wc-wishlists-rest-controller.php:135
+msgid "Whether to bypass Trash and force deletion."
+msgstr ""
+
+#: classes/class-wc-wishlists-rest-controller.php:250
+#: dist/woocommerce-wishlists/classes/class-wc-wishlists-rest-controller.php:250
+msgid "Sorry, invalid product ID."
 msgstr ""
 
 #: classes/models/class-wc-wishlists-wishlist-item-collection.php:254
@@ -1342,12 +1359,14 @@ msgstr ""
 #: dist/woocommerce-wishlists/templates/edit-my-list.php:91
 #: dist/woocommerce-wishlists/templates/edit-my-list.php:246
 #: dist/woocommerce-wishlists/templates/edit-my-list.php:292
+#: dist/woocommerce-wishlists/templates/saved-for-later.php:85
+#: dist/woocommerce-wishlists/templates/saved-for-later.php:89
 #: dist/woocommerce-wishlists/templates/view-a-list.php:229
 #: dist/woocommerce-wishlists/templates/view-a-list.php:235
 #: dist/woocommerce-wishlists/templates/view-a-list.php:239
 #: templates/edit-my-list.php:91 templates/edit-my-list.php:246
-#: templates/edit-my-list.php:292 templates/view-a-list.php:229
-#: templates/view-a-list.php:235 templates/view-a-list.php:239
+#: templates/edit-my-list.php:292 templates/view-a-list.php:227
+#: templates/view-a-list.php:233 templates/view-a-list.php:237
 msgid "Add to Cart"
 msgstr ""
 
@@ -1383,20 +1402,24 @@ msgstr ""
 #: dist/woocommerce-wishlists/templates/edit-my-list.php:123
 #: dist/woocommerce-wishlists/templates/edit-my-list.php:172
 #: dist/woocommerce-wishlists/templates/my-account-lists.php:18
+#: dist/woocommerce-wishlists/templates/saved-for-later.php:8
+#: dist/woocommerce-wishlists/templates/saved-for-later.php:28
 #: dist/woocommerce-wishlists/templates/view-a-list.php:132
 #: dist/woocommerce-wishlists/templates/view-a-list.php:171
 #: templates/edit-my-list.php:123 templates/edit-my-list.php:172
 #: templates/my-account-lists.php:18 templates/view-a-list.php:132
-#: templates/view-a-list.php:171
+#: templates/view-a-list.php:172
 msgid "Product"
 msgstr ""
 
 #: dist/woocommerce-wishlists/templates/edit-my-list.php:124
 #: dist/woocommerce-wishlists/templates/edit-my-list.php:200
+#: dist/woocommerce-wishlists/templates/saved-for-later.php:9
+#: dist/woocommerce-wishlists/templates/saved-for-later.php:58
 #: dist/woocommerce-wishlists/templates/view-a-list.php:133
 #: dist/woocommerce-wishlists/templates/view-a-list.php:201
 #: templates/edit-my-list.php:124 templates/edit-my-list.php:200
-#: templates/view-a-list.php:133 templates/view-a-list.php:201
+#: templates/view-a-list.php:133 templates/view-a-list.php:199
 msgid "Price"
 msgstr ""
 
@@ -1411,14 +1434,15 @@ msgid "Are you sure you would like to remove this item from your list?"
 msgstr ""
 
 #: dist/woocommerce-wishlists/templates/edit-my-list.php:215
+#: dist/woocommerce-wishlists/templates/saved-for-later.php:72
 #: dist/woocommerce-wishlists/templates/view-a-list.php:215
-#: templates/edit-my-list.php:215 templates/view-a-list.php:215
+#: templates/edit-my-list.php:215 templates/view-a-list.php:213
 msgid "Quantity"
 msgstr ""
 
 #: dist/woocommerce-wishlists/templates/edit-my-list.php:276
 #: dist/woocommerce-wishlists/templates/view-a-list.php:262
-#: templates/edit-my-list.php:276 templates/view-a-list.php:262
+#: templates/edit-my-list.php:276 templates/view-a-list.php:260
 msgid "Add All To Cart"
 msgstr ""
 
@@ -1611,12 +1635,12 @@ msgid "Go"
 msgstr ""
 
 #: dist/woocommerce-wishlists/templates/view-a-list.php:273
-#: templates/view-a-list.php:273
+#: templates/view-a-list.php:271
 msgid "This list currently contains no items."
 msgstr ""
 
 #: dist/woocommerce-wishlists/templates/view-a-list.php:274
-#: templates/view-a-list.php:274
+#: templates/view-a-list.php:272
 msgid "Back to find a list"
 msgstr ""
 
@@ -1666,89 +1690,89 @@ msgstr ""
 msgid "Unable to locate or create a list for you.  Please try again later"
 msgstr ""
 
-#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:100
-#: woocommerce-wishlists-api.php:100
+#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:103
+#: woocommerce-wishlists-api.php:103
 msgid "Please choose a product&hellip;"
 msgstr ""
 
-#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:160
-#: woocommerce-wishlists-api.php:160
+#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:163
+#: woocommerce-wishlists-api.php:163
 msgid "%s Items ready to move to a new list"
 msgstr ""
 
-#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:164
+#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:167
 #: dist/woocommerce-wishlists/woocommerce-wishlists.php:646
-#: woocommerce-wishlists-api.php:164 woocommerce-wishlists.php:646
+#: woocommerce-wishlists-api.php:167 woocommerce-wishlists.php:646
 msgid "Cancel"
 msgstr ""
 
-#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:200
-#: woocommerce-wishlists-api.php:200
+#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:203
+#: woocommerce-wishlists-api.php:203
 msgid "Please choose product options&hellip;"
 msgstr ""
 
-#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:228
-#: woocommerce-wishlists-api.php:228
+#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:231
+#: woocommerce-wishlists-api.php:231
 msgid "Invalid value posted for %s"
 msgstr ""
 
-#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:235
-#: woocommerce-wishlists-api.php:235
+#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:238
+#: woocommerce-wishlists-api.php:238
 msgid "%s is a required field"
 msgid_plural "%s are required fields"
 msgstr[0] ""
 msgstr[1] ""
 
-#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:297
-#: woocommerce-wishlists-api.php:297
+#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:300
+#: woocommerce-wishlists-api.php:300
 msgid "Please choose the quantity of items you wish to add to your list&hellip;"
 msgstr ""
 
-#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:299
-#: woocommerce-wishlists-api.php:299
+#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:302
+#: woocommerce-wishlists-api.php:302
 msgid ""
 "There was a problem adding items to your wishlist.  Please review and try "
 "again.&hellip;"
 msgstr ""
 
-#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:306
-#: woocommerce-wishlists-api.php:306
+#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:309
+#: woocommerce-wishlists-api.php:309
 msgid "Please choose a product to add to your list&hellip;"
 msgstr ""
 
-#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:316
-#: woocommerce-wishlists-api.php:316
+#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:319
+#: woocommerce-wishlists-api.php:319
 msgid "Continue Shopping &rarr;"
 msgstr ""
 
-#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:316
-#: woocommerce-wishlists-api.php:316
+#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:319
+#: woocommerce-wishlists-api.php:319
 msgid "Product successfully added to your wishlist."
 msgstr ""
 
-#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:322
-#: woocommerce-wishlists-api.php:322
+#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:325
+#: woocommerce-wishlists-api.php:325
 msgid "Product successfully added to %s."
 msgstr ""
 
-#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:323
-#: woocommerce-wishlists-api.php:323
+#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:326
+#: woocommerce-wishlists-api.php:326
 msgid "Manage Wishlist &rarr;"
 msgstr ""
 
-#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:357
-#: woocommerce-wishlists-api.php:357
+#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:360
+#: woocommerce-wishlists-api.php:360
 msgid "Unable to share a private list."
 msgstr ""
 
-#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:388
-#: woocommerce-wishlists-api.php:388
+#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:391
+#: woocommerce-wishlists-api.php:391
 msgid "Your email has been sent"
 msgstr ""
 
-#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:390
-#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:392
-#: woocommerce-wishlists-api.php:390 woocommerce-wishlists-api.php:392
+#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:393
+#: dist/woocommerce-wishlists/woocommerce-wishlists-api.php:395
+#: woocommerce-wishlists-api.php:393 woocommerce-wishlists-api.php:395
 msgid "Unable to send mail.  Please check your values and try again."
 msgstr ""
 
@@ -1792,19 +1816,19 @@ msgstr ""
 msgid "Send email"
 msgstr ""
 
-#: dist/woocommerce-wishlists/woocommerce-wishlists.php:267
-#: dist/woocommerce-wishlists/woocommerce-wishlists.php:276
-#: woocommerce-wishlists.php:267 woocommerce-wishlists.php:276
+#: dist/woocommerce-wishlists/woocommerce-wishlists.php:262
+#: dist/woocommerce-wishlists/woocommerce-wishlists.php:271
+#: woocommerce-wishlists.php:262 woocommerce-wishlists.php:271
 msgid "Please select a list first"
 msgstr ""
 
-#: dist/woocommerce-wishlists/woocommerce-wishlists.php:299
-#: woocommerce-wishlists.php:299
+#: dist/woocommerce-wishlists/woocommerce-wishlists.php:294
+#: woocommerce-wishlists.php:294
 msgid "Are you sure?"
 msgstr ""
 
-#: dist/woocommerce-wishlists/woocommerce-wishlists.php:300
-#: woocommerce-wishlists.php:300
+#: dist/woocommerce-wishlists/woocommerce-wishlists.php:295
+#: woocommerce-wishlists.php:295
 msgid "How Many Would You Like to Add?"
 msgstr ""
 

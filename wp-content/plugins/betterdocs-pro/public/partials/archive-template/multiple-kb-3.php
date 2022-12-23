@@ -35,7 +35,10 @@ echo '<div class="betterdocs-wraper betterdocs-mkb-wraper">';
                 echo '</div>';
             }
   echo '</div>
-    </div>
-</div>';
+    </div>';
+    
+    include( BETTERDOCS_PUBLIC_PATH . 'partials/faq-mkb.php' );
+
+echo '</div>';
 
 get_footer();

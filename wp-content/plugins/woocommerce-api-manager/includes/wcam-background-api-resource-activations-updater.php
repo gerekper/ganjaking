@@ -125,7 +125,12 @@ class WCAM_Background_API_Resource_Activations_Updater extends WP_Background_Pro
 			'%d'
 		);
 
-		$wpdb->update( $wpdb->prefix . WC_AM_USER()->get_api_resource_table_name(), $data, $where, $data_format, $where_format );
+		$updated = $wpdb->update( $wpdb->prefix . WC_AM_USER()->get_api_resource_table_name(), $data, $where, $data_format, $where_format );
+
+		if ( ! empty( $updated ) ) {
+			WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $order_id );
+			WC_AM_SMART_CACHE()->refresh_cache_by_order_id( $order_id, false );
+		}
 
 		return false;
 	}

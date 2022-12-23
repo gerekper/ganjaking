@@ -1,5 +1,10 @@
 *** Subscribe to Newsletter Changelog ***
 
+2022-12-19 - version 3.5.1
+* Tweak - Declare compatibility with WooCommerce High-Performance Order Storage (HPOS).
+* Tweak - Tested compatibility up to WC 7.2.
+* Tweak - Tested compatibility with WP 6.1.
+
 2022-07-14 - version 3.5.0
 * Feature - New provider: ActiveCampaign.
 * Tweak - Delete Sendinblue credentials on plugin delete.

@@ -297,13 +297,12 @@ class WC_Wishlists_Wishlist_Item_Collection {
 		}
 
 
-		// If cart_item_key is set, the item is already in the cart
+		// If cart_item_key is set, the item is already in the list
 		if ( $cart_item_key ) {
-
-
 			$new_quantity                                 = $quantity + $wishlist_items[ $cart_item_key ]['quantity'];
 			$wishlist_items[ $cart_item_key ]['quantity'] = $new_quantity;
 			$wishlist_items[ $cart_item_key ]['wl_price'] = wc_get_price_excluding_tax( $product_data );
+			$wishlist_items[ $cart_item_key ]['wl_stock_status'] = $product_data->is_in_stock();
 		} else {
 			$cart_item_key = $cart_id;
 
@@ -319,9 +318,9 @@ class WC_Wishlists_Wishlist_Item_Collection {
 				'orders'        => array(),
 			) ), $cart_item_key );
 
-			$wishlist_item = apply_filters( 'woocommerce_add_wishlist_item', $wishlist_item, $cart_item_key );
-
 			$wishlist_item['wl_price'] = wc_get_price_excluding_tax( $product_data );
+			$wishlist_item['wl_stock_status'] = $product_data->is_in_stock();
+			$wishlist_item = apply_filters( 'woocommerce_add_wishlist_item', $wishlist_item, $cart_item_key );
 
 			//Unset serialized product data from wishlist item.
 			$wishlist_item['data'] = null;

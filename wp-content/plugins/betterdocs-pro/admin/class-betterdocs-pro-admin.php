@@ -278,12 +278,12 @@ class Betterdocs_Pro_Admin
             $post_id = $this->get_last_post_id();
         }
 
-		$term = get_the_terms($post_id, 'doc_category');
-		if ($term) {
+		$terms = get_the_terms($post_id, 'doc_category');
+		if ( $terms && ! is_wp_error( $terms ) ) {
 			// $docs_order = (isset($term[0]->slug) && $term[0]->slug != 'uncategorized') ? rtrim(get_term_meta($term[0]->term_id, '_docs_order', true), ',') : '';
 			$alphabetic_order = BetterDocs_DB::get_settings('alphabetically_order_post');
-			$list_args = BetterDocs_Helper::list_query_arg('docs', BetterDocs_Multiple_Kb::$enable == 1, $term[0]->slug, -1, $alphabetic_order);
-			$args = apply_filters('betterdocs_articles_args', $list_args, $term[0]->term_id);
+			$list_args = BetterDocs_Helper::list_query_arg('docs', BetterDocs_Multiple_Kb::$enable == 1, $terms[0]->slug, -1, $alphabetic_order);
+			$args = apply_filters('betterdocs_articles_args', $list_args, $terms[0]->term_id);
 			$query = new WP_Query($args);
 
 			$docs_order = implode(',', array_map(function ($post) {

@@ -40,6 +40,8 @@ class Media extends AC\ListScreen\Media
 			Column\CustomField::class,
 			Column\Actions::class,
 			Column\Post\TitleRaw::class,
+			Column\Post\Modified::class,
+			Column\Post\LastModifiedAuthor::class,
 			Column\Media\Album::class,
 			Column\Media\AlternateText::class,
 			Column\Media\Artist::class,

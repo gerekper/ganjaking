@@ -36,7 +36,7 @@ class WC_Photography_Frontend {
 
 			if ( 'yes' === get_option( 'woocommerce_enable_lightbox' ) ) {
 				wp_enqueue_script( 'prettyPhoto', $woocommerce_assets_path . 'js/prettyPhoto/jquery.prettyPhoto' . $suffix . '.js', array( 'jquery' ), '3.1.5', true );
-				wp_enqueue_script( 'prettyPhoto-init', $woocommerce_assets_path . 'js/prettyPhoto/jquery.prettyPhoto.init' . $suffix . '.js', array( 'jquery','prettyPhoto' ) );
+				wp_enqueue_script( 'prettyPhoto-init', $woocommerce_assets_path . 'js/prettyPhoto/jquery.prettyPhoto.init' . $suffix . '.js', array( 'jquery', 'prettyPhoto' ) );
 				wp_enqueue_style( 'woocommerce_prettyPhoto_css', $woocommerce_assets_path . 'css/prettyPhoto.css' );
 			}
 
@@ -53,7 +53,7 @@ class WC_Photography_Frontend {
 				array(
 					'ajax_url' => admin_url( 'admin-ajax.php' ),
 					'security' => wp_create_nonce( 'wc_photography_my_account_edit_visibility_nonce' ),
-					'customer' => $current_user->user_login
+					'customer' => $current_user->user_login,
 				)
 			);
 		}

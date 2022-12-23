@@ -81,7 +81,7 @@ class WC_Wishlists_Wishlist {
 	}
 
 	public static function get_the_wishlist_owner( $id ) {
-					return get_post_meta( $id, '_wishlist_owner', true );
+		return get_post_meta( $id, '_wishlist_owner', true );
 	}
 
 	public static function get_the_url_edit( $id ) {
@@ -128,7 +128,7 @@ class WC_Wishlists_Wishlist {
 
 		$args = array();
 		foreach ( $raw_args as $key => $value ) {
-			if (isset($defaults[$key])) {
+			if ( isset( $defaults[ $key ] ) ) {
 				$args[ $key ] = sanitize_text_field( $value );
 			}
 		}
@@ -215,7 +215,7 @@ class WC_Wishlists_Wishlist {
 
 		$args = wp_parse_args( $args, $defaults );
 
-		$args = apply_filters( 'wc_wishlists_udpate_list_args', $args );
+		$args = apply_filters( 'wc_wishlists_update_list_args', $args );
 
 		unset( $args['wishlist_owner'] );
 
@@ -243,7 +243,7 @@ class WC_Wishlists_Wishlist {
 			return false;
 		} elseif ( $wishlist_id && $wishlist_id > 0 ) {
 
-			//Make sure we store the email. 
+			//Make sure we store the email.
 			$actual_wishlist_user_email = get_post_meta( $post_id, '_wishlist_owner_email', true );
 			if ( empty( $actual_wishlist_user_email ) ) {
 				update_post_meta( $post_id, '_wishlist_owner_email', $current_user->user_email );

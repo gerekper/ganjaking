@@ -50,7 +50,7 @@ class WC_Photography_Admin_Customers {
 			}
 		}
 
-		include_once( 'views/html-customer-profile-fields.php' );
+		include_once 'views/html-customer-profile-fields.php';
 	}
 
 	/**

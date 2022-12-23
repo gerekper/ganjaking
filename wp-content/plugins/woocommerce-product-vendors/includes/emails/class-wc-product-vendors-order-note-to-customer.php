@@ -65,7 +65,9 @@ class WC_Product_Vendors_Order_Note_To_Customer extends WC_Email {
 
 				add_filter( 'woocommerce_order_get_items', array( $this, 'filter_vendor_items' ), 10, 2 );
 
-				$this->send( $this->get_recipient(), $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
+				$email_headers = $this->get_headers();
+				$email_headers = $this->set_vendor_email_headers( $email_headers, $vendor_id );
+				$this->send( $this->get_recipient(), $this->get_subject(), $this->get_content(), $email_headers, $this->get_attachments() );
 			}
 		}
 
@@ -124,14 +126,14 @@ class WC_Product_Vendors_Order_Note_To_Customer extends WC_Email {
 		foreach ( $items as $item => $value ) {
 
 			// only affect line_items
-			if ( 'line_item' === $value['type'] ) { 
+			if ( 'line_item' === $value['type'] ) {
 
 				$vendor_id = WC_Product_Vendors_Utils::get_vendor_id_from_product( $value[ 'product_id' ] );
 
 				// remove the order items that are not from this vendor
 				if ( $this->vendor !== $vendor_id ) {
 					unset( $items[ $item ] );
-					
+
 					continue;
 				}
 			}
@@ -179,6 +181,33 @@ class WC_Product_Vendors_Order_Note_To_Customer extends WC_Email {
 		);
 
 		return true;
+	}
+
+	/**
+	 * Should set vendor email as "Reply-to" and returns email headers.
+	 *
+	 * @since 2.1.70
+	 *
+	 * @param string $headers   Email headers.
+	 * @param int    $vendor_id Vendor Id.
+	 */
+	private function set_vendor_email_headers( string $headers, int $vendor_id ): string {
+		$email_header_parts = explode( "\r\n", $headers );
+		$vendor             = WC_Product_Vendors_Utils::get_vendor_data_by_id( $vendor_id );
+
+		foreach ( $email_header_parts as $index => $email_header_part ) {
+			if ( false !== stripos( $email_header_part, 'reply-to:' ) ) {
+				$email_header_parts[ $index ] = sprintf(
+					'Reply-to: %1$s <%2$s>',
+					esc_attr( $vendor['name'] ),
+					esc_attr( $vendor['email'] )
+				);
+
+				break;
+			}
+		}
+
+		return implode( "\r\n", $email_header_parts );
 	}
 }
 

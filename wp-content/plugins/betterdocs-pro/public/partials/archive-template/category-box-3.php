@@ -29,7 +29,10 @@ echo '<div class="betterdocs-wraper betterdocs-main-wraper">';
 		} else {
 			echo do_shortcode( '[betterdocs_category_box_2 terms_order="'.esc_html($terms_order).'" terms_orderby="'.esc_html($terms_orderby).'" title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'"]' );
 		}
-	echo '</div>
-</div>';
+	echo '</div>';
+
+    include( BETTERDOCS_PUBLIC_PATH . 'partials/faq.php' );
+    
+'</div>';
 
 get_footer();

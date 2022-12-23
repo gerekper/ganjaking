@@ -18,6 +18,7 @@ class WC_Product_Vendors_Emails {
 	 *
 	 * @access public
 	 * @since 2.0.0
+	 * @since 2.1.70 Add resend renewal email order action handler.
 	 * @version 2.0.0
 	 * @return bool
 	 */
@@ -38,6 +39,7 @@ class WC_Product_Vendors_Emails {
 
 		// WC 3.2+
 		add_action( 'woocommerce_order_action_order_email_to_vendor', array( $self, 'trigger_resend_order_email_to_vendor' ) );
+		add_action( 'woocommerce_order_action_new_renewal_email_to_vendor', array( $self, 'trigger_resend_new_renewal_email_to_vendor' ) );
 
 		// process when vendor submits a new product
 		add_action( 'transition_post_status', array( $self, 'trigger_new_product_email' ), 10, 3 );
@@ -64,6 +66,7 @@ class WC_Product_Vendors_Emails {
 	 *
 	 * @access public
 	 * @since 2.0.0
+	 * @since 2.1.70 Register "New Renewal Email (Vendor)".
 	 * @version 2.0.16
 	 * @param array $classes
 	 * @return array $classes
@@ -84,6 +87,10 @@ class WC_Product_Vendors_Emails {
 		$classes['WC_Product_Vendors_Order_Note_To_Customer']          = include( 'emails/class-wc-product-vendors-order-note-to-customer.php' );
 
 		$classes['WC_Product_Vendors_Order_Fulfill_Status_To_Admin']   = include( 'emails/class-wc-product-vendors-order-fulfill-status-to-admin.php' );
+
+		if ( class_exists( 'WC_Subscriptions' ) ) {
+			$classes['WC_Product_Vendors_New_Renewal_Email_To_Vendor'] = include( 'emails/class-wc-product-vendors-new-renewal-email-to-vendor.php' );
+		}
 
 		return $classes;
 	}
@@ -127,12 +134,23 @@ class WC_Product_Vendors_Emails {
 	 *
 	 * @access public
 	 * @since 2.0.0
-	 * @version 2.0.0
+	 * @since 2.1.70 Add "Resend Renewal Email (Vendor)" order action.
+	 *              Remove WC < 3.2 support
+	 *
 	 * @param array $emails
+	 *
 	 * @return array $emails
+	 * @version 2.0.0
 	 */
 	public function add_resend_order_email_action( $emails ) {
 		$emails['order_email_to_vendor'] = __( 'Resend Order Email (Vendor)', 'woocommerce-product-vendors' );
+
+		if ( $this->can_show_resend_renewal_vendor_email_order_action() ) {
+			$emails['new_renewal_email_to_vendor'] = __(
+				'Resend Renewal Email (Vendor)',
+				'woocommerce-product-vendors'
+			);
+		}
 
 		return $emails;
 	}
@@ -150,6 +168,27 @@ class WC_Product_Vendors_Emails {
 
 		if ( ! empty( $emails ) ) {
 			$emails['WC_Product_Vendors_Order_Email_To_Vendor']->trigger( $order );
+		}
+
+		return true;
+	}
+
+	/**
+	 * Triggers the resend of subscription renewal order email to vendor
+	 *
+	 * @since 2.1.70
+	 * @param WC_Order $order
+	 * @return void | boolean true.
+	 */
+	public function trigger_resend_new_renewal_email_to_vendor( $order ) {
+		$emails = WC()->mailer()->get_emails();
+
+		if (
+			! empty( $emails ) &&
+			\function_exists( 'wcs_order_contains_renewal' ) &&
+			wcs_order_contains_renewal( $order )
+		) {
+			$emails['WC_Product_Vendors_New_Renewal_Email_To_Vendor']->trigger( $order );
 		}
 
 		return true;
@@ -327,38 +366,56 @@ class WC_Product_Vendors_Emails {
 	}
 
 	/**
+	 * Should we show "Resend Renewal Email (Vendor)" in order actions.
+	 *
+	 * @since 2.1.70
+	 * @return bool
+	 */
+	private function can_show_resend_renewal_vendor_email_order_action() {
+		$registered_emails = WC()->mailer()->get_emails();
+
+		return class_exists( 'WC_Subscriptions' ) &&
+		       $registered_emails['WC_Product_Vendors_New_Renewal_Email_To_Vendor']->is_enabled();
+	}
+
+	/**
 	 * Add vendor support recipient email field
-	 * 
 	 * @param array $settings Email settings fields.
+	 *
 	 * @return array $settings
 	 */
 	public function add_vendor_support_recipient_email_field( array $settings ) {
+		$settings[] = [
+			'title' => __( 'Vendor email options', 'woocommerce' ),
+			'type'  => 'title',
+			'desc'  => '',
+			'id'    => 'vendor_support_email_options',
+		];
 
-		$settings[] = array(
-				'title' => __( 'Vendor email options', 'woocommerce' ),
-				'type'  => 'title',
-				'desc'  => '',
-				'id'    => 'vendor_support_email_options',
-		);
-
-		$settings[]	= array(
-				'title'             => __( 'Vendor support email address', 'woocommerce-product-vendors' ),
-				'desc'              => sprintf( __( 'The email address to receive support questions from vendors. Default %s', 'woocommerce-product-vendors' ), '<code>' . get_option( 'admin_email' ) . '</code>' ),
-				'id'                => 'vendor_support_email_address',
-				'type'              => 'email',
-				'custom_attributes' => array(
-					'multiple' => 'multiple',
+		$settings[] = [
+			'title'             => __( 'Vendor support email address', 'woocommerce-product-vendors' ),
+			'desc'              => sprintf(
+				__(
+					'The email address to receive support questions from vendors. Default %s',
+					'woocommerce-product-vendors'
 				),
-				'css'               => 'min-width:400px;',
-				'default'           => get_option( 'admin_email' ),
-				'autoload'          => false,
-				'desc_tip'          => true,
-		);
+				'<code>' . get_option( 'admin_email' ) . '</code>'
+			),
+			'id'                => 'vendor_support_email_address',
+			'type'              => 'email',
+			'custom_attributes' => [
+				'multiple' => 'multiple',
+			],
+			'css'               => 'min-width:400px;',
+			'default'           => get_option( 'admin_email' ),
+			'autoload'          => false,
+			'desc_tip'          => true,
+		];
 
-		$settings[]	= array(
-				'type' => 'sectionend',
-				'id'   => 'vendor_support_email_options',
-		);
+		$settings[] = [
+			'type' => 'sectionend',
+			'id'   => 'vendor_support_email_options',
+		];
 
 		return $settings;
 	}

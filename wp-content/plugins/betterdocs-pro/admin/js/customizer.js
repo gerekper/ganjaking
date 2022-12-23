@@ -2975,4 +2975,195 @@
             $( '.betterdocs-popular-list.multiple-kb .popular-title').css( 'margin-left', to + 'px');
         } );
     });
+
+	// FAQ Section Title Margin Layout 1
+
+    wp.customize( 'betterdocs_faq_title_margin_mkb_layout_1', function( value ) {
+        value.bind( function( to ) {
+            $( '.betterdocs-faq-section-title.faq-mkb').css('margin', formatData( JSON.parse( to ) ) );
+        } );
+    });
+
+    // FAQ Section Title Color Layout 1
+    wp.customize( 'betterdocs_faq_title_color_mkb_layout_1', function( value ) {
+        value.bind( function( to ) {
+            $( '.betterdocs-faq-section-title.faq-mkb').css( 'color', to );
+        } );
+    });
+
+    // FAQ Section Font Size Layout 1
+    wp.customize( 'betterdocs_faq_title_font_size_mkb_layout_1', function( value ) {
+        value.bind( function( to ) {
+            $( '.betterdocs-faq-section-title.faq-mkb').css( 'font-size', to + 'px' );
+        } );
+    });
+
+    // FAQ Category Title Color Layout 1
+    wp.customize( 'betterdocs_faq_category_title_color_mkb_layout_1', function( value ) {
+        value.bind( function( to ) {
+            $( '.betterdocs-faq-main-wrapper-layout-1.faq-mkb .betterdocs-faq-title h2').css( 'color', to );
+        } );
+    });
+
+    // FAQ Category Title Font Size
+    wp.customize( 'betterdocs_faq_category_name_font_size_mkb_layout_1', function( value ) {
+        value.bind( function( to ) {
+            $( '.betterdocs-faq-main-wrapper-layout-1.faq-mkb .betterdocs-faq-title h2').css( 'font-size', to + 'px' );
+        } );
+    });
+
+    // FAQ Category Title Padding
+    wp.customize( 'betterdocs_faq_category_name_padding_mkb_layout_1', function( value ) {
+        value.bind( function( to ) {
+            $( '.betterdocs-faq-main-wrapper-layout-1.faq-mkb .betterdocs-faq-title h2').css('padding', formatData( JSON.parse( to ) ) );
+        } );
+    });
+
+    // FAQ List Color
+    wp.customize( 'betterdocs_faq_list_color_mkb_layout_1', function( value ) {
+        value.bind( function( to ) {
+            $( '.betterdocs-faq-main-wrapper-layout-1.faq-mkb .betterdocs-faq-list > li .betterdocs-faq-group .betterdocs-faq-post .betterdocs-faq-post-name').css( 'color', to );
+        } );
+    });
+
+    // FAQ List Background Color
+    wp.customize( 'betterdocs_faq_list_background_color_mkb_layout_1', function( value ) {
+        value.bind( function( to ) {
+            $( '.betterdocs-faq-main-wrapper-layout-1.faq-mkb .betterdocs-faq-list > li .betterdocs-faq-group .betterdocs-faq-post').css( 'background-color', to );
+        } );
+    });
+
+    // FAQ List Content Background Color
+    wp.customize( 'betterdocs_faq_list_content_background_color_mkb_layout_1', function( value ) {
+        value.bind( function( to ) {
+            $( '.betterdocs-faq-main-wrapper-layout-1.faq-mkb .betterdocs-faq-group .betterdocs-faq-main-content').css( 'background-color', to );
+        } );
+    });
+
+    // FAQ List Content Color
+    wp.customize( 'betterdocs_faq_list_content_color_mkb_layout_1', function( value ) {
+        value.bind( function( to ) {
+            $( '.betterdocs-faq-main-wrapper-layout-1.faq-mkb .betterdocs-faq-group .betterdocs-faq-main-content').css( 'color', to );
+        } );
+    });
+
+    // FAQ List Content Font Size
+    wp.customize( 'betterdocs_faq_list_content_font_size_mkb_layout_1', function( value ) {
+        value.bind( function( to ) {
+            $( '.betterdocs-faq-main-wrapper-layout-1.faq-mkb .betterdocs-faq-group .betterdocs-faq-main-content').css( 'font-size', to + 'px' );
+        } );
+    });
+
+    // FAQ List Font Size
+    wp.customize( 'betterdocs_faq_list_font_size_mkb_layout_1', function( value ) {
+        value.bind( function( to ) {
+            $( '.betterdocs-faq-main-wrapper-layout-1.faq-mkb .betterdocs-faq-list > li .betterdocs-faq-group .betterdocs-faq-post .betterdocs-faq-post-name').css( 'font-size', to + 'px' );
+        } );
+    });
+
+    // FAQ List Padding
+    wp.customize( 'betterdocs_faq_list_padding_mkb_layout_1', function( value ) {
+        value.bind( function( to ) {
+            $( '.betterdocs-faq-main-wrapper-layout-1.faq-mkb .betterdocs-faq-list > li .betterdocs-faq-group .betterdocs-faq-post').css( 'padding', formatData( JSON.parse(to) ) );
+        } );
+    });
+
+    /** MKB FAQ CONTROLLERS LAYOUT 2 **/
+
+    // FAQ Category Title Color
+
+    wp.customize( 'betterdocs_faq_category_title_color_mkb_layout_2', function( value ) {
+        value.bind( function( to ) {
+            $( '.betterdocs-faq-main-wrapper-layout-2.faq-mkb .betterdocs-faq-title h2').css( 'color', to );
+        } );
+    });
+
+    // FAQ Category Title Font Size
+
+    wp.customize( 'betterdocs_faq_category_name_font_size_mkb_layout_2', function( value ) {
+        value.bind( function( to ) {
+            $( '.betterdocs-faq-main-wrapper-layout-2.faq-mkb .betterdocs-faq-title h2').css( 'font-size', to + 'px' );
+        } );
+    });
+
+    // FAQ Category Title Padding
+
+    wp.customize( 'betterdocs_faq_category_name_padding_mkb_layout_2', function( value ) {
+        value.bind( function( to ) {
+            $( '.betterdocs-faq-main-wrapper-layout-2.faq-mkb .betterdocs-faq-title h2').css( 'padding', formatData( JSON.parse( to ) ) );
+        } );
+    });
+
+    // FAQ List Color
+
+    wp.customize( 'betterdocs_faq_list_color_mkb_layout_2', function( value ) {
+        value.bind( function( to ) {
+            $( '.betterdocs-faq-main-wrapper-layout-2.faq-mkb .betterdocs-faq-list > li .betterdocs-faq-group .betterdocs-faq-post-layout-2 .betterdocs-faq-post-name').css( 'color', to );
+        } );
+    });
+
+    // FAQ List Background Color
+
+    wp.customize( 'betterdocs_faq_list_background_color_mkb_layout_2', function( value ) {
+        value.bind( function( to ) {
+            $( '.betterdocs-faq-main-wrapper-layout-2.faq-mkb .betterdocs-faq-list-layout-2 > li .betterdocs-faq-group-layout-2 .betterdocs-faq-post-layout-2').css( 'background-color', to );
+        } );
+    });
+
+    // FAQ List Content Background Color
+
+    wp.customize( 'betterdocs_faq_list_content_background_color_mkb_layout_2', function( value ) {
+        value.bind( function( to ) {
+            $( '.betterdocs-faq-main-wrapper-layout-2.faq-mkb .betterdocs-faq-list-layout-2 > li .betterdocs-faq-group-layout-2 .betterdocs-faq-main-content-layout-2').css( 'background-color', to );
+        } );
+    });
+
+    // FAQ List Content Color
+
+    wp.customize( 'betterdocs_faq_list_content_color_mkb_layout_2', function( value ) {
+        value.bind( function( to ) {
+            $( '.betterdocs-faq-main-wrapper-layout-2.faq-mkb .betterdocs-faq-list-layout-2 > li .betterdocs-faq-group-layout-2 .betterdocs-faq-main-content-layout-2').css( 'color', to );
+        } );
+    });
+
+    // FAQ List Content Background Color
+
+    wp.customize( 'betterdocs_faq_list_content_font_size_mkb_layout_2', function( value ) {
+        value.bind( function( to ) {
+            $( '.betterdocs-faq-main-wrapper-layout-2.faq-mkb .betterdocs-faq-list-layout-2 > li .betterdocs-faq-group-layout-2 .betterdocs-faq-main-content-layout-2').css( 'font-size', to + 'px' );
+        } );
+    });
+
+    // FAQ List Font Size
+
+    wp.customize( 'betterdocs_faq_list_font_size_mkb_layout_2', function( value ) {
+        value.bind( function( to ) {
+            $( '.betterdocs-faq-main-wrapper-layout-2.faq-mkb .betterdocs-faq-list > li .betterdocs-faq-group .betterdocs-faq-post-layout-2 .betterdocs-faq-post-name').css( 'font-size', to + 'px' );
+        } );
+    });
+
+    // FAQ List Padding
+
+    wp.customize( 'betterdocs_faq_list_padding_mkb_layout_2', function( value ) {
+        value.bind( function( to ) {
+            $( '.betterdocs-faq-main-wrapper-layout-2.faq-mkb .betterdocs-faq-list-layout-2 > li .betterdocs-faq-group-layout-2 .betterdocs-faq-post-layout-2').css( 'padding', formatData( JSON.parse( to ) ) );
+        } );
+    });
+
 } )( jQuery );
+
+
+function formatData( data ) {
+
+    var dimensions = '';
+
+    for( let key in data ) {
+        if( data[key] != '' ) {
+            dimensions += data[key] + 'px ';
+        } else {
+            dimensions += 0 + 'px ';
+        }
+    }
+
+    return dimensions;
+}

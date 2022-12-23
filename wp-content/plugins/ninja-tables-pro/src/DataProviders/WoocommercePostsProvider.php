@@ -640,7 +640,10 @@ class WoocommercePostsProvider
                 wc_setcookie( 'woocommerce_cart_hash', md5( json_encode( $items ) ) );
                 do_action( 'woocommerce_set_cart_cookies', true );
                 // Return fragments
-                \WC_AJAX::get_refreshed_fragments();
+                wp_send_json_success([
+                    'fragments' => $this->customCartRefreshFragment(),
+                    'cart_items' => $woocommerce->cart->get_cart()
+                ], 200);
 
             } else {
                 // If there was an error adding to the cart, redirect to the product page to show any errors
@@ -651,5 +654,24 @@ class WoocommercePostsProvider
                 wp_send_json_error( $data );
             }
         }
+    }
+
+    public function customCartRefreshFragment()
+    {
+        ob_start();
+        woocommerce_mini_cart();
+        $mini_cart = ob_get_clean();
+
+        $data = array(
+            'fragments' => apply_filters(
+                'woocommerce_add_to_cart_fragments',
+                array(
+                    'div.widget_shopping_cart_content' => '<div class="widget_shopping_cart_content">' . $mini_cart . '</div>',
+                )
+            ),
+            'cart_hash' => WC()->cart->get_cart_hash(),
+        );
+
+        return $data;
     }
 }

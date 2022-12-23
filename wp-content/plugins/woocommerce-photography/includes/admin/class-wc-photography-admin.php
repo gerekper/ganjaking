@@ -33,9 +33,9 @@ class WC_Photography_Admin {
 	 * @return void
 	 */
 	public function includes() {
-		include_once( 'class-wc-photography-admin-customers.php' );
-		include_once( 'class-wc-photography-admin-collections.php' );
-		include_once( 'class-wc-photography-admin-settings.php' );
+		include_once 'class-wc-photography-admin-customers.php';
+		include_once 'class-wc-photography-admin-collections.php';
+		include_once 'class-wc-photography-admin-settings.php';
 	}
 
 	/**
@@ -111,7 +111,7 @@ class WC_Photography_Admin {
 		$screen = get_current_screen();
 
 		if ( 'images_collections' === $screen->taxonomy && 'edit.php?post_type=product' === $parent_file ) {
-			$parent_file = 'wc-photography';
+			$parent_file  = 'wc-photography';
 			$submenu_file = 'edit-tags.php?taxonomy=images_collections&post_type=product';
 		}
 
@@ -129,7 +129,7 @@ class WC_Photography_Admin {
 			$max_upload_size = 0;
 		}
 
-		include_once( 'views/html-batch-upload.php' );
+		include_once 'views/html-batch-upload.php';
 	}
 
 	/**
@@ -138,7 +138,7 @@ class WC_Photography_Admin {
 	 * @return string
 	 */
 	public function page_settings() {
-		include_once( 'views/html-settings.php' );
+		include_once 'views/html-settings.php';
 	}
 
 	/**
@@ -226,19 +226,12 @@ class WC_Photography_Admin {
 			wp_enqueue_script( 'wc-photography-batch-upload', WC_Photography::get_assets_url() . 'js/admin/batch-upload' . $suffix . '.js', array( 'jquery', 'plupload-handlers', 'jquery-ui-sortable', 'accounting', 'underscore', 'select2' ), WC_PHOTOGRAPHY_VERSION, true );
 			wp_enqueue_style( 'wc-photography-batch-upload', WC_Photography::get_assets_url() . 'css/batch-upload.css', array(), WC_PHOTOGRAPHY_VERSION, 'all' );
 
-			if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.3.0', '<' ) ) {
-				$ajax_loading_image = WC()->plugin_url() . '/assets/images/ajax-loader.gif';
-			} else {
-				$ajax_loading_image = '';
-			}
-
 			wp_localize_script(
 				'wc-photography-batch-upload',
 				'WCPhotographyBatchUploadParams',
 				array(
 					'ajax_url'                 => admin_url( 'admin-ajax.php' ),
 					'plupload'                 => $this->get_plupload_args(),
-					'ajax_loading_image'       => $ajax_loading_image,
 					'batch_upload_nonce'       => wp_create_nonce( 'wc_photography_batch_upload_nonce' ),
 					'search_collections_nonce' => wp_create_nonce( 'wc_photography_search_collections_nonce' ),
 					'add_collection_nonce'     => wp_create_nonce( 'wc_photography_add_collection_nonce' ),
@@ -248,7 +241,8 @@ class WC_Photography_Admin {
 					'loading'                  => __( 'Loading&hellip;', 'woocommerce-photography' ),
 					'collection_error'         => __( 'An error occurred while creating the collection! Please try again.', 'woocommerce-photography' ),
 					'edit_success_message'     => __( 'Photographs edited successfully!', 'woocommerce-photography' ),
-					'isLessThanWC30'           => version_compare( WC_VERSION, '3.0', '<' ),
+					'ajax_loading_image'       => '', // Deprecated.
+					'isLessThanWC30'           => false, // Deprecated.
 				)
 			);
 		} // End if().
@@ -269,7 +263,7 @@ class WC_Photography_Admin {
 					'search_placeholder'       => __( 'Search for a collection&hellip;', 'woocommerce-photography' ),
 					'loading'                  => __( 'Loading&hellip;', 'woocommerce-photography' ),
 					'collection_error'         => __( 'An error occurred while creating the collection! Please try again.', 'woocommerce-photography' ),
-					'isLessThanWC30'           => version_compare( WC_VERSION, '3.0', '<' ),
+					'isLessThanWC30'           => false, // Deprecated.
 				)
 			);
 		}
@@ -354,28 +348,28 @@ class WC_Photography_Admin {
 		if ( ! empty( $_REQUEST['change_regular_price'] ) && isset( $_REQUEST['_regular_price'] ) ) {
 
 			$change_regular_price = absint( $_REQUEST['change_regular_price'] );
-			$regular_price = esc_attr( stripslashes( $_REQUEST['_regular_price'] ) );
+			$regular_price        = esc_attr( stripslashes( $_REQUEST['_regular_price'] ) );
 
 			switch ( $change_regular_price ) {
-				case 1 :
+				case 1:
 					$new_price = $regular_price;
-				break;
-				case 2 :
+					break;
+				case 2:
 					if ( strstr( $regular_price, '%' ) ) {
-						$percent = str_replace( '%', '', $regular_price ) / 100;
+						$percent   = str_replace( '%', '', $regular_price ) / 100;
 						$new_price = $old_regular_price + ( $old_regular_price * $percent );
 					} else {
 						$new_price = $old_regular_price + $regular_price;
 					}
-				break;
-				case 3 :
+					break;
+				case 3:
 					if ( strstr( $regular_price, '%' ) ) {
-						$percent = str_replace( '%', '', $regular_price ) / 100;
+						$percent   = str_replace( '%', '', $regular_price ) / 100;
 						$new_price = $old_regular_price - ( $old_regular_price * $percent );
 					} else {
 						$new_price = $old_regular_price - $regular_price;
 					}
-				break;
+					break;
 			}
 
 			if ( isset( $new_price ) && $new_price != $old_regular_price ) {
@@ -383,57 +377,49 @@ class WC_Photography_Admin {
 				update_post_meta( $product->get_id(), '_regular_price', $new_price );
 				update_post_meta( $product->get_id(), '_subscription_price', $new_price );
 
-				if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-					$product->regular_price = $new_price;
-				} else {
-					$product->set_regular_price( $new_price );
-				}
+				$product->set_regular_price( $new_price );
 			}
 		} // End if().
 
 		if ( ! empty( $_REQUEST['change_sale_price'] ) && isset( $_REQUEST['_sale_price'] ) ) {
 
 			$change_sale_price = absint( $_REQUEST['change_sale_price'] );
-			$sale_price = esc_attr( stripslashes( $_REQUEST['_sale_price'] ) );
+			$sale_price        = esc_attr( stripslashes( $_REQUEST['_sale_price'] ) );
 
 			switch ( $change_sale_price ) {
-				case 1 :
+				case 1:
 					$new_price = $sale_price;
-				break;
-				case 2 :
+					break;
+				case 2:
 					if ( strstr( $sale_price, '%' ) ) {
-						$percent = str_replace( '%', '', $sale_price ) / 100;
+						$percent   = str_replace( '%', '', $sale_price ) / 100;
 						$new_price = $old_sale_price + ( $old_sale_price * $percent );
 					} else {
 						$new_price = $old_sale_price + $sale_price;
 					}
-				break;
-				case 3 :
+					break;
+				case 3:
 					if ( strstr( $sale_price, '%' ) ) {
-						$percent = str_replace( '%', '', $sale_price ) / 100;
+						$percent   = str_replace( '%', '', $sale_price ) / 100;
 						$new_price = $old_sale_price - ( $old_sale_price * $percent );
 					} else {
 						$new_price = $old_sale_price - $sale_price;
 					}
-				break;
-				case 4 :
+					break;
+				case 4:
 					if ( strstr( $sale_price, '%' ) ) {
-						$percent = str_replace( '%', '', $sale_price ) / 100;
+						$percent   = str_replace( '%', '', $sale_price ) / 100;
 						$new_price = $product->get_regular_price() - ( $product->get_regular_price() * $percent );
 					} else {
 						$new_price = $product->get_regular_price() - $sale_price;
 					}
-				break;
+					break;
 			}
 
 			if ( isset( $new_price ) && $new_price != $old_sale_price ) {
 				$price_changed = true;
 				update_post_meta( $product->get_id(), '_sale_price', $new_price );
-				if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-					$product->sale_price = $new_price;
-				} else {
-					$product->set_sale_price( $new_price );
-				}
+				$product->set_sale_price( $new_price );
 			}
 		} // End if().
 
@@ -442,11 +428,7 @@ class WC_Photography_Admin {
 			update_post_meta( $product->get_id(), '_sale_price_dates_to', '' );
 
 			if ( $product->get_regular_price() < $product->get_sale_price() ) {
-				if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-					$product->sale_price = '';
-				} else {
-					$product->set_sale_price( '' );
-				}
+				$product->set_sale_price( '' );
 
 				update_post_meta( $product->get_id(), '_sale_price', '' );
 			}

@@ -1,5 +1,11 @@
 *** Product Vendors Changelog ***
 
+2022-12-20 - version 2.1.71
+* Add - Logged-out users receive a notification to log in to use the vendor registration form.
+* Add - New Subscription Renewal Order vendor email notification.
+* Fix - `Reply-to` email goes to vendor instead of admin.
+* Tweak - WC 7.2.1 compatibility.
+
 2022-12-13 - version 2.1.70
 * Fix - Compatibility issue with Custom Order Status for WooCommerce plugin.
 * Fix - Other vendor global store availability rules apply on product booking page for logged-in vendor.

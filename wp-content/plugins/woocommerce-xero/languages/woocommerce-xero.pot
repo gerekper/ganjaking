@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the WooCommerce Xero Integration package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Xero Integration 1.7.51\n"
+"Project-Id-Version: WooCommerce Xero Integration 1.7.52\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-xero\n"
-"POT-Creation-Date: 2022-11-23 22:31:32+00:00\n"
+"POT-Creation-Date: 2022-12-20 10:41:59+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -87,6 +87,32 @@ msgstr ""
 
 #: includes/class-wc-xr-payment-manager.php:157
 msgid "ERROR creating Xero payment. ErrorNumber: %1$s | Error Message: %2$s"
+msgstr ""
+
+#: includes/class-wc-xr-plugin-requirement.php:32
+#. translators: 1. Woocommerce website link anchor tag
+msgid "WooCommerce Xero Integration requires %s to be installed and active."
+msgstr ""
+
+#: includes/class-wc-xr-plugin-requirement.php:70
+#. translators: 1: Xero Security Standards link anchor tag 2:WordPress HTTPS
+#. related documentation link anchor tag
+msgid ""
+"The WooCommerce Xero integration requires a valid SSL certificate to be "
+"installed and active, as per the %1$s. To learn more about setting up SSL "
+"certificates on WordPress, please read the %2$s on WordPress.org"
+msgstr ""
+
+#: includes/class-wc-xr-plugin-requirement.php:75
+msgid "Xero Security Standards"
+msgstr ""
+
+#: includes/class-wc-xr-plugin-requirement.php:78
+msgid "HTTPS for WordPress page"
+msgstr ""
+
+#: includes/class-wc-xr-plugin-requirement.php:85
+msgid "Error Details"
 msgstr ""
 
 #: includes/class-wc-xr-privacy.php:22 includes/class-wc-xr-settings.php:567
@@ -499,20 +525,15 @@ msgstr ""
 msgid "Not all plugins have loaded yet but we requested the class %s"
 msgstr ""
 
-#: woocommerce-xero.php:139
-#. translators: %s: WooCommerce link
-msgid "WooCommerce Xero Integration requires %s to be installed and active."
-msgstr ""
-
-#: woocommerce-xero.php:152
+#: woocommerce-xero.php:138
 msgid "Settings"
 msgstr ""
 
-#: woocommerce-xero.php:153
+#: woocommerce-xero.php:139
 msgid "Support"
 msgstr ""
 
-#: woocommerce-xero.php:154
+#: woocommerce-xero.php:140
 msgid "Documentation"
 msgstr ""
 

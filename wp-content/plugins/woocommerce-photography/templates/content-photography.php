@@ -18,11 +18,7 @@ if ( empty( $photography_loop['loop'] ) ) {
 
 // Store column count for displaying the grid
 if ( empty( $photography_loop['columns'] ) ) {
-	if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '3.3', '<' ) ) {
-		$photography_loop['columns'] = apply_filters( 'loop_shop_columns', 2 );
-	} else {
-		$photography_loop['columns'] = wc_get_default_products_per_row();
-	}
+	$photography_loop['columns'] = wc_get_default_products_per_row();
 }
 
 // Ensure visibility.

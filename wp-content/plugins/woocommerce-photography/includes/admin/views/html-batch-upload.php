@@ -44,19 +44,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<td class="forminp">
 						<fieldset>
 							<legend class="screen-reader-text"><span><?php _e( 'Collections', 'woocommerce-photography' ); ?></span></legend>
-							<?php if ( version_compare( WC_VERSION, '3.0', '<' ) ): ?>
-
-								<input type="hidden" id="wc-photography-batch-collection" class="wc-photography-collections-select" name="collections" style="width: 300px;" />
-							<?php else: ?>
-								<select
-									class="wc-photography-collections-select"
-									id="wc-photography-batch-collection"
-									name="collections[]"
-									multiple="multiple"
-									data-placeholder="<?php _e('Search for a collection&hellip;', 'woocommerce'); ?>"
-									style="width: 300px">
-								</select>
-							<?php endif; ?>
+							<select
+								class="wc-photography-collections-select"
+								id="wc-photography-batch-collection"
+								name="collections[]"
+								multiple="multiple"
+								data-placeholder="<?php _e('Search for a collection&hellip;', 'woocommerce-photography'); ?>"
+								style="width: 300px">
+							</select>
 
 							<span class="description"><?php echo _e( 'Specify which collection(s) these photos belong to.', 'woocommerce-photography' ); ?></span>
 							<div class="photography-add-collection">
@@ -134,30 +129,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<div class="collection-form-field">
 						<p class="form-field full">
 							<label for="photography-<%- id %>-collections"><?php _e( 'Collections', 'woocommerce-photography' ); ?></label>
-							<?php if ( version_compare( WC_VERSION, '3.0', '<' ) ): ?>
-								<input type="hidden" id="photography-<%- id %>-collections" class="wc-photography-collections-select" name="photography[<%- id %>][collections]" style="width: 300px;" value="<%- collections_ids %>" data-selected='[<%
-								var collectionsSize = _.size( collections ),
-									current = 0;
-								_.each( collections, function( collection_name, collection_id ) {
+							<select
+								class="wc-photography-collections-select"
+								id="photography-<%- id %>-collections"
+								name="photography[<%- id %>][collections][]"
+								multiple="multiple"
+								data-placeholder="<?php _e('Search for a collection&hellip;', 'woocommerce-photography'); ?>"
+								style="width: 300px">
+																	<%
+									var collectionsSize = _.size( collections ),
+										current = 0;
+									_.each( collections, function( collection_name, collection_id ) {
 									current++;
-									%>{"id": "<%- collection_id %>", "text": "<%- collection_name %>"}<% if ( current !== collectionsSize ){ %>,<% }
-								}); %>]' />
-							<?php else: ?>
-								<select
-									class="wc-photography-collections-select"
-									id="photography-<%- id %>-collections"
-									name="photography[<%- id %>][collections][]"
-									multiple="multiple"
-									data-placeholder="<?php _e('Search for a collection&hellip;', 'woocommerce'); ?>"
-									style="width: 300px">
-                                                                        <%
-										var collectionsSize = _.size( collections ),
-											current = 0;
-										_.each( collections, function( collection_name, collection_id ) {
-										current++;
-										%><option value="<%- collection_id %>" selected="selected"><%- collection_name %></option><% }); %>
-								</select>
-							<?php endif; ?>
+									%><option value="<%- collection_id %>" selected="selected"><%- collection_name %></option><% }); %>
+							</select>
 						</p>
 						<p class="form-field full photography-add-collection">
 							<a href="#"><?php _e( '+ Add Collection', 'woocommerce-photography' ); ?></a>

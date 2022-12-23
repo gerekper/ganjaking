@@ -574,9 +574,6 @@ class WC_AM_Order {
 		if ( is_array( $order_ids ) && ! empty( $order_ids ) ) {
 			foreach ( $order_ids as $order_id ) {
 				if ( ! empty( $order_id ) ) {
-					WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $order_id );
-					WC_AM_SMART_CACHE()->refresh_cache_by_order_id( $order_id, false );
-
 					$this->api_resource_activations_updater->push_to_queue( array( 'product_id' => $product_id, 'order_id' => $order_id ) );
 
 					$queued = true;
@@ -606,9 +603,6 @@ class WC_AM_Order {
 		if ( is_array( $order_ids ) && ! empty( $order_ids ) ) {
 			foreach ( $order_ids as $order_id ) {
 				if ( ! empty( $order_id ) ) {
-					WC_AM_SMART_CACHE()->delete_activation_api_cache_by_order_id( $order_id );
-					WC_AM_SMART_CACHE()->refresh_cache_by_order_id( $order_id, false );
-
 					$this->api_resource_access_expires_updater->push_to_queue( array( 'product_id' => $product_id, 'order_id' => $order_id, 'product_access_expires' => $product_access_expires ) );
 
 					$queued = true;

@@ -12,7 +12,7 @@ function woocommerce_wishlist_handle_add_to_wishlist_action() {
 		return;
 	}
 
-	if ( !isset( $_REQUEST['add-to-wishlist-itemid'] ) || empty( $_REQUEST['add-to-wishlist-itemid'] ) ) {
+	if ( ! isset( $_REQUEST['add-to-wishlist-itemid'] ) || empty( $_REQUEST['add-to-wishlist-itemid'] ) ) {
 		return;
 	} else {
 		remove_action( 'init', 'woocommerce_add_to_cart_action' );
@@ -28,17 +28,17 @@ function woocommerce_wishlist_handle_add_to_wishlist_action() {
 
 
 	//We need to force WooCommerce to set the session cookie.
-	//We do this here since we need to make sure that the product pages are no longer cached. 
-	if ( !WC_Wishlist_Compatibility::WC()->session->has_session() ) {
+	//We do this here since we need to make sure that the product pages are no longer cached.
+	if ( ! WC_Wishlist_Compatibility::WC()->session->has_session() ) {
 		WC_Wishlist_Compatibility::WC()->session->set_customer_session_cookie( true );
 	}
 
-	if ( !is_user_logged_in() && ( WC_Wishlists_Settings::get_setting( 'wc_wishlist_guest_enabled', 'enabled' ) == 'disabled' ) ) {
+	if ( ! is_user_logged_in() && ( WC_Wishlists_Settings::get_setting( 'wc_wishlist_guest_enabled', 'enabled' ) == 'disabled' ) ) {
 		return;
 	}
 
 	$wishlist_id = isset( $_REQUEST['wlid'] ) ? $_REQUEST['wlid'] : 0;
-	if ( !$wishlist_id && ( WC_Wishlists_Settings::get_setting( 'wc_wishlist_autocreate', 'yes' ) == 'yes' ) ) {
+	if ( ! $wishlist_id && ( WC_Wishlists_Settings::get_setting( 'wc_wishlist_autocreate', 'yes' ) == 'yes' ) ) {
 		$wishlist_id = WC_Wishlists_Wishlist::create_list( __( 'Wishlist', 'wc_wishlist' ) );
 
 		//Wishlist created successfully.  Show messages
@@ -65,7 +65,7 @@ function woocommerce_wishlist_handle_add_to_wishlist_action() {
 		//Auto Create is disabled.  Require user to create a list manually.
 	}
 
-	if ( !$wishlist_id ) {
+	if ( ! $wishlist_id ) {
 		WC_Wishlist_Compatibility::wc_add_notice( __( 'Unable to locate or create a list for you.  Please try again later', 'wc_wishlist' ), 'error' );
 		wp_redirect( apply_filters( 'woocommerce_add_to_cart_product_id', get_permalink( $_REQUEST['product_id'] ) ) );
 		exit;
@@ -75,9 +75,12 @@ function woocommerce_wishlist_handle_add_to_wishlist_action() {
 
 	$added_to_wishlist = false;
 
-	$item_id      = isset( $_REQUEST['add-to-cart'] ) ? $_REQUEST['add-to-cart'] : $_REQUEST['add-to-wishlist-itemid'];
-	$product_id   = apply_filters( 'woocommerce_add_to_cart_product_id', absint( $item_id ) );
-	$product      = wc_get_product( $product_id );
+	$item_id    = isset( $_REQUEST['add-to-cart'] ) ? $_REQUEST['add-to-cart'] : $_REQUEST['add-to-wishlist-itemid'];
+	$product_id = apply_filters( 'woocommerce_add_to_cart_product_id', absint( $item_id ) );
+	$product    = wc_get_product( $product_id );
+	if ( empty( $product ) ) {
+		exit;
+	}
 	$product_type = $product->get_type();
 	switch ( $product_type ) {
 		// Variable Products
@@ -89,7 +92,7 @@ function woocommerce_wishlist_handle_add_to_wishlist_action() {
 		case 'grouped' :
 			if ( isset( $_REQUEST['quantity'] ) && is_array( $_REQUEST['quantity'] ) ) {
 				$added_to_wishlist = woocommerce_wishlist_add_to_cart_handler_grouped( $product_id, $wishlist_id );
-				if ( !$added_to_wishlist ) {
+				if ( ! $added_to_wishlist ) {
 					wp_redirect( get_permalink( $product_id ) );
 					exit;
 				}
@@ -128,7 +131,7 @@ function woocommerce_wishlist_handle_add_to_wishlist_action() {
 	if ( $added_to_wishlist && $wishlist_id != 'session' ) {
 		woocommerce_wishlist_add_to_wishlist_message( $wishlist_id );
 
-		if ( !isset( $_REQUEST['wl_from_single_product'] ) || empty( $_REQUEST['wl_from_single_product'] ) ) {
+		if ( ! isset( $_REQUEST['wl_from_single_product'] ) || empty( $_REQUEST['wl_from_single_product'] ) ) {
 			$url = add_query_arg( array( 'add-to-wishlist-itemid' => false ) );
 			wp_redirect( esc_url_raw( $url ) );
 			die();
@@ -167,7 +170,7 @@ function woocommerce_wishlist_handle_add_to_wishlist_action() {
 		}
 
 		$wl_return_to = false;
-		if ( isset( $_REQUEST['wl_from_single_product'] ) || !empty( $_REQUEST['wl_from_single_product'] ) ) {
+		if ( isset( $_REQUEST['wl_from_single_product'] ) || ! empty( $_REQUEST['wl_from_single_product'] ) ) {
 			if ( is_numeric( $_REQUEST['add-to-wishlist-itemid'] ) ) {
 				$wl_return_to = $_REQUEST['add-to-wishlist-itemid'];
 			} elseif ( isset( $_GET['product_id'] ) ) {
@@ -203,7 +206,7 @@ function woocommerce_wishlist_add_to_wishlist_handler_variable( $product_id, $wi
 		$variation_data = wc_get_product_variation_attributes( $variation_id );
 
 		foreach ( $attributes as $attribute ) {
-			if ( !$attribute['is_variation'] ) {
+			if ( ! $attribute['is_variation'] ) {
 				continue;
 			}
 
@@ -231,7 +234,7 @@ function woocommerce_wishlist_add_to_wishlist_handler_variable( $product_id, $wi
 				$missing_attributes[] = wc_attribute_label( $attribute['name'] );
 			}
 		}
-		if ( !empty( $missing_attributes ) ) {
+		if ( ! empty( $missing_attributes ) ) {
 			throw new Exception( sprintf( _n( '%s is a required field', '%s are required fields', sizeof( $missing_attributes ), 'woocommerce' ), wc_format_list_of_items( $missing_attributes ) ) );
 		}
 	} catch ( Exception $e ) {
@@ -257,7 +260,7 @@ function woocommerce_wishlist_add_to_cart_handler_grouped( $product_id, $wishlis
 	$was_added_to_cart = false;
 	$added_to_cart     = array();
 
-	if ( !empty( $_REQUEST['quantity'] ) && is_array( $_REQUEST['quantity'] ) ) {
+	if ( ! empty( $_REQUEST['quantity'] ) && is_array( $_REQUEST['quantity'] ) ) {
 		$quantity_set = false;
 
 		$items_to_add = array();
@@ -279,7 +282,7 @@ function woocommerce_wishlist_add_to_cart_handler_grouped( $product_id, $wishlis
 		}
 
 		$was_added_to_cart = true;
-		if ( !empty( $items_to_add ) ) {
+		if ( ! empty( $items_to_add ) ) {
 			foreach ( $items_to_add as $item_to_add ) {
 				if ( WC_Wishlists_Wishlist_Item_Collection::add_item( $wishlist_id, $item_to_add['product_id'], $item_to_add['quantity'] ) ) {
 					$was_added_to_cart = $was_added_to_cart & true;
@@ -293,9 +296,9 @@ function woocommerce_wishlist_add_to_cart_handler_grouped( $product_id, $wishlis
 		}
 
 
-		if ( !$was_added_to_cart && !$quantity_set ) {
+		if ( ! $was_added_to_cart && ! $quantity_set ) {
 			wc_add_notice( __( 'Please choose the quantity of items you wish to add to your list&hellip;', 'wc_wishlist' ), 'error' );
-		} elseif ( !$was_added_to_cart ) {
+		} elseif ( ! $was_added_to_cart ) {
 			wc_add_notice( __( 'There was a problem adding items to your wishlist.  Please review and try again.&hellip;', 'wc_wishlist' ), 'error' );
 
 		} elseif ( $was_added_to_cart ) {
@@ -330,24 +333,24 @@ add_action( 'init', 'woocommerce_wishlist_handle_share_via_email_action', 9 );
 function woocommerce_wishlist_handle_share_via_email_action() {
 	global $phpmailer;
 
-	if ( !isset( $_POST['wishlist-action'] ) || !( $_POST['wishlist-action'] == 'share-via-email' ) ) {
+	if ( ! isset( $_POST['wishlist-action'] ) || ! ( $_POST['wishlist-action'] == 'share-via-email' ) ) {
 		return;
 	}
 
-	if ( !WC_Wishlists_Plugin::verify_nonce( 'share-via-email' ) ) {
+	if ( ! WC_Wishlists_Plugin::verify_nonce( 'share-via-email' ) ) {
 		return;
 	}
 
 	$wishlist_id = filter_input( INPUT_POST, 'wishlist_id', FILTER_SANITIZE_NUMBER_INT );
 
-	if ( !$wishlist_id ) {
+	if ( ! $wishlist_id ) {
 		WC_Wishlist_Compatibility::wc_add_notice( __( 'Action failed. Please refresh the page and retry.', 'woocommerce' ), 'error' );
 
 		return;
 	}
 
 	$wishlist = new WC_Wishlists_Wishlist( $wishlist_id );
-	if ( !$wishlist ) {
+	if ( ! $wishlist ) {
 		WC_Wishlist_Compatibility::wc_add_notice( __( 'Action failed. Please refresh the page and retry.', 'woocommerce' ), 'error' );
 
 		return;
@@ -424,7 +427,7 @@ function woocommerce_wishlists_authenticate( $user ) {
 		return $user;
 	}
 
-	if ( !is_user_logged_in() ) {
+	if ( ! is_user_logged_in() ) {
 		$wishlist_session_key = WC_Wishlists_User::get_wishlist_key();
 	}
 
@@ -434,7 +437,7 @@ function woocommerce_wishlists_authenticate( $user ) {
 add_action( 'wp_login', 'woocommerce_wishlists_wp_login', 10, 2 );
 
 function woocommerce_wishlists_wp_login( $user_logon, $user ) {
-	if ( !is_admin() ) {
+	if ( ! is_admin() ) {
 		global $wpdb, $woocommerce_wishlist_is_user_switched;
 		if ( $woocommerce_wishlist_is_user_switched ) {
 			return false;
@@ -473,7 +476,7 @@ function woocommerce_wishlists_logout() {
 add_action( 'user_register', 'woocommerce_wishlists_register', 10, 1 );
 
 function woocommerce_wishlists_register( $user_id ) {
-	if ( !is_admin() ) {
+	if ( ! is_admin() ) {
 		global $woocommerce_wishlist_is_user_switched;
 		if ( $woocommerce_wishlist_is_user_switched ) {
 			return false;

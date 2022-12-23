@@ -907,6 +907,62 @@ function betterdocs_customize_css_pro() {
   			background-color: <?php echo $output['betterdocs_search_button_background_color_hover'] ?>;
 			color: <?php echo $output['betterdocs_search_button_text_color'] ?>;
 		}
+
+		/** FAQ MKB Layout 1 CSS **/
+		.betterdocs-faq-section-title.faq-mkb{
+			<?php echo betterdocs_dimension_margin_generator_pro('betterdocs_faq_title_margin_mkb_layout_1'); ?>
+			color: <?php echo $output['betterdocs_faq_title_color_mkb_layout_1'] ?>;
+			font-size:<?php echo $output['betterdocs_faq_title_font_size_mkb_layout_1'] ?>px;
+		}
+
+		.betterdocs-faq-main-wrapper-layout-1.faq-mkb .betterdocs-faq-title h2{
+			color: <?php echo $output['betterdocs_faq_category_title_color_mkb_layout_1'] ?>;
+			font-size: <?php echo $output['betterdocs_faq_category_name_font_size_mkb_layout_1'] ?>px;
+			<?php echo betterdocs_dimension_padding_generator_pro('betterdocs_faq_category_name_padding_mkb_layout_1'); ?>
+		}
+
+		.betterdocs-faq-main-wrapper-layout-1.faq-mkb .betterdocs-faq-list > li .betterdocs-faq-group .betterdocs-faq-post .betterdocs-faq-post-name{
+			color: <?php echo $output['betterdocs_faq_list_color_mkb_layout_1'] ?>;
+			font-size: <?php echo $output['betterdocs_faq_list_font_size_mkb_layout_1'] ?>px;
+		}
+
+		.betterdocs-faq-main-wrapper-layout-1.faq-mkb .betterdocs-faq-list > li .betterdocs-faq-group .betterdocs-faq-post{
+			background-color: <?php echo $output['betterdocs_faq_list_background_color_mkb_layout_1'] ?>;
+		}
+
+		.betterdocs-faq-main-wrapper-layout-1.faq-mkb .betterdocs-faq-group .betterdocs-faq-main-content{
+			background-color: <?php echo $output['betterdocs_faq_list_content_background_color_mkb_layout_1'] ?>;
+			font-size: <?php echo $output['betterdocs_faq_list_content_font_size_mkb_layout_1'] ?>px;
+			color: <?php echo $output['betterdocs_faq_list_content_color_mkb_layout_1'] ?>;
+		}
+
+		.betterdocs-faq-main-wrapper-layout-1.faq-mkb .betterdocs-faq-list > li .betterdocs-faq-group .betterdocs-faq-post{
+			<?php echo betterdocs_dimension_padding_generator_pro('betterdocs_faq_list_padding_mkb_layout_1'); ?>
+		}
+
+		/** FAQ MKB Layout 2 CSS **/
+		.betterdocs-faq-main-wrapper-layout-2.faq-mkb .betterdocs-faq-title h2{
+			color: <?php echo $output['betterdocs_faq_category_title_color_mkb_layout_2'] ?>;
+			font-size: <?php echo $output['betterdocs_faq_category_name_font_size_mkb_layout_2'] ?>px;
+			<?php echo betterdocs_dimension_padding_generator_pro('betterdocs_faq_category_name_padding_mkb_layout_2'); ?>
+		}
+
+		.betterdocs-faq-main-wrapper-layout-2.faq-mkb .betterdocs-faq-list > li .betterdocs-faq-group .betterdocs-faq-post-layout-2 .betterdocs-faq-post-name{
+			color: <?php echo $output['betterdocs_faq_list_color_mkb_layout_2'] ?>;
+			font-size: <?php echo $output['betterdocs_faq_list_font_size_mkb_layout_2'] ?>px;
+		}
+
+		.betterdocs-faq-main-wrapper-layout-2.faq-mkb .betterdocs-faq-list-layout-2 > li .betterdocs-faq-group-layout-2 .betterdocs-faq-post-layout-2{
+			background-color: <?php echo $output['betterdocs_faq_list_background_color_mkb_layout_2']; ?>;
+			<?php echo betterdocs_dimension_padding_generator_pro('betterdocs_faq_list_padding_mkb_layout_2'); ?>
+		}
+
+		.betterdocs-faq-main-wrapper-layout-2.faq-mkb .betterdocs-faq-list-layout-2 > li .betterdocs-faq-group-layout-2 .betterdocs-faq-main-content-layout-2{
+			background-color: <?php echo $output['betterdocs_faq_list_content_background_color_mkb_layout_2']?>;
+			font-size: <?php echo $output['betterdocs_faq_list_content_font_size_mkb_layout_2'] ?>px;
+			color: <?php echo $output['betterdocs_faq_list_content_color_mkb_layout_2'] ?>;
+		}
+
 	</style>
     <?php
 }

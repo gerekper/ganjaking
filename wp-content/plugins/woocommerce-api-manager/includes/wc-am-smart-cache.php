@@ -481,7 +481,7 @@ class WC_AM_Smart_Cache {
 					'instance'   => $activation_resource->instance
 				);
 
-				$this->delete_cache( $data, false );
+				$this->delete_api_cache( $data, false );
 			}
 		}
 	}

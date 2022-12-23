@@ -116,6 +116,9 @@ class WC_Product_Vendors_Registration {
 		if ( ! empty( $form_items ) ) {
 			$errors = array();
 
+			$is_username_exist = ! empty( $form_items['username'] ) && username_exists( $form_items['username'] );
+			$is_email_exist    = ! empty( $form_items['email'] ) && false !== email_exists( $form_items['email'] );
+
 			if ( ! is_user_logged_in() ) {
 				if ( empty( $form_items['firstname'] ) ) {
 					$errors['firstname'] = __( 'First Name is a required field.', 'woocommerce-product-vendors' );
@@ -133,7 +136,7 @@ class WC_Product_Vendors_Registration {
 					$errors['username'] = __( 'Please enter a valid username.', 'woocommerce-product-vendors' );
 				}
 
-				if ( ! empty( $form_items['username'] ) && username_exists( $form_items['username'] ) ) {
+				if ( $is_username_exist ) {
 					$errors['username'] = __( 'Please choose a different username.', 'woocommerce-product-vendors' );
 				}
 
@@ -149,12 +152,23 @@ class WC_Product_Vendors_Registration {
 					$errors['confirm_email'] = __( 'Emails must match.', 'woocommerce-product-vendors' );
 				}
 
-				if ( ! empty( $form_items['email'] ) && false !== email_exists( $form_items['email'] ) ) {
+				if ( $is_email_exist ) {
 					$errors['email'] = __( 'Email already exists in our system.', 'woocommerce-product-vendors' );
 				}
 
 				if ( ! filter_var( $form_items['email'], FILTER_VALIDATE_EMAIL ) ) {
 					$errors['email'] = __( 'Email is not valid.', 'woocommerce-product-vendors' );
+				}
+
+				if ( $is_username_exist || $is_email_exist ) {
+					$errors['wp_user_exists'] = sprintf(
+						__(
+							'If you are already an existing user on the site, please %1$slog in%2$s before registering as a Vendor.',
+							'woocommerce-product-vendors'
+						),
+						'<a href="' . esc_url( wp_login_url( wp_get_referer() ) ) . '">',
+						'</a>'
+					);
 				}
 			}
 

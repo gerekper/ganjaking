@@ -1834,6 +1834,8 @@ class GFCommon {
 
 		$replyTo = rgempty( 'replyToField', $form['notification'] ) ? rgget( 'replyTo', $form['notification'] ) : rgget( $form['notification']['replyToField'], $lead );
 
+		$form['notification'] = self::fix_notification_routing( $form['notification'] );
+
 		if ( rgempty( 'routing', $form['notification'] ) ) {
 			$email_to = rgempty( 'toField', $form['notification'] ) ? rgget( 'to', $form['notification'] ) : rgget( 'toField', $form['notification'] );
 		} else {
@@ -1879,6 +1881,27 @@ class GFCommon {
 
 		return compact( 'to', 'from', 'bcc', 'replyTo', 'subject', 'message', 'from_name', 'message_format', 'attachments', 'disableAutoformat' );
 
+	}
+
+	/**
+	 * Removes an empty routing rule that can prevent the sending of some legacy notifications.
+	 *
+	 * @since 2.6.9
+	 *
+	 * @param array $notification The notification being processed.
+	 *
+	 * @return array
+	 */
+	public static function fix_notification_routing( $notification ) {
+		if ( ! isset( $notification['routing'] ) ) {
+			return $notification;
+		}
+
+		if ( ! is_array( $notification['routing'] ) || empty( $notification['routing'][0] ) ) {
+			$notification['routing'] = null;
+		}
+
+		return $notification;
 	}
 
 	public static function send_notification( $notification, $form, $lead, $data = array() ) {
@@ -2783,9 +2806,7 @@ Content-Type: text/html;
 	}
 
 	public static function get_key_info( $key ) {
-		$key_info["is_active"] = true;
 
-		return $key_info;
 		$options            = array( 'method' => 'POST', 'timeout' => 3 );
 		$options['headers'] = array(
 			'Content-Type' => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
@@ -2800,7 +2821,6 @@ Content-Type: text/html;
 
 		$key_info = unserialize( trim( $raw_response['body'] ) );
 
-		$key_info["is_active"] = true;
 		return $key_info ? $key_info : array();
 	}
 
@@ -3034,7 +3054,6 @@ Content-Type: text/html;
 	}
 
 	public static function cache_remote_message() {
-		return;
 		//Getting version number
 		$key                = GFCommon::get_key();
 		$body               = "key=$key";

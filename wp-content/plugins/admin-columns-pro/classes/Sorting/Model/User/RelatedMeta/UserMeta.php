@@ -46,7 +46,7 @@ class UserMeta extends AbstractModel {
 		", $this->meta_key, $this->meta_field );
 
 		$query->query_orderby = sprintf( "
-			GROUP BY$wpdb->users.ID
+			GROUP BY $wpdb->users.ID
 			ORDER BY %s,$wpdb->users.ID %s
 		",
 			SqlOrderByFactory::create( "acsort_usermeta_related.meta_value", $this->get_order() ),

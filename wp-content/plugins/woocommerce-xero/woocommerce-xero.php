@@ -5,13 +5,13 @@
  * Description: Integrates <a href="https://woocommerce.com/" target="_blank" >WooCommerce</a> with the <a href="http://www.xero.com" target="_blank">Xero</a> accounting software.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
- * Version: 1.7.51
+ * Version: 1.7.52
  * Text Domain: woocommerce-xero
  * Domain Path: /languages/
- * Requires at least: 5.6
+ * Requires at least: 5.7
  * Tested up to: 6.0
  * Requires PHP: 7.0
- * WC tested up to: 6.8.0
+ * WC tested up to: 7.2.1
  * WC requires at least: 6.0
  *
  * Copyright 2019 WooCommerce
@@ -41,32 +41,25 @@ if ( ! defined( 'WC_XERO_ABSURL' ) ) {
 	define( 'WC_XERO_ABSURL', plugin_dir_url( __FILE__ ) . '/' );
 }
 
-define( 'WC_XERO_VERSION', '1.7.51' ); // WRCS: DEFINED_VERSION.
+define( 'WC_XERO_VERSION', '1.7.52' ); // WRCS: DEFINED_VERSION.
 
 /**
  * Main plugin class.
  */
-class WC_Xero {
+final class WC_Xero {
 
 	const VERSION = WC_XERO_VERSION;
-
-	/**
-	 * The constructor.
-	 */
-	public function __construct() {
-		if ( class_exists( 'WooCommerce' ) ) {
-			$this->setup();
-		} else {
-			add_action( 'admin_notices', array( $this, 'notice_wc_required' ) );
-		}
-	}
 
 	/**
 	 * Setup the class.
 	 */
 	public function setup() {
-		// Setup the autoloader.
-		$this->setup_autoloader();
+		$wc_xr_plugin_requirement = new WC_XR_PLUGIN_REQUIREMENT();
+
+		$wc_xr_plugin_requirement->is_ssl_active();
+		if ( ! $wc_xr_plugin_requirement->is_woocommerce_active() ) {
+			return;
+		}
 
 		// Run data migrations.
 		$wc_xr_encrypt_legacy_tokens_migration = new WC_XR_Encrypt_Legacy_Tokens_Migration();
@@ -121,22 +114,15 @@ class WC_Xero {
 	 * A static method that will setup the autoloader
 	 *
 	 * @static
+	 * @since 1.7.52 Make function public.
 	 * @since  1.0.0
 	 */
-	private function setup_autoloader() {
+	public function setup_autoloader() {
 		require_once plugin_dir_path( self::get_plugin_file() ) . '/includes/class-wc-xr-autoloader.php';
 
 		// Core loader.
 		$autoloader = new WC_XR_Autoloader( plugin_dir_path( self::get_plugin_file() ) . 'includes/' );
 		spl_autoload_register( array( $autoloader, 'load' ) );
-	}
-
-	/**
-	 * Admin error notifying user that WC is required.
-	 */
-	public function notice_wc_required() {
-		/* translators: %s: WooCommerce link */
-		echo '<div class="error"><p>' . sprintf( esc_html__( 'WooCommerce Xero Integration requires %s to be installed and active.', 'woocommerce-xero' ), '<a href="https://woocommerce.com/" target="_blank">WooCommerce</a>' ) . '</p></div>';
 	}
 
 	/**
@@ -159,15 +145,10 @@ class WC_Xero {
 
 }
 
-/**
- * Extension main function.
- */
-function _woocommerce_xero_main() {
-	new WC_Xero();
-}
+$wc_xero = new WC_Xero();
+$wc_xero->setup_autoloader();
 
-// Initialize plugin when plugins are loaded.
-add_action( 'plugins_loaded', '_woocommerce_xero_main' );
+add_action( 'plugins_loaded', array( $wc_xero, 'setup' ) );
 
 // Subscribe to automated translations.
 add_filter( 'woocommerce_translations_updates_for_woocommerce-xero', '__return_true' );

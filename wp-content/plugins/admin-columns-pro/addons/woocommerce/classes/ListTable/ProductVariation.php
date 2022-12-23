@@ -129,7 +129,7 @@ class ProductVariation extends WC_Admin_List_Table {
 		return [
 			'cb'                   => $columns['cb'],
 			'variation_product'    => __( 'Product', 'woocommerce' ),
-			'variation_image'      => '<span class="dashicons dashicons-format-image"></span>',
+			'variation_image'      => '<span class="dashicons dashicons-format-image"><span class="screen-reader-text">' . __( 'Image', 'codepress-admin-columns' ) . '</span></span>',
 			'variation_id'         => '#',
 			'variation_attributes' => __( 'Variation', 'woocommerce' ),
 			'variation_sku'        => __( 'SKU', 'woocommerce' ),

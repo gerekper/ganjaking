@@ -1,18 +1,38 @@
-# Copyright (C) 2021 WooCommerce
+# Copyright (C) 2022 Themesquad
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Photography 1.0.29\n"
-"Report-Msgid-Bugs-To: "
-"https://wordpress.org/support/plugin/woocommerce-photography\n"
-"POT-Creation-Date: 2021-04-06 14:54:51+00:00\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"Project-Id-Version: WooCommerce Photography 1.1.0\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: node-wp-i18n 1.2.3\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2022-12-20T11:13:53+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.7.1\n"
+"X-Domain: woocommerce-photography\n"
+
+#. Plugin Name of the plugin
+msgid "WooCommerce Photography"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://woocommerce.com/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Provide a user experience for photographers to offer batches of images for order."
+msgstr ""
+
+#. Author of the plugin
+msgid "Themesquad"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://themesquad.com"
+msgstr ""
 
 #: includes/admin/class-wc-photography-admin-collections.php:90
 msgid "Image"
@@ -32,11 +52,12 @@ msgstr ""
 msgid "Thumbnail"
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin-collections.php:134
 #. translators: 1: number of products
+#: includes/admin/class-wc-photography-admin-collections.php:134
 msgid "View products on this collection."
 msgstr ""
 
+#. translators: 1: number of products
 #: includes/admin/class-wc-photography-admin-collections.php:134
 msgid "View Products (%d)"
 msgstr ""
@@ -49,25 +70,41 @@ msgstr ""
 msgid "View Collection"
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin-settings.php:38
+#: includes/admin/class-wc-photography-admin-settings.php:43
+msgid "Image Text Option"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin-settings.php:44
+msgid "Choose the option to use as the image text in the product title."
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin-settings.php:47
+msgid "Image ID"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin-settings.php:48
+msgid "Filename"
+msgstr ""
+
+#: includes/admin/class-wc-photography-admin-settings.php:55
 #: includes/admin/class-wc-photography-admin.php:59
 #: includes/admin/class-wc-photography-admin.php:60
 #: includes/admin/views/html-batch-upload.php:42
 #: includes/admin/views/html-batch-upload.php:46
-#: includes/admin/views/html-batch-upload.php:136
+#: includes/admin/views/html-batch-upload.php:131
 #: includes/admin/views/html-customer-profile-fields.php:10
 msgid "Collections"
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin-settings.php:43
+#: includes/admin/class-wc-photography-admin-settings.php:60
 msgid "Collections Default Visibility"
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin-settings.php:44
+#: includes/admin/class-wc-photography-admin-settings.php:61
 msgid "Set the default Collections visibility."
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin-settings.php:47
+#: includes/admin/class-wc-photography-admin-settings.php:64
 #: includes/admin/views/html-add-new-collection.php:13
 #: includes/admin/views/html-edit-collection.php:11
 #: includes/wc-photography-helpers.php:19
@@ -75,7 +112,7 @@ msgstr ""
 msgid "Restricted"
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin-settings.php:48
+#: includes/admin/class-wc-photography-admin-settings.php:65
 #: includes/admin/views/html-add-new-collection.php:14
 #: includes/admin/views/html-edit-collection.php:12
 #: includes/wc-photography-helpers.php:20
@@ -83,33 +120,31 @@ msgstr ""
 msgid "Public"
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin-settings.php:54
+#: includes/admin/class-wc-photography-admin-settings.php:71
 msgid "Shop Page Visbility"
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin-settings.php:55
+#: includes/admin/class-wc-photography-admin-settings.php:72
 msgid "Allow public collections to show up on shop/archive pages."
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin-settings.php:61
+#: includes/admin/class-wc-photography-admin-settings.php:78
 msgid "Thumbnails"
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin-settings.php:66
+#: includes/admin/class-wc-photography-admin-settings.php:83
 msgid "Collections Thumbnail size:"
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin-settings.php:77
+#: includes/admin/class-wc-photography-admin-settings.php:94
 msgid "Collections Lightbox size:"
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin-settings.php:171
-msgid ""
-"The settings of this image size have been disabled because its values are "
-"being overwritten by a filter."
+#: includes/admin/class-wc-photography-admin-settings.php:188
+msgid "The settings of this image size have been disabled because its values are being overwritten by a filter."
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin-settings.php:178
+#: includes/admin/class-wc-photography-admin-settings.php:195
 msgid "Hard Crop?"
 msgstr ""
 
@@ -117,7 +152,7 @@ msgstr ""
 #: includes/admin/class-wc-photography-admin.php:49
 #: includes/admin/class-wc-photography-admin.php:152
 #: includes/admin/class-wc-photography-admin.php:208
-#: includes/admin/class-wc-photography-privacy.php:12
+#: includes/admin/class-wc-photography-privacy.php:11
 msgid "Photography"
 msgstr ""
 
@@ -131,7 +166,7 @@ msgid "Photography Settings"
 msgstr ""
 
 #: includes/admin/class-wc-photography-admin.php:77
-#: woocommerce-photography.php:157
+#: woocommerce-photography.php:154
 msgid "Settings"
 msgstr ""
 
@@ -139,49 +174,43 @@ msgstr ""
 msgid "Allowed Files"
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin.php:247
-#: includes/admin/class-wc-photography-admin.php:269
-#: includes/admin/views/html-batch-upload.php:56
-#: includes/admin/views/html-batch-upload.php:151
-#: includes/admin/views/html-customer-profile-fields.php:30
+#: includes/admin/class-wc-photography-admin.php:240
+#: includes/admin/class-wc-photography-admin.php:263
+#: includes/admin/views/html-batch-upload.php:52
+#: includes/admin/views/html-batch-upload.php:137
+#: includes/admin/views/html-customer-profile-fields.php:18
 msgid "Search for a collection&hellip;"
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin.php:248
-#: includes/admin/class-wc-photography-admin.php:270
+#: includes/admin/class-wc-photography-admin.php:241
+#: includes/admin/class-wc-photography-admin.php:264
 msgid "Loading&hellip;"
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin.php:249
-#: includes/admin/class-wc-photography-admin.php:271
+#: includes/admin/class-wc-photography-admin.php:242
+#: includes/admin/class-wc-photography-admin.php:265
 msgid "An error occurred while creating the collection! Please try again."
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin.php:250
+#: includes/admin/class-wc-photography-admin.php:243
 msgid "Photographs edited successfully!"
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin.php:290
+#: includes/admin/class-wc-photography-admin.php:284
 msgid "Choose an image"
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin.php:291
+#: includes/admin/class-wc-photography-admin.php:285
 msgid "Use image"
 msgstr ""
 
-#: includes/admin/class-wc-photography-privacy.php:20
-msgid ""
-"By using this extension, you may be storing personal data or sharing data "
-"with an external service. <a href=\"%s\" target=\"_blank\">Learn more about "
-"how this works, including what you may want to include in your privacy "
-"policy.</a>"
+#: includes/admin/class-wc-photography-privacy.php:18
+msgid "By using this extension, you may be storing personal data or sharing data with an external service. <a href=\"%s\" target=\"_blank\">Learn more about how this works, including what you may want to include in your privacy policy.</a>"
 msgstr ""
 
 #: includes/admin/views/html-add-new-collection.php:16
 #: includes/admin/views/html-edit-collection.php:14
-msgid ""
-"Restricted: only users in this collection can access. Public: any customers "
-"can access."
+msgid "Restricted: only users in this collection can access. Public: any customers can access."
 msgstr ""
 
 #: includes/admin/views/html-add-new-collection.php:24
@@ -195,9 +224,7 @@ msgid "Remove image"
 msgstr ""
 
 #: includes/admin/views/html-batch-upload.php:9
-msgid ""
-"Use this screen to upload your photographs. Before uploading, set any of "
-"the following parameters to apply them to each uploaded photograph."
+msgid "Use this screen to upload your photographs. Before uploading, set any of the following parameters to apply them to each uploaded photograph."
 msgstr ""
 
 #: includes/admin/views/html-batch-upload.php:18
@@ -211,7 +238,7 @@ msgstr ""
 
 #: includes/admin/views/html-batch-upload.php:30
 #: includes/admin/views/html-batch-upload.php:34
-#: includes/admin/views/html-batch-upload.php:131
+#: includes/admin/views/html-batch-upload.php:126
 msgid "Price"
 msgstr ""
 
@@ -219,153 +246,158 @@ msgstr ""
 msgid "Set a global price that will be set for each photo uploaded."
 msgstr ""
 
-#: includes/admin/views/html-batch-upload.php:61
+#: includes/admin/views/html-batch-upload.php:56
 msgid "Specify which collection(s) these photos belong to."
 msgstr ""
 
-#: includes/admin/views/html-batch-upload.php:63
-#: includes/admin/views/html-batch-upload.php:163
-#: includes/admin/views/html-customer-profile-fields.php:42
+#: includes/admin/views/html-batch-upload.php:58
+#: includes/admin/views/html-batch-upload.php:148
+#: includes/admin/views/html-customer-profile-fields.php:25
 msgid "+ Add Collection"
 msgstr ""
 
-#: includes/admin/views/html-batch-upload.php:66
-#: includes/admin/views/html-batch-upload.php:166
-#: includes/admin/views/html-customer-profile-fields.php:45
+#: includes/admin/views/html-batch-upload.php:61
+#: includes/admin/views/html-batch-upload.php:151
+#: includes/admin/views/html-customer-profile-fields.php:28
 msgid "Add New Collection"
 msgstr ""
 
-#: includes/admin/views/html-batch-upload.php:78
+#: includes/admin/views/html-batch-upload.php:73
 msgid "Drop images here"
 msgstr ""
 
-#: includes/admin/views/html-batch-upload.php:81
+#: includes/admin/views/html-batch-upload.php:74
+msgctxt "Uploader: Drop images here - or - Select Images"
+msgid "or"
+msgstr ""
+
+#: includes/admin/views/html-batch-upload.php:76
 msgid "Select Images"
 msgstr ""
 
-#: includes/admin/views/html-batch-upload.php:88
+#: includes/admin/views/html-batch-upload.php:83
 msgid "Maximum upload file size: %s."
 msgstr ""
 
-#: includes/admin/views/html-batch-upload.php:92
-msgid ""
-"You can't send images because your browser is too old or do not have "
-"JavaScript enabled!"
+#: includes/admin/views/html-batch-upload.php:87
+msgid "You can't send images because your browser is too old or do not have JavaScript enabled!"
 msgstr ""
 
-#: includes/admin/views/html-batch-upload.php:98
-#: includes/admin/views/html-batch-upload.php:112
+#: includes/admin/views/html-batch-upload.php:93
+#: includes/admin/views/html-batch-upload.php:107
 msgid "Save Changes"
 msgstr ""
 
-#: includes/admin/views/html-batch-upload.php:103
+#: includes/admin/views/html-batch-upload.php:98
 msgid "Close all"
 msgstr ""
 
-#: includes/admin/views/html-batch-upload.php:103
+#: includes/admin/views/html-batch-upload.php:98
 msgid "Expand all"
 msgstr ""
 
-#: includes/admin/views/html-batch-upload.php:104
+#: includes/admin/views/html-batch-upload.php:99
 msgid "Photographs"
 msgstr ""
 
-#: includes/admin/views/html-batch-upload.php:119
+#: includes/admin/views/html-batch-upload.php:114
 msgid "Remove"
 msgstr ""
 
-#: includes/admin/views/html-batch-upload.php:120
+#: includes/admin/views/html-batch-upload.php:115
 msgid "Click to toggle"
 msgstr ""
 
-#: includes/admin/views/html-batch-upload.php:127
+#: includes/admin/views/html-batch-upload.php:122
 msgid "SKU"
 msgstr ""
 
-#: includes/admin/views/html-batch-upload.php:171
+#: includes/admin/views/html-batch-upload.php:156
 msgid "Caption"
 msgstr ""
 
-#: includes/class-wc-photography-ajax.php:116
-#. translators: 1: image id 2: first collection name
-msgid "Photography #%1$d from %2$s"
-msgstr ""
-
-#: includes/class-wc-photography-ajax.php:119
-#. translators: 1: image id
-msgid "Photography #%d"
-msgstr ""
-
 #: includes/class-wc-photography-products-addons.php:43
-#: includes/class-wc-photography-taxonomies.php:33
 #: includes/class-wc-photography-taxonomies.php:35
+#: includes/class-wc-photography-taxonomies.php:37
 msgid "Photography Collections"
 msgstr ""
 
 #: includes/class-wc-photography-products-addons.php:48
 #: includes/class-wc-photography-products-addons.php:104
-#: includes/wc-photography-template-functions.php:226
+#: includes/wc-photography-template-functions.php:220
 msgid "Collection:"
-msgstr ""
+msgid_plural "Collection:"
+msgstr[0] ""
+msgstr[1] ""
 
 #: includes/class-wc-photography-products.php:38
 msgid "Photograph"
 msgstr ""
 
-#: includes/class-wc-photography-products.php:355
+#: includes/class-wc-photography-products.php:361
 msgid "Please choose the quantity of items you wish to add to your order&hellip;"
 msgstr ""
 
-#: includes/class-wc-photography-products.php:420
+#: includes/class-wc-photography-products.php:426
 msgid "You don't have permission to purchase this photo!"
 msgstr ""
 
-#: includes/class-wc-photography-taxonomies.php:36
+#: includes/class-wc-photography-taxonomies.php:38
 msgid "Photography Collection"
 msgstr ""
 
-#: includes/class-wc-photography-taxonomies.php:38
-msgid "All Photography Collections"
-msgstr ""
-
 #: includes/class-wc-photography-taxonomies.php:39
-msgid "Edit Photography Collection"
+msgctxt "Admin menu name"
+msgid "Collections"
 msgstr ""
 
 #: includes/class-wc-photography-taxonomies.php:40
-msgid "View Photography Collection"
+msgid "All Photography Collections"
 msgstr ""
 
 #: includes/class-wc-photography-taxonomies.php:41
-msgid "Update Photography Collection"
+msgid "Edit Photography Collection"
 msgstr ""
 
 #: includes/class-wc-photography-taxonomies.php:42
-msgid "Add New Photography Collection"
+msgid "View Photography Collection"
 msgstr ""
 
 #: includes/class-wc-photography-taxonomies.php:43
-msgid "New Photography Collection name"
+msgid "Update Photography Collection"
 msgstr ""
 
 #: includes/class-wc-photography-taxonomies.php:44
-msgid "Parent Photography Collection"
+msgid "Add New Photography Collection"
 msgstr ""
 
 #: includes/class-wc-photography-taxonomies.php:45
-msgid "Parent Photography Collection:"
+msgid "New Photography Collection name"
 msgstr ""
 
 #: includes/class-wc-photography-taxonomies.php:46
-msgid "Search Photography Collections"
+msgid "Parent Photography Collection"
 msgstr ""
 
 #: includes/class-wc-photography-taxonomies.php:47
+msgid "Parent Photography Collection:"
+msgstr ""
+
+#: includes/class-wc-photography-taxonomies.php:48
+msgid "Search Photography Collections"
+msgstr ""
+
+#: includes/class-wc-photography-taxonomies.php:49
 msgid "No Photography Collections found"
 msgstr ""
 
+#: includes/class-wc-photography-taxonomies.php:63
+msgctxt "slug"
+msgid "collection"
+msgstr ""
+
 #: includes/class-wc-product-photography.php:43
-#: templates/loop/photography/collections-tools.php:41
+#: templates/loop/photography/collections-tools.php:36
 msgid "Add to cart"
 msgstr ""
 
@@ -374,9 +406,7 @@ msgid "New Photography Collection"
 msgstr ""
 
 #: includes/emails/class-wc-mail-photography-new-collection.php:22
-msgid ""
-"This email is sent to customers when you assign a collection to their "
-"account."
+msgid "This email is sent to customers when you assign a collection to their account."
 msgstr ""
 
 #: includes/emails/class-wc-mail-photography-new-collection.php:25
@@ -384,9 +414,7 @@ msgid "[{site_title}] Your photographs are ready! - {collections}"
 msgstr ""
 
 #: includes/emails/class-wc-mail-photography-new-collection.php:26
-msgid ""
-"Photos from your event(s) have been added to your account & are ready to be "
-"viewed."
+msgid "Photos from your event(s) have been added to your account & are ready to be viewed."
 msgstr ""
 
 #: includes/emails/class-wc-mail-photography-new-collection.php:46
@@ -402,9 +430,7 @@ msgid "Subject"
 msgstr ""
 
 #: includes/emails/class-wc-mail-photography-new-collection.php:54
-msgid ""
-"This controls the email subject line. Leave blank to use the default "
-"subject: <code>%s</code>."
+msgid "This controls the email subject line. Leave blank to use the default subject: <code>%s</code>."
 msgstr ""
 
 #: includes/emails/class-wc-mail-photography-new-collection.php:59
@@ -412,9 +438,7 @@ msgid "Email Heading"
 msgstr ""
 
 #: includes/emails/class-wc-mail-photography-new-collection.php:61
-msgid ""
-"This controls the main heading contained within the email. Leave blank to "
-"use the default heading: <code>%s</code>."
+msgid "This controls the main heading contained within the email. Leave blank to use the default heading: <code>%s</code>."
 msgstr ""
 
 #: includes/emails/class-wc-mail-photography-new-collection.php:66
@@ -437,6 +461,16 @@ msgstr ""
 msgid "Multipart"
 msgstr ""
 
+#. translators: 1: image ID 2: first collection name
+#: includes/wc-photography-helpers.php:86
+msgid "Photography #%1$d from %2$s"
+msgstr ""
+
+#. translators: 1: image ID
+#: includes/wc-photography-helpers.php:89
+msgid "Photography #%d"
+msgstr ""
+
 #: templates/emails/photography-new-collection.php:17
 #: templates/emails/plain/photography-new-collection.php:16
 msgid "The following photo collection(s) has been added to your account:"
@@ -454,11 +488,11 @@ msgstr ""
 msgid "You can view your collections on the My Account page: %s"
 msgstr ""
 
-#: templates/loop/photography/collections-tools.php:24
+#: templates/loop/photography/collections-tools.php:18
 msgid "Select"
 msgstr ""
 
-#: templates/loop/photography/collections-tools.php:38
+#: templates/loop/photography/collections-tools.php:33
 msgid "of each photo"
 msgstr ""
 
@@ -501,54 +535,15 @@ msgstr ""
 msgid "View Photographs"
 msgstr ""
 
-#: woocommerce-photography.php:37
 #. translators: %s WC download URL link.
-msgid ""
-"Photography requires WooCommerce to be installed and active. You can "
-"download %s here."
+#: woocommerce-photography.php:36
+msgid "Photography requires WooCommerce to be installed and active. You can download %s here."
 msgstr ""
 
-#: woocommerce-photography.php:158
+#: woocommerce-photography.php:155
 msgid "Support"
 msgstr ""
 
-#: woocommerce-photography.php:159
+#: woocommerce-photography.php:156
 msgid "Docs"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "WooCommerce Photography"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "https://woocommerce.com/"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid ""
-"Provide a user experience for photographers to offer batches of images for "
-"order."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "WooCommerce"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "https://woocommerce.com"
-msgstr ""
-
-#: includes/admin/views/html-batch-upload.php:79
-msgctxt "Uploader: Drop images here - or - Select Images"
-msgid "or"
-msgstr ""
-
-#: includes/class-wc-photography-taxonomies.php:37
-msgctxt "Admin menu name"
-msgid "Collections"
-msgstr ""
-
-#: includes/class-wc-photography-taxonomies.php:61
-msgctxt "slug"
-msgid "collection"
 msgstr ""

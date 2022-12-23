@@ -62,7 +62,7 @@ final class WC_Subscribe_To_Newsletter {
 	 * @since 2.5.0
 	 */
 	public function define_constants() {
-		$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_VERSION', '3.5.0' );
+		$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_VERSION', '3.5.1' );
 		$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_PATH', plugin_dir_path( WC_NEWSLETTER_SUBSCRIPTION_FILE ) );
 		$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_URL', plugin_dir_url( WC_NEWSLETTER_SUBSCRIPTION_FILE ) );
 		$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_BASENAME', plugin_basename( WC_NEWSLETTER_SUBSCRIPTION_FILE ) );
@@ -135,6 +135,7 @@ final class WC_Subscribe_To_Newsletter {
 	private function init_hooks() {
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'widgets_init', array( $this, 'init_widget' ) );
+		add_action( 'before_woocommerce_init', array( $this, 'declare_compatibility' ) );
 		add_action( 'woocommerce_loaded', array( $this, 'load_post_wc_class' ) );
 	}
 
@@ -164,6 +165,17 @@ final class WC_Subscribe_To_Newsletter {
 		include_once WC_NEWSLETTER_SUBSCRIPTION_PATH . 'includes/class-wc-widget-subscribe-to-newsletter.php';
 
 		register_widget( 'WC_Widget_Subscribe_To_Newsletter' );
+	}
+
+	/**
+	 * Declares compatibility with the WC features.
+	 *
+	 * @since 3.5.1
+	 */
+	public function declare_compatibility() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WC_NEWSLETTER_SUBSCRIPTION_FILE, true );
+		}
 	}
 
 	/**

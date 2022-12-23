@@ -456,7 +456,7 @@ class Settings implements Registerable {
 				return [];
 			}
 
-			$options[ $column->get_name() ] = $column->get_label();
+			$options[ $column->get_name() ] = trim( strip_tags( $column->get_custom_label() ) );
 		}
 
 		return [ '' => __( 'Default', 'codepress-admin-columns' ) ] + $options;

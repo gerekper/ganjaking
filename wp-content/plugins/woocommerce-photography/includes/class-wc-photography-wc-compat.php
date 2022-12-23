@@ -5,10 +5,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * WooCommerce compatibility methods.
- *
- * @package  WC_Photography/WC_Compat
- * @category Class
- * @author   The_Extendables
  */
 class WC_Photography_WC_Compat {
 
@@ -16,7 +12,8 @@ class WC_Photography_WC_Compat {
 	 *
 	 * Updates a term meta. Compatibility function for WC 3.6.
 	 *
-	 * @since 1.6.19
+	 * @since 1.0.17
+	 *
 	 * @param int    $term_id    Term ID.
 	 * @param string $meta_key   Meta key.
 	 * @param mixed  $meta_value Meta value.
@@ -33,7 +30,8 @@ class WC_Photography_WC_Compat {
 	/**
 	 * Gets a term meta. Compatibility function for WC 3.6.
 	 *
-	 * @since 1.6.19
+	 * @since 1.0.17
+	 *
 	 * @param int    $term_id Term ID.
 	 * @param string $key     Meta key.
 	 * @param bool   $single  Whether to return a single value. (default: true).

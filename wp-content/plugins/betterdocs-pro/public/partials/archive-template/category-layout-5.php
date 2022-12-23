@@ -40,7 +40,8 @@ echo '<div class="betterdocs-wraper betterdocs-main-wraper">';
                 echo '</div>';
             }
     echo '</div>
-    </div>
-</div>';
+    </div>';
+    include( BETTERDOCS_PUBLIC_PATH . 'partials/faq.php' );
+'</div>';
 
 get_footer();

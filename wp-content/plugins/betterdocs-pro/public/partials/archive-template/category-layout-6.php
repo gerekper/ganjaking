@@ -15,7 +15,7 @@ echo $live_search_markup;
 echo '<div class="betterdocs-archive-wrap betterdocs-archive-main">';
 echo $category_markup;
 echo '</div>';
-
+include( BETTERDOCS_PUBLIC_PATH . 'partials/faq.php' );
 echo '</div>';
 
 get_footer();

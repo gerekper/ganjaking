@@ -76,7 +76,7 @@ class Betterdocs_Pro_Report_Email extends BetterDocs_Report_Email
             'name'     => 'reporting_subject',
             'type'     => 'text',
             'label'    => __( 'Reporting Email Subject', 'betterdocs-pro' ),
-            'default'  => wp_sprintf( '%s %s', __( 'Weekly Engagement Summary of', 'betterdocs' ),  get_bloginfo( 'name' ) ),
+            'default'  => wp_sprintf( '%s %s %s', __( 'Your Documentation Performance of', 'betterdocs' ),  get_bloginfo( 'name' ), __( 'Website', 'betterdocs' ), ),
             'priority' => 4,
         );
         return $settings;

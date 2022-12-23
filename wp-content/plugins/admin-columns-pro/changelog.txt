@@ -1,5 +1,16 @@
 == Changelog ==
 
+= 6.0.3 =
+Release Date: December 21st, 2022
+
+* [Fixed] The settings for Network Sites and Network Users were not loaded correctly
+* [Fixed] Labels for the Primary column picker are now sanitized
+* [Fixed] Sorting for Related User Meta on the User table could lead to empty results
+* [Fixed] HTML Character encoding for Saved Filters drop down
+* [Improved] Added the Last Modified and Last Modified Author column to the Media page
+* [ToolsetTypes] Export for DateTime field now exports the time
+* [TheEventsCalendar] Null check for possible error in the 'Additional Field' column value
+
 = 6.0.2 =
 Release Date: December 9th, 2022
 

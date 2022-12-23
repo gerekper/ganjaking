@@ -62,17 +62,18 @@ class WC_Photography_Install {
 	 */
 	public static function get_initial_settings() {
 		return array(
+			'image_text_option'              => 'image_id',
 			'collections_default_visibility' => 'restricted',
-			'thumbnail_image_size' => array(
+			'thumbnail_image_size'           => array(
 				'width'  => 200,
 				'height' => 200,
-				'crop'   => false
+				'crop'   => false,
 			),
-			'lightbox_image_size' => array(
+			'lightbox_image_size'            => array(
 				'width'  => 600,
 				'height' => 600,
-				'crop'   => false
-			)
+				'crop'   => false,
+			),
 		);
 	}
 
@@ -84,7 +85,7 @@ class WC_Photography_Install {
 		$shop_manager = get_role( 'shop_manager' );
 
 		// Photography caps.
-		if ( ! empty ( $admin ) && ! empty( $shop_manager ) ) {
+		if ( ! empty( $admin ) && ! empty( $shop_manager ) ) {
 			$admin->add_cap( 'manage_photography' );
 			$shop_manager->add_cap( 'manage_photography' );
 		}

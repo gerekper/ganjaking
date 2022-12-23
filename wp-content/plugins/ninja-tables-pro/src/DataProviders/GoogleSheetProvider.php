@@ -155,13 +155,24 @@ class GoogleSheetProvider
                 $newRow[] = $innerHTML;
             }
 
-            if(array_filter($newRow) && (count($newRow) === count($validColumns))) {
+            if($this->escapeZero($newRow) && (count($newRow) === count($validColumns))) {
                 $result[] = array_combine($validColumns, $newRow);
             }
 
         }
 
         return $result;
+    }
+
+    public function escapeZero($newRow)
+    {
+        $status = apply_filters('ninja_tables_google_sheet_escape_zero_value', true);
+
+        if(!$status) {
+            return true;
+        }
+
+        return array_filter($newRow);
     }
 
     private function sanitizeGoogleUrl($url)

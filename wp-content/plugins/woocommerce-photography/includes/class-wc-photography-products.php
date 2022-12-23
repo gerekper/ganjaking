@@ -290,17 +290,23 @@ class WC_Photography_Products {
 	public function setup_image_sizes() {
 		$settings = get_option( 'woocommerce_photography' );
 
-		$photography_thumbnail = apply_filters( 'wc_photography_get_image_size_thumbnail', array(
-			'width'  => $settings['thumbnail_image_size']['width'],
-			'height' => $settings['thumbnail_image_size']['height'],
-			'crop'   => $settings['thumbnail_image_size']['crop'],
-		) );
+		$photography_thumbnail = apply_filters(
+			'wc_photography_get_image_size_thumbnail',
+			array(
+				'width'  => $settings['thumbnail_image_size']['width'],
+				'height' => $settings['thumbnail_image_size']['height'],
+				'crop'   => $settings['thumbnail_image_size']['crop'],
+			)
+		);
 
-		$photography_lightbox = apply_filters( 'wc_photography_get_image_size_lightbox', array(
-			'width'  => $settings['lightbox_image_size']['width'],
-			'height' => $settings['lightbox_image_size']['height'],
-			'crop'   => $settings['lightbox_image_size']['crop'],
-		) );
+		$photography_lightbox = apply_filters(
+			'wc_photography_get_image_size_lightbox',
+			array(
+				'width'  => $settings['lightbox_image_size']['width'],
+				'height' => $settings['lightbox_image_size']['height'],
+				'crop'   => $settings['lightbox_image_size']['crop'],
+			)
+		);
 
 		add_image_size( 'photography_thumbnail', $photography_thumbnail['width'], $photography_thumbnail['height'], $photography_thumbnail['crop'] );
 		add_image_size( 'photography_lightbox', $photography_lightbox['width'], $photography_lightbox['height'], $photography_lightbox['crop'] );
@@ -341,8 +347,8 @@ class WC_Photography_Products {
 				if ( $passed_validation ) {
 					// Add the product to the cart.
 					if ( WC()->cart->add_to_cart( $product_id, $quantity ) ) {
-						$was_added_to_cart = true;
-						$added_to_cart[$product_id]   = $quantity;
+						$was_added_to_cart            = true;
+						$added_to_cart[ $product_id ] = $quantity;
 					}
 				}
 			}
@@ -367,7 +373,7 @@ class WC_Photography_Products {
 					wp_safe_redirect( $url );
 					exit;
 				} elseif ( 'yes' == get_option( 'woocommerce_cart_redirect_after_add' ) ) { // Redirect to cart option.
-					wp_safe_redirect( WC()->cart->get_cart_url() );
+					wp_safe_redirect( wc_get_cart_url() );
 					exit;
 				}
 			}
@@ -378,7 +384,7 @@ class WC_Photography_Products {
 	 * Validate the product before add to cart.
 	 *
 	 * @param  bool $valid
-	 * @param  int $product_id
+	 * @param  int  $product_id
 	 *
 	 * @return bool
 	 */

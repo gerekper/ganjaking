@@ -17,13 +17,13 @@ class WC_Email_Photography_New_Collection extends WC_Email {
 	 */
 	public function __construct() {
 
-		$this->id             = 'wc_photography_new_collection';
-		$this->title          = __( 'New Photography Collection', 'woocommerce-photography' );
-		$this->description    = __( 'This email is sent to customers when you assign a collection to their account.', 'woocommerce-photography' );
+		$this->id          = 'wc_photography_new_collection';
+		$this->title       = __( 'New Photography Collection', 'woocommerce-photography' );
+		$this->description = __( 'This email is sent to customers when you assign a collection to their account.', 'woocommerce-photography' );
 
 		// Options.
-		$this->subject        = __( '[{site_title}] Your photographs are ready! - {collections}', 'woocommerce' );
-		$this->heading        = __( 'Photos from your event(s) have been added to your account & are ready to be viewed.', 'woocommerce' );
+		$this->subject = __( '[{site_title}] Your photographs are ready! - {collections}', 'woocommerce-photography' );
+		$this->heading = __( 'Photos from your event(s) have been added to your account & are ready to be viewed.', 'woocommerce-photography' );
 
 		// Templates.
 		$this->template_html  = 'emails/photography-new-collection.php';
@@ -42,25 +42,25 @@ class WC_Email_Photography_New_Collection extends WC_Email {
 	 */
 	public function init_form_fields() {
 		$this->form_fields = array(
-			'enabled' => array(
+			'enabled'    => array(
 				'title'   => __( 'Enable/Disable', 'woocommerce-photography' ),
 				'type'    => 'checkbox',
 				'label'   => __( 'Enable this email notification', 'woocommerce-photography' ),
-				'default' => 'yes'
+				'default' => 'yes',
 			),
-			'subject' => array(
+			'subject'    => array(
 				'title'       => __( 'Subject', 'woocommerce-photography' ),
 				'type'        => 'text',
 				'description' => sprintf( __( 'This controls the email subject line. Leave blank to use the default subject: <code>%s</code>.', 'woocommerce-photography' ), $this->subject ),
 				'placeholder' => '',
-				'default'     => ''
+				'default'     => '',
 			),
-			'heading' => array(
+			'heading'    => array(
 				'title'       => __( 'Email Heading', 'woocommerce-photography' ),
 				'type'        => 'text',
 				'description' => sprintf( __( 'This controls the main heading contained within the email. Leave blank to use the default heading: <code>%s</code>.', 'woocommerce-photography' ), $this->heading ),
 				'placeholder' => '',
-				'default'     => ''
+				'default'     => '',
 			),
 			'email_type' => array(
 				'title'       => __( 'Email type', 'woocommerce-photography' ),
@@ -72,8 +72,8 @@ class WC_Email_Photography_New_Collection extends WC_Email {
 					'plain'     => __( 'Plain text', 'woocommerce-photography' ),
 					'html'      => __( 'HTML', 'woocommerce-photography' ),
 					'multipart' => __( 'Multipart', 'woocommerce-photography' ),
-				)
-			)
+				),
+			),
 		);
 	}
 
@@ -88,7 +88,7 @@ class WC_Email_Photography_New_Collection extends WC_Email {
 		$names = array();
 
 		foreach ( $collections as $collection_id ) {
-			$collection = get_term( $collection_id, 'images_collections' );
+			$collection              = get_term( $collection_id, 'images_collections' );
 			$names[ $collection_id ] = $collection->name;
 		}
 
@@ -137,7 +137,7 @@ class WC_Email_Photography_New_Collection extends WC_Email {
 				'email_heading' => $this->get_heading(),
 				'collections'   => $this->collections,
 				'sent_to_admin' => false,
-				'plain_text'    => false
+				'plain_text'    => false,
 			),
 			'woocommerce/',
 			$this->template_base
@@ -161,7 +161,7 @@ class WC_Email_Photography_New_Collection extends WC_Email {
 				'email_heading' => $this->get_heading(),
 				'collections'   => $this->collections,
 				'sent_to_admin' => false,
-				'plain_text'    => true
+				'plain_text'    => true,
 			),
 			'woocommerce/',
 			$this->template_base

@@ -1,4 +1,17 @@
 *** WooCommerce Wishlist Changelog ***
+2022.12.20 - version 2.2.8
+    * Update: Correct spelling of filter, wc_wishlists_udpate_list_args
+    * Update:  Added woocommerce_add_to_cart_validation before an item is added to the cart.
+    * Update:  Added check for Google trying to follow the add to wishlist link.
+    * Update:  If for some reason an invalid product ID is passed to the wishlist handler, it will now just ignore it.
+    * Update:  Remove old WC extension update functions.
+    * Fix: Send the product URL through the woocommerce_get_product_permalink filter in the view template.
+
+2022.04.20 - version 2.2.7
+    * Fix: Check if the product is available before calling methods on it.  Fixes issues with Divi incorrectly causing WooCommerce actions to fire on non product pages.
+    * Update: If the filtered template hook is empty do not add the wishlist form.
+    * Update: Use $_REQUEST when editing the list for checking for the list id.
+
 2022.01.08 - version 2.2.6
     * Check product exists before attempting to call functions on it.
     * Update:  WC and WP Updates.
@@ -227,118 +240,118 @@
     * Fix:  Fix share via email button when lists rendered on the My Account page.  Ref: #24
 
 2016.06.15 - version 1.11.1
-	* Fix:  Correct issue where the Add to Wishlist Button is hidden. 
-	
+	* Fix:  Correct issue where the Add to Wishlist Button is hidden.
+
 2016.04.29 - version 1.11.0
 	* Note:  Compatible against WC 2.6
-	* Update: Update to allow validation to pass even when catalog visibility has disabled it. 
-	* Update: Use new catalog visibility options action to render the buttons in the correct location for variable products. 
-	* Update: We no longer need to move the wishlist button via javascript to be inside the variation form. 
-	* Fix: Prevent duplicate notices from being added via wc_add_notice for session items when viewing pages which do not call wc_print_notices. 
-	
+	* Update: Update to allow validation to pass even when catalog visibility has disabled it.
+	* Update: Use new catalog visibility options action to render the buttons in the correct location for variable products.
+	* Update: We no longer need to move the wishlist button via javascript to be inside the variation form.
+	* Fix: Prevent duplicate notices from being added via wc_add_notice for session items when viewing pages which do not call wc_print_notices.
+
 2016.04.14 - version 1.10.5
-	* Fix:  Only set the wc_wishlist_user cookie when an item is added to a list or when a new list is created. 
-	* Fix:  Fix warning about unknown variable when creating a new list. 
+	* Fix:  Only set the wc_wishlist_user cookie when an item is added to a list or when a new list is created.
+	* Fix:  Fix warning about unknown variable when creating a new list.
 	* Update:  WP 4.5 updates for get_currentuser
-	
+
 2016.04.13 - version 1.10.4
-	* Fix:  Correct issue where multiple add to wishlist buttons present when using variable products with the product_page shortcode. 
-	* Update:  Add message and redirect upon verification of users Wishlist email. 
+	* Fix:  Correct issue where multiple add to wishlist buttons present when using variable products with the product_page shortcode.
+	* Update:  Add message and redirect upon verification of users Wishlist email.
 	* Update:  Updated ReadMe to reference correct plugin
 	* Update:  Fixes spelling error in the settings panel.
 	* Update:  Fixes not translatable default 'Add to wishlist' label
 
 2016.03.31 - version 1.10.3
-	* Fix:  Correct issue with registration returning a blank page when registering for an account on the my account page. 
-	
+	* Fix:  Correct issue with registration returning a blank page when registering for an account on the my account page.
+
 2016.03.02 - version 1.10.2
-	* New:  Added support for Google Captcha (reCAPTCHA) by BestWebSoft. 
-	
+	* New:  Added support for Google Captcha (reCAPTCHA) by BestWebSoft.
+
 2016.01.27 - version 1.10.1
-	* Fix:  Correct reference to $post->id in post_link filter. 
-	* Update:  Adds "Registration Required" to the "Allow Guest to Create Lists" option.  This will allow guests to see and use the "Add to Wishlist" button, 
-		but if Registration Required is selected they will be redirected to the Logon / Register form before they can actually add the item to a list. 
-		
+	* Fix:  Correct reference to $post->id in post_link filter.
+	* Update:  Adds "Registration Required" to the "Allow Guest to Create Lists" option.  This will allow guests to see and use the "Add to Wishlist" button,
+		but if Registration Required is selected they will be redirected to the Logon / Register form before they can actually add the item to a list.
+
 2015.12.16 - version 1.10.0
 	* WC 2.5 Updates:
-		WC 2.5 no longer hides the variation add to cart button.  
-		Add javascript to enable / disable the add to wishlist button when a valid variation has not been selected. 
+		WC 2.5 no longer hides the variation add to cart button.
+		Add javascript to enable / disable the add to wishlist button when a valid variation has not been selected.
 
 2015.11.30 - version 1.9.6
 	* Update: Remove the bulk add to cart options if Catalog Visibility extension is active.  This prevents users from adding products to the cart
-		which are not actually purchasable by that user. 
+		which are not actually purchasable by that user.
 
 2015.09.15 - version 1.9.5
-	* Update:  Redirect back to the product after creating a list if the redirect to wishlist setting is false. 
+	* Update:  Redirect back to the product after creating a list if the redirect to wishlist setting is false.
 
 2015.09.15 - version 1.9.4
 	* Fix:  Correct problem introduced in 1.9.2 when the cart_item['data'] was removed.  This update
-		adds the [data] back on the item to allow extensions such as Product Addons to work properly. 
-		The data is removed from the wishlist_item before being saved to the DB. 
-	
+		adds the [data] back on the item to allow extensions such as Product Addons to work properly.
+		The data is removed from the wishlist_item before being saved to the DB.
+
 2015.09.02 - version 1.9.3
-	* Update:  Remove default view button and permalink div from the WordPress dashboard when working with Wishlists. 
-		A custom meta box on the top of the sidebar allows for viewing or previewing the list. 
-	* Update:   Set the View url to the proper location. 
-	
+	* Update:  Remove default view button and permalink div from the WordPress dashboard when working with Wishlists.
+		A custom meta box on the top of the sidebar allows for viewing or previewing the list.
+	* Update:   Set the View url to the proper location.
+
 2015.08.25 - version 1.9.2
-	* Update:  Don't store serialized product data with the wishlist items. 
+	* Update:  Don't store serialized product data with the wishlist items.
 	* Update:  Remove add to wishlist button in WP 4.3+
-	
+
 2015.07.30 - version 1.9.1
-	* New:  Adds a Update Quantities and Add to Cart option for bulk actions when working with your own lists. 
-	
+	* New:  Adds a Update Quantities and Add to Cart option for bulk actions when working with your own lists.
+
 2015.07.13 - version 1.9.0
-	* WooCommerce 2.4.x compatibility. 
-	
+	* WooCommerce 2.4.x compatibility.
+
 	* New Feature:  Provide a setting to disable automatic creation of lists.  The default is to allow Wishlists to automatically generate
 		a list for a user when they click add to wishlist and have not already created one.  The new option "Automatically Create Lists"
-		can be used to toggle this behavior. 
+		can be used to toggle this behavior.
 
 	* New Feature:  Added email validation for emails on lists.  Validation required for guest lists or for lists by users who enter an email
 		Which is different from their registered email.  Validation will only occur on lists created after version 2.9.0
 
 2015.07.06 - version 1.8.5
 	* Update:  Correct double period typo in autogenerated message.
-	
+
 2015.06.26 - version 1.8.4
-	* Update:  Correctly link wishlists from guests when they register a for a new account. 
+	* Update:  Correctly link wishlists from guests when they register a for a new account.
 
 2015.06.17 - version 1.8.3
-	* Fix:  Fix incorrectly escaped URLs from the 1.7.3 update. 
-	
+	* Fix:  Fix incorrectly escaped URLs from the 1.7.3 update.
+
 2015.06.08 - version 1.8.2
-	* Update: Add filter to allow showing lists before or after the recent orders section on the My Account page. 
+	* Update: Add filter to allow showing lists before or after the recent orders section on the My Account page.
 		woocommerce_wishlists_account_location:  Return either 'before' or 'after' from this filter.  Default 'after'
 
 
 2015.06.02 - version 1.8.1
-	* Update: Remove wishlists_recently_modified session handling code, since it was just adding overhead in the database and not being used in the 
-		user interface. 
+	* Update: Remove wishlists_recently_modified session handling code, since it was just adding overhead in the database and not being used in the
+		user interface.
 	* Update: Add display:none; to the wishlist modal on load, rather than relying on javascript to hide it.  Prevents problems with sites with many scripts
 		showing the modal for a brief flash
 
 2015.05.01 - version 1.8.0
-	* Feature:  
-		- Added price reduction notifications. When an item on a users wishlist is reduced in price an email notification will be sent alerting them of the change.  
-		- Notifications can be disabled globally from the administration section of WooCommerce or by users on their individual lists. 
-		- Notifications are disabled for a site by default.  Change this option from WooCommerce -> Settings -> Wishlists -> Notifications section. 
+	* Feature:
+		- Added price reduction notifications. When an item on a users wishlist is reduced in price an email notification will be sent alerting them of the change.
+		- Notifications can be disabled globally from the administration section of WooCommerce or by users on their individual lists.
+		- Notifications are disabled for a site by default.  Change this option from WooCommerce -> Settings -> Wishlists -> Notifications section.
 	* Feature:
 		- Added ability to assign or re-assign a user to a list from the Wishlist posts screen.  WooCommerce -> Wishlists -> Edit List -> Name and Information Meta Box
-		- You can use this feature to create a list from the site and then assign a specific user from your customer base. 
-	* Update: Remove Add Wishlist button from the WordPress dashboard since this isn't a supported operation. 
-	* Update: Simplify the cookie handling code. 
-	* Update: Fix a compatibility issue with the Storefront CSS.  Storefront was overriding the selected Wishlist button image. 
+		- You can use this feature to create a list from the site and then assign a specific user from your customer base.
+	* Update: Remove Add Wishlist button from the WordPress dashboard since this isn't a supported operation.
+	* Update: Simplify the cookie handling code.
+	* Update: Fix a compatibility issue with the Storefront CSS.  Storefront was overriding the selected Wishlist button image.
 
 2015.04.28 - version 1.7.4
-	* Remove all references to WooCommerce session in the shortcodes, since the wishlist key is stored in a unique cookie. 
-	
+	* Remove all references to WooCommerce session in the shortcodes, since the wishlist key is stored in a unique cookie.
+
 2015.04.21 - version 1.7.3
 	* Fix - Potential XSS with add_query_arg
 
 2015.04.03 - version 1.7.2
-	* Fix:  Set required attributed on the name field for a wishlist and check it's set before creating the list. 
-	
+	* Fix:  Set required attributed on the name field for a wishlist and check it's set before creating the list.
+
 2015.03.24 - version 1.7.1
 	* Fix:  Remove the add to cart action properly in WC 2.3x
 
@@ -347,160 +360,160 @@
 	* Update:  Changed the .modal class used to .wl-modal to prevent conflicts with themes using Bootstrap
 
 2015.02.10 - version 1.6.9
-	* Only start the WooCommerce session when a list is created or when any of the wishlist shortcodes are activated. 
+	* Only start the WooCommerce session when a list is created or when any of the wishlist shortcodes are activated.
 
 2015.02.06 - version 1.6.8
-	* Added wishlist id to the add_to_wishlist_redirect_url filter. 
-	
+	* Added wishlist id to the add_to_wishlist_redirect_url filter.
+
 
 2015.02.04 - version 1.6.7
-	* Update admin wishlist search to include title and content. 
+	* Update admin wishlist search to include title and content.
 	* Fix: Do not automatically remove items from a list unless selected in WooCommerce -> Wishlist settings
-	
+
 2015.01.28 - version 1.6.6
-	* Update to correct problem showing post updated status in the admin. 
-	
+	* Update to correct problem showing post updated status in the admin.
+
 2015.01.15 - version 1.6.5
-	* Update for Product Bundles to correctly place the add to wishlist buttons. 
-	* Update for Product Bundles to correctly submit the item to the wishlist. 
-	
+	* Update for Product Bundles to correctly place the add to wishlist buttons.
+	* Update for Product Bundles to correctly submit the item to the wishlist.
+
 2014.12.17 - version 1.6.4
-	* Update: Force WooCommerce to actually start a customer session when the site loads. 
+	* Update: Force WooCommerce to actually start a customer session when the site loads.
 
 2014.12.09 - version 1.6.3
-	* Update: Update support for the latest version of  composite products.  Some of the class names in the template files changed and the 
-		wishlist javascript needed to be updated to account for this. 
+	* Update: Update support for the latest version of  composite products.  Some of the class names in the template files changed and the
+		wishlist javascript needed to be updated to account for this.
 
 2014.12.04 - version 1.6.2
-	* Automatically create a list without requiring the user to enter a the list details. 
-	
+	* Automatically create a list without requiring the user to enter a the list details.
+
 2014.12.01 - version 1.6.1
-	* Fixes problems with receiving 404 errors after adding an item to a list. 
+	* Fixes problems with receiving 404 errors after adding an item to a list.
 
 2014.11.24 - version 1.6.0
 	* Added support for WooCommerce Quick View
-	* Fixed issue with automatically removing items from a list once certain processing status had been met. 
-	
+	* Fixed issue with automatically removing items from a list once certain processing status had been met.
+
 2014.11.17 - version 1.5.4
 	* Disable purchases from lists when catalog visibility does not allow it by adding the woocommerce_wishlist_user_can_purcahse filter
-		check before adding items to the cart. 
-	
+		check before adding items to the cart.
+
 2014.11.05 - version 1.5.3
-	* Added full name search in admin wishlist search, will split a full name and search on the fields for each term. 
-	* Update WHERE filter in admin search to prevent the global wp_query object from being overwritten. 
-	* Correct filter logic in Admin Dashbaord. 
+	* Added full name search in admin wishlist search, will split a full name and search on the fields for each term.
+	* Update WHERE filter in admin search to prevent the global wp_query object from being overwritten.
+	* Correct filter logic in Admin Dashbaord.
 	* 4.0 deprecated function removal, escape_like
 
 2014.10.31 - version 1.5.2
-	* Remove quantity inputs from external products. 
+	* Remove quantity inputs from external products.
 
-2014.10.30 - version 1.5.1 
-	* Added checks around search modification code to make sure the filter was called correctly. 
-	* Additional compatibility for catalog visibility options. 
-	
+2014.10.30 - version 1.5.1
+	* Added checks around search modification code to make sure the filter was called correctly.
+	* Additional compatibility for catalog visibility options.
+
 2014.08.13 - version 1.5.0
 	* 2.2x compatibility
-	
+
 2014.07.22 - version 1.4.9
 	* Added support for external / affiliate products
 	* Fixed issue where items where not being sent to a new list when clicking on the "New List" button
 	* Modified session uses to use the WC session classes
 
 2014.05.28 - version 1.4.8
-	* Added logic to disallow the adding items to the cart when items are sold individually and are already in the cart. 
-	* Changed the registration order of the taxonomy to be earlier than the API handler. 
-	
-2014.05.12 - version 1.4.7
-	* Updated search logic to use LIKE operators for better matching. 
+	* Added logic to disallow the adding items to the cart when items are sold individually and are already in the cart.
+	* Changed the registration order of the taxonomy to be earlier than the API handler.
 
-2014.04.20 - version 1.4.6 
-	* Added filter which controls the number of items shown per page. 
-		woocommerce_wishlist_posts_per_page  
+2014.05.12 - version 1.4.7
+	* Updated search logic to use LIKE operators for better matching.
+
+2014.04.20 - version 1.4.6
+	* Added filter which controls the number of items shown per page.
+		woocommerce_wishlist_posts_per_page
 			Parameters:
-				$items_per_page:  The number of lists to display per page. 
+				$items_per_page:  The number of lists to display per page.
 
 2014.04.02 - version 1.4.5
-	* Added filters to the wishlist display templates to allow additional filtering of the item title, price and quantity selectors. 
-		woocommerce_wishlist_list_item_price  
+	* Added filters to the wishlist display templates to allow additional filtering of the item title, price and quantity selectors.
+		woocommerce_wishlist_list_item_price
 			Parameters:
-				$price:  The price to be displayed. 
+				$price:  The price to be displayed.
 				$item: The wishlist item
 				$wishlist: The wishlist
-		
+
 		woocommerce_wishlist_list_item_quantity_value
 			Parameters:
-				$quantity:  The quantity of the item in the wishlist.  
+				$quantity:  The quantity of the item in the wishlist.
 				$item: The wishlist item
 				$wishlist: The wishlist
-			
 
-	* Added action, woocommerce_wishlist_after_list_item_name, after the Wishlist item name. 
+
+	* Added action, woocommerce_wishlist_after_list_item_name, after the Wishlist item name.
 		Parameters:
-			$item: The wishlist item.  Same data as a $cart_item would contain. 
-			$wishlist: The wishlist the item is in.   
+			$item: The wishlist item.  Same data as a $cart_item would contain.
+			$wishlist: The wishlist the item is in.
 
-	* Update for Composite Products and Variable Components. 
-	* Update for Composite Products - Added actions and filters to the Wishlist admin section. 
+	* Update for Composite Products and Variable Components.
+	* Update for Composite Products - Added actions and filters to the Wishlist admin section.
 
 2014.03.27 - version 1.4.4
-	* Fix:  Only add nonce validation errors when not in admin. 
+	* Fix:  Only add nonce validation errors when not in admin.
 	* Updated Search Logic to include Wishlist Name field in search.
 	* Changes Per WPML
-		* Added wpml-config.xml file. 
-		* Added wc_wishlists_get_page_id to filter wishlist page ids. 
-		* Addded compatibility class which uses new filter. 
+		* Added wpml-config.xml file.
+		* Added wc_wishlists_get_page_id to filter wishlist page ids.
+		* Addded compatibility class which uses new filter.
 
 2014.02.26 - version 1.4.3
-	* Allow simple and variable products that are out of stock to be added to a wishlist. 
+	* Allow simple and variable products that are out of stock to be added to a wishlist.
 
 2014.02.13 - version 1.4.2
-	* Fixed bug when editing lists sharing status from the Edit My Lists page. 
+	* Fixed bug when editing lists sharing status from the Edit My Lists page.
 
 2014.01.09 - version 1.4.1
-	* Addded compatibility with WooCommerce Catalog Visibility Options.   Users can add products they can not purchase to a WishList. 
+	* Addded compatibility with WooCommerce Catalog Visibility Options.   Users can add products they can not purchase to a WishList.
 
 2014.01.07 - version 1.4.0
 	* 2.1 Compatibility
-		* Modified template loader for compatibility. 
-		* Modified template loader to include woocommerce variable. 
-		* Changed add_notice and add_error to use compatibility methods. 
+		* Modified template loader for compatibility.
+		* Modified template loader to include woocommerce variable.
+		* Changed add_notice and add_error to use compatibility methods.
 		* Changed error_count to use compatibility methods
-		* Added compatibility with some new filters called in the standard cart template inside the View a List and Edit a List screens. 
+		* Added compatibility with some new filters called in the standard cart template inside the View a List and Edit a List screens.
 		* Modified the API to use $_REQUEST for some variables which used to be $_GET
-		* Modified the variable add to cart handling to use new 2.1 methods for variations when 2.1x is available. 
+		* Modified the variable add to cart handling to use new 2.1 methods for variations when 2.1x is available.
 
 2013.12.21 - version 1.3.6
-	* Filter from address when sending emails so it uses the same setting as WooCommerce. 
+	* Filter from address when sending emails so it uses the same setting as WooCommerce.
 
-2013.11.29 - version 1.3.5 
-	* Added option to get_wishlist_sharing to return localized version.  
+2013.11.29 - version 1.3.5
+	* Added option to get_wishlist_sharing to return localized version.
 	* Localize default Are you sure? text in javascript
-	* Change delete confirmation to use localized message. 
-	* Fix localization logic in the find a list page. 
+	* Change delete confirmation to use localized message.
+	* Fix localization logic in the find a list page.
 
 2013.11.27 - version 1.3.4
-	* Update to allow the add all items to cart button to be used from the edit list screen. 
+	* Update to allow the add all items to cart button to be used from the edit list screen.
 
 2013.11.21 - version 1.3.3
-	* Translate the default Wishlist title for new lists. 
-	* Use the filtered title from, wc_wishlists_create_list_args, when creating new lists. 
+	* Translate the default Wishlist title for new lists.
+	* Use the filtered title from, wc_wishlists_create_list_args, when creating new lists.
 	* Text domain corrections.  Correct text domain is wc_wishlist.
-	
-2013.11.14 - version 1.3.2 
-	* Fix:  When adding an item to the cart from the edit list screen, stay on the edit list screen. 
-	* Update: Modify the filter call to woocommerce_add_cart_item_data to add the variation_id argument. 
+
+2013.11.14 - version 1.3.2
+	* Fix:  When adding an item to the cart from the edit list screen, stay on the edit list screen.
+	* Update: Modify the filter call to woocommerce_add_cart_item_data to add the variation_id argument.
 
 2013.11.12 - version 1.3.1
-	* New: When items are added from a wishlist to the cart, the title of the wishlist is shown on the cart and orders. 
-	* New: New options in the Wishlist settings to automatically remove items from a list.  
-		 - Items will only be removed from a wishlist if the wishlist owner is the customer who added the item to the cart from the list.  
-		 - Items will be removed, or have the list quantity deducted by the actual amount the customer ordered. 
-		 - You can choose which order status you would like to have the items removed at.  The default is "completed". 
+	* New: When items are added from a wishlist to the cart, the title of the wishlist is shown on the cart and orders.
+	* New: New options in the Wishlist settings to automatically remove items from a list.
+		 - Items will only be removed from a wishlist if the wishlist owner is the customer who added the item to the cart from the list.
+		 - Items will be removed, or have the list quantity deducted by the actual amount the customer ordered.
+		 - You can choose which order status you would like to have the items removed at.  The default is "completed".
 
 2013.11.06 - version 1.3.0
-	* New:  Status and sharing filters on wishlist admin screen. 
-	* New:  Admin search now includes the First Name, Last Name and Email Address fields. 
-	* New:  Show account on dashboard when list is associated to a user. 
+	* New:  Status and sharing filters on wishlist admin screen.
+	* New:  Admin search now includes the First Name, Last Name and Email Address fields.
+	* New:  Show account on dashboard when list is associated to a user.
 
 2013.10.31 - version 1.2.10
 	* Remove session start

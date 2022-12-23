@@ -54,7 +54,7 @@ final class Formatter implements Registerable {
 	/**
 	 * Comparisons are done case-insensitive
 	 */
-	public function format( string $value, int $id, AC\Column $column ): string {
+	public function format( $value, int $id, AC\Column $column ): string {
 		if ( ! $column->get_list_screen()->has_id() ) {
 			return $value;
 		}

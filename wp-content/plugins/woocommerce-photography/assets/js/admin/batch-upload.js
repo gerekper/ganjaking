@@ -3,23 +3,16 @@
 ( function( $, _ ) {
 
 	$( function() {
-		var photographyIndex = 1;
 		$( '#wc-photography-uploader .drag-drop-inside' ).append( '<div class="wc-photography-progress-bar"><div></div></div>' );
 
 		/**
 		 * Add loading.
 		 */
 		function addLoading() {
-			var background = '';
-
-			if ( WCPhotographyBatchUploadParams.ajax_loading_image ) {
-				background = ' url(' + WCPhotographyBatchUploadParams.ajax_loading_image + ') no-repeat center';
-			}
-
 			$( '#wc-photography-image-edit .postbox' ).block({
 				message: null,
 				overlayCSS: {
-					background: '#fff' + background,
+					background: '#fff',
 					opacity: 0.6
 				}
 			});
@@ -55,7 +48,7 @@
 					quietMillis: 200,
 					data: function ( term ) {
 						return {
-							term: WCPhotographyBatchUploadParams.isLessThanWC30 ? term : term.term,
+							term: term.term,
 							action: 'wc_photography_search_collections',
 							security: WCPhotographyBatchUploadParams.search_collections_nonce
 						};
@@ -68,30 +61,16 @@
 				}
 			};
 
-			if ( WCPhotographyBatchUploadParams.isLessThanWC30 ) {
-				select2_args.initSelection = function( element, callback ) {
-					var data = JSON.parse( element.attr( 'data-selected' ) );
-
-					return callback( data );
-				};
-
-				select2_args.formatSelection = function( data ) {
-					return '<div class="selected-option" data-id="' + data.id + '">' + data.text + '</div>';
-				};
-
-				select2_args.ajax.results = select2_args.ajax.processResults;
-			}
-
 			target.select2( select2_args ).addClass( 'enhanced' );
 		}
 
 		initCollectionsSelect();
 
-		// Batch upload.
-		var WCPhotographyBatchUpload = new plupload.Uploader( WCPhotographyBatchUploadParams.plupload ),
-			WCPhotographyBar         = $( '#wc-photography-uploader .wc-photography-progress-bar' ),
-			WCPhotographyProgress    = $( '#wc-photography-uploader .wc-photography-progress-bar div' ),
-			WCPhotographyOutput      = $( '#wc-photography-uploader-output' );
+		var photographyIndex = 1,
+		    WCPhotographyBatchUpload = new plupload.Uploader( WCPhotographyBatchUploadParams.plupload ),
+		    WCPhotographyBar         = $( '#wc-photography-uploader .wc-photography-progress-bar' ),
+		    WCPhotographyProgress    = $( '#wc-photography-uploader .wc-photography-progress-bar div' ),
+		    WCPhotographyOutput      = $( '#wc-photography-uploader-output' );
 
 		// Stop the script.
 		if ( ! WCPhotographyBatchUpload ) {
@@ -146,18 +125,13 @@
 		});
 
 		WCPhotographyBatchUpload.bind( 'fileUploaded', function( upload, file, info ) {
-			var collections = $( '#wc-photography-batch-collection' );
-
-			if ( WCPhotographyBatchUploadParams.isLessThanWC30 ) {
-				collections = collections.val();
-			} else {
-				var tmp = collections.select2('data');
+			var tmp = $( '#wc-photography-batch-collection' ).select2('data'),
 				collections = [];
-				tmp.forEach( function (obj) {
-					collections.push( obj.id );
-				} );
-				collections = collections.join( ',' );
-			}
+
+			tmp.forEach( function (obj) {
+				collections.push( obj.id );
+			} );
+			collections = collections.join( ',' );
 
 			$.ajax({
 				url:      WCPhotographyBatchUploadParams.ajax_url,
@@ -379,40 +353,11 @@
 
 					// Show the response.
 					if ( response.success ) {
-						if ( WCPhotographyBatchUploadParams.isLessThanWC30 ) {
-							var select = $( 'input.wc-photography-collections-select', wrap ),
-								items  = [],
-								values = [];
+						var select = $( '.wc-photography-collections-select' ),
+						    option = new Option( response.data.text, response.data.id );
 
-							// Include the new collection.
-							$( '.selected-option', wrap ).each( function( index, val ) {
-								var current = $( val );
-
-								items.push({
-									id: current.attr( 'data-id' ),
-									text: current.text()
-								});
-
-								values.push( current.attr( 'data-id' ) );
-							});
-
-							items.push( response.data );
-							values.push( response.data.id );
-
-							select
-								.attr( 'data-selected', JSON.stringify( items ) )
-								.val( values.toString() );
-
-							initCollectionsSelect( select );
-
-							// Toggle the add new collections field.
-							$( '.fields', wrap ).toggle();
-						} else {
-							var select = $( '.wc-photography-collections-select' );
-							var option = new Option( response.data.text, response.data.id );
-							option.selected = true;
-							select.append( option );
-						}
+						option.selected = true;
+						select.append( option );
 					} else {
 						button.after( '<div class="error inline message">' + WCPhotographyBatchUploadParams.collection_error + '</div>' );
 					}

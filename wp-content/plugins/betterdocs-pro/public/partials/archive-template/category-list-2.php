@@ -30,6 +30,7 @@ echo '<div class="betterdocs-wraper betterdocs-main-wraper betterdocs-category-l
             echo do_shortcode( '[betterdocs_category_grid_2 title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_category_title_tag']).'" terms_order="'.esc_html($terms_order).'" terms_orderby="'.esc_html($terms_orderby).'"]' );
         }
 	echo '</div>';
+    include( BETTERDOCS_PUBLIC_PATH . 'partials/faq.php' );
 echo '</div>';
 
 get_footer();

@@ -34,6 +34,23 @@ class WC_Photography_Admin_Settings {
 	public function get_settings() {
 		return array(
 			array(
+				'id'     => 'general_section',
+				'title'  => '',
+				'fields' => array(
+					array(
+						'id'          => 'image_text_option',
+						'type'        => 'select',
+						'label'       => __( 'Image Text Option', 'woocommerce-photography' ),
+						'description' => __( 'Choose the option to use as the image text in the product title.', 'woocommerce-photography' ),
+						'default'     => 'image_id',
+						'options'     => array(
+							'image_id' => __( 'Image ID', 'woocommerce-photography' ),
+							'filename' => __( 'Filename', 'woocommerce-photography' ),
+						),
+					),
+				),
+			),
+			array(
 				'id'     => 'collections_section',
 				'title'  => __( 'Collections', 'woocommerce-photography' ),
 				'fields' => array(
@@ -68,8 +85,8 @@ class WC_Photography_Admin_Settings {
 						'default'     => array(
 							'width'  => 200,
 							'height' => 200,
-							'crop'   => false
-						)
+							'crop'   => false,
+						),
 					),
 					array(
 						'id'          => 'lightbox_image_size',
@@ -79,11 +96,11 @@ class WC_Photography_Admin_Settings {
 						'default'     => array(
 							'width'  => 600,
 							'height' => 600,
-							'crop'   => false
-						)
-					)
-				)
-			)
+							'crop'   => false,
+						),
+					),
+				),
+			),
 		);
 	}
 
@@ -130,7 +147,7 @@ class WC_Photography_Admin_Settings {
 	 * Get a option
 	 *
 	 * @param  string $id
-	 * @param  mixed $default
+	 * @param  mixed  $default
 	 *
 	 * @return mixed
 	 */
@@ -159,9 +176,9 @@ class WC_Photography_Admin_Settings {
 		$image_size = str_replace( '_image_size', '', $id );
 
 		// Get the image size
-		$width  = isset( $saved[ 'width' ] ) ? $saved[ 'width' ] : '150';
-		$height = isset( $saved[ 'height' ] ) ? $saved[ 'height' ] : '150';
-		$crop   = isset( $saved[ 'crop' ] ) ? $saved[ 'crop' ] : true;
+		$width  = isset( $saved['width'] ) ? $saved['width'] : '150';
+		$height = isset( $saved['height'] ) ? $saved['height'] : '150';
+		$crop   = isset( $saved['crop'] ) ? $saved['crop'] : true;
 
 		$disabled_attr    = '';
 		$disabled_message = '';
@@ -178,7 +195,7 @@ class WC_Photography_Admin_Settings {
 		echo sprintf( '<input name="%2$s[width]" %7$s id="%1$s-width" type="text" size="3" value="%3$s" /> &times; <input name="%2$s[height]" %7$s id="%1$s-height" type="text" size="3" value="%4$s" />px <label style="margin-left: 10px;"><input name="%2$s[crop]" %7$s id="%1$s-crop" type="checkbox" value="1" %5$s /> %6$s</label>', $id, $name, $width, $height, checked( 1, $crop, false ), __( 'Hard Crop?', 'woocommerce-photography' ), $disabled_attr );
 
 		if ( ! empty( $params['description'] ) ) {
-			echo'<p class="description">' . $params['description'] . '</p>';
+			echo '<p class="description">' . $params['description'] . '</p>';
 		}
 
 		echo '</div>';
@@ -192,11 +209,11 @@ class WC_Photography_Admin_Settings {
 	 * @return string
 	 */
 	public function select_element_callback( $params ) {
-		$id       = $params['id'];
-		$name     = $this->settings_id . '[' . $id . ']';
-		$default  = isset( $params['default'] ) && is_array( $params['default'] ) ? $params['default'] : array();
-		$saved    = $this->get_option( $id, $default );
-		$options  = $params['options'];
+		$id      = $params['id'];
+		$name    = $this->settings_id . '[' . $id . ']';
+		$default = isset( $params['default'] ) ? $params['default'] : '';
+		$saved   = $this->get_option( $id, $default );
+		$options = $params['options'];
 
 		echo sprintf( '<select id="%s" name="%s" class="wc-enhanced-select" style="width: 25em;">', $id, $name );
 
@@ -207,7 +224,7 @@ class WC_Photography_Admin_Settings {
 		echo '</select>';
 
 		if ( ! empty( $params['description'] ) ) {
-			echo'<p class="description">' . $params['description'] . '</p>';
+			echo '<p class="description">' . $params['description'] . '</p>';
 		}
 	}
 
@@ -259,15 +276,15 @@ class WC_Photography_Admin_Settings {
 				}
 
 				switch ( $field['type'] ) {
-					case 'image' :
+					case 'image':
 						$value = array(
 							'width'  => absint( $input[ $id ]['width'] ),
 							'height' => absint( $input[ $id ]['height'] ),
-							'crop'   => isset( $input[ $id ]['crop'] ) ? true : false
+							'crop'   => isset( $input[ $id ]['crop'] ) ? true : false,
 						);
 						break;
 
-					default :
+					default:
 						$value = wc_clean( $input[ $id ] );
 						break;
 				}

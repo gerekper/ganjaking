@@ -52,7 +52,7 @@ class BetterDocs_Pro_IA {
     }
 
     public function order_ia_doc_taxonomies( $args, $request ) {
-        if( empty( $args['include'] ) ) {
+        if( empty( $args['include'] ) && empty( $_GET ) && $args['taxonomy'] == 'doc_category' ) {
             $tax_limit          = empty( BetterDocs_DB::get_settings('doc_category_limit') ) ? 10 : BetterDocs_DB::get_settings('doc_category_limit');
             $args['number']     = $tax_limit;
             $args['hide_empty'] = 1;

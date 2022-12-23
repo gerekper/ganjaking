@@ -75,23 +75,23 @@
 
         /////////////////////////////////
         // add to wishlist button effects
-        /////////////////////////////////	
+        /////////////////////////////////
 
-        // basic wishlist popup stuff	
-        $('#wl-list-pop-wrap').hide(); // hide background click-off on load	
-        $('.wl-list-pop').hide(); // hide modal on load	
+        // basic wishlist popup stuff
+        $('#wl-list-pop-wrap').hide(); // hide background click-off on load
+        $('.wl-list-pop').hide(); // hide modal on load
         $('#wl-list-pop-wrap').click(function () {
 
             WCWL.current_product_form = null;
             WCWL.current_product_id = 0;
 
-            $('.wl-list-pop').hide(); // hide modal when click in background	
+            $('.wl-list-pop').hide(); // hide modal when click in background
             $('#wl-list-pop-wrap').hide(); // hide background click-off
             $(window).unbind('scroll', adjust_scroll);
         });
 
         _productlink = null;
-        // position popup at button click 
+        // position popup at button click
 
         $('body').on('click', '.wl-add-to', function (e) {
             if ($(this).hasClass('disabled')) {
@@ -123,7 +123,7 @@
 
             var wlx = $(this).offset().left;
             var wly = $(this).offset().top;
-            // need to add some code to adjust in case the user is logged in. WHen user is logged in with admin bar, it messes up the CSS since the body/html tags have the margin top on it 
+            // need to add some code to adjust in case the user is logged in. WHen user is logged in with admin bar, it messes up the CSS since the body/html tags have the margin top on it
             // need a way to check if admin bar is present, and if so, adjustt the coords below to subtract 28
             if ($('#wpadminbar ').length) { // if admin bar exists, adjust numbers to compensate for bar
                 $(".wl-list-pop").css({
@@ -263,5 +263,12 @@
 
 
     });
+
+})(jQuery);
+
+
+(function($){
+
+
 
 })(jQuery);

@@ -44,9 +44,9 @@ class WC_Photography_Products_Addons {
 
 			$collections = get_terms( 'images_collections', array( 'hide_empty' => 0 ) );
 
-			foreach ( $collections as $collection ) {
-				echo '<option value="' . $collection->term_id . '" ' . selected( in_array( $collection->term_id, $objects ), true, false ) . '>' . __( 'Collection:', 'woocommerce-photography' ) . ' ' . $collection->name . '</option>';
-			}
+		foreach ( $collections as $collection ) {
+			echo '<option value="' . $collection->term_id . '" ' . selected( in_array( $collection->term_id, $objects ), true, false ) . '>' . __( 'Collection:', 'woocommerce-photography' ) . ' ' . $collection->name . '</option>';
+		}
 
 		echo '</optgroup>';
 	}
@@ -134,11 +134,11 @@ class WC_Photography_Products_Addons {
 	 */
 	public function global_query_args( $args, $terms ) {
 		$args['tax_query']['relation'] = 'OR';
-		$args['tax_query'][] = array(
+		$args['tax_query'][]           = array(
 			'taxonomy'         => 'images_collections',
 			'field'            => 'id',
 			'terms'            => $terms,
-			'include_children' => false
+			'include_children' => false,
 		);
 
 		return $args;

@@ -209,6 +209,73 @@ trait WooDataSourceTrait
         return $type;
     }
 
+    public function hasDefaultTaxonomy($default_variation, $key, $values)
+    {
+        if (get_taxonomy($key)) {
+            $terms = get_terms([
+                'taxonomy' => $key,
+                'hide_empty' => false,
+                'slug' => $values,
+            ]);
+            $values = array_column($terms, 'slug');
+            $keys = array_values(array_intersect($values, $default_variation));
+            $terms = get_terms([
+                'taxonomy' => $key,
+                'hide_empty' => false,
+                'slug' => $keys,
+            ]);
+            $values = array_column($terms, 'name');
+            $values = array_combine($keys, $values);
+        } else {
+            $values = array_values(array_intersect($default_variation, $values));
+            $values = array_combine($values, $values);
+        }
+
+        return $values;
+    }
+
+    public function getAllEnabledVariations($product)
+    {
+        $variations = $product->get_available_variations();
+        $default_variations = $product->get_variation_attributes();
+
+        $variations_attributes = [];
+        foreach ($variations as $variation) {
+            $variation_attributes = $variation['attributes'];
+            foreach ($variation_attributes as $key => $variation_attribute) {
+                $variations_attributes[$key][] = $variation_attribute;
+            }
+        }
+
+        $index = 0;
+        foreach ($default_variations as $key => $default_variation) {
+            $values = array_values($variations_attributes)[$index];
+
+            if (in_array('', $values)) {
+                $values = $default_variation;
+            }
+
+            $values = $this->hasDefaultTaxonomy($default_variation, $key, $values);
+            $default_variations[$key] = $values;
+            $index++;
+        }
+
+        return $default_variations;
+    }
+
+    public function makeKey($key)
+    {
+        $key = strtolower($key);
+        $key = preg_replace("/[^a-z0-9_]+/", "-", $key);
+        $last_key = substr($key, -1);
+
+        if ($last_key == '-') {
+            $key = substr($key, 0, -1);
+        }
+
+        return $key;
+    }
+
     public function variableProduct($product, $value)
     {
         ?>
@@ -225,13 +292,14 @@ trait WooDataSourceTrait
             </a><br>
             <?php
 
-            $variations = $product->get_variation_attributes();
+            $variations = $this->getAllEnabledVariations($product);
 
             foreach ($variations as $key => $variation) {
-                $key = str_replace(' ', '-', $key);
-                $key = strtolower($key);
-                $key = preg_replace("/[^a-zA-Z0-9-_]+/", "", $key);
+                $key = $this->makeKey($key);
                 $taxonomy_label = wc_attribute_label($key, $product);
+                $default_selected_attributes = $product->get_default_attributes();
+                $default_selected_value = $product->get_variation_default_attribute($key);
+
                 ?>
                     <select
                             data-product_id="<?php echo $product->get_id(); ?>"
@@ -241,15 +309,18 @@ trait WooDataSourceTrait
                             data-attribute_label="<?php echo $taxonomy_label ?>"
                             name="<?php echo 'attribute_' . $key; ?>"
                             data-default_options="<?php echo htmlentities(json_encode($variation)); ?>"
+                            data-default_attributes="<?php echo htmlentities(json_encode($default_selected_attributes)); ?>"
                             data-id="<?php echo $key ?>">
-                    >
-                        <option value=""><?php echo $taxonomy_label; ?></option>
                         <?php
-                        foreach ($variation as $option) {
-                            ?>
-                            <option value="<?php echo $option; ?>"><?php echo $option; ?></option>
-                            <?php
-                        }
+
+                            if (empty($default_selected_value)) {
+                                echo '<option value="">'.$taxonomy_label.'</option>';
+                            }
+
+                            foreach ($variation as $optionKey => $optionValue) {
+                                $selected = $default_selected_value == $optionKey ? 'selected' : '';
+                                echo '<option value="' . $optionKey . '" ' . $selected . '>' . $optionValue . '</option>';
+                            }
                         ?>
                     </select>
                 <?php

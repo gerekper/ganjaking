@@ -828,7 +828,7 @@ class WC_AM_Subscription {
 	}
 
 	/**
-	 * Return true if the subscription is not cancelled, expired, or switched.
+	 * Return true if the subscription is cancelled, expired, trash, or switched.
 	 *
 	 * @since 2.0
 	 *
@@ -848,7 +848,7 @@ class WC_AM_Subscription {
 	}
 
 	/**
-	 * Return true if the subscription is not cancelled, expired, or switched.
+	 * Return true if the subscription is switched.
 	 *
 	 * @since 2.0
 	 *

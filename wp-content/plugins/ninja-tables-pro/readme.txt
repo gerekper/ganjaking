@@ -4,8 +4,8 @@ Donate link: https://wpmanageninja.com/downloads/ninja-tables-pro-add-on/
 Tags: table builder, table plugin, wpdatatables, wordpress tables, table grid, charts, wp table, datatables plugin, csv, tablepress migration, footable plugin, tabular data, stackable table, spreadsheet data, WooCommerce product table, Amazon affiliate table, bootstrap table, drag-and-drop
 Requires at least: 4.5
 Requires PHP: 5.6
-Tested up to: 6.0
-Stable tag: 4.3.0
+Tested up to: 6.1
+Stable tag: 4.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -211,12 +211,20 @@ The full source code is available on <a href="https://github.com/WPManageNinja/n
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
+Here is a description below of how to install and activate Ninja Tables and get started with it.
 e.g.
 
-1. Upload the plugin files to the /wp-content/plugins/ directory, or install the plugin through the WordPress plugins screen directly.
-1. Activate the plugin through the ‘Plugins’ screen in WordPress
-1. Use the Ninja Tables -> All Tables -> Add a table to create a table and get started.
+**Install** Ninja Tables using one of these methods:
+
+**Method 1:**Install directly from the WordPress Admin panel: go to Plugins -> Add New -> Search for “Ninja Tables,” and click the **Install** button.
+
+**Method 2:**Download the ZIP file of Ninja Tables manually from the WordPress.org plugins repository and upload it through the Admin panel of your WordPress Dashboard: go to Plugins -> Add New -> Upload Plugin, browse to the downloaded Zip and upload it.
+
+**Method 3:**Download the ZIP, extract it and manually upload the extracted folder through FTP to the /wp-content/plugins/ directory of your WordPress installation.
+
+After Installation **activate** the plugin from the plugin dashboard.
+
+To know more and tutorials, browse our [documentation](https://ninjatables.com/docs/). For  blogs and facts, visit our [blogs](https://ninjatables.com/blog/) page.
 
 == Frequently Asked Questions ==
 
@@ -258,7 +266,35 @@ You can connect your Google spreadsheets to your WordPress table plugin by using
 
 == Changelog ==
 Over the past two years of development, we released several updates for Ninja Tables. These include improvements to the existing features and some wonderful additions to help you design tables more effectively.
-### What's New on 4.2.4?
+### What's New on 4.3.3?
+
+= 4.3.3 (Date: December 22, 2022) =
+* Fixes chunk filter loading issue
+* Added custom filter for escape 0 from google-sheets
+* Added woocommerce default value selection
+* Fixes gt and lt issue for fraction
+* Fixes hide_default_filter issue
+* Added clear all for dropdown multi select filter
+* Fixes tag, taxonomy filters for wp-post provider
+* Fixes empty row  responsive breakpoints issue
+* Updated docs link from wpmanageninja to ninjatables
+* Fixes  parse comma-separated number strict mode issue
+* Fixes dropdown filter options case-sensitive Issue
+* Fixes multiple number range filters issue
+* Fixes print dialog closing issue
+* Added chinese simplified(zh_CN) language
+* Added edit button in frontend for drag & drop table
+* Added un-save data detector for drag & drop table
+* Increase table container max height for drag & drop table
+
+= 4.3.2 (Date: October 19, 2022) =
+* Fixes frontend loader notice issue
+* Added phpcs
+* Improves data sanitization
+
+= 4.3.1 (Date: October 13, 2022) =
+* Fixes responsive issue for drag & drop table
+* Added global importer for drag & drop table
 
 = 4.3.0 (Date: October 12, 2022) =
 * Fixes sticky header issue

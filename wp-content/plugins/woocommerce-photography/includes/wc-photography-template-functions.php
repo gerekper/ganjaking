@@ -3,9 +3,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-///////////
+//
 // Hooks //
-///////////
+//
 
 /**
  * Photography loop hooks.
@@ -25,9 +25,9 @@ add_action( 'woocommerce_product_meta_end', 'wc_photography_template_show_collec
 add_action( 'woocommerce_before_my_account', 'wc_photography_my_account_list', 5 );
 
 
-///////////////
+//
 // Functions //
-///////////////
+//
 
 if ( ! function_exists( 'wc_photography_collections_tools' ) ) {
 
@@ -195,18 +195,12 @@ if ( ! function_exists( 'wc_photography_my_account_list' ) ) {
 
 if ( ! function_exists( 'wc_photography_get_content_template' ) ) {
 	/**
-	 * Prior to WooCommerce 2.5, a bug in WC core was preventing plugins like photography
-	 * from overwriting templates. This bug was fixed in https://github.com/woothemes/woocommerce/commit/992f1176bd137f91a1456eca9f563b6ef5b89455
-	 * but we still need a fix for older versions of WC - where we can load the template ourself after getting the template from the
-	 * filter in WC_Photography_Products.
+	 * Shows the photography content.
+	 *
 	 * @see WC_Photography_Products::photography_templates
 	 */
 	function wc_photography_get_content_template() {
-		if ( version_compare( WOOCOMMERCE_VERSION, '2.5', '<' ) ) {
-			load_template( apply_filters( 'wc_get_template_part', '', 'content', 'photography' ), false );
-		} else {
-			wc_get_template_part( 'content', 'photography' );
-		}
+		wc_get_template_part( 'content', 'photography' );
 	}
 }
 

@@ -1,5 +1,13 @@
 *** Xero Integration ***
 
+2022-12-20 - version 1.7.52
+* Bump actions/checkout from 2 to 3.
+* Bump actions/upload-artifact from 2 to 3.
+* Bump tj-actions/changed-files from 19 to 34.
+* Fix - Validate store supports SSL before loading plugin features.
+* Tweak - WC 7.2.1 compatibility.
+* Update - Plugin minimum WordPress dependency update to `5.7`.
+
 2022-11-23 - version 1.7.51
 * Add - Declare compatibility for High-performance Order Systems ("HPOS").
 * Add - Option to enable/disable use of customer email in the contact name.

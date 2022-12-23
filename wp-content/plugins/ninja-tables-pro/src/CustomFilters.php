@@ -31,8 +31,13 @@ class CustomFilters
                         $filters[$filterIndex]['dateFormat'] = 'MM/DD/YYYY';
                     }
 
-                    $filters[$filterIndex]['showTime'] = $formattedColumns[$filter['columns'][0]]['showTime'];
-                    $filters[$filterIndex]['firstDayOfWeek'] = $formattedColumns[$filter['columns'][0]]['firstDayOfWeek'];
+                    if (isset($filters[$filterIndex]['showTime']) && isset($formattedColumns[$filter['columns'][0]]['showTime'])) {
+                        $filters[$filterIndex]['showTime'] = $formattedColumns[$filter['columns'][0]]['showTime'];
+                    }
+
+                    if (isset($filters[$filterIndex]['firstDayOfWeek']) && isset($formattedColumns[$filter['columns'][0]]['firstDayOfWeek'])) {
+                        $filters[$filterIndex]['firstDayOfWeek'] = $formattedColumns[$filter['columns'][0]]['firstDayOfWeek'];
+                    }
                 }
                 wp_enqueue_script('pikaday', NINJAPROPLUGIN_URL . 'assets/libs/datepicker/js/pikaday.min.js', array('jquery'), NINJAPROPLUGIN_VERSION, true);
                 wp_enqueue_script('pikaday.jquery', NINJAPROPLUGIN_URL . 'assets/libs/datepicker/js/pikaday.jquery.js', array('pikaday'), NINJAPROPLUGIN_VERSION, true);

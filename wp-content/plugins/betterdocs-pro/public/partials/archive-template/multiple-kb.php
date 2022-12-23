@@ -21,6 +21,9 @@ echo '<div class="betterdocs-wraper betterdocs-mkb-wraper">';
             $output = betterdocs_generate_output_pro();
 			echo do_shortcode( '[betterdocs_multiple_kb title_tag="'.BetterDocs_Helper::html_tag($output['betterdocs_mkb_title_tag']).'"]' );
 	echo '</div>';
+
+    include( BETTERDOCS_PUBLIC_PATH . 'partials/faq-mkb.php' );
+    
 echo '</div>';
 
 get_footer();

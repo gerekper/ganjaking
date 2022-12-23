@@ -3,24 +3,23 @@
  * Plugin Name: WooCommerce Photography
  * Plugin URI: https://woocommerce.com/
  * Description: Provide a user experience for photographers to offer batches of images for order.
- * Version: 1.0.29
- * Author: WooCommerce
- * Author URI: https://woocommerce.com
- *
+ * Version: 1.1.0
+ * Author: Themesquad
+ * Author URI: https://themesquad.com
  * Text Domain: woocommerce-photography
  * Domain Path: /languages
- * WC tested up to: 4.9
- * WC requires at least: 2.6
- * Tested up to: 5.7
+ * Requires PHP: 5.4
+ * Requires at least: 4.7
+ * Tested up to: 6.1
  *
- * @package  WC_Photography
- * @category Core
+ * WC requires at least: 3.4
+ * WC tested up to: 7.2
+ * Woo: 583602:ee76e8b9daf1d97ca4d3874cc9e35687
  *
- * Copyright: © 2021 WooCommerce
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
- * Woo: 583602:ee76e8b9daf1d97ca4d3874cc9e35687
+ * @package WC_Photography
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -39,7 +38,6 @@ function woocommerce_photography_wc_notice() {
 
 /**
  * Install method.
- *
  */
 function woocommerce_photography_install() {
 	include_once 'includes/class-wc-photography-taxonomies.php';
@@ -51,7 +49,7 @@ function woocommerce_photography_install() {
 register_activation_hook( __FILE__, 'woocommerce_photography_install' );
 
 if ( ! class_exists( 'WC_Photography' ) ) :
-	define( 'WC_PHOTOGRAPHY_VERSION', '1.0.29' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_PHOTOGRAPHY_VERSION', '1.1.0' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * WooCommerce Photography main class.
@@ -148,15 +146,14 @@ if ( ! class_exists( 'WC_Photography' ) ) :
 		/**
 		 * Add relevant links to plugins page.
 		 *
-		 * @param  array $links
-		 *
+		 * @param array $links Action links.
 		 * @return array
 		 */
 		public function plugin_action_links( $links ) {
 			$plugin_links = array(
 				'settings' => '<a href="' . admin_url( 'admin.php?page=wc-photography-settings' ) . '">' . __( 'Settings', 'woocommerce-photography' ) . '</a>',
-				'support'  => '<a href="https://woocommerce.com/my-account/create-a-ticket/">' . __( 'Support', 'woocommerce-photography' ) . '</a>',
-				'docs'     => '<a href="https://docs.woocommerce.com/documentation/woocommerce-extensions/photography/">' . __( 'Docs', 'woocommerce-photography' ) . '</a>',
+				'support'  => '<a href="https://woocommerce.com/my-account/create-a-ticket?select=583602" target="_blank">' . __( 'Support', 'woocommerce-photography' ) . '</a>',
+				'docs'     => '<a href="https://woocommerce.com/document/getting-started-with-photography/" target="_blank">' . __( 'Docs', 'woocommerce-photography' ) . '</a>',
 			);
 
 			return array_merge( $plugin_links, $links );
