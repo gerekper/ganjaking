@@ -3,7 +3,7 @@
  * Acknowledgement Email Content
  *
  * @author      StoreApps
- * @version     1.2.0
+ * @version     1.3.0
  * @package     woocommerce-smart-coupons/templates/
  */
 
@@ -31,10 +31,10 @@ $receivers_email = array_unique( $receivers_detail );
 
 if ( empty( $email_scheduled_details ) ) {
 	/* translators: 1. Receiver's count 2. Singular/Plural label for store credit(s) 3. Receiver name 4. Receiver details */
-	$message = __( 'You have successfully sent %1$d %2$s to %3$s (%4$s)', 'woocommerce-smart-coupons' );
+	$message = __( 'You have successfully sent %1$d %2$s %3$s %4$s', 'woocommerce-smart-coupons' );
 } else {
 	/* translators: 1. Receiver's count 2. Gift Card/s 3. Receiver name 4. Receiver details */
-	$message         = __( 'You have scheduled to send %1$d %2$s to %3$s (%4$s)', 'woocommerce-smart-coupons' );
+	$message         = __( 'You have scheduled to send %1$d %2$s %3$s %4$s', 'woocommerce-smart-coupons' );
 	$receivers_email = array_map(
 		function( $email ) use ( $email_scheduled_details ) {
 			// Filter for time format of acknowledgement email.
@@ -50,7 +50,7 @@ if ( empty( $email_scheduled_details ) ) {
 						$email_scheduled_details[ $email ]
 					);
 					// Concat scheduled times to comma separated times.
-					return $email . ' on ' . implode( ', ', $scheduled_times );
+					return $email . ' ' . __( 'on', 'woocommerce-smart-coupons' ) . ' ' . implode( ', ', $scheduled_times );
 			}
 			return $email;
 		},
@@ -66,7 +66,9 @@ if ( 'yes' === $contains_core_coupons ) {
 	$coupon_type = _n( 'Coupon', 'Coupons', $receiver_count, 'woocommerce-smart-coupons' );
 }
 
-echo esc_html( sprintf( $message, $receiver_count, strtolower( $coupon_type ), $gift_certificate_receiver_name, implode( ', ', $receivers_email ) ) );
+$is_receiver_name = ! empty( $gift_certificate_receiver_name );
+
+echo esc_html( sprintf( $message, $receiver_count, strtolower( $coupon_type ), ( ( ! empty( $gift_certificate_receiver_name ) || ! empty( $receivers_email ) ) ? __( 'to', 'woocommerce-smart-coupons' ) . ' ' . $gift_certificate_receiver_name : '' ), ( true === $is_receiver_name ? '(' : '' ) . implode( ', ', $receivers_email ) . ( true === $is_receiver_name ? ')' : '' ) ) );
 
 if ( has_action( 'woocommerce_email_footer' ) ) {
 	do_action( 'woocommerce_email_footer', $email );

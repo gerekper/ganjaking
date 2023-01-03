@@ -133,6 +133,9 @@ class THEMECOMPLETE_EPO_POST_TYPES {
 		$custom_product_taxonomies = get_object_taxonomies( 'product' );
 		if ( is_array( $custom_product_taxonomies ) && count( $custom_product_taxonomies ) > 0 ) {
 			foreach ( $custom_product_taxonomies as $tax ) {
+				if ( 'translation_priority' === $tax ) {
+					continue;
+				}
 				register_taxonomy_for_object_type( $tax, THEMECOMPLETE_EPO_GLOBAL_POST_TYPE );
 			}
 		}

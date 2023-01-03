@@ -159,7 +159,7 @@
 			current_variation = parseFloat( variation_id_selector.val() );
 			cv = current_variation;
 
-			if ( variation_id_selector.length > 0 && ( ! current_variation || current_variation === 0 ) ) {
+			if ( ! totalsHolder.is( '.tm-cart-inline' ) && variation_id_selector.length > 0 && ( ! current_variation || current_variation === 0 ) ) {
 				return false;
 			}
 			if ( ! current_variation ) {
@@ -187,7 +187,7 @@
 					current_variation = 0;
 				}
 
-				discount = getDiscountObj( totalsHolder, rules, current_variation, cv, qty );
+				discount = getDiscountObj( totalsHolder, rules, current_variation, cv, qty, false );
 				type = discount[ 1 ];
 				if ( ! discount[ 2 ] || ( type === 'fixed' || type === 'fixed__price' ) ) {
 					value = discount[ 0 ];
@@ -490,10 +490,29 @@
 
 	function alterProductPrice( product_price, element, cart, epoTotalsContainer ) {
 		var mode = epoTotalsContainer.attr( 'data-tm-epo-dpd-original-price-base' );
-		var undiscountedProductPrice = epoTotalsContainer.attr( 'data-price' );
+		var type;
+		var undiscountedProductPrice;
+		var variation_id_selector;
+		var current_variation;
 
-		if ( mode === 'undiscounted' && undiscountedProductPrice !== undefined ) {
-			return undiscountedProductPrice;
+		if ( mode === 'undiscounted' ) {
+			type = epoTotalsContainer.attr( 'data-type' );
+			if ( type === 'variable' || type === 'variable-subscription' ) {
+				variation_id_selector = epoTotalsContainer.data( 'variationIdElement' );
+				current_variation = parseFloat( variation_id_selector.val() );
+				if ( variation_id_selector.length > 0 && ( ! current_variation || current_variation === 0 ) ) {
+					current_variation = 0;
+				}
+				if ( ! current_variation ) {
+					current_variation = 0;
+				}
+				undiscountedProductPrice = epoTotalsContainer.data( 'variations' )[ current_variation ];
+			} else {
+				undiscountedProductPrice = epoTotalsContainer.attr( 'data-price' );
+			}
+			if ( undiscountedProductPrice !== undefined ) {
+				return undiscountedProductPrice;
+			}
 		}
 
 		return product_price;

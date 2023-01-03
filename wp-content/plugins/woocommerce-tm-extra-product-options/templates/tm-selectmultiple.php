@@ -92,6 +92,20 @@ defined( 'ABSPATH' ) || exit;
 		$select_options[] = $current_option;
 	}
 
+	$select_array = apply_filters(
+		'wc_element_select_args',
+		$select_array,
+		isset( $tm_element_settings ) && isset( $tm_element_settings['type'] ) ? $tm_element_settings['type'] : '',
+		isset( $args ) ? $args : [],
+	);
+
+	$select_options = apply_filters(
+		'wc_element_select_option_args',
+		$select_options,
+		isset( $tm_element_settings ) && isset( $tm_element_settings['type'] ) ? $tm_element_settings['type'] : '',
+		isset( $args ) ? $args : [],
+	);
+
 	THEMECOMPLETE_EPO_HTML()->create_dropdown( $select_array, $select_options, '/n', false, true );
 	?>
 	</label>

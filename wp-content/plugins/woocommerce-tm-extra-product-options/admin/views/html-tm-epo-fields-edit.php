@@ -76,7 +76,7 @@ if ( isset( $post )
 					<div id="titlediv">
 						<div id="titlewrap">
 							<label class="screen-reader-text" id="title-prompt-text" for="title"><?php esc_html_e( 'Enter title here', 'woocommerce-tm-extra-product-options' ); ?></label>
-							<input type="text" name="post_title" size="30" value="<?php echo esc_attr( $post->post_title ); ?>" id="title" autocomplete="off"/>
+							<input type="text" name="post_title" value="<?php echo esc_attr( $post->post_title ); ?>" id="title" autocomplete="off"/>
 						</div>
 					</div>
 				</div>

@@ -127,6 +127,27 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 		if ( is_object( $screen ) && THEMECOMPLETE_EPO_TEMPLATE_POST_TYPE === $screen->post_type ) {
 			// save meta data.
 			add_action( 'save_post', [ $this, 'tm_save_postdata' ], 1, 2 );
+
+			$do_action = isset( $_GET['action'] ) ? wp_unslash( $_GET['action'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput, WordPress.Security.NonceVerification.Recommended
+
+			if ( $do_action && 'clone' === $do_action ) {
+				$post_id = 0;
+				if ( isset( $_GET['post'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+					$post_id = absint( $_GET['post'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				}
+
+				if ( $post_id ) {
+					$this->do_clone_form( $post_id, $post_id );
+					if ( isset( $_SERVER['REQUEST_URI'] ) ) {
+						wp_safe_redirect(
+							esc_url_raw(
+								admin_url( 'edit.php?post_type=' . THEMECOMPLETE_EPO_TEMPLATE_POST_TYPE )
+							)
+						);
+					}
+					exit;
+				}
+			}
 		}
 
 	}
@@ -862,6 +883,39 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 	 * @param object $post The post object.
 	 * @since 1.0
 	 */
+	public function row_actions_template( $actions, $post ) {
+
+		// Get the post type object.
+		$post_type = get_post_type_object( $post->post_type );
+
+		$can_do_clone = true;
+		// Disable wpml cloning on translated forms.
+		if ( THEMECOMPLETE_EPO_WPML()->is_active() ) {
+			$ppid = absint( themecomplete_get_post_meta( $post->ID, THEMECOMPLETE_EPO_WPML_PARENT_POSTID, true ) );
+			if ( ! empty( $ppid ) && absint( $post->ID ) !== $ppid ) {
+				$can_do_clone = false;
+			}
+		}
+
+		if ( $can_do_clone ) {
+			// Clone a form.
+			$nonce                    = wp_create_nonce( 'tmclone_form_nonce_' . $post->ID );
+			$actions['tm_clone_form'] = '<a class="tm-clone-form" rel="' . esc_attr( $nonce ) . '" href="' . esc_url( admin_url( 'post.php?action=clone&amp;post=' . $post->ID . '&amp;_wpnonce=' . $nonce ) ) . '">' . esc_html__( 'Clone template', 'woocommerce-tm-extra-product-options' ) . '</a>';
+		}
+
+		ksort( $actions );
+
+		return $actions;
+
+	}
+
+	/**
+	 * Extra row actions.
+	 *
+	 * @param array  $actions An array of row action links.
+	 * @param object $post The post object.
+	 * @since 1.0
+	 */
 	public function row_actions( $actions, $post ) {
 
 		// Get the post type object.
@@ -937,6 +991,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 			'tcepo-global',
 			[ $this, 'admin_epo_submenu_global' ]
 		);
+		add_action( 'load-edit.php', [ $this, 'tm_load_admin_templates' ] );
 
 	}
 
@@ -981,11 +1036,14 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 	/**
 	 * Submenu "Option Templates"
 	 *
+	 * @param object $post The post object.
 	 * @since 6.0
 	 */
-	public function preload_template_settings() {
+	public function preload_template_settings( $post ) {
 		// Builder meta box.
 		add_meta_box( 'tmformfieldsbuilder', esc_html__( 'Extra Product Options Form Builder', 'woocommerce-tm-extra-product-options' ), [ $this, 'tm_form_fields_builder_meta_box' ], THEMECOMPLETE_EPO_TEMPLATE_POST_TYPE, 'normal', 'core' );
+		// Description meta box (used for getting tinymce).
+		add_meta_box( 'thepostexcerpt', esc_html__( 'Description', 'woocommerce-tm-extra-product-options' ), [ $this, 'tm_description_meta_box' ], null, 'normal', 'core' );
 	}
 
 	/**
@@ -1015,6 +1073,22 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 	/**
 	 * Loads plugin functionality
 	 *
+	 * @since 6.2
+	 */
+	public function tm_load_admin_templates() {
+		global $typenow;
+		$post_type = $typenow;
+
+		if ( THEMECOMPLETE_EPO_TEMPLATE_POST_TYPE === $post_type ) {
+			// Extra row actions.
+			add_filter( 'post_row_actions', [ $this, 'row_actions_template' ], 10, 2 );
+		}
+
+	}
+
+	/**
+	 * Loads plugin functionality
+	 *
 	 * @since 1.0
 	 */
 	public function tm_load_admin() {
@@ -1032,7 +1106,6 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 
 		// Extra row actions.
 		add_filter( 'post_row_actions', [ $this, 'row_actions' ], 10, 2 );
-		add_filter( 'page_row_actions', [ $this, 'row_actions' ], 10, 2 );
 
 	}
 
@@ -1100,6 +1173,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 									'posts_per_page' => -1,
 									'orderby'        => 'date',
 									'order'          => 'asc',
+									'no_found_rows'  => true,
 									'p'              => $main_post_id,
 								]
 							);
@@ -1120,6 +1194,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 									'posts_per_page' => -1,
 									'orderby'        => 'date',
 									'order'          => 'asc',
+									'no_found_rows'  => true,
 									'meta_query'     => $meta_query, // phpcs:ignore WordPress.DB.SlowDBQuery
 								]
 							);
@@ -2277,6 +2352,10 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 			echo '<div class="tc-filter-content">';
 			foreach ( $custom_post_taxonomies as $tax ) {
 
+				if ( 'translation_priority' === $tax ) {
+					continue;
+				}
+
 				$args = [
 					'pad_counts'         => 1,
 					'show_count'         => 0,
@@ -2427,7 +2506,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 
 		wp_register_script( 'jquery-tctooltip', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tctooltip' . $ext . '.js', '', THEMECOMPLETE_EPO_VERSION, true );
 
-		wp_register_script( 'themecomplete-tabs', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/admin/jquery.tctabs' . $ext . '.js', [ 'themecomplete-api' ], THEMECOMPLETE_EPO_VERSION, true );
+		wp_register_script( 'themecomplete-tabs', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tctabs' . $ext . '.js', [ 'themecomplete-api' ], THEMECOMPLETE_EPO_VERSION, true );
 
 		wp_register_script( 'jquery-tcpagination', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/admin/jquery.tcpagination' . $ext . '.js', '', THEMECOMPLETE_EPO_VERSION, true );
 
@@ -2472,8 +2551,8 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 		}
 
 		$params = [
-			'post_id'                            => $post_id,
-			'original_post_id'                   => $original_post_id,
+			'post_id'                            => sprintf( '%d', $post_id ),
+			'original_post_id'                   => sprintf( '%d', $original_post_id ),
 			'is_original_post'                   => $post_id === $original_post_id,
 			'get_products_categories_nonce'      => wp_create_nonce( 'get-product-categories' ),
 			'search_products_nonce'              => wp_create_nonce( 'search-products' ),
@@ -2516,6 +2595,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 			'i18n_error_title'                   => esc_html__( 'Error', 'woocommerce-tm-extra-product-options' ),
 			'i18n_add_element'                   => esc_html__( 'Add element', 'woocommerce-tm-extra-product-options' ),
 			'i18n_edit_price'                    => esc_html__( 'Edit price', 'woocommerce-tm-extra-product-options' ),
+			'i18n_edit_tab'                      => esc_html__( 'Edit tab', 'woocommerce-tm-extra-product-options' ),
 			'i18n_save'                          => esc_html__( 'Save', 'woocommerce-tm-extra-product-options' ),
 			'i18n_overwrite_existing_elements'   => esc_html__( 'Overwrite existing elements', 'woocommerce-tm-extra-product-options' ),
 			'i18n_append_new_elements'           => esc_html__( 'Append new elements', 'woocommerce-tm-extra-product-options' ),
@@ -3134,6 +3214,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 								'posts_per_page' => -1,
 								'orderby'        => 'date',
 								'order'          => 'asc',
+								'no_found_rows'  => true,
 								'p'              => $main_post_id,
 							]
 						);
@@ -3154,6 +3235,7 @@ final class THEMECOMPLETE_EPO_ADMIN_Global_Base {
 								'posts_per_page' => -1,
 								'orderby'        => 'date',
 								'order'          => 'asc',
+								'no_found_rows'  => true,
 								'meta_query'     => $meta_query, // phpcs:ignore WordPress.DB.SlowDBQuery
 							]
 						);

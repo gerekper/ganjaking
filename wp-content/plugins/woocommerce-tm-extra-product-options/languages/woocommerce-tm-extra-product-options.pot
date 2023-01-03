@@ -2281,7 +2281,7 @@ msgid "Choose whether to hide the element value in the order or not."
 msgstr ""
 
 #: includes/classes/builder/class-themecomplete-epo-builder-element.php:1142
-msgid "Hide element label in floating totals box."
+msgid "Hide element label in floating totals box"
 msgstr ""
 
 #: includes/classes/builder/class-themecomplete-epo-builder-element.php:1143

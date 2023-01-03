@@ -23,28 +23,28 @@ final class THEMECOMPLETE_EPO_CP_WOOCS {
 	/**
 	 * Flag to check in WOOCS is enabled
 	 *
-	 * @var int|null
+	 * @var int|null|bool
 	 */
 	public $is_woocs = false;
 
 	/**
 	 * Holds the global $WOOCS variable
 	 *
-	 * @var Object|null
+	 * @var Object|null|bool
 	 */
 	public $woocs = false;
 
 	/**
 	 * Cache for the default currency
 	 *
-	 * @var int|null
+	 * @var int|null|bool
 	 */
 	public $default_to_currency = false;
 
 	/**
 	 * Cache for the default from currency
 	 *
-	 * @var int|null
+	 * @var int|null|bool
 	 */
 	public $default_from_currency = false;
 

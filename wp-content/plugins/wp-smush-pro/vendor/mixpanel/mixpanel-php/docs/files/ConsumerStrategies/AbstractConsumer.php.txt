@@ -63,6 +63,3 @@ abstract class ConsumerStrategies_AbstractConsumer extends Base_MixpanelBase {
      */
     abstract function persist($batch);
 }
-
-
-941105-1666688512-au

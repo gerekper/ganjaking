@@ -113,6 +113,19 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_SECTION extends THEMECOMPLETE_EPO_BUILDE
 						'label'       => '',
 						'desc'        => '',
 					],
+					'sections_tabs_labels'           => [
+						'id'      => 'sections_tabs_labels',
+						'default' => '',
+						'nodiv'   => 1,
+						'type'    => 'hidden',
+						'tags'    => [
+							'class' => 'tm_builder_sections_tabs_labels',
+							'name'  => 'tm_meta[tmfbuilder][sections_tabs_labels][]',
+							'value' => 0,
+						],
+						'label'   => '',
+						'desc'    => '',
+					],
 					'sectionsize'                    => [
 						'id'          => 'sections_size',
 						'wpmldisable' => 1,
@@ -283,16 +296,17 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_SECTION extends THEMECOMPLETE_EPO_BUILDE
 						'desc'             => esc_html__( 'Select where this section will appear compared to local Options.', 'woocommerce-tm-extra-product-options' ),
 					],
 					'sectiontype'                    => [
-						'id'          => 'sections_type',
-						'wpmldisable' => 1,
-						'default'     => '',
-						'type'        => 'select',
-						'tags'        => [
+						'id'               => 'sections_type',
+						'wpmldisable'      => 1,
+						'default'          => '',
+						'type'             => 'radio',
+						'message0x0_class' => 'tm-epo-switch-wrapper',
+						'tags'             => [
 							'class' => 'sections_type',
 							'id'    => 'sections_type',
 							'name'  => 'tm_meta[tmfbuilder][sections_type][]',
 						],
-						'options'     => [
+						'options'          => [
 							[
 								'text'  => esc_html__( 'Normal', 'woocommerce-tm-extra-product-options' ),
 								'value' => '',
@@ -306,9 +320,14 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_SECTION extends THEMECOMPLETE_EPO_BUILDE
 								'value' => 'slider',
 								'class' => 'builder-remove-for-variations',
 							],
+							[
+								'text'  => esc_html__( 'Tabs', 'woocommerce-tm-extra-product-options' ),
+								'value' => 'tabs',
+								'class' => 'builder-remove-for-variations',
+							],
 						],
-						'label'       => esc_html__( 'Section type', 'woocommerce-tm-extra-product-options' ),
-						'desc'        => esc_html__( "Select this section's display type.", 'woocommerce-tm-extra-product-options' ),
+						'label'            => esc_html__( 'Section type', 'woocommerce-tm-extra-product-options' ),
+						'desc'             => esc_html__( "Select this section's display type.", 'woocommerce-tm-extra-product-options' ),
 					],
 					'sectionpopupbutton'             => [
 						'id'          => 'sections_popupbutton',

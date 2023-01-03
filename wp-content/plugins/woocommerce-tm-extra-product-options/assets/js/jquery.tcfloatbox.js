@@ -1,12 +1,13 @@
 /**
  * jquery.tcfloatbox.js
  *
+ * @param {Object} $ The jQuery object
  * @version: v1.1
- * @author: themeComplete
+ * @author: ThemeComplete
  *
- * Created by themeComplete
+ * Created by ThemeComplete
  *
- * Copyright (c) 2019 themeComplete http://themecomplete.com
+ * Copyright (c) 2022 themeComplete http://themecomplete.com
  */
 ( function( $ ) {
 	'use strict';

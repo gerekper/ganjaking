@@ -248,18 +248,7 @@ class THEMECOMPLETE_EPO_Display {
 	 */
 	public function get_tax_rate( $classes ) {
 
-		$tax_rate = 0;
-
-		if ( class_exists( 'WC_Tax' ) && version_compare( get_option( 'woocommerce_version' ), '2.4', '>=' ) ) {
-			$tax_rates    = WC_Tax::get_rates( $classes );
-			$precision    = wc_get_rounding_precision();
-			$price_of_one = 1 * ( pow( 10, $precision ) );
-			$taxes_of_one = array_sum( WC_Tax::calc_tax( $price_of_one, $tax_rates, wc_prices_include_tax() ) );
-			$taxes_of_one = $taxes_of_one / ( pow( 10, $precision ) );
-			$tax_rate     = 100 * $taxes_of_one;
-		}
-
-		return $tax_rate;
+		return themecomplete_get_tax_rate( $classes );
 
 	}
 
@@ -312,7 +301,7 @@ class THEMECOMPLETE_EPO_Display {
 	 */
 	public function woocommerce_available_variation( $array, $class, $variation ) {
 
-		if ( apply_filters( 'wc_epo_woocommerce_available_variation_check', true ) && ! THEMECOMPLETE_EPO()->can_load_scripts() && ! ( isset( $_REQUEST['wc-ajax'] ) && 'get_variation' === $_REQUEST['wc-ajax'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( apply_filters( 'wc_epo_woocommerce_available_variation_check', true ) && ! ( THEMECOMPLETE_EPO()->can_load_scripts() || wp_doing_ajax() ) && ! ( isset( $_REQUEST['wc-ajax'] ) && 'get_variation' === $_REQUEST['wc-ajax'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			return $array;
 		}
 
@@ -656,6 +645,10 @@ class THEMECOMPLETE_EPO_Display {
 
 		global $woocommerce;
 
+		if ( ! empty( $GLOBALS['THEMECOMPLETE_IS_FROM_SHORTCODE'] ) ) {
+			$is_from_shortcode = true;
+		}
+
 		if ( ! property_exists( $woocommerce, 'product_factory' )
 			|| null === $woocommerce->product_factory
 			|| ( $this->tm_options_have_been_displayed && ( ! ( THEMECOMPLETE_EPO()->is_bto || ( ( THEMECOMPLETE_EPO()->is_enabled_shortcodes() && ! $is_from_shortcode ) && ! is_product() ) || ( ( is_shop() || is_product_category() || is_product_tag() ) && 'yes' === THEMECOMPLETE_EPO()->tm_epo_enable_in_shop ) ) ) )
@@ -709,6 +702,33 @@ class THEMECOMPLETE_EPO_Display {
 			}
 		}
 
+		if ( ! $form_prefix ) {
+			if ( THEMECOMPLETE_EPO()->is_quick_view() ) {
+				if ( ! $this->unique_form_prefix ) {
+					$this->unique_form_prefix = uniqid( '' );
+				}
+				$form_prefix = '_tcform' . $this->unique_form_prefix;
+			} elseif ( THEMECOMPLETE_EPO()->wc_vars['is_page'] ) {
+				// Workaroung to cover options in pages.
+				if ( ! ( THEMECOMPLETE_EPO()->is_bto || THEMECOMPLETE_EPO()->is_inline_epo ) ) {
+					$temp_this_epo_internal_counter = $this->epo_internal_counter;
+					if ( empty( $temp_this_epo_internal_counter ) || ! isset( $this->epo_internal_counter_check[ 'tc' . $temp_this_epo_internal_counter ] ) ) {
+						// First time displaying the fields and totals haven't been displayed.
+						$temp_this_epo_internal_counter ++;
+					}
+					$temp_epo_internal_counter = $temp_this_epo_internal_counter;
+				} else {
+					if ( THEMECOMPLETE_EPO()->is_inline_epo && $temp_this_epo_internal_counter ) {
+						$temp_epo_internal_counter = $temp_this_epo_internal_counter;
+					} else {
+						$temp_epo_internal_counter = 0;
+					}
+				}
+
+				$form_prefix = '_tcform' . $temp_epo_internal_counter;
+			}
+		}
+
 		$post_id = $product_id;
 
 		$cpf_price_array = THEMECOMPLETE_EPO()->get_product_tm_epos( $post_id, $form_prefix );
@@ -722,7 +742,7 @@ class THEMECOMPLETE_EPO_Display {
 		if ( empty( $global_price_array ) && empty( $local_price_array ) ) {
 			if ( ! ( THEMECOMPLETE_EPO()->is_bto || THEMECOMPLETE_EPO()->is_inline_epo ) ) {
 				if ( empty( $this->epo_internal_counter ) || ! isset( $this->epo_internal_counter_check[ 'tc' . $this->epo_internal_counter ] ) ) {
-					// First time displaying the fields and totals havenn't been displayed.
+					// First time displaying the fields and totals haven't been displayed.
 					$this->epo_internal_counter ++;
 					$this->epo_internal_counter_check[ 'tc' . $this->epo_internal_counter ] = $this->epo_internal_counter;
 				} else {
@@ -762,18 +782,9 @@ class THEMECOMPLETE_EPO_Display {
 		$field_counter   = 0;
 		$element_counter = 0;
 
-		if ( ! $form_prefix ) {
-			if ( THEMECOMPLETE_EPO()->is_quick_view() ) {
-				if ( ! $this->unique_form_prefix ) {
-					$this->unique_form_prefix = uniqid( '' );
-				}
-				$form_prefix = '_tcform' . $this->unique_form_prefix;
-			}
-		}
-
 		if ( ! ( THEMECOMPLETE_EPO()->is_bto || THEMECOMPLETE_EPO()->is_inline_epo ) ) {
 			if ( empty( $this->epo_internal_counter ) || ! isset( $this->epo_internal_counter_check[ 'tc' . $this->epo_internal_counter ] ) ) {
-				// First time displaying the fields and totals havenn't been displayed.
+				// First time displaying the fields and totals haven't been displayed.
 				$this->epo_internal_counter ++;
 				$this->epo_internal_counter_check[ 'tc' . $this->epo_internal_counter ] = $this->epo_internal_counter;
 			} else {
@@ -789,12 +800,6 @@ class THEMECOMPLETE_EPO_Display {
 				$_epo_internal_counter = $this->epo_internal_counter;
 			} else {
 				$_epo_internal_counter = 0;
-			}
-		}
-
-		if ( ! $form_prefix ) {
-			if ( THEMECOMPLETE_EPO()->wc_vars['is_page'] ) {
-				$form_prefix = '_tcform' . $_epo_internal_counter;
 			}
 		}
 
@@ -1024,7 +1029,7 @@ class THEMECOMPLETE_EPO_Display {
 					}
 				}
 
-				$args = [
+				$section_args = [
 					'column'                       => $size,
 					'style'                        => $section['sections_style'],
 					'uniqid'                       => $section['sections_uniqid'],
@@ -1059,7 +1064,7 @@ class THEMECOMPLETE_EPO_Display {
 					if ( THEMECOMPLETE_EPO()->associated_type === 'variation' ) {
 						continue;
 					}
-					$args['sections_class'] = $args['sections_class'] . ' tm-epo-variation-section tc-clearfix';
+					$section_args['sections_class'] = $section_args['sections_class'] . ' tm-epo-variation-section tc-clearfix';
 
 					if ( THEMECOMPLETE_EPO_WPML()->is_active() ) {
 						$wpml_is_original_product = THEMECOMPLETE_EPO_WPML()->is_original_product( $post_id, 'product' );
@@ -1070,22 +1075,22 @@ class THEMECOMPLETE_EPO_Display {
 							isset( $section['elements'][0]['original_builder']['variations_disabled'] ) &&
 							(int) 1 === (int) $section['elements'][0]['original_builder']['variations_disabled']
 						) {
-							$args['sections_class'] .= ' tm-hidden';
+							$section_args['sections_class'] .= ' tm-hidden';
 						}
 					} elseif (
 						isset( $section['elements'][0]['builder'] ) &&
 						isset( $section['elements'][0]['builder']['variations_disabled'] ) &&
 						(int) 1 === (int) $section['elements'][0]['builder']['variations_disabled']
 					) {
-						$args['sections_class'] .= ' tm-hidden';
+						$section_args['sections_class'] .= ' tm-hidden';
 					}
 				}
-				if ( '' !== $args['style'] ) {
-					$args['label_position'] = '';
+				if ( '' !== $section_args['style'] ) {
+					$section_args['label_position'] = '';
 				}
 				wc_get_template(
 					'tm-builder-section-start.php',
-					$args,
+					$section_args,
 					$this->get_template_path(),
 					$this->get_default_path()
 				);
@@ -1096,9 +1101,31 @@ class THEMECOMPLETE_EPO_Display {
 					$slide_counter = 0;
 					$use_slides    = false;
 					$doing_slides  = false;
-					if ( '' !== $section['sections_slides'] && 'slider' === $section['sections_type'] ) {
+					if ( '' !== $section['sections_slides'] && ( 'slider' === $section['sections_type'] || 'tabs' === $section['sections_type'] ) ) {
 						$sections_slides = explode( ',', $section['sections_slides'] );
 						$use_slides      = true;
+
+						if ( 'tabs' === $section['sections_type'] ) {
+							$sections_tabs_labels = isset( $section['sections_tabs_labels'] ) ? $section['sections_tabs_labels'] : '';
+							$sections_tabs_labels = json_decode( $sections_tabs_labels );
+
+							if ( ! is_array( $sections_tabs_labels ) ) {
+								$sections_slides = '';
+								$use_slides      = false;
+							} else {
+								echo '<div class="tc-tabs tc-container"><div class="tc-tabs-wrap tcwidth-100">';
+								echo '<div class="tc-tab-headers tcwidth-100">';
+								foreach ( $sections_tabs_labels as $tab_index => $tab_label ) {
+									echo '<div class="tc-tab-header tma-tab-label"><h4 tabindex="0" data-id="tc-tab-slide' . esc_attr( $tab_index ) . '" data-tab="tab' . esc_attr( $tab_index ) . '" class="tab-header' . ( 0 === $tab_index ? ' open' : '' ) . '"><span class="tab-header-label">';
+									echo apply_filters( 'wc_epo_kses', wp_kses_post( $tab_label ), $tab_label, false ); // phpcs:ignore WordPress.Security.EscapeOutput
+									echo '</span></h4></div>';
+								}
+								echo '</div>';
+								echo '<div class="tc-tab-content tcwidth-100">';
+							}
+						} elseif ( 'slider' === $section['sections_type'] ) {
+							echo '<div class="tc-slider-content">';
+						}
 					}
 
 					foreach ( $section['elements'] as $element ) {
@@ -1130,7 +1157,7 @@ class THEMECOMPLETE_EPO_Display {
 							$sections_slides[ $slide_counter ] = (int) $sections_slides[ $slide_counter ];
 
 							if ( $sections_slides[ $slide_counter ] > 0 && ! $doing_slides ) {
-								echo '<div class="tm-slide tc-row tc-cell tcwidth-100">';
+								echo '<div class="tc-tab-slide tc-tab-slide' . esc_attr( $slide_counter ) . ' tc-row">';
 								$doing_slides         = true;
 								$test_for_first_slide = true;
 							}
@@ -1717,7 +1744,8 @@ class THEMECOMPLETE_EPO_Display {
 														),
 													];
 
-													$element_args = apply_filters( 'wc_epo_display_template_args', array_merge( $element_args, $display ), $element, $value, $choice_counter, $element_type_counter[ $element['type'] ] );
+													$element_args         = apply_filters( 'wc_epo_display_template_args', array_merge( $element_args, $display ), $element, $value, $choice_counter, $element_type_counter[ $element['type'] ] );
+													$element_args['args'] = $element_args;
 													if ( $element_object->is_addon ) {
 														do_action(
 															'tm_epo_display_addons',
@@ -1904,21 +1932,22 @@ class THEMECOMPLETE_EPO_Display {
 							}
 						}
 					}
+
+					if ( '' !== $section['sections_slides'] && ( 'slider' === $section['sections_type'] || 'tabs' === $section['sections_type'] ) ) {
+						if ( 'tabs' === $section['sections_type'] ) {
+							if ( is_array( $sections_tabs_labels ) ) {
+								echo '</div>';
+								echo '</div></div>';
+							}
+						} elseif ( 'slider' === $section['sections_type'] ) {
+							echo '</div>';
+						}
+					}
 				}
-				$args = [
-					'column'               => $size,
-					'style'                => $section['sections_style'],
-					'sections_type'        => $section['sections_type'],
-					'label_size'           => $label_size,
-					'label'                => ! empty( $section['label'] ) ? $section['label'] : '',
-					'label_color'          => ! empty( $section['label_color'] ) ? $section['label_color'] : '',
-					'description'          => ! empty( $section['description'] ) ? $section['description'] : '',
-					'description_color'    => ! empty( $section['description_color'] ) ? $section['description_color'] : '',
-					'description_position' => ! empty( $section['description_position'] ) ? $section['description_position'] : '',
-				];
+
 				wc_get_template(
 					'tm-builder-section-end.php',
-					$args,
+					$section_args,
 					$this->get_template_path(),
 					$this->get_default_path()
 				);
@@ -2828,6 +2857,11 @@ class THEMECOMPLETE_EPO_Display {
 			$classtotalform = 'tm-totals-form-' . $form_prefix_id;
 		}
 
+		if ( THEMECOMPLETE_EPO()->is_associated ) {
+			$classtotalform .= ' tm-totals-form-inline';
+			$classcart      .= ' tm-cart-inline';
+		}
+
 		do_action(
 			'wc_epo_before_totals_box',
 			[
@@ -2864,7 +2898,6 @@ class THEMECOMPLETE_EPO_Display {
 					'classtotalform'           => $classtotalform,
 					'is_on_sale'               => $product->is_on_sale(),
 
-					'theme_name'               => THEMECOMPLETE_EPO()->get_theme( 'Name' ),
 					'variations'               => wp_json_encode( (array) $variations ),
 
 					'is_sold_individually'     => $product->is_sold_individually(),

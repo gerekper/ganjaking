@@ -92,9 +92,9 @@ window.jQuery.jMaskGlobals = {
 	 * Rounds a number
 	 * modified from http://locutus.io/php/math/round/
 	 *
-	 * @param {any} value the value to round.
-	 * @param {int} precision the precision.
-	 * @param {string} mode the rounding mode.
+	 * @param {any}    value     the value to round.
+	 * @param {int}    precision the precision.
+	 * @param {string} mode      the rounding mode.
 	 */
 	$.epoAPI.math.round = function( value, precision, mode ) {
 		var m;
@@ -170,6 +170,49 @@ window.jQuery.jMaskGlobals = {
 		}
 
 		return value / m;
+	};
+
+	// https://locutus.io/php/misc/uniqid/index.html
+	$.epoAPI.math.uniqueid = function( prefix, moreEntropy ) {
+		var retId;
+		var _formatSeed = function( seed, reqWidth ) {
+			seed = parseInt( seed, 10 ).toString( 16 ); // to hex str
+			if ( reqWidth < seed.length ) {
+				// so long we split
+				return seed.slice( seed.length - reqWidth );
+			}
+			if ( reqWidth > seed.length ) {
+				// so short we pad
+				return new Array( 1 + ( reqWidth - seed.length ) ).join( '0' ) + seed;
+			}
+			return seed;
+		};
+		var radom;
+
+		if ( prefix === undefined ) {
+			prefix = '';
+		}
+
+		$.epoAPI.php = $.epoAPI.php || {};
+
+		if ( ! $.epoAPI.php.uniqidSeed ) {
+			// init seed with big random int
+			$.epoAPI.php.uniqidSeed = Math.floor( Math.random() * 0x75bcd15 );
+		}
+		$.epoAPI.php.uniqidSeed += 1;
+
+		// start with prefix, add current milliseconds hex string
+		retId = prefix;
+		retId += _formatSeed( parseInt( Date.now() / 1000, 10 ), 8 );
+		// add seed hex string
+		retId += _formatSeed( $.epoAPI.php.uniqidSeed, 5 );
+		if ( moreEntropy ) {
+			// for more entropy we add a float lower to 10
+			radom = Math.random() * 10;
+			retId += radom.toFixed( 8 ).toString();
+		}
+
+		return retId;
 	};
 
 	$.epoAPI.dom.id = function( id ) {
@@ -436,7 +479,7 @@ window.jQuery.jMaskGlobals = {
 	/**
 	 * Check and normalise the value of precision (must be positive integer)
 	 *
-	 * @param {any} val the value to check.
+	 * @param {any} val  the value to check.
 	 * @param {any} base the value to return is check fails.
 	 */
 	function checkPrecision( val, base ) {
@@ -448,7 +491,7 @@ window.jQuery.jMaskGlobals = {
 	 * Takes a string/array of strings, removes all formatting/cruft
 	 * and returns the raw float value.
 	 *
-	 * @param {any} value the value to unformat.
+	 * @param {any} value   the value to unformat.
 	 * @param {any} decimal the decimal point.
 	 */
 	function unformat( value, decimal ) {
@@ -491,7 +534,7 @@ window.jQuery.jMaskGlobals = {
 	 * Fixes binary rounding issues (eg. (0.615).toFixed(2) === "0.61") that present
 	 * problems for accounting- and finance-related software.
 	 *
-	 * @param {any} value the value to convert.
+	 * @param {any} value     the value to convert.
 	 * @param {int} precision the precision.
 	 */
 	function toFixed( value, precision ) {
@@ -522,8 +565,8 @@ window.jQuery.jMaskGlobals = {
 	 *     precision: 2,   // decimal places
 	 * }
 	 *
-	 * @param {any} number the value to convert.
-	 * @param {Object} opts the options for formatting.
+	 * @param {any}    number the value to convert.
+	 * @param {Object} opts   the options for formatting.
 	 */
 	function format( number, opts ) {
 		var formats;
@@ -596,7 +639,8 @@ window.jQuery.jMaskGlobals = {
 /**
  * 3. themeComplete jQuery extensions
  *
- **/
+ * @param {Object} $ The jQuery object.
+ */
 ( function( $ ) {
 	'use strict';
 

@@ -2725,7 +2725,7 @@ msgstr "エレメントの値を注文内で表示するか、しないか"
 
 #: includes/classes/builder/class-themecomplete-epo-builder-element.php:1142
 #, fuzzy
-msgid "Hide element label in floating totals box."
+msgid "Hide element label in floating totals box"
 msgstr "フローティング合計ボックスでエレメントラベルを非表示"
 
 #: includes/classes/builder/class-themecomplete-epo-builder-element.php:1143

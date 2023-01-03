@@ -23,7 +23,6 @@ defined( 'ABSPATH' ) || exit;
 		class="tc-epo-totals tm-product-id-<?php echo esc_attr( $product_id ); ?> tm-epo-totals tm-custom-prices-total<?php echo esc_attr( $hidden ); ?> <?php echo esc_attr( $classcart ); ?>"
 		data-epo-id="<?php echo esc_attr( $epo_internal_counter ); ?>"
 		data-tm-epo-final-total-box="<?php echo esc_attr( $tm_epo_final_total_box ); ?>"
-		data-theme-name="<?php echo esc_attr( $theme_name ); ?>"
 		data-cart-id="<?php echo esc_attr( $forcart ); ?>"
 		data-is-sold-individually="<?php echo esc_attr( $is_sold_individually ); ?>"
 		data-type="<?php echo esc_attr( $type ); ?>"

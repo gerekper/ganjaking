@@ -109,6 +109,8 @@ final class THEMECOMPLETE_EPO_CP_Subscriptions {
 		add_filter( 'wc_epo_script_args', [ $this, 'wc_epo_script_args' ], 10, 1 );
 		// Add setting in main THEMECOMPLETE_EPO class.
 		add_filter( 'wc_epo_get_settings', [ $this, 'wc_epo_get_settings' ], 10, 1 );
+		add_filter( 'tm_epo_settings_headers', [ $this, 'tm_epo_settings_headers' ], 10, 1 );
+		add_filter( 'tm_epo_settings_settings', [ $this, 'tm_epo_settings_settings' ], 10, 1 );
 
 		// Add extra html data attributes to the totals template.
 		add_action( 'wc_epo_template_tm_totals', [ $this, 'wc_epo_template_tm_totals' ], 10, 1 );
@@ -218,6 +220,48 @@ final class THEMECOMPLETE_EPO_CP_Subscriptions {
 	}
 
 	/**
+	 * Add plugin setting (header)
+	 *
+	 * @param array $headers Array of settings.
+	 * @since 1.0
+	 */
+	public function tm_epo_settings_headers( $headers = [] ) {
+		$headers['subscriptions'] = [ 'tcfa tcfa-arrows-spin', esc_html__( 'WooCommerce Subscriptions', 'woocommerce-tm-extra-product-options' ) ];
+
+		return $headers;
+	}
+
+	/**
+	 * Add plugin setting (setting)
+	 *
+	 * @param array $settings Array of settings.
+	 * @since 1.0
+	 */
+	public function tm_epo_settings_settings( $settings = [] ) {
+		$label                     = esc_html__( 'WooCommerce Subscriptions', 'woocommerce-tm-extra-product-options' );
+		$settings['subscriptions'] = [
+			[
+				'type'  => 'tm_title',
+				'id'    => 'epo_page_options',
+				'title' => $label,
+			],
+			[
+				'title'   => esc_html__( 'Include addons on order again', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enabling this will add the saved addons to the subscription when using the order again functionality manually.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_order_again_include_addons',
+				'default' => 'yes',
+				'type'    => 'checkbox',
+			],
+			[
+				'type' => 'tm_sectionend',
+				'id'   => 'epo_page_options',
+			],
+		];
+
+		return $settings;
+	}
+
+	/**
 	 * Flag renewals
 	 *
 	 * @param array  $cart_item_meta The cart item meta.
@@ -226,8 +270,10 @@ final class THEMECOMPLETE_EPO_CP_Subscriptions {
 	 * @since 6.1
 	 */
 	public function woocommerce_order_again_cart_item_data( $cart_item_meta, $item, $order ) {
-		if ( ! defined( 'THEMECOMPLETE_IS_SUBSCRIPTIONS_RENEWAL' ) ) {
-			define( 'THEMECOMPLETE_IS_SUBSCRIPTIONS_RENEWAL', 1 );
+		if ( 'no' === THEMECOMPLETE_EPO()->tm_epo_order_again_include_addons ) {
+			if ( ! defined( 'THEMECOMPLETE_IS_SUBSCRIPTIONS_RENEWAL' ) ) {
+				define( 'THEMECOMPLETE_IS_SUBSCRIPTIONS_RENEWAL', 1 );
+			}
 		}
 		return $cart_item_meta;
 	}
@@ -302,8 +348,9 @@ final class THEMECOMPLETE_EPO_CP_Subscriptions {
 	public function wc_epo_get_settings( $settings = [] ) {
 
 		if ( class_exists( 'WC_Subscriptions' ) ) {
-			$settings['tm_epo_subscription_fee_text'] = '';
-			$settings['tm_epo_signup_fee_text']       = '';
+			$settings['tm_epo_subscription_fee_text']      = '';
+			$settings['tm_epo_signup_fee_text']            = '';
+			$settings['tm_epo_order_again_include_addons'] = 'yes';
 		}
 
 		return $settings;
@@ -822,7 +869,6 @@ final class THEMECOMPLETE_EPO_CP_Subscriptions {
 		return $cbvalues;
 
 	}
-
 
 	/**
 	 * Skip altering order get_items

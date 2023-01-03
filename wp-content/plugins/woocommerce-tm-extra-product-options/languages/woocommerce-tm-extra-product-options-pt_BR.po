@@ -2541,8 +2541,8 @@ msgid "Choose whether to hide the element value in the order or not."
 msgstr "Escolha se quer ocultar o valor do elemento no pedido ou não."
 
 #: includes/classes/builder/class-themecomplete-epo-builder-element.php:1142
-msgid "Hide element label in floating totals box."
-msgstr "Ocultar o rótulo do elemento na caixa flutuante de total."
+msgid "Hide element label in floating totals box"
+msgstr "Ocultar o rótulo do elemento na caixa flutuante de total"
 
 #: includes/classes/builder/class-themecomplete-epo-builder-element.php:1143
 msgid ""

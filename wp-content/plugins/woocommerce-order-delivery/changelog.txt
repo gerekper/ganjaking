@@ -1,5 +1,8 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2022-12-27 - version 2.3.2
+* Fix - Fixed error when trying to clone a non-object on calculating the delivery details of a subscription.
+
 2022-12-07 - version 2.3.1
 * Tweak - Tested compatibility with WC 7.2.
 * Fix - Fixed error when fetching a non-existing shipping zone by ID.

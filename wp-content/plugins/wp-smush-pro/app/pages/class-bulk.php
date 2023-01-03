@@ -262,7 +262,7 @@ class Bulk extends Abstract_Summary_Page implements Interface_Page {
 					$bg_email_desc   = sprintf( __( 'You will receive an email at <strong>%s</strong> when the bulk smush has completed.', 'wp-smushit' ), $bg_optimization->get_mail_recipient() );
 					echo wp_kses_post( $bg_email_desc );
 					break;
-
+					
 				default:
 					break;
 			}

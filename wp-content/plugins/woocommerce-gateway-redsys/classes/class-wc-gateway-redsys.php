@@ -4519,7 +4519,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'redsys', 'iniciaPeticion 4: ' . $xml );
 			$this->log->add( 'redsys', ' ' );
 		}
-	
+
 		$cliente  = new SoapClient( $redsys_adr );
 		$response = $cliente->iniciaPeticion( array( 'datoEntrada' => $xml ) );
 
@@ -6379,21 +6379,37 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'redsys', '$operacion: ' . $operacion );
 			}
 			if ( 'ChallengeRequest' === $three_ds_info ) {
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'redsys', ' ' );
+					$this->log->add( 'redsys', 'Challenge' );
+				}
 				WCRed()->print_overlay_image();
 				if ( $PAReq ) {
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'redsys', ' ' );
+						$this->log->add( 'redsys', '$PAReq' );
+						$this->log->add( 'redsys', '$acsURL: ' . $acsURL );
+					}
 					?>
 					<form method="POST" action="<?php echo $acsURL; ?>"  enctype = "application/x-www-form-urlencoded">
 						<input type="hidden" name="PaReq" value="<?php echo esc_attr( $PAReq ); ?>" />
 						<input type="hidden" name="MD" value="<?php echo esc_attr( $MD ); ?>" />
 						<input type="hidden" name="TermUrl" value="<?php echo esc_attr( $final_notify_url ); ?>" />
-						<input name="submit_3ds" type="submit" class="button-alt" id="submit_pareq" value="' . __( 'Press here if you are not redirected', 'woocommerce-redsys' ) . '" />
+						<input name="submit_3ds" type="submit" class="button-alt" id="submit_pareq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ) ?>" />
 					</form>
 					<script type="text/javascript">
 						document.getElementById('submit_pareq').click();
 					</script>
 					<?php
+					exit();
 				}
 				if ( $creq ) {
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'redsys', ' ' );
+						$this->log->add( 'redsys', '$creq' );
+						$this->log->add( 'redsys', '$acsUR: ' . $acsURL );
+						$this->log->add( 'redsys', '$creq: ' . $creq );
+					}
 					?>
 					<form method="POST" action="<?php echo $acsURL; ?>" enctype = "application/xwww-form-urlencoded">
 						<input type="hidden" name="CReq" value="<?php echo $creq; ?>" />
@@ -6403,6 +6419,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						document.getElementById('submit_creq').click();
 					</script>
 					<?php
+					exit();
 				}
 			}
 			if ( ! empty( $authorisationcode ) ) {
@@ -6589,7 +6606,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			}
 		} else {
 
-			add_post_meta( $order, '_order_number_redsys_woocommerce', $temp_order_number );
+			WCRed()->update_order_meta( $order, '_order_number_redsys_woocommerce', $temp_order_number );
 			set_transient( $temp_order_number . '_woocommrce_order_number_redsys', $order );
 
 			if ( 'yes' === $this->debug ) {

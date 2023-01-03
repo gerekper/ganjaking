@@ -65,22 +65,103 @@ $tmepos = $post_id ? THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args ) : fal
 			</p>
 		</div>
 		<div class="tm-mode-builder"><?php THEMECOMPLETE_EPO_ADMIN_GLOBAL()->tm_form_fields_builder_meta_box( $post ); ?></div>
-			<div class="tm-mode-local tc-wrapper">
-			<?php
-			if ( THEMECOMPLETE_EPO_WPML()->is_original_product( $post_id ) ) {
-				include 'html-tm-epo.php';
-			} else {
-				?>
-				<div id="message" class="tm-inner inline woocommerce-message">
-				<?php esc_html_e( 'To translate the strings for the local options please use WPML interface.', 'woocommerce-tm-extra-product-options' ); ?>
-				</div>
-				<?php
-			}
+		<div class="tm-mode-local tc-wrapper">
+		<?php
+		if ( THEMECOMPLETE_EPO_WPML()->is_original_product( $post_id ) ) {
+			include 'html-tm-epo.php';
+		} else {
 			?>
+			<div id="message" class="tm-inner inline woocommerce-message">
+			<?php esc_html_e( 'To translate the strings for the local options please use WPML interface.', 'woocommerce-tm-extra-product-options' ); ?>
 			</div>
+			<?php
+		}
+		?>
+		</div>
 		<div class="tm-mode-settings tc-options-group woocommerce_options_panel tc-wrapper">
 			<?php
 			if ( THEMECOMPLETE_EPO_WPML()->is_original_product( $post_id ) ) {
+				// Price display override.
+				$tm_price_display_override      = isset( $tm_meta_cpf['price_display_override'] ) ? $tm_meta_cpf['price_display_override'] : '';
+				$tm_price_display_override_sale = isset( $tm_meta_cpf['price_display_override_sale'] ) ? $tm_meta_cpf['price_display_override_sale'] : '';
+				$tm_price_display_override_to   = isset( $tm_meta_cpf['price_display_override_to'] ) ? $tm_meta_cpf['price_display_override_to'] : '';
+				$tm_price_display_mode          = isset( $tm_meta_cpf['price_display_mode'] ) ? $tm_meta_cpf['price_display_mode'] : 'none';
+				THEMECOMPLETE_EPO_HTML()->create_field(
+					[
+						'message0x0_class' => 'overflow-show tm-epo-switch-wrapper price-display-mode-wrap',
+						'wpmldisable'      => 1,
+						'default'          => $tm_price_display_mode,
+						'type'             => 'radio',
+						'tags'             => [
+							'class' => 'price-display-mode',
+							'id'    => 'price_display_mode',
+							'name'  => 'tm_meta_cpf[price_display_mode]',
+						],
+						'options'          => [
+							[
+								'text'  => esc_html__( 'None', 'woocommerce-tm-extra-product-options' ),
+								'value' => 'none',
+							],
+							[
+								'text'  => esc_html__( 'Price', 'woocommerce-tm-extra-product-options' ),
+								'value' => 'price',
+							],
+							[
+								'text'  => esc_html__( 'From', 'woocommerce-tm-extra-product-options' ),
+								'value' => 'from',
+							],
+							[
+								'text'  => esc_html__( 'Range', 'woocommerce-tm-extra-product-options' ),
+								'value' => 'range',
+							],
+						],
+						'label'            => esc_html__( 'Price display override', 'woocommerce-tm-extra-product-options' ),
+						'desc'             => esc_html__( 'This will replace the displayed product price on shop/archive/product loop pages.', 'woocommerce-tm-extra-product-options' ),
+						'extra_fields'     => [
+							[
+								'nodiv'             => 1,
+								'type'              => 'input',
+								'default'           => $tm_price_display_override,
+								'input_type'        => 'text',
+								'message0x0_class'  => 'overflow-show',
+								'tags'              => [
+									'id'    => 'tm_price_display_override',
+									'name'  => 'tm_meta_cpf[price_display_override]',
+									'class' => 'text wc_input_price',
+								],
+								'html_before_field' => '<span class="tm-choice-regular">' . esc_html__( 'Regular', 'woocommerce-tm-extra-product-options' ) . '</span><span class="tm-choice-from">' . esc_html__( 'From', 'woocommerce-tm-extra-product-options' ) . '</span>',
+							],
+							[
+								'nodiv'             => 1,
+								'type'              => 'input',
+								'default'           => $tm_price_display_override_to,
+								'input_type'        => 'text',
+								'message0x0_class'  => 'overflow-show',
+								'tags'              => [
+									'id'    => 'tm_price_display_override_to',
+									'name'  => 'tm_meta_cpf[price_display_override_to]',
+									'class' => 'text wc_input_price',
+								],
+								'html_before_field' => '<span class="tm-choice-to">' . esc_html__( 'To', 'woocommerce-tm-extra-product-options' ) . '</span>',
+							],
+							[
+								'nodiv'             => 1,
+								'type'              => 'input',
+								'default'           => $tm_price_display_override_sale,
+								'input_type'        => 'text',
+								'message0x0_class'  => 'overflow-show',
+								'tags'              => [
+									'id'    => 'tm_price_display_override_sale',
+									'name'  => 'tm_meta_cpf[price_display_override_sale]',
+									'class' => 'text wc_input_price',
+								],
+								'html_before_field' => '<span class="tm-choice-sale">' . esc_html__( 'Sale', 'woocommerce-tm-extra-product-options' ) . '</span>',
+							],
+						],
+					],
+					true
+				);
+
 				// Include additional Global forms.
 				$args               = [
 					'post_type'   => THEMECOMPLETE_EPO_GLOBAL_POST_TYPE,
@@ -117,159 +198,181 @@ $tmepos = $post_id ? THEMECOMPLETE_EPO_HELPER()->get_cached_posts( $args ) : fal
 
 				// Ouput Exclude.
 				$tm_exclude = isset( $tm_meta_cpf['exclude'] ) ? $tm_meta_cpf['exclude'] : '';
-				echo '<div class="message0x0 tc-clearfix">' .
-					'<div class="message2x1">' .
-					'<label for="tm_meta_cpf_exclude"><span>' . esc_html__( 'Exclude from', 'woocommerce-tm-extra-product-options' ) . ' ' . esc_html( THEMECOMPLETE_EPO_POST_TYPES::instance()::$global_type->labels->name ) . '</span></label>' .
-					'<div class="messagexdesc">' . esc_attr( esc_html__( 'This will exclude any global forms assigned to this product except those defined in the previous setting.', 'woocommerce-tm-extra-product-options' ) ) . '</div>' .
-					'</div>' .
-					'<div class="message2x2">' .
-					'<input type="checkbox" value="1" id="tm_meta_cpf_exclude" name="tm_meta_cpf[exclude]" class="checkbox" ';
-				checked( $tm_exclude, '1', 1 );
-				echo '>' .
-					'</div>' .
-					'</div>';
+				THEMECOMPLETE_EPO_HTML()->create_field(
+					[
+						'type'       => 'checkbox',
+						'default'    => $tm_exclude,
+						'input_type' => 'checkbox',
+						'label'      => esc_html__( 'Exclude from', 'woocommerce-tm-extra-product-options' ) . ' ' . esc_html( THEMECOMPLETE_EPO_POST_TYPES::instance()::$global_type->labels->name ),
+						'desc'       => esc_html__( 'This will exclude any global forms assigned to this product except those defined in the previous setting.', 'woocommerce-tm-extra-product-options' ),
+						'tags'       => [
+							'id'    => 'tm_meta_cpf_exclude',
+							'name'  => 'tm_meta_cpf[exclude]',
+							'class' => 'checkbox',
+							'value' => '1',
+						],
+					],
+					true
+				);
 
 				// Ouput Price override.
-				$tm_exclude = isset( $tm_meta_cpf['price_override'] ) ? $tm_meta_cpf['price_override'] : '';
-				echo '<div class="message0x0 tc-clearfix">' .
-					'<div class="message2x1">' .
-					'<label for="tm_meta_cpf_price_override"><span>' . esc_html__( 'Override product price', 'woocommerce-tm-extra-product-options' ) . '</span></label>' .
-					'<div class="messagexdesc">' . esc_attr( esc_html__( 'This will override the product price with the price from the options if the total options price is greater then zero.', 'woocommerce-tm-extra-product-options' ) ) . '</div>' .
-					'</div>' .
-					'<div class="message2x2">' .
-					'<input type="checkbox" value="1" id="tm_meta_cpf_price_override" name="tm_meta_cpf[price_override]" class="checkbox" ';
-				checked( $tm_exclude, '1', 1 );
-				echo '>' .
-					'</div>' .
-					'</div>';
+				$price_override = isset( $tm_meta_cpf['price_override'] ) ? $tm_meta_cpf['price_override'] : '';
+				THEMECOMPLETE_EPO_HTML()->create_field(
+					[
+						'type'       => 'checkbox',
+						'default'    => $price_override,
+						'input_type' => 'checkbox',
+						'label'      => esc_html__( 'Override product price', 'woocommerce-tm-extra-product-options' ),
+						'desc'       => esc_html__( 'This will override the product price with the price from the options if the total options price is greater then zero.', 'woocommerce-tm-extra-product-options' ),
+						'tags'       => [
+							'id'    => 'tm_meta_cpf_price_override',
+							'name'  => 'tm_meta_cpf[price_override]',
+							'class' => 'checkbox',
+							'value' => '1',
+						],
+					],
+					true
+				);
 
 				// Ouput Override display.
 				$tm_override_display = isset( $tm_meta_cpf['override_display'] ) ? $tm_meta_cpf['override_display'] : '';
-				echo '<div class="message0x0 tc-clearfix">' .
-					'<div class="message2x1">' .
-					'<label for="tm_meta_cpf_override_display"><span>' . esc_html__( 'Override global display', 'woocommerce-tm-extra-product-options' ) . '</span></label>' .
-					'<div class="messagexdesc">' . esc_attr( esc_html__( 'This will override the display method only for this product.', 'woocommerce-tm-extra-product-options' ) ) . '</div>' .
-					'</div>' .
-					'<div class="message2x2">' .
-					'<select id="tm_meta_cpf_override_display" name="tm_meta_cpf[override_display]">' .
-					'<option value="" ';
-				selected( $tm_override_display, '', 1 );
-				echo '>' . esc_html__( 'Use global setting', 'woocommerce-tm-extra-product-options' ) . '</option>' .
-					'<option value="normal" ';
-				selected( $tm_override_display, 'normal', 1 );
-				echo '>' . esc_html__( 'Always show', 'woocommerce-tm-extra-product-options' ) . '</option>' .
-					'<option value="action" ';
-				selected( $tm_override_display, 'action', 1 );
-				echo '>' . esc_html__( 'Show only with an action hook', 'woocommerce-tm-extra-product-options' ) . '</option>' .
-					'</select>' .
-					'</div>' .
-					'</div>';
+				THEMECOMPLETE_EPO_HTML()->create_field(
+					[
+						'type'    => 'select',
+						'default' => $tm_override_display,
+						'label'   => esc_html__( 'Override global display', 'woocommerce-tm-extra-product-options' ),
+						'desc'    => esc_html__( 'This will override the display method only for this product.', 'woocommerce-tm-extra-product-options' ),
+						'tags'    => [
+							'id'   => 'tm_meta_cpf_override_display',
+							'name' => 'tm_meta_cpf[override_display]',
+						],
+						'options' => [
+							[
+								'value' => '',
+								'text'  => esc_html__( 'Use global setting', 'woocommerce-tm-extra-product-options' ),
+							],
+							[
+								'value' => 'normal',
+								'text'  => esc_html__( 'Always show', 'woocommerce-tm-extra-product-options' ),
+							],
+							[
+								'value' => 'action',
+								'text'  => esc_html__( 'Show only with an action hook', 'woocommerce-tm-extra-product-options' ),
+							],
+						],
+					],
+					true
+				);
 
 				// Ouput Override totals box.
 				$tm_override_final_total_box = isset( $tm_meta_cpf['override_final_total_box'] ) ? $tm_meta_cpf['override_final_total_box'] : '';
-				echo '<div class="message0x0 tc-clearfix">' .
-					'<div class="message2x1">' .
-					'<label for="tm_meta_cpf_override_final_total_box"><span>' . esc_html__( 'Override Final total box', 'woocommerce-tm-extra-product-options' ) . '</span></label>' .
-					'<div class="messagexdesc">' . esc_attr( esc_html__( 'This will override the totals box display only for this product.', 'woocommerce-tm-extra-product-options' ) ) . '</div>' .
-					'</div>' .
-					'<div class="message2x2">' .
-					'<select id="tm_meta_cpf_override_final_total_box" name="tm_meta_cpf[override_final_total_box]">';
-
-				echo '<option value="" ';
-				selected( $tm_override_final_total_box, '', 1 );
-				echo '>' . esc_html__( 'Use global setting', 'woocommerce-tm-extra-product-options' ) . '</option>';
-
-				echo '<option value="normal" ';
-				selected( $tm_override_final_total_box, 'normal', 1 );
-				echo '>' . esc_html__( 'Show Both Final and Options total box', 'woocommerce-tm-extra-product-options' ) . '</option>';
-
-				echo '<option value="options" ';
-				selected( $tm_override_final_total_box, 'options', 1 );
-				echo '>' . esc_html__( 'Show only Options total', 'woocommerce-tm-extra-product-options' ) . '</option>';
-
-				echo '<option value="optionsiftotalnotzero" ';
-				selected( $tm_override_final_total_box, 'optionsiftotalnotzero', 1 );
-				echo '>' . esc_html__( 'Show only Options total if total is not zero', 'woocommerce-tm-extra-product-options' ) . '</option>';
-
-				echo '<option value="final" ';
-				selected( $tm_override_final_total_box, 'final', 1 );
-				echo '>' . esc_html__( 'Show only Final total', 'woocommerce-tm-extra-product-options' ) . '</option>';
-
-				echo '<option value="hideoptionsifzero" ';
-				selected( $tm_override_final_total_box, 'hideoptionsifzero', 1 );
-				echo '>' . esc_html__( 'Show Final box and hide Options if zero', 'woocommerce-tm-extra-product-options' ) . '</option>';
-
-				echo '<option value="hideifoptionsiszero" ';
-				selected( $tm_override_final_total_box, 'hideifoptionsiszero', 1 );
-				echo '>' . esc_html__( 'Hide Final total box if Options total is zero', 'woocommerce-tm-extra-product-options' ) . '</option>';
-
-				echo '<option value="hideiftotaliszero" ';
-				selected( $tm_override_final_total_box, 'hideiftotaliszero', 1 );
-				echo '>' . esc_html__( 'Hide Final total box if total is zero', 'woocommerce-tm-extra-product-options' ) . '</option>';
-
-				echo '<option value="hide" ';
-				selected( $tm_override_final_total_box, 'hide', 1 );
-				echo '>' . esc_html__( 'Hide Final total box', 'woocommerce-tm-extra-product-options' ) . '</option>';
-
-				echo '<option value="pxq" ';
-				selected( $tm_override_final_total_box, 'pxq', 1 );
-				echo '>' . esc_html__( 'Always show only Final total (Price x Quantity)', 'woocommerce-tm-extra-product-options' ) . '</option>';
-
-				echo '<option value="disable_change" ';
-				selected( $tm_override_final_total_box, 'disable_change', 1 );
-				echo '>' . esc_html__( 'Disable but change product prices', 'woocommerce-tm-extra-product-options' ) . '</option>';
-
-				echo '<option value="disable" ';
-				selected( $tm_override_final_total_box, 'disable', 1 );
-				echo '>' . esc_html__( 'Disable', 'woocommerce-tm-extra-product-options' ) . '</option>';
-
-				echo '</select></div></div>';
+				THEMECOMPLETE_EPO_HTML()->create_field(
+					[
+						'type'    => 'select',
+						'default' => $tm_override_final_total_box,
+						'label'   => esc_html__( 'Override Final total box', 'woocommerce-tm-extra-product-options' ),
+						'desc'    => esc_html__( 'This will override the totals box display only for this product.', 'woocommerce-tm-extra-product-options' ),
+						'tags'    => [
+							'id'   => 'tm_meta_cpf_override_final_total_box',
+							'name' => 'tm_meta_cpf[override_final_total_box]',
+						],
+						'options' => [
+							[
+								'value' => '',
+								'text'  => esc_html__( 'Use global setting', 'woocommerce-tm-extra-product-options' ),
+							],
+							[
+								'value' => 'normal',
+								'text'  => esc_html__( 'Show Both Final and Options total box', 'woocommerce-tm-extra-product-options' ),
+							],
+							[
+								'value' => 'options',
+								'text'  => esc_html__( 'Show only Options total', 'woocommerce-tm-extra-product-options' ),
+							],
+							[
+								'value' => 'optionsiftotalnotzero',
+								'text'  => esc_html__( 'Show only Options total if total is not zero', 'woocommerce-tm-extra-product-options' ),
+							],
+							[
+								'value' => 'final',
+								'text'  => esc_html__( 'Show only Final total', 'woocommerce-tm-extra-product-options' ),
+							],
+							[
+								'value' => 'hideoptionsifzero',
+								'text'  => esc_html__( 'Show Final box and hide Options if zero', 'woocommerce-tm-extra-product-options' ),
+							],
+							[
+								'value' => 'hideifoptionsiszero',
+								'text'  => esc_html__( 'Hide Final total box if Options total is zero', 'woocommerce-tm-extra-product-options' ),
+							],
+							[
+								'value' => 'hideiftotaliszero',
+								'text'  => esc_html__( 'Hide Final total box if total is zero', 'woocommerce-tm-extra-product-options' ),
+							],
+							[
+								'value' => 'hide',
+								'text'  => esc_html__( 'Hide Final total box', 'woocommerce-tm-extra-product-options' ),
+							],
+							[
+								'value' => 'pxq',
+								'text'  => esc_html__( 'Always show only Final total (Price x Quantity)', 'woocommerce-tm-extra-product-options' ),
+							],
+							[
+								'value' => 'disable_change',
+								'text'  => esc_html__( 'Disable but change product prices', 'woocommerce-tm-extra-product-options' ),
+							],
+							[
+								'value' => 'disable',
+								'text'  => esc_html__( 'Disable', 'woocommerce-tm-extra-product-options' ),
+							],
+						],
+					],
+					true
+				);
 
 				// Ouput Override enabled roles.
 				$tm_override_enabled_roles = isset( $tm_meta_cpf['override_enabled_roles'] ) ? $tm_meta_cpf['override_enabled_roles'] : '';
 				if ( ! is_array( $tm_override_enabled_roles ) ) {
 					$tm_override_enabled_roles = [ $tm_override_enabled_roles ];
 				}
-
-				echo '<div class="message0x0 tc-clearfix">' .
-					'<div class="message2x1">' .
-					'<label for="tm_meta_cpf_override_enabled_roles"><span>' . esc_html__( 'Override enabled roles for this product', 'woocommerce-tm-extra-product-options' ) . '</span></label>' .
-					'<div class="messagexdesc">' . esc_attr( esc_html__( 'This will override which roles can see the options for this product.', 'woocommerce-tm-extra-product-options' ) ) . '</div>' .
-					'</div>' .
-					'<div class="message2x2">' .
-					'<select id="tm_meta_cpf_override_enabled_roles" name="tm_meta_cpf[override_enabled_roles][]" class="multiselect wc-enhanced-select" multiple="multiple">';
-
-				$roles = themecomplete_get_roles();
-				foreach ( $roles as $option_key => $option_text ) {
-					echo '<option value="' . esc_attr( $option_key ) . '" ';
-					selected( in_array( $option_key, $tm_override_enabled_roles ), 1, true ); // phpcs:ignore WordPress.PHP.StrictInArray
-					echo '>' . esc_html( $option_text ) . '</option>';
-				}
-
-				echo '</select></div></div>';
+				THEMECOMPLETE_EPO_HTML()->create_field(
+					[
+						'type'     => 'select',
+						'multiple' => 'multiple',
+						'default'  => $tm_override_enabled_roles,
+						'label'    => esc_html__( 'Override enabled roles for this product', 'woocommerce-tm-extra-product-options' ),
+						'desc'     => esc_html__( 'This will override which roles can see the options for this product.', 'woocommerce-tm-extra-product-options' ),
+						'tags'     => [
+							'id'    => 'tm_meta_cpf_override_enabled_roles',
+							'name'  => 'tm_meta_cpf[override_enabled_roles]',
+							'class' => 'multiselect',
+						],
+						'options'  => THEMECOMPLETE_EPO_HELPER()->convert_to_select_options( themecomplete_get_roles() ),
+					],
+					true
+				);
 
 				// Ouput Override disabled roles.
 				$tm_override_disabled_roles = isset( $tm_meta_cpf['override_disabled_roles'] ) ? $tm_meta_cpf['override_disabled_roles'] : '';
 				if ( ! is_array( $tm_override_disabled_roles ) ) {
 					$tm_override_disabled_roles = [ $tm_override_disabled_roles ];
 				}
-
-				echo '<div class="message0x0 tc-clearfix">' .
-					'<div class="message2x1">' .
-					'<label for="tm_meta_cpf_override_disabled_roles"><span>' . esc_html__( 'Override disabled roles for this product', 'woocommerce-tm-extra-product-options' ) . '</span></label>' .
-					'<div class="messagexdesc">' . esc_attr( esc_html__( 'This will override which roles cannot see the options for this product. This setting has priority over the enabled roles one.', 'woocommerce-tm-extra-product-options' ) ) . '</div>' .
-					'</div>' .
-					'<div class="message2x2">' .
-					'<select id="tm_meta_cpf_override_disabled_roles" name="tm_meta_cpf[override_disabled_roles][]" class="multiselect wc-enhanced-select" multiple="multiple">';
-
-				$roles = themecomplete_get_roles();
-				foreach ( $roles as $option_key => $option_text ) {
-					echo '<option value="' . esc_attr( $option_key ) . '" ';
-					selected( in_array( $option_key, $tm_override_disabled_roles ), 1, true ); // phpcs:ignore WordPress.PHP.StrictInArray
-					echo '>' . esc_html( $option_text ) . '</option>';
-				}
-
-				echo '</select></div></div>';
+				THEMECOMPLETE_EPO_HTML()->create_field(
+					[
+						'type'     => 'select',
+						'multiple' => 'multiple',
+						'default'  => $tm_override_disabled_roles,
+						'label'    => esc_html__( 'Override enabled roles for this product', 'woocommerce-tm-extra-product-options' ),
+						'desc'     => esc_html__( 'This will override which roles can see the options for this product.', 'woocommerce-tm-extra-product-options' ),
+						'tags'     => [
+							'id'    => 'tm_meta_cpf_override_disabled_roles',
+							'name'  => 'tm_meta_cpf[override_disabled_roles]',
+							'class' => 'multiselect',
+						],
+						'options'  => THEMECOMPLETE_EPO_HELPER()->convert_to_select_options( themecomplete_get_roles() ),
+					],
+					true
+				);
 			}
 			?>
 		</div>

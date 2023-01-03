@@ -14,8 +14,27 @@
  */
 
 defined( 'ABSPATH' ) || exit;
+
 ?>
 <li class="tmcp-field-wrap<?php echo esc_attr( $grid_break . $li_class ); ?><?php echo esc_attr( ( ! empty( $label_mode ) ? ' tc-mode-' . $label_mode : '' ) ); ?>">
+<?php if ( isset( $is_separator ) && $is_separator ) : ?>
+	<?php
+	echo '<span class="tc-label-wrap tc-separator"><span class="tc-label tm-label">';
+	$separator_html = '-1' === $label_to_display || '' === $label_to_display ? '<hr>' : $label_to_display;
+	$separator_html = apply_filters( 'wc_epo_choice_separator_html', $separator_html );
+	echo apply_filters( 'wc_epo_kses', wp_kses_post( $separator_html ), $separator_html ); // phpcs:ignore WordPress.Security.EscapeOutput
+	echo '</span></span>';
+	if ( isset( $tm_element_settings ) && isset( $tm_element_settings['cdescription'] ) && isset( $field_counter ) && isset( $tm_element_settings['cdescription'][ $field_counter ] ) ) {
+		if ( ! empty( $tm_element_settings['cdescription'][ $field_counter ] ) || ( ( isset( $tm_element_settings['cdescription'] ) && is_array( $tm_element_settings['cdescription'] ) && count( $tm_element_settings['cdescription'] ) > 1 ) && ( isset( $tm_element_settings['type'] ) && 'select' === $tm_element_settings['type'] ) ) ) {
+			if ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_description_inline ) {
+				echo '<div class="tc-inline-description">' . apply_filters( 'wc_epo_kses', wp_kses_post( $tm_element_settings['cdescription'][ $field_counter ] ), $tm_element_settings['cdescription'][ $field_counter ] ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput
+			} else {
+				echo '<i data-tm-tooltip-html="' . esc_attr( apply_filters( 'wc_epo_kses', $tm_element_settings['cdescription'][ $field_counter ], $tm_element_settings['cdescription'][ $field_counter ] ) ) . '" class="tm-tooltip tc-tooltip tcfa tcfa-question-circle"></i>';
+			}
+		}
+	}
+	?>
+<?php else : ?>
 	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_start.php'; ?>
 	<label class="tm-epo-field-label" for="<?php echo esc_attr( $id ); ?>">
 	<?php
@@ -67,6 +86,14 @@ defined( 'ABSPATH' ) || exit;
 	if ( THEMECOMPLETE_EPO()->associated_per_product_pricing === 0 ) {
 		$input_args['tags']['data-no-price'] = true;
 	}
+
+	$input_args = apply_filters(
+		'wc_element_input_args',
+		$input_args,
+		isset( $tm_element_settings ) && isset( $tm_element_settings['type'] ) ? $tm_element_settings['type'] : '',
+		isset( $args ) ? $args : [],
+	);
+
 	THEMECOMPLETE_EPO_HTML()->create_field( $input_args, true );
 
 	if ( ( 'image' !== $replacement_mode && 'color' !== $replacement_mode ) || ( ( 'image' === $replacement_mode || 'color' === $replacement_mode ) && 'center' !== $swatch_position ) ) {
@@ -187,4 +214,5 @@ defined( 'ABSPATH' ) || exit;
 	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_price.php'; ?>
 	<?php require THEMECOMPLETE_EPO_TEMPLATE_PATH . '_quantity_end.php'; ?>
 	<?php do_action( 'tm_after_element', isset( $tm_element_settings ) ? $tm_element_settings : [] ); ?>
+<?php endif; ?>
 </li>

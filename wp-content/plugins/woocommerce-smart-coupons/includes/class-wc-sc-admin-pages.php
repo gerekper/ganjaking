@@ -820,7 +820,6 @@ if ( ! class_exists( 'WC_SC_Admin_Pages' ) ) {
 								<?php wp_editor( $message, $editor_id, $editor_args ); ?>
 							</td>
 						</tr>
-
 					</table>
 
 					<p class="submit">

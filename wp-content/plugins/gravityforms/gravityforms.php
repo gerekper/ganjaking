@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.6.8.2
+Version: 2.6.8.3
 Requires at least: 4.0
 Requires PHP: 5.6
 Author: Gravity Forms
@@ -28,9 +28,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see http://www.gnu.org/licenses.
 */
-update_option( 'rg_gforms_key', 'activated' );
-update_option( 'gform_pending_installation', false );
-delete_option( 'rg_gforms_message' );
+
 use Gravity_Forms\Gravity_Forms\TranslationsPress_Updater;
 use Gravity_Forms\Gravity_Forms\Libraries\Dom_Parser;
 
@@ -238,7 +236,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.6.8.2';
+	public static $version = '2.6.8.3';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -306,6 +304,7 @@ class GFForms {
 		$container->add_provider( new \Gravity_Forms\Gravity_Forms\Settings\GF_Settings_Service_Provider() );
 		$container->add_provider( new \Gravity_Forms\Gravity_Forms\Assets\GF_Asset_Service_Provider() );
 		$container->add_provider( new \Gravity_Forms\Gravity_Forms\Environment_Config\GF_Environment_Config_Service_Provider() );
+		$container->add_provider( new \Gravity_Forms\Gravity_Forms\Async\GF_Background_Process_Service_Provider() );
 	}
 
 	/**
@@ -329,6 +328,7 @@ class GFForms {
 		require_once GF_PLUGIN_DIR_PATH . 'includes/settings/class-gf-settings-service-provider.php';
 		require_once GF_PLUGIN_DIR_PATH . 'includes/assets/class-gf-asset-service-provider.php';
 		require_once GF_PLUGIN_DIR_PATH . 'includes/environment-config/class-gf-environment-config-service-provider.php';
+		require_once GF_PLUGIN_DIR_PATH . 'includes/async/class-gf-background-process-service-provider.php';
 
 		if ( ! empty( self::$container ) ) {
 			return self::$container;
@@ -356,8 +356,8 @@ class GFForms {
 	/**
 	 * Initializes Gravity Forms.
 	 *
-	 * @since  Unknown
-	 * @access public
+	 * @since Unknown
+	 * @since 2.6.9 Moved background upgrader and feed processor init to \Gravity_Forms\Gravity_Forms\Async\GF_Background_Process_Service_Provider().
 	 *
 	 * @return void
 	 */
@@ -394,13 +394,6 @@ class GFForms {
 		self::init_hook_vars();
 
 		GFCommon::localize_gform_i18n();
-
-		self::init_background_upgrader();
-
-		// Run background feed processing.
-		require_once GF_PLUGIN_DIR_PATH . 'includes/addon/class-gf-feed-processor.php';
-
-		gf_feed_processor();
 
 		// Maybe set up Gravity Forms
 		if ( ( false === ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) ) ) {
@@ -778,12 +771,11 @@ class GFForms {
 	/**
 	 * Performs Gravity Forms activation tasks.
 	 *
-	 * @since  2.3
-	 * @access public
+	 * @since 2.3
+	 * @since 2.6.9 Moved background upgrader init to \Gravity_Forms\Gravity_Forms\Async\GF_Background_Process_Service_Provider().
 	 */
 	public static function activation_hook() {
 		self::register_services();
-		self::init_background_upgrader();
 		gf_upgrade()->maybe_upgrade();
 	}
 
@@ -2352,8 +2344,12 @@ class GFForms {
 		}
 
 		if ( ! $valid_key ) {
-			return;
-			$message .= sprintf( esc_html__( '%sRegister%s your copy of Gravity Forms to receive access to automatic upgrades and support. Need a license key? %sPurchase one now%s.', 'gravityforms' ), '<a href="' . admin_url() . 'admin.php?page=gf_settings">', '</a>', '<a href="https://www.gravityforms.com">', '</a>' );
+			$unregistered_license_message_env = GFCommon::get_environment_setting( 'unregistered_license_message' );
+			if ( $unregistered_license_message_env ) {
+				$message .= $unregistered_license_message_env;
+			} else {
+				$message .= sprintf( esc_html__( '%sRegister%s your copy of Gravity Forms to receive access to automatic upgrades and support. Need a license key? %sPurchase one now%s.', 'gravityforms' ), '<a href="' . admin_url() . 'admin.php?page=gf_settings">', '</a>', '<a href="https://www.gravityforms.com">', '</a>' );
+			}
 		}
 
 		if ( ! empty( $message ) ) {
@@ -2379,8 +2375,8 @@ class GFForms {
 
 			// Apply the class "update" to the plugin row to get rid of the ugly border.
 			echo "
-				<script type='text/javascript'>
-					jQuery('#$slug-update').prev('tr').addClass('update');
+				<script type='text/javascript'> 
+					jQuery('#$slug-update').prev('tr').addClass('update'); 
 				</script>
 				";
 		}
@@ -6212,7 +6208,7 @@ class GFForms {
 						}
 						container.html( '<p>' + response.data + '</p>' );
 					}
-				} );
+				} );             	
 			} );
 		</script>";
 

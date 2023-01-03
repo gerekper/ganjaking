@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.3.0
+ * @version     2.4.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -418,6 +418,10 @@ if ( ! class_exists( 'WC_SC_Coupon_Import' ) ) {
 
 						case 'coupon_amount':
 							$coupon_amount = maybe_unserialize( $meta_value );
+							$discount_type = ! empty( $postmeta['discount_type'] ) ? $postmeta['discount_type'] : '';
+							if ( ! empty( $discount_type ) && 'smart_coupon' === $discount_type ) {
+								update_post_meta( $post_id, 'wc_sc_original_amount', $coupon_amount );
+							}
 							break;
 
 						case 'expiry_date':

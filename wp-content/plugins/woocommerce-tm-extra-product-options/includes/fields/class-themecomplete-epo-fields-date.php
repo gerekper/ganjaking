@@ -381,6 +381,7 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 						$end_year           = (int) $this->element['end_year'] || ( gmdate( 'Y' ) + 10 );
 						$min_date           = ( '' !== $this->element['min_date'] ) ? ( $this->element['min_date'] ) : false;
 						$max_date           = ( '' !== $this->element['max_date'] ) ? ( $this->element['max_date'] ) : false;
+						$exlude_disabled    = ( '' !== $this->element['exlude_disabled'] ) ? ( $this->element['exlude_disabled'] ) : false;
 						$disabled_dates     = $this->element['disabled_dates'];
 						$enabled_only_dates = $this->element['enabled_only_dates'];
 						$disabled_weekdays  = $this->element['disabled_weekdays'];
@@ -484,6 +485,9 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 							if ( false !== $min_date ) {
 
 								if ( is_numeric( $min_date ) ) {
+									if ( $exlude_disabled ) {
+										$min_date = $this->correct_date( $min_date );
+									}
 									$temp = clone $now;
 									if ( $min_date > 0 ) {
 										$temp->add( new DateInterval( 'P' . abs( $min_date ) . 'D' ) );
@@ -533,6 +537,9 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 							// validate maximum date.
 							if ( false !== $max_date ) {
 								if ( is_numeric( $max_date ) ) {
+									if ( $exlude_disabled ) {
+										$max_date = $this->correct_date( $max_date );
+									}
 									$temp = clone $now;
 									if ( $max_date > 0 ) {
 										$temp->add( new DateInterval( 'P' . abs( $max_date ) . 'D' ) );
@@ -588,6 +595,44 @@ class THEMECOMPLETE_EPO_FIELDS_date extends THEMECOMPLETE_EPO_FIELDS {
 			'passed'  => $passed,
 			'message' => $message,
 		];
+	}
+
+	/**
+	 * Correct days
+	 *
+	 * @param mixed $days The days to check.
+	 * @return mixed
+	 */
+	public function correct_date( $days ) {
+		if ( is_numeric( $days ) ) {
+			$sign = 0 === $days ? $days : ( $days > 0 ? 1 : -1 );
+			if ( 0 !== $sign ) {
+				$now               = new DateTime( '00:00:00' );
+				$test_date         = clone $now;
+				$count             = 1;
+				$added             = false;
+				$no_of_days_to_add = abs( $days );
+				while ( $count <= $no_of_days_to_add ) {
+					if ( false === $added ) {
+						$added = 0;
+					}
+					if ( $sign > 0 ) {
+						$test_date->add( new DateInterval( 'P' . abs( $sign ) . 'D' ) );
+					} elseif ( $sign < 0 ) {
+						$test_date->sub( new DateInterval( 'P' . abs( $sign ) . 'D' ) );
+					}
+					$added++;
+					$get_day = (int) $test_date->format( 'w' );
+					if ( 0 !== $get_day && 6 !== $get_day ) {
+						$count++;
+					}
+				}
+				if ( false !== $added ) {
+					$days = $added * $sign;
+				}
+			}
+		}
+		return $days;
 	}
 
 }

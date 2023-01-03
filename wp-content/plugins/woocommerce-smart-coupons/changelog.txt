@@ -1,5 +1,19 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2022.12.28 - version 7.0.0
+* Fix: When refunding an order from the refund form provided on the admin side, and in that order store credit is used, double amount is getting restored in that store credit
+* Fix: When refunding an order from the refund form provided on the admin side, and in that order store credit is used, refund related meta not getting saved
+* Fix: Shortcode 'smart_coupons' generating new coupons each time the page is refreshed
+* Fix: 'Exclude user roles' not checking user's role when checking out as guest user
+* Fix: Gift products set under 'Actions' (tab) is not getting added to cart after clicking coupon from cart, checkout page
+* Fix: 'Original amount' of the store credit is not getting set when the coupon is generated either from 'Bulk generate' (tab), 'Import' (tab) or 'Send store credit' (tab)
+* Fix: Uncaught exception 'Error' with message 'Call to a member function get() on null' [YITH WooCommerce Wishlist]
+* Tweak: Correction in indentation as per WordPress Standards
+* Tweak: Minor spelling correction
+* Developer: New filter 'wc_sc_is_email_required_for_sending_coupon' to decide whether email address is required for sending coupon or not
+* Update: Translation & language related changes in the template 'acknowledgement-email.php'
+* Update: POT file
+
 2022.12.16 - version 6.9.0
 * Fix: Fatal error: Uncaught Error: Call to undefined function mb_detect_encoding
 * Fix: When refunding an order that is paid by store credit, receiving PHP Fatal error: There has been a critical error on this website. Uncaught TypeError: gmdate(): Argument #2 ($timestamp) must be of type ?int, string given

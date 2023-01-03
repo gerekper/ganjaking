@@ -512,7 +512,7 @@
 				doConfirm( TMEPOADMINSETTINGSJS.i18n_reset_settings, doPost, this, [ form, data, true ] );
 			} );
 
-			$( '.tm-settings-wrap .tm-tabs' ).tmtabs();
+			$( '.tm-settings-wrap .tm-tabs' ).tcTabs( { scroll: false } );
 
 			$( '.tm-activate-license' ).on( 'click', function( e ) {
 				e.preventDefault();

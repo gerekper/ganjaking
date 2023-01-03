@@ -266,7 +266,10 @@ abstract class THEMECOMPLETE_EPO_BUILDER_ELEMENT {
 	 * @access public
 	 */
 	public function prepend_div_callback( $id = '', $tmtab = 'tm-tab' ) {
-		echo "<div class='transition " . esc_attr( $tmtab ) . ' ' . esc_attr( $id ) . "'>";
+		// Remove empty values.
+		$classes = array_filter( [ 'transition', $tmtab, $id ] );
+		$classes = implode( ' ', $classes );
+		echo '<div class="' . esc_attr( $classes ) . '">';
 	}
 
 	/**
@@ -1139,7 +1142,7 @@ abstract class THEMECOMPLETE_EPO_BUILDER_ELEMENT {
 								'value' => 'hidden',
 							],
 						],
-						'label'       => esc_html__( 'Hide element label in floating totals box.', 'woocommerce-tm-extra-product-options' ),
+						'label'       => esc_html__( 'Hide element label in floating totals box', 'woocommerce-tm-extra-product-options' ),
 						'desc'        => esc_html__( 'Choose whether to hide the element label in the floating totals box or not.', 'woocommerce-tm-extra-product-options' ),
 					],
 					[

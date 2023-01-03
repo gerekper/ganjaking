@@ -15,7 +15,7 @@ if ( isset( $_REQUEST['name'] ) || '' === $option['_default_value_counter'] ) { 
 } else {
 	$input_name = $name . '_' . $option['_default_value_counter'] . '_quantity';
 }
-$input_value    = isset( $_REQUEST[ $name . '_quantity' ] ) ? absint( wp_unslash( $_REQUEST[ $name . '_quantity' ] ) ) : $quantity_min; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+$input_value    = isset( $_REQUEST[ $input_name ] ) ? absint( wp_unslash( $_REQUEST[ $input_name ] ) ) : $quantity_min; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 $input_value    = floatval( $input_value );
 $input_value_o  = $input_value;
 $classes        = [ 'tm-qty-alt', 'tm-bsbb' ];
@@ -73,6 +73,12 @@ if ( $allow_quantity ) {
 				'data-max' => $max_value,
 			],
 		];
+		if ( '' !== $min_value ) {
+			$input_args['tags']['min'] = $min_value;
+		}
+		if ( $max_value ) {
+			$input_args['tags']['max'] = ( 0 < $max_value ) ? $max_value : '';
+		}
 		THEMECOMPLETE_EPO_HTML()->create_field( $input_args, true );
 		echo '</div>';
 

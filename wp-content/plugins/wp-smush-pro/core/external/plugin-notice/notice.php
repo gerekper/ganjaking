@@ -2,8 +2,9 @@
 /**
  * WPMUDEV - Recommended Plugins Notice
  *
- * @author  WPMUDEV (https://premium.wpmudev.org)
+ * @author  WPMUDEV (https://wpmudev.com)
  * @license GPLv2
+ * @package WPMUDEV_Recommended_Plugins_Notice_Registered_Plugin
  */
 
 if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice_Registered_Plugin' ) ) {
@@ -62,7 +63,7 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice_Registered_Plugin' ) ) 
 		/**
 		 * WPMUDEV_Recommended_Plugins_Notice_Registered_Plugin constructor.
 		 *
-		 * @param string $basename
+		 * @param string $basename  Plugin basename.
 		 */
 		public function __construct( $basename ) {
 			$this->basename = $basename;
@@ -80,7 +81,7 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice_Registered_Plugin' ) ) 
 		/**
 		 * Build object properties from array
 		 *
-		 * @param array $data
+		 * @param array $data  Notice data.
 		 */
 		public function from_array( $data ) {
 			if ( is_array( $data ) ) {
@@ -104,7 +105,7 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice_Registered_Plugin' ) ) 
 		/**
 		 * Check if screen is listen on plugin screen
 		 *
-		 * @param string $screen_id
+		 * @param string $screen_id  Screen ID.
 		 *
 		 * @return bool
 		 */
@@ -137,9 +138,7 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice_Registered_Plugin' ) ) 
 			 *
 			 * @return array
 			 */
-			$selector = apply_filters( "wpmudev-recommended-plugin-{$this->basename}-notice-selector", $selector, $active_screen );
-
-			return $selector;
+			return apply_filters( "wpmudev-recommended-plugin-$this->basename-notice-selector", $selector, $active_screen );
 		}
 
 		/**
@@ -152,9 +151,9 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice_Registered_Plugin' ) ) 
 			$seconds_after_registered = 14 * DAY_IN_SECONDS;
 
 			/**
-			 * Filter how much seconds after registered before notice displayed
+			 * Filter how many seconds after registered before notice displayed
 			 *
-			 * this filter globally used
+			 * This filter is globally used.
 			 *
 			 * @param int    $seconds_after_registered
 			 * @param string $active_screen
@@ -163,11 +162,10 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice_Registered_Plugin' ) ) 
 			 */
 			$seconds_after_registered = apply_filters( "wpmudev-recommended-plugins-notice-display-seconds-after-registered", $seconds_after_registered, $active_screen );
 
-
 			/**
-			 * Filter how much seconds after registered before notice displayed
+			 * Filter how many seconds after registered before notice displayed
 			 *
-			 * this filter is for plugin based, overriding global value
+			 * This filter is for plugin based, overriding global value.
 			 *
 			 * @param int    $seconds_after_registered
 			 * @param string $active_screen
@@ -191,7 +189,10 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice_Registered_Plugin' ) ) 
 		 * @return string
 		 */
 		public function get_pre_text_notice() {
-			$pre_text_notice = sprintf( __( 'Enjoying %s? Try out a few of our other popular free plugins...', 'wpmudev_recommended_plugins_notice' ), $this->name );
+			$pre_text_notice = sprintf( /* translators: %s - plugin name */
+				__( 'Enjoying %s? Try out a few of our other popular free plugins...', 'wpmudev_recommended_plugins_notice' ),
+				$this->name
+			);
 
 			/**
 			 * Filter pre text on displayed notice
@@ -200,9 +201,7 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice_Registered_Plugin' ) ) 
 			 *
 			 * @return string
 			 */
-			$pre_text_notice = apply_filters( "wpmudev-recommended-plugin-{$this->basename}-pre-text-notice", $pre_text_notice );
-
-			return $pre_text_notice;
+			return apply_filters( "wpmudev-recommended-plugin-$this->basename-pre-text-notice", $pre_text_notice );
 		}
 
 	}
@@ -216,8 +215,9 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice' ) ) {
 	 * @internal
 	 */
 	class WPMUDEV_Recommended_Plugins_Notice {//phpcs:ignore
-
 		/**
+		 * Class instance.
+		 *
 		 * @var WPMUDEV_Recommended_Plugins_Notice
 		 */
 		private static $instance = null;
@@ -262,7 +262,7 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice' ) ) {
 		 * WPMUDEV_Recommended_Plugins_Notice constructor.
 		 */
 		public function __construct() {
-			// only do things when its on admin screen
+			// Only do things when its on admin screen.
 			if ( is_admin() ) {
 				$this->init_recommended_plugins();
 
@@ -271,7 +271,6 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice' ) ) {
 
 				add_action( 'all_admin_notices', array( $this, 'display' ), 6 );
 			}
-
 		}
 
 		/**
@@ -341,8 +340,8 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice' ) ) {
 		 *
 		 * This function will only return recommended plugins that `not installed` yet
 		 *
-		 * @param int $min minimum plugins to be displayed
-		 * @param int $max maximum plugins to be displayed
+		 * @param int $min  Minimum plugins to be displayed.
+		 * @param int $max  Maximum plugins to be displayed.
 		 *
 		 * @return array
 		 */
@@ -357,13 +356,13 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice' ) ) {
 				}
 
 				$recommended_plugins_for_notice[] = $recommended_plugin;
-				// stop when we reached max
+				// Stop when we reached max.
 				if ( count( $recommended_plugins_for_notice ) >= $max ) {
 					break;
 				}
 			}
 
-			// not enough!
+			// Not enough!
 			if ( count( $recommended_plugins_for_notice ) < $min ) {
 				$recommended_plugins_for_notice = array();
 			}
@@ -378,9 +377,7 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice' ) ) {
 			 *
 			 * @return array
 			 */
-			$recommended_plugins_for_notice = apply_filters( 'wpmudev-recommended-plugins', $recommended_plugins_for_notice, $recommended_plugins, $min, $max );
-
-			return $recommended_plugins_for_notice;
+			return apply_filters( 'wpmudev-recommended-plugins', $recommended_plugins_for_notice, $recommended_plugins, $min, $max );
 		}
 
 		/**
@@ -388,7 +385,7 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice' ) ) {
 		 *
 		 * @uses get_plugins()
 		 *
-		 * @param $plugin_data
+		 * @param array $plugin_data  Plugin data.
 		 *
 		 * @return bool
 		 */
@@ -401,7 +398,7 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice' ) ) {
 
 			$installed_plugins = get_plugins();
 
-			// check the free one
+			// Check the free one.
 			if ( isset( $plugin_data['free_slug'] ) && ! empty( $plugin_data['free_slug'] ) ) {
 
 				if ( isset( $installed_plugins[ $plugin_data['free_slug'] ] ) ) {
@@ -409,7 +406,7 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice' ) ) {
 				}
 			}
 
-			// check the pro one
+			// Check the pro one.
 			if ( ! $is_installed ) {
 				if ( isset( $plugin_data['pro_slug'] ) && ! empty( $plugin_data['pro_slug'] ) ) {
 					if ( isset( $installed_plugins[ $plugin_data['pro_slug'] ] ) ) {
@@ -427,9 +424,7 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice' ) ) {
 			 *
 			 * @return bool
 			 */
-			$is_installed = apply_filters( 'wpmudev-recommended-plugin-is-installed', $is_installed, $plugin_data, $installed_plugins );
-
-			return $is_installed;
+			return apply_filters( 'wpmudev-recommended-plugin-is-installed', $is_installed, $plugin_data, $installed_plugins );
 		}
 
 		/**
@@ -438,11 +433,10 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice' ) ) {
 		 * @return void
 		 */
 		public function display() {
-
 			/**
 			 * Fires before displaying notice
 			 *
-			 * this action fired before any check done
+			 * This action fired before any check done.
 			 */
 			do_action( 'wpmudev-recommended-plugins-before-display' );
 
@@ -477,7 +471,7 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice' ) ) {
 
 			$recommended_plugins = $this->get_recommended_plugins_for_notice();
 
-			// no plugins to be recommended
+			// no plugins to be recommended.
 			if ( empty( $recommended_plugins ) ) {
 				return;
 			}
@@ -499,7 +493,7 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice' ) ) {
 			 */
 			$dismissed_text = apply_filters( 'wpmudev-recommended-plugins-dismissed-text', $dismissed_text );
 
-			// placement customizer
+			// placement customizer.
 			$selector         = $active_registered_plugin->get_selector();
 			$data_selector_el = '';
 			$data_selector_fn = '';
@@ -515,9 +509,9 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice' ) ) {
 
 			?>
 			<div class="wpmudev-recommended-plugins" style="display: none"
-			     data-selector-el="<?php echo esc_attr( $data_selector_el ); ?>"
-			     data-selector-fn="<?php echo esc_attr( $data_selector_fn ); ?>">
-				<p class="wpmudev-notice-status"><?php echo $active_registered_plugin->get_pre_text_notice();// wpcs xss ok. allow html here ?></p>
+				data-selector-el="<?php echo esc_attr( $data_selector_el ); ?>"
+				data-selector-fn="<?php echo esc_attr( $data_selector_fn ); ?>">
+				<p class="wpmudev-notice-status"><?php echo wp_kses_post( $active_registered_plugin->get_pre_text_notice() ); ?></p>
 				<div class="wpmudev-recommended-plugin-blocks">
 				<?php foreach ( $recommended_plugins as $recommended_plugin ) : ?>
 					<div class="wpmudev-recommended-plugin-block">
@@ -535,11 +529,11 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice' ) ) {
 				</div>
 
 				<div class="wpmudev-recommended-plugins-dismiss">
-					<a 	class="dismiss"
+					<a class="dismiss"
 						href="#"
-					  	aria-label="Dismiss"
-					   	data-action="dismiss-wp-pointer"
-					   	data-pointer="<?php echo esc_attr( self::POINTER_NAME ); ?>">
+						aria-label="Dismiss"
+						data-action="dismiss-wp-pointer"
+						data-pointer="<?php echo esc_attr( self::POINTER_NAME ); ?>">
 						<i class="icon-close" aria-hidden="true"></i>
 					</a>
 				</div>
@@ -549,8 +543,7 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice' ) ) {
 			/**
 			 * Fires after displaying notice
 			 *
-			 * this action fired after notice markup sent
-			 * if any check above fails, this action won't fired
+			 * This action fired after notice markup sent if any check above fails, this action won't fire.
 			 */
 			do_action( 'wpmudev-recommended-plugins-after-display' );
 		}
@@ -563,7 +556,6 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice' ) ) {
 		 * @return bool
 		 */
 		public function is_displayable() {
-
 			/**
 			 * CHECK #1 whether dismissed previously ?
 			 *
@@ -654,14 +646,13 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice' ) ) {
 		/**
 		 * Register plugin for notice to be added
 		 *
-		 * @param string $plugin_basename
-		 * @param string $plugin_name
-		 * @param array  $screens
-		 * @param array  $selector [jqueryFn, jQuerySelector]
+		 * @param string $plugin_basename  Plugin basename.
+		 * @param string $plugin_name      Plugin name.
+		 * @param array  $screens          Screens.
+		 * @param array  $selector         [jqueryFn, jQuerySelector].
 		 */
 		public function register( $plugin_basename, $plugin_name, $screens = array(), $selector = array() ) {
-
-			// invalid register
+			// Invalid register.
 			if ( empty( $plugin_basename ) || empty( $plugin_name ) ) {
 				return;
 			}
@@ -684,10 +675,8 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice' ) ) {
 
 		/**
 		 * Parse registered plugins from storage
-		 *
 		 */
 		public function parse_saved_registered_plugins() {
-
 			/**
 			 * Fired before saved registered plugins being parse
 			 */
@@ -751,6 +740,8 @@ if ( ! class_exists( 'WPMUDEV_Recommended_Plugins_Notice' ) ) {
 		}
 
 		/**
+		 * Get class instance.
+		 *
 		 * @return WPMUDEV_Recommended_Plugins_Notice
 		 */
 		public static function get_instance() {

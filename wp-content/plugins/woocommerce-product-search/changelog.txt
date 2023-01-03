@@ -1,5 +1,14 @@
 *** WooCommerce Product Search ***
 
+2022.12.30 - version 4.10.0
+* WordPress 6.1 compatible.
+* WooCommerce 7.2 compatible.
+* Requires at least WordPress 5.8.
+* Requires at least WooCommerce 6.0.
+* Using WP_Rewrite's $pagination_base instead of hardcoded 'page' as pagination permalink base.
+* Added the woocommerce_product_search_pagination_base filter.
+* Guarded non-accurate filter response optimizations against producing empty or incomplete content when errors occur during buffer processing.
+
 2022.11.22 - version 4.9.0
 * WordPress 6.1 compatible.
 * WooCommerce 7.1 compatible.

@@ -148,7 +148,7 @@ final class THEMECOMPLETE_EPO_CP_Bookings {
 	public function wp_enqueue_scripts() {
 		if ( THEMECOMPLETE_EPO()->can_load_scripts() ) {
 			global $post;
-			$product                            = wc_get_product( $post->ID );
+			$product                            = $post ? wc_get_product( $post->ID ) : false;
 			$booking_has_person_cost_multiplier = is_callable( [ $product, 'get_has_person_cost_multiplier' ] ) && $product->get_has_person_cost_multiplier() ? 1 : 0;
 			$booking_has_person_qty_multiplier  = is_callable( [ $product, 'get_has_person_qty_multiplier' ] ) && $product->get_has_person_qty_multiplier() ? 1 : 0;
 

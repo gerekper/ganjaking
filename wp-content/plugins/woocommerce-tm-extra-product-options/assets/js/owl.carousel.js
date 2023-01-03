@@ -1116,7 +1116,7 @@
 	 * @returns {Array.<string>} - The invalidated parts.
 	 */
 	Owl.prototype.invalidate = function( part ) {
-		if ( $.type( part ) === 'string' ) {
+		if ( typeof part === 'string' ) {
 			this._invalidated[ part ] = true;
 			if ( this.is( 'valid' ) ) {
 				this.leave( 'valid' );

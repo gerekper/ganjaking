@@ -2980,6 +2980,8 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 				'size'                     => '',
 				'section_size'             => '',
 				'sections_slides'          => '',
+				'sections_tabs_labels'     => '',
+				'sections_type'            => '',
 				'elements'                 => '',
 				'wpml_is_original_product' => true,
 				'sections_internal_name'   => false,
@@ -2992,6 +2994,8 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 		$size                     = $args['size'];
 		$section_size             = $args['section_size'];
 		$sections_slides          = $args['sections_slides'];
+		$sections_tabs_labels     = json_decode( $args['sections_tabs_labels'] );
+		$sections_type            = $args['sections_type'];
 		$elements                 = $args['elements'];
 		$wpml_is_original_product = $args['wpml_is_original_product'];
 		$sections_internal_name   = $args['sections_internal_name'];
@@ -3006,7 +3010,7 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 
 		if ( '' !== $sections_slides && is_array( $elements ) ) {
 			if ( empty( $this->noecho ) ) {
-				echo "<div class='builder-wrapper tm-slider-wizard " . esc_attr( $section_size ) . "'><div class='builder-section-wrap'>";
+				echo '<div class="builder-wrapper tm-slider-wizard ' . esc_attr( $section_size ) . ' is-' . esc_attr( $sections_type ) . '"><div class="builder-section-wrap">';
 			}
 			$this->section_elements_template(
 				[
@@ -3018,25 +3022,20 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 				]
 			);
 
+			$sections_slides = explode( ',', $sections_slides );
+
 			if ( empty( $this->noecho ) ) {
 				echo '<div class="transition tm-slider-wizard-headers">';
-				echo '<div class="tm-slider-wizard-tabs">';
-			}
-
-			$sections_slides = explode( ',', $sections_slides );
-			if ( empty( $this->noecho ) ) {
 				$s = 0;
 
 				foreach ( $sections_slides as $key => $value ) {
-
-					echo '<div class="tm-box"><h4 class="tm-slider-wizard-header" data-id="tm-slide' . esc_attr( $s ) . '">' . esc_html( ( $s + 1 ) ) . '</h4></div>';
+					if ( ! isset( $sections_tabs_labels[ $s ] ) ) {
+						$sections_tabs_labels[ $s ] = $s + 1;
+					}
+					echo '<div class="tm-box"><h4 class="tm-slider-wizard-header" data-id="tc-tab-slide' . esc_attr( $s ) . '"><span class="tab-text">' . esc_html( $sections_tabs_labels[ $s ] ) . '</span></h4></div>';
 
 					$s ++;
 
-				}
-				echo '</div>';
-				if ( $wpml_is_original_product ) {
-					echo '<div class="tm-slider-wizard-add tm-add-box"><h4 class="tm-add-tab"><span class="tmicon tcfa tcfa-plus"></span></h4></div>';
 				}
 				echo '</div>';
 				if ( $wpml_is_original_product && ( ! $post || ( $post && THEMECOMPLETE_EPO_TEMPLATE_POST_TYPE !== $post->post_type ) ) ) {
@@ -3052,7 +3051,7 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 				$value = (int) $value;
 
 				if ( empty( $this->noecho ) ) {
-					echo "<div class='bitem-wrapper tm-slider-wizard-tab tm-slide" . esc_attr( $s ) . "'>";
+					echo "<div class='bitem-wrapper tc-tab-slide tc-tab-slide" . esc_attr( $s ) . "'>";
 				}
 				for ( $_s = $c; $_s < ( $c + $value ); $_s ++ ) {
 					if ( isset( $elements[ $_s ] ) ) {
@@ -3126,6 +3125,8 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 				'size'                     => $this->sizer['w100'],
 				'section_size'             => '',
 				'sections_slides'          => '',
+				'sections_tabs_labels'     => '',
+				'sections_type'            => '',
 				'elements'                 => '',
 				'wpml_is_original_product' => $wpml_is_original_product,
 				'sections_internal_name'   => false,
@@ -3281,7 +3282,10 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 			// All section sizes.
 			$_sections_size = $builder['sections_size'];
 
-			$_sections_slides = isset( $builder['sections_slides'] ) ? $builder['sections_slides'] : '';
+			$_sections_slides      = isset( $builder['sections_slides'] ) ? $builder['sections_slides'] : '';
+			$_sections_tabs_labels = isset( $current_builder['sections_tabs_labels'] ) ? isset( $current_builder['sections_tabs_labels'] ) : ( isset( $builder['sections_tabs_labels'] ) ? $builder['sections_tabs_labels'] : '' );
+
+			$sections_type = $builder['sections_type'];
 
 			if ( ! is_array( $_sections ) ) {
 				$_sections = [ count( $_elements ) ];
@@ -3292,6 +3296,10 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 
 			if ( ! is_array( $_sections_slides ) ) {
 				$_sections_slides = array_fill( 0, count( $_sections ), '' );
+			}
+
+			if ( ! is_array( $_sections_tabs_labels ) ) {
+				$_sections_tabs_labels = array_fill( 0, count( $_sections ), '' );
 			}
 
 			$_helper_counter       = 0;
@@ -3350,6 +3358,9 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 						$_sv['disabled'] = 1;
 					}
 					if ( 'sections_clogic' === $_sv['id'] ) {
+						if ( is_object( $_sv['default'] ) ) {
+							$_sv['default'] = wp_json_encode( $_sv['default'] );
+						}
 						$_sv['default'] = stripslashes_deep( $_sv['default'] );
 					}
 
@@ -3489,6 +3500,7 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 
 							$fields       = [];
 							$element_desc = '&nbsp;';
+
 							foreach ( $this->all_elements[ $_elements[ $k0 ] ]->properties as $key => $value ) {
 
 								if ( isset( $value['id'] ) ) {
@@ -3543,6 +3555,9 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 									}
 
 									if ( $_elements[ $k0 ] . '_clogic' === $_vid ) {
+										if ( is_object( $value['default'] ) ) {
+											$value['default'] = wp_json_encode( $value['default'] );
+										}
 										$value['default'] = stripslashes_deep( $value['default'] );
 									}
 
@@ -3673,6 +3688,9 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 													? $current_builder[ 'multiple_' . $_vid . '_' . $property ]
 													: $builder[ 'multiple_' . $_vid . '_' . $property ]
 												: null;
+												if ( is_array( $properties[ $property ]['base'] ) && is_array( $properties[ $property ]['current'] ) && count( $properties[ $property ]['current'] ) !== count( $properties[ $property ]['base'] ) ) {
+													$properties[ $property ]['current'] = $properties[ $property ]['current'] + $properties[ $property ]['base'];
+												}
 											}
 
 											$_titles_base = $properties['title']['base'];
@@ -3998,6 +4016,8 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 						'size'                     => $this->sizer[ $_sections_size[ $_s ] ],
 						'section_size'             => $_sections_size[ $_s ],
 						'sections_slides'          => isset( $_sections_slides[ $_s ] ) ? $_sections_slides[ $_s ] : '',
+						'sections_tabs_labels'     => isset( $_sections_tabs_labels[ $_s ] ) ? $_sections_tabs_labels[ $_s ] : '',
+						'sections_type'            => $sections_type[ $_s ],
 						'elements'                 => $elements_html_array,
 						'wpml_is_original_product' => $wpml_is_original_product,
 						'sections_internal_name'   => $_sections_internal_name,
@@ -4020,7 +4040,7 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 	 */
 	public function settings_term_variations_image_helper( $value = '' ) {
 
-		echo '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to use in place of the radio button.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tm_upload_button cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span><span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Remove the image.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tm-upload-button-remove cp-button tm-tooltip"><i class="tcfa tcfa-times"></i></span>';
+		echo '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to use in place of the radio button.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tc-upload-button cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span><span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Remove the image.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tm-upload-button-remove cp-button tm-tooltip"><i class="tcfa tcfa-times"></i></span>';
 		echo '<span class="tm_upload_image tm_upload_imagep"><img class="tm_upload_image_img" alt="&nbsp;" src="' . esc_attr( $value ) . '" /></span>';
 
 	}
@@ -4035,7 +4055,7 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 	 */
 	public function settings_term_variations_imagep_helper( $value = '' ) {
 
-		echo '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to replace the product image with.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tm_upload_button tm_upload_buttonp cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span><span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Remove the image.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tm-upload-button-remove cp-button tm-tooltip"><i class="tcfa tcfa-times"></i></span>';
+		echo '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to replace the product image with.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tc-upload-button tc-upload-buttonp cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span><span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Remove the image.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tm-upload-button-remove cp-button tm-tooltip"><i class="tcfa tcfa-times"></i></span>';
 		echo '<span class="tm_upload_image"><img class="tm_upload_image_img" alt="&nbsp;" src="' . esc_attr( $value ) . '" /></span>';
 
 	}
@@ -4635,9 +4655,9 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 
 		if ( 'multiple_radiobuttons_options' === $name || 'multiple_checkboxes_options' === $name ) {
 			if ( 'multiple_radiobuttons_options' === $name ) {
-				echo '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to use in place of the radio button.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tm_upload_button cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
+				echo '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to use in place of the radio button.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tc-upload-button cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
 			} elseif ( 'multiple_checkboxes_options' === $name ) {
-				echo '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to use in place of the checkbox.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tm_upload_button cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
+				echo '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to use in place of the checkbox.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tc-upload-button cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
 			}
 		}
 
@@ -4677,9 +4697,9 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 
 		if ( 'multiple_radiobuttons_options' === $name || 'multiple_checkboxes_options' === $name ) {
 			if ( 'multiple_radiobuttons_options' === $name ) {
-				echo '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to use in place of the radio button when it is checked.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tm_upload_button cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
+				echo '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to use in place of the radio button when it is checked.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tc-upload-button cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
 			} elseif ( 'multiple_checkboxes_options' === $name ) {
-				echo '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to use in place of the checkbox when it is checked.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tm_upload_button cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
+				echo '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to use in place of the checkbox when it is checked.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tc-upload-button cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
 			}
 		}
 
@@ -4718,9 +4738,9 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 	public function get_builder_sub_options_uploadp_helper( $name = '' ) {
 
 		if ( 'multiple_radiobuttons_options' === $name || 'multiple_checkboxes_options' === $name ) {
-			echo '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to replace the product image with.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tm_upload_button tm_upload_buttonp cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
+			echo '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to replace the product image with.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tc-upload-button tc-upload-buttonp cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
 		} elseif ( 'multiple_selectbox_options' === $name ) {
-			echo '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to replace the product image with.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tm_upload_button tm_upload_buttonp cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
+			echo '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to replace the product image with.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tc-upload-button tc-upload-buttonp cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
 		}
 
 	}
@@ -4758,9 +4778,9 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 	public function get_builder_sub_options_uploadl_helper( $name = '' ) {
 
 		if ( 'multiple_radiobuttons_options' === $name || 'multiple_checkboxes_options' === $name ) {
-			echo '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image for the lightbox.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tm_upload_button tm_upload_buttonl cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
+			echo '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image for the lightbox.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tc-upload-button tc-upload-buttonl cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
 		} elseif ( 'multiple_selectbox_options' === $name ) {
-			echo '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image for the lightbox.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tm_upload_button tm_upload_buttonl cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
+			echo '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image for the lightbox.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tc-upload-button tc-upload-buttonl cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
 		}
 
 	}
@@ -4890,19 +4910,19 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 
 		if ( 'multiple_radiobuttons_options' === $name || 'multiple_checkboxes_options' === $name ) {
 			if ( 'multiple_radiobuttons_options' === $name ) {
-				$upload  = '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to use in place of the radio button.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tm_upload_button cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
-				$uploadc = '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to use in place of the radio button when it is checked.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tm_upload_button cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
+				$upload  = '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to use in place of the radio button.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tc-upload-button cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
+				$uploadc = '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to use in place of the radio button when it is checked.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tc-upload-button cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
 			} elseif ( 'multiple_checkboxes_options' === $name ) {
-				$upload  = '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to use in place of the checkbox.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tm_upload_button cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
-				$uploadc = '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to use in place of the checkbox when it is checked.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tm_upload_button cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
+				$upload  = '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to use in place of the checkbox.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tc-upload-button cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
+				$uploadc = '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to use in place of the checkbox when it is checked.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tc-upload-button cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
 			}
-			$uploadp = '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to replace the product image with.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tm_upload_button tm_upload_buttonp cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
-			$uploadl = '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image for the lightbox.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tm_upload_button tm_upload_buttonl cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
+			$uploadp = '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to replace the product image with.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tc-upload-button tc-upload-buttonp cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
+			$uploadl = '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image for the lightbox.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tc-upload-button tc-upload-buttonl cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
 			$class   = ' withupload';
 		}
 		if ( 'multiple_selectbox_options' === $name ) {
-			$uploadp = '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to replace the product image with.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tm_upload_button tm_upload_buttonp cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
-			$uploadl = '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image for the lightbox.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tm_upload_button tm_upload_buttonl cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
+			$uploadp = '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image to replace the product image with.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tc-upload-button tc-upload-buttonp cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
+			$uploadl = '&nbsp;<span data-tm-tooltip-html="' . esc_attr( esc_html__( 'Choose the image for the lightbox.', 'woocommerce-tm-extra-product-options' ) ) . '" class="tc-upload-button tc-upload-buttonl cp_button tm-tooltip"><i class="tcfa tcfa-upload"></i></span>';
 			$class   = ' withupload';
 		}
 
@@ -5164,10 +5184,7 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 
 			foreach ( $o as $o_property => $o_value ) {
 				if ( isset( $options[ $o_property ] ) ) {
-					$o[ $o_property ]['default'] = $options[ $o_property ][ $ar ];
-					if ( 'price' === $o_property || 'sale_price' === $o_property ) {
-						$o[ $o_property ]['default'] = themecomplete_convert_local_numbers( $o[ $o_property ]['default'] );
-					}
+					$o[ $o_property ]['default']      = $options[ $o_property ][ $ar ];
 					$o[ $o_property ]['tags']['name'] = 'tm_meta[tmfbuilder][' . $name . '_' . $o_property . '][' . ( is_null( $counter ) ? 0 : $counter ) . '][]';
 					$o[ $o_property ]['tags']['id']   = str_replace( [ '[', ']' ], '', $o[ $o_property ]['tags']['name'] ) . '_' . $ar;
 				}
@@ -5501,6 +5518,9 @@ final class THEMECOMPLETE_EPO_BUILDER_Base {
 		if ( empty( $return_js ) ) {
 			echo '</div>';
 			echo ' <button type="button" class="tc tc-button builder-panel-add">' . esc_html__( 'Add item', 'woocommerce-tm-extra-product-options' ) . '</button>';
+			if ( 'multiple_radiobuttons_options' === $name || 'multiple_checkboxes_options' === $name ) {
+				echo ' <button type="button" class="tc tc-button builder-panel-add-separator">' . esc_html__( 'Add separator', 'woocommerce-tm-extra-product-options' ) . '</button>';
+			}
 			echo ' <button type="button" class="tc tc-button builder-panel-mass-add">' . esc_html__( 'Mass add', 'woocommerce-tm-extra-product-options' ) . '</button>';
 		} else {
 			return $js_object;

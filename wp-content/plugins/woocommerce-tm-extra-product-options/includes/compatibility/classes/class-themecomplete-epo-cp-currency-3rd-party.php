@@ -74,7 +74,7 @@ final class THEMECOMPLETE_EPO_CP_Currency_3rd_Party {
 	/**
 	 * Add compatibility with CURCY - Multi Currency for WooCommerce
 	 *
-	 * @param bool $enabled If the compatibility should be active.
+	 * @param boolean $enabled If the compatibility should be active.
 	 * @since 1.0
 	 */
 	public function wc_epo_enable_curreny_compatibility( $enabled = false ) {

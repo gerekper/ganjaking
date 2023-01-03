@@ -1,0 +1,108 @@
+/* ****************************************************************************
+ * NOTIFICATION STYLES
+ */
+.wrap .notice.frash-notice {
+	display: flex;
+	align-items: center;
+	padding: 12px 30px 12px 26px;
+}
+.frash-notice-logo {
+	box-shadow: 0 0.823529px 12.3529px rgba(0, 0, 0, 0.14);
+	border-radius: 28px;
+	padding: 10px;
+	margin: 6px 30px 6px 0;
+}
+.frash-notice-logo span {
+	display: block;
+	width: 64px;
+	height: 64px;
+	background-image: url('wpmu.svg');
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	background-color: #0B2F3F;
+	border-radius: 21.3333px;
+}
+.frash-notice-logo.smush span {
+	background-image: url('smush.svg');
+	background-color: #012842;
+}
+.frash-notice-logo.hummingbird span {
+	background-image: url('hummingbird.svg');
+	background-color: #3E3C5F;
+}
+.frash-notice-logo.defender span {
+	background-image: url('defender.svg');
+	background-color: #B12508;
+}
+.frash-notice-logo.smartcrawl span {
+	background-image: url('smartcrawl.svg');
+	background-color: #231F20;
+}
+.frash-notice-logo.forminator span {
+	background-image: url('forminator.svg');
+	background-color: #023952;
+}
+.frash-notice-logo.hustle span {
+	background-image: url('hustle.svg');
+	background-color: #14372C;
+}
+.frash-notice-logo.snapshot span {
+	background-image: url('snapshot.svg');
+	background-color: #582484;
+}
+.frash-notice-logo.shipper span {
+	background-image: url('shipper.svg');
+	background-color: #C35817;
+}
+.frash-notice-logo.branda span {
+	background-image: url('branda.svg');
+	background-color: #151515;
+}
+.frash-notice-logo.beehive span {
+	background-image: url('beehive.svg');
+	background-color: #2F2B36;
+}
+.frash-notice-logo.video span {
+	background-image: url('video.svg');
+	background-color: #35302E;
+}
+.frash-notice-message .notice-title {
+	font-size: 15px;
+	font-weight: bold;
+	line-height: 18px;
+	margin: 0;
+}
+.frash-notice-actions {
+	display: flex;
+}
+.frash-notice-actions .frash-notice-dismiss {
+	text-decoration: none;
+}
+.frash-notice-message .frash-stars {
+	text-decoration: none;
+}
+.frash-notice-message .frash-stars span,
+.frash-notice-message .frash-stars span:hover{
+	color:#EE844E;
+	font-size: 28px;
+}
+.frash-notice-message .frash-stars span:hover~span{
+	color:#AAA
+}
+.frash-notice-cta input.email {
+	margin-right: 10px;
+}
+.frash-notice-cta button.button-primary {
+	min-height: 27px;
+	line-height: 27px;
+}
+.frash-notice-cta-divider {
+	font-size: 15px;
+	margin: 0 15px;
+	font-weight: 200;
+}
+@media only all and (max-width: 500px) {
+	.frash-notice-logo {
+		display: none;
+	}
+}

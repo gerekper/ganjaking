@@ -15,7 +15,7 @@ $input_type = ( is_callable( [ $order, 'is_editable' ] ) && $order->is_editable(
 
 $product_link  = $_product ? admin_url( 'post.php?post=' . absint( themecomplete_get_id( $_product ) ) . '&action=edit' ) : '';
 $thumbnail     = '';
-$tax_data      = empty( $legacy_order ) && wc_tax_enabled() ? themecomplete_maybe_unserialize( isset( $item['line_tax_data'] ) ? $item['line_tax_data'] : '' ) : false;
+$tax_data      = wc_tax_enabled() ? themecomplete_maybe_unserialize( isset( $item['line_tax_data'] ) ? $item['line_tax_data'] : '' ) : false;
 $item_total    = ( isset( $item['line_total'] ) ) ? esc_attr( wc_format_localized_price( $item['line_total'] ) ) : '';
 $item_subtotal = ( isset( $item['line_subtotal'] ) ) ? esc_attr( wc_format_localized_price( $item['line_subtotal'] ) ) : '';
 
@@ -76,7 +76,7 @@ $row_class                = apply_filters( 'woocommerce_admin_html_order_item_cl
 				echo '<div class="view">' . wc_price( 0, $currency_arg ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 			if ( $epo_can_show_order_price && $epo_edit_cost ) {
-				echo '<div class="edit"><input novalidate type="' . esc_attr( $input_type ) . '" name="tm_epo[' . esc_attr( $item_id ) . '][' . esc_attr( $key ) . '][price]" placeholder="0" value="0" data-qty="0" size="4" class="price"></div>';
+				echo '<div class="edit"><input novalidate type="' . esc_attr( $input_type ) . '" name="tm_epo[' . esc_attr( $item_id ) . '][' . esc_attr( $key ) . '][price]" placeholder="0" value="0" data-qty="0" class="price"></div>';
 			}
 		} else {
 			echo '<div class="view">';
@@ -117,7 +117,7 @@ $row_class                = apply_filters( 'woocommerce_admin_html_order_item_cl
 				esc_attr(
 					$epo['quantity']
 				) .
-				'" size="4" class="price"></div>';
+				'" class="price"></div>';
 			}
 		}
 
@@ -132,7 +132,7 @@ $row_class                = apply_filters( 'woocommerce_admin_html_order_item_cl
 		<?php if ( $epo_edit_quantity ) { ?>
 			<div class="edit">
 				<?php $item_qty = esc_attr( $item['qty'] ); ?>
-				<input novalidate type="<?php echo esc_attr( $input_type ); ?>" step="1" min="0" autocomplete="off" name="tm_epo[<?php echo absint( $item_id ); ?>][<?php echo esc_attr( $key ); ?>][quantity]" placeholder="0" value="<?php echo esc_attr( $epo['quantity'] ); ?>" data-qty="<?php echo esc_attr( $epo['quantity'] ); ?>" size="4" class="quantity">
+				<input novalidate type="<?php echo esc_attr( $input_type ); ?>" step="1" min="0" autocomplete="off" name="tm_epo[<?php echo absint( $item_id ); ?>][<?php echo esc_attr( $key ); ?>][quantity]" placeholder="0" value="<?php echo esc_attr( $epo['quantity'] ); ?>" data-qty="<?php echo esc_attr( $epo['quantity'] ); ?>" class="quantity">
 				<small>&times;<?php echo esc_html( (float) $item_meta['_qty'][0] ); ?></small>
 			</div>
 		<?php } ?>

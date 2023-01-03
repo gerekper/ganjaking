@@ -32,7 +32,7 @@ if ( isset( $option ) ) {
 	} else {
 		?>
 	<div class="tm-quantity tm-hidden">
-		<input type="number" id="<?php echo esc_attr( $input_id ); ?>" class="<?php echo esc_attr( join( ' ', (array) $classes ) ); ?>" step="<?php echo esc_attr( $step ); ?>" min="<?php echo esc_attr( $min_value ); ?>" max="<?php echo esc_attr( ( 0 < $max_value ) ? $max_value : '' ); ?>" data-min="<?php echo esc_attr( $min_value ); ?>" data-max="<?php echo esc_attr( ( 0 < $max_value ) ? $max_value : '' ); ?>" name="<?php echo esc_attr( $input_name ); ?>" value="<?php echo esc_attr( $input_value ); ?>" title="<?php esc_attr_e( 'Qty', 'woocommerce-tm-extra-product-options' ); ?>" size="4" inputmode="<?php echo esc_attr( $inputmode ); ?>" >
+		<input type="number" id="<?php echo esc_attr( $input_id ); ?>" class="<?php echo esc_attr( join( ' ', (array) $classes ) ); ?>" step="<?php echo esc_attr( $step ); ?>" min="<?php echo esc_attr( $min_value ); ?>" max="<?php echo esc_attr( ( 0 < $max_value ) ? $max_value : '' ); ?>" data-min="<?php echo esc_attr( $min_value ); ?>" data-max="<?php echo esc_attr( ( 0 < $max_value ) ? $max_value : '' ); ?>" name="<?php echo esc_attr( $input_name ); ?>" value="<?php echo esc_attr( $input_value ); ?>" title="<?php esc_attr_e( 'Qty', 'woocommerce-tm-extra-product-options' ); ?>" inputmode="<?php echo esc_attr( $inputmode ); ?>" >
 	</div>
 		<?php
 	}

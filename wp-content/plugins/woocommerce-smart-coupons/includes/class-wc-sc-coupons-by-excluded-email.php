@@ -6,7 +6,7 @@
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
  * @since       6.7.0
- * @version     1.0.0
+ * @version     1.1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -34,7 +34,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Excluded_Email' ) ) {
 
 			add_action( 'wc_sc_start_coupon_options_email_restriction', array( $this, 'usage_restriction' ) );
 			add_action( 'save_post', array( $this, 'process_meta' ), 10, 2 );
-			add_action( 'woocommerce_after_checkout_validation', array( $this, 'check_customer_coupons' ), 10, 2 );
+			add_action( 'woocommerce_after_checkout_validation', array( $this, 'check_customer_coupons' ), 99, 2 );
 			add_filter( 'wc_smart_coupons_export_headers', array( $this, 'export_headers' ) );
 			add_filter( 'smart_coupons_parser_postmeta_defaults', array( $this, 'postmeta_defaults' ) );
 			add_filter( 'is_protected_meta', array( $this, 'make_action_meta_protected' ), 10, 3 );
@@ -167,7 +167,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Excluded_Email' ) ) {
 		 *
 		 * @param array $posted Post data.
 		 */
-		public function check_customer_coupons( $posted ) {
+		public function check_customer_coupons( $posted = array() ) {
 			$cart = ( function_exists( 'WC' ) && isset( WC()->cart ) ) ? WC()->cart : null;
 			if ( is_a( $cart, 'WC_Cart' ) ) {
 				$is_cart_empty = is_callable( array( $cart, 'is_empty' ) ) && $cart->is_empty();
@@ -219,7 +219,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_Excluded_Email' ) ) {
 								|	Before this method, WooCommerce checks for Allowed emails. 																												|
 								|	And in that method, it already checks for the usage limit whether it is allowed to apply the coupon or not.																|
 								|		1. If it's allowed, it means the usage limit is within reach & we can proceed with checking for excluded email.														|
-								|			Because the main purpose of excluded email is to prevent application of coupon. And since the usage limit is already checked, it's not needed o check it again	|
+								|			Because the main purpose of excluded email is to prevent application of coupon. And since the usage limit is already checked, it's not needed to check it again	|
 								|		2. If it's not allowed, the process will not reach in this method, as it's already invalidated.																		|
 								|																																											|
 								|===========================================================================================================================================================================|

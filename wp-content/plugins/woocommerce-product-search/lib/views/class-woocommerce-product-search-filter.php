@@ -953,7 +953,8 @@ class WooCommerce_Product_Search_Filter {
 			$query_args['meta_key'] = $ordering['meta_key'] ;
 		}
 
-		$paged = get_query_var( is_front_page() ? 'page' : 'paged' );
+		$paged = get_query_var( is_front_page() ? WooCommerce_Product_Search::get_pagination_base() : 'paged' );
+
 		if ( !$paged ) {
 			$paged = 1;
 		}
@@ -995,7 +996,8 @@ class WooCommerce_Product_Search_Filter {
 			)
 		) {
 			$url = $_SERVER['REQUEST_URI'];
-			$unpage_url = preg_replace( '~/page/[0-9]+~i', '', $url );
+
+			$unpage_url = preg_replace( '~/' . WooCommerce_Product_Search::get_pagination_base() . '/[0-9]+~i', '', $url );
 			$unpage_url = remove_query_arg( 'paged', $unpage_url );
 			if ( $url !== $unpage_url ) {
 				unset( $query_args['paged'] );

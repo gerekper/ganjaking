@@ -1,3 +1,11 @@
+### 2.6.8.3
+- Added new environment variables to control the update message and the unregistered license message.
+- Fixed an issue that causes hidden inputs to render in the autocomplete Ui of the form editor.
+- Fixed an issue where exporting entries including multiple Multi-Column List fields would not create separate columns for each List field row. Credit: ForGravity.
+- API: Added the [gform_uninstalling](https://docs.gravityforms.com/gform_uninstalling/) action hook.
+- API: Added the [gform_form_pre_process_async_task](https://docs.gravityforms.com/gform_form_pre_process_async_task/) filter.
+- API: Updated GFAPI::send_notifications() to support async (background) processing of notifications. Disabled by default. Enable using the [gform_is_asynchronous_notifications_enabled](https://docs.gravityforms.com/gform_is_asynchronous_notifications_enabled/) filter.
+
 ### 2.6.8.2
 - Updated the minimum WordPress version on the System Status page to 6.0.
 - Fixed issue which causes Products to display images as HTML in email notifications.

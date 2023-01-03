@@ -68,6 +68,9 @@ final class Themecomplete_Extra_Product_Options_Setup {
 	 */
 	public function __construct() {
 
+		// Declare HPOS compatiblity.
+		add_action( 'before_woocommerce_init', [ $this, 'before_woocommerce_init' ], 10 );
+
 		if ( function_exists( 'wp_installing' ) && wp_installing() ) {
 			return;
 		}
@@ -81,12 +84,26 @@ final class Themecomplete_Extra_Product_Options_Setup {
 	}
 
 	/**
+	 * Declare HPOS compatiblity
+	 *
+	 * @since 6.2
+	 */
+	public function before_woocommerce_init() {
+
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', THEMECOMPLETE_EPO_PLUGIN_FILE, true );
+		}
+
+	}
+
+	/**
 	 * Define constant if not already set
 	 *
 	 * @param string      $name  Constant name.
 	 * @param string|bool $value Constant value.
 	 *
 	 * @since 4.8
+	 * @return void
 	 */
 	private function define( $name, $value ) {
 		if ( ! defined( $name ) ) {
@@ -103,20 +120,27 @@ final class Themecomplete_Extra_Product_Options_Setup {
 	 * @return bool
 	 */
 	private function is_request( $type ) {
+		$ret = false;
 		switch ( $type ) {
 			case 'admin':
-				return is_admin();
+				$ret = is_admin();
+				break;
 			case 'ajax':
-				return defined( 'DOING_AJAX' );
+				$ret = defined( 'DOING_AJAX' );
+				break;
 			case 'frontend':
-				return ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' ) && ! defined( 'REST_REQUEST' );
+				$ret = ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' ) && ! defined( 'REST_REQUEST' );
+				break;
 		}
+
+		return $ret;
 	}
 
 	/**
 	 * Define constants
 	 *
 	 * @since 4.8
+	 * @return void
 	 */
 	private function define_constants() {
 
@@ -166,6 +190,7 @@ final class Themecomplete_Extra_Product_Options_Setup {
 	 * Include required core files used in admin and on the frontend
 	 *
 	 * @since 4.8
+	 * @return void
 	 */
 	public function includes() {
 
@@ -184,6 +209,7 @@ final class Themecomplete_Extra_Product_Options_Setup {
 	 * Hook into actions and filters
 	 *
 	 * @since 4.8
+	 * @return void
 	 */
 	private function init_hooks() {
 
@@ -251,6 +277,7 @@ final class Themecomplete_Extra_Product_Options_Setup {
 	 * Required WooCommerce functions
 	 *
 	 * @since 4.8
+	 * @return void
 	 */
 	public function wc_functions() {
 		include_once THEMECOMPLETE_EPO_INCLUDES_PATH . 'functions/wc-functions.php';
@@ -260,6 +287,7 @@ final class Themecomplete_Extra_Product_Options_Setup {
 	 * Load plugin textdomain
 	 *
 	 * @since 4.8
+	 * @return void
 	 */
 	public function load_textdomain() {
 		if ( get_option( 'tm_epo_enable_translations', 'yes' ) === 'no' ) {
@@ -287,11 +315,11 @@ final class Themecomplete_Extra_Product_Options_Setup {
 	/**
 	 * Admin Settings Page
 	 *
-	 * @param array $settings Settings array.
-	 * @return array
+	 * @param array<mixed> $settings Settings array.
+	 * @return array<mixed>
 	 * @since 4.8
 	 */
-	public function wc_admin_settings_page( $settings ) {
+	public function wc_admin_settings_page( $settings = [] ) {
 
 		if ( class_exists( 'WC_Settings_Page' ) ) {
 
@@ -310,6 +338,7 @@ final class Themecomplete_Extra_Product_Options_Setup {
 	 * Fix woocommerce_bundle_rate_shipping select chosen js conflict by removing
 	 *
 	 * @since 4.8
+	 * @return void
 	 */
 	public function fix_woocommerce_bundle_rate_shipping_scripts() {
 		// phpcs:ignore

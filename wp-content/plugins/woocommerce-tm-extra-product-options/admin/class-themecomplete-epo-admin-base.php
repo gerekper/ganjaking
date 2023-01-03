@@ -118,6 +118,51 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 
 		add_action( 'woocommerce_json_search_found_products', [ $this, 'woocommerce_json_search_found_products' ], 10, 1 );
 
+		// Hide associated products in the order.
+		add_action( 'woocommerce_order_item_visible', [ $this, 'woocommerce_order_item_visible' ], 10, 2 );
+
+		// Enable shortcodes on various properties.
+		add_filter( 'wc_epo_enable_shortocde', [ $this, 'enable_shortcodes' ], 10, 3 );
+
+	}
+
+	/**
+	 * Enable shortcodes on an element property
+	 *
+	 * @param mixed   $property The option property.
+	 * @param mixed   $original_property The original option property.
+	 * @param integer $post_id The post id where the filter was used.
+	 *
+	 * @since 6.0.4
+	 */
+	public function enable_shortcodes( $property = '', $original_property = '', $post_id = 0 ) {
+
+		if ( is_array( $property ) ) {
+			foreach ( $property as $key => $value ) {
+				$property[ $key ] = themecomplete_do_shortcode( $value );
+			}
+		} else {
+			$property = themecomplete_do_shortcode( $property );
+		}
+		return $property;
+
+	}
+
+	/**
+	 * Hide associated products in the order
+	 *
+	 * @param boolean $visible If the product should be visible.
+	 * @param array   $order_item The order item object.
+	 * @since 6.2
+	 */
+	public function woocommerce_order_item_visible( $visible, $order_item ) {
+
+		if ( isset( $order_item['_associated_hidden'] ) && ! empty( $order_item['_associated_hidden'] ) ) {
+			$visible = false;
+		}
+
+		return $visible;
+
 	}
 
 	/**
@@ -578,7 +623,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 								}
 							}
 						}
-
+						$epo['value']  = apply_filters( 'wc_epo_enable_shortocde', $epo['value'], $epo['value'], false );
 						$display_value = THEMECOMPLETE_EPO_HELPER()->entity_decode( $epo['value'] );
 						$display_value = THEMECOMPLETE_EPO_HELPER()->recursive_implode( $display_value, THEMECOMPLETE_EPO()->tm_epo_multiple_separator_cart_text );
 
@@ -671,6 +716,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 						if ( isset( $wpml_translation_by_id[ $epo['section'] ] ) ) {
 							$epo['name'] = $wpml_translation_by_id[ $epo['section'] ];
 						}
+						$epo['value'] = apply_filters( 'wc_epo_enable_shortocde', $epo['value'], $epo['value'], false );
 						if ( isset( $wpml_translation_by_id[ 'options_' . $epo['section'] ] ) && is_array( $wpml_translation_by_id[ 'options_' . $epo['section'] ] ) && ! empty( $epo['multiple'] ) && ! empty( $epo['key'] ) ) {
 							$pos = strrpos( $epo['key'], '_' );
 							if ( false !== $pos ) {
@@ -1083,13 +1129,41 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 	 * @since 1.0
 	 */
 	public function register_data_tab( $tabs = [] ) {
-
-		// Adds the new tab.
-		$tabs['tc-admin-extra-product-options'] = [
-			'label'  => esc_html__( 'Extra Product Options', 'woocommerce-tm-extra-product-options' ),
-			'target' => 'tc-admin-extra-product-options',
-			'class'  => [ 'tc-epo-woocommerce-tab', 'hide_if_grouped' ],
-		];
+		$enable        = false;
+		$enabled_roles = get_option( 'tm_epo_global_hide_product_enabled' );
+		if ( false !== $enabled_roles ) {
+			if ( ! is_array( $enabled_roles ) ) {
+				$enabled_roles = [ $enabled_roles ];
+			}
+			$current_user = wp_get_current_user();
+			if ( $current_user instanceof WP_User ) {
+				if ( is_super_admin( $current_user->ID ) ) {
+					$enable = true;
+				} else {
+					$roles = $current_user->roles;
+					if ( is_array( $roles ) ) {
+						foreach ( $roles as $key => $value ) {
+							if ( 'administrator' === $value || in_array( $value, $enabled_roles, true ) ) {
+								$enable = true;
+								break;
+							}
+						}
+					}
+				}
+			}
+		} else {
+			// Revert to default functionality if the tm_epo_global_hide_product_enabled
+			// does not exist.
+			$enable = true;
+		}
+		if ( $enable ) {
+			// Adds the new tab.
+			$tabs['tc-admin-extra-product-options'] = [
+				'label'  => esc_html__( 'Extra Product Options', 'woocommerce-tm-extra-product-options' ),
+				'target' => 'tc-admin-extra-product-options',
+				'class'  => [ 'tc-epo-woocommerce-tab', 'hide_if_grouped' ],
+			];
+		}
 
 		return $tabs;
 
@@ -1221,7 +1295,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 		} elseif ( $this->in_product() ) {
 			wp_register_script( 'themecomplete-epo-admin-metaboxes', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/admin/tm-epo-admin' . $ext . '.js', [ 'jquery' ], THEMECOMPLETE_EPO_VERSION, true );
 			$params = [
-				'post_id'                => isset( $post->ID ) ? $post->ID : '',
+				'post_id'                => isset( $post->ID ) ? sprintf( '%d', $post->ID ) : '',
 				'plugin_url'             => THEMECOMPLETE_EPO_PLUGIN_URL,
 				// WPML 3.3.x fix.
 				'ajax_url'               => strtok( admin_url( 'admin-ajax' . '.php' ), '?' ), // phpcs:ignore Generic.Strings.UnnecessaryStringConcat
@@ -1245,7 +1319,7 @@ final class THEMECOMPLETE_EPO_Admin_Base {
 			wp_register_script( 'themecomplete-api', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/tm-api' . $ext . '.js', '', THEMECOMPLETE_EPO_VERSION, true );
 			wp_register_script( 'jquery-tcfloatbox', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tcfloatbox' . $ext . '.js', '', THEMECOMPLETE_EPO_VERSION, true );
 			wp_register_script( 'jquery-tctooltip', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tctooltip' . $ext . '.js', '', THEMECOMPLETE_EPO_VERSION, true );
-			wp_register_script( 'themecomplete-tabs', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/admin/jquery.tctabs' . $ext . '.js', '', THEMECOMPLETE_EPO_VERSION, true );
+			wp_register_script( 'themecomplete-tabs', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tctabs' . $ext . '.js', '', THEMECOMPLETE_EPO_VERSION, true );
 			wp_register_script( 'toastr', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/admin/toastr' . $ext . '.js', '', '2.1.4', true );
 			wp_register_script(
 				'themecomplete-epo-admin-settings',

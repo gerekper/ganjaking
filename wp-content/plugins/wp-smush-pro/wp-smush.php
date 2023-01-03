@@ -2,7 +2,7 @@
 /**
  * WP Smush plugin
  *
- * Reduce image file sizes, improve performance and boost your SEO using the
+ * Reduce image file sizes, improve performance and boost your SEO using the free
  * <a href="https://wpmudev.com/">WPMU DEV</a> WordPress Smush API.
  *
  * @link              http://wpmudev.com/project/wp-smush-pro/
@@ -10,23 +10,23 @@
  * @package           WP_Smush
  *
  * @wordpress-plugin
- * Plugin Name:       Smush Pro
- * Plugin URI:        http://wpmudev.com/project/wp-smush-pro/
- * Description:       Reduce image file sizes, improve performance and boost your SEO using the <a href="https://wpmudev.com/">WPMU DEV</a> WordPress Smush API.
- * Version:           3.12.3
+ * Plugin Name:       Smush
+ * Plugin URI:        http://wordpress.org/plugins/wp-smushit/
+ * Description:       Reduce image file sizes, improve performance and boost your SEO using the free <a href="https://wpmudev.com/">WPMU DEV</a> WordPress Smush API.
+ * Version:           3.12.4
  * Author:            WPMU DEV
- * Author URI:        https://wpmudev.com/
+ * Author URI:        https://profiles.wordpress.org/wpmudev/
  * License:           GPLv2
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       wp-smushit
  * Domain Path:       /languages/
  * Network:           true
- * WDP ID:            912164
  */
 
 /*
+This plugin was originally developed by Alex Dunae (http://dialect.ca/).
+
 Copyright 2007-2022 Incsub (http://incsub.com)
-Author - Aaron Edwards, Sam Najian, Umesh Kumar, Anton Vanyukov
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License (Version 2 - GPLv2) as published by
@@ -46,9 +46,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
-
+update_site_option( 'wdp_un_updates_available', 1 );
 if ( ! defined( 'WP_SMUSH_VERSION' ) ) {
-	define( 'WP_SMUSH_VERSION', '3.12.3' );
+	define( 'WP_SMUSH_VERSION', '3.12.4' );
 }
 // Used to define body class.
 if ( ! defined( 'WP_SHARED_UI_VERSION' ) ) {

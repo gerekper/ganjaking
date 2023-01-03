@@ -2434,8 +2434,8 @@ msgstr ""
 "Wählen Sie, ob der Preis in der Bestellung verborgen oder sichtbar sein soll."
 
 #: includes/classes/builder/class-themecomplete-epo-builder-element.php:1142
-msgid "Hide element label in floating totals box."
-msgstr "Bezeichnung in der „Gesamtsumme“-Box verbergen."
+msgid "Hide element label in floating totals box"
+msgstr "Bezeichnung in der „Gesamtsumme“-Box verbergen"
 
 #: includes/classes/builder/class-themecomplete-epo-builder-element.php:1143
 msgid ""

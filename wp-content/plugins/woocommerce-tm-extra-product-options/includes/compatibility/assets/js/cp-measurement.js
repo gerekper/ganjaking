@@ -5,7 +5,7 @@
 	var tcAPI;
 	var TMEPOMEASUREMENTJS;
 
-	function AlterElementQty( elementQty, dataObject ) {
+	function alterElementQty( elementQty, dataObject ) {
 		if ( TMEPOMEASUREMENTJS.wc_measurement_divide !== '1' && TMEPOMEASUREMENTJS.wc_measurement_qty_multiplier === '1' && dataObject.currentCart.find( '#_measurement_needed' ).length > 0 ) {
 			elementQty = dataObject.currentCart.find( '#_measurement_needed' ).val();
 		}
@@ -23,7 +23,7 @@
 			return;
 		}
 
-		$.epoAPI.addFilter( 'tcAlterElementQty', AlterElementQty, 10, 2 );
+		$.epoAPI.addFilter( 'tcAlterElementQty', alterElementQty, 10, 2 );
 
 		$( window ).on( 'tm-epo-init-end', function( event, eventData ) {
 			if ( event && eventData && eventData.variationForm ) {
@@ -89,8 +89,16 @@
 						} );
 					} );
 
+				cartContainer.on( 'found_variation', function() {
+					$( 'form.cart' )
+						.trigger( 'wc-measurement-price-calculator-update' )
+						.trigger( 'wc-measurement-price-calculator-product-price-change' );
+				} );
+
 				if ( $( '.product_price, .total_price' ).length > 0 ) {
-					$( 'form.cart' ).trigger( 'wc-measurement-price-calculator-update' );
+					$( 'form.cart' )
+						.trigger( 'wc-measurement-price-calculator-update' )
+						.trigger( 'wc-measurement-price-calculator-product-price-change' );
 				}
 			}
 		} );

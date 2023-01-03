@@ -22,7 +22,7 @@ $mp->group->setOnce("company","Mixpanel3", array(
 ));
 
 
-// unsets the property test
+// unsets the property test 
 $mp->group->remove("company","Mixpanel3", array("test"));
 
 

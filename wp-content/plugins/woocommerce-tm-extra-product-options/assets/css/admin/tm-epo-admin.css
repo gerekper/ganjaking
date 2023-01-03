@@ -21,9 +21,64 @@
 	display: block;
 }
 
-#tc-admin-extra-product-options .select2-container {
+#tc-admin-extra-product-options .select2-container,
+#tc-admin-extra-product-options .text {
 	width: 100% !important;
 }
+
+#tc-admin-extra-product-options .overflow-show {
+	overflow: visible !important;
+}
+
+#tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap .message2x2 {
+	width: auto;
+	-ms-flex: 0 0 34%;
+	flex: 0 0 auto;
+	max-width: 34%;
+}
+
+#tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap .message2x3,
+#tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap .message2x4,
+#tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap .message2x5 {
+	width: auto;
+	-ms-flex: 0 0 15%;
+	flex: 0 0 auto;
+	margin-left: 1%;
+	max-width: 15%;
+	display: none;
+	position: relative;
+}
+
+#tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap .tm-choice-from,
+#tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap .tm-choice-to,
+#tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap .tm-choice-sale,
+#tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap .tm-choice-regular {
+	top: -17px;
+	margin-left: 1px;
+}
+
+#tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap.mode-price .tm-choice-from,
+#tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap.mode-from .tm-choice-from,
+#tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap.mode-range .tm-choice-regular {
+	display: none;
+}
+
+#tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap.mode-price .message2x3,
+#tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap.mode-price .message2x5,
+#tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap.mode-from .message2x3,
+#tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap.mode-from .message2x5,
+#tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap.mode-range .message2x3,
+#tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap.mode-range .message2x4 {
+	display: block;
+}
+
+#tc-admin-extra-product-options .tc-wrapper .price-display-mode-wrap .text {
+	padding: 1em 16px;
+	line-height: 1;
+	font-size: 1em;
+	text-align: center;
+}
+
 
 .tm-mode-builder .builder-selector {
 	border-width: 0 0 1px 0;

@@ -396,7 +396,6 @@ final class THEMECOMPLETE_EPO_HTML_Base {
 		if ( isset( $args['prepend_element_html'] ) ) {
 			echo apply_filters( 'wc_epo_kses', wp_kses_post( $args['prepend_element_html'] ), $args['prepend_element_html'], false ); // phpcs:ignore WordPress.Security.EscapeOutput
 		}
-
 		if ( ! empty( $args['html_before_field'] ) ) {
 			echo apply_filters( 'wc_epo_kses', wp_kses_post( $args['html_before_field'] ), $args['html_before_field'], false ); // phpcs:ignore WordPress.Security.EscapeOutput
 		}
@@ -546,6 +545,13 @@ final class THEMECOMPLETE_EPO_HTML_Base {
 		}
 		if ( empty( $args['nodiv'] ) && empty( $args['noend'] ) ) {
 			echo '</div>';
+			if ( isset( $args['extra_fields'] ) && is_array( $args['extra_fields'] ) ) {
+				foreach ( $args['extra_fields'] as $k => $extra_field ) {
+					echo '<div class="message2x' . esc_attr( $k + 3 ) . '">';
+					$this->create_field( $extra_field, true );
+					echo '</div>';
+				}
+			}
 			if ( isset( $args['wrap_div'] ) && is_array( $args['wrap_div'] ) ) {
 				echo '</div>';
 			}

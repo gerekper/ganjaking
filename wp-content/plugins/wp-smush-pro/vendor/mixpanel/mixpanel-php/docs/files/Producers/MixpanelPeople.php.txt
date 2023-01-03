@@ -157,6 +157,3 @@ class Producers_MixpanelPeople extends Producers_MixpanelBaseProducer {
 
 }
 
-
-
-941105-1666688512-au

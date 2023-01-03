@@ -16,10 +16,10 @@ if ( ! function_exists( 'mb_basename' ) ) {
 	/**
 	 * Creates mb_basename functionality if missing.
 	 *
-	 * @param mixed $path The path to check.
+	 * @param array|string $path The path to check.
 	 * @return string
 	 */
-	function mb_basename( $path ) {
+	function mb_basename( $path = '' ) {
 		$separator = ' qq ';
 		$path      = preg_replace( '/[^ ]/u', $separator . '$0' . $separator, $path );
 		$base      = basename( $path );
@@ -147,7 +147,7 @@ if ( ! function_exists( 'themecomplete_get_product_type' ) ) {
 	 * Get product type
 	 *
 	 * @param WC_Product|null $product Product object.
-	 * @return bool
+	 * @return mixed
 	 */
 	function themecomplete_get_product_type( $product = null ) {
 		if ( is_object( $product ) ) {
@@ -270,6 +270,7 @@ if ( ! function_exists( 'themecomplete_maybe_unserialize' ) ) {
 		return $unserialized_string;
 	}
 }
+
 if ( ! function_exists( 'themecomplete_get_post_meta' ) ) {
 
 	/**
@@ -465,7 +466,7 @@ if ( ! function_exists( 'themecomplete_get_attributes' ) ) {
 	/**
 	 * Get product attributes
 	 *
-	 * @param int $post_id Post ID.
+	 * @param integer $post_id Post ID.
 	 */
 	function themecomplete_get_attributes( $post_id ) {
 
@@ -572,7 +573,7 @@ if ( ! function_exists( 'themecomplete_order_get_price_excluding_tax' ) ) {
 			return $price;
 		}
 
-		$tax_data  = empty( $legacy_order ) && wc_tax_enabled() ? themecomplete_maybe_unserialize( isset( $order_items[ $item_id ]['line_tax_data'] ) ? $order_items[ $item_id ]['line_tax_data'] : '' ) : false;
+		$tax_data  = wc_tax_enabled() ? themecomplete_maybe_unserialize( isset( $order_items[ $item_id ]['line_tax_data'] ) ? $order_items[ $item_id ]['line_tax_data'] : '' ) : false;
 		$tax_price = 0;
 		if ( ! empty( $tax_data ) && $prices_include_tax ) {
 			$tax_based_on = get_option( 'woocommerce_tax_based_on' );

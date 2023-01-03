@@ -5,7 +5,7 @@
  * @author      StoreApps
  * @category    Admin
  * @package     wocommerce-smart-coupons/includes
- * @version     1.7.0
+ * @version     1.8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -35,6 +35,7 @@ if ( ! class_exists( 'WC_SC_Coupons_By_User_Role' ) ) {
 			add_action( 'woocommerce_coupon_options_usage_restriction', array( $this, 'usage_restriction' ), 10, 2 );
 			add_action( 'save_post', array( $this, 'process_meta' ), 10, 2 );
 			add_filter( 'woocommerce_coupon_is_valid', array( $this, 'validate' ), 11, 2 );
+			add_action( 'woocommerce_after_checkout_validation', array( $this, 'validate_after_checkout' ), 99, 2 );
 			add_filter( 'wc_smart_coupons_export_headers', array( $this, 'export_headers' ) );
 			add_filter( 'wc_sc_export_coupon_meta', array( $this, 'export_coupon_meta_data' ), 10, 2 );
 			add_filter( 'smart_coupons_parser_postmeta_defaults', array( $this, 'postmeta_defaults' ) );
@@ -445,6 +446,94 @@ if ( ! class_exists( 'WC_SC_Coupons_By_User_Role' ) ) {
 				array( 'wc_sc_user_role_ids', 'wc_sc_exclude_user_role_ids' )
 			);
 
+		}
+
+		/**
+		 * Validate user role after checkout.
+		 *
+		 * @param array    $posted Post data.
+		 * @param WP_Error $errors Validation errors.
+		 * @return void
+		 */
+		public function validate_after_checkout( $posted = array(), $errors = object ) {
+
+			$current_user_id = get_current_user_id();
+
+			if ( ! empty( $current_user_id ) ) {
+				return;
+			}
+
+			$billing_email = ! empty( $posted['billing_email'] ) ? $posted['billing_email'] : '';
+
+			if ( empty( $posted['billing_email'] ) ) {
+				return;
+			}
+
+			$cart = ( function_exists( 'WC' ) && isset( WC()->cart ) ) ? WC()->cart : null;
+			if ( is_a( $cart, 'WC_Cart' ) ) {
+				$is_cart_empty = is_callable( array( $cart, 'is_empty' ) ) && $cart->is_empty();
+				if ( false === $is_cart_empty ) {
+					$applied_coupons = ( is_callable( array( $cart, 'get_applied_coupons' ) ) ) ? $cart->get_applied_coupons() : array();
+					if ( ! empty( $applied_coupons ) ) {
+						foreach ( $applied_coupons as $code ) {
+							$coupon = new WC_Coupon( $code );
+							if ( ! is_object( $coupon ) ) {
+								continue;
+							}
+
+							if ( is_callable( array( $coupon, 'get_meta' ) ) ) {
+								$user_role_ids         = $coupon->get_meta( 'wc_sc_user_role_ids' );
+								$exclude_user_role_ids = $coupon->get_meta( 'wc_sc_exclude_user_role_ids' );
+							} else {
+								if ( is_callable( array( $coupon, 'get_id' ) ) ) {
+									$coupon_id = $coupon->get_id();
+								} else {
+									$coupon_id = ( ! empty( $coupon->id ) ) ? $coupon->id : 0;
+								}
+								if ( empty( $coupon_id ) ) {
+									continue;
+								}
+								$user_role_ids         = get_post_meta( $coupon_id, 'wc_sc_user_role_ids', true );
+								$exclude_user_role_ids = get_post_meta( $coupon_id, 'wc_sc_exclude_user_role_ids', true );
+							}
+
+							if ( empty( $exclude_user_role_ids ) && empty( $user_role_ids ) ) {
+								continue;
+							}
+
+							$current_user       = get_user_by( 'email', $billing_email );
+							$current_user_roles = ! empty( $current_user->roles ) ? $current_user->roles : array();
+
+							$is_message = is_callable( array( $coupon, 'add_coupon_message' ) );
+							$is_remove  = is_callable( array( $cart, 'remove_coupon' ) );
+
+							if ( is_array( $user_role_ids ) && ! empty( $user_role_ids ) ) {
+								// Check if current user's role is allowed.
+								if ( ! array_intersect( $current_user_roles, $user_role_ids ) ) {
+									if ( true === $is_message ) {
+										$coupon->add_coupon_message( WC_Coupon::E_WC_COUPON_NOT_YOURS_REMOVED );
+									}
+									if ( true === $is_remove ) {
+										$cart->remove_coupon( $code );
+									}
+								}
+							}
+
+							if ( is_array( $exclude_user_role_ids ) && ! empty( $exclude_user_role_ids ) ) {
+								// Check if current user's role is excluded.
+								if ( array_intersect( $current_user_roles, $exclude_user_role_ids ) ) {
+									if ( true === $is_message ) {
+										$coupon->add_coupon_message( WC_Coupon::E_WC_COUPON_NOT_YOURS_REMOVED );
+									}
+									if ( true === $is_remove ) {
+										$cart->remove_coupon( $code );
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }

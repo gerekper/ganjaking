@@ -214,8 +214,8 @@ class WC_Points_Rewards_Order {
 		global $wc_points_rewards;
 
 		$order             = wc_get_order( $order_id );
-		$already_redeemed  = $order->get_meta( $order_id, '_wc_points_redeemed', true );
-		$logged_redemption = $order->get_meta( $order_id, '_wc_points_logged_redemption', true );
+		$already_redeemed  = $order->get_meta( '_wc_points_redeemed', true );
+		$logged_redemption = $order->get_meta( '_wc_points_logged_redemption', true );
 
 		// Points has already been redeemed
 		if ( ! empty( $already_redeemed ) ) {

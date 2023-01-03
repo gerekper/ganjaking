@@ -2,16 +2,16 @@
 /**
  * Plugin Name: WooCommerce TM Extra Product Options
  * Plugin URI: https://epo.themecomplete.com/
- * Description: A WooCommerce plugin for adding extra product options.
+ * Description: <code><strong>WooCommerce Extra Product Options</strong></code> allows you to create extra add-ons and options to a WooCommerce product.
  * Author: ThemeComplete
  * Author URI: https://themecomplete.com/
  *
- * Version: 6.1.1
+ * Version: 6.2
  * Requires at least: 5.0
  * Requires PHP: 7.4
  * Tested up to: 7.0
  * WC requires at least: 4.1
- * WC tested up to: 7.0
+ * WC tested up to: 8.0
  * Copyright: © 2022 THEMECOMPLETE LTD
  *
  * @package  WooCommerce TM Extra Product Options

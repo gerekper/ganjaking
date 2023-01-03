@@ -29,7 +29,7 @@ final class WC_Order_Delivery {
 	 *
 	 * @var string
 	 */
-	public $version = '2.3.1';
+	public $version = '2.3.2';
 
 	/**
 	 * Constructor.

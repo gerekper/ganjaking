@@ -2,17 +2,17 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Points and Rewards 1.7.22\n"
+"Project-Id-Version: WooCommerce Points and Rewards 1.7.23\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-points-and-rewards\n"
-"POT-Creation-Date: 2022-12-06 09:05:56+00:00\n"
+"POT-Creation-Date: 2022-12-23 10:48:20+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: node-wp-i18n 1.2.6\n"
+"X-Generator: node-wp-i18n 1.2.7\n"
 
 #: includes/class-wc-points-rewards-actions.php:62
 msgid "Points earned for account signup"
@@ -150,8 +150,8 @@ msgid ""
 msgstr ""
 
 #: includes/class-wc-points-rewards-admin.php:555
-#: includes/class-wc-points-rewards-product-admin.php:212
-#: includes/class-wc-points-rewards-product-admin.php:433
+#: includes/class-wc-points-rewards-product-admin.php:218
+#: includes/class-wc-points-rewards-product-admin.php:439
 msgid "Maximum Points Discount"
 msgstr ""
 
@@ -571,16 +571,16 @@ msgid ""
 "policy.</a>"
 msgstr ""
 
-#: includes/class-wc-points-rewards-product-admin.php:117
-#: includes/class-wc-points-rewards-product-admin.php:207
-#: includes/class-wc-points-rewards-product-admin.php:273
-#: includes/class-wc-points-rewards-product-admin.php:307
-#: includes/class-wc-points-rewards-product-admin.php:426
-#: includes/class-wc-points-rewards-product-admin.php:519
+#: includes/class-wc-points-rewards-product-admin.php:118
+#: includes/class-wc-points-rewards-product-admin.php:213
+#: includes/class-wc-points-rewards-product-admin.php:279
+#: includes/class-wc-points-rewards-product-admin.php:313
+#: includes/class-wc-points-rewards-product-admin.php:432
+#: includes/class-wc-points-rewards-product-admin.php:525
 msgid "Points Earned"
 msgstr ""
 
-#: includes/class-wc-points-rewards-product-admin.php:118
+#: includes/class-wc-points-rewards-product-admin.php:119
 msgid ""
 "This can be either a fixed number of points earned for purchasing this "
 "product, or a percentage which assigns points based on the price. For "
@@ -590,12 +590,12 @@ msgid ""
 "and empty to use the global/category settings."
 msgstr ""
 
-#: includes/class-wc-points-rewards-product-admin.php:129
+#: includes/class-wc-points-rewards-product-admin.php:132
 msgid "Maximum Discount"
 msgstr ""
 
-#: includes/class-wc-points-rewards-product-admin.php:130
-#: includes/class-wc-points-rewards-product-admin.php:202
+#: includes/class-wc-points-rewards-product-admin.php:133
+#: includes/class-wc-points-rewards-product-admin.php:208
 msgid ""
 "Enter either a fixed maximum discount amount or percentage which restricts "
 "the amount of points that can be redeemed for a discount based on the "
@@ -606,15 +606,15 @@ msgid ""
 "global/category default."
 msgstr ""
 
-#: includes/class-wc-points-rewards-product-admin.php:142
-#: includes/class-wc-points-rewards-product-admin.php:219
-#: includes/class-wc-points-rewards-product-admin.php:443
+#: includes/class-wc-points-rewards-product-admin.php:147
+#: includes/class-wc-points-rewards-product-admin.php:225
+#: includes/class-wc-points-rewards-product-admin.php:449
 msgid "Change Renewal Points"
 msgstr ""
 
-#: includes/class-wc-points-rewards-product-admin.php:143
-#: includes/class-wc-points-rewards-product-admin.php:203
-#: includes/class-wc-points-rewards-product-admin.php:423
+#: includes/class-wc-points-rewards-product-admin.php:148
+#: includes/class-wc-points-rewards-product-admin.php:209
+#: includes/class-wc-points-rewards-product-admin.php:429
 msgid ""
 "For Subscription renewals with a different point value than the signup, "
 "enter either a fixed maximum discount amount or percentage which restricts "
@@ -626,7 +626,7 @@ msgid ""
 "global/category default."
 msgstr ""
 
-#: includes/class-wc-points-rewards-product-admin.php:201
+#: includes/class-wc-points-rewards-product-admin.php:207
 msgid ""
 "This can either be a fixed number of points earned for purchasing this "
 "variation, or a percentage which assigns points based on the price. For "
@@ -636,43 +636,43 @@ msgid ""
 "variation, and empty to use the global/category settings."
 msgstr ""
 
-#: includes/class-wc-points-rewards-product-admin.php:208
+#: includes/class-wc-points-rewards-product-admin.php:214
 msgid "Variation Points Earned"
 msgstr ""
 
-#: includes/class-wc-points-rewards-product-admin.php:213
+#: includes/class-wc-points-rewards-product-admin.php:219
 msgid "Variation Max Points Discount"
 msgstr ""
 
-#: includes/class-wc-points-rewards-product-admin.php:220
+#: includes/class-wc-points-rewards-product-admin.php:226
 msgid "Variation Change Rewards Points"
 msgstr ""
 
-#: includes/class-wc-points-rewards-product-admin.php:283
+#: includes/class-wc-points-rewards-product-admin.php:289
 msgid "Enter a value"
 msgstr ""
 
-#: includes/class-wc-points-rewards-product-admin.php:312
+#: includes/class-wc-points-rewards-product-admin.php:318
 msgid "— No Change —"
 msgstr ""
 
-#: includes/class-wc-points-rewards-product-admin.php:313
+#: includes/class-wc-points-rewards-product-admin.php:319
 msgid "Change to:"
 msgstr ""
 
-#: includes/class-wc-points-rewards-product-admin.php:314
+#: includes/class-wc-points-rewards-product-admin.php:320
 msgid "Increase by (fixed amount or %):"
 msgstr ""
 
-#: includes/class-wc-points-rewards-product-admin.php:315
+#: includes/class-wc-points-rewards-product-admin.php:321
 msgid "Decrease by (fixed amount or %):"
 msgstr ""
 
-#: includes/class-wc-points-rewards-product-admin.php:325
+#: includes/class-wc-points-rewards-product-admin.php:331
 msgid "Enter Points Earned"
 msgstr ""
 
-#: includes/class-wc-points-rewards-product-admin.php:421
+#: includes/class-wc-points-rewards-product-admin.php:427
 msgid ""
 "This can either be a fixed number of points earned for the purchase of any "
 "product that belongs to this category, or a percentage which assigns points "
@@ -683,7 +683,7 @@ msgid ""
 "category, and empty to use the global setting."
 msgstr ""
 
-#: includes/class-wc-points-rewards-product-admin.php:422
+#: includes/class-wc-points-rewards-product-admin.php:428
 msgid ""
 "Enter either a fixed maximum discount amount or percentage which restricts "
 "the amount of points that can be redeemed for a discount based on the price "
@@ -695,7 +695,7 @@ msgid ""
 "default."
 msgstr ""
 
-#: includes/class-wc-points-rewards-product-admin.php:428
+#: includes/class-wc-points-rewards-product-admin.php:434
 msgid "Category Points Earned"
 msgstr ""
 

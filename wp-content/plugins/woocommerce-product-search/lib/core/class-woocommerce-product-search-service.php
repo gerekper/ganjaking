@@ -395,6 +395,14 @@ class WooCommerce_Product_Search_Service {
 					'clear' => __( 'Clear', 'woocommerce-product-search' )
 				)
 			);
+
+			wp_localize_script(
+				'product-filter',
+				'woocommerce_product_search_context',
+				array(
+					'pagination_base' => WooCommerce_Product_Search::get_pagination_base()
+				)
+			);
 		}
 
 		if ( !self::$styles_registered ) {

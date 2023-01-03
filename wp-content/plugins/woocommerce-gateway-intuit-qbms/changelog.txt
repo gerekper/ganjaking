@@ -1,5 +1,8 @@
 *** WooCommerce Intuit QBMS Gateway Changelog ***
 
+2022.12.23 - version 3.1.1
+ * Fix - Loading of payment gateway setup wizard files
+
 2022.12.06 - version 3.1.0
  * Fix - Replace deprecated `is_ajax()` function calls with `wp_doing_ajax()`
  * Misc - Require WooCommerce 3.9.4 or higher

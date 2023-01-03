@@ -94,7 +94,7 @@ class WC_OD_Subscription_Delivery_Details {
 			$this->first_delivery_date = ( $timestamp ? wc_od_timestamp_to_datetime( $timestamp ) : false );
 		}
 
-		return clone $this->first_delivery_date;
+		return ( $this->first_delivery_date ? clone $this->first_delivery_date : false );
 	}
 
 	/**
@@ -111,7 +111,7 @@ class WC_OD_Subscription_Delivery_Details {
 			$this->max_delivery_date = ( $timestamp ? wc_od_timestamp_to_datetime( $timestamp ) : false );
 		}
 
-		return clone $this->max_delivery_date;
+		return ( $this->max_delivery_date ? clone $this->max_delivery_date : false );
 	}
 
 	/**

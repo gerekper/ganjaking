@@ -524,7 +524,7 @@ abstract class Background_Process extends Async_Request {
 
 	private function mutex( $operation ) {
 		$mutex = new Mutex( $this->get_handler_mutex_id() );
-		$mutex->set_break_on_timeout( true ) // Let the previous handler do its thing
+		$mutex->set_break_on_timeout( true ) // Let the previous handler do its thing 
 		      ->set_timeout( $this->get_lock_duration() )
 		      ->execute( $operation );
 	}

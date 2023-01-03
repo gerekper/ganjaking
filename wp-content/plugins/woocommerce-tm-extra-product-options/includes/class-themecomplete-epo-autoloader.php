@@ -32,8 +32,8 @@ class THEMECOMPLETE_EPO_Autoloader {
 	 * Take a class name and turn it into a file name
 	 *
 	 * @param string $class Class name.
-	 * @param bool   $no_prepend Flag to indicate not to prepend the class name.
-	 * @param bool   $no_replace Flag to indicate not to replace the class name.
+	 * @param boolean   $no_prepend Flag to indicate not to prepend the class name.
+	 * @param boolean   $no_replace Flag to indicate not to replace the class name.
 	 *
 	 * @return string
 	 */
@@ -74,6 +74,7 @@ class THEMECOMPLETE_EPO_Autoloader {
 	 * Auto-load WC classes on demand to reduce memory consumption
 	 *
 	 * @param string $class Class name.
+	 * @return void
 	 */
 	public function autoload( $class ) {
 

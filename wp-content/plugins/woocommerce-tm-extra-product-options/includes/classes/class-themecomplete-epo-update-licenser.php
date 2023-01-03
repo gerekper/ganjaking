@@ -232,7 +232,7 @@ final class THEMECOMPLETE_EPO_UPDATE_Licenser {
 						$message = esc_html__( 'Trying to activate with an invalid purchase code for your token!', 'woocommerce-tm-extra-product-options' );
 						break;
 					case '50':
-						$message = esc_html__( 'Envato rate limit exceeded! Please try again later.', 'woocommerce-tm-extra-product-options' );
+						$message = $result->description . ' ' . esc_html__( 'Envato rate limit exceeded! Please try again later.', 'woocommerce-tm-extra-product-options' );
 						break;
 					case '6':
 						$message = esc_html__( 'That username is not valid for this item purchase code. Please make sure you entered the correct username (case sensitive).', 'woocommerce-tm-extra-product-options' );

@@ -112,8 +112,8 @@ class THEMECOMPLETE_EPO_MATH {
 	/**
 	 * Evaluate an expression.
 	 *
-	 * @param string $expression The expression to execute.
-	 * @param bool   $cache IF the result should be cached.
+	 * @param string  $expression The expression to execute.
+	 * @param boolean $cache IF the result should be cached.
 	 *
 	 * @return int|float|string|null
 	 */
@@ -129,8 +129,8 @@ class THEMECOMPLETE_EPO_MATH {
 	/**
 	 * Execute the expression.
 	 *
-	 * @param string $expression The expression to execute.
-	 * @param bool   $cache IF the result should be cached.
+	 * @param string  $expression The expression to execute.
+	 * @param boolean $cache IF the result should be cached.
 	 *
 	 * @return int|float|string|null
 	 */
@@ -337,7 +337,7 @@ class THEMECOMPLETE_EPO_MATH {
 				false,
 				180,
 				static function( $a, $b ) {
-					return 0 == $b ? 0 : $a / $b; // phpcs:ignore WordPress.PHP.StrictComparisons
+					return 0 == $b ? 0 : (float) $a / (float) $b; // phpcs:ignore WordPress.PHP.StrictComparisons
 				}
 			)
 		);
@@ -380,8 +380,8 @@ class THEMECOMPLETE_EPO_MATH {
 				false,
 				170,
 				static function( $a, $b ) use ( $scale ) {
-					$a = number_format( $a, $scale, '.', '' );
-					$b = number_format( $b, $scale, '.', '' );
+					$a = number_format( (float) $a, $scale, '.', '' );
+					$b = number_format( (float) $b, $scale, '.', '' );
 					return bcadd( "{$a}", "{$b}" );
 				}
 			)
@@ -392,8 +392,8 @@ class THEMECOMPLETE_EPO_MATH {
 				false,
 				170,
 				static function( $a, $b ) use ( $scale ) {
-					$a = number_format( $a, $scale, '.', '' );
-					$b = number_format( $b, $scale, '.', '' );
+					$a = number_format( (float) $a, $scale, '.', '' );
+					$b = number_format( (float) $b, $scale, '.', '' );
 					return bcsub( "{$a}", "{$b}" );
 				}
 			)
@@ -404,7 +404,7 @@ class THEMECOMPLETE_EPO_MATH {
 				false,
 				200,
 				static function( $a ) use ( $scale ) {
-					$a = number_format( $a, $scale, '.', '' );
+					$a = number_format( (float) $a, $scale, '.', '' );
 					return bcsub( '0.0', "{$a}" );
 				}
 			)
@@ -415,8 +415,8 @@ class THEMECOMPLETE_EPO_MATH {
 				false,
 				180,
 				static function( $a, $b ) use ( $scale ) {
-					$a = number_format( $a, $scale, '.', '' );
-					$b = number_format( $b, $scale, '.', '' );
+					$a = number_format( (float) $a, $scale, '.', '' );
+					$b = number_format( (float) $b, $scale, '.', '' );
 					return bcmul( "{$a}", "{$b}" );
 				}
 			)
@@ -430,8 +430,8 @@ class THEMECOMPLETE_EPO_MATH {
 					if ( 0 == $b ) { // phpcs:ignore WordPress.PHP.StrictComparisons
 						return THEMECOMPLETE_EPO_MATH_Error::trigger( 'Division By Zero', 'DivisionByZeroError', 0 );
 					}
-					$a = number_format( $a, $scale, '.', '' );
-					$b = number_format( $b, $scale, '.', '' );
+					$a = number_format( (float) $a, $scale, '.', '' );
+					$b = number_format( (float) $b, $scale, '.', '' );
 
 					return bcdiv( "{$a}", "{$b}" );
 				}
@@ -443,8 +443,8 @@ class THEMECOMPLETE_EPO_MATH {
 				true,
 				220,
 				static function( $a, $b ) use ( $scale ) {
-					$a = number_format( $a, $scale, '.', '' );
-					$b = number_format( $b, $scale, '.', '' );
+					$a = number_format( (float) $a, $scale, '.', '' );
+					$b = number_format( (float) $b, $scale, '.', '' );
 					return bcpow( "{$a}", "{$b}" );
 				}
 			)
@@ -455,8 +455,8 @@ class THEMECOMPLETE_EPO_MATH {
 				false,
 				180,
 				static function( $a, $b ) use ( $scale ) {
-					$a = number_format( $a, $scale, '.', '' );
-					$b = number_format( $b, $scale, '.', '' );
+					$a = number_format( (float) $a, $scale, '.', '' );
+					$b = number_format( (float) $b, $scale, '.', '' );
 					return bcmod( "{$a}", "{$b}" );
 				}
 			)
@@ -859,7 +859,7 @@ class THEMECOMPLETE_EPO_MATH {
 					}
 					if ( is_array( $field ) ) {
 						$x = $field[0];
-						$y = $field[1];
+						$y = isset( $field[1] ) ? $field[1] : '';
 					} else {
 						$x = $field;
 						$y = '';
@@ -1654,8 +1654,8 @@ class THEMECOMPLETE_EPO_MATH_CustomFunction {
 	/**
 	 * Execute expression.
 	 *
-	 * @param array $stack The array of tokens.
-	 * @param int   $param_count_in_stack The function paramter count.
+	 * @param array   $stack The array of tokens.
+	 * @param integer $param_count_in_stack The function paramter count.
 	 */
 	public function execute( array &$stack, int $param_count_in_stack ) : THEMECOMPLETE_EPO_MATH_Token {
 
@@ -1672,7 +1672,12 @@ class THEMECOMPLETE_EPO_MATH_CustomFunction {
 		$args = [];
 		if ( $param_count_in_stack > 0 ) {
 			for ( $i = 0; $i < $param_count_in_stack; $i++ ) {
-				$argument = array_pop( $stack )->value;
+				$object = array_pop( $stack );
+				if ( is_object( $object ) ) {
+					$argument = $object->value;
+				} else {
+					$argument = null;
+				}
 				if ( null === $argument ) {
 					$argument = '0';
 					array_push( $args, $argument );

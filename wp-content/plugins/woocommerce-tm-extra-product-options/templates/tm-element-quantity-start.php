@@ -83,7 +83,7 @@ if ( isset( $tm_element_settings ) && ! empty( $quantity ) ) {
 			?>
 			name="<?php echo esc_attr( $quantity_name ); ?>" value="<?php echo esc_attr( $__default_value ); ?>" 
 			title="<?php echo esc_attr_x( 'Qty', 'element quantity input tooltip', 'woocommerce-tm-extra-product-options' ); ?>" 
-			class="tm-qty tc-element-qty tm-bsbb" size="4" > 
+			class="tm-qty tc-element-qty tm-bsbb"> 
 			<?php do_action( 'wc_epo_quantity_selector_after_input', isset( $tm_element_settings ) ? $tm_element_settings : [] ); ?>
 		</div>
 		<div class="tc-cell tc-col tc-field-display">

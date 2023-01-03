@@ -438,7 +438,7 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 		}
 
 		if ( ! empty( $element['use_url'] ) && 'url' === $element['use_url'] ) {
-			$url = THEMECOMPLETE_EPO_HELPER()->do_shortcode( $url );
+			$url = themecomplete_do_shortcode( $url );
 		} else {
 			$url = '';
 		}
@@ -528,7 +528,12 @@ class THEMECOMPLETE_EPO_FIELDS_radio extends THEMECOMPLETE_EPO_FIELDS {
 			$labelclass_end   = true;
 		}
 
+		$is_separator = '-1' === str_replace( '_' . $choice_counter, '', $args['value'] ) && '-1' !== $args['value'];
+		if ( $is_separator ) {
+			$li_class .= ' is-separator';
+		}
 		$display = [
+			'is_separator'          => $is_separator,
 			'hexclass'              => $hexclass,
 			'label_mode'            => $label_mode,
 			'label_to_display'      => $label_to_display,

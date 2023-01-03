@@ -577,6 +577,14 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'type'    => 'checkbox',
 			],
 			[
+				'title'   => esc_html__( 'Hide add-to-cart button until all required elements are chosen', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Check this to show the add to cart button only when all required visible options are filled.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_hide_required_add_cart_button',
+				'class'   => 'tcdisplay',
+				'default' => 'no',
+				'type'    => 'checkbox',
+			],
+			[
 				'title'   => esc_html__( 'Hide add-to-cart button until all elements are chosen', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'Check this to show the add to cart button only when all visible options are filled.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_hide_all_add_cart_button',
@@ -1330,6 +1338,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 						'<span tabindex="0" data-menu="tcglobal5" class="tm-section-menu-item">' . esc_html__( 'Locale', 'woocommerce-tm-extra-product-options' ) . '</span>' .
 						'<span tabindex="0" data-menu="tcglobal6" class="tm-section-menu-item">' . esc_html__( 'Pricing', 'woocommerce-tm-extra-product-options' ) . '</span>' .
 						'<span tabindex="0" data-menu="tcglobal7" class="tm-section-menu-item">' . esc_html__( 'Strings', 'woocommerce-tm-extra-product-options' ) . '</span>' .
+						'<span tabindex="0" data-menu="tcglobal9" class="tm-section-menu-item">' . esc_html__( 'CDN', 'woocommerce-tm-extra-product-options' ) . '</span>' .
 						'<span tabindex="0" data-menu="tcglobal8" class="tm-section-menu-item">' . esc_html__( 'Various', 'woocommerce-tm-extra-product-options' ) . '</span>',
 				'title' => $label,
 			],
@@ -1522,7 +1531,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 			],
 			[
 				'title'   => esc_html__( 'Include the WooCommerce Price display suffix on totals box', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Enable this to add the WooCommerce Price display suffix on the totals box', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Enable this to add the WooCommerce Price display suffix on the totals box.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_global_wc_price_suffix',
 				'default' => 'no',
 				'class'   => 'tcglobal3',
@@ -1538,7 +1547,7 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 			],
 			[
 				'title'   => esc_html__( 'Product image replacement mode', 'woocommerce-tm-extra-product-options' ),
-				'desc'    => esc_html__( 'Self mode replaces the actual image and Inline appends new image elements', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Self mode replaces the actual image and Inline appends new image elements.', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_global_product_image_mode',
 				'class'   => 'tcglobal3 chosen_select',
 				'css'     => 'min-width:300px;',
@@ -1566,6 +1575,16 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'type'    => 'checkbox',
 			],
 			[
+				'title'   => esc_html__( 'Enable plugin interface on product edit page for roles', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Select the roles that will have access to the plugin interface while on the edit product page. The Admininstrator role always has access.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_global_hide_product_enabled',
+				'class'   => 'tcglobal2 chosen_select',
+				'css'     => 'min-width:300px;',
+				'default' => '',
+				'type'    => 'multiselect',
+				'options' => themecomplete_get_roles( [ 'administrator', '@everyone', '@loggedin' ] ),
+			],
+			[
 				'title'   => esc_html__( 'Hide override settings on products', 'woocommerce-tm-extra-product-options' ),
 				'desc'    => esc_html__( 'Enable this to hide the settings tab on the product edit screen', 'woocommerce-tm-extra-product-options' ),
 				'id'      => 'tm_epo_global_hide_product_settings',
@@ -1587,6 +1606,23 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				'id'      => 'tm_epo_global_hide_product_normal_mode',
 				'default' => 'no',
 				'class'   => 'tcglobal2',
+				'type'    => 'checkbox',
+			],
+
+			[
+				'title'   => esc_html__( 'Enable WP Rocket CDN', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Check to enable the use of WP Rocket cdn for the plugin images if it is active.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_global_cdn_rocket',
+				'default' => 'yes',
+				'class'   => 'tcglobal9',
+				'type'    => 'checkbox',
+			],
+			[
+				'title'   => esc_html__( 'Enable Jetpack CDN', 'woocommerce-tm-extra-product-options' ),
+				'desc'    => esc_html__( 'Check to enable the use of Jetpack cdn for the plugin images if it is active.', 'woocommerce-tm-extra-product-options' ),
+				'id'      => 'tm_epo_global_cdn_jetpack',
+				'default' => 'no',
+				'class'   => 'tcglobal9',
 				'type'    => 'checkbox',
 			],
 
@@ -1833,7 +1869,6 @@ final class THEMECOMPLETE_EPO_SETTINGS_Base {
 				],
 				[
 					'title'   => esc_html__( 'Envato Personal Token', 'woocommerce-tm-extra-product-options' ),
-					'desc'    => esc_html__( 'Your Envato Personal Token.', 'woocommerce-tm-extra-product-options' ),
 					/* translators: %s "clicking this link" */
 					'desc'    => '<p>' . sprintf( esc_html__( 'You can generate an Envato Personal Token by %s', 'woocommerce-tm-extra-product-options' ), '<a href="' . esc_url( $this->get_generate_token_url() ) . '" target="_blank">' . esc_html__( 'clicking this link', 'woocommerce-tm-extra-product-options' ) . '</a>' ) . '</p>',
 					'id'      => 'tm_epo_envato_apikey',

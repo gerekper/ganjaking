@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       5.2.0
- * @version     1.5.0
+ * @version     1.6.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -328,6 +328,10 @@ if ( ! class_exists( 'WC_SC_Coupon_Refund_Process' ) ) {
 							$refunded_amount           = $this->get_order_item_meta( $item_id, 'sc_refunded_discount', true );
 							$refunded_tax_amount       = $this->get_order_item_meta( $item_id, 'sc_refunded_discount_tax', true );
 							$order_discount_tax_amount = $this->get_order_item_meta( $item_id, 'discount_amount_tax', true );
+						}
+
+						if ( floatval( $order_discount_amount ) === floatval( $refunded_amount ) && floatval( $order_discount_tax_amount ) === floatval( $refunded_tax_amount ) ) {
+							continue;
 						}
 
 						if ( $refunded_amount ) {

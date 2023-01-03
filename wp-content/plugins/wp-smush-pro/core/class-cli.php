@@ -17,7 +17,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Reduce image file sizes, improve performance and boost your SEO using the WPMU DEV Smush API.
+ * Reduce image file sizes, improve performance and boost your SEO using the free WPMU DEV Smush API.
  */
 class CLI extends WP_CLI_Command {
 

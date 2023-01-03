@@ -6,7 +6,7 @@
  * Description: Accept credit cards in WooCommerce with the Intuit Payments gateway
  * Author: SkyVerge
  * Author URI: https://woocommerce.com/
- * Version: 3.1.0
+ * Version: 3.1.1
  * Text Domain: woocommerce-gateway-intuit-payments
  * Domain Path: /i18n/languages/
  *
@@ -23,7 +23,7 @@
  *
  * Woo: 272221:56ee7c24d725409e3244401ed625b4f3
  * WC requires at least: 3.9.4
- * WC tested up to: 7.1.0
+ * WC tested up to: 7.2.2
  */
 
 defined( 'ABSPATH' ) or exit;

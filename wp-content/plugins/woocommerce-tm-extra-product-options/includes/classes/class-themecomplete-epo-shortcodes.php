@@ -41,14 +41,34 @@ class THEMECOMPLETE_EPO_Shortcodes {
 			],
 			$atts
 		);
-
 		ob_start();
 		do_action( $vars['action'] );
-
 		$content = ob_get_contents();
 		ob_end_clean();
 
 		return $content;
+	}
+
+	/**
+	 * Shortcode tc_epo_action
+	 * (Used for echoing a custom action)
+	 *
+	 * @param array $atts Shortcode settings.
+	 * @param mixed $content Shortcode content.
+	 * @since 4.8
+	 */
+	public static function tc_epo_action( $atts, $content = null ) {
+		$vars                                       = shortcode_atts(
+			[
+				'action' => '',
+			],
+			$atts
+		);
+		$GLOBALS['THEMECOMPLETE_IS_FROM_SHORTCODE'] = true;
+		do_action( $vars['action'] );
+		unset( $GLOBALS['THEMECOMPLETE_IS_FROM_SHORTCODE'] );
+
+		return '';
 	}
 
 	/**
@@ -113,6 +133,36 @@ class THEMECOMPLETE_EPO_Shortcodes {
 	}
 
 	/**
+	 * Shortcode tc_current_epo_totals
+	 * (Used for echoing options totals)
+	 *
+	 * @param array $atts Shortcode settings.
+	 * @param mixed $content Shortcode content.
+	 * @since 4.8
+	 */
+	public static function tc_current_epo_totals( $atts, $content = null ) {
+		$vars = shortcode_atts(
+			[
+				'prefix' => '',
+			],
+			$atts
+		);
+
+		ob_start();
+		global $product;
+		$id = themecomplete_get_id( $product );
+
+		if ( $id ) {
+			THEMECOMPLETE_EPO_DISPLAY()->tm_epo_totals( $id, $vars['prefix'], true );
+		}
+
+		$content = ob_get_contents();
+		ob_end_clean();
+
+		return $content;
+	}
+
+	/**
 	 * Shortcode tc_epo_totals
 	 * (Used for echoing options totals)
 	 *
@@ -150,8 +200,10 @@ class THEMECOMPLETE_EPO_Shortcodes {
 	public static function add() {
 
 		add_shortcode( 'tc_epo_show', __CLASS__ . '::tc_epo_show' );
+		add_shortcode( 'tc_epo_action', __CLASS__ . '::tc_epo_action' );
 		add_shortcode( 'tc_epo', __CLASS__ . '::tc_epo' );
 		add_shortcode( 'tc_current_epo', __CLASS__ . '::tc_current_epo' );
+		add_shortcode( 'tc_current_epo_totals', __CLASS__ . '::tc_current_epo_totals' );
 		add_shortcode( 'tc_epo_totals', __CLASS__ . '::tc_epo_totals' );
 
 	}

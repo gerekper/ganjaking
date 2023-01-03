@@ -136,16 +136,13 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 				// to support Elementor cart widget.
 				add_action( 'woocommerce_before_mini_cart_contents', [ $this, 'woocommerce_before_mini_cart' ] );
 				add_action( 'woocommerce_mini_cart_contents', [ $this, 'woocommerce_after_mini_cart' ] );
-				// The following filter doesn't have to be enabled for the latest version.
-				if ( version_compare( RP_WCDPD_VERSION, '2.3.9', '<' ) ) {
-					add_filter( 'rightpress_late_hook_priority', [ $this, 'rightpress_product_price_late_hook_priority' ], 10, 1 );
-				}
 			} else {
 				add_action( 'woocommerce_cart_loaded_from_session', [ $this, 'cart_loaded_from_session_99999' ], 99999 );
 				add_filter( 'rightpress_product_price_late_hook_priority', [ $this, 'rightpress_product_price_late_hook_priority' ], 10, 1 );
-
 			}
 		}
+		// This is needed in order for our hooks like woocommerce_cart_item_price to work correctly.
+		add_filter( 'rightpress_late_hook_priority', [ $this, 'rightpress_product_price_late_hook_priority' ], 10, 1 );
 
 		add_filter( 'wc_epo_adjust_price_before_calculate_totals', [ $this, 'wc_epo_adjust_price_before_calculate_totals' ] );
 		add_filter( 'woocommerce_cart_item_price', [ $this, 'cart_item_price' ], 99999, 3 );
@@ -191,7 +188,13 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 
 		if ( THEMECOMPLETE_EPO()->tm_epo_dpd_original_price_base === 'undiscounted' && isset( $post_data['tcaddtocart'] ) ) {
 			$product = wc_get_product( $post_data['tcaddtocart'] );
-			$price   = $product->get_price();
+			$type    = themecomplete_get_product_type( $product );
+			if ( 'variable' === $type || 'variable-subscription' === $type ) {
+				remove_filter( 'wc_epo_original_price_type_mode', [ $this, 'wc_epo_original_price_type_mode' ], 1, 4 );
+				$product = wc_get_product( $post_data['variation_id'] );
+				remove_filter( 'wc_epo_original_price_type_mode', [ $this, 'wc_epo_original_price_type_mode' ], 1, 4 );
+			}
+			$price = $product->get_price();
 		}
 
 		return $price;
@@ -265,7 +268,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	/**
 	 * Change late hook priority
 	 *
-	 * @param int $priority The priority to alter..
+	 * @param integer $priority The priority to alter..
 	 *
 	 * @since  4.9.6
 	 * @return bool
@@ -299,33 +302,12 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 	}
 
 	/**
-	 * Get applicable volume rule
-	 *
-	 * Note: This feature assumes that considering all conditions only one
-	 * volume rule will be applicable to one product. If there are more than
-	 * one volume rule, the first one in a row will be selected.
-	 *
-	 * Note: Rules that contain cart related conditions are not considered
-	 *
-	 * @param object $product The product object.
-	 * @return array|bool
-	 */
-	public static function get_applicable_volume_rule( $product ) {
-		$matched_rules = RP_WCDPD_Product_Pricing::get_applicable_rules_for_product( $product, [ 'bulk', 'tiered' ], true );
-		if ( $matched_rules ) {
-			return array_shift( $matched_rules );
-		}
-
-		return false;
-	}
-
-	/**
 	 * Get missing quantity range
 	 *
 	 * @access public
 	 *
-	 * @param int $from The from range.
-	 * @param int $to The to range.
+	 * @param integer $from The from range.
+	 * @param integer $to The to range.
 	 *
 	 * @return array
 	 */
@@ -1076,7 +1058,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 
 					$price['is_multiprice'] = false;
 
-					$product_rules = RP_WCDPD_Product_Pricing::get_applicable_rules_for_product( $product, null, true );
+					$product_rules = RP_WCDPD_Product_Pricing::get_applicable_rules_for_product( $product, [ 'simple', 'bulk', 'tiered' ], true, [ 'RP_WCDPD_Promotion_Volume_Pricing_Table', 'get_reference_amount_for_table' ] );
 
 					if ( ! $product_rules ) {
 						$product_rules = [];
@@ -1119,7 +1101,7 @@ final class THEMECOMPLETE_EPO_CP_DPD {
 					foreach ( $product->get_available_variations() as $variation_data ) {
 						$variation = wc_get_product( $variation_data['variation_id'] );
 
-						$product_rules = RP_WCDPD_Product_Pricing::get_applicable_rules_for_product( $variation, null, true );
+						$product_rules = RP_WCDPD_Product_Pricing::get_applicable_rules_for_product( $variation, [ 'simple', 'bulk', 'tiered' ], true, [ 'RP_WCDPD_Promotion_Volume_Pricing_Table', 'get_reference_amount_for_table' ] );
 						if ( ! $product_rules ) {
 							$product_rules = [];
 						}

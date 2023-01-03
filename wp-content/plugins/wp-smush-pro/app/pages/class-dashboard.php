@@ -180,7 +180,7 @@ class Dashboard extends Abstract_Summary_Page implements Interface_Page {
 		$args = array(
 			'human_format'    => empty( $human[1] ) ? 'B' : $human[1],
 			'human_size'      => empty( $human[0] ) ? '0' : intval( $human[0] ),
-			'cdn_status'      => WP_Smush::get_instance()->core()->mod->cdn->status(),
+			'cdn_status'      => 'enabled',
 			'is_cdn'          => $this->settings->get( 'cdn' ),
 			'is_lazy_load'    => $this->settings->get( 'lazy_load' ),
 			'is_local_webp'   => $this->settings->get( 'webp_mod' ),
@@ -388,7 +388,7 @@ class Dashboard extends Abstract_Summary_Page implements Interface_Page {
 		);
 
 		$args = array(
-			'cdn_status' => WP_Smush::get_instance()->core()->mod->cdn->status(),
+			'cdn_status' => 'enabled',
 			'is_webp'    => $this->settings->get( 'webp' ),
 			'upsell_url' => $upsell_url,
 		);

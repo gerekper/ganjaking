@@ -79,9 +79,50 @@
 			return total;
 		}
 
+		function qtyElementForRepeaterQuantity( qty ) {
+			var hasPersons = $( '[id^=wc_bookings_field_persons]' );
+			if ( hasPersons.length ) {
+				qty = hasPersons;
+			}
+			return qty;
+		}
+
+		function qtyElementForRepeaterQuantityPrevValue( val ) {
+			var hasPersons = $( '[id^=wc_bookings_field_persons]' );
+			if ( hasPersons.length ) {
+				val = hasPersons.toArray().reduce(
+					function( sum, element ) {
+						if ( isNaN( sum ) ) {
+							sum = 0;
+						}
+						return sum + Number( element.value );
+					}, 0
+				);
+			}
+			hasPersons.data( 'tm-prev-value', val );
+			return val;
+		}
+
+		function qtyElementForRepeaterQuantityValue( val ) {
+			var hasPersons = $( '[id^=wc_bookings_field_persons]' );
+			if ( hasPersons.length ) {
+				val = hasPersons.toArray().reduce(
+					function( sum, element ) {
+						if ( isNaN( sum ) ) {
+							sum = 0;
+						}
+						return sum + Number( element.value );
+					}, 0
+				);
+			}
+			return val;
+		}
 		$.epoAPI.addFilter( 'tcAdjustTotal', adjustTotal, 10, 1 );
 		$.epoAPI.addFilter( 'tcAdjustOriginalTotal', adjustTotal, 10, 1 );
 		$.epoAPI.addFilter( 'tc_calculate_product_price', calculateProductPrice, 10, 2 );
 		$.epoAPI.addFilter( 'tc_calculate_product_regular_price', calculateProductPrice, 10, 2 );
+		$.epoAPI.addFilter( 'qtyElementForRepeaterQuantity', qtyElementForRepeaterQuantity, 10, 1 );
+		$.epoAPI.addFilter( 'qtyElementForRepeaterQuantity_tm-prev-value', qtyElementForRepeaterQuantityPrevValue, 10, 1 );
+		$.epoAPI.addFilter( 'qtyElementForRepeaterQuantityValue', qtyElementForRepeaterQuantityValue, 10, 1 );
 	} );
 }( document, window.jQuery ) );

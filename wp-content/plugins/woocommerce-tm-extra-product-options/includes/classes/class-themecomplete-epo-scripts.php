@@ -322,6 +322,13 @@ class THEMECOMPLETE_EPO_Scripts {
 			];
 		}
 
+		$css_array['themecomplete-epo-smallscreen'] = [
+			'src'     => THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/tm-epo-smallscreen' . $ext . '.css',
+			'deps'    => false,
+			'version' => THEMECOMPLETE_EPO_VERSION,
+			'media'   => 'only screen and (max-width: ' . apply_filters( 'woocommerce_style_smallscreen_breakpoint', '768px' ) . ')',
+		];
+
 		if ( is_rtl() ) {
 			$css_array['themecomplete-epo-rtl'] = [
 				'src'     => THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/css/tm-epo-rtl' . $ext . '.css',
@@ -457,6 +464,12 @@ class THEMECOMPLETE_EPO_Scripts {
 				wp_register_script( 'owl-carousel2', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/owl.carousel' . $ext . '.js', [ 'jquery' ], THEMECOMPLETE_EPO_VERSION, true );
 			}
 
+			if ( $is_composite || ! is_product() || ( in_array( 'product', THEMECOMPLETE_EPO()->current_option_features, true ) ) || in_array( 'sectiontabs', THEMECOMPLETE_EPO()->current_option_features, true ) ) {
+				$dependencies[]        = 'themecomplete-tabs';
+				$this->defered_files[] = THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tctabs' . $ext . '.js';
+				wp_register_script( 'themecomplete-tabs', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tctabs' . $ext . '.js', [ 'jquery' ], THEMECOMPLETE_EPO_VERSION, true );
+			}
+
 			if ( $is_composite || ! is_product() || ( in_array( 'product', THEMECOMPLETE_EPO()->current_option_features, true ) ) || in_array( 'color', THEMECOMPLETE_EPO()->current_option_features, true ) ) {
 				$dependencies[]        = 'spectrum';
 				$this->defered_files[] = THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/spectrum' . $ext . '.js';
@@ -502,7 +515,7 @@ class THEMECOMPLETE_EPO_Scripts {
 		$extra_fee = 0;
 		global $wp_locale;
 		$args = [
-			'product_id'                                  => themecomplete_get_id( $product ),
+			'product_id'                                  => sprintf( '%d', themecomplete_get_id( $product ) ),
 			'ajax_url'                                    => admin_url( 'admin-ajax' ) . '.php', // WPML 3.3.3 fix.
 			'extraFee'                                    => apply_filters( 'woocommerce_tm_final_price_extra_fee', $extra_fee, $product ),
 			'i18n_extra_fee'                              => esc_html__( 'Extra fee', 'woocommerce-tm-extra-product-options' ),
@@ -543,6 +556,7 @@ class THEMECOMPLETE_EPO_Scripts {
 			'tm_epo_show_only_active_quantities'          => THEMECOMPLETE_EPO()->tm_epo_show_only_active_quantities,
 			'tm_epo_hide_add_cart_button'                 => THEMECOMPLETE_EPO()->tm_epo_hide_add_cart_button,
 			'tm_epo_hide_all_add_cart_button'             => THEMECOMPLETE_EPO()->tm_epo_hide_all_add_cart_button,
+			'tm_epo_hide_required_add_cart_button'        => THEMECOMPLETE_EPO()->tm_epo_hide_required_add_cart_button,
 			'tm_epo_auto_hide_price_if_zero'              => THEMECOMPLETE_EPO()->tm_epo_auto_hide_price_if_zero,
 			'tm_epo_show_price_inside_option'             => THEMECOMPLETE_EPO()->tm_epo_show_price_inside_option,
 			'tm_epo_show_price_inside_option_hidden_even' => THEMECOMPLETE_EPO()->tm_epo_show_price_inside_option_hidden_even,
@@ -647,6 +661,7 @@ class THEMECOMPLETE_EPO_Scripts {
 
 			'lookupTables'                                => wp_json_encode( THEMECOMPLETE_EPO()->lookup_tables ),
 			'WP_DEBUG'                                    => defined( 'WP_DEBUG' ) && WP_DEBUG,
+			'theme_name'                                  => THEMECOMPLETE_EPO()->get_theme( 'Name' ),
 		];
 
 		$args = apply_filters( 'wc_epo_script_args', $args, $this );

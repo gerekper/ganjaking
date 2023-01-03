@@ -165,6 +165,9 @@ if (
 									? $asscociated_cart_data[ $asscociated_name . '_attribute_' . sanitize_title( $name ) ]
 									: $selected_value;
 					}
+					if ( '' === $selected_value && isset( $_REQUEST[ 'tm_attribute_' . $att_id . $form_prefix ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+						$selected_value = wp_unslash( $_REQUEST[ 'tm_attribute_' . $att_id . $form_prefix ] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+					}
 				}
 
 				$taxonomy_name = rawurldecode( sanitize_title( $name ) );

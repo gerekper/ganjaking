@@ -77,7 +77,7 @@ final class THEMECOMPLETE_EPO_CP_Composite {
 	/**
 	 * Override woocommerce_available_variation check
 	 *
-	 * @param bool $ret To run the check or not.
+	 * @param boolean $ret To run the check or not.
 	 * @since 6.1
 	 */
 	public function wc_epo_woocommerce_available_variation_check( $ret = true ) {

@@ -266,8 +266,8 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 		if ( isset( $builder ) ) {
 			$ids             = $this->array_contains_key( $builder, '_uniqid' );
 			$logics          = $this->array_contains_key( $builder, '_clogic' );
-			$math_price      = $this->array_contains_key( $builder, '_price' );
-			$math_sale_price = $this->array_contains_key( $builder, '_sale_price' );
+			$math_price      = $this->array_keys_end_with( $builder, '_price', [ '_before_price', '_after_price', '_sale_price' ] );
+			$math_sale_price = $this->array_keys_end_with( $builder, '_sale_price', [ '_before_price', '_after_price' ] );
 
 			if ( false === $new_ids ) {
 				$new_ids = [];
@@ -302,8 +302,9 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 					}
 					$price = str_replace( array_keys( $new_ids ), array_values( $new_ids ), $price );
 					if ( $dojson ) {
-						$math_price[ $lx ][ $ly ] = json_decode( $price );
+						$price = json_decode( $price );
 					}
+					$math_price[ $lx ][ $ly ] = $price;
 				}
 			}
 
@@ -316,8 +317,9 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 					}
 					$price = str_replace( array_keys( $new_ids ), array_values( $new_ids ), $price );
 					if ( $dojson ) {
-						$math_sale_price[ $lx ][ $ly ] = json_decode( $price );
+						$price = json_decode( $price );
 					}
+					$math_sale_price[ $lx ][ $ly ] = $price;
 				}
 			}
 
@@ -1158,6 +1160,7 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 
 		$args = [
 			'posts_per_page' => -1,
+			'no_found_rows'  => true,
 			'post_type'      => $type,
 			'post_status'    => get_post_stati(),
 		];
@@ -1630,6 +1633,35 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	}
 
 	/**
+	 * Search through an array for a matching key that ends with a string.
+	 *
+	 * @param array  $input_array The input array.
+	 * @param string $search_value The value to search.
+	 * @param array  $excludes The values to exclude.
+	 *
+	 * @return array
+	 */
+	public function array_keys_end_with( array $input_array = [], $search_value = '', $excludes = [] ) {
+		$return_array = [];
+		$keys         = array_keys( $input_array );
+		foreach ( $keys as $k ) {
+			if ( $this->str_endsswith( $k, $search_value ) ) {
+				$canbeadded = true;
+				foreach ( $excludes as $exclude ) {
+					if ( $this->str_endsswith( $k, $exclude ) ) {
+						$canbeadded = false;
+					}
+				}
+				if ( $canbeadded ) {
+					$return_array[ $k ] = $input_array[ $k ];
+				}
+			}
+		}
+
+		return $return_array;
+	}
+
+	/**
 	 * Sanitize array key
 	 *
 	 * @param string $source The input string.
@@ -1647,10 +1679,10 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	 *
 	 * @access  public
 	 *
-	 * @param array  $array        multi-dimensional array to recursively implode.
-	 * @param string $glue         value that glues elements together.
-	 * @param bool   $include_keys include keys before their values.
-	 * @param bool   $trim_all     trim ALL whitespace from string.
+	 * @param array   $array        multi-dimensional array to recursively implode.
+	 * @param string  $glue         value that glues elements together.
+	 * @param boolean $include_keys include keys before their values.
+	 * @param boolean $trim_all     trim ALL whitespace from string.
 	 *
 	 * @return string  imploded array
 	 */
@@ -1805,24 +1837,6 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 	}
 
 	/**
-	 * Apply shortcodes to content
-	 *
-	 * @param string $content The content.
-	 * @since 6.0.3
-	 */
-	public function do_shortcode( $content = '' ) {
-		global $wp_embed;
-
-		if ( $wp_embed ) {
-			$content = do_shortcode( $wp_embed->run_shortcode( $content ) );
-		} else {
-			$content = do_shortcode( $content );
-		}
-
-		return $content;
-	}
-
-	/**
 	 * Gets cached posts for a query. Results are stored against a hash of the
 	 * parameter array. If there's nothing in the cache, a fresh query is made.
 	 * https://wordpress.stackexchange.com/questions/162703/cache-get-posts
@@ -1838,6 +1852,29 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 
 		if ( false === $post_list ) {
 			$post_list = get_posts( $args );
+
+			wp_cache_set( $post_list_name, $post_list );
+		}
+
+		return $post_list;
+	}
+
+	/**
+	 * Gets a cached post for a query. Results are stored against a hash of the
+	 * parameter array. If there's nothing in the cache, a fresh query is made.
+	 * https://wordpress.stackexchange.com/questions/162703/cache-get-posts
+	 *
+	 * @param integer $post_id The post id to pass to get_post().
+	 *
+	 * @return WP_Post|null The returned post or null.
+	 */
+	public static function get_cached_post( $post_id = 0 ) {
+		$post_list_name = 'tm_get_post' . md5( wp_json_encode( $post_id ) );
+
+		$post_list = wp_cache_get( $post_list_name );
+
+		if ( false === $post_list ) {
+			$post_list = get_post( $post_id );
 
 			wp_cache_set( $post_list_name, $post_list );
 		}
@@ -1902,8 +1939,10 @@ final class THEMECOMPLETE_EPO_HELPER_Base {
 			$decimal = '.';
 		}
 
-		// Strip out everything except digits, decimal point and minus sign.
-		$unformatted = preg_replace( '/[^0-9-' . $decimal . ']/', '', $value );
+		// Strip out everything except digits, decimal point and minus sign and the dot.
+		// The dot is added in case the system posts a number while not using dot as a
+		// decimal point like in the case of number fields.
+		$unformatted = preg_replace( '/[^0-9-.' . $decimal . ']/', '', $value );
 		// Make sure decimal point is standard.
 		$unformatted = str_replace( $decimal, '.', $unformatted );
 

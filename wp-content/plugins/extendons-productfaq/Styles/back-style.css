@@ -1,0 +1,515 @@
+.rating12 > span:hover:before {
+   content: "\2605";
+   position: absolute;
+   /*color: red;*/
+}
+.rating12 {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+}
+.rating12 > span:hover:before,
+.rating12 > span:hover ~ span:before {
+   content: "\2605";
+   position: absolute;
+    /*color: green;*/
+}
+
+.rating12 {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+}
+.rating12 > span {
+  font-size: 20px;
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+.rating12 > span:hover:before,
+.rating12 > span:hover ~ span:before {
+   content: "\2605";
+    color: yellow;
+   position: absolute;
+}
+
+.extendons-support {
+  position: relative;
+  margin: 25px 40px 0 20px;
+  font-size: 15px;
+}
+.extendons-support h3 {
+padding: 10px;
+font-weight: bold;
+text-align: center;
+}
+.extendons-support .about-text {
+  margin: 1em 0px 1em 200px;
+  min-height: 60px;
+  color: #32373c;
+  line-height: 32px;
+  font-size: 18px;
+}
+.extendons-logo img {
+  width: 150px;
+}
+.extendons-support .extendons-logo {
+  position: absolute;
+  width: 150px;
+  background: white; 
+  border: none;
+  top: 0;
+  text-align: center;
+  margin: 20px 0 0;
+  display: inline-block;
+  text-rendering: optimizeLegibility;
+  -webkit-box-shadow: 0 1px 3px rgba(26, 58, 116, 0.77);
+}
+.extendons-support-form {
+  padding: 15px;
+  position: relative;
+  background: rgba(255, 255, 255, 0.52);
+  border: 1px solid #e5e5e5;
+  margin-top: 15px;
+}
+.extendons-support-active .widefat{
+  background: rgba(255, 255, 255, 0.52);
+}
+.extendons-support-form::after {
+  background:url(../img/logo-extendon.png) top center;
+  content: "";
+  opacity: 0.2;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+.extendons-support-form input[type=text],
+.extendons-support-form input[type=email],
+.extendons-support-form textarea {
+  padding: 10px 15px;
+  width: 45%;
+  margin-bottom: 15px;
+  margin-right: 20px;
+}
+.extendons-support-form textarea {
+  width: 93%;
+}
+.extendons-support-form input[type=number] {
+  width: 45%;
+  margin-bottom: 20px;
+  height: 40px;
+  margin-right: 20px;
+  padding: 5px 16px;
+}
+.extendons-support-form select  {
+  width: 45%;
+  color: #7E7D7D;
+  height: 40px;
+  padding: 5px 16px;
+}
+form#extendon-form-support {
+  width: 90%;
+  margin: 30px auto;
+}
+#extendon-submit{
+  box-shadow: none !important;
+  cursor: pointer;
+  border: none !important;
+  text-decoration: none !important;
+  background: #3498db;
+  border-radius: 4px;
+  color: #fff;
+  line-height: 40px;
+  padding: 0px 20px;
+  width: 93%; 
+  display: inline-block;
+  font-weight: 600;
+  font-size: 14px;
+  outline: none !important;
+}
+input#extendon-submit:hover {
+  background: rgba(52, 152, 219, 0.78);
+}
+.extendon-socials {
+  text-align: center;
+}
+ul.extend-social-left li {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0px 10px;
+}
+.extendons-support-form h4 {
+  font-size: 14px;
+  border-bottom: 1px solid #e1e1e1;
+  padding-bottom: 10px;
+  margin: 0px -5px;
+}
+.extendons-support-form h5 {
+  text-align: center;
+  color: #397C17;
+  display: none;
+}
+#extendon-form-support .extendon-field label {
+  display: inline-flex;
+  width: 130px;
+  margin-right: 0px;
+  padding-top: 8px;
+}
+form#extendon-form-support ul.parsley-errors-list {
+  text-align: center !important;
+  display: none !important;
+}
+li#menu-posts-product_review_post .wp-menu-image img {
+  padding: 4px;
+}
+.red{
+  transition: all .2s ease-in-out;
+  width: 6% !important;
+}
+.redd{
+  transition: all .2s ease-in-out;
+}
+.green {
+  transition: all .2s ease-in-out;
+  width: 86% !important;
+}
+.reddisnon {
+  transition: all .2s ease-in-out;
+  display: none;
+}
+
+
+/*inner checkboxes*/
+.checkboxFour {
+  width: 40px;
+  height: 40px;
+  background: #ddd;
+  margin: 0% 0% 0% 40%;
+
+  border-radius: 100%;
+  position: relative;
+  box-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+}
+.checkboxFour label {
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-radius: 100px;
+  transition: all .5s ease;
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 1;
+  background: #333;
+  box-shadow:inset 0px 1px 3px rgba(0,0,0,0.5);
+}
+.checkboxFour input[type=checkbox]:checked + label {
+  background: #26ca28;
+}
+.checkboxFour input[type=checkbox] {
+  visibility: hidden;
+}
+
+/*  tabs */
+.ui-tabs.ui-tabs-vertical {
+  padding: 0;
+  width: 42em;
+}
+.ui-tabs.ui-tabs-vertical .ui-widget-header {
+  border: none;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav {
+  float: left;
+  width: 100%;
+  padding: 10px 0px;
+  margin: 0px;
+  background: rgba(0, 0, 0, 0.83);
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li {
+  clear: left;
+  width: 100%;
+  margin: 0.2em 0;
+  border-width: 1px 0 1px 1px;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li a {
+  display: block;
+  width: 100%;
+  padding: 12px 4px 8px 20px;
+  font-size: 14px;
+  color: white;
+  text-decoration: none;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li a:hover {
+  cursor: pointer;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active {
+  margin-bottom: 0.2em;
+  padding-bottom: 0;
+  background: #0073aa;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li:last-child {
+    margin-bottom: 10px;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-panel {
+  float: left;
+  width: 100%;
+  border-radius: 0;
+  position: relative;
+  left: -1px;
+}
+li.ui-state-default.ui-corner-top.ui-tabs-active.ui-state-active::before {
+  right: 0;
+  border: 9px solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-right-color: #fff;
+  top: 50%;
+  margin-top: -8px;
+}
+div#extedndons-tabs {
+  width: 100%;
+  margin-top: 20px;
+  float: left;
+  background: white;
+}
+.extendons-tabs-ulli {
+  width: 25%;
+  float: left;
+}
+.extendon-logo-ui img {
+  width: 100%;
+  padding: 8px 0px;
+}
+.extendon-logo-ui {
+  background: #0073aa;
+}
+.extendon-logo-ui h2 {
+  text-align: center;
+  padding: 10px;
+  margin: 0px;
+  color: white;
+}
+.extendons-tabs-content {
+  width: 70%;
+  float: right;
+  margin-right: 4px;
+  padding: 0px 20px;
+}
+.extendon-top-content h1 {
+  padding: 0;
+  text-align: center;
+  color: #32373c;
+  line-height: 1.2em;
+  font-size: 2.8em;
+  font-weight: 400;
+}
+.extendon-singletab h2 {
+  margin: 3em 0 2em;
+  padding: 8px 15px;
+  background-color: #f4f2f2;
+  line-height: 1.5;
+}
+.ui-tabs.ui-tabs-vertical .ui-tabs-nav li a span {
+  padding-right: 20px;
+}
+li.ui-state-default.ui-corner-top.ui-state-hover {
+  background: black;
+}
+.extendon-top-content {
+  border-bottom: 1px solid #ccc;
+}
+table.extendon-table-optoin {
+  width: 100%;
+  border-collapse: collapse;
+}
+tr.extendon-option-field th {
+  width: 50% !important;
+  padding: 20px 60px 20px 0;
+}
+tr.extendon-option-field td {
+  width: 50% !important;
+}
+.extendon-option-field th .option-head h3 {
+  text-align: left;
+  margin: 8px 0px;
+}
+.extendon-option-field th span.description p {
+  font-style: normal;
+  text-align: left;
+  font-weight: 100;
+}
+.extendon-option-field td .extendon-input-field {
+  width: 100%;
+  background: rgba(204, 204, 204, 0.22);
+  line-height: 1.75em;
+  padding-left: 0.75em;
+}
+tr.extendon-option-field {
+  border-bottom: 1px solid #E7E7E7;
+}
+input[type=number].extendon-input-field {
+  height: 32px;
+}
+.extendon-support-actions .actions {
+  display: inline-block;
+}
+.extendon-support-actions .actions.extendon-submit {
+  float: right;
+}
+table.extendon-table-optoin tr:last-child {
+  border-bottom: none;
+}
+.extendon-support-actions {
+  margin-bottom: 20px;
+}
+.extendon-support-actions .spinner {
+float: left;
+}
+.actions.extendon-support-links a {
+  text-decoration: none;
+  color: black;
+}
+tr.submit-extendon.extendon-option-field .actions.extendon-submit {
+  padding: 20px;
+  float: right;
+}
+#ajax-extend {
+  background: url(../img/spinner.gif) no-repeat;
+  float: left;
+  display: none;
+  width: 20px;
+  height: 20px;
+  margin: 4px 10px 0;
+}
+div#option-success {
+  border: 1px solid rgba(0, 128, 0, 0.26);
+  margin: 10px 0px;
+  background: rgba(0, 128, 0, 0.12);
+  display: none;
+}
+div#option-success p {
+  color: green;
+  text-align: center;
+  padding: 6px 0px;
+  margin: 0px;
+}
+ul.collapsed-extendon {
+  float: left;
+  width: 100%;
+  padding: 10px 0px;
+  margin: 0px;
+  background: rgba(0, 0, 0, 0.83);
+}
+ul.collapsed-extendon li a {
+  display: block;
+  width: 100%;
+  padding: 12px 4px 8px 20px;
+  font-size: 14px;
+  color: white;
+  text-decoration: none;
+}
+ul.collapsed-extendon li a span {
+  background: white;
+  padding: 0px 0px;
+  margin-right: 20px;
+  color: black;
+  border-radius: 50%;
+}
+ul.collapsed-extendon li a:hoverhover {
+  color: #0073aa;
+}
+
+
+/*checkboxes*/
+#radios, #rad, #like_dislike, #ext_comment, #ext_email_noti, #ext_comme_noti, #privpub, #commentmainid, #haveafaq {
+  position: relative;
+  z-index: 5;
+  background: #e6e6e6;
+  width: 200px;
+}
+#radios input[type="radio"],
+#rad input[type="radio"],
+#like_dislike input[type="radio"],
+#ext_comment input[type="radio"],
+#ext_email_noti input[type="radio"],
+#privpub input[type="radio"],
+#commentmainid input[type="radio"],
+#haveafaq input[type="radio"],
+#ext_comme_noti input[type="radio"] {
+  display: none;
+}
+#bckgrnd, .labels,
+#radback, .radlab,
+#like_dislikeb, .extndc,
+#ext_commentb, .extcc,
+#emailb, .emailc,
+#privpubb, .privlabel,
+#commentb, .commanelc,
+#haveafaqb, .havefaql,
+#commeb, .commec {
+  width: 100px;
+  height: 30px;
+  text-align: center;
+  display: inline-block;
+  padding-top: 10px;
+  margin-right: -3px;
+  z-index: 2;
+  cursor: pointer;
+  outline:1px solid rgba(0, 0, 0, 0.1) !important
+}
+#bckgrnd, #radback, #like_dislikeb, #ext_commentb, #emailb, #commeb, #privpubb, #commentb, #haveafaqb {
+  background-color: #0073aa;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+#rad1:checked ~ #bckgrnd,
+#rad11:checked ~ #radback,
+#extld0:checked ~ #like_dislikeb,
+#extc0:checked ~ #ext_commentb,
+#extn1:checked ~ #emailb,
+#extcn1:checked ~ #commeb,
+#priv1:checked ~ #privpubb,
+#commo:checked ~ #commentb,
+#hfaq1:checked ~ #haveafaqb {
+  transform: translateX(0);
+  transition: transform 0.2s ease-in-out;
+}
+#rad2:checked ~ #bckgrnd,
+#rad22:checked ~ #radback,
+#extld1:checked ~ #like_dislikeb,
+#extc1:checked ~ #ext_commentb,
+#extn2:checked ~ #emailb,
+#extcn2:checked ~ #commeb,
+#priv2:checked ~ #privpubb,
+#commc:checked ~ #commentb,
+#hfaq2:checked ~ #haveafaqb  {
+  transform: translateX(100px);
+  transition: transform 0.2s ease-in-out;
+}
+input.questionpermission:checked + .radlab,
+input.userfaq:checked + .labels,
+input.likespermission:checked + .extndc,
+input.commentapp:checked + .extcc,
+input.ext_notify_email:checked + .emailc,
+input.ext_notify_email:checked + .emailc,
+input.privclass:checked + .privlabel, 
+input.comentper:checked + .commanelc,
+input.haveafaqinc:checked + .havefaql,
+input.ext_notify_comme:checked + .commec {
+  color: white;
+}
+label.privpubliclab {
+  padding: 9px 10px;
+  color: white;
+  background: #26a9e0;
+}

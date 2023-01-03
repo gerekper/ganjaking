@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     2.8.0
+ * @version     2.9.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -1482,166 +1482,168 @@ if ( ! class_exists( 'WC_SC_Display_Coupons' ) ) {
 				$url               = WC_AJAX::get_endpoint( 'apply_coupon' );
 				$wp_security_nonce = wp_create_nonce( 'apply-coupon' );
 				$js                = "function wc_sc_apply_coupon_js() {
-                                        let coupon_code = jQuery(this).data('coupon_code');
-                                        if( coupon_code != '' && coupon_code != undefined ) {
-                                            jQuery(this).css('opacity', '0.5');";
+										let coupon_code = jQuery(this).data('coupon_code');
+										if( coupon_code != '' && coupon_code != undefined ) {
+											jQuery(this).css('opacity', '0.5');";
 
 				if ( is_cart() ) {
 					$js .= "block_cart_elements( jQuery( '.woocommerce-cart-form' ) );
-                            block_cart_elements( jQuery( 'div.cart_totals' ) );
-                            block_cart_elements( jQuery( '.sc-coupons-list' ) ); ";
+							block_cart_elements( jQuery( 'div.cart_totals' ) );
+							block_cart_elements( jQuery( '.sc-coupons-list' ) ); ";
 				} else {
 					$js .= "block_cart_elements( jQuery( '.sc-coupons-list' ) ); ";
 				}
 				$js .= "var data = {
-                                    coupon_code: coupon_code, 
-                                    security: '" . $wp_security_nonce . "'
-                            };
-                                        
-                            jQuery.ajax( {
-                                    type:     'POST',
-                                    url:      '" . $url . "',
-                                    data:     data,
-                                    dataType: 'html',";
+									coupon_code: coupon_code, 
+									security: '" . $wp_security_nonce . "'
+							};
+										
+							jQuery.ajax( {
+									type:     'POST',
+									url:      '" . $url . "',
+									data:     data,
+									dataType: 'html',";
 				if ( is_cart() ) {
 					$js .= "success: function( response ) {
-                                        jQuery( '.woocommerce-error, .woocommerce-message, .woocommerce-info' ).remove();
-                                        jQuery( '.woocommerce-notices-wrapper:first' ).prepend( response );                               
-                                    },
-                                    complete: function() {
-                                       update_cart();
-                                       jQuery( '.woocommerce-cart-form' ).removeClass( 'processing' ).unblock();
-                                       jQuery( 'div.cart_totals' ).removeClass( 'processing' ).unblock();
-                                       jQuery( '.sc-coupons-list' ).removeClass( 'processing' ).unblock();
-                                    }";
+										jQuery( '.woocommerce-error, .woocommerce-message, .woocommerce-info' ).remove();
+										jQuery( '.woocommerce-notices-wrapper:first' ).prepend( response );                               
+									},
+									complete: function() {
+									   update_cart();
+									   jQuery( '.woocommerce-cart-form' ).removeClass( 'processing' ).unblock();
+									   jQuery( 'div.cart_totals' ).removeClass( 'processing' ).unblock();
+									   jQuery( '.sc-coupons-list' ).removeClass( 'processing' ).unblock();
+									}";
 				} elseif ( is_checkout() ) {
 					$js .= "success: function( response ) {             
-                                        if ( response ) {    
-                                            jQuery( '.woocommerce-error, .woocommerce-message' ).remove();                             
-                                            jQuery( 'form.woocommerce-checkout' ).before( response );               
+										if ( response ) {    
+											jQuery( '.woocommerce-error, .woocommerce-message' ).remove();                             
+											jQuery( 'form.woocommerce-checkout' ).before( response );               
 
-                                            $( document.body ).trigger( 'update_checkout', { update_shipping_method: false } );                          
-                                        }                          
-                                    },
-                                    complete: function() {
-                                        jQuery( '.sc-coupons-list' ).removeClass( 'processing' ).unblock();
-                                    }";
+											$( document.body ).trigger( 'update_checkout', { update_shipping_method: false } );                          
+										}                          
+									},
+									complete: function() {
+										jQuery( '.sc-coupons-list' ).removeClass( 'processing' ).unblock();
+									}";
 				} else {
 					$js .= "success: function( response ) {
-                                        jQuery( '.woocommerce-error, .woocommerce-message, .woocommerce-info' ).remove();
-                                       
-                                        if( jQuery('body #sc_coupons_list').length ){
-                                            jQuery( '#sc_coupons_list' ).before( response );    
-                                        }else{
-                                             jQuery( '#coupons_list' ).before( response );   
-                                        }
-                                        scroll_to_notices( jQuery( '[role=\"alert\"]' ) );
-                                    },
-                                    complete: function() {
-                                        jQuery( '.sc-coupons-list' ).removeClass( 'processing' ).unblock();
-                                    }";
+										jQuery( '.woocommerce-error, .woocommerce-message, .woocommerce-info' ).remove();
+									   
+										if( jQuery('body #sc_coupons_list').length ){
+											jQuery( '#sc_coupons_list' ).before( response );    
+										}else{
+											 jQuery( '#coupons_list' ).before( response );   
+										}
+										scroll_to_notices( jQuery( '[role=\"alert\"]' ) );
+									},
+									complete: function() {
+										jQuery( '.sc-coupons-list' ).removeClass( 'processing' ).unblock();
+									}";
 				}
 
 				$js .= ' } );
-        
-                        }
-                    }';
+		
+						}
+					}';
 			} else {
 				$js = "function wc_sc_apply_coupon_js() {
-                    let coupon_code = jQuery(this).data('coupon_code');
-    
-                    if( coupon_code != '' && coupon_code != undefined ) {
-    
-                        jQuery(this).css('opacity', '0.5');
-                        var url = '" . trailingslashit( home_url() ) . ( ( strpos( home_url(), '?' ) === false ) ? '?' : '&' ) . ( ( ! empty( $args['page'] ) ) ? 'sc-page=' . $args['page'] : '' ) . "&coupon-code='+coupon_code;
-                        jQuery(location).attr('href', url);
-    
-                    }
-                }";
+					let coupon_code = jQuery(this).data('coupon_code');
+	
+					if( coupon_code != '' && coupon_code != undefined ) {
+	
+						jQuery(this).css('opacity', '0.5');
+						var url = '" . trailingslashit( home_url() ) . ( ( strpos( home_url(), '?' ) === false ) ? '?' : '&' ) . ( ( ! empty( $args['page'] ) ) ? 'sc-page=' . $args['page'] : '' ) . "&coupon-code='+coupon_code;
+						jQuery(location).attr('href', url);
+	
+					}
+				}";
 			}
 
 			$js .= "var show_hide_coupon_list = function() {
-                        if ( jQuery('div#coupons_list').find('div.sc-coupon, div.coupon-container').length > 0 ) {
-                            jQuery('div#coupons_list').slideDown(800);
-                        } else {
-                            jQuery('div#coupons_list').hide();
-                        }
-                    };
+						if ( jQuery('div#coupons_list').find('div.sc-coupon, div.coupon-container').length > 0 ) {
+							jQuery('div#coupons_list').slideDown(800);
+						} else {
+							jQuery('div#coupons_list').hide();
+						}
+					};
 
-                    var coupon_container_height = jQuery('#all_coupon_container').height();
-                    if ( coupon_container_height > 400 ) {
-                        jQuery('#all_coupon_container').css('height', '400px');
-                        jQuery('#all_coupon_container').css('overflow-y', 'scroll');
-                    } else {
-                        jQuery('#all_coupon_container').css('height', '');
-                        jQuery('#all_coupon_container').css('overflow-y', '');
-                    }
-        
-                    jQuery( document.body ).on('click', '.apply_coupons_credits', wc_sc_apply_coupon_js);
-        
-                    jQuery('.checkout_coupon').next('#coupons_list').hide();
-        
-                    jQuery('a.showcoupon').on('click', function() {
-                        show_hide_coupon_list();
-                    });
-        
-                    jQuery('div#invalid_coupons_list div#all_coupon_container .sc-coupon').removeClass('apply_coupons_credits');
-        
-                    function wc_sc_update_checkout() {
-                        jQuery( document.body ).trigger('update_checkout');
-                    }
+					var coupon_container_height = jQuery('#all_coupon_container').height();
+					if ( coupon_container_height > 400 ) {
+						jQuery('#all_coupon_container').css('height', '400px');
+						jQuery('#all_coupon_container').css('overflow-y', 'scroll');
+					} else {
+						jQuery('#all_coupon_container').css('height', '');
+						jQuery('#all_coupon_container').css('overflow-y', '');
+					}
+		
+					jQuery( document.body ).on('click', '.apply_coupons_credits', wc_sc_apply_coupon_js);
+		
+					jQuery('.checkout_coupon').next('#coupons_list').hide();
+		
+					jQuery('a.showcoupon').on('click', function() {
+						show_hide_coupon_list();
+					});
+		
+					jQuery('div#invalid_coupons_list div#all_coupon_container .sc-coupon').removeClass('apply_coupons_credits');
+		
+					function wc_sc_update_checkout() {
+						jQuery( document.body ).trigger('update_checkout');
+					}
 
-                     function scroll_to_notices( scrollElement ){
-                        if ( scrollElement.length ) {
-                            jQuery( 'html, body' ).animate( {
-                                scrollTop: ( scrollElement.offset().top - 100 )
-                            }, 1000 );
-                        }
-                     }
-                    
-                    function block_cart_elements( node ){
-                        if ( ! ( node.is( '.processing' ) || node.parents( '.processing' ).length ) ) {
-                            node.addClass( 'processing' ).block( {
-                                message: null,
-                                overlayCSS: {
-                                    background: '#fff',
-                                    opacity: 0.6
-                                }
-                            } );
-                        }
-                    }
-                    
-                    function update_cart()
-                    {
-                        var cart_form = jQuery( '.woocommerce-cart-form' );
-                        block_cart_elements( cart_form );
-                        block_cart_elements( jQuery( 'div.cart_totals' ) );
-                        block_cart_elements( jQuery( '.sc-coupons-list' ) );
-                        
-                        // Make call to actual form post URL.
-                        jQuery.ajax( {
-                            type:     cart_form.attr( 'method' ),
-                            url:      cart_form.attr( 'action' ),
-                            data:     cart_form.serialize(),
-                            dataType: 'html',
-                            success:  function( response ) {
-                                var response_html  = jQuery.parseHTML( response );
-                                var new_form       = jQuery( '.woocommerce-cart-form', response_html );
-                                var new_totals     = jQuery( '.cart_totals', response_html );
-                       
-                                jQuery( '.cart_totals' ).replaceWith( new_totals );
-                                jQuery( document.body ).trigger( 'updated_cart_totals' );
-                                
-                            }, 
-                            complete: function() {
-                               scroll_to_notices( jQuery( '[role=\"alert\"]' ) ); 
-                               cart_form.removeClass( 'processing' ).unblock();
-                               jQuery( 'div.cart_totals' ).removeClass( 'processing' ).unblock();
-                               jQuery( '.sc-coupons-list' ).removeClass( 'processing' ).unblock();                          
-                               
-                            }
-                        } );
-                    }";
+					 function scroll_to_notices( scrollElement ){
+						if ( scrollElement.length ) {
+							jQuery( 'html, body' ).animate( {
+								scrollTop: ( scrollElement.offset().top - 100 )
+							}, 1000 );
+						}
+					 }
+					
+					function block_cart_elements( node ){
+						if ( ! ( node.is( '.processing' ) || node.parents( '.processing' ).length ) ) {
+							node.addClass( 'processing' ).block( {
+								message: null,
+								overlayCSS: {
+									background: '#fff',
+									opacity: 0.6
+								}
+							} );
+						}
+					}
+					
+					function update_cart()
+					{
+						var cart_form = jQuery( '.woocommerce-cart-form' );
+						block_cart_elements( cart_form );
+						block_cart_elements( jQuery( 'div.cart_totals' ) );
+						block_cart_elements( jQuery( '.sc-coupons-list' ) );
+						
+						// Make call to actual form post URL.
+						jQuery.ajax( {
+							type:     cart_form.attr( 'method' ),
+							url:      cart_form.attr( 'action' ),
+							data:     cart_form.serialize(),
+							dataType: 'html',
+							success:  function( response ) {
+								var response_html  = jQuery.parseHTML( response );
+								var updated_cart_form  = jQuery( '.woocommerce-cart-form', response_html );
+								var updated_totals     = jQuery( '.cart_totals', response_html );
+								jQuery( '.woocommerce-cart-form' ).replaceWith( updated_cart_form );
+								jQuery( '.woocommerce-cart-form' ).find( ':input[name=\"update_cart\"]' ).prop( 'disabled', true ).attr( 'aria-disabled', true );
+					   
+								jQuery( '.cart_totals' ).replaceWith( updated_totals );
+								jQuery( document.body ).trigger( 'updated_cart_totals' );
+								
+							}, 
+							complete: function() {
+							   scroll_to_notices( jQuery( '[role=\"alert\"]' ) ); 
+							   cart_form.removeClass( 'processing' ).unblock();
+							   jQuery( 'div.cart_totals' ).removeClass( 'processing' ).unblock();
+							   jQuery( '.sc-coupons-list' ).removeClass( 'processing' ).unblock();                          
+							   
+							}
+						} );
+					}";
 
 			if ( is_checkout() ) {
 				$is_wc_session_get = function_exists( 'WC' ) && isset( WC()->session ) && is_object( WC()->session ) && is_callable( array( WC()->session, 'get' ) );

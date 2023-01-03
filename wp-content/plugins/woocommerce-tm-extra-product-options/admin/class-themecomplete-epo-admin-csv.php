@@ -135,7 +135,7 @@ final class THEMECOMPLETE_EPO_ADMIN_CSV {
 				while ( ( $postmeta = fgetcsv( $handle, 0, $csv->delimiter ) ) !== false ) { // phpcs:ignore WordPress.CodeAnalysis.AssignmentInCondition
 					$row = [];
 					foreach ( $header as $key => $heading ) {
-						$heading   = strtolower( $this->remove_utf8_bom( trim( $heading ) ) );
+						$heading   = $this->remove_utf8_bom( trim( $heading ) );
 						$s_heading = $heading;
 						$s_heading = $this->format_data_from_csv( $s_heading, $enc );
 

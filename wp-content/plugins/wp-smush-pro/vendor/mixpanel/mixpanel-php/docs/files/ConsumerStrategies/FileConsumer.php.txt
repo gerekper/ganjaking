@@ -36,6 +36,3 @@ class ConsumerStrategies_FileConsumer extends ConsumerStrategies_AbstractConsume
         }
     }
 }
-
-
-941105-1666688512-au

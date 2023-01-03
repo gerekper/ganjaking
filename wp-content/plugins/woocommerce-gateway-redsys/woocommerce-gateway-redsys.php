@@ -3,11 +3,11 @@
  * Plugin Name: WooCommerce Servired/RedSys Spain Gateway
  * Plugin URI: https://woocommerce.com/products/redsys-gateway/
  * Description: Extends WooCommerce with RedSys gateway.
- * Version: 19.0.0
+ * Version: 19.0.1
  * Author: José Conti
  * Author URI: https://www.joseconti.com/
  * Tested up to: 6.1
- * WC requires at least: 4.0.0
+ * WC requires at least: 7.0.0
  * WC tested up to: 7.2
  * Woo: 187871:50392593e834002d8bee386333d1ed3c
  * Text Domain: woocommerce-redsys
@@ -22,7 +22,7 @@
 use Automattic\WooCommerce\Utilities\OrderUtil;
 
 if ( ! defined( 'REDSYS_VERSION' ) ) {
-	define( 'REDSYS_VERSION', '19.0.0' );
+	define( 'REDSYS_VERSION', '19.0.1' );
 }
 if ( ! defined( 'REDSYS_FLUSH_VERSION' ) ) {
 	define( 'REDSYS_FLUSH_VERSION', 200 );
@@ -135,25 +135,16 @@ require_once REDSYS_PLUGIN_NOTICE_PATH_P . 'notices.php';
 require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-settings-tab-redsys-sort-invoices.php';
 require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-redsys-push-notifications-menu.php';
 require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-redsys-card-images.php';
+// require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-redsys-qr-codes.php';
 
 if ( ! class_exists( 'WooRedsysAPI' ) ) {
-	if ( version_compare( PHP_VERSION, '7.0.0', '<' ) ) {
-		require_once REDSYS_PLUGIN_API_REDSYS_PATH . 'apiRedsys5.php';
-		define( 'REDSYS_API_LOADED', 'yes' );
-	} else {
-		require_once REDSYS_PLUGIN_API_REDSYS_PATH . 'apiRedsys7.php';
-		define( 'REDSYS_API_LOADED', 'yes' );
-	}
+	require_once REDSYS_PLUGIN_API_REDSYS_PATH . 'apiRedsys7.php';
+	define( 'REDSYS_API_LOADED', 'yes' );
 }
 
 if ( ! class_exists( 'WooRedsysAPIWS' ) ) {
-	if ( version_compare( PHP_VERSION, '7.0.0', '<' ) ) {
-		require_once REDSYS_PLUGIN_API_REDSYS_PATH . 'apiRedsysWs5.php';
-		define( 'REDSYS_API_LOADED_WS', 'yes' );
-	} else {
-		require_once REDSYS_PLUGIN_API_REDSYS_PATH . 'apiRedsysWs7.php';
-		define( 'REDSYS_API_LOADED_WS', 'yes' );
-	}
+	require_once REDSYS_PLUGIN_API_REDSYS_PATH . 'apiRedsysWs7.php';
+	define( 'REDSYS_API_LOADED_WS', 'yes' );
 }
 
 require_once REDSYS_PLUGIN_API_REDSYS_PATH . 'initRedsysApi.php';
@@ -235,6 +226,7 @@ function woocommerce_gateway_redsys_premium_init() {
 	if ( ! class_exists( 'WC_Payment_Gateway' ) ) {
 		return;
 	}
+	// require_once REDSYS_PLUGIN_CLASS_PATH_P . 'class-wc-gateway-redsys-scheduled-actions.php';
 
 	/**
 	 * Package: WooCommerce Redsys Gateway

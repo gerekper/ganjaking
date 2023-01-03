@@ -42,7 +42,7 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 
 
 	/** string the plugin version number */
-	const VERSION = '3.1.0';
+	const VERSION = '3.1.1';
 
 	/** string the plugin id */
 	const PLUGIN_ID = 'intuit_payments';
@@ -605,7 +605,7 @@ class WC_Intuit_Payments extends Framework\SV_WC_Payment_Gateway_Plugin {
 
 		parent::init_setup_wizard_handler();
 
-		require_once $this->get_framework_path() . '/payment-gateway/admin/abstract-sv-wc-payment-gateway-plugin-admin-setup-wizard.php';
+		require_once $this->get_payment_gateway_framework_path() . '/admin/abstract-sv-wc-payment-gateway-plugin-admin-setup-wizard.php';
 		require_once $this->get_plugin_path() . '/src/admin/Setup_Wizard.php';
 
 		$this->setup_wizard_handler = new \SkyVerge\WooCommerce\Intuit\Admin\Setup_Wizard( $this );

@@ -112,7 +112,8 @@ if ( ! empty( $tm_variation_undo_button ) || ! empty( $clear_options ) ) {
 	$class .= ' tm-has-undo-button';
 }
 if ( $required ) {
-	$class .= ' tm-has-required';
+	$class    .= ' tm-has-required';
+	$divclass .= ' tc-is-required';
 }
 
 if ( empty( $label ) && ! empty( $required ) ) {

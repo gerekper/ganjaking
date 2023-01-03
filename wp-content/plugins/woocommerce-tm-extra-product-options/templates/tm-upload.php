@@ -48,6 +48,14 @@ defined( 'ABSPATH' ) || exit;
 		if ( THEMECOMPLETE_EPO()->associated_per_product_pricing === 0 ) {
 			$input_args['tags']['data-no-price'] = true;
 		}
+
+		$input_args = apply_filters(
+			'wc_element_input_args',
+			$input_args,
+			isset( $tm_element_settings ) ? $tm_element_settings['type'] : '',
+			isset( $args ) ? $args : [],
+		);
+
 		THEMECOMPLETE_EPO_HTML()->create_field( $input_args, true );
 		?>
 		</span>

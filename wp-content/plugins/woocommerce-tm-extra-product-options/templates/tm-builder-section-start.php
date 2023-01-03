@@ -28,6 +28,9 @@ if ( ! empty( $tm_product_id ) ) {
 if ( 'slider' === $sections_type ) {
 	$column .= ' tm-owl-slider-section';
 }
+if ( 'tabs' === $sections_type ) {
+	$column .= ' tc-tabs-section';
+}
 ?>
 <div data-uniqid="<?php echo esc_attr( $uniqid ); ?>"
 	data-logic="<?php echo esc_attr( $logic ); ?>"

@@ -192,14 +192,14 @@ if ( ! function_exists( 'themecomplete_convert_local_numbers' ) ) {
 		$locale   = localeconv();
 		$decimals = [ wc_get_price_decimal_separator(), $locale['decimal_point'], $locale['mon_decimal_point'] ];
 
-		// Remove whitespace from string.
-		$input = preg_replace( '/\B\s+|\s+\B/', '', $input );
+		// Trim string.
+		$input = trim( $input );
 
 		// Remove locale from string.
 		foreach ( $decimals as $decimal ) {
 			if ( '.' !== $decimal && '' !== $decimal ) {
 				$input = preg_replace_callback(
-					'~if\(.*?\)(*SKIP)(*F)|lookuptable\(.*?\)(*SKIP)(*F)|min\(.*?\)(*SKIP)(*F)|max\(.*?\)(*SKIP)(*F)|{[^{}]*}(*SKIP)(*F)|\d+\\' . $decimal . '+\d*~',
+					'~if\(.*?\)(*SKIP)(*F)|lookuptable\(.*?\)(*SKIP)(*F)|min\(.*?\)(*SKIP)(*F)|max\(.*?\)(*SKIP)(*F)|{[^{}]*}(*SKIP)(*F)|\d+\\' . $decimal . '+\d+~',
 					function ( $m ) use ( $decimal ) {
 						return str_replace( $decimal, '.', $m[0] );
 					},
@@ -246,12 +246,17 @@ if ( ! function_exists( 'themecomplete_get_roles' ) ) {
 	/**
 	 * Get available roles
 	 *
+	 * @param array $disable Disable roles from showing.
 	 * @return array
 	 */
-	function themecomplete_get_roles() {
-		$result              = [];
-		$result['@everyone'] = esc_html__( 'Everyone', 'woocommerce-tm-extra-product-options' );
-		$result['@loggedin'] = esc_html__( 'Logged in users', 'woocommerce-tm-extra-product-options' );
+	function themecomplete_get_roles( $disable = [] ) {
+		$result = [];
+		if ( ! in_array( '@everyone', $disable, true ) ) {
+			$result['@everyone'] = esc_html__( 'Everyone', 'woocommerce-tm-extra-product-options' );
+		}
+		if ( ! in_array( '@loggedin', $disable, true ) ) {
+			$result['@loggedin'] = esc_html__( 'Logged in users', 'woocommerce-tm-extra-product-options' );
+		}
 		global $wp_roles;
 		if ( empty( $wp_roles ) ) {
 			$all_roles = new WP_Roles();
@@ -261,8 +266,10 @@ if ( ! function_exists( 'themecomplete_get_roles' ) ) {
 		$roles = $all_roles->roles;
 		if ( $roles ) {
 			foreach ( $roles as $role => $details ) {
-				$name            = translate_user_role( $details['name'] );
-				$result[ $role ] = $name;
+				if ( ! in_array( $role, $disable, true ) ) {
+					$name            = translate_user_role( $details['name'] );
+					$result[ $role ] = $name;
+				}
 			}
 		}
 
@@ -346,3 +353,69 @@ if ( ! function_exists( 'themecomplete_price' ) ) {
 		return apply_filters( 'tc_price', $return, $price, $args, $unformatted_price, $original_price );
 	}
 }
+
+if ( ! function_exists( 'themecomplete_get_tax_rate' ) ) {
+	/**
+	 * Get the tax rate of the given tax classes
+	 *
+	 * @param string $classes Tax class.
+	 *
+	 * @return int
+	 */
+	function themecomplete_get_tax_rate( $classes ) {
+
+		$tax_rate = 0;
+
+		if ( class_exists( 'WC_Tax' ) && version_compare( get_option( 'woocommerce_version' ), '2.4', '>=' ) ) {
+			$tax_rates    = WC_Tax::get_rates( $classes );
+			$precision    = wc_get_rounding_precision();
+			$price_of_one = 1 * ( pow( 10, $precision ) );
+			$taxes_of_one = array_sum( WC_Tax::calc_tax( $price_of_one, $tax_rates, wc_prices_include_tax() ) );
+			$taxes_of_one = $taxes_of_one / ( pow( 10, $precision ) );
+			$tax_rate     = 100 * $taxes_of_one;
+		}
+
+		return $tax_rate;
+
+	}
+}
+
+if ( ! function_exists( 'themecomplete_do_shortcode' ) ) {
+	/**
+	 * Search content for shortcodes and filter shortcodes through their hooks.
+	 *
+	 * If there are no shortcode tags defined, then the content will be returned
+	 * without any filtering. This might cause issues when plugins are disabled but
+	 * the shortcode will still show up in the post or content.
+	 *
+	 * @since 6.2
+	 *
+	 * @global array $shortcode_tags List of shortcode tags and their callback hooks.
+	 *
+	 * @param string  $content     Content to search for shortcodes.
+	 * @param boolean $ignore_html When true, shortcodes inside HTML elements will be skipped.
+	 *                            Default false.
+	 * @return string Content with shortcodes filtered out.
+	 */
+	function themecomplete_do_shortcode( $content, $ignore_html = false ) {
+
+		global $wp_embed;
+
+		// The < character when used in math formulas conflicts with the
+		// shortcode functionality and several cases so we use the following
+		// workaround to fix it.
+		$content = str_replace( '<', '<>THEMECOMPLETEDIDREPLACE', $content );
+
+		if ( $wp_embed ) {
+			$content = do_shortcode( $wp_embed->run_shortcode( $content ) );
+		} else {
+			$content = do_shortcode( $content );
+		}
+
+		$content = str_replace( '<>THEMECOMPLETEDIDREPLACE', '<', $content );
+
+		return $content;
+
+	}
+}
+

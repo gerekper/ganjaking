@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     5.1.0
+ * @version     5.2.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -2196,7 +2196,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 
 			if ( is_a( $coupon, 'WC_Coupon' ) ) {
 
-				if ( $coupon->is_valid() && $coupon->is_type( 'percent' ) ) {
+				if ( is_object( $coupon ) && is_callable( array( $coupon, 'is_valid' ) ) && $coupon->is_valid() && is_callable( array( $coupon, 'is_type' ) ) && $coupon->is_type( 'percent' ) ) {
 					if ( $this->is_wc_gte_30() ) {
 						$coupon_id = ( is_callable( array( $coupon, 'get_id' ) ) ) ? $coupon->get_id() : 0;
 					} else {
@@ -5613,7 +5613,7 @@ if ( ! class_exists( 'WC_Smart_Coupons' ) ) {
 				throw new Exception( __( 'Something went wrong. For details, check "woocommerce-smart-coupons..." log under WooCommerce > Status > Logs', 'woocommerce-smart-coupons' ) );
 			}
 			if ( ! in_array( $item_key, array( 'discount', 'discount_amount', 'discount_amount_tax', 'sc_refunded_discount', 'sc_refunded_discount_tax', 'sc_called_credit' ), true ) ) {
-				return;
+				return wc_update_order_item_meta( $item_id, $item_key, $item_value );
 			}
 			$item_value = $this->get_item_value( $item_id, $item_value, $convert );
 			wc_update_order_item_meta( $item_id, $item_key, $item_value );

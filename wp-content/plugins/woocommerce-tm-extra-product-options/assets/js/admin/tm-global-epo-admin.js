@@ -32,49 +32,6 @@
 		return tmpArr;
 	}
 
-	// https://locutus.io/php/misc/uniqid/index.html
-	function tcCreateUniqid( prefix, moreEntropy ) {
-		var retId;
-		var _formatSeed = function( seed, reqWidth ) {
-			seed = parseInt( seed, 10 ).toString( 16 ); // to hex str
-			if ( reqWidth < seed.length ) {
-				// so long we split
-				return seed.slice( seed.length - reqWidth );
-			}
-			if ( reqWidth > seed.length ) {
-				// so short we pad
-				return new Array( 1 + ( reqWidth - seed.length ) ).join( '0' ) + seed;
-			}
-			return seed;
-		};
-		var radom;
-
-		if ( prefix === undefined ) {
-			prefix = '';
-		}
-
-		$.epoAPI.php = $.epoAPI.php || {};
-
-		if ( ! $.epoAPI.php.uniqidSeed ) {
-			// init seed with big random int
-			$.epoAPI.php.uniqidSeed = Math.floor( Math.random() * 0x75bcd15 );
-		}
-		$.epoAPI.php.uniqidSeed += 1;
-
-		// start with prefix, add current milliseconds hex string
-		retId = prefix;
-		retId += _formatSeed( parseInt( Date.now() / 1000, 10 ), 8 );
-		// add seed hex string
-		retId += _formatSeed( $.epoAPI.php.uniqidSeed, 5 );
-		if ( moreEntropy ) {
-			// for more entropy we add a float lower to 10
-			radom = Math.random() * 10;
-			retId += radom.toFixed( 8 ).toString();
-		}
-
-		return retId;
-	}
-
 	$.tmEPOAdmin = {
 		addEventsDone: 0,
 		variationsCheckForChanges: 0,
@@ -279,6 +236,8 @@
 			var uploadmeta;
 			var mouseupEvent;
 			var keydownEvent;
+			var observer;
+			var tagchecklist = $( '.tagchecklist' );
 
 			if ( $.tmEPOAdmin.addEventsDone === 1 ) {
 				return;
@@ -592,6 +551,8 @@
 			// EDIT panel events
 			// Add options button
 			$( document ).on( 'click.cpf', '.builder-panel-add', $.tmEPOAdmin.builder_panel_add_onClick );
+			// Add separator button
+			$( document ).on( 'click.cpf', '.builder-panel-add-separator', $.tmEPOAdmin.builder_panel_add_separator_onClick );
 			// Mass add options button
 			$( document ).on( 'click.cpf', '.builder-panel-mass-add', $.tmEPOAdmin.builder_panel_mass_add_onClick );
 			// Populate options button
@@ -705,9 +666,7 @@
 						caretPos = caretPos + txtToAdd.length;
 						txtarea.selectionStart = caretPos;
 						txtarea.selectionEnd = caretPos;
-						setTimeout( function() {
-							$txt.trigger( ' focus' );
-						}, 100 );
+						$txt.trigger( ' focus' );
 						txtarea.scrollTop = scrollPos;
 					} );
 
@@ -723,7 +682,7 @@
 			} );
 
 			// Upload button
-			$( document ).on( 'click.cpf', '.tm_upload_button', $.tmEPOAdmin.upload );
+			$( document ).on( 'click.cpf', '.tc-upload-button', $.tmEPOAdmin.upload );
 			$( document ).on( 'change.cpf', '.changes-product-image,.tm-use-lightbox,.replacement-mode', $.tmEPOAdmin.floatbox_content_js );
 			$( document ).on( 'change.cpf', '.use_url', $.tmEPOAdmin.tm_url );
 
@@ -1109,13 +1068,13 @@
 					$.tmEPOAdmin.checkIfApplied();
 				}
 			);
-			$( document ).on(
-				'DOMSubtreeModified',
-				'.tagchecklist',
-				function() {
+
+			if ( tagchecklist.length ) {
+				observer = new MutationObserver( function() {
 					$.tmEPOAdmin.checkIfApplied();
-				}
-			);
+				} );
+				observer.observe( tagchecklist[ 0 ], { attributes: true, childList: true, subtree: true } );
+			}
 			$.tmEPOAdmin.addEventsDone = 1;
 		},
 
@@ -1490,20 +1449,24 @@
 
 		createSlider: function( bw ) {
 			bw.tmtabs( {
-				headers: '.tm-slider-wizard-headers',
-				header: '.tm-slider-wizard-header',
+				headers: 'tm-slider-wizard-headers',
+				header: 'tm-slider-wizard-header',
 				selectedtab: 0,
 				showonhover: function() {
 					return $.tmEPOAdmin.isElementDragged;
 				},
 				useclasstohide: true,
+
 				afteraddtab: function( h, t ) {
 					var slides;
+					var tabs;
 					var bwindex = bw.index();
 					$.tmEPOAdmin.builder_items_sortable( t );
 
 					if ( ! bw.is( '.tm-slider-wizard' ) ) {
 						slides = '';
+						tabs = [];
+						tabs.push( $( h ).text() );
 					} else {
 						slides = bw
 							.find( '.bitem-wrapper' )
@@ -1512,18 +1475,38 @@
 							} )
 							.get()
 							.join( ',' );
+
+						tabs = TCBUILDER[ bwindex ].section.sections_tabs_labels.default || 'null';
+						tabs = $.epoAPI.util.parseJSON( tabs );
+						if ( ! tabs ) {
+							tabs = [];
+						}
+						tabs.push( $( h ).text() );
+						tabs = JSON.stringify( tabs );
 					}
 					TCBUILDER[ bwindex ].section.sections_slides.default = slides;
+					TCBUILDER[ bwindex ].section.sections_tabs_labels.default = tabs;
 				},
+
 				deletebutton: true,
 				deleteconfirm: true,
 				beforedeletetab: function( $header, $tab ) {
 					var bwindex = bw.index();
 					var length = $tab.find( '.bitem' ).length;
 					var index = $.tmEPOAdmin.find_index( true, $tab.find( '.bitem' ).first() );
+					var tabs;
 					TCBUILDER[ bwindex ].fields.splice( index, length );
 					TCBUILDER[ bwindex ].section.sections.default = parseInt( TCBUILDER[ bwindex ].section.sections.default, 10 ) - length;
 					TCBUILDER[ bwindex ].section.sections.default = TCBUILDER[ bwindex ].section.sections.default.toString();
+					tabs = TCBUILDER[ bwindex ].section.sections_tabs_labels.default || 'null';
+					tabs = $.epoAPI.util.parseJSON( tabs );
+					if ( ! tabs ) {
+						tabs = [];
+					}
+					index = $header.closest( '.tm-box' ).index();
+					tabs.splice( index, 1 );
+					tabs = JSON.stringify( tabs );
+					TCBUILDER[ bwindex ].section.sections_tabs_labels.default = tabs;
 				},
 				afterdeletetab: function() {
 					var slides;
@@ -1539,14 +1522,17 @@
 							.get()
 							.join( ',' );
 					}
-					bw.find( '.tm-slider-wizard-header' ).toArray().forEach( function( el ) {
-						$( el ).html( $( el ).closest( '.tm-box' ).index() + 1 );
-					} );
+					if ( bw.is( '.is-slider' ) ) {
+						bw.find( '.tm-slider-wizard-header' ).toArray().forEach( function( el ) {
+							$( el ).html( $( el ).closest( '.tm-box' ).index() + 1 );
+						} );
+					}
 					TCBUILDER[ bwindex ].section.sections_slides.default = slides;
 					$.tmEPOAdmin.builder_reorder_multiple();
 					$.tmEPOAdmin.section_logic_init();
 					$.tmEPOAdmin.initSectionsCheck();
 				},
+
 				beforemovetab: function( oldIndex, $tab ) {
 					$.tmEPOAdmin.sliderTabMoveBefore = [];
 					$tab.find( '.bitem' ).toArray().forEach( function( el ) {
@@ -1560,7 +1546,8 @@
 					var bwindex = bw.index();
 					var length = $tab.find( '.bitem' ).length;
 					var index = $.tmEPOAdmin.find_index( true, $tab.find( '.bitem' ).first() );
-
+					var tabs;
+					var element;
 					TCBUILDER[ bwindex ].fields
 						.splice.apply(
 							TCBUILDER[ bwindex ].fields, [ index, 0 ].concat( TCBUILDER[ bwindex ].fields.splice( initialIndex, length ) )
@@ -1573,6 +1560,16 @@
 						} )
 						.get()
 						.join( ',' );
+
+					tabs = TCBUILDER[ bwindex ].section.sections_tabs_labels.default || 'null';
+					tabs = $.epoAPI.util.parseJSON( tabs );
+					if ( ! tabs ) {
+						tabs = [];
+					}
+					element = tabs.splice( oldIndex, 1 )[ 0 ];
+					tabs.splice( newIndex, 0, element );
+					tabs = JSON.stringify( tabs );
+					TCBUILDER[ bwindex ].section.sections_tabs_labels.default = tabs;
 
 					$.tmEPOAdmin.sliderTabMoveAfter = [];
 					$tab.find( '.bitem' ).toArray().forEach( function( el ) {
@@ -1599,7 +1596,65 @@
 					$.tmEPOAdmin.builder_reorder_multiple();
 					$.tmEPOAdmin.section_logic_init();
 					$.tmEPOAdmin.initSectionsCheck();
-				}
+
+					if ( bw.is( '.is-slider' ) ) {
+						bw.find( '.tm-slider-wizard-header' ).toArray().forEach( function( el ) {
+							$( el ).html( $( el ).closest( '.tm-box' ).index() + 1 );
+						} );
+					}
+				},
+
+				editbutton: bw.is( '.is-tabs' ),
+				oneditbutton: function( $editbutton ) {
+					var bwindex = bw.index();
+					var tabs = TCBUILDER[ bwindex ].section.sections_tabs_labels.default || 'null';
+					var tabIndex = $editbutton.closest( '.tm-box' ).index();
+					var $_html = $.tmEPOAdmin.builder_floatbox_template(
+						{
+							id: 'tc-floatbox-content-pop',
+							update: TMEPOGLOBALADMINJS.i18n_save,
+							html: '<div class="tm-inner"><input type="text" class="tc-element-setting-edit-tab"></div>',
+							title: TMEPOGLOBALADMINJS.i18n_edit_tab
+						},
+						'tc-floatbox-edit'
+					);
+					var thisPopup = $.tcFloatBox( {
+						closefadeouttime: 0,
+						animateOut: '',
+						fps: 1,
+						ismodal: false,
+						refresh: 'fixed',
+						width: '50%',
+						height: '50%',
+						top: '25%',
+						left: '25%',
+						classname: 'flasho tc-wrapper',
+						data: $_html,
+						cancelClass: '.floatbox-edit-cancel',
+						unique: true
+					} );
+					var ithis = this;
+
+					tabs = $.epoAPI.util.parseJSON( tabs );
+					if ( ! tabs ) {
+						tabs = [];
+					}
+
+					$( '.tc-element-setting-edit-tab' ).val( tabs[ tabIndex ] );
+
+					$( '.floatbox-edit-update' ).on( 'click.cpf', function( ev ) {
+						ev.preventDefault();
+
+						tabs[ tabIndex ] = $( '.tc-element-setting-edit-tab' ).val();
+						$editbutton.closest( '.tm-slider-wizard-header' ).find( '.tab-text' ).html( tabs[ tabIndex ] );
+						tabs = JSON.stringify( tabs );
+						TCBUILDER[ bwindex ].section.sections_tabs_labels.default = tabs;
+						thisPopup.destroy();
+						ithis.trigger( 'refresh' );
+					} );
+				},
+
+				addbutton: $.tmEPOAdmin.is_original ? true : false
 			} );
 
 			TCBUILDER[ bw.index() ].section.is_slider = true;
@@ -1613,15 +1668,40 @@
 			var builderWrapper = $( '.builder-wrapper' ).eq( sectionIndex );
 			var btitle;
 
-			if ( style === 'slider' && ! builderWrapper.hasClass( 'tm-slider-wizard' ) ) {
+			if ( ( style === 'slider' || style === 'tabs' ) && builderWrapper.hasClass( 'tm-slider-wizard' ) ) {
+				if ( builderWrapper.is( '.is-slider' ) && style === 'tabs' ) {
+					add = [];
+					builderWrapper.find( '.tm-slider-wizard-header' ).toArray().forEach( function( el ) {
+						var $el = $( el );
+						var $tabtext = $el.find( '.tab-text' );
+						if ( $tabtext.data( 'tabtext' ) !== undefined ) {
+							$tabtext.html( $tabtext.data( 'tabtext' ) );
+						}
+						add.push( $tabtext.text() );
+					} );
+					add = JSON.stringify( add );
+					builderWrapper.removeClass( 'is-slider' ).addClass( 'is-tabs' ).tcTabs( 'set', { editbutton: true } );
+					TCBUILDER[ sectionIndex ].section.sections_tabs_labels.default = add;
+				} else if ( builderWrapper.is( '.is-tabs' ) && style === 'slider' ) {
+					builderWrapper.removeClass( 'is-tabs' ).addClass( 'is-slider' ).tcTabs( 'set', { editbutton: false } );
+					builderWrapper.find( '.tm-slider-wizard-header' ).toArray().forEach( function( el ) {
+						var $el = $( el );
+						var $tabtext = $el.find( '.tab-text' );
+						var $tmbox = $el.closest( '.tm-box' );
+						var index = $tmbox.index() + 1;
+						$tabtext.data( 'tabtext', $tabtext.text() );
+						$tabtext.html( index );
+					} );
+					TCBUILDER[ sectionIndex ].section.sections_tabs_labels.default = '';
+				}
+			} else if ( ( style === 'slider' || style === 'tabs' ) && ! builderWrapper.hasClass( 'tm-slider-wizard' ) ) {
 				bitem_wrapper = builderWrapper.find( '.bitem-wrapper' );
 				btitle = builderWrapper.find( '.btitle' );
 
-				builderWrapper.addClass( 'tm-slider-wizard' );
-				tab1 = '<div class="tm-box"><h4 class="tm-slider-wizard-header" data-id="tm-slide0">1</h4></div>';
-				add = '<div class="tm-slider-wizard-add tm-add-box"><h4 class="tm-add-tab"><span class="tmicon tcfa tcfa-plus"></span></h4></div>';
-				btitle.after( '<div class="transition tm-slider-wizard-headers"><div class="tm-slider-wizard-tabs">' + tab1 + '</div>' + add + '</div>' );
-				bitem_wrapper.addClass( 'tm-slider-wizard-tab tm-slide0' );
+				builderWrapper.addClass( 'tm-slider-wizard is-' + style );
+				tab1 = '<div class="tm-box"><h4 class="tm-slider-wizard-header" data-id="tc-tab-slide0"><span class="tab-text">1</span></h4></div>';
+				btitle.after( '<div class="transition tm-slider-wizard-headers">' + tab1 + '</div>' );
+				bitem_wrapper.addClass( 'tc-tab-slide tc-tab-slide0' );
 
 				$.tmEPOAdmin.createSlider( builderWrapper );
 
@@ -1634,7 +1714,8 @@
 					.join( ',' );
 
 				TCBUILDER[ sectionIndex ].section.is_slider = true;
-			} else if ( style !== 'slider' && builderWrapper.hasClass( 'tm-slider-wizard' ) ) {
+				TCBUILDER[ sectionIndex ].section.sections_tabs_labels.default = JSON.stringify( [ '1' ] );
+			} else if ( ( style !== 'slider' && style !== 'tabs' ) && builderWrapper.hasClass( 'tm-slider-wizard' ) ) {
 				builderWrapper.find( '.bitem-wrapper' ).wrapAll( '<div class="tmtemp"></div>' );
 				builderWrapper.find( '.bitem-wrapper .bitem' ).appendTo( builderWrapper.find( '.tmtemp' ) );
 				builderWrapper.find( '.bitem-wrapper' ).remove();
@@ -1644,6 +1725,7 @@
 				builderWrapper.removeClass( 'tm-slider-wizard' );
 
 				TCBUILDER[ sectionIndex ].section.sections_slides.default = '';
+				TCBUILDER[ sectionIndex ].section.sections_tabs_labels.default = '';
 				TCBUILDER[ sectionIndex ].section.is_slider = false;
 			}
 		},
@@ -2085,7 +2167,7 @@
 				if ( current_section.section !== undefined ) {
 					this_section_id = current_section.section.sections_uniqid.default;
 					if ( ! this_section_id || this_section_id === '' || this_section_id === undefined || this_section_id === false ) {
-						TCBUILDER[ i ].section.sections_uniqid.default = tcCreateUniqid( '', true );
+						TCBUILDER[ i ].section.sections_uniqid.default = $.epoAPI.math.uniqueid( '', true );
 					}
 				}
 			} );
@@ -2141,7 +2223,7 @@
 					this_element_id = $.tmEPOAdmin.getFieldValue( field, 'uniqid', elementType );
 
 					if ( ( all && uniqids.indexOf( this_element_id ) !== -1 ) || ! this_element_id || this_element_id === '' || this_element_id === undefined || this_element_id === false ) {
-						$.tmEPOAdmin.setFieldValue( i, ii, 'uniqid', tcCreateUniqid( '', true ), elementType );
+						$.tmEPOAdmin.setFieldValue( i, ii, 'uniqid', $.epoAPI.math.uniqueid( '', true ), elementType );
 					}
 					if ( all ) {
 						uniqids.push( $.tmEPOAdmin.getFieldValue( TCBUILDER[ i ].fields[ ii ], 'uniqid', elementType ) );
@@ -2431,10 +2513,43 @@
 			return $( '' );
 		},
 
+		// Add separator button
+		builder_panel_add_separator_onClick: function( e ) {
+			var panels_wrap = $( this ).prevUntil( '.panels_wrap' ).prev();
+			var _last = panels_wrap.children();
+			var _clone = _last.last().tcClone();
+
+			e.preventDefault();
+			if ( _clone ) {
+				_clone.addClass( 'separator' );
+				_clone.find( '.tc-cell:not(.tm_cell_move,.tm_cell_title,.tm_cell_description,.tm_cell_delete)' ).addClass( 'tm-hidden' );
+				_clone.find( '[name]' ).val( '' );
+				_clone.find( '.tm_option_value' ).removeClass( 'tm_option_value' ).val( '-1' );
+				_clone.find( '.tm_upload_image img' ).attr( 'src', '' );
+				_clone.find( 'input.tm_option_image' ).val( '' );
+				_clone.find( '.tm-default-radio,.tm-default-checkbox' ).prop( 'checked', false ).val( _last.length );
+
+				$.tmEPOAdmin.builder_clone_elements_after_events( _clone );
+
+				panels_wrap.append( _clone );
+				_clone.find( 'input:checkbox' ).toArray().forEach( function( checkbox ) {
+					checkbox = $( checkbox );
+					checkbox.val( checkbox.data( 'builder' ).tags.value );
+					if ( checkbox.is( '.tm_option_enabled' ) ) {
+						checkbox.prop( 'checked', true ).trigger( 'changechoice' );
+					}
+				} );
+
+				$.tcToolTip( _clone.find( '.tm-tooltip' ) );
+				$.tmEPOAdmin.paginattion_init( 'last' );
+				$.tmEPOAdmin.floatbox_content_js();
+			}
+		},
+
 		// Add options button
 		builder_panel_add_onClick: function( e ) {
 			var panels_wrap = $( this ).prev( '.panels_wrap' );
-			var _last = panels_wrap.children();
+			var _last = panels_wrap.children().not( '.separator' );
 			var _clone = _last.last().tcClone();
 
 			e.preventDefault();
@@ -2478,7 +2593,7 @@
 				if ( _clone ) {
 					_clone.addClass( 'w100' );
 					//_clone.addClass("appear");
-					_clone.find( '.tm-builder-sections-uniqid' ).val( tcCreateUniqid( '', true ) );
+					_clone.find( '.tm-builder-sections-uniqid' ).val( $.epoAPI.math.uniqueid( '', true ) );
 
 					fieldObject = $.tmEPOAdmin.getFieldObject( _clone );
 					sectionField = {};
@@ -3062,7 +3177,7 @@
 
 					// Check if section id exists
 					if ( log_section_id.indexOf( section_id ) !== -1 ) {
-						TCBUILDER[ i ].section.sections_uniqid.default = tcCreateUniqid( '', true );
+						TCBUILDER[ i ].section.sections_uniqid.default = $.epoAPI.math.uniqueid( '', true );
 						section_id = TCBUILDER[ i ].section.sections_uniqid.default;
 					}
 					log_section_id.push( section_id );
@@ -4343,6 +4458,7 @@
 			Object.keys( builder ).forEach( function( i ) {
 				var name;
 				var value;
+				var separator;
 
 				if ( typeof builder[ i ] !== 'object' ) {
 					return;
@@ -4366,6 +4482,10 @@
 								.trigger( 'changechoice' );
 						}
 
+						separator = {
+							title: false,
+							value: false
+						};
 						Object.keys( builder[ i ].multiple[ ii ] ).forEach( function( iii ) {
 							name = builder[ i ].multiple[ ii ][ iii ].tags.name;
 							name = name.replace( '[]', '' );
@@ -4395,7 +4515,34 @@
 									element.prop( 'checked', false );
 								}
 							}
+
+							if (
+								( builder[ i ].multiple[ ii ][ iii ].id === 'multiple_checkboxes_title_value' ||
+								builder[ i ].multiple[ ii ][ iii ].id === 'multiple_radiobuttons_title_value' ) &&
+								builder[ i ].multiple[ ii ][ iii ].default === '-1'
+							) {
+								separator.title = true;
+							}
+							if (
+								( builder[ i ].multiple[ ii ][ iii ].id === 'multiple_checkboxes_options_value' ||
+								builder[ i ].multiple[ ii ][ iii ].id === 'multiple_radiobuttons_options_value' ) &&
+								builder[ i ].multiple[ ii ][ iii ].default === '-1'
+							) {
+								separator.value = true;
+							}
 						} );
+
+						if ( separator.value && ! separator.title ) {
+							content
+								.find( '.options-wrap' )
+								.eq( ii ).addClass( 'separator' );
+							content
+								.find( '.options-wrap' )
+								.eq( ii ).find( '.tc-cell:not(.tm_cell_move,.tm_cell_title,.tm_cell_description,.tm_cell_delete)' ).addClass( 'tm-hidden' );
+							content
+								.find( '.options-wrap' )
+								.eq( ii ).find( '.tm_option_value' ).removeClass( 'tm_option_value' );
+						}
 
 						options_wrap = content.find( '.options-wrap' ).eq( ii );
 					} );
@@ -5004,7 +5151,7 @@
 				.tcClone( true );
 
 			if ( _clone ) {
-				_clone.find( '.tm-builder-element-uniqid' ).val( tcCreateUniqid( '', true ) );
+				_clone.find( '.tm-builder-element-uniqid' ).val( $.epoAPI.math.uniqueid( '', true ) );
 				if ( $( '.builder-wrapper' ).length <= 0 ) {
 					$.tmEPOAdmin.builder_add_section_onClick();
 					wrapper_selector = $( '.builder-wrapper' ).first();
@@ -5152,7 +5299,7 @@
 
 				_bitem_field_index = $.tmEPOAdmin.find_index( _bitem, _bitem );
 				TCBUILDER[ sectionIndex ].fields.splice( _bitem_field_index, 0, $.epoAPI.util.deepCopyArray( TCBUILDER[ sectionIndex ].fields[ _bitem_field_index ] ) );
-				$.tmEPOAdmin.setFieldValue( sectionIndex, field_index, 'uniqid', tcCreateUniqid( '', true ), true );
+				$.tmEPOAdmin.setFieldValue( sectionIndex, field_index, 'uniqid', $.epoAPI.math.uniqueid( '', true ), true );
 				$.tmEPOAdmin.builder_reorder_multiple();
 				$.tmEPOAdmin.builderItemsSortableObj.start.section = 'clone';
 				$.tmEPOAdmin.builderItemsSortableObj.start.section_eq = 'clone';
@@ -5192,7 +5339,7 @@
 				builderWrapper.after( _clone );
 				_clonesectionIndex = builderWrapper.index();
 				TCBUILDER.splice( sectionIndex, 0, $.epoAPI.util.deepCopyArray( TCBUILDER[ sectionIndex ] ) );
-				TCBUILDER[ _clonesectionIndex ].section.sections_uniqid.default = tcCreateUniqid( '', true );
+				TCBUILDER[ _clonesectionIndex ].section.sections_uniqid.default = $.epoAPI.math.uniqueid( '', true );
 
 				_clone.find( '.bitem' ).each( function( i, el ) {
 					$( el ).data( 'original_title', original_titles[ i ] );
@@ -5849,11 +5996,11 @@
 			var $showTooltip = $this.find( '.show-tooltip' );
 			var $use_lightbox = $( '#tc-floatbox-content .tm-show-when-use-images' );
 			var $show_when_use_color = $( '#tc-floatbox-content .tm-show-when-use-color' );
-			var tm_upload = $this.find( '.builder-element-wrap' ).find( '.tm_upload_button' ).not( '.tm_upload_buttonp,.tm_upload_buttonl' );
+			var tm_upload = $this.find( '.builder-element-wrap' ).find( '.tc-upload-button' ).not( '.tc-upload-buttonp,.tc-upload-buttonl' );
 			var tm_upload_image = $this.find( '.builder-element-wrap' ).find( '.tm_upload_image' ).not( '.tm_upload_imagep,.tm_upload_imagel' );
-			var tm_uploadp = $this.find( '.builder-element-wrap' ).find( '.tm_upload_buttonp' );
+			var tm_uploadp = $this.find( '.builder-element-wrap' ).find( '.tc-upload-buttonp' );
 			var tm_upload_imagep = $this.find( '.builder-element-wrap' ).find( '.tm_upload_imagep' );
-			var tm_uploadl = $this.find( '.builder-element-wrap' ).find( '.tm_upload_buttonl' );
+			var tm_uploadl = $this.find( '.builder-element-wrap' ).find( '.tc-upload-buttonl' );
 			var tm_upload_imagel = $this.find( '.builder-element-wrap' ).find( '.tm_upload_imagel' );
 			var tm_cell_images = $this.find( '.builder-element-wrap' ).find( '.tm_cell_images' );
 			var tm_color_picker = $this.find( '.builder-element-wrap .panels_wrap' ).find( '.sp-replacer' );

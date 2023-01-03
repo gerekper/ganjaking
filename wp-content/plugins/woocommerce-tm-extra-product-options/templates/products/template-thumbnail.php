@@ -60,6 +60,7 @@ if ( is_array( $options ) ) :
 					'name'                 => $name,
 					'class'                => $fieldtype . ' tc-epo-field-product tm-epo-field tmcp-radio',
 					'data-price'           => $option['data_price'],
+					'data-price-html'      => $option['data_price_html'],
 					'data-rules'           => $option['data_rules'],
 					'data-original-rules'  => $option['data_original_rules'],
 					'data-rulestype'       => $option['data_rulestype'],
@@ -67,6 +68,9 @@ if ( is_array( $options ) ) :
 					'data-no-price'        => ( ! $priced_individually ),
 				],
 			];
+			if ( ! empty( $option['tax_obj'] ) ) {
+				$input_args['tags']['data-tax-obj'] = $option['tax_obj'];
+			}
 			if ( isset( $option['counter'] ) && isset( $option['data_type'] ) ) {
 				$input_args['tags']['data-counter'] = $option['counter'];
 				$input_args['tags']['data-type']    = $option['data_type'];

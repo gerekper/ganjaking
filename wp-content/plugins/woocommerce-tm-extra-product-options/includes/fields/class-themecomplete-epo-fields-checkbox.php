@@ -510,7 +510,12 @@ class THEMECOMPLETE_EPO_FIELDS_checkbox extends THEMECOMPLETE_EPO_FIELDS {
 			$labelclass_end   = true;
 		}
 
+		$is_separator = '-1' === str_replace( '_' . $choice_counter, '', $args['value'] ) && '-1' !== $args['value'];
+		if ( $is_separator ) {
+			$li_class .= ' is-separator';
+		}
 		$display = [
+			'is_separator'          => $is_separator,
 			'hexclass'              => $hexclass,
 			'label_mode'            => $label_mode,
 			'label_to_display'      => $label_to_display,

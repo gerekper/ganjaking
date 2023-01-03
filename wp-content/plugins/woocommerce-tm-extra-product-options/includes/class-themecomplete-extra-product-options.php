@@ -189,6 +189,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * @var string
 	 */
 	public $cart_edit_key_var = 'tm_cart_item_key';
+
 	/**
 	 * Cart edit key alternative
 	 *
@@ -209,6 +210,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * @var string
 	 */
 	public $current_free_text = '';
+
 	/**
 	 * Current free text replacement for associated products
 	 *
@@ -222,6 +224,13 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * @var bool
 	 */
 	public $is_in_product_shortcode;
+
+	/**
+	 * Flag to check if we are in a product loop
+	 *
+	 * @var bool
+	 */
+	public $is_in_product_loop;
 
 	/**
 	 * Flag to fix several issues when the woocommerce_get_price hook
@@ -266,6 +275,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 */
 
 	public $is_associated = false;
+
 	/**
 	 * If associated product is priced individually
 	 *
@@ -309,6 +319,1370 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * @var array
 	 */
 	public $lookup_tables = [];
+
+	/**
+	 * Enable front-end for roles
+	 * Select the roles that will have access to the extra options.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_roles_enabled = '@everyone';
+
+	/**
+	 * Disable front-end for roles
+	 * Select the roles that will not have access to the extra options.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_roles_disabled = '';
+
+	/**
+	 * Enable translations
+	 * This will enable the default plugin translation using the pot files.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_enable_translations = 'yes';
+
+	/**
+	 * Post type hook priority
+	 * Do not change this unless you know how it will affect your site!
+	 * This is the priority which the post types are loaded by the plugin.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_post_type_hook_priority = '';
+
+	/**
+	 * Final total box
+	 * Select when to show the final total box
+	 *
+	 * @var string
+	 */
+	public $tm_epo_final_total_box = 'normal';
+
+	/**
+	 * Enable Final total box for all products
+	 * Show the Final total box even when the product has no extra options
+	 *
+	 * @var string
+	 */
+	public $tm_epo_enable_final_total_box_all = 'no';
+
+	/**
+	 * Enable original final total display
+	 * Check to enable the display of the undiscounted final total
+	 *
+	 * @var string
+	 */
+	public $tm_epo_enable_original_final_total = 'no';
+
+	/**
+	 * Enable options VAT display
+	 * Check to display the options VAT amount above the options total
+	 *
+	 * @var string
+	 */
+	public $tm_epo_enable_vat_options_total = 'no';
+
+	/**
+	 * Show Unit price on totals box
+	 * Enable this to display the unit price when the totals box is visible
+	 *
+	 * @var string
+	 */
+	public $tm_epo_show_unit_price = 'no';
+
+	/**
+	 * Include Fees on unit price
+	 * Enable this to add any Fees to the unit price
+	 *
+	 * @var string
+	 */
+	public $tm_epo_fees_on_unit_price = 'no';
+
+	/**
+	 * Total price as Unit Price
+	 * Make the total price not being multiplied by the product quantity
+	 *
+	 * @var string
+	 */
+	public $tm_epo_total_price_as_unit_price = 'no';
+
+	/**
+	 * Disable lazy load images
+	 * Enable this to disable lazy loading images.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_no_lazy_load = 'yes';
+
+	/**
+	 * Preload lightbox images
+	 * Enable this to preload the image when using the lightbox feature.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_preload_lightbox_image = 'no';
+
+	/**
+	 * Enable plugin for WooCommerce shortcodes
+	 * Enabling this will load the plugin files to all WordPress pages.
+	 * Use with caution.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_enable_shortcodes = 'no';
+
+	/**
+	 * Enable shortcodes in options strings
+	 * Enabling this will allow the use of shortcodes and HTML code
+	 * in the options label and description text.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_enable_data_shortcodes = 'yes';
+
+	/**
+	 * Display
+	 * This controls how your fields are displayed on the front-end.
+	 * If you choose "Show using action hooks" you have to manually
+	 * write the code to your theme or plugin to display the fields
+	 * and the placement settings below will not work.
+	 * If you use the Composite Products extension you must leave this
+	 * setting to "Normal" otherwise the extra options cannot be displayed
+	 * on the composite product bundles. See more at the documentation.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_display = 'normal';
+
+	/**
+	 * Extra Options placement
+	 * Select where you want the extra options to appear.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_options_placement = 'woocommerce_before_add_to_cart_button';
+
+	/**
+	 * Extra Options placement custom hook
+	 *
+	 * @var string
+	 */
+	public $tm_epo_options_placement_custom_hook = '';
+
+	/**
+	 * Extra Options placement hook priority
+	 * Select the Extra Options placement hook priority
+	 *
+	 * @var string|int
+	 */
+	public $tm_epo_options_placement_hook_priority = '50';
+
+	/**
+	 * Totals box placement
+	 * Select where you want the Totals box to appear.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_totals_box_placement = 'woocommerce_before_add_to_cart_button';
+
+	/**
+	 * Totals box placement custom hook
+	 *
+	 * @var string
+	 */
+	public $tm_epo_totals_box_placement_custom_hook = '';
+
+	/**
+	 * Totals box placement hook priority
+	 * Select the Totals box placement hook priority
+	 *
+	 * @var string|int
+	 */
+	public $tm_epo_totals_box_placement_hook_priority = '50';
+
+	/**
+	 * Floating Totals box
+	 * This will enable a floating box to display your totals box.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_floating_totals_box = 'disable';
+
+	/**
+	 * Floating Totals box visibility
+	 * This determines the floating totals box visibility.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_floating_totals_box_visibility = 'always';
+
+	/**
+	 * Pixels amount needed to scroll
+	 * Select the number of pixels the page needs to scroll for the
+	 * floating totals to become visible.
+	 *
+	 * @var string|int
+	 */
+	public $tm_epo_floating_totals_box_pixels = '100';
+
+	/**
+	 * Add to cart button on floating totals box
+	 * Display the add to cart button on floating box.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_floating_totals_box_add_button = 'no';
+
+	/**
+	 * Change original product price
+	 * Check to overwrite the original product price when the price is changing.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_change_original_price = 'no';
+
+	/**
+	 * Change variation price
+	 * Check to overwrite the variation price when the price is changing.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_change_variation_price = 'no';
+
+	/**
+	 * Force Select Options
+	 * This changes the add to cart button on shop and archive pages to
+	 * display select options when the product has extra product options.
+	 * Enabling this will remove the ajax functionality.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_force_select_options = 'no';
+
+	/**
+	 * Enable extra options in shop and category view
+	 * Check to enable the display of extra options on the shop page and
+	 * category view. This setting is theme dependent and some aspects
+	 * may not work as expected.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_enable_in_shop = 'no';
+
+	/**
+	 * Remove Free price label
+	 * Check to remove Free price label when product has extra options
+	 *
+	 * @var string
+	 */
+	public $tm_epo_remove_free_price_label = 'no';
+
+	/**
+	 * Use progressive display on options
+	 * Enabling this will hide the options on the product page until
+	 * JavaScript is initialized. This is a fail-safe setting and
+	 * we recommend to be active.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_progressive_display = 'yes';
+
+	/**
+	 * Animation delay
+	 * How long the animation will take in milliseconds
+	 *
+	 * @var string|float
+	 */
+	public $tm_epo_animation_delay = '100';
+
+	/**
+	 * Start Animation delay
+	 * The delay until the animation starts in milliseconds
+	 *
+	 * @var string
+	 */
+	public $tm_epo_start_animation_delay = '0';
+
+	/**
+	 * Show quantity selector only for elements with a value
+	 * Check show quantity selector only for elements with a value.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_show_only_active_quantities = 'yes';
+
+	/**
+	 * Hide add-to-cart button until an element is chosen
+	 * Check this to show the add to cart button only when at least
+	 * one option is filled.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_hide_add_cart_button = 'no';
+
+	/**
+	 * Hide add-to-cart button until all required elements are chosen
+	 * Check this to show the add to cart button only when all required
+	 * visible options are filled.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_hide_required_add_cart_button = 'no';
+
+	/**
+	 * Hide add-to-cart button until all elements are chosen
+	 * Check this to show the add to cart button only when all visible
+	 * options are filled.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_hide_all_add_cart_button = 'no';
+
+	/**
+	 * Show full width label for elements.
+	 * Check this to force elements to be full width instead of auto.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_select_fullwidth = 'yes';
+
+	/**
+	 * Show choice description inline.
+	 * Check this to disable showing description as a tooltip and
+	 * show it inline instead.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_description_inline = 'no';
+
+	/**
+	 * Hide choice label when using the Show tooltip setting for radio
+	 * buttons and checkboxes
+	 * Check this to hide the choice label when using the Show tooltip
+	 * setting for radio buttons and checkboxes.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_swatch_hide_label = 'yes';
+
+	/**
+	 * Auto hide price if zero
+	 * Check this to globally hide the price display if it is zero.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_auto_hide_price_if_zero = 'no';
+
+	/**
+	 * Hide element price html when hide price setting is enabled
+	 * Check this if you use Google Merchant Center.
+	 * It will hide the price html of the element when you enable
+	 * its hide price setting.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_hide_price_html = 'yes';
+
+	/**
+	 * Show prices inside select box choices
+	 * Check this to show the price of the select box options
+	 * if the price type is fixed.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_show_price_inside_option = 'no';
+
+	/**
+	 * Show prices inside select box choices even if the prices are hidden
+	 * Check this to show the price of the select box options
+	 * if the price type is fixed and even if the element hides the price.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_show_price_inside_option_hidden_even = 'no';
+
+	/**
+	 * Multiply prices inside select box choices with its quantity selector
+	 * Check this to multiply the prices of the select box options
+	 * with its quantity selector if any.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_multiply_price_inside_option = 'yes';
+
+	/**
+	 * Include option pricing in product price
+	 * Check this to include the pricing of the options to the product price.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_include_possible_option_pricing = 'no';
+
+	/**
+	 * Check for empty product price
+	 * Check this to have the plugin set to zero the
+	 * product price when it is empty.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_add_product_price_check = 'yes';
+
+	/**
+	 * Use the "From" string on displayed product prices
+	 * Check this to alter the price display of a product when it
+	 * has extra options with prices.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_use_from_on_price = 'no';
+
+	/**
+	 * Alter generated product structured data
+	 * Alters the generated product structured data.
+	 * This may produce wrong results if the options use conditional logic!
+	 *
+	 * @var string
+	 */
+	public $tm_epo_alter_structured_data = 'no';
+
+	/**
+	 * Responsive options structure
+	 * Enable this if you want the options to have responsive display.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_responsive_display = 'yes';
+
+	/**
+	 * Turn off persistent cart
+	 * Enable this if the product has a lot of options.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_turn_off_persi_cart = 'no';
+
+	/**
+	 * Clear cart button
+	 * Enables or disables the clear cart button
+	 *
+	 * @var string
+	 */
+	public $tm_epo_clear_cart_button = 'no';
+
+	/**
+	 * Cart Field Display
+	 * Select how to display your fields in the cart
+	 *
+	 * @var string
+	 */
+	public $tm_epo_cart_field_display = 'normal';
+
+	/**
+	 * Hide extra options in cart
+	 * Enables or disables the display of options in the cart.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_hide_options_in_cart = 'no';
+
+	/**
+	 * Hide extra options prices in cart
+	 * Enables or disables the display of prices of options in the cart.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_hide_options_prices_in_cart = 'no';
+
+	/**
+	 * Prevent negative priced products
+	 * Prevent adding to the cart negative priced products.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_no_negative_priced_products = 'no';
+
+	/**
+	 * Prevent zero priced products
+	 * Prevent adding to the cart zero priced products.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_no_zero_priced_products = 'no';
+
+	/**
+	 * Hide checkbox element average price
+	 * This will hide the average price display on the cart for checkboxes.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_hide_cart_average_price = 'yes';
+
+	/**
+	 * Show image replacement in cart and checkout
+	 * Enabling this will show the images of elements that have
+	 * an image replacement.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_show_image_replacement = 'no';
+
+	/**
+	 * Hide upload file URL in cart and checkout
+	 * Enabling this will hide the URL of any uploaded file while
+	 * in cart and checkout.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_show_hide_uploaded_file_url_cart = 'no';
+
+	/**
+	 * Show uploaded image in cart and checkout
+	 * Enabling this will show the uploaded images in cart and checkout.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_show_upload_image_replacement = 'yes';
+
+	/**
+	 * Maximum image width
+	 * Set the maximum width of the images that appear on cart.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_image_max_width = '70%';
+
+	/**
+	 * Maximum image height
+	 * Set the maximum height of the images that appear on cart.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_image_max_height = 'none';
+
+	/**
+	 * Always use unique values on cart for elements
+	 * Enabling this will separate comma separated values for elements.
+	 * This is mainly used for multiple checkbox choices.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_always_unique_values = 'no';
+
+	/**
+	 * Post types to show the saved options
+	 * Select the post types where the plugin will modify the
+	 * edit order screen to show the saved options.
+	 * You can type in your custom post type.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_order_post_types = 'shop_order';
+
+	/**
+	 * Strip html from emails
+	 * Check to strip the html tags from emails
+	 *
+	 * @var string
+	 */
+	public $tm_epo_strip_html_from_emails = 'yes';
+
+	/**
+	 * Hide uploaded file path
+	 * Check to hide the uploaded file path from users (in the Order).
+	 *
+	 * @var string
+	 */
+	public $tm_epo_hide_upload_file_path = 'yes';
+
+	/**
+	 * Legacy meta data
+	 * Check to enable legacy meta data functionality.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_legacy_meta_data = 'no';
+
+	/**
+	 * Unique meta values
+	 * Check to split items with multiple values to unique lines.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_unique_meta_values = 'no';
+
+	/**
+	 * Prevent options from being sent to emails
+	 * Check to disable options from being sent to emails.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_prevent_options_from_emails = 'no';
+
+	/**
+	 * Disable sending the options upon saving the order
+	 * Enable this if you are getting a 500 error when trying to
+	 * complete the order in the checkout.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_disable_sending_options_in_order = 'no';
+
+	/**
+	 * Attach upload files to emails
+	 * Check to Attach upload files to emails.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_attach_uploaded_to_emails = 'yes';
+
+	/**
+	 * Disable Options on Order status change
+	 * Check this only if you are getting server errors on checkout.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_disable_options_on_order_status = 'no';
+
+	/**
+	 * Hide upload file URL in order
+	 * Enabling this will hide the URL of any uploaded file while in order.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_show_hide_uploaded_file_url_order = 'no';
+
+	/**
+	 * Cart field/value separator
+	 * Enter the field/value separator for the cart.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_separator_cart_text = ':';
+
+	/**
+	 * Option multiple value separator in cart
+	 * Enter the value separator for the option that have multiple
+	 * values like checkboxes.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_multiple_separator_cart_text = ' ';
+
+	/**
+	 * Update cart text
+	 * Enter the Update cart text when you edit a product.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_update_cart_text = '';
+
+	/**
+	 * Edit Options text replacement
+	 * Enter a text to replace the Edit options text on the cart.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_edit_options_text = '';
+
+	/**
+	 * Additional Options text replacement
+	 * Enter a text to replace the Additional options text when using
+	 * the pop up setting on the cart.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_additional_options_text = '';
+
+	/**
+	 * Close button text replacement
+	 * Enter a text to replace the Close button text when using
+	 * the pop up setting on the cart.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_close_button_text = '';
+
+	/**
+	 * Empty cart text
+	 * Enter a text to replace the empty cart button text.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_empty_cart_text = '';
+
+	/**
+	 * Final total text
+	 * Enter the Final total text or leave blank for default.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_final_total_text = '';
+
+	/**
+	 * Unit price text
+	 * Enter the Unit price text or leave blank for default.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_options_unit_price_text = '';
+
+	/**
+	 * Options total text
+	 * Enter the Options total text or leave blank for default.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_options_total_text = '';
+
+	/**
+	 * Options VAT total text
+	 * Enter the Options VAT total text or leave blank for default.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_vat_options_total_text = '';
+
+	/**
+	 * Fees total text
+	 * Enter the Fees total text or leave blank for default.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_fees_total_text = '';
+
+	/**
+	 * Free Price text replacement
+	 * Enter a text to replace the Free price label when product has extra options.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_replacement_free_price_text = '';
+
+	/**
+	 * Force Select options text
+	 * Enter a text to replace the add to cart button text when using
+	 * the Force select option.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_force_select_text = '';
+
+	/**
+	 * No zero priced products text
+	 * Enter a text to replace the message when trying to add
+	 * a zero priced product to the cart.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_no_zero_priced_products_text = '';
+
+	/**
+	 * No negative priced products text
+	 * Enter a text to replace the message when trying to add
+	 * a negative priced product to the cart.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_no_negative_priced_products_text = '';
+
+	/**
+	 * Popup section button text replacement
+	 * Enter a text to replace the topup section button text.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_popup_section_button_text = '';
+
+	/**
+	 * Reset Options text replacement
+	 * Enter a text to replace the Reset options text when
+	 * using custom variations.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_reset_variation_text = '';
+
+	/**
+	 * Calendar close button text replacement
+	 * Enter a text to replace the Close button text on the calendar.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_closetext = '';
+
+	/**
+	 * Calendar today button text replacement
+	 * Enter a text to replace the Today button text on the calendar.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_currenttext = '';
+
+	/**
+	 * Slider previous text
+	 * Enter a text to replace the previous button text for slider.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_slider_prev_text = '';
+
+	/**
+	 * Slider next text
+	 * Enter a text to replace the next button text for slider.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_slider_next_text = '';
+
+	/**
+	 * This field is required text
+	 * Enter a text to indicate that a field is required.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_this_field_is_required_text = '';
+
+	/**
+	 * Characters remaining text
+	 * Enter a text to replace the Characters remaining text when
+	 * using maximum characters on a text field or a textarea.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_characters_remaining_text = '';
+
+	/**
+	 * Uploading files text
+	 * Enter a text to replace the Uploading files text used in the
+	 * pop-up after clicking the add to cart button when there are upload fields.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_uploading_files_text = '';
+
+	/**
+	 * Uploading message text
+	 * Enter a message to be used in the pop-up after clicking the
+	 * add to cart button when there are upload fields.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_uploading_message_text = '';
+
+	/**
+	 * Select file text
+	 * Enter a text to replace the Select file text used in the
+	 * styled upload button.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_select_file_text = '';
+
+	/**
+	 * Single file text
+	 * Enter a text to replace the file text used in the styled upload button.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_uploading_num_file = '';
+
+	/**
+	 * Multiple files text
+	 * Enter a text to replace the files text used in the styled upload button.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_uploading_num_files = '';
+
+	/**
+	 * Add button text on associated products
+	 * Enter a text to replace the add button text on associated products.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_add_button_text_associated_products = '';
+
+	/**
+	 * Remove button text on associated products
+	 * Enter a text to replace the remove button text on associated products.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_remove_button_text_associated_products = '';
+
+	/**
+	 * Repeater add text
+	 * Enter a text to replace the add text button for repeater fields.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_add_button_text_repeater = '';
+
+	/**
+	 * Enable checkbox and radio styles
+	 * Enables or disables extra styling for checkboxes and radio buttons.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_css_styles = 'no';
+
+	/**
+	 * Style
+	 * Select a style for the checkboxes and radio buttons
+	 *
+	 * @var string
+	 */
+	public $tm_epo_css_styles_style = 'round';
+
+	/**
+	 * Select item border type
+	 * Select a style for the selected border when using
+	 * image replacements or swatches.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_css_selected_border = '';
+
+	/**
+	 * Enable validation
+	 * Check to enable validation feature for builder elements
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_enable_validation = 'yes';
+
+	/**
+	 * Disable error scrolling
+	 * Check to disable scrolling to the element with an error
+	 *
+	 * @var string
+	 */
+	public $tm_epo_disable_error_scroll = 'no';
+
+	/**
+	 * Error label placement
+	 * Set the placement for the validation error notification label
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_error_label_placement = '';
+
+	/**
+	 * Use options cache
+	 * Use options caching for boosting performance.
+	 * Disable if you have options that share the same unique ID.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_options_cache = 'no';
+
+	/**
+	 * Javascript and CSS inclusion mode
+	 * Select how to include JS and CSS files
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_js_css_mode = 'dev';
+
+	/**
+	 * Disable PNG convert security
+	 * Check to disable the conversion to png for image uploads.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_no_upload_to_png = 'no';
+
+	/**
+	 * Override product price
+	 * This will globally override the product price with the
+	 * price from the options if the total options price is greater then zero.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_override_product_price = '';
+
+	/**
+	 * Options price mode
+	 * Select the price mode for the options.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_options_price_mode = 'sale';
+
+	/**
+	 * Reset option values after the product is added to the cart
+	 * This will revert the option values to the default ones after
+	 * adding the product to the cart
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_reset_options_after_add = 'no';
+
+	/**
+	 * Use plus and minus signs on prices in cart and checkout
+	 * Choose how you want the sign of options prices to bedisplayed
+	 * in cart and checkout.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_price_sign = '';
+
+	/**
+	 * Use plus and minus signs on option prices
+	 * Choose how you want the sign of options prices to be displayed
+	 * at the product page.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_options_price_sign = 'minus';
+
+	/**
+	 * Input decimal separator
+	 * Choose how to determine the decimal separator for user inputs
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_input_decimal_separator = 'browser';
+
+	/**
+	 * Displayed decimal separator
+	 * Choose which decimal separator to display on currency prices
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_displayed_decimal_separator = '';
+
+	/**
+	 * Timezone override for Date element
+	 * Choose which timezone the date element will use on the backend
+	 * calculations or leave blank for server timezone.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_date_timezone = '';
+
+	/**
+	 * Required state indicator
+	 * Enter a string to indicate the required state of a field.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_required_indicator = '*';
+
+	/**
+	 * Required state indicator position
+	 * Select the placement of the Required state indicator
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_required_indicator_position = 'left';
+
+	/**
+	 * Include tax string suffix on totals box
+	 * Enable this to add the WooCommerce tax suffix on the totals box
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_tax_string_suffix = 'no';
+
+	/**
+	 * Include the WooCommerce Price display suffix on totals box
+	 * Enable this to add the WooCommerce Price display suffix
+	 * on the totals box.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_wc_price_suffix = 'no';
+
+	/**
+	 * The jQuery selector for main product image
+	 * This is used to change the product image.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_product_image_selector = '';
+
+	/**
+	 * Product image replacement mode
+	 * Self mode replaces the actual image and Inline appends
+	 * new image elements.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_product_image_mode = 'self';
+
+	/**
+	 * Move out of stock message
+	 * This is moves the out of stock message when styled variations
+	 * are used just below them.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_move_out_of_stock = 'no';
+
+	/**
+	 * Use internal variation price
+	 * Use this if your variable products have a lot of options to
+	 * improve performance. Note that this may cause issues with
+	 * discount or currency plugins.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_no_variation_prices_array = 'no';
+
+	/**
+	 * Enable plugin interface on product edit page for roles
+	 * Select the roles that will have access to the plugin interfacewhile
+	 * on the edit product page. The Admininstrator role always has access.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_hide_product_enabled = '';
+
+	/**
+	 * Hide override settings on products
+	 * Enable this to hide the settings tab on the product edit screen
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_hide_product_settings = 'no';
+
+	/**
+	 * Hide Builder mode on products
+	 * Enable this to hide the builder tab on the product edit screen
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_hide_product_builder_mode = 'no';
+
+	/**
+	 * Hide Normal mode on products
+	 * Enable this to hide the normal tab on the product edit screen
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_hide_product_normal_mode = 'no';
+
+	/**
+	 * Enable WP Rocket CDN
+	 * Check to enable the use of WP Rocket cdn for the plugin images
+	 * if it is active.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_cdn_rocket = 'yes';
+
+	/**
+	 * Enable Jetpack CDN
+	 * Check to enable the use of Jetpack cdn for the plugin images
+	 * if it is active.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_cdn_jetpack = 'no';
+
+	/**
+	 * Tooltip max width
+	 * Set the max width of the tooltip that appears on the elements.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_tooltip_max_width = '340px';
+
+	/**
+	 * Image mode
+	 * Set the image mode that will be used for various image
+	 * related functionality.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_image_mode = 'relative';
+
+	/**
+	 * Retrieve image sizes for image replacements
+	 * Disable this for slow servers or large amounts of images.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_retrieve_image_sizes = 'no';
+
+	/**
+	 * Radio button undo button
+	 * Globally override the undo button for radio buttons
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_radio_undo_button = '';
+
+	/**
+	 * Datepicker theme
+	 * Select the theme for the datepicker.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_datepicker_theme = '';
+
+	/**
+	 * Datepicker size
+	 * Select the size of the datepicker.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_datepicker_size = '';
+
+	/**
+	 * Datepicker position
+	 * Select the position of the datepicker.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_datepicker_position = '';
+
+	/**
+	 * Minimum characters for text-field and text-areas
+	 * Enter a value for the minimum characters the user must enter.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_min_chars = '';
+
+	/**
+	 * Maximum characters for text-field and text-areas
+	 * Enter a value for the minimum characters the user must enter.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_max_chars = '';
+
+	/**
+	 * Upload element inline Image preview
+	 * Enable inline preview of the image that will be uploaded.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_upload_inline_image_preview = 'no';
+
+	/**
+	 * Scroll to the product element upon selection
+	 * Enable to scroll the viewport to the product element.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_product_element_scroll = 'yes';
+
+	/**
+	 * Product element scroll offset
+	 * Enter a value for the scroll offset when selecting a choice
+	 * for the product element.
+	 *
+	 * @var string|int
+	 */
+	public $tm_epo_global_product_element_scroll_offset = '-100';
+
+	/**
+	 * Sync associated product quantity with main product quantity
+	 * Enable to have the quantities of the associated products to be
+	 * a multiple of the main product quantity.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_global_product_element_quantity_sync = 'yes';
+
+	/**
+	 * Upload folder
+	 * Changing this will only affect future uploads.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_upload_folder = 'extra_product_options';
+
+	/**
+	 * Enable pop-up message on uploads
+	 * Enables a pop-up when uploads are made.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_upload_popup = 'no';
+
+	/**
+	 * Enable upload success message
+	 * Indicates if the upload was successful with a message.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_upload_success_message = 'yes';
+
+	/**
+	 * Allowed file types
+	 * Select which file types the user will be allowed to upload.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_allowed_file_types = '@';
+
+	/**
+	 * Custom types
+	 * Select custom file types the user will be allowed to upload
+	 * separated by commas.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_custom_file_types = '';
+
+	/**
+	 * CSS code
+	 * Only enter pure CSS code without and style tags
+	 *
+	 * @var string
+	 */
+	public $tm_epo_css_code = '';
+
+	/**
+	 * JavaScript code
+	 * Only enter pure JavaScript code without and script tags
+	 *
+	 * @var string
+	 */
+	public $tm_epo_js_code = '';
+
+	/**
+	 * Username
+	 * Your Envato username.
+	 *
+	 * @var string
+	 */
+	public $tm_epo_envato_username = '';
+
+	/**
+	 * Envato Personal Token
+	 *
+	 * @var string
+	 */
+	public $tm_epo_envato_apikey = '';
+
+	/**
+	 * Purchase code
+	 *
+	 * @var string
+	 */
+	public $tm_epo_envato_purchasecode = '';
+
+	/**
+	 * Consent
+	 *
+	 * @var string
+	 */
+	public $tm_epo_consent_for_transmit = 'no';
+
+	/**
+	 * Custom math formula constants
+	 *
+	 * @var string
+	 */
+	public $tm_epo_math = '';
 
 	/**
 	 * The single instance of the class
@@ -383,6 +1757,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 *
 	 * @param boolean $bool If options are displayed inline (associated product).
 	 * @since 5.0
+	 * @return void
 	 */
 	public function set_inline_epo( $bool = false ) {
 		$this->is_inline_epo = $bool;
@@ -392,6 +1767,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * Adds additional builder elements from 3rd party plugins
 	 *
 	 * @since 1.0
+	 * @return void
 	 */
 	public function tm_epo_add_elements() {
 
@@ -420,6 +1796,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * Setup the plugin
 	 *
 	 * @since 1.0
+	 * @return void
 	 */
 	public function plugin_loaded() {
 
@@ -447,6 +1824,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * Setup the plugin
 	 *
 	 * @since 6.1
+	 * @return void
 	 */
 	public function wp_loaded() {
 		$this->generate_lookuptables();
@@ -456,20 +1834,24 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * Gets all of the plugin settings
 	 *
 	 * @since 1.0
+	 * @return void
 	 */
 	public function get_plugin_settings() {
 
 		foreach ( apply_filters( 'wc_epo_get_settings', $this->tm_plugin_settings ) as $key => $value ) {
-			if ( is_array( $value ) ) {
+			if ( is_array( $value ) && 3 === count( $value ) ) {
 				$method    = $value[2];
 				$classname = $value[1];
-				if ( call_user_func( [ $classname, $method ] ) ) {
+				if ( is_object( $classname ) && call_user_func( [ $classname, $method ] ) ) {
 					$this->$key = get_option( $key );
 					if ( false === $this->$key ) {
 						$this->$key = $value[0];
 					}
 				} else {
-					$this->$key = $value[0];
+					$this->$key = get_option( $key );
+					if ( false === $this->$key ) {
+						$this->$key = $value;
+					}
 				}
 			} else {
 				$this->$key = get_option( $key );
@@ -558,6 +1940,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * Gets custom settings for the current product
 	 *
 	 * @since 1.0
+	 * @return void
 	 */
 	public function get_override_settings() {
 		foreach ( $this->meta_fields as $key => $value ) {
@@ -569,6 +1952,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * Add required actions and filters
 	 *
 	 * @since 1.0
+	 * @return void
 	 */
 	public function add_plugin_actions() {
 
@@ -646,6 +2030,90 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		add_filter( 'wc_epo_apply_discount', [ $this, 'enable_shortcodes' ], 10, 3 );
 		// Enable shortcodes on various properties.
 		add_filter( 'wc_epo_enable_shortocde', [ $this, 'enable_shortcodes' ], 10, 3 );
+
+		// Set the flag for the product loop.
+		add_action( 'woocommerce_before_shop_loop_item', [ $this, 'woocommerce_before_shop_loop_item' ], 0 );
+		add_action( 'woocommerce_after_shop_loop_item', [ $this, 'woocommerce_after_shop_loop_item' ], 999999 );
+
+		// Change prices in the product loop.
+		add_filter( 'woocommerce_get_price_html', [ $this, 'woocommerce_get_price_html' ], 999999, 2 );
+
+	}
+
+	/**
+	 * Flag to check if we are in the product loop
+	 *
+	 * @since 6.2
+	 * @return void
+	 */
+	public function woocommerce_before_shop_loop_item() {
+
+		$this->is_in_product_loop = true;
+
+	}
+
+	/**
+	 * Flag to check if we are in the product loop
+	 *
+	 * @since 6.2
+	 * @return void
+	 */
+	public function woocommerce_after_shop_loop_item() {
+
+		$this->is_in_product_loop = false;
+
+	}
+
+	/**
+	 * Alter product display price to include possible option pricing on the product loop
+	 *
+	 * @param mixed        $price The product price.
+	 * @param object|false $product The product object.
+	 * @since 6.2
+	 */
+	public function woocommerce_get_price_html( $price = '', $product = false ) {
+
+		if ( ! $this->is_in_product_loop ) {
+			return $price;
+		}
+
+		$tm_meta_cpf = themecomplete_get_post_meta( $product, 'tm_meta_cpf', true );
+		if ( is_array( $tm_meta_cpf ) ) {
+			$tm_price_display_mode          = isset( $tm_meta_cpf['price_display_mode'] ) ? $tm_meta_cpf['price_display_mode'] : 'none';
+			$tm_price_display_override      = isset( $tm_meta_cpf['price_display_override'] ) ? $tm_meta_cpf['price_display_override'] : '';
+			$tm_price_display_override_sale = isset( $tm_meta_cpf['price_display_override_sale'] ) ? $tm_meta_cpf['price_display_override_sale'] : '';
+			$tm_price_display_override_to   = isset( $tm_meta_cpf['price_display_override_to'] ) ? $tm_meta_cpf['price_display_override_to'] : '';
+
+			switch ( $tm_price_display_mode ) {
+				case 'price':
+					if ( '' !== $tm_price_display_override_sale ) {
+						$price = ( function_exists( 'wc_get_price_to_display' )
+							? wc_format_sale_price( wc_format_decimal( $tm_price_display_override ), wc_format_decimal( $tm_price_display_override_sale ) )
+							: '<del>' . themecomplete_price( wc_format_decimal( $tm_price_display_override ) ) . '</del> <ins>' . themecomplete_price( wc_format_decimal( $tm_price_display_override_sale ) ) . '</ins>'
+						);
+					} else {
+						$price = themecomplete_price( wc_format_decimal( $tm_price_display_override ) );
+					}
+					break;
+				case 'from':
+					$price = ( function_exists( 'wc_get_price_html_from_text' ) ? wc_get_price_html_from_text() : $product->get_price_html_from_text() );
+					if ( '' !== $tm_price_display_override_sale ) {
+						$price .= ( function_exists( 'wc_get_price_to_display' )
+							? wc_format_sale_price( wc_format_decimal( $tm_price_display_override ), wc_format_decimal( $tm_price_display_override_sale ) )
+							: '<del>' . themecomplete_price( wc_format_decimal( $tm_price_display_override ) ) . '</del> <ins>' . themecomplete_price( wc_format_decimal( $tm_price_display_override_sale ) ) . '</ins>'
+						);
+					} else {
+						$price .= themecomplete_price( wc_format_decimal( $tm_price_display_override ) );
+					}
+					break;
+				case 'range':
+					$price = themecomplete_price( wc_format_decimal( $tm_price_display_override ) ) . ' - ' . themecomplete_price( wc_format_decimal( $tm_price_display_override_to ) );
+					break;
+			}
+		}
+
+		return apply_filters( 'woocommerce_epo_get_price_html', $price, $product );
+
 	}
 
 	/**
@@ -656,15 +2124,16 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * @param integer $post_id The post id where the filter was used.
 	 *
 	 * @since 6.0.4
+	 * @return mixed
 	 */
 	public function enable_shortcodes( $property = '', $original_property = '', $post_id = 0 ) {
 
 		if ( is_array( $property ) ) {
 			foreach ( $property as $key => $value ) {
-				$property[ $key ] = do_shortcode( $value );
+				$property[ $key ] = themecomplete_do_shortcode( $value );
 			}
 		} else {
-			$property = do_shortcode( $property );
+			$property = themecomplete_do_shortcode( $property );
 		}
 		return $property;
 
@@ -677,13 +2146,14 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * @param string  $original_text Original text.
 	 * @param boolean $shortcode If shortcode should be enabled.
 	 * @since 4.9.2
+	 * @return string
 	 */
 	public function wc_epo_kses( $text = '', $original_text = '', $shortcode = true ) {
 
 		$text = $original_text;
 
 		if ( $shortcode ) {
-			$text = THEMECOMPLETE_EPO_HELPER()->do_shortcode( $text );
+			$text = themecomplete_do_shortcode( $text );
 		}
 
 		return $text;
@@ -695,10 +2165,11 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 *
 	 * @param string $text The element label text.
 	 * @since 4.9.2
+	 * @return string
 	 */
 	public function wc_epo_label_in_cart( $text = '' ) {
 
-		return THEMECOMPLETE_EPO_HELPER()->do_shortcode( $text );
+		return themecomplete_do_shortcode( $text );
 
 	}
 
@@ -707,6 +2178,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 *
 	 * @param WC_Product $product Product object.
 	 * @since 4.8.1
+	 * @return array
 	 */
 	public function get_product_min_max_prices( $product ) {
 
@@ -868,6 +2340,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * @param array  $markup The markup array.
 	 * @param object $product The product object.
 	 * @since 4.8.1
+	 * @return array
 	 */
 	public function woocommerce_structured_data_product_offer( $markup, $product ) {
 
@@ -904,6 +2377,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * @param string $element The element type.
 	 * @param string $element_uniqueid The element unique id.
 	 * @since 1.0
+	 * @return string
 	 */
 	public function wc_epo_global_min_chars( $min = '', $element = '', $element_uniqueid = '' ) {
 		$element = str_replace( '_min_chars', '', $element );
@@ -922,6 +2396,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * @param string $element The element type.
 	 * @param string $element_uniqueid The element unique id.
 	 * @since 1.0
+	 * @return string
 	 */
 	public function wc_epo_global_max_chars( $max = '', $element = '', $element_uniqueid = '' ) {
 		$element = str_replace( '_min_chars', '', $element );
@@ -936,6 +2411,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * Initialize custom product settings
 	 *
 	 * @since 1.0
+	 * @return void
 	 */
 	public function init_settings_pre() {
 
@@ -981,6 +2457,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * Initialize variables
 	 *
 	 * @since 1.0
+	 * @return void
 	 */
 	public function init_vars() {
 		$this->wc_vars = [
@@ -1006,6 +2483,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * Initialize custom product settings
 	 *
 	 * @since 1.0
+	 * @return void
 	 */
 	public function init_settings() {
 
@@ -1045,6 +2523,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * Initialize custom product settings
 	 *
 	 * @since 1.0
+	 * @return void
 	 */
 	public function init_settings_after() {
 
@@ -1239,6 +2718,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * Check if plugin scripts can be loaded
 	 *
 	 * @since 1.0
+	 * @return bool
 	 */
 	public function can_load_scripts() {
 
@@ -1273,6 +2753,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * Flag to check if we are in the product shortcode
 	 *
 	 * @since 1.0
+	 * @return void
 	 */
 	public function woocommerce_shortcode_before_product_loop() {
 
@@ -1284,6 +2765,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * Flag to check if we are in the product shortcode
 	 *
 	 * @since 1.0
+	 * @return void
 	 */
 	public function woocommerce_shortcode_after_product_loop() {
 
@@ -1295,6 +2777,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * Displays options in [product] shortcode
 	 *
 	 * @since 1.0
+	 * @return void
 	 */
 	public function tm_enable_options_on_product_shortcode() {
 
@@ -1308,6 +2791,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * Displays options in shop page
 	 *
 	 * @since 1.0
+	 * @return void
 	 */
 	public function tm_woocommerce_after_shop_loop_item() {
 
@@ -1326,6 +2810,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 *
 	 * @param object|false $product The product object.
 	 * @since 1.0
+	 * @return mixed
 	 */
 	public function add_product_tc_prices( $product = false ) {
 
@@ -1409,6 +2894,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * @param float        $price The product price.
 	 * @param object|false $product The product object.
 	 * @since 4.8.4
+	 * @return float
 	 */
 	public function woocommerce_product_get_price( $price = 0, $product = false ) {
 
@@ -1430,6 +2916,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * @param float        $price The product price.
 	 * @param object|false $product The product object.
 	 * @since 1.0
+	 * @return float
 	 */
 	public function tm_woocommerce_get_price( $price = 0, $product = false ) {
 
@@ -1461,6 +2948,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * @param object|false $product The product object.
 	 * @param object|false $variation The variable product object.
 	 * @since 1.0
+	 * @return bool
 	 */
 	public function tm_woocommerce_show_variation_price( $show = true, $product = false, $variation = false ) {
 
@@ -1485,6 +2973,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 *
 	 * @param object|false $product The product object.
 	 * @since 1.0
+	 * @return mixed
 	 */
 	public function tc_get_price( $product = false ) {
 
@@ -1510,6 +2999,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * @param mixed        $price The product price.
 	 * @param integer      $qty The product quantity.
 	 * @since 1.0
+	 * @return string
 	 */
 	public function tc_get_display_price( $product = false, $price = '', $qty = 1 ) {
 
@@ -1741,7 +3231,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		}
 
 		// WP Rocket cdn.
-		if ( defined( 'WP_ROCKET_VERSION' ) && function_exists( 'get_rocket_cdn_cnames' ) && function_exists( 'get_rocket_cdn_url' ) ) {
+		if ( 'yes' === $this->tm_epo_global_cdn_rocket && defined( 'WP_ROCKET_VERSION' ) && function_exists( 'get_rocket_cdn_cnames' ) && function_exists( 'get_rocket_cdn_url' ) ) {
 			$zone   = [ 'all', 'images' ];
 			$cnames = get_rocket_cdn_cnames( $zone );
 			if ( $cnames ) {
@@ -1750,7 +3240,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		}
 
 		// Jetpack cdn.
-		if ( function_exists( 'jetpack_photon_url' ) && is_string( $url ) ) {
+		if ( 'yes' === $this->tm_epo_global_cdn_jetpack && function_exists( 'jetpack_photon_url' ) && is_string( $url ) ) {
 			$url = jetpack_photon_url( $url );
 		}
 
@@ -2561,13 +4051,25 @@ final class THEMECOMPLETE_Extra_Product_Options {
 													foreach ( $thiskey_value as $thiskeyvalue_id => $thiskeyvalue_value ) {
 														if ( isset( $thiselement['options'] ) && isset( $thiselement['options'][ $thiskeyvalue_value ] ) ) {
 															if ( 'text' === $type || 'rawvalue' === $type ) {
-																$val .= $thiselement['options'][ $thiskeyvalue_value ];
+																$temp_value = $thiselement['options'][ $thiskeyvalue_value ];
+																if ( '' === $temp_value ) {
+																	$temp_value = "''";
+																} elseif ( ! is_numeric( $temp_value ) ) {
+																	$temp_value = "'" . $temp_value . "'";
+																}
+																$val .= $temp_value;
 															} else {
 																$val += THEMECOMPLETE_EPO_HELPER()->unformat( $thiselement['options'][ $thiskeyvalue_value ] );
 															}
 														} else {
 															if ( 'text' === $type || 'rawvalue' === $type ) {
-																$val .= $thiskeyvalue_value;
+																$temp_value = $thiskeyvalue_value;
+																if ( '' === $temp_value ) {
+																	$temp_value = "''";
+																} elseif ( ! is_numeric( $temp_value ) ) {
+																	$temp_value = "'" . $temp_value . "'";
+																}
+																$val .= $temp_value;
 															} else {
 																$val += THEMECOMPLETE_EPO_HELPER()->unformat( $thiskeyvalue_value );
 															}
@@ -2577,7 +4079,13 @@ final class THEMECOMPLETE_Extra_Product_Options {
 											} else {
 												if ( isset( $thiselement['options'] ) && isset( $thiselement['options'][ $thiskey ] ) ) {
 													if ( 'text' === $type || 'rawvalue' === $type ) {
-														$val .= $thiselement['options'][ $thiskey ];
+														$temp_value = $thiselement['options'][ $thiskey ];
+														if ( '' === $temp_value ) {
+															$temp_value = "''";
+														} elseif ( ! is_numeric( $temp_value ) ) {
+															$temp_value = "'" . $temp_value . "'";
+														}
+														$val .= $temp_value;
 													} else {
 														$val += THEMECOMPLETE_EPO_HELPER()->unformat( $thiselement['options'][ $thiskey ] );
 													}
@@ -2586,7 +4094,13 @@ final class THEMECOMPLETE_Extra_Product_Options {
 														$thiskey = THEMECOMPLETE_EPO_HELPER()->reverse_strrchr( $thiskey, '_' );
 													}
 													if ( 'text' === $type || 'rawvalue' === $type ) {
-														$val .= $thiskey;
+														$temp_value = $thiskey;
+														if ( '' === $temp_value ) {
+															$temp_value = "''";
+														} elseif ( ! is_numeric( $temp_value ) ) {
+															$temp_value = "'" . $temp_value . "'";
+														}
+														$val .= $temp_value;
 													} else {
 														$val += THEMECOMPLETE_EPO_HELPER()->unformat( $thiskey );
 													}
@@ -2664,6 +4178,9 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		$formula = themecomplete_convert_local_numbers( $formula );
 
 		// Do the math.
+		if ( version_compare( phpversion(), THEMECOMPLETE_EPO_PHP_VERSION, '<' ) ) {
+			return $formula ? THEMECOMPLETE_EPO_MATH_DEPRECATED::evaluate( $formula ) : 0;
+		}
 		return $formula ? THEMECOMPLETE_EPO_MATH::evaluate( $formula ) : 0;
 
 	}
@@ -4049,8 +5566,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	public function upload_dir_trick( $param ) {
 
 		global $woocommerce;
-		$this->unique_dir = apply_filters( 'wc_epo_upload_unique_dir', md5( $woocommerce->session->get_customer_id() ) );
-		$subdir           = $this->upload_dir . $this->unique_dir;
+		$unique_dir = apply_filters( 'wc_epo_upload_unique_dir', md5( $woocommerce->session->get_customer_id() ) );
+		$subdir     = $this->upload_dir . $unique_dir;
 		if ( empty( $param['subdir'] ) ) {
 			$param['path']   = $param['path'] . $subdir;
 			$param['url']    = $param['url'] . $subdir;
@@ -4094,8 +5611,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	 * @param string        $element The Element name.
 	 * @param array         $builder The builder array.
 	 * @param array         $current_builder The current builder array.
-	 * @param integer|false $index The element index in the buidler array.
-	 * @param string        $alt Alternative value.
+	 * @param integer|false $index The element index in the builder array.
+	 * @param mixed         $alt Alternative value.
 	 * @param string        $identifier Identifier 'sections' or the current element.
 	 * @param string        $apply_filters Filter name to apply to the returned value.
 	 * @param string        $element_uniqueid The Element unique ID.
@@ -4218,7 +5735,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		$custom_product_taxonomies = get_object_taxonomies( 'product' );
 		if ( is_array( $custom_product_taxonomies ) && count( $custom_product_taxonomies ) > 0 ) {
 			foreach ( $custom_product_taxonomies as $tax ) {
-				if ( 'product_cat' === $tax ) {
+				if ( 'product_cat' === $tax || 'translation_priority' === $tax ) {
 					continue;
 				}
 				$terms = get_the_terms( $post_id, $tax );
@@ -4302,8 +5819,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 			foreach ( $in_tax as $tax => $tax_temrs ) {
 
-				$args_tax = $args;
-				unset( $args_tax['meta_query'] );
+				$args_tax               = $args;
+				$args_tax['meta_query'] = $meta_array2; // phpcs:ignore WordPress.DB.SlowDBQuery
 				// phpcs:ignore WordPress.DB.SlowDBQuery
 				$args_tax['tax_query']  = [
 					// Get Global options that belong to the product tag.
@@ -4378,7 +5895,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 					$wpml_gp_keys = array_keys( $wpml_tmp_tmglobalprices );
 					foreach ( $wpml_gp_keys as $key => $value ) {
 						if ( ! isset( $wpml_tmp_tmglobalprices_added[ $value ] ) ) {
-							$tmglobalprices[]                 = $wpml_tmp_tmglobalprices[ $value ];
+							$price                            = $wpml_tmp_tmglobalprices[ $value ];
+							$tmglobalprices[]                 = $price;
 							$tm_meta_cpf_global_forms_added[] = $price->ID;
 						}
 					}
@@ -4400,7 +5918,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				'meta_query'  => [
 					[
 						'key'     => 'tm_meta_product_ids',
-						'value'   => '"' . $original_post_id . '";',
+						'value'   => ':"' . $original_post_id . '";',
 						'compare' => 'LIKE',
 
 					],
@@ -4414,7 +5932,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				$variations_for_conditional_logic[] = $variation_id;
 				$glue[]                             = [
 					'key'     => 'tm_meta_product_ids',
-					'value'   => '"' . $variation_id . '";',
+					'value'   => ':"' . $variation_id . '";',
 					'compare' => 'LIKE',
 				];
 			}
@@ -4473,9 +5991,10 @@ final class THEMECOMPLETE_Extra_Product_Options {
 					$wpml_gp_keys = array_keys( $wpml_tmglobalprices_products );
 					foreach ( $wpml_gp_keys as $key => $value ) {
 						if ( ! isset( $wpml_tmglobalprices_products_added[ $value ] ) ) {
+							$price = $wpml_tmglobalprices_products[ $value ];
 							if ( ! in_array( $price->ID, $global_id_array, true ) ) {
 								$global_id_array[]                = $price->ID;
-								$tmglobalprices[]                 = $wpml_tmglobalprices_products[ $value ];
+								$tmglobalprices[]                 = $price;
 								$tm_meta_cpf_global_forms_added[] = $price->ID;
 							}
 						}
@@ -4499,7 +6018,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 					'meta_query'  => [
 						[
 							'key'     => 'tm_meta_product_ids',
-							'value'   => '"' . $post_original_id . '";',
+							'value'   => ':"' . $post_original_id . '";',
 							'compare' => 'LIKE',
 
 						],
@@ -4561,8 +6080,8 @@ final class THEMECOMPLETE_Extra_Product_Options {
 						$wpml_gp_keys = array_keys( $wpml_tmglobalprices_products );
 						foreach ( $wpml_gp_keys as $key => $value ) {
 							if ( ! isset( $wpml_tmglobalprices_products_added[ $value ] ) ) {
+								$price = $wpml_tmglobalprices_products[ $value ];
 								if ( ! in_array( $price->ID, $global_id_array, true ) ) {
-
 									$query = new WP_Query(
 										[
 											'post_type'   => THEMECOMPLETE_EPO_GLOBAL_POST_TYPE,
@@ -4571,6 +6090,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 											'posts_per_page' => -1,
 											'orderby'     => 'date',
 											'order'       => 'asc',
+											'no_found_rows' => true,
 											// phpcs:ignore WordPress.DB.SlowDBQuery
 											'meta_query'  => [
 												'relation' => 'AND',
@@ -4595,7 +6115,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 										}
 									} else {
 										$global_id_array[]                = $price->ID;
-										$tmglobalprices[]                 = $wpml_tmglobalprices_products[ $value ];
+										$tmglobalprices[]                 = $price;
 										$tm_meta_cpf_global_forms_added[] = $price->ID;
 									}
 								}
@@ -4621,7 +6141,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 					'meta_query'  => [
 						[
 							'key'     => 'tm_meta_product_ids',
-							'value'   => '"' . $post_original_id . '";',
+							'value'   => ':"' . $post_original_id . '";',
 							'compare' => 'LIKE',
 
 						],
@@ -4636,7 +6156,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 					$variations_for_conditional_logic[] = $variation_id;
 					$glue[]                             = [
 						'key'     => 'tm_meta_product_ids',
-						'value'   => '"' . floatval( THEMECOMPLETE_EPO_WPML()->get_original_id( $variation_id ) ) . '";',
+						'value'   => ':"' . floatval( THEMECOMPLETE_EPO_WPML()->get_original_id( $variation_id ) ) . '";',
 						'compare' => 'LIKE',
 					];
 				}
@@ -4696,6 +6216,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 							'posts_per_page' => -1,
 							'orderby'        => 'date',
 							'order'          => 'asc',
+							'no_found_rows'  => true,
 							'meta_query'     => $meta_query, // phpcs:ignore WordPress.DB.SlowDBQuery
 						]
 					);
@@ -4727,7 +6248,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		}
 
 		// Add current product to Global options array (has to be last to not conflict).
-		$tmglobalprices[] = get_post( $post_id );
+		$tmglobalprices[] = THEMECOMPLETE_EPO_HELPER()->get_cached_post( $post_id );
 
 		// End of DB init.
 
@@ -4846,7 +6367,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 						if ( $all_terms ) {
 							foreach ( $all_terms as $term ) {
 								$has_term     = has_term( (int) $term->term_id, $attributes[ $product_epos[ $tmcp_id ]['name'] ]['name'], floatval( THEMECOMPLETE_EPO_WPML()->get_original_id( $post_id ) ) ) ? 1 : 0;
-								$wpml_term_id = THEMECOMPLETE_EPO_WPML()->is_active() ? icl_object_id( $term->term_id, $attributes[ $product_epos[ $tmcp_id ]['name'] ]['name'], false ) : false;
+								$wpml_term_id = THEMECOMPLETE_EPO_WPML()->is_active() && function_exists( 'icl_object_id' ) ? icl_object_id( $term->term_id, $attributes[ $product_epos[ $tmcp_id ]['name'] ]['name'], false ) : false;
 								if ( $has_term ) {
 									$product_epos[ $tmcp_id ]['attributes'][ esc_attr( $term->slug ) ] = apply_filters( 'woocommerce_tm_epo_option_name', esc_html( $term->name ), null, null );
 									if ( $wpml_term_id ) {
@@ -5104,6 +6625,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 								'total_elements'           => $_sections[ $_s ],
 								'sections_size'            => $_sections_size[ $_s ],
 								'sections_slides'          => isset( $_sections_slides[ $_s ] ) ? $_sections_slides[ $_s ] : '',
+								'sections_tabs_labels'     => $this->get_builder_element( 'sections_tabs_labels', $builder, $current_builder, $_s, '', 'sections', '', $_sections_uniqid ),
 								'sections_style'           => $_sections_style[ $_s ],
 								'sections_placement'       => $_sections_placement[ $_s ],
 								'sections_uniqid'          => $_sections_uniqid,
@@ -5130,7 +6652,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 
 							$element_no_in_section = -1;
 							$section_slides        = $global_epos[ $priority ][ $tmcp_id ]['sections'][ $_s ]['sections_slides'];
-							if ( '' !== $section_slides && 'slider' === $global_epos[ $priority ][ $tmcp_id ]['sections'][ $_s ]['sections_type'] ) {
+							if ( '' !== $section_slides && ( 'slider' === $global_epos[ $priority ][ $tmcp_id ]['sections'][ $_s ]['sections_type'] || 'tabs' === $global_epos[ $priority ][ $tmcp_id ]['sections'][ $_s ]['sections_type'] ) ) {
 								$section_slides = explode( ',', $section_slides );
 
 							}
@@ -5159,7 +6681,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 									$global_epos[ $priority ][ $tmcp_id ]['sections'][ $_s ]['sections_clogic'] = '';
 								}
 
-								if ( isset( $current_element ) && $element_object ) {
+								if ( $element_object ) {
 									if ( ! isset( $_counter[ $original_current_element ] ) ) {
 										$_counter[ $original_current_element ] = 0;
 									} else {
@@ -5374,6 +6896,40 @@ final class THEMECOMPLETE_Extra_Product_Options {
 												$_regular_price = [ [ $_price ] ];
 											} else {
 												$_regular_price = [ [ wc_format_decimal( $_price, false, true ) ] ];
+											}
+
+											$lookuptable   = $this->get_builder_element( $_prefix . 'lookuptable', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid );
+											$lookuptable_x = $this->get_builder_element( $_prefix . 'lookuptable_x', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid );
+											$lookuptable_y = $this->get_builder_element( $_prefix . 'lookuptable_y', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid );
+											if ( 'lookuptable' === $this_price_type ) {
+												$table     = trim( THEMECOMPLETE_EPO_HELPER()->reverse_strrchr( $lookuptable, '|' ) );
+												$table_num = trim( substr( $lookuptable, ( 0 - ( strlen( strrchr( $lookuptable, '|' ) ) - 1 ) ) ) );
+
+												$xy            = '0';
+												$lookuptable_x = trim( $lookuptable_x );
+												$lookuptable_y = trim( $lookuptable_y );
+												if ( ! empty( $lookuptable_x ) ) {
+													if ( ! THEMECOMPLETE_EPO_HELPER()->str_startswith( $lookuptable_x, '{' ) ) {
+														$lookuptable_x = '{field.' . $lookuptable_x . '.text}';
+													}
+												}
+												if ( ! empty( $lookuptable_y ) ) {
+													if ( ! THEMECOMPLETE_EPO_HELPER()->str_startswith( $lookuptable_y, '{' ) ) {
+														$lookuptable_y = '{field.' . $lookuptable_y . '.text}';
+													}
+												}
+												if ( ! empty( $lookuptable_x ) && ! empty( $lookuptable_y ) ) {
+													$xy = '[' . $lookuptable_x . ', ' . $lookuptable_y . ']';
+												} elseif ( ! empty( $lookuptable_x ) ) {
+													$xy = $lookuptable_x;
+												} elseif ( ! empty( $lookuptable_y ) ) {
+													$xy = $lookuptable_y;
+												}
+												$this_price_type                  = 'math';
+												$_regular_price_type              = [ [ $this_price_type ] ];
+												$_price                           = 'lookuptable(' . $xy . ', ["' . $table . '", ' . $table_num . '])';
+												$_original_regular_price_filtered = $_price;
+												$_regular_price                   = [ [ $_price ] ];
 											}
 
 											if ( THEMECOMPLETE_EPO_WPML()->is_active() && THEMECOMPLETE_EPO_WPML()->is_multi_currency() ) {
@@ -5595,40 +7151,6 @@ final class THEMECOMPLETE_Extra_Product_Options {
 												$_min_price  = false;
 												$_max_price  = $_min_price;
 												$_min_price0 = 0;
-											}
-
-											$lookuptable   = $this->get_builder_element( $_prefix . 'lookuptable', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid );
-											$lookuptable_x = $this->get_builder_element( $_prefix . 'lookuptable_x', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid );
-											$lookuptable_y = $this->get_builder_element( $_prefix . 'lookuptable_y', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid );
-											if ( 'lookuptable' === $this_price_type ) {
-												$table     = trim( THEMECOMPLETE_EPO_HELPER()->reverse_strrchr( $lookuptable, '|' ) );
-												$table_num = trim( substr( $lookuptable, ( 0 - ( strlen( strrchr( $lookuptable, '|' ) ) - 1 ) ) ) );
-
-												$xy            = '0';
-												$lookuptable_x = trim( $lookuptable_x );
-												$lookuptable_y = trim( $lookuptable_y );
-												if ( ! empty( $lookuptable_x ) ) {
-													if ( ! THEMECOMPLETE_EPO_HELPER()->str_startswith( $lookuptable_x, '{' ) ) {
-														$lookuptable_x = '{field.' . $lookuptable_x . '.text}';
-													}
-												}
-												if ( ! empty( $lookuptable_y ) ) {
-													if ( ! THEMECOMPLETE_EPO_HELPER()->str_startswith( $lookuptable_y, '{' ) ) {
-														$lookuptable_y = '{field.' . $lookuptable_y . '.text}';
-													}
-												}
-												if ( ! empty( $lookuptable_x ) && ! empty( $lookuptable_y ) ) {
-													$xy = '[' . $lookuptable_x . ', ' . $lookuptable_y . ']';
-												} elseif ( ! empty( $lookuptable_x ) ) {
-													$xy = $lookuptable_x;
-												} elseif ( ! empty( $lookuptable_x ) ) {
-													$xy = $lookuptable_y;
-												}
-												$this_price_type                  = 'math';
-												$_regular_price_type              = [ [ $this_price_type ] ];
-												$_price                           = 'lookuptable(' . $xy . ', ["' . $table . '", ' . $table_num . '])';
-												$_original_regular_price_filtered = $_price;
-												$_regular_price                   = [ [ $_price ] ];
 											}
 
 											if ( 'math' === $this_price_type ) {
@@ -5866,8 +7388,11 @@ final class THEMECOMPLETE_Extra_Product_Options {
 														$mt_prefix = THEMECOMPLETE_EPO_HELPER()->get_currency_price_prefix( $currency );
 
 														if ( '' === $mt_prefix ) {
-															$_current_currency_price          = $_prices;
-															$_original_current_currency_price = $_current_currency_price;
+															$_current_currency_price          = $_original_prices;
+															$_original_current_currency_price = $_original_prices;
+															if ( $enable_sales ) {
+																$_current_currency_price = THEMECOMPLETE_EPO_HELPER()->merge_price_array( $_current_currency_price, $_prices );
+															}
 														} else {
 															$_current_currency_price          = $this->get_builder_element( 'multiple_' . $current_element . '_options_price' . $mt_prefix, $builder, $current_builder, $current_counter, [], $current_element, 'wc_epo_multiple_prices' . $mt_prefix, $element_uniqueid );
 															$_current_currency_sale_price     = $this->get_builder_element( 'multiple_' . $current_element . '_options_sale_price' . $mt_prefix, $builder, $current_builder, $current_counter, [], $current_element, 'wc_epo_multiple_sale_prices' . $mt_prefix, $element_uniqueid );
@@ -6531,11 +8056,12 @@ final class THEMECOMPLETE_Extra_Product_Options {
 													'priced_individually' => $this->get_builder_element( $_prefix . 'priced_individually', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),
 													'order' => $this->get_builder_element( $_prefix . 'order', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),
 													'orderby' => $this->get_builder_element( $_prefix . 'orderby', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),
-
+													'disable_epo' => $this->get_builder_element( $_prefix . 'disable_epo', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),
 													'shipped_individually' => $this->get_builder_element( $_prefix . 'shipped_individually', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),
 													'maintain_weight' => $this->get_builder_element( $_prefix . 'maintain_weight', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),
 													'discount' => $this->get_builder_element( $_prefix . 'discount', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),
 													'discount_type' => $this->get_builder_element( $_prefix . 'discount_type', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),
+													'hiddenin' => $this->get_builder_element( $_prefix . 'hiddenin', $builder, $current_builder, $current_counter, '', $current_element, '', $element_uniqueid ),
 
 													'show_title' => $this->get_builder_element( $_prefix . 'show_title', $builder, $current_builder, $current_counter, '1', $current_element, '', $element_uniqueid ),
 													'show_price' => $this->get_builder_element( $_prefix . 'show_price', $builder, $current_builder, $current_counter, '1', $current_element, '', $element_uniqueid ),
@@ -7025,16 +8551,16 @@ final class THEMECOMPLETE_Extra_Product_Options {
 	/**
 	 * Translate $attributes to post names
 	 *
-	 * @param array   $attributes Element option choices.
-	 * @param array   $type element type.
-	 * @param integer $section Field loop.
-	 * @param string  $form_prefix should be passed with _ if not empty.
-	 * @param string  $name_prefix Name prefix.
-	 * @param array   $element The element array.
+	 * @param array  $attributes Element option choices.
+	 * @param array  $type element type.
+	 * @param string $field_loop Field loop.
+	 * @param string $form_prefix should be passed with _ if not empty.
+	 * @param string $name_prefix Name prefix.
+	 * @param array  $element The element array.
 	 *
 	 * @return array
 	 */
-	public function get_post_names( $attributes, $type, $section = '', $form_prefix = '', $name_prefix = '', $element = [] ) {
+	public function get_post_names( $attributes, $type, $field_loop = '', $form_prefix = '', $name_prefix = '', $element = [] ) {
 
 		$fields = [];
 		$loop   = 0;
@@ -7045,9 +8571,9 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				$name_inc = '';
 				if ( ! empty( $element_object->post_name_prefix ) ) {
 					if ( 'multiple' === $element_object->type || 'multiplesingle' === $element_object->type || 'singlemultiple' === $element_object->type ) {
-						$name_inc = 'tmcp_' . $name_prefix . $element_object->post_name_prefix . '_' . $section . $form_prefix;
+						$name_inc = 'tmcp_' . $name_prefix . $element_object->post_name_prefix . '_' . $field_loop . $form_prefix;
 					} elseif ( 'multipleall' === $element_object->type ) {
-						$name_inc = 'tmcp_' . $name_prefix . $element_object->post_name_prefix . '_' . $section . '_' . $loop . $form_prefix;
+						$name_inc = 'tmcp_' . $name_prefix . $element_object->post_name_prefix . '_' . $field_loop . '_' . $loop . $form_prefix;
 					}
 				}
 				$fields[] = $name_inc;
@@ -7055,7 +8581,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 			}
 		} else {
 			if ( ! empty( $element_object->type ) && ! empty( $element_object->post_name_prefix ) ) {
-				$name_inc = 'tmcp_' . $name_prefix . $element_object->post_name_prefix . '_' . $section . $form_prefix;
+				$name_inc = 'tmcp_' . $name_prefix . $element_object->post_name_prefix . '_' . $field_loop . $form_prefix;
 				if ( isset( $element['mode'] ) && 'product' !== $element['mode'] && isset( $element['type'] ) && 'product' === $element['type'] && isset( $element['layout_mode'] ) && ( 'checkbox' === $element['layout_mode'] || 'thumbnailmultiple' === $element['layout_mode'] ) ) {
 					$name_inc = $name_inc . '_*';
 				}
@@ -7150,7 +8676,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		if ( is_array( $local_price_array ) && count( $local_price_array ) > 0 ) {
 			$attributes = themecomplete_get_attributes( $post_id );
 			if ( is_array( $attributes ) && count( $attributes ) > 0 ) {
-				foreach ( $local_price_array as $field ) {
+				foreach ( $local_price_array['product_epos'] as $field ) {
 					if ( isset( $field['name'] ) && isset( $attributes[ $field['name'] ] ) && ! $attributes[ $field['name'] ]['is_variation'] ) {
 						$attribute     = $attributes[ $field['name'] ];
 						$field_counter = 0;
@@ -7229,6 +8755,7 @@ final class THEMECOMPLETE_Extra_Product_Options {
 		$connectors      = $args['connectors'];
 
 		$element_type_counter = [];
+		$cart_fee_name        = $this->cart_fee_name;
 
 		if ( isset( $field['sections'] ) && is_array( $field['sections'] ) ) {
 			foreach ( $field['sections'] as $_s => $section ) {
@@ -7238,7 +8765,13 @@ final class THEMECOMPLETE_Extra_Product_Options {
 				if ( isset( $section['elements'] ) && is_array( $section['elements'] ) ) {
 					foreach ( $section['elements'] as $arr_element_counter => $element ) {
 
-						$cart_fee_name = $this->cart_fee_name;
+						$is_enabled = isset( $element['enabled'] ) ? $element['enabled'] : 2;
+						// Currently $no_disabled is disabled by default
+						// to allow the conditional logic
+						// to work correctly when there is a disabled element.
+						if ( '' === $is_enabled || '0' === $is_enabled ) {
+							continue;
+						}
 						$field_counter = 0;
 
 						if ( ! empty( $add_identifier ) ) {

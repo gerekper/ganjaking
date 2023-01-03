@@ -354,6 +354,19 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_PRODUCT extends THEMECOMPLETE_EPO_BUILDE
 									false
 								),
 								[
+									'id'          => 'product_disable_epo',
+									'wpmldisable' => 1,
+									'default'     => '',
+									'type'        => 'checkbox',
+									'tags'        => [
+										'value' => '1',
+										'id'    => 'builder_product_disable_epo',
+										'name'  => 'tm_meta[tmfbuilder][product_disable_epo][]',
+									],
+									'label'       => esc_html__( 'Disable Addons', 'woocommerce-tm-extra-product-options' ),
+									'desc'        => esc_html__( 'If this is enabled the included addons the associated product has will not be displayed.', 'woocommerce-tm-extra-product-options' ),
+								],
+								[
 									'id'          => 'product_shipped_individually',
 									'wpmldisable' => 1,
 									'default'     => '',
@@ -446,6 +459,35 @@ class THEMECOMPLETE_EPO_BUILDER_ELEMENT_PRODUCT extends THEMECOMPLETE_EPO_BUILDE
 											'value'    => '1',
 										],
 									],
+								],
+
+								[
+									'id'          => 'product_hiddenin',
+									'wpmldisable' => 1,
+									'default'     => '',
+									'type'        => 'select',
+									'multiple'    => 'multiple',
+									'tags'        => [
+										'class' => 'product-hiddenin-selector',
+										'id'    => 'builder_product_hiddenin',
+										'name'  => 'tm_meta[tmfbuilder][product_hiddenin][]',
+									],
+									'options'     => [
+										[
+											'text'  => esc_attr__( 'Cart', 'woocommerce-tm-extra-product-options' ),
+											'value' => 'cart',
+										],
+										[
+											'text'  => esc_attr__( 'Checkout', 'woocommerce-tm-extra-product-options' ),
+											'value' => 'checkout',
+										],
+										[
+											'text'  => esc_attr__( 'Order and Emails', 'woocommerce-tm-extra-product-options' ),
+											'value' => 'order',
+										],
+									],
+									'label'       => esc_html__( 'Hide product in', 'woocommerce-tm-extra-product-options' ),
+									'desc'        => esc_html__( 'Select where to hide the product', 'woocommerce-tm-extra-product-options' ),
 								],
 
 							],

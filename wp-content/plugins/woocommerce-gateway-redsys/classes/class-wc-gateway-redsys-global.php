@@ -2238,7 +2238,7 @@ class WC_Gateway_Redsys_Global {
 
 	public function get_last_four( $number = false, $number2 = false ) {
 
-		if ( ! $number2 && ! $number && '' !== $numbe && '' !== $numbe2 ) {
+		if ( ! $number2 && ! $number && '' !== $number && '' !== $number2 ) {
 			$dscardnumber4 = '0000';
 		} else {
 			if ( $number2 ) {

@@ -333,17 +333,17 @@
 						if ( tip === undefined ) {
 							if ( is_swatch ) {
 								tip = findlabel.html();
-							} else if ( is_swatch_desc ) {
+							} else if ( is_swatch_desc && descHTML !== '' ) {
 								tip = '<aside>' + descHTML + '</aside>';
-							} else if ( is_swatch_lbl_desc ) {
+							} else if ( is_swatch_lbl_desc && ( findlabel.html() !== '' || descHTML !== '' ) ) {
 								tip = '<aside>' + findlabel.html() + '</aside><aside>' + descHTML + '</aside>';
-							} else if ( is_swatch_img ) {
+							} else if ( is_swatch_img && get_img_src !== '' ) {
 								tip = '<img src="' + get_img_src + '">';
-							} else if ( is_swatch_img_lbl ) {
+							} else if ( is_swatch_img_lbl && ( findlabel.html() !== '' || get_img_src !== '' ) ) {
 								tip = '<img src="' + get_img_src + '"><aside>' + findlabel.html() + '</aside>';
-							} else if ( is_swatch_img_desc ) {
+							} else if ( is_swatch_img_desc && ( get_img_src !== '' || descHTML !== '' ) ) {
 								tip = '<img src="' + get_img_src + '"><aside>' + descHTML + '</aside>';
-							} else if ( is_swatch_img_lbl_desc ) {
+							} else if ( is_swatch_img_lbl_desc && ( findlabel.html() !== '' || get_img_src !== '' || descHTML !== '' ) ) {
 								tip = '<img src="' + get_img_src + '"><aside>' + findlabel.html() + '</aside><aside>' + descHTML + '</aside>';
 							}
 

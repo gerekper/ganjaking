@@ -70,7 +70,7 @@
 		if ( div.find( showField ).length <= 0 ) {
 			jo = div.find( '.tmcp-pricing' );
 			jo.append(
-				'<input type="text" size="5" name="tmcp_regular_price[' +
+				'<input type="text" name="tmcp_regular_price[' +
 					loop +
 					'][' +
 					attribute +
@@ -139,6 +139,14 @@
 		$( '.tm-mode-' + mode ).show();
 		$( '.tc-builder-select,.tc-local-select,.tc-settings-select' ).removeClass( 'button-primary' );
 		$( '.tc-' + mode + '-select' ).addClass( 'button-primary' );
+	}
+
+	// Price display mode
+	function priceDisplayMode( mode ) {
+		var checked = mode.filter( ':checked' );
+		checked.closest( '.price-display-mode-wrap' ).removeClass( function( index, className ) {
+			return ( className.match( /(^|\s)mode-\S+/g ) || [] ).join( ' ' );
+		} ).addClass( 'mode-' + checked.val() );
 	}
 
 	// document ready
@@ -313,6 +321,12 @@
 			}
 			setMode( mode );
 		} );
+
+		// Price display mode
+		$( '#tc-admin-extra-product-options' ).on( 'change', '.price-display-mode', function() {
+			priceDisplayMode( $( this ) );
+		} );
+		priceDisplayMode( $( '.price-display-mode' ) );
 
 		if ( ! $( '#tm-meta-cpf-mode' ).val() ) {
 			$( '#tm-meta-cpf-mode' ).val( 'builder' );

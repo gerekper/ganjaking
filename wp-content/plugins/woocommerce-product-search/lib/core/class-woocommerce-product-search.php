@@ -206,13 +206,32 @@ class WooCommerce_Product_Search {
 		if ( is_404() ) {
 			$count = 0;
 			$url = $_SERVER['REQUEST_URI'];
-			$redirect_url = preg_replace( '~/page/[0-9]+~i', '', $url );
+
+			$redirect_url = preg_replace( '~/' . self::get_pagination_base() . '/[0-9]+~i', '', $url );
 			$redirect_url = remove_query_arg( 'paged', $redirect_url );
 			if ( $url !== $redirect_url ) {
 				wp_redirect( $redirect_url, 301 );
 				exit;
 			}
 		}
+	}
+
+	/**
+	 * Returns the $wp_rewrite->pagination base which defaults to 'page'.
+	 *
+	 * @since 4.10.0
+	 *
+	 * @return string pagination base
+	 */
+	public static function get_pagination_base() {
+		global $wp_rewrite;
+		$pagination_base = $wp_rewrite->pagination_base;
+		$pagination_base = apply_filters( 'woocommerce_product_search_pagination_base', $pagination_base );
+
+		if ( !is_string( $pagination_base ) || empty( $pagination_base ) ) {
+			$pagination_base = 'page';
+		}
+		return $pagination_base;
 	}
 
 	/**
@@ -403,9 +422,18 @@ class WooCommerce_Product_Search {
 			libxml_clear_errors();
 			libxml_use_internal_errors( $libxml_use_internal_errors );
 		} else {
-			$buffer = preg_replace( '@<(script|style|head)[^>]*?>.*?</\\1>@si', '', $buffer );
-			$buffer = preg_replace( '/<link([^>]+)>/si', '', $buffer );
-			$buffer = preg_replace( '/<!--.+?-->/sm', '', $buffer );
+			$_buffer = preg_replace( '@<(script|style|head)[^>]*?>.*?</\\1>@si', '', $buffer );
+			if ( $_buffer !== null ) {
+				$buffer = $_buffer;
+			}
+			$_buffer = preg_replace( '/<link([^>]+)>/si', '', $buffer );
+			if ( $_buffer !== null ) {
+				$buffer = $_buffer;
+			}
+			$_buffer = preg_replace( '/<!--.+?-->/sm', '', $buffer );
+			if ( $_buffer !== null ) {
+				$buffer = $_buffer;
+			}
 			$buffer .= '<!-- ixwps/ -->';
 		}
 

@@ -565,12 +565,7 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 			$product = wc_get_product( $product_id );
 			remove_filter( 'woocommerce_product_variation_title_include_attributes', [ THEMECOMPLETE_EPO_ASSOCIATED_PRODUCTS(), 'woocommerce_product_variation_title_include_attributes' ] );
 			if ( ! empty( $product ) && is_object( $product ) ) {
-				$price                   = $product->get_price();
 				$tc_get_default_currency = apply_filters( 'tc_get_default_currency', get_option( 'woocommerce_currency' ) );
-				$price                   = apply_filters( 'wc_epo_convert_to_currency', $price, $tc_get_default_currency, themecomplete_get_woocommerce_currency() );
-				$regular_price           = $product->get_regular_price();
-				$regular_price           = apply_filters( 'wc_epo_convert_to_currency', $regular_price, $tc_get_default_currency, themecomplete_get_woocommerce_currency() );
-				$price_html              = $product->get_price_html();
 
 				$type                 = themecomplete_get_product_type( $product );
 				$attributes           = [];
@@ -614,22 +609,33 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 							unset( $_REQUEST['discount'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 						}
 					}
-
-					$price         = apply_filters( 'wc_epo_product_element_initial_variable_price', '', $price, $product );
-					$regular_price = '';
 				} else {
 					if ( $selected || 'hidden' === $layout_mode ) {
 						$product_list[ $product_id ]                      = [];
 						$product_list_available_variations[ $product_id ] = '';
 					}
-
-					$price = THEMECOMPLETE_EPO_ASSOCIATED_PRODUCTS()->get_discounted_price( $price, $discount, $discount_type );
-
 				}
 
-				if ( ! $priced_individually ) {
-					$price         = '';
-					$regular_price = '';
+				$price         = '';
+				$regular_price = '';
+				$price_html    = '';
+				if ( $priced_individually ) {
+					if ( 'variable' === $type ) {
+						$price         = $product->get_variation_price();
+						$regular_price = '';
+					} else {
+						$price         = $product->get_price();
+						$regular_price = $product->get_regular_price();
+					}
+					if ( ! ( THEMECOMPLETE_EPO_WPML()->is_active() && THEMECOMPLETE_EPO_WPML()->is_multi_currency() ) ) {
+						$price         = apply_filters( 'wc_epo_convert_to_currency', $price, $tc_get_default_currency, themecomplete_get_woocommerce_currency() );
+						$regular_price = apply_filters( 'wc_epo_convert_to_currency', $regular_price, $tc_get_default_currency, themecomplete_get_woocommerce_currency() );
+					}
+					$price = THEMECOMPLETE_EPO_ASSOCIATED_PRODUCTS()->get_discounted_price( $price, $discount, $discount_type );
+					if ( 'variable' === $type ) {
+						$price = apply_filters( 'wc_epo_product_element_initial_variable_price', $price, $price, $product );
+					}
+					$price_html = THEMECOMPLETE_EPO_ASSOCIATED_PRODUCTS()->get_associated_price_html( $product, $discount, $discount_type );
 				}
 
 				$option = [
@@ -638,6 +644,7 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 					'value_to_show'          => $product_id,
 					'css_class'              => $css_class,
 					'data_price'             => $price,
+					'data_price_html'        => $price_html,
 					'tm_tooltip_html'        => '',
 					'data_rules'             => wp_json_encode( [ $price ] ),
 					'data_original_rules'    => wp_json_encode( [ $regular_price ] ),
@@ -650,6 +657,13 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 					'available_variations'   => $available_variations,
 					'_default_value_counter' => '',
 					'counter'                => $_default_value_counter,
+					'tax_obj'                => wp_json_encode(
+						( [
+							'has_fee'   => $product->is_taxable(),
+							'tax_class' => themecomplete_get_tax_class( $product ),
+							'tax_rate'  => themecomplete_get_tax_rate( themecomplete_get_tax_class( $product ) ),
+						] )
+					),
 				];
 
 				if ( 'checkbox' === $layout_mode || 'thumbnailmultiple' === $layout_mode ) {
@@ -806,6 +820,7 @@ class THEMECOMPLETE_EPO_FIELDS_product extends THEMECOMPLETE_EPO_FIELDS {
 					'quantity_max'         => $quantity_max,
 					'form_prefix'          => ( isset( $this->post_data['tc_form_prefix_assoc'] ) && isset( $this->post_data['tc_form_prefix_assoc'][ $this->element['uniqid'] ] ) ) ? wp_unslash( $this->post_data['tc_form_prefix_assoc'][ $this->element['uniqid'] ] ) : '',
 					'form_prefix_counter'  => isset( $this->post_data[ $this->attribute . '_counter' ] ) ? $this->post_data[ $this->attribute . '_counter' ] : '',
+					'hiddenin'             => $this->element['hiddenin'],
 				],
 				$this
 			);

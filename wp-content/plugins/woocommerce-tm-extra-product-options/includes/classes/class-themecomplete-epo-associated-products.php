@@ -124,13 +124,194 @@ class THEMECOMPLETE_EPO_Associated_Products {
 		add_filter( 'woocommerce_get_item_count', [ $this, 'woocommerce_get_item_count' ], 10, 3 );
 
 		// Hook for displaying extra options.
-		add_action( 'wc_epo_associated_product_display', [ $this, 'wc_epo_associated_product_display' ], 10, 7 );
+		add_action( 'wc_epo_associated_product_display', [ $this, 'wc_epo_associated_product_display' ], 10, 8 );
 		// Hook for displaying extra options.
 		add_action( 'wp_ajax_nopriv_wc_epo_get_associated_product_html', [ $this, 'wc_epo_get_associated_product_html' ] );
 		add_action( 'wp_ajax_wc_epo_get_associated_product_html', [ $this, 'wc_epo_get_associated_product_html' ] );
 
 		// Fix internal associated data.
 		add_action( 'woocommerce_update_cart_action_cart_updated', [ $this, 'woocommerce_update_cart_action_cart_updated' ], 9999, 1 );
+
+		// Hide associated products in the cart.
+		add_action( 'woocommerce_cart_item_visible', [ $this, 'woocommerce_cart_item_visible' ], 10, 3 );
+		add_action( 'woocommerce_widget_cart_item_visible', [ $this, 'woocommerce_cart_item_visible' ], 10, 3 );
+
+		// Hide associated products in the checkout.
+		add_action( 'woocommerce_checkout_cart_item_visible', [ $this, 'woocommerce_checkout_cart_item_visible' ], 10, 3 );
+
+	}
+
+	/**
+	 * Returns the price in html format of the associated product.
+	 * This is used for the initial prices of the product elements.
+	 *
+	 * @param object $product The product object.
+	 * @param string $discount The product discount.
+	 * @param string $discount_type The product discount type.
+	 * @return string
+	 * @since 6.2
+	 */
+	public function get_associated_price_html( $product, $discount, $discount_type ) {
+
+		$price_html = $product->get_price_html();
+		$type       = themecomplete_get_product_type( $product );
+		$free_text  = ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_remove_free_price_label ) ? ( '' !== THEMECOMPLETE_EPO()->tm_epo_replacement_free_price_text ? THEMECOMPLETE_EPO()->tm_epo_replacement_free_price_text : '' ) : esc_attr__( 'Free!', 'woocommerce' );
+		$use_from   = ( 'yes' === THEMECOMPLETE_EPO()->tm_epo_use_from_on_price );
+
+		if ( 'variable' === $type ) {
+			$price          = $product->get_variation_price(); // Min active price.
+			$original_price = $price;
+			$price          = THEMECOMPLETE_EPO_ASSOCIATED_PRODUCTS()->get_discounted_price( $price, $discount, $discount_type );
+			$price          = apply_filters( 'wc_epo_product_element_initial_variable_price', $price, $price, $product );
+
+			$min_price         = (float) $price;
+			$max_price         = $product->get_variation_price( 'max' ); // Max active price.
+			$max_price         = (float) THEMECOMPLETE_EPO_ASSOCIATED_PRODUCTS()->get_discounted_price( $max_price, $discount, $discount_type );
+			$min_regular_price = (float) $original_price;
+			$max_regular_price = (float) $product->get_variation_regular_price( 'max' );
+
+			$is_free = (float) 0 === (float) $min_price && (float) 0 === (float) $max_price;
+			if ( $product->is_on_sale() || $price !== $original_price ) {
+				$displayed_price = $min_price !== $max_price
+				? ( function_exists( 'wc_get_price_to_display' )
+					? wc_format_sale_price( $max_price, $min_price )
+					: '<del>' . ( is_numeric( $max_price ) ? wc_price( $max_price ) : $max_price ) . '</del> <ins>' . ( is_numeric( $min_price ) ? wc_price( $min_price ) : $min_price ) . '</ins>'
+				)
+				: themecomplete_price( $min_price );
+
+				$price_html = $min_price !== $max_price
+					? ( ! $use_from
+						/* translators: %1 %2: from price to price  */
+						? sprintf( esc_html_x( '%1$s&ndash;%2$s', 'Price range: from-to', 'woocommerce' ), themecomplete_price( $min_price ), themecomplete_price( $max_price ) )
+						: ( function_exists( 'wc_get_price_html_from_text' ) ? wc_get_price_html_from_text() : $product->get_price_html_from_text() ) . $displayed_price )
+					: $displayed_price;
+
+				$regular_price = $min_regular_price !== $max_regular_price
+					? ( ! $use_from
+						/* translators: %1 %2: from price to price  */
+						? sprintf( esc_html_x( '%1$s&ndash;%2$s', 'Price range: from-to', 'woocommerce' ), themecomplete_price( $min_regular_price ), themecomplete_price( $max_regular_price ) )
+						: ( function_exists( 'wc_get_price_html_from_text' ) ? wc_get_price_html_from_text() : $product->get_price_html_from_text() ) . themecomplete_price( $min_regular_price ) )
+					: themecomplete_price( $min_regular_price );
+
+				$regular_price = '<del>' . $regular_price . '</del>';
+				if ( $min_price === $max_price && $min_regular_price === $max_regular_price ) {
+					$price_html = themecomplete_price( $max_price );
+				}
+				$price_html = ( ! $use_from ? ( $regular_price . ' <ins>' . $price_html . '</ins>' ) : $price_html ) . $product->get_price_suffix();
+
+			} elseif ( $is_free ) {
+				$price_html = apply_filters( 'woocommerce_variable_free_price_html', $free_text, $product );
+			} else {
+				$price_html = $min_price !== $max_price
+					? ( ! $use_from
+						/* translators: %1 %2: from price to price  */
+						? sprintf( esc_html_x( '%1$s &ndash; %2$s', 'Price range: from-to', 'woocommerce' ), themecomplete_price( $min_price ), themecomplete_price( $max_price ) )
+						: ( function_exists( 'wc_get_price_html_from_text' ) ? wc_get_price_html_from_text() : $product->get_price_html_from_text() ) . themecomplete_price( $min_price ) )
+					: themecomplete_price( $min_price );
+				$price_html = $price_html . $product->get_price_suffix();
+			}
+		} else {
+			$price             = (float) $product->get_price();
+			$original_price    = (float) $price;
+			$price             = THEMECOMPLETE_EPO_ASSOCIATED_PRODUCTS()->get_discounted_price( $price, $discount, $discount_type );
+			$min_price         = $price;
+			$max_price         = $price;
+			$max_price         = THEMECOMPLETE_EPO_ASSOCIATED_PRODUCTS()->get_discounted_price( $max_price, $discount, $discount_type );
+			$min_regular_price = $product->get_regular_price();
+			$max_regular_price = $min_regular_price;
+
+			$display_price         = $min_price;
+			$display_regular_price = $min_regular_price;
+
+			$price_html = '';
+			if ( THEMECOMPLETE_EPO()->tc_get_price( $product ) > 0 ) {
+
+				if ( ( $product->is_on_sale() || $price !== $original_price ) && THEMECOMPLETE_EPO()->tc_get_regular_price( $product ) ) {
+					if ( $use_from && ( $max > 0 || $max > $min ) ) {
+
+						$displayed_price = ( function_exists( 'wc_get_price_to_display' )
+							? wc_format_sale_price( $display_regular_price, $display_price )
+							: '<del>' . ( is_numeric( $display_regular_price ) ? wc_price( $display_regular_price ) : $display_regular_price ) . '</del> <ins>' . ( is_numeric( $display_price ) ? wc_price( $display_price ) : $display_price ) . '</ins>'
+						);
+						$price_html     .= ( function_exists( 'wc_get_price_html_from_text' )
+								? wc_get_price_html_from_text()
+								: $product->get_price_html_from_text() )
+											. $displayed_price;
+						$price_html     .= $product->get_price_suffix();
+					} else {
+						$price_html .= wc_format_sale_price( $display_regular_price, $display_price );
+					}
+				} else {
+					if ( $use_from && ( $max > 0 || $max > $min ) ) {
+						$price_html .= ( function_exists( 'wc_get_price_html_from_text' ) ? wc_get_price_html_from_text() : $product->get_price_html_from_text() );
+					}
+					$price_html .= themecomplete_price( $display_price ) . $product->get_price_suffix();
+
+				}
+			} elseif ( THEMECOMPLETE_EPO()->tc_get_price( $product ) === '' ) {
+
+				$price_html = apply_filters( 'woocommerce_empty_price_html', '', $product );
+
+			} elseif ( (float) THEMECOMPLETE_EPO()->tc_get_price( $product ) === (float) 0 ) {
+				if ( $product->is_on_sale() && THEMECOMPLETE_EPO()->tc_get_regular_price( $product ) ) {
+					if ( $use_from && ( $max > 0 || $max > $min ) ) {
+						$price_html .= ( function_exists( 'wc_get_price_html_from_text' ) ? wc_get_price_html_from_text() : $product->get_price_html_from_text() ) . themecomplete_price( ( $min > 0 ) ? $min : 0 );
+					} else {
+
+						$price_html .= $product->get_price_html();
+
+						$price_html = apply_filters( 'woocommerce_free_sale_price_html', $price_html, $product );
+					}
+				} else {
+					if ( $use_from && ( $max > 0 || $max > $min ) ) {
+						$price_html .= ( function_exists( 'wc_get_price_html_from_text' ) ? wc_get_price_html_from_text() : $product->get_price_html_from_text() ) . themecomplete_price( ( $min > 0 ) ? $min : 0 );
+					} else {
+
+						$price_html = '<span class="amount">' . $free_text . '</span>';
+
+						$price_html = apply_filters( 'woocommerce_free_price_html', $price_html, $product );
+					}
+				}
+			}
+		}
+
+		return $price_html;
+
+	}
+
+	/**
+	 * Hide associated products in the cart
+	 *
+	 * @param boolean $visible If the product should be visible.
+	 * @param array   $cart_item The cart item.
+	 * @param string  $cart_item_key The cart item key.
+	 * @since 6.2
+	 */
+	public function woocommerce_cart_item_visible( $visible, $cart_item, $cart_item_key ) {
+
+		if ( isset( $cart_item['associated_parent'] ) && ! empty( $cart_item['associated_parent'] ) && isset( $cart_item['hiddenin'] ) && is_array( $cart_item['hiddenin'] ) && in_array( 'cart', $cart_item['hiddenin'], true ) ) {
+			$visible = false;
+		}
+
+		return $visible;
+
+	}
+
+	/**
+	 * Hide associated products in the checkout
+	 *
+	 * @param boolean $visible If the product should be visible.
+	 * @param array   $cart_item The cart item.
+	 * @param string  $cart_item_key The cart item key.
+	 * @since 6.2
+	 */
+	public function woocommerce_checkout_cart_item_visible( $visible, $cart_item, $cart_item_key ) {
+
+		if ( isset( $cart_item['associated_parent'] ) && ! empty( $cart_item['associated_parent'] ) && isset( $cart_item['hiddenin'] ) && is_array( $cart_item['hiddenin'] ) && in_array( 'checkout', $cart_item['hiddenin'], true ) ) {
+			$visible = false;
+		}
+
+		return $visible;
 
 	}
 
@@ -334,6 +515,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	 *
 	 * @param object  $product The product object.
 	 * @param string  $uniqid The id to use for the epo container.
+	 * @param boolean $disable_epo If the addons are disabled, true or false.
 	 * @param boolean $per_product_pricing If the product has pricing, true or false.
 	 * @param string  $discount The product discount.
 	 * @param string  $discount_type The product discount type.
@@ -341,9 +523,9 @@ class THEMECOMPLETE_EPO_Associated_Products {
 	 * @param string  $element_uniqid The product element unique id.
 	 * @since 5.0
 	 */
-	public function wc_epo_associated_product_display( $product, $uniqid, $per_product_pricing = false, $discount = '', $discount_type = '', $counter = '', $element_uniqid = '' ) {
+	public function wc_epo_associated_product_display( $product, $uniqid, $disable_epo = false, $per_product_pricing = false, $discount = '', $discount_type = '', $counter = '', $element_uniqid = '' ) {
 
-		if ( $product ) {
+		if ( ! $disable_epo && $product ) {
 			global $associated_product;
 			$associated_product = $product;
 			$product_id         = themecomplete_get_id( $product );
@@ -591,6 +773,10 @@ class THEMECOMPLETE_EPO_Associated_Products {
 			$item->add_meta_data( '_associated_key', [ $values['associated_key'] ] );
 			$item->add_meta_data( '_priced_individually', [ $values['associated_priced_individually'] ] );
 			$item->add_meta_data( '_required', [ $values['associated_required'] ] );
+
+			if ( isset( $values['hiddenin'] ) && is_array( $values['hiddenin'] ) && in_array( 'order', $values['hiddenin'], true ) ) {
+				$item->add_meta_data( '_associated_hidden', [ '1' ] );
+			}
 		}
 
 		if ( ! empty( $values['associated_products'] ) ) {
@@ -1221,7 +1407,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 
 				$associated_item_cart_data = $associated_cart_data;
 
-				$associated_data_form_prefix = $associated_data['form_prefix'];
+				$associated_data_form_prefix = isset( $associated_data['form_prefix'] ) ? $associated_data['form_prefix'] : '';
 
 				if ( is_array( $associated_data_form_prefix ) ) {
 
@@ -1245,16 +1431,17 @@ class THEMECOMPLETE_EPO_Associated_Products {
 				}
 
 				$associated_item_cart_data['associated_key']                  = $key;
-				$associated_item_cart_data['associated_required']             = $associated_data['required'];
-				$associated_item_cart_data['associated_shipped_individually'] = $associated_data['shipped_individually'];
-				$associated_item_cart_data['associated_priced_individually']  = $associated_data['priced_individually'];
-				$associated_item_cart_data['associated_maintain_weight']      = $associated_data['maintain_weight'];
-				$associated_item_cart_data['associated_uniqid']               = $associated_data['section'];
-				$associated_item_cart_data['associated_label']                = $associated_data['section_label'];
-				$associated_item_cart_data['associated_discount']             = $associated_data['discount'];
-				$associated_item_cart_data['associated_discount_type']        = $associated_data['discount_type'];
+				$associated_item_cart_data['associated_required']             = isset( $associated_data['required'] ) ? $associated_data['required'] : '';
+				$associated_item_cart_data['associated_shipped_individually'] = isset( $associated_data['shipped_individually'] ) ? $associated_data['shipped_individually'] : '';
+				$associated_item_cart_data['associated_priced_individually']  = isset( $associated_data['priced_individually'] ) ? $associated_data['priced_individually'] : '';
+				$associated_item_cart_data['associated_maintain_weight']      = isset( $associated_data['maintain_weight'] ) ? $associated_data['maintain_weight'] : '';
+				$associated_item_cart_data['associated_uniqid']               = isset( $associated_data['section'] ) ? $associated_data['section'] : '';
+				$associated_item_cart_data['associated_label']                = isset( $associated_data['section_label'] ) ? $associated_data['section_label'] : '';
+				$associated_item_cart_data['associated_discount']             = isset( $associated_data['discount'] ) ? $associated_data['discount'] : '';
+				$associated_item_cart_data['associated_discount_type']        = isset( $associated_data['discount_type'] ) ? $associated_data['discount_type'] : '';
 				$associated_item_cart_data['associated_element_name']         = $associated_data['element_name'];
 				$associated_item_cart_data['associated_formprefix']           = str_replace( [ '.', ' ', '[' ], '', $associated_data_form_prefix );
+				$associated_item_cart_data['hiddenin']                        = $associated_data['hiddenin'];
 				$associated_product_id                                        = $associated_data['product_id'];
 				$variation_id = '';
 				$variations   = [];
@@ -1409,7 +1596,7 @@ class THEMECOMPLETE_EPO_Associated_Products {
 			return false;
 		}
 
-		if ( $product_data->managing_stock() && ! $product_data->is_in_stock() ) {
+		if ( ! $product_data->is_in_stock() ) {
 			return false;
 		}
 

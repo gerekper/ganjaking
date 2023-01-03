@@ -1,0 +1,567 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Extendons: WooCommerce FAQ Plugin - Store + Product FAQs\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-04-27 13:17+0100\n"
+"PO-Revision-Date: 2017-09-13 11:52+0500\n"
+"Last-Translator: extendons <info@extendons.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;gettext;gettext_noop;_e\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: extendons-faq-setting.php:61
+#: extendons-faq-setting.php:100
+msgid "General Settings"
+msgstr "Ajustes generales"
+
+#: extendons-faq-setting.php:62
+#: extendons-faq-setting.php:383
+msgid "Email Settings"
+msgstr "Ajustes del correo electrónico"
+
+#: extendons-faq-setting.php:63
+#: extendons-faq-setting.php:467
+msgid "Google Captcha Settings"
+msgstr "Configuración de Google Captcha"
+
+#: extendons-faq-setting.php:67
+msgid "Collapse Menu"
+msgstr "Collapse Menú"
+
+#: extendons-faq-setting.php:79
+msgid "Extension configuration settings"
+msgstr "Configuración de la configuración de la extensión"
+
+#: extendons-faq-setting.php:87
+msgid "Support Center"
+msgstr "Centro de Apoyo"
+
+#: extendons-faq-setting.php:91
+#: extendons-faq-setting.php:370
+#: extendons-faq-setting.php:
+#: 475
+#: 525
+msgid "Save Changes"
+msgstr "Guardar cambios"
+
+#: extendons-faq-setting.php:81
+msgid "Configure basic settings to personalize the extension to your website specific requirements. With an enticing user interface, you can easily enable or disable an option or functionality. Try customization the extension and explore the useful features of this extension."
+msgstr "Configure los ajustes básicos para personalizar la extensión a los requisitos específicos de su sitio web. Con una atractiva interfaz de usuario, puede activar o desactivar fácilmente una opción o funcionalidad. Intente personalizar la extensión y explore las características útiles de esta extensión."
+
+#: extendons-faq-setting.php:83
+msgid "Settings Saved!"
+msgstr "¡Ajustes guardados!"
+
+#: extendons-faq-setting.php:110
+msgid "Block Title"
+msgstr "Título del bloque"
+
+#: extendons-faq-setting.php:113
+msgid "Block Title for Single Page Section"
+msgstr "Título de bloque para sección de página única"
+
+#: extendons-faq-setting.php:125
+msgid "Tab Title Product Single Page"
+msgstr "Tab Título Product Single Page"
+
+#: extendons-faq-setting.php:128
+msgid "Single Product Tab Title"
+msgstr "Título de la ficha de producto único"
+
+#: extendons-faq-setting.php:140
+msgid "Total Question Per Page"
+msgstr "Pregunta total por página"
+
+#: extendons-faq-setting.php:143
+msgid "Total Question dispaly on Single page. Default 10"
+msgstr "Visualización de preguntas totales en una sola página. Predeterminado 10"
+
+#: extendons-faq-setting.php:155
+msgid "Question Publish/Pending"
+msgstr "Pregunta Publicar / Pendiente"
+
+#: extendons-faq-setting.php:158
+msgid "Status of Question Publish or Pending. Default is Publish"
+msgstr "Estado de la pregunta publicada o pendiente. El valor predeterminado es Publicar"
+
+#: extendons-faq-setting.php:164
+msgid "Publish"
+msgstr "Publicar"
+
+#: extendons-faq-setting.php:166
+msgid "Pending"
+msgstr "Pendiente"
+
+#: extendons-faq-setting.php:176
+msgid "Frontend Question Open"
+msgstr "Pregunta de la interfaz abierta"
+
+#: extendons-faq-setting.php:179
+msgid "Frontend Question Open/Close to Submit"
+msgstr "Pregunta de Frontend Abrir / Cerrar para Enviar"
+
+#: extendons-faq-setting.php:185
+#: extendons-faq-setting.php:
+#: 206
+msgid "Enabled"
+msgstr "Habilitado"
+
+#: extendons-faq-setting.php:187
+#: extendons-faq-setting.php:
+#: 208
+msgid "Disabled"
+msgstr "Discapacitado"
+
+#: extendons-faq-setting.php:197
+msgid "Likes/Dislikes"
+msgstr "Le gusta disgustos"
+
+#: extendons-faq-setting.php:200
+msgid "Default is Enable"
+msgstr "El valor predeterminado es Habilitar"
+
+#: extendons-faq-setting.php:218
+msgid "My Account Question Section Setting"
+msgstr "Configuración de la sección de preguntas de mi cuenta"
+
+#: extendons-faq-setting.php:221
+msgid "How many Question you want to display in My Account. Default listing is 10"
+msgstr "Cuántas preguntas desea mostrar en Mi cuenta. La lista predeterminada es 10"
+
+#: extendons-faq-setting.php:233
+msgid "My Account Answer Section Setting"
+msgstr "Configuración de la sección de respuesta de mi cuenta"
+
+#: extendons-faq-setting.php:236
+msgid "How many Answer you want to display in My Account. Default listing is 10"
+msgstr "Cuántas respuestas desea mostrar en Mi cuenta. La lista predeterminada es 10"
+
+#: extendons-faq-setting.php:248
+msgid "Comments Approved/Unapproved"
+msgstr "Comentarios aprobados / no aprobados"
+
+#: extendons-faq-setting.php:251
+msgid "Comments Approved/Unapproved Default is Apprved"
+msgstr "Comentarios Aprobado / No aprobado El valor predeterminado está aprobado"
+
+#: extendons-faq-setting.php:257
+msgid "Approved"
+msgstr "Aprobado"
+
+#: extendons-faq-setting.php:259
+msgid "Unapproved"
+msgstr "No aprobado"
+
+#: extendons-faq-setting.php:269
+msgid "My Account Title"
+msgstr "Título de mi cuenta"
+
+#: extendons-faq-setting.php:272
+msgid "Title Display on My Account Page"
+msgstr "Visualización de título en la página de mi cuenta"
+
+#: extendons-faq-setting.php:284
+msgid "My Account Tab Tilte"
+msgstr "Mi cuenta Tab Tilte"
+
+#: extendons-faq-setting.php:287
+msgid "My Account Tab Title"
+msgstr "Mi cuenta Título de la pestaña"
+
+#: extendons-faq-setting.php:299
+msgid "Comment Open/Closed"
+msgstr "Comentario Abrir / cerrar"
+
+#: extendons-faq-setting.php:302
+msgid "Comments on Faq Open/Closed"
+msgstr "Comentarios sobre Faq Abierto / Cerrado"
+
+#: extendons-faq-setting.php:310
+msgid "Open"
+msgstr "Abierto"
+
+#: extendons-faq-setting.php:314
+msgid "Closed"
+msgstr "Cerrado"
+
+#: extendons-faq-setting.php:326
+msgid "Button Text"
+msgstr "Botón de texto"
+
+#: extendons-faq-setting.php:329
+msgid "Text for button under product price for adding new question. Default Have A Question"
+msgstr "Texto para el botón bajo precio del producto para agregar nueva pregunta. Predeterminado Have A Question"
+
+#: extendons-faq-setting.php:342
+#: extendons-faq-main.php:339
+msgid "Have A Question"
+msgstr "Tengo una pregunta"
+
+#: extendons-faq-setting.php:345
+msgid "Have A Question show/hide"
+msgstr "Have A Question mostrar / ocultar"
+
+#: extendons-faq-setting.php:353
+msgid "Show"
+msgstr "Espectáculo"
+
+#: extendons-faq-setting.php:357
+msgid "Hide"
+msgstr "Esconder"
+
+#: extendons-faq-setting.php:392
+msgid "Sender Email"
+msgstr "Correo electrónico del remitente"
+
+#: extendons-faq-setting.php:395
+msgid "Set Email Address for user notification. If not set admin email will be used"
+msgstr "Establecer dirección de correo electrónico para la notificación del usuario. Si no se ha configurado, se utilizará el correo electrónico de administración"
+
+#: extendons-faq-setting.php:406
+msgid "Notification for Client"
+msgstr "Notificación para el cliente"
+
+#: extendons-faq-setting.php:409
+msgid "For Client Notificaiton about Question. Default is Enabled"
+msgstr "Para la notificación del cliente sobre la pregunta. El valor predeterminado está habilitado"
+
+#: extendons-faq-setting.php:415
+#: extendons-faq-setting.php:435
+msgid "ON"
+msgstr "EN"
+
+#: extendons-faq-setting.php:417
+#: extendons-faq-setting.php:437
+msgid "OFF"
+msgstr "APAGADO"
+
+#: extendons-faq-setting.php:426
+msgid "Comment Submit notification"
+msgstr "Comentario Enviar notificación"
+
+#: extendons-faq-setting.php:429
+msgid "For Client Notificaiton on comment submission. Default is Enabled"
+msgstr "Para notificación de cliente en la presentación de comentarios. El valor predeterminado está habilitado"
+
+#: extendons-faq-setting.php:446
+msgid "Client Email Subject"
+msgstr "Asunto del correo electrónico del cliente"
+
+#: extendons-faq-setting.php:449
+msgid "Notification Email Subject"
+msgstr "Asunto del correo electrónico de notificación"
+
+#: extendons-faq-setting.php:460
+msgid "Email Content"
+msgstr "Contenido de correo electrónico"
+
+#: extendons-faq-setting.php:463
+msgid "Content For Email When a Question is Submitted"
+msgstr "Contenido de correo electrónico cuando se envía una pregunta"
+
+#: extendons-faq-setting.php:496
+msgid "Your recaptcha Secret Key"
+msgstr "Su recaptcha Secret Key"
+
+#: extendons-faq-setting.php:510
+msgid "Your recaptcha Site Key"
+msgstr "Su recaptcha Site Key"
+
+#: extendons-faq-setting.php:17
+msgid "Settings"
+msgstr "Ajustes"
+
+#: extendons-faq-admin.php:28
+msgid "Select Product For Question"
+msgstr "Seleccione el producto para la pregunta"
+
+#: extendons-faq-admin.php:30
+#: extendons-faq-admin.php:304
+#: extendons-faq-admin.php:143
+msgid "Customer Name"
+msgstr "Nombre del client"
+
+#: extendons-faq-admin.php:32
+#: extendons-faq-admin.php:305
+#: extendons-faq-admin.php:208
+msgid "Customer Email"
+msgstr "Correo electrónico del cliente"
+
+#: extendons-faq-admin.php:34
+msgid "Question Type"
+msgstr "tipo de pregunta"
+
+#: extendons-faq-admin.php:301
+msgid "Question"
+msgstr "Pregunta"
+
+#: extendons-faq-admin.php:302
+msgid "Against Product"
+msgstr "Contra producto"
+
+#: extendons-faq-admin.php:303
+msgid "Public/Private"
+msgstr "Publico privado"
+
+#: extendons-faq-admin.php:306
+msgid "Publish Date"
+msgstr "Fecha de publicación"
+
+#: extendons-faq-admin.php:267
+msgid "Public Question"
+msgstr "Pregunta pública"
+
+#: extendons-faq-admin.php:267
+msgid "Private Question"
+msgstr "Pregunta Privada"
+
+#: extendons-faq-front.php:81
+msgid "Ask a Question"
+msgstr "Haz una pregunta"
+
+#: extendons-faq-front.php:81
+msgid "Hide Question Form"
+msgstr "Ocultar formulario de pregunta"
+
+#: extendons-faq-front.php:90
+msgid "Success!"
+msgstr "¡Éxito!"
+
+#: extendons-faq-front.php:91
+msgid "Question Added Successfully"
+msgstr "La pregunta se agregó con éxito"
+
+#: extendons-faq-front.php:111
+msgid "Private Question..?"
+msgstr "Pregunta privada ..?"
+
+#: extendons-faq-front.php:116
+msgid "Robot verification failed, please try again."
+msgstr "Error de la verificación del robot, inténtalo de nuevo."
+
+#: extendons-faq-front.php:124
+msgid "Add Question"
+msgstr "Añadir pregunta"
+
+#: extendons-faq-front.php:132
+msgid "Sort by"
+msgstr "Ordenar por"
+
+#: extendons-faq-front.php:133
+msgid "Most Recent"
+msgstr "Más reciente"
+
+#: extendons-faq-front.php:134
+msgid "Question Title: A to Z"
+msgstr "Título de la pregunta: A a Z"
+
+#: extendons-faq-front.php:135
+msgid "Question Title: Z to A"
+msgstr "Título de la pregunta: Z to A"
+
+#: extendons-faq-front.php:136
+msgid "Date: Low to High"
+msgstr "Fecha: de menor a mayor"
+
+#: extendons-faq-front.php:137
+msgid "Date: High to Low"
+msgstr "Fecha: De alto a bajo"
+
+#: extendons-faq-main.php:664
+#: extendons-faq-main.php:660
+#: extendons-faq-front.php:236
+#: extendons-faq-front.php:240
+msgid "Add Answer"
+msgstr "Añadir Respuesta"
+
+#: extendons-faq-front.php:252
+#: extendons-faq-main.php:676
+msgid "This Product have no Question..!"
+msgstr "Este producto no tiene ninguna pregunta ..!"
+
+#: extendons-faq-main.php:215
+msgid "Extendons Product Questions (FAQ)"
+msgstr "Preguntas sobre los productos Extendons (FAQ)"
+
+#: extendons-faq-main.php:283
+msgid "Extendons Product Question"
+msgstr "Extendons Product Question"
+
+#: extendons-faq-main.php:290
+msgid "Dear User your Question was send successuflly, Thanks"
+msgstr "Estimado usuario su pregunta fue enviar successuflly, gracias"
+
+#: extendons-faq-main.php:318
+#: extendons-faq-main.php:311
+msgid "My Q/A"
+msgstr "Mi pregunta"
+
+#: extendons-faq-main.php:325
+msgid "Extendons Products Questions Tab"
+msgstr "Extendons Productos Preguntas Tab"
+
+#: extendons-faq-main.php:766
+#: extendons-faq-main.php:767
+#: extendons-faq-main.php:781
+msgid "Product Question"
+msgstr "Pregunta del producto"
+
+#: extendons-faq-main.php:768
+#: extendons-faq-main.php:769
+#: extendons-faq-main.php:771
+msgid "Add New Question"
+msgstr "Añadir nueva pregunta"
+
+#: extendons-faq-main.php:770
+msgid "Edit Question"
+msgstr "Editar pregunta"
+
+#: extendons-faq-main.php:772
+msgid "View Question"
+msgstr "Ver pregunta"
+
+#: extendons-faq-main.php:773
+msgid "Search Question"
+msgstr "Pregunta de la búsqueda"
+
+#: extendons-faq-main.php:774
+msgid "Nothing found"
+msgstr "Nada Encontrado"
+
+#: extendons-faq-main.php:775
+msgid "Nothing found in Trash"
+msgstr "No se encontró nada en la Papelera"
+
+#: extendons-faq-main.php:781
+msgid "Product Question and reviews"
+msgstr "Pregunta y comentarios del producto"
+
+#: extendons-faq-main.php:
+#: 810
+msgid "Support"
+msgstr "Apoyo"
+
+#: extendons-faq-main.php:821
+msgid "Welcome to Extendons Support – We are here to help"
+msgstr "Bienvenido a Extendons Support - Estamos aquí para ayudarle"
+
+#: extendons-faq-main.php:823
+msgid "Our customer support team is powered with enthusiasm to serve you the best in solving a technical issue or answering your queries in time. If you have got a question, please do not hesitate to ask us in this easy to fill form, and we assure you a prompt reply."
+msgstr "Nuestro equipo de atención al cliente está impulsado con entusiasmo para servirle lo mejor en la solución de un problema técnico o responder a sus preguntas a tiempo. Si usted tiene una pregunta, por favor no dude en preguntarnos en este formulario fácil de llenar y le aseguramos una pronta respuesta."
+
+#: extendons-faq-main.php:866
+msgid "Extendon Active Plugin"
+msgstr "Plugin activo de Extendon"
+
+#: extendons-faq-main.php:867
+msgid "Version"
+msgstr "Versión"
+
+#: extendons-faq-main.php:868
+msgid "Company"
+msgstr "Empresa"
+
+#: extendons-faq-main.php:885
+msgid "Visit plugin homepage"
+msgstr "Visita la página principal del plugin"
+
+#: extendons-faq-main.php:913
+msgid "Contact Extendon Support Team"
+msgstr "Contactar al equipo de soporte de Extendon"
+
+#: extendons-faq-main.php:915
+msgid "Your message has been successfully sent. We will contact you very soon!"
+msgstr "Su mensaje ha sido enviado con éxito. Nos pondremos en contacto con usted muy pronto!"
+
+#: extendons-faq-main.php:921
+msgid "First Name"
+msgstr "Nombre de pila"
+
+#: extendons-faq-main.php:923
+msgid "Last Name"
+msgstr "Apellido"
+
+#: extendons-faq-main.php:928
+#: extendons-faq-front.php:101
+msgid "Your Email"
+msgstr "Tu correo electrónico"
+
+#: extendons-faq-main.php:930
+msgid "Phone Number"
+msgstr "Número de teléfono"
+
+#: extendons-faq-main.php:938
+msgid "Select Plugin"
+msgstr "Seleccionar complemento"
+
+#: extendons-faq-main.php:945
+msgid "Message"
+msgstr "Mensaje"
+
+#: extendons-faq-myaccount.php:24
+msgid "All Your Questions Listed Below"
+msgstr "Todas sus preguntas enumeradas abajo"
+
+#: extendons-faq-myaccount.php:31
+#: extendons-faq-myaccount.php:165
+msgid "Product"
+msgstr "Producto"
+
+#: extendons-faq-myaccount.php:32
+msgid "My Questions"
+msgstr "Mis preguntas"
+
+#: extendons-faq-myaccount.php:33
+msgid "Answers"
+msgstr "Respuestas"
+
+#: extendons-faq-myaccount.php:34
+#: extendons-faq-myaccount.php:168
+msgid "Status"
+msgstr "Estado"
+
+#: extendons-faq-myaccount.php:35
+msgid "View Answers"
+msgstr "Ver Respuestas"
+
+#: extendons-faq-myaccount.php:157
+msgid "All Your Answers Listed Below"
+msgstr "Todas sus respuestas se enumeran a continuación"
+
+#: extendons-faq-myaccount.php:166
+msgid "Questions"
+msgstr "Preguntas"
+
+#: extendons-faq-myaccount.php:167
+msgid "My Answers"
+msgstr "Mis respuestas"
+
+#: extendons-faq-front.php:97
+msgid "User Name"
+msgstr "Nombre de usuario"
+
+#: extendons-faq-front.php:105
+msgid "Your Question"
+msgstr "Tu pregunta"
+
+#: extendons-faq-front.php:201
+#: extendons-faq-main.php:625
+msgid "Answer by :"
+msgstr "Respuesta de:"
+
+#: extendons-faq-front.php:201
+#: extendons-faq-front.php:216
+#: extendons-faq-main.php:625
+#: extendons-faq-main.php:640
+msgid "on"
+msgstr "en"
+
+#: extendons-faq-front.php:216
+#: extendons-faq-main.php:640
+msgid "Comment by:"
+msgstr "Comentario de:"
+

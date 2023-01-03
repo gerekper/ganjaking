@@ -3,13 +3,13 @@
 ( function( $, window, document ) {
 	'use strict';
 	/**
-	 * VariationForm class which handles variation forms and attributes.
+	 * Handles variation forms and attributes.
 	 *
-	 * @param {Object} $form The product form
-	 * @param {Object} element The product element
-	 * @param {Object} currentCart The current cart form
+	 * @param {Object} $form                     The product form
+	 * @param {Object} element                   The product element
+	 * @param {Object} currentCart               The current cart form
 	 * @param {Object} variableProductContainers The container for the variable product
-	 * @param {Object} epoObject The EPO Object
+	 * @param {Object} epoObject                 The EPO Object
 	 */
 	var VariationForm = function( $form, element, currentCart, variableProductContainers, epoObject ) {
 		var self = this;
@@ -77,7 +77,7 @@
 	/**
 	 * Reset all fields.
 	 *
-	 * @param {Event} event The event Object.
+	 * @param {Event}  event     The event Object.
 	 * @param {Object} variation The variation Object.
 	 */
 	VariationForm.prototype.onUpdateField = function( event, variation ) {
@@ -188,7 +188,7 @@
 
 		if ( attributes.count === attributes.chosenCount ) {
 			if ( form.useAjax ) {
-				if ( typeof wc_add_to_cart_variation_params === undefined ) {
+				if ( typeof wc_add_to_cart_variation_params === 'undefined' ) {
 					return;
 				}
 				if ( form.xhr ) {
@@ -254,16 +254,17 @@
 	/**
 	 * Triggered when a variation has been found which matches all attributes.
 	 *
-	 * @param {Event} event The event Object.
+	 * @param {Event}  event     The event Object.
 	 * @param {Object} variation The variation Object.
 	 */
 	VariationForm.prototype.onFoundVariation = function( event, variation ) {
 		var form = event.data.variationForm,
 			$sku = form.$form.find( '.product-meta' ).find( '.tc-product-sku' ),
-			$qtyWrap = form.$wrap.find( '.tm-quantity, .tm-quantity-alt' ),
-			$qty = $qtyWrap.find( 'input.tm-qty, input.tm-qty-alt' ),
+			$qtyWrap = form.$wrap.find( '.tm-quantity-alt' ),
+			$qty = $qtyWrap.find( 'input.tm-qty-alt' ),
 			qtyMin = $.epoAPI.math.toInt( $qty.attr( 'data-min' ) ),
 			qtyMax = $.epoAPI.math.toInt( $qty.attr( 'data-max' ) ),
+			dataQtyMax = $qty.attr( 'data-max' ),
 			purchasable = true,
 			template = false,
 			$template_html = '';
@@ -302,7 +303,7 @@
 			$qty.val( '1' ).attr( 'min', '1' ).attr( 'max', '1' );
 			$qtyWrap.hide();
 		} else {
-			if ( variation.min_qty !== '' && variation.min_qty > qtyMin ) {
+			if ( variation.min_qty !== '' && variation.min_qty > qtyMin && qtyMin > 0 ) {
 				qtyMin = variation.min_qty;
 			}
 
@@ -310,12 +311,12 @@
 				qtyMax = variation.max_qty;
 			}
 
-			if ( qtyMin ) {
+			if ( qtyMin !== '' ) {
 				$qty.attr( 'min', qtyMin );
 			} else {
 				$qty.removeAttr( 'min' );
 			}
-			if ( qtyMax ) {
+			if ( dataQtyMax !== '' ) {
 				$qty.attr( 'max', qtyMax );
 			} else {
 				$qty.removeAttr( 'max' );
@@ -495,7 +496,8 @@
 				}
 			}
 
-			/** Detach the placeholder if:
+			/**
+			 * Detach the placeholder if:
 			 * - Valid options exist.
 			 * - The current selection is non-empty.
 			 * - The current selection is valid.
@@ -581,7 +583,7 @@
 	 * See if attributes match.
 	 *
 	 * @param {Array} variation_attributes Variation attributes.
-	 * @param {Array} attributes attributes.
+	 * @param {Array} attributes           attributes.
 	 */
 	VariationForm.prototype.isMatch = function( variation_attributes, attributes ) {
 		var match = true;
@@ -618,10 +620,10 @@
 	/**
 	 * Function to call tc_variation_form on jquery selector.
 	 *
-	 * @param {Object} element The product element
-	 * @param {Object} currentCart The current cart form
+	 * @param {Object} element                   The product element
+	 * @param {Object} currentCart               The current cart form
 	 * @param {Object} variableProductContainers The container for the variable product
-	 * @param {Object} thisEpoObject The EPO Object
+	 * @param {Object} thisEpoObject             The EPO Object
 	 */
 	$.fn.tc_product_variation_form = function( element, currentCart, variableProductContainers, thisEpoObject ) {
 		new VariationForm( this, element, currentCart, variableProductContainers, thisEpoObject );
@@ -652,7 +654,7 @@
 	/**
 	 * Stores a default attribute for an element so it can be reset later
 	 *
-	 * @param {string} attr Attribute name.
+	 * @param {string} attr  Attribute name.
 	 * @param {string} value Value name.
 	 */
 	$.fn.tc_set_variation_attr = function( attr, value ) {

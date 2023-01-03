@@ -159,7 +159,7 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 		wp_register_script( 'themecomplete-api', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/tm-api' . $ext . '.js', '', THEMECOMPLETE_EPO_VERSION, true );
 		wp_register_script( 'jquery-tcfloatbox', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tcfloatbox' . $ext . '.js', '', THEMECOMPLETE_EPO_VERSION, true );
 		wp_register_script( 'jquery-tctooltip', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tctooltip' . $ext . '.js', '', THEMECOMPLETE_EPO_VERSION, true );
-		wp_register_script( 'themecomplete-tabs', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/admin/jquery.tctabs' . $ext . '.js', '', THEMECOMPLETE_EPO_VERSION, true );
+		wp_register_script( 'themecomplete-tabs', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/jquery.tctabs' . $ext . '.js', '', THEMECOMPLETE_EPO_VERSION, true );
 		wp_register_script( 'toastr', THEMECOMPLETE_EPO_PLUGIN_URL . '/assets/js/admin/toastr' . $ext . '.js', '', '2.1.4', true );
 		wp_register_script(
 			'themecomplete-epo-admin-lookuptable',
@@ -182,7 +182,7 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 		$post_id = isset( $post->ID ) ? floatval( $post->ID ) : '';
 		$meta    = themecomplete_get_post_meta( $post_id, 'lookuptable_meta', true );
 		$params  = [
-			'post_id'                                   => $post_id,
+			'post_id'                                   => sprintf( '%d', $post_id ),
 			'import_nonce'                              => wp_create_nonce( 'import-nonce' ),
 			'tm_epo_global_displayed_decimal_separator' => get_option( 'tm_epo_global_displayed_decimal_separator' ),
 			'currency_format_decimal_sep'               => esc_attr( stripslashes_deep( get_option( 'woocommerce_price_decimal_sep' ) ) ),
@@ -292,7 +292,7 @@ final class THEMECOMPLETE_EPO_Admin_LookupTable_Base {
 				echo '<span class="table-name-label">' . esc_html__( 'Table name', 'woocommerce-tm-extra-product-options' ) . '</span>';
 				echo '<span contenteditable="true" class="table-name-value">' . esc_html( $table_name ) . '</span>';
 				echo '</div>';
-				if ( count( $lookup_tables[ $table_name ] ) > 1 ) {
+				if ( isset( $lookup_tables[ $table_name ] ) && count( $lookup_tables[ $table_name ] ) > 1 ) {
 					echo '<div class="table-index">';
 					echo '<span class="table-index-label">' . esc_html__( 'Table index', 'woocommerce-tm-extra-product-options' ) . '</span>';
 					echo '<span class="table-index-value">' . esc_html( $table_index ) . '</span>';

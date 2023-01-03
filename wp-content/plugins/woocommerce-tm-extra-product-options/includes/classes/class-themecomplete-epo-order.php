@@ -496,6 +496,7 @@ class THEMECOMPLETE_EPO_Order {
 
 					$override     = isset( $epo['element'] ) && isset( $epo['element']['type'] ) && 'upload' === $epo['element']['type'];
 					$epo['value'] = $this->display_meta_value( $epo['value'], $override, 'order' );
+					$epo['value'] = apply_filters( 'wc_epo_enable_shortocde', $epo['value'], $epo['value'], false );
 
 					$new_currency = false;
 					if ( isset( $epo['price_per_currency'] ) ) {
@@ -830,10 +831,11 @@ class THEMECOMPLETE_EPO_Order {
 								}
 							}
 						}
-						$original_value = $epo['value'];
+						$original_value = apply_filters( 'wc_epo_enable_shortocde', $epo['value'], $epo['value'], false );
 
 						$override     = isset( $epo['element'] ) && isset( $epo['element']['type'] ) && 'upload' === $epo['element']['type'];
 						$epo['value'] = $this->display_meta_value( $epo['value'], $override, 'order' );
+						$epo['value'] = apply_filters( 'wc_epo_enable_shortocde', $epo['value'], $epo['value'], false );
 
 						$new_currency = false;
 						if ( isset( $epo['price_per_currency'] ) ) {

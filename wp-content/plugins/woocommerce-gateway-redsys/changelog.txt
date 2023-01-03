@@ -1,5 +1,10 @@
 *** Redsys Gateway Change Log ***
 
+2022.12.23 - version 19.0.1
+
+* Fixed Typo in Global function get_last_four()
+* Fixed pay with 1click in redirection.
+
 2022.12.19 - version 19.0.0
 
 * NEW: Requieres WC >= 4.0

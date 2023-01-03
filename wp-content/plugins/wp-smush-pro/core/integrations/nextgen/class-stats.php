@@ -42,7 +42,7 @@ class Stats extends NextGen {
 	 *
 	 * @var bool
 	 */
-	private $is_pro_user;
+	private $is_pro_user = true;
 
 	/**
 	 * Stats constructor.

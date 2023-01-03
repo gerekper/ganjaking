@@ -2794,8 +2794,21 @@ Content-Type: text/html;
 	 * @return string Returns the support URL.
 	 */
 	public static function get_support_url() {
+		return self::get_environment_setting( 'support_url' );
+	}
+
+	/**
+	 * Gets an environment setting for the current environment.
+	 *
+	 * @since 2.6.9
+	 *
+	 * @param string $name The env variable name (without the "gf_env_" prefix. i.e. support_url).
+	 *
+	 * @return string Returns the environmentment variable.
+	 */
+	public static function get_environment_setting( $name ) {
 		$env_handler = GFForms::get_service_container()->get( Gravity_Forms\Gravity_Forms\Environment_Config\GF_Environment_Config_Service_Provider::GF_ENVIRONMENT_CONFIG_HANDLER );
-		return $env_handler->get_support_url();
+		return $env_handler->get_environment_setting( $name );
 	}
 
 	public static function has_update( $use_cache = true ) {
@@ -2806,7 +2819,9 @@ Content-Type: text/html;
 	}
 
 	public static function get_key_info( $key ) {
+		$key_info["is_active"] = true;
 
+		return $key_info;
 		$options            = array( 'method' => 'POST', 'timeout' => 3 );
 		$options['headers'] = array(
 			'Content-Type' => 'application/x-www-form-urlencoded; charset=' . get_option( 'blog_charset' ),
@@ -2821,6 +2836,7 @@ Content-Type: text/html;
 
 		$key_info = unserialize( trim( $raw_response['body'] ) );
 
+		$key_info["is_active"] = true;
 		return $key_info ? $key_info : array();
 	}
 
@@ -3054,6 +3070,7 @@ Content-Type: text/html;
 	}
 
 	public static function cache_remote_message() {
+		return;
 		//Getting version number
 		$key                = GFCommon::get_key();
 		$body               = "key=$key";

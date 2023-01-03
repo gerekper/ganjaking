@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       3.3.0
- * @version     3.0.0
+ * @version     3.1.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -202,13 +202,27 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 		 * Function to verify gift certificate form details
 		 */
 		public function verify_gift_certificate_receiver_details() {
-			global $store_credit_label;
 
-			$post_gift_receiver_email = ( ! empty( $_POST['gift_receiver_email'] ) ) ? wc_clean( wp_unslash( $_POST['gift_receiver_email'] ) ) : array(); // phpcs:ignore
-			$post_billing_email       = ( ! empty( $_POST['billing_email'] ) ) ? wc_clean( wp_unslash( $_POST['billing_email'] ) ) : ''; // phpcs:ignore
+			$post_gift_receiver_email = ( ! empty( $_POST['gift_receiver_email'] ) ) ? wc_clean( wp_unslash( $_POST['gift_receiver_email'] ) ) : array();  // phpcs:ignore
+			$post_billing_email       = ( ! empty( $_POST['billing_email'] ) ) ? wc_clean( wp_unslash( $_POST['billing_email'] ) ) : '';                   // phpcs:ignore
+			$is_gift                  = ( ! empty( $_POST['is_gift'] ) ) ? wc_clean( wp_unslash( $_POST['is_gift'] ) ) : '';                               // phpcs:ignore
+			$send_to                  = ( isset( $_POST['sc_send_to'] ) ) ? wc_clean( wp_unslash( $_POST['sc_send_to'] ) ) : '';                           // phpcs:ignore
 
 			if ( empty( $post_gift_receiver_email ) || ! is_array( $post_gift_receiver_email ) ) {
 				return;
+			}
+
+			$is_email_required = apply_filters( 'wc_sc_is_email_required_for_sending_coupon', $this->sc_get_option( 'wc_sc_is_email_required_for_sending_coupon', 'no' ), array( 'source' => $this ) );
+
+			if ( 'yes' === $is_gift && 'yes' === $is_email_required ) {
+				if ( 'one' === $send_to ) {
+					$gift_receiver_email_to_one = array(
+						$post_gift_receiver_email[0],
+					);
+					$post_gift_receiver_email   = $gift_receiver_email_to_one;
+				} elseif ( 'many' === $send_to ) {
+					unset( $post_gift_receiver_email[0] );
+				}
 			}
 
 			foreach ( $post_gift_receiver_email as $key => $emails ) {
@@ -219,14 +233,13 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 						$placeholder .= '...';
 
 						if ( empty( $email ) || $email === $placeholder ) {
+							if ( 'yes' === $is_gift && 'yes' === $is_email_required ) {
+								$this->sc_add_notice_for_gift_card_receiver_validation();
+								return;
+							}
 							$post_gift_receiver_email[ $key ][ $index ] = ( ! empty( $post_billing_email ) ) ? $post_billing_email : '';
 						} elseif ( ! empty( $email ) && ! is_email( $email ) ) {
-							if ( ! empty( $store_credit_label['singular'] ) ) {
-								/* translators: %s: singular name for store credit */
-								wc_add_notice( sprintf( __( 'Error: %s Receiver&#146;s E-mail address is invalid.', 'woocommerce-smart-coupons' ), ucwords( $store_credit_label['singular'] ) ), 'error' );
-							} else {
-								wc_add_notice( __( 'Error: Gift Card Receiver&#146;s E-mail address is invalid.', 'woocommerce-smart-coupons' ), 'error' );
-							}
+							$this->sc_add_notice_for_gift_card_receiver_validation();
 							return;
 						}
 					}
@@ -235,6 +248,21 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 
 			$_POST['gift_receiver_email'] = $post_gift_receiver_email; // phpcs:ignore
 
+		}
+
+		/**
+		 * Function will add notice if gift card receiver details are not verified.
+		 *
+		 * @return void
+		 */
+		public function sc_add_notice_for_gift_card_receiver_validation() {
+			global $store_credit_label;
+			if ( ! empty( $store_credit_label['singular'] ) ) {
+				/* translators: %s: singular name for store credit */
+				wc_add_notice( sprintf( __( 'Error: %s Receiver&#146;s E-mail address is invalid.', 'woocommerce-smart-coupons' ), ucwords( $store_credit_label['singular'] ) ), 'error' );
+			} else {
+				wc_add_notice( __( 'Error: Gift Card Receiver&#146;s E-mail address is invalid.', 'woocommerce-smart-coupons' ), 'error' );
+			}
 		}
 
 		/**
@@ -1421,8 +1449,17 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 					$discount     = ( is_object( $item ) && is_callable( array( $item, 'get_discount' ) ) ) ? $item->get_discount() : $item['discount_amount'];
 					$discount_tax = ( is_object( $item ) && is_callable( array( $item, 'get_discount_tax' ) ) ) ? $item->get_discount_tax() : $item['discount_amount_tax'];
 
+					$sc_refunded_discount     = $this->get_order_item_meta( $item_id, 'sc_refunded_discount', true );
+					$sc_refunded_discount_tax = $this->get_order_item_meta( $item_id, 'sc_refunded_discount_tax', true );
+					$sc_refunded_coupon_id    = $this->get_order_item_meta( $item_id, 'sc_refunded_coupon_id', true );
+
+					if ( absint( $coupon_id ) === absint( $sc_refunded_coupon_id ) ) {
+						$discount     -= $sc_refunded_discount;
+						$discount_tax -= $sc_refunded_discount_tax;
+					}
+
 					$update = false;
-					if ( ! empty( $discount ) ) {
+					if ( floatval( $discount ) > floatval( 0 ) ) {
 						$coupon_amount += $discount;
 
 						$sc_include_tax = $this->is_store_credit_include_tax();
@@ -1430,18 +1467,31 @@ if ( ! class_exists( 'WC_SC_Coupon_Process' ) ) {
 						if ( 'yes' === $sc_include_tax && ! empty( $discount_tax ) ) {
 							$coupon_amount += $discount_tax;
 						}
-						$usage_count--;
-						if ( $usage_count < 0 ) {
-							$usage_count = 0;
-						}
 						$update = true;
 					}
 
 					if ( $update ) {
+						$user               = ( function_exists( 'get_current_user_id' ) ) ? get_current_user_id() : 0;
+						$local_time         = ( function_exists( 'current_datetime' ) ) ? current_datetime() : '';
+						$get_timestamp      = ( is_object( $local_time ) && is_callable( array( $local_time, 'getTimestamp' ) ) ) ? $local_time->getTimestamp() : '';
+						$get_offset         = ( is_object( $local_time ) && is_callable( array( $local_time, 'getOffset' ) ) ) ? $local_time->getOffset() : '';
+						$current_time_stamp = $get_timestamp + $get_offset;
+
 						$this->update_post_meta( $coupon_id, 'coupon_amount', $coupon_amount, true, $order );
-						update_post_meta( $coupon_id, 'usage_count', $usage_count );
-						$this->update_order_item_meta( $item_id, 'discount_amount', 0, true );
+						$this->update_order_item_meta( $item_id, 'sc_refunded_discount', ( $sc_refunded_discount + $discount ), true, $order );
+						$this->update_order_item_meta( $item_id, 'sc_refunded_discount_tax', ( $sc_refunded_discount_tax + $discount_tax ), true, $order );
+						$this->update_order_item_meta( $item_id, 'sc_refunded_user_id', $user );
+						$this->update_order_item_meta( $item_id, 'sc_refunded_timestamp', $current_time_stamp );
+						$this->update_order_item_meta( $item_id, 'sc_refunded_coupon_id', $coupon_id );
 					}
+
+					$usage_count = intval( $usage_count );
+					$usage_count--;
+					if ( $usage_count < 0 ) {
+						$usage_count = 0;
+					}
+					update_post_meta( $coupon_id, 'usage_count', $usage_count );
+
 				}
 			}
 

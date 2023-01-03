@@ -545,7 +545,12 @@ class Ajax {
 
 			foreach ( $attachments as $attachment_k => $attachment ) {
 				/** Check should resmush for nextgen type */
-
+				if ( 'nextgen' === $type ) {
+					if ( $this->nextgen_should_resmush( $attachment ) ) {
+						$resmush_list[] = $attachment_k;
+					}
+					continue;
+				}
 
 				/** Check should resmush for media type */
 				// Skip if already in ignored list.
@@ -673,8 +678,8 @@ class Ajax {
 			}
 		}
 
-		$total_count = 'nextgen' !== $type
-			? ( $core->total_count - $core->skipped_count )
+		$total_count = 'nextgen' !== $type 
+			? ( $core->total_count - $core->skipped_count ) 
 			: $core->nextgen->ng_admin->total_count;
 
 		list( $percent_optimized, $percent_metric, $percent_grade ) = $core->get_grade_data(

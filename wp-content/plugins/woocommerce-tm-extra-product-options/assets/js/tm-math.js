@@ -1020,7 +1020,7 @@
 							case THEMECOMPLETE_EPO_MATH_Constants.PARAMSEPARATOR:
 								while ( THEMECOMPLETE_EPO_MATH_Constants.LEFTPARENTHESIS !== $stack[ $stack.length - 1 ].type ) {
 									if ( 0 === $stack.length ) {
-										return THEMECOMPLETE_EPO_MATH_Constants.trigger( 'Incorrect Brackets', 'IncorrectBracketsError', $tokens );
+										return THEMECOMPLETE_EPO_MATH_Error.trigger( 'Incorrect Brackets', 'IncorrectBracketsError', $tokens );
 									}
 									$tokens.push( $stack.pop() );
 								}
@@ -1062,7 +1062,7 @@
 										}
 										$tokens.push( $ctoken );
 									} catch ( $e ) {
-										return THEMECOMPLETE_EPO_MATH_Constants.trigger( 'Incorrect Brackets', 'IncorrectBracketsError', $tokens );
+										return THEMECOMPLETE_EPO_MATH_Error.trigger( 'Incorrect Brackets', 'IncorrectBracketsError', $tokens );
 									}
 								}
 

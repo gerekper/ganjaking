@@ -85,6 +85,7 @@ final class THEMECOMPLETE_EPO_CP_WPML {
 				'sections_class',
 				'sections_clogic',
 				'sections_logic',
+				'sections_popupbuttontext',
 			];
 
 			// These are the properties that can have a different value in translated products with WPML.
@@ -162,7 +163,20 @@ final class THEMECOMPLETE_EPO_CP_WPML {
 			add_filter( 'wcml_filter_cart_item_data', [ $this, 'wcml_filter_cart_item_data' ], 10, 1 );
 			add_filter( 'wc_epo_enabled_currencies', [ $this, 'wc_epo_enabled_currencies' ], 10, 1 );
 			add_filter( 'wc_epo_use_original_builder', [ $this, 'wc_epo_use_original_builder' ], 10, 5 );
+			add_filter( 'wcml_multi_currency_ajax_actions', [ $this, 'wcml_multi_currency_ajax_actions' ], 10, 1 );
 		}
+	}
+
+	/**
+	 * Add our AJAX actions that need to use multi-currency filters.
+	 *
+	 * @param array $ajax_actions Array of ajax actions.
+	 * @return array
+	 * @since 6.2
+	 */
+	public function wcml_multi_currency_ajax_actions( $ajax_actions = [] ) {
+		$ajax_actions[] = 'wc_epo_get_associated_product_html';
+		return $ajax_actions;
 	}
 
 	/**

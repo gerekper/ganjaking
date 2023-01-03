@@ -2398,8 +2398,8 @@ msgid "Choose whether to hide the element value in the order or not."
 msgstr "Kies of u de onderdeel waarde in de bestelling wilt verbergen of niet."
 
 #: includes/classes/builder/class-themecomplete-epo-builder-element.php:1142
-msgid "Hide element label in floating totals box."
-msgstr "Onderdeel label verbergen in vak met zwevende totalen."
+msgid "Hide element label in floating totals box"
+msgstr "Onderdeel label verbergen in vak met zwevende totalen"
 
 #: includes/classes/builder/class-themecomplete-epo-builder-element.php:1143
 msgid ""

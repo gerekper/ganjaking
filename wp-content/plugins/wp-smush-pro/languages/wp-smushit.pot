@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Smush Pro 3.12.3\n"
+"Project-Id-Version: Smush Pro 3.12.4\n"
 "Report-Msgid-Bugs-To: https://wpmudev.com\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-10-24T16:53:14+00:00\n"
+"POT-Creation-Date: 2022-11-17T14:23:17+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: wp-smushit\n"
@@ -28,7 +28,7 @@ msgid "http://wpmudev.com/project/wp-smush-pro/"
 msgstr ""
 
 #. Description of the plugin
-msgid "Reduce image file sizes, improve performance and boost your SEO using the <a href=\"https://wpmudev.com/\">WPMU DEV</a> WordPress Smush API."
+msgid "Reduce image file sizes, improve performance and boost your SEO using the free <a href=\"https://wpmudev.com/\">WPMU DEV</a> WordPress Smush API."
 msgstr ""
 
 #. Author of the plugin
@@ -85,7 +85,7 @@ msgstr ""
 #: app/pages/class-directory.php:161
 #: app/pages/class-directory.php:162
 #: app/views/bulk/unlimited/meta-box.php:32
-#: core/class-core.php:316
+#: core/class-core.php:319
 msgid "Dismiss"
 msgstr ""
 
@@ -609,7 +609,7 @@ msgstr ""
 #: app/class-media-library.php:652
 #: app/class-media-library.php:668
 #: app/class-media-library.php:951
-#: core/class-core.php:292
+#: core/class-core.php:295
 msgid "Ignore"
 msgstr ""
 
@@ -626,7 +626,7 @@ msgid "Image not found!"
 msgstr ""
 
 #: app/class-media-library.php:933
-#: core/class-core.php:314
+#: core/class-core.php:317
 #: core/class-error-handler.php:483
 #: core/class-rest.php:82
 #: core/integrations/nextgen/class-admin.php:309
@@ -654,7 +654,7 @@ msgid "Restore"
 msgstr ""
 
 #: app/class-media-library.php:1171
-#: core/class-core.php:276
+#: core/class-core.php:279
 #: core/class-settings.php:235
 #: core/integrations/nextgen/class-admin.php:217
 #: core/integrations/nextgen/class-stats.php:360
@@ -662,7 +662,7 @@ msgid "Super-Smush"
 msgstr ""
 
 #: app/common/all-images-smushed-notice.php:20
-#: core/class-core.php:281
+#: core/class-core.php:284
 msgid "All attachments have been smushed. Awesome!"
 msgstr ""
 
@@ -781,7 +781,7 @@ msgstr ""
 #: app/modals/restore-images.php:149
 #: app/modals/webp-delete-all.php:49
 #: app/views/nextgen/progress-bar.php:41
-#: core/class-core.php:330
+#: core/class-core.php:333
 #: _src/react/modules/configs.jsx:37
 msgid "Cancel"
 msgstr ""
@@ -792,7 +792,7 @@ msgid "Resume scan."
 msgstr ""
 
 #: app/common/progress-bar.php:62
-#: core/class-core.php:307
+#: core/class-core.php:310
 msgid "images optimized"
 msgstr ""
 
@@ -817,6 +817,7 @@ msgstr ""
 
 #: app/modals/directory-list.php:30
 #: app/modals/progress-dialog.php:32
+#: core/class-core.php:577
 msgid "Close"
 msgstr ""
 
@@ -1364,7 +1365,7 @@ msgid "Smush CDN Icon"
 msgstr ""
 
 #: app/views/bulk/cdn-upsell.php:19
-#: core/class-core.php:288
+#: core/class-core.php:291
 msgid "Want to serve images even faster? Get up to 2x more speed with Smush Pro’s CDN, which spans 45 servers worldwide."
 msgstr ""
 
@@ -2714,125 +2715,145 @@ msgstr ""
 msgid "none"
 msgstr ""
 
-#: core/class-core.php:275
+#: core/class-core.php:278
 msgid "Your settings have been updated"
 msgstr ""
 
-#: core/class-core.php:277
+#: core/class-core.php:280
 #: core/integrations/nextgen/class-admin.php:218
 msgid "Smush Now"
 msgstr ""
 
-#: core/class-core.php:278
+#: core/class-core.php:281
 msgid "{{smushed}}/{{total}} images smushed successfully, {{errors}} images were not optimized, find out why and how to resolve the issue(s) below."
 msgstr ""
 
-#: core/class-core.php:279
+#: core/class-core.php:282
 msgid "All of your images failed to smush. Find out why and how to resolve the issue(s) below."
 msgstr ""
 
-#: core/class-core.php:280
+#: core/class-core.php:283
 #: core/integrations/nextgen/class-admin.php:220
 msgid "All images are fully optimized."
 msgstr ""
 
 #. translators: %1$s - opening link tag, %2$s - </a>
-#: core/class-core.php:284
+#: core/class-core.php:287
 msgid "Are you hitting the 5MB \"size limit exceeded\" warning? %1$sUpgrade to Smush Pro for FREE%2$s to optimize unlimited image files up to 32Mb each."
 msgstr ""
 
-#: core/class-core.php:289
+#: core/class-core.php:292
 msgid "Let images reach your audience faster no matter where your hosting servers are. Smush Pro’s global CDN serves images closer to site visitors via 45 worldwide server locations."
 msgstr ""
 
-#: core/class-core.php:290
+#: core/class-core.php:293
 #: core/integrations/nextgen/class-admin.php:221
 msgid "Restoring image..."
 msgstr ""
 
-#: core/class-core.php:291
+#: core/class-core.php:294
 #: core/integrations/nextgen/class-admin.php:222
 msgid "Smushing image..."
 msgstr ""
 
-#: core/class-core.php:293
+#: core/class-core.php:296
 msgid "View Details"
 msgstr ""
 
-#: core/class-core.php:294
+#: core/class-core.php:297
 msgid "We successfully verified your membership, all the Pro features should work completely. "
 msgstr ""
 
-#: core/class-core.php:295
+#: core/class-core.php:298
 msgid "Your membership couldn't be verified."
 msgstr ""
 
-#: core/class-core.php:296
+#: core/class-core.php:299
 msgid "Missing file path."
 msgstr ""
 
-#: core/class-core.php:297
+#: core/class-core.php:300
 msgid "Images smushed successfully, No further action required"
 msgstr ""
 
-#: core/class-core.php:299
+#: core/class-core.php:302
 msgid "image could not be smushed."
 msgstr ""
 
-#: core/class-core.php:300
+#: core/class-core.php:303
 msgid "images could not be smushed."
 msgstr ""
 
-#: core/class-core.php:301
+#: core/class-core.php:304
 #: core/integrations/nextgen/class-stats.php:273
 #: core/integrations/nextgen/class-stats.php:276
 msgid "Already Optimized"
 msgstr ""
 
-#: core/class-core.php:302
+#: core/class-core.php:305
 msgid "Ajax Error"
 msgstr ""
 
-#: core/class-core.php:303
+#: core/class-core.php:306
 msgid "Something went wrong with the request. Please reload the page and try again."
 msgstr ""
 
-#: core/class-core.php:304
+#: core/class-core.php:307
 msgid "All Done!"
 msgstr ""
 
-#: core/class-core.php:305
+#: core/class-core.php:308
 msgid "Give us a moment while we sync the stats."
 msgstr ""
 
-#: core/class-core.php:308
+#: core/class-core.php:311
 msgid "Resume scan"
 msgstr ""
 
-#: core/class-core.php:309
+#: core/class-core.php:312
 msgid "Stop current bulk smush process."
 msgstr ""
 
-#: core/class-core.php:311
+#: core/class-core.php:314
 msgid "Ignore this image from bulk smushing"
 msgstr ""
 
-#: core/class-core.php:313
+#: core/class-core.php:316
 msgid "Ignored"
 msgstr ""
 
-#: core/class-core.php:317
+#: core/class-core.php:320
 #: _src/react/modules/configs.jsx:62
 msgid "Dismiss notice"
 msgstr ""
 
 #. translators: %1$s - opening a tag, %2$s - closing a tag
-#: core/class-core.php:319
+#: core/class-core.php:322
 msgid "The widget has been removed. Smush tutorials can still be found in the %1$sTutorials tab%2$s any time."
 msgstr ""
 
-#: core/class-core.php:331
+#: core/class-core.php:334
 msgid "Cancelling ..."
+msgstr ""
+
+#: core/class-core.php:578
+msgid "Get deal"
+msgstr ""
+
+#: core/class-core.php:579
+msgid "Black Friday offer for WP businesses and agencies"
+msgstr ""
+
+#: core/class-core.php:580
+msgid "Off"
+msgstr ""
+
+#: core/class-core.php:581
+msgid "Everything you need to run your WP business for"
+msgstr ""
+
+#: core/class-core.php:584
+msgid "From the creators of SMUSH, WPMU DEV's all-in-one platform gives you all the Pro tools and support you need to run and grow a web development business. Trusted by over 50,000 web developers. Limited deals available."
 msgstr ""
 
 #: core/class-error-handler.php:413
