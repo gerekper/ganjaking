@@ -3,18 +3,22 @@
  * Plugin Name: WooCommerce Freshdesk
  * Plugin URI: https://woocommerce.com/products/woocommerce-freshdesk/
  * Description: A Freshdesk integration plugin for WooCommerce.
- * Version: 1.1.26
- * Author: Automattic
- * Author URI: https://woocommerce.com
+ * Version: 1.1.28
+ * Author: Themesquad
+ * Author URI: https://themesquad.com
+ * Requires at least: 4.4
+ * Tested up to: 6.1
  * Text Domain: woocommerce-freshdesk
  * Domain Path: languages/
- * WC tested up to: 4.2
+ *
  * WC requires at least: 2.6
- * Tested up to: 5.5
+ * WC tested up to: 7.2
+ * Woo: 395305:31cb841311e1657f69861c452d788726
+ *
+ * License: GNU General Public License v3.0
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @package woocommerce-freshdesk
- *
- * Woo: 395305:31cb841311e1657f69861c452d788726
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -23,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( 'WC_Freshdesk' ) ) :
 
-	define( 'WC_FRESHDESK_VERSION', '1.1.26' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_FRESHDESK_VERSION', '1.1.28' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * WooCommerce Freshdesk main class.

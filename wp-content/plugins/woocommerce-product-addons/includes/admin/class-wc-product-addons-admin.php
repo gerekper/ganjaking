@@ -81,6 +81,10 @@ class WC_Product_Addons_Admin {
 		register_setting( 'product_addons_options', 'product_addons_options' );
 		add_settings_section( 'show_incomplete_subtotal', 'Settings', 0, 'show_incomplete_subtotal' );
 		add_settings_field( 'show_incomplete_subtotal_option', __( 'Show Incomplete subtotal', 'woocommerce-product-addons' ), array( $this, 'show_incomplete_subtotal_option' ), 'show_incomplete_subtotal', 'show_incomplete_subtotal' );
+
+		// Register compatibility with WooCommerce Importer/Exporter.
+		include( WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/admin/export/class-wc-product-addons-product-export.php' );
+		include( WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/admin/import/class-wc-product-addons-product-import.php' );
 	}
 
 	/**

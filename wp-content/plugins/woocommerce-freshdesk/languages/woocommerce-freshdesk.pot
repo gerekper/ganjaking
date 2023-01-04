@@ -1,18 +1,38 @@
-# Copyright (C) 2020 Automattic
-# This file is distributed under the same license as the WooCommerce Freshdesk package.
+# Copyright (C) 2023 Themesquad
+# This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Freshdesk 1.1.26\n"
-"Report-Msgid-Bugs-To: "
-"https://wordpress.org/support/plugin/woocommerce-freshdesk\n"
-"POT-Creation-Date: 2020-08-19 18:25:31+00:00\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Project-Id-Version: WooCommerce Freshdesk 1.1.28\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: node-wp-i18n 1.2.3\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-01-03T12:43:19+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.7.1\n"
+"X-Domain: woocommerce-freshdesk\n"
+
+#. Plugin Name of the plugin
+msgid "WooCommerce Freshdesk"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://woocommerce.com/products/woocommerce-freshdesk/"
+msgstr ""
+
+#. Description of the plugin
+msgid "A Freshdesk integration plugin for WooCommerce."
+msgstr ""
+
+#. Author of the plugin
+msgid "Themesquad"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://themesquad.com"
+msgstr ""
 
 #: includes/class-wc-freshdesk-ajax.php:47
 msgid "There was an error in the request, please reload this page and try again."
@@ -99,10 +119,7 @@ msgid "API Key"
 msgstr ""
 
 #: includes/class-wc-freshdesk-integration.php:114
-msgid ""
-"Enter your Freshdesk API Key. You can find this in \"User Profile\" "
-"drop-down (top right corner of your helpdesk) > Profile Settings > Your API "
-"Key."
+msgid "Enter your Freshdesk API Key. You can find this in \"User Profile\" drop-down (top right corner of your helpdesk) > Profile Settings > Your API Key."
 msgstr ""
 
 #: includes/class-wc-freshdesk-integration.php:119
@@ -114,9 +131,7 @@ msgid "Debug Log"
 msgstr ""
 
 #: includes/class-wc-freshdesk-integration.php:126
-msgid ""
-"Enable logging. Note: this may log personal information. We recommend using "
-"this for debugging purposes only and deleting the logs when finished."
+msgid "Enable logging. Note: this may log personal information. We recommend using this for debugging purposes only and deleting the logs when finished."
 msgstr ""
 
 #: includes/class-wc-freshdesk-integration.php:204
@@ -151,9 +166,7 @@ msgid "Thank you for your contact, we will respond as soon as possible."
 msgstr ""
 
 #: includes/class-wc-freshdesk-integration.php:293
-msgid ""
-"There was an error in the request, please try again or contact us for "
-"assistance."
+msgid "There was an error in the request, please try again or contact us for assistance."
 msgstr ""
 
 #: includes/class-wc-freshdesk-integration.php:354
@@ -203,9 +216,7 @@ msgid "Remove Relationship?"
 msgstr ""
 
 #: includes/class-wc-freshdesk-integration.php:398
-msgid ""
-"This option remove the synchronization with this Forum Category and your "
-"Freshdesk."
+msgid "This option remove the synchronization with this Forum Category and your Freshdesk."
 msgstr ""
 
 #: includes/class-wc-freshdesk-integration.php:406
@@ -243,9 +254,7 @@ msgid "Solution Category ID:"
 msgstr ""
 
 #: includes/class-wc-freshdesk-integration.php:471
-msgid ""
-"This option remove the synchronization with this Solutions Category and "
-"your Freshdesk."
+msgid "This option remove the synchronization with this Solutions Category and your Freshdesk."
 msgstr ""
 
 #: includes/class-wc-freshdesk-integration.php:482
@@ -289,9 +298,7 @@ msgid "Need Help?"
 msgstr ""
 
 #: includes/class-wc-freshdesk-integration.php:658
-msgid ""
-"Do you have a query about your order, or need a hand with getting your "
-"products set up? If so, please fill in the form below."
+msgid "Do you have a query about your order, or need a hand with getting your products set up? If so, please fill in the form below."
 msgstr ""
 
 #: includes/class-wc-freshdesk-integration.php:664
@@ -351,11 +358,7 @@ msgid "The Freshdesk log file was not created yet!"
 msgstr ""
 
 #: includes/class-wc-freshdesk-privacy.php:20
-msgid ""
-"By using this extension, you may be storing personal data or sharing data "
-"with an external service. <a href=\"%s\" target=\"_blank\">Learn more about "
-"how this works, including what you may want to include in your privacy "
-"policy.</a>"
+msgid "By using this extension, you may be storing personal data or sharing data with an external service. <a href=\"%s\" target=\"_blank\">Learn more about how this works, including what you may want to include in your privacy policy.</a>"
 msgstr ""
 
 #: includes/class-wc-freshdesk-shortcodes.php:66
@@ -433,40 +436,19 @@ msgid "Next"
 msgstr ""
 
 #: includes/class-wc-freshdesk-tickets.php:314
-msgid ""
-"Oops, you've seen all their support tickets, please return to the previous "
-"page."
+msgid "Oops, you've seen all their support tickets, please return to the previous page."
 msgstr ""
 
 #: includes/class-wc-freshdesk-tickets.php:319
 msgid "You have no support tickets."
 msgstr ""
 
-#: woocommerce-freshdesk.php:143
 #. translators: %s: WooCommerce link
+#: woocommerce-freshdesk.php:147
 msgid "WooCommerce Freshdesk requires %s to be installed and active."
 msgstr ""
 
-#: woocommerce-freshdesk.php:143
+#. translators: %s: WooCommerce link
+#: woocommerce-freshdesk.php:147
 msgid "WooCommerce"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "WooCommerce Freshdesk"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "https://woocommerce.com/products/woocommerce-freshdesk/"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid "A Freshdesk integration plugin for WooCommerce."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "Automattic"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "https://woocommerce.com"
 msgstr ""

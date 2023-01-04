@@ -1,4 +1,4 @@
-jQuery( document ).ready( function( $ ){
+jQuery( function( $ ) {
 
 	/**
 	 * Check if a node is blocked for processing.

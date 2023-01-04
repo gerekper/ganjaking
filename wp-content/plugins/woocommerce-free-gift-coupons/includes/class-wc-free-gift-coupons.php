@@ -10,8 +10,7 @@ if ( class_exists( 'WC_Free_Gift_Coupons' ) ) {
 /**
  * Main WC_Free_Gift_Coupons Class
  *
- * @package Class
- * @version	3.3.4
+ * @version	3.4.0
  */
 class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 
@@ -20,7 +19,7 @@ class WC_Free_Gift_Coupons extends WC_Free_Gift_Coupons_Legacy {
 	 *
 	 * @var string
 	 */
-	public static $version = '3.3.5';
+	public static $version = '3.4.0';
 
 	/**
 	 * The required WooCommerce version

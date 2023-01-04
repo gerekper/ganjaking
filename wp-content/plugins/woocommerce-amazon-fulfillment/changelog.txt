@@ -1,5 +1,10 @@
 *** WooCommerce Amazon Fulfillment Changelog ***
 
+2023-01-02 - version 4.1.2
+* Fix issue calculating shipping fees for variations.
+* Fix order status check
+* Implement better handling for long product SKU
+
 2022-10-10 - version 4.1.1
 * Fix issue where failed email is sent when an order is fulfiled successfully.
 

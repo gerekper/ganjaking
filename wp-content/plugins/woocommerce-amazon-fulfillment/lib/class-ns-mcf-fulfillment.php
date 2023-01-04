@@ -130,12 +130,20 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 
 			foreach ( $package['contents'] as $item ) {
 
-				$product = wc_get_product( $item['product_id'] );
+				if ( isset( $item['variation_id'] ) ) {
+					$product_id = $item['variation_id'];
+				} else {
+					$product_id = $item['product_id'];
+				}
+
+				$product = wc_get_product( $product_id );
+
+				$current_sku = $this->get_sku_to_send( $product );
 
 				$body['items'][] = array(
 					'quantity'                     => $item['quantity'],
-					'sellerSku'                    => $product->get_sku(),
-					'sellerFulfillmentOrderItemId' => uniqid( 'id_' . $item['product_id'] . '_' ),
+					'sellerSku'                    => $current_sku,
+					'sellerFulfillmentOrderItemId' => uniqid( 'id_' . $product_id . '_' ),
 				);
 			}
 
@@ -162,6 +170,11 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 		public function post_fulfillment_order( WC_Order $order, $is_manual_send = false ) {
 			$order_id     = $order->get_id();
 			$order_number = $this->ns_fba->options['ns_fba_order_prefix'] . $order->get_order_number();
+
+			if ( ! NS_MCF_Utils::is_valid_length( $order_number, 40 ) ) {
+				$this->write_debug_log( $log_tag, 'Order number longer than the required 40 characters. Removing prefix defined in settings' );
+				$order_number = $order->get_order_number();
+			}
 
 			$log_tag = 'post_fulfillment_order: ';
 
@@ -218,6 +231,15 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 
 					$current_sku = $this->get_sku_to_send( $product );
 
+					$fulfilment_sku = $order_number . '-item-' . $fulfill_item_count . '-' . $current_sku;
+
+					if ( ! NS_MCF_Utils::is_valid_length( $fulfilment_sku, 50 ) ) {
+						$fulfilment_sku = 'item-' . $fulfill_item_count . '-' . $current_sku;
+						if ( ! NS_MCF_Utils::is_valid_length( $fulfilment_sku, 50 ) ) {
+							$fulfilment_sku = $fulfill_item_count . '-' . $current_sku;
+						}
+					}
+
 					// phpcs:ignore
 					// error_log( "post_fulfillment_order SENDING to Amazon the SKU: " . $current_sku );
 
@@ -226,7 +248,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 					// We use $fulfill_item_count + 1 because it is 0 on the first pass.
 					$items[] = array(
 						'quantity'                     => $item->get_quantity(),
-						'sellerFulfillmentOrderItemId' => $order_number . '-item-' . $fulfill_item_count . '-' . $current_sku,
+						'sellerFulfillmentOrderItemId' => $fulfilment_sku,
 						'sellerSku'                    => $current_sku,
 						'perUnitDeclaredValue '        => array(
 							'currencyCode ' => $currency_code,
@@ -280,11 +302,17 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 
 				$this->write_debug_log( $log_tag, 'Preparing request' );
 
+				$order_comment = $this->ns_fba->wc_integration->get_option( 'ns_fba_order_comment' );
+				if ( ! NS_MCF_Utils::is_valid_length( $order_comment, 1000 ) ) {
+					$this->write_debug_log( $log_tag, 'Order comment longer than 100 characters. Defaulting to the default comment' );
+					$order_comment = 'Thank you for your order!';
+				}
+
 				$body['marketplaceId']            = $this->ns_fba->wc_integration->get_option( 'ns_fba_marketplace_id' );
 				$body['sellerFulfillmentOrderId'] = $order_number;
 				$body['displayableOrderId']       = $order_number;
 				$body['displayableOrderDate']     = $order_data['date_created']->format( 'Y-m-d\TH:i:s.000\Z' );
-				$body['displayableOrderComment']  = $this->ns_fba->wc_integration->get_option( 'ns_fba_order_comment' );
+				$body['displayableOrderComment']  = $order_comment;
 
 				// Make SURE we have a non-blank displayableOrderComment otherwise the submission will fail.
 				if ( '' === $body['displayableOrderComment'] ) {
@@ -431,7 +459,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 						$error_message['errors'][0]['message'] . '</span>'
 					);
 
-					return new WP_Error( 'failed', $error_message );
+					return new WP_Error( 'failed', $error_message['errors'][0]['message'] );
 				}
 			} catch ( Exception $ex ) {
 				$this->write_debug_log( $log_tag, $ex->getMessage() );
@@ -622,21 +650,29 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 
 			$this->write_debug_log( 'DEBUG', 'Starting to sync fulfillment order status' );
 
-			// phpcs:ignore
-			// error_log( "sync_fulfillment_order_status" );
-
-			// get oldest 20 (to stay under throttling limit) orders in wc-success-to-fba status.
 			$orders = get_posts(
 				array(
 					'numberposts' => 20,
 					'order'       => 'ASC',
-					'post_type'   => wc_get_order_types(),
+					'post_type'   => 'any',
 					'post_status' => array( 'wc-sent-to-fba', 'wc-part-to-fba' ),
 				)
 			);
 
+			if ( empty( $orders ) ) {
+				return;
+			}
+
+			$this->ns_fba->logger->add_entry( 'sync_fulfillment_order_status', 'wc', '_order_sync' );
+			$this->ns_fba->logger->add_entry( $orders, 'wc', '_order_sync' );
+
 			foreach ( $orders as $f_order ) {
-				$order        = wc_get_order( $f_order->ID );
+				$order = wc_get_order( $f_order->ID );
+				if ( ! $order ) {
+					$this->ns_fba->logger->add_entry( 'Invalid order ' . $f_order->ID, 'wc', '_order_sync' );
+					continue;
+				}
+
 				$order_id     = $f_order->ID;
 				$order_number = $this->ns_fba->options['ns_fba_order_prefix'] . $order->get_order_number();
 
@@ -657,9 +693,6 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 						$this->write_debug_log( $log_tag, 'Response is not readable' );
 						continue;
 					}
-
-					// error_log( "order_id = " . $order_id . " response = \n\n" . print_r( $response, true ) );
-					// error_log( "order_id = " . $order_id . " status = " . $fulfillment_status );
 
 					$this->write_debug_log( $log_tag, 'Updating fulfillment order status to ' . $fulfillment_status );
 
@@ -697,7 +730,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 					array(
 						'numberposts' => 20,
 						'order'       => 'ASC',
-						'post_type'   => wc_get_order_types(),
+						'post_type'   => 'any',
 						'post_status' => array( 'wc-fail-to-fba' ),
 						'meta_query'  => array(
 							array(
@@ -785,7 +818,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 			$per_page = apply_filters( 'ns_sync_products_per_batch_number', 25 );
 			$offset   = max( $per_page * $offset, 0 );
 			$sql      = "SELECT m.meta_value FROM $wpdb->posts p LEFT JOIN $wpdb->postmeta meta ON meta.post_id = p.ID LEFT JOIN $wpdb->postmeta m ON m.post_id = p.ID WHERE meta.meta_key like '%ns_fba_is_fulfill%' AND m.meta_key like '%_sku%' AND meta.meta_value = 'yes' AND m.meta_value != 'no' AND p.post_type = 'product' LIMIT %d, %d";
-			$skus     = $wpdb->get_results( $wpdb->prepare( $sql, $offset, $per_page ) );
+			$skus     = $wpdb->get_results( $wpdb->prepare( $sql, $offset, $per_page ) ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery
 			$sku_data = array();
 			if ( $skus ) {
 				foreach ( $skus as $sku ) {

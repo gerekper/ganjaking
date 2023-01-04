@@ -1,5 +1,13 @@
 *** WooCommerce Freshdesk Changelog ***
 
+2023-01-03 - version 1.1.28
+* Tweak - Updated plugin author.
+* Tweak - Tested compatibility up to WC 7.3.
+* Tweak - Tested compatibility up to WP 6.1.
+
+2020-10-07 - version 1.1.27
+* Tweak - WC 4.4 compatibility.
+
 2020-08-19 - version 1.1.26
 * Tweak - WordPress 5.5 compatibility.
 

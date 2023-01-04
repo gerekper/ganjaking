@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * WooCommerce core Product Importer support.
  *
  * @class    WC_CP_Product_Import
- * @version  8.2.0
+ * @version  8.6.2
  */
 class WC_CP_Product_Import {
 
@@ -59,6 +59,7 @@ class WC_CP_Product_Import {
 		$options[ 'wc_cp_components' ]                = __( 'Composite Components (JSON-encoded)', 'woocommerce-composite-products' );
 		$options[ 'wc_cp_scenarios' ]                 = __( 'Composite Scenarios (JSON-encoded)', 'woocommerce-composite-products' );
 		$options[ 'wc_cp_virtual_composite' ]         = __( 'Composite Contents Virtual', 'woocommerce-composite-products' );
+		$options[ 'wc_cp_aggregate_weight' ]          = __( 'Composite Aggregate Weight', 'woocommerce-composite-products' );
 		$options[ 'wc_cp_layout' ]                    = __( 'Composite Layout', 'woocommerce-composite-products' );
 		$options[ 'wc_cp_editable_in_cart' ]          = __( 'Composite Cart Editing', 'woocommerce-composite-products' );
 		$options[ 'wc_cp_sold_individually_context' ] = __( 'Composite Sold Individually', 'woocommerce-composite-products' );
@@ -79,6 +80,7 @@ class WC_CP_Product_Import {
 		$columns[ __( 'Composite Components (JSON-encoded)', 'woocommerce-composite-products' ) ] = 'wc_cp_components';
 		$columns[ __( 'Composite Scenarios (JSON-encoded)', 'woocommerce-composite-products' ) ]  = 'wc_cp_scenarios';
 		$columns[ __( 'Composite Contents Virtual', 'woocommerce-composite-products' ) ]          = 'wc_cp_virtual_composite';
+		$columns[ __( 'Composite Aggregate Weight', 'woocommerce-composite-products' ) ]          = 'wc_cp_aggregate_weight';
 		$columns[ __( 'Composite Layout', 'woocommerce-composite-products' ) ]                    = 'wc_cp_layout';
 		$columns[ __( 'Composite Cart Editing', 'woocommerce-composite-products' ) ]              = 'wc_cp_editable_in_cart';
 		$columns[ __( 'Composite Sold Individually', 'woocommerce-composite-products' ) ]         = 'wc_cp_sold_individually_context';
@@ -89,6 +91,7 @@ class WC_CP_Product_Import {
 		$columns[ 'Composite Components (JSON-encoded)' ] = 'wc_cp_components';
 		$columns[ 'Composite Scenarios (JSON-encoded)' ]  = 'wc_cp_scenarios';
 		$columns[ 'Composite Contents Virtual' ]          = 'wc_cp_virtual_composite';
+		$columns[ 'Composite Aggregate Weight' ]          = 'wc_cp_aggregate_weight';
 		$columns[ 'Composite Layout' ]                    = 'wc_cp_layout';
 		$columns[ 'Composite Cart Editing' ]              = 'wc_cp_editable_in_cart';
 		$columns[ 'Composite Sold Individually' ]         = 'wc_cp_sold_individually_context';
@@ -278,6 +281,10 @@ class WC_CP_Product_Import {
 
 			if ( isset( $data[ 'wc_cp_add_to_cart_form_location' ] ) ) {
 				$props[ 'add_to_cart_form_location' ] = strval( $data[ 'wc_cp_add_to_cart_form_location' ] );
+			}
+
+			if ( isset( $data[ 'wc_cp_aggregate_weight' ] ) ) {
+				$props[ 'aggregate_weight' ] = 1 === intval( $data[ 'wc_cp_aggregate_weight' ] ) ? 'yes' : 'no';
 			}
 
 			$product->set_props( $props );

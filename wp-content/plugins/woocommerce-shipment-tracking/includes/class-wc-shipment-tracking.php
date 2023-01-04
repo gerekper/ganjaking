@@ -116,7 +116,7 @@ class WC_Shipment_Tracking_Actions {
 					'DPD Romania'   => 'https://tracking.dpd.de/parcelstatus?query=%1$s&locale=ro_RO',
 					'Urgent Cargus' => 'https://app.urgentcargus.ro/Private/Tracking.aspx?CodBara=%1$s',
 				),
-				'South African' => array(
+				'South African'  => array(
 					'SAPO'    => 'http://sms.postoffice.co.za/TrackingParcels/Parcel.aspx?id=%1$s',
 					'Fastway' => 'https://fastway.co.za/our-services/track-your-parcel?l=%1$s',
 				),
@@ -130,6 +130,8 @@ class WC_Shipment_Tracking_Actions {
 				'United Kingdom' => array(
 					'DHL'                       => 'https://www.dhl.com/content/g0/en/express/tracking.shtml?brand=DHL&AWB=%1$s',
 					'DPD.co.uk'                 => 'https://www.dpd.co.uk/apps/tracking/?reference=%1$s#results',
+					'EVRi'                      => 'https://www.evri.com/track/parcel/%1$s',
+					'EVRi (international)'      => 'https://international.evri.com/tracking/%1$s',
 					'InterLink'                 => 'https://www.dpdlocal.co.uk/apps/tracking/?reference=%1$s&postcode=%2$s#results',
 					'ParcelForce'               => 'https://www.parcelforce.com/track-trace?trackNumber=%1$s',
 					'Royal Mail'                => 'https://www3.royalmail.com/track-your-item#/tracking-results/%1$s',
@@ -138,12 +140,13 @@ class WC_Shipment_Tracking_Actions {
 					'DHL Parcel UK'             => 'https://track.dhlparcel.co.uk/?con=%1$s',
 				),
 				'United States'  => array(
+					'DHL US'        => 'https://www.logistics.dhl/us-en/home/tracking/tracking-ecommerce.html?tracking-id=%1$s',
 					'Fedex'         => 'https://www.fedex.com/apps/fedextrack/?action=track&action=track&tracknumbers=%1$s',
 					'FedEx Sameday' => 'https://www.fedexsameday.com/fdx_dotracking_ua.aspx?tracknum=%1$s',
+					'GlobalPost'    => 'https://www.goglobalpost.com/track-detail/?t=%1$s',
 					'OnTrac'        => 'http://www.ontrac.com/trackingdetail.asp?tracking=%1$s',
 					'UPS'           => 'https://www.ups.com/track?loc=en_US&tracknum=%1$s',
 					'USPS'          => 'https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=%1$s',
-					'DHL US'        => 'https://www.logistics.dhl/us-en/home/tracking/tracking-ecommerce.html?tracking-id=%1$s',
 				),
 			)
 		);

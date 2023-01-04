@@ -1,5 +1,8 @@
 *** WooCommerce Composite Products ***
 
+2023.01.03 - version 8.6.2
+* Feature - Supported importing/exporting of the Composite 'Aggregate Weight' option.
+
 2022.11.01 - version 8.6.1
 * Tweak - Introduced compatibility with the new High-Performance Order Storage.
 * Tweak - Improved security.

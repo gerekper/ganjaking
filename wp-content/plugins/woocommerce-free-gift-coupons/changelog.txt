@@ -1,5 +1,10 @@
 === WooCommerce Free Gift Coupons ===
 
+2023.01.03 - version 3.4.0
+* Update: Tested against WooCommerce 7.3.0.
+* New: Initial support for Simple Product gifts in WooCommerce Cart/Checkout blocks.
+* New: Support for auto-adding a free gift when coupon applied in Admin. (Requires: WooCommerce 7.3)
+
 2022.10.19 - version 3.3.5
 * Fix: Compatibility with Custom Order Tables.
 

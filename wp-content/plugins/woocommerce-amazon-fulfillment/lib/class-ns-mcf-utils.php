@@ -271,5 +271,24 @@ if ( ! class_exists( 'NS_MCF_Utils' ) ) {
 			return $files_deleted;
 		}
 
+
+		/**
+		 * Check if the string is within bounds of acceptable length.
+		 *
+		 * @param  string  $string Argument to limit.
+		 * @param  integer $limit Limit size in characters. Defaults to 40.
+		 *
+		 * @return bool Return true or false.
+		 */
+		public static function is_valid_length( $string, $limit = 40 ) {
+			if ( function_exists( 'mb_strlen' ) && ( mb_strlen( $string ) > $limit ) ) {
+				return false;
+			} elseif ( strlen( $string ) > $limit ) {
+				return false;
+			}
+
+			return true;
+		}
+
 	} // class.
 }

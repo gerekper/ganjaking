@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Free Gift Coupons/Compatibility
  * @since    2.1.0
- * @version  3.3.5
+ * @version  3.4.0
  */
 
 // Exit if accessed directly.
@@ -26,6 +26,17 @@ class WC_Free_Gift_Coupons_Compatibility {
 	 * @since 3.1.0
 	 */
 	protected static $instance = null;
+
+	/**
+	 * Define dependencies.
+	 *
+	 * @var array $required
+	 * @since 3.4.0
+	 */
+	protected static $required = array(
+		'blocks' => '7.2.0',
+	);
+
 
 	/**
 	 * Main WC_Free_Gift_Coupons_Compatibility Instance.
@@ -74,6 +85,11 @@ class WC_Free_Gift_Coupons_Compatibility {
 		// All Product for Subscriptions support.
 		if ( class_exists( 'WCS_ATT' ) ) {
 			include_once  'modules/class-wc-fgc-apfs-compatibility.php' ;
+		}
+
+		// WooCommerce Cart/Checkout Blocks support.
+		if ( class_exists( 'Automattic\WooCommerce\Blocks\Package' ) && version_compare( \Automattic\WooCommerce\Blocks\Package::get_version(), self::$required[ 'blocks' ], '>=' ) ) {
+			include_once 'modules/class-wc-fgc-blocks-compatibility.php';
 		}
 
 		// Smart Coupons support.

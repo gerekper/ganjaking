@@ -1,10 +1,12 @@
 *** Product Addons Changelog ***
 
+2023-01-04 - version 5.0.3
+* Feature - Added compatibility with the core WooCommerce Importer/Exporter for importing/exporting product-level addons.
+
 2022-11-08 - version 5.0.2
 * Tweak - Introduced compatibility with the new High-Performance Order Storage.
 * Fix - Removed unnecessary meta boxes sanitization.
 * Fix - Resolved an issue that made addons with identical titles show up multiple times in the cart when re-ordering.
-
 
 2022-11-01 - version 5.0.1
 * Fix - Resolved PHPCS security issues.

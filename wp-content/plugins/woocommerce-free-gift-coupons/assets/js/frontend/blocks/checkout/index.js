@@ -1,0 +1,80 @@
+/**
+ * External dependencies
+ */
+ import { __, sprintf } from '@wordpress/i18n';
+ import { __experimentalRegisterCheckoutFilters } from '@woocommerce/blocks-checkout';
+ 
+ __experimentalRegisterCheckoutFilters( 'free-gift-coupons', {
+
+    itemName: ( context, { free_gift_coupons }, { cartItem } ) => {
+
+		if ( free_gift_coupons && free_gift_coupons.free_gift ) {
+			context = `${ context } x ${ cartItem.quantity }`;
+		}
+
+		return context;
+	},
+ 
+     cartItemClass: ( classlist, { free_gift_coupons }, { context, cartItem } ) => {
+
+        if ( free_gift_coupons ) {
+
+            let classes = [];
+
+            if ( free_gift_coupons.free_gift ) {
+
+                classes.push( 'is-free-gift-product' );
+
+                if ( free_gift_coupons.fgc_edit_in_cart ) {
+                    classes.push( 'free-gift-coupon-edit-in-cart' );
+                }
+
+            }
+
+            if ( classes.length ) {
+                classlist += ' ' + classes.join( ' ' );
+            }
+        }
+
+        return classlist;
+     
+    },
+
+    subtotalPriceFormat: ( price, { free_gift_coupons }, { context, cartItem } ) => {
+
+        // Cannot use this to get "Free" to display in the Total column. In both cases still need <price/> component.
+        if ( free_gift_coupons ) {
+
+            if ( free_gift_coupons.free_gift ) {
+
+                if ( free_gift_coupons.free_gift ) {
+
+                    price +=  __( 'Free!', 'wc_free_gift_coupons' );
+
+                }
+
+            }
+
+        }
+
+        return price;
+
+    }
+
+
+} );
+
+
+ document.addEventListener( 'click', function( event ) {
+
+    let editButton = event.target.closest( '.wc-block-cart-item__edit-link' );
+
+    if ( ! editButton ) {
+        return;
+    }
+
+    console.time('bubbling');
+    event.preventDefault();
+    console.timeEnd('bubbling');
+});
+ 

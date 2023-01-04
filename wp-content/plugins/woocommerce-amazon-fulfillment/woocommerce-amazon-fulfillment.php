@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Amazon Fulfillment
  * Plugin URI: https://neversettle.it
  * Description: Integrates Amazon MCF (Multi-channel Fulfillment) and FBA with WooCommerce.
- * Version: 4.1.1
+ * Version: 4.1.2
  * Author: Never Settle
  * Author URI: https://neversettle.it
  * Requires at least: 5.0
- * Tested up to: 6.0
+ * Tested up to: 6.1
  * WC requires at least: 5.0.0
- * WC tested up to: 6.5.1
+ * WC tested up to: 7.2.2
  * Woo: 669839:b73d2c19a6ff0f06485e0f11eb4bf922
  *
  * Text Domain: ns-fba-for-woocommerce
@@ -71,7 +71,7 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 			 *
 			 * @var string $version
 			 */
-			public $version = '4.1.1';
+			public $version = '4.1.2';
 
 			/**
 			 * The App name, primarily used for Amazon's record keeping as passed in the user_agent for example.
@@ -525,15 +525,11 @@ if ( $wc_active_for_blog || $wc_active_for_network ) {
 					}
 
 					if ( $this->is_configured ) {
+						// There is already a check for inventory in the method `sync_inventory`.
+						add_action( 'sp_api_sync_inventory', array( $this->fulfill, 'sync_inventory' ) );
 						// Add scheduled event for inventory sync and fulfillment status sync if either option is selected.
 						if ( $this->utils->isset_on( $this->options['ns_fba_sync_ship_status'] ) ) {
-
-							add_action( 'sp_api_sync_inventory', array( $this->fulfill, 'sync_inventory' ) );
-
-							if ( $this->utils->isset_on( $this->options['ns_fba_sync_ship_status'] ) ) {
-
-								add_action( 'sp_api_sync_inventory', array( $this->fulfill, 'sync_fulfillment_order_status' ) );
-							}
+							add_action( 'sp_api_sync_inventory', array( $this->fulfill, 'sync_fulfillment_order_status' ) );
 						}
 					}
 				}
