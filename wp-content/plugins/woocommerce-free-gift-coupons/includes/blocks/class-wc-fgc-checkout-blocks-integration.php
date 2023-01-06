@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Free Gift Coupons/Blocks
  * @since    3.4.0
- * @version  3.4.0
+ * @version  3.4.1
  */
 
 use Automattic\WooCommerce\Blocks\Integrations\IntegrationInterface;
@@ -101,25 +101,6 @@ class WC_FGC_Checkout_Blocks_Integration implements IntegrationInterface {
 				dirname( plugin_basename( WC_FGC_PLUGIN_FILE ) ) . '/languages'
 			);
 		}
-
-		add_action(
-			'wp_enqueue_scripts',
-			function() {
-
-				$style_path = '/assets/css/frontend/blocks/checkout-blocks.css';
-				$style_url  = WC_Free_Gift_Coupons::plugin_url() . $style_path;
-
-				wp_enqueue_style(
-					'wc-fgc-checkout-blocks',
-					$style_url,
-					'',
-					WC_Free_Gift_Coupons::get_file_version(  WC_Free_Gift_Coupons::plugin_path() . $style_path ),
-					'all'
-				);
-				wp_style_add_data( 'wc-fgc-checkout-blocks', 'rtl', 'replace' );
-
-			}
-		);
 
 		$this->is_initialized = true;
 	}

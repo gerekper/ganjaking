@@ -1,5 +1,11 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2023.01.05 - version 10.8.2
+* Change: WooCommerce 7.3 compatibility
+* Fix: Resolve issue where multiple short titles could be output against spec
+* Fix: Resolve issue where warnings could be generated with certain ACF taxonomy mappings
+* Fix: Resolve issue where some analytics multicurrency reports would error
+
 2022.11.30 - version 10.8.1
 * Change: WooCommerce 7.2 compatibility
 * Fix: Resolve issue where PHP warning could be produced when generating product review feeds

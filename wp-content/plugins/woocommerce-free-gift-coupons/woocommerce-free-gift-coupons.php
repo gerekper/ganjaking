@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Free Gift Coupons
  * Plugin URI: http://www.woocommerce.com/products/free-gift-coupons/
  * Description: Add a free product to the cart when a coupon is entered
- * Version: 3.4.0
+ * Version: 3.4.1
  * Author: Kathy Darling
  * Author URI: http://kathyisawesome.com
  * Woo: 414577:e1c4570bcc412b338635734be0536062

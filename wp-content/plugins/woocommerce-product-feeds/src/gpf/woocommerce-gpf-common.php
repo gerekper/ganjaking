@@ -191,6 +191,7 @@ class WoocommerceGpfCommon {
 					'feed_types'             => [ 'google', 'googlelocalproducts' ],
 					'skip_on_category_pages' => true,
 					'google_len'             => 150,
+					'max_values'             => 1,
 				],
 				'gender'                              => [
 					'desc'             => __( 'Gender', 'woocommerce_gpf' ),

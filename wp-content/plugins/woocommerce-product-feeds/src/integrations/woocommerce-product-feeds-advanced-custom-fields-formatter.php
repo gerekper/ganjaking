@@ -141,7 +141,11 @@ class WoocommerceProductFeedsAdvancedCustomFieldsFormatter {
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
 	private function get_taxonomy_value( $field_object, $default ) {
-		$values  = $field_object['value'];
+		$values = $field_object['value'];
+		// Handle fields that only contain a single value.
+		if ( ! is_array( $values ) ) {
+			$values = [ $values ];
+		}
 		$results = [];
 		foreach ( $values as $value ) {
 			if ( is_int( $value ) ) {

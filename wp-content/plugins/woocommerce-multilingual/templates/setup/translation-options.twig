@@ -1,0 +1,39 @@
+<span id="{{ strings.step_id }}">
+<h1>{{ strings.heading }}</h1>
+
+<p>{{ strings.description }}</p>
+
+<ul class="no-bullets">
+    <li>
+        <label class="wcml-translate-everything{% if is_translate_some_mode %} js-otgs-popover-tooltip{% endif %}"
+               {% if is_translate_some_mode %}
+               data-tippy-zindex="999999"
+               title="{{ strings.tooltip_translate_everything }}"
+               {% endif %}
+        >
+            <input type="radio" value="translate_everything" name="translation-option" required
+                {% if is_translate_some_mode %} disabled="disabled"{% endif %}
+            />
+            {{ strings.label_translate_everything }}
+        </label>
+    </li>
+    <li>
+        <label class="wcml-translate-some">
+            <input type="radio" value="translate_some" name="translation-option" required />
+            {{ strings.label_translate_some }}
+        </label>
+    </li>
+    <li>
+        <label class="wcml-display-as-translated">
+            <input type="radio" value="display_as_translated" name="translation-option" required {% if is_display_as_translated_checked %}checked="checked"{% endif %} />
+            {{ strings.label_display_as_translated|raw }}
+        </label>
+    </li>
+</ul>
+
+<p>{{ strings.description_footer|format('<strong>','</strong>')|raw }}</p>
+
+<p class="wcml-setup-actions step">
+    <a href="{{ continue_url }}" class="button button-large button-primary submit">{{ strings.continue }}</a>
+</p>
+</span>

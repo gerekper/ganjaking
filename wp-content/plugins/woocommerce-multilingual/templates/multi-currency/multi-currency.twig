@@ -1,0 +1,72 @@
+
+{{ wp_do_action( 'wcml_before_multi_currency_ui' ) }}
+
+
+<form method="post" action="{{ form.action }}" id="wcml_mc_options">
+    {{ form.nonce|raw }}
+    <input type="hidden" id="wcml_save_currency_nonce" value="{{ form.save_currency_nonce }}"/>
+    <input type="hidden" id="del_currency_nonce" value="{{ form.del_currency_nonce }}" />
+    <input type="hidden" id="currencies_list_nonce" value="{{ form.currencies_list_nonce }}" />
+    <input type="hidden" name="action" value="save-mc-options" />
+
+    <div class="wcml-section ">
+        <div class="wcml-section-header">
+            <h3>{{ strings.headers.enable_disable }}</h3>
+        </div>
+        <div class="wcml-section-content wcml-section-content-wide">
+            <p>
+                <input type="checkbox" name="multi_currency" id="multi_currency_independent" value="{{ form.multi_currency_option }}"
+                    {% if multi_currency_on %}checked="checked"{% endif %} {% if mco_disabled %}disabled="disabled"{% endif %} />
+                <label for="multi_currency_independent">
+                    {{ form.label_mco }}
+                    &nbsp;
+                    <a href="{{ form.label_mco_learn_url }}" class="wpml-external-link" target="_blank">{{ form.label_mco_learn_txt }}</a>
+                </label>
+            </p>
+
+            {% if wc_currency is empty %}
+            <p>
+                <i class="icon-warning-sign"></i>
+                {{ wc_currency_empty_warn|raw }}
+            </p>
+            {% endif %}
+
+        </div>
+    </div>
+
+    {% if wc_currency %}
+    <div class="wcml-section" id="multi-currency-per-language-details" {% if wcml_settings.enable_multi_currency != form.multi_currency_option %}style="display:none"{% endif %}>
+
+        <div class="wcml-section-header">
+            <h3>{{ strings.headers.currencies }}</h3>
+        </div>
+
+        <div id="wcml-multicurrency-options" class="js-wcml-react-ui wcml-section-content wcml-section-content-wide"></div>
+
+        <ul id="display_custom_prices_select" {% if multi_currency_on is empty %}style="display: none;"{% endif %}>
+            <li>
+                <input type="checkbox" name="display_custom_prices" id="display_custom_prices"
+                   value="1" {% if form.custom_prices_select.checked %} checked="checked"{% endif %}>
+                <label for="display_custom_prices">{{ form.custom_prices_select.label|raw }}</label>
+                <i class="otgs-ico-help wcml-tip" data-tip="{{ form.custom_prices_select.tip }}"></i>
+            </li>
+        </ul>
+
+    </div>
+
+    {% include 'exchange-rates.twig' with exchange_rates %}
+
+    {{ wp_do_action( 'wcml_before_currency_switcher_options' ) }}
+
+    {% include 'currency-switcher-options.twig' %}
+
+    <input type="hidden" id="wcml_warn_message" value="{{ form.navigate_warn }}" />
+    <input type="hidden" id="wcml_warn_disable_language_massage" value="{{ form.cur_lang_warn }}" />
+
+    <p class="wpml-margin-top-sm">
+        <input id="wcml_mc_options_submit" type='submit' value='{{ form.submit }}' class='button-primary'/>
+    </p>
+
+    {% endif %}
+
+</form>

@@ -33,9 +33,13 @@ class WoocommerceGpfWoocommerceMultilingual {
 		if ( is_admin() ) {
 			return $current_currency;
 		}
-		WC()->session->set( 'client_currency', $this->currency );
+		$wc_session = WC()->session;
+		if ( $wc_session ) {
+			$wc_session->set( 'client_currency', $this->currency );
+			return $this->currency;
+		}
 
-		return $this->currency;
+		return $current_currency;
 	}
 
 	/**

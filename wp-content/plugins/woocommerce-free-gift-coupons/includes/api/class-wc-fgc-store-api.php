@@ -241,6 +241,22 @@ class WC_FGC_Store_API {
 				continue;
 			}
 
+
+			/**
+			 * StoreAPI returns the following fields as
+			 * - object (/wc/store/v1/cart)
+			 * - array (/wc/store/v1/cart/extensions)
+			 *
+			 * Casting them to objects, to avoid PHP8+ fatal errors.
+			 *
+			 * @see https://github.com/woocommerce/woocommerce-product-bundles/issues/1096
+			 * @see https://github.com/woocommerce/woocommerce-blocks/issues/7275
+			 */
+			$item_data[ 'quantity_limits' ] = (object) $item_data[ 'quantity_limits' ];
+			$item_data[ 'prices' ]          = (object) $item_data[ 'prices' ];
+			$item_data[ 'totals' ]          = (object) $item_data[ 'totals' ];
+			$item_data[ 'extensions' ]      = (object) $item_data[ 'extensions' ];
+
 			if ( isset( $cart_item[ 'free_gift' ] ) ) {
 
 				self::filter_free_gift_cart_item_prices( $item_data, $cart_item );

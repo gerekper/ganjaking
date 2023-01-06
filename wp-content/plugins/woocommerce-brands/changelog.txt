@@ -1,5 +1,9 @@
 *** Brands Changelog ***
 
+2023-01-04 - version 1.6.41
+* Dev - Add node and npm version restrictions.
+* Tweak - WC 7.3 compatibility.
+
 2022-12-13 - version 1.6.40
 * Fix - Release v1.6.39.
 * Tweak - WC 7.2 compatibility.

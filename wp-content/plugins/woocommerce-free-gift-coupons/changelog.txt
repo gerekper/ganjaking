@@ -1,5 +1,9 @@
 === WooCommerce Free Gift Coupons ===
 
+2023.01.04 - version 3.4.1
+* Fix: Stop enqueing checkout-blocks.css which doesn't yet exist.
+* Fix - Fixed a fatal error that was triggered when using PHP v8 and using Cart/Checkout Blocks.
+
 2023.01.03 - version 3.4.0
 * Update: Tested against WooCommerce 7.3.0.
 * New: Initial support for Simple Product gifts in WooCommerce Cart/Checkout blocks.
