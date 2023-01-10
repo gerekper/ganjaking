@@ -326,3 +326,14 @@ function wapl_match_conditions( $condition_groups = array() ) {
 	_deprecated_function( __FUNCTION__, '1.1.0', 'wpc_match_conditions' );
 	return wpc_match_conditions( $condition_groups );
 }
+
+
+/**
+ * Deprecated since 1.1.0
+ */
+class WAPL_Label {
+	public function __construct( $type = 'label', $text = '', $style = '', $align = '', $style_attr = '' ) {
+		_deprecated_function( 'class new WAPL_Label()', '1.1.0', 'wapl_get_label_html()' );
+		return wapl_get_label_html( compact( 'type', 'text', 'style', 'align', 'style_attr' ) );
+	}
+}

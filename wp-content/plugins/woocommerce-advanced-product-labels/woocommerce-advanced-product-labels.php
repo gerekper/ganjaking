@@ -3,13 +3,13 @@
  * Plugin Name:    WooCommerce Advanced Product Labels
  * Plugin URI:     https://woocommerce.com/products/woocommerce-advanced-product-labels/
  * Description:    Create product labels to increase visibility of your products, add information and increase conversion rate with just a few clicks!
- * Version:        1.2.1
+ * Version:        1.2.2
  * Author:         Jeroen Sormani
  * Author URI:     https://jeroensormani.com/
  * Text Domain:    woocommerce-advanced-product-labels
  *
  * WC requires at least: 4.0.0
- * WC tested up to:      6.1.0
+ * WC tested up to:      7.2.0
  * Woo: 609121:d3f3fab18b6f605e093a15361e5dd486
  */
 
@@ -44,7 +44,7 @@ class Woocommerce_Advanced_Product_Labels {
 	 * @since 1.0.0
 	 * @var string $version Plugin version number.
 	 */
-	public $version = '1.2.1';
+	public $version = '1.2.2';
 
 
 	/**
@@ -116,7 +116,7 @@ class Woocommerce_Advanced_Product_Labels {
 			return;
 		}
 
-		if ( version_compare( PHP_VERSION, '5.3', 'lt' ) ) {
+		if ( version_compare( PHP_VERSION, '7.0', 'lt' ) ) {
 			return add_action( 'admin_notices', array( $this, 'php_version_notice' ) );
 		}
 
@@ -138,6 +138,13 @@ class Woocommerce_Advanced_Product_Labels {
 
 		// Load textdomain
 		$this->load_textdomain();
+
+		// Declare HPOS compatibility
+		add_action( 'before_woocommerce_init', function () {
+			if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+			}
+		} );
 	}
 
 
@@ -191,7 +198,7 @@ class Woocommerce_Advanced_Product_Labels {
 	 */
 	public function php_version_notice() {
 		?><div class='updated'>
-			<p><?php echo sprintf( __( 'Advanced Product Labels requires PHP 5.3 or higher and your current PHP version is %s. Please (contact your host to) update your PHP version.', 'woocommerce-advanced-messages' ), PHP_VERSION ); ?></p>
+			<p><?php echo sprintf( __( 'Advanced Product Labels requires PHP 7.0 or higher and your current PHP version is %s. Please (contact your host to) update your PHP version.', 'woocommerce-advanced-messages' ), PHP_VERSION ); ?></p>
 		</div><?php
 	}
 }

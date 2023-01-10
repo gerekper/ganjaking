@@ -1296,7 +1296,24 @@ wildcard example: <code>%.hide_my_wp.%</code> <br/>You may need to add each fiel
             'type' => 'html',
             'class'=>'permalink_req'
         ),
-
+		
+		array(
+            'name' => 'avoid_wp_admin_access',
+            'label' => __( "Show wp-admin only allowed IP's", self::slug ),
+            'desc' => __( "Allow to access wp-admin for allowed IP's", self::slug ),
+            'type' => 'checkbox',
+            'default' => '',
+            'class' =>'opener'
+        ),
+        array(
+            'name' => 'allowed_ips_wp_admin_access',
+            'label' => __( "Allowed IP's for wp-admin", self::slug ),
+            'desc' => __( 'Separate with , e.g. 128.1.2.3, 128.11.122.*, 123.45.12.1/24', self::slug ),
+            'type' => 'textarea',
+            'default' => HideMyWP::get_client_ip(),
+            'class' =>'open_by_avoid_wp_admin_access'
+        ),	
+	
 
         /* Trust Network Here */
         array(

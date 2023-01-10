@@ -52,7 +52,7 @@ if ( ! class_exists( 'WPC_Role_Condition' ) ) {
 
 		public function get_value_field_args() {
 
-			$user_roles = array_keys( get_editable_roles() );
+			$user_roles = array_keys( wp_roles()->roles );
 			$user_roles = array_combine( $user_roles, $user_roles );
 			$user_roles['not_logged_in'] = __( 'Guest user', 'wp-conditions' );
 

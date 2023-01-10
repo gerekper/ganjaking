@@ -11,7 +11,7 @@
  * Plugin Name: Cart Reports for WooCommerce
  * Plugin URI: https://woocommerce.com/products/woocommerce-cart-reports/
  * Description: Cart Reports for WooCommerce allows site admins to keep track of Abandoned, Open, and Converted Carts.
- * Version: 1.2.11
+ * Version: 1.2.12
  *
  * Developer: WP BackOffice
  * Developer URI: https://wpbackoffice.com
@@ -286,10 +286,10 @@ if ( is_woocommerce_active() ) {
 			/* Dashboard Range */
 
 			$woocommerce_cart_reports_options['dashboardrange'] = get_option( 'wc_cart_reports_dashboardrange' );
-			if ( ! is_numeric( (int) $woocommerce_cart_reports_options['dashboardrange'] ) || $woocommerce_cart_reports_options['dashboardrange'] < 1 ) {
+			if ( ! is_numeric( $woocommerce_cart_reports_options['dashboardrange'] ) || (int) $woocommerce_cart_reports_options['dashboardrange'] < 1 ) {
 				$woocommerce_cart_reports_options['dashboardrange'] = 2;
 			}
-			if ( ! is_numeric( (int) $woocommerce_cart_reports_options['timeout'] ) || $woocommerce_cart_reports_options['timeout'] < 1 ) {
+			if ( ! is_numeric( $woocommerce_cart_reports_options['timeout'] ) || (int) $woocommerce_cart_reports_options['timeout'] < 1 ) {
 				$woocommerce_cart_reports_options['timeout'] = 1200;
 			}
 

@@ -1,8 +1,10 @@
 *** WooCommerce Cart Reports ***
 
+2023.01.07 - version 1.2.12
+* Fixed potential XSS vulnerabilities
+
 2022.01.06 - version 1.2.11
 * Fixed issue where get_product_price was potentially called on null variables
-* Fix export functionality
 
 2021.04.14 - version 1.2.10
 * Fix issue with cart product display on index page

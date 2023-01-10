@@ -374,11 +374,6 @@ class PP_Settings_API {
             if ( isset($_POST['hmwp_setup_nonce']) && wp_verify_nonce($_POST['hmwp_setup_nonce'], 'hmwp_setup_setting') ){
                 $options_file = (is_multisite()) ? 'network/settings.php' : 'admin.php';
                 $page_url = admin_url(add_query_arg('page', $this->settings_menu['name'], $options_file));
-                if (isset($_POST['setup-purchase-code']) && $_POST['setup-purchase-code'] && (strlen($_POST['setup-purchase-code']) <= 34 || strlen($_POST['setup-purchase-code']) > 42)) {
-                    $goback = add_query_arg(array('wrong-number' => 'true'), $page_url);
-                    wp_redirect($goback);
-                    exit;
-                }
 
 
                 $new_settings = stripslashes($_POST['setup-eb-setting']);
@@ -596,7 +591,10 @@ class PP_Settings_API {
 
             //echo '<br />';
             //settings_errors();
-            if (isset($_GET['settings-updated']) && $_GET['settings-updated'] == 'true')
+            if (isset($_GET['htaccess-write']) && $_GET['htaccess-write'])
+				echo '<div class="error fade"><p><strong>' . __('Plugin is not able to write .htaccess file, Please make it writable. If not writable then do not apply HMWP settings.') . '</strong></p></div>';
+			
+			if (isset($_GET['settings-updated']) && $_GET['settings-updated'] == 'true')
                 echo '<div class="updated fade"><p><strong>' . __('Settings was updated successfully!', $this->settings_menu['name']) . '</p></strong></div>';
 
             if (isset($_GET['settings-reseted']) && $_GET['settings-reseted'])
@@ -1486,7 +1484,9 @@ class PP_Settings_API {
 
 
             $html .= sprintf('</select>');
-            $html .= '  <a href="'. admin_url('admin.php?page=hmwp_setup_wizard') .'" class="button button-primary">Open Wizard</a>';
+            if(!is_multisite()) {
+				$html .= '  <a href="'. admin_url('admin.php?page=hmwp_setup_wizard') .'" class="button button-primary">Open Wizard</a>';
+			}
             $html .= '<br>';
         }
 

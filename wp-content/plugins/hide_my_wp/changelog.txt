@@ -1,3 +1,26 @@
+<h3>6.2.9 (December 28, 2022)</h3>
+<ul>
+	<li>Whitelisting Google, Bing and other good IP's.</li>
+</ul>
+<h3>6.2.8 (December 20, 2022)</h3>
+<ul>
+	<li>Vulnerability fix.</li>
+</ul>
+<h3>6.2.7 (September 02, 2022)</h3>
+<ul>
+	<li>IP Whitelist feature added.</li>
+</ul>
+<h3>6.2.6 (July 17, 2022)</h3>
+<ul>
+	<li>Fixed Multisite Issues.</li>
+	<li>Auto Configuration option in Permalinks tab issue fixed.</li>
+	<li>Notice added for htaccess write permission.</li>
+</ul>
+<h3>6.2.5 (July 17, 2022)</h3>
+<ul>
+	<li>Error showing when multi-site config button is pressed.</li>
+	<li>Access denied error when activating a plugin on multi-site.</li>
+</ul>
 <h3>6.2.4 (October 22, 2021)</h3>
 <ul>
 	<li>Bug: Fixed Validate IP and prepare SQL query to prevent SQL injection.</li>

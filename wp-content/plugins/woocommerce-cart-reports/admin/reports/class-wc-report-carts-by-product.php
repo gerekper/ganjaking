@@ -314,16 +314,21 @@ class WC_Report_Carts_By_Product extends WC_Admin_Report {
 	 */
 	public function get_export_button() {
 		$current_range = ! empty( $_GET['range'] ) ? $_GET['range'] : '7day';
+		$report_name = implode('-', [
+			'report',
+			$current_range,
+			date_i18n('Y-m-d', current_time('timestamp'))
+		]) . '.csv';
 		?>
 		<a
 			href="#"
-			download="report-<?php echo $current_range; ?>-<?php echo date_i18n( 'Y-m-d', current_time( 'timestamp' ) ); ?>.csv"
+			download="<?php echo sanitize_file_name($report_name); ?>"
 			class="export_csv"
 			data-export="chart"
-			data-xaxes="<?php _e( 'Date', 'woocommerce_cart_reports' ); ?>"
+			data-xaxes="<?php esc_attr_e( 'Date', 'woocommerce_cart_reports' ); ?>"
 			data-groupby="<?php echo $this->chart_groupby; ?>"
 		>
-			<?php _e( 'Export CSV', 'woocommerce_cart_reports' ); ?>
+			<?php esc_html_e( 'Export CSV', 'woocommerce_cart_reports' ); ?>
 		</a>
 		<?php
 	}

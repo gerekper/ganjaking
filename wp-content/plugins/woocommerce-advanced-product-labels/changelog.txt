@@ -1,5 +1,12 @@
 *** WooCommerce Advanced Product Labels Changelog ***
 
+2023.01.09 - version 1.2.2
+* [Add] - Declare HPOS compatibility
+* [Update] - Bump minimum PHP version to 7.0
+* [Improvement] - Update WP Conditions to 1.0.13
+* [Fix] - 'Bestseller' condition not always working as expected
+* [Remove] - Removed the deprecated WAPL_Label class
+
 2022.02.14 - version 1.2.1
 * [Fix] - JS console error on some WAPL related pages
 * [Fix] - Label colors not always applied

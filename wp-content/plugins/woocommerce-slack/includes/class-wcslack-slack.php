@@ -115,29 +115,19 @@ if ( ! class_exists( 'WC_Slack_API' ) ) {
 
 			$wrapper = $this->wrapper();
 
-			// Check 'attachment' for content. If it has, json encode it (@todo json_encode in attachments method instead and remove this)
-			if ( $attachment ) {
-				$attachment = array(
-					'attachments' => urlencode( json_encode( $attachment ) ),
-				);
-			} else {
-				$attachment = '';
-			}
-
 			// Set user to site name (can filter it too)
 			$user = ( $wrapper['name'] ) ? $wrapper['name'] : apply_filters( 'wcslack_message_username', get_bloginfo( 'name' ) );
 
-			// Slack API URL to send message & query arg fields for it
+			// Slack API URL to send message & query arg fields for it.
 			$fields = array(
-				'token'       => $api_key,
-				'username'    => htmlspecialchars_decode( $user ),
-				'text'        => $message,
-				'icon_emoji'  => $emoji,
+				'token'      => $api_key,
+				'username'   => htmlspecialchars_decode( $user ),
+				'text'       => $message,
+				'icon_emoji' => $emoji,
 			);
 
-			// If there's an attachment, merge it with the $fields array
 			if ( $attachment ) {
-				$fields = array_merge( $fields, $attachment );
+				$fields['attachments'] = $attachment;
 			}
 
 			/**
@@ -146,7 +136,7 @@ if ( ! class_exists( 'WC_Slack_API' ) ) {
 			 * API calls for each channel.
 			 */
 			if ( is_array( $channels ) ) {
-				foreach( $channels as $channel ) {
+				foreach ( $channels as $channel ) {
 					$fields['channel'] = urlencode( $channel );
 					$this->send( $fields );
 				}
@@ -154,9 +144,6 @@ if ( ! class_exists( 'WC_Slack_API' ) ) {
 				$fields['channel'] = urlencode( $channels );
 				$this->send( $fields );
 			}
-
-
-
 		}
 
 		/**
@@ -199,7 +186,7 @@ if ( ! class_exists( 'WC_Slack_API' ) ) {
 			}
 
 			if ( $error || empty( $decoded['ok'] ) ) {
-				WC_Slack_Init::get_instance()->log( "Unexpected response from {$url} \nStatus: {$code} \nRequest: {$payload} \nResponse: {$body}" );
+				\Themesquad\WC_Slack\Utilities\Log_Utils::log( "Unexpected response from {$url} \nStatus: {$code} \nRequest: {$payload} \nResponse: {$body}", WC_Log_Levels::ERROR );
 			}
 
 			return $response;

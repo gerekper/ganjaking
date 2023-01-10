@@ -1,3 +1,7 @@
+### 2.6.8.4
+- Updated the icon for the Password field
+- Fixed an issue where the editor jumps to the top of the form when opening the choices flyout in no conflict mode.
+
 ### 2.6.8.3
 - Added new environment variables to control the update message and the unregistered license message.
 - Fixed an issue that causes hidden inputs to render in the autocomplete Ui of the form editor.

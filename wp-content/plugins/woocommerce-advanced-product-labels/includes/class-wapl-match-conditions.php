@@ -69,19 +69,17 @@ class WAPL_Match_Conditions {
 				'no_found_rows'          => true,
 				'update_post_meta_cache' => false,
 				'update_post_term_cache' => false,
-				'meta_query'             => array(
-					array(
-						'key'     => '_visibility',
-						'value'   => array( 'catalog', 'visible' ),
-						'compare' => 'IN'
-					)
-				)
+				'tax_query'              => array(
+					'taxonomy'      => 'product_visibility',
+					'field'         => 'name',
+					'terms'         => array( 'catalog', 'visible' ),
+					'rating_filter' => true,
+				),
 			) );
 
 			$bestseller_ids = $query->posts; // Get bestsellers
 			wp_cache_set( 'bestsellers', $bestseller_ids, 'woocommerce-advanced-product-labels' );
 		}
-
 		$match = in_array( $product->get_id(), $bestseller_ids );
 
 		return $match;

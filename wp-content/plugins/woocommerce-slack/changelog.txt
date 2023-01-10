@@ -1,5 +1,20 @@
 *** WooCommerce Slack Changelog ***
 
+2023-01-09 - version 1.3.0
+* Tweak - Improved performance on plugin initialization.
+* Tweak - Added links to the plugin settings, the documentation page, and to get support, in the plugin list.
+* Tweak - Declare compatibility with WooCommerce High-Performance Order Storage (HPOS).
+* Tweak - Tested compatibility up to WC 7.3.
+* Fix - New customer notifications were not triggered on creating customers from the backend.
+* Dev - Implement the singleton pattern in the main plugin class.
+* Dev - Deprecated class `WC_Slack_Init`.
+* Dev - Updated the minimum requirements to WC 3.5, WP 4.7, and PHP 5.6.
+
+2022-12-01 - version 1.2.11
+* Tweak - Tested compatibility with WC 7.1.
+* Tweak - Tested compatibility with WP 6.1.
+* Fix - Fixed missing Order items info in the 'New order' notification when the option 'Extended notification' is enabled.
+
 2022-10-05 - version 1.2.10
 * Tweak - Removed empty option from the channel selector fields.
 * Tweak - Excluded archived channels from the list.

@@ -80,8 +80,8 @@ $user_ip = $this->hmwp_get_user_ip();
 //$dbips_info = $wpdb->get_var("SELECT `ip` FROM `{$blocked_ips_table}` WHERE `allow`='1' AND `ip`='{$user_ip}'");
 if(filter_var($user_ip, FILTER_VALIDATE_IP)===false){
 	$dbips_info = null;
-}else{
-$dbips_info = $wpdb->get_var($wpdb->prepare("SELECT `ip` FROM `{$blocked_ips_table}` WHERE `allow`='1' AND `ip`=%s",$user_ip));
+} else {
+	$dbips_info = $wpdb->get_var($wpdb->prepare("SELECT `ip` FROM `{$blocked_ips_table}` WHERE `allow`='1' AND `ip`=%s",$user_ip));
 }
 
 if (empty($dbips_info)) {
@@ -119,8 +119,25 @@ if (empty($dbips_info)) {
 	if ($this->opt('trust_network')) {
 		$malware_ips = array();
 		$get_malware_db = get_transient('hmwp_server_malware_ips');
+		$get_whitelist_db = get_transient('hmwp_server_whitelist_ips');
+		$whitelist_ips=array();
+		if ($get_whitelist_db !== false) {
+			$whitelist_ips=$get_whitelist_db;
+		} else {			
+			$whitelist_get_post = wp_remote_get('https://api.wpwave.com/v2/whiltelist-ip.json');
+			if (is_array($whitelist_get_post) && isset($whitelist_get_post['response']) && isset($whitelist_get_post['response']['code']) && $whitelist_get_post['response']['code'] == 200) {
+				$tn_body = json_decode($whitelist_get_post['body']);
+				if (is_array($tn_body)) {
+					foreach ($tn_body as $single_whitelist_ips) {
+						$whitelist_ips[] = $single_whitelist_ips->ip;
+					}
+				}
+			}
+			set_transient('hmwp_server_whitelist_ips', $whitelist_ips, 24 * 60 * 60);
+		}
 		if ($get_malware_db !== false) {
 			$malware_ips = $get_malware_db;
+			$malware_ips=array_diff($malware_ips,$whitelist_ips);		
 		} else {
 			$malware_get_post = wp_remote_get('https://api.wpwave.com/v2/wp-json/wpw_api/dangerous-ip/');
 			if (is_array($malware_get_post) && isset($malware_get_post['response']) && isset($malware_get_post['response']['code']) && $malware_get_post['response']['code'] == 200) {
@@ -131,6 +148,7 @@ if (empty($dbips_info)) {
 					}
 				}
 			}
+			$malware_ips=array_diff($malware_ips,$whitelist_ips);
 			set_transient('hmwp_server_malware_ips', $malware_ips, 24 * 60 * 60);
 		}
 
@@ -238,9 +256,12 @@ add_action('wp', array(&$this, 'global_assets_filter'));
  * Remove all dns-prefetch links
  */
 remove_action('wp_head', 'wp_resource_hints', 2);
-
-if (isset($_GET['die_message']) && is_admin())
+if(!function_exists('wp_get_current_user')) {
+    include("../wp-includes/pluggable.php"); 
+}
+if (isset($_GET['die_message']) && is_admin() && current_user_can( 'manage_options' )) {
     add_action('admin_init', array(&$this, 'die_message'), 1000);
+}
 
 if ((is_admin() || $can_deactive)) {
 	add_action('admin_init', array(&$this, 'hmwp_plugin_update_checker'));

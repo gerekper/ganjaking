@@ -24,22 +24,23 @@ if ( ! class_exists( 'WPC_Page_Condition' ) ) {
 
 			if ( '==' == $operator ) :
 
-				if ( is_array( term_exists ( $value, 'product_cat' ) ) ) : // term_exists return array when true
-					$match = ( $wp_query->is_archive() && isset( $wp_query->query_vars['product_cat'] ) && $value == $wp_query->query_vars['product_cat'] );
+				if ( $wp_query->is_archive() && is_array( term_exists( $value, 'product_cat' ) ) ) : // term_exists return array when true
+					$match = ( isset( $wp_query->query_vars['product_cat'] ) && $value == $wp_query->query_vars['product_cat'] );
 				elseif ( wc_get_page_id( 'shop' ) == $value ) : // Shop page
-					$match = ( 'product' == $wp_query->query_vars['post_type'] && $wp_query->is_archive() );
+					$match = is_shop();
 				else :
-					$match = ( $post_id == $value );
+					// #29 - page/single check added to prevent issue with archive pages where $post->ID is set to the first product
+					$match = ( ( is_page( $post_id ) || is_single( $post_id ) ) && $post_id == $value );
 				endif;
 
 			elseif ( '!=' == $operator ) :
 
-				if ( is_array( term_exists ( $value, 'product_cat' ) ) ) : // term_exists return array when true
-					$match = ( $wp_query->is_archive() && isset( $wp_query->query_vars['product_cat'] ) && $value != $wp_query->query_vars['product_cat'] );
+				if ( $wp_query->is_archive() && is_array( term_exists( $value, 'product_cat' ) ) ) : // term_exists return array when true
+					$match = ( isset( $wp_query->query_vars['product_cat'] ) && $value != $wp_query->query_vars['product_cat'] );
 				elseif ( wc_get_page_id( 'shop' ) == $value ) : // Shop page
-					$match = ! ( 'product' == $wp_query->query_vars['post_type'] && $wp_query->is_archive() );
+					$match = ! is_shop();
 				else :
-					$match = ( $post_id != $value );
+					$match = ( ( is_page( $post_id ) || is_single( $post_id ) ) && $post_id != $value );
 				endif;
 
 			endif;

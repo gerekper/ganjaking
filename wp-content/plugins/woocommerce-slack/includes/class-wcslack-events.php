@@ -57,7 +57,7 @@ if ( ! class_exists( 'WC_Slack_Events' ) ) {
 
 			// Event for customer created
 			if ( $wrapper['new_customer'] == 'yes' ) {
-				add_action( 'woocommerce_created_customer', array( $this, 'new_customer' ), 10, 3 );
+				add_action( 'user_register', array( $this, 'new_customer' ), 10, 2 );
 			}
 
 		}
@@ -211,13 +211,13 @@ if ( ! class_exists( 'WC_Slack_Events' ) ) {
 			$order_total = $currency_symbol . $order->get_total();
 
 			// Order Attachment Line Items
-			$order_line_items = $this->get_order_line( $order_id );
+			$order_line_items = $this->get_order_line( $order );
 
 			// Order Attachment Shipping
-			$order_shipping = $this->get_order_shipping( $order_id );
+			$order_shipping = $this->get_order_shipping( $order );
 
 			// Order Attachment Total
-			$order_attach_total = $this->get_order_total( $order_id );
+			$order_attach_total = $this->get_order_total( $order );
 
 			// Order URL @TODO Check this is valid with Sequential Order Numbers Pro
 			$url = admin_url( 'post.php?post=' . $order_id . '&action=edit' );
@@ -228,13 +228,8 @@ if ( ! class_exists( 'WC_Slack_Events' ) ) {
 				// New Order Prefix
 				$prefix = apply_filters( 'wcslack_new_order_prefix', sprintf( __( 'New Order #%d:', 'woocommerce-slack' ), $order_id ) );
 
-				if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-					$first_name = $order->billing_first_name;
-					$last_name = $order->billing_last_name;
-				} else {
-					$first_name = $order->get_billing_first_name();
-					$last_name = $order->get_billing_last_name();
-				}
+				$first_name = $order->get_billing_first_name();
+				$last_name = $order->get_billing_last_name();
 
 				// New Order Message
 				if ( $wrapper['order_new_message'] ) {
@@ -558,14 +553,19 @@ if ( ! class_exists( 'WC_Slack_Events' ) ) {
 
 
 		/**
-		 * New Customer Created
+		 * New customer created.
 		 *
-		 * @package WooCommerce Slack
-		 * @author  Bryce <bryce@bryce.se>
-		 * @since   1.0.0
+		 * @since 1.0.0
+		 * @since 1.3.0 The third parameter is deprecated.
+		 *
+		 * @param int   $customer_id   Customer ID.
+		 * @param array $customer_data The raw array of data passed to wp_insert_user().
+		 * @param bool  $deprecated    Deprecated argument.
 		 */
-
-		public function new_customer( $customer_id, $new_customer_data, $password_generated ) {
+		public function new_customer( $customer_id, $customer_data, $deprecated = false ) {
+			if ( 'customer' !== $customer_data['role'] ) {
+				return;
+			}
 
 			$wcslack_api = new WC_Slack_API();
 
@@ -574,32 +574,52 @@ if ( ! class_exists( 'WC_Slack_Events' ) ) {
 			$api_key = $wrapper['api_key'];
 
 			$channel = $this->get_channel( 'new_customer' );
-			$emoji = $this->get_emoji( 'new_customer' );
+			$emoji   = $this->get_emoji( 'new_customer' );
 
-			// User Data by Customer ID
+			// User Data by Customer ID.
 			$user_data = get_user_by( 'id', $customer_id );
-
-			// Customer Name
+			/**
+			 * Filters the display name of the new customer.
+			 *
+			 * @since 1.0.0
+			 *
+			 * @param string $user_name User's display name.
+			 */
 			$user_name = apply_filters( 'wcslack_new_customer_name', $user_data->display_name );
-
-			// Customer Prefix
+			/**
+			 * Filters the new customer prefix.
+			 *
+			 * @since 1.0.0
+			 *
+			 * @param string $prefix New customer prefix.
+			 */
 			$prefix = apply_filters( 'wcslack_new_customer_prefix', __( 'New Customer:', 'woocommerce-slack' ) );
-
-			// Customer URL
+			/**
+			 * Filters the new customer URL.
+			 *
+			 * @since 1.0.0
+			 *
+			 * @param string $url New customer URL.
+			 */
 			$url = apply_filters( 'wcslack_new_customer_url', esc_url( admin_url( 'user-edit.php?user_id=' . $customer_id ) ) );
 
-			// New Customer Message
+			// New Customer Message.
 			if ( $wrapper['new_customer_message'] ) {
 				$message_raw = $wrapper['new_customer_message'];
-				$tags = array( '{customer_name}', '{customer_link}', '[[', ']]' );
-				$replace = array( $user_name, $url, '<', '>' );
-				$message = str_replace( $tags, $replace, $message_raw );
+				$tags        = array( '{customer_name}', '{customer_link}', '[[', ']]' );
+				$replace     = array( $user_name, $url, '<', '>' );
+				$message     = str_replace( $tags, $replace, $message_raw );
 			} else {
-				$message = '*' . $prefix . '* ' . $user_name . __( ' Registered', 'woocommerce-slack' );
+				$message  = '*' . $prefix . '* ' . $user_name . __( ' Registered', 'woocommerce-slack' );
 				$message .= ' - <' . $url . '|' . __( 'View Customer', 'woocommerce-slack' ) . '>';
 			}
-
-			// Filter for the Message
+			/**
+			 * Filters the new customer message.
+			 *
+			 * @since 1.0.0
+			 *
+			 * @param array|string $message New customer message.
+			 */
 			$message = apply_filters( 'wcslack_new_customer_message', $message );
 
 			$this->log( $message, $channel, $emoji );
@@ -679,18 +699,15 @@ if ( ! class_exists( 'WC_Slack_Events' ) ) {
 		 * Gets the order line items.
 		 *
 		 * @since 1.0.0
+		 * @since 1.2.11 Accepts an order object.
 		 *
-		 * @param int $order_id Order ID.
+		 * @param WC_Order|int $the_order Order object or ID.
 		 * @return array
 		 */
-		public function get_order_line( $order_id ) {
-			$order       = wc_get_order( $order_id );
+		public function get_order_line( $the_order ) {
+			$order       = ( $the_order instanceof WC_Order ? $the_order : wc_get_order( $the_order ) );
 			$order_items = $order->get_items();
 			$line_items  = array();
-
-			if ( empty( $order_items ) ) {
-				return $line_items;
-			}
 
 			foreach ( $order_items as $item ) {
 				$item_name = sprintf( '<%s|%s>', get_permalink( $item['product_id'] ), $item['name'] );
@@ -710,66 +727,58 @@ if ( ! class_exists( 'WC_Slack_Events' ) ) {
 
 
 		/**
-		 * Get Order Total
+		 * Gets the order shipping.
 		 *
-		 * @package WooCommerce Slack
-		 * @author  Bryce <bryce@bryce.se>
-		 * @since   1.0.0
+		 * @since 1.0.0
+		 * @since 1.2.11 Accepts an order object.
+		 *
+		 * @param WC_Order|int $the_order Order object or ID.
+		 * @return array
 		 */
-
-		public function get_order_shipping( $order_id ) {
-
-			$order = new WC_Order( $order_id );
+		public function get_order_shipping( $the_order ) {
+			$order = ( $the_order instanceof WC_Order ? $the_order : wc_get_order( $the_order ) );
 
 			$currency_symbol = html_entity_decode( get_woocommerce_currency_symbol() );
 
-			$shipping_data = array();
-
-			$shipping_total = version_compare( WC_VERSION, '3.0', '<' ) ? $order->get_total_shipping() : $order->get_shipping_total();
+			$shipping_data  = array();
+			$shipping_total = $order->get_shipping_total();
 
 			if ( $shipping_total ) {
-
 				$shipping_data[] = array(
-					'title'	=> __( 'Shipping', 'woocommerce-slack' ) . ' - ' . $currency_symbol . number_format( (float)$shipping_total, 2, '.', '' ),
-					'short'	=> false,
+					'title' => __( 'Shipping', 'woocommerce-slack' ) . ' - ' . $currency_symbol . number_format( (float) $shipping_total, 2, '.', '' ),
+					'short' => false,
 				);
-
 			}
 
 			return $shipping_data;
-
 		}
 
-
 		/**
-		 * Get Order Total
+		 * Gets the order total.
 		 *
-		 * @package WooCommerce Slack
-		 * @author  Bryce <bryce@bryce.se>
-		 * @since   1.0.0
+		 * @since 1.0.0
+		 * @since 1.2.11 Accepts an order object.
+		 *
+		 * @param WC_Order|int $the_order Order object or ID.
+		 * @return array
 		 */
-
-		public function get_order_total( $order_id ) {
-
-			$order = new WC_Order( $order_id );
+		public function get_order_total( $the_order ) {
+			$order = ( $the_order instanceof WC_Order ? $the_order : wc_get_order( $the_order ) );
 
 			$currency_symbol = html_entity_decode( get_woocommerce_currency_symbol() );
 
 			$totals_data = array();
+			$totals      = $order->get_total();
 
-			if ( $totals = $order->get_total() ) {
-
+			if ( $totals ) {
 				$totals_data[] = array(
-					'title'	=> __( 'Order Total', 'woocommerce-slack' ) . ' - ' . $currency_symbol . number_format( (float)$order->get_total(), 2, '.', '' ),
-					'short'	=> false,
+					'title' => __( 'Order Total', 'woocommerce-slack' ) . ' - ' . $currency_symbol . number_format( (float) $order->get_total(), 2, '.', '' ),
+					'short' => false,
 				);
-
 			}
 
 			return $totals_data;
-
 		}
-
 
 		/**
 		 * Log Message Wrapper
@@ -784,15 +793,16 @@ if ( ! class_exists( 'WC_Slack_Events' ) ) {
 		 */
 
 		public function log( $message, $channel, $emoji ) {
-
-			$wcslack_init = new WC_Slack_Init();
-
-			$wcslack_init->add_debug_message( print_r( array(
-				'Channels' => $channel,
-				'Emoji'    => $emoji,
-				'Message'  => $message
-			), true ) );
-
+			\Themesquad\WC_Slack\Utilities\Log_Utils::debug(
+				print_r(
+					array(
+						'Channels' => $channel,
+						'Emoji'    => $emoji,
+						'Message'  => $message,
+					),
+					true
+				)
+			);
 		}
 
 		/**
@@ -808,18 +818,13 @@ if ( ! class_exists( 'WC_Slack_Events' ) ) {
 		private function prepare_order_item_titles ( $order_items ) {
 
 			$order_item_titles = '';
-
-			if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-				$order_item_titles = implode(', ', wp_list_pluck( $order_items, 'name' ) );
-			} else {
-				$order_items_array = array();
-				if ( is_array( $order_items ) ) {
-					foreach ( $order_items as $item ) {
-						$order_items_array[] = $item->get_name();
-					}
-					$order_item_titles = implode(', ', $order_items_array );
-					unset( $order_items_array );
+			$order_items_array = array();
+			if ( is_array( $order_items ) ) {
+				foreach ( $order_items as $item ) {
+					$order_items_array[] = $item->get_name();
 				}
+				$order_item_titles = implode( ', ', $order_items_array );
+				unset( $order_items_array );
 			}
 
 			return $order_item_titles;

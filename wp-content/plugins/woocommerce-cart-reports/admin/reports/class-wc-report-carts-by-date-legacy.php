@@ -140,11 +140,11 @@ class WC_Report_Carts_By_Date extends WC_Admin_Report {
 	 */
 	public function get_export_button() {
 		$current_range = ! empty( $_GET['range'] ) ? $_GET['range'] : '7day';
-		$download_name = [ 'report', $current_range, date_i18n( 'Y-m-d', current_time( 'timestamp' ) ) ];
+		$download_name = implode('-', [ 'report', $current_range, date_i18n( 'Y-m-d', current_time( 'timestamp' ) ) ]) . '.csv';
 		?>
 		<a
 			href="#"
-			download="<?php echo implode( '-', $download_name ); ?>.csv"
+			download="<?php echo sanitize_file_name($download_name); ?>"
 			class="export_csv"
 			data-export="chart"
 			data-xaxes="<?php _e( 'Date', 'woocommerce_cart_reports' ); ?>"

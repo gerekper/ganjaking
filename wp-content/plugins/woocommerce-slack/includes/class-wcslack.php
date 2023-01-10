@@ -4,27 +4,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-/**
- * WC Slack Init Main Class
- *
- * @package  WooCommerce Slack
- * @author   Bryce <bryce@bryce.se>
- * @since    1.1.0
- */
-
 if ( ! class_exists( 'WC_Slack_Init' ) ) {
-
+	/**
+	 * WC Slack Init class.
+	 *
+	 * @since 1.1.0
+	 * @deprecated 1.3.0
+	 */
 	class WC_Slack_Init {
 
 		const VERSION = '1.1.8';
 
 		protected static $instance = null;
 
+		/**
+		 * Construct.
+		 */
 		public function __construct() {
-
-			// Load plugin text domain
-			add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
-
+			wc_deprecated_function( __FUNCTION__, '1.3.0' );
 		}
 
 		/**
@@ -50,66 +47,35 @@ if ( ! class_exists( 'WC_Slack_Init' ) ) {
 		/**
 		 * Saves errors or messages to WooCommerce Log (woocommerce/logs/plugin-id-xxx.txt)
 		 *
-		 * @package  WooCommerce Slack
-		 * @author   Bryce <bryce@bryce.se>
-		 * @since    1.0.0
+		 * @since 1.0.0
 		 */
-
 		public function log( $message, $log_id = null ) {
-
 			if ( is_null( $log_id ) ) {
 				$log_id = 'wcslack';
 			}
 
-			$logger = new WC_Logger();
-
-			$logger->add( $log_id, $message );
-
+			\Themesquad\WC_Slack\Utilities\Log_Utils::log( $message, WC_Log_Levels::NOTICE, $log_id );
 		}
 
 
 		/**
 		 * Saves errors or messages to WooCommerce Log (woocommerce/logs/plugin-id-xxx.txt)
 		 *
-		 * @package  WooCommerce Slack
-		 * @author   Bryce <bryce@bryce.se>
-		 * @since    1.0.0
+		 * @since 1.0.0
+		 *
+		 * @param string $message The message we need to log.
 		 */
-
 		public function add_debug_message( $message ) {
-
-			$WC_Slack_Settings = new WC_Slack_Settings();
-			$wrapper = $WC_Slack_Settings->wrapper();
-
-			// If Debug Mode if off let's end it here
-			if ( 'no' == $wrapper['debug'] ) {
-				return;
-			}
-
-			$this->log( $message );
-
+			\Themesquad\WC_Slack\Utilities\Log_Utils::debug( $message );
 		}
 
 
 		/**
-		 * Load plugin textdomain for i18n
-		 * @TODO Add Languages base files
+		 * Load plugin textdomain for i18n.
 		 *
-		 * @package  WooCommerce Slack
-		 * @author   Bryce <bryce@bryce.se>
-		 * @since    1.0.0
+		 * @since 1.0.0
 		 */
-
-		public function load_plugin_textdomain() {
-
-			$domain = 'woocommerce-slack';
-			$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
-
-			load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . $domain . '/' . $domain . '-' . $locale . '.mo' );
-			load_plugin_textdomain( $domain, FALSE, basename( plugin_dir_path( dirname( __FILE__ ) ) ) . '/languages/' );
-
-		}
-
+		public function load_plugin_textdomain() {}
 	}
 
 }

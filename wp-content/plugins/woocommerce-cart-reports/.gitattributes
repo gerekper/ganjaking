@@ -1,0 +1,8 @@
+# Ignore files when creating archive
+/.idea export-ignore
+/.distignore export-ignore
+/.editorconfig export-ignore
+/.gitignore export-ignore
+/composer.json export-ignore
+/composer.lock export-ignore
+/phpcs.xml export-ignore

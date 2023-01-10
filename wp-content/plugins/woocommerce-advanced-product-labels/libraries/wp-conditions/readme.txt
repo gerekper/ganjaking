@@ -4,9 +4,28 @@ It is intended to be used on plugins like build by Jeroen such as Advanced Shipp
 Copyright © 2017 Jeroen Sormani
 
 
-# Current version: 1.0.10
+# Current version: 1.0.13
 
 # Changelog
+
+= 1.0.13 - 03/01/2023 =
+
+* [Add] - Introduced the function wpc_clean() to recursively sanitize
+* [Update] - To new Gulp structure
+* [Fix] - 'Page' condition when matching for product X, matched for archive page as well when product X was first.
+* [Fix] - 'User role' condition allow selecting all user roles, not just 'Editable' for current user.
+* [Fix] - 'Stock status' condition not working as expected in certain situations
+
+= 1.0.12 - 30/12/2021 =
+
+* [Fix] - Adding condition group did not change the template ID(s)
+
+= 1.0.11 - 30/11/2021 =
+
+* [Improvement] - Update repeater.js to have onAddElement() action
+* [Improvement] - Improved matching for weight condition (fix float matching issue)
+* [Improvement] - Style improvements
+* [Fix] - Javascript error undefined variable saving sorting order
 
 = 1.0.10 - 25/11/2019 =
 

@@ -5,7 +5,7 @@ Plugin URI: http://hide-my-wp.wpwave.com/
 Description: An excellent security plugin to hide your WordPress installation packed with some of the coolest and most unique features in the community.
 Author: wpWave
 Author URI: http://wpwave.com
-Version: 6.2.4
+Version: 6.2.9
 Text Domain: hide_my_wp
 Domain Path: /lang
 License: GPL2
@@ -21,7 +21,7 @@ Network: True
  *   Some code from dxplugin base by mpeshev, plugin base v2 by Brad Vincent, weDevs Settings API by Tareq Hasan, rootstheme by Ben Word, Minify by Stephen Clay and Mute Scemer by ampt
  */
 define('HMW_TITLE', 'Hide My WP');
-define('HMW_VERSION', '6.2.4');
+define('HMW_VERSION', '6.2.9');
 define('HMW_SLUG', 'hide_my_wp'); //use _
 define('HMW_PATH', dirname(__FILE__));
 define('HMW_DIR', basename(HMW_PATH));
@@ -98,8 +98,21 @@ class HideMyWP
 		self::load_ip_countries_db_table();
 		require_once('load.php');
         add_action( 'activated_plugin', array(&$this, 'hmwp_activation_redirect') );
+		add_action('login_init', [$this, 'ip_whitelist_check']);
+        add_action('admin_init', [$this, 'ip_whitelist_check']);
     }
 
+	function ip_whitelist_check() {
+		if ($this->opt('avoid_wp_admin_access')) {
+			$allowed_ips = $this->opt('allowed_ips_wp_admin_access') != '' ? explode(',', $this->opt('allowed_ips_wp_admin_access')) : array();
+			if($allowed_ips) {
+				$this->user_ip=$this->get_client_ip();
+				if (!in_array($this->user_ip, $allowed_ips))
+					wp_die("You have reached a restricted area of this website! Please contact the administrator if you think you're seeing this error by mistake.");
+			}
+		}
+	}
+	
 	function hmwp_plugin_update_checker() {
 		require_once('lib/plugin-update/plugin-update-checker.php');
 		$HMWP_UpdateChecker = PucFactory::buildUpdateChecker(
@@ -684,7 +697,15 @@ class HideMyWP
     function pp_settings_api_filter($post)
     {
         global $wp_rewrite;
-
+		
+		$filename = ABSPATH . '.htaccess';
+		if(!is_writable($filename)){
+			$options_file = (is_multisite()) ? 'network/settings.php' : 'admin.php';
+            $page_url = admin_url(add_query_arg('page', 'hide_my_wp', $options_file));
+			$goback = add_query_arg(array('htaccess-write' => 'true'), $page_url);
+			wp_redirect($goback);
+			exit;
+		}
 
         update_option(self::slug . '_undo', get_option(self::slug));
 
@@ -3569,7 +3590,6 @@ RewriteRule ^((wp-content|wp-includes|wp-admin)/(.*)) /" . $sub_install . "nothi
 
         if (is_multisite()) {
             if ($this->is_subdir_mu)
-                $new_login_path = '/' . $new_login_path;
             $rel_login_path = $this->blog_path . str_replace($this->sub_folder, '', $new_login_path);
         }
 
@@ -3746,8 +3766,16 @@ RewriteRule ^((wp-content|wp-includes|wp-admin)/(.*)) " . $this->sub_folder . '/
         if ($new_admin_path && $new_admin_path != 'wp-admin')
             $output .= 'RewriteRule ^' . $new_admin_path . '/(.*) /' . $this->sub_folder . 'wp-admin/$1' . $this->trust_key . ' [QSA,L]' . "\n";
 
-        if ($new_login_path && $new_login_path != 'wp-login.php')
-            $output .= 'RewriteRule ^' . $new_login_path . ' /' . $this->sub_folder . $rel_login_path . $this->trust_key . ' [QSA,L]' . "\n";
+        if ($new_login_path && $new_login_path != 'wp-login.php') {			
+            if(is_multisite()) {
+				$blogs = get_sites();
+				foreach( $blogs as $blog ){
+					$output .= 'RewriteRule ^'.str_replace("/".$this->sub_folder,'',$blog->path) . $new_login_path . ' /' . $blog->path . 'wp-login.php' . $this->trust_key . ' [QSA,L]' . "\n";
+				}  
+			} else {
+				$output .= 'RewriteRule ^' . $new_login_path . ' /' . $this->sub_folder . 'wp-login.php' . $this->trust_key . ' [QSA,L]' . "\n";
+			}
+		}
 
         if ($new_include_path)
             $output .= 'RewriteRule ^' . $new_include_path . '/(.*) /' . $rel_include_path . '/$1' . $this->trust_key . ' [QSA,L]' . "\n";
@@ -3842,7 +3870,7 @@ RewriteRule ^((wp-content|wp-includes|wp-admin)/(.*)) " . $this->sub_folder . '/
             $html = sprintf('%s ', $desc);
             $html .= sprintf('<span class="description">
             <ol style="color:#ff9900">
-            <li>Add below lines right before <strong>RewriteCond %{REQUEST_FILENAME} !-f [OR]</strong> </li>
+            <li>Add below lines right before <strong>RewriteCond %%{REQUEST_FILENAME} !-f [OR]</strong> </li>
             <li>You may need to re-configure the server whenever you change settings or activate a new plugin.</li> </ol></span>.
         <textarea readonly="readonly" onclick="" rows="5" cols="55" class="regular-text %1$s" id="%2$s" name="%2$s" style="%4$s">%3$s</textarea>', 'multisite_config_class', 'multisite_config', esc_textarea($output), 'width:95% !important;height:400px !important');
 
@@ -4006,7 +4034,7 @@ RewriteRule ^((wp-content|wp-includes|wp-admin)/(.*)) " . $this->sub_folder . '/
     
     public function hmwp_activation_redirect($plugin){
         if( $plugin == plugin_basename( __FILE__ ) ) {
-           if(get_option('hmwp_setup_run') !== 'yes'){
+           if(get_option('hmwp_setup_run') !== 'yes' && !is_multisite()){
                 exit( wp_redirect( admin_url( 'admin.php?page=hmwp_setup_wizard' ) ) );
             }
         }
@@ -4098,6 +4126,40 @@ RewriteRule ^((wp-content|wp-includes|wp-admin)/(.*)) " . $this->sub_folder . '/
 			$url = str_replace("rest_route=", $new_api_query . '=', $url);
 		}
 		return $url;
+	}
+	
+	public function get_client_ip()
+	{
+		// Nothing to do without any reliable information
+		if (!isset($_SERVER['REMOTE_ADDR'])) {
+			return NULL;
+		}
+
+		// Header that is used by the trusted proxy to refer to
+		// the original IP
+		$proxy_header = "HTTP_X_FORWARDED_FOR";
+		// List of all the proxies that are known to handle 'proxy_header'
+		// in known, safe manner
+		$trusted_proxies = array("2001:db8::1", "192.168.50.1");
+		if (in_array($_SERVER['REMOTE_ADDR'], $trusted_proxies)) {
+
+			// Get IP of the client behind trusted proxy
+			if (array_key_exists($proxy_header, $_SERVER)) {
+				// Header can contain multiple IP-s of proxies that are passed through.
+				// Only the IP added by the last proxy (last IP in the list) can be trusted.
+				$client_ip = trim(end(explode(",", $_SERVER[$proxy_header])));
+				// Validate just in case
+				if (filter_var($client_ip, FILTER_VALIDATE_IP)) {
+					return $client_ip;
+				} else {
+					// Validation failed - beat the guy who configured the proxy or
+					// the guy who created the trusted proxy list?
+					// TODO: some error handling to notify about the need of punishment
+				}
+			}
+		}
+		// In all other cases, REMOTE_ADDR is the ONLY IP we can trust.
+		return $_SERVER['REMOTE_ADDR'];
 	}
 
 }

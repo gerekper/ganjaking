@@ -86,7 +86,6 @@ function elementor_add_rewrite_rules($rules) {
 		$elmntr_rules = PHP_EOL . "#BEGIN - HMWP - Elementor Rules" . PHP_EOL
 			. "<IfModule mod_rewrite.c>" . PHP_EOL
 			. "RewriteEngine On" . PHP_EOL
-			. "RewriteCond %{THE_REQUEST} ^GET\ /{$path}/" . PHP_EOL
 			. "RewriteRule ^{$path}/(.*).js index.php?elmntr_wrapper_js=wp-content/plugins/elementor/assets/$1.js" . $trust_key . "" . PHP_EOL
 			. "RewriteRule ^{$path}/(.*).css index.php?elmntr_wrapper_css=wp-content/plugins/elementor/assets/$1.css" . $trust_key . "" . PHP_EOL
 			. "RewriteRule ^{$new_upload_path}/global\.css /index\.php?elmntr_wrapper_css=wp-content/uploads/elementor/css/global\.css" . $trust_key . PHP_EOL
