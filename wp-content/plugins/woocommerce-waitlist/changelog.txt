@@ -1,5 +1,10 @@
 *** WooCommerce Waitlist Change Log ***
 
+2023.01.10 - Version 2.3.6
+* Fix: Updates for security audit
+* Fix: Double opt-in email escaping allows '+' symbol
+* Added: Optional filter to add extra emails to all waitlist mailouts: 'wcwl_mailout_extra_email_addresses'
+
 2022.10.27 - Version 2.3.5
 * Fix: Invalid product IDs stopping export of waitlist data
 * Fix: Product bundles being ignored by global exporter

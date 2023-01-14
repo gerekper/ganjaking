@@ -459,12 +459,16 @@ if ( ! class_exists( 'Pie_WCWL_Waitlist' ) ) {
 						}
 					}
 					$response = $this->maybe_do_mailout( $user );
+
 					if ( is_wp_error( $response ) ) {
 						$this->add_error_to_waitlist_data( $response, $user );
 					} elseif ( $response ) {
 						$this->clear_errors_from_waitlist_data( $this->product_id, $user );
 						$this->maybe_remove_user( $user );
 					}
+				}
+				foreach (apply_filters('wcwl_mailout_extra_email_addresses', []) as $email) {
+					$this->maybe_do_mailout( $email );
 				}
 				do_action( 'wcwl_after_waitlist_notification_emails', $this->waitlist );
 			}

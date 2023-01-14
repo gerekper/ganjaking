@@ -149,37 +149,55 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Ajax' ) ) {
 		public function remove_user_from_waitlist() {
 			wcwl_switch_locale();
 			ob_start();
-			$notice_type = 'success';
-			$message     = '';
 			if ( ! wp_verify_nonce( $_POST['wcwl_remove_user_nonce'], 'wcwl-ajax-remove-user-nonce' ) ) {
 				$message     = apply_filters( 'wcwl_error_message_invalid_nonce', __( 'There was a problem with your request: nonce could not be verified.  Please try again or contact a site administrator for help', 'woocommerce-waitlist' ) );
-				$notice_type = 'error';
-			}
-			$product = isset( $_POST['product_id'] ) ? wc_get_product( absint( $_POST['product_id'] ) ) : false;
-			if ( ! $product ) {
-				$message     = apply_filters( 'wcwl_error_message_invalid_product', __( 'There was a problem with your request: the selected product could not be found.  Please try again or contact a site administrator for help', 'woocommerce-waitlist' ) );
-				$notice_type = 'error';
-			}
-			$user = isset( $_POST['user_id'] ) ? get_user_by( 'id', absint( $_POST['user_id'] ) ) : 0;
-			if ( ! $message ) {
+				wc_get_template(
+					"notices/error.php",
+					array(
+						'notices'  => array( array( 'notice' => $message ) ),
+						'messages' => array( $message ),
+					)
+				);
+				$html = ob_get_clean();
+				wp_send_json_error( $html );
+			} else {
+				$message     = '';
+				$product     = isset( $_POST['product_id'] ) ? wc_get_product( absint( $_POST['product_id'] ) ) : false;
+				$user        = isset( $_POST['user_id'] ) ? get_user_by( 'id', absint( $_POST['user_id'] ) ) : 0;
+				if ( ! $product ) {
+					$message     = apply_filters( 'wcwl_error_message_invalid_product', __( 'There was a problem with your request: the selected product could not be found.  Please try again or contact a site administrator for help', 'woocommerce-waitlist' ) );
+					wc_get_template(
+						"notices/error.php",
+						array(
+							'notices'  => array( array( 'notice' => $message ) ),
+							'messages' => array( $message ),
+						)
+					);
+					$html = ob_get_clean();
+					wp_send_json_error( $html );
+				}
 				$message = wcwl_remove_user_from_waitlist( $user->user_email, $product->get_id() );
 				if ( is_wp_error( $message ) ) {
 					$message     = $message->get_error_message();
-					$notice_type = 'error';
+					wc_get_template(
+						"notices/error.php",
+						array(
+							'notices'  => array( array( 'notice' => $message ) ),
+							'messages' => array( $message ),
+						)
+					);
+					$html = ob_get_clean();
+					wp_send_json_error( $html );
 				}
-			}
-			wc_get_template(
-				"notices/{$notice_type}.php",
-				array(
-					'notices'  => array( array( 'notice' => $message ) ),
-					'messages' => array( $message ),
-				)
-			);
-			$html = ob_get_clean();
-			if ( 'success' == $notice_type ) {
+				wc_get_template(
+					"notices/success.php",
+					array(
+						'notices'  => array( array( 'notice' => $message ) ),
+						'messages' => array( $message ),
+					)
+				);
+				$html = ob_get_clean();
 				wp_send_json_success( $html );
-			} else {
-				wp_send_json_error( $html );
 			}
 		}
 
@@ -189,28 +207,31 @@ if ( ! class_exists( 'Pie_WCWL_Frontend_Ajax' ) ) {
 		public function remove_user_from_archives() {
 			wcwl_switch_locale();
 			ob_start();
-			$notice_type = 'success';
-			$message     = apply_filters( 'wcwl_account_removed_archives_message', __( 'You have been removed from all waitlist archives.', 'woocommerce-waitlist' ) );
 			if ( ! wp_verify_nonce( $_POST['wcwl_remove_user_archive_nonce'], 'wcwl-ajax-remove-user-archive-nonce' ) ) {
-				$message     = apply_filters( 'wcwl_error_message_invalid_nonce', __( 'There was a problem with your request: nonce could not be verified.  Please try again or contact a site administrator for help', 'woocommerce-waitlist' ) );
-				$notice_type = 'error';
+				$message = apply_filters( 'wcwl_error_message_invalid_nonce', __( 'There was a problem with your request: nonce could not be verified.  Please try again or contact a site administrator for help', 'woocommerce-waitlist' ) );
+				wc_get_template(
+					"notices/error.php",
+					array(
+						'notices'  => array( array( 'notice' => $message ) ),
+						'messages' => array( $message ),
+					)
+				);
+				$html = ob_get_clean();
+				wp_send_json_error( $html );
 			}
+			$message  = apply_filters( 'wcwl_account_removed_archives_message', __( 'You have been removed from all waitlist archives.', 'woocommerce-waitlist' ) );
 			$user     = isset( $_POST['user_id'] ) ? get_user_by( 'id', absint( $_POST['user_id'] ) ) : 0;
 			$archives = WooCommerce_Waitlist_Plugin::get_waitlist_archives_for_user( $user );
 			WooCommerce_Waitlist_Plugin::remove_user_from_archives( $archives, $user );
 			wc_get_template(
-				"notices/{$notice_type}.php",
+				"notices/success.php",
 				array(
 					'notices'  => array( array( 'notice' => $message ) ),
 					'messages' => array( $message ),
 				)
 			);
 			$html = ob_get_clean();
-			if ( 'success' == $notice_type ) {
-				wp_send_json_success( $html );
-			} else {
-				wp_send_json_error( $html );
-			}
+			wp_send_json_success( $html );
 		}
 	}
 }

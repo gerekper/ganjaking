@@ -177,21 +177,14 @@ class Crawl_Cleanup_Searches implements Integration_Interface {
 	 * @return void
 	 */
 	private function limit_characters() {
+		// We retrieve the search term unescaped because we want to count the characters properly. We make sure to escape it afterwards, if we do something with it.
+		$unescaped_s = \get_search_query( false );
 
-		// Decode the url to make the string length the actual length instead of an inflated length due to encoded characters.
-		// We pass false here because we want it to make sure that we get as raw as data as we can get. Because we are working with lengths and don't want to be thrown of by encoding.
-		$s = \html_entity_decode( \get_search_query( false ), ENT_COMPAT, 'UTF-8' );
-		// Strip these specific characters to make sure that it will never end on a \ " ' because they get escaped with an extra \.
-		if ( \mb_substr( $s, -1 ) === '\\' || \mb_substr( $s, -1 ) === '"' || \mb_substr( $s, -1 ) === "'" ) {
-			$s = \mb_substr( $s, 0, -2 );
-		}
-		// Check the length of the decoded string to see if characters need to be stripped.
-		if ( \mb_strlen( $s, 'UTF-8' ) > $this->options_helper->get( 'search_character_limit' ) ) {
-			// Remove all characters from the string, so you get exactly the limit.
-			$new_s = \mb_substr( $s, 0, $this->options_helper->get( 'search_character_limit' ), 'UTF-8' );
-
-			// Re-encode the url so you could have 3-4 characters more in the final string due to encoding.
-			$this->redirect_away( 'Your search exceeded the number of allowed characters.', \get_bloginfo( 'url' ) . '/?s=' . \rawurlencode( $new_s ) );
+		// We then unslash the search term, again because we want to count the characters properly. We make sure to slash it afterwards, if we do something with it.
+		$raw_s = \wp_unslash( $unescaped_s );
+		if ( \mb_strlen( $raw_s, 'UTF-8' ) > $this->options_helper->get( 'search_character_limit' ) ) {
+			$new_s = \mb_substr( $raw_s, 0, $this->options_helper->get( 'search_character_limit' ), 'UTF-8' );
+			\set_query_var( 's', \wp_slash( \esc_attr( $new_s ) ) );
 		}
 	}
 

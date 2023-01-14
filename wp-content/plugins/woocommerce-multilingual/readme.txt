@@ -4,7 +4,7 @@ Tags: CMS, commerce, ecommerce, e-commerce, woocommerce, multilingual, multicurr
 License: GPLv2
 Requires at least: 4.7
 Tested up to: 6.1.1
-Stable tag: 5.1.1
+Stable tag: 5.1.2
 Requires PHP: 5.6
 
 Make your store multilingual and enable multiple currencies.
@@ -125,4 +125,4 @@ Install and activate “WooCommerce Multilingual & Multicurrency” on your Word
 If you also use the WPML plugin for multilingual functionality, follow the setup wizard to translate the store pages, configure what attributes should be translated, enable the multi-currency mode and more. Read more about [translating your online store](https://wpml.org/documentation/related-projects/woocommerce-multilingual/).
 
 == Changelog ==
-{{changelog}}
+<a href="https://wpml.org/download/woocommerce-multilingual-multicurrency/?section=changelog">https://wpml.org/download/woocommerce-multilingual-multicurrency/?section=changelog</a>

@@ -170,7 +170,13 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Ajax' ) ) {
 					$users[] = $this->generate_required_userdata( $email, 'waitlist' );
 				}
 			}
-			$this->generate_response( 'success', __( 'The waitlist has been updated', 'woocommerce-waitlist' ), $users );
+			$data = array(
+				'type'    => 'success',
+				'message' => __( 'The waitlist has been updated', 'woocommerce-waitlist' ),
+				'archive' => get_option( 'woocommerce_waitlist_archive_on' ),
+				'users'   => $users,
+			);
+			wp_send_json_success( $data );
 		}
 
 		/**
@@ -210,11 +216,13 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Ajax' ) ) {
 					$users[] = $this->generate_required_userdata( $email, 'waitlist' );
 				}
 			}
-			if ( count( $users ) > 1 ) {
-				$this->generate_response( 'success', __( 'The selected users have been added to the waitlist', 'woocommerce-waitlist' ), $users );
-			} else {
-				$this->generate_response( 'success', __( 'The selected user has been added to the waitlist', 'woocommerce-waitlist' ), $users );
-			}
+			$data = array(
+				'type'    => 'success',
+				'message' => count( $users ) > 1 ? __( 'The selected users have been added to the waitlist', 'woocommerce-waitlist' ) : __( 'The selected user has been added to the waitlist', 'woocommerce-waitlist' ),
+				'archive' => get_option( 'woocommerce_waitlist_archive_on' ),
+				'users'   => $users,
+			);
+			wp_send_json_success( $data );
 		}
 
 		/**
@@ -233,15 +241,22 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Ajax' ) ) {
 				do_action( 'wcwl_left_mailout_send_email', $email, $product->get_id() );
 				$waitlist->maybe_add_user_to_archive( $email );
 				if ( ! $response ) {
-					$this->generate_response( 'error', sprintf( __( 'There was an error when trying to remove %s from the waitlist', 'woocommerce-waitlist' ), $email ) );
+					$data = array(
+						'type'    => 'error',
+						'message' => sprintf( __( 'There was an error when trying to remove %s from the waitlist', 'woocommerce-waitlist' ), $email ),
+						'archive' => get_option( 'woocommerce_waitlist_archive_on' ),
+					);
+					wp_send_json_error( $data );
 				}
 				$users[] = $this->generate_required_userdata( $email, 'archive' );
 			}
-			if ( count( $users ) > 1 ) {
-				$this->generate_response( 'success', __( 'The selected users have been removed from the waitlist', 'woocommerce-waitlist' ), $users );
-			} else {
-				$this->generate_response( 'success', __( 'The selected user has been removed from the waitlist', 'woocommerce-waitlist' ), $users );
-			}
+			$data = array(
+				'type'    => 'success',
+				'message' => count( $users ) > 1 ? __( 'The selected users have been removed from the waitlist', 'woocommerce-waitlist' ) : __( 'The selected user has been removed from the waitlist', 'woocommerce-waitlist' ),
+				'archive' => get_option( 'woocommerce_waitlist_archive_on' ),
+				'users'   => $users,
+			);
+			wp_send_json_success( $data );
 		}
 
 		/**
@@ -263,7 +278,13 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Ajax' ) ) {
 
 				$users[] = $this->generate_required_userdata( $email, 'archive' );
 			}
-			$this->generate_response( 'success', __( 'The selected users have been sent an in stock notification', 'woocommerce-waitlist' ), $users );
+			$data = array(
+				'type'    => 'success',
+				'message' => __( 'The selected users have been sent an in stock notification', 'woocommerce-waitlist' ),
+				'archive' => get_option( 'woocommerce_waitlist_archive_on' ),
+				'users'   => $users,
+			);
+			wp_send_json_success( $data );
 		}
 
 		/**
@@ -290,7 +311,13 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Ajax' ) ) {
 				}
 			}
 			update_post_meta( $product_id, 'wcwl_waitlist_archive', $archive );
-			$this->generate_response( 'success', __( 'Selected users have been removed', 'woocommerce-waitlist' ), $posted_users );
+			$data = array(
+				'type'    => 'success',
+				'message' => __( 'Selected users have been removed', 'woocommerce-waitlist' ),
+				'archive' => get_option( 'woocommerce_waitlist_archive_on' ),
+				'users'   => $posted_users,
+			);
+			wp_send_json_success( $data );
 		}
 
 		/**
@@ -300,9 +327,19 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Ajax' ) ) {
 			$this->verify_nonce( $_POST['wcwl_update_nonce'], 'wcwl-update-nonce' );
 			if ( is_array( $_POST['options'] ) ) {
 				update_post_meta( absint( $_POST['product_id'] ), 'wcwl_options', $_POST['options'] );
-				$this->generate_response( 'success', __( 'Waitlist options have been updated for this product', 'woocommerce-waitlist' ) );
+				$data = array(
+					'type'    => 'success',
+					'message' => __( 'Waitlist options have been updated for this product', 'woocommerce-waitlist' ),
+					'archive' => get_option( 'woocommerce_waitlist_archive_on' ),
+				);
+				wp_send_json_success( $data );
 			} else {
-				$this->generate_response( 'error', __( 'Something went wrong with your request. Options not recognised', 'woocommerce-waitlist' ) );
+				$data = array(
+					'type'    => 'success',
+					'message' => __( 'Something went wrong with your request. Options not recognised', 'woocommerce-waitlist' ),
+					'archive' => get_option( 'woocommerce_waitlist_archive_on' ),
+				);
+				wp_send_json_error( $data );
 			}
 		}
 
@@ -312,7 +349,12 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Ajax' ) ) {
 		protected function verify_action_request() {
 			$this->verify_nonce( $_POST['wcwl_action_nonce'], 'wcwl-action-nonce' );
 			if ( ! isset( $_POST['users'] ) || empty( $_POST['users'] ) ) {
-				$this->generate_response( 'error', __( 'No users selected', 'woocommerce-waitlist' ) );
+				$data = array(
+					'type'    => 'success',
+					'message' => __( 'No users selected', 'woocommerce-waitlist' ),
+					'archive' => get_option( 'woocommerce_waitlist_archive_on' ),
+				);
+				wp_send_json_error( $data );
 			}
 		}
 
@@ -326,7 +368,12 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Ajax' ) ) {
 		protected function setup_product( $product_id ) {
 			$product = wc_get_product( $product_id );
 			if ( ! $product ) {
-				$this->generate_response( 'error', __( 'Invalid product ID', 'woocommerce-waitlist' ) );
+				$data = array(
+					'type'    => 'success',
+					'message' => __( 'Invalid product ID', 'woocommerce-waitlist' ),
+					'archive' => get_option( 'woocommerce_waitlist_archive_on' ),
+				);
+				wp_send_json_error( $data );
 			}
 
 			return $product;
@@ -342,7 +389,12 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Ajax' ) ) {
 		 */
 		protected function verify_nonce( $nonce, $nonce_name ) {
 			if ( ! wp_verify_nonce( $nonce, $nonce_name ) ) {
-				$this->generate_response( 'error', $this->nonce_not_verified_text );
+				$data = array(
+					'type'    => 'success',
+					'message' => $this->nonce_not_verified_text,
+					'archive' => get_option( 'woocommerce_waitlist_archive_on' ),
+				);
+				wp_send_json_error( $data );
 			}
 
 			return true;
@@ -378,29 +430,6 @@ if ( ! class_exists( 'Pie_WCWL_Admin_Ajax' ) ) {
 			}
 
 			return $data;
-		}
-
-		/**
-		 * Generate a meaningful response to easily handle the ajax request
-		 *
-		 * @param        $type
-		 * @param        $message
-		 * @param array   $users
-		 *
-		 * @return mixed|string|void
-		 */
-		protected function generate_response( $type, $message, $users = array() ) {
-			$data = array(
-				'type'    => $type,
-				'message' => $message,
-				'archive' => get_option( 'woocommerce_waitlist_archive_on' ),
-			);
-			if ( 'success' === $type ) {
-				$data['users'] = $users;
-				wp_send_json_success( $data );
-			} else {
-				wp_send_json_error( $data );
-			}
 		}
 
 		/**

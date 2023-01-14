@@ -1,5 +1,16 @@
 *** WooCommerce Force Sells ***
 
+2023-01-10 - version 1.2.0
+* Tweak - Declare compatibility with WooCommerce High-Performance Order Storage (HPOS).
+* Tweak - Updated plugin author.
+* Tweak - Tested compatibility up to WC 7.3.
+* Tweak - Tested compatibility with WP 6.1.
+* Dev - Updated the minimum requirements to WC 3.5, WP 4.7, and PHP 5.6.
+
+2022-05-17 - version 1.1.31
+* Tweak - WC 6.4 compatibility.
+* Tweak - WP 6.0 compatibility.
+
 2022-04-05 - version 1.1.30
 * Fix - Compatibility fix for composer v2.2.0.
 * Fix - Fixes an issue with sync force sells where product quantities were not being updated properly when quantity multipliers are present.

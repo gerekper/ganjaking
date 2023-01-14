@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'wcml/woocommerce-multilingual',
-        'pretty_version' => '5.1.1',
-        'version' => '5.1.1.0',
-        'reference' => 'af8bf27ae09504296d6ed833cbf090b2b2d4b294',
+        'pretty_version' => '5.1.2',
+        'version' => '5.1.2.0',
+        'reference' => '770ec113861fda5a1e1e63ec48831498a9cac99f',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -79,9 +79,9 @@
             ),
         ),
         'wcml/woocommerce-multilingual' => array(
-            'pretty_version' => '5.1.1',
-            'version' => '5.1.1.0',
-            'reference' => 'af8bf27ae09504296d6ed833cbf090b2b2d4b294',
+            'pretty_version' => '5.1.2',
+            'version' => '5.1.2.0',
+            'reference' => '770ec113861fda5a1e1e63ec48831498a9cac99f',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

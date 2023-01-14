@@ -28,11 +28,11 @@ do_action( 'woocommerce_email_header', $email_heading, $email ); ?>
 <p>
 	<?php
 	$link = add_query_arg( array(
-    'wcwl_user_optin' => esc_attr( $email ),
+    'wcwl_user_optin' => urlencode( esc_attr( $email ) ),
     'product_id'      => absint( $product_id ),
-		'products'			  => $products,
-		'key'             => $key,
-		'lang'            => $lang,
+		'products'    => $products,
+		'key'         => $key,
+		'lang'        => $lang,
 	), $product_link );
 	print( '<a href="' . esc_url( $link ) . '">' . esc_html( $product_link ) . '</a>' );
 	?>
