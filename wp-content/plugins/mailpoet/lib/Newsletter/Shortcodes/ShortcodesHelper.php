@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Newsletter\Shortcodes;
 
@@ -112,6 +112,16 @@ class ShortcodesHelper {
             '[link:newsletter_view_in_browser_url]',
             __('View in your browser', 'mailpoet')
           ),
+        ],
+      ],
+      __('Site', 'mailpoet') => [
+        [
+          'text' => __('Site title', 'mailpoet'),
+          'shortcode' => '[site:title]',
+        ],
+        [
+          'text' => __('Homepage link', 'mailpoet'),
+          'shortcode' => '[site:homepage_link]',
         ],
       ],
     ];

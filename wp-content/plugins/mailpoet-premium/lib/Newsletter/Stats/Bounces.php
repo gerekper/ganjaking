@@ -1,4 +1,4 @@
-<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
+<?php declare(strict_types = 1);
 
 namespace MailPoet\Premium\Newsletter\Stats;
 
@@ -52,7 +52,12 @@ class Bounces {
   /**
    * @param array<string, mixed> $data
    *
-   * @return array{count: int, filters: array, groups: array, items: array}
+   * @return array{
+   *   count: int,
+   *   filters: array{},
+   *   groups: array{},
+   *   items: array<int, array<string, mixed>>
+   * }
    */
   public function get($data = []): array {
     $definition = $this->parseData($data);
@@ -60,7 +65,7 @@ class Bounces {
     $countQuery = $this->getBouncesQuery($definition, true);
     if ($countQuery) {
       $query = 'SELECT COUNT(*) as cnt FROM ( ' . $countQuery . ' ) t ';
-      $count = (int)$this->entityManager->getConnection()->executeQuery($query)->fetchOne();
+      $count = intval($this->entityManager->getConnection()->executeQuery($query)->fetchOne());
 
       $query = $this->getBouncesQuery($definition);
       $query .= " ORDER BY {$definition->getSortBy()} {$definition->getSortOrder()} LIMIT :limit OFFSET :offset ";
@@ -150,13 +155,13 @@ class Bounces {
   }
 
   /**
-   * @param array<int, mixed> $fields
+   * @param array<int, string> $fields
    * @param bool $count
    *
    * @return string
    */
   private static function getColumnList(array $fields, bool $count = false): string {
     // Select ID field only for counting
-    return $count ? reset($fields) : join(', ', $fields);
+    return $count ? (string)reset($fields) : join(', ', $fields);
   }
 }

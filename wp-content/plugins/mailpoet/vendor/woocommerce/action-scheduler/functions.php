@@ -1,28 +1,28 @@
 <?php
 if (!defined('ABSPATH')) exit;
-function as_enqueue_async_action( $hook, $args = array(), $group = '' ) {
+function as_enqueue_async_action( $hook, $args = array(), $group = '', $unique = false ) {
  if ( ! ActionScheduler::is_initialized( __FUNCTION__ ) ) {
  return 0;
  }
- return ActionScheduler::factory()->async( $hook, $args, $group );
+ return ActionScheduler::factory()->async_unique( $hook, $args, $group, $unique );
 }
-function as_schedule_single_action( $timestamp, $hook, $args = array(), $group = '' ) {
+function as_schedule_single_action( $timestamp, $hook, $args = array(), $group = '', $unique = false ) {
  if ( ! ActionScheduler::is_initialized( __FUNCTION__ ) ) {
  return 0;
  }
- return ActionScheduler::factory()->single( $hook, $args, $timestamp, $group );
+ return ActionScheduler::factory()->single_unique( $hook, $args, $timestamp, $group, $unique );
 }
-function as_schedule_recurring_action( $timestamp, $interval_in_seconds, $hook, $args = array(), $group = '' ) {
+function as_schedule_recurring_action( $timestamp, $interval_in_seconds, $hook, $args = array(), $group = '', $unique = false ) {
  if ( ! ActionScheduler::is_initialized( __FUNCTION__ ) ) {
  return 0;
  }
- return ActionScheduler::factory()->recurring( $hook, $args, $timestamp, $interval_in_seconds, $group );
+ return ActionScheduler::factory()->recurring_unique( $hook, $args, $timestamp, $interval_in_seconds, $group, $unique );
 }
-function as_schedule_cron_action( $timestamp, $schedule, $hook, $args = array(), $group = '' ) {
+function as_schedule_cron_action( $timestamp, $schedule, $hook, $args = array(), $group = '', $unique = false ) {
  if ( ! ActionScheduler::is_initialized( __FUNCTION__ ) ) {
  return 0;
  }
- return ActionScheduler::factory()->cron( $hook, $args, $timestamp, $schedule, $group );
+ return ActionScheduler::factory()->cron_unique( $hook, $args, $timestamp, $schedule, $group, $unique );
 }
 function as_unschedule_action( $hook, $args = array(), $group = '' ) {
  if ( ! ActionScheduler::is_initialized( __FUNCTION__ ) ) {
@@ -100,7 +100,7 @@ function as_next_scheduled_action( $hook, $args = null, $group = '' ) {
  $scheduled_date = $action->get_schedule()->get_date();
  if ( $scheduled_date ) {
  return (int) $scheduled_date->format( 'U' );
- } elseif ( null === $scheduled_date ) { // pending async action with NullSchedule
+ } elseif ( null === $scheduled_date ) { // pending async action with NullSchedule.
  return true;
  }
  return false;
@@ -119,29 +119,29 @@ function as_has_scheduled_action( $hook, $args = null, $group = '' ) {
  $query_args['args'] = $args;
  }
  $action_id = ActionScheduler::store()->query_action( $query_args );
- return $action_id !== null;
+ return null !== $action_id;
 }
 function as_get_scheduled_actions( $args = array(), $return_format = OBJECT ) {
  if ( ! ActionScheduler::is_initialized( __FUNCTION__ ) ) {
  return array();
  }
  $store = ActionScheduler::store();
- foreach ( array('date', 'modified') as $key ) {
- if ( isset($args[$key]) ) {
- $args[$key] = as_get_datetime_object($args[$key]);
+ foreach ( array( 'date', 'modified' ) as $key ) {
+ if ( isset( $args[ $key ] ) ) {
+ $args[ $key ] = as_get_datetime_object( $args[ $key ] );
  }
  }
  $ids = $store->query_actions( $args );
- if ( $return_format == 'ids' || $return_format == 'int' ) {
+ if ( 'ids' === $return_format || 'int' === $return_format ) {
  return $ids;
  }
  $actions = array();
  foreach ( $ids as $action_id ) {
- $actions[$action_id] = $store->fetch_action( $action_id );
+ $actions[ $action_id ] = $store->fetch_action( $action_id );
  }
- if ( $return_format == ARRAY_A ) {
+ if ( ARRAY_A == $return_format ) {
  foreach ( $actions as $action_id => $action_object ) {
- $actions[$action_id] = get_object_vars($action_object);
+ $actions[ $action_id ] = get_object_vars( $action_object );
  }
  }
  return $actions;

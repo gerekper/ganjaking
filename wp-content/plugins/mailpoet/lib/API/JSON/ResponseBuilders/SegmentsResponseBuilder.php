@@ -37,6 +37,7 @@ class SegmentsResponseBuilder {
       'deleted_at' => ($deletedAt = $segment->getDeletedAt()) ? $deletedAt->format(self::DATE_FORMAT) : null,
       'average_engagement_score' => $segment->getAverageEngagementScore(),
       'filters_connect' => $segment->getFiltersConnectOperator(),
+      'showInManageSubscriptionPage' => (int)$segment->getDisplayInManageSubscriptionPage(),
     ];
   }
 

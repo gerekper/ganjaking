@@ -17,7 +17,7 @@ class CarbonTimeZone extends DateTimeZone
  if ($timezone <= -100 || $timezone >= 100) {
  throw new InvalidTimeZoneException('Absolute timezone offset cannot be greater than 100.');
  }
- return ($timezone >= 0 ? '+' : '') . $timezone . ':00';
+ return ($timezone >= 0 ? '+' : '') . \ltrim($timezone, '+') . ':00';
  }
  protected static function getDateTimeZoneNameFromMixed($timezone)
  {
@@ -58,13 +58,13 @@ class CarbonTimeZone extends DateTimeZone
  if (!$tz instanceof DateTimeZone) {
  $tz = static::getDateTimeZoneFromName($object);
  }
- if ($tz === \false) {
+ if ($tz !== \false) {
+ return new static($tz->getName());
+ }
  if (Carbon::isStrictModeEnabled()) {
  throw new InvalidTimeZoneException('Unknown or bad timezone (' . ($objectDump ?: $object) . ')');
  }
  return \false;
- }
- return new static($tz->getName());
  }
  public function getAbbreviatedName($dst = \false)
  {
@@ -120,17 +120,21 @@ class CarbonTimeZone extends DateTimeZone
  public function toRegionTimeZone(DateTimeInterface $date = null)
  {
  $tz = $this->toRegionName($date);
- if ($tz === \false) {
+ if ($tz !== \false) {
+ return new static($tz);
+ }
  if (Carbon::isStrictModeEnabled()) {
  throw new InvalidTimeZoneException('Unknown timezone for offset ' . $this->getOffset($date ?: Carbon::now($this)) . ' seconds.');
  }
  return \false;
  }
- return new static($tz);
- }
  public function __toString()
  {
  return $this->getName();
+ }
+ public function getType() : int
+ {
+ return \preg_match('/"timezone_type";i:(\\d)/', \serialize($this), $match) ? (int) $match[1] : 3;
  }
  public static function create($object = null)
  {

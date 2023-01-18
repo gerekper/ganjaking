@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Cron;
 
@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Cron\Workers\WorkersFactory;
+use MailPoet\Logging\LoggerFactory;
 
 class Daemon {
   public $timer;
@@ -19,15 +20,20 @@ class Daemon {
   /** @var WorkersFactory */
   private $workersFactory;
 
+  /** @var LoggerFactory  */
+  private $loggerFactory;
+
   public function __construct(
     CronHelper $cronHelper,
     CronWorkerRunner $cronWorkerRunner,
-    WorkersFactory $workersFactory
+    WorkersFactory $workersFactory,
+    LoggerFactory $loggerFactory
   ) {
     $this->timer = microtime(true);
     $this->workersFactory = $workersFactory;
     $this->cronWorkerRunner = $cronWorkerRunner;
     $this->cronHelper = $cronHelper;
+    $this->loggerFactory = $loggerFactory;
   }
 
   public function run($settingsDaemonData) {
@@ -44,10 +50,17 @@ class Daemon {
         }
       } catch (\Exception $e) {
         $workerClassNameParts = explode('\\', get_class($worker));
+        $workerName = end($workerClassNameParts);
         $errors[] = [
-          'worker' => end($workerClassNameParts),
+          'worker' => $workerName,
           'message' => $e->getMessage(),
         ];
+
+        if ($e->getCode() === CronHelper::DAEMON_EXECUTION_LIMIT_REACHED) {
+          break;
+        }
+
+        $this->loggerFactory->getLogger(LoggerFactory::TOPIC_CRON)->error($e->getMessage(), ['error' => $e, 'worker' => $workerName]);
       }
     }
 

@@ -158,9 +158,19 @@ if ( ! class_exists( 'LoginPress_Login_Redirect_Main' ) ) :
 		 * A callback function that will show search result under the search field.
 		 *
 		 * @since   1.0.0
+		 * @version 1.1.5
 		 * @return [string] html
 		 */
 		function login_redirect_script_html() {
+
+			/**
+			 * Check to apply the script only on the LoginPress Settings page.
+			 *
+			 * @since 1.1.5
+			 */
+			if ( isset( $_GET['page'] ) && sanitize_text_field( $_GET['page'] ) !== 'loginpress-settings' ) {
+				return;
+			}
 			$html = '<table id="loginpress_login_redirect_users" class="loginpress_login_redirect_users">
       <tr>
       <th class="loginpress_user_id">' . esc_html__( 'User ID', 'loginpress-login-redirects' ) . '</th>
@@ -233,11 +243,17 @@ if ( ! class_exists( 'LoginPress_Login_Redirect_Main' ) ) :
 		 * [loginpress_autocomplete_js Get the users list and Saved it in footer that will use for autocomplete in search]
 		 *
 		 * @since 1.0.0
-		 * @version 1.1.2
+		 * @version 1.1.5
 		 */
 		function loginpress_autocomplete_js() {
 
-			if ( isset( $_GET['page'] ) && 'loginpress-settings' != $_GET['page'] ) {
+			/**
+			 * Check to apply the script only on the LoginPress Settings page.
+			 *
+			 * @since 1.1.5
+			 */
+			$current_screen = get_current_screen();
+			if ( isset( $current_screen->base ) && ( 'toplevel_page_loginpress-settings' !== $current_screen->base ) ) {
 				return;
 			}
 

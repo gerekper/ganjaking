@@ -263,6 +263,30 @@ if ( '' === $current_section ) : ?>
 			</tbody>
 		</table>
 
+		<!-- Auto order fraud check settings -->
+		<?php $this->opmc_add_admin_field_section($settings_fileds[$this->id . '_enable_start_auto_fraud_check']); ?>
+
+		<table class="form-table opmc_wc_af_table">
+			<tbody>
+				<tr valign="top" class="">
+					<th scope="row" class="titledesc">
+						<label for="wc_af_enable_start_auto_fraud_check">
+							<?php echo wp_kses_post($settings_fileds['wc_af_start_auto_fraud_check']['title']); ?>
+							<span class="woocommerce-help-tip" data-tip="<?php echo esc_attr($settings_fileds['wc_af_start_auto_fraud_check']['desc_tip']); ?>"></span>
+						</label>
+					</th>
+					<td class="forminp forminp-checkbox">
+						<fieldset>
+							<legend class="screen-reader-text"><span><?php echo wp_kses_post($settings_fileds['wc_af_start_auto_fraud_check']['title']); ?></span></legend>
+							<label for="wc_af_start_auto_fraud_check" class="opmc-toggle-control">
+								<input name="wc_af_start_auto_fraud_check" id="wc_af_start_auto_fraud_check" type="checkbox" value="1" <?php checked( get_option( 'wc_af_start_auto_fraud_check' ), 'yes' ); ?> >
+								<span class="opmc-control"></span>
+							</label>
+						</fieldset>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 
 	</section>
 

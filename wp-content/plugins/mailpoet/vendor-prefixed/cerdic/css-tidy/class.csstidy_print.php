@@ -7,6 +7,12 @@ class csstidy_print
  public $input_css = '';
  public $output_css = '';
  public $output_css_plain = '';
+ public $css;
+ public $template;
+ public $tokens;
+ public $charset;
+ public $import;
+ public $namespace;
  public function __construct($css)
  {
  $this->parser = $css;

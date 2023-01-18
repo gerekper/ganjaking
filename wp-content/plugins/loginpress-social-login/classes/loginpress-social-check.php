@@ -188,7 +188,7 @@ if( !class_exists( 'LoginPress_Social_Login_Check' ) ) {
       public function onGPlusLogin() {
         include_once LOGINPRESS_SOCIAL_DIR_PATH . 'sdk/google-client/vendor/autoload.php';
         include_once LOGINPRESS_SOCIAL_DIR_PATH . 'sdk/google-client/vendor/google/apiclient/src/Client.php';
-        include_once LOGINPRESS_SOCIAL_DIR_PATH . 'sdk/google-client/vendor/google/apiclient-services/src/Google/Service/Oauth2.php';
+        include_once LOGINPRESS_SOCIAL_DIR_PATH . 'sdk/google-client/vendor/google/apiclient-services/src/Oauth2.php';
 
         $_settings    = get_option('loginpress_social_logins');
         $clientId     = $_settings['gplus_client_id']; //Google client ID

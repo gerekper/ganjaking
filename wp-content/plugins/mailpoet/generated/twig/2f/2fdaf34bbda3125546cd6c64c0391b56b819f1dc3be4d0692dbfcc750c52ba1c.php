@@ -29,7 +29,6 @@ class __TwigTemplate_fb71bf89a426c5b5b4c882632d479b3cffbaded39146d864b8aea902ce9
 
         $this->blocks = [
             'container' => [$this, 'block_container'],
-            'after_javascript' => [$this, 'block_after_javascript'],
             'after_css' => [$this, 'block_after_css'],
         ];
     }
@@ -53,32 +52,33 @@ class __TwigTemplate_fb71bf89a426c5b5b4c882632d479b3cffbaded39146d864b8aea902ce9
         $macros = $this->macros;
         // line 4
         echo "<div id=\"mailpoet_automation_editor\" class=\"edit-site\"></div>
-";
-    }
 
-    // line 7
-    public function block_after_javascript($context, array $blocks = [])
-    {
-        $macros = $this->macros;
-        // line 8
-        echo "<script type=\"text/javascript\">
+<script type=\"text/javascript\">
   var mailpoet_automation_api = ";
-        // line 9
+        // line 7
         echo json_encode(($context["api"] ?? null));
         echo ";
-  var mailpoet_automation_context = ";
+  var mailpoet_json_api = ";
+        // line 8
+        echo json_encode(($context["jsonapi"] ?? null));
+        echo ";
+  var mailpoet_user_roles = ";
+        // line 9
+        echo json_encode(($context["user_roles"] ?? null));
+        echo ";
+  var mailpoet_segments = ";
         // line 10
+        echo json_encode(($context["segments"] ?? null));
+        echo ";
+  var mailpoet_automation_context = ";
+        // line 11
         echo json_encode(($context["context"] ?? null));
         echo ";
-  var mailpoet_automation_workflow = ";
-        // line 11
-        echo ((($context["workflow"] ?? null)) ? (json_encode(($context["workflow"] ?? null))) : ("undefined"));
+  var mailpoet_automation = ";
+        // line 12
+        echo ((($context["automation"] ?? null)) ? (json_encode(($context["automation"] ?? null))) : ("undefined"));
         echo ";
 </script>
-";
-        // line 13
-        echo $this->extensions['MailPoet\Twig\Assets']->generateJavascript("automation_editor.js");
-        echo "
 ";
     }
 
@@ -104,7 +104,7 @@ class __TwigTemplate_fb71bf89a426c5b5b4c882632d479b3cffbaded39146d864b8aea902ce9
 
     public function getDebugInfo()
     {
-        return array (  87 => 17,  83 => 16,  77 => 13,  72 => 11,  68 => 10,  64 => 9,  61 => 8,  57 => 7,  52 => 4,  48 => 3,  37 => 1,);
+        return array (  87 => 17,  83 => 16,  76 => 12,  72 => 11,  68 => 10,  64 => 9,  60 => 8,  56 => 7,  51 => 4,  47 => 3,  36 => 1,);
     }
 
     public function getSourceContext()

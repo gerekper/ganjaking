@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Statistics\Track;
 
@@ -35,7 +35,13 @@ class Unsubscribes {
     $this->subscribersRepository = $subscribersRepository;
   }
 
-  public function track(int $subscriberId, string $source, int $queueId = null, string $meta = null) {
+  public function track(
+    int $subscriberId,
+    string $source,
+    int $queueId = null,
+    string $meta = null,
+    string $method = StatisticsUnsubscribeEntity::METHOD_UNKNOWN
+  ) {
     $queue = null;
     $statistics = null;
     if ($queueId) {
@@ -68,6 +74,7 @@ class Unsubscribes {
       $statistics->setMeta($meta);
     }
     $statistics->setSource($source);
+    $statistics->setMethod($method);
     $this->statisticsUnsubscribesRepository->persist($statistics);
     $this->statisticsUnsubscribesRepository->flush();
   }

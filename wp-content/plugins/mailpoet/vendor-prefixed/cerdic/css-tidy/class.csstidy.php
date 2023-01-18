@@ -10,8 +10,8 @@ if (!defined('ABSPATH')) exit;
 \define('COMMENT', 7);
 \define('IMPORTANT_COMMENT', 8);
 \define('DEFAULT_AT', 41);
-require 'class.csstidy_print.php';
-require 'class.csstidy_optimise.php';
+require __DIR__ . \DIRECTORY_SEPARATOR . 'class.csstidy_print.php';
+require __DIR__ . \DIRECTORY_SEPARATOR . 'class.csstidy_optimise.php';
 class csstidy
 {
  public $css = array();
@@ -21,7 +21,7 @@ class csstidy
  public $charset = '';
  public $import = array();
  public $namespace = '';
- public $version = '1.7.3';
+ public $version = '2.0.3';
  public $settings = array();
  public $status = 'is';
  public $at = '';
@@ -42,10 +42,11 @@ class csstidy
  public $quoted_string = array();
  public $tokens_list = "";
  public $data = array();
+ public $template;
  public function __construct()
  {
  $data = array();
- include 'data.inc.php';
+ include __DIR__ . \DIRECTORY_SEPARATOR . 'data.inc.php';
  $this->data = $data;
  $this->settings['remove_bslash'] = \true;
  $this->settings['compress_colors'] = \true;

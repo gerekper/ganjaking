@@ -1,9 +1,9 @@
 === MailPoet - emails and newsletters in WordPress ===
 Contributors: mailpoet
 Tags: email, email marketing, post notification, woocommerce emails, email automation, newsletter, newsletter builder, newsletter subscribers
-Requires at least: 5.6
-Tested up to: 6.0
-Stable tag: 3.98.0
+Requires at least: 5.8
+Tested up to: 6.1
+Stable tag: 4.4.0
 Requires PHP: 7.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -93,7 +93,7 @@ Or if you opt for a MailPoet plan, you’ll get access to the MailPoet Sending S
 
 A free Starter plan is available for those who have 1,000 subscribers or less and would like to use the MailPoet Sending Service. And our paid plans offer features and functionality for those with larger lists who are looking to grow their business using email marketing.
 
-Take a look at [our pricing page](http://www.mailpoet.com/pricing) for full details on what’s included in each plan.
+Take a look at [our pricing page](https://www.mailpoet.com/pricing) for full details on what’s included in each plan.
 
 = Before you install =
 
@@ -218,6 +218,114 @@ Check our [Knowledge Base](https://kb.mailpoet.com) or contact us through our [s
 6. WooCommerce emails
 
 == Changelog ==
+
+= 4.4.0 - 2023-01-10 =
+* Updated: TinyMCE editor to v6;
+* Improved: log PHP errors in JSON API calls;
+* Fixed: prevent paused sending without an error message;
+* Fixed: horizontal scrollbar in automation actions popup.
+
+= 4.3.1 - 2023-01-03 =
+* Improved: welcome wizard first step design;
+* Improved: error handling for confirmation emails;
+* Fixed: occasional error on column detection during plugin update;
+* Fixed: occasional call to undefined function error during plugin update.
+
+= 4.3.0 - 2022-12-19 =
+* Added: confirmation email can be designed in email editor;
+* Improved: nicer and more understandable onboarding.
+
+= 4.2.0 - 2022-12-12 =
+* Added: link to purchase a MailPoet plan from Key Activation page;
+* Improved: support for ANSI_QUOTES sql mode;
+* Improved: 1-click unsubscribe is also tracked as a click;
+* Improved: "Maximum execution time" error is now more descriptive in MailPoet > Help > System Status;
+* Changed: email language in HTML is set to site's language (Settings > General) instead of English.
+
+= 4.1.1 - 2022-12-05 =
+* Improved: the 3rd-party libraries description in Welcome Wizard;
+* Improved: display a warning if sending function is not available;
+* Fixed: Column not found error experienced by some users;
+* Fixed: wc_get_page_id causes an error when WooCommerce is not installed;
+* Fixed: block settings in email editor look broken.
+
+= 4.1.0 - 2022-11-28 =
+* Improved: don't automatically activate MailPoet Sending Service for Creator plans;
+* Improved: MailPoet's built-in CAPTCHA now includes audio fallback to improve accessibility;
+* Fixed: automation may not always start if there exists another automation with the same trigger;
+* Fixed: automations beta badge wraps in some languages;
+* Fixed: domain authentication is not shown when sending a preview email.
+
+= 4.0.1 - 2022-11-22 =
+* Improved: when editing a list, you can choose if it should be shown on the Manage Subscription page (on by default);
+* Improved: form templates now link to existing Privacy Page;
+* Changed: [subscriber:count] shortcode now counts only subscribed subscribers (and not unconfirmed or inactive);
+* Fixed: automations beta badge overflows menu in some languages;
+* Fixed: failing to create automation tables with "Base table or view already exists" in rare cases;
+* Fixed: displaying wrong tasks in System Status.
+
+= 4.0.0 - 2022-11-15 =
+* Added: new Automations page (beta version, please share your feedback directly from the plugin);
+* Added: optional support for POST unsubscribe when sending with MailPoet Sending Service, which enables 1-click unsubscribe button in more email clients;
+* Added: engagement badges for opens, unsubscribes, and bounces;
+* Updated: minimum required WordPress version to 5.8;
+* Fixed: "Unknown storage engine 'InnoDB'" error (InnoDB engine is no longer required).
+
+= 3.103.1 - 2022-11-08 =
+* Fix a database problem that affected some versions of MySQL when creating the new migrations table.
+
+= 3.103.0 - 2022-11-07 =
+* Added: deleteList and updateList API methods (https://github.com/mailpoet/mailpoet/tree/trunk/doc);
+* Added: forms can be configured to show on product pages;
+* Improved: more explanatory automatic emails setup;
+* Improved: consistent case in the form editor labels;
+* Improved: long sign-up button text will wrap to a new line;
+* Improved: confirmation emails can now be personalized;
+* Fixed: MailPoet key validation can fail, if the site URL is configured with uppercase letters;
+* Fixed: required questions in onboarding can be skipped;
+* Declare MailPoet as compatible with the upcoming WooCommerce High Performance Order Storage.
+
+= 3.102.1 - 2022-11-03 =
+* Fixed: missing 'CheckoutSchema' class error in WooCommerce blocks integration;
+* Fixed: "Class 'Normalizer' not found" error in WP 6.1 when intl extension is missing.
+
+= 3.102.0 - 2022-11-01 =
+* Added: new subscribers hooks (https://github.com/mailpoet/mailpoet/pull/4443);
+* Improved: limit cron runs when execution limit exception is thrown;
+* Improved: list(s) are replaced with the site title on the subscription confirmation page.
+
+= 3.101.1 - 2022-10-24 =
+* Improved: simplified privacy and data sharing section in onboarding;
+* Improved: don't require any newsletter settings when saving a draft;
+* Fixed: an error in the checkout, when the shop has multiple automatic emails set up.
+
+= 3.101.0 - 2022-10-17 =
+* Added: new API method getSubscribersCount;
+* Added: new API method getSubscribers;
+* Improved: cron-related tasks;
+* Improved: confirm leaving Settings page when leaving without saving;
+* Improved: messaging when verifying an API key.
+
+= 3.100.2 - 2022-10-10 =
+* Fixed: scheduled newsletters not sending.
+
+= 3.100.1 - 2022-10-06 =
+* Fixed: In some instances the sending stuck because the EntityManager was closed.
+
+= 3.100.0 - 2022-10-03 =
+* Added: tagging subscribers when signed up via a form;
+* Improved: linux cron error message;
+* Fixed: paid MailPoet plan is offered in onboarding instead of a free MailPoet plan.
+
+= 3.99.1 - 2022-09-29 =
+* Fix issue with post notifications in MailPoet 3.99.
+
+= 3.99.0 - 2022-09-27 =
+* Added: any email address from a sender domain is automatically allowed for sending (MailPoet Sending Service only);
+* Fixed: some post notifications may fail to send.
+
+= 3.98.1 - 2022-09-21 =
+* Improved: minor changes and fixes.
 
 = 3.98.0 - 2022-09-19 =
 * Added: filter subscribers by clicking on tag badge;

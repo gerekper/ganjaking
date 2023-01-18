@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Util;
 
@@ -109,5 +109,10 @@ class Helpers {
 
   public static function escapeSearch(string $search): string {
     return str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], trim($search)); // escape for 'LIKE'
+  }
+
+  public static function extractEmailDomain(string $email = ''): string {
+    $arrayOfItems = explode('@', trim($email));
+    return strtolower(array_pop($arrayOfItems));
   }
 }

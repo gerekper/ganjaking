@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Form\Templates\Templates;
 
@@ -104,7 +104,7 @@ class Template1Widget extends FormTemplate {
         'type' => 'paragraph',
         'id' => 'paragraph',
         'params' => [
-          'content' => '<em><span style="font-family: Montserrat" data-font="Montserrat" class="mailpoet-has-font">' . $this->replaceLinkTags(_x('We don’t spam! Read our [link]privacy policy[/link] for more info.', 'Text in a web form.', 'mailpoet'), "#") . '</span></em>',
+          'content' => '<em><span style="font-family: Montserrat" data-font="Montserrat" class="mailpoet-has-font">' . $this->replacePrivacyLinkTags(_x('We don’t spam! Read our [link]privacy policy[/link] for more info.', 'Text in a web form.', 'mailpoet'), "#") . '</span></em>',
           'drop_cap' => '0',
           'align' => 'center',
           'font_size' => '13',

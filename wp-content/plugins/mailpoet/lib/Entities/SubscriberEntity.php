@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Entities;
 
@@ -21,8 +21,17 @@ use MailPoetVendor\Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  * @ORM\Table(name="subscribers")
  * @ORM\HasLifecycleCallbacks
+ * @ORM\EntityListeners({"\MailPoet\Doctrine\EventListeners\SubscriberListener"})
  */
 class SubscriberEntity {
+  // hook names
+  public const HOOK_SUBSCRIBER_CREATED = 'mailpoet_subscriber_created';
+  public const HOOK_SUBSCRIBER_DELETED = 'mailpoet_subscriber_deleted';
+  public const HOOK_SUBSCRIBER_UPDATED = 'mailpoet_subscriber_updated';
+  public const HOOK_MULTIPLE_SUBSCRIBERS_CREATED = 'mailpoet_multiple_subscribers_created';
+  public const HOOK_MULTIPLE_SUBSCRIBERS_DELETED = 'mailpoet_multiple_subscribers_deleted';
+  public const HOOK_MULTIPLE_SUBSCRIBERS_UPDATED = 'mailpoet_multiple_subscribers_updated';
+
   // statuses
   const STATUS_BOUNCED = 'bounced';
   const STATUS_INACTIVE = 'inactive';

@@ -2,11 +2,17 @@
 namespace MailPoetVendor\Carbon\Exceptions;
 if (!defined('ABSPATH')) exit;
 use BadMethodCallException as BaseBadMethodCallException;
-use Exception;
+use Throwable;
 class UnknownMethodException extends BaseBadMethodCallException implements BadMethodCallException
 {
- public function __construct($method, $code = 0, Exception $previous = null)
+ protected $method;
+ public function __construct($method, $code = 0, Throwable $previous = null)
  {
+ $this->method = $method;
  parent::__construct("Method {$method} does not exist.", $code, $previous);
+ }
+ public function getMethod() : string
+ {
+ return $this->method;
  }
 }

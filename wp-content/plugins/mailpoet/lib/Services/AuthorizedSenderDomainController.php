@@ -53,11 +53,21 @@ class AuthorizedSenderDomainController {
     return $this->returnAllDomains($this->getAllRecords());
   }
 
+  public function getAllSenderDomainsIgnoringCache(): array {
+    $this->currentRecords = null;
+    return $this->getAllSenderDomains();
+  }
+
   /**
    * Get all Verified Sender Domains
    */
   public function getVerifiedSenderDomains(): array {
     return $this->returnVerifiedDomains($this->getAllRecords());
+  }
+
+  public function getVerifiedSenderDomainsIgnoringCache(): array {
+    $this->currentRecords = null;
+    return $this->getVerifiedSenderDomains();
   }
 
   /**

@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Newsletter;
 
@@ -407,8 +407,8 @@ class NewslettersRepository extends Repository {
   /**
    * @return NewsletterEntity[]
    */
-  public function findSendigNotificationHistoryWithPausedTask(NewsletterEntity $newsletter): array {
-    $result = $this->entityManager->createQueryBuilder()
+  public function findSendingNotificationHistoryWithoutPausedTask(NewsletterEntity $newsletter): array {
+    return $this->entityManager->createQueryBuilder()
       ->select('n')
       ->from(NewsletterEntity::class, 'n')
       ->join('n.queues', 'q')
@@ -416,13 +416,13 @@ class NewslettersRepository extends Repository {
       ->where('n.parent = :parent')
       ->andWhere('n.type = :type')
       ->andWhere('n.status = :status')
+      ->andWhere('n.deletedAt IS NULL')
       ->andWhere('t.status != :taskStatus')
       ->setParameter('parent', $newsletter)
       ->setParameter('type', NewsletterEntity::TYPE_NOTIFICATION_HISTORY)
       ->setParameter('status', NewsletterEntity::STATUS_SENDING)
       ->setParameter('taskStatus', ScheduledTaskEntity::STATUS_PAUSED)
-      ->getQuery()->execute();
-    return $result;
+      ->getQuery()->getResult();
   }
 
   /**

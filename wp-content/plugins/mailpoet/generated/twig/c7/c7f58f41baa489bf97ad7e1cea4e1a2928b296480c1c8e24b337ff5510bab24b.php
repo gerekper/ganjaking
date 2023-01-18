@@ -100,11 +100,15 @@ class __TwigTemplate_43903aab9ead5da2aa4fd5513357866620f7fd81d3e3f3af87287dcca14
     </div>
 </div>
 <div class=\"mailpoet_form_field mailpoet_form_narrow_select2\">
-    <div class=\"mailpoet_form_field_input_option\">
+    <div class=\"mailpoet_form_field_title\">";
+        // line 44
+        echo $this->extensions['MailPoet\Twig\I18n']->translate("Text");
+        echo "</div>
+    <div class=\"mailpoet_form_field_input_option mailpoet_form_field_input_nowrap\">
         <input type=\"text\" name=\"font-color\" id=\"mailpoet_field_button_font_color\" class=\"mailpoet_field_button_font_color mailpoet_color\" value=\"{{ model.styles.block.fontColor }}\" />
         <select id=\"mailpoet_field_button_font_family\" name=\"font-family\" class=\"mailpoet_select mailpoet_select_medium mailpoet_field_button_font_family mailpoet_font_family\">
         <optgroup label=\"";
-        // line 47
+        // line 48
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Standard fonts");
         echo "\">
         {{#each availableStyles.fonts.standard}}
@@ -112,7 +116,7 @@ class __TwigTemplate_43903aab9ead5da2aa4fd5513357866620f7fd81d3e3f3af87287dcca14
         {{/each}}
         </optgroup>
         <optgroup label=\"";
-        // line 52
+        // line 53
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Custom fonts");
         echo "\">
         {{#each availableStyles.fonts.custom}}
@@ -126,10 +130,6 @@ class __TwigTemplate_43903aab9ead5da2aa4fd5513357866620f7fd81d3e3f3af87287dcca14
         {{/each}}
         </select>
     </div>
-    <div class=\"mailpoet_form_field_title mailpoet_form_field_title_inline\">";
-        // line 64
-        echo $this->extensions['MailPoet\Twig\I18n']->translate("Text");
-        echo "</div>
 </div>
 <div class=\"mailpoet_form_field\">
     <div class=\"mailpoet_form_field_checkbox_option\">
@@ -234,7 +234,7 @@ class __TwigTemplate_43903aab9ead5da2aa4fd5513357866620f7fd81d3e3f3af87287dcca14
 
     public function getDebugInfo()
     {
-        return array (  212 => 124,  204 => 119,  192 => 110,  180 => 101,  168 => 92,  157 => 84,  148 => 78,  137 => 70,  128 => 64,  113 => 52,  105 => 47,  94 => 39,  85 => 33,  76 => 27,  69 => 23,  57 => 14,  44 => 4,  37 => 1,);
+        return array (  212 => 124,  204 => 119,  192 => 110,  180 => 101,  168 => 92,  157 => 84,  148 => 78,  137 => 70,  117 => 53,  109 => 48,  102 => 44,  94 => 39,  85 => 33,  76 => 27,  69 => 23,  57 => 14,  44 => 4,  37 => 1,);
     }
 
     public function getSourceContext()

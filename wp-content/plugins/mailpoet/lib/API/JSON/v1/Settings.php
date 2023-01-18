@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\API\JSON\v1;
 
@@ -24,7 +24,9 @@ use MailPoet\Settings\SettingsChangeHandler;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Settings\TrackingConfig;
 use MailPoet\Statistics\StatisticsOpensRepository;
+use MailPoet\Subscribers\ConfirmationEmailCustomizer;
 use MailPoet\Subscribers\SubscribersCountsController;
+use MailPoet\Util\Notices\DisabledMailFunctionNotice;
 use MailPoet\WooCommerce\TransactionalEmails;
 use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Carbon\Carbon;
@@ -83,6 +85,9 @@ class Settings extends APIEndpoint {
   /** @var SettingsChangeHandler */
   private $settingsChangeHandler;
 
+  /** @var ConfirmationEmailCustomizer */
+  private $confirmationEmailCustomizer;
+
   public function __construct(
     SettingsController $settings,
     Bridge $bridge,
@@ -99,7 +104,8 @@ class Settings extends APIEndpoint {
     SegmentsRepository $segmentsRepository,
     SettingsChangeHandler $settingsChangeHandler,
     SubscribersCountsController $subscribersCountsController,
-    TrackingConfig $trackingConfig
+    TrackingConfig $trackingConfig,
+    ConfirmationEmailCustomizer $confirmationEmailCustomizer
   ) {
     $this->settings = $settings;
     $this->bridge = $bridge;
@@ -117,6 +123,7 @@ class Settings extends APIEndpoint {
     $this->settingsChangeHandler = $settingsChangeHandler;
     $this->subscribersCountsController = $subscribersCountsController;
     $this->trackingConfig = $trackingConfig;
+    $this->confirmationEmailCustomizer = $confirmationEmailCustomizer;
   }
 
   public function get() {
@@ -365,6 +372,19 @@ class Settings extends APIEndpoint {
       $this->settingsChangeHandler->onMSSActivate($newSettings);
     }
 
+    if (($oldSendingMethod !== $newSendingMethod)) {
+      $sendingMethodSet = $newSettings['mta']['method'] ?? null;
+      if ($sendingMethodSet === 'PHPMail') {
+        // check for valid mail function
+        $this->settings->set(DisabledMailFunctionNotice::QUEUE_DISABLED_MAIL_FUNCTION_CHECK, true);
+      } else {
+        // when the user switch to a new sending method
+        // do not display the DisabledMailFunctionNotice
+        $this->settings->set(DisabledMailFunctionNotice::QUEUE_DISABLED_MAIL_FUNCTION_CHECK, false);
+        $this->settings->set(DisabledMailFunctionNotice::DISABLED_MAIL_FUNCTION_CHECK, false); // do not display notice
+      }
+    }
+
     // Sync WooCommerce Customers list
     $oldSubscribeOldWoocommerceCustomers = isset($oldSettings['mailpoet_subscribe_old_woocommerce_customers']['enabled'])
       ? $oldSettings['mailpoet_subscribe_old_woocommerce_customers']['enabled']
@@ -378,6 +398,10 @@ class Settings extends APIEndpoint {
 
     if (!empty($newSettings['woocommerce']['use_mailpoet_editor'])) {
       $this->wcTransactionalEmails->init();
+    }
+
+    if (!empty($newSettings['signup_confirmation']['use_mailpoet_editor'])) {
+      $this->confirmationEmailCustomizer->init();
     }
   }
 

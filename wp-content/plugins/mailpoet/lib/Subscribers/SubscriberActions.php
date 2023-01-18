@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Subscribers;
 
@@ -57,7 +57,11 @@ class SubscriberActions {
     $this->segmentsRepository = $segmentsRepository;
   }
 
-  public function subscribe($subscriberData = [], $segmentIds = []): SubscriberEntity {
+  /**
+   * Returns SubscriberEntity and associative array with some metadata related to the subscription (e.g. ['confirmationEmailResult' => $exception])
+   * @return array{0: SubscriberEntity, 1: array{confirmationEmailResult: bool|\Exception}}
+   */
+  public function subscribe($subscriberData = [], $segmentIds = []): array {
     // filter out keys from the subscriber_data array
     // that should not be editable when subscribing
     $subscriberData = $this->subscriberSaveController->filterOutReservedColumns($subscriberData);
@@ -101,14 +105,16 @@ class SubscriberActions {
     }
 
     $this->subscribersRepository->flush();
+
+    $metaData = ['confirmationEmailResult' => false];
     // link subscriber to segments
     $segments = $this->segmentsRepository->findBy(['id' => $segmentIds]);
     $this->subscriberSegmentRepository->subscribeToSegments($subscriber, $segments);
 
     try {
-      $this->confirmationEmailMailer->sendConfirmationEmailOnce($subscriber);
+      $metaData['confirmationEmailResult'] = $this->confirmationEmailMailer->sendConfirmationEmailOnce($subscriber);
     } catch (\Exception $e) {
-      // ignore errors
+      $metaData['confirmationEmailResult'] = $e;
     }
 
     // We want to send the notification on subscribe only when signupConfirmation is disabled
@@ -121,6 +127,6 @@ class SubscriberActions {
       );
     }
 
-    return $subscriber;
+    return [$subscriber, $metaData];
   }
 }

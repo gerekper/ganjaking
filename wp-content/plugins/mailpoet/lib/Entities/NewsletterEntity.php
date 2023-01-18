@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Entities;
 
@@ -33,6 +33,7 @@ class NewsletterEntity {
   const TYPE_NOTIFICATION_HISTORY = 'notification_history';
   const TYPE_WC_TRANSACTIONAL_EMAIL = 'wc_transactional';
   const TYPE_RE_ENGAGEMENT = 're_engagement';
+  const TYPE_CONFIRMATION_EMAIL_CUSTOMIZER = 'confirmation_email';
 
   // standard newsletters
   const STATUS_DRAFT = 'draft';
@@ -135,7 +136,7 @@ class NewsletterEntity {
   private $parent;
 
   /**
-   * @ORM\OneToMany(targetEntity="MailPoet\Entities\NewsletterEntity", mappedBy="parent")
+   * @ORM\OneToMany(targetEntity="MailPoet\Entities\NewsletterEntity", mappedBy="parent", fetch="EXTRA_LAZY")
    * @var ArrayCollection<int, NewsletterEntity>
    */
   private $children;
@@ -181,6 +182,9 @@ class NewsletterEntity {
     // reset ID
     $this->id = null;
     $this->newsletterSegments = new ArrayCollection();
+    $this->children = new ArrayCollection();
+    $this->options = new ArrayCollection();
+    $this->queues = new ArrayCollection();
   }
 
   /**

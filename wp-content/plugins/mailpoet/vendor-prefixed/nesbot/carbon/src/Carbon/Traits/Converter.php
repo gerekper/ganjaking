@@ -13,15 +13,7 @@ use DateTimeImmutable;
 use ReturnTypeWillChange;
 trait Converter
 {
- protected static $toStringFormat;
- public static function resetToStringFormat()
- {
- static::setToStringFormat(null);
- }
- public static function setToStringFormat($format)
- {
- static::$toStringFormat = $format;
- }
+ use ToStringFormat;
  #[\ReturnTypeWillChange]
  public function format($format)
  {
@@ -50,6 +42,10 @@ trait Converter
  public function toFormattedDateString()
  {
  return $this->rawFormat('M j, Y');
+ }
+ public function toFormattedDayDateString() : string
+ {
+ return $this->rawFormat('D, M j, Y');
  }
  public function toTimeString($unitPrecision = 'second')
  {

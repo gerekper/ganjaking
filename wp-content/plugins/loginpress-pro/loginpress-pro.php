@@ -3,7 +3,7 @@
 * Plugin Name: LoginPress Pro
 * Plugin URI: https://loginpress.pro/
 * Description: This plugin adds premium features in your LoginPress plugin.
-* Version: 2.5.2
+* Version: 2.5.3
 * Author: WPBrigade
 * Author URI: https://www.WPBrigade.com/
 * License: GPLv2+
@@ -20,7 +20,7 @@ define( 'LOGINPRESS_PRO_PLUGIN_ROOT', dirname( plugin_basename( __FILE__ ) ) );
 
 define( 'LOGINPRESS_PRO_STORE_URL', 'https://WPBrigade.com' );
 define( 'LOGINPRESS_PRO_PRODUCT_NAME', 'LogingPress Pro' );
-define( 'LOGINPRESS_PRO_VERSION', '2.5.2' );
+define( 'LOGINPRESS_PRO_VERSION', '2.5.3' );
 
 
 add_action( 'plugins_loaded', 'loginpress_instance', 20 );

@@ -2,11 +2,17 @@
 namespace MailPoetVendor\Carbon\Exceptions;
 if (!defined('ABSPATH')) exit;
 use BadMethodCallException as BaseBadMethodCallException;
-use Exception;
+use Throwable;
 class BadFluentSetterException extends BaseBadMethodCallException implements BadMethodCallException
 {
- public function __construct($method, $code = 0, Exception $previous = null)
+ protected $setter;
+ public function __construct($setter, $code = 0, Throwable $previous = null)
  {
- parent::__construct(\sprintf("Unknown fluent setter '%s'", $method), $code, $previous);
+ $this->setter = $setter;
+ parent::__construct(\sprintf("Unknown fluent setter '%s'", $setter), $code, $previous);
+ }
+ public function getSetter() : string
+ {
+ return $this->setter;
  }
 }

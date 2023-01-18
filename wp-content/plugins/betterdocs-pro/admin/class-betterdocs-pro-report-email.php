@@ -73,7 +73,7 @@ class Betterdocs_Pro_Report_Email extends BetterDocs_Report_Email
 
     public function reporting_subject() {
         $settings = array(
-            'name'     => 'reporting_subject',
+            'name'     => 'reporting_subject_updated',
             'type'     => 'text',
             'label'    => __( 'Reporting Email Subject', 'betterdocs-pro' ),
             'default'  => wp_sprintf( '%s %s %s', __( 'Your Documentation Performance of', 'betterdocs' ),  get_bloginfo( 'name' ), __( 'Website', 'betterdocs' ), ),
@@ -83,7 +83,7 @@ class Betterdocs_Pro_Report_Email extends BetterDocs_Report_Email
     }
 
     public function email_subject() {
-        $reporting_subject = BetterDocs_DB::get_settings('reporting_subject');
+        $reporting_subject = BetterDocs_DB::get_settings('reporting_subject_updated');
         if ( isset( $reporting_subject  ) ) {
             return $reporting_subject;
         }
@@ -115,13 +115,13 @@ class Betterdocs_Pro_Report_Email extends BetterDocs_Report_Email
 
         if ( is_array( $reporting_tables ) ) {
             $analytics = '';
-            error_log(print_r($analytics, 1));
+
             if ( in_array('overview', $reporting_tables ) ) {
                 $analytics .= $this->analytics_overview( $args, $frequency );
             }
             
             if ( in_array('top-docs', $reporting_tables ) ) {
-                $analytics .= $this->leading_docs( $args['docs']['current_data'], $frequency );
+                $analytics .= $this->leading_docs( $args['docs']['current_data'], $args['docs']['total_current_reactions'], $frequency );
             }
             
             if ( in_array( 'most-search', $reporting_tables ) ) {

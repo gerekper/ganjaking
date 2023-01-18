@@ -1,5 +1,10 @@
 *** WooCommerce Photography Changelog ***
 
+2023-01-12 - version 1.1.1
+* Tweak - Prevent image resizing on bulk upload.
+* Tweak - Tested compatibility with WC 7.3.
+* Fix - Fixed warning on the photography single product page when it doesn't belong to any collection.
+
 2022-12-20 - version 1.1.0
 * Feature - Allow using the image filename in the product title.
 * Tweak - Updated plugin author.

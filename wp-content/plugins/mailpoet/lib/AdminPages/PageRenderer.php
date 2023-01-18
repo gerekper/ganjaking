@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\AdminPages;
 
@@ -7,10 +7,12 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Cache\TransientCache;
 use MailPoet\Config\Installer;
+use MailPoet\Config\Menu;
 use MailPoet\Config\Renderer;
 use MailPoet\Config\ServicesChecker;
 use MailPoet\Cron\Workers\SubscribersCountCacheRecalculation;
 use MailPoet\Entities\SegmentEntity;
+use MailPoet\Entities\TagEntity;
 use MailPoet\Features\FeaturesController;
 use MailPoet\Referrals\ReferralDetector;
 use MailPoet\Segments\SegmentsRepository;
@@ -18,6 +20,7 @@ use MailPoet\Services\Bridge;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Settings\TrackingConfig;
 use MailPoet\Settings\UserFlagsController;
+use MailPoet\Tags\TagRepository;
 use MailPoet\Tracy\DIPanel\DIPanel;
 use MailPoet\Util\Installation;
 use MailPoet\Util\License\Features\Subscribers as SubscribersFeature;
@@ -52,6 +55,8 @@ class PageRenderer {
   /** @var SegmentsRepository */
   private $segmentRepository;
 
+  private $tagRepository;
+
   /** @var SubscribersCountCacheRecalculation */
   private $subscribersCountCacheRecalculation;
 
@@ -76,6 +81,7 @@ class PageRenderer {
     SettingsController $settings,
     UserFlagsController $userFlags,
     SegmentsRepository $segmentRepository,
+    TagRepository $tagRepository,
     SubscribersCountCacheRecalculation $subscribersCountCacheRecalculation,
     SubscribersFeature $subscribersFeature,
     TrackingConfig $trackingConfig,
@@ -90,6 +96,7 @@ class PageRenderer {
     $this->settings = $settings;
     $this->userFlags = $userFlags;
     $this->segmentRepository = $segmentRepository;
+    $this->tagRepository = $tagRepository;
     $this->subscribersCountCacheRecalculation = $subscribersCountCacheRecalculation;
     $this->subscribersFeature = $subscribersFeature;
     $this->trackingConfig = $trackingConfig;
@@ -117,7 +124,9 @@ class PageRenderer {
     $subscribersCacheCreatedAt = $this->transientCache->getOldestCreatedAt(TransientCache::SUBSCRIBERS_STATISTICS_COUNT_KEY) ?: Carbon::now();
 
     $defaults = [
+      'current_page' => sanitize_text_field(wp_unslash($_GET['page'] ?? '')),
       'site_name' => $this->wp->wpSpecialcharsDecode($this->wp->getOption('blogname'), ENT_QUOTES),
+      'main_page' => Menu::$mainPageSlug,
       'site_url' => $this->wp->siteUrl(),
       'site_address' => $this->wp->wpParseUrl($this->wp->homeUrl(), PHP_URL_HOST),
       'feature_flags' => $this->featuresController->getAllFlags(),
@@ -132,6 +141,8 @@ class PageRenderer {
       'is_new_user' => $this->installation->isNewInstallation(),
       'installed_days_ago' => (int)$installedAtDiff->format('%a'),
       'deactivate_subscriber_after_inactive_days' => $this->settings->get('deactivate_subscriber_after_inactive_days'),
+      'send_transactional_emails' => (bool)$this->settings->get('send_transactional_emails'),
+      'transactional_emails_opt_in_notice_dismissed' => (bool)$this->userFlags->get('transactional_emails_opt_in_notice_dismissed'),
 
       // Premium & plan upgrade info
       'current_wp_user_email' => $this->wp->wpGetCurrentUser()->user_email,
@@ -159,6 +170,12 @@ class PageRenderer {
         'automationEditor' => admin_url('admin.php?page=mailpoet-automation-editor'),
         'automationTemplates' => admin_url('admin.php?page=mailpoet-automation-templates'),
       ],
+      'tags' => array_map(function (TagEntity $tag): array {
+        return [
+        'id' => $tag->getId(),
+        'name' => $tag->getName(),
+        ];
+      }, $this->tagRepository->findAll()),
     ];
 
     if (!$defaults['premium_plugin_active']) {

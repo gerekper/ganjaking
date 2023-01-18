@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\API\JSON;
 
@@ -7,8 +7,9 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Config\AccessControl;
 use MailPoet\Exception;
+use MailPoet\Logging\LoggerFactory;
 use MailPoet\Settings\SettingsController;
-use MailPoet\Subscription\Captcha;
+use MailPoet\Subscription\Captcha\CaptchaConstants;
 use MailPoet\Tracy\ApiPanel\ApiPanel;
 use MailPoet\Tracy\DIPanel\DIPanel;
 use MailPoet\Util\Helpers;
@@ -45,6 +46,9 @@ class API {
   /** @var SettingsController */
   private $settings;
 
+  /** @var LoggerFactory */
+  private $loggerFactory;
+
   const CURRENT_VERSION = 'v1';
 
   public function __construct(
@@ -52,6 +56,7 @@ class API {
     AccessControl $accessControl,
     ErrorHandler $errorHandler,
     SettingsController $settings,
+    LoggerFactory $loggerFactory,
     WPFunctions $wp
   ) {
     $this->container = $container;
@@ -65,6 +70,7 @@ class API {
         $availableApiVersion
       );
     }
+    $this->loggerFactory = $loggerFactory;
   }
 
   public function init() {
@@ -103,7 +109,7 @@ class API {
     }
 
     $ignoreToken = (
-      $this->settings->get('captcha.type') != Captcha::TYPE_DISABLED &&
+      $this->settings->get('captcha.type') != CaptchaConstants::TYPE_DISABLED &&
       $this->requestEndpoint === 'subscribers' &&
       $this->requestMethod === 'subscribe'
     );
@@ -212,11 +218,13 @@ class API {
       $response = $endpoint->{$this->requestMethod}($this->requestData);
       return $response;
     } catch (Exception $e) {
+      $this->logError($e);
       return $this->errorHandler->convertToResponse($e);
     } catch (Throwable $e) {
       if (class_exists(Debugger::class) && Debugger::$logDirectory) {
         Debugger::log($e, ILogger::EXCEPTION);
       }
+      $this->logError($e);
       $errorMessage = $e->getMessage();
       $errorResponse = $this->createErrorResponse(Error::BAD_REQUEST, $errorMessage, Response::STATUS_BAD_REQUEST);
       return $errorResponse;
@@ -272,5 +280,17 @@ class API {
       $responseStatus
     );
     return $errorResponse;
+  }
+
+  private function logError(Throwable $e): void {
+    // logging to the php log
+    error_log((string)$e); // phpcs:ignore Squiz.PHP.DiscouragedFunctions
+    // logging to the MailPoet table
+    $this->loggerFactory->getLogger(LoggerFactory::TOPIC_API)->warning($e->getMessage(), [
+      'requestMethod' => $this->requestMethod,
+      'requestEndpoint' => $this->requestEndpoint,
+      'exceptionMessage' => $e->getMessage(),
+      'exceptionTrace' => $e->getTrace(),
+    ]);
   }
 }

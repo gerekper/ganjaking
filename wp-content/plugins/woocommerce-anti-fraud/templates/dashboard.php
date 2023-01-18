@@ -21,7 +21,7 @@ $afp_args = array(
 foreach ($afp_orders as $order_id) {
 	$number_of_orders++;
 	$wc_af_score = intval(get_post_meta($order_id, 'wc_af_score', true));
-	$total_transaction_amt += get_post_meta($order_id, '_order_total', true);
+	$total_transaction_amt += round(get_post_meta($order_id, '_order_total', true), 2);
 	$meta = WC_AF_Score_Helper::get_score_meta($wc_af_score);
 	if ('Low Risk' == $meta['label']) {
 		$number_of_low_risk_orders++;
@@ -41,11 +41,13 @@ foreach ($afp_orders as $order_id) {
 	$date_from = gmdate('Y-m-d');
 	$date_to = gmdate('Y-m-d', strtotime('-1 days'));
 
-		$sql = "SELECT * FROM $wpdb->posts 
+	$result = $wpdb->get_results(
+		$wpdb->prepare( "SELECT * FROM $wpdb->posts 
                 WHERE post_type = 'shop_order'
                 AND post_status != 'auto-draft'
-                AND post_date BETWEEN '" . $date_to . "  00:00:00' AND '" . $date_from . " 23:59:59'";
-	$result = $wpdb->get_results( $wpdb->prepare( '%s', $sql) );
+                AND post_date BETWEEN '%d 00:00:00' AND '%d 23:59:59'
+    ", $date_to, $date_from )
+	);
 
 	$wc_settings_anti_fraudblacklist_emails = get_option('wc_settings_anti_fraudblacklist_emails');
 	$wc_settings_anti_fraudblacklist_emails = explode(',', $wc_settings_anti_fraudblacklist_emails);
@@ -59,50 +61,50 @@ foreach ($afp_orders as $order_id) {
 	$number_of_high_risk_orders_cancelled24 = 0;
 	$number_of_paypal_verification_orders = 0;
 	$block_emails = array();
-foreach ($result as $found_order) {
-	$total_orders++;
-	$email = get_post_meta($found_order->ID, '_billing_email', true);
-	$total_transaction_amt24 += get_post_meta($found_order->ID, '_order_total', true);
-	$order_currency = get_post_meta($found_order->ID, '_order_currency', true);
-	$wc_af_score = intval(get_post_meta($found_order->ID, 'wc_af_score', true));
-	$paypal_status = get_post_meta($found_order->ID, '_paypal_status', true);
-	$meta = WC_AF_Score_Helper::get_score_meta($wc_af_score);
-	if ('Low Risk' == $meta['label']) {
-		$number_of_low_risk_orders24++;
+	foreach ($result as $found_order) {
+		$total_orders++;
+		$email = get_post_meta($found_order->ID, '_billing_email', true);
+		$total_transaction_amt24 += get_post_meta($found_order->ID, '_order_total', true);
+		$order_currency = get_post_meta($found_order->ID, '_order_currency', true);
+		$wc_af_score = intval(get_post_meta($found_order->ID, 'wc_af_score', true));
+		$paypal_status = get_post_meta($found_order->ID, '_paypal_status', true);
+		$meta = WC_AF_Score_Helper::get_score_meta($wc_af_score);
+		if ('Low Risk' == $meta['label']) {
+			$number_of_low_risk_orders24++;
+		}
+		if ('Medium Risk' == $meta['label']) {
+			$number_of_medium_risk_orders24++;
+		}
+		if ('High Risk' == $meta['label'] && 'wc-on-hold' == $found_order->post_status) {
+			$number_of_high_risk_orders_hold24++;
+		}
+		if ('High Risk' == $meta['label'] && 'wc-cancelled' == $found_order->post_status) {
+			$number_of_high_risk_orders_cancelled24++;
+		}
+		if ('High Risk' == $meta['label']) {
+			$high_risk_transaction_amt24 += get_post_meta($found_order->ID, '_order_total', true);
+			$number_of_high_risk_orders24++;
+		}
+		if (in_array($email, $wc_settings_anti_fraudblacklist_emails)) {
+			$block_emails[] = $email;
+		}
+		if (0 == $wc_af_score && 'wc-cancelled' == $found_order->post_status) {
+			$high_risk_transaction_amt24 += get_post_meta($found_order->ID, '_order_total', true);
+			$number_of_high_risk_orders_cancelled24++;
+		}
+		if ('pending' == $paypal_status) {
+			$number_of_paypal_verification_orders++;
+		}
 	}
-	if ('Medium Risk' == $meta['label']) {
-		$number_of_medium_risk_orders24++;
-	}
-	if ('High Risk' == $meta['label'] && 'wc-on-hold' == $found_order->post_status) {
-		$number_of_high_risk_orders_hold24++;
-	}
-	if ('High Risk' == $meta['label'] && 'wc-cancelled' == $found_order->post_status) {
-		$number_of_high_risk_orders_cancelled24++;
-	}
-	if ('High Risk' == $meta['label']) {
-		$high_risk_transaction_amt24 += get_post_meta($found_order->ID, '_order_total', true);
-		$number_of_high_risk_orders24++;
-	}
-	if (in_array($email, $wc_settings_anti_fraudblacklist_emails)) {
-		$block_emails[] = $email;
-	}
-	if (0 == $wc_af_score && 'wc-cancelled' == $found_order->post_status) {
-		$high_risk_transaction_amt24 += get_post_meta($found_order->ID, '_order_total', true);
-		$number_of_high_risk_orders_cancelled24++;
-	}
-	if ('pending' == $paypal_status) {
-		$number_of_paypal_verification_orders++;
-	}
-}
 	$block_emails = array_count_values($block_emails);
 
 
 	$date_from = gmdate('Y-m-d');
 	$date_to = gmdate('Y-m-d', strtotime('-6 days'));
 	$last7_days = array();
-for ($i = 6; $i > 0; $i--) {
-	$last7_days[] = gmdate('d F', strtotime('-' . $i . ' days'));
-}
+	for ($i = 6; $i > 0; $i--) {
+		$last7_days[] = gmdate('d F', strtotime('-' . $i . ' days'));
+	}
 	$last7_days[] = gmdate('d F');
 	$result = $wpdb->get_results(
 		$wpdb->prepare( "SELECT * FROM $wpdb->posts 

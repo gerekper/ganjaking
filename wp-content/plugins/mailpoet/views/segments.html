@@ -17,7 +17,6 @@
     ];
     var mailpoet_custom_fields = <%= json_encode(custom_fields) %>;
     var mailpoet_static_segments_list = <%= json_encode(static_segments_list) %>;
-    var mailpoet_tags = <%= json_encode(tags) %>;
     var wordpress_editable_roles_list = <%= json_encode(wordpress_editable_roles_list)  %>;
     var mailpoet_newsletters_list = <%= json_encode(newsletters_list)  %>;
     var mailpoet_product_categories = <%= json_encode(product_categories)  %>;
@@ -95,6 +94,9 @@
 
     'segmentDescriptionTip': __('This text box is for your own use and is never shown to your subscribers.'),
     'backToList': __('Back'),
+
+    'showInManageSubscriptionPage': __('Show this list on the “Manage Subscription” page'),
+    'showInManageSubscriptionPageTip': __('Uncheck to hide this list from the Manage Subscription page.'),
 
     'subscribersInPlanCount': _x('%1$d / %2$d', 'count / total subscribers'),
     'subscribersInPlan': _x('%s subscribers in your plan', 'number of subscribers in a sending plan'),

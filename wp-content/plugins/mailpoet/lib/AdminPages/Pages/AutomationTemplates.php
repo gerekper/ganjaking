@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\AdminPages\Pages;
 
@@ -6,32 +6,38 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\AdminPages\PageRenderer;
-use MailPoet\Automation\Engine\Data\WorkflowTemplate;
-use MailPoet\Automation\Engine\Storage\WorkflowTemplateStorage;
+use MailPoet\Automation\Engine\Data\AutomationTemplate;
+use MailPoet\Automation\Engine\Storage\AutomationTemplateStorage;
+use MailPoet\Form\AssetsController;
 use MailPoet\WP\Functions as WPFunctions;
 
 class AutomationTemplates {
+  /** @var AssetsController */
+  private $assetsController;
 
   /** @var PageRenderer */
   private $pageRenderer;
 
-  /** @var WorkflowTemplateStorage  */
+  /** @var AutomationTemplateStorage  */
   private $templateStorage;
 
   /** @var WPFunctions */
   private $wp;
 
   public function __construct(
+    AssetsController $assetsController,
     PageRenderer $pageRenderer,
-    WorkflowTemplateStorage $templateStorage,
+    AutomationTemplateStorage $templateStorage,
     WPFunctions $wp
   ) {
+    $this->assetsController = $assetsController;
     $this->pageRenderer = $pageRenderer;
     $this->templateStorage = $templateStorage;
     $this->wp = $wp;
   }
 
   public function render() {
+    $this->assetsController->setupAutomationTemplatesDependencies();
 
     $this->pageRenderer->displayPage(
       'automation/templates.html',
@@ -42,7 +48,7 @@ class AutomationTemplates {
           'nonce' => $this->wp->wpCreateNonce('wp_rest'),
         ],
         'templates' => array_map(
-          function(WorkflowTemplate $template): array {
+          function(AutomationTemplate $template): array {
             return $template->toArray();
           },
           $this->templateStorage->getTemplates()

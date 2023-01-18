@@ -375,24 +375,32 @@ if ( ! class_exists( 'WC_AF_Hook_Manager' ) ) {
 				'id' =>'ids'
 				)
 			);
-			if (!empty($orders)) {
 
-				foreach ($orders as $value) {
+			/* Auto order fraud check */
+			
+			$fraud_check = get_option('wc_af_start_auto_fraud_check');
 
-					$id = $value->get_id();
-					$score_points = get_post_meta( $id, 'wc_af_score', true );
+			if ('yes' == $fraud_check) {
 
-					if ('' != $score_points) {
+				if (!empty($orders)) {
 
-						return;
-					}
+					foreach ($orders as $value) {
 
-					$risk_waiting = get_post_meta( $id, '_wc_af_waiting', true );
+						$id = $value->get_id();
+						$score_points = get_post_meta( $id, 'wc_af_score', true );
 
-					if ('' == $score_points || '' != $risk_waiting) {
+						if ('' != $score_points) {
 
-						$score_helper = new WC_AF_Score_Helper();
-						$score_helper->schedule_fraud_check( $id );
+							continue;
+						}
+
+						$risk_waiting = get_post_meta( $id, '_wc_af_waiting', true );
+
+						if ('' == $score_points || '' != $risk_waiting) {
+
+							$score_helper = new WC_AF_Score_Helper();
+							$score_helper->schedule_fraud_check( $id );
+						}
 					}
 				}
 			}

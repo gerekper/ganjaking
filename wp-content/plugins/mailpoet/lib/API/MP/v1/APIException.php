@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\API\MP\v1;
 
@@ -21,4 +21,10 @@ class APIException extends \Exception {
   const LIST_EXISTS = 15;
   const FAILED_TO_SAVE_LIST = 16;
   const WELCOME_FAILED_TO_SEND = 17;
+  const LIST_ID_REQUIRED = 18;
+  const FAILED_TO_UPDATE_LIST = 19;
+  const LIST_USED_IN_EMAIL = 20;
+  const LIST_USED_IN_FORM = 21;
+  const FAILED_TO_DELETE_LIST = 22;
+  const LIST_TYPE_IS_NOT_SUPPORTED = 23;
 }

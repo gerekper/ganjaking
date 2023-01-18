@@ -252,6 +252,9 @@ class ActionScheduler_ListTable extends ActionScheduler_Abstract_ListTable {
  }
  protected function get_schedule_display_string( ActionScheduler_Schedule $schedule ) {
  $schedule_display_string = '';
+ if ( is_a( $schedule, 'ActionScheduler_NullSchedule' ) ) {
+ return __( 'async', 'action-scheduler' );
+ }
  if ( ! $schedule->get_date() ) {
  return '0000-00-00 00:00:00';
  }
@@ -318,6 +321,10 @@ class ActionScheduler_ListTable extends ActionScheduler_Abstract_ListTable {
  'order' => $this->get_request_order(),
  'search' => $this->get_request_search_query(),
  );
+ if ( 'past-due' === $this->get_request_status() ) {
+ $query['status'] = ActionScheduler_Store::STATUS_PENDING;
+ $query['date'] = as_get_datetime_object();
+ }
  $this->items = array();
  $total_items = $this->store->query_actions( $query, 'count' );
  $status_labels = $this->store->get_status_labels();
@@ -350,7 +357,7 @@ class ActionScheduler_ListTable extends ActionScheduler_Abstract_ListTable {
  ) );
  }
  protected function display_filter_by_status() {
- $this->status_counts = $this->store->action_counts();
+ $this->status_counts = $this->store->action_counts() + $this->store->extra_action_counts();
  parent::display_filter_by_status();
  }
  protected function get_search_box_button_text() {

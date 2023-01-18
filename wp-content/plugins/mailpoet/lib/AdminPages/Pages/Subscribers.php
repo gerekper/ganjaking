@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\AdminPages\Pages;
 
@@ -9,12 +9,10 @@ use MailPoet\AdminPages\PageRenderer;
 use MailPoet\API\JSON\ResponseBuilders\CustomFieldsResponseBuilder;
 use MailPoet\CustomFields\CustomFieldsRepository;
 use MailPoet\Entities\CustomFieldEntity;
-use MailPoet\Entities\TagEntity;
 use MailPoet\Form\Block;
 use MailPoet\Listing\PageLimit;
 use MailPoet\Segments\SegmentsSimpleListRepository;
 use MailPoet\Subscribers\ConfirmationEmailMailer;
-use MailPoet\Tags\TagRepository;
 
 class Subscribers {
   /** @var PageRenderer */
@@ -29,9 +27,6 @@ class Subscribers {
   /** @var SegmentsSimpleListRepository */
   private $segmentsListRepository;
 
-  /** @var TagRepository */
-  private $tagRepository;
-
   /** @var CustomFieldsRepository */
   private $customFieldsRepository;
 
@@ -43,7 +38,6 @@ class Subscribers {
     PageLimit $listingPageLimit,
     Block\Date $dateBlock,
     SegmentsSimpleListRepository $segmentsListRepository,
-    TagRepository $tagRepository,
     CustomFieldsRepository $customFieldsRepository,
     CustomFieldsResponseBuilder $customFieldsResponseBuilder
   ) {
@@ -51,7 +45,6 @@ class Subscribers {
     $this->listingPageLimit = $listingPageLimit;
     $this->dateBlock = $dateBlock;
     $this->segmentsListRepository = $segmentsListRepository;
-    $this->tagRepository = $tagRepository;
     $this->customFieldsRepository = $customFieldsRepository;
     $this->customFieldsResponseBuilder = $customFieldsResponseBuilder;
   }
@@ -61,13 +54,6 @@ class Subscribers {
 
     $data['items_per_page'] = $this->listingPageLimit->getLimitPerPage('subscribers');
     $data['segments'] = $this->segmentsListRepository->getListWithSubscribedSubscribersCounts();
-
-    $data['tags'] = array_map(function (TagEntity $tag): array {
-      return [
-        'id' => $tag->getId(),
-        'name' => $tag->getName(),
-      ];
-    }, $this->tagRepository->findAll());
 
     $data['custom_fields'] = array_map(function(CustomFieldEntity $customField): array {
       $field = $this->customFieldsResponseBuilder->build($customField);

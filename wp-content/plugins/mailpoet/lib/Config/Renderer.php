@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Config;
 
@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Twig;
+use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Twig\Extension\DebugExtension;
 use MailPoetVendor\Twig\Lexer as TwigLexer;
 use MailPoetVendor\Twig\Loader\FilesystemLoader as TwigFileSystem;
@@ -76,12 +77,17 @@ class Renderer {
   }
 
   public function setupGlobalVariables() {
-    $this->renderer->addExtension(new Twig\Assets([
-      'version' => Env::$version,
-      'assets_url' => Env::$assetsUrl,
-      'assets_manifest_js' => $this->assetsManifestJs,
-      'assets_manifest_css' => $this->assetsManifestCss,
-    ]));
+    $this->renderer->addExtension(
+      new Twig\Assets(
+        [
+          'version' => Env::$version,
+          'assets_url' => Env::$assetsUrl,
+          'assets_manifest_js' => $this->assetsManifestJs,
+          'assets_manifest_css' => $this->assetsManifestCss,
+        ],
+        WPFunctions::get()
+      )
+    );
   }
 
   public function setupSyntax() {

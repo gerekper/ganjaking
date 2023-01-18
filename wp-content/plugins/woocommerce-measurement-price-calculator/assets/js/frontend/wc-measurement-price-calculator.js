@@ -20,6 +20,13 @@ jQuery( function( $ ) {
 		$( '.variable_price_calculator' ).hide();
 	} );
 
+	$( '.amount_needed:input' ).on('keypress', function (event) {
+		if ( event.key === wc_price_calculator_params.woocommerce_price_thousand_sep ) {
+			event.preventDefault();
+			return false;
+		}
+	});
+
 	// triggers inline help popup for user defined measurement inputs
 	$( '.wc-measurement-price-calculator-input-help' ).tipTip( {
 		attribute: 'title',
@@ -409,7 +416,12 @@ jQuery( function( $ ) {
 					if ( el.is( 'input' ) ) {
 						el.val( amount );
 					} else {
-						el.text( amount );
+						el.text( number_format(
+							amount,
+							2,
+							wc_price_calculator_params.woocommerce_price_decimal_sep,
+							wc_price_calculator_params.woocommerce_price_thousand_sep
+						));
 					}
 				});
 
@@ -612,6 +624,7 @@ jQuery( function( $ ) {
 	 */
 	function convertUnits( value, fromUnit, toUnit ) {
 
+		value = standardizeUnitInput( value );
 		value = new BigNumber(value);
 
 		// fromUnit to its corresponding standard unit
@@ -666,7 +679,6 @@ jQuery( function( $ ) {
 		return '' === str ? 0 : parseFloat( str );
 	}
 
-
 	/**
 	 * Standardizes a customer input to allow for other decimal separators and remove thousand separators.
 	 *
@@ -681,7 +693,7 @@ jQuery( function( $ ) {
 	function standardizeInput( val ) {
 
 		var thousandSeparator = $.trim( wc_price_calculator_params.woocommerce_price_thousand_sep ).toString(),
-		    decimalSeparator  = $.trim( wc_price_calculator_params.woocommerce_price_decimal_sep ).toString();
+			decimalSeparator  = $.trim( wc_price_calculator_params.woocommerce_price_decimal_sep ).toString();
 
 		if ( ! val || null === val ) {
 			val = '';
@@ -705,6 +717,32 @@ jQuery( function( $ ) {
 		return val;
 	}
 
+	/**
+	 * Standardizes a customer input to allow for other decimal separators.
+	 *
+	 * This isn't a great way to do this as it doesn't guarantee what the customer will use,
+	 * but 'tis the best we can do without trying to accept every number input form {BR 2017-11-07}
+	 *
+	 * @since 3.21.1
+	 *
+	 * @param val {string|int|float} the customer input value
+	 * @return {string} the standard number-formatted value
+	 */
+	function standardizeUnitInput( val ) {
+
+		if ( ! val || null === val ) {
+			val = '';
+		} else if (  ! isNaN( val ) ) {
+			val = val.toString();
+		}
+
+		if ( val.length > 0 ) {
+			// allow for other decimal separators; THERE CAN BE ONLY ONE so replace the first we find
+			val = val.replace( ',', '.' );
+		}
+
+		return val;
+	}
 
 	/** WooCommerce Function Ports ********************************************/
 

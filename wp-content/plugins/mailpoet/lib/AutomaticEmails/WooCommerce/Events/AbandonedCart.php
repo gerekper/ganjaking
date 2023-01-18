@@ -57,26 +57,27 @@ class AbandonedCart {
       'slug' => self::SLUG,
       'title' => _x('Abandoned Shopping Cart', 'This is the name of a type of automatic email for ecommerce. Those emails are sent automatically when a customer adds product to his shopping cart but never complete the checkout process.', 'mailpoet'),
       'description' => __('Send an email to logged-in visitors who have items in their shopping carts but left your website without checking out. Can convert up to 5% of abandoned carts.', 'mailpoet'),
-      'listingScheduleDisplayText' => _x('Email sent when a customer abandons his cart.', 'Description of Abandoned Shopping Cart email', 'mailpoet'),
+      'listingScheduleDisplayText' => _x('Send the email when a customer abandons their cart.', 'Description of Abandoned Shopping Cart email', 'mailpoet'),
+      'afterDelayText' => __('after abandoning the cart', 'mailpoet'),
       'badge' => [
         'text' => __('Must-have', 'mailpoet'),
         'style' => 'red',
       ],
       'timeDelayValues' => [
         'minutes' => [
-          'text' => _x('30 minutes after last page loaded', 'This is a trigger setting. It means that we will send an automatic email to a visitor 30 minutes after this visitor had left the website.', 'mailpoet'),
+          'text' => _x('30 minutes', 'This is a trigger setting. It means that we will send an automatic email to a visitor 30 minutes after this visitor had left the website.', 'mailpoet'),
           'displayAfterTimeNumberField' => false,
         ],
         'hours' => [
-          'text' => __('hour(s) later', 'mailpoet'),
+          'text' => __('hour(s)', 'mailpoet'),
           'displayAfterTimeNumberField' => true,
         ],
         'days' => [
-          'text' => __('day(s) later', 'mailpoet'),
+          'text' => __('day(s)', 'mailpoet'),
           'displayAfterTimeNumberField' => true,
         ],
         'weeks' => [
-          'text' => __('week(s) later', 'mailpoet'),
+          'text' => __('week(s)', 'mailpoet'),
           'displayAfterTimeNumberField' => true,
         ],
       ],
@@ -168,11 +169,11 @@ class AbandonedCart {
     }
 
     $meta = [self::TASK_META_NAME => $cartProductIds];
-    $this->scheduler->scheduleOrRescheduleAutomaticEmail(WooCommerceEmail::SLUG, self::SLUG, (int)$subscriber->getId(), $meta);
+    $this->scheduler->scheduleOrRescheduleAutomaticEmail(WooCommerceEmail::SLUG, self::SLUG, $subscriber, $meta);
   }
 
-  private function rescheduleAbandonedCartEmail(SubscriberEntity $subscriberEntity) {
-    $this->scheduler->rescheduleAutomaticEmail(WooCommerceEmail::SLUG, self::SLUG, (int)$subscriberEntity->getId());
+  private function rescheduleAbandonedCartEmail(SubscriberEntity $subscriber) {
+    $this->scheduler->rescheduleAutomaticEmail(WooCommerceEmail::SLUG, self::SLUG, $subscriber);
   }
 
   private function cancelAbandonedCartEmail() {
@@ -180,7 +181,7 @@ class AbandonedCart {
     if (!$subscriber) {
       return;
     }
-    $this->scheduler->cancelAutomaticEmail(WooCommerceEmail::SLUG, self::SLUG, (int)$subscriber->getId());
+    $this->scheduler->cancelAutomaticEmail(WooCommerceEmail::SLUG, self::SLUG, $subscriber);
   }
 
   private function getSubscriber(): ?SubscriberEntity {

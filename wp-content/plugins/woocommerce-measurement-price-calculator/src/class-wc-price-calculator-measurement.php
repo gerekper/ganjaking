@@ -25,6 +25,7 @@ defined( 'ABSPATH' ) or exit;
 
 use SkyVerge\Math\RoundingMode;
 use SkyVerge\Math\BigDecimal;
+use Automattic\WooCommerce\Utilities\OrderUtil;
 
 /**
  * This class represents a product physical attribute measurement, consisting
@@ -302,9 +303,7 @@ class WC_Price_Calculator_Measurement {
 	 */
 	public static function convert( $value, $unit, $to_unit ) {
 
-		if ( is_string( $value ) ) {
-			$value = (float) $value;
-		}
+		$value = self::normalize_float_values($value);
 
 		// all units to their corresponding standard unit
 		$normalize_table = self::get_normalize_table();
@@ -747,5 +746,50 @@ class WC_Price_Calculator_Measurement {
 		return $compare;
 	}
 
+	/**
+	 * Retrieves field value from the post object meta and formats it according to WC Settings
+	 *
+	 * @param string $field field to be retrieved
+	 * @return string|null
+	 */
+	public static function get_and_format_measurement_object_meta_value( $field ) {
+
+		global $post;
+
+		$value = OrderUtil::get_post_or_object_meta( $post, null, $field, true );
+
+		if (empty($value)) {
+			return null;
+		}
+
+		$value = self::normalize_float_values($value);
+
+		return number_format(
+			$value,
+			wc_get_price_decimals(),
+			wc_get_price_decimal_separator(),
+			wc_get_price_thousand_separator()
+		);
+	}
+
+	/**
+	 * Normalizes the decimal value came from the database to be able to perform math.
+	 *
+	 * @param $value decimal value to be normalized
+	 * @return float
+	 */
+	public static function normalize_float_values( $value ) {
+
+		if ( is_string($value) ) {
+
+			if ( ',' === wc_get_price_decimal_separator() ) {
+				return (float) str_replace(',', '.', str_replace('.', '', $value));
+			}
+
+			$value = (float) str_replace(',', '.', $value);
+		}
+
+		return (float) $value;
+	}
 
 }

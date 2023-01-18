@@ -9,10 +9,16 @@ class ActionScheduler_DBStore extends ActionScheduler_Store {
  $table_maker->init();
  $table_maker->register_tables();
  }
- public function save_action( ActionScheduler_Action $action, \DateTime $date = null ) {
+ public function save_unique_action( ActionScheduler_Action $action, \DateTime $scheduled_date = null ) {
+ return $this->save_action_to_db( $action, $scheduled_date, true );
+ }
+ public function save_action( ActionScheduler_Action $action, \DateTime $scheduled_date = null ) {
+ return $this->save_action_to_db( $action, $scheduled_date, false );
+ }
+ private function save_action_to_db( ActionScheduler_Action $action, DateTime $date = null, $unique = false ) {
+ global $wpdb;
  try {
  $this->validate_action( $action );
- global $wpdb;
  $data = array(
  'hook' => $action->get_hook(),
  'status' => ( $action->is_finished() ? self::STATUS_COMPLETE : self::STATUS_PENDING ),
@@ -28,12 +34,16 @@ class ActionScheduler_DBStore extends ActionScheduler_Store {
  $data['args'] = $this->hash_args( $args );
  $data['extended_args'] = $args;
  }
- $table_name = ! empty( $wpdb->actionscheduler_actions ) ? $wpdb->actionscheduler_actions : $wpdb->prefix . 'actionscheduler_actions';
- $wpdb->insert( $table_name, $data );
+ $insert_sql = $this->build_insert_sql( $data, $unique );
+ // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- $insert_sql should be already prepared.
+ $wpdb->query( $insert_sql );
  $action_id = $wpdb->insert_id;
  if ( is_wp_error( $action_id ) ) {
  throw new \RuntimeException( $action_id->get_error_message() );
  } elseif ( empty( $action_id ) ) {
+ if ( $unique ) {
+ return 0;
+ }
  throw new \RuntimeException( $wpdb->last_error ? $wpdb->last_error : __( 'Database error.', 'action-scheduler' ) );
  }
  do_action( 'action_scheduler_stored_action', $action_id );
@@ -41,6 +51,69 @@ class ActionScheduler_DBStore extends ActionScheduler_Store {
  } catch ( \Exception $e ) {
  throw new \RuntimeException( sprintf( __( 'Error saving action: %s', 'action-scheduler' ), $e->getMessage() ), 0 );
  }
+ }
+ private function build_insert_sql( array $data, $unique ) {
+ global $wpdb;
+ $columns = array_keys( $data );
+ $values = array_values( $data );
+ $placeholders = array_map( array( $this, 'get_placeholder_for_column' ), $columns );
+ $table_name = ! empty( $wpdb->actionscheduler_actions ) ? $wpdb->actionscheduler_actions : $wpdb->prefix . 'actionscheduler_actions';
+ $column_sql = '`' . implode( '`, `', $columns ) . '`';
+ $placeholder_sql = implode( ', ', $placeholders );
+ $where_clause = $this->build_where_clause_for_insert( $data, $table_name, $unique );
+ // phpcs:disable WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $column_sql and $where_clause are already prepared. $placeholder_sql is hardcoded.
+ $insert_query = $wpdb->prepare(
+ "
+INSERT INTO $table_name ( $column_sql )
+SELECT $placeholder_sql FROM DUAL
+WHERE ( $where_clause ) IS NULL",
+ $values
+ );
+ // phpcs:enable
+ return $insert_query;
+ }
+ private function build_where_clause_for_insert( $data, $table_name, $unique ) {
+ global $wpdb;
+ if ( ! $unique ) {
+ return 'SELECT NULL FROM DUAL';
+ }
+ $pending_statuses = array(
+ ActionScheduler_Store::STATUS_PENDING,
+ ActionScheduler_Store::STATUS_RUNNING,
+ );
+ $pending_status_placeholders = implode( ', ', array_fill( 0, count( $pending_statuses ), '%s' ) );
+ // phpcs:disable WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- $pending_status_placeholders is hardcoded.
+ $where_clause = $wpdb->prepare(
+ "
+SELECT action_id FROM $table_name
+WHERE status IN ( $pending_status_placeholders )
+AND hook = %s
+AND `group_id` = %d
+",
+ array_merge(
+ $pending_statuses,
+ array(
+ $data['hook'],
+ $data['group_id'],
+ )
+ )
+ );
+ // phpcs:enable
+ return "$where_clause" . ' LIMIT 1';
+ }
+ private function get_placeholder_for_column( $column_name ) {
+ $string_columns = array(
+ 'hook',
+ 'status',
+ 'scheduled_date_gmt',
+ 'scheduled_date_local',
+ 'args',
+ 'schedule',
+ 'last_attempt_gmt',
+ 'last_attempt_local',
+ 'extended_args',
+ );
+ return in_array( $column_name, $string_columns ) ? '%s' : '%d';
  }
  protected function hash_args( $args ) {
  return md5( $args );

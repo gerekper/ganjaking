@@ -169,14 +169,14 @@ class WC_Photography_Admin {
 			'drop_element'        => 'wc-photography-drag-drop-area',
 			'file_data_name'      => 'async-upload',
 			'multiple_queues'     => true,
-			'max_file_size'       => wp_max_upload_size() . 'b',
 			'url'                 => admin_url( 'async-upload.php' ),
 			'flash_swf_url'       => includes_url( 'js/plupload/plupload.flash.swf' ),
 			'silverlight_xap_url' => includes_url( 'js/plupload/plupload.silverlight.xap' ),
 			'filters'             => array(
 				array(
-					'title'      => __( 'Allowed Files', 'woocommerce-photography' ),
-					'extensions' => 'jpg,jpeg,gif,png',
+					'title'         => __( 'Allowed Files', 'woocommerce-photography' ),
+					'extensions'    => 'jpg,jpeg,gif,png',
+					'max_file_size' => wp_max_upload_size() . 'b',
 				),
 			),
 			'multipart'           => true,
@@ -188,7 +188,6 @@ class WC_Photography_Admin {
 				'tab'      => '',
 				'short'    => 3,
 			),
-			'resize'              => false,
 		);
 
 		if ( wp_is_mobile() ) {

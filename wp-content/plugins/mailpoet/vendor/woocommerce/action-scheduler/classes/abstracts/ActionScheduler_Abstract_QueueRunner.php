@@ -39,11 +39,44 @@ abstract class ActionScheduler_Abstract_QueueRunner extends ActionScheduler_Abst
  }
  }
  protected function schedule_next_instance( ActionScheduler_Action $action, $action_id ) {
+ // If a recurring action has been consistently failing, we may wish to stop rescheduling it.
+ if (
+ ActionScheduler_Store::STATUS_FAILED === $this->store->get_status( $action_id )
+ && $this->recurring_action_is_consistently_failing( $action, $action_id )
+ ) {
+ ActionScheduler_Logger::instance()->log(
+ $action_id,
+ __( 'This action appears to be consistently failing. A new instance will not be scheduled.', 'action-scheduler' )
+ );
+ return;
+ }
  try {
  ActionScheduler::factory()->repeat( $action );
  } catch ( Exception $e ) {
  do_action( 'action_scheduler_failed_to_schedule_next_instance', $action_id, $e, $action );
  }
+ }
+ private function recurring_action_is_consistently_failing( ActionScheduler_Action $action, $action_id ) {
+ $consistent_failure_threshold = (int) apply_filters( 'action_scheduler_recurring_action_failure_threshold', 5 );
+ // This query should find the earliest *failing* action (for the hook we are interested in) within our threshold.
+ $query_args = array(
+ 'hook' => $action->get_hook(),
+ 'status' => ActionScheduler_Store::STATUS_FAILED,
+ 'date' => date_create( 'now', timezone_open( 'UTC' ) )->format( 'Y-m-d H:i:s' ),
+ 'date_compare' => '<',
+ 'per_page' => 1,
+ 'offset' => $consistent_failure_threshold - 1
+ );
+ $first_failing_action_id = $this->store->query_actions( $query_args );
+ // If we didn't retrieve an action ID, then there haven't been enough failures for us to worry about.
+ if ( empty( $first_failing_action_id ) ) {
+ return false;
+ }
+ // Now let's fetch the first action (having the same hook) of *any status*ithin the same window.
+ unset( $query_args['status'] );
+ $first_action_id_with_the_same_hook = $this->store->query_actions( $query_args );
+ // If the IDs match, then actions for this hook must be consistently failing.
+ return $first_action_id_with_the_same_hook === $first_failing_action_id;
  }
  protected function run_cleanup() {
  $this->cleaner->clean( 10 * $this->get_time_limit() );

@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Config;
 
@@ -14,33 +14,26 @@ use MailPoet\Cron\Workers\StatsNotifications\Worker;
 use MailPoet\Cron\Workers\SubscriberLinkTokens;
 use MailPoet\Cron\Workers\SubscribersLastEngagement;
 use MailPoet\Cron\Workers\UnsubscribeTokens;
-use MailPoet\Entities\FormEntity;
 use MailPoet\Entities\NewsletterEntity;
-use MailPoet\Entities\NewsletterLinkEntity;
-use MailPoet\Entities\NewsletterTemplateEntity;
 use MailPoet\Entities\ScheduledTaskEntity;
-use MailPoet\Entities\SendingQueueEntity;
+use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\StatisticsFormEntity;
+use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Entities\UserFlagEntity;
-use MailPoet\Form\FormsRepository;
 use MailPoet\Mailer\MailerLog;
-use MailPoet\Models\Newsletter;
-use MailPoet\Models\ScheduledTask;
-use MailPoet\Models\Segment;
-use MailPoet\Models\SendingQueue;
-use MailPoet\Models\Subscriber;
+use MailPoet\Newsletter\Sending\ScheduledTasksRepository;
 use MailPoet\Referrals\ReferralDetector;
+use MailPoet\Segments\SegmentsRepository;
 use MailPoet\Segments\WP;
 use MailPoet\Services\Bridge;
 use MailPoet\Settings\Pages;
 use MailPoet\Settings\SettingsController;
-use MailPoet\Settings\TrackingConfig;
 use MailPoet\Settings\UserFlagsRepository;
 use MailPoet\Subscribers\NewSubscriberNotificationMailer;
 use MailPoet\Subscribers\Source;
-use MailPoet\Subscription\Captcha;
+use MailPoet\Subscription\Captcha\CaptchaConstants;
+use MailPoet\Subscription\Captcha\CaptchaRenderer;
 use MailPoet\Util\Helpers;
-use MailPoet\Util\Notices\ChangedTrackingNotice;
 use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Carbon\Carbon;
 use MailPoetVendor\Doctrine\ORM\EntityManager;
@@ -53,30 +46,33 @@ class Populator {
   private $settings;
   /** @var WPFunctions */
   private $wp;
-  /** @var Captcha */
-  private $captcha;
+  /** @var CaptchaRenderer */
+  private $captchaRenderer;
   /** @var ReferralDetector  */
   private $referralDetector;
   const TEMPLATES_NAMESPACE = '\MailPoet\Config\PopulatorData\Templates\\';
-  /** @var FormsRepository */
-  private $formsRepository;
   /** @var WP */
   private $wpSegment;
   /** @var EntityManager */
   private $entityManager;
+  /** @var ScheduledTasksRepository */
+  private $scheduledTasksRepository;
+  /** @var SegmentsRepository */
+  private $segmentsRepository;
 
   public function __construct(
     SettingsController $settings,
     WPFunctions $wp,
-    Captcha $captcha,
+    CaptchaRenderer $captchaRenderer,
     ReferralDetector $referralDetector,
-    FormsRepository $formsRepository,
     EntityManager $entityManager,
-    WP $wpSegment
+    WP $wpSegment,
+    ScheduledTasksRepository $scheduledTasksRepository,
+    SegmentsRepository $segmentsRepository
   ) {
     $this->settings = $settings;
     $this->wp = $wp;
-    $this->captcha = $captcha;
+    $this->captchaRenderer = $captchaRenderer;
     $this->wpSegment = $wpSegment;
     $this->referralDetector = $referralDetector;
     $this->prefix = Env::$dbPrefix;
@@ -162,8 +158,9 @@ class Populator {
       'ConfirmInterestBeforeDeactivation',
       'ConfirmInterestOrUnsubscribe',
     ];
-    $this->formsRepository = $formsRepository;
     $this->entityManager = $entityManager;
+    $this->scheduledTasksRepository = $scheduledTasksRepository;
+    $this->segmentsRepository = $segmentsRepository;
   }
 
   public function up() {
@@ -177,25 +174,15 @@ class Populator {
     $this->createDefaultUsersFlags();
     $this->createMailPoetPage();
     $this->createSourceForSubscribers();
-    $this->updateMetaFields();
     $this->scheduleInitialInactiveSubscribersCheck();
     $this->scheduleAuthorizedSendingEmailsCheck();
     $this->scheduleBeamer();
-    $this->updateLastSubscribedAt();
-    $this->enableStatsNotificationsForAutomatedEmails();
-    $this->updateSentUnsubscribeLinksToInstantUnsubscribeLinks();
-    $this->pauseTasksForPausedNewsletters();
 
     $this->scheduleUnsubscribeTokens();
     $this->scheduleSubscriberLinkTokens();
     $this->detectReferral();
-    $this->moveGoogleAnalyticsFromPremium();
-    $this->addPlacementStatusToForms();
-    $this->migrateFormPlacement();
     $this->scheduleSubscriberLastEngagementDetection();
-    $this->moveNewsletterTemplatesThumbnailData();
     $this->scheduleNewsletterTemplateThumbnails();
-    $this->updateToUnifiedTrackingSettings();
   }
 
   private function createMailPoetPage() {
@@ -276,11 +263,11 @@ class Populator {
     $captcha = $this->settings->fetch('captcha');
     $reCaptcha = $this->settings->fetch('re_captcha');
     if (empty($captcha)) {
-      $captchaType = Captcha::TYPE_DISABLED;
+      $captchaType = CaptchaConstants::TYPE_DISABLED;
       if (!empty($reCaptcha['enabled'])) {
-        $captchaType = Captcha::TYPE_RECAPTCHA;
-      } elseif ($this->captcha->isSupported()) {
-        $captchaType = Captcha::TYPE_BUILTIN;
+        $captchaType = CaptchaConstants::TYPE_RECAPTCHA;
+      } elseif ($this->captchaRenderer->isSupported()) {
+        $captchaType = CaptchaConstants::TYPE_BUILTIN;
       }
       $this->settings->set('captcha', [
         'type' => $captchaType,
@@ -362,25 +349,29 @@ class Populator {
 
   private function createDefaultSegment() {
     // WP Users segment
-    Segment::getWPSegment();
+    $this->segmentsRepository->getWPUsersSegment();
     // WooCommerce customers segment
-    Segment::getWooCommerceSegment();
+    $this->segmentsRepository->getWooCommerceSegment();
 
     // Synchronize WP Users
     $this->wpSegment->synchronizeUsers();
 
     // Default segment
-    $defaultSegment = Segment::where('type', 'default')->orderByAsc('id')->limit(1)->findOne();
-    if (!$defaultSegment instanceof Segment) {
-      $defaultSegment = Segment::create();
-      $newList = [
-        'name' => __('Newsletter mailing list', 'mailpoet'),
-        'description' =>
-          __('This list is automatically created when you install MailPoet.', 'mailpoet'),
-      ];
-      $defaultSegment->hydrate($newList);
-      $defaultSegment->save();
+    $defaultSegment = $this->segmentsRepository->findOneBy(
+      ['type' => 'default'],
+      ['id' => 'ASC']
+    );
+
+    if (!$defaultSegment instanceof SegmentEntity) {
+      $defaultSegment = new SegmentEntity(
+        __('Newsletter mailing list', 'mailpoet'),
+        SegmentEntity::TYPE_DEFAULT,
+        __('This list is automatically created when you install MailPoet.', 'mailpoet')
+      );
+      $this->segmentsRepository->persist($defaultSegment);
+      $this->segmentsRepository->flush();
     }
+
     return $defaultSegment;
   }
 
@@ -475,11 +466,11 @@ class Populator {
         'newsletter_type' => NewsletterEntity::TYPE_RE_ENGAGEMENT,
       ],
       [
-        'name' => 'workflowId',
+        'name' => 'automationId',
         'newsletter_type' => NewsletterEntity::TYPE_AUTOMATION,
       ],
       [
-        'name' => 'workflowStepId',
+        'name' => 'automationStepId',
         'newsletter_type' => NewsletterEntity::TYPE_AUTOMATION,
       ],
     ];
@@ -596,37 +587,28 @@ class Populator {
 
   private function createSourceForSubscribers() {
     $statisticsFormTable = $this->entityManager->getClassMetadata(StatisticsFormEntity::class)->getTableName();
-    Subscriber::rawExecute(
-      ' UPDATE LOW_PRIORITY `' . Subscriber::$_table . '` subscriber ' .
+    $subscriberTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
+
+    $this->entityManager->getConnection()->executeStatement(
+      ' UPDATE LOW_PRIORITY `' . $subscriberTable . '` subscriber ' .
       ' JOIN `' . $statisticsFormTable . '` stats ON stats.subscriber_id=subscriber.id ' .
       ' SET `source` = "' . Source::FORM . '"' .
       ' WHERE `source` = "' . Source::UNKNOWN . '"'
     );
-    Subscriber::rawExecute(
-      'UPDATE LOW_PRIORITY `' . Subscriber::$_table . '`' .
+
+    $this->entityManager->getConnection()->executeStatement(
+      'UPDATE LOW_PRIORITY `' . $subscriberTable . '`' .
       ' SET `source` = "' . Source::WORDPRESS_USER . '"' .
       ' WHERE `source` = "' . Source::UNKNOWN . '"' .
       ' AND `wp_user_id` IS NOT NULL'
     );
-    Subscriber::rawExecute(
-      'UPDATE LOW_PRIORITY `' . Subscriber::$_table . '`' .
+
+    $this->entityManager->getConnection()->executeStatement(
+      'UPDATE LOW_PRIORITY `' . $subscriberTable . '`' .
       ' SET `source` = "' . Source::WOOCOMMERCE_USER . '"' .
       ' WHERE `source` = "' . Source::UNKNOWN . '"' .
       ' AND `is_woocommerce_user` = 1'
     );
-  }
-
-  private function updateMetaFields() {
-    global $wpdb;
-    // perform once for versions below or equal to 3.26.0
-    if (version_compare((string)$this->settings->get('db_version', '3.26.1'), '3.26.0', '>')) {
-      return false;
-    }
-    $tables = [ScheduledTask::$_table, SendingQueue::$_table];
-    foreach ($tables as $table) {
-      $wpdb->query("UPDATE `" . esc_sql($table) . "` SET meta = NULL WHERE meta = 'null'");
-    }
-    return true;
   }
 
   private function scheduleInitialInactiveSubscribersCheck() {
@@ -655,21 +637,6 @@ class Populator {
     }
   }
 
-  private function updateLastSubscribedAt() {
-    global $wpdb;
-    // perform once for versions below or equal to 3.42.0
-    if (version_compare((string)$this->settings->get('db_version', '3.42.1'), '3.42.0', '>')) {
-      return false;
-    }
-    $table = esc_sql(Subscriber::$_table);
-    $query = $wpdb->prepare(
-      "UPDATE `{$table}` SET last_subscribed_at = GREATEST(COALESCE(confirmed_at, 0), COALESCE(created_at, 0)) WHERE status != %s AND last_subscribed_at IS NULL;",
-      Subscriber::STATUS_UNCONFIRMED
-    );
-    $wpdb->query($query);
-    return true;
-  }
-
   private function scheduleUnsubscribeTokens() {
     $this->scheduleTask(
       UnsubscribeTokens::TASK_TYPE,
@@ -685,225 +652,28 @@ class Populator {
   }
 
   private function scheduleTask($type, $datetime, $priority = null) {
-    $task = ScheduledTask::where('type', $type)
-      ->whereRaw('(status = ? OR status IS NULL)', [ScheduledTask::STATUS_SCHEDULED])
-      ->findOne();
+    $task = $this->scheduledTasksRepository->findOneBy(
+      [
+        'type' => $type,
+        'status' => [ScheduledTaskEntity::STATUS_SCHEDULED, null],
+      ]
+    );
+
     if ($task) {
       return true;
     }
-    $task = ScheduledTask::create();
-    $task->type = $type;
+
+    $task = new ScheduledTaskEntity();
+    $task->setType($type);
+    $task->setStatus(ScheduledTaskEntity::STATUS_SCHEDULED);
+    $task->setScheduledAt($datetime);
+
     if ($priority !== null) {
-      $task->priority = $priority;
-    }
-    $task->status = ScheduledTask::STATUS_SCHEDULED;
-    $task->scheduledAt = $datetime;
-    $task->save();
-  }
-
-  private function enableStatsNotificationsForAutomatedEmails() {
-    if (version_compare((string)$this->settings->get('db_version', '3.31.2'), '3.31.1', '>')) {
-      return;
-    }
-    $settings = $this->settings->get(Worker::SETTINGS_KEY);
-    $settings['automated'] = true;
-    $this->settings->set(Worker::SETTINGS_KEY, $settings);
-  }
-
-  private function updateSentUnsubscribeLinksToInstantUnsubscribeLinks() {
-    if (version_compare((string)$this->settings->get('db_version', '3.46.14'), '3.46.13', '>')) {
-      return;
-    }
-    global $wpdb;
-    $table = esc_sql($this->entityManager->getClassMetadata(NewsletterLinkEntity::class)->getTableName());
-    $wpdb->query($wpdb->prepare(
-      "UPDATE `$table` SET `url` = %s WHERE `url` = %s;",
-      NewsletterLinkEntity::INSTANT_UNSUBSCRIBE_LINK_SHORT_CODE,
-      NewsletterLinkEntity::UNSUBSCRIBE_LINK_SHORT_CODE
-    ));
-  }
-
-  private function pauseTasksForPausedNewsletters() {
-    if (version_compare((string)$this->settings->get('db_version', '3.60.5'), '3.60.4', '>')) {
-      return;
+      $task->setPriority($priority);
     }
 
-    $scheduledTaskTable = $this->entityManager->getClassMetadata(ScheduledTaskEntity::class)->getTableName();
-    $sendingQueueTable = $this->entityManager->getClassMetadata(SendingQueueEntity::class)->getTableName();
-    $newsletterTable = $this->entityManager->getClassMetadata(NewsletterEntity::class)->getTableName();
-
-    $query = "
-      UPDATE $scheduledTaskTable as t
-        JOIN $sendingQueueTable as q ON t.id = q.task_id
-        JOIN $newsletterTable as n ON n.id = q.newsletter_id
-        SET t.status = :tStatusPaused
-        WHERE
-          t.status = :tStatusScheduled
-          AND n.status = :nStatusDraft
-    ";
-    $this->entityManager->getConnection()->executeStatement(
-      $query,
-      [
-        'tStatusPaused' => ScheduledTaskEntity::STATUS_PAUSED,
-        'tStatusScheduled' => ScheduledTaskEntity::STATUS_SCHEDULED,
-        'nStatusDraft' => NewsletterEntity::STATUS_DRAFT,
-      ]
-    );
-  }
-
-  private function addPlacementStatusToForms() {
-    if (version_compare((string)$this->settings->get('db_version', '3.49.0'), '3.48.1', '>')) {
-      return;
-    }
-    $forms = $this->formsRepository->findAll();
-    foreach ($forms as $form) {
-      $settings = $form->getSettings();
-      if (
-        (isset($settings['place_form_bellow_all_posts']) && $settings['place_form_bellow_all_posts'] === '1')
-        || (isset($settings['place_form_bellow_all_pages']) && $settings['place_form_bellow_all_pages'] === '1')
-      ) {
-        $settings['form_placement_bellow_posts_enabled'] = '1';
-      } else {
-        $settings['form_placement_bellow_posts_enabled'] = '';
-      }
-      if (
-        (isset($settings['place_popup_form_on_all_posts']) && $settings['place_popup_form_on_all_posts'] === '1')
-        || (isset($settings['place_popup_form_on_all_pages']) && $settings['place_popup_form_on_all_pages'] === '1')
-      ) {
-        $settings['form_placement_popup_enabled'] = '1';
-      } else {
-        $settings['form_placement_popup_enabled'] = '';
-      }
-      if (
-        (isset($settings['place_fixed_bar_form_on_all_posts']) && $settings['place_fixed_bar_form_on_all_posts'] === '1')
-        || (isset($settings['place_fixed_bar_form_on_all_pages']) && $settings['place_fixed_bar_form_on_all_pages'] === '1')
-      ) {
-        $settings['form_placement_fixed_bar_enabled'] = '1';
-      } else {
-        $settings['form_placement_fixed_bar_enabled'] = '';
-      }
-      if (
-        (isset($settings['place_slide_in_form_on_all_posts']) && $settings['place_slide_in_form_on_all_posts'] === '1')
-        || (isset($settings['place_slide_in_form_on_all_pages']) && $settings['place_slide_in_form_on_all_pages'] === '1')
-      ) {
-        $settings['form_placement_slide_in_enabled'] = '1';
-      } else {
-        $settings['form_placement_slide_in_enabled'] = '';
-      }
-      $form->setSettings($settings);
-    }
-    $this->formsRepository->flush();
-  }
-
-  private function migrateFormPlacement() {
-    if (version_compare((string)$this->settings->get('db_version', '3.50.0'), '3.49.1', '>')) {
-      return;
-    }
-    $forms = $this->formsRepository->findAll();
-    foreach ($forms as $form) {
-      $settings = $form->getSettings();
-      if (!is_array($settings)) continue;
-      $settings['form_placement'] = [
-        FormEntity::DISPLAY_TYPE_POPUP => [
-          'enabled' => $settings['form_placement_popup_enabled'],
-          'delay' => $settings['popup_form_delay'] ?? 0,
-          'styles' => $settings['popup_styles'] ?? [],
-          'posts' => [
-            'all' => $settings['place_popup_form_on_all_posts'] ?? '',
-          ],
-          'pages' => [
-            'all' => $settings['place_popup_form_on_all_pages'] ?? '',
-          ],
-        ],
-        FormEntity::DISPLAY_TYPE_FIXED_BAR => [
-          'enabled' => $settings['form_placement_fixed_bar_enabled'],
-          'delay' => $settings['fixed_bar_form_delay'] ?? 0,
-          'styles' => $settings['fixed_bar_styles'] ?? [],
-          'position' => $settings['fixed_bar_form_position'] ?? 'top',
-          'posts' => [
-            'all' => $settings['place_fixed_bar_form_on_all_posts'] ?? '',
-          ],
-          'pages' => [
-            'all' => $settings['place_fixed_bar_form_on_all_pages'] ?? '',
-          ],
-        ],
-        FormEntity::DISPLAY_TYPE_BELOW_POST => [
-          'enabled' => $settings['form_placement_bellow_posts_enabled'],
-          'styles' => $settings['below_post_styles'] ?? [],
-          'posts' => [
-            'all' => $settings['place_form_bellow_all_posts'] ?? '',
-          ],
-          'pages' => [
-            'all' => $settings['place_form_bellow_all_pages'] ?? '',
-          ],
-        ],
-        FormEntity::DISPLAY_TYPE_SLIDE_IN => [
-          'enabled' => $settings['form_placement_slide_in_enabled'],
-          'delay' => $settings['slide_in_form_delay'] ?? 0,
-          'position' => $settings['slide_in_form_position'] ?? 'right',
-          'styles' => $settings['slide_in_styles'] ?? [],
-          'posts' => [
-            'all' => $settings['place_slide_in_form_on_all_posts'] ?? '',
-          ],
-          'pages' => [
-            'all' => $settings['place_slide_in_form_on_all_pages'] ?? '',
-          ],
-        ],
-        FormEntity::DISPLAY_TYPE_OTHERS => [
-          'styles' => $settings['other_styles'] ?? [],
-        ],
-      ];
-      if (isset($settings['form_placement_slide_in_enabled'])) unset($settings['form_placement_slide_in_enabled']);
-      if (isset($settings['form_placement_fixed_bar_enabled'])) unset($settings['form_placement_fixed_bar_enabled']);
-      if (isset($settings['form_placement_popup_enabled'])) unset($settings['form_placement_popup_enabled']);
-      if (isset($settings['form_placement_bellow_posts_enabled'])) unset($settings['form_placement_bellow_posts_enabled']);
-      if (isset($settings['place_form_bellow_all_pages'])) unset($settings['place_form_bellow_all_pages']);
-      if (isset($settings['place_form_bellow_all_posts'])) unset($settings['place_form_bellow_all_posts']);
-      if (isset($settings['place_popup_form_on_all_pages'])) unset($settings['place_popup_form_on_all_pages']);
-      if (isset($settings['place_popup_form_on_all_posts'])) unset($settings['place_popup_form_on_all_posts']);
-      if (isset($settings['popup_form_delay'])) unset($settings['popup_form_delay']);
-      if (isset($settings['place_fixed_bar_form_on_all_pages'])) unset($settings['place_fixed_bar_form_on_all_pages']);
-      if (isset($settings['place_fixed_bar_form_on_all_posts'])) unset($settings['place_fixed_bar_form_on_all_posts']);
-      if (isset($settings['fixed_bar_form_delay'])) unset($settings['fixed_bar_form_delay']);
-      if (isset($settings['fixed_bar_form_position'])) unset($settings['fixed_bar_form_position']);
-      if (isset($settings['place_slide_in_form_on_all_pages'])) unset($settings['place_slide_in_form_on_all_pages']);
-      if (isset($settings['place_slide_in_form_on_all_posts'])) unset($settings['place_slide_in_form_on_all_posts']);
-      if (isset($settings['slide_in_form_delay'])) unset($settings['slide_in_form_delay']);
-      if (isset($settings['slide_in_form_position'])) unset($settings['slide_in_form_position']);
-      if (isset($settings['other_styles'])) unset($settings['other_styles']);
-      if (isset($settings['slide_in_styles'])) unset($settings['slide_in_styles']);
-      if (isset($settings['below_post_styles'])) unset($settings['below_post_styles']);
-      if (isset($settings['fixed_bar_styles'])) unset($settings['fixed_bar_styles']);
-      if (isset($settings['popup_styles'])) unset($settings['popup_styles']);
-      $form->setSettings($settings);
-    }
-    $this->formsRepository->flush();
-  }
-
-  private function moveGoogleAnalyticsFromPremium() {
-    global $wpdb;
-    if (version_compare((string)$this->settings->get('db_version', '3.38.2'), '3.38.1', '>')) {
-      return;
-    }
-    $premiumTableName = $wpdb->prefix . 'mailpoet_premium_newsletter_extra_data';
-    $premiumTableExists = (int)$wpdb->get_var(
-      $wpdb->prepare(
-        "SELECT COUNT(1) FROM information_schema.tables WHERE table_schema=%s AND table_name=%s;",
-        $wpdb->dbname,
-        $premiumTableName
-      )
-    );
-    if ($premiumTableExists) {
-      $table = esc_sql(Newsletter::$_table);
-      $query = "
-        UPDATE
-          `{$table}` as n
-        JOIN `$premiumTableName` as ped ON n.id=ped.newsletter_id
-          SET n.ga_campaign = ped.ga_campaign
-      ";
-      $wpdb->query($query);
-    }
-    return true;
+    $this->scheduledTasksRepository->persist($task);
+    $this->scheduledTasksRepository->flush();
   }
 
   private function detectReferral() {
@@ -926,38 +696,5 @@ class Populator {
       Carbon::createFromTimestamp($this->wp->currentTime('timestamp')),
       ScheduledTaskEntity::PRIORITY_LOW
     );
-  }
-
-  private function moveNewsletterTemplatesThumbnailData() {
-    if (version_compare((string)$this->settings->get('db_version', '3.73.3'), '3.73.2', '>')) {
-      return;
-    }
-    $newsletterTemplatesTable = $this->entityManager->getClassMetadata(NewsletterTemplateEntity::class)->getTableName();
-    $this->entityManager->getConnection()->executeQuery("
-      UPDATE " . $newsletterTemplatesTable . "
-      SET thumbnail_data = thumbnail, thumbnail = NULL
-      WHERE thumbnail LIKE 'data:image%';"
-    );
-  }
-
-  private function updateToUnifiedTrackingSettings() {
-    if (version_compare((string)$this->settings->get('db_version', '3.74.3'), '3.74.2', '>')) {
-      return;
-    }
-    $emailTracking = $this->settings->get('tracking.enabled', true);
-    $wooTrackingCookie = $this->settings->get('woocommerce.accept_cookie_revenue_tracking.enabled');
-    if ($wooTrackingCookie === null) { // No setting for WooCommerce Cookie Tracking - WooCommerce was not active
-      $trackingLevel = $emailTracking ? TrackingConfig::LEVEL_FULL : TrackingConfig::LEVEL_BASIC;
-    } elseif ($wooTrackingCookie) { // WooCommerce Cookie Tracking enabled
-      $trackingLevel = TrackingConfig::LEVEL_FULL;
-      // Cookie was enabled but tracking disabled and we are switching to full.
-      // So we activate an admin notice to let the user know that we activated tracking
-      if (!$emailTracking) {
-        $this->wp->setTransient(ChangedTrackingNotice::OPTION_NAME, true);
-      }
-    } else { // WooCommerce Tracking Cookie Disabled
-      $trackingLevel = $emailTracking ? TrackingConfig::LEVEL_PARTIAL : TrackingConfig::LEVEL_BASIC;
-    }
-    $this->settings->set('tracking.level', $trackingLevel);
   }
 }

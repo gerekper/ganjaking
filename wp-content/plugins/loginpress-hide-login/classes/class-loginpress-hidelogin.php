@@ -367,15 +367,15 @@ if ( ! class_exists( 'LoginPress_HideLogin_Main' ) ) :
 			
 			if ( ! is_network_admin() && 'admin.php' == $pagenow && isset( $_GET['page'] ) && $_GET['page'] == 'loginpress-settings' && isset( $_GET['settings-updated'] ) && "" == $slug ) {
 
-				$html .=  sprintf( __( 'Your default login page: %1$s. Bookmark this page!', 'loginpress-hide-login' ), '<strong><a href="'.home_url('/wp-login.php').'" target="_blank">'.home_url('/wp-login.php').'</a></strong>' );
+				$html .=  sprintf( __( 'Your default login page: %1$s Bookmark this page!', 'loginpress-hide-login' ), '<strong><a href="' . home_url('/wp-login.php') . '" target="_blank">' . home_url('/wp-login.php') . '</a></strong>.' );
 
 			} else if( "" == $slug ) {
 
-				$html .=  sprintf( __( 'Your default login page: %1$s. Bookmark this page!', 'loginpress-hide-login' ), '<strong><a href="'.home_url('/wp-login.php').'" target="_blank">'.home_url('/wp-login.php').'</a></strong>' );
+				$html .=  sprintf( __( 'Your default login page: %1$s Bookmark this page!', 'loginpress-hide-login' ), '<strong><a href="' . home_url('/wp-login.php') . '" target="_blank">'.home_url('/wp-login.php') . '</a></strong>.' );
 
 			} else if ( ! is_network_admin() && 'admin.php' == $pagenow && isset( $_GET['page'] ) && $_GET['page'] == 'loginpress-settings' && isset( $_GET['settings-updated'] ) ) {
 
-				$html .=  sprintf( __( 'Here is your login page now: %1$s. Bookmark this page!', 'loginpress-hide-login' ), '<strong><a href="'.$this->new_login_url().'" target="_blank">'.$this->new_login_url().'</a></strong>' );
+				$html .=  sprintf( __( 'Here is your login page now: %1$s Bookmark this page!', 'loginpress-hide-login' ), '<strong><a href="' . $this->new_login_url() . '" target="_blank">' . $this->new_login_url() . '</a></strong>.' );
 				if ( 'on' == $check ) {
 					$this->loginpress_send_notify_email();
 				}

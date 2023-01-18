@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Config;
 
@@ -133,6 +133,16 @@ class HooksWooCommerce {
       $this->subscriberEngagement->updateSubscriberEngagement($orderId);
     } catch (\Throwable $e) {
       $this->logError($e, 'WooCommerce Update Subscriber Engagement');
+    }
+  }
+
+  public function declareHposCompatibility() {
+    try {
+      if (class_exists('\Automattic\WooCommerce\Utilities\FeaturesUtil')) {
+        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables', Env::$pluginPath);
+      }
+    } catch (\Throwable $e) {
+      $this->logError($e, 'WooCommerce HPOS Compatibility');
     }
   }
 

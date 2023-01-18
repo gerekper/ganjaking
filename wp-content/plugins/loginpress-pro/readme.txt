@@ -30,92 +30,96 @@ If you have any problem, please send an email to us at support@wpbrigade.com
 
 
 == Current Pro Version ==
-2.5.2
+2.5.3
 
 
 == Changelog ==
 
+= 2.5.3 - 13th January, 2023 =
+	* Bugfix: Google reCaptcha issue during user registration.
+	* Compatibility: Compatible with WordPress 6.1
+
 = 2.5.2 - 24th June, 2022 =
-* Bugfix: Google reCaptcha issue during user registration wth WordPress 6.0.
-* Enhancement: Styled the language selector for premium themes.
-* Compatibility: Compatible with PHP 8.1
-* Compatibility: Compatible with WordPress 6.0
+	* Bugfix: Google reCaptcha issue during user registration wth WordPress 6.0.
+	* Enhancement: Styled the language selector for premium themes.
+	* Compatibility: Compatible with PHP 8.1
+	* Compatibility: Compatible with WordPress 6.0
 
 = 2.5.1 - 1st March, 2022 =
-* Bugfix: Download and Install loginpress addons on Agency license.
-* Enhancement: Added a filter `loginpress_premium_theme` to extend the premium themes.
-* Enhancement: Design the Language Switcher dropdown for all themes.
+	* Bugfix: Download and Install loginpress addons on Agency license.
+	* Enhancement: Added a filter `loginpress_premium_theme` to extend the premium themes.
+	* Enhancement: Design the Language Switcher dropdown for all themes.
 
 = 2.5.0 - 9th November, 2020 =
-* New Feature: Introducing Google reCAPTCHA V2 Invisible.
-* New Feature: Introducing Google reCAPTCHA V3.
-* Bugfix: Date formate fix on license key deactivation.
-* Compatibility: Compatible with WordPress 5.5
+	* New Feature: Introducing Google reCAPTCHA V2 Invisible.
+	* New Feature: Introducing Google reCAPTCHA V3.
+	* Bugfix: Date formate fix on license key deactivation.
+	* Compatibility: Compatible with WordPress 5.5
 
 = 2.4.0 - 16th July, 2020 =
-* Bugfix: Video background issue on mobile for several templates.
-* Bugfix: Google reCaptcha issue resolved on "Password Reset" Form.
-* Enhancement: Added a filter `loginpress_prevent_forcelogin` to prevent force login.
+	* Bugfix: Video background issue on mobile for several templates.
+	* Bugfix: Google reCaptcha issue resolved on "Password Reset" Form.
+	* Enhancement: Added a filter `loginpress_prevent_forcelogin` to prevent force login.
 
 = 2.3.3 - 24th June, 2020 =
-* Bugfix: Google reCaptcha server base error.
-* Enhancement: Sort Google Fonts.
+	* Bugfix: Google reCaptcha server base error.
+	* Enhancement: Sort Google Fonts.
 
 = 2.3.2 - 16th January, 2020 =
-* Enhancement: French Language added in LoginPress Pro.
+	* Enhancement: French Language added in LoginPress Pro.
 
 = 2.3.1 - 20th November, 2019 =
-* Bugfix: Remove typo ";" from login templates.
-* Enhancement: Update admin email verification layout.
+	* Bugfix: Remove typo ";" from login templates.
+	* Enhancement: Update admin email verification layout.
 
 = 2.3.0 - 15th November, 2019 =
-* New Feature: Added a new PRO animated template.
-* Compatibility: Compatible with WordPress 5.3
-* Enhancement: Portuguese (Brazil) Language added in LoginPress Pro.
+	* New Feature: Added a new PRO animated template.
+	* Compatibility: Compatible with WordPress 5.3
+	* Enhancement: Portuguese (Brazil) Language added in LoginPress Pro.
 
 = 2.2.2 - 23rd October, 2019 =
-* Bugfix: Firefox CSS conflict with premium templates.
-* Bugfix: License key deactivation.
-* Enhancement: Added a filter `loginpress_exclude_forcelogin` to exclude the page's (with: ID or slug) from Force Login feature.
-* Enhancement: Italian Language added in LoginPress Pro.
+	* Bugfix: Firefox CSS conflict with premium templates.
+	* Bugfix: License key deactivation.
+	* Enhancement: Added a filter `loginpress_exclude_forcelogin` to exclude the page's (with: ID or slug) from Force Login feature.
+	* Enhancement: Italian Language added in LoginPress Pro.
 
 = 2.2.1 - 17th August, 2019 =
-* Bugfix: Download LoginPress Pro - Stuck - when you install LoginPress Pro without Free version.
+	* Bugfix: Download LoginPress Pro - Stuck - when you install LoginPress Pro without Free version.
 
 = 2.2.0 - 10th August, 2019 =
-* Bugfix: RTL Login templates.
-* Enhancement: Important Security update.
-* Enhancement: Update Google reCaptcha supported languages.
+	* Bugfix: RTL Login templates.
+	* Enhancement: Important Security update.
+	* Enhancement: Update Google reCaptcha supported languages.
 
 = 2.1.5 - 23rd July, 2019 =
-* Bugfix: Login form background issue with Corporate Template CSS issue.
-* Bugfix: SSL issue fix for Add-Ons.
+	* Bugfix: Login form background issue with Corporate Template CSS issue.
+	* Bugfix: SSL issue fix for Add-Ons.
 
 = 2.1.4 - 16th July, 2019 =
-* New Feature: One click Install / Activate / Deactivate Add-Ons from addons page.
-* Bugfix: Persona & Wedding#2 Template CSS issue.
-* Bugfix: Optimized plugin speed and code improvement.
-* Enhancement: Create POEdit file in Pro and all addons.
+	* New Feature: One click Install / Activate / Deactivate Add-Ons from addons page.
+	* Bugfix: Persona & Wedding#2 Template CSS issue.
+	* Bugfix: Optimized plugin speed and code improvement.
+	* Enhancement: Create POEdit file in Pro and all addons.
 
 = 2.1.3 - 9th July, 2019 =
-* Bugfix: Choose language option in Google reCaptcha (enabled).
+	* Bugfix: Choose language option in Google reCaptcha (enabled).
 
 = 2.1.2 - 8th July, 2019 =
-* Enhancement: Code Improvements.
+	* Enhancement: Code Improvements.
 
 = 2.1.1 - 10th June, 2019 =
-* New Feature: Add filter for removing the license page.
-* Enhancement: Apply masking on license key.
-* Enhancement: Code Improvements.
+	* New Feature: Add filter for removing the license page.
+	* Enhancement: Apply masking on license key.
+	* Enhancement: Code Improvements.
 
 = 2.1.0 - 25th April, 2019 =
-* New Feature: Add Background Video, Compatible with free version feature.
-* New Feature: An option to Force users to Login for viewing the FULL site.
-* Enhancement: Code Improvements.
+	* New Feature: Add Background Video, Compatible with free version feature.
+	* New Feature: An option to Force users to Login for viewing the FULL site.
+	* Enhancement: Code Improvements.
 
 = 2.0.12 - 7th Dec, 2018 =
-* Enhancement: Important Security update.
-* Enhancement: Code Improvements.
+	* Enhancement: Important Security update.
+	* Enhancement: Code Improvements.
 
 = 2.0.11 - 27th June, 2018 =
 	* Update: Google reCaptcha library.

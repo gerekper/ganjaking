@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Config\Env;
+use MailPoet\Config\SubscriberChangesNotifier;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Entities\SubscriberSegmentEntity;
 use MailPoet\Models\ModelValidator;
@@ -57,6 +58,9 @@ class WooCommerce {
   /** @var Connection */
   private $connection;
 
+  /** @var SubscriberChangesNotifier */
+  private $subscriberChangesNotifier;
+
   public function __construct(
     SettingsController $settings,
     WPFunctions $wp,
@@ -67,7 +71,8 @@ class WooCommerce {
     SubscriberSaveController $subscriberSaveController,
     WP $wpSegment,
     EntityManager $entityManager,
-    Connection $connection
+    Connection $connection,
+    SubscriberChangesNotifier $subscriberChangesNotifier
   ) {
     $this->settings = $settings;
     $this->wp = $wp;
@@ -79,6 +84,7 @@ class WooCommerce {
     $this->woocommerceHelper = $woocommerceHelper;
     $this->entityManager = $entityManager;
     $this->connection = $connection;
+    $this->subscriberChangesNotifier = $subscriberChangesNotifier;
   }
 
   public function shouldShowWooCommerceSegment(): bool {
@@ -151,7 +157,7 @@ class WooCommerce {
       $status = SubscriberEntity::STATUS_SUBSCRIBED;
     }
 
-    $email = $this->insertSubscriberFromOrder($orderId, $status);
+    $email = $this->insertSubscriberFromOrder($wcOrder, $status);
 
     if (empty($email)) {
       return;
@@ -201,11 +207,11 @@ class WooCommerce {
     }
     global $wpdb;
     $mailpoetEmailColumn = $wpdb->get_row(
-      'SHOW FULL COLUMNS FROM ' . MP_SUBSCRIBERS_TABLE . ' WHERE Field = "email"'
+      "SHOW FULL COLUMNS FROM " . MP_SUBSCRIBERS_TABLE . " WHERE Field = 'email'"
     );
     $this->mailpoetEmailCollation = $mailpoetEmailColumn->Collation; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
     $wpPostmetaValueColumn = $wpdb->get_row(
-      'SHOW FULL COLUMNS FROM ' . $wpdb->postmeta . ' WHERE Field = "meta_value"'
+      "SHOW FULL COLUMNS FROM " . $wpdb->postmeta . " WHERE Field = 'meta_value'"
     );
     $this->wpPostmetaValueCollation = $wpPostmetaValueColumn->Collation; // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
   }
@@ -243,17 +249,10 @@ class WooCommerce {
     ", ['capabilities' => $wpdb->prefix . 'capabilities', 'source' => Source::WOOCOMMERCE_USER]);
   }
 
-  private function insertSubscriberFromOrder(int $orderId, string $status): ?string {
-    global $wpdb;
+  private function insertSubscriberFromOrder(\WC_Order $wcOrder, string $status): ?string {
     $validator = new ModelValidator();
 
-    $email = $this->connection->executeQuery("
-      SELECT wppm.meta_value AS email
-      FROM `{$wpdb->posts}` wpp
-      JOIN `{$wpdb->postmeta}` wppm ON wpp.ID = wppm.post_id AND wppm.meta_key = '_billing_email' AND wppm.meta_value != ''
-      WHERE wpp.post_type = 'shop_order'
-      AND wpp.ID = :orderId
-    ", ['orderId' => $orderId])->fetchOne();
+    $email = $wcOrder->get_billing_email();
 
     if (!$email || !$validator->validateEmail($email)) {
       return null;
@@ -279,14 +278,22 @@ class WooCommerce {
       'highestOrderId' => \PDO::PARAM_INT,
     ];
 
-    $result = $this->connection->executeQuery("
-      SELECT wpp.id AS order_id, wppm.meta_value AS email
-      FROM `{$wpdb->posts}` wpp
-      JOIN `{$wpdb->postmeta}` wppm ON wpp.ID = wppm.post_id AND wppm.meta_key = '_billing_email' AND wppm.meta_value != ''
-      WHERE wpp.post_type = 'shop_order'
-      AND (wpp.ID > :lowestOrderId AND wpp.ID <= :highestOrderId)
-      ORDER BY wpp.id
-    ", $parameters, $parametersType)->fetchAllAssociative();
+    if ($this->woocommerceHelper->isWooCommerceCustomOrdersTableEnabled()) {
+      $ordersTable = $this->woocommerceHelper->getOrdersTableName();
+      $query = "SELECT id AS order_id, billing_email AS email
+        FROM `{$ordersTable}`
+        WHERE type = 'shop_order' AND billing_email != '' AND (id > :lowestOrderId AND id <= :highestOrderId)
+        ORDER BY id";
+    } else {
+      $query = "SELECT wpp.id AS order_id, wppm.meta_value AS email
+        FROM `{$wpdb->posts}` wpp
+        JOIN `{$wpdb->postmeta}` wppm ON wpp.ID = wppm.post_id AND wppm.meta_key = '_billing_email' AND wppm.meta_value != ''
+        WHERE wpp.post_type = 'shop_order'
+        AND (wpp.ID > :lowestOrderId AND wpp.ID <= :highestOrderId)
+        ORDER BY wpp.id";
+    }
+
+    $result = $this->connection->executeQuery($query, $parameters, $parametersType)->fetchAllAssociative();
 
     $processedOrders = [];
     foreach ($result as $item) {
@@ -314,6 +321,8 @@ class WooCommerce {
       $subscribersValues[] = "(1, {$email}, '{$status}', '{$now}', '{$now}', '{$source}')";
     }
 
+    // Save timestamp about changes before insert
+    $this->subscriberChangesNotifier->subscribersBatchUpdate();
     // Update existing subscribers
     $this->connection->executeQuery('
       UPDATE ' . $subscribersTable . ' mps
@@ -321,6 +330,8 @@ class WooCommerce {
       WHERE mps.email IN (:emails)
     ', ['emails' => $emails], ['emails' => Connection::PARAM_STR_ARRAY]);
 
+    // Save timestamp about new subscribers before insert
+    $this->subscriberChangesNotifier->subscribersBatchCreate();
     // Insert new subscribers
     $this->connection->executeQuery('
       INSERT IGNORE INTO ' . $subscribersTable . ' (`is_woocommerce_user`, `email`, `status`, `created_at`, `last_subscribed_at`, `source`) VALUES
@@ -340,18 +351,43 @@ class WooCommerce {
     }
     $subscribersTable = $this->entityManager->getClassMetadata(SubscriberEntity::class)->getTableName();
 
-    $metaKeys = [
-      '_billing_first_name',
-      '_billing_last_name',
-    ];
-    $metaData = $this->connection->executeQuery("
-      SELECT post_id, meta_key, meta_value
-      FROM {$wpdb->postmeta}
-      WHERE meta_key IN (:metaKeys) AND post_id IN (:postIds)
-    ",
-      ['metaKeys' => $metaKeys, 'postIds' => array_values($orders)],
-      ['metaKeys' => Connection::PARAM_STR_ARRAY, 'postIds' => Connection::PARAM_INT_ARRAY]
-    )->fetchAllAssociative();
+    if ($this->woocommerceHelper->isWooCommerceCustomOrdersTableEnabled()) {
+      $addressesTableName = $this->woocommerceHelper->getAddressesTableName();
+      $metaData = [];
+      $results = $this->connection->executeQuery("
+        SELECT order_id, first_name, last_name
+        FROM {$addressesTableName}
+        WHERE order_id IN (:orderIds) and address_type = 'billing'",
+        ['orderIds' => array_values($orders)],
+        ['orderIds' => Connection::PARAM_INT_ARRAY]
+      )->fetchAllAssociative();
+
+      // format data in the same format that is used when querying wp_postmeta (see below).
+      foreach ($results as $result) {
+        $firstNameData['post_id'] = $result['order_id'];
+        $firstNameData['meta_key'] = '_billing_first_name';
+        $firstNameData['meta_value'] = $result['first_name'];
+        $metaData[] = $firstNameData;
+
+        $lastNameData['post_id'] = $result['order_id'];
+        $lastNameData['meta_key'] = '_billing_last_name';
+        $lastNameData['meta_value'] = $result['last_name'];
+        $metaData[] = $lastNameData;
+      }
+    } else {
+      $metaKeys = [
+        '_billing_first_name',
+        '_billing_last_name',
+      ];
+      $metaData = $this->connection->executeQuery("
+        SELECT post_id, meta_key, meta_value
+        FROM {$wpdb->postmeta}
+        WHERE meta_key IN ('_billing_first_name', '_billing_last_name') AND post_id IN (:postIds)
+      ",
+        ['metaKeys' => $metaKeys, 'postIds' => array_values($orders)],
+        ['metaKeys' => Connection::PARAM_STR_ARRAY, 'postIds' => Connection::PARAM_INT_ARRAY]
+      )->fetchAllAssociative();
+    }
 
     $subscribersData = [];
     foreach ($orders as $email => $postId) {
@@ -455,13 +491,20 @@ class WooCommerce {
     // Insert WC customer IDs to a temporary table for left join to use an index
     $tmpTableName = Env::$dbPrefix . 'tmp_wc_ids';
     // Registered users with orders
+    if ($this->woocommerceHelper->isWooCommerceCustomOrdersTableEnabled()) {
+      $ordersTable = $this->woocommerceHelper->getOrdersTableName();
+      $registeredCustomersSubQuery = "SELECT DISTINCT customer_id AS id FROM `{$ordersTable}` WHERE type = 'shop_order'";
+    } else {
+      $registeredCustomersSubQuery = "SELECT DISTINCT wppm.meta_value AS id FROM {$wpdb->postmeta} wppm
+        JOIN {$wpdb->posts} wpp ON wppm.post_id = wpp.ID
+        AND wpp.post_type = 'shop_order'
+        WHERE wppm.meta_key = '_customer_user'";
+    }
+
     $this->connection->executeQuery("
       CREATE TEMPORARY TABLE {$tmpTableName}
         (`id` int(11) unsigned NOT NULL, UNIQUE(`id`)) AS
-      SELECT DISTINCT wppm.meta_value AS id FROM {$wpdb->postmeta} wppm
-        JOIN {$wpdb->posts} wpp ON wppm.post_id = wpp.ID
-        AND wpp.post_type = 'shop_order'
-        WHERE wppm.meta_key = '_customer_user'
+      {$registeredCustomersSubQuery}
     ");
     // Registered users with a customer role
     $this->connection->executeQuery("
@@ -499,13 +542,20 @@ class WooCommerce {
       $collation = "COLLATE $this->wpPostmetaValueCollation";
     }
 
+    if ($this->woocommerceHelper->isWooCommerceCustomOrdersTableEnabled()) {
+      $ordersTable = $this->woocommerceHelper->getOrdersTableName();
+      $guestCustomersSubQuery = "SELECT DISTINCT billing_email AS email FROM `{$ordersTable}` WHERE type = 'shop_order'";
+    } else {
+      $guestCustomersSubQuery = "SELECT DISTINCT wppm.meta_value AS email FROM {$wpdb->postmeta} wppm
+        JOIN {$wpdb->posts} wpp ON wppm.post_id = wpp.ID
+        AND wpp.post_type = 'shop_order'
+        WHERE wppm.meta_key = '_billing_email'";
+    }
+
     $this->connection->executeQuery("
       CREATE TEMPORARY TABLE {$tmpTableName}
         (`email` varchar(150) NOT NULL, UNIQUE(`email`)) {$collation}
-      SELECT DISTINCT wppm.meta_value AS email FROM {$wpdb->postmeta} wppm
-        JOIN {$wpdb->posts} wpp ON wppm.post_id = wpp.ID
-        AND wpp.post_type = 'shop_order'
-        WHERE wppm.meta_key = '_billing_email'
+      {$guestCustomersSubQuery}
     ");
 
     // Remove WC list guest users which aren't WC customers anymore

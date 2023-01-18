@@ -1,6 +1,12 @@
 == Changelog ==
 
-= 1.0.7 - 2019-01-16 =
+= 2.0.0 - 2023-01-13 =
+* BugFix: String translation issue.
+* BugFix: WP Query Optimize for users search.
+* Compatibility: Compatible with PHP 8.1
+* Compatibility: Compatible with WordPress 6.1
+
+= 1.0.7 - 2020-01-16 =
 * Compatibility: LoginPress - Auto Login is compatible with French language now.
 
 = 1.0.6 - 2019-10-23 =
@@ -21,7 +27,7 @@
 
 = 1.0.1 - 2018-06-27 =
 * Enhancement: Compatible with Login Redirect Add-on.
-* Enhancement: Compatible with Multisite.
+* Enhancement: Compatible with Multi-site.
 
 = 1.0.0 - 2018-01-08 =
 * Initial Launch.

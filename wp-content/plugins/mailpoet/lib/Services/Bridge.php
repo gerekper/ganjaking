@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Services;
 
@@ -26,6 +26,7 @@ class Bridge {
   const KEY_INVALID = 'invalid';
   const KEY_EXPIRING = 'expiring';
   const KEY_ALREADY_USED = 'already_used';
+  const KEY_VALID_UNDERPRIVILEGED = 'valid_underprivileged';
 
   const KEY_CHECK_ERROR = 'check_error';
 
@@ -103,12 +104,16 @@ class Bridge {
     return $wp->wpRemoteRetrieveResponseCode($result) === 200;
   }
 
+  /**
+   * @return API
+   */
   public function initApi($apiKey) {
-    if ($this->api) {
+    if ($this->api instanceof API) {
       $this->api->setKey($apiKey);
     } else {
       $this->api = new Bridge\API($apiKey);
     }
+    return $this->api;
   }
 
   /**
@@ -116,9 +121,7 @@ class Bridge {
    * @return API
    */
   public function getApi($key) {
-    $this->initApi($key);
-    assert($this->api instanceof API);
-    return $this->api;
+    return $this->initApi($key);
   }
 
   public function getAuthorizedEmailAddresses($type = 'authorized'): array {
@@ -238,7 +241,7 @@ class Bridge {
       200 => self::KEY_VALID,
       401 => self::KEY_INVALID,
       402 => self::KEY_ALREADY_USED,
-      403 => self::KEY_INVALID,
+      403 => self::KEY_VALID_UNDERPRIVILEGED,
     ];
 
     if (!empty($result['code']) && isset($stateMap[$result['code']])) {

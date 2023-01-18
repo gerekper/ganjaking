@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Cron\Workers;
 
@@ -17,6 +17,23 @@ use MailPoet\Cron\Workers\WooCommerceSync as WooCommerceSyncWorker;
 use MailPoet\DI\ContainerWrapper;
 
 class WorkersFactory {
+  public const SIMPLE_WORKER_TYPES = [
+    SubscribersCountCacheRecalculation::TASK_TYPE,
+    NewsletterTemplateThumbnails::TASK_TYPE,
+    ReEngagementEmailsScheduler::TASK_TYPE,
+    SubscribersLastEngagement::TASK_TYPE,
+    SubscribersEngagementScore::TASK_TYPE,
+    WooCommercePastOrders::TASK_TYPE,
+    AuthorizedSendingEmailsCheck::TASK_TYPE,
+    WooCommerceSyncWorker::TASK_TYPE,
+    SubscriberLinkTokens::TASK_TYPE,
+    UnsubscribeTokens::TASK_TYPE,
+    InactiveSubscribers::TASK_TYPE,
+    SubscribersEmailCount::TASK_TYPE,
+    StatsNotificationsWorkerForAutomatedEmails::TASK_TYPE,
+    StatsNotificationsWorker::TASK_TYPE,
+  ];
+
   /** @var ContainerWrapper */
   private $container;
 

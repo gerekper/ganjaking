@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Features;
 
@@ -8,12 +8,15 @@ if (!defined('ABSPATH')) exit;
 use MailPoetVendor\Doctrine\DBAL\Exception\TableNotFoundException;
 
 class FeaturesController {
-  public const AUTOMATION = 'automation';
+  const FEATURE_HOMEPAGE = 'homepage';
+
+  const FEATURE_LANDINGPAGE = 'landingpage';
 
   // Define feature defaults in the array below in the following form:
   //   self::FEATURE_NAME_OF_FEATURE => true,
   private $defaults = [
-    self::AUTOMATION => false,
+    self::FEATURE_HOMEPAGE => false,
+    self::FEATURE_LANDINGPAGE => false,
   ];
 
   /** @var array|null */

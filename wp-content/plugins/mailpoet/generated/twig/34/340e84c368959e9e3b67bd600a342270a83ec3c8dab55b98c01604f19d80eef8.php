@@ -38,7 +38,9 @@ class __TwigTemplate_983c70cc527e9ec7b888be667e99a11703d8dd9de70fb8285afd14f53c3
     {
         $macros = $this->macros;
         // line 1
-        echo "<html lang=\"en\" style=\"margin:0;padding:0\">
+        echo "<html lang=\"";
+        echo $this->extensions['MailPoet\Twig\Assets']->language();
+        echo "\" style=\"margin:0;padding:0\">
 <head>
   <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />
   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />
@@ -227,7 +229,7 @@ class __TwigTemplate_983c70cc527e9ec7b888be667e99a11703d8dd9de70fb8285afd14f53c3
 
     public function getDebugInfo()
     {
-        return array (  210 => 46,  175 => 104,  171 => 103,  161 => 96,  157 => 95,  146 => 87,  142 => 86,  119 => 66,  98 => 47,  96 => 46,  84 => 36,  78 => 33,  75 => 32,  73 => 31,  46 => 7,  38 => 1,);
+        return array (  212 => 46,  177 => 104,  173 => 103,  163 => 96,  159 => 95,  148 => 87,  144 => 86,  121 => 66,  100 => 47,  98 => 46,  86 => 36,  80 => 33,  77 => 32,  75 => 31,  48 => 7,  38 => 1,);
     }
 
     public function getSourceContext()

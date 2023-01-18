@@ -395,7 +395,7 @@ class Betterdocs_Pro_Public
         $values['search_button_text']             = esc_html__('Search','betterdocs-pro');
         $values['reporting_frequency']            = 'betterdocs_daily';
         $values['select_reporting_data']          = array('overview', 'top-docs', 'most-search');
-        $values['reporting_subject']              = wp_sprintf( '%s %s', __( 'Weekly Engagement Summary of', 'betterdocs-pro' ),  get_bloginfo( 'name' ) );
+        $values['reporting_subject_updated']      = wp_sprintf( '%s %s %s', __( 'Your Documentation Performance of', 'betterdocs' ),  get_bloginfo( 'name' ), __( 'Website', 'betterdocs' ), );
         $values['child_category_exclude']         = 'false';
         return $values;
     }

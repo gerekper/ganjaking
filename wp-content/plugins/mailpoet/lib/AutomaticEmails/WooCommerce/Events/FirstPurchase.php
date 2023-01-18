@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\AutomaticEmails\WooCommerce\Events;
 
@@ -78,9 +78,28 @@ class FirstPurchase {
       'title' => __('First Purchase', 'mailpoet'),
       'description' => __('Let MailPoet send an email to customers who make their first purchase.', 'mailpoet'),
       'listingScheduleDisplayText' => __('Email sent when a customer makes their first purchase.', 'mailpoet'),
+      'afterDelayText' => __('after the first purchase', 'mailpoet'),
       'badge' => [
         'text' => __('Must-have', 'mailpoet'),
         'style' => 'red',
+      ],
+      'timeDelayValues' => [
+        'immediate' => [
+          'text' => __('immediately', 'mailpoet'),
+          'displayAfterTimeNumberField' => false,
+        ],
+        'hours' => [
+          'text' => __('hour(s)', 'mailpoet'),
+          'displayAfterTimeNumberField' => true,
+        ],
+        'days' => [
+          'text' => __('day(s)', 'mailpoet'),
+          'displayAfterTimeNumberField' => true,
+        ],
+        'weeks' => [
+          'text' => __('week(s)', 'mailpoet'),
+          'displayAfterTimeNumberField' => true,
+        ],
       ],
       'shortcodes' => [
         [
@@ -191,7 +210,7 @@ class FirstPurchase {
         'subscriber_id' => $subscriber->getId(),
       ]
     );
-    $this->scheduler->scheduleAutomaticEmail(WooCommerce::SLUG, self::SLUG, $checkEmailWasNotScheduled, $subscriber->getId(), $meta);
+    $this->scheduler->scheduleAutomaticEmail(WooCommerce::SLUG, self::SLUG, $checkEmailWasNotScheduled, $subscriber, $meta);
   }
 
   public function getCustomerOrderCount($customerEmail) {
@@ -204,15 +223,18 @@ class FirstPurchase {
     return $this->getGuestCustomerOrderCountByEmail($customerEmail);
   }
 
-  private function getGuestCustomerOrderCountByEmail($customerEmail) {
-    global $wpdb;
-    $count = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*)
-        FROM $wpdb->posts as posts
-        LEFT JOIN {$wpdb->postmeta} AS meta ON posts.ID = meta.post_id
-        WHERE   meta.meta_key = '_billing_email'
-        AND     posts.post_type = 'shop_order'
-        AND     meta_value = %s
-    ", $customerEmail));
-    return (int)$count;
+  private function getGuestCustomerOrderCountByEmail(string $customerEmail): int {
+    $ordersCount = $this->helper->wcGetOrders(
+      [
+        'status' => 'all',
+        'type' => 'shop_order',
+        'billing_email' => $customerEmail,
+        'limit' => 1,
+        'return' => 'ids',
+        'paginate' => true,
+      ]
+    )->total;
+
+    return $ordersCount;
   }
 }

@@ -30,7 +30,6 @@ trait Units
  // @call addRealUnit
  case 'millisecond':
  return $this->addRealUnit('microsecond', $value * static::MICROSECONDS_PER_MILLISECOND);
- break;
  // @call addRealUnit
  case 'second':
  break;
@@ -102,7 +101,7 @@ trait Units
  // @call addUnit
  'weekday',
  ];
- return \in_array($unit, $modifiableUnits) || \in_array($unit, static::$units);
+ return \in_array($unit, $modifiableUnits, \true) || \in_array($unit, static::$units, \true);
  }
  public function rawAdd(DateInterval $interval)
  {
@@ -130,6 +129,7 @@ trait Units
  }
  public function addUnit($unit, $value = 1, $overflow = null)
  {
+ $originalArgs = \func_get_args();
  $date = $this;
  if (!\is_numeric($value) || !(float) $value) {
  return $date->isMutable() ? $date : $date->avoidMutation();
@@ -149,7 +149,7 @@ trait Units
  $weeks = \floor($absoluteValue / $weekDaysCount);
  for ($diff = $absoluteValue % $weekDaysCount; $diff; $diff--) {
  $date = $date->addDays($sign);
- while (\in_array($date->dayOfWeek, $weekendDays)) {
+ while (\in_array($date->dayOfWeek, $weekendDays, \true)) {
  $date = $date->addDays($sign);
  }
  }
@@ -184,7 +184,7 @@ trait Units
  $date = $date->modify('last day of previous month');
  }
  if (!$date) {
- throw new UnitException('Unable to add unit ' . \var_export(\func_get_args(), \true));
+ throw new UnitException('Unable to add unit ' . \var_export($originalArgs, \true));
  }
  return $date;
  }

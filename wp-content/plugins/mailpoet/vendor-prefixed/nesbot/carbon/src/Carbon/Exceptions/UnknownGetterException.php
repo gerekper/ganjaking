@@ -1,12 +1,18 @@
 <?php
 namespace MailPoetVendor\Carbon\Exceptions;
 if (!defined('ABSPATH')) exit;
-use Exception;
 use InvalidArgumentException as BaseInvalidArgumentException;
+use Throwable;
 class UnknownGetterException extends BaseInvalidArgumentException implements InvalidArgumentException
 {
- public function __construct($name, $code = 0, Exception $previous = null)
+ protected $getter;
+ public function __construct($getter, $code = 0, Throwable $previous = null)
  {
- parent::__construct("Unknown getter '{$name}'", $code, $previous);
+ $this->getter = $getter;
+ parent::__construct("Unknown getter '{$getter}'", $code, $previous);
+ }
+ public function getGetter() : string
+ {
+ return $this->getter;
  }
 }

@@ -1,11 +1,13 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\WooCommerce;
 
 if (!defined('ABSPATH')) exit;
 
 
+use Automattic\WooCommerce\Admin\API\Reports\Customers\Stats\Query;
 use MailPoet\DI\ContainerWrapper;
+use MailPoet\RuntimeException;
 use MailPoet\WP\Functions as WPFunctions;
 
 class Helper {
@@ -63,6 +65,13 @@ class Helper {
     return wc_get_product($theProduct);
   }
 
+  public function wcGetPageId(string $page): ?int {
+    if ($this->isWooCommerceActive()) {
+      return (int)wc_get_page_id($page);
+    }
+    return null;
+  }
+
   public function getWoocommerceCurrency() {
     return get_woocommerce_currency();
   }
@@ -83,13 +92,16 @@ class Helper {
     return wc_hex_is_light($color);
   }
 
-  public function getOrdersCountCreatedBefore($dateTime) {
-    global $wpdb;
-    $result = $wpdb->get_var($wpdb->prepare("
-        SELECT DISTINCT count(p.ID) FROM {$wpdb->prefix}posts as p
-        WHERE p.post_type = 'shop_order' AND p.post_date < %s
-    ", $dateTime));
-    return (int)$result;
+  public function getOrdersCountCreatedBefore(string $dateTime): int {
+    $ordersCount = $this->wcGetOrders([
+      'status' => 'all',
+      'type' => 'shop_order',
+      'date_created' => '<' . $dateTime,
+      'limit' => 1,
+      'paginate' => true,
+    ])->total;
+
+    return $ordersCount;
   }
 
   public function getRawPrice($price, array $args = []) {
@@ -99,6 +111,18 @@ class Helper {
 
   public function getAllowedCountries(): array {
     return (new \WC_Countries)->get_allowed_countries() ?? [];
+  }
+
+  public function getCustomersCount(): int {
+    if (!class_exists(Query::class)) {
+      return 0;
+    }
+    $query = new Query([
+      'fields' => ['customers_count'],
+    ]);
+    // Query::get_data declares it returns array but the underlying DataStore returns stdClass
+    $result = (array)$query->get_data();
+    return isset($result['customers_count']) ? intval($result['customers_count']) : 0;
   }
 
   public function wasMailPoetInstalledViaWooCommerceOnboardingWizard(): bool {
@@ -116,5 +140,21 @@ class Helper {
     }
 
     return $installedViaWooCommerce;
+  }
+
+  public function getOrdersTableName() {
+    if (!method_exists('\Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore', 'get_orders_table_name')) {
+      throw new RuntimeException('Cannot get orders table name when running a WooCommerce version that doesn\'t support custom order tables.');
+    }
+
+    return \Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore::get_orders_table_name();
+  }
+
+  public function getAddressesTableName() {
+    if (!method_exists('\Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore', 'get_addresses_table_name')) {
+      throw new RuntimeException('Cannot get addresses table name when running a WooCommerce version that doesn\'t support custom order tables.');
+    }
+
+    return \Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore::get_addresses_table_name();
   }
 }

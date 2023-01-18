@@ -43,17 +43,18 @@ function wc_price_calculator_product_options_dimensions() {
 		'id'          => '_area',
 		'class'       => 'wc_input_decimal',
 		'label'       => __( 'Area', 'woocommerce-measurement-price-calculator' ) . ' (' . get_option( 'woocommerce_area_unit' ) . ')',
-		'description' => '<br />' . __( 'Overrides the area calculated from the width/length dimensions for the Measurements Price Calculator.', 'woocommerce-measurement-price-calculator' ) . '</br>',
+		'description' => '<br />' . __( 'Overrides the area calculated from the width/length dimensions for the Measurements Price Calculator.', 'woocommerce-measurement-price-calculator' ) . '<br />',
+		'value'       => WC_Price_Calculator_Measurement::get_and_format_measurement_object_meta_value('_area'),
 	 ) );
 
 	woocommerce_wp_text_input( array(
 		'id'          => '_volume',
 		'class'       => 'wc_input_decimal',
 		'label'       => __( 'Volume', 'woocommerce-measurement-price-calculator' ) . ' (' . get_option( 'woocommerce_volume_unit' ) . ')',
-		'description' => '<br />' .  __( 'Overrides the volume calculated from the width/length/height dimensions for the Measurements Price Calculator.', 'woocommerce-measurement-price-calculator' ) . '</br>',
+		'description' => '<br />' .  __( 'Overrides the volume calculated from the width/length/height dimensions for the Measurements Price Calculator.', 'woocommerce-measurement-price-calculator' ) . '<br />',
+		'value'       => WC_Price_Calculator_Measurement::get_and_format_measurement_object_meta_value('_volume'),
 	) );
 }
-
 
 add_action( 'woocommerce_process_product_meta', 'wc_measurement_price_calculator_process_product_meta', 10, 2 );
 
@@ -64,6 +65,8 @@ add_action( 'woocommerce_process_product_meta', 'wc_measurement_price_calculator
  * @param \WP_Post $post The post being saved.
  */
 function wc_measurement_price_calculator_process_product_meta( $post_id, $post ) {
+
+	apply_filters('the_post', 'wc_measurement_fix_post_decimals_values_to_database');
 
 	$is_virtual = isset( $_POST['_virtual'] ) ? 'yes' : 'no';
 
@@ -138,4 +141,26 @@ function wc_measurement_price_calculator_product_minimum_price_save( $post_id ) 
 
 		update_post_meta( $post_id, '_wc_measurement_price_calculator_min_price', $_POST['_wc_measurement_price_calculator_min_price'] );
 	}
+}
+
+//Formats decimal values to be accepted by the database
+add_filter('the_post', 'wc_measurement_fix_post_decimals_values_to_database');
+
+/**
+ * Formats decimal values to be accepted by the database
+ *
+ * @since 3.21.1
+ * @return void
+ */
+function wc_measurement_fix_post_decimals_values_to_database() {
+
+	$postContent = $_POST;
+
+	array_map( function( $field ) use ( &$postContent ) {
+
+		$postContent[$field] = str_replace('.', ',', $postContent[$field]);
+
+	}, ['_area', '_volume'] );
+
+	$_POST = $postContent;
 }

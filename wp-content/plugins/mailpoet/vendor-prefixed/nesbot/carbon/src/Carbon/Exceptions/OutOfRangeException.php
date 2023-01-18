@@ -1,8 +1,8 @@
 <?php
 namespace MailPoetVendor\Carbon\Exceptions;
 if (!defined('ABSPATH')) exit;
-use Exception;
 use InvalidArgumentException as BaseInvalidArgumentException;
+use Throwable;
 // This will extends OutOfRangeException instead of InvalidArgumentException since 3.0.0
 // use OutOfRangeException as BaseOutOfRangeException;
 class OutOfRangeException extends BaseInvalidArgumentException implements InvalidArgumentException
@@ -11,7 +11,7 @@ class OutOfRangeException extends BaseInvalidArgumentException implements Invali
  private $min;
  private $max;
  private $value;
- public function __construct($unit, $min, $max, $value, $code = 0, Exception $previous = null)
+ public function __construct($unit, $min, $max, $value, $code = 0, Throwable $previous = null)
  {
  $this->unit = $unit;
  $this->min = $min;

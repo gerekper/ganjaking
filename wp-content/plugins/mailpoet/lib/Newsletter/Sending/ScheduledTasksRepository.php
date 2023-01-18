@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Newsletter\Sending;
 
@@ -12,6 +12,7 @@ use MailPoet\Entities\NewsletterEntity;
 use MailPoet\Entities\ScheduledTaskEntity;
 use MailPoet\Entities\ScheduledTaskSubscriberEntity;
 use MailPoet\Entities\SendingQueueEntity;
+use MailPoet\Entities\SubscriberEntity;
 use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Carbon\Carbon;
 use MailPoetVendor\Carbon\CarbonImmutable;
@@ -52,6 +53,22 @@ class ScheduledTasksRepository extends Repository {
 
   /**
    * @param NewsletterEntity $newsletter
+   */
+  public function findOneByNewsletter(NewsletterEntity $newsletter): ?ScheduledTaskEntity {
+    $scheduledTask = $this->doctrineRepository->createQueryBuilder('st')
+      ->join(SendingQueueEntity::class, 'sq', Join::WITH, 'st = sq.task')
+      ->andWhere('sq.newsletter = :newsletter')
+      ->orderBy('sq.updatedAt', 'desc')
+      ->setMaxResults(1)
+      ->setParameter('newsletter', $newsletter)
+      ->getQuery()
+      ->getOneOrNullResult();
+    // for phpstan because it detects mixed instead of entity
+    return ($scheduledTask instanceof ScheduledTaskEntity) ? $scheduledTask : null;
+  }
+
+  /**
+   * @param NewsletterEntity $newsletter
    * @return ScheduledTaskEntity[]
    */
   public function findByScheduledAndRunningForNewsletter(NewsletterEntity $newsletter): array {
@@ -81,6 +98,23 @@ class ScheduledTasksRepository extends Repository {
       ->setParameter('subscriber', $subscriberId)
       ->getQuery()
       ->getResult();
+  }
+
+  public function findOneScheduledByNewsletterAndSubscriber(NewsletterEntity $newsletter, SubscriberEntity $subscriber): ?ScheduledTaskEntity {
+    $scheduledTask = $this->doctrineRepository->createQueryBuilder('st')
+      ->join(SendingQueueEntity::class, 'sq', Join::WITH, 'st = sq.task')
+      ->join(ScheduledTaskSubscriberEntity::class, 'sts', Join::WITH, 'st = sts.task')
+      ->andWhere('st.status = :status')
+      ->andWhere('sq.newsletter = :newsletter')
+      ->andWhere('sts.subscriber = :subscriber')
+      ->setMaxResults(1)
+      ->setParameter('status', ScheduledTaskEntity::STATUS_SCHEDULED)
+      ->setParameter('newsletter', $newsletter)
+      ->setParameter('subscriber', $subscriber)
+      ->getQuery()
+      ->getOneOrNullResult();
+    // for phpstan because it detects mixed instead of entity
+    return ($scheduledTask instanceof ScheduledTaskEntity) ? $scheduledTask : null;
   }
 
   public function findScheduledOrRunningTask(?string $type): ?ScheduledTaskEntity {
@@ -187,26 +221,32 @@ class ScheduledTasksRepository extends Repository {
     ],
     $limit = Scheduler::TASK_BATCH_SIZE
   ) {
+    $result = [];
+    foreach ($statuses as $status) {
+      $tasksQuery = $this->doctrineRepository->createQueryBuilder('st')
+        ->select('st')
+        ->where('st.deletedAt IS NULL')
+        ->where('st.status = :status');
 
-    $tasksQuery = $this->doctrineRepository->createQueryBuilder('st')
-      ->select('st')
-      ->where('st.deletedAt IS NULL')
-      ->where('st.status IN (:statuses)');
+      if ($status === ScheduledTaskEntity::VIRTUAL_STATUS_RUNNING) {
+        $tasksQuery = $tasksQuery->orWhere('st.status IS NULL');
+      }
 
-    if (in_array(ScheduledTaskEntity::VIRTUAL_STATUS_RUNNING, $statuses)) {
-      $tasksQuery = $tasksQuery->orWhere('st.status IS NULL');
+      if ($type) {
+        $tasksQuery = $tasksQuery->andWhere('st.type = :type')
+          ->setParameter('type', $type);
+      }
+
+      $tasks = $tasksQuery
+        ->setParameter('status', $status)
+        ->setMaxResults($limit)
+        ->orderBy('st.id', 'desc')
+        ->getQuery()
+        ->getResult();
+      $result = array_merge($result, $tasks);
     }
 
-    if ($type) {
-      $tasksQuery = $tasksQuery->andWhere('st.type = :type')
-        ->setParameter('type', $type);
-    }
-
-    return $tasksQuery
-      ->setParameter('statuses', $statuses)
-      ->setMaxResults($limit)
-      ->getQuery()
-      ->getResult();
+    return $result;
   }
 
   /**

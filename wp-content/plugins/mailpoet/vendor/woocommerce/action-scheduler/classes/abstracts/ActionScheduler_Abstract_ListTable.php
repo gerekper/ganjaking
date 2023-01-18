@@ -319,7 +319,7 @@ abstract class ActionScheduler_Abstract_ListTable extends WP_List_Table {
  continue;
  }
  if ( $status_name === $request_status || ( empty( $request_status ) && 'all' === $status_name ) ) {
- $status_list_item = '<li class="%1$s"><strong>%3$s</strong> (%4$d)</li>';
+ $status_list_item = '<li class="%1$s"><a href="%2$s" class="current">%3$s</a> (%4$d)</li>';
  } else {
  $status_list_item = '<li class="%1$s"><a href="%2$s">%3$s</a> (%4$d)</li>';
  }

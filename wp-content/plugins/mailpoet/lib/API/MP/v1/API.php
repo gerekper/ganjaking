@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\API\MP\v1;
 
@@ -6,7 +6,6 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Config\Changelog;
-use MailPoet\Models\Subscriber;
 
 /**
  * API used by other plugins
@@ -84,13 +83,24 @@ class API {
     return $this->segments->addList($list);
   }
 
+  public function deleteList(string $listId): bool {
+    return $this->segments->deleteList($listId);
+  }
+
+  public function updateList(array $list): array {
+    return $this->segments->updateList($list);
+  }
+
   public function getSubscriber($subscriberEmail) {
-    $subscriber = Subscriber::findOne($subscriberEmail);
-    // throw exception when subscriber does not exist
-    if (!$subscriber) {
-      throw new APIException(__('This subscriber does not exist.', 'mailpoet'), APIException::SUBSCRIBER_NOT_EXISTS);
-    }
-    return $subscriber->withCustomFields()->withSubscriptions()->asArray();
+    return $this->subscribers->getSubscriber($subscriberEmail);
+  }
+
+  public function getSubscribers(array $filter = [], int $limit = 50, int $offset = 0): array {
+    return $this->subscribers->getSubscribers($filter, $limit, $offset);
+  }
+
+  public function getSubscribersCount(array $filter = []): int {
+    return $this->subscribers->getSubscribersCount($filter);
   }
 
   public function isSetupComplete() {

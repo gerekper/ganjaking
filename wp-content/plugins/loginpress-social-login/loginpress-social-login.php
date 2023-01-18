@@ -3,7 +3,7 @@
 * Plugin Name: LoginPress - Social Login
 * Plugin URI: https://loginpress.pro/
 * Description: This is a premium add-on of LoginPress WordPress plugin by <a href="https://wpbrigade.com/">WPBrigade</a> which allows you to login using social media accounts like Facebook, Twitter and Google/G+ etc
-* Version: 1.5.3
+* Version: 2.0.0
 * Author: WPBrigade
 * Author URI: https://www.WPBrigade.com/
 * Text Domain: loginpress-social-login
@@ -21,7 +21,7 @@ if ( ! class_exists( 'LoginPress_Social' ) ) :
     /**
     * @var string
     */
-    public $version = '1.5.3';
+    public $version = '2.0.0';
     private $is_shortcode = false;
 
     /**

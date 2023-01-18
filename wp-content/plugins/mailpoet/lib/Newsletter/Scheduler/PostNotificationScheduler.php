@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Newsletter\Scheduler;
 
@@ -113,7 +113,7 @@ class PostNotificationScheduler {
   }
 
   public function createPostNotificationSendingTask(NewsletterEntity $newsletter): ?ScheduledTaskEntity {
-    $notificationHistory = $this->newslettersRepository->findSendigNotificationHistoryWithPausedTask($newsletter);
+    $notificationHistory = $this->newslettersRepository->findSendingNotificationHistoryWithoutPausedTask($newsletter);
     if (count($notificationHistory) > 0) {
       return null;
     }

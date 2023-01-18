@@ -1,13 +1,13 @@
 <?php
 namespace MailPoetVendor\Carbon\Exceptions;
 if (!defined('ABSPATH')) exit;
-use Exception;
 use InvalidArgumentException as BaseInvalidArgumentException;
+use Throwable;
 class InvalidDateException extends BaseInvalidArgumentException implements InvalidArgumentException
 {
  private $field;
  private $value;
- public function __construct($field, $value, $code = 0, Exception $previous = null)
+ public function __construct($field, $value, $code = 0, Throwable $previous = null)
  {
  $this->field = $field;
  $this->value = $value;

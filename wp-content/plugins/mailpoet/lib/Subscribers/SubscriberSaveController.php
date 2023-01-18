@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Subscribers;
 
@@ -232,8 +232,14 @@ class SubscriberSaveController {
     // wipe any unconfirmed data at this point
     $subscriber->setUnconfirmedData(null);
 
-    $this->subscribersRepository->persist($subscriber);
-    $this->subscribersRepository->flush();
+    try {
+      $this->subscribersRepository->persist($subscriber);
+      $this->subscribersRepository->flush();
+    } catch (ValidationException $exception) {
+      // detach invalid entity because it can block another work with doctrine
+      $this->subscribersRepository->detach($subscriber);
+      throw $exception;
+    }
 
     return $subscriber;
   }

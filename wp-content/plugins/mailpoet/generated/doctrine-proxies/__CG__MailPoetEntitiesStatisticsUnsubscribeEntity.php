@@ -70,10 +70,10 @@ class StatisticsUnsubscribeEntity extends \MailPoet\Entities\StatisticsUnsubscri
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'newsletter', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'queue', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'subscriber', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'source', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'meta', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'createdAt'];
+            return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'newsletter', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'queue', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'subscriber', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'source', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'meta', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'method', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'createdAt'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'newsletter', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'queue', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'subscriber', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'source', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'meta', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'createdAt'];
+        return ['__isInitialized__', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'newsletter', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'queue', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'subscriber', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'source', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'meta', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'method', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'id', '' . "\0" . 'MailPoet\\Entities\\StatisticsUnsubscribeEntity' . "\0" . 'createdAt'];
     }
 
     /**
@@ -244,6 +244,28 @@ class StatisticsUnsubscribeEntity extends \MailPoet\Entities\StatisticsUnsubscri
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMeta', []);
 
         return parent::getMeta();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setMethod(string $method)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setMethod', [$method]);
+
+        return parent::setMethod($method);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getMethod(): string
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMethod', []);
+
+        return parent::getMethod();
     }
 
     /**

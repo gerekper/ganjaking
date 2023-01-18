@@ -4,6 +4,12 @@ if (!defined('ABSPATH')) exit;
 class csstidy_optimise
 {
  public $parser;
+ public $css;
+ public $sub_value;
+ public $at;
+ public $selector;
+ public $property;
+ public $value;
  public function __construct($css)
  {
  $this->parser = $css;

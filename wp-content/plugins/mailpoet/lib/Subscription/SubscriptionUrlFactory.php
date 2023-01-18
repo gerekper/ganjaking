@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Subscription;
 
@@ -51,6 +51,20 @@ class SubscriptionUrlFactory {
       null,
       ['width' => $width, 'height' => $height, 'captcha_session_id' => $sessionId]
     );
+  }
+
+  public function getCaptchaAudioUrl($sessionId) {
+    $post = $this->getPost($this->settings->get('subscription.pages.captcha'));
+    $url = $this->getSubscriptionUrl(
+      $post,
+      'captchaAudio',
+      null,
+      [
+        'cacheBust' => time(),
+        'captcha_session_id' => $sessionId,
+      ]
+    );
+    return $url;
   }
 
   public function getConfirmationUrl(SubscriberEntity $subscriber = null) {

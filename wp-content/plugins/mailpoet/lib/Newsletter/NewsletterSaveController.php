@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Newsletter;
 
@@ -406,7 +406,7 @@ class NewsletterSaveController {
       $queueModel->newsletterRenderedBody = null;
 
       $newsletterQueueTask = new NewsletterQueueTask();
-      $newsletterQueueTask->preProcessNewsletter($newsletterModel, $queueModel);
+      $newsletterQueueTask->preProcessNewsletter($newsletter, $queueModel);
 
       // 'preProcessNewsletter' modifies queue by old model - let's reload it
       $this->entityManager->refresh($queue);

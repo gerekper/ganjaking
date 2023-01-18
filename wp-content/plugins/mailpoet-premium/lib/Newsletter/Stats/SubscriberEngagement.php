@@ -1,4 +1,4 @@
-<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
+<?php declare(strict_types = 1);
 
 namespace MailPoet\Premium\Newsletter\Stats;
 
@@ -16,6 +16,7 @@ use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Entities\UserAgentEntity;
 use MailPoet\Listing;
 use MailPoet\Newsletter\NewslettersRepository;
+use MailPoet\NotFoundException;
 use MailPoet\Premium\Newsletter\StatisticsClicksRepository;
 use MailPoet\Premium\Newsletter\StatisticsOpensRepository;
 use MailPoet\Premium\Newsletter\StatisticsUnsubscribesRepository;
@@ -69,7 +70,6 @@ class SubscriberEngagement {
   }
 
   /**
-   * @param array<string, mixed> $data
    * @return Listing\ListingDefinition
    */
   private function parseData($data): Listing\ListingDefinition {
@@ -93,19 +93,27 @@ class SubscriberEngagement {
   }
 
   /**
-   * @param array<string, mixed> $data
+   * @param array{sort_order?: string, sort_by?: string, params?: array<string, int|null>, group?: string, filter?: array{link: int|null}} $data
    *
-   * @return array{count: int, filters: array, groups: array, items: array}
+   * @return array{
+   *   count: int,
+   *   filters: array{link: array<int, array{label: string, value: string}>},
+   *   groups: array<int, array{name: string, label: string, count: int}>,
+   *   items: array<int, array<string, mixed>>
+   * }
    */
   public function get($data = []): array {
     $definition = $this->parseData($data);
     $newsletterId = $definition->getParameters()['id'];
     $newsletter = $this->newslettersRepository->findOneById($newsletterId);
+    if (!$newsletter) {
+      throw new NotFoundException();
+    }
 
     $countQuery = $this->getStatsQuery($definition, true);
     if ($countQuery) {
       $query = 'SELECT COUNT(*) as cnt FROM ( ' . $countQuery . ' ) t ';
-      $count = (int)$this->entityManager->getConnection()->executeQuery($query)->fetchOne();
+      $count = intval($this->entityManager->getConnection()->executeQuery($query)->fetchOne());
 
       $statsQuery = $this->getStatsQuery($definition);
       $query = $statsQuery . " ORDER BY {$definition->getSortBy()} {$definition->getSortOrder()} LIMIT :limit OFFSET :offset ";
@@ -309,20 +317,20 @@ class SubscriberEngagement {
   }
 
   /**
-   * @param array<int, mixed> $fields
+   * @param array<int, string> $fields
    * @param bool $count
    *
    * @return string
    */
-  private static function getColumnList(array $fields, $count = false): string {
+  private static function getColumnList(array $fields, bool $count = false): string {
     // Select ID field only for counting
-    return $count ? reset($fields) : join(', ', $fields);
+    return $count ? (string)reset($fields) : join(', ', $fields);
   }
 
   /**
    * @param NewsletterEntity $newsletter
    *
-   * @return array[]
+   * @return array{link: array<int, array{label: string, value: string}>}
    */
   private function filters(NewsletterEntity $newsletter): array {
     $clicks = $this->statisticsClicksRepository->getClickedLinksForFilter($newsletter);
@@ -356,7 +364,7 @@ class SubscriberEngagement {
    * @param Listing\ListingDefinition $definition
    * @param NewsletterEntity $newsletter
    *
-   * @return array[]
+   * @return array<int, array{name: string, label: string, count: int}>]
    */
   private function groups(Listing\ListingDefinition $definition, NewsletterEntity $newsletter): array {
     $groups = [
@@ -393,7 +401,7 @@ class SubscriberEngagement {
 
     $subQuery = $this->getStatsQuery($definition, true, self::STATUS_UNOPENED, false);
     $query = ' SELECT COUNT(*) as cnt FROM ( ' . $subQuery . ' ) t ';
-    $unopenedCount = (int)$this->entityManager->getConnection()->executeQuery($query)->fetchOne();
+    $unopenedCount = intval($this->entityManager->getConnection()->executeQuery($query)->fetchOne());
 
     $groups[] = [
       'name' => self::STATUS_UNOPENED,

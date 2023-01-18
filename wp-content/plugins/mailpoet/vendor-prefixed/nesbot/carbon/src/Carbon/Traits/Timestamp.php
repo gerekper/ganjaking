@@ -39,7 +39,7 @@ trait Timestamp
  }
  public function getPreciseTimestamp($precision = 6)
  {
- return \round($this->rawFormat('Uu') / \pow(10, 6 - $precision));
+ return \round((float) $this->rawFormat('Uu') / \pow(10, 6 - $precision));
  }
  public function valueOf()
  {
@@ -61,7 +61,7 @@ trait Timestamp
  $sign = \str_starts_with($numbers, '-') ? -1 : 1;
  $integer = 0;
  $decimal = 0;
- foreach (\preg_split('`[^0-9.]+`', $numbers) as $chunk) {
+ foreach (\preg_split('`[^\\d.]+`', $numbers) as $chunk) {
  [$integerPart, $decimalPart] = \explode('.', "{$chunk}.");
  $integer += (int) $integerPart;
  $decimal += (float) "0.{$decimalPart}";

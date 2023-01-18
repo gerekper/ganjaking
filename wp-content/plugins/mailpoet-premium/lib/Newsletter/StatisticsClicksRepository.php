@@ -46,7 +46,7 @@ class StatisticsClicksRepository extends Repository {
 
   /**
    * @param NewsletterEntity $newsletter
-   * @return mixed
+   * @return array<int, array{cnt: int, url: string, link_id: string}>
    */
   public function getClickedLinksForFilter(NewsletterEntity $newsletter) {
     $query = $this->doctrineRepository
@@ -59,6 +59,9 @@ class StatisticsClicksRepository extends Repository {
       ->setParameter('newsletter', $newsletter)
       ->orderBy('url', 'asc')
       ->groupBy('links.id');
-    return $query->getQuery()->getResult();
+
+    /** @var array<int, array{cnt: int, url: string, link_id: string}> $result */
+    $result = $query->getQuery()->getArrayResult();
+    return $result;
   }
 }

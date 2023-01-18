@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Tasks;
 
@@ -6,10 +6,13 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Cron\Workers\SendingQueue\SendingQueue as SendingQueueAlias;
+use MailPoet\DI\ContainerWrapper;
+use MailPoet\Entities\SendingQueueEntity;
 use MailPoet\Logging\LoggerFactory;
 use MailPoet\Models\ScheduledTask;
 use MailPoet\Models\ScheduledTaskSubscriber;
 use MailPoet\Models\SendingQueue;
+use MailPoet\Newsletter\Sending\SendingQueuesRepository;
 use MailPoet\Util\Helpers;
 
 /**
@@ -168,8 +171,8 @@ class Sending {
   }
 
   public function save() {
-    $this->task->save();
     $this->queue->save();
+    $this->task->save();
     $errors = $this->getErrors();
     if ($errors) {
       $loggerFactory = LoggerFactory::getInstance();
@@ -189,6 +192,14 @@ class Sending {
 
   public function queue() {
     return $this->queue;
+  }
+
+  public function getSendingQueueEntity(): SendingQueueEntity {
+    $sendingQueuesRepository = ContainerWrapper::getInstance()->get(SendingQueuesRepository::class);
+    $sendingQueueEntity = $sendingQueuesRepository->findOneById($this->queue->id);
+    $sendingQueuesRepository->refresh($sendingQueueEntity);
+
+    return $sendingQueueEntity;
   }
 
   public function task() {

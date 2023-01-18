@@ -17,10 +17,7 @@ trait Test
  protected static $testDefaultTimezone;
  public static function setTestNow($testNow = null)
  {
- if ($testNow === \false) {
- $testNow = null;
- }
- static::$testNow = \is_string($testNow) ? static::parse($testNow) : $testNow;
+ static::$testNow = $testNow instanceof self || $testNow instanceof Closure ? $testNow : static::make($testNow);
  }
  public static function setTestNowAndTimezone($testNow = null, $tz = null)
  {
@@ -44,8 +41,11 @@ trait Test
  public static function withTestNow($testNow = null, $callback = null)
  {
  static::setTestNow($testNow);
+ try {
  $result = $callback();
+ } finally {
  static::setTestNow();
+ }
  return $result;
  }
  public static function getTestNow()

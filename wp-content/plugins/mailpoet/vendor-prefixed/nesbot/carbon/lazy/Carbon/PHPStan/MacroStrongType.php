@@ -3,11 +3,12 @@ declare (strict_types=1);
 namespace MailPoetVendor\Carbon\PHPStan;
 if (!defined('ABSPATH')) exit;
 if (!\class_exists(LazyMacro::class, \false)) {
- abstract class LazyMacro extends AbstractMacro
+ abstract class LazyMacro extends AbstractReflectionMacro
  {
  public function getFileName() : ?string
  {
- return $this->reflectionFunction->getFileName();
+ $file = $this->reflectionFunction->getFileName();
+ return (($file ? \realpath($file) : null) ?: $file) ?: null;
  }
  public function getStartLine() : ?int
  {

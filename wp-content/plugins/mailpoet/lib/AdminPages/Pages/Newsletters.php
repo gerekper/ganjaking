@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\AdminPages\Pages;
 
@@ -18,7 +18,6 @@ use MailPoet\Segments\SegmentsSimpleListRepository;
 use MailPoet\Services\AuthorizedSenderDomainController;
 use MailPoet\Services\Bridge;
 use MailPoet\Settings\SettingsController;
-use MailPoet\Settings\UserFlagsController;
 use MailPoet\WooCommerce\TransactionalEmails;
 use MailPoet\WP\AutocompletePostListLoader as WPPostListLoader;
 use MailPoet\WP\DateTime;
@@ -36,9 +35,6 @@ class Newsletters {
 
   /** @var SettingsController */
   private $settings;
-
-  /** @var UserFlagsController */
-  private $userFlags;
 
   /** @var NewsletterTemplatesRepository */
   private $newsletterTemplatesRepository;
@@ -66,7 +62,6 @@ class Newsletters {
     PageLimit $listingPageLimit,
     WPFunctions $wp,
     SettingsController $settings,
-    UserFlagsController $userFlags,
     NewsletterTemplatesRepository $newsletterTemplatesRepository,
     WPPostListLoader $wpPostListLoader,
     AutomaticEmails $automaticEmails,
@@ -79,7 +74,6 @@ class Newsletters {
     $this->listingPageLimit = $listingPageLimit;
     $this->wp = $wp;
     $this->settings = $settings;
-    $this->userFlags = $userFlags;
     $this->newsletterTemplatesRepository = $newsletterTemplatesRepository;
     $this->automaticEmails = $automaticEmails;
     $this->wpPostListLoader = $wpPostListLoader;
@@ -114,12 +108,11 @@ class Newsletters {
       '+1 hour',
       24
     );
-    $data['mailpoet_main_page'] = $this->wp->adminUrl('admin.php?page=' . Menu::MAIN_PAGE_SLUG);
+    $data['mailpoet_emails_page'] = $this->wp->adminUrl('admin.php?page=' . Menu::EMAILS_PAGE_SLUG);
     $data['show_congratulate_after_first_newsletter'] = isset($data['settings']['show_congratulate_after_first_newsletter']) ? $data['settings']['show_congratulate_after_first_newsletter'] : 'false';
 
     $data['is_mailpoet_update_available'] = array_key_exists(Env::$pluginPath, $this->wp->getPluginUpdates());
     $data['newsletters_count'] = $this->newslettersRepository->countBy([]);
-    $data['transactional_emails_opt_in_notice_dismissed'] = $this->userFlags->get('transactional_emails_opt_in_notice_dismissed');
 
     $data['automatic_emails'] = $this->automaticEmails->getAutomaticEmails();
     $data['woocommerce_optin_on_checkout'] = $this->settings->get('woocommerce.optin_on_checkout.enabled', false);

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace MailPoet\Cron;
 
@@ -52,8 +52,7 @@ class DaemonActionSchedulerRunner {
   }
 
   public function deactivate(): void {
-    $this->actionScheduler->unscheduleAction(DaemonTrigger::NAME);
-    $this->actionScheduler->unscheduleAction(DaemonRun::NAME);
+    $this->actionScheduler->unscheduleAllCronActions();
   }
 
   /**

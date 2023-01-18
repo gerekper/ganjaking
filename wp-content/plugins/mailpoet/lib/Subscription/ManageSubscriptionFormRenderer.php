@@ -13,7 +13,6 @@ use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Form\Block\Date as FormBlockDate;
 use MailPoet\Form\Renderer as FormRenderer;
 use MailPoet\Segments\SegmentsRepository;
-use MailPoet\Settings\SettingsController;
 use MailPoet\Subscribers\LinkTokens;
 use MailPoet\Util\Helpers;
 use MailPoet\Util\Url as UrlHelper;
@@ -23,9 +22,6 @@ use MailPoetVendor\Doctrine\Common\Collections\Criteria;
 class ManageSubscriptionFormRenderer {
   const FORM_STATE_SUCCESS = 'success';
   const FORM_STATE_NOT_SUBMITTED = 'not_submitted';
-
-  /** @var SettingsController */
-  private $settings;
 
   /** @var UrlHelper */
   private $urlHelper;
@@ -53,7 +49,6 @@ class ManageSubscriptionFormRenderer {
 
   public function __construct(
     WPFunctions $wp,
-    SettingsController $settings,
     UrlHelper $urlHelper,
     LinkTokens $linkTokens,
     FormRenderer $formRenderer,
@@ -63,7 +58,6 @@ class ManageSubscriptionFormRenderer {
     SegmentsRepository $segmentsRepository
   ) {
     $this->wp = $wp;
-    $this->settings = $settings;
     $this->urlHelper = $urlHelper;
     $this->linkTokens = $linkTokens;
     $this->formRenderer = $formRenderer;
@@ -230,13 +224,12 @@ class ManageSubscriptionFormRenderer {
   }
 
   private function getSegmentField(SubscriberEntity $subscriber): array {
-    $segmentIds = $this->settings->get('subscription.segments', []);
-
     // Get default segments
-    $criteria = ['type' => SegmentEntity::TYPE_DEFAULT, 'deletedAt' => null];
-    if (!empty($segmentIds)) {
-      $criteria['id'] = $segmentIds;
-    }
+    $criteria = [
+      'type' => SegmentEntity::TYPE_DEFAULT,
+      'deletedAt' => null,
+      'displayInManageSubscriptionPage' => true,
+      ];
     $segments = $this->segmentsRepository->findBy($criteria, ['name' => Criteria::ASC]);
 
     $subscribedSegmentIds = [];

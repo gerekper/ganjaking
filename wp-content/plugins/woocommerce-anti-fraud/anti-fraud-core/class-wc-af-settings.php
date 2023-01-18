@@ -985,6 +985,31 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 							'id' => 'wc_af_email_whitelist_settings'
 						),
 						
+						/* Auto order fraud check */
+						array(
+							'name' => __( 'Auto Fraud Check For Existing Orders', 'woocommerce-anti-fraud' ),
+							'type' => 'section',
+							'desc'  => '',
+							'desc_tip' => __( 'In this section, customers can enable this setting to check fraud for a previous order, when the Anti Fraud plugin is not installed and an order was placed within 7 days old.' ),
+							'id'   => 'wc_af_enable_start_auto_fraud_check',
+							'class' => 'wc_af_sub-section',
+							'css'   => 'display: block;'
+						),
+						array(
+							'title'       => __( 'Enable Auto Fraud Check', 'woocommerce-anti-fraud' ),
+							'type'        => 'checkbox',
+							'label'       => '',
+							'desc'        => '',
+							'desc_tip'    => __('Enable it to check fraud for a previous order, that orders, when the Antifraud plugin was not installed.'),
+							'default'     => 'no',
+							'id'    => 'wc_af_start_auto_fraud_check'
+						),
+
+						array(
+							'type' => 'sectionend',
+							'id' => 'wc_af_enable_start_auto_fraud_check'
+						),
+						/* End */
 						
 						array(
 							'type' => 'sectionend',

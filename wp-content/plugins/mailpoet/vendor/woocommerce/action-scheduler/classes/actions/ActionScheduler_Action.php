@@ -13,7 +13,16 @@ class ActionScheduler_Action {
  $this->set_group($group);
  }
  public function execute() {
- return do_action_ref_array( $this->get_hook(), array_values( $this->get_args() ) );
+ $hook = $this->get_hook();
+ if ( ! has_action( $hook ) ) {
+ throw new Exception(
+ sprintf(
+ __( 'Scheduled action for %1$s will not be executed as no callbacks are registered.', 'action-scheduler' ),
+ $hook
+ )
+ );
+ }
+ do_action_ref_array( $hook, array_values( $this->get_args() ) );
  }
  protected function set_hook( $hook ) {
  $this->hook = $hook;

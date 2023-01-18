@@ -1,10 +1,13 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Analytics;
 
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Automation\Engine\Data\Automation;
+use MailPoet\Automation\Engine\Data\Step;
+use MailPoet\Automation\Engine\Storage\AutomationStorage;
 use MailPoet\Config\ServicesChecker;
 use MailPoet\Cron\CronTrigger;
 use MailPoet\Entities\DynamicSegmentFilterData;
@@ -18,6 +21,7 @@ use MailPoet\Segments\DynamicSegments\Filters\MailPoetCustomFields;
 use MailPoet\Segments\DynamicSegments\Filters\SubscriberScore;
 use MailPoet\Segments\DynamicSegments\Filters\SubscriberSegment;
 use MailPoet\Segments\DynamicSegments\Filters\SubscriberSubscribedDate;
+use MailPoet\Segments\DynamicSegments\Filters\SubscriberTag;
 use MailPoet\Segments\DynamicSegments\Filters\UserRole;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceCategory;
 use MailPoet\Segments\DynamicSegments\Filters\WooCommerceCountry;
@@ -30,8 +34,10 @@ use MailPoet\Services\AuthorizedEmailsController;
 use MailPoet\Settings\Pages;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Settings\TrackingConfig;
+use MailPoet\Subscribers\ConfirmationEmailCustomizer;
 use MailPoet\Subscribers\NewSubscriberNotificationMailer;
 use MailPoet\Subscribers\SubscriberListingRepository;
+use MailPoet\Tags\TagRepository;
 use MailPoet\Util\License\Features\Subscribers as SubscribersFeature;
 use MailPoet\WooCommerce\Helper as WooCommerceHelper;
 use MailPoet\WP\Functions as WPFunctions;
@@ -46,6 +52,9 @@ class Reporter {
 
   /** @var DynamicSegmentFilterRepository */
   private $dynamicSegmentFilterRepository;
+
+  /** @var TagRepository */
+  private $tagRepository;
 
   /** @var ServicesChecker */
   private $servicesChecker;
@@ -68,21 +77,31 @@ class Reporter {
   /** @var SubscriberListingRepository */
   private $subscriberListingRepository;
 
+  /** @var AutomationStorage  */
+  private $automationStorage;
+
+  /*** @var UnsubscribeReporter */
+  private $unsubscribeReporter;
+
   public function __construct(
     NewslettersRepository $newslettersRepository,
     SegmentsRepository $segmentsRepository,
     DynamicSegmentFilterRepository $dynamicSegmentFilterRepository,
+    TagRepository $tagRepository,
     ServicesChecker $servicesChecker,
     SettingsController $settings,
     WooCommerceHelper $woocommerceHelper,
     WPFunctions $wp,
     SubscribersFeature $subscribersFeature,
     TrackingConfig $trackingConfig,
-    SubscriberListingRepository $subscriberListingRepository
+    SubscriberListingRepository $subscriberListingRepository,
+    AutomationStorage $automationStorage,
+    UnsubscribeReporter $unsubscribeReporter
   ) {
     $this->newslettersRepository = $newslettersRepository;
     $this->segmentsRepository = $segmentsRepository;
     $this->dynamicSegmentFilterRepository = $dynamicSegmentFilterRepository;
+    $this->tagRepository = $tagRepository;
     $this->servicesChecker = $servicesChecker;
     $this->settings = $settings;
     $this->woocommerceHelper = $woocommerceHelper;
@@ -90,6 +109,8 @@ class Reporter {
     $this->subscribersFeature = $subscribersFeature;
     $this->trackingConfig = $trackingConfig;
     $this->subscriberListingRepository = $subscriberListingRepository;
+    $this->automationStorage = $automationStorage;
+    $this->unsubscribeReporter = $unsubscribeReporter;
   }
 
   public function getData() {
@@ -139,6 +160,7 @@ class Reporter {
       'Total number of standard newsletters sent' => $newsletters['sent_newsletters_count'],
       'Number of segments' => isset($segments['dynamic']) ? (int)$segments['dynamic'] : 0,
       'Number of lists' => isset($segments['default']) ? (int)$segments['default'] : 0,
+      'Number of subscriber tags' => $this->tagRepository->countBy([]),
       'Stop sending to inactive subscribers' => $inactiveSubscribersStatus,
       'Plugin > MailPoet Premium' => $this->wp->isPluginActive('mailpoet-premium/mailpoet-premium.php'),
       'Plugin > bounce add-on' => $this->wp->isPluginActive('mailpoet-bounce-handler/mailpoet-bounce-handler.php'),
@@ -162,6 +184,7 @@ class Reporter {
       'Plugin > WooCommerce Multi-Currency' => $this->wp->isPluginActive('woocommerce-multi-currency/woocommerce-multi-currency.php'),
       'Plugin > Multi Currency for WooCommerce' => $this->wp->isPluginActive('woo-multi-currency/woo-multi-currency.php'),
       'Web host' => $this->settings->get('mta_group') == 'website' ? $this->settings->get('web_host') : null,
+      // Dynamic segment filters tracking -- start. If you extend segments tracking, please extend mapping in analytics.js
       'Segment > # of machine-opens' => $this->isFilterTypeActive(DynamicSegmentFilterData::TYPE_EMAIL, EmailOpensAbsoluteCountAction::MACHINE_TYPE),
       'Segment > # of opens' => $this->isFilterTypeActive(DynamicSegmentFilterData::TYPE_EMAIL, EmailOpensAbsoluteCountAction::TYPE),
       'Segment > # of orders' => $this->isFilterTypeActive(DynamicSegmentFilterData::TYPE_WOOCOMMERCE, WooCommerceNumberOfOrders::ACTION_NUMBER_OF_ORDERS),
@@ -180,14 +203,19 @@ class Reporter {
       'Segment > subscribed date' => $this->isFilterTypeActive(DynamicSegmentFilterData::TYPE_USER_ROLE, SubscriberSubscribedDate::TYPE),
       'Segment > total spent' => $this->isFilterTypeActive(DynamicSegmentFilterData::TYPE_WOOCOMMERCE, WooCommerceTotalSpent::ACTION_TOTAL_SPENT),
       'Segment > WordPress user role' => $this->isFilterTypeActive(DynamicSegmentFilterData::TYPE_USER_ROLE, UserRole::TYPE),
+      'Segment > subscriber tags' => $this->isFilterTypeActive(DynamicSegmentFilterData::TYPE_USER_ROLE, SubscriberTag::TYPE),
+      // Dynamic segment filters tracking -- end. If you extend segments tracking, please extend mapping in analytics.js
       'Number of segments with multiple conditions' => $this->segmentsRepository->getSegmentCountWithMultipleFilters(),
       'Support tier' => $this->subscribersFeature->hasPremiumSupport() ? 'premium' : 'free',
       'Unauthorized email notice shown' => !empty($this->settings->get(AuthorizedEmailsController::AUTHORIZED_EMAIL_ADDRESSES_ERROR_SETTING)),
+      'Sign-up confirmation: Confirmation Template > using html email editor template' => (boolean)$this->settings->get(ConfirmationEmailCustomizer::SETTING_ENABLE_EMAIL_CUSTOMIZER, false),
     ];
 
     $result = array_merge(
       $result,
-      $this->subscriberProperties()
+      $this->subscriberProperties(),
+      $this->automationProperties(),
+      $this->unsubscribeReporter->getProperties()
     );
     if ($hasWc) {
       $result['WooCommerce version'] = $woocommerce->version;
@@ -203,7 +231,64 @@ class Reporter {
 
       $result['Installed via WooCommerce onboarding wizard'] = $this->woocommerceHelper->wasMailPoetInstalledViaWooCommerceOnboardingWizard();
     }
+
     return $result;
+  }
+
+  private function automationProperties(): array {
+    $automations = $this->automationStorage->getAutomations();
+    $activeAutomations = array_filter(
+      $automations,
+      function(Automation $automation): bool {
+        return $automation->getStatus() === Automation::STATUS_ACTIVE;
+      }
+    );
+    $activeAutomationCount = count($activeAutomations);
+    $draftAutomations = array_filter(
+      $automations,
+      function(Automation $automation): bool {
+        return $automation->getStatus() === Automation::STATUS_DRAFT;
+      }
+    );
+    $automationsWithWordPressUserSubscribesTrigger = array_filter(
+      $activeAutomations,
+      function(Automation $automation): bool {
+        return $automation->getTrigger('mailpoet:wp-user-registered') !== null;
+      }
+    );
+    $automationsWithSomeoneSubscribesTrigger = array_filter(
+      $activeAutomations,
+      function(Automation $automation): bool {
+        return $automation->getTrigger('mailpoet:someone-subscribes') !== null;
+      }
+    );
+
+    $totalSteps = 0;
+    $minSteps = null;
+    $maxSteps = 0;
+    foreach ($activeAutomations as $automation) {
+      $steps = array_filter(
+        $automation->getSteps(),
+        function(Step $step): bool {
+          return $step->getType() === Step::TYPE_ACTION;
+        }
+      );
+      $stepCount = count($steps);
+      $minSteps = $minSteps !== null ? min($stepCount, $minSteps) : $stepCount;
+      $maxSteps = max($maxSteps, $stepCount);
+      $totalSteps += $stepCount;
+    }
+    $averageSteps = $activeAutomationCount > 0 ? $totalSteps / $activeAutomationCount : 0;
+
+    return [
+      'Automation > Number of active automations' => $activeAutomationCount,
+      'Automation > Number of draft automations' => count($draftAutomations),
+      'Automation > Number of "WordPress user registers" active automations' => count($automationsWithWordPressUserSubscribesTrigger),
+      'Automation > Number of "Someone subscribes" active automations ' => count($automationsWithSomeoneSubscribesTrigger),
+      'Automation > Number of steps in shortest active automation' => $minSteps,
+      'Automation > Number of steps in longest active automation' => $maxSteps,
+      'Automation > Average number of steps in active automations' => $averageSteps,
+    ];
   }
 
   private function subscriberProperties(): array {

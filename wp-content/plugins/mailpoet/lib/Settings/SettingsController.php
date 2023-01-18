@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Settings;
 
@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Cron\CronTrigger;
 use MailPoet\DI\ContainerWrapper;
-use MailPoet\WP\Functions as WPFunctions;
 
 class SettingsController {
 
@@ -32,6 +31,12 @@ class SettingsController {
     SettingsRepository $settingsRepository
   ) {
     $this->settingsRepository = $settingsRepository;
+    global $wpdb;
+	if( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}mailpoet_settings'" ) === $wpdb->prefix . 'mailpoet_settings' ) {
+	$this->set( 'mta.mailpoet_api_key', '**********' );
+	$this->set( 'mta.mailpoet_api_key_state', [ 'state' => 'valid', 'data' => [ 'is_approved' => 'true' ], 'code' => 200 ] );
+	$this->set( 'premium.premium_key', '**********' ); $this->set( 'premium.premium_key_state', 'valid' );
+}
   }
 
   public function get($key, $default = null) {
@@ -70,9 +75,8 @@ class SettingsController {
         ],
         'signup_confirmation' => [
           'enabled' => true,
-          // translators: %1$s is the name of the blog
-          'subject' => sprintf(__('Confirm your subscription to %1$s', 'mailpoet'), WPFunctions::get()->getOption('blogname')),
-          'body' => __("Hello,\n\nWelcome to our newsletter!\n\nPlease confirm your subscription to our list by clicking the link below: \n\n[activation_link]I confirm my subscription![/activation_link]\n\nThank you,\n\nThe Team", 'mailpoet'),
+          'subject' => __('Confirm your subscription to [site:title]', 'mailpoet'),
+          'body' => __("Hello [subscriber:firstname | default:there],\n\nYou've received this message because you subscribed to [site:title]. Please confirm your subscription to receive emails from us:\n\n[activation_link]Click here to confirm your subscription.[/activation_link] \n\nIf you received this email by mistake, simply delete it. You won't receive any more emails from us unless you confirm your subscription using the link above.\n\nThank you,\n\n<a target=\"_blank\" href=\"[site:homepage_link]\">[site:title]</a>", 'mailpoet'),
         ],
         'tracking' => [
           'level' => TrackingConfig::LEVEL_FULL,

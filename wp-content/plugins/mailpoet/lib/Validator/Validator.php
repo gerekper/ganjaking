@@ -28,7 +28,19 @@ class Validator {
    * @return mixed
    */
   public function validate(Schema $schema, $value, string $paramName = 'value') {
-    $result = $this->validateAndSanitizeValueFromSchema($value, $schema->toArray(), $paramName);
+    return $this->validateSchemaArray($schema->toArray(), $value, $paramName);
+  }
+
+  /**
+   * Strict validation & sanitization implementation.
+   * It only coerces int to float (e.g. 5 to 5.0).
+   *
+   * @param array $schema. The array must follow the format, which is returned from Schema::toArray().
+   * @param mixed $value
+   * @return mixed
+   */
+  public function validateSchemaArray(array $schema, $value, string $paramName = 'value') {
+    $result = $this->validateAndSanitizeValueFromSchema($value, $schema, $paramName);
     if ($result instanceof WP_Error) {
       throw ValidationException::createFromWpError($result);
     }

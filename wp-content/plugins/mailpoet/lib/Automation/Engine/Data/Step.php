@@ -6,6 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 class Step {
+  public const TYPE_ROOT = 'root';
   public const TYPE_TRIGGER = 'trigger';
   public const TYPE_ACTION = 'action';
 

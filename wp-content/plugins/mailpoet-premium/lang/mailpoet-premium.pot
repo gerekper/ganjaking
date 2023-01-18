@@ -1,15 +1,15 @@
-# Copyright (C) 2022 MailPoet
+# Copyright (C) 2023 MailPoet
 # This file is distributed under the same license as the MailPoet Premium plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: MailPoet Premium 4.3.0\n"
+"Project-Id-Version: MailPoet Premium 4.4.0\n"
 "Report-Msgid-Bugs-To: http://support.mailpoet.com/\n"
 "Last-Translator: MailPoet i18n (https://www.transifex.com/organization/wysija)\n"
 "Language-Team: MailPoet i18n <https://www.transifex.com/organization/wysija>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-12-19T21:32:38+00:00\n"
+"POT-Creation-Date: 2023-01-09T15:10:54+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -284,36 +284,36 @@ msgstr ""
 msgid "Failed to render template \"%1$s\". Please ensure the template cache folder \"%2$s\" exists and has write permissions. Terminated with error: \"%3$s\""
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:330
+#: lib/Newsletter/Stats/SubscriberEngagement.php:338
 msgid "Filter by link clicked"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:362
+#: lib/Newsletter/Stats/SubscriberEngagement.php:370
 msgctxt "Subscriber engagement filter - filter those who clicked on a newsletter link"
 msgid "Clicked"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:367
+#: lib/Newsletter/Stats/SubscriberEngagement.php:375
 msgctxt "Subscriber engagement filter - filter those who opened a newsletter"
 msgid "Opened"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:372
+#: lib/Newsletter/Stats/SubscriberEngagement.php:380
 msgctxt "Subscriber engagement filter - shows machine-opens for a given newsletter"
 msgid "Machine-opened"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:377
+#: lib/Newsletter/Stats/SubscriberEngagement.php:385
 msgctxt "Subscriber engagement filter - filter those who unsubscribed from a newsletter"
 msgid "Unsubscribed"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:386
+#: lib/Newsletter/Stats/SubscriberEngagement.php:394
 msgctxt "Subscriber engagement filter - filter those who performed any action (e.g., clicked, opened, unsubscribed)"
 msgid "All engaged"
 msgstr ""
 
-#: lib/Newsletter/Stats/SubscriberEngagement.php:397
+#: lib/Newsletter/Stats/SubscriberEngagement.php:405
 msgctxt "Subscriber engagement filter - filter those who did not open a newsletter"
 msgid "Unopened"
 msgstr ""
@@ -372,7 +372,7 @@ msgid "Not set up yet."
 msgstr ""
 
 #: assets/dist/js/premium.js:2
-msgid "Add \"%s\" tag"
+msgid "Add the \"%s\" tag"
 msgid_plural "Add \"%s\" tags"
 msgstr[0] ""
 msgstr[1] ""
@@ -382,11 +382,11 @@ msgid "Tags to remove"
 msgstr ""
 
 #: assets/dist/js/premium.js:2
-msgid "Remove a tag or multiple tags from a subscriber"
+msgid "Remove a tag or multiple tags from a subscriber."
 msgstr ""
 
 #: assets/dist/js/premium.js:2
-msgid "Remove a \"%s\" tag"
+msgid "Remove the \"%s\" tag"
 msgid_plural "Remove \"%s\" tags"
 msgstr[0] ""
 msgstr[1] ""

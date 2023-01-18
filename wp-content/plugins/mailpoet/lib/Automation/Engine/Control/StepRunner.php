@@ -5,10 +5,9 @@ namespace MailPoet\Automation\Engine\Control;
 if (!defined('ABSPATH')) exit;
 
 
-use MailPoet\Automation\Engine\Data\Step;
-use MailPoet\Automation\Engine\Data\Workflow;
-use MailPoet\Automation\Engine\Data\WorkflowRun;
+use MailPoet\Automation\Engine\Data\StepRunArgs;
+use MailPoet\Automation\Engine\Data\StepValidationArgs;
 
 interface StepRunner {
-  public function run(Step $step, Workflow $workflow, WorkflowRun $workflowRun): void;
+  public function run(StepRunArgs $runArgs, StepValidationArgs $validationArgs): void;
 }

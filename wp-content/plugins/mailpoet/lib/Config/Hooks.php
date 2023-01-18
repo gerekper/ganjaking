@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Config;
 
@@ -54,6 +54,9 @@ class Hooks {
   /** @var HooksWooCommerce */
   private $hooksWooCommerce;
 
+  /** @var SubscriberChangesNotifier */
+  private $subscriberChangesNotifier;
+
   public function __construct(
     Form $subscriptionForm,
     Comment $subscriptionComment,
@@ -66,6 +69,7 @@ class Hooks {
     DisplayFormInWPContent $displayFormInWPContent,
     HooksWooCommerce $hooksWooCommerce,
     SubscriberHandler $subscriberHandler,
+    SubscriberChangesNotifier $subscriberChangesNotifier,
     WP $wpSegment
   ) {
     $this->subscriptionForm = $subscriptionForm;
@@ -80,6 +84,7 @@ class Hooks {
     $this->wpSegment = $wpSegment;
     $this->subscriberHandler = $subscriberHandler;
     $this->hooksWooCommerce = $hooksWooCommerce;
+    $this->subscriberChangesNotifier = $subscriberChangesNotifier;
   }
 
   public function init() {
@@ -95,6 +100,7 @@ class Hooks {
     $this->setupWooCommerceSettings();
     $this->setupFooter();
     $this->setupSettingsLinkInPluginPage();
+    $this->setupChangeNotifications();
   }
 
   public function initEarlyHooks() {
@@ -205,6 +211,10 @@ class Hooks {
       'the_content',
       [$this->displayFormInWPContent, 'display']
     );
+    $this->wp->addFilter(
+      'woocommerce_product_loop_end',
+      [$this->displayFormInWPContent, 'display']
+    );
   }
 
   public function setupMailer() {
@@ -304,6 +314,11 @@ class Hooks {
     $this->wp->addAction('woocommerce_settings_start', [
       $this->hooksWooCommerce,
       'disableWooCommerceSettings',
+    ]);
+
+    $this->wp->addAction('before_woocommerce_init', [
+      $this->hooksWooCommerce,
+      'declareHposCompatibility',
     ]);
   }
 
@@ -416,8 +431,12 @@ class Hooks {
     );
   }
 
-  public function setFooter($text) {
-    return '<a href="https://feedback.mailpoet.com/" rel="noopener noreferrer" target="_blank">Give feedback</a>';
+  public function setFooter(): string {
+
+    if (Menu::isOnMailPoetAutomationPage()) {
+      return '';
+    }
+    return '<a href="https://feedback.mailpoet.com/" rel="noopener noreferrer" target="_blank">' . esc_html__('Give feedback', 'mailpoet') . '</a>';
   }
 
   public function setupSettingsLinkInPluginPage() {
@@ -437,5 +456,12 @@ class Hooks {
     ];
 
     return array_merge($customLinks, $actionLinks);
+  }
+
+  public function setupChangeNotifications(): void {
+    $this->wp->addAction(
+      'shutdown',
+      [$this->subscriberChangesNotifier, 'notify']
+    );
   }
 }

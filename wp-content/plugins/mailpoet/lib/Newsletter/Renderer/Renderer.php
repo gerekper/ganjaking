@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Newsletter\Renderer;
 
@@ -32,18 +32,23 @@ class Renderer {
   /** @var ServicesChecker */
   private $servicesChecker;
 
+  /** @var WPFunctions */
+  private $wp;
+
   public function __construct(
     Blocks\Renderer $blocksRenderer,
     Columns\Renderer $columnsRenderer,
     Preprocessor $preprocessor,
     \MailPoetVendor\CSS $cSSInliner,
-    ServicesChecker $servicesChecker
+    ServicesChecker $servicesChecker,
+    WPFunctions $wp
   ) {
     $this->blocksRenderer = $blocksRenderer;
     $this->columnsRenderer = $columnsRenderer;
     $this->preprocessor = $preprocessor;
     $this->cSSInliner = $cSSInliner;
     $this->servicesChecker = $servicesChecker;
+    $this->wp = $wp;
   }
 
   public function render(NewsletterEntity $newsletter, SendingTask $sendingTask = null, $type = false) {
@@ -71,6 +76,7 @@ class Renderer {
       $content = $this->addMailpoetLogoContentBlock($content, $styles);
     }
 
+    $language = $this->wp->getBloginfo('language');
     $metaRobots = $preview ? '<meta name="robots" content="noindex, nofollow" />' : '';
     $content = $this->preprocessor->process($newsletter, $content, $preview, $sendingTask);
     $renderedBody = $this->renderBody($newsletter, $content);
@@ -80,6 +86,7 @@ class Renderer {
     $template = $this->injectContentIntoTemplate(
       (string)file_get_contents(dirname(__FILE__) . '/' . self::NEWSLETTER_TEMPLATE),
       [
+        $language,
         $metaRobots,
         htmlspecialchars($subject ?: $newsletter->getSubject()),
         $renderedStyles,
@@ -197,7 +204,7 @@ class Renderer {
     // because tburry/pquery contains a bug and replaces the opening non mso condition incorrectly we have to replace the opening tag with correct value
     $template = $templateDom->__toString();
     $template = str_replace('<!--[if !mso]><![endif]-->', '<!--[if !mso]><!-- -->', $template);
-    $template = WPFunctions::get()->applyFilters(
+    $template = $this->wp->applyFilters(
       self::FILTER_POST_PROCESS,
       $template
     );
@@ -210,7 +217,6 @@ class Renderer {
    * @return array
    */
   private function addMailpoetLogoContentBlock(array $content, array $styles) {
-    return $content;
     if (empty($content['blocks'])) return $content;
     $content['blocks'][] = [
       'type' => 'container',

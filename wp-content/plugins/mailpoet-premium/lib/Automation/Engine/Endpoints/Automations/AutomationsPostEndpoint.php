@@ -29,6 +29,7 @@ class AutomationsPostEndpoint extends Endpoint {
   }
 
   public function handle(Request $request): Response {
+    /** @var array{steps: array<string, array<mixed>>, name: string} $data */
     $data = $request->getParams();
     $automation = $this->createController->createAutomation($data);
     return new Response($this->automationMapper->buildAutomation($automation));

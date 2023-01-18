@@ -10,11 +10,13 @@ use MailPoet\Cron\ActionScheduler\RemoteExecutorHandler;
 use MailPoet\Cron\CronHelper;
 use MailPoet\Cron\Daemon;
 use MailPoet\Cron\Triggers\WordPress;
+use MailPoet\Logging\LoggerFactory;
 use MailPoet\WP\Functions as WPFunctions;
 
 class DaemonRun {
   const NAME = 'mailpoet/cron/daemon-run';
   const EXECUTION_LIMIT_MARGIN = 10; // 10 seconds
+  const SHORT_DURATION_THRESHOLD = 2; // 2 seconds
 
   /** @var WPFunctions */
   private $wp;
@@ -34,11 +36,17 @@ class DaemonRun {
   /** @var ActionScheduler */
   private $actionScheduler;
 
+  /** @var LoggerFactory */
+  private $loggerFactory;
+
   /**
    * Default 20 seconds
    * @var float
    */
   private $remainingExecutionLimit = 20;
+
+  /** @var int */
+  private $lastRunDuration = 0;
 
   public function __construct(
     WPFunctions $wp,
@@ -46,7 +54,8 @@ class DaemonRun {
     WordPress $wordpressTrigger,
     CronHelper $cronHelper,
     RemoteExecutorHandler $remoteExecutorHandler,
-    ActionScheduler $actionScheduler
+    ActionScheduler $actionScheduler,
+    LoggerFactory $loggerFactory
   ) {
     $this->wp = $wp;
     $this->daemon = $daemon;
@@ -54,6 +63,7 @@ class DaemonRun {
     $this->cronHelper = $cronHelper;
     $this->remoteExecutorHandler = $remoteExecutorHandler;
     $this->actionScheduler = $actionScheduler;
+    $this->loggerFactory = $loggerFactory;
   }
 
   public function init(): void {
@@ -67,7 +77,10 @@ class DaemonRun {
   public function process(): void {
     $this->wp->addAction('action_scheduler_after_process_queue', [$this, 'afterProcess']);
     $this->wp->addAction('mailpoet_cron_get_execution_limit', [$this, 'getDaemonExecutionLimit']);
+    $this->lastRunDuration = 0;
+    $startTime = time();
     $this->daemon->run($this->cronHelper->createDaemon($this->cronHelper->createToken()));
+    $this->lastRunDuration = time() - $startTime;
   }
 
   /**
@@ -81,14 +94,25 @@ class DaemonRun {
    * After Action Scheduler finishes its work we need to check if there is more work and in case there is we trigger additional runner.
    */
   public function afterProcess(): void {
-    if ($this->wordpressTrigger->checkExecutionRequirements()) {
-      // The automatic rescheduling schedules the next recurring action to run after 1 second.
-      // So we need to wait before we trigger new remote executor to avoid skipping the action
-      sleep(2);
-      $this->remoteExecutorHandler->triggerExecutor();
-    } else {
-      $this->actionScheduler->unscheduleAction(self::NAME);
+    $hasJobsToDo = $this->wordpressTrigger->checkExecutionRequirements();
+    if (!$hasJobsToDo) {
+      return;
     }
+    // The $lastDurationWasTooShort check prevents scheduling the next immediate action in case the last run was suspiciously short.
+    // If there was still some execution time left, the daemon should have been continued.
+    $lastDurationWasTooShort = ($this->lastRunDuration < self::SHORT_DURATION_THRESHOLD) && ($this->remainingExecutionLimit > 0);
+    if ($lastDurationWasTooShort) {
+      $this->loggerFactory->getLogger(LoggerFactory::TOPIC_CRON)->info('Daemon run ended too early!', [
+        'duration' => $this->lastRunDuration,
+        'remainingLimit' => $this->remainingExecutionLimit,
+      ]);
+      return;
+    }
+    $this->actionScheduler->scheduleImmediateSingleAction(self::NAME);
+    // Chaining async requests can crash MySQL. A brief sleep call in PHP prevents that.
+    // @see https://github.com/woocommerce/action-scheduler/blob/6633378283d33746eec7314586783f58deee5375/classes/ActionScheduler_AsyncRequest_QueueRunner.php#L91-L96
+    sleep(2);
+    $this->remoteExecutorHandler->triggerExecutor();
   }
 
   /**

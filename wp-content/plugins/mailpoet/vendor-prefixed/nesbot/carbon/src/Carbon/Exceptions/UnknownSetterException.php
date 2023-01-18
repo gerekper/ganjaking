@@ -1,12 +1,18 @@
 <?php
 namespace MailPoetVendor\Carbon\Exceptions;
 if (!defined('ABSPATH')) exit;
-use Exception;
 use InvalidArgumentException as BaseInvalidArgumentException;
+use Throwable;
 class UnknownSetterException extends BaseInvalidArgumentException implements BadMethodCallException
 {
- public function __construct($name, $code = 0, Exception $previous = null)
+ protected $setter;
+ public function __construct($setter, $code = 0, Throwable $previous = null)
  {
- parent::__construct("Unknown setter '{$name}'", $code, $previous);
+ $this->setter = $setter;
+ parent::__construct("Unknown setter '{$setter}'", $code, $previous);
+ }
+ public function getSetter() : string
+ {
+ return $this->setter;
  }
 }

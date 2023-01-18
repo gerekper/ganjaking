@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Config;
 
@@ -13,6 +13,7 @@ use MailPoet\Newsletter\NewslettersRepository;
 use MailPoet\Newsletter\Shortcodes\Categories\Date;
 use MailPoet\Newsletter\Shortcodes\Categories\Link;
 use MailPoet\Newsletter\Shortcodes\Categories\Newsletter;
+use MailPoet\Newsletter\Shortcodes\Categories\Site;
 use MailPoet\Newsletter\Shortcodes\Categories\Subscriber as SubscriberCategory;
 use MailPoet\Newsletter\Shortcodes\Shortcodes as NewsletterShortcodes;
 use MailPoet\Newsletter\Url as NewsletterUrl;
@@ -52,6 +53,9 @@ class Shortcodes {
   /** @var SubscriberCategory */
   private $subscriberCategory;
 
+  /** @var Site */
+  private $siteCategory;
+
   public function __construct(
     Pages $subscriptionPages,
     WPFunctions $wp,
@@ -62,7 +66,8 @@ class Shortcodes {
     Date $dateCategory,
     Link $linkCategory,
     Newsletter $newsletterCategory,
-    SubscriberCategory $subscriberCategory
+    SubscriberCategory $subscriberCategory,
+    Site $siteCategory
   ) {
     $this->subscriptionPages = $subscriptionPages;
     $this->wp = $wp;
@@ -74,6 +79,7 @@ class Shortcodes {
     $this->linkCategory = $linkCategory;
     $this->newsletterCategory = $newsletterCategory;
     $this->subscriberCategory = $subscriberCategory;
+    $this->siteCategory = $siteCategory;
   }
 
   public function init() {
@@ -219,6 +225,7 @@ class Shortcodes {
       $this->linkCategory,
       $this->newsletterCategory,
       $this->subscriberCategory,
+      $this->siteCategory,
       $this->wp
     );
 

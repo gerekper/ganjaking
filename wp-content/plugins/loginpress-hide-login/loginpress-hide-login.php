@@ -4,7 +4,7 @@
  * Plugin Name: LoginPress - Hide Login
  * Plugin URI: https://loginpress.pro/
  * Description: LoginPress is the best <code>wp-login</code> Hide Login plugin by <a href="https://wpbrigade.com/">WPBrigade</a> which allows you to hide the wp-login.php.
- * Version: 1.2.3
+ * Version: 1.3.0
  * Author: WPBrigade
  * Author URI: https://www.WPBrigade.com/
  * Text Domain: loginpress-hide-login
@@ -23,7 +23,7 @@ define( 'LOGINPRESS_HIDE_ROOT_FILE', __FILE__ );
 define( 'LOGINPRESS_HIDE_PLUGIN_ROOT', dirname( plugin_basename( __FILE__ ) ) );
 
 define( 'LOGINPRESS_HIDE_STORE_URL', 'https://WPBrigade.com' );
-define( 'LOGINPRESS_HIDE_VERSION', '1.2.3' );
+define( 'LOGINPRESS_HIDE_VERSION', '1.3.0' );
 
 add_action( 'plugins_loaded', 'loginpress_hidelogin_instance', 25 );
 

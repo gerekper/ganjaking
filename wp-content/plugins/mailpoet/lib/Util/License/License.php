@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Util\License;
 
@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) exit;
 
 
 class License {
-  const FREE_PREMIUM_SUBSCRIBERS_LIMIT = 'unlimited';
+  const FREE_PREMIUM_SUBSCRIBERS_LIMIT = 1000;
 
   public static function getLicense($license = false) {
     if (!$license) {

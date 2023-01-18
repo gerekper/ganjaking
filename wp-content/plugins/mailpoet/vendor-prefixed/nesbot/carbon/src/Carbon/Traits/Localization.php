@@ -12,7 +12,7 @@ use MailPoetVendor\Symfony\Component\Translation\TranslatorBagInterface;
 use MailPoetVendor\Symfony\Component\Translation\TranslatorInterface;
 use MailPoetVendor\Symfony\Contracts\Translation\LocaleAwareInterface;
 use MailPoetVendor\Symfony\Contracts\Translation\TranslatorInterface as ContractsTranslatorInterface;
-if (!\interface_exists('MailPoetVendor\\Symfony\\Component\\Translation\\TranslatorInterface')) {
+if (\interface_exists('MailPoetVendor\\Symfony\\Contracts\\Translation\\TranslatorInterface') && !\interface_exists('MailPoetVendor\\Symfony\\Component\\Translation\\TranslatorInterface')) {
  \class_alias('MailPoetVendor\\Symfony\\Contracts\\Translation\\TranslatorInterface', 'MailPoetVendor\\Symfony\\Component\\Translation\\TranslatorInterface');
 }
 trait Localization
@@ -157,6 +157,9 @@ trait Localization
  $months = $messages['months'] ?? [];
  $weekdays = $messages['weekdays'] ?? [];
  $meridiem = $messages['meridiem'] ?? ['AM', 'PM'];
+ if (isset($messages['ordinal_words'])) {
+ $timeString = self::replaceOrdinalWords($timeString, $key === 'from' ? \array_flip($messages['ordinal_words']) : $messages['ordinal_words']);
+ }
  if ($key === 'from') {
  foreach (['months', 'weekdays'] as $variable) {
  $list = $messages[$variable . '_standalone'] ?? null;
@@ -205,7 +208,7 @@ trait Localization
  }
  }
  }
- $this->setLocalTranslator($translator);
+ $this->localTranslator = $translator;
  }
  return $this;
  }
@@ -319,6 +322,7 @@ trait Localization
  }
  if ($translator && !($translator instanceof LocaleAwareInterface || \method_exists($translator, 'getLocale'))) {
  throw new NotLocaleAwareException($translator);
+ // @codeCoverageIgnore
  }
  return $translator;
  }
@@ -356,5 +360,11 @@ trait Localization
  $list[] = $translation($date, $timeString, $i) ?? $filler;
  }
  return $list;
+ }
+ private static function replaceOrdinalWords(string $timeString, array $ordinalWords) : string
+ {
+ return \preg_replace_callback('/(?<![a-z])[a-z]+(?![a-z])/i', function (array $match) use($ordinalWords) {
+ return $ordinalWords[\mb_strtolower($match[0])] ?? $match[0];
+ }, $timeString);
  }
 }

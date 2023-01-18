@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 2.0.0 - 2023-01-13 =
+* BugFix: WP Query Optimize for users search.
+* Compatibility: Compatible with PHP 8.1
+* Compatibility: Compatible with WordPress 6.1
+* Enhancement: Code refactoring.
+
 = 1.1.4 - 2020-01-14 =
 * BugFix: Logout redirect issue.
 * Compatibility: LoginPress - Login Redirects is compatible with Portuguese (Brazil) language now.

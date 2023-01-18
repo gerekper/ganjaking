@@ -3,7 +3,7 @@
  * Plugin Name: LoginPress - Auto Login
  * Plugin URI: https://loginpress.pro/
  * Description: LoginPress - Auto Login is the best Login plugin by <a href="https://wpbrigade.com/">WPBrigade</a> which allows you to login without Username and Password.
- * Version: 1.0.7
+ * Version: 2.0.0
  * Author: WPBrigade
  * Author URI: https://www.WPBrigade.com/
  * Text Domain: loginpress-auto-login
@@ -23,7 +23,7 @@ if ( ! class_exists( 'LoginPress_AutoLogin' ) ) :
 		 * @access public
 		 * @var    string variable
 		 */
-		public $version = '1.0.7';
+		public $version = '2.0.0';
 
 		/*
 		 * * * * * * * * *
@@ -136,7 +136,7 @@ if ( ! class_exists( 'LoginPress_AutoLogin' ) ) :
 				array(
 					'id'    => 'loginpress_autologin',
 					'title' => __( 'Auto Login', 'loginpress-auto-login' ),
-					'desc'  => sprintf( __( 'Autologin lets you (Adminstrator) generates a unique URL for your certain users who you don\'t want to provide a password to login into your site. You will get a list of all the users who you have given auto generated login links. You can disable someones access by deleting that user from the list. %3$s %3$s WordPress Login Screen is customizable through %1$sWordPress Customizer%2$s.', 'loginpress-auto-login' ), '<a href="' . admin_url( 'admin.php?page=loginpress' ) . '">', '</a>', '<br />' ),
+					'desc'  => sprintf( __( 'Autologin lets you (Adminstrator) generates a unique URL for your certain users who you don\'t want to provide a password to login into your site. You will get a list of all the users who you have given auto generated login links. You can disable someones access by deleting that user from the list. %3$s %3$s WordPress Login Screen is customizable through %1$s WordPress Customizer %2$s.', 'loginpress-auto-login' ), '<a href="' . admin_url( 'admin.php?page=loginpress' ) . '">', '</a>', '<br />' ),
 				),
 			);
 			$loginpress_pro_templates = array_merge( $loginpress_tabs, $autologin_tab );
@@ -184,10 +184,18 @@ if ( ! class_exists( 'LoginPress_AutoLogin' ) ) :
 		 * A callback function that will show search result under the search field.
 		 *
 		 * @since   1.0.0
-		 * @version 1.0.4
+		 * @version 1.0.8
 		 * @return [string] html
 		 */
 		function autologin_script_html() {
+			/**
+			 * Check to apply the script only on the LoginPress Settings page.
+			 *
+			 * @since 1.0.8
+			 */
+			if ( isset( $_GET['page'] ) && sanitize_text_field( $_GET['page'] ) !== 'loginpress-settings' ) {
+				return;
+			}
 			$html = '<table id="loginpress_autologin_users" class="loginpress_autologin_users">
       <tr>
       <th class="loginpress_user_id">' . esc_html__( 'User ID', 'loginpress-auto-login' ) . '</th>
@@ -255,11 +263,17 @@ if ( ! class_exists( 'LoginPress_AutoLogin' ) ) :
 		 * [loginpress_autocomplete_js Get the users list and Saved it in footer that will use for autocomplete in search]
 		 *
 		 * @since 1.0.0
-		 * @version 1.0.2
+		 * @version 1.0.8
 		 */
 		function loginpress_autocomplete_js() {
 
-			if ( isset( $_GET['page'] ) && 'loginpress-settings' != $_GET['page'] ) {
+			/**
+			 * Check to apply the script only on the LoginPress Settings page.
+			 *
+			 * @since 1.0.8
+			 */
+			$current_screen = get_current_screen();
+			if ( isset( $current_screen->base ) && ( 'toplevel_page_loginpress-settings' !== $current_screen->base ) ) {
 				return;
 			}
 

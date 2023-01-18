@@ -193,7 +193,7 @@ trait Difference
  }
  public function floatDiffInSeconds($date = null, $absolute = \true)
  {
- return $this->diffInMicroseconds($date, $absolute) / static::MICROSECONDS_PER_SECOND;
+ return (float) ($this->diffInMicroseconds($date, $absolute) / static::MICROSECONDS_PER_SECOND);
  }
  public function floatDiffInMinutes($date = null, $absolute = \true)
  {
@@ -409,6 +409,7 @@ trait Difference
  $sign = $interval->format('%r') === '-' ? -1 : 1;
  if (\is_int($interval->days) && $interval->y === 0 && $interval->m === 0 && \version_compare(\PHP_VERSION, '8.1.0-dev', '<') && \abs($interval->d - $daysDiff) === 1) {
  $daysDiff = \abs($interval->d);
+ // @codeCoverageIgnore
  }
  return $daysDiff * $sign;
  }

@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\AutomaticEmails\WooCommerce\Events;
 
@@ -79,6 +79,25 @@ class PurchasedProduct {
       'listingScheduleDisplayText' => __('Email sent when a customer buys product: %s', 'mailpoet'),
       // translators: %s is the name of the products.
       'listingScheduleDisplayTextPlural' => __('Email sent when a customer buys products: %s', 'mailpoet'),
+      'afterDelayText' => __('after a purchase', 'mailpoet'),
+      'timeDelayValues' => [
+        'immediate' => [
+          'text' => __('immediately', 'mailpoet'),
+          'displayAfterTimeNumberField' => false,
+        ],
+        'hours' => [
+          'text' => __('hour(s)', 'mailpoet'),
+          'displayAfterTimeNumberField' => true,
+        ],
+        'days' => [
+          'text' => __('day(s)', 'mailpoet'),
+          'displayAfterTimeNumberField' => true,
+        ],
+        'weeks' => [
+          'text' => __('week(s)', 'mailpoet'),
+          'displayAfterTimeNumberField' => true,
+        ],
+      ],
       'options' => [
         'multiple' => true,
         'endpoint' => 'products',
@@ -165,7 +184,7 @@ class PurchasedProduct {
       WooCommerce::SLUG,
       self::SLUG,
       $schedulingCondition,
-      $subscriber->getId(),
+      $subscriber,
       ['orderedProducts' => $orderedProducts],
       [$this, 'metaModifier']
     );

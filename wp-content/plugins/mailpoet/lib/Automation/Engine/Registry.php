@@ -6,16 +6,17 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Automation\Engine\Control\RootStep;
-use MailPoet\Automation\Engine\Workflows\Action;
-use MailPoet\Automation\Engine\Workflows\Step;
-use MailPoet\Automation\Engine\Workflows\Subject;
-use MailPoet\Automation\Engine\Workflows\Trigger;
+use MailPoet\Automation\Engine\Integration\Action;
+use MailPoet\Automation\Engine\Integration\Payload;
+use MailPoet\Automation\Engine\Integration\Step;
+use MailPoet\Automation\Engine\Integration\Subject;
+use MailPoet\Automation\Engine\Integration\Trigger;
 
 class Registry {
   /** @var array<string, Step> */
   private $steps = [];
 
-  /** @var array<string, Subject> */
+  /** @var array<string, Subject<Payload>> */
   private $subjects = [];
 
   /** @var array<string, Trigger> */
@@ -35,6 +36,7 @@ class Registry {
     $this->steps[$rootStep->getKey()] = $rootStep;
   }
 
+  /** @param Subject<Payload> $subject */
   public function addSubject(Subject $subject): void {
     $key = $subject->getKey();
     if (isset($this->subjects[$key])) {
@@ -43,11 +45,12 @@ class Registry {
     $this->subjects[$key] = $subject;
   }
 
+  /** @return Subject<Payload>|null */
   public function getSubject(string $key): ?Subject {
     return $this->subjects[$key] ?? null;
   }
 
-  /** @return array<string, Subject> */
+  /** @return array<string, Subject<Payload>> */
   public function getSubjects(): array {
     return $this->subjects;
   }
@@ -107,12 +110,12 @@ class Registry {
     return $this->actions;
   }
 
-  public function onBeforeWorkflowSave(callable $callback, int $priority = 10): void {
-    $this->wordPress->addAction(Hooks::WORKFLOW_BEFORE_SAVE, $callback, $priority);
+  public function onBeforeAutomationSave(callable $callback, int $priority = 10): void {
+    $this->wordPress->addAction(Hooks::AUTOMATION_BEFORE_SAVE, $callback, $priority);
   }
 
-  public function onBeforeWorkflowStepSave(callable $callback, string $key = null, int $priority = 10): void {
+  public function onBeforeAutomationStepSave(callable $callback, string $key = null, int $priority = 10): void {
     $keyPart = $key ? "/key=$key" : '';
-    $this->wordPress->addAction(Hooks::WORKFLOW_STEP_BEFORE_SAVE . $keyPart, $callback, $priority);
+    $this->wordPress->addAction(Hooks::AUTOMATION_STEP_BEFORE_SAVE . $keyPart, $callback, $priority);
   }
 }

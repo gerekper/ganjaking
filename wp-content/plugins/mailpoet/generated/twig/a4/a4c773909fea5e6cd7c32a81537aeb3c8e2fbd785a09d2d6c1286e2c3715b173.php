@@ -97,6 +97,15 @@ class __TwigTemplate_042329f1c0fb8078aa6e91c00feb5fb0ef8b51da862bdffbd8a41930e7d
         color: {{ woocommerce.brandingColor }};
       }
     {{/if}}
+    .mailpoet_editor_confirmation_email_section {
+      margin: 10px;
+    }
+    .mailpoet_editor_messages_confirmation_email {
+      font-size: 13px;
+      position: absolute;
+      right: 0;
+      top: 60%;
+    }
 </style>
 ";
     }

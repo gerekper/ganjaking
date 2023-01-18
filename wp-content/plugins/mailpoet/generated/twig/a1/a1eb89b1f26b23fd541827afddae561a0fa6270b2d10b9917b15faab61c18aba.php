@@ -72,6 +72,24 @@ class __TwigTemplate_09c5e4020e8979b31e252e5ac1bc9836a0273b471026683178b9a266d7a
   </div>
 {{else if isAutomationEmail}}
 
+{{else if isConfirmationEmailTemplate}}
+  <h3>";
+        // line 16
+        echo $this->extensions['MailPoet\Twig\I18n']->translateWithContext("Edit template for Confirmation emails", "Name of user interface used to customize email template used for confirmation emails");
+        echo "</h3>
+  <div class=\"mailpoet_form_field mailpoet_heading_form_field\">
+    <input
+      type=\"text\"
+      class=\"mailpoet_input mailpoet_input_title\"
+      data-automation-id=\"newsletter_title\"
+      value=\"{{ model.subject }}\"
+      placeholder=\"";
+        // line 23
+        echo $this->extensions['MailPoet\Twig\I18n']->translate("Click here to change the subject!");
+        echo "\"
+    />
+    <span id=\"tooltip-designer-subject-line\" class=\"tooltip-help-designer-subject-line\"></span>
+  </div>
 {{else}}
 <div class=\"mailpoet_form_field mailpoet_heading_form_field\">
   <input
@@ -80,7 +98,7 @@ class __TwigTemplate_09c5e4020e8979b31e252e5ac1bc9836a0273b471026683178b9a266d7a
     data-automation-id=\"newsletter_title\"
     value=\"{{ model.subject }}\"
     placeholder=\"";
-        // line 22
+        // line 34
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Click here to change the subject!");
         echo "\"
   />
@@ -91,7 +109,7 @@ class __TwigTemplate_09c5e4020e8979b31e252e5ac1bc9836a0273b471026683178b9a266d7a
     class=\"mailpoet_input mailpoet_input_preheader\"
     value=\"{{ model.preheader }}\"
     placeholder=\"";
-        // line 30
+        // line 42
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Preview text (usually displayed underneath the subject line in the inbox)");
         echo "\"
     maxlength=\"250\"
@@ -114,7 +132,7 @@ class __TwigTemplate_09c5e4020e8979b31e252e5ac1bc9836a0273b471026683178b9a266d7a
 
     public function getDebugInfo()
     {
-        return array (  92 => 30,  81 => 22,  66 => 10,  62 => 9,  58 => 8,  54 => 7,  49 => 5,  44 => 3,  40 => 2,  37 => 1,);
+        return array (  110 => 42,  99 => 34,  85 => 23,  75 => 16,  66 => 10,  62 => 9,  58 => 8,  54 => 7,  49 => 5,  44 => 3,  40 => 2,  37 => 1,);
     }
 
     public function getSourceContext()

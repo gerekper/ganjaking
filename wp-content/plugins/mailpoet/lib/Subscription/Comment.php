@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Subscription;
 
@@ -109,7 +109,7 @@ class Comment {
     if (!empty($segmentIds)) {
       $comment = WPFunctions::get()->getComment($commentId);
 
-      $result = $this->subscriberActions->subscribe(
+      $this->subscriberActions->subscribe(
         [
           'email' => $comment->comment_author_email, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps
           'first_name' => $comment->comment_author, // phpcs:ignore Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps

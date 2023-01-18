@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Doctrine;
 
@@ -7,6 +7,7 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Doctrine\EventListeners\EmojiEncodingListener;
 use MailPoet\Doctrine\EventListeners\LastSubscribedAtListener;
+use MailPoet\Doctrine\EventListeners\SubscriberListener;
 use MailPoet\Doctrine\EventListeners\TimestampListener;
 use MailPoet\Doctrine\EventListeners\ValidationListener;
 use MailPoet\Tracy\DoctrinePanel\DoctrinePanel;
@@ -36,13 +37,17 @@ class EntityManagerFactory {
   /** @var LastSubscribedAtListener */
   private $lastSubscribedAtListener;
 
+  /** @var SubscriberListener */
+  private $subscriberListener;
+
   public function __construct(
     Connection $connection,
     Configuration $configuration,
     TimestampListener $timestampListener,
     ValidationListener $validationListener,
     EmojiEncodingListener $emojiEncodingListener,
-    LastSubscribedAtListener $lastSubscribedAtListener
+    LastSubscribedAtListener $lastSubscribedAtListener,
+    SubscriberListener $subscriberListener
   ) {
     $this->connection = $connection;
     $this->configuration = $configuration;
@@ -50,6 +55,7 @@ class EntityManagerFactory {
     $this->validationListener = $validationListener;
     $this->emojiEncodingListener = $emojiEncodingListener;
     $this->lastSubscribedAtListener = $lastSubscribedAtListener;
+    $this->subscriberListener = $subscriberListener;
   }
 
   public function createEntityManager(): EntityManager {
@@ -79,6 +85,8 @@ class EntityManagerFactory {
         $eventManager->removeEventListener($event, $listener);
       }
     }
+
+    $entityManager->getConfiguration()->getEntityListenerResolver()->clear(SubscriberListener::class);
   }
 
   private function setupListeners(EntityManager $entityManager) {
@@ -101,5 +109,7 @@ class EntityManagerFactory {
       [Events::prePersist, Events::preUpdate],
       $this->lastSubscribedAtListener
     );
+
+    $entityManager->getConfiguration()->getEntityListenerResolver()->register($this->subscriberListener);
   }
 }

@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Form\Templates\Templates;
 
@@ -156,7 +156,7 @@ class Template7SlideIn extends FormTemplate {
         'type' => 'paragraph',
         'id' => 'paragraph',
         'params' => [
-          'content' => '<span style="font-family: Cairo" data-font="Cairo" class="mailpoet-has-font">' . $this->replaceLinkTags(_x('We’ll never send you spam or share your email address.<br>Find out more in our [link]Privacy Policy[/link].', 'Text in a web form. Keep HTML tags!', 'mailpoet'), '#') . '</span>',
+          'content' => '<span style="font-family: Cairo" data-font="Cairo" class="mailpoet-has-font">' . $this->replacePrivacyLinkTags(_x('We’ll never send you spam or share your email address.<br>Find out more in our [link]Privacy Policy[/link].', 'Text in a web form. Keep HTML tags!', 'mailpoet'), '#') . '</span>',
           'drop_cap' => '0',
           'align' => 'center',
           'font_size' => '13',

@@ -1,5 +1,10 @@
 == Changelog ==
 
+= 2.0.0 - 2023-01-13
+* Enhancement: Updated Google Client SDK to 2.12.6.
+* Enhancement: Updated Facebook SDK to 5.7.0.
+* Compatibility: Compatible with WordPress 6.1
+
 = 1.5.3 - 2022-06-24
 * Bugfix: Twitter Login issue with PHP 8.1
 * Bugfix: Facebook Login issue with PHP 8.1

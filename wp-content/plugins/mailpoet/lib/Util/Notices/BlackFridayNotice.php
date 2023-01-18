@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Util\Notices;
 
@@ -25,8 +25,8 @@ class BlackFridayNotice {
 
   public function init($shouldDisplay) {
     $shouldDisplay = $shouldDisplay
-      && (time() <= strtotime('2021-11-30 12:00:00'))
-      && (time() >= strtotime('2021-11-24 12:00:00'))
+      && (time() >= strtotime('2022-11-23 15:00:00 UTC'))
+      && (time() <= strtotime('2022-11-29 15:00:00 UTC'))
       && !get_transient(self::OPTION_NAME);
     if ($shouldDisplay) {
       $this->display();
@@ -35,10 +35,10 @@ class BlackFridayNotice {
 
   private function display() {
     $subscribers = $this->subscribersRepository->countBy(['deletedAt' => null]);
-    $header = '<h3 class="mailpoet-h3">' . __('Save big on MailPoet – 40% off this Black Friday', 'mailpoet') . '</h3>';
-    $body = '<h5 class="mailpoet-h5">' . __('Our biggest ever sale is here! Save 40% on all annual plans and licenses until 8 am UTC, November 30. Terms and conditions apply.', 'mailpoet') . '</h5>';
-    $link = "<p><a href='https://account.mailpoet.com/?s=$subscribers' class='mailpoet-button button-primary' target='_blank'>"
-      . __('Shop now', 'mailpoet')
+    $header = '<h3 class="mailpoet-h3">' . __('Our Black Friday sale is live! Save 40% for a limited time.', 'mailpoet') . '</h3>';
+    $body = '<h5 class="mailpoet-h5">' . __('Get a 40% discount on all MailPoet plans and upgrades until 3 PM UTC on 29 November. Terms & conditions apply.', 'mailpoet') . '</h5>';
+    $link = "<p><a href='https://account.mailpoet.com/?s=$subscribers&billing=yearly&ref=sale-bfcm-2022-plugin&utm_source=MP&utm_medium=plugin&utm_campaign=mp_bfcm22' class='mailpoet-button button-primary' target='_blank'>"
+      . __('Shop Now', 'mailpoet')
       . '</a></p>';
 
     $extraClasses = 'mailpoet-dismissible-notice is-dismissible';

@@ -29,7 +29,6 @@ class __TwigTemplate_53d600d8a07aac1f252dba6865bc3c701e94cb6909b20e23d47b9ab03d2
 
         $this->blocks = [
             'content' => [$this, 'block_content'],
-            'after_javascript' => [$this, 'block_after_javascript'],
             'after_css' => [$this, 'block_after_css'],
         ];
     }
@@ -53,36 +52,25 @@ class __TwigTemplate_53d600d8a07aac1f252dba6865bc3c701e94cb6909b20e23d47b9ab03d2
         $macros = $this->macros;
         // line 4
         echo "<div id=\"mailpoet_automation_templates\"></div>
-";
-    }
 
-    // line 7
-    public function block_after_javascript($context, array $blocks = [])
-    {
-        $macros = $this->macros;
-        // line 8
-        echo "<script type=\"text/javascript\">
+<script type=\"text/javascript\">
   var mailpoet_automation_api = ";
-        // line 9
+        // line 7
         echo json_encode(($context["api"] ?? null));
         echo ";
   var mailpoet_automation_templates = ";
-        // line 10
+        // line 8
         echo json_encode(($context["templates"] ?? null));
         echo ";
 </script>
 ";
-        // line 12
-        echo $this->extensions['MailPoet\Twig\Assets']->generateJavascript("automation_templates.js");
-        echo "
-";
     }
 
-    // line 15
+    // line 12
     public function block_after_css($context, array $blocks = [])
     {
         $macros = $this->macros;
-        // line 16
+        // line 13
         echo $this->extensions['MailPoet\Twig\Assets']->generateStylesheet("mailpoet-automation-templates.css");
         echo "
 ";
@@ -100,7 +88,7 @@ class __TwigTemplate_53d600d8a07aac1f252dba6865bc3c701e94cb6909b20e23d47b9ab03d2
 
     public function getDebugInfo()
     {
-        return array (  83 => 16,  79 => 15,  73 => 12,  68 => 10,  64 => 9,  61 => 8,  57 => 7,  52 => 4,  48 => 3,  37 => 1,);
+        return array (  71 => 13,  67 => 12,  60 => 8,  56 => 7,  51 => 4,  47 => 3,  36 => 1,);
     }
 
     public function getSourceContext()

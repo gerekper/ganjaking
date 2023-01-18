@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Subscription;
 
@@ -12,7 +12,6 @@ use MailPoet\Entities\SubscriberSegmentEntity;
 use MailPoet\Form\Util\FieldNameObfuscator;
 use MailPoet\Newsletter\Scheduler\WelcomeScheduler;
 use MailPoet\Segments\SegmentsRepository;
-use MailPoet\Settings\SettingsController;
 use MailPoet\Statistics\Track\Unsubscribes;
 use MailPoet\Subscribers\LinkTokens;
 use MailPoet\Subscribers\NewSubscriberNotificationMailer;
@@ -31,9 +30,6 @@ class Manage {
 
   /** @var LinkTokens */
   private $linkTokens;
-
-  /** @var SettingsController */
-  private $settings;
 
   /** @var Unsubscribes */
   private $unsubscribesTracker;
@@ -64,7 +60,6 @@ class Manage {
     FieldNameObfuscator $fieldNameObfuscator,
     LinkTokens $linkTokens,
     Unsubscribes $unsubscribesTracker,
-    SettingsController $settings,
     NewSubscriberNotificationMailer $newSubscriberNotificationMailer,
     WelcomeScheduler $welcomeScheduler,
     CustomFieldsRepository $customFieldsRepository,
@@ -77,7 +72,6 @@ class Manage {
     $this->fieldNameObfuscator = $fieldNameObfuscator;
     $this->unsubscribesTracker = $unsubscribesTracker;
     $this->linkTokens = $linkTokens;
-    $this->settings = $settings;
     $this->newSubscriberNotificationMailer = $newSubscriberNotificationMailer;
     $this->welcomeScheduler = $welcomeScheduler;
     $this->segmentsRepository = $segmentsRepository;
@@ -143,7 +137,6 @@ class Manage {
     if (isset($subscriberData['segments']) && is_array($subscriberData['segments'])) {
       $segmentsIds = $subscriberData['segments'];
     }
-    $allowedSegments = $this->settings->get('subscription.segments', false);
 
     // Unsubscribe from all other segments already subscribed to
     // but don't change disallowed segments
@@ -153,7 +146,7 @@ class Manage {
         continue;
       }
 
-      if ($allowedSegments && !in_array($segment->getId(), $allowedSegments)) {
+      if (empty($segment->getDisplayInManageSubscriptionPage())) {
         continue;
       }
       if (!in_array($segment->getId(), $segmentsIds)) {
@@ -176,13 +169,13 @@ class Manage {
     }, $subscriberSegments));
     $newSegmentIds = array_diff($segmentsIds, $currentSegmentIds);
 
-    // Allow subscribing only to allowed segments
-    if ($allowedSegments) {
-      $segmentsIds = array_intersect($segmentsIds, $allowedSegments);
-    }
     foreach ($segmentsIds as $segmentId) {
       $segment = $this->segmentsRepository->findOneById($segmentId);
       if (!$segment) {
+        continue;
+      }
+      // Allow subscribing only to allowed segments
+      if (empty($segment->getDisplayInManageSubscriptionPage())) {
         continue;
       }
       $this->subscriberSegmentRepository->createOrUpdate(

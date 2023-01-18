@@ -1,11 +1,17 @@
 <?php
 namespace MailPoetVendor\Carbon\Exceptions;
 if (!defined('ABSPATH')) exit;
-use Exception;
+use Throwable;
 class UnknownUnitException extends UnitException
 {
- public function __construct($unit, $code = 0, Exception $previous = null)
+ protected $unit;
+ public function __construct($unit, $code = 0, Throwable $previous = null)
  {
+ $this->unit = $unit;
  parent::__construct("Unknown unit '{$unit}'.", $code, $previous);
+ }
+ public function getUnit() : string
+ {
+ return $this->unit;
  }
 }

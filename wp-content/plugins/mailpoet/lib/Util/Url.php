@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Util;
 
@@ -71,5 +71,9 @@ class Url {
       $this->redirectTo($url);
     }
     exit();
+  }
+
+  public function isUsingHttps(string $url): bool {
+    return $this->wp->wpParseUrl($url, PHP_URL_SCHEME) === 'https';
   }
 }

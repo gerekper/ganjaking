@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 1.3.0 - 2023-01-13 =
+* BugFix: String translation issue.
+* Compatibility: Compatible with WordPress 6.1
+
 = 1.2.3 - 2020-11-09 =
 * Compatibility: LoginPress - Hide Login is compatible with <a href="https://wordpress.org/plugins/translatepress-multilingual/">TranslatePress</a> plugin now.
 * Compatibility: LoginPress - Hide Login is compatible with LoginPress - Limit Login Attempts Add-On now.

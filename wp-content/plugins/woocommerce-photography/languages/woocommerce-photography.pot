@@ -1,15 +1,15 @@
-# Copyright (C) 2022 Themesquad
+# Copyright (C) 2023 Themesquad
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Photography 1.1.0\n"
+"Project-Id-Version: WooCommerce Photography 1.1.1\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-12-20T11:13:53+00:00\n"
+"POT-Creation-Date: 2023-01-12T16:02:48+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: woocommerce-photography\n"
@@ -151,7 +151,7 @@ msgstr ""
 #: includes/admin/class-wc-photography-admin.php:48
 #: includes/admin/class-wc-photography-admin.php:49
 #: includes/admin/class-wc-photography-admin.php:152
-#: includes/admin/class-wc-photography-admin.php:208
+#: includes/admin/class-wc-photography-admin.php:207
 #: includes/admin/class-wc-photography-privacy.php:11
 msgid "Photography"
 msgstr ""
@@ -170,37 +170,37 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin.php:178
+#: includes/admin/class-wc-photography-admin.php:177
 msgid "Allowed Files"
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin.php:240
-#: includes/admin/class-wc-photography-admin.php:263
+#: includes/admin/class-wc-photography-admin.php:239
+#: includes/admin/class-wc-photography-admin.php:262
 #: includes/admin/views/html-batch-upload.php:52
 #: includes/admin/views/html-batch-upload.php:137
 #: includes/admin/views/html-customer-profile-fields.php:18
 msgid "Search for a collection&hellip;"
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin.php:241
-#: includes/admin/class-wc-photography-admin.php:264
+#: includes/admin/class-wc-photography-admin.php:240
+#: includes/admin/class-wc-photography-admin.php:263
 msgid "Loading&hellip;"
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin.php:242
-#: includes/admin/class-wc-photography-admin.php:265
+#: includes/admin/class-wc-photography-admin.php:241
+#: includes/admin/class-wc-photography-admin.php:264
 msgid "An error occurred while creating the collection! Please try again."
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin.php:243
+#: includes/admin/class-wc-photography-admin.php:242
 msgid "Photographs edited successfully!"
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin.php:284
+#: includes/admin/class-wc-photography-admin.php:283
 msgid "Choose an image"
 msgstr ""
 
-#: includes/admin/class-wc-photography-admin.php:285
+#: includes/admin/class-wc-photography-admin.php:284
 msgid "Use image"
 msgstr ""
 
@@ -324,9 +324,9 @@ msgstr ""
 
 #: includes/class-wc-photography-products-addons.php:48
 #: includes/class-wc-photography-products-addons.php:104
-#: includes/wc-photography-template-functions.php:220
+#: includes/wc-photography-template-functions.php:225
 msgid "Collection:"
-msgid_plural "Collection:"
+msgid_plural "Collections:"
 msgstr[0] ""
 msgstr[1] ""
 

@@ -208,16 +208,22 @@ if ( ! function_exists( 'wc_photography_template_show_collections' ) ) {
 
 	/**
 	 * Show the collections on single page.
-	 *
-	 * @return string
 	 */
 	function wc_photography_template_show_collections() {
-		global $post, $product;
+		global $product;
 
-		if ( $product && $product->is_type( 'photography' ) ) {
-			$collection_count = sizeof( get_the_terms( $post->ID, 'images_collections' ) );
-
-			echo $product->get_collections( ', ', '<span class="collections">' . _n( 'Collection:', 'Collection:', $collection_count, 'woocommerce-photography' ) . ' ', '.</span>' );
+		if ( ! $product || ! $product->is_type( 'photography' ) ) {
+			return;
 		}
+
+		$collections = get_the_terms( $product->get_id(), 'images_collections' );
+
+		if ( empty( $collections ) ) {
+			return;
+		}
+
+		$label = _n( 'Collection:', 'Collections:', count( $collections ), 'woocommerce-photography' );
+
+		the_terms( $product->get_id(), 'images_collections', '<span class="collections">' . esc_html( $label ) . ' ', ', ', '</span>' );
 	}
 }

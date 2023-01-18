@@ -58,6 +58,7 @@ jQuery('#adminmenu #toplevel_page_mailpoet-newsletters')
   var mailpoet_wp_week_starts_on = "<%= wp_start_of_week() %>";
   var mailpoet_urls = <%= json_encode(urls) %>;
   var mailpoet_premium_version = <%= json_encode(mailpoet_premium_version()) %>;
+  var mailpoet_main_page_slug =   <%= json_encode(main_page) %>;
   var mailpoet_3rd_party_libs_enabled = <%= is_loading_3rd_party_enabled() | json_encode %>;
   var mailpoet_analytics_enabled = <%= is_analytics_enabled() | json_encode %>;
   var mailpoet_analytics_data = <%= json_encode(get_analytics_data()) %>;
@@ -74,8 +75,14 @@ jQuery('#adminmenu #toplevel_page_mailpoet-newsletters')
   var mailpoet_mta_method = '<%= mta_method %>';
   var mailpoet_tracking_config = <%= json_encode(tracking_config) %>;
   var mailpoet_is_new_user = <%= json_encode(is_new_user == true) %>;
-  var mailpoet_installed_days_ago = <%= installed_days_ago %>;
+  var mailpoet_installed_days_ago = <%= json_encode(installed_days_ago) %>;
+  var mailpoet_send_transactional_emails = <%= json_encode(send_transactional_emails) %>;
+  var mailpoet_transactional_emails_opt_in_notice_dismissed = <%= json_encode(ransactional_emails_opt_in_notice_dismissed) %>;
   var mailpoet_deactivate_subscriber_after_inactive_days = <%= json_encode(deactivate_subscriber_after_inactive_days) %>;
+
+  var mailpoet_site_name = '<%= site_name %>';
+  var mailpoet_site_url = "<%= site_url %>";
+  var mailpoet_site_address = '<%= site_address %>';
 
   // Premium status
   var mailpoet_current_wp_user_email = '<%= current_wp_user_email|escape('js') %>';
@@ -98,6 +105,8 @@ jQuery('#adminmenu #toplevel_page_mailpoet-newsletters')
   var mailpoet_subscribers_limit_reached = <%= json_encode(subscribers_limit_reached) %>;
   var mailpoet_email_volume_limit = <%= json_encode(email_volume_limit) %>;
   var mailpoet_email_volume_limit_reached = <%= json_encode(email_volume_limit_reached) %>;
+  var mailpoet_cdn_url = <%= json_encode(cdn_url("")) %>;
+  var mailpoet_tags = <%= json_encode(tags) %>;
 
   <% if not(premium_plugin_active) %>
     var mailpoet_free_premium_subscribers_limit = <%= free_premium_subscribers_limit %>;
@@ -182,6 +191,21 @@ jQuery('#adminmenu #toplevel_page_mailpoet-newsletters')
   'allSendingPausedBody': __('Your [link]API key[/link] to send with MailPoet is invalid.'),
   'allSendingPausedLink': __('Purchase a key'),
 
+  'transactionalEmailNoticeTitle': __('Good news! MailPoet can now send your website’s emails too'),
+  'transactionalEmailNoticeBody': __('All of your WordPress and WooCommerce emails are sent with your hosting company, unless you have an SMTP plugin. Would you like such emails to be delivered with MailPoet’s active sending method for better deliverability?'),
+  'transactionalEmailNoticeBodyReadMore': _x('Read more.', 'This is a link that leads to more information about transactional emails'),
+  'transactionalEmailNoticeCTA': _x('Enable', 'Button, after clicking it we will enable transactional emails'),
+
+  'mailerSendErrorNotice': __('Sending has been paused due to a technical issue with %1$s'),
+  'mailerSendErrorCheckConfiguration': __('Please check your sending method configuration, you may need to consult with your hosting company.'),
+  'mailerSendErrorUseSendingService': __('The easy alternative is to <b>send emails with MailPoet Sending Service</b> instead, like thousands of other users do.'),
+  'mailerSendErrorSignUpForSendingService': __('Sign up for free in minutes'),
+  'mailerConnectionErrorNotice': __('Sending is paused because the following connection issue prevents MailPoet from delivering emails'),
+  'mailerErrorCode': __('Error code: %1$s'),
+  'mailerCheckSettingsNotice': __('Check your [link]sending method settings[/link].'),
+  'mailerResumeSendingButton': __('Resume sending'),
+  'mailerResumeSendingAfterUpgradeButton': __('I have upgraded my subscription, resume sending'),
+
   'topBarLogoTitle': __('Back to section root'),
 
   'close': __('Close'),
@@ -244,6 +268,9 @@ jQuery('#adminmenu #toplevel_page_mailpoet-newsletters')
   <% set helpscout_form_id = '1c666cab-c0f6-4614-bc06-e5d0ad78db2b' %>
   <%if mailpoet_api_key_state.data.support_tier == 'premium' or premium_key_state.data.support_tier == 'premium' %>
     <% set helpscout_form_id = 'e93d0423-1fa6-4bbc-9df9-c174f823c35f' %>
+  <% endif %>
+  <%if current_page == 'mailpoet-automation' or current_page == 'mailpoet-automation-editor' or current_page == 'mailpoet-automation-templates'%>
+    <% set helpscout_form_id = '69b66c7a-e9e9-4544-9d2a-5eb0ddc74959' %>
   <% endif %>
 
   <script type="text/javascript">!function(e,t,n){function a(){var e=t.getElementsByTagName("script")[0],n=t.createElement("script");n.type="text/javascript",n.async=!0,n.src="https://beacon-v2.helpscout.net",e.parentNode.insertBefore(n,e)}if(e.Beacon=n=function(t,n,a){e.Beacon.readyQueue.push({method:t,options:n,data:a})},n.readyQueue=[],"complete"===t.readyState)return a();e.attachEvent?e.attachEvent("onload",a):e.addEventListener("load",a,!1)}(window,document,window.Beacon||function(){});</script>

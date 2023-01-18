@@ -41,11 +41,15 @@ class __TwigTemplate_4dad24d6979ff687df324ba72e4a627bdb1ada3d948a10097db0d301237
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Footer");
         echo "</h3>
 <div class=\"mailpoet_form_field mailpoet_form_narrow_select2\">
-    <div class=\"mailpoet_form_field_input_option\">
+    <div class=\"mailpoet_form_field_title\">";
+        // line 3
+        echo $this->extensions['MailPoet\Twig\I18n']->translate("Text");
+        echo "</div>
+    <div class=\"mailpoet_form_field_input_option mailpoet_form_field_input_nowrap\">
         <input type=\"text\" name=\"font-color\" id=\"mailpoet_field_footer_text_color\" class=\"mailpoet_field_footer_text_color mailpoet_color\" value=\"{{ model.styles.text.fontColor }}\" />
         <select id=\"mailpoet_field_footer_text_font_family\" name=\"font-family\" class=\"mailpoet_select mailpoet_select_medium mailpoet_field_footer_text_font_family mailpoet_font_family\">
         <optgroup label=\"";
-        // line 6
+        // line 7
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Standard fonts");
         echo "\">
         {{#each availableStyles.fonts.standard}}
@@ -53,7 +57,7 @@ class __TwigTemplate_4dad24d6979ff687df324ba72e4a627bdb1ada3d948a10097db0d301237
         {{/each}}
         </optgroup>
         <optgroup label=\"";
-        // line 11
+        // line 12
         echo $this->extensions['MailPoet\Twig\I18n']->translate("Custom fonts");
         echo "\">
         {{#each availableStyles.fonts.custom}}
@@ -67,10 +71,6 @@ class __TwigTemplate_4dad24d6979ff687df324ba72e4a627bdb1ada3d948a10097db0d301237
         {{/each}}
         </select>
     </div>
-    <div class=\"mailpoet_form_field_title mailpoet_form_field_title_inline\">";
-        // line 23
-        echo $this->extensions['MailPoet\Twig\I18n']->translate("Text");
-        echo "</div>
 </div>
 <div class=\"mailpoet_form_field\">
     <div class=\"mailpoet_form_field_input_option\">
@@ -160,7 +160,7 @@ class __TwigTemplate_4dad24d6979ff687df324ba72e4a627bdb1ada3d948a10097db0d301237
 
     public function getDebugInfo()
     {
-        return array (  139 => 69,  133 => 66,  124 => 60,  115 => 54,  106 => 48,  96 => 41,  84 => 32,  78 => 29,  69 => 23,  54 => 11,  46 => 6,  37 => 1,);
+        return array (  139 => 69,  133 => 66,  124 => 60,  115 => 54,  106 => 48,  96 => 41,  84 => 32,  78 => 29,  58 => 12,  50 => 7,  43 => 3,  37 => 1,);
     }
 
     public function getSourceContext()

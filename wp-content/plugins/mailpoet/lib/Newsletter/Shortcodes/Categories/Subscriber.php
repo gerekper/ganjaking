@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace MailPoet\Newsletter\Shortcodes\Categories;
 
@@ -57,7 +57,7 @@ class Subscriber implements CategoryInterface {
         }
         return $defaultValue;
       case 'count':
-        return (string)$this->subscribersRepository->getTotalSubscribers();
+        return (string)$this->getSubscribersCountWithSubscribedStatus();
       default:
         if (
           preg_match('/cf_(\d+)/', $shortcodeDetails['action'], $customField) &&
@@ -71,5 +71,9 @@ class Subscriber implements CategoryInterface {
         }
         return null;
     }
+  }
+
+  private function getSubscribersCountWithSubscribedStatus(): int {
+    return $this->subscribersRepository->countBy(['status' => SubscriberEntity::STATUS_SUBSCRIBED, 'deletedAt' => null]);
   }
 }

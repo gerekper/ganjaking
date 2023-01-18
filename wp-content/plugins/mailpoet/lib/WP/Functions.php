@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\WP;
 
@@ -123,6 +123,10 @@ class Functions {
     return delete_comment_meta($commentId, $metaKey, $metaValue);
   }
 
+  public function addOption($option, $value) {
+    return add_option($option, $value);
+  }
+
   public function deleteOption($option) {
     return delete_option($option);
   }
@@ -141,6 +145,10 @@ class Functions {
 
   public function escSql($sql) {
     return esc_sql($sql);
+  }
+
+  public function escUrl($url): string {
+    return esc_url($url);
   }
 
   public function getBloginfo($show = '', $filter = 'raw') {
@@ -626,6 +634,10 @@ class Functions {
     return is_main_query();
   }
 
+  public function getPrivacyPolicyUrl(): string {
+    return get_privacy_policy_url();
+  }
+
   /**
    * @param string $action
    * @param array|object $args
@@ -658,6 +670,29 @@ class Functions {
    */
   public function isSingular($postTypes = ''): bool {
     return is_singular($postTypes);
+  }
+
+  /**
+   * Determines whether the query is for an existing archive page.
+   *
+   * Archive pages include category, tag, author, date, custom post type,
+   * and custom taxonomy based archives.
+   *
+   * @return bool Whether the query is for an existing archive page.
+   */
+  public function isArchive(): bool {
+    return is_archive();
+  }
+
+  /**
+   * Determines whether the query is for an existing post type archive page.
+   *
+   * @param string|string[] $postTypes Optional. Post type or array of posts types
+   *                                    to check against. Default empty.
+   * @return bool Whether the query is for an existing post type archive page.
+   */
+  public function isPostTypeArchive($postTypes = ''): bool {
+    return is_post_type_archive($postTypes);
   }
 
   /**
@@ -826,5 +861,9 @@ class Functions {
 
   public function isWpError($value): bool {
     return is_wp_error($value);
+  }
+
+  public function wpIsSiteUrlUsingHttps(): bool {
+    return wp_is_site_url_using_https();
   }
 }

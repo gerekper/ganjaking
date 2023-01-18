@@ -27,7 +27,7 @@ abstract class Exception extends PhpException implements RestException {
     string $errorCode = null,
     Throwable $previous = null
   ) {
-    parent::__construct($message ?? 'Unknown error.', 0, $previous);
+    parent::__construct($message ?? __('Unknown error.', 'mailpoet'), 0, $previous);
     $this->errorCode = $errorCode ?? 'mailpoet_automation_unknown_error';
   }
 
@@ -39,6 +39,12 @@ abstract class Exception extends PhpException implements RestException {
   /** @return static */
   public function withStatusCode(int $statusCode) {
     $this->statusCode = $statusCode;
+    return $this;
+  }
+
+  /** @return static */
+  public function withError(string $id, string $error) {
+    $this->errors[$id] = $error;
     return $this;
   }
 

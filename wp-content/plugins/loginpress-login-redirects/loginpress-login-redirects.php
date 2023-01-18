@@ -4,7 +4,7 @@
  * Plugin Name: LoginPress - Redirect Login
  * Plugin URI: http://www.WPBrigade.com/wordpress/plugins/login-redirects/
  * Description: LoginPress is the best <code>wp-login</code> Login Redirects plugin by <a href="https://wpbrigade.com/">WPBrigade</a> which allows you to redirect user after login.
- * Version: 1.1.4
+ * Version: 2.0.0
  * Author: WPBrigade
  * Author URI: http://www.WPBrigade.com/
  * Text Domain: loginpress-login-redirects
@@ -22,7 +22,7 @@
  define( 'LOGINPRESS_REDIRECT_ROOT_FILE', __FILE__ );
  define( 'LOGINPRESS_REDIRECT_PLUGIN_ROOT', dirname( plugin_basename( __FILE__ ) ) );
  define( 'LOGINPRESS_REDIRECT_STORE_URL', 'https://WPBrigade.com' );
- define( 'LOGINPRESS_REDIRECT_VERSION', '1.1.4' );
+ define( 'LOGINPRESS_REDIRECT_VERSION', '2.0.0' );
 
  add_action( 'plugins_loaded', 'loginpress_redirect_login_instance', 25 );
 

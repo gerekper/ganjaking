@@ -50,8 +50,6 @@ if ( ! class_exists( 'LoginPress_Recaptcha' ) ) {
 
 			$cap_register = isset( $this->loginpress_settings['captcha_enable']['register_form'] ) ? $this->loginpress_settings['captcha_enable']['register_form'] : false;
 
-			$action       = isset( $_POST['action'] ) ? sanitize_text_field( wp_unslash( $_POST['action'] ) ) : '';
-
 			/* Add reCAPTCHA on login form */
 			if ( $cap_login ) {
 				add_action( 'login_form', array( $this, 'loginpress_recaptcha_field' ) );
@@ -80,9 +78,9 @@ if ( ! class_exists( 'LoginPress_Recaptcha' ) ) {
 			/**
 			 * Authentication reCAPTCHA on registration form && if register action is performed.
 			 *
-			 * @version 2.5.2
+			 * @version 2.5.3
 			 */
-			if ( ! isset( $_GET['customize_changeset_uuid'] ) && $cap_register && 'register' === $action ) {
+			if ( ! isset( $_GET['customize_changeset_uuid'] ) && $cap_register ) {
 				add_filter( 'registration_errors', array( $this, 'loginpress_recaptcha_registration_auth' ), 10, 3 );
 			}
 

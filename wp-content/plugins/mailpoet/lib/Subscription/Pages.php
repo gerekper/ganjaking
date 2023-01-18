@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing
 
 namespace MailPoet\Subscription;
 
@@ -6,13 +6,16 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Config\Renderer as TemplateRenderer;
+use MailPoet\Cron\Workers\StatsNotifications\NewsletterLinkRepository;
+use MailPoet\Entities\NewsletterLinkEntity;
 use MailPoet\Entities\SegmentEntity;
 use MailPoet\Entities\StatisticsUnsubscribeEntity;
 use MailPoet\Entities\SubscriberEntity;
-use MailPoet\Features\FeaturesController;
 use MailPoet\Form\AssetsController;
 use MailPoet\Newsletter\Scheduler\WelcomeScheduler;
+use MailPoet\Newsletter\Sending\SendingQueuesRepository;
 use MailPoet\Settings\TrackingConfig;
+use MailPoet\Statistics\StatisticsClicksRepository;
 use MailPoet\Statistics\Track\SubscriberHandler;
 use MailPoet\Statistics\Track\Unsubscribes;
 use MailPoet\Subscribers\LinkTokens;
@@ -44,7 +47,7 @@ class Pages {
   /** @var WPFunctions */
   private $wp;
 
-  /** @var CaptchaRenderer */
+  /** @var CaptchaFormRenderer */
   private $captchaRenderer;
 
   /** @var WelcomeScheduler */
@@ -77,9 +80,6 @@ class Pages {
   /** @var TrackingConfig */
   private $trackingConfig;
 
-  /** @var FeaturesController */
-  private $featuresController;
-
   /** @var EntityManager */
   private $entityManager;
 
@@ -89,10 +89,19 @@ class Pages {
   /** @var SubscriberSegmentRepository */
   private $subscriberSegmentRepository;
 
+  /*** @var NewsletterLinkRepository */
+  private $newsletterLinkRepository;
+
+  /*** @var StatisticsClicksRepository */
+  private $statisticsClicksRepository;
+
+  /*** @var SendingQueuesRepository */
+  private $sendingQueuesRepository;
+
   public function __construct(
     NewSubscriberNotificationMailer $newSubscriberNotificationSender,
     WPFunctions $wp,
-    CaptchaRenderer $captchaRenderer,
+    CaptchaFormRenderer $captchaRenderer,
     WelcomeScheduler $welcomeScheduler,
     LinkTokens $linkTokens,
     SubscriptionUrlFactory $subscriptionUrlFactory,
@@ -103,10 +112,12 @@ class Pages {
     SubscriberHandler $subscriberHandler,
     SubscribersRepository $subscribersRepository,
     TrackingConfig $trackingConfig,
-    FeaturesController $featuresController,
     EntityManager $entityManager,
     SubscriberSaveController $subscriberSaveController,
-    SubscriberSegmentRepository $subscriberSegmentRepository
+    SubscriberSegmentRepository $subscriberSegmentRepository,
+    NewsletterLinkRepository $newsletterLinkRepository,
+    StatisticsClicksRepository $statisticsClicksRepository,
+    SendingQueuesRepository $sendingQueuesRepository
   ) {
     $this->wp = $wp;
     $this->newSubscriberNotificationSender = $newSubscriberNotificationSender;
@@ -121,10 +132,12 @@ class Pages {
     $this->subscriberHandler = $subscriberHandler;
     $this->subscribersRepository = $subscribersRepository;
     $this->trackingConfig = $trackingConfig;
-    $this->featuresController = $featuresController;
     $this->entityManager = $entityManager;
     $this->subscriberSaveController = $subscriberSaveController;
     $this->subscriberSegmentRepository = $subscriberSegmentRepository;
+    $this->newsletterLinkRepository = $newsletterLinkRepository;
+    $this->statisticsClicksRepository = $statisticsClicksRepository;
+    $this->sendingQueuesRepository = $sendingQueuesRepository;
   }
 
   public function init($action = false, $data = [], $initShortcodes = false, $initPageFilters = false) {
@@ -216,8 +229,8 @@ class Pages {
     }
 
     // when global status changes to subscribed, fire subscribed hook for all subscribed segments
-    if ($this->featuresController->isSupported(FeaturesController::AUTOMATION)) {
-      $segments = $this->subscriber->getSubscriberSegments();
+    $segments = $this->subscriber->getSubscriberSegments();
+    if ($originalStatus !== SubscriberEntity::STATUS_SUBSCRIBED) {
       foreach ($segments as $subscriberSegment) {
         if ($subscriberSegment->getStatus() === SubscriberEntity::STATUS_SUBSCRIBED) {
           $this->wp->doAction('mailpoet_segment_subscribed', $subscriberSegment);
@@ -236,17 +249,28 @@ class Pages {
     }
   }
 
-  public function unsubscribe() {
+  public function unsubscribe(string $method): void {
     if (
       !$this->isPreview()
-      && ($this->subscriber !== null)
-      && ($this->subscriber->status !== SubscriberEntity::STATUS_UNSUBSCRIBED)
+      && (!is_null($this->subscriber))
+      && ($this->subscriber->getStatus() !== SubscriberEntity::STATUS_UNSUBSCRIBED)
     ) {
       if ($this->trackingConfig->isEmailTrackingEnabled() && isset($this->data['queueId'])) {
+        $queueId = (int)$this->data['queueId'];
+
+        if ($method === StatisticsUnsubscribeEntity::METHOD_ONE_CLICK) {
+          /**
+           * With 1-click method, redirect shouldn't happen that's why the click state should be directly recorded
+           */
+          $this->updateClickStatistics($queueId);
+        }
+
         $this->unsubscribesTracker->track(
-          (int)$this->subscriber->id,
+          (int)$this->subscriber->getId(),
           StatisticsUnsubscribeEntity::SOURCE_NEWSLETTER,
-          (int)$this->data['queueId']
+          $queueId,
+          null,
+          $method
         );
       }
       $this->subscriber->setStatus(SubscriberEntity::STATUS_UNSUBSCRIBED);
@@ -357,28 +381,19 @@ class Pages {
     return $meta;
   }
 
-  private function getConfirmTitle() {
-    if ($this->isPreview()) {
-      $title = sprintf(
-        // translators: %s is a comma-separated list of segment names.
-        __("You have subscribed to: %s", 'mailpoet'),
-        'demo 1, demo 2'
-      );
-    } else {
-      $segmentNames = array_map(function($segment) {
-        return $segment->getName();
-      }, $this->subscriber->getSegments()->toArray());
+  private function getConfirmTitle(): string {
+    $wpSiteTitle = $this->wp->getBloginfo('name');
 
-      if (empty($segmentNames)) {
-        $title = __("You are now subscribed!", 'mailpoet');
-      } else {
-        $title = sprintf(
-          // translators: %s is a comma-separated list of segment names.
-          __("You have subscribed to: %s", 'mailpoet'),
-          join(', ', $segmentNames)
-        );
-      }
+    if (empty($wpSiteTitle)) {
+      $title = __("You are now subscribed!", 'mailpoet');
+    } else {
+      $title = sprintf(
+        // translators: %s is the website title or website name.
+        __("You have subscribed to %s", 'mailpoet'),
+        $wpSiteTitle
+      );
     }
+
     return $title;
   }
 
@@ -480,5 +495,28 @@ class Pages {
     );
 
     return '<a href="' . $this->subscriptionUrlFactory->getManageUrl($this->subscriber) . '">' . $text . '</a>';
+  }
+
+  private function updateClickStatistics(int $queueId): void {
+    $queue = $this->sendingQueuesRepository->findOneById($queueId);
+    if ($queue) {
+      $newsletter = $queue->getNewsletter();
+      $link = $this->newsletterLinkRepository->findOneBy([
+        'url' => NewsletterLinkEntity::INSTANT_UNSUBSCRIBE_LINK_SHORT_CODE,
+        'queue' => $queueId,
+      ]);
+    }
+
+
+    if ($queue && isset($link, $newsletter)) {
+      $this->statisticsClicksRepository->createOrUpdateClickCount(
+        $link,
+        $this->subscriber,
+        $newsletter,
+        $queue,
+        null
+      );
+      $this->statisticsClicksRepository->flush();
+    }
   }
 }
