@@ -103,7 +103,7 @@ class WC_Checkout_Field_Editor_PIP_Integration {
 
 		if ( ! empty( $html ) ) {
 			echo '<dl>';
-			echo $html;
+			echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			echo '</dl>';
 		}
 	}

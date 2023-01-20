@@ -4,10 +4,9 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita1d7371066b105994d04f6051816d829
+class ComposerStaticInita6318e105f72dc3205eadabf87505107
 {
     public static $classMap = array (
-        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'PLLWC_Admin' => __DIR__ . '/../..' . '/admin/admin.php',
         'PLLWC_Admin_Coupons' => __DIR__ . '/../..' . '/admin/admin-coupons.php',
         'PLLWC_Admin_Menus' => __DIR__ . '/../..' . '/admin/admin-menus.php',
@@ -72,7 +71,7 @@ class ComposerStaticInita1d7371066b105994d04f6051816d829
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInita1d7371066b105994d04f6051816d829::$classMap;
+            $loader->classMap = ComposerStaticInita6318e105f72dc3205eadabf87505107::$classMap;
 
         }, null, ClassLoader::class);
     }

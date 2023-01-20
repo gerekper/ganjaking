@@ -4,6 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Theme Compatibility
  * @since    2.0.0
+ * @version  2.3.0
  */
 
 // Exit if accessed directly.
@@ -13,8 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * WC_MNM_Astra_Compatibility Class.
- *
- * @version  2.0.6
  */
 class WC_MNM_Astra_Compatibility {
 
@@ -28,6 +27,12 @@ class WC_MNM_Astra_Compatibility {
 
 		// Disabled MNM display: flex, Astra uses display: grid.
 		add_filter( 'wc_mnm_grid_has_flex_layout', '__return_false' );
+
+		// Left align the quantity inputs.
+		add_filter( 'wc_mnm_center_align_quantity', '__return_false' );
+
+		// Inline styles.
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'inline_styles' ), 20 );
 
 	}
 
@@ -57,16 +62,16 @@ class WC_MNM_Astra_Compatibility {
 
 	/**
 	 * Add theme-specific style rules to header.
-	 *
-	 * @deprecated 2.0.6
 	 */
 	public static function inline_styles() {
 
-		wc_deprecated_function( 'WC_MNM_Astra_Compatibility::inline_styles()', '1.6.0', 'Function is no longer used.' );
-
 		$custom_css = "
-			.theme-astra .mnm_form.layout_grid ul.products {
-				display: grid;
+			.theme-astra .mnm_form .child-item .ast-stock-avail {
+				display: none;
+			}
+			.theme-astra .mnm_form .mnm-checkbox-qty.buttons_added .minus,
+			.theme-astra .mnm_form .mnm-checkbox-qty.buttons_added .plus {
+				display: none;
 			}
 		";
 

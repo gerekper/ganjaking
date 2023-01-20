@@ -375,11 +375,13 @@ class WC_Mix_and_Match_Cart {
 	 *         'mnm_quantity' => array( array( $ID => $quantity ) )
 	 *    );
 	 */
-	public function rebuild_posted_container_form_data( $configuration, $container = null ) {
+	public function rebuild_posted_container_form_data( $configuration = array(), $container = null ) {
 		$form_data = array();
 
-		foreach ( $configuration as $mnm_item_id => $item_config ) {
-			$form_data[ $mnm_item_id ] = isset( $item_config['quantity'] ) ? intval( $item_config['quantity'] ) : 0;
+		if ( ! empty( $configuration ) ) {
+			foreach ( $configuration as $mnm_item_id => $item_config ) {
+				$form_data[ $mnm_item_id ] = isset( $item_config['quantity'] ) ? intval( $item_config['quantity'] ) : 0;
+			}
 		}
 
 		// Return the array as mnm_quantity = array() if $container is passed.

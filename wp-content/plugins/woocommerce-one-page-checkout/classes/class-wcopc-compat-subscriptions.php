@@ -45,20 +45,18 @@ class WCOPC_Compat_Subscriptions {
 	 * @since 1.2.8
 	 */
 	public static function add_switch_params( $wcopc_script_data ) {
-
-		if ( isset( $_GET['switch-subscription'] ) ) {
+		// PHPCS:Disable WordPress.Security.NonceVerification.Recommended
+		if ( isset( $_GET['switch-subscription'] ) && isset( $_GET['item'] ) ) {
 
 			$wcopc_script_data['ajax_url'] = add_query_arg( array(
+				'auto-switch'         => 'true',
 				'switch-subscription' => absint( $_GET['switch-subscription'] ),
 				'item'                => absint( $_GET['item'] ),
-				'_wcsnonce'           => $_GET['_wcsnonce'],
+				'_wcsnonce'           => isset( $_GET['_wcsnonce'] ) ? sanitize_text_field( $_GET['_wcsnonce'] ) : '',
 			), $wcopc_script_data['ajax_url'] );
 
-			if ( isset( $_GET['switch-subscription'] ) ) {
-				$wcopc_script_data['ajax_url'] = add_query_arg( 'auto-switch', 'true', $wcopc_script_data['ajax_url'] );
-			}
 		}
-
+		// PHPCS:Enable
 		return $wcopc_script_data;
 	}
 }

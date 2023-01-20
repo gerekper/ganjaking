@@ -191,9 +191,10 @@ class PLLWC_Import {
 	 * @return array
 	 */
 	public function get_terms_args( $args ) {
-		if ( ! empty( PLL()->pref_lang ) ) {
+		if ( ! isset( $args['lang'] ) && ! empty( PLL()->pref_lang ) ) {
 			$args['lang'] = PLL()->pref_lang->slug;
 		}
+
 		return $args;
 	}
 

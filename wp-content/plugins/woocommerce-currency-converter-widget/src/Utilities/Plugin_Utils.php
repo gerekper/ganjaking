@@ -37,6 +37,7 @@ class Plugin_Utils {
 
 		return self::$active_plugins;
 	}
+
 	/**
 	 * Gets if the plugin is active.
 	 *

@@ -26,7 +26,7 @@ if (is_plugin_active(plugin_basename($mailpoetPremium['filename']))) {
   // It is halfway between 0 and 10 so there's a place for hooks before and after.
   add_action('plugins_loaded', 'mailpoet_premium_init', 5);
 } else {
-  // Activation, MailPoet should been already loaded
+  // Activation, MailPoet should have been already loaded
   mailpoet_premium_init($mailpoetPremium);
 }
 
@@ -43,7 +43,7 @@ function mailpoet_premium_init($mailpoetPremium = null) {
         'version' => $mailpoetPremium['version'],
       ]);
     }
-  } catch (\Exception $e) {
+  } catch (Throwable $e) {
     WPNotice::displayError($e);
   }
 }

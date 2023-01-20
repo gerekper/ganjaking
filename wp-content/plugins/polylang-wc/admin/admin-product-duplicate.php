@@ -123,7 +123,7 @@ class PLLWC_Admin_Product_Duplicate {
 
 				if ( $tr_ids && $child = wc_get_product( $child_id ) ) {
 					$new_child_tr_ids   = array();
-					$tr_child_duplicate = array();
+					$tr_child_duplicates = array();
 
 					$sku = wc_product_generate_unique_sku( 0, $child->get_sku( 'edit' ) );
 
@@ -133,30 +133,34 @@ class PLLWC_Admin_Product_Duplicate {
 					 * We use the fact that wc_product_has_unique_sku checks for existing sku in DB.
 					 */
 					foreach ( $tr_ids as $lang => $tr_id ) {
-						if ( $tr_child = wc_get_product( $tr_id ) ) {
-							$tr_child_duplicate[ $lang ] = clone $tr_child;
-							$tr_child_duplicate[ $lang ]->set_parent_id( $this->data_store->get( $duplicate->get_id(), $lang ) );
-							$tr_child_duplicate[ $lang ]->set_id( 0 );
-							$tr_child_duplicate[ $lang ]->set_date_created( null );
+						$tr_child = wc_get_product( $tr_id );
 
-							if ( '' !== $child->get_sku( 'edit' ) ) {
-								$tr_child_duplicate[ $lang ]->set_sku( $sku );
-							}
-
-							$this->generate_unique_slug( $tr_child_duplicate[ $lang ] );
-
-							foreach ( $meta_to_exclude as $meta_key ) {
-								$tr_child_duplicate[ $lang ]->delete_meta_data( $meta_key );
-							}
-
-							do_action( 'woocommerce_product_duplicate_before_save', $tr_child_duplicate[ $lang ], $tr_child );
+						if ( ! $tr_child instanceof WC_Product ) {
+							continue;
 						}
+
+						$tr_child_duplicates[ $lang ] = clone $tr_child;
+						$tr_child_duplicates[ $lang ]->set_parent_id( $this->data_store->get( $duplicate->get_id(), $lang ) );
+						$tr_child_duplicates[ $lang ]->set_id( 0 );
+						$tr_child_duplicates[ $lang ]->set_date_created( null );
+
+						if ( '' !== $child->get_sku( 'edit' ) ) {
+							$tr_child_duplicates[ $lang ]->set_sku( $sku );
+						}
+
+						$this->generate_unique_slug( $tr_child_duplicates[ $lang ] );
+
+						foreach ( $meta_to_exclude as $meta_key ) {
+							$tr_child_duplicates[ $lang ]->delete_meta_data( $meta_key );
+						}
+
+						do_action( 'woocommerce_product_duplicate_before_save', $tr_child_duplicates[ $lang ], $tr_child );
 					}
 
-					foreach ( $tr_ids as $lang => $tr_id ) {
-						$tr_child_duplicate[ $lang ]->save();
-						$new_child_tr_ids[ $lang ] = $tr_child_duplicate[ $lang ]->get_id();
-						$this->data_store->set_language( $new_child_tr_ids[ $lang ], $lang );
+					foreach ( $tr_child_duplicates as $lang => $child ) {
+						$child->save();
+						$new_child_tr_ids[ $lang ] = $child->get_id();
+						$this->data_store->set_language( $child->get_id(), $lang );
 					}
 
 					$this->data_store->save_translations( $new_child_tr_ids );

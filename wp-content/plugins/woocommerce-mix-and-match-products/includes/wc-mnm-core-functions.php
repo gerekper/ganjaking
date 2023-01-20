@@ -6,7 +6,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Functions
  * @since    1.2.0
- * @version  2.2.0
+ * @version  2.3.0
  */
 
 // Exit if accessed directly.
@@ -406,6 +406,28 @@ function wc_mnm_is_product_container_type( $product ) {
 	}
 
 	return $is_type;
+}
+
+/*---------------*/
+/*  Formatting.  */
+/*---------------*/
+
+/**
+ * Given an array, prefix all keys with data-
+ *
+ * @since  2.3.0
+ *
+ * @param  array $attributes
+ * @return array
+ */
+function wc_mnm_prefix_data_attribute_keys( $attributes ) {
+
+	if ( ! empty ( $attributes ) ) {
+		$new_keys = array_map(function ($key) { return 'data-' . $key; }, array_keys( $attributes ) );
+		$attributes = array_combine( $new_keys, array_values( $attributes ) );	
+	}
+
+	return $attributes;
 }
 
 /*

@@ -56,7 +56,7 @@ class WC_MNM_PIP_Compatibility {
 		// Add assembly info to child item meta.
 		add_action( 'wc_pip_order_item_meta_end', array( __CLASS__, 'add_assembled_order_item_meta' ), 10, 2 );
 
-		// Ensure bundle container line items are always dislpayed.
+		// Ensure bundle container line items are always displayed.
 		add_filter( 'wc_pip_packing-list_hide_virtual_item', array( __CLASS__, 'hide_item' ), 10, 4 );
 
 		// Prevent child order items from being sorted/categorized.

@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Customizer
  * @since    2.0.0
- * @version  2.0.0
+ * @version  2.3.0
  */
 
 // Exit if accessed directly.
@@ -48,6 +48,7 @@ class WC_MNM_Customizer {
 		add_action( 'customize_controls_enqueue_scripts', array( $this, 'customize_controls' ) );
 		add_action( 'customize_register', array( $this, 'add_section' ) );
 		add_action( 'admin_menu', array( $this, 'add_fse_customize_link' ) );
+		add_filter( 'woocommerce_product_get_layout_override', array( $this, 'disable_override' ) );
 	}
 
 	/**
@@ -209,7 +210,7 @@ class WC_MNM_Customizer {
 		$wp_customize->add_setting(
 			'wc_mnm_display_thumbnail',
 			array(
-				'default'              => true,
+				'default'              => 'yes',
 				'type'                 => 'option',
 				'capability'           => 'manage_woocommerce',
 				'sanitize_callback'    => 'wc_bool_to_string',
@@ -236,7 +237,7 @@ class WC_MNM_Customizer {
 		$wp_customize->add_setting(
 			'wc_mnm_display_short_description',
 			array(
-				'default'              => false,
+				'default'              => 'no',
 				'type'                 => 'option',
 				'capability'           => 'manage_woocommerce',
 				'sanitize_callback'    => 'wc_bool_to_string',
@@ -283,6 +284,24 @@ class WC_MNM_Customizer {
 			admin_url( 'customize.php?autofocus[section]=wc_mnm' )
 		);
 	}
+
+
+	/**
+	 * No per-product overrides allowed when viewing customizer
+	 *
+	 * @param bool
+	 *
+	 * @since 2.3.0
+	 */
+	public function disable_override( $override ) {
+
+		if ( is_customize_preview() ) {
+			$override = false;
+		}
+
+		return $override;
+	}
+ 
 
 	/**
 	 * Get recent MNM product ID.

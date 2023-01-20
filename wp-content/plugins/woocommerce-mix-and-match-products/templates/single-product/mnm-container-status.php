@@ -13,7 +13,7 @@
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   2.2.0
- * @version 2.2.0
+ * @version 2.3.0
  */
 
 // Exit if accessed directly.
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<div class="mnm_cart mnm_data mnm_status" data-for_container="<?php echo esc_attr( $product->get_id() ); ?>" <?php echo $product->get_data_attributes(); ?> >
+<div class="mnm_cart mnm_data mnm_status" data-for_container="<?php echo esc_attr( $product->get_id() ); ?>" <?php echo wc_implode_html_attributes( $product->get_data_attributes() ); ?> >
 
 <?php
 
@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<p class="mnm_price" style="display:none;"></p>
 
-		<div class="mnm_message woocommerce-message" style="display:none;">
+		<div aria-live="polite" role="status" class="mnm_message woocommerce-message" style="display:none;">		
 			<ul class="msg mnm_message_content">
 				<li><?php echo wc_mnm_get_quantity_message( $product ); ?></li>
 			</ul>

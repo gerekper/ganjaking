@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php endif; ?>
 		<span class="dash">&nbsp;&mdash;&nbsp;</span>
 		<?php if ( $product->is_in_stock() ) { ?>
-		<span itemprop="price" class="price"><?php echo $product->get_price_html(); ?></span>
+		<span itemprop="price" class="price"><?php echo $product->get_price_html(); // PHPCS:Ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
 		<?php } else {
 		wc_get_template( 'checkout/add-to-cart/availability.php', array( 'product' => $product ), '', PP_One_Page_Checkout::$template_path );
 		} ?>

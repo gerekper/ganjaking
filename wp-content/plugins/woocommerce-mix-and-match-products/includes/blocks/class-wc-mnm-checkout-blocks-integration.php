@@ -3,15 +3,14 @@
  * WC_MNM_Checkout_Blocks_Integration class
  *
  * @package  WooCommerce Mix and Match Products/Blocks
- * @since    2.0.7
+ * @since    2.0.0
+ * @version  2.3.0
  */
 
 use Automattic\WooCommerce\Blocks\Integrations\IntegrationInterface;
 
 /**
  * Class for integrating with WooCommerce Blocks scripts.
- *
- * @version 2.0.6
  */
 class WC_MNM_Checkout_Blocks_Integration implements IntegrationInterface {
 
@@ -118,20 +117,23 @@ class WC_MNM_Checkout_Blocks_Integration implements IntegrationInterface {
 				);
 				wp_style_add_data( 'wc-mnm-checkout-blocks', 'rtl', 'replace' );
 
-				$meta_suffix = _wp_to_kebab_case( esc_html__( 'Selections', 'woocommerce-mix-and-match-products' ) );
-				$quantity_indicator = esc_html_x( 'Qty', '[Frontend]Quantity label indicator in cart', 'woocommerce-mix-and-match-products' );
+				// Classnames are statically generated in WC 7.3 using Woo Blocks 9.1. @see: https://github.com/woocommerce/woocommerce/pull/35876
+				if ( ! WC_MNM_Core_Compatibility::is_wc_version_gte( '7.3' ) ) {
 
-				$inline_css   = array();
-				$inline_css[] = 'table.wc-block-cart-items .wc-block-cart-items__row.is-mnm-child .wc-block-cart-item__wrap .wc-block-components-quantity-selector::before { content: "' . $quantity_indicator . '"; }';
+					$meta_suffix = _wp_to_kebab_case( esc_html__( 'Selections', 'woocommerce-mix-and-match-products' ) );
 
-				if ( 'selections' !== $meta_suffix ) {
-					$inline_css[] = 'table.wc-block-cart-items .wc-block-cart-items__row.is-mnm-container .wc-block-components-product-details__' . $meta_suffix . ' .wc-block-components-product-details__name { display:none; }';
-					$inline_css[] = '.wc-block-components-order-summary-item.is-mnm-container .wc-block-components-product-details__' . $meta_suffix . ' .wc-block-components-product-details__name { display:block; margin-bottom: 0.5em; font-weight: bold; }';
-					$inline_css[] = '.wc-block-components-order-summary-item.is-mnm-container .wc-block-components-product-details__' . $meta_suffix . ':not(:first-of-type) .wc-block-components-product-details__name { display:none }';
-					$inline_css[] = '.wc-block-components-order-summary-item.is-mnm-container .wc-block-components-product-details__' . $meta_suffix . ' + li:not( .wc-block-components-product-details__' . $meta_suffix . ' ) { margin-top:0.5em }';
+					$inline_css   = array();
+
+					if ( 'selections' !== $meta_suffix ) {
+						$inline_css[] = 'table.wc-block-cart-items .wc-block-cart-items__row.is-mnm-container .wc-block-components-product-details__' . $meta_suffix . ' .wc-block-components-product-details__name { display:none; }';
+						$inline_css[] = '.wc-block-components-order-summary-item.is-mnm-container .wc-block-components-product-details__' . $meta_suffix . ' .wc-block-components-product-details__name { display:block; margin-bottom: 0.5em; font-weight: bold; }';
+						$inline_css[] = '.wc-block-components-order-summary-item.is-mnm-container .wc-block-components-product-details__' . $meta_suffix . ':not(:first-of-type) .wc-block-components-product-details__name { display:none }';
+						$inline_css[] = '.wc-block-components-order-summary-item.is-mnm-container .wc-block-components-product-details__' . $meta_suffix . ' + li:not( .wc-block-components-product-details__' . $meta_suffix . ' ) { margin-top:0.5em }';
+					}
+
+					wp_add_inline_style( 'wc-mnm-checkout-blocks', implode( ' ' , $inline_css ) );
+
 				}
-
-				wp_add_inline_style( 'wc-mnm-checkout-blocks', implode( ' ' , $inline_css ) );
 
 			}
 		);

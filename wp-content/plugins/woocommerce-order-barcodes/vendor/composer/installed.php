@@ -3,7 +3,7 @@
         'name' => 'woocommerce/woocommerce-order-barcodes',
         'pretty_version' => 'dev-trunk',
         'version' => 'dev-trunk',
-        'reference' => 'e92e2dd2321c221fb3eb39eebd6968b7c3a8a94f',
+        'reference' => '61f9a20d44721e1510ae0621e4d1c43646eae9e8',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -127,7 +127,7 @@
         'woocommerce/woocommerce-order-barcodes' => array(
             'pretty_version' => 'dev-trunk',
             'version' => 'dev-trunk',
-            'reference' => 'e92e2dd2321c221fb3eb39eebd6968b7c3a8a94f',
+            'reference' => '61f9a20d44721e1510ae0621e4d1c43646eae9e8',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

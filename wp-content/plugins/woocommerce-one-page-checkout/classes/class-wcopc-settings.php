@@ -59,7 +59,7 @@ final class WCOPC_Settings {
 	 * @see woocommerce_update_options()
 	 */
 	public function save() {
-		$nonce_verified = isset( $_POST['_opc_nonce'] ) && wp_verify_nonce( $_POST['_opc_nonce'], 'wcopc_settings' );
+		$nonce_verified = isset( $_POST['_opc_nonce'] ) && wp_verify_nonce( sanitize_key( wp_unslash( $_POST['_opc_nonce'] ) ), 'wcopc_settings' );
 		if ( ! $nonce_verified ) {
 			return;
 		}

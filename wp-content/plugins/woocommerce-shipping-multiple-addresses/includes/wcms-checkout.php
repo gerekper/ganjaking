@@ -46,6 +46,9 @@ class WC_MS_Checkout {
 
         // Initialize order meta. Need to be called after plugins_loaded because of WC_VERSION check.
         add_action( 'plugins_loaded', array( $this, 'init_order_meta' ), 11 );
+
+		// Reset multiple address.
+		add_action( 'init', array( $this, 'reset_multiple_shipping_address' ), 10 );
     }
 
     /**
@@ -158,7 +161,8 @@ class WC_MS_Checkout {
             return;
         }
 
-        $id = wc_get_page_id( 'multiple_addresses' );
+        $id        = wc_get_page_id( 'multiple_addresses' );
+		$reset_url = add_query_arg( array( 'wcms_reset_address' => true ), wc_get_checkout_url() );
 
         $sess_item_address = wcms_session_get( 'cart_item_addresses' );
         $sess_cart_address = wcms_session_get( 'cart_addresses' );
@@ -185,7 +189,7 @@ class WC_MS_Checkout {
 
                     jQuery(".woocommerce-shipping-fields").find(".shipping_address").remove();
 
-                    jQuery(\'<p><a href=\"'. get_permalink($id) .'\" class=\"button button-primary\">'. __( 'Modify/Add Address', 'wc_shipping_multiple_address' ) .'</a></p>\').insertAfter("#customer_details .col-2 h3:first");
+                    jQuery(\'<p><a href=\"'. esc_url( get_permalink( $id ) ) .'\" class=\"button button-primary\">'. esc_html__( 'Modify/Add Address', 'wc_shipping_multiple_address' ) .'</a> <a href=\"'. esc_url( $reset_url ) .'\" class=\"button button-primary\">'. esc_html__( 'Reset Address', 'wc_shipping_multiple_address' ) .'</a></p>\').insertAfter("#customer_details .col-2 h3:first");
                 });';
 
         } elseif ( $has_cart_address ) {
@@ -206,7 +210,7 @@ class WC_MS_Checkout {
 
                     jQuery(".woocommerce-shipping-fields").find(".shipping_address").remove();
 
-                    jQuery(\'<p><a href=\"'. add_query_arg( 'cart', 1, get_permalink($id)) .'\" class=\"button button-primary\">'. __( 'Modify/Add Address', 'wc_shipping_multiple_address' ) .'</a></p>\').insertAfter("#customer_details .col-2 h3:first");
+                    jQuery(\'<p><a href=\"'. esc_url( add_query_arg( 'cart', 1, get_permalink( $id ) ) ) .'\" class=\"button button-primary\">'. esc_html__( 'Modify/Add Address', 'wc_shipping_multiple_address' ) .'</a> <a href=\"'. esc_url( $reset_url ) .'\" class=\"button button-primary\">'. esc_html__( 'Reset Address', 'wc_shipping_multiple_address' ) .'</a></p>\').insertAfter("#customer_details .col-2 h3:first");
 
                 });';
 
@@ -1585,6 +1589,18 @@ class WC_MS_Checkout {
 
 			$this->wcms->address_book->save_user_addresses( $customer_id, $addresses );
 		}
+	}
+
+	public function reset_multiple_shipping_address() {
+		if ( empty( $_GET['wcms_reset_address'] ) ) {
+			return;
+		}
+
+		wcms_session_delete( 'cart_item_addresses' );
+		wcms_session_delete( 'cart_address_sigs' );
+		wcms_session_delete( 'address_relationships' );
+		wcms_session_delete( 'shipping_methods' );
+		wcms_session_delete( 'wcms_original_cart' );
 	}
 
 }

@@ -3,7 +3,8 @@
  * Storefront Theme
  *
  * @package  WooCommerce Mix and Match Products/Theme Compatibility
- * @since    2.0.6
+ * @since    2.3.0
+ * @version  2.3.0
  */
 
 // Exit if accessed directly.
@@ -13,8 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * WC_MNM_Storefront_Compatibility Class.
- *
- * @version  2.0.6
  */
 class WC_MNM_Storefront_Compatibility {
 
@@ -46,16 +45,15 @@ class WC_MNM_Storefront_Compatibility {
 	}
 
 	/**
-	 * Add theme-specific classes to body.
+	 * Add theme-specific classes to post.
 	 *
 	 * @param array      $classes Array of CSS classes.
 	 * @return array
 	 */
-	public static function body_classes( $classes ) {
+	public static function post_class( $classes ) {
 		$classes[] = 'site-main';
 		return $classes;
 	}
-
 
 } // End class.
 WC_MNM_Storefront_Compatibility::init();

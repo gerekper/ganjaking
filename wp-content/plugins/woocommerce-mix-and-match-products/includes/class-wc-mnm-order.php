@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Orders
  * @since    1.0.0
- * @version  2.2.0
+ * @version  2.3.0
  */
 
 // Exit if accessed directly.
@@ -177,8 +177,9 @@ class WC_Mix_and_Match_Order {
 		$args = wp_parse_args(
 			$args,
 			array(
-			'configuration' => array(),
-			'silent'        => true
+				'configuration' => array(),
+				'order'         => $order,
+				'silent'        => true,
 			)
 		);
 
@@ -326,6 +327,29 @@ class WC_Mix_and_Match_Order {
 						// Store shipping data.
 						$child_order_item->add_meta_data( '_mnm_item_needs_shipping', wc_bool_to_string( $shipped_individually ), true );
 
+						/**
+						 * Add custom child item meta.
+						 */
+						if ( ! empty( $child_item_configuration['meta_data'] ) ) {
+							foreach ( $child_item_configuration['meta_data'] as $meta ) {
+
+								if ( $meta instanceof WC_Meta_Data ) {
+									$meta = $meta->get_data();
+								}
+
+								if ( ! isset( $meta['key'] ) || ! isset( $meta['value'] ) ) {
+									continue;
+								}
+
+								if ( in_array( $meta['key'], array( '_mnm_container', '_mnm_item_needs_shipping' ) ) ) {
+									continue;
+								}
+
+								$child_order_item->add_meta_data( $meta['key'], $meta['value'] );
+							}
+						}
+
+
 						// Save the item.
 						$child_order_item->save();
 
@@ -384,7 +408,7 @@ class WC_Mix_and_Match_Order {
 					$container_order_item->add_meta_data( '_mnm_items_need_processing', 'no', true );
 				}
 
-				/*
+				/**
 				 * Add initial item meta.
 				 */
 
@@ -399,7 +423,9 @@ class WC_Mix_and_Match_Order {
 							continue;
 						}
 
-						if ( in_array( $meta['key'], array( '_mnm_container_size', '_mnm_config', '_mnm_cart_key', '_per_product_pricing','_bundle_weight' ) ) ) {
+						// Don't copy core keys OR attributes.
+						if ( in_array( $meta['key'], array( '_mnm_container_size', '_mnm_config', '_mnm_cart_key', '_per_product_pricing','_bundle_weight' ) )
+							|| '' !== $container->get_attribute( $meta['key'] ) ) {
 							continue;
 						}
 
@@ -425,7 +451,7 @@ class WC_Mix_and_Match_Order {
 			} else {
 
 				$error_data = array( 'notices' => wc_get_notices( 'error' ) );
-				$message    = __( 'The submitted container configuration could not be added to this order.', 'woocommerce-mix-and-match-products' );
+				$message    = __( 'The submitted container configuration could not be added to this order', 'woocommerce-mix-and-match-products' );
 
 				if ( $args['silent'] ) {
 					wc_clear_notices();
@@ -434,7 +460,7 @@ class WC_Mix_and_Match_Order {
 				$added_to_order = new WP_Error( 'wc_mnm_container_configuration_invalid', $message, $error_data );
 			}
 		} else {
-			$message        = __( 'A Mix and Match product with this ID does not exist.', 'woocommerce-mix-and-match-products' );
+			$message        = __( 'A Mix and Match product with this ID does not exist', 'woocommerce-mix-and-match-products' );
 			$added_to_order = new WP_Error( 'wc_mnm_container_invalid', $message );
 		}
 
@@ -472,7 +498,7 @@ class WC_Mix_and_Match_Order {
 
 			if ( wc_mnm_is_container_order_item( $item ) ) {
 
-				/*
+				/**
 				 * Add the totals of "packaged" items to the container totals and create a container "Contents" meta field to provide a description of the included products.
 				 */
 				$product = wc_get_product( $item->get_product_id() );
@@ -571,7 +597,7 @@ class WC_Mix_and_Match_Order {
 									'description' => apply_filters( 'wc_mnm_child_order_item_meta_description', implode( ', ', wp_list_pluck( $meta_desc_array, 'description' ) ), $meta_desc_array, $child_item, $item, $order )
 								);
 
-								/*
+								/**
 								 * Add item totals to the container totals.
 								 */
 								$container_totals['subtotal']     += $child_item->get_subtotal();
@@ -773,7 +799,7 @@ class WC_Mix_and_Match_Order {
 					}
 				}
 
-				$sku     = $product->get_sku( 'edit' );
+				$sku = $product->get_sku( 'edit' );
 
 				/**
 				 * Get SKU from order item.

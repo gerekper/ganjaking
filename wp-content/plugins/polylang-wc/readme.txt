@@ -2,9 +2,9 @@
 Contributors: Chouby, manooweb, sebastienserre, greglone
 Tags: multilingual, woocommerce
 Requires at least: 5.7
-Tested up to: 6.0
+Tested up to: 6.1
 Requires PHP: 7.0
-Stable tag: 1.7
+Stable tag: 1.7.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -17,6 +17,12 @@ Some popular extensions such as WooCommerce Subscriptions, Dynamic Pricing, Tabl
 This extension can be used either with the free version of Polylang or in combination with Polylang Pro.
 
 == Changelog ==
+
+= 1.7.1 (2023-01-10) =
+
+* Fix import of terms with shared slugs broken by WP 6.0.
+* Fix block filter by product attributes broken by WC 6.4.
+* Fix fatal error when duplicating variable products and some variations have been deleted with Polylang deactivated.
 
 = 1.7 (2022-08-23) =
 

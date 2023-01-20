@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    2.0.0
- * @version  2.2.0
+ * @version  2.3.0
  */
 
 // Exit if accessed directly.
@@ -143,6 +143,13 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 			// Add scheme data to runtime price cache hashes.
 			add_filter( 'wc_mnm_prices_hash', array( __CLASS__, 'container_prices_hash' ), 10, 2 );
+
+			/*-----------------------------------------------------------------------------------*/
+			/*  Line item editing:                                                               */
+			/*-----------------------------------------------------------------------------------*/
+
+			// Copy order/subscription meta,
+			add_filter( 'wc_mnm_edit_container_order_item_args', array( __CLASS__, 'child_item_scheme_meta' ), 10, 4 );
 
 		}
 
@@ -333,9 +340,9 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 				WCS_ATT_Product_Schemes::set_subscription_schemes( $child_product, $child_product_schemes );
 			}
 
-			$container_scheme     = WCS_ATT_Product_Schemes             :: get_subscription_scheme( $container_product );
-			$child_product_scheme = WCS_ATT_Product_Schemes             :: get_subscription_scheme( $child_product );
-			$scheme_to_set        = is_null( $container_scheme ) ? false: $container_scheme;
+			$container_scheme     = WCS_ATT_Product_Schemes::get_subscription_scheme( $container_product );
+			$child_product_scheme = WCS_ATT_Product_Schemes::get_subscription_scheme( $child_product );
+			$scheme_to_set        = is_null( $container_scheme ) ? false : $container_scheme;
 
 			// Set active container scheme on child.
 			if ( $scheme_to_set !== $child_product_scheme ) {
@@ -1237,6 +1244,11 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 					if ( WCS_ATT_Product_Schemes::has_subscription_schemes( $container ) ) {
 
+						// Set the default scheme when one-time purchases are disabled, no scheme is set on the object, and only a single sub scheme exists.
+						if ( WCS_ATT_Product_Schemes::has_single_forced_subscription_scheme( $container ) && ! WCS_ATT_Product_Schemes::get_subscription_scheme( $container ) ) {
+							WCS_ATT_Product_Schemes::set_subscription_scheme( $container, WCS_ATT_Product_Schemes::get_default_subscription_scheme( $container ) );
+						}
+
 						self::set_child_product_subscription_schemes( $child_product, $container );
 
 					} else {
@@ -1251,9 +1263,6 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 
 			return $child_product;
 		}
-
-
-
 
 		/**
 		 * Add scheme data to runtime price cache hashes.
@@ -1344,6 +1353,49 @@ if ( ! class_exists( 'WC_MNM_APFS_Switching_Compatibility' ) ) :
 				}
 			}
 		}
+
+
+		/**
+		 * Pass parent scheme meta to children.
+		 * 
+		 * @since 2.3.0
+		 *
+		 * Use this filter to modify the posted configuration.
+		 *
+		 * @param  $order_item_args array
+		 * @param  $product    WC_Product_Mix_and_Match
+		 * @param  $order_item WC_Order_Item
+		 * @param  $order      WC_Order
+		 */
+		public static function child_item_scheme_meta( $order_item_args, $product, $order_item, $order ) {
+
+			$scheme_key = WCS_ATT_Order::get_subscription_scheme( $order_item, array(
+				'order'     => $order,
+				'product'   => $product,
+			) );
+
+			if ( null !== $scheme_key && ! empty( $order_item_args['configuration'] ) ) {
+
+				foreach( $order_item_args['configuration'] as $i => $config ) {
+
+					// Add a meta key if it doesn't yet exist or is not an array.
+					if ( ! isset( $order_item_args['configuration'][$i]['meta_data'] ) || ! is_array( $order_item_args['configuration'][$i]['meta_data'] ) ) {
+						$order_item_args['configuration'][$i]['meta_data'] = array();
+					}
+
+					// Add parent scheme key to each child.
+					$order_item_args['configuration'][$i]['meta_data'][] = array(
+						'key' => '_wcsatt_scheme',
+						'value' => $scheme_key,
+					);
+				}
+
+			}
+
+			return $order_item_args;
+
+		}
+		
 
 	} // End class: do not remove or there will be no more guacamole for you.
 

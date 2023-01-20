@@ -35,11 +35,11 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 						<tr class="<?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item opc_cart_item', $cart_item, $cart_item_key ) ); ?>" data-add_to_cart="<?php echo esc_attr( $_product->variation_id ? $_product->variation_id : $_product->id ); ?>" data-update_key="<?php echo esc_attr( $cart_item_key ); ?>">
 							<td class="product-name">
 								<div class="product-remove" >
-									<?php echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf( '<a href="%s" class="remove" title="%s">&times;</a>', esc_url( wcopc_get_cart_remove_url( $cart_item_key ) ), esc_attr__( 'Remove this item', 'woocommerce-one-page-checkout' ) ), $cart_item_key ); ?>
+									<?php echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf( '<a href="%s" class="remove" title="%s">&times;</a>', esc_url( wcopc_get_cart_remove_url( $cart_item_key ) ), esc_attr__( 'Remove this item', 'woocommerce-one-page-checkout' ) ), $cart_item_key );  // PHPCS:Ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 								</div>
 								<div class="product-details" >
 									<?php echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', $_product->get_title(), $cart_item, $cart_item_key ) ); ?>
-									<?php echo wcopc_get_formatted_cart_item_data( $cart_item ); ?>
+									<?php echo wcopc_get_formatted_cart_item_data( $cart_item ); // PHPCS:Ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 								</div>
 								<div class="product-quantity">
 								<?php
@@ -54,12 +54,12 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 										), $_product, false );
 									}
 
-									echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item );
+									echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item );  // PHPCS:Ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 								?>
 								</div>
 							</td>
 							<td class="product-total">
-								<?php echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key ); ?>
+								<?php echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key );  // PHPCS:Ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 							</td>
 						</tr>
 						<?php
@@ -111,7 +111,7 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 				<?php else : ?>
 					<tr class="tax-total">
 						<th><?php echo esc_html( WC()->countries->tax_or_vat() ); ?></th>
-						<td><?php echo wc_price( WC()->cart->get_taxes_total() ); ?></td>
+						<td><?php echo esc_html( wc_price( WC()->cart->get_taxes_total() ) ); ?></td>
 					</tr>
 				<?php endif; ?>
 			<?php endif; ?>
@@ -157,7 +157,7 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 						?>
 						<li class="payment_method_<?php echo esc_attr( $gateway->id ); ?>">
 							<input id="payment_method_<?php echo esc_attr( $gateway->id ); ?>" type="radio" class="input-radio" name="payment_method" value="<?php echo esc_attr( $gateway->id ); ?>" <?php checked( $gateway->chosen, true ); ?> data-order_button_text="<?php echo esc_attr( $gateway->order_button_text ); ?>" />
-							<label for="payment_method_<?php echo esc_attr( $gateway->id ); ?>"><?php echo wp_kses_post( $gateway->get_title() ); ?> <?php echo $gateway->get_icon(); ?></label>
+							<label for="payment_method_<?php echo esc_attr( $gateway->id ); ?>"><?php echo wp_kses_post( $gateway->get_title() . ' ' . $gateway->get_icon() ); ?></label>
 							<?php
 								if ( $gateway->has_fields() || $gateway->get_description() ) :
 									echo '<div class="payment_box payment_method_' . esc_attr( $gateway->id ) . '" ' . ( $gateway->chosen ? '' : 'style="display:none;"' ) . '>';
@@ -175,7 +175,7 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 					else
 						$no_gateways_message = esc_html__( 'Sorry, it seems that there are no available payment methods for your state. Please contact us if you require assistance or wish to make alternate arrangements.', 'woocommerce-one-page-checkout' );
 
-					echo '<p>' . apply_filters( 'woocommerce_no_available_payment_methods_message', $no_gateways_message ) . '</p>';
+					echo '<p>' . apply_filters( 'woocommerce_no_available_payment_methods_message', $no_gateways_message ) . '</p>';  // PHPCS:Ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 				}
 			?>
@@ -193,14 +193,20 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 			<?php
 			$order_button_text = apply_filters( 'woocommerce_order_button_text', __( 'Place order', 'woocommerce-one-page-checkout' ) );
 
-			echo apply_filters( 'woocommerce_order_button_html', '<input type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="' . esc_attr( $order_button_text ) . '" data-value="' . esc_attr( $order_button_text ) . '" />' );
+			echo apply_filters( 'woocommerce_order_button_html', '<input type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="' . esc_attr( $order_button_text ) . '" data-value="' . esc_attr( $order_button_text ) . '" />' );  // PHPCS:Ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			?>
 
 			<?php if ( wc_get_page_id( 'terms' ) > 0 && apply_filters( 'woocommerce_checkout_show_terms', true ) ) {
-				$terms_is_checked = apply_filters( 'woocommerce_terms_is_checked_default', isset( $_POST['terms'] ) );
+				$terms_is_checked = apply_filters( 'woocommerce_terms_is_checked_default', isset( $_POST['terms'] ) ); // PHPCS:Ignore WordPress.Security.NonceVerification.Missing
 				?>
 				<p class="form-row terms">
-					<label for="terms" class="checkbox"><?php printf( __( 'I&rsquo;ve read and accept the <a href="%s" target="_blank">terms &amp; conditions</a>', 'woocommerce-one-page-checkout' ), esc_url( get_permalink( wc_get_page_id( 'terms' ) ) ) ); ?></label>
+					<?php $accept_terms_message = __( 'I&rsquo;ve read and accept the <a href="%s" target="_blank">terms &amp; conditions</a>', 'woocommerce-one-page-checkout' ); ?>
+					<label for="terms" class="checkbox"><?php printf( wp_kses( $accept_terms_message, array(
+							'a' => array(
+								'href' => array(),
+								'target' => array()
+							)
+						) ), esc_url( get_permalink( wc_get_page_id( 'terms' ) ) ) ); ?></label>
 					<input type="checkbox" class="input-checkbox" name="terms" <?php checked( $terms_is_checked, true ); ?> id="terms" />
 				</p>
 			<?php } ?>

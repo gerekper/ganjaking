@@ -17,15 +17,15 @@
 
 defined( 'ABSPATH' ) || exit;
 
-echo "\n" . esc_html( wc_strtoupper( esc_html__( 'Billing address', 'woocommerce' ) ) ) . "\n\n";
-echo preg_replace( '#<br\s*/?>#i', "\n", $order->get_formatted_billing_address() ) . "\n"; // WPCS: XSS ok.
+echo "\n" . esc_html( wc_strtoupper( __( 'Billing address', 'woocommerce' ) ) ) . "\n\n";
+echo esc_html( preg_replace( '#<br\s*/?>#i', "\n", $order->get_formatted_billing_address() ) ) . "\n";
 
 if ( $order->get_billing_phone() ) {
-	echo $order->get_billing_phone() . "\n"; // WPCS: XSS ok.
+	echo esc_html( $order->get_billing_phone() ) . "\n";
 }
 
 if ( $order->get_billing_email() ) {
-	echo $order->get_billing_email() . "\n"; // WPCS: XSS ok.
+	echo esc_html( $order->get_billing_email() ) . "\n";
 }
 
 WC_Checkout_Field_Editor_Order_Details::display_custom_fields_plain( $order, 'billing' );
@@ -34,8 +34,8 @@ if ( ! wc_ship_to_billing_address_only() && $order->needs_shipping_address() ) {
 	$shipping = $order->get_formatted_shipping_address();
 
 	if ( $shipping ) {
-		echo "\n" . esc_html( wc_strtoupper( esc_html__( 'Shipping address', 'woocommerce' ) ) ) . "\n\n";
-		echo preg_replace( '#<br\s*/?>#i', "\n", $shipping ) . "\n"; // WPCS: XSS ok.
+		echo "\n" . esc_html( wc_strtoupper( __( 'Shipping address', 'woocommerce' ) ) ) . "\n\n";
+		echo esc_html( preg_replace( '#<br\s*/?>#i', "\n", $shipping ) ) . "\n";
 	}
 	WC_Checkout_Field_Editor_Order_Details::display_custom_fields_plain( $order, 'shipping' );
 

@@ -420,15 +420,22 @@ class WooCommerce_Order_Barcodes {
 	 * @return string The generated barcode.
 	 */
 	public function display_barcode( $order_id = 0, $image = false ) {
-		if ( ! $order_id ) {
-			return;
+		$order      = wc_get_order( $order_id );
+		$error_text = esc_html__( 'Barcode will be generated after Order is created!', 'woocommerce-order-barcodes' );
+		
+		if ( ! ( $order instanceof WC_Order ) ) {
+			return $error_text;
+		}
+
+		if ( ! wc_is_order_status( $order->get_status() ) ) {
+			return $error_text;
 		}
 
 		// Get barcode text.
 		$barcode_text = $this->get_order_or_post_meta( $order_id, '_barcode_text' );
 
 		if ( ! $barcode_text ) {
-			return;
+			return esc_html__( 'Barcode does not exist!', 'woocommerce-order-barcodes' );
 		}
 
 		// Return an image (for emails and frontend order view).

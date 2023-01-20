@@ -3,11 +3,11 @@
  * Plugin Name: reCaptcha for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/woo-recpatcha
  * Description: Protect your eCommerce site with google recptcha.
- * Version: 2.38
+ * Version: 2.39
  * Author: I Thirteen Web Solution 
  * Author URI: https://www.i13websolution.com
  * WC requires at least: 3.2
- * WC tested up to: 7.2
+ * WC tested up to: 7.3
  * Text Domain:recaptcha-for-woocommerce
  * Domain Path: languages/
  * Woo: 5347485:aeae74683dd892d43ed390cc28533524
@@ -26,6 +26,7 @@ class I13_Woo_Recpatcha {
 
 				
 		// Add Javascript and CSS for admin screens
+				add_action('before_woocommerce_init', array($this, 'declare_compibility'));
 		add_action('plugins_loaded', array($this, 'i13_woo_load_lang_for_woo_recaptcha'));
 		add_action('wp_enqueue_scripts', array($this, 'i13_woo_recaptcha_load_styles_and_js'), 9999);
 		add_action('login_enqueue_scripts', array($this, 'i13_woo_recaptcha_load_styles_and_js'), 9999);
@@ -96,7 +97,13 @@ class I13_Woo_Recpatcha {
 		}
 		
 	}
-		
+	
+	public function declare_compibility() {
+			
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+		}
+	}
 	public function do_woocommerce_init() {
 			
 			

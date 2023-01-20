@@ -64,7 +64,7 @@ class WC_Checkout_Field_Editor {
 		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'save_data' ), 10, 2 );
 		add_filter( 'woocommerce_default_address_fields', array( $this, 'set_default_address_field' ) );
 
-		if ( ! empty( $_GET['dismiss_welcome'] ) ) {
+		if ( ! empty( $_GET['dismiss_welcome'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			update_option( 'hide_checkout_field_editors_welcome_notice', 1 );
 		}
 	}
@@ -185,18 +185,17 @@ class WC_Checkout_Field_Editor {
 	public function the_editor() {
 		$tabs = array( 'billing', 'shipping', 'additional' );
 
-		$tab = isset( $_GET['tab'] ) ? esc_attr( $_GET['tab'] ) : 'billing';
+		$tab = isset( $_GET['tab'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_GET['tab'] ) ) ): 'billing'; //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-		if ( ! empty( $_POST ) ) {
-			echo $this->save_options( $tab );
+		if ( ! empty( $_POST ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$this->save_options( $tab );
 		}
 
 		echo '<div class="wrap woocommerce"><div class="icon32 icon32-attributes" id="icon-woocommerce"><br /></div>';
 			echo '<h2 class="nav-tab-wrapper woo-nav-tab-wrapper">';
 
 		foreach ( $tabs as $key ) {
-			$active = ( $key == $tab ) ? 'nav-tab-active' : '';
-			echo '<a class="nav-tab ' . $active . '" href="' . esc_url( admin_url( 'admin.php?page=checkout_field_editor&tab=' . $key ) ) . '">' . ucwords( $key ) . ' ' . esc_html__( 'Fields', 'woocommerce-checkout-field-editor' ) . '</a>';
+			echo '<a class="nav-tab ' . ( ( $key == $tab ) ? 'nav-tab-active' : '' ) . '" href="' . esc_url( admin_url( 'admin.php?page=checkout_field_editor&tab=' . $key ) ) . '">' . esc_attr( ucwords( $key ) ) . ' ' . esc_html__( 'Fields', 'woocommerce-checkout-field-editor' ) . '</a>';
 		}
 
 			echo '</h2>';
@@ -538,12 +537,14 @@ class WC_Checkout_Field_Editor {
 								<?php else : ?>
 									<input type="text" class="input-text placeholder" name="field_placeholder[<?php echo esc_attr( $i ); ?>]" value="<?php echo esc_attr( $options['placeholder'] ); ?>" />
 									<input type="text" class="input-text options" name="field_options[<?php echo esc_attr( $i ); ?>]" placeholder="<?php esc_attr_e( 'Pipe (|) separate options.', 'woocommerce-checkout-field-editor' ); ?>" value="
-																												 <?php
-																													if ( ! empty( $options['placeholder'] ) && ! empty( $options['options'] ) ) {
-																														echo $options['placeholder'] . ' || ';
-																													} if ( isset( $options['options'] ) ) {
-																														echo implode( ' | ', $options['options'] );}
-																													?>
+									<?php
+									if ( ! empty( $options['placeholder'] ) && ! empty( $options['options'] ) ) {
+										echo esc_attr( $options['placeholder'] ) . ' || ';
+									}
+									if ( isset( $options['options'] ) ) {
+										echo esc_attr( implode( ' | ', $options['options'] ) );
+									}
+									?>
 									" />
 									<span class="na">&ndash;</span>
 								<?php endif; ?>
@@ -704,7 +705,7 @@ class WC_Checkout_Field_Editor {
 	 */
 	public function save_options( $tab ) {
 		if ( ! isset( $_POST['save_changes_nonce'] )
-		|| ! wp_verify_nonce( sanitize_key( $_POST['save_changes_nonce'] ), 'save_changes' ) ) { 
+		|| ! wp_verify_nonce( sanitize_key( $_POST['save_changes_nonce'] ), 'save_changes' ) ) {
 			return;
 		}
 
@@ -712,25 +713,25 @@ class WC_Checkout_Field_Editor {
 		$fields            = $o_fields;
 		$core_fields       = array_keys( WC()->countries->get_address_fields( WC()->countries->get_base_country(), $tab . '_' ) );
 		$core_fields[]     = 'order_comments';
-		$field_names       = ! empty( $_POST['field_name'] ) ? $_POST['field_name'] : array();
-		$new_field_names   = ! empty( $_POST['new_field_name'] ) ? $_POST['new_field_name'] : array();
-		$field_labels      = ! empty( $_POST['field_label'] ) ? $_POST['field_label'] : array();
-		$field_order       = ! empty( $_POST['field_order'] ) ? $_POST['field_order'] : array();
-		$field_enabled     = ! empty( $_POST['field_enabled'] ) ? $_POST['field_enabled'] : array();
-		$field_type        = ! empty( $_POST['field_type'] ) ? $_POST['field_type'] : array();
-		$field_placeholder = ! empty( $_POST['field_placeholder'] ) ? $_POST['field_placeholder'] : array();
-		$field_options     = ! empty( $_POST['field_options'] ) ? $_POST['field_options'] : array();
-		$field_position    = ! empty( $_POST['field_position'] ) ? $_POST['field_position'] : array();
+		$field_names       = ! empty( $_POST['field_name'] ) ? wc_clean( wp_unslash( $_POST['field_name'] ) ) : array();
+		$new_field_names   = ! empty( $_POST['new_field_name'] ) ? wc_clean( wp_unslash( $_POST['new_field_name'] ) ) : array();
+		$field_labels      = ! empty( $_POST['field_label'] ) ? wc_clean( wp_unslash( $_POST['field_label'] ) ) : array();
+		$field_order       = ! empty( $_POST['field_order'] ) ? wc_clean( wp_unslash( $_POST['field_order'] ) ) : array();
+		$field_enabled     = ! empty( $_POST['field_enabled'] ) ? wc_clean( wp_unslash( $_POST['field_enabled'] ) ) : array();
+		$field_type        = ! empty( $_POST['field_type'] ) ? wc_clean( wp_unslash( $_POST['field_type'] ) ) : array();
+		$field_placeholder = ! empty( $_POST['field_placeholder'] ) ? wc_clean( wp_unslash( $_POST['field_placeholder'] ) ) : array();
+		$field_options     = ! empty( $_POST['field_options'] ) ? wc_clean( wp_unslash( $_POST['field_options'] ) ) : array();
+		$field_position    = ! empty( $_POST['field_position'] ) ? wc_clean( wp_unslash( $_POST['field_position'] ) ) : array();
 
 		// Backwards compatibility.
 		$field_options = str_replace( '| |', '||', $field_options );
 
 		if ( version_compare( WC_VERSION, '3.0.0', '<' ) ) {
-			$field_clear = ! empty( $_POST['field_clear'] ) ? $_POST['field_clear'] : array();
+			$field_clear = ! empty( $_POST['field_clear'] ) ? wc_clean( wp_unslash( $_POST['field_clear'] ) ): array();
 		}
 
-		$field_validation      = ! empty( $_POST['field_validation'] ) ? $_POST['field_validation'] : array();
-		$field_display_options = ! empty( $_POST['field_display_options'] ) ? $_POST['field_display_options'] : array();
+		$field_validation      = ! empty( $_POST['field_validation'] ) ? wc_clean( wp_unslash( $_POST['field_validation'] ) ) : array();
+		$field_display_options = ! empty( $_POST['field_display_options'] ) ? wc_clean( wp_unslash( $_POST['field_display_options'] ) ) : array();
 		$max                   = max( array_map( 'absint', array_keys( $field_names ) ) );
 
 		for ( $i = 0; $i <= $max; $i++ ) {

@@ -7,7 +7,7 @@
  * Text Domain: woocommerce-one-page-checkout
  * Domain Path: languages
  * Plugin URI:  https://woocommerce.com/products/woocommerce-one-page-checkout/
- * Version: 1.9.8
+ * Version: 1.9.9
  * Tested up to: 6.1
  * WC requires at least: 2.5
  * WC tested up to: 7.0.0
@@ -68,7 +68,7 @@ if ( ! is_woocommerce_active() || version_compare( get_option( 'woocommerce_db_v
 	return;
 }
 
-define( 'WC_ONE_PAGE_CHECKOUT_VERSION', '1.9.8' ); // WRCS: DEFINED_VERSION.
+define( 'WC_ONE_PAGE_CHECKOUT_VERSION', '1.9.9' ); // WRCS: DEFINED_VERSION.
 
 add_filter( 'woocommerce_translations_updates_for_woocommerce-one-page-checkout', '__return_true' );
 
@@ -267,7 +267,7 @@ class PP_One_Page_Checkout {
 		add_action( 'wcopc_deposit_add_to_cart', array( __CLASS__, 'opc_single_add_to_cart_core_types' ) );
 
 		// Unhook 'WC_Form_Handler::add_to_cart_action' from 'init' in OPC pages, to prevent products from being added to the cart when submitting an order
-		if ( isset( $_POST['is_opc'] ) && ( ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'woocommerce_checkout' ) || ( isset( $_REQUEST['wc-ajax'] ) && 'checkout' == $_REQUEST['wc-ajax'] ) ) ) {
+		if ( isset( $_POST['is_opc'] ) && ( ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'woocommerce_checkout' ) || ( isset( $_REQUEST['wc-ajax'] ) && 'checkout' == $_REQUEST['wc-ajax'] ) ) ) { // PHPCS:Ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
 			remove_action( 'wp_loaded', 'WC_Form_Handler::add_to_cart_action', 20 );
 		}
 
@@ -364,10 +364,10 @@ class PP_One_Page_Checkout {
 	 */
 	public static function post_is_opc( $post ) {
 
-		if ( ! is_object( $post ) ) {
+		if ( ! is_object( $post ) && isset( $_SERVER['HTTP_HOST'] ) && isset( $_SERVER['REQUEST_URI'] ) ) {
 			// Try to get the post ID from the URL in case this function is called before init
 			$schema  = is_ssl() ? 'https://' : 'http://';
-			$url     = explode( '?', $schema . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+			$url     = explode( '?', $schema . wc_clean( wp_unslash( $_SERVER['HTTP_HOST'] ) ) . esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
 			$post_id = url_to_postid( $url[0] );
 			$post    = get_post( $post_id );
 		}
@@ -439,7 +439,7 @@ class PP_One_Page_Checkout {
 			// Modify template when doing a 'woocommerce_update_order_review' ajax request
 		} elseif ( isset( $_POST['post_data'] ) ) {
 
-			parse_str( $_POST['post_data'], $checkout_post_data );
+			parse_str( sanitize_text_field( $_POST['post_data'] ), $checkout_post_data ); // PHPCS:Ignores WordPress.Security.NonceVerification.Missing
 
 			if ( isset( $checkout_post_data['is_opc'] ) ) {
 				$is_opc = true;
@@ -1062,7 +1062,7 @@ class PP_One_Page_Checkout {
 		// Populate $_POST with 3rd party input data to allow 3rd party code to validate
 		if ( isset( $_POST['input_data'] ) ) {
 
-			parse_str( $_POST['input_data'], $input_data );
+			parse_str( sanitize_text_field( $_POST['input_data'] ), $input_data );
 
 			if ( $input_data ) {
 
@@ -1078,7 +1078,7 @@ class PP_One_Page_Checkout {
 		}
 
 		$response_data       = array();
-		$product_id          = apply_filters( 'woocommerce_add_to_cart_product_id', absint( $_REQUEST['add_to_cart'] ) );
+		$product_id          = apply_filters( 'woocommerce_add_to_cart_product_id',  isset( $_REQUEST['add_to_cart'] ) ? absint( $_REQUEST['add_to_cart'] ) : 0 );
 		$was_added_to_cart   = false;
 		$product             = wc_get_product( $product_id );
 		$add_to_cart_handler = apply_filters( 'woocommerce_add_to_cart_handler', $product->get_type(), $product );
@@ -1786,9 +1786,9 @@ class PP_One_Page_Checkout {
 	 */
 	public static function add_to_cart_redirect( $url ) {
 
-		if ( ! is_ajax() && self::is_wcopc_checkout() ) {
+		if ( ! is_ajax() && self::is_wcopc_checkout() && isset( $_SERVER['HTTP_HOST'] ) && isset( $_SERVER['REQUEST_URI'] ) ) {
 			$schema = is_ssl() ? 'https://' : 'http://';
-			$url    = explode( '?', $schema . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+			$url    = explode( '?', $schema . wc_clean( wp_unslash( $_SERVER['HTTP_HOST'] ) ) . esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
 			$url    = remove_query_arg( array( 'add-to-cart', 'variation_id', 'quantity' ), $url[0] );
 		}
 
@@ -1816,15 +1816,7 @@ class PP_One_Page_Checkout {
 	 * Save extra meta info
 	 */
 	public static function save_product_meta( $post_id, $post ) {
-
-		$product_type = empty( $_POST['product-type'] ) ? 'simple' : sanitize_title( stripslashes( $_POST['product-type'] ) );
-
-		if ( isset( $_POST['_wcopc'] ) ) {
-			update_post_meta( $post_id, '_wcopc', 'yes' );
-		} else {
-			update_post_meta( $post_id, '_wcopc', 'no' );
-		}
-
+		update_post_meta( $post_id, '_wcopc', isset( $_POST['_wcopc'] ) ? 'yes' : 'no' ); // PHPCS:Ignores WordPress.Security.NonceVerification.Missing
 	}
 
 	/**
@@ -2038,7 +2030,7 @@ class PP_One_Page_Checkout {
 	 * @since 1.7.0
 	 */
 	public static function maybe_add_products_to_cart() {
-		if ( ( empty( $_GET['add-to-cart'] ) || 'true' !== trim( $_GET['add-to-cart'] ) ) && ( ! isset( self::$raw_shortcode_atts['add_to_cart'] ) || 'true' !== self::$raw_shortcode_atts['add_to_cart'] ) ) {
+		if ( ( empty( $_GET['add-to-cart'] ) || 'true' !== trim( $_GET['add-to-cart'] ) ) && ( ! isset( self::$raw_shortcode_atts['add_to_cart'] ) || 'true' !== self::$raw_shortcode_atts['add_to_cart'] ) ) { // PHPCS:Ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
 			return;
 		}
 

@@ -4,7 +4,7 @@
  *
  * @author      StoreApps
  * @since       4.6.0
- * @version     1.6.0
+ * @version     1.7.0
  *
  * @package     woocommerce-smart-coupons/includes/
  */
@@ -438,13 +438,11 @@ if ( ! class_exists( 'WC_SC_Auto_Apply_Coupon' ) ) {
 				 *
 				 * Discount type is not smart_coupon.
 				 * Auto generate is not enabled.
-				 * Disable email restriction is not enabled.
 				 * Coupon should not be auto applied OR auto applied coupon should not be removable.
 				 * Coupon code is valid.
 				 */
 				$valid = 'smart_coupon' !== $discount_type
 							&& 'yes' !== $is_auto_generate_coupon
-							&& 'yes' !== $is_disable_email_restrict
 							&& ( ! $is_auto_applied || 'yes' !== $is_removable )
 							&& $coupon->is_valid();
 			}

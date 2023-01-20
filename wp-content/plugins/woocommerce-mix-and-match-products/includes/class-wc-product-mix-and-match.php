@@ -1003,7 +1003,13 @@ class WC_Product_Mix_and_Match extends WC_Product_Mix_and_Match_Legacy {
 	 */
 	public function is_on_sale( $context = 'view' ) {
 
-		$is_on_sale = parent::is_on_sale( $context ) || $this->has_discount( $context );
+		$is_on_sale = false;
+
+		if ( 'update-price' !== $context && $this->is_priced_per_product() ) {
+			$is_on_sale = parent::is_on_sale( $context ) || ( $this->has_discount( $context ) && $this->get_min_raw_regular_price( $context ) > 0 );
+		} else {
+			$is_on_sale = parent::is_on_sale( $context );
+		}
 
 		/**
 		 * `wc_mnm_container_is_on_sale` filter
@@ -1706,17 +1712,19 @@ class WC_Product_Mix_and_Match extends WC_Product_Mix_and_Match_Legacy {
 	 */
 	public function get_data_attributes( $args = array() ) {
 
-		$attributes = wp_parse_args( $args, array(
-			'per_product_pricing' => $this->is_priced_per_product() ? 'true'        :  'false',
-			'container_id'        => $this->get_id(),
-			'min_container_size'  => $this->get_min_container_size(),
-			'max_container_size'  => $this->get_max_container_size(),
-			'base_price'          => wc_get_price_to_display( $this, array( 'price' => $this->get_price() ) ),
-			'base_regular_price'  => wc_get_price_to_display( $this, array( 'price' => $this->get_regular_price() ) ),
-			'price_data'          => json_encode( $this->get_container_price_data() ),
-			'input_name'          => wc_mnm_get_child_input_name( $this->get_id() ),
-			'context'             => doing_action( 'wc_ajax_mnm_get_edit_container_order_item_form' ) ? 'edit' : 'add-to-cart',
-		) );
+		$attributes = wp_parse_args(
+			$args,
+			array(
+				'per_product_pricing' => $this->is_priced_per_product() ? 'true' :  'false',
+				'container_id'        => $this->get_id(),
+				'min_container_size'  => $this->get_min_container_size(),
+				'max_container_size'  => $this->get_max_container_size(),
+				'base_price'          => wc_get_price_to_display( $this, array( 'price' => $this->get_price() ) ),
+				'base_regular_price'  => wc_get_price_to_display( $this, array( 'price' => $this->get_regular_price() ) ),
+				'price_data'          => json_encode( $this->get_container_price_data() ),
+				'input_name'          => wc_mnm_get_child_input_name( $this->get_id() ),
+			)
+		);
 
 		/**
 		 * `wc_mnm_container_data_attributes` Data attribues filter.
@@ -1726,13 +1734,8 @@ class WC_Product_Mix_and_Match extends WC_Product_Mix_and_Match_Legacy {
 		 */
 		$attributes = (array) apply_filters( 'wc_mnm_container_data_attributes', wp_parse_args( $args, $attributes ), $this );
 
-		$data = '';
+		return wc_mnm_prefix_data_attribute_keys( $attributes );
 
-		foreach ( $attributes as $a => $att ) {
-			$data .= sprintf( 'data-%s="%s" ', esc_attr( $a ), esc_attr( $att ) );
-		}
-
-		return $data;
 	}
 
 

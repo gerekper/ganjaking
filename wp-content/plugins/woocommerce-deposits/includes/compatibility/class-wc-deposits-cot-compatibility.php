@@ -69,23 +69,15 @@ class WC_Deposits_COT_Compatibility {
 	}
 
 	/**
-	 * Helper method to generate admin url for an order.
+	 * Untrash HPOS order.
 	 *
 	 * @param WC_Order $order Order.
-	 *
-	 * @return string Admin edit url for an order.
 	 */
-	public static function get_order_admin_edit_url( $order ) {
-		if ( ! $order ) {
-			return '';
+	public static function untrash_order( $order ) {
+		if ( self::is_cot_enabled() && class_exists( 'Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore' ) ) {
+			$orders_store = wc_get_container()->get( Automattic\WooCommerce\Internal\DataStores\Orders\OrdersTableDataStore::class );
+			$orders_store->untrash_order( $order );
 		}
-
-		$order_id = $order->get_id();
-
-		if ( self::is_cot_enabled() ) {
-			return admin_url( 'admin.php?page=wc-orders&id=' . absint( $order_id ) ) . '&action=edit';
-		}
-		return $order->get_edit_order_url();
 	}
 }
 

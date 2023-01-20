@@ -1,5 +1,11 @@
 *** WooCommerce Smart Coupons Changelog ***
 
+2023.01.18 - version 7.1.0
+* New: Credits & coupons were not getting generated & emailed when paid with [Klarna Checkout for WooCommerce](https://wordpress.org/plugins/klarna-checkout-for-woocommerce/)
+* Fix: Auto apply does not happen when 'Disable email restriction?' is enabled
+* Fix: Failing to add order item via AJAX that is triggered by another plugin
+* Update: POT file
+
 2022.12.28 - version 7.0.0
 * Fix: When refunding an order from the refund form provided on the admin side, and in that order store credit is used, double amount is getting restored in that store credit
 * Fix: When refunding an order from the refund form provided on the admin side, and in that order store credit is used, refund related meta not getting saved

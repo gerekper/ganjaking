@@ -10,7 +10,7 @@
  * Plugin Name:       BetterDocs Pro
  * Plugin URI:        https:/betterdocs.co
  * Description:       Help your customers browse the docs and find instant answers through BetterDocs Instant Answers. Get access to Multiple KB, Insightful Analytics & many more!
- * Version:           2.2.5
+ * Version:           2.2.6
  * Author:            WPDeveloper
  * Author URI:        https://wpdeveloper.com
  * License:           GPL-3.0+
@@ -23,13 +23,13 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
-update_option( 'betterdocs-pro-license-key', '******************' );
+
 update_option( 'betterdocs-pro-license-status', 'valid' );
-set_transient( 'betterdocs-pro-license_data', ['license' => 'valid', 'license_limit' => '9999', 'site_count' => '9999', 'activations_left' => '9999'] );
+update_option( 'betterdocs-pro-license-key', '1415b451be1a13c283ba771ea52d38bb');
 /**
  * Currently plugin version.
  */
-define( 'BETTERDOCS_PRO_VERSION', '2.2.5' );
+define( 'BETTERDOCS_PRO_VERSION', '2.2.6' );
 define('BETTERDOCS_PRO_DB_VERSION', '1.0');
 define( 'BETTERDOCS_PRO_URL', plugin_dir_url( __FILE__ ) );
 define( 'BETTERDOCS_PRO_PUBLIC_URL', BETTERDOCS_PRO_URL . 'public/' );

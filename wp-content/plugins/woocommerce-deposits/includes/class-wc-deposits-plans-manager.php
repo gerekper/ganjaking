@@ -93,8 +93,8 @@ class WC_Deposits_Plans_Manager {
 
 		$results = $wpdb->get_results(
 			$wpdb->prepare(
-				"SELECT * FROM {$wpdb->wc_deposits_payment_plans} WHERE ID IN (" . implode( ',', array_fill( 0, count( $plan_ids ), '%s' ) ) . ')',
-				$plan_ids
+				"SELECT * FROM {$wpdb->wc_deposits_payment_plans} WHERE ID IN (" . implode( ',', array_fill( 0, count( $plan_ids ), '%s' ) ) . ') ORDER BY FIELD(ID,' . implode( ',', array_fill( 0, count( $plan_ids ), '%s' ) ) . ')',
+				array_merge( $plan_ids, $plan_ids )
 			)
 		);
 

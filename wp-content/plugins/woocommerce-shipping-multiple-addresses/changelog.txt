@@ -1,5 +1,8 @@
 *** Ship to Multiple Addresses Changelog ***
 
+2023-01-16 - version 3.8.2
+* Add - Reset button in checkout page to reset the multiple addresses.
+
 2022-12-05 - version 3.8.1
 * Fix - Fatal error on WooCommerce 7.1.
 

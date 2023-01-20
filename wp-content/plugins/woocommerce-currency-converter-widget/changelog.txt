@@ -1,5 +1,16 @@
 *** Currency Converter Changelog ***
 
+2023-01-19 - version 1.9.1
+* Fix - Prepend the store's currency into the currency list when missing.
+
+2023-01-16 - version 1.9.0
+* Tweak - Improved the widget CSS styles when using the 'Buttons' option.
+* Tweak - Use the WC locale info to assign the currency to a geolocated country.
+* Tweak - Tested compatibility with WC 7.3.
+* Fix - Fixed duplicated currency when using the asterisk (*) in the default currency.
+* Dev - Refactored widget class by extending the class `WC_Widget`.
+* Dev - Deprecated class `WooCommerce_Widget_Currency_Converter`.
+
 2022-12-07 - version 1.8.0
 * Tweak - Moved the plugin settings to an integration page.
 * Tweak - Added links to the plugin settings, the documentation page, and to get support, in the plugin list.

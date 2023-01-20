@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/REST API
  * @since    2.0.0
- * @version 2.2.0
+ * @version  2.3.0
  */
 
 // Exit if accessed directly.
@@ -389,6 +389,22 @@ class WC_MNM_Store_API {
 				continue;
 			}
 
+			/**
+			 * StoreAPI returns the following fields as
+			 * - object (/wc/store/v1/cart)
+			 * - array (/wc/store/v1/cart/extensions)
+			 *
+			 * Casting them to objects, to avoid PHP8+ fatal errors.
+			 *
+			 * @see https://github.com/woocommerce/woocommerce-product-bundles/issues/1096
+			 * @see https://github.com/woocommerce/woocommerce-blocks/issues/7275
+			 */
+			
+			$item_data[ 'quantity_limits' ] = (object) $item_data[ 'quantity_limits' ];
+			$item_data[ 'prices' ]          = (object) $item_data[ 'prices' ];
+			$item_data[ 'totals' ]          = (object) $item_data[ 'totals' ];
+			$item_data[ 'extensions' ]      = (object) $item_data[ 'extensions' ];
+
 			if ( wc_mnm_is_container_cart_item( $cart_item ) ) {
 
 				self::filter_container_cart_item_prices( $item_data, $cart_item );
@@ -419,7 +435,7 @@ class WC_MNM_Store_API {
 	 */
 	public static function validate_add_to_cart_item( $product, $request ) {
 
-		if ( validate_container_add_to_cart( $request ) ) {
+		if ( wc_mnm_is_product_container_type( $product ) ) {
 			try {
 				WC_Mix_and_Match()->cart->validate_container_in_cart( $request );
 			} catch ( Exception $e ) {

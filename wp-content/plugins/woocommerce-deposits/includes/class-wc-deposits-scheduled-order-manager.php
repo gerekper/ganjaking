@@ -42,6 +42,11 @@ class WC_Deposits_Scheduled_Order_Manager {
 		add_action( 'untrash_post', array( __CLASS__, 'untrash_post' ) );
 		add_action( 'before_delete_post', array( __CLASS__, 'before_delete_post' ) );
 
+		// Handle HPOS order trash and delete.
+		add_action( 'woocommerce_before_trash_order', array( __CLASS__, 'trash_order' ) );
+		add_action( 'woocommerce_untrash_order', array( __CLASS__, 'untrash_order' ) );
+		add_action( 'woocommerce_before_delete_order', array( __CLASS__, 'before_delete_order' ) );
+
 		// Ensure WooCommerce treats 'pending-deposit' as 'pending'.
 		add_filter( 'woocommerce_order_has_status', array( __CLASS__, 'deposit_pending_status' ), 10, 3 );
 	}
@@ -179,6 +184,7 @@ class WC_Deposits_Scheduled_Order_Manager {
 		$found_orders = wc_get_orders(
 			array(
 				'parent'         => $order_id,
+				'status'         => 'all',
 				'posts_per_page' => -1,
 			)
 		);
@@ -230,6 +236,54 @@ class WC_Deposits_Scheduled_Order_Manager {
 		if ( in_array( get_post_type( $id ), wc_get_order_types(), true ) ) {
 			foreach ( self::get_related_orders( $id ) as $order_id ) {
 				wp_delete_post( $order_id, true );
+			}
+		}
+	}
+
+	/**
+	 * When a HPOS order is trashed, sync scheduled payments.
+	 *
+	 * @param int $id Order ID.
+	 */
+	public static function trash_order( $id ) {
+		if ( $id > 0 ) {
+			foreach ( self::get_related_orders( $id ) as $order_id ) {
+				$order = wc_get_order( $order_id );
+				if ( is_a( $order, 'WC_Order' ) ) {
+					$order->delete();
+				}
+			}
+		}
+	}
+
+	/**
+	 * When a HPOS order is untrashed, sync scheduled payments.
+	 *
+	 * @param int $id Order ID.
+	 */
+	public static function untrash_order( $id ) {
+		if ( $id > 0 ) {
+			foreach ( self::get_related_orders( $id ) as $order_id ) {
+				$order = wc_get_order( $order_id );
+				if ( is_a( $order, 'WC_Order' ) ) {
+					WC_Deposits_COT_Compatibility::untrash_order( $order );
+				}
+			}
+		}
+	}
+
+	/**
+	 * When a HPOS order is deleted, sync scheduled payments.
+	 *
+	 * @param int $id Order ID.
+	 */
+	public static function before_delete_order( $id ) {
+		if ( $id > 0 ) {
+			foreach ( self::get_related_orders( $id ) as $order_id ) {
+				$order = wc_get_order( $order_id );
+				if ( is_a( $order, 'WC_Order' ) ) {
+					$order->delete( true );
+				}
 			}
 		}
 	}

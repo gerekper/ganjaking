@@ -13,6 +13,7 @@
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.3.0
+ * @deprecated 2.2.0
 
  */
 

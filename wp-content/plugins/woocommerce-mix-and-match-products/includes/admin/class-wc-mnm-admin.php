@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Admin
  * @since    1.0.0
- * @version  2.2.0
+ * @version  2.3.0
  */
 
 // Exit if accessed directly.
@@ -24,7 +24,8 @@ class WC_Mix_and_Match_Admin {
 	 */
 	public static function init() {
 
-		self::includes();
+		// Admin includes.
+		add_action( 'init', array( __CLASS__, 'includes' ) );
 
 		// Add a message in the WP Privacy Policy Guide page.
 		add_action( 'admin_init', array( __CLASS__, 'add_privacy_policy_guide_content' ) );
@@ -85,7 +86,7 @@ class WC_Mix_and_Match_Admin {
 		// Metaboxes.
 		include_once __DIR__ . '/meta-boxes/class-wc-mnm-meta-box-product-data.php';
 
-		// Admin AJAX (deprecated, see: WC_MNM_Ajax instead).
+		// Admin AJAX.
 		include_once __DIR__ . '/class-wc-mnm-admin-ajax.php';
 
 		// Admin edit-order screen.

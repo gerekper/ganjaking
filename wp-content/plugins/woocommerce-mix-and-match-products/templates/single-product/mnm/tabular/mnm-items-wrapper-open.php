@@ -2,7 +2,7 @@
 /**
  * Mix and Match Options Wrapper
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/single-product/mnm/grid/mnm-items-wrapper-open.php.
+ * This template can be overridden by copying it to yourtheme/woocommerce/single-product/mnm/tabular/mnm-items-wrapper-open.php.
  *
  * HOWEVER, on occasion WooCommerce Mix and Match will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to

@@ -1,22 +1,22 @@
-# Copyright (C) 2022 Themesquad
+# Copyright (C) 2023 Themesquad
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Currency Converter 1.8.0\n"
+"Project-Id-Version: WooCommerce Currency Converter 1.9.1\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-12-07T11:50:22+00:00\n"
+"POT-Creation-Date: 2023-01-19T11:33:53+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: woocommerce-currency-converter-widget\n"
 
 #. Plugin Name of the plugin
-#: includes/currency-converter-widget.php:22
 #: includes/woocommerce-currency-converter-privacy.php:12
+#: src/Widget.php:24
 msgid "WooCommerce Currency Converter"
 msgstr ""
 
@@ -36,81 +36,21 @@ msgstr ""
 msgid "https://themesquad.com/"
 msgstr ""
 
-#: includes/class-wc-currency-converter.php:105
+#: includes/class-wc-currency-converter.php:109
 msgid "WooCommerce Currency Converter: Incorrect key entered!"
 msgstr ""
 
-#: includes/class-wc-currency-converter.php:215
+#: includes/class-wc-currency-converter.php:231
 msgid "Choose a Currency"
 msgstr ""
 
-#: includes/class-wc-currency-converter.php:226
-#: includes/class-wc-currency-converter.php:240
+#: includes/class-wc-currency-converter.php:242
+#: includes/class-wc-currency-converter.php:256
 msgid "Reset"
 msgstr ""
 
-#: includes/class-wc-currency-converter.php:380
+#: includes/class-wc-currency-converter.php:396
 msgid "Original price:"
-msgstr ""
-
-#: includes/currency-converter-widget.php:24
-msgid "Allow users to choose a currency for prices to be displayed in."
-msgstr ""
-
-#: includes/currency-converter-widget.php:120
-msgid "Title:"
-msgstr ""
-
-#: includes/currency-converter-widget.php:121
-msgid "Currency converter"
-msgstr ""
-
-#: includes/currency-converter-widget.php:124
-msgid "Currency codes:"
-msgstr ""
-
-#: includes/currency-converter-widget.php:124
-msgid "1 per line"
-msgstr ""
-
-#: includes/currency-converter-widget.php:126
-msgid "Use * to control how the amounts and currency symbols are displayed. Example: SEK* becomes 999kr. USD * becomes 999 $. If you omit * and just provide the currency (USD, EUR), WooCommerce's default currency position will be used."
-msgstr ""
-
-#: includes/currency-converter-widget.php:129
-msgid "Currency Display Mode:"
-msgstr ""
-
-#: includes/currency-converter-widget.php:131
-msgid "Buttons"
-msgstr ""
-
-#: includes/currency-converter-widget.php:132
-msgid "Select Box"
-msgstr ""
-
-#: includes/currency-converter-widget.php:136
-msgid "Widget message:"
-msgstr ""
-
-#: includes/currency-converter-widget.php:137
-msgid "Currency conversions are estimated and should be used for informational purposes only."
-msgstr ""
-
-#: includes/currency-converter-widget.php:140
-msgid "Show currency symbols in widget:"
-msgstr ""
-
-#: includes/currency-converter-widget.php:144
-msgid "Show reset link:"
-msgstr ""
-
-#: includes/currency-converter-widget.php:148
-msgid "Disable location detection:"
-msgstr ""
-
-#: includes/currency-converter-widget.php:150
-msgid "The currency converter widget will default to the currency for a user's current location. Check this box to disable location detection and default to the store's currency."
 msgstr ""
 
 #. translators: %s: WooCommerce Marketplace Privacy link
@@ -200,4 +140,62 @@ msgstr ""
 #: src/Requirements.php:75
 msgctxt "admin notice"
 msgid "<strong>WooCommerce Currency Converter</strong> requires WooCommerce %1$s or higher. You are using version %2$s"
+msgstr ""
+
+#: src/Widget.php:26
+msgid "Allow users to choose a currency for prices to be displayed in."
+msgstr ""
+
+#: src/Widget.php:30
+msgid "Title:"
+msgstr ""
+
+#: src/Widget.php:31
+msgid "Currency converter"
+msgstr ""
+
+#: src/Widget.php:35
+msgid "Currency codes:"
+msgstr ""
+
+#: src/Widget.php:36
+msgid ""
+"USD\n"
+"EUR"
+msgstr ""
+
+#: src/Widget.php:37
+msgid "Use * to control how the amounts and currency symbols are displayed. Example: SEK* becomes 999kr. USD * becomes 999 $. If you omit * and just provide the currency (USD, EUR), WooCommerce's default currency position will be used."
+msgstr ""
+
+#: src/Widget.php:41
+msgid "Currency Display Mode:"
+msgstr ""
+
+#: src/Widget.php:44
+msgid "Buttons"
+msgstr ""
+
+#: src/Widget.php:45
+msgid "Select Box"
+msgstr ""
+
+#: src/Widget.php:50
+msgid "Widget message:"
+msgstr ""
+
+#: src/Widget.php:51
+msgid "Currency conversions are estimated and should be used for informational purposes only."
+msgstr ""
+
+#: src/Widget.php:56
+msgid "Show currency symbols"
+msgstr ""
+
+#: src/Widget.php:61
+msgid "Show reset link"
+msgstr ""
+
+#: src/Widget.php:66
+msgid "Disable location detection and default to the store's currency."
 msgstr ""

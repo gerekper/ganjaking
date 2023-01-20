@@ -4,6 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Admin/Meta-Boxes/Order
  * @since    1.7.0
+ * @version  2.3.0
  */
 
 // Exit if accessed directly.
@@ -13,9 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Mix and Match edit-order functions and filters.
- *
- * @class    WC_MNM_Meta_Box_Order
- * @version  2.2.0
  */
 class WC_MNM_Meta_Box_Order {
 
@@ -38,6 +36,10 @@ class WC_MNM_Meta_Box_Order {
 
 		// Display "Configure/Edit" button next to configurable container items in the edit-order screen.
 		add_action( 'woocommerce_after_order_itemmeta', array( __CLASS__, 'display_edit_button' ), 10, 3 );
+		
+		// Force some styles when editing.
+		add_action( 'wc_mnm_edit_container_order_item_in_shop_order', array( __CLASS__, 'force_container_styles' ), 0, 4 );
+		add_action( 'wc_mnm_edit_container_order_item_in_shop_subscription', array( __CLASS__, 'force_container_styles' ), 0, 4 );
 
 		// Add JS template.
 		add_action( 'admin_footer', array( __CLASS__, 'add_js_template' ) );
@@ -144,41 +146,88 @@ class WC_MNM_Meta_Box_Order {
 	 * @param  $item_id  int
 	 * @param  $item     WC_Order_Item
 	 * @param  $order    WC_Product
-	 * @return void
 	 */
 	public static function display_edit_button( $item_id, $item, $product ) {
 
-		if ( self::$order && self::$order->is_editable() && 'line_item' === $item->get_type() ) {
+		if ( self::$order && self::$order->is_editable() && 'line_item' === $item->get_type() && $product ) {
 
-			if ( $product && wc_mnm_is_product_container_type( $product ) ) {
+			/**
+			 * 'wc_mnm_is_container_order_item_editable' filter.
+			 *
+			 * @param  $auto_add  boolean
+			 * @param  $product   WC_Product_Mix_and_Match
+			 * @param  $item      WC_Order_Item
+			 * @param  $order     WC_Order
+			 */
+			if ( apply_filters( 'wc_mnm_is_container_order_item_editable',  wc_mnm_is_product_container_type( $product ), $product, $item, self::$order ) ) {
 
-				/**
-				 * 'wc_mnm_is_container_order_item_editable' filter.
-				 *
-				 * @param  $auto_add  boolean
-				 * @param  $product   WC_Product_Mix_and_Match
-				 * @param  $item      WC_Order_Item
-				 * @param  $order     WC_Order
-				 */
-				if ( apply_filters( 'wc_mnm_is_container_order_item_editable', true, $product, $item, self::$order ) ) {
+				// Load required ajax scripts.
+				WC_MNM_Ajax::load_edit_scripts();
 
-					// Load required ajax scripts.
-					WC_MNM_Ajax::load_edit_scripts();
+				// Already configured?
+				$is_configured = wc_mnm_is_container_order_item( $item, self::$order );
+				$button_text   = $is_configured ? esc_html__( 'Edit', 'woocommerce-mix-and-match-products' ) : esc_html__( 'Configure', 'woocommerce-mix-and-match-products' );
 
-					// Already configured?
-					$is_configured = wc_mnm_is_container_order_item( $item, self::$order );
-					$button_text   = $is_configured ? esc_html__( 'Edit', 'woocommerce-mix-and-match-products' ) : esc_html__( 'Configure', 'woocommerce-mix-and-match-products' );
-
-					?>
-					<div class="configure_container_order_item">
-						<button class="<?php echo $is_configured ? 'edit_container' : 'configure_container'; ?> button">
-							<?php echo esc_html( $button_text ); ?>
-						</button>
-					</div>
-					<?php
-				}
+				?>
+				<div class="configure_container_order_item">
+					<button data-order_item_id="<?php echo esc_attr( $item->get_id() );?>" data-container_id="<?php echo esc_attr( $product->get_id() );?>" class="<?php echo $is_configured ? 'edit_container' : 'configure_container'; ?> button">
+						<?php echo esc_html( $button_text ); ?>
+					</button>
+				</div>
+				<?php
 			}
+		
 		}
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Edit-Order Modal.
+	|--------------------------------------------------------------------------
+	*/
+
+	/**
+	 * Force tabular layout and hide child links.
+	 * 
+	 * @since 2.3.0
+	 * 
+	 * @param  $product  WC_Product_Mix_and_Match
+	 * @param  $order_item WC_Order_Item
+	 * @param  $order      WC_Order
+	 * @param  string $source The originating source loading this template
+	 */
+	public static function force_container_styles( $product, $order_item, $order, $source ) {
+
+		// Force default location.
+		add_filter( 'woocommerce_product_get_add_to_cart_form_location', function() { return 'default'; }, 9999 );
+
+		// Force tabular layout.
+		add_filter( 'woocommerce_product_get_layout', function() { return 'tabular'; }, 9999 );
+
+		// Prevent theme override of quantity-input.php template in admin.
+		add_filter( 'wc_get_template', array( __CLASS__, 'force_core_template' ), 9999, 5 );
+	
+		// Hide links.
+		add_filter( 'woocommerce_product_is_visible', '__return_false' );
+		
+	}
+
+	/**
+	 * Nuke any theme overrides of quantity-input.php template.
+	 * 
+	 * @since 2.3.0
+	 *
+	 * @param  $item_id  int
+	 * @param  $item     WC_Order_Item
+	 * @param  $order    WC_Product
+	 * @return void
+	 */
+	public static function force_core_template( $template, $template_name, $args, $template_path, $default_path ) {
+		if ( $template_name === 'global/quantity-input.php' ) {
+			$default_path = WC()->plugin_path() . '/templates/';
+			$template = $default_path . $template_name;
+		}
+		return $template;
 	}
 
 	/**
@@ -215,5 +264,4 @@ class WC_MNM_Meta_Box_Order {
 	}
 
 }
-
 WC_MNM_Meta_Box_Order::init();

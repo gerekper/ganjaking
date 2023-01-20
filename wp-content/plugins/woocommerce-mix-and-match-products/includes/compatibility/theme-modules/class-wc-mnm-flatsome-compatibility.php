@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Theme Compatibility
  * @since    2.0.7
- * @version  2.2.0
+ * @version  2.3.0
  */
 
 // Exit if accessed directly.
@@ -35,6 +35,11 @@ class WC_MNM_Flatsome_Compatibility {
 		add_action( 'wc_mnm_child_item_details', array( __CLASS__, 'entry_wrap_open' ), 1, 2 );
 		add_action( 'wc_mnm_child_item_details', array( __CLASS__, 'image_wrap_close' ), 35, 2 );
 		add_action( 'wc_mnm_child_item_details', array( __CLASS__, 'entry_wrap_close' ), 109, 2 );
+
+		add_filter( 'wc_mnm_child_item_image_html', array( __CLASS__, 'child_item_image_html' ), 10, 3 );
+
+		// Left align the quantity inputs.
+		add_filter( 'wc_mnm_center_align_quantity', '__return_false' );
 
 		// Add inline style.
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'inline_style' ), 20 );
@@ -81,7 +86,7 @@ class WC_MNM_Flatsome_Compatibility {
 	 */
 	public static function entry_wrap_open( $child_product, $container_product ) {
 		if ( 'grid' === $container_product->get_layout() ) {
-			echo '<div class="col-inner"><div class="product-small box"><div class="box-image">';
+			echo '<div class="col-inner"><div class="product-small box">';
 		}
 	}
 
@@ -93,7 +98,7 @@ class WC_MNM_Flatsome_Compatibility {
 	 */
 	public static function entry_wrap_close( $child_product, $container_product ) {
 		if ( 'grid' === $container_product->get_layout() ) {
-			echo '</div></div></div><!-- .col-inner-->';
+			echo '</div></div><!-- .col-inner-->';
 		}
 	}
 
@@ -108,6 +113,26 @@ class WC_MNM_Flatsome_Compatibility {
 			echo '</div><!-- .col-inner--><div class="box-text box-text-products">';
 		}
 	}
+
+
+	/**
+	 * Add theme-specific wrapper.
+	 * 
+	 * @since 2.3.0
+	 *
+	 * @param string
+	 * @param obj WC_MNM_Child_Item $child_item
+	 * @param obj WC_Mix_and_Match $container_product the parent container
+	 * @return string
+	 */
+	public static function child_item_image_html( $html, $child_item, $container_product ) {
+
+		if ( 'grid' === $container_product->get_layout() ) {
+			$html = str_replace( 'mnm_child_product_image woocommerce-product-gallery__image', 'box-image mnm_child_product_image woocommerce-product-gallery__image', $html );
+		}
+		return $html;
+	}
+
 
 	/**
 	 * Add theme-specific styles.

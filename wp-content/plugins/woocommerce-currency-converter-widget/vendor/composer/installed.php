@@ -1,22 +1,22 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => 'dev-main',
-        'version' => 'dev-main',
+        'pretty_version' => '1.9.1',
+        'version' => '1.9.1.0',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'f356f3da9a50b0c7de4b0067d59093f34c7654e9',
+        'reference' => '258e0d33e90f0a22ee832ac777bd10dd0d56853d',
         'name' => 'koilabcode/woocommerce-currency-converter-widget',
         'dev' => false,
     ),
     'versions' => array(
         'koilabcode/woocommerce-currency-converter-widget' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
+            'pretty_version' => '1.9.1',
+            'version' => '1.9.1.0',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'f356f3da9a50b0c7de4b0067d59093f34c7654e9',
+            'reference' => '258e0d33e90f0a22ee832ac777bd10dd0d56853d',
             'dev_requirement' => false,
         ),
     ),

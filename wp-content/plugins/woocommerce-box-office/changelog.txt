@@ -1,5 +1,8 @@
 *** WooCommerce Box Office Changelog ***
 
+2023-01-17 - version 1.1.46
+* Tweak - Bump WordPress "Tested up to" version 6.1.
+
 2022-12-13 - version 1.1.45
 * Add - Allow emails to be sent to customers who opted for specific variation.
 * Fix - Refunded ticket will be moved to trash upon `full refund`.

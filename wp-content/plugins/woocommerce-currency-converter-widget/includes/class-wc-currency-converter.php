@@ -5,10 +5,14 @@
  * @package woocommerce-currency-converter-widget
  */
 
+use Themesquad\WC_Currency_Converter\Plugin;
+use Themesquad\WC_Currency_Converter\Utilities\Currency_Utils;
+use Themesquad\WC_Currency_Converter\Utilities\L10n_Utils;
+
 /**
  * Currency Converter Main Class
  */
-class WC_Currency_Converter extends \Themesquad\WC_Currency_Converter\Plugin {
+class WC_Currency_Converter extends Plugin {
 
 	/**
 	 * Base Currency
@@ -34,7 +38,7 @@ class WC_Currency_Converter extends \Themesquad\WC_Currency_Converter\Plugin {
 	/**
 	 * Widget object
 	 *
-	 * @var WooCommerce_Widget_Currency_Converter
+	 * @var \Themesquad\WC_Currency_Converter\Widget
 	 */
 	private $widget;
 
@@ -146,7 +150,8 @@ class WC_Currency_Converter extends \Themesquad\WC_Currency_Converter\Plugin {
 
 	/**
 	 * Extract an array of currencies from a widget instance
-	 * @param $instance
+	 *
+	 * @param array $instance Arguments.
 	 *
 	 * @return array of currencies
 	 */
@@ -161,18 +166,29 @@ class WC_Currency_Converter extends \Themesquad\WC_Currency_Converter\Plugin {
 			}
 		}
 
-		// Defaults if unset.
 		if ( empty( $currencies ) ) {
 			$currencies = array( 'USD', 'EUR' );
-		}
+		} else {
+			$default_currency     = get_woocommerce_currency();
+			$has_default_currency = false;
 
-		if ( $currencies ) {
-			// Prepend store currency.
-			$currencies = array_unique( array_merge( array( get_woocommerce_currency() ), $currencies ) );
+			foreach ( $currencies as $currency ) {
+				if ( false !== strpos( $currency, $default_currency ) ) {
+					array_unshift( $currencies, $currency );
+					$has_default_currency = true;
+					break;
+				}
+			}
+
+			if ( ! $has_default_currency ) {
+				array_unshift( $currencies, $default_currency );
+			}
+
+			$currencies = array_values( array_unique( $currencies ) );
 		}
 
 		return $currencies;
-    }
+	}
 
 	/**
 	 * Display the currency converter form.
@@ -308,11 +324,11 @@ class WC_Currency_Converter extends \Themesquad\WC_Currency_Converter\Plugin {
 	 * Init Widgets
 	 */
 	public function widgets() {
-		include_once __DIR__ . '/currency-converter-widget.php';
+		include_once __DIR__ . '/currency-converter-widget.php'; // Deprecated.
 
-		$this->widget = new WooCommerce_Widget_Currency_Converter();
+		$this->widget = new \Themesquad\WC_Currency_Converter\Widget();
 
-		register_widget($this->widget);
+		register_widget( $this->widget );
 	}
 
 	/**
@@ -460,8 +476,7 @@ class WC_Currency_Converter extends \Themesquad\WC_Currency_Converter\Plugin {
 	 * @return array of local_info
 	 */
 	private function get_locale_info( $currencies ) {
-		$locale_info = include WC()->plugin_path() . '/i18n/locale-info.php';
-
+		$locale_info = L10n_Utils::get_locales();
 
 		$locale_info = array_filter( $locale_info, function ( $element ) use ( $currencies ) {
 			return in_array( $element['currency_code'], $currencies );
@@ -495,32 +510,27 @@ class WC_Currency_Converter extends \Themesquad\WC_Currency_Converter\Plugin {
 	 * @return string
 	 */
 	public static function get_users_default_currency() {
-		if ( class_exists( 'WC_Geolocation' ) ) {
-			$location = WC_Geolocation::geolocate_ip();
-			if ( isset( $location['country'] ) ) {
-				return self::get_currency_from_country_code( $location['country'] );
-			}
+		$location = WC_Geolocation::geolocate_ip();
+
+		if ( isset( $location['country'] ) ) {
+			return Currency_Utils::get_by_country( $location['country'] );
 		}
+
 		return false;
 	}
 
 	/**
 	 * Function to return a currency code based on a country code
 	 *
-	 * @since  1.4.1
+	 * @since 1.4.1
+	 * @deprecated 1.9.0
 	 *
 	 * @param string $country_code Country code.
-	 *
-	 * @return string
+	 * @return string|false
 	 */
 	public static function get_currency_from_country_code( $country_code ) {
-		$codes = array( 'NZ' => 'NZD', 'CK' => 'NZD', 'NU' => 'NZD', 'PN' => 'NZD', 'TK' => 'NZD', 'AU' => 'AUD', 'CX' => 'AUD', 'CC' => 'AUD', 'HM' => 'AUD', 'KI' => 'AUD', 'NR' => 'AUD', 'NF' => 'AUD', 'TV' => 'AUD', 'AS' => 'EUR', 'AD' => 'EUR', 'AT' => 'EUR', 'BE' => 'EUR', 'FI' => 'EUR', 'FR' => 'EUR', 'GF' => 'EUR', 'TF' => 'EUR', 'DE' => 'EUR', 'GR' => 'EUR', 'GP' => 'EUR', 'IE' => 'EUR', 'IT' => 'EUR', 'LU' => 'EUR', 'MQ' => 'EUR', 'YT' => 'EUR', 'MC' => 'EUR', 'NL' => 'EUR', 'PT' => 'EUR', 'RE' => 'EUR', 'WS' => 'EUR', 'SM' => 'EUR', 'SI' => 'EUR', 'ES' => 'EUR', 'VA' => 'EUR', 'GS' => 'GBP', 'GB' => 'GBP', 'JE' => 'GBP', 'IO' => 'USD', 'GU' => 'USD', 'MH' => 'USD', 'FM' => 'USD', 'MP' => 'USD', 'PW' => 'USD', 'PR' => 'USD', 'TC' => 'USD', 'US' => 'USD', 'UM' => 'USD', 'VG' => 'USD', 'VI' => 'USD', 'HK' => 'HKD', 'CA' => 'CAD', 'JP' => 'JPY', 'AF' => 'AFN', 'AL' => 'ALL', 'DZ' => 'DZD', 'AI' => 'XCD', 'AG' => 'XCD', 'DM' => 'XCD', 'GD' => 'XCD', 'MS' => 'XCD', 'KN' => 'XCD', 'LC' => 'XCD', 'VC' => 'XCD', 'AR' => 'ARS', 'AM' => 'AMD', 'AW' => 'ANG', 'AN' => 'ANG', 'AZ' => 'AZN', 'BS' => 'BSD', 'BH' => 'BHD', 'BD' => 'BDT', 'BB' => 'BBD', 'BY' => 'BYR', 'BZ' => 'BZD', 'BJ' => 'XOF', 'BF' => 'XOF', 'GW' => 'XOF', 'CI' => 'XOF', 'ML' => 'XOF', 'NE' => 'XOF', 'SN' => 'XOF', 'TG' => 'XOF', 'BM' => 'BMD', 'BT' => 'INR', 'IN' => 'INR', 'BO' => 'BOB', 'BW' => 'BWP', 'BV' => 'NOK', 'NO' => 'NOK', 'SJ' => 'NOK', 'BR' => 'BRL', 'BN' => 'BND', 'BG' => 'BGN', 'BI' => 'BIF', 'KH' => 'KHR', 'CM' => 'XAF', 'CF' => 'XAF', 'TD' => 'XAF', 'CG' => 'XAF', 'GQ' => 'XAF', 'GA' => 'XAF', 'CV' => 'CVE', 'KY' => 'KYD', 'CL' => 'CLP', 'CN' => 'CNY', 'CO' => 'COP', 'KM' => 'KMF', 'CD' => 'CDF', 'CR' => 'CRC', 'HR' => 'HRK', 'CU' => 'CUP', 'CY' => 'CYP', 'CZ' => 'CZK', 'DK' => 'DKK', 'FO' => 'DKK', 'GL' => 'DKK', 'DJ' => 'DJF', 'DO' => 'DOP', 'TP' => 'IDR', 'ID' => 'IDR', 'EC' => 'ECS', 'EG' => 'EGP', 'SV' => 'SVC', 'ER' => 'ETB', 'ET' => 'ETB', 'EE' => 'EEK', 'FK' => 'FKP', 'FJ' => 'FJD', 'PF' => 'XPF', 'NC' => 'XPF', 'WF' => 'XPF', 'GM' => 'GMD', 'GE' => 'GEL', 'GI' => 'GIP', 'GT' => 'GTQ', 'GN' => 'GNF', 'GY' => 'GYD', 'HT' => 'HTG', 'HN' => 'HNL', 'HU' => 'HUF', 'IS' => 'ISK', 'IR' => 'IRR', 'IQ' => 'IQD', 'IL' => 'ILS', 'JM' => 'JMD', 'JO' => 'JOD', 'KZ' => 'KZT', 'KE' => 'KES', 'KP' => 'KPW', 'KR' => 'KRW', 'KW' => 'KWD', 'KG' => 'KGS', 'LA' => 'LAK', 'LV' => 'LVL', 'LB' => 'LBP', 'LS' => 'LSL', 'LR' => 'LRD', 'LY' => 'LYD', 'LI' => 'CHF', 'CH' => 'CHF', 'LT' => 'LTL', 'MO' => 'MOP', 'MK' => 'MKD', 'MG' => 'MGA', 'MW' => 'MWK', 'MY' => 'MYR', 'MV' => 'MVR', 'MT' => 'MTL', 'MR' => 'MRO', 'MU' => 'MUR', 'MX' => 'MXN', 'MD' => 'MDL', 'MN' => 'MNT', 'MA' => 'MAD', 'EH' => 'MAD', 'MZ' => 'MZN', 'MM' => 'MMK', 'NA' => 'NAD', 'NP' => 'NPR', 'NI' => 'NIO', 'NG' => 'NGN', 'OM' => 'OMR', 'PK' => 'PKR', 'PA' => 'PAB', 'PG' => 'PGK', 'PY' => 'PYG', 'PE' => 'PEN', 'PH' => 'PHP', 'PL' => 'PLN', 'QA' => 'QAR', 'RO' => 'RON', 'RU' => 'RUB', 'RW' => 'RWF', 'ST' => 'STD', 'SA' => 'SAR', 'SC' => 'SCR', 'SL' => 'SLL', 'SG' => 'SGD', 'SK' => 'SKK', 'SB' => 'SBD', 'SO' => 'SOS', 'ZA' => 'ZAR', 'LK' => 'LKR', 'SD' => 'SDG', 'SR' => 'SRD', 'SZ' => 'SZL', 'SE' => 'SEK', 'SY' => 'SYP', 'TW' => 'TWD', 'TJ' => 'TJS', 'TZ' => 'TZS', 'TH' => 'THB', 'TO' => 'TOP', 'TT' => 'TTD', 'TN' => 'TND', 'TR' => 'TRY', 'TM' => 'TMT', 'UG' => 'UGX', 'UA' => 'UAH', 'AE' => 'AED', 'UY' => 'UYU', 'UZ' => 'UZS', 'VU' => 'VUV', 'VE' => 'VEF', 'VN' => 'VND', 'YE' => 'YER', 'ZM' => 'ZMK', 'ZW' => 'ZWD', 'AX' => 'EUR', 'AO' => 'AOA', 'AQ' => 'AQD', 'BA' => 'BAM', 'CD' => 'CDF', 'GH' => 'GHS', 'GG' => 'GGP', 'IM' => 'GBP', 'LA' => 'LAK', 'MO' => 'MOP', 'ME' => 'EUR', 'PS' => 'JOD', 'BL' => 'EUR', 'SH' => 'GBP', 'MF' => 'ANG', 'PM' => 'EUR', 'RS' => 'RSD', 'USAF' => 'USD' );
+		wc_deprecated_function( __FUNCTION__, '1.9.0', '\Themesquad\WC_Currency_Converter\Utilities\Currency_Utils::get_by_country()' );
 
-		if ( isset( $codes[ $country_code ] ) ) {
-			return $codes[ $country_code ];
-		} else {
-			return false;
-		}
+		return Currency_Utils::get_by_country( $country_code );
 	}
-
 }

@@ -135,12 +135,11 @@
 				echo esc_html__( 'You have not created any payment plans yet.', 'woocommerce-deposits' );
 				echo ' <a href="' . esc_url( admin_url( 'edit.php?post_type=product&page=deposit_payment_plans' ) ) . '" class="button button-small" target="_blank">' . esc_html__( 'Create a Payment Plan', 'woocommerce-deposits' ) . '</a>';
 			} else {
+				global $post;
+				$values = (array) get_post_meta( $post->ID, '_wc_deposit_payment_plans', true );
 				?>
-				<select id="_wc_deposit_payment_plans" name="_wc_deposit_payment_plans[]" class="wc-enhanced-select" style="min-width: 50%;" multiple="multiple" placeholder="<?php esc_html_e( 'Choose some plans', 'woocommerce-deposits' ); ?>">
+				<select id="_wc_deposit_payment_plans" name="_wc_deposit_payment_plans[]" class="wc-enhanced-select" style="min-width: 50%;" multiple="multiple" data-plans-order="<?php echo esc_attr( join( ',', $values ) ); ?>" placeholder="<?php esc_attr_e( 'Choose some plans', 'woocommerce-deposits' ); ?>">
 				<?php
-					global $post;
-
-					$values = (array) get_post_meta( $post->ID, '_wc_deposit_payment_plans', true );
 
 				foreach ( $plan_ids as $plan_id => $name ) {
 					echo '<option value="' . esc_attr( $plan_id ) . '" ' . selected( in_array( $plan_id, $values, true ), true ) . '>' . esc_attr( $name ) . '</option>';

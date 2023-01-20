@@ -37,11 +37,11 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 						<tr class="<?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item opc_cart_item', $cart_item, $cart_item_key ) ); ?>" data-add_to_cart="<?php echo esc_attr( $_product->get_id() ); ?>" data-update_key="<?php echo esc_attr( $cart_item_key ); ?>">
 							<td class="product-name">
 								<div class="product-remove" >
-									<?php echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf( '<a href="%s" class="remove" title="%s">&times;</a>', esc_url( wcopc_get_cart_remove_url( $cart_item_key ) ), esc_html__( 'Remove this item', 'woocommerce-one-page-checkout' ) ), $cart_item_key ); ?>
+									<?php echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf( '<a href="%s" class="remove" title="%s">&times;</a>', esc_url( wcopc_get_cart_remove_url( $cart_item_key ) ), esc_html__( 'Remove this item', 'woocommerce-one-page-checkout' ) ), $cart_item_key ); // PHPCS:Ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 								</div>
 								<div class="product-details" >
 									<?php echo wp_kses_post( apply_filters( 'woocommerce_cart_item_name', wcopc_get_products_name( $_product ), $cart_item, $cart_item_key ) ); ?>
-									<?php echo wcopc_get_formatted_cart_item_data( $cart_item ); ?>
+									<?php echo wcopc_get_formatted_cart_item_data( $cart_item ); // PHPCS:Ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 								</div>
 								<div class="product-quantity">
 								<?php
@@ -56,12 +56,12 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 										), $_product, false );
 									}
 
-									echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item );
+									echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item );  // PHPCS:Ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 								?>
 								</div>
 							</td>
 							<td class="product-total">
-								<?php echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key ); ?>
+								<?php echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key );  // PHPCS:Ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 							</td>
 						</tr>
 						<?php
@@ -113,7 +113,7 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 				<?php else : ?>
 					<tr class="tax-total">
 						<th><?php echo esc_html( WC()->countries->tax_or_vat() ); ?></th>
-						<td><?php echo wc_price( WC()->cart->get_taxes_total() ); ?></td>
+						<td><?php echo esc_html( wc_price( WC()->cart->get_taxes_total() ) ); ?></td>
 					</tr>
 				<?php endif; ?>
 			<?php endif; ?>

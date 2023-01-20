@@ -1,5 +1,8 @@
 *** Product Vendors Changelog ***
 
+2023-01-17 - version 2.1.72
+* Fix - Allow zero value commissions.
+
 2022-12-20 - version 2.1.71
 * Add - Logged-out users receive a notification to log in to use the vendor registration form.
 * Add - New Subscription Renewal Order vendor email notification.

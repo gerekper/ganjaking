@@ -13,7 +13,7 @@
  * @see     https://woocommerce.com/document/template-structure/
  * @package WooCommerce Mix and Match/Templates
  * @since   1.9.4
- * @version 2.2.0
+ * @version 2.3.0
  */
 
 // Exit if accessed directly.
@@ -72,10 +72,10 @@ if ( has_filter( 'wc_mnm_child_product_image_html' ) ) {
  * @since 2.0.0
  *
  * @param string $html
- * @param  obj WC_Product $child_item
+ * @param  obj WC_MNM_Child_Item $child_item
  * @param  obj WC_Product_Mix_and_Match $product
  *
  */
-echo apply_filters( 'wc_mnm_child_item_image_html', $html, $child_item, $product );
+echo apply_filters( 'wc_mnm_child_item_image_html', $html, $child_item, $child_item->get_container());
 ?>
 </div>

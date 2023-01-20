@@ -1,5 +1,13 @@
 *** Checkout Field Editor Changelog ***
 
+2023-01-18 - version 1.7.8
+* Fix - Additional bugfixes.
+* Fix - Several security-related fixes.
+
+2022-10-28 - version 1.7.7
+* Tweak - WC 7.0.0 compatibility.
+* Tweak - WP 6.1 compatibility.
+
 2022-10-13 - version 1.7.6
 * Fix - Update hpos compatibility snippet.
 

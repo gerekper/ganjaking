@@ -621,13 +621,13 @@ class WC_Deposits_Order_Manager {
 
 				if ( $remaining_balance_order_id && $remaining_balance_order ) {
 					/* translators: remaining balance order ID */
-					echo '<a href="' . esc_url( WC_Deposits_COT_Compatibility::get_order_admin_edit_url( $remaining_balance_order ) ) . '" target="_blank" class="button button-small">' . sprintf( esc_html__( 'Remainder - Invoice #%1$s', 'woocommerce-deposits' ), esc_html( $remaining_balance_order->get_order_number() ) ) . '</a>';
+					echo '<a href="' . esc_url( $remaining_balance_order->get_edit_order_url() ) . '" target="_blank" class="button button-small">' . sprintf( esc_html__( 'Remainder - Invoice #%1$s', 'woocommerce-deposits' ), esc_html( $remaining_balance_order->get_order_number() ) ) . '</a>';
 				} elseif ( $remaining_balance_paid ) {
 					/* translators: offline paid amount */
 					printf( esc_html__( 'The remaining balance of %s (plus tax) for this item was paid offline.', 'woocommerce-deposits' ), wc_price( $remaining, array( 'currency' => $currency ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					echo ' <a href="' . esc_url( wp_nonce_url( add_query_arg( array( 'mark_deposit_unpaid' => $item_id ) ), 'mark_deposit_unpaid', 'mark_deposit_unpaid_nonce' ) ) . '" class="button button-small">' . sprintf( esc_html__( 'Unmark as Paid', 'woocommerce-deposits' ) ) . '</a>';
 				} elseif ( ! self::has_deposit_without_future_payments( $order_id ) ) {
-					$edit_order_url = WC_Deposits_COT_Compatibility::get_order_admin_edit_url( $order );
+					$edit_order_url = $order->get_edit_order_url();
 					?>
 					<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( array( 'invoice_remaining_balance' => $item_id ), $edit_order_url ), 'invoice_remaining_balance', 'invoice_remaining_balance_nonce' ) ); ?>" class="button button-small"><?php esc_html_e( 'Invoice Remaining Balance', 'woocommerce-deposits' ); ?></a>
 					<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( array( 'mark_deposit_fully_paid' => $item_id ), $edit_order_url ), 'mark_deposit_fully_paid', 'mark_deposit_fully_paid_nonce' ) ); ?>" class="button button-small"><?php esc_html_e( 'Mark Paid (offline)', 'woocommerce-deposits' ); ?></a>
@@ -635,9 +635,10 @@ class WC_Deposits_Order_Manager {
 				}
 			}
 		} elseif ( ! empty( $item['original_order_id'] ) ) {
-			$original_order = wc_get_order( $item['original_order_id'] );
+			$original_order     = wc_get_order( $item['original_order_id'] );
+			$original_order_url = ( ! empty( $original_order ) ) ? $original_order->get_edit_order_url() : '';
 
-			echo '<a href="' . esc_url( WC_Deposits_COT_Compatibility::get_order_admin_edit_url( $original_order ) ) . '" target="_blank" class="button button-small">' . esc_html__( 'View Original Order', 'woocommerce-deposits' ) . '</a>';
+			echo '<a href="' . esc_url( $original_order_url ) . '" target="_blank" class="button button-small">' . esc_html__( 'View Original Order', 'woocommerce-deposits' ) . '</a>';
 		}
 	}
 
@@ -708,7 +709,7 @@ class WC_Deposits_Order_Manager {
 						$order->update_status( 'partial-payment', __( 'Unmarked as paid.', 'woocommerce-deposits' ) );
 					}
 				}
-				wp_safe_redirect( WC_Deposits_COT_Compatibility::get_order_admin_edit_url( $order ) );
+				wp_safe_redirect( $order->get_edit_order_url() );
 				exit;
 			case 'mark_deposit_fully_paid':
 				wc_add_order_item_meta( $item_id, '_remaining_balance_paid', 1 );
@@ -716,7 +717,7 @@ class WC_Deposits_Order_Manager {
 				if ( $order && 'completed' !== $order->get_status() && $this->is_deposit_fully_paid( $order_id ) ) {
 					$order->update_status( 'completed', __( 'Order completed with Mark Paid (offline).', 'woocommerce-deposits' ) );
 				}
-				wp_safe_redirect( WC_Deposits_COT_Compatibility::get_order_admin_edit_url( $order ) );
+				wp_safe_redirect( $order->get_edit_order_url() );
 				exit;
 			case 'invoice_remaining_balance':
 				// Used for products with fixed deposits or percentage based deposits. Not used for payment plan products
@@ -764,7 +765,7 @@ class WC_Deposits_Order_Manager {
 					$emails->customer_invoice( wc_get_order( $new_order_id ) );
 				}
 				$new_order = wc_get_order( $new_order_id );
-				wp_safe_redirect( WC_Deposits_COT_Compatibility::get_order_admin_edit_url( $new_order ) );
+				wp_safe_redirect( $new_order->get_edit_order_url() );
 				exit;
 		}
 	}

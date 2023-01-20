@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
 import { __experimentalRegisterCheckoutFilters } from '@woocommerce/blocks-checkout';
 
 __experimentalRegisterCheckoutFilters( 'mix-and-match', {

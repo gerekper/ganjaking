@@ -4,9 +4,9 @@
  *
  * @author      StoreApps
  * @since       6.1.0
- * @version     1.0.0
+ * @version     1.0.1
  *
- * @package     woocommerce-smart-coupons/includes/
+ * @package     woocommerce-smart-coupons/includes/compat/
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

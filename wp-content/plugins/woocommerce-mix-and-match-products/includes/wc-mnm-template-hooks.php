@@ -6,7 +6,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Templates
  * @since    1.0.0
- * @version  2.2.0
+ * @version  2.3.0
  */
 
 // Exit if accessed directly.
@@ -52,6 +52,7 @@ add_action( 'wc_mnm_child_item_details', 'wc_mnm_template_child_item_attributes'
 
 add_action( 'wc_mnm_child_item_details', 'wc_mnm_child_item_short_description', 63, 2 );
 add_action( 'wc_mnm_child_item_details', 'wc_mnm_template_child_item_price', 65, 2 );
+add_action( 'wc_mnm_child_item_details', 'wc_mnm_template_child_item_stock_remaining', 67, 2 );
 
 add_action( 'wc_mnm_child_item_details', 'wc_mnm_template_child_item_section_close', 70, 2 );
 add_action( 'wc_mnm_child_item_details', 'wc_mnm_template_child_item_quantity_open', 80, 2 );

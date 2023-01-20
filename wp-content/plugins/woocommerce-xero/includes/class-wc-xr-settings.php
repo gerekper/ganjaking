@@ -731,7 +731,15 @@ class WC_XR_Settings {
 	 * Settings intro
 	 */
 	public function settings_intro() {
-		echo '<p>' . __( 'Settings for your Xero account including security keys and default account numbers.<br/> <strong>All</strong> text fields are required for the integration to work properly.', 'woocommerce-xero' ) . '</p>';
+		echo '<p>';
+		esc_html_e( 'Settings for your Xero account including security keys and default account numbers.', 'woocommerce-xero' );
+		echo '<br/>';
+		/* translators: %1$s: opening anchor tag; %2$s: closing anchor tag */
+		printf( esc_html__( 'Please ensure you\'re following all %1$srequirements%2$s prior to setup.', 'woocommerce-xero' ), '<a href="https://woocommerce.com/document/xero/#requirements" target="_blank">', '</a>' );
+		echo '<br/>';
+		/* translators: %1$s: opening strong tag; %2$s: closing strong tag */
+		printf( esc_html__( '%1$sAll%2$s text fields are required for the integration to work properly.', 'woocommerce-xero' ), '<strong>', '</strong>' );
+		echo '</p>';
 	}
 
 	/**
@@ -804,7 +812,8 @@ class WC_XR_Settings {
 			echo '<script src="https://edge.xero.com/platform/sso/xero-sso.js" async defer></script>';
 			echo '</div>';
 		} else {
-			echo '<span><b>' . esc_html( __( 'Please fill in the Client id and the Client Secret fields first and save before continuing.', 'woocommerce-xero' ) ) . '</b></span><br/>';
+			/* translators: %1$s: line break tag; %2$s: opening anchor tag; %3$s: closing anchor tag; */
+			echo '<span><b>' . sprintf( esc_html( __( 'Please fill in the Client ID and the Client Secret fields first and save before continuing.%1$s Also, ensure you\'re following all %2$srequirements%3$s prior to setup.', 'woocommerce-xero' ) ), '<br>', '<a href="https://woocommerce.com/document/xero/#requirements" target="_blank">', '</a>' ) . '</b></span><br/>';
 		}
 
 		if ( $data_complete ) {

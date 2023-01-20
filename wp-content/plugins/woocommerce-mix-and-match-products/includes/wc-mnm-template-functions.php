@@ -6,7 +6,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Functions
  * @since    1.0.0
- * @version  2.2.0
+ * @version  2.3.0
  */
 
 // Exit if accessed directly.
@@ -131,9 +131,11 @@ function wc_mnm_content_loop( $product ) {
 
 			/**
 			 * 'wc_mnm_item_details' action.
+			 * 
+			 * @since 2.0.0 - variable changed to WC_MNM_Child_Item but most product methods should pass through magic getter.
 			 *
 			 * @param WC_MNM_Child_Item $child_item
-			 * @since 2.0.0 - variable changed to WC_MNM_Child_Item but most product methods should pass through magic getter.
+			 * @param WC_Product_Mix_and_Match
 			 *
 			 * @hooked wc_mnm_category_caption - -10
 			 * @hooked wc_mnm_template_child_item_details_wrapper_open  -   0
@@ -192,7 +194,7 @@ function wc_mnm_template_child_items_wrapper_open( $product ) {
 			$column_headers[ 'thumbnail' ] = '&nbsp;';
 		}
 
-		$column_headers[ 'name' ] = esc_html_x( 'Product', '[Frontend]', 'woocommerce-mix-and-match-products' );
+		$column_headers[ 'details' ]  = esc_html_x( 'Product', '[Frontend]', 'woocommerce-mix-and-match-products' );
 		$column_headers[ 'quantity' ] = esc_html_x( 'Quantity', '[Frontend]', 'woocommerce-mix-and-match-products' );
 
 		/**
@@ -212,6 +214,7 @@ function wc_mnm_template_child_items_wrapper_open( $product ) {
 
 		if ( 'tabular' === $product->get_layout() ) {
 			$classes[] = 'mnm_table';
+			$classes[] = 'shop_table';
 		} elseif ( 'grid' === $product->get_layout() ) {
 			$classes[] = 'columns-' . $columns;
 
@@ -226,6 +229,18 @@ function wc_mnm_template_child_items_wrapper_open( $product ) {
 				$classes[] = 'has-flex';
 			}
 
+		}
+
+		if ( 'yes' !== get_option( 'wc_mnm_display_short_description', 'no' ) ) {
+			$classes[] = 'has-short-descriptions';
+		}
+
+		if ( 'yes' !== get_option( 'wc_mnm_display_thumbnail', 'no' ) ) {
+			$classes[] = 'has-thumbnails';
+		}
+
+		if ( apply_filters( 'wc_mnm_center_align_quantity', true, $product ) ) {
+			$classes[] = 'has-center-aligned-quantity';
 		}
 
 		/**
@@ -423,7 +438,7 @@ function wc_mnm_template_child_item_details_open( $child_item, $product ) {
 	wc_get_template(
 		'single-product/mnm/' . $product->get_layout() . '/mnm-child-item-detail-wrapper-open.php',
 		array(
-			'classes' => 'product-details',
+			'classes' => array( 'product-details' ),
 		),
 		'',
 		WC_Mix_and_Match()->plugin_path() . '/templates/'
@@ -537,6 +552,24 @@ function wc_mnm_template_child_item_price( $child_item, $product ) {
 	}
 }
 
+/**
+ * Get the MNM item product's remaining stock text.
+ *
+ * Since "out of stock" and "Temporarily unavailable" are also printed by the get_availability_html() method
+ * We need to separate this part out into it's own template function.
+ * 
+ * @since 2.3.0
+ *
+ * @param obj WC_MNM_Child_Item $child_item of child item
+ * @param obj WC_Mix_and_Match $product the parent container
+ */
+function wc_mnm_template_child_item_stock_remaining( $child_item, $product ) {
+
+	if ( $child_item->get_product()->is_purchasable() && $child_item->get_product()->is_in_stock() ) {
+		echo wp_kses_post( $child_item->get_availability_html() );
+	}
+
+}
 
 /**
  * Open the MNM item product quantity sub-section
@@ -765,7 +798,7 @@ function wc_mnm_template_container_status( $product ) {
 
 	$purchasable_notice = _x( 'This product is currently unavailable.', '[Frontend]', 'woocommerce-mix-and-match-products' );
 
-	if ( ! $product->is_purchasable()  && current_user_can( 'manage_woocommerce' ) ) {
+	if ( ! $product->is_purchasable() && current_user_can( 'manage_woocommerce' ) ) {
 
 		$purchasable_notice_reason = '';
 
@@ -1093,9 +1126,9 @@ if ( ! function_exists( 'wc_mnm_template_edit_container_order_item' ) ) {
 	 * @param WC_Product_Mix_and_Match
 	 * @param WC_Order_Item $order_item
 	 * @param WC_Order $order
-	 * @param  string $context The originating source loading this template
+	 * @param  string $source The originating source loading this template
 	 */
-	function wc_mnm_template_edit_container_order_item( $product, $order_item, $order, $context ) {
+	function wc_mnm_template_edit_container_order_item( $product, $order_item, $order, $source ) {
 
 		global $product;
 
@@ -1112,6 +1145,7 @@ if ( ! function_exists( 'wc_mnm_template_edit_container_order_item' ) ) {
 			'cart',
 			'cart_group',
 			'edit_container',
+			'layout_' . $product->get_layout(),
 		);
 
 		/**
@@ -1128,7 +1162,7 @@ if ( ! function_exists( 'wc_mnm_template_edit_container_order_item' ) ) {
 				'order_item' => $order_item,
 				'order'      => $order,
 				'classes'    => $classes,
-				'context'    => $context,
+				'source'     => $source,
 			),
 			'',
 			WC_Mix_and_Match()->plugin_path(). '/templates/'

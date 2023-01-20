@@ -2,7 +2,7 @@
 /**
  * Mix and Match Product Add to Cart button template
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/single-product/add-to-cart/mnm-add-to-cart-wrap.php.
+ * This template can be overridden by copying it to yourtheme/woocommerce/single-product/add-to-cart/mnm-add-to-cart-button.php.
  *
  * HOWEVER, on occasion WooCommerce Mix and Match will need to update template files and you
  * (the theme developer) will need to copy the new files to your theme to

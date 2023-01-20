@@ -3,7 +3,7 @@
  * Child Item class.
  *
  * @package  WooCommerce Mix and Match Products/Classes/Products
- * @since    2.2.0
+ * @since    2.3.0
  */
 
 // Exit if accessed directly.
@@ -311,14 +311,14 @@ class WC_MNM_Child_Item extends WC_Data {
 		$product = $this->get_product();
 
 		$atts = array(
-			'data-child_item_id'     => $this->get_id(),
-			'data-mnm_item_id'       => $product->get_id(), // Deprecated.
-			'data-child_id'          => $product->get_id(),
-			'data-regular_price'     => $is_priced_per_product ? wc_get_price_to_display( $product, array( 'price' => $product->get_regular_price() ) ) : 0,
-			'data-price'             => $is_priced_per_product ? wc_get_price_to_display( $product, array( 'price' => $product->get_price() ) ) : 0,
-			'data-price_incl_tax'    => $is_priced_per_product ? wc_get_price_including_tax( $product, array( 'price' => $product->get_price() ) ) : 0,
-			'data-price_excl_tax'    => $is_priced_per_product ? wc_get_price_excluding_tax( $product, array( 'price' => $product->get_price() ) ) : 0,
-			'data-max_stock'         => $product->get_max_purchase_quantity(),
+			'child_item_id'     => $this->get_id(),
+			'mnm_item_id'       => $product->get_id(), // Deprecated.
+			'child_id'          => $product->get_id(),
+			'regular_price'     => $is_priced_per_product ? wc_get_price_to_display( $product, array( 'price' => $product->get_regular_price() ) ) : 0,
+			'price'             => $is_priced_per_product ? wc_get_price_to_display( $product, array( 'price' => $product->get_price() ) ) : 0,
+			'price_incl_tax'    => $is_priced_per_product ? wc_get_price_including_tax( $product, array( 'price' => $product->get_price() ) ) : 0,
+			'price_excl_tax'    => $is_priced_per_product ? wc_get_price_excluding_tax( $product, array( 'price' => $product->get_price() ) ) : 0,
+			'max_stock'         => $product->get_max_purchase_quantity(),
 		);
 
 		/**
@@ -328,7 +328,9 @@ class WC_MNM_Child_Item extends WC_Data {
 		 * @param obj $child_item WC_MNM_Child_Item the child item class.
 		 * @since  2.0.0
 		 */
-		return (array) apply_filters( 'wc_mnm_child_item_data_attributes', $atts, $this );
+		$attributes = (array) apply_filters( 'wc_mnm_child_item_data_attributes', $atts, $this );
+
+		return wc_mnm_prefix_data_attribute_keys( $attributes );
 
 	}
 

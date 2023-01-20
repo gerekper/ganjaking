@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Display
  * @since    1.0.0
- * @version  2.0.6
+ * @version  2.3.0
  */
 
 // Exit if accessed directly.
@@ -185,7 +185,7 @@ class WC_Mix_and_Match_Display {
 			// translators: %s is number of items. %max is the container maximum.
 			'i18n_quantity_format_counter_single'       => _x( '%s/%max item', '[Frontend]Status counter format. Ex: 1/10 items', 'woocommerce-mix-and-match-products' ),
 			// translators: %v complete price string. %s is the current selected quantity.
-			'i18n_status_format'                        => _x( '%v (%s)', '[Frontend]"Total price string followed by formatted quantity count, ex: $99 (9 items)', 'woocommerce-mix-and-match-products' ),
+			'i18n_status_format'                        => _x( '%v <span class="mnm_counter">(%s)</span>', '[Frontend]"Total price string followed by formatted quantity count, ex: $99 (9 items)', 'woocommerce-mix-and-match-products' ),
 			// translators: %1$s is original price. %2$s is the discounted price.
 			'i18n_strikeout_price_string'               => sprintf( _x( '<del>%1$s</del> <ins>%2$s</ins>', '[Frontend]Sale/discount price format', 'woocommerce-mix-and-match-products' ), '%f', '%t' ),
 			'i18n_free'                                 => _x( 'Free!', 'woocommerce-mix-and-match-products' ),
@@ -227,13 +227,15 @@ class WC_Mix_and_Match_Display {
 			// translators: %d is the max quantity allowed for an individual child item.
 			'i18n_child_item_max_container_qty_message' => _x( 'Container limited to %d', '[Frontend]', 'woocommerce-mix-and-match-products' ),
 			// translators: %v is the current quantity message.
-			'i18n_edit_valid_fixed_message'                  => _x( '%v Update to continue&hellip;', '[Frontend]', 'wc-mnm-subscription-switching', 'woocommerce-mix-and-match-products' ),
+			'i18n_edit_valid_fixed_message'             => _x( '%v Update to continue&hellip;', '[Frontend]', 'woocommerce-mix-and-match-products' ),
 			// translators: %v is the current quantity message.
-			'i18n_edit_valid_min_message'                    => _x( '%v You can select more or update to continue&hellip;', '[Frontend]', 'wc-mnm-subscription-switching', 'woocommerce-mix-and-match-products' ),
+			'i18n_edit_valid_min_message'               => _x( '%v You can select more or update to continue&hellip;', '[Frontend]', 'woocommerce-mix-and-match-products' ),
 			// translators: %v is the current quantity message. %max is the container maximum.
-			'i18n_edit_valid_max_message'                    => _x( '%v You can select up to %max or update to continue&hellip;', '[Frontend]', 'wc-mnm-subscription-switching', 'woocommerce-mix-and-match-products' ),
+			'i18n_edit_valid_max_message'               => _x( '%v You can select up to %max or update to continue&hellip;', '[Frontend]', 'woocommerce-mix-and-match-products' ),
 			// translators: %v is the current quantity message. %min is the container minimum. %max is the container maximum.
-			'i18n_edit_valid_range_message'                  => _x( '%v You may select between %min and %max items or update to continue&hellip;', '[Frontend]', 'wc-mnm-subscription-switching', 'woocommerce-mix-and-match-products' ),
+			'i18n_edit_valid_range_message'             => _x( '%v You may select between %min and %max items or update to continue&hellip;', '[Frontend]', 'woocommerce-mix-and-match-products' ),
+			// translators: Warning before container configuration is cleared.
+			'i18n_confirm_reset'                        => _x( 'Are you sure you want to clear all your selections?', '[Frontend]', 'woocommerce-mix-and-match-products' ),		
 			'currency_symbol'                           => get_woocommerce_currency_symbol(),
 			'currency_position'                         => esc_attr( stripslashes( get_option( 'woocommerce_currency_pos' ) ) ),
 			'currency_format_num_decimals'              => absint( wc_get_price_decimals() ),
@@ -679,7 +681,7 @@ class WC_Mix_and_Match_Display {
 		$args = wp_parse_args(
             $args,
             array(
-			'aggregated' => true,
+				'aggregated' => true,
             ) 
         );
 
@@ -703,7 +705,8 @@ class WC_Mix_and_Match_Display {
 
 					$data[] = array(
 						'key'   => esc_html_x( 'Selections', '[Frontend]', 'woocommerce-mix-and-match-products' ),
-						'value' => $child_item_description
+						'value' => $child_item_description,
+						'className' => 'wc-block-components-product-details__selections',
 					);
 				}
 
@@ -713,6 +716,7 @@ class WC_Mix_and_Match_Display {
 				$data[] = array(
 					'key'   => esc_html_x( 'Selections', '[Frontend]', 'woocommerce-mix-and-match-products' ),
 					'display' => ( string ) implode( "<br/>", $config_data ),
+					'className' => 'wc-block-components-product-details__selections',
 				);
 			}
 		}

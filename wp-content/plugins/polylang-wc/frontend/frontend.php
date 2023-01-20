@@ -327,7 +327,14 @@ class PLLWC_Frontend {
 	 * @return void
 	 */
 	public function filter_dynamic_blocks() {
-		$script = $this->get_filter_script( '/wc/store/products' );
+		// Backward compatibility with WC < 6.4.0.
+		$path = '/wc/store/products';
+
+		// since WC 6.4.0.
+		if ( version_compare( WC()->version, '6.4.0', '>=' ) ) {
+			$path = '/wc/store/v1';
+		}
+		$script = $this->get_filter_script( $path );
 
 		// Backward compatibility with WC < 5.6.
 		wp_add_inline_script( 'wc-reviews-frontend', $script, 'before' );
@@ -350,6 +357,7 @@ class PLLWC_Frontend {
 	 * @return string Inline js script to add.
 	 */
 	protected function get_filter_script( $path ) {
+
 		$path = esc_js( $path );
 		$lang = esc_js( pll_current_language() );
 

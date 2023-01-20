@@ -4,6 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Theme Compatibility
  * @since    2.0.0
+ * @version  2.3.0
  */
 
 // Exit if accessed directly.
@@ -13,8 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * WC_MNM_X_Compatibility Class.
- *
- * @version  2.0.0
  */
 class WC_MNM_X_Compatibility {
 
@@ -25,6 +24,9 @@ class WC_MNM_X_Compatibility {
 		// Wrapping div.
 		add_action( 'wc_mnm_child_item_details', array( __CLASS__, 'entry_wrap_open' ), 39, 2 );
 		add_action( 'wc_mnm_child_item_details', array( __CLASS__, 'entry_wrap_close' ), 101, 2 );
+
+		// Left align the quantity inputs.
+		add_filter( 'wc_mnm_center_align_quantity', '__return_false' );
 
 		// Add inline style.
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'inline_style' ), 20 );

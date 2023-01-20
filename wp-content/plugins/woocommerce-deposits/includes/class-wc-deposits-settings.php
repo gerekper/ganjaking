@@ -92,6 +92,8 @@ class WC_Deposits_Settings {
 
 		$plans = WC_Deposits_Plans_Manager::get_plan_ids();
 
+		$plan_ids = WC_Deposits_Plans_Manager::get_default_plan_ids();
+
 		return apply_filters(
 			'woocommerce_deposits_get_settings',
 			array(
@@ -155,15 +157,18 @@ class WC_Deposits_Settings {
 				),
 
 				array(
-					'name'     => esc_html__( 'Default Payment Plan', 'woocommerce-deposits' ),
-					'type'     => 'multiselect',
-					'class'    => 'wc-enhanced-select',
-					'css'      => 'width: 450px;',
-					'desc'     => esc_html__( 'The default payment plans to use.', 'woocommerce-deposits' ),
-					'default'  => array(),
-					'id'       => 'wc_deposits_default_plans',
-					'desc_tip' => true,
-					'options'  => $plans,
+					'name'              => esc_html__( 'Default Payment Plan', 'woocommerce-deposits' ),
+					'type'              => 'multiselect',
+					'class'             => 'wc-enhanced-select',
+					'css'               => 'width: 450px;',
+					'desc'              => esc_html__( 'The default payment plans to use.', 'woocommerce-deposits' ),
+					'default'           => array(),
+					'id'                => 'wc_deposits_default_plans',
+					'custom_attributes' => array(
+						'data-plans-order' => join( ',', $plan_ids ),
+					),
+					'desc_tip'          => true,
+					'options'           => $plans,
 				),
 
 				array(

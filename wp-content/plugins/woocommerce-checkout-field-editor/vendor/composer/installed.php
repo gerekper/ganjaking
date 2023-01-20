@@ -3,7 +3,7 @@
         'name' => 'woocommerce/woocommerce-checkout-field-editor',
         'pretty_version' => 'dev-trunk',
         'version' => 'dev-trunk',
-        'reference' => 'ff68ae43b9472d5b06d04021db3c0c1fff63fef1',
+        'reference' => '6966ce435d87dcf094847740d22f4d5564e9e659',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -34,7 +34,7 @@
         'woocommerce/woocommerce-checkout-field-editor' => array(
             'pretty_version' => 'dev-trunk',
             'version' => 'dev-trunk',
-            'reference' => 'ff68ae43b9472d5b06d04021db3c0c1fff63fef1',
+            'reference' => '6966ce435d87dcf094847740d22f4d5564e9e659',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

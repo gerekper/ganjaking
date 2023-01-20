@@ -1,5 +1,27 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2023.01.16 - version 2.3.0
+* IMPORTANT: PHP 7.2 is required.
+* Update: Tested up to WooCommerce 7.3.0.
+* New: Separate out "X in stock" remaining text and display in child item details, updated single-product/mnm/mnm-product-quantity.php template.
+* Fix: Correctly parse hierarchical child category IDs. Closes #470.
+* Fix: Add static className to item data for better blocks compat. Closes #468.
+* Fix: Missing export data for layout override and weight calculation.
+* Fix: Flatsome compatibility for equal-height product images.
+* Fix: Disable per-product overrides when viewing customizer.
+* Fix: Default value of customizer settings for show thumbnails/short-description.
+* Fix: Fixed a fatal error that was triggered when using PHP v8 and using Cart/Checkout Blocks.
+* Fix: Rename tabular layout 'product-name' header cell to 'product-details'.
+* Tweak: Audit CSS styles to remove as much explicit padding/margin as possible.
+* Tweak: Add a close icon to font family for use by mini-extensions.
+* Tweak: Add woocommerce_product_loop_title_classes filter for parity with core.
+* Tweak: Adjust front-end styles for mobile first.
+* Tweak: Center align quantity inputs in Storefront theme.
+* Tweak: container.child_items in script is now an ARRAY. Please check if doing very advanced custom Javascript modifications.
+* Dev: Rename WC_MNM_Container.validation_context property to validation_mode.
+* Dev: Re-key wc_mnm_child_item_data_attributes to not use 'data-' prefix. It will be auto-added.
+* Dev: Introduce wc_mnm_center_align_quantity filter.
+
 2022.11.07 - version 2.2.2
 * Fix: Double-charging for child items when ordering again. #466.
 * Fix: Front-end validation allow overfilled container to be reduced. #461.
@@ -222,6 +244,8 @@
 * New: add has_options() method to product class for better compat with blocks.
 * Fix: Elementor style rule, force Elementor to display MNM form as a block instead of flex layout.
 * Fix: Fix incorrect shipping state on child items in manually created orders.
+* Tweak: Add confirm alert to clear selections button.
+* Tweak: Change "Clear selection" to "Clear selections".
 
 2020.08.25 - version 1.10.1
 * Fix: Validate stock against quantity already in the cart.

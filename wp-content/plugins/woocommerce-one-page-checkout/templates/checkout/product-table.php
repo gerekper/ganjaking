@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<td class="product-thumbnail">
 			<a href="<?php echo esc_url( wp_get_attachment_url( $product->get_image_id() ) ); ?>" data-rel="prettyPhoto" itemprop="image" class="woocommerce-main-image zoom">
-				<?php echo $product->get_image(); ?>
+				<?php echo $product->get_image(); // PHPCS:Ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			</a>
 		</td>
 
@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</td>
 
 		<td class="product-price">
-			<span itemprop="price" class="price"><?php echo $product->get_price_html(); ?></span>
+			<span itemprop="price" class="price"><?php echo $product->get_price_html(); // PHPCS:Ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
 		</td>
 
 		<td class="product-quantity">

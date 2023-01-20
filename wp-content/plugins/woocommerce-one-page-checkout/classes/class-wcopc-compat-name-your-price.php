@@ -35,8 +35,8 @@ class WCOPC_Compat_Name_Your_Price {
 
 			// Filter the NYP suffix.
 			add_filter( $suffix_filter, array( __CLASS__, 'nyp_cart_suffix' ), 10, 2 );
-			
-			// Make sure input has cart price since it may not be in $_REQUEST.	
+
+			// Make sure input has cart price since it may not be in $_REQUEST.
 			add_filter( $price_filter, array( __CLASS__, 'nyp_input_initial_value' ), 10, 2 );
 
 			// Maybe swap on single product pages.
@@ -58,7 +58,7 @@ class WCOPC_Compat_Name_Your_Price {
 	 * Maybe swap default price input with OPC function that adds prefix.
 	 *
 	 * @since	1.5.0
-	 * 
+	 *
 	 * @param	obj $product
 	 * @return	void
 	 */
@@ -72,7 +72,7 @@ class WCOPC_Compat_Name_Your_Price {
 	 * Swap default price input with OPC function that adds prefix.
 	 *
 	 * @since	1.6.0
-	 * 
+	 *
 	 * @param	obj $product
 	 * @return	void
 	 */
@@ -107,7 +107,7 @@ class WCOPC_Compat_Name_Your_Price {
 	 * Display Price Input in OPC templates.
 	 *
 	 * @since	1.5.0
-	 * 
+	 *
 	 * @param	obj $product
 	 * @return	void
 	 */
@@ -127,11 +127,11 @@ class WCOPC_Compat_Name_Your_Price {
 	}
 
 	/**
-	 * Sets a unique suffix for unique NYP products in OPC templates. 
+	 * Sets a unique suffix for unique NYP products in OPC templates.
 	 * The suffix is set and re-set globally before validating and adding to cart.
 	 *
 	 * @since	1.5.0
-	 * 
+	 *
 	 * @param  	string  $suffix
 	 * @param  	int     $nyp_id
 	 * @return  string
@@ -139,11 +139,13 @@ class WCOPC_Compat_Name_Your_Price {
 	public static function nyp_cart_suffix( $suffix, $nyp_id ) {
 
 		if ( PP_One_Page_Checkout::is_any_form_of_opc_page() ) {
+			// PHPCS:Disable WordPress.Security.NonceVerification.Recommended
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $_REQUEST['add_to_cart'] ) ) {
-				$suffix = self::SUFFIX . $_REQUEST['add_to_cart'];
+				$suffix = self::SUFFIX . absint( wp_unslash( $_REQUEST['add_to_cart'] ) );
 			} elseif ( isset( $_REQUEST['add-to-cart'] ) ) {
-				$suffix = self::SUFFIX . $_REQUEST['add-to-cart'];
+				$suffix = self::SUFFIX . absint( wp_unslash( $_REQUEST['add-to-cart'] ) );
 			}
+			// PHPCS:Enable
 		}
 
 		return $suffix;
@@ -153,7 +155,7 @@ class WCOPC_Compat_Name_Your_Price {
 	 * Modifies the price input if the item is in the OPC cart
 	 *
 	 * @since	1.7.5
-	 * 	 
+	 *
 	 * @param  	string     $price
 	 * @param  	WC_Product $product
 	 * @return  string
@@ -173,16 +175,16 @@ class WCOPC_Compat_Name_Your_Price {
 	}
 
 	/**
-	 * Sets a unique prefix for unique NYP products in OPC templates. 
+	 * Sets a unique prefix for unique NYP products in OPC templates.
 	 * The prefix is set and re-set globally before validating and adding to cart.
 	 *
 	 * @since	1.5.0
 	 * @deprecated 1.7.5
-	 * 
+	 *
 	 * @param  	string  $prefix
 	 * @param  	int     $nyp_id
 	 * @return  string
-	 * 
+	 *
 	 */
 	public static function nyp_cart_prefix( $prefix, $nyp_id ) {
 		wc_deprecated_function( __METHOD__, '1.7.5' );
