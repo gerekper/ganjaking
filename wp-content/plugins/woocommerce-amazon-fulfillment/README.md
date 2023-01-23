@@ -68,6 +68,10 @@ https://woocommerce.com/document/amazon-fulfillment/#section-17
 
 ## Changelog
 
+### 2023-01-20 - version 4.1.3
+* Fix order sync update issue
+* Add error handling when calculating shipping costs.
+
 ### 2023-01-02 - version 4.1.2
 * Fix issue calculating shipping fees for variations.
 * Fix order status check

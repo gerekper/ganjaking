@@ -166,7 +166,7 @@ if ( ! class_exists( 'NS_MCF_Utils' ) ) {
 			if ( $item->get_variation_id() ) {
 				if ( 'product_variation' === get_post_type( $item->get_variation_id() ) ) {
 					$product = wc_get_product( $item->get_variation_id() );
-					if ( $product->is_virtual() ) {
+					if ( $product && $product->is_virtual() ) {
 						return false;
 					}
 				}

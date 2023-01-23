@@ -236,7 +236,7 @@ if ( ! class_exists( 'NS_MCF_WooCommerce' ) ) {
 			);
 			// if the product is a variable product then provide an option to send the parent SKU to FBA.
 			$product = wc_get_product( $post );
-			if ( $product->is_type( 'variable' ) ) {
+			if ( $product && $product->is_type( 'variable' ) ) {
 				woocommerce_wp_checkbox(
 					array(
 						'id'    => 'ns_fba_send_parent_sku',

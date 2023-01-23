@@ -391,15 +391,19 @@ if ( ! class_exists( 'WC_Integration_FBA' ) ) {
 
 			// First, check whether or not the new ($_POST) sync schedule settings are a valid, active schedule.
 			// This also makes sure we ONLY make changes to the schedule when our MCF settings change.
-			if ( ! empty( $_POST['woocommerce_fba_ns_fba_sp_api_sync_inventory_interval_enabled'] ) &&
+			if ( (
+				! empty( $_POST['woocommerce_fba_ns_fba_sp_api_sync_inventory_interval_enabled'] )
+				|| ! empty( $_POST['woocommerce_fba_ns_fba_sync_ship_status'] )
+			) &&
 			! empty( $_POST['woocommerce_fba_ns_fba_sp_api_sync_inventory_interval'] )
 			) {
-				$sync_status_old = $this->ns_fba->utils->isset_on( $this->get_option( 'ns_fba_sp_api_sync_inventory_interval_enabled' ) );
-				$sync_value_old  = (int) $this->get_option( 'ns_fba_sp_api_sync_inventory_interval' );
-				$sync_value_new  = (int) sanitize_text_field( wp_unslash( $_POST['woocommerce_fba_ns_fba_sp_api_sync_inventory_interval'] ) );
+				$sync_status_old      = $this->ns_fba->utils->isset_on( $this->get_option( 'ns_fba_sp_api_sync_inventory_interval_enabled' ) );
+				$sync_ship_status_old = $this->ns_fba->utils->isset_on( $this->get_option( 'ns_fba_sync_ship_status' ) );
+				$sync_value_old       = (int) $this->get_option( 'ns_fba_sp_api_sync_inventory_interval' );
+				$sync_value_new       = (int) sanitize_text_field( wp_unslash( $_POST['woocommerce_fba_ns_fba_sp_api_sync_inventory_interval'] ) );
 				// We only need to change something if the old and new values are different OR...
 				// If it is getting turned back ON after being OFF.
-				if ( $sync_value_old !== $sync_value_new || false === $sync_status_old ) {
+				if ( $sync_value_old !== $sync_value_new || false === $sync_status_old || false === $sync_ship_status_old ) {
 					as_unschedule_all_actions( 'sp_api_sync_inventory' );
 					$interval = $sync_value_new * 60;
 					$start    = time() + $interval;

@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Compatibility
  * @since    2.0.0
- * @version  2.0.0
+ * @version  2.3.1
  */
 
 // Exit if accessed directly.
@@ -38,10 +38,14 @@ if ( ! class_exists( 'WC_MNM_APFS_Pricing_Compatibility' ) ) :
 			add_filter( 'wcsatt_single_product_one_time_option_has_price', array( __CLASS__, 'update_one_time_price' ), 10, 2 );
 			add_filter( 'wcsatt_price_html_discount_format', array( __CLASS__, 'html_discount_format'), 10, 2 );
 
+			// Temporarily disable APFS price filters when getting the child item Regular price.
+			add_action( 'wc_mnm_child_item_get_unfiltered_regular_price_start', array( __CLASS__, 'remove_regular_price_filters' ) );
+			add_action( 'wc_mnm_child_item_get_unfiltered_regular_price_end', array( __CLASS__, 'add_regular_price_filters' ) );
+
 		}
 
 		/**
-		 * Sub schemes attached on a Product Bundle should not work if the bundle contains a non-convertible product, such as a "legacy" subscription.
+		 * Per-item pricing container base prices can be empty strings, which throws notice in Subscriptions.
 		 */
 		public static function add_price_filters( $context = '' ) {
 			if ( in_array( $context, array( 'price', '' ) ) ) {
@@ -51,7 +55,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Pricing_Compatibility' ) ) :
 		}
 
 		/**
-		 * Sub schemes attached on a Product Bundle should not work if the bundle contains a non-convertible product, such as a "legacy" subscription.
+		 * Per-item pricing container base prices can be empty strings, which throws notice in Subscriptions.
 		 */
 		public static function remove_price_filters( $context = '' ) {
 			if ( in_array( $context, array( 'price', '' ) ) ) {
@@ -80,6 +84,27 @@ if ( ! class_exists( 'WC_MNM_APFS_Pricing_Compatibility' ) ) :
 			return $price;
 
 		}
+
+
+		/**
+		* Remove APFS price filters before retrieving the bundled item Regular Price.
+		*
+		* @since 2.3.1
+		*/
+		public static function remove_regular_price_filters() {
+			error_log("remove_regular_price_filters");
+			WCS_ATT_Product_Price_Filters::remove( 'price' );
+		}
+
+		/**
+		 * Re-add APFS price filters after retrieving the bundled item Regular Price.
+		 * 
+		 * @since 2.3.1
+		 */
+		public static function add_regular_price_filters() {
+			WCS_ATT_Product_Price_Filters::add( 'price' );
+		}
+
 
 		/**
 		 * Sub schemes attached on a Product Bundle should not work if the bundle contains a non-convertible product, such as a "legacy" subscription.

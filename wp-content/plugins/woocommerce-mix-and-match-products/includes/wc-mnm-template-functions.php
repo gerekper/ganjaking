@@ -231,11 +231,11 @@ function wc_mnm_template_child_items_wrapper_open( $product ) {
 
 		}
 
-		if ( 'yes' !== get_option( 'wc_mnm_display_short_description', 'no' ) ) {
+		if ( wc_string_to_bool( get_option( 'wc_mnm_display_short_description', 'no' ) ) ) {
 			$classes[] = 'has-short-descriptions';
 		}
 
-		if ( 'yes' !== get_option( 'wc_mnm_display_thumbnail', 'no' ) ) {
+		if ( wc_string_to_bool( get_option( 'wc_mnm_display_thumbnail', 'no' ) ) ) {
 			$classes[] = 'has-thumbnails';
 		}
 

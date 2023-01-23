@@ -138,6 +138,10 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 
 				$product = wc_get_product( $product_id );
 
+				if ( ! $product ) {
+					continue;
+				}
+
 				$current_sku = $this->get_sku_to_send( $product );
 
 				$body['items'][] = array(
@@ -478,7 +482,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 				$parent_id = $item_product->get_parent_id();
 				if ( $parent_id ) {
 					$parent_product = wc_get_product( $parent_id );
-					if ( get_post_meta( $parent_product->get_id(), 'ns_fba_send_parent_sku', true ) === 'yes' ) {
+					if ( $parent_product && get_post_meta( $parent_product->get_id(), 'ns_fba_send_parent_sku', true ) === 'yes' ) {
 						return $parent_product->get_sku();
 					}
 				}
@@ -654,7 +658,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 				array(
 					'numberposts' => 20,
 					'order'       => 'ASC',
-					'post_type'   => 'any',
+					'post_type'   => wc_get_order_types(),
 					'post_status' => array( 'wc-sent-to-fba', 'wc-part-to-fba' ),
 				)
 			);
@@ -730,7 +734,7 @@ if ( ! class_exists( 'NS_MCF_Fulfillment' ) ) {
 					array(
 						'numberposts' => 20,
 						'order'       => 'ASC',
-						'post_type'   => 'any',
+						'post_type'   => wc_get_order_types(),
 						'post_status' => array( 'wc-fail-to-fba' ),
 						'meta_query'  => array(
 							array(

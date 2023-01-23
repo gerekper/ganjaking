@@ -1,5 +1,8 @@
 *** WooCommerce Mix and Match Products Changelog***
 
+2023.01.19 - version 2.3.1
+* Fix - Fixed double subscription discount on container cart prices when using per-item pricing. #434.
+
 2023.01.16 - version 2.3.0
 * IMPORTANT: PHP 7.2 is required.
 * Update: Tested up to WooCommerce 7.3.0.

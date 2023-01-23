@@ -4,7 +4,7 @@
  *
  * @package  WooCommerce Mix and Match Products/Prices
  * @since    2.0.0
- * @version  2.0.6
+ * @version  2.3.1
  */
 
 // Exit if accessed directly.
@@ -193,7 +193,12 @@ class WC_MNM_Product_Prices {
 			$discount = $product->mnm_child_item->get_discount();
 
 			if ( $discount ) {
-				$price = self::get_discounted_price( $product->mnm_child_item->is_discounted_from_regular_price() ? $product->get_regular_price() : $price, $discount );
+				if ( $product->mnm_child_item->is_discounted_from_regular_price() ) {
+					do_action( 'wc_mnm_child_item_get_unfiltered_regular_price_start' );
+					$price = $product->get_regular_price();
+					do_action( 'wc_mnm_child_item_get_unfiltered_regular_price_end' );
+				}
+				$price = self::get_discounted_price( $price, $discount );
 			}
 
 		}
