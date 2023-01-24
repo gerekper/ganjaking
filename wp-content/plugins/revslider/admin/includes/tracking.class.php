@@ -25,7 +25,9 @@ class RevSliderTracking extends RevSliderFunctions {
 			add_filter('revslider_doing_html_export', array($this, 'count_html_export'), 10, 1);
 			add_filter('revslider_exportSlider_export_data', array($this, 'count_regular_exports'), 10, 1);
 			add_filter('revslider_retrieve_version_info_addition', array($this, 'add_additional_data'), 10, 1);
-			add_action('revslider-retrieve_version_info', array($this, '_run'), 10, 1);
+			add_filter('revslider_deactivate_plugin_info_addition', array($this, 'add_additional_data'), 10, 1);
+			add_filter('revslider_activate_plugin_info_addition', array($this, 'add_additional_data'), 10, 1);
+			add_action('revslider-retrieve_version_info', array($this, '_run'), 10);
 		}
 	}
 
@@ -84,7 +86,7 @@ class RevSliderTracking extends RevSliderFunctions {
 	/**
 	 * this will run the tracking functions and prepare it to be send to the themepunch servers
 	 **/
-	public function _run($update){
+	public function _run($deactivation = 'default'){
 		if(!$this->is_enabled()) return false;
 
 		$sl			= new RevSliderSlide();
@@ -95,9 +97,12 @@ class RevSliderTracking extends RevSliderFunctions {
 		if(!empty($pages)) $shortcodes = $this->get_shortcode_from_page($pages);
 
 		if(!isset($data['html_exports'])) $data['html_exports'] = 0;
-		$data['licensed']	= $this->_truefalse(get_option('revslider-valid', 'true'));
+		$data['environment'] = array(
+			'version'		=> RS_REVISION
+		);
+		$data['licensed']	= ($deactivation === 'default') ? $this->_truefalse(get_option('revslider-valid', 'true')) : $deactivation; //if $deactivation === false, we are in deactivation process, so set already to false
 		$data['slider']		= array(
-			'number'		=> count($shortcodes),
+			'number'		=> 0,
 			'premium'		=> 0,
 			'import'		=> 0,
 			'sources'		=> array(
@@ -144,6 +149,11 @@ class RevSliderTracking extends RevSliderFunctions {
 			foreach($shortcodes as $alias){
 				$sldr		= new RevSliderSlider();
 				$sldr->init_by_alias($alias);
+				if($sldr->inited === false) continue;
+				$premium	= $sldr->get_param('pakps', false);
+				if($data['licensed'] === false && $premium === true) continue; // do not fetch premium data on unlicensed slider
+
+				$data['slider']['number']++;
 				$slides		= $sldr->get_slides();
 				$static_slide = false;
 				$static_id	= $sl->get_static_slide_id($sldr->get_id());
@@ -162,8 +172,7 @@ class RevSliderTracking extends RevSliderFunctions {
 				$post			= $sldr->is_posts();
 				$specific_post	= $sldr->is_specific_posts();
 				$stream			= $sldr->is_stream();
-				$type			= $sldr->get_param('sourcetype', 'gallery');
-				$premium		= $sldr->get_param('pakps', false);
+				$type			= $sldr->get_param('sourcetype', 'gallery');				
 				$import			= $sldr->get_param('imported', false);
 				if($post){
 					if(in_array($type, array('woocommerce', 'woo'))){

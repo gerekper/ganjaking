@@ -100,7 +100,7 @@ if ( ! class_exists( 'WC_360_Image_Settings' ) ) {
 					'id'       => 'wc360_fullscreen_enable',
 					'type'     => 'checkbox',
 					'css'      => 'min-width:300px;',
-					'default'  => 'no',  // WC >= 2.0
+					'default'  => 'no',
 					'desc'     => __( 'Enable Full Screen Option', 'woocommerce-360-image' ),
 
 				);
@@ -112,15 +112,15 @@ if ( ! class_exists( 'WC_360_Image_Settings' ) ) {
 					'id'       => 'wc360_navigation_enable',
 					'type'     => 'checkbox',
 					'css'      => 'min-width:300px;',
-					'default'  => 'yes',  // WC >= 2.0
+					'default'  => 'yes',
 					'desc'     => __( 'Enable Navigation Controls', 'woocommerce-360-image' ),
 
 				);
-				
+
 				$settings_360[] = array( 'type' => 'sectionend', 'id' => 'woocommerce_360_image' );
 
 				return $settings_360;
-			
+
 			/**
 			 * If not, return the standard settings
 			 **/

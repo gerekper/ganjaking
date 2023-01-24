@@ -92,7 +92,6 @@ class Crawl_Settings_Integration implements Integration_Interface {
 
 		\add_action( 'wpseo_settings_tab_crawl_cleanup_internal', [ $this, 'add_crawl_settings_tab_content' ] );
 		\add_action( 'wpseo_settings_tab_crawl_cleanup_network', [ $this, 'add_crawl_settings_tab_content_network' ] );
-		\add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
 	}
 
 	/**

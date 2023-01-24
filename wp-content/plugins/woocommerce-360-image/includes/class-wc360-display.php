@@ -105,7 +105,7 @@ if ( ! class_exists( 'WC_360_Image_Display' ) ) {
 				}
 				<?php
 					// Show Full Screen Plugin (if enabled)
-					if ( get_option( 'wc360_fullscreen_enable' ) === 'no' ) {
+					if ( get_option( 'wc360_fullscreen_enable', 'no' ) === 'no' ) {
 						echo '#container.wc360-container .fullscreen-button {
 							display: none !important;
 						}';
@@ -154,7 +154,7 @@ if ( ! class_exists( 'WC_360_Image_Display' ) ) {
 
 			return array(
 				'images'     => wp_json_encode( $this->js_data_images( $post_id ) ),
-				'navigation' => get_option( 'wc360_navigation_enable' ) === 'yes',
+				'navigation' => get_option( 'wc360_navigation_enable', 'yes' ) === 'yes',
 				'responsive' => apply_filters( 'wc360_js_responsive', true ),
 				'drag'       => apply_filters( 'wc360_js_drag', true ),
 				'spin'       => apply_filters( 'wc360_js_spin', false ),

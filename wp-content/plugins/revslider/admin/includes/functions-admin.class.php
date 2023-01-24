@@ -871,6 +871,7 @@ class RevSliderFunctionsAdmin extends RevSliderFunctions {
 			'layerevent_focus' => __('Focus', 'revslider'),
 			'layerevent_blur' => __('Blur', 'revslider'),
 			'layerevent_change' => __('Change', 'revslider'),
+			'layerevent_blurchange' => __('BlrChn', 'revslider'),
 			'layeraction_group_link' => __('Link Actions', 'revslider'),
 			'layeraction_group_slide' => __('Slide Actions', 'revslider'),
 			'layeraction_group_layer' => __('Layer Actions', 'revslider'),

@@ -24,7 +24,11 @@ class RevSliderElementor {
 		if(version_compare(PHP_VERSION, $min_php_version, '<')) return;
 		
 		// Add Plugin actions
-		add_action('elementor/widgets/widgets_registered', array('RevSliderElementor', 'init_elementor_widgets'));	
+		if(version_compare(PHP_VERSION, '3.5.0', '<')){
+			add_action('elementor/widgets/widgets_registered', array('RevSliderElementor', 'init_elementor_widgets'));
+		}else{
+			add_action('elementor/widgets/register', array('RevSliderElementor', 'init_elementor_widgets'));
+		}
 		
 		// Register Widget Styles/Scripts
 		add_action('elementor/editor/after_enqueue_styles', array('RevSliderShortcodeWizard', 'add_styles'));
@@ -33,9 +37,7 @@ class RevSliderElementor {
 	}
 	
 	public static function add_scripts() {
-		
 		RevSliderShortcodeWizard::add_scripts(true);
-		
 	}
 	
 	public static function init_elementor_widgets() {
@@ -47,8 +49,10 @@ class RevSliderElementor {
 		$widgets_manager = \Elementor\Plugin::instance()->widgets_manager;
 		if(version_compare(ELEMENTOR_VERSION, '3.1.0', '<=')){
 			$widgets_manager->register_widget_type( new RevSliderElementorWidgetPre310() );
-		}else{
+		}elseif(version_compare(ELEMENTOR_VERSION, '3.5.0', '<')){
 			$widgets_manager->register_widget_type( new RevSliderElementorWidget() );
+		}else{
+			$widgets_manager->register( new RevSliderElementorWidget() );
 		}
 
 	}

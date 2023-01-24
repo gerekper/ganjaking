@@ -3,16 +3,17 @@
  * Plugin Name: WooCommerce 360° Image
  * Plugin URI: https://woocommerce.com/products/woocommerce-360-image/
  * Description: Add a 360° image rotation display your product listings in WooCommerce.
- * Version: 1.2.1
+ * Version: 1.3.0
  * Author: Themesquad
  * Author URI: https://themesquad.com/
- * Requires at least: 4.4
- * Tested up to: 6.0
+ * Requires PHP: 5.4
+ * Requires at least: 4.7
+ * Tested up to: 6.1
  * Domain: woocommerce-360-image
  * Domain Path: /languages
  *
- * WC requires at least: 3.0
- * WC tested up to: 6.5
+ * WC requires at least: 3.5
+ * WC tested up to: 7.3
  * Woo: 512186:24eb2cfa3738a66bf3b2587876668cd2
  *
  * License: GNU General Public License v3.0
@@ -21,46 +22,36 @@
  * @package woocommerce-360-image
  */
 
-// If this file is called directly, abort.
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
+defined( 'ABSPATH' ) || exit;
+
+// Load the class autoloader.
+require __DIR__ . '/src/Autoloader.php';
+
+if ( ! \Themesquad\WC_360_Image\Autoloader::init() ) {
+	return;
 }
 
-if ( ! defined( 'WC_360_IMAGE_VERSION' ) ) {
-	define( 'WC_360_IMAGE_VERSION', '1.2.1' ); // WRCS: DEFINED_VERSION.
+// Define plugin file constant.
+if ( ! defined( 'WC_360_IMAGE_FILE' ) ) {
+	define( 'WC_360_IMAGE_FILE', __FILE__ );
 }
-
-// Load main class and register activation function.
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-wc360.php';
-register_activation_hook( __FILE__, array( 'WC_360_Image', 'activate' ) );
-
-// Plugin init hook.
-add_action( 'plugins_loaded', 'woocommerce_360_image_init' );
 
 /**
  * Initialize plugin.
  */
 function woocommerce_360_image_init() {
-
 	if ( ! class_exists( 'WooCommerce' ) ) {
 		add_action( 'admin_notices', 'woocommerce_360_image_woocommerce_deactivated' );
 		return;
 	}
 
-	// Include plugin classes.
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wc360-display.php';
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wc360-settings.php';
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wc360-meta.php';
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wc360-shortcode.php';
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wc360-utils.php';
+	// Deprecated class.
+	require_once plugin_dir_path( WC_360_IMAGE_FILE ) . 'includes/class-wc360.php';
 
-	// Initialize classes.
-	WC_360_Image::get_instance();
-	WC_360_Image_Settings::get_instance();
-	WC_360_Image_Meta::get_instance();
-	add_action( 'wp', array( 'WC_360_Image_Display', 'get_instance' ) );
-	add_action( 'wp', array( 'WC_360_Image_Shortcode', 'get_instance' ) );
+	// Instance the main class.
+	\Themesquad\WC_360_Image\Plugin::instance();
 }
+add_action( 'plugins_loaded', 'woocommerce_360_image_init' );
 
 /**
  * WooCommerce Deactivated Notice.

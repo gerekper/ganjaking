@@ -125,7 +125,7 @@ class WPSEO_Premium_Metabox implements WPSEO_WordPress_Integration {
 			'seoAnalysisEnabled'              => $analysis_seo->is_enabled(),
 			'contentAnalysisEnabled'          => $content_analysis->is_enabled(),
 			'licensedURL'                     => WPSEO_Utils::get_home_url(),
-			'settingsPageUrl'                 => admin_url( 'admin.php?page=wpseo_dashboard#top#features' ),
+			'settingsPageUrl'                 => admin_url( 'admin.php?page=wpseo_page_settings#/site-features#card-wpseo-enable_link_suggestions' ),
 			'integrationsTabURL'              => admin_url( 'admin.php?page=wpseo_integrations' ),
 			'commonsScriptUrl'                => \plugins_url(
 				'assets/js/dist/commons-premium-' . $assets_manager->flatten_version( WPSEO_PREMIUM_VERSION ) . WPSEO_CSSJS_SUFFIX . '.js',

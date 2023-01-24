@@ -1148,7 +1148,7 @@ class RevSliderPluginUpdate extends RevSliderFunctions {
 			if(isset($attr['advanced'])){
 				$adv = json_decode($attr['advanced'], true); // = array('idle' => array(), 'hover' => '');
 			}else{
-				$adv = array('idle' => array(), 'hover' => '');
+				$adv = array('idle' => array(), 'hover' => array());
 			}
 
 			if(!isset($adv['idle'])){

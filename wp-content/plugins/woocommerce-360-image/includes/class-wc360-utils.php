@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WC_360_Image_Utils {
 
 	/**
-	 * Retrieve image attachment IDs depending on WooCommerce version (3.0, 2.6, 2.5).
+	 * Retrieve image attachment IDs.
 	 *
 	 * @since 1.0.0
 	 * @since 1.2.1 Always return an array.
@@ -29,12 +29,6 @@ class WC_360_Image_Utils {
 			return array();
 		}
 
-		if ( method_exists( $product, 'get_gallery_image_ids' ) ) {
-			// WC 3.0 support.
-			return $product->get_gallery_image_ids();
-		} else {
-			// BWC for WC 2.6 and WC 2.5.
-			return $product->get_gallery_attachment_ids();
-		}
+		return $product->get_gallery_image_ids();
 	}
 }

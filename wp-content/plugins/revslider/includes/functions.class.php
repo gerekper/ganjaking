@@ -1750,4 +1750,60 @@ class RevSliderFunctions extends RevSliderData {
 		
 		return false;
 	}
+	/**
+	 * push the matieral icons css into the global variable
+	 **/
+	public function add_material_icons(){
+		global $rs_material_icons_css;
+		if($rs_material_icons_css !== false) return '';
+
+		$gs = $this->get_global_settings();
+
+		if(in_array($this->get_val($gs, 'fontdownload', 'off'), array('preload', 'off'))){
+					$font_face = "@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;  
+  src: url(//fonts.gstatic.com/s/materialicons/v41/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');
+}";
+				}else{
+					$font_face = "@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;  
+  
+  src: local('Material Icons'),
+    	local('MaterialIcons-Regular'),
+  		url(".RS_PLUGIN_URL."public/assets/fonts/material/MaterialIcons-Regular.woff2) format('woff2'),
+  		url(".RS_PLUGIN_URL."public/assets/fonts/material/MaterialIcons-Regular.woff) format('woff'),  
+		url(".RS_PLUGIN_URL."public/assets/fonts/material/MaterialIcons-Regular.ttf) format('truetype');
+}";
+				}
+
+				$rs_material_icons_css = "/* 
+ICON SET 
+*/
+".$font_face."
+
+rs-module .material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+	font-size: inherit;
+  display: inline-block;  
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  vertical-align: top;
+  line-height: inherit;
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+}";
+	}
 }

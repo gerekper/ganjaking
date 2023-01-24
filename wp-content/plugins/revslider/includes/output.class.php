@@ -2053,9 +2053,6 @@ class RevSliderOutput extends RevSliderFunctions {
 				echo ($ld !== '') ? $this->ld().RS_T8.'data-'.$ldk.'="'.$ld.'"'."\n" : '';
 			}
 		}
-
-		
-		
 		
 		do_action('revslider_add_layer_attributes', $layer, $this->slide, $this->slider, $this);
 		
@@ -2591,58 +2588,11 @@ class RevSliderOutput extends RevSliderFunctions {
 		
 		if($rs_material_icons_css !== false) return '';
 		if(empty($layers)) return '';
-		$gs = $this->get_global_settings();
 
 		foreach($layers as $layer){
 			$text = $this->get_val($layer, 'text', '');
 			$text_toggle = $this->get_val($layer, array('toggle', 'text'), '');
-			if(strpos($text, 'material-icons') !== false || strpos($text_toggle, 'material-icons') !== false){
-				if(in_array($this->get_val($gs, 'fontdownload', 'off'), array('preload', 'off'))){
-					$font_face = "@font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;  
-  src: url(//fonts.gstatic.com/s/materialicons/v41/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');
-}";
-				}else{
-					$font_face = "@font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;  
-  
-  src: local('Material Icons'),
-    	local('MaterialIcons-Regular'),
-  		url(".RS_PLUGIN_URL."public/assets/fonts/material/MaterialIcons-Regular.woff2) format('woff2'),
-  		url(".RS_PLUGIN_URL."public/assets/fonts/material/MaterialIcons-Regular.woff) format('woff'),  
-		url(".RS_PLUGIN_URL."public/assets/fonts/material/MaterialIcons-Regular.ttf) format('truetype');
-}";
-				}
-				$rs_material_icons_css = "/* 
-ICON SET 
-*/
-".$font_face."
-
-rs-module .material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-	font-size: inherit;
-  display: inline-block;  
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
-  vertical-align: top;
-  line-height: inherit;
-  /* Support for IE. */
-  font-feature-settings: 'liga';
-
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  -moz-osx-font-smoothing: grayscale;
-}";
-			}
+			if(strpos($text, 'material-icons') !== false || strpos($text_toggle, 'material-icons') !== false) $this->add_material_icons();
 		}
 		
 		return '';
@@ -4887,6 +4837,7 @@ rs-module .material-icons {
 				$vid = (in_array($video_type, array('streamvimeo', 'streamvimeoboth'), true)) ? $this->slide->get_param(array('bg', 'vimeo'), '') : $vid;
 				$vid = ($this->get_val($layer, array('media', 'videoFromStream'), false) === true) ? $this->slide->get_param(array('bg', 'vimeo'), '') : $vid;
 				$vid = (strpos($vid, 'http') !== false) ? (int) substr(parse_url($vid, PHP_URL_PATH), 1) : $vid; //check if full URL //we have full URL, split it to ID
+				$vargs = str_replace(array('&background=1', '&background=0', 'background=1', 'background=0'), '', $vargs);
 				$vargs = (empty($vargs)) ? RevSliderFront::VIMEO_ARGUMENTS : $vargs;
 				$vargs = (!$control) ? 'background=1&'.$vargs : $vargs;
 				
@@ -5748,9 +5699,10 @@ rs-module .material-icons {
 				$vimeo_id = $slide->get_param(array('bg', 'vimeo'), '');
 				if($vimeo_id == '') return false;
 				
-				$arguments = $slide->get_param(array('bg', 'video', 'argsVimeo'), RevSliderFront::VIMEO_ARGUMENTS);
+				$arguments = $slide->get_param(array('bg', 'video', 'argsVimeo'), '');
+				$arguments = str_replace(array('&background=1', '&background=0', 'background=1', 'background=0'), '', $arguments);
 				$arguments = (empty($arguments)) ? RevSliderFront::VIMEO_ARGUMENTS : $arguments;
-				$arguments = 'background=1&'.$arguments;
+				$arguments = (!empty($arguments)) ? 'background=1&'.$arguments : 'background=1';
 				
 				if($mute_video == false) $data['video']['v'] = intval($volume);
 				
