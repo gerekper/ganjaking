@@ -316,6 +316,7 @@ class Initializer {
       $this->setupPermanentNotices();
       $this->setupAutomaticEmails();
       $this->setupWoocommerceBlocksIntegration();
+      $this->setupDeactivationPoll();
       $this->subscriberActivityTracker->trackActivity();
       $this->postEditorBlock->init();
       $this->automationEngine->initialize();
@@ -500,5 +501,10 @@ class Initializer {
     if ($wcEnabled && $wcBlocksEnabled) {
       $this->woocommerceBlocksIntegration->init();
     }
+  }
+
+  private function setupDeactivationPoll(): void {
+    $deactivationPoll = new DeactivationPoll($this->wpFunctions, $this->renderer);
+    $deactivationPoll->init();
   }
 }

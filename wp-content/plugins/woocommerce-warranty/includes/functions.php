@@ -1703,6 +1703,48 @@ function warranty_request_data() {
 }
 
 /**
+ * Sanitize post data.
+ *
+ * @param Array $posts Post data.
+ *
+ * @return Array.
+ */
+function warranty_post_data_cleaner( $posts ) {
+	$unslashed_posts = wp_unslash( $posts );
+
+	foreach ( $unslashed_posts as $post_key => $post_data ) {
+		// Sanitize the form builder fields differently.
+		if ( 'fb_field' === $post_key && 'form' === $unslashed_posts['tab'] ) {
+			foreach ( $post_data as $field_key => $field_data ) {
+				array_walk(
+					$unslashed_posts[ $post_key ][ $field_key ],
+					function( &$value, $key ) {
+						if ( 'options' === $key || 'text' === $key ) {
+							$value = sanitize_textarea_field( $value );
+						} else {
+							$value = sanitize_text_field( $value );
+						}
+					}
+				);
+			}
+
+			// Sanitize the message in the emails settings differently.
+		} elseif ( 'message' === $post_key && 'emails' === $unslashed_posts['tab'] ) {
+			$unslashed_posts[ $post_key ] = array_map(
+				function( $value ) {
+					return sanitize_textarea_field( $value );
+				},
+				$post_data
+			);
+		} else {
+			$unslashed_posts[ $post_key ] = wc_clean( $post_data );
+		}
+	}
+
+	return $unslashed_posts;
+}
+
+/**
  * Get sanitized $_POST data.
  *
  * @return array
@@ -1711,7 +1753,7 @@ function warranty_request_post_data() {
 	static $data;
 
 	if ( ! $data ) {
-		$data = wc_clean( wp_unslash( $_POST ) );
+		$data = warranty_post_data_cleaner( $_POST );
 	}
 
 	return $data;

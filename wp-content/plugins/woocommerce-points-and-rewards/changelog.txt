@@ -1,5 +1,10 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2023-01-24 - version 1.7.25
+* Dev - Fix incorrect core value in .wp-env.json.
+* Fix - Add backlog automation.
+* Fix - Fix a bug where Points and Rewards would not render correctly in the Cart and Checkout blocks.
+
 2023-01-04 - version 1.7.24
 * Tweak - WC 7.3 compatibility.
 

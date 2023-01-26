@@ -6,9 +6,11 @@ if (!defined('ABSPATH')) exit;
 
 
 use MailPoet\Entities\NewsletterEntity;
+use MailPoet\Features\FeaturesController;
 use MailPoet\Newsletter\Renderer\Blocks\AbandonedCartContent;
 use MailPoet\Newsletter\Renderer\Blocks\AutomatedLatestContentBlock;
 use MailPoet\Tasks\Sending as SendingTask;
+use MailPoet\WooCommerce\CouponPreProcessor;
 use MailPoet\WooCommerce\TransactionalEmails\ContentPreprocessor;
 
 class Preprocessor {
@@ -30,14 +32,24 @@ class Preprocessor {
   /** @var ContentPreprocessor */
   private $wooCommerceContentPreprocessor;
 
+  /*** @var CouponPreProcessor */
+  private $couponPreProcessor;
+
+  /*** @var FeaturesController */
+  private $featuresController;
+
   public function __construct(
     AbandonedCartContent $abandonedCartContent,
     AutomatedLatestContentBlock $automatedLatestContent,
-    ContentPreprocessor $wooCommerceContentPreprocessor
+    ContentPreprocessor $wooCommerceContentPreprocessor,
+    CouponPreProcessor $couponPreProcessor,
+    FeaturesController $featuresController
   ) {
     $this->abandonedCartContent = $abandonedCartContent;
     $this->automatedLatestContent = $automatedLatestContent;
     $this->wooCommerceContentPreprocessor = $wooCommerceContentPreprocessor;
+    $this->couponPreProcessor = $couponPreProcessor;
+    $this->featuresController = $featuresController;
   }
 
   /**
@@ -50,7 +62,11 @@ class Preprocessor {
       return $content;
     }
     $blocks = [];
-    foreach ($content['blocks'] as $block) {
+    $contentBlocks = $content['blocks'];
+    if ($this->featuresController->isSupported(FeaturesController::FEATURE_COUPON_BLOCK)) {
+      $contentBlocks = $this->couponPreProcessor->processCoupons($newsletter, $contentBlocks, $preview);
+    }
+    foreach ($contentBlocks as $block) {
       $processedBlock = $this->processBlock($newsletter, $block, $preview, $sendingTask);
       if (!empty($processedBlock)) {
         $blocks = array_merge($blocks, $processedBlock);

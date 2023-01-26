@@ -2480,7 +2480,7 @@ to{background-position:0 0}
 .sp-optin-templates .sp-optin-block-template-5,.sp-optin-block-template-5 input{background-color:#414141;border-width:1px;border-color:#333 !important}
 .sp-optin-templates .sp-optin-block-template-6,.sp-optin-block-template-6 input{border-width:0;border-bottom-width:2px}
 .sp-optin-templates .sp-optin-block-template-7,.sp-optin-block-template-7 input{background-color:rgba(255,255,255,0.65);border-width:1px;border-color:rgba(255,255,255,0.65) !important}
-.sp-testimonial-img{width:60px;height:60px}
+.sp-testimonial-img{width:60px;height:60px !important}
 .sp-testimonial-nav button:first-child,.sp-testimonial-nav button:last-child{background:transparent}
 .sp-socialprofiles-style-1 .sp-sp-slack{color:#4a154b !important}
 .sp-socialprofiles-style-1 .sp-sp-vimeo{color:#2fb1e3 !important}
@@ -2565,6 +2565,8 @@ to{background-position:0 0}
 .seedprod-global-css p{margin-bottom:20px}
 .seedprod-global-css h1,.seedprod-global-css h2,.seedprod-global-css h3,.seedprod-global-css h4,.seedprod-global-css h5,.seedprod-global-css h6{margin-bottom:10px}
 .sp-pro-only{opacity:.5}
+.sp-pro-only button{cursor:pointer !important}
+.sp-feature-video .seedprod-modal-container{max-width:750px !important}
 .seedprod-block-option.sp-pro-only:hover{background:#edebed !important;color:#4f394d !important}
 a[disabled],a:disabled{color:#d3ced2 !important}
 .sp-color-38-72{width:38px;height:72px;margin-right:2px}
@@ -3398,7 +3400,11 @@ to{-webkit-transform:scale(1.1);transform:scale(1.1)}
 to{-webkit-transform:scale(1);transform:scale(1);opacity:.7}
 }@keyframes hotspot-expand{from{-webkit-transform:scale(0.5);transform:scale(0.5);opacity:1}
 to{-webkit-transform:scale(1);transform:scale(1);opacity:.7}
-}@media(min-width:640px){.sm\:sp-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
+}.sp-section-popup>span{background-color:#fff;color:#222 !important;border:1px solid #d3ced2;box-shadow:0 10px 15px -3px rgb(0 0 0 / .1),0 4px 6px -4px rgb(0 0 0 / .1)}
+.sp-section-popup>span svg{margin-right:.5rem}
+.sp-section-popup>span>span{padding:5px;border-bottom:1px solid #d3ced2}
+.sp-section-popup>span>span:last-child{border-bottom:0}
+@media(min-width:640px){.sm\:sp-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
 .sm\:sp-not-sr-only{position:static;width:auto;height:auto;padding:0;margin:0;overflow:visible;clip:auto;white-space:normal}
 .sm\:focus\:sp-sr-only:focus{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
 .sm\:focus\:sp-not-sr-only:focus{position:static;width:auto;height:auto;padding:0;margin:0;overflow:visible;clip:auto;white-space:normal}

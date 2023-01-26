@@ -23,6 +23,7 @@ use MailPoet\Validator\Schema\ObjectSchema;
 use MailPoet\WP\Functions as WPFunctions;
 
 class UserRegistrationTrigger implements Trigger {
+  const KEY = 'mailpoet:wp-user-registered';
 
   /** @var WPFunctions */
   private $wp;
@@ -38,7 +39,7 @@ class UserRegistrationTrigger implements Trigger {
   }
 
   public function getKey(): string {
-    return 'mailpoet:wp-user-registered';
+    return self::KEY;
   }
 
   public function getName(): string {

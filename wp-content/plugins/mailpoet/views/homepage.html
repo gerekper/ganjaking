@@ -7,7 +7,57 @@
 <script>
   <% autoescape 'js' %>
     var mailpoet_mta_log = <%= json_encode(mta_log) %>;
+    var mailpoet_homepage_data = <%= json_encode(homepage) %>;
   <% endautoescape %>
 </script>
 
 <% endblock %>
+
+<% block after_css %>
+<%= stylesheet('mailpoet-homepage.css') %>
+<% endblock %>
+
+<% block translations %>
+  <%= localize({
+    'welcomeToMailPoet': __('Welcome to MailPoet 🎉'),
+    'beginByCompletingSetup': __('Begin by completing your setup'),
+    'hideList': __('Hide setup list'),
+    'senderSetTask': _x('Add your sender information', 'Link in a task list'),
+    'senderSetTaskDone': _x('Sender information added!', 'Link in a task list'),
+    'mssConnectedTask': _x('Connect MailPoet sending service', 'Link in a task list'),
+    'mssConnectedTaskDone': _x('MailPoet sending service activated!', 'Link in a task list'),
+    'wooSubscribersImportedTask': _x('Import WooCommerce subscribers', 'Link in a task list'),
+    'wooSubscribersImportedTaskDone': _x('WooCommerce subscribers imported!', 'Link in a task list'),
+    'subscribersAddedTask': _x('Import existing subscribers', 'Link in a task list'),
+    'subscribersAddedTaskDoneByImport': _x('Subscribers imported!', 'Link in a task list'),
+    'subscribersAddedTaskDoneByForm': _x('Subscription form created!', 'Link in a task list'),
+    'youAreSet': _x('You’re all set!', 'Part of string "You’re all set! Dismiss setup list"'),
+    'dismissList': _x('Dismiss setup list', 'Part of string "You’re all set! Dismiss setup list"'),
+    'noSubscribersQuestion': _x('No subscribers yet?', 'Part of string "No subscribers yet? Set up a subscription form"'),
+    'setUpForm': _x('Set up a subscription form', 'Part of string "No subscribers yet? Set up a subscription form"'),
+    'haveSubscribersQuestion': _x('Have existing subscribers?', 'Part of string "Have existing subscribers? Import"'),
+    'import': _x('Import', 'Part of string "Have existing subscribers? Import"'),
+
+    'startEngagingWithYourCustomers': __('Start engaging with your customers'),
+    'setUpWelcomeCampaign': __('Set up a welcome campaign'),
+    'setUpWelcomeCampaignDesc': __('Choose from our list of templates or start with a blank editor'),
+    'setUpWelcomeCampaignDone': __('You started a welcome campaign'),
+    'addSubscriptionForm': __('Add a subscription form'),
+    'addSubscriptionFormDesc': __('Collect new contacts from signup forms'),
+    'addSubscriptionFormDone': __('You added a subscription form'),
+    'sendFirstNewsletter': __('Send your first newsletter'),
+    'sendFirstNewsletterDesc': __('Drive traffic with newsletters that are easy to build and measure'),
+    'sendFirstNewsletterDone': __('You sent or scheduled your first newsletter'),
+    'setUpAbandonedCartEmail': __('Set up an abandoned cart email'),
+    'setUpAbandonedCartEmailDesc': __('Create customized email sequences with our new automation editor'),
+    'setUpAbandonedCartEmailDone': __('You set up an abandoned cart campaign'),
+    'brandWooEmails': __('Brand your WooCommerce transactional emails'),
+    'brandWooEmailsDesc': __('Make your store notification emails shine'),
+    'brandWooEmailsDone': __('You branded your transactional emails'),
+    'allDone': _x('All done!', 'Part of string "All done! Dismiss tasks"'),
+    'dismissTasks': _x('Dismiss tasks', 'Part of string "All done! Dismiss tasks"'),
+  }) %>
+<% endblock %>
+
+
+

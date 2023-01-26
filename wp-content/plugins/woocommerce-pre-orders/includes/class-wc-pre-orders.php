@@ -61,6 +61,9 @@ class WC_Pre_Orders {
 		// add 'pay later' payment gateway
 		add_filter( 'woocommerce_payment_gateways', array( $this, 'add_pay_later_gateway' ) );
 
+		// Declare compatibility with High-Performance Order Storage.
+		add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
+
 		// Hook up emails
 		$emails = array(
 			'wc_pre_order_status_new_to_active',
@@ -387,5 +390,28 @@ class WC_Pre_Orders {
 		);
 
 		return apply_filters( 'wc_pre_orders_supported_product_types', $product_types );
+	}
+
+	/**
+	 * Declare compatibility with High-Performance Order Storage.
+	 *
+	 * @since x.x.x
+	 */
+	public function declare_hpos_compatibility() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', $this->base_file, true );
+		}
+	}
+
+	/**
+	 * Check if High-performance Order Storage ("HPOS") enable
+	 *
+	 * @return bool Whether enabled or not
+	 */
+	public static function is_hpos_enabled() {
+		if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) ) {
+			return Automattic\WooCommerce\Utilities\OrderUtil::custom_orders_table_usage_is_enabled();
+		}
+		return false;
 	}
 }

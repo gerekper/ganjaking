@@ -9,6 +9,7 @@ use MailPoet\AdminPages\PageRenderer;
 use MailPoet\Config\Menu;
 use MailPoet\Entities\SubscriberEntity;
 use MailPoet\Form\Util\CustomFonts;
+use MailPoet\Newsletter\Renderer\Blocks\Coupon;
 use MailPoet\Newsletter\Shortcodes\ShortcodesHelper;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Settings\UserFlagsController;
@@ -102,9 +103,22 @@ class NewsletterEditor {
         $this->wooEmailHooks->overrideStylesForWooEmails();
       }
       $wcEmailSettings = $this->wcTransactionalEmails->getWCEmailSettings();
+      $discountTypes = $this->woocommerceHelper->wcGetCouponTypes();
+      $discountType = (string)current(array_keys($discountTypes));
+      $amountMax = strpos($discountType, 'percent') !== false ? 100 : null;
       $woocommerceData = [
         'email_headings' => $this->wcTransactionalEmails->getEmailHeadings(),
         'customizer_enabled' => (bool)$this->settings->get('woocommerce.use_mailpoet_editor'),
+        'coupon' => [
+          'config' => [
+            'discount_types' => $discountTypes,
+          ],
+          'defaults' => [
+            'code' => Coupon::CODE_PLACEHOLDER,
+            'discountType' => $discountType,
+            'amountMax' => $amountMax,
+          ],
+        ],
       ];
       $woocommerceData = array_merge($wcEmailSettings, $woocommerceData);
     }

@@ -20,9 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <p>
 <?php
-$pre_wc_30 = version_compare( WC_VERSION, '3.0', '<' );
-
-$full_name = $pre_wc_30 ? $order->billing_first_name . ' ' . $order->billing_last_name : $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
+$full_name = $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
 /* translators: %s: billing first name and last name */
 printf( esc_html__( 'You have received a pre-order from %s. Their pre-order is as follows:', 'wc-pre-orders' ), $full_name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 ?>

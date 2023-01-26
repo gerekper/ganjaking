@@ -1,5 +1,10 @@
 *** WooCommerce All Products For Subscriptions ***
 
+2023.01.23 - version 4.0.4
+* Fix - Fixed an issue that prevented carts with one-time purchase products from being added to existing subscriptions. 
+* Fix - Fixed an issue that prevented plan discounts from applying when adding a cart to an existing subscription.
+* Fix - Fixed an issue that prevented Bundle scheme prices from calculating correctly when bundled item discounts applied to Regular product prices.
+
 2022.10.26 - version 4.0.3
 * Tweak - Declared incompatibility with the new High-Performance Order Storage.
 * Tweak - Improved security.

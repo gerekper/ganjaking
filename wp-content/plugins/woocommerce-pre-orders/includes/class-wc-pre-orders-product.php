@@ -165,24 +165,20 @@ class WC_Pre_Orders_Product {
 			$availability = $class = '';
 
 			if ( $product->managing_stock() ) {
-				if ( version_compare( WC_VERSION, '3.0', '<' ) ) {
-					$product_total_stock = $product->get_total_stock();
-				} else {
-					if ( sizeof( $product->get_children() ) > 0 ) {
-						$product_total_stock = max( 0, $product->get_stock_quantity() );
+				if ( sizeof( $product->get_children() ) > 0 ) {
+					$product_total_stock = max( 0, $product->get_stock_quantity() );
 
-						foreach ( $product->get_children() as $child_id ) {
-							if ( 'yes' === get_post_meta( $child_id, '_manage_stock', true ) ) {
-								$stock                = get_post_meta( $child_id, '_stock', true );
-								$product_total_stock += max( 0, wc_stock_amount( $stock ) );
-							}
+					foreach ( $product->get_children() as $child_id ) {
+						if ( 'yes' === get_post_meta( $child_id, '_manage_stock', true ) ) {
+							$stock                = get_post_meta( $child_id, '_stock', true );
+							$product_total_stock += max( 0, wc_stock_amount( $stock ) );
 						}
-					} else {
-						$product_total_stock = $product->get_stock_quantity();
 					}
-
-					$product_total_stock = wc_stock_amount( $product_total_stock );
+				} else {
+					$product_total_stock = $product->get_stock_quantity();
 				}
+
+				$product_total_stock = wc_stock_amount( $product_total_stock );
 
 				if ( $product->is_in_stock() && $product_total_stock > get_option( 'woocommerce_notify_no_stock_amount' ) ) {
 					switch ( get_option( 'woocommerce_stock_format' ) ) {
@@ -247,9 +243,13 @@ class WC_Pre_Orders_Product {
 	public static function product_can_be_pre_ordered( $product ) {
 		if ( ! is_object( $product ) ) {
 			$product = wc_get_product( $product );
+
+			if ( ! is_object( $product ) ) {
+				return false;
+			}
 		}
 
-		$product_id = $product->is_type( 'variation' ) && version_compare( WC_VERSION, '3.0', '>=' ) ? $product->get_parent_id() : $product->get_id();
+		$product_id = $product->is_type( 'variation' ) ? $product->get_parent_id() : $product->get_id();
 
 		return is_object( $product ) && 'yes' === get_post_meta( $product_id, '_wc_pre_orders_enabled', true );
 	}
@@ -267,26 +267,52 @@ class WC_Pre_Orders_Product {
 
 		if ( ! is_object( $product ) ) {
 			$product = wc_get_product( $product );
+
+			if ( ! is_object( $product ) ) {
+				return false;
+			}
 		}
 
-		$order_ids = $wpdb->get_col(
-			$wpdb->prepare(
-				"
-			SELECT ID
-			FROM {$wpdb->posts} AS posts
-			LEFT JOIN {$wpdb->prefix}woocommerce_order_items AS items ON posts.ID = items.order_id
-			LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS item_meta ON items.order_item_id = item_meta.order_item_id
-			LEFT JOIN {$wpdb->postmeta} AS post_meta ON items.order_id = post_meta.post_id
-			WHERE
-				items.order_item_type = 'line_item' AND
-				item_meta.meta_key = '_product_id' AND
-				item_meta.meta_value = '%s' AND
-				post_meta.meta_key = '_wc_pre_orders_status' AND
-				post_meta.meta_value = 'active'
-			",
-				$product->get_id()
-			)
-		);
+		if ( WC_Pre_Orders::is_hpos_enabled() ) {
+			$order_ids = $wpdb->get_col(
+				$wpdb->prepare(
+					"
+				SELECT orders.id
+				FROM {$wpdb->prefix}wc_orders AS orders
+				LEFT JOIN {$wpdb->prefix}woocommerce_order_items AS items ON orders.id = items.order_id
+				LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS item_meta ON items.order_item_id = item_meta.order_item_id
+				LEFT JOIN {$wpdb->prefix}wc_orders_meta AS order_meta ON items.order_id = order_meta.order_id
+				WHERE
+					items.order_item_type = 'line_item' AND
+					item_meta.meta_key = '_product_id' AND
+					item_meta.meta_value = '%s' AND
+					order_meta.meta_key = '_wc_pre_orders_status' AND
+					order_meta.meta_value = 'active'
+				LIMIT 1
+				",
+					$product->get_id()
+				)
+			);
+		} else {
+			$order_ids = $wpdb->get_col(
+				$wpdb->prepare(
+					"
+				SELECT ID
+				FROM {$wpdb->posts} AS posts
+				LEFT JOIN {$wpdb->prefix}woocommerce_order_items AS items ON posts.ID = items.order_id
+				LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta AS item_meta ON items.order_item_id = item_meta.order_item_id
+				LEFT JOIN {$wpdb->postmeta} AS post_meta ON items.order_id = post_meta.post_id
+				WHERE
+					items.order_item_type = 'line_item' AND
+					item_meta.meta_key = '_product_id' AND
+					item_meta.meta_value = '%s' AND
+					post_meta.meta_key = '_wc_pre_orders_status' AND
+					post_meta.meta_value = 'active'
+				",
+					$product->get_id()
+				)
+			);
+		}
 
 		return ( ! empty( $order_ids ) );
 	}
@@ -302,9 +328,13 @@ class WC_Pre_Orders_Product {
 
 		if ( ! is_object( $product ) ) {
 			$product = wc_get_product( $product );
+
+			if ( ! is_object( $product ) ) {
+				return false;
+			}
 		}
 
-		return 'upon_release' === get_post_meta( $product->is_type( 'variation' ) && version_compare( WC_VERSION, '3.0', '>=' ) ? $product->get_parent_id() : $product->get_id(), '_wc_pre_orders_when_to_charge', true );
+		return 'upon_release' === get_post_meta( $product->is_type( 'variation' ) ? $product->get_parent_id() : $product->get_id(), '_wc_pre_orders_when_to_charge', true );
 	}
 
 	/**
@@ -317,9 +347,13 @@ class WC_Pre_Orders_Product {
 	public static function product_is_charged_upfront( $product ) {
 		if ( ! is_object( $product ) ) {
 			$product = wc_get_product( $product );
+
+			if ( ! is_object( $product ) ) {
+				return false;
+			}
 		}
 
-		return 'upfront' === get_post_meta( $product->is_type( 'variation' ) && version_compare( WC_VERSION, '3.0', '>=' ) ? $product->get_parent_id() : $product->get_id(), '_wc_pre_orders_when_to_charge', true );
+		return 'upfront' === get_post_meta( $product->is_type( 'variation' ) ? $product->get_parent_id() : $product->get_id(), '_wc_pre_orders_when_to_charge', true );
 	}
 
 	/**
@@ -332,6 +366,10 @@ class WC_Pre_Orders_Product {
 	public static function get_pre_order_fee( $product ) {
 		if ( ! is_object( $product ) ) {
 			$product = wc_get_product( $product );
+
+			if ( ! is_object( $product ) ) {
+				return;
+			}
 		}
 
 		return get_post_meta( $product->get_id(), '_wc_pre_orders_fee', true );
@@ -347,6 +385,10 @@ class WC_Pre_Orders_Product {
 	public static function get_pre_order_fee_tax_status( $product ) {
 		if ( ! is_object( $product ) ) {
 			$product = wc_get_product( $product );
+
+			if ( ! is_object( $product ) ) {
+				return false;
+			}
 		}
 
 		return 'taxable' === $product->get_tax_status();
@@ -367,6 +409,10 @@ class WC_Pre_Orders_Product {
 
 		if ( ! is_object( $product ) ) {
 			$product = wc_get_product( $product );
+
+			if ( ! is_object( $product ) ) {
+				return '';
+			}
 		}
 
 		$timestamp = self::get_localized_availability_datetime_timestamp( $product );
@@ -403,9 +449,13 @@ class WC_Pre_Orders_Product {
 	public static function get_localized_availability_datetime_timestamp( $product ) {
 		if ( ! is_object( $product ) ) {
 			$product = wc_get_product( $product );
+
+			if ( ! is_object( $product ) ) {
+				return 0;
+			}
 		}
 
-		if ( ! $product || ! $timestamp = get_post_meta( $product->is_type( 'variation' ) && version_compare( WC_VERSION, '3.0', '>=' ) ? $product->get_parent_id() : $product->get_id(), '_wc_pre_orders_availability_datetime', true ) ) {
+		if ( ! $product || ! $timestamp = get_post_meta( $product->is_type( 'variation' ) ? $product->get_parent_id() : $product->get_id(), '_wc_pre_orders_availability_datetime', true ) ) {
 			return 0;
 		}
 

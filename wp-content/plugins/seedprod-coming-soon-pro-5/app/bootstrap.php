@@ -284,6 +284,18 @@ function seedprod_pro_admin_enqueue_scripts( $hook_suffix ) {
 		wp_enqueue_script( 'wp-tinymce' );
 		wp_enqueue_editor();
 	}
+
+
+
+	wp_register_script(
+		'seedprod-xd-localstorage',
+		SEEDPROD_PRO_PLUGIN_URL . 'public/js/xdLocalStorage.js',
+		array(),
+		SEEDPROD_PRO_VERSION,
+		false
+	);
+
+	wp_enqueue_script( 'seedprod-xd-localstorage' );
 }
 add_action( 'admin_enqueue_scripts', 'seedprod_pro_admin_enqueue_scripts', 99999 );
 

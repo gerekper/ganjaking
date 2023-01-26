@@ -85,11 +85,8 @@ class WC_Pre_Orders_Admin_Products {
 		}
 
 		// pre-orders enabled
-		if ( isset( $_POST['_wc_pre_orders_enabled'] ) && 'yes' === $_POST['_wc_pre_orders_enabled'] ) {
-			update_post_meta( $post_id, '_wc_pre_orders_enabled', 'yes' );
-		} else {
-			update_post_meta( $post_id, '_wc_pre_orders_enabled', 'no' );
-		}
+		$is_enabled = isset( $_POST['_wc_pre_orders_enabled'] ) && 'yes' === $_POST['_wc_pre_orders_enabled'];
+		update_post_meta( $post_id, '_wc_pre_orders_enabled', ( $is_enabled ? 'yes' : 'no' ) );
 
 		/*
 		 * Save the availability date/time.

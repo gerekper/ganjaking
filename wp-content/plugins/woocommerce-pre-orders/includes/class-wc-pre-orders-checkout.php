@@ -126,7 +126,10 @@ class WC_Pre_Orders_Checkout {
 		}
 
 		// On checkout page
-		if ( ( $pay_page && $this->is_pre_order_and_charged_upon_release() ) || ( defined( 'WOOCOMMERCE_CHECKOUT' ) && WOOCOMMERCE_CHECKOUT && $this->is_pre_order_and_charged_upon_release() ) ) {
+		if (
+			( $pay_page && $this->is_pre_order_and_charged_upon_release() ) ||
+			( is_checkout() && $this->is_pre_order_and_charged_upon_release() )
+		) {
 
 			// Remove any non-supported payment gateways
 			foreach ( $available_gateways as $gateway_id => $gateway ) {
@@ -172,7 +175,7 @@ class WC_Pre_Orders_Checkout {
 	public function add_order_meta_by_order( $order ) {
 
 		if ( is_a( $order, 'WC_Order' ) ) {
-			$order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
+			$order_id = $order->get_id();
 			$this->add_order_meta( $order_id );
 		}
 	}
@@ -193,12 +196,15 @@ class WC_Pre_Orders_Checkout {
 
 		// get pre-ordered product
 		$product = WC_Pre_Orders_Cart::get_pre_order_product( $order_id );
+		$order   = wc_get_order( $order_id );
 
 		// indicate the order contains a pre-order
-		update_post_meta( $order_id, '_wc_pre_orders_is_pre_order', 1 );
+		$order->update_meta_data( '_wc_pre_orders_is_pre_order', 1 );
 
 		// save when the pre-order amount was charged (either upfront or upon release)
-		update_post_meta( $order_id, '_wc_pre_orders_when_charged', get_post_meta( $product->is_type( 'variation' ) && version_compare( WC_VERSION, '3.0', '>=' ) ? $product->get_parent_id() : $product->get_id(), '_wc_pre_orders_when_to_charge', true ) );
+		$order->update_meta_data( '_wc_pre_orders_when_charged', get_post_meta( $product->is_type( 'variation' ) ? $product->get_parent_id() : $product->get_id(), '_wc_pre_orders_when_to_charge', true ) );
+
+		$order->save();
 	}
 
 	/**
@@ -233,6 +239,7 @@ class WC_Pre_Orders_Checkout {
 	 * updates order status to pre-ordered for orders that are charged upfront. This handles gateways that don't call
 	 * payment_complete(). Unfortunately status changes show like pending->processing/completed->pre-ordered
 	 *
+	 * @since 1.9.0 Check whether the order item was pre-ordered to process failed pre-ordered order.
 	 * @since 1.0
 	 * @param int $order_id the post ID of the order
 	 * @return string
@@ -241,8 +248,11 @@ class WC_Pre_Orders_Checkout {
 
 		$order = new WC_Order( $order_id );
 
-		// don't update status for non pre-order orders
-		if ( ! WC_Pre_Orders_Order::order_contains_pre_order( $order ) ) {
+		// Don't update status for non pre-order orders.
+		// Failed order does not have "_wc_pre_orders_is_pre_order" meta key.
+		// We remove this meta key to hide failed orders from the "Pre-orders" page.
+		// For this reason, we need to check whether order has a pre-ordered item.
+		if ( ! ( WC_Pre_Orders_Order::get_pre_order_item( $order ) instanceof WC_Order_Item  ) ) {
 			return;
 		}
 
@@ -251,8 +261,14 @@ class WC_Pre_Orders_Checkout {
 			return;
 		}
 
+		// indicate the order contains a pre-order
+		$order->update_meta_data( '_wc_pre_orders_is_pre_order', 1 );
+
 		// change order status to pre-ordered
 		$order->update_status( 'pre-ordered' );
+
+		// Save order.
+		$order->save();
 	}
 
 	/**
@@ -279,7 +295,8 @@ class WC_Pre_Orders_Checkout {
 		}
 
 		// Remove the pre-order flag on failure.
-		delete_post_meta( $order_id, '_wc_pre_orders_is_pre_order' );
+		$order->delete_meta_data( '_wc_pre_orders_is_pre_order' );
+		$order->save();
 	}
 
 

@@ -42,9 +42,6 @@ class WC_Pre_Orders_Order {
 		// get formatted order total when viewing order on my account page
 		add_filter( 'woocommerce_get_formatted_order_total', array( $this, 'get_formatted_order_total' ), 10, 2 );
 
-		// adds a 'Release Date' line to pre-order product order items on the thank-you page, emails, my account, etc
-		add_filter( 'woocommerce_order_get_items', array( $this, 'add_product_release_date_item_meta' ), 10, 2 );
-
 		// When we attempt to pay for this order, make sure it is in stock
 		// since we already reduced stock when they pre-ordered.
 		add_filter( 'woocommerce_pay_order_product_in_stock', array( $this, 'product_in_stock' ), 10, 3 );
@@ -59,9 +56,7 @@ class WC_Pre_Orders_Order {
 	 */
 	public function register_order_status_change_coupons_support() {
 		// Increase coupon usage for pre-ordered status.
-		if ( version_compare( WC_VERSION, '3.0', '>=' ) ) {
-			add_action( 'woocommerce_order_status_pre-ordered', 'wc_update_coupon_usage_counts' );
-		}
+		add_action( 'woocommerce_order_status_pre-ordered', 'wc_update_coupon_usage_counts' );
 	}
 
 	/**
@@ -141,7 +136,7 @@ class WC_Pre_Orders_Order {
 			return false;
 		}
 
-		return (bool) get_post_meta( version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id(), '_wc_pre_orders_is_pre_order', true );
+		return (bool) $order->get_meta( '_wc_pre_orders_is_pre_order', true );
 	}
 
 	/**
@@ -157,7 +152,7 @@ class WC_Pre_Orders_Order {
 			$order = new WC_Order( $order );
 		}
 
-		$orders_when_charged = get_post_meta( version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id(), '_wc_pre_orders_when_charged', true );
+		$orders_when_charged = $order->get_meta( '_wc_pre_orders_when_charged', true );
 
 		if ( ! empty( $orders_when_charged ) ) {
 			return 'upon_release' === $orders_when_charged;
@@ -187,7 +182,7 @@ class WC_Pre_Orders_Order {
 			return false;
 		}
 
-		$order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
+		$order_id = $order->get_id();
 
 		// if the order is charged upon release and no payment token exists then it requires payment tokenization
 		return ( self::order_will_be_charged_upon_release( $order ) && ! WC_Pre_Orders_Manager::is_order_pay_later( $order_id ) );
@@ -207,9 +202,7 @@ class WC_Pre_Orders_Order {
 			$order = new WC_Order( $order );
 		}
 
-		$has_payment_token = get_post_meta( version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id(), '_wc_pre_orders_has_payment_token', true );
-
-		return (bool) $has_payment_token;
+		return (bool) $order->get_meta( '_wc_pre_orders_has_payment_token', true );
 	}
 
 	/**
@@ -226,17 +219,20 @@ class WC_Pre_Orders_Order {
 			$order = new WC_Order( $order );
 		}
 
-		$order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
+		$order_id = $order->get_id();
 
 		if ( WC_Pre_Orders_Manager::is_order_pay_later( $order_id ) ) {
 			return;
 		}
 
 		// mark as having a payment token, which will be used upon release to charge pre-order total amount
-		update_post_meta( version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id(), '_wc_pre_orders_has_payment_token', 1 );
+		$order->update_meta_data( '_wc_pre_orders_has_payment_token', 1 );
 
 		// update status
 		$order->update_status( 'pre-ordered' );
+
+		// Save order.
+		$order->save();
 
 		// reduce order stock
 		WC_Pre_Orders_Manager::reduce_stock_level( $order );
@@ -318,11 +314,7 @@ class WC_Pre_Orders_Order {
 	 */
 	public static function get_pre_order_status( $order ) {
 		$order = wc_get_order( $order );
-		if ( ! is_object( $order ) ) {
-			return false;
-		}
-
-		return get_post_meta( version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id(), '_wc_pre_orders_status', true );
+		return is_object( $order ) ? $order->get_meta( '_wc_pre_orders_status', true ) : false;
 	}
 
 	/**
@@ -364,6 +356,8 @@ class WC_Pre_Orders_Order {
 	 */
 	public function auto_update_pre_order_status( $order_id, $old_order_status, $new_order_status ) {
 
+		$order = wc_get_order( $order_id );
+
 		if ( 'pre-ordered' === $new_order_status && $this->order_contains_pre_order( $order_id ) ) {
 			$this->update_pre_order_status( $order_id, 'active' );
 		}
@@ -373,11 +367,19 @@ class WC_Pre_Orders_Order {
 		}
 
 		if ( 'completed' === $new_order_status && $this->order_contains_pre_order( $order_id ) ) {
-			$this->update_pre_order_status( $order_id, 'completed' );
+			// Get message to send it to customer email.
+			$transient_key = 'wc_pre_orders_pre_order_completed_message_' . $order_id;
+			$message       = get_transient( $transient_key );
+			if ( ! empty( $message ) ) {
+				delete_transient( $transient_key );
+			} else {
+				$message = '';
+			}
+			$this->update_pre_order_status( $order_id, 'completed', $message );
 		}
 
 		// change to 'cancelled' when changing order status to 'cancelled', except when the pre-order status is already cancelled. this prevents sending double emails when bulk-cancelling pre-orders
-		if ( 'cancelled' === $new_order_status && self::order_contains_pre_order( $order_id ) && 'cancelled' !== get_post_meta( $order_id, '_wc_pre_orders_status', true ) ) {
+		if ( 'cancelled' === $new_order_status && self::order_contains_pre_order( $order_id ) && 'cancelled' !== $order->get_meta( '_wc_pre_orders_status', true ) ) {
 			$this->update_pre_order_status( $order_id, 'cancelled' );
 		}
 	}
@@ -399,9 +401,9 @@ class WC_Pre_Orders_Order {
 			$order = new WC_Order( $order );
 		}
 
-		$order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
+		$order_id = $order->get_id();
 
-		$old_status = get_post_meta( $order_id, '_wc_pre_orders_status', true );
+		$old_status = $order->get_meta( '_wc_pre_orders_status', true );
 
 		if ( $old_status === $new_status ) {
 			return;
@@ -411,7 +413,7 @@ class WC_Pre_Orders_Order {
 			$old_status = 'new';
 		}
 
-		update_post_meta( $order_id, '_wc_pre_orders_status', $new_status );
+		$order->update_meta_data( '_wc_pre_orders_status', $new_status );
 
 		// actions for status changes
 		do_action( 'wc_pre_order_status_' . $new_status, $order_id, $message );
@@ -429,6 +431,9 @@ class WC_Pre_Orders_Order {
 		// add order note
 		/* translators: %1$s: old pre-order status %2$s: new pre-order status */
 		$order->add_order_note( $message . sprintf( __( 'Pre-order status changed from %1$s to %2$s.', 'wc-pre-orders' ), $old_status, $new_status ) );
+
+		// Save order data
+		$order->save();
 	}
 
 	/**
@@ -447,46 +452,6 @@ class WC_Pre_Orders_Order {
 		if ( $this->order_contains_pre_order( $order ) && WC_Pre_Orders_Manager::can_pre_order_be_changed_to( 'cancelled', $order ) ) {
 			$this->update_pre_order_status( $order, 'cancelled' );
 		}
-	}
-
-	/**
-	 * Adds a 'Release Date' line to pre-order product order items on the
-	 * thank-you page, emails, my account, etc
-	 *
-	 * @since 1.0
-	 * @param array    $items array of order item arrays
-	 * @param WC_Order $order order object
-	 * @return array of order item arrays
-	 */
-	public function add_product_release_date_item_meta( $items, $order ) {
-		if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) {
-			return $items;
-		}
-
-		if ( self::order_contains_pre_order( $order ) ) {
-
-			$name = get_option( 'wc_pre_orders_availability_date_cart_title_text' );
-
-			$updated_items = array();
-
-			foreach ( $items as $item_id => $item ) {
-				$current_item = $item;
-
-				if ( 'line_item' === $current_item['type'] && ! empty( $current_item['product_id'] ) ) {
-					$product        = wc_get_product( $current_item['product_id'] );
-					$pre_order_meta = apply_filters( 'wc_pre_orders_order_item_meta', WC_Pre_Orders_Product::get_localized_availability_date( $product ), $current_item, $order );
-
-					if ( ! empty( $pre_order_meta ) ) {
-						$current_item['item_meta'] += array( $name => array( $pre_order_meta ) );
-					}
-				}
-
-				$updated_items[ $item_id ] = $current_item;
-			}
-
-			$items = $updated_items;
-		}
-		return $items;
 	}
 
 	/**

@@ -19,11 +19,14 @@ class WC_Pre_Orders_Admin_Orders {
 	 */
 	public function __construct() {
 		// Add pre-order emails to list of available emails to resend.
-		add_filter( 'woocommerce_resend_order_emails_available', array( $this, 'maybe_allow_resend_of_pre_order_emails' ) ); // < 3.2
 		add_filter( 'woocommerce_order_actions', array( $this, 'maybe_allow_resend_of_pre_order_emails' ) ); // >= 3.2
 
 		// Hook to make sure pre order is properly set up when added through admin.
 		add_action( 'save_post', array( $this, 'check_manual_order_for_pre_order_products' ), 10, 1 );
+
+		if ( WC_Pre_Orders::is_hpos_enabled() && is_admin() ) {
+			add_action( 'woocommerce_update_order', array( $this, 'hpos_check_manual_order_for_pre_order_products' ) );
+		}
 
 		//Adds the filter on WooCommerce -> Orders page
 		add_action( 'admin_init', array( $this, 'add_order_page_filters' ) );
@@ -56,21 +59,18 @@ class WC_Pre_Orders_Admin_Orders {
 			}
 		}
 
-		// If we're using 3.2 or above, convert the emails to the specific structure.
-		if ( version_compare( WC_VERSION, '3.2', '>=' ) ) {
-			$mailer     = WC()->mailer();
-			$mails      = $mailer->get_emails();
-			$new_emails = array();
+		$mailer     = WC()->mailer();
+		$mails      = $mailer->get_emails();
+		$new_emails = array();
 
-			foreach ( $mails as $mail ) {
-				if ( in_array( $mail->id, $emails ) && 'no' !== $mail->enabled ) {
-					/* translators: %s: email title */
-					$new_emails[ 'send_email_' . esc_attr( $mail->id ) ] = sprintf( __( 'Resend %s', 'wc-pre-orders' ), esc_html( $mail->title ) );
-				}
+		foreach ( $mails as $mail ) {
+			if ( in_array( $mail->id, $emails ) && 'no' !== $mail->enabled ) {
+				/* translators: %s: email title */
+				$new_emails[ 'send_email_' . esc_attr( $mail->id ) ] = sprintf( __( 'Resend %s', 'wc-pre-orders' ), esc_html( $mail->title ) );
 			}
-
-			$emails = $new_emails;
 		}
+
+		$emails = $new_emails;
 
 		return array_merge( $available_emails, $emails );
 	}
@@ -95,6 +95,37 @@ class WC_Pre_Orders_Admin_Orders {
 			return;
 		}
 
+		return $this->maybe_set_pre_order_for_pre_order_products( $order_id );
+	}
+
+	/**
+	 * Marks the order as being a pre order if it contains pre order products in
+	 * case an order gets added manually from the administration panel. (for HPOS only)
+	 *
+	 * @param int $order_id ID of the newly saved order.
+	 *
+	 * @since 1.9.0
+	 */
+	public function hpos_check_manual_order_for_pre_order_products( $order_id ) {
+		if ( ! is_admin() || ! isset( $_REQUEST['page'] ) || 'wc-orders' !== sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) ) {
+			return;
+		}
+
+		if ( ! isset( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'update-order_' . $order_id ) ) {
+			return;
+		}
+
+		return $this->maybe_set_pre_order_for_pre_order_products( $order_id );
+	}
+
+	/**
+	 * Set Manual order as pre-order if it contains pre-order products.
+	 *
+	 * @param int $order_id ID of the newly saved order.
+	 *
+	 * @since 1.9.0
+	 */
+	public function maybe_set_pre_order_for_pre_order_products( $order_id ) {
 		$order = wc_get_order( $order_id );
 		if ( ! $order ) {
 			return;
@@ -104,9 +135,6 @@ class WC_Pre_Orders_Admin_Orders {
 		if ( WC_Pre_Orders_Order::order_contains_pre_order( $order ) ) {
 			return;
 		}
-
-		// Order has not been processed yet (or doesn't contain pre orders).
-		$contains_pre_orders = false;
 
 		foreach ( $order->get_items( 'line_item' ) as $item ) {
 			$product = null;
@@ -122,8 +150,9 @@ class WC_Pre_Orders_Admin_Orders {
 
 			if ( 'yes' === get_post_meta( $product->get_id(), '_wc_pre_orders_enabled', true ) ) {
 				// Set correct flags for this order, making it a pre order.
-				update_post_meta( $order_id, '_wc_pre_orders_is_pre_order', 1 );
-				update_post_meta( $order_id, '_wc_pre_orders_when_charged', get_post_meta( $product->get_id(), '_wc_pre_orders_when_to_charge', true ) );
+				$order->update_meta_data( '_wc_pre_orders_is_pre_order', 1 );
+				$order->update_meta_data( '_wc_pre_orders_when_charged', get_post_meta( $product->get_id(), '_wc_pre_orders_when_to_charge', true ) );
+				$order->save();
 				return;
 			}
 		}

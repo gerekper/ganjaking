@@ -1,5 +1,25 @@
 *** WooCommerce Pre-Orders Plugin ***
 
+
+2023-01-24 - version 1.9.0
+* Add - Support for High-performance Order Storage ("HPOS") (formerly known as Custom Order Tables, "COT").
+* Add - Declare compatibility with High-Performance Order Storage ("HPOS").
+* Fix - Ensure custom messages get added to the pre-order completion email.
+* Fix - Improve variable type checking.
+* Fix - Set correct order status to when complete payment for failed pre-order.
+* Tweak - Bump minimum WP version to 5.6.
+* Tweak - Bump minimum PHP version to 7.0.
+* Tweak - Bump minimum WC version to 6.0.
+* Tweak - Bump WC tested up to version to 6.8.
+* Fix - Pre-Orders list table filters.
+* Fix - Sanitize product filter
+* Update - Use is_checkout() instead of WOOCOMMERCE_CHECKOUT when removing unsupported gateways.
+* Add - Show private pre-order products list to perform the pre-order actions.
+* Fix - Pre-Orders list table filters.
+* Tweak - Additional HPOS compatibility updates.
+* Tweak - Bump WordPress “Tested up to” version to 6.1.
+* Tweak - Nonce validation and redirection logic
+
 2022-10-31 - version 1.8.0
 * Tweak – Switch to global functions to remove deprecation warnings coming from WooCommerce Blocks.
 * Fix – Ensure store admins receive notifications of any pre-order cancellations.

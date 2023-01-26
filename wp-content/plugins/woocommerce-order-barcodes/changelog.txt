@@ -1,10 +1,13 @@
 *** WooCommerce Order Barcodes Changelog ***
 
+2023-01-23 - version 1.6.2
+* Fix   - Automatic barcode generation no longer fails with "Barcode will be generated after Order is created!" message.
+
 2023-01-19 - version 1.6.1
 * Fix   - Display a notice text on Add New Order screen.
 
 2022-11-03 - version 1.6.0
-* Add - Declared High-Performance Order Storage (HPOS) compatibility.
+* Add   - Declared High-Performance Order Storage (HPOS) compatibility.
 
 2022-10-13 - version 1.5.2
 * Fix   - Add WCC Box Office compatibility for displaying a ticket barcode.

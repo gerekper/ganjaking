@@ -9,10 +9,6 @@
  */
 ?>
 
-<?php if ( $show_title ) : ?>
-	<h2><?php echo esc_html__( 'My pre-orders', 'wc-pre-orders' ); ?></h2>
-<?php endif; ?>
-
 <?php if ( ! empty( $items ) ) : ?>
 	<table class="shop_table my_account_pre_orders shop_table_responsive my_account_orders">
 
@@ -30,7 +26,7 @@
 			<?php
 			foreach ( $items as $item ) :
 					$preorder = $item['order'];
-					$order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $preorder->id : $preorder->get_id();
+					$order_id = $preorder->get_id();
 					$data     = $item['data'];
 				?>
 				<tr class="order">

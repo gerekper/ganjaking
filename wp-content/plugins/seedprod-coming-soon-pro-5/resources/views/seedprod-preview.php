@@ -179,6 +179,9 @@ if ( ! empty( $seedprod_subscribe_callback_ajax_url_parsed['path'] ) ) {
 // If site uses WP Rocket, disable minify
 seedprod_pro_wprocket_disable_minify();
 
+// allow acf shortcode to work in block themes
+add_filter( 'acf/shortcode/allow_in_block_themes_outside_content', '__return_true' );
+
 // Check if WooCommerce is active
 if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 
@@ -436,7 +439,12 @@ var seeprod_enable_recaptcha = <?php echo (int) $settings->enable_recaptcha; ?>;
 		<script src="<?php echo esc_url( $plugin_url ); ?>public/js/img-previewer.min.js" defer></script> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript ?>
 	<?php } ?>
 
+	<?php 
+	$seedprod_theme_enabled = get_option( 'seedprod_theme_enabled' );
+	if ( ! $seedprod_theme_enabled ||  ! empty( $settings->no_conflict_mode )) { 
+	?>
 	<script src="<?php echo esc_url( $plugin_url ); ?>public/js/sp-scripts.min.js" defer></script> <?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript ?>
+	<?php } ?>
 	<?php
 	
 	if ( isset( $settings->document->settings->useSlideshowBg ) &&

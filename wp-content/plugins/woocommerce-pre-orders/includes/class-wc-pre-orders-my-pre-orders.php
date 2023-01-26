@@ -33,9 +33,6 @@ class WC_Pre_Orders_My_Pre_Orders {
 		// Insert Pre-Orders menu in My Account menus.
 		add_filter( 'woocommerce_account_menu_items', array( $this, 'menu_items' ) );
 		add_action( 'woocommerce_account_pre-orders_endpoint', array( $this, 'my_pre_orders' ) );
-
-		// Support WC < 2.6, display pre-orders in my-account.
-		add_action( 'woocommerce_before_my_account', array( $this, 'my_pre_orders_legacy' ) );
 	}
 
 	/**
@@ -172,14 +169,13 @@ class WC_Pre_Orders_My_Pre_Orders {
 				);
 			}
 
-			$actions[ version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id() ] = $_actions;
+			$actions[ $order->get_id() ] = $_actions;
 		}
 
 		// Load the template
 		wc_get_template(
 			'myaccount/my-pre-orders.php',
 			array(
-				'show_title' => version_compare( WC()->version, '2.6', '<' ),
 				'pre_orders' => $pre_orders,
 				'items'      => $items,
 				'actions'    => $actions,
@@ -187,19 +183,6 @@ class WC_Pre_Orders_My_Pre_Orders {
 			'',
 			$wc_pre_orders->get_plugin_path() . '/templates/'
 		);
-	}
-
-	/**
-	 * Display pre-orders in My Account page.
-	 *
-	 * Hooked to woocommerce_before_my_account and only affect WC < 2.6.
-	 *
-	 * @since 1.4.7
-	 */
-	public function my_pre_orders_legacy() {
-		if ( version_compare( WC()->version, '2.6', '<' ) ) {
-			$this->my_pre_orders();
-		}
 	}
 }
 

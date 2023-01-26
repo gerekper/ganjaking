@@ -10,7 +10,8 @@ use MailPoet\WP\Functions as WPFunctions;
 use WP_Error;
 
 class API {
-  const SENDING_STATUS_OK = 'ok';
+  const RESPONSE_STATUS_OK = 'ok';
+  const RESPONSE_STATUS_ERROR = 'error';
   const SENDING_STATUS_CONNECTION_ERROR = 'connection_error';
   const SENDING_STATUS_SEND_ERROR = 'send_error';
 
@@ -27,6 +28,26 @@ class API {
   const RESPONSE_CODE_PAYLOAD_TOO_BIG = 413;
   const RESPONSE_CODE_PAYLOAD_ERROR = 400;
   const RESPONSE_CODE_CAN_NOT_SEND = 403;
+
+  // Bridge messages from https://github.com/mailpoet/services-bridge/blob/master/api/messages.rb
+  public const ERROR_MESSAGE_BANNED = 'Key is valid, but the action is forbidden';
+  public const ERROR_MESSAGE_INVALID_FROM = 'The email address is not authorized';
+  public const ERROR_MESSAGE_PENDING_APPROVAL = 'Key is valid, but not approved yet; you can send only to authorized email addresses at the moment';
+  public const ERROR_MESSAGE_DMRAC = "Email violates Sender Domain's DMARC policy. Please set up sender authentication.";
+  // Bridge message from https://github.com/mailpoet/services-bridge/blob/master/extensions/authentication/basic_strategy.rb
+  public const ERROR_MESSAGE_UNAUTHORIZED = 'No valid API key provided';
+  public const ERROR_MESSAGE_INSUFFICIENT_PRIVILEGES = 'Insufficient privileges';
+  public const ERROR_MESSAGE_EMAIL_VOLUME_LIMIT_REACHED = 'Email volume limit reached';
+  // Proxy request `authorized_email_address` from shop https://github.com/mailpoet/shop/blob/master/routes/hooks/sending/v1/index.js#L65
+  public const ERROR_MESSAGE_AUTHORIZED_EMAIL_NO_FREE = 'You cannot use a free email address. Please use an address from your website’s domain, for example.';
+  public const ERROR_MESSAGE_AUTHORIZED_EMAIL_INVALID = 'Invalid email.';
+  public const ERROR_MESSAGE_AUTHORIZED_EMAIL_ALREADY_ADDED = 'This email was already added to the list.';
+  // Proxy request `sender_domain_verify` from shop https://github.com/mailpoet/shop/blob/master/routes/hooks/sending/v1/index.js#L137
+  public const ERROR_MESSAGE_AUTHORIZED_DOMAIN_VERIFY_NOT_FOUND = 'Domain not found';
+  public const ERROR_MESSAGE_AUTHORIZED_DOMAIN_VERIFY_FAILED = 'Some DNS records were not set up correctly. Please check the records again. You may need to wait up to 24 hours for DNS changes to propagate.';
+  // Proxy request `sender_domain` from shop https://github.com/mailpoet/shop/blob/master/routes/hooks/sending/v1/index.js#L65
+  public const ERROR_MESSAGE_SENDER_DOMAIN_INVALID = 'Invalid domain. Please enter a valid domain name.';
+  public const ERROR_MESSAGE_SENDER_DOMAIN_ALREADY_ADDED = 'This domain was already added to the list.';
 
   private $apiKey;
   private $wp;
@@ -134,13 +155,9 @@ class API {
       $response = ($this->wp->wpRemoteRetrieveBody($result)) ?
         $this->wp->wpRemoteRetrieveBody($result) :
         $this->wp->wpRemoteRetrieveResponseMessage($result);
-      return [
-        'status' => self::SENDING_STATUS_SEND_ERROR,
-        'message' => $response,
-        'code' => $responseCode,
-      ];
+      return $this->createErrorResponse((int)$responseCode, $response, self::SENDING_STATUS_SEND_ERROR);
     }
-    return ['status' => self::SENDING_STATUS_OK];
+    return ['status' => self::RESPONSE_STATUS_OK];
   }
 
   public function checkBounces(array $emails) {
@@ -188,9 +205,8 @@ class API {
   /**
    * Create Authorized Email Address
    *
-   * returns ['status' => true] if done or an array of error messages ['error' => $errorBody, 'status' => false]
    * @param string $emailAddress
-   * @return array
+   * @return array{status: string, code?: int, error?: string, message?: string}
    */
   public function createAuthorizedEmailAddress(string $emailAddress): array {
     $body = ['email' => $emailAddress];
@@ -199,26 +215,25 @@ class API {
       $body
     );
 
-    $code = $this->wp->wpRemoteRetrieveResponseCode($result);
-    $isSuccess = $code === self::RESPONSE_CODE_CREATED;
+    $responseCode = $this->wp->wpRemoteRetrieveResponseCode($result);
 
-    if (!$isSuccess) {
+    if ($responseCode !== self::RESPONSE_CODE_CREATED) {
       $errorBody = $this->wp->wpRemoteRetrieveBody($result);
       $logData = [
-        'code' => $code,
+        'code' => $responseCode,
         'error' => is_wp_error($result) ? $result->get_error_message() : $errorBody,
       ];
       $this->loggerFactory->getLogger(LoggerFactory::TOPIC_BRIDGE)->error('CreateAuthorizedEmailAddress API call failed.', $logData);
 
       $errorResponseData = json_decode($errorBody, true);
       // translators: %d is the error code.
-      $fallbackError = sprintf(__('An error has happened while performing a request, the server has responded with response code %d', 'mailpoet'), $code);
+      $fallbackError = sprintf(__('An error has happened while performing a request, the server has responded with response code %d', 'mailpoet'), $responseCode);
 
-      $errorData = is_array($errorResponseData) && isset($errorResponseData['error']) ? $errorResponseData['error'] : $fallbackError;
-      return ['error' => $errorData, 'status' => false];
+      $error = is_array($errorResponseData) && isset($errorResponseData['error']) ? $errorResponseData['error'] : $fallbackError;
+      return $this->createErrorResponse((int)$responseCode, $error);
     }
 
-    return ['status' => $isSuccess];
+    return ['status' => self::RESPONSE_STATUS_OK];
   }
 
   /**
@@ -256,24 +271,23 @@ class API {
       $body
     );
 
-    $code = $this->wp->wpRemoteRetrieveResponseCode($result);
+    $responseCode = $this->wp->wpRemoteRetrieveResponseCode($result);
     $rawResponseBody = $this->wp->wpRemoteRetrieveBody($result);
 
     $responseBody = json_decode($rawResponseBody, true);
-    $isSuccess = $code === self::RESPONSE_CODE_CREATED;
 
-    if (!$isSuccess) {
+    if ($responseCode !== self::RESPONSE_CODE_CREATED) {
       $logData = [
-        'code' => $code,
+        'code' => $responseCode,
         'error' => is_wp_error($result) ? $result->get_error_message() : $rawResponseBody,
       ];
       $this->loggerFactory->getLogger(LoggerFactory::TOPIC_BRIDGE)->error('createAuthorizedSenderDomain API call failed.', $logData);
 
       // translators: %d will be replaced by an error code
-      $fallbackError = sprintf(__('An error has happened while performing a request, the server has responded with response code %d', 'mailpoet'), $code);
+      $fallbackError = sprintf(__('An error has happened while performing a request, the server has responded with response code %d', 'mailpoet'), $responseCode);
 
-      $errorData = is_array($responseBody) && isset($responseBody['error']) ? $responseBody['error'] : $fallbackError;
-      return ['error' => $errorData, 'status' => false];
+      $error = is_array($responseBody) && isset($responseBody['error']) ? $responseBody['error'] : $fallbackError;
+      return $this->createErrorResponse((int)$responseCode, $error);
     }
 
     if (!is_array($responseBody)) {
@@ -281,6 +295,7 @@ class API {
       return [];
     }
 
+    $responseBody['status'] = self::RESPONSE_STATUS_OK;
     return $responseBody;
   }
 
@@ -296,28 +311,29 @@ class API {
       null
     );
 
-    $code = $this->wp->wpRemoteRetrieveResponseCode($result);
+    $responseCode = $this->wp->wpRemoteRetrieveResponseCode($result);
     $rawResponseBody = $this->wp->wpRemoteRetrieveBody($result);
 
     $responseBody = json_decode($rawResponseBody, true);
-    $isSuccess = $code === 200;
-
-    if (!$isSuccess) {
-      if ($code === 400) {
-        // we need to return the body as it is
-        return is_array($responseBody) ? $responseBody : [];
+    if ($responseCode !== 200) {
+      if ($responseCode === 400) {
+        // we need to return the body as it is, but for consistency we add status and translated error message
+        $response = is_array($responseBody) ? $responseBody : [];
+        $response['status'] = self::RESPONSE_STATUS_ERROR;
+        $response['message'] = $this->getTranslatedErrorMessage($response['error']);
+        return $response;
       }
       $logData = [
-        'code' => $code,
+        'code' => $responseCode,
         'error' => is_wp_error($result) ? $result->get_error_message() : $rawResponseBody,
       ];
       $this->loggerFactory->getLogger(LoggerFactory::TOPIC_BRIDGE)->error('verifyAuthorizedSenderDomain API call failed.', $logData);
 
       // translators: %d will be replaced by an error code
-      $fallbackError = sprintf(__('An error has happened while performing a request, the server has responded with response code %d', 'mailpoet'), $code);
+      $fallbackError = sprintf(__('An error has happened while performing a request, the server has responded with response code %d', 'mailpoet'), $responseCode);
 
-      $errorData = is_array($responseBody) && isset($responseBody['error']) ? $responseBody['error'] : $fallbackError;
-      return ['error' => $errorData, 'status' => false];
+      $error = is_array($responseBody) && isset($responseBody['error']) ? $responseBody['error'] : $fallbackError;
+      return $this->createErrorResponse((int)$responseCode, $error);
     }
 
     if (!is_array($responseBody)) {
@@ -325,6 +341,7 @@ class API {
       return [];
     }
 
+    $responseBody['status'] = self::RESPONSE_STATUS_OK;
     return $responseBody;
   }
 
@@ -334,6 +351,42 @@ class API {
 
   public function getKey() {
     return $this->apiKey;
+  }
+
+  public function getTranslatedErrorMessage(string $errorMessage): string {
+    switch ($errorMessage) {
+      case self::ERROR_MESSAGE_BANNED:
+        return __('Key is valid, but the action is forbidden.', 'mailpoet');
+      case self::ERROR_MESSAGE_INVALID_FROM:
+        return __('The email address is not authorized.', 'mailpoet');
+      case self::ERROR_MESSAGE_PENDING_APPROVAL:
+        return __('Key is valid, but not approved yet; you can send only to authorized email addresses at the moment.', 'mailpoet');
+      case self::ERROR_MESSAGE_DMRAC:
+        return __("Email violates Sender Domain's DMARC policy. Please set up sender authentication.", 'mailpoet');
+      case self::ERROR_MESSAGE_UNAUTHORIZED:
+        return __('No valid API key provided.', 'mailpoet');
+      case self::ERROR_MESSAGE_INSUFFICIENT_PRIVILEGES:
+        return __('Insufficient privileges.', 'mailpoet');
+      case self::ERROR_MESSAGE_EMAIL_VOLUME_LIMIT_REACHED:
+        return __('Email volume limit reached.', 'mailpoet');
+      case self::ERROR_MESSAGE_AUTHORIZED_EMAIL_NO_FREE:
+        return __('You cannot use a free email address. Please use an address from your website’s domain, for example.', 'mailpoet');
+      case self::ERROR_MESSAGE_AUTHORIZED_EMAIL_INVALID:
+        return __('Invalid email.', 'mailpoet');
+      case self::ERROR_MESSAGE_AUTHORIZED_EMAIL_ALREADY_ADDED:
+        return __('This email was already added to the list.', 'mailpoet');
+      case self::ERROR_MESSAGE_AUTHORIZED_DOMAIN_VERIFY_NOT_FOUND:
+        return __('Domain not found.', 'mailpoet');
+      case self::ERROR_MESSAGE_AUTHORIZED_DOMAIN_VERIFY_FAILED:
+        return __('Some DNS records were not set up correctly. Please check the records again. You may need to wait up to 24 hours for DNS changes to propagate.', 'mailpoet');
+      case self::ERROR_MESSAGE_SENDER_DOMAIN_INVALID:
+        return __('Invalid domain. Please enter a valid domain name.', 'mailpoet');
+      case self::ERROR_MESSAGE_SENDER_DOMAIN_ALREADY_ADDED:
+        return __('This domain was already added to the list.', 'mailpoet');
+      // when we don't match translation we return the origin
+      default:
+        return $errorMessage;
+    }
   }
 
   private function auth() {
@@ -378,5 +431,17 @@ class API {
       'response' => $response,
     ];
     $this->loggerFactory->getLogger(LoggerFactory::TOPIC_BRIDGE)->error($method . ' API response was not in expected format.', $logData);
+  }
+
+  /**
+   * @return array{status: string, code: int, error: string, message: string}
+   */
+  private function createErrorResponse(int $responseCode, string $error, string $errorStatus = self::RESPONSE_STATUS_ERROR): array {
+    return [
+      'status' => $errorStatus,
+      'code' => $responseCode,
+      'error' => $error,
+      'message' => $this->getTranslatedErrorMessage($error),
+    ];
   }
 }

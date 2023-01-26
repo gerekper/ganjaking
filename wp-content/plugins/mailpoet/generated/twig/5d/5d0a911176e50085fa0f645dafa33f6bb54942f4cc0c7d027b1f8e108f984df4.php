@@ -199,7 +199,7 @@ jQuery('#adminmenu #toplevel_page_mailpoet-newsletters')
         echo ";
   var mailpoet_transactional_emails_opt_in_notice_dismissed = ";
         // line 80
-        echo json_encode(($context["ransactional_emails_opt_in_notice_dismissed"] ?? null));
+        echo json_encode(($context["transactional_emails_opt_in_notice_dismissed"] ?? null));
         echo ";
   var mailpoet_deactivate_subscriber_after_inactive_days = ";
         // line 81

@@ -137,12 +137,10 @@ class Bridge {
   /**
    * Create Authorized Email Address
    */
-  public function createAuthorizedEmailAddress(string $emailAdress) {
-    $data = $this
+  public function createAuthorizedEmailAddress(string $emailAddress) {
+    return $this
       ->getApi($this->settings->get(self::API_KEY_SETTING_NAME))
-      ->createAuthorizedEmailAddress($emailAdress);
-
-    return $data;
+      ->createAuthorizedEmailAddress($emailAddress);
   }
 
   /**
@@ -182,8 +180,8 @@ class Bridge {
    */
   public function createAuthorizedSenderDomain(string $domain): array {
     $data = $this
-    ->getApi($this->settings->get(self::API_KEY_SETTING_NAME))
-    ->createAuthorizedSenderDomain($domain);
+      ->getApi($this->settings->get(self::API_KEY_SETTING_NAME))
+      ->createAuthorizedSenderDomain($domain);
 
     return $data['dns'] ?? $data;
   }
@@ -194,11 +192,9 @@ class Bridge {
    * @see https://github.com/mailpoet/services-bridge#verify-a-sender-domain
    */
   public function verifyAuthorizedSenderDomain(string $domain): array {
-    $data = $this
-    ->getApi($this->settings->get(self::API_KEY_SETTING_NAME))
-    ->verifyAuthorizedSenderDomain($domain);
-
-    return $data;
+    return $this
+      ->getApi($this->settings->get(self::API_KEY_SETTING_NAME))
+      ->verifyAuthorizedSenderDomain($domain);
   }
 
   public function checkMSSKey($apiKey) {

@@ -29,7 +29,6 @@ class __TwigTemplate_1453f1606febf8a9b6e30a893bcc22827936ceb21531b5a8f8a196260a5
 
         $this->blocks = [
             'content' => [$this, 'block_content'],
-            'translations' => [$this, 'block_translations'],
         ];
     }
 
@@ -65,17 +64,6 @@ class __TwigTemplate_1453f1606febf8a9b6e30a893bcc22827936ceb21531b5a8f8a196260a5
 ";
     }
 
-    // line 13
-    public function block_translations($context, array $blocks = [])
-    {
-        $macros = $this->macros;
-        // line 14
-        echo $this->extensions['MailPoet\Twig\I18n']->localize(["betterEmailWithoutLeavingWordPress" => $this->extensions['MailPoet\Twig\I18n']->translate("Better email — without leaving WordPress"), "startingOutOrEstablished" => $this->extensions['MailPoet\Twig\I18n']->translate("Whether you’re just starting out or have already established your business, we’ve got what you need to reach customers where they are."), "beginSetup" => $this->extensions['MailPoet\Twig\I18n']->translate("Begin setup"), "readyToUseMailPoet" => $this->extensions['MailPoet\Twig\I18n']->translate("Ready to start using MailPoet?")]);
-        // line 19
-        echo "
-";
-    }
-
     public function getTemplateName()
     {
         return "landingpage.html";
@@ -88,7 +76,7 @@ class __TwigTemplate_1453f1606febf8a9b6e30a893bcc22827936ceb21531b5a8f8a196260a5
 
     public function getDebugInfo()
     {
-        return array (  72 => 19,  70 => 14,  66 => 13,  61 => 10,  56 => 8,  51 => 4,  47 => 3,  36 => 1,);
+        return array (  60 => 10,  55 => 8,  50 => 4,  46 => 3,  35 => 1,);
     }
 
     public function getSourceContext()

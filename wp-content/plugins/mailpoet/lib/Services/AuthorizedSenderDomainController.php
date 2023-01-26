@@ -5,6 +5,7 @@ namespace MailPoet\Services;
 if (!defined('ABSPATH')) exit;
 
 
+use MailPoet\Services\Bridge\API;
 use MailPoet\Util\DmarcPolicyChecker;
 
 class AuthorizedSenderDomainController {
@@ -87,16 +88,16 @@ class AuthorizedSenderDomainController {
       throw new \InvalidArgumentException(self::AUTHORIZED_SENDER_DOMAIN_ERROR_ALREADY_CREATED);
     }
 
-    $finalData = $this->bridge->createAuthorizedSenderDomain($domain);
+    $response = $this->bridge->createAuthorizedSenderDomain($domain);
 
-    if ($finalData && isset($finalData['error'])) {
-      throw new \InvalidArgumentException($finalData['error']);
+    if ($response['status'] === API::RESPONSE_STATUS_ERROR) {
+      throw new \InvalidArgumentException($response['message']);
     }
 
     // Reset cached value since a new domain was added
     $this->currentRecords = null;
 
-    return $finalData;
+    return $response;
   }
 
   /**
@@ -128,18 +129,14 @@ class AuthorizedSenderDomainController {
       throw new \InvalidArgumentException(self::AUTHORIZED_SENDER_DOMAIN_ERROR_ALREADY_VERIFIED);
     }
 
-    $finalData = $this->bridge->verifyAuthorizedSenderDomain($domain);
+    $response = $this->bridge->verifyAuthorizedSenderDomain($domain);
 
-    if ($finalData && isset($finalData['error']) && !isset($finalData['dns'])) {
-      // verify api response returns
-      // ok: bool,
-      // error:  string,
-      // dns: array
-      // due to this, we need to make sure this is an actual server (or other user) error and not a verification error
-      throw new \InvalidArgumentException($finalData['error']);
+    // API response contains status, but we need to check that dns array is not included
+    if ($response['status'] === API::RESPONSE_STATUS_ERROR && !isset($response['dns'])) {
+      throw new \InvalidArgumentException($response['message']);
     }
 
-    return $finalData;
+    return $response;
   }
 
   /**

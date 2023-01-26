@@ -16,6 +16,9 @@ function seedprod_pro_setup_theme_override() {
 			if ( $preview_mode_enabled ) {
 				add_action( 'admin_bar_menu', 'seedprod_pro_admin_bar_menu', 999 );
 			}
+			// allow acf shortcode to work in block themes
+			add_filter( 'acf/shortcode/allow_in_block_themes_outside_content', '__return_true' );
+			// seedprod filters
 			add_action( 'get_header', 'seedprod_pro_header_hook', PHP_INT_MAX );
 			add_action( 'get_footer', 'seedprod_pro_footer_hook', PHP_INT_MAX );
 			add_action( 'get_sidebar', 'seedprod_pro_sidebar_hook', PHP_INT_MAX );
@@ -1077,6 +1080,8 @@ function seedprod_pro_render_template_tags_shortcode( $atts ) {
 		'the_tags',
 		'the_category',
 		'the_custom_logo',
+		'home_url',
+		'get_author_posts_url',
 	);
 
 	// If tag not allowed return empty string.

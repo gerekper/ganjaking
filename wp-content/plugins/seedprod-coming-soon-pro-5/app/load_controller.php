@@ -70,7 +70,9 @@ require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/includes/upgrade.php';
 
 
 require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/export-import-theme-functions.php';
-require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/export-import-landing-functions.php';
+require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/export-import-landing-functions.php'; 
+
+require_once SEEDPROD_PRO_PLUGIN_PATH . 'app/import-cross-site-functions.php'; 
 
 
 

@@ -83,19 +83,32 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 		if ( ! isset( $this->views ) ) {
 			$this->views = array();
 
+			$_order_meta    = $wpdb->postmeta;
+			$_order         = $wpdb->posts;
+			$_order_id      = 'ID';
+			$_order_meta_id = 'post_id';
+			$_cpt_clause    = "AND _order.post_type = 'shop_order' AND _order.post_status != 'trash'";
+
+			if ( WC_Pre_Orders::is_hpos_enabled() ) {
+				$_order_meta    = $wpdb->prefix . 'wc_orders_meta';
+				$_order         = $wpdb->prefix . 'wc_orders';
+				$_order_id      = 'id';
+				$_order_meta_id = 'order_id';
+				$_cpt_clause    = '';
+			}
+
 			$query = "
-				SELECT COUNT({$wpdb->postmeta}.meta_value) AS count, {$wpdb->postmeta}.meta_value as status
-				FROM {$wpdb->postmeta}
-				LEFT JOIN {$wpdb->posts} ON ({$wpdb->posts}.ID = {$wpdb->postmeta}.post_id)
-				WHERE {$wpdb->postmeta}.meta_key = '_wc_pre_orders_status'
-				AND {$wpdb->posts}.post_type = 'shop_order'
-				AND {$wpdb->posts}.post_status != 'trash'
-				AND {$wpdb->postmeta}.post_id IN (
-					SELECT post_id FROM {$wpdb->postmeta}
+				SELECT COUNT(_order_meta.meta_value) AS count, _order_meta.meta_value as status
+				FROM {$_order_meta} _order_meta
+				LEFT JOIN {$_order} _order ON (_order.{$_order_id} = _order_meta.{$_order_meta_id})
+				WHERE _order_meta.meta_key = '_wc_pre_orders_status'
+				{$_cpt_clause}
+				AND _order_meta.{$_order_meta_id} IN (
+					SELECT {$_order_meta_id} FROM {$_order_meta}
 					WHERE meta_key = '_wc_pre_orders_is_pre_order'
 					AND CAST(meta_value AS CHAR) = '1'
 				)
-				GROUP BY {$wpdb->postmeta}.meta_value
+				GROUP BY _order_meta.meta_value
 			";
 
 			$results = $wpdb->get_results( $query );
@@ -195,8 +208,8 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 	public function get_sortable_columns() {
 
 		return array(
-			'order_date' => array( 'post_date', false ),  // false because the inital sort direction is DESC so we want the first column click to sort ASC
-			'order'      => array( 'ID', false ),         // same logic as order_date
+			'order_date' => array( 'date', false ), // false because the inital sort direction is DESC so we want the first column click to sort ASC
+			'order'      => array( 'ID', false ), // same logic as order_date
 		);
 	}
 
@@ -209,7 +222,7 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 	 * @return string the checkbox column content
 	 */
 	public function column_cb( $order ) {
-		return '<input type="checkbox" name="order_id[]" value="' . ( version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id() ) . '" />';
+		return '<input type="checkbox" name="order_id[]" value="' . $order->get_id() . '" />';
 	}
 
 	/**
@@ -223,7 +236,7 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 	 * @return string the column content
 	 */
 	public function column_default( $order, $column_name ) {
-		$order_id = version_compare( WC_VERSION, '3.0', '<' ) ? $order->id : $order->get_id();
+		$order_id = $order->get_id();
 
 		switch ( $column_name ) {
 
@@ -248,8 +261,8 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 				break;
 
 			case 'customer':
-				$billing_email = version_compare( WC_VERSION, '3.0', '<' ) ? $order->billing_email : $order->get_billing_email();
-				$user_id       = version_compare( WC_VERSION, '3.0', '<' ) ? $order->user_id : $order->get_customer_id();
+				$billing_email = $order->get_billing_email();
+				$user_id       = $order->get_customer_id();
 
 				if ( 0 !== $user_id ) {
 					$column_content = sprintf( '<a href="%s">%s</a>', get_edit_user_link( $user_id ), $billing_email );
@@ -274,11 +287,11 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 				break;
 
 			case 'order':
-				$column_content = sprintf( '<a href="%s">%s</a>', get_edit_post_link( $order_id ), sprintf( __( 'Order %s', 'wc-pre-orders' ), $order->get_order_number() ) );
+				$column_content = sprintf( '<a href="%s">%s</a>', $order->get_edit_order_url(), sprintf( __( 'Order %s', 'wc-pre-orders' ), $order->get_order_number() ) );
 				break;
 
 			case 'order_date':
-				$column_content = date_i18n( wc_date_format(), strtotime( version_compare( WC_VERSION, '3.0', '<' ) ? $order->order_date : ( $order->get_date_created() ? gmdate( 'Y-m-d H:i:s', $order->get_date_created()->getOffsetTimestamp() ) : '' ) ) );
+				$column_content = date_i18n( wc_date_format(), strtotime( ( $order->get_date_created() ? gmdate( 'Y-m-d H:i:s', $order->get_date_created()->getOffsetTimestamp() ) : '' ) ) );
 				break;
 
 			case 'order_status':
@@ -320,10 +333,10 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 	}
 
 	/**
-	 * Gets the current orderby, defaulting to 'post_date' if none is selected
+	 * Gets the current orderby, defaulting to 'date' if none is selected
 	 */
 	private function get_current_orderby() {
-		return isset( $_GET['orderby'] ) ? $_GET['orderby'] : 'post_date';
+		return isset( $_GET['orderby'] ) ? $_GET['orderby'] : 'date';
 	}
 
 	/**
@@ -346,7 +359,7 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 		// main query args
 		$args = array(
 			'post_type'      => 'shop_order',
-			'post_status'    => array( 'publish', 'trash' ),
+			'post_status'    => array_keys( wc_get_order_statuses() ),
 			'posts_per_page' => $per_page,
 			'paged'          => $this->get_pagenum(),
 			'orderby'        => $this->get_current_orderby(),
@@ -359,10 +372,6 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 			),
 		);
 
-		if ( defined( 'WC_VERSION' ) && version_compare( WC_VERSION, '2.2', '>=' ) ) {
-			$args['post_status'] = array_keys( wc_get_order_statuses() );
-		}
-
 		// Pre-order status view
 		$args = $this->add_view_args( $args );
 
@@ -374,20 +383,32 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 
 		$args = apply_filters( 'wc_pre_orders_edit_pre_orders_request', $args );
 
-		$query = new WP_Query( $args );
-
 		$this->items = array();
 
-		foreach ( $query->posts as $order_post ) {
-			$order         = new WC_Order( $order_post );
-			$this->items[] = $order;
+		if ( WC_Pre_Orders::is_hpos_enabled() ) {
+			$args['paginate'] = true;
+			$results          = wc_get_orders( $args );
+
+			foreach ( $results->orders as $order_post ) {
+				$this->items[] = new WC_Order( $order_post );
+			}
+
+			$total_count = $results->total;
+		} else {
+			$query = new WP_Query( $args );
+
+			foreach ( $query->posts as $order_post ) {
+				$this->items[] = new WC_Order( $order_post );
+			}
+
+			$total_count = $query->found_posts;
 		}
 
 		$this->set_pagination_args(
 			array(
-				'total_items' => $query->found_posts,
+				'total_items' => $total_count,
 				'per_page'    => $per_page,
-				'total_pages' => ceil( $query->found_posts / $per_page ),
+				'total_pages' => ceil( $total_count / $per_page ),
 			)
 		);
 	}
@@ -404,17 +425,21 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 
 		// filter by customer
 		if ( isset( $_GET['_customer_user'] ) && $_GET['_customer_user'] > 0 ) {
-			$args['meta_query'][] = array(
-				'key'   => '_customer_user',
-				'value' => (int) $_GET['_customer_user'],
-			);
+			if ( WC_Pre_Orders::is_hpos_enabled() ) {
+				$args['customer_id'] =  (int) $_GET['_customer_user'];
+			} else {
+				$args['meta_query'][] = array(
+					'key'   => '_customer_user',
+					'value' => (int) $_GET['_customer_user'],
+				);
+			}
 		}
 
 		$product_ids = array();
 
 		// filter by product
 		if ( isset( $_GET['_product'] ) && $_GET['_product'] > 0 ) {
-			$product_ids[] = $_GET['_product'];
+			$product_ids[] = absint( $_GET['_product'] );
 		}
 
 		// filter by availability months (find the corresponding products since availability date is set per product)
@@ -423,39 +448,39 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 			$year  = substr( $_GET['availability_date'], 0, 4 );
 			$month = ltrim( substr( $_GET['availability_date'], 4, 2 ), '0' );
 
-			$product_ids = array_merge(
-				$product_ids,
-				$wpdb->get_col(
-					$wpdb->prepare(
-						"
-					SELECT DISTINCT post_id
-					FROM {$wpdb->postmeta}
-					WHERE meta_key = '_wc_pre_orders_availability_datetime'
-						AND YEAR( FROM_UNIXTIME( meta_value ) ) = %s AND MONTH( FROM_UNIXTIME( meta_value ) ) = %s
-				",
-						$year,
-						$month
-					)
+			$products = $wpdb->get_col(
+				$wpdb->prepare(
+					"
+				SELECT DISTINCT post_id
+				FROM {$wpdb->postmeta}
+				WHERE meta_key = '_wc_pre_orders_availability_datetime'
+					AND YEAR( FROM_UNIXTIME( meta_value ) ) = %s AND MONTH( FROM_UNIXTIME( meta_value ) ) = %s
+			",
+					$year,
+					$month
 				)
 			);
+
+			$product_ids = ( ! empty( $product_ids ) ) ? array_intersect( $product_ids, $products ) : $products;
+			if ( empty( $product_ids ) ) {
+				$args['post__in'] = array( 0 );
+			}
 		}
 
 		// filtering by product id
-		if ( $product_ids ) {
-			$post_ids = $wpdb->get_col(
-				$wpdb->prepare(
-					"
-					SELECT order_id
-					FROM {$wpdb->prefix}woocommerce_order_items as order_items
-					JOIN {$wpdb->prefix}woocommerce_order_itemmeta as order_itemmeta
-						ON order_itemmeta.order_item_id = order_items.order_item_id
-					WHERE meta_key = '_product_id' AND meta_value IN (%s)
-					",
-					$product_ids
-				)
+		if ( ! empty( $product_ids ) ) {
+			$product_ids = implode( ',', array_map( 'absint', $product_ids ) );
+			$order_ids = $wpdb->get_col(
+				"
+				SELECT order_id
+				FROM {$wpdb->prefix}woocommerce_order_items as order_items
+				JOIN {$wpdb->prefix}woocommerce_order_itemmeta as order_itemmeta
+					ON order_itemmeta.order_item_id = order_items.order_item_id
+				WHERE meta_key = '_product_id' AND meta_value IN (" . esc_sql( $product_ids ) . ")
+				"
 			);
 
-			$args['post__in'] = ! empty( $post_ids ) ? $post_ids : array( 0 );
+			$args['post__in'] = ! empty( $order_ids ) ? $order_ids : array( 0 );
 		}
 
 		return $args;
@@ -472,6 +497,10 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 		$pre_order_status = $this->get_current_pre_order_status();
 
 		if ( 'all' != $pre_order_status ) {
+			if ( ! isset( $args['meta_query'] ) ) {
+				$args['meta_query'] = array();
+			}
+
 			$args['meta_query'][] = array(
 				'key'   => '_wc_pre_orders_status',
 				'value' => $pre_order_status,
@@ -493,7 +522,8 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 
 		global $wpdb;
 
-		if ( isset( $_GET['s'] ) && $_GET['s'] ) {
+		if ( isset( $_GET['s'] ) && ! empty( $_GET['s'] ) ) {
+			$search_query  = sanitize_text_field( wp_unslash( $_GET['s'] ) );
 			$search_fields = array_map(
 				'esc_attr',
 				apply_filters(
@@ -501,39 +531,69 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 					array(
 						'_order_key',
 						'_billing_email',
-						'_wc_pre_order_status',
+						'_wc_pre_orders_status',
 					)
 				)
 			);
 
-			$search_order_id = str_replace( 'Order #', '', $_GET['s'] );
+			$search_order_id = str_replace( 'Order #', '', $search_query );
 			if ( ! is_numeric( $search_order_id ) ) {
 				$search_order_id = 0;
 			}
 
-			// Search orders
-			$post_ids = array_merge(
-				$wpdb->get_col(
+			$search_ids_by_meta = array();
+			if ( WC_Pre_Orders::is_hpos_enabled() ) {
+				$search_ids_by_meta = $wpdb->get_col(
+					$wpdb->prepare(
+						"
+						SELECT DISTINCT orders.id
+						FROM {$wpdb->prefix}wc_orders AS orders
+						INNER JOIN {$wpdb->prefix}wc_orders_meta AS meta0 ON ( orders.id = meta0.order_id )
+						INNER JOIN {$wpdb->prefix}wc_orders_meta AS meta1 ON ( orders.id = meta1.order_id )
+						INNER JOIN {$wpdb->prefix}wc_order_operational_data AS operational_data ON ( orders.id = operational_data.order_id )
+						WHERE ( orders.type = 'shop_order' )
+						AND ( meta0.meta_key = '_wc_pre_orders_is_pre_order' AND meta0.meta_value = '1' )
+						AND ( ( orders.billing_email LIKE '%%%1\$s%%' )
+						OR ( meta1.meta_key = '_wc_pre_orders_status' AND meta1.meta_value LIKE '%%%1\$s%%' )
+						OR ( operational_data.order_key LIKE '%%%1\$s%%' ) )",
+						esc_attr( $search_query ),
+						esc_attr( $search_query ),
+						esc_attr( $search_query )
+					)
+				);
+			} else {
+				$search_ids_by_meta = $wpdb->get_col(
 					$wpdb->prepare(
 						"
 						SELECT post_id
 						FROM {$wpdb->postmeta}
 						WHERE meta_key IN ('" . implode( "','", $search_fields ) . "')
 						AND meta_value LIKE '%%%s%%'",
-						esc_attr( $_GET['s'] )
+						esc_attr( $search_query )
 					)
-				),
-				$wpdb->get_col(
+				);
+			}
+
+			// Order IDs by customer name
+			if ( WC_Pre_Orders::is_hpos_enabled() ) {
+				$search_ids_by_customer = $wpdb->get_col(
 					$wpdb->prepare(
-						"
-						SELECT order_id
-						FROM {$wpdb->prefix}woocommerce_order_items as order_items
-						WHERE order_item_name LIKE '%%%s%%'
-						",
-						esc_attr( $_GET['s'] )
+						"SELECT _order.id
+						FROM {$wpdb->prefix}wc_orders as _order
+						LEFT JOIN {$wpdb->users} as users ON _order.customer_id = users.ID
+						WHERE
+							user_login    LIKE '%%%1\$s%%' OR
+							user_nicename LIKE '%%%1\$s%%' OR
+							user_email    LIKE '%%%1\$s%%' OR
+							display_name  LIKE '%%%1\$s%%'",
+						esc_attr( $search_query ),
+						esc_attr( $search_query ),
+						esc_attr( $search_query ),
+						esc_attr( $search_query )
 					)
-				),
-				$wpdb->get_col(
+				);
+			} else {
+				$search_ids_by_customer = $wpdb->get_col(
 					$wpdb->prepare(
 						"
 						SELECT posts.ID
@@ -553,18 +613,42 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 								)
 							)
 						",
-						esc_attr( $_GET['s'] ),
-						esc_attr( $_GET['s'] ),
-						esc_attr( $_GET['s'] ),
-						esc_attr( $_GET['s'] ),
-						esc_attr( $_GET['s'] ),
-						esc_attr( $_GET['s'] )
+						esc_attr( $search_query ),
+						esc_attr( $search_query ),
+						esc_attr( $search_query ),
+						esc_attr( $search_query ),
+						esc_attr( $search_query ),
+						esc_attr( $search_query )
+					)
+				);
+			}
+
+			// Search orders
+			$post_ids = array_merge(
+				$wpdb->get_col(
+					$wpdb->prepare(
+						"
+						SELECT order_id
+						FROM {$wpdb->prefix}woocommerce_order_items as order_items
+						WHERE order_item_name LIKE '%%%s%%'
+						",
+						esc_attr( $search_query )
 					)
 				),
+				$search_ids_by_customer,
+				$search_ids_by_meta,
 				array( $search_order_id )
 			);
 
-			$args['post__in'] = $post_ids;
+			if ( isset( $args['post__in'] ) && ! empty( $args['post__in'] ) ) {
+				$args['post__in'] = array_intersect( $args['post__in'], array_unique( $post_ids ) );
+			} else {
+				$args['post__in'] = array_unique( $post_ids );
+			}
+
+			if ( empty( $args['post__in'] ) ) {
+				$args['post__in'] = array( 0 );
+			}
 		}
 
 		return $args;
@@ -602,79 +686,39 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 		if ( 'top' == $which ) {
 			echo '<div class="alignleft actions">';
 
-			// Customers, products
-			if ( version_compare( WOOCOMMERCE_VERSION, '2.3.0', '<' ) ) {
-				?>
-			<select id="dropdown_customers" name="_customer_user">
-				<option value=""><?php _e( 'Show all customers', 'wc-pre-orders' ); ?></option>
-				<?php
-				if ( ! empty( $_GET['_customer_user'] ) ) {
-					$user = get_user_by( 'id', absint( $_GET['_customer_user'] ) );
-					echo '<option value="' . absint( $user->ID ) . '" ';
-					selected( 1, 1 );
-					echo '>' . esc_html( $user->display_name ) . ' (#' . absint( $user->ID ) . ' &ndash; ' . esc_html( $user->user_email ) . ')</option>';
-				}
-				?>
-			</select>
-
-			<select id="dropdown_products" name="_product">
-				<option value=""><?php _e( 'Show all products', 'wc-pre-orders' ); ?></option>
-				<?php
-				if ( ! empty( $_GET['_product'] ) ) {
-					$product      = wc_get_product( absint( $_GET['_product'] ) );
-					$product_name = $product->get_formatted_name();
-					echo '<option value="' . absint( $product->get_id() ) . '" ';
-					selected( 1, 1 );
-					echo '>' . esc_html( $product_name ) . '</option>';
-				}
-				?>
-			</select>
-
-				<?php
-			} else {
-				$user_string = '';
-				$user_id     = '';
-				if ( ! empty( $_GET['_customer_user'] ) ) {
-					$user_id     = absint( $_GET['_customer_user'] );
-					$user        = get_user_by( 'id', $user_id );
-					$user_string = esc_html( $user->display_name ) . ' (#' . absint( $user->ID ) . ' &ndash; ' . esc_html( $user->user_email );
-				}
-
-				$product_name = '';
-				$product_id   = '';
-				if ( ! empty( $_GET['_product'] ) ) {
-					$product_id   = absint( $_GET['_product'] );
-					$product      = wc_get_product( $product_id );
-					$product_name = ! empty( $product ) ? $product->get_formatted_name() : '';
-				}
-
-				if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) {
-					?>
-					<select id="dropdown_customers" style="width: 250px;" class="wc-customer-search" name="_customer_user" data-placeholder="<?php esc_attr_e( 'Search for a customer&hellip;', 'wc-pre-orders' ); ?>">
-						<?php
-						if ( ! empty( $_GET['_customer_user'] ) ) {
-							echo '<option value="' . esc_attr( $user_id ) . '">' . wp_kses_post( $user_string ) . '</option>';
-						}
-						?>
-					</select>
-				<?php } else { ?>
-					<input type="hidden" id="dropdown_customers" class="wc-customer-search" name="_customer_user" data-placeholder="<?php _e( 'Search for a customer&hellip;', 'wc-pre-orders' ); ?>" data-selected="<?php echo esc_attr( $user_string ); ?>" value="<?php echo $user_id; ?>" data-allow_clear="true" style="width: 250px;" />
-				<?php } ?>
-
-				<?php if ( version_compare( WC_VERSION, '3.0.0', '>=' ) ) { ?>
-					<select id="dropdown_products" class="wc-product-search" style="width: 250px;" name="_product" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'wc-pre-orders' ); ?>" data-action="woocommerce_json_search_products_and_variations">
-						<?php
-						if ( ! empty( $_GET['_product'] ) ) {
-							echo '<option value="' . esc_attr( $product_id ) . '">' . wp_kses_post( $product_name ) . '</option>';
-						}
-						?>
-					</select>
-				<?php } else { ?>
-					<input type="hidden" id="dropdown_products" class="wc-product-search" name="_product" data-placeholder="<?php _e( 'Search for a product&hellip;', 'wc-pre-orders' ); ?>" data-selected="<?php echo esc_attr( $product_name ); ?>" value="<?php echo $product_id; ?>" data-allow_clear="true" style="width: 250px;" />
-
-					<?php
-				}
+			$user_string = '';
+			$user_id     = '';
+			if ( ! empty( $_GET['_customer_user'] ) ) {
+				$user_id     = absint( $_GET['_customer_user'] );
+				$user        = get_user_by( 'id', $user_id );
+				$user_string = esc_html( $user->display_name ) . ' (#' . absint( $user->ID ) . ' &ndash; ' . esc_html( $user->user_email );
 			}
+
+			$product_name = '';
+			$product_id   = '';
+			if ( ! empty( $_GET['_product'] ) ) {
+				$product_id   = absint( $_GET['_product'] );
+				$product      = wc_get_product( $product_id );
+				$product_name = ! empty( $product ) ? $product->get_formatted_name() : '';
+			}
+			?>
+
+			<select id="dropdown_customers" style="width: 250px;" class="wc-customer-search" name="_customer_user" data-placeholder="<?php esc_attr_e( 'Search for a customer&hellip;', 'wc-pre-orders' ); ?>">
+				<?php
+				if ( ! empty( $_GET['_customer_user'] ) ) {
+					echo '<option value="' . esc_attr( $user_id ) . '">' . wp_kses_post( $user_string ) . '</option>';
+				}
+				?>
+			</select>
+
+			<select id="dropdown_products" class="wc-product-search" style="width: 250px;" name="_product" data-placeholder="<?php esc_attr_e( 'Search for a product&hellip;', 'wc-pre-orders' ); ?>" data-action="woocommerce_json_search_products_and_variations">
+				<?php
+				if ( ! empty( $_GET['_product'] ) ) {
+					echo '<option value="' . esc_attr( $product_id ) . '">' . wp_kses_post( $product_name ) . '</option>';
+				}
+				?>
+			</select>
+			<?php
 
 			$this->render_availability_dates_dropdown();
 
@@ -709,57 +753,6 @@ class WC_Pre_Orders_List_Table extends WP_List_Table {
 					}
 				});
 			";
-
-			if ( version_compare( WOOCOMMERCE_VERSION, '2.3.0', '<' ) ) {
-				$chosen = "
-					// Ajax Chosen Product Selectors
-					$('select#dropdown_availability_dates').css('width', '250px').chosen();
-
-					$('select#dropdown_customers').css('width', '250px').ajaxChosen({
-						method:         'GET',
-						url:            '" . admin_url( 'admin-ajax.php' ) . "',
-						dataType:       'json',
-						afterTypeDelay: 100,
-						minTermLength:  1,
-						data: {
-							action:   'woocommerce_json_search_customers',
-							security: '" . wp_create_nonce( 'search-customers' ) . "',
-							default:  '" . __( 'Show all customers', 'wc-pre-orders' ) . "'
-						}
-					}, function (data) {
-
-						var terms = {};
-
-						$.each(data, function (i, val) {
-							terms[i] = val;
-						});
-
-						return terms;
-					});
-
-					$('select#dropdown_products').css( 'width', '250px').ajaxChosen({
-						method:         'GET',
-						url:            '" . admin_url( 'admin-ajax.php' ) . "',
-						dataType:       'json',
-						afterTypeDelay: 100,
-						data: {
-							action:   'woocommerce_json_search_products',
-							security: '" . wp_create_nonce( 'search-products' ) . "'
-						}
-					}, function (data) {
-
-						var terms = {};
-
-						jQuery.each(data, function (i, val) {
-							terms[i] = val;
-						});
-
-						return terms;
-					});
-				";
-
-				$javascript = $chosen . $javascript;
-			}
 
 			if ( function_exists( 'wc_enqueue_js' ) ) {
 				wc_enqueue_js( $javascript );

@@ -162,7 +162,7 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 			return;
 		}
 
-		if ( ! empty( $_GET['cancel_pre_order_nonce'] ) && ! wp_verify_nonce( $_GET['cancel_pre_order_nonce'], 'cancel_pre_order' ) ) {
+		if ( ! isset( $_GET['cancel_pre_order_nonce'] ) || ! wp_verify_nonce( $_GET['cancel_pre_order_nonce'], 'cancel_pre_order' ) ) {
 			wp_die( __( 'Action failed. Please refresh the page and retry.', 'wc-pre-orders' ) );
 		}
 
@@ -788,7 +788,7 @@ class WC_Pre_Orders_Admin_Pre_Orders {
 			$redirect_url = remove_query_arg( array( '_wp_http_referer', '_wpnonce', 'action', 'action2', 'order_id', 'customer_message', 'customer_message2' ), stripslashes( $_SERVER['REQUEST_URI'] ) );
 		}
 
-		wp_redirect( esc_url_raw( add_query_arg( 'message', $message_nonce, $redirect_url ) ) );
+		wp_safe_redirect( esc_url_raw( add_query_arg( 'message', $message_nonce, $redirect_url ) ) );
 		exit;
 	}
 }

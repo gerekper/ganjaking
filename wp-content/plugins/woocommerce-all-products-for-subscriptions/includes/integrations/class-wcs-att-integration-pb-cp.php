@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Compatibility with Product Bundles and Composite Products.
  *
  * @class    WCS_ATT_Integration_PB_CP
- * @version  3.3.0
+ * @version  4.0.4
  */
 class WCS_ATT_Integration_PB_CP {
 
@@ -289,6 +289,11 @@ class WCS_ATT_Integration_PB_CP {
 
 			// Add scheme data to runtime price cache hashes.
 			add_filter( 'woocommerce_bundle_prices_hash', array( __CLASS__, 'bundle_prices_hash' ), 10, 2 );
+
+			// Temporarily disable APFS price filters when getting the bundled item Regular price.
+			add_action( 'woocommerce_bundled_item_get_unfiltered_regular_price_start', array( __CLASS__, 'remove_price_filters' ) );
+			add_action( 'woocommerce_bundled_item_get_unfiltered_regular_price_end', array( __CLASS__, 'add_price_filters' ) );
+
 		}
 
 		/*
@@ -1856,6 +1861,22 @@ class WCS_ATT_Integration_PB_CP {
 		}
 
 		return $hash;
+	}
+
+	/**
+	 * Remove APFS price filters before retrieving the bundled item Regular Price.
+	 *
+	 */
+	public static function remove_price_filters() {
+		WCS_ATT_Product_Price_Filters::remove( 'price' );
+	}
+
+	/**
+	 * Re-add APFS price filters after retrieving the bundled item Regular Price.
+	 *
+	 */
+	public static function add_price_filters() {
+		WCS_ATT_Product_Price_Filters::add( 'price' );
 	}
 
 	/*

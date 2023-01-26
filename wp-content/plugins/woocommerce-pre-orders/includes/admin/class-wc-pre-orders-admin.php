@@ -53,10 +53,6 @@ class WC_Pre_Orders_Admin {
 		// Install.
 		if ( ! $installed_version ) {
 
-			if ( defined( 'WC_VERSION' ) && ! version_compare( WC_VERSION, '2.1', '>=' ) ) {
-				$this->check_term_properly_set();
-			}
-
 			$admin_settings = new WC_Pre_Orders_Admin_Settings();
 
 			// Install default settings.
@@ -71,35 +67,8 @@ class WC_Pre_Orders_Admin {
 		// Upgrade - installed version lower than plugin version?
 		if ( -1 === version_compare( $installed_version, WC_PRE_ORDERS_VERSION ) ) {
 
-			$this->upgrade( $installed_version );
-
 			// New version number.
 			update_option( 'wc_pre_orders_version', WC_PRE_ORDERS_VERSION );
-		}
-	}
-
-	/**
-	 * Handles upgrades.
-	 *
-	 * @param string $installed_version
-	 */
-	private function upgrade( $installed_version ) {
-		// Always call the method to check for the term being set on upgrades.
-		// Seen enough cases where this wasn't set, so need to enforce it.
-		if ( defined( 'WC_VERSION' ) && ! version_compare( WC_VERSION, '2.1', '>=' ) ) {
-			$this->check_term_properly_set();
-		}
-	}
-
-	/**
-	 * Check if the pre order shop status term is properly set.
-	 * if it doesn't exist, we make it.
-	 *
-	 * @deprecated since WooCommerce 2.2
-	 */
-	private function check_term_properly_set() {
-		if ( ! get_term_by( 'slug', 'pre-ordered', 'shop_order_status' ) ) {
-			wp_insert_term( 'pre-ordered', 'shop_order_status' );
 		}
 	}
 

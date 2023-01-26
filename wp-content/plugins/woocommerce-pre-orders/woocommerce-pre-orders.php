@@ -5,12 +5,14 @@
  * Description: Sell pre-orders for products in your WooCommerce store.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
- * Version: 1.8.0
+ * Version: 1.9.0
  * Text Domain: wc-pre-orders
  * Domain Path: /languages/
- * Tested up to: 6.0
- * WC tested up to: 7.0
- * WC requires at least: 2.6
+ * Requires at least: 5.6
+ * Tested up to: 6.1
+ * Requires PHP: 7.0
+ * WC tested up to: 7.1
+ * WC requires at least: 6.0
  *
  * Copyright: © 2022 WooCommerce
  *
@@ -50,7 +52,7 @@ function woocommerce_pre_orders_activate() {
 }
 
 if ( ! class_exists( 'WC_Pre_Orders' ) ) :
-	define( 'WC_PRE_ORDERS_VERSION', '1.8.0' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_PRE_ORDERS_VERSION', '1.9.0' ); // WRCS: DEFINED_VERSION.
 	define( 'WC_PRE_ORDERS_PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 	define( 'WC_PRE_ORDERS_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ), basename( __FILE__ ) ) ) ) );
 	define( 'WC_PRE_ORDERS_GUTENBERG_EXISTS', function_exists( 'register_block_type' ) ? true : false );

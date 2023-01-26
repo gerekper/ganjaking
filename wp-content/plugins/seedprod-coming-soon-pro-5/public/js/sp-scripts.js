@@ -400,19 +400,38 @@ jQuery('.sp-testimonial-nav button').click(function () {
   var currentButtonIndex = jQuery(currentId + ' .sp-testimonial-nav button').index(this);
   var currentIndex = 0;
   var testimonials = jQuery('.sp-testimonial-wrapper', jQuery(this).parents(currentId));
-  jQuery(testimonials).each(function (index) {
-    var o = jQuery(this).css('opacity');
+  var slideshowmax = jQuery(this).parents('.sp-testimonials-wrapper').attr('data-slidetoshow');
 
-    if (o == 1) {
-      currentIndex = index;
+  if (slideshowmax == undefined) {
+    slideshowmax = 1;
+  }
+  /*
+  jQuery(testimonials).each(function (index) {
+  	var o = jQuery(this).css('opacity');
+  	if (o == 1) {
+  		currentIndex = index;
+  	}
+  })
+  */
+
+
+  var slider_length = Math.ceil(testimonials.length / parseInt(slideshowmax));
+
+  for (var customindexdata = 0; customindexdata < slider_length; customindexdata++) {
+    var opa = jQuery(currentId + ' .sp-testimonial-nav button[data-index="' + customindexdata + '"]').css('opacity');
+
+    if (opa >= 0.5) {
+      //console.log("customindexdata is =" + customindexdata);
+      currentIndex = customindexdata;
     }
-  });
+  }
+
   var buttonsLength = jQuery(currentId + ' .sp-testimonial-nav button').length - 1;
   var currentButtonIndexData = jQuery(currentId + ' .sp-testimonial-nav button').eq(currentButtonIndex).attr('data-index'); // check for previous button click
 
   if (currentButtonIndex == 0) {
     if (0 == currentIndex) {
-      currentIndex = testimonials.length - 1;
+      currentIndex = Math.ceil(testimonials.length / parseInt(slideshowmax)) - 1;
     } else {
       currentIndex--;
     }
@@ -420,7 +439,7 @@ jQuery('.sp-testimonial-nav button').click(function () {
 
 
   if (currentButtonIndex == buttonsLength) {
-    if (testimonials.length - 1 == currentIndex) {
+    if (Math.ceil(testimonials.length / parseInt(slideshowmax)) - 1 == currentIndex) {
       currentIndex = 0;
     } else {
       currentIndex++;
@@ -435,24 +454,40 @@ jQuery('.sp-testimonial-nav button').click(function () {
   });
   jQuery(currentId + ' .sp-testimonial-nav button[data-index]').css({
     'opacity': 0.25
-  }); // select testimonial and button
+  });
+  var startindex = parseInt(currentIndex * parseInt(slideshowmax));
+  var endindex = parseInt(startindex + parseInt(slideshowmax)); // select testimonial and button
 
   if (currentButtonIndexData !== undefined) {
     currentIndex = currentButtonIndexData;
-    jQuery(testimonials).eq(currentIndex).css({
-      'opacity': 1,
-      'height': 'auto',
-      'position': 'initial'
-    });
+    startindex = parseInt(currentIndex * parseInt(slideshowmax));
+    endindex = parseInt(startindex + parseInt(slideshowmax));
+
+    for (var i = startindex; i < endindex; i++) {
+      jQuery(testimonials).eq(i).css({
+        'opacity': 1,
+        'height': 'auto',
+        'position': 'initial'
+      });
+    } //jQuery(testimonials).eq(currentIndex).css({ 'opacity': 1, 'height': 'auto', 'position': 'initial' });
+
+
     jQuery(currentId + ' .sp-testimonial-nav button').eq(currentButtonIndex).css({
       'opacity': 1
     });
   } else {
-    jQuery(testimonials).eq(currentIndex).css({
-      'opacity': 1,
-      'height': 'auto',
-      'position': 'initial'
-    });
+    startindex = parseInt(currentIndex * parseInt(slideshowmax));
+    endindex = parseInt(startindex + parseInt(slideshowmax));
+
+    for (var _i = startindex; _i < endindex; _i++) {
+      jQuery(testimonials).eq(_i).css({
+        'opacity': 1,
+        'height': 'auto',
+        'position': 'initial'
+      }); //jQuery(currentId + ' .sp-imagecarousel-nav button').eq(currentButtonIndex).css({ 'opacity': 1 })	
+    } //jQuery(testimonials).eq(currentIndex).css({ 'opacity': 1, 'height': 'auto', 'position': 'initial' });
+
+
     jQuery(currentId + ' .sp-testimonial-nav button').eq(currentIndex + 1).css({
       'opacity': 1
     });
@@ -540,20 +575,41 @@ jQuery('.sp-imagecarousel-nav button').click(function () {
   var currentId = '#' + jQuery(this).parents('.sp-imagecarousels-wrapper').attr('id');
   var currentButtonIndex = jQuery(currentId + ' .sp-imagecarousel-nav button').index(this);
   var currentIndex = 0;
+  var currentIndexOfNav = 0;
   var imagecarousels = jQuery('.sp-imagecarousel-wrapper', jQuery(this).parents(currentId));
-  jQuery(imagecarousels).each(function (index) {
-    var o = jQuery(this).css('opacity');
+  var slideshowmax = jQuery(this).parents('.sp-imagecarousels-wrapper').attr('data-slidetoshow');
 
-    if (o == 1) {
-      currentIndex = index;
+  if (slideshowmax == undefined) {
+    slideshowmax = 1;
+  } //console.log("new slidershow value = " + slideshowmax);
+
+  /*
+  jQuery(imagecarousels).each(function (index) {
+  	var o = jQuery(this).css('opacity');
+  	if (o == 1) {
+  		currentIndex = index;
+  	}
+  })
+  */
+
+
+  var slider_length = Math.ceil(imagecarousels.length / parseInt(slideshowmax));
+
+  for (var customindexdata = 0; customindexdata < slider_length; customindexdata++) {
+    var opa = jQuery(currentId + ' .sp-imagecarousel-nav button[data-index="' + customindexdata + '"]').css('opacity');
+
+    if (opa >= 0.5) {
+      //console.log("customindexdata is =" + customindexdata);
+      currentIndex = customindexdata;
     }
-  });
+  }
+
   var buttonsLength = jQuery(currentId + ' .sp-imagecarousel-nav button').length - 1;
   var currentButtonIndexData = jQuery(currentId + ' .sp-imagecarousel-nav button').eq(currentButtonIndex).attr('data-index'); // check for previous button click
 
   if (currentButtonIndex == 0) {
     if (0 == currentIndex) {
-      currentIndex = imagecarousels.length - 1;
+      currentIndex = Math.ceil(imagecarousels.length / parseInt(slideshowmax)) - 1;
     } else {
       currentIndex--;
     }
@@ -561,13 +617,15 @@ jQuery('.sp-imagecarousel-nav button').click(function () {
 
 
   if (currentButtonIndex == buttonsLength) {
-    if (imagecarousels.length - 1 == currentIndex) {
+    if (Math.ceil(imagecarousels.length / parseInt(slideshowmax)) - 1 == currentIndex) {
       currentIndex = 0;
     } else {
       currentIndex++;
     }
-  } // reset states
+  }
 
+  var startindex = parseInt(currentIndex * parseInt(slideshowmax));
+  var endindex = parseInt(startindex + parseInt(slideshowmax)); // reset states
 
   imagecarousels.css({
     'opacity': 0,
@@ -580,20 +638,34 @@ jQuery('.sp-imagecarousel-nav button').click(function () {
 
   if (currentButtonIndexData !== undefined) {
     currentIndex = currentButtonIndexData;
-    jQuery(imagecarousels).eq(currentIndex).css({
-      'opacity': 1,
-      'height': 'auto',
-      'position': 'initial'
-    });
+    startindex = parseInt(currentIndex * parseInt(slideshowmax));
+    endindex = parseInt(startindex + parseInt(slideshowmax));
+
+    for (var i = startindex; i < endindex; i++) {
+      jQuery(imagecarousels).eq(i).css({
+        'opacity': 1,
+        'height': 'auto',
+        'position': 'initial'
+      });
+    } //jQuery(imagecarousels).eq(currentIndex).css({ 'opacity': 1, 'height': 'auto', 'position': 'initial' });
+
+
     jQuery(currentId + ' .sp-imagecarousel-nav button').eq(currentButtonIndex).css({
       'opacity': 1
     });
   } else {
-    jQuery(imagecarousels).eq(currentIndex).css({
-      'opacity': 1,
-      'height': 'auto',
-      'position': 'initial'
-    });
+    startindex = parseInt(currentIndex * parseInt(slideshowmax));
+    endindex = parseInt(startindex + parseInt(slideshowmax));
+
+    for (var _i2 = startindex; _i2 < endindex; _i2++) {
+      jQuery(imagecarousels).eq(_i2).css({
+        'opacity': 1,
+        'height': 'auto',
+        'position': 'initial'
+      }); //jQuery(currentId + ' .sp-imagecarousel-nav button').eq(currentButtonIndex).css({ 'opacity': 1 })	
+    } //jQuery(imagecarousels).eq(currentIndex).css({ 'opacity': 1, 'height': 'auto', 'position': 'initial' });
+
+
     jQuery(currentId + ' .sp-imagecarousel-nav button').eq(currentIndex + 1).css({
       'opacity': 1
     });

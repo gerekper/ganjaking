@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\Config\ServicesChecker;
 use MailPoet\Mailer\Mailer;
-use MailPoet\Mailer\MailerError;
 use MailPoet\Mailer\Methods\Common\BlacklistCheck;
 use MailPoet\Mailer\Methods\ErrorMappers\MailPoetMapper;
 use MailPoet\Services\AuthorizedEmailsController;
@@ -74,7 +73,7 @@ class MailPoet implements MailerMethod {
       case API::SENDING_STATUS_SEND_ERROR:
         $error = $this->processSendError($result, $subscriber, $newsletter);
         return Mailer::formatMailerErrorResult($error);
-      case API::SENDING_STATUS_OK:
+      case API::RESPONSE_STATUS_OK:
       default:
         return Mailer::formatMailerSendSuccessResult();
     }
@@ -86,7 +85,7 @@ class MailPoet implements MailerMethod {
     } elseif (
       !empty($result['code'])
       && $result['code'] === API::RESPONSE_CODE_CAN_NOT_SEND
-      && $result['message'] === MailerError::MESSAGE_EMAIL_NOT_AUTHORIZED
+      && $result['error'] === API::ERROR_MESSAGE_INVALID_FROM
     ) {
       $this->authorizedEmailsController->checkAuthorizedEmailAddresses();
     }

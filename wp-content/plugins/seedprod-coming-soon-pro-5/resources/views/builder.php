@@ -360,6 +360,7 @@ foreach ( $fontawesome_json as $v ) {
 <?php endif; ?>
 
 <script>
+//var seedprod_copy_paste_enabled = false;
 var seedprod_nonce = <?php echo wp_json_encode( $seedprod_nonce ); ?>;
 var seedprod_page = <?php echo wp_json_encode( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ); ?>; <?php // phpcs:ignore ?>
 var seedprod_remote_api = "<?php echo esc_url( SEEDPROD_PRO_API_URL ); ?>";
@@ -445,6 +446,9 @@ var seedprod_plugin_nonce_url = <?php echo wp_json_encode( esc_url_raw( $ajax_ur
 
 <?php $ajax_url = html_entity_decode( wp_nonce_url( 'admin-ajax.php?action=seedprod_pro_dismiss_upsell', 'seedprod_pro_dismiss_upsell' ) ); ?>
 var seedprod_dismiss_upsell = <?php echo wp_json_encode( esc_url_raw( $ajax_url ) ); ?>;
+
+<?php $ajax_url = html_entity_decode( wp_nonce_url( 'admin-ajax.php?action=seedprod_pro_import_cross_site_paste', 'seedprod_pro_import_cross_site_paste' ) ); ?>
+var seedprod_import_cross_site_url = <?php echo wp_json_encode( esc_url_raw( $ajax_url ) ); ?>;
 
 <?php
 	// user has to have this capability
@@ -591,6 +595,41 @@ $seedprod_data = array(
 
 	jQuery('link[href*="forms.css"]').remove();
 	jQuery('link[href*="common.css"]').remove();
+
+	
+	xdLocalStorage.init({
+		iframeUrl:'https://assets.seedprod.com/cross-domain-local-storage/cross-domain-local-storage.html',
+		initCallback: function () {
+			
+			xdLocalStorage.getItem('seedprod_section_data', function (data) {
+					if(data.value=='' || data.value==null){
+						seedprod_store.seedprod_copy_paste_enabled= false;
+					}else{
+						seedprod_store.seedprod_copy_paste_enabled= true;
+					}
+
+			});
+
+
+		}
+	});
+	
+	function getxdLocalStorageValue(){
+		
+		xdLocalStorage.getItem('seedprod_section_data', function (data) {
+			seedprod_section_data = JSON.parse(data.value);
+		});
+
+	}
+
+	function setxdLocalStorageValue (value) {
+
+		xdLocalStorage.setItem('seedprod_section_data', value);
+		seedprod_store.seedprod_copy_paste_enabled= true;
+
+	}
+
+
 
 </script>
 

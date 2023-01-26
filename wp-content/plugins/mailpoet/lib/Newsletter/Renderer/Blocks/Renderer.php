@@ -40,6 +40,9 @@ class Renderer {
   /** @var Placeholder */
   private $placeholder;
 
+  /** @var Coupon */
+  private $coupon;
+
   public function __construct(
     AutomatedLatestContentBlock $ALC,
     Button $button,
@@ -50,7 +53,8 @@ class Renderer {
     Social $social,
     Spacer $spacer,
     Text $text,
-    Placeholder $placeholder
+    Placeholder $placeholder,
+    Coupon $coupon
   ) {
     $this->ALC = $ALC;
     $this->button = $button;
@@ -62,6 +66,7 @@ class Renderer {
     $this->spacer = $spacer;
     $this->text = $text;
     $this->placeholder = $placeholder;
+    $this->coupon = $coupon;
   }
 
   public function render(NewsletterEntity $newsletter, $data) {
@@ -123,6 +128,8 @@ class Renderer {
         return $this->text->render($block);
       case 'placeholder':
         return $this->placeholder->render($block);
+      case Coupon::TYPE:
+        return $this->coupon->render($block, $columnBaseWidth);
     }
     return "<!-- Skipped unsupported block type: {$block['type']} -->";
   }

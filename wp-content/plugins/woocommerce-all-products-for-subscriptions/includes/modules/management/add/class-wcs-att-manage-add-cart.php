@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Add stuff to existing subscriptions.
  *
  * @class    WCS_ATT_Manage_Add_Cart
- * @version  4.0.0
+ * @version  4.0.4
  */
 class WCS_ATT_Manage_Add_Cart extends WCS_ATT_Abstract_Module {
 
@@ -261,13 +261,22 @@ class WCS_ATT_Manage_Add_Cart extends WCS_ATT_Abstract_Module {
 		$subscription_scheme_key = $subscription_scheme_obj->get_key();
 		$available_schemes       = WCS_ATT_Manage_Add::get_schemes_matching_cart();
 
-		// Apply the dummy scheme to all cart items.
 		foreach ( WC()->cart->cart_contents as $cart_item_key => $cart_item ) {
-			WCS_ATT_Product_Schemes::set_subscription_schemes( WC()->cart->cart_contents[ $cart_item_key ][ 'data' ], array( $subscription_scheme_key => $subscription_scheme_obj ) );
+
+			// If we are adding a product with subscription plans to an existing subscription, use existing scheme to benefit from the discount!
+			if ( ! is_null( $available_schemes ) && isset ( $available_schemes[ $subscription_scheme_key ] ) ) {
+				$subscription_scheme = array( $subscription_scheme_key => $available_schemes[ $subscription_scheme_key ] );
+
+			// Otherwise, if we are adding a one-time product to a subscription, apply dummy subscription scheme.
+			} else {
+				$subscription_scheme = array( $subscription_scheme_key => $subscription_scheme_obj );
+			}
+
+			WCS_ATT_Product_Schemes::set_subscription_schemes( WC()->cart->cart_contents[ $cart_item_key ][ 'data' ], $subscription_scheme );
 			WCS_ATT_Product_Schemes::set_subscription_scheme( WC()->cart->cart_contents[ $cart_item_key ][ 'data' ], $subscription_scheme_key );
 		}
 
-		if ( ! isset( $available_schemes[ $subscription_scheme_key ] ) || ! WC_Subscriptions_Cart::cart_contains_subscription() || ! $subscription_scheme_obj->matches_subscription( $subscription ) ) {
+		if ( ! is_null( $available_schemes ) && ( ! isset( $available_schemes[ $subscription_scheme_key ] ) || ! WC_Subscriptions_Cart::cart_contains_subscription() || ! $subscription_scheme_obj->matches_subscription( $subscription ) ) ) {
 			wc_add_notice( sprintf( __( 'Your cart cannot be added to subscription #%d. Please get in touch with us for assistance.', 'woocommerce-all-products-for-subscriptions' ), $subscription_id ), 'error' );
 			return;
 		}

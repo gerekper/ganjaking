@@ -140,8 +140,7 @@ class WC_Pre_Orders_Gateway_Pay_Later extends WC_Payment_Gateway {
 	 * @return array
 	 */
 	public function process_payment( $order_id ) {
-		$order     = new WC_Order( $order_id );
-		$is_pre_30 = version_compare( WC_VERSION, '3.0', '<' );
+		$order = new WC_Order( $order_id );
 
 		// Remove cart
 		WC()->cart->empty_cart();
@@ -150,12 +149,8 @@ class WC_Pre_Orders_Gateway_Pay_Later extends WC_Payment_Gateway {
 		$order->update_status( 'pre-ordered' );
 
 		// Add a flag the order used pay later.
-		if ( $is_pre_30 ) {
-			update_post_meta( $order_id, '_wc_pre_orders_is_pay_later', 'yes' );
-		} else {
-			$order->update_meta_data( '_wc_pre_orders_is_pay_later', 'yes' );
-			$order->save();
-		}
+		$order->update_meta_data( '_wc_pre_orders_is_pay_later', 'yes' );
+		$order->save();
 
 		WC_Pre_Orders_Manager::reduce_stock_level( $order );
 

@@ -10,7 +10,7 @@ use MailPoet\Mailer\Mailer;
 use MailPoet\Mailer\MailerError;
 use MailPoet\Mailer\MailerLog;
 use MailPoet\Newsletter\NewslettersRepository;
-use MailPoet\Services\AuthorizedSenderDomainController;
+use MailPoet\Services\Bridge\API;
 use MailPoet\Settings\SettingsController;
 use MailPoet\Util\Helpers;
 
@@ -98,13 +98,12 @@ class AuthorizedEmailsController {
       throw new \InvalidArgumentException(self::AUTHORIZED_EMAIL_ERROR_PENDING_CONFIRMATION);
     }
 
-    $finalData = $this->bridge->createAuthorizedEmailAddress($email);
-
-    if ($finalData && isset($finalData['error'])) {
-      throw new \InvalidArgumentException($finalData['error']);
+    $response = $this->bridge->createAuthorizedEmailAddress($email);
+    if ($response['status'] === API::RESPONSE_STATUS_ERROR) {
+      throw new \InvalidArgumentException($response['message']);
     }
 
-    return $finalData;
+    return $response;
   }
 
   public function isEmailAddressAuthorized(string $email): bool {

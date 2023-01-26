@@ -7,6 +7,8 @@ if (!defined('ABSPATH')) exit;
 
 use MailPoet\WP\Functions as WPFunctions;
 use MailPoetVendor\Carbon\CarbonImmutable;
+use Tracy\Debugger;
+use Tracy\ILogger;
 
 class TranslationUpdater {
   const API_UPDATES_BASE_URI = 'https://translate.wordpress.com/api/translations-updates/mailpoet/';
@@ -26,6 +28,9 @@ class TranslationUpdater {
 
   /** @var string|null */
   private $premiumVersion;
+
+  /** @var array  */
+  private $requestCache = [];
 
   public function __construct(
     WPFunctions $wpFunctions,
@@ -86,19 +91,25 @@ class TranslationUpdater {
 
     // Ten seconds, plus one extra second for every 10 locales.
     $timeout = 10 + (int)(count($locales) / 10);
-    $rawResponse = $this->wpFunctions->wpRemotePost(self::API_UPDATES_BASE_URI, [
-      'body' => json_encode($requestBody),
-      'headers' => ['Content-Type: application/json'],
-      'timeout' => $timeout,
-    ]);
+    $requestHash = md5(serialize($requestBody));
+    if (!isset($this->requestCache[$requestHash])) {
+      $this->requestCache[$requestHash] = $this->wpFunctions->wpRemotePost(self::API_UPDATES_BASE_URI, [
+        'body' => json_encode($requestBody),
+        'headers' => ['Content-Type: application/json'],
+        'timeout' => $timeout,
+      ]);
+    }
+    $rawResponse = $this->requestCache[$requestHash];
 
     // Don't continue when API request failed.
     $responseCode = $this->wpFunctions->wpRemoteRetrieveResponseCode($rawResponse);
     if ($responseCode !== 200) {
+      $this->logError("MailPoet: Failed to fetch translations from WordPress.com API with $responseCode and response message: " . $this->wpFunctions->wpRemoteRetrieveResponseMessage($rawResponse));
       return [];
     }
     $response = json_decode($this->wpFunctions->wpRemoteRetrieveBody($rawResponse), true);
     if (!is_array($response) || (array_key_exists('success', $response) && $response['success'] === false)) {
+      $this->logError("MailPoet: Failed to fetch translations from WordPress.com API with $responseCode and response: " . json_encode($response));
       return [];
     }
 
@@ -153,5 +164,12 @@ class TranslationUpdater {
       }
       return false;
     });
+  }
+
+  private function logError(string $message): void {
+    if (class_exists(Debugger::class)) {
+      Debugger::log($message, ILogger::ERROR);
+    }
+    error_log($message); // phpcs:ignore Squiz.PHP.DiscouragedFunctions.Discouraged
   }
 }

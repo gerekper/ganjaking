@@ -427,7 +427,9 @@ class WooCommerce_Order_Barcodes {
 			return $error_text;
 		}
 
-		if ( ! wc_is_order_status( $order->get_status() ) ) {
+		$status = ( false === strpos( $order->get_status(), 'wc-' ) ) ? 'wc-' . $order->get_status() : $order->get_status();
+
+		if ( ! wc_is_order_status( $status ) ) {
 			return $error_text;
 		}
 

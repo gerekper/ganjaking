@@ -13,6 +13,8 @@ defined( 'ABSPATH' ) || exit;
 		<div class="warranty_form">
 			<ul id="warranty_form">
 				<?php
+				$inputs = is_array( $inputs ) ? $inputs : array();
+
 				foreach ( $inputs as $input ) :
 					$src        = '';
 					$key        = esc_attr( $input->key );
