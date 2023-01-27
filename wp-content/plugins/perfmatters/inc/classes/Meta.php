@@ -20,7 +20,7 @@ class Meta
 			self::get_meta_options();
 
 			//exclude specific woocommerce pages
-            if(function_exists('is_woocommerce') && !empty($_GET['post'])) {
+            if(class_exists('WooCommerce') && !empty($_GET['post'])) {
 
             	$wc_pages = array_filter(array(
 					get_option('woocommerce_cart_page_id'),

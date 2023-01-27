@@ -8,14 +8,9 @@ class Utilities
 
         global $post;
 
-        //print_r($post);
-
         if(!is_object($post)) {
-            //echo 'false';
             return false;
         }
-
-        //echo 'proceeed';
 
         if(is_home()) {
             $post_id = get_queried_object_id();
@@ -76,6 +71,14 @@ class Utilities
             return $atts_string;
         }
 
+        return false;
+    }
+
+    //check for specific woocommerce pages
+    public static function is_woocommerce() {
+        if(class_exists('WooCommerce') && (is_cart() || is_checkout() || is_account_page())) {
+            return true;
+        }
         return false;
     }
 }

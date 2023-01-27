@@ -1244,6 +1244,24 @@ function perfmatters_settings() {
         )
     );
 
+    if(!empty($perfmatters_tools['show_advanced'])) {
+
+        //async
+        add_settings_field(
+            'async', 
+            perfmatters_title(__('Load Asynchronously', 'perfmatters'), 'async', 'https://perfmatters.io/docs/host-google-fonts-locally/#async'), 
+            'perfmatters_print_input', 
+            'perfmatters_options', 
+            'perfmatters_fonts', 
+            array(
+                'section' => 'fonts',
+                'id' => 'async',
+                'class' => 'fonts-disable_google_fonts' . (!empty($perfmatters_options['fonts']['disable_google_fonts']) ? ' hidden' : ''),
+                'tooltip' => __('Load local font stylesheets asynchronously. Preloading individual font files is recommended when this option is enabled.', 'perfmatters')
+            )
+        );
+    }
+
     /* cdn section
     /**********************************************************/
     add_settings_section('perfmatters_cdn', 'CDN', '__return_false', 'perfmatters_options');

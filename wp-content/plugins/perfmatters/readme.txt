@@ -5,7 +5,7 @@ Tags: perfmatters
 Requires at least: 5.5
 Requires PHP: 7.0
 Tested up to: 6.1.1
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,21 @@ Perfmatters is a lightweight performance plugin developed to speed up your WordP
 Check out our [documentation](https://perfmatters.io/docs/) for more information on how to use Perfmatters.
 
 == Changelog ==
+
+= 2.0.3 - 01.26.2023 =
+* Added new local Google fonts advanced option to Load Asynchronously.
+* Added user agent check before running output buffer with initial exclusion for Usercentrics scanner.
+* Added support for CSS variables when they are being used for lazy loaded inline background images.
+* Added new perfmatters_lazyload_youtube_autoplay filter.
+* Improved delay all script handling of jQuery load event.
+* Changed all WooCommerce checks to use class_exists for better compatibility.
+* Adjusted the order of preloads in the buffer to make sure they print above used CSS.
+* Moved buffer class initialization to wp action hook to improve filtering possibilities.
+* Moved WooCommerce built-in exclusions to apply to select individual features instead of the entire buffer.
+* Slight modification to previous MU Mode addition to fix an issue.
+* Fixed an issue where custom heartbeat interval was not being applied correctly when editing certain custom post types.
+* Fixed an issue with the local stylesheet CDN URL when advanced options were turned on but no URL was set.
+* Fixed an issue where delay script was printing out more than once if multiple closing body tags were present in the DOM.
 
 = 2.0.2 - 12.15.2022 =
 * Fixed an issue that was preventing Removed Unused CSS from running correctly in certain cases when Advanced Options were toggled on.

@@ -7,7 +7,18 @@ class LazyLoad
 	//initialize lazyload iframe functions
 	public static function init_iframes() {
 
+		//check filters
 		if(empty(apply_filters('perfmatters_lazyload', !empty(Config::$options['lazyload']['lazy_loading_iframes'])))) {
+			return;
+		}
+
+		//skip woocommerce
+		if(Utilities::is_woocommerce()) {
+			return;
+		}
+
+		//check post meta
+		if(Utilities::get_post_meta('perfmatters_exclude_lazy_loading')) {
 			return;
 		}
 
@@ -17,14 +28,10 @@ class LazyLoad
 	//process iframe buffer
 	public static function iframes_buffer($html) {
 
-		if(!Utilities::get_post_meta('perfmatters_exclude_lazy_loading')) {
+		$clean_html = Utilities::clean_html($html);
 
-			$clean_html = Utilities::clean_html($html);
-
-			$html = self::lazyload_iframes($html, $clean_html);
-			$html = self::lazyload_videos($html, $clean_html);
-
-		}
+		$html = self::lazyload_iframes($html, $clean_html);
+		$html = self::lazyload_videos($html, $clean_html);
 
 		return $html;
 	}
@@ -231,27 +238,35 @@ class LazyLoad
 	//initialize lazy loading
 	public static function init() {
 
-		if(!empty(apply_filters('perfmatters_lazyload', !empty(Config::$options['lazyload']['lazy_loading']) || !empty(Config::$options['lazyload']['lazy_loading_iframes']) || !empty(Config::$options['lazyload']['css_background_images'])))) {
+		//check filters
+		if(empty(apply_filters('perfmatters_lazyload', !empty(Config::$options['lazyload']['lazy_loading']) || !empty(Config::$options['lazyload']['lazy_loading_iframes']) || !empty(Config::$options['lazyload']['css_background_images'])))) {
+			return;
+		}
 
-			//disable wp native lazy loading
-			add_filter('wp_lazy_loading_enabled', '__return_false');
+		//skip woocommerce
+		if(Utilities::is_woocommerce()) {
+			return;
+		}
 
-			//actions + filters
-			add_action('perfmatters_output_buffer_template_redirect', array('Perfmatters\LazyLoad', 'lazyload_buffer'));
+		//check post meta
+		if(Utilities::get_post_meta('perfmatters_exclude_lazy_loading')) {
+			return;
+		}
 
-			add_action('wp', function() {
-				if(!Utilities::get_post_meta('perfmatters_exclude_lazy_loading')) {
-					add_action('wp_enqueue_scripts', array('Perfmatters\LazyLoad', 'enqueue_scripts'));
-					add_filter('script_loader_tag', array('Perfmatters\LazyLoad', 'async_script'), 10, 2);
-					add_action('wp_head', array('Perfmatters\LazyLoad', 'lazyload_css'), PHP_INT_MAX);
+		//disable wp native lazy loading
+		add_filter('wp_lazy_loading_enabled', '__return_false');
 
-					if(!empty(Config::$options['lazyload']['lazy_loading'])) {
-						add_filter('wp_get_attachment_image_attributes', function($attr) {
-							unset($attr['loading']);
-						  	return $attr;
-						});
-					}
-				}
+		//actions + filters
+		add_action('perfmatters_output_buffer_template_redirect', array('Perfmatters\LazyLoad', 'lazyload_buffer'));
+		add_action('wp_enqueue_scripts', array('Perfmatters\LazyLoad', 'enqueue_scripts'));
+		add_filter('script_loader_tag', array('Perfmatters\LazyLoad', 'async_script'), 10, 2);
+		add_action('wp_head', array('Perfmatters\LazyLoad', 'lazyload_css'), PHP_INT_MAX);
+
+		//images only
+		if(!empty(Config::$options['lazyload']['lazy_loading'])) {
+			add_filter('wp_get_attachment_image_attributes', function($attr) {
+				unset($attr['loading']);
+			  	return $attr;
 			});
 		}
 	}
@@ -259,21 +274,18 @@ class LazyLoad
 	//lazy load buffer
 	public static function lazyload_buffer($html) {
 
-		if(!Utilities::get_post_meta('perfmatters_exclude_lazy_loading')) {
+		$buffer = Utilities::clean_html($html);
 
-			$buffer = Utilities::clean_html($html);
+		//replace image tags
+		if(!empty(Config::$options['lazyload']['lazy_loading'])) {
+			$html = self::lazyload_pictures($html, $buffer);
+			$html = self::lazyload_background_images($html, $buffer);
+			$html = self::lazyload_images($html, $buffer);
+		}
 
-			//replace image tags
-			if(!empty(Config::$options['lazyload']['lazy_loading'])) {
-				$html = self::lazyload_pictures($html, $buffer);
-				$html = self::lazyload_background_images($html, $buffer);
-				$html = self::lazyload_images($html, $buffer);
-			}
-
-			//replace css background elements
-			if(!empty(Config::$options['lazyload']['css_background_images'])) {
-				$html = self::lazyload_css_background_images($html, $buffer);
-			}
+		//replace css background elements
+		if(!empty(Config::$options['lazyload']['css_background_images'])) {
+			$html = self::lazyload_css_background_images($html, $buffer);
 		}
 		
 		return $html;
@@ -490,7 +502,7 @@ class LazyLoad
 				}
 
 				//match background-image in style string
-				preg_match('#background(-(image|url))?\s*:\s*(\s*url\s*\((?<url>[^)]+)\))\s*;?#is', $element_atts['style'], $url);
+				preg_match('#(([^;])*background(-(image|url))?)\s*:\s*(\s*url\s*\((?<url>[^)]+)\))\s*;?#is', $element_atts['style'], $url);
 
 				if(!empty($url)) {
 
@@ -504,6 +516,10 @@ class LazyLoad
 
 					//migrate src
 					$element_atts['data-bg'] = esc_url(trim(strip_tags(html_entity_decode($url['url'], ENT_QUOTES|ENT_HTML5)), '\'" '));
+
+					if(!empty($url[2])) {
+						$element_atts['data-bg-var'] = $url[1];
+					}
 
 					//build lazy element
 					$lazy_element = sprintf('<' . $element['tag'] . ' %1$s >', Utilities::get_atts_string($element_atts));

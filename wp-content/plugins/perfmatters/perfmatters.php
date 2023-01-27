@@ -3,7 +3,7 @@
 Plugin Name: Perfmatters
 Plugin URI: https://perfmatters.io/
 Description: Perfmatters is a lightweight performance plugin developed to speed up your WordPress site.
-Version: 2.0.2
+Version: 2.0.3
 Author: forgemedia
 Author URI: https://forgemedia.io/
 License: GPLv2 or later
@@ -18,7 +18,7 @@ Domain Path: /languages
 define('PERFMATTERS_STORE_URL', 'https://perfmatters.io/');
 define('PERFMATTERS_ITEM_ID', 696);
 define('PERFMATTERS_ITEM_NAME', 'perfmatters');
-define('PERFMATTERS_VERSION', '2.0.2');
+define('PERFMATTERS_VERSION', '2.0.3');
 
 function perfmatters_plugins_loaded() {
 
@@ -32,6 +32,13 @@ function perfmatters_plugins_loaded() {
 	//load translations
 	load_plugin_textdomain('perfmatters', false, dirname(plugin_basename( __FILE__)) . '/languages/');
 
+	//initialize db optimizer
+	new Perfmatters\DatabaseOptimizer();
+}
+add_action('plugins_loaded', 'perfmatters_plugins_loaded');
+
+function perfmatters_init() {
+
 	//initialize plugin classes
 	Perfmatters\Config::init();
 	Perfmatters\Meta::init();
@@ -39,18 +46,16 @@ function perfmatters_plugins_loaded() {
     //initialize classes that filter the buffer
     Perfmatters\Fonts::init();
     Perfmatters\Images::init();
+    Perfmatters\CSS::init();
 	Perfmatters\LazyLoad::init_iframes();
     Perfmatters\Preload::init();
     Perfmatters\LazyLoad::init();
-    Perfmatters\CSS::init();
     Perfmatters\CDN::init();
     Perfmatters\JS::init();
 
 	Perfmatters\Buffer::init();
-
-	new Perfmatters\DatabaseOptimizer();
 }
-add_action('plugins_loaded', 'perfmatters_plugins_loaded');
+add_action('wp', 'perfmatters_init');
 
 //initialize the updater
 function perfmatters_edd_plugin_updater() {

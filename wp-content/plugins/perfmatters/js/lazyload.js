@@ -395,7 +395,17 @@
     var bgHiDpiValue = getData(element, settings.data_bg_hidpi);
     var bgDataValue = isHiDpi && bgHiDpiValue ? bgHiDpiValue : bg1xValue;
     if (!bgDataValue) return;
-    element.style.backgroundImage = "url(\"".concat(bgDataValue, "\")");
+
+    //perfmatters adjustment to account for css variables like --background-image
+    var bgVarValue = getData(element, 'bg-var');
+
+    if(bgVarValue) {
+      element.style.setProperty(bgVarValue, "url(\"".concat(bgDataValue, "\")"));
+    }
+    else {
+      element.style.backgroundImage = "url(\"".concat(bgDataValue, "\")");
+    }
+    
     getTempImage(element).setAttribute(SRC, bgDataValue);
     manageLoading(element, settings, instance);
   }; // NOTE: THE TEMP IMAGE TRICK CANNOT BE DONE WITH data-multi-bg

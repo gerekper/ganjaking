@@ -90,6 +90,12 @@ class Fonts
                 //create font tag with new url
                 $new_google_font = str_replace($google_font[2], $file_url, $google_font[0]);
 
+                //async
+                if(!empty(Config::$options['fonts']['async'])) {
+                    $new_google_font = preg_replace(array('#media=([\'"]).+?\1#', '#onload=([\'"]).+?\1#'), '', $new_google_font);
+                    $new_google_font = str_replace('<link', '<link media="print" onload="this.media=\'all\';this.onload=null;"', $new_google_font);
+                }
+
                 //replace original font tag
                 $html = str_replace($google_font[0], $new_google_font, $html);
             }

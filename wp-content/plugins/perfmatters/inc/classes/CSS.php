@@ -20,6 +20,10 @@ class CSS
     //initialize css functions
     public static function init()
     {
+        if(isset($_GET['perfmatterscssoff'])) {
+            return;
+        }
+
         if(!empty(Config::$options['assets']['remove_unused_css'])) {
             add_action('perfmatters_output_buffer_template_redirect', array('Perfmatters\CSS', 'remove_unused_css'));
             add_action('wp_ajax_perfmatters_clear_post_used_css', array('Perfmatters\CSS', 'clear_post_used_css'));
@@ -42,6 +46,11 @@ class CSS
 
         //only logged out
         if(is_user_logged_in()) {
+            return $html;
+        }
+
+        //skip woocommerce
+        if(Utilities::is_woocommerce()) {
             return $html;
         }
 
@@ -185,7 +194,7 @@ class CSS
 
                 $delay_check = !empty(apply_filters('perfmatters_delay_js', !empty(Config::$options['assets']['delay_js']))) && !Utilities::get_post_meta('perfmatters_exclude_delay_js');
 
-                if(!$delay_check || empty(Config::$options['assets']['delay_js_behavior'])) {
+                if(!$delay_check || empty(Config::$options['assets']['delay_js_behavior']) || isset($_GET['perfmattersjsoff'])) {
                     $script = '<script type="text/javascript" id="perfmatters-delayed-styles-js">!function(){const e=["keydown","mousemove","wheel","touchmove","touchstart","touchend"];function t(){document.querySelectorAll("link[data-pmdelayedstyle]").forEach(function(e){e.setAttribute("href",e.getAttribute("data-pmdelayedstyle"))}),e.forEach(function(e){window.removeEventListener(e,t,{passive:!0})})}e.forEach(function(e){window.addEventListener(e,t,{passive:!0})})}();</script>';
                     $html = str_replace('</body>', $script . '</body>', $html);
                 }

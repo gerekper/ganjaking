@@ -11,6 +11,18 @@ class Buffer
             return;
         }
 
+        //user agent check
+        if(!empty($_SERVER['HTTP_USER_AGENT'])) {
+            $excluded_agents = array(
+                'usercentrics'
+            );
+            foreach($excluded_agents as $agent) {
+                if(stripos($_SERVER['HTTP_USER_AGENT'], $agent) !== false) {
+                    return;
+                }
+            }
+        }
+
         //buffer is allowed
         if(!apply_filters('perfmatters_allow_buffer', true)) {
             return;
@@ -27,11 +39,6 @@ class Buffer
 
             //exclude certain requests
             if(is_embed() || is_feed() || is_preview() || is_customize_preview()) {
-                return;
-            }
-
-            //exclude specific woocommerce pages
-            if(function_exists('is_woocommerce') && (is_cart() || is_checkout() || is_account_page())) {
                 return;
             }
 

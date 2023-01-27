@@ -192,7 +192,7 @@ function pmDelayJQueryReady() {
                         //rewrite event name
                         function rewriteEventName(eventName) {
                             eventName = eventName.split(" ");
-                            eventName.map(function(name) {
+                            eventName = eventName.map(function(name) {
                                 if(name === "load" || name.indexOf("load.") === 0) {
                                     return "perfmatters-jquery-load";
                                 }

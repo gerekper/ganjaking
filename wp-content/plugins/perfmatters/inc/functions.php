@@ -252,7 +252,7 @@ function perfmatters_disable_password_strength_meter() {
 	}
 
 	//skip specific woocommerce endpoints
-	if(class_exists('WooCommerce') && (is_account_page() || is_checkout())) {
+	if(Perfmatters\Utilities::is_woocommerce()) {
 		return;
 	}
 
@@ -474,7 +474,7 @@ if(!empty($perfmatters_options['disable_woocommerce_scripts'])) {
 }
 
 function perfmatters_disable_woocommerce_scripts() {
-	if(function_exists('is_woocommerce')) {
+	if(class_exists('WooCommerce')) {
 
 		if(!apply_filters('perfmatters_disable_woocommerce_scripts', true)) {
 			return;
@@ -548,7 +548,7 @@ if(!empty($perfmatters_options['disable_woocommerce_cart_fragmentation'])) {
 }
 
 function perfmatters_disable_woocommerce_cart_fragmentation() {
-	if(function_exists('is_woocommerce')) {
+	if(class_exists('WooCommerce')) {
 		wp_dequeue_script('wc-cart-fragments');
 		wp_deregister_script('wc-cart-fragments');
 	}
@@ -761,6 +761,7 @@ function perfmatters_heartbeat_frequency($settings) {
 	global $perfmatters_options;
 	if(!empty($perfmatters_options['heartbeat_frequency'])) {
 		$settings['interval'] = $perfmatters_options['heartbeat_frequency'];
+		$settings['minimalInterval'] = $perfmatters_options['heartbeat_frequency'];
 	}
 	return $settings;
 }
@@ -1041,7 +1042,7 @@ function perfmatters_enqueue_instant_page() {
 	}
 
 	//exclude specific woocommerce pages
-    if(function_exists('is_woocommerce') && (is_cart() || is_checkout() || is_account_page())) {
+    if(Perfmatters\Utilities::is_woocommerce()) {
         return;
     }
 
