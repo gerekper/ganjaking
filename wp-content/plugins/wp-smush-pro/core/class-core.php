@@ -175,9 +175,6 @@ class Core extends Stats {
 		 * E.g. S3.
 		 */
 		add_action( 'rest_api_init', array( $this, 'load_libs_for_rest_api' ), 99 );
-
-		// Load Black Friday notice.
-		add_action( 'admin_init', array( $this, 'load_blackfriday' ) );
 	}
 
 	/**
@@ -559,48 +556,5 @@ class Core extends Stats {
 		}
 
 		return $resize_sizes['width'] > $resize_sizes['height'] ? $resize_sizes['width'] : $resize_sizes['height'];
-	}
-
-	/**
-	 * Load Black Friday.
-	 *
-	 * @since 3.12.4
-	 */
-	public function load_blackfriday() {
-		if ( ! file_exists( plugin_dir_path( __FILE__ ) . 'external/blackfriday/banner.php' ) || WP_Smush::is_pro() ) {
-			return;
-		}
-
-		require_once plugin_dir_path( __FILE__ ) . 'external/blackfriday/banner.php';
-
-		$labels = array(
-			'close'       => esc_html__( 'Close', 'wp-smushit' ),
-			'get_deal'    => esc_html__( 'Get deal', 'wp-smushit' ),
-			'intro'       => esc_html__( 'Black Friday offer for WP businesses and agencies', 'wp-smushit' ),
-			'off'         => esc_html__( 'Off', 'wp-smushit' ),
-			'title'       => esc_html__( 'Everything you need to run your WP business for', 'wp-smushit' ),
-			'discount'    => '83.5',
-			'price'       => '3000',
-			'description' => wp_kses( __( "From the creators of SMUSH, WPMU DEV's all-in-one platform gives you all the Pro tools and support you need to run and grow a web development business. Trusted by over 50,000 web developers. Limited deals available.", 'wp-smushit' ), array() ),
-		);
-
-		$cta_url = add_query_arg(
-			array(
-				'coupon'	   => 'BFP-2022',
-				'utm_source'   => 'smush',
-				'utm_medium'   => 'plugin',
-				'utm_campaign' => 'BFP-2022-smush',
-				'utm_id'       => 'BFP-2022',
-				'utm_term'     => 'BF-2022-plugin-Smush',
-				'utm_content'  => 'BF-2022',
-			),
-			esc_url( 'https://wpmudev.com/black-friday/' )
-		);
-
-		new \WPMUDEV\BlackFriday\Banner(
-			$labels,
-			$cta_url,
-			\WPMUDEV\BlackFriday\Banner::SMUSH
-		);
 	}
 }

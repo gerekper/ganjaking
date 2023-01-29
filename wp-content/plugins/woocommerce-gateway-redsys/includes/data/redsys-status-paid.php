@@ -1,8 +1,10 @@
 <?php
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Redsys Status Paid
  *
- * @package WooCommerce Redsys Gateway
+ * List of status paid.
+ *
+ * @package WooCommerce Redsys Gateway WooCommerce.com
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -10,7 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Get status paid.
+ *
+ * @return array
  */
 function redsys_return_status_paid() {
 

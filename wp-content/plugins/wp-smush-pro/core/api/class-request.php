@@ -254,7 +254,11 @@ class Request {
 	 * @return string
 	 */
 	private function get_api_url( $path = '' ) {
-		$url = 'https://wpmudev.com/api/' . $this->service->name . '/' . $this->service->version . '/';
+		$base = defined( 'WPMUDEV_CUSTOM_API_SERVER' ) && WPMUDEV_CUSTOM_API_SERVER
+			? WPMUDEV_CUSTOM_API_SERVER
+			: 'https://wpmudev.com/';
+
+		$url = "$base/api/{$this->service->name}/{$this->service->version}/";
 		$url = trailingslashit( $url . $path );
 
 		return $url;

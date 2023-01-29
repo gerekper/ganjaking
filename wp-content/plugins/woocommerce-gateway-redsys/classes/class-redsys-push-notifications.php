@@ -2,13 +2,16 @@
 /**
  * Class Redsys Push Notifications
  *
- * @package WooCommerce Redsys Gateway
- * @since 18.0.
+ * @package WooCommerce Redsys Gateway WooCommerce.com > https://woocommerce.com/products/redsys-gateway/
+ * @since 18.0.0
+ * @author José Conti.
+ * @link https://joseconti.com
+ * @license GNU General Public License v3.0
+ * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * @copyright 2013-2013 José Conti.
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
-}
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Class Redsys Push Notifications
@@ -75,7 +78,7 @@ class Redsys_Push_Notifications {
 		if ( $message && $this->is_active() ) {
 			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 				$this->log->add( 'pushredsys', '/******************************************/' );
-				$this->log->add( 'pushredsys', '  LLega la petición a la clase Call  ' ); 
+				$this->log->add( 'pushredsys', '  LLega la petición a la clase Call  ' );
 				$this->log->add( 'pushredsys', '/******************************************/' );
 			}
 

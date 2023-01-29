@@ -25,12 +25,18 @@ class CSS
         }
 
         if(!empty(Config::$options['assets']['remove_unused_css'])) {
-            add_action('perfmatters_output_buffer_template_redirect', array('Perfmatters\CSS', 'remove_unused_css'));
+            add_action('wp', array('Perfmatters\CSS', 'queue'));
             add_action('wp_ajax_perfmatters_clear_post_used_css', array('Perfmatters\CSS', 'clear_post_used_css'));
             add_action('admin_bar_menu', array('Perfmatters\CSS', 'admin_bar_menu'));
             add_action('admin_notices', array('Perfmatters\CSS', 'admin_notices'));
             add_action('admin_post_perfmatters_clear_used_css', array('Perfmatters\CSS', 'admin_bar_clear_used_css'));
         }
+    }
+
+    //queue functions
+    public static function queue() 
+    {
+        add_action('perfmatters_output_buffer_template_redirect', array('Perfmatters\CSS', 'remove_unused_css'));
     }
 
     //remove unused css

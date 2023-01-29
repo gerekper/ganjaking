@@ -36,3 +36,5 @@ class ConsumerStrategies_FileConsumer extends ConsumerStrategies_AbstractConsume
         }
     }
 }
+
+

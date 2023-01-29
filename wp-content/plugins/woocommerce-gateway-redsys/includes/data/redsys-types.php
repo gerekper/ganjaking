@@ -1,8 +1,10 @@
 <?php
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Redsys Types
  *
- * @package WooCommerce Redsys Gateway.
+ * List of Redsys types.
+ *
+ * @package WooCommerce Redsys Gateway WooCommerce.com
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -10,7 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Get Redsys types.
+ *
+ * @return array
  */
 function redsys_return_types() {
 

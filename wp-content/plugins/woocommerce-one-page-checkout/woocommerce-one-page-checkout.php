@@ -7,7 +7,7 @@
  * Text Domain: woocommerce-one-page-checkout
  * Domain Path: languages
  * Plugin URI:  https://woocommerce.com/products/woocommerce-one-page-checkout/
- * Version: 1.9.9
+ * Version: 2.0.0
  * Tested up to: 6.1
  * WC requires at least: 2.5
  * WC tested up to: 7.0.0
@@ -68,7 +68,7 @@ if ( ! is_woocommerce_active() || version_compare( get_option( 'woocommerce_db_v
 	return;
 }
 
-define( 'WC_ONE_PAGE_CHECKOUT_VERSION', '1.9.9' ); // WRCS: DEFINED_VERSION.
+define( 'WC_ONE_PAGE_CHECKOUT_VERSION', '2.0.0' ); // WRCS: DEFINED_VERSION.
 
 add_filter( 'woocommerce_translations_updates_for_woocommerce-one-page-checkout', '__return_true' );
 
@@ -439,7 +439,7 @@ class PP_One_Page_Checkout {
 			// Modify template when doing a 'woocommerce_update_order_review' ajax request
 		} elseif ( isset( $_POST['post_data'] ) ) {
 
-			parse_str( sanitize_text_field( $_POST['post_data'] ), $checkout_post_data ); // PHPCS:Ignores WordPress.Security.NonceVerification.Missing
+			parse_str( $_POST['post_data'], $checkout_post_data ); // PHPCS:Ignores WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 			if ( isset( $checkout_post_data['is_opc'] ) ) {
 				$is_opc = true;
@@ -1062,7 +1062,7 @@ class PP_One_Page_Checkout {
 		// Populate $_POST with 3rd party input data to allow 3rd party code to validate
 		if ( isset( $_POST['input_data'] ) ) {
 
-			parse_str( sanitize_text_field( $_POST['input_data'] ), $input_data );
+			parse_str( $_POST['input_data'], $input_data ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 			if ( $input_data ) {
 

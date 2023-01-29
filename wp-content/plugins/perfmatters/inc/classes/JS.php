@@ -10,6 +10,16 @@ class JS
 			return;
 		}
 
+		add_action('wp', array('Perfmatters\JS', 'queue'));
+
+		if(!empty(Config::$options['assets']['fastclick'])) {
+			add_filter('wp_head', array('Perfmatters\JS', 'print_fastclick'));
+		}
+	}
+
+	//queue functions
+	public static function queue()
+	{
 		$defer_check = !empty(apply_filters('perfmatters_defer_js', !empty(Config::$options['assets']['defer_js'])));
 		$delay_check = !empty(apply_filters('perfmatters_delay_js', !empty(Config::$options['assets']['delay_js'])));
 
@@ -17,10 +27,6 @@ class JS
 
 			//actions + filters
 			add_filter('perfmatters_output_buffer_template_redirect', array('Perfmatters\JS', 'optimize'));
-		}
-
-		if(!empty(Config::$options['assets']['fastclick'])) {
-			add_filter('wp_head', array('Perfmatters\JS', 'print_fastclick'));
 		}
 	}
 

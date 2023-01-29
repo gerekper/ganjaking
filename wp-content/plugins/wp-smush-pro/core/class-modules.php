@@ -71,6 +71,13 @@ class Modules {
 	public $lazy;
 
 	/**
+	 * Webp module.
+	 *
+	 * @var Modules\Webp
+	 */
+	public $webp;
+
+	/**
 	 * Cache background optimization controller - Bulk_Smush_Controller
 	 *
 	 * @var Modules\Bulk\Background_Bulk_Smush

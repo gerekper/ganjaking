@@ -1,15 +1,23 @@
 <?php
+/**
+ * Redsys Languages
+ *
+ * List of Redsys languages.
+ *
+ * @package WooCommerce Redsys Gateway WooCommerce.com
+ */
 
-/*
-* Copyright: (C) 2013 - 2023 José Conti
-*/
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 
-/*
-* Copyright: (C) 2013 - 2023 José Conti
-*/
+/**
+ * Get Redsys languages.
+ *
+ * @return array
+ */
 function redsys_return_all_languages_code() {
-	
+
 	return array(
 		'es_AR' => '1',
 		'es_CL' => '1',

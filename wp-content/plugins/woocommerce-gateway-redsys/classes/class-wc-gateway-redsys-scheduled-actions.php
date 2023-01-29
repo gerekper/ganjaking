@@ -2,30 +2,45 @@
 /**
  * Add extra profile fields for users in admin
  *
- * @package  WooCommerce Redsys Gateway
- * @version  19.1.0
+ * @package WooCommerce Redsys Gateway WooCommerce.com > https://woocommerce.com/products/redsys-gateway/
+ * @since 13.0.0
+ * @author José Conti.
+ * @link https://joseconti.com
+ * @license GNU General Public License v3.0
+ * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * @copyright 2013-2013 José Conti.
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
-}
+defined( 'ABSPATH' ) || exit;
 
+/**
+ * WC_Gateway_Redsys_Scheduled_Actions Class.
+ */
 class WC_Gateway_Redsys_Scheduled_Actions {
 
+	/**
+	 * Constructor
+	 */
 	public function __construct() {
 
 		add_action( 'init', array( $this, 'redsys_schedule_actions' ) );
 		add_action( 'resdys_clean_transients', array( $this, 'redsys_clean_transients_action' ) );
 		add_action( 'resdys_clean_tokens', array( $this, 'redsys_clean_tokens_action' ) );
 	}
-
+	/**
+	 * Debug
+	 *
+	 * @param string $log Log.
+	 */
 	public function debug( $log ) {
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 			$debug = new WC_Logger();
 			$debug->add( 'redsys-scheduled-actions', $log );
 		}
 	}
-
+	/**
+	 * Schedule actions
+	 */
 	public function redsys_schedule_actions() {
 		// Add conditional using settings. Active or not active.
 		if ( false === as_next_scheduled_action( 'resdys_clean_transients' ) ) {
@@ -36,7 +51,9 @@ class WC_Gateway_Redsys_Scheduled_Actions {
 			as_schedule_recurring_action( strtotime( 'now' ), DAY_IN_SECONDS, 'resdys_clean_tokens' );
 		}
 	}
-
+	/**
+	 * Clean transients
+	 */
 	public function redsys_clean_transients_action() {
 		global $wpdb;
 
@@ -47,7 +64,9 @@ class WC_Gateway_Redsys_Scheduled_Actions {
 			$this->debug( 'Transient deleted: ' . $key );
 		}
 	}
-
+	/**
+	 * Clean tokens
+	 */
 	public function redsys_clean_tokens_action() {
 		global $wpdb;
 

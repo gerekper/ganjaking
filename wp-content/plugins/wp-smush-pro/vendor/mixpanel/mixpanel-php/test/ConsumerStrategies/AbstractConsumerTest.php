@@ -42,4 +42,3 @@ class AbstractConsumer extends ConsumerStrategies_AbstractConsumer {
     }
 
 }
-

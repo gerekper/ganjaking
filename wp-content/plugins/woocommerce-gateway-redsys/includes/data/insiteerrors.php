@@ -1,31 +1,39 @@
 <?php
+/**
+ * Insite Errors
+ *
+ * List of insite errors.
+ *
+ * @package WooCommerce Redsys Gateway WooCommerce.com
+ */
 
-/*
-* Copyright: (C) 2013 - 2023 José Conti
-*/
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 
-/*
-* Copyright: (C) 2013 - 2023 José Conti
-*/
+/**
+ * Get insite errors.
+ *
+ * @return array
+ */
 function redsys_return_insiteerrors() {
 	return array(
-		'msg1'  => esc_html( 'You have to fill in the data of the card' , 'woocommerce-redsys' ),
-		'msg2'  => esc_html( 'The credit card is required' , 'woocommerce-redsys' ),
-		'msg3'  => esc_html( 'The credit card must be numerical' , 'woocommerce-redsys' ),
-		'msg4'  => esc_html( 'The credit card cannot be negative' , 'woocommerce-redsys' ),
-		'msg5'  => esc_html( 'The expiration month of the card is required.' , 'woocommerce-redsys' ),
-		'msg6'  => esc_html( 'The expiration month of the credit card must be numerical' , 'woocommerce-redsys' ),
-		'msg7'  => esc_html( 'The credit card\'s expiration month is incorrect' , 'woocommerce-redsys' ),
-		'msg8'  => esc_html( 'The year of expiry of the card is mandatory.' , 'woocommerce-redsys' ),
-		'msg9'  => esc_html( 'The year of expiry of the card must be numerical' , 'woocommerce-redsys' ),
-		'msg10' => esc_html( 'The year of expiry of the card cannot be negative' , 'woocommerce-redsys' ),
-		'msg11' => esc_html( 'The security code on the card is not the correct length' , 'woocommerce-redsys' ),
-		'msg12' => esc_html( 'The security code on the credit card must be numerical' , 'woocommerce-redsys' ),
-		'msg13' => esc_html( 'The security code on the credit card cannot be negative' , 'woocommerce-redsys' ),
-		'msg14' => esc_html( 'The security code is not required for your card' , 'woocommerce-redsys' ),
-		'msg15' => esc_html( 'The length of the credit card is not correct' , 'woocommerce-redsys' ),
-		'msg16' => esc_html( 'You must enter a valid credit card number (without spaces or dashes).' , 'woocommerce-redsys' ),
-		'msg17' => esc_html( 'Incorrect validation by the commerce' , 'woocommerce-redsys' ),
+		'msg1'  => 'You have to fill in the data of the card',
+		'msg2'  => 'The credit card is required',
+		'msg3'  => 'The credit card must be numerical',
+		'msg4'  => 'The credit card cannot be negative',
+		'msg5'  => 'The expiration month of the card is required.',
+		'msg6'  => 'The expiration month of the credit card must be numerical',
+		'msg7'  => 'The credit card\'s expiration month is incorrect',
+		'msg8'  => 'The year of expiry of the card is mandatory.',
+		'msg9'  => 'The year of expiry of the card must be numerical',
+		'msg10' => 'The year of expiry of the card cannot be negative',
+		'msg11' => 'The security code on the card is not the correct length',
+		'msg12' => 'The security code on the credit card must be numerical',
+		'msg13' => 'The security code on the credit card cannot be negative',
+		'msg14' => 'The security code is not required for your card',
+		'msg15' => 'The length of the credit card is not correct',
+		'msg16' => 'You must enter a valid credit card number (without spaces or dashes).',
+		'msg17' => 'Incorrect validation by the commerce',
 	);
 }

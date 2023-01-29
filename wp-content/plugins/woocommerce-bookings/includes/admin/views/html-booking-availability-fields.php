@@ -54,7 +54,7 @@ $is_rrule           = 'rrule' === $availability['type'];
 
 ?>
 <tr data-id="<?php echo esc_attr( $availability_id ); ?>" <?php echo $is_google ? 'class="google-event"' : ''; ?> >
-	<?php if ( ! $show_google_event ) : ?>
+	<?php if ( empty( $show_google_event ) ) : ?>
 		<td class="sort">&nbsp;</td>
 	<?php endif; ?>
 

@@ -3,9 +3,16 @@ namespace Perfmatters;
 
 class Buffer
 {
-    //initialize buffer
+    //initialize buffer class
     public static function init()
     {
+        add_action('wp', array('Perfmatters\Buffer', 'queue'));
+    }
+
+    //queue functions
+    public static function queue() 
+    {
+
         //inital checks
         if(is_admin() || perfmatters_is_dynamic_request() || perfmatters_is_page_builder() || isset($_GET['perfmatters']) || isset($_GET['perfmattersoff'])) {
             return;

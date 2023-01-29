@@ -159,12 +159,14 @@ class WC_Bookings_WC_Ajax {
 
 	/**
 	 * This endpoint is supposed to replace the back-end logic in booking-form.
+	 *
+	 * @since 1.15.70 When there is no resource ID, supplies `WC_Bookings_Controller::find_booked_day_blocks()` with an empty array.
 	 */
 	public function find_booked_day_blocks() {
 		check_ajax_referer( 'find-booked-day-blocks', 'security' );
 
 		$product_id  = absint( $_GET['product_id'] );
-		$resource_id = absint( $_GET['resource_id'] );
+		$resource_id = ! empty( $_GET['resource_id'] ) ? absint( $_GET['resource_id'] ) : null;
 
 		if ( empty( $product_id ) ) {
 			wp_send_json_error( 'Missing product ID' );
@@ -201,12 +203,20 @@ class WC_Bookings_WC_Ajax {
 				}
 			}
 
-			$booked = WC_Bookings_Controller::find_booked_day_blocks( $product_id, $min_date, $max_date, 'Y-n-j', $timezone_offset, array( $resource_id ) );
+			$booked = WC_Bookings_Controller::find_booked_day_blocks(
+				$product_id,
+				$min_date,
+				$max_date,
+				'Y-n-j',
+				$timezone_offset,
+				$resource_id ? array( $resource_id ) : array()
+			);
 
 			$args['partially_booked_days'] = $booked['partially_booked_days'];
 			$args['fully_booked_days']     = $booked['fully_booked_days'];
 			$args['unavailable_days']      = $booked['unavailable_days'];
 			$args['restricted_days']       = $product->has_restricted_days() ? $product->get_restricted_days() : false;
+			$args['old_availability']      = isset( $booked['old_availability'] ) && true === $booked['old_availability'];
 
 			$buffer_days = array();
 			if ( ! in_array( $product->get_duration_unit(), array( 'minute', 'hour' ) ) ) {

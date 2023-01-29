@@ -964,12 +964,12 @@ class CDN extends Abstract_Module {
 			);
 		}
 
-		$this->settings->set_setting( 'wp-smush-cdn_status', $status );
+		$this->settings->set_setting( 'wp-smush-cdn_status', $new_status );
 
 		// For ajax.
 		if ( ! wp_doing_cron() ) {
 			// At this point we already know that $status->data is valid.
-			wp_send_json_success( $status );
+			wp_send_json_success( $new_status );
 		}
 	}
 

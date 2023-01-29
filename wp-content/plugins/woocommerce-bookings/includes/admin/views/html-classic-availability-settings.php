@@ -186,7 +186,7 @@ $global_availability_rule_per_page = $show_google_event ? 250 : count( $global_a
 										<?php
 										ob_start();
 										$availability = new WC_Global_Availability();
-										require 'html-booking-availability-fields.php';
+										include 'html-booking-availability-fields.php';
 										$html = ob_get_clean();
 										echo esc_attr( $html );
 										?>">

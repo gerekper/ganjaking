@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-namespace Google\Http;
+namespace Automattic\WooCommerce\Bookings\Vendor\Google\Http;
 
 use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\HttpHandler\HttpHandlerFactory;
-use Google\Client;
-use Google\Task\Runner;
-use Google\Service\Exception as GoogleServiceException;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Client;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Task\Runner;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Service\Exception as GoogleServiceException;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\ClientInterface;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Exception\RequestException;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\Response;

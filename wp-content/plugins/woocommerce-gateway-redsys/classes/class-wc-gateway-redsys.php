@@ -1,13 +1,18 @@
 <?php
 /**
- * Package: WooCommerce Redsys Gateway
- * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
- * Copyright: (C) 2013 - 2023 José Conti
+ * WooCommerce Redsys Gateway Redirection
+ *
+ * @package WooCommerce Redsys Gateway WooCommerce.com > https://woocommerce.com/products/redsys-gateway/
+ * @since 13.0.0
+ * @author José Conti.
+ * @link https://joseconti.com
+ * @license GNU General Public License v3.0
+ * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * @copyright 2013-2013 José Conti.
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
-}
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Package: WooCommerce Redsys Gateway
  * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
@@ -17,14 +22,6 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	var $notify_url;
 	/**
 	 * Constructor for the gateway.
-	 *
-	 * @access public
-	 * @return void
-	 */
-	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	public function __construct() {
 		global $checkfor254;
@@ -87,17 +84,12 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$this->sendemails           = WCRed()->get_redsys_option( 'sendemails', 'redsys' );
 		$this->checkoutredirect     = WCRed()->get_redsys_option( 'checkoutredirect', 'redsys' );
 		$this->showthankyourecipe   = WCRed()->get_redsys_option( 'showthankyourecipe', 'redsys' );
-		$this->usebrowserreceipt    = 'no'; // WCRed()->get_redsys_option( 'usebrowserreceipt', 'redsys' );
+		$this->usebrowserreceipt    = WCRed()->get_redsys_option( 'usebrowserreceipt', 'redsys' );
 		$this->lwvactive            = WCRed()->get_redsys_option( 'lwvactive', 'redsys' );
 		$this->traactive            = WCRed()->get_redsys_option( 'traactive', 'redsys' );
 		$this->traamount            = WCRed()->get_redsys_option( 'traamount', 'redsys' );
 		$this->notiemail            = WCRed()->get_redsys_option( 'notiemail', 'redsys' );
 		$this->hidegatewaychckout   = WCRed()->get_redsys_option( 'hidegatewaychckout', 'redsys' );
-		if ( WCRed()->is_gateway_enabled( 'preauthorizationsredsys' ) ) {
-			$this->preauthorization = 'no';
-		} else {
-			$this->preauthorization = WCRed()->get_redsys_option( 'preauthorization', 'redsys' );
-		}
 		$this->redsysdirectdeb      = 'T';
 		$this->privateproduct       = WCRed()->get_redsys_option( 'privateproduct', 'redsys' );
 		$this->sentemailscustomers  = WCRed()->get_redsys_option( 'sentemailscustomers', 'redsys' );
@@ -144,7 +136,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		add_action( 'valid-redsys-standard-ipn-request', array( $this, 'successful_request' ) );
 		add_action( 'woocommerce_receipt_redsys', array( $this, 'receipt_page' ) );
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
-		// add_action( 'before_woocommerce_pay', array( $this, 'redirect_to_checkout' ) );
+		add_action( 'before_woocommerce_pay', array( $this, 'redirect_to_checkout' ) );
 
 		// Payment listener/API hook.
 		add_action( 'woocommerce_api_wc_gateway_' . $this->id, array( $this, 'check_ipn_response' ) );
@@ -174,16 +166,8 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 
 	/**
 	 * Check if this gateway is enabled and available in the user's country
-	 *
-	 * @access public
-	 * @return bool
 	 */
-	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
-	 */
-	function is_valid_for_use() {
+	public function is_valid_for_use() {
 
 		if ( ! in_array( get_woocommerce_currency(), WCRed()->allowed_currencies(), true ) ) {
 			return false;
@@ -208,10 +192,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		<p><?php esc_html_e( 'Servired/RedSys works by sending the user to your bank TPV to enter their payment information.', 'woocommerce-redsys' ); ?></p>
 		<?php
 		$screen = get_current_screen();
-		// echo $screen->id;
-		echo WCRed()->return_help_notice();
+		WCRed()->return_help_notice();
 
-		if ( isset( $_GET['quijote'] ) ) {
+		if ( isset( $_GET['quijote'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			?>
 			<div class="quijote">
 			<?php include_once REDSYS_PLUGIN_DATA_PATH_P . 'data.php'; ?>
@@ -261,7 +244,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
-	function init_form_fields() {
+	public function init_form_fields() {
 
 		$options    = array();
 		$selections = (array) WCRed()->get_redsys_option( 'testforuserid', 'redsys' );
@@ -335,14 +318,16 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					'showallcountries'   => __( 'Show to all countries', 'woocommerce-redsys' ),
 				),
 			),
-			/*
-			'usebrowserreceipt'  => array(
-				'title'       => __( 'Enable iframe with browser', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'label'       => __( 'Not all banks accept this option, please check is it is allowed by your Bank', 'woocommerce-redsys' ),
-				'default'     => 'no',
+			'usebrowserreceipt'    => array(
+				'title'       => __( 'How to show Redsys', 'woocommerce-redsys' ),
+				'type'        => 'select',
+				'description' => __( 'Select how do you want to show Redsys payment page.', 'woocommerce-redsys' ),
+				'default'     => 'redirection',
+				'options'     => array(
+					'redirection' => __( 'Redirect to Redsys for payment', 'woocommerce-redsys' ),
+					'iframe'      => __( 'Embed Redsys in the website.', 'woocommerce-redsys' ),
+				),
 			),
-			*/
 			'redirectiontime'      => array(
 				'title'       => __( 'Redirection time', 'woocommerce-redsys' ),
 				'type'        => 'text',
@@ -368,7 +353,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				'label'   => __( 'Enable automatically delete tokens if the asociated credit card has expired. WARNING: If your bank is not sending you the expiration dates, and fake dates are being saved, you can delete valid tokens.', 'woocommerce-redsys' ),
 				'default' => 'no',
 			),
-			'lwvactive'        => array(
+			'lwvactive'            => array(
 				'title'   => __( 'Enable LWV', 'woocommerce-redsys' ),
 				'type'    => 'checkbox',
 				'label'   => __( 'Enable LWV. WARNING, your bank has to enable it before you use it.', 'woocommerce-redsys' ),
@@ -459,8 +444,15 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				'title'       => __( 'Text on the thank you page', 'woocommerce-redsys' ),
 				'type'        => 'textarea',
 				'description' => __( 'This controls the text that will be show to customers that arrive to the Thank You page if their order is not marked as paid.', 'woocommerce-redsys' ),
-				'default'     => __( '<p><b>ATTENTION:</b> You have used Redsys for the payment. We have detected that there may have been a problem with your payment and it has not been marked as paid.  Do not worry, we have detected it and we have received an email with the notice, so we let\'s check it to make sure it has.</p>', 'woocommerce-redsys' ),
+				'default'     => __( '<p><b>ATTENTION:</b> You have used Redsys for the payment. We have detected that there may have been a problem with your payment and it has not been marked as paid.  Do not worry, we have detected it and we have received an email with the notice, so we let\'s check it to make sure it has.</p>', 'woocommerce-redsys' ), // phpcs:ignore WordPress.WP.I18n.NoHtmlWrappedStrings
 				'desc_tip'    => true,
+			),
+			'redsyspreauthall'     => array(
+				'title'       => __( 'Preauthorization for all payments', 'woocommerce-redsys' ),
+				'type'        => 'checkbox',
+				'description' => __( 'This option will make all payments as preauthorization. You can capture the payment later in the order details.', 'woocommerce-redsys' ),
+				'label'       => __( 'Enable Preauthorization for all payments', 'woocommerce-redsys' ),
+				'default'     => 'no',
 			),
 			'title'                => array(
 				'title'       => __( 'Title', 'woocommerce-redsys' ),
@@ -573,14 +565,14 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				'description' => __( 'If you want to add a subfix to your Order number, add it here.', 'woocommerce-redsys' ),
 				'desc_tip'    => true,
 			),
-			'markpending'           => array(
+			'markpending'          => array(
 				'title'       => __( 'Before Pay', 'woocommerce-redsys' ),
 				'type'        => 'select',
 				'description' => __( 'Which status has an order before being paid?', 'woocommerce-redsys' ),
 				'default'     => 'processing',
 				'options'     => array(
-					'pending' => __( 'Mark as Pending Payment (default WooCommerce)', 'woocommerce-redsys' ),
-					'redsyspending'  => __( 'Mark as Pending Redsys Payment', 'woocommerce-redsys' ),
+					'pending'       => __( 'Mark as Pending Payment (default WooCommerce)', 'woocommerce-redsys' ),
+					'redsyspending' => __( 'Mark as Pending Redsys Payment', 'woocommerce-redsys' ),
 				),
 			),
 			'orderdo'              => array(
@@ -702,11 +694,11 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Add colum
+	 *
+	 * @param array $columns Colums.
 	 */
-	function anadir_column( $columns ) {
+	public function anadir_column( $columns ) {
 		$new_columns           = array();
 		$new_columns['redsys'] = __( 'Type', 'woocommerce-redsys' );
 		foreach ( $columns as $column => $valor ) {
@@ -715,14 +707,14 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		return $new_columns;
 	}
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Add colum to methods.
+	 *
+	 * @param array $method Method.
 	 */
-	function anadir_column_content( $method ) {
-		// var_dump( $method, true );
+	public function anadir_column_content( $method ) {
+
 		$url      = $method['actions']['delete']['url'];
-		$clean    = parse_url( $url, PHP_URL_PATH );
+		$clean    = wp_parse_url( $url, PHP_URL_PATH );
 		$token_id = basename( $clean );
 		$token    = WC_Payment_Tokens::get( $token_id );
 		if ( $token ) {
@@ -737,24 +729,29 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$token_type_name = '-';
 			}
 		}
-		echo $token_type_name;
+		echo esc_html( $token_type_name );
 	}
-	function thankyou_redirect( $order_id ) {
+	/**
+	 * Redirect to thankyou page.
+	 *
+	 * @param int $order_id Order ID.
+	 */
+	public function thankyou_redirect( $order_id ) {
 		if ( is_wc_endpoint_url( 'order-received' ) ) {
 			$transient = get_transient( $order_id . '_iframe' );
 			if ( 'yes' === $transient ) {
 				delete_transient( $order_id . '_iframe' );
-				$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-				echo '<script>window.top.location.href = "' . $actual_link . '"</script>';
+				$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidatedNotSanitized,WordPress.Security.ValidatedSanitizedInput.InputNotValidatedNotSanitized
+				echo '<script>window.top.location.href = "' . esc_url( $actual_link ) . '"</script>';
 			}
 		}
 	}
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Check if user is in test mode.
+	 *
+	 * @param int $userid User ID.
 	 */
-	function check_user_test_mode( $userid ) {
+	public function check_user_test_mode( $userid ) {
 
 		$usertest_active = $this->testforuser;
 		$selections      = (array) WCRed()->get_redsys_option( 'testforuserid', 'redsys' );
@@ -834,13 +831,14 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			return false;
 		}
 	}
-
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Get Redsys URL Gateway
+	 *
+	 * @param  string $user_id User ID.
+	 * @param  string $type    Type.
+	 * @return string
 	 */
-	function get_redsys_url_gateway( $user_id, $type = 'rd' ) {
+	public function get_redsys_url_gateway( $user_id, $type = 'rd' ) {
 
 		if ( 'yes' === $this->testmode ) {
 			if ( 'rd' === $type ) {
@@ -908,11 +906,12 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 		return $url;
 	}
-
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Get Redsys URL Gateway
+	 *
+	 * @param  string $user_id User ID.
+	 * @param  string $type    Type.
+	 * @return string
 	 */
 	public static function get_redsys_url_gateway_p( $user_id, $type = 'rd' ) {
 
@@ -985,11 +984,12 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		return $url;
 	}
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Get Redsys SHA256
+	 *
+	 * @param  string $user_id User ID.
+	 * @return string
 	 */
-	function get_redsys_sha256( $user_id ) {
+	public function get_redsys_sha256( $user_id ) {
 
 		if ( 'yes' === $this->testmode ) {
 			if ( 'yes' === $this->debug ) {
@@ -1063,11 +1063,12 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		return $sha256;
 	}
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Get redsys Args for passing to PP
+	 *
+	 * @param  WC_Order $order Order object.
+	 * @return array
 	 */
-	function get_redsys_args( $order ) {
+	public function get_redsys_args( $order ) {
 
 		$customer_token   = '';
 		$customer_token_c = '';
@@ -1087,7 +1088,6 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'redsys', ' ' );
 			$this->log->add( 'redsys', '$order_id: ' . $order_id );
-			// $this->log->add( 'redsys', '$currency_codes: ' . print_r( $currency_codes, true ) );
 			$this->log->add( 'redsys', '$transaction_id2: ' . $transaction_id2 );
 			$this->log->add( 'redsys', '$order_total_sign: ' . $order_total_sign );
 			$this->log->add( 'redsys', ' ' );
@@ -1219,10 +1219,10 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$mi_obj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', $redsys_data_send['gatewaylanguage'] );
 		$mi_obj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', $redsys_data_send['product_description'] );
 		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $redsys_data_send['merchant_name'] );
-		$mi_obj->setParameter( 'DS_MERCHANT_TITULAR', $merchan_name . ' ' . $merchant_lastnme );
+		$mi_obj->setParameter( 'DS_MERCHANT_TITULAR', WCRed()->clean_data( $merchan_name ) . ' ' . WCRed()->clean_data( $merchant_lastnme ) );
 
 		// [T = Pago con Tarjeta + iupay , R = Pago por Transferencia, D = Domiciliacion, C = Sólo Tarjeta (mostrará sólo el formulario para datos de tarjeta)] por defecto es T
-		if ( 'T' === $this->redsysdirectdeb || empty( $this->redsysdirectdeb ) ) { // No se puede ofrecer domiciliación y tarjeta con pago por referencia a la vez
+		if ( 'T' === $this->redsysdirectdeb || empty( $this->redsysdirectdeb ) ) { // No se puede ofrecer domiciliación y tarjeta con pago por referencia a la vez.
 			if ( WCRed()->order_contains_subscription( $order_id ) ) {
 				if ( WCRed()->order_contains_subscription( $order_id ) && 'yes' !== $this->subsusetokensdisable ) {
 					if ( ! $customer_token_r ) {
@@ -1364,7 +1364,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		);
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'redsys', ' ' );
-			$this->log->add( 'redsys', 'Generating payment form for order ' . $order->get_order_number() . '. Sent data: ' . print_r( $redsys_args, true ) );
+			$this->log->add( 'redsys', 'Generating payment form for order ' . $order->get_order_number() . '. Sent data: ' . print_r( $redsys_args, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			$this->log->add( 'redsys', 'Helping to understand the encrypted code: ' );
 			$this->log->add( 'redsys', 'set_transient: ' . get_transient( 'redsys_signature_' . sanitize_text_field( $order_id_set ) ) );
 			$this->log->add( 'redsys', 'DS_MERCHANT_AMOUNT: ' . $redsys_data_send['order_total_sign'] );
@@ -1380,7 +1380,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'redsys', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . $redsys_data_send['product_description'] );
 			$this->log->add( 'redsys', 'DS_MERCHANT_MERCHANTNAME: ' . $redsys_data_send['merchant_name'] );
 			$this->log->add( 'redsys', 'SECRETSHA256: ' . $secretsha256 );
-			$this->log->add( 'redsys', 'DS_MERCHANT_TITULAR: ' . $merchan_name . ' ' . $merchant_lastnme );
+			$this->log->add( 'redsys', 'DS_MERCHANT_TITULAR: ' . WCRed()->clean_data( $merchan_name ) . ' ' . WCRed()->clean_data( $merchant_lastnme ) );
 			$this->log->add( 'redsys', 'Ds_Merchant_EMV3DS: ' . $psd2 );
 			if ( ! empty( $customer_token ) && ( 'yes' === $this->usetokens ) ) {
 				$this->log->add( 'redsys', 'DS_MERCHANT_IDENTIFIER: ' . $customer_token );
@@ -1400,21 +1400,21 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			}
 			$this->log->add( 'redsys', ' ' );
 		}
-		// $redsys_args = apply_filters( 'woocommerce_redsys_args', $redsys_args );
 		return $redsys_args;
 	}
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Get Redsys Args for passing to TPV
+	 *
+	 * @param  WC_Order $order Order object.
+	 * @return array
 	 */
 	public static function get_redsys_args_p( $order ) {
 
 		$redsys = new WC_Gateway_Redsys();
 
 		if ( isset( $_SERVER['HTTP_REFERER'] ) ) {
-			$referer  = parse_url( $_SERVER['HTTP_REFERER'], PHP_URL_HOST );
-			$site_url = parse_url( get_site_url(), PHP_URL_HOST );
+			$referer  = wp_parse_url( esc_url_raw( wp_unslash( $_SERVER['HTTP_REFERER'] ) ), PHP_URL_HOST );
+			$site_url = wp_parse_url( get_site_url(), PHP_URL_HOST );
 
 			if ( $referer !== $site_url ) {
 				if ( 'yes' === $redsys->debug ) {
@@ -1461,7 +1461,6 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		if ( 'yes' === $redsys->debug ) {
 			$redsys->log->add( 'redsys', ' ' );
 			$redsys->log->add( 'redsys', '$order_id: ' . $order_id );
-			// $redsys->log->add( 'redsys', '$currency_codes: ' . print_r( $currency_codes, true ) );
 			$redsys->log->add( 'redsys', '$transaction_id2: ' . $transaction_id2 );
 			$redsys->log->add( 'redsys', '$order_total_sign: ' . $order_total_sign );
 			$redsys->log->add( 'redsys', '$save_token: ' . $save_token );
@@ -1525,19 +1524,14 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		if ( 'yes' === $redsys->debug ) {
 			$redsys->log->add( 'redsys', '$psd2: ' . $psd2 );
 		}
-		if ( 'yes' !== $redsys->psd2 ) {
-			$customer_token = WCRed()->get_redsys_users_token();
-		} else {
-			// $customer_token_r = WCRed()->get_redsys_users_token( 'R' );
-			// $customer_token_c = WCRed()->get_redsys_users_token( 'C' );
-			$customer_token_r = '';
-			$customer_token_c = '';
-			if ( 'yes' === $redsys->debug ) {
-				$redsys->log->add( 'redsys', '$customer_token: ' . $customer_token );
-				$redsys->log->add( 'redsys', '$customer_token_r: ' . $customer_token_r );
-				$redsys->log->add( 'redsys', '$customer_token_c: ' . $customer_token_c );
-			}
+		$customer_token_r = '';
+		$customer_token_c = '';
+		if ( 'yes' === $redsys->debug ) {
+			$redsys->log->add( 'redsys', '$customer_token: ' . $customer_token );
+			$redsys->log->add( 'redsys', '$customer_token_r: ' . $customer_token_r );
+			$redsys->log->add( 'redsys', '$customer_token_c: ' . $customer_token_c );
 		}
+
 		$customer_token = get_transient( $order_id . '_redsys_use_token' );
 		$token_type     = get_transient( $order_id . '_redsys_token_type' );
 
@@ -1550,7 +1544,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		} else {
 			if ( 'yes' === $redsys->debug ) {
 				$redsys->log->add( 'redsys', '$customer_token: ' . $customer_token );
-				$redsys->log->add( 'redsys', '$customer_token_r: ' . 'FALSE' );
+				$redsys->log->add( 'redsys', '$customer_token_r: FALSE' );
 			}
 			$customer_token_r = false;
 		}
@@ -1563,18 +1557,25 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		} else {
 			if ( 'yes' === $redsys->debug ) {
 				$redsys->log->add( 'redsys', '$customer_token: ' . $customer_token );
-				$redsys->log->add( 'redsys', '$customer_token_c: ' . 'FALSE' );
+				$redsys->log->add( 'redsys', '$customer_token_c: FALSE' );
 			}
 			$customer_token_c = false;
 		}
 
 		$redsys_data_send = array();
-
-		$currency            = $currency_codes[ get_woocommerce_currency() ];
-		$user_id             = $order->get_user_id();
-		$secretsha256        = $redsys->get_redsys_sha256( $user_id );
-		$customer            = $redsys->customer;
-		$url_ok              = add_query_arg( 'utm_nooverride', '1', $redsys->get_return_url( $order ) );
+		$currency         = $currency_codes[ get_woocommerce_currency() ];
+		$user_id          = $order->get_user_id();
+		$secretsha256     = $redsys->get_redsys_sha256( $user_id );
+		$customer         = $redsys->customer;
+		$url_ok           = add_query_arg(
+			array(
+				'redsys-iframe'  => 'yes',
+				'utm_nooverride' => '1',
+			),
+			$redsys->get_return_url( $order )
+		);
+		$url_ok_transient = add_query_arg( 'utm_nooverride', '1', $redsys->get_return_url( $order ) );
+		set_transient( $order_id . '_redsys_url_ok', $url_ok_transient, 300 * MINUTE_IN_SECONDS );
 		$product_description = WCRed()->product_description( $order, 'redsys' );
 		$merchant_name       = $redsys->commercename;
 
@@ -1669,10 +1670,10 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$redsys->log->add( 'redsys', ' ' );
 			}
 		}
-		$mi_obj->setParameter( 'DS_MERCHANT_TITULAR', $merchan_name . ' ' . $merchant_lastnme );
+		$mi_obj->setParameter( 'DS_MERCHANT_TITULAR', WCRed()->clean_data( $merchan_name ) . ' ' . WCRed()->clean_data( $merchant_lastnme ) );
 
 		// [T = Pago con Tarjeta + iupay , R = Pago por Transferencia, D = Domiciliacion, C = Sólo Tarjeta (mostrará sólo el formulario para datos de tarjeta)] por defecto es T
-		if ( 'T' === $redsys->redsysdirectdeb || empty( $redsys->redsysdirectdeb ) ) { // No se puede ofrecer domiciliación y tarjeta con pago por referencia a la vez
+		if ( 'T' === $redsys->redsysdirectdeb || empty( $redsys->redsysdirectdeb ) ) { // No se puede ofrecer domiciliación y tarjeta con pago por referencia a la vez.
 			$order_id = $order->get_id();
 			if ( WCRed()->order_contains_subscription( $order_id ) ) {
 				if ( WCRed()->order_contains_subscription( $order_id ) && 'yes' !== $redsys->subsusetokensdisable ) {
@@ -1816,7 +1817,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		);
 		if ( 'yes' === $redsys->debug ) {
 			$redsys->log->add( 'redsys', ' ' );
-			$redsys->log->add( 'redsys', 'Generating payment form for order ' . $order->get_order_number() . '. Sent data: ' . print_r( $redsys_args, true ) );
+			$redsys->log->add( 'redsys', 'Generating payment form for order ' . $order->get_order_number() . '. Sent data: ' . print_r( $redsys_args, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			$redsys->log->add( 'redsys', 'Helping to understand the encrypted code: ' );
 			$redsys->log->add( 'redsys', 'set_transient: ' . get_transient( 'redsys_signature_' . sanitize_text_field( $order_id_set ) ) );
 			$redsys->log->add( 'redsys', 'DS_MERCHANT_AMOUNT: ' . $redsys_data_send['order_total_sign'] );
@@ -1832,7 +1833,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$redsys->log->add( 'redsys', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . $redsys_data_send['product_description'] );
 			$redsys->log->add( 'redsys', 'DS_MERCHANT_MERCHANTNAME: ' . $redsys_data_send['merchant_name'] );
 			$redsys->log->add( 'redsys', 'SECRETSHA256: ' . $secretsha256 );
-			$redsys->log->add( 'redsys', 'DS_MERCHANT_TITULAR: ' . $merchan_name . ' ' . $merchant_lastnme );
+			$redsys->log->add( 'redsys', 'DS_MERCHANT_TITULAR: ' . WCRed()->clean_data( $merchan_name ) . ' ' . WCRed()->clean_data( $merchant_lastnme ) );
 			$redsys->log->add( 'redsys', 'Ds_Merchant_EMV3DS: ' . $psd2 );
 			if ( ! empty( $customer_token ) && ( 'yes' === $redsys->usetokens ) ) {
 				$redsys->log->add( 'redsys', 'DS_MERCHANT_IDENTIFIER: ' . $customer_token );
@@ -1855,30 +1856,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		return $redsys_args;
 	}
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
-	 */
-	function redsys_get_tag_content( $tag, $xml ) {
-		$retorno = null;
-
-		if ( $tag && $xml ) {
-
-			$ini = strpos( $xml, '<' . $tag . '>' );
-			$fin = strpos( $xml, '</' . $tag . '>' );
-			if ( false !== $ini && false !== $fin ) {
-				$ini = $ini + strlen( '<' . $tag . '>' );
-				if ( $ini <= $fin ) {
-					$retorno = substr( $xml, $ini, $fin - $ini );
-				}
-			}
-		}
-		return $retorno;
-	}
-	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Get redsys Args for passing Add Method.
+	 *
+	 * @param int $order_id Order ID.
 	 */
 	public static function get_redsys_args_add_method( $order_id ) {
 
@@ -1902,7 +1882,6 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		if ( 'yes' === $redsys->debug ) {
 			$log->add( 'redsys', ' ' );
 			$log->add( 'redsys', '$order_id: ' . $order_id );
-			// $log->add( 'redsys', '$currency_codes: ' . print_r( $currency_codes, true ) );
 			$log->add( 'redsys', '$transaction_id2: ' . $transaction_id2 );
 			$log->add( 'redsys', '$order_total_sign: ' . $order_total_sign );
 			$log->add( 'redsys', ' ' );
@@ -1931,9 +1910,6 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		} else {
 			$final_notify_url = $redsys->notify_url;
 		}
-
-		// $psd2 = WCPSD2()->get_acctinfo( $order );
-
 		$redsys_data_send    = array();
 		$currency            = $currency_codes[ get_woocommerce_currency() ];
 		$user_id             = get_transient( $order_id );
@@ -1971,8 +1947,6 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 
 		$secretsha256 = $redsys_data_send['secretsha256'];
-		// $merchan_name     = WCRed()->get_order_meta( $order_id, '_billing_first_name', true );
-		// $merchant_lastnme = WCRed()->get_order_meta( $order_id, '_billing_last_name', true );
 
 		// redsys Args.
 		$mi_obj = new WooRedsysAPI();
@@ -1999,10 +1973,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$mi_obj->setParameter( 'DS_MERCHANT_COF_INI', 'N' );
 			$mi_obj->setParameter( 'DS_MERCHANT_COF_TYPE', 'C' );
 		}
-
-		// $mi_obj->setParameter( 'Ds_Merchant_EMV3DS', $psd2 );
 		$mi_obj->setParameter( 'Ds_Merchant_EMV3DS', '{}' );
-
 		$version = 'HMAC_SHA256_V1';
 		// Se generan los parámetros de la petición.
 		$request      = '';
@@ -2017,13 +1988,12 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		);
 		return $redsys_args;
 	}
-
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Process the payment and return the result.
+	 *
+	 * @param int $order_id Order ID.
 	 */
-	function redsys_process_payment_token( $order_id ) {
+	public function redsys_process_payment_token( $order_id ) {
 
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'redsys', ' ' );
@@ -2065,10 +2035,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'redsys', 'Using WS URL: ' . $redsys_adr );
 			$this->log->add( 'redsys', ' ' );
 		}
-
-		// $order_id = $order->get_id();.
-		$currency_codes = WCRed()->get_currencies();
-
+		$currency_codes   = WCRed()->get_currencies();
 		$transaction_id2  = WCRed()->prepare_order_number( $order_id, 'redsys' );
 		$order_total_sign = WCRed()->redsys_amount_format( $order->get_total() );
 
@@ -2248,10 +2215,10 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$cliente    = new SoapClient( $redsys_adr ); // Entorno de prueba.
 		$responsews = $cliente->trataPeticion( array( 'datoEntrada' => $xml ) );
 
-		if ( isset( $responsews->trataPeticionReturn ) ) {
-			$xml_retorno = new SimpleXMLElement( $responsews->trataPeticionReturn );
-			if ( isset( $xml_retorno->OPERACION->Ds_Response ) ) {
-				$respuesta = (int) $xml_retorno->OPERACION->Ds_Response;
+		if ( isset( $responsews->trataPeticionReturn ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$xml_retorno = new SimpleXMLElement( $responsews->trataPeticionReturn ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			if ( isset( $xml_retorno->OPERACION->Ds_Response ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$respuesta = (int) $xml_retorno->OPERACION->Ds_Response; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				if ( ( $respuesta >= 0 ) && ( $respuesta <= 99 ) ) {
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'redsys', ' ' );
@@ -2273,11 +2240,12 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Generate the redsys form
+	 *
+	 * @param   int $order_id Order ID.
+	 * @return  string        Form fields
 	 */
-	function generate_redsys_form_browser( $order_id ) {
+	public function generate_redsys_form_browser( $order_id ) {
 		global $woocommerce;
 
 		if ( 'yes' === $this->debug ) {
@@ -2388,15 +2356,10 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Generate the redsys form
 	 *
-	 * @param mixed $order_id
+	 * @param mixed $order_id Order ID.
 	 * @return string
 	 */
-	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
-	 */
-	function generate_redsys_form( $order_id ) {
+	public function generate_redsys_form( $order_id ) {
 		global $woocommerce;
 
 		if ( 'yes' === $this->debug ) {
@@ -2425,7 +2388,6 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		foreach ( $redsys_args as $key => $value ) {
 			$form_inputs[] .= '<input type="hidden" name="' . $key . '" value="' . esc_attr( $value ) . '" />';
 		}
-		// $post = substr($post, 0, -1);
 		$time = '';
 		$time = $this->redirectiontime;
 		if ( empty( $time ) ) {
@@ -2487,15 +2449,10 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Generate the redsys Subscription form
 	 *
-	 * @param mixed $order_id
+	 * @param mixed $order_id Order ID.
 	 * @return string
 	 */
-	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
-	 */
-	function generate_redsys_subscription_form_browser( $order_id ) {
+	public function generate_redsys_subscription_form_browser( $order_id ) {
 		global $woocommerce;
 
 		if ( 'yes' === $this->debug ) {
@@ -2607,8 +2564,13 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				</div>
 			</div>';
 	}
-
-	function generate_redsys_subscription_form( $order_id ) {
+	/**
+	 * Generate Subscriptions Form.
+	 *
+	 * @param  int $order_id Order ID.
+	 * @return string
+	 */
+	public function generate_redsys_subscription_form( $order_id ) {
 		global $woocommerce;
 
 		if ( 'yes' === $this->debug ) {
@@ -2645,7 +2607,6 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		foreach ( $redsys_args as $key => $value ) {
 			$form_inputs[] .= '<input type="hidden" name="' . $key . '" value="' . esc_attr( $value ) . '" />';
 		}
-		// $post = substr($post, 0, -1);
 		wc_enqueue_js(
 			'$("body").block({
 				message: "<img src=\"' . esc_url( apply_filters( 'woocommerce_ajax_loader_url', $woocommerce->plugin_url() . '/assets/images/select2-spinner.gif' ) ) . '\" alt=\"Redirecting&hellip;\" style=\"float:left; margin-right: 10px;\" />' . __( 'Thank you for your order. We are now redirecting you to Servired/RedSys to make the payment.', 'woocommerce-redsys' ) . '",
@@ -2673,11 +2634,11 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		<a class="button cancel" href="' . esc_url( $order->get_cancel_order_url() ) . '">' . __( 'Cancel order &amp; restore cart', 'woocommerce-redsys' ) . '</a>
 		</form>';
 	}
-
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Process the Subscription payment and return the result.
+	 *
+	 * @param  int $amount_to_charge Amount to charge.
+	 * @param  int $renewal_order    Renewal ID.
 	 */
 	public function doing_scheduled_subscription_payment( $amount_to_charge, $renewal_order ) {
 
@@ -2770,7 +2731,6 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'redsys', 'Using WS URL: ' . $redsys_adr );
 				$this->log->add( 'redsys', ' ' );
 			}
-			// $order_id = $order->get_id();.
 			$currency_codes = WCRed()->get_currencies();
 
 			$transaction_id2  = WCRed()->prepare_order_number( $order_id, 'redsys' );
@@ -2973,7 +2933,6 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', ' ' );
-				// $this->log->add( 'redsys', '$acctinfo: ' . $acctinfo );
 				$this->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
 
@@ -2986,7 +2945,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', ' ' );
 				$this->log->add( 'redsys', '$ds_emv3ds_json: ' . $ds_emv3ds_json );
-				$this->log->add( 'redsys', '$ds_emv3ds: ' . print_r( $ds_emv3ds, true ) );
+				$this->log->add( 'redsys', '$ds_emv3ds: ' . print_r( $ds_emv3ds, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 				$this->log->add( 'redsys', '$three_ds_server_trans_id: ' . $three_ds_server_trans_id );
 				$this->log->add( 'redsys', '$three_ds_info: ' . $three_ds_info );
 			}
@@ -3046,18 +3005,18 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$cliente    = new SoapClient( $redsys_adr );
 				$responsews = $cliente->trataPeticion( array( 'datoEntrada' => $xml ) );
 
-				if ( isset( $responsews->trataPeticionReturn ) ) {
-					$xml_retorno       = new SimpleXMLElement( $responsews->trataPeticionReturn );
-					$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode;
-					$codigo            = (string) $xml_retorno->CODIGO;
-					$redsys_order      = (string) $xml_retorno->OPERACION->Ds_Order;
-					$terminal          = (string) $xml_retorno->OPERACION->Ds_Terminal;
-					$currency_code     = (string) $xml_retorno->OPERACION->Ds_Currency;
+				if ( isset( $responsews->trataPeticionReturn ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$xml_retorno       = new SimpleXMLElement( $responsews->trataPeticionReturn ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$codigo            = (string) $xml_retorno->CODIGO; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$redsys_order      = (string) $xml_retorno->OPERACION->Ds_Order; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$terminal          = (string) $xml_retorno->OPERACION->Ds_Terminal; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$currency_code     = (string) $xml_retorno->OPERACION->Ds_Currency; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				}
 
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'redsys', ' ' );
-					$this->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) );
+					$this->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 					$this->log->add( 'redsys', 'Ds_AuthorisationCode: ' . $authorisationcode );
 				}
 				if ( $authorisationcode ) {
@@ -3192,22 +3151,21 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$cliente    = new SoapClient( $redsys_adr );
 				$responsews = $cliente->trataPeticion( array( 'datoEntrada' => $xml ) );
 
-				if ( isset( $responsews->trataPeticionReturn ) ) {
-					$xml_retorno = new SimpleXMLElement( $responsews->trataPeticionReturn );
-					// $respuesta   = json_decode( $xml_retorno->INFOTARJETA->Ds_EMV3DS );
+				if ( isset( $responsews->trataPeticionReturn ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$xml_retorno = new SimpleXMLElement( $responsews->trataPeticionReturn ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				}
 
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'redsys', ' ' );
-					$this->log->add( 'redsys', '$responsews: ' . print_r( $responsews, true ) );
-					$this->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) );
+					$this->log->add( 'redsys', '$responsews: ' . print_r( $responsews, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+					$this->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 				}
-				$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode;
-				$codigo            = (string) $xml_retorno->CODIGO;
-				$redsys_order      = (string) $xml_retorno->OPERACION->Ds_Order;
-				$terminal          = (string) $xml_retorno->OPERACION->Ds_Terminal;
-				$currency_code     = (string) $xml_retorno->OPERACION->Ds_Currency;
-				$response          = (string) $xml_retorno->OPERACION->Ds_Response;
+				$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$codigo            = (string) $xml_retorno->CODIGO; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$redsys_order      = (string) $xml_retorno->OPERACION->Ds_Order; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$terminal          = (string) $xml_retorno->OPERACION->Ds_Terminal; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$currency_code     = (string) $xml_retorno->OPERACION->Ds_Currency; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$response          = (string) $xml_retorno->OPERACION->Ds_Response; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
 				if ( $authorisationcode ) {
 					WCRed()->update_order_meta( $order_id, '_redsys_done', 'yes' );
@@ -3306,13 +3264,12 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			}
 		}
 	}
-
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Get Redsys URL Gateway by User ID
+	 *
+	 * @param int $user_id User ID.
 	 */
-	function get_redsys_url_gateway_ws( $user_id = false ) {
+	public function get_redsys_url_gateway_ws( $user_id = false ) {
 
 		if ( 'yes' === $this->testmode ) {
 			if ( 'yes' === $this->debug ) {
@@ -3347,11 +3304,11 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 		return $url;
 	}
-
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Change Yith Subscription.
+	 *
+	 * @param int $renewal_order Renewal Order.
+	 * @param int $is_manual_renew Is Manual Renew.
 	 */
 	public function renew_yith_subscription( $renewal_order = null, $is_manual_renew = null ) {
 
@@ -3448,8 +3405,6 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'redsys', 'Using WS URL: ' . $redsys_adr );
 				$this->log->add( 'redsys', ' ' );
 			}
-
-			// $order_id = $order->get_id();.
 			$currency_codes = WCRed()->get_currencies();
 
 			$transaction_id2  = WCRed()->prepare_order_number( $order_id, 'redsys' );
@@ -3592,7 +3547,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			} else {
 				$ds_merchant_group = '';
 			}
-			$datos_usuario = array(
+			$datos_usuario  = array(
 				'threeDSInfo'         => 'AuthenticationData',
 				'protocolVersion'     => $protocol_version,
 				'browserAcceptHeader' => $http_accept,
@@ -3606,22 +3561,21 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				'browserUserAgent'    => WCPSD2()->get_agente_navegador( $order_id ),
 				'notificationURL'     => $final_notify_url,
 			);
-			// $acctinfo       = WCPSD2()->get_acctinfo( $order, false , $user_id );
-			$datos_entrada      = '<DATOSENTRADA>';
-				$datos_entrada .= '<DS_MERCHANT_AMOUNT>' . $order_total_sign . '</DS_MERCHANT_AMOUNT>';
-				$datos_entrada .= '<DS_MERCHANT_ORDER>' . $orderid2 . '</DS_MERCHANT_ORDER>';
-				$datos_entrada .= '<DS_MERCHANT_MERCHANTCODE>' . $customer . '</DS_MERCHANT_MERCHANTCODE>';
-				$datos_entrada .= '<DS_MERCHANT_TERMINAL>' . $terminal . '</DS_MERCHANT_TERMINAL>';
-				$datos_entrada .= '<DS_MERCHANT_TRANSACTIONTYPE>' . $transaction_type . '</DS_MERCHANT_TRANSACTIONTYPE>';
-				$datos_entrada .= '<DS_MERCHANT_CURRENCY>' . $currency . '</DS_MERCHANT_CURRENCY>';
-				$datos_entrada .= '<DS_MERCHANT_IDENTIFIER>' . $customer_token . '</DS_MERCHANT_IDENTIFIER>';
-				$datos_entrada .= '<DS_MERCHANT_COF_INI>N</DS_MERCHANT_COF_INI>';
-				$datos_entrada .= '<DS_MERCHANT_COF_TYPE>R</DS_MERCHANT_COF_TYPE>';
-				$datos_entrada .= '<DS_MERCHANT_COF_TXNID>' . $txnid . '</DS_MERCHANT_COF_TXNID>';
-				$datos_entrada .= '<DS_MERCHANT_EXCEP_SCA>MIT</DS_MERCHANT_EXCEP_SCA>';
-				$datos_entrada .= '<DS_MERCHANT_DIRECTPAYMENT>TRUE</DS_MERCHANT_DIRECTPAYMENT>';
-				$datos_entrada .= '<DS_MERCHANT_EMV3DS>{"threeDSInfo":"CardData"}</DS_MERCHANT_EMV3DS>';
-				$datos_entrada .= '</DATOSENTRADA>';
+			$datos_entrada  = '<DATOSENTRADA>';
+			$datos_entrada .= '<DS_MERCHANT_AMOUNT>' . $order_total_sign . '</DS_MERCHANT_AMOUNT>';
+			$datos_entrada .= '<DS_MERCHANT_ORDER>' . $orderid2 . '</DS_MERCHANT_ORDER>';
+			$datos_entrada .= '<DS_MERCHANT_MERCHANTCODE>' . $customer . '</DS_MERCHANT_MERCHANTCODE>';
+			$datos_entrada .= '<DS_MERCHANT_TERMINAL>' . $terminal . '</DS_MERCHANT_TERMINAL>';
+			$datos_entrada .= '<DS_MERCHANT_TRANSACTIONTYPE>' . $transaction_type . '</DS_MERCHANT_TRANSACTIONTYPE>';
+			$datos_entrada .= '<DS_MERCHANT_CURRENCY>' . $currency . '</DS_MERCHANT_CURRENCY>';
+			$datos_entrada .= '<DS_MERCHANT_IDENTIFIER>' . $customer_token . '</DS_MERCHANT_IDENTIFIER>';
+			$datos_entrada .= '<DS_MERCHANT_COF_INI>N</DS_MERCHANT_COF_INI>';
+			$datos_entrada .= '<DS_MERCHANT_COF_TYPE>R</DS_MERCHANT_COF_TYPE>';
+			$datos_entrada .= '<DS_MERCHANT_COF_TXNID>' . $txnid . '</DS_MERCHANT_COF_TXNID>';
+			$datos_entrada .= '<DS_MERCHANT_EXCEP_SCA>MIT</DS_MERCHANT_EXCEP_SCA>';
+			$datos_entrada .= '<DS_MERCHANT_DIRECTPAYMENT>TRUE</DS_MERCHANT_DIRECTPAYMENT>';
+			$datos_entrada .= '<DS_MERCHANT_EMV3DS>{"threeDSInfo":"CardData"}</DS_MERCHANT_EMV3DS>';
+			$datos_entrada .= '</DATOSENTRADA>';
 
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', ' ' );
@@ -3658,7 +3612,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) );
+				$this->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			} // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 
 				$ds_emv3ds_json           = $xml_retorno->INFOTARJETA->Ds_EMV3DS; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
@@ -3837,8 +3791,6 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$datos_entrada   .= '<DS_MERCHANT_COF_TXNID>' . $txnid . '</DS_MERCHANT_COF_TXNID>';
 				$datos_entrada   .= '<DS_MERCHANT_EXCEP_SCA>MIT</DS_MERCHANT_EXCEP_SCA>';
 				$datos_entrada   .= '<DS_MERCHANT_DIRECTPAYMENT>TRUE</DS_MERCHANT_DIRECTPAYMENT>';
-				// $datos_entrada .= '<DS_MERCHANT_EMV3DS>' . $acctinfo . '</DS_MERCHANT_EMV3DS>';
-				// $datos_entrada .= "<DS_MERCHANT_MERCHANTURL>" . $final_notify_url . "</DS_MERCHANT_MERCHANTURL>";
 				$datos_entrada   .= '<DS_MERCHANT_TITULAR>' . WCRed()->clean_data( $merchan_name ) . ' ' . WCRed()->clean_data( $merchant_lastnme ) . '</DS_MERCHANT_TITULAR>';
 				$datos_entrada   .= '</DATOSENTRADA>';
 				$xml              = '<REQUEST>';
@@ -3865,8 +3817,8 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'redsys', ' ' );
-					$this->log->add( 'redsys', '$responsews: ' . print_r( $responsews, true ) );
-					$this->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) );
+					$this->log->add( 'redsys', '$responsews: ' . print_r( $responsews, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+					$this->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 				}
 				$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				$codigo            = (string) $xml_retorno->CODIGO; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
@@ -3974,11 +3926,12 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Process the payment and return the result
+	 *
+	 * @param int $order_id Order ID.
+	 * @param int $token_id Token ID.
 	 */
-	function pay_with_token_r( $order_id, $token_id ) {
+	public function pay_with_token_r( $order_id, $token_id ) {
 
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'redsys', 'There is Token R: ' . $customer_token_r );
@@ -4072,27 +4025,26 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$cliente  = new SoapClient( $redsys_adr );
 		$response = $cliente->iniciaPeticion( array( 'datoEntrada' => $xml ) );
 
-		if ( isset( $response->iniciaPeticionReturn ) ) {
-			$xml_retorno = new SimpleXMLElement( $response->iniciaPeticionReturn );
-			$respuesta   = json_decode( $xml_retorno->INFOTARJETA->Ds_EMV3DS );
+		if ( isset( $response->iniciaPeticionReturn ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$xml_retorno = new SimpleXMLElement( $response->iniciaPeticionReturn ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$respuesta   = json_decode( $xml_retorno->INFOTARJETA->Ds_EMV3DS ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		}
 
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'redsys', ' ' );
-			// $this->log->add( 'redsys', '$acctinfo: ' . $acctinfo );
-			$this->log->add( 'redsys', '$xml_retorno 7: ' . print_r( $xml_retorno, true ) );
+			$this->log->add( 'redsys', '$xml_retorno 7: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 		}
 
-		$ds_emv3ds_json           = $xml_retorno->INFOTARJETA->Ds_EMV3DS;
+		$ds_emv3ds_json           = $xml_retorno->INFOTARJETA->Ds_EMV3DS; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		$ds_emv3ds                = json_decode( $ds_emv3ds_json );
-		$protocol_version         = $ds_emv3ds->protocolVersion;
-		$three_ds_server_trans_id = $ds_emv3ds->threeDSServerTransID;
-		$three_ds_info            = $ds_emv3ds->threeDSInfo;
+		$protocol_version         = $ds_emv3ds->protocolVersion; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		$three_ds_server_trans_id = $ds_emv3ds->threeDSServerTransID; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		$three_ds_info            = $ds_emv3ds->threeDSInfo; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'redsys', ' ' );
 			$this->log->add( 'redsys', '$ds_emv3ds_json: ' . $ds_emv3ds_json );
-			$this->log->add( 'redsys', '$ds_emv3ds: ' . print_r( $ds_emv3ds, true ) );
+			$this->log->add( 'redsys', '$ds_emv3ds: ' . print_r( $ds_emv3ds, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			$this->log->add( 'redsys', '$three_ds_server_trans_id: ' . $three_ds_server_trans_id );
 			$this->log->add( 'redsys', '$three_ds_info: ' . $three_ds_info );
 		}
@@ -4136,18 +4088,18 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$cliente  = new SoapClient( $redsys_adr );
 			$response = $cliente->trataPeticion( array( 'datoEntrada' => $xml ) );
 
-			if ( isset( $response->trataPeticionReturn ) ) {
-				$xml_retorno       = new SimpleXMLElement( $response->trataPeticionReturn );
-				$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode;
-				$codigo            = (string) $xml_retorno->CODIGO;
-				$redsys_order      = (string) $xml_retorno->OPERACION->Ds_Order;
-				$terminal          = (string) $xml_retorno->OPERACION->Ds_Terminal;
-				$currency_code     = (string) $xml_retorno->OPERACION->Ds_Currency;
+			if ( isset( $response->trataPeticionReturn ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$xml_retorno       = new SimpleXMLElement( $response->trataPeticionReturn ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$codigo            = (string) $xml_retorno->CODIGO; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$redsys_order      = (string) $xml_retorno->OPERACION->Ds_Order; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$terminal          = (string) $xml_retorno->OPERACION->Ds_Terminal; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$currency_code     = (string) $xml_retorno->OPERACION->Ds_Currency; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			}
 
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', '$xml_retorno 8: ' . print_r( $xml_retorno, true ) );
+				$this->log->add( 'redsys', '$xml_retorno 8: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 				$this->log->add( 'redsys', 'Ds_AuthorisationCode: ' . $authorisationcode );
 			}
 			if ( $authorisationcode ) {
@@ -4286,21 +4238,20 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$cliente  = new SoapClient( $redsys_adr );
 			$response = $cliente->trataPeticion( array( 'datoEntrada' => $xml ) );
 
-			if ( isset( $response->trataPeticionReturn ) ) {
-				$xml_retorno = new SimpleXMLElement( $response->trataPeticionReturn );
-				// $respuesta   = json_decode( $xml_retorno->INFOTARJETA->Ds_EMV3DS );
+			if ( isset( $response->trataPeticionReturn ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$xml_retorno = new SimpleXMLElement( $response->trataPeticionReturn ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			}
 
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', '$response: ' . print_r( $response, true ) );
-				$this->log->add( 'redsys', '$xml_retorno 9: ' . print_r( $xml_retorno, true ) );
+				$this->log->add( 'redsys', '$response: ' . print_r( $response, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				$this->log->add( 'redsys', '$xml_retorno 9: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
-			$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode;
-			$codigo            = (string) $xml_retorno->CODIGO;
-			$redsys_order      = (string) $xml_retorno->OPERACION->Ds_Order;
-			$terminal          = (string) $xml_retorno->OPERACION->Ds_Terminal;
-			$currency_code     = (string) $xml_retorno->OPERACION->Ds_Currency;
+			$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$codigo            = (string) $xml_retorno->CODIGO; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$redsys_order      = (string) $xml_retorno->OPERACION->Ds_Order; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$terminal          = (string) $xml_retorno->OPERACION->Ds_Terminal; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$currency_code     = (string) $xml_retorno->OPERACION->Ds_Currency; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
 			if ( $authorisationcode ) {
 				WCRed()->update_order_meta( $order_id, '_redsys_done', 'yes' );
@@ -4395,11 +4346,13 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Function pay_with_token_c
+	 *
+	 * @param  int    $order_id Order ID.
+	 * @param  string $token_id Token ID.
+	 * @return bool
 	 */
-	function pay_with_token_c( $order_id, $token_id ) {
+	public function pay_with_token_c( $order_id, $token_id ) {
 
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'redsys', ' ' );
@@ -4523,34 +4476,34 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$cliente  = new SoapClient( $redsys_adr );
 		$response = $cliente->iniciaPeticion( array( 'datoEntrada' => $xml ) );
 
-		if ( isset( $response->iniciaPeticionReturn ) ) {
-			$xml_retorno = new SimpleXMLElement( $response->iniciaPeticionReturn );
-			$respuesta   = json_decode( $xml_retorno->INFOTARJETA->Ds_EMV3DS );
+		if ( isset( $response->iniciaPeticionReturn ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$xml_retorno = new SimpleXMLElement( $response->iniciaPeticionReturn ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$respuesta   = json_decode( $xml_retorno->INFOTARJETA->Ds_EMV3DS ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		}
 		$protocol_version         = '';
 		$ds_card_psd2             = '';
 		$three_ds_server_trans_id = '';
 		$three_ds_info            = '';
 		$three_ds_method_url      = '';
-		if ( isset( $respuesta->protocolVersion ) ) {
-			$protocol_version = (string) $respuesta->protocolVersion;
+		if ( isset( $respuesta->protocolVersion ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$protocol_version = (string) $respuesta->protocolVersion; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		}
-		if ( isset( $xml_retorno->INFOTARJETA->Ds_Card_PSD2 ) ) {
-			$ds_card_psd2 = trim( $xml_retorno->INFOTARJETA->Ds_Card_PSD2 );
+		if ( isset( $xml_retorno->INFOTARJETA->Ds_Card_PSD2 ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$ds_card_psd2 = trim( $xml_retorno->INFOTARJETA->Ds_Card_PSD2 ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		}
-		if ( isset( $respuesta->threeDSServerTransID ) ) {
-			$three_ds_server_trans_id = trim( $respuesta->threeDSServerTransID );
+		if ( isset( $respuesta->threeDSServerTransID ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$three_ds_server_trans_id = trim( $respuesta->threeDSServerTransID ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		}
-		if ( isset( $respuesta->threeDSInfo ) ) {
-			$three_ds_info = trim( $respuesta->threeDSInfo );
+		if ( isset( $respuesta->threeDSInfo ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$three_ds_info = trim( $respuesta->threeDSInfo ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		}
-		if ( isset( $respuesta->threeDSMethodURL ) ) {
-			$three_ds_method_url = trim( $respuesta->threeDSMethodURL );
+		if ( isset( $respuesta->threeDSMethodURL ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$three_ds_method_url = trim( $respuesta->threeDSMethodURL ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		}
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'redsys', ' ' );
-			$this->log->add( 'redsys', '$xml_retorno 10: ' . print_r( $xml_retorno, true ) );
-			$this->log->add( 'redsys', '$respuesta: ' . print_r( $respuesta, true ) );
+			$this->log->add( 'redsys', '$xml_retorno 10: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			$this->log->add( 'redsys', '$respuesta: ' . print_r( $respuesta, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			$this->log->add( 'redsys', 'protocolVersion: ' . $protocol_version );
 			$this->log->add( 'redsys', 'threeDSServerTransID: ' . $three_ds_server_trans_id );
 			$this->log->add( 'redsys', 'threeDSInfo: ' . $three_ds_info );
@@ -4560,7 +4513,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 
 		if ( ( 'NO_3DS_v2' === $protocol_version || ( '1.0.2' === $protocol_version ) ) ) {
-			// Es protocolo 1.0.2
+			// Es protocolo 1.0.2.
 			$protocol_version = '1.0.2';
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', 'Es Protocolo NO_3DS_v2 (1.0.2) y PSD2' );
@@ -4642,44 +4595,44 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$cliente  = new SoapClient( $redsys_adr );
 			$response = $cliente->trataPeticion( array( 'datoEntrada' => $xml ) );
 
-			if ( isset( $response->trataPeticionReturn ) ) {
-				$xml_retorno       = new SimpleXMLElement( $response->trataPeticionReturn );
-				$codigo            = trim( $xml_retorno->CODIGO );
-				$respuestaeds      = json_decode( $xml_retorno->OPERACION->Ds_EMV3DS );
-				$three_ds_info     = trim( $respuestaeds->threeDSInfo );
-				$protocol_version  = trim( $respuestaeds->protocolVersion );
-				$acsURL            = trim( $respuestaeds->acsURL );
-				$PAReq             = trim( $respuestaeds->{ 'PAReq'} );
-				$MD                = trim( $respuestaeds->MD );
-				$authorisationcode = trim( $xml_retorno->OPERACION->Ds_AuthorisationCode );
+			if ( isset( $response->trataPeticionReturn ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$xml_retorno       = new SimpleXMLElement( $response->trataPeticionReturn ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$codigo            = trim( $xml_retorno->CODIGO ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$respuestaeds      = json_decode( $xml_retorno->OPERACION->Ds_EMV3DS ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$three_ds_info     = trim( $respuestaeds->threeDSInfo ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$protocol_version  = trim( $respuestaeds->protocolVersion ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$acs_url           = trim( $respuestaeds->acsURL ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$par_eq            = trim( $respuestaeds->{ 'PAReq'} );
+				$md                = trim( $respuestaeds->MD ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$authorisationcode = trim( $xml_retorno->OPERACION->Ds_AuthorisationCode ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
 			}
 			if ( 'yes' === $this->debug && ! $authorisationcode ) {
 				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', '$response: ' . print_r( $response, true ) );
-				$this->log->add( 'redsys', '$xml_retorno 11: ' . print_r( $xml_retorno, true ) );
+				$this->log->add( 'redsys', '$response: ' . print_r( $response, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				$this->log->add( 'redsys', '$xml_retorno 11: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 				$this->log->add( 'redsys', '$codigo: ' . $codigo );
-				$this->log->add( 'redsys', '$respuesta: ' . print_r( $respuestaeds, true ) );
+				$this->log->add( 'redsys', '$respuesta: ' . print_r( $respuestaeds, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 				$this->log->add( 'redsys', 'protocolVersion: ' . $protocol_version );
-				if ( ! empty( $respuestaeds->threeDSServerTransID ) ) {
-					$this->log->add( 'redsys', 'threeDSServerTransID: ' . $respuestaeds->threeDSServerTransID );
+				if ( ! empty( $respuestaeds->threeDSServerTransID ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$this->log->add( 'redsys', 'threeDSServerTransID: ' . $respuestaeds->threeDSServerTransID ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				}
 				$this->log->add( 'redsys', 'threeDSInfo: ' . $three_ds_info );
-				if ( ! empty( $respuestaeds->threeDSMethodURL ) ) {
-					$this->log->add( 'redsys', 'threeDSMethodURL: ' . $respuestaeds->threeDSMethodURL );
+				if ( ! empty( $respuestaeds->threeDSMethodURL ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$this->log->add( 'redsys', 'threeDSMethodURL: ' . $respuestaeds->threeDSMethodURL ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				}
 				$this->log->add( 'redsys', 'Ds_Card_PSD2: ' . $ds_card_psd2 );
 				$this->log->add( 'redsys', '$three_ds_info: ' . $three_ds_info );
 				$this->log->add( 'redsys', '$protocol_version: ' . $protocol_version );
-				$this->log->add( 'redsys', '$acsURL: ' . $acsURL );
-				$this->log->add( 'redsys', '$PAReq: ' . $PAReq );
-				$this->log->add( 'redsys', '$MD: ' . $MD );
+				$this->log->add( 'redsys', '$acs_url: ' . $acs_url );
+				$this->log->add( 'redsys', '$par_eq: ' . $par_eq );
+				$this->log->add( 'redsys', '$md: ' . $md );
 				$this->log->add( 'redsys', ' ' );
 			}
 
 			if ( 'ChallengeRequest' === $three_ds_info ) {
 				// hay challenge
-				// Guardamos todo en transciends
+				// Guardamos todo en transciends.
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'redsys', '/***************/' );
 					$this->log->add( 'redsys', '     1.0.2' );
@@ -4688,19 +4641,19 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				}
 				set_transient( 'threeDSInfo_' . $order_id, $three_ds_info, 300 );
 				set_transient( 'protocolVersion_' . $order_id, $protocol_version, 300 );
-				set_transient( 'acsURL_' . $order_id, $acsURL, 300 );
-				set_transient( 'PAReq_' . $order_id, $PAReq, 300 );
-				set_transient( 'MD_' . $order_id, $MD, 300 );
-				set_transient( $MD, $order_id, 300 );
-				set_transient( 'amount_' . $MD, $order_total_sign, 300 );
-				set_transient( 'order_' . $MD, $orderid2, 300 );
-				set_transient( 'merchantcode_' . $MD, $customer, 300 );
-				set_transient( 'terminal_' . $MD, $ds_merchant_terminal, 300 );
-				set_transient( 'currency_' . $MD, $currency, 300 );
-				set_transient( 'identifier_' . $MD, $customer_token_c, 300 );
-				set_transient( 'cof_ini_' . $MD, $cof_ini, 300 );
-				set_transient( 'cof_type_' . $MD, $cof_type, 300 );
-				set_transient( 'cof_txnid_' . $MD, $cof_txnid, 300 );
+				set_transient( 'acsURL_' . $order_id, $acs_url, 300 );
+				set_transient( 'PAReq_' . $order_id, $par_eq, 300 );
+				set_transient( 'MD_' . $order_id, $md, 300 );
+				set_transient( $md, $order_id, 300 );
+				set_transient( 'amount_' . $md, $order_total_sign, 300 );
+				set_transient( 'order_' . $md, $orderid2, 300 );
+				set_transient( 'merchantcode_' . $md, $customer, 300 );
+				set_transient( 'terminal_' . $md, $ds_merchant_terminal, 300 );
+				set_transient( 'currency_' . $md, $currency, 300 );
+				set_transient( 'identifier_' . $md, $customer_token_c, 300 );
+				set_transient( 'cof_ini_' . $md, $cof_ini, 300 );
+				set_transient( 'cof_type_' . $md, $cof_type, 300 );
+				set_transient( 'cof_txnid_' . $md, $cof_txnid, 300 );
 				return 'ChallengeRequest';
 			} elseif ( ! empty( $authorisationcode ) ) {
 				if ( 'yes' === $this->debug ) {
@@ -4708,9 +4661,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					$this->log->add( 'redsys', '  Paid  ' );
 					$this->log->add( 'redsys', '/***************/' );
 				}
-				$Ds_Order        = trim( $xml_retorno->OPERACION->Ds_Order );
-				$Ds_MerchantCode = trim( $xml_retorno->OPERACION->Ds_MerchantCode );
-				$Ds_Terminal     = trim( $xml_retorno->OPERACION->Ds_Terminal );
+				$ds_order         = trim( $xml_retorno->OPERACION->Ds_Order ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$ds_merchant_code = trim( $xml_retorno->OPERACION->Ds_MerchantCode ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$ds_terminal      = trim( $xml_retorno->OPERACION->Ds_Terminal ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				WCRed()->update_order_meta( $order->get_id(), '_redsys_done', 'yes' );
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'redsys', 'payment_complete() 7' );
@@ -4731,10 +4684,10 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					$this->log->add( 'redsys', ' ' );
 				}
 
-				if ( ! empty( $Ds_Order ) ) {
-					WCRed()->update_order_meta( $order->get_id(), '_payment_order_number_redsys', $Ds_Order );
+				if ( ! empty( $ds_order ) ) {
+					WCRed()->update_order_meta( $order->get_id(), '_payment_order_number_redsys', $ds_order );
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'redsys', '_payment_order_number_redsys saved: ' . $Ds_Order );
+						$this->log->add( 'redsys', '_payment_order_number_redsys saved: ' . $ds_order );
 					}
 				} else {
 					if ( 'yes' === $this->debug ) {
@@ -4755,10 +4708,10 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						$this->log->add( 'redsys', ' ' );
 					}
 				}
-				if ( ! empty( $Ds_Terminal ) ) {
-					WCRed()->update_order_meta( $order->get_id(), '_payment_terminal_redsys', $Ds_Terminal );
+				if ( ! empty( $ds_terminal ) ) {
+					WCRed()->update_order_meta( $order->get_id(), '_payment_terminal_redsys', $ds_terminal );
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'redsys', '_payment_terminal_redsys saved: ' . $Ds_Terminal );
+						$this->log->add( 'redsys', '_payment_terminal_redsys saved: ' . $ds_terminal );
 					}
 				} else {
 					if ( 'yes' === $this->debug ) {
@@ -4803,7 +4756,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						$this->log->add( 'redsys', ' ' );
 					}
 				}
-				// This meta is essential for later use:
+				// This meta is essential for later use.
 				if ( ! empty( $secretsha256 ) ) {
 					WCRed()->update_order_meta( $order->get_id(), '_redsys_secretsha256', $secretsha256 );
 					if ( 'yes' === $this->debug ) {
@@ -4823,7 +4776,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				do_action( 'redsys_post_payment_error', $order->get_id(), $error );
 			}
 		} elseif ( ( ( '2.1.0' === $protocol_version ) || ( '2.2.0' === $protocol_version ) ) ) {
-			// Es protocolo 2.1.0
+			// Es protocolo 2.1.0.
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', 'Es Protocolo 2.1.0 y PSD2' );
 			}
@@ -4840,7 +4793,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			set_transient( 'threeDSInfo_' . $order_id, $three_ds_info, 300 );
 			set_transient( 'accept_headers_' . $order_id, $http_accept, 300 );
 			set_transient( 'protocolVersion_' . $order_id, $protocol_version, 300 );
-			set_transient( 'acsURL_' . $order_id, $acsURL, 300 );
+			set_transient( 'acsURL_' . $order_id, $acs_url, 300 );
 			set_transient( 'threeDSServerTransID_' . $order_id, $three_ds_server_trans_id, 300 );
 			set_transient( 'threeDSMethodURL_' . $order_id, $three_ds_method_url, 300 );
 			set_transient( 'amount_' . $order_id, $order_total_sign, 300 );
@@ -4875,7 +4828,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', '$json_pre: ' . $json_pre );
 			}
-			$json = base64_encode( $json_pre );
+			$json = base64_encode( $json_pre ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', '$json: ' . $json );
 			}
@@ -4892,13 +4845,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				'timeout' => 45,
 			);
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', '$body: ' . print_r( $body, true ) );
-				// $this->log->add( 'redsys', '$options: ' . print_r( $options, true ) );
+				$this->log->add( 'redsys', '$body: ' . print_r( $body, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
-			$response = wp_remote_post( $three_ds_method_url, $options );
-			if ( 'yes' === $this->debug ) {
-				// $this->log->add( 'redsys', '$response: ' . print_r( $response, true ) );
-			}
+			$response      = wp_remote_post( $three_ds_method_url, $options );
 			$response_code = wp_remote_retrieve_response_code( $response );
 			$response_body = wp_remote_retrieve_body( $response );
 			if ( 'yes' === $this->debug ) {
@@ -4911,20 +4860,20 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$url = false;
 			}
 			if ( strpos( $response_body, $json ) !== false ) {
-				$threeDSMethodDatatest = true;
+				$three_ds_method_datatest = true;
 			} else {
-				$threeDSMethodDatatest = false;
+				$three_ds_method_datatest = false;
 			}
-			if ( $url && $threeDSMethodDatatest ) {
+			if ( $url && $three_ds_method_datatest ) {
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'redsys', 'URL y threeDSMethodData coinciden' );
 				}
-				$threeDSCompInd = 'Y';
+				$three_ds_comp_ind = 'Y';
 			} else {
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'redsys', 'URL y threeDSMethodData NO coinciden' );
 				}
-				$threeDSCompInd = 'N';
+				$three_ds_comp_ind = 'N';
 			}
 
 			if ( '2.2.0' === $protocol_version ) {
@@ -4943,7 +4892,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					'browserUserAgent'         => WCPSD2()->get_agente_navegador( $order_id ),
 					'threeDSServerTransID'     => $three_ds_server_trans_id,
 					'notificationURL'          => $final_notify_url,
-					'threeDSCompInd'           => $threeDSCompInd,
+					'threeDSCompInd'           => $three_ds_comp_ind,
 				);
 			} else {
 				$datos_usuario = array(
@@ -4960,7 +4909,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					'browserUserAgent'     => WCPSD2()->get_agente_navegador( $order_id ),
 					'threeDSServerTransID' => $three_ds_server_trans_id,
 					'notificationURL'      => $final_notify_url,
-					'threeDSCompInd'       => $threeDSCompInd,
+					'threeDSCompInd'       => $three_ds_comp_ind,
 				);
 			}
 			$acctinfo = WCPSD2()->get_acctinfo( $order, $datos_usuario, $user_id );
@@ -4971,7 +4920,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'redsys', 'protocolVersion: ' . $protocol_version );
 				$this->log->add( 'redsys', 'threeDSServerTransID: ' . $three_ds_server_trans_id );
 				$this->log->add( 'redsys', 'notificationURL: ' . $final_notify_url );
-				$this->log->add( 'redsys', 'threeDSCompInd: ' . $threeDSCompInd );
+				$this->log->add( 'redsys', 'threeDSCompInd: ' . $three_ds_comp_ind );
 				$this->log->add( 'redsys', 'acctInfo: : ' . $acctinfo );
 			}
 			$order_total_sign     = get_transient( 'amount_' . $order_id );
@@ -5039,30 +4988,30 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$cliente  = new SoapClient( $redsys_adr );
 			$response = $cliente->trataPeticion( array( 'datoEntrada' => $xml ) );
 
-			if ( isset( $response->trataPeticionReturn ) ) {
-				$xml_retorno = new SimpleXMLElement( $response->trataPeticionReturn );
+			if ( isset( $response->trataPeticionReturn ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$xml_retorno = new SimpleXMLElement( $response->trataPeticionReturn ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			}
-			$Ds_EMV3DS         = $xml_retorno->OPERACION->Ds_EMV3DS;
-			$json_decode       = json_decode( $Ds_EMV3DS );
-			$three_ds_info     = $json_decode->threeDSInfo;
-			$protocol_version  = $json_decode->protocolVersion;
-			$acsURL            = $json_decode->acsURL;
-			$PAReq             = trim( $json_decode->{ 'PAReq'} );
+			$ds_emv3ds         = $xml_retorno->OPERACION->Ds_EMV3DS; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$json_decode       = json_decode( $ds_emv3ds );
+			$three_ds_info     = $json_decode->threeDSInfo; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$protocol_version  = $json_decode->protocolVersion; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$acs_url           = $json_decode->acsURL; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$par_eq            = trim( $json_decode->{ 'PAReq'} );
 			$creq              = trim( $json_decode->{ 'creq'} );
-			$MD                = $json_decode->MD;
-			$authorisationcode = trim( $xml_retorno->OPERACION->Ds_AuthorisationCode );
+			$md                = $json_decode->MD; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$authorisationcode = trim( $xml_retorno->OPERACION->Ds_AuthorisationCode ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', '$xml_retorno 12: ' . print_r( $xml_retorno, true ) );
-				$this->log->add( 'redsys', 'Ds_EMV3DS: ' . $Ds_EMV3DS );
+				$this->log->add( 'redsys', '$xml_retorno 12: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				$this->log->add( 'redsys', 'Ds_EMV3DS: ' . $ds_emv3ds );
 				$this->log->add( 'redsys', '$three_ds_info: ' . $three_ds_info );
 				$this->log->add( 'redsys', ' ' );
 			}
 
 			if ( 'ChallengeRequest' === $three_ds_info ) {
 				// hay challenge
-				// Guardamos todo en transciends
+				// Guardamos todo en transciends.
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'redsys', '/***************/' );
 					$this->log->add( 'redsys', '  2.2.0 y 2.2.1' );
@@ -5072,31 +5021,31 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				}
 				set_transient( 'threeDSInfo_' . $order_id, $three_ds_info, 300 );
 				set_transient( 'protocolVersion_' . $order_id, $protocol_version, 300 );
-				set_transient( 'acsURL_' . $order_id, $acsURL, 300 );
-				set_transient( 'PAReq_' . $order_id, $PAReq, 300 );
-				set_transient( 'MD_' . $order_id, $MD, 300 );
-				set_transient( $MD, $order_id, 300 );
+				set_transient( 'acsURL_' . $order_id, $acs_url, 300 );
+				set_transient( 'PAReq_' . $order_id, $par_eq, 300 );
+				set_transient( 'MD_' . $order_id, $md, 300 );
+				set_transient( $md, $order_id, 300 );
 				set_transient( 'creq_' . $order_id, $creq, 300 );
-				set_transient( 'amount_' . $MD, $order_total_sign, 300 );
-				set_transient( 'order_' . $MD, $orderid2, 300 );
-				set_transient( 'merchantcode_' . $MD, $customer, 300 );
-				set_transient( 'terminal_' . $MD, $ds_merchant_terminal, 300 );
-				set_transient( 'currency_' . $MD, $currency, 300 );
-				set_transient( 'identifier_' . $MD, $customer_token_c, 300 );
-				set_transient( 'cof_ini_' . $MD, $cof_ini, 300 );
-				set_transient( 'cof_type_' . $MD, $cof_type, 300 );
-				set_transient( 'cof_txnid_' . $MD, $cof_txnid, 300 );
+				set_transient( 'amount_' . $md, $order_total_sign, 300 );
+				set_transient( 'order_' . $md, $orderid2, 300 );
+				set_transient( 'merchantcode_' . $md, $customer, 300 );
+				set_transient( 'terminal_' . $md, $ds_merchant_terminal, 300 );
+				set_transient( 'currency_' . $md, $currency, 300 );
+				set_transient( 'identifier_' . $md, $customer_token_c, 300 );
+				set_transient( 'cof_ini_' . $md, $cof_ini, 300 );
+				set_transient( 'cof_type_' . $md, $cof_type, 300 );
+				set_transient( 'cof_txnid_' . $md, $cof_txnid, 300 );
 				return 'ChallengeRequest';
 			} elseif ( ! empty( $authorisationcode ) ) {
-				// Pago directo sin challenge
+				// Pago directo sin challenge.
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'redsys', '/***************/' );
 					$this->log->add( 'redsys', '  Paid  ' );
 					$this->log->add( 'redsys', '/***************/' );
 				}
-				$Ds_Order        = trim( $xml_retorno->OPERACION->Ds_Order );
-				$Ds_MerchantCode = trim( $xml_retorno->OPERACION->Ds_MerchantCode );
-				$Ds_Terminal     = trim( $xml_retorno->OPERACION->Ds_Terminal );
+				$ds_order         = trim( $xml_retorno->OPERACION->Ds_Order ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$ds_merchant_code = trim( $xml_retorno->OPERACION->Ds_MerchantCode ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$ds_terminal      = trim( $xml_retorno->OPERACION->Ds_Terminal ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				WCRed()->update_order_meta( $order->get_id(), '_redsys_done', 'yes' );
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'redsys', 'payment_complete() 8' );
@@ -5117,10 +5066,10 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					$this->log->add( 'redsys', ' ' );
 				}
 
-				if ( ! empty( $Ds_Order ) ) {
-					WCRed()->update_order_meta( $order->get_id(), '_payment_order_number_redsys', $Ds_Order );
+				if ( ! empty( $ds_order ) ) {
+					WCRed()->update_order_meta( $order->get_id(), '_payment_order_number_redsys', $ds_order );
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'redsys', '_payment_order_number_redsys saved: ' . $Ds_Order );
+						$this->log->add( 'redsys', '_payment_order_number_redsys saved: ' . $ds_order );
 					}
 				} else {
 					if ( 'yes' === $this->debug ) {
@@ -5141,10 +5090,10 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						$this->log->add( 'redsys', ' ' );
 					}
 				}
-				if ( ! empty( $Ds_Terminal ) ) {
-					WCRed()->update_order_meta( $order->get_id(), '_payment_terminal_redsys', $Ds_Terminal );
+				if ( ! empty( $ds_terminal ) ) {
+					WCRed()->update_order_meta( $order->get_id(), '_payment_terminal_redsys', $ds_terminal );
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'redsys', '_payment_terminal_redsys saved: ' . $Ds_Terminal );
+						$this->log->add( 'redsys', '_payment_terminal_redsys saved: ' . $ds_terminal );
 					}
 				} else {
 					if ( 'yes' === $this->debug ) {
@@ -5189,7 +5138,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						$this->log->add( 'redsys', ' ' );
 					}
 				}
-				// This meta is essential for later use:
+				// This meta is essential for later use.
 				if ( ! empty( $secretsha256 ) ) {
 					WCRed()->update_order_meta( $order->get_id(), '_redsys_secretsha256', $secretsha256 );
 					if ( 'yes' === $this->debug ) {
@@ -5211,385 +5160,282 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Process the payment and return the result
 	 *
-	 * @access public
-	 * @param int $order_id
-	 * @return array
+	 * @param int $order_id Order ID.
 	 */
-	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
-	 */
-	function process_payment( $order_id ) {
+	public function process_payment( $order_id ) {
 
-		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'redsys', ' ' );
-			$this->log->add( 'redsys', '/****************************/' );
-			$this->log->add( 'redsys', '  Function process_payment()  ' );
-			$this->log->add( 'redsys', '/****************************/' );
-		}
+		if ( isset( $_POST['woocommerce-process-checkout-nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['woocommerce-process-checkout-nonce'] ) ), 'woocommerce-process_checkout' ) ) {
 
-		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'redsys', ' ' );
-			$this->log->add( 'redsys', '/****************************/' );
-			$this->log->add( 'redsys', '  $_POST: ' . print_r( $_POST, true ) );
-			$this->log->add( 'redsys', '/****************************/' );
-		}
-
-		if ( 'yes' === $this->not_use_https ) {
-			$final_notify_url = $this->notify_url_not_https;
-		} else {
-			$final_notify_url = $this->notify_url;
-		}
-
-		$order                = WCRed()->get_order( $order_id );
-		$user_id              = $order->get_user_id();
-		$usetokensdirect      = $this->usetokensdirect;
-		$terminal2            = $this->terminal2;
-		$terminal             = $this->terminal;
-		$use_token            = get_transient( $order_id . '_redsys_use_token' );
-		$token_type           = get_transient( $order_id . '_redsys_token_type' );
-		$url_ok               = add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) );
-		$rneeds_payment       = get_transient( $order_id . '_redsys_needs_payment' );
-		$tokennum             = get_transient( $order_id . '_redsys_use_token' );
-		$save_token           = get_transient( $order_id . '_redsys_save_token' );
-		$contais_subscription = WCRed()->order_contains_subscription( $order->get_id() );
-
-		if ( 'redsyspending' === $this->markpending ) {
-			$order->update_status( 'redsys-wait', __( 'Pending Redsys Payment', 'woocommerce-redsys' ) );
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', 'Updating Status to: Pending Redsys Payment' );
+				$this->log->add( 'redsys', ' ' );
+				$this->log->add( 'redsys', '/****************************/' );
+				$this->log->add( 'redsys', '  Function process_payment()  ' );
+				$this->log->add( 'redsys', '/****************************/' );
 			}
-		}
 
-		if ( isset( $_POST['token'] ) && 'add' !== $_POST['token'] ) {
-			$token_type = sanitize_text_field( $_POST['_redsys_token_type'] );
-			$tokennum   = sanitize_text_field( $_POST['token'] );
-			$use_token  = sanitize_text_field( $_POST['token'] );
-			set_transient( $order_id . '$token_type', $token_type, 36000 );
-		}
-
-		if ( isset( $_POST['token'] ) && 'add' === $_POST['token'] ) {
-			$token_type = sanitize_text_field( $_POST['_redsys_token_type'] );
-			$tokennum   = 'no';
-			$use_token  = 'no';
-			$save_token = sanitize_text_field( $_POST['_redsys_save_token'] );
-			set_transient( $order_id . '_redsys_use_token', $use_token, 36000 );
-			set_transient( $order_id . '_insite_use_token', sanitize_text_field( $_POST['token'] ), 36000 );
-			set_transient( $order_id . '_redsys_token_type', $token_type, 36000 );
-			set_transient( $order_id . '_redsys_save_token', $save_token, 36000 );
-		}
-
-		if ( isset( $_POST['_redsys_save_token'] ) ) {
-			$save_token = sanitize_text_field( $_POST['_redsys_save_token'] );
-			set_transient( $order_id . '_redsys_save_token', $save_token, 3600 );
-		}
-
-		if ( empty( $token_type ) && empty( $tokennum ) && $contais_subscription ) {
-			$save_token = 'yes';
-			$token_type = 'R';
-			$tokennum   = 'no';
-			$use_token  = 'no';
-		}
-
-		if ( isset( $_POST['token'] ) && empty( $tokennum && ! $contais_subscription ) ) {
-			// $tokennum = WCRed()->get_token_by_id( sanitize_text_field( $_POST['token'] ) );
-			$token_type = sanitize_text_field( $_POST['_redsys_token_type'] );
-			set_transient( $order_id . '_redsys_token_type', $token_type, 3600 );
-		}
-
-		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'redsys', '$user_id: ' . $user_id );
-			$this->log->add( 'redsys', '$usetokensdirect: ' . $usetokensdirect );
-			$this->log->add( 'redsys', '$terminal2: ' . $terminal2 );
-			$this->log->add( 'redsys', '$terminal: ' . $terminal );
-			$this->log->add( 'redsys', '$use_token: ' . $use_token );
-			$this->log->add( 'redsys', '$token_type: ' . $token_type );
-			$this->log->add( 'redsys', '$url_ok: ' . $url_ok );
-			$this->log->add( 'redsys', '$tokennum: ' . $tokennum );
-			$this->log->add( 'redsys', '$save_token: ' . $save_token );
-		}
-
-		if ( isset( $_SERVER['HTTP_ACCEPT'] ) ) {
-			$http_accept = $_SERVER['HTTP_ACCEPT'];
-			WCRed()->update_order_meta( $order_id, '_accept_haders', $http_accept );
-			update_user_meta( $user_id, '_accept_haders', $http_accept );
-		} else {
-			$http_accept = 'null';
-			WCRed()->update_order_meta( $order_id, '_accept_haders', $http_accept );
-			update_user_meta( $user_id, '_accept_haders', $http_accept );
-		}
-		if ( empty( $tokennum ) ) {
-			$tokennum = 'no';
-		}
-		if ( 'no' !== $tokennum ) { // Using Token
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', 'Using Token' );
+				$this->log->add( 'redsys', ' ' );
+				$this->log->add( 'redsys', '/****************************/' );
+				$this->log->add( 'redsys', '  $_POST: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				$this->log->add( 'redsys', '/****************************/' );
 			}
-			if ( $order->get_total() > 0 ) {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'redsys', 'Order bigger 0' );
-				}
-				$token_type = get_transient( $order_id . '_redsys_token_type' );
-				if ( 'R' === $token_type ) {
-					$result = $this->pay_with_token_r( $order_id, $tokennum );
-					if ( $result ) {
-						if ( 'yes' === $this->debug ) {
-							$this->log->add( 'redsys', 'Pago mediante token CORRECTO' );
-						}
-						return array(
-							'result'   => 'success',
-							'redirect' => add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ),
-						);
-					} else {
-						if ( 'yes' === $this->debug ) {
-							$this->log->add( 'redsys', 'Pago mediante token FALLIDO' );
-						}
-						$error = 'We are having trouble charging the card, please try another one';
-						do_action( 'redsys_post_payment_error', $order->get_id(), $error );
-						wc_add_notice( 'We are having trouble charging the card, please try another one. ', 'error' );
-					}
-				} else {
-					WCRed()->print_overlay_image();
-					$result = $this->pay_with_token_c( $order_id, $tokennum );
-					if ( 'success' === $result ) {
-						if ( 'yes' === $this->debug ) {
-							$this->log->add( 'redsys', '$result: success' );
-						}
-						return array(
-							'result'   => 'success',
-							'redirect' => add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ),
-						);
-					} elseif ( 'ChallengeRequest' === $result ) {
-						if ( 'yes' === $this->debug ) {
-							$this->log->add( 'redsys', '$result: ChallengeRequest' );
-						}
-						return array(
-							'result'   => 'success',
-							'redirect' => $order->get_checkout_payment_url( true ) . '#3DSform',
-						);
-					} elseif ( 'threeDSMethodURL' === $result ) {
-						if ( 'yes' === $this->debug ) {
-							$this->log->add( 'redsys', '$result: threeDSMethodURL' );
-						}
-						return array(
-							'result'   => 'success',
-							'redirect' => $this->notify_url . '&threeDSMethodURL=true&order=' . $order_id,
-						);
-					}
-				}
+			if ( 'yes' === $this->not_use_https ) {
+				$final_notify_url = $this->notify_url_not_https;
 			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'redsys', 'Token dont Needed, 0 card' );
-					$this->log->add( 'redsys', 'payment_complete() 9' );
-				}
-				$order->payment_complete();
-				do_action( 'redsys_post_payment_complete', $order->get_id() );
-				return array(
-					'result'   => 'success',
-					'redirect' => add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ),
-				);
+				$final_notify_url = $this->notify_url;
 			}
-		}
 
-		$customer_token_r    = WCRed()->get_redsys_users_token( 'R' );
-		$customer_token_c    = WCRed()->get_redsys_users_token( 'C' );
-		$customer_token_r_id = WCRed()->get_redsys_users_token( 'R', 'id' );
-		$customer_token_c_id = WCRed()->get_redsys_users_token( 'C', 'id' );
+			$order                = WCRed()->get_order( $order_id );
+			$user_id              = $order->get_user_id();
+			$usetokensdirect      = $this->usetokensdirect;
+			$terminal2            = $this->terminal2;
+			$terminal             = $this->terminal;
+			$use_token            = get_transient( $order_id . '_redsys_use_token' );
+			$token_type           = get_transient( $order_id . '_redsys_token_type' );
+			$url_ok               = add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) );
+			$rneeds_payment       = get_transient( $order_id . '_redsys_needs_payment' );
+			$tokennum             = get_transient( $order_id . '_redsys_use_token' );
+			$save_token           = get_transient( $order_id . '_redsys_save_token' );
+			$contais_subscription = WCRed()->order_contains_subscription( $order->get_id() );
 
-		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'redsys', '$psd2: YES' );
-			$this->log->add( 'redsys', '$usetokensdirect: YES' );
-			$this->log->add( 'redsys', '$customer_token_r: ' . $customer_token_r );
-			$this->log->add( 'redsys', '$customer_token_c: ' . $customer_token_c );
-			$this->log->add( 'redsys', ' ' );
-		}
-		if ( WCRed()->order_contains_subscription( $order_id ) && 'yes' !== $this->subsusetokensdisable ) {
+			if ( 'redsyspending' === $this->markpending ) {
+				$order->update_status( 'redsys-wait', __( 'Pending Redsys Payment', 'woocommerce-redsys' ) );
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'redsys', 'Updating Status to: Pending Redsys Payment' );
+				}
+			}
+
+			if ( isset( $_POST['token'] ) && 'add' !== $_POST['token'] ) {
+				$token_type = sanitize_text_field( wp_unslash( $_POST['_redsys_token_type'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+				$tokennum   = sanitize_text_field( wp_unslash( $_POST['token'] ) );
+				$use_token  = sanitize_text_field( wp_unslash( $_POST['token'] ) );
+				set_transient( $order_id . '$token_type', $token_type, 36000 );
+			}
+
+			if ( isset( $_POST['token'] ) && 'add' === $_POST['token'] ) {
+				$token_type = sanitize_text_field( wp_unslash( $_POST['_redsys_token_type'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+				$tokennum   = 'no';
+				$use_token  = 'no';
+				$save_token = sanitize_text_field( wp_unslash( $_POST['_redsys_save_token'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+				set_transient( $order_id . '_redsys_use_token', $use_token, 36000 );
+				set_transient( $order_id . '_insite_use_token', sanitize_text_field( wp_unslash( $_POST['token'] ) ), 36000 );
+				set_transient( $order_id . '_redsys_token_type', $token_type, 36000 );
+				set_transient( $order_id . '_redsys_save_token', $save_token, 36000 );
+			}
+
+			if ( isset( $_POST['_redsys_save_token'] ) ) {
+				$save_token = sanitize_text_field( wp_unslash( $_POST['_redsys_save_token'] ) );
+				set_transient( $order_id . '_redsys_save_token', $save_token, 3600 );
+			}
+
+			if ( empty( $token_type ) && empty( $tokennum ) && $contais_subscription ) {
+				$save_token = 'yes';
+				$token_type = 'R';
+				$tokennum   = 'no';
+				$use_token  = 'no';
+			}
+
+			if ( isset( $_POST['token'] ) && empty( $tokennum && ! $contais_subscription ) ) {
+				$token_type = sanitize_text_field( wp_unslash( $_POST['_redsys_token_type'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+				set_transient( $order_id . '_redsys_token_type', $token_type, 3600 );
+			}
+
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', 'order contains subscription & is token is not disabled' );
+				$this->log->add( 'redsys', '$user_id: ' . $user_id );
+				$this->log->add( 'redsys', '$usetokensdirect: ' . $usetokensdirect );
+				$this->log->add( 'redsys', '$terminal2: ' . $terminal2 );
+				$this->log->add( 'redsys', '$terminal: ' . $terminal );
+				$this->log->add( 'redsys', '$use_token: ' . $use_token );
+				$this->log->add( 'redsys', '$token_type: ' . $token_type );
+				$this->log->add( 'redsys', '$url_ok: ' . $url_ok );
+				$this->log->add( 'redsys', '$tokennum: ' . $tokennum );
+				$this->log->add( 'redsys', '$save_token: ' . $save_token );
 			}
-			if ( $customer_token_r && 'no' !== $tokennum ) {
+
+			if ( isset( $_SERVER['HTTP_ACCEPT'] ) ) {
+				$http_accept = wp_unslash( $_SERVER['HTTP_ACCEPT'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				WCRed()->update_order_meta( $order_id, '_accept_haders', $http_accept );
+				update_user_meta( $user_id, '_accept_haders', $http_accept );
+			} else {
+				$http_accept = 'null';
+				WCRed()->update_order_meta( $order_id, '_accept_haders', $http_accept );
+				update_user_meta( $user_id, '_accept_haders', $http_accept );
+			}
+			if ( empty( $tokennum ) ) {
+				$tokennum = 'no';
+			}
+			if ( 'no' !== $tokennum ) { // Using Token.
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'redsys', 'There is Token R: ' . $customer_token_r );
+					$this->log->add( 'redsys', 'Using Token' );
 				}
-				$customer_token      = $customer_token_r;
-				$cof_txnid           = WCRed()->get_txnid( $customer_token_r_id );
-				$mi_obj              = new WooRedsysAPIWS();
-				$order_total_sign    = WCRed()->redsys_amount_format( $order->get_total() );
-				$orderid2            = WCRed()->prepare_order_number( $order_id, 'redsys' );
-				$user_id             = $order->get_user_id();
-				$customer            = $this->customer;
-				$transaction_type    = '0';
-				$currency_codes      = WCRed()->get_currencies();
-				$currency            = $currency_codes[ get_woocommerce_currency() ];
-				$cof_ini             = 'N';
-				$cof_type            = 'R';
-				$secretsha256        = $this->get_redsys_sha256( $user_id );
-				$url_ok              = add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) );
-				$product_description = WCRed()->product_description( $order, 'redsys' );
-				$merchant_name       = $this->commercename;
-				$type                = 'ws';
-				$redsys_adr          = $this->get_redsys_url_gateway( $user_id, $type );
-				if ( 'yes' === $this->useterminal2 ) {
-					$toamount  = number_format( $this->toamount, 2, '', '' );
-					$terminal  = $this->terminal;
-					$terminal2 = $this->terminal2;
-					if ( $order_total_sign <= $toamount ) {
-						$ds_merchant_terminal = $terminal2;
+				if ( $order->get_total() > 0 ) {
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'redsys', 'Order bigger 0' );
+					}
+					$token_type = get_transient( $order_id . '_redsys_token_type' );
+					if ( 'R' === $token_type ) {
+						$result = $this->pay_with_token_r( $order_id, $tokennum );
+						if ( $result ) {
+							if ( 'yes' === $this->debug ) {
+								$this->log->add( 'redsys', 'Pago mediante token CORRECTO' );
+							}
+							return array(
+								'result'   => 'success',
+								'redirect' => add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ),
+							);
+						} else {
+							if ( 'yes' === $this->debug ) {
+								$this->log->add( 'redsys', 'Pago mediante token FALLIDO' );
+							}
+							$error = 'We are having trouble charging the card, please try another one';
+							do_action( 'redsys_post_payment_error', $order->get_id(), $error );
+							wc_add_notice( 'We are having trouble charging the card, please try another one. ', 'error' );
+						}
 					} else {
-						$ds_merchant_terminal = $terminal;
+						WCRed()->print_overlay_image();
+						$result = $this->pay_with_token_c( $order_id, $tokennum );
+						if ( 'success' === $result ) {
+							if ( 'yes' === $this->debug ) {
+								$this->log->add( 'redsys', '$result: success' );
+							}
+							return array(
+								'result'   => 'success',
+								'redirect' => add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ),
+							);
+						} elseif ( 'ChallengeRequest' === $result ) {
+							if ( 'yes' === $this->debug ) {
+								$this->log->add( 'redsys', '$result: ChallengeRequest' );
+							}
+							return array(
+								'result'   => 'success',
+								'redirect' => $order->get_checkout_payment_url( true ) . '#3DSform',
+							);
+						} elseif ( 'threeDSMethodURL' === $result ) {
+							if ( 'yes' === $this->debug ) {
+								$this->log->add( 'redsys', '$result: threeDSMethodURL' );
+							}
+							return array(
+								'result'   => 'success',
+								'redirect' => $this->notify_url . '&threeDSMethodURL=true&order=' . $order_id,
+							);
+						}
 					}
 				} else {
-					$ds_merchant_terminal = $this->terminal;
-				}
-
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'redsys', '$order_total_sign: ' . $order_total_sign );
-					$this->log->add( 'redsys', '$orderid2: ' . $orderid2 );
-					$this->log->add( 'redsys', '$user_id: ' . $user_id );
-					$this->log->add( 'redsys', '$transaction_type: ' . $transaction_type );
-					$this->log->add( 'redsys', '$currency: ' . $currency );
-					$this->log->add( 'redsys', '$cof_ini: ' . $cof_ini );
-					$this->log->add( 'redsys', '$cof_type: ' . $cof_type );
-					$this->log->add( 'redsys', '$cof_txnid: ' . $cof_txnid );
-					$this->log->add( 'redsys', '$product_description: ' . $product_description );
-					$this->log->add( 'redsys', '$secretsha256: ' . $secretsha256 );
-					$this->log->add( 'redsys', '$url_ok: ' . $url_ok );
-					$this->log->add( 'redsys', '$merchant_name: ' . $merchant_name );
-					$this->log->add( 'redsys', '$type: ' . $type );
-					$this->log->add( 'redsys', '$redsys_adr: ' . $redsys_adr );
-					$this->log->add( 'redsys', '$ds_merchant_terminal: ' . $ds_merchant_terminal );
-					$this->log->add( 'redsys', ' ' );
-				}
-
-				if ( '000' === $order_total_sign || 0 === (int) $order_total_sign ) {
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'redsys', 'Free order' );
+						$this->log->add( 'redsys', 'Token dont Needed, 0 card' );
+						$this->log->add( 'redsys', 'payment_complete() 9' );
 					}
 					$order->payment_complete();
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'redsys', 'payment_complete 10' );
-					}
+					do_action( 'redsys_post_payment_complete', $order->get_id() );
 					return array(
 						'result'   => 'success',
-						'redirect' => $url_ok,
+						'redirect' => add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ),
 					);
 				}
+			}
+
+			$customer_token_r    = WCRed()->get_redsys_users_token( 'R' );
+			$customer_token_c    = WCRed()->get_redsys_users_token( 'C' );
+			$customer_token_r_id = WCRed()->get_redsys_users_token( 'R', 'id' );
+			$customer_token_c_id = WCRed()->get_redsys_users_token( 'C', 'id' );
+
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'redsys', '$psd2: YES' );
+				$this->log->add( 'redsys', '$usetokensdirect: YES' );
+				$this->log->add( 'redsys', '$customer_token_r: ' . $customer_token_r );
+				$this->log->add( 'redsys', '$customer_token_c: ' . $customer_token_c );
+				$this->log->add( 'redsys', ' ' );
+			}
+			if ( WCRed()->order_contains_subscription( $order_id ) && 'yes' !== $this->subsusetokensdisable ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'redsys', 'Amount is different to 0' );
-					$this->log->add( 'redsys', '$order_total_sign: ' . $order_total_sign );
+					$this->log->add( 'redsys', 'order contains subscription & is token is not disabled' );
 				}
-
-				$datos_usuario = array(
-					'threeDSInfo'         => 'AuthenticationData',
-					'protocolVersion'     => $protocol_version,
-					'browserAcceptHeader' => $http_accept,
-					'browserColorDepth'   => WCPSD2()->get_profundidad_color( $order_id ),
-					'browserIP'           => $browser_ip,
-					'browserJavaEnabled'  => WCPSD2()->get_browserjavaenabled( $order_id ),
-					'browserLanguage'     => WCPSD2()->get_idioma_navegador( $order_id ),
-					'browserScreenHeight' => WCPSD2()->get_altura_pantalla( $order_id ),
-					'browserScreenWidth'  => WCPSD2()->get_anchura_pantalla( $order_id ),
-					'browserTZ'           => WCPSD2()->get_diferencia_horaria( $order_id ),
-					'browserUserAgent'    => WCPSD2()->get_agente_navegador( $order_id ),
-					'notificationURL'     => $final_notify_url,
-				);
-				// $acctinfo       = WCPSD2()->get_acctinfo( $order, false , $user_id );
-				$datos_entrada  = '<DATOSENTRADA>';
-				$datos_entrada .= '<DS_MERCHANT_AMOUNT>' . $order_total_sign . '</DS_MERCHANT_AMOUNT>';
-				$datos_entrada .= '<DS_MERCHANT_ORDER>' . $orderid2 . '</DS_MERCHANT_ORDER>';
-				$datos_entrada .= '<DS_MERCHANT_MERCHANTCODE>' . $customer . '</DS_MERCHANT_MERCHANTCODE>';
-				$datos_entrada .= '<DS_MERCHANT_TERMINAL>' . $terminal . '</DS_MERCHANT_TERMINAL>';
-				$datos_entrada .= '<DS_MERCHANT_TRANSACTIONTYPE>' . $transaction_type . '</DS_MERCHANT_TRANSACTIONTYPE>';
-				$datos_entrada .= '<DS_MERCHANT_CURRENCY>' . $currency . '</DS_MERCHANT_CURRENCY>';
-				$datos_entrada .= '<DS_MERCHANT_IDENTIFIER>' . $customer_token . '</DS_MERCHANT_IDENTIFIER>';
-				$datos_entrada .= '<DS_MERCHANT_COF_INI>N</DS_MERCHANT_COF_INI>';
-				$datos_entrada .= '<DS_MERCHANT_COF_TYPE>R</DS_MERCHANT_COF_TYPE>';
-				$datos_entrada .= '<DS_MERCHANT_COF_TXNID>' . $cof_txnid . '</DS_MERCHANT_COF_TXNID>';
-				$datos_entrada .= '<DS_MERCHANT_EXCEP_SCA>MIT</DS_MERCHANT_EXCEP_SCA>';
-				$datos_entrada .= '<DS_MERCHANT_DIRECTPAYMENT>TRUE</DS_MERCHANT_DIRECTPAYMENT>';
-				$datos_entrada .= '<DS_MERCHANT_EMV3DS>{"threeDSInfo":"CardData"}</DS_MERCHANT_EMV3DS>';
-				$datos_entrada .= '</DATOSENTRADA>';
-
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'redsys', ' ' );
-					$this->log->add( 'redsys', '/****************************/' );
-					$this->log->add( 'redsys', '          The call            ' );
-					$this->log->add( 'redsys', '/****************************/' );
-					$this->log->add( 'redsys', ' ' );
-					$this->log->add( 'redsys', $datos_entrada );
-					$this->log->add( 'redsys', ' ' );
-				}
-
-				$xml  = '<REQUEST>';
-				$xml .= $datos_entrada;
-				$xml .= '<DS_SIGNATUREVERSION>HMAC_SHA256_V1</DS_SIGNATUREVERSION>';
-				$xml .= '<DS_SIGNATURE>' . $mi_obj->createMerchantSignatureHostToHost( $secretsha256, $datos_entrada ) . '</DS_SIGNATURE>';
-				$xml .= '</REQUEST>';
-
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'redsys', ' ' );
-					$this->log->add( 'redsys', '/****************************/' );
-					$this->log->add( 'redsys', '          The XML 8            ' );
-					$this->log->add( 'redsys', '/****************************/' );
-					$this->log->add( 'redsys', ' ' );
-					$this->log->add( 'redsys', 'iniciaPeticion 5' . $xml );
-					$this->log->add( 'redsys', ' ' );
-				}
-
-				$cliente  = new SoapClient( $redsys_adr );
-				$response = $cliente->iniciaPeticion( array( 'datoEntrada' => $xml ) );
-
-				if ( isset( $response->iniciaPeticionReturn ) ) {
-					$xml_retorno = new SimpleXMLElement( $response->iniciaPeticionReturn );
-					$respuesta   = json_decode( $xml_retorno->INFOTARJETA->Ds_EMV3DS );
-				}
-
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'redsys', ' ' );
-					// $this->log->add( 'redsys', '$acctinfo: ' . $acctinfo );
-					$this->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) );
-				}
-
-				$ds_emv3ds_json           = $xml_retorno->INFOTARJETA->Ds_EMV3DS; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-				$ds_emv3ds                = json_decode( $ds_emv3ds_json );
-				$protocol_version         = $ds_emv3ds->protocolVersion; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-				$three_ds_server_trans_id = $ds_emv3ds->threeDSServerTransID; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-				$three_ds_info            = $ds_emv3ds->threeDSInfo; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'redsys', ' ' );
-					$this->log->add( 'redsys', '$ds_emv3ds_json: ' . $ds_emv3ds_json );
-					$this->log->add( 'redsys', '$ds_emv3ds: ' . print_r( $ds_emv3ds, true ) );
-					$this->log->add( 'redsys', '$three_ds_server_trans_id: ' . $three_ds_server_trans_id );
-					$this->log->add( 'redsys', '$three_ds_info: ' . $three_ds_info );
-				}
-
-				if ( '2.1.0' === $protocol_version || '2.2.0' === $protocol_version ) {
-
-					$datos_usuario = array(
-						'threeDSInfo'              => 'AuthenticationData',
-						'protocolVersion'          => $protocol_version,
-						'browserAcceptHeader'      => WCPSD2()->get_accept_headers_user( $user_id ),
-						'browserColorDepth'        => WCPSD2()->get_profundidad_color_user( $user_id ),
-						'browserIP'                => '86.0.4240.111',
-						'browserJavaEnabled'       => WCPSD2()->get_browserjavaenabled_user( $user_id ),
-						'browserJavascriptEnabled' => WCPSD2()->get_browserjavaenabled_user( $user_id ),
-						'browserLanguage'          => WCPSD2()->get_idioma_navegador_user( $user_id ),
-						'browserScreenHeight'      => WCPSD2()->get_altura_pantalla_user( $user_id ),
-						'browserScreenWidth'       => WCPSD2()->get_anchura_pantalla_user( $user_id ),
-						'browserTZ'                => WCPSD2()->get_diferencia_horaria_user( $user_id ),
-						'browserUserAgent'         => WCPSD2()->get_agente_navegador_user( $user_id ),
-						'threeDSServerTransID'     => $three_ds_server_trans_id,
-						'notificationURL'          => $final_notify_url,
-						'threeDSCompInd'           => 'N',
-					);
+				if ( $customer_token_r && 'no' !== $tokennum ) {
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'redsys', ' ' );
-						$this->log->add( 'redsys', 'threeDSInfo: AuthenticationData' );
-						$this->log->add( 'redsys', 'protocolVersion: ' . $protocol_version );
+						$this->log->add( 'redsys', 'There is Token R: ' . $customer_token_r );
 					}
-					$acctinfo       = WCPSD2()->get_acctinfo( $order, $datos_usuario );
+					$customer_token      = $customer_token_r;
+					$cof_txnid           = WCRed()->get_txnid( $customer_token_r_id );
+					$mi_obj              = new WooRedsysAPIWS();
+					$order_total_sign    = WCRed()->redsys_amount_format( $order->get_total() );
+					$orderid2            = WCRed()->prepare_order_number( $order_id, 'redsys' );
+					$user_id             = $order->get_user_id();
+					$customer            = $this->customer;
+					$transaction_type    = '0';
+					$currency_codes      = WCRed()->get_currencies();
+					$currency            = $currency_codes[ get_woocommerce_currency() ];
+					$cof_ini             = 'N';
+					$cof_type            = 'R';
+					$secretsha256        = $this->get_redsys_sha256( $user_id );
+					$url_ok              = add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) );
+					$product_description = WCRed()->product_description( $order, 'redsys' );
+					$merchant_name       = $this->commercename;
+					$type                = 'ws';
+					$redsys_adr          = $this->get_redsys_url_gateway( $user_id, $type );
+					if ( 'yes' === $this->useterminal2 ) {
+						$toamount  = number_format( $this->toamount, 2, '', '' );
+						$terminal  = $this->terminal;
+						$terminal2 = $this->terminal2;
+						if ( $order_total_sign <= $toamount ) {
+							$ds_merchant_terminal = $terminal2;
+						} else {
+							$ds_merchant_terminal = $terminal;
+						}
+					} else {
+						$ds_merchant_terminal = $this->terminal;
+					}
+
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'redsys', '$order_total_sign: ' . $order_total_sign );
+						$this->log->add( 'redsys', '$orderid2: ' . $orderid2 );
+						$this->log->add( 'redsys', '$user_id: ' . $user_id );
+						$this->log->add( 'redsys', '$transaction_type: ' . $transaction_type );
+						$this->log->add( 'redsys', '$currency: ' . $currency );
+						$this->log->add( 'redsys', '$cof_ini: ' . $cof_ini );
+						$this->log->add( 'redsys', '$cof_type: ' . $cof_type );
+						$this->log->add( 'redsys', '$cof_txnid: ' . $cof_txnid );
+						$this->log->add( 'redsys', '$product_description: ' . $product_description );
+						$this->log->add( 'redsys', '$secretsha256: ' . $secretsha256 );
+						$this->log->add( 'redsys', '$url_ok: ' . $url_ok );
+						$this->log->add( 'redsys', '$merchant_name: ' . $merchant_name );
+						$this->log->add( 'redsys', '$type: ' . $type );
+						$this->log->add( 'redsys', '$redsys_adr: ' . $redsys_adr );
+						$this->log->add( 'redsys', '$ds_merchant_terminal: ' . $ds_merchant_terminal );
+						$this->log->add( 'redsys', ' ' );
+					}
+
+					if ( '000' === $order_total_sign || 0 === (int) $order_total_sign ) {
+						if ( 'yes' === $this->debug ) {
+							$this->log->add( 'redsys', 'Free order' );
+						}
+						$order->payment_complete();
+						if ( 'yes' === $this->debug ) {
+							$this->log->add( 'redsys', 'payment_complete 10' );
+						}
+						return array(
+							'result'   => 'success',
+							'redirect' => $url_ok,
+						);
+					}
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'redsys', 'Amount is different to 0' );
+						$this->log->add( 'redsys', '$order_total_sign: ' . $order_total_sign );
+					}
+
+					$datos_usuario  = array(
+						'threeDSInfo'         => 'AuthenticationData',
+						'protocolVersion'     => $protocol_version,
+						'browserAcceptHeader' => $http_accept,
+						'browserColorDepth'   => WCPSD2()->get_profundidad_color( $order_id ),
+						'browserIP'           => $browser_ip,
+						'browserJavaEnabled'  => WCPSD2()->get_browserjavaenabled( $order_id ),
+						'browserLanguage'     => WCPSD2()->get_idioma_navegador( $order_id ),
+						'browserScreenHeight' => WCPSD2()->get_altura_pantalla( $order_id ),
+						'browserScreenWidth'  => WCPSD2()->get_anchura_pantalla( $order_id ),
+						'browserTZ'           => WCPSD2()->get_diferencia_horaria( $order_id ),
+						'browserUserAgent'    => WCPSD2()->get_agente_navegador( $order_id ),
+						'notificationURL'     => $final_notify_url,
+					);
 					$datos_entrada  = '<DATOSENTRADA>';
 					$datos_entrada .= '<DS_MERCHANT_AMOUNT>' . $order_total_sign . '</DS_MERCHANT_AMOUNT>';
 					$datos_entrada .= '<DS_MERCHANT_ORDER>' . $orderid2 . '</DS_MERCHANT_ORDER>';
@@ -5603,312 +5449,399 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					$datos_entrada .= '<DS_MERCHANT_COF_TXNID>' . $cof_txnid . '</DS_MERCHANT_COF_TXNID>';
 					$datos_entrada .= '<DS_MERCHANT_EXCEP_SCA>MIT</DS_MERCHANT_EXCEP_SCA>';
 					$datos_entrada .= '<DS_MERCHANT_DIRECTPAYMENT>TRUE</DS_MERCHANT_DIRECTPAYMENT>';
-					// $datos_entrada .= '<DS_MERCHANT_EMV3DS>' . $acctinfo . '</DS_MERCHANT_EMV3DS>';
+					$datos_entrada .= '<DS_MERCHANT_EMV3DS>{"threeDSInfo":"CardData"}</DS_MERCHANT_EMV3DS>';
 					$datos_entrada .= '</DATOSENTRADA>';
-					$xml            = '<REQUEST>';
-					$xml           .= $datos_entrada;
-					$xml           .= '<DS_SIGNATUREVERSION>HMAC_SHA256_V1</DS_SIGNATUREVERSION>';
-					$xml           .= '<DS_SIGNATURE>' . $mi_obj->createMerchantSignatureHostToHost( $secretsha256, $datos_entrada ) . '</DS_SIGNATURE>';
-					$xml           .= '</REQUEST>';
 
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'redsys', ' ' );
 						$this->log->add( 'redsys', '/****************************/' );
-						$this->log->add( 'redsys', '          The XML 9            ' );
+						$this->log->add( 'redsys', '          The call            ' );
 						$this->log->add( 'redsys', '/****************************/' );
 						$this->log->add( 'redsys', ' ' );
-						$this->log->add( 'redsys', $xml );
+						$this->log->add( 'redsys', $datos_entrada );
 						$this->log->add( 'redsys', ' ' );
 					}
+
+					$xml  = '<REQUEST>';
+					$xml .= $datos_entrada;
+					$xml .= '<DS_SIGNATUREVERSION>HMAC_SHA256_V1</DS_SIGNATUREVERSION>';
+					$xml .= '<DS_SIGNATURE>' . $mi_obj->createMerchantSignatureHostToHost( $secretsha256, $datos_entrada ) . '</DS_SIGNATURE>';
+					$xml .= '</REQUEST>';
+
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'redsys', ' ' );
+						$this->log->add( 'redsys', '/****************************/' );
+						$this->log->add( 'redsys', '          The XML 8            ' );
+						$this->log->add( 'redsys', '/****************************/' );
+						$this->log->add( 'redsys', ' ' );
+						$this->log->add( 'redsys', 'iniciaPeticion 5' . $xml );
+						$this->log->add( 'redsys', ' ' );
+					}
+
 					$cliente  = new SoapClient( $redsys_adr );
-					$response = $cliente->trataPeticion( array( 'datoEntrada' => $xml ) );
+					$response = $cliente->iniciaPeticion( array( 'datoEntrada' => $xml ) );
 
-					if ( isset( $response->trataPeticionReturn ) ) {
-						$xml_retorno       = new SimpleXMLElement( $response->trataPeticionReturn );
-						$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode;
-						$codigo            = (string) $xml_retorno->CODIGO;
-						$redsys_order      = (string) $xml_retorno->OPERACION->Ds_Order;
-						$terminal          = (string) $xml_retorno->OPERACION->Ds_Terminal;
-						$currency_code     = (string) $xml_retorno->OPERACION->Ds_Currency;
+					if ( isset( $response->iniciaPeticionReturn ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+						$xml_retorno = new SimpleXMLElement( $response->iniciaPeticionReturn ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+						$respuesta   = json_decode( $xml_retorno->INFOTARJETA->Ds_EMV3DS ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 					}
 
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'redsys', ' ' );
-						$this->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) );
-						$this->log->add( 'redsys', 'Ds_AuthorisationCode: ' . $authorisationcode );
+						$this->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 					}
-					if ( $authorisationcode ) {
-						WCRed()->update_order_meta( $order->get_id(), '_redsys_done', 'yes' );
-						$order->payment_complete();
+
+					$ds_emv3ds_json           = $xml_retorno->INFOTARJETA->Ds_EMV3DS; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$ds_emv3ds                = json_decode( $ds_emv3ds_json );
+					$protocol_version         = $ds_emv3ds->protocolVersion; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$three_ds_server_trans_id = $ds_emv3ds->threeDSServerTransID; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$three_ds_info            = $ds_emv3ds->threeDSInfo; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+
+					if ( 'yes' === $this->debug ) {
+						$this->log->add( 'redsys', ' ' );
+						$this->log->add( 'redsys', '$ds_emv3ds_json: ' . $ds_emv3ds_json );
+						$this->log->add( 'redsys', '$ds_emv3ds: ' . print_r( $ds_emv3ds, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+						$this->log->add( 'redsys', '$three_ds_server_trans_id: ' . $three_ds_server_trans_id );
+						$this->log->add( 'redsys', '$three_ds_info: ' . $three_ds_info );
+					}
+
+					if ( '2.1.0' === $protocol_version || '2.2.0' === $protocol_version ) {
+
+						$datos_usuario = array(
+							'threeDSInfo'              => 'AuthenticationData',
+							'protocolVersion'          => $protocol_version,
+							'browserAcceptHeader'      => WCPSD2()->get_accept_headers_user( $user_id ),
+							'browserColorDepth'        => WCPSD2()->get_profundidad_color_user( $user_id ),
+							'browserIP'                => '86.0.4240.111',
+							'browserJavaEnabled'       => WCPSD2()->get_browserjavaenabled_user( $user_id ),
+							'browserJavascriptEnabled' => WCPSD2()->get_browserjavaenabled_user( $user_id ),
+							'browserLanguage'          => WCPSD2()->get_idioma_navegador_user( $user_id ),
+							'browserScreenHeight'      => WCPSD2()->get_altura_pantalla_user( $user_id ),
+							'browserScreenWidth'       => WCPSD2()->get_anchura_pantalla_user( $user_id ),
+							'browserTZ'                => WCPSD2()->get_diferencia_horaria_user( $user_id ),
+							'browserUserAgent'         => WCPSD2()->get_agente_navegador_user( $user_id ),
+							'threeDSServerTransID'     => $three_ds_server_trans_id,
+							'notificationURL'          => $final_notify_url,
+							'threeDSCompInd'           => 'N',
+						);
 						if ( 'yes' === $this->debug ) {
-							$this->log->add( 'redsys', 'payment_complete 11' );
+							$this->log->add( 'redsys', ' ' );
+							$this->log->add( 'redsys', 'threeDSInfo: AuthenticationData' );
+							$this->log->add( 'redsys', 'protocolVersion: ' . $protocol_version );
 						}
+						$acctinfo       = WCPSD2()->get_acctinfo( $order, $datos_usuario );
+						$datos_entrada  = '<DATOSENTRADA>';
+						$datos_entrada .= '<DS_MERCHANT_AMOUNT>' . $order_total_sign . '</DS_MERCHANT_AMOUNT>';
+						$datos_entrada .= '<DS_MERCHANT_ORDER>' . $orderid2 . '</DS_MERCHANT_ORDER>';
+						$datos_entrada .= '<DS_MERCHANT_MERCHANTCODE>' . $customer . '</DS_MERCHANT_MERCHANTCODE>';
+						$datos_entrada .= '<DS_MERCHANT_TERMINAL>' . $terminal . '</DS_MERCHANT_TERMINAL>';
+						$datos_entrada .= '<DS_MERCHANT_TRANSACTIONTYPE>' . $transaction_type . '</DS_MERCHANT_TRANSACTIONTYPE>';
+						$datos_entrada .= '<DS_MERCHANT_CURRENCY>' . $currency . '</DS_MERCHANT_CURRENCY>';
+						$datos_entrada .= '<DS_MERCHANT_IDENTIFIER>' . $customer_token . '</DS_MERCHANT_IDENTIFIER>';
+						$datos_entrada .= '<DS_MERCHANT_COF_INI>N</DS_MERCHANT_COF_INI>';
+						$datos_entrada .= '<DS_MERCHANT_COF_TYPE>R</DS_MERCHANT_COF_TYPE>';
+						$datos_entrada .= '<DS_MERCHANT_COF_TXNID>' . $cof_txnid . '</DS_MERCHANT_COF_TXNID>';
+						$datos_entrada .= '<DS_MERCHANT_EXCEP_SCA>MIT</DS_MERCHANT_EXCEP_SCA>';
+						$datos_entrada .= '<DS_MERCHANT_DIRECTPAYMENT>TRUE</DS_MERCHANT_DIRECTPAYMENT>';
+						// $datos_entrada .= '<DS_MERCHANT_EMV3DS>' . $acctinfo . '</DS_MERCHANT_EMV3DS>';
+						$datos_entrada .= '</DATOSENTRADA>';
+						$xml            = '<REQUEST>';
+						$xml           .= $datos_entrada;
+						$xml           .= '<DS_SIGNATUREVERSION>HMAC_SHA256_V1</DS_SIGNATUREVERSION>';
+						$xml           .= '<DS_SIGNATURE>' . $mi_obj->createMerchantSignatureHostToHost( $secretsha256, $datos_entrada ) . '</DS_SIGNATURE>';
+						$xml           .= '</REQUEST>';
+
 						if ( 'yes' === $this->debug ) {
 							$this->log->add( 'redsys', ' ' );
 							$this->log->add( 'redsys', '/****************************/' );
-							$this->log->add( 'redsys', '      Saving Order Meta       ' );
+							$this->log->add( 'redsys', '          The XML 9            ' );
 							$this->log->add( 'redsys', '/****************************/' );
 							$this->log->add( 'redsys', ' ' );
+							$this->log->add( 'redsys', $xml );
+							$this->log->add( 'redsys', ' ' );
 						}
-						$needs_preauth = WCRed()->order_needs_preauth( $order->get_id() );
-						if ( $needs_preauth ) {
-							$order->update_status( 'redsys-pre', __( 'Preauthorized by Redsys', 'woocommerce-redsys' ) );
+						$cliente  = new SoapClient( $redsys_adr );
+						$response = $cliente->trataPeticion( array( 'datoEntrada' => $xml ) );
+
+						if ( isset( $response->trataPeticionReturn ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+							$xml_retorno       = new SimpleXMLElement( $response->trataPeticionReturn ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+							$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+							$codigo            = (string) $xml_retorno->CODIGO; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+							$redsys_order      = (string) $xml_retorno->OPERACION->Ds_Order; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+							$terminal          = (string) $xml_retorno->OPERACION->Ds_Terminal; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+							$currency_code     = (string) $xml_retorno->OPERACION->Ds_Currency; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 						}
 
-						if ( ! empty( $redsys_order ) ) {
-							WCRed()->update_order_meta( $order->get_id(), '_payment_order_number_redsys', $redsys_order );
-							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', '_payment_order_number_redsys saved: ' . $redsys_order );
-							}
-						} else {
-							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', ' ' );
-								$this->log->add( 'redsys', '_payment_order_number_redsys NOT SAVED!!!' );
-								$this->log->add( 'redsys', ' ' );
-							}
-						}
-						if ( ! empty( $terminal ) ) {
-							WCRed()->update_order_meta( $order->get_id(), '_payment_terminal_redsys', $terminal );
-							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', '_payment_terminal_redsys saved: ' . $terminal );
-							}
-						} else {
-							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', ' ' );
-								$this->log->add( 'redsys', '_payment_terminal_redsys NOT SAVED!!!' );
-								$this->log->add( 'redsys', ' ' );
-							}
-						}
-						if ( ! empty( $authorisationcode ) ) {
-							WCRed()->update_order_meta( $order->get_id(), '_authorisation_code_redsys', $authorisationcode );
-							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', '_authorisation_code_redsys saved: ' . $authorisationcode );
-							}
-						} else {
-							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', ' ' );
-								$this->log->add( 'redsys', '_authorisation_code_redsys NOT SAVED!!!' );
-								$this->log->add( 'redsys', ' ' );
-							}
-						}
-						if ( ! empty( $currency_code ) ) {
-							WCRed()->update_order_meta( $order->get_id(), '_corruncy_code_redsys', $currency_code );
-							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', '_corruncy_code_redsys saved: ' . $currency_code );
-							}
-						} else {
-							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', ' ' );
-								$this->log->add( 'redsys', '_corruncy_code_redsys NOT SAVED!!!' );
-								$this->log->add( 'redsys', ' ' );
-							}
-						}
-						if ( ! empty( $secretsha256 ) ) {
-							WCRed()->update_order_meta( $order->get_id(), '_redsys_secretsha256', $secretsha256 );
-							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', '_redsys_secretsha256 saved: ' . $secretsha256 );
-							}
-						} else {
-							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', ' ' );
-								$this->log->add( 'redsys', '_redsys_secretsha256 NOT SAVED!!!' );
-								$this->log->add( 'redsys', ' ' );
-							}
-						}
 						if ( 'yes' === $this->debug ) {
-							$this->log->add( 'redsys', '/******************************************/' );
-							$this->log->add( 'redsys', '  The final has come, this story has ended  ' );
-							$this->log->add( 'redsys', '/******************************************/' );
+							$this->log->add( 'redsys', ' ' );
+							$this->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+							$this->log->add( 'redsys', 'Ds_AuthorisationCode: ' . $authorisationcode );
 						}
-						do_action( 'redsys_post_payment_complete', $order->get_id() );
-						return array(
-							'result'   => 'success',
-							'redirect' => $url_ok,
-						);
+						if ( $authorisationcode ) {
+							WCRed()->update_order_meta( $order->get_id(), '_redsys_done', 'yes' );
+							$order->payment_complete();
+							if ( 'yes' === $this->debug ) {
+								$this->log->add( 'redsys', 'payment_complete 11' );
+							}
+							if ( 'yes' === $this->debug ) {
+								$this->log->add( 'redsys', ' ' );
+								$this->log->add( 'redsys', '/****************************/' );
+								$this->log->add( 'redsys', '      Saving Order Meta       ' );
+								$this->log->add( 'redsys', '/****************************/' );
+								$this->log->add( 'redsys', ' ' );
+							}
+							$needs_preauth = WCRed()->order_needs_preauth( $order->get_id() );
+							if ( $needs_preauth ) {
+								$order->update_status( 'redsys-pre', __( 'Preauthorized by Redsys', 'woocommerce-redsys' ) );
+							}
+
+							if ( ! empty( $redsys_order ) ) {
+								WCRed()->update_order_meta( $order->get_id(), '_payment_order_number_redsys', $redsys_order );
+								if ( 'yes' === $this->debug ) {
+									$this->log->add( 'redsys', '_payment_order_number_redsys saved: ' . $redsys_order );
+								}
+							} else {
+								if ( 'yes' === $this->debug ) {
+									$this->log->add( 'redsys', ' ' );
+									$this->log->add( 'redsys', '_payment_order_number_redsys NOT SAVED!!!' );
+									$this->log->add( 'redsys', ' ' );
+								}
+							}
+							if ( ! empty( $terminal ) ) {
+								WCRed()->update_order_meta( $order->get_id(), '_payment_terminal_redsys', $terminal );
+								if ( 'yes' === $this->debug ) {
+									$this->log->add( 'redsys', '_payment_terminal_redsys saved: ' . $terminal );
+								}
+							} else {
+								if ( 'yes' === $this->debug ) {
+									$this->log->add( 'redsys', ' ' );
+									$this->log->add( 'redsys', '_payment_terminal_redsys NOT SAVED!!!' );
+									$this->log->add( 'redsys', ' ' );
+								}
+							}
+							if ( ! empty( $authorisationcode ) ) {
+								WCRed()->update_order_meta( $order->get_id(), '_authorisation_code_redsys', $authorisationcode );
+								if ( 'yes' === $this->debug ) {
+									$this->log->add( 'redsys', '_authorisation_code_redsys saved: ' . $authorisationcode );
+								}
+							} else {
+								if ( 'yes' === $this->debug ) {
+									$this->log->add( 'redsys', ' ' );
+									$this->log->add( 'redsys', '_authorisation_code_redsys NOT SAVED!!!' );
+									$this->log->add( 'redsys', ' ' );
+								}
+							}
+							if ( ! empty( $currency_code ) ) {
+								WCRed()->update_order_meta( $order->get_id(), '_corruncy_code_redsys', $currency_code );
+								if ( 'yes' === $this->debug ) {
+									$this->log->add( 'redsys', '_corruncy_code_redsys saved: ' . $currency_code );
+								}
+							} else {
+								if ( 'yes' === $this->debug ) {
+									$this->log->add( 'redsys', ' ' );
+									$this->log->add( 'redsys', '_corruncy_code_redsys NOT SAVED!!!' );
+									$this->log->add( 'redsys', ' ' );
+								}
+							}
+							if ( ! empty( $secretsha256 ) ) {
+								WCRed()->update_order_meta( $order->get_id(), '_redsys_secretsha256', $secretsha256 );
+								if ( 'yes' === $this->debug ) {
+									$this->log->add( 'redsys', '_redsys_secretsha256 saved: ' . $secretsha256 );
+								}
+							} else {
+								if ( 'yes' === $this->debug ) {
+									$this->log->add( 'redsys', ' ' );
+									$this->log->add( 'redsys', '_redsys_secretsha256 NOT SAVED!!!' );
+									$this->log->add( 'redsys', ' ' );
+								}
+							}
+							if ( 'yes' === $this->debug ) {
+								$this->log->add( 'redsys', '/******************************************/' );
+								$this->log->add( 'redsys', '  The final has come, this story has ended  ' );
+								$this->log->add( 'redsys', '/******************************************/' );
+							}
+							do_action( 'redsys_post_payment_complete', $order->get_id() );
+							return array(
+								'result'   => 'success',
+								'redirect' => $url_ok,
+							);
+						} else {
+							// TO-DO: Enviar un correo con el problema al administrador.
+							if ( ! WCRed()->is_paid( $order->get_id() ) ) {
+								$order->add_order_note( __( 'There wasn\'t respond from Redsys', 'woocommerce-redsys' ) );
+								$order->update_status( 'failed' );
+								$error = __( 'There wasn\'t respond from Redsys', 'woocommerce-redsys' );
+								do_action( 'redsys_post_payment_error', $order->get_id(), $error );
+							}
+						}
 					} else {
-						// TO-DO: Enviar un correo con el problema al administrador
-						if ( ! WCRed()->is_paid( $order->get_id() ) ) {
+						$protocol_version = '1.0.2';
+						$datos_usuario    = array(
+							'threeDSInfo'         => 'AuthenticationData',
+							'protocolVersion'     => $protocol_version,
+							'browserAcceptHeader' => WCPSD2()->get_accept_headers_user( $user_id ),
+							'browserColorDepth'   => WCPSD2()->get_profundidad_color_user( $user_id ),
+							'browserIP'           => '86.0.4240.111',
+							'browserJavaEnabled'  => WCPSD2()->get_browserjavaenabled_user( $user_id ),
+							'browserLanguage'     => WCPSD2()->get_idioma_navegador_user( $user_id ),
+							'browserScreenHeight' => WCPSD2()->get_altura_pantalla_user( $user_id ),
+							'browserScreenWidth'  => WCPSD2()->get_anchura_pantalla_user( $user_id ),
+							'browserTZ'           => WCPSD2()->get_diferencia_horaria_user( $user_id ),
+							'browserUserAgent'    => WCPSD2()->get_agente_navegador_user( $user_id ),
+							'notificationURL'     => $final_notify_url,
+							'threeDSCompInd'      => 'N',
+						);
+						$data             = array(
+							'threeDSInfo'     => 'AuthenticationData',
+							'protocolVersion' => '1.0.2',
+						);
+						$need             = wp_json_encode( $data );
+						$acctinfo         = WCPSD2()->get_acctinfo( $order, $datos_usuario );
+						$datos_entrada    = '<DATOSENTRADA>';
+						$datos_entrada   .= '<DS_MERCHANT_AMOUNT>' . $order_total_sign . '</DS_MERCHANT_AMOUNT>';
+						$datos_entrada   .= '<DS_MERCHANT_ORDER>' . $orderid2 . '</DS_MERCHANT_ORDER>';
+						$datos_entrada   .= '<DS_MERCHANT_MERCHANTCODE>' . $customer . '</DS_MERCHANT_MERCHANTCODE>';
+						$datos_entrada   .= '<DS_MERCHANT_TERMINAL>' . $terminal . '</DS_MERCHANT_TERMINAL>';
+						$datos_entrada   .= '<DS_MERCHANT_TRANSACTIONTYPE>' . $transaction_type . '</DS_MERCHANT_TRANSACTIONTYPE>';
+						$datos_entrada   .= '<DS_MERCHANT_CURRENCY>' . $currency . '</DS_MERCHANT_CURRENCY>';
+						$datos_entrada   .= '<DS_MERCHANT_COF_INI>N</DS_MERCHANT_COF_INI>';
+						$datos_entrada   .= '<DS_MERCHANT_COF_TYPE>R</DS_MERCHANT_COF_TYPE>';
+						$datos_entrada   .= $ds_merchant_group;
+						$datos_entrada   .= '<DS_MERCHANT_IDENTIFIER>' . $customer_token . '</DS_MERCHANT_IDENTIFIER>';
+						$datos_entrada   .= '<DS_MERCHANT_COF_TXNID>' . $cof_txnid . '</DS_MERCHANT_COF_TXNID>';
+						$datos_entrada   .= '<DS_MERCHANT_EXCEP_SCA>MIT</DS_MERCHANT_EXCEP_SCA>';
+						$datos_entrada   .= '<DS_MERCHANT_DIRECTPAYMENT>TRUE</DS_MERCHANT_DIRECTPAYMENT>';
+						// $datos_entrada .= '<DS_MERCHANT_EMV3DS>' . $acctinfo . '</DS_MERCHANT_EMV3DS>';
+						// $datos_entrada .= "<DS_MERCHANT_MERCHANTURL>" . $final_notify_url . "</DS_MERCHANT_MERCHANTURL>";
+						// $datos_entrada .= "<DS_MERCHANT_TITULAR>" . $merchan_name . ' ' . $merchant_lastnme . "</DS_MERCHANT_TITULAR>";
+						$datos_entrada .= '</DATOSENTRADA>';
+						$xml            = '<REQUEST>';
+						$xml           .= $datos_entrada;
+						$xml           .= '<DS_SIGNATUREVERSION>HMAC_SHA256_V1</DS_SIGNATUREVERSION>';
+						$xml           .= '<DS_SIGNATURE>' . $mi_obj->createMerchantSignatureHostToHost( $secretsha256, $datos_entrada ) . '</DS_SIGNATURE>';
+						$xml           .= '</REQUEST>';
+
+						if ( 'yes' === $this->debug ) {
+							$this->log->add( 'redsys', ' ' );
+							$this->log->add( 'redsys', '/****************************/' );
+							$this->log->add( 'redsys', '          The XML  10           ' );
+							$this->log->add( 'redsys', '/****************************/' );
+							$this->log->add( 'redsys', ' ' );
+							$this->log->add( 'redsys', $xml );
+							$this->log->add( 'redsys', ' ' );
+						}
+						$cliente  = new SoapClient( $redsys_adr );
+						$response = $cliente->trataPeticion( array( 'datoEntrada' => $xml ) );
+
+						if ( isset( $response->trataPeticionReturn ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+							$xml_retorno = new SimpleXMLElement( $response->trataPeticionReturn ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+						}
+
+						if ( 'yes' === $this->debug ) {
+							$this->log->add( 'redsys', ' ' );
+							$this->log->add( 'redsys', '$response: ' . print_r( $response, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+							$this->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+						}
+						$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+						$codigo            = (string) $xml_retorno->CODIGO; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+						$redsys_order      = (string) $xml_retorno->OPERACION->Ds_Order; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+						$terminal          = (string) $xml_retorno->OPERACION->Ds_Terminal; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+						$currency_code     = (string) $xml_retorno->OPERACION->Ds_Currency; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+
+						if ( $authorisationcode ) {
+							WCRed()->update_order_meta( $order_id, '_redsys_done', 'yes' );
+							$order->payment_complete();
+							if ( 'yes' === $this->debug ) {
+								$this->log->add( 'redsys', 'payment_complete 12' );
+							}
+							$needs_preauth = WCRed()->order_needs_preauth( $order->get_id() );
+							if ( $needs_preauth ) {
+								$order->update_status( 'redsys-pre', __( 'Preauthorized by Redsys', 'woocommerce-redsys' ) );
+							}
+							if ( 'yes' === $this->debug ) {
+								$this->log->add( 'redsys', ' ' );
+								$this->log->add( 'redsys', '/****************************/' );
+								$this->log->add( 'redsys', '      Saving Order Meta       ' );
+								$this->log->add( 'redsys', '/****************************/' );
+								$this->log->add( 'redsys', ' ' );
+							}
+							if ( ! empty( $redsys_order ) ) {
+								WCRed()->update_order_meta( $order->get_id(), '_payment_order_number_redsys', $redsys_order );
+								if ( 'yes' === $this->debug ) {
+									$this->log->add( 'redsys', '_payment_order_number_redsys saved: ' . $redsys_order );
+								}
+							} else {
+								if ( 'yes' === $this->debug ) {
+									$this->log->add( 'redsys', ' ' );
+									$this->log->add( 'redsys', '_payment_order_number_redsys NOT SAVED!!!' );
+									$this->log->add( 'redsys', ' ' );
+								}
+							}
+							if ( ! empty( $terminal ) ) {
+								WCRed()->update_order_meta( $order->get_id(), '_payment_terminal_redsys', $terminal );
+								if ( 'yes' === $this->debug ) {
+									$this->log->add( 'redsys', '_payment_terminal_redsys saved: ' . $terminal );
+								}
+							} else {
+								if ( 'yes' === $this->debug ) {
+									$this->log->add( 'redsys', ' ' );
+									$this->log->add( 'redsys', '_payment_terminal_redsys NOT SAVED!!!' );
+									$this->log->add( 'redsys', ' ' );
+								}
+							}
+							if ( ! empty( $authorisationcode ) ) {
+								WCRed()->update_order_meta( $order->get_id(), '_authorisation_code_redsys', $authorisationcode );
+								if ( 'yes' === $this->debug ) {
+									$this->log->add( 'redsys', '_authorisation_code_redsys saved: ' . $authorisationcode );
+								}
+							} else {
+								if ( 'yes' === $this->debug ) {
+									$this->log->add( 'redsys', ' ' );
+									$this->log->add( 'redsys', '_authorisation_code_redsys NOT SAVED!!!' );
+									$this->log->add( 'redsys', ' ' );
+								}
+							}
+							if ( ! empty( $currency_code ) ) {
+								WCRed()->update_order_meta( $order->get_id(), '_corruncy_code_redsys', $currency_code );
+								if ( 'yes' === $this->debug ) {
+									$this->log->add( 'redsys', '_corruncy_code_redsys saved: ' . $currency_code );
+								}
+							} else {
+								if ( 'yes' === $this->debug ) {
+									$this->log->add( 'redsys', ' ' );
+									$this->log->add( 'redsys', '_corruncy_code_redsys NOT SAVED!!!' );
+									$this->log->add( 'redsys', ' ' );
+								}
+							}
+							if ( ! empty( $secretsha256 ) ) {
+								WCRed()->update_order_meta( $order->get_id(), '_redsys_secretsha256', $secretsha256 );
+								if ( 'yes' === $this->debug ) {
+									$this->log->add( 'redsys', '_redsys_secretsha256 saved: ' . $secretsha256 );
+								}
+							} else {
+								if ( 'yes' === $this->debug ) {
+									$this->log->add( 'redsys', ' ' );
+									$this->log->add( 'redsys', '_redsys_secretsha256 NOT SAVED!!!' );
+									$this->log->add( 'redsys', ' ' );
+								}
+							}
+							if ( 'yes' === $this->debug ) {
+								$this->log->add( 'redsys', '/******************************************/' );
+								$this->log->add( 'redsys', '  The final has come, this story has ended  ' );
+								$this->log->add( 'redsys', '/******************************************/' );
+							}
+							do_action( 'redsys_post_payment_complete', $order->get_id() );
+							return array(
+								'result'   => 'success',
+								'redirect' => $url_ok,
+							);
+						} else {
+							// TO-DO: Enviar un correo con el problema al administrador.
 							$order->add_order_note( __( 'There wasn\'t respond from Redsys', 'woocommerce-redsys' ) );
-							$order->update_status( 'failed' );
 							$error = __( 'There wasn\'t respond from Redsys', 'woocommerce-redsys' );
 							do_action( 'redsys_post_payment_error', $order->get_id(), $error );
 						}
 					}
-				} else {
-					$protocol_version = '1.0.2';
-					$datos_usuario    = array(
-						'threeDSInfo'         => 'AuthenticationData',
-						'protocolVersion'     => $protocol_version,
-						'browserAcceptHeader' => WCPSD2()->get_accept_headers_user( $user_id ),
-						'browserColorDepth'   => WCPSD2()->get_profundidad_color_user( $user_id ),
-						'browserIP'           => '86.0.4240.111',
-						'browserJavaEnabled'  => WCPSD2()->get_browserjavaenabled_user( $user_id ),
-						'browserLanguage'     => WCPSD2()->get_idioma_navegador_user( $user_id ),
-						'browserScreenHeight' => WCPSD2()->get_altura_pantalla_user( $user_id ),
-						'browserScreenWidth'  => WCPSD2()->get_anchura_pantalla_user( $user_id ),
-						'browserTZ'           => WCPSD2()->get_diferencia_horaria_user( $user_id ),
-						'browserUserAgent'    => WCPSD2()->get_agente_navegador_user( $user_id ),
-						'notificationURL'     => $final_notify_url,
-						'threeDSCompInd'      => 'N',
-					);
-					$data             = array(
-						'threeDSInfo'     => 'AuthenticationData',
-						'protocolVersion' => '1.0.2',
-					);
-					$need             = wp_json_encode( $data );
-					$acctinfo         = WCPSD2()->get_acctinfo( $order, $datos_usuario );
-					$datos_entrada    = '<DATOSENTRADA>';
-					$datos_entrada   .= '<DS_MERCHANT_AMOUNT>' . $order_total_sign . '</DS_MERCHANT_AMOUNT>';
-					$datos_entrada   .= '<DS_MERCHANT_ORDER>' . $orderid2 . '</DS_MERCHANT_ORDER>';
-					$datos_entrada   .= '<DS_MERCHANT_MERCHANTCODE>' . $customer . '</DS_MERCHANT_MERCHANTCODE>';
-					$datos_entrada   .= '<DS_MERCHANT_TERMINAL>' . $terminal . '</DS_MERCHANT_TERMINAL>';
-					$datos_entrada   .= '<DS_MERCHANT_TRANSACTIONTYPE>' . $transaction_type . '</DS_MERCHANT_TRANSACTIONTYPE>';
-					$datos_entrada   .= '<DS_MERCHANT_CURRENCY>' . $currency . '</DS_MERCHANT_CURRENCY>';
-					$datos_entrada   .= '<DS_MERCHANT_COF_INI>N</DS_MERCHANT_COF_INI>';
-					$datos_entrada   .= '<DS_MERCHANT_COF_TYPE>R</DS_MERCHANT_COF_TYPE>';
-					$datos_entrada   .= $ds_merchant_group;
-					$datos_entrada   .= '<DS_MERCHANT_IDENTIFIER>' . $customer_token . '</DS_MERCHANT_IDENTIFIER>';
-					$datos_entrada   .= '<DS_MERCHANT_COF_TXNID>' . $cof_txnid . '</DS_MERCHANT_COF_TXNID>';
-					$datos_entrada   .= '<DS_MERCHANT_EXCEP_SCA>MIT</DS_MERCHANT_EXCEP_SCA>';
-					$datos_entrada   .= '<DS_MERCHANT_DIRECTPAYMENT>TRUE</DS_MERCHANT_DIRECTPAYMENT>';
-					// $datos_entrada .= '<DS_MERCHANT_EMV3DS>' . $acctinfo . '</DS_MERCHANT_EMV3DS>';
-					// $datos_entrada .= "<DS_MERCHANT_MERCHANTURL>" . $final_notify_url . "</DS_MERCHANT_MERCHANTURL>";
-					// $datos_entrada .= "<DS_MERCHANT_TITULAR>" . $merchan_name . ' ' . $merchant_lastnme . "</DS_MERCHANT_TITULAR>";
-					$datos_entrada .= '</DATOSENTRADA>';
-					$xml            = '<REQUEST>';
-					$xml           .= $datos_entrada;
-					$xml           .= '<DS_SIGNATUREVERSION>HMAC_SHA256_V1</DS_SIGNATUREVERSION>';
-					$xml           .= '<DS_SIGNATURE>' . $mi_obj->createMerchantSignatureHostToHost( $secretsha256, $datos_entrada ) . '</DS_SIGNATURE>';
-					$xml           .= '</REQUEST>';
-
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'redsys', ' ' );
-						$this->log->add( 'redsys', '/****************************/' );
-						$this->log->add( 'redsys', '          The XML  10           ' );
-						$this->log->add( 'redsys', '/****************************/' );
-						$this->log->add( 'redsys', ' ' );
-						$this->log->add( 'redsys', $xml );
-						$this->log->add( 'redsys', ' ' );
-					}
-					$cliente  = new SoapClient( $redsys_adr );
-					$response = $cliente->trataPeticion( array( 'datoEntrada' => $xml ) );
-
-					if ( isset( $response->trataPeticionReturn ) ) {
-						$xml_retorno = new SimpleXMLElement( $response->trataPeticionReturn );
-						// $respuesta   = json_decode( $xml_retorno->INFOTARJETA->Ds_EMV3DS );
-					}
-
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'redsys', ' ' );
-						$this->log->add( 'redsys', '$response: ' . print_r( $response, true ) );
-						$this->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) );
-					}
-					$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode;
-					$codigo            = (string) $xml_retorno->CODIGO;
-					$redsys_order      = (string) $xml_retorno->OPERACION->Ds_Order;
-					$terminal          = (string) $xml_retorno->OPERACION->Ds_Terminal;
-					$currency_code     = (string) $xml_retorno->OPERACION->Ds_Currency;
-
-					if ( $authorisationcode ) {
-						WCRed()->update_order_meta( $order_id, '_redsys_done', 'yes' );
-						$order->payment_complete();
-						if ( 'yes' === $this->debug ) {
-							$this->log->add( 'redsys', 'payment_complete 12' );
-						}
-						$needs_preauth = WCRed()->order_needs_preauth( $order->get_id() );
-						if ( $needs_preauth ) {
-							$order->update_status( 'redsys-pre', __( 'Preauthorized by Redsys', 'woocommerce-redsys' ) );
-						}
-						if ( 'yes' === $this->debug ) {
-							$this->log->add( 'redsys', ' ' );
-							$this->log->add( 'redsys', '/****************************/' );
-							$this->log->add( 'redsys', '      Saving Order Meta       ' );
-							$this->log->add( 'redsys', '/****************************/' );
-							$this->log->add( 'redsys', ' ' );
-						}
-						if ( ! empty( $redsys_order ) ) {
-							WCRed()->update_order_meta( $order->get_id(), '_payment_order_number_redsys', $redsys_order );
-							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', '_payment_order_number_redsys saved: ' . $redsys_order );
-							}
-						} else {
-							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', ' ' );
-								$this->log->add( 'redsys', '_payment_order_number_redsys NOT SAVED!!!' );
-								$this->log->add( 'redsys', ' ' );
-							}
-						}
-						if ( ! empty( $terminal ) ) {
-							WCRed()->update_order_meta( $order->get_id(), '_payment_terminal_redsys', $terminal );
-							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', '_payment_terminal_redsys saved: ' . $terminal );
-							}
-						} else {
-							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', ' ' );
-								$this->log->add( 'redsys', '_payment_terminal_redsys NOT SAVED!!!' );
-								$this->log->add( 'redsys', ' ' );
-							}
-						}
-						if ( ! empty( $authorisationcode ) ) {
-							WCRed()->update_order_meta( $order->get_id(), '_authorisation_code_redsys', $authorisationcode );
-							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', '_authorisation_code_redsys saved: ' . $authorisationcode );
-							}
-						} else {
-							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', ' ' );
-								$this->log->add( 'redsys', '_authorisation_code_redsys NOT SAVED!!!' );
-								$this->log->add( 'redsys', ' ' );
-							}
-						}
-						if ( ! empty( $currency_code ) ) {
-							WCRed()->update_order_meta( $order->get_id(), '_corruncy_code_redsys', $currency_code );
-							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', '_corruncy_code_redsys saved: ' . $currency_code );
-							}
-						} else {
-							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', ' ' );
-								$this->log->add( 'redsys', '_corruncy_code_redsys NOT SAVED!!!' );
-								$this->log->add( 'redsys', ' ' );
-							}
-						}
-						if ( ! empty( $secretsha256 ) ) {
-							WCRed()->update_order_meta( $order->get_id(), '_redsys_secretsha256', $secretsha256 );
-							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', '_redsys_secretsha256 saved: ' . $secretsha256 );
-							}
-						} else {
-							if ( 'yes' === $this->debug ) {
-								$this->log->add( 'redsys', ' ' );
-								$this->log->add( 'redsys', '_redsys_secretsha256 NOT SAVED!!!' );
-								$this->log->add( 'redsys', ' ' );
-							}
-						}
-						if ( 'yes' === $this->debug ) {
-							$this->log->add( 'redsys', '/******************************************/' );
-							$this->log->add( 'redsys', '  The final has come, this story has ended  ' );
-							$this->log->add( 'redsys', '/******************************************/' );
-						}
-						do_action( 'redsys_post_payment_complete', $order->get_id() );
-						return array(
-							'result'   => 'success',
-							'redirect' => $url_ok,
-						);
-					} else {
-						// TO-DO: Enviar un correo con el problema al administrador
-						$order->add_order_note( __( 'There wasn\'t respond from Redsys', 'woocommerce-redsys' ) );
-						$error = __( 'There wasn\'t respond from Redsys', 'woocommerce-redsys' );
-						do_action( 'redsys_post_payment_error', $order->get_id(), $error );
-					}
-				}
-			} else {
-				if ( 'yes' === $this->usebrowserreceipt ) {
-					return array(
-						'result'   => 'success',
-						'redirect' => $order->get_checkout_payment_url( true ) . '#redsys_payment_form',
-					);
 				} else {
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'redsys', '/*************************************************************/' );
@@ -5934,21 +5867,14 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						'redirect' => $redirect,
 					);
 				}
-			}
-		} else {
-
-			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', 'Not pay with 1clic' );
-				$this->log->add( 'redsys', '$customer_token_c: ' . $customer_token_c );
-				$this->log->add( 'redsys', ' ' );
-			}
-			if ( 'yes' === $this->usebrowserreceipt ) {
-				return array(
-					'result'   => 'success',
-					'redirect' => $order->get_checkout_payment_url( true ) . '#redsys_payment_form',
-				);
 			} else {
+
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'redsys', ' ' );
+					$this->log->add( 'redsys', 'Not pay with 1clic' );
+					$this->log->add( 'redsys', '$customer_token_c: ' . $customer_token_c );
+					$this->log->add( 'redsys', ' ' );
+				}
 				$redirect = WCRed()->get_url_redsys_payment( $order_id, $final_notify_url );
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'redsys', ' ' );
@@ -5967,19 +5893,32 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
-	function add_ajax_url_header() {
+	public function add_ajax_url_header() {
 		if ( is_wc_endpoint_url( 'order-pay' ) ) {
-			echo '<script type="text/javascript">var ajaxurl = "' . admin_url( 'admin-ajax.php' ) . '";</script>';
+			echo '<script type="text/javascript">var ajaxurl = "' . esc_url( admin_url( 'admin-ajax.php' ) ) . '";</script>';
 		}
 	}
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Payment_fields function.
 	 */
 	public function payment_fields() {
 
 		if ( is_checkout() ) {
+			$allowed_html        = array(
+				'br'     => array(),
+				'p'      => array(
+					'style' => array(),
+					'class' => array(),
+					'id'    => array(),
+				),
+				'span'   => array(
+					'style' => array(),
+					'class' => array(),
+					'id'    => array(),
+				),
+				'strong' => array(),
+			);
+			$allowed_html_filter = apply_filters( 'redsys_kses_descripcion', $allowed_html );
 			echo '
 				<style>
 					.payment_method_redsys .input-wrap {
@@ -6007,13 +5946,17 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	
 				<div class="payment_method_redsys">
 					<fieldset class="card-saved">
-	                    <p>
-	                        ' . $this->description . '
-	                    </p>';
+						<p>
+							' . wp_kses( $this->description, $allowed_html_filter ) . '
+						</p>';
 			$the_card = WC()->cart->get_cart();
 			if ( ( 'yes' === $this->usetokens && is_user_logged_in() ) || 'R' === WCRed()->check_card_for_subscription( $the_card ) ) {
 				$user_id           = get_current_user_id();
 				$token_type_needed = WCRed()->check_card_for_subscription( $the_card );
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'redsys', ' ' );
+					$this->log->add( 'redsys', '$token_type_needed: ' . $token_type_needed );
+				}
 				if ( WCRed()->check_tokens_exist( $user_id, $token_type_needed ) ) {
 					$there_are_tokens = true;
 					if ( 'R' === $token_type_needed ) {
@@ -6034,19 +5977,16 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					echo '<ul>';
 					WCRed()->get_all_tokens_checkout( $user_id, $token_type_needed );
 					echo '<input class="input-radio" type="radio" id="new" name="token" value="add" checked>';
-					echo '<label for="new">' . __( 'Use a new payment method', 'woocommerce-redsys' ) . '</label>';
-					echo '<input type="hidden" id="_redsys_token_type" name="_redsys_token_type" value="' . $token_type_needed . '"></>';
+					echo '<label for="new">' . esc_html__( 'Use a new payment method', 'woocommerce-redsys' ) . '</label>';
+					echo '<input type="hidden" id="_redsys_token_type" name="_redsys_token_type" value="' . esc_html( $token_type_needed ) . '"></>';
 					echo '</ul>';
 					echo '</div>';
-				} else {
-					// echo '</fieldset>';
-					// echo '</div>';
 				}
 
 				if ( 'no' === $need_token ) {
 					echo '
 						<div id="redsys_save_token">
-							<label><input type="checkbox" id="_redsys_save_token" name="_redsys_save_token" value="yes"> ' . __( 'Save payment information to my account for future purchases.', 'woocommerce-redsys' ) . '</label>
+							<label><input type="checkbox" id="_redsys_save_token" name="_redsys_save_token" value="yes"> ' . esc_html__( 'Save payment information to my account for future purchases.', 'woocommerce-redsys' ) . '</label>
 						</div>';
 				} else {
 					$text        = __( 'We need to store your credit card for future payments. It will be stored by our bank, so it is totally safe.', 'woocommerce-redsys' );
@@ -6061,7 +6001,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 
 			do_action( 'redsys_payment_fields' );
 
-			// Preauthotization
+			// Preauthotization.
 			if ( WCRed()->check_card_preauth( $the_card ) ) {
 				$text        = __( 'We will preauthorize the Order and will be charge later when we know the final cost.', 'woocommerce-redsys' );
 				$text_filter = apply_filters( 'redsys_text_preauth', $text );
@@ -6083,7 +6023,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$the_text         = apply_filters( 'text_add_card_my_account', $text );
 			$title            = $the_text['title'];
 			$add_subscription = $the_text['subscription'];
-			$add_oneclick     = $the_textt['oneclick'];
+			$add_oneclick     = $the_text['oneclick'];
 			if ( is_wc_endpoint_url( 'add-payment-method' ) ) {
 				echo '<div class="payment_method_redsys">
 					<fieldset class="card-saved">';
@@ -6104,27 +6044,62 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		echo '</fieldset>';
 		echo '</div>';
 	}
+	/**
+	 * Redirecto to checkout.
+	 */
+	public function redirect_to_checkout() {
+		global $wp;
 
-	function redirect_to_checkout() {
-		if ( isset( $_GET['pay_for_order'] ) ) {
-			if ( 'true' === $_GET['pay_for_order'] ) {
-				wp_redirect( wc_get_checkout_url() );
-				exit();
+		if ( isset( $_GET['pay_for_order'] ) && isset( $_GET['key'] ) && isset( $wp->query_vars['order-pay'] ) && ! isset( $_GET['subscription_switch'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+			$order_key = sanitize_text_field( wp_unslash( $_GET['key'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$order_id  = ( isset( $wp->query_vars['order-pay'] ) ) ? $wp->query_vars['order-pay'] : absint( $_GET['order_id'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.NonceVerification.Recommended
+			$order     = wc_get_order( $wp->query_vars['order-pay'] );
+
+			if ( $order->has_status( array( 'pending', 'failed' ) ) ) {
+				WC()->cart->empty_cart( true );
+
+				foreach ( $order->get_items() as $item_id => $line_item ) {
+
+					unset( $_GET['item'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+					$order_item = WCRed()->get_order_item( $item_id, $order );
+					$product    = wc_get_product( WCRed()->get_canonical_product_id( $order_item ) );
+					$product_id = $product->is_type( 'variation' ) ? $product->get_parent_id() : $product->get_id();
+
+					$order_product_data = array(
+						'_qty'          => (int) $line_item['qty'],
+						'_variation_id' => (int) $line_item['variation_id'],
+					);
+
+					$variations = array();
+
+					foreach ( $order_item['item_meta'] as $meta_key => $meta_value ) {
+						$meta_value = is_array( $meta_value ) ? $meta_value[0] : $meta_value; // In WC 3.0 the meta values are no longer arrays.
+
+						if ( taxonomy_is_product_attribute( $meta_key ) || meta_is_product_attribute( $meta_key, $meta_value, $product_id ) ) {
+							$variations[ $meta_key ]           = $meta_value;
+							$_POST[ 'attribute_' . $meta_key ] = $meta_value;
+						}
+					}
+
+					$passed_validation = apply_filters( 'woocommerce_add_to_cart_validation', true, $product_id, $order_product_data['_qty'], $order_product_data['_variation_id'] );
+
+					if ( $passed_validation ) {
+						$cart_item_key = WC()->cart->add_to_cart( $product_id, $order_product_data['_qty'], $order_product_data['_variation_id'], $variations, array() );
+					}
+				}
 			}
+			wp_safe_redirect( wc_get_checkout_url() );
+			exit;
 		}
 	}
 	/**
 	 * Output for the order received page.
 	 *
-	 * @access public
-	 * @return void
+	 * @param int $order Order ID.
 	 */
-	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
-	 */
-	function receipt_page( $order ) {
+	public function receipt_page( $order ) {
 		global $woocommerce;
 
 		if ( 'yes' === $this->debug ) {
@@ -6139,23 +6114,23 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'redsys', ' ' );
 		}
 
-		if ( isset( $_GET['threeDSServerTransID'] ) ) {
+		if ( isset( $_GET['threeDSServerTransID'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', '$_GET["threeDSServerTransID"] receipt page' );
 			}
 
-			$ordermum             = $_GET['order'];
+			$ordermum             = sanitize_text_field( wp_unslash( $_GET['order'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.NonceVerification.Recommended
 			$order                = WCRed()->get_order( $ordermum );
-			$threeddservertransid = $_GET['threeDSServerTransID'];
+			$threeddservertransid = sanitize_text_field( wp_unslash( $_GET['threeDSServerTransID'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', '$ordermum: ' . $ordermum );
 				$this->log->add( 'redsys', '$threeddservertransid: ' . $threeddservertransid );
 			}
 
-			if ( 'yes' == $this->debug ) {
-				$this->log->add( 'redsys', 'HTTP Notification received: ' . print_r( $_POST, true ) );
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'redsys', 'HTTP Notification received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
 			if ( 'yes' === $this->not_use_https ) {
 				$final_notify_url = $this->notify_url_not_https;
@@ -6164,29 +6139,29 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			}
 
 			if ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) {
-				$browserUserAgent = $_SERVER['HTTP_USER_AGENT'];
+				$browser_user_agent = wp_unslash( $_SERVER['HTTP_USER_AGENT'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			} else {
-				$browserUserAgent = false;
+				$browser_user_agent = false;
 			}
 
-			$user_id             = get_current_user_id();
-			$browserAcceptHeader = WCRed()->get_order_meta( $ordermum, '_accept_haders', true);
-			$browserColorDepth   = WCRed()->get_order_meta( $ordermum, '_billing_profundidad_color_field', true );
-			$browserLanguage     = WCRed()->get_order_meta( $ordermum, '_billing_idioma_navegador_field', true );
-			$browserScreenHeight = WCRed()->get_order_meta( $ordermum, '_billing_altura_pantalla_field', true );
-			$browserScreenWidth  = WCRed()->get_order_meta( $ordermum, '_billing_anchura_pantalla_field', true );
-			$browserTZ           = WCRed()->get_order_meta( $ordermum, '_billing_tz_horaria_field', true );
-			$java_enabled        = WCRed()->get_order_meta( $ordermum, '_billing_js_enabled_navegador_field', true );
-			$protocol_version    = get_transient( 'protocolVersion_' . $ordermum );
-			$merchant_cof        = get_transient( $ordermum . '_ds_merchant_cof_ini' );
-			$merchant_type       = get_transient( $ordermum . '_ds_merchant_cof_type' );
-			$excep_sca           = get_transient( $ordermum . '_ds_merchant_excep_sca' );
-			$token_ioper         = get_transient( $ordermum . '_insite_token' );
-			$merchant_identifier = get_transient( $ordermum . '_insite_token_redsys' );
-			$merchant_txnid      = get_transient( $ordermum . '_insite_token_txnid' );
-			$redsys_adr          = $this->get_redsys_url_gateway_ws();
-			$mi_obj              = new WooRedsysAPIWS();
-			$secretsha256        = $this->get_redsys_sha256( $user_id );
+			$user_id               = get_current_user_id();
+			$browser_accept_header = WCRed()->get_order_meta( $ordermum, '_accept_haders', true );
+			$browser_color_depth   = WCRed()->get_order_meta( $ordermum, '_billing_profundidad_color_field', true );
+			$browser_language      = WCRed()->get_order_meta( $ordermum, '_billing_idioma_navegador_field', true );
+			$browser_screen_height = WCRed()->get_order_meta( $ordermum, '_billing_altura_pantalla_field', true );
+			$browser_screen_width  = WCRed()->get_order_meta( $ordermum, '_billing_anchura_pantalla_field', true );
+			$browser_tz            = WCRed()->get_order_meta( $ordermum, '_billing_tz_horaria_field', true );
+			$java_enabled          = WCRed()->get_order_meta( $ordermum, '_billing_js_enabled_navegador_field', true );
+			$protocol_version      = get_transient( 'protocolVersion_' . $ordermum );
+			$merchant_cof          = get_transient( $ordermum . '_ds_merchant_cof_ini' );
+			$merchant_type         = get_transient( $ordermum . '_ds_merchant_cof_type' );
+			$excep_sca             = get_transient( $ordermum . '_ds_merchant_excep_sca' );
+			$token_ioper           = get_transient( $ordermum . '_insite_token' );
+			$merchant_identifier   = get_transient( $ordermum . '_insite_token_redsys' );
+			$merchant_txnid        = get_transient( $ordermum . '_insite_token_txnid' );
+			$redsys_adr            = $this->get_redsys_url_gateway_ws();
+			$mi_obj                = new WooRedsysAPIWS();
+			$secretsha256          = $this->get_redsys_sha256( $user_id );
 
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', '$merchant_cof: ' . $merchant_cof );
@@ -6197,12 +6172,12 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'redsys', '$merchant_txnid: ' . $merchant_txnid );
 
 				$this->log->add( 'redsys', '$user_id: ' . $user_id );
-				$this->log->add( 'redsys', '$browserAcceptHeader: ' . WCRed()->clean_data( $browserAcceptHeader ) );
-				$this->log->add( 'redsys', '$browserColorDepth: ' . $browserColorDepth );
-				$this->log->add( 'redsys', '$browserLanguage: ' . WCRed()->clean_data( $browserLanguage ) );
-				$this->log->add( 'redsys', '$browserScreenHeight: ' . WCRed()->clean_data( $browserScreenHeight ) );
-				$this->log->add( 'redsys', '$browserScreenWidth: ' . WCRed()->clean_data( $browserScreenWidth ) );
-				$this->log->add( 'redsys', '$browserTZ: ' . $browserTZ );
+				$this->log->add( 'redsys', '$browser_accept_header: ' . WCRed()->clean_data( $browser_accept_header ) );
+				$this->log->add( 'redsys', '$browser_color_depth: ' . $browser_color_depth );
+				$this->log->add( 'redsys', '$browser_language: ' . WCRed()->clean_data( $browser_language ) );
+				$this->log->add( 'redsys', '$browser_screen_height: ' . WCRed()->clean_data( $browser_screen_height ) );
+				$this->log->add( 'redsys', '$browser_screen_width: ' . WCRed()->clean_data( $browser_screen_width ) );
+				$this->log->add( 'redsys', '$browser_tz: ' . $browser_tz );
 				$this->log->add( 'redsys', '$java_enabled: ' . WCRed()->clean_data( $java_enabled ) );
 				$this->log->add( 'redsys', '$protocol_version: ' . $protocol_version );
 				$this->log->add( 'redsys', '$merchant_cof: ' . $merchant_cof );
@@ -6230,8 +6205,8 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$terminal                    = get_transient( $orderid2 . '_insite_terminal' );
 				$currency                    = get_transient( $orderid2 . '_insite_currency' );
 				$transaction_type            = get_transient( $orderid2 . '_insite_transaction_type' );
-				$insite_DS_MERCHANT_COF_INI  = get_transient( $orderid2 . '_insite_DS_MERCHANT_COF_INI' );
-				$insite_DS_MERCHANT_COF_TYPE = get_transient( $orderid2 . '_insite_DS_MERCHANT_COF_TYPE' );
+				$insite_ds_merchant_cof_ini  = get_transient( $orderid2 . '_insite_DS_MERCHANT_COF_INI' );
+				$insite_ds_merchant_cof_type = get_transient( $orderid2 . '_insite_DS_MERCHANT_COF_TYPE' );
 				$order_total_sign            = get_transient( $orderid2 . '_insite_redsys_amount' );
 
 			}
@@ -6241,8 +6216,8 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'redsys', '$terminal: ' . $terminal );
 				$this->log->add( 'redsys', '$transaction_type: ' . $transaction_type );
 				$this->log->add( 'redsys', '$currency: ' . $currency );
-				$this->log->add( 'redsys', '$insite_DS_MERCHANT_COF_INI: ' . $insite_DS_MERCHANT_COF_INI );
-				$this->log->add( 'redsys', '$insite_DS_MERCHANT_COF_TYPE: ' . $insite_DS_MERCHANT_COF_TYPE );
+				$this->log->add( 'redsys', '$insite_ds_merchant_cof_ini: ' . $insite_ds_merchant_cof_ini );
+				$this->log->add( 'redsys', '$insite_ds_merchant_cof_type: ' . $insite_ds_merchant_cof_type );
 				$this->log->add( 'redsys', '$token_ioper: ' . $token_ioper );
 				$this->log->add( 'redsys', '$order_total_sign: ' . $order_total_sign );
 				$this->log->add( 'redsys', '$merchant_cof: ' . $merchant_cof );
@@ -6282,17 +6257,17 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$datos_usuario = array(
 				'threeDSInfo'              => 'AuthenticationData',
 				'protocolVersion'          => $protocol_version,
-				'browserAcceptHeader'      => WCRed()->clean_data( $browserAcceptHeader ),
-				'browserColorDepth'        => $browserColorDepth,
+				'browserAcceptHeader'      => WCRed()->clean_data( $browser_accept_header ),
+				'browserColorDepth'        => $browser_color_depth,
 				'browserIP'                => (string) WCRed()->get_the_ip(),
 				'browserJavaEnabled'       => WCRed()->clean_data( $java_enabled ),
 				'browserJavascriptEnabled' => 'enabled',
-				'browserLanguage'          => WCRed()->clean_data( $browserLanguage ),
-				'browserScreenHeight'      => WCRed()->clean_data( $browserScreenHeight),
-				'browserScreenWidth'       => WCRed()->clean_data( $browserScreenWidth ),
-				'browserTZ'                => $browserTZ,
+				'browserLanguage'          => WCRed()->clean_data( $browser_language ),
+				'browserScreenHeight'      => WCRed()->clean_data( $browser_screen_height ),
+				'browserScreenWidth'       => WCRed()->clean_data( $browser_screen_width ),
+				'browserTZ'                => $browser_tz,
 				'threeDSServerTransID'     => (string) $threeddservertransid,
-				'browserUserAgent'         => $browserUserAgent,
+				'browserUserAgent'         => $browser_user_agent,
 				'notificationURL'          => (string) $final_notify_url,
 				'threeDSCompInd'           => (string) 'Y',
 			);
@@ -6344,36 +6319,34 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', ' ' );
-				// $this->log->add( 'redsys', '$acctinfo: ' . $acctinfo );
-				$this->log->add( 'redsys', '$responsews: ' . print_r( $responsews, true ) );
+				$this->log->add( 'redsys', '$responsews: ' . print_r( $responsews, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
 
-			if ( isset( $responsews->trataPeticionReturn ) ) {
-				$xml_retorno       = new SimpleXMLElement( $responsews->trataPeticionReturn );
-				$respuestaeds      = json_decode( $xml_retorno->OPERACION->Ds_EMV3DS );
-				$three_ds_info     = trim( $respuestaeds->threeDSInfo );
-				$protocol_version  = trim( $respuestaeds->protocolVersion );
-				$acsURL            = trim( $respuestaeds->acsURL );
-				$PAReq             = trim( $respuestaeds->{'PAReq'} );
-				$MD                = trim( $respuestaeds->MD );
+			if ( isset( $responsews->trataPeticionReturn ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$xml_retorno       = new SimpleXMLElement( $responsews->trataPeticionReturn ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$respuestaeds      = json_decode( $xml_retorno->OPERACION->Ds_EMV3DS ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$three_ds_info     = trim( $respuestaeds->threeDSInfo ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$protocol_version  = trim( $respuestaeds->protocolVersion ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$acs_url           = trim( $respuestaeds->acsURL ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$par_eq            = trim( $respuestaeds->{'PAReq'} );
+				$md                = trim( $respuestaeds->MD ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				$creq              = trim( $respuestaeds->{'creq'} );
-				$authorisationcode = trim( $xml_retorno->OPERACION->Ds_AuthorisationCode );
-				$ordermi           = trim( $xml_retorno->OPERACION->Ds_Order );
-				$dstermnal         = trim( $xml_retorno->OPERACION->Ds_Terminal );
-				$dscardcountry     = trim( $xml_retorno->OPERACION->Ds_Card_Country );
-				$operacion         = trim( $xml_retorno->CODIGO );
+				$authorisationcode = trim( $xml_retorno->OPERACION->Ds_AuthorisationCode ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$ordermi           = trim( $xml_retorno->OPERACION->Ds_Order ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$dstermnal         = trim( $xml_retorno->OPERACION->Ds_Terminal ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$dscardcountry     = trim( $xml_retorno->OPERACION->Ds_Card_Country ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$operacion         = trim( $xml_retorno->CODIGO ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			}
 
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', ' ' );
-				// $this->log->add( 'redsys', '$acctinfo: ' . $acctinfo );
-				$this->log->add( 'redsys', '$xml_retorno 15: ' . print_r( $xml_retorno, true ) );
-				$this->log->add( 'redsys', 'Ds_EMV3DS: ' . $xml_retorno->OPERACION->Ds_EMV3DS );
+				$this->log->add( 'redsys', '$xml_retorno 15: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				$this->log->add( 'redsys', 'Ds_EMV3DS: ' . $xml_retorno->OPERACION->Ds_EMV3DS ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				$this->log->add( 'redsys', 'threeDSInfo: ' . $three_ds_info );
 				$this->log->add( 'redsys', '$protocol_version: ' . $protocol_version );
-				$this->log->add( 'redsys', '$acsURL: ' . $acsURL );
-				$this->log->add( 'redsys', '$PAReq: ' . $PAReq );
-				$this->log->add( 'redsys', '$MD: ' . $MD );
+				$this->log->add( 'redsys', '$acs_url: ' . $acs_url );
+				$this->log->add( 'redsys', '$par_eq: ' . $par_eq );
+				$this->log->add( 'redsys', '$md: ' . $md );
 				$this->log->add( 'redsys', '$creq: ' . $creq );
 				$this->log->add( 'redsys', '$authorisationcode: ' . $authorisationcode );
 				$this->log->add( 'redsys', '$operacion: ' . $operacion );
@@ -6384,18 +6357,18 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					$this->log->add( 'redsys', 'Challenge' );
 				}
 				WCRed()->print_overlay_image();
-				if ( $PAReq ) {
+				if ( $par_eq ) {
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'redsys', ' ' );
-						$this->log->add( 'redsys', '$PAReq' );
-						$this->log->add( 'redsys', '$acsURL: ' . $acsURL );
+						$this->log->add( 'redsys', '$par_eq' );
+						$this->log->add( 'redsys', '$acs_url: ' . $acs_url );
 					}
 					?>
-					<form method="POST" action="<?php echo $acsURL; ?>"  enctype = "application/x-www-form-urlencoded">
-						<input type="hidden" name="PaReq" value="<?php echo esc_attr( $PAReq ); ?>" />
-						<input type="hidden" name="MD" value="<?php echo esc_attr( $MD ); ?>" />
+					<form method="POST" action="<?php echo esc_url( $acs_url ); ?>"  enctype = "application/x-www-form-urlencoded">
+						<input type="hidden" name="PaReq" value="<?php echo esc_attr( $par_eq ); ?>" />
+						<input type="hidden" name="MD" value="<?php echo esc_attr( $md ); ?>" />
 						<input type="hidden" name="TermUrl" value="<?php echo esc_attr( $final_notify_url ); ?>" />
-						<input name="submit_3ds" type="submit" class="button-alt" id="submit_pareq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ) ?>" />
+						<input name="submit_3ds" type="submit" class="button-alt" id="submit_pareq" value="<?php esc_html__( 'Press here if you are not redirected', 'woocommerce-redsys' ); ?>" />
 					</form>
 					<script type="text/javascript">
 						document.getElementById('submit_pareq').click();
@@ -6407,12 +6380,12 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'redsys', ' ' );
 						$this->log->add( 'redsys', '$creq' );
-						$this->log->add( 'redsys', '$acsUR: ' . $acsURL );
-						$this->log->add( 'redsys', '$creq: ' . $creq );
+						$this->log->add( 'redsys', '$acsUR: ' . esc_url( $acs_url ) );
+						$this->log->add( 'redsys', '$creq: ' . esc_html( $creq ) );
 					}
 					?>
-					<form method="POST" action="<?php echo $acsURL; ?>" enctype = "application/xwww-form-urlencoded">
-						<input type="hidden" name="CReq" value="<?php echo $creq; ?>" />
+					<form method="POST" action="<?php echo esc_url( $acs_url ); ?>" enctype = "application/xwww-form-urlencoded">
+						<input type="hidden" name="CReq" value="<?php echo esc_html( $creq ); ?>" />
 						<input name="submit_3ds" type="submit" class="button-alt" id="submit_creq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ); ?>" />
 					</form>
 					<script type="text/javascript">
@@ -6423,7 +6396,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				}
 			}
 			if ( ! empty( $authorisationcode ) ) {
-				echo 'La operción ha sido aceptado y el número de autorización es: ' . $authorisationcode;
+				echo 'La operción ha sido aceptado y el número de autorización es: ' . esc_html( $authorisationcode );
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'redsys', '$ordermi: ' . $ordermi );
 				}
@@ -6451,12 +6424,12 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					WCRed()->update_order_meta( $order->get_id(), '_card_country_insite', $dscardcountry );
 				}
 				if ( ! empty( $dscargtype ) ) {
-					WCRed()->update_order_meta( $order->get_id(), '_card_type_insite', $dscargtype === 'C' ? 'Credit' : 'Debit' );
+					WCRed()->update_order_meta( $order->get_id(), '_card_type_insite', 'C' === $dscargtype ? 'Credit' : 'Debit' );
 				}
 				if ( ! empty( $dstermnal ) ) {
 					WCRed()->update_order_meta( $order->get_id(), '_payment_terminal_redsys', $dstermnal );
 				}
-				// Payment completed
+				// Payment completed.
 				$order->add_order_note( __( 'HTTP Notification received - payment completed', 'woocommerce-redsys' ) );
 				$order->add_order_note( __( 'Authorisation code: ', 'woocommerce-redsys' ) . $authorisationcode );
 				if ( 'yes' === $this->debug ) {
@@ -6494,23 +6467,28 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				'threeDSServerTransID'         => $three_ds_server_trans_id,
 				'threeDSMethodNotificationURL' => $final_notify_url,
 			);
-			$json                     = base64_encode( wp_json_encode( $data ) );
+			$json                     = base64_encode( wp_json_encode( $data ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 			$creq                     = trim( get_transient( 'creq_' . $order ) );
 			$acsurl2                  = get_transient( 'acsURL_' . $order );
+			$json                     = base64_encode( wp_json_encode( $data ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 			if ( $creq ) {
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'redsys', 'Doing Creq Form POST ' );
 				}
 				?>
-				<form method="POST" action="<?php echo $acsurl2; ?>" enctype="application/xwww-form-urlencoded">
-					<input type="hidden" name="CReq" value="<?php echo $creq; ?>" />
+				<form method="POST" action="<?php echo esc_url( $acsurl2 ); ?>" enctype="application/xwww-form-urlencoded">
+					<input type="hidden" name="CReq" value="<?php echo esc_html( $creq ); ?>" />
 					<input name="submit_3ds" type="submit" class="button-alt" id="submit_creq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ); ?>" />
 				</form>
 				<script type="text/javascript">
 					document.getElementById('submit_creq').click();
 				</script>
 				<?php
+				exit();
 			} else {
+				if ( 'yes' === $this->debug ) {
+					$this->log->add( 'redsys', 'NO Hay Creq Form POST ' );
+				}
 				wc_enqueue_js(
 					'$("body").block({
 					message: "<img src=\"' . esc_url( apply_filters( 'woocommerce_ajax_loader_url', $woocommerce->plugin_url() . '/assets/images/select2-spinner.gif' ) ) . '\" alt=\"Redirecting&hellip;\" style=\"float:left; margin-right: 10px;\" />' . __( 'Thank you for your order. We are now redirecting you to 3DSecure Form.', 'woocommerce-redsys' ) . '",
@@ -6532,9 +6510,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				jQuery("#submit_redsys_payment_form_3").click();
 				'
 				);
-				echo '<form id="3DSform" method="POST" action="' . $three_ds_method_url . '" target="_top">
-				<input type="hidden" name="threeDSMethodData" value="' . $json . '" />
-				<input type="submit" class="button-alt" id="submit_redsys_payment_form_3" value="' . __( 'Press here if you are not redirected', 'woocommerce-redsys' ) . '" />
+				echo '<form id="3DSform" method="POST" action="' . esc_url( $three_ds_method_url ) . '" target="_top">
+				<input type="hidden" name="threeDSMethodData" value="' . esc_html( $json ) . '" />
+				<input type="submit" class="button-alt" id="submit_redsys_payment_form_3" value="' . esc_html__( 'Press here if you are not redirected', 'woocommerce-redsys' ) . '" />
 				</form>';
 			}
 		} elseif ( 'ChallengeRequest' === $three_ds_info ) {
@@ -6549,14 +6527,15 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						$this->log->add( 'redsys', '$creq: ' . $creq );
 					}
 					?>
-				<form method="POST" action="<?php echo $acsurl2; ?>" enctype="application/xwww-form-urlencoded">
-					<input type="hidden" name="CReq" value="<?php echo $creq; ?>" />
+				<form method="POST" action="<?php echo esc_url( $acsurl2 ); ?>" enctype="application/xwww-form-urlencoded">
+					<input type="hidden" name="CReq" value="<?php echo esc_html( $creq ); ?>" />
 					<input name="submit_3ds" type="submit" class="button-alt" id="submit_creq" value="<?php __( 'Press here if you are not redirected', 'woocommerce-redsys' ); ?>" />
 				</form>
 				<script type="text/javascript">
 					document.getElementById('submit_creq').click();
 				</script>
 					<?php
+					exit();
 				}
 			} else {
 				if ( 'yes' === $this->debug ) {
@@ -6566,10 +6545,10 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					$this->log->add( 'redsys', '/****************************/' );
 					$this->log->add( 'redsys', ' ' );
 				}
-				// Hay challenge
-				$acsURL = trim( get_transient( 'acsURL_' . $order ) );
-				$PAReq  = trim( get_transient( 'PAReq_' . $order ) );
-				$MD     = trim( get_transient( 'MD_' . $order ) );
+				// Hay challenge.
+				$acs_url = trim( get_transient( 'acsURL_' . $order ) );
+				$par_eq  = trim( get_transient( 'PAReq_' . $order ) );
+				$md      = trim( get_transient( 'MD_' . $order ) );
 				if ( 'yes' === $this->not_use_https ) {
 					$final_notify_url = $this->notify_url_not_https;
 				} else {
@@ -6597,11 +6576,11 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		jQuery("#submit_redsys_payment_form_2").click();
 		'
 				);
-				echo '<form action="' . esc_url( $acsURL ) . '" method="post" id="redsys_payment_form" target="_top">
-			<input type="hidden" name="PaReq" value="' . esc_attr( $PAReq ) . '" />
-			<input type="hidden" name="MD" value="' . esc_attr( $MD ) . '" />
+				echo '<form action="' . esc_url( $acs_url ) . '" method="post" id="redsys_payment_form" target="_top">
+			<input type="hidden" name="PaReq" value="' . esc_attr( $par_eq ) . '" />
+			<input type="hidden" name="MD" value="' . esc_attr( $md ) . '" />
 			<input type="hidden" name="TermUrl" value="' . esc_attr( $final_notify_url ) . '" />
-			<input type="submit" class="button-alt" id="submit_redsys_payment_form_2" value="' . __( 'Pay with Redsys', 'woocommerce-redsys' ) . '" />
+			<input type="submit" class="button-alt" id="submit_redsys_payment_form_2" value="' . esc_html__( 'Pay with Redsys', 'woocommerce-redsys' ) . '" />
 		</form>';
 			}
 		} else {
@@ -6612,24 +6591,23 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', '$temp_order_number: ' . $temp_order_number );
 				$this->log->add( 'redsys', '$do_challenge: ' . $do_challenge );
-				$this->log->add( 'redsys', '$_POST: ' . print_r( $_POST, true ) );
+				$this->log->add( 'redsys', '$_POST: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
 
-			if ( isset( $_GET['returnfronredsys'] ) ) {
+			if ( isset( $_GET['returnfronredsys'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-				if ( isset( $_POST['MD'] ) && isset( $_POST['PaRes'] ) ) {
+				if ( isset( $_POST['MD'] ) && isset( $_POST['PaRes'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.NonceVerification.Missing
 
-					$fuc              = $this->customer;
-					$currency_codes   = WCRed()->get_currencies();
-					$terminal         = $this->terminal;
-					$currency         = $currency_codes[ get_woocommerce_currency() ];
+					$fuc            = $this->customer;
+					$currency_codes = WCRed()->get_currencies();
+					$terminal       = $this->terminal;
+					$currency       = $currency_codes[ get_woocommerce_currency() ];
 					if ( WCRed()->order_needs_preauth( $order ) ) {
 						$transaction_type = '1';
 					} else {
 						$transaction_type = '0';
 					}
-					// $final_notify_url = $this->notify_url;
-					// $redsys_token     = esc_html( $_POST['token'] );
+
 					$order_id          = $order;
 					$merchan_name      = WCRed()->get_order_meta( $order_id, '_billing_first_name', true );
 					$merchant_lastnme  = WCRed()->get_order_meta( $order_id, '_billing_last_name', true );
@@ -6647,8 +6625,8 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					delete_transient( $temp_order_number . '_do_redsys_challenge' );
 					$token = get_transient( $order_id . '_insite_token' );
 
-					$md     = $_POST['MD'];
-					$pares  = $_POST['PaRes'];
+					$md     = sanitize_text_field( wp_unslash( $_POST['MD'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+					$pares  = sanitize_text_field( wp_unslash( $_POST['PaRes'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 					$emv3ds = '{"threeDSInfo":"ChallengeResponse","protocolVersion":"1.0.2","PARes":"' . $pares . '","MD":"' . $md . '"}';
 
 					if ( 'yes' === $this->debug ) {
@@ -6677,61 +6655,61 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						}
 					}
 					if ( 'yes' === $this->debug ) {
-						$setOrder           = method_exists( $request, 'setOrder' );
-						$setAmount          = method_exists( $request, 'setAmount' );
-						$setCurrency        = method_exists( $request, 'setCurrency' );
-						$setMerchant        = method_exists( $request, 'setMerchant' );
-						$setTerminal        = method_exists( $request, 'setTerminal' );
-						$setTransactionType = method_exists( $request, 'setTransactionType' );
-						$addEmvParameters   = method_exists( $request, 'addEmvParameters' );
-						$addEmvParameter    = method_exists( $request, 'addEmvParameter' );
+						$set_order            = method_exists( $request, 'setOrder' );
+						$set_amount           = method_exists( $request, 'setAmount' );
+						$set_currency         = method_exists( $request, 'setCurrency' );
+						$set_merchant         = method_exists( $request, 'setMerchant' );
+						$set_terminal         = method_exists( $request, 'setTerminal' );
+						$set_transaction_type = method_exists( $request, 'setTransactionType' );
+						$add_emv_parameters   = method_exists( $request, 'addEmvParameters' );
+						$add_emv_parameter    = method_exists( $request, 'addEmvParameter' );
 
-						if ( $setOrder ) {
-							$this->log->add( 'redsys', 'METHOD $setOrder: EXIST' );
+						if ( $set_order ) {
+							$this->log->add( 'redsys', 'METHOD $set_order: EXIST' );
 						} else {
-							$this->log->add( 'redsys', 'METHOD $setOrder: NOT EXIST' );
+							$this->log->add( 'redsys', 'METHOD $set_order: NOT EXIST' );
 						}
 
-						if ( $setAmount ) {
-							$this->log->add( 'redsys', 'METHOD $setAmount: EXIST' );
+						if ( $set_amount ) {
+							$this->log->add( 'redsys', 'METHOD $set_amount: EXIST' );
 						} else {
-							$this->log->add( 'redsys', 'METHOD $setAmount: NOT EXIST' );
+							$this->log->add( 'redsys', 'METHOD $set_amount: NOT EXIST' );
 						}
 
-						if ( $setCurrency ) {
-							$this->log->add( 'redsys', 'METHOD $setCurrency: EXIST' );
+						if ( $set_currency ) {
+							$this->log->add( 'redsys', 'METHOD $set_currency: EXIST' );
 						} else {
-							$this->log->add( 'redsys', 'METHOD $setCurrency: NOT EXIST' );
+							$this->log->add( 'redsys', 'METHOD $set_currency: NOT EXIST' );
 						}
 
-						if ( $setMerchant ) {
-							$this->log->add( 'redsys', 'METHOD $setMerchant: EXIST' );
+						if ( $set_merchant ) {
+							$this->log->add( 'redsys', 'METHOD $set_merchant: EXIST' );
 						} else {
-							$this->log->add( 'redsys', 'METHOD $setMerchant: NOT EXIST' );
+							$this->log->add( 'redsys', 'METHOD $set_merchant: NOT EXIST' );
 						}
 
-						if ( $setTerminal ) {
-							$this->log->add( 'redsys', 'METHOD $setTerminal: EXIST' );
+						if ( $set_terminal ) {
+							$this->log->add( 'redsys', 'METHOD $set_terminal: EXIST' );
 						} else {
-							$this->log->add( 'redsys', 'METHOD $setTerminal: NOT EXIST' );
+							$this->log->add( 'redsys', 'METHOD $set_terminal: NOT EXIST' );
 						}
 
-						if ( $setTransactionType ) {
-							$this->log->add( 'redsys', 'METHOD $setTransactionType: EXIST' );
+						if ( $set_transaction_type ) {
+							$this->log->add( 'redsys', 'METHOD $set_transaction_type: EXIST' );
 						} else {
-							$this->log->add( 'redsys', 'METHOD $setTransactionType: NOT EXIST' );
+							$this->log->add( 'redsys', 'METHOD $set_transaction_type: NOT EXIST' );
 						}
 
-						if ( $addEmvParameters ) {
-							$this->log->add( 'redsys', 'METHOD $addEmvParameters: EXIST' );
+						if ( $add_emv_parameters ) {
+							$this->log->add( 'redsys', 'METHOD $add_emv_parameters: EXIST' );
 						} else {
-							$this->log->add( 'redsys', 'METHOD $addEmvParameters: NOT EXIST' );
+							$this->log->add( 'redsys', 'METHOD $add_emv_parameters: NOT EXIST' );
 						}
 
-						if ( $addEmvParameter ) {
-							$this->log->add( 'redsys', 'METHOD $addEmvParameter: EXIST' );
+						if ( $add_emv_parameter ) {
+							$this->log->add( 'redsys', 'METHOD $add_emv_parameter: EXIST' );
 						} else {
-							$this->log->add( 'redsys', 'METHOD $addEmvParameter: NOT EXIST' );
+							$this->log->add( 'redsys', 'METHOD $add_emv_parameter: NOT EXIST' );
 						}
 					}
 
@@ -6770,16 +6748,16 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						wp_safe_redirect( esc_url( $location ) );
 						exit;
 					} else {
-						echo __( 'There was a problem:', '' ) . ' ' . $resultado;
+						echo esc_html__( 'There was a problem:', 'woocommerce-redsys' ) . ' ' . esc_html( $resultado );
 					}
 				} else {
 					echo 'Error';
 				}
 			}
 
-			if ( isset( $_GET['challenge'] ) || 'yes' === $do_challenge ) {
-				if ( isset( $_GET['challenge'] ) ) {
-					$challenge = sanitize_text_field( $_GET['challenge'] );
+			if ( isset( $_GET['challenge'] ) || 'yes' === $do_challenge ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				if ( isset( $_GET['challenge'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+					$challenge = sanitize_text_field( wp_unslash( $_GET['challenge'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'redsys', '$_GET["challenge"]: is SET' );
 					}
@@ -6826,9 +6804,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					);
 					echo '<form action="' . esc_url( $acsurl ) . '" method="post" id="redsys_payment_form" target="_top">
 			<input type="hidden" name="PaReq" value="' . esc_attr( $pareq ) . '" />
-			<input type="hidden" name="TermUrl" value="' . $redirectok . '">
+			<input type="hidden" name="TermUrl" value="' . esc_url( $redirectok ) . '">
 			<input type="hidden" name="MD" value="' . esc_attr( $md ) . '" />
-			<input type="submit" class="button-alt" id="submit_redsys_payment_form" value="' . __( 'Press here if you are not redirected', 'woocommerce-redsys' ) . '" />
+			<input type="submit" class="button-alt" id="submit_redsys_payment_form" value="' . esc_html__( 'Press here if you are not redirected', 'woocommerce-redsys' ) . '" />
 			</form>';
 				}
 			}
@@ -6842,11 +6820,11 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	public function add_payment_method() {
 
 		$user_id    = get_current_user_id();
-		$token_type = $_POST['tokentype'];
+		$token_type = sanitize_text_field( wp_unslash( $_POST['tokentype'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.NonceVerification.Missing
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'redsys', ' ' );
 			$this->log->add( 'redsys', '/******************************/' );
-			$this->log->add( 'redsys', ' $_POST: ' . print_r( $_POST, true ) );
+			$this->log->add( 'redsys', ' $_POST: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			$this->log->add( 'redsys', ' $user_id: ' . $user_id );
 			$this->log->add( 'redsys', ' $token_type: ' . $token_type );
 			$this->log->add( 'redsys', '/******************************/' );
@@ -6858,29 +6836,23 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		);
 	}
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Redsys hadler.
+	 *
+	 * @param Array $wp Array.
 	 */
 	public static function redsys_handle_requests( $wp ) {
 		global $woocommerce;
-		if ( isset( $_GET['redsys-payment-method'] ) ) {
-			$redsys_payment_method = sanitize_key( wp_unslash( $_GET['redsys-payment-method'] ) );
-			$redsys_gateway        = sanitize_key( wp_unslash( $_GET['redsys-gateway'] ) );
-			$redsys_token          = sanitize_key( wp_unslash( $_GET['redsys-token'] ) );
+		if ( isset( $_GET['redsys-payment-method'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$redsys_payment_method = sanitize_text_field( wp_unslash( $_GET['redsys-payment-method'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$redsys_gateway        = sanitize_text_field( wp_unslash( $_GET['redsys-gateway'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+			$redsys_token          = sanitize_text_field( wp_unslash( $_GET['redsys-token'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		}
-		// $redsys = new WC_Gateway_Redsys();
 		if ( isset( $redsys_payment_method ) ) {
 			$user_id = get_transient( $redsys_payment_method );
 			wc_nocache_headers();
 			// Clean the API request.
 			$api_request = strtolower( wc_clean( $redsys_payment_method ) );
 			$gateway     = strtolower( wc_clean( $redsys_gateway ) );
-			/*
-			echo '$api_request: ' . $redsys_payment_method . '<br />';
-			echo '$gateway: ' . $redsys_gateway . '<br />';
-			echo '$redsys_token: ' . $redsys_token . '<br />';
-			echo '$user_id: ' . $user_id . '<br />';*/
 			$user_id     = get_transient( $redsys_payment_method );
 			$redsys_adr  = self::get_redsys_url_gateway_p( $user_id );
 			$redsys_args = self::get_redsys_args_add_method( $redsys_payment_method );
@@ -6910,9 +6882,10 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			'
 			);
 			echo '<form action="' . esc_url( $redsys_adr ) . '" method="post" id="redsys_payment_form" target="_top">
-			' . implode( '', $form_inputs ) . '
-			<input type="submit" class="button-alt" id="submit_redsys_payment_form" value="' . __( 'Pay with Credit Card via Servired/RedSys', 'woocommerce-redsys' ) . '" />
-			<a class="button cancel" href="' . esc_url( wc_get_endpoint_url( 'add-payment-method' ) ) . '">' . __( 'Cancel order &amp; restore cart', 'woocommerce-redsys' ) . '</a>
+			' . implode( '', $form_inputs ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			. '
+			<input type="submit" class="button-alt" id="submit_redsys_payment_form" value="' . esc_html__( 'Pay with Credit Card via Servired/RedSys', 'woocommerce-redsys' ) . '" />
+			<a class="button cancel" href="' . esc_url( wc_get_endpoint_url( 'add-payment-method' ) ) . '">' . esc_html__( 'Cancel order &amp; restore cart', 'woocommerce-redsys' ) . '</a>
 			</form>';
 		}
 	}
@@ -6924,7 +6897,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
-	function check_ipn_request_is_valid() {
+	public function check_ipn_request_is_valid() {
 
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'redsys', ' ' );
@@ -6932,19 +6905,19 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'redsys', '  Starting check IPN Request  ' );
 			$this->log->add( 'redsys', '/****************************/' );
 			$this->log->add( 'redsys', ' ' );
-			$this->log->add( 'redsys', 'HTTP Notification received: ' . print_r( $_POST, true ) );
+			$this->log->add( 'redsys', 'HTTP Notification received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			$this->log->add( 'redsys', ' ' );
 		}
 
-		if ( isset( $_GET['threeDSMethodURL'] ) ) {
-			if ( 'yes' == $this->debug ) {
+		if ( isset( $_GET['threeDSMethodURL'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', 'check_ipn_request_is_valid > $_GET["threeDSMethodURL"]' );
 			}
-			$order_id                 = $_GET['order'];
+			$order_id                 = sanitize_text_field( wp_unslash( $_GET['order'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 			$three_ds_info            = get_transient( 'threeDSInfo_' . $order_id );
 			$accept_headers           = get_transient( 'accept_headers_' . $order_id );
 			$protocol_version         = get_transient( 'protocolVersion_' . $order_id );
-			$acsURL                   = get_transient( 'acsURL_' . $order_id );
+			$acs_url                  = get_transient( 'acsURL_' . $order_id );
 			$three_ds_server_trans_id = get_transient( 'threeDSServerTransID_' . $order_id );
 			$three_ds_method_url      = get_transient( 'threeDSMethodURL_' . $order_id );
 			$amount                   = get_transient( 'amount_' . $order_id );
@@ -6983,7 +6956,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			if ( ! empty( $three_ds_server_trans_id ) && ! empty( $three_ds_method_url ) ) {
 
 				WCRed()->print_overlay_image();
-				echo WCRed()->do_make_3dmethod( $order_id );
+				WCRed()->do_make_3dmethod( $order_id );
 				?>
 				<script type="text/javascript">
 					document.getElementById('submit_redsys_3ds_method').click();
@@ -6993,7 +6966,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			echo 'Es una llamada threeDSMethodURL';
 		}
 
-		if ( isset( $_POST['threeDSMethodData'] ) ) {
+		if ( isset( $_POST['threeDSMethodData'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', ' ' );
 				$this->log->add( 'redsys', '/****************************/' );
@@ -7004,7 +6977,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			return true;
 		}
 
-		if ( isset( $_POST['PaRes'] ) ) {
+		if ( isset( $_POST['PaRes'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', ' ' );
 				$this->log->add( 'redsys', '/****************************/' );
@@ -7020,9 +6993,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$testsha256       = $this->testsha256;
 
 		if ( $usesecretsha256 || $customtestsha256 || $testsha256 ) {
-			$version           = sanitize_text_field( $_POST['Ds_SignatureVersion'] );
-			$data              = sanitize_text_field( $_POST['Ds_MerchantParameters'] );
-			$remote_sign       = sanitize_text_field( $_POST['Ds_Signature'] );
+			$version           = sanitize_text_field( wp_unslash( $_POST['Ds_SignatureVersion'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+			$data              = sanitize_text_field( wp_unslash( $_POST['Ds_MerchantParameters'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+			$remote_sign       = sanitize_text_field( wp_unslash( $_POST['Ds_Signature'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 			$mi_obj            = new WooRedsysAPI();
 			$decodec           = $mi_obj->decodeMerchantParameters( $data );
 			$order_id          = $mi_obj->getParameter( 'Ds_Order' );
@@ -7096,9 +7069,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			}
 		} else {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', 'HTTP Notification received: ' . print_r( $_POST, true ) );
+				$this->log->add( 'redsys', 'HTTP Notification received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
-			if ( isset( $_POST['Ds_MerchantCode'] ) && $_POST['Ds_MerchantCode'] === $this->customer ) {
+			if ( isset( $_POST['Ds_MerchantCode'] ) && $_POST['Ds_MerchantCode'] === $this->customer ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'redsys', 'Received valid notification from Servired/RedSys' );
 				}
@@ -7121,11 +7094,11 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Check for CRES
+	 *
+	 * @param  array $post Post data.
 	 */
-	function check_confirm_cres( $post ) {
+	public function check_confirm_cres( $post ) {
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'redsys', ' ' );
 			$this->log->add( 'redsys', '/****************************/' );
@@ -7133,28 +7106,28 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'redsys', '/****************************/' );
 			$this->log->add( 'redsys', ' ' );
 		}
-		$cres                     = sanitize_text_field( $_POST['cres'] );
-		$decoded                  = (string) rtrim( strtr( base64_decode( $cres ), '+/', '-_' ), '=' );
-		$jsonData                 = stripslashes( html_entity_decode( $decoded ) );
-		$deco_json                = json_decode( $jsonData );
-		$three_ds_server_trans_id = (string) $deco_json->threeDSServerTransID;
-		$acsTransID               = (string) $deco_json->acsTransID;
-		$messageType              = (string) $deco_json->messageType;
-		$messageVersion           = (string) $deco_json->messageVersion;
-		$transStatus              = (string) $deco_json->transStatus;
+		$cres                     = sanitize_text_field( wp_unslash( $_POST['cres'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+		$decoded                  = (string) rtrim( strtr( base64_decode( $cres ), '+/', '-_' ), '=' ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
+		$json_data                = stripslashes( html_entity_decode( $decoded ) );
+		$deco_json                = json_decode( $json_data );
+		$three_ds_server_trans_id = (string) $deco_json->threeDSServerTransID; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		$acs_trans_id             = (string) $deco_json->acsTransID; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		$message_type             = (string) $deco_json->messageType; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		$message_version          = (string) $deco_json->messageVersion; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		$trans_status             = (string) $deco_json->transStatus; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		$order_id                 = get_transient( $three_ds_server_trans_id );
 
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'redsys', ' ' );
 			$this->log->add( 'redsys', '$cress: ' . $cres );
 			$this->log->add( 'redsys', '$decoded: ' . $decoded );
-			$this->log->add( 'redsys', '$jsonData: ' . $jsonData );
-			$this->log->add( 'redsys', '$deco_json: ' . print_r( $deco_json, true ) );
+			$this->log->add( 'redsys', '$json_data: ' . $json_data );
+			$this->log->add( 'redsys', '$deco_json: ' . print_r( $deco_json, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			$this->log->add( 'redsys', '$three_ds_server_trans_id: ' . $three_ds_server_trans_id );
-			$this->log->add( 'redsys', '$acsTransID: ' . $acsTransID );
-			$this->log->add( 'redsys', '$messageType: ' . $messageType );
-			$this->log->add( 'redsys', '$messageVersion: ' . $messageVersion );
-			$this->log->add( 'redsys', '$transStatus: ' . $transStatus );
+			$this->log->add( 'redsys', '$acs_trans_id: ' . $acs_trans_id );
+			$this->log->add( 'redsys', '$message_type: ' . $message_type );
+			$this->log->add( 'redsys', '$message_version: ' . $message_version );
+			$this->log->add( 'redsys', '$trans_status: ' . $trans_status );
 			$this->log->add( 'redsys', ' ' );
 		}
 
@@ -7241,7 +7214,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 
 		$response3ds      = array(
 			'threeDSInfo'     => 'ChallengeResponse',
-			'protocolVersion' => $messageVersion,
+			'protocolVersion' => $message_version,
 			'cres'            => $cres,
 		);
 		$response3ds_json = wp_json_encode( $response3ds );
@@ -7293,82 +7266,80 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', ' ' );
-				// $this->log->add( 'redsys', '$acctinfo: ' . $acctinfo );
-				$this->log->add( 'redsys', '$responsews: ' . print_r( $responsews, true ) );
+				$this->log->add( 'redsys', '$responsews: ' . print_r( $responsews, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
 
-			if ( isset( $responsews->trataPeticionReturn ) ) {
-				$xml_retorno = new SimpleXMLElement( $responsews->trataPeticionReturn );
-				if ( isset( $xml_retorno->OPERACION->Ds_EMV3DS ) ) {
-					$respuestaeds = json_decode( $xml_retorno->OPERACION->Ds_EMV3DS );
+			if ( isset( $responsews->trataPeticionReturn ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$xml_retorno = new SimpleXMLElement( $responsews->trataPeticionReturn ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				if ( isset( $xml_retorno->OPERACION->Ds_EMV3DS ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$respuestaeds = json_decode( $xml_retorno->OPERACION->Ds_EMV3DS ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				} else {
 					$respuestaeds = false;
 				}
-				if ( isset( $xml_retorno->CODIGO ) ) {
-					$codigo = (string) $xml_retorno->CODIGO;
+				if ( isset( $xml_retorno->CODIGO ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$codigo = (string) $xml_retorno->CODIGO; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				} else {
 					$codigo = false;
 				}
-				if ( isset( $xml_retorno->OPERACION->Ds_Order ) ) {
-					$ordermi = (string) $xml_retorno->OPERACION->Ds_Order;
+				if ( isset( $xml_retorno->OPERACION->Ds_Order ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$ordermi = (string) $xml_retorno->OPERACION->Ds_Order; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				} else {
 					$ordermi = false;
 				}
-				if ( isset( $xml_retorno->OPERACION->Ds_Terminal ) ) {
-					$dstermnal = (string) $xml_retorno->OPERACION->Ds_Terminal;
+				if ( isset( $xml_retorno->OPERACION->Ds_Terminal ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$dstermnal = (string) $xml_retorno->OPERACION->Ds_Terminal; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				} else {
 					$dstermnal = false;
 				}
-				if ( isset( $respuestaeds->threeDSInfo ) ) {
-					$three_ds_info = trim( $respuestaeds->threeDSInfo );
+				if ( isset( $respuestaeds->threeDSInfo ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$three_ds_info = trim( $respuestaeds->threeDSInfo ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				} else {
 					$three_ds_info = false;
 				}
-				if ( isset( $respuestaeds->protocolVersion ) ) {
-					$protocol_version = trim( $respuestaeds->protocolVersion );
+				if ( isset( $respuestaeds->protocolVersion ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$protocol_version = trim( $respuestaeds->protocolVersion ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				} else {
 					$protocol_version = false;
 				}
-				if ( isset( $respuestaeds->acsURL ) ) {
-					$acsURL = trim( $respuestaeds->acsURL );
+				if ( isset( $respuestaeds->acsURL ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$acs_url = trim( $respuestaeds->acsURL ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				} else {
-					$acsURL = false;
+					$acs_url = false;
 				}
 				if ( isset( $respuestaeds->{ 'PAReq'} ) ) {
-					$PAReq = trim( $respuestaeds->{ 'PAReq'} );
+					$par_eq = trim( $respuestaeds->{ 'PAReq'} );
 				} else {
-					$PAReq = false;
+					$par_eq = false;
 				}
-				if ( isset( $respuestaeds->MD ) ) {
-					$MD = trim( $respuestaeds->MD );
+				if ( isset( $respuestaeds->MD ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$md = trim( $respuestaeds->MD ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				} else {
-					$MD = false;
+					$md = false;
 				}
 				if ( isset( $respuestaeds->{ 'creq'} ) ) {
 					$creq = trim( $respuestaeds->{ 'creq'} );
 				} else {
 					$creq = false;
 				}
-				if ( isset( $xml_retorno->OPERACION->Ds_AuthorisationCode ) ) {
-					$authorisationcode = trim( $xml_retorno->OPERACION->Ds_AuthorisationCode );
+				if ( isset( $xml_retorno->OPERACION->Ds_AuthorisationCode ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$authorisationcode = trim( $xml_retorno->OPERACION->Ds_AuthorisationCode ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				} else {
 					$authorisationcode = false;
 				}
-				$dsdate = date( get_option( 'date_format' ) );
-				$dshour = date( 'H:i:s', current_time( 'timestamp', 0 ) );
+				$dsdate = date( get_option( 'date_format' ) ); // phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
+				$dshour = date( 'H:i:s', current_time( 'timestamp', 0 ) ); // phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested,WordPress.DateTime.RestrictedFunctions.date_date
 			}
 
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', ' ' );
-				// $this->log->add( 'redsys', '$acctinfo: ' . $acctinfo );
-				$this->log->add( 'redsys', '$xml_retorno 16: ' . print_r( $xml_retorno, true ) );
-				$this->log->add( 'redsys', 'Ds_EMV3DS: ' . $xml_retorno->OPERACION->Ds_EMV3DS );
+				$this->log->add( 'redsys', '$xml_retorno 16: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				$this->log->add( 'redsys', 'Ds_EMV3DS: ' . $xml_retorno->OPERACION->Ds_EMV3DS ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				$this->log->add( 'redsys', '$codigo: ' . $codigo );
 				$this->log->add( 'redsys', 'threeDSInfo: ' . $three_ds_info );
 				$this->log->add( 'redsys', '$protocol_version: ' . $protocol_version );
-				$this->log->add( 'redsys', '$acsURL: ' . $acsURL );
-				$this->log->add( 'redsys', '$PAReq: ' . $PAReq );
-				$this->log->add( 'redsys', '$MD: ' . $MD );
+				$this->log->add( 'redsys', '$acs_url: ' . $acs_url );
+				$this->log->add( 'redsys', '$par_eq: ' . $par_eq );
+				$this->log->add( 'redsys', '$md: ' . $md );
 				$this->log->add( 'redsys', '$creq: ' . $creq );
 				$this->log->add( 'redsys', '$authorisationcode: ' . $authorisationcode );
 			}
@@ -7393,12 +7364,12 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					WCRed()->update_order_meta( $order->id, '_card_country_insite', $dscardcountry );
 				}
 				if ( ! empty( $dscargtype ) ) {
-					WCRed()->update_order_meta( $order->id, '_card_type_insite', $dscargtype == 'C' ? 'Credit' : 'Debit' );
+					WCRed()->update_order_meta( $order->id, '_card_type_insite', 'C' === $dscargtype ? 'Credit' : 'Debit' );
 				}
 				if ( ! empty( $dstermnal ) ) {
 					WCRed()->update_order_meta( $order->id, '_payment_terminal_redsys', $dstermnal );
 				}
-				// Payment completed
+				// Payment completed.
 				$order->add_order_note( __( 'HTTP Notification received - payment completed', 'woocommerce-redsys' ) );
 				$order->add_order_note( __( 'Authorisation code: ', 'woocommerce-redsys' ) . $authorisationcode );
 				if ( 'yes' === $this->debug ) {
@@ -7419,7 +7390,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			if ( $codigo ) {
 				$order = WCRed()->get_order( $order_id );
 				$error = WCRed()->get_error( $codigo );
-				$order->add_order_note( __( 'There was a problem with this order. The Error was "' . $error . '"', 'woocommerce-redsys' ) );
+				$order->add_order_note( esc_html__( 'There was a problem with this order. The Error was', 'woocommerce-redsys' ) . esc_html( $error ) );
 				do_action( 'redsys_post_payment_error', $order->get_id(), $error );
 				wp_safe_redirect( $url_ko );
 				exit;
@@ -7474,31 +7445,29 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', ' ' );
-				// $this->log->add( 'redsys', '$acctinfo: ' . $acctinfo );
-				$this->log->add( 'redsys', '$responsews: ' . print_r( $responsews, true ) );
+				$this->log->add( 'redsys', '$responsews: ' . print_r( $responsews, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
 
-			if ( isset( $responsews->trataPeticionReturn ) ) {
-				$xml_retorno       = new SimpleXMLElement( $responsews->trataPeticionReturn );
-				$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode;
-				$codigo            = (string) $xml_retorno->CODIGO;
-				$redsys_order      = (string) $xml_retorno->OPERACION->Ds_Order;
-				$terminal          = (string) $xml_retorno->OPERACION->Ds_Terminal;
-				$currency_code     = (string) $xml_retorno->OPERACION->Ds_Currency;
-				if ( isset( $xml_retorno->OPERACION->Ds_Merchant_Identifier ) ) {
-					$xpiration_date = (string) $xml_retorno->OPERACION->Ds_ExpiryDate;
-					$identifier     = (string) $xml_retorno->OPERACION->Ds_Merchant_Identifier;
-					$dscardbrand    = (string) $xml_retorno->OPERACION->Ds_Card_Brand;
-					$txnid          = (string) $xml_retorno->OPERACION->Ds_Merchant_Cof_Txnid;
-					$number         = (string) $xml_retorno->OPERACION->Ds_Card_Number;
-					$number2        = (string) $xml_retorno->OPERACION->Ds_CardNumber;
+			if ( isset( $responsews->trataPeticionReturn ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$xml_retorno       = new SimpleXMLElement( $responsews->trataPeticionReturn ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$codigo            = (string) $xml_retorno->CODIGO; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$redsys_order      = (string) $xml_retorno->OPERACION->Ds_Order; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$terminal          = (string) $xml_retorno->OPERACION->Ds_Terminal; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$currency_code     = (string) $xml_retorno->OPERACION->Ds_Currency; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				if ( isset( $xml_retorno->OPERACION->Ds_Merchant_Identifier ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$xpiration_date = (string) $xml_retorno->OPERACION->Ds_ExpiryDate; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$identifier     = (string) $xml_retorno->OPERACION->Ds_Merchant_Identifier; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$dscardbrand    = (string) $xml_retorno->OPERACION->Ds_Card_Brand; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$number         = (string) $xml_retorno->OPERACION->Ds_Card_Number; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$number2        = (string) $xml_retorno->OPERACION->Ds_CardNumber; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				} else {
 					$identifier = false;
 				}
 			}
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', '$xml_retorno 17: ' . print_r( $xml_retorno, true ) );
+				$this->log->add( 'redsys', '$xml_retorno 17: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 				$this->log->add( 'redsys', '$authorisationcode: ' . $authorisationcode );
 				$this->log->add( 'redsys', '$codigo: ' . $codigo );
 				$this->log->add( 'redsys', '$redsys_order: ' . $redsys_order );
@@ -7526,12 +7495,12 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					WCRed()->update_order_meta( $order->get_id(), '_card_country_insite', $dscardcountry );
 				}
 				if ( ! empty( $dscargtype ) ) {
-					WCRed()->update_order_meta( $order->get_id(), '_card_type_insite', $dscargtype == 'C' ? 'Credit' : 'Debit' );
+					WCRed()->update_order_meta( $order->get_id(), '_card_type_insite', 'C' === $dscargtype ? 'Credit' : 'Debit' );
 				}
 				if ( ! empty( $dstermnal ) ) {
 					WCRed()->update_order_meta( $order->get_id(), '_payment_terminal_redsys', $dstermnal );
 				}
-				// Payment completed
+				// Payment completed.
 				$order->add_order_note( __( 'HTTP Notification received - payment completed', 'woocommerce-redsys' ) );
 				$order->add_order_note( __( 'Authorisation code: ', 'woocommerce-redsys' ) . $authorisationcode );
 				if ( 'yes' === $this->debug ) {
@@ -7590,13 +7559,12 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			}
 		}
 	}
-
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Check for PaRes
+	 *
+	 * @param array $post $_POST data.
 	 */
-	function check_confirm_pares( $post ) {
+	public function check_confirm_pares( $post ) {
 
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'redsys', ' ' );
@@ -7605,8 +7573,8 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'redsys', '/****************************/' );
 			$this->log->add( 'redsys', ' ' );
 		}
-		$pares                = sanitize_text_field( $_POST['PaRes'] );
-		$md                   = sanitize_text_field( $_POST['MD'] );
+		$pares                = sanitize_text_field( wp_unslash( $_POST['PaRes'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.NonceVerification.Missing
+		$md                   = sanitize_text_field( wp_unslash( $_POST['MD'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.NonceVerification.Missing
 		$order_id             = get_transient( $md );
 		$order                = WCRed()->get_order( $order_id );
 		$user_id              = $order->get_user_id();
@@ -7680,27 +7648,27 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'redsys', ' ' );
 			$this->log->add( 'redsys', '/****************************/' );
-			$this->log->add( 'redsys', ' $responsews: ' . print_r( $responsews, true ) );
+			$this->log->add( 'redsys', ' $responsews: ' . print_r( $responsews, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			$this->log->add( 'redsys', '/****************************/' );
 			$this->log->add( 'redsys', ' ' );
 		}
 
-		if ( isset( $responsews->trataPeticionReturn ) ) {
-			$xml_retorno = new SimpleXMLElement( $responsews->trataPeticionReturn );
-			if ( isset( $xml_retorno->OPERACION->Ds_Response ) ) {
-				$respuesta = (int) $xml_retorno->OPERACION->Ds_Response;
+		if ( isset( $responsews->trataPeticionReturn ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$xml_retorno = new SimpleXMLElement( $responsews->trataPeticionReturn ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			if ( isset( $xml_retorno->OPERACION->Ds_Response ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$respuesta = (int) $xml_retorno->OPERACION->Ds_Response; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				if ( ( $respuesta >= 0 ) && ( $respuesta <= 99 ) ) {
-					$auth_code = $xml_retorno->OPERACION->Ds_AuthorisationCode;
+					$auth_code = $xml_retorno->OPERACION->Ds_AuthorisationCode; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'redsys', ' ' );
 						$this->log->add( 'redsys', 'Response: Ok > ' . $respuesta );
 						$this->log->add( 'redsys', 'Authorization code: ' . $auth_code );
 						$this->log->add( 'redsys', ' ' );
 					}
-					$auth_code       = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode;
-					$Ds_Order        = trim( $xml_retorno->OPERACION->Ds_Order );
-					$Ds_MerchantCode = trim( $xml_retorno->OPERACION->Ds_MerchantCode );
-					$Ds_Terminal     = trim( $xml_retorno->OPERACION->Ds_Terminal );
+					$auth_code        = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$ds_order         = trim( $xml_retorno->OPERACION->Ds_Order ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$ds_merchant_code = trim( $xml_retorno->OPERACION->Ds_MerchantCode ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$ds_terminal      = trim( $xml_retorno->OPERACION->Ds_Terminal ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 					$order->add_order_note( __( 'HTTP Notification received - Payment completed', 'woocommerce-redsys' ) );
 					$order->add_order_note( __( 'Authorization code: ', 'woocommerce-redsys' ) . $auth_code );
 					WCRed()->update_order_meta( $order_id, '_authorisation_code_redsys', $auth_code );
@@ -7719,11 +7687,11 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						$this->log->add( 'redsys', '/****************************/' );
 						$this->log->add( 'redsys', ' ' );
 					}
-	
-					if ( ! empty( $Ds_Order ) ) {
-						WCRed()->update_order_meta( $order->get_id(), '_payment_order_number_redsys', $Ds_Order );
+
+					if ( ! empty( $ds_order ) ) {
+						WCRed()->update_order_meta( $order->get_id(), '_payment_order_number_redsys', $ds_order );
 						if ( 'yes' === $this->debug ) {
-							$this->log->add( 'redsys', '_payment_order_number_redsys saved: ' . $Ds_Order );
+							$this->log->add( 'redsys', '_payment_order_number_redsys saved: ' . $ds_order );
 						}
 					} else {
 						if ( 'yes' === $this->debug ) {
@@ -7744,10 +7712,10 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 							$this->log->add( 'redsys', ' ' );
 						}
 					}
-					if ( ! empty( $Ds_Terminal ) ) {
-						WCRed()->update_order_meta( $order->get_id(), '_payment_terminal_redsys', $Ds_Terminal );
+					if ( ! empty( $ds_terminal ) ) {
+						WCRed()->update_order_meta( $order->get_id(), '_payment_terminal_redsys', $ds_terminal );
 						if ( 'yes' === $this->debug ) {
-							$this->log->add( 'redsys', '_payment_terminal_redsys saved: ' . $Ds_Terminal );
+							$this->log->add( 'redsys', '_payment_terminal_redsys saved: ' . $ds_terminal );
 						}
 					} else {
 						if ( 'yes' === $this->debug ) {
@@ -7792,7 +7760,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 							$this->log->add( 'redsys', ' ' );
 						}
 					}
-					// This meta is essential for later use:
+					// This meta is essential for later use.
 					if ( ! empty( $secretsha256 ) ) {
 						WCRed()->update_order_meta( $order->get_id(), '_redsys_secretsha256', $secretsha256 );
 						if ( 'yes' === $this->debug ) {
@@ -7816,15 +7784,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Check for Servired/RedSys HTTP Notification
 	 *
-	 * @access public
 	 * @return void
 	 */
-	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
-	 */
-	function check_ipn_response() {
+	public function check_ipn_response() {
 
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'redsys', ' ' );
@@ -7833,14 +7795,14 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'redsys', '/****************************/' );
 			$this->log->add( 'redsys', ' ' );
 		}
-		@ob_clean();
-		$post = stripslashes_deep( $_POST );
-		if ( isset( $_POST['cres'] ) ) {
+		@ob_clean(); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+		$post = stripslashes_deep( $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		if ( isset( $_POST['cres'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			WCRed()->print_overlay_image();
-			$this->check_confirm_cres( $_POST );
+			$this->check_confirm_cres( $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		}
-		if ( isset( $_GET['redsys-order-id'] ) ) {
-			$order_id = sanitize_key( wp_unslash( $_GET['redsys-order-id'] ) );
+		if ( isset( $_GET['redsys-order-id'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$order_id = sanitize_text_field( wp_unslash( $_GET['redsys-order-id'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			wc_nocache_headers();
 			$order       = WCRed()->get_order( $order_id );
 			$user_id     = $order->get_user_id();
@@ -7851,35 +7813,77 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			foreach ( $redsys_args as $key => $value ) {
 				$form_inputs[] .= '<input type="hidden" name="' . $key . '" value="' . esc_attr( $value ) . '" />';
 			}
-			echo '<form action="' . esc_url( $redsys_adr ) . '" method="post" id="redsys_payment_form" target="_top">
-			' . implode( '', $form_inputs ) . '
-			<input type="hidden" class="button-alt" id="submit_redsys_payment_form" value="' . __( 'Pay with Credit Card via Servired/RedSys', 'woocommerce-redsys' ) . '" />
-			</form>';
-			echo '<script>document.getElementById("redsys_payment_form").submit();</script>';
-			exit();
+
+			if ( ! isset( $_GET['redsys-iframe'] ) || 'yes' !== $_GET['redsys-iframe'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				echo '<form action="' . esc_url( $redsys_adr ) . '" method="post" id="redsys_payment_form" target="_top">
+				' . implode( '', $form_inputs ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				. '
+				<input type="hidden" class="button-alt" id="submit_redsys_payment_form" value="' . esc_html__( 'Pay with Credit Card via Servired/RedSys', 'woocommerce-redsys' ) . '" />
+				</form>';
+				echo '<script>document.getElementById("redsys_payment_form").submit();</script>';
+				exit();
+			} else {
+				get_header();
+				echo '
+				<style type="text/css">
+					body {
+						margin:0;
+					}
+					.redsys-iframe-container {
+						width:100vw;
+						height:1000px;
+						margin:0 !important;
+						padding:0 !important;
+						text-align:center !important;
+					}
+					iframe {
+						position: absolute;
+						left: 0px;
+						display: block;       /* iframes are inline by default */
+						border: none;         /* Reset default border */
+						width:100vw !important;
+						height:1000px;
+						margin:0 !important;
+						padding:0 !important;
+						text-align:center !important;
+						margin-left: 0px !important;
+						max-width: 100vw !important;
+						z-index: 999999999;
+					}
+				</style>
+				
+				<form action="' . esc_url( $redsys_adr ) . '" method="post" id="redsys_payment_form" target="redsysiframe">
+				' . implode( '', $form_inputs ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				. '
+				<input type="button" class="button-alt" id="submit_redsys_payment_form" value="' . esc_html__( 'Pay with Credit Card via Servired/RedSys', 'woocommerce-redsys' ) . '" />
+				</form>
+					<iframe name="redsysiframe" src="" class="iframe_3DS_Challenge" allowfullscreen></iframe>';
+				echo '<script>document.getElementById("redsys_payment_form").submit();</script>';
+				get_footer();
+				exit();
+			}
 		}
 
-		if ( isset( $_POST['threeDSMethodData'] ) ) {
-			if ( 'yes' == $this->debug ) {
+		if ( isset( $_POST['threeDSMethodData'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', 'check_ipn_request_is_valid > $_POST["threeDSMethodData"]' );
 			}
-			echo $_POST['threeDSMethodData'] . '<br />';
-			$json_datos_3DSecure = (string) $_POST['threeDSMethodData'];
-			$decoded             = (string) rtrim( strtr( base64_decode( $json_datos_3DSecure ), '+/', '-_' ), '=' );
-			$jsonData            = stripslashes( html_entity_decode( $decoded ) );
-			$deco_json           = json_decode( $jsonData );
-			$order_id            = get_transient( $deco_json->threeDSServerTransID );
-			$order               = WCRed()->get_order( $order_id );
-			$url                 = $order->get_checkout_payment_url( true ) . '&threeDSServerTransID=' . $deco_json->threeDSServerTransID . '&order=' . $order_id;
-			if ( 'yes' == $this->debug ) {
-				$this->log->add( 'redsys', '$deco_json: ' . print_r( $deco_json, true ) );
+			$json_datos_3d_secure = (string) sanitize_text_field( wp_unslash( $_POST['threeDSMethodData'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$decoded              = (string) rtrim( strtr( base64_decode( $json_datos_3d_secure ), '+/', '-_' ), '=' ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
+			$json_data            = stripslashes( html_entity_decode( $decoded ) );
+			$deco_json            = json_decode( $json_data );
+			$order_id             = get_transient( $deco_json->threeDSServerTransID ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$order                = WCRed()->get_order( $order_id );
+			$url                  = $order->get_checkout_payment_url( true ) . '&threeDSServerTransID=' . $deco_json->threeDSServerTransID . '&order=' . $order_id; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'redsys', '$deco_json: ' . print_r( $deco_json, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 				$this->log->add( 'redsys', '$order_id: ' . $order_id );
 				$this->log->add( 'redsys', '$url: ' . $url );
 			}
 			wp_safe_redirect( $url );
 			exit;
 		}
-		if ( isset( $_POST['PaRes'] ) ) {
+		if ( isset( $_POST['PaRes'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$result = $this->check_confirm_pares( $post );
 
 			if ( $result ) {
@@ -7890,11 +7894,11 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					$this->log->add( 'redsys', '/****************************/' );
 					$this->log->add( 'redsys', ' ' );
 				}
-				$md       = sanitize_text_field( $_POST['MD'] );
+				$md       = sanitize_text_field( wp_unslash( $_POST['MD'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 				$order_id = get_transient( $md );
 				$order    = WCRed()->get_order( $order_id );
 				$url_ok   = add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) );
-				echo '<script>window.top.location.href = "' . $url_ok . '"</script>';
+				echo '<script>window.top.location.href = "' . esc_url( $url_ok ) . '"</script>';
 				exit();
 			} else {
 				if ( 'yes' === $this->debug ) {
@@ -7910,25 +7914,18 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		} else {
 			if ( $this->check_ipn_request_is_valid() ) {
 				header( 'HTTP/1.1 200 OK' );
-				do_action( 'valid-redsys-standard-ipn-request', $post );
+				do_action( 'valid-redsys-standard-ipn-request', $post ); // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores
 			} else {
 				wp_die( 'Servired/RedSys Notification Request Failure' );
 			}
 		}
 	}
 	/**
-	 * Successful Payment!
+	 * Successful Payment.
 	 *
-	 * @access public
-	 * @param array $posted
-	 * @return void
+	 * @param array $posted Post data after notify.
 	 */
-	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
-	 */
-	function successful_request( $posted ) {
+	public function successful_request( $posted ) {
 
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'redsys', ' ' );
@@ -7938,50 +7935,50 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'redsys', ' ' );
 		}
 
-		$version           = sanitize_text_field( $_POST['Ds_SignatureVersion'] );
-		$data              = sanitize_text_field( $_POST['Ds_MerchantParameters'] );
-		$remote_sign       = sanitize_text_field( $_POST['Ds_Signature'] );
-		$threeDSMethodData = sanitize_text_field( $_POST['threeDSMethodData'] );
-		$mi_obj            = new WooRedsysAPI();
-		$usesecretsha256   = $this->secretsha256;
-		$dscardnumbercompl = '';
-		$dsexpiration      = '';
-		$dsmerchantidenti  = '';
-		$dscardnumber4     = '';
-		$dsexpiryyear      = '';
-		$dsexpirymonth     = '';
-		$decodedata        = $mi_obj->decodeMerchantParameters( $data );
-		$localsecret       = $mi_obj->createMerchantSignatureNotif( $usesecretsha256, $data );
-		$total             = $mi_obj->getParameter( 'Ds_Amount' );
-		$ordermi           = $mi_obj->getParameter( 'Ds_Order' );
-		$dscode            = $mi_obj->getParameter( 'Ds_MerchantCode' );
-		$currency_code     = $mi_obj->getParameter( 'Ds_Currency' );
-		$response          = $mi_obj->getParameter( 'Ds_Response' );
-		$id_trans          = $mi_obj->getParameter( 'Ds_AuthorisationCode' );
-		$dsdate            = htmlspecialchars_decode( $mi_obj->getParameter( 'Ds_Date' ) );
-		$dshour            = htmlspecialchars_decode( $mi_obj->getParameter( 'Ds_Hour' ) );
-		$dstermnal         = $mi_obj->getParameter( 'Ds_Terminal' );
-		$dsmerchandata     = $mi_obj->getParameter( 'Ds_MerchantData' );
-		$dssucurepayment   = $mi_obj->getParameter( 'Ds_SecurePayment' );
-		$dscardcountry     = $mi_obj->getParameter( 'Ds_Card_Country' );
-		$dsconsumercountry = $mi_obj->getParameter( 'Ds_ConsumerLanguage' );
-		$dstransactiontype = $mi_obj->getParameter( 'Ds_TransactionType' );
-		$dsmerchantidenti  = $mi_obj->getParameter( 'Ds_Merchant_Identifier' );
-		$dscardbrand       = $mi_obj->getParameter( 'Ds_Card_Brand' );
-		$dsmechandata      = $mi_obj->getParameter( 'Ds_MerchantData' );
-		$dscargtype        = $mi_obj->getParameter( 'Ds_Card_Type' );
-		$dserrorcode       = $mi_obj->getParameter( 'Ds_ErrorCode' );
-		$dpaymethod        = $mi_obj->getParameter( 'Ds_PayMethod' ); // D o R, D: Domiciliacion, R: Transferencia. Si se paga por Iupay o TC, no se utiliza.
-		$response          = (int) $response;
-		$secretsha256      = get_transient( 'redsys_signature_' . sanitize_text_field( $ordermi ) );
-		$is_add_method     = get_transient( $ordermi . '_get_method' );
-		$order1            = $ordermi;
+		$version              = sanitize_text_field( wp_unslash( $_POST['Ds_SignatureVersion'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+		$data                 = sanitize_text_field( wp_unslash( $_POST['Ds_MerchantParameters'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+		$remote_sign          = sanitize_text_field( wp_unslash( $_POST['Ds_Signature'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+		$three_ds_method_data = sanitize_text_field( wp_unslash( $_POST['threeDSMethodData'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+		$mi_obj               = new WooRedsysAPI();
+		$usesecretsha256      = $this->secretsha256;
+		$dscardnumbercompl    = '';
+		$dsexpiration         = '';
+		$dsmerchantidenti     = '';
+		$dscardnumber4        = '';
+		$dsexpiryyear         = '';
+		$dsexpirymonth        = '';
+		$decodedata           = $mi_obj->decodeMerchantParameters( $data );
+		$localsecret          = $mi_obj->createMerchantSignatureNotif( $usesecretsha256, $data );
+		$total                = $mi_obj->getParameter( 'Ds_Amount' );
+		$ordermi              = $mi_obj->getParameter( 'Ds_Order' );
+		$dscode               = $mi_obj->getParameter( 'Ds_MerchantCode' );
+		$currency_code        = $mi_obj->getParameter( 'Ds_Currency' );
+		$response             = $mi_obj->getParameter( 'Ds_Response' );
+		$id_trans             = $mi_obj->getParameter( 'Ds_AuthorisationCode' );
+		$dsdate               = htmlspecialchars_decode( $mi_obj->getParameter( 'Ds_Date' ) );
+		$dshour               = htmlspecialchars_decode( $mi_obj->getParameter( 'Ds_Hour' ) );
+		$dstermnal            = $mi_obj->getParameter( 'Ds_Terminal' );
+		$dsmerchandata        = $mi_obj->getParameter( 'Ds_MerchantData' );
+		$dssucurepayment      = $mi_obj->getParameter( 'Ds_SecurePayment' );
+		$dscardcountry        = $mi_obj->getParameter( 'Ds_Card_Country' );
+		$dsconsumercountry    = $mi_obj->getParameter( 'Ds_ConsumerLanguage' );
+		$dstransactiontype    = $mi_obj->getParameter( 'Ds_TransactionType' );
+		$dsmerchantidenti     = $mi_obj->getParameter( 'Ds_Merchant_Identifier' );
+		$dscardbrand          = $mi_obj->getParameter( 'Ds_Card_Brand' );
+		$dsmechandata         = $mi_obj->getParameter( 'Ds_MerchantData' );
+		$dscargtype           = $mi_obj->getParameter( 'Ds_Card_Type' );
+		$dserrorcode          = $mi_obj->getParameter( 'Ds_ErrorCode' );
+		$dpaymethod           = $mi_obj->getParameter( 'Ds_PayMethod' ); // D o R, D: Domiciliacion, R: Transferencia. Si se paga por Iupay o TC, no se utiliza.
+		$response             = (int) $response;
+		$secretsha256         = get_transient( 'redsys_signature_' . sanitize_text_field( $ordermi ) );
+		$is_add_method        = get_transient( $ordermi . '_get_method' );
+		$order1               = $ordermi;
 
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'redsys', '$version: ' . $version );
 			$this->log->add( 'redsys', '$data: ' . $data );
 			$this->log->add( 'redsys', '$remote_sign: ' . $remote_sign );
-			$this->log->add( 'redsys', '$us$threeDSMethodDataer_id: ' . $threeDSMethodData );
+			$this->log->add( 'redsys', '$us$threeDSMethodDataer_id: ' . $three_ds_method_data );
 			$this->log->add( 'redsys', '$usesecretsha256: ' . $usesecretsha256 );
 			$this->log->add( 'redsys', '$total: ' . $total );
 			$this->log->add( 'redsys', '$ordermi: ' . $ordermi );
@@ -8056,7 +8053,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$this->log->add( 'redsys', '$dsexpirymonth: ' . $dsexpirymonth );
 				$this->log->add( 'redsys', ' ' );
 			}
-			if ( empty( $dsexpiryyear ) || $dsexpiryyear === '20' || $dsexpiryyear === '2020' ) {
+			if ( empty( $dsexpiryyear ) || '20' === $dsexpiryyear || '2020' === $dsexpiryyear ) {
 				$dsexpiryyear  = '2099';
 				$dsexpirymonth = '12';
 			}
@@ -8095,15 +8092,15 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			return;
 		}
 
-		if ( ! empty( $threeDSMethodData ) ) {
+		if ( ! empty( $three_ds_method_data ) ) {
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', '/******************************************/' );
-				$this->log->add( 'redsys', ' Is successful_request IF $threeDSMethodData' );
+				$this->log->add( 'redsys', ' Is successful_request IF $three_ds_method_data' );
 				$this->log->add( 'redsys', '/******************************************/' );
 			}
-			$decoded_post_json        = base64_decode( $threeDSMethodData );
+			$decoded_post_json        = base64_decode( $three_ds_method_data ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 			$decoded_post             = json_decode( $decoded_post_json );
-			$three_ds_server_trans_id = $decoded_post->threeDSServerTransID;
+			$three_ds_server_trans_id = $decoded_post->threeDSServerTransID; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			$order2                   = get_transient( $three_ds_server_trans_id );
 			$order                    = WCRed()->get_order( (int) $order2 );
 			$user_id                  = $order->get_user_id();
@@ -8204,12 +8201,12 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$cliente    = new SoapClient( $redsys_adr );
 			$responsews = $cliente->trataPeticion( array( 'datoEntrada' => $xml ) );
 
-			if ( isset( $responsews->trataPeticionReturn ) ) {
-				$xml_retorno = new SimpleXMLElement( $responsews->trataPeticionReturn );
+			if ( isset( $responsews->trataPeticionReturn ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$xml_retorno = new SimpleXMLElement( $responsews->trataPeticionReturn ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			}
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', ' ' );
-				$this->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) );
+				$this->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 				$this->log->add( 'redsys', ' ' );
 			}
 		}
@@ -8250,6 +8247,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					$this->log->add( 'redsys', 'New Status in request: ' . $status );
 				}
 				$order->add_order_note( __( 'Order Payment refunded by Redsys', 'woocommerce-redsys' ) );
+				WCRed()->update_order_meta( $order->get_id(), '_authorisation_code_refund_redsys', $id_trans );
 				return;
 			}
 			$order->add_order_note( __( 'There was an error refunding', 'woocommerce-redsys' ) );
@@ -8354,7 +8352,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$this->log->add( 'redsys', '$token_type: R' );
 		}
 
-		if ( $dstransactiontype != '0' && $dstransactiontype != '1' ) {
+		if ( '0' !== (string) $dstransactiontype && '1' !== (string) $dstransactiontype ) {
 			return;
 		}
 
@@ -8365,9 +8363,9 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 
 		if ( ! empty( $dsexpiryyear ) && '2020' !== $dsexpiryyear && '20' !== $dsexpiryyear ) {
-			 $dsexpiryyear = $dsexpiryyear;
+			$dsexpiryyear = $dsexpiryyear;
 		} else {
-			 $dsexpiryyear = '2099';
+			$dsexpiryyear = '2099';
 		}
 
 		if ( ! empty( $dsexpirymonth ) ) {
@@ -8405,18 +8403,18 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'redsys', '$response: <= 99' );
 			}
-			// authorized
+			// authorized.
 			$order_total_compare = number_format( $order->get_total(), 2, '', '' );
 			$order_total_compare = ltrim( $order_total_compare, '0' );
 			$total               = ltrim( $total, '0' );
 			if ( 'partial-payment' !== $order->get_status() ) {
 				if ( $order_total_compare !== $total ) {
-					// amount does not match
+					// amount does not match.
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'redsys', 'Payment error: Amounts do not match (order: ' . $order_total_compare . ' - received: ' . $total . ')' );
 					}
-					// Put this order on-hold for manual checking
-					$order->update_status( 'on-hold', sprintf( __( 'Validation error: Order vs. Notification amounts do not match (order: %1$s - received: %2$s).', 'woocommerce-redsys' ), $order_total_compare, $total ) );
+					// Put this order on-hold for manual checking.
+					$order->update_status( 'on-hold', sprintf( __( 'Validation error: Order vs. Notification amounts do not match (order: %1$s - received: %2$s).', 'woocommerce-redsys' ), $order_total_compare, $total ) ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
 					exit;
 				}
 			} else {
@@ -8620,7 +8618,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					$this->log->add( 'redsys', ' ' );
 				}
 			}
-			// This meta is essential for later use:
+			// This meta is essential for later use.
 			if ( ! empty( $secretsha256 ) ) {
 				WCRed()->update_order_meta( $order->get_id(), '_redsys_secretsha256', $secretsha256 );
 				if ( 'yes' === $this->debug ) {
@@ -8633,7 +8631,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					$this->log->add( 'redsys', ' ' );
 				}
 			}
-			// Payment completed
+			// Payment completed.
 			if ( '1' === $dstransactiontype && 'D' !== $dpaymethod && 'R' !== $dpaymethod ) {
 				$order->add_order_note( __( 'HTTP Notification received - Transaction Preauthorized', 'woocommerce-redsys' ) );
 			} elseif ( 'D' === $dpaymethod ) {
@@ -8794,16 +8792,13 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$message .= '<p>' . esc_html__( 'If you wish, you can try again at this link: ', 'woocommerce-redsys' ) . wc_get_checkout_url() . '</p>';
 				$message .= '<p>' . esc_html__( 'Thank you very much for choosing us.', 'woocommerce-redsys' ) . '</p>';
 
-				$message = apply_filters( 'redsys_sent_email_customer_pay_error', $message, $ds_error_value, $ds_response_value );
-
-				$heading = esc_html__( 'Credit Cart Payment Problem', 'woocommerce-redsys' );
-
-				
+				$message         = apply_filters( 'redsys_sent_email_customer_pay_error', $message, $ds_error_value, $ds_response_value );
+				$heading         = esc_html__( 'Credit Cart Payment Problem', 'woocommerce-redsys' );
 				$email           = $order->get_billing_email();
 				$wrapped_message = $mailer->wrap_message( $heading, $message );
 				$wc_email        = new Redsys_Customer_Email_Order();
 				$html_message    = $wc_email->style_inline( $wrapped_message );
-				$subject         =  esc_html__( 'There was a problem with the credit card payment.', 'woocommerce-redsys' );
+				$subject         = esc_html__( 'There was a problem with the credit card payment.', 'woocommerce-redsys' );
 
 				wp_mail( $email, $subject, $html_message, $headers );
 
@@ -8867,15 +8862,17 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			exit;
 		}
 	}
-
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Ask for refund
+	 *
+	 * @param  int    $order_id Order ID.
+	 * @param  string $transaction_id Transaction ID.
+	 * @param  float  $amount Amount.
+	 * @return bool
 	 */
-	function ask_for_refund( $order_id, $transaction_id, $amount ) {
+	public function ask_for_refund( $order_id, $transaction_id, $amount ) {
 
-		// post code to REDSYS
+		// post code to REDSYS.
 		$order          = WCRed()->get_order( $order_id );
 		$terminal       = WCRed()->get_order_meta( $order_id, '_payment_terminal_redsys', true );
 		$currency_codes = WCRed()->get_currencies();
@@ -8960,7 +8957,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$mi_obj->setParameter( 'DS_MERCHANT_URLKO', $order->get_cancel_order_url() );
 		$mi_obj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', '001' );
 		$mi_obj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->product_description( $order, $this->id ) );
-		$mi_obj->setParameter( 'DS_MERCHANT_TITULAR', $merchan_name . ' ' . $merchant_lastnme );
+		$mi_obj->setParameter( 'DS_MERCHANT_TITULAR', WCRed()->clean_data( $merchan_name ) . ' ' . WCRed()->clean_data( $merchant_lastnme ) );
 		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
 
 		if ( 'yes' === $this->debug ) {
@@ -9021,14 +9018,14 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 		return true;
 	}
-
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Check if the order has been refunded
+	 *
+	 * @param  int $order_id Order ID.
+	 * @return bool
 	 */
-	function check_redsys_refund( $order_id ) {
-		// check postmeta
+	public function check_redsys_refund( $order_id ) {
+		// check postmeta.
 		$order        = WCRed()->get_order( (int) $order_id );
 		$order_refund = get_transient( $order->get_id() . '_redsys_refund' );
 		if ( 'yes' === $this->debug ) {
@@ -9046,13 +9043,15 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Ask for preauthorization confirmation
+	 *
+	 * @param  int $order_id Order ID.
+	 * @param  int $transaction_id Transaction ID.
+	 * @param  int $amount Amount.
 	 */
-	function ask_for_confirm_preauthorization( $order_id, $transaction_id, $amount ) {
+	public function ask_for_confirm_preauthorization( $order_id, $transaction_id, $amount ) {
 
-		// post code to REDSYS
+		// post code to REDSYS.
 		$order          = WCRed()->get_order( $order_id );
 		$terminal       = WCRed()->get_order_meta( $order_id, '_payment_terminal_redsys', true );
 		$currency_codes = WCRed()->get_currencies();
@@ -9109,7 +9108,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$mi_obj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', '001' );
 		$mi_obj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->product_description( $order, $this->id ) );
 		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
-		$mi_obj->setParameter( 'DS_MERCHANT_TITULAR', $merchan_name . ' ' . $merchant_lastnme );
+		$mi_obj->setParameter( 'DS_MERCHANT_TITULAR', WCRed()->clean_data( $merchan_name ) . ' ' . WCRed()->clean_data( $merchant_lastnme ) );
 
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'redsys', __( 'URL to Redsys : ', 'woocommerce-redsys' ) . $redsys_adr );
@@ -9153,22 +9152,23 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			)
 		);
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'redsys', __( 'The call is already made and this is the response: ', 'woocommerce-redsys' ) . print_r( $post_arg ) );
+			$this->log->add( 'redsys', __( 'The call is already made and this is the response: ', 'woocommerce-redsys' ) . print_r( $post_arg ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 		}
 		if ( is_wp_error( $post_arg ) ) {
 			return false;
 		}
 		return true;
 	}
-
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Ask for collect remainder
+	 *
+	 * @param  int    $order_id Order ID.
+	 * @param  string $amount Amount.
+	 * @return bool
 	 */
-	function ask_for_collect_remainder( $order_id, $amount ) {
+	public function ask_for_collect_remainder( $order_id, $amount ) {
 
-		// post code to REDSYS
+		// post code to REDSYS.
 		$order            = WCRed()->get_order( $order_id );
 		$transaction_id2  = WCRed()->prepare_order_number( $order_id, 'redsys' );
 		$terminal         = WCRed()->get_order_meta( $order_id, '_payment_terminal_redsys', true );
@@ -9222,7 +9222,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$mi_obj->setParameter( 'DS_MERCHANT_URLKO', $order->get_cancel_order_url() );
 		$mi_obj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', '001' );
 		$mi_obj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->product_description( $order, $this->id ) );
-		$mi_obj->setParameter( 'DS_MERCHANT_TITULAR', $merchan_name . ' ' . $merchant_lastnme );
+		$mi_obj->setParameter( 'DS_MERCHANT_TITULAR', WCRed()->clean_data( $merchan_name ) . ' ' . WCRed()->clean_data( $merchant_lastnme ) );
 		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
 		if ( ! empty( $this->merchantgroup ) ) {
 			$mi_obj->setParameter( 'DS_MERCHANT_GROUP', $this->merchantgroup );
@@ -9273,20 +9273,20 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			)
 		);
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'redsys', __( 'The call is already made and this is the response: ', 'woocommerce-redsys' ) . print_r( $post_arg ) );
+			$this->log->add( 'redsys', __( 'The call is already made and this is the response: ', 'woocommerce-redsys' ) . print_r( $post_arg ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 		}
 		if ( is_wp_error( $post_arg ) ) {
 			return false;
 		}
 		return true;
 	}
-
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Check if order is preauthorized
+	 *
+	 * @param  int $order_id Order ID.
+	 * @return bool
 	 */
-	function check_confirm_preauth( $order_id ) {
+	public function check_confirm_preauth( $order_id ) {
 
 		$order         = WCRed()->get_order( (int) $order_id );
 		$order_preauth = get_transient( $order->get_id() . '_redsys_preauth' );
@@ -9300,13 +9300,12 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			return false;
 		}
 	}
-
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Check if order is preauthorized
+	 *
+	 * @param  int $order_id Order ID.
 	 */
-	function check_collect_remainder( $order_id ) {
+	public function check_collect_remainder( $order_id ) {
 
 		$order         = WCRed()->get_order( (int) $order_id );
 		$order_collect = get_transient( $order->get_id() . '_redsys_collect' );
@@ -9333,10 +9332,14 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			return;
 		}
 
+		if ( ! isset( $_POST['order_id'] ) ) {
+			return;
+		}
+
 		set_time_limit( 0 );
-		$order_id         = intval( $_POST['order_id'] );
-		$order            = WCRed()->get_order( $order_id );
-		$transaction_id   = WCRed()->get_redsys_order_number( $order_id );
+		$order_id       = intval( $_POST['order_id'] );
+		$order          = WCRed()->get_order( $order_id );
+		$transaction_id = WCRed()->get_redsys_order_number( $order_id );
 		set_transient( 'redys_order_temp_' . $transaction_id, $order_id, 3600 );
 		$order_total_sign = WCRed()->redsys_amount_format( $order->get_total() );
 		$redsys_class     = new WC_Gateway_Redsys();
@@ -9365,7 +9368,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					$result = $redsys_class->check_confirm_preauth( $order_id );
 					$x++;
 				} while ( $x <= 20 && false === $result );
-				@ob_clean();
+				@ob_clean(); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 				if ( 'yes' === $redsys_class->debug && $result ) {
 					$redsys_class->log->add( 'redsys', __( 'Confirming Preauthorization = true ', 'woocommerce-redsys' ) );
 				}
@@ -9451,7 +9454,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					$x++;
 				} while ( $x <= 20 && false === $result );
 
-				@ob_clean();
+				@ob_clean(); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 
 				if ( 'yes' === $redsys_depo->debug && $result ) {
 					$redsys_depo->log->add( 'redsys', __( 'Confirming Collecting Remainder = true ', 'woocommerce-redsys' ) );
@@ -9495,14 +9498,16 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		echo esc_html( $confirm_result );
 		wp_die();
 	}
-
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Process a refund if supported.
+	 *
+	 * @param int    $order_id Order ID.
+	 * @param float  $amount Refund amount.
+	 * @param string $reason Refund reason.
+	 * @return bool|WP_Error True or false based on success, or a WP_Error object.
 	 */
 	public function process_refund( $order_id, $amount = null, $reason = '' ) {
-		// Do your refund here. Refund $amount for the order with ID $order_id _transaction_id
+		// Do your refund here. Refund $amount for the order with ID $order_id _transaction_id.
 		set_time_limit( 0 );
 		$order = wc_get_order( $order_id );
 
@@ -9576,18 +9581,17 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			return new WP_Error( 'error', __( 'Refund Failed: No transaction ID', 'woocommerce-redsys' ) );
 		}
 	}
-
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Add Bulk Actions
+	 *
+	 * @param array $bulk_actions All bulk actions.
 	 */
 	public static function redsys_add_bulk_actions( $bulk_actions ) {
 
 		if ( 'yes' === WCRed()->get_redsys_option( 'bulkcharge', 'redsys' ) ) {
 			$bulk_actions['redsys_charge_invoice_token'] = __( 'Immediate Redsys Charge', 'woocommerce-redsys' );
 		}
-		if ( 'yes' === WCRed()->get_redsys_option( 'preauthorization', 'redsys' ) && ! WCRed()->is_gateway_enabled( 'preauthorizationsredsys' ) ) {
+		if ( 'yes' === WCRed()->get_redsys_option( 'preauthorization', 'redsys' ) ) {
 			$bulk_actions['redsys_aprobe_preauthorizations'] = __( 'Approve Pre-authorization', 'woocommerce-redsys' );
 		}
 		if ( 'yes' === WCRed()->get_redsys_option( 'bulkrefund', 'redsys' ) ) {
@@ -9595,6 +9599,11 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 		return $bulk_actions;
 	}
+	/**
+	 * Process Bulk Actions
+	 *
+	 * @param Object $order Redirect to.
+	 */
 	public static function charge_invoive_by_order( $order ) {
 		$class_redsys = new WC_Gateway_Redsys();
 		$user_id      = $order->get_user_id();
@@ -9647,8 +9656,6 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$class_redsys->log->add( 'redsys', 'Using WS URL: ' . $redsys_adr );
 				$class_redsys->log->add( 'redsys', ' ' );
 			}
-
-			// $order_id = $order->get_id();.
 			$currency_codes = WCRed()->get_currencies();
 
 			$transaction_id2  = WCRed()->prepare_order_number( $order_id, 'redsys' );
@@ -9826,27 +9833,26 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$cliente    = new SoapClient( $redsys_adr );
 			$responsews = $cliente->iniciaPeticion( array( 'datoEntrada' => $xml ) );
 
-			if ( isset( $responsews->iniciaPeticionReturn ) ) {
-				$xml_retorno = new SimpleXMLElement( $responsews->iniciaPeticionReturn );
-				$respuesta   = json_decode( $xml_retorno->INFOTARJETA->Ds_EMV3DS );
+			if ( isset( $responsews->iniciaPeticionReturn ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$xml_retorno = new SimpleXMLElement( $responsews->iniciaPeticionReturn ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$respuesta   = json_decode( $xml_retorno->INFOTARJETA->Ds_EMV3DS ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			}
 
 			if ( 'yes' === $class_redsys->debug ) {
 				$class_redsys->log->add( 'redsys', ' ' );
-				// $class_redsys->log->add( 'redsys', '$acctinfo: ' . $acctinfo );
-				$class_redsys->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) );
+				$class_redsys->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
 
-			$ds_emv3ds_json           = $xml_retorno->INFOTARJETA->Ds_EMV3DS;
+			$ds_emv3ds_json           = $xml_retorno->INFOTARJETA->Ds_EMV3DS; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 			$ds_emv3ds                = json_decode( $ds_emv3ds_json );
-			$protocol_version         = $ds_emv3ds->protocolVersion;
-			$three_ds_server_trans_id = $ds_emv3ds->threeDSServerTransID;
-			$three_ds_info            = $ds_emv3ds->threeDSInfo;
+			$protocol_version         = $ds_emv3ds->protocolVersion; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$three_ds_server_trans_id = $ds_emv3ds->threeDSServerTransID; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$three_ds_info            = $ds_emv3ds->threeDSInfo; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
 			if ( 'yes' === $class_redsys->debug ) {
 				$class_redsys->log->add( 'redsys', ' ' );
 				$class_redsys->log->add( 'redsys', '$ds_emv3ds_json: ' . $ds_emv3ds_json );
-				$class_redsys->log->add( 'redsys', '$ds_emv3ds: ' . print_r( $ds_emv3ds, true ) );
+				$class_redsys->log->add( 'redsys', '$ds_emv3ds: ' . print_r( $ds_emv3ds, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 				$class_redsys->log->add( 'redsys', '$three_ds_server_trans_id: ' . $three_ds_server_trans_id );
 				$class_redsys->log->add( 'redsys', '$three_ds_info: ' . $three_ds_info );
 			}
@@ -9890,25 +9896,25 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$cliente    = new SoapClient( $redsys_adr );
 				$responsews = $cliente->trataPeticion( array( 'datoEntrada' => $xml ) );
 
-				if ( isset( $responsews->trataPeticionReturn ) ) {
-					$xml_retorno       = new SimpleXMLElement( $responsews->trataPeticionReturn );
-					$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode;
-					$codigo            = (string) $xml_retorno->CODIGO;
-					$redsys_order      = (string) $xml_retorno->OPERACION->Ds_Order;
-					$terminal          = (string) $xml_retorno->OPERACION->Ds_Terminal;
-					$currency_code     = (string) $xml_retorno->OPERACION->Ds_Currency;
+				if ( isset( $responsews->trataPeticionReturn ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$xml_retorno       = new SimpleXMLElement( $responsews->trataPeticionReturn ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$codigo            = (string) $xml_retorno->CODIGO; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$redsys_order      = (string) $xml_retorno->OPERACION->Ds_Order; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$terminal          = (string) $xml_retorno->OPERACION->Ds_Terminal; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$currency_code     = (string) $xml_retorno->OPERACION->Ds_Currency; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				}
 
 				if ( 'yes' === $class_redsys->debug ) {
 					$class_redsys->log->add( 'redsys', ' ' );
-					$class_redsys->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) );
+					$class_redsys->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 					$class_redsys->log->add( 'redsys', 'Ds_AuthorisationCode: ' . $authorisationcode );
 				}
 				if ( $authorisationcode ) {
 					WCRed()->update_order_meta( $order->get_id(), '_redsys_done', 'yes' );
 					$order->payment_complete();
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'redsys', 'payment_complete 20' );
+					if ( 'yes' === $class_redsys->debug ) {
+						$class_redsys->log->add( 'redsys', 'payment_complete 20' );
 					}
 					if ( 'yes' === $class_redsys->debug ) {
 						$class_redsys->log->add( 'redsys', ' ' );
@@ -9986,7 +9992,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					do_action( 'redsys_post_payment_complete', $order->get_id() );
 					return true;
 				} else {
-					// TO-DO: Enviar un correo con el problema al administrador
+					// TO-DO: Enviar un correo con el problema al administrador.
 					$order->add_order_note( __( 'There wasn\'t respond from Redsys', 'woocommerce-redsys' ) );
 					$error = __( 'There wasn\'t respond from Redsys', 'woocommerce-redsys' );
 					do_action( 'redsys_post_payment_error', $order->get_id(), $error );
@@ -10033,27 +10039,26 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 				$cliente    = new SoapClient( $redsys_adr );
 				$responsews = $cliente->trataPeticion( array( 'datoEntrada' => $xml ) );
 
-				if ( isset( $responsews->trataPeticionReturn ) ) {
-					$xml_retorno = new SimpleXMLElement( $responsews->trataPeticionReturn );
-					// $respuesta   = json_decode( $xml_retorno->INFOTARJETA->Ds_EMV3DS );
+				if ( isset( $responsews->trataPeticionReturn ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$xml_retorno = new SimpleXMLElement( $responsews->trataPeticionReturn ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 				}
 
 				if ( 'yes' === $class_redsys->debug ) {
 					$class_redsys->log->add( 'redsys', ' ' );
-					$class_redsys->log->add( 'redsys', '$responsews: ' . print_r( $responsews, true ) );
-					$class_redsys->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) );
+					$class_redsys->log->add( 'redsys', '$responsews: ' . print_r( $responsews, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+					$class_redsys->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 				}
-				$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode;
-				$codigo            = (string) $xml_retorno->CODIGO;
-				$redsys_order      = (string) $xml_retorno->OPERACION->Ds_Order;
-				$terminal          = (string) $xml_retorno->OPERACION->Ds_Terminal;
-				$currency_code     = (string) $xml_retorno->OPERACION->Ds_Currency;
+				$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$codigo            = (string) $xml_retorno->CODIGO; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$redsys_order      = (string) $xml_retorno->OPERACION->Ds_Order; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$terminal          = (string) $xml_retorno->OPERACION->Ds_Terminal; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$currency_code     = (string) $xml_retorno->OPERACION->Ds_Currency; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
 				if ( $authorisationcode ) {
 					WCRed()->update_order_meta( $order_id, '_redsys_done', 'yes' );
 					$order->payment_complete();
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'redsys', 'payment_complete 21' );
+					if ( 'yes' === $class_redsys->debug ) {
+						$class_redsys->log->add( 'redsys', 'payment_complete 21' );
 					}
 					if ( 'yes' === $class_redsys->debug ) {
 						$class_redsys->log->add( 'redsys', ' ' );
@@ -10131,7 +10136,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 					do_action( 'redsys_post_payment_complete', $order->get_id() );
 					return true;
 				} else {
-					// TO-DO: Enviar un correo con el problema al administrador
+					// TO-DO: Enviar un correo con el problema al administrador.
 					$order->add_order_note( __( 'There wasn\'t respond from Redsys', 'woocommerce-redsys' ) );
 					$error = __( 'There wasn\'t respond from Redsys', 'woocommerce-redsys' );
 					do_action( 'redsys_post_payment_error', $order->get_id(), $error );
@@ -10143,16 +10148,20 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Bulk Actions Handler
+	 *
+	 * @param  string $redirect_to Where redirect to.
+	 * @param  string $doaction    Action.
+	 * @param  array  $post_ids    Post ids.
+	 *
+	 * @throws Exception Exception.
 	 */
 	public static function redsys_bulk_actions_handler( $redirect_to, $doaction, $post_ids ) {
 
 		if ( 'redsys_charge_invoice_token' !== $doaction && 'redsys_bulk_refund' !== $doaction && 'redsys_aprobe_preauthorizations' !== $doaction ) {
 			return $redirect_to;
 		}
-		
+
 		$class_redsys = new WC_Gateway_Redsys();
 
 		if ( 'yes' === $class_redsys->debug ) {
@@ -10162,21 +10171,11 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$class_redsys->log->add( 'redsys', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
 			$class_redsys->log->add( 'redsys', '$redirect_to = ' . $redirect_to );
 			$class_redsys->log->add( 'redsys', '$doaction = ' . $doaction );
-			$class_redsys->log->add( 'redsys', '$post_ids = ' . print_r( $post_ids, true ) );
+			$class_redsys->log->add( 'redsys', '$post_ids = ' . print_r( $post_ids, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			$class_redsys->log->add( 'redsys', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
 		}
-		/*
-		if ( WCRed()->is_gateway_enabled( 'preauthorizationsredsys' ) ) {
-			return $redirect_to;
-		}
-		*/
-		// Solo continúa si son las acciones que hemos creado nosotros
-		/*
-		if ( 'redsys_charge_invoice_token' !== $doaction &&  'redsys_bulk_refund' !== $doaction ) {
-			return $redirect_to;
-		}
-		*/
-		// Si es la acción primera, realizará estas accion
+
+		// Si es la acción primera, realizará estas accion.
 		if ( 'redsys_charge_invoice_token' === $doaction ) {
 			if ( 'yes' === $class_redsys->debug ) {
 				$class_redsys->log->add( 'redsys', __( 'Doing Bulk Actions', 'woocommerce-redsys' ) );
@@ -10189,15 +10188,15 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			}
 
 			foreach ( $post_ids as $post_id ) {
-				// Get all order information
+				// Get all order information.
 				$order = wc_get_order( $post_id );
-				// Get user ID
+				// Get user ID.
 				$user_id = $order->get_user_id();
-				// Check if is pending
+				// Check if is pending.
 				$status = $order->get_status();
 				if ( 'pending' === $status ) {
 					if ( 'yes' === WCRed()->get_redsys_option( 'psd2', 'redsys' ) ) {
-						// Is PSD2
+						// Is PSD2.
 						if ( 'yes' === $class_redsys->debug ) {
 							$class_redsys->log->add( 'redsys', ' ' );
 							$class_redsys->log->add( 'redsys', '/**********************************************/' );
@@ -10242,10 +10241,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 							$class_redsys->log->add( 'redsys', 'Using WS URL: ' . $redsys_adr );
 							$class_redsys->log->add( 'redsys', ' ' );
 						}
-
-						// $order_id = $order->get_id();.
-						$currency_codes = WCRed()->get_currencies();
-
+						$currency_codes   = WCRed()->get_currencies();
 						$transaction_id2  = WCRed()->prepare_order_number( $order_id, 'redsys' );
 						$order_total_sign = WCRed()->redsys_amount_format( $order->get_total() );
 
@@ -10421,27 +10417,25 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						$cliente    = new SoapClient( $redsys_adr );
 						$responsews = $cliente->iniciaPeticion( array( 'datoEntrada' => $xml ) );
 
-						if ( isset( $responsews->iniciaPeticionReturn ) ) {
-							$xml_retorno = new SimpleXMLElement( $responsews->iniciaPeticionReturn );
-							// $respuesta   = json_decode( $xml_retorno->INFOTARJETA->Ds_EMV3DS );
+						if ( isset( $responsews->iniciaPeticionReturn ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+							$xml_retorno = new SimpleXMLElement( $responsews->iniciaPeticionReturn ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 						}
 
 						if ( 'yes' === $class_redsys->debug ) {
 							$class_redsys->log->add( 'redsys', ' ' );
-							// $class_redsys->log->add( 'redsys', '$acctinfo: ' . $acctinfo );
-							$class_redsys->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) );
+							$class_redsys->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 						}
 
-						$ds_emv3ds_json           = $xml_retorno->INFOTARJETA->Ds_EMV3DS;
+						$ds_emv3ds_json           = $xml_retorno->INFOTARJETA->Ds_EMV3DS; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 						$ds_emv3ds                = json_decode( $ds_emv3ds_json );
-						$protocol_version         = $ds_emv3ds->protocolVersion;
-						$three_ds_server_trans_id = $ds_emv3ds->threeDSServerTransID;
-						$three_ds_info            = $ds_emv3ds->threeDSInfo;
+						$protocol_version         = $ds_emv3ds->protocolVersion; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+						$three_ds_server_trans_id = $ds_emv3ds->threeDSServerTransID; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+						$three_ds_info            = $ds_emv3ds->threeDSInfo; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
 						if ( 'yes' === $class_redsys->debug ) {
 							$class_redsys->log->add( 'redsys', ' ' );
 							$class_redsys->log->add( 'redsys', '$ds_emv3ds_json: ' . $ds_emv3ds_json );
-							$class_redsys->log->add( 'redsys', '$ds_emv3ds: ' . print_r( $ds_emv3ds, true ) );
+							$class_redsys->log->add( 'redsys', '$ds_emv3ds: ' . print_r( $ds_emv3ds, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 							$class_redsys->log->add( 'redsys', '$three_ds_server_trans_id: ' . $three_ds_server_trans_id );
 							$class_redsys->log->add( 'redsys', '$three_ds_info: ' . $three_ds_info );
 						}
@@ -10485,18 +10479,18 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 							$cliente    = new SoapClient( $redsys_adr );
 							$responsews = $cliente->trataPeticion( array( 'datoEntrada' => $xml ) );
 
-							if ( isset( $responsews->trataPeticionReturn ) ) {
-								$xml_retorno       = new SimpleXMLElement( $responsews->trataPeticionReturn );
-								$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode;
-								$codigo            = (string) $xml_retorno->CODIGO;
-								$redsys_order      = (string) $xml_retorno->OPERACION->Ds_Order;
-								$terminal          = (string) $xml_retorno->OPERACION->Ds_Terminal;
-								$currency_code     = (string) $xml_retorno->OPERACION->Ds_Currency;
+							if ( isset( $responsews->trataPeticionReturn ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+								$xml_retorno       = new SimpleXMLElement( $responsews->trataPeticionReturn ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+								$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+								$codigo            = (string) $xml_retorno->CODIGO; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+								$redsys_order      = (string) $xml_retorno->OPERACION->Ds_Order; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+								$terminal          = (string) $xml_retorno->OPERACION->Ds_Terminal; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+								$currency_code     = (string) $xml_retorno->OPERACION->Ds_Currency; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 							}
 
 							if ( 'yes' === $class_redsys->debug ) {
 								$class_redsys->log->add( 'redsys', ' ' );
-								$class_redsys->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) );
+								$class_redsys->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 								$class_redsys->log->add( 'redsys', 'Ds_AuthorisationCode: ' . $authorisationcode );
 							}
 							if ( $authorisationcode ) {
@@ -10581,7 +10575,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 								do_action( 'redsys_post_payment_complete', $order->get_id() );
 								continue;
 							} else {
-								// TO-DO: Enviar un correo con el problema al administrador
+								// TO-DO: Enviar un correo con el problema al administrador.
 								$order->add_order_note( __( 'There wasn\'t respond from Redsys', 'woocommerce-redsys' ) );
 								$error = __( 'There wasn\'t respond from Redsys', 'woocommerce-redsys' );
 								do_action( 'redsys_post_payment_error', $order->get_id(), $error );
@@ -10628,27 +10622,26 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 							$cliente    = new SoapClient( $redsys_adr );
 							$responsews = $cliente->trataPeticion( array( 'datoEntrada' => $xml ) );
 
-							if ( isset( $responsews->trataPeticionReturn ) ) {
-								$xml_retorno = new SimpleXMLElement( $responsews->trataPeticionReturn );
-								// $respuesta   = json_decode( $xml_retorno->INFOTARJETA->Ds_EMV3DS );
+							if ( isset( $responsews->trataPeticionReturn ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+								$xml_retorno = new SimpleXMLElement( $responsews->trataPeticionReturn ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 							}
 
 							if ( 'yes' === $class_redsys->debug ) {
 								$class_redsys->log->add( 'redsys', ' ' );
-								$class_redsys->log->add( 'redsys', '$responsews: ' . print_r( $responsews, true ) );
-								$class_redsys->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) );
+								$class_redsys->log->add( 'redsys', '$responsews: ' . print_r( $responsews, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+								$class_redsys->log->add( 'redsys', '$xml_retorno: ' . print_r( $xml_retorno, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 							}
-							$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode;
-							$codigo            = (string) $xml_retorno->CODIGO;
-							$redsys_order      = (string) $xml_retorno->OPERACION->Ds_Order;
-							$terminal          = (string) $xml_retorno->OPERACION->Ds_Terminal;
-							$currency_code     = (string) $xml_retorno->OPERACION->Ds_Currency;
+							$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+							$codigo            = (string) $xml_retorno->CODIGO; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+							$redsys_order      = (string) $xml_retorno->OPERACION->Ds_Order; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+							$terminal          = (string) $xml_retorno->OPERACION->Ds_Terminal; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+							$currency_code     = (string) $xml_retorno->OPERACION->Ds_Currency; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 
 							if ( $authorisationcode ) {
 								WCRed()->update_order_meta( $order_id, '_redsys_done', 'yes' );
 								$order->payment_complete();
-								if ( 'yes' === $this->debug ) {
-									$this->log->add( 'redsys', 'payment_complete 23' );
+								if ( 'yes' === $class_redsys->debug ) {
+									$class_redsys->log->add( 'redsys', 'payment_complete 23' );
 								}
 								if ( 'yes' === $class_redsys->debug ) {
 									$class_redsys->log->add( 'redsys', ' ' );
@@ -10726,7 +10719,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 								do_action( 'redsys_post_payment_complete', $order->get_id() );
 								continue;
 							} else {
-								// TO-DO: Enviar un correo con el problema al administrador
+								// TO-DO: Enviar un correo con el problema al administrador.
 								$order->add_order_note( __( 'There wasn\'t respond from Redsys', 'woocommerce-redsys' ) );
 								$error = __( 'There wasn\'t respond from Redsys', 'woocommerce-redsys' );
 								do_action( 'redsys_post_payment_error', $order->get_id(), $error );
@@ -10734,7 +10727,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 							}
 						}
 					} else {
-						// Get user Token
+						// Get user Token.
 						$customer_token = WCRed()->get_users_token_bulk( $user_id );
 						if ( $customer_token ) {
 							$order_total_sign     = '';
@@ -10937,10 +10930,10 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 								$class_redsys->log->add( 'redsys', $xml );
 								$class_redsys->log->add( 'redsys', ' ' );
 							}
-							if ( isset( $responsews->trataPeticionReturn ) ) {
-								$xml_retorno = new SimpleXMLElement( $responsews->trataPeticionReturn );
-								if ( isset( $xml_retorno->OPERACION->Ds_Response ) ) {
-									$respuesta = (int) $xml_retorno->OPERACION->Ds_Response;
+							if ( isset( $responsews->trataPeticionReturn ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+								$xml_retorno = new SimpleXMLElement( $responsews->trataPeticionReturn ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+								if ( isset( $xml_retorno->OPERACION->Ds_Response ) ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+									$respuesta = (int) $xml_retorno->OPERACION->Ds_Response; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 									if ( ( $respuesta >= 0 ) && ( $respuesta <= 99 ) ) {
 										if ( 'yes' === $class_redsys->debug ) {
 											$class_redsys->log->add( 'redsys', ' ' );
@@ -10949,13 +10942,13 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 										}
 										WCRed()->update_order_meta( $order->get_id(), '_redsys_done', 'yes' );
 										$order->payment_complete();
-										if ( 'yes' === $this->debug ) {
-											$this->log->add( 'redsys', 'payment_complete 24' );
+										if ( 'yes' === $class_redsys->debug ) {
+											$class_redsys->log->add( 'redsys', 'payment_complete 24' );
 										}
-										$redsys_order      = (string) $xml_retorno->OPERACION->Ds_Order;
-										$terminal          = (string) $xml_retorno->OPERACION->Ds_Terminal;
-										$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode;
-										$currency_code     = (string) $xml_retorno->OPERACION->Ds_Currency;
+										$redsys_order      = (string) $xml_retorno->OPERACION->Ds_Order; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+										$terminal          = (string) $xml_retorno->OPERACION->Ds_Terminal; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+										$authorisationcode = (string) $xml_retorno->OPERACION->Ds_AuthorisationCode; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+										$currency_code     = (string) $xml_retorno->OPERACION->Ds_Currency; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 										$secretsha256      = '';
 
 										if ( 'yes' === $class_redsys->debug ) {
@@ -10965,7 +10958,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 											$class_redsys->log->add( 'redsys', '/****************************/' );
 											$class_redsys->log->add( 'redsys', ' ' );
 										}
-		
+
 										if ( ! empty( $redsys_order ) ) {
 											WCRed()->update_order_meta( $order->get_id(), '_payment_order_number_redsys', $redsys_order );
 											if ( 'yes' === $class_redsys->debug ) {
@@ -11147,17 +11140,19 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 							$line_items[ $item_id ]['refund_tax'] = array_filter( array_map( 'wc_format_decimal', $tax_totals ) );
 						}
 
-						// Create the refund object.
-						$refund = wc_create_refund(
-							array(
-								'amount'         => $max_refund,
-								'reason'         => $refund_reason,
-								'order_id'       => $order_id,
-								'line_items'     => $line_items,
-								'refund_payment' => $api_refund,
-								'restock_items'  => $restock_refunded_items,
-							)
+						$array = array(
+							'amount'         => $max_refund,
+							'reason'         => $refund_reason,
+							'order_id'       => $order_id,
+							'line_items'     => $line_items,
+							'refund_payment' => $api_refund,
+							'restock_items'  => $restock_refunded_items,
 						);
+
+						$array_filter = apply_filters( 'redsys_refund_filter', $array );
+
+						// Create the refund object.
+						$refund = wc_create_refund( $array_filter );
 
 						if ( is_wp_error( $refund ) ) {
 							throw new Exception( $refund->get_error_message() );
@@ -11166,11 +11161,16 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 						if ( did_action( 'woocommerce_order_fully_refunded' ) ) {
 							$response = 'fully_refunded';
 						}
+						if ( did_action( 'woocommerce_order_partially_refunded' ) ) {
+							$response = 'partially_refunded';
+						}
 					} catch ( Exception $e ) {
 						$response = 'error' . $e->getMessage();
 					}
 
 					if ( 'fully_refunded' === $response ) {
+						continue;
+					} elseif ( 'partially_refunded' === $response ) {
 						continue;
 					} else {
 						if ( 'yes' === $class_redsys->debug && $response ) {
@@ -11195,22 +11195,22 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			$redirect_to = add_query_arg( 'redsys_bulk_refund', count( $post_ids ), $redirect_to );
 			return $redirect_to;
 		}
-		if ( $doaction === 'redsys_aprobe_preauthorizations' ) {
+		if ( 'redsys_aprobe_preauthorizations' === $doaction ) {
 			if ( 'yes' === $class_redsys->debug ) {
 				$class_redsys->log->add( 'redsys', ' ' );
 				$class_redsys->log->add( 'redsys', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
 				$class_redsys->log->add( 'redsys', '     redsys_bulk_actions_handler   ' );
 				$class_redsys->log->add( 'redsys', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
 				$class_redsys->log->add( 'redsys', '$doaction = ' . $doaction );
-				$class_redsys->log->add( 'redsys', '$post_ids = ' . print_r( $post_ids, true ) );
+				$class_redsys->log->add( 'redsys', '$post_ids = ' . print_r( $post_ids, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 				$class_redsys->log->add( 'redsys', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
 			}
-			// Solo continúa si son las acciones que hemos creado nosotros
+			// Solo continúa si son las acciones que hemos creado nosotros.
 
 			if ( 'yes' === $class_redsys->debug ) {
 				$class_redsys->log->add( 'redsys', __( 'Doing Bulk Actions', 'woocommerce-redsys' ) );
 			}
-			// Si es la acción primera, realizará estas accion
+			// Si es la acción primera, realizará estas accion.
 
 			if ( 'redsys_aprobe_preauthorizations' === $doaction ) {
 
@@ -11234,7 +11234,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 								$result = $class_redsys->check_confirm_preauth( $id );
 								$x++;
 							} while ( $x <= 20 && false === $result );
-							@ob_clean();
+							@ob_clean(); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 							if ( 'yes' === $class_redsys->debug && $result ) {
 								$class_redsys->log->add( 'redsys', __( 'Confirming Preauthorization = true ', 'woocommerce-redsys' ) );
 							}
@@ -11271,23 +11271,38 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Hide payment method Add Method
+	 *
+	 * @param array $available_gateways All available gateways.
 	 */
-	function hide_payment_method_add_method( $available_gateways ) {
+	public function hide_payment_method_add_method( $available_gateways ) {
 
 		if ( ! is_admin() && is_checkout() && 'yes' === $this->hidegatewaychckout ) {
 			unset( $available_gateways[ $this->id ] );
 		}
 		return $available_gateways;
 	}
-	function hide_payment_method_by_country_redsys( $available_gateways ) {
-		if ( is_admin() ) return $available_gateways;
-		if ( function_exists( 'is_network_admin' ) && is_network_admin() ) return $available_gateways;
-		if ( ! function_exists( 'WC' ) ) return $available_gateways;
-		if ( ! isset( $available_gateways[ $this->id ] ) ) return $available_gateways;
-		if ( ! is_checkout() ) return $available_gateways;
+	/**
+	 * Hide payment method by country
+	 *
+	 * @param array $available_gateways All available gateways.
+	 */
+	public function hide_payment_method_by_country_redsys( $available_gateways ) {
+		if ( is_admin() ) {
+			return $available_gateways;
+		}
+		if ( function_exists( 'is_network_admin' ) && is_network_admin() ) {
+			return $available_gateways;
+		}
+		if ( ! function_exists( 'WC' ) ) {
+			return $available_gateways;
+		}
+		if ( ! isset( $available_gateways[ $this->id ] ) ) {
+			return $available_gateways;
+		}
+		if ( ! is_checkout() ) {
+			return $available_gateways;
+		}
 		$country = WC()->customer->get_billing_country();
 		if ( ! isset( $this->bankingnetwork ) ) {
 			return $available_gateways;
@@ -11298,24 +11313,24 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 		if ( is_null( $country ) ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', '$country: ' . 'is false' );
+				$this->log->add( 'redsys', '$country: is false' );
 			}
 			$country = false;
 		}
-		if ( isset( $available_gateways[ $this->id ] ) && ( $country === 'ES' || $country === 'PT' ) && $this->bankingnetwork === 'showbankingnetwork' ) {
+		if ( isset( $available_gateways[ $this->id ] ) && ( 'ES' === $country || 'PT' === $country ) && 'showbankingnetwork' === $this->bankingnetwork ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', 'Resultado: ' . 'Es España o Portugal y es showbankingnetwork' );
+				$this->log->add( 'redsys', 'Resultado: Es España o Portugal y es showbankingnetwork' );
 			}
 			unset( $available_gateways[ $this->id ] );
 			return $available_gateways;
-		} elseif ( isset( $available_gateways[ $this->id ] ) && $this->bankingnetwork !== 'showbankingnetwork' ) {
+		} elseif ( isset( $available_gateways[ $this->id ] ) && 'showbankingnetwork' !== $this->bankingnetwork ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', 'Resultado: ' . 'No es showbankingnetwork' );
+				$this->log->add( 'redsys', 'Resultado: No es showbankingnetwork' );
 			}
 			return $available_gateways;
 		} else {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsys', 'Resultado: ' . 'Se debe mostrar redirección en el checkout' );
+				$this->log->add( 'redsys', 'Resultado: Se debe mostrar redirección en el checkout' );
 			}
 			return $available_gateways;
 		}
@@ -11337,12 +11352,14 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			clear: both;
 			border-left: 0.6180469716em solid rgb(228, 120, 51);
 			">';
-			echo __( 'Warning: WooCommerce Redsys Gateway is in test mode. Remember to uncheck it when you go live', 'woocommerce-redsys' );
+			echo esc_html__( 'Warning: WooCommerce Redsys Gateway is in test mode. Remember to uncheck it when you go live', 'woocommerce-redsys' );
 			echo '</div>';
 		}
-		echo '<noscript>' . __( 'Due to the European PSD2 regulation, we need to capture some screen configuration data that can only be done using JavaScript. You have JS disabled, and this increases the chances that the gateway reject your payment.', 'woocommerce-redsys' ) . '</noscript>';
+		echo '<noscript>' . esc_html__( 'Due to the European PSD2 regulation, we need to capture some screen configuration data that can only be done using JavaScript. You have JS disabled, and this increases the chances that the gateway reject your payment.', 'woocommerce-redsys' ) . '</noscript>';
 	}
-
+	/**
+	 * Add JS to footer filling the fields for PSD2.
+	 */
 	public function add_js_footer_checkout() {
 		/**
 		 * Package: WooCommerce Redsys Gateway
@@ -11383,7 +11400,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			if ( isset( $_SERVER['HTTP_ACCEPT'] ) ) {
 				?>
 				if ( document.getElementById( 'billing_http_accept_headers') ) {
-					document.getElementById( 'billing_http_accept_headers').value = btoa( <?php echo '"' . $_SERVER['HTTP_ACCEPT'] . '"'; ?> );
+					document.getElementById( 'billing_http_accept_headers').value = btoa( <?php echo '"' . esc_html( wp_unslash( $_SERVER['HTTP_ACCEPT'] ) ) . '"'; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized ?> );
 				}
 				<?php
 			} else {
@@ -11406,6 +11423,11 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 			<?php
 		}
 	}
+	/**
+	 * Add fields to checkout (Redsys needed fields).
+	 *
+	 * @param array $show_fields Fields to Add.
+	 */
 	public function override_checkout_fields( $show_fields ) {
 		/**
 		 * Package: WooCommerce Redsys Gateway
@@ -11486,6 +11508,11 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		);
 		return $show_fields;
 	}
+	/**
+	 * Priority fields to checkout (Redsys needed fields).
+	 *
+	 * @param array $fields Fields to Add.
+	 */
 	public function checkout_priority_fields( $fields ) {
 		/**
 		 * Package: WooCommerce Redsys Gateway
@@ -11503,80 +11530,84 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		$fields['billing']['billing_js_enabled_navegador']['priority'] = 120;
 		return $fields;
 	}
+	/**
+	 * Save fields to checkout (Redsys needed fields).
+	 *
+	 * @param int $order_id Order ID.
+	 */
 	public function save_field_update_order_meta( $order_id ) {
-		/**
-		 * Package: WooCommerce Redsys Gateway
-		 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-		 * Copyright: (C) 2013 - 2023 José Conti
-		 */
-		$order   = WCRed()->get_order( $order_id );
-		$user_id = $order->get_user_id();
 
-		if ( 'yes' == $this->debug ) {
-			$this->log->add( 'redsys', 'HTTP $_POST checkout received: ' . print_r( $_POST, true ) );
-		}
+		if ( isset( $_POST['woocommerce-process-checkout-nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['woocommerce-process-checkout-nonce'] ) ), 'woocommerce-process_checkout' ) ) {
+			$order   = WCRed()->get_order( $order_id );
+			$user_id = $order->get_user_id();
 
-		if ( ! empty( $_POST['billing_http_accept_headers'] ) ) {
-			$headers = base64_decode( $_POST['billing_http_accept_headers'] );
-			WCRed()->update_order_meta( $order_id, '_accept_haders', sanitize_text_field( $headers ) );
-			update_user_meta( $user_id, '_accept_haders', sanitize_text_field( $headers ) );
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'redsys', 'HTTP $_POST checkout received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			}
+
+			if ( ! empty( $_POST['billing_http_accept_headers'] ) ) {
+				$headers = base64_decode( sanitize_text_field( wp_unslash( $_POST['billing_http_accept_headers'] ) ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
+				WCRed()->update_order_meta( $order_id, '_accept_haders', sanitize_text_field( $headers ) );
+				update_user_meta( $user_id, '_accept_haders', sanitize_text_field( $headers ) );
+			}
+			if ( ! empty( $_POST['billing_agente_navegador'] ) ) {
+				$agente = base64_decode( sanitize_text_field( wp_unslash( $_POST['billing_agente_navegador'] ) ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
+				WCRed()->update_order_meta( $order_id, '_billing_agente_navegador_field', sanitize_text_field( $agente ) );
+				update_user_meta( $user_id, '_billing_agente_navegador_field', sanitize_text_field( $agente ) );
+			}
+			if ( ! empty( $_POST['billing_idioma_navegador'] ) ) {
+				WCRed()->update_order_meta( $order_id, '_billing_idioma_navegador_field', sanitize_text_field( wp_unslash( $_POST['billing_idioma_navegador'] ) ) );
+				update_user_meta( $user_id, '_billing_idioma_navegador_field', sanitize_text_field( wp_unslash( $_POST['billing_idioma_navegador'] ) ) );
+			}
+			if ( ! empty( $_POST['billing_altura_pantalla'] ) ) {
+				WCRed()->update_order_meta( $order_id, '_billing_altura_pantalla_field', sanitize_text_field( wp_unslash( $_POST['billing_altura_pantalla'] ) ) );
+				update_user_meta( $user_id, '_billing_altura_pantalla_field', sanitize_text_field( wp_unslash( $_POST['billing_altura_pantalla'] ) ) );
+			}
+			if ( ! empty( $_POST['billing_anchura_pantalla'] ) ) {
+				WCRed()->update_order_meta( $order_id, '_billing_anchura_pantalla_field', sanitize_text_field( wp_unslash( $_POST['billing_anchura_pantalla'] ) ) );
+				update_user_meta( $user_id, '_billing_anchura_pantalla_field', sanitize_text_field( wp_unslash( $_POST['billing_anchura_pantalla'] ) ) );
+			}
+			if ( ! empty( $_POST['billing_profundidad_color'] ) ) {
+				WCRed()->update_order_meta( $order_id, '_billing_profundidad_color_field', sanitize_text_field( wp_unslash( $_POST['billing_profundidad_color'] ) ) );
+				update_user_meta( $user_id, '_billing_profundidad_color_field', sanitize_text_field( wp_unslash( $_POST['billing_profundidad_color'] ) ) );
+			}
+			if ( ! empty( $_POST['billing_diferencia_horaria'] ) ) {
+				WCRed()->update_order_meta( $order_id, '_billing_diferencia_horaria_field', sanitize_text_field( wp_unslash( $_POST['billing_diferencia_horaria'] ) ) );
+				update_user_meta( $user_id, '_billing_diferencia_horaria_field', sanitize_text_field( wp_unslash( $_POST['billing_diferencia_horaria'] ) ) );
+			}
+			if ( ! empty( $_POST['billing_tz_horaria'] ) ) {
+				WCRed()->update_order_meta( $order_id, '_billing_tz_horaria_field', sanitize_text_field( wp_unslash( $_POST['billing_tz_horaria'] ) ) );
+				update_user_meta( $user_id, '_billing_tz_horaria_field', sanitize_text_field( wp_unslash( $_POST['billing_tz_horaria'] ) ) );
+			}
+			if ( ! empty( $_POST['billing_js_enabled_navegador'] ) ) {
+				WCRed()->update_order_meta( $order_id, '_billing_js_enabled_navegador_field', sanitize_text_field( wp_unslash( $_POST['billing_js_enabled_navegador'] ) ) );
+				update_user_meta( $user_id, '_billing_js_enabled_navegador_field', sanitize_text_field( wp_unslash( $_POST['billing_js_enabled_navegador'] ) ) );
+			}
+			if ( ! empty( $_POST['token'] ) && 'add' !== $_POST['token'] ) {
+				set_transient( $order_id . '_redsys_use_token', sanitize_text_field( wp_unslash( $_POST['token'] ) ), 36000 );
+			} else {
+				set_transient( $order_id . '_redsys_use_token', 'no', 36000 );
+			}
+			if ( ! empty( $_POST['_redsys_token_type'] ) ) {
+				set_transient( $order_id . '_redsys_token_type', sanitize_text_field( wp_unslash( $_POST['_redsys_token_type'] ) ), 36000 );
+			} else {
+				set_transient( $order_id . '_redsys_token_type', 'no', 36000 );
+			}
+			if ( ! empty( $_POST['_redsys_save_token'] ) ) {
+				set_transient( $order_id . '_redsys_save_token', sanitize_text_field( wp_unslash( $_POST['_redsys_save_token'] ) ), 36000 );
+			} else {
+				set_transient( $order_id . '_redsys_save_token', 'no', 36000 );
+			}
+			do_action( 'save_field_update_order_meta', $_POST );
 		}
-		if ( ! empty( $_POST['billing_agente_navegador'] ) ) {
-			$agente = base64_decode( $_POST['billing_agente_navegador'] );
-			WCRed()->update_order_meta( $order_id, '_billing_agente_navegador_field', sanitize_text_field( $agente ) );
-			update_user_meta( $user_id, '_billing_agente_navegador_field', sanitize_text_field( $agente ) );
-		}
-		if ( ! empty( $_POST['billing_idioma_navegador'] ) ) {
-			WCRed()->update_order_meta( $order_id, '_billing_idioma_navegador_field', sanitize_text_field( $_POST['billing_idioma_navegador'] ) );
-			update_user_meta( $user_id, '_billing_idioma_navegador_field', sanitize_text_field( $_POST['billing_idioma_navegador'] ) );
-		}
-		if ( ! empty( $_POST['billing_altura_pantalla'] ) ) {
-			WCRed()->update_order_meta( $order_id, '_billing_altura_pantalla_field', sanitize_text_field( $_POST['billing_altura_pantalla'] ) );
-			update_user_meta( $user_id, '_billing_altura_pantalla_field', sanitize_text_field( $_POST['billing_altura_pantalla'] ) );
-		}
-		if ( ! empty( $_POST['billing_anchura_pantalla'] ) ) {
-			WCRed()->update_order_meta( $order_id, '_billing_anchura_pantalla_field', sanitize_text_field( $_POST['billing_anchura_pantalla'] ) );
-			update_user_meta( $user_id, '_billing_anchura_pantalla_field', sanitize_text_field( $_POST['billing_anchura_pantalla'] ) );
-		}
-		if ( ! empty( $_POST['billing_profundidad_color'] ) ) {
-			WCRed()->update_order_meta( $order_id, '_billing_profundidad_color_field', sanitize_text_field( $_POST['billing_profundidad_color'] ) );
-			update_user_meta( $user_id, '_billing_profundidad_color_field', sanitize_text_field( $_POST['billing_profundidad_color'] ) );
-		}
-		if ( ! empty( $_POST['billing_diferencia_horaria'] ) ) {
-			WCRed()->update_order_meta( $order_id, '_billing_diferencia_horaria_field', sanitize_text_field( $_POST['billing_diferencia_horaria'] ) );
-			update_user_meta( $user_id, '_billing_diferencia_horaria_field', sanitize_text_field( $_POST['billing_diferencia_horaria'] ) );
-		}
-		if ( ! empty( $_POST['billing_tz_horaria'] ) ) {
-			WCRed()->update_order_meta( $order_id, '_billing_tz_horaria_field', sanitize_text_field( $_POST['billing_tz_horaria'] ) );
-			update_user_meta( $user_id, '_billing_tz_horaria_field', sanitize_text_field( $_POST['billing_tz_horaria'] ) );
-		}
-		if ( ! empty( $_POST['billing_js_enabled_navegador'] ) ) {
-			WCRed()->update_order_meta( $order_id, '_billing_js_enabled_navegador_field', sanitize_text_field( $_POST['billing_js_enabled_navegador'] ) );
-			update_user_meta( $user_id, '_billing_js_enabled_navegador_field', sanitize_text_field( $_POST['billing_js_enabled_navegador'] ) );
-		}
-		if ( ! empty( $_POST['token'] ) && 'add' !== $_POST['token'] ) {
-			set_transient( $order_id . '_redsys_use_token', sanitize_text_field( $_POST['token'] ), 36000 );
-		} else {
-			set_transient( $order_id . '_redsys_use_token', 'no', 36000 );
-		}
-		if ( ! empty( $_POST['_redsys_token_type'] ) ) {
-			set_transient( $order_id . '_redsys_token_type', sanitize_text_field( $_POST['_redsys_token_type'] ), 36000 );
-		} else {
-			set_transient( $order_id . '_redsys_token_type', 'no', 36000 );
-		}
-		if ( ! empty( $_POST['_redsys_save_token'] ) ) {
-			set_transient( $order_id . '_redsys_save_token', sanitize_text_field( $_POST['_redsys_save_token'] ), 36000 );
-		} else {
-			set_transient( $order_id . '_redsys_save_token', 'no', 36000 );
-		}
-		do_action( 'save_field_update_order_meta', $_POST );
 	}
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Check if user can see payment method
+	 *
+	 * @param  int $userid User ID.
+	 * @return bool
 	 */
-	function check_user_show_payment_method( $userid = false ) {
+	public function check_user_show_payment_method( $userid = false ) {
 
 		$test_mode  = $this->testmode;
 		$selections = (array) WCRed()->get_redsys_option( 'testshowgateway', 'redsys' );
@@ -11584,7 +11615,7 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		if ( 'yes' !== $test_mode ) {
 			return true;
 		}
-		if ( $selections[0] !== '' || empty( $selections ) ) {
+		if ( '' !== $selections[0] || empty( $selections ) ) {
 			if ( ! $userid ) {
 				return false;
 			}
@@ -11600,11 +11631,12 @@ class WC_Gateway_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Check if user can see payment method
+	 *
+	 * @param  array $available_gateways Available gateways.
+	 * @return array
 	 */
-	function show_payment_method( $available_gateways ) {
+	public function show_payment_method( $available_gateways ) {
 
 		if ( ! is_admin() ) {
 			if ( is_user_logged_in() ) {

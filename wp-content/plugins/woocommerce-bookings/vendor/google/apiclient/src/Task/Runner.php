@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-namespace Google\Task;
+namespace Automattic\WooCommerce\Bookings\Vendor\Google\Task;
 
-use Google\Service\Exception as GoogleServiceException;
-use Google\Task\Exception as GoogleTaskException;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Service\Exception as GoogleServiceException;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Task\Exception as GoogleTaskException;
 
 /**
  * A task runner with exponential backoff support.

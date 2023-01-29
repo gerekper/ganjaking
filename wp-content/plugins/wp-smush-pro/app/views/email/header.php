@@ -170,7 +170,7 @@
       }
     }
   </style>
- 
+
   <style>
     @media only screen and (max-width:430px) {
       h2{
@@ -263,7 +263,7 @@
       .wpmudev-footer div{
         color: #aaa !important;
       }
-      
+
       .smush-light-img{
         display: inline-block !important;
         display: none !important;
@@ -285,7 +285,7 @@
         width:auto !important;
         visibility: visible !important;
       }
-      
+
     }
   </style>
   <!-- Dark mode for outlook -->
@@ -339,7 +339,7 @@
     [data-ogsc] .wpmudev-footer div{
       color: #aaa !important;
     }
-    
+
     [data-ogsc] .smush-light-img{
       display: inline-block !important;
       display: none !important;

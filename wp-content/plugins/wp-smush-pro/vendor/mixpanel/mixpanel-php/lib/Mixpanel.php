@@ -128,7 +128,7 @@ class Mixpanel extends Base_MixpanelBase {
      * @var Producers_MixpanelPeople
      */
     public $group;
- 
+
 
 
     /**
@@ -136,7 +136,7 @@ class Mixpanel extends Base_MixpanelBase {
      * @var Mixpanel[]
      */
     private static $_instances = array();
-    
+
 
     /**
      * Instantiates a new Mixpanel instance.

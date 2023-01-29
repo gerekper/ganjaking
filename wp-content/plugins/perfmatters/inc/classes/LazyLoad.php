@@ -5,8 +5,14 @@ namespace Perfmatters;
 class LazyLoad
 {
 	//initialize lazyload iframe functions
-	public static function init_iframes() {
+	public static function init_iframes()
+	{
+		add_action('wp', array('Perfmatters\LazyLoad', 'queue_iframes'));
+	}
 
+	//queue iframe functions
+	public static function queue_iframes()
+	{
 		//check filters
 		if(empty(apply_filters('perfmatters_lazyload', !empty(Config::$options['lazyload']['lazy_loading_iframes'])))) {
 			return;
@@ -162,7 +168,7 @@ class LazyLoad
 		//finished youtube lazy output
 		$youtube_lazyload = '<div class="perfmatters-lazy-youtube" data-src="' . esc_attr($youtube_url) . '" data-id="' . esc_attr($youtube_id) . '" data-query="' . esc_attr($query) . '" onclick="perfmattersLazyLoadYouTube(this);">';
 			$youtube_lazyload.= '<div>';
-				$youtube_lazyload.= '<img src="https://i.ytimg.com/vi/' . esc_attr($youtube_id) .'/' . $resolution . '.jpg" alt="YouTube ' . __('video', 'perfmatters') . '" width="' . $resolutions[$resolution]['width'] . '" height="' . $resolutions[$resolution]['height'] . '" data-pin-nopin="true">';
+				$youtube_lazyload.= '<img src="https://i.ytimg.com/vi/' . esc_attr($youtube_id) .'/' . $resolution . '.jpg" alt="YouTube ' . __('video', 'perfmatters') . '" width="' . $resolutions[$resolution]['width'] . '" height="' . $resolutions[$resolution]['height'] . '" data-pin-nopin="true" nopin="nopin">';
 				$youtube_lazyload.= '<div class="play"></div>';
 			$youtube_lazyload.= '</div>';
 		$youtube_lazyload.= '</div>';
@@ -236,8 +242,14 @@ class LazyLoad
 	}
 
 	//initialize lazy loading
-	public static function init() {
+	public static function init_images()
+	{
+		add_action('wp', array('Perfmatters\LazyLoad', 'queue_images'));
+	}
 
+	//queue image functions
+	public static function queue_images()
+	{
 		//check filters
 		if(empty(apply_filters('perfmatters_lazyload', !empty(Config::$options['lazyload']['lazy_loading']) || !empty(Config::$options['lazyload']['lazy_loading_iframes']) || !empty(Config::$options['lazyload']['css_background_images'])))) {
 			return;

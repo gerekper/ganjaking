@@ -20,7 +20,8 @@ class Config
 	}
 
 	//setup admin bar menu
-	public static function admin_bar_menu(WP_Admin_Bar $wp_admin_bar) {
+	public static function admin_bar_menu(WP_Admin_Bar $wp_admin_bar) 
+	{
 
 		if(!current_user_can('manage_options') || !perfmatters_network_access() || !empty(self::$tools['hide_admin_bar_menu'])) {
 			return;

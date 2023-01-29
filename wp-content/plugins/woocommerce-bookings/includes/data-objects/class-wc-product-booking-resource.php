@@ -161,11 +161,13 @@ class WC_Product_Booking_Resource extends WC_Bookings_Data {
 	/**
 	 * Get availability.
 	 *
-	 * @param  string $context
+	 * @since 1.15.70 Unserialize availability rules.
+	 * @param string $context
+	 *
 	 * @return array
 	 */
 	public function get_availability( $context = 'view' ) {
-		return $this->get_prop( 'availability', $context );
+		return array_map( 'maybe_unserialize', $this->get_prop( 'availability', $context ) );
 	}
 
 	/**

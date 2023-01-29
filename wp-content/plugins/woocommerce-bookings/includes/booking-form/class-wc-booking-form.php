@@ -30,49 +30,65 @@ class WC_Booking_Form {
 	public function scripts() {
 		global $wp_locale;
 
-		$wc_bookings_booking_form_args = array(
-			'closeText'                    => __( 'Close', 'woocommerce-bookings' ),
-			'currentText'                  => __( 'Today', 'woocommerce-bookings' ),
-			'prevText'                     => __( 'Previous', 'woocommerce-bookings' ),
-			'nextText'                     => __( 'Next', 'woocommerce-bookings' ),
-			'monthNames'                   => array_values( $wp_locale->month ),
-			'monthNamesShort'              => array_values( $wp_locale->month_abbrev ),
-			'dayNames'                     => array_values( $wp_locale->weekday ),
-			'dayNamesShort'                => array_values( $wp_locale->weekday_abbrev ),
-			'dayNamesMin'                  => array_values( $wp_locale->weekday_initial ),
-			'firstDay'                     => get_option( 'start_of_week' ),
-			'current_time'                 => date( 'Ymd', current_time( 'timestamp' ) ),
-			'check_availability_against'   => $this->product->get_check_start_block_only() ? 'start' : '',
-			'duration_type'                => $this->product->get_duration_type(),
-			'duration_unit'                => $this->product->get_duration_unit(),
-			'resources_assignment'         => ! $this->product->has_resources() ? 'customer' : $this->product->get_resources_assignment(),
-			'isRTL'                        => is_rtl(),
-			'product_id'                   => $this->product->get_id(),
-			'default_availability'         => $this->product->get_default_availability(),
-			'default_blocks_area_text'     => __( 'Choose a date above to see available times.', 'woocommerce-bookings' ),
-		);
+		$wc_bookings_booking_form_args = [
+			'closeText'                => __( 'Close', 'woocommerce-bookings' ),
+			'currentText'              => __( 'Today', 'woocommerce-bookings' ),
+			'prevText'                 => __( 'Previous', 'woocommerce-bookings' ),
+			'nextText'                 => __( 'Next', 'woocommerce-bookings' ),
+			'monthNames'               => array_values( $wp_locale->month ),
+			'monthNamesShort'          => array_values( $wp_locale->month_abbrev ),
+			'dayNames'                 => array_values( $wp_locale->weekday ),
+			'dayNamesShort'            => array_values( $wp_locale->weekday_abbrev ),
+			'dayNamesMin'              => array_values( $wp_locale->weekday_initial ),
+			'firstDay'                 => get_option( 'start_of_week' ),
+			'current_time'             => date( 'Ymd', current_time( 'timestamp' ) ),
+			'default_blocks_area_text' => __( 'Choose a date above to see available times.', 'woocommerce-bookings' ),
+			'isRTL'                    => is_rtl()
+		];
 
-		$wc_bookings_date_picker_args = array(
-			'ajax_url'                   => WC_Ajax_Compat::get_endpoint( 'wc_bookings_find_booked_day_blocks' ),
-		);
+		$wc_bookings_booking_form_product_args = [
+			'check_availability_against' => $this->product->get_check_start_block_only() ? 'start' : '',
+			'duration_type'              => $this->product->get_duration_type(),
+			'duration_unit'              => $this->product->get_duration_unit(),
+			'resources_assignment'       => ! $this->product->has_resources() ? 'customer' : $this->product->get_resources_assignment(),
+			'product_id'                 => $this->product->get_id(),
+			'default_availability'       => $this->product->get_default_availability(),
+		];
+
+		$wc_bookings_date_picker_args = [
+			'ajax_url' => WC_Ajax_Compat::get_endpoint( 'wc_bookings_find_booked_day_blocks' ),
+		];
 
 		if ( in_array( $this->product->get_duration_unit(), array( 'minute', 'hour' ) ) ) {
-			$wc_bookings_booking_form_args['booking_duration'] = 1;
+			$wc_bookings_booking_form_product_args['booking_duration'] = 1;
 		} else {
-			$wc_bookings_booking_form_args['booking_duration']         = $this->product->get_duration();
-			$wc_bookings_booking_form_args['booking_duration_type']    = $this->product->get_duration_type();
+			$wc_bookings_booking_form_product_args['booking_duration']         = $this->product->get_duration();
 
-			if ( 'customer' == $wc_bookings_booking_form_args['booking_duration_type'] ) {
-				$wc_bookings_booking_form_args['booking_min_duration'] = $this->product->get_min_duration();
-				$wc_bookings_booking_form_args['booking_max_duration'] = $this->product->get_max_duration();
+			if ( 'customer' == $wc_bookings_booking_form_product_args['duration_type'] ) {
+				$wc_bookings_booking_form_product_args['booking_min_duration'] = $this->product->get_min_duration();
+				$wc_bookings_booking_form_product_args['booking_max_duration'] = $this->product->get_max_duration();
 			} else {
-				$wc_bookings_booking_form_args['booking_min_duration'] = $wc_bookings_booking_form_args['booking_duration'];
-				$wc_bookings_booking_form_args['booking_max_duration'] = $wc_bookings_booking_form_args['booking_duration'];
+				$wc_bookings_booking_form_product_args['booking_min_duration'] = $wc_bookings_booking_form_product_args['booking_duration'];
+				$wc_bookings_booking_form_product_args['booking_max_duration'] = $wc_bookings_booking_form_product_args['booking_duration'];
 			}
 		}
 
+		// Multiple global objects are defined on client side when more than one booking product is loaded per page.
+		// For this reason, localized param values are set to the last defined global object which creates an issue with booking calendars.
+		// Also, global object always refer to the recently loaded booking product. To fix issue,
+		// Product specific properties will load with "wc_bookings_booking_form_{$wc_bookings_booking_form_product_args['product_id']}"
+		// But to maintain backward compatibility these properties also load with "wc_bookings_booking_form".
+		// Our scripts are updated to use product specific global object when there are multiple booking products on same page.
+		// https://github.com/woocommerce/woocommerce-bookings/issues/1636
+		$wc_bookings_booking_form_args = array_merge(
+			$wc_bookings_booking_form_args,
+			$wc_bookings_booking_form_product_args,
+			[ 'booking_duration_type' => $this->product->get_duration_type() ]
+		);
+
 		wp_enqueue_script( 'wc-bookings-booking-form', WC_BOOKINGS_PLUGIN_URL . '/dist/frontend.js', array( 'jquery', 'jquery-blockui', 'jquery-ui-datepicker', 'underscore' ), WC_BOOKINGS_VERSION, true );
 		wp_localize_script( 'wc-bookings-booking-form', 'wc_bookings_booking_form', $wc_bookings_booking_form_args );
+		wp_localize_script( 'wc-bookings-booking-form', "wc_bookings_booking_form_{$wc_bookings_booking_form_product_args['product_id']}", $wc_bookings_booking_form_product_args );
 		wp_localize_script( 'wc-bookings-booking-form', 'wc_bookings_date_picker_args', $wc_bookings_date_picker_args );
 		wp_enqueue_script( 'wc-bookings-date' );
 
@@ -91,6 +107,7 @@ class WC_Booking_Form {
 			'i18n_start_date'            => __( 'Choose a Start Date', 'woocommerce-bookings' ),
 			'i18n_end_date'              => __( 'Choose an End Date', 'woocommerce-bookings' ),
 			'i18n_dates'                 => __( 'Dates', 'woocommerce-bookings' ),
+			'i18n_old_availability'      => __( 'Please wait, the latest available slots are being processed in the background.', 'woocommerce-bookings' ),
 			'i18n_choose_options'        => __( 'Please select the options for your booking and make sure duration rules apply.', 'woocommerce-bookings' ),
 			'i18n_clear_date_selection'  => __( 'To clear selection, pick a new start date', 'woocommerce-bookings' ),
 			'i18n_request_failed'        => __( 'We weren\'t able to get that information. Please contact the store owner for help.', 'woocommerce-bookings' ),

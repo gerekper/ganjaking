@@ -1,5 +1,21 @@
 <?php
+/**
+ * Redsys Push Notifications Menu
+ *
+ * @package WooCommerce Redsys Gateway WooCommerce.com > https://woocommerce.com/products/redsys-gateway/
+ * @since 13.0.0
+ * @author José Conti.
+ * @link https://joseconti.com
+ * @license GNU General Public License v3.0
+ * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * @copyright 2013-2013 José Conti.
+ */
 
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * Redsys Push Notifications Menu
+ */
 class Redsys_Push_Notifications_Menu {
 
 	/**
@@ -23,11 +39,6 @@ class Redsys_Push_Notifications_Menu {
 	 * @param array $settings_tabs Array of WooCommerce setting tabs & their labels, excluding the Subscription tab.
 	 * @return array $settings_tabs Array of WooCommerce setting tabs & their labels, including the Subscription tab.
 	 */
-	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
-	 */
 	public static function add_settings_tab( $settings_tabs ) {
 		$settings_tabs['settings_tab_redsys_push'] = __( 'Redsys Push Notifications', 'woocommerce-redsys' );
 		return $settings_tabs;
@@ -46,8 +57,8 @@ class Redsys_Push_Notifications_Menu {
 	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	public static function settings_tab() {
-		echo WCRed()->return_help_notice(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo '<p><strong>' . __( 'Check <a href="https://redsys.joseconti.com/guias/configurar-push-notifications/" target="new">The Guide</a> for configuring Push Notifications. ', 'woocommerce-redsys' ) . '</strong><p>';
+		WCRed()->return_help_notice(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<p><strong>' . esc_html__( 'Check ', 'woocommerce-redsys' ) . '<a href="https://redsys.joseconti.com/guias/configurar-push-notifications/" target="new">' . esc_html__( ' The Guide', 'woocommerce-redsys' ) . '</a>' . esc_html__( 'for configuring Push Notifications. ', 'woocommerce-redsys' ) . '</strong><p>';
 		woocommerce_admin_fields( self::get_settings() );
 	}
 

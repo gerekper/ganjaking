@@ -1,10 +1,17 @@
 <?php
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Redsys Sequential Invoice Numbers
+ *
+ * @package WooCommerce Redsys Gateway WooCommerce.com > https://woocommerce.com/products/redsys-gateway/
+ * @since 13.0.0
+ * @author José Conti.
+ * @link https://joseconti.com
+ * @license GNU General Public License v3.0
+ * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * @copyright 2013-2013 José Conti.
  */
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
-}
+
+defined( 'ABSPATH' ) || exit;
 /**
  * Copyright: (C) 2013 - 2023 José Conti
  */
@@ -30,11 +37,6 @@ class WC_Settings_Tab_Redsys_Sort_Invoices {
 	 *
 	 * @param array $settings_tabs Array of WooCommerce setting tabs & their labels, excluding the Subscription tab.
 	 * @return array $settings_tabs Array of WooCommerce setting tabs & their labels, including the Subscription tab.
-	 */
-	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	public static function add_settings_tab( $settings_tabs ) {
 		$settings_tabs['settings_tab_redsys_invoices'] = __( 'Sequential Invoice Numbers', 'woocommerce-redsys' );
@@ -114,13 +116,13 @@ class WC_Settings_Tab_Redsys_Sort_Invoices {
 			'prefix_invoice_number'  => array(
 				'name' => esc_html__( 'Prefix Invoice Number', 'woocommerce-redsys' ),
 				'type' => 'text',
-				'desc' => sprintf( esc_html__( 'Add here a prefix invoice number, this is not required. Example WC-, the result will be WC-0000000345. Pattern are allowed ex. {Y} this will add the current year. You will find all patterns %1$sshere%2$s.', 'woocommerce-redsys' ), '<a href="https://docs.woocommerce.com/document/redsys-servired-sermepa-gateway/" target="_blank">', '</a>' ),
+				'desc' => sprintf( esc_html__( 'Add here a prefix invoice number, this is not required. Example WC-, the result will be WC-0000000345. Pattern are allowed ex. {Y} this will add the current year. You will find all patterns %1$sshere%2$s.', 'woocommerce-redsys' ), '<a href="https://docs.woocommerce.com/document/redsys-servired-sermepa-gateway/" target="_blank">', '</a>' ), // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
 				'id'   => 'wc_settings_tab_redsys_sort_invoices_prefix_invoice_number',
 			),
 			'postfix_invoice_number' => array(
 				'name' => __( 'Postfix Invoice Number', 'woocommerce-redsys' ),
 				'type' => 'text',
-				'desc' => sprintf( esc_html__( 'Add here a postfix invoice number, this is not required. Example -2015 the result will be WC-0000000345-2015. Pattern are allowed ex. {Y} this will add the current year. You will find all patterns %1$sshere%2$s.', 'woocommerce-redsys' ), '<a href="https://docs.woocommerce.com/document/redsys-servired-sermepa-gateway/" target="_blank">', '</a>' ),
+				'desc' => sprintf( esc_html__( 'Add here a postfix invoice number, this is not required. Example -2015 the result will be WC-0000000345-2015. Pattern are allowed ex. {Y} this will add the current year. You will find all patterns %1$sshere%2$s.', 'woocommerce-redsys' ), '<a href="https://docs.woocommerce.com/document/redsys-servired-sermepa-gateway/" target="_blank">', '</a>' ), // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
 				'id'   => 'wc_settings_tab_redsys_sort_invoices_postfix_invoice_number',
 			),
 			'reset_invoice_number'   => array(
@@ -155,7 +157,9 @@ if ( 'yes' === get_option( 'wc_settings_tab_redsys_sort_invoices_is_active' ) ) 
 	}
 }
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Add invoice number to the order list.
+ *
+ * @param array $columns Add Invocien Number to the order list.
  */
 function redsys_add_invoice_number( $columns ) {
 
@@ -171,9 +175,10 @@ function redsys_add_invoice_number( $columns ) {
 	return $new_column;
 }
 
-// render the values.
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Add invoice number to the order list.
+ *
+ * @param array $column column.
  */
 function redsys_add_invoice_number_value( $column ) {
 	global $post;
@@ -181,13 +186,14 @@ function redsys_add_invoice_number_value( $column ) {
 	$invoice_number = WCRed()->get_order_meta( $post->ID, '_invoice_order_redsys', true );
 
 	if ( 'invoice_number' === $column ) {
-		echo ( ! empty( $invoice_number ) ? $invoice_number : __( 'No invoice n&#176;', 'woocommerce-redsys' ) );
+		echo ( ! empty( $invoice_number ) ? esc_html( $invoice_number ) : esc_html__( 'No invoice n&#176;', 'woocommerce-redsys' ) );
 	}
 }
 
-// sort invoice order colum.
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Sort by invoice number.
+ *
+ * @param array $columns columns.
  */
 function redsys_add_invoice_number_sortable_colum( $columns ) {
 
@@ -198,7 +204,9 @@ function redsys_add_invoice_number_sortable_colum( $columns ) {
 }
 
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Add invoice number to customer email.
+ *
+ * @param int $order_id order.
  */
 function redsys_sort_invoice_orders( $order_id ) {
 
@@ -245,7 +253,9 @@ function redsys_sort_invoice_orders( $order_id ) {
 }
 
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Add invoice number to customer email.
+ *
+ * @param int $order_id order id.
  */
 function redsys_sort_invoice_orders_admin( $order_id ) {
 
@@ -291,23 +301,28 @@ function redsys_sort_invoice_orders_admin( $order_id ) {
 	}
 }
 // We hook to WooCommerce payment function.
+
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Customer_email_invoice_number.
+ *
+ * @param int $order Order ID.
  */
 function redsys_add_invoice_number_to_customer_email( $order ) {
 
 	$invoice_number = redsys_check_add_invoice_number( $order );
 	if ( empty( $invoice_number ) ) {
-		printf( __( 'Order Number: %s', 'woocommerce-redsys' ), $order );
+		printf( esc_html__( 'Order Number: %s', 'woocommerce-redsys' ), esc_html( $order ) ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
 	} else {
 		echo '<h2>';
-		printf( __( 'Invoice Number: %s', 'woocommerce-redsys' ), $invoice_number );
+		printf( esc_html__( 'Invoice Number: %s', 'woocommerce-redsys' ), esc_html( $invoice_number ) ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
 		echo '</h2>';
 	}
 }
 
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Customer_email_invoice_number.
+ *
+ * @param int $order Order ID.
  */
 function redsys_check_add_invoice_number( $order ) {
 	global $woocommerce, $post;
@@ -351,7 +366,10 @@ function redsys_check_add_invoice_number( $order ) {
 }
 
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Customer_email_invoice_number.
+ *
+ * @param int $oldnumber Numer.
+ * @param int $order Order ID.
  */
 function redsys_show_invoice_number( $oldnumber, $order ) {
 	$preorderprefix = get_option( 'wc_settings_tab_redsys_sort_invoices_prefix_order_number' );
@@ -374,28 +392,30 @@ function redsys_show_invoice_number( $oldnumber, $order ) {
 }
 
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Invoice Pattern.
+ *
+ * @param string $string String.
  */
 function redsys_use_patterns( $string ) {
-	$Numericzero                   = preg_replace( '/(\{d\})/', date_i18n( 'd' ), $string );
-	$Numeric                       = preg_replace( '/(\{j\})/', date_i18n( 'j' ), $Numericzero );
-	$English_suffix                = preg_replace( '/(\{S\})/', date_i18n( 'S' ), $Numeric );
-	$Full_name                     = preg_replace( '/(\{l\})/', date_i18n( 'l' ), $English_suffix );
-	$Three_letter                  = preg_replace( '/(\{D\})/', date_i18n( 'D' ), $Full_name );
-	$Month_Numericzero             = preg_replace( '/(\{m\})/', date_i18n( 'm' ), $Three_letter );
-	$Month_Numeric                 = preg_replace( '/(\{n\})/', date_i18n( 'n' ), $Month_Numericzero );
-	$Textual_full                  = preg_replace( '/(\{F\})/', date_i18n( 'F' ), $Month_Numeric );
-	$Textual_three                 = preg_replace( '/(\{M\})/', date_i18n( 'M' ), $Textual_full );
-	$Year_Numeric_four             = preg_replace( '/(\{Y\})/', date_i18n( 'Y' ), $Textual_three );
-	$Year_Numeric_two              = preg_replace( '/(\{y\})/', date_i18n( 'y' ), $Year_Numeric_four );
-	$Time_Lowercase                = preg_replace( '/(\{a\})/', date_i18n( 'a' ), $Year_Numeric_two );
-	$Time_Uppercase                = preg_replace( '/(\{A\})/', date_i18n( 'A' ), $Time_Lowercase );
-	$Hour_twelve_without_zero      = preg_replace( '/(\{g\})/', date_i18n( 'g' ), $Time_Uppercase );
-	$Hour_twelve_zero              = preg_replace( '/(\{h\})/', date_i18n( 'h' ), $Hour_twelve_without_zero );
-	$Hour_twenty_four_without_zero = preg_replace( '/(\{G\})/', date_i18n( 'G' ), $Hour_twelve_zero );
-	$Hour_twenty_four_zero         = preg_replace( '/(\{H\})/', date_i18n( 'H' ), $Hour_twenty_four_without_zero );
-	$Minutes                       = preg_replace( '/(\{i\})/', date_i18n( 'i' ), $Hour_twenty_four_zero );
-	$final                         = preg_replace( '/(\{s\})/', date_i18n( 's' ), $Minutes );
+	$numericzero                   = preg_replace( '/(\{d\})/', date_i18n( 'd' ), $string );
+	$numeric                       = preg_replace( '/(\{j\})/', date_i18n( 'j' ), $numericzero );
+	$english_suffix                = preg_replace( '/(\{S\})/', date_i18n( 'S' ), $numeric );
+	$full_name                     = preg_replace( '/(\{l\})/', date_i18n( 'l' ), $english_suffix );
+	$three_letter                  = preg_replace( '/(\{D\})/', date_i18n( 'D' ), $full_name );
+	$month_numericzero             = preg_replace( '/(\{m\})/', date_i18n( 'm' ), $three_letter );
+	$month_numeric                 = preg_replace( '/(\{n\})/', date_i18n( 'n' ), $month_numericzero );
+	$textual_full                  = preg_replace( '/(\{F\})/', date_i18n( 'F' ), $month_numeric );
+	$textual_three                 = preg_replace( '/(\{M\})/', date_i18n( 'M' ), $textual_full );
+	$year_numeric_four             = preg_replace( '/(\{Y\})/', date_i18n( 'Y' ), $textual_three );
+	$year_numeric_two              = preg_replace( '/(\{y\})/', date_i18n( 'y' ), $year_numeric_four );
+	$time_lowercase                = preg_replace( '/(\{a\})/', date_i18n( 'a' ), $year_numeric_two );
+	$time_uppercase                = preg_replace( '/(\{A\})/', date_i18n( 'A' ), $time_lowercase );
+	$hour_twelve_without_zero      = preg_replace( '/(\{g\})/', date_i18n( 'g' ), $time_uppercase );
+	$hour_twelve_zero              = preg_replace( '/(\{h\})/', date_i18n( 'h' ), $hour_twelve_without_zero );
+	$hour_twenty_four_without_zero = preg_replace( '/(\{G\})/', date_i18n( 'G' ), $hour_twelve_zero );
+	$hour_twenty_four_zero         = preg_replace( '/(\{H\})/', date_i18n( 'H' ), $hour_twenty_four_without_zero );
+	$minutes                       = preg_replace( '/(\{i\})/', date_i18n( 'i' ), $hour_twenty_four_zero );
+	$final                         = preg_replace( '/(\{s\})/', date_i18n( 's' ), $minutes );
 
 	return $final;
 }

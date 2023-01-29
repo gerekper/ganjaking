@@ -2,13 +2,16 @@
 /**
  * Add extra profile fields for users in admin
  *
- * @package  WooCommerce/Admin
- * @version  2.4.0
+ * @package WooCommerce Redsys Gateway WooCommerce.com > https://woocommerce.com/products/redsys-gateway/
+ * @since 13.0.0
+ * @author José Conti.
+ * @link https://joseconti.com
+ * @license GNU General Public License v3.0
+ * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * @copyright 2013-2013 José Conti.
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 
@@ -25,7 +28,12 @@ if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 			add_action( 'edit_user_profile', array( $this, 'add_tokens_fields' ) );
 			add_action( 'admin_head', array( $this, 'check_send_link' ) );
 		}
-		public function add_tokens_fields( $user ) {
+		/**
+		 * Add tokens fields to user profile
+		 *
+		 * @param WP_User $profileuser User object.
+		 */
+		public function add_tokens_fields( $profileuser ) {
 			if ( ! apply_filters( 'woocommerce_current_user_can_edit_customer_meta_fields', current_user_can( 'manage_woocommerce' ), $user->ID ) ) {
 				return;
 			}
@@ -34,14 +42,8 @@ if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 			}
 			$nonce     = wp_create_nonce( 'redsys-nonce-token' );
 			$url_admin = get_admin_url();
-			if ( ! empty( $_GET['user_id'] ) && is_numeric( $_GET['user_id'] ) ) {
-				$user_id  = $_GET['user_id'];
-				$full_url = $url_admin . 'user-edit.php?user_id=' . $user_id . '&nonce=' . $nonce;
-			} else {
-				$current_user = wp_get_current_user();
-				$user_id      = $current_user->ID;
-				$full_url     = $url_admin . 'profile.php?user_id=' . $user_id . '&nonce=' . $nonce;
-			}
+			$user_id   = $profileuser->ID;
+			$full_url  = $url_admin . 'user-edit.php?user_id=' . $user_id . '&nonce=' . $nonce;
 			?>
 			<h2><?php esc_html_e( 'Type', 'woocommerce-redsys' ); ?></h2>
 			<table class="form-table" id="fieldset-redsys-tokens">
@@ -53,7 +55,7 @@ if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 						<td>
 							<textarea name="toekens" id="toekens" rows="10" cols="60" readonly><?php WCRed()->get_all_tokens( $user->ID, 'C' ); ?></textarea>
 							<p class="submit">
-								<a href="<?php echo $full_url . '&token=s'; ?>" class="button-primary" target="_self"><?php esc_html_e( 'Request 1click Token', 'woocommerce-redsys' ); ?></a>
+								<a href="<?php echo esc_url( $full_url ) . '&token=s'; ?>" class="button-primary" target="_self"><?php esc_html_e( 'Request 1click Token', 'woocommerce-redsys' ); ?></a>
 							</p>
 						</td>
 					</tr>
@@ -64,7 +66,7 @@ if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 						<td>
 							<textarea name="toekenr" id="toekenr" rows="10" cols="60" readonly><?php WCRed()->get_all_tokens( $user->ID, 'R' ); ?></textarea>
 							<p class="submit">
-								<a href="<?php echo $full_url . '&token=r'; ?>" class="button-primary" target="_self"><?php esc_html_e( 'Request Subscription Token', 'woocommerce-redsys' ); ?></a>
+								<a href="<?php echo esc_url( $full_url ) . '&token=r'; ?>" class="button-primary" target="_self"><?php esc_html_e( 'Request Subscription Token', 'woocommerce-redsys' ); ?></a>
 							</p>
 						</td>
 					</tr>
@@ -72,6 +74,9 @@ if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 			</table>
 			<?php
 		}
+		/**
+		 * Create Hash
+		 */
 		public function create_hash() {
 			$length            = 30;
 			$characters        = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -82,6 +87,12 @@ if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 			}
 			return $random_string;
 		}
+		/**
+		 * Create link to send to user.
+		 *
+		 * @param int    $user user id.
+		 * @param string $toke_type token type.
+		 */
 		public function create_link_user( $user, $toke_type ) {
 
 			$hash = $this->create_hash();
@@ -96,6 +107,9 @@ if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 				$pay_url
 			);
 		}
+		/**
+		 * Send email to user.
+		 */
 		public function notice_send_email() {
 			?>
 			<div class="updated notice">
@@ -103,14 +117,17 @@ if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 			</div>
 			<?php
 		}
+		/**
+		 * Check if send link.
+		 */
 		public function check_send_link() {
 			$screen = get_current_screen();
 			if ( 'profile' === $screen->id || 'user-edit' === $screen->id ) {
 				if ( ! empty( $_GET['nonce'] ) && ! empty( $_GET['token'] ) && ! empty( $_GET['user_id'] ) ) {
-					$nonce = $_REQUEST['nonce'];
+					$nonce = sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 					if ( wp_verify_nonce( $nonce, 'redsys-nonce-token' ) ) {
-						$toke_type  = $_REQUEST['token'];
-						$user       = $_REQUEST['user_id'];
+						$toke_type  = sanitize_text_field( wp_unslash( $_REQUEST['token'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+						$user       = sanitize_text_field( wp_unslash( $_REQUEST['user_id'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 						$user_data  = get_userdata( (int) $user );
 						$customer   = new WC_Customer( $user );
 						$email      = $user_data->user_email;
@@ -147,14 +164,20 @@ if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 				}
 			}
 		}
+		/**
+		 * Handle new method.
+		 *
+		 * @param array $wp data from wp.
+		 */
 		public static function redsys_handle_requests_add_method( $wp ) {
 			global $woocommerce;
 
-			if ( isset( $_GET['redsys-user-id'] ) && isset( $_GET['token-type'] ) && isset( $_GET['hash'] ) ) {
+			// Nonce is not necesary because we are using a transient to check the hash.
+			if ( isset( $_GET['redsys-user-id'] ) && isset( $_GET['token-type'] ) && isset( $_GET['hash'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				ob_start();
-				$user       = sanitize_key( wp_unslash( $_GET['redsys-user-id'] ) );
-				$token_type = sanitize_key( wp_unslash( $_GET['token-type'] ) );
-				$hash       = $_GET['hash'];
+				$user       = sanitize_key( wp_unslash( $_GET['redsys-user-id'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				$token_type = sanitize_key( wp_unslash( $_GET['token-type'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+				$hash       = sanitize_text_field( wp_unslash( $_GET['hash'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				$transient  = get_transient( 'hash_' . $user );
 				if ( $transient !== $hash ) {
 					wp_die( esc_html__( 'Ask to administrator for new link', 'woocommerce-redsys' ) );
@@ -176,9 +199,10 @@ if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 					$form_inputs[] .= '<input type="hidden" name="' . $key . '" value="' . esc_attr( $value ) . '" />';
 				}
 				echo '<form action="' . esc_url( $redsys_adr ) . '" method="post" id="redsys_payment_form" target="_top">
-				' . implode( '', $form_inputs ) . '
-				<input type="submit" class="button-alt" id="submit_redsys_payment_form" value="' . __( 'Pay with Credit Card via Servired/RedSys', 'woocommerce-redsys' ) . '" />
-				<a class="button cancel" href="' . esc_url( wc_get_endpoint_url( 'add-payment-method' ) ) . '">' . __( 'Cancel order &amp; restore cart', 'woocommerce-redsys' ) . '</a>
+				' . implode( '', $form_inputs ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				. '
+				<input type="submit" class="button-alt" id="submit_redsys_payment_form" value="' . esc_html__( 'Pay with Credit Card via Servired/RedSys', 'woocommerce-redsys' ) . '" />
+				<a class="button cancel" href="' . esc_url( wc_get_endpoint_url( 'add-payment-method' ) ) . '">' . esc_html__( 'Cancel order &amp; restore cart', 'woocommerce-redsys' ) . '</a>
 				</form>';
 				echo '<script>document.getElementById("redsys_payment_form").submit();</script>';
 				exit();

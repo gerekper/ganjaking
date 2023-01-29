@@ -10,16 +10,22 @@ class Fonts
     //initialize fonts
     public static function init() {
         if(empty(Config::$options['fonts']['disable_google_fonts'])) {
+            add_action('wp', array('Perfmatters\Fonts', 'queue'));
+        }
+    }
 
-            //add display swap to the buffer
-            if(!empty(Config::$options['fonts']['display_swap'])) {
-                add_action('perfmatters_output_buffer_template_redirect', array('Perfmatters\Fonts', 'display_swap'));
-            }
+    //queue functions
+    public static function queue()
+    {
 
-            //add local google fonts to the buffer
-            if(!empty(Config::$options['fonts']['local_google_fonts'])) {
-                add_action('perfmatters_output_buffer_template_redirect', array('Perfmatters\Fonts', 'local_google_fonts'));
-            }
+        //add display swap to the buffer
+        if(!empty(Config::$options['fonts']['display_swap'])) {
+            add_action('perfmatters_output_buffer_template_redirect', array('Perfmatters\Fonts', 'display_swap'));
+        }
+
+        //add local google fonts to the buffer
+        if(!empty(Config::$options['fonts']['local_google_fonts'])) {
+            add_action('perfmatters_output_buffer_template_redirect', array('Perfmatters\Fonts', 'local_google_fonts'));
         }
     }
 

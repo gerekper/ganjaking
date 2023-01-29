@@ -5,6 +5,11 @@
  * @package WooCommerce/Bookings
  */
 
+use Automattic\WooCommerce\Bookings\Vendor\Google\Client as GoogleClient;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Service\Calendar as GoogleServiceCalendar;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Service\Calendar\Event as GoogleServiceCalendarEvent;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Service\Calendar\EventDateTime as GoogleServiceCalendarEventDateTime;
+
 /**
  * Google Calendar Connection.
  */
@@ -65,7 +70,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	/**
 	 * Google Service from SDK.
 	 *
-	 * @var Google_Service_Calendar
+	 * @var GoogleServiceCalendar
 	 */
 	protected $service;
 
@@ -531,12 +536,12 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	/**
 	 * Returns an authorized API client.
 	 *
-	 * @return Google_Client the authorized client object
+	 * @return GoogleClient the authorized client object
 	 */
 	protected function get_client() {
-		$client = new Google_Client();
+		$client = new GoogleClient();
 		$client->setApplicationName( 'WooCommerce Bookings Google Calendar Integration' );
-		$client->setScopes( Google_Service_Calendar::CALENDAR );
+		$client->setScopes( GoogleServiceCalendar::CALENDAR );
 		$access_token  = get_transient( 'wc_bookings_gcalendar_access_token' );
 		$refresh_token = get_option( 'wc_bookings_gcalendar_refresh_token' );
 
@@ -590,9 +595,9 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	/**
 	 * Activates Google Integration without connect.woocommerce.com if site was previously setup with it's own app.
 	 *
-	 * @param Google_Client $client Google Client App.
+	 * @param GoogleClient $client Google Client App.
 	 */
-	public function maybe_enable_legacy_integration( Google_Client $client ) {
+	public function maybe_enable_legacy_integration( GoogleClient $client ) {
 		$legacy_settings = get_option( 'wc_bookings_google_calendar_settings', null );
 
 		if ( $legacy_settings && $this->is_integration_active() &&
@@ -654,7 +659,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	 */
 	protected function maybe_init_service() {
 		if ( empty( $this->service ) ) {
-			$this->service = new Google_Service_Calendar( $this->get_client() );
+			$this->service = new GoogleServiceCalendar( $this->get_client() );
 		}
 	}
 
@@ -1454,7 +1459,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		$event     = $this->get_event_resource( $booking_id );
 		if ( empty( $event ) ) {
 			$new_event = true;
-			$event     = new Google_Service_Calendar_Event();
+			$event     = new GoogleServiceCalendarEvent();
 		}
 
 		// Overwrite event description only if enabled in settings and for new events.
@@ -1473,8 +1478,8 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		}
 
 		// Set the event start and end dates.
-		$start = new Google_Service_Calendar_EventDateTime();
-		$end   = new Google_Service_Calendar_EventDateTime();
+		$start = new GoogleServiceCalendarEventDateTime();
+		$end   = new GoogleServiceCalendarEventDateTime();
 
 		if ( $booking->is_all_day() ) {
 			// 1440 min = 24 hours. Bookings includes 'end' in its set of days, where as GCal uses that
@@ -1497,8 +1502,8 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 		 *
 		 * Optional filter to allow third parties to update content of Google event when a booking is created or updated.
 		 *
-		 * @param Google_Service_Calendar_Event $event Google event object being added or updated.
-		 * @param WC_Booking                    $booking Booking object being synced to Google calendar.
+		 * @param GoogleServiceCalendarEvent $event Google event object being added or updated.
+		 * @param WC_Booking                 $booking Booking object being synced to Google calendar.
 		 */
 		$event = apply_filters( 'woocommerce_bookings_gcalendar_sync', $event, $booking );
 
@@ -1716,12 +1721,12 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	/**
 	 * Sanitize a recurring rule to make sure the date + time formats match up.
 	 *
-	 * @param string                        $rrule Recurring Rule.
-	 * @param Google_Service_Calendar_Event $event Google calendar event object.
+	 * @param string                     $rrule Recurring Rule.
+	 * @param GoogleServiceCalendarEvent $event Google calendar event object.
 	 *
 	 * @return string
 	 */
-	private function maybe_sanitize_rrule( $rrule, Google_Service_Calendar_Event $event ) {
+	private function maybe_sanitize_rrule( $rrule, GoogleServiceCalendarEvent $event ) {
 
 		// If we have only a start date then make sure the UNTIL also only has a date.
 		if ( ! $event->getStart()->getDateTime() && $event->getStart()->getDate() ) {
@@ -1734,12 +1739,12 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	/**
 	 * Update global availability object with data from google event object.
 	 *
-	 * @param WC_Global_Availability        $availability WooCommerce Global Availability object.
-	 * @param Google_Service_Calendar_Event $event Google calendar event object.
+	 * @param WC_Global_Availability     $availability WooCommerce Global Availability object.
+	 * @param GoogleServiceCalendarEvent $event Google calendar event object.
 	 *
 	 * @return bool
 	 */
-	private function update_global_availability_from_event( WC_Global_Availability $availability, Google_Service_Calendar_Event $event ) {
+	private function update_global_availability_from_event( WC_Global_Availability $availability, GoogleServiceCalendarEvent $event ) {
 		$availability->set_gcal_event_id( $event->getId() )
 			->set_title( $event->getSummary() )
 			->set_bookable( 'no' )
@@ -1792,16 +1797,16 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	/**
 	 * Update google event object with data from global availability object.
 	 *
-	 * @param Google_Service_Calendar_Event $event Google calendar event object.
-	 * @param WC_Global_Availability        $availability WooCommerce Global Availability object.
+	 * @param GoogleServiceCalendarEvent  $event Google calendar event object.
+	 * @param WC_Global_Availability      $availability WooCommerce Global Availability object.
 	 *
 	 * @return bool
 	 */
-	private function update_event_from_global_availability( Google_Service_Calendar_Event $event, WC_Global_Availability $availability ) {
+	private function update_event_from_global_availability( GoogleServiceCalendarEvent $event, WC_Global_Availability $availability ) {
 		$event->setSummary( $availability->get_title() );
 		$timezone        = wc_booking_get_timezone_string();
-		$start           = new Google_Service_Calendar_EventDateTime();
-		$end             = new Google_Service_Calendar_EventDateTime();
+		$start           = new GoogleServiceCalendarEventDateTime();
+		$end             = new GoogleServiceCalendarEventDateTime();
 		$start_date_time = new WC_DateTime();
 		$end_date_time   = new WC_DateTime();
 
@@ -1951,7 +1956,7 @@ class WC_Bookings_Google_Calendar_Connection extends WC_Settings_API {
 	 * Renew access token with refresh token. Must pass through connect.woocommerce.com middleware.
 	 *
 	 * @param string        $refresh_token Refresh Token.
-	 * @param Google_Client $client Google Client Object.
+	 * @param GoogleClient  $client Google Client Object.
 	 *
 	 * @return array
 	 */

@@ -114,8 +114,8 @@ function redsys_add_notice_banner_live() {
 	}
 
 	if ( $new_id !== $id ) {
-		if ( isset( $_REQUEST['redsys-hide-live-banner'] ) && 'hide-new-version-redsys' === $_REQUEST['redsys-hide-live-banner'] ) {
-			$nonce = sanitize_text_field( $_REQUEST['_redsys_hide_banner_live_nonce'] );
+		if ( isset( $_REQUEST['redsys-hide-live-banner'] ) && 'hide-new-version-redsys' === $_REQUEST['redsys-hide-live-banner'] && isset( $_REQUEST['_redsys_hide_banner_live_nonce'] ) ) {
+			$nonce = sanitize_text_field( wp_unslash( $_REQUEST['_redsys_hide_banner_live_nonce'] ) );
 			if ( wp_verify_nonce( $nonce, 'redsys_hide_banner_live_nonce' ) ) {
 				update_option( 'redsys-id-live-banner', $new_id );
 			}

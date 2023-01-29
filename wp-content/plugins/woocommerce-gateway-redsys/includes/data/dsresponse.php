@@ -1,13 +1,19 @@
 <?php
+/**
+ * Redsys Response Codes
+ *
+ * @package WooCommerce Redsys Gateway WooCommerce.com
+ */
 
-/*
-* Copyright: (C) 2013 - 2023 José Conti
-*/	
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 
-/*
-* Copyright: (C) 2013 - 2023 José Conti
-*/
+/**
+ * Get Redsys Response Codes.
+ *
+ * @return array
+ */
 function redsys_return_dsresponse() {
 	return array(
 		'0000' => 'Transacción autorizada para pagos y preautorizaciones',
@@ -119,9 +125,9 @@ function redsys_return_dsresponse() {
 		'0106' => 'Intentos de PIN excedidos',
 		'0116' => 'Disponible Insuficiente',
 		'0118' => 'Tarjeta no Registrada',
-		'0172'  => 'Denegada, no repetir.',
-		'0173'  => 'Denegada, no repetir sin actualizar datos de tarjeta.',
-		'0174'  => 'Denegada, no repetir antes de 72 horas.',
+		'0172' => 'Denegada, no repetir.',
+		'0173' => 'Denegada, no repetir sin actualizar datos de tarjeta.',
+		'0174' => 'Denegada, no repetir antes de 72 horas.',
 		'0912' => 'Emisor no Disponible',
 		'9912' => 'Emisor no Disponible',
 		'0125' => 'Tarjeta no efectiva',
@@ -174,6 +180,6 @@ function redsys_return_dsresponse() {
 		'9929' => 'Anulación de autorización en diferido realizada por el comercio',
 		'9997' => 'Se está procesando otra transacción en SIS con la misma tarjeta',
 		'9998' => 'Operación en proceso de solicitud de datos de tarjeta',
-		'9999' => 'Operación que ha sido redirigida al emisor a autenticar'
+		'9999' => 'Operación que ha sido redirigida al emisor a autenticar',
 	);
 }

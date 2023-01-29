@@ -1,15 +1,19 @@
 <?php
+/**
+ * Deactivate Redsys plugins
+ *
+ * @package WooCommerce Redsys Gateway WooCommerce.com
+ */
 
-/*
-* Copyright: (C) 2013 - 2023 José Conti
-*/
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 
-/*
-* Copyright: (C) 2013 - 2023 José Conti
-*/
+/**
+ * Get plugins to deactivate.
+ *
+ * @return array
+ */
 function plugins_to_deactivate() {
 
 	return array(

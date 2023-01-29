@@ -1,31 +1,28 @@
 <?php
 /**
  * Class Custom_WC_Email
+ *
+ * @package WooCommmerce Redsys Gateway WooCommerce.com
  */
-/*
-* Copyright: (C) 2013 - 2023 José Conti
-*/
+
+/**
+ * Class Redsys_WC_Email
+ */
 class Redsys_WC_Email {
 	/**
 	 * Custom_WC_Email constructor.
 	 */
-	/*
-	* Copyright: (C) 2013 - 2023 José Conti
-	*/
 	public function __construct() {
 		// Filtering the emails and adding our own email.
 		add_action( 'woocommerce_email_classes', array( $this, 'register_email' ), 90, 1 );
 	}
 	/**
-	 * @param array $emails
+	 * Register email
 	 *
-	 * @return array
+	 * @param array $emails Emails.
 	 */
-	/*
-	* Copyright: (C) 2013 - 2023 José Conti
-	*/
 	public function register_email( $emails ) {
-		require_once REDSYS_PLUGIN_PATH_P . 'includes/emails/templates/class-redsys-custom-email.php';
+		require_once REDSYS_PLUGIN_PATH_P . 'includes/emails/templates/class-redsys-customer-email-order.php';
 		$emails['Redsys_Customer_Email_Order'] = new Redsys_Customer_Email_Order();
 		return $emails;
 	}

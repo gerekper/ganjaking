@@ -49,6 +49,9 @@ do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 	<input type="hidden" name="add-to-cart" value="<?php echo esc_attr( is_callable( array( $product, 'get_id' ) ) ? $product->get_id() : $product->id ); ?>" class="wc-booking-product-id" />
 
 	<button type="submit" class="wc-bookings-booking-form-button single_add_to_cart_button button alt disabled" style="display:none"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
+	<input type="hidden" id="min_date" name="min_date" value="0"/>
+	<input type="hidden" id="max_date" name="max_date" value="0"/>
+	<input type="hidden" id="timezone_offset" name="timezone_offset" value="0"/>
 
 <?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
 

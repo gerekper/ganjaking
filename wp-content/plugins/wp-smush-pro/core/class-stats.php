@@ -63,6 +63,27 @@ class Stats {
 	public $resmush_ids = array();
 
 	/**
+	 * Percentage of the smushed images.
+	 *
+	 * @var float
+	 */
+	public $percent_optimized;
+
+	/**
+	 * Percentage metric.
+	 *
+	 * @var float
+	 */
+	public $percent_metric;
+
+	/**
+	 * Class name of grade type.
+	 *
+	 * @var string
+	 */
+	public $percent_grade;
+
+	/**
 	 * Protected init class, used in child methods instead of constructor.
 	 *
 	 * @since 3.4.0

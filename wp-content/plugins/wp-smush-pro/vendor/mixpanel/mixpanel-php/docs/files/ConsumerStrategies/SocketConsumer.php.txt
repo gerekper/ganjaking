@@ -306,3 +306,5 @@ class ConsumerStrategies_SocketConsumer extends ConsumerStrategies_AbstractConsu
 
 
 }
+
+

@@ -229,3 +229,5 @@ abstract class Producers_MixpanelBaseProducer extends Base_MixpanelBase {
     abstract function _getEndpoint();
 
 }
+
+

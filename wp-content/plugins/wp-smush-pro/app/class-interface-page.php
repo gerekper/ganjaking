@@ -20,4 +20,3 @@ interface Interface_Page {
 	 */
 	public function on_load();
 }
-

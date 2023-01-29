@@ -6,6 +6,14 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+= 3.12.5 ( 2023-01-18 ) =
+- Fix: CDN notice issue
+- Fix: PHP 8.2 compatibility warnings
+- Fix: Smush acting as free on staging
+
+= 3.12.4 ( 2022-11-17 ) =
+- Improvement: Code and compatibility improvements
+
 = 3.12.3 ( 2022-10-24 )
 - Fix: Free to pro upgrade issue
 
@@ -144,4 +152,3 @@ Change Log:
 
 
 
-941105-1666688512-au

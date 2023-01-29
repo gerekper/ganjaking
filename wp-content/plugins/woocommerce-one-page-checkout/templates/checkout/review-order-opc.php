@@ -113,7 +113,7 @@ $tax_display_mode = version_compare( WC_VERSION, '4.4', '<' ) ? WC()->cart->tax_
 				<?php else : ?>
 					<tr class="tax-total">
 						<th><?php echo esc_html( WC()->countries->tax_or_vat() ); ?></th>
-						<td><?php echo esc_html( wc_price( WC()->cart->get_taxes_total() ) ); ?></td>
+						<td><?php echo wc_price( WC()->cart->get_taxes_total() ); ?></td>
 					</tr>
 				<?php endif; ?>
 			<?php endif; ?>

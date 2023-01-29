@@ -199,7 +199,7 @@ class WC_Bookings_Controller {
 	 * @param  string             $default_date_format
 	 * @param  int                $timezone_offset Timezone offset in hours
 	 *
-	 * @return array( 'partially_booked_days', 'fully_booked_days' )
+	 * @return void|array( 'partially_booked_days', 'fully_booked_days' )
 	 */
 	public static function find_booked_day_blocks( $bookable_product, $min_date = 0, $max_date = 0, $default_date_format = 'Y-n-j', $timezone_offset = 0, $resource_ids = array() ) {
 		$booked_day_blocks = array(
@@ -229,11 +229,6 @@ class WC_Bookings_Controller {
 		$first_day_blocks = $bookable_product->get_blocks_in_range( $min_date, $first_day_end );
 		$last_day_blocks  = $bookable_product->get_blocks_in_range( $last_day_starts, $max_date );
 
-		$no_resources = false;
-		if ( 0 === count( $resource_ids ) ) {
-			$resource_ids = array( 0 );
-			$no_resources = true;
-		}
 		foreach ( $resource_ids as $resource_id ) {
 			$first_day_available_blocks = wc_bookings_get_time_slots( $bookable_product, $first_day_blocks, array(), $resource_id, $min_date, $first_day_end );
 			$last_day_available_blocks  = wc_bookings_get_time_slots( $bookable_product, $last_day_blocks, array(), $resource_id, $last_day_starts, $max_date );
@@ -261,11 +256,6 @@ class WC_Bookings_Controller {
 			}
 		}
 
-		// Reset to default.
-		if ( $no_resources ) {
-			$resource_ids = array();
-		}
-
 		// Get existing bookings and go through them to set partial/fully booked days
 		$existing_bookings = WC_Booking_Data_Store::get_all_existing_bookings( $bookable_product, $min_date, $max_date );
 
@@ -273,8 +263,8 @@ class WC_Bookings_Controller {
 			return $booked_day_blocks;
 		}
 
-		$min_booking_date = INF;
-		$max_booking_date = -INF;
+		$min_booking_date = strtotime( '+100 years', current_time( 'timestamp' ) );
+		$max_booking_date = strtotime( '-100 years', current_time( 'timestamp' ) );
 		$bookings = array();
 		$day_format = 1 == $bookable_product->get_qty() ? 'unavailable_days' : 'partially_booked_days';
 
@@ -339,6 +329,40 @@ class WC_Bookings_Controller {
 		$min_booking_date = strtotime( 'midnight', $min_booking_date - $timezone_offset );
 		$max_booking_date = strtotime( 'midnight', $max_booking_date - $timezone_offset );
 
+		// phpcs:ignore PHPCompatibility.FunctionUse.ArgumentFunctionsReportCurrentValue.Changed -- Reason: value is unchanged.
+		$arg_list = func_get_args();
+		$source   = $arg_list[6] ?? 'user';
+
+		// If the seventh argument is `action-scheduler-helper`, just schedule an event and return void.
+		if ( 'action-scheduler-helper' === $source ) {
+			$product_id = $bookable_product->get_id();
+
+			// Create action scheduler event only if it's not already created
+			// OR it's not running right now (i.e. 'cache_update_started' meta does not exist).
+			$clear_cache_event = as_has_scheduled_action( 'wc-booking-scheduled-update-availability', array( $product_id, $min_booking_date, $max_booking_date, $timezone_offset ) );
+
+			// Append unique transient name in metas to support multiple event creations.
+			$transient_name       = 'book_ts_' . md5( http_build_query( array( $product_id, 0, $min_booking_date, $max_booking_date, false ) ) );
+			$cache_update_started = get_post_meta( $product_id, 'cache_update_started-' . $transient_name, true );
+
+			if ( ! $clear_cache_event && ! $cache_update_started ) {
+
+				// Schedule event.
+				as_schedule_single_action( time(), 'wc-booking-scheduled-update-availability', array( $product_id, $min_booking_date, $max_booking_date, $timezone_offset ) );
+
+				// Preserve previous availability to serve to users until new one is generated.
+				$available_slots = WC_Bookings_Cache::get( $transient_name );
+				if ( $available_slots ) {
+					WC_Bookings_Cache::set( 'prev-availability-' . $transient_name, $available_slots, 5 * MINUTE_IN_SECONDS );
+				}
+
+				// Track that the event is scheduled via a meta, in order to show users the old availability until it runs.
+				update_post_meta( $product_id, 'cache_update_scheduled-' . $transient_name, true );
+			}
+
+			return;
+		}
+
 		// Call these for the whole chunk range for the bookings since they're expensive.
 		$blocks = $bookable_product->get_blocks_in_range( $min_booking_date, $max_booking_date );
 
@@ -357,7 +381,12 @@ class WC_Bookings_Controller {
 			}
 		}
 
-		$available_blocks = wc_bookings_get_time_slots( $bookable_product, $blocks, array(), 0, $min_booking_date, $max_booking_date );
+		// Passing seventh and eight arguments to know whether an event is scheduled or not.
+		$available_blocks = wc_bookings_get_time_slots( $bookable_product, $blocks, array(), 0, $min_booking_date, $max_booking_date, false, $timezone_offset, $source );
+
+		$booked_day_blocks['old_availability'] = $available_blocks['old_availability'];
+		unset( $available_blocks['old_availability'] );
+
 		$available_slots  = array();
 
 		// Get local timezone from existing booking object.

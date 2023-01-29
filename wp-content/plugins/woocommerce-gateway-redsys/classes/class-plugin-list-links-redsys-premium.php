@@ -1,10 +1,27 @@
 <?php
+/**
+ * Plugin List Links Redsys Premium
+ *
+ * @package WooCommerce Redsys Gateway WooCommerce.com > https://woocommerce.com/products/redsys-gateway/
+ * @since 13.0.0
+ * @author José Conti.
+ * @link https://joseconti.com
+ * @license GNU General Public License v3.0
+ * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * @copyright 2013-2013 José Conti.
+ */
 
 defined( 'ABSPATH' ) || exit;
 
+/**
+ * Plugin List Links Redsys Premium
+ */
 class Plugin_List_Links_Redsys_Premium {
 
-	function __construct() {
+	/**
+	 * Constructor.
+	 */
+	public function __construct() {
 		add_filter( 'plugin_action_links_' . REDSYS_PLUGIN_BASENAME, array( $this, 'plugin_action_links' ), 10, 1 );
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
 	}
@@ -22,7 +39,14 @@ class Plugin_List_Links_Redsys_Premium {
 
 		return array_merge( $action_links, $links );
 	}
-
+	/**
+	 * Show row meta on the plugin screen.
+	 *
+	 * @param mixed $links Plugin Row Meta.
+	 * @param mixed $file  Plugin Base file.
+	 *
+	 * @return array
+	 */
 	public static function plugin_row_meta( $links, $file ) {
 		if ( REDSYS_PLUGIN_BASENAME !== $file ) {
 			return $links;

@@ -1,8 +1,9 @@
 <?php
-
-/*
-* Copyright: (C) 2013 - 2023 José Conti
-*/
+/**
+ * Defines Redsys Gateway for WooCommerce
+ *
+ * @package WooCommerce Redsys Gateway (WooCommerce.com)
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.

@@ -17,11 +17,12 @@ return array(
     'Psr\\Cache\\' => array($vendorDir . '/psr/cache/src'),
     'ParagonIE\\ConstantTime\\' => array($vendorDir . '/paragonie/constant_time_encoding/src'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
-    'Google\\' => array($vendorDir . '/google/apiclient/src'),
     'Firebase\\JWT\\' => array($vendorDir . '/firebase/php-jwt/src'),
     'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),
     'Automattic\\WooCommerce\\Bookings\\Vendor\\GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
     'Automattic\\WooCommerce\\Bookings\\Vendor\\GuzzleHttp\\Promise\\' => array($vendorDir . '/guzzlehttp/promises/src'),
     'Automattic\\WooCommerce\\Bookings\\Vendor\\GuzzleHttp\\' => array($vendorDir . '/guzzlehttp/guzzle/src'),
+    'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\' => array($vendorDir . '/google/apiclient-services/src'),
     'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Auth\\' => array($vendorDir . '/google/auth/src'),
+    'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\' => array($vendorDir . '/google/apiclient/src'),
 );

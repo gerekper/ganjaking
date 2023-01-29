@@ -5,7 +5,7 @@ Tags: perfmatters
 Requires at least: 5.5
 Requires PHP: 7.0
 Tested up to: 6.1.1
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,11 @@ Perfmatters is a lightweight performance plugin developed to speed up your WordP
 Check out our [documentation](https://perfmatters.io/docs/) for more information on how to use Perfmatters.
 
 == Changelog ==
+
+= 2.0.4 - 01.27.2023 =
+* Fixed a an issue that was causing the Perfmatters admin bar menu and meta options to not show up in the admin.
+* Added additional nopin attribute for Pinterest to YouTube preview thumbnails.
+* Translation updates.
 
 = 2.0.3 - 01.26.2023 =
 * Added new local Google fonts advanced option to Load Asynchronously.

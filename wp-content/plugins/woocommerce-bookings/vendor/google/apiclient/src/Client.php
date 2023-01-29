@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-namespace Google;
+namespace Automattic\WooCommerce\Bookings\Vendor\Google;
 
-use Google\AccessToken\Revoke;
-use Google\AccessToken\Verify;
+use Automattic\WooCommerce\Bookings\Vendor\Google\AccessToken\Revoke;
+use Automattic\WooCommerce\Bookings\Vendor\Google\AccessToken\Verify;
 use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\ApplicationDefaultCredentials;
 use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Cache\MemoryCacheItemPool;
 use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\CredentialsLoader;
@@ -27,8 +27,8 @@ use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\HttpHandler\HttpHandlerFa
 use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\OAuth2;
 use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Credentials\ServiceAccountCredentials;
 use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Credentials\UserRefreshCredentials;
-use Google\AuthHandler\AuthHandlerFactory;
-use Google\Http\REST;
+use Automattic\WooCommerce\Bookings\Vendor\Google\AuthHandler\AuthHandlerFactory;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Http\REST;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Client as GuzzleClient;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\ClientInterface;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Ring\Client\StreamHandler;

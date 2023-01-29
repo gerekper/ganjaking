@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-namespace Google\AuthHandler;
+namespace Automattic\WooCommerce\Bookings\Vendor\Google\AuthHandler;
 
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Client;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\ClientInterface;

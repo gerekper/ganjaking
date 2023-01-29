@@ -16,10 +16,10 @@
  * limitations under the License.
  */
 
-namespace Google\AccessToken;
+namespace Automattic\WooCommerce\Bookings\Vendor\Google\AccessToken;
 
 use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\HttpHandler\HttpHandlerFactory;
-use Google\Client;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Client;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\ClientInterface;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\Request;

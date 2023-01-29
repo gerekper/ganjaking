@@ -3,22 +3,24 @@
  * Plugin Name: WooCommerce Bookings
  * Plugin URI: https://woocommerce.com/products/woocommerce-bookings/
  * Description: Setup bookable products such as for reservations, services and hires.
- * Version: 1.15.69
+ * Version: 1.15.73
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-bookings
  * Domain Path: /languages
- * Tested up to: 6.0
+ * Tested up to: 6.1
  * Requires at least: 5.6
- * WC tested up to: 6.8.0
+ * WC tested up to: 7.3
  * WC requires at least: 6.0
  * Requires PHP: 7.0
  *
- * Copyright: © 2022 WooCommerce
+ * Copyright: © 2023 WooCommerce
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * Woo: 390890:911c438934af094c2b38d5560b9f50f3
+ *
+ * @package WooCommerce Bookings
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -75,7 +77,15 @@ function woocommerce_bookings_activate() {
 	update_option( WC_BOOKINGS_ACTIVATION_NOTICE_KEY, true );
 
 	// Register the rewrite endpoint before permalinks are flushed.
-	add_rewrite_endpoint( apply_filters( 'woocommerce_bookings_account_endpoint', 'bookings' ), EP_PAGES );
+	add_rewrite_endpoint(
+	/**
+	 * Filter the rewrite endpoint for the bookings page.
+	 *
+	 * @since 1.13.0
+	 */
+		apply_filters( 'woocommerce_bookings_account_endpoint', 'bookings' ),
+		EP_PAGES
+	);
 
 	// Flush Permalinks.
 	flush_rewrite_rules();
@@ -84,7 +94,7 @@ function woocommerce_bookings_activate() {
 
 if ( ! class_exists( 'WC_Bookings' ) ) :
 
-	define( 'WC_BOOKINGS_VERSION', '1.15.69' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_BOOKINGS_VERSION', '1.15.73' ); // WRCS: DEFINED_VERSION.
 	define( 'WC_BOOKINGS_TEMPLATE_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) . '/templates/' );
 	define( 'WC_BOOKINGS_PLUGIN_URL', untrailingslashit( plugins_url( '/', __FILE__ ) ) );
 	define( 'WC_BOOKINGS_PLUGIN_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
@@ -108,7 +118,7 @@ if ( ! class_exists( 'WC_Bookings' ) ) :
 		 * @var $_instance
 		 * @since 1.13.0
 		 */
-		protected static $_instance = null;
+		protected static $_instance = null; // phpcs:ignore PSR2.Classes.PropertyDeclaration.Underscore
 
 		/**
 		 * Constructor.
@@ -163,8 +173,8 @@ if ( ! class_exists( 'WC_Bookings' ) ) :
 
 			Menu::add_plugin_category(
 				array(
-					'id'         => 'woocommerce-bookings',
-					'title'      => 'WooCommerce Bookings',
+					'id'    => 'woocommerce-bookings',
+					'title' => 'WooCommerce Bookings',
 				)
 			);
 
@@ -179,7 +189,7 @@ if ( ! class_exists( 'WC_Bookings' ) ) :
 				array(
 					'id'         => 'woocommerce-bookings-add',
 					'title'      => __( 'Add Booking', 'woocommerce-bookings' ),
-					'capability'    => 'edit_wc_bookings',
+					'capability' => 'edit_wc_bookings',
 					'url'        => 'edit.php?post_type=wc_booking&page=create_booking',
 					'parent'     => 'woocommerce-bookings',
 					'order'      => 1,
@@ -190,7 +200,7 @@ if ( ! class_exists( 'WC_Bookings' ) ) :
 				array(
 					'id'         => 'woocommerce-bookings-calendar',
 					'title'      => __( 'Calendar', 'woocommerce-bookings' ),
-					'capability'    => 'edit_wc_bookings',
+					'capability' => 'edit_wc_bookings',
 					'url'        => 'edit.php?post_type=wc_booking&page=booking_calendar',
 					'parent'     => 'woocommerce-bookings',
 				)
@@ -200,7 +210,7 @@ if ( ! class_exists( 'WC_Bookings' ) ) :
 				array(
 					'id'         => 'woocommerce-bookings-notification',
 					'title'      => __( 'Send Notification', 'woocommerce-bookings' ),
-					'capability'    => 'edit_wc_bookings',
+					'capability' => 'edit_wc_bookings',
 					'url'        => 'edit.php?post_type=wc_booking&page=booking_notification',
 					'parent'     => 'woocommerce-bookings',
 				)
@@ -208,10 +218,10 @@ if ( ! class_exists( 'WC_Bookings' ) ) :
 
 			Menu::add_setting_item(
 				array(
-					'id'            => 'woocommerce-bookings-settings',
-					'title'         => __( 'Bookings', 'woocommerce-bookings' ),
-					'capability'    => 'manage_bookings_settings',
-					'url'           => 'edit.php?post_type=wc_booking&page=wc_bookings_settings',
+					'id'         => 'woocommerce-bookings-settings',
+					'title'      => __( 'Bookings', 'woocommerce-bookings' ),
+					'capability' => 'manage_bookings_settings',
+					'url'        => 'edit.php?post_type=wc_booking&page=wc_bookings_settings',
 				)
 			);
 
@@ -232,16 +242,29 @@ if ( ! class_exists( 'WC_Bookings' ) ) :
 		/**
 		 * Show row meta on the plugin screen.
 		 *
-		 * @access public
 		 * @param  mixed $links Plugin Row Meta.
 		 * @param  mixed $file  Plugin Base file.
 		 * @return array
 		 */
 		public function plugin_row_meta( $links, $file ) {
 			if ( plugin_basename( WC_BOOKINGS_MAIN_FILE ) === $file ) {
+				/**
+				 * Filter the plugin documentation link.
+				 *
+				 * @since 1.13.0
+				 */
+				$doc_url = apply_filters( 'woocommerce_bookings_docs_url', 'https://docs.woocommerce.com/documentation/plugins/woocommerce/woocommerce-extensions/woocommerce-bookings/' );
+
+				/**
+				 * Filter the support link.
+				 *
+				 * @since 1.13.0
+				 */
+				$support_url = apply_filters( 'woocommerce_bookings_support_url', 'https://woocommerce.com/my-account/tickets/' );
+
 				$row_meta = array(
-					'docs'    => '<a href="' . esc_url( apply_filters( 'woocommerce_bookings_docs_url', 'https://docs.woocommerce.com/documentation/plugins/woocommerce/woocommerce-extensions/woocommerce-bookings/' ) ) . '" title="' . esc_attr( __( 'View Documentation', 'woocommerce-bookings' ) ) . '">' . __( 'Docs', 'woocommerce-bookings' ) . '</a>',
-					'support' => '<a href="' . esc_url( apply_filters( 'woocommerce_bookings_support_url', 'https://woocommerce.com/my-account/tickets/' ) ) . '" title="' . esc_attr( __( 'Visit Premium Customer Support', 'woocommerce-bookings' ) ) . '">' . __( 'Premium Support', 'woocommerce-bookings' ) . '</a>',
+					'docs'    => '<a href="' . esc_url( $doc_url ) . '" title="' . esc_attr( __( 'View Documentation', 'woocommerce-bookings' ) ) . '">' . __( 'Docs', 'woocommerce-bookings' ) . '</a>',
+					'support' => '<a href="' . esc_url( $support_url ) . '" title="' . esc_attr( __( 'Visit Premium Customer Support', 'woocommerce-bookings' ) ) . '">' . __( 'Premium Support', 'woocommerce-bookings' ) . '</a>',
 				);
 
 				return array_merge( $links, $row_meta );
@@ -365,7 +388,6 @@ if ( ! class_exists( 'WC_Bookings' ) ) :
 				new WC_Bookings_Single_Export();
 			}
 
-
 		}
 
 		/**
@@ -403,6 +425,11 @@ endif;
 
 add_action( 'plugins_loaded', 'woocommerce_bookings_init', 10 );
 
+/**
+ * Init WooCommerce Bookings when plugins are loaded.
+ *
+ * @since 1.13.1
+ */
 function woocommerce_bookings_init() {
 	load_plugin_textdomain( 'woocommerce-bookings', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
 

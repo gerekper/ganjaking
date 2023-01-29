@@ -72,7 +72,7 @@ class Parser {
 	 * @param string $module  Module ID.
 	 */
 	public function enable( $module ) {
-		if ( ! in_array( $module, array( 'cdn', 'lazy_load', 'iframes', 'background_images' ), true ) ) {
+		if ( ! in_array( $module, array( 'cdn', 'lazy_load', 'background_images' ), true ) ) {
 			return;
 		}
 

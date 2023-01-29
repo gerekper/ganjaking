@@ -2,9 +2,16 @@
 /**
  * Class Redsys Pay One Clic
  *
- * @package WooCommerce Redsys Gateway
- * @since 19.0.0
+ * @package WooCommerce Redsys Gateway WooCommerce.com > https://woocommerce.com/products/redsys-gateway/
+ * @since 13.0.0
+ * @author José Conti.
+ * @link https://joseconti.com
+ * @license GNU General Public License v3.0
+ * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * @copyright 2013-2013 José Conti.
  */
+
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Class Redsys Pay One Clic
@@ -38,6 +45,11 @@ class Redsys_Pay_One_Clic {
 		);
 		return $billing_address;
 	}
+	/**
+	 * Get Shipping Address
+	 *
+	 * @param int $user_id Userd ID.
+	 */
 	public function get_shipping_address( $user_id ) {
 		$shipping_address = array(
 			'first_name' => get_user_meta( $user_id, 'first_name', true ),
@@ -54,7 +66,13 @@ class Redsys_Pay_One_Clic {
 		);
 		return $shippingg_address;
 	}
-
+	/**
+	 * Create Order
+	 *
+	 * @param int $user_id Userd ID.
+	 * @param int $product_id Product ID.
+	 * @param int $qty Quantity.
+	 */
 	public function create_order( $user_id, $product_id, $qty ) {
 
 		$user_id          = get_current_user_id();
@@ -78,6 +96,11 @@ class Redsys_Pay_One_Clic {
 		return $order->get_id();
 	}
 }
-function WCRed_pay() {
+/**
+ * WCRed_pay
+ *
+ * @return Redsys_Pay_One_Clic
+ */
+function WCRed_pay() { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid
 	return new Redsys_Pay_One_Clic();
 }

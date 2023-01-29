@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit13cf2c307b38bdec74f166ac44086a9e
+class ComposerStaticInit88c2c3bc9f16392f8d38d81e0639c0d1
 {
     public static $files = array (
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -16,6 +16,7 @@ class ComposerStaticInit13cf2c307b38bdec74f166ac44086a9e
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
+        '1f87db08236948d07391152dccb70f04' => __DIR__ . '/..' . '/google/apiclient-services/autoload.php',
         'a8d3953fd9959404dd22d3dfcd0a79f0' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
         '30ca4a061496507d36e7338aa2429874' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'b1df2d76cc0659afef99297d49e90d1c' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
@@ -49,10 +50,6 @@ class ComposerStaticInit13cf2c307b38bdec74f166ac44086a9e
         array (
             'Monolog\\' => 8,
         ),
-        'G' => 
-        array (
-            'Google\\' => 7,
-        ),
         'F' => 
         array (
             'Firebase\\JWT\\' => 13,
@@ -66,7 +63,9 @@ class ComposerStaticInit13cf2c307b38bdec74f166ac44086a9e
             'Automattic\\WooCommerce\\Bookings\\Vendor\\GuzzleHttp\\Psr7\\' => 55,
             'Automattic\\WooCommerce\\Bookings\\Vendor\\GuzzleHttp\\Promise\\' => 58,
             'Automattic\\WooCommerce\\Bookings\\Vendor\\GuzzleHttp\\' => 50,
+            'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\' => 54,
             'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Auth\\' => 51,
+            'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\' => 46,
         ),
     );
 
@@ -115,10 +114,6 @@ class ComposerStaticInit13cf2c307b38bdec74f166ac44086a9e
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
-        'Google\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/google/apiclient/src',
-        ),
         'Firebase\\JWT\\' => 
         array (
             0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
@@ -139,25 +134,29 @@ class ComposerStaticInit13cf2c307b38bdec74f166ac44086a9e
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/google/apiclient-services/src',
+        ),
         'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Auth\\' => 
         array (
             0 => __DIR__ . '/..' . '/google/auth/src',
         ),
-    );
-
-    public static $prefixesPsr0 = array (
-        'G' => 
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\' => 
         array (
-            'Google_Service_' => 
-            array (
-                0 => __DIR__ . '/..' . '/google/apiclient-services/src',
-            ),
+            0 => __DIR__ . '/..' . '/google/apiclient/src',
         ),
     );
 
     public static $classMap = array (
         'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
         'AssertionError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\AccessToken\\Revoke' => __DIR__ . '/..' . '/google/apiclient/src/AccessToken/Revoke.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\AccessToken\\Verify' => __DIR__ . '/..' . '/google/apiclient/src/AccessToken/Verify.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\AuthHandler\\AuthHandlerFactory' => __DIR__ . '/..' . '/google/apiclient/src/AuthHandler/AuthHandlerFactory.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\AuthHandler\\Guzzle5AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/AuthHandler/Guzzle5AuthHandler.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\AuthHandler\\Guzzle6AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/AuthHandler/Guzzle6AuthHandler.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\AuthHandler\\Guzzle7AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/AuthHandler/Guzzle7AuthHandler.php',
         'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Auth\\AccessToken' => __DIR__ . '/..' . '/google/auth/src/AccessToken.php',
         'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Auth\\ApplicationDefaultCredentials' => __DIR__ . '/..' . '/google/auth/src/ApplicationDefaultCredentials.php',
         'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Auth\\CacheTrait' => __DIR__ . '/..' . '/google/auth/src/CacheTrait.php',
@@ -192,6 +191,71 @@ class ComposerStaticInit13cf2c307b38bdec74f166ac44086a9e
         'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Auth\\ServiceAccountSignerTrait' => __DIR__ . '/..' . '/google/auth/src/ServiceAccountSignerTrait.php',
         'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Auth\\SignBlobInterface' => __DIR__ . '/..' . '/google/auth/src/SignBlobInterface.php',
         'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Auth\\UpdateMetadataInterface' => __DIR__ . '/..' . '/google/auth/src/UpdateMetadataInterface.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Client' => __DIR__ . '/..' . '/google/apiclient/src/Client.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Collection' => __DIR__ . '/..' . '/google/apiclient/src/Collection.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Exception' => __DIR__ . '/..' . '/google/apiclient/src/Exception.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Http\\Batch' => __DIR__ . '/..' . '/google/apiclient/src/Http/Batch.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Http\\MediaFileUpload' => __DIR__ . '/..' . '/google/apiclient/src/Http/MediaFileUpload.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Http\\REST' => __DIR__ . '/..' . '/google/apiclient/src/Http/REST.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Model' => __DIR__ . '/..' . '/google/apiclient/src/Model.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service' => __DIR__ . '/..' . '/google/apiclient/src/Service.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\Acl' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/Acl.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\AclRule' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/AclRule.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\AclRuleScope' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/AclRuleScope.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\Calendar' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/Calendar.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\CalendarList' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/CalendarList.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\CalendarListEntry' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/CalendarListEntry.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\CalendarListEntryNotificationSettings' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/CalendarListEntryNotificationSettings.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\CalendarNotification' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/CalendarNotification.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\Channel' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/Channel.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\ColorDefinition' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/ColorDefinition.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\Colors' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/Colors.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\ConferenceData' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/ConferenceData.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\ConferenceParameters' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/ConferenceParameters.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\ConferenceParametersAddOnParameters' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/ConferenceParametersAddOnParameters.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\ConferenceProperties' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/ConferenceProperties.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\ConferenceRequestStatus' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/ConferenceRequestStatus.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\ConferenceSolution' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/ConferenceSolution.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\ConferenceSolutionKey' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/ConferenceSolutionKey.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\CreateConferenceRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/CreateConferenceRequest.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\EntryPoint' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/EntryPoint.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\Error' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/Error.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\Event' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/Event.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\EventAttachment' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/EventAttachment.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\EventAttendee' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/EventAttendee.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\EventCreator' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/EventCreator.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\EventDateTime' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/EventDateTime.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\EventExtendedProperties' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/EventExtendedProperties.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\EventGadget' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/EventGadget.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\EventOrganizer' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/EventOrganizer.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\EventReminder' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/EventReminder.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\EventReminders' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/EventReminders.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\EventSource' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/EventSource.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\Events' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/Events.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\FreeBusyCalendar' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/FreeBusyCalendar.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\FreeBusyGroup' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/FreeBusyGroup.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\FreeBusyRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/FreeBusyRequest.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\FreeBusyRequestItem' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/FreeBusyRequestItem.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\FreeBusyResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/FreeBusyResponse.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\Resource\\Acl' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/Resource/Acl.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\Resource\\CalendarList' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/Resource/CalendarList.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\Resource\\Calendars' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/Resource/Calendars.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\Resource\\Channels' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/Resource/Channels.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\Resource\\Colors' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/Resource/Colors.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\Resource\\Events' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/Resource/Events.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\Resource\\Freebusy' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/Resource/Freebusy.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\Resource\\Settings' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/Resource/Settings.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\Setting' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/Setting.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\Settings' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/Settings.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Calendar\\TimePeriod' => __DIR__ . '/..' . '/google/apiclient-services/src/Calendar/TimePeriod.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Exception' => __DIR__ . '/..' . '/google/apiclient/src/Service/Exception.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Service\\Resource' => __DIR__ . '/..' . '/google/apiclient/src/Service/Resource.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Task\\Composer' => __DIR__ . '/..' . '/google/apiclient/src/Task/Composer.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Task\\Exception' => __DIR__ . '/..' . '/google/apiclient/src/Task/Exception.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Task\\Retryable' => __DIR__ . '/..' . '/google/apiclient/src/Task/Retryable.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Task\\Runner' => __DIR__ . '/..' . '/google/apiclient/src/Task/Runner.php',
+        'Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Utils\\UriTemplate' => __DIR__ . '/..' . '/google/apiclient/src/Utils/UriTemplate.php',
         'Automattic\\WooCommerce\\Bookings\\Vendor\\GuzzleHttp\\Client' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Client.php',
         'Automattic\\WooCommerce\\Bookings\\Vendor\\GuzzleHttp\\ClientInterface' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/ClientInterface.php',
         'Automattic\\WooCommerce\\Bookings\\Vendor\\GuzzleHttp\\Cookie\\CookieJar' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Cookie/CookieJar.php',
@@ -383,98 +447,6 @@ class ComposerStaticInit13cf2c307b38bdec74f166ac44086a9e
         'Firebase\\JWT\\JWT' => __DIR__ . '/..' . '/firebase/php-jwt/src/JWT.php',
         'Firebase\\JWT\\Key' => __DIR__ . '/..' . '/firebase/php-jwt/src/Key.php',
         'Firebase\\JWT\\SignatureInvalidException' => __DIR__ . '/..' . '/firebase/php-jwt/src/SignatureInvalidException.php',
-        'Google\\AccessToken\\Revoke' => __DIR__ . '/..' . '/google/apiclient/src/AccessToken/Revoke.php',
-        'Google\\AccessToken\\Verify' => __DIR__ . '/..' . '/google/apiclient/src/AccessToken/Verify.php',
-        'Google\\AuthHandler\\AuthHandlerFactory' => __DIR__ . '/..' . '/google/apiclient/src/AuthHandler/AuthHandlerFactory.php',
-        'Google\\AuthHandler\\Guzzle5AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/AuthHandler/Guzzle5AuthHandler.php',
-        'Google\\AuthHandler\\Guzzle6AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/AuthHandler/Guzzle6AuthHandler.php',
-        'Google\\AuthHandler\\Guzzle7AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/AuthHandler/Guzzle7AuthHandler.php',
-        'Google\\Client' => __DIR__ . '/..' . '/google/apiclient/src/Client.php',
-        'Google\\Collection' => __DIR__ . '/..' . '/google/apiclient/src/Collection.php',
-        'Google\\Exception' => __DIR__ . '/..' . '/google/apiclient/src/Exception.php',
-        'Google\\Http\\Batch' => __DIR__ . '/..' . '/google/apiclient/src/Http/Batch.php',
-        'Google\\Http\\MediaFileUpload' => __DIR__ . '/..' . '/google/apiclient/src/Http/MediaFileUpload.php',
-        'Google\\Http\\REST' => __DIR__ . '/..' . '/google/apiclient/src/Http/REST.php',
-        'Google\\Model' => __DIR__ . '/..' . '/google/apiclient/src/Model.php',
-        'Google\\Service' => __DIR__ . '/..' . '/google/apiclient/src/Service.php',
-        'Google\\Service\\Exception' => __DIR__ . '/..' . '/google/apiclient/src/Service/Exception.php',
-        'Google\\Service\\Resource' => __DIR__ . '/..' . '/google/apiclient/src/Service/Resource.php',
-        'Google\\Task\\Composer' => __DIR__ . '/..' . '/google/apiclient/src/Task/Composer.php',
-        'Google\\Task\\Exception' => __DIR__ . '/..' . '/google/apiclient/src/Task/Exception.php',
-        'Google\\Task\\Retryable' => __DIR__ . '/..' . '/google/apiclient/src/Task/Retryable.php',
-        'Google\\Task\\Runner' => __DIR__ . '/..' . '/google/apiclient/src/Task/Runner.php',
-        'Google\\Utils\\UriTemplate' => __DIR__ . '/..' . '/google/apiclient/src/Utils/UriTemplate.php',
-        'Google_AccessToken_Revoke' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-        'Google_AccessToken_Verify' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-        'Google_AuthHandler_AuthHandlerFactory' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-        'Google_AuthHandler_Guzzle5AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-        'Google_AuthHandler_Guzzle6AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-        'Google_AuthHandler_Guzzle7AuthHandler' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-        'Google_Client' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-        'Google_Collection' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-        'Google_Exception' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-        'Google_Http_Batch' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-        'Google_Http_MediaFileUpload' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-        'Google_Http_REST' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-        'Google_Model' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-        'Google_Service' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-        'Google_Service_Calendar' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar.php',
-        'Google_Service_Calendar_Acl' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/Acl.php',
-        'Google_Service_Calendar_AclRule' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/AclRule.php',
-        'Google_Service_Calendar_AclRuleScope' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/AclRuleScope.php',
-        'Google_Service_Calendar_Calendar' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/Calendar.php',
-        'Google_Service_Calendar_CalendarList' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/CalendarList.php',
-        'Google_Service_Calendar_CalendarListEntry' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/CalendarListEntry.php',
-        'Google_Service_Calendar_CalendarListEntryNotificationSettings' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/CalendarListEntryNotificationSettings.php',
-        'Google_Service_Calendar_CalendarNotification' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/CalendarNotification.php',
-        'Google_Service_Calendar_Channel' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/Channel.php',
-        'Google_Service_Calendar_ColorDefinition' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/ColorDefinition.php',
-        'Google_Service_Calendar_Colors' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/Colors.php',
-        'Google_Service_Calendar_ConferenceData' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/ConferenceData.php',
-        'Google_Service_Calendar_ConferenceParameters' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/ConferenceParameters.php',
-        'Google_Service_Calendar_ConferenceParametersAddOnParameters' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/ConferenceParametersAddOnParameters.php',
-        'Google_Service_Calendar_ConferenceProperties' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/ConferenceProperties.php',
-        'Google_Service_Calendar_ConferenceRequestStatus' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/ConferenceRequestStatus.php',
-        'Google_Service_Calendar_ConferenceSolution' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/ConferenceSolution.php',
-        'Google_Service_Calendar_ConferenceSolutionKey' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/ConferenceSolutionKey.php',
-        'Google_Service_Calendar_CreateConferenceRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/CreateConferenceRequest.php',
-        'Google_Service_Calendar_EntryPoint' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/EntryPoint.php',
-        'Google_Service_Calendar_Error' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/Error.php',
-        'Google_Service_Calendar_Event' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/Event.php',
-        'Google_Service_Calendar_EventAttachment' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/EventAttachment.php',
-        'Google_Service_Calendar_EventAttendee' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/EventAttendee.php',
-        'Google_Service_Calendar_EventCreator' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/EventCreator.php',
-        'Google_Service_Calendar_EventDateTime' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/EventDateTime.php',
-        'Google_Service_Calendar_EventExtendedProperties' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/EventExtendedProperties.php',
-        'Google_Service_Calendar_EventGadget' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/EventGadget.php',
-        'Google_Service_Calendar_EventOrganizer' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/EventOrganizer.php',
-        'Google_Service_Calendar_EventReminder' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/EventReminder.php',
-        'Google_Service_Calendar_EventReminders' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/EventReminders.php',
-        'Google_Service_Calendar_EventSource' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/EventSource.php',
-        'Google_Service_Calendar_Events' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/Events.php',
-        'Google_Service_Calendar_FreeBusyCalendar' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/FreeBusyCalendar.php',
-        'Google_Service_Calendar_FreeBusyGroup' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/FreeBusyGroup.php',
-        'Google_Service_Calendar_FreeBusyRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/FreeBusyRequest.php',
-        'Google_Service_Calendar_FreeBusyRequestItem' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/FreeBusyRequestItem.php',
-        'Google_Service_Calendar_FreeBusyResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/FreeBusyResponse.php',
-        'Google_Service_Calendar_Resource_Acl' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/Resource/Acl.php',
-        'Google_Service_Calendar_Resource_CalendarList' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/Resource/CalendarList.php',
-        'Google_Service_Calendar_Resource_Calendars' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/Resource/Calendars.php',
-        'Google_Service_Calendar_Resource_Channels' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/Resource/Channels.php',
-        'Google_Service_Calendar_Resource_Colors' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/Resource/Colors.php',
-        'Google_Service_Calendar_Resource_Events' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/Resource/Events.php',
-        'Google_Service_Calendar_Resource_Freebusy' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/Resource/Freebusy.php',
-        'Google_Service_Calendar_Resource_Settings' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/Resource/Settings.php',
-        'Google_Service_Calendar_Setting' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/Setting.php',
-        'Google_Service_Calendar_Settings' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/Settings.php',
-        'Google_Service_Calendar_TimePeriod' => __DIR__ . '/..' . '/google/apiclient-services/src/Google/Service/Calendar/TimePeriod.php',
-        'Google_Service_Exception' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-        'Google_Service_Resource' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-        'Google_Task_Composer' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-        'Google_Task_Exception' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-        'Google_Task_Retryable' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-        'Google_Task_Runner' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
-        'Google_Utils_UriTemplate' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
         'Monolog\\ErrorHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/ErrorHandler.php',
         'Monolog\\Formatter\\ChromePHPFormatter' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Formatter/ChromePHPFormatter.php',
         'Monolog\\Formatter\\ElasticaFormatter' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Formatter/ElasticaFormatter.php',
@@ -719,6 +691,7 @@ class ComposerStaticInit13cf2c307b38bdec74f166ac44086a9e
         'phpseclib3\\Crypt\\ChaCha20' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/ChaCha20.php',
         'phpseclib3\\Crypt\\Common\\AsymmetricKey' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/Common/AsymmetricKey.php',
         'phpseclib3\\Crypt\\Common\\BlockCipher' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/Common/BlockCipher.php',
+        'phpseclib3\\Crypt\\Common\\Formats\\Keys\\JWK' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/Common/Formats/Keys/JWK.php',
         'phpseclib3\\Crypt\\Common\\Formats\\Keys\\OpenSSH' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/Common/Formats/Keys/OpenSSH.php',
         'phpseclib3\\Crypt\\Common\\Formats\\Keys\\PKCS' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/Common/Formats/Keys/PKCS.php',
         'phpseclib3\\Crypt\\Common\\Formats\\Keys\\PKCS1' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/Common/Formats/Keys/PKCS1.php',
@@ -829,6 +802,7 @@ class ComposerStaticInit13cf2c307b38bdec74f166ac44086a9e
         'phpseclib3\\Crypt\\EC\\Curves\\sect571k1' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/EC/Curves/sect571k1.php',
         'phpseclib3\\Crypt\\EC\\Curves\\sect571r1' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/EC/Curves/sect571r1.php',
         'phpseclib3\\Crypt\\EC\\Formats\\Keys\\Common' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/EC/Formats/Keys/Common.php',
+        'phpseclib3\\Crypt\\EC\\Formats\\Keys\\JWK' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/EC/Formats/Keys/JWK.php',
         'phpseclib3\\Crypt\\EC\\Formats\\Keys\\MontgomeryPrivate' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/EC/Formats/Keys/MontgomeryPrivate.php',
         'phpseclib3\\Crypt\\EC\\Formats\\Keys\\MontgomeryPublic' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/EC/Formats/Keys/MontgomeryPublic.php',
         'phpseclib3\\Crypt\\EC\\Formats\\Keys\\OpenSSH' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/EC/Formats/Keys/OpenSSH.php',
@@ -848,6 +822,7 @@ class ComposerStaticInit13cf2c307b38bdec74f166ac44086a9e
         'phpseclib3\\Crypt\\RC2' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/RC2.php',
         'phpseclib3\\Crypt\\RC4' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/RC4.php',
         'phpseclib3\\Crypt\\RSA' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/RSA.php',
+        'phpseclib3\\Crypt\\RSA\\Formats\\Keys\\JWK' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/RSA/Formats/Keys/JWK.php',
         'phpseclib3\\Crypt\\RSA\\Formats\\Keys\\MSBLOB' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/RSA/Formats/Keys/MSBLOB.php',
         'phpseclib3\\Crypt\\RSA\\Formats\\Keys\\OpenSSH' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/RSA/Formats/Keys/OpenSSH.php',
         'phpseclib3\\Crypt\\RSA\\Formats\\Keys\\PKCS1' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/RSA/Formats/Keys/PKCS1.php',
@@ -1047,10 +1022,9 @@ class ComposerStaticInit13cf2c307b38bdec74f166ac44086a9e
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit13cf2c307b38bdec74f166ac44086a9e::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit13cf2c307b38bdec74f166ac44086a9e::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit13cf2c307b38bdec74f166ac44086a9e::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit13cf2c307b38bdec74f166ac44086a9e::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit88c2c3bc9f16392f8d38d81e0639c0d1::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit88c2c3bc9f16392f8d38d81e0639c0d1::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit88c2c3bc9f16392f8d38d81e0639c0d1::$classMap;
 
         }, null, ClassLoader::class);
     }

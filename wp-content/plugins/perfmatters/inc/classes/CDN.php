@@ -6,6 +6,13 @@ class CDN
     //initialize cdn
     public static function init() 
     {
+        add_action('wp', array('Perfmatters\CDN', 'queue'));
+    }
+
+    //queue functions
+    public static function queue() 
+    {
+
         //add cdn rewrite to the buffer
         if(!empty(Config::$options['cdn']['enable_cdn']) && !empty(Config::$options['cdn']['cdn_url'])) {
             add_action('perfmatters_output_buffer_template_redirect', array('Perfmatters\CDN', 'rewrite'));

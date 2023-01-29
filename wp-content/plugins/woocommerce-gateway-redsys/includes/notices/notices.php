@@ -1,7 +1,10 @@
 <?php
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Notices
+ *
+ * @package WooCommerce Redsys Gateway WooCommerce.com
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -33,8 +36,8 @@ function redsys_add_notice_intalled_new() {
 	$hide = get_option( 'hide-install-redsys-notice' );
 
 	if ( 'yes' !== $hide ) {
-		if ( isset( $_REQUEST['redsys-hide-install'] ) && 'hide-install-redsys' === $_REQUEST['redsys-hide-install'] ) {
-			$nonce = sanitize_text_field( $_REQUEST['_redsys_hide_install_nonce'] );
+		if ( isset( $_REQUEST['redsys-hide-install'] ) && 'hide-install-redsys' === $_REQUEST['redsys-hide-install'] && isset( $_REQUEST['_redsys_hide_install_nonce'] ) ) {
+			$nonce = sanitize_text_field( wp_unslash( $_REQUEST['_redsys_hide_install_nonce'] ) );
 			if ( wp_verify_nonce( $nonce, 'redsys_hide_install_nonce' ) ) {
 				update_option( 'hide-install-redsys-notice', 'yes' );
 			}
@@ -42,7 +45,7 @@ function redsys_add_notice_intalled_new() {
 			?>
 			<div id="message" class="updated woocommerce-message woocommerce-redsys-messages">
 				<div class="logo-redsys-notice">
-					<img src="<?php echo REDSYS_PLUGIN_URL_P; ?>assets/images/redsys-woo-notice.png" alt="Logo Plugn Redsys" height="100" width="100">
+					<img src="<?php echo esc_url( REDSYS_PLUGIN_URL_P ); ?>assets/images/redsys-woo-notice.png" alt="Logo Plugn Redsys" height="100" width="100">
 				</div>
 				<div class="contenido-redsys-notice">
 					<a class="woocommerce-message-close notice-dismiss" style="top:0;" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'redsys-hide-install', 'hide-install-redsys' ), 'redsys_hide_install_nonce', '_redsys_hide_install_nonce' ) ); ?>"><?php esc_html_e( 'Before Dismiss it, read it plase', 'woocommerce-redsys' ); ?></a>
@@ -61,9 +64,9 @@ function redsys_add_notice_intalled_new() {
 					<?php esc_html_e( 'I can install and configure the Redsys plugin for you, it goes with the price of the license you purchased at WooCommerce.com', 'woocommerce-redsys' ); ?>
 					</p>
 					<p class="submit">
-						<a href="<?php echo REDSYS_TICKET; ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Open a ticket NOW for help with installation', 'woocommerce-redsys' ); ?></a>
-						<a href="<?php echo admin_url(); ?>admin.php?page=wc-addons&section=helper" class="button-primary" target="_blank"><?php esc_html_e( 'Connect your Site for get future extension updates', 'woocommerce-redsys' ); ?></a>
-						<a href="<?php echo REDSYS_GPL; ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Learn what is GPL', 'woocommerce-redsys' ); ?></a>
+						<a href="<?php echo esc_url( REDSYS_TICKET ); ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Open a ticket NOW for help with installation', 'woocommerce-redsys' ); ?></a>
+						<a href="<?php echo esc_url( admin_url() ); ?>admin.php?page=wc-addons&section=helper" class="button-primary" target="_blank"><?php esc_html_e( 'Connect your Site for get future extension updates', 'woocommerce-redsys' ); ?></a>
+						<a href="<?php echo esc_url( REDSYS_GPL ); ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Learn what is GPL', 'woocommerce-redsys' ); ?></a>
 					</p>
 				</div>
 			</div>
@@ -80,9 +83,9 @@ function redsys_add_notice_new_version() {
 
 	$version = get_option( 'hide-new-version-redsys-notice' );
 
-	if ( $version !== REDSYS_VERSION ) {
-		if ( isset( $_REQUEST['redsys-hide-new-version'] ) && 'hide-new-version-redsys' === $_REQUEST['redsys-hide-new-version'] ) {
-			$nonce = sanitize_text_field( $_REQUEST['_redsys_hide_new_version_nonce'] );
+	if ( REDSYS_VERSION !== $version ) {
+		if ( isset( $_REQUEST['redsys-hide-new-version'] ) && 'hide-new-version-redsys' === $_REQUEST['redsys-hide-new-version'] && isset( $_REQUEST['_redsys_hide_new_version_nonce'] ) ) {
+			$nonce = sanitize_text_field( wp_unslash( $_REQUEST['_redsys_hide_new_version_nonce'] ) );
 			if ( wp_verify_nonce( $nonce, 'redsys_hide_new_version_nonce' ) ) {
 				update_option( 'hide-new-version-redsys-notice', REDSYS_VERSION );
 			}
@@ -90,23 +93,23 @@ function redsys_add_notice_new_version() {
 			?>
 			<div id="message" class="updated woocommerce-message woocommerce-redsys-messages">
 				<div class="logo-redsys-notice">
-					<img src="<?php echo REDSYS_PLUGIN_URL_P; ?>assets/images/redsys-woo-notice.png" alt="Logo Plugn Redsys" height="100" width="100">
+					<img src="<?php echo esc_url( REDSYS_PLUGIN_URL_P ); ?>assets/images/redsys-woo-notice.png" alt="Logo Plugn Redsys" height="100" width="100">
 				</div>
 				<div class="contenido-redsys-notice">
 					<a class="woocommerce-message-close notice-dismiss" style="top:0;" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'redsys-hide-new-version', 'hide-new-version-redsys' ), 'redsys_hide_new_version_nonce', '_redsys_hide_new_version_nonce' ) ); ?>"><?php esc_html_e( 'Dismiss', 'woocommerce-redsys' ); ?></a>
 					<p>
 						<h3>
-							<?php echo esc_html__( 'WooCommerce Redsys Gateway has been updated to version', 'woocommerce-redsys' ) . ' ' . REDSYS_VERSION; ?>
+							<?php echo esc_html__( 'WooCommerce Redsys Gateway has been updated to version', 'woocommerce-redsys' ) . ' ' . esc_html( REDSYS_VERSION ); ?>
 						</h3>
 					</p>
 					<p>
 						<?php esc_html_e( 'Discover the improvements that have been made in this version, and how to take advantage of them ', 'woocommerce-redsys' ); ?>
 					</p>
 					<p class="submit">
-						<a href="<?php echo REDSYS_POST_UPDATE_URL_P; ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Discover the improvements', 'woocommerce-redsys' ); ?></a>
-						<a href="<?php echo REDSYS_REVIEW_P; ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Leave a review', 'woocommerce-redsys' ); ?></a>
-						<a href="<?php echo REDSYS_TELEGRAM_SIGNUP_P; ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Sign up for the Telegram channel', 'woocommerce-redsys' ); ?></a>
-						<a href="<?php echo REDSYS_GPL; ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Learn what is GPL', 'woocommerce-redsys' ); ?></a>
+						<a href="<?php echo esc_url( REDSYS_POST_UPDATE_URL_P ); ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Discover the improvements', 'woocommerce-redsys' ); ?></a>
+						<a href="<?php echo esc_url( REDSYS_REVIEW_P ); ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Leave a review', 'woocommerce-redsys' ); ?></a>
+						<a href="<?php echo esc_url( REDSYS_TELEGRAM_SIGNUP_P ); ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Sign up for the Telegram channel', 'woocommerce-redsys' ); ?></a>
+						<a href="<?php echo esc_url( REDSYS_GPL ); ?>" class="button-primary" target="_blank"><?php esc_html_e( 'Learn what is GPL', 'woocommerce-redsys' ); ?></a>
 					</p>
 				</div>
 			</div>
@@ -115,22 +118,6 @@ function redsys_add_notice_new_version() {
 	}
 }
 add_action( 'admin_notices', 'redsys_add_notice_new_version' );
-
-/**
- * Copyright: (C) 2013 - 2023 José Conti
- */
-function redsys_deprecated_authorization() {
-
-	$is_enabled = WCRed()->is_gateway_enabled( 'preauthorizationsredsys' );
-	if ( $is_enabled ) {
-		$class   = 'notice notice-error';
-		$message = __( 'ATTENTION: "Redsys Preathorizations (by José Conti)" is deprecated and will be removed, please set up "Redsys redirection (by José Conti)". Once you deactivate "Redsys Preauthorizations (by Jose Conti)" this notice will disappear.', 'woocommerce-redsys' );
-		$message2 = '<a href="https://redsys.joseconti.com/guias/como-funcionan-las-preautorizaciones/">' . __( 'Check how preauthorizations works now', 'woocommerce-redsys' ) . '</a>';
-		printf( '<div class="%1$s"><p>%2$s %3$s</p></div>', esc_attr( $class ), $message, $message2 );
-	}
-}
-
-add_action( 'admin_notices', 'redsys_deprecated_authorization' );
 
 /**
  * Copyright: (C) 2013 - 2023 José Conti
@@ -147,11 +134,17 @@ add_action( 'admin_enqueue_scripts', 'redsys_notice_style' );
 function check_redsys_connected() {
 
 	if ( ! WCRed()->check_product_key() ) {
-		$class    = 'notice notice-error';
-		$link     = admin_url( 'admin.php?page=wc-addons&section=helper' );
-		$message  = '<a href="' . esc_html( $link ) . '">' . __( 'Connect WooCommerce with WooCommerce.com and Activate License', 'woocommerce-redsys' ) . '</a>';
-		$message2 = __( 'to get WooCommerce Redsys Gateway updates. This connection & activation will allow you to update the plugin automatically and be advised of new updates<br />If you don\'t connect it, you could be with an old plugin version and maybe with some bugs.', 'woocommerce-redsys' );
-		printf( '<div class="%1$s"><p>%2$s %3$s</p></div>', esc_attr( $class ), $message, $message2 );
+		$allowed_html = array(
+			'a' => array(
+				'href'  => array(),
+				'class' => array(),
+			),
+		);
+		$class        = 'notice notice-error';
+		$link         = admin_url( 'admin.php?page=wc-addons&section=helper' );
+		$message      = '<a href="' . esc_url( $link ) . '">' . __( 'Connect WooCommerce with WooCommerce.com and Activate License', 'woocommerce-redsys' ) . '</a>';
+		$message2     = __( 'to get WooCommerce Redsys Gateway updates. This connection & activation will allow you to update the plugin automatically and be advised of new updates. If you don\'t connect it, you could be with an old plugin version and maybe with some bugs.', 'woocommerce-redsys' );
+		printf( '<div class="%1$s"><p>%2$s %3$s</p></div>', esc_attr( $class ), wp_kses( $message, $allowed_html ), esc_html( $message2 ) );
 	}
 }
 

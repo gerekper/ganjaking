@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-namespace Google;
+namespace Automattic\WooCommerce\Bookings\Vendor\Google;
 
-use Google\Http\Batch;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Http\Batch;
 use TypeError;
 
 class Service

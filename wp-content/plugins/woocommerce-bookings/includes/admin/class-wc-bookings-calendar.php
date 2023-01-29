@@ -315,9 +315,47 @@ class WC_Bookings_Calendar {
 					$data_attr .= "data-booking-{$attr}=\"{$esc_val}\" ";
 				}
 
+				$meta_attrs = array();
+
+				/**
+				 * Hook to filter data for the meta data attribute for the popup calendar.
+				 *
+				 * @param array      $meta_attrs    Array of meta atttributes.
+				 * @param array|null $booking_data Array of booking data.
+				 * @param int        Order ID.
+				 *
+				 * @since 1.15.70
+				 */
+				$meta_attrs = apply_filters(
+					'woocommerce_bookings_calendar_data_meta_attr',
+					$meta_attrs,
+					$booking->get_order_id()
+				);
+
+				$sanitized_meta_attrs = array();
+
+				if ( ! empty( $meta_attrs ) ) {
+					foreach ( $meta_attrs as $index => $meta_attr ) {
+						if ( ! ( is_array( $meta_attr ) && ! empty( $meta_attr ) && isset( $meta_attr['attrs'] ) ) ) {
+							continue;
+						}
+
+						if ( ! ( is_array( $meta_attr['attrs'] ) && ! empty( $meta_attr['attrs'] ) ) ) {
+							continue;
+						}
+
+						foreach ( $meta_attr['attrs'] as $attr_key => $attr_value ) {
+							$sanitized_meta_attrs[ $attr_key ] = sanitize_text_field( $attr_value );
+						}
+
+						$meta_attrs[ $index ]['attrs'] = $sanitized_meta_attrs;
+					}
+				}
+
 				$data_attr .= ' data-classes="' . esc_attr( implode( ' ', $event_classes ) ) . '"';
 				$data_attr .= ' data-style="' . esc_attr( $style ) . '"';
 				$data_attr .= ' data-url="' . esc_attr( $detail_href ) . '"';
+				$data_attr .= " data-order-meta='" . wp_json_encode( $meta_attrs ) . "'";
 
 				echo '<li class="calendar_month_event calendar_event_id_' . esc_attr( $id ) . '" data-status="' . esc_attr( $status ) . '" data-id="' . esc_attr( $id ) . '" ' . $data_attr . '></li>'; // phpcs:ignore WordPress.Security.EscapeOutput
 			}
@@ -456,7 +494,7 @@ class WC_Bookings_Calendar {
 				$css_classes[] = 'no_availability';
 			}
 
-			echo wp_kses_post( $this->render_li_element( $attr_data, $assigned_colors[ $event->get_id() ], $css_classes ) );
+			echo $this->render_li_element( $attr_data, $assigned_colors[ $event->get_id() ], $css_classes );
 		}
 	}
 

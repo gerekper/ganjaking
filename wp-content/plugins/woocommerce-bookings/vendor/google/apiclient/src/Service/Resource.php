@@ -15,12 +15,12 @@
  * limitations under the License.
  */
 
-namespace Google\Service;
+namespace Automattic\WooCommerce\Bookings\Vendor\Google\Service;
 
-use Google\Model;
-use Google\Http\MediaFileUpload;
-use Google\Exception as GoogleException;
-use Google\Utils\UriTemplate;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Model;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Http\MediaFileUpload;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Exception as GoogleException;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Utils\UriTemplate;
 use Automattic\WooCommerce\Bookings\Vendor\GuzzleHttp\Psr7\Request;
 
 /**

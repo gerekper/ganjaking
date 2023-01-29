@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-namespace Google\Task;
+namespace Automattic\WooCommerce\Bookings\Vendor\Google\Task;
 
-use Google\Exception as GoogleException;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Exception as GoogleException;
 
 class Exception extends GoogleException
 {

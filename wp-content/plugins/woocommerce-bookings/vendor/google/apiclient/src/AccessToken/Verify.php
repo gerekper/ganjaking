@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-namespace Google\AccessToken;
+namespace Automattic\WooCommerce\Bookings\Vendor\Google\AccessToken;
 
 use Firebase\JWT\ExpiredException as ExpiredExceptionV3;
 use Firebase\JWT\SignatureInvalidException;
@@ -26,7 +26,7 @@ use phpseclib3\Crypt\PublicKeyLoader;
 use phpseclib3\Crypt\RSA\PublicKey;
 use Psr\Cache\CacheItemPoolInterface;
 use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\Cache\MemoryCacheItemPool;
-use Google\Exception as GoogleException;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Exception as GoogleException;
 use Stash\Driver\FileSystem;
 use Stash\Pool;
 use DateTime;

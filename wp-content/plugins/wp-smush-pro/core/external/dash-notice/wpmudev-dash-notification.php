@@ -4,7 +4,6 @@
 /* This provides notices of available updates for our premium products */
 if ( ! class_exists( 'WPMUDEV_Dashboard_Notice4' ) ) {
 	class WPMUDEV_Dashboard_Notice4 {
-		return;
 		var $version        = '4.2.4';
 		var $screen_id      = false;
 		var $product_name   = false;

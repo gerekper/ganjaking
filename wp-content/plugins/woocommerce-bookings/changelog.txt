@@ -1,5 +1,27 @@
 *** WooCommerce Bookings Changelog ***
 
+2023-01-25 - version 1.15.73
+* Fix - Calendars show correct availability when multiple bookable products are on the same page.
+* Fix - Namespacing of Google API package classes.
+* Tweak - Bump WooCommerce "tested up to" from 7.2.2 to 7.3.
+* Tweak - Bump tested up to WordPress version 6.1.
+
+2023-01-17 - version 1.15.72
+* Fix - Validate that manually entered dates are actually bookable.
+* Tweak - Improved performance by moving availability slots' cache creation via Action Scheduler.
+
+2023-01-17 - version 1.15.71
+* Fix - Validate that manually entered dates are actually bookable.
+* Tweak - Improved performance by moving availability slots' cache creation via Action Scheduler.
+
+2023-01-06 - version 1.15.70
+* Add - Filter to add meta attributes to booking calendar popup.
+* Fix - Correctly validate undefined variables.
+* Fix - Improve display in admin calendar to prevent overlapping text.
+* Fix - Incorrect availability shown when resources are shared across products.
+* Fix - Prevent fatal error on PHP 8+ when loading the booking calendar.
+* Tweak - WC 7.2.2 compatibility.
+
 2022-12-13 - version 1.15.69
 * Fix - All products shown as available in Bookings Calendar block.
 * Fix - Google Calendar connection issues.

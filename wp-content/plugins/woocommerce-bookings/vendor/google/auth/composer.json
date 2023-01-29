@@ -30,12 +30,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Auth\\": "src"
+      "Google\\Auth\\": "src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Automattic\\WooCommerce\\Bookings\\Vendor\\Google\\Auth\\Tests\\": "tests"
+      "Google\\Auth\\Tests\\": "tests"
     }
   }
 }

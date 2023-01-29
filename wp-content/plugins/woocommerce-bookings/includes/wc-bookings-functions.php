@@ -506,11 +506,48 @@ function wc_bookings_get_total_available_bookings_for_range( $bookable_product, 
 				}
 				$check_date = strtotime( '+1 day', $check_date );
 			}
+
+			// Also check the end time because it was skipped above, in while loop.
+			// This is helpful only for accommodation bookable products when the
+			// end time is on the next day / not on the same day.
+			if ( ! $bookable_product->get_check_start_block_only()
+			     && ! $bookable_product->check_availability_rules_against_date( $end_date, $resource_id ) ) {
+				return false;
+			}
 		}
 		// Get blocks availability
 		return $bookable_product->get_blocks_availability( $start_date, $end_date, $qty, $booking_resource, $intervals );
 	}
 }
+
+/**
+ * (via Action Scheduler) Find available and booked blocks for specific resources (if any) and return them as array.
+ *
+ * @param  int $product_id
+ * @param  integer $min_date The starting date for the set of blocks
+ * @param  integer $max_date The ending date for the set of blocks
+ * @param  integer $timezone_offset Timezone offest.
+ * @return void
+ *
+ * @version  1.15.70
+ */
+function wc_bookings_get_time_slots_scheduled( $product_id, $min_date, $max_date, $timezone_offset ) {
+
+	// Add meta to mark the event is started.
+	$transient_name = 'book_ts_' . md5( http_build_query( array( $product_id, 0, $min_date, $max_date, false ) ) );
+	update_post_meta( $product_id, 'cache_update_started-' . $transient_name, true );
+
+	// Delete transient, we can't delete it for a specific product,
+	// because the same resource may be in use by other products,
+	// so we also need to delete their transients, perhaps a work for the future.
+	// right now deleting all transients.
+	WC_Bookings_Cache::delete_booking_slots_transient();
+
+	// Re-call the function to generate the latest time slots.
+	WC_Bookings_Controller::find_booked_day_blocks( $product_id, $min_date, $max_date, 'Y-n-j', $timezone_offset, array(), 'action-scheduler' );
+}
+
+add_action( 'wc-booking-scheduled-update-availability', 'wc_bookings_get_time_slots_scheduled', 10, 8 );
 
 /**
  * Find available and booked blocks for specific resources (if any) and return them as array.
@@ -526,9 +563,44 @@ function wc_bookings_get_total_available_bookings_for_range( $bookable_product, 
  * @version  1.10.5
  */
 function wc_bookings_get_time_slots( $bookable_product, $blocks, $intervals = array(), $resource_id = 0, $from = 0, $to = 0, $include_sold_out = false ) {
+	$arg_list                     = func_get_args();
+	$product_id                   = $bookable_product->get_id();
 	$transient_name               = 'book_ts_' . md5( http_build_query( array( $bookable_product->get_id(), $resource_id, $from, $to, $include_sold_out ) ) );
-	$available_slots              = WC_Bookings_Cache::get( $transient_name );
 	$booking_slots_transient_keys = array_filter( (array) WC_Bookings_Cache::get( 'booking_slots_transient_keys' ) );
+	$available_slots              = WC_Bookings_Cache::get( $transient_name );
+
+	// Should we serve the old availability until the action scheduler runs or not.
+	$old_availability_served = false;
+
+	// Action Scheduler Event exists or not. Set to false by default.
+	$clear_cache_event      = false;
+	$cache_update_scheduled = get_post_meta( $product_id, 'cache_update_scheduled-' . $transient_name );
+
+	// If event is created show the old availability (i.e. from transient) to the user.
+	// The $arg_list[7] is $timezone_offset, this is required to check event's existence.
+	// The $arg_list[8] is $source, this is to know if the request is coming from the 'user'
+	// or this is a call from the event itself (i.e. 'action-scheduler').
+	if ( $cache_update_scheduled && isset( $arg_list[7] ) && isset( $arg_list[8] ) && 'user' === $arg_list[8] ) {
+		// If the action scheduler event is not set,
+		// or it is not running right now (i.e. 'cache_update_started-..' meta does not exist),
+		// force clear the transient now. Otherwise, keep serving the old availability.
+		$clear_cache_event    = as_has_scheduled_action( 'wc-booking-scheduled-update-availability', array( $product_id, $from, $to, $arg_list[7] ) );
+		$cache_update_started = get_post_meta( $product_id, 'cache_update_started-' . $transient_name, true );
+		if ( ! $clear_cache_event && ! $cache_update_started ) {
+			update_post_meta( $product_id, 'cache_update_started', true );
+			WC_Bookings_Cache::delete_booking_slots_transient();
+		} else {
+			// Old availability should be served until the action is fired.
+			$old_availability_served = true;
+		}
+	}
+
+	// If we have to serve the old availability, but we don't have availability slots in transient,
+	// Let's see if we have 'prev-availability' transient available (that is created by the event scheduler).
+	if ( $old_availability_served && ! $available_slots ) {
+		// If not available, set it to `false` to prevent `Illegal string offset` issue.
+		$available_slots = WC_Bookings_Cache::get( 'prev-availability-' . $transient_name ) ?: false;
+	}
 
 	if ( ! isset( $booking_slots_transient_keys[ $bookable_product->get_id() ] ) ) {
 		$booking_slots_transient_keys[ $bookable_product->get_id() ] = array();
@@ -688,7 +760,28 @@ function wc_bookings_get_time_slots( $bookable_product, $blocks, $intervals = ar
 		}
 
 		WC_Bookings_Cache::set( $transient_name, $available_slots );
+
+		// Delete cache schedule tracking metas.
+		delete_post_meta( $product_id, 'cache_update_scheduled-' . $transient_name );
+		delete_post_meta( $product_id, 'cache_update_started-' . $transient_name );
+
+		// Delete the backup of previous availability.
+		WC_Bookings_Cache::delete( 'prev-availability-' . $transient_name );
+
+		// Reset Flag.
+		$old_availability_served = false;
+
+		// Delete if the action is still exists. We don't need it anymore as the availability is generated!
+		// This is possible when the cache is cleared from somewhere else or by another action.
+		// Note: The $arg_list[7] is already set if `$clear_cache_event` is set. No need to check with `isset()`.
+		if ( $clear_cache_event ) {
+			as_unschedule_action( 'wc-booking-scheduled-update-availability', array( $product_id, $from, $to, $arg_list[7] ) );
+		}
 	}
+
+	// Return `old_availability` flag to the browser, so we can display a message
+	// to the users that the old availability is being served to them or the latest one is being served.
+	$available_slots['old_availability'] = $old_availability_served;
 
 	$args = array(
 		'blocks'           => $blocks,

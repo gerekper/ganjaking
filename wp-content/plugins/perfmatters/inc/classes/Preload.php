@@ -8,6 +8,12 @@ class Preload
     //initialize preload functions
     public static function init() 
     {
+       add_action('wp', array('Perfmatters\Preload', 'queue'));
+    }
+
+    //queue functions
+    public static function queue() 
+    {
         if(!empty(Config::$options['preload']['preload']) || !empty(Config::$options['preload']['critical_images'])) {
             add_action('perfmatters_output_buffer_template_redirect', array('Perfmatters\Preload', 'add_preloads'));
         }

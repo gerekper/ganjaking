@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-namespace Google;
+namespace Automattic\WooCommerce\Bookings\Vendor\Google;
 
-use Google\Exception as GoogleException;
+use Automattic\WooCommerce\Bookings\Vendor\Google\Exception as GoogleException;
 use ReflectionObject;
 use ReflectionProperty;
 use stdClass;

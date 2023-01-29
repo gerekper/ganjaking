@@ -72,7 +72,43 @@ class WC_Booking_Data_Store extends WC_Data_Store_WP {
 
 			do_action( 'woocommerce_new_booking', $booking->get_id() );
 		}
-		WC_Bookings_Cache::delete_booking_slots_transient();
+
+		// Stop deleting the transient if the product is added to the cart.
+		// Action Scheduler will be used to update new availability.
+		// Add some meta to track that this product requires updating.
+		$product_id = filter_input( INPUT_POST, 'add-to-cart', FILTER_SANITIZE_NUMBER_INT );
+		$min_date   = isset( $_POST['min_date'] ) ? strtotime( $_POST['min_date'] ) : '';
+		$max_date   = isset( $_POST['max_date'] ) ? strtotime( $_POST['max_date'] ) : '';
+
+		// If $min_date or $max_date are somehow was not updated by the JS, stop and clear transient.
+		if ( $product_id && $min_date && $max_date ) {
+			$product_or_resource_id = $booking->has_resources() ? $booking->get_resource_id() : $product_id;
+
+			/**
+			 * Filter the maximum number of bookings before scheduling the transient delete.
+			 * 
+			 * @since 1.15.70
+			 *
+			 * @param int Number of maximum booklings.
+			 * @param int $product_or_resource_id Product or the Resource ID.
+			 * @param int $min_date Start date timestamp.
+			 * @param int $max_date End date timestamp.
+			 */
+			$max_booking_count = apply_filters( 'woocommerce_bookings_max_bookings_to_delete_transient', 1000, (int) $product_or_resource_id, $min_date, $max_date );
+
+			// If existing bookings' count is less than 1000, delete the transient now,
+			// otherwise schedule it via an action scheduler.
+			$existing_bookings = self::get_bookings_in_date_range( $min_date, $max_date, $product_or_resource_id, true );
+			if ( count( $existing_bookings ) < $max_booking_count ) {
+				WC_Bookings_Cache::delete_booking_slots_transient();
+			} else {
+				// Call the function with an extra argument to prepare data and schedule an event later.
+				WC_Bookings_Controller::find_booked_day_blocks( (int) $_POST['add-to-cart'], $min_date, $max_date, 'Y-n-j', $_POST['timezone_offset'], array(), 'action-scheduler-helper' );
+			}
+		} else {
+			WC_Bookings_Cache::delete_booking_slots_transient();
+		}
+
 	}
 
 	/**

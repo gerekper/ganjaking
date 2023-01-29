@@ -9,6 +9,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+/**
+ * Check if product is private
+ *
+ * @param int $user_id User ID.
+ * @param int $product_id Product ID.
+ */
 function redsys_is_private_product( $user_id, $product_id ) {
 
 	$is_active     = WCRed()->get_order_meta( $product_id, 'redsys_private_active', true );
@@ -23,9 +29,9 @@ function redsys_is_private_product( $user_id, $product_id ) {
 	}
 }
 
-/*
-* Copyright: (C) 2013 - 2023 José Conti
-*/
+/**
+ * Make private products
+ */
 function redsys_make_private() {
 	global $post, $wp_query;
 
@@ -50,10 +56,9 @@ add_action( 'wp', 'redsys_make_private' );
 
 /**
  * Adding a custom tab
+ *
+ * @param array $tabs Tabs.
  */
-/*
-* Copyright: (C) 2013 - 2023 José Conti
-*/
 function redsys_private_product_tab( $tabs ) {
 
 	$tabs['redsys_private_product'] = array(
@@ -65,10 +70,9 @@ function redsys_private_product_tab( $tabs ) {
 }
 add_filter( 'woocommerce_product_data_tabs', 'redsys_private_product_tab' );
 
-// Adding content to custom panel
-/*
-* Copyright: (C) 2013 - 2023 José Conti
-*/
+/**
+ * Adding a custom tab panel
+ */
 function redsys_private_product_tab_panel() {
 
 	$users         = get_users();
@@ -91,27 +95,39 @@ function redsys_private_product_tab_panel() {
 			<?php
 			foreach ( $users as $user ) {
 				?>
-					<option value="<?php echo esc_attr( $user->ID ); ?>"<?php
-					if ( $user_selected['0'] && in_array( esc_html( $user->ID ), $user_selected['0'], true ) ) {
-						echo ' selected';}
-					?>><?php echo esc_html( $user->user_email ); ?></option>
+					<option value="<?php echo esc_attr( $user->ID ); ?>"
+					<?php
+					if ( $user_selected['0'] && in_array( esc_html( $user->ID ), $user_selected['0'], true ) ) { // phpcs:ignore Squiz.ControlStructures.ControlSignature.NewlineAfterOpenBrace
+						echo ' selected';
+					}
+					?>
+					>
+					<?php echo esc_html( $user->user_email ); ?></option>
 				<?php } ?>
 				</select><?php echo wc_help_tip( __( 'Select user that will be allowed to see this product', 'woocommerce-redsys' ) ); ?>
 			</p>
+			<?php
+			wp_nonce_field( 'redsys_private_product', 'redsys_private_product_nonce' );
+			?>
 		</div>
 	</div>
 	<?php
 }
 add_action( 'woocommerce_product_data_panels', 'redsys_private_product_tab_panel' );
 
-// Saving data
-/*
-* Copyright: (C) 2013 - 2023 José Conti
-*/
+/**
+ * Save the custom fields
+ *
+ * @param int $post_id Post ID.
+ */
 function redsys_save_private_product( $post_id ) {
 
-	$redsys_private_active = isset( $_POST['redsys_private_active'] ) ? $_POST['redsys_private_active'] : 'no';
-	$redsys_private_users  = isset( $_POST['redsys_users_private_label_field'] ) ? $_POST['redsys_users_private_label_field'] : '';
+	if ( ! isset( $_POST['redsys_private_product_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['redsys_private_product_nonce'] ) ), 'redsys_private_product' ) ) {
+		return;
+	}
+
+	$redsys_private_active = isset( $_POST['redsys_private_active'] ) ? sanitize_text_field( wp_unslash( $_POST['redsys_private_active'] ) ) : 'no';
+	$redsys_private_users  = isset( $_POST['redsys_users_private_label_field'] ) ? sanitize_text_field( wp_unslash( $_POST['redsys_users_private_label_field'] ) ) : '';
 	$product               = wc_get_product( $post_id );
 	$product->update_meta_data( 'redsys_private_active', $redsys_private_active );
 	$product->update_meta_data( 'redsys_users_private', $redsys_private_users );
@@ -119,20 +135,22 @@ function redsys_save_private_product( $post_id ) {
 }
 add_action( 'woocommerce_process_product_meta', 'redsys_save_private_product' );
 
-/*
-* Copyright: (C) 2013 - 2023 José Conti
-*/
+/**
+ * Load scripts
+ */
 function redsys_load_scripts_product() {
 	global $current_screen;
 	if ( 'product' === $current_screen->post_type ) {
-		wp_enqueue_script( 'custom-js', REDSYS_PLUGIN_URL_P . 'assets/js/users-product-min.js', REDSYS_VERSION, true );
+		wp_enqueue_script( 'custom-js', REDSYS_PLUGIN_URL_P . 'assets/js/users-product-min.js', array(), REDSYS_VERSION, true );
 	}
 }
 add_action( 'admin_enqueue_scripts', 'redsys_load_scripts_product' );
 
-/*
-* Copyright: (C) 2013 - 2023 José Conti
-*/
+/**
+ * Hide private products from shop
+ *
+ * @param object $q Query.
+ */
 function redsys_private_product_query( $q ) {
 
 	$meta_query = $q->get( 'meta_query' );

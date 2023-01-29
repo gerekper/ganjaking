@@ -11,13 +11,14 @@ use Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry;
 
 add_action( 'woocommerce_blocks_loaded', 'my_extension_woocommerce_blocks_support' );
 
+/**
+ * Block Support
+ */
 function my_extension_woocommerce_blocks_support() {
-//	if ( class_exists( 'Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType' ) ) {
-		add_action(
-			'woocommerce_blocks_payment_method_type_registration',
-			function( PaymentMethodRegistry $payment_method_registry ) {
-				$payment_method_registry->register( new WC_Gateway_Redsys() );
-			}
-		);
-//	}
+	add_action(
+		'woocommerce_blocks_payment_method_type_registration',
+		function( PaymentMethodRegistry $payment_method_registry ) {
+			$payment_method_registry->register( new WC_Gateway_Redsys() );
+		}
+	);
 }

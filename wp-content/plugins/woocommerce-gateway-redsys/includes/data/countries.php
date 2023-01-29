@@ -1,15 +1,21 @@
 <?php
+/**
+ * Countries
+ *
+ * List of countries and codes.
+ *
+ * @package WooCommerce Redsys Gateway WooCommerce.com
+ */
 
-/*
-* Copyright: (C) 2013 - 2023 José Conti
-*/
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 
-/*
-* Copyright: (C) 2013 - 2023 José Conti
-*/
+/**
+ * Get country code.
+ *
+ * @return array
+ */
 function redsys_get_country_code() {
 
 	return array(

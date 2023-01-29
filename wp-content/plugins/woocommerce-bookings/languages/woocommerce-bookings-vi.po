@@ -7,11 +7,54 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-12-13T03:04:40+00:00\n"
-"PO-Revision-Date: 2022-11-09 17:07:38+0000\n"
+"POT-Creation-Date: 2023-01-25T23:36:05+00:00\n"
+"PO-Revision-Date: 2022-12-13 03:05:11+0000\n"
 "Language: vi_VN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: GlotPress/2.4.0-alpha\n"
+
+#: includes/booking-form/class-wc-booking-form.php:94
+msgid "Please wait, the latest available slots are being processed in the background."
+msgstr ""
+
+#: includes/admin/views/html-classic-availability-settings.php:151
+msgid "Google Events"
+msgstr ""
+
+#: includes/admin/views/html-classic-availability-settings.php:145
+msgid "Availability Rules"
+msgstr ""
+
+#: includes/admin/class-wc-bookings-ajax.php:599
+msgid "You are not authorized to perform this action"
+msgstr ""
+
+#: includes/admin/class-wc-bookings-ajax.php:214
+msgid "No slots available."
+msgstr ""
+
+#: includes/admin/class-wc-bookings-ajax.php:209
+#: templates/booking-form/month-picker.php:76
+msgid "This month is unavailable"
+msgstr ""
+
+#: includes/admin/class-wc-bookings-ajax.php:207
+#: templates/booking-form/month-picker.php:74
+msgid "This month is fully booked and unavailable"
+msgstr ""
+
+#: includes/admin/class-wc-bookings-ajax.php:205
+#: templates/booking-form/month-picker.php:72
+msgid "This month is available"
+msgstr ""
+
+#: includes/admin/class-wc-bookings-ajax.php:166
+msgid "Error: The booking product details are missing."
+msgstr ""
+
+#: includes/admin/class-wc-bookings-ajax.php:160
+msgid "Please refresh the page and try again."
+msgstr ""
 
 #: includes/admin/class-wc-bookings-cpt.php:138
 msgid "Sorry, you are not allowed to edit this item."
@@ -100,7 +143,7 @@ msgstr ""
 msgid "Are you sure you want to cancel your booking?"
 msgstr ""
 
-#: includes/booking-form/class-wc-booking-form.php:95
+#: includes/booking-form/class-wc-booking-form.php:97
 msgid "We weren't able to get that information. Please contact the store owner for help."
 msgstr ""
 
@@ -114,12 +157,12 @@ msgid "Booked: "
 msgstr ""
 
 #. translators: 1: minimum duration 2: duration unit
-#: includes/data-objects/class-wc-product-booking.php:2346
+#: includes/data-objects/class-wc-product-booking.php:2371
 msgid "The minimum duration is %1$d %2$s"
 msgstr ""
 
 #. translators: 1: maximum duration 2: duration unit
-#: includes/data-objects/class-wc-product-booking.php:2331
+#: includes/data-objects/class-wc-product-booking.php:2356
 msgid "The maximum duration is %1$d %2$s"
 msgstr ""
 
@@ -148,7 +191,7 @@ msgstr ""
 msgid "\"Start and end date\" should be of the format yyyy-mm-dd and cannot be empty."
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1333
+#: includes/class-wc-bookings-google-calendar-connection.php:1335
 msgid "Invalid request!"
 msgstr ""
 
@@ -538,36 +581,36 @@ msgstr "Bắt đầu"
 msgid "F j, Y"
 msgstr "j F, Y"
 
-#: includes/wc-bookings-functions.php:1166
+#: includes/wc-bookings-functions.php:1259
 msgid "night"
 msgid_plural "nights"
 msgstr[0] ""
 
-#: includes/booking-form/class-wc-booking-form.php:293
-#: includes/data-objects/class-wc-product-booking.php:2320
-#: includes/data-objects/class-wc-product-booking.php:2335
-#: includes/wc-bookings-functions.php:1163
+#: includes/booking-form/class-wc-booking-form.php:295
+#: includes/data-objects/class-wc-product-booking.php:2345
+#: includes/data-objects/class-wc-product-booking.php:2360
+#: includes/wc-bookings-functions.php:1256
 msgid "minute"
 msgid_plural "minutes"
 msgstr[0] ""
 
-#: includes/booking-form/class-wc-booking-form.php:295
-#: includes/data-objects/class-wc-product-booking.php:2322
-#: includes/data-objects/class-wc-product-booking.php:2337
-#: includes/wc-bookings-functions.php:1160
+#: includes/booking-form/class-wc-booking-form.php:297
+#: includes/data-objects/class-wc-product-booking.php:2347
+#: includes/data-objects/class-wc-product-booking.php:2362
+#: includes/wc-bookings-functions.php:1253
 msgid "hour"
 msgid_plural "hours"
 msgstr[0] ""
 
-#: includes/wc-bookings-functions.php:1156
+#: includes/wc-bookings-functions.php:1249
 msgid "week"
 msgid_plural "weeks"
 msgstr[0] ""
 
-#: includes/booking-form/class-wc-booking-form.php:299
-#: includes/data-objects/class-wc-product-booking.php:2326
-#: includes/data-objects/class-wc-product-booking.php:2341
-#: includes/wc-bookings-functions.php:1149
+#: includes/booking-form/class-wc-booking-form.php:301
+#: includes/data-objects/class-wc-product-booking.php:2351
+#: includes/data-objects/class-wc-product-booking.php:2366
+#: includes/wc-bookings-functions.php:1242
 msgid "month"
 msgid_plural "months"
 msgstr[0] ""
@@ -947,66 +990,66 @@ msgstr ""
 msgid "Booking &ndash; %s"
 msgstr ""
 
-#: includes/data-objects/class-wc-product-booking.php:2447
+#: includes/data-objects/class-wc-product-booking.php:2472
 msgid "Sorry, the selected block is not available"
 msgstr ""
 
 #. translators: 1: person name 2: minimum persons
-#: includes/data-objects/class-wc-product-booking.php:2428
+#: includes/data-objects/class-wc-product-booking.php:2453
 msgid "The minimum %1$s per group is %2$d"
 msgstr ""
 
 #. translators: 1: person name 2: maximum persons
-#: includes/data-objects/class-wc-product-booking.php:2422
+#: includes/data-objects/class-wc-product-booking.php:2447
 msgid "The maximum %1$s per group is %2$d"
 msgstr ""
 
 #. translators: 1: minimum persons
-#: includes/data-objects/class-wc-product-booking.php:2411
+#: includes/data-objects/class-wc-product-booking.php:2436
 msgid "The minimum persons per group is %d"
 msgstr ""
 
 #. translators: 1: maximum persons
-#: includes/data-objects/class-wc-product-booking.php:2407
+#: includes/data-objects/class-wc-product-booking.php:2432
 msgid "The maximum persons per group is %d"
 msgstr ""
 
-#: includes/data-objects/class-wc-product-booking.php:2397
+#: includes/data-objects/class-wc-product-booking.php:2422
 msgid "Sorry, bookings cannot start on this day."
 msgstr ""
 
 #. translators: 1: maximum date
-#: includes/data-objects/class-wc-product-booking.php:2388
+#: includes/data-objects/class-wc-product-booking.php:2413
 msgid "The latest booking possible is currently %s."
 msgstr ""
 
 #. translators: 1: minimum date
-#: includes/data-objects/class-wc-product-booking.php:2379
+#: includes/data-objects/class-wc-product-booking.php:2404
 msgid "The earliest booking possible is currently %s."
 msgstr ""
 
-#: includes/data-objects/class-wc-product-booking.php:2358
-#: includes/data-objects/class-wc-product-booking.php:2361
+#: includes/data-objects/class-wc-product-booking.php:2383
+#: includes/data-objects/class-wc-product-booking.php:2386
 msgid "You must choose a future date and time."
 msgstr ""
 
-#: includes/data-objects/class-wc-product-booking.php:2355
+#: includes/data-objects/class-wc-product-booking.php:2380
 msgid "Time is required - please choose one above"
 msgstr ""
 
-#: includes/data-objects/class-wc-product-booking.php:2352
+#: includes/data-objects/class-wc-product-booking.php:2377
 msgid "Date is required - please choose one above"
 msgstr ""
 
-#: includes/data-objects/class-wc-product-booking.php:2315
+#: includes/data-objects/class-wc-product-booking.php:2340
 msgid "Duration is required - please enter a duration greater than zero"
 msgstr ""
 
-#: includes/data-objects/class-wc-product-booking.php:2304
+#: includes/data-objects/class-wc-product-booking.php:2329
 msgid "Please choose a resource type"
 msgstr ""
 
-#: includes/data-objects/class-wc-product-booking.php:2182
+#: includes/data-objects/class-wc-product-booking.php:2207
 msgid "This block cannot be booked."
 msgstr ""
 
@@ -1321,18 +1364,18 @@ msgstr ""
 msgid "Bookings from %s"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1464
+#: includes/class-wc-bookings-google-calendar-connection.php:1466
 #: includes/class-wc-bookings-init.php:91
 #: includes/class-wc-bookings-init.php:94
 msgid "Booking"
 msgstr ""
 
 #. translators: %s URL to edit booking
-#: includes/class-wc-bookings-google-calendar-connection.php:1432
+#: includes/class-wc-bookings-google-calendar-connection.php:1434
 msgid "NOTE: this event cannot be edited in Google Calendar. If you need to make changes, <a href=\"%s\" target=\"_blank\">please edit this booking in WooCommerce</a>."
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1416
+#: includes/class-wc-bookings-google-calendar-connection.php:1418
 #: includes/wc-bookings-functions.php:67
 #: templates/emails/admin-booking-cancelled.php:47
 #: templates/emails/admin-new-booking.php:65
@@ -1344,7 +1387,7 @@ msgstr ""
 msgid "Booking Type"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1415
+#: includes/class-wc-bookings-google-calendar-connection.php:1417
 #: templates/emails/admin-booking-cancelled.php:37
 #: templates/emails/admin-new-booking.php:55
 #: templates/emails/customer-booking-cancelled.php:44
@@ -1355,16 +1398,16 @@ msgstr ""
 msgid "Booking ID"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1247
+#: includes/class-wc-bookings-google-calendar-connection.php:1249
 msgid "Failed to connect to your account, please try again, if the problem persists, turn on Debug Log option and see what is happening."
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1227
+#: includes/class-wc-bookings-google-calendar-connection.php:1229
 msgid "Account connected successfully!"
 msgstr ""
 
-#: includes/class-wc-bookings-google-calendar-connection.php:1182
-#: includes/class-wc-bookings-google-calendar-connection.php:1285
+#: includes/class-wc-bookings-google-calendar-connection.php:1184
+#: includes/class-wc-bookings-google-calendar-connection.php:1287
 msgid "Permission denied!"
 msgstr ""
 
@@ -1435,9 +1478,9 @@ msgstr ""
 #: includes/class-wc-bookings-google-calendar-connection.php:1145
 #: includes/class-wc-bookings-google-calendar-connection.php:1147
 #: includes/class-wc-bookings-google-calendar-connection.php:1150
-#: includes/class-wc-bookings-google-calendar-connection.php:1216
-#: includes/class-wc-bookings-google-calendar-connection.php:1227
-#: includes/class-wc-bookings-google-calendar-connection.php:1247
+#: includes/class-wc-bookings-google-calendar-connection.php:1218
+#: includes/class-wc-bookings-google-calendar-connection.php:1229
+#: includes/class-wc-bookings-google-calendar-connection.php:1249
 msgid "Google Calendar"
 msgstr ""
 
@@ -1508,7 +1551,7 @@ msgid "Bookings"
 msgstr "Đặt chỗ"
 
 #: includes/class-wc-booking-form-handler.php:40
-#: includes/data-stores/class-wc-booking-data-store.php:89
+#: includes/data-stores/class-wc-booking-data-store.php:125
 msgid "Invalid booking."
 msgstr ""
 
@@ -1540,133 +1583,133 @@ msgstr ""
 msgid "A booking for %s has been removed from your cart due to inactivity."
 msgstr ""
 
-#: includes/booking-form/class-wc-booking-form.php:650
+#: includes/booking-form/class-wc-booking-form.php:652
 msgid "End time"
 msgstr ""
 
-#: includes/booking-form/class-wc-booking-form.php:648
+#: includes/booking-form/class-wc-booking-form.php:650
 msgid "Ends"
 msgstr ""
 
 #. translators: %d: booking duration in hours
-#: includes/booking-form/class-wc-booking-form.php:619
+#: includes/booking-form/class-wc-booking-form.php:621
 msgid "%d Hour"
 msgid_plural "%d Hours"
 msgstr[0] ""
 
 #. translators: %d: booking duration in minutes
-#: includes/booking-form/class-wc-booking-form.php:615
+#: includes/booking-form/class-wc-booking-form.php:617
 msgid "%d Minute"
 msgid_plural "%d Minutes"
 msgstr[0] ""
 
 #. translators: 1: quantity available
-#: includes/booking-form/class-wc-booking-form.php:515
-#: includes/booking-form/class-wc-booking-form.php:700
+#: includes/booking-form/class-wc-booking-form.php:517
+#: includes/booking-form/class-wc-booking-form.php:702
 msgid "%d left"
 msgid_plural "%d left"
 msgstr[0] ""
 
-#: includes/booking-form/class-wc-booking-form.php:485
+#: includes/booking-form/class-wc-booking-form.php:487
 msgid "Start time"
 msgstr ""
 
-#: includes/booking-form/class-wc-booking-form.php:483
+#: includes/booking-form/class-wc-booking-form.php:485
 msgid "Starts"
 msgstr ""
 
 #. translators: 1: block cost 2: duration unit
-#: includes/booking-form/class-wc-booking-form.php:315
+#: includes/booking-form/class-wc-booking-form.php:317
 msgid "+%1$1s per %2$2s"
 msgstr ""
 
-#: includes/booking-form/class-wc-booking-form.php:297
-#: includes/data-objects/class-wc-product-booking.php:2324
-#: includes/data-objects/class-wc-product-booking.php:2339
-#: includes/wc-bookings-functions.php:1153
+#: includes/booking-form/class-wc-booking-form.php:299
+#: includes/data-objects/class-wc-product-booking.php:2349
+#: includes/data-objects/class-wc-product-booking.php:2364
+#: includes/wc-bookings-functions.php:1246
 msgid "day"
 msgid_plural "days"
 msgstr[0] ""
 
-#: includes/booking-form/class-wc-booking-form.php:301
-#: includes/data-objects/class-wc-product-booking.php:2328
-#: includes/data-objects/class-wc-product-booking.php:2343
+#: includes/booking-form/class-wc-booking-form.php:303
+#: includes/data-objects/class-wc-product-booking.php:2353
+#: includes/data-objects/class-wc-product-booking.php:2368
 msgid "block"
 msgid_plural "blocks"
 msgstr[0] ""
 
 #. translators: %s: product duration in minutes
-#: includes/booking-form/class-wc-booking-form.php:204
+#: includes/booking-form/class-wc-booking-form.php:206
 msgid "&times; %s minutes"
 msgstr ""
 
 #. translators: %s: product duration in hours
-#: includes/booking-form/class-wc-booking-form.php:196
+#: includes/booking-form/class-wc-booking-form.php:198
 msgid "&times; %s hours"
 msgstr ""
 
-#: includes/booking-form/class-wc-booking-form.php:190
+#: includes/booking-form/class-wc-booking-form.php:192
 msgid "Night(s)"
 msgstr ""
 
 #. translators: %s: product duration in nights
-#: includes/booking-form/class-wc-booking-form.php:188
+#: includes/booking-form/class-wc-booking-form.php:190
 msgid "&times; %s nights"
 msgstr ""
 
 #. translators: %s product duration in days
-#: includes/booking-form/class-wc-booking-form.php:172
+#: includes/booking-form/class-wc-booking-form.php:174
 msgid "&times; %s days"
 msgstr ""
 
 #. translators: %s: product duration in weeks
-#: includes/booking-form/class-wc-booking-form.php:163
-#: includes/booking-form/class-wc-booking-form.php:181
+#: includes/booking-form/class-wc-booking-form.php:165
+#: includes/booking-form/class-wc-booking-form.php:183
 msgid "&times; %s weeks"
 msgstr ""
 
 #. translators: %s: product duration in months
-#: includes/booking-form/class-wc-booking-form.php:155
+#: includes/booking-form/class-wc-booking-form.php:157
 msgid "&times; %s Months"
 msgstr ""
 
-#: includes/booking-form/class-wc-booking-form.php:102
+#: includes/booking-form/class-wc-booking-form.php:104
 msgid "Store server time: "
 msgstr ""
 
-#: includes/booking-form/class-wc-booking-form.php:94
+#: includes/booking-form/class-wc-booking-form.php:96
 msgid "To clear selection, pick a new start date"
 msgstr ""
 
-#: includes/booking-form/class-wc-booking-form.php:93
+#: includes/booking-form/class-wc-booking-form.php:95
 msgid "Please select the options for your booking and make sure duration rules apply."
 msgstr ""
 
-#: includes/booking-form/class-wc-booking-form.php:92
+#: includes/booking-form/class-wc-booking-form.php:93
 msgid "Dates"
 msgstr ""
 
-#: includes/booking-form/class-wc-booking-form.php:91
+#: includes/booking-form/class-wc-booking-form.php:92
 msgid "Choose an End Date"
 msgstr ""
 
-#: includes/booking-form/class-wc-booking-form.php:90
+#: includes/booking-form/class-wc-booking-form.php:91
 msgid "Choose a Start Date"
 msgstr ""
 
-#: includes/booking-form/class-wc-booking-form.php:89
+#: includes/booking-form/class-wc-booking-form.php:90
 msgid "This date is available"
 msgstr "Ngày này còn trống"
 
-#: includes/booking-form/class-wc-booking-form.php:88
+#: includes/booking-form/class-wc-booking-form.php:89
 msgid "This date is partially booked - but bookings still remain"
 msgstr ""
 
-#: includes/booking-form/class-wc-booking-form.php:87
+#: includes/booking-form/class-wc-booking-form.php:88
 msgid "This date is fully booked and unavailable"
 msgstr ""
 
-#: includes/booking-form/class-wc-booking-form.php:86
+#: includes/booking-form/class-wc-booking-form.php:87
 msgid "This date is unavailable"
 msgstr ""
 
@@ -2051,21 +2094,21 @@ msgstr ""
 msgid "Booking Data"
 msgstr ""
 
-#: includes/admin/views/html-classic-availability-settings.php:190
+#: includes/admin/views/html-classic-availability-settings.php:238
 #: includes/class-wc-bookings-google-calendar-connection.php:340
 #: includes/class-wc-bookings-timezone-settings.php:213
 msgid "Save Changes"
 msgstr "Lưu thay đổi"
 
-#: includes/admin/views/html-classic-availability-settings.php:188
+#: includes/admin/views/html-classic-availability-settings.php:236
 msgid "Past availability are hidden from this list."
 msgstr ""
 
-#: includes/admin/views/html-classic-availability-settings.php:149
+#: includes/admin/views/html-classic-availability-settings.php:175
 msgid "Title"
 msgstr "Tiêu đề"
 
-#: includes/admin/views/html-classic-availability-settings.php:131
+#: includes/admin/views/html-classic-availability-settings.php:138
 #: includes/admin/views/html-store-availability-settings.php:70
 msgid "This section will set the availability of your store (ie Open and closed hours). All bookable products will adopt your store's availability."
 msgstr ""
@@ -2175,8 +2218,8 @@ msgid "Label"
 msgstr "Nhãn"
 
 #: includes/admin/views/html-booking-resources.php:8
-#: includes/booking-form/class-wc-booking-form.php:327
-#: includes/wc-bookings-functions.php:864
+#: includes/booking-form/class-wc-booking-form.php:329
+#: includes/wc-bookings-functions.php:957
 #: templates/emails/plain/admin-booking-display.php:55
 #: templates/emails/plain/customer-booking-display.php:54
 msgid "Type"
@@ -2404,7 +2447,7 @@ msgstr ""
 
 #: includes/admin/views/html-booking-data.php:24
 #: includes/admin/views/html-booking-data.php:107
-#: includes/booking-form/class-wc-booking-form.php:206
+#: includes/booking-form/class-wc-booking-form.php:208
 msgid "Minute(s)"
 msgstr ""
 
@@ -2497,7 +2540,7 @@ msgstr "trong tương lai"
 #: includes/admin/views/html-booking-availability.php:45
 #: includes/admin/views/html-booking-data.php:23
 #: includes/admin/views/html-booking-data.php:106
-#: includes/booking-form/class-wc-booking-form.php:198
+#: includes/booking-form/class-wc-booking-form.php:200
 msgid "Hour(s)"
 msgstr "Giờ()"
 
@@ -2505,14 +2548,14 @@ msgstr "Giờ()"
 #: includes/admin/views/html-booking-availability.php:44
 #: includes/admin/views/html-booking-data.php:22
 #: includes/admin/views/html-booking-data.php:105
-#: includes/booking-form/class-wc-booking-form.php:174
+#: includes/booking-form/class-wc-booking-form.php:176
 msgid "Day(s)"
 msgstr "Ngày()"
 
 #: includes/admin/views/html-booking-availability.php:33
 #: includes/admin/views/html-booking-availability.php:43
-#: includes/booking-form/class-wc-booking-form.php:165
-#: includes/booking-form/class-wc-booking-form.php:178
+#: includes/booking-form/class-wc-booking-form.php:167
+#: includes/booking-form/class-wc-booking-form.php:180
 msgid "Week(s)"
 msgstr "Tuần()"
 
@@ -2520,7 +2563,7 @@ msgstr "Tuần()"
 #: includes/admin/views/html-booking-availability.php:42
 #: includes/admin/views/html-booking-data.php:21
 #: includes/admin/views/html-booking-data.php:104
-#: includes/booking-form/class-wc-booking-form.php:157
+#: includes/booking-form/class-wc-booking-form.php:159
 msgid "Month(s)"
 msgstr "Tháng()"
 
@@ -2536,185 +2579,185 @@ msgstr ""
 msgid "Max bookings per block"
 msgstr ""
 
-#: includes/admin/views/html-booking-availability-fields.php:312
+#: includes/admin/views/html-booking-availability-fields.php:316
 msgid "Yes"
 msgstr "Có"
 
-#: includes/admin/views/html-booking-availability-fields.php:305
-#: includes/admin/views/html-booking-availability-fields.php:310
+#: includes/admin/views/html-booking-availability-fields.php:309
+#: includes/admin/views/html-booking-availability-fields.php:314
 msgid "No"
 msgstr "Không"
 
-#: includes/admin/views/html-booking-availability-fields.php:153
+#: includes/admin/views/html-booking-availability-fields.php:157
 msgid "Invalid recurring rule"
 msgstr ""
 
-#: includes/admin/views/html-booking-availability-fields.php:138
+#: includes/admin/views/html-booking-availability-fields.php:142
 msgid ", except "
 msgstr ""
 
-#: includes/admin/views/html-booking-availability-fields.php:133
+#: includes/admin/views/html-booking-availability-fields.php:137
 msgid "Repeating "
 msgstr ""
 
-#: includes/admin/views/html-booking-availability-fields.php:128
-#: includes/admin/views/html-booking-availability-fields.php:227
-#: includes/admin/views/html-booking-availability-fields.php:228
+#: includes/admin/views/html-booking-availability-fields.php:132
+#: includes/admin/views/html-booking-availability-fields.php:231
+#: includes/admin/views/html-booking-availability-fields.php:232
 #: includes/admin/views/html-booking-pricing-fields.php:130
 #: includes/admin/views/html-booking-pricing-fields.php:131
 msgid "to"
 msgstr "tới"
 
-#: includes/admin/views/html-booking-availability-fields.php:92
+#: includes/admin/views/html-booking-availability-fields.php:96
 msgid "Date Range with recurring time"
 msgstr ""
 
-#: includes/admin/views/html-booking-availability-fields.php:91
+#: includes/admin/views/html-booking-availability-fields.php:95
 #: includes/admin/views/html-booking-pricing-fields.php:68
 msgid "Time Range (all week)"
 msgstr ""
 
-#: includes/admin/views/html-booking-availability-fields.php:90
+#: includes/admin/views/html-booking-availability-fields.php:94
 #: includes/admin/views/html-booking-pricing-fields.php:67
 msgid "Time Ranges"
 msgstr ""
 
-#: includes/admin/views/html-booking-availability-fields.php:89
+#: includes/admin/views/html-booking-availability-fields.php:93
 #: includes/admin/views/html-booking-pricing-fields.php:63
 msgid "Range of days"
 msgstr ""
 
-#: includes/admin/views/html-booking-availability-fields.php:88
+#: includes/admin/views/html-booking-availability-fields.php:92
 #: includes/admin/views/html-booking-pricing-fields.php:62
 msgid "Range of weeks"
 msgstr ""
 
-#: includes/admin/views/html-booking-availability-fields.php:87
+#: includes/admin/views/html-booking-availability-fields.php:91
 #: includes/admin/views/html-booking-pricing-fields.php:61
 msgid "Range of months"
 msgstr ""
 
-#: includes/admin/views/html-booking-availability-fields.php:86
+#: includes/admin/views/html-booking-availability-fields.php:90
 msgid "Date range with time"
 msgstr ""
 
-#: includes/admin/views/html-booking-availability-fields.php:85
+#: includes/admin/views/html-booking-availability-fields.php:89
 #: includes/admin/views/html-booking-pricing-fields.php:60
 msgid "Date range"
 msgstr "Phạm vi ngày"
 
-#: includes/admin/views/html-booking-availability-fields.php:70
+#: includes/admin/views/html-booking-availability-fields.php:74
 msgid "Google Event"
 msgstr ""
 
-#: includes/admin/views/html-booking-availability-fields.php:68
+#: includes/admin/views/html-booking-availability-fields.php:72
 msgid "Google Recurring Event"
 msgstr ""
 
 #. translators: 1: week number
-#: includes/admin/views/html-booking-availability-fields.php:37
+#: includes/admin/views/html-booking-availability-fields.php:38
 #: includes/admin/views/html-booking-pricing-fields.php:35
 msgid "Week %s"
 msgstr "Tuần %s"
 
-#: includes/admin/views/html-booking-availability-fields.php:33
+#: includes/admin/views/html-booking-availability-fields.php:34
 #: includes/admin/views/html-booking-availability.php:118
 #: includes/admin/views/html-booking-pricing-fields.php:30
 msgid "Sunday"
 msgstr "Chủ Nhật"
 
-#: includes/admin/views/html-booking-availability-fields.php:32
+#: includes/admin/views/html-booking-availability-fields.php:33
 #: includes/admin/views/html-booking-availability.php:124
 #: includes/admin/views/html-booking-pricing-fields.php:29
 msgid "Saturday"
 msgstr "Thứ Bảy"
 
-#: includes/admin/views/html-booking-availability-fields.php:31
+#: includes/admin/views/html-booking-availability-fields.php:32
 #: includes/admin/views/html-booking-availability.php:123
 #: includes/admin/views/html-booking-pricing-fields.php:28
 msgid "Friday"
 msgstr "Thứ Sáu"
 
-#: includes/admin/views/html-booking-availability-fields.php:30
+#: includes/admin/views/html-booking-availability-fields.php:31
 #: includes/admin/views/html-booking-availability.php:122
 #: includes/admin/views/html-booking-pricing-fields.php:27
 msgid "Thursday"
 msgstr "Thứ Năm"
 
-#: includes/admin/views/html-booking-availability-fields.php:29
+#: includes/admin/views/html-booking-availability-fields.php:30
 #: includes/admin/views/html-booking-availability.php:121
 #: includes/admin/views/html-booking-pricing-fields.php:26
 msgid "Wednesday"
 msgstr "Thứ Tư"
 
-#: includes/admin/views/html-booking-availability-fields.php:28
+#: includes/admin/views/html-booking-availability-fields.php:29
 #: includes/admin/views/html-booking-availability.php:120
 #: includes/admin/views/html-booking-pricing-fields.php:25
 msgid "Tuesday"
 msgstr "Thứ Ba"
 
-#: includes/admin/views/html-booking-availability-fields.php:27
+#: includes/admin/views/html-booking-availability-fields.php:28
 #: includes/admin/views/html-booking-availability.php:119
 #: includes/admin/views/html-booking-pricing-fields.php:24
 msgid "Monday"
 msgstr "Thứ Hai"
 
-#: includes/admin/views/html-booking-availability-fields.php:23
+#: includes/admin/views/html-booking-availability-fields.php:24
 #: includes/admin/views/html-booking-pricing-fields.php:20
 msgid "December"
 msgstr "Tháng 12"
 
-#: includes/admin/views/html-booking-availability-fields.php:22
+#: includes/admin/views/html-booking-availability-fields.php:23
 #: includes/admin/views/html-booking-pricing-fields.php:19
 msgid "November"
 msgstr "Tháng 11"
 
-#: includes/admin/views/html-booking-availability-fields.php:21
+#: includes/admin/views/html-booking-availability-fields.php:22
 #: includes/admin/views/html-booking-pricing-fields.php:18
 msgid "October"
 msgstr "Tháng 10"
 
-#: includes/admin/views/html-booking-availability-fields.php:20
+#: includes/admin/views/html-booking-availability-fields.php:21
 #: includes/admin/views/html-booking-pricing-fields.php:17
 msgid "September"
 msgstr "Tháng 09"
 
-#: includes/admin/views/html-booking-availability-fields.php:19
+#: includes/admin/views/html-booking-availability-fields.php:20
 #: includes/admin/views/html-booking-pricing-fields.php:16
 msgid "August"
 msgstr "Tháng 08"
 
-#: includes/admin/views/html-booking-availability-fields.php:18
+#: includes/admin/views/html-booking-availability-fields.php:19
 #: includes/admin/views/html-booking-pricing-fields.php:15
 msgid "July"
 msgstr "Tháng 07"
 
-#: includes/admin/views/html-booking-availability-fields.php:17
+#: includes/admin/views/html-booking-availability-fields.php:18
 #: includes/admin/views/html-booking-pricing-fields.php:14
 msgid "June"
 msgstr "Tháng 06"
 
-#: includes/admin/views/html-booking-availability-fields.php:16
+#: includes/admin/views/html-booking-availability-fields.php:17
 #: includes/admin/views/html-booking-pricing-fields.php:13
 msgid "May"
 msgstr "Tháng 05"
 
-#: includes/admin/views/html-booking-availability-fields.php:15
+#: includes/admin/views/html-booking-availability-fields.php:16
 #: includes/admin/views/html-booking-pricing-fields.php:12
 msgid "April"
 msgstr "Tháng 04"
 
-#: includes/admin/views/html-booking-availability-fields.php:14
+#: includes/admin/views/html-booking-availability-fields.php:15
 #: includes/admin/views/html-booking-pricing-fields.php:11
 msgid "March"
 msgstr "Tháng 03"
 
-#: includes/admin/views/html-booking-availability-fields.php:13
+#: includes/admin/views/html-booking-availability-fields.php:14
 #: includes/admin/views/html-booking-pricing-fields.php:10
 msgid "February"
 msgstr "Tháng Hai"
 
-#: includes/admin/views/html-booking-availability-fields.php:12
+#: includes/admin/views/html-booking-availability-fields.php:13
 #: includes/admin/views/html-booking-pricing-fields.php:9
 msgid "January"
 msgstr "Tháng 01"
@@ -2898,7 +2941,7 @@ msgstr ""
 
 #: includes/admin/class-wc-bookings-products-export.php:44
 #: includes/admin/class-wc-bookings-products-import.php:45
-#: includes/booking-form/class-wc-booking-form.php:214
+#: includes/booking-form/class-wc-booking-form.php:216
 #: includes/wc-bookings-functions.php:71
 msgid "Duration"
 msgstr "Khoảng thời gian"
@@ -3313,21 +3356,21 @@ msgid "Confirm bookings"
 msgstr ""
 
 #. translators: 1: person id 2: person name 3: person count
-#: includes/admin/class-wc-bookings-calendar.php:753
+#: includes/admin/class-wc-bookings-calendar.php:791
 msgid "Person #%1$s - %2$s (%3$s)"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-calendar.php:744
+#: includes/admin/class-wc-bookings-calendar.php:782
 #: includes/class-wc-bookings-ics-exporter.php:176
 msgid "Resource #"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-calendar.php:738
+#: includes/admin/class-wc-bookings-calendar.php:776
 msgid "Booked by"
 msgstr ""
 
 #. translators: 1: person type 2: quantity
-#: includes/admin/class-wc-bookings-calendar.php:617
+#: includes/admin/class-wc-bookings-calendar.php:655
 #: includes/class-wc-bookings-ics-exporter.php:187
 #: templates/emails/plain/admin-booking-cancelled.php:62
 #: templates/emails/plain/admin-new-booking.php:79
@@ -3339,7 +3382,7 @@ msgstr ""
 msgid "%1$s: %2$d"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-calendar.php:615
+#: includes/admin/class-wc-bookings-calendar.php:653
 #: includes/admin/class-wc-bookings-details-meta-box.php:257
 #: includes/class-wc-bookings-ics-exporter.php:185
 #: includes/wc-bookings-functions.php:72
@@ -3361,63 +3404,63 @@ msgid "Person(s)"
 msgstr ""
 
 #. translators: 1: number of bookings that are not displayed on calendar day
-#: includes/admin/class-wc-bookings-calendar.php:329
+#: includes/admin/class-wc-bookings-calendar.php:367
 msgid "%d more"
 msgstr ""
 
 #: includes/admin/class-wc-bookings-calendar.php:215
 #: includes/admin/class-wc-bookings-calendar.php:290
-#: includes/admin/class-wc-bookings-calendar.php:655
+#: includes/admin/class-wc-bookings-calendar.php:693
 msgid "(From Google Calendar)"
 msgstr ""
 
 #. translators: 1: start time 2: end time
 #: includes/admin/class-wc-bookings-calendar.php:213
-#: includes/admin/class-wc-bookings-calendar.php:625
-#: includes/admin/class-wc-bookings-calendar.php:647
+#: includes/admin/class-wc-bookings-calendar.php:663
+#: includes/admin/class-wc-bookings-calendar.php:685
 msgid "%1$s — %2$s"
 msgstr "%1$s — %2$s"
 
 #: includes/admin/class-wc-bookings-calendar.php:213
-#: includes/admin/class-wc-bookings-calendar.php:625
-#: includes/admin/class-wc-bookings-calendar.php:633
-#: includes/admin/class-wc-bookings-calendar.php:651
+#: includes/admin/class-wc-bookings-calendar.php:663
+#: includes/admin/class-wc-bookings-calendar.php:671
+#: includes/admin/class-wc-bookings-calendar.php:689
 msgid "All Day"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-ajax.php:300
+#: includes/admin/class-wc-bookings-ajax.php:373
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-ajax.php:283
+#: includes/admin/class-wc-bookings-ajax.php:356
 msgid "No blocks available."
 msgstr ""
 
-#: includes/admin/class-wc-bookings-ajax.php:234
+#: includes/admin/class-wc-bookings-ajax.php:307
 msgid "Please enter a valid date."
 msgstr ""
 
-#: includes/admin/class-wc-bookings-ajax.php:198
+#: includes/admin/class-wc-bookings-ajax.php:271
 msgid "Booking cost"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-ajax.php:165
+#: includes/admin/class-wc-bookings-ajax.php:238
 msgid "This booking is unavailable."
 msgstr ""
 
-#: includes/admin/class-wc-bookings-ajax.php:130
+#: includes/admin/class-wc-bookings-ajax.php:133
 msgid "You have taken too long. Please go back and retry."
 msgstr ""
 
-#: includes/admin/class-wc-bookings-ajax.php:127
+#: includes/admin/class-wc-bookings-ajax.php:130
 msgid "You do not have sufficient permissions to access this page."
 msgstr "Bạn không có đủ quyền để xem trang này."
 
-#: includes/admin/class-wc-bookings-ajax.php:70
+#: includes/admin/class-wc-bookings-ajax.php:73
 msgid "Unable to add resource"
 msgstr ""
 
-#: includes/admin/class-wc-bookings-ajax.php:55
+#: includes/admin/class-wc-bookings-ajax.php:58
 msgid "The resource has already been linked to this product"
 msgstr ""
 
@@ -3504,9 +3547,9 @@ msgstr ""
 #: includes/admin/class-wc-bookings-admin.php:356
 #: includes/admin/class-wc-bookings-admin.php:654
 #: includes/admin/views/html-booking-tab.php:4
-#: includes/booking-form/class-wc-booking-form.php:257
-#: includes/class-wc-bookings-google-calendar-connection.php:1417
-#: includes/wc-bookings-functions.php:1126
+#: includes/booking-form/class-wc-booking-form.php:259
+#: includes/class-wc-bookings-google-calendar-connection.php:1419
+#: includes/wc-bookings-functions.php:1219
 msgid "Persons"
 msgstr ""
 
@@ -3565,39 +3608,39 @@ msgstr ""
 #: includes/admin/class-wc-bookable-resource-details-meta-box.php:115
 #: includes/admin/views/html-booking-availability.php:167
 #: includes/admin/views/html-booking-pricing.php:78
-#: includes/admin/views/html-classic-availability-settings.php:166
+#: includes/admin/views/html-classic-availability-settings.php:193
 msgid "Add Range"
 msgstr ""
 
 #: includes/admin/class-wc-bookable-resource-details-meta-box.php:103
 #: includes/admin/views/html-booking-availability.php:155
-#: includes/admin/views/html-classic-availability-settings.php:150
+#: includes/admin/views/html-classic-availability-settings.php:176
 msgid "Priority"
 msgstr "Ưu tiên"
 
 #: includes/admin/class-wc-bookable-resource-details-meta-box.php:102
 #: includes/admin/views/html-booking-availability.php:154
-#: includes/admin/views/html-classic-availability-settings.php:148
+#: includes/admin/views/html-classic-availability-settings.php:174
 msgid "If not bookable, users won't be able to choose this block for their booking."
 msgstr ""
 
 #: includes/admin/class-wc-bookable-resource-details-meta-box.php:102
 #: includes/admin/views/html-booking-availability.php:154
-#: includes/admin/views/html-classic-availability-settings.php:148
+#: includes/admin/views/html-classic-availability-settings.php:174
 msgid "Bookable"
 msgstr "Cho phép đặt chỗ"
 
 #: includes/admin/class-wc-bookable-resource-details-meta-box.php:99
 #: includes/admin/views/html-booking-availability.php:151
 #: includes/admin/views/html-booking-pricing.php:62
-#: includes/admin/views/html-classic-availability-settings.php:145
+#: includes/admin/views/html-classic-availability-settings.php:171
 msgid "Range"
 msgstr ""
 
 #: includes/admin/class-wc-bookable-resource-details-meta-box.php:98
 #: includes/admin/views/html-booking-availability.php:150
 #: includes/admin/views/html-booking-pricing.php:61
-#: includes/admin/views/html-classic-availability-settings.php:144
+#: includes/admin/views/html-classic-availability-settings.php:170
 msgid "Range type"
 msgstr "Khoảng cách loại"
 

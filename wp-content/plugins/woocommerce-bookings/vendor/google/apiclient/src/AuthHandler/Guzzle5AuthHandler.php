@@ -1,6 +1,6 @@
 <?php
 
-namespace Google\AuthHandler;
+namespace Automattic\WooCommerce\Bookings\Vendor\Google\AuthHandler;
 
 use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\CredentialsLoader;
 use Automattic\WooCommerce\Bookings\Vendor\Google\Auth\HttpHandler\HttpHandlerFactory;

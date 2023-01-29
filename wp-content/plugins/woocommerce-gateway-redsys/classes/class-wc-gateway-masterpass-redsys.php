@@ -1,11 +1,17 @@
 <?php
-
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * MasterPass Gateway
+ *
+ * @package WooCommerce Redsys Gateway WooCommerce.com > https://woocommerce.com/products/redsys-gateway/
+ * @since 13.0.0
+ * @author José Conti.
+ * @link https://joseconti.com
+ * @license GNU General Public License v3.0
+ * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
+ * @copyright 2013-2013 José Conti.
  */
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Gateway class
@@ -18,14 +24,6 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 
 	/**
 	 * Constructor for the gateway.
-	 *
-	 * @access public
-	 * @return void
-	 */
-	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
 	public function __construct() {
 		global $woocommerce;
@@ -69,26 +67,23 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 		$this->butonbgcolor       = WCRed()->get_redsys_option( 'butonbgcolor', 'masterpass' );
 		$this->butontextcolor     = WCRed()->get_redsys_option( 'butontextcolor', 'masterpass' );
 		$this->descripredsys      = WCRed()->get_redsys_option( 'descripredsys', 'masterpass' );
-		$this->testshowgateway    = WCRed()->get_redsys_option( 'testshowgateway', 'masterpass' );
+		$this->testmode           = WCRed()->get_redsys_option( 'testmode', 'masterpass' );
 		$this->log                = new WC_Logger();
 
 		// Actions!
-		add_action( 'valid-' . $this->id . '-standard-ipn-request', array( $this, 'successful_request' ) );
+		add_action( 'valid_' . $this->id . '_standard_ipn_request', array( $this, 'successful_request' ) );
 		add_action( 'woocommerce_receipt_' . $this->id, array( $this, 'receipt_page' ) );
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		// Payment listener/API hook!
 		add_action( 'woocommerce_api_wc_gateway_' . $this->id, array( $this, 'check_ipn_response' ) );
 		add_action( 'woocommerce_before_checkout_form', array( $this, 'warning_checkout_test_mode_masterpass' ) );
-		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'show_payment_method' ) );
+		// add_filter( 'woocommerce_available_payment_gateways', array( $this, 'show_payment_method' ) );
 		if ( ! $this->is_valid_for_use() ) {
 			$this->enabled = false;
 		}
 	}
 	/**
 	 * Check if this gateway is enabled and available in the user's country
-	 *
-	 * @access public
-	 * @return bool
 	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
@@ -116,14 +111,14 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	 */
 	public function admin_options() {
 		?>
-			<h3><?php _e( 'MasterPass', 'woocommerce-redsys' ); ?></h3>
-			<p><?php _e( 'MasterPass works by sending the user to your bank TPV to enter their payment information.', 'woocommerce-redsys' ); ?></p>
+			<h3><?php esc_html_e( 'MasterPass', 'woocommerce-redsys' ); ?></h3>
+			<p><?php esc_html_e( 'MasterPass works by sending the user to your bank TPV to enter their payment information.', 'woocommerce-redsys' ); ?></p>
 			<?php
-				echo WCRed()->return_help_notice();
+				WCRed()->return_help_notice();
 			if ( class_exists( 'SitePress' ) ) {
 				?>
-				<div class="updated fade"><h4><?php _e( 'Attention! WPML detected.', 'woocommerce-redsys' ); ?></h4>
-					<p><?php _e( 'The Gateway will be shown in the customer language. The option "Language Gateway" is not taken into consideration', 'woocommerce-redsys' ); ?></p>
+				<div class="updated fade"><h4><?php esc_html_e( 'Attention! WPML detected.', 'woocommerce-redsys' ); ?></h4>
+					<p><?php esc_html_e( 'The Gateway will be shown in the customer language. The option "Language Gateway" is not taken into consideration', 'woocommerce-redsys' ); ?></p>
 				</div>
 			<?php } ?>
 			<?php if ( $this->is_valid_for_use() ) : ?>
@@ -146,7 +141,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 				<div class="inline error"><p><strong><?php esc_html_e( 'Gateway Disabled', 'woocommerce-redsys' ); ?></strong>: 
 					<?php
 						esc_html_e( 'Servired/RedSys only support ', 'woocommerce-redsys' );
-						echo $formated_currencies;
+						echo esc_html( $formated_currencies );
 					?>
 				</p></div>
 					<?php
@@ -154,16 +149,8 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	}
 	/**
 	 * Initialise Gateway Settings Form Fields.
-	 *
-	 * @access public
-	 * @return void
 	 */
-	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
-	 */
-	function init_form_fields() {
+	public function init_form_fields() {
 
 		$this->form_fields = array(
 			'enabled'            => array(
@@ -179,7 +166,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 				'description' => '',
 				'default'     => 'no',
 			),
-			'hideownsetting'   => array(
+			'hideownsetting'     => array(
 				'title'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
 				'label'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
@@ -276,6 +263,13 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 					'returnnocancel' => __( 'Don\'t cancel the order and return to Checkout page', 'woocommerce-redsys' ),
 				),
 			),
+			'testmode'           => array(
+				'title'       => __( 'Running in test mode', 'woocommerce-redsys' ),
+				'type'        => 'checkbox',
+				'label'       => __( 'Running in test mode', 'woocommerce-redsys' ),
+				'default'     => 'yes',
+				'description' => sprintf( __( 'Select this option for the initial testing required by your bank, deselect this option once you pass the required test phase and your production environment is active.', 'woocommerce-redsys' ) ),
+			),
 			'debug'              => array(
 				'title'       => __( 'Debug Log', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
@@ -307,13 +301,12 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 			}
 		}
 	}
-
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Get error message by error code
+	 *
+	 * @param string $error_code Error code.
 	 */
-	function get_error_by_code( $error_code ) {
+	public function get_error_by_code( $error_code ) {
 
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'masterpass', ' ' );
@@ -359,7 +352,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
-	function get_currencies() {
+	public function get_currencies() {
 
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( 'masterpass', ' ' );
@@ -394,16 +387,9 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Get redsys Args for passing to the tpv
 	 *
-	 * @access public
-	 * @param mixed $order
-	 * @return array
+	 * @param WC_Order $order Order object.
 	 */
-	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
-	 */
-	function get_masterpass_args( $order ) {
+	public function get_masterpass_args( $order ) {
 		global $woocommerce;
 
 		$order_id         = $order->id;
@@ -421,7 +407,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 		}
 
 		if ( $this->woomasterpassurlko ) {
-			if ( $this->woomasterpassurlko == 'returncancel' ) {
+			if ( 'returncancel' === $this->woomasterpassurlko ) {
 				$$returnfrommasterpass = $order->get_cancel_order_url();
 			} else {
 				$$returnfrommasterpass = $woocommerce->cart->get_checkout_url();
@@ -431,7 +417,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 		}
 		$ds_merchant_terminal = $this->terminal;
 
-		// redsys Args
+		// redsys Args.
 		$mi_obj = new WooRedsysAPI();
 		$mi_obj->setParameter( 'DS_MERCHANT_AMOUNT', $order_total_sign );
 		$mi_obj->setParameter( 'DS_MERCHANT_ORDER', $transaction_id2 );
@@ -456,8 +442,8 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 			'Ds_MerchantParameters' => $params,
 			'Ds_Signature'          => $signature,
 		);
-		if ( 'yes' == $this->debug ) {
-			$this->log->add( 'masterpass', 'Generating payment form for order ' . $order->get_order_number() . '. Sent data: ' . print_r( $masterpass_args, true ) );
+		if ( 'yes' === $this->debug ) {
+			$this->log->add( 'masterpass', 'Generating payment form for order ' . $order->get_order_number() . '. Sent data: ' . print_r( $masterpass_args, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 		}
 		$masterpass_args = apply_filters( 'woocommerce_masterpass_args', $masterpass_args );
 		return $masterpass_args;
@@ -465,21 +451,18 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Generate the redsys form
 	 *
-	 * @access public
-	 * @param mixed $order_id
-	 * @return string
+	 * @param mixed $order_id Order ID.
 	 */
-	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
-	 */
-	function generate_masterpass_form( $order_id ) {
+	public function generate_masterpass_form( $order_id ) {
 		global $woocommerce;
 
 		$usesecretsha256 = $this->secretsha256;
 		$order           = new WC_Order( $order_id );
-		$masterpass_adr  = $this->liveurl . '?';
+		if ( 'yes' === $this->testmode ) {
+			$masterpass_adr = $this->testurl;
+		} else {
+			$masterpass_adr = $this->liveurl;
+		}
 		$masterpass_args = $this->get_masterpass_args( $order );
 		$form_inputs     = '';
 		foreach ( $masterpass_args as $key => $value ) {
@@ -515,16 +498,9 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Process the payment and return the result
 	 *
-	 * @access public
-	 * @param int $order_id
-	 * @return array
+	 * @param int $order_id Order ID.
 	 */
-	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
-	 */
-	function process_payment( $order_id ) {
+	public function process_payment( $order_id ) {
 
 		$order = new WC_Order( $order_id );
 		return array(
@@ -536,17 +512,30 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Output for the order received page.
 	 *
-	 * @access public
-	 * @return void
+	 * @param WC_Order $order Order object.
 	 */
-	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
-	 */
-	function receipt_page( $order ) {
-		echo '<p>' . __( 'Thank you for your order, please click the button below to pay with MasterPass.', 'woocommerce-redsys' ) . '</p>';
-		echo $this->generate_masterpass_form( $order );
+	public function receipt_page( $order ) {
+		echo '<p>' . esc_html__( 'Thank you for your order, please click the button below to pay with MasterPass.', 'woocommerce-redsys' ) . '</p>';
+		$allowed_html = array(
+			'input' => array(
+				'type'  => array(),
+				'name'  => array(),
+				'value' => array(),
+				'class' => array(),
+				'id'    => array(),
+			),
+			'form'  => array(
+				'action' => array(),
+				'method' => array(),
+				'id'     => array(),
+				'target' => array(),
+			),
+			'a'     => array(
+				'href'  => array(),
+				'class' => array(),
+			),
+		);
+		echo wp_kses( $this->generate_masterpass_form( $order ), $allowed_html );
 	}
 
 	/**
@@ -557,21 +546,21 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2023 José Conti
 	 */
-	function check_ipn_request_is_valid() {
+	public function check_ipn_request_is_valid() {
 		global $woocommerce;
 
-		if ( 'yes' == $this->debug ) {
-			$this->log->add( 'masterpass', 'HTTP Notification received: ' . print_r( $_POST, true ) );
+		if ( 'yes' === $this->debug ) {
+			$this->log->add( 'masterpass', 'HTTP Notification received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
 		}
 		$usesecretsha256 = $this->secretsha256;
 		if ( $usesecretsha256 ) {
-			$version     = $_POST['Ds_SignatureVersion'];
-			$data        = $_POST['Ds_MerchantParameters'];
-			$remote_sign = $_POST['Ds_Signature'];
-			$mi_obj       = new WooRedsysAPI();
+			$version     = sanitize_text_field( wp_unslash( $_POST['Ds_SignatureVersion'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.NonceVerification.Missing
+			$data        = sanitize_text_field( wp_unslash( $_POST['Ds_MerchantParameters'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.NonceVerification.Missing
+			$remote_sign = sanitize_text_field( wp_unslash( $_POST['Ds_Signature'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.NonceVerification.Missing
+			$mi_obj      = new WooRedsysAPI();
 			$localsecret = $mi_obj->createMerchantSignatureNotif( $usesecretsha256, $data );
 
-			if ( $localsecret == $remote_sign ) {
+			if ( $localsecret === $remote_sign ) {
 				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'masterpass', 'Received valid notification from MasterPass' );
 					$this->log->add( 'masterpass', $data );
@@ -584,16 +573,16 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 				return false;
 			}
 		} else {
-			if ( 'yes' == $this->debug ) {
-				$this->log->add( 'masterpass', 'HTTP Notification received: ' . print_r( $_POST, true ) );
+			if ( 'yes' === $this->debug ) {
+				$this->log->add( 'masterpass', 'HTTP Notification received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
-			if ( $_POST['Ds_MerchantCode'] === $this->customer ) {
-				if ( 'yes' == $this->debug ) {
+			if ( $data ) {
+				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'masterpass', 'Received valid notification from MasterPass' );
 				}
 				return true;
 			} else {
-				if ( 'yes' == $this->debug ) {
+				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'masterpass', 'Received INVALID notification from MasterPass' );
 				}
 				return false;
@@ -603,22 +592,14 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 
 	/**
 	 * Check for Servired/RedSys HTTP Notification
-	 *
-	 * @access public
-	 * @return void
 	 */
-	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
-	 */
-	function check_ipn_response() {
+	public function check_ipn_response() {
 
-		@ob_clean();
-		$_POST = stripslashes_deep( $_POST );
+		@ob_clean(); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
+		$_POST = stripslashes_deep( $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		if ( $this->check_ipn_request_is_valid() ) {
 			header( 'HTTP/1.1 200 OK' );
-			do_action( 'valid-' . $this->id . '-standard-ipn-request', $_POST );
+			do_action( 'valid_' . $this->id . '_standard_ipn_request', $_POST ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 		} else {
 			wp_die( 'MasterPass Notification Request Failure' );
 		}
@@ -627,22 +608,15 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	/**
 	 * Successful Payment!
 	 *
-	 * @access public
-	 * @param array $posted
-	 * @return void
+	 * @param array $posted Post data after notify.
 	 */
-	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
-	 */
-	function successful_request( $posted ) {
+	public function successful_request( $posted ) {
 		global $woocommerce;
 
-		$version     = $_POST['Ds_SignatureVersion'];
-		$data        = $_POST['Ds_MerchantParameters'];
-		$remote_sign = $_POST['Ds_Signature'];
-		$mi_obj       = new WooRedsysAPI();
+		$version     = sanitize_text_field( wp_unslash( $_POST['Ds_SignatureVersion'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.NonceVerification.Missing
+		$data        = sanitize_text_field( wp_unslash( $_POST['Ds_MerchantParameters'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.NonceVerification.Missing
+		$remote_sign = sanitize_text_field( wp_unslash( $_POST['Ds_Signature'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.NonceVerification.Missing
+		$mi_obj      = new WooRedsysAPI();
 
 		$decodedata        = $mi_obj->decodeMerchantParameters( $data );
 		$localsecret       = $mi_obj->createMerchantSignatureNotif( $usesecretsha256, $data );
@@ -670,16 +644,16 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 
 		$response = intval( $response );
 		if ( $response <= 99 ) {
-			// authorized
+			// authorized.
 			$order_total_compare = number_format( $order->get_total(), 2, '', '' );
-			if ( $order_total_compare != $total ) {
-				// amount does not match
-				if ( 'yes' == $this->debug ) {
+			if ( $order_total_compare !== $total ) {
+				// amount does not match.
+				if ( 'yes' === $this->debug ) {
 					$this->log->add( 'masterpass', 'Payment error: Amounts do not match (order: ' . $order_total_compare . ' - received: ' . $total . ')' );
 				}
 
-				// Put this order on-hold for manual checking
-				$order->update_status( 'on-hold', sprintf( __( 'Validation error: Order vs. Notification amounts do not match (order: %1$s - received: %2$s).', 'woocommerce-redsys' ), $order_total_compare, $total ) );
+				// Put this order on-hold for manual checking.
+				$order->update_status( 'on-hold', sprintf( esc_html__( 'Validation error: Order vs. Notification amounts do not match (order: %1$s - received: %2$s).', 'woocommerce-redsys' ), $order_total_compare, $total ) ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
 				exit;
 			}
 			$authorisation_code = $id_trans;
@@ -699,10 +673,10 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 				WCRed()->update_order_meta( $order->id, '_card_country_masterpass', $dscardcountry );
 			}
 			if ( ! empty( $dscargtype ) ) {
-				WCRed()->update_order_meta( $order->id, '_card_type_masterpass', $dscargtype == 'C' ? 'Credit' : 'Debit' );
+				WCRed()->update_order_meta( $order->id, '_card_type_masterpass', 'C' === $dscargtype ? 'Credit' : 'Debit' );
 			}
 
-			// Payment completed
+			// Payment completed.
 			$order->add_order_note( __( 'HTTP Notification received - payment completed', 'woocommerce-redsys' ) );
 			$order->add_order_note( __( 'Authorisation code: ', 'woocommerce-redsys' ) . $authorisation_code );
 			$order->payment_complete();
@@ -734,8 +708,8 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 				}
 			}
 
-			// Tarjeta caducada
-			if ( 'yes' == $this->debug ) {
+			// Tarjeta caducada.
+			if ( 'yes' === $this->debug ) {
 				$this->log->add( 'masterpass', 'Pedido cancelado por MasterPass' );
 			}
 
@@ -748,7 +722,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 				}
 			}
 
-			// Order cancelled
+			// Order cancelled.
 			$order->update_status( 'cancelled', __( 'Cancelled by MasterPass', 'woocommerce-redsys' ) );
 			$order->add_order_note( __( 'Order canceled by MasterPass', 'woocommerce-redsys' ) );
 			WC()->cart->empty_cart();
@@ -764,18 +738,11 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	}
 
 	/**
-	 * get_masterpass_order function.
+	 * Get_masterpass_order function.
 	 *
-	 * @access public
-	 * @param mixed $posted
-	 * @return void
+	 * @param string $order_id Order ID.
 	 */
-	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
-	 */
-	function get_masterpass_order( $order_id ) {
+	public function get_masterpass_order( $order_id ) {
 		$order = new WC_Order( $order_id );
 		return $order;
 	}
@@ -796,16 +763,16 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 			clear: both;
 			border-left: 0.6180469716em solid rgb(150, 40, 27);
 			">';
-			echo __( 'Warning: WooCommerce Redsys Gateway MasterPass is in test mode. Remember to uncheck it when you go live', 'woo-redsys-gateway-light' );
+			echo esc_html__( 'Warning: WooCommerce Redsys Gateway MasterPass is in test mode. Remember to uncheck it when you go live', 'woo-redsys-gateway-light' );
 			echo '</div>';
 		}
 	}
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Check if user is in test mode
+	 *
+	 * @param int $userid User ID.
 	 */
-	function check_user_show_payment_method( $userid = false ) {
+	public function check_user_show_payment_method( $userid = false ) {
 
 		$test_mode  = $this->testmode;
 		$selections = (array) WCRed()->get_redsys_option( 'testshowgateway', 'masterpass' );
@@ -813,7 +780,7 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 		if ( 'yes' !== $test_mode ) {
 			return true;
 		}
-		if ( $selections[0] !== '' || empty( $selections ) ) {
+		if ( '' !== $selections[0] || empty( $selections ) ) {
 			if ( ! $userid ) {
 				return false;
 			}
@@ -829,11 +796,11 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 		}
 	}
 	/**
-	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woocommerce.com/es-es/products/redsys-gateway/
-	 * Copyright: (C) 2013 - 2023 José Conti
+	 * Show payment method
+	 *
+	 * @param array $available_gateways Available gateways.
 	 */
-	function show_payment_method( $available_gateways ) {
+	public function show_payment_method( $available_gateways ) {
 
 		if ( ! is_admin() ) {
 			if ( is_user_logged_in() ) {
@@ -853,7 +820,9 @@ class WC_Gateway_MasterPass_Redsys extends WC_Payment_Gateway {
 	}
 }
 /**
- * Copyright: (C) 2013 - 2023 José Conti
+ * Add the gateway to WooCommerce.
+ *
+ * @param array $methods WooCommerce payment methods.
  */
 function woocommerce_add_gateway_masterpass_gateway( $methods ) {
 	$methods[] = 'WC_Gateway_MasterPass_Redsys';

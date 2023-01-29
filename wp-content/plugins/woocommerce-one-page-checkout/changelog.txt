@@ -1,5 +1,8 @@
 *** WooCommerce One Page Checkout Changelog ***
 
+2023-01-25 - version 2.0.0
+* Fix - Escape and sanitizing bugfixes.
+
 2023-01-18 - version 1.9.9
 * Fix - Bug fixes.
 

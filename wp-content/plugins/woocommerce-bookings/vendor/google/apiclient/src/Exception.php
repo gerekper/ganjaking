@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-namespace Google;
+namespace Automattic\WooCommerce\Bookings\Vendor\Google;
 
 use Exception as BaseException;
 
