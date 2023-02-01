@@ -1,5 +1,9 @@
 *** WooCommerce Points and Rewards Changelog ***
 
+2023-01-31 - version 1.7.26
+* Fix - Only allow non-negative customer point updates.
+* Tweak - WC 7.4 compatibility.
+
 2023-01-24 - version 1.7.25
 * Dev - Fix incorrect core value in .wp-env.json.
 * Fix - Add backlog automation.

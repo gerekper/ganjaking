@@ -123,12 +123,23 @@ class WC_Product_Vendors_Taxonomy {
 
 			$post_term = ! empty( $post_term ) ? $post_term[0]->term_id : '';
 
-			$output = '<select class="wcpv-product-vendor-terms-dropdown" name="wcpv_product_term">';
+			$output = '<select id="wcpv-product-vendor-terms-select" class="wcpv-product-vendor-terms-dropdown" name="wcpv_product_term">';
 
 			$output .= '<option value="">' . esc_html__( 'Select a Vendor', 'woocommerce-product-vendors' ) . '</option>';
 
 			foreach ( $terms as $term ) {
-				$output .= '<option value="' . esc_attr( $term->term_id ) . '" ' . selected( $post_term, $term->term_id, false ) . '>' . esc_html( $term->name ) . '</option>';
+				$vendor_data   = WC_Product_Vendors_Utils::get_vendor_data_by_id( $term->term_id );
+				$tax_type      = ! empty( $vendor_data['taxes'] ) ? $vendor_data['taxes'] : '';
+				$pass_shipping = ! empty( $vendor_data['pass_shipping'] ) ? $vendor_data['pass_shipping'] : '';
+
+				$output .= sprintf(
+					'<option data-taxes="%1$s" data-pass-shipping="%5$s" value="%2$s" %3$s>%4$s</option>',
+					esc_attr( $tax_type ),
+					esc_attr( $term->term_id ),
+					selected( $post_term, $term->term_id, false ),
+					esc_html( $term->name ),
+					esc_attr( $pass_shipping )
+				);
 			}
 
 			$output .= '</select>';

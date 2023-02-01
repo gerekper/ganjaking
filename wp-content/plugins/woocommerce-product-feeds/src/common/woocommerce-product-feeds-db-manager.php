@@ -15,7 +15,7 @@ class WoocommerceProductFeedsDbManager {
 	/**
 	 * @var WoocommerceGpfCommon
 	 */
-	protected $commmon;
+	protected $common;
 
 	/**
 	 * @var array

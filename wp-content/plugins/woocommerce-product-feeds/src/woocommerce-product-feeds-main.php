@@ -107,6 +107,11 @@ class WoocommerceProductFeedsMain {
 	private $admin_notices;
 
 	/**
+	 * @var WoocommerceProductFeedsDbManager
+	 */
+	private $gpf_db_manager;
+
+	/**
 	 * WoocommerceProductFeedsMain constructor.
 	 *
 	 * @param WoocommerceGpfCommon $woocommerce_gpf_common

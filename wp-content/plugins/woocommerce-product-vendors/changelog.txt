@@ -1,5 +1,11 @@
 *** Product Vendors Changelog ***
 
+2023-01-27 - version 2.1.73
+* Add - Override Per Product shipping rules on import.
+* Fix - Product tax handling is not working.
+* Fix - Regenerate vendor commission when editing order or performing "Generate Vendor Commission" action on order.
+* Tweak - Bump WordPress "tested up to" version 6.1.
+
 2023-01-17 - version 2.1.72
 * Fix - Allow zero value commissions.
 

@@ -1,25 +1,29 @@
 <?php
-/*
+/**
  * Plugin Name: WooCommerce Product CSV Import Suite
  * Plugin URI: https://woocommerce.com/products/product-csv-import-suite/
  * Description: Import and export products and variations straight from WordPress admin. Go to WooCommerce > CSV Import Suite to get started. Supports post fields, product data, custom post types, taxonomies, and images.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
- * Version: 1.10.54
+ * Version: 1.10.55
  * WC requires at least: 6.0
  * Requires at least: 5.6
  * Requires PHP: 7.0
  * WC tested up to: 6.0
- * Tested up to: 6.0
+ * Tested up to: 6.1
  * Text Domain: woocommerce-product-csv-import-suite
  * Domain Path: /languages
  *
- * Copyright: © 2022 WooCommerce
+ * Copyright: © 2023 WooCommerce
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Adapted from the WordPress post importer by the WordPress team
  *
  * Woo: 18680:7ac9b00a1fe980fb61d28ab54d167d0d
+ *
+ * @package WooCommerce Product CSV Import Suite
+ *
+ * phpcs:disable WordPress.Files.FileName
  */
 
 if ( ! defined( 'ABSPATH' ) || ! is_admin() ) {
@@ -38,7 +42,7 @@ function woocommerce_product_csv_import_suite_missing_wc_notice() {
 
 if ( ! class_exists( 'WC_Product_CSV_Import_Suite' ) ) :
 	define( 'WC_PCSVIS_FILE', __FILE__ );
-	define( 'WC_PCSVIS_VERSION', '1.10.54' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_PCSVIS_VERSION', '1.10.55' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Main CSV Import class
@@ -47,6 +51,8 @@ if ( ! class_exists( 'WC_Product_CSV_Import_Suite' ) ) :
 
 		/**
 		 * Logging class
+		 *
+		 * @var WC_Logger
 		 */
 		private static $logger = false;
 
@@ -71,9 +77,11 @@ if ( ! class_exists( 'WC_Product_CSV_Import_Suite' ) ) :
 
 		/**
 		 * Add screen ID
+		 *
+		 * @param array $ids Screen IDs.
 		 */
 		public function woocommerce_screen_ids( $ids ) {
-			$ids[] = 'admin'; // For import screen
+			$ids[] = 'admin'; // For import screen.
 			return $ids;
 		}
 
@@ -91,14 +99,14 @@ if ( ! class_exists( 'WC_Product_CSV_Import_Suite' ) ) :
 
 			if ( ! empty( $_GET['action'] ) && ! empty( $_GET['page'] ) && 'woocommerce_csv_import_suite' === $_GET['page'] ) {
 				switch ( $_GET['action'] ) {
-					case 'export' :
-						include_once( 'includes/exporter/class-wc-pcsvis-exporter.php' );
+					case 'export':
+						include_once 'includes/exporter/class-wc-pcsvis-exporter.php';
 						WC_PCSVIS_Exporter::do_export( 'product' );
-					break;
-					case 'export_variations' :
-						include_once( 'includes/exporter/class-wc-pcsvis-exporter.php' );
+						break;
+					case 'export_variations':
+						include_once 'includes/exporter/class-wc-pcsvis-exporter.php';
 						WC_PCSVIS_Exporter::do_export( 'product_variation' );
-					break;
+						break;
 				}
 			}
 		}
@@ -107,13 +115,14 @@ if ( ! class_exists( 'WC_Product_CSV_Import_Suite' ) ) :
 		 * Register importers for use
 		 */
 		public function register_importers() {
-			register_importer( 'woocommerce_csv', 'WooCommerce Products (CSV)', __('Import <strong>products</strong> to your store via a csv file.', 'woocommerce-product-csv-import-suite'), 'WC_PCSVIS_Importer::product_importer' );
-			register_importer( 'woocommerce_variation_csv', 'WooCommerce Product Variations (CSV)', __('Import <strong>product variations</strong> to your store via a csv file.', 'woocommerce-product-csv-import-suite'), 'WC_PCSVIS_Importer::variation_importer' );
+			register_importer( 'woocommerce_csv', 'WooCommerce Products (CSV)', __( 'Import <strong>products</strong> to your store via a csv file.', 'woocommerce-product-csv-import-suite' ), 'WC_PCSVIS_Importer::product_importer' );
+			register_importer( 'woocommerce_variation_csv', 'WooCommerce Product Variations (CSV)', __( 'Import <strong>product variations</strong> to your store via a csv file.', 'woocommerce-product-csv-import-suite' ), 'WC_PCSVIS_Importer::variation_importer' );
 		}
 
 		/**
 		 * Get meta data direct from DB, avoiding get_post_meta and caches
-		 * @return string
+		 *
+		 * @param string $message Log message.
 		 */
 		public static function log( $message ) {
 			if ( ! self::$logger ) {
@@ -124,6 +133,10 @@ if ( ! class_exists( 'WC_Product_CSV_Import_Suite' ) ) :
 
 		/**
 		 * Get meta data direct from DB, avoiding get_post_meta and caches
+		 *
+		 * @param int    $post_id Post ID.
+		 * @param string $meta_key Meta key.
+		 *
 		 * @return string
 		 */
 		public static function get_meta_data( $post_id, $meta_key ) {
@@ -139,7 +152,7 @@ if ( ! class_exists( 'WC_Product_CSV_Import_Suite' ) ) :
 		 */
 		public function declare_hpos_compatibility() {
 			if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
-				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables', __FILE__, true);
+				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
 			}
 		}
 	}

@@ -143,6 +143,27 @@ class WC_Newsletter_Subscription_Settings_General extends WC_Newsletter_Subscrip
 					),
 				)
 			);
+
+			if ( $provider && $provider->supports( 'tags' ) ) {
+				$form_fields = array_merge(
+					$form_fields,
+					array(
+						'woocommerce_newsletter_product_tags'       => array(
+							'title'   => _x( 'Product tags', 'setting title', 'woocommerce-subscribe-to-newsletter' ),
+							'label'   => _x( 'Tag the subscriber with the purchased products.', 'setting title', 'woocommerce-subscribe-to-newsletter' ),
+							'type'    => 'checkbox',
+							'default' => 'no',
+						),
+						'woocommerce_newsletter_product_tag_format' => array(
+							'title'       => _x( 'Product tag format', 'setting title', 'woocommerce-subscribe-to-newsletter' ),
+							'description' => _x( 'Placeholders will be replaced by the product data.', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
+							'desc_tip'    => _x( 'Customize the format of the product tags.', 'setting desc', 'woocommerce-subscribe-to-newsletter' ) . ' ' . $this->get_placeholder_text( array( '{product-slug}' ) ),
+							'type'        => 'text',
+							'placeholder' => '{product-slug}',
+						),
+					)
+				);
+			}
 		} else {
 			$providers = array_keys( WC_Newsletter_Subscription_Providers::get_providers() );
 
@@ -439,5 +460,25 @@ class WC_Newsletter_Subscription_Settings_General extends WC_Newsletter_Subscrip
 		$lists = $lists + $provider->get_lists();
 
 		return $lists;
+	}
+
+
+	/**
+	 * Gets the placeholder text.
+	 *
+	 * @since 3.6.0
+	 *
+	 * @param array $placeholders A list of available placeholders.
+	 * @return string
+	 */
+	public function get_placeholder_text( $placeholders = array() ) {
+		$text = '';
+
+		if ( ! empty( $placeholders ) ) {
+			/* translators: %s: list of placeholders */
+			$text = sprintf( _x( 'Available placeholders: %s', 'setting desc', 'woocommerce-subscribe-to-newsletter' ), join( ', ', $placeholders ) );
+		}
+
+		return $text;
 	}
 }

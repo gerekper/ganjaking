@@ -48,6 +48,13 @@ class WC_Box_Office_Ticket {
 	public $product_id;
 
 	/**
+	 * Variation ID.
+	 *
+	 * @var int
+	 */
+	public $variation_id;
+
+	/**
 	 * Product in which this ticket is purchased from.
 	 *
 	 * @var WC_Product
@@ -67,6 +74,20 @@ class WC_Box_Office_Ticket {
 	 * @var WC_Order
 	 */
 	public $order;
+
+	/**
+	 * Unique key associated to ticket.
+	 *
+	 * @var string
+	 */
+	public $uid = '';
+
+	/**
+	 * Ticket position/index relative to other tickets in same order item.
+	 *
+	 * @var int
+	 */
+	public $index = 0;
 
 	/**
 	 * Flag to indicate properties of instance has been populated or not.
@@ -131,6 +152,8 @@ class WC_Box_Office_Ticket {
 		$this->product_id   = get_post_meta( $this->id, '_product', true );
 		$this->product      = wc_get_product( $this->product_id );
 		$this->variation_id = get_post_meta( $this->id, '_variation_id', true );
+		$this->uid          = get_post_meta( $this->id, '_uid', true );
+		$this->index        = absint( get_post_meta( $this->id, '_index', true ) );
 
 		$ticket_fields = wc_box_office_get_product_ticket_fields( $this->product_id );
 		foreach ( $ticket_fields as $field_key => $field ) {
@@ -162,6 +185,8 @@ class WC_Box_Office_Ticket {
 		$data = wp_parse_args(
 			$this->_order_item_data,
 			array(
+				'uid'           => '',
+				'index'         => 1,
 				'product_id'    => '',
 				'variation_id'  => '',
 				'variations'    => array(),
@@ -235,6 +260,9 @@ class WC_Box_Office_Ticket {
 
 		// @TODO(gedex) remove this and update all references to this meta to use _customer_id instead.
 		update_post_meta( $ticket_id, '_user', $data['customer_id'] );
+
+		update_post_meta( $ticket_id, '_uid', $data['uid'] );
+		update_post_meta( $ticket_id, '_index', absint( $data['index'] ) );
 
 		do_action( 'woocommerce_box_office_event_ticket_created', $ticket_id );
 

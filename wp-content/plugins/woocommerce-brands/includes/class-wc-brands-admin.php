@@ -17,6 +17,7 @@ class WC_Brands_Admin {
 		$this->current_tab = ( isset($_GET['tab'] ) ) ? $_GET['tab'] : 'general';
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'scripts' ) );
+		add_action( 'admin_enqueue_scripts', [ $this, 'styles' ] );
 		add_action( 'product_brand_add_form_fields', array( $this, 'add_thumbnail_field' ) );
 		add_action( 'product_brand_edit_form_fields', array( $this, 'edit_thumbnail_field' ), 10, 2 );
 		add_action( 'created_term', array( $this, 'thumbnail_field_save' ), 10, 3 );
@@ -25,6 +26,7 @@ class WC_Brands_Admin {
 		add_filter( 'woocommerce_sortable_taxonomies', array( $this, 'sort_brands' ) );
 		add_filter( 'manage_edit-product_brand_columns', array( $this, 'columns' ) );
 		add_filter( 'manage_product_brand_custom_column', array( $this, 'column' ), 10, 3);
+		add_filter( 'manage_product_posts_columns', [ $this, 'product_columns' ], 20, 1 );
 		add_filter( 'woocommerce_product_filters', array( $this, 'product_filter' ) );
 
 		$this->settings_tabs = array(
@@ -186,6 +188,16 @@ class WC_Brands_Admin {
 			wp_enqueue_media();
 			wp_enqueue_style( 'woocommerce_admin_styles' );
 		}
+	}
+
+	/**
+	 * Add admin styles.
+	 *
+	 * @since 1.6.42
+	 * @return void
+	 */
+	public function styles() {
+		wp_enqueue_style( 'brands-styles', plugins_url( '/assets/css/admin.css', __DIR__ ), [], WC_BRANDS_VERSION );
 	}
 
 	/**
@@ -380,6 +392,29 @@ class WC_Brands_Admin {
 		$sortable[] = 'product_brand';
 		return $sortable;
 	}
+
+	/**
+	 * Add brands column in second-to-last position.
+	 *
+	 * @since 1.6.42
+	 * @param mixed $columns
+	 * @return array
+	 */
+	public function product_columns( $columns ) {
+		if ( empty( $columns ) ) {
+			return;
+		}
+
+		$column_index  = 'taxonomy-product_brand';
+		$brands_column = $columns[ $column_index ];
+		unset( $columns[ $column_index ] );
+			return array_merge(
+				array_slice( $columns, 0, -2, true ),
+				[ $column_index => $brands_column ],
+				array_slice( $columns, -2, null, true )
+			);
+	}
+
 
 	/**
 	 * columns function.

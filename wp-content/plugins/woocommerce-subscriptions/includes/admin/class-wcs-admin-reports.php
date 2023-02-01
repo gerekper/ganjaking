@@ -23,6 +23,12 @@ class WCS_Admin_Reports {
 	 * Constructor
 	 */
 	public function __construct() {
+		// The subscription reports are incompatible with stores running HPOS with sycning disabled.
+		if ( wcs_is_custom_order_tables_usage_enabled() && ! wcs_is_custom_order_tables_data_sync_enabled() ) {
+			add_action( 'admin_notices', [ __CLASS__, 'display_hpos_incompatibility_notice' ] );
+			return;
+		}
+
 		// Add the reports layout to the WooCommerce -> Reports admin section
 		add_filter( 'woocommerce_admin_reports', __CLASS__ . '::initialize_reports', 12, 1 );
 
@@ -31,6 +37,35 @@ class WCS_Admin_Reports {
 
 		// Add any actions we need based on the screen
 		add_action( 'current_screen', __CLASS__ . '::conditional_reporting_includes' );
+	}
+
+	/**
+	 * Displays an admin notice indicating subscription reports are disabled on HPOS environments with no syncing.
+	 */
+	public static function display_hpos_incompatibility_notice() {
+		$screen = get_current_screen();
+
+		// Only display the admin notice on report admin screens.
+		if ( ! $screen || 'woocommerce_page_wc-reports' !== $screen->id ) {
+			return;
+		}
+
+		$admin_notice = new WCS_Admin_Notice( 'error' );
+
+		$admin_notice->set_html_content(
+			sprintf(
+				'<p><strong>%s</strong></p><p>%s</p>',
+				_x( 'WooCommerce Subscriptions - Reports Not Available', 'heading used in an admin notice', 'woocommerce-subscriptions' ),
+				sprintf(
+					// translators: placeholders $1 and $2 are opening <a> tags linking to the WooCommerce documentation on HPOS and data synchronization. Placeholder $3 is a closing link (<a>) tag.
+					__( 'Subscription reports are incompatible with the %1$sWooCommerce data storage features%3$s enabled on your store. Please enable %2$stable synchronization%3$s if you wish to use subscription reports.', 'woocommerce-subscriptions' ),
+					'<a href="https://woocommerce.com/document/high-performance-order-storage/">',
+					'<a href="https://woocommerce.com/document/high-performance-order-storage/#section-4">',
+					'</a>'
+				)
+			)
+		);
+		$admin_notice->display();
 	}
 
 	/**

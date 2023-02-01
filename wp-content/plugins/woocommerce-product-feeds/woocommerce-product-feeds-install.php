@@ -51,6 +51,7 @@ function woocommerce_gpf_install() {
 	if ( false === $settings ) {
 		$settings                       = array(
 			'product_fields'      => array(
+				'condition'               => 'on',
 				'title'                   => 'on',
 				'availability_instock'    => 'on',
 				'availability_backorder'  => 'on',
@@ -65,6 +66,7 @@ function woocommerce_gpf_install() {
 				'availability_instock'    => 'in stock',
 				'availability_backorder'  => 'in stock',
 				'availability_outofstock' => 'out of stock',
+				'condition'               => 'new',
 			),
 			'product_prepopulate' => array(
 				'title'       => 'field:product_title',

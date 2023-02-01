@@ -67,13 +67,16 @@ class WC_Newsletter_Subscription_Orders {
 	private function process_order_subscription_actions( $order ) {
 		$billing = $order->get_address( 'billing' );
 
-		wc_newsletter_subscription_subscribe(
-			$billing['email'],
-			array(
-				'first_name' => $billing['first_name'],
-				'last_name'  => $billing['last_name'],
-			)
+		$args = array(
+			'first_name' => $billing['first_name'],
+			'last_name'  => $billing['last_name'],
 		);
+
+		if ( wc_newsletter_subscription_provider_supports( 'tags' ) ) {
+			$args['tags'] = wc_newsletter_subscription_get_tags_for_order( $order );
+		}
+
+		wc_newsletter_subscription_subscribe( $billing['email'], $args );
 	}
 }
 return new WC_Newsletter_Subscription_Orders();

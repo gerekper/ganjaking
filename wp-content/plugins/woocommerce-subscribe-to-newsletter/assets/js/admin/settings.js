@@ -16,6 +16,8 @@
 
 	var wcNewsletterSubscriptionSettings = {
 		init: function() {
+			var that = this;
+
 			$( '#woocommerce_newsletter_service' ).on( 'change', function() {
 				var $fields = $( '.newsletter-provider-fields' ),
 					value   = $( this ).val();
@@ -67,6 +69,18 @@
 				} );
 
 			} );
+
+			this.$productTags = $( 'input#woocommerce_newsletter_product_tags' );
+
+			this.toggleProductTagFormat( this.$productTags.prop( 'checked' ) );
+
+			this.$productTags.on( 'change', function() {
+				that.toggleProductTagFormat( $( this ).prop( 'checked' ) );
+			});
+		},
+
+		toggleProductTagFormat: function( visible ) {
+			$( 'input#woocommerce_newsletter_product_tag_format' ).closest( 'tr' ).toggle( visible );
 		}
 	};
 

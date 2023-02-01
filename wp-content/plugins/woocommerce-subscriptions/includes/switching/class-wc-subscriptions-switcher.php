@@ -1150,7 +1150,9 @@ class WC_Subscriptions_Switcher {
 			}
 		} catch ( Exception $e ) {
 			// There was an error updating the subscription, delete pending switch order.
-			wp_delete_post( $order_id, true );
+			if ( $order instanceof WC_Order ) {
+				$order->delete( true );
+			}
 			throw $e;
 		}
 	}
@@ -1161,8 +1163,10 @@ class WC_Subscriptions_Switcher {
 	 * @param  WC_Order $order The new order
 	 * @param  WC_Subscription $subscription The original subscription
 	 * @param  WC_Cart $recurring_cart A recurring cart
+	 * @deprecated 4.8.0
 	 */
 	public static function update_shipping_methods( $subscription, $recurring_cart ) {
+		wcs_deprecated_function( __METHOD__, '4.8.0', 'The use of this function is no longer recommended and will be removed in a future version.' );
 
 		// First, archive all the shipping methods
 		foreach ( $subscription->get_shipping_methods() as $shipping_method_id => $shipping_method ) {

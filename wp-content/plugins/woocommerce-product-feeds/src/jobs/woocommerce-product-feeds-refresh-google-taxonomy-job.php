@@ -28,7 +28,7 @@ class WoocommerceProductFeedsRefreshGoogleTaxonomyJob extends AbstractWoocommerc
 		array_pop( $taxonomy_data );
 
 		// Remove the old entries for this locale.
-		$sql = "DELETE FROM ${table_name} WHERE locale = %s";
+		$sql = "DELETE FROM {$table_name} WHERE locale = %s";
 		$wpdb->query( $wpdb->prepare( $sql, [ $locale ] ) );
 
 		// Read in the replacements.
@@ -41,7 +41,7 @@ class WoocommerceProductFeedsRefreshGoogleTaxonomyJob extends AbstractWoocommerc
 			$cnt++;
 			if ( 150 === $cnt ) {
 				// Bulk insert them all.
-				$sql  = "INSERT INTO ${table_name}";
+				$sql  = "INSERT INTO {$table_name}";
 				$sql .= '(locale, taxonomy_term, search_term) VALUES ';
 				$sql .= str_repeat( '(%s,%s,%s),', $cnt - 1 ) . '(%s,%s,%s)';
 				$wpdb->query( $wpdb->prepare( $sql, $values ) );
@@ -52,7 +52,7 @@ class WoocommerceProductFeedsRefreshGoogleTaxonomyJob extends AbstractWoocommerc
 		}
 		// Insert the last chunk.
 		if ( $cnt ) {
-			$sql  = "INSERT INTO ${table_name}";
+			$sql  = "INSERT INTO {$table_name}";
 			$sql .= '(locale, taxonomy_term, search_term) VALUES ';
 			$sql .= str_repeat( '(%s,%s,%s),', $cnt - 1 ) . '(%s,%s,%s)';
 			$wpdb->query( $wpdb->prepare( $sql, $values ) );

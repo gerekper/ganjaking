@@ -1,5 +1,10 @@
 *** Brands Changelog ***
 
+2023-01-31 - version 1.6.42
+* Dev - Replace deprecated `node-sass` package with `sass`.
+* Fix - Add automation.
+* Fix - Prevent the Brands column from overflowing the Products table.
+
 2023-01-04 - version 1.6.41
 * Dev - Add node and npm version restrictions.
 * Tweak - WC 7.3 compatibility.

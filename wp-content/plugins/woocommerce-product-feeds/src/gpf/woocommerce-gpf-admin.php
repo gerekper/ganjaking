@@ -286,7 +286,7 @@ class WoocommerceGpfAdmin {
 		$this->maybe_refresh_google_taxonomies();
 		$locales = $this->common->get_google_taxonomy_locales();
 		$sql     = "SELECT taxonomy_term
-                          FROM ${table_prefix}woocommerce_gpf_google_taxonomy
+                          FROM {$table_prefix}woocommerce_gpf_google_taxonomy
                          WHERE search_term LIKE %s";
 
 		$search_term = '%' . strtolower( $query ) . '%';
@@ -433,14 +433,19 @@ class WoocommerceGpfAdmin {
 		}
 		if ( $term ) {
 			$current_data = get_term_meta( $term->term_id, '_woocommerce_gpf_data', true );
+			$this->template_loader->output_template_with_variables(
+				'woo-gpf',
+				'category-edit-intro',
+				[ 'loop_idx' => '' ]
+			);
 		} else {
 			$current_data = array();
+			$this->template_loader->output_template_with_variables(
+				'woo-gpf',
+				'categories-edit-intro',
+				[ 'loop_idx' => '' ]
+			);
 		}
-		$this->template_loader->output_template_with_variables(
-			'woo-gpf',
-			'meta-edit-intro',
-			[ 'loop_idx' => '' ]
-		);
 
 		foreach ( $this->product_fields as $key => $fieldinfo ) {
 			// Skip if not enabled & not mandatory.
@@ -492,11 +497,19 @@ class WoocommerceGpfAdmin {
 				'meta-field-row-data',
 				$variables
 			);
-			$this->template_loader->output_template_with_variables(
-				'woo-gpf',
-				'meta-field-row',
-				$row_vars
-			);
+			if ( ! $term ) {
+				$this->template_loader->output_template_with_variables(
+					'woo-gpf',
+					'category-field-row',
+					$row_vars
+				);
+			} else {
+				$this->template_loader->output_template_with_variables(
+					'woo-gpf',
+					'categories-field-row',
+					$row_vars
+				);
+			}
 		}
 	}
 
@@ -1638,7 +1651,7 @@ class WoocommerceGpfAdmin {
 			);
 			$this->template_loader->output_template_with_variables(
 				'woo-gpf',
-				'field-row',
+				'config-field-row',
 				$row_vars
 			);
 		}

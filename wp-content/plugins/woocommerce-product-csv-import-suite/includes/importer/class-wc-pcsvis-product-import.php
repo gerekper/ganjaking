@@ -1614,7 +1614,7 @@ class WC_PCSVIS_Product_Import extends WP_Importer {
 		// CSV files will gain a .txt extension).
 		if (
 			'csv' !== $pathinfo['extension']
-			&& ! preg_match( '/.csv(-[0-9]+)?.txt$/', $pathinfo['basename'] )
+			&& ! preg_match( '/\.csv[_\-\d]*\.txt$/', $pathinfo['basename'] )
 		) {
 			return false;
 		}

@@ -83,7 +83,7 @@ class WC_Product_Vendors_Order {
 		$order_id       = absint( $resource_parts[1] );
 		$vendor_id      = absint( $resource_parts[3] );
 
-		$commissions    = $this->commission->get_commission_by_order_id( $order_id, 'unpaid' );
+		$commissions = $this->commission->get_commission_by_order_id( $order_id, 'unpaid' );
 
 		if ( $commissions ) {
 			foreach ( $commissions as $commission ) {
@@ -116,11 +116,15 @@ class WC_Product_Vendors_Order {
 	/**
 	 * Process order
 	 *
-	 * @access public
-	 * @since 2.0.0
-	 * @version 2.0.0
+	 * @access  public
+	 * @since   2.1.72 Implement logic to regenerate vendor commission for given order id and order item id.
+	 *              Process payout only for unpaid commissions.
+	 * @since   2.0.0
+	 *
 	 * @param int $order_id
+	 *
 	 * @return bool
+	 * @version 2.0.0
 	 */
 	public function process( $order_id ) {
 		global $wpdb;
@@ -130,13 +134,11 @@ class WC_Product_Vendors_Order {
 		$this->order = wc_get_order( $order_id );
 
 		if ( is_a( $this->order, 'WC_Order' ) && $items = $this->order->get_items( 'line_item' ) ) {
-			$check_commission_added = $this->order->get_meta( '_wcpv_commission_added', true );
-
-			$order_status = $this->order->get_status();
+			$order_status   = $this->order->get_status();
 			$commission_ids = array();
 
 			foreach ( $items as $order_item_id => $item ) {
-				$product   = wc_get_product( $item['product_id'] );
+				$product = wc_get_product( $item['product_id'] );
 				if ( ! is_object( $product ) ) {
 					continue;
 				}
@@ -145,25 +147,24 @@ class WC_Product_Vendors_Order {
 
 				// check if it is a vendor product
 				if ( $vendor_id ) {
-
 					$_product_id = ! empty( $item['variation_id'] ) ? $item['variation_id'] : $item['product_id'];
 					$_product    = wc_get_product( $_product_id );
 
 					do_action( 'wcpv_processing_vendor_order_item', $order_item_id, $item, $this->order );
 
 					// check first to see if meta has already been added
-					$check_sql = "SELECT `meta_value`";
+					$check_sql  = 'SELECT `meta_value`';
 					$check_sql .= " FROM {$wpdb->prefix}woocommerce_order_itemmeta";
-					$check_sql .= " WHERE `order_item_id` = %d";
-					$check_sql .= " AND `meta_key` = %s";
+					$check_sql .= ' WHERE `order_item_id` = %d';
+					$check_sql .= ' AND `meta_key` = %s';
 
 					$result = $wpdb->get_results( $wpdb->prepare( $check_sql, $order_item_id, '_fulfillment_status' ) );
 
 					if ( empty( $result ) ) {
 
 						// add ship status to order item meta
-						$sql = "INSERT INTO {$wpdb->prefix}woocommerce_order_itemmeta ( `order_item_id`, `meta_key`, `meta_value` )";
-						$sql .= " VALUES ( %d, %s, %s )";
+						$sql  = "INSERT INTO {$wpdb->prefix}woocommerce_order_itemmeta ( `order_item_id`, `meta_key`, `meta_value` )";
+						$sql .= ' VALUES ( %d, %s, %s )';
 
 						$fulfillment_status = 'unfulfilled';
 
@@ -236,15 +237,6 @@ class WC_Product_Vendors_Order {
 						}
 					}
 
-					// check for existing commission data.
-					$check_sql  = 'SELECT `id`';
-					$check_sql .= ' FROM ' . WC_PRODUCT_VENDORS_COMMISSION_TABLE;
-					$check_sql .= ' WHERE `order_item_id` = %d';
-					$check_sql .= ' AND `order_id` = %d';
-					$check_sql .= ' AND `commission_status` != %s';
-
-					$last_commission_id = $wpdb->get_var( $wpdb->prepare( $check_sql, $order_item_id, $order_id, 'paid' ) );
-
 					$order_date = $this->order->get_date_created() ? gmdate( 'Y-m-d H:i:s', $this->order->get_date_created()->getOffsetTimestamp() ) : '';
 
 					// initial commission status.
@@ -254,14 +246,42 @@ class WC_Product_Vendors_Order {
 						$init_status = 'void';
 					}
 
-					if ( empty( $last_commission_id ) && 'yes' !== $check_commission_added ) {
-						$last_commission_id = $this->commission->insert( $order_id, $order_item_id, $order_date, $vendor_id, $vendor_data['name'], $item['product_id'], $item['variation_id'], $item['name'], $attributes, $item['line_total'], $item['qty'], $shipping_amount, $shipping_tax_amount, $item['line_tax'], wc_format_decimal( $product_commission ), wc_format_decimal( $total_commission ), $init_status, NULL );
+					// Do we already add commission? If no, then add commission. if yes, then update commission.
+					$last_commission = $this->commission->get_commission_by_order_item_id( $order_item_id, $order_id );
 
-						$commission_added = true;
+					if ( ! $last_commission ) {
+						$last_commission_id = $this->commission->insert( $order_id, $order_item_id, $order_date, $vendor_id, $vendor_data['name'], $item['product_id'], $item['variation_id'], $item['name'], $attributes, $item['line_total'], $item['qty'], $shipping_amount, $shipping_tax_amount, $item['line_tax'], wc_format_decimal( $product_commission ), wc_format_decimal( $total_commission ), $init_status, null );
+					} else {
+						$this->commission->update(
+							[
+								'vendor_name'                 => $vendor_data['name'],
+								'vendor_id'                   => $vendor_id,
+								'variation_id'                => $item['variation_id'],
+								'variation_attributes'        => $attributes,
+								'product_name'                => $item['name'],
+								'product_amount'              => $item['line_total'],
+								'product_quantity'            => $item['qty'],
+								'product_shipping_amount'     => $shipping_amount,
+								'product_shipping_tax_amount' => $shipping_tax_amount,
+								'product_tax_amount'          => $item['line_tax'],
+								'product_commission_amount'   => $product_commission,
+								'total_commission_amount'     => $total_commission,
+							],
+							$last_commission['id']
+						);
 					}
 
+					$last_commission = $this->commission->get_commission_by_order_item_id( $order_item_id, $order_id );
+
 					// check if we need to pay vendor commission instantly.
-					if ( ! empty( $vendor_data['instant_payout'] ) && 'yes' === $vendor_data['instant_payout'] && ! empty( $vendor_data['paypal'] ) && ( 'completed' === $order_status || 'processing' === $order_status || 'partial-payment' === $order_status ) && 0 != $total_commission ) {
+					// and commission is unpaid
+					if (
+						! empty( $vendor_data['instant_payout'] ) &&
+						'yes' === $vendor_data['instant_payout'] &&
+						! empty( $vendor_data['paypal'] ) &&
+						( 'completed' === $order_status || 'processing' === $order_status || 'partial-payment' === $order_status ) &&
+						( 0 != $total_commission && 'unpaid' === $last_commission['commission_status'] )
+					) {
 						$commission_ids[ $last_commission_id ] = absint( $last_commission_id );
 					}
 
@@ -275,8 +295,8 @@ class WC_Product_Vendors_Order {
 
 					if ( empty( $result ) ) {
 						// add initial paid status to order item meta.
-						$sql = "INSERT INTO {$wpdb->prefix}woocommerce_order_itemmeta ( `order_item_id`, `meta_key`, `meta_value` )";
-						$sql .= " VALUES ( %d, %s, %s )";
+						$sql  = "INSERT INTO {$wpdb->prefix}woocommerce_order_itemmeta ( `order_item_id`, `meta_key`, `meta_value` )";
+						$sql .= ' VALUES ( %d, %s, %s )';
 
 						$wpdb->query( $wpdb->prepare( $sql, $order_item_id, '_commission_status', $init_status ) );
 					}
@@ -287,6 +307,8 @@ class WC_Product_Vendors_Order {
 					if ( ! empty( $customer_user ) ) {
 						WC_Product_Vendors_Utils::update_user_related_vendors( $customer_user, absint( $vendor_id ) );
 					}
+
+					$commission_added = true;
 				}
 			}
 
@@ -372,7 +394,7 @@ class WC_Product_Vendors_Order {
 	 * @param object $item
 	 * @return array
 	 */
-    public function calc_per_product_shipping( $item ) {
+	public function calc_per_product_shipping( $item ) {
 		$_tax          = new WC_Tax();
 		$taxes         = array();
 		$total_tax     = 0;
@@ -382,7 +404,6 @@ class WC_Product_Vendors_Order {
 		$package['destination']['state']    = $this->order->get_shipping_state();
 		$package['destination']['postcode'] = $this->order->get_shipping_postcode();
 
-
 		// get per product shipping settings
 		$settings = get_option( 'woocommerce_wcpv_per_product_settings' );
 
@@ -391,7 +412,7 @@ class WC_Product_Vendors_Order {
 		if ( $item['qty'] > 0 && $settings ) {
 			if ( $item['data']->needs_shipping() ) {
 
-				$rule = false;
+				$rule               = false;
 				$item_shipping_cost = 0;
 
 				if ( $item['variation_id'] ) {
@@ -431,8 +452,11 @@ class WC_Product_Vendors_Order {
 			}
 		}
 
-		return array( 'shipping_cost' => $shipping_cost, 'taxes' => $total_tax );
-    }
+		return array(
+			'shipping_cost' => $shipping_cost,
+			'taxes'         => $total_tax,
+		);
+	}
 
 	/**
 	 * get_fee function.

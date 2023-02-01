@@ -49,7 +49,6 @@ ul.brand-thumbnails li {
 	padding: 0;
 	position: relative;
 	width: 22.05%; /* 4 columns */
-	margin-left: 0;
 }
 
 ul.brand-thumbnails.fluid-columns li {
@@ -111,7 +110,7 @@ ul.brand-thumbnails.columns-6 li {
 	ul.brand-thumbnails:not(.fluid-columns) li:nth-of-type(odd) {
 		clear: both;
 	}
-	
+
 	ul.brand-thumbnails:not(.fluid-columns) li:nth-of-type(even) {
 		margin-right: 0;
 	}

@@ -129,11 +129,14 @@ class WC_Product_Vendors_Per_Product_Shipping_Admin {
 	/**
 	 * Renders the shipping rules table
 	 *
-	 * @access public
-	 * @since 2.0.0
-	 * @version 2.0.0
+	 * @access  public
+	 * @since   2.0.0
+	 * @since   2.1.72 Add "Import CSV (override)" button.
+	 *
 	 * @param int $post_id
+	 *
 	 * @return bool
+	 * @version 2.0.0
 	 */
 	public function render_shipping_rules_table( $post_id = 0 ) {
 		global $post, $wpdb;
@@ -167,9 +170,19 @@ class WC_Product_Vendors_Per_Product_Shipping_Admin {
 							<?php
 							// only store owners are allow to import
 							if ( current_user_can( 'manage_options' ) ) {
+								printf(
+									'<a href="%1$s" class="button import js-import-csv">%2$s</a>',
+									esc_url( admin_url( 'admin.php?import=wcpv_per_product_shipping_csv' ) ),
+									esc_html__( 'Import CSV', 'woocommerce-product-vendors' )
+								);
+
+								printf(
+									'<a href="%1$s" class="button import js-import-csv-override">%2$s</a>',
+									esc_url( admin_url( 'admin.php?import=wcpv_per_product_shipping_csv&override_product_id=' . absint( $post_id ) ) ),
+									esc_html__( 'Import CSV (override)', 'woocommerce-product-vendors' )
+								);
+							}
 							?>
-							<a href="<?php echo admin_url( 'admin.php?import=wcpv_per_product_shipping_csv' ); ?>" class="button import"><?php esc_html_e( 'Import CSV', 'woocommerce-product-vendors' ); ?></a>
-							<?php } ?>
 						</th>
 					</tr>
 				</tfoot>

@@ -20,6 +20,11 @@ class WoocommerceGpfStatusReport {
 	private $settings = array();
 
 	/**
+	 * @var WoocommerceGpfCommon
+	 */
+	private $common;
+
+	/**
 	 * Constructor.
 	 *
 	 * Store dependencies.

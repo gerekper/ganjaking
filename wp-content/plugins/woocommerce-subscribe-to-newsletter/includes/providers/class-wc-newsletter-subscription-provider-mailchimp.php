@@ -42,6 +42,7 @@ class WC_Newsletter_Subscription_Provider_Mailchimp extends WC_Newsletter_Subscr
 		$this->privacy_url = 'https://mailchimp.com/legal/privacy/';
 		$this->supports    = array(
 			'stats',
+			'tags',
 		);
 
 		parent::__construct( $credentials );
@@ -231,6 +232,49 @@ class WC_Newsletter_Subscription_Provider_Mailchimp extends WC_Newsletter_Subscr
 				'merge_fields'  => $fields,
 			),
 			'PUT'
+		);
+
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
+		// Tags are updated in a different request.
+		$response = $this->update_tags( $subscriber, $list );
+
+		return ( is_wp_error( $response ) ? $response : $subscriber );
+	}
+
+	/**
+	 * Adds tags to the subscriber.
+	 *
+	 * @since 3.6.0
+	 *
+	 * @param WC_Newsletter_Subscription_Subscriber $subscriber Subscriber object.
+	 * @param mixed                                 $list       The list the subscriber belongs to.
+	 * @return mixed
+	 */
+	protected function update_tags( $subscriber, $list ) {
+		$tags = $subscriber->get_tags();
+
+		if ( empty( $tags ) ) {
+			return $subscriber;
+		}
+
+		$add_tags = array();
+
+		foreach ( $tags as $tag ) {
+			$add_tags[] = array(
+				'name'   => $tag,
+				'status' => 'active',
+			);
+		}
+
+		$response = $this->api_request(
+			'lists/' . $list . '/members/' . md5( $subscriber->get_email() ) . '/tags',
+			array(
+				'tags' => $add_tags,
+			),
+			'POST'
 		);
 
 		return ( is_wp_error( $response ) ? $response : $subscriber );

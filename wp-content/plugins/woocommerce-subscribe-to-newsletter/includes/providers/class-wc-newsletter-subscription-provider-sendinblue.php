@@ -33,6 +33,7 @@ class WC_Newsletter_Subscription_Provider_Sendinblue extends WC_Newsletter_Subsc
 		$this->privacy_url = 'https://sendinblue.com/legal/privacypolicy/';
 		$this->supports    = array(
 			'stats',
+			'tags',
 		);
 
 		parent::__construct( $credentials );
@@ -109,6 +110,12 @@ class WC_Newsletter_Subscription_Provider_Sendinblue extends WC_Newsletter_Subsc
 						'desc_tip'    => _x( "Select the attribute where to store the customer's last name.", 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
 						'description' => _x( 'Leave the field empty to not include this customer info.', 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
 						'options'     => $attr_choices,
+					),
+					'woocommerce_sendinblue_tags_attribute' => array(
+						'type'     => 'select',
+						'title'    => _x( 'TAGS attribute', 'setting title', 'woocommerce-subscribe-to-newsletter' ),
+						'desc_tip' => _x( "Select the attribute where to store the product's tags.", 'setting desc', 'woocommerce-subscribe-to-newsletter' ),
+						'options'  => $attr_choices,
 					),
 				)
 			);
@@ -234,6 +241,64 @@ class WC_Newsletter_Subscription_Provider_Sendinblue extends WC_Newsletter_Subsc
 		}
 
 		$response = $this->api_request( 'contacts', $args, 'POST' );
+
+		if ( is_wp_error( $response ) ) {
+			return $response;
+		}
+
+		$response = $this->update_tags( $subscriber );
+
+		return ( is_wp_error( $response ) ? $response : $subscriber );
+	}
+
+	/**
+	 * Gets the subscriber's tags.
+	 *
+	 * @since 3.6.0
+	 *
+	 * @param WC_Newsletter_Subscription_Subscriber $subscriber Subscriber object.
+	 * @return array
+	 */
+	protected function get_tags( $subscriber ) {
+		$tags_attr = get_option( 'woocommerce_sendinblue_tags_attribute' );
+
+		if ( ! $tags_attr ) {
+			return array();
+		}
+
+		$response = $this->api_request( 'contacts/' . rawurlencode( $subscriber->get_email() ) );
+
+		return ( isset( $response['attributes'][ $tags_attr ] ) ) ? explode( ',', $response['attributes'][ $tags_attr ] ) : array();
+	}
+
+	/**
+	 * Adds tags to the subscriber.
+	 *
+	 * @since 3.6.0
+	 *
+	 * @param WC_Newsletter_Subscription_Subscriber $subscriber Subscriber object.
+	 * @return mixed
+	 */
+	protected function update_tags( $subscriber ) {
+		$tags      = $subscriber->get_tags();
+		$tags_attr = get_option( 'woocommerce_sendinblue_tags_attribute' );
+
+		if ( empty( $tags ) || ! $tags_attr ) {
+			return $subscriber;
+		}
+
+		$previous_tags = $this->get_tags( $subscriber );
+		$tags          = array_unique( array_merge( $tags, $previous_tags ) );
+
+		$response = $this->api_request(
+			'contacts/' . rawurlencode( $subscriber->get_email() ),
+			array(
+				'attributes' => array(
+					$tags_attr => implode( ',', $tags ),
+				),
+			),
+			'PUT'
+		);
 
 		return ( is_wp_error( $response ) ? $response : $subscriber );
 	}

@@ -62,7 +62,7 @@ final class WC_Subscribe_To_Newsletter {
 	 * @since 2.5.0
 	 */
 	public function define_constants() {
-		$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_VERSION', '3.5.1' );
+		$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_VERSION', '3.6.0' );
 		$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_PATH', plugin_dir_path( WC_NEWSLETTER_SUBSCRIPTION_FILE ) );
 		$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_URL', plugin_dir_url( WC_NEWSLETTER_SUBSCRIPTION_FILE ) );
 		$this->define( 'WC_NEWSLETTER_SUBSCRIPTION_BASENAME', plugin_basename( WC_NEWSLETTER_SUBSCRIPTION_FILE ) );

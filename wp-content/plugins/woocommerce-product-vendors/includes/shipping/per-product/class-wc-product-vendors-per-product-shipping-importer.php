@@ -95,7 +95,10 @@ if ( class_exists( 'WP_Importer' ) ) :
 		 * import function.
 		 *
 		 * @access public
+		 * @since  2.1.72 Remove existing product shipping rules when "override_product_id" set.
+		 *
 		 * @param mixed $file
+		 *
 		 * @return void
 		 */
 		public function import( $file ) {
@@ -122,6 +125,14 @@ if ( class_exists( 'WP_Importer' ) ) :
 				if ( sizeof( $header ) == 6 ) {
 
 					$loop = 0;
+
+					if ( ! empty( $_GET['override_product_id'] ) ) {
+						$wpdb->delete(
+							WC_PRODUCT_VENDORS_PER_PRODUCT_SHIPPING_TABLE,
+							[ 'product_id' => absint( $_GET['override_product_id'] ) ],
+							[ 'product_id' => '%d' ]
+						);
+					}
 
 					while ( ( $row = fgetcsv( $handle, 0, $this->delimiter ) ) !== false ) {
 
@@ -267,15 +278,22 @@ if ( class_exists( 'WP_Importer' ) ) :
 		 * greet function.
 		 *
 		 * @access public
+		 * @since  2.1.72 Add "override_product_id" query param to form action url and warning about shipping rule(s) override.
 		 * @return void
 		 */
 		public function greet() {
+			$can_override_shipping_rules = ! empty( $_GET['override_product_id'] );
+
 			echo '<div class="narrow">';
 			echo '<p>' . esc_html__( 'Hi there! Upload a CSV file containing per-product shipping rates to import the contents into your shop. Choose a .csv file to upload, then click "Upload file and import".', 'woocommerce-product-vendors' ) . '</p>';
 
 			echo '<p>' . esc_html__( 'Rates need to be defined with columns in a specific order (6 columns). Product ID, Country Code, State Code, Postcode, Cost, Item Cost', 'woocommerce-product-vendors' ) . '</p>';
 
 			$action = 'admin.php?import=' . $this->import_page . '&step=1';
+
+			if ( $can_override_shipping_rules ) {
+				$action .= '&override_product_id=' . absint( $_GET['override_product_id'] );
+			}
 
 			$bytes = apply_filters( 'import_upload_size_limit', wp_max_upload_size() );
 
@@ -317,6 +335,20 @@ if ( class_exists( 'WP_Importer' ) ) :
 				</form>
 				<?php
 			endif;
+
+			if ( $can_override_shipping_rules ) {
+				printf(
+					'<p><strong>%1$s&nbsp;%2$s</strong></p>',
+					esc_html__(
+						'Warning:',
+						'woocommerce-product-vendors' ),
+
+					esc_html__(
+						'All existing shipping rules will be replaced with the rule(s) in your imported CSV file.',
+						'woocommerce-product-vendors'
+					)
+				);
+			}
 
 			echo '</div>';
 		}

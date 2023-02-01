@@ -34,6 +34,16 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 	private $allowed_description_markup = array();
 
 	/**
+	 * @var float
+	 */
+	private $start_ts;
+
+	/**
+	 * @var int
+	 */
+	private $start_mem;
+
+	/**
 	 * Constructor. Grab the settings, and add filters if we have stuff to do
 	 *
 	 * @access public
@@ -162,8 +172,8 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 	 * @access public
 	 */
 	public function render_header() {
-		$this->startts  = microtime( true );
-		$this->startmem = memory_get_peak_usage();
+		$this->start_ts  = microtime( true );
+		$this->start_mem = memory_get_peak_usage();
 		header( 'Content-Type: application/xml; charset=UTF-8' );
 		if ( isset( $_REQUEST['feeddownload'] ) ) {
 			header( 'Content-Disposition: attachment; filename="E-Commerce_Product_List.xml"' );
@@ -240,8 +250,7 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 			}
 		}
 
-		$done_condition = false;
-		$done_weight    = false;
+		$done_weight = false;
 
 		if ( count( $feed_item->additional_elements ) ) {
 			foreach ( $feed_item->additional_elements as $element_name => $element_values ) {
@@ -292,15 +301,7 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 				if ( 'shipping_weight' === $element_name ) {
 					$done_weight = true;
 				}
-
-				if ( 'condition' === $element_name ) {
-					$done_condition = true;
-				}
 			}
-		}
-
-		if ( ! $done_condition ) {
-			$output .= "      <g:condition>new</g:condition>\n";
 		}
 
 		if ( ! $done_weight ) {
@@ -374,15 +375,15 @@ class WoocommerceGpfFeedGoogle extends WoocommerceGpfFeed {
 		global $wpdb;
 
 		// Debug feed performance.
-		$this->endts  = microtime( true );
-		$this->endmem = memory_get_peak_usage();
-		$startmem     = round( $this->startmem / 1024 / 1024, 2 );
-		$endmem       = round( $this->endmem / 1024 / 1024, 2 );
-		$memusage     = round( ( $this->endmem - $this->startmem ) / 1024 / 1024, 2 );
+		$endts    = microtime( true );
+		$endmem1  = memory_get_peak_usage();
+		$startmem = round( $this->start_mem / 1024 / 1024, 2 );
+		$endmem   = round( $endmem1 / 1024 / 1024, 2 );
+		$memusage = round( ( $endmem1 - $this->start_mem ) / 1024 / 1024, 2 );
 		if ( defined( 'SAVEQUERIES' ) && SAVEQUERIES ) {
 			$this->debug->log( 'Total queries:  %s', [ str_pad( count( $wpdb->queries ), 7, ' ', STR_PAD_LEFT ) ] );
 		}
-		$this->debug->log( 'Duration:       %s', [ str_pad( round( $this->endts - $this->startts, 2 ), 7, ' ', STR_PAD_LEFT ) . ' s' ] );
+		$this->debug->log( 'Duration:       %s', [ str_pad( round( $endts - $this->start_ts, 2 ), 7, ' ', STR_PAD_LEFT ) . ' s' ] );
 		$this->debug->log( 'Start mem:      %s', [ str_pad( $startmem, 7, ' ', STR_PAD_LEFT ) . ' MB' ] );
 		$this->debug->log( 'End mem:        %s', [ str_pad( $endmem, 7, ' ', STR_PAD_LEFT ) . ' MB' ] );
 		$this->debug->log( 'Memory usage:   %s', [ str_pad( $memusage, 7, ' ', STR_PAD_LEFT ) . ' MB' ] );

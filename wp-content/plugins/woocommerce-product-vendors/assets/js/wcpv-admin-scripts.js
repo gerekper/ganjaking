@@ -285,19 +285,59 @@ jQuery( document ).ready( function( $ ) {
 			// show/hide additional settings for taxonomy create page
 			$( document.body ).on( 'click', '.wcpv-term-additional-settings-link', function( e ) {
 				e.preventDefault();
-
 				$( '.wcpv-term-additional-settings' ).slideToggle();
 			});
-			$( '#wcpv_product_split_tax,#wcpv-split-tax' ).on( 'click', function ( e ) {
-				if ( this.checked ) {
-					$( '#wcpv_product_pass_tax,#wcpv-pass-tax').prop( 'checked', false );
-				}
-			});
-			$( '#wcpv_product_pass_tax,#wcpv-pass-tax' ).on( 'click', function ( e ) {
-				if ( this.checked ) {
-					$( '#wcpv_product_split_tax,#wcpv-split-tax').prop( 'checked', false );
-				}
-			});
+
+			// Enable tax handling radio input fields
+			if ( $( '#wcpv-product-vendor-terms-select' ).length ) {
+				$( '#wcpv-product-vendor-terms-select' ).change( function () {
+					var vendor_id = $( this ).val();
+					var selected_vendor = $( this ).children().filter( '[value="' + vendor_id + '"]' );
+					var tax_type = selected_vendor.data( 'taxes' );
+					var pass_shipping = selected_vendor.data( 'pass-shipping' );
+
+					var general_setting = $( '#wcpv-product-vendor-tax-general-settings' );
+					var can_customize_vendor_settings = general_setting
+						.find( 'input[name="_wcpv_customize_product_vendor_settings"' )
+						.prop( 'checked' )
+					var notice = general_setting.find( '.wcpv-vendor-selection-notice' );
+
+
+					if ( vendor_id ) {
+						notice.hide()
+					} else {
+						notice.show();
+					}
+
+					// Set product vendor settings default values to global vendor settings when customisation is off.
+					// So that admin always override global vendor settings default values in product and by default, unedited settings have global values.
+					if ( !can_customize_vendor_settings ) {
+						tax_type && general_setting
+							.find( `input[name="_wcpv_product_taxes"][value="${tax_type}"]` )
+							.prop( 'checked', true )
+						pass_shipping && general_setting
+							.find( `input[name="_wcpv_product_pass_shipping"]` )
+							.prop( 'checked', pass_shipping === 'yes' )
+					}
+				} ).change();
+			}
+
+			// Toggle product vendor settings on prodict edit page.
+			if ( $( '#wcpv-product-vendor-tax-general-settings .wcpv_customize_settings_field' ).length ) {
+				var checkbox = $( '#wcpv-product-vendor-tax-general-settings .wcpv_customize_settings_field input' );
+
+				checkbox.change( function () {
+					var can_customse_settings = $( this ).prop( 'checked' ),
+						setting_fields = $(
+							'#wcpv-product-vendor-tax-general-settings > *:not(.wcpv_customize_settings_field):not(h2:nth-child(1)):not(.wcpv-vendor-selection-notice)' );
+
+					if ( can_customse_settings ) {
+						setting_fields.show()
+					} else {
+						setting_fields.hide()
+					}
+				} ).change();
+			}
 
 			// Store Vendor Profile details as they are updated.
 			if ( $( '#wcpv_vendor_info' ).length && window.tinymce != null ) {
@@ -305,6 +345,18 @@ jQuery( document ).ready( function( $ ) {
 				editor.on( 'change', function ( el ) {
 					$( '#wcpv_vendor_info' ).val( editor.getContent() );
 				});
+			}
+
+			if ( $( '.js-import-csv-override' ).length ) {
+				var import_cv_override_button = $( '.js-import-csv-override' );
+
+				import_cv_override_button.on( 'click', function ( event ) {
+					if ( !window.confirm( wcpv_admin_local.i18n_import_csv_override_confirmation_text ) ) {
+						return false;
+					}
+
+					return true;
+				} );
 			}
 		}
 	}; // close namespace

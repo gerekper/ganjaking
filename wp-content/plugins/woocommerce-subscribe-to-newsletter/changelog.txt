@@ -1,5 +1,9 @@
 *** Subscribe to Newsletter Changelog ***
 
+2023-01-30 - version 3.6.0
+* Feature - Tags subscribers with the purchased products (Mailchimp and Sendinblue only).
+* Tweak - Tested compatibility with WC 7.3.
+
 2022-12-19 - version 3.5.1
 * Tweak - Declare compatibility with WooCommerce High-Performance Order Storage (HPOS).
 * Tweak - Tested compatibility up to WC 7.2.

@@ -1,5 +1,13 @@
 *** WooCommerce Google Product Feed Changelog ***
 
+2023.01.30 - version 10.8.3
+* New: WooCommerce 7.4 compatibility
+* Fix: Product Type could send more values than Google expects. It now limits down to the allowed amount of values.
+* Change: Styling changes to some settings forms for wider compatibility
+* Change: PHP 8.2 compatibility
+* Change: "Condition" is no longer forcibly included in the feed
+* Change: Enable "condition" by default on new installs
+
 2023.01.05 - version 10.8.2
 * Change: WooCommerce 7.3 compatibility
 * Fix: Resolve issue where multiple short titles could be output against spec

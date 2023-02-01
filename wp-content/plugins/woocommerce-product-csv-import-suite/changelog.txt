@@ -1,5 +1,9 @@
 *** Product CSV Import Suite Changelog ***
 
+2023-01-27 - version 1.10.55
+* Fix - Prevent file upload error on multisite.
+* Tweak - Bump tested up to WordPress version 6.1.
+
 2022-12-13 - version 1.10.54
 * Fix - Import removes 'featured' from product.
 * Fix - Importing Categories with an apostrophe creates duplicates.

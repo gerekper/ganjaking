@@ -232,7 +232,7 @@ class WC_Product_Vendors_Store_Admin {
 		wp_register_style( 'wcpv-admin-styles', WC_PRODUCT_VENDORS_PLUGIN_URL . '/assets/css/wcpv-admin-styles.css', array(), WC_PRODUCT_VENDORS_VERSION );
 
 		$localized_vars = array(
-			'isPendingVendor'           => current_user_can( 'wc_product_vendors_pending_vendor' ) ? true : false,
+			'isPendingVendor'           => current_user_can( 'wc_product_vendors_pending_vendor' ),
 			'pending_vendor_message'    => __( 'Thanks for registering to become a vendor.  Your application is being reviewed at this time.', 'woocommerce-product-vendors' ),
 			'modalLogoTitle'            => __( 'Add Logo', 'woocommerce-product-vendors' ),
 			'buttonLogoText'            => __( 'Add Logo', 'woocommerce-product-vendors' ),
@@ -250,6 +250,7 @@ class WC_Product_Vendors_Store_Admin {
 			'i18n_selection_too_long_n' => _x( 'You can only select %qty% items', 'enhanced select', 'woocommerce-product-vendors' ),
 			'i18n_load_more'            => _x( 'Loading more results&hellip;', 'enhanced select', 'woocommerce-product-vendors' ),
 			'i18n_searching'            => _x( 'Searching&hellip;', 'enhanced select', 'woocommerce-product-vendors' ),
+			'i18n_import_csv_override_confirmation_text' => esc_html__( 'This will remove all existing shipping rules and replace them with the rule(s) in your imported CSV file. Are you sure this is what you intend to do?', 'woocommerce-product-vendors' ),
 		);
 
 		wp_localize_script( 'wcpv-admin-scripts', 'wcpv_admin_local', $localized_vars );
@@ -1386,10 +1387,12 @@ class WC_Product_Vendors_Store_Admin {
 	/**
 	 * Add a pass shipping field to the product general tab
 	 *
-	 * @access public
-	 * @since 2.0.0
+	 * @access  public
+	 * @since 2.1.72 Implement _wcpv_customize_product_vendor_settings setting.
+	 * @since   2.0.0
+	 * @return void
 	 * @version 2.0.0
-	 * @return bool
+	 *
 	 */
 	public function add_product_pass_shipping_tax_field_general() {
 		/**
@@ -1397,69 +1400,105 @@ class WC_Product_Vendors_Store_Admin {
 		 */
 		global $product_object;
 
-		$vendor_id = WC_Product_Vendors_Utils::get_vendor_id_from_product( $product_object->get_id() );
-
-		if ( $vendor_id ) {
-			$vendor_data = WC_Product_Vendors_Utils::get_vendor_data_by_id( $vendor_id );
-		} else {
-			$vendor_data = null;
+		if ( WC_Product_Vendors_Utils::is_vendor() || ! current_user_can( 'manage_vendors' ) ) {
+			return;
 		}
+
+		$vendor_id        = WC_Product_Vendors_Utils::get_vendor_id_from_product( $product_object->get_id() );
+		$vendor_data      = $vendor_id ? WC_Product_Vendors_Utils::get_vendor_data_by_id( $vendor_id ) : null;
 		$product_settings = WC_Product_Vendors_Utils::get_product_vendor_settings( $product_object, $vendor_data );
 
-		if ( ! WC_Product_Vendors_Utils::is_vendor() && current_user_can( 'manage_vendors' ) ) {
-			?>
-			<div class="options_group show_if_simple show_if_variable show_if_booking">
-				<h2>Product Vendors</h2>
-				<p class="form-field wcpv_product_default_pass_shipping_tax_field">
-					<label for="wcpv_product_pass_shipping">
-						<?php esc_html_e( 'Pass shipping', 'woocommerce-product-vendors' ) ?>
-					</label>
-					<input type="checkbox" name="_wcpv_product_pass_shipping" id="wcpv_product_pass_shipping" value="yes" <?php checked( 'yes', $product_settings['pass_shipping'] ); ?> />
-					<span class="description">
-						<?php esc_html_e( 'Check box to pass the shipping charges for this product to the vendor.', 'woocommerce-product-vendors' ); ?>
-					</span>
-				</p>
-				<h2>Tax Handling</h2>
-				<p class="form-field wcpv_product_taxes_field">
-					<label for="wcpv-keep-tax">
-						<?php esc_html_e( 'Keep Taxes', 'woocommerce-product-vendors' ); ?>
-					</label>
-					<input type="radio" value="keep-tax" id="wcpv-keep-tax" name="_wcpv_product_taxes" <?php checked( 'keep-tax', $product_settings['taxes'] ); ?> />
-					<span class="description">
-						<?php esc_html_e( 'Calculate commission based on product price only.', 'woocommerce-product-vendors' ); ?>
-					</span>
-				</p>
-				<p class="form-field wcpv_product_taxes_field">
-					<label for="wcpv-pass-tax">
-						<?php esc_html_e( 'Pass Taxes', 'woocommerce-product-vendors' ); ?>
-					</label>
-					<input type="radio" value="pass-tax" id="wcpv-pass-tax" name="_wcpv_product_taxes" <?php checked( 'pass-tax', $product_settings['taxes'] ); ?> />
-					<span class="description">
-						<?php esc_html_e( 'All tax charges will be included in the vendor\'s commission.', 'woocommerce-product-vendors' ); ?>
-					</span>
-				</p>
-				<p class="form-field wcpv_product_taxes_field">
-					<label for="wcpv-split-tax">
-						<?php esc_html_e( 'Split Taxes', 'woocommerce-product-vendors' ); ?>
-					</label>
-					<input type="radio" value="split-tax" id="wcpv-split-tax" name="_wcpv_product_taxes" <?php checked( 'split-tax', $product_settings['taxes'] ); ?> />
-					<span class="description">
-						<?php esc_html_e( 'The full price including taxes will be used to calculate commission.', 'woocommerce-product-vendors' ); ?>
-					</span>
-				</p>
-			</div>
-			<?php
-		}
+		$customize_product_vendor_settings = $product_object->get_meta( '_wcpv_customize_product_vendor_settings', true, 'edit'  );
 
-		return true;
+		// Backward compatibility.
+		// _wcpv_customize_product_vendor_settings is newly added meta key.
+		// If this meta key does not exist then
+		// Default value depends upon whether product vendor settings override previously.
+		if ( $vendor_id ) {
+			if ( ! $customize_product_vendor_settings ) {
+				$customize_product_vendor_settings = 'yes';
+
+				$pass_shipping = $product_object->get_meta( '_wcpv_product_pass_shipping', true, 'edit' );
+				$taxes         = $product_object->get_meta( '_wcpv_product_taxes', true, 'edit' );
+
+				if ( $pass_shipping === $vendor_data['taxes'] && ( empty($taxes) || $taxes === $vendor_data['taxes'] ) ) {
+					$customize_product_vendor_settings = 'no';
+				}
+			}
+		}
+		?>
+		<div id="wcpv-product-vendor-tax-general-settings"
+			 class="options_group show_if_simple show_if_variable show_if_booking">
+			<h2><?php esc_html_e( 'Product Vendors', 'woocommerce-product-vendors' ); ?></h2>
+			<p class="wcpv-vendor-selection-notice">
+				<i><?php esc_html_e( 'Please select vendor first to edit settings.', 'woocommerce-product-vendors' ); ?></i>
+			</p>
+			<p class="form-field wcpv_customize_settings_field">
+				<label for="wcpv_customize_product_vendor_settings">
+					<?php esc_html_e( 'Override product vendor settings', 'woocommerce-product-vendors' ); ?>
+				</label>
+				<input type="checkbox" name="_wcpv_customize_product_vendor_settings"
+					   id="wcpv_customize_product_vendor_settings"
+					   value="yes" <?php checked( 'yes', $customize_product_vendor_settings ); ?> />
+			</p>
+			<p class="form-field wcpv_product_default_pass_shipping_tax_field">
+				<label for="wcpv_product_pass_shipping">
+					<?php esc_html_e( 'Pass shipping', 'woocommerce-product-vendors' ) ?>
+				</label>
+				<input type="checkbox" name="_wcpv_product_pass_shipping" id="wcpv_product_pass_shipping"
+					   value="yes" <?php checked( 'yes', $product_settings['pass_shipping'] ); ?> />
+				<span class="description">
+						<?php esc_html_e( 'Check box to pass the shipping charges for this product to the vendor.',
+							'woocommerce-product-vendors' ); ?>
+					</span>
+			</p>
+			<h2><?php esc_html_e( 'Tax Handling', 'woocommerce-product-vendors' ); ?></h2>
+			<p class="form-field wcpv_product_taxes_field">
+				<label for="wcpv-keep-tax">
+					<?php esc_html_e( 'Keep Taxes', 'woocommerce-product-vendors' ); ?>
+				</label>
+				<input type="radio" value="keep-tax" id="wcpv-keep-tax"
+					   name="_wcpv_product_taxes" <?php $vendor_id && checked( 'keep-tax', $product_settings['taxes'] ); ?>/>
+				<span class="description">
+						<?php esc_html_e( 'Calculate commission based on product price only.',
+							'woocommerce-product-vendors' ); ?>
+					</span>
+			</p>
+			<p class="form-field wcpv_product_taxes_field">
+				<label for="wcpv-pass-tax">
+					<?php esc_html_e( 'Pass Taxes', 'woocommerce-product-vendors' ); ?>
+				</label>
+				<input type="radio" value="pass-tax" id="wcpv-pass-tax"
+					   name="_wcpv_product_taxes" <?php $vendor_id && checked( 'pass-tax', $product_settings['taxes'] ); ?>/>
+				<span class="description">
+						<?php esc_html_e( 'All tax charges will be included in the vendor\'s commission.',
+							'woocommerce-product-vendors' ); ?>
+					</span>
+			</p>
+			<p class="form-field wcpv_product_taxes_field">
+				<label for="wcpv-split-tax">
+					<?php esc_html_e( 'Split Taxes', 'woocommerce-product-vendors' ); ?>
+				</label>
+				<input type="radio" value="split-tax" id="wcpv-split-tax"
+					   name="_wcpv_product_taxes" <?php $vendor_id && checked( 'split-tax', $product_settings['taxes'] ); ?>/>
+				<span class="description">
+						<?php esc_html_e( 'The full price including taxes will be used to calculate commission.',
+							'woocommerce-product-vendors' ); ?>
+					</span>
+			</p>
+		</div>
+		<?php
 	}
 
 	/**
 	 * Save the pass shipping field for the product general tab
 	 *
-	 * @since 2.0.0
-	 * @version 2.0.0
+	 * @since 2.1.72 Implement logic to save _wcpv_customize_product_vendor_settings and _wcpv_product_taxes setting.
+	 * @since   2.0.0
+	 *
 	 * @param int $post_id
+	 *
+	 * @version 2.0.0
 	 */
 	public function save_product_pass_shipping_tax_field_general( $post_id ) {
 		if ( empty( $post_id ) ) {
@@ -1467,19 +1506,22 @@ class WC_Product_Vendors_Store_Admin {
 		}
 
 		if ( ! WC_Product_Vendors_Utils::is_vendor() && current_user_can( 'manage_vendors' ) ) {
-
 			$product = wc_get_product( $post_id );
 			$product->update_meta_data(
 				'_wcpv_product_pass_shipping',
 				! empty( $_POST['_wcpv_product_pass_shipping'] ) ? 'yes' : 'no'
 			);
 			$product->update_meta_data(
-				'_wcpv_product_pass_tax',
-				! empty( $_POST['_wcpv_product_pass_tax'] ) ? 'yes' : 'no'
+				'_wcpv_product_taxes',
+				! empty( $_POST['_wcpv_product_taxes'] ) ? $_POST['_wcpv_product_taxes'] : ''
 			);
 			$product->update_meta_data(
 				'_wcpv_product_split_tax',
 				! empty( $_POST['_wcpv_product_split_tax'] ) ? 'yes' : 'no'
+			);
+			$product->update_meta_data(
+				'_wcpv_customize_product_vendor_settings',
+				! empty( $_POST['_wcpv_customize_product_vendor_settings'] ) ? 'yes' : 'no'
 			);
 			$product->save();
 		}
@@ -1571,14 +1613,15 @@ class WC_Product_Vendors_Store_Admin {
 			</span>
 		</label>
 		<label>
-			<span class="title"><?php esc_html_e( 'Pass Tax to Vendor?', 'woocommerce-product-vendors' ); ?></span>
+			<span class="title"><?php esc_html_e( 'Tax Handling', 'woocommerce-product-vendors' ); ?></span>
 			<span class="input-text-wrap">
-					<select class="pass-shipping-tax" name="_wcpv_product_pass_tax">
+					<select class="pass-shipping-tax" name="_wcpv_product_taxes">
 					<?php
 					$options = array(
-						''    => __( '— No Change —', 'woocommerce-product-vendors' ),
-						'yes' => __( 'Yes', 'woocommerce-product-vendors' ),
-						'no'  => __( 'No', 'woocommerce-product-vendors' ),
+						''          => __( '— No Change —', 'woocommerce-product-vendors' ),
+						'keep-tax'  => __( 'Keep Taxes', 'woocommerce-product-vendors' ),
+						'pass-tax'  => __( 'Pass Taxes', 'woocommerce-product-vendors' ),
+						'split-tax' => __( 'Split Taxes', 'woocommerce-product-vendors' ),
 					);
 
 					foreach ( $options as $key => $value ) {
@@ -1675,10 +1718,10 @@ class WC_Product_Vendors_Store_Admin {
 					$_REQUEST['_wcpv_product_pass_shipping']
 				);
 			}
-			if ( ! empty( $_REQUEST['_wcpv_product_pass_tax'] ) ) {
+			if ( ! empty( $_REQUEST['_wcpv_product_taxes'] ) ) {
 				$product->update_meta_data(
-					'_wcpv_product_pass_tax',
-					$_POST['_wcpv_product_pass_tax']
+					'_wcpv_product_taxes',
+					$_POST['_wcpv_product_taxes']
 				);
 			}
 			if ( ! empty( $_REQUEST['_wcpv_product_split_tax'] ) ) {

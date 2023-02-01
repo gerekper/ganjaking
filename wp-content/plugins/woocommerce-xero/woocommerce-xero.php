@@ -5,13 +5,13 @@
  * Description: Integrates <a href="https://woocommerce.com/" target="_blank" >WooCommerce</a> with the <a href="http://www.xero.com" target="_blank">Xero</a> accounting software.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
- * Version: 1.7.54
+ * Version: 1.7.55
  * Text Domain: woocommerce-xero
  * Domain Path: /languages/
  * Requires at least: 5.7
- * Tested up to: 6.0
+ * Tested up to: 6.1
  * Requires PHP: 7.0
- * WC tested up to: 7.2.1
+ * WC tested up to: 7.3.0
  * WC requires at least: 6.0
  *
  * Copyright 2019 WooCommerce
@@ -41,7 +41,7 @@ if ( ! defined( 'WC_XERO_ABSURL' ) ) {
 	define( 'WC_XERO_ABSURL', plugin_dir_url( __FILE__ ) . '/' );
 }
 
-define( 'WC_XERO_VERSION', '1.7.54' ); // WRCS: DEFINED_VERSION.
+define( 'WC_XERO_VERSION', '1.7.55' ); // WRCS: DEFINED_VERSION.
 
 /**
  * Main plugin class.
@@ -56,9 +56,12 @@ final class WC_Xero {
 	public function setup() {
 		$wc_xr_plugin_requirement = new WC_XR_PLUGIN_REQUIREMENT();
 
-		$wc_xr_plugin_requirement->is_ssl_active();
 		if ( ! $wc_xr_plugin_requirement->is_woocommerce_active() ) {
 			return;
+		}
+
+		if ( is_admin() && current_user_can( 'manage_woocommerce' ) ) {
+			$wc_xr_plugin_requirement->is_ssl_active();
 		}
 
 		// Run data migrations.

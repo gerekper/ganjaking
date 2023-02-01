@@ -301,16 +301,14 @@ class WC_REST_Subscriptions_V1_Controller extends WC_REST_Orders_V1_Controller {
 		$orders = array();
 
 		foreach ( $subscription_orders as $order_id ) {
-			$post = get_post( $order_id );
-
 			// Validate that the order can be loaded before trying to generate a response object for it.
 			$order = wc_get_order( $order_id );
 
-			if ( ! $order || ! wc_rest_check_post_permissions( $this->post_type, 'read', $post->ID ) ) {
+			if ( ! $order || ! wc_rest_check_post_permissions( $this->post_type, 'read', $order_id ) ) {
 				continue;
 			}
 
-			$response = $this->prepare_item_for_response( $post, $request );
+			$response = $this->prepare_item_for_response( $order, $request );
 
 			foreach ( array( 'parent', 'renewal', 'switch' ) as $order_type ) {
 				if ( wcs_order_contains_subscription( $order_id, $order_type ) ) {

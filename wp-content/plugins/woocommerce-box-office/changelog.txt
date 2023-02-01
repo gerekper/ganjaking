@@ -1,5 +1,9 @@
 *** WooCommerce Box Office Changelog ***
 
+2023-01-27 - version 1.1.47
+* Fix - Use a unique ID for tickets to prevent deletion of wrong ticket.
+* Tweak - Bump WooCommerce "Tested up to" version 7.3.0.
+
 2023-01-17 - version 1.1.46
 * Tweak - Bump WordPress "Tested up to" version 6.1.
 

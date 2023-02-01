@@ -9,7 +9,7 @@
  * Developer URI: http://woocommerce.com/
  * Requires at least: 4.4
  * Tested up to: 6.1
- * Version: 1.6.41
+ * Version: 1.6.42
  * Text Domain: woocommerce-brands
  * Domain Path: /languages/
  * WC tested up to: 7.3
@@ -68,7 +68,7 @@ function wc_brands_init() {
 		return;
 	}
 
-	define( 'WC_BRANDS_VERSION', '1.6.41' ); // WRCS: DEFINED_VERSION.
+	define( 'WC_BRANDS_VERSION', '1.6.42' ); // WRCS: DEFINED_VERSION.
 
 	/**
 	 * Localisation

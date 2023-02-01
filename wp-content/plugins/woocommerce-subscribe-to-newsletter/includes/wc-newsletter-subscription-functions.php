@@ -8,6 +8,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
+require_once 'wc-newsletter-subscription-order-functions.php';
+
 /**
  * Gets the suffix for the script filenames.
  *
@@ -193,6 +195,7 @@ function wc_newsletter_subscription_subscribe( $email, $args = array() ) {
 			'first_name' => '',
 			'last_name'  => '',
 			'list_id'    => false,
+			'tags'       => array(),
 		)
 	);
 
@@ -208,6 +211,7 @@ function wc_newsletter_subscription_subscribe( $email, $args = array() ) {
 			'email'      => $email,
 			'first_name' => $args['first_name'],
 			'last_name'  => $args['last_name'],
+			'tags'       => $args['tags'],
 		)
 	);
 

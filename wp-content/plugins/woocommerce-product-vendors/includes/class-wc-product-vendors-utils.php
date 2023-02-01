@@ -842,31 +842,42 @@ class WC_Product_Vendors_Utils {
 	/**
 	 * Gets product settings related to vendors.
 	 *
-	 * @param WC_Product $product Product Object.
+	 * @since 2.1.72 Return vendor setting on basis of _wcpv_customize_product_vendor_settings product setting value
+	 *
+	 * @param WC_Product $product     Product Object.
 	 * @param array|null $vendor_data Vendor Data.
 	 *
 	 * @return array
 	 */
 	public static function get_product_vendor_settings( WC_Product $product, $vendor_data = null ) {
-
 		// $pass_shipping_tax is a legacy setting, we fetch it to set the values of $pass_shipping and $pass_tax if ! empty
 		$pass_shipping_tax = $product->get_meta( '_wcpv_product_default_pass_shipping_tax', true, 'edit' );
 		$pass_shipping     = $product->get_meta( '_wcpv_product_pass_shipping', true, 'edit' );
-		$taxes         = $product->get_meta( '_wcpv_product_taxes', true, 'edit' );
+		$taxes             = $product->get_meta( '_wcpv_product_taxes', true, 'edit' );
 
-		if ( empty( $pass_shipping ) ) {
-			// Default to vendor setting then legacy setting then to 'no'.
-			$pass_shipping = ! empty( $vendor_data['pass_shipping'] ) ? $vendor_data['pass_shipping'] : ( empty( $pass_shipping_tax ) ? 'no' : $pass_shipping_tax );
-		}
+		$default_pass_shipping = ! empty( $vendor_data['pass_shipping'] ) ?
+			$vendor_data['pass_shipping'] :
+			( empty( $pass_shipping_tax ) ? 'no' : $pass_shipping_tax );
+		$default_taxes         = ! empty( $vendor_data['taxes'] ) ?
+			$vendor_data['taxes'] :
+			( ( ! empty( $pass_shipping_tax ) && 'yes' === $pass_shipping_tax ) ? 'pass-tax' : 'keep-tax' );
 
-		if ( empty( $taxes ) ) {
-			// Default to vendor setting then legacy setting then to 'keep-tax'.
-			$taxes = ! empty( $vendor_data['taxes'] ) ? $vendor_data['taxes'] : ( ! empty( $pass_shipping_tax ) && 'yes' === $pass_shipping_tax ? 'pass-tax' : 'keep-tax' );
+		$customize_product_vendor_settings = $product->get_meta(
+			'_wcpv_customize_product_vendor_settings',
+			true,
+			'edit'
+		);
+
+		if ( 'no' === $customize_product_vendor_settings ) {
+			return array(
+				'pass_shipping' => $default_pass_shipping,
+				'taxes'         => $default_taxes,
+			);
 		}
 
 		return array(
-			'pass_shipping' => $pass_shipping,
-			'taxes' => $taxes,
+			'pass_shipping' => $pass_shipping ?: $default_pass_shipping,
+			'taxes'         => $taxes ?: $default_taxes,
 		);
 	}
 

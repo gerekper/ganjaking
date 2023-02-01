@@ -24,6 +24,7 @@ class WC_Newsletter_Subscription_Subscriber extends WC_Data {
 		'email'      => '',
 		'first_name' => '',
 		'last_name'  => '',
+		'tags'       => array(),
 	);
 
 	/**
@@ -103,6 +104,18 @@ class WC_Newsletter_Subscription_Subscriber extends WC_Data {
 		return trim( $first_name . ' ' . $last_name );
 	}
 
+	/**
+	 * Gets tags.
+	 *
+	 * @since 3.6.0
+	 *
+	 * @param string $context View or edit context.
+	 * @return array
+	 */
+	public function get_tags( $context = 'view' ) {
+		return $this->get_prop( 'tags', $context );
+	}
+
 	/*
 	 * --------------------------------------------------------------------------
 	 * Setters
@@ -140,5 +153,16 @@ class WC_Newsletter_Subscription_Subscriber extends WC_Data {
 	 */
 	public function set_last_name( $last_name ) {
 		$this->set_prop( 'last_name', sanitize_text_field( $last_name ) );
+	}
+
+	/**
+	 * Sets tags.
+	 *
+	 * @since 3.6.0
+	 *
+	 * @param array $tags Tags.
+	 */
+	public function set_tags( $tags ) {
+		$this->set_prop( 'tags', $tags );
 	}
 }

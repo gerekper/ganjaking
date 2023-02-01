@@ -59,37 +59,74 @@ class WC_Box_Office_Order {
 
 		// Logic to not strip HTML tags in the order item meta so that ticket HTML is properly shown
 		add_filter( 'woocommerce_order_item_display_meta_value', array( $this, 'process_ticket_display_meta' ), 10, 3 );
-	
+
 		// Move ticket to trash if it was refunded and part of an order with other non-refunded items.
 		add_action( 'woocommerce_order_refunded', array( $this, 'move_ticket_to_trash_on_refund' ) );
 	}
 
 	/**
-	 * Add ticket meta as order item meta.
+	 * Populates values from billing information if autofill is enabled on ticket field.
 	 *
-	 * @param mixed $item_id  Item ID.
-	 * @param mixed $values   Item meta.
-	 * @param mixed $order_id Order ID.
+	 * @see https://github.com/woocommerce/woocommerce-box-office/issues/318
+	 *
+	 * @param array $data       Ticket fields array.
+	 * @param int   $product_id Product ID.
+	 * @param int   $order_id   Order ID.
+	 * @return array $data with possibly autofilled fields.
 	 */
-	public function add_order_item_meta( $item_id, $values, $order_id = 0 ) {
-		if ( version_compare( WC_VERSION, '3.0', '>=' ) ) {
-			$ticket_meta = ! empty( $values->legacy_values['ticket'] )
-				? $values->legacy_values['ticket']
-				: array();
-			$qty = ! empty( $values->legacy_values['quantity'] )
-				? $values->legacy_values['quantity']
-				: array();
-		} else {
-			$ticket_meta = ! empty( $values['ticket'] )
-				? $values['ticket']
-				: array();
-			$qty = ! empty( $values['quantity'] )
-				? $values['quantity']
-				: 0;
+	private function maybe_autofill_ticket_fields( $data, $product_id, $order_id ) {
+		$order           = wc_get_order( $order_id );
+		$billing_address = $order ? $order->get_address( 'billing' ) : array();
+		$ticket_fields   = wc_box_office_get_product_ticket_fields( absint( $product_id ) );
+
+		if ( ! $billing_address || ! $ticket_fields ) {
+			return $data;
 		}
 
-		if ( empty( $ticket_meta['fields'] ) ) {
-			return;
+		foreach ( $data as $field_key => &$field_value ) {
+			if ( ! empty( $field_value ) ) {
+				continue;
+			}
+
+			$field_option = $ticket_fields[ $field_key ] ?? array();
+
+			if ( ! $field_option || ! isset( $field_option['autofill'] ) || 'none' === $field_option['autofill'] ) {
+				continue;
+			}
+
+			$address_part     = str_replace( 'billing_', '', $field_option['autofill'] );
+			$autofilled_value = $billing_address[ $address_part ] ?? '';
+
+			if ( ! $autofilled_value ) {
+				continue;
+			}
+
+			if ( in_array( $field_option['type'], array( 'radio', 'select', 'checkbox' ), true ) && ! empty( $field_option['options'] ) ) {
+				if ( ! in_array( $autofilled_value, explode( ',', $field_option['options'] ), true ) ) {
+					continue;
+				}
+			}
+
+			$field_value  = $autofilled_value;
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Extracts individual ticket information from order item metadata.
+	 *
+	 * @param array $values Item meta.
+	 * @param int   $item_id Item ID.
+	 * @param int   $order_id Order ID.
+	 * @return array
+	 */
+	private function get_ticket_data_from_order_item( $values, $item_id, $order_id = 0 ) {
+		$ticket_meta = $values->legacy_values['ticket'] ?? array();
+		$qty         = $values->legacy_values['quantity'] ?? 0;
+
+		if ( ! $ticket_meta || ! $qty || empty( $ticket_meta['fields'] ) ) {
+			return array();
 		}
 
 		// Make sure number of tickets to create matches with quantity in cart.
@@ -110,70 +147,57 @@ class WC_Box_Office_Order {
 			}
 		}
 
-		// Get all tickets related to the order.
-		$tickets         = $this->get_tickets_by_order( $order_id );
-		$order           = wc_get_order( $order_id );
-		$billing_address = $order->get_address( 'billing' );
-		$ticket_fields   = wc_box_office_get_product_ticket_fields( (int) $ticket_meta['product_id'] );
+		$ticket_meta_fields = $ticket_meta['fields'];
+		unset( $ticket_meta['fields'] );
 
-		foreach ( $ticket_meta['fields'] as $index => $fields ) {
-
-			/**
-			 * Populate values from billing information if autofill is enabled on ticket field.
-			 *
-			 * @see https://github.com/woocommerce/woocommerce-box-office/issues/318
-			 */
-			foreach ( $fields as $field_key => $field_value ) {
-				$field_option = $ticket_fields[ $field_key ];
-				$autofill     = str_replace( 'billing_', '', $field_option['autofill'] );
-				if (
-					empty( $field_value ) &&
-					'none' !== $field_option['autofill'] &&
-					isset( $billing_address[ $autofill ] ) &&
-					! empty( $billing_address[ $autofill ] )
-				) {
-					// For Radio, Select and Checkbox fields, only populate value it is if available in given options.
-					if ( in_array( $field_option['type'], array( 'radio', 'select', 'checkbox' ), true ) && ! empty( $field_option['options'] ) ) {
-						if ( in_array( $billing_address[ $autofill ], explode( ',', $field_option['options'] ), true ) ) {
-							$fields[ $field_key ] = $billing_address[ $autofill ];
-						}
-					} else {
-						$fields[ $field_key ] = $billing_address[ $autofill ];
-					}
-				}
-			}
-
-			// Check if a ticket was already created at some point, and trash it (since it will be re-created).
-			foreach ( $tickets as $ticket ) {
-				$ticket            = new WC_Box_Office_Ticket( $ticket );
-				$product_id        = (int) $ticket_meta['product_id'];
-				$ticket_product_id = (int) $ticket->product_id;
-				if ( is_a( $ticket->product, 'WC_Product_Variable' ) ) {
-					$product_id        = (int) $ticket_meta['variation_id'];
-					$ticket_product_id = (int) $ticket->variation_id;
-				}
-
-				if (
-					array_keys( $ticket->fields ) === array_keys( $fields ) &&
-					$ticket_product_id === $product_id
-				) {
-					wp_delete_post( $ticket->id );
-				}
-			}
-
-			$ticket_data = array_merge(
+		$result = array();
+		foreach ( $ticket_meta_fields as $index => $fields ) {
+			$result[] = array_merge(
 				$ticket_meta,
 				array(
-					'fields'        => $fields,
+					'uid'           => $ticket_meta['key'] . '_' . $index,
+					'index'         => $index,
+					'fields'        => $this->maybe_autofill_ticket_fields( $fields, (int) $ticket_meta['product_id'], $order_id ),
 					'order_item_id' => $item_id,
 				)
 			);
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Add ticket meta as order item meta.
+	 *
+	 * @param mixed $item_id  Item ID.
+	 * @param mixed $values   Item meta.
+	 * @param mixed $order_id Order ID.
+	 */
+	public function add_order_item_meta( $item_id, $values, $order_id = 0 ) {
+		$data = $this->get_ticket_data_from_order_item( $values, $item_id, $order_id );
+
+		// Store meta in item meta in case we need it later.
+		wc_delete_order_item_meta( $item_id, '_ticket_data' );
+		wc_add_order_item_meta( $item_id, '_ticket_data', $data, true );
+
+		// Get all tickets related to the order.
+		$order_tickets = $this->get_tickets_by_order( $order_id, 'all', 'ids' );
+
+		// Create tickets.
+		foreach ( $data as $ticket_data ) {
+			// Check if a ticket was already created at some point, and trash it (since it will be re-created).
+			foreach ( $order_tickets as $order_ticket_id ) {
+				if ( $ticket_data['uid'] === get_post_meta( $order_ticket_id, '_uid', true ) ) {
+					wp_delete_post( $order_ticket_id );
+				}
+			}
+
 			$ticket = new WC_Box_Office_Ticket( $ticket_data );
 			$ticket->create( 'pending' );
 
 			wc_add_order_item_meta(
 				$item_id,
-				sprintf( '_ticket_id_for_%1$s_%2$s', $ticket_meta['key'], $index ),
+				sprintf( '_ticket_id_for_%s', $ticket->uid ),
 				$ticket->id
 			);
 
@@ -182,7 +206,7 @@ class WC_Box_Office_Order {
 				// wp_kses_post removed data attribute, so we use class to
 				// store ticket-id. This span will be turned into link to
 				// edit ticket in edit order.
-				sprintf( '<span class="order-item-meta-ticket ticket-id-%d">%s%d</span>', $ticket->id, wcbo_get_ticket_title_prefix(), $index + 1 ),
+				sprintf( '<span class="order-item-meta-ticket ticket-id-%d">%s%d</span>', $ticket->id, wcbo_get_ticket_title_prefix(), $ticket->index + 1 ),
 				wc_box_office_get_ticket_description( $ticket->id, 'list' )
 			);
 		}
@@ -456,9 +480,10 @@ class WC_Box_Office_Order {
 	 *
 	 * @param  int      $order_id   Order ID
 	 * @param  string   $amount     Number of tickets to fetch
+	 * @param  string   $fields     How to return results: '' (for complete `WP_Post`, 'ids' for post IDs).
 	 * @return array    Array of ticket posts
 	 */
-	public function get_tickets_by_order( $order_id = 0, $amount = 'all' ) {
+	public function get_tickets_by_order( $order_id = 0, $amount = 'all', $fields = '' ) {
 
 		if ( ! $order_id ) {
 			return array();
@@ -472,6 +497,7 @@ class WC_Box_Office_Order {
 			'post_type'      => 'event_ticket',
 			'post_status'    => array( 'publish', 'pending' ),
 			'posts_per_page' => $amount,
+			'fields'         => $fields,
 			'meta_query'     => array(
 				array(
 					'key'   => '_order',
@@ -515,6 +541,7 @@ class WC_Box_Office_Order {
 
 		// setup the cart item date with ticket related fields
 		$cart_item_data['ticket'] = array(
+			'key'          => uniqid(),
 			'product_id'   => $order_item['product_id'],
 			'variation_id' => $variation_id,
 			'fields'       => $new_order_ticket_fields,

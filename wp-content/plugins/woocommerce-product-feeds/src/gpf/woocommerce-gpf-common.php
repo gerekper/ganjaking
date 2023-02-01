@@ -159,6 +159,7 @@ class WoocommerceGpfCommon {
 					'can_prepopulate' => true,
 					'feed_types'      => [ 'google' ],
 					'google_len'      => 750,
+					'max_values'      => 5,
 				],
 				'google_product_category'             => [
 					'desc'        => __( 'Google Product Category', 'woocommerce_gpf' ),

@@ -1,5 +1,11 @@
 *** Xero Integration ***
 
+2023-01-27 - version 1.7.55
+* Dev - Bump `clean-css-cli` from 5.6.1 to 5.6.2.
+* Tweak - Bump WooCommerce tested up to 7.3.
+* Tweak - Bump tested up to WordPress version 6.1.
+* Tweak - Improve SSL certificate verification.
+
 2023-01-17 - version 1.7.54
 * Bump tj-actions/changed-files from 34 to 35.
 * Dev - Bump `codedungeon/phpunit-result-printer` from 0.5.0 to 0.9.3.

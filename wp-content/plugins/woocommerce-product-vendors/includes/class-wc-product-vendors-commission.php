@@ -16,6 +16,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WC_Product_Vendors_Commission {
 	public $table_name;
 	protected $masspay;
+	private $table_columns = array(
+		'id'                          => '%d',
+		'order_id'                    => '%d',
+		'order_item_id'               => '%d',
+		'order_date'                  => '%s',
+		'vendor_id'                   => '%d',
+		'vendor_name'                 => '%s',
+		'product_id'                  => '%d',
+		'variation_id'                => '%d',
+		'product_name'                => '%s',
+		'variation_attributes'        => '%s',
+		'product_amount'              => '%s',
+		'product_quantity'            => '%s',
+		'product_shipping_amount'     => '%s',
+		'product_shipping_tax_amount' => '%s',
+		'product_tax_amount'          => '%s',
+		'product_commission_amount'   => '%s',
+		'total_commission_amount'     => '%s',
+		'commission_status'           => '%s',
+		'paid_date'                   => '%s',
+	);
 
 	/**
 	 * Constructor
@@ -117,6 +138,50 @@ class WC_Product_Vendors_Commission {
 		do_action( 'wcpv_commissions_inserted' );
 
 		return $last_id;
+	}
+
+	/**
+	 * Should update commission data.
+	 *
+	 * @since 2.1.72
+	 * @global WPDB $wpdb
+	 */
+	public function update( array $data, int $commission_id ): bool {
+		global $wpdb;
+		$placeholders = [];
+
+		// Do not allow to edit id column.
+		if ( array_key_exists( 'id', $data ) ) {
+			unset( $data['id'] );
+		}
+
+		if ( array_diff_key( $data, $this->table_columns ) ) {
+			throw new \InvalidArgumentException( sprintf(
+				'Please provide valid table data. Invalid column(s):%1$s',
+				implode( ',', array_keys( array_diff_key( $data, $this->table_columns ) ) )
+			) );
+		}
+
+		foreach ( $data as $column_id => $value ) {
+			$placeholders[] = $this->table_columns[ $column_id ];
+		}
+
+		$row_updated = (bool) $wpdb->update(
+			$this->table_name,
+			$data,
+			[ 'id' => $commission_id ],
+			$placeholders,
+			[ 'id' => $this->table_columns['id'] ]
+		);
+
+		/**
+		 * Fire action hook.
+		 *
+		 * @since 2.1.72
+		 */
+		do_action( 'wcpv_commissions_updated', $data, $commission_id );
+
+		return $row_updated;
 	}
 
 	/**
@@ -489,4 +554,32 @@ class WC_Product_Vendors_Commission {
 		return $query;
 	}
 
+	/**
+	 * Should return commission by order item id and order id if exists, null otherwise.
+	 *
+	 * @since 2.1.72
+	 *
+	 * @param int $order_item_id Order item id.
+	 * @param int $order_id Order id.
+	 *
+	 * @return array|null
+	 */
+	public function get_commission_by_order_item_id( $order_item_id, $order_id ) {
+		global $wpdb;
+		$table_name = WC_PRODUCT_VENDORS_COMMISSION_TABLE;
+
+		$commission = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT *
+				 FROM $table_name
+				 WHERE `order_item_id` = %d
+				 AND `order_id` = %d",
+				$order_item_id,
+				$order_id
+			),
+			ARRAY_A
+		);
+
+		return ! empty( $commission ) ? current( $commission ) : null;
+	}
 }

@@ -5,10 +5,10 @@
  * Description: Sell products and services with recurring payments in your WooCommerce Store.
  * Author: WooCommerce
  * Author URI: https://woocommerce.com/
- * Version: 4.7.0
+ * Version: 4.8.0
  *
- * WC requires at least: 6.0
- * WC tested up to: 7.1.0
+ * WC requires at least: 6.5
+ * WC tested up to: 7.3.0
  * Woo: 27147:6115e6d7e297b623a169fdcf5728b224
  *
  * Copyright 2019 WooCommerce
@@ -82,10 +82,10 @@ class WC_Subscriptions {
 	public static $plugin_file = __FILE__;
 
 	/** @var string */
-	public static $version = '4.7.0';
+	public static $version = '4.8.0';
 
 	/** @var string */
-	public static $wc_minimum_supported_version = '6.0';
+	public static $wc_minimum_supported_version = '6.5';
 
 	/** @var WCS_Cache_Manager */
 	public static $cache;

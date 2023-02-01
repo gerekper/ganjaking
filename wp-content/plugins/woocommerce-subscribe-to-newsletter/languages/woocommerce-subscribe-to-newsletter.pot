@@ -1,15 +1,15 @@
-# Copyright (C) 2022 Themesquad
+# Copyright (C) 2023 Themesquad
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Subscribe to Newsletter 3.5.1\n"
+"Project-Id-Version: WooCommerce Subscribe to Newsletter 3.6.0\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-12-19T10:41:54+00:00\n"
+"POT-Creation-Date: 2023-01-30T12:37:42+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: woocommerce-subscribe-to-newsletter\n"
@@ -119,7 +119,7 @@ msgid "Subscription Settings"
 msgstr ""
 
 #: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:115
-#: includes/wc-newsletter-subscription-functions.php:483
+#: includes/wc-newsletter-subscription-functions.php:487
 msgctxt "subscription checkbox label"
 msgid "Subscribe to our newsletter"
 msgstr ""
@@ -180,46 +180,77 @@ msgctxt "setting desc"
 msgid "Leave this field empty to subscribe the customers always when the order is created."
 msgstr ""
 
-#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:149
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:152
+msgctxt "setting title"
+msgid "Product tags"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:153
+msgctxt "setting title"
+msgid "Tag the subscriber with the purchased products."
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:158
+msgctxt "setting title"
+msgid "Product tag format"
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:159
+msgctxt "setting desc"
+msgid "Placeholders will be replaced by the product data."
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:160
+msgctxt "setting desc"
+msgid "Customize the format of the product tags."
+msgstr ""
+
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:170
 msgid "Select a provider&hellip;"
 msgstr ""
 
-#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:235
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:256
 #: includes/admin/views/html-dashboard-widget-stats.php:26
 msgid "Refresh"
 msgstr ""
 
-#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:257
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:278
 msgctxt "settings notice"
 msgid "Select a newsletter provider."
 msgstr ""
 
 #. translators: %s plugin name
-#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:303
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:324
 msgctxt "settings notice"
 msgid "This provider requires the WordPress plugin \"%s\" to work."
 msgstr ""
 
-#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:349
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:370
 msgctxt "settings notice"
 msgid "Enter the provider credentials."
 msgstr ""
 
-#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:352
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:373
 msgctxt "settings notice"
 msgid "The credentials are not valid."
 msgstr ""
 
-#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:438
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:459
 #: includes/providers/class-wc-newsletter-subscription-provider-activecampaign.php:98
 #: includes/providers/class-wc-newsletter-subscription-provider-campaign-monitor.php:91
-#: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:118
+#: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:119
 #: includes/providers/class-wc-newsletter-subscription-provider-mailerlite.php:91
 #: includes/providers/class-wc-newsletter-subscription-provider-mailpoet-3.php:61
 #: includes/providers/class-wc-newsletter-subscription-provider-mailpoet.php:61
 #: includes/providers/class-wc-newsletter-subscription-provider-sendgrid.php:91
-#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:97
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:98
 msgid "Select a list..."
+msgstr ""
+
+#. translators: %s: list of placeholders
+#: includes/admin/settings/class-wc-newsletter-subscription-settings-general.php:479
+msgctxt "setting desc"
+msgid "Available placeholders: %s"
 msgstr ""
 
 #: includes/admin/views/html-admin-status-report-settings.php:20
@@ -265,11 +296,11 @@ msgstr ""
 #: includes/class-wc-mailpoet-integration.php:116
 #: includes/providers/class-wc-newsletter-subscription-provider-activetrail.php:157
 #: includes/providers/class-wc-newsletter-subscription-provider-campaign-monitor.php:154
-#: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:189
+#: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:190
 #: includes/providers/class-wc-newsletter-subscription-provider-mailerlite.php:169
 #: includes/providers/class-wc-newsletter-subscription-provider-mailpoet.php:160
 #: includes/providers/class-wc-newsletter-subscription-provider-sendgrid.php:150
-#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:193
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:200
 msgid "Total subscribers"
 msgstr ""
 
@@ -315,18 +346,18 @@ msgstr ""
 
 #: includes/class-wc-mailchimp-newsletter-integration.php:184
 #: includes/class-wc-mailpoet-integration.php:117
-#: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:193
+#: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:194
 #: includes/providers/class-wc-newsletter-subscription-provider-mailpoet.php:168
 msgid "Unsubscribes"
 msgstr ""
 
 #: includes/class-wc-mailchimp-newsletter-integration.php:185
-#: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:197
+#: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:198
 msgid "Subscribers since last newsletter"
 msgstr ""
 
 #: includes/class-wc-mailchimp-newsletter-integration.php:186
-#: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:201
+#: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:202
 msgid "Unsubscribes since last newsletter"
 msgstr ""
 
@@ -645,42 +676,42 @@ msgid "Campaign Monitor List"
 msgstr ""
 
 #: includes/providers/class-wc-newsletter-subscription-provider-campaign-monitor.php:90
-#: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:117
+#: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:118
 #: includes/providers/class-wc-newsletter-subscription-provider-mailerlite.php:90
 #: includes/providers/class-wc-newsletter-subscription-provider-mailpoet.php:60
 #: includes/providers/class-wc-newsletter-subscription-provider-sendgrid.php:90
-#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:96
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:97
 msgctxt "setting desc"
 msgid "Choose a list customers can subscribe to."
 msgstr ""
 
-#: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:99
+#: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:100
 msgctxt "setting title"
 msgid "MailChimp API Key"
 msgstr ""
 
-#: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:100
+#: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:101
 msgctxt "setting desc"
 msgid "Enter your MailChimp api key"
 msgstr ""
 
 #. translators: %s: MailChimp URL for getting the API key
-#: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:104
+#: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:105
 msgctxt "setting desc"
 msgid "You can obtain your API key by logging in to your <a href=\"%s\" target=\"_blank\">MailChimp account</a>."
 msgstr ""
 
-#: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:116
+#: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:117
 msgctxt "setting title"
 msgid "MailChimp List"
 msgstr ""
 
-#: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:122
+#: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:123
 msgctxt "setting title"
 msgid "Enable Double Opt-in?"
 msgstr ""
 
-#: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:123
+#: includes/providers/class-wc-newsletter-subscription-provider-mailchimp.php:124
 msgctxt "setting desc"
 msgid "Controls whether a double opt-in confirmation message is sent, defaults to true. Abusing this may cause your account to be suspended."
 msgstr ""
@@ -757,111 +788,121 @@ msgctxt "setting title"
 msgid "SendGrid List"
 msgstr ""
 
-#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:76
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:77
 msgctxt "setting title"
 msgid "Sendinblue API Key"
 msgstr ""
 
 #. translators: %s: Sendinblue URL for getting the API key
-#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:79
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:80
 msgctxt "setting desc"
 msgid "You can obtain your API key by logging in to your <a href=\"%s\" target=\"_blank\">Sendinblue account</a>."
 msgstr ""
 
-#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:82
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:83
 msgctxt "setting desc"
 msgid "Enter your Sendinblue API key"
 msgstr ""
 
-#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:88
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:89
 msgid "Select an attribute..."
 msgstr ""
 
-#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:95
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:96
 msgctxt "setting title"
 msgid "Sendinblue List"
 msgstr ""
 
-#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:101
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:102
 msgctxt "setting title"
 msgid "First name attribute"
 msgstr ""
 
-#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:102
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:103
 msgctxt "setting desc"
 msgid "Select the attribute where to store the customer's first name."
 msgstr ""
 
-#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:103
-#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:110
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:104
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:111
 msgctxt "setting desc"
 msgid "Leave the field empty to not include this customer info."
 msgstr ""
 
-#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:108
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:109
 msgctxt "setting title"
 msgid "Last name attribute"
 msgstr ""
 
-#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:109
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:110
 msgctxt "setting desc"
 msgid "Select the attribute where to store the customer's last name."
 msgstr ""
 
-#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:197
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:116
+msgctxt "setting title"
+msgid "TAGS attribute"
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:117
+msgctxt "setting desc"
+msgid "Select the attribute where to store the product's tags."
+msgstr ""
+
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:204
 msgid "Unique subscribers"
 msgstr ""
 
-#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:201
+#: includes/providers/class-wc-newsletter-subscription-provider-sendinblue.php:208
 msgid "Blocked subscribers"
 msgstr ""
 
-#: includes/wc-newsletter-subscription-functions.php:254
+#: includes/wc-newsletter-subscription-functions.php:258
 msgid "Email subscription failed"
 msgstr ""
 
-#: includes/wc-newsletter-subscription-functions.php:271
+#: includes/wc-newsletter-subscription-functions.php:275
 msgctxt "widget error"
 msgid "An unexpected error happened."
 msgstr ""
 
-#: includes/wc-newsletter-subscription-functions.php:277
+#: includes/wc-newsletter-subscription-functions.php:281
 msgctxt "widget error"
 msgid "Please, enter a valid email address."
 msgstr ""
 
-#: includes/wc-newsletter-subscription-functions.php:282
+#: includes/wc-newsletter-subscription-functions.php:286
 msgctxt "widget error"
 msgid "Are you a robot?"
 msgstr ""
 
-#: includes/wc-newsletter-subscription-functions.php:297
+#: includes/wc-newsletter-subscription-functions.php:301
 msgctxt "widget error"
 msgid "Too many attempts to subscribe. Try it again later."
 msgstr ""
 
-#: includes/wc-newsletter-subscription-functions.php:338
+#: includes/wc-newsletter-subscription-functions.php:342
 msgctxt "widget success"
 msgid "Thanks for subscribing."
 msgstr ""
 
-#: includes/wc-newsletter-subscription-functions.php:340
+#: includes/wc-newsletter-subscription-functions.php:344
 msgctxt "widget error"
 msgid "Oops! Something went wrong."
 msgstr ""
 
-#: includes/wc-newsletter-subscription-functions.php:450
+#: includes/wc-newsletter-subscription-functions.php:454
 msgid "After the Terms and Conditions"
 msgstr ""
 
-#: includes/wc-newsletter-subscription-functions.php:451
+#: includes/wc-newsletter-subscription-functions.php:455
 msgid "After billing details"
 msgstr ""
 
-#: includes/wc-newsletter-subscription-functions.php:469
+#: includes/wc-newsletter-subscription-functions.php:473
 msgid "Yes"
 msgstr ""
 
-#: includes/wc-newsletter-subscription-functions.php:469
+#: includes/wc-newsletter-subscription-functions.php:473
 msgid "No"
 msgstr ""

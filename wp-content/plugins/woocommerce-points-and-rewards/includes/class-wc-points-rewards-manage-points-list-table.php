@@ -211,7 +211,8 @@ class WC_Points_Rewards_Manage_Points_List_Table extends WP_List_Table {
 			// perform the action
 			switch ( $action ) {
 				case 'update':
-					if ( WC_Points_Rewards_Manager::set_points_balance( $user_id, $_REQUEST['points_balance'][ $user_id ], 'admin-adjustment' ) ) {
+					$new_points_balance = isset( $_REQUEST['points_balance'][ $user_id ] ) ? wc_clean( wp_unslash( $_REQUEST['points_balance'][ $user_id ] ) ) : 0;
+					if ( is_numeric( $new_points_balance ) && $new_points_balance >= 0 && WC_Points_Rewards_Manager::set_points_balance( $user_id, $new_points_balance, 'admin-adjustment' ) ) {
 						$success_count++;
 					} else {
 						$error_count++;
@@ -224,10 +225,12 @@ class WC_Points_Rewards_Manage_Points_List_Table extends WP_List_Table {
 		switch ( $action ) {
 			case 'update':
 				if ( $success_count > 0 ) {
-					$wc_points_rewards->admin_message_handler->add_message( sprintf( _n( '%d customer updated.', '%s customers updated.', $success_count, 'woocommerce-points-and-rewards' ), $success_count ) );
+					/* translators: %d: number of customers updated */
+					$wc_points_rewards->admin_message_handler->add_message( sprintf( _n( '%s customer updated.', '%s customers updated.', $success_count, 'woocommerce-points-and-rewards' ), $success_count ) );
 				}
 				if ( $error_count > 0 ) {
-					$wc_points_rewards->admin_message_handler->add_message( sprintf( _n( '%d customer could not be updated.', '%s customers could not be updated.', $error_count, 'woocommerce-points-and-rewards' ), $error_count ) );
+					/* translators: %d: number of customers not updated */
+					$wc_points_rewards->admin_message_handler->add_error( sprintf( _n( '%s customer could not be updated.', '%s customers could not be updated.', $error_count, 'woocommerce-points-and-rewards' ), $error_count ) );
 				}
 			break;
 		}
@@ -241,6 +244,13 @@ class WC_Points_Rewards_Manage_Points_List_Table extends WP_List_Table {
 	public function render_messages() {
 		global $wc_points_rewards;
 
+		if ( $wc_points_rewards->admin_message_handler->error_count() > 0 ) {
+			echo '<div id="moderated" class="error"><ul><li><strong>';
+			foreach ( $wc_points_rewards->admin_message_handler->get_errors() as $error ) {
+				echo esc_html( $error ) . '</strong></li><li><strong>';
+			}
+			echo '</strong></li></ul></div>';
+		}
 		if ( $wc_points_rewards->admin_message_handler->message_count() > 0 ) {
 			echo '<div id="moderated" class="updated"><ul><li><strong>' . implode( '</strong></li><li><strong>', $wc_points_rewards->admin_message_handler->get_messages() ) . '</strong></li></ul></div>';
 		}
