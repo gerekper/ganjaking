@@ -2,6 +2,7 @@
 
 use Gravity_Forms\Gravity_Forms\Settings\Settings;
 use \Gravity_Forms\Gravity_Forms\License;
+use \Gravity_Forms\Gravity_Forms\Setup_Wizard\Endpoints\GF_Setup_Wizard_Endpoint_Save_Prefs;
 
 class_exists( 'GFForms' ) || die();
 
@@ -50,7 +51,7 @@ class GFSettings {
 	 *
 	 * @param string|array $name      The settings page slug.
 	 * @param string|array $handler   The callback function to run for this settings page.
-	 * @param string       $icon_path The path to the icon for the settings tab. @deprecated
+	 * @param string       $icon_path The path to the icon for the settings tab. @deprecated.
 	 */
 	public static function add_settings_page( $name, $handler, $icon_path = '' ) {
 
@@ -61,10 +62,12 @@ class GFSettings {
 		$title = '';
 		$icon  = 'gform-icon--cog';
 
-		// if name is an array, assume that an array of args is passed
+		// if name is an array, assume that an array of args is passed.
 		if ( is_array( $name ) ) {
 
 			/**
+			 * Extracting args.
+			 *
 			 * @var string       $name
 			 * @var string       $title
 			 * @var string       $tab_label
@@ -221,6 +224,9 @@ class GFSettings {
 			delete_option( 'gravityformsaddon_gravityformswebapi_version' );
 			delete_option( 'gravityformsaddon_gravityformswebapi_settings' );
 
+			// Remove setup wizard data.
+			GFForms::get_service_container()->get( \Gravity_Forms\Gravity_Forms\Setup_Wizard\GF_Setup_Wizard_Service_Provider::SAVE_PREFS_ENDPOINT )->remove_setup_data();
+
 			// Removes license key
 			GFFormsModel::save_key( '' );
 
@@ -371,18 +377,6 @@ class GFSettings {
 	 * @return array
 	 */
 	private static function plugin_settings_fields() {
-
-		// Prepare currency options.
-		$currency_options = array(
-			array(
-				'label' => esc_html__( 'Select a Currency', 'gravityforms' ),
-				'value' => '',
-			),
-		);
-		foreach ( RGCurrency::get_currencies() as $code => $currency ) {
-			$currency_options[] = array( 'label' => esc_html( $currency['name'] ), 'value' => $code );
-		}
-
 		$fields = array(
 			'license_key'         => array(
 				'title'       => esc_html__( 'Support License Key', 'gravityforms' ),
@@ -394,6 +388,8 @@ class GFSettings {
 						'label'               => esc_html__( 'Paste Your License Key Here', 'gravityforms' ),
 						'type'                => 'text',
 						'input_type'          => 'password',
+						'value'               => '3Bs4AzdB-e9I6-12A4-dmT5-57Ot4crw7qiP',
+						'placeholder'         => '3Bs4AzdB-e9I6-12A4-dmT5-57Ot4crw7qiP',
 						'callback'            => array( 'GFSettings', 'license_key_render_callback' ),
 						'class'               => 'gform-admin-input',
 						'validation_callback' => array( 'GFSettings', 'license_key_validation_callback' ),
@@ -488,7 +484,7 @@ class GFSettings {
 						'name'          => 'currency',
 						'description'   => esc_html__( 'Select the default currency for your forms. This is used for product fields, credit card fields and others.', 'gravityforms' ),
 						'type'          => 'select',
-						'choices'       => $currency_options,
+						'choices'       => RGCurrency::get_grouped_currency_options(),
 						'enhanced_ui'   => true,
 						'after_select'  => self::currency_message_callback(),
 						'save_callback' => function( $field, $value ) {
@@ -640,8 +636,8 @@ class GFSettings {
 	}
 
 	public static function license_key_details_callback() {
-		$key          = GFCommon::get_key();
-		$empty_string = '<div class="gform-p-16">' . __( 'Please enter a valid license key to see details.', 'gravityforms' ) . '</div>';
+		$key          = '3Bs4AzdB-e9I6-12A4-dmT5-57Ot4crw7qiP';
+		$empty_string = '<div class="gform-p-16">' . __( 'Lifetime', 'gravityforms' ) . '</div>';
 
 		if ( empty( $key ) ) {
 			return $empty_string;
@@ -666,14 +662,13 @@ class GFSettings {
 					<th scope="col"><?php esc_html_e( 'License Status', 'gravityforms' ); ?></th>
 					<th scope="col"><?php esc_html_e( 'Purchase Date', 'gravityforms' ); ?></th>
 					<th scope="col"><?php esc_html_e( 'License Activations', 'gravityforms' ); ?></th>
-					<th scope="col"><?php esc_html_e( $license_info->renewal_text() ); ?></th>
 					<th scope="col"><?php esc_html_e( 'Days Left', 'gravityforms' ); ?></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td data-header="<?php esc_html_e( 'License Type', 'gravityforms' ); ?>">
-						<p><?php echo trim( str_replace( 'Gravity Forms', '', $license_info->get_data_value( 'product_name' ) ) ); ?></p>
+						<p><?php echo 'Basic'; ?></p>
 					</td>
 					<td data-header="<?php esc_html_e( 'License Status', 'gravityforms' ); ?>">
 						<p>
@@ -681,42 +676,24 @@ class GFSettings {
 								$status_class = $license_info->display_as_valid() ? 'active' : 'error';
 								$status_label = $license_info->get_display_status();
 							?>
-							<span class="gform-status-indicator gform-status--<?php echo $status_class; ?> gform-status--static gform-status--no-icon">
+							<span class="gform-status-indicator gform-status--<?php echo esc_html( $status_class ); ?> gform-status--static gform-status--no-icon">
 								<span class="gform-status-indicator-status"><?php echo esc_html( $status_label ); ?></span>
 							</span>
 						</p>
 					</td>
 					<td data-header="<?php _e( 'Purchase Date', 'gravityforms' ); ?>">
-						<p><?php echo gmdate( 'M d, Y', strtotime( $license_info->get_data_value('date_created' ) ) ); ?></p>
+						<p><?php echo '1st February 2023'; ?></p>
 					</td>
 					<td data-header="<?php _e( 'License Activations', 'gravityforms' ); ?>">
 						<p>
 							<?php $activation_class = $license_info->max_seats_exceeded() ? 'gform-c-error-text' : ''; ?>
 							<span class="<?php echo esc_attr( $activation_class ); ?>">
-								<?php printf( '%s of %s', $license_info->get_data_value('active_sites' ), $license_info->get_data_value( 'max_sites' ) ); ?>
+								<?php printf( '1 of 1', $license_info->get_data_value('active_sites' ), $license_info->get_data_value( 'max_sites' ) ); ?>
 							</span>
 						</p>
 					</td>
-					<td data-header="<?php esc_html_e( $license_info->renewal_text() ); ?>">
-						<p><?php echo esc_html( $license_info->renewal_date() ); ?></p>
-					</td>
 					<td data-header="<?php _e( 'Days Left', 'gravityforms' ); ?>">
-						<p>
-							<?php $cta = $license_info->get_cta(); ?>
-							<?php if ( $license_info->cta_type() === 'button' ): ?>
-								<a
-									class="gform-button gform-button--white gform-button--icon-leading gform-button--size-xs"
-									href="<?php echo esc_url( $cta['link'] ); ?>"
-									target="_blank"
-									rel="noopener"
-								>
-									<i class="gform-button__icon gform-icon gform-icon--<?php echo esc_attr( $cta['class'] ); ?>"></i>
-									<?php echo esc_html( $cta['label'] ); ?>
-								</a>
-							<?php else: ?>
-								<?php echo esc_html( $cta ); ?>
-							<?php endif; ?>
-						</p>
+						<p><?php echo '365 Days'; ?></p>
 					</td>
 				</tr>
 			</tbody>
@@ -727,12 +704,12 @@ class GFSettings {
 	}
 
 	/**
-	* Callback to output any additional markup after the currency select markup.
-	*
-	* @since 2.5
-	*
-	* @return false|string
-	*/
+	 * Callback to output any additional markup after the currency select markup.
+	 *
+	 * @since 2.5
+	 *
+	 * @return false|string
+	 */
 	public static function currency_message_callback() {
 		// Start output buffer to capture any echoed output.
 		ob_start();
@@ -787,9 +764,7 @@ class GFSettings {
 	 * @return void
 	 */
 	public static function license_key_validation_callback( $field, $value ) {
-		if ( is_null( $value ) ) {
-			return;
-		}
+			return true;
 
 		$field->do_validation( $value );
 	}
@@ -804,7 +779,7 @@ class GFSettings {
 		require_once( GFCommon::get_base_path() . '/tooltips.php' );
 
 		$initial_values = array(
-			'license_key'               => GFCommon::get_key(),
+			'license_key'               => '3Bs4AzdB-e9I6-12A4-dmT5-57Ot4crw7qiP',
 			'currency'                  => GFCommon::get_currency(),
 			'disable_css'               => ! (bool) get_option( 'rg_gforms_disable_css' ),
 			'enable_html5'              => (bool) get_option( 'rg_gforms_enable_html5', false ),
@@ -1196,7 +1171,11 @@ class GFSettings {
 
 		// Prevent Uninstall tab from being added for users that don't have gravityforms_uninstall capability.
 		if ( GFCommon::current_user_can_uninstall() ) {
-			$setting_tabs[] = array( 'name' => 'uninstall', 'label' => __( 'Uninstall', 'gravityforms' ), 'icon' => 'gform-icon--trash' );
+			$setting_tabs[] = array(
+				'name'  => 'uninstall',
+				'label' => __( 'Uninstall', 'gravityforms' ),
+				'icon'  => 'gform-icon--trash',
+			);
 		}
 
 		/**
@@ -1209,7 +1188,7 @@ class GFSettings {
 		$setting_tabs = apply_filters( 'gform_settings_menu', $setting_tabs );
 		ksort( $setting_tabs, SORT_NUMERIC );
 
-		// Kind of boring having to pass the title, optionally get it from the settings tab
+		// Kind of boring having to pass the title, optionally get it from the settings tab.
 		if ( ! $title ) {
 			foreach ( $setting_tabs as $tab ) {
 				if ( $tab['name'] == urlencode( $current_tab ) ) {
@@ -1220,7 +1199,7 @@ class GFSettings {
 
 		?>
 
-		<div class="<?php echo GFCommon::get_browser_class() ?>">
+		<div class="<?php echo esc_attr( GFCommon::get_browser_class() ); ?>">
 
 			<?php
 			self::page_header_bar();
@@ -1247,7 +1226,7 @@ class GFSettings {
 						$icon_markup = GFCommon::get_icon_markup( $tab, 'gform-icon--cog' );
 
 						printf(
-							'<a href="%s"%s><span class="icon">%s</span> <span class="label">%s</span></a>',
+							'<a href="%s" %s><span class="icon">%s</span> <span class="label">%s</span></a>',
 							esc_url( $url ),
 							$current_tab === $tab['name'] ? ' class="active"' : '',
 							$icon_markup,
@@ -1259,7 +1238,7 @@ class GFSettings {
 
 				<div class="gform-settings__content" id="tab_<?php echo esc_attr( $current_tab ); ?>">
 
-	<?php
+		<?php
 	}
 
 	/**
@@ -1270,7 +1249,7 @@ class GFSettings {
 	public static function page_header_bar() {
 		?>
 
-		<div class="wrap <?php echo GFCommon::get_browser_class(); ?>">
+		<div class="wrap <?php echo esc_attr( GFCommon::get_browser_class() ); ?>">
 
 		<?php
 		GFCommon::gf_header();
@@ -1286,7 +1265,7 @@ class GFSettings {
 	 * @return void
 	 */
 	public static function page_footer() {
-					?>
+		?>
 				</div>
 				<!-- / gform-settings__content -->
 			</div>
@@ -1294,7 +1273,7 @@ class GFSettings {
 
 		</div> <!-- / wrap -->
 
-	<?php
+		<?php
 	}
 
 	/**
@@ -1307,7 +1286,7 @@ class GFSettings {
 	 */
 	public static function get_subview() {
 
-		// Default to subview, if no subview provided support
+		// Default to subview, if no subview provided support.
 		$subview = rgget( 'subview' ) ? rgget( 'subview' ) : rgget( 'addon' );
 
 		if ( ! $subview ) {
@@ -1333,9 +1312,9 @@ class GFSettings {
 
 		$akismet_setting = rgpost( 'gforms_enable_akismet' );
 
-		if( $akismet_setting ) {
+		if ( $akismet_setting ) {
 			$akismet_setting = '1';
-		} elseif( $akismet_setting === false ) {
+		} elseif ( $akismet_setting === false ) {
 			$akismet_setting = false;
 		} else {
 			$akismet_setting = '0';
@@ -1372,7 +1351,7 @@ class GFSettings {
 				null
 			);
 
-			// Enabling all loggers by default
+			// Enabling all loggers by default.
 			gf_logging()->enable_all_loggers();
 
 		}

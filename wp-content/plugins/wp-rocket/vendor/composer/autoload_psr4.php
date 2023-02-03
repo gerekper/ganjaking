@@ -10,5 +10,4 @@ return array(
     'WPMedia\\Cloudflare\\' => array($baseDir . '/inc/Addon/Cloudflare'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
-    'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),
 );

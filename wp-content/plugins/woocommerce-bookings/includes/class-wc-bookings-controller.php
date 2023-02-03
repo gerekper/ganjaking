@@ -219,21 +219,23 @@ class WC_Bookings_Controller {
 		}
 
 		// Check if the first and the last days are available or not.
-		// The first day may be the minimum bookable day in the future.
-		// And the time is passed enough, leaving no more blocks available
+		// The first day may have some minimum bookable time in the future,
+		// and the time is passed enough, leaving no more blocks available
 		// for that day, In that case, already considered available first
 		// day should be marked as unavailable. Same applies to the last day.
-		$first_day_end   = strtotime( '+1 day', $min_date ) - 1;
+		$first_day_end   = strtotime( 'tomorrow', $min_date ) - 1;
 		$last_day_starts = strtotime( 'midnight', $max_date );
 
-		$first_day_blocks = $bookable_product->get_blocks_in_range( $min_date, $first_day_end );
-		$last_day_blocks  = $bookable_product->get_blocks_in_range( $last_day_starts, $max_date );
+		// For products without resources, pass 0 in $resource_ids to check product-level availability.
+		$resource_ids_loop = count( $resource_ids ) ? $resource_ids : array ( 0 );
+		foreach ( $resource_ids_loop as $resource_id ) {
+			// Get the blocks available after checking existing rules.
+			$first_day_blocks = $bookable_product->get_blocks_in_range( $min_date, $first_day_end, array(), $resource_id );
+			// Get the blocks available after checking existing bookings.
+			$first_day_blocks = wc_bookings_get_time_slots( $bookable_product, $first_day_blocks, array(), $resource_id, $min_date, $first_day_end );
 
-		foreach ( $resource_ids as $resource_id ) {
-			$first_day_available_blocks = wc_bookings_get_time_slots( $bookable_product, $first_day_blocks, array(), $resource_id, $min_date, $first_day_end );
-			$last_day_available_blocks  = wc_bookings_get_time_slots( $bookable_product, $last_day_blocks, array(), $resource_id, $last_day_starts, $max_date );
-
-			if ( 0 === count( $first_day_available_blocks ) ) {
+			// If no blocks available for the minimum bookable (first) day, mark it unavailable.
+			if ( 0 === count( $first_day_blocks ) ) {
 				$min_date_format = date( $default_date_format, $min_date );
 
 				$booked_day_blocks['unavailable_days'][ $min_date_format ][0] = 1;
@@ -244,7 +246,21 @@ class WC_Bookings_Controller {
 				}
 			}
 
-			if ( 0 === count( $last_day_available_blocks ) ) {
+			// If $max_date and $last_day_starts are same, it means the $max_date
+			// is reset and coming from the Calendar instead of the setting.
+			// See WC_Bookings_WC_Ajax::find_booked_day_blocks for more information.
+			// In this case, no need to check the last day availability.
+			if ( $max_date === $last_day_starts ) {
+				continue;
+			}
+
+			// Get the blocks available after checking existing rules.
+			$last_day_blocks = $bookable_product->get_blocks_in_range( $last_day_starts, $max_date, array(), $resource_id );
+			// Get the blocks available after checking existing bookings.
+			$last_day_blocks = wc_bookings_get_time_slots( $bookable_product, $last_day_blocks, array(), $resource_id, $last_day_starts, $max_date );
+
+			// If no blocks available for the maximum bookable (last) day, mark it unavailable.
+			if ( 0 === count( $last_day_blocks ) ) {
 				$max_date_format = date( $default_date_format, $max_date );
 
 				$booked_day_blocks['unavailable_days'][ $max_date_format ][0] = 1;
@@ -384,7 +400,7 @@ class WC_Bookings_Controller {
 		// Passing seventh and eight arguments to know whether an event is scheduled or not.
 		$available_blocks = wc_bookings_get_time_slots( $bookable_product, $blocks, array(), 0, $min_booking_date, $max_booking_date, false, $timezone_offset, $source );
 
-		$booked_day_blocks['old_availability'] = $available_blocks['old_availability'];
+		$booked_day_blocks['old_availability'] = isset( $available_blocks['old_availability'] ) && true === $available_blocks['old_availability'];
 		unset( $available_blocks['old_availability'] );
 
 		$available_slots  = array();

@@ -781,7 +781,9 @@ function wc_bookings_get_time_slots( $bookable_product, $blocks, $intervals = ar
 
 	// Return `old_availability` flag to the browser, so we can display a message
 	// to the users that the old availability is being served to them or the latest one is being served.
-	$available_slots['old_availability'] = $old_availability_served;
+	if ( $old_availability_served ) {
+		$available_slots['old_availability'] = $old_availability_served;
+	}
 
 	$args = array(
 		'blocks'           => $blocks,

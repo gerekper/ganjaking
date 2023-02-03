@@ -1,5 +1,9 @@
 *** WooCommerce Bookings Changelog ***
 
+2023-02-01 - version 1.15.75
+* Fix - Display booking calendar on Add Booking page.
+* Fix - The availability check for Min-Max days is fixed for products without resources.
+
 2023-01-27 - version 1.15.74
 * Fix - Resolves a packaging problem with our Google API library.
 

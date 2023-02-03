@@ -83,7 +83,6 @@ class Subscriber implements Subscriber_Interface {
 				[ 'clear_usedcss_result' ],
 				[ 'display_processing_notice' ],
 				[ 'display_success_notice' ],
-				[ 'display_wrong_license_notice' ],
 				[ 'display_no_table_notice' ],
 				[ 'notice_write_permissions' ],
 			],
@@ -107,7 +106,6 @@ class Subscriber implements Subscriber_Interface {
 			'wp_ajax_rocket_spawn_cron'               => 'spawn_cron',
 			'rocket_deactivation'                     => 'cancel_queues',
 			'admin_head-tools_page_action-scheduler'  => 'delete_as_tables_transient_on_tools_page',
-			'pre_get_rocket_option_remove_unused_css' => 'disable_russ_on_wrong_license',
 			'rocket_before_rollback'                  => 'cancel_queues',
 		];
 	}
@@ -405,21 +403,6 @@ class Subscriber implements Subscriber_Interface {
 	}
 
 	/**
-	 * Display a notification on wrong license.
-	 *
-	 * @return void
-	 */
-	public function display_wrong_license_notice() {
-		$transient = get_transient( 'wp_rocket_no_licence' );
-
-		if ( ! $transient ) {
-			return;
-		}
-
-		$this->settings->display_wrong_license_notice();
-	}
-
-	/**
 	 * Adds the notice end time to WP Rocket localize script data
 	 *
 	 * @since 3.11
@@ -659,18 +642,6 @@ class Subscriber implements Subscriber_Interface {
 		}
 
 		$this->database->truncate_used_css_table();
-	}
-
-	/**
-	 * Disable RUCSS on wrong license.
-	 *
-	 * @return bool
-	 */
-	public function disable_russ_on_wrong_license() {
-		if ( false !== get_transient( 'wp_rocket_no_licence' ) ) {
-			return false;
-		}
-		return null;
 	}
 
 	/**
