@@ -5,7 +5,7 @@ Tags: perfmatters
 Requires at least: 5.5
 Requires PHP: 7.0
 Tested up to: 6.1.1
-Stable tag: 2.0.4
+Stable tag: 2.0.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,8 +35,14 @@ Check out our [documentation](https://perfmatters.io/docs/) for more information
 
 == Changelog ==
 
+= 2.0.5 - 02.02.2023 =
+* Added new perfmatters_exclude_leading_images filter.
+* Fixed an issue that was affecting lazy loaded inline background images in certain formats.
+* Fixed a PHP warning related to Fastclick and the built-in exclusion for WooCommerce pages.
+* Updated license key field to prevent it from getting auto-filled by browser extensions.
+
 = 2.0.4 - 01.27.2023 =
-* Fixed a an issue that was causing the Perfmatters admin bar menu and meta options to not show up in the admin.
+* Fixed an issue that was causing the Perfmatters admin bar menu and meta options to not show up in the admin.
 * Added additional nopin attribute for Pinterest to YouTube preview thumbnails.
 * Translation updates.
 

@@ -135,4 +135,28 @@ trait Order_Util {
 
 		return OrderUtil::init_theorder_object( $post_or_order_object );
 	}
+
+	/**
+	 * Get order status with 'wc-' prefix from order object.
+	 *
+	 * @param WC_Order $order Order object.
+	 *
+	 * @return Boolean|String.
+	 */
+	public function get_order_status( $order ) {
+		if ( ! method_exists( $order, 'get_status' ) ) {
+			return false;
+		}
+
+		return ( false === strpos( $order->get_status(), 'wc-' ) ) ? 'wc-' . $order->get_status() : $order->get_status();
+	}
+
+	/**
+	 * Return error text for unready barcode.
+	 *
+	 * @return String.
+	 */
+	public function barcode_not_ready_error_text() {
+		return esc_html__( 'Barcode will be generated after Order is created!', 'woocommerce-order-barcodes' );
+	}
 }

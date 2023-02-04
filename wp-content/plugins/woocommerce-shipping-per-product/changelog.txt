@@ -1,5 +1,8 @@
 *** Shipping Per Product Changelog ***
 
+2023-02-02 - version 2.4.1
+* Add - Country code validation.
+
 2022-11-02 - version 2.4.0
 * Add - Declared High-Performance Order Storage (HPOS) compatibility.
 

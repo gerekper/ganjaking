@@ -489,21 +489,16 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 							if ( isset( $dropshipper_shipping_info ) ) {
 								?>
 
-						<table>
-							<tr>
-								<td class="tracking_number" colspan="3" style="
-								<?php
-								echo $woo_body_text_color;
-								echo $woo_body_bg_color;
-								?>
-								 border-top:1px solid <?php echo $woo_base_color_only; ?>;">
+							<table>
+                            <tr>
+                                <td class="tracking_number" colspan="3" style="<?php echo $woo_body_text_color; echo $woo_body_bg_color; ?> border-top:1px solid <?php echo $woo_base_color_only; ?>;">
 
-													<?php echo 'Tracking Number:'; ?>
-													<?php echo @$dropshipper_shipping_info = array( 'tracking_number' ); ?>
+                                    <?php echo "Tracking Number:" ?>
+				    <?php echo @$dropshipper_shipping_info = ['tracking_number']; ?>
 
-								</td>
-							</tr>
-						</table>
+                                </td>
+                            </tr>
+                        </table>
 
 										<?php } else { ?>
 
@@ -857,6 +852,8 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 									$order_subtotal += $prod_info['total'];
 
 									$order = wc_get_order( $order_info['id'] );
+
+									$subtotal_tax = $prod_info['subtotal_tax'];
 
 									$imgurl = $prod_info['imgurl'];
 
@@ -1217,11 +1214,13 @@ if ( '0' == $order_info['options']['type_of_package'] ) {
 
 
 
-							$states = WC()->countries->get_states( $order_shipping_country );
+							$states = WC()->countries->get_states($order_shipping_country);
 
-							$order_shipping_state = ! empty( $states[ $order_shipping_state ] ) ? $states[ $order_shipping_state ] : '';
+                $order_shipping_state = !empty($states[$order_shipping_state]) ? $states[$order_shipping_state] : '';
 
-							$order_shipping_country = WC()->countries->countries[ $order_shipping_country ];
+                if(!empty($order_shipping_country)){
+			$order_shipping_country = WC()->countries->countries[$order_shipping_country];
+		}
 
 
 

@@ -390,7 +390,7 @@ class LazyLoad
 		if(!empty($images)) {
 
 			$lazy_image_count = 0;
-			$exclude_leading_images = Config::$options['lazyload']['exclude_leading_images'] ?? 0;
+			$exclude_leading_images = apply_filters('perfmatters_exclude_leading_images', Config::$options['lazyload']['exclude_leading_images'] ?? 0);
 
 			//remove any duplicate images
 			$images = array_unique($images, SORT_REGULAR);
@@ -514,7 +514,7 @@ class LazyLoad
 				}
 
 				//match background-image in style string
-				preg_match('#(([^;])*background(-(image|url))?)\s*:\s*(\s*url\s*\((?<url>[^)]+)\))\s*;?#is', $element_atts['style'], $url);
+				preg_match('#(([^;\s])*background(-(image|url))?)\s*:\s*(\s*url\s*\((?<url>[^)]+)\))\s*;?#is', $element_atts['style'], $url);
 
 				if(!empty($url)) {
 

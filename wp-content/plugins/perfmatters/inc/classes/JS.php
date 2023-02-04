@@ -255,7 +255,7 @@ class JS
 
 		//skip woocommerce
 		if(Utilities::is_woocommerce()) {
-			return $html;
+			return;
 		}
 
 		echo '<script src="' . plugins_url('perfmatters/vendor/fastclick/fastclick.min.js') . '"></script>';

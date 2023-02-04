@@ -4,7 +4,7 @@ Tested up to: 6.1.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.0.0
-WC tested up to: 7.2.2
+WC tested up to: 7.3.0
 
 This plugin enables registered users to request an email notification when an out-of-stock product comes back into stock. It tallies these registrations in the admin panel for review and provides details.
 
@@ -44,6 +44,9 @@ Why does the Waitlist only show up for some products?
 If you’re using the Advanced Notifications extension make sure you disable the backorder setting.
 
 == Changelog ==
+
+2023.01.31 - Version 2.3.7
+* Fix: Waitlist mailouts not always sending for variations when setting stock status
 
 2023.01.10 - Version 2.3.6
 * Fix: Updates for security audit

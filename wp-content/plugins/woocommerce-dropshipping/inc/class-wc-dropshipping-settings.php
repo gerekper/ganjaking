@@ -55,7 +55,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 			 * @return array Array of settings
 			 */
 
-			public function get_settings( $current_section = '' ) {
+			public function get_dropshipping_settings( $current_section = '' ) {
 
 				$base_name = explode( '/', plugin_basename( __FILE__ ) );
 
@@ -2245,7 +2245,7 @@ if ( ! class_exists( 'WC_DS_Settings' ) ) :
 
 				global $current_section;
 
-				$settings = $this->get_settings( $current_section );
+				$settings = $this->get_dropshipping_settings( $current_section );
 
 				WC_Admin_Settings::output_fields( $settings );
 			}

@@ -317,15 +317,13 @@ class WooCommerce_Order_Barcodes {
 			return;
 		}
 
-		$order_id = $order->get_id();
-
 		// Generate correctly formatted HTML for email
 		ob_start(); ?>
 		<table cellspacing="0" cellpadding="0" border="0" style="width:100%;border:0;text-align:center;margin-top:20px;margin-bottom:20px;">
 			<tbody>
 				<tr>
 					<td style="text-align:center;vertical-align:middle;word-wrap:normal;">
-						<?php echo $this->display_barcode( $order_id, true ); ?>
+						<?php echo $this->maybe_display_barcode( $order ); ?>
 					</td>
 				</tr>
 			</tbody>
@@ -352,10 +350,8 @@ class WooCommerce_Order_Barcodes {
 			return;
 		}
 
-		$order_id = $order->get_id();
-
 		$barcode  = '<div class="woocommerce-order-barcodes-container" style="text-align:center;">';
-		$barcode .= $this->display_barcode( $order_id, true );
+		$barcode .= $this->maybe_display_barcode( $order );
 		$barcode .= '</div>';
 
 		echo $barcode;
@@ -406,8 +402,19 @@ class WooCommerce_Order_Barcodes {
 		}
 
 		echo '<div class="woocommerce-order-barcodes-container" style="text-align:center;">';
-		echo $this->display_barcode( $order->get_id(), true );
+		echo $this->maybe_display_barcode( $order );
 		echo '</div>';
+	}
+
+	/**
+	 * Maybe displaying barcode.
+	 * 
+	 * @param WC_Order $order Order object.
+	 *
+	 * @return String.
+	 */
+	public function maybe_display_barcode( $order ) {
+		return ( ! wc_is_order_status( $this->get_order_status( $order ) ) ) ? $this->barcode_not_ready_error_text() : $this->display_barcode( $order->get_id(), true );
 	}
 
 	/**
@@ -420,17 +427,8 @@ class WooCommerce_Order_Barcodes {
 	 * @return string The generated barcode.
 	 */
 	public function display_barcode( $order_id = 0, $image = false ) {
-		$order      = wc_get_order( $order_id );
-		$error_text = esc_html__( 'Barcode will be generated after Order is created!', 'woocommerce-order-barcodes' );
-		
-		if ( ! ( $order instanceof WC_Order ) ) {
-			return $error_text;
-		}
-
-		$status = ( false === strpos( $order->get_status(), 'wc-' ) ) ? 'wc-' . $order->get_status() : $order->get_status();
-
-		if ( ! wc_is_order_status( $status ) ) {
-			return $error_text;
+		if ( ! $order_id ) {
+			return '';
 		}
 
 		// Get barcode text.

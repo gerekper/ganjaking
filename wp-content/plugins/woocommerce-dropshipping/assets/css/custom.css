@@ -29,6 +29,7 @@
 .wc-dropship-setting-tabs li.active {
   background-color: #ccc;
 }
+
 .drop-setting-section{display:none;}
 .drop-setting-section.active{display:block;}
 .slidesection_bkp .submit {padding-left: 20px;}
@@ -48,6 +49,10 @@
 .gst_price::after {
   content: "€";
 }
+
+#taxonomy-dropship_supplier{
+  width: 15%;
+ }
 
 /*************************  CSS for ADMIN Menu in mobile view *******************/
 @media (max-width: 680px){

@@ -1,5 +1,8 @@
 *** WooCommerce Waitlist Change Log ***
 
+2023.01.31 - Version 2.3.7
+* Fix: Waitlist mailouts not always sending for variations when setting stock status
+
 2023.01.10 - Version 2.3.6
 * Fix: Updates for security audit
 * Fix: Double opt-in email escaping allows '+' symbol

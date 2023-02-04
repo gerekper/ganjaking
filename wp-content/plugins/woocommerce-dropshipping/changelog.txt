@@ -1,42 +1,47 @@
 *** WooCommerce AliExpress Dropshipping Changelog ***
 
-2022-12-15 - version 4.6
+2023-02-03 - version 4.7.0
+* Fix: PLUGINS-1977 - Warnings in Supplier Order Complete email
+* Update: PLUGINS-1848 - Suppliers column display issues.
+* Fix: PLUGINS-1784 - Dropshipping dashboard messed up when both plugins are activated.
+
+2022-12-15 - version 4.6.0
 * PLUGINS-1803 - Naming function collisions changes.
 * PLUGINS-1616 - Update deprecated functions.
 * PLUGINS-1661 - Fix compatibility with other custom ID number generator plugin.
 * PLUGINS-1818 - Suppliers account customisation.
 
-2022-10-31 - version 4.5
+2022-10-31 - version 4.5.0
 * PLUGINS-1792 - Fix GST tax split on emails and settings.
 * PLUGINS-1644 - Implement Woo dependency.
 * PLUGINS-1570 - Fix Mark as shipped and View Orders link in packing slip.
 
-2022-10-13 - version 4.4
+2022-10-13 - version 4.4.0
 * PLUGINS-1772 - Fix rounding off product prices.
 * PLUGINS-1539 - Fix Array notice errors.
-* PLUGINS-1785 - Add dash notice for Pro add-on for Dropshipping.
+* PLUGINS-1785 - Add dash notice for Pro add on for Dropshipping.
 * PLUGINS-1655 - Fix plugin compatibility issues with newer PHP 8.
 * PLUGINS-1791 - Fix Unauthenticated SQLi.
 
-2022-09-08 - version 4.3
+2022-09-08 - version 4.3.0
 * PLUGINS-1459 - Fix wrong price format in supplier's email.
 * PLUGINS-1670 - Fix code that slows down website.
 * PLUGINS-1656 - Fix rounding off empty price error.
 * PLUGINS-1501 - Fix notice when there is no shipping country filled up.
-* PLUGINS-1631 - Don't send cancellation orders to supplier if the order came from 'On-Hold' order status.
+* PLUGINS-1631 - Don't send cancellation orders to supplier if the order came from 'On Hold' order status.
 
-2022-07-28 - version 4.2
+2022-07-28 - version 4.2.0
 * PLUGINS-1233 - Add a filter by supplier in order page.
 * PLUGINS-1423 - Show company name in Shipping Address of Packingslip.
 * PLUGINS-1348 - Fix missing selected data in Packing slips.
 * PLUGINS-1354 - Fix mark order as ship option in supplier's mail doesn't work.
 * PLUGINS-1458 - Fix wrong textdomain in supplier's email notification.
 
-2022-07-14 - version 4.1
+2022-07-14 - version 4.1.0
 * PLUGINS-1475 - Additional columns in packingslip added in latest release.
 * PLUGINS-1444 - Fix Mobile menu.
 
-2022-03-31 - version 4.0
+2022-03-31 - version 4.0.0
 * PLUGINS-1251 - Add link to suppliers email notification directing to "Order list page" of the supplier's dashboard.
 * PLUGINS-1246 - Fix Other shipping and billing details have changed.
 * PLUGINS-1247 - Fix Cost of goods value rounding off.
@@ -49,37 +54,36 @@
 * PLUGINS-1079 - Fix PDF library issues.
 * PLUGINS-1365 - Settings are getting reset after updating the plugin(automatic updates).
 
-2022-02-25 - version 3.9
+2022-02-25 - version 3.9.0
 * PLUGINS-1394 - Add Compatibility for upcoming Dropshipping Pro.
 
-2022-01-07 - version 3.8
+2022-01-07 - version 3.8.0
 * PLUGINS-1206 - Fix GST tax split for order containing produts from multiple supplier.
 * PLUGINS-1230 - Fix plugin returns an error when activated without 'WooCommerce plugin' activated supplier itself.
 * PLUGINS-1234 - Fix deleted supplier attached to a product still showing in orders and emails.
 * PLUGINS-1254 - Fix packing slip 'Comments' field under footer value not saving.
 * PLUGINS-1277 - Fix menu for the Dropshippers dashboard isn't visible in mobile.
 
-
-2021-10-21 - version 3.7
+2021-10-21 - version 3.7.0
 * PLUGINS-1200 - Fix Suppliers order page filter issue
 * PLUGINS-1204 - Fix Remove product name that is not belong to supplier itself
 * PLUGINS-1208 - Fix Admin menus gone when the plugin is activated in a multiste
 * PLUGINS-1229 - Fix Attach PDF to supplier Email option
 
-2021-09-06 - version 3.6
+2021-09-06 - version 3.6.0
 * PLUGINS-672 - Supplier role users can't access 3rd party plugin admin functionality.
 * PLUGINS-841 - All prices must work with Woocommerce settings Currency options.
 * PLUGINS-912 - Add option to show shipping company name on Supplier's email.
 
-2021-08-25 - version 3.5
+2021-08-25 - version 3.5.0
 * PLUGINS-776 - Add more fields on the suppliers csv.
 * PLUGINS-1046 - Suppliers attached to products can be changed after import.
 
-2021-08-13 - version 3.4
+2021-08-13 - version 3.4.0
 * PLUGINS-300 - Export list of orders for a specific supplier.
 * PLUGINS-1157 - I have added the orders filter feature. Date From and Date To options are now available as filters.
 
-2021-08-06 - version 3.3
+2021-08-06 - version 3.3.0
 * PLUGINS-873 - Disable all inputs associated with "insert all data on PDF" checkbox.
 * PLUGINS-940 - Improve suppliers order pagination.
 * PLUGINS-907 - Arrange/group settings by section.
@@ -90,63 +94,63 @@
 2021-07-27 - version 3.2.1
 * PLUGINS-1156 - ABSPATH Bug fix.
 
-2021-07-23 - version 3.2
+2021-07-23 - version 3.2.0
 * PLUGINS-704 - Place checkboxes at start of options.
 * PLUGINS-870 - Place Dropshipping settings on high level tab.
 * PLUGINS-1047 - Subscriptions renewal supplier email option.
 * PLUGINS-1107 - Customisation options on supplier emails and PDFs.
 
-2021-06-23 - version 3.1
+2021-06-23 - version 3.1.0
 * PLUGINS-886 - Bug on Mark as Shipped process
 * PLUGINS-577 - "Supplier" word unchangeable for language translation
 * PLUGINS-1028 - Custom work Including customer email in notification
 * PLUGINS-1073 - Plugin Internationalization
 * PLUGINS-1080 - error in ABSPATH file path
 
-2021-05-11 - version 3.0
+2021-05-11 - version 3.0.0
 * PLUGINS-964 - Integrate dashboard to Dropshipping code
 * PLUGINS-1008 - Supplier can't be change/unlink to a product
 * PLUGINS-1058 - Fix display of supplier inconsistencies in order page
 
-2021-04-21 - version 2.14
+2021-04-21 - version 2.14.0
 * PLUGINS-965 - Add custom order number to merchant order notification email
 * PLUGINS-971 - Make footer comment area background color independent
 * PLUGINS-898 -  Dropshipping - Add new settings to disable supplier notification
 * PLUGINS-536 - Dropshipping - price format in packing slip not rounding off
 * PLUGINS-695 - Dropshipping - Add quick links to Installed Plugins Screen	Task
-* PLUGINS-460 - Dropshipping - PHP Notice: Trying to get property 'name' of non-object in class-wc-dropshipping-product.php on line 171
+* PLUGINS-460 - Dropshipping - PHP Notice  Trying to get property 'name' of non object in class wc dropshipping product.php on line 171
 * PLUGINS-929 - Dropshipping - Few detatils are gone in email and PDF packing slip
 * PLUGINS-1014 - Dropshipping - Merchant Orders overview duplicate Tracking Number
 
-2021-03-12 - version 2.13
+2021-03-12 - version 2.13.0
 * PLUGINS-872 Dropshipping - Make field sizes more reasonable
 * PLUGINS-920 Dropshipping - customisations
-* PLUGINS-865 Support for CBE 1.1
+* PLUGINS-865 Add: Support for CBE 1.1
 
-2021-02-18 - version 2.12
+2021-02-18 - version 2.12.0
 * PLUGINS-921 - Fix library file size (fonts)
 * PLUGINS-860 - Add settings to hide TAX on packing slip
 * PLUGINS-833 - Make wording on config screen consistent
 * PLUGINS-854 - Add custom title for packing slip
 
-2020-12-03 - version 2.11
+2020-12-03 - version 2.11.0
 * PLUGINS-822 - Fix - Update complete orders email format for supplier
-* PLUGINS-762 - Fix - Update proper html-coding for link for "Mark as Shipped" email link
+* PLUGINS-762 - Fix - Update proper html coding for link for "Mark as Shipped" email link
 
-2020-11-20 - version 2.10
+2020-11-20 - version 2.10.0
 * PLUGINS-800 - Fix - Fix bugs and improvements on Suppliers Email Notification
 
-2020-11-12 - version 2.9
-* PLUGINS-563 - CBE - Image editor
-* PLUGINS-564 - CBE - Button at top to compare changes on products on uploaded products on Woo and Aliexpress
+2020-11-12 - version 2.9.0
+* PLUGINS-563 - CBE Image editor
+* PLUGINS-564 - CBE Button at top to compare changes on products on uploaded products on Woo and Aliexpress
 * PLUGINS-785 - Fix php notice and new CBE features.
 
-2020-10-23 - version 2.8
+2020-10-23 - version 2.8.0
 * PLUGINS-713 - Support webp format from importing products from Aliexpress
 * PLUGINS-685 - Bug on hiding price when product is not an Amazon affiliate
 * PLUGINS-726 - fix admin menu gap when plugin is activated
 
-2020-08-31 - version 2.7
+2020-08-31 - version 2.7.0
 * PLUGINS-613 - Remove Dropshipper capabilities to add a new post and view comments
 * PLUGINS-584 - Hide all Wordpress notification on dropshipper dashboard
 * PLUGINS-615 - Wrong text on help button for packing slip settings help icon
@@ -160,64 +164,64 @@
 * PLUGINS-717 - Fix errors/notices/warnings on dropshipping 2.7
 * PLUGINS-725 - Add admin notice on activation hook to save settings on dropshipping settings page
 
-2020-08-26 - version 2.6
+2020-08-26 - version 2.6.0
 * PLUGINS-568 - Fixed the issue [permission_callback] after update wordpress version(v5.5).
 * PLUGINS-574 - Removed the deprecated script [.live] after update the WordPress version(v5.5).
 
-2020-08-13 - version 2.5
-* PLUGINS-524 - Fixed the issues - Hide product price from the buyer, If product type Affiliates.
+2020-08-13 - version 2.5.0
+* PLUGINS-524 - Fixed the issues Hide product price from the buyer, If product type Affiliates.
 * PLUGINS-519 - Added Feature - Added option ["Hide Shipping Price in supplier email"].
 * PLUGINS-257 - Added Feature - Added option ["Show Total Price in supplier email"].
 * PLUGINS-338 - Added Feature - Added feature to support multisite network.
 * PLUGINS-431 - Added Feature - Added Separate email template for "complete order" status.
-* PLUGINS-493 - Fixed Bug - Show order date beside order number
-* PLUGINS-494 - Fixed Bug - Show user phone number to supplier
+* PLUGINS-493 - Fixed Bug Show order date beside order number
+* PLUGINS-494 - Fixed Bug Show user phone number to supplier
 * PLUGINS-484 - Added Feature - Added Price Calculator
 * PLUGINS-410 - Added Feature - Cron jobs for checking Aliexpress product on Aliexpress
 * PLUGINS-533 - Added Feature - Updated deactivation hook
 * PLUGINS-302 - Added Feature - Disable Aliexpress Support Settings
 * PLUGINS-525 - Added Feature - Added Meta Data for Aliexpress Product
 
-2020-06-24 - version 2.4
+2020-06-24 - version 2.4.0
 * PLUGINS-427 - Checkbox label name changed in the plugin settings.
 * PLUGINS-432 - Checkbox label name changed in the plugin settings.
-* PLUGINS-393 - Fixed the issues - [show payment method] checkbox option is not working.
-* PLUGINS-425 - Fixed the issues - [Payment Type, Image and Price labels in Language Conversion doesn’t convert].
+* PLUGINS-393 - Fixed the issues [show payment method] checkbox option is not working.
+* PLUGINS-425 - Fixed the issues [Payment Type, Image and Price labels in Language Conversion doesn’t convert].
 * PLUGINS-433 - I have added the Login URL, when Supplier information is shared.
-* PLUGINS-353 - Added Feature - Support Amazon Affiliate.
-* PLUGINS-294 - Added Feature - Added option ["Show 'Payment Type' in the notification email"].
-* PLUGINS-317 - Added Feature - Update AliExpress Order Status from CBE.
+* PLUGINS-353 - Added Feature Support Amazon Affiliate.
+* PLUGINS-294 - Added Feature Added option ["Show 'Payment Type' in the notification email"].
+* PLUGINS-317 - Added Feature Update AliExpress Order Status from CBE.
 * PLUGINS-426 - Fixed size of logo on PDF
 * PLUGINS-429 - Fixed Bug - Added storename on CSV
 
-2020-05-14 - version 2.3
-* Fixed - Products edit on "quick edit" removes "All custom fields value[Like- Product URL, Store Name, Store URL, Store Price Range, Currency]".
-* Added new feature- Added the option [Allow "Read notification email" to be send to merchant, as soon as dropshipper open the order notification email].
+2020-05-14 - version 2.3.0
+* Fixed: Products edit on "quick edit" removes "All custom fields value[Like Product URL, Store Name, Store URL, Store Price Range, Currency]".
+* Added new feature Added the option [Allow "Read notification email" to be send to merchant, as soon as dropshipper open the order notification email].
 * Added the option in dropshipping setting[Customer Note into the Dropshipper packing slip].
 
-2020-05-11 - version 2.2
-* Fixed "The Link is showing in the mail which is good – but is also showing in the PDF which is bad.
-* Added field "Description - Type of Package" for both “variable” as well as “simple” products. Whatever website admin will specify in this field for each product, it will be displayed as a new column in the pdf packing slip for each product.
+2020-05-11 - version 2.2.0
+* Fixed: "The Link is showing in the mail which is good but is also showing in the PDF which is bad.
+* Added field "Description Type of Package" for both “variable” as well as “simple” products. Whatever website admin will specify in this field for each product, it will be displayed as a new column in the pdf packing slip for each product.
 * Added the option in dropshipping setting [Need to show "Cost of Goods" instead of actual "Selling Price" of products, in PDF packing slip].
-* Added new feature- Adding in shipping cost and tax fields along with subtotal for the customer to the customer packing slip
-* Fixed - Taracking filter not using correctly issue fixed.
-* Fixed - Shipping address formating issue fixed.
-* Added new feature - Now customer/merchant can Hide the message CBE required in the admin while clicking the close button.
-* Fixed - Issue fixed when admin uncheck the hide supplier information on the order page from settings . Then the supplier cannot see the placed order on the Supplier Dashboard.
+* Added new feature Adding in shipping cost and tax fields along with subtotal for the customer to the customer packing slip
+* Fixed: Tracking filter not using correctly issue fixed.
+* Fixed: Shipping address formating issue fixed.
+* Added new feature Now customer/merchant can Hide the message CBE required in the admin while clicking the close button.
+* Fixed: Issue fixed when admin uncheck the hide supplier information on the order page from settings . Then the supplier cannot see the placed order on the Supplier Dashboard.
 
-2020-03-03 - version 2.1
-* Added new feature - Now customer have the ability to not receive a CC'd email, and also able to turn this ON or OFF.
-* Fixed - when customer login as dropshipper role then displaying lots of menu and sub-menu in dashboard section and if customer have installed elementor plugin then it also display all elementor menu and sub-menu.
-* Fixed - Increase image size in dropshipper PDF.
-* Fixed - Issue fixed when admin unchecked these option "Show product thumbnail image and Show product prices" in dropshipping notification setting then only hide it value not hide title and also if admin unchecked this option "Show product thumbnail image" then all value row collapse.
-* Fixed - Filter return nothing when tracking number inserted in dropshipper email notification.
-* New Feature - I have added “Cost of Goods for Supplier” feature and now merchant can hide total product selling price for supllier, and only send "Cost of Goods for Supplier" price in supplier mail notification and PDF attachement as well as send in CSV.
-* Fixed - Adress issues in Supplier email notification & PDF. Now Address format supported based on selected country.
-* New Feature - Added Email tracking feature(email open or not). If Supplier open order email first time then notification mail will send to the Admin.
-* Fixed Address issue in supplier mail notification and PDf file and fixed Warning messages.
-* Fixed Undefined Index errors:[Undefined index: orderid]
+2020-03-03 - version 2.1.0
+* Added new feature. Now customer have the ability to not receive a CC'd email, and also able to turn this ON or OFF.
+* Fixed: When customer login as dropshipper role then displaying lots of menu and sub menu in dashboard section and if customer have installed elementor plugin then it also display all elementor menu and sub menu.
+* Fixed: Increase image size in dropshipper PDF.
+* Fixed: Issue fixed when admin unchecked these option "Show product thumbnail image and Show product prices" in dropshipping notification setting then only hide it value not hide title and also if admin unchecked this option "Show product thumbnail image" then all value row collapse.
+* Fixed: Filter return nothing when tracking number inserted in dropshipper email notification.
+* Feature: I have added “Cost of Goods for Supplier” feature and now merchant can hide total product selling price for supllier, and only send "Cost of Goods for Supplier" price in supplier mail notification and PDF attachement as well as send in CSV.
+* Fixed: Address issues in Supplier email notification & PDF. Now Address format supported based on selected country.
+* Feature: Added Email tracking feature(email open or not). If Supplier open order email first time then notification mail will send to the Admin.
+* Fixed: Address issue in supplier mail notification and PDf file and fixed Warning messages.
+* Fixed: Undefined Index errors [Undefined index orderid]
 
-2020-01-22 - version 2.0
+2020-01-22 - version 2.0.0
 * Multiple email addresses for 1 supplier.
 * Allow supplier to enter tracking number.
 * Authentication Ali Dropshipping Plugin with CBE.
@@ -238,10 +242,10 @@
 * Added a checkbox to send email notification to supplier in woo standard format (if this checkbox is checked), irrespective of whether SMTP is being used or not.
 
 2019-11-04 - version 1.2.21
-* Fixed all Undefined Index errors: When plugin is install for the first time on any website.
-* Fixed Undefined Index : When product not assign any supplier then throw error.
+* Fixed all Undefined Index errors. When plugin is install for the first time on any website.
+* Fixed Undefined Index. When product not assign any supplier then throw error.
 * Fixed Undefined variable($append is undefined).
-* Added Admin Notice : If allow_url_fopen PHP extension not install on Server.
+* Added Admin Notice. If allow_url_fopen PHP extension not install on Server.
 * Fixed PDF default image size issue.
 * Changed a settings label from "Send email to supplier with login details" to "When admin create a new supplier, send registration details to supplier email"
 * Fixed the logo image width if not selected the content is not overlapped.
@@ -256,7 +260,7 @@
 
 2019-09-24 - version 1.2.19
 * Show country name in shipping address in the attachments.
-* Color scheme option - The dropshipping emails now uses the color scheme options of woocommerce.
+* Color scheme option. The dropshipping emails now uses the color scheme options of woocommerce.
 * Option to hide the supplier name on confirmation email.
 * New setting 'Send email to supplier with login details' checkbox in backend dropshipping settings area
 * If the above setting is checked, only then supplier will recieve email with login details.
@@ -271,7 +275,7 @@
 * Updated the TCPDF library to the new stable version 6.2.25. This will remove all corresponding errors those were coming in error logs
 * There were certain woo hooks (e.g. create_term, delete_term, save_post) those were written in the plugin starting from the beginning. Those are corrected.
 * Corrected certain code standards while assigning supplier role to the created suppliers.
-* jquery-ui module was earlier imported from CDN. Changed it to get imported using wp standards.
+* jquery ui module was earlier imported from CDN. Changed it to get imported using wp standards.
 
 2019-07-08 - version 1.2.17
 * When Add supplier auto create user with dropshipper role and recieve login detail through email.
@@ -364,7 +368,7 @@
 * Fix for can't save CSV Indicator column
 * Add customer company name to supplier email/PDF
 * Fix for WooCommerce Order Number is Not Included on packing slip
-* Add compatibility with Product Add-Ons extension
+* Add compatibility with Product Add Ons extension
 
 2017-06-08 - version 1.1.2
  * Fix - Update the plugin header to include the new Woo keys.

@@ -1,5 +1,8 @@
 *** WooCommerce Order Barcodes Changelog ***
 
+2023-02-02 - version 1.6.3
+* Tweak - To make `display_barcode()` available for other plugins.
+
 2023-01-23 - version 1.6.2
 * Fix   - Automatic barcode generation no longer fails with "Barcode will be generated after Order is created!" message.
 

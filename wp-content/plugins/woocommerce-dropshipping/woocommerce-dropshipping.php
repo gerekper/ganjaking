@@ -8,7 +8,7 @@
 
  * Description: Handle dropshipping from your WooCommerce. Create a packing slip, and notify the vendor when an order is paid. Import inventory updates via CSV from your vendors.
 
- * Version: 4.6
+ * Version: 4.7.0
 
  * Author: OPMC Australia Pty Ltd
 
@@ -791,6 +791,8 @@ final class WC_Dropshipping {
 
 	 */
 	public function make_dropship_supplier_column_sort() {
+		echo '<style>.fixed .column-date {width: auto !important; }
+		table.wp-list-table .column-product_cat, table.wp-list-table .column-product_tag {width: 8%!important;	}</style>';
 
 		 return array('taxonomy-dropship_supplier' => 'taxonomy-dropship_supplier' );
 
@@ -815,6 +817,8 @@ final class WC_Dropshipping {
 	public function dropship_supplier_column_orderby($clauses, $wp_query) {
 
 		global $wpdb;
+
+
 
 		if(isset( $wp_query->query['orderby'] ) && 'taxonomy-dropship_supplier' == $wp_query->query['orderby'] )
 

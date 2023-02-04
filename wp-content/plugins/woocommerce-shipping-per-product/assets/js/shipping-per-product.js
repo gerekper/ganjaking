@@ -20,6 +20,52 @@ jQuery(function($) {
 			$('.enable_per_product_shipping').change();
 			$('body').trigger( 'init_shipping_per_product_sortable' );
 		})
+		.on( 'wcspp_add_error_tip', function( e, element, error_type ) {
+			var offset = element.position();
+
+			if ( element.parent().find( '.wc_error_tip' ).length === 0 ) {
+				element.after( '<div class="wc_error_tip ' + error_type + '">' + wc_shipping_per_product_errors[error_type] + '</div>' );
+				element.parent().find( '.wc_error_tip' )
+					.css( 'left', offset.left + element.width() - ( element.width() / 2 ) - ( $( '.wc_error_tip' ).width() / 2 ) )
+					.css( 'top', offset.top + element.height() )
+					.fadeIn( '100' );
+			}
+		})
+
+		.on( 'wcspp_remove_error_tip', function( e, element, error_type ) {
+			element.parent().find( '.wc_error_tip.' + error_type ).fadeOut( '100', function() { $( this ).remove(); } );
+		})
+
+		.on( 'blur', '.wcspp_country_validation', function() {
+			var element = jQuery( this );
+			var tip = element.parent().find( '.wc_error_tip' );
+
+			if ( 0 < tip.length ) {
+				element.val( '' );
+			}
+		})
+
+		.on( 'keyup', '.wcspp_country_validation', function() {
+			var error, value, newvalue;
+
+			var value     = $( this ).val();
+			var has_error = false;
+
+			if ( $( this ).is( '.wcspp_country_validation' ) ) {
+				error = 'i18n_incorrect_country_code';
+
+				if ( 'undefined' === typeof wc_shipping_per_product_countries[ value ] && 2 === value.length ) {
+					has_error = true;
+				}
+			}
+
+			if ( has_error ) {
+				$( document.body ).triggerHandler( 'wcspp_add_error_tip', [ $( this ), error ] );
+			} else {
+				$( document.body ).triggerHandler( 'wcspp_remove_error_tip', [ $( this ), error ] );
+			}
+		})
+
 		.on( 'init_shipping_per_product_sortable', function() {
 			$('.per_product_shipping_rules tbody').sortable({
 				items:'tr',
@@ -96,7 +142,7 @@ jQuery(function($) {
 			var postid = $(this).data('postid');
 			var code = '<tr>\
 				<td class="sort">&nbsp;<input type="hidden" value="" name="per_product_order[' + postid + '][new][]" /></td>\
-				<td class="country"><input type="text" value="" maxlength="2" placeholder="*" name="per_product_country[' + postid + '][new][]" /></td>\
+				<td class="country"><input type="text" class="wcspp_country_validation" value="" maxlength="2" placeholder="*" name="per_product_country[' + postid + '][new][]" /></td>\
 				<td class="state"><input type="text" value="" maxlength="2" placeholder="*" name="per_product_state[' + postid + '][new][]" /></td>\
 				<td class="postcode"><input type="text" value="" placeholder="*" name="per_product_postcode[' + postid + '][new][]" /></td>\
 				<td class="cost"><input type="text" class="wc_input_price input-text regular-input" value="0.00" placeholder="0.00" name="per_product_cost[' + postid + '][new][]" /></td>\

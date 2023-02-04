@@ -62,6 +62,12 @@ class WC_Shipping_Per_Product_Admin {
 			'i18n_cost'            => __( 'Cost', 'woocommerce-shipping-per-product' ),
 			'i18n_item_cost'       => __( 'Item Cost', 'woocommerce-shipping-per-product' ),
 		) );
+
+		wp_localize_script( 'wc-shipping-per-product', 'wc_shipping_per_product_errors', array(
+			'i18n_incorrect_country_code' => __( 'The country code does not exist.', 'woocommerce-shipping-per-product' ),
+		) );
+
+		wp_localize_script( 'wc-shipping-per-product', 'wc_shipping_per_product_countries', WC()->countries->get_countries() );
 	}
 
 	/**
@@ -176,7 +182,7 @@ class WC_Shipping_Per_Product_Admin {
 						?>
 							<tr>
 								<td class="sort">&nbsp;<input type="hidden" value="<?php echo esc_attr( $rule->rule_order ); ?>" name="per_product_order[<?php echo esc_attr( $post_id ); ?>][<?php echo esc_attr( $rule->rule_id ); ?>]" /></td>
-								<td class="country"><input type="text" maxlength="2" value="<?php echo esc_attr( $rule->rule_country ); ?>" placeholder="*" name="per_product_country[<?php echo esc_attr( $post_id ); ?>][<?php echo esc_attr( $rule->rule_id ); ?>]" /></td>
+								<td class="country"><input type="text" class="wcspp_country_validation" maxlength="2" value="<?php echo esc_attr( $rule->rule_country ); ?>" placeholder="*" name="per_product_country[<?php echo esc_attr( $post_id ); ?>][<?php echo esc_attr( $rule->rule_id ); ?>]" /></td>
 								<td class="state"><input type="text" maxlength="2" value="<?php echo esc_attr( $rule->rule_state ); ?>" placeholder="*" name="per_product_state[<?php echo esc_attr( $post_id ); ?>][<?php echo esc_attr( $rule->rule_id ); ?>]" /></td>
 								<td class="postcode"><input type="text" value="<?php echo esc_attr( $rule->rule_postcode ); ?>" placeholder="*" name="per_product_postcode[<?php echo esc_attr( $post_id ); ?>][<?php echo esc_attr( $rule->rule_id ); ?>]" /></td>
 								<td class="cost"><input type="text" class="wc_input_price input-text regular-input" value="<?php echo esc_attr( $rule->rule_cost ); ?>" placeholder="0.00" name="per_product_cost[<?php echo esc_attr( $post_id ); ?>][<?php echo esc_attr( $rule->rule_id ); ?>]" /></td>

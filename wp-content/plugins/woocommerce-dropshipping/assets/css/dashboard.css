@@ -517,3 +517,14 @@ p#account-info-note {
     margin-left: 2px;
     margin-top: -10px;
 }
+
+#wpwrap{
+  background: #000;
+ }
+
+ #taxonomy-dropship_supplier{
+   width: 15%;
+  }
+
+
+  table.wp-list-table .column-product_cat, table.wp-list-table .column-product_tag {width: 8%!important;	}
