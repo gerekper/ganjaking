@@ -22,12 +22,12 @@
 
     'namespace sumo';
     $.fn.SumoSelect = function (options) {
-
+        const i18n = window.ninja_footables.i18n
         // This is the easiest way to have default options.
         var settings = $.extend({
             placeholder: 'Select Here',   // Dont change it here.
             csvDispCount: 2,              // display no. of items in multiselect. 0 to display all.
-            captionFormat: '{0} Selected', // format of caption text. you can set your locale.
+            captionFormat: `{0} ${i18n.caption_format}`, // format of caption text. you can set your locale.
             captionFormatAllSelected: '{0} all selected!', // format of caption text when all elements are selected. set null to use captionFormat. It will not work if there are disabled elements in select.
             floatWidth: 400,              // Screen width of device at which the list is rendered in floating popup fashion.
             forceCustomRendering: true,  // force the custom modal on all devices below floatWidth resolution.
@@ -46,7 +46,7 @@
             },
             noMatch: 'No matches for "{0}"',
             prefix: '',                   // some prefix usually the field name. eg. '<b>Hello</b>'
-            locale: ['OK', 'Cancel', 'Select All', 'Clear All'],  // all text that is used. don't change the index.
+            locale: ['OK', 'Cancel', 'Select All', i18n.clear_all],  // all text that is used. don't change the index.
             up: false,                    // set true to open upside.
             showTitle: true,               // set to false to prevent title (tooltip) from appearing
             clearAll: true,              // im multi select - clear all checked options
@@ -282,13 +282,13 @@
                     [, , , O.selAll.find('label')[0].innerText] = settings.locale;
                     O.optDiv.addClass('resetAll');
                     O.selAll.on('click', () => {
-                      O.selAll.removeClass('selected');
-                      O.toggSelAll(false, 1);
-                      if (settings.closeAfterClearAll) {
-                        O.hideOpts();
-                      }
+                        O.selAll.removeClass('selected');
+                        O.toggSelAll(false, 1);
+                        if (settings.closeAfterClearAll) {
+                            O.hideOpts();
+                        }
                     });
-          
+
                     O.optDiv.prepend(O.selAll);
                 },
 

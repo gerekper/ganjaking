@@ -1,12 +1,29 @@
-*** WooCommerce Help Scout Changelog ***
+*** WooCommerce Help Scout Changelog ***	       	    	  	      
+ 	       	   	      	      	     	      	      		
+2023-02-06 - version 3.8.0
+* PLUGINS-1990 - Woo Review Issues.
 
-2022-04-07 - version 3.4
+2022-08-22 - version 3.7.0
+* PLUGINS-1727 - Resolve Authorisation validation issue.
+
+2022-08-02 - version 3.6.0
+* PLUGINS-1660 - Check and fix any compatibility issue with PHP Version 8+
+* PLUGINS-1382 - Ensure token is refreshed and clean up comments.
+
+2022-06-28 - version 3.5.0
+* PLUGINS-1572 - Fix Subscriptions intermittent cron error.
+* PLUGINS-1337 - Create a new endpoint to allow for Custom Widget.
+
+2022-04-21 - version 3.4.1
+* PLUGINS-1533 - Fix Notice errors in the plugin in 3.4 version.
+
+2022-04-07 - version 3.4.0
 * PLUGINS-1453 - Fix fatal error which is causing subscriptions fail
 * PLUGINS-1396 - Fix Notice errors
 * PLUGINS-645 - Support other languages
 * PLUGINS-1518 - Language fixes
 
-2022-03-02 - version 3.3
+2022-03-02 - version 3.3.0
 * PLUGINS-997 - Fix various notice errors.
 * PLUGINS-207 - Validation errors.
 * PLUGINS-1241 - Add tab for ticket.
@@ -16,13 +33,13 @@
 * PLUGINS-1242 - Show conversation history on reply.
 * PLUGINS-1293 - Code improvement.
 
-2022-02-04 - version 3.2
+2022-02-04 - version 3.2.0
 * PLUGINS-1002 - Fix customer data not syncing on HelpScout mailbox.
 
-2021-11-04 - version 3.1
+2021-11-04 - version 3.1.0
 * PLUGINS-1240 - Incorrect API credentials should display useful message.
 
-2021-10-25 - version 3.0
+2021-10-25 - version 3.0.0
 * PLUGINS-869 - Removed duplicate “Create Conversation” button.
 * PLUGINS-1118 - Fix saved credentials being deleted on plugin deactivation.
 * PLUGINS-1161 - Speed improvement.
@@ -36,43 +53,42 @@
 2021-03-25 - version 2.9.1
 * PLUGINS-990 - Further Ajax adjustments.
 
-2021-03-23 - version 2.9
+2021-03-23 - version 2.9.0
 * PLUGINS-990 - Ajax adjustment.
 
-2021-03-18 - version 2.8
+2021-03-18 - version 2.8.0
 * PLUGINS-974 - jQuery update.
 
 2021-02-01 - version 2.7.1
 * PLUGINS-842 - Replace library (PCI Compliance check)
 
-2021-01-21 - version 2.7
+2021-01-21 - version 2.7.0
 * PLUGINS-826 - Fix debug notices.
 
-2020-10-30 - version 2.6
+2020-10-30 - version 2.6.0
 * PLUGINS-754 - Fix "Allow Access" button position
 * PLUGINS-769 - Customers not getting created in Helpscout
 
-2020-09-17 - version 2.5
+2020-09-17 - version 2.5.0
 * PLUGINS-500 Fixed error when submitting form on specific customers
 * PLUGINS-505 Fixed Code Error
 * PLUGINS-539 Fixed Support for Multiple Attachments
 * PLUGINS-498 Fixed Subject isn't being displayed on support conversation tab
 * PLUGINS-378 Syncing customers from woocommerce to helpscout
 
-2020-05-26 - version 2.4
+2020-05-26 - version 2.4.0
 * PLUGINS-350 overriding conversations.php templates in theme file
 
-2020-02-10 - version 2.3
+2020-02-10 - version 2.3.0
 * Refresh token api auth error fix.
 
-2019-11-20 - version 2.2
+2019-11-20 - version 2.2.0
 * Fixed issue 'WP_Privacy_Data_Export_Requests_List_Table' with wordpress 5.3.
 
-2019-09-25 - version 2.1
+2019-09-25 - version 2.1.0
  * check_authorization_still_valid api 404 error fix
 
-
-2019-06-04 - version 2.0
+2019-06-04 - version 2.0.0
  * Update Help Scout API v2.0
  * Add Auth 2.0 authetication.
  * Update - WC tested up to 3.6
@@ -99,7 +115,7 @@
  * Update - Bump tested to version to 3.3
 
 2017-11-27 - version 1.3.5
- * Fix - Remove non-existing shipping email.
+ * Fix - Remove non existing shipping email.
 
 2017-07-05 - version 1.3.4
  * Fix - Ensures the formatting is sent through correctly when adding a new ticket to Help Scout.
@@ -116,8 +132,8 @@
 
 2016-08-13 - version 1.3.0
 * Tweak - Moved "My Support Conversations" into its own endpoint and added tabbed menu item for it in My Account page.
-* Tweak - Make templates for front-end (conversations, create conversation, and shortcodes) overridable like WooCommerce core templates.
-* Tweak - Add auto reply request by default. Filter is added to opt-out.
+* Tweak - Make templates for front end (conversations, create conversation, and shortcodes) overridable like WooCommerce core templates.
+* Tweak - Add auto reply request by default. Filter is added to opt out.
 * Tweak - Error when site's timezone is set to UTC offset.
 
 2016-02-28 - version 1.2.2
@@ -126,7 +142,7 @@
 * Fixed error message, which is now displayed more useful, when creating conversation from 'Get Help'.
 
 2016-01-14 - version 1.2.1
-* Update for WooCommerce 2.5 - Removed calls to deprecated functions woocommerce_get_page_id and woocommerce_date_format
+* Update for WooCommerce 2.5. Removed calls to deprecated functions woocommerce_get_page_id and woocommerce_date_format
 * Some code cleanup
 
 2015-09-21 - version 1.2.0
@@ -154,7 +170,7 @@
  * Remove slashes when create or query conversations.
 
 2014-11-09 - version 1.1.0
- * Added support for get data from non-registered customers on Help Scout App.
+ * Added support for get data from non registered customers on Help Scout App.
 
 2014-08-26 - version 1.0.4
  * Excluded drafts from customer conversations list.
@@ -164,7 +180,7 @@
  * Improved the plugin options descriptions
 
 2014-07-31 - version 1.0.2
- * Added method to get the first name and last name from non-users before creating a conversation in Help Scout.
+ * Added method to get the first name and last name from non users before creating a conversation in Help Scout.
 
 2014-06-17 - version 1.0.1
  * Improvements in integration with WooCommerce App in Help Scout

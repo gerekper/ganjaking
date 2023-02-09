@@ -49,7 +49,7 @@ defined( 'ABSPATH' ) || exit;
 						$value = ( isset( $field[ $option ] ) ) ? $field[ $option ] : '';
 
 						$img = '';
-						if ( in_array( $option, WooCommerce_Warranty::$tips ) ) {
+						if ( array_key_exists( $option, WooCommerce_Warranty::$tips ) ) {
 							$img = '<img class="help_tip" data-tip="' . wc_sanitize_tooltip( WooCommerce_Warranty::$tips[ $option ] ) . '" src="' . plugins_url() . '/woocommerce/assets/images/help.png" height="16" width="16" />';
 						}
 

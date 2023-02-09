@@ -5,7 +5,7 @@ Tags: table builder, table plugin, wpdatatables, wordpress tables, table grid, c
 Requires at least: 4.5
 Requires PHP: 5.6
 Tested up to: 6.1
-Stable tag: 4.3.3
+Stable tag: 4.3.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -266,7 +266,19 @@ You can connect your Google spreadsheets to your WordPress table plugin by using
 
 == Changelog ==
 Over the past two years of development, we released several updates for Ninja Tables. These include improvements to the existing features and some wonderful additions to help you design tables more effectively.
-### What's New on 4.3.3?
+### What's New on 4.3.4?
+
+= 4.3.4 (Date: February 08, 2023) =
+* Fixes strict mode custom filter issue
+* Fixes table sorting by date & time issue
+* Fixes transform value escape date decimal(.) format issue
+* Fixes external SQL query update issue
+* Fixes image uploading issue for some themes
+* Fixes filter selects issue
+* Fixes drag and drop table shortcode issue for classic editor
+* Fixes pointer issue
+* Added a sorting option in the admin dashboard
+* Added a few strings in the translation file
 
 = 4.3.3 (Date: December 22, 2022) =
 * Fixes chunk filter loading issue

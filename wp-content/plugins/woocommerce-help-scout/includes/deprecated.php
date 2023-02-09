@@ -38,6 +38,11 @@ function wc_help_scout_deprecated_filter_mapping( $data, $arg_1 = '', $arg_2 = '
 
 	if ( isset( $wc_map_deprecated_filters[ $filter ] ) ) {
 		if ( has_filter( $wc_map_deprecated_filters[ $filter ] ) ) {
+			/**
+			* Action for woocommerce_help_scout_customer_args.
+			*
+			* @since  1.3.4
+			*/
 			$data = apply_filters( $wc_map_deprecated_filters[ $filter ], $data, $arg_1, $arg_2, $arg_3 );
 			if ( ! is_ajax() ) {
 				_deprecated_function( esc_html_e( 'The {wc_map_deprecated_filters[ $filter ]} filter' ), '', esc_html_e( '{$filter}' ) );

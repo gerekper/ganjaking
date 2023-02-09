@@ -8,6 +8,7 @@ interface WC_SRE_IReport_Row {
 
 	/**
 	 * Prepare the object, all data should be prepared in this method.
+	 *
 	 * @return mixed
 	 */
 	public function prepare();

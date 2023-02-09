@@ -17,7 +17,7 @@ use Automattic\WooCommerce\Admin\API\Reports\SqlQuery;
 /**
  * WC_PB_Analytics_Revenue_Data_Store class.
  *
- * @version 6.9.0
+ * @version 6.17.2
  */
 class WC_PB_Analytics_Revenue_Data_Store extends WC_PB_Analytics_Data_Store {
 
@@ -198,8 +198,8 @@ class WC_PB_Analytics_Revenue_Data_Store extends WC_PB_Analytics_Data_Store {
 			if ( $query_args[ 'extended_info' ] ) {
 				$product_id = $product_data[ 'product_id' ];
 				$product    = wc_get_product( $product_id );
-				// Product was deleted.
-				if ( ! $product ) {
+				// Product was deleted or changed type.
+				if ( ! is_a( $product, 'WC_Product' ) || ! $product->is_type('bundle') ) {
 					if ( ! isset( $product_names[ $product_id ] ) ) {
 						$product_names[ $product_id ] = $wpdb->get_var(
 							$wpdb->prepare(

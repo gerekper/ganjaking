@@ -1,17 +1,17 @@
-# Copyright (C) 2022 WooCommerce
+# Copyright (C) 2023 WooCommerce
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product Bundles 6.17.1\n"
+"Project-Id-Version: WooCommerce Product Bundles 6.17.4\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-09-23T09:28:26+00:00\n"
+"POT-Creation-Date: 2023-01-23T13:03:02+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.6.0\n"
+"X-Generator: WP-CLI 2.7.1\n"
 "language-team: LANGUAGE <EMAIL@ADDRESS>\n"
 "X-Domain: woocommerce-product-bundles\n"
 
@@ -416,7 +416,7 @@ msgstr ""
 #: includes/admin/class-wc-pb-admin-post-types.php:51
 #: includes/admin/class-wc-pb-admin.php:420
 #: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1449
-#: includes/class-wc-bundled-item.php:2228
+#: includes/class-wc-bundled-item.php:2239
 #: includes/class-wc-pb-display.php:200
 #: includes/class-wc-product-bundle.php:1358
 #: tests/unit/test-wc-product-bundle.php:608
@@ -437,7 +437,7 @@ msgstr ""
 
 #. translators: %s: Lowest required qty value.
 #: includes/admin/class-wc-pb-admin.php:280
-msgid "Please enter an integer higher than %s."
+msgid "Please enter an integer higher than or equal to %s."
 msgstr ""
 
 #. translators: %s: Highest allowed qty value.
@@ -463,77 +463,83 @@ msgstr ""
 msgid "You are currently viewing a filtered version of this report for <strong>%1$s</strong>. <a href=\"%2$s\" class=\"wc_pb_forward\">Clear Filter</a>"
 msgstr ""
 
-#: includes/admin/export/class-wc-pb-product-export.php:54
+#: includes/admin/export/class-wc-pb-product-export.php:55
 #: includes/admin/import/class-wc-pb-product-import.php:50
-#: includes/admin/import/class-wc-pb-product-import.php:74
+#: includes/admin/import/class-wc-pb-product-import.php:75
 msgid "Bundled Items (JSON-encoded)"
 msgstr ""
 
-#: includes/admin/export/class-wc-pb-product-export.php:55
+#: includes/admin/export/class-wc-pb-product-export.php:56
 #: includes/admin/import/class-wc-pb-product-import.php:51
-#: includes/admin/import/class-wc-pb-product-import.php:75
+#: includes/admin/import/class-wc-pb-product-import.php:76
 #: includes/modules/min-max-items/includes/admin/class-wc-pb-mmi-admin.php:52
 msgid "Min Bundle Size"
 msgstr ""
 
-#: includes/admin/export/class-wc-pb-product-export.php:56
+#: includes/admin/export/class-wc-pb-product-export.php:57
 #: includes/admin/import/class-wc-pb-product-import.php:52
-#: includes/admin/import/class-wc-pb-product-import.php:76
+#: includes/admin/import/class-wc-pb-product-import.php:77
 #: includes/modules/min-max-items/includes/admin/class-wc-pb-mmi-admin.php:62
 msgid "Max Bundle Size"
 msgstr ""
 
-#: includes/admin/export/class-wc-pb-product-export.php:57
+#: includes/admin/export/class-wc-pb-product-export.php:58
 #: includes/admin/import/class-wc-pb-product-import.php:53
-#: includes/admin/import/class-wc-pb-product-import.php:77
+#: includes/admin/import/class-wc-pb-product-import.php:78
 msgid "Bundle Contents Virtual"
 msgstr ""
 
-#: includes/admin/export/class-wc-pb-product-export.php:58
-#: includes/admin/import/class-wc-pb-product-import.php:54
-#: includes/admin/import/class-wc-pb-product-import.php:78
-msgid "Bundle Layout"
-msgstr ""
-
 #: includes/admin/export/class-wc-pb-product-export.php:59
-#: includes/admin/import/class-wc-pb-product-import.php:55
+#: includes/admin/import/class-wc-pb-product-import.php:54
 #: includes/admin/import/class-wc-pb-product-import.php:79
-msgid "Bundle Group Mode"
+msgid "Bundle Aggregate Weight"
 msgstr ""
 
 #: includes/admin/export/class-wc-pb-product-export.php:60
-#: includes/admin/import/class-wc-pb-product-import.php:56
+#: includes/admin/import/class-wc-pb-product-import.php:55
 #: includes/admin/import/class-wc-pb-product-import.php:80
-msgid "Bundle Cart Editing"
+msgid "Bundle Layout"
 msgstr ""
 
 #: includes/admin/export/class-wc-pb-product-export.php:61
-#: includes/admin/import/class-wc-pb-product-import.php:57
+#: includes/admin/import/class-wc-pb-product-import.php:56
 #: includes/admin/import/class-wc-pb-product-import.php:81
-msgid "Bundle Sold Individually"
+msgid "Bundle Group Mode"
 msgstr ""
 
 #: includes/admin/export/class-wc-pb-product-export.php:62
-#: includes/admin/import/class-wc-pb-product-import.php:58
+#: includes/admin/import/class-wc-pb-product-import.php:57
 #: includes/admin/import/class-wc-pb-product-import.php:82
-msgid "Bundle Form Location"
+msgid "Bundle Cart Editing"
 msgstr ""
 
 #: includes/admin/export/class-wc-pb-product-export.php:63
-#: includes/admin/import/class-wc-pb-product-import.php:59
+#: includes/admin/import/class-wc-pb-product-import.php:58
 #: includes/admin/import/class-wc-pb-product-import.php:83
-msgid "Bundle Sells"
+msgid "Bundle Sold Individually"
 msgstr ""
 
 #: includes/admin/export/class-wc-pb-product-export.php:64
-#: includes/admin/import/class-wc-pb-product-import.php:60
+#: includes/admin/import/class-wc-pb-product-import.php:59
 #: includes/admin/import/class-wc-pb-product-import.php:84
-msgid "Bundle Sells Title"
+msgid "Bundle Form Location"
 msgstr ""
 
 #: includes/admin/export/class-wc-pb-product-export.php:65
-#: includes/admin/import/class-wc-pb-product-import.php:61
+#: includes/admin/import/class-wc-pb-product-import.php:60
 #: includes/admin/import/class-wc-pb-product-import.php:85
+msgid "Bundle Sells"
+msgstr ""
+
+#: includes/admin/export/class-wc-pb-product-export.php:66
+#: includes/admin/import/class-wc-pb-product-import.php:61
+#: includes/admin/import/class-wc-pb-product-import.php:86
+msgid "Bundle Sells Title"
+msgstr ""
+
+#: includes/admin/export/class-wc-pb-product-export.php:67
+#: includes/admin/import/class-wc-pb-product-import.php:62
+#: includes/admin/import/class-wc-pb-product-import.php:87
 msgid "Bundle Sells Discount"
 msgstr ""
 
@@ -1247,7 +1253,7 @@ msgstr ""
 msgid "Edit item"
 msgstr ""
 
-#: includes/api/class-wc-pb-store-api.php:590
+#: includes/api/class-wc-pb-store-api.php:605
 #: includes/class-wc-pb-cart.php:1887
 msgid "This product is a mandatory part of a bundle and cannot be removed."
 msgstr ""
@@ -1276,14 +1282,14 @@ msgstr ""
 msgid "Includes"
 msgstr ""
 
-#: includes/class-wc-bundled-item.php:1890
+#: includes/class-wc-bundled-item.php:1901
 #: includes/class-wc-pb-display.php:239
 msgid "optional"
 msgstr ""
 
 #. translators: Item count
-#: includes/class-wc-bundled-item.php:2235
-#: includes/class-wc-bundled-item.php:2252
+#: includes/class-wc-bundled-item.php:2246
+#: includes/class-wc-bundled-item.php:2263
 msgid "(only %s left in stock)"
 msgstr ""
 
@@ -1642,7 +1648,7 @@ msgid "SKU"
 msgstr ""
 
 #. translators: %1$s: Product price, %2$s: Product quantity
-#: includes/class-wc-pb-product-prices.php:764
+#: includes/class-wc-pb-product-prices.php:766
 msgid "%1$s <span class=\"bundled_item_price_quantity\">each</span>"
 msgstr ""
 
@@ -1682,7 +1688,7 @@ msgid_plural "%1$s is low in stock (%2$d left). Please restock its contents."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-wc-pb-tracker.php:853
+#: includes/class-wc-pb-tracker.php:854
 msgid "Invalid key &quot;%1$s&quot; passed to get_reusable_data."
 msgstr ""
 
@@ -1745,70 +1751,70 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:370
+#: includes/compatibility/class-wc-pb-compatibility.php:387
 msgid "Composite Products"
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:371
+#: includes/compatibility/class-wc-pb-compatibility.php:388
 msgid "WooCommerce Composite Products"
 msgstr ""
 
 #. translators: %1$s: Plugin name, %2$s: Plugin URL, %3$s: Plugin name full, %4$s: Plugin version
 #. translators: %1$s: Extension, %2$s: Extension URL, %3$s: Extension full name, %4$s: Required version.
-#: includes/compatibility/class-wc-pb-compatibility.php:374
-#: includes/compatibility/class-wc-pb-compatibility.php:389
-#: includes/compatibility/class-wc-pb-compatibility.php:448
-#: includes/compatibility/class-wc-pb-compatibility.php:462
+#: includes/compatibility/class-wc-pb-compatibility.php:391
+#: includes/compatibility/class-wc-pb-compatibility.php:406
+#: includes/compatibility/class-wc-pb-compatibility.php:465
+#: includes/compatibility/class-wc-pb-compatibility.php:479
 msgid "The installed version of <strong>%1$s</strong> is not supported by <strong>Product Bundles</strong>. Please update <a href=\"%2$s\" target=\"_blank\">%3$s</a> to version <strong>%4$s</strong> or higher."
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:385
+#: includes/compatibility/class-wc-pb-compatibility.php:402
 msgid "Product Add-Ons"
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:386
+#: includes/compatibility/class-wc-pb-compatibility.php:403
 msgid "WooCommerce Product Add-Ons"
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:400
+#: includes/compatibility/class-wc-pb-compatibility.php:417
 msgid "WooCommerce Blocks"
 msgstr ""
 
 #. translators: %1$s: Plugin name, %2$s: Plugin URL, %3$s: Plugin name full, %4$s: Plugin version
-#: includes/compatibility/class-wc-pb-compatibility.php:403
+#: includes/compatibility/class-wc-pb-compatibility.php:420
 msgid "The installed version of <strong>%1$s</strong> does not support <strong>Product Bundles</strong>. Please update <a href=\"%2$s\" target=\"_blank\">%3$s</a> to version <strong>%4$s</strong> or higher."
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:411
+#: includes/compatibility/class-wc-pb-compatibility.php:428
 msgid "The <strong>Tabular Layout</strong> mini-extension has been rolled into <strong>Product Bundles</strong>. Please deactivate and remove the <strong>Product Bundles - Tabular Layout</strong> feature plugin."
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:417
+#: includes/compatibility/class-wc-pb-compatibility.php:434
 msgid "The <strong>Bundle-Sells</strong> mini-extension has been rolled into <strong>Product Bundles</strong>. Please deactivate and remove the <strong>Product Bundles - Bundle-Sells</strong> feature plugin."
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:423
+#: includes/compatibility/class-wc-pb-compatibility.php:440
 msgid "The <strong>Min/Max Items</strong> mini-extension has been rolled into <strong>Product Bundles</strong>. Please deactivate and remove the <strong>Product Bundles - Min/Max Items</strong> feature plugin. If you have localized Min/Max Items in your language, please be aware that all localizable strings have been moved into the Product Bundles text domain."
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:432
+#: includes/compatibility/class-wc-pb-compatibility.php:449
 msgid "Product Bundles - Top Add to Cart Button"
 msgstr ""
 
 #. translators: %1$s: Plugin name, %2$s: Plugin name full, %3$s: Plugin version
-#: includes/compatibility/class-wc-pb-compatibility.php:434
+#: includes/compatibility/class-wc-pb-compatibility.php:451
 msgid "The installed version of <strong>%1$s</strong> is not supported by <strong>Product Bundles</strong>. Please update <strong>%1$s</strong> to version <strong>%2$s</strong> or higher."
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:445
+#: includes/compatibility/class-wc-pb-compatibility.php:462
 msgid "Product Bundles - Bulk Discounts"
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:458
+#: includes/compatibility/class-wc-pb-compatibility.php:475
 msgid "Min/Max Quantities"
 msgstr ""
 
-#: includes/compatibility/class-wc-pb-compatibility.php:459
+#: includes/compatibility/class-wc-pb-compatibility.php:476
 msgid "WooCommerce Min/Max Quantities"
 msgstr ""
 

@@ -16,7 +16,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div id="conversation-fields">
 	<p><?php esc_html_e( 'Start a conversation with your customer to discuss an issue.', 'woocommerce-help-scout' ); ?></p>
 
-	<?php do_action( 'woocommerce_help_scout_conversation_admin_form_start' ); ?>
+	<?php 
+		/**
+		* Action for woocommerce_help_scout_customer_args.
+		*
+		* @since  1.3.4
+		*/
+		do_action( 'woocommerce_help_scout_conversation_admin_form_start' ); 
+	?>
 
 	<p>
 		<label for="conversation-subject"><?php esc_html_e( 'Subject', 'woocommerce-help-scout' ); ?> <span class="required"><?php esc_html_e( '(required)', 'woocommerce-help-scout' ); ?></span></label>
@@ -28,12 +35,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<textarea id="conversation-description" class="conversation-field" name="conversation_description" cols="25" rows="5"></textarea>
 	</p>
 
-	<?php do_action( 'woocommerce_help_scout_conversation_admin_form' ); ?>
+	<?php 
+		/**
+		* Action for woocommerce_help_scout_customer_args.
+		*
+		* @since  1.3.4
+		*/
+		do_action( 'woocommerce_help_scout_conversation_admin_form' ); 
+	?>
 
 	<p>
 		<a id="open-conversation" href="#" class="button button-primary"><?php esc_html_e( 'Start Conversation', 'woocommerce-help-scout' ); ?></a>
 	</p>
 
-	<?php do_action( 'woocommerce_help_scout_conversation_admin_form_end' ); ?>
+	<?php 
+		/**
+		* Action for woocommerce_help_scout_customer_args.
+		*
+		* @since  1.3.4
+		*/
+		do_action( 'woocommerce_help_scout_conversation_admin_form_end' ); 
+	?>
 
 </div>

@@ -1,6 +1,6 @@
 <?php
 
-if ( !defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
 
@@ -34,21 +34,21 @@ class WC_SRE_Row_Total_Sign_Ups extends WC_SRE_Report_Row {
 		$admin_users = new WP_User_Query(
 			array(
 				'role'   => 'administrator',
-				'fields' => 'ID'
+				'fields' => 'ID',
 			)
 		);
 
 		$manager_users = new WP_User_Query(
 			array(
 				'role'   => 'shop_manager',
-				'fields' => 'ID'
+				'fields' => 'ID',
 			)
 		);
 
 		$users_query = new WP_User_Query(
 			array(
 				'fields'  => array( 'user_registered' ),
-				'exclude' => array_merge( $admin_users->get_results(), $manager_users->get_results() )
+				'exclude' => array_merge( $admin_users->get_results(), $manager_users->get_results() ),
 			)
 		);
 
@@ -56,7 +56,7 @@ class WC_SRE_Row_Total_Sign_Ups extends WC_SRE_Report_Row {
 
 		foreach ( $customers as $key => $customer ) {
 			if ( strtotime( $customer->user_registered ) < $this->get_date_range()->get_start_date()->format( 'U' ) || strtotime( $customer->user_registered ) > $this->get_date_range()->get_end_date()->format( 'U' ) ) {
-				unset( $customers[$key] );
+				unset( $customers[ $key ] );
 			}
 		}
 

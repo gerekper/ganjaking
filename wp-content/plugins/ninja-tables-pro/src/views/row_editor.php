@@ -69,9 +69,11 @@
                                         wp_enqueue_script('pikaday', NINJAPROPLUGIN_URL . 'assets/libs/datepicker/js/pikaday.min.js', array('jquery'), NINJAPROPLUGIN_VERSION, true);
                                         wp_enqueue_script('pikaday.jquery', NINJAPROPLUGIN_URL . 'assets/libs/datepicker/js/pikaday.jquery.js', array('pikaday'), NINJAPROPLUGIN_VERSION, true);
                                         wp_enqueue_style('pickaday.css', NINJAPROPLUGIN_URL . 'assets/libs/datepicker/css/pikaday.css', array(), NINJAPROPLUGIN_VERSION);
+
+                                        $dateTimeFormat = (isset($column['timeFormat']) && $column['timeFormat']) ? $column['dateFormat'] . ' ' . $column['timeFormat'] : $column['dateFormat'];
                                         ?>
                                         <input name="<?php echo $column['key']; ?>"
-                                               data-date_format="<?php echo $column['dateFormat']; ?>"
+                                               data-date_format="<?php echo $dateTimeFormat; ?>"
                                                data-show_time="<?php echo @$column['showTime']; ?>"
                                                data-first_day_of_week="<?php echo @$column['firstDayOfWeek']; ?>"
                                                class="nt_form_input nt_form_date nt_data_item nt_input_<?php echo $column['key']; ?>"
@@ -79,7 +81,7 @@
                                     <?php } else if ($column['data_type'] == 'selection') { ?>
                                         <?php
                                         $selects = array();
-                                        $selectionPlaceholder = $column['placeholder'] ? $column['placeholder'] : 'Select';
+                                        $selectionPlaceholder = isset($column['placeholder']) ? $column['placeholder'] : 'Select';
                                         if (isset($column['selections']) && $column['selections']) {
                                             $selectStrings = $column['selections'];
                                             $selects = preg_split('/\r\n|\r|\n/', $selectStrings);

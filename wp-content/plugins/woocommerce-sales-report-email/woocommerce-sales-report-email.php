@@ -3,40 +3,43 @@
  * Plugin Name: WooCommerce Sales Report Email
  * Plugin URI: https://woocommerce.com/products/woocommerce-sales-report-email/
  * Description: Daily Sales Report Email
- * Version: 1.1.28
- * Author: WooCommerce
- * Author URI: https://woocommerce.com/
- * License: GPL v3
+ * Version: 1.2.0
+ * Author: Themesquad
+ * Author URI: https://themesquad.com
  * Text Domain: woocommerce-sales-report-email
- * WC tested up to: 6.9
- * WC requires at least: 2.6
- * Tested up to: 6.0
+ * Domain Path: /languages
+ * Requires PHP: 5.4
+ * Requires at least: 4.7
+ * Tested up to: 6.1
+ *
+ * WC requires at least: 3.5
+ * WC tested up to: 7.3
  * Woo: 473579:a276a32606bc06fc451666a02c52cc64
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * License: GNU General Public License v3.0
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
  * @package woocommerce-sales-report-email
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+defined( 'ABSPATH' ) || exit;
+
+// Load the class autoloader.
+require __DIR__ . '/src/Autoloader.php';
+
+if ( ! \Themesquad\WC_Sales_Report_Email\Autoloader::init() ) {
+	return;
+}
+
+// Define plugin file constant.
+if ( ! defined( 'WC_SALES_REPORT_EMAIL_FILE' ) ) {
+	define( 'WC_SALES_REPORT_EMAIL_FILE', __FILE__ );
 }
 
 /**
  * Main Sales Report Email class.
  */
-class WooCommerce_Sales_Report_Email {
+class WooCommerce_Sales_Report_Email extends \Themesquad\WC_Sales_Report_Email\Plugin {
 
 	/**
 	 * Get the plugin file
@@ -45,7 +48,7 @@ class WooCommerce_Sales_Report_Email {
 	 * @return String
 	 */
 	public static function get_plugin_file() {
-		return __FILE__;
+		return WC_SALES_REPORT_EMAIL_FILE;
 	}
 
 	/**
@@ -94,9 +97,10 @@ class WooCommerce_Sales_Report_Email {
 	/**
 	 * Constructor.
 	 *
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 */
-	public function __construct() {
+	protected function __construct() {
+		parent::__construct();
 
 		// Check if WC is activated.
 		if ( $this->is_wc_active() ) {
@@ -129,10 +133,6 @@ class WooCommerce_Sales_Report_Email {
 	 * @since  1.0.0
 	 */
 	private function init() {
-
-		// Load plugin textdomain.
-		load_plugin_textdomain( 'woocommerce-sales-report-email', false, plugin_dir_path( self::get_plugin_file() ) . 'languages/' );
-
 		// save email settings.
 		add_action( 'woocommerce_settings_saved', array( $this, 'reset_cron' ) );
 
@@ -192,14 +192,13 @@ class WooCommerce_Sales_Report_Email {
 		/* translators: %s: WooCommerce link */
 		echo '<div class="error"><p>' . sprintf( esc_html__( 'WooCommerce Sales Report Email requires %s to be installed and active.', 'woocommerce-sales-report-email' ), '<a href="https://woocommerce.com/" target="_blank">WooCommerce</a>' ) . '</p></div>';
 	}
-
 }
 
 /**
  * Initialize plugin.
  */
 function woocommerce_sales_report_email_main_init() {
-	new WooCommerce_Sales_Report_Email();
+	WooCommerce_Sales_Report_Email::instance();
 }
 
 // Create object - Plugin init.

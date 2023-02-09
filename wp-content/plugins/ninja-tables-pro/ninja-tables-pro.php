@@ -2,7 +2,7 @@
 /*
 Plugin Name: Ninja Tables Pro
 Description: The Pro Add-On of Ninja Tables, best Responsive Table Plugin for WordPress.
-Version: 4.3.3
+Version: 4.3.4
 Author: WPManageNinja
 Author URI: https://ninjatables.com/
 Plugin URI: https://wpmanageninja.com/downloads/ninja-tables-pro-add-on/
@@ -21,7 +21,7 @@ update_option('_ninjatables_pro_license_status', 'valid');
 defined('NINJATABLESPRO') or define('NINJATABLESPRO', true);
 define('NINJAPROPLUGIN_PATH', plugin_dir_path(__FILE__));
 define('NINJAPRO_PLUGIN_FILE', __FILE__);
-defined('NINJAPROPLUGIN_VERSION') or define('NINJAPROPLUGIN_VERSION', '4.3.3');
+defined('NINJAPROPLUGIN_VERSION') or define('NINJAPROPLUGIN_VERSION', '4.3.4');
 define('NINJAPROPLUGIN_URL', plugin_dir_url(__FILE__));
 
 define('NINJATABLESPRO_SORTABLE', true);
@@ -62,6 +62,19 @@ if (!class_exists('NinjaTablesPro')) {
 
             add_action('ninja_tables_loaded_boot_script', array($this, 'loadFormulaScript'));
             add_action('ninja_tables_custom_code_before_save', '\NinjaTablesPro\TableEditor::savedCustomCode');
+
+            /*
+             * This is a conflict between underscore and lodash libraries.
+             * Use underscore for WordPress media library and lodash for Gutenberg
+             * When we want to choose an image from WordPress media library, throw an error for some themes which use lodash like Blocksy theme
+            */
+
+           if (isset($_GET['page']) && wp_script_is( 'lodash', 'registered' )) {
+               $page = sanitize_text_field($_GET['page']);
+               if ($page === 'ninja_tables') {
+                   wp_add_inline_script( 'lodash', 'window.lodash = _.noConflict();', 'after' );
+               }
+           }
         }
 
         public function public_hooks()

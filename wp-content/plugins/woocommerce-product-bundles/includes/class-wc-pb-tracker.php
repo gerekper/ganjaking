@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundles Tracker.
  *
  * @class    WC_PB_Tracker
- * @version  6.16.0
+ * @version  6.17.4
  */
 class WC_PB_Tracker {
 
@@ -595,6 +595,7 @@ class WC_PB_Tracker {
 				FROM `{$wpdb->prefix}woocommerce_bundled_items` AS bundled_items
 					INNER JOIN `{$wpdb->prefix}woocommerce_bundled_itemmeta` AS bundled_itemmeta ON bundled_items.bundled_item_id = bundled_itemmeta.bundled_item_id
 				WHERE bundled_items.bundle_id IN ( " . self::get_reusable_data( 'product_bundles_ids' ) . ")
+					AND bundled_itemmeta.meta_key = 'single_product_price_visibility'
 					AND bundled_itemmeta.meta_value = 'hidden'
 			" );
 

@@ -1,5 +1,12 @@
 *** Changelog ***
 
+2023-02-05 - version 2.40
+
+* New feature jetpack forms captcha
+* Fixed order track captcha not working with new WooCommerce
+* Improvements on jquery functions
+
+
 2023-01-23 - version 2.39
 
 * Plugin is compitible with WooCommerce new feature HPOS(High-Performance Order Storage)
@@ -293,4 +300,3 @@
 
 2020-02-17 - version 1.0
 * Inital release
-

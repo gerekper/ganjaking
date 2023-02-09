@@ -20,7 +20,7 @@ class AV8_Cart_Reports_Settings_General extends WC_Settings_Page {
    */
   public function __construct() {
     $this->id    = 'cart_reports';
-    $this->label = __( 'Cart Reports', 'cart_reports' );
+    $this->label = __( 'Cart Reports', 'woocommerce_cart_reports' );
 
     parent::__construct();
   }

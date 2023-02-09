@@ -218,14 +218,17 @@ class WC_SRE_Sales_Report_Email extends WC_Email {
 
 		ob_start();
 
-		wc_get_template( $this->template_html, array(
-			'email'         => $this,
-			'email_heading' => $this->get_heading(),
-			'rows'          => $this->get_rows(),
-			'interval'      => WC_SRE_Options::get_interval(),
-			'plain_text'    => false
-		), $this->template_base );
-
+		wc_get_template(
+			$this->template_html,
+			array(
+				'email'         => $this,
+				'email_heading' => $this->get_heading(),
+				'rows'          => $this->get_rows(),
+				'interval'      => WC_SRE_Options::get_interval(),
+				'plain_text'    => false,
+			),
+			$this->template_base
+		);
 
 		return ob_get_clean();
 	}
@@ -240,12 +243,16 @@ class WC_SRE_Sales_Report_Email extends WC_Email {
 	 */
 	public function get_content_plain() {
 		ob_start();
-		wc_get_template( $this->template_plain, array(
-			'email_heading' => $this->get_heading(),
-			'rows'          => $this->get_rows(),
-			'interval'      => WC_SRE_Options::get_interval(),
-			'plain_text'    => true
-		), $this->template_base );
+		wc_get_template(
+			$this->template_plain,
+			array(
+				'email_heading' => $this->get_heading(),
+				'rows'          => $this->get_rows(),
+				'interval'      => WC_SRE_Options::get_interval(),
+				'plain_text'    => true,
+			),
+			$this->template_base
+		);
 
 		return ob_get_clean();
 	}
@@ -262,17 +269,17 @@ class WC_SRE_Sales_Report_Email extends WC_Email {
 
 		for ( $hour = 0; $hour < 24; $hour++ ) {
 			for ( $min = 0; $min < 60; $min = $min + 15 ) {
-				$this_time = date( 'H:i', strtotime( "2015-01-01 $hour:$min" ) );
+				$this_time                     = date( 'H:i', strtotime( "2015-01-01 $hour:$min" ) );
 				$send_time_array[ $this_time ] = $this_time;
 			}
 		}
 
 		$this->form_fields = array(
-			'enabled'        => array(
-				'title'      => __( 'Enable/Disable', 'woocommerce' ),
-				'type'       => 'checkbox',
-				'label'      => __( 'Enable this email notification', 'woocommerce' ),
-				'default'    => 'yes'
+			'enabled'    => array(
+				'title'   => __( 'Enable/Disable', 'woocommerce' ),
+				'type'    => 'checkbox',
+				'label'   => __( 'Enable this email notification', 'woocommerce' ),
+				'default' => 'yes',
 			),
 			'recipients' => array(
 				'title'       => __( 'Recipients', 'woocommerce-sales-report-email' ),
@@ -286,32 +293,32 @@ class WC_SRE_Sales_Report_Email extends WC_Email {
 				'options'     => array(
 					'daily'   => __( 'Daily', 'woocommerce-sales-report-email' ),
 					'weekly'  => __( 'Weekly', 'woocommerce-sales-report-email' ),
-					'monthly' => __( 'Monthly', 'woocommerce-sales-report-email' )
+					'monthly' => __( 'Monthly', 'woocommerce-sales-report-email' ),
 				),
 				'description' => __( 'The frequency of which reports should be sent.', 'woocommerce-sales-report-email' ),
 			),
 
 			// Send time
-			'send_time' => array(
-				'title' 	  => __( 'Send Email At', 'woocommerce-sales-report-email' ),
-				'type' 		  => 'select',
+			'send_time'  => array(
+				'title'       => __( 'Send Email At', 'woocommerce-sales-report-email' ),
+				'type'        => 'select',
 				'description' => __( 'Choose the time of day to send out the sales report (based on the interval above).', 'woocommerce-sales-report-email' ),
-				'default' 	  => '03:00',
-				'options'     => $send_time_array
+				'default'     => '03:00',
+				'options'     => $send_time_array,
 			),
 
 			'email_type' => array(
-				'title' 		=> __( 'Email type', 'woocommerce' ),
-				'type' 			=> 'select',
-				'description' 	=> __( 'Choose which format of email to send.', 'woocommerce' ),
-				'default' 		=> 'html',
-				'class'			=> 'email_type',
-				'options'		=> array(
-					'plain' 		=> __( 'Plain text', 'woocommerce' ),
-					'html' 			=> __( 'HTML', 'woocommerce' ),
-					'multipart' 	=> __( 'Multipart', 'woocommerce' ),
-				)
-			)
+				'title'       => __( 'Email type', 'woocommerce' ),
+				'type'        => 'select',
+				'description' => __( 'Choose which format of email to send.', 'woocommerce' ),
+				'default'     => 'html',
+				'class'       => 'email_type',
+				'options'     => array(
+					'plain'     => __( 'Plain text', 'woocommerce' ),
+					'html'      => __( 'HTML', 'woocommerce' ),
+					'multipart' => __( 'Multipart', 'woocommerce' ),
+				),
+			),
 		);
 	}
 

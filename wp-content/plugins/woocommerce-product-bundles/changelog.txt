@@ -1,5 +1,22 @@
 *** WooCommerce Product Bundles ***
 
+2023.01.23 - version 6.17.4
+* New - Introduced 'woocommerce_bundled_item_get_unfiltered_regular_price_start' and 'woocommerce_bundled_item_get_unfiltered_regular_price_end' action hooks.
+* Fix - Fixed a PHP warning that showed up when importing products without bundled items.
+* Fix - Fixed tracking data for priced individually bundled items whose prices are hidden in product templates.
+
+2022.11.01 - version 6.17.3
+* Tweak - Improved security.
+* Tweak - Updated validation error that showed up when setting a low Maximum Quantity for a bundled item.
+* Tweak - Introduced compatibility with the new High-Performance Order Storage.
+
+2022.10.13 - version 6.17.2
+* Tweak - Introduced the 'woocommerce_bundles_bundled_item_visibility' filter.
+* Tweak - Added support for automated translations delivery.
+* Fix - Fixed an issue that prevented hidden bundled items from showing up when editing a Bundle order item in the admin area. 
+* Fix - Fixed a fatal error that was triggered when viewing Bundles Analytics containing Product Bundles that changed product type.
+* Fix - Fixed a fatal error that was triggered when using PHP v8 and using Cart/Checkout Blocks.
+
 2022.09.23 - version 6.17.1
 * Tweak - Hook into 'woocommerce_add_to_cart' with priority '9' instead '9.9'. 
 * Fix - Fixed fatal errors triggered when activating/deactivating the plugin via WP cli.

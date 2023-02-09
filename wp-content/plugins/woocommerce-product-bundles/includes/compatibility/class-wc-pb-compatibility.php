@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Handles compatibility with other WC extensions.
  *
  * @class    WC_PB_Compatibility
- * @version  6.17.0
+ * @version  6.17.3
  */
 class WC_PB_Compatibility {
 
@@ -118,6 +118,9 @@ class WC_PB_Compatibility {
 			add_action( 'admin_init', array( $this, 'add_compatibility_notices' ) );
 		}
 
+		// Declare HPOS compatibility.
+		add_action( 'before_woocommerce_init', array( $this, 'declare_hpos_compatibility' ) );
+
 		// Load modules.
 		add_action( 'plugins_loaded', array( $this, 'module_includes' ), 100 );
 
@@ -132,6 +135,20 @@ class WC_PB_Compatibility {
 	 */
 	public static function core_includes() {
 		require_once( WC_PB_ABSPATH . 'includes/compatibility/core/class-wc-pb-core-compatibility.php' );
+	}
+
+	/**
+	 * Declare HPOS( Custom Order tables) compatibility.
+	 *
+	 * @since 6.17.3
+	 */
+	public function declare_hpos_compatibility() {
+
+		if ( ! class_exists( 'Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			return;
+		}
+
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WC_PB()->plugin_basename(), true );
 	}
 
 	/**

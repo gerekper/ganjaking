@@ -31,18 +31,18 @@ trait Warranty_Util {
 			'included_warranty_length'                  => '',
 			'limited_warranty_length_value'             => '',
 			'limited_warranty_length_duration'          => '',
-			'variable_included_warranty_length'         => array(),
-			'variable_limited_warranty_length_value'    => array(),
-			'variable_limited_warranty_length_duration' => array(),
 			'addon_warranty_amount'                     => array(),
 			'addon_warranty_length_value'               => array(),
 			'addon_warranty_length_duration'            => array(),
-			'no_warranty_option'                        => 'no',
+			'addon_no_warranty'                         => 'no',
+			'variable_included_warranty_length'         => array(),
+			'variable_limited_warranty_length_value'    => array(),
+			'variable_limited_warranty_length_duration' => array(),
 		);
 
 		foreach ( $args as $key => $value ) {
 			// key name mismatch fix.
-			$loop_key = 'no_warranty_option' === $key ? 'addon_no_warranty' : $key;
+			$loop_key = ( false !== strpos( $key, 'addon_' ) ) ? str_replace( 'addon_', 'variable_addon_', $key ) : $key;
 
 			if ( empty( $loop_args[ $loop_key ][ $index ] ) ) {
 				continue;
@@ -83,7 +83,7 @@ trait Warranty_Util {
 			case 'addon_warranty':
 				$warranty['type']               = $warranty_type;
 				$warranty['addons']             = self::build_warranty_addons_array( $args );
-				$warranty['no_warranty_option'] = ! empty( $args['no_warranty_option'] ) ? $args['no_warranty_option'] : 'no';
+				$warranty['no_warranty_option'] = ! empty( $args['addon_no_warranty'] ) ? $args['addon_no_warranty'] : 'no';
 				break;
 		}
 

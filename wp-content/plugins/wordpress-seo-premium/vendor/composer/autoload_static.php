@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit2ece8a28e3c218cea6cf9fe6155c0d32
+class ComposerStaticInit6593b7a9f8f01dd0e8622f62c1dbe78d
 {
     public static $files = array (
         '995b589e693a50f54393aa31ee1c3763' => __DIR__ . '/..' . '/yoast/whip/src/facades/wordpress.php',
@@ -142,6 +142,7 @@ class ComposerStaticInit2ece8a28e3c218cea6cf9fe6155c0d32
         'Yoast\\WP\\SEO\\Premium\\Actions\\Zapier_Action' => __DIR__ . '/../..' . '/src/actions/zapier-action.php',
         'Yoast\\WP\\SEO\\Premium\\Addon_Installer' => __DIR__ . '/../..' . '/src/addon-installer.php',
         'Yoast\\WP\\SEO\\Premium\\Conditionals\\Algolia_Enabled_Conditional' => __DIR__ . '/../..' . '/src/conditionals/algolia-enabled-conditional.php',
+        'Yoast\\WP\\SEO\\Premium\\Conditionals\\EDD_Conditional' => __DIR__ . '/../..' . '/src/conditionals/edd-conditional.php',
         'Yoast\\WP\\SEO\\Premium\\Conditionals\\Zapier_Enabled_Conditional' => __DIR__ . '/../..' . '/src/conditionals/zapier-enabled-conditional.php',
         'Yoast\\WP\\SEO\\Premium\\Config\\Badge_Group_Names' => __DIR__ . '/../..' . '/src/config/badge-group-names.php',
         'Yoast\\WP\\SEO\\Premium\\Config\\Migrations\\AddIndexOnIndexableIdAndStem' => __DIR__ . '/../..' . '/src/config/migrations/20210827093024_AddIndexOnIndexableIdAndStem.php',
@@ -188,7 +189,9 @@ class ComposerStaticInit2ece8a28e3c218cea6cf9fe6155c0d32
         'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Term_Archive' => __DIR__ . '/../..' . '/src/integrations/opengraph-term-archive.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Routes\\Workouts_Routes_Integration' => __DIR__ . '/../..' . '/src/integrations/routes/workouts-routes-integration.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Algolia' => __DIR__ . '/../..' . '/src/integrations/third-party/algolia.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\EDD' => __DIR__ . '/../..' . '/src/integrations/third-party/edd.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Elementor_Premium' => __DIR__ . '/../..' . '/src/integrations/third-party/elementor-premium.php',
+        'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Mastodon' => __DIR__ . '/../..' . '/src/integrations/third-party/mastodon.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier' => __DIR__ . '/../..' . '/src/integrations/third-party/zapier.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier_Classic_Editor' => __DIR__ . '/../..' . '/src/integrations/third-party/zapier-classic-editor.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier_Trigger' => __DIR__ . '/../..' . '/src/integrations/third-party/zapier-trigger.php',
@@ -197,6 +200,7 @@ class ComposerStaticInit2ece8a28e3c218cea6cf9fe6155c0d32
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Watchers\\Premium_Option_Wpseo_Watcher' => __DIR__ . '/../..' . '/src/integrations/watchers/premium-option-wpseo-watcher.php',
         'Yoast\\WP\\SEO\\Premium\\Integrations\\Watchers\\Zapier_APIKey_Reset_Watcher' => __DIR__ . '/../..' . '/src/integrations/watchers/zapier-apikey-reset-watcher.php',
         'Yoast\\WP\\SEO\\Premium\\Main' => __DIR__ . '/../..' . '/src/main.php',
+        'Yoast\\WP\\SEO\\Premium\\Presenters\\Mastodon_Link_Presenter' => __DIR__ . '/../..' . '/src/presenters/mastodon-link-presenter.php',
         'Yoast\\WP\\SEO\\Premium\\Repositories\\Prominent_Words_Repository' => __DIR__ . '/../..' . '/src/repositories/prominent-words-repository.php',
         'Yoast\\WP\\SEO\\Premium\\Routes\\Link_Suggestions_Route' => __DIR__ . '/../..' . '/src/routes/link-suggestions-route.php',
         'Yoast\\WP\\SEO\\Premium\\Routes\\Prominent_Words_Route' => __DIR__ . '/../..' . '/src/routes/prominent-words-route.php',
@@ -215,9 +219,9 @@ class ComposerStaticInit2ece8a28e3c218cea6cf9fe6155c0d32
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit2ece8a28e3c218cea6cf9fe6155c0d32::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit2ece8a28e3c218cea6cf9fe6155c0d32::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit2ece8a28e3c218cea6cf9fe6155c0d32::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit6593b7a9f8f01dd0e8622f62c1dbe78d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit6593b7a9f8f01dd0e8622f62c1dbe78d::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit6593b7a9f8f01dd0e8622f62c1dbe78d::$classMap;
 
         }, null, ClassLoader::class);
     }

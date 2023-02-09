@@ -3,7 +3,7 @@
 namespace Yoast\WP\SEO\Actions\Configuration;
 
 use Yoast\WP\SEO\Helpers\Options_Helper;
-use Yoast\WP\SEO\Integrations\Admin\Social_Profiles_Helper;
+use Yoast\WP\SEO\Helpers\Social_Profiles_Helper;
 
 /**
  * Class First_Time_Configuration_Action.
@@ -16,6 +16,7 @@ class First_Time_Configuration_Action {
 	const SITE_REPRESENTATION_FIELDS = [
 		'company_or_person',
 		'company_name',
+		'website_name',
 		'company_logo',
 		'company_logo_id',
 		'person_logo',

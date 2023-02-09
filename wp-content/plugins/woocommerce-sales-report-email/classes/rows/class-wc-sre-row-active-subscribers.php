@@ -1,6 +1,6 @@
 <?php
 
-if ( !defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
 
@@ -29,7 +29,7 @@ class WC_SRE_Row_Active_Subscribers extends WC_SRE_Report_Row {
 		$subscriptions = wcs_get_subscriptions( array( 'subscription_status' => 'active' ) );
 
 		$active_subscription_count = count( $subscriptions );
-		
+
 		$this->set_value( $active_subscription_count );
 	}
 

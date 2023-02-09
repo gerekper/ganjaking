@@ -11,7 +11,7 @@
  * Plugin Name: Cart Reports for WooCommerce
  * Plugin URI: https://woocommerce.com/products/woocommerce-cart-reports/
  * Description: Cart Reports for WooCommerce allows site admins to keep track of Abandoned, Open, and Converted Carts.
- * Version: 1.2.12
+ * Version: 1.3.1
  *
  * Developer: WP BackOffice
  * Developer URI: https://wpbackoffice.com
@@ -30,11 +30,17 @@
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  */
 
+if ( ! defined( 'WC_CART_REPORTS_PLUGIN_FILE' ) ) {
+	define( 'WC_CART_REPORTS_PLUGIN_FILE', __FILE__ );
+	define( 'WC_CART_REPORTS_ABSPATH', dirname( WC_CART_REPORTS_PLUGIN_FILE ) . '/' );
+}
+
+
 /**
  * Required functions
  */
 if ( ! function_exists( 'woothemes_queue_update' ) ) {
-	require_once  'woo-includes/woo-functions.php' ;
+	require_once 'woo-includes/woo-functions.php';
 }
 
 define( 'CONVERTED', 'Converted' );
@@ -47,7 +53,11 @@ if ( is_woocommerce_active() ) {
 	/**
 	 * Localisation
 	 **/
-	load_plugin_textdomain( 'woocommerce_cart_reports', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	function load_text_domain() {
+		load_plugin_textdomain( 'woocommerce_cart_reports', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	}
+
+	add_action( 'init', 'load_text_domain' );
 
 	include plugin_dir_path( __FILE__ ) . '/models/AV8_Cart_Actions.php';
 	include plugin_dir_path( __FILE__ ) . '/models/AV8_Cart_Receipt.php';
@@ -69,10 +79,10 @@ if ( is_woocommerce_active() ) {
 	*/
 
 	function create_custom_tax() {
-		register_taxonomy( 'shop_cart_status', array( 'carts' ), array(
+		register_taxonomy( 'shop_cart_status', [ 'carts' ], [
 			'hierarchical'          => false,
 			'update_count_callback' => '_update_post_term_count',
-			'labels'                => array(
+			'labels'                => [
 				'name'              => __( 'Cart statuses', 'woocommerce' ),
 				'singular_name'     => __( 'Cart status', 'woocommerce' ),
 				'search_items'      => __( 'Search Cart statuses', 'woocommerce' ),
@@ -83,15 +93,15 @@ if ( is_woocommerce_active() ) {
 				'update_item'       => __( 'Update Cart status', 'woocommerce' ),
 				'add_new_item'      => __( 'Add New Cart status', 'woocommerce' ),
 				'new_item_name'     => __( 'New Cart status Name', 'woocommerce' )
-			),
+			],
 			'show_in_nav_menus'     => false,
 			'public'                => false,
 			'show_ui'               => false,
 			'query_var'             => is_admin(),
 			'rewrite'               => false,
-		) );
+		] );
 
-		$cart_status = array( 'open', 'converted' );
+		$cart_status = [ 'open', 'converted' ];
 
 		foreach ( $cart_status as $status ) {
 			if ( ! get_term_by( 'slug', sanitize_title( $status ), 'shop_cart_status' ) ) {
@@ -105,41 +115,41 @@ if ( is_woocommerce_active() ) {
 	 *
 	 */
 	function cart_add_type_init() {
-		register_post_type( 'carts', array(
-			'label'               => 'Carts',
+		register_post_type( 'carts', [
+			'label'               => __( 'Carts', 'woocommerce_cart_reports' ),
 			'description'         => '',
 			'public'              => false,
 			'show_ui'             => true,
 			'capability_type'     => 'post',
 			'hierarchical'        => false,
-			'rewrite'             => array( 'slug' => '' ),
+			'rewrite'             => [ 'slug' => '' ],
 			'query_var'           => true,
-			'supports'            => array( 'title', 'author' ),
-			'labels'              => array(
-				'name'               => 'Carts',
-				'singular_name'      => 'Cart',
-				'menu_name'          => 'Carts',
-				'add_new'            => 'Add Cart',
+			'supports'            => [ 'title', 'author' ],
+			'labels'              => [
+				'name'               => __( 'Carts', 'woocommerce_cart_reports' ),
+				'singular_name'      => __( 'Cart', 'woocommerce_cart_reports' ),
+				'menu_name'          => __( 'Carts', 'woocommerce_cart_reports' ),
+				'add_new'            => __( 'Add Cart', 'woocommerce_cart_reports' ),
 				'add_new_item'       => '',
-				'edit'               => 'Edit',
-				'edit_item'          => 'Cart Details',
-				'new_item'           => 'New Cart',
-				'view'               => 'View Cart',
-				'view_item'          => 'View Cart',
-				'search_items'       => 'Search Carts',
-				'not_found'          => 'No Carts Found',
-				'not_found_in_trash' => 'No Carts Found in Trash',
-				'parent'             => 'Parent Cart',
+				'edit'               => __( 'Edit', 'woocommerce_cart_reports' ),
+				'edit_item'          => __( 'Cart Details', 'woocommerce_cart_reports' ),
+				'new_item'           => __( 'New Cart', 'woocommerce_cart_reports' ),
+				'view'               => __( 'View Cart', 'woocommerce_cart_reports' ),
+				'view_item'          => __( 'View Cart', 'woocommerce_cart_reports' ),
+				'search_items'       => __( 'Search Carts', 'woocommerce_cart_reports' ),
+				'not_found'          => __( 'No Carts Found', 'woocommerce_cart_reports' ),
+				'not_found_in_trash' => __( 'No Carts Found in Trash', 'woocommerce_cart_reports' ),
+				'parent'             => __( 'Parent Cart', 'woocommerce_cart_reports' ),
 
-			),
+			],
 			'exclude_from_search' => true,
 			'show_in_menu'        => 'woocommerce',
 			'show_in_nav_menus'   => true,
-			'capabilities'        => array(
+			'capabilities'        => [
 				'create_posts' => false,
-			),
+			],
 			'map_meta_cap'        => true,
-		) );
+		] );
 	}
 
 	// Styling for the custom post type icon
@@ -147,7 +157,7 @@ if ( is_woocommerce_active() ) {
 	add_action( 'init', 'cart_add_type_init' );
 
 	if ( ! function_exists( 'is_woocommerce_active' ) ) {
-		require_once  'woo-includes/woo-functions.php' ;
+		require_once 'woo-includes/woo-functions.php';
 	}
 
 	register_activation_hook( __FILE__, 'woocommerce_abandoned_carts_activate' );
@@ -227,7 +237,7 @@ if ( is_woocommerce_active() ) {
 
 			$woocommerce_cart_reports_options['timeout'] = get_option( 'wc_cart_reports_timeout' );
 
-			add_action( 'woocommerce_cart_reset', array( $this, 'woocommerce_scheduled_cart_reset' ) );
+			add_action( 'woocommerce_cart_reset', [ $this, 'woocommerce_scheduled_cart_reset' ] );
 			/* Product Index */
 
 			$productsindex = get_option( 'wc_cart_reports_productsindex' );
@@ -303,10 +313,10 @@ if ( is_woocommerce_active() ) {
 
 			$this->receipt = new AV8_Cart_Receipt( $session );
 
-			add_action( 'woocommerce_checkout_update_order_review', array( $this, 'save_from_ajax' ) );
-			add_action( 'woocommerce_cart_updated', array( $this, 'save_receipt' ) );
-			add_action( 'woocommerce_created_customer', array( $this, 'save_user_id' ) );
-			add_action( 'woocommerce_new_order', array( $this, 'save_order_id' ) );
+			add_action( 'woocommerce_checkout_update_order_review', [ $this, 'save_from_ajax' ] );
+			add_action( 'woocommerce_cart_updated', [ $this, 'save_receipt' ] );
+			add_action( 'woocommerce_created_customer', [ $this, 'save_user_id' ] );
+			add_action( 'woocommerce_new_order', [ $this, 'save_order_id' ] );
 
 			if ( is_admin() ) {
 				$Edit_Interface = new AV8_Edit_Interface();
@@ -357,6 +367,8 @@ if ( is_woocommerce_active() ) {
 				$receipt = new AV8_Cart_Receipt( $session );
 				$receipt->set_owner( $person );
 				$receipt->set_products( $woocommerce ); //Grab products from woocommerce global object
+				$receipt->set_subtotal();
+				$receipt->set_total();
 				$receipt->save_receipt(); //Save the object to the database
 			}
 		}
@@ -391,7 +403,7 @@ if ( is_woocommerce_active() ) {
 			$billing_phone     = ( isset( $data_array['billing_phone'] ) ) ? $data_array['billing_phone'] : '';
 			$billing_email     = ( isset( $data_array['billing_email'] ) ) ? $data_array['billing_email'] : 'test@test.com';
 
-			$save_arr = array(
+			$save_arr = [
 				'billing_first_name' => $billing_first_name,
 				'billing_last_name'  => $billing_last_name,
 				'billing_company'    => $billing_company,
@@ -402,7 +414,7 @@ if ( is_woocommerce_active() ) {
 				'billing_zip'        => $billing_zip,
 				'billing_phone'      => $billing_phone,
 				'billing_email'      => $billing_email
-			);
+			];
 
 
 			if ( function_exists( 'get_product' ) ) {
@@ -417,7 +429,6 @@ if ( is_woocommerce_active() ) {
 			if ( $id > 0 && $id != '' ) {
 				update_post_meta( $id, '_customer_data', $save_arr );
 			}
-
 			//FIND current ticket id, if it exists...
 		}
 
@@ -481,7 +492,7 @@ if ( is_woocommerce_active() ) {
 		//meta_value is the cart type you'd like to count
 		global $wpdb;
 
-		$args = array(
+		$args = [
 			'numberposts'      => - 1,
 			'offset'           => 0,
 			'orderby'          => 'post_date',
@@ -490,15 +501,15 @@ if ( is_woocommerce_active() ) {
 			'post_status'      => 'publish',
 			'suppress_filters' => false,
 
-			'tax_query' => array(
-				array(
+			'tax_query' => [
+				[
 					'taxonomy' => 'shop_cart_status',
 					'terms'    => 'open',
 					'field'    => 'slug',
 					'operator' => 'IN'
-				)
-			)
-		);
+				]
+			]
+		];
 
 		if ( $range ) {
 			add_filter( 'posts_where', 'dashboard_stats_where_abandoned_range' );
@@ -512,7 +523,7 @@ if ( is_woocommerce_active() ) {
 			remove_filter( 'posts_where', 'dashboard_stats_where_abandoned_lifetime' );
 		}
 
-		$args = array(
+		$args = [
 			'numberposts'      => - 1,
 			'offset'           => 0,
 			'orderby'          => 'post_date',
@@ -521,22 +532,22 @@ if ( is_woocommerce_active() ) {
 			'post_status'      => 'publish',
 			'suppress_filters' => false,
 
-			'tax_query' => array(
-				array(
+			'tax_query' => [
+				[
 					'taxonomy' => 'shop_cart_status',
 					'terms'    => 'open',
 					'field'    => 'slug',
 					'operator' => 'IN'
-				)
-			)
+				]
+			]
 
-		);
+		];
 
 		add_filter( 'posts_where', 'dashboard_stats_where_open' );
 		$open = count( get_posts( $args ) );
 		remove_filter( 'posts_where', 'dashboard_stats_where_open' );
 
-		$args = array(
+		$args = [
 			'numberposts'      => - 1,
 			'offset'           => 0,
 			'orderby'          => 'post_date',
@@ -545,15 +556,15 @@ if ( is_woocommerce_active() ) {
 			'post_status'      => 'publish',
 			'suppress_filters' => false,
 
-			'tax_query' => array(
-				array(
+			'tax_query' => [
+				[
 					'taxonomy' => 'shop_cart_status',
 					'terms'    => 'converted',
 					'field'    => 'slug',
 					'operator' => 'IN'
-				)
-			)
-		);
+				]
+			]
+		];
 
 		if ( $range ) {
 			add_filter( 'posts_where', 'dashboard_stats_where_converted' );
@@ -563,7 +574,7 @@ if ( is_woocommerce_active() ) {
 			remove_filter( 'posts_where', 'dashboard_stats_where_converted' );
 		}
 
-		$vals = array( 'Converted' => $converted, 'Abandoned' => $abandoned, 'Open' => $open );
+		$vals = [ 'Converted' => $converted, 'Abandoned' => $abandoned, 'Open' => $open ];
 
 		return $vals;
 	}
@@ -650,8 +661,7 @@ if ( is_woocommerce_active() ) {
  */
 function av8_tooltip( $text, $print = true ) {
 	global $woocommerce;
-	$disp = '<img class="help_tip" data-tip="' . $text . '" src="' . $woocommerce->plugin_url(
-		) . '/assets/images/help.png" />';
+	$disp = '<img class="help_tip" data-tip="' . $text . '" src="' . $woocommerce->plugin_url() . '/assets/images/help.png" />';
 	if ( $print ) {
 		echo $disp;
 	} else {
@@ -670,15 +680,15 @@ function woocommerce_json_search_customers_carts() {
 
 	$default = isset( $_GET['default'] ) ? $_GET['default'] : __( 'Guest', 'woocommerce' );
 
-	$found_customers = array( '' => $default );
+	$found_customers = [ '' => $default ];
 
 	$customers_query = new WP_User_Query(
-		array(
-			'fields' => 'all',
-			'orderby' => 'display_name',
-			'search' => '*' . $term . '*',
-			'search_columns' => array( 'ID', 'user_login', 'user_email', 'user_nicename' )
-		)
+		[
+			'fields'         => 'all',
+			'orderby'        => 'display_name',
+			'search'         => '*' . $term . '*',
+			'search_columns' => [ 'ID', 'user_login', 'user_email', 'user_nicename' ]
+		]
 	);
 
 	$customers = $customers_query->get_results();
@@ -712,7 +722,7 @@ function get_session_cookie_carts() {
 		}
 
 		if ( isset( $_COOKIE[ $cookieid ] ) && $_COOKIE[ $cookieid ] != false ) {
-			list( $customer_id, $session_expiration, $session_expiring, $cookie_hash ) = explode(
+			[ $customer_id, $session_expiration, $session_expiring, $cookie_hash ] = explode(
 				'||',
 				$_COOKIE[ $cookieid ]
 			);

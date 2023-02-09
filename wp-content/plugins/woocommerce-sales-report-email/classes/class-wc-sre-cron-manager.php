@@ -20,6 +20,7 @@ class WC_SRE_Cron_Manager {
 
 	/**
 	 * Setup the Cron.
+	 *
 	 * @access public
 	 * @since  1.0.0
 	 */
@@ -29,7 +30,7 @@ class WC_SRE_Cron_Manager {
 		if ( ! wp_next_scheduled( self::CRON_HOOK ) ) {
 
 			$send_time = WC_SRE_Options::get_send_time();
-			
+
 			// Create a Date Time object when the cron should run for the first time.
 			$first_cron = new DateTime( date( 'Y-m-d' ) . $send_time . ':00', new DateTimeZone( wc_timezone_string() ) );
 			$first_cron->modify( '+1 day' );

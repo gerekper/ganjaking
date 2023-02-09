@@ -277,8 +277,11 @@ class WC_Help_Scout_My_Account extends WC_Integration {
 		$customers_url_by_id = $this->api_url . 'customers/' . $customer_id;
 
 		$search_customers = wp_safe_remote_get( $customers_url_by_id, $params );
+		if ( is_wp_error( $search_customers ) || 200 != $search_customers['response']['code'] ) {
+			return $customer_id;
+		}
 		$search_customers_data = json_decode( $search_customers['body'], true );
-
+		
 		// Get Customer phone number id stored in helpscut.
 		if ( isset( $search_customers_data['_embedded']['phones'][0]['id'] ) ) {
 			$phone = $search_customers_data['_embedded']['phones'][0]['id'];
@@ -349,14 +352,27 @@ class WC_Help_Scout_My_Account extends WC_Integration {
 			);
 		}
 		if ( isset( $email ) ) {
+
+			/**
+			* Action for woocommerce_help_scout_customer_args.
+			*
+			* @since  1.3.4
+			*/
 			$customer_data = apply_filters( 'woocommerce_help_scout_customer_args', $customer_data, $user_id, $email );
 		} else {
 			$email = '';
+
+			/**
+			* Action for woocommerce_help_scout_customer_args.
+			*
+			* @since  1.3.4
+			*/
 			$customer_data = apply_filters( 'woocommerce_help_scout_customer_args', $customer_data, $user_id, $email );
 		}
 
 		$params['method'] = 'PATCH';
 		$params['body']   = stripslashes( json_encode( $customer_data ) );
+
 		$update_customer = wp_safe_remote_post( $customers_url_by_id, $params );
 
 		if ( 'yes' == $this->debug ) {
@@ -434,6 +450,11 @@ class WC_Help_Scout_My_Account extends WC_Integration {
 			);
 		}
 
+		/**
+		* Action for woocommerce_help_scout_customer_args.
+		*
+		* @since  1.3.4
+		*/
 		$customer_data = apply_filters( 'woocommerce_help_scout_customer_args', $customer_data, $user_id, $user_email );
 		$params['method'] = 'POST';
 		$params['body']   = json_encode( $customer_data );

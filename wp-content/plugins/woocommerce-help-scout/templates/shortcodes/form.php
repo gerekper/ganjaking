@@ -12,7 +12,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div class="woocommerce">
 	<form method="post" id="wc-help-scout-conversation-form-<?php echo esc_textarea( $counter ); ?>" class="wc-help-scout-conversation-form" data-inc="<?php echo esc_textarea( $counter ); ?>" enctype="multipart/form-data">
-		<?php do_action( 'woocommerce_help_scout_shortcode_conversation_form_start' ); ?>
+		<?php 
+			/**
+			* Action for woocommerce_help_scout_customer_args.
+			*
+			* @since  1.3.4
+			*/
+			do_action( 'woocommerce_help_scout_shortcode_conversation_form_start' ); 
+		?>
 
 		<?php if ( ! empty( $orders_list ) ) : ?>
 			<p class="form-row form-row-wide">
@@ -51,12 +58,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="input-images-<?php echo esc_textarea( $counter ); ?>" style="padding-top: .5rem;"></div>
 		</div>
 		<br>
-		<?php do_action( 'woocommerce_help_scout_shortcode_conversation_form' ); ?>
+		<?php 
+			/**
+			* Action for woocommerce_help_scout_customer_args.
+			*
+			* @since  1.3.4
+			*/
+			do_action( 'woocommerce_help_scout_shortcode_conversation_form' ); 
+		?>
 
 		<p class="form-row">
 			<input type="submit" class="button" name="conversation_send" value="<?php esc_html_e( 'Send', 'woocommerce-help-scout' ); ?>" />
 		</p>
 
-		<?php do_action( 'woocommerce_help_scout_shortcode_conversation_form_end' ); ?>
+		<?php 
+			/**
+			* Action for woocommerce_help_scout_customer_args.
+			*
+			* @since  1.3.4
+			*/
+			do_action( 'woocommerce_help_scout_shortcode_conversation_form_end' ); 
+		?>
 	</form>
 </div>

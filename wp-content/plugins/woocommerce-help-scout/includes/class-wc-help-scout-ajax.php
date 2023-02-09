@@ -181,6 +181,12 @@ class WC_Help_Scout_Ajax {
 			);
 		}
 
+
+		/**
+		 * Action for woocommerce_help_scout_create_conversation_ajax.
+		 *
+		 * @since  1.3.4
+		 */
 		do_action( 'woocommerce_help_scout_create_conversation_ajax' );
 
 		if ( 0 < $order_id ) {
@@ -238,6 +244,23 @@ class WC_Help_Scout_Ajax {
 	 * @return string JSON data.
 	 */
 	public function get_conversation() {
+
+		// Get the conversation data.
+		$integration = new WC_Help_Scout_Integration();
+		// return if Authrorization has failed.
+		if ( ! $integration->check_authorization_still_valid() ) {
+			if ( wp_doing_ajax() ) {
+				wp_send_json(
+					array(
+						'threads' => array(),
+						'subject' => '',
+						'error' => __( 'Invalid Authorization! <br/>Please re-validate plugin with your helpscout account from settings.', 'woocommerce-help-scout' ),
+					)
+				);
+			}
+			return false;
+		}
+		
 		if ( ! check_ajax_referer( 'woocommerce_help_scout_ajax', 'security', false ) ) {
 			wp_send_json(
 				array(
@@ -248,20 +271,7 @@ class WC_Help_Scout_Ajax {
 			);
 			exit;
 		}
-
-		// Get the conversation data.
-		$integration = new WC_Help_Scout_Integration();
-		// return if Authrorization has failed.
-		if ( ! $integration->check_authorization_still_valid() ) {
-			wp_send_json(
-				array(
-					'threads' => array(),
-					'subject' => '',
-					'error' => __( 'Invalid Authorization! <br/>Please re-validate plugin with your helpscout account from settings.', 'woocommerce-help-scout' ),
-				)
-			);
-			return false;
-		}
+		
 		// Sets the conversation params.
 		$conversation_id = isset( $_GET['conversation_id'] ) ? intval( $_GET['conversation_id'] ) : 0;
 

@@ -88,6 +88,8 @@ jQuery(document).ready(function($){
 	/* Add/remove products with button element or a tags */
 	$( '#opc-product-selection button.single_add_to_cart_button, .wcopc-product-single button.single_add_to_cart_button' ).on( 'click', function(e) {
 
+		e.preventDefault();
+
 		var is_variable    = $(this).closest( '.variations_form' ).find( 'input[name="variation_id"]' ).length === 1,
 			is_grouped     = $(this).siblings( '.group_table' ).length >= 1,
 			add_to_cart_id = $(this).closest( '.cart' ).find( '[name="add-to-cart"]' ).val(),
@@ -98,7 +100,12 @@ jQuery(document).ready(function($){
 				input_data:   $(this).closest( '.product-quantity, .wcopc-product-single form' ).find( 'input[name!="variation_id"][name!="product_id"][name!="add-to-cart"][name!="quantity"], select, textarea' ).serialize(),
 			},
 			selectors = '#opc-product-selection button.single_add_to_cart_button, .wcopc-product-single button.single_add_to_cart_button';
-
+		
+		// Do not attempt the ajax call if the add to cart product ID is undefined.
+		if ( 'undefined' === typeof add_to_cart_id ) {
+			return;
+		}
+		
 		if ( is_grouped ) {
 
 			data.add_to_cart = [];

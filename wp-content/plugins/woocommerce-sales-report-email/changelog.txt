@@ -1,5 +1,14 @@
 *** WooCommerce Sales Report Email ***
 
+2023-02-01 - version 1.2.0
+* Feature - Added compatibility with WooCommerce High-Performance Order Storage (HPOS).
+* Tweak - Added links to the plugin settings, the documentation page, and to get support, in the plugin list.
+* Tweak - Updated plugin author.
+* Tweak - Tested compatibility up to WC 7.3.
+* Tweak - Tested compatibility with WP 6.1.
+* Dev - Implement the singleton pattern in the main plugin class.
+* Dev - Updated the minimum requirements to WC 3.5, WP 4.7, and PHP 5.4.
+
 2022-09-02 - version 1.1.28
 * Dev - Add branch-labels GH workflow.
 * Dev - GH release config and the new PR template.

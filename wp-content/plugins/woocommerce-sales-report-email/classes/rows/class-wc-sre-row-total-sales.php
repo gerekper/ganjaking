@@ -1,6 +1,6 @@
 <?php
 
-if ( !defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
 
@@ -25,24 +25,22 @@ class WC_SRE_Row_Total_Sales extends WC_SRE_Report_Row {
 	 * @since  1.0.0
 	 */
 	public function prepare() {
+		$orders_ids = wc_get_orders(
+			array(
+				'type'         => 'shop_order',
+				'return'       => 'ids',
+				'limit'        => -1,
+				'status'       => array( 'completed', 'processing', 'on-hold' ),
+				'date_created' => $this->get_date_range()->get_start_date()->getTimestamp() . '...' . $this->get_date_range()->get_end_date()->getTimestamp(),
+			)
+		);
 
-		// Create a Report Manager object
-		$report_manager = new WC_SRE_Report_Manager( $this->get_date_range() );
+		$total_sales = 0.0;
+		foreach ( $orders_ids as $order_id ) {
+			$order        = wc_get_order( $order_id );
+			$total_sales += $order->get_total();
+		}
 
-		// Get the total sales
-		$total_sales = $report_manager->get_order_report_data( array(
-			'data'         => array(
-				'_order_total' => array(
-					'type'     => 'meta',
-					'function' => 'SUM',
-					'name'     => 'total_sales'
-				),
-			),
-			'query_type'   => 'get_var',
-			'filter_range' => true
-		) );
-
-		// Set the value
 		$this->set_value( wc_price( $total_sales ) );
 	}
 

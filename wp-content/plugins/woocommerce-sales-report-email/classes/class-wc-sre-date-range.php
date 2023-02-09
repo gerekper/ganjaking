@@ -10,12 +10,14 @@ class WC_SRE_Date_Range {
 
 	/**
 	 * The start date
+	 *
 	 * @var DateTime
 	 */
 	private $start_date;
 
 	/**
 	 * The end date
+	 *
 	 * @var DateTime
 	 */
 	private $end_date;

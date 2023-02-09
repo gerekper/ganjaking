@@ -1680,7 +1680,7 @@ S2.define('selectSW/selection/single',[
     var $rendered = this.$selection.find('.select2-selection__rendered');
     var formatted = Utils.entityDecode(this.display(selection, $rendered));
 
-    $rendered.empty().append(formatted);
+    $rendered.empty().text(formatted);
 
     var title = selection.title || selection.text;
 
@@ -3640,7 +3640,7 @@ S2.define('selectSW/data/ajax',[
 
         if (self.options.get('debug') && window.console && console.error) {
           // Check to make sure that the response included a `results` key.
-          if (!results || !results.results || !$.isArray(results.results)) {
+          if (!results || !results.results || !Array.isArray(results.results)) {
             console.error(
               'Select2: The AJAX results did not return an array in the ' +
               '`results` key of the response.'
@@ -3699,7 +3699,7 @@ S2.define('selectSW/data/tags',[
 
     decorated.call(this, $element, options);
 
-    if ($.isArray(tags)) {
+    if (Array.isArray(tags)) {
       for (var t = 0; t < tags.length; t++) {
         var tag = tags[t];
         var item = this._normalizeItem(tag);
@@ -5147,7 +5147,7 @@ S2.define('selectSW/defaults',[
 
     var languages;
 
-    if (!$.isArray(language)) {
+    if (!Array.isArray(language)) {
       languages = [language];
     } else {
       languages = language;
@@ -5776,7 +5776,7 @@ S2.define('selectSW/core',[
       }
     } else if (mutations.removedNodes && mutations.removedNodes.length > 0) {
       changed = true;
-    } else if ($.isArray(mutations)) {
+    } else if (Array.isArray(mutations)) {
       $.each(mutations, function(evt, mutation) {
         if (self._isChangeMutation(evt, mutation)) {
           // We've found a change mutation.
@@ -5962,7 +5962,7 @@ S2.define('selectSW/core',[
 
     var newVal = args[0];
 
-    if ($.isArray(newVal)) {
+    if (Array.isArray(newVal)) {
       newVal = $.map(newVal, function (obj) {
         return obj.toString();
       });

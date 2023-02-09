@@ -1,5 +1,9 @@
 *** WooCommerce One Page Checkout Changelog ***
 
+2023-01-31 - version 2.1.0
+* Fix - Prevent ajax call if the add to cart ID cannot be found.
+* Tweak - WC 7.3.0 compatibility.
+
 2023-01-25 - version 2.0.0
 * Fix - Escape and sanitizing bugfixes.
 

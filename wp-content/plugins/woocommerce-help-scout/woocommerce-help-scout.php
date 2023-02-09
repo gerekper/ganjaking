@@ -3,13 +3,13 @@
  * Plugin Name: WooCommerce Help Scout
  * Plugin URI: https://woocommerce.com/products/woocommerce-help-scout/
  * Description: A Help Scout integration plugin for WooCommerce.
- * Version: 3.4
+ * Version: 3.8.0
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text Domain: woocommerce-help-scout
  * Domain Path: /languages
  * Woo: 395318:1f5df97b2bc60cdb3951b72387ec2e28
- * WC tested up to: 6.3
+ * WC tested up to: 7.3
  * WC requires at least: 2.6
  *
  * Copyright (c) 2018 WooCommerce.
@@ -119,6 +119,15 @@ if ( ! class_exists( 'WC_Help_Scout' ) ) :
 		/**
 		 * Function get_woo_data_endpoint.
 		 */
+		public function wc_helpscout_check_permission() {
+			return true;
+		}
+
+
+
+		/**
+		 * Function get_woo_data_endpoint.
+		 */
 		public function get_woo_data_endpoint() {
 			register_rest_route(
 				'helpscout/v1',
@@ -126,7 +135,7 @@ if ( ! class_exists( 'WC_Help_Scout' ) ) :
 				array(
 					'methods' => 'POST',
 					'callback' => array( $this, 'get_woo_data_function' ),
-					'permission_callback' => '__return_true',
+					'permission_callback' => 'wc_helpscout_check_permission',
 				)
 			);
 		}
@@ -501,6 +510,11 @@ if ( ! class_exists( 'WC_Help_Scout' ) ) :
 				return $customer_data;
 			}
 
+			/**
+			* Action for woocommerce_help_scout_api_response.
+			*
+			* @since  1.3.4
+			*/
 			return array( 'customer' => apply_filters( 'woocommerce_help_scout_api_response', $customer_data, $customer_id, $customer_email, $orders, '' ) );
 		}
 
@@ -702,6 +716,11 @@ if ( ! class_exists( 'WC_Help_Scout' ) ) :
 
 			$customer_data['purchased_products'] = $purchased_products;
 
+			/**
+			* Action for woocommerce_help_scout_customer_data.
+			*
+			* @since  1.3.4
+			*/
 			return apply_filters( 'woocommerce_help_scout_customer_data', $customer_data );
 		}
 

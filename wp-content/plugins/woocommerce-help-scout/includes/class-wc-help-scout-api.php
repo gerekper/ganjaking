@@ -68,6 +68,11 @@ class WC_Help_Scout_API extends WC_API_Resource {
 			return $customer_data;
 		}
 
+		/**
+		 * Action for woocommerce_help_scout_api_response.
+		 *
+		 * @since  1.3.4
+		 */
 		return array( 'customer' => apply_filters( 'woocommerce_help_scout_api_response', $customer_data, $customer_id, $customer_email, $orders, $this->server ) );
 	}
 
@@ -281,12 +286,24 @@ class WC_Help_Scout_API extends WC_API_Resource {
 			)
 		);
 
+		
+		/**
+		 * Action for woocommerce_help_scout_api_response.
+		 *
+		 * @since  1.3.4
+		 */
 		foreach ( $products_query as $item ) {
 			$purchased_products[] = $item->order_item_name;
 		}
 
 		$customer_data['purchased_products'] = $purchased_products;
 
+		
+		/**
+		 * Action for woocommerce_help_scout_customer_data.
+		 *
+		 * @since  1.3.4
+		 */
 		return apply_filters( 'woocommerce_help_scout_customer_data', $customer_data );
 	}
 

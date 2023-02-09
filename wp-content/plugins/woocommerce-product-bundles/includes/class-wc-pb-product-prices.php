@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Price functions and hooks.
  *
  * @class    WC_PB_Product_Prices
- * @version  6.13.2
+ * @version  6.17.4
  */
 class WC_PB_Product_Prices {
 
@@ -559,7 +559,9 @@ class WC_PB_Product_Prices {
 				$offset_price_pct = ! empty( $product->bundled_price_offset_pct ) && is_array( $product->bundled_price_offset_pct ) ? $product->bundled_price_offset_pct : false;
 
 				if ( false === $bundled_item->is_discount_allowed_on_sale_price() ) {
+					do_action( 'woocommerce_bundled_item_get_unfiltered_regular_price_start' );
 					$regular_price = $product->get_regular_price();
+					do_action( 'woocommerce_bundled_item_get_unfiltered_regular_price_end' );
 				} else {
 					$regular_price = $price;
 				}

@@ -3,8 +3,8 @@ Contributors:nik00726
 Tags:Recaptcha
 Requires at least:3.0
 Tested up to:6.1
-Version:2.39
-Stable tag:2.39
+Version:2.40
+Stable tag:2.40
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -57,6 +57,8 @@ Protect your eCommerce site with google recptcha.
 
 19.Bypass reCAPTCHA (do not show captcha) using IP or IP-Range for specific clients/users
 
+20.Captcha For Jetpack Forms
+
 
 
 
@@ -88,6 +90,13 @@ This plugin is easy to install like other plug-ins of Wordpress as you need to j
 
 
 == Changelog ==
+
+= 2.40 =
+
+* New feature jetpack forms captcha
+* Fixed order track captcha not working with new WooCommerce
+* Improvements on jquery functions
+
 
 = 2.39 =
 

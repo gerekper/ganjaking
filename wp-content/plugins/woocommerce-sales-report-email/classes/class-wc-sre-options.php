@@ -18,7 +18,15 @@ class WC_SRE_Options {
 	 * @return array
 	 */
 	private static function get_options() {
-		return wp_parse_args( get_option( self::OPTION_NAME, array() ), array( 'enabled' => 'yes', 'recipients' => '', 'interval' => 'weekly', 'send_time' => '03:00' ) );
+		return wp_parse_args(
+			get_option( self::OPTION_NAME, array() ),
+			array(
+				'enabled'    => 'yes',
+				'recipients' => '',
+				'interval'   => 'weekly',
+				'send_time'  => '03:00',
+			)
+		);
 	}
 
 	/**
@@ -110,7 +118,7 @@ class WC_SRE_Options {
 		 * @api string $send_time The time the email is sent, example values: '14:15'.
 		 */
 
-		return apply_filters( 'wc_sales_report_email_send_time', $sre_options[ 'send_time' ] );
+		return apply_filters( 'wc_sales_report_email_send_time', $sre_options['send_time'] );
 	}
 
 }

@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Product Bundles
 * Plugin URI: https://woocommerce.com/products/product-bundles/
 * Description: Offer product bundles, bulk discount packages, and assembled products.
-* Version: 6.17.1
+* Version: 6.17.4
 * Author: WooCommerce
 * Author URI: https://somewherewarm.com/
 *
@@ -33,11 +33,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Main plugin class.
  *
  * @class    WC_Bundles
- * @version  6.17.1
+ * @version  6.17.4
  */
 class WC_Bundles {
 
-	public $version  = '6.17.1';
+	public $version  = '6.17.4';
 	public $required = '3.9.0';
 
 	/**
@@ -375,6 +375,8 @@ class WC_Bundles {
 	 */
 	public function load_translation() {
 		load_plugin_textdomain( 'woocommerce-product-bundles', false, dirname( $this->plugin_basename() ) . '/languages/' );
+		// Subscribe to automated translations.
+		add_filter( 'woocommerce_translations_updates_for_' . basename( __FILE__, '.php' ), '__return_true' );
 	}
 
 	/**

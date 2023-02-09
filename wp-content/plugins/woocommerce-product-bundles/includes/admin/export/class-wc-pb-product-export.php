@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * WooCommerce core Product Exporter support.
  *
  * @class    WC_PB_Product_Export
- * @version  6.11.0
+ * @version  6.17.4
  */
 class WC_PB_Product_Export {
 
@@ -33,6 +33,7 @@ class WC_PB_Product_Export {
 		add_filter( 'woocommerce_product_export_product_column_wc_pb_min_bundle_size', array( __CLASS__, 'export_min_bundle_size' ), 10, 2 );
 		add_filter( 'woocommerce_product_export_product_column_wc_pb_max_bundle_size', array( __CLASS__, 'export_max_bundle_size' ), 10, 2 );
 		add_filter( 'woocommerce_product_export_product_column_wc_pb_virtual_bundle', array( __CLASS__, 'export_virtual_bundle' ), 10, 2 );
+		add_filter( 'woocommerce_product_export_product_column_wc_pb_aggregate_weight', array( __CLASS__, 'export_aggregate_weight' ), 10, 2 );
 		add_filter( 'woocommerce_product_export_product_column_wc_pb_layout', array( __CLASS__, 'export_layout' ), 10, 2 );
 		add_filter( 'woocommerce_product_export_product_column_wc_pb_group_mode', array( __CLASS__, 'export_group_mode' ), 10, 2 );
 		add_filter( 'woocommerce_product_export_product_column_wc_pb_editable_in_cart', array( __CLASS__, 'export_editable_in_cart' ), 10, 2 );
@@ -55,6 +56,7 @@ class WC_PB_Product_Export {
 		$columns[ 'wc_pb_min_bundle_size' ]           = __( 'Min Bundle Size', 'woocommerce-product-bundles' );
 		$columns[ 'wc_pb_max_bundle_size' ]           = __( 'Max Bundle Size', 'woocommerce-product-bundles' );
 		$columns[ 'wc_pb_virtual_bundle' ]            = __( 'Bundle Contents Virtual', 'woocommerce-product-bundles' );
+		$columns[ 'wc_pb_aggregate_weight' ]          = __( 'Bundle Aggregate Weight', 'woocommerce-product-bundles' );
 		$columns[ 'wc_pb_layout' ]                    = __( 'Bundle Layout', 'woocommerce-product-bundles' );
 		$columns[ 'wc_pb_group_mode' ]                = __( 'Bundle Group Mode', 'woocommerce-product-bundles' );
 		$columns[ 'wc_pb_editable_in_cart' ]          = __( 'Bundle Cart Editing', 'woocommerce-product-bundles' );
@@ -162,6 +164,22 @@ class WC_PB_Product_Export {
 
 		if ( $product->is_type( 'bundle' ) ) {
 			$value = $product->get_virtual_bundle( 'edit' ) ? 1 : 0;
+		}
+
+		return $value;
+	}
+
+	/**
+	 * "Bundle Aggregate Weight" column content.
+	 *
+	 * @param  mixed       $value
+	 * @param  WC_Product  $product
+	 * @return mixed       $value
+	 */
+	public static function export_aggregate_weight( $value, $product ) {
+
+		if ( $product->is_type( 'bundle' ) ) {
+			$value = $product->get_aggregate_weight() ? 1 : 0;
 		}
 
 		return $value;

@@ -1,6 +1,6 @@
 <?php
 
-if ( !defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 } // Exit if accessed directly
 
@@ -25,32 +25,21 @@ class WC_SRE_Row_Total_Items extends WC_SRE_Report_Row {
 	 * @since  1.0.0
 	 */
 	public function prepare() {
+		$orders_ids = wc_get_orders(
+			array(
+				'type'         => 'shop_order',
+				'return'       => 'ids',
+				'limit'        => -1,
+				'status'       => array( 'completed', 'processing', 'on-hold' ),
+				'date_created' => $this->get_date_range()->get_start_date()->getTimestamp() . '...' . $this->get_date_range()->get_end_date()->getTimestamp(),
+			)
+		);
 
-		// Create a Report Manager object
-		$report_manager = new WC_SRE_Report_Manager( $this->get_date_range() );
-
-		// Set the default order types
-		$order_types = array( 'shop_order' );
-
-		// wc_get_order_types() is a 2.2+ function
-		if ( function_exists( 'wc_get_order_types' ) ) {
-			$order_types = wc_get_order_types( 'order-count' );
+		$total_items = 0;
+		foreach ( $orders_ids as $order_id ) {
+			$order        = wc_get_order( $order_id );
+			$total_items += $order->get_item_count();
 		}
-
-		// Get the total orders count
-		$total_items = absint( $report_manager->get_order_report_data( array(
-			'data'         => array(
-				'_qty' => array(
-					'type'            => 'order_item_meta',
-					'order_item_type' => 'line_item',
-					'function'        => 'SUM',
-					'name'            => 'order_item_qty'
-				)
-			),
-			'query_type'   => 'get_var',
-			'order_types'  => $order_types,
-			'filter_range' => true,
-		) ) );
 
 		$this->set_value( $total_items );
 	}

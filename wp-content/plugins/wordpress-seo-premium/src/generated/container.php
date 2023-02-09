@@ -57,6 +57,7 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\helpers\\redirect_helper' => 'Yoast\\WP\\SEO\\Helpers\\Redirect_Helper',
             'yoast\\wp\\seo\\helpers\\request_helper' => 'Yoast\\WP\\SEO\\Helpers\\Request_Helper',
             'yoast\\wp\\seo\\helpers\\robots_helper' => 'Yoast\\WP\\SEO\\Helpers\\Robots_Helper',
+            'yoast\\wp\\seo\\helpers\\social_profiles_helper' => 'Yoast\\WP\\SEO\\Helpers\\Social_Profiles_Helper',
             'yoast\\wp\\seo\\helpers\\url_helper' => 'Yoast\\WP\\SEO\\Helpers\\Url_Helper',
             'yoast\\wp\\seo\\helpers\\wordpress_helper' => 'Yoast\\WP\\SEO\\Helpers\\Wordpress_Helper',
             'yoast\\wp\\seo\\integrations\\blocks\\block_patterns' => 'Yoast\\WP\\SEO\\Integrations\\Blocks\\Block_Patterns',
@@ -71,6 +72,7 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\premium\\actions\\prominent_words\\save_action' => 'Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Save_Action',
             'yoast\\wp\\seo\\premium\\actions\\zapier_action' => 'Yoast\\WP\\SEO\\Premium\\Actions\\Zapier_Action',
             'yoast\\wp\\seo\\premium\\conditionals\\algolia_enabled_conditional' => 'Yoast\\WP\\SEO\\Premium\\Conditionals\\Algolia_Enabled_Conditional',
+            'yoast\\wp\\seo\\premium\\conditionals\\edd_conditional' => 'Yoast\\WP\\SEO\\Premium\\Conditionals\\EDD_Conditional',
             'yoast\\wp\\seo\\premium\\conditionals\\zapier_enabled_conditional' => 'Yoast\\WP\\SEO\\Premium\\Conditionals\\Zapier_Enabled_Conditional',
             'yoast\\wp\\seo\\premium\\config\\badge_group_names' => 'Yoast\\WP\\SEO\\Premium\\Config\\Badge_Group_Names',
             'yoast\\wp\\seo\\premium\\config\\migrations\\addindexonindexableidandstem' => 'Yoast\\WP\\SEO\\Premium\\Config\\Migrations\\AddIndexOnIndexableIdAndStem',
@@ -113,7 +115,9 @@ class Cached_Container extends Container
             'yoast\\wp\\seo\\premium\\integrations\\opengraph_term_archive' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Term_Archive',
             'yoast\\wp\\seo\\premium\\integrations\\routes\\workouts_routes_integration' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Routes\\Workouts_Routes_Integration',
             'yoast\\wp\\seo\\premium\\integrations\\third_party\\algolia' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Algolia',
+            'yoast\\wp\\seo\\premium\\integrations\\third_party\\edd' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\EDD',
             'yoast\\wp\\seo\\premium\\integrations\\third_party\\elementor_premium' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Elementor_Premium',
+            'yoast\\wp\\seo\\premium\\integrations\\third_party\\mastodon' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Mastodon',
             'yoast\\wp\\seo\\premium\\integrations\\third_party\\zapier' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier',
             'yoast\\wp\\seo\\premium\\integrations\\third_party\\zapier_classic_editor' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier_Classic_Editor',
             'yoast\\wp\\seo\\premium\\integrations\\third_party\\zapier_trigger' => 'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier_Trigger',
@@ -175,6 +179,7 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Helpers\\Redirect_Helper' => 'getRedirectHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Request_Helper' => 'getRequestHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Robots_Helper' => 'getRobotsHelperService',
+            'Yoast\\WP\\SEO\\Helpers\\Social_Profiles_Helper' => 'getSocialProfilesHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Url_Helper' => 'getUrlHelperService',
             'Yoast\\WP\\SEO\\Helpers\\Wordpress_Helper' => 'getWordpressHelperService',
             'Yoast\\WP\\SEO\\Integrations\\Blocks\\Block_Patterns' => 'getBlockPatternsService',
@@ -189,6 +194,7 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Premium\\Actions\\Prominent_Words\\Save_Action' => 'getSaveActionService',
             'Yoast\\WP\\SEO\\Premium\\Actions\\Zapier_Action' => 'getZapierActionService',
             'Yoast\\WP\\SEO\\Premium\\Conditionals\\Algolia_Enabled_Conditional' => 'getAlgoliaEnabledConditionalService',
+            'Yoast\\WP\\SEO\\Premium\\Conditionals\\EDD_Conditional' => 'getEDDConditionalService',
             'Yoast\\WP\\SEO\\Premium\\Conditionals\\Zapier_Enabled_Conditional' => 'getZapierEnabledConditionalService',
             'Yoast\\WP\\SEO\\Premium\\Config\\Badge_Group_Names' => 'getBadgeGroupNamesService',
             'Yoast\\WP\\SEO\\Premium\\Config\\Migrations\\AddIndexOnIndexableIdAndStem' => 'getAddIndexOnIndexableIdAndStemService',
@@ -231,7 +237,9 @@ class Cached_Container extends Container
             'Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Term_Archive' => 'getOpenGraphTermArchiveService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Routes\\Workouts_Routes_Integration' => 'getWorkoutsRoutesIntegrationService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Algolia' => 'getAlgoliaService',
+            'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\EDD' => 'getEDDService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Elementor_Premium' => 'getElementorPremiumService',
+            'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Mastodon' => 'getMastodonService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier' => 'getZapierService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier_Classic_Editor' => 'getZapierClassicEditorService',
             'Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier_Trigger' => 'getZapierTriggerService',
@@ -614,6 +622,16 @@ class Cached_Container extends Container
     }
 
     /**
+     * Gets the public 'Yoast\WP\SEO\Helpers\Social_Profiles_Helper' shared service.
+     *
+     * @return \Yoast\WP\SEO\Helpers\Social_Profiles_Helper
+     */
+    protected function getSocialProfilesHelperService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Helpers\\Social_Profiles_Helper'] = \Yoast\WP\Lib\Dependency_Injection\Container_Registry::get('yoast-seo', 'Yoast\\WP\\SEO\\Helpers\\Social_Profiles_Helper');
+    }
+
+    /**
      * Gets the public 'Yoast\WP\SEO\Helpers\Url_Helper' shared service.
      *
      * @return \Yoast\WP\SEO\Helpers\Url_Helper
@@ -722,7 +740,9 @@ class Cached_Container extends Container
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\OpenGraph_Term_Archive');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Routes\\Workouts_Routes_Integration');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Algolia');
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\EDD');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Elementor_Premium');
+        $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Mastodon');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Third_Party\\TranslationsPress');
         $instance->register_integration('Yoast\\WP\\SEO\\Integrations\\Third_Party\\Wincher_Keyphrases');
         $instance->register_integration('Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Zapier_Classic_Editor');
@@ -808,6 +828,16 @@ class Cached_Container extends Container
     protected function getAlgoliaEnabledConditionalService()
     {
         return $this->services['Yoast\\WP\\SEO\\Premium\\Conditionals\\Algolia_Enabled_Conditional'] = new \Yoast\WP\SEO\Premium\Conditionals\Algolia_Enabled_Conditional(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : $this->getOptionsHelperService()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Conditionals\EDD_Conditional' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Conditionals\EDD_Conditional
+     */
+    protected function getEDDConditionalService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Conditionals\\EDD_Conditional'] = new \Yoast\WP\SEO\Premium\Conditionals\EDD_Conditional();
     }
 
     /**
@@ -1231,6 +1261,16 @@ class Cached_Container extends Container
     }
 
     /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Integrations\Third_Party\EDD' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Integrations\Third_Party\EDD
+     */
+    protected function getEDDService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\EDD'] = new \Yoast\WP\SEO\Premium\Integrations\Third_Party\EDD(${($_ = isset($this->services['Yoast\\WP\\SEO\\Surfaces\\Meta_Surface']) ? $this->services['Yoast\\WP\\SEO\\Surfaces\\Meta_Surface'] : $this->getMetaSurfaceService()) && false ?: '_'});
+    }
+
+    /**
      * Gets the public 'Yoast\WP\SEO\Premium\Integrations\Third_Party\Elementor_Premium' shared autowired service.
      *
      * @return \Yoast\WP\SEO\Premium\Integrations\Third_Party\Elementor_Premium
@@ -1238,6 +1278,16 @@ class Cached_Container extends Container
     protected function getElementorPremiumService()
     {
         return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Elementor_Premium'] = new \Yoast\WP\SEO\Premium\Integrations\Third_Party\Elementor_Premium(${($_ = isset($this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper']) ? $this->services['Yoast\\WP\\SEO\\Premium\\Helpers\\Prominent_Words_Helper'] : $this->getProminentWordsHelperService()) && false ?: '_'});
+    }
+
+    /**
+     * Gets the public 'Yoast\WP\SEO\Premium\Integrations\Third_Party\Mastodon' shared autowired service.
+     *
+     * @return \Yoast\WP\SEO\Premium\Integrations\Third_Party\Mastodon
+     */
+    protected function getMastodonService()
+    {
+        return $this->services['Yoast\\WP\\SEO\\Premium\\Integrations\\Third_Party\\Mastodon'] = new \Yoast\WP\SEO\Premium\Integrations\Third_Party\Mastodon(${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Options_Helper'] : $this->getOptionsHelperService()) && false ?: '_'}, ${($_ = isset($this->services['Yoast\\WP\\SEO\\Helpers\\Social_Profiles_Helper']) ? $this->services['Yoast\\WP\\SEO\\Helpers\\Social_Profiles_Helper'] : $this->getSocialProfilesHelperService()) && false ?: '_'});
     }
 
     /**

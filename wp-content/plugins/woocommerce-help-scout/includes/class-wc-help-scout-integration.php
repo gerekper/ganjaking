@@ -445,6 +445,12 @@ class WC_Help_Scout_Integration extends WC_Integration {
 						$first_name = get_user_meta( $user_id, 'first_name', true );
 					}
 
+					
+					/**
+					 * Action for woocommerce_help_scout_customer_args.
+					 *
+					 * @since  1.3.4
+					 */
 					$customer_data = apply_filters( 'woocommerce_help_scout_customer_args', $customer_data, $user_id, $user_email );
 
 					// Searches for an existing client.
@@ -579,7 +585,15 @@ class WC_Help_Scout_Integration extends WC_Integration {
 	 *
 	 * @return array               Customer conversatios.
 	 */
-	public function get_customer_conversations( $customer_id, $page = 1, $status = 'all' ) {
+	public function get_customer_conversations( $customer_id, $page = 1, $status = 'all' ) {	
+
+		$integration = new WC_Help_Scout_Integration();
+		// return if Authrorization has failed.
+		if ( ! $integration->check_authorization_still_valid() ) {
+			return false;
+		}// Get the conversation data.
+		
+
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( $this->id, 'Getting conversations customer ID: ' . $customer_id );
 		}
@@ -620,6 +634,7 @@ class WC_Help_Scout_Integration extends WC_Integration {
 			'count' => 0,
 			'items' => array(),
 		);
+
 	}
 
 	/**
@@ -630,6 +645,23 @@ class WC_Help_Scout_Integration extends WC_Integration {
 	 * @return array                   Conversation details.
 	 */
 	public function get_conversation( $conversation_id ) {
+		
+		// Get the conversation data.
+		$integration = new WC_Help_Scout_Integration();
+		// return if Authrorization has failed.
+		if ( ! $integration->check_authorization_still_valid() ) {
+			if ( wp_doing_ajax() ) {
+			wp_send_json(
+				array(
+					'threads' => array(),
+					'subject' => '',
+					'error' => __( 'Invalid Authorization! <br/>Please re-validate plugin with your helpscout account from settings.', 'woocommerce-help-scout' ),
+				)
+			);
+			}
+			return false;
+		}
+
 		if ( 'yes' === $this->debug ) {
 			$this->log->add( $this->id, 'Getting conversation by ID: ' . $conversation_id );
 		}
@@ -749,7 +781,11 @@ class WC_Help_Scout_Integration extends WC_Integration {
 			}
 		}
 
-		// Add filter to customize the conversation arguments.
+		/**
+		* Action for woocommerce_help_scout_conversation_args.
+		*
+		* @since  1.3.4
+		*/
 		$data = apply_filters( 'woocommerce_help_scout_conversation_args', $data );
 		$data = wp_unslash( $data );
 		$url  = $this->api_url . 'conversations';
@@ -855,7 +891,7 @@ class WC_Help_Scout_Integration extends WC_Integration {
 	 * @param  int    $user_id to get billing first name & last name using $user_id.
 	 * @return string                 Conversation URL.
 	 */
-	public function create_conversation_by_email( $subject, $message, $customer_id = 0, $customer_email, $filedata = '', $user_id = 0 ) {
+	public function create_conversation_by_email( $subject, $message, $customer_id = 0, $customer_email = '', $filedata = '', $user_id = 0 ) {
 		$billing_fname = get_user_meta( $user_id, 'billing_first_name', true );
 		$billing_lname = get_user_meta( $user_id, 'billing_last_name', true );
 		$data = array(
@@ -907,7 +943,11 @@ class WC_Help_Scout_Integration extends WC_Integration {
 			}
 		}
 
-		// Add filter to customize the conversation arguments.
+		/**
+		* Action for woocommerce_help_scout_conversation_args.
+		*
+		* @since  1.3.4
+		*/
 		$data = apply_filters( 'woocommerce_help_scout_conversation_args', $data );
 		$data = wp_unslash( $data );
 		$url  = $this->api_url . 'conversations';
@@ -964,7 +1004,12 @@ class WC_Help_Scout_Integration extends WC_Integration {
 			'mimeType' => $files[0]['type'],
 			'data' => $files[0]['data'],
 		);
-		// Add filter to customize the conversation arguments.
+
+		/**
+		* Action for woocommerce_help_scout_thread_args.
+		*
+		* @since  1.3.4
+		*/
 		$data = apply_filters( 'woocommerce_help_scout_thread_args', $data );
 		$data = wp_unslash( $data );
 		$url  = $this->api_url . 'conversations/' . $conversation_id . '/threads/' . $thread_id . '/attachments';
@@ -1030,7 +1075,12 @@ class WC_Help_Scout_Integration extends WC_Integration {
 				);
 			}
 		}
-		// Add filter to customize the conversation arguments.
+
+		/**
+		* Action for woocommerce_help_scout_thread_args.
+		*
+		* @since  1.3.4
+		*/
 		$data = apply_filters( 'woocommerce_help_scout_thread_args', $data );
 		$data = wp_unslash( $data );
 		// $url  = $this->api_url . 'conversations/' . $conversation_id.'/threads/'.$thread_id.'/attachments' ;.
@@ -1125,7 +1175,11 @@ class WC_Help_Scout_Integration extends WC_Integration {
 			}
 		}
 
-		// Add filter to customize the conversation arguments.
+		/**
+		* Action for woocommerce_help_scout_thread_args.
+		*
+		* @since  1.3.4
+		*/
 		$data = apply_filters( 'woocommerce_help_scout_thread_args', $data );
 		$data = wp_unslash( $data );
 		$url  = $this->api_url . 'conversations/' . $conversation_id . '/customer';
@@ -1177,17 +1231,27 @@ class WC_Help_Scout_Integration extends WC_Integration {
 		echo esc_html( __( 'Order data:', 'woocommerce-help-scout' ) );
 		echo PHP_EOL . PHP_EOL;
 
+		/**
+		* Action for woocommerce_help_scout_conversation_order_data_before.
+		*
+		* @since  1.3.4
+		*/
 		do_action( 'woocommerce_help_scout_conversation_order_data_before', $order );
 
 		// Order meta.
 		/* translators: %s: search tearm */
-		echo sprintf( esc_html( __( 'Order number: %s', 'woocommerce-help-scout' ), $order->get_order_number() ) );
+		echo esc_html(sprintf( esc_html( __( 'Order number: %s', 'woocommerce-help-scout' ) ), $order->get_order_number() ));
 		echo PHP_EOL;
 		$order_date = version_compare( WC_VERSION, '3.0', '<' ) ? $order->order_date : ( $order->get_date_created() ? gmdate( 'Y-m-d H:i:s', $order->get_date_created()->getOffsetTimestamp() ) : '' );
 		/* translators: %s: search tearm */
 		echo sprintf( esc_html( __( 'Order date: %s', 'woocommerce-help-scout' ) ), esc_html( date_i18n( wc_date_format(), strtotime( $order_date ) ) ) );
 		echo PHP_EOL . PHP_EOL;
 
+		/**
+		* Action for woocommerce_help_scout_conversation_order_data_meta.
+		*
+		* @since  1.3.4
+		*/
 		do_action( 'woocommerce_help_scout_conversation_order_data_meta', $order );
 
 		// Products list. (Always plain text).
@@ -1213,6 +1277,11 @@ class WC_Help_Scout_Integration extends WC_Integration {
 			}
 		}
 
+		/**
+		* Action for woocommerce_help_scout_conversation_order_data_after.
+		*
+		* @since  1.3.4
+		*/
 		do_action( 'woocommerce_help_scout_conversation_order_data_after', $order );
 
 		$html = ob_get_clean();
@@ -1311,6 +1380,12 @@ class WC_Help_Scout_Integration extends WC_Integration {
 		$email       = $comment->comment_author_email;
 		/* translators: $s: search tearms */
 		$subject     = sprintf( __( 'Comment in %1$s at %2$s', 'woocommerce-help-scout' ), get_the_title( $post_id ), $comment->comment_date );
+
+		/**
+		* Action for woocommerce_help_scout_conversation_from_comment_subject.
+		*
+		* @since  1.3.4
+		*/
 		$subject     = apply_filters( 'woocommerce_help_scout_conversation_from_comment_subject', $subject, $comment );
 		$description = $comment->comment_content;
 
@@ -1524,7 +1599,7 @@ class WC_Help_Scout_Integration extends WC_Integration {
 				return true;
 		} else {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( $this->id, "Problem with generating API Access Token. Please verify credentials or Retry to generate credenials from Plugin's settings page." );
+				$this->log->add( $this->id, "Problem with generating API Access Token. Please verify credentials or Retry to generate credentials from Plugin's settings page." );
 				return false;
 			}
 		}

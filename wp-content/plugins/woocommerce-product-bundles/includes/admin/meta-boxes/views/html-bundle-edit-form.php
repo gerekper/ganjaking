@@ -16,9 +16,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<th class="bundled_item_col bundled_item_qty_head"><?php _e( 'Quantity', 'woocommerce-product-bundles' ); ?></th>
 	</thead><?php
 
+	// All bundled items (including hidden ones) should be vidible in the order edit page.
+	add_filter( 'woocommerce_bundles_bundled_item_visibility', '__return_true' );
+
 	foreach ( $bundled_items as $bundled_item ) {
 		do_action( 'woocommerce_bundled_item_details', $bundled_item, $product );
 	}
+
+	remove_filter( 'woocommerce_bundles_bundled_item_visibility', '__return_true' );
 
 	?></tbody>
 </table>

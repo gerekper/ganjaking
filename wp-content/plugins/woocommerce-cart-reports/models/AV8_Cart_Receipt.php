@@ -11,7 +11,7 @@ class AV8_Cart_Receipt {
 	public $post_title;
 	public $post_status;
 	public $post_date;
-	public $products;
+	public $products = [];
 	public $sid;
 	public $post_id;
 	public $order;
@@ -21,6 +21,10 @@ class AV8_Cart_Receipt {
 	public $created;
 	public $last_updated;
 	public $last_connected;
+
+	public $subtotal = 0;
+	public $total = 0;
+	public $item_count = 0;
 
 	/**
 	 * Set the $offset variable
@@ -89,29 +93,29 @@ class AV8_Cart_Receipt {
 	}
 
 	public function get_id_from_session( $s ) {
-		$args = array(
+		$args = [
 			'numberposts' => 1,
 			'offset'      => 0,
 			'orderby'     => 'post_date',
 			'order'       => 'DESC',
 			'post_type'   => 'carts',
 			'post_status' => 'publish',
-			'meta_query'  => array(
-				array(
+			'meta_query'  => [
+				[
 					'key'   => 'cart_session_id',
 					'value' => $s,
-				),
-			),
+				],
+			],
 
-			'tax_query' => array(
-				array(
+			'tax_query' => [
+				[
 					'taxonomy' => 'shop_cart_status',
 					'terms'    => 'open',
 					'field'    => 'slug',
 					'operator' => 'IN',
-				),
-			),
-		);
+				],
+			],
+		];
 
 		$carts   = get_posts( $args );
 		$post_id = '';
@@ -124,7 +128,7 @@ class AV8_Cart_Receipt {
 	}
 
 	public function set_products( $woocommerce ) {
-		$products = array();
+		$products = [];
 
 		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 			$_product = apply_filters(
@@ -138,35 +142,23 @@ class AV8_Cart_Receipt {
 				continue;
 			}
 
-			if ( isset( $cart_item['variation_id'] ) ) {
-				$products[] = array(
-					'type'         => 'variation',
-					'product_id'   => $cart_item['product_id'],
-					'variation_id' => $cart_item['variation_id'],
-					'quantity'     => $cart_item['quantity'],
-					'variation'    => $cart_item['variation'],
-					'price'        => apply_filters(
-						'woocommerce_cart_item_price',
-						WC()->cart->get_product_price( $_product ),
-						$cart_item,
-						$cart_item_key
-					),
-				);
-			} elseif ( isset( $cart_item['product_id'] ) ) {
-				$products[] = array(
-					'type'         => 'product',
-					'product_id'   => $cart_item['product_id'],
-					'variation_id' => false,
-					'variation'    => array(),
-					'quantity'     => $cart_item['quantity'],
-					'price'        => apply_filters(
-						'woocommerce_cart_item_price',
-						WC()->cart->get_product_price( $_product ),
-						$cart_item,
-						$cart_item_key
-					),
-				);
-			}
+			$raw_price     = WC()->cart->get_product_price( $_product );
+			$product_price = apply_filters(
+				'woocommerce_cart_item_price',
+				$raw_price,
+				$cart_item,
+				$cart_item_key
+			);
+
+			$products[] = [
+				'type'         => isset( $cart_item['variation_id'] ) ? 'variation' : 'product',
+				'product_id'   => $cart_item['product_id'],
+				'variation_id' => $cart_item['variation_id'] ?? false,
+				'variation'    => $cart_item['variation'] ?? [],
+				'quantity'     => $cart_item['quantity'],
+				'price'        => $product_price,
+				'raw_price'    => $raw_price
+			];
 		}
 
 		if ( WP_DEBUG == true ) {
@@ -174,6 +166,14 @@ class AV8_Cart_Receipt {
 		}
 
 		$this->products = $products;
+	}
+
+	public function set_total() {
+		$this->total = WC()->cart->get_total( false );
+	}
+
+	public function set_subtotal() {
+		$this->subtotal = WC()->cart->get_subtotal();
 	}
 
 	public function set_owner( $owner ) {
@@ -232,6 +232,9 @@ class AV8_Cart_Receipt {
 		$this->created        = get_post_meta( $this->post_id, 'av8_cart_created', true );
 
 		$this->sid = get_post_meta( $this->post_id, 'cart_session_id', true );
+
+		$this->subtotal = get_post_meta( $this->post_id, 'av8_cart_subtotal', true );
+		$this->total    = get_post_meta( $this->post_id, 'av8_cart_total', true );
 	}
 
 	/**
@@ -244,7 +247,7 @@ class AV8_Cart_Receipt {
 	public function save_receipt() {
 
 		// We need to make sure there aren't any conversions from this session in the last 8 seconds
-		$args = array(
+		$args = [
 			'numberposts'      => 1,
 			'offset'           => 0,
 			'orderby'          => 'post_date',
@@ -253,28 +256,28 @@ class AV8_Cart_Receipt {
 			'post_status'      => 'publish',
 			'suppress_filters' => false,
 
-			'meta_query' => array(
-				array(
+			'meta_query' => [
+				[
 					'key'   => 'cart_session_id',
 					'value' => $this->sid,
-				),
-			),
+				],
+			],
 
-			'tax_query' => array(
-				array(
+			'tax_query' => [
+				[
 					'taxonomy' => 'shop_cart_status',
 					'terms'    => 'converted',
 					'field'    => 'slug',
 					'operator' => 'IN',
-				),
-			),
-		);
+				],
+			],
+		];
 
-		add_filter( 'posts_where', array( $this, 'very_recent' ) );
+		add_filter( 'posts_where', [ $this, 'very_recent' ] );
 
 		$carts = get_posts( $args );
 
-		remove_filter( 'posts_where', array( $this, 'very_recent' ) );
+		remove_filter( 'posts_where', [ $this, 'very_recent' ] );
 
 		if ( count( $carts ) > 0 ) {
 			return;
@@ -350,18 +353,20 @@ class AV8_Cart_Receipt {
 		}
 
 		update_post_meta( $this->post_id, 'av8_cartitems', $this->add_titles_to_cart_items( $this->products ) );
-		$post_updated = array(
+		$post_updated = [
 			'ID'          => $this->post_id,
 			'post_title'  => $this->post_title,
 			'post_author' => $this->post_author,
 			'post_date'   => $this->post_date,
 			'post_type'   => 'carts',
 
-		);
+		];
 
 		wp_update_post( $post_updated );
 		update_post_meta( $this->post_id, 'av8_last_updated', time() );
 		update_post_meta( $this->post_id, 'av8_last_updated_date', date( 'Y-m-d H:i:s' ) );
+		update_post_meta( $this->post_id, 'av8_cart_subtotal', $this->subtotal );
+		update_post_meta( $this->post_id, 'av8_cart_total', $this->total );
 	}
 
 	public function set_guest_details( $meta_name = '_customer_data' ) {
@@ -570,11 +575,11 @@ class AV8_Cart_Receipt {
 		if ( WP_DEBUG == true ) {
 			assert( $user_id != 0 && is_int( $user_id ) && $user_id > 0 );
 		}
-		$post_updated = array(
+		$post_updated = [
 			'ID'          => $post_id,
 			'post_author' => $user_id,
 			'post_type'   => 'carts',
-		);
+		];
 
 		wp_update_post( $post_updated );
 	}
@@ -593,11 +598,11 @@ class AV8_Cart_Receipt {
 			'<'
 		) ? ( $order->billing_first_name . ' ' . $order->billing_last_name ) : ( $order->get_billing_first_name() . ' ' . $order->get_billing_last_name() );
 
-		$post_updated = array(
+		$post_updated = [
 			'ID'         => $this->post_id,
 			'post_title' => $post_title,
 			'post_type'  => 'carts',
-		);
+		];
 
 		wp_update_post( $post_updated );
 	}
@@ -638,14 +643,14 @@ class AV8_Cart_Receipt {
 		 * If it's guest, this value will be empty. WordPress doesn't complain,
 		 * so at this point neither do I.
 		 */
-		$post = array(
+		$post = [
 			'post_author'  => $this->post_author,
 			'post_content' => '',
 			'post_status'  => 'publish',
 			'post_title'   => $this->post_title,
 			'post_type'    => 'carts',
 			'post_name'    => $this->generate_cart_slug( $this->post_title, $this->sid ),
-		);
+		];
 
 		$post_id = wp_insert_post( $post );
 
@@ -685,12 +690,15 @@ class AV8_Cart_Receipt {
 		// Initialize the updated time.
 		update_post_meta( $this->post_id, 'av8_last_updated', time() );
 		update_post_meta( $this->post_id, 'av8_last_updated_date', date( 'Y-m-d H:i:s' ) );
+
+		update_post_meta( $this->post_id, 'av8_cart_subtotal', $this->subtotal );
+		update_post_meta( $this->post_id, 'av8_cart_total', $this->total );
 	}
 
 	public function add_titles_to_cart_items( $products ) {
 
 		// Add titles to the attributes in the product array for searching on the index page
-		$newProducts = array();
+		$newProducts = [];
 		foreach ( $products as $product ) {
 			if ( isset( $product['product_id'] ) ) {
 				$product['title'] = get_the_title( $product['product_id'] );
@@ -728,11 +736,11 @@ class AV8_Cart_Receipt {
 				assert( $this->post_date != false && $this->post_id != false && $this->post_date != '' && $this->post_id != '' );
 			}
 
-			$post_updated = array(
+			$post_updated = [
 				'ID'        => $this->post_id,
 				'post_date' => $this->post_date,
 				'post_type' => 'carts',
-			);
+			];
 
 			$this->set_products( $woocommerce );
 			update_post_meta( $this->post_id, 'av8_cartitems', $this->add_titles_to_cart_items( $this->products ) );
@@ -747,7 +755,7 @@ class AV8_Cart_Receipt {
 		$cart_receipt = new AV8_Cart_Receipt();
 		$cart_receipt->load_receipt( $post->ID );
 
-		$actions = array();
+		$actions = [];
 		$status  = $cart_receipt->status();
 
 		switch ( $status ) {

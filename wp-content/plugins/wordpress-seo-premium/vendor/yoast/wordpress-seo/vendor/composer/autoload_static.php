@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf29c0d6e7895e214ec7b786470804487
+class ComposerStaticInit1a99736a45ceaff0d7d21612d5eecda2
 {
     public static $files = array (
         '995b589e693a50f54393aa31ee1c3763' => __DIR__ . '/..' . '/yoast/whip/src/facades/wordpress.php',
@@ -740,6 +740,7 @@ class ComposerStaticInitf29c0d6e7895e214ec7b786470804487
         'Yoast\\WP\\SEO\\Helpers\\Current_Page_Helper' => __DIR__ . '/../..' . '/src/helpers/current-page-helper.php',
         'Yoast\\WP\\SEO\\Helpers\\Date_Helper' => __DIR__ . '/../..' . '/src/helpers/date-helper.php',
         'Yoast\\WP\\SEO\\Helpers\\Environment_Helper' => __DIR__ . '/../..' . '/src/helpers/environment-helper.php',
+        'Yoast\\WP\\SEO\\Helpers\\First_Time_Configuration_Notice_Helper' => __DIR__ . '/../..' . '/src/helpers/first-time-configuration-notice-helper.php',
         'Yoast\\WP\\SEO\\Helpers\\Home_Url_Helper' => __DIR__ . '/../..' . '/src/helpers/home-url-helper.php',
         'Yoast\\WP\\SEO\\Helpers\\Image_Helper' => __DIR__ . '/../..' . '/src/helpers/image-helper.php',
         'Yoast\\WP\\SEO\\Helpers\\Import_Cursor_Helper' => __DIR__ . '/../..' . '/src/helpers/import-cursor-helper.php',
@@ -776,6 +777,7 @@ class ComposerStaticInitf29c0d6e7895e214ec7b786470804487
         'Yoast\\WP\\SEO\\Helpers\\Score_Icon_Helper' => __DIR__ . '/../..' . '/src/helpers/score-icon-helper.php',
         'Yoast\\WP\\SEO\\Helpers\\Short_Link_Helper' => __DIR__ . '/../..' . '/src/helpers/short-link-helper.php',
         'Yoast\\WP\\SEO\\Helpers\\Site_Helper' => __DIR__ . '/../..' . '/src/helpers/site-helper.php',
+        'Yoast\\WP\\SEO\\Helpers\\Social_Profiles_Helper' => __DIR__ . '/../..' . '/src/helpers/social-profiles-helper.php',
         'Yoast\\WP\\SEO\\Helpers\\String_Helper' => __DIR__ . '/../..' . '/src/helpers/string-helper.php',
         'Yoast\\WP\\SEO\\Helpers\\Taxonomy_Helper' => __DIR__ . '/../..' . '/src/helpers/taxonomy-helper.php',
         'Yoast\\WP\\SEO\\Helpers\\Twitter\\Image_Helper' => __DIR__ . '/../..' . '/src/helpers/twitter/image-helper.php',
@@ -820,7 +822,6 @@ class ComposerStaticInitf29c0d6e7895e214ec7b786470804487
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Redirect_Old_Features_Tab_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/redirect-old-features-tab-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Redirects_Page_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/redirects-page-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Ryte_Integration' => __DIR__ . '/../..' . '/src/deprecated/src/integrations/admin/ryte-integration.php',
-        'Yoast\\WP\\SEO\\Integrations\\Admin\\Social_Profiles_Helper' => __DIR__ . '/../..' . '/src/integrations/admin/social-profiles-helper.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Social_Templates_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/social-templates-integration.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Unsupported_PHP_Version' => __DIR__ . '/../..' . '/src/integrations/admin/unsupported-php-version.php',
         'Yoast\\WP\\SEO\\Integrations\\Admin\\Workouts_Integration' => __DIR__ . '/../..' . '/src/integrations/admin/workouts-integration.php',
@@ -1075,9 +1076,9 @@ class ComposerStaticInitf29c0d6e7895e214ec7b786470804487
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf29c0d6e7895e214ec7b786470804487::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf29c0d6e7895e214ec7b786470804487::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitf29c0d6e7895e214ec7b786470804487::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1a99736a45ceaff0d7d21612d5eecda2::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1a99736a45ceaff0d7d21612d5eecda2::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1a99736a45ceaff0d7d21612d5eecda2::$classMap;
 
         }, null, ClassLoader::class);
     }

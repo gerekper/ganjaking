@@ -224,19 +224,16 @@ function _extends() {
   module.exports = _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
-
       for (var key in source) {
         if (Object.prototype.hasOwnProperty.call(source, key)) {
           target[key] = source[key];
         }
       }
     }
-
     return target;
   }, module.exports.__esModule = true, module.exports["default"] = module.exports;
   return _extends.apply(this, arguments);
 }
-
 module.exports = _extends, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
@@ -394,10 +391,10 @@ var external_wc_currency_default = /*#__PURE__*/__webpack_require__.n(external_w
 
 
 
+
 /**
  * Internal dependencies
  */
-
 
 const appCurrency = external_wc_currency_default()(external_wc_wcSettings_["CURRENCY"]);
 const getFilteredCurrencyInstance = query => {
@@ -409,10 +406,10 @@ const CurrencyContext = Object(external_wp_element_["createContext"])(appCurrenc
 );
 // CONCATENATED MODULE: ./node_modules/@somewherewarm/woocommerce/packages/components/report-summary/index.js
 
-
 /**
  * External dependencies
  */
+
 
 
 
@@ -436,7 +433,6 @@ const CurrencyContext = Object(external_wp_element_["createContext"])(appCurrenc
 /**
  * Component to render summary numbers in reports.
  */
-
 class report_summary_ReportSummary extends external_wp_element_["Component"] {
   formatVal(val, type) {
     const {
@@ -445,7 +441,6 @@ class report_summary_ReportSummary extends external_wp_element_["Component"] {
     } = this.context;
     return type === 'currency' ? formatAmount(val) : Object(external_wc_number_["formatValue"])(getCurrencyConfig(), type, val);
   }
-
   getValues(key, type) {
     const {
       emptySearchResults,
@@ -464,7 +459,6 @@ class report_summary_ReportSummary extends external_wp_element_["Component"] {
       value: this.formatVal(primaryValue, type)
     };
   }
-
   render() {
     const {
       charts,
@@ -479,22 +473,18 @@ class report_summary_ReportSummary extends external_wp_element_["Component"] {
       isError,
       isRequesting
     } = summaryData;
-
     if (isError) {
       // return <ReportError isError />;
       return;
     }
-
     if (isRequesting) {
       return Object(external_wp_element_["createElement"])(external_wc_components_["SummaryListPlaceholder"], {
         numberOfItems: charts.length
       });
     }
-
     const {
       compare
     } = Object(external_wc_date_["getDateParamsFromQuery"])(query, defaultDateRange);
-
     const renderSummaryNumbers = _ref => {
       let {
         onToggle
@@ -510,15 +500,12 @@ class report_summary_ReportSummary extends external_wp_element_["Component"] {
         const newPath = {
           chart: key
         };
-
         if (orderby) {
           newPath.orderby = orderby;
         }
-
         if (order) {
           newPath.order = order;
         }
-
         const href = Object(external_wc_navigation_["getNewPath"])(newPath);
         const isSelected = selectedChart.key === key;
         const {
@@ -544,17 +531,14 @@ class report_summary_ReportSummary extends external_wp_element_["Component"] {
         });
       });
     };
-
     return Object(external_wp_element_["createElement"])(external_wc_components_["SummaryList"], null, renderSummaryNumbers);
   }
-
 }
 report_summary_ReportSummary.propTypes = {
   /**
    * Properties of all the charts available for that report.
    */
   charts: prop_types_default.a.array.isRequired,
-
   /**
    * The endpoint to use in API calls to populate the Summary Numbers.
    * For example, if `taxes` is provided, data will be fetched from the report
@@ -562,12 +546,10 @@ report_summary_ReportSummary.propTypes = {
    * doesn't exist, an error will be shown to the user with `ReportError`.
    */
   endpoint: prop_types_default.a.string.isRequired,
-
   /**
    * The query string represented in object form.
    */
   query: prop_types_default.a.object.isRequired,
-
   /**
    * Properties of the selected chart.
    */
@@ -576,33 +558,27 @@ report_summary_ReportSummary.propTypes = {
      * Key of the selected chart.
      */
     key: prop_types_default.a.string.isRequired,
-
     /**
      * Chart label.
      */
     label: prop_types_default.a.string.isRequired,
-
     /**
      * Order query argument.
      */
     order: prop_types_default.a.oneOf(['asc', 'desc']),
-
     /**
      * Order by query argument.
      */
     orderby: prop_types_default.a.string,
-
     /**
      * Number type for formatting.
      */
     type: prop_types_default.a.oneOf(['average', 'number', 'currency']).isRequired
   }).isRequired,
-
   /**
    * Data to display in the SummaryNumbers.
    */
   summaryData: prop_types_default.a.object,
-
   /**
    * Report name, if different than the endpoint.
    */
@@ -629,13 +605,11 @@ report_summary_ReportSummary.contextType = CurrencyContext;
   } = props;
   const limitBy = limitProperties || [endpoint];
   const hasLimitByParam = limitBy.some(item => query[item] && query[item].length);
-
   if (query.search && !hasLimitByParam) {
     return {
       emptySearchResults: true
     };
   }
-
   const fields = charts && charts.map(chart => chart.key);
   const {
     woocommerce_default_date_range: defaultDateRange
@@ -663,10 +637,10 @@ var external_lodash_ = __webpack_require__(3);
 
 // CONCATENATED MODULE: ./node_modules/@somewherewarm/woocommerce/packages/components/report-error/index.js
 
-
 /**
  * External dependencies
  */
+
 
 
 
@@ -676,7 +650,6 @@ var external_lodash_ = __webpack_require__(3);
  * Component to render when there is an error in a report component due to data
  * not being loaded or being invalid.
  */
-
 class report_error_ReportError extends external_wp_element_["Component"] {
   render() {
     const {
@@ -685,11 +658,9 @@ class report_error_ReportError extends external_wp_element_["Component"] {
       isEmpty
     } = this.props;
     let title, actionLabel, actionURL, actionCallback;
-
     if (isError) {
       title = Object(external_wp_i18n_["__"])('There was an error getting your stats. Please try again.', 'woocommerce-product-bundles');
       actionLabel = Object(external_wp_i18n_["__"])('Reload', 'woocommerce-product-bundles');
-
       actionCallback = () => {
         window.location.reload();
       };
@@ -698,7 +669,6 @@ class report_error_ReportError extends external_wp_element_["Component"] {
       actionLabel = Object(external_wp_i18n_["__"])('View Orders', 'woocommerce-product-bundles');
       actionURL = Object(external_wc_wcSettings_["getAdminLink"])('edit.php?post_type=shop_order');
     }
-
     return Object(external_wp_element_["createElement"])(external_wc_components_["EmptyContent"], {
       className: className,
       title: title,
@@ -707,20 +677,16 @@ class report_error_ReportError extends external_wp_element_["Component"] {
       actionCallback: actionCallback
     });
   }
-
 }
-
 report_error_ReportError.propTypes = {
   /**
    * Additional class name to style the component.
    */
   className: prop_types_default.a.string,
-
   /**
    * Boolean representing whether there was an error.
    */
   isError: prop_types_default.a.bool,
-
   /**
    * Boolean representing whether the issue is that there is no data.
    */
@@ -739,14 +705,11 @@ report_error_ReportError.defaultProps = {
 const DEFAULT_FILTER = 'all';
 function getSelectedFilter(filters, query) {
   let selectedFilterArgs = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-
   if (!filters || filters.length === 0) {
     return null;
   }
-
   const clonedFilters = filters.slice(0);
   const filterConfig = clonedFilters.pop();
-
   if (filterConfig.showFilters(query, selectedFilterArgs)) {
     const allFilters = Object(external_wc_navigation_["flattenFilters"])(filterConfig.filters);
     const value = query[filterConfig.param] || filterConfig.defaultValue || DEFAULT_FILTER;
@@ -754,26 +717,23 @@ function getSelectedFilter(filters, query) {
       value
     });
   }
-
   return getSelectedFilter(clonedFilters, query, selectedFilterArgs);
 }
 function getChartMode(selectedFilter, query) {
   if (selectedFilter && query) {
     const selectedFilterParam = Object(external_lodash_["get"])(selectedFilter, ['settings', 'param']);
-
     if (!selectedFilterParam || Object.keys(query).includes(selectedFilterParam)) {
       return Object(external_lodash_["get"])(selectedFilter, ['chartMode']);
     }
   }
-
   return null;
 }
 // CONCATENATED MODULE: ./node_modules/@somewherewarm/woocommerce/packages/components/report-chart/index.js
 
-
 /**
  * External dependencies
  */
+
 
 
 
@@ -798,16 +758,13 @@ function getChartMode(selectedFilter, query) {
 /**
  * Component that renders the chart in reports.
  */
-
 class report_chart_ReportChart extends external_wp_element_["Component"] {
   shouldComponentUpdate(nextProps) {
     if (nextProps.isRequesting !== this.props.isRequesting || nextProps.primaryData.isRequesting !== this.props.primaryData.isRequesting || nextProps.secondaryData.isRequesting !== this.props.secondaryData.isRequesting || !Object(external_lodash_["isEqual"])(nextProps.query, this.props.query)) {
       return true;
     }
-
     return false;
   }
-
   getItemChartData() {
     const {
       primaryData,
@@ -831,7 +788,6 @@ class report_chart_ReportChart extends external_wp_element_["Component"] {
     });
     return chartData;
   }
-
   getTimeChartData() {
     const {
       query,
@@ -864,7 +820,6 @@ class report_chart_ReportChart extends external_wp_element_["Component"] {
     });
     return chartData;
   }
-
   getTimeChartTotals() {
     const {
       primaryData,
@@ -876,7 +831,6 @@ class report_chart_ReportChart extends external_wp_element_["Component"] {
       secondary: Object(external_lodash_["get"])(secondaryData, ['data', 'totals', selectedChart.key], null)
     };
   }
-
   renderChart(mode, isRequesting, chartData, legendTotals) {
     const {
       emptySearchResults,
@@ -926,55 +880,45 @@ class report_chart_ReportChart extends external_wp_element_["Component"] {
       currency: getCurrencyConfig()
     });
   }
-
   renderItemComparison() {
     const {
       isRequesting,
       primaryData
     } = this.props;
-
     if (primaryData.isError) {
       return Object(external_wp_element_["createElement"])(report_error, {
         isError: true
       });
     }
-
     const isChartRequesting = isRequesting || primaryData.isRequesting;
     const chartData = this.getItemChartData();
     return this.renderChart('item-comparison', isChartRequesting, chartData);
   }
-
   renderTimeComparison() {
     const {
       isRequesting,
       primaryData,
       secondaryData
     } = this.props;
-
     if (!primaryData || primaryData.isError || secondaryData.isError) {
       return Object(external_wp_element_["createElement"])(report_error, {
         isError: true
       });
     }
-
     const isChartRequesting = isRequesting || primaryData.isRequesting || secondaryData.isRequesting;
     const chartData = this.getTimeChartData();
     const legendTotals = this.getTimeChartTotals();
     return this.renderChart('time-comparison', isChartRequesting, chartData, legendTotals);
   }
-
   render() {
     const {
       mode
     } = this.props;
-
     if (mode === 'item-comparison') {
       return this.renderItemComparison();
     }
-
     return this.renderTimeComparison();
   }
-
 }
 report_chart_ReportChart.contextType = CurrencyContext;
 report_chart_ReportChart.propTypes = {
@@ -982,49 +926,40 @@ report_chart_ReportChart.propTypes = {
    * Filters available for that report.
    */
   filters: prop_types_default.a.array,
-
   /**
    * Whether there is an API call running.
    */
   isRequesting: prop_types_default.a.bool,
-
   /**
    * Label describing the legend items.
    */
   itemsLabel: prop_types_default.a.string,
-
   /**
    * Allows specifying properties different from the `endpoint` that will be used
    * to limit the items when there is an active search.
    */
   limitProperties: prop_types_default.a.array,
-
   /**
    * `items-comparison` (default) or `time-comparison`, this is used to generate correct
    * ARIA properties.
    */
   mode: prop_types_default.a.string,
-
   /**
    * Current path
    */
   path: prop_types_default.a.string.isRequired,
-
   /**
    * Primary data to display in the chart.
    */
   primaryData: prop_types_default.a.object,
-
   /**
    * The query string represented in object form.
    */
   query: prop_types_default.a.object.isRequired,
-
   /**
    * Secondary data to display in the chart.
    */
   secondaryData: prop_types_default.a.object,
-
   /**
    * Properties of the selected chart.
    */
@@ -1033,22 +968,18 @@ report_chart_ReportChart.propTypes = {
      * Key of the selected chart.
      */
     key: prop_types_default.a.string.isRequired,
-
     /**
      * Chart label.
      */
     label: prop_types_default.a.string.isRequired,
-
     /**
      * Order query argument.
      */
     order: prop_types_default.a.oneOf(['asc', 'desc']),
-
     /**
      * Order by query argument.
      */
     orderby: prop_types_default.a.string,
-
     /**
      * Number type for formatting.
      */
@@ -1089,27 +1020,24 @@ report_chart_ReportChart.defaultProps = {
   const {
     woocommerce_default_date_range: defaultDateRange
   } = select(external_wc_data_["SETTINGS_STORE_NAME"]).getSetting('wc_admin', 'wcAdminSettings');
-  /* eslint @wordpress/no-unused-vars-before-return: "off" */
 
+  /* eslint @wordpress/no-unused-vars-before-return: "off" */
   const reportStoreSelector = select(external_wc_data_["REPORTS_STORE_NAME"]);
   const newProps = {
     mode: chartMode,
     filterParam,
     defaultDateRange
   };
-
   if (isRequesting) {
     return newProps;
   }
-
   const hasLimitByParam = limitBy.some(item => query[item] && query[item].length);
-
   if (query.search && !hasLimitByParam) {
-    return { ...newProps,
+    return {
+      ...newProps,
       emptySearchResults: true
     };
   }
-
   const fields = charts && charts.map(chart => chart.key);
   const primaryData = Object(external_wc_data_["getReportChartData"])({
     endpoint,
@@ -1124,13 +1052,12 @@ report_chart_ReportChart.defaultProps = {
     defaultDateRange,
     fields
   });
-
   if (chartMode === 'item-comparison') {
-    return { ...newProps,
+    return {
+      ...newProps,
       primaryData
     };
   }
-
   const secondaryData = Object(external_wc_data_["getReportChartData"])({
     endpoint,
     dataType: 'secondary',
@@ -1144,7 +1071,8 @@ report_chart_ReportChart.defaultProps = {
     defaultDateRange,
     fields
   });
-  return { ...newProps,
+  return {
+    ...newProps,
     primaryData,
     secondaryData
   };
@@ -1164,21 +1092,19 @@ var external_wp_url_ = __webpack_require__(19);
 
 
 
+
 /**
  * Exports.
  */
-
 function getRequestByIdString(path) {
   let handleData = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : identity;
   return function () {
     let queryString = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
     const pathString = path;
     const idList = Object(external_wc_navigation_["getIdsFromQuery"])(queryString);
-
     if (idList.length < 1) {
       return Promise.resolve([]);
     }
-
     const payload = {
       include: idList.join(','),
       per_page: idList.length
@@ -1188,6 +1114,7 @@ function getRequestByIdString(path) {
     }).then(data => data.map(handleData));
   };
 }
+
 /**
  * Takes a chart name returns the configuration for that chart from and array
  * of charts. If the chart is not found it will return the first chart.
@@ -1196,17 +1123,14 @@ function getRequestByIdString(path) {
  * @param {Array} charts - list of charts for a particular report
  * @return {Object} - chart configuration object
  */
-
 function getSelectedChart(chartName) {
   let charts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
   const chart = Object(external_lodash_["find"])(charts, {
     key: chartName
   });
-
   if (chart) {
     return chart;
   }
-
   return charts[0];
 }
 // EXTERNAL MODULE: external ["wp","htmlEntities"]
@@ -1251,11 +1175,9 @@ function extendTableData(select, props, queriedTableData) {
     itemIdField
   } = props;
   const itemsData = queriedTableData.items.data;
-
   if (!Array.isArray(itemsData) || !itemsData.length || !extendItemsMethodNames || !itemIdField) {
     return queriedTableData;
   }
-
   const {
     [extendItemsMethodNames.getError]: getErrorMethod,
     [extendItemsMethodNames.isRequesting]: isRequestingMethod,
@@ -1270,16 +1192,19 @@ function extendTableData(select, props, queriedTableData) {
   const isExtendedItemsError = getErrorMethod ? getErrorMethod(extendQuery) : false;
   const extendedItemsData = itemsData.map(item => {
     const extendedItemData = Object(external_lodash_["first"])(extendedItems.filter(extendedItem => item.id === extendedItem.id));
-    return { ...item,
+    return {
+      ...item,
       ...extendedItemData
     };
   });
   const isRequesting = queriedTableData.isRequesting || isExtendedItemsRequesting;
   const isError = queriedTableData.isError || isExtendedItemsError;
-  return { ...queriedTableData,
+  return {
+    ...queriedTableData,
     isRequesting,
     isError,
-    items: { ...queriedTableData.items,
+    items: {
+      ...queriedTableData.items,
       data: extendedItemsData
     }
   };
@@ -1287,10 +1212,10 @@ function extendTableData(select, props, queriedTableData) {
 // CONCATENATED MODULE: ./node_modules/@somewherewarm/woocommerce/packages/components/report-table/index.js
 
 
-
 /**
  * External dependencies
  */
+
 
 
 
@@ -1310,9 +1235,7 @@ function extendTableData(select, props, queriedTableData) {
 
 
 
-
 const TABLE_FILTER = 'woocommerce_admin_report_table';
-
 const ReportTable = props => {
   const {
     getHeadersContent,
@@ -1333,8 +1256,9 @@ const ReportTable = props => {
     searchBy,
     labels = {},
     ...tableProps
-  } = props; // Pull these props out separately because they need to be included in tableProps.
+  } = props;
 
+  // Pull these props out separately because they need to be included in tableProps.
   const {
     query,
     columnPrefsKey
@@ -1349,32 +1273,27 @@ const ReportTable = props => {
   const {
     updateUserPreferences,
     ...userData
-  } = Object(external_wc_data_["useUserPreferences"])(); // Bail early if we've encountered an error.
+  } = Object(external_wc_data_["useUserPreferences"])();
 
+  // Bail early if we've encountered an error.
   const isError = tableData.isError || primaryData.isError;
-
   if (isError) {
     return Object(external_wp_element_["createElement"])(report_error, {
       isError: true
     });
   }
-
   let userPrefColumns = [];
-
   if (columnPrefsKey) {
     userPrefColumns = userData && userData[columnPrefsKey] ? userData[columnPrefsKey] : userPrefColumns;
   }
-
   const onPageChange = (newPage, source) => {
     scrollPointRef.current.scrollIntoView();
     const tableElement = scrollPointRef.current.nextSibling.querySelector('.woocommerce-table__table');
     const focusableElements = external_wp_dom_["focus"].focusable.find(tableElement);
-
     if (focusableElements.length) {
       focusableElements[0].focus();
     }
   };
-
   const onSort = (key, direction) => {
     Object(external_wc_navigation_["onQueryChange"])('sort')(key, direction);
     const eventProps = {
@@ -1383,23 +1302,24 @@ const ReportTable = props => {
       direction
     };
   };
-
   const filterShownHeaders = (headers, hiddenKeys) => {
     // If no user preferences, set visibilty based on column default.
     if (!hiddenKeys) {
-      return headers.map(header => ({ ...header,
+      return headers.map(header => ({
+        ...header,
         visible: header.required || !header.hiddenByDefault
       }));
-    } // Set visibilty based on user preferences.
+    }
 
-
-    return headers.map(header => ({ ...header,
+    // Set visibilty based on user preferences.
+    return headers.map(header => ({
+      ...header,
       visible: header.required || !hiddenKeys.includes(header.key)
     }));
   };
-
   const applyTableFilters = (data, totals, totalResults) => {
     const summary = getSummary ? getSummary(totals, totalResults) : null;
+
     /**
      * Filter report table for the CSV download.
      *
@@ -1413,7 +1333,6 @@ const ReportTable = props => {
      * @param {Array} reportTableData.summary - summary numbers data.
      * @param {Object} reportTableData.items - response from api requerst.
      */
-
     return Object(external_wp_hooks_["applyFilters"])(TABLE_FILTER, {
       endpoint,
       headers: getHeadersContent(),
@@ -1423,7 +1342,6 @@ const ReportTable = props => {
       items
     });
   };
-
   const onClickDownload = () => {
     const {
       createNotice,
@@ -1435,14 +1353,13 @@ const ReportTable = props => {
       data,
       totalResults
     } = items;
-    let downloadType = 'browser'; // Delete unnecessary items from filename.
+    let downloadType = 'browser';
 
+    // Delete unnecessary items from filename.
     delete params.extended_info;
-
     if (params.search) {
       delete params[searchBy];
     }
-
     if (data && data.length === totalResults) {
       const {
         headers,
@@ -1451,28 +1368,23 @@ const ReportTable = props => {
       Object(external_wc_csvExport_["downloadCSVFile"])(Object(external_wc_csvExport_["generateCSVFileName"])(title, params), Object(external_wc_csvExport_["generateCSVDataFromTable"])(headers, rows));
     } else {
       downloadType = 'email';
-      startExport(endpoint, reportQuery).then(() => createNotice('success', Object(external_wp_i18n_["sprintf"])(
-      /* translators: %s = type of report */
-      Object(external_wp_i18n_["__"])('Your %s Report will be emailed to you.', 'woocommerce-admin'), title))).catch(error => createNotice('error', error.message || Object(external_wp_i18n_["sprintf"])(
-      /* translators: %s = type of report */
+      startExport(endpoint, reportQuery).then(() => createNotice('success', Object(external_wp_i18n_["sprintf"])( /* translators: %s = type of report */
+      Object(external_wp_i18n_["__"])('Your %s Report will be emailed to you.', 'woocommerce-admin'), title))).catch(error => createNotice('error', error.message || Object(external_wp_i18n_["sprintf"])( /* translators: %s = type of report */
       Object(external_wp_i18n_["__"])('There was a problem exporting your %s Report. Please try again.', 'woocommerce-admin'), title)));
     }
   };
-
   const onCompare = () => {
     if (compareBy) {
       Object(external_wc_navigation_["onQueryChange"])('compare')(compareBy, compareParam, selectedRows.join(','));
     }
   };
-
   const onSearchChange = values => {
     const {
       baseSearchQuery
-    } = props; // A comma is used as a separator between search terms, so we want to escape
+    } = props;
+    // A comma is used as a separator between search terms, so we want to escape
     // any comma they contain.
-
     const searchTerms = values.map(v => v.label.replace(',', '%2C'));
-
     if (searchTerms.length) {
       Object(external_wc_navigation_["updateQueryString"])({
         filter: undefined,
@@ -1487,19 +1399,16 @@ const ReportTable = props => {
       });
     }
   };
-
   const selectAllRows = checked => {
     const {
       ids
     } = props;
     setSelectedRows(checked ? ids : []);
   };
-
   const selectRow = (i, checked) => {
     const {
       ids
     } = props;
-
     if (checked) {
       setSelectedRows(Object(external_lodash_["uniq"])([ids[i], ...selectedRows]));
     } else {
@@ -1507,7 +1416,6 @@ const ReportTable = props => {
       setSelectedRows([...selectedRows.slice(0, index), ...selectedRows.slice(index + 1)]);
     }
   };
-
   const getCheckbox = i => {
     const {
       ids = []
@@ -1521,7 +1429,6 @@ const ReportTable = props => {
       value: false
     };
   };
-
   const getAllCheckbox = () => {
     const {
       ids = []
@@ -1540,12 +1447,11 @@ const ReportTable = props => {
       required: true
     };
   };
-
   const isLoading = isRequesting || tableData.isRequesting || primaryData.isRequesting;
   const totals = Object(external_lodash_["get"])(primaryData, ['data', 'totals'], {});
   const totalResults = items.totalResults || 0;
-  const downloadable = totalResults > 0; // Search words are in the query string, not the table query.
-
+  const downloadable = totalResults > 0;
+  // Search words are in the query string, not the table query.
   const searchWords = Object(external_wc_navigation_["getSearchWords"])(query);
   const searchedLabels = searchWords.map(v => ({
     key: v,
@@ -1562,28 +1468,26 @@ const ReportTable = props => {
   const {
     summary
   } = applyTableFiltersResult;
-
   const onColumnsChange = (shownColumns, toggledColumn) => {
     const columns = headers.map(header => header.key);
     const hiddenColumns = columns.filter(column => !shownColumns.includes(column));
-
     if (columnPrefsKey) {
       const userDataFields = {
         [columnPrefsKey]: hiddenColumns
       };
       updateUserPreferences(userDataFields);
     }
-  }; // Add in selection for comparisons.
+  };
 
-
+  // Add in selection for comparisons.
   if (compareBy) {
     rows = rows.map((row, i) => {
       return [getCheckbox(i), ...row];
     });
     headers = [getAllCheckbox(), ...headers];
-  } // Hide any headers based on user prefs, if loaded.
+  }
 
-
+  // Hide any headers based on user prefs, if loaded.
   const filteredHeaders = filterShownHeaders(headers, userPrefColumns);
   return Object(external_wp_element_["createElement"])(external_wp_element_["Fragment"], null, Object(external_wp_element_["createElement"])("div", {
     className: "woocommerce-report-table__scroll-point",
@@ -1629,28 +1533,23 @@ const ReportTable = props => {
     totalRows: totalResults
   }, tableProps)));
 };
-
 ReportTable.propTypes = {
   /**
    * Pass in query parameters to be included in the path when onSearch creates a new url.
    */
   baseSearchQuery: prop_types_default.a.object,
-
   /**
    * The string to use as a query parameter when comparing row items.
    */
   compareBy: prop_types_default.a.string,
-
   /**
    * Url query parameter compare function operates on
    */
   compareParam: prop_types_default.a.string,
-
   /**
    * The key for user preferences settings for column visibility.
    */
   columnPrefsKey: prop_types_default.a.string,
-
   /**
    * The endpoint to use in API calls to populate the table rows and summary.
    * For example, if `taxes` is provided, data will be fetched from the report
@@ -1659,27 +1558,22 @@ ReportTable.propTypes = {
    * with `ReportError`.
    */
   endpoint: prop_types_default.a.string,
-
   /**
    * A function that returns the headers object to build the table.
    */
   getHeadersContent: prop_types_default.a.func.isRequired,
-
   /**
    * A function that returns the rows array to build the table.
    */
   getRowsContent: prop_types_default.a.func.isRequired,
-
   /**
    * A function that returns the summary object to build the table.
    */
   getSummary: prop_types_default.a.func,
-
   /**
    * The name of the property in the item object which contains the id.
    */
   itemIdField: prop_types_default.a.string,
-
   /**
    * Custom labels for table header actions.
    */
@@ -1689,34 +1583,28 @@ ReportTable.propTypes = {
     helpText: prop_types_default.a.string,
     placeholder: prop_types_default.a.string
   }),
-
   /**
    * Primary data of that report. If it's not provided, it will be automatically
    * loaded via the provided `endpoint`.
    */
   primaryData: prop_types_default.a.object,
-
   /**
    * The string to use as a query parameter when searching row items.
    */
   searchBy: prop_types_default.a.string,
-
   /**
    * List of fields used for summary numbers. (Reduces queries)
    */
   summaryFields: prop_types_default.a.arrayOf(prop_types_default.a.string),
-
   /**
    * Table data of that report. If it's not provided, it will be automatically
    * loaded via the provided `endpoint`.
    */
   tableData: prop_types_default.a.object.isRequired,
-
   /**
    * Properties to be added to the query sent to the report table endpoint.
    */
   tableQuery: prop_types_default.a.object,
-
   /**
    * String to display as the title of the table.
    */
@@ -1756,13 +1644,11 @@ const EMPTY_OBJECT = {};
   const {
     woocommerce_default_date_range: defaultDateRange
   } = select(external_wc_data_["SETTINGS_STORE_NAME"]).getSetting('wc_admin', 'wcAdminSettings');
-
   if (isRequesting) {
     return EMPTY_OBJECT;
   }
+
   /* eslint @wordpress/no-unused-vars-before-return: "off" */
-
-
   const reportStoreSelector = select(external_wc_data_["REPORTS_STORE_NAME"]);
   const extendedStoreSelector = extendedItemsStoreName ? select(extendedItemsStoreName) : null;
   const primaryData = getSummary ? Object(external_wc_data_["getReportChartData"])({
@@ -1807,10 +1693,10 @@ const EMPTY_OBJECT = {};
 }))(ReportTable));
 // CONCATENATED MODULE: ./resources/js/admin/analytics/report/revenue/index.js
 
-
 /**
  * External dependencies
  */
+
 
 
 
@@ -1831,10 +1717,8 @@ const EMPTY_OBJECT = {};
  */
 
 
-
 const adminSettings = Object(external_wc_wcSettings_["getSetting"])('admin', {});
 const stockStatuses = typeof adminSettings === 'object' && adminSettings.length !== 1 && adminSettings.stockStatuses ? adminSettings.stockStatuses : Object(external_wc_wcSettings_["getSetting"])('stockStatuses', {});
-
 class revenue_BundlesReportTable extends external_wp_element_["Component"] {
   constructor() {
     super();
@@ -1842,7 +1726,6 @@ class revenue_BundlesReportTable extends external_wp_element_["Component"] {
     this.getRowsContent = this.getRowsContent.bind(this);
     this.getSummary = this.getSummary.bind(this);
   }
-
   getHeadersContent() {
     return [{
       label: Object(external_wp_i18n_["__"])('Bundle Title', 'woocommerce-product-bundles'),
@@ -1886,7 +1769,6 @@ class revenue_BundlesReportTable extends external_wp_element_["Component"] {
       key: 'stock_status'
     }].filter(Boolean);
   }
-
   getRowsContent() {
     let data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
     const {
@@ -1952,7 +1834,6 @@ class revenue_BundlesReportTable extends external_wp_element_["Component"] {
       }].filter(Boolean);
     });
   }
-
   getSummary(totals) {
     const {
       products_count: productsCount = 0,
@@ -1983,7 +1864,6 @@ class revenue_BundlesReportTable extends external_wp_element_["Component"] {
       value: Object(external_wc_number_["formatValue"])(currency, 'number', ordersCount)
     }];
   }
-
   render() {
     const {
       filters,
@@ -2012,17 +1892,15 @@ class revenue_BundlesReportTable extends external_wp_element_["Component"] {
       filters: filters
     });
   }
-
 }
-
 revenue_BundlesReportTable.contextType = CurrencyContext;
 /* harmony default export */ var revenue = (revenue_BundlesReportTable);
 // CONCATENATED MODULE: ./resources/js/admin/analytics/report/stock/index.js
 
-
 /**
  * External dependencies
  */
+
 
 
 
@@ -2039,17 +1917,14 @@ revenue_BundlesReportTable.contextType = CurrencyContext;
  */
 
 
-
 const stock_adminSettings = Object(external_wc_wcSettings_["getSetting"])('admin', {});
 const stock_stockStatuses = typeof stock_adminSettings === 'object' && stock_adminSettings.length !== 1 && stock_adminSettings.stockStatuses ? stock_adminSettings.stockStatuses : Object(external_wc_wcSettings_["getSetting"])('stockStatuses', {});
-
 class stock_BundlesStockReportTable extends external_wp_element_["Component"] {
   constructor() {
     super();
     this.getHeadersContent = this.getHeadersContent.bind(this);
     this.getRowsContent = this.getRowsContent.bind(this);
   }
-
   getHeadersContent() {
     return [{
       label: Object(external_wp_i18n_["__"])('Bundle', 'woocommerce-product-bundles'),
@@ -2077,7 +1952,6 @@ class stock_BundlesStockReportTable extends external_wp_element_["Component"] {
       isNumeric: true
     }].filter(Boolean);
   }
-
   getRowsContent() {
     let data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
     const {
@@ -2103,11 +1977,13 @@ class stock_BundlesStockReportTable extends external_wp_element_["Component"] {
         bundle_name: extendedInfoBundleName,
         units_required: extendedInfoUnitsRequired,
         stock_status: extendedInfoStockStatus
-      } = extendedInfo; // Bundle.
+      } = extendedInfo;
 
+      // Bundle.
       const name = Object(external_wp_htmlEntities_["decodeEntities"])(extendedInfoBundleName);
-      const productDetailLink = Object(external_wc_wcSettings_["getAdminLink"])('post.php?post=' + bundleId + '&action=edit'); // Bundled product.
+      const productDetailLink = Object(external_wc_wcSettings_["getAdminLink"])('post.php?post=' + bundleId + '&action=edit');
 
+      // Bundled product.
       const bundledName = Object(external_wp_htmlEntities_["decodeEntities"])(extendedInfoName);
       const bundledDetailsLink = Object(external_wc_wcSettings_["getAdminLink"])('post.php?post=' + productId + '&action=edit');
       const stockStatus = stock_stockStatuses[extendedInfoStockStatus];
@@ -2135,7 +2011,6 @@ class stock_BundlesStockReportTable extends external_wp_element_["Component"] {
       }].filter(Boolean);
     });
   }
-
   render() {
     const {
       filters,
@@ -2162,15 +2037,14 @@ class stock_BundlesStockReportTable extends external_wp_element_["Component"] {
       filters: filters
     });
   }
-
 }
-
 stock_BundlesStockReportTable.contextType = CurrencyContext;
 /* harmony default export */ var stock = (stock_BundlesStockReportTable);
 // CONCATENATED MODULE: ./resources/js/admin/analytics/report/revenue/config.js
 /**
  * External dependencies.
  */
+
 
 
 /**
@@ -2182,17 +2056,16 @@ stock_BundlesStockReportTable.contextType = CurrencyContext;
  * SomewhereWarm dependencies.
  */
 
-
 const BUNDLES_REPORT_CHARTS_FILTER = 'woocommerce_admin_bundles_report_charts';
 const BUNDLES_REPORT_FILTERS_FILTER = 'woocommerce_admin_products_report_filters';
 const getProductLabels = getRequestByIdString(external_wc_data_["NAMESPACE"] + '/products', product => ({
   key: product.id,
   label: product.name
 }));
+
 /**
  * Exports.
  */
-
 const config_showDatePicker = true;
 const config_charts = Object(external_wp_hooks_["applyFilters"])(BUNDLES_REPORT_CHARTS_FILTER, [{
   key: 'items_sold',
@@ -2260,10 +2133,10 @@ const config_filters = [{
 }];
 // CONCATENATED MODULE: ./resources/js/admin/analytics/report/index.js
 
-
 /**
  * External dependencies
  */
+
 
 
 /**
@@ -2286,9 +2159,7 @@ const config_filters = [{
 
 
 
-
 const manageStock = Object(external_wc_wcSettings_["getSetting"])('manageStock', 'no');
-
 class report_Report extends external_wp_element_["Component"] {
   getChartMeta() {
     const {
@@ -2299,15 +2170,12 @@ class report_Report extends external_wp_element_["Component"] {
     const mode = 'time-comparison';
     const compareObject = 'bundles';
     /* translators: Number of Bundles */
-
     const label = Object(external_wp_i18n_["__"])('%d bundles', 'woocommerce-product-bundles');
-
     return {
       itemsLabel: label,
       mode
     };
   }
-
   render() {
     const {
       itemsLabel,
@@ -2319,14 +2187,13 @@ class report_Report extends external_wp_element_["Component"] {
       isError,
       isRequesting
     } = this.props;
-
     if (isError) {
       return Object(external_wp_element_["createElement"])(ReportError, {
         isError: true
       });
     }
-
-    const chartQuery = { ...query
+    const chartQuery = {
+      ...query
     };
     const showDatePicker = query.section === 'stock' ? false : true;
     const main_content = query.section !== 'stock' ? Object(external_wp_element_["createElement"])(external_wp_element_["Fragment"], null, Object(external_wp_element_["createElement"])(report_summary, {
@@ -2371,9 +2238,7 @@ class report_Report extends external_wp_element_["Component"] {
       showDatePicker: showDatePicker
     }), main_content);
   }
-
 }
-
 report_Report.propTypes = {
   path: prop_types_default.a.string.isRequired,
   query: prop_types_default.a.object.isRequired
@@ -2385,6 +2250,8 @@ report_Report.propTypes = {
  */
 
 
+
+
 /**
  * Local imports
  */
@@ -2393,7 +2260,6 @@ report_Report.propTypes = {
 /**
  * Use the 'woocommerce_admin_reports_list' filter to add a report page.
  */
-
 Object(external_wp_hooks_["addFilter"])('woocommerce_admin_reports_list', 'woocommerce-product-bundles', reports => {
   return [...reports, {
     report: 'bundles',

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * WooCommerce core Product Importer support.
  *
  * @class    WC_PB_Product_Import
- * @version  6.11.0
+ * @version  6.17.4
  */
 class WC_PB_Product_Import {
 
@@ -51,6 +51,7 @@ class WC_PB_Product_Import {
 		$options[ 'wc_pb_min_bundle_size' ]           = __( 'Min Bundle Size', 'woocommerce-product-bundles' );
 		$options[ 'wc_pb_max_bundle_size' ]           = __( 'Max Bundle Size', 'woocommerce-product-bundles' );
 		$options[ 'wc_pb_virtual_bundle' ]            = __( 'Bundle Contents Virtual', 'woocommerce-product-bundles' );
+		$options[ 'wc_pb_aggregate_weight' ]          = __( 'Bundle Aggregate Weight', 'woocommerce-product-bundles' );
 		$options[ 'wc_pb_layout' ]                    = __( 'Bundle Layout', 'woocommerce-product-bundles' );
 		$options[ 'wc_pb_group_mode' ]                = __( 'Bundle Group Mode', 'woocommerce-product-bundles' );
 		$options[ 'wc_pb_editable_in_cart' ]          = __( 'Bundle Cart Editing', 'woocommerce-product-bundles' );
@@ -75,6 +76,7 @@ class WC_PB_Product_Import {
 		$columns[ __( 'Min Bundle Size', 'woocommerce-product-bundles' ) ]              = 'wc_pb_min_bundle_size';
 		$columns[ __( 'Max Bundle Size', 'woocommerce-product-bundles' ) ]              = 'wc_pb_max_bundle_size';
 		$columns[ __( 'Bundle Contents Virtual', 'woocommerce-product-bundles' ) ]      = 'wc_pb_virtual_bundle';
+		$columns[ __( 'Bundle Aggregate Weight', 'woocommerce-product-bundles' ) ]      = 'wc_pb_aggregate_weight';
 		$columns[ __( 'Bundle Layout', 'woocommerce-product-bundles' ) ]                = 'wc_pb_layout';
 		$columns[ __( 'Bundle Group Mode', 'woocommerce-product-bundles' ) ]            = 'wc_pb_group_mode';
 		$columns[ __( 'Bundle Cart Editing', 'woocommerce-product-bundles' ) ]          = 'wc_pb_editable_in_cart';
@@ -89,6 +91,7 @@ class WC_PB_Product_Import {
 		$columns[ 'Min Bundle Size' ]              = 'wc_pb_min_bundle_size';
 		$columns[ 'Max Bundle Size' ]              = 'wc_pb_max_bundle_size';
 		$columns[ 'Bundle Contents Virtual' ]      = 'wc_pb_virtual_bundle';
+		$columns[ 'Bundle Aggregate Weight' ]      = 'wc_pb_aggregate_weight';
 		$columns[ 'Bundle Layout' ]                = 'wc_pb_layout';
 		$columns[ 'Bundle Group Mode' ]            = 'wc_pb_group_mode';
 		$columns[ 'Bundle Cart Editing' ]          = 'wc_pb_editable_in_cart';
@@ -111,10 +114,12 @@ class WC_PB_Product_Import {
 	 * @return array
 	 */
 	public static function append_formatting_callbacks( $callbacks, $importer ) {
+		
+		$mapped_keys_reverse = array_flip( $importer->get_mapped_keys() );
 
-		$mapped_keys_reverse             = array_flip( $importer->get_mapped_keys() );
-		$bundled_items_key               = $mapped_keys_reverse[ 'wc_pb_bundled_items' ];
-		$callbacks[ $bundled_items_key ] = array( __CLASS__, 'decode_bundled_items' );
+		if ( isset( $mapped_keys_reverse[ 'wc_pb_bundled_items' ] ) ) {
+			$callbacks[ $mapped_keys_reverse[ 'wc_pb_bundled_items' ] ] = array( __CLASS__, 'decode_bundled_items' );
+		}
 
 		return $callbacks;
 	}
@@ -232,6 +237,10 @@ class WC_PB_Product_Import {
 
 			if ( isset( $data[ 'wc_pb_virtual_bundle' ] ) ) {
 				$props[ 'virtual_bundle' ] = 1 === intval( $data[ 'wc_pb_virtual_bundle' ] ) ? 'yes' : 'no';
+			}
+
+			if ( isset( $data[ 'wc_pb_aggregate_weight' ] ) ) {
+				$props[ 'aggregate_weight' ] = 1 === intval( $data[ 'wc_pb_aggregate_weight' ] ) ? 'yes' : 'no';
 			}
 
 			if ( isset( $data[ 'wc_pb_layout' ] ) ) {

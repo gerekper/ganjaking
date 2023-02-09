@@ -39,6 +39,12 @@ class WC_Help_Scout_Shortcodes {
 		$orders_list     = array();
 
 		if ( 0 < $current_user_id ) {
+		
+			/**
+			* Action for woocommerce_help_scout_customer_args.
+			*
+			* @since  1.3.4
+			*/
 			$args = apply_filters(
 				'woocommerce_help_scout_shortcode_form_user_orders_args',
 				array(

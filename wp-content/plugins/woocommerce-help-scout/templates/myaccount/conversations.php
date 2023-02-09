@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<h2 id="support-conversations-title"><?php esc_html_e( 'My Support Conversations', 'woocommerce-help-scout' ); ?></h2>
 <?php endif; ?>
 
-<?php if ( 0 < count( $conversations ) ) : ?>
+<?php if ( 0 < count( (array) $conversations ) ) : ?>
 
 	<table id="support-conversations-table" class="shop_table <?php echo sanitize_html_class( get_template() ); ?>">
 		<thead>
@@ -30,47 +30,63 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<tbody>
 			<?php
-			foreach ( $conversations['_embedded']['conversations'] as $conversation ) :
-				$conversation_id = intval( $conversation['id'] );
-
-				$subject         = esc_attr( $conversation['subject'] );
-				$order_id = end( explode( ' ', trim( $subject ) ) );
-				?>
+			if ( ! empty( $conversations['_embedded']['conversations'] ) ) {
+				foreach ( $conversations['_embedded']['conversations'] as $conversation ) :
+					$conversation_id = intval( $conversation['id'] );
+					$subject         = esc_attr( $conversation['subject'] );
+					$sub = explode( ' ', trim( $subject ) );
+					$order_id = 0;
+					if ( 0 < count( $sub ) ) {
+						$order_id = end( $sub );
+					}
+					?>
 				<tr class="ticket">
 					<td>#<?php echo intval( $conversation['number'] ); ?></td>
 					<td><?php echo esc_html( $subject ); ?></td>
 					<td>
-				<?php
-				// Help Scout returns date in UTC.
-				// See http://developer.helpscout.net/help-desk-api/conversations/list/.
-				try {
-					$modified_at = new DateTime( $conversation['userUpdatedAt'], new DateTimeZone( 'UTC' ) );
-					$modified_at->setTimezone( new DateTimeZone( wc_timezone_string() ) );
-					$modified_at = strtotime( $modified_at->format( 'Y-m-d H:i:s' ) );
+					<?php
+					// Help Scout returns date in UTC.
+					// See http://developer.helpscout.net/help-desk-api/conversations/list/.
+					try {
+						$modified_at = new DateTime( $conversation['userUpdatedAt'], new DateTimeZone( 'UTC' ) );
+						$modified_at->setTimezone( new DateTimeZone( wc_timezone_string() ) );
+						$modified_at = strtotime( $modified_at->format( 'Y-m-d H:i:s' ) );
 
-					echo esc_html( date_i18n( $date_format, $modified_at ) );
-				} catch ( Exception $e ) {
-					echo 'Error writing to database: ';
-					// Nothing to output when the date/time string isn't a.
-					// valid date/time.
-				}
-				?>
+						echo esc_html( date_i18n( $date_format, $modified_at ) );
+					} catch ( Exception $e ) {
+						echo 'Error writing to database: ';
+						// Nothing to output when the date/time string isn't a.
+						// valid date/time.
+					}
+					?>
 					</td>
 					<td><?php echo esc_html( $integration->get_conversation_status( $conversation['status'] ) ); ?></td>
 					<td style="text-align: right;"><a href="#" data-conversation-id="<?php echo esc_attr( $conversation_id ); ?>" class="button conversation-view conversation-view-<?php echo esc_attr( $order_id ); ?>" data-subject="<?php echo esc_attr( $subject ); ?>" ><?php esc_attr_e( 'View', 'woocommerce-help-scout' ); ?></a> <a href="#" data-conversation-id="<?php echo esc_attr( $conversation_id ); ?>" data-subject="<?php echo esc_attr( $subject ); ?>" class="button conversation-reply"><?php esc_attr_e( 'Reply', 'woocommerce-help-scout' ); ?></a></td>
 				</tr>
-			<?php endforeach; ?>
+					<?php
+			endforeach;
+			} else {
+				?>
+				<tr><td colspan="5">No conversations.</td></tr>
+				<?php
+			}
+			?>
 		</tbody>
 	</table>
 	<div id="support-conversations-navigation">
-
 		<?php if ( 1 !== $current_page ) : ?>
 			<a class="button previous" href="<?php echo esc_url( $last_page ); ?>"><?php esc_html_e( 'Previous', 'woocommerce-help-scout' ); ?></a>
 		<?php endif; ?>
 
-		<?php if ( 1 < $conversations['page']['number'] ) : ?>
+		<?php
+		if ( isset( $conversations['page']['number'] ) ) {
+			if ( 1 < $conversations['page']['number'] ) :
+				?>
 			<a class="button next" href="<?php echo esc_url( $next_page ); ?>"><?php esc_html_e( 'Next', 'woocommerce-help-scout' ); ?></a>
-		<?php endif; ?>
+				<?php
+		endif;
+		}
+		?>
 
 	</div>
 

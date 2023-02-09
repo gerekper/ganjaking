@@ -1,18 +1,38 @@
-# Copyright (C) 2022 WooCommerce
-# This file is distributed under the GPL v3.
+# Copyright (C) 2023 Themesquad
+# This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Sales Report Email 1.1.28\n"
-"Report-Msgid-Bugs-To: "
-"https://wordpress.org/support/plugin/woocommerce-sales-report-email\n"
-"POT-Creation-Date: 2022-09-02 10:51:32+00:00\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
+"Project-Id-Version: WooCommerce Sales Report Email 1.2.0\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: node-wp-i18n 1.2.3\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-02-01T11:42:34+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.7.1\n"
+"X-Domain: woocommerce-sales-report-email\n"
+
+#. Plugin Name of the plugin
+msgid "WooCommerce Sales Report Email"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://woocommerce.com/products/woocommerce-sales-report-email/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Daily Sales Report Email"
+msgstr ""
+
+#. Author of the plugin
+msgid "Themesquad"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://themesquad.com"
+msgstr ""
 
 #: classes/class-wc-sre-sales-report-email.php:29
 #: classes/class-wc-sre-settings.php:36
@@ -20,9 +40,7 @@ msgid "Sales Reports"
 msgstr ""
 
 #: classes/class-wc-sre-sales-report-email.php:30
-msgid ""
-"The Sales Report Emails plugin extends WooCommerce by emailing you a daily, "
-"weekly or monthly sales report."
+msgid "The Sales Report Emails plugin extends WooCommerce by emailing you a daily, weekly or monthly sales report."
 msgstr ""
 
 #: classes/class-wc-sre-sales-report-email.php:64
@@ -33,70 +51,40 @@ msgstr ""
 msgid "Your {interval} report of {site_title}"
 msgstr ""
 
-#: classes/class-wc-sre-sales-report-email.php:272
-msgid "Enable/Disable"
-msgstr ""
-
-#: classes/class-wc-sre-sales-report-email.php:274
-msgid "Enable this email notification"
-msgstr ""
-
-#: classes/class-wc-sre-sales-report-email.php:278
+#: classes/class-wc-sre-sales-report-email.php:285
 msgid "Recipients"
 msgstr ""
 
-#: classes/class-wc-sre-sales-report-email.php:280
+#: classes/class-wc-sre-sales-report-email.php:287
 msgid "The email addresses reports are sent to, separated by commas."
 msgstr ""
 
-#: classes/class-wc-sre-sales-report-email.php:284
+#: classes/class-wc-sre-sales-report-email.php:291
 msgid "Interval"
 msgstr ""
 
-#: classes/class-wc-sre-sales-report-email.php:287
+#: classes/class-wc-sre-sales-report-email.php:294
 msgid "Daily"
 msgstr ""
 
-#: classes/class-wc-sre-sales-report-email.php:288
+#: classes/class-wc-sre-sales-report-email.php:295
 msgid "Weekly"
 msgstr ""
 
-#: classes/class-wc-sre-sales-report-email.php:289
+#: classes/class-wc-sre-sales-report-email.php:296
 msgid "Monthly"
 msgstr ""
 
-#: classes/class-wc-sre-sales-report-email.php:291
+#: classes/class-wc-sre-sales-report-email.php:298
 msgid "The frequency of which reports should be sent."
 msgstr ""
 
-#: classes/class-wc-sre-sales-report-email.php:296
+#: classes/class-wc-sre-sales-report-email.php:303
 msgid "Send Email At"
 msgstr ""
 
-#: classes/class-wc-sre-sales-report-email.php:298
-msgid ""
-"Choose the time of day to send out the sales report (based on the interval "
-"above)."
-msgstr ""
-
-#: classes/class-wc-sre-sales-report-email.php:304
-msgid "Email type"
-msgstr ""
-
-#: classes/class-wc-sre-sales-report-email.php:306
-msgid "Choose which format of email to send."
-msgstr ""
-
-#: classes/class-wc-sre-sales-report-email.php:310
-msgid "Plain text"
-msgstr ""
-
-#: classes/class-wc-sre-sales-report-email.php:311
-msgid "HTML"
-msgstr ""
-
-#: classes/class-wc-sre-sales-report-email.php:312
-msgid "Multipart"
+#: classes/class-wc-sre-sales-report-email.php:305
+msgid "Choose the time of day to send out the sales report (based on the interval above)."
 msgstr ""
 
 #: classes/rows/class-wc-sre-row-active-subscribers.php:18
@@ -123,31 +111,42 @@ msgstr ""
 msgid "Total Sign Ups"
 msgstr ""
 
-#: templates/plain/sales-report.php:13 templates/sales-report.php:16
+#: src/Admin/Admin.php:39
+msgctxt "aria-label: settings link"
+msgid "View WooCommerce Sales Report Email settings"
+msgstr ""
+
+#: src/Admin/Admin.php:40
+msgctxt "plugin action link"
+msgid "Settings"
+msgstr ""
+
+#: src/Admin/Admin.php:65
+msgctxt "aria-label: documentation link"
+msgid "View WooCommerce Sales Report Email documentation"
+msgstr ""
+
+#: src/Admin/Admin.php:66
+msgctxt "plugin row link"
+msgid "Docs"
+msgstr ""
+
+#: src/Admin/Admin.php:72
+msgctxt "aria-label: support link"
+msgid "Open a support ticket at WooCommerce.com"
+msgstr ""
+
+#: src/Admin/Admin.php:73
+msgctxt "plugin row link"
+msgid "Support"
+msgstr ""
+
+#: templates/plain/sales-report.php:13
+#: templates/sales-report.php:16
 msgid "Hi there. Please find your %s sales report below."
 msgstr ""
 
-#: woocommerce-sales-report-email.php:193
 #. translators: %s: WooCommerce link
+#: woocommerce-sales-report-email.php:193
 msgid "WooCommerce Sales Report Email requires %s to be installed and active."
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "WooCommerce Sales Report Email"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "https://woocommerce.com/products/woocommerce-sales-report-email/"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid "Daily Sales Report Email"
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "WooCommerce"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "https://woocommerce.com/"
 msgstr ""

@@ -330,6 +330,9 @@ function warranty_get_product_warranty( $product_id, $maybe_use_parent = true ) 
 		$warranty['label'] = ( ! empty( $parent_product ) && 'parent' === $warranty_control ) ? $parent_product->get_meta( '_warranty_label' ) : $product->get_meta( '_warranty_label' );
 	}
 
+	$warranty['length']   = ( ! empty( $warranty['length'] ) ) ? $warranty['length'] : '';
+	$warranty['duration'] = ( ! empty( $warranty['duration'] ) ) ? $warranty['duration'] : '';
+
 	return apply_filters( 'get_product_warranty', $warranty, $product_id );
 }
 

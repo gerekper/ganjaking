@@ -16,7 +16,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 <p><?php esc_html_e( 'Do you have a query about your order, or need a hand with getting your products set up? If so, please fill in the form below.', 'woocommerce-help-scout' ); ?></p>
 
 <form method="post" id="order_conversation_form_1" class="wc-helpscout-order-conversation-form" enctype="multipart/form-data" data-inc="1">
-	<?php do_action( 'woocommerce_help_scout_conversation_form_start' ); ?>
+	<?php 
+		/**
+		* Action for woocommerce_help_scout_customer_args.
+		*
+		* @since  1.3.4
+		*/
+		do_action( 'woocommerce_help_scout_conversation_form_start' ); 
+	?>
 
 	<p class="form-row form-row-wide">
 		<label for="conversation-subject"><?php esc_html_e( 'Subject', 'woocommerce-help-scout' ); ?> <span class="required">*</span></label>
@@ -33,12 +40,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 	</div>
 	<br>
 
-	<?php do_action( 'woocommerce_help_scout_conversation_form' ); ?>
+	<?php 
+		/**
+		* Action for woocommerce_help_scout_customer_args.
+		*
+		* @since  1.3.4
+		*/
+		do_action( 'woocommerce_help_scout_conversation_form' ); 
+	?>
 
 	<p class="form-row">
 		<input type="hidden" class="conversation-field" name="conversation_order_id" id="conversation-order-id" value="<?php echo intval( $order_id ); ?>" />
 		<input type="submit" class="button" name="conversation_send" value="<?php esc_html_e( 'Send', 'woocommerce-help-scout' ); ?>" />
 	</p>
 
-	<?php do_action( 'woocommerce_help_scout_conversation_form_end' ); ?>
+	<?php
+		/**
+		* Action for woocommerce_help_scout_customer_args.
+		*
+		* @since  1.3.4
+		*/
+		do_action( 'woocommerce_help_scout_conversation_form_end' ); 
+	?>
 </form>

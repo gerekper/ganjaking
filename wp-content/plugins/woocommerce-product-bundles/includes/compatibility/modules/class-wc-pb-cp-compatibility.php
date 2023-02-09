@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Composite Products Compatibility.
  *
- * @version  6.15.1
+ * @version  6.17.2
  */
 class WC_PB_CP_Compatibility {
 
@@ -1425,6 +1425,21 @@ class WC_PB_CP_Compatibility {
 			if ( is_null( $cart_item ) ) {
 				continue;
 			}
+
+			/**
+			 * StoreAPI returns the following fields as
+			 * - object (/wc/store/v1/cart)
+			 * - array (/wc/store/v1/cart/extensions)
+			 *
+			 * Casting them to objects, to avoid PHP8+ fatal errors.
+			 *
+			 * @see https://github.com/woocommerce/woocommerce-product-bundles/issues/1096
+			 * @see https://github.com/woocommerce/woocommerce-blocks/issues/7275
+			 */
+			$item_data[ 'quantity_limits' ] = (object) $item_data[ 'quantity_limits' ];
+			$item_data[ 'prices' ]          = (object) $item_data[ 'prices' ];
+			$item_data[ 'totals' ]          = (object) $item_data[ 'totals' ];
+			$item_data[ 'extensions' ]      = (object) $item_data[ 'extensions' ];
 
 			// Is this a composited bundle?
 			if ( isset( $item_data[ 'extensions' ]->composites[ 'composited_item_data' ] ) && isset( $item_data[ 'extensions' ]->bundles[ 'bundle_data' ] ) ) {
