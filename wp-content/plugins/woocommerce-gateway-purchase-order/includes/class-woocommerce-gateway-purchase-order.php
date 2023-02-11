@@ -45,7 +45,7 @@ final class Woocommerce_Gateway_Purchase_Order extends WC_Payment_Gateway {
 
 		$this->id                 = 'woocommerce_gateway_purchase_order';
 		$this->method_title       = __( 'Purchase Order', 'woocommerce-gateway-purchase-order' );
-        $this->method_description = __( 'Purchase Order gateway adds a field to the checkout screen where your customer enters their purchase order number, provided by you directly to the customer in a manual agreement.' );
+		$this->method_description = __( 'Purchase Order gateway adds a field to the checkout screen where your customer enters their purchase order number, provided by you directly to the customer in a manual agreement.' );
 		$this->has_fields         = true;
 
 		$this->init_form_fields();
@@ -60,7 +60,7 @@ final class Woocommerce_Gateway_Purchase_Order extends WC_Payment_Gateway {
 		add_action( 'woocommerce_thankyou_' . $this->id, array( $this, 'thank_you' ) );
 	}
 
-    /**
+	/**
 	 * Register the gateway's fields.
 	 * @access public
 	 * @since  1.0.0
@@ -68,28 +68,28 @@ final class Woocommerce_Gateway_Purchase_Order extends WC_Payment_Gateway {
 	 */
 	public function init_form_fields () {
 	   $this->form_fields = array(
-	            'enabled' => array(
-	                'title' => __( 'Enable/Disable', 'woocommerce-gateway-purchase-order' ),
-	                'type' => 'checkbox',
-	                'label' => __( 'Enable Purchase Orders.', 'woocommerce-gateway-purchase-order' ),
-	                'default' => 'no' ),
-	            'title' => array(
-	                'title' => __( 'Title:', 'woocommerce-gateway-purchase-order' ),
-	                'type'=> 'text',
-	                'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce-gateway-purchase-order' ),
-	                'default' => __( 'Purchase Order', 'woocommerce-gateway-purchase-order' ) ),
-	            'description' => array(
-	                'title' => __( 'Description:', 'woocommerce-gateway-purchase-order' ),
-	                'type' => 'textarea',
-	                'description' => __( 'This controls the description which the user sees during checkout.', 'woocommerce-gateway-purchase-order' ),
-	                'default' => __( 'Please add your P.O. Number to the purchase order field.', 'woocommerce-gateway-purchase-order' ) ),
+				'enabled' => array(
+					'title' => __( 'Enable/Disable', 'woocommerce-gateway-purchase-order' ),
+					'type' => 'checkbox',
+					'label' => __( 'Enable Purchase Orders.', 'woocommerce-gateway-purchase-order' ),
+					'default' => 'no' ),
+				'title' => array(
+					'title' => __( 'Title:', 'woocommerce-gateway-purchase-order' ),
+					'type'=> 'text',
+					'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce-gateway-purchase-order' ),
+					'default' => __( 'Purchase Order', 'woocommerce-gateway-purchase-order' ) ),
+				'description' => array(
+					'title' => __( 'Description:', 'woocommerce-gateway-purchase-order' ),
+					'type' => 'textarea',
+					'description' => __( 'This controls the description which the user sees during checkout.', 'woocommerce-gateway-purchase-order' ),
+					'default' => __( 'Please add your P.O. Number to the purchase order field.', 'woocommerce-gateway-purchase-order' ) ),
 				 'instructions' => array(
-	                'title' => __('Thank You note:', 'woocommerce-gateway-purchase-order'),
-	                'type' => 'textarea',
-	                'instructions' => __( 'Instructions that will be added to the thank you page.', 'woocommerce-gateway-purchase-order' ),
-	                'default' => '' )
+					'title' => __('Thank You note:', 'woocommerce-gateway-purchase-order'),
+					'type' => 'textarea',
+					'instructions' => __( 'Instructions that will be added to the thank you page.', 'woocommerce-gateway-purchase-order' ),
+					'default' => '' )
 
-	        );
+			);
 	}
 
 	/**
@@ -98,8 +98,8 @@ final class Woocommerce_Gateway_Purchase_Order extends WC_Payment_Gateway {
 	 * @since  1.0.0
 	 * @return void
 	 */
-	public function admin_options () {
-		echo '<h3>'.__( 'Purchase Order Payment Gateway', 'woocommerce-gateway-purchase-order' ) . '</h3>';
+	public function admin_options() {
+		echo '<h3>' . esc_html__( 'Purchase Order Payment Gateway', 'woocommerce-gateway-purchase-order' ) . '</h3>';
 		echo '<table class="form-table">';
 		// Generate the HTML For the settings form.
 		$this->generate_settings_html();
@@ -108,33 +108,40 @@ final class Woocommerce_Gateway_Purchase_Order extends WC_Payment_Gateway {
 
 	/**
 	 * Register the gateway's payment fields.
+	 *
 	 * @access public
 	 * @since  1.0.0
 	 * @return void
 	 */
-    public function payment_fields () {
-        if( $this->description ) echo wpautop( wptexturize( $this->description ) );
-
-        // In case of an AJAX refresh of the page, check the form post data to see if we can repopulate an previously entered PO
-		$po_number = '';
-		if ( isset( $_REQUEST[ 'post_data' ] ) ) {
-			parse_str( $_REQUEST[ 'post_data' ], $post_data );
-	        if ( isset( $post_data[ 'po_number_field' ] ) ) {
-				$po_number = $post_data[ 'po_number_field' ];
-	        }
+	public function payment_fields() {
+		if ( $this->description ) {
+			echo wp_kses_post( wpautop( wptexturize( $this->description ) ) );
 		}
-?>
+
+		// In case of an AJAX refresh of the page, check the form post data to see if we can repopulate an previously entered PO.
+		$po_number = '';
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		if ( isset( $_REQUEST['post_data'] ) ) {
+			parse_str( sanitize_text_field( wp_unslash( $_REQUEST['post_data'] ) ), $post_data );
+			if ( isset( $post_data['po_number_field'] ) ) {
+				$po_number = $post_data['po_number_field'];
+			}
+		}
+		?>
 		<fieldset>
 			<p class="form-row form-row-first">
-				<label for="poorder"><?php _e( 'Purchase Order', 'woocommerce-gateway-purchase-order' ); ?> <span class="required">*</span></label>
+				<label for="poorder"><?php esc_html_e( 'Purchase Order', 'woocommerce-gateway-purchase-order' ); ?> <span class="required">*</span></label>
 				<input type="text" class="input-text" value="<?php echo esc_attr( $po_number ); ?>" id="po_number_field" name="po_number_field" />
 			</p>
 		</fieldset>
-<?php
-    }
+		<?php
+		// phpcs:enable
+	}
 
-    /**
+	/**
 	 * Process the payment.
+	 *
+	 * @param  int $order_id Order ID.
 	 * @access public
 	 * @since  1.0.0
 	 * @return array An array containing the result text and a redirect URL.
@@ -152,16 +159,16 @@ final class Woocommerce_Gateway_Purchase_Order extends WC_Payment_Gateway {
 
 		$order->update_status( 'on-hold', __( 'Waiting to be processed', 'woocommerce-gateway-purchase-order' ) );
 
-		// Reduce stock levels
+		// Reduce stock levels.
 		wc_reduce_stock_levels( $order->get_id() );
 
-		// Remove cart
+		// Remove cart.
 		WC()->cart->empty_cart();
 
-		// Return thankyou redirect
+		// Return thankyou redirect.
 		return array(
-		'result' 	=> 'success',
-		'redirect'	=> $this->get_return_url( $order )
+			'result'   => 'success',
+			'redirect' => $this->get_return_url( $order ),
 		);
 	}
 
@@ -171,32 +178,41 @@ final class Woocommerce_Gateway_Purchase_Order extends WC_Payment_Gateway {
 	 * @since  1.0.0
 	 * @return void
 	 */
-	public function thank_you () {
-        echo $this->instructions != '' ? wpautop( $this->instructions ) : '';
-    }
+	public function thank_you() {
+		echo '' !== $this->instructions ? wp_kses_post( wpautop( $this->instructions ) ) : '';
+	}
 
 	/**
 	 * Retrieve a posted value, if it exists.
+	 *
 	 * @access public
 	 * @since  1.0.0
+	 * @param str $name Name.
 	 * @return string/null
 	 */
-	private function get_post ( $name ) {
-		if( isset( $_POST[$name] ) ) {
-			return $_POST[$name];
+	private function get_post( $name ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
+		if ( isset( $_POST[ $name ] ) ) {
+			return wp_kses_post( wp_unslash( $_POST[ $name ] ) );
 		} else {
-			return NULL;
+			return null;
 		}
+		// phpcs:enable
 	}
 
-	public function validate_fields () {
+	/**
+	 * Validate the fields.
+	 *
+	 * @return boolean
+	 */
+	public function validate_fields() {
 		$poorder = $this->get_post( 'po_number_field' );
-		if( ! $poorder ) {
-			if ( function_exists ( 'wc_add_notice' ) ) {
+		if ( ! $poorder ) {
+			if ( function_exists( 'wc_add_notice' ) ) {
 				// Replace deprecated $woocommerce_add_error() function.
-				wc_add_notice ( __ ( 'Please enter your PO Number.', 'woocommerce-gateway-purchase-order' ), 'error' );
+				wc_add_notice( esc_html__( 'Please enter your PO Number.', 'woocommerce-gateway-purchase-order' ), 'error' );
 			} else {
-				WC()->add_error( __( 'Please enter your PO Number.', 'woocommerce-gateway-purchase-order' ) );
+				WC()->add_error( esc_html__( 'Please enter your PO Number.', 'woocommerce-gateway-purchase-order' ) );
 			}
 			return false;
 		} else {

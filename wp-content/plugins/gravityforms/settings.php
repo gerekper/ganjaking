@@ -682,7 +682,7 @@ class GFSettings {
 						</p>
 					</td>
 					<td data-header="<?php _e( 'Purchase Date', 'gravityforms' ); ?>">
-						<p><?php echo '1st February 2023'; ?></p>
+						<p><?php echo '10th February 2023'; ?></p>
 					</td>
 					<td data-header="<?php _e( 'License Activations', 'gravityforms' ); ?>">
 						<p>
@@ -864,11 +864,11 @@ class GFSettings {
 						'id'          => 'recpatcha',
 						'title'       => esc_html__( 'reCAPTCHA Settings', 'gravityforms' ),
 						'description' => sprintf(
-							'%s <strong>%s</strong> %s <a href="http://www.google.com/recaptcha/" target="_blank">%s</a>',
+							'%s <strong>%s</strong> %s <a href="https://www.google.com/recaptcha/admin/create" target="_blank">%s</a>',
 							esc_html__( 'Gravity Forms integrates with reCAPTCHA, a free CAPTCHA service that uses an advanced risk analysis engine and adaptive challenges to keep automated software from engaging in abusive activities on your site. ', 'gravityforms' ),
 							esc_html__( 'Please note, only v2 keys are supported and checkbox keys are not compatible with invisible reCAPTCHA.', 'gravityforms' ),
 							esc_html__( 'These settings are required only if you decide to use the reCAPTCHA field.', 'gravityforms' ),
-							esc_html__( 'Read more about reCAPTCHA.', 'gravityforms' )
+							esc_html__( 'Get your reCAPTCHA Keys.', 'gravityforms' )
 						),
 						'class'       => 'gform-settings-panel--full',
 						'fields'      => array(

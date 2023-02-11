@@ -4,7 +4,7 @@ Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
 Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.7
+Version: 2.7.0.2
 Requires at least: 4.0
 Requires PHP: 5.6
 Author: Gravity Forms
@@ -241,7 +241,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.7';
+	public static $version = '2.7.0.2';
 
 	/**
 	 * Handles background upgrade tasks.
@@ -317,6 +317,7 @@ class GFForms {
 		$container->add_provider( new \Gravity_Forms\Gravity_Forms\Form_Display\GF_Form_Display_Service_Provider() );
 		$container->add_provider( new \Gravity_Forms\Gravity_Forms\Environment_Config\GF_Environment_Config_Service_Provider() );
 		$container->add_provider( new \Gravity_Forms\Gravity_Forms\Async\GF_Background_Process_Service_Provider() );
+		$container->add_provider( new \GF_System_Report_Service_Provider() );
 	}
 
 	/**
@@ -348,6 +349,7 @@ class GFForms {
 		require_once GF_PLUGIN_DIR_PATH . '/includes/template-library/class-gf-template-library-service-provider.php';
 		require_once GF_PLUGIN_DIR_PATH . 'includes/environment-config/class-gf-environment-config-service-provider.php';
 		require_once GF_PLUGIN_DIR_PATH . 'includes/async/class-gf-background-process-service-provider.php';
+		require_once GF_PLUGIN_DIR_PATH . 'includes/system-status/class-gf-system-report-service-provider.php';
 
 		if ( ! empty( self::$container ) ) {
 			return self::$container;
@@ -6384,6 +6386,7 @@ class GFForms {
 	public static function cron() {
 
 		GFCommon::log_debug( __METHOD__ . '(): Starting cron.' );
+		GFCommon::record_cron_event( 'gravityforms_cron' );
 
 		self::add_security_files();
 

@@ -3,12 +3,12 @@
  * Plugin Name: Follow-Up Emails
  * Plugin URI: https://woocommerce.com/products/follow-up-emails/
  * Description: Automate your email marketing, and create scheduled newletters to drive customer engagement for WordPress, WooCommerce, and Sensei.
- * Version: 4.9.35
+ * Version: 4.9.36
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Text domain: follow_up_emails
  * Tested up to: 6.1
- * WC tested up to: 7.3
+ * WC tested up to: 7.4
  * WC requires at least: 3.0
  *
  * Woo: 18686:05ece68fe94558e65278fe54d9ec84d2
@@ -18,7 +18,7 @@
  */
 
 /** Path and URL constants **/
-define( 'FUE_VERSION', '4.9.35' ); // WRCS: DEFINED_VERSION.
+define( 'FUE_VERSION', '4.9.36' ); // WRCS: DEFINED_VERSION.
 define( 'FUE_KEY', 'aHR0cDovLzc1bmluZXRlZW4uY29tL2Z1ZS5waH' );
 define( 'FUE_FILE', __FILE__ );
 define( 'FUE_URL', plugins_url( '', __FILE__ ) );

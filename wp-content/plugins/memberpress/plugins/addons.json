@@ -1,0 +1,314 @@
+{
+	"mptb-account-nav-tabs": {
+		"product_name": "MemberPress Account Navigation Tabs",
+		"product_slug": "mptb-account-nav-tabs",
+		"installable": true,
+		"extra_info": {
+			"main_file": "mptb-account-nav-tabs/main.php",
+			"directory": "mptb-account-nav-tabs",
+			"description": "Lets site owners easily add additional navigation tabs to the MemberPress Account page.",
+			"list_title": "Account Navigation Tabs",
+			"cover_image": "https://memberpress.com/wp-content/uploads/2022/04/Integrations_653-302x170.jpg"
+		}
+	},
+	"memberpress-activecampaign": {
+		"product_name": "MemberPress ActiveCampaign - Lists Version",
+		"product_slug": "memberpress-activecampaign",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-activecampaign/main.php",
+			"directory": "memberpress-activecampaign",
+			"description": "ActiveCampaign (http://www.activecampaign.com/) autoresponder integration. Lists Version.",
+			"list_title": "ActiveCampaign (Lists Version)",
+			"cover_image": "https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-activecampaign.png"
+		}
+	},
+	"memberpress-aweber": {
+		"product_name": "MemberPress AWeber",
+		"product_slug": "memberpress-aweber",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-aweber/main.php",
+			"directory": "memberpress-aweber",
+			"description": "AWeber (http://www.aweber.com/) autoresponder integration",
+			"list_title": "AWeber",
+			"cover_image": "https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-aweber.png"
+		}
+	},
+	"memberpress-aws": {
+		"product_name": "MemberPress AWS",
+		"product_slug": "memberpress-aws",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-aws/memberpress-aws.php",
+			"directory": "memberpress-aws",
+			"description": "Allows you you protect and embed expiring links, audio & video to content you have stored on Amazon S3",
+			"list_title": "Amazon Web Services (AWS)",
+			"cover_image": "https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-aws.png"
+		}
+	},
+	"memberpress-beaver-builder": {
+		"product_name": "MemberPress Beaver Builder",
+		"product_slug": "memberpress-beaver-builder",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-beaver-builder/memberpress-beaver-builder.php",
+			"directory": "memberpress-beaver-builder",
+			"description": "Beaver Builder integration for MemberPress",
+			"list_title": "Beaver Builder",
+			"cover_image": "https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-beaver-builder.png"
+		}
+	},
+	"memberpress-buddypress": {
+		"product_name": "MemberPress BuddyPress",
+		"product_slug": "memberpress-buddypress",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-buddypress/main.php",
+			"directory": "memberpress-buddypress",
+			"description": "BuddyPress (https://buddypress.org/) integration for MemberPress",
+			"list_title": "BuddyPress Integration",
+			"cover_image": "https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-buddypress.png"
+		}
+	},
+	"memberpress-constantcontact": {
+		"product_name": "MemberPress Constant Contact",
+		"product_slug": "memberpress-constantcontact",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-constantcontact/main.php",
+			"directory": "memberpress-constantcontact",
+			"description": "Constant Contact (http://www.constantcontact.com/) autoresponder integration",
+			"list_title": "Constant Contact",
+			"cover_image": "https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-constantcontact.png"
+		}
+	},
+	"memberpress-convertkit": {
+		"product_name": "MemberPress ConvertKit",
+		"product_slug": "memberpress-convertkit",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-convertkit/main.php",
+			"directory": "memberpress-convertkit",
+			"description": "ConvertKit (http://convertkit.com) autoresponder integration",
+			"list_title": "ConvertKit",
+			"cover_image": "https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-convertkit.png"
+		}
+	},
+	"memberpress-corporate": {
+		"product_name": "MemberPress Corporate Accounts",
+		"product_slug": "memberpress-corporate",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-corporate/main.php",
+			"directory": "memberpress-corporate",
+			"description": "Corporate (aka Group, Parent or Umbrella) Accounts for MemberPress",
+			"list_title": "Corporate Accounts",
+			"cover_image": "https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-corporate.png"
+		}
+	},
+	"memberpress-courses": {
+		"product_name": "MemberPress Courses",
+		"product_slug": "memberpress-courses",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-courses/main.php",
+			"directory": "memberpress-courses",
+			"description": "Get the ease of use you expect from MemberPress combined with powerful LMS features designed to make building online courses simple.",
+			"list_title": "Courses",
+			"cover_image": "https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-courses.png"
+		}
+	},
+	"memberpress-developer-tools": {
+		"product_name": "MemberPress Developer Tools",
+		"product_slug": "memberpress-developer-tools",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-developer-tools/main.php",
+			"directory": "memberpress-developer-tools",
+			"description": "Adds MemberPress webhooks for events and a Remote API with dynamic, in-plugin documentation",
+			"list_title": "Developer Tools",
+			"cover_image": "https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-developer-tools.png"
+		}
+	},
+	"memberpress-divi": {
+		"product_name": "MemberPress Divi",
+		"product_slug": "memberpress-divi",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-divi/memberpress-divi.php",
+			"directory": "memberpress-divi",
+			"description": "Divi integration for MemberPress",
+			"list_title": "Divi",
+			"cover_image": "https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-divi.png"
+		}
+	},
+	"memberpress-downloads": {
+		"product_name": "MemberPress Downloads",
+		"product_slug": "memberpress-downloads",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-downloads/main.php",
+			"directory": "memberpress-downloads",
+			"description": "Upload and control access to files for your memberships in MemberPress.",
+			"list_title": "Downloads",
+			"cover_image": "https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-downloads.png"
+		}
+	},
+	"memberpress-drip-tags": {
+		"product_name": "MemberPress Drip - Tags",
+		"product_slug": "memberpress-drip-tags",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-drip-tags/main.php",
+			"directory": "memberpress-drip-tags",
+			"description": "Drip (https://www.getdrip.com/) autoresponder integration - Tags Version",
+			"list_title": "Drip - Tags Version",
+			"cover_image": "https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-drip-tags.png"
+		}
+	},
+	"memberpress-elementor": {
+		"product_name": "MemberPress Elementor",
+		"product_slug": "memberpress-elementor",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-elementor/memberpress-elementor.php",
+			"directory": "memberpress-elementor",
+			"description": "Elementor integration for MemberPress",
+			"list_title": "Elementor",
+			"cover_image": "https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-elementor.png"
+		}
+	},
+	"memberpress-getresponse": {
+		"product_name": "MemberPress GetResponse",
+		"product_slug": "memberpress-getresponse",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-getresponse/main.php",
+			"directory": "memberpress-getresponse",
+			"description": "GetResponse (http://www.getresponse.com/) autoresponder integration",
+			"list_title": "GetResponse",
+			"cover_image": "https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-getresponse.png"
+		}
+	},
+	"memberpress-gifting": {
+		"product_name": "MemberPress Gifting",
+		"product_slug": "memberpress-gifting",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-gifting/memberpress-gifting.php",
+			"directory": "memberpress-gifting",
+			"description": "Allow your memberships to be gifted",
+			"list_title": "Gifting",
+			"cover_image": "https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-gifting.png"
+		}
+	},
+	"memberpress-helpscout": {
+		"product_name": "MemberPress HelpScout",
+		"product_slug": "memberpress-helpscout",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-helpscout/main.php",
+			"directory": "memberpress-helpscout",
+			"description": "HelpScout (http://helpscout.com) Custom App Integration",
+			"list_title": "HelpScout",
+			"cover_image": "https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-helpscout.png"
+		}
+	},
+	"memberpress-importer": {
+		"product_name": "MemberPress Importer",
+		"product_slug": "memberpress-importer",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-importer/memberpress-importer.php",
+			"directory": "memberpress-importer",
+			"description": "Tools to Import data into MemberPress.",
+			"list_title": "Importer",
+			"cover_image": "https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-importer.png"
+		}
+	},
+	"memberpress-mailchimp-tags": {
+		"product_name": "MemberPress MailChimp 3.0",
+		"product_slug": "memberpress-mailchimp-tags",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-mailchimp-tags/main.php",
+			"directory": "memberpress-mailchimp-tags",
+			"description": "MailChimp (http://mailchimp.com/) 3.0 autoresponder integration. Uses one list with Merge Tags for each Membership level.",
+			"list_title": "MailChimp 3.0",
+			"cover_image": "https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-mailchimp.png"
+		}
+	},
+	"memberpress-mailpoet": {
+		"product_name": "MemberPress MailPoet",
+		"product_slug": "memberpress-mailpoet",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-mailpoet/main.php",
+			"directory": "memberpress-mailpoet",
+			"description": "MailPoet (https://www.mailpoet.com/) autoresponder integration",
+			"list_title": "MailPoet",
+			"cover_image": "https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-mailpoet.png"
+		}
+	},
+	"memberpress-mailster": {
+		"product_name": "MemberPress Mailster",
+		"product_slug": "memberpress-mailster",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-mailster/main.php",
+			"directory": "memberpress-mailster",
+			"description": "Mailster (https://mailster.co/) autoresponder integration",
+			"list_title": "Mailster",
+			"cover_image": "https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-mailster.png"
+		}
+	},
+	"memberpress-math-captcha": {
+		"product_name": "MemberPress Math Captcha",
+		"product_slug": "memberpress-math-captcha",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-math-captcha/main.php",
+			"directory": "memberpress-math-captcha",
+			"description": "Adds a simple math Captcha to the signup process",
+			"list_title": "Math Captcha",
+			"cover_image": "https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-math-captcha.png"
+		}
+	},
+	"memberpress-pdf-invoice": {
+		"product_name": "MemberPress PDF Invoice",
+		"product_slug": "memberpress-pdf-invoice",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-pdf-invoice/memberpress-pdf-invoice.php",
+			"directory": "memberpress-pdf-invoice",
+			"description": "PDF Invoice Downloads for MemberPress",
+			"list_title": "PDF Invoice",
+			"cover_image": "https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-pdf-invoice.png"
+		}
+	},
+	"memberpress-sendy": {
+		"product_name": "MemberPress Sendy",
+		"product_slug": "memberpress-sendy",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-sendy/main.php",
+			"directory": "memberpress-sendy",
+			"description": "Sendy Autoresponder integration for MemberPress.",
+			"list_title": "Sendy",
+			"cover_image": "https://memberpress.com/wp-content/uploads/2021/05/sendy-integration768x432-302x170.jpg"
+		}
+	},
+	"memberpress-wpbakery": {
+		"product_name": "MemberPress WPBakery",
+		"product_slug": "memberpress-wpbakery",
+		"installable": true,
+		"extra_info": {
+			"main_file": "memberpress-wpbakery/memberpress-wpbakery.php",
+			"directory": "memberpress-wpbakery",
+			"description": "WPBakery integration for MemberPress",
+			"list_title": "WPBakery",
+			"cover_image": "https://mepr-add-on-icons.s3.amazonaws.com/400x400/memberpress-wpbakery.png"
+		}
+	}
+}

@@ -792,7 +792,7 @@ class GF_Field_FileUpload extends GF_Field {
 			$value = $format == 'html' ? join( '<br />', $files ) : join( ', ', $files );
 
 		} else {
-			$value = $this->get_download_url( $value, $force_download );
+			$value = $this->get_download_url( $raw_value, $force_download );
 			$value = str_replace( ' ', '%20', $value );
 		}
 

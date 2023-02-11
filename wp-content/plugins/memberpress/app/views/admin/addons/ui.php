@@ -26,6 +26,7 @@
         <?php
           foreach($addons as $slug => $info) :
             $info = (object) $info;
+            $info->url = MEPR_PATH . '/plugins/' . $slug . '.zip';
             $status_label = '';
             $action_class = 'mepr-addon-action';
 
@@ -91,7 +92,7 @@
 
                   <?php elseif($status == 'download') : ?>
 
-                   <a href="https://babiato.co/resources/memberpress-all-in-one-membership-plugin-for-wordpress.2929/" target="_blank"><?php esc_html_e('Install Add-on', 'memberpress'); ?></a>
+                    <button type="button" data-plugin="<?php echo esc_attr($info->url); ?>" data-type="add-on"><i class="mp-icon mp-icon-download-cloud"></i><?php esc_html_e('Install Add-on', 'memberpress'); ?></button>
 
                   <?php else : ?>
 

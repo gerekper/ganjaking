@@ -14,7 +14,7 @@ class MeprAddonUpdates {
 
     $this->load_language();
 
-    add_filter('pre_set_site_transient_update_plugins', array( $this, 'queue_update' ));
+    //add_filter('pre_set_site_transient_update_plugins', array( $this, 'queue_update' ));
     add_action("in_plugin_update_message-$main_file", array($this, 'check_incorrect_edition'));
     add_action('mepr_plugin_edition_changed', array($this, 'clear_update_transient'));
     add_action('mepr_license_activated_before_queue_update', array($this, 'clear_update_transient'));
