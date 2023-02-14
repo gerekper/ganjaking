@@ -172,7 +172,8 @@ class BetterDocsPro_Analytics {
                 'dir_url' => BETTERDOCS_PRO_URL,
                 'rest_url' => get_rest_url(),
                 'free_version' => BETTERDOCS_VERSION,
-                'pro_version' => BETTERDOCS_PRO_VERSION
+                'pro_version' => BETTERDOCS_PRO_VERSION,
+                'nonce' => wp_create_nonce( 'wp_rest' )
             )
         );
     }

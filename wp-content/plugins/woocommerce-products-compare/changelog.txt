@@ -1,5 +1,20 @@
 *** WooCommerce Products Compare Changelog ***
 
+2023-02-07 - version 1.2.0
+* Tweak - Added compatibility with WooCommerce High-Performance Order Storage.
+* Tweak - Added links to the documentation page and to get support in the plugin list.
+* Tweak - Updated plugin author.
+* Tweak - Tested compatibility up to WC 7.4.
+* Tweak - Tested compatibility with WP 6.1.
+* Dev - Implement the singleton pattern in the main plugin class.
+* Dev - Updated the minimum requirements to WC 3.5, WP 4.7, and PHP 5.4.
+
+2022-05-25 - version 1.1.0
+* Fix - Add renovate bot configuration.
+* Fix - fix: composer 2.2 excludes handling.
+* Tweak - WC 6.5 compatibility.
+* Tweak - WP 6.0 compatibility.
+
 2021-11-16 - version 1.0.25
 * Fix - Update sanitization and output escaping across plugin files.
 * Tweak - WC 5.9 compatibility.

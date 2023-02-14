@@ -385,9 +385,13 @@
     height: 65vh !important;
     margin-bottom: 50px; } }
 
-.betterdocs-modal-content-container .betterdocs-entry-title {
+.betterdocs-modal-content-container .betterdocs-entry-title a {
   font-size: 20px;
-  line-height: 1.3; }
+  line-height: 1.3;
+  text-decoration: none;
+  color: inherit; }
+  .betterdocs-modal-content-container .betterdocs-entry-title a:hover {
+    text-decoration: underline; }
 
 .betterdocs-list-title-wrapper {
   display: -ms-flexbox;

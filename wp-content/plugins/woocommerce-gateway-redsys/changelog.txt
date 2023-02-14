@@ -1,5 +1,16 @@
 *** Redsys Gateway Change Log ***
 
+2023.02.09 - version 20.1.0
+
+* NEW: a dedicated logo for PayGold and the ability to custimize it from admin settings.
+* NEW: Now you can see the send Link for add credit card in Edit User Screen.
+* NEW: Declared compatibility with WooCommerce 7.4.
+* NEW: Declared compatibility with WordPress 6.2.
+* UPDATE: Now InSite Description allow HTML.
+* UPDATE: Recovered orders now works redirecting to Redsys if it is "redsys" Order.
+* FIX: Fixed a duplicated "mark as paid" with Subscription renewal. This was because the Redsys plugin and WooCommerce Subscriptions both marked the order as paid.
+* FIX: Fixed Reload checkout if the customer is not identificated and an account is created.
+
 2023.01.25 - version 20.0.3
 
 * FIX: Fixed an error with Pay button from My account when WooCommerce Subscriptions is not installed.

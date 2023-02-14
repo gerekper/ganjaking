@@ -1223,6 +1223,7 @@ class GFFormDisplay {
 				$form             = $honeypot_handler->maybe_add_honeypot_field( $form );
 
 				foreach ( $form['fields'] as $field ) {
+					$field->set_context_property( 'rendering_form', true );
 					/* @var GF_Field $field */
 					$field->conditionalLogicFields = self::get_conditional_logic_fields( $form, $field->id );
 
@@ -4859,7 +4860,7 @@ class GFFormDisplay {
 		$wrapper_class = GFCommon::is_legacy_markup_enabled( $form ) ? 'gform_validation_errors validation_error' : 'gform_validation_errors';
 
 		$validation_errors_markup = sprintf(
-			'<div id="gf_form_focus" tabindex="-1" ></div><div class="%s" id="%s">%s%s</div>',
+			'<div class="%s" id="%s" data-js="gform-focus-validation-error">%s%s</div>',
 			$wrapper_class,
 			$validation_container_id,
 			$validation_message_markup,

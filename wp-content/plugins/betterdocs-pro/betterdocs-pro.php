@@ -10,7 +10,7 @@
  * Plugin Name:       BetterDocs Pro
  * Plugin URI:        https:/betterdocs.co
  * Description:       Help your customers browse the docs and find instant answers through BetterDocs Instant Answers. Get access to Multiple KB, Insightful Analytics & many more!
- * Version:           2.2.6
+ * Version:           2.2.7
  * Author:            WPDeveloper
  * Author URI:        https://wpdeveloper.com
  * License:           GPL-3.0+
@@ -25,11 +25,11 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 update_option( 'betterdocs-pro-license-status', 'valid' );
-update_option( 'betterdocs-pro-license-key', '1415b451be1a13c283ba771ea52d38bb');
+update_option( 'betterdocs-pro-license-key', '222333iykgmhftr5678uihjuhty74');
 /**
  * Currently plugin version.
  */
-define( 'BETTERDOCS_PRO_VERSION', '2.2.6' );
+define( 'BETTERDOCS_PRO_VERSION', '2.2.7' );
 define('BETTERDOCS_PRO_DB_VERSION', '1.0');
 define( 'BETTERDOCS_PRO_URL', plugin_dir_url( __FILE__ ) );
 define( 'BETTERDOCS_PRO_PUBLIC_URL', BETTERDOCS_PRO_URL . 'public/' );
@@ -222,10 +222,10 @@ add_action( 'admin_init', 'betterdocs_plugin_updater' );
  */
 
 function betterdocs_customizer_condition_pro() {
-	wp_enqueue_script( 'betterdocs-customize-condition-pro', 
+	wp_enqueue_script( 'betterdocs-customize-condition-pro',
 		BETTERDOCS_PRO_ADMIN_URL . 'js/customizer-condition.js',
-		array(), 
-		true 
+		array(),
+		true
 	);
 }
 add_action( 'customize_controls_enqueue_scripts', 'betterdocs_customizer_condition_pro' );
@@ -236,11 +236,11 @@ add_action( 'customize_controls_enqueue_scripts', 'betterdocs_customizer_conditi
  * @since 1.0.2
  */
 function betterdocs_customize_preview_js_pro() {
-	wp_enqueue_script( 'betterdocs-customizer-pro', 
-		BETTERDOCS_PRO_ADMIN_URL . 'js/customizer.js', 
-		array( 'customize-preview' ), 
-		'', 
-		true 
+	wp_enqueue_script( 'betterdocs-customizer-pro',
+		BETTERDOCS_PRO_ADMIN_URL . 'js/customizer.js',
+		array( 'customize-preview' ),
+		'',
+		true
 	);
 }
 add_action( 'customize_preview_init', 'betterdocs_customize_preview_js_pro', 99 );

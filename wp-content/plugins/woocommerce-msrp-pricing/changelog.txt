@@ -1,5 +1,8 @@
 *** WooCommerce MSRP Pricing ***
 
+2023.02.10 - version 3.4.14
+* New: WooCommerce compatibility up to 7.4
+
 2023.01.05 - version 3.4.13
 * New: WooCommerce compatibility up to 7.3
  

@@ -1,5 +1,16 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2023-02-07 - version 2.4.0
+* Tweak - Include the tax amount in the time frame fee when displaying prices with tax included at checkout. 
+* Tweak - Display an admin notice when executing the 'Calculate shipping date' bulk action without affecting any orders.
+* Tweak - Redirect to the create delivery range form when the URL parameter `range_id` is invalid.
+* Tweak - Register the plugin integrations when all plugins have been loaded.
+* Tweak - Improved compatibility with WooCommerce High-Performance Order Storage (Ongoing process).
+* Tweak - Tested compatibility up to WC 7.4.
+* Dev - Added filter to customize the position of the delivery columns in the order list table.
+* Dev - Dropped deprecated code from versions 1.x.
+* Dev - Updated the minimum requirements to WC 3.7, WP 4.9, and PHP 5.6.
+
 2022-12-27 - version 2.3.2
 * Fix - Fixed error when trying to clone a non-object on calculating the delivery details of a subscription.
 

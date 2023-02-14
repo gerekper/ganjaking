@@ -380,7 +380,7 @@ class Betterdocs_Pro_Public
 
         $settings['fields']['betterdocs_popular_docs_number'] = array(
             'type'      => 'number',
-            'label'     => __('Popular Posts Number' , 'betterdocs-pro'),
+            'label'     => __('Popular Docs Number' , 'betterdocs-pro'),
             'default'   => 10,
             'priority'	=> 10
         );

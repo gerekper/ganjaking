@@ -1,15 +1,15 @@
-# Copyright (C) 2022 WPDeveloper
+# Copyright (C) 2023 WPDeveloper
 # This file is distributed under the GPL-3.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: BetterDocs Pro 2.2.1\n"
+"Project-Id-Version: BetterDocs Pro 2.2.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/betterdocs-pro\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-12-20T06:25:36+00:00\n"
+"POT-Creation-Date: 2023-02-07T06:56:52+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: betterdocs-pro\n"
@@ -47,7 +47,15 @@ msgstr ""
 #: admin/class-betterdocs-pro-admin-screen.php:49
 #: admin/includes/class-betterdocs-analytics.php:70
 #: admin/assets/js/betterdocs-analytics.js:1
-#: admin/assets/js/betterdocs-analytics.js:2446
+#: admin/assets/js/betterdocs-analytics.js:2435
+#: admin/assets/js/betterdocs-analytics.js:3554
+#: admin/assets/js/betterdocs-analytics.js:3884
+#: admin/assets/js/betterdocs-analytics.js:4032
+#: admin/assets/js/betterdocs-analytics.js:4235
+#: admin/assets/js/betterdocs-analytics.js:5072
+#: admin/assets/js/betterdocs-analytics.js:5318
+#: admin/assets/js/betterdocs-analytics.js:5467
+#: admin/assets/js/betterdocs-analytics.js:5682
 msgid "Views"
 msgstr ""
 
@@ -76,53 +84,53 @@ msgstr ""
 
 #: admin/class-betterdocs-pro-admin.php:319
 #: admin/class-betterdocs-pro-admin.php:347
-#: includes/class-multiple-kb.php:799
-#: includes/class-multiple-kb.php:852
+#: includes/class-multiple-kb.php:804
+#: includes/class-multiple-kb.php:857
 msgid "Add Image"
 msgstr ""
 
 #: admin/class-betterdocs-pro-admin.php:322
 #: admin/class-betterdocs-pro-admin.php:348
-#: includes/class-multiple-kb.php:800
-#: includes/class-multiple-kb.php:853
+#: includes/class-multiple-kb.php:805
+#: includes/class-multiple-kb.php:858
 msgid "Remove Image"
 msgstr ""
 
-#: admin/class-betterdocs-pro-report-email.php:61
+#: admin/class-betterdocs-pro-report-email.php:60
 msgid "Reporting Frequency"
 msgstr ""
 
-#: admin/class-betterdocs-pro-report-email.php:65
+#: admin/class-betterdocs-pro-report-email.php:64
 msgid "Once Daily"
 msgstr ""
 
-#: admin/class-betterdocs-pro-report-email.php:66
+#: admin/class-betterdocs-pro-report-email.php:65
 msgid "Once Weekly"
 msgstr ""
 
-#: admin/class-betterdocs-pro-report-email.php:67
+#: admin/class-betterdocs-pro-report-email.php:66
 msgid "Once Monthly"
 msgstr ""
 
-#: admin/class-betterdocs-pro-report-email.php:78
+#: admin/class-betterdocs-pro-report-email.php:77
 msgid "Reporting Email Subject"
 msgstr ""
 
-#: admin/class-betterdocs-pro-report-email.php:100
+#: admin/class-betterdocs-pro-report-email.php:99
 msgid "Select Reporting Data"
 msgstr ""
 
-#: admin/class-betterdocs-pro-report-email.php:104
+#: admin/class-betterdocs-pro-report-email.php:103
 #: admin/assets/js/betterdocs-analytics.js:1
-#: admin/assets/js/betterdocs-analytics.js:2440
+#: admin/assets/js/betterdocs-analytics.js:2429
 msgid "Overview"
 msgstr ""
 
-#: admin/class-betterdocs-pro-report-email.php:105
+#: admin/class-betterdocs-pro-report-email.php:104
 msgid "Top Docs"
 msgstr ""
 
-#: admin/class-betterdocs-pro-report-email.php:106
+#: admin/class-betterdocs-pro-report-email.php:105
 msgid "Most Searched Keywords"
 msgstr ""
 
@@ -277,55 +285,55 @@ msgstr ""
 #: admin/customizer/customizer.php:596
 #: admin/customizer/customizer.php:698
 #: admin/customizer/customizer.php:1022
-#: admin/customizer/customizer.php:2257
-#: admin/customizer/customizer.php:2525
-#: admin/customizer/customizer.php:2955
-#: admin/customizer/customizer.php:3057
-#: admin/customizer/customizer.php:3378
-#: admin/customizer/customizer.php:3617
-#: admin/customizer/customizer.php:3737
-#: admin/customizer/customizer.php:4122
-#: admin/customizer/customizer.php:4317
-#: admin/customizer/customizer.php:4434
-#: admin/customizer/customizer.php:4584
-#: admin/customizer/customizer.php:4701
-#: admin/customizer/customizer.php:5139
-#: admin/customizer/customizer.php:5257
-#: admin/customizer/customizer.php:5542
-#: admin/customizer/customizer.php:5645
-#: admin/customizer/customizer.php:6039
-#: admin/customizer/customizer.php:6141
+#: admin/customizer/customizer.php:1602
+#: admin/customizer/customizer.php:1870
+#: admin/customizer/customizer.php:2300
+#: admin/customizer/customizer.php:2402
+#: admin/customizer/customizer.php:2723
+#: admin/customizer/customizer.php:2962
+#: admin/customizer/customizer.php:3082
+#: admin/customizer/customizer.php:3467
+#: admin/customizer/customizer.php:3662
+#: admin/customizer/customizer.php:3779
+#: admin/customizer/customizer.php:3929
+#: admin/customizer/customizer.php:4046
+#: admin/customizer/customizer.php:4484
+#: admin/customizer/customizer.php:4602
+#: admin/customizer/customizer.php:4887
+#: admin/customizer/customizer.php:4990
+#: admin/customizer/customizer.php:5384
+#: admin/customizer/customizer.php:5486
+#: admin/customizer/customizer.php:5621
+#: admin/customizer/customizer.php:5855
 #: admin/customizer/customizer.php:6276
-#: admin/customizer/customizer.php:6510
-#: admin/customizer/customizer.php:6931
-#: admin/customizer/customizer.php:7033
-#: admin/customizer/customizer.php:7209
-#: admin/customizer/customizer.php:7312
-#: admin/customizer/customizer.php:7459
-#: admin/customizer/customizer.php:7606
-#: admin/customizer/customizer.php:7789
-#: admin/customizer/customizer.php:7925
-#: admin/customizer/customizer.php:8158
-#: admin/customizer/customizer.php:8392
-#: admin/customizer/customizer.php:8600
-#: admin/customizer/customizer.php:8705
-#: admin/customizer/customizer.php:9029
-#: admin/customizer/customizer.php:9136
-#: admin/customizer/customizer.php:9489
-#: admin/customizer/customizer.php:9592
-#: admin/customizer/customizer.php:9942
-#: admin/customizer/customizer.php:10043
-#: admin/customizer/customizer.php:10253
-#: admin/customizer/customizer.php:10611
-#: admin/customizer/customizer.php:10925
-#: admin/customizer/customizer.php:11026
-#: admin/customizer/customizer.php:11127
-#: admin/customizer/customizer.php:11228
-#: admin/customizer/customizer.php:11865
-#: admin/customizer/customizer.php:11983
-#: admin/customizer/customizer.php:12227
-#: admin/customizer/customizer.php:12469
-#: admin/customizer/customizer.php:12573
+#: admin/customizer/customizer.php:6378
+#: admin/customizer/customizer.php:6554
+#: admin/customizer/customizer.php:6657
+#: admin/customizer/customizer.php:6804
+#: admin/customizer/customizer.php:6951
+#: admin/customizer/customizer.php:7134
+#: admin/customizer/customizer.php:7270
+#: admin/customizer/customizer.php:7503
+#: admin/customizer/customizer.php:7737
+#: admin/customizer/customizer.php:7945
+#: admin/customizer/customizer.php:8050
+#: admin/customizer/customizer.php:8374
+#: admin/customizer/customizer.php:8481
+#: admin/customizer/customizer.php:8834
+#: admin/customizer/customizer.php:8937
+#: admin/customizer/customizer.php:9287
+#: admin/customizer/customizer.php:9388
+#: admin/customizer/customizer.php:9598
+#: admin/customizer/customizer.php:9956
+#: admin/customizer/customizer.php:10270
+#: admin/customizer/customizer.php:10371
+#: admin/customizer/customizer.php:10472
+#: admin/customizer/customizer.php:10573
+#: admin/customizer/customizer.php:11210
+#: admin/customizer/customizer.php:11328
+#: admin/customizer/customizer.php:11572
+#: admin/customizer/customizer.php:11814
+#: admin/customizer/customizer.php:11918
 msgid "Top"
 msgstr ""
 
@@ -333,57 +341,57 @@ msgstr ""
 #: admin/customizer/customizer.php:615
 #: admin/customizer/customizer.php:718
 #: admin/customizer/customizer.php:1042
-#: admin/customizer/customizer.php:2277
-#: admin/customizer/customizer.php:2545
-#: admin/customizer/customizer.php:2975
-#: admin/customizer/customizer.php:3077
-#: admin/customizer/customizer.php:3402
-#: admin/customizer/customizer.php:3642
-#: admin/customizer/customizer.php:3761
-#: admin/customizer/customizer.php:4146
-#: admin/customizer/customizer.php:4341
-#: admin/customizer/customizer.php:4458
-#: admin/customizer/customizer.php:4608
-#: admin/customizer/customizer.php:4724
-#: admin/customizer/customizer.php:4747
-#: admin/customizer/customizer.php:5163
-#: admin/customizer/customizer.php:5281
-#: admin/customizer/customizer.php:5562
-#: admin/customizer/customizer.php:5665
-#: admin/customizer/customizer.php:6059
-#: admin/customizer/customizer.php:6161
+#: admin/customizer/customizer.php:1622
+#: admin/customizer/customizer.php:1890
+#: admin/customizer/customizer.php:2320
+#: admin/customizer/customizer.php:2422
+#: admin/customizer/customizer.php:2747
+#: admin/customizer/customizer.php:2987
+#: admin/customizer/customizer.php:3106
+#: admin/customizer/customizer.php:3491
+#: admin/customizer/customizer.php:3686
+#: admin/customizer/customizer.php:3803
+#: admin/customizer/customizer.php:3953
+#: admin/customizer/customizer.php:4069
+#: admin/customizer/customizer.php:4092
+#: admin/customizer/customizer.php:4508
+#: admin/customizer/customizer.php:4626
+#: admin/customizer/customizer.php:4907
+#: admin/customizer/customizer.php:5010
+#: admin/customizer/customizer.php:5404
+#: admin/customizer/customizer.php:5506
+#: admin/customizer/customizer.php:5641
+#: admin/customizer/customizer.php:5875
 #: admin/customizer/customizer.php:6296
-#: admin/customizer/customizer.php:6530
-#: admin/customizer/customizer.php:6951
-#: admin/customizer/customizer.php:7053
-#: admin/customizer/customizer.php:7229
-#: admin/customizer/customizer.php:7332
-#: admin/customizer/customizer.php:7480
-#: admin/customizer/customizer.php:7627
-#: admin/customizer/customizer.php:7809
-#: admin/customizer/customizer.php:7949
-#: admin/customizer/customizer.php:8179
-#: admin/customizer/customizer.php:8413
-#: admin/customizer/customizer.php:8621
-#: admin/customizer/customizer.php:8725
-#: admin/customizer/customizer.php:9050
-#: admin/customizer/customizer.php:9158
-#: admin/customizer/customizer.php:9509
-#: admin/customizer/customizer.php:9612
-#: admin/customizer/customizer.php:9962
-#: admin/customizer/customizer.php:10063
-#: admin/customizer/customizer.php:10273
-#: admin/customizer/customizer.php:10293
-#: admin/customizer/customizer.php:10631
-#: admin/customizer/customizer.php:10945
-#: admin/customizer/customizer.php:11046
-#: admin/customizer/customizer.php:11147
-#: admin/customizer/customizer.php:11248
-#: admin/customizer/customizer.php:11886
-#: admin/customizer/customizer.php:12004
-#: admin/customizer/customizer.php:12248
-#: admin/customizer/customizer.php:12490
-#: admin/customizer/customizer.php:12594
+#: admin/customizer/customizer.php:6398
+#: admin/customizer/customizer.php:6574
+#: admin/customizer/customizer.php:6677
+#: admin/customizer/customizer.php:6825
+#: admin/customizer/customizer.php:6972
+#: admin/customizer/customizer.php:7154
+#: admin/customizer/customizer.php:7294
+#: admin/customizer/customizer.php:7524
+#: admin/customizer/customizer.php:7758
+#: admin/customizer/customizer.php:7966
+#: admin/customizer/customizer.php:8070
+#: admin/customizer/customizer.php:8395
+#: admin/customizer/customizer.php:8503
+#: admin/customizer/customizer.php:8854
+#: admin/customizer/customizer.php:8957
+#: admin/customizer/customizer.php:9307
+#: admin/customizer/customizer.php:9408
+#: admin/customizer/customizer.php:9618
+#: admin/customizer/customizer.php:9638
+#: admin/customizer/customizer.php:9976
+#: admin/customizer/customizer.php:10290
+#: admin/customizer/customizer.php:10391
+#: admin/customizer/customizer.php:10492
+#: admin/customizer/customizer.php:10593
+#: admin/customizer/customizer.php:11231
+#: admin/customizer/customizer.php:11349
+#: admin/customizer/customizer.php:11593
+#: admin/customizer/customizer.php:11835
+#: admin/customizer/customizer.php:11939
 #: admin/includes/class-betterdocs-pro-instant-answer.php:951
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:693
 #: includes/elementor/widgets/betterdocs-elementor-popular-view.php:211
@@ -394,53 +402,53 @@ msgstr ""
 #: admin/customizer/customizer.php:635
 #: admin/customizer/customizer.php:738
 #: admin/customizer/customizer.php:1062
-#: admin/customizer/customizer.php:2297
-#: admin/customizer/customizer.php:2565
-#: admin/customizer/customizer.php:2995
-#: admin/customizer/customizer.php:3097
-#: admin/customizer/customizer.php:3426
-#: admin/customizer/customizer.php:3667
-#: admin/customizer/customizer.php:3785
-#: admin/customizer/customizer.php:4170
-#: admin/customizer/customizer.php:4365
-#: admin/customizer/customizer.php:4482
-#: admin/customizer/customizer.php:4632
-#: admin/customizer/customizer.php:5187
-#: admin/customizer/customizer.php:5305
-#: admin/customizer/customizer.php:5582
-#: admin/customizer/customizer.php:5685
-#: admin/customizer/customizer.php:6079
-#: admin/customizer/customizer.php:6181
+#: admin/customizer/customizer.php:1642
+#: admin/customizer/customizer.php:1910
+#: admin/customizer/customizer.php:2340
+#: admin/customizer/customizer.php:2442
+#: admin/customizer/customizer.php:2771
+#: admin/customizer/customizer.php:3012
+#: admin/customizer/customizer.php:3130
+#: admin/customizer/customizer.php:3515
+#: admin/customizer/customizer.php:3710
+#: admin/customizer/customizer.php:3827
+#: admin/customizer/customizer.php:3977
+#: admin/customizer/customizer.php:4532
+#: admin/customizer/customizer.php:4650
+#: admin/customizer/customizer.php:4927
+#: admin/customizer/customizer.php:5030
+#: admin/customizer/customizer.php:5424
+#: admin/customizer/customizer.php:5526
+#: admin/customizer/customizer.php:5661
+#: admin/customizer/customizer.php:5895
 #: admin/customizer/customizer.php:6316
-#: admin/customizer/customizer.php:6550
-#: admin/customizer/customizer.php:6971
-#: admin/customizer/customizer.php:7073
-#: admin/customizer/customizer.php:7249
-#: admin/customizer/customizer.php:7352
-#: admin/customizer/customizer.php:7500
-#: admin/customizer/customizer.php:7648
-#: admin/customizer/customizer.php:7829
-#: admin/customizer/customizer.php:7973
-#: admin/customizer/customizer.php:8200
-#: admin/customizer/customizer.php:8434
-#: admin/customizer/customizer.php:8642
-#: admin/customizer/customizer.php:8745
-#: admin/customizer/customizer.php:9071
-#: admin/customizer/customizer.php:9180
-#: admin/customizer/customizer.php:9529
-#: admin/customizer/customizer.php:9632
-#: admin/customizer/customizer.php:9982
-#: admin/customizer/customizer.php:10083
-#: admin/customizer/customizer.php:10651
-#: admin/customizer/customizer.php:10965
-#: admin/customizer/customizer.php:11066
-#: admin/customizer/customizer.php:11167
-#: admin/customizer/customizer.php:11268
-#: admin/customizer/customizer.php:11907
-#: admin/customizer/customizer.php:12025
-#: admin/customizer/customizer.php:12269
-#: admin/customizer/customizer.php:12511
-#: admin/customizer/customizer.php:12615
+#: admin/customizer/customizer.php:6418
+#: admin/customizer/customizer.php:6594
+#: admin/customizer/customizer.php:6697
+#: admin/customizer/customizer.php:6845
+#: admin/customizer/customizer.php:6993
+#: admin/customizer/customizer.php:7174
+#: admin/customizer/customizer.php:7318
+#: admin/customizer/customizer.php:7545
+#: admin/customizer/customizer.php:7779
+#: admin/customizer/customizer.php:7987
+#: admin/customizer/customizer.php:8090
+#: admin/customizer/customizer.php:8416
+#: admin/customizer/customizer.php:8525
+#: admin/customizer/customizer.php:8874
+#: admin/customizer/customizer.php:8977
+#: admin/customizer/customizer.php:9327
+#: admin/customizer/customizer.php:9428
+#: admin/customizer/customizer.php:9996
+#: admin/customizer/customizer.php:10310
+#: admin/customizer/customizer.php:10411
+#: admin/customizer/customizer.php:10512
+#: admin/customizer/customizer.php:10613
+#: admin/customizer/customizer.php:11252
+#: admin/customizer/customizer.php:11370
+#: admin/customizer/customizer.php:11614
+#: admin/customizer/customizer.php:11856
+#: admin/customizer/customizer.php:11960
 msgid "Bottom"
 msgstr ""
 
@@ -448,55 +456,55 @@ msgstr ""
 #: admin/customizer/customizer.php:654
 #: admin/customizer/customizer.php:758
 #: admin/customizer/customizer.php:1082
-#: admin/customizer/customizer.php:2317
-#: admin/customizer/customizer.php:2585
-#: admin/customizer/customizer.php:3015
-#: admin/customizer/customizer.php:3117
-#: admin/customizer/customizer.php:3450
-#: admin/customizer/customizer.php:3691
-#: admin/customizer/customizer.php:3809
-#: admin/customizer/customizer.php:4194
-#: admin/customizer/customizer.php:4389
-#: admin/customizer/customizer.php:4506
-#: admin/customizer/customizer.php:4656
-#: admin/customizer/customizer.php:4770
-#: admin/customizer/customizer.php:5211
-#: admin/customizer/customizer.php:5329
-#: admin/customizer/customizer.php:5603
-#: admin/customizer/customizer.php:5705
-#: admin/customizer/customizer.php:6099
-#: admin/customizer/customizer.php:6202
+#: admin/customizer/customizer.php:1662
+#: admin/customizer/customizer.php:1930
+#: admin/customizer/customizer.php:2360
+#: admin/customizer/customizer.php:2462
+#: admin/customizer/customizer.php:2795
+#: admin/customizer/customizer.php:3036
+#: admin/customizer/customizer.php:3154
+#: admin/customizer/customizer.php:3539
+#: admin/customizer/customizer.php:3734
+#: admin/customizer/customizer.php:3851
+#: admin/customizer/customizer.php:4001
+#: admin/customizer/customizer.php:4115
+#: admin/customizer/customizer.php:4556
+#: admin/customizer/customizer.php:4674
+#: admin/customizer/customizer.php:4948
+#: admin/customizer/customizer.php:5050
+#: admin/customizer/customizer.php:5444
+#: admin/customizer/customizer.php:5547
+#: admin/customizer/customizer.php:5681
+#: admin/customizer/customizer.php:5915
 #: admin/customizer/customizer.php:6336
-#: admin/customizer/customizer.php:6570
-#: admin/customizer/customizer.php:6991
-#: admin/customizer/customizer.php:7093
-#: admin/customizer/customizer.php:7269
-#: admin/customizer/customizer.php:7372
-#: admin/customizer/customizer.php:7520
-#: admin/customizer/customizer.php:7669
-#: admin/customizer/customizer.php:7849
-#: admin/customizer/customizer.php:7997
-#: admin/customizer/customizer.php:8221
-#: admin/customizer/customizer.php:8455
-#: admin/customizer/customizer.php:8663
-#: admin/customizer/customizer.php:8765
-#: admin/customizer/customizer.php:9092
-#: admin/customizer/customizer.php:9202
-#: admin/customizer/customizer.php:9550
-#: admin/customizer/customizer.php:9652
-#: admin/customizer/customizer.php:10002
-#: admin/customizer/customizer.php:10103
-#: admin/customizer/customizer.php:10313
-#: admin/customizer/customizer.php:10671
-#: admin/customizer/customizer.php:10985
-#: admin/customizer/customizer.php:11086
-#: admin/customizer/customizer.php:11187
-#: admin/customizer/customizer.php:11288
-#: admin/customizer/customizer.php:11926
-#: admin/customizer/customizer.php:12044
-#: admin/customizer/customizer.php:12288
-#: admin/customizer/customizer.php:12530
-#: admin/customizer/customizer.php:12634
+#: admin/customizer/customizer.php:6438
+#: admin/customizer/customizer.php:6614
+#: admin/customizer/customizer.php:6717
+#: admin/customizer/customizer.php:6865
+#: admin/customizer/customizer.php:7014
+#: admin/customizer/customizer.php:7194
+#: admin/customizer/customizer.php:7342
+#: admin/customizer/customizer.php:7566
+#: admin/customizer/customizer.php:7800
+#: admin/customizer/customizer.php:8008
+#: admin/customizer/customizer.php:8110
+#: admin/customizer/customizer.php:8437
+#: admin/customizer/customizer.php:8547
+#: admin/customizer/customizer.php:8895
+#: admin/customizer/customizer.php:8997
+#: admin/customizer/customizer.php:9347
+#: admin/customizer/customizer.php:9448
+#: admin/customizer/customizer.php:9658
+#: admin/customizer/customizer.php:10016
+#: admin/customizer/customizer.php:10330
+#: admin/customizer/customizer.php:10431
+#: admin/customizer/customizer.php:10532
+#: admin/customizer/customizer.php:10633
+#: admin/customizer/customizer.php:11271
+#: admin/customizer/customizer.php:11389
+#: admin/customizer/customizer.php:11633
+#: admin/customizer/customizer.php:11875
+#: admin/customizer/customizer.php:11979
 #: admin/includes/class-betterdocs-pro-instant-answer.php:950
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:685
 #: includes/elementor/widgets/betterdocs-elementor-popular-view.php:209
@@ -557,49 +565,49 @@ msgstr ""
 
 #: admin/customizer/customizer.php:805
 #: admin/customizer/customizer.php:1149
-#: admin/customizer/customizer.php:2627
-#: admin/customizer/customizer.php:3496
-#: admin/customizer/customizer.php:5747
-#: admin/customizer/customizer.php:6815
-#: admin/customizer/customizer.php:8924
-#: admin/customizer/customizer.php:9841
-#: admin/customizer/customizer.php:10508
+#: admin/customizer/customizer.php:1972
+#: admin/customizer/customizer.php:2841
+#: admin/customizer/customizer.php:5092
+#: admin/customizer/customizer.php:6160
+#: admin/customizer/customizer.php:8269
+#: admin/customizer/customizer.php:9186
+#: admin/customizer/customizer.php:9853
 msgid "Top Left"
 msgstr ""
 
 #: admin/customizer/customizer.php:825
 #: admin/customizer/customizer.php:1169
-#: admin/customizer/customizer.php:2647
-#: admin/customizer/customizer.php:3521
-#: admin/customizer/customizer.php:5767
-#: admin/customizer/customizer.php:6839
-#: admin/customizer/customizer.php:8945
-#: admin/customizer/customizer.php:9861
-#: admin/customizer/customizer.php:10528
+#: admin/customizer/customizer.php:1992
+#: admin/customizer/customizer.php:2866
+#: admin/customizer/customizer.php:5112
+#: admin/customizer/customizer.php:6184
+#: admin/customizer/customizer.php:8290
+#: admin/customizer/customizer.php:9206
+#: admin/customizer/customizer.php:9873
 msgid "Top Right"
 msgstr ""
 
 #: admin/customizer/customizer.php:845
 #: admin/customizer/customizer.php:1189
-#: admin/customizer/customizer.php:2667
-#: admin/customizer/customizer.php:3545
-#: admin/customizer/customizer.php:5787
-#: admin/customizer/customizer.php:6863
-#: admin/customizer/customizer.php:6887
-#: admin/customizer/customizer.php:8966
-#: admin/customizer/customizer.php:9881
-#: admin/customizer/customizer.php:9901
-#: admin/customizer/customizer.php:10548
+#: admin/customizer/customizer.php:2012
+#: admin/customizer/customizer.php:2890
+#: admin/customizer/customizer.php:5132
+#: admin/customizer/customizer.php:6208
+#: admin/customizer/customizer.php:6232
+#: admin/customizer/customizer.php:8311
+#: admin/customizer/customizer.php:9226
+#: admin/customizer/customizer.php:9246
+#: admin/customizer/customizer.php:9893
 msgid "Bottom Right"
 msgstr ""
 
 #: admin/customizer/customizer.php:865
 #: admin/customizer/customizer.php:1209
-#: admin/customizer/customizer.php:2687
-#: admin/customizer/customizer.php:3570
-#: admin/customizer/customizer.php:5807
-#: admin/customizer/customizer.php:8987
-#: admin/customizer/customizer.php:10568
+#: admin/customizer/customizer.php:2032
+#: admin/customizer/customizer.php:2915
+#: admin/customizer/customizer.php:5152
+#: admin/customizer/customizer.php:8332
+#: admin/customizer/customizer.php:9913
 msgid "Bottom Left"
 msgstr ""
 
@@ -608,8 +616,8 @@ msgid "Category Column Settings"
 msgstr ""
 
 #: admin/customizer/customizer.php:904
-#: admin/customizer/customizer.php:5826
-#: admin/customizer/customizer.php:7114
+#: admin/customizer/customizer.php:5171
+#: admin/customizer/customizer.php:6459
 msgid "Category Title Tag"
 msgstr ""
 
@@ -638,32 +646,32 @@ msgid "Column Border Radius"
 msgstr ""
 
 #: admin/customizer/customizer.php:1231
-#: admin/customizer/customizer.php:5935
-#: admin/customizer/customizer.php:7414
-#: admin/customizer/customizer.php:9394
-#: admin/customizer/customizer.php:12106
+#: admin/customizer/customizer.php:5280
+#: admin/customizer/customizer.php:6759
+#: admin/customizer/customizer.php:8739
+#: admin/customizer/customizer.php:11451
 msgid "Title Font Size"
 msgstr ""
 
 #: admin/customizer/customizer.php:1254
-#: admin/customizer/customizer.php:5895
-#: admin/customizer/customizer.php:7393
-#: admin/customizer/customizer.php:9318
-#: admin/customizer/customizer.php:12084
+#: admin/customizer/customizer.php:5240
+#: admin/customizer/customizer.php:6738
+#: admin/customizer/customizer.php:8663
+#: admin/customizer/customizer.php:11429
 #: includes/elementor/class-betterdocs-pro-elementor.php:242
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1649
 msgid "Title Color"
 msgstr ""
 
 #: admin/customizer/customizer.php:1272
-#: admin/customizer/customizer.php:5914
-#: admin/customizer/customizer.php:9337
+#: admin/customizer/customizer.php:5259
+#: admin/customizer/customizer.php:8682
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1691
 msgid "Title Hover Color"
 msgstr ""
 
 #: admin/customizer/customizer.php:1291
-#: admin/customizer/customizer.php:3261
+#: admin/customizer/customizer.php:2606
 msgid "Item Count Color"
 msgstr ""
 
@@ -672,9 +680,9 @@ msgid "Item Count Hover Color"
 msgstr ""
 
 #: admin/customizer/customizer.php:1332
-#: admin/customizer/customizer.php:5000
-#: admin/customizer/customizer.php:11453
-#: admin/customizer/customizer.php:11574
+#: admin/customizer/customizer.php:4345
+#: admin/customizer/customizer.php:10798
+#: admin/customizer/customizer.php:10919
 msgid "Font Size"
 msgstr ""
 
@@ -701,6 +709,9 @@ msgstr ""
 #: admin/customizer/customizer.php:1436
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:628
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1628
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:4022
+#: admin/assets/js/betterdocs-analytics.js:5457
 msgid "Title"
 msgstr ""
 
@@ -712,831 +723,713 @@ msgstr ""
 msgid "Counter"
 msgstr ""
 
-#: admin/customizer/customizer.php:1493
-msgid "Enable FAQ"
-msgstr ""
-
-#: admin/customizer/customizer.php:1511
-msgid "Select FAQ Groups"
-msgstr ""
-
-#: admin/customizer/customizer.php:1534
-msgid "Select FAQ Layout"
-msgstr ""
-
-#: admin/customizer/customizer.php:1538
-msgid "Layout 1"
-msgstr ""
-
-#: admin/customizer/customizer.php:1542
-msgid "Layout 2"
-msgstr ""
-
-#: admin/customizer/customizer.php:1560
-msgid "Section Title Text"
-msgstr ""
-
-#: admin/customizer/customizer.php:1584
-msgid "FAQ Section Title Margin (PX)"
-msgstr ""
-
-#: admin/customizer/customizer.php:1589
-#: admin/customizer/customizer.php:1715
-#: admin/customizer/customizer.php:1879
-#: admin/customizer/customizer.php:1960
-#: admin/customizer/customizer.php:2125
-msgid "top"
-msgstr ""
-
-#: admin/customizer/customizer.php:1590
-#: admin/customizer/customizer.php:1716
-#: admin/customizer/customizer.php:1880
-#: admin/customizer/customizer.php:1961
-#: admin/customizer/customizer.php:2126
-msgid "right"
-msgstr ""
-
-#: admin/customizer/customizer.php:1591
-#: admin/customizer/customizer.php:1717
-#: admin/customizer/customizer.php:1881
-#: admin/customizer/customizer.php:1962
-#: admin/customizer/customizer.php:2127
-msgid "bottom"
-msgstr ""
-
-#: admin/customizer/customizer.php:1592
-#: admin/customizer/customizer.php:1718
-#: admin/customizer/customizer.php:1882
-#: admin/customizer/customizer.php:1963
-#: admin/customizer/customizer.php:2128
-msgid "left"
-msgstr ""
-
-#: admin/customizer/customizer.php:1617
-msgid "Section Title Color"
-msgstr ""
-
-#: admin/customizer/customizer.php:1638
-msgid "Section Title Font Size"
-msgstr ""
-
-#: admin/customizer/customizer.php:1664
-#: admin/customizer/customizer.php:1909
-msgid "Group Title Color"
-msgstr ""
-
-#: admin/customizer/customizer.php:1686
-#: admin/customizer/customizer.php:1931
-msgid "Category Name Font Size"
-msgstr ""
-
-#: admin/customizer/customizer.php:1710
-#: admin/customizer/customizer.php:1955
-msgid "Group Title Padding (PX)"
-msgstr ""
-
-#: admin/customizer/customizer.php:1743
-#: admin/customizer/customizer.php:1988
-msgid "FAQ List Color"
-msgstr ""
-
-#: admin/customizer/customizer.php:1764
-#: admin/customizer/customizer.php:2009
-msgid "FAQ List Background Color"
-msgstr ""
-
-#: admin/customizer/customizer.php:1784
-#: admin/customizer/customizer.php:2029
-msgid "FAQ List Content Background Color"
-msgstr ""
-
-#: admin/customizer/customizer.php:1804
-#: admin/customizer/customizer.php:2049
-msgid "FAQ List Content Color"
-msgstr ""
-
-#: admin/customizer/customizer.php:1824
-#: admin/customizer/customizer.php:2070
-msgid "FAQ List Content Font Size"
-msgstr ""
-
-#: admin/customizer/customizer.php:1850
-#: admin/customizer/customizer.php:2096
-msgid "FAQ List Font Size"
-msgstr ""
-
-#: admin/customizer/customizer.php:1874
-#: admin/customizer/customizer.php:2120
-msgid "FAQ List Padding (PX)"
-msgstr ""
-
-#: admin/customizer/customizer.php:2149
+#: admin/customizer/customizer.php:1494
 msgid "Category Column List"
 msgstr ""
 
-#: admin/customizer/customizer.php:2169
+#: admin/customizer/customizer.php:1514
 msgid "Docs List Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:2189
+#: admin/customizer/customizer.php:1534
 msgid "Docs List Hover Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:2211
+#: admin/customizer/customizer.php:1556
 msgid "Docs List Font Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:2237
-#: admin/customizer/customizer.php:8137
+#: admin/customizer/customizer.php:1582
+#: admin/customizer/customizer.php:7482
 msgid "Docs List Margin"
 msgstr ""
 
-#: admin/customizer/customizer.php:2335
+#: admin/customizer/customizer.php:1680
 msgid "Explore More Button"
 msgstr ""
 
-#: admin/customizer/customizer.php:2355
-#: admin/customizer/customizer.php:10353
+#: admin/customizer/customizer.php:1700
+#: admin/customizer/customizer.php:9698
 msgid "Button Background Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:2376
+#: admin/customizer/customizer.php:1721
 #: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1112
 #: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1203
 msgid "Button Text Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:2397
+#: admin/customizer/customizer.php:1742
 msgid "Button Border Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:2417
-#: admin/customizer/customizer.php:10372
+#: admin/customizer/customizer.php:1762
+#: admin/customizer/customizer.php:9717
 msgid "Button Background Hover Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:2437
+#: admin/customizer/customizer.php:1782
 msgid "Button Text Hover Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:2457
+#: admin/customizer/customizer.php:1802
 msgid "Button Border Hover Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:2479
-#: admin/customizer/customizer.php:10429
+#: admin/customizer/customizer.php:1824
+#: admin/customizer/customizer.php:9774
 msgid "Button Font Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:2505
-#: admin/customizer/customizer.php:10590
+#: admin/customizer/customizer.php:1850
+#: admin/customizer/customizer.php:9935
 #: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1143
 #: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1234
 msgid "Button Padding"
 msgstr ""
 
-#: admin/customizer/customizer.php:2607
-#: admin/customizer/customizer.php:10486
+#: admin/customizer/customizer.php:1952
+#: admin/customizer/customizer.php:9831
 #: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1131
 #: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1222
 msgid "Button Border Radius"
 msgstr ""
 
-#: admin/customizer/customizer.php:2705
+#: admin/customizer/customizer.php:2050
 #: includes/class-multiple-kb.php:185
 #: public/betterdocs-shortcodes.php:354
-#: public/class-betterdocs-pro-public.php:364
-#: public/class-betterdocs-pro-public.php:371
-#: public/class-betterdocs-pro-public.php:387
+#: public/class-betterdocs-pro-public.php:370
+#: public/class-betterdocs-pro-public.php:377
+#: public/class-betterdocs-pro-public.php:393
 msgid "Popular Docs"
 msgstr ""
 
-#: admin/customizer/customizer.php:2720
-#: admin/customizer/customizer.php:10689
+#: admin/customizer/customizer.php:2065
+#: admin/customizer/customizer.php:10034
 msgid "Popular Docs Show"
 msgstr ""
 
-#: admin/customizer/customizer.php:2741
-#: admin/customizer/customizer.php:10709
+#: admin/customizer/customizer.php:2086
+#: admin/customizer/customizer.php:10054
 msgid "Popular Docs Background Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:2761
-#: admin/customizer/customizer.php:10730
+#: admin/customizer/customizer.php:2106
+#: admin/customizer/customizer.php:10075
 msgid "Popular Docs List Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:2780
-#: admin/customizer/customizer.php:10749
+#: admin/customizer/customizer.php:2125
+#: admin/customizer/customizer.php:10094
 msgid "Popular Docs List Hover Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:2801
-#: admin/customizer/customizer.php:10769
+#: admin/customizer/customizer.php:2146
+#: admin/customizer/customizer.php:10114
 msgid "Popular Docs List Font Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:2826
-#: admin/customizer/customizer.php:10794
+#: admin/customizer/customizer.php:2171
+#: admin/customizer/customizer.php:10139
 msgid "Popular Title Font Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:2850
-#: admin/customizer/customizer.php:10818
+#: admin/customizer/customizer.php:2195
+#: admin/customizer/customizer.php:10163
 #: includes/elementor/widgets/betterdocs-elementor-popular-view.php:183
 msgid "Popular Title Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:2869
+#: admin/customizer/customizer.php:2214
 msgid "Popular Title Color Hover"
 msgstr ""
 
-#: admin/customizer/customizer.php:2889
-#: admin/customizer/customizer.php:10859
+#: admin/customizer/customizer.php:2234
+#: admin/customizer/customizer.php:10204
 msgid "Popular List Icon Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:2910
-#: admin/customizer/customizer.php:10880
+#: admin/customizer/customizer.php:2255
+#: admin/customizer/customizer.php:10225
 msgid "Popular List Icon Font Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:2935
-#: admin/customizer/customizer.php:11006
+#: admin/customizer/customizer.php:2280
+#: admin/customizer/customizer.php:10351
 msgid "Popular Docs List Margin"
 msgstr ""
 
-#: admin/customizer/customizer.php:3037
-#: admin/customizer/customizer.php:10905
+#: admin/customizer/customizer.php:2382
+#: admin/customizer/customizer.php:10250
 msgid "Popular Docs Title Margin"
 msgstr ""
 
-#: admin/customizer/customizer.php:3138
+#: admin/customizer/customizer.php:2483
 msgid "Category Image"
 msgstr ""
 
-#: admin/customizer/customizer.php:3161
+#: admin/customizer/customizer.php:2506
 msgid "Category Image Width"
 msgstr ""
 
-#: admin/customizer/customizer.php:3186
+#: admin/customizer/customizer.php:2531
 msgid "Category Title Padding Bottom"
 msgstr ""
 
-#: admin/customizer/customizer.php:3211
+#: admin/customizer/customizer.php:2556
 msgid "Category Title Font Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:3236
+#: admin/customizer/customizer.php:2581
 msgid "Item Count Font Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:3282
+#: admin/customizer/customizer.php:2627
 msgid "Item Count Background Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:3302
+#: admin/customizer/customizer.php:2647
 msgid "Item Count Border Style"
 msgstr ""
 
-#: admin/customizer/customizer.php:3334
+#: admin/customizer/customizer.php:2679
 msgid "Item Count Border Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:3355
+#: admin/customizer/customizer.php:2700
 msgid "Item Count Border Width"
 msgstr ""
 
-#: admin/customizer/customizer.php:3473
+#: admin/customizer/customizer.php:2818
 msgid "Item Count Border Radius"
 msgstr ""
 
-#: admin/customizer/customizer.php:3593
+#: admin/customizer/customizer.php:2938
 msgid "Item Count Margin"
 msgstr ""
 
-#: admin/customizer/customizer.php:3714
+#: admin/customizer/customizer.php:3059
 msgid "Item Count Padding"
 msgstr ""
 
-#: admin/customizer/customizer.php:3832
+#: admin/customizer/customizer.php:3177
 msgid "Doc List"
 msgstr ""
 
-#: admin/customizer/customizer.php:3859
+#: admin/customizer/customizer.php:3204
 msgid "List Font Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:3891
-#: admin/customizer/customizer.php:10459
+#: admin/customizer/customizer.php:3236
+#: admin/customizer/customizer.php:9804
 msgid "List Font Line Height"
 msgstr ""
 
-#: admin/customizer/customizer.php:3920
-#: admin/customizer/customizer.php:8241
+#: admin/customizer/customizer.php:3265
+#: admin/customizer/customizer.php:7586
 msgid "List Font Weight"
 msgstr ""
 
-#: admin/customizer/customizer.php:3955
+#: admin/customizer/customizer.php:3300
 msgid "Category Description"
 msgstr ""
 
-#: admin/customizer/customizer.php:3977
-#: admin/customizer/customizer.php:7540
-#: admin/customizer/customizer.php:10123
+#: admin/customizer/customizer.php:3322
+#: admin/customizer/customizer.php:6885
+#: admin/customizer/customizer.php:9468
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1776
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1826
 msgid "Description Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:4003
-#: admin/customizer/customizer.php:7561
-#: admin/customizer/customizer.php:10176
+#: admin/customizer/customizer.php:3348
+#: admin/customizer/customizer.php:6906
+#: admin/customizer/customizer.php:9521
 msgid "Description Font Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:4032
-#: admin/customizer/customizer.php:10143
+#: admin/customizer/customizer.php:3377
+#: admin/customizer/customizer.php:9488
 msgid "Description Font Weight"
 msgstr ""
 
-#: admin/customizer/customizer.php:4072
-#: admin/customizer/customizer.php:10206
+#: admin/customizer/customizer.php:3417
+#: admin/customizer/customizer.php:9551
 msgid "Description Font Line Height"
 msgstr ""
 
-#: admin/customizer/customizer.php:4099
+#: admin/customizer/customizer.php:3444
 msgid "Description Margin"
 msgstr ""
 
-#: admin/customizer/customizer.php:4216
+#: admin/customizer/customizer.php:3561
 msgid "List Font Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:4235
+#: admin/customizer/customizer.php:3580
 msgid "List Font Color Hover"
 msgstr ""
 
-#: admin/customizer/customizer.php:4254
-#: admin/customizer/customizer.php:7728
+#: admin/customizer/customizer.php:3599
+#: admin/customizer/customizer.php:7073
 msgid "List Background Color Hover"
 msgstr ""
 
-#: admin/customizer/customizer.php:4273
-#: admin/customizer/customizer.php:7747
+#: admin/customizer/customizer.php:3618
+#: admin/customizer/customizer.php:7092
 msgid "List Background Border Color Hover"
 msgstr ""
 
-#: admin/customizer/customizer.php:4294
+#: admin/customizer/customizer.php:3639
 msgid "List Margin"
 msgstr ""
 
-#: admin/customizer/customizer.php:4411
+#: admin/customizer/customizer.php:3756
 msgid "List Padding"
 msgstr ""
 
-#: admin/customizer/customizer.php:4528
-#: admin/customizer/customizer.php:7869
+#: admin/customizer/customizer.php:3873
+#: admin/customizer/customizer.php:7214
 msgid "List Border Style"
 msgstr ""
 
-#: admin/customizer/customizer.php:4561
-#: admin/customizer/customizer.php:7902
+#: admin/customizer/customizer.php:3906
+#: admin/customizer/customizer.php:7247
 msgid "List Border Width"
 msgstr ""
 
-#: admin/customizer/customizer.php:4679
+#: admin/customizer/customizer.php:4024
 msgid "List Border Width Hover"
 msgstr ""
 
-#: admin/customizer/customizer.php:4796
-#: admin/customizer/customizer.php:8022
+#: admin/customizer/customizer.php:4141
+#: admin/customizer/customizer.php:7367
 msgid "List Border Color Top"
 msgstr ""
 
-#: admin/customizer/customizer.php:4819
-#: admin/customizer/customizer.php:8045
+#: admin/customizer/customizer.php:4164
+#: admin/customizer/customizer.php:7390
 msgid "List Border Color Right"
 msgstr ""
 
-#: admin/customizer/customizer.php:4842
-#: admin/customizer/customizer.php:8068
+#: admin/customizer/customizer.php:4187
+#: admin/customizer/customizer.php:7413
 msgid "List Border Color Bottom"
 msgstr ""
 
-#: admin/customizer/customizer.php:4865
-#: admin/customizer/customizer.php:8091
+#: admin/customizer/customizer.php:4210
+#: admin/customizer/customizer.php:7436
 msgid "List Border Color Left"
 msgstr ""
 
-#: admin/customizer/customizer.php:4891
+#: admin/customizer/customizer.php:4236
 msgid "List Arrow Height"
 msgstr ""
 
-#: admin/customizer/customizer.php:4923
+#: admin/customizer/customizer.php:4268
 msgid "List Arrow Width"
 msgstr ""
 
-#: admin/customizer/customizer.php:4952
+#: admin/customizer/customizer.php:4297
 msgid "List Arrow Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:4973
+#: admin/customizer/customizer.php:4318
 #: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1094
 #: includes/elementor/widgets/betterdocs-elementor-tab-view-list.php:1185
 #: public/betterdocs-shortcodes.php:891
 msgid "Explore More"
 msgstr ""
 
-#: admin/customizer/customizer.php:5032
+#: admin/customizer/customizer.php:4377
 msgid "Line Height"
 msgstr ""
 
-#: admin/customizer/customizer.php:5061
-#: admin/customizer/customizer.php:11539
+#: admin/customizer/customizer.php:4406
+#: admin/customizer/customizer.php:10884
 #: includes/elementor/class-betterdocs-pro-elementor.php:141
 #: includes/elementor/class-betterdocs-pro-elementor.php:168
 msgid "Font Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:5081
-#: admin/customizer/customizer.php:9763
-#: admin/customizer/customizer.php:11477
-#: admin/customizer/customizer.php:11623
+#: admin/customizer/customizer.php:4426
+#: admin/customizer/customizer.php:9108
+#: admin/customizer/customizer.php:10822
+#: admin/customizer/customizer.php:10968
 msgid "Font Weight"
 msgstr ""
 
-#: admin/customizer/customizer.php:5115
-#: admin/customizer/customizer.php:11842
+#: admin/customizer/customizer.php:4460
+#: admin/customizer/customizer.php:11187
 #: includes/elementor/class-betterdocs-pro-elementor.php:213
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:514
 msgid "Padding"
 msgstr ""
 
-#: admin/customizer/customizer.php:5234
+#: admin/customizer/customizer.php:4579
 msgid "Margin"
 msgstr ""
 
-#: admin/customizer/customizer.php:5357
+#: admin/customizer/customizer.php:4702
 msgid "Arrow Height"
 msgstr ""
 
-#: admin/customizer/customizer.php:5389
+#: admin/customizer/customizer.php:4734
 msgid "Arrow Width"
 msgstr ""
 
-#: admin/customizer/customizer.php:5418
+#: admin/customizer/customizer.php:4763
 msgid "Arrow Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:5436
+#: admin/customizer/customizer.php:4781
 msgid "Sidebar Bohemian Layout"
 msgstr ""
 
-#: admin/customizer/customizer.php:5459
-#: admin/customizer/customizer.php:11704
+#: admin/customizer/customizer.php:4804
+#: admin/customizer/customizer.php:11049
 #: includes/elementor/class-betterdocs-pro-elementor.php:179
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:1205
 msgid "Background Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:5480
+#: admin/customizer/customizer.php:4825
 msgid "Active Background Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:5500
+#: admin/customizer/customizer.php:4845
 msgid "Active Background Border Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:5521
+#: admin/customizer/customizer.php:4866
 msgid "Sidebar Padding"
 msgstr ""
 
-#: admin/customizer/customizer.php:5624
+#: admin/customizer/customizer.php:4969
 msgid "Sidebar Margin"
 msgstr ""
 
-#: admin/customizer/customizer.php:5726
+#: admin/customizer/customizer.php:5071
 msgid "Sidebar Border Radius"
 msgstr ""
 
-#: admin/customizer/customizer.php:5855
+#: admin/customizer/customizer.php:5200
 msgid "Title Background Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:5875
+#: admin/customizer/customizer.php:5220
 msgid "Active Title Background Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:5960
+#: admin/customizer/customizer.php:5305
 msgid "Title Font Line Height"
 msgstr ""
 
-#: admin/customizer/customizer.php:5984
-#: admin/customizer/customizer.php:9360
+#: admin/customizer/customizer.php:5329
+#: admin/customizer/customizer.php:8705
 msgid "Title Font Weight"
 msgstr ""
 
-#: admin/customizer/customizer.php:6018
-#: admin/customizer/customizer.php:9467
+#: admin/customizer/customizer.php:5363
+#: admin/customizer/customizer.php:8812
 msgid "Title Padding"
 msgstr ""
 
-#: admin/customizer/customizer.php:6120
-#: admin/customizer/customizer.php:9571
+#: admin/customizer/customizer.php:5465
+#: admin/customizer/customizer.php:8916
 #: includes/elementor/class-betterdocs-pro-elementor.php:304
 msgid "Title Margin"
 msgstr ""
 
-#: admin/customizer/customizer.php:6222
+#: admin/customizer/customizer.php:5567
 msgid "Term List Border Type"
 msgstr ""
 
-#: admin/customizer/customizer.php:6255
+#: admin/customizer/customizer.php:5600
 msgid "Term List Border Width"
 msgstr ""
 
-#: admin/customizer/customizer.php:6356
+#: admin/customizer/customizer.php:5701
 msgid "Border Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:6377
-#: admin/customizer/customizer.php:7690
+#: admin/customizer/customizer.php:5722
+#: admin/customizer/customizer.php:7035
 msgid "List Item Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:6397
+#: admin/customizer/customizer.php:5742
 msgid "List Item Color Hover"
 msgstr ""
 
-#: admin/customizer/customizer.php:6418
-#: admin/customizer/customizer.php:8112
+#: admin/customizer/customizer.php:5763
+#: admin/customizer/customizer.php:7457
 msgid "List Item Font Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:6443
+#: admin/customizer/customizer.php:5788
 msgid "List Icon Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:6464
+#: admin/customizer/customizer.php:5809
 msgid "List Item Icon Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:6489
+#: admin/customizer/customizer.php:5834
 msgid "List Item Padding"
 msgstr ""
 
-#: admin/customizer/customizer.php:6590
+#: admin/customizer/customizer.php:5935
 msgid "Active List Item Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:6610
+#: admin/customizer/customizer.php:5955
 msgid "Count Border Style"
 msgstr ""
 
-#: admin/customizer/customizer.php:6643
+#: admin/customizer/customizer.php:5988
 msgid "Count Border Width"
 msgstr ""
 
-#: admin/customizer/customizer.php:6668
-#: admin/customizer/customizer.php:8833
-#: admin/customizer/customizer.php:9796
+#: admin/customizer/customizer.php:6013
+#: admin/customizer/customizer.php:8178
+#: admin/customizer/customizer.php:9141
 msgid "Count Font Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:6693
-#: admin/customizer/customizer.php:8799
+#: admin/customizer/customizer.php:6038
+#: admin/customizer/customizer.php:8144
 msgid "Count Font Weight"
 msgstr ""
 
-#: admin/customizer/customizer.php:6727
-#: admin/customizer/customizer.php:8858
+#: admin/customizer/customizer.php:6072
+#: admin/customizer/customizer.php:8203
 msgid "Count Font Line Height"
 msgstr ""
 
-#: admin/customizer/customizer.php:6751
-#: admin/customizer/customizer.php:8882
+#: admin/customizer/customizer.php:6096
+#: admin/customizer/customizer.php:8227
 msgid "Count Font Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:6771
-#: admin/customizer/customizer.php:9242
-#: admin/customizer/customizer.php:9692
+#: admin/customizer/customizer.php:6116
+#: admin/customizer/customizer.php:8587
+#: admin/customizer/customizer.php:9037
 msgid "Count Background Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:6792
-#: admin/customizer/customizer.php:8903
-#: admin/customizer/customizer.php:9820
+#: admin/customizer/customizer.php:6137
+#: admin/customizer/customizer.php:8248
+#: admin/customizer/customizer.php:9165
 msgid "Count Border Radius"
 msgstr ""
 
-#: admin/customizer/customizer.php:6910
-#: admin/customizer/customizer.php:9113
-#: admin/customizer/customizer.php:9921
+#: admin/customizer/customizer.php:6255
+#: admin/customizer/customizer.php:8458
+#: admin/customizer/customizer.php:9266
 msgid "Count Padding"
 msgstr ""
 
-#: admin/customizer/customizer.php:7012
-#: admin/customizer/customizer.php:9008
-#: admin/customizer/customizer.php:10022
+#: admin/customizer/customizer.php:6357
+#: admin/customizer/customizer.php:8353
+#: admin/customizer/customizer.php:9367
 msgid "Count Margin"
 msgstr ""
 
-#: admin/customizer/customizer.php:7143
+#: admin/customizer/customizer.php:6488
 msgid "Inner Content Background Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:7164
+#: admin/customizer/customizer.php:6509
 msgid "Content Image Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:7188
+#: admin/customizer/customizer.php:6533
 msgid "Content Image Padding"
 msgstr ""
 
-#: admin/customizer/customizer.php:7290
+#: admin/customizer/customizer.php:6635
 msgid "Content Image Margin"
 msgstr ""
 
-#: admin/customizer/customizer.php:7438
+#: admin/customizer/customizer.php:6783
 msgid "Archive Title Margin"
 msgstr ""
 
-#: admin/customizer/customizer.php:7585
+#: admin/customizer/customizer.php:6930
 msgid "Archive Description Margin"
 msgstr ""
 
-#: admin/customizer/customizer.php:7709
+#: admin/customizer/customizer.php:7054
 msgid "List Item Hover Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:7768
+#: admin/customizer/customizer.php:7113
 msgid "List Item Border Width Hover"
 msgstr ""
 
-#: admin/customizer/customizer.php:8275
+#: admin/customizer/customizer.php:7620
 msgid "List Item Line Height"
 msgstr ""
 
-#: admin/customizer/customizer.php:8300
+#: admin/customizer/customizer.php:7645
 msgid "List Item Arrow Height"
 msgstr ""
 
-#: admin/customizer/customizer.php:8326
+#: admin/customizer/customizer.php:7671
 msgid "List Item Arrow Width"
 msgstr ""
 
-#: admin/customizer/customizer.php:8350
+#: admin/customizer/customizer.php:7695
 msgid "List Item Arrow Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:8371
+#: admin/customizer/customizer.php:7716
 msgid "Docs List Arrow Margin"
 msgstr ""
 
-#: admin/customizer/customizer.php:8475
+#: admin/customizer/customizer.php:7820
 msgid "Excerpt Font Weight"
 msgstr ""
 
-#: admin/customizer/customizer.php:8509
+#: admin/customizer/customizer.php:7854
 msgid "Excerpt Font Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:8534
+#: admin/customizer/customizer.php:7879
 msgid "Excerpt Line Height"
 msgstr ""
 
-#: admin/customizer/customizer.php:8558
+#: admin/customizer/customizer.php:7903
 msgid "Excerpt Font Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:8579
+#: admin/customizer/customizer.php:7924
 msgid "Excerpt Margin"
 msgstr ""
 
-#: admin/customizer/customizer.php:8684
+#: admin/customizer/customizer.php:8029
 msgid "Excerpt Padding"
 msgstr ""
 
-#: admin/customizer/customizer.php:8780
+#: admin/customizer/customizer.php:8125
 msgid "Category Item Count"
 msgstr ""
 
-#: admin/customizer/customizer.php:9222
+#: admin/customizer/customizer.php:8567
 msgid "Count Border Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:9257
+#: admin/customizer/customizer.php:8602
 #: public/betterdocs-shortcodes.php:1127
 msgid "Other Categories"
 msgstr ""
 
-#: admin/customizer/customizer.php:9275
+#: admin/customizer/customizer.php:8620
 msgid "Heading Text"
 msgstr ""
 
-#: admin/customizer/customizer.php:9296
+#: admin/customizer/customizer.php:8641
 msgid "Load More Text"
 msgstr ""
 
-#: admin/customizer/customizer.php:9418
+#: admin/customizer/customizer.php:8763
 msgid "Title Line Height"
 msgstr ""
 
-#: admin/customizer/customizer.php:9442
+#: admin/customizer/customizer.php:8787
 msgid "Image Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:9672
+#: admin/customizer/customizer.php:9017
 msgid "Count Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:9711
+#: admin/customizer/customizer.php:9056
 msgid "Count Background Hover Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:9737
+#: admin/customizer/customizer.php:9082
 msgid "Count Line Height"
 msgstr ""
 
-#: admin/customizer/customizer.php:10232
+#: admin/customizer/customizer.php:9577
 msgid "Description Padding"
 msgstr ""
 
-#: admin/customizer/customizer.php:10333
+#: admin/customizer/customizer.php:9678
 msgid "Button Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:10395
+#: admin/customizer/customizer.php:9740
 msgid "Button Font Weight"
 msgstr ""
 
-#: admin/customizer/customizer.php:10838
+#: admin/customizer/customizer.php:10183
 #: includes/elementor/widgets/betterdocs-elementor-popular-view.php:194
 msgid "Popular Title Hover Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:11107
-#: admin/customizer/customizer.php:11208
+#: admin/customizer/customizer.php:10452
+#: admin/customizer/customizer.php:10553
 msgid "Popular Docs Padding"
 msgstr ""
 
-#: admin/customizer/customizer.php:11310
+#: admin/customizer/customizer.php:10655
 msgid "Content Overlap"
 msgstr ""
 
-#: admin/customizer/customizer.php:11334
+#: admin/customizer/customizer.php:10679
 msgid "Top Box Icon Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:11359
+#: admin/customizer/customizer.php:10704
 msgid "Docs List Title Font Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:11386
+#: admin/customizer/customizer.php:10731
 #: includes/elementor/class-betterdocs-pro-elementor.php:77
 msgid "Enable Category Search"
 msgstr ""
 
-#: admin/customizer/customizer.php:11402
+#: admin/customizer/customizer.php:10747
 #: includes/elementor/class-betterdocs-pro-elementor.php:89
 msgid "Enable Search Button"
 msgstr ""
 
-#: admin/customizer/customizer.php:11418
+#: admin/customizer/customizer.php:10763
 #: includes/elementor/class-betterdocs-pro-elementor.php:101
 msgid "Enable Popular Search"
 msgstr ""
 
-#: admin/customizer/customizer.php:11433
+#: admin/customizer/customizer.php:10778
 msgid "Category Select Settings"
 msgstr ""
 
-#: admin/customizer/customizer.php:11510
-#: admin/customizer/customizer.php:11655
+#: admin/customizer/customizer.php:10855
+#: admin/customizer/customizer.php:11000
 msgid "Font Text Transform"
 msgstr ""
 
-#: admin/customizer/customizer.php:11554
+#: admin/customizer/customizer.php:10899
 msgid "Search Button Settings"
 msgstr ""
 
-#: admin/customizer/customizer.php:11599
+#: admin/customizer/customizer.php:10944
 msgid "Font Letter Spacing"
 msgstr ""
 
-#: admin/customizer/customizer.php:11684
+#: admin/customizer/customizer.php:11029
 msgid "Text Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:11723
+#: admin/customizer/customizer.php:11068
 #: includes/elementor/class-betterdocs-pro-elementor.php:190
 #: includes/elementor/widgets/betterdocs-elementor-popular-view.php:249
 msgid "Background Hover Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:11744
+#: admin/customizer/customizer.php:11089
 #: includes/elementor/class-betterdocs-pro-elementor.php:201
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:305
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:373
@@ -1549,77 +1442,200 @@ msgstr ""
 msgid "Border Radius"
 msgstr ""
 
-#: admin/customizer/customizer.php:11764
-#: admin/customizer/customizer.php:12369
+#: admin/customizer/customizer.php:11109
+#: admin/customizer/customizer.php:11714
 msgid "Left Top"
 msgstr ""
 
-#: admin/customizer/customizer.php:11783
-#: admin/customizer/customizer.php:12388
+#: admin/customizer/customizer.php:11128
+#: admin/customizer/customizer.php:11733
 msgid "Right Top"
 msgstr ""
 
-#: admin/customizer/customizer.php:11802
-#: admin/customizer/customizer.php:12407
+#: admin/customizer/customizer.php:11147
+#: admin/customizer/customizer.php:11752
 msgid "Left Bottom"
 msgstr ""
 
-#: admin/customizer/customizer.php:11821
-#: admin/customizer/customizer.php:12426
+#: admin/customizer/customizer.php:11166
+#: admin/customizer/customizer.php:11771
 msgid "Right Bottom"
 msgstr ""
 
-#: admin/customizer/customizer.php:11941
+#: admin/customizer/customizer.php:11286
 msgid "Popular Search Settings"
 msgstr ""
 
-#: admin/customizer/customizer.php:11961
+#: admin/customizer/customizer.php:11306
 msgid "Popular Search Margin"
 msgstr ""
 
-#: admin/customizer/customizer.php:12062
+#: admin/customizer/customizer.php:11407
 msgid "Sub Heading"
 msgstr ""
 
-#: admin/customizer/customizer.php:12131
+#: admin/customizer/customizer.php:11476
 msgid "Keyword Font Size"
 msgstr ""
 
-#: admin/customizer/customizer.php:12155
+#: admin/customizer/customizer.php:11500
 msgid "Keyword Border Type"
 msgstr ""
 
-#: admin/customizer/customizer.php:12184
+#: admin/customizer/customizer.php:11529
 msgid "Keyword Border Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:12205
+#: admin/customizer/customizer.php:11550
 msgid "Keyword Border Width"
 msgstr ""
 
-#: admin/customizer/customizer.php:12308
+#: admin/customizer/customizer.php:11653
 #: includes/elementor/class-betterdocs-pro-elementor.php:271
 msgid "Keyword Background Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:12328
+#: admin/customizer/customizer.php:11673
 #: includes/elementor/class-betterdocs-pro-elementor.php:293
 msgid "Keyword Text Color"
 msgstr ""
 
-#: admin/customizer/customizer.php:12349
+#: admin/customizer/customizer.php:11694
 #: includes/elementor/class-betterdocs-pro-elementor.php:342
 msgid "Keyword Border Radius"
 msgstr ""
 
-#: admin/customizer/customizer.php:12447
+#: admin/customizer/customizer.php:11792
 #: includes/elementor/class-betterdocs-pro-elementor.php:354
 msgid "Keyword Padding"
 msgstr ""
 
-#: admin/customizer/customizer.php:12551
+#: admin/customizer/customizer.php:11896
 #: includes/elementor/class-betterdocs-pro-elementor.php:366
 msgid "Keyword Margin"
+msgstr ""
+
+#: admin/customizer/customizer.php:12000
+msgid "Multiple KB FAQ"
+msgstr ""
+
+#: admin/customizer/customizer.php:12014
+msgid "Enable FAQ"
+msgstr ""
+
+#: admin/customizer/customizer.php:12032
+msgid "Select FAQ Groups"
+msgstr ""
+
+#: admin/customizer/customizer.php:12055
+msgid "Select FAQ Layout"
+msgstr ""
+
+#: admin/customizer/customizer.php:12059
+#: public/class-betterdocs-pro-public.php:359
+msgid "Modern Layout"
+msgstr ""
+
+#: admin/customizer/customizer.php:12063
+msgid "Classic Layout"
+msgstr ""
+
+#: admin/customizer/customizer.php:12081
+msgid "Section Title Text"
+msgstr ""
+
+#: admin/customizer/customizer.php:12105
+msgid "FAQ Section Title Margin (PX)"
+msgstr ""
+
+#: admin/customizer/customizer.php:12110
+#: admin/customizer/customizer.php:12236
+#: admin/customizer/customizer.php:12400
+#: admin/customizer/customizer.php:12481
+#: admin/customizer/customizer.php:12645
+msgid "top"
+msgstr ""
+
+#: admin/customizer/customizer.php:12111
+#: admin/customizer/customizer.php:12237
+#: admin/customizer/customizer.php:12401
+#: admin/customizer/customizer.php:12482
+#: admin/customizer/customizer.php:12646
+msgid "right"
+msgstr ""
+
+#: admin/customizer/customizer.php:12112
+#: admin/customizer/customizer.php:12238
+#: admin/customizer/customizer.php:12402
+#: admin/customizer/customizer.php:12483
+#: admin/customizer/customizer.php:12647
+msgid "bottom"
+msgstr ""
+
+#: admin/customizer/customizer.php:12113
+#: admin/customizer/customizer.php:12239
+#: admin/customizer/customizer.php:12403
+#: admin/customizer/customizer.php:12484
+#: admin/customizer/customizer.php:12648
+msgid "left"
+msgstr ""
+
+#: admin/customizer/customizer.php:12138
+msgid "Section Title Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:12159
+msgid "Section Title Font Size"
+msgstr ""
+
+#: admin/customizer/customizer.php:12185
+#: admin/customizer/customizer.php:12430
+msgid "Group Title Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:12207
+#: admin/customizer/customizer.php:12452
+msgid "Group Title Font Size"
+msgstr ""
+
+#: admin/customizer/customizer.php:12231
+#: admin/customizer/customizer.php:12476
+msgid "Group Title Padding (PX)"
+msgstr ""
+
+#: admin/customizer/customizer.php:12264
+#: admin/customizer/customizer.php:12509
+msgid "FAQ List Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:12285
+#: admin/customizer/customizer.php:12530
+msgid "FAQ List Background Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:12305
+#: admin/customizer/customizer.php:12550
+msgid "FAQ List Content Background Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:12325
+#: admin/customizer/customizer.php:12570
+msgid "FAQ List Content Color"
+msgstr ""
+
+#: admin/customizer/customizer.php:12345
+#: admin/customizer/customizer.php:12590
+msgid "FAQ List Content Font Size"
+msgstr ""
+
+#: admin/customizer/customizer.php:12371
+#: admin/customizer/customizer.php:12616
+msgid "FAQ List Font Size"
+msgstr ""
+
+#: admin/customizer/customizer.php:12395
+#: admin/customizer/customizer.php:12640
+msgid "FAQ List Padding (PX)"
 msgstr ""
 
 #: admin/customizer/defaults.php:563
@@ -1628,7 +1644,7 @@ msgstr ""
 
 #: admin/includes/class-betterdocs-analytics.php:112
 #: admin/includes/class-betterdocs-analytics.php:113
-#: admin/includes/class-betterdocs-analytics.php:482
+#: admin/includes/class-betterdocs-analytics.php:483
 msgid "Analytics"
 msgstr ""
 
@@ -1636,27 +1652,27 @@ msgstr ""
 msgid " views"
 msgstr ""
 
-#: admin/includes/class-betterdocs-analytics.php:486
+#: admin/includes/class-betterdocs-analytics.php:487
 msgid "Analytics From"
 msgstr ""
 
-#: admin/includes/class-betterdocs-analytics.php:488
+#: admin/includes/class-betterdocs-analytics.php:489
 msgid "Everyone"
 msgstr ""
 
-#: admin/includes/class-betterdocs-analytics.php:489
+#: admin/includes/class-betterdocs-analytics.php:490
 msgid "Guests Only"
 msgstr ""
 
-#: admin/includes/class-betterdocs-analytics.php:490
+#: admin/includes/class-betterdocs-analytics.php:491
 msgid "Registered Users Only"
 msgstr ""
 
-#: admin/includes/class-betterdocs-analytics.php:497
+#: admin/includes/class-betterdocs-analytics.php:498
 msgid "Exclude Bot Analytics"
 msgstr ""
 
-#: admin/includes/class-betterdocs-analytics.php:500
+#: admin/includes/class-betterdocs-analytics.php:501
 msgid "Select if you want to exclude bot analytics."
 msgstr ""
 
@@ -1698,7 +1714,7 @@ msgstr ""
 
 #: admin/includes/class-betterdocs-pro-instant-answer.php:333
 #: admin/includes/class-betterdocs-pro-instant-answer.php:970
-msgid "We couldn’t find any articles that match your search. Try searching for a new term."
+msgid "We couldn’t find any docs that match your search. Try searching for a new term."
 msgstr ""
 
 #: admin/includes/class-betterdocs-pro-instant-answer.php:365
@@ -1708,12 +1724,12 @@ msgstr ""
 
 #: admin/includes/class-betterdocs-pro-instant-answer.php:382
 #: admin/includes/class-betterdocs-pro-instant-answer.php:897
-#: public/class-betterdocs-pro-public.php:151
+#: public/class-betterdocs-pro-public.php:152
 msgid "How did you feel?"
 msgstr ""
 
 #: admin/includes/class-betterdocs-pro-instant-answer.php:408
-#: public/class-betterdocs-pro-public.php:152
+#: public/class-betterdocs-pro-public.php:153
 msgid "Thanks for your feedback"
 msgstr ""
 
@@ -1752,7 +1768,7 @@ msgid "Enable/Disable Instant Answer"
 msgstr ""
 
 #: admin/includes/class-betterdocs-pro-instant-answer.php:569
-msgid "Display a list of articles or categories in a chat-like widget to give your visitors a chance of self-learning about your website."
+msgid "Display a list of docs or categories in a chat-like widget to give your visitors a chance of self-learning about your website."
 msgstr ""
 
 #: admin/includes/class-betterdocs-pro-instant-answer.php:574
@@ -2097,7 +2113,7 @@ msgstr ""
 msgid "Cross Domain Integration Snippet"
 msgstr ""
 
-#: admin/includes/class-betterdocs-pro-instant-answer.php:1564
+#: admin/includes/class-betterdocs-pro-instant-answer.php:1565
 msgid "Copy Snippet"
 msgstr ""
 
@@ -2260,8 +2276,13 @@ msgstr ""
 #: includes/class-multiple-kb.php:367
 #: includes/class-multiple-kb.php:368
 #: includes/class-multiple-kb.php:379
-#: includes/class-multiple-kb.php:747
-#: includes/class-multiple-kb.php:768
+#: includes/class-multiple-kb.php:752
+#: includes/class-multiple-kb.php:773
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:4028
+#: admin/assets/js/betterdocs-analytics.js:4230
+#: admin/assets/js/betterdocs-analytics.js:5463
+#: admin/assets/js/betterdocs-analytics.js:5677
 msgid "Knowledge Base"
 msgstr ""
 
@@ -2293,25 +2314,25 @@ msgstr ""
 msgid "Add or reomve Knowledge Base"
 msgstr ""
 
-#: includes/class-multiple-kb.php:749
-#: includes/class-multiple-kb.php:772
+#: includes/class-multiple-kb.php:754
+#: includes/class-multiple-kb.php:777
 msgid "No Knowledge Base"
 msgstr ""
 
-#: includes/class-multiple-kb.php:793
-#: includes/class-multiple-kb.php:839
+#: includes/class-multiple-kb.php:798
+#: includes/class-multiple-kb.php:844
 msgid "KB Icon"
 msgstr ""
 
-#: includes/class-multiple-kb.php:1054
+#: includes/class-multiple-kb.php:1059
 msgid "Knowledge Bas"
 msgstr ""
 
-#: includes/class-multiple-kb.php:1055
+#: includes/class-multiple-kb.php:1060
 msgid "knowledge_base added to permalink structure"
 msgstr ""
 
-#: includes/class-multiple-kb.php:1056
+#: includes/class-multiple-kb.php:1061
 msgid "knowledge_base (already used in permalink structure)"
 msgstr ""
 
@@ -2615,6 +2636,9 @@ msgid "Color"
 msgstr ""
 
 #: includes/elementor/widgets/betterdocs-elementor-multiple-kb.php:797
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:2754
+#: admin/assets/js/betterdocs-analytics.js:2885
 msgid "Count"
 msgstr ""
 
@@ -2762,7 +2786,7 @@ msgid "Number Of Posts"
 msgstr ""
 
 #: includes/elementor/widgets/betterdocs-elementor-popular-view.php:82
-#: public/class-betterdocs-pro-public.php:370
+#: public/class-betterdocs-pro-public.php:376
 msgid "Popular Docs Text"
 msgstr ""
 
@@ -2991,50 +3015,46 @@ msgstr ""
 msgid "No Other Categories"
 msgstr ""
 
-#: public/class-betterdocs-pro-public.php:341
+#: public/class-betterdocs-pro-public.php:347
 msgid "Minimalist Layout"
 msgstr ""
 
-#: public/class-betterdocs-pro-public.php:345
+#: public/class-betterdocs-pro-public.php:351
 msgid "Artisan Layout"
 msgstr ""
 
-#: public/class-betterdocs-pro-public.php:349
+#: public/class-betterdocs-pro-public.php:355
 msgid "Abstract Layout"
 msgstr ""
 
-#: public/class-betterdocs-pro-public.php:353
-msgid "Modern Layout"
+#: public/class-betterdocs-pro-public.php:383
+msgid "Popular Docs Number"
 msgstr ""
 
-#: public/class-betterdocs-pro-public.php:377
-msgid "Popular Posts Number"
-msgstr ""
-
-#: public/class-betterdocs-pro-public.php:389
-#: public/class-betterdocs-pro-public.php:413
+#: public/class-betterdocs-pro-public.php:395
+#: public/class-betterdocs-pro-public.php:419
 #: admin/assets/js/betterdocs-analytics.js:1
-#: admin/assets/js/betterdocs-analytics.js:2458
+#: admin/assets/js/betterdocs-analytics.js:2447
 msgid "Search"
 msgstr ""
 
-#: public/class-betterdocs-pro-public.php:401
+#: public/class-betterdocs-pro-public.php:407
 msgid "Enable Advanced Search"
 msgstr ""
 
-#: public/class-betterdocs-pro-public.php:411
+#: public/class-betterdocs-pro-public.php:417
 msgid "Search Button Text"
 msgstr ""
 
-#: public/class-betterdocs-pro-public.php:419
+#: public/class-betterdocs-pro-public.php:425
 msgid "Note: This setting is not applicable for handbook layout."
 msgstr ""
 
-#: public/class-betterdocs-pro-public.php:427
+#: public/class-betterdocs-pro-public.php:433
 msgid "Minimum amount of Keywords Search"
 msgstr ""
 
-#: public/class-betterdocs-pro-public.php:480
+#: public/class-betterdocs-pro-public.php:487
 msgid "All Categories"
 msgstr ""
 
@@ -3051,36 +3071,374 @@ msgid "Powered by "
 msgstr ""
 
 #: admin/assets/js/betterdocs-analytics.js:1
-#: admin/assets/js/betterdocs-analytics.js:5677
-msgid "All Time"
+#: admin/assets/js/betterdocs-analytics.js:2720
+#: admin/assets/js/betterdocs-analytics.js:2851
+#: admin/assets/js/betterdocs-analytics.js:3858
+#: admin/assets/js/betterdocs-analytics.js:4001
+#: admin/assets/js/betterdocs-analytics.js:4209
+#: admin/assets/js/betterdocs-analytics.js:4692
+#: admin/assets/js/betterdocs-analytics.js:4838
+#: admin/assets/js/betterdocs-analytics.js:5291
+#: admin/assets/js/betterdocs-analytics.js:5435
+#: admin/assets/js/betterdocs-analytics.js:5656
+msgid "Error! "
 msgstr ""
 
 #: admin/assets/js/betterdocs-analytics.js:1
-#: admin/assets/js/betterdocs-analytics.js:5683
-msgid "Last 30 Days"
+#: admin/assets/js/betterdocs-analytics.js:2723
+#: admin/assets/js/betterdocs-analytics.js:2854
+#: admin/assets/js/betterdocs-analytics.js:3861
+#: admin/assets/js/betterdocs-analytics.js:4004
+#: admin/assets/js/betterdocs-analytics.js:4212
+#: admin/assets/js/betterdocs-analytics.js:4695
+#: admin/assets/js/betterdocs-analytics.js:4841
+#: admin/assets/js/betterdocs-analytics.js:5295
+#: admin/assets/js/betterdocs-analytics.js:5438
+#: admin/assets/js/betterdocs-analytics.js:5659
+msgid "Seems Error, We apologize and are fixing the problem. Please try again at a later stage."
 msgstr ""
 
 #: admin/assets/js/betterdocs-analytics.js:1
-#: admin/assets/js/betterdocs-analytics.js:5689
-msgid "Custom Date Range"
+#: admin/assets/js/betterdocs-analytics.js:3879
+#: admin/assets/js/betterdocs-analytics.js:4024
+#: admin/assets/js/betterdocs-analytics.js:5313
+#: admin/assets/js/betterdocs-analytics.js:5459
+msgid "Category"
 msgstr ""
 
 #: admin/assets/js/betterdocs-analytics.js:1
-#: admin/assets/js/betterdocs-analytics.js:2452
+#: admin/assets/js/betterdocs-analytics.js:2441
+#: admin/assets/js/betterdocs-analytics.js:3887
+#: admin/assets/js/betterdocs-analytics.js:4035
+#: admin/assets/js/betterdocs-analytics.js:4238
 msgid "Reactions"
 msgstr ""
 
 #: admin/assets/js/betterdocs-analytics.js:1
-#: admin/assets/js/betterdocs-analytics.js:2492
+#: admin/assets/js/betterdocs-analytics.js:4038
+#: admin/assets/js/betterdocs-analytics.js:5473
+msgid "Author"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:4062
+msgid "View Doc"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:4075
+#: admin/assets/js/betterdocs-analytics.js:5516
+msgid "View Analytics"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:2782
+#: admin/assets/js/betterdocs-analytics.js:2913
+#: admin/assets/js/betterdocs-analytics.js:3922
+#: admin/assets/js/betterdocs-analytics.js:4145
+#: admin/assets/js/betterdocs-analytics.js:4273
+#: admin/assets/js/betterdocs-analytics.js:4759
+#: admin/assets/js/betterdocs-analytics.js:4905
+#: admin/assets/js/betterdocs-analytics.js:5356
+#: admin/assets/js/betterdocs-analytics.js:5587
+#: admin/assets/js/betterdocs-analytics.js:5720
+msgid "Prev"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:2783
+#: admin/assets/js/betterdocs-analytics.js:2914
+#: admin/assets/js/betterdocs-analytics.js:3923
+#: admin/assets/js/betterdocs-analytics.js:4146
+#: admin/assets/js/betterdocs-analytics.js:4274
+#: admin/assets/js/betterdocs-analytics.js:4760
+#: admin/assets/js/betterdocs-analytics.js:4906
+#: admin/assets/js/betterdocs-analytics.js:5357
+#: admin/assets/js/betterdocs-analytics.js:5588
+#: admin/assets/js/betterdocs-analytics.js:5721
+msgid "Next"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:3881
+#: admin/assets/js/betterdocs-analytics.js:4232
+#: admin/assets/js/betterdocs-analytics.js:5315
+#: admin/assets/js/betterdocs-analytics.js:5679
+msgid "Slug"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:2660
+#: admin/assets/js/betterdocs-analytics.js:2799
+#: admin/assets/js/betterdocs-analytics.js:2930
+#: admin/assets/js/betterdocs-analytics.js:3800
+#: admin/assets/js/betterdocs-analytics.js:3939
+#: admin/assets/js/betterdocs-analytics.js:4290
+#: admin/assets/js/betterdocs-analytics.js:4622
+#: admin/assets/js/betterdocs-analytics.js:4776
+#: admin/assets/js/betterdocs-analytics.js:4922
+#: admin/assets/js/betterdocs-analytics.js:5233
+#: admin/assets/js/betterdocs-analytics.js:5373
+#: admin/assets/js/betterdocs-analytics.js:5604
+#: admin/assets/js/betterdocs-analytics.js:5737
+msgid "Sorry, No Data Found."
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:2802
+#: admin/assets/js/betterdocs-analytics.js:2933
+#: admin/assets/js/betterdocs-analytics.js:3942
+#: admin/assets/js/betterdocs-analytics.js:4293
+#: admin/assets/js/betterdocs-analytics.js:4779
+#: admin/assets/js/betterdocs-analytics.js:4925
+#: admin/assets/js/betterdocs-analytics.js:5376
+#: admin/assets/js/betterdocs-analytics.js:5607
+#: admin/assets/js/betterdocs-analytics.js:5740
+msgid "Seems like you haven't got any reactions yet. You will see the list once there's some data available."
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:5928
+msgid "All Time"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:5934
+msgid "Last 30 Days"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:5940
+msgid "Custom Date Range"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:3445
+#: admin/assets/js/betterdocs-analytics.js:4993
+msgid "Total Views"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:3467
+msgid "Total Searches"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:3491
+msgid "Total Reactions"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:3561
+msgid "Reacts"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:3568
+msgid "Searches"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:3683
+#: admin/assets/js/betterdocs-analytics.js:5120
+msgid "Currently showing Analytics for : "
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:2663
+#: admin/assets/js/betterdocs-analytics.js:3803
+#: admin/assets/js/betterdocs-analytics.js:4625
+#: admin/assets/js/betterdocs-analytics.js:5236
+msgid "Please try applying different filters."
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:3150
+#: admin/assets/js/betterdocs-analytics.js:3325
+msgid "This list shows the leading Docs based on most Views."
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:3155
+#: admin/assets/js/betterdocs-analytics.js:3330
+msgid "Leading Docs"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:3175
+#: admin/assets/js/betterdocs-analytics.js:3350
+msgid "This list shows the leading Categories based on most Views."
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:3180
+#: admin/assets/js/betterdocs-analytics.js:3355
+msgid "Leading Category"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:3194
+#: admin/assets/js/betterdocs-analytics.js:3369
+msgid "This list shows the leading Knowledge Base based on most Views."
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:3199
+#: admin/assets/js/betterdocs-analytics.js:3374
+msgid "Leading Knowledge Base"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:5014
+#: admin/assets/js/betterdocs-analytics.js:5079
+#: admin/assets/js/betterdocs-analytics.js:5321
+#: admin/assets/js/betterdocs-analytics.js:5470
+#: admin/assets/js/betterdocs-analytics.js:5685
+msgid "Unique Views"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:5497
+msgid "Browse Doc"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:5505
+msgid "btd-nested-tooltip-content"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:4370
+#: admin/assets/js/betterdocs-analytics.js:4479
+msgid "Happy"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:4398
+#: admin/assets/js/betterdocs-analytics.js:4486
+msgid "Neutral"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:4426
+#: admin/assets/js/betterdocs-analytics.js:4493
+msgid "Unhappy"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:4726
+#: admin/assets/js/betterdocs-analytics.js:4872
+msgid "Happy: "
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:4735
+#: admin/assets/js/betterdocs-analytics.js:4881
+msgid "Neutral: "
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:4744
+#: admin/assets/js/betterdocs-analytics.js:4890
+msgid "Unhappy: "
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:3246
+msgid "This list shows the most helpful docs based on most happy reactions."
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:3251
+msgid "Most Helpful"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:3265
+msgid "This list shows the least helpful docs based on most unhappy reactions."
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:3270
+msgid "Least Helpful"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:2878
+msgid "This list shows the most popular searches."
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:2883
+msgid "Popular Keywords"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:2747
+msgid "This list shows the keywords search with no result found."
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:2752
+msgid "Keywords with No Result"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:2978
+msgid "Return Result"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:2979
+msgid "No Result"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:3031
+msgid "Search Overview"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:3034
+msgid "Result Found "
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:3050
+msgid "No Result Found "
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:3074
+msgid "No Data Found."
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:2518
+msgid "Total Search"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:2525
+msgid "Result Found"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:2532
+msgid "No Result Found"
+msgstr ""
+
+#: admin/assets/js/betterdocs-analytics.js:1
+#: admin/assets/js/betterdocs-analytics.js:2481
 msgid "BetterDocs Analytics"
 msgstr ""
 
 #: admin/assets/js/betterdocs-analytics.js:1
-#: admin/assets/js/betterdocs-analytics.js:2497
+#: admin/assets/js/betterdocs-analytics.js:2486
 msgid "Version: "
 msgstr ""
 
 #: admin/assets/js/betterdocs-analytics.js:1
-#: admin/assets/js/betterdocs-analytics.js:2501
+#: admin/assets/js/betterdocs-analytics.js:2490
 msgid "Pro Version: "
 msgstr ""

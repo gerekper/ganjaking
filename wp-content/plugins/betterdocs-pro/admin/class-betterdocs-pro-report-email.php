@@ -40,7 +40,6 @@ class Betterdocs_Pro_Report_Email extends BetterDocs_Report_Email
 	 */
 	public function __construct()
 	{
-        parent::__construct();
 		add_filter('betterdocs_reporting_frequency_settings', array( $this, 'reporting_frequency_settings' ), 10, 1 );
         add_filter('betterdocs_reporting_subject_settings', array( $this, 'reporting_subject' ), 10, 1 );
         add_filter('betterdocs_reporting_email_subject', array( $this, 'email_subject' ), 10, 1 );

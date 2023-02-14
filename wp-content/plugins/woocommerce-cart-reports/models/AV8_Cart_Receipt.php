@@ -183,13 +183,19 @@ class AV8_Cart_Receipt {
 		if ( $this->post_author > 0 ) {
 			$user_info = get_userdata( $this->post_author );
 			if ( $user_info->first_name != '' && $user_info->last_name != '' ) {
-				$this->post_title = $user_info->first_name . ' ' . $user_info->last_name . "'s Cart";
+				$this->post_title = __(
+					sprintf( __( "%s %s's Cart", 'woocommerce_cart_reports' ), $user_info->first_name, $user_info->last_name ),
+					'woocommerce_cart_reports'
+				);
 			} else {
-				$this->post_title = ucwords( $user_info->user_login ) . "'s Cart";
+				$this->post_title = __(
+					sprintf( __( "%s's Cart", 'woocommerce_cart_reports' ), $user_info->user_login ),
+					'woocommerce_cart_reports'
+				);
 			}
 		} else {
 			$this->post_author = 0;
-			$this->post_title  = "Guest's Cart";
+			$this->post_title  = __( "Guest's Cart", 'woocommerce_cart_reports' );
 		}
 	}
 
@@ -624,7 +630,7 @@ class AV8_Cart_Receipt {
 			return $slug . '-' . $session_id;
 		}
 
-		if ( "Guest's Cart" === $post_title ) {
+		if ( __( "Guest's Cart", 'woocommerce_cart_reports' ) === $post_title ) {
 			return uniqid( $slug . '-', false );
 		}
 
@@ -768,7 +774,7 @@ class AV8_Cart_Receipt {
 				if ( $order_id > 0 && $order_id != '' ) {
 					$order_post = get_post( $order_id );
 					$order_link = get_admin_url( '', 'post.php?post=' . $order_id . '&action=edit' );
-					$actions[]  = new AV8_Cart_Action( $order_link, 'View Order' );
+					$actions[] = new AV8_Cart_Action( $order_link, __( 'View Order', 'woocommerce_cart_reports' ) );
 				}
 				do_action( 'av8_carts_action_converted', $actions );
 
@@ -784,7 +790,9 @@ class AV8_Cart_Receipt {
 
 				if ( $cart_receipt->email() != false && $cart_receipt->email() != '' ) {
 					$email_link = 'mailto:' . $cart_receipt->email();
-					$actions[]  = new AV8_Cart_Action( $email_link, "Email $full_name" );
+
+					/* translators: %s: Full name of customer. */
+					$actions[] = new AV8_Cart_Action( $email_link, sprintf( __( 'Email %s', 'woocommerce_cart_reports' ), $full_name ) );
 				}
 
 				do_action( 'av8_carts_action_open', $actions );
@@ -804,7 +812,8 @@ class AV8_Cart_Receipt {
 
 				if ( $cart_receipt->email() != false && $cart_receipt->email() != '' ) {
 					$email_link = 'mailto:' . $cart_receipt->email();
-					$actions[]  = new AV8_Cart_Action( $email_link, "Email $full_name" );
+					/* translators: %s: Full name of customer. */
+					$actions[] = new AV8_Cart_Action( $email_link, sprintf( __( 'Email %s', 'woocommerce_cart_reports' ), $full_name ) );
 				}
 
 				do_action( 'av8_carts_action_abandoned' );

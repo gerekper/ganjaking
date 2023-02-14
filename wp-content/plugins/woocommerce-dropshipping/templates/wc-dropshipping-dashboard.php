@@ -3,6 +3,7 @@
    	exit;
    }
    $dashboard_report = $this->dashboard;
+
    $wcd_count_prod_listings = ( null === $dashboard_report->count_prod_listings() ) ? 0 : $dashboard_report->count_prod_listings();
    $wcd_count_prod_out_stock = $dashboard_report->count_prod_out_stock();
    $wcd_orders = $dashboard_report->count_orders();
@@ -12,12 +13,13 @@
    $wcd_orders_completed = $dashboard_report->get_completed_orders();
    $wcd_orders_pending = $dashboard_report->get_pending_orders();
    $wcd_orders_affiliate = $dashboard_report->get_affiliate_prod();
-   $wcd_week_old_sales = $dashboard_report->get_week_total_sales(); 
+   $wcd_week_old_sales = $dashboard_report->get_week_total_sales();
    $wcd_get_best_selling_prod = $dashboard_report->get_best_selling_prod();
    $wcd_get_low_stocks_prod = $dashboard_report->get_low_on_stocks_prod();
    $get_completed_dropship_orders = $dashboard_report->get_completed_dropship_orders();
-?>
-
+   $get_products_draft_count = $dashboard_report ->get_products_draft_count();
+ ?>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> -->
 <div id="woocommerce-dropshipping-dashboard">
 
   <div class="dash-row">
@@ -44,6 +46,15 @@
         <h2><?= $wcd_currency ?> <?= isset( $wcd_week_old_sales[ 'profit' ] ) ? $wcd_week_old_sales[ 'profit' ] : ''; ?></h2>
         <p class="wcd-blurb-text"><?php _e( 'Projected Profit', 'woocommerce-dropshipping'); ?></p>
      </div>
+
+     <?php if( ($get_products_draft_count) >= 1){ ?>
+      <div class="metric-box metric-style1">
+         <img src="<?php echo plugin_dir_url( __FILE__ ) . '../assets/icons/ali-draft-prods.png'; ?>" style="    height: 65px;margin: 0 auto; padding: 10px;">
+         <h2 id="ali-draft-prod-count"><?= $get_products_draft_count ?></h2>
+         <p class="wcd-blurb-text"><?php _e( 'Draft Products', 'woocommerce-dropshipping'); ?></p>
+         <button class="button button1" id="ali-draft-publish-btn" >Publish Products</button>
+      </div>
+      <?php }?>
   </div>
   <div class="dash-row">
      <div class="dash-section-50 bar-chart">
@@ -161,6 +172,7 @@
   </div>
 </div>
 <!-- End of dashboard -->
+
 
 <?php wp_enqueue_style( 'add_custom_dashboard_style' ); ?>
 <?php wp_enqueue_script( 'add_dropshipping_chart_lib' ); ?>

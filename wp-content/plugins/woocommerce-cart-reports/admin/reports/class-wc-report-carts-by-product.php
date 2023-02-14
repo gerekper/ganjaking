@@ -107,6 +107,7 @@ class WC_Report_Carts_By_Product extends WC_Admin_Report {
 		$total_items = $count;
 		$legend[]    = array(
 			'title'            => sprintf(
+				/* translators: %s: Number of product abandonments. */
 				__( '%s Product Abandonments', 'woocommerce_cart_reports' ),
 				'<strong>' . $total_items . '</strong>'
 			),

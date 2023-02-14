@@ -30,8 +30,13 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 	 */
 	public function __construct() {
 
-		$this->id                   = 'paygold';
-		$this->icon                 = apply_filters( 'woocommerce_' . $this->id . '_icon', REDSYS_PLUGIN_URL_P . 'assets/images/bizum.png' );
+		$this->id = 'paygold';
+		if ( ! empty( WCRed()->get_redsys_option( 'logo', 'paygold' ) ) ) {
+			$logo_url   = WCRed()->get_redsys_option( 'logo', 'paygold' );
+			$this->icon = apply_filters( 'woocommerce_redsys_icon', $logo_url );
+		} else {
+			$this->icon = apply_filters( 'woocommerce_redsys_icon', REDSYS_PLUGIN_URL_P . 'assets/images/paygold.png' );
+		}
 		$this->has_fields           = false;
 		$this->liveurlws            = 'https://sis.redsys.es/sis/services/SerClsWSEntrada?wsdl';
 		$this->method_title         = __( 'PayGold (by José Conti)', 'woocommerce-redsys' );
@@ -238,6 +243,12 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 				'type'        => 'textarea',
 				'description' => __( 'This controls the description which the user sees during checkout.', 'woocommerce-redsys' ),
 				'default'     => __( 'Pay via Bizum you can pay with your Bizum account.', 'woocommerce-redsys' ),
+			),
+			'logo'             => array(
+				'title'       => __( 'Gateway logo at checkout', 'woocommerce-redsys' ),
+				'type'        => 'text',
+				'description' => __( 'Add link to image logo for Gateway at checkout.', 'woocommerce-redsys' ),
+				'desc_tip'    => true,
 			),
 			'subject'          => array(
 				'title'       => __( 'Subject', 'woocommerce-redsys' ),

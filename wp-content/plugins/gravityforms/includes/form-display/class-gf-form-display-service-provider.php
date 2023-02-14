@@ -41,8 +41,7 @@ class GF_Form_Display_Service_Provider extends GF_Service_Provider {
 		$container->add( self::FULL_SCREEN_HANDLER, function() use ( $container ) {
 
 			// Check the MySQL version to determine the correct query handler type.
-			$version = Full_Screen_Handler::get_mysql_version();
-			if( version_compare( $version, '5.7', '>=' ) ) {
+			if ( Full_Screen_Handler::db_supports_json_contains( GFCommon::get_db_version(), GFCommon::get_dbms_type() ) ) {
 				$handler = $container->get( GF_Query_Service_Provider::JSON_QUERY_HANDLER );
 			} else {
 				$handler = $container->get( GF_Query_Service_Provider::JSON_STRING_HANDLER );

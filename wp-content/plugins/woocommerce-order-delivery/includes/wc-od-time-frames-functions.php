@@ -47,7 +47,23 @@ function wc_od_time_frame_to_string( $time_frame, $context = '' ) {
 		return '';
 	}
 
-	if ( 'checkout' === $context && 0 < $time_frame->get_fee_amount() ) {
+	$fee_amount = $time_frame->get_fee_amount();
+
+	// Display fee amount including tax.
+	if (
+		'checkout' === $context && 0 < $fee_amount && 'taxable' === $time_frame->get_fee_tax_status() &&
+		WC()->cart && WC()->cart->display_prices_including_tax()
+	) {
+		$taxes = WC_Tax::calc_tax( $fee_amount, WC_Tax::get_rates( $time_frame->get_fee_tax_class() ) );
+
+		if ( 'yes' !== get_option( 'woocommerce_tax_round_at_subtotal' ) ) {
+			$taxes = array_map( 'wc_round_tax_total', $taxes );
+		}
+
+		$fee_amount += array_sum( $taxes );
+	}
+
+	if ( 'checkout' === $context && 0 < $fee_amount ) {
 		$label = _x( '[time_from] &ndash; [time_to] (+ [fee_amount])', 'Time Frame option label. Allowed tags: [title], [time_from], [time_to], [fee_amount]', 'woocommerce-order-delivery' );
 	} else {
 		$label = _x( '[time_from] &ndash; [time_to]', 'Time Frame. Allowed tags: [time_from], [time_to], [title]', 'woocommerce-order-delivery' );
@@ -64,7 +80,7 @@ function wc_od_time_frame_to_string( $time_frame, $context = '' ) {
 			$time_frame->get_title(),
 			wc_od_localize_time( $time_frame->get_time_from() ),
 			wc_od_localize_time( $time_frame->get_time_to() ),
-			wp_strip_all_tags( wc_price( $time_frame->get_fee_amount() ) ),
+			wp_strip_all_tags( wc_price( $fee_amount ) ),
 		),
 		$label
 	);

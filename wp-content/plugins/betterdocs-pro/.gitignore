@@ -5,3 +5,4 @@ package-lock.json
 .distignore
 node_modules
 .map
+.vscode

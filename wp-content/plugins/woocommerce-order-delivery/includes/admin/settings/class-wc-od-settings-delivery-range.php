@@ -37,35 +37,8 @@ class WC_OD_Settings_Delivery_Range extends WC_OD_Settings_API {
 	 * @param WC_OD_Delivery_Range $delivery_range Delivery range object.
 	 */
 	public function __construct( $delivery_range ) {
-		$this->id = 'delivery_ranges';
-
-		if ( ! $delivery_range instanceof WC_OD_Delivery_Range ) {
-			wc_doing_it_wrong( __FUNCTION__, 'You must provide a WC_OD_Delivery_Range object.', '1.8.7' );
-
-			$range_id = ( 'new' === $delivery_range ? null : (int) $delivery_range );
-
-			$this->delivery_range = WC_OD_Delivery_Ranges::get_range( $range_id );
-		} else {
-			$this->delivery_range = $delivery_range;
-		}
-	}
-
-	/**
-	 * Auto-load in-accessible properties on demand.
-	 *
-	 * NOTE: Keep backward compatibility with some deprecated properties on this class.
-	 *
-	 * @since 1.8.7
-	 *
-	 * @param mixed $key The property name.
-	 * @return mixed The property value.
-	 */
-	public function __get( $key ) {
-		if ( 'range_id' === $key ) {
-			wc_deprecated_argument( 'WC_OD_Settings_Delivery_Range->range_id', '1.8.7', 'This property is deprecated and will be removed in future releases.' );
-
-			return $this->delivery_range->get_id();
-		}
+		$this->id             = 'delivery_ranges';
+		$this->delivery_range = $delivery_range;
 	}
 
 	/**

@@ -26,24 +26,24 @@ class AV8_Cart_Index_Page {
 
 		$start_date = strtotime( $start_date );
 		$end_date   = strtotime( $end_date );
-		add_action( 'admin_menu', array( $this, 'hide_add_new_carts' ) );
+		add_action( 'admin_menu', [ $this, 'hide_add_new_carts' ] );
 		add_action(
 			'views_edit-carts',
-			array( $this, 'av8_remove_cart_views' )
+			[ $this, 'av8_remove_cart_views' ]
 		); //Remove the All / Published / Trash view.
-		add_action( 'manage_carts_posts_custom_column', array( $this, 'av8_manage_cart_columns' ), 1, 1 );
-		add_action( 'restrict_manage_posts', array( $this, 'author_filter' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_index' ) );
-		add_filter( 'restrict_manage_posts', array( $this, 'restrict_manage_posts' ), 1000 );
-		add_action( 'pre_get_posts', array( $this, 'exclude_category' ) );
-		add_filter( 'posts_where', array( $this, 'filter_where' ) );
-		add_filter( 'manage_edit-carts_columns', array( $this, 'av8_carts_columns' ) );
-		add_filter( 'manage_edit-carts_sortable_columns', array( $this, 'av8_carts_sort' ) );
-		add_filter( 'request', array( $this, 'cart_column_orderby' ) );
+		add_action( 'manage_carts_posts_custom_column', [ $this, 'av8_manage_cart_columns' ], 1, 1 );
+		add_action( 'restrict_manage_posts', [ $this, 'author_filter' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_index' ] );
+		add_filter( 'restrict_manage_posts', [ $this, 'restrict_manage_posts' ], 1000 );
+		add_action( 'pre_get_posts', [ $this, 'exclude_category' ] );
+		add_filter( 'posts_where', [ $this, 'filter_where' ] );
+		add_filter( 'manage_edit-carts_columns', [ $this, 'av8_carts_columns' ] );
+		add_filter( 'manage_edit-carts_sortable_columns', [ $this, 'av8_carts_sort' ] );
+		add_filter( 'request', [ $this, 'cart_column_orderby' ] );
 		add_filter( 'bulk_actions-' . 'edit-carts', '__return_empty_array' ); //Remove bulk edit
-		add_filter( 'parse_query', array( $this, 'woocommerce_carts_search_custom_fields' ) );
-		add_filter( 'get_search_query', array( $this, 'woocommerce_carts_search_label' ) );
-		add_filter( 'post_row_actions', array( $this, 'remove_post_actions' ), 1, 2 );
+		add_filter( 'parse_query', [ $this, 'woocommerce_carts_search_custom_fields' ] );
+		add_filter( 'get_search_query', [ $this, 'woocommerce_carts_search_label' ] );
+		add_filter( 'post_row_actions', [ $this, 'remove_post_actions' ], 1, 2 );
 	}
 
 	/*
@@ -79,9 +79,9 @@ class AV8_Cart_Index_Page {
 			return $wp;
 		}
 
-		$search_fields = array(
+		$search_fields = [
 			'av8_cartitems'
-		);
+		];
 
 		// Query matching custom fields - this seems faster than meta_query
 		$post_ids = $wpdb->get_col(
@@ -146,8 +146,7 @@ class AV8_Cart_Index_Page {
 			wp_enqueue_style( 'woocommerce_admin_styles', $woocommerce->plugin_url() . '/assets/css/admin.css' );
 			wp_enqueue_style(
 				'jquery-ui-style',
-				( is_ssl(
-				) ) ? 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css' : 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css'
+				( is_ssl() ) ? 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css' : 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css'
 			);
 			wp_enqueue_style(
 				'woocommerce_cart_report_admin_index_css',
@@ -206,7 +205,7 @@ class AV8_Cart_Index_Page {
 
 	public function remove_post_actions( $actions, $post ) {
 		if ( $post->post_type == 'carts' ) {
-			return array();
+			return [];
 		} else {
 			return $actions;
 		}
@@ -221,9 +220,9 @@ class AV8_Cart_Index_Page {
 	*/
 
 	public function av8_carts_sort( $columns ) {
-		$custom = array(
+		$custom = [
 			'updated' => 'post_modified',
-		);
+		];
 
 		return wp_parse_args( $custom, $columns );
 	}
@@ -338,7 +337,7 @@ class AV8_Cart_Index_Page {
 				$order_items = get_post_meta( $post->ID, 'av8_cartitems', true );
 
 				if ( ! is_array( $order_items ) ) {
-					$items_arr = str_replace( array( 'O:17:"WC_Product_Simple"', 'O:10:"WC_Product"' ),
+					$items_arr = str_replace( [ 'O:17:"WC_Product_Simple"', 'O:10:"WC_Product"' ],
 						'O:8:"stdClass"',
 						$order_items );
 
@@ -414,25 +413,25 @@ class AV8_Cart_Index_Page {
 		global $woocommerce;
 
 		if ( ( $pagenow == 'edit.php' ) && isset( $_GET['post_type'] ) && ( $_GET['post_type'] == 'carts' ) ) {
-			$status_options = array(
-				'Open'                   => 'Open',
-				'Converted'              => 'Converted',
-				'Abandoned'              => 'Abandoned',
-				'Open + Abandoned Carts' => 'OandA'
-			);
+			$status_options = [
+				'Open'                   => __( 'Open', 'woocommerce_cart_reports' ),
+				'Converted'              => __( 'Converted', 'woocommerce_cart_reports' ),
+				'Abandoned'              => __( 'Abandoned', 'woocommerce_cart_reports' ),
+				'Open + Abandoned Carts' => __( 'OandA', 'woocommerce_cart_reports' )
+			];
 			global $start_date, $end_date, $woocommerce, $wpdb, $wp_locale;
 
 			//Check to see if "lifetime" is set, and if it is set, find the date of the oldest post and set the start date to that date.
 
 			if ( isset( $_GET['lifetime'] ) || ! isset( $_GET['mv'] ) ) {
-				$args = array(
+				$args = [
 					'numberposts' => 1,
 					'offset'      => 0,
 					'orderby'     => 'post_modified',
 					'order'       => 'ASC',
 					'post_type'   => 'carts',
 					'post_status' => 'publish',
-				);
+				];
 
 				$post = get_posts( $args );
 
@@ -444,7 +443,8 @@ class AV8_Cart_Index_Page {
 			<label for="from">
 				<?php _e( 'From:', 'woocommerce_cart_reports' ); ?>
 			</label>
-			<input type="text" name="start_date" id="from" readonly="readonly" value="
+			<input
+				type="text" name="start_date" id="from" readonly="readonly" value="
 			<?php
 			echo esc_attr( date( 'Y-m-d', $start_date ) );
 			?>
@@ -453,7 +453,8 @@ class AV8_Cart_Index_Page {
 			<label for="to">
 				<?php _e( 'To:', 'woocommerce_cart_reports' ); ?>
 			</label>
-			<input type="text" name="end_date" id="to" readonly="readonly" value="
+			<input
+				type="text" name="end_date" id="to" readonly="readonly" value="
 			<?php
 			echo esc_attr( date( 'Y-m-d', $end_date ) );
 			?>
@@ -463,7 +464,8 @@ class AV8_Cart_Index_Page {
               jQuery(function () {
                 var dates = jQuery('#posts-filter #from, #posts-filter #to').datepicker({
                   defaultDate: '', dateFormat: 'yy-mm-dd', numberOfMonths: 1, maxDate: '+0D', showButtonPanel: true, showOn: 'both', buttonImage: "<?php echo $woocommerce->plugin_url(); ?>/assets/images/calendar.png", buttonImageOnly: true, onSelect: function (selectedDate) {
-                    var option = this.id == 'from' ? 'minDate' : 'maxDate', instance = jQuery(this).data('datepicker'), date = jQuery.datepicker.parseDate(instance.settings.dateFormat || jQuery.datepicker._defaults.dateFormat, selectedDate, instance.settings)
+                    var option = this.id == 'from' ? 'minDate' : 'maxDate', instance = jQuery(this).data('datepicker'),
+                      date = jQuery.datepicker.parseDate(instance.settings.dateFormat || jQuery.datepicker._defaults.dateFormat, selectedDate, instance.settings)
                     dates.not(this).datepicker('option', option, date)
                   }
                 })
@@ -476,7 +478,8 @@ class AV8_Cart_Index_Page {
 				<?php
 				foreach ( $status_options as $key => $value ) {
 					?>
-					<option value="<?php echo esc_attr( $value ); ?>"
+					<option
+						value="<?php echo esc_attr( $value ); ?>"
 						<?php
 						if ( isset( $_GET['mv'] ) ) {
 							selected( $_GET['mv'], $value );
@@ -500,22 +503,22 @@ class AV8_Cart_Index_Page {
 		if ( isset( $query->query_vars['post_type'] ) && 'carts' === $query->query_vars['post_type'] && isset( $_GET['mv'] ) && $_GET['mv'] != '' ) {
 			if ( $_GET['mv'] == 'Converted' ) {
 				$query->set( 'tax_query',
-					array(
-						array(
+					[
+						[
 							'taxonomy' => 'shop_cart_status',
 							'field'    => 'slug',
 							'terms'    => 'converted'
-						)
-					) );
+						]
+					] );
 			} else {
 				$query->set( 'tax_query',
-					array(
-						array(
+					[
+						[
 							'taxonomy' => 'shop_cart_status',
 							'field'    => 'slug',
 							'terms'    => 'open',
-						)
-					) );
+						]
+					] );
 			}
 		}
 	}
@@ -529,10 +532,10 @@ class AV8_Cart_Index_Page {
 		global $pagenow;
 		if ( isset( $_GET['post_type'] ) ) {
 			if ( ( $pagenow == 'edit.php' ) && ( $_GET['post_type'] == 'carts' ) ) {
-				$args = array(
+				$args = [
 					'name'            => 'author',
 					'show_option_all' => __( 'Show All Customers', 'woocommerce_cart_reports' )
-				);
+				];
 				if ( isset( $_GET['user'] ) ) {
 					$args['selected'] = $_GET['user'];
 				}
@@ -548,7 +551,7 @@ class AV8_Cart_Index_Page {
 	 *
 	 */
 	public function wp_dropdown_users( $args = '' ) {
-		$defaults = array(
+		$defaults = [
 			'show_option_all'         => '',
 			'show_option_none'        => '',
 			'hide_if_only_one_author' => '',
@@ -566,7 +569,7 @@ class AV8_Cart_Index_Page {
 			'blog_id'                 => $GLOBALS['blog_id'],
 			'who'                     => '',
 			'include_selected'        => false
-		);
+		];
 
 		$defaults['selected'] = is_author() ? get_query_var( 'author' ) : 0;
 
@@ -574,8 +577,8 @@ class AV8_Cart_Index_Page {
 		extract( $r, EXTR_SKIP );
 
 		$query_args           = wp_array_slice_assoc( $r,
-			array( 'blog_id', 'include', 'exclude', 'orderby', 'order', 'who' ) );
-		$query_args['fields'] = array( 'ID', 'display_name', 'user_login' );
+			[ 'blog_id', 'include', 'exclude', 'orderby', 'order', 'who' ] );
+		$query_args['fields'] = [ 'ID', 'display_name', 'user_login' ];
 		$users                = get_users( $query_args );
 
 		$output = '';
@@ -665,14 +668,14 @@ class AV8_Cart_Index_Page {
 			global $offset;
 
 			if ( isset( $_GET['lifetime'] ) || ! isset( $_GET['mv'] ) ) {
-				$args = array(
+				$args = [
 					'numberposts' => 1,
 					'offset'      => 0,
 					'orderby'     => 'post_modified',
 					'order'       => 'ASC',
 					'post_type'   => 'carts',
 					'post_status' => 'publish',
-				);
+				];
 
 				$post = get_posts( $args );
 				if ( isset( $post[0] ) ) {

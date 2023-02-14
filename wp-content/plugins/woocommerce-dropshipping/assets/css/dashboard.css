@@ -528,3 +528,12 @@ p#account-info-note {
 
 
   table.wp-list-table .column-product_cat, table.wp-list-table .column-product_tag {width: 8%!important;	}
+
+  #ali-draft-publish-btn{
+    background-color: red;
+    border: none;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+
+  }

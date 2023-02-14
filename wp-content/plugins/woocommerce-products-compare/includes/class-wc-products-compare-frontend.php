@@ -297,7 +297,7 @@ class WC_Products_Compare_Frontend {
 
 			$attributes = $product->get_attributes();
 
-			$description = version_compare( WC_VERSION, '3.0.0', '<' ) ? $product->post->post_content : $product->get_description();
+			$description = $product->get_description();
 
 			if ( ! empty( $description ) ) {
 				$headers[] = 'description';

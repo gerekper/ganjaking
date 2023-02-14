@@ -16,5 +16,9 @@ defined( 'ABSPATH' ) || exit;
  */
 ?>
 <div class="wc-od-order-delivery wc-od-metabox">
-	<?php array_map( 'wc_od_admin_field', $fields ); ?>
+	<?php
+	foreach ( $fields as $field ) :
+		wc_od_admin_field( $field, $order );
+	endforeach;
+	?>
 </div>

@@ -1,0 +1,760 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Cart Reports for WooCommerce\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-07 01:11+0330\n"
+"PO-Revision-Date: 2023-02-07 01:13+0330\n"
+"Last-Translator: مدیریت سایت\n"
+"Language-Team: فارسی\n"
+"Language: fa_IR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n==0 || n==1);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: woocommerce-cart-reports.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Loco-Version: 2.6.3; wp-6.1.1\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: admin/cart_edit_interface.php:115 admin/cart_index_interface.php:191
+#: admin/cart_index_interface.php:196
+msgid "Cart Status"
+msgstr "وضعیت سبد خرید"
+
+#: admin/cart_edit_interface.php:132
+msgid "Customer Actions"
+msgstr "فعالیت‌های مشتری"
+
+#: admin/cart_edit_interface.php:149
+msgid "Cart Customer"
+msgstr "سبد خرید مشتری"
+
+#: admin/cart_edit_interface.php:168
+msgid "Cart Items"
+msgstr "موارد سبد خرید"
+
+#: admin/cart_edit_interface.php:187
+msgid "Cart Data"
+msgstr "داده سبد خرید"
+
+#: admin/cart_edit_interface.php:231 admin/cart_edit_interface.php:236
+#: admin/cart_index_interface.php:290 admin/cart_index_interface.php:292
+#: admin/cart_index_interface.php:305 woocommerce-cart-reports.php:681
+msgid "Guest"
+msgstr "مهمان"
+
+#: admin/cart_edit_interface.php:230
+msgid "<p>"
+msgstr "<p>"
+
+#: admin/cart_edit_interface.php:239
+msgid "<span style=\"color: gray\">Name Not Available</span>"
+msgstr "<span style=\"color: gray\">نام در دسترس نیست</span>"
+
+#: admin/cart_edit_interface.php:241
+msgid ""
+"No customer name information available for carts created by non-logged-in Guests."
+msgstr ""
+"هیچ اطلاعاتی برای نام مشتری برای سبدهای خرید ایجاد شده توسط مهمانانی که به سیستم "
+"وارد نشده‌اند در دسترس نیست."
+
+#: admin/cart_edit_interface.php:272
+msgid "Created:"
+msgstr "ایجاد شده:"
+
+#: admin/cart_edit_interface.php:272
+msgid "<div><p><strong>"
+msgstr "<div><p><strong>"
+
+#: admin/cart_edit_interface.php:285
+#, php-format
+msgid ""
+"A cart becomes <i>Abandoned</i> when the cart's owner has not accessed the site "
+"in an amount of time exceeding your timeout set in the <i>WooCommerce Cart "
+"Reports</i> settings page. Your current timeout is set to %s Minutes. Don't "
+"worry! The cart will become open again when the customer returns."
+msgstr ""
+"یک سبد خرید در وضعیت <i>رها شده</i> باشد، زمانی که مالک سبد خرید بیش از مدت "
+"زمانی که در صفحۀ تنظیمات <i>گزارش‌های سبد خرید</i> تنظیم شده باشد، به سایت دسترسی "
+"نداشته باشد. مهلت زمانی فعلی شما روی %s دقیقه تنظیم شده است. نگران نباشید! با "
+"بازگشت مشتری، سبد خرید دوباره باز خواهد شد."
+
+#: admin/cart_edit_interface.php:299
+#, php-format
+msgid ""
+"A cart is considered <i>Open</i> when the customer has accessed the site with "
+"items in the cart, within the timeout set in the <i>WooCommerce Cart Reports</i> "
+"settings page. Your current timeout is set to %s Minutes."
+msgstr ""
+"وضعیت سبد خرید <i>باز</i> در نظر گرفته شده است، هنگامی که مشتری با موارد موجود "
+"سبد خرید به سایت دسترسی پیدا کرد، در بازه زمانی تعیین شده در صفحۀ تنظیمات "
+"<i>گزارش‌های سبد خرید ووکامرس</i> باشد. مهلت زمانی فعلی شما روی %s دقیقه تنظیم "
+"شده‌است."
+
+#: admin/cart_edit_interface.php:311
+msgid ""
+"A cart becomes <i>Converted</i> when the customer purchases the cart contents. "
+"Congrats :) "
+msgstr ""
+"هنگامی که مشتری محتویات سبد خرید را خریداری می‌کند، یک سبد خرید <i>تبدیل می‌شود</"
+"i> تبریک :) "
+
+#: admin/cart_edit_interface.php:320
+msgid "<div id=\"edit_status\"><mark class=\"color-wrapper "
+msgstr "<div id=\"edit_status\"><mark class=\"color-wrapper "
+
+#: admin/cart_index_interface.php:190 admin/cart_index_interface.php:195
+msgid "Owner"
+msgstr "مالک"
+
+#: admin/cart_index_interface.php:192 admin/cart_index_interface.php:197
+msgid "Last Online"
+msgstr "آخرین آنلاین"
+
+#: admin/cart_index_interface.php:193 admin/cart_index_interface.php:199
+msgid "Actions"
+msgstr "اقدام"
+
+#: admin/cart_index_interface.php:198
+msgid "Products"
+msgstr "محصولات"
+
+#: admin/cart_index_interface.php:310
+msgid "</a>"
+msgstr "</a>"
+
+#: admin/cart_index_interface.php:319
+msgid "<div class=\"index_status\"><mark class=\""
+msgstr "<div class=\"index_status\"><mark class=\""
+
+#: admin/cart_index_interface.php:389
+msgid "No Products"
+msgstr "بدون محصول"
+
+#: admin/cart_index_interface.php:417 admin/cart_reports_dashboard.php:131
+msgid "Open"
+msgstr "باز"
+
+#: admin/cart_index_interface.php:418 admin/cart_reports_dashboard.php:182
+#: admin/cart_reports_dashboard.php:227
+msgid "Converted"
+msgstr "تبدیل شده"
+
+#: admin/cart_index_interface.php:419 admin/cart_reports_dashboard.php:162
+msgid "Abandoned"
+msgstr "رها شده"
+
+#: admin/cart_index_interface.php:420
+msgid "OandA"
+msgstr "باز + رها شده"
+
+#: admin/cart_index_interface.php:444
+msgid "From:"
+msgstr "از:"
+
+#: admin/cart_index_interface.php:454
+msgid "To:"
+msgstr "تا:"
+
+#: admin/cart_index_interface.php:476
+msgid "Show All Carts"
+msgstr "نمایش همۀ سبدهای خرید"
+
+#: admin/cart_index_interface.php:537
+msgid "Show All Customers"
+msgstr "نمایش همۀ مشتریان"
+
+#: admin/cart_reports_dashboard.php:48
+msgid "Monthly Carts"
+msgstr "سبدهای خرید ماهانه"
+
+#: admin/cart_reports_dashboard.php:54 admin/cart_reports_dashboard.php:62
+msgid "Recent Cart Activity"
+msgstr "فعالیت اخیر سبد خرید"
+
+#: admin/cart_reports_dashboard.php:125
+msgid "Right Now"
+msgstr "همین الان"
+
+#: admin/cart_reports_dashboard.php:202
+msgid "Lifetime"
+msgstr "مادام العمر"
+
+#: admin/cart_reports_dashboard.php:210
+msgid "Abandonded"
+msgstr "رها شده"
+
+#: admin/cart_reports_dashboard.php:269
+msgid "carts currently open"
+msgstr "سبد خرید در حال حاضر باز است"
+
+#: admin/cart_reports_dashboard.php:435 admin/cart_reports_page.php:74
+msgid "Converted Carts"
+msgstr "سبدهای خرید تبدیل شده"
+
+#: admin/cart_reports_dashboard.php:436
+msgid "Open + Abandoned Carts"
+msgstr "سبدهای خرید باز شده + رها شده"
+
+#: admin/cart_reports_page.php:11 woocommerce-cart-reports.php:119
+#: woocommerce-cart-reports.php:129 woocommerce-cart-reports.php:131
+msgid "Carts"
+msgstr "سبدهای خرید"
+
+#: admin/cart_reports_page.php:14
+msgid "Carts By Date"
+msgstr "سبدهای خرید براساس تاریخ"
+
+#: admin/cart_reports_page.php:20
+msgid "Carts By Product"
+msgstr "سبدهای خرید براساس محصول"
+
+#: admin/cart_reports_page.php:79
+msgid "Open & Abandoned Carts"
+msgstr "سبدهای خرید باز شده و رها شده"
+
+#. translators: %s: total carts in this period
+#: admin/reports/class-wc-report-carts-by-date-legacy.php:73
+#: admin/reports/class-wc-report-carts-by-date.php:144
+#, php-format
+msgid "%s abandoned carts in this period."
+msgstr "%s سبدهای خرید رها شده در این دوره."
+
+#. translators: %s: number of orders placed
+#: admin/reports/class-wc-report-carts-by-date-legacy.php:81
+#: admin/reports/class-wc-report-carts-by-date.php:153
+#, php-format
+msgid "%s orders placed"
+msgstr "%s سفارش ثبت شده"
+
+#: admin/reports/class-wc-report-carts-by-date-legacy.php:98
+#: admin/reports/class-wc-report-carts-by-date.php:170
+#: admin/reports/class-wc-report-carts-by-product.php:127
+msgid "Year"
+msgstr "سال"
+
+#: admin/reports/class-wc-report-carts-by-date-legacy.php:99
+#: admin/reports/class-wc-report-carts-by-product.php:128
+msgid "Last Month"
+msgstr "ماه پیش"
+
+#: admin/reports/class-wc-report-carts-by-date-legacy.php:100
+#: admin/reports/class-wc-report-carts-by-product.php:129
+msgid "This Month"
+msgstr "اين ماه"
+
+#: admin/reports/class-wc-report-carts-by-date-legacy.php:101
+#: admin/reports/class-wc-report-carts-by-product.php:130
+msgid "Last 7 Days"
+msgstr "هفته اخیر"
+
+#: admin/reports/class-wc-report-carts-by-date-legacy.php:150
+#: admin/reports/class-wc-report-carts-by-product.php:328
+msgid "Date"
+msgstr "تاریخ"
+
+#: admin/reports/class-wc-report-carts-by-date-legacy.php:154
+#: admin/reports/class-wc-report-carts-by-product.php:331
+msgid "Export CSV"
+msgstr "برون‌بری CSV"
+
+#: admin/reports/class-wc-report-carts-by-date-legacy.php:273
+#: admin/reports/class-wc-report-carts-by-date.php:244
+msgid "Number of conversions"
+msgstr "تعداد تبدیل"
+
+#: admin/reports/class-wc-report-carts-by-date-legacy.php:288
+#: admin/reports/class-wc-report-carts-by-date.php:259
+msgid "Abandoned Carts"
+msgstr "سبدهای خرید رها شده"
+
+#: admin/reports/class-wc-report-carts-by-date.php:171
+msgid "Last month"
+msgstr "ماه گذشته"
+
+#: admin/reports/class-wc-report-carts-by-date.php:172
+msgid "This month"
+msgstr "این ماه"
+
+#: admin/reports/class-wc-report-carts-by-date.php:173
+msgid "Last 7 days"
+msgstr "هفته اخیر"
+
+#: admin/reports/class-wc-report-carts-by-product.php:110
+#, php-format
+msgid "%s Product Abandonments"
+msgstr "%s محصول رها شده"
+
+#: admin/reports/class-wc-report-carts-by-product.php:159
+msgid "Showing reports for:"
+msgstr "نمایش گزارشات برای:"
+
+#: admin/reports/class-wc-report-carts-by-product.php:187
+msgid "Reset"
+msgstr "ریست"
+
+#: admin/reports/class-wc-report-carts-by-product.php:205
+msgid "Product Search"
+msgstr "جستجوی محصول"
+
+#: admin/reports/class-wc-report-carts-by-product.php:209
+msgid "Search for a product&hellip;"
+msgstr "جستجو برای یک محصول&hellip;"
+
+#: admin/reports/class-wc-report-carts-by-product.php:210
+msgid "Show"
+msgstr "نمایش دادن"
+
+#: admin/reports/class-wc-report-carts-by-product.php:350
+msgid "&larr; Choose a product to view stats"
+msgstr "&larr; برای مشاهده آمار، یک محصول را انتخاب کنید"
+
+#: admin/reports/class-wc-report-carts-by-product.php:435
+msgid "Number of items Abandoned"
+msgstr "تعداد موارد رها شده"
+
+#: admin/settings/cart_reports_settings_general.php:23
+msgid "Cart Reports"
+msgstr "گزارشات سبد خرید"
+
+#: admin/settings/cart_reports_settings_general.php:43
+msgid "Cart Reports Settings"
+msgstr "تنظیمات گزارشات سبد خرید"
+
+#: admin/settings/cart_reports_settings_general.php:49
+msgid "Cart Timeout (seconds)"
+msgstr "زمان تایم اوت سبد خرید (ثانیه)"
+
+#: admin/settings/cart_reports_settings_general.php:50
+msgid "Site activity timeout length for cart abandonment, in seconds."
+msgstr "طول مدت زمان فعالیت سایت برای رها شدن سبد خرید در ثانیه."
+
+#: admin/settings/cart_reports_settings_general.php:58
+msgid "Widget Time Range (days)"
+msgstr "محدوده زمانی ویجت (روز)"
+
+#: admin/settings/cart_reports_settings_general.php:59
+msgid ""
+"Time-range displayed in the middle column of the \"Recent Cart Activity\" "
+"dashboard widget."
+msgstr ""
+"محدوده زمانی در ستون میانی ویجت پیشخوان \"فعالیت اخیر سبد خرید\" نمایش داده "
+"می‌شود."
+
+#: admin/settings/cart_reports_settings_general.php:67
+msgid "Show Products On The Cart Index Page"
+msgstr "نمایش محصولات در صفحۀ فهرست سبد خرید"
+
+#: admin/settings/cart_reports_settings_general.php:68
+msgid ""
+"Displaying cart products may slow down table listing when showing many carts at "
+"once."
+msgstr ""
+"نمایش محصولات سبد خرید ممکن است با نمایش همزمان تعداد زیادی سبد خرید، فهرست جدول "
+"را کند نماید."
+
+#: admin/settings/cart_reports_settings_general.php:74
+msgid "Hello"
+msgstr "سلام"
+
+#: admin/settings/cart_reports_settings_general.php:77
+msgid "Excluded Roles"
+msgstr "نقش‌های مستثنی شده"
+
+#: admin/settings/cart_reports_settings_general.php:78
+msgid "Choose WP Roles to exclude from cart tracking"
+msgstr "نقش‌های وردپرس را برای حذف از پیگیری سبد خرید انتخاب کنید"
+
+#: admin/settings/cart_reports_settings_general.php:85
+msgid "Log Customer IP Address"
+msgstr "لاگ آدرس IP مشتری"
+
+#: admin/settings/cart_reports_settings_general.php:86
+msgid ""
+"Logged IP addresses are visible in the edit cart view.<br/>NOTE: In order to "
+"comply with GDPR you must obtain a user's permission before collecting their IP "
+"address"
+msgstr ""
+"لاگ‌های آدرس IP ثبت شده در نمای سبد خرید قابل مشاهده هستند.<br/> توجه: برای رعایت "
+"قوانین GDPR قبل از جمع آوری آدرس IP کاربر، باید مجوز دسترسی آن را دریافت کنید"
+
+#: admin/settings/cart_reports_settings_general.php:93
+msgid "Automatically delete carts?"
+msgstr "سبدها به صورت خودکار حذف شوند؟"
+
+#: admin/settings/cart_reports_settings_general.php:94
+msgid ""
+"Saving a large number of carts can affect site performance. Automatically "
+"clearing the cart lists can help increase site speed."
+msgstr ""
+"ذخیره تعداد زیادی سبد خرید می‌تواند بر عملکرد سایت تاثیر بگذارد. پاک کردن خودکار "
+"لیست‌های سبد خرید می‌تواند به افزایش سرعت سایت کمک کند."
+
+#: admin/settings/cart_reports_settings_general.php:101
+msgid "Clear carts older than (days)"
+msgstr "پاک کردن سبدهای خرید قدیمی‌تر از (روز)"
+
+#: admin/settings/cart_reports_settings_general.php:102
+msgid ""
+"Any cart that becomes older than the number of days specified will be "
+"automatically deleted in the background. The deletion cannot be undone"
+msgstr ""
+"هر سبد خریدی که از تعداد روزهای مشخص شده قدیمی‌تر شود، به طور خودکار در پس زمینه "
+"حذف می‌شود. حذف قابل لغو نیست"
+
+#: admin/views/html-cart-items-meta-box.php:20
+msgid ""
+"When a customer adds items to a cart, then abandons the cart for a considerable "
+"amount of time, the browser often deletes the cart data. The cart still belongs "
+"to the customer, but their browser removed the products. :( But hey! This "
+"indicates that they came back. And might be ready to purchase. "
+msgstr ""
+"وقتی مشتری اضافه می‌کند\n"
+"\t\t\t موارد در سبد خرید، سپس سبد خرید را برای مدت قابل توجهی رها می‌کند، مرورگر "
+"اغلب داده‌های سبد خرید را حذف می‌کند. این. \n"
+"\t\t\t سبد خرید هنوز متعلق به مشتری است، اما مرورگر آن‌ها محصولات را حذف کرده‌است "
+"ولی این نشان می‌دهد که برگشته‌اند.\n"
+"\t\t\t و ممکن است آماده خرید باشند. "
+
+#: admin/views/html-cart-items-meta-box.php:31
+msgid "SKU"
+msgstr "کد محصول"
+
+#: admin/views/html-cart-items-meta-box.php:34
+msgid "Name"
+msgstr "نام"
+
+#: admin/views/html-cart-items-meta-box.php:37
+msgid "Price"
+msgstr "قیمت"
+
+#: admin/views/html-cart-items-meta-box.php:40
+msgid "Qty"
+msgstr "تعداد"
+
+#: admin/views/html-cart-items-meta-box.php:57
+msgid "Product ID:"
+msgstr "شناسه‌ محصول:"
+
+#: admin/views/html-cart-items-meta-box.php:58
+msgid "Variation ID:"
+msgstr "شناسه‌ی تغییر:"
+
+#: admin/views/html-cart-items-meta-box.php:66
+msgid "Product SKU:"
+msgstr "کد محصول:"
+
+#: admin/views/html-cart-items-meta-box.php:154
+msgid "Subtotal"
+msgstr "مجموع کل"
+
+#: admin/views/html-user-agent-meta-box.php:25
+msgid "Cart Last Updated"
+msgstr "آخرین به‌روز رسانی سبد خرید"
+
+#: admin/views/html-user-agent-meta-box.php:28
+msgid ""
+"<i>Cart Last Updated</i> indicates the last time the customer performed a cart-"
+"related action on your site. These actions include viewing the cart, adding new "
+"items to the cart, updating quantities, or removing products from the cart."
+msgstr ""
+"<i>آخرین به‌روز رسانی سبد خرید</i> نشان دهنده آخرین باری است که مشتری یک اقدام "
+"مرتبط با سبد خرید را در سایت شما انجام داده است. این اقدامات شامل مشاهده سبد "
+"خرید، افزودن موارد جدید به سبد خرید، به‌روز رسانی مقدارها یا حذف محصولات از سبد "
+"خرید است."
+
+#: admin/views/html-user-agent-meta-box.php:37
+msgid "Time To Conversion"
+msgstr "زمان تبدیل"
+
+#: admin/views/html-user-agent-meta-box.php:40
+msgid ""
+"<i>Time to Conversion</i> indicates total time elapsed from when the cart was "
+"first created until the actual conversion. (purchase)"
+msgstr ""
+"<i>زمان برای تبدیل</i> کل زمان سپری شده از اولین بار ایجاد سبد خرید تا بتدیل "
+"واقعی را نشان می‌دهد. (خرید)"
+
+#: admin/views/html-user-agent-meta-box.php:49
+msgid "Cart Age"
+msgstr "عمر سبد خرید"
+
+#: admin/views/html-user-agent-meta-box.php:52
+msgid ""
+"<i>Cart Age</i> indicates the total time elapsed since this non-converted cart "
+"has been created."
+msgstr ""
+"<i>عمر سبد خرید</i> کل زمان سپری شده از زمان ایجاد این سبد خرید تبدیل نشده را "
+"نشان می‌دهد."
+
+#: admin/views/html-user-agent-meta-box.php:60
+msgid "Customer IP Address"
+msgstr "آدرس IP مشتری"
+
+#: admin/views/html-user-agent-meta-box.php:89
+#: admin/views/html-user-agent-meta-box.php:135 models/AV8_Cart_Receipt.php:503
+msgid "Not Available"
+msgstr "در دسترس نیست"
+
+#: admin/views/html-user-agent-meta-box.php:138
+msgid ""
+"You have probably unchecked \"Log IP Address\" in the WooCommerce Cart Reports "
+"settings panel."
+msgstr ""
+"احتمالاً در پنل تنظیمات گزارشات سبد خرید ووکامرس گزینه لاگ آدرس IP را برداشتید."
+
+#: models/AV8_Cart_Receipt.php:187
+#, php-format
+msgid "%s %s's Cart"
+msgstr "سبد خرید %s %s"
+
+#: models/AV8_Cart_Receipt.php:192
+#, php-format
+msgid "%s's Cart"
+msgstr "سبد خرید %s"
+
+#: models/AV8_Cart_Receipt.php:198 models/AV8_Cart_Receipt.php:633
+msgid "Guest's Cart"
+msgstr "سبد خرید مهمان"
+
+#: models/AV8_Cart_Receipt.php:514
+msgid "> 6 Months"
+msgstr "> 6 ماه"
+
+#: models/AV8_Cart_Receipt.php:522
+msgid "Days"
+msgstr "روز"
+
+#: models/AV8_Cart_Receipt.php:524
+msgid "Day"
+msgstr "روز"
+
+#: models/AV8_Cart_Receipt.php:528
+msgid "Hours"
+msgstr "ساعت"
+
+#: models/AV8_Cart_Receipt.php:530
+msgid "Hour"
+msgstr "ساعت"
+
+#: models/AV8_Cart_Receipt.php:534
+msgid "Minutes"
+msgstr "دقیقه"
+
+#: models/AV8_Cart_Receipt.php:536
+msgid "Minute"
+msgstr "دقیقه"
+
+#: models/AV8_Cart_Receipt.php:540
+msgid "Seconds"
+msgstr "ثانیه"
+
+#: models/AV8_Cart_Receipt.php:542
+msgid "Second"
+msgstr "ثانویه"
+
+#: models/AV8_Cart_Receipt.php:777
+msgid "View Order"
+msgstr "نمایش سفارش"
+
+#: models/AV8_Cart_Receipt.php:792 models/AV8_Cart_Receipt.php:813
+msgid "Email "
+msgstr "ایمیل "
+
+#: models/AV8_Cart_Receipt.php:828
+msgid "No Actions Available"
+msgstr "هیچ اقدامی در دسترس نیست"
+
+#: plugin-core/classes/class-upgrade-woocommerce-cart-reports.php:19
+#, php-format
+msgid ""
+"برای جلوگیری از عدم آپدیت خودکار و محدودیت‌ها، دامنه خود را در تم فور ثبت کنید. | "
+"<a href=\"https://themefour.com/terms-of-use/\"target=\"_blank\"/>اطلاعات بیشتر "
+"در اینباره را اینجا بخوانید</a> | <a href=\"%1$s\">بسیار خب، متوجه شدم</a>"
+msgstr ""
+"برای جلوگیری از عدم آپدیت خودکار و محدودیت‌ها، دامنه خود را در تم فور ثبت کنید. | "
+"<a href=\"https://themefour.com/terms-of-use/\"target=\"_blank\"/>اطلاعات بیشتر "
+"در اینباره را اینجا بخوانید</a> | <a href=\"%1$s\">بسیار خب، متوجه شدم</a>"
+
+#: plugin-core/upgrade/Puc/v4p13/Plugin/Ui.php:54
+msgid "View details"
+msgstr "جزئیات بیشتر"
+
+#: plugin-core/upgrade/Puc/v4p13/Plugin/Ui.php:77
+#, php-format
+msgid "More information about %s"
+msgstr "اطلاعات بیشتر در مورد %1$s"
+
+#: plugin-core/upgrade/Puc/v4p13/Plugin/Ui.php:128
+msgid ""
+"<div class=\"themefour-update-checker\" style=\"display:inline-block;background:"
+"#0099FF;padding:5px;border-radius:3px;color:#fff;\" title=\"بررسی وجود نسخه جدید"
+"\">بررسی وضعیت به‌روز رسانی از تم فور</div>"
+msgstr ""
+"<div class=\"themefour-update-checker\" style=\"display:inline-block;background:"
+"#0099FF;padding:5px;border-radius:3px;color:#fff;\" title=\"بررسی وجود نسخه جدید"
+"\">بررسی وضعیت به‌روز رسانی از تم فور</div>"
+
+#: plugin-core/upgrade/Puc/v4p13/Plugin/Ui.php:214
+#, php-format
+msgctxt "the plugin title"
+msgid "افزونه %s به‌روز است."
+msgstr "افزونه %s به‌روز است."
+
+#: plugin-core/upgrade/Puc/v4p13/Plugin/Ui.php:216
+#, php-format
+msgctxt "the plugin title"
+msgid "یک نسخه جدید برای افزونه %s از طریق تم فور در دسترس است!"
+msgstr "یک نسخه جدید برای افزونه %s از طریق تم فور در دسترس است!"
+
+#: plugin-core/upgrade/Puc/v4p13/Plugin/Ui.php:218
+#, php-format
+msgctxt "the plugin title"
+msgid "بررسی به‌روز رسانی برای %s. در تم فور نامشخص بود!"
+msgstr "بررسی به‌روز رسانی برای %s. در تم فور نامشخص بود!"
+
+#: plugin-core/upgrade/Puc/v4p13/Plugin/Ui.php:224
+#, php-format
+msgid "Unknown update checker status \"%s\""
+msgstr "وضعیت بررسی به‌روز رسانی برای \"%s\" ناشناخته است"
+
+#: plugin-core/upgrade/Puc/v4p13/Vcs/PluginUpdateChecker.php:101
+msgid "There is no changelog available."
+msgstr "گزارش تغییراتی در دسترس نیست."
+
+#: woocommerce-cart-reports.php:86
+msgid "Cart statuses"
+msgstr "وضعیت سبد خرید"
+
+#: woocommerce-cart-reports.php:87
+msgid "Cart status"
+msgstr "وضعیت سبد خرید"
+
+#: woocommerce-cart-reports.php:88
+msgid "Search Cart statuses"
+msgstr "جستجوی وضعیت سبد خرید"
+
+#: woocommerce-cart-reports.php:89
+msgid "All Cart statuses"
+msgstr "همۀ وضعیت‌های سبد خرید"
+
+#: woocommerce-cart-reports.php:90
+msgid "Parent Cart status"
+msgstr "وضعیت‌های سبد خرید اصلی"
+
+#: woocommerce-cart-reports.php:91
+msgid "Parent Cart status:"
+msgstr "وضعیت‌های سبد خرید اصلی:"
+
+#: woocommerce-cart-reports.php:92
+msgid "Edit Cart status"
+msgstr "ویرایش وضعیت‌های سبد خرید"
+
+#: woocommerce-cart-reports.php:93
+msgid "Update Cart status"
+msgstr "به‌روز رسانی وضعیت‌های سبد خرید"
+
+#: woocommerce-cart-reports.php:94
+msgid "Add New Cart status"
+msgstr "افزودن وضعیت‌های سبد خرید جدید"
+
+#: woocommerce-cart-reports.php:95
+msgid "New Cart status Name"
+msgstr "نام وضعیت سبد خرید جدید"
+
+#: woocommerce-cart-reports.php:130
+msgid "Cart"
+msgstr "سبد خرید"
+
+#: woocommerce-cart-reports.php:132
+msgid "Add Cart"
+msgstr "افزودن به سبد خرید"
+
+#: woocommerce-cart-reports.php:134
+msgid "Edit"
+msgstr "ویرایش"
+
+#: woocommerce-cart-reports.php:135
+msgid "Cart Details"
+msgstr "جزئیات سبد خرید"
+
+#: woocommerce-cart-reports.php:136
+msgid "New Cart"
+msgstr "سبد خرید جدید"
+
+#: woocommerce-cart-reports.php:137 woocommerce-cart-reports.php:138
+msgid "View Cart"
+msgstr "مشاهده‌ سبد خرید"
+
+#: woocommerce-cart-reports.php:139
+msgid "Search Carts"
+msgstr "جستجوی سبدهای خرید"
+
+#: woocommerce-cart-reports.php:140
+msgid "No Carts Found"
+msgstr "هیچ سبد خریدی پیدا نشد"
+
+#: woocommerce-cart-reports.php:141
+msgid "No Carts Found in Trash"
+msgstr "سبد خریدی در زباله دان پیدا نشد"
+
+#: woocommerce-cart-reports.php:142
+msgid "Parent Cart"
+msgstr "سبد خرید اصلی"
+
+#: woocommerce-cart-reports.php:774
+msgid ""
+"Are you sure you want to delete ALL Cart Reports Data? This includes all carts "
+"in the database. Settings will not be affected."
+msgstr ""
+"آیا مطمئن هستید که می‌خواهید تمام داده‌های گزارش‌های سبد خرید را حذف کنید؟ این شامل "
+"همۀ سبدهای موجود در پایگاه داده می‌شود. تنظیمات تحت تاثیر قرار نخواهد گرفت."
+
+#: woocommerce-cart-reports.php:777
+msgid "Clear Carts"
+msgstr "پاک‌سازی سبدهای خرید"
+
+#: woocommerce-cart-reports.php:802
+msgid "Cart Data Cleared"
+msgstr "داده سبد خرید پاک شده است"
+
+#: woocommerce-cart-reports.php:808
+msgid "Timeout occured, please try again."
+msgstr "تایم اوت رخ داده است، لطفاً دوباره امتحان کنید."
+
+#. Plugin Name of the plugin/theme
+msgid "Cart Reports for WooCommerce"
+msgstr "گزارشات سبد خرید برای ووکامرس"
+
+#. Plugin URI of the plugin/theme
+msgid "https://woocommerce.com/products/woocommerce-cart-reports/"
+msgstr "https://themefour.com/"
+
+#. Description of the plugin/theme
+msgid ""
+"Cart Reports for WooCommerce allows site admins to keep track of Abandoned, "
+"Open, and Converted Carts."
+msgstr ""
+"گزارشات سبد خرید برای ووکامرس به مدیران سایت اجازه می‌دهد تا سبدهای رها شده، باز "
+"و تبدیل شده را پیگیری کنند."
+
+#. Author of the plugin/theme
+msgid "WooCommerce"
+msgstr "تم فور"
+
+#. Author URI of the plugin/theme
+msgid "https://woocommerce.com"
+msgstr "ترجمه توسط تم فور"
+
+#~ msgid "<div><p><strong>Created:</strong><br/>"
+#~ msgstr "<div><p><strong>ایجاد شده:</strong><br/>"
+
+#~ msgid "<a href=\""
+#~ msgstr "<a href=\""

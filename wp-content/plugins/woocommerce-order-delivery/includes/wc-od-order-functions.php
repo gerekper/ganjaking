@@ -109,13 +109,13 @@ function wc_od_get_orders_to_deliver( $timestamp ) {
 		return intval( $cache_data );
 	}
 
-	$order_ids = get_posts(
+	$order_ids = wc_get_orders(
 		array(
-			'post_type'      => 'shop_order',
-			'post_status'    => array( 'wc-processing', 'wc-on-hold', 'wc-completed' ),
-			'fields'         => 'ids',
-			'posts_per_page' => -1,
-			'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+			'type'           => 'shop_order',
+			'status'         => array( 'wc-processing', 'wc-on-hold', 'wc-completed' ),
+			'return'         => 'ids',
+			'limit'          => -1,
+			'delivery_query' => array(
 				array(
 					'key'   => '_delivery_date',
 					'value' => gmdate( 'Y-m-d', $timestamp ),
@@ -155,13 +155,13 @@ function wc_od_get_orders_to_deliver_in_time_frame( $timestamp, $from, $to ) {
 		return intval( $cache_data );
 	}
 
-	$order_ids = get_posts(
+	$order_ids = wc_get_orders(
 		array(
-			'post_type'      => 'shop_order',
-			'post_status'    => array( 'wc-processing', 'wc-on-hold', 'wc-completed' ),
-			'fields'         => 'ids',
-			'posts_per_page' => -1,
-			'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+			'type'           => 'shop_order',
+			'status'         => array( 'wc-processing', 'wc-on-hold', 'wc-completed' ),
+			'return'         => 'ids',
+			'limit'          => -1,
+			'delivery_query' => array(
 				array(
 					'key'   => '_delivery_date',
 					'value' => gmdate( 'Y-m-d', $timestamp ),
@@ -181,7 +181,7 @@ function wc_od_get_orders_to_deliver_in_time_frame( $timestamp, $from, $to ) {
 		$time_to   = strtotime( $to, $timestamp );
 
 		foreach ( $order_ids as $order_id ) {
-			$time_frame = get_post_meta( $order_id, '_delivery_time_frame', true );
+			$time_frame = wc_od_get_order_meta( $order_id, '_delivery_time_frame' );
 
 			if ( ! is_array( $time_frame ) ) {
 				continue;

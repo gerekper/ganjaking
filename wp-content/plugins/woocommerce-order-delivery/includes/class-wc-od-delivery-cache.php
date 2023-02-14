@@ -27,6 +27,7 @@ class WC_OD_Delivery_Cache {
 	 */
 	public function __construct() {
 		add_action( 'woocommerce_update_order', array( $this, 'on_order_updated' ), 10, 1 );
+		add_action( 'woocommerce_trash_order', array( $this, 'on_order_updated' ), 10, 1 );
 		add_action( 'wp_trash_post', array( $this, 'on_order_deleted' ) );
 
 		// Delivery days settings updated.

@@ -1,0 +1,504 @@
+# Copyright (C) 2023 WooCommerce
+# This file is distributed under the GNU General Public License v3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: Cart Reports for WooCommerce 1.3.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-cart-reports\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-02-06T14:05:06+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.7.1\n"
+"X-Domain: woocommerce_cart_reports\n"
+
+#. Plugin Name of the plugin
+msgid "Cart Reports for WooCommerce"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://woocommerce.com/products/woocommerce-cart-reports/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Cart Reports for WooCommerce allows site admins to keep track of Abandoned, Open, and Converted Carts."
+msgstr ""
+
+#. Author of the plugin
+msgid "WooCommerce"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://woocommerce.com"
+msgstr ""
+
+#: admin/cart_edit_interface.php:115
+#: admin/cart_index_interface.php:191
+#: admin/cart_index_interface.php:196
+msgid "Cart Status"
+msgstr ""
+
+#: admin/cart_edit_interface.php:132
+msgid "Customer Actions"
+msgstr ""
+
+#: admin/cart_edit_interface.php:149
+msgid "Cart Customer"
+msgstr ""
+
+#: admin/cart_edit_interface.php:168
+msgid "Cart Items"
+msgstr ""
+
+#: admin/cart_edit_interface.php:187
+msgid "Cart Data"
+msgstr ""
+
+#: admin/cart_edit_interface.php:230
+#: admin/cart_edit_interface.php:236
+#: admin/cart_index_interface.php:290
+#: admin/cart_index_interface.php:292
+#: admin/cart_index_interface.php:305
+msgid "Guest"
+msgstr ""
+
+#: admin/cart_edit_interface.php:239
+msgid "<span style=\"color: gray\">Name Not Available</span>"
+msgstr ""
+
+#: admin/cart_edit_interface.php:240
+msgid "No customer name information available for carts created by non-logged-in Guests."
+msgstr ""
+
+#: admin/cart_edit_interface.php:284
+msgid "A cart becomes <i>Abandoned</i> when the cart's owner has not accessed the site in an amount of time exceeding your timeout set in the <i>WooCommerce Cart Reports</i> settings page. Your current timeout is set to %s Minutes. Don't worry! The cart will become open again when the customer returns."
+msgstr ""
+
+#: admin/cart_edit_interface.php:298
+msgid "A cart is considered <i>Open</i> when the customer has accessed the site with items in the cart, within the timeout set in the <i>WooCommerce Cart Reports</i> settings page. Your current timeout is set to %s Minutes."
+msgstr ""
+
+#: admin/cart_edit_interface.php:310
+msgid "A cart becomes <i>Converted</i> when the customer purchases the cart contents. Congrats :) "
+msgstr ""
+
+#: admin/cart_index_interface.php:190
+#: admin/cart_index_interface.php:195
+msgid "Owner"
+msgstr ""
+
+#: admin/cart_index_interface.php:192
+#: admin/cart_index_interface.php:197
+msgid "Last Online"
+msgstr ""
+
+#: admin/cart_index_interface.php:193
+#: admin/cart_index_interface.php:199
+msgid "Actions"
+msgstr ""
+
+#: admin/cart_index_interface.php:198
+msgid "Products"
+msgstr ""
+
+#: admin/cart_index_interface.php:388
+msgid "No Products"
+msgstr ""
+
+#: admin/cart_index_interface.php:417
+#: admin/cart_reports_dashboard.php:131
+msgid "Open"
+msgstr ""
+
+#: admin/cart_index_interface.php:418
+#: admin/cart_reports_dashboard.php:182
+#: admin/cart_reports_dashboard.php:227
+msgid "Converted"
+msgstr ""
+
+#: admin/cart_index_interface.php:419
+#: admin/cart_reports_dashboard.php:162
+msgid "Abandoned"
+msgstr ""
+
+#: admin/cart_index_interface.php:420
+msgid "OandA"
+msgstr ""
+
+#: admin/cart_index_interface.php:444
+msgid "From:"
+msgstr ""
+
+#: admin/cart_index_interface.php:454
+msgid "To:"
+msgstr ""
+
+#: admin/cart_index_interface.php:476
+msgid "Show All Carts"
+msgstr ""
+
+#: admin/cart_index_interface.php:537
+msgid "Show All Customers"
+msgstr ""
+
+#: admin/cart_reports_dashboard.php:48
+msgid "Monthly Carts"
+msgstr ""
+
+#: admin/cart_reports_dashboard.php:54
+#: admin/cart_reports_dashboard.php:62
+msgid "Recent Cart Activity"
+msgstr ""
+
+#: admin/cart_reports_dashboard.php:125
+msgid "Right Now"
+msgstr ""
+
+#: admin/cart_reports_dashboard.php:202
+msgid "Lifetime"
+msgstr ""
+
+#: admin/cart_reports_dashboard.php:210
+msgid "Abandonded"
+msgstr ""
+
+#: admin/cart_reports_dashboard.php:269
+msgid "carts currently open"
+msgstr ""
+
+#: admin/cart_reports_dashboard.php:435
+msgid "Converted Carts"
+msgstr ""
+
+#: admin/cart_reports_dashboard.php:436
+msgid "Open + Abandoned Carts"
+msgstr ""
+
+#: admin/cart_reports_page.php:11
+#: woocommerce-cart-reports.php:119
+#: woocommerce-cart-reports.php:129
+#: woocommerce-cart-reports.php:131
+msgid "Carts"
+msgstr ""
+
+#: admin/cart_reports_page.php:14
+msgid "Carts By Date"
+msgstr ""
+
+#: admin/cart_reports_page.php:20
+msgid "Carts By Product"
+msgstr ""
+
+#. translators: %s: total carts in this period
+#: admin/reports/class-wc-report-carts-by-date-legacy.php:73
+#: admin/reports/class-wc-report-carts-by-date.php:144
+msgid "%s abandoned carts in this period."
+msgstr ""
+
+#. translators: %s: number of orders placed
+#: admin/reports/class-wc-report-carts-by-date-legacy.php:81
+#: admin/reports/class-wc-report-carts-by-date.php:153
+msgid "%s orders placed"
+msgstr ""
+
+#: admin/reports/class-wc-report-carts-by-date-legacy.php:98
+#: admin/reports/class-wc-report-carts-by-product.php:127
+msgid "Year"
+msgstr ""
+
+#: admin/reports/class-wc-report-carts-by-date-legacy.php:99
+#: admin/reports/class-wc-report-carts-by-product.php:128
+msgid "Last Month"
+msgstr ""
+
+#: admin/reports/class-wc-report-carts-by-date-legacy.php:100
+#: admin/reports/class-wc-report-carts-by-product.php:129
+msgid "This Month"
+msgstr ""
+
+#: admin/reports/class-wc-report-carts-by-date-legacy.php:101
+#: admin/reports/class-wc-report-carts-by-product.php:130
+msgid "Last 7 Days"
+msgstr ""
+
+#: admin/reports/class-wc-report-carts-by-date-legacy.php:150
+#: admin/reports/class-wc-report-carts-by-product.php:328
+msgid "Date"
+msgstr ""
+
+#: admin/reports/class-wc-report-carts-by-date-legacy.php:154
+#: admin/reports/class-wc-report-carts-by-product.php:331
+msgid "Export CSV"
+msgstr ""
+
+#: admin/reports/class-wc-report-carts-by-date-legacy.php:273
+#: admin/reports/class-wc-report-carts-by-date.php:244
+msgid "Number of conversions"
+msgstr ""
+
+#: admin/reports/class-wc-report-carts-by-date-legacy.php:288
+#: admin/reports/class-wc-report-carts-by-date.php:259
+msgid "Abandoned Carts"
+msgstr ""
+
+#: admin/reports/class-wc-report-carts-by-product.php:110
+msgid "%s Product Abandonments"
+msgstr ""
+
+#: admin/reports/class-wc-report-carts-by-product.php:159
+msgid "Showing reports for:"
+msgstr ""
+
+#: admin/reports/class-wc-report-carts-by-product.php:186
+msgid "Reset"
+msgstr ""
+
+#: admin/reports/class-wc-report-carts-by-product.php:205
+msgid "Product Search"
+msgstr ""
+
+#: admin/reports/class-wc-report-carts-by-product.php:349
+msgid "&larr; Choose a product to view stats"
+msgstr ""
+
+#: admin/reports/class-wc-report-carts-by-product.php:435
+msgid "Number of items Abandoned"
+msgstr ""
+
+#: admin/settings/cart_reports_settings_general.php:23
+msgid "Cart Reports"
+msgstr ""
+
+#: admin/settings/cart_reports_settings_general.php:43
+msgid "Cart Reports Settings"
+msgstr ""
+
+#: admin/settings/cart_reports_settings_general.php:49
+msgid "Cart Timeout (seconds)"
+msgstr ""
+
+#: admin/settings/cart_reports_settings_general.php:50
+msgid "Site activity timeout length for cart abandonment, in seconds."
+msgstr ""
+
+#: admin/settings/cart_reports_settings_general.php:58
+msgid "Widget Time Range (days)"
+msgstr ""
+
+#: admin/settings/cart_reports_settings_general.php:59
+msgid "Time-range displayed in the middle column of the \"Recent Cart Activity\" dashboard widget."
+msgstr ""
+
+#: admin/settings/cart_reports_settings_general.php:67
+msgid "Show Products On The Cart Index Page"
+msgstr ""
+
+#: admin/settings/cart_reports_settings_general.php:68
+msgid "Displaying cart products may slow down table listing when showing many carts at once."
+msgstr ""
+
+#: admin/settings/cart_reports_settings_general.php:74
+msgid "Hello"
+msgstr ""
+
+#: admin/settings/cart_reports_settings_general.php:77
+msgid "Excluded Roles"
+msgstr ""
+
+#: admin/settings/cart_reports_settings_general.php:78
+msgid "Choose WP Roles to exclude from cart tracking"
+msgstr ""
+
+#: admin/settings/cart_reports_settings_general.php:85
+msgid "Log Customer IP Address"
+msgstr ""
+
+#: admin/settings/cart_reports_settings_general.php:86
+msgid "Logged IP addresses are visible in the edit cart view.<br/>NOTE: In order to comply with GDPR you must obtain a user's permission before collecting their IP address"
+msgstr ""
+
+#: admin/settings/cart_reports_settings_general.php:93
+msgid "Automatically delete carts?"
+msgstr ""
+
+#: admin/settings/cart_reports_settings_general.php:94
+msgid "Saving a large number of carts can affect site performance. Automatically clearing the cart lists can help increase site speed."
+msgstr ""
+
+#: admin/settings/cart_reports_settings_general.php:101
+msgid "Clear carts older than (days)"
+msgstr ""
+
+#: admin/settings/cart_reports_settings_general.php:102
+msgid "Any cart that becomes older than the number of days specified will be automatically deleted in the background. The deletion cannot be undone"
+msgstr ""
+
+#: admin/views/html-cart-items-meta-box.php:31
+msgid "SKU"
+msgstr ""
+
+#: admin/views/html-cart-items-meta-box.php:34
+msgid "Name"
+msgstr ""
+
+#: admin/views/html-cart-items-meta-box.php:37
+msgid "Price"
+msgstr ""
+
+#: admin/views/html-cart-items-meta-box.php:40
+msgid "Qty"
+msgstr ""
+
+#: admin/views/html-cart-items-meta-box.php:57
+msgid "Product ID:"
+msgstr ""
+
+#: admin/views/html-cart-items-meta-box.php:58
+msgid "Variation ID:"
+msgstr ""
+
+#: admin/views/html-cart-items-meta-box.php:66
+msgid "Product SKU:"
+msgstr ""
+
+#: admin/views/html-user-agent-meta-box.php:25
+msgid "Cart Last Updated"
+msgstr ""
+
+#: admin/views/html-user-agent-meta-box.php:27
+msgid "<i>Cart Last Updated</i> indicates the last time the customer performed a cart-related action on your site. These actions include viewing the cart, adding new items to the cart, updating quantities, or removing products from the cart."
+msgstr ""
+
+#: admin/views/html-user-agent-meta-box.php:37
+msgid "Time To Conversion"
+msgstr ""
+
+#: admin/views/html-user-agent-meta-box.php:39
+msgid "<i>Time to Conversion</i> indicates total time elapsed from when the cart was first created until the actual conversion. (purchase)"
+msgstr ""
+
+#: admin/views/html-user-agent-meta-box.php:49
+msgid "Cart Age"
+msgstr ""
+
+#: admin/views/html-user-agent-meta-box.php:51
+msgid "<i>Cart Age</i> indicates the total time elapsed since this non-converted cart has been created."
+msgstr ""
+
+#: admin/views/html-user-agent-meta-box.php:60
+msgid "Customer IP Address"
+msgstr ""
+
+#: admin/views/html-user-agent-meta-box.php:88
+#: admin/views/html-user-agent-meta-box.php:135
+#: models/AV8_Cart_Receipt.php:503
+msgid "Not Available"
+msgstr ""
+
+#: admin/views/html-user-agent-meta-box.php:137
+msgid "You have probably unchecked \"Log IP Address\" in the WooCommerce Cart Reports settings panel."
+msgstr ""
+
+#: models/AV8_Cart_Receipt.php:198
+#: models/AV8_Cart_Receipt.php:633
+msgid "Guest's Cart"
+msgstr ""
+
+#: models/AV8_Cart_Receipt.php:514
+msgid "> 6 Months"
+msgstr ""
+
+#: models/AV8_Cart_Receipt.php:522
+msgid "Days"
+msgstr ""
+
+#: models/AV8_Cart_Receipt.php:524
+msgid "Day"
+msgstr ""
+
+#: models/AV8_Cart_Receipt.php:528
+msgid "Hours"
+msgstr ""
+
+#: models/AV8_Cart_Receipt.php:530
+msgid "Hour"
+msgstr ""
+
+#: models/AV8_Cart_Receipt.php:534
+msgid "Minutes"
+msgstr ""
+
+#: models/AV8_Cart_Receipt.php:536
+msgid "Minute"
+msgstr ""
+
+#: models/AV8_Cart_Receipt.php:540
+msgid "Seconds"
+msgstr ""
+
+#: models/AV8_Cart_Receipt.php:542
+msgid "Second"
+msgstr ""
+
+#: models/AV8_Cart_Receipt.php:825
+msgid "No Actions Available"
+msgstr ""
+
+#: woocommerce-cart-reports.php:130
+msgid "Cart"
+msgstr ""
+
+#: woocommerce-cart-reports.php:132
+msgid "Add Cart"
+msgstr ""
+
+#: woocommerce-cart-reports.php:134
+msgid "Edit"
+msgstr ""
+
+#: woocommerce-cart-reports.php:135
+msgid "Cart Details"
+msgstr ""
+
+#: woocommerce-cart-reports.php:136
+msgid "New Cart"
+msgstr ""
+
+#: woocommerce-cart-reports.php:137
+#: woocommerce-cart-reports.php:138
+msgid "View Cart"
+msgstr ""
+
+#: woocommerce-cart-reports.php:139
+msgid "Search Carts"
+msgstr ""
+
+#: woocommerce-cart-reports.php:140
+msgid "No Carts Found"
+msgstr ""
+
+#: woocommerce-cart-reports.php:141
+msgid "No Carts Found in Trash"
+msgstr ""
+
+#: woocommerce-cart-reports.php:142
+msgid "Parent Cart"
+msgstr ""
+
+#: woocommerce-cart-reports.php:774
+msgid "Are you sure you want to delete ALL Cart Reports Data? This includes all carts in the database. Settings will not be affected."
+msgstr ""
+
+#: woocommerce-cart-reports.php:777
+msgid "Clear Carts"
+msgstr ""
+
+#: woocommerce-cart-reports.php:802
+msgid "Cart Data Cleared"
+msgstr ""
+
+#: woocommerce-cart-reports.php:808
+msgid "Timeout occured, please try again."
+msgstr ""

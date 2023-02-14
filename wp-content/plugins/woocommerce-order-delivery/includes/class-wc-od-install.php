@@ -69,7 +69,7 @@ if ( ! class_exists( 'WC_OD_Install' ) ) {
 			WC_OD_DB_Tables::register_tables();
 
 			add_action( 'init', array( __CLASS__, 'check_version' ), 5 );
-			add_action( 'init', array( __CLASS__, 'init_background_updater' ), 5 );
+			add_action( 'init', array( __CLASS__, 'init_background_updater' ), 7 );
 			add_action( 'init', array( __CLASS__, 'add_endpoints' ) );
 			add_action( 'admin_init', array( __CLASS__, 'install_actions' ) );
 			add_action( 'admin_init', array( __CLASS__, 'add_notices' ), 20 );
@@ -270,16 +270,24 @@ if ( ! class_exists( 'WC_OD_Install' ) ) {
 		 *
 		 * @since 1.4.0
 		 *
-		 * @global wpdb $wpdb The WordPress Database Access Abstraction Object.
-		 *
 		 * @return bool
 		 */
 		private static function exists_delivery_dates() {
-			global $wpdb;
+			$order_ids = wc_get_orders(
+				array(
+					'type'           => 'shop_order',
+					'limit'          => 1,
+					'return'         => 'ids',
+					'delivery_query' => array(
+						array(
+							'key'     => '_delivery_date',
+							'compare' => 'EXISTS',
+						),
+					),
+				)
+			);
 
-			$count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = '_delivery_date'" );
-
-			return ( 0 < absint( $count ) );
+			return ( ! empty( $order_ids ) );
 		}
 
 		/**

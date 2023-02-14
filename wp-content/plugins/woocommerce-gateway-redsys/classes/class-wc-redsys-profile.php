@@ -111,9 +111,12 @@ if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 		 * Send email to user.
 		 */
 		public function notice_send_email() {
+
+			$url = get_transient( 'redsys_url_token' );
+			delete_transient( 'redsys_url_token' );
 			?>
 			<div class="updated notice">
-				<p><?php esc_html_e( 'The email requesting the token has been sent!', 'woocommerce-redsys' ); ?></p>
+				<p><?php echo esc_html__( 'The email requesting the token has been sent! Link: ', 'woocommerce-redsys' ) . esc_url( $url ); ?></p>
 			</div>
 			<?php
 		}
@@ -158,6 +161,7 @@ if ( ! class_exists( 'WC_Admin_Profile', false ) ) :
 						$subject    = $data['subject'];
 						$body       = $data['body'];
 						$headers    = $data['header'];
+						set_transient( 'redsys_url_token', $user_link, 300 );
 						wp_mail( $email, $subject, $body, $headers );
 						add_action( 'admin_notices', array( $this, 'notice_send_email' ) );
 					}

@@ -9,7 +9,9 @@ $multiple_kb		        = BetterDocs_DB::get_settings('multiple_kb') != 'off' ? tr
 $term_count	                = isset( $current_category->count ) ? $current_category->count : '';
 $term_doc_count	            = betterdocs_get_postcount( $term_count, $current_category->term_id, $nested_subcategory );
 $term_doc_count	            = apply_filters('betterdocs_postcount', $term_doc_count, $multiple_kb, $current_category->term_id, $current_category->slug, $term_count, $nested_subcategory);
-$list_args 		            = apply_filters( 'betterdocs_articles_args', BetterDocs_Helper::list_query_arg('docs', $multiple_kb, $current_category->slug, -1, 'name', 'asc', ''), $current_category->term_id );
+$docs_orderby               = BetterDocs_DB::get_settings('alphabetically_order_post');
+$docs_order                 = BetterDocs_DB::get_settings('docs_order');
+$list_args 		            = apply_filters( 'betterdocs_articles_args', BetterDocs_Helper::list_query_arg('docs', $multiple_kb, $current_category->slug, -1, $docs_orderby, $docs_order, ''), $current_category->term_id );
 $current_category_icon_id 	= get_term_meta( $current_category->term_id, 'doc_category_thumb-id', true ) ?  get_term_meta( $current_category->term_id, 'doc_category_thumb-id', true ) : '';
 $current_category_icon_url  = $current_category_icon_id ? wp_get_attachment_image( $current_category_icon_id, 'medium' ) : '<img src="' . BETTERDOCS_PRO_URL. 'admin/assets/img/cat-grid-3.png">';
 $heading                    = isset( $customizer_settings['betterdocs_archive_other_categories_heading_text'] ) ?  $customizer_settings['betterdocs_archive_other_categories_heading_text'] : '';

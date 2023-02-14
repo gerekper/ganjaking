@@ -214,7 +214,7 @@ function wc_od_add_order_note( $order, $note, $is_customer_note = 0, $added_by_u
 	$note_id = $order->add_order_note( $note, $is_customer_note );
 
 	if ( $note_id ) {
-		$type = get_post_type( $order->get_id() );
+		$type = $order->get_type();
 
 		/**
 		 * Fired after to add a note to the order.

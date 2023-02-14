@@ -1,5 +1,10 @@
 *** WC Coupon Campaigns ***
 
+2023-02-07 - version 1.1.31
+* Fix - Add automation.
+* Fix - Undefined variable error in Order Details.
+* Tweak - WC 7.4 compatibility.
+
 2023-01-04 - version 1.1.30
 * Dev - Add node and npm version restrictions.
 * Tweak - WC 7.3 compatibility.

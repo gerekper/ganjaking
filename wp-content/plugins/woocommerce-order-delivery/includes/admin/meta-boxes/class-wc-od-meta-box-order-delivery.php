@@ -27,10 +27,10 @@ class WC_OD_Meta_Box_Order_Delivery {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param mixed $the_order Post object or post ID of the order.
+	 * @param mixed $the_order Order object or ID.
 	 */
 	public static function init_fields( $the_order ) {
-		$order = wc_get_order( $the_order );
+		$order = wc_od_get_order( $the_order );
 
 		$fields = array(
 			'shipping_date'       => array(
@@ -65,7 +65,7 @@ class WC_OD_Meta_Box_Order_Delivery {
 		 *
 		 * @since 1.5.0
 		 *
-		 * @param array $fields An array with the delivery fields.
+		 * @param array    $fields An array with the delivery fields.
 		 * @param WC_Order $order  The order instance.
 		 */
 		self::$fields = apply_filters( 'wc_od_admin_order_delivery_fields', $fields, $order );
@@ -75,14 +75,16 @@ class WC_OD_Meta_Box_Order_Delivery {
 	 * Output the meta box.
 	 *
 	 * @since 1.5.0
+	 * @since 2.4.0 Accepts an Order object as the first argument.
 	 *
-	 * @param WP_Post $post The post instance.
+	 * @param mixed $object Order or post object.
 	 */
-	public static function output( $post ) {
-		self::init_fields( $post->ID );
+	public static function output( $object ) {
+		$order = ( $object instanceof WC_Order ? $object : wc_get_order( $object->ID ) );
+
+		self::init_fields( $order );
 
 		$fields = self::$fields;
-		$order  = wc_get_order( $post->ID );
 
 		include 'views/html-order-delivery.php';
 	}
@@ -94,37 +96,37 @@ class WC_OD_Meta_Box_Order_Delivery {
 	 * You should use the $_POST variable to get the updated information.
 	 *
 	 * The change of the order status and the email notification is done with priority 40. To attach the
-	 * correct information to the emails, we have to use a lower priority.
+	 * correct information to the emails, we must use a lower priority.
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param int     $order_id Order ID.
-	 * @param WP_Post $post    The post instance.
+	 * @param int   $order_id Order ID.
+	 * @param mixed $object   Order or post object.
 	 */
-	public static function save( $order_id, $post ) {
-		if ( 'shop_order' !== $post->post_type ) {
+	public static function save( $order_id, $object ) {
+		$order = ( $object instanceof WC_Order ? $object : wc_get_order( $order_id ) );
+
+		if ( ! $order ) {
 			return;
 		}
-
-		$order = wc_get_order( $order_id );
 
 		// Process the delivery_date field.
 		$posted_delivery_date  = ( isset( $_POST['_delivery_date'] ) ? wc_clean( wp_unslash( $_POST['_delivery_date'] ) ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification
 		$delivery_date_changed = ( (string) $order->get_meta( '_delivery_date' ) !== $posted_delivery_date );
 
 		if ( $posted_delivery_date ) {
-			wc_od_update_order_meta( $order_id, '_delivery_date', $posted_delivery_date, true );
+			$order->update_meta_data( '_delivery_date', $posted_delivery_date );
 		} else {
-			wc_od_delete_order_meta( $order_id, '_delivery_date', true );
+			$order->delete_meta_data( '_delivery_date' );
 		}
 
 		// Process delivery time frame.
 		$delivery_time_frame = ( isset( $_POST['_delivery_time_frame'] ) ? wc_clean( wp_unslash( $_POST['_delivery_time_frame'] ) ) : '' ); // phpcs:ignore: WordPress.Security.NonceVerification
 
 		if ( $posted_delivery_date && ( ! empty( $delivery_time_frame['time_from'] ) || ! empty( $delivery_time_frame['time_to'] ) ) ) {
-			wc_od_update_order_meta( $order_id, '_delivery_time_frame', $delivery_time_frame, true );
+			$order->update_meta_data( '_delivery_time_frame', $delivery_time_frame );
 		} else {
-			wc_od_delete_order_meta( $order_id, '_delivery_time_frame', true );
+			$order->delete_meta_data( '_delivery_time_frame' );
 		}
 
 		// Process the shipping_date field.
@@ -166,9 +168,11 @@ class WC_OD_Meta_Box_Order_Delivery {
 		}
 
 		if ( $posted_shipping_date ) {
-			wc_od_update_order_meta( $order_id, '_shipping_date', $posted_shipping_date, true );
+			$order->update_meta_data( '_shipping_date', $posted_shipping_date );
 		} else {
-			wc_od_delete_order_meta( $order_id, '_shipping_date', true );
+			$order->delete_meta_data( '_shipping_date' );
 		}
+
+		$order->save();
 	}
 }

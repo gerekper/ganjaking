@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WooCommerde Redsys Gateway\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-01-11 19:00+0100\n"
-"PO-Revision-Date: 2023-01-11 19:06+0100\n"
+"PO-Revision-Date: 2023-01-26 22:43+0100\n"
 "Last-Translator: José Conti <j.conti@joseconti.com>\n"
 "Language-Team: José Conti https://www.joseconti.com\n"
 "Language: es_ES\n"
@@ -127,7 +127,7 @@ msgstr "Activar códigos QR"
 
 #: ../classes/class-redsys-qr-codes.php:235
 msgid "Enable QR Codes."
-msgstr "Activar códigos QR"
+msgstr "Activar códigos QR."
 
 #: ../classes/class-redsys-qr-codes.php:237
 msgid "Enable QR Codes, WooCommerce Redsys Gateway licence is needed"
@@ -180,7 +180,7 @@ msgstr ""
 
 #: ../classes/class-redsys-qr-codes.php:362
 msgid "SCAN ME"
-msgstr ""
+msgstr "ESCANEAME"
 
 #: ../classes/class-redsys-qr-codes.php:366
 msgid "Label Font"
@@ -218,23 +218,23 @@ msgstr ""
 
 #: ../classes/class-redsys-qr-codes.php:420
 msgid "Gradient"
-msgstr ""
+msgstr "Degradado"
 
 #: ../classes/class-redsys-qr-codes.php:426
 msgid "Enable Gradient Color"
-msgstr ""
+msgstr "Activar color degradado"
 
 #: ../classes/class-redsys-qr-codes.php:428
 msgid "Enable Gradient Color."
-msgstr ""
+msgstr "Activar color degradado."
 
 #: ../classes/class-redsys-qr-codes.php:433
 msgid "Second color"
-msgstr ""
+msgstr "Segundo color"
 
 #: ../classes/class-redsys-qr-codes.php:435
 msgid "Second color #8900d5"
-msgstr ""
+msgstr "Segundo color #8900d5"
 
 #: ../classes/class-redsys-qr-codes.php:445
 msgid "Marker Custom Color"
@@ -2228,7 +2228,7 @@ msgid ""
 "is active"
 msgstr ""
 "Mover términos y condiciones antes de las pasarelas de pago en el checkourt. "
-"Recomendado cuando InSite está activo."
+"Recomendado cuando InSite está activo"
 
 #: ../classes/class-wc-gateway-insite-redsys.php:461
 msgid "Custom \"Name\" field"
@@ -3680,7 +3680,7 @@ msgstr ""
 
 #: ../classes/class-wc-gateway-redsys.php:317
 msgid "When show redirection"
-msgstr ""
+msgstr "Cuando mostrar redirección"
 
 #: ../classes/class-wc-gateway-redsys.php:319
 msgid ""
@@ -3741,9 +3741,9 @@ msgid ""
 "not fill the credit card number in Redsys again. Make sure you have "
 "activated in Redsys that he send to your store the credit card number."
 msgstr ""
-"Con Pagar con un clic, los usuario que hayan pagada con anterioridad en tu "
+"Con Pagar con un clic, los usuario que hayan pagado con anterioridad en tu "
 "tienda no deberían rellenar de nuevo el número de la tarjeta de crédito. "
-"Asegúrate que tienes activado en Redsys que se envíe a la tienda el numero "
+"Asegúrate que tienes activado en Redsys que se envíe a la tienda el número "
 "de la tarjeta de crédito (parcialmente)."
 
 #: ../classes/class-wc-gateway-redsys.php:352
@@ -3877,7 +3877,7 @@ msgstr "⚠️ Ha habido un problema. El problema ha sido: "
 
 #: ../classes/class-wc-gateway-redsys.php:3794
 msgid "There wasnand error: "
-msgstr "Hubo un error"
+msgstr "Hubo un error: "
 
 #: ../classes/class-wc-gateway-redsys.php:5234
 #: ../includes/woo-status/status.php:164

@@ -3,7 +3,7 @@
  * @package		WooCommerce One Page Checkout
  * @subpackage	Name Your Price Extension Compatibility
  * @category	Compatibility Class
- * @version 	1.0.1
+ * @version 	2.2.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,33 +18,22 @@ class WCOPC_Compat_Name_Your_Price {
 	const PREFIX = '-opc-';
 	const SUFFIX = '-opc-';
 
-	protected static $is_nyp_3 = false;
-
 	public static function init() {
 
-		if ( class_exists( 'WC_Name_Your_Price' ) ) {
-
-			self::$is_nyp_3 = is_callable( array( 'WC_Name_Your_Price_Compatibility', 'is_nyp_gte' ) ) ? WC_Name_Your_Price_Compatibility::is_nyp_gte( '3.0' ) : false;
+		// is_nyp_gte() is callable in NYP 3.0.0.
+		if ( class_exists( 'WC_Name_Your_Price' ) && is_callable( array( 'WC_Name_Your_Price_Compatibility', 'is_nyp_gte' ) ) ) {
 
 			// Add NYP input to product_table and pricing_table templates.
 			add_action( 'wcopc_before_add_to_cart_button', array( __CLASS__, 'opc_nyp_price_input' ) );
 
-			// 3.0 Ready Filters.
-			$suffix_filter = self::$is_nyp_3 ? 'wc_nyp_field_suffix'      : 'nyp_field_prefix';
-			$price_filter  = self::$is_nyp_3 ? 'wc_nyp_get_posted_price'  : 'woocommerce_nyp_get_posted_price';
-
 			// Filter the NYP suffix.
-			add_filter( $suffix_filter, array( __CLASS__, 'nyp_cart_suffix' ), 10, 2 );
+			add_filter( 'wc_nyp_field_suffix', array( __CLASS__, 'nyp_cart_suffix' ), 10, 2 );
 
 			// Make sure input has cart price since it may not be in $_REQUEST.
-			add_filter( $price_filter, array( __CLASS__, 'nyp_input_initial_value' ), 10, 2 );
+			add_filter( 'wc_nyp_get_posted_price', array( __CLASS__, 'nyp_input_initial_value' ), 10, 2 );
 
-			// Maybe swap on single product pages.
-			add_action( 'woocommerce_before_add_to_cart_form', array( __CLASS__, 'maybe_swap_nyp_price_input' ), 5 );
-
-			// Swap on single product shortcodes.
-			add_action( 'wcopc_single_add_to_cart', array( __CLASS__, 'swap_nyp_price_input' ), 5 );
-
+			// Set the suffix on the the forms.
+			add_filter( 'wc_nyp_price_input_attributes', array( __CLASS__, 'add_suffix_to_input' ), 10 , 3 );
 
 			if ( isset( WC_Name_Your_Price()->display ) ) {
 				// Load the NYP scripts with OPC scripts.
@@ -55,52 +44,20 @@ class WCOPC_Compat_Name_Your_Price {
 	}
 
 	/**
-	 * Maybe swap default price input with OPC function that adds prefix.
+	 * Maybe add to the OPC suffix.
 	 *
-	 * @since	1.5.0
+	 * @since	2.0.0
 	 *
-	 * @param	obj $product
-	 * @return	void
+	 * @param array $args
+	 * @param WC_Product $product
+	 * @param string $suffix
+	 * @return array
 	 */
-	public static function maybe_swap_nyp_price_input(){
-		if ( is_wcopc_checkout() ) {
-			self::swap_nyp_price_input();
+	public static function add_suffix_to_input( $args, $product, $suffix ) {
+		if ( is_wcopc_checkout() && '' === $suffix ) {
+			$args['input_name'] = 'nyp' . self::SUFFIX . WC_Name_Your_Price_Core_Compatibility::get_id( $product );
 		}
-	}
-
-	/**
-	 * Swap default price input with OPC function that adds prefix.
-	 *
-	 * @since	1.6.0
-	 *
-	 * @param	obj $product
-	 * @return	void
-	 */
-	public static function swap_nyp_price_input(){
-		remove_action( 'woocommerce_before_add_to_cart_button', array( WC_Name_Your_Price()->display, 'display_price_input' ), 9 );
-		add_action( 'woocommerce_before_add_to_cart_button', array( __CLASS__, 'opc_nyp_price_input' ), 9 );
-
-		// NYP 3.0's single product display is short-circuited if product is not a variable product, therefore, no need to remove it from single product hook.
-		if ( self::$is_nyp_3 ) {
-			remove_action( 'woocommerce_single_variation', array( WC_Name_Your_Price()->display, 'display_variable_price_input' ), 12 );
-			add_action( 'woocommerce_single_variation', array( __CLASS__, 'opc_nyp_price_input' ), 12 );
-
-		// NYP 2.9.0 changes display hook to woocommerce_single_variation for variable products.
-		} else if ( version_compare( WC_Name_Your_Price()->version, '2.9.0', '>=' ) ) {
-			remove_action( 'woocommerce_before_variations_form', array( WC_Name_Your_Price()->display, 'move_display_for_variable_product' ) );
-			add_action( 'woocommerce_before_variations_form', array( __CLASS__, 'move_display_for_variable_product' ) );
-		}
-
-	}
-
-	/**
-	 * Fix price input position on variable products - This shows them before Product Addons.
-	 *
-	 * @since 1.6.0
-	 */
-	public static function move_display_for_variable_product() {
-		remove_action( 'woocommerce_before_add_to_cart_button', array( __CLASS__, 'opc_nyp_price_input' ), 9 );
-		add_action( 'woocommerce_single_variation', array( __CLASS__, 'opc_nyp_price_input' ), 12 );
+		return $args;
 	}
 
 	/**
@@ -174,6 +131,13 @@ class WCOPC_Compat_Name_Your_Price {
 		return $price;
 	}
 
+	/*
+	|--------------------------------------------------------------------------
+	| Deprecated methods.
+	|--------------------------------------------------------------------------
+	*/
+
+
 	/**
 	 * Sets a unique prefix for unique NYP products in OPC templates.
 	 * The prefix is set and re-set globally before validating and adding to cart.
@@ -187,8 +151,56 @@ class WCOPC_Compat_Name_Your_Price {
 	 *
 	 */
 	public static function nyp_cart_prefix( $prefix, $nyp_id ) {
-		wc_deprecated_function( __METHOD__, '1.7.5' );
+		wc_deprecated_function( __METHOD__, '1.7.5', 'WCOPC_Compat_Name_Your_Price::nyp_cart_suffix' );
 		return self::nyp_cart_suffix( $prefix, $nyp_id );
 	}
+
+	/**
+	 * Maybe swap default price input with OPC function that adds prefix.
+	 *
+	 * @since	1.5.0
+	 * @deprecated 2.2.0
+	 *
+	 * @param	obj $product
+	 * @return	void
+	 */
+	public static function maybe_swap_nyp_price_input() {
+		wc_deprecated_function( __METHOD__, '2.2.0', 'Removed with no replacement.' );
+		if ( is_wcopc_checkout() ) {
+			self::swap_nyp_price_input();
+		}
+	}
+
+	/**
+	 * Swap default price input with OPC function that adds prefix.
+	 *
+	 * @since	1.6.0
+	 * @deprecated 2.2.0
+	 *
+	 * @param	obj $product
+	 * @return	void
+	 */
+	public static function swap_nyp_price_input() {
+		wc_deprecated_function( __METHOD__, '2.2.0', 'Removed with no replacement.' );
+
+		remove_action( 'woocommerce_before_add_to_cart_button', array( WC_Name_Your_Price()->display, 'display_price_input' ), 9 );
+		add_action( 'woocommerce_before_add_to_cart_button', array( __CLASS__, 'opc_nyp_price_input' ), 9 );
+		remove_action( 'woocommerce_single_variation', array( WC_Name_Your_Price()->display, 'display_variable_price_input' ), 12 );
+		add_action( 'woocommerce_single_variation', array( __CLASS__, 'opc_nyp_price_input' ), 12 );
+	}
+
+	/**
+	 * Fix price input position on variable products - This shows them before Product Addons.
+	 *
+	 * @since 1.6.0
+	 * @deprecated 2.2.0
+	 */
+	public static function move_display_for_variable_product() {
+		wc_deprecated_function( __METHOD__, '2.2.0', 'Removed with no replacement.' );
+
+		remove_action( 'woocommerce_before_add_to_cart_button', array( __CLASS__, 'opc_nyp_price_input' ), 9 );
+		add_action( 'woocommerce_single_variation', array( __CLASS__, 'opc_nyp_price_input' ), 12 );
+	}
+
 }
 add_action( 'init', 'WCOPC_Compat_Name_Your_Price::init' );

@@ -553,7 +553,7 @@ class WC_Coupon_Campaigns {
 			$i = 0;
 			foreach( $campaigns as $campaign ) {
 				if ( $i > 0 ) {
-					$data .= ', ';
+					$html .= ', ';
 				} else {
 					++$i;
 				}

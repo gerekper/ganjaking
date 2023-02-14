@@ -121,10 +121,8 @@ function wc_od_delivery_days_field( $field ) {
  * @return mixed The table field instance.
  */
 function wc_od_get_table_field( $field ) {
-	$field_id = wc_od_no_prefix( $field['id'] );
-
-	// TODO: Use the second parameter of the ucwords function for PHP 5.4.32+.
-	$class_suffix = join( '_', array_map( 'ucfirst', preg_split( '/[_-]+/', $field_id ) ) );
+	$field_id     = wc_od_no_prefix( $field['id'] );
+	$class_suffix = ucwords( $field_id );
 
 	/**
 	 * Filter the class name of the table field.

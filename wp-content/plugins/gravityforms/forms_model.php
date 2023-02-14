@@ -3101,6 +3101,7 @@ class GFFormsModel {
 			/* @var WP_Error $error */
 			$error = $results['inserts'];
 			GFCommon::log_error( __METHOD__ . '(): Error while saving field values for new entry. ' . $error->get_error_message() );
+			self::add_note( $entry['id'], 0, 'Gravity Forms', sprintf( esc_html__( 'Error while saving field values: %s', 'gravityforms' ), $error->get_error_message() ), 'save_entry', 'error' );
 			wp_die( $die_message );
 		}
 
@@ -3122,6 +3123,7 @@ class GFFormsModel {
 				/* @var WP_Error $error */
 				$error = $results['inserts'];
 				GFCommon::log_error( __METHOD__ . '(): Error while saving calculation field values for new entry. ' . $error->get_error_message() );
+				self::add_note( $entry['id'], 0, 'Gravity Forms', sprintf( esc_html__( 'Error while saving calculation field values: %s', 'gravityforms' ), $error->get_error_message() ), 'save_entry', 'error' );
 				wp_die( $die_message );
 			}
 
@@ -3140,6 +3142,7 @@ class GFFormsModel {
 				/* @var WP_Error $error */
 				$error = $results['inserts'];
 				GFCommon::log_error( __METHOD__ . '(): Error while saving total field values for new entry. ' . $error->get_error_message() );
+				self::add_note( $entry['id'], 0, 'Gravity Forms', sprintf( esc_html__( 'Error while saving total field values: %s', 'gravityforms' ), $error->get_error_message() ), 'save_entry', 'error' );
 				wp_die( $die_message );
 			}
 		}

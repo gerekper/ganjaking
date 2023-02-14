@@ -13,9 +13,7 @@ if ( class_exists( 'WC_OD_Admin_List_Table', false ) ) {
 }
 
 /**
- * WC_OD_Admin_List_Table Class
- *
- * TODO: Extend from the class WC_Admin_List_Table_Orders when the minimum WC version is 3.3+.
+ * WC_OD_Admin_List_Table class.
  */
 abstract class WC_OD_Admin_List_Table {
 
@@ -33,20 +31,41 @@ abstract class WC_OD_Admin_List_Table {
 	 */
 	protected $filters = array();
 
+	/**
+	 * Bulk actions.
+	 *
+	 * @var array
+	 */
+	protected $actions = array();
 
 	/**
 	 * Constructor.
 	 *
 	 * @since 1.4.0
+	 * @since 2.4.0 Accepts an array of arguments.
+	 *
+	 * @param array $args {
+	 *     Array of arguments.
+	 *
+	 *     @type array $actions An array of bulk actions in pairs [key => label]. Default: empty.
 	 */
-	public function __construct() {
+	public function __construct( $args = array() ) {
+		$this->actions = ( ! empty( $args['actions'] ) ? $args['actions'] : array() );
+
 		$this->load_filters();
 
-		add_action( 'restrict_manage_posts', array( $this, 'render_filters' ), 5 );
-		add_filter( 'request', array( $this, 'query_filters' ) );
-		add_action( 'admin_notices', array( $this, 'bulk_admin_notices' ) );
-		add_filter( 'bulk_actions-edit-' . $this->list_table_type, array( $this, 'define_bulk_actions' ), 20 );
-		add_filter( 'handle_bulk_actions-edit-' . $this->list_table_type, array( $this, 'handle_bulk_actions' ), 20, 3 );
+		if ( $this->list_table_type ) {
+			add_action( 'restrict_manage_posts', array( $this, 'render_filters' ), 5 );
+			add_filter( 'request', array( $this, 'query_filters' ) );
+		}
+
+		$screen_id = wc_od_get_current_screen_id();
+
+		if ( $screen_id && ! empty( $this->actions ) ) {
+			add_action( 'admin_notices', array( $this, 'bulk_admin_notices' ) );
+			add_filter( 'bulk_actions-' . $screen_id, array( $this, 'define_bulk_actions' ), 20 );
+			add_filter( 'handle_bulk_actions-' . $screen_id, array( $this, 'handle_bulk_actions' ), 20, 3 );
+		}
 	}
 
 	/**
@@ -63,8 +82,10 @@ abstract class WC_OD_Admin_List_Table {
 	 */
 	public function render_filters() {
 		foreach ( $this->filters as $filter ) {
-			if ( 'date' === $filter['type'] ) {
-				$this->render_date_filter( $filter );
+			$callable = array( $this, 'render_' . $filter['type'] . '_filter' );
+
+			if ( is_callable( $callable ) ) {
+				call_user_func( $callable, $filter );
 			}
 		}
 	}
@@ -81,8 +102,10 @@ abstract class WC_OD_Admin_List_Table {
 		$query_filters = array();
 
 		foreach ( $this->filters as $filter ) {
-			if ( 'date' === $filter['type'] ) {
-				$query_filter = $this->query_date_filter( $filter );
+			$callable = array( $this, 'query_' . $filter['type'] . '_filter' );
+
+			if ( is_callable( $callable ) ) {
+				$query_filter = call_user_func( $callable, $filter );
 
 				if ( $query_filter ) {
 					$query_filters[] = $query_filter;
@@ -91,11 +114,13 @@ abstract class WC_OD_Admin_List_Table {
 		}
 
 		if ( ! empty( $query_filters ) ) {
+			// phpcs:disable WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 			if ( isset( $query_vars['meta_query'] ) && is_array( $query_vars['meta_query'] ) ) {
 				$query_vars['meta_query'] = array_merge( $query_vars['meta_query'], $query_filters );
 			} else {
 				$query_vars['meta_query'] = $query_filters;
 			}
+			// phpcs:enable WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 		}
 
 		return $query_vars;
@@ -277,7 +302,7 @@ abstract class WC_OD_Admin_List_Table {
 			"
 			SELECT DISTINCT YEAR( meta_value ) AS year, MONTH( meta_value ) AS month
 			FROM $wpdb->postmeta
-			INNER JOIN $wpdb->posts ON $wpdb->posts.id = $wpdb->postmeta.post_id  
+			INNER JOIN $wpdb->posts ON $wpdb->posts.id = $wpdb->postmeta.post_id
 			WHERE $wpdb->posts.post_type = %s AND meta_key = %s
 			$extra_checks
 			ORDER BY meta_value DESC
@@ -290,7 +315,7 @@ abstract class WC_OD_Admin_List_Table {
 	}
 
 	/**
-	 * Define bulk actions.
+	 * Registers bulk actions.
 	 *
 	 * @since 1.4.0
 	 *
@@ -298,7 +323,7 @@ abstract class WC_OD_Admin_List_Table {
 	 * @return array
 	 */
 	public function define_bulk_actions( $actions ) {
-		return $actions;
+		return array_merge( $actions, $this->actions );
 	}
 
 	/**
@@ -306,12 +331,23 @@ abstract class WC_OD_Admin_List_Table {
 	 *
 	 * @since 1.4.0
 	 *
-	 * @param  string $redirect_to URL to redirect to.
-	 * @param  string $action      Action name.
-	 * @param  array  $ids         List of ids.
+	 * @param string $redirect_to URL to redirect to.
+	 * @param string $action      Action name.
+	 * @param array  $ids         List of ids.
 	 * @return string
 	 */
 	public function handle_bulk_actions( $redirect_to, $action, $ids ) {
+		if ( empty( $ids ) || ! array_key_exists( $action, $this->actions ) ) {
+			return $redirect_to;
+		}
+
+		$callable = array( $this, 'handle_bulk_action_' . $action );
+
+		if ( is_callable( $callable ) ) {
+			$ids         = array_map( 'absint', $ids );
+			$redirect_to = call_user_func( $callable, $redirect_to, $ids );
+		}
+
 		return esc_url_raw( $redirect_to );
 	}
 
@@ -320,5 +356,27 @@ abstract class WC_OD_Admin_List_Table {
 	 *
 	 * @since 1.4.0
 	 */
-	public function bulk_admin_notices() {}
+	public function bulk_admin_notices() {
+		$action  = ( isset( $_REQUEST['bulk_action'] ) ? wc_clean( wp_unslash( $_REQUEST['bulk_action'] ) ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification
+		$changed = ( isset( $_REQUEST['changed'] ) ? absint( $_REQUEST['changed'] ) : 0 ); // phpcs:ignore WordPress.Security.NonceVerification
+
+		$message = $this->get_bulk_action_message( $action, $changed );
+
+		if ( $message ) {
+			printf( '<div class="updated"><p>%s</p></div>', esc_html( $message ) );
+		}
+	}
+
+	/**
+	 * Gets the message for specified bulk action.
+	 *
+	 * @since 2.4.0
+	 *
+	 * @param string $action  Action name.
+	 * @param int    $changed The number of changed items.
+	 * @return string
+	 */
+	protected function get_bulk_action_message( $action, $changed ) {
+		return '';
+	}
 }

@@ -29,7 +29,7 @@ final class WC_Order_Delivery {
 	 *
 	 * @var string
 	 */
-	public $version = '2.3.2';
+	public $version = '2.4.0';
 
 	/**
 	 * Constructor.
@@ -95,6 +95,7 @@ final class WC_Order_Delivery {
 		 * Core classes.
 		 */
 		include_once WC_OD_PATH . 'includes/wc-od-functions.php';
+		include_once WC_OD_PATH . 'includes/class-wc-od-order-query.php';
 		include_once WC_OD_PATH . 'includes/class-wc-od-install.php';
 		include_once WC_OD_PATH . 'includes/class-wc-od-emails.php';
 		include_once WC_OD_PATH . 'includes/class-wc-od-integrations.php';

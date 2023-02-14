@@ -2,665 +2,665 @@
 
 class WC_Dropshipping_Product_Extra_Fields {
 
-    public function __construct() {
+	public function __construct() {
 
-        add_action('woocommerce_after_shop_loop_item', array($this, 'Show_Suppliername_On_Product_Page'), 9);
+		add_action( 'woocommerce_after_shop_loop_item', array( $this, 'Show_Suppliername_On_Product_Page' ), 9 );
 
-        add_action('woocommerce_single_product_summary', array($this, 'Show_Suppliername_On_Product_Page'), 21, 10);
+		add_action( 'woocommerce_single_product_summary', array( $this, 'Show_Suppliername_On_Product_Page' ), 21, 10 );
 
-        // For custom extra Amazon Affiliate fields.
+		// For custom extra Amazon Affiliate fields.
 
-        add_action('woocommerce_product_options_general_product_data', array($this, 'Woocommerce_Product_Custom_Fields_Amazon_Affiliate_ID'), 10);
+		add_action( 'woocommerce_product_options_general_product_data', array( $this, 'Woocommerce_Product_Custom_Fields_Amazon_Affiliate_ID' ), 10 );
 
-        add_action('woocommerce_process_product_meta', array($this, 'Woocommerce_Product_Custom_Fields_Amazon_Affiliate_ID_Save'), 10);
+		add_action( 'woocommerce_process_product_meta', array( $this, 'Woocommerce_Product_Custom_Fields_Amazon_Affiliate_ID_Save' ), 10 );
 
-        add_action('woocommerce_product_options_general_product_data', array($this, 'Woocommerce_Product_Custom_Fields_Amazon_Product_ID'), 10);
+		add_action( 'woocommerce_product_options_general_product_data', array( $this, 'Woocommerce_Product_Custom_Fields_Amazon_Product_ID' ), 10 );
 
-        add_action('woocommerce_process_product_meta', array($this, 'Woocommerce_Product_Custom_Fields_Amazon_Product_ID_Save'), 10);
+		add_action( 'woocommerce_process_product_meta', array( $this, 'Woocommerce_Product_Custom_Fields_Amazon_Product_ID_Save' ), 10 );
 
-        // For custom extra inventory fields.
+		// For custom extra inventory fields.
 
-        add_action('woocommerce_product_options_inventory_product_data', array($this, 'woocommerce_product_extra_fields'));
+		add_action( 'woocommerce_product_options_inventory_product_data', array( $this, 'woocommerce_product_extra_fields' ) );
 
-        add_action('woocommerce_process_product_meta', array($this, 'save_woocommerce_product_extra_fields'));
+		add_action( 'woocommerce_process_product_meta', array( $this, 'save_woocommerce_product_extra_fields' ) );
 
-        // For custom supplier tab and its fields.
+		// For custom supplier tab and its fields.
 
-        add_filter('woocommerce_product_data_tabs', array($this, 'my_custom_supplier_tab'));
+		add_filter( 'woocommerce_product_data_tabs', array( $this, 'my_custom_supplier_tab' ) );
 
-        add_action('woocommerce_product_data_panels', array($this, 'supplier_tab_panel'));
+		add_action( 'woocommerce_product_data_panels', array( $this, 'supplier_tab_panel' ) );
 
-        add_action('woocommerce_process_product_meta', array($this, 'save_supplier_field'));
+		add_action( 'woocommerce_process_product_meta', array( $this, 'save_supplier_field' ) );
 
-        // The code for displaying WooCommerce Product Custom Fields
+		// The code for displaying WooCommerce Product Custom Fields
 
-        add_action('woocommerce_product_options_general_product_data', array($this, 'woocommerce_product_custom_fields'));
+		add_action( 'woocommerce_product_options_general_product_data', array( $this, 'woocommerce_product_custom_fields' ) );
 
-        add_action('woocommerce_process_product_meta', array($this, 'woocommerce_product_custom_fields_save'));
+		add_action( 'woocommerce_process_product_meta', array( $this, 'woocommerce_product_custom_fields_save' ) );
 
-        add_action('woocommerce_variation_options_pricing', array($this, 'bbloomer_add_custom_field_to_variations'), 10, 3);
+		add_action( 'woocommerce_variation_options_pricing', array( $this, 'bbloomer_add_custom_field_to_variations' ), 10, 3 );
 
-        add_action('woocommerce_save_product_variation', array($this, 'bbloomer_save_custom_field_variations'), 10, 2);
+		add_action( 'woocommerce_save_product_variation', array( $this, 'bbloomer_save_custom_field_variations' ), 10, 2 );
 
-        add_filter('woocommerce_available_variation', array($this, 'bbloomer_add_custom_field_variation_data'));
+		add_filter( 'woocommerce_available_variation', array( $this, 'bbloomer_add_custom_field_variation_data' ) );
 
-        // For Description custom fields 
+		// For Description custom fields
 
-        add_action('woocommerce_variation_options_pricing', array($this, 'bbloomer_add_custom_field_description_to_variations'), 10, 3);
+		add_action( 'woocommerce_variation_options_pricing', array( $this, 'bbloomer_add_custom_field_description_to_variations' ), 10, 3 );
 
-        add_action('woocommerce_save_product_variation', array($this, 'bbloomer_save_custom_field_description_variations'), 10, 2);
+		add_action( 'woocommerce_save_product_variation', array( $this, 'bbloomer_save_custom_field_description_variations' ), 10, 2 );
 
-        add_filter('woocommerce_available_variation', array($this, 'bbloomer_add_custom_field_description_variation_data'));
+		add_filter( 'woocommerce_available_variation', array( $this, 'bbloomer_add_custom_field_description_variation_data' ) );
 
-        add_action('woocommerce_product_options_general_product_data', array($this, 'woocommerce_product_custom_fields_description'));
+		add_action( 'woocommerce_product_options_general_product_data', array( $this, 'woocommerce_product_custom_fields_description' ) );
 
-        add_action('woocommerce_process_product_meta', array($this, 'woocommerce_product_custom_fields_description_save'));
+		add_action( 'woocommerce_process_product_meta', array( $this, 'woocommerce_product_custom_fields_description_save' ) );
 
-        // Hide External Products Only Prices
+		// Hide External Products Only Prices
 
-        add_filter('woocommerce_variable_sale_price_html', array($this, 'woocommerce_remove_prices'), 10, 2);
+		add_filter( 'woocommerce_variable_sale_price_html', array( $this, 'woocommerce_remove_prices' ), 10, 2 );
 
-        add_filter('woocommerce_variable_price_html', array($this, 'woocommerce_remove_prices'), 10, 2);
+		add_filter( 'woocommerce_variable_price_html', array( $this, 'woocommerce_remove_prices' ), 10, 2 );
 
-        add_filter('woocommerce_get_price_html', array($this, 'woocommerce_remove_prices'), 10, 2);
+		add_filter( 'woocommerce_get_price_html', array( $this, 'woocommerce_remove_prices' ), 10, 2 );
 
-        //end 
-        //add_action('woocommerce_process_product_meta', array($this,'save_supplier_field') );
-        //add_action( 'woocommerce_process_product_meta', array($this,'supplier' ) );
-        //add_action('rest_api_init', array($this,'rest_api_player_meta'));
-        //add_filter( 'woocommerce_rest_prepare_product', array($this,'custom_products_api_data', 90, 2 ) );
-        //add_action( 'rest_api_init', array($this,'slug_register_overhead' ));
-        //add_action( 'rest_api_init', array($this,'slug_register_number_of_orders' ));
-        // For Supplier price
+		// end
+		// add_action('woocommerce_process_product_meta', array($this,'save_supplier_field') );
+		// add_action( 'woocommerce_process_product_meta', array($this,'supplier' ) );
+		// add_action('rest_api_init', array($this,'rest_api_player_meta'));
+		// add_filter( 'woocommerce_rest_prepare_product', array($this,'custom_products_api_data', 90, 2 ) );
+		// add_action( 'rest_api_init', array($this,'slug_register_overhead' ));
+		// add_action( 'rest_api_init', array($this,'slug_register_number_of_orders' ));
+		// For Supplier price
 
-        /*
+		/*
+		  add_action( 'woocommerce_before_calculate_totals', array($this,'extra_price_add_custom_price'), 20, 1 );
 
-          add_action( 'woocommerce_before_calculate_totals', array($this,'extra_price_add_custom_price'), 20, 1 );
+		  add_action( 'woocommerce_before_add_to_cart_button', array($this,'custom_product_price_field'), 5 );
 
-          add_action( 'woocommerce_before_add_to_cart_button', array($this,'custom_product_price_field'), 5 );
+		  add_filter('woocommerce_cart_item_price', array($this,'display_cart_items_custom_price_details'), 20, 3 );
 
-          add_filter('woocommerce_cart_item_price', array($this,'display_cart_items_custom_price_details'), 20, 3 );
+		  add_filter('woocommerce_add_cart_item_data', array($this,'add_custom_field_data'), 20, 2 );
 
-          add_filter('woocommerce_add_cart_item_data', array($this,'add_custom_field_data'), 20, 2 );
+		 */
+	}
 
-         */
-    }
+	/*
+	 Related to COST OF GOODS - Custom field For Add Supplier Price
 
-    /* Related to COST OF GOODS - Custom field For Add Supplier Price 
+	  function custom_product_price_field(){
 
-      function custom_product_price_field(){
+	  echo '<div class="custom-text text">
 
-      echo '<div class="custom-text text">
+	  <p>Extra Charge ('.get_woocommerce_currency_symbol().'):</p>
 
-      <p>Extra Charge ('.get_woocommerce_currency_symbol().'):</p>
+	  <input type="text" name="custom_price" value="" placeholder="e.g. 10" title="Custom Text" class="custom_price text_custom text">
 
-      <input type="text" name="custom_price" value="" placeholder="e.g. 10" title="Custom Text" class="custom_price text_custom text">
+	  </div>';
 
-      </div>';
+	  }
 
-      }
+	  // Get custom field value, calculate new item price
 
-      // Get custom field value, calculate new item price
+	  public function add_custom_field_data( $cart_item_data, $product_id ){
 
-      public function add_custom_field_data( $cart_item_data, $product_id ){
+	  if(!empty($product = wc_get_product($product_id))){// The WC_Product Object
 
-      if(!empty($product = wc_get_product($product_id))){// The WC_Product Object
+	  $postid = $product->get_id();
 
-      $postid = $product->get_id();
+	  $suppid = get_post_meta($postid, 'supplierid', true);
 
-      $suppid = get_post_meta($postid, 'supplierid', true);
+	  $price = get_term_meta($suppid);
 
-      $price = get_term_meta($suppid);
+	  $var1 = unserialize($price['meta'][0]);
 
-      $var1 = unserialize($price['meta'][0]);
+	  $var = $var1['supplier_price'];
 
-      $var = $var1['supplier_price'];
+	  $supp_price = $var;
 
-      $supp_price = $var;
+	  $base_price = $product->get_price(); // Product reg price
 
-      $base_price = $product->get_price(); // Product reg price
+	  $custom_price = $base_price / 100 * $supp_price; // New price calculation
 
-      $custom_price = $base_price / 100 * $supp_price; // New price calculation
+	  $new_price = $base_price + $custom_price;
 
-      $new_price = $base_price + $custom_price;
+	  $cart_item_data['custom_data']['extra_charge'] = (float) $custom_price;
 
-      $cart_item_data['custom_data']['extra_charge'] = (float) $custom_price;
+	  $cart_item_data['custom_data']['new_price'] = (float) $new_price;
 
-      $cart_item_data['custom_data']['new_price'] = (float) $new_price;
+	  $cart_item_data['custom_data']['unique_key'] = md5( microtime() . rand() ); // Make each item unique
 
-      $cart_item_data['custom_data']['unique_key'] = md5( microtime() . rand() ); // Make each item unique
+	  }
 
-      }
+	  return $cart_item_data;
 
-      return $cart_item_data;
+	  }
 
-      }
+	  // Set the new calculated cart item price
 
-      // Set the new calculated cart item price
+	  public function extra_price_add_custom_price( $cart ) {
 
-      public function extra_price_add_custom_price( $cart ) {
+	  if ( is_admin() && ! defined( 'DOING_AJAX' ) )
 
-      if ( is_admin() && ! defined( 'DOING_AJAX' ) )
+	  return;
 
-      return;
+	  if ( did_action( 'woocommerce_before_calculate_totals' ) >= 2 )
 
-      if ( did_action( 'woocommerce_before_calculate_totals' ) >= 2 )
+	  return;
 
-      return;
+	  foreach ( $cart->get_cart() as $cart_item ) {
 
-      foreach ( $cart->get_cart() as $cart_item ) {
+	  if( isset($cart_item['custom_data']['new_price']) )
 
-      if( isset($cart_item['custom_data']['new_price']) )
+	  $cart_item['data']->set_price( (float) $cart_item['custom_data']['new_price'] );
 
-      $cart_item['data']->set_price( (float) $cart_item['custom_data']['new_price'] );
+	  }
 
-      }
+	  }
 
-      }
+	  //Display cart item custom price details
 
-      //Display cart item custom price details
+	  function display_cart_items_custom_price_details( $product_price, $cart_item, $cart_item_key ){
 
-      function display_cart_items_custom_price_details( $product_price, $cart_item, $cart_item_key ){
+	  if( isset($cart_item['custom_data']['extra_charge']) ) {
 
-      if( isset($cart_item['custom_data']['extra_charge']) ) {
+	  $product = $cart_item['data'];
 
-      $product = $cart_item['data'];
+	  //$product_price = wc_price( wc_get_price_to_display( $product, array( 'price' => $product->get_price() ) ) );
 
-      //$product_price = wc_price( wc_get_price_to_display( $product, array( 'price' => $product->get_price() ) ) );
+	  //$product_price = '<br>' . wc_price( $cart_item['custom_data']['extra_charge'] ).'&nbsp;';
 
-      //$product_price = '<br>' . wc_price( $cart_item['custom_data']['extra_charge'] ).'&nbsp;';
+	  $product_price .= __("Supplier Charge", "woocommerce" );
 
-      $product_price .= __("Supplier Charge", "woocommerce" );
+	  }
 
-      }
+	  return $product_price;
 
-      return $product_price;
+	  } */
 
-      } */
+	/*
+	 public function slug_register_number_of_orders() {
 
-    /* public function slug_register_number_of_orders() {
+	  register_rest_field( 'product',
 
-      register_rest_field( 'product',
+	  'number_of_orders',
 
-      'number_of_orders',
+	  array(
 
-      array(
+	  'get_callback' => 'slug_get_number_of_orders',
 
-      'get_callback' => 'slug_get_number_of_orders',
+	  'update_callback' => null,
 
-      'update_callback' => null,
+	  'schema' => array(
 
-      'schema' => array(
+	  'number_of_orders' => __( 'number_of_orders' ),
 
-      'number_of_orders' => __( 'number_of_orders' ),
+	  'type' => 'text'
 
-      'type' => 'text'
+	  ),
 
-      ),
+	  )
 
-      )
+	  );
 
-      );
+	  }
 
-      }
+	  public function slug_get_number_of_orders( $object ) {
 
-      public function slug_get_number_of_orders( $object ) {
+	  return get_post_meta( $object[ 'id' ], 'number_of_orders', true );
 
-      return get_post_meta( $object[ 'id' ], 'number_of_orders', true );
+	  } */
 
-      } */
+	/**
 
-    /**
+	 * Show supplier name on product page.
+	 * */
+	function Show_Suppliername_On_Product_Page() {
 
-     * Show supplier name on product page.
+		global $product;
 
-     * */
-    function Show_Suppliername_On_Product_Page() {
+		$options = get_option( 'wc_dropship_manager' );
 
-        global $product;
+		if ( isset( $options['hide_suppliername_on_product_page'] ) ) {
 
-        $options = get_option('wc_dropship_manager');
+			$hide_suppliername_on_product_page = $options['hide_suppliername_on_product_page'];
+		} else {
 
-        if (isset($options['hide_suppliername_on_product_page'])) {
+			$hide_suppliername_on_product_page = '';
+		}
 
-            $hide_suppliername_on_product_page = $options['hide_suppliername_on_product_page'];
-        } else {
+		if ( $hide_suppliername_on_product_page == '1' ) {
 
-            $hide_suppliername_on_product_page = '';
-        }
+			$products_id = $product->get_id();
 
-        if ($hide_suppliername_on_product_page == '1') {
+			$s_name = get_post_meta( $products_id, 'supplier', true );
 
-            $products_id = $product->get_id();
+			if ( ! empty( $s_name ) ) {
 
-            $s_name = get_post_meta($products_id, 'supplier', true);
+				echo '<p id="supplier_product_page"> Supplier: ' . $s_name . '</p>' . PHP_EOL;
+			}
+		}
+	}
 
-            if (!empty($s_name)) {
+	/**
 
-                echo '<p id="supplier_product_page"> Supplier: ' . $s_name . '</p>' . PHP_EOL;
-            }
-        }
-    }
+	 * Adding a Field for Amazon_Product_ID
+	 * */
+	function woocommerce_remove_prices( $price, $product ) {
 
-    /**
+		if ( $product->is_type( 'external' ) ) {
 
-     * Adding a Field for Amazon_Product_ID
+			if ( $product->get_price() == 0 ) {
 
-     * */
-    function woocommerce_remove_prices($price, $product) {
+				$price = '';
+			}
+		}
 
-        if ($product->is_type('external')) {
+		return $price;
+	}
 
-            if ($product->get_price() == 0) {
+	/**
 
-                $price = '';
-            }
-        }
+	 * Adding a Field for Amazon_Product_ID
+	 * */
+	function Woocommerce_Product_Custom_Fields_Amazon_Product_ID() {
 
-        return $price;
-    }
+		global $woocommerce, $post;
+		?>
 
-    /**
+		<script>
 
-     * Adding a Field for Amazon_Product_ID
+			jQuery("#_product_url").keyup(function () {
 
-     * */
-    function Woocommerce_Product_Custom_Fields_Amazon_Product_ID() {
+				var Text = jQuery(this).val();
 
-        global $woocommerce, $post;
-        ?>
+				var creativeASIN = Text.split("/");
 
-        <script>
+				jQuery("#product_custom_field_amazon_product_id").val(creativeASIN[5]);
 
-            jQuery("#_product_url").keyup(function () {
+			});
 
-                var Text = jQuery(this).val();
+		</script> 
 
-                var creativeASIN = Text.split("/");
+		<?php
+		echo '<div class="product_custom_field_amazon_product_id">';
 
-                jQuery("#product_custom_field_amazon_product_id").val(creativeASIN[5]);
+		woocommerce_wp_text_input(
+			array(
+				'id' => 'product_custom_field_amazon_product_id',
+				'label' => __( 'Amazon Product ID', 'woocommerce' ),
+				// 'desc_tip' => 'true',
+				// 'description' => __( 'Description - Type of Package value included in the supplier email', 'woocommerce' )
+				// 'placeholder' => 'Custom Product Text Field',
+			)
+		);
 
-            });
+		echo '</div>';
+	}
 
-        </script> 
+	function Woocommerce_Product_Custom_Fields_Amazon_Product_ID_Save( $post_id ) {
 
-        <?php
-        echo '<div class="product_custom_field_amazon_product_id">';
+		// Custom Product Text Field
 
-        woocommerce_wp_text_input(
-                array(
-                    'id' => 'product_custom_field_amazon_product_id',
-                    'label' => __('Amazon Product ID', 'woocommerce'),
-                //'desc_tip' => 'true',
-                //'description' => __( 'Description - Type of Package value included in the supplier email', 'woocommerce' )
-                //'placeholder' => 'Custom Product Text Field', 
-                )
-        );
+		$woocommerce_product_custom_field_amazon_product_id = $_POST['product_custom_field_amazon_product_id'];
 
-        echo '</div>';
-    }
+		if ( isset( $woocommerce_product_custom_field_amazon_product_id ) ) {
+			update_post_meta( $post_id, 'product_custom_field_amazon_product_id', esc_attr( $woocommerce_product_custom_field_amazon_product_id ) );
+		}
+	}
 
-    function Woocommerce_Product_Custom_Fields_Amazon_Product_ID_Save($post_id) {
+	/**
 
-        // Custom Product Text Field 
+	 * Adding a Field for Amazon_Affiliate_ID
+	 * */
+	function Woocommerce_Product_Custom_Fields_Amazon_Affiliate_ID() {
 
-        $woocommerce_product_custom_field_amazon_product_id = $_POST['product_custom_field_amazon_product_id'];
+		global $woocommerce, $post;
+		?>
 
-        if (isset($woocommerce_product_custom_field_amazon_product_id))
-            update_post_meta($post_id, 'product_custom_field_amazon_product_id', esc_attr($woocommerce_product_custom_field_amazon_product_id));
-    }
+		<script>
 
-    /**
+			jQuery('#product-type').on('change', function () {
 
-     * Adding a Field for Amazon_Affiliate_ID
+				jQuery('.product_custom_field_amazon_affiliate_id').hide();
 
-     * */
-    function Woocommerce_Product_Custom_Fields_Amazon_Affiliate_ID() {
+				jQuery('.product_custom_field_amazon_product_id').hide();
 
-        global $woocommerce, $post;
-        ?>
+				var val = jQuery(this).val()
 
-        <script>
+				if (val == 'external') {
 
-            jQuery('#product-type').on('change', function () {
+					jQuery('.product_custom_field_amazon_affiliate_id').show();
 
-                jQuery('.product_custom_field_amazon_affiliate_id').hide();
+					jQuery('.product_custom_field_amazon_product_id').show();
 
-                jQuery('.product_custom_field_amazon_product_id').hide();
+				}
 
-                var val = jQuery(this).val()
+			});
 
-                if (val == 'external') {
+			jQuery("#_product_url").keyup(function () {
 
-                    jQuery('.product_custom_field_amazon_affiliate_id').show();
+				var Text = jQuery(this).val();
 
-                    jQuery('.product_custom_field_amazon_product_id').show();
+				var creativeASIN = Text.split("&");
 
-                }
+				var value = creativeASIN[5].split("tag=");
 
-            });
+				jQuery("#product_custom_field_amazon_affiliate_id").val(value[1]);
 
-            jQuery("#_product_url").keyup(function () {
+			});
 
-                var Text = jQuery(this).val();
+		</script> 
 
-                var creativeASIN = Text.split("&");
+		<?php
+		echo '<div class=" product_custom_field_amazon_affiliate_id ">';
 
-                var value = creativeASIN[5].split("tag=");
+		woocommerce_wp_text_input(
+			array(
+				'id' => 'product_custom_field_amazon_affiliate_id',
+				'label' => __( 'Amazon Affiliate ID', 'woocommerce' ),
+				// 'desc_tip' => 'true',
+				// 'description' => __( 'Description - Type of Package value included in the supplier email', 'woocommerce' )
+				// 'placeholder' => 'Custom Product Text Field',
+			)
+		);
 
-                jQuery("#product_custom_field_amazon_affiliate_id").val(value[1]);
+		echo '</div>';
+	}
 
-            });
+	function Woocommerce_Product_Custom_Fields_Amazon_Affiliate_ID_Save( $post_id ) {
 
-        </script> 
+		// Custom Product Text Field
 
-        <?php
-        echo '<div class=" product_custom_field_amazon_affiliate_id ">';
+		$woocommerce_product_custom_field_amazon_affiliate_id = $_POST['product_custom_field_amazon_affiliate_id'];
 
-        woocommerce_wp_text_input(
-                array(
-                    'id' => 'product_custom_field_amazon_affiliate_id',
-                    'label' => __('Amazon Affiliate ID', 'woocommerce'),
-                //'desc_tip' => 'true',
-                //'description' => __( 'Description - Type of Package value included in the supplier email', 'woocommerce' )
-                //'placeholder' => 'Custom Product Text Field', 
-                )
-        );
+		if ( isset( $woocommerce_product_custom_field_amazon_affiliate_id ) ) {
+			update_post_meta( $post_id, 'product_custom_field_amazon_affiliate_id', esc_attr( $woocommerce_product_custom_field_amazon_affiliate_id ) );
+		}
+	}
 
-        echo '</div>';
-    }
+	/**
 
-    function Woocommerce_Product_Custom_Fields_Amazon_Affiliate_ID_Save($post_id) {
+	 * Adding a Cost of goods
+	 * */
+	function bbloomer_add_custom_field_to_variations( $loop, $variation_data, $variation ) {
 
-        // Custom Product Text Field 
+		woocommerce_wp_text_input(
+			array(
+				'id' => 'custom_field[' . $loop . ']',
+				'class' => 'short',
+				'label' => __( 'Cost of goods', 'woocommerce' ) . ' (' . get_woocommerce_currency_symbol() . ')',
+				'value' => get_post_meta( $variation->ID, 'custom_field', true ),
+			)
+		);
+	}
 
-        $woocommerce_product_custom_field_amazon_affiliate_id = $_POST['product_custom_field_amazon_affiliate_id'];
+	function bbloomer_save_custom_field_variations( $variation_id, $i ) {
 
-        if (isset($woocommerce_product_custom_field_amazon_affiliate_id))
-            update_post_meta($post_id, 'product_custom_field_amazon_affiliate_id', esc_attr($woocommerce_product_custom_field_amazon_affiliate_id));
-    }
+		$custom_field = $_POST['custom_field'][ $i ];
 
-    /**
+		if ( isset( $custom_field ) ) {
+			update_post_meta( $variation_id, 'custom_field', esc_attr( $custom_field ) );
+		}
+	}
 
-     * Adding a Cost of goods
+	function bbloomer_add_custom_field_variation_data( $variations ) {
 
-     * */
-    function bbloomer_add_custom_field_to_variations($loop, $variation_data, $variation) {
+		$variations['custom_field'] = '<div class="woocommerce_custom_field">Custom Field: <span>' . get_post_meta( $variations['variation_id'], 'custom_field', true ) . '</span></div>';
 
-        woocommerce_wp_text_input(array(
-            'id' => 'custom_field[' . $loop . ']',
-            'class' => 'short',
-            'label' => __('Cost of goods', 'woocommerce') . ' (' . get_woocommerce_currency_symbol() . ')',
-            'value' => get_post_meta($variation->ID, 'custom_field', true)
-                )
-        );
-    }
+		return $variations;
+	}
 
-    function bbloomer_save_custom_field_variations($variation_id, $i) {
+	function woocommerce_product_custom_fields() {
 
-        $custom_field = $_POST['custom_field'][$i];
+		global $woocommerce, $post;
 
-        if (isset($custom_field))
-            update_post_meta($variation_id, 'custom_field', esc_attr($custom_field));
-    }
+		echo '<div class=" product_custom_field ">';
 
-    function bbloomer_add_custom_field_variation_data($variations) {
+		woocommerce_wp_text_input(
+			array(
+				'id' => '_cost_of_goods',
+				'label' => __( 'Cost of goods', 'woocommerce' ) . ' (' . get_woocommerce_currency_symbol() . ')',
+				'desc_tip' => 'true',
+				'description' => __( 'Cost of goods value included in the supplier email', 'woocommerce' ),
 
-        $variations['custom_field'] = '<div class="woocommerce_custom_field">Custom Field: <span>' . get_post_meta($variations['variation_id'], 'custom_field', true) . '</span></div>';
+				// 'placeholder' => 'Custom Product Text Field',
+			)
+		);
 
-        return $variations;
-    }
+		echo '</div>';
+	}
 
-    function woocommerce_product_custom_fields() {
+	function woocommerce_product_custom_fields_save( $post_id ) {
 
-        global $woocommerce, $post;
+		// Custom Product Text Field
 
-        echo '<div class=" product_custom_field ">';
+		$woocommerce_custom_product_text_field = $_POST['_cost_of_goods'];
 
-        woocommerce_wp_text_input(
-                array(
-                    'id' => '_cost_of_goods',
-                    'label' => __('Cost of goods', 'woocommerce') . ' (' . get_woocommerce_currency_symbol() . ')',
-                    'desc_tip' => 'true',
-                    'description' => __('Cost of goods value included in the supplier email', 'woocommerce')
+		if ( isset( $woocommerce_custom_product_text_field ) ) {
+			update_post_meta( $post_id, '_cost_of_goods', esc_attr( $woocommerce_custom_product_text_field ) );
+		}
+	}
 
-                //'placeholder' => 'Custom Product Text Field', 
-                )
-        );
+	/**
 
-        echo '</div>';
-    }
+	 * Adding a custom number_of_orders
+	 * */
+	public function woocommerce_product_extra_fields() {
 
-    function woocommerce_product_custom_fields_save($post_id) {
+		$args = array(
+			'id' => 'number_of_orders',
+			'label' => __( 'AliExpress Orders', 'order_placed' ),
+			'description' => __( 'AliExpress Orders placed.' ),
+		);
 
-        // Custom Product Text Field
+		woocommerce_wp_text_input( $args );
+	}
 
-        $woocommerce_custom_product_text_field = $_POST['_cost_of_goods'];
+	public function save_woocommerce_product_extra_fields( $post_id ) {
 
-        if (isset($woocommerce_custom_product_text_field))
-            update_post_meta($post_id, '_cost_of_goods', esc_attr($woocommerce_custom_product_text_field));
-    }
+		$custom_fields_woocommerce_title = isset( $_POST['number_of_orders'] ) ? $_POST['number_of_orders'] : '';
 
-    /**
+		$product = wc_get_product( $post_id );
 
-     * Adding a custom number_of_orders
+		update_post_meta( $post_id, 'number_of_orders', $custom_fields_woocommerce_title );
+	}
 
-     * */
-    public function woocommerce_product_extra_fields() {
+	/**
 
-        $args = array(
-            'id' => 'number_of_orders',
-            'label' => __('AliExpress Orders', 'order_placed'),
-            'description' => __('AliExpress Orders placed.')
-        );
+	 * Adding a custom Supplier tab
+	 * */
+	public function my_custom_supplier_tab( $tabs ) {
 
-        woocommerce_wp_text_input($args);
-    }
+		$tabs['supplier_tab'] = array(
+			'label' => __( 'AliExpress Supplier', 'woocommerce' ),
+			'target' => 'the_supplier_custom_panel',
+			'class' => array(),
+				// 'style' => 'content: "\f174";'
+		);
 
-    public function save_woocommerce_product_extra_fields($post_id) {
+		return $tabs;
+	}
 
-        $custom_fields_woocommerce_title = isset($_POST['number_of_orders']) ? $_POST['number_of_orders'] : '';
+	public function supplier_tab_panel() {
+		?>
 
-        $product = wc_get_product($post_id);
+		<div id="the_supplier_custom_panel" class="panel woocommerce_options_panel">
 
-        update_post_meta($post_id, 'number_of_orders', $custom_fields_woocommerce_title);
-    }
+			<div class="options_group">
 
-    /**
+		<?php
+		/*
+		  $product_id = array(
 
-     * Adding a custom Supplier tab
+		  'id' => 'supplier_product_id',
 
-     * */
-    public function my_custom_supplier_tab($tabs) {
+		  'label' => __( 'Product ID', 'woocommerce'),
 
-        $tabs['supplier_tab'] = array(
-            'label' => __('AliExpress Supplier', 'woocommerce'),
-            'target' => 'the_supplier_custom_panel',
-            'class' => array(),
-                //'style' => 'content: "\f174";'
-        );
+		  'desc_tip' => 'true',
 
-        return $tabs;
-    }
+		  'description' => __( 'Product id on AliExpress' ),
 
-    public function supplier_tab_panel() {
-        ?>
+		  'custom_attributes' => array(
 
-        <div id="the_supplier_custom_panel" class="panel woocommerce_options_panel">
+		  'readonly' => 'readonly'
 
-            <div class="options_group">
+		  ),
 
-        <?php
-        /*
+		  );
 
-          $product_id = array(
+		 */
 
-          'id' => 'supplier_product_id',
+		$productUrl = array(
+			'id' => 'ali_product_url',
+			'label' => __( 'Product URL', 'woocommerce' ),
+			'description' => __( 'Enter URL to AliExpress Product' ),
+		);
 
-          'label' => __( 'Product ID', 'woocommerce'),
+		$storeName = array(
+			'id' => 'ali_store_name',
+			'label' => __( 'Store Name', 'woocommerce' ),
+			'description' => __( 'AliExpress Supplier Store Name' ),
+			'desc_tip' => 'true',
+			'custom_attributes' => array(
+				'readonly' => 'readonly',
+			),
+		);
 
-          'desc_tip' => 'true',
+		$storeUrl = array(
+			'id' => 'ali_store_url',
+			'label' => __( 'Store URL', 'woocommerce' ),
+			'description' => __( 'AliExpress Supplier Store URL' ),
+			'desc_tip' => 'true',
+			'custom_attributes' => array(
+				'readonly' => 'readonly',
+			),
+		);
 
-          'description' => __( 'Product id on AliExpress' ),
+		$price_range = array(
+			'id' => 'ali_store_price_range',
+			'label' => __( 'Store Price Range' ),
+			'description' => __( 'AliExpress Supplier Store Price Range' ),
+			'desc_tip' => 'true',
+			'custom_attributes' => array(
+				'readonly' => 'readonly',
+			),
+		);
 
-          'custom_attributes' => array(
+		$currency = array(
+			'id' => 'ali_currency',
+			'label' => __( 'Currency' ),
+				// 'desc_tip' => 'true',
+		);
 
-          'readonly' => 'readonly'
+		// woocommerce_wp_text_input( $product_id );
 
-          ),
+		woocommerce_wp_text_input( $productUrl );
 
-          );
+		woocommerce_wp_text_input( $storeName );
 
-         */
+		woocommerce_wp_text_input( $storeUrl );
 
-        $productUrl = array(
-            'id' => 'ali_product_url',
-            'label' => __('Product URL', 'woocommerce'),
-            'description' => __('Enter URL to AliExpress Product'),
-        );
+		woocommerce_wp_text_input( $price_range );
 
-        $storeName = array(
-            'id' => 'ali_store_name',
-            'label' => __('Store Name', 'woocommerce'),
-            'description' => __('AliExpress Supplier Store Name'),
-            'desc_tip' => 'true',
-            'custom_attributes' => array(
-                'readonly' => 'readonly'
-            ),
-        );
+		woocommerce_wp_text_input( $currency );
+		?>
 
-        $storeUrl = array(
-            'id' => 'ali_store_url',
-            'label' => __('Store URL', 'woocommerce'),
-            'description' => __('AliExpress Supplier Store URL'),
-            'desc_tip' => 'true',
-            'custom_attributes' => array(
-                'readonly' => 'readonly'
-            ),
-        );
+			</div>
 
-        $price_range = array(
-            'id' => 'ali_store_price_range',
-            'label' => __('Store Price Range'),
-            'description' => __('AliExpress Supplier Store Price Range'),
-            'desc_tip' => 'true',
-            'custom_attributes' => array(
-                'readonly' => 'readonly'
-            ),
-        );
+		</div>
 
-        $currency = array(
-            'id' => 'ali_currency',
-            'label' => __('Currency'),
-                //'desc_tip' => 'true', 
-        );
+		<?php
+	}
 
-        //woocommerce_wp_text_input( $product_id );
+	public function save_supplier_field( $post_id ) {
 
-        woocommerce_wp_text_input($productUrl);
+		// $supplier_product_id = isset( $_POST['supplier_product_id'] ) ? $_POST['supplier_product_id'] : '';
 
-        woocommerce_wp_text_input($storeName);
+		$ali_product_url = isset( $_POST['ali_product_url'] ) ? $_POST['ali_product_url'] : '';
 
-        woocommerce_wp_text_input($storeUrl);
+		$ali_store_url = isset( $_POST['ali_store_url'] ) ? $_POST['ali_store_url'] : '';
 
-        woocommerce_wp_text_input($price_range);
+		$ali_store_name = isset( $_POST['ali_store_name'] ) ? $_POST['ali_store_name'] : '';
 
-        woocommerce_wp_text_input($currency);
-        ?>
+		$ali_store_price_range = isset( $_POST['ali_store_price_range'] ) ? $_POST['ali_store_price_range'] : '';
 
-            </div>
+		$ali_currency = isset( $_POST['ali_currency'] ) ? $_POST['ali_currency'] : '';
 
-        </div>
+		$product = wc_get_product( $post_id );
 
-        <?php
-    }
+		update_post_meta( $post_id, 'ali_product_url', $ali_product_url );
 
-    public function save_supplier_field($post_id) {
+		update_post_meta( $post_id, 'ali_store_url', $ali_store_url );
 
-        //$supplier_product_id = isset( $_POST['supplier_product_id'] ) ? $_POST['supplier_product_id'] : '';
+		update_post_meta( $post_id, 'ali_store_name', $ali_store_name );
 
-        $ali_product_url = isset($_POST['ali_product_url']) ? $_POST['ali_product_url'] : '';
+		update_post_meta( $post_id, 'ali_store_price_range', $ali_store_price_range );
 
-        $ali_store_url = isset($_POST['ali_store_url']) ? $_POST['ali_store_url'] : '';
+		update_post_meta( $post_id, 'ali_currency', $ali_currency );
+	}
 
-        $ali_store_name = isset($_POST['ali_store_name']) ? $_POST['ali_store_name'] : '';
+	/**
 
-        $ali_store_price_range = isset($_POST['ali_store_price_range']) ? $_POST['ali_store_price_range'] : '';
+	 * Adding a Fields for Description - Type of Package
+	 * */
+	function bbloomer_add_custom_field_description_to_variations( $loop, $variation_data, $variation ) {
 
-        $ali_currency = isset($_POST['ali_currency']) ? $_POST['ali_currency'] : '';
+		woocommerce_wp_text_input(
+			array(
+				'id' => 'custom_field_description[' . $loop . ']',
+				'class' => 'short',
+				'label' => __( 'Description - Type of Package', 'woocommerce' ),
+				'value' => get_post_meta( $variation->ID, 'custom_field_description', true ),
+			)
+		);
+	}
 
-        $product = wc_get_product($post_id);
+	function bbloomer_save_custom_field_description_variations( $variation_id, $i ) {
 
-        update_post_meta($post_id, 'ali_product_url', $ali_product_url);
+		$custom_field_description = $_POST['custom_field_description'][ $i ];
 
-        update_post_meta($post_id, 'ali_store_url', $ali_store_url);
+		if ( isset( $custom_field_description ) ) {
+			update_post_meta( $variation_id, 'custom_field_description', esc_attr( $custom_field_description ) );
+		}
+	}
 
-        update_post_meta($post_id, 'ali_store_name', $ali_store_name);
+	function bbloomer_add_custom_field_description_variation_data( $variations ) {
 
-        update_post_meta($post_id, 'ali_store_price_range', $ali_store_price_range);
+		$variations['custom_field_description'] = '<div class="woocommerce_custom_field_description">Custom Field: <span>' . get_post_meta( $variations['variation_id'], 'custom_field_description', true ) . '</span></div>';
 
-        update_post_meta($post_id, 'ali_currency', $ali_currency);
-    }
+		return $variations;
+	}
 
-    /**
+	function woocommerce_product_custom_fields_description() {
 
-     * Adding a Fields for Description - Type of Package
+		global $woocommerce, $post;
 
-     * */
-    function bbloomer_add_custom_field_description_to_variations($loop, $variation_data, $variation) {
+		echo '<div class=" product_custom_field_description ">';
 
-        woocommerce_wp_text_input(array(
-            'id' => 'custom_field_description[' . $loop . ']',
-            'class' => 'short',
-            'label' => __('Description - Type of Package', 'woocommerce'),
-            'value' => get_post_meta($variation->ID, 'custom_field_description', true)
-                )
-        );
-    }
+		woocommerce_wp_text_input(
+			array(
+				'id' => '_custom_product_text_field_description',
+				'label' => __( 'Description - Type of Package', 'woocommerce' ),
+				'desc_tip' => 'true',
+				'description' => __( 'Description - Type of Package value included in the supplier email', 'woocommerce' ),
 
-    function bbloomer_save_custom_field_description_variations($variation_id, $i) {
+				// 'placeholder' => 'Custom Product Text Field',
+			)
+		);
 
-        $custom_field_description = $_POST['custom_field_description'][$i];
+		echo '</div>';
+	}
 
-        if (isset($custom_field_description))
-            update_post_meta($variation_id, 'custom_field_description', esc_attr($custom_field_description));
-    }
+	function woocommerce_product_custom_fields_description_save( $post_id ) {
 
-    function bbloomer_add_custom_field_description_variation_data($variations) {
+		// Custom Product Text Field
 
-        $variations['custom_field_description'] = '<div class="woocommerce_custom_field_description">Custom Field: <span>' . get_post_meta($variations['variation_id'], 'custom_field_description', true) . '</span></div>';
+		$woocommerce_custom_product_text_field = $_POST['_custom_product_text_field_description'];
 
-        return $variations;
-    }
-
-    function woocommerce_product_custom_fields_description() {
-
-        global $woocommerce, $post;
-
-        echo '<div class=" product_custom_field_description ">';
-
-        woocommerce_wp_text_input(
-                array(
-                    'id' => '_custom_product_text_field_description',
-                    'label' => __('Description - Type of Package', 'woocommerce'),
-                    'desc_tip' => 'true',
-                    'description' => __('Description - Type of Package value included in the supplier email', 'woocommerce')
-
-                //'placeholder' => 'Custom Product Text Field', 
-                )
-        );
-
-        echo '</div>';
-    }
-
-    function woocommerce_product_custom_fields_description_save($post_id) {
-
-        // Custom Product Text Field 
-
-        $woocommerce_custom_product_text_field = $_POST['_custom_product_text_field_description'];
-
-        if (isset($woocommerce_custom_product_text_field))
-            update_post_meta($post_id, '_custom_product_text_field_description', esc_attr($woocommerce_custom_product_text_field));
-    }
+		if ( isset( $woocommerce_custom_product_text_field ) ) {
+			update_post_meta( $post_id, '_custom_product_text_field_description', esc_attr( $woocommerce_custom_product_text_field ) );
+		}
+	}
 
 }

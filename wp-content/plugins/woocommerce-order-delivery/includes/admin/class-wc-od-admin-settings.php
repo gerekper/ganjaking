@@ -148,10 +148,20 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 
 			// phpcs:disable WordPress.Security.NonceVerification
 			if ( 'delivery_range' === $current_section ) {
-				$range_id = ( isset( $_GET['range_id'] ) ? wc_clean( wp_unslash( $_GET['range_id'] ) ) : 'new' );
-				$range_id = ( 'new' === $range_id ? null : (int) $range_id );
+				$delivery_range = false;
+				$range_id       = ( isset( $_GET['range_id'] ) ? wc_clean( wp_unslash( $_GET['range_id'] ) ) : 'new' );
 
-				$delivery_range     = WC_OD_Delivery_Ranges::get_range( $range_id );
+				if ( 'new' === $range_id ) {
+					$delivery_range = new WC_OD_Delivery_Range();
+				} elseif ( is_numeric( $range_id ) ) {
+					$delivery_range = WC_OD_Delivery_Ranges::get_range( $range_id );
+				}
+
+				if ( ! $delivery_range ) {
+					wp_safe_redirect( wc_od_get_settings_url( 'delivery_range', array( 'range_id' => 'new' ) ) );
+					exit;
+				}
+
 				$this->settings_api = new WC_OD_Settings_Delivery_Range( $delivery_range );
 				return;
 			}
@@ -559,17 +569,13 @@ if ( ! class_exists( 'WC_OD_Admin_Settings' ) ) {
 		 * @global bool   $hide_save_button Hide the save button or not.
 		 */
 		public function output() {
-			global $current_section, $hide_save_button;
+			global $hide_save_button;
 
 			if ( $this->settings_api instanceof WC_OD_Settings_API ) {
 				$this->settings_api->admin_options();
 			} elseif ( $this->is_calendar_section() ) {
 				// Hide the save button for the calendar sections.
 				$hide_save_button = true;
-
-				if ( version_compare( WC()->version, '3.6', '<' ) ) {
-					woocommerce_admin_fields( $this->get_settings( $current_section ) );
-				}
 			}
 		}
 

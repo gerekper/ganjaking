@@ -1,10 +1,10 @@
-=== BetterDocs Pro ===
-Contributors: wpdevteam, re_enter_rupok
-Donate link: https://wpdeveloper.com
+=== BetterDocs Pro ===		     				  	   
+Contributors: wpdevteam, re_enter_rupok      	    	   	  
+Donate link: https://wpdeveloper.com	      
 Tags: knowledge base, docs, documentation, documents, faq page, doc, knowledge, table of content, TOC, knowledgebase, faqs, doc page, best documentation plugin, support, customer support
 Requires at least: 4.0
 Tested up to: 6.1
-Stable tag: 2.2.6
+Stable tag: 2.2.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -14,7 +14,7 @@ A better documentation and knowledgebase plugin for WordPress
 
 Do you want to reduce your support pressure immediately? How about you creating a stunning and resourceful knowledge base for your customers? 🤔
 
-82% of customers prefer to support through an online knowledge base and actually get annoyed to create support tickets as its lengthy process. So creating an informative Documentation page can help to enhance your customer experience. 
+82% of customers prefer to support through an online knowledge base and actually get annoyed to create support tickets as its lengthy process. So creating an informative Documentation page can help to enhance your customer experience.
 
 But how do you create a stunning docs page easily in WordPress site without any coding? Well, we’ve got you covered. 😎
 
@@ -29,10 +29,10 @@ BetterDocs will help you to give the exact solution and encourage self-servicing
 ### 🌟 Top Features ###
 
 - Choose stunning premade template design to organize your knowledge Base
-- Sort posts in Table of Content or Sticky TOC to provide absolute user experience 
+- Sort posts in Table of Content or Sticky TOC to provide absolute user experience
 - Customize documentation page in advance by adding shortcode & page builder widgets
 - In-built advanced live search will help visitors to get the exact docs solution
-- Integrated with Analytics to track and evaluate the performance 
+- Integrated with Analytics to track and evaluate the performance
 
 
 ## 📋 Interactive Table of Content (TOC) ##
@@ -58,7 +58,7 @@ This Documentation plugin is brought to you by the team behind [WPDeveloper](htt
 - Learn from our tutorials on [Youtube Channel](https://wpdeveloper.com/go/youtube-channel)
 - Or rate us on WordPress
 
-## 🔥 WHAT’S NEXT ## 
+## 🔥 WHAT’S NEXT ##
 
 If you like this docs plugin, then consider checking out our other projects:
 
@@ -91,29 +91,37 @@ Yes, it will work with any standard WordPress theme.
 
 == Changelog ==
 
-= 2.2.6 - 15/01/2023 = 
+= 2.2.7 - 08/02/2023 =
+
+- Fixed: Analytics graph throwing PHP error
+- Fixed: Weekly Email Report is sent twice at the same time
+- Improved: Added option to show docs lists, search keywords and reactions based on custom date range selector in Analytics
+- Improved: Added option to make Instant Answers doc title clickable
+- Few minor bug fixes & improvements
+
+= 2.2.6 - 15/01/2023 =
 
 - Fixed: Parse error for older PHP Versions
 
-= 2.2.5 - 11/01/2023 = 
+= 2.2.5 - 11/01/2023 =
 
 - Few minor bug fixes & improvements
 
-= 2.2.4 - 22/12/2022 = 
+= 2.2.4 - 22/12/2022 =
 
 - Few minor bug fixes & improvements
 
-= 2.2.3 - 21/12/2022 = 
+= 2.2.3 - 21/12/2022 =
 
 - Few minor bug fixes & improvements
 
-= 2.2.2 - 22/11/2022 = 
+= 2.2.2 - 22/11/2022 =
 
 - Improved: Added option to exclude subcategories from Advanced Search Category List
-- Fixed: Newly created Categories showing docs assigned to them despite no docs being assigned when you filter a category based on a Knowledge base 
+- Fixed: Newly created Categories showing docs assigned to them despite no docs being assigned when you filter a category based on a Knowledge base
 - Few minor bug fixes & improvements
 
-= 2.2.1 - 06/11/2022 = 
+= 2.2.1 - 06/11/2022 =
 
 - Improved: Added Category Ordering option inside Instant Answers
 - Added: Shortcodes for Multiple Knowledge base
@@ -121,46 +129,46 @@ Yes, it will work with any standard WordPress theme.
 - Fixed: Reaction count for draft docs are being counted for Analytics
 - Few minor bug fixes & improvements
 
-= 2.2.0 - 25/09/2022 = 
+= 2.2.0 - 25/09/2022 =
 
 - Added: New Handbook Layout for Docs, Archive & Single Docs page
 - Few minor bug fixes & improvements
 
-= 2.1.4 - 22/08/2022 = 
+= 2.1.4 - 22/08/2022 =
 
 - Improved: Added Individual docs Analytics
 - Improved: Added "Views" tab for Analytics
 - Few minor bug fixes & improvements
 
-= 2.1.3 - 11/08/2022 = 
+= 2.1.3 - 11/08/2022 =
 
 - Fixed: Elementor Deprecated functions error
 - Few minor bug fixes & improvements
 
-= 2.1.2 - 08/08/2022 = 
+= 2.1.2 - 08/08/2022 =
 - Fixed: Sanitized some missing strings
 
-= 2.1.1 - 21/07/2022 = 
+= 2.1.1 - 21/07/2022 =
 - Fixed: Analytics Reaction graph not working properly for all time data
 - Improved: Added option to change the Heading tags for Knowledge base titles
 - Few minor bug fixes & improvements
 
-= 2.1.0 - 03/07/2022 = 
+= 2.1.0 - 03/07/2022 =
 - Revamped: BetterDocs Analytics with more key metrics and graphs
 - Few minor bug fixes & improvements
 
-= 2.0.11 - 25/05/2022 = 
+= 2.0.11 - 25/05/2022 =
 - Added WordPress 6.0 Compatibility
 - Few minor bug fixes & improvements
 
-= 2.0.10 - 19/04/2022 = 
+= 2.0.10 - 19/04/2022 =
 - Improved: Query optimization for role management
 - Improved: Added border radius option for Advanced Search Popular keywords
 - Fixed: Restricted Docs List still being visible to users from tags Archive page
 - Fixed: BetterDocs not working for multi-sites
 - Few minor bug fixes & improvements
 
-= 2.0.9 - 07/04/2022 = 
+= 2.0.9 - 07/04/2022 =
 - Fixed: Fatal error if a default WordPress user role doesn't exist
 
 = 2.0.8 - 07/04/2022 =
@@ -206,7 +214,7 @@ Yes, it will work with any standard WordPress theme.
 
 = 2.0.0 - 14/12/2021 =
 - Added: Advanced Search with Popular Trends option
-- Added: 2 New Layouts for Docs 
+- Added: 2 New Layouts for Docs
 - Added: Popular Docs section
 - Fixed: Internal KB not working perfectly with some selected user roles
 - Fixed: Few minor bug fix & improvements
@@ -215,7 +223,7 @@ Yes, it will work with any standard WordPress theme.
 - Fixed: Internal KB isn't perfectly working with some selected user roles
 
 = 1.6.11 - 01/11/2021 =
-- Fixed: Category sidebar not showing when Multiple KB is enabled 
+- Fixed: Category sidebar not showing when Multiple KB is enabled
 - Fixed: Internal Knowledge Base not working properly when Elementor PRO is activated
 - Fixed: Instant Answer Cross-domain copy pasting throwing error when sending a message
 - Few minor bug fix and improvements
@@ -259,8 +267,8 @@ Yes, it will work with any standard WordPress theme.
 - Few minor bug fix and improvements
 
 = 1.6.2 - 09/06/2021 =
-- Improved: flush_rewrite_rules on plugin deactivation 
-- Fixed: PHP Notices when docs are set as Private 
+- Improved: flush_rewrite_rules on plugin deactivation
+- Fixed: PHP Notices when docs are set as Private
 - Fixed: Breadcrumbs not showing for single layout 2 & 3 if title is disabled
 - Few minor bug fix and improvements
 
@@ -278,7 +286,7 @@ Yes, it will work with any standard WordPress theme.
 - Added: kb_slug argument to [betterdocs_category_grid] shortcode
 - Added: Search Result based on Knowledge Base option
 - Fixed: Hover color issue in Instant Answer
-- Fixed: [betterdocs_category_grid] showing the docs in every Category and subcategories when Multiple KB is enabled 
+- Fixed: [betterdocs_category_grid] showing the docs in every Category and subcategories when Multiple KB is enabled
 - Fixed: Subcategories not showing up inside Multiple KB
 - Few minor bug fix and improvements
 
@@ -311,7 +319,7 @@ Yes, it will work with any standard WordPress theme.
 - Few minor bug fix and improvements
 
 = 1.3.9 - 24/12/2020 =
-- Fixed: 'Instant Answer' Responsive issues on iPhone 
+- Fixed: 'Instant Answer' Responsive issues on iPhone
 - Few minor bug fix and improvements
 
 = 1.3.8 - 10/12/2020 =
@@ -346,7 +354,7 @@ Yes, it will work with any standard WordPress theme.
 
 = 1.3.2 - 09/09/2020 =
 - Fixed: 'Undefined Variables: Reactions' PHP error
-- Few minor bugfix and improvements 
+- Few minor bugfix and improvements
 
 = 1.3.1 - 20/08/2020 =
 - Added: Order & Icon Change options for Each KBs
@@ -384,13 +392,13 @@ Yes, it will work with any standard WordPress theme.
 
 = 1.2.3 - 11/03/2020 =
 - Added: Show 'Instant Answer' on Specific pages
-- Added: Z-index control for 'Instant Answer' Fixed: 'Instant Answer' Responsive issues on iPhone 
-- Fixed: Showing incorrect number of docs 
+- Added: Z-index control for 'Instant Answer' Fixed: 'Instant Answer' Responsive issues on iPhone
+- Fixed: Showing incorrect number of docs
 - Few Minor Bugfix & Improvements
 
 = 1.2.2 - 10/02/2020 =
 - Fixed: Duplicate Child Category Post issue
-- Improved: Reactions customizer control 
+- Improved: Reactions customizer control
 - Few minor bugfix and improvements
 
 = 1.2.1 - 28/01/2020 =

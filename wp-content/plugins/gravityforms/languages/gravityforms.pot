@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gravity Forms 2.7.0.2\n"
+"Project-Id-Version: Gravity Forms 2.7.0.3\n"
 "Report-Msgid-Bugs-To: https://gravityforms.com/support\n"
 "Last-Translator: Gravity Forms <support@gravityforms.com>\n"
 "Language-Team: Gravity Forms <support@gravityforms.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-02-08T18:26:37+00:00\n"
+"POT-Creation-Date: 2023-02-10T16:16:17+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: gravityforms\n"
@@ -93,7 +93,7 @@ msgstr ""
 #: entry_detail.php:1308
 #: entry_list.php:874
 #: export.php:1118
-#: forms_model.php:6515
+#: forms_model.php:6518
 #: select_columns.php:196
 msgid "Entry Id"
 msgstr ""
@@ -109,7 +109,7 @@ msgstr ""
 #: common.php:799
 #: form_list.php:46
 #: form_settings.php:114
-#: gravityforms.php:4637
+#: gravityforms.php:4636
 #: includes/addon/class-gf-addon.php:3008
 #: includes/settings/fields/class-generic-map.php:580
 #: includes/template-library/config/class-gf-template-library-config.php:89
@@ -212,7 +212,7 @@ msgstr ""
 #: common.php:941
 #: form_detail.php:895
 #: form_detail.php:1602
-#: form_display.php:3505
+#: form_display.php:3506
 #: includes/fields/class-gf-field.php:2519
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:374
@@ -315,7 +315,7 @@ msgid "Preview this form"
 msgstr ""
 
 #: common.php:3924
-#: gravityforms.php:5642
+#: gravityforms.php:5641
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:555
 #: assets/js/dist/scripts-admin.js:841
@@ -390,7 +390,7 @@ msgstr ""
 
 #: common.php:5343
 #: entry_detail.php:1400
-#: gravityforms.php:4645
+#: gravityforms.php:4644
 #: includes/webapi/webapi.php:446
 #: includes/webapi/webapi.php:539
 #: includes/webapi/webapi.php:618
@@ -399,8 +399,8 @@ msgstr ""
 
 #: common.php:5344
 #: form_display.php:336
-#: form_display.php:1254
-#: form_display.php:3903
+#: form_display.php:1255
+#: form_display.php:3904
 #: includes/setup-wizard/config/class-gf-setup-wizard-config-i18n.php:51
 #: includes/template-library/templates/templates.php:2516
 #: includes/template-library/templates/templates.php:2712
@@ -452,24 +452,24 @@ msgid "Untitled Form"
 msgstr ""
 
 #: common.php:5351
-#: includes/template-library/templates/templates.php:18
+#: includes/template-library/templates/templates.php:363
 msgid "We would love to hear from you! Please fill out this form and we will get in touch with you shortly."
 msgstr ""
 
 #: common.php:5352
 #: common.php:5403
-#: forms_model.php:6915
+#: forms_model.php:6918
 msgid "Thanks for contacting us! We will get in touch with you shortly."
 msgstr ""
 
 #: common.php:5353
-#: form_display.php:1607
+#: form_display.php:1608
 #: form_list.php:326
-#: gravityforms.php:3185
+#: gravityforms.php:3184
 #: includes/fields/class-gf-field-submit.php:158
 #: includes/settings/fields/class-button.php:50
 #: includes/template-library/templates/templates.php:22
-#: includes/template-library/templates/templates.php:998
+#: includes/template-library/templates/templates.php:367
 #: includes/template-library/templates/templates.php:1751
 #: includes/template-library/templates/templates.php:2280
 #: includes/template-library/templates/templates.php:3235
@@ -783,7 +783,7 @@ msgstr ""
 
 #: common.php:5998
 #: export.php:1119
-#: forms_model.php:6521
+#: forms_model.php:6524
 #: includes/addon/class-gf-addon.php:3005
 #: includes/settings/fields/class-generic-map.php:568
 #: select_columns.php:197
@@ -812,22 +812,22 @@ msgid "Source URL"
 msgstr ""
 
 #: common.php:6026
-#: export.php:1124
-#: forms_model.php:6527
+#: export.php:1125
+#: forms_model.php:6530
 #: select_columns.php:200
 msgid "Payment Status"
 msgstr ""
 
 #: common.php:6031
-#: export.php:1123
-#: forms_model.php:6533
+#: export.php:1124
+#: forms_model.php:6536
 #: select_columns.php:203
 msgid "Payment Date"
 msgstr ""
 
 #: common.php:6037
-#: export.php:1122
-#: forms_model.php:6536
+#: export.php:1123
+#: forms_model.php:6539
 #: includes/addon/class-gf-payment-addon.php:2485
 #: includes/addon/class-gf-payment-addon.php:2490
 #: select_columns.php:202
@@ -840,7 +840,7 @@ msgstr ""
 
 #: common.php:6045
 #: entry_detail.php:1324
-#: forms_model.php:6539
+#: forms_model.php:6542
 #: includes/webapi/includes/class-gf-api-keys-table.php:28
 #: includes/webapi/webapi.php:401
 #: select_columns.php:204
@@ -1182,8 +1182,8 @@ msgid "Subscription Id"
 msgstr ""
 
 #: entry_detail.php:1185
-#: export.php:1121
-#: forms_model.php:6530
+#: export.php:1122
+#: forms_model.php:6533
 #: select_columns.php:201
 msgid "Transaction Id"
 msgstr ""
@@ -1205,7 +1205,7 @@ msgstr ""
 
 #: entry_detail.php:1269
 #: entry_list.php:1352
-#: entry_list.php:2194
+#: entry_list.php:2205
 msgid "Print"
 msgstr ""
 
@@ -1219,7 +1219,7 @@ msgstr ""
 
 #: entry_detail.php:1318
 #: export.php:1128
-#: forms_model.php:6518
+#: forms_model.php:6521
 #: includes/addon/class-gf-addon.php:3006
 #: includes/settings/fields/class-generic-map.php:572
 #: select_columns.php:198
@@ -1271,8 +1271,8 @@ msgid "Mark as Spam"
 msgstr ""
 
 #: entry_detail.php:1400
-#: gravityforms.php:5326
-#: gravityforms.php:5604
+#: gravityforms.php:5325
+#: gravityforms.php:5603
 #: includes/addon/class-gf-feed-addon.php:1683
 #: includes/class-confirmation.php:1091
 #: includes/webapi/includes/class-gf-api-keys-table.php:68
@@ -1301,12 +1301,12 @@ msgid "You cannot resend notifications for this entry because this form does not
 msgstr ""
 
 #: entry_detail.php:1444
-#: entry_list.php:2131
+#: entry_list.php:2142
 msgid "Configure Notifications"
 msgstr ""
 
 #: entry_detail.php:1460
-#: entry_list.php:2151
+#: entry_list.php:2162
 #: notification.php:206
 msgid "Send To"
 msgstr ""
@@ -1316,7 +1316,7 @@ msgid "Resend"
 msgstr ""
 
 #: entry_detail.php:1468
-#: entry_list.php:2158
+#: entry_list.php:2169
 msgid "Resending..."
 msgstr ""
 
@@ -1498,8 +1498,8 @@ msgstr ""
 
 #: entry_list.php:1351
 #: entry_list.php:1737
-#: entry_list.php:2089
-#: entry_list.php:2156
+#: entry_list.php:2100
+#: entry_list.php:2167
 msgid "Resend Notifications"
 msgstr ""
 
@@ -1576,7 +1576,7 @@ msgid "Please select at least one entry."
 msgstr ""
 
 #: entry_list.php:1743
-#: entry_list.php:2095
+#: entry_list.php:2106
 msgid "Print Entries"
 msgstr ""
 
@@ -1608,39 +1608,39 @@ msgstr ""
 msgid "Clear selection"
 msgstr ""
 
-#: entry_list.php:2016
+#: entry_list.php:2027
 msgid "Entry List"
 msgstr ""
 
-#: entry_list.php:2081
+#: entry_list.php:2092
 msgid "Please select at least one entry..."
 msgstr ""
 
-#: entry_list.php:2129
+#: entry_list.php:2140
 msgid "You cannot resend notifications for these entries because this form does not currently have any notifications configured."
 msgstr ""
 
-#: entry_list.php:2135
+#: entry_list.php:2146
 msgid "Specify which notifications you would like to resend for the selected entries."
 msgstr ""
 
-#: entry_list.php:2149
+#: entry_list.php:2160
 msgid "You may override the default notification settings by entering a comma delimited list of emails to which the selected notifications should be sent."
 msgstr ""
 
-#: entry_list.php:2167
+#: entry_list.php:2178
 msgid "Close Window"
 msgstr ""
 
-#: entry_list.php:2182
+#: entry_list.php:2193
 msgid "Print all of the selected entries at once."
 msgstr ""
 
-#: entry_list.php:2186
+#: entry_list.php:2197
 msgid "Include notes"
 msgstr ""
 
-#: entry_list.php:2191
+#: entry_list.php:2202
 msgid "Add page break between entries"
 msgstr ""
 
@@ -1741,7 +1741,7 @@ msgid "Select a form below to export entries. Once you have selected a form you 
 msgstr ""
 
 #: export.php:644
-#: gravityforms.php:6079
+#: gravityforms.php:6078
 #: widget.php:142
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:81
@@ -1782,7 +1782,11 @@ msgid "Created By (User Id)"
 msgstr ""
 
 #: export.php:1120
-#: forms_model.php:6524
+msgid "Date Updated"
+msgstr ""
+
+#: export.php:1121
+#: forms_model.php:6527
 #: includes/addon/class-gf-addon.php:3007
 #: includes/settings/fields/class-generic-map.php:576
 #: select_columns.php:199
@@ -1819,7 +1823,7 @@ msgstr ""
 #: forms_model.php:1829
 #: forms_model.php:1862
 #: forms_model.php:1898
-#: forms_model.php:8114
+#: forms_model.php:8117
 #: includes/api.php:131
 #: includes/api.php:158
 #: includes/api.php:180
@@ -1865,68 +1869,80 @@ msgstr ""
 msgid "An error prevented the entry for this form submission being saved. Please contact support."
 msgstr ""
 
-#: forms_model.php:6626
-#: forms_model.php:6634
-#: forms_model.php:6639
+#: forms_model.php:3104
+msgid "Error while saving field values: %s"
+msgstr ""
+
+#: forms_model.php:3126
+msgid "Error while saving calculation field values: %s"
+msgstr ""
+
+#: forms_model.php:3145
+msgid "Error while saving total field values: %s"
+msgstr ""
+
+#: forms_model.php:6629
+#: forms_model.php:6637
+#: forms_model.php:6642
 #: form_settings.php:259
 msgid "(Required)"
 msgstr ""
 
-#: forms_model.php:6848
-#: forms_model.php:6912
+#: forms_model.php:6851
+#: forms_model.php:6915
 msgid "Default Confirmation"
 msgstr ""
 
-#: forms_model.php:6877
+#: forms_model.php:6880
 msgid "Save and Continue Confirmation"
 msgstr ""
 
-#: forms_model.php:6882
+#: forms_model.php:6885
 msgid "Link to continue editing later"
 msgstr ""
 
-#: forms_model.php:6883
+#: forms_model.php:6886
 msgid "Please use the following link to return and complete this form from any computer."
 msgstr ""
 
-#: forms_model.php:6884
+#: forms_model.php:6887
 msgid "Note: This link will expire after 30 days."
 msgstr ""
 
-#: forms_model.php:6885
+#: forms_model.php:6888
 msgid "Enter your email address if you would like to receive the link via email."
 msgstr ""
 
-#: forms_model.php:6896
+#: forms_model.php:6899
 msgid "Save and Continue Email Sent Confirmation"
 msgstr ""
 
-#: forms_model.php:6901
+#: forms_model.php:6904
 msgid "Success!"
 msgstr ""
 
-#: forms_model.php:6902
+#: forms_model.php:6905
 msgid "The link was sent to the following email address:"
 msgstr ""
 
-#: forms_model.php:8106
+#: forms_model.php:8109
 msgid "Updating the id property is not supported"
 msgstr ""
 
-#: forms_model.php:8110
+#: forms_model.php:8113
 msgid "%s is not a valid feed property"
 msgstr ""
 
-#: forms_model.php:8123
+#: forms_model.php:8126
 msgid "Feed meta should be an associative array or JSON"
 msgstr ""
 
-#: forms_model.php:8132
+#: forms_model.php:8135
 #: includes/api.php:2100
 msgid "There was an error while updating feed id %s"
 msgstr ""
 
-#: forms_model.php:8136
+#: forms_model.php:8139
 #: includes/api.php:2061
 msgid "Feed id %s not found"
 msgstr ""
@@ -2371,7 +2387,7 @@ msgstr ""
 
 #: form_detail.php:844
 #: includes/fields/class-gf-field-phone.php:38
-#: includes/template-library/templates/templates.php:392
+#: includes/template-library/templates/templates.php:737
 #: includes/template-library/templates/templates.php:5750
 #: includes/template-library/templates/templates.php:6427
 #: js.php:796
@@ -2388,8 +2404,8 @@ msgstr ""
 #: form_detail.php:846
 #: includes/addon/class-gf-payment-addon.php:2716
 #: includes/fields/class-gf-field-email.php:13
-#: includes/template-library/templates/templates.php:388
-#: includes/template-library/templates/templates.php:1133
+#: includes/template-library/templates/templates.php:157
+#: includes/template-library/templates/templates.php:733
 #: includes/template-library/templates/templates.php:1457
 #: includes/template-library/templates/templates.php:1928
 #: includes/template-library/templates/templates.php:2662
@@ -3571,7 +3587,7 @@ msgid "Good"
 msgstr ""
 
 #: form_detail.php:1763
-#: form_display.php:3505
+#: form_display.php:3506
 msgid "Strong"
 msgstr ""
 
@@ -4283,99 +4299,99 @@ msgstr ""
 msgid "Save and Continue link used is expired or invalid."
 msgstr ""
 
-#: form_display.php:1253
-#: form_display.php:3902
+#: form_display.php:1254
+#: form_display.php:3903
 msgid "Previous Page"
 msgstr ""
 
-#: form_display.php:1314
+#: form_display.php:1315
 msgid "This iframe contains the logic required to handle Ajax powered Gravity Forms."
 msgstr ""
 
-#: form_display.php:1875
+#: form_display.php:1876
 msgid "Spam Filter"
 msgstr ""
 
-#: form_display.php:1876
+#: form_display.php:1877
 msgid "This entry has been flagged as spam."
 msgstr ""
 
 #. translators: Variable is a complete sentence containing the reason the entry was marked as spam.
-#: form_display.php:1879
+#: form_display.php:1880
 msgid "Reason: %s"
 msgstr ""
 
-#: form_display.php:2250
+#: form_display.php:2251
 msgid "At least one field must be filled out"
 msgstr ""
 
-#: form_display.php:2319
+#: form_display.php:2320
 msgid "This date has already been taken. Please select a new date."
 msgstr ""
 
-#: form_display.php:2323
+#: form_display.php:2324
 msgid "This field requires a unique entry and the values you entered have already been used."
 msgstr ""
 
-#: form_display.php:2324
+#: form_display.php:2325
 msgid "This field requires a unique entry and '%s' has already been used"
 msgstr ""
 
-#: form_display.php:2353
+#: form_display.php:2354
 msgid "Please enter a valid value."
 msgstr ""
 
-#: form_display.php:2353
+#: form_display.php:2354
 msgid "Invalid selection. Please select from the available choices."
 msgstr ""
 
-#: form_display.php:2780
+#: form_display.php:2781
 msgid "All choices are selected."
 msgstr ""
 
-#: form_display.php:2781
+#: form_display.php:2782
 msgid "All choices are unselected."
 msgstr ""
 
-#: form_display.php:3434
+#: form_display.php:3435
 msgid "No results matched"
 msgstr ""
 
-#: form_display.php:3488
-#: form_display.php:4145
+#: form_display.php:3489
+#: form_display.php:4146
 msgid "of"
 msgstr ""
 
-#: form_display.php:3488
+#: form_display.php:3489
 msgid "max characters"
 msgstr ""
 
-#: form_display.php:3505
+#: form_display.php:3506
 #: includes/fields/class-gf-field-password.php:193
 msgid "Strength indicator"
 msgstr ""
 
-#: form_display.php:3505
+#: form_display.php:3506
 msgid "Mismatch"
 msgstr ""
 
-#: form_display.php:3505
+#: form_display.php:3506
 msgid "Password strength unknown"
 msgstr ""
 
-#: form_display.php:3505
+#: form_display.php:3506
 msgid "Weak"
 msgstr ""
 
-#: form_display.php:3505
+#: form_display.php:3506
 msgid "Very weak"
 msgstr ""
 
-#: form_display.php:3908
+#: form_display.php:3909
 msgid "Next Page"
 msgstr ""
 
-#: form_display.php:3909
+#: form_display.php:3910
 #: includes/setup-wizard/config/class-gf-setup-wizard-config-i18n.php:50
 #: includes/template-library/templates/templates.php:2511
 #: includes/template-library/templates/templates.php:2707
@@ -4393,48 +4409,48 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: form_display.php:4145
+#: form_display.php:4146
 msgid "Step"
 msgstr ""
 
-#: form_display.php:4252
+#: form_display.php:4253
 msgid "Sorry. This form is no longer accepting new submissions."
 msgstr ""
 
-#: form_display.php:4273
+#: form_display.php:4274
 msgid "This form is not yet available."
 msgstr ""
 
-#: form_display.php:4279
+#: form_display.php:4280
 msgid "Sorry. This form is no longer available."
 msgstr ""
 
-#: form_display.php:4437
+#: form_display.php:4438
 msgid "Send Link"
 msgstr ""
 
-#: form_display.php:4438
+#: form_display.php:4439
 #: notification.php:293
 msgid "Please enter a valid email address."
 msgstr ""
 
-#: form_display.php:4439
+#: form_display.php:4440
 msgid "Email Address"
 msgstr ""
 
-#: form_display.php:4805
+#: form_display.php:4806
 msgid "Oops! We could not locate your form."
 msgstr ""
 
-#: form_display.php:4836
+#: form_display.php:4837
 msgid "Your form was not submitted. Please try again in a few minutes."
 msgstr ""
 
-#: form_display.php:4838
+#: form_display.php:4839
 msgid "There was a problem with your submission."
 msgstr ""
 
-#: form_display.php:4838
+#: form_display.php:4839
 msgid "Please review the fields below."
 msgstr ""
 
@@ -4492,7 +4508,7 @@ msgstr ""
 #: form_list.php:183
 #: gravityforms.php:1764
 #: gravityforms.php:1769
-#: gravityforms.php:5566
+#: gravityforms.php:5565
 #: includes/class-gf-osdxp.php:236
 #: includes/class-gf-osdxp.php:237
 #: includes/class-personal-data.php:893
@@ -4595,8 +4611,8 @@ msgstr ""
 
 #: form_list.php:537
 #: gravityforms.php:1779
-#: gravityforms.php:5356
-#: gravityforms.php:5615
+#: gravityforms.php:5355
+#: gravityforms.php:5614
 msgid "Entries"
 msgstr ""
 
@@ -5028,7 +5044,7 @@ msgid "New Form - Gravity Forms"
 msgstr ""
 
 #: gravityforms.php:1774
-#: gravityforms.php:5668
+#: gravityforms.php:5667
 msgid "New Form"
 msgstr ""
 
@@ -5042,8 +5058,8 @@ msgstr ""
 
 #: gravityforms.php:1793
 #: gravityforms.php:2249
-#: gravityforms.php:5340
-#: gravityforms.php:5626
+#: gravityforms.php:5339
+#: gravityforms.php:5625
 #: includes/addon/class-gf-addon.php:4484
 #: includes/addon/class-gf-addon.php:4762
 #: includes/addon/class-gf-addon.php:4935
@@ -5189,83 +5205,83 @@ msgstr ""
 msgid "Dismiss"
 msgstr ""
 
-#: gravityforms.php:3155
-#: gravityforms.php:5811
+#: gravityforms.php:3154
+#: gravityforms.php:5810
 msgid "Enable auto-updates"
 msgstr ""
 
-#: gravityforms.php:3156
-#: gravityforms.php:5807
+#: gravityforms.php:3155
+#: gravityforms.php:5806
 msgid "Disable auto-updates"
 msgstr ""
 
-#: gravityforms.php:3175
+#: gravityforms.php:3174
 msgid "Please select a form."
 msgstr ""
 
-#: gravityforms.php:3176
+#: gravityforms.php:3175
 msgid "Failed to load the preview for this form."
 msgstr ""
 
-#: gravityforms.php:3554
+#: gravityforms.php:3553
 msgid "Logging disabled."
 msgstr ""
 
-#: gravityforms.php:3556
+#: gravityforms.php:3555
 msgid "Unable to disable logging."
 msgstr ""
 
-#: gravityforms.php:3580
+#: gravityforms.php:3579
 msgid "Finished"
 msgstr ""
 
-#: gravityforms.php:3652
+#: gravityforms.php:3651
 msgid "Add-On browser is currently unavailable. Please try again later."
 msgstr ""
 
-#: gravityforms.php:4075
+#: gravityforms.php:4074
 msgid "There was an error while resending the notifications."
 msgstr ""
 
-#: gravityforms.php:4081
+#: gravityforms.php:4080
 msgid "No notifications have been selected. Please select a notification to be sent."
 msgstr ""
 
-#: gravityforms.php:4085
+#: gravityforms.php:4084
 msgid "The %sSend To%s email address provided is not valid."
 msgstr ""
 
-#: gravityforms.php:4682
-#: gravityforms.php:4698
+#: gravityforms.php:4681
+#: gravityforms.php:4697
 msgid "Oops! There was an error saving the form title. Please refresh the page and try again."
 msgstr ""
 
-#: gravityforms.php:4777
+#: gravityforms.php:4776
 msgid "Select a different form"
 msgstr ""
 
-#: gravityforms.php:4797
+#: gravityforms.php:4796
 msgid "Search forms"
 msgstr ""
 
-#: gravityforms.php:4801
+#: gravityforms.php:4800
 msgid "Search for form"
 msgstr ""
 
+#: gravityforms.php:5326
 #: gravityforms.php:5327
-#: gravityforms.php:5328
 msgid "Editor"
 msgstr ""
 
-#: gravityforms.php:5341
+#: gravityforms.php:5340
 msgid "Edit settings for this form"
 msgstr ""
 
-#: gravityforms.php:5357
+#: gravityforms.php:5356
 msgid "View entries generated by this form"
 msgstr ""
 
-#: gravityforms.php:5543
+#: gravityforms.php:5542
 #: widget.php:38
 #: assets/js/dist/scripts-admin.js:1
 #: assets/js/src/admin/block-editor/blocks/form/edit.js:266
@@ -5273,108 +5289,108 @@ msgstr ""
 msgid "Form"
 msgstr ""
 
-#: gravityforms.php:5581
+#: gravityforms.php:5580
 msgid "Recent"
 msgstr ""
 
-#: gravityforms.php:5657
+#: gravityforms.php:5656
 msgid "All Forms"
 msgstr ""
 
-#: gravityforms.php:5788
+#: gravityforms.php:5787
 msgid "Auto-updates unavailable."
 msgstr ""
 
-#: gravityforms.php:5845
+#: gravityforms.php:5844
 msgid "Please register your copy of Gravity Forms to enable automatic updates."
 msgstr ""
 
-#: gravityforms.php:5875
+#: gravityforms.php:5874
 msgid "Permissions error."
 msgstr ""
 
-#: gravityforms.php:5880
+#: gravityforms.php:5879
 msgid "Error processing request.  Please refresh and try again."
 msgstr ""
 
-#: gravityforms.php:5942
+#: gravityforms.php:5941
 #: includes/locking/class-gf-locking.php:209
 msgid "Error"
 msgstr ""
 
-#: gravityforms.php:6095
+#: gravityforms.php:6094
 msgid "Select a form below to add it to your post or page."
 msgstr ""
 
-#: gravityforms.php:6096
+#: gravityforms.php:6095
 msgid "Select a form from the list to add it to your post or page."
 msgstr ""
 
-#: gravityforms.php:6100
+#: gravityforms.php:6099
 msgid "Can't find your form? Make sure it is active."
 msgstr ""
 
-#: gravityforms.php:6104
+#: gravityforms.php:6103
 #: widget.php:158
 msgid "Display form title"
 msgstr ""
 
-#: gravityforms.php:6109
+#: gravityforms.php:6108
 msgid "Whether or not to display the form title."
 msgstr ""
 
-#: gravityforms.php:6112
+#: gravityforms.php:6111
 #: widget.php:160
 msgid "Display form description"
 msgstr ""
 
-#: gravityforms.php:6117
+#: gravityforms.php:6116
 msgid "Whether or not to display the form description."
 msgstr ""
 
-#: gravityforms.php:6120
+#: gravityforms.php:6119
 #: widget.php:167
 msgid "Enable Ajax"
 msgstr ""
 
-#: gravityforms.php:6124
+#: gravityforms.php:6123
 msgid "Specify whether or not to use Ajax to submit the form."
 msgstr ""
 
-#: gravityforms.php:6130
+#: gravityforms.php:6129
 msgid "Specify the starting tab index for the fields of this form."
 msgstr ""
 
-#: gravityforms.php:6145
+#: gravityforms.php:6144
 msgid "Select an action"
 msgstr ""
 
-#: gravityforms.php:6157
+#: gravityforms.php:6156
 msgid "Select an action for this shortcode. Actions are added by some add-ons."
 msgstr ""
 
-#: gravityforms.php:6243
+#: gravityforms.php:6242
 msgid "Gravity Forms logging is currently enabled. "
 msgstr ""
 
-#: gravityforms.php:6244
+#: gravityforms.php:6243
 msgid "If you currently have a support ticket open, please do not disable logging until the Support Team has reviewed your logs. "
 msgstr ""
 
-#: gravityforms.php:6245
+#: gravityforms.php:6244
 msgid "Since logs may contain sensitive information, please ensure that you only leave it enabled for as long as it is needed for troubleshooting. "
 msgstr ""
 
-#: gravityforms.php:6247
+#: gravityforms.php:6246
 msgid "Once troubleshooting is complete, %1$sclick here to disable logging and permanently delete your log files.%2$s "
 msgstr ""
 
-#: gravityforms.php:6353
+#: gravityforms.php:6352
 msgid "Forms per page"
 msgstr ""
 
 #. translators: 1: The table name 2: the URL with further details
-#: gravityforms.php:6662
+#: gravityforms.php:6661
 msgid "An outdated add-on or custom code is attempting to access the %1$s table which is not valid in this version of Gravity Forms. Update your add-ons and custom code to prevent loss of form data. Further details: %2$s"
 msgstr ""
 
@@ -5914,7 +5930,7 @@ msgstr ""
 #: includes/addon/class-gf-payment-addon.php:2406
 #: includes/class-confirmation.php:873
 #: includes/fields/class-gf-field-name.php:58
-#: includes/template-library/templates/templates.php:1009
+#: includes/template-library/templates/templates.php:33
 #: includes/template-library/templates/templates.php:1346
 #: includes/template-library/templates/templates.php:1805
 #: includes/template-library/templates/templates.php:2345
@@ -6087,7 +6103,7 @@ msgstr ""
 #: includes/fields/class-gf-field-address.php:211
 #: includes/settings/fields/class-field-select.php:147
 #: includes/settings/fields/class-generic-map.php:339
-#: includes/template-library/templates/templates.php:270
+#: includes/template-library/templates/templates.php:615
 #: includes/template-library/templates/templates.php:2772
 #: includes/template-library/templates/templates.php:2859
 #: includes/template-library/templates/templates.php:3687
@@ -6112,7 +6128,7 @@ msgstr ""
 #: includes/fields/class-gf-field-address.php:215
 #: includes/settings/fields/class-field-select.php:150
 #: includes/settings/fields/class-generic-map.php:342
-#: includes/template-library/templates/templates.php:289
+#: includes/template-library/templates/templates.php:634
 #: includes/template-library/templates/templates.php:2790
 #: includes/template-library/templates/templates.php:2877
 #: includes/template-library/templates/templates.php:3705
@@ -7172,7 +7188,7 @@ msgid "Zip Code"
 msgstr ""
 
 #: includes/fields/class-gf-field-address.php:205
-#: includes/template-library/templates/templates.php:258
+#: includes/template-library/templates/templates.php:603
 #: includes/template-library/templates/templates.php:2760
 #: includes/template-library/templates/templates.php:2847
 #: includes/template-library/templates/templates.php:3675
@@ -7188,7 +7204,7 @@ msgid "Street Address"
 msgstr ""
 
 #: includes/fields/class-gf-field-address.php:207
-#: includes/template-library/templates/templates.php:264
+#: includes/template-library/templates/templates.php:609
 #: includes/template-library/templates/templates.php:2766
 #: includes/template-library/templates/templates.php:2853
 #: includes/template-library/templates/templates.php:3681
@@ -8846,8 +8862,8 @@ msgid "Your emails do not match."
 msgstr ""
 
 #: includes/fields/class-gf-field-email.php:149
-#: includes/template-library/templates/templates.php:440
-#: includes/template-library/templates/templates.php:1140
+#: includes/template-library/templates/templates.php:164
+#: includes/template-library/templates/templates.php:785
 #: includes/template-library/templates/templates.php:1466
 #: includes/template-library/templates/templates.php:1937
 #: includes/template-library/templates/templates.php:5179
@@ -8864,8 +8880,8 @@ msgid "Enter Email"
 msgstr ""
 
 #: includes/fields/class-gf-field-email.php:151
-#: includes/template-library/templates/templates.php:448
-#: includes/template-library/templates/templates.php:1146
+#: includes/template-library/templates/templates.php:170
+#: includes/template-library/templates/templates.php:793
 #: includes/template-library/templates/templates.php:1472
 #: includes/template-library/templates/templates.php:1943
 #: includes/template-library/templates/templates.php:5186
@@ -9024,8 +9040,8 @@ msgid "Allows users to enter their name in the format you have specified."
 msgstr ""
 
 #: includes/fields/class-gf-field-name.php:274
-#: includes/template-library/templates/templates.php:131
-#: includes/template-library/templates/templates.php:1013
+#: includes/template-library/templates/templates.php:37
+#: includes/template-library/templates/templates.php:476
 #: includes/template-library/templates/templates.php:1356
 #: includes/template-library/templates/templates.php:1815
 #: includes/template-library/templates/templates.php:2556
@@ -9046,8 +9062,8 @@ msgstr ""
 
 #: includes/fields/class-gf-field-name.php:275
 #: includes/fields/class-gf-field-name.php:396
-#: includes/template-library/templates/templates.php:183
-#: includes/template-library/templates/templates.php:1065
+#: includes/template-library/templates/templates.php:89
+#: includes/template-library/templates/templates.php:528
 #: includes/template-library/templates/templates.php:1394
 #: includes/template-library/templates/templates.php:1867
 #: includes/template-library/templates/templates.php:2608
@@ -9067,8 +9083,8 @@ msgid "First"
 msgstr ""
 
 #: includes/fields/class-gf-field-name.php:276
-#: includes/template-library/templates/templates.php:190
-#: includes/template-library/templates/templates.php:1072
+#: includes/template-library/templates/templates.php:96
+#: includes/template-library/templates/templates.php:535
 #: includes/template-library/templates/templates.php:1400
 #: includes/template-library/templates/templates.php:1873
 #: includes/template-library/templates/templates.php:2614
@@ -9089,8 +9105,8 @@ msgstr ""
 
 #: includes/fields/class-gf-field-name.php:277
 #: includes/fields/class-gf-field-name.php:397
-#: includes/template-library/templates/templates.php:197
-#: includes/template-library/templates/templates.php:1079
+#: includes/template-library/templates/templates.php:103
+#: includes/template-library/templates/templates.php:542
 #: includes/template-library/templates/templates.php:1407
 #: includes/template-library/templates/templates.php:1880
 #: includes/template-library/templates/templates.php:2621
@@ -9110,8 +9126,8 @@ msgid "Last"
 msgstr ""
 
 #: includes/fields/class-gf-field-name.php:278
-#: includes/template-library/templates/templates.php:204
-#: includes/template-library/templates/templates.php:1086
+#: includes/template-library/templates/templates.php:110
+#: includes/template-library/templates/templates.php:549
 #: includes/template-library/templates/templates.php:1413
 #: includes/template-library/templates/templates.php:1886
 #: includes/template-library/templates/templates.php:2627
@@ -10959,37 +10975,20 @@ msgid "Quickly create an amazing form by using a pre-made template, or start fro
 msgstr ""
 
 #: includes/template-library/templates/templates.php:5
-msgid "An advanced contact form."
+msgid "A simple and basic contact form with only two fields"
 msgstr ""
 
 #: includes/template-library/templates/templates.php:6
 #: includes/template-library/templates/templates.php:17
-msgid "Advanced Contact Form"
+msgid "Simple Contact Form"
 msgstr ""
 
-#: includes/template-library/templates/templates.php:30
-#: includes/template-library/templates/templates.php:8263
-#: includes/template-library/templates/templates.php:8624
-msgid "Next Steps: Sync an Email Add-On"
+#: includes/template-library/templates/templates.php:18
+msgid "Please get in contact using the form below..."
 msgstr ""
 
-#: includes/template-library/templates/templates.php:39
-#: includes/template-library/templates/templates.php:8271
-msgid "To get the most out of your form, we suggest that you sync this form with an email add-on. To learn more about your email add-on options, visit the following page (https://www.gravityforms.com/the-8-best-email-plugins-for-wordpress-in-2020/). Important: Delete this tip before you publish the form."
-msgstr ""
-
-#: includes/template-library/templates/templates.php:83
-msgid "About You"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:127
-#: includes/template-library/templates/templates.php:5045
-#: includes/template-library/templates/templates.php:7335
-msgid "Your Name"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:136
-#: includes/template-library/templates/templates.php:1018
+#: includes/template-library/templates/templates.php:42
+#: includes/template-library/templates/templates.php:481
 #: includes/template-library/templates/templates.php:1369
 #: includes/template-library/templates/templates.php:1820
 #: includes/template-library/templates/templates.php:2561
@@ -11007,8 +11006,8 @@ msgstr ""
 msgid "Mr."
 msgstr ""
 
-#: includes/template-library/templates/templates.php:142
-#: includes/template-library/templates/templates.php:1024
+#: includes/template-library/templates/templates.php:48
+#: includes/template-library/templates/templates.php:487
 #: includes/template-library/templates/templates.php:1373
 #: includes/template-library/templates/templates.php:1826
 #: includes/template-library/templates/templates.php:2567
@@ -11026,8 +11025,8 @@ msgstr ""
 msgid "Mrs."
 msgstr ""
 
-#: includes/template-library/templates/templates.php:148
-#: includes/template-library/templates/templates.php:1030
+#: includes/template-library/templates/templates.php:54
+#: includes/template-library/templates/templates.php:493
 #: includes/template-library/templates/templates.php:1365
 #: includes/template-library/templates/templates.php:1832
 #: includes/template-library/templates/templates.php:2573
@@ -11045,8 +11044,8 @@ msgstr ""
 msgid "Miss"
 msgstr ""
 
-#: includes/template-library/templates/templates.php:154
-#: includes/template-library/templates/templates.php:1036
+#: includes/template-library/templates/templates.php:60
+#: includes/template-library/templates/templates.php:499
 #: includes/template-library/templates/templates.php:1377
 #: includes/template-library/templates/templates.php:1838
 #: includes/template-library/templates/templates.php:2579
@@ -11064,8 +11063,8 @@ msgstr ""
 msgid "Ms."
 msgstr ""
 
-#: includes/template-library/templates/templates.php:160
-#: includes/template-library/templates/templates.php:1042
+#: includes/template-library/templates/templates.php:66
+#: includes/template-library/templates/templates.php:505
 #: includes/template-library/templates/templates.php:1361
 #: includes/template-library/templates/templates.php:1844
 #: includes/template-library/templates/templates.php:2585
@@ -11083,8 +11082,8 @@ msgstr ""
 msgid "Dr."
 msgstr ""
 
-#: includes/template-library/templates/templates.php:166
-#: includes/template-library/templates/templates.php:1048
+#: includes/template-library/templates/templates.php:72
+#: includes/template-library/templates/templates.php:511
 #: includes/template-library/templates/templates.php:1381
 #: includes/template-library/templates/templates.php:1850
 #: includes/template-library/templates/templates.php:2591
@@ -11102,8 +11101,8 @@ msgstr ""
 msgid "Prof."
 msgstr ""
 
-#: includes/template-library/templates/templates.php:172
-#: includes/template-library/templates/templates.php:1054
+#: includes/template-library/templates/templates.php:78
+#: includes/template-library/templates/templates.php:517
 #: includes/template-library/templates/templates.php:1385
 #: includes/template-library/templates/templates.php:1856
 #: includes/template-library/templates/templates.php:2597
@@ -11121,266 +11120,17 @@ msgstr ""
 msgid "Rev."
 msgstr ""
 
-#: includes/template-library/templates/templates.php:252
-msgid "Your Address"
+#: includes/template-library/templates/templates.php:212
+msgid "Comments"
 msgstr ""
 
-#: includes/template-library/templates/templates.php:276
-#: includes/template-library/templates/templates.php:2778
-#: includes/template-library/templates/templates.php:2865
-#: includes/template-library/templates/templates.php:3693
-#: includes/template-library/templates/templates.php:3780
-#: includes/template-library/templates/templates.php:4556
-#: includes/template-library/templates/templates.php:4643
-#: includes/template-library/templates/templates.php:5258
-#: includes/template-library/templates/templates.php:6499
-#: includes/template-library/templates/templates.php:7752
-#: includes/template-library/templates/templates.php:8882
-#: js.php:745
-msgid "State / Province"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:283
-msgid "Zip / Postal Code"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:342
-msgid "We would love to chat with you. How can we get in touch?"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:343
-msgid "How Can We Reach You?"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:385
-msgid "Preferred Method of Contact"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:432
-#: includes/template-library/templates/templates.php:5171
-msgid "Your Email Address"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:495
-#: includes/template-library/templates/templates.php:5309
-msgid "Your Phone"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:548
-msgid "Best Time to Call You"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:552
-msgid "Select A Time"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:556
-msgid "12:00 am"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:560
-msgid "12:30 am"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:564
-msgid "1:00 am"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:568
-msgid "1:30 am"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:572
-msgid "2:00 am"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:576
-msgid "2:30 am"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:580
-msgid "3:00 am"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:584
-msgid "3:30 am"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:588
-msgid "4:00 am"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:592
-msgid "4:30 am"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:596
-msgid "5:00 am"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:600
-msgid "5:30 am"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:604
-msgid "6:00 am"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:608
-msgid "6:30 am"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:612
-msgid "7:00 am"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:616
-msgid "7:30 am"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:620
-msgid "8:00 am"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:624
-msgid "8:30 am"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:628
-msgid "9:00 am"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:632
-msgid "9:30 am"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:636
-msgid "10:00 am"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:640
-msgid "10:30 am"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:644
-msgid "11:00 am"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:648
-msgid "11:30 am"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:652
-msgid "12:00 pm"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:656
-msgid "12:30 pm"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:660
-msgid "1:00 pm"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:664
-msgid "1:30 pm"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:668
-msgid "2:00 pm"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:672
-msgid "2:30 pm"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:676
-msgid "3:00 pm"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:680
-msgid "3:30 pm"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:684
-msgid "4:00 pm"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:688
-msgid "4:30 pm"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:692
-msgid "5:00 pm"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:696
-msgid "5:30 pm"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:700
-msgid "6:00 pm"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:704
-msgid "6:30 pm"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:708
-msgid "7:00 pm"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:712
-msgid "7:30 pm"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:716
-msgid "8:00 pm"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:720
-msgid "8:30 pm"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:724
-msgid "9:00 pm"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:728
-msgid "9:30 pm"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:732
-msgid "10:00 pm"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:736
-msgid "10:30 pm"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:740
-msgid "11:00 pm"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:744
-msgid "11:30 pm"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:800
-#: includes/template-library/templates/templates.php:1213
+#: includes/template-library/templates/templates.php:237
+#: includes/template-library/templates/templates.php:1145
 msgid "Please let us know what's on your mind. Have a question for us? Ask away."
 msgstr ""
 
-#: includes/template-library/templates/templates.php:801
-msgid "What's on your mind?"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:844
-msgid "Your Comments/Questions"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:915
-#: includes/template-library/templates/templates.php:1245
+#: includes/template-library/templates/templates.php:269
+#: includes/template-library/templates/templates.php:1260
 #: includes/template-library/templates/templates.php:1671
 #: includes/template-library/templates/templates.php:2217
 #: includes/template-library/templates/templates.php:3165
@@ -11397,33 +11147,18 @@ msgstr ""
 msgid "Save and Continue Later"
 msgstr ""
 
-#: includes/template-library/templates/templates.php:946
-#: includes/template-library/templates/templates.php:1302
-#: includes/template-library/templates/templates.php:7232
-#: includes/template-library/templates/templates.php:9138
-#: includes/template-library/templates/templates.php:10238
-#: tests/unit-tests/save-form/test-form-crud-handler.php:176
-#: tests/unit-tests/save-form/test-form-crud-handler.php:295
-#: tests/unit-tests/save-form/test-form-crud-handler.php:597
-#: tests/unit-tests/save-form/test-form-crud-handler.php:809
-#: tests/unit-tests/save-form/test-form-crud-handler.php:852
-#: tests/unit-tests/save-form/test-form-crud-handler.php:912
-#: tests/unit-tests/save-form/test-form-crud-handler.php:955
-msgid "Thank you for contacting us! We will get in touch with you shortly."
-msgstr ""
-
-#: includes/template-library/templates/templates.php:956
-#: includes/template-library/templates/templates.php:1277
+#: includes/template-library/templates/templates.php:301
+#: includes/template-library/templates/templates.php:1301
 msgid "We have received your inquiry"
 msgstr ""
 
-#: includes/template-library/templates/templates.php:957
-#: includes/template-library/templates/templates.php:1278
+#: includes/template-library/templates/templates.php:302
+#: includes/template-library/templates/templates.php:1302
 msgid "<p>Hi there {Name (First):1.3},</p><p>Thank you for getting in touch. We have received your inquiry and will get back to you within one business day.</p>"
 msgstr ""
 
-#: includes/template-library/templates/templates.php:968
-#: includes/template-library/templates/templates.php:1289
+#: includes/template-library/templates/templates.php:313
+#: includes/template-library/templates/templates.php:1313
 #: includes/template-library/templates/templates.php:1711
 #: includes/template-library/templates/templates.php:3209
 #: includes/template-library/templates/templates.php:4073
@@ -11437,25 +11172,306 @@ msgstr ""
 msgid "New submission from {form_title}"
 msgstr ""
 
-#: includes/template-library/templates/templates.php:981
-msgid "A simple and basic contact form with only two fields"
+#: includes/template-library/templates/templates.php:326
+#: includes/template-library/templates/templates.php:1291
+#: includes/template-library/templates/templates.php:7232
+#: includes/template-library/templates/templates.php:9138
+#: includes/template-library/templates/templates.php:10238
+#: tests/unit-tests/save-form/test-form-crud-handler.php:176
+#: tests/unit-tests/save-form/test-form-crud-handler.php:295
+#: tests/unit-tests/save-form/test-form-crud-handler.php:597
+#: tests/unit-tests/save-form/test-form-crud-handler.php:809
+#: tests/unit-tests/save-form/test-form-crud-handler.php:852
+#: tests/unit-tests/save-form/test-form-crud-handler.php:912
+#: tests/unit-tests/save-form/test-form-crud-handler.php:955
+msgid "Thank you for contacting us! We will get in touch with you shortly."
 msgstr ""
 
-#: includes/template-library/templates/templates.php:982
-#: includes/template-library/templates/templates.php:993
-msgid "Simple Contact Form"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:994
-msgid "Please get in contact using the form below..."
-msgstr ""
-
-#: includes/template-library/templates/templates.php:1188
-msgid "Comments"
-msgstr ""
-
-#: includes/template-library/templates/templates.php:1315
+#: includes/template-library/templates/templates.php:339
 msgid "Hi there {Name (First):1.3}. We received the following information from you and will respond to your inquiry as quickly as possible."
+msgstr ""
+
+#: includes/template-library/templates/templates.php:350
+msgid "An advanced contact form."
+msgstr ""
+
+#: includes/template-library/templates/templates.php:351
+#: includes/template-library/templates/templates.php:362
+msgid "Advanced Contact Form"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:375
+#: includes/template-library/templates/templates.php:8263
+#: includes/template-library/templates/templates.php:8624
+msgid "Next Steps: Sync an Email Add-On"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:384
+#: includes/template-library/templates/templates.php:8271
+msgid "To get the most out of your form, we suggest that you sync this form with an email add-on. To learn more about your email add-on options, visit the following page (https://www.gravityforms.com/the-8-best-email-plugins-for-wordpress-in-2020/). Important: Delete this tip before you publish the form."
+msgstr ""
+
+#: includes/template-library/templates/templates.php:428
+msgid "About You"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:472
+#: includes/template-library/templates/templates.php:5045
+#: includes/template-library/templates/templates.php:7335
+msgid "Your Name"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:597
+msgid "Your Address"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:621
+#: includes/template-library/templates/templates.php:2778
+#: includes/template-library/templates/templates.php:2865
+#: includes/template-library/templates/templates.php:3693
+#: includes/template-library/templates/templates.php:3780
+#: includes/template-library/templates/templates.php:4556
+#: includes/template-library/templates/templates.php:4643
+#: includes/template-library/templates/templates.php:5258
+#: includes/template-library/templates/templates.php:6499
+#: includes/template-library/templates/templates.php:7752
+#: includes/template-library/templates/templates.php:8882
+#: js.php:745
+msgid "State / Province"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:628
+msgid "Zip / Postal Code"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:687
+msgid "We would love to chat with you. How can we get in touch?"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:688
+msgid "How Can We Reach You?"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:730
+msgid "Preferred Method of Contact"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:777
+#: includes/template-library/templates/templates.php:5171
+msgid "Your Email Address"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:840
+#: includes/template-library/templates/templates.php:5309
+msgid "Your Phone"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:893
+msgid "Best Time to Call You"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:897
+msgid "Select A Time"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:901
+msgid "12:00 am"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:905
+msgid "12:30 am"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:909
+msgid "1:00 am"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:913
+msgid "1:30 am"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:917
+msgid "2:00 am"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:921
+msgid "2:30 am"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:925
+msgid "3:00 am"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:929
+msgid "3:30 am"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:933
+msgid "4:00 am"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:937
+msgid "4:30 am"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:941
+msgid "5:00 am"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:945
+msgid "5:30 am"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:949
+msgid "6:00 am"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:953
+msgid "6:30 am"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:957
+msgid "7:00 am"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:961
+msgid "7:30 am"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:965
+msgid "8:00 am"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:969
+msgid "8:30 am"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:973
+msgid "9:00 am"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:977
+msgid "9:30 am"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:981
+msgid "10:00 am"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:985
+msgid "10:30 am"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:989
+msgid "11:00 am"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:993
+msgid "11:30 am"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:997
+msgid "12:00 pm"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1001
+msgid "12:30 pm"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1005
+msgid "1:00 pm"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1009
+msgid "1:30 pm"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1013
+msgid "2:00 pm"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1017
+msgid "2:30 pm"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1021
+msgid "3:00 pm"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1025
+msgid "3:30 pm"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1029
+msgid "4:00 pm"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1033
+msgid "4:30 pm"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1037
+msgid "5:00 pm"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1041
+msgid "5:30 pm"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1045
+msgid "6:00 pm"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1049
+msgid "6:30 pm"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1053
+msgid "7:00 pm"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1057
+msgid "7:30 pm"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1061
+msgid "8:00 pm"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1065
+msgid "8:30 pm"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1069
+msgid "9:00 pm"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1073
+msgid "9:30 pm"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1077
+msgid "10:00 pm"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1081
+msgid "10:30 pm"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1085
+msgid "11:00 pm"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1089
+msgid "11:30 pm"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1146
+msgid "What's on your mind?"
+msgstr ""
+
+#: includes/template-library/templates/templates.php:1189
+msgid "Your Comments/Questions"
 msgstr ""
 
 #: includes/template-library/templates/templates.php:1326

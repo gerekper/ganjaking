@@ -37,7 +37,9 @@ class BetterDocs_REST_Controller {
             'callback'  => function () {
                 return get_option('betterdocs_settings');
             },
-            'permission_callback' => '__return_true'
+            'permission_callback' => function() {
+                return current_user_can('edit_others_posts');
+            }
         ));
 
         register_rest_route( $this->namespace, '/overview/', array(
@@ -52,28 +54,45 @@ class BetterDocs_REST_Controller {
                         ")
                 );
             },
-            'permission_callback' => '__return_true'
+            'permission_callback' => function() {
+                return current_user_can('edit_others_posts');
+            }
         ));
 
         register_rest_route( $this->namespace, '/feedbacks', array(
             'methods'   => [ 'GET' ],
             'callback'  => array( $this, 'fetch_feedbacks' ),
-            'permission_callback' => '__return_true'
+            'permission_callback' => function() {
+                return current_user_can('edit_others_posts');
+            }
         ));
         register_rest_route( $this->namespace, '/feedbacks/(?P<type>\S+)', array(
             'methods'   => [ 'GET' ],
             'callback'  => array( $this, 'fetch_feedbacks' ),
-            'permission_callback' => '__return_true'
+            'permission_callback' => function() {
+                return current_user_can('edit_others_posts');
+            }
         ));
         register_rest_route( $this->namespace, '/search/(?P<type>\S+)', array(
             'methods'   => [ 'GET' ],
             'callback'  => array($this, 'fetch_search_data'),
-            'permission_callback' => '__return_true'
+            'permission_callback' => function() {
+                return current_user_can('edit_others_posts');
+            }
         ));
         register_rest_route( $this->namespace, '/leading_docs', array(
             'methods'   => [ 'GET' ],
             'callback'  => array( $this, 'leading_docs' ),
-            'permission_callback' => '__return_true'
+            'permission_callback' => function() {
+                return current_user_can('edit_others_posts');
+            }
+        ));
+        register_rest_route( $this->namespace, '/leading_docs/(?P<type>\S+)', array(
+            'methods'   => [ 'GET' ],
+            'callback'  => array( $this, 'leading_docs' ),
+            'permission_callback' => function() {
+                return current_user_can('edit_others_posts');
+            }
         ));
 
         /**
@@ -84,7 +103,9 @@ class BetterDocs_REST_Controller {
         register_rest_route( $this->namespace, '/leading(?P<type>\S+)', array(
             'methods'   => [ 'GET' ],
             'callback'  => array( $this, 'get_leading_category' ),
-            'permission_callback' => '__return_true'
+            'permission_callback' => function() {
+                return current_user_can('edit_others_posts');
+            }
         ));
 
     }
@@ -142,11 +163,20 @@ class BetterDocs_REST_Controller {
 
     public function fetch_search_data($params) {
         global $wpdb;
+        $results = array();
         $type = $params->get_param('type');
         $start_date = ($params->get_param('start_date')) ? $params->get_param('start_date') : '';
         $end_date = ($params->get_param('end_date')) ? $params->get_param('end_date') : '';
         $join = "FROM {$wpdb->prefix}betterdocs_search_keyword as search_keyword 
                 JOIN {$wpdb->prefix}betterdocs_search_log as search_log on search_keyword.id = search_log.keyword_id";
+
+        if ($start_date && $end_date) {
+            $where_count = "WHERE count > 0 AND search_log.created_at BETWEEN '".$start_date."' AND '".$end_date."'";
+            $where_not_found_count = "WHERE not_found_count > 0 AND search_log.created_at BETWEEN '".$start_date."' AND '".$end_date."'";
+        } else {
+            $where_count = "WHERE count > 0";
+            $where_not_found_count = "WHERE not_found_count > 0";
+        }
 
         if ($type == 'not_found') {
             $select = "SELECT search_keyword.keyword, SUM(search_log.not_found_count) as not_found_count";
@@ -155,7 +185,7 @@ class BetterDocs_REST_Controller {
                 $wpdb->prepare("
                     {$select}
                     {$join}
-                    WHERE not_found_count > 0
+                    {$where_not_found_count}
                     GROUP BY search_log.keyword_id
                 ")
             ));
@@ -166,7 +196,7 @@ class BetterDocs_REST_Controller {
                 $wpdb->prepare("
                     {$select}
                     {$join}
-                    WHERE count > 0
+                    {$where_count}
                     GROUP BY search_log.keyword_id
                 ")
             ));
@@ -176,14 +206,14 @@ class BetterDocs_REST_Controller {
         $total_page = ceil($count / $per_page);
         $page_now = ($params->get_param('page_now')) ? $params->get_param('page_now') : 1;
         $offset = ($page_now * $per_page) - $per_page;
-        $paging = "ORDER BY ${orderby} DESC LIMIT ${offset}, ${per_page}";
+        $paging = "ORDER BY {$orderby} DESC LIMIT {$offset}, {$per_page}";
 
         if ($type == 'not_found') {
             $results = $wpdb->get_results(
                 $wpdb->prepare("
                     {$select}
                     {$join}
-                    WHERE not_found_count > 0
+                    {$where_not_found_count}
                     GROUP BY search_log.keyword_id
                     {$paging}
                 ")
@@ -193,7 +223,7 @@ class BetterDocs_REST_Controller {
                 $wpdb->prepare("
                     {$select}
                     {$join}
-                    WHERE count > 0
+                    {$where_count}
                     GROUP BY search_log.keyword_id
                     {$paging}
                 ")
@@ -278,10 +308,19 @@ class BetterDocs_REST_Controller {
 
         if (!empty($type) && $type == 'docs') {
             $orderby = ($params->get_param('orderby')) ? $params->get_param('orderby') : 'most_helpful';
+            
             if ($orderby == 'least_helpful') {
-                $where = "WHERE docs.post_type = 'docs' AND docs.post_status = 'publish' AND sad > 0";
+                if ($start_date && $end_date) {
+                    $where = "WHERE docs.post_type = 'docs' AND docs.post_status = 'publish' AND sad > 0 AND analytics.created_at BETWEEN '".$start_date."' AND '".$end_date."'";
+                } else {
+                    $where = "WHERE docs.post_type = 'docs' AND docs.post_status = 'publish' AND sad > 0";
+                }
             } else {
-                $where = "WHERE docs.post_type = 'docs' AND docs.post_status = 'publish' AND happy > 0";
+                if ($start_date && $end_date) {
+                    $where = "WHERE docs.post_type = 'docs' AND docs.post_status = 'publish' AND happy > 0 AND analytics.created_at BETWEEN '".$start_date."' AND '".$end_date."'";
+                } else {
+                    $where = "WHERE docs.post_type = 'docs' AND docs.post_status = 'publish' AND happy > 0";
+                }
             }
 
             $count = count($wpdb->get_results(
@@ -298,9 +337,9 @@ class BetterDocs_REST_Controller {
             $offset = ($page_now * $per_page) - $per_page;
 
             if ($orderby == 'least_helpful') {
-                $paging = "ORDER BY sad DESC LIMIT ${offset}, ${per_page}";
+                $paging = "ORDER BY sad DESC LIMIT {$offset}, {$per_page}";
             } else {
-                $paging = "ORDER BY happy DESC LIMIT ${offset}, ${per_page}";
+                $paging = "ORDER BY happy DESC LIMIT {$offset}, {$per_page}";
             }
 
             $select = "SELECT analytics.post_id, docs.post_title, sum(analytics.happy) as happy, sum(analytics.sad) as sad, sum(analytics.normal) as normal";
@@ -441,6 +480,8 @@ class BetterDocs_REST_Controller {
 
     public function get_leading_category($params) {
         $type = $params->get_param('type');
+        $start_date = ($params->get_param('start_date')) ? $params->get_param('start_date') : '';
+        $end_date = ($params->get_param('end_date')) ? $params->get_param('end_date') : '';
 
         if (!empty($type) && $type == '_category') {
             $term = 'doc_category';
@@ -457,14 +498,22 @@ class BetterDocs_REST_Controller {
                 JOIN {$wpdb->prefix}betterdocs_analytics on {$wpdb->prefix}term_relationships.object_id = {$wpdb->prefix}betterdocs_analytics.post_id
                 JOIN {$wpdb->prefix}terms on {$wpdb->prefix}term_relationships.term_taxonomy_id = {$wpdb->prefix}terms.term_id
                 JOIN {$wpdb->prefix}term_taxonomy on {$wpdb->prefix}terms.term_id = {$wpdb->prefix}term_taxonomy.term_id
-                JOIN {$wpdb->prefix}posts on {$wpdb->prefix}posts.ID = {$wpdb->prefix}betterdocs_analytics.post_id
-                WHERE {$wpdb->prefix}postmeta.meta_key = '_betterdocs_meta_views' && {$wpdb->prefix}posts.post_status = 'publish'
-                AND {$wpdb->prefix}term_taxonomy.taxonomy = '".$term."'";
+                JOIN {$wpdb->prefix}posts on {$wpdb->prefix}posts.ID = {$wpdb->prefix}betterdocs_analytics.post_id";
+
+              
+
+        if ( $start_date && $end_date ) {
+            $where = "WHERE {$wpdb->prefix}postmeta.meta_key = '_betterdocs_meta_views' AND {$wpdb->prefix}posts.post_status = 'publish' AND {$wpdb->prefix}term_taxonomy.taxonomy = '".$term."' 
+            AND {$wpdb->prefix}betterdocs_analytics.created_at BETWEEN '".$start_date."' AND '".$end_date."'";       
+        } else {
+            $where = "WHERE {$wpdb->prefix}postmeta.meta_key = '_betterdocs_meta_views' AND {$wpdb->prefix}posts.post_status = 'publish' AND {$wpdb->prefix}term_taxonomy.taxonomy = '".$term."'";
+        }
 
         $count = count($wpdb->get_results(
             $wpdb->prepare("{$select}
                 FROM {$wpdb->prefix}postmeta
                 {$join}
+                {$where}
                 GROUP BY {$wpdb->prefix}terms.slug")
         ));
 
@@ -478,6 +527,7 @@ class BetterDocs_REST_Controller {
             $wpdb->prepare("{$select}
                 FROM {$wpdb->prefix}postmeta
                 {$join}
+                {$where}
                 GROUP BY {$wpdb->prefix}terms.slug
                 {$paging}")
         );
@@ -493,19 +543,27 @@ class BetterDocs_REST_Controller {
 
     public function leading_docs( $params ) {
         global $wpdb;
+        $start_date = ($params->get_param('start_date')) ? $params->get_param('start_date') : '';
+        $end_date = ($params->get_param('end_date')) ? $params->get_param('end_date') : '';
         $select = "SELECT docs.ID, docs.post_author, docs.post_title, SUM(analytics.impressions) as total_views, SUM(analytics.unique_visit) as total_unique_visit, SUM(analytics.happy + analytics.sad + analytics.normal) as total_reactions";
         $join = "FROM {$wpdb->prefix}posts as docs 
                 JOIN {$wpdb->prefix}betterdocs_analytics as analytics on docs.ID = analytics.post_id";
+
+        if ( $start_date && $end_date ) { 
+            $where = "WHERE post_type = 'docs' AND post_status = 'publish' AND created_at BETWEEN '".$start_date."' AND '".$end_date."'";        
+        } else {
+            $where = "WHERE post_type = 'docs' AND post_status = 'publish'";
+        }
 
         $count = count($wpdb->get_results(
             $wpdb->prepare("
                     {$select}
                     {$join}
-                    WHERE post_type = 'docs' AND post_status = 'publish'
+                    {$where}
                     GROUP BY analytics.post_id
                 ")
-        ));
-
+        ));       
+        
         $per_page = ($params->get_param('per_page')) ? $params->get_param('per_page') : 10;
         $total_page = ceil($count / $per_page);
         $page_now = ($params->get_param('page_now')) ? $params->get_param('page_now') : 1;
@@ -516,7 +574,7 @@ class BetterDocs_REST_Controller {
             $wpdb->prepare("
                     {$select}
                     {$join}
-                    WHERE post_type = 'docs' AND post_status = 'publish'
+                    {$where}
                     GROUP BY analytics.post_id
                     {$paging}
                 ")

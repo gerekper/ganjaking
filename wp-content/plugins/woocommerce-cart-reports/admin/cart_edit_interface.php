@@ -210,12 +210,12 @@ class AV8_Edit_Interface {
 			}
 
 			$user_edit_url = admin_url( 'user-edit.php?user_id=' . $author_id );
-			echo __( '<a href="' . $user_edit_url . '">' . $full_name . '</a>' );
+			printf( '<a href="%s">%s</a>', $user_edit_url, $full_name );
 		} elseif ( $full_name != false ) {
 			if ( WP_DEBUG == true ) {
 				assert( $full_name != '' && $full_name != ' ' );
 			}
-			echo __( '<p>' . $full_name . '</p>' );
+			printf( '<p>%s</p>', $full_name );
 			//Print out actions
 		} elseif ( $this->receipt->status() == 'Converted' ) {
 			$order_id = $this->receipt->get_order_id();
@@ -233,11 +233,7 @@ class AV8_Edit_Interface {
 					) . ')</p>'
 				);
 			} else {
-				echo __(
-					'<p>' . ucwords(
-						$order->get_billing_first_name() . ' ' . $order->get_billing_last_name()
-					) . ' (' . __( 'Guest', 'woocommerce_cart_reports' ) . ')</p>'
-				);
+				echo '<p>' . $order->get_formatted_billing_full_name() . ' (' . __( 'Guest', 'woocommerce_cart_reports' ) . ')</p>';
 			}
 		} else {
 			echo __( '<span style="color: gray">Name Not Available</span>', 'woocommerce_cart_reports' ) . av8_tooltip(
@@ -273,7 +269,7 @@ class AV8_Edit_Interface {
 		}
 
 		echo __(
-			'<div><p><strong>Created:</strong><br/>' . date(
+			'<div><p><strong>' . __( 'Created:', 'woocommerce_cart_reports' ) . '</strong><br/>' . date(
 				'F j, Y \a\t g:i a',
 				$this->receipt->created()
 			) . '</p></div>'
@@ -283,9 +279,13 @@ class AV8_Edit_Interface {
 
 			case 'Abandoned':
 				$tooltip = av8_tooltip(
-					__(
-						"A cart becomes <i>Abandoned</i> when the cart's owner has not accessed the site in an amount of time exceeding your timeout set in the <i>WooCommerce Cart Reports</i> settings page. Your current timeout is set to $timeout_min Minutes. Don't worry! The cart will become open again when the customer returns.",
-						'woocommerce_cart_reports'
+					sprintf(
+						/* translators: %s: Cart timeout setting in minutes. */
+						__(
+							"A cart becomes <i>Abandoned</i> when the cart's owner has not accessed the site in an amount of time exceeding your timeout set in the <i>WooCommerce Cart Reports</i> settings page. Your current timeout is set to %s Minutes. Don't worry! The cart will become open again when the customer returns.",
+							'woocommerce_cart_reports'
+						),
+						$timeout_min
 					),
 					false
 				);
@@ -293,9 +293,13 @@ class AV8_Edit_Interface {
 
 			case 'Open':
 				$tooltip = av8_tooltip(
-					__(
-						"A cart is considered <i>Open</i> when the customer has accessed the site with items in the cart, within the timeout set in the <i>WooCommerce Cart Reports</i> settings page. Your current timeout is set to $timeout_min Minutes.",
-						'woocommerce_cart_reports'
+					sprintf(
+						/* translators: %s: Cart timeout setting in minutes. */
+						__(
+							"A cart is considered <i>Open</i> when the customer has accessed the site with items in the cart, within the timeout set in the <i>WooCommerce Cart Reports</i> settings page. Your current timeout is set to %s Minutes.",
+							'woocommerce_cart_reports'
+						),
+						$timeout_min
 					),
 					false
 				);

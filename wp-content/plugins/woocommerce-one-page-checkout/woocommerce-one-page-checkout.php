@@ -7,10 +7,10 @@
  * Text Domain: woocommerce-one-page-checkout
  * Domain Path: languages
  * Plugin URI:  https://woocommerce.com/products/woocommerce-one-page-checkout/
- * Version: 2.1.0
- * Tested up to: 6.1
+ * Version: 2.2.0
+ * Tested up to: 6.0
  * WC requires at least: 2.5
- * WC tested up to: 7.3.0
+ * WC tested up to: 6.4
  * Woo: 527886:c9ba8f8352cd71b5508af5161268619a
  *
  * This program is free software: you can redistribute it and/or modify
@@ -68,7 +68,7 @@ if ( ! is_woocommerce_active() || version_compare( get_option( 'woocommerce_db_v
 	return;
 }
 
-define( 'WC_ONE_PAGE_CHECKOUT_VERSION', '2.1.0' ); // WRCS: DEFINED_VERSION.
+define( 'WC_ONE_PAGE_CHECKOUT_VERSION', '2.2.0' ); // WRCS: DEFINED_VERSION.
 
 add_filter( 'woocommerce_translations_updates_for_woocommerce-one-page-checkout', '__return_true' );
 
@@ -199,7 +199,7 @@ class PP_One_Page_Checkout {
 		);
 
 		// Save the global $post id so we can reference it later.
-		add_action( 'wp_head', array( __CLASS__, 'save_main_post_id' ) );
+		add_action( 'wp', array( __CLASS__, 'save_main_post_id' ) );
 
 		add_filter( 'woocommerce_ajax_get_endpoint', array( __CLASS__, 'make_sure_ajax_url_is_relative' ) );
 		add_action( 'woocommerce_before_checkout_form', array( __CLASS__, 'add_product_selection_fields' ), 9 );

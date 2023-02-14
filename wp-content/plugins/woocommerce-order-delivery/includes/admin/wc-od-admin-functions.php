@@ -96,15 +96,16 @@ function wc_od_admin_field( $field, WC_Data $data = null ) {
  * Outputs a time frame field.
  *
  * @since 1.5.0
+ * @since 2.4.0 Added parameter `$data`.
  *
- * @param array $field The field data.
+ * @param array   $field The field data.
+ * @param WC_Data $data  WC_Data object, will be preferred over post object when passed.
  */
-function wc_od_admin_time_frame_field( $field ) {
-	global $thepostid, $post;
+function wc_od_admin_time_frame_field( $field, WC_Data $data = null ) {
+	global $post;
 
-	$thepostid              = empty( $thepostid ) ? $post->ID : $thepostid;
 	$field['wrapper_class'] = isset( $field['wrapper_class'] ) ? $field['wrapper_class'] : '';
-	$field['value']         = isset( $field['value'] ) ? $field['value'] : get_post_meta( $thepostid, $field['id'], true );
+	$field['value']         = isset( $field['value'] ) ? $field['value'] : wc_od_get_post_or_object_meta( $post, $data, $field['id'], true );
 	$field['name']          = isset( $field['name'] ) ? $field['name'] : $field['id'];
 
 	if ( ! is_array( $field['value'] ) ) {

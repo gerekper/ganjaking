@@ -30,6 +30,49 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 
 		public function init() {
 			add_action( 'admin_init', array( $this, 'custom_dashboard_style' ) );
+			add_action( 'wp_ajax_pub_ali_draft_prod', array( $this, 'pub_ali_draft_prod' ) );
+		}
+
+
+		public function pub_ali_draft_prod() {
+
+
+			//Define Array to Store Draft Product's id
+			$ali_draft_id = array();
+
+			//Parameters to fetch all draft products
+			$params = array(
+			'posts_per_page' => -1,
+			'post_type' => array('product', 'product_variation'),
+			'post_status' => 'draft',
+			);
+
+			// Query firing
+			$dp_query = new WP_Query($params);
+			if ($dp_query->have_posts()) :
+			//While loop through all the posts to identify products imported from Aliexpress
+		   while ($dp_query->have_posts()) :
+				 $dp_query->the_post();
+			// Condition to check if Aliexpress Product Url exists in postmeta to confirm product is imported from Aliexpress
+		   if(get_post_meta(get_the_id(),'ali_product_url',true)){
+			
+			// Declaring temp array to prepare data for publishing the product.
+			$temp_post_data = array();
+			
+			// Preparing data in array for publising
+			$temp_post_data = [ 'ID' => get_the_id(), 'post_status' => 'publish' ];
+		
+			// Publishing Products which is in Draft
+			wp_update_post( $temp_post_data );
+		   }
+		   // End While
+		   endwhile;
+		   // Reset Post data
+		   wp_reset_postdata();
+		   endif;
+
+			wp_die(); // this is required to terminate immediately and return a proper response
+
 		}
 
 		public function custom_dashboard_style() {
@@ -1311,8 +1354,36 @@ if ( ! class_exists( 'WC_Dropshipping_Dashboard', false ) ) :
 
 		}
 
+		public function get_products_draft_count() {
+			// array of draft products
+			$ali_draft_id = array();
+
+			// Parameters to get draft products
+			$params = array(
+			'posts_per_page' => -1,
+			'post_type' => array('product', 'product_variation'),
+			'post_status' => 'draft',
+			);
+
+			$dp_query = new WP_Query($params);
+
+			if ($dp_query->have_posts()) :
+
+			while ($dp_query->have_posts()) :
+					$dp_query->the_post();
+
+			// Checking if Aliexpress Product Url exists in postmeta to confirm that product is imported from Aliexpress
+			if(get_post_meta(get_the_id(),'ali_product_url',true)){
+				array_push($ali_draft_id, get_the_id());
+			}
+			endwhile;
+			wp_reset_postdata();
+			endif;
+			return count($ali_draft_id);
+
+		}
+
 
 	}
 
-endif;
-
+endif; ?>

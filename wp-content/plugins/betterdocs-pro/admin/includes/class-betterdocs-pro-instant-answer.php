@@ -330,7 +330,7 @@ class BetterDocs_Pro_IA {
         $search_settings['SEARCH_PLACEHOLDER'] = $search_placeholder;
 
         $search_settings['OOPS'] = $this->setNempty( 'search_not_found_1', $settings ) ? $settings['search_not_found_1'] : __( 'Oops...', 'betterdocs-pro' );
-        $search_settings['NOT_FOUND'] = $this->setNempty( 'search_not_found_2', $settings ) ? $settings['search_not_found_2'] : __( 'We couldn’t find any articles that match your search. Try searching for a new term.', 'betterdocs-pro' );
+        $search_settings['NOT_FOUND'] = $this->setNempty( 'search_not_found_2', $settings ) ? $settings['search_not_found_2'] : __( 'We couldn’t find any docs that match your search. Try searching for a new term.', 'betterdocs-pro' );
 
         $answer_tab_switch = $this->setNempty( 'answer_tab_visibility_switch', $settings ) ? $settings['answer_tab_visibility_switch'] : [];
         if( ! empty( $answer_tab_switch ) && $answer_tab_switch === '1' ) {
@@ -566,7 +566,7 @@ class BetterDocs_Pro_IA {
                         'ia_description' => array(
                             'type' => 'html',
                             'priority' => 1,
-                            'html' => __( 'Display a list of articles or categories in a chat-like widget to give your visitors a chance of self-learning about your website.', 'betterdocs-pro' )
+                            'html' => __( 'Display a list of docs or categories in a chat-like widget to give your visitors a chance of self-learning about your website.', 'betterdocs-pro' )
                         ),
                         'enable_disable' => array(
                             'type' => 'checkbox',
@@ -967,7 +967,7 @@ class BetterDocs_Pro_IA {
                                     'type'     => 'text',
                                     'label'    => __('Docs not Found' , 'betterdocs-pro'),
                                     'priority' => 11,
-                                    'default'  => __( 'We couldn’t find any articles that match your search. Try searching for a new term.', 'betterdocs-pro' )
+                                    'default'  => __( 'We couldn’t find any docs that match your search. Try searching for a new term.', 'betterdocs-pro' )
                                 ),
                             )
                         ),
@@ -1498,7 +1498,7 @@ class BetterDocs_Pro_IA {
             }
         }
         $body = $this->simple_mail_template( $sanitized_data );
-        $name = $sanitized_data['name'];
+        $name = html_entity_decode( $sanitized_data['name'], ENT_QUOTES, 'UTF-8' );
         $from = $sanitized_data['email'];
         $headers = array( 'Content-Type: text/html; charset=UTF-8', "From: $name <$from>", 'Reply-To: ' . $from );
         if( wp_mail( $to, $subject, $body, $headers ) ) {

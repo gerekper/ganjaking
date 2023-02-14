@@ -1,7 +1,21 @@
+### 2.7.0.3
+- Added "Date Updated" to the list of default exported entry values. Credit: The GravityKit team.
+- Updated entry saving to add a note to the entry when batch saving of field values fails.
+- Updated the template library to show the basic contact form before the advanced contact form.
+- Fixed a fatal error that occurs on front-end page load with MySQL versions between 5.7 and 5.7.8 and MariaDB versions up to 10.2.25.
+- Fixed an accessibility issue that causes an empty div instead of the error message to be focused on form submit when the form does not validate.
+- Fixed an issue that causes the Simplebar library to load on the front end.
+- Fixed an accessibility issue that prevents the product quantity screen reader text from rendering on the front end.
+- Deprecated our custom String.prototype.format() function in favor of String.prototype.gformFormat() to avoid naming collisions with external JavaScript code.
+- Removed unused images to downsize the image folder.
+- AF: Fixed an issue with the settings hidden field that prevented custom css classes or custom id attributes from being specified in the field settings.
+- AF: Fixed an issue that prevented the radio buttons on the Google Analytics settings page to be focusable.
+
 ### 2.7.0.2
 - Updated the form submission logging statements.
 - Updated the map link in the address field to open in https.
 - Updated the system report to list a few recently run scheduled events (cron jobs).
+- Updated the link and text on the reCAPTCHA button on the settings page.
 - Fixed the "for" attribute in checkbox inputs with more than 10 checkboxes in the repeater field.
 - Fixed an issue that caused display problems when using an extended consent field in the Orbital theme.
 - Fixed an issue where the password strength indicator in the default Gravity Theme does not use colors.
@@ -14,7 +28,9 @@
 - Fixed an issue where a warning is thrown when creating a blank form.
 - Fixed an issue that causes confusing image tags in the copied system report.
 - Fixed an issue that prevents checkbox value modifiers from working when there are multiple modifiers.
+- Fixed an issue that causes the subtitle text on the about page to not be readable.
 - Removed the inaccurate site registration status item from the copied system report.
+- Removed an extra curly brace from the class-gf-field-name.php file.
 - AF: Improved form submission performance for sites with multiple payment add-ons active.
 - AF: Updated `GFFeedAddOn::maybe_process_feed()` to call `$this->delay_feed()` when the feed is added to the background processing queue.
 - API: Added the [gform_pre_process_async_notifications](https://docs.gravityforms.com/gform_pre_process_async_notifications/) and [gform_post_process_async_notifications](https://docs.gravityforms.com/gform_post_process_async_notifications/) hooks to the background notifications processor.

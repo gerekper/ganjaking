@@ -682,7 +682,7 @@ class GFSettings {
 						</p>
 					</td>
 					<td data-header="<?php _e( 'Purchase Date', 'gravityforms' ); ?>">
-						<p><?php echo '10th February 2023'; ?></p>
+						<p><?php echo '12th February 2023'; ?></p>
 					</td>
 					<td data-header="<?php _e( 'License Activations', 'gravityforms' ); ?>">
 						<p>

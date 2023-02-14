@@ -22,7 +22,10 @@ if ( ! class_exists( 'WC_OD_Admin', false ) ) {
 		public function __construct() {
 			add_action( 'init', array( $this, 'includes' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-			add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
+
+			add_action( 'current_screen', array( $this, 'setup_screen' ), 20 );
+			add_action( 'check_ajax_referer', array( $this, 'setup_screen' ), 20 );
+			add_action( 'load-woocommerce_page_wc-orders', array( $this, 'order_list_table' ), 5 );
 
 			add_filter( 'plugin_action_links_' . WC_OD_BASENAME, array( $this, 'plugin_action_links' ) );
 			add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 10, 2 );
@@ -36,6 +39,7 @@ if ( ! class_exists( 'WC_OD_Admin', false ) ) {
 		public function includes() {
 			include_once 'wc-od-admin-functions.php';
 			include_once 'class-wc-od-admin-notices.php';
+			include_once 'class-wc-od-admin-meta-boxes.php';
 			include_once 'class-wc-od-admin-system-status.php';
 			include_once 'wc-od-admin-init.php';
 
@@ -58,7 +62,7 @@ if ( ! class_exists( 'WC_OD_Admin', false ) ) {
 			$screen_id = wc_od_get_current_screen_id();
 			$suffix    = wc_od_get_scripts_suffix();
 
-			if ( 'shop_order' === $screen_id ) {
+			if ( wc_od_get_order_admin_screen() === $screen_id ) {
 				wp_enqueue_style( 'jquery-timepicker', WC_OD_URL . 'assets/css/lib/jquery.timepicker.css', array(), '1.13.18' );
 				wp_enqueue_style( 'wc-od-admin', WC_OD_URL . 'assets/css/wc-od-admin.css', array( 'woocommerce_admin_styles' ), WC_OD_VERSION );
 
@@ -71,9 +75,37 @@ if ( ! class_exists( 'WC_OD_Admin', false ) ) {
 		 * Adds custom meta boxes.
 		 *
 		 * @since 1.5.0
+		 * @deprecated 2.4.0
 		 */
 		public function add_meta_boxes() {
-			add_meta_box( 'woocommerce-order-delivery', _x( 'Delivery', 'meta box title', 'woocommerce-order-delivery' ), 'WC_OD_Meta_Box_Order_Delivery::output', 'shop_order', 'side', 'default' );
+			wc_deprecated_function( __FUNCTION__, '2.4.0', 'WC_OD_Admin_Meta_Boxes::init()' );
+		}
+
+		/**
+		 * Looks at the current screen and loads the correct list table handler.
+		 *
+		 * @since 2.4.0
+		 */
+		public function setup_screen() {
+			$screen_id = wc_od_get_current_screen_id();
+
+			if ( 'edit-shop_order' === $screen_id ) {
+				$this->order_list_table();
+			}
+
+			// Prevents multiple loads if a plugin calls check_ajax_referer many times.
+			remove_action( 'current_screen', array( $this, 'setup_screen' ), 20 );
+			remove_action( 'check_ajax_referer', array( $this, 'setup_screen' ), 20 );
+		}
+
+		/**
+		 * Loads order list table.
+		 *
+		 * @since 2.4.0
+		 */
+		public function order_list_table() {
+			include_once 'list-table/class-wc-od-admin-list-table-orders.php';
+			new WC_OD_Admin_List_Table_Orders();
 		}
 
 		/**

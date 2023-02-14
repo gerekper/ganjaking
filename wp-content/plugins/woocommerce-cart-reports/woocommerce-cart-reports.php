@@ -11,14 +11,14 @@
  * Plugin Name: Cart Reports for WooCommerce
  * Plugin URI: https://woocommerce.com/products/woocommerce-cart-reports/
  * Description: Cart Reports for WooCommerce allows site admins to keep track of Abandoned, Open, and Converted Carts.
- * Version: 1.3.1
+ * Version: 1.3.2
  *
  * Developer: WP BackOffice
  * Developer URI: https://wpbackoffice.com
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  *
- * Text Domain: woocommerce-cart-reports
+ * Text Domain: woocommerce_cart_reports
  * Domain Path: /languages
  *
  * Woo: 184638:3920e2541c6030c45f6ac8ccb967d9d5
@@ -771,10 +771,10 @@ add_filter( "plugin_action_links_$plugin", 'woocommerce_cart_reports_settings_li
 
 function woocommerce_cart_reports_settings_link( $links ) {
 	$timestamp     = time();
-	$settings_link = "<a class='clear-link' " . 'onclick=" return confirm(\'Are you sure you want to delete ALL Cart Reports Data? This includes all carts in the database. Settings will not be affected.\')"
-' . "href='?timestamp=" . $timestamp . '&_wpnonce=' . wp_create_nonce(
+	$confirmation_text = __('Are you sure you want to delete ALL Cart Reports Data? This includes all carts in the database. Settings will not be affected.', 'woocommerce_cart_reports');
+	$settings_link = "<a class='clear-link' " . 'onclick="return confirm(' . $confirmation_text . ')"' . " href='?timestamp=" . $timestamp . '&_wpnonce=' . wp_create_nonce(
 			'trash-the-carts'
-		) . "&cart-action=clear'>Clear Carts</a>";
+		) . "&cart-action=clear'>" . __( 'Clear Carts', 'woocommerce_cart_reports' ) . "</a>";
 	$links[]       = $settings_link;
 
 	return $links;

@@ -1404,7 +1404,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'insite', 'payment_complete() 1' );
 					}
-					$order->payment_complete();
+					// $order->payment_complete();
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'insite', ' ' );
 						$this->log->add( 'insite', '/****************************/' );
@@ -1556,7 +1556,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'insite', 'payment_complete() 2' );
 					}
-					$order->payment_complete();
+					// $order->payment_complete();
 					if ( 'yes' === $this->debug ) {
 						$this->log->add( 'insite', ' ' );
 						$this->log->add( 'insite', '/****************************/' );
@@ -2334,8 +2334,25 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 				$billing_last_name = false;
 			}
 
+			$allowed_html        = array(
+				'br'     => array(),
+				'p'      => array(
+					'style' => array(),
+					'class' => array(),
+					'id'    => array(),
+				),
+				'span'   => array(
+					'style' => array(),
+					'class' => array(),
+					'id'    => array(),
+				),
+				'strong' => array(),
+			);
+			$allowed_html_filter = apply_filters( 'redsys_kses_descripcion', $allowed_html );
+
 			if ( empty( $billing_first_name ) || ! $billing_first_name || '' === $billing_first_name ) {
-				echo '<legend>' . esc_html( $this->description ) . '</legend><br />';
+
+				echo '<legend>' . wp_kses( $this->description, $allowed_html_filter ) . '</legend><br />';
 				$textnotfillfilds = $this->textnotfillfilds;
 				if ( empty( $textnotfillfilds ) || ! $textnotfillfilds || '' === $textnotfillfilds ) {
 					echo '<p> ' . esc_html__( 'Please fill in the billing fields of the checkout form. After filling them, the credit card form will appear.', 'woocommerce-redsys' ) . '</p>';
@@ -2502,7 +2519,7 @@ class WC_Gateway_InSite_Redsys extends WC_Payment_Gateway {
 
 				<div class="payment_method_insite">
 					<fieldset class="card-saved">
-						<p>' . esc_html( $this->description ) . '</p>';
+						<p>' . wp_kses( $this->description, $allowed_html_filter ) . '</p>';
 			if ( ( 'yes' === $this->pay1clic && is_user_logged_in() ) || 'R' === WCRed()->check_card_for_subscription( $the_card ) ) {
 				$user_id           = get_current_user_id();
 				$token_type_needed = WCRed()->check_card_for_subscription( $the_card );

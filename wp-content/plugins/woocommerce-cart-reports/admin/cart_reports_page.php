@@ -8,16 +8,16 @@ class AV8_Cart_Reports_Page {
 
 	public function cart_manager_tab( $tabs ) {
 		$tabs['carts'] = array(
-			'title'   => __( 'Carts', 'woocommerce' ),
+			'title'   => __( 'Carts', 'woocommerce_cart_reports' ),
 			'reports' => array(
 				'carts_by_date'    => array(
-					'title'       => __( 'Carts By Date', 'woocommerce' ),
+					'title'       => __( 'Carts By Date', 'woocommerce_cart_reports' ),
 					'description' => '',
 					'hide_title'  => true,
 					'callback'    => 'get_report_cart_reports'
 				),
 				'carts_by_product' => array(
-					'title'       => __( 'Carts By Product', 'woocommerce' ),
+					'title'       => __( 'Carts By Product', 'woocommerce_cart_reports' ),
 					'description' => '',
 					'hide_title'  => true,
 					'callback'    => 'get_report_cart_reports'

@@ -10,38 +10,34 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * Add the shipping date to the not completed orders with delivery date.
- *
- * @global wpdb $wpdb The WordPress Database Access Abstraction Object.
  */
 function wc_od_update_140_shipping_dates() {
-	global $wpdb;
-
-	$results = $wpdb->get_results(
-		$wpdb->prepare(
-			"
-		SELECT meta1.post_id AS order_id
-		FROM {$wpdb->posts} AS posts, {$wpdb->postmeta} AS meta1
-		WHERE posts.id = meta1.post_id
-			AND post_type = 'shop_order'
-			AND post_status IN ( 'wc-pending', 'wc-on-hold', 'wc-processing' )
-			AND meta1.meta_key = '_delivery_date'
-			AND meta1.meta_value >= %s
-			AND NOT EXISTS (
-				SELECT * FROM {$wpdb->postmeta} AS meta2
-				WHERE meta1.post_id = meta2.post_id
-				AND meta2.meta_key = '_shipping_date'
-			)
-	",
-			wc_od_get_local_date( false )
+	$orders = wc_get_orders(
+		array(
+			'type'           => 'shop_order',
+			'status'         => array( 'wc-pending', 'wc-on-hold', 'wc-processing' ),
+			'limit'          => -1,
+			'delivery_query' => array(
+				array(
+					'key'     => '_delivery_date',
+					'value'   => wc_od_get_local_date( false ),
+					'compare' => '>=',
+				),
+				array(
+					'key'     => '_shipping_date',
+					'compare' => 'NOT EXISTS',
+				),
+			),
 		)
 	);
 
-	foreach ( $results as $order_data ) {
-		$shipping_timestamp = wc_od_get_order_last_shipping_date( $order_data->order_id, 'update' );
+	foreach ( $orders as $order ) {
+		$shipping_timestamp = wc_od_get_order_last_shipping_date( $order, 'update' );
 
 		if ( $shipping_timestamp ) {
 			$shipping_date = wc_od_localize_date( $shipping_timestamp, 'Y-m-d' );
-			update_post_meta( $order_data->order_id, '_shipping_date', $shipping_date, true );
+			$order->update_meta_data( '_shipping_date', $shipping_date );
+			$order->save();
 		}
 	}
 }
@@ -90,25 +86,29 @@ function wc_od_update_150_settings_bool_values_to_string() {
  * Set the boolean values of the subscription metas to 'yes' or 'no'.
  */
 function wc_od_update_150_subscriptions_bool_values_to_string() {
-	global $wpdb;
-
-	$results = $wpdb->get_results(
-		"
-		SELECT *
-		FROM {$wpdb->postmeta}
-		WHERE meta_key = '_delivery_days'
-	"
+	$orders = wc_get_orders(
+		array(
+			'type'           => 'shop_order',
+			'limit'          => -1,
+			'delivery_query' => array(
+				array(
+					'key'     => '_delivery_days',
+					'compare' => 'EXISTS',
+				),
+			),
+		)
 	);
 
-	foreach ( $results as $meta ) {
-		$value = maybe_unserialize( $meta->meta_value );
+	foreach ( $orders as $order ) {
+		$value = maybe_unserialize( $order->get_meta( '_delivery_days' ) );
 
 		if ( $value ) {
 			foreach ( $value as $key => $data ) {
 				$value[ $key ]['enabled'] = wc_bool_to_string( $data['enabled'] );
 			}
 
-			update_post_meta( $meta->post_id, $meta->meta_key, $value );
+			$order->update_meta_data( '_delivery_days', $value );
+			$order->save();
 		}
 	}
 }
@@ -155,32 +155,35 @@ function wc_od_update_160_db_version() {
  * Deletes empty delivery time frame values from the order metadata.
  */
 function wc_od_update_186_delete_empty_time_frames_from_orders() {
-	global $wpdb;
-
-	// phpcs:disable WordPress.DB.SlowDBQuery
-
-	$wpdb->delete(
-		$wpdb->postmeta,
+	$orders = wc_get_orders(
 		array(
-			'meta_key'   => '_delivery_time_frame',
-			'meta_value' => '',
-		)
-	);
-
-	$wpdb->delete(
-		$wpdb->postmeta,
-		array(
-			'meta_key'   => '_delivery_time_frame',
-			'meta_value' => maybe_serialize(
+			'type'           => 'shop_order',
+			'limit'          => -1,
+			'delivery_query' => array(
 				array(
-					'time_from' => '',
-					'time_to'   => '',
-				)
+					'relation' => 'OR',
+					array(
+						'key'   => '_delivery_time_frame',
+						'value' => '',
+					),
+					array(
+						'key'   => '_delivery_time_frame',
+						'value' => maybe_serialize(
+							array(
+								'time_from' => '',
+								'time_to'   => '',
+							)
+						),
+					),
+				),
 			),
 		)
 	);
 
-	// phpcs:enable WordPress.DB.SlowDBQuery
+	foreach ( $orders as $order ) {
+		$order->delete_meta_data( '_delivery_time_frame' );
+		$order->save();
+	}
 }
 
 /**
