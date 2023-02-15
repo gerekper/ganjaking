@@ -11,6 +11,11 @@ use WordfenceLS\View\Model_Title;
 class Controller_WordfenceLS {
 	const VERSION_KEY = 'wordfence_ls_version';
 	const USERS_PER_PAGE = 25;
+	const SHORTCODE_2FA_MANAGEMENT = 'wordfence_2fa_management';
+	const WOOCOMMERCE_ENDPOINT = 'wordfence-2fa';
+
+	private $management_assets_registered = false;
+	private $management_assets_enqueued = false;
 	
 	/**
 	 * Returns the singleton Controller_Wordfence2FA.
@@ -53,10 +58,8 @@ class Controller_WordfenceLS {
 		add_action('wp_login', array($this, '_record_login'), 999, 1);
 		add_action('register_post', array($this, '_register_post'), 25, 3);
 		add_filter('wp_login_errors', array($this, '_wp_login_errors'), 25, 3);
-		if ($this->has_woocommerce() && Controller_Settings::shared()->get_bool(Controller_Settings::OPTION_ENABLE_WOOCOMMERCE_INTEGRATION)) {
-			add_action('woocommerce_before_customer_login_form', array($this, '_woocommerce_login_enqueue_scripts'));
-			add_action('woocommerce_before_checkout_form', array($this, '_woocommerce_checkout_login_enqueue_scripts'));
-			add_action('wp_loaded', array($this, '_handle_woocommerce_registration'), 10, 0); //Woocommerce uses priority 20
+		if ($this->is_woocommerce_integration_enabled()) {
+			$this->init_woocommerce_actions();
 		}
 		add_action('user_new_form', array($this, '_user_new_form'));
 		add_action('user_register', array($this, '_user_register'));
@@ -74,6 +77,28 @@ class Controller_WordfenceLS {
 		
 		add_action('show_user_profile', array($this, '_edit_user_profile'), 0); //We can't add it to the password section directly -- priority 0 is as close as we can get
 		add_action('edit_user_profile', array($this, '_edit_user_profile'), 0);
+
+		add_action('init', array($this, '_wordpress_init'));
+		if ($this->is_shortcode_enabled())
+			add_action('wp_enqueue_scripts', array($this, '_handle_shortcode_prerequisites'));
+	}
+
+	public function _wordpress_init() {
+		if ($this->is_shortcode_enabled())
+			add_shortcode(self::SHORTCODE_2FA_MANAGEMENT, array($this, '_handle_user_2fa_management_shortcode'));
+	}
+
+	private function init_woocommerce_actions() {
+		add_action('woocommerce_before_customer_login_form', array($this, '_woocommerce_login_enqueue_scripts'));
+		add_action('woocommerce_before_checkout_form', array($this, '_woocommerce_checkout_login_enqueue_scripts'));
+		add_action('wp_loaded', array($this, '_handle_woocommerce_registration'), 10, 0); //Woocommerce uses priority 20
+
+		if ($this->is_woocommerce_account_integration_enabled()) {
+			add_filter('woocommerce_account_menu_items', array($this, '_woocommerce_account_menu_items'));
+			add_filter('woocommerce_account_wordfence-2fa_endpoint', array($this, '_woocommerce_account_menu_content'));
+			add_filter('woocommerce_get_query_vars', array($this, '_woocommerce_get_query_vars'));
+			add_action('wp_enqueue_scripts', array($this, '_woocommerce_account_enqueue_assets'));
+		}
 	}
 	
 	public function _admin_init() {
@@ -197,6 +222,8 @@ END
 		if (Controller_Settings::shared()->get_bool(Controller_Settings::OPTION_DELETE_ON_DEACTIVATION)) {
 			Controller_DB::shared()->uninstall();
 		}
+
+		$this->purge_rewrite_rules();
 	}
 	
 	protected function _install() {
@@ -227,6 +254,25 @@ END
 		
 		Controller_Time::shared()->install();
 		Controller_Permissions::shared()->install();
+
+		$this->purge_rewrite_rules();
+	}
+
+	private function purge_rewrite_rules() {
+		// This is usually done internally in WP_Rewrite::flush_rules, but is followed there by WP_Rewrite::wp_rewrite_rules which repopulates it. This should cause it to be repopulated on the next request.
+		update_option('rewrite_rules', '');
+	}
+
+	/**
+	 * In most cases, this will be done internally by WooCommerce since we are using the woocommerce_get_query_vars filter, but when toggling the option on our settings page we must still do this manually
+	 */
+	private function register_rewrite_endpoints() {
+		add_rewrite_endpoint(self::WOOCOMMERCE_ENDPOINT, $this->is_woocommerce_account_integration_enabled() ? EP_PAGES : EP_NONE);
+	}
+
+	public function refresh_rewrite_rules() {
+		$this->register_rewrite_endpoints();
+		flush_rewrite_rules();
 	}
 	
 	public function _block_xml_rpc() {
@@ -241,6 +287,18 @@ END
 
 	private function has_woocommerce() {
 		return class_exists('woocommerce');
+	}
+
+	private function is_woocommerce_integration_enabled() {
+		return Controller_Settings::shared()->get_bool(Controller_Settings::OPTION_ENABLE_WOOCOMMERCE_INTEGRATION);
+	}
+
+	private function is_woocommerce_account_integration_enabled() {
+		return $this->is_woocommerce_integration_enabled() && Controller_Settings::shared()->get_bool(Controller_Settings::OPTION_ENABLE_WOOCOMMERCE_ACCOUNT_INTEGRATION);
+	}
+
+	private function is_shortcode_enabled() {
+		return Controller_Settings::shared()->get_bool(Controller_Settings::OPTION_ENABLE_SHORTCODE);
 	}
 
 	public function _woocommerce_login_enqueue_scripts() {
@@ -284,39 +342,71 @@ END
 		}
 	}
 
+	private function get_2fa_management_script_data() {
+		return array(
+			'WFLSVars' => array(
+				'ajaxurl' => admin_url('admin-ajax.php'),
+				'nonce' => wp_create_nonce('wp-ajax'),
+				'modalTemplate' => Model_View::create('common/modal-prompt', array('title' => '${title}', 'message' => '${message}', 'primaryButton' => array('id' => 'wfls-generic-modal-close', 'label' => __('Close', 'wordfence-2fa'), 'link' => '#')))->render(),
+				'modalNoButtonsTemplate' => Model_View::create('common/modal-prompt', array('title' => '${title}', 'message' => '${message}'))->render(),
+				'tokenInvalidTemplate' => Model_View::create('common/modal-prompt', array('title' => '${title}', 'message' => '${message}', 'primaryButton' => array('id' => 'wfls-token-invalid-modal-reload', 'label' => __('Reload', 'wordfence-2fa'), 'link' => '#')))->render(),
+				'modalHTMLTemplate' => Model_View::create('common/modal-prompt', array('title' => '${title}', 'message' => '{{html message}}', 'primaryButton' => array('id' => 'wfls-generic-modal-close', 'label' => __('Close', 'wordfence-2fa'), 'link' => '#')))->render()
+			)
+		);
+	}
+
+	private function get_2fa_management_assets($embedded = false) {
+		$assets = array(
+			Model_Script::create('wordfence-ls-jquery.qrcode', Model_Asset::js('jquery.qrcode.min.js'), array('jquery'), WORDFENCE_LS_VERSION),
+			Model_Script::create('wordfence-ls-jquery.tmpl', Model_Asset::js('jquery.tmpl.min.js'), array('jquery'), WORDFENCE_LS_VERSION),
+			Model_Script::create('wordfence-ls-jquery.colorbox', Model_Asset::js('jquery.colorbox.min.js'), array('jquery'), WORDFENCE_LS_VERSION)
+		);
+		if (Controller_Permissions::shared()->can_manage_settings()) { 
+			$assets[] = Model_Style::create('wordfence-ls-jquery-ui-css', Model_Asset::css('jquery-ui.min.css'), array(), WORDFENCE_LS_VERSION);
+			$assets[] = Model_Style::create('wordfence-ls-jquery-ui-css.structure', Model_Asset::css('jquery-ui.structure.min.css'), array(), WORDFENCE_LS_VERSION);
+			$assets[] = Model_Style::create('wordfence-ls-jquery-ui-css.theme', Model_Asset::css('jquery-ui.theme.min.css'), array(), WORDFENCE_LS_VERSION);
+		}
+		$assets[] = Model_Script::create('wordfence-ls-admin', Model_Asset::js('admin.js'), array('jquery'), WORDFENCE_LS_VERSION);
+		$registered = array(
+			Model_Script::create('chart-js', Model_Asset::js('Chart.bundle.min.js'), array('jquery'), '2.4.0')->setRegistered(),
+			Model_Script::create('wordfence-select2-js', Model_Asset::js('wfselect2.min.js'), array('jquery'), WORDFENCE_LS_VERSION)->setRegistered(),
+			Model_Style::create('wordfence-select2-css', Model_Asset::css('wfselect2.min.css'), array(), WORDFENCE_LS_VERSION)->setRegistered()
+		);
+		if (!WORDFENCE_LS_FROM_CORE && !$this->management_assets_registered) {
+			foreach ($registered as $asset)
+				$asset->register();
+			$this->management_assets_registered = true;
+		}
+		$assets = array_merge($assets, $registered);
+		$assets[] = Model_Style::create('wordfence-ls-admin', Model_Asset::css('admin.css'), array(), WORDFENCE_LS_VERSION);
+		$assets[] = Model_Style::create('wordfence-ls-colorbox', Model_Asset::css('colorbox.css'), array(), WORDFENCE_LS_VERSION);
+		$assets[] = Model_Style::create('wordfence-ls-ionicons', Model_Asset::css('ionicons.css'), array(), WORDFENCE_LS_VERSION);
+		if ($embedded) {
+			$assets[] = Model_Style::create('dashicons');
+			$assets[] = Model_Style::create('wordfence-ls-embedded', Model_Asset::css('embedded.css'), array(), WORDFENCE_LS_VERSION);
+		}
+		if (!WORDFENCE_LS_FROM_CORE) {
+			$assets[] = Model_Style::create('wordfence-ls-font-awesome', Model_Asset::css('font-awesome.css'), array(), WORDFENCE_LS_VERSION);
+		}
+		return $assets;
+	}
+
+	private function enqueue_2fa_management_assets($embedded = false) {
+		if ($this->management_assets_enqueued)
+			return;
+		foreach ($this->get_2fa_management_assets($embedded) as $asset)
+			$asset->enqueue();
+		foreach ($this->get_2fa_management_script_data() as $key => $data)
+			wp_localize_script('wordfence-ls-admin', $key, $data);
+		$this->management_assets_enqueued = true;
+	}
+
 	/**
 	 * Admin Pages
 	 */
 	public function _admin_enqueue_scripts($hookSuffix) {
 		if (isset($_GET['page']) && $_GET['page'] == 'WFLS') {
-			wp_enqueue_script('wordfence-ls-jquery.qrcode', Model_Asset::js('jquery.qrcode.min.js'), array('jquery'), WORDFENCE_LS_VERSION);
-			wp_enqueue_script('wordfence-ls-jquery.tmpl', Model_Asset::js('jquery.tmpl.min.js'), array('jquery'), WORDFENCE_LS_VERSION);
-			wp_enqueue_script('wordfence-ls-jquery.colorbox', Model_Asset::js('jquery.colorbox.min.js'), array('jquery'), WORDFENCE_LS_VERSION);
-			if (Controller_Permissions::shared()->can_manage_settings()) { 
-				wp_enqueue_style('wordfence-ls-jquery-ui-css', Model_Asset::css('jquery-ui.min.css'), array(), WORDFENCE_LS_VERSION);
-				wp_enqueue_style('wordfence-ls-jquery-ui-css.structure', Model_Asset::css('jquery-ui.structure.min.css'), array(), WORDFENCE_LS_VERSION);
-				wp_enqueue_style('wordfence-ls-jquery-ui-css.theme', Model_Asset::css('jquery-ui.theme.min.css'), array(), WORDFENCE_LS_VERSION);
-			}
-			wp_enqueue_script('wordfence-ls-admin', Model_Asset::js('admin.js'), array('jquery'), WORDFENCE_LS_VERSION);
-			if (!WORDFENCE_LS_FROM_CORE) {
-				wp_register_script('chart-js', Model_Asset::js('Chart.bundle.min.js'), array('jquery'), '2.4.0');
-				wp_register_script('wordfence-select2-js', Model_Asset::js('wfselect2.min.js'), array('jquery'), WORDFENCE_LS_VERSION);
-				wp_register_style('wordfence-select2-css', Model_Asset::css('wfselect2.min.css'), array(), WORDFENCE_LS_VERSION);
-			}
-			wp_enqueue_script('chart-js');
-			wp_enqueue_script('wordfence-select2-js');
-			wp_enqueue_style('wordfence-select2-css');
-			wp_enqueue_style('wordfence-ls-admin', Model_Asset::css('admin.css'), array(), WORDFENCE_LS_VERSION);
-			wp_enqueue_style('wordfence-ls-colorbox', Model_Asset::css('colorbox.css'), array(), WORDFENCE_LS_VERSION);
-			wp_enqueue_style('wordfence-ls-ionicons', Model_Asset::css('ionicons.css'), array(), WORDFENCE_LS_VERSION);
-			if (!WORDFENCE_LS_FROM_CORE) { wp_enqueue_style('wordfence-ls-font-awesome', Model_Asset::css('font-awesome.css'), array(), WORDFENCE_LS_VERSION); }
-			wp_localize_script('wordfence-ls-admin', 'WFLSVars', array(
-				'ajaxurl' => admin_url('admin-ajax.php'),
-				'nonce' => wp_create_nonce('wp-ajax'),
-				'modalTemplate' => Model_View::create('common/modal-prompt', array('title' => '${title}', 'message' => '${message}', 'primaryButton' => array('id' => 'wfls-generic-modal-close', 'label' => __('Close', 'wordfence-2fa'), 'link' => '#')))->render(),
-				'tokenInvalidTemplate' => Model_View::create('common/modal-prompt', array('title' => '${title}', 'message' => '${message}', 'primaryButton' => array('id' => 'wfls-token-invalid-modal-reload', 'label' => __('Reload', 'wordfence-2fa'), 'link' => '#')))->render(),
-				'modalHTMLTemplate' => Model_View::create('common/modal-prompt', array('title' => '${title}', 'message' => '{{html message}}', 'primaryButton' => array('id' => 'wfls-generic-modal-close', 'label' => __('Close', 'wordfence-2fa'), 'link' => '#')))->render(),
-			));
+			$this->enqueue_2fa_management_assets();
 		}
 		else {
 			wp_enqueue_style('wordfence-ls-admin-global', Model_Asset::css('admin-global.css'), array(), WORDFENCE_LS_VERSION);
@@ -607,29 +697,9 @@ END
 	
 	public function _register_post($sanitized_user_login, $user_email, $errors) {
 		if (!empty($sanitized_user_login)) {
-			$captchaResult = $this->process_registration_captcha();
+			$captchaResult = $this->process_registration_captcha_with_hooks();
 			if ($captchaResult !== true) {
-				$message = $captchaResult['message'];
-				$category = $captchaResult['category'];
-				if ($category === 'wfls_registration_blocked') {
-					/**
-					 * Fires just prior to blocking user registration due to a failed CAPTCHA. After firing this action hook 
-					 * the registration attempt is blocked.
-					 *
-					 * @param int $source The source code of the block.
-					 */
-					do_action('wfls_registration_blocked', 1);
-					
-					/**
-					 * Filters the message to show if registration is blocked due to a captcha rejection.
-					 *
-					 * @since 1.0.0
-					 *
-					 * @param string $message The message to display, HTML allowed.
-					 */
-					$message = apply_filters('wfls_registration_blocked_message', $message);
-				}
-				$errors->add($category, $message);
+				$errors->add($captchaResult['category'], $captchaResult['message']);
 			}
 		}
 	}
@@ -848,6 +918,36 @@ END
 		return true;
 	}
 
+	/**
+	 * @param int $endpointType the type of endpoint being processed
+	 *	The default value of 1 corresponds to a regular login
+	 *	@see wordfence::wfsnEndpointType()
+	 */
+	private function process_registration_captcha_with_hooks($endpointType = 1) {
+		$result = $this->process_registration_captcha();
+		if ($result !== true) {
+			if ($result['category'] === 'wfls_registration_blocked') {
+				/**
+				 * Fires just prior to blocking user registration due to a failed CAPTCHA. After firing this action hook
+				 * the registration attempt is blocked.
+				 *
+				 * @param int $source The source code of the block.
+				 */
+				do_action('wfls_registration_blocked', $endpointType);
+
+				/**
+				 * Filters the message to show if registration is blocked due to a captcha rejection.
+				 *
+				 * @since 1.0.0
+				 *
+				 * @param string $message The message to display, HTML allowed.
+				 */
+				$result['message'] = apply_filters('wfls_registration_blocked_message', $result['message']);
+			}
+		}
+		return $result;
+	}
+
 	private function disable_woocommerce_registration($message) {
 		if ($this->has_woocommerce()) {
 			remove_action('wp_loaded', array('WC_Form_Handler', 'process_registration'), 20);
@@ -857,7 +957,7 @@ END
 
 	public function _handle_woocommerce_registration() {
 		if ($this->has_woocommerce() && isset($_POST['register'], $_POST['email']) && (isset($_POST['_wpnonce']) || isset($_POST['woocommerce-register-nonce']))) {
-			$captchaResult = $this->process_registration_captcha();
+			$captchaResult = $this->process_registration_captcha_with_hooks();
 			if ($captchaResult !== true) {
 				$this->disable_woocommerce_registration($captchaResult['message']);
 			}
@@ -875,6 +975,88 @@ END
 			return;
 		if (isset($_POST['wfls-grace-period-toggle']))
 			Controller_Users::shared()->allow_grace_period($newUserId); 
+	}
+
+	public function _woocommerce_account_menu_items($items) {
+		if ($this->can_user_activate_2fa_self()) {
+			$endpointId = self::WOOCOMMERCE_ENDPOINT;
+			$label = __('Wordfence 2FA', 'wordfence-2fa');
+			if (!Utility_Array::insertAfter($items, 'edit-account', $endpointId, $label)) {
+				$items[$endpointId] = $label;
+			}
+		}
+		return $items;
+	}
+
+	public function _woocommerce_get_query_vars($query_vars) {
+		$query_vars[self::WOOCOMMERCE_ENDPOINT] = self::WOOCOMMERCE_ENDPOINT;
+		return $query_vars;
+	}
+
+	private function can_user_activate_2fa_self($user = null) {
+		if ($user === null)
+			$user = wp_get_current_user();
+		return user_can($user, Controller_Permissions::CAP_ACTIVATE_2FA_SELF);
+	}
+
+	private function render_embedded_user_2fa_management_interface($stacked = null) {
+		$user = wp_get_current_user();
+		$stacked = $stacked === null ? Controller_Settings::shared()->should_stack_ui_columns() : $stacked;
+		if ($this->can_user_activate_2fa_self($user)) {
+			$assets = $this->management_assets_enqueued ? array() : $this->get_2fa_management_assets(true);
+			$scriptData = $this->management_assets_enqueued ? array() : $this->get_2fa_management_script_data();
+			return Model_View::create(
+				'page/manage-embedded',
+				array(
+					'user' => $user,
+					'stacked' => $stacked,
+					'assets' => $assets,
+					'scriptData' => $scriptData
+				)
+			)->render();
+		}
+		else {
+			return Model_View::create('page/permission-denied')->render();
+		}
+	}
+
+	public function _woocommerce_account_menu_content() {
+		echo $this->render_embedded_user_2fa_management_interface();
+	}
+
+	private function does_current_page_include_shortcode($shortcode) {
+		global $post;
+		return $post instanceof \WP_Post && has_shortcode($post->post_content, $shortcode);
+	}
+
+	public function _woocommerce_account_enqueue_assets() {
+		if (!$this->has_woocommerce())
+			return;
+		if ($this->does_current_page_include_shortcode('woocommerce_my_account')) {
+			wp_enqueue_style('wordfence-ls-woocommerce-account-styles', Model_Asset::css('woocommerce-account.css'), array(), WORDFENCE_LS_VERSION);
+			$this->enqueue_2fa_management_assets(true);
+		}
+	}
+
+	public function _handle_user_2fa_management_shortcode($attributes, $content = null, $shortcode = null) {
+		$shortcode = $shortcode === null ? self::SHORTCODE_2FA_MANAGEMENT : $shortcode;
+		$attributes = shortcode_atts(
+			array(
+				'stacked' => Controller_Settings::shared()->should_stack_ui_columns() ? 'true' : 'false'
+			),
+			$attributes,
+			$shortcode
+		);
+		$stacked = filter_var($attributes['stacked'], FILTER_VALIDATE_BOOLEAN);
+		return $this->render_embedded_user_2fa_management_interface($stacked);
+	}
+
+	public function _handle_shortcode_prerequisites() {
+		if ($this->does_current_page_include_shortcode(self::SHORTCODE_2FA_MANAGEMENT)) {
+			if (!is_user_logged_in())
+				auth_redirect();
+			$this->enqueue_2fa_management_assets(true);
+		}
 	}
 
 }

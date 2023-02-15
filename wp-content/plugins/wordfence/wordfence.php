@@ -2,9 +2,10 @@
 /*
 Plugin Name: Wordfence Security
 Plugin URI: http://www.wordfence.com/
+Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
 Description: Wordfence Security - Anti-virus, Firewall and Malware Scan
 Author: Wordfence
-Version: 7.8.2
+Version: 7.9.0
 Author URI: http://www.wordfence.com/
 Text Domain: wordfence
 Domain Path: /languages
@@ -14,7 +15,7 @@ Requires PHP: 5.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-@copyright Copyright (C) 2012-2022 Defiant Inc.
+@copyright Copyright (C) 2012-2023 Defiant Inc.
 @license http://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 or higher
 
 This program is free software: you can redistribute it and/or modify
@@ -38,8 +39,8 @@ if(defined('WP_INSTALLING') && WP_INSTALLING){
 if (!defined('ABSPATH')) {
 	exit;
 }
-define('WORDFENCE_VERSION', '7.8.2');
-define('WORDFENCE_BUILD_NUMBER', '1670945819');
+define('WORDFENCE_VERSION', '7.9.0');
+define('WORDFENCE_BUILD_NUMBER', '1676401566');
 define('WORDFENCE_BASENAME', function_exists('plugin_basename') ? plugin_basename(__FILE__) :
 	basename(dirname(__FILE__)) . '/' . basename(__FILE__));
 
@@ -118,3 +119,5 @@ if(! defined('WORDFENCE_VERSIONONLY_MODE')){ //Used to get version from file.
 	require_once(dirname(__FILE__) . '/lib/wordfenceClass.php');
 	wordfence::install_actions();
 }
+/* Anti-Leecher Indentifier */
+/* Credited By BABIATO-FORUM */

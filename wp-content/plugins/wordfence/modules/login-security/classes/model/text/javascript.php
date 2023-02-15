@@ -27,7 +27,11 @@ class Model_JavaScript {
 		$safe_text = str_replace("\n", '\\n', addslashes($safe_text));
 		return apply_filters('js_escape', $safe_text, $content);
 	}
-	
+
+	public static function echo_string_literal($string) {
+		echo "'" . self::esc_js($string) . "'";
+	}
+
 	public function __construct($javaScript) {
 		$this->_javaScript = $javaScript;
 	}

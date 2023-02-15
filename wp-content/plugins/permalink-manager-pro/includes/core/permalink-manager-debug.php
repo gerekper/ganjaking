@@ -181,10 +181,22 @@ class Permalink_Manager_Debug_Functions {
 	public static function debug_custom_fields() {
 		global $pagenow;
 
-		if ( $pagenow == 'post.php' && isset( $_GET['debug_custom_fields'] ) && isset( $_GET['post'] ) ) {
+		if ( ! isset( $_GET['debug_custom_fields'] ) ) {
+			return;
+		}
+
+		if ( $pagenow == 'post.php' && isset( $_GET['post'] ) ) {
 			$post_id       = intval( $_GET['post'] );
 			$custom_fields = get_post_meta( $post_id );
+		}
 
+		if ( $pagenow == 'term.php' && isset( $_GET['tag_ID'] ) ) {
+			$term_id       = intval( $_GET['tag_ID'] );
+
+			$custom_fields = get_term_meta( $term_id );
+		}
+
+		if ( isset ( $custom_fields ) ) {
 			self::display_debug_data( $custom_fields );
 		}
 	}

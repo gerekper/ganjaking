@@ -111,9 +111,13 @@ class Permalink_Manager_Tax_Uri_Editor_Table extends WP_List_Table {
 				// Get auto-update settings
 				$auto_update_val = get_term_meta( $item['term_id'], "auto_update_uri", true );
 				$auto_update_uri = ( ! empty( $auto_update_val ) ) ? $auto_update_val : $permalink_manager_options["general"]["auto_update_uris"];
-				if ( $auto_update_uri ) {
+
+				if ( $auto_update_uri == 1 ) {
 					$field_args_base['readonly']       = true;
 					$field_args_base['append_content'] = sprintf( '<p class="small uri_locked">%s %s</p>', '<span class="dashicons dashicons-lock"></span>', __( 'The above permalink will be automatically updated and is locked for editing.', 'permalink-manager' ) );
+				} else if ( $auto_update_uri == 2 ) {
+					$field_args_base['readonly']       = true;
+					$field_args_base['append_content'] = sprintf( '<p class="small uri_locked">%s %s</p>', '<span class="dashicons dashicons-lock"></span>', __( 'URI Editor disabled due to "URI update mode" setting.', 'permalink-manager' ) );
 				}
 
 				$output .= '<div class="custom_uri_container">';

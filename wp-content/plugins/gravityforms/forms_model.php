@@ -6267,20 +6267,27 @@ class GFFormsModel {
 
 		if ( empty( $new_key ) ) {
 
+			if ( is_multisite() && is_main_site() ) {
+				$sites = get_sites();
+				foreach ( $sites as $site ) {
+					delete_blog_option( $site->blog_id, 'rg_gforms_key' );
+				}
+			}
+
 			delete_option( 'rg_gforms_key' );
 
 			// Unlink the site with the license key on Gravity API.
 			$license_connector->update_site_registration( '' );
 
 		} elseif ( $previous_key != $new_key ) {
-			update_option( 'rg_gforms_key', $new_key_md5 );
+			self::update_license_key( $new_key_md5 );
 
 			// Updating site registration with Gravity Server.
 			$result = $license_connector->update_site_registration( $new_key_md5, true );
 
 			// New key is invalid, revert to old key.
 			if ( ! $result->can_be_used() ) {
-				update_option( 'rg_gforms_key', $previous_key );
+				self::update_license_key( $previous_key );
 			}
 		} else {
 			// Updating site registration with Gravity Server.
@@ -8140,6 +8147,27 @@ class GFFormsModel {
 		}
 
 		return (bool) $result;
+	}
+
+	/**
+	 * Updates the license key, If multisite, it updates the license key for all sites in the network.
+	 *
+	 * @since 2.7
+	 *
+	 * @param string $license The license key.
+	 *
+	 * @return void
+	 */
+	public static function update_license_key( $license ) {
+		if ( is_multisite() && is_main_site() ) {
+			$sites = get_sites();
+			foreach ( $sites as $site ) {
+				update_blog_option( $site->blog_id, 'rg_gforms_key', $license );
+				update_blog_option( $site->blog_id, 'gform_pending_installation', false );
+			}
+		}
+
+		update_option( 'rg_gforms_key', $license );
 	}
 
 }

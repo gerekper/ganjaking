@@ -7,7 +7,7 @@ Tags: permalinks, custom permalinks, permalink, woocommerce permalinks, url edit
 Requires at least: 4.4.0
 Requires PHP: 5.4
 Tested up to: 6.2.0
-Stable tag: 2.3.0
+Stable tag: 2.3.1
 
 Permalink Manager lets you customize the complete URL addresses of your posts, pages, custom post types, terms, and WooCommerce links with ease without touching any core files.
 
@@ -66,6 +66,14 @@ To display the URI editor metabox click on gray "Permalink Editor" button displa
 = Can I use the plugin to edit the category permalinks?
 This feature is available only in Permalink Manager Pro.
 
+= Is it possible to use Permalink Manager on large websites?
+When the Permalink Manager was first designed, it was supposed to be used for a typical WordPress website, which usually has <strong>less than a few thousand subpages</strong>. As a result, all custom permalinks are <a href="https://permalinkmanager.pro/docs/filters-hooks/how-the-custom-uris-and-redirects-are-stored/">saved in a single row in the database</a> in order to avoid slowing down the pageload with multiple SQL queries to the database. This is the most effective approach for small and medium-sized websites, without affecting site speed.
+
+While this data structure works for the vast majority of WordPress sites, it may not be optimal if you want to use the plugin to rewrite <strong>tens of thousands of permalinks</strong>. What works well for a smaller website may not scale well for a megasite. When the number of addresses on your site exceeds tens of thousands, the custom permalinks array may become quite huge, and any operations on it can have an effect on pageload time.
+
+To summarize, the plugin is suitable for small and medium-sized websites. It will not slow down your pageload time or affect its usability in any way. However, if you want to use it on a much bigger website with thousands of permalinks (more than 60.000), please consider excluding content types that do not require customized permalink format in order to lower the custom permalinks array. For further details on the plugin's performance, please <a href="https://permalinkmanager.pro/docs/basics/performance/">visit this post</a>.
+
+
 = Can I define different permalink formats per each language.
 Yes, it is possible if you are using either WPML or Polylang. You can find <a href="https://permalinkmanager.pro/docs/tutorials/how-to-translate-permalinks/">the full instructions here</a>.
 
@@ -92,6 +100,14 @@ It is because Permalink Manager overwrites one of the core WordPress functionali
 8.	Permalink Manager settings.
 
 == Changelog ==
+
+= 2.3.1 (February 13, 2022) =
+* Dev - Bulk tools ("Regenerate/Reset" and "Find & replace") and "Quick Edit" code was refactored
+* Dev - Minor code improvements
+* Dev - New filter field - 'permalink_manager_ate_uri_editor'
+* Dev - Improved compatibility with WPML's Advanced Translation Editor
+* Fix - The /feed/ endpoint returns 404 error if 'feeds' in rewrite property of requested post type object is set to false
+* Fix - The canonical redirect is no longer forced for LearnPress front-end pages
 
 = 2.3.0 (December 14, 2022) =
 * Dev - For improved readability, the plugin's code has been reformatted and more comments have been added to match WordPress PHP Coding Standards

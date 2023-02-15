@@ -32,7 +32,7 @@ class Permalink_Manager_Third_Parties {
 
 		// 4. WooCommerce
 		if ( class_exists( 'WooCommerce' ) ) {
-			add_filter( 'request', array( $this, 'woocommerce_detect' ), 20, 1 );
+			add_filter( 'permalink_manager_filter_query', array( $this, 'woocommerce_detect' ), 9, 5 );
 			add_filter( 'template_redirect', array( $this, 'woocommerce_checkout_fix' ), 9 );
 
 			if ( class_exists( 'Permalink_Manager_Pro_Functions' ) ) {
@@ -66,7 +66,7 @@ class Permalink_Manager_Third_Parties {
 
 		// 5. Theme My Login
 		if ( class_exists( 'Theme_My_Login' ) ) {
-			add_filter( 'permalink_manager_filter_final_post_permalink', array( $this, 'tml_keep_query_parameters' ), 9, 3 );
+			add_action( 'wp', array( $this, 'tml_ignore_custom_permalinks'), 10 );
 		}
 
 		// 6. Yoast SEO
@@ -84,6 +84,7 @@ class Permalink_Manager_Third_Parties {
 		add_filter( 'seopress_pro_breadcrumbs_crumbs', array( $this, 'filter_breadcrumbs' ), 9 );
 		add_filter( 'woocommerce_get_breadcrumb', array( $this, 'filter_breadcrumbs' ), 9 );
 		add_filter( 'slim_seo_breadcrumbs_links', array( $this, 'filter_breadcrumbs' ), 9 );
+		// add_filter( 'aioseo_breadcrumbs_trail', array( $this, 'filter_breadcrumbs' ), 9 );
 		add_filter( 'avia_breadcrumbs_trail', array( $this, 'filter_breadcrumbs' ), 100 );
 
 		// 8. WooCommerce Wishlist Plugin
@@ -160,7 +161,12 @@ class Permalink_Manager_Third_Parties {
 
 		// 19. WooCommerce Subscriptions
 		if ( class_exists( 'WC_Subscriptions' ) ) {
-			add_filter( 'permalink_manager_filter_final_post_permalink', array( $this, 'fix_wcs_subscription_links' ), 10, 3 );
+			add_filter( 'permalink_manager_filter_final_post_permalink', array( $this, 'wcs_fix_subscription_links' ), 10, 3 );
+		}
+
+		// 20. LearnPress
+		if ( class_exists( 'LearnPress' ) ) {
+			add_filter( 'permalink_manager_excluded_post_ids', array( $this, 'learnpress_exclude_pages' ) );
 		}
 	}
 
@@ -229,6 +235,9 @@ class Permalink_Manager_Third_Parties {
 				$wp_query->query_vars['do_not_redirect'] = 1;
 			} // AMP
 			else if ( function_exists( 'amp_get_slug' ) && array_key_exists( amp_get_slug(), $query_vars ) ) {
+				$wp_query->query_vars['do_not_redirect'] = 1;
+			} // LearnPress
+			if ( ! empty( $query_vars['view'] ) && ! empty( $query_vars['page_id'] ) ) {
 				$wp_query->query_vars['do_not_redirect'] = 1;
 			}
 		}
@@ -374,7 +383,7 @@ class Permalink_Manager_Third_Parties {
 	/**
 	 * 4A. Fix query on WooCommerce shop page & disable the canonical redirect if WooCommerce query variables are set
 	 */
-	function woocommerce_detect( $query ) {
+	function woocommerce_detect( $query, $old_query, $uri_parts, $pm_query, $content_type ) {
 		global $woocommerce, $pm_query;
 
 		$shop_page_id = get_option( 'woocommerce_shop_page_id' );
@@ -594,19 +603,19 @@ class Permalink_Manager_Third_Parties {
 	}
 
 	/**
-	 * 5. Keep the unique Theme My Login query parameters in the final custom permalink
-	 *
-	 * @param string $permalink
-	 * @param WP_Post $post
-	 * @param string $old_permalink
-	 *
-	 * @return string
+	 * 5. Do not use custom permalinks if any action is triggered inside Theme My Login plugin
 	 */
-	function tml_keep_query_parameters( $permalink, $post, $old_permalink ) {
-		// Get the query string from old permalink
-		$get_parameters = ( ( $pos = strpos( $old_permalink, "?" ) ) !== false ) ? substr( $old_permalink, $pos ) : "";
+	function tml_ignore_custom_permalinks() {
+		global $wp, $permalink_manager_ignore_permalink_filters;
 
-		return $permalink . $get_parameters;
+		if ( isset( $wp->query_vars['action'] ) || ! empty( $_GET['redirect_to'] ) ) {
+			$permalink_manager_ignore_permalink_filters = true;
+
+			// Allow the canonical redirect (if blocked earlier by Permalink Manager)
+			if ( ! empty( $wp_query->query_vars['do_not_redirect'] ) ) {
+				$wp_query->query_vars['do_not_redirect'] = 0;
+			}
+		}
 	}
 
 	/**
@@ -751,6 +760,9 @@ class Permalink_Manager_Third_Parties {
 		// Get Yoast Meta (the breadcrumbs titles can be changed in Yoast metabox)
 		$yoast_meta_terms = get_option( 'wpseo_taxonomy_meta' );
 
+		// Check if the hook is called by AIOSEO plugin
+		$is_aioseo = ( $current_filter == 'aioseo_breadcrumbs_trail' ) ? true : false;
+
 		// Get internal breadcrumb elements
 		foreach ( $custom_uri_parts as $slug ) {
 			if ( empty( $slug ) ) {
@@ -793,7 +805,7 @@ class Permalink_Manager_Third_Parties {
 			// 2A. When the term is found, we can add it to the breadcrumbs
 			if ( ! empty( $element->term_id ) ) {
 				$term_id = apply_filters( 'wpml_object_id', $element->term_id, $element->taxonomy, true );
-				$term    = ( $element->term_id !== $term_id ) ? get_term( $term_id ) : $element;
+				$term    = ( ( $element->term_id !== $term_id) || $is_aioseo ) ? get_term( $term_id ) : $element;
 
 				// Alternative title
 				if ( $current_filter == 'wpseo_breadcrumb_links' ) {
@@ -806,14 +818,24 @@ class Permalink_Manager_Third_Parties {
 
 				$title = ( ! empty( $alt_title ) ) ? $alt_title : $term->name;
 
-				$breadcrumbs[] = array(
-					'text' => wp_strip_all_tags( $title ),
-					'url'  => get_term_link( (int) $term->term_id, $term->taxonomy ),
-				);
+				if ( $is_aioseo ) {
+					$breadcrumbs[] = array(
+						'label'     => wp_strip_all_tags( $title ),
+						'link'      => get_term_link( (int) $term->term_id, $term->taxonomy ),
+						'type'      => 'taxonomy',
+						'subType'   => 'parent',
+						'reference' => $term,
+					);
+				} else {
+					$breadcrumbs[] = array(
+						'text' => wp_strip_all_tags( $title ),
+						'url'  => get_term_link( (int) $term->term_id, $term->taxonomy )
+					);
+				}
 			} // 2B. When the post/page is found, we can add it to the breadcrumbs
 			else if ( ! empty( $element->ID ) ) {
 				$page_id = apply_filters( 'wpml_object_id', $element->ID, $element->post_type, true );
-				$page    = ( $element->ID !== $page_id ) ? get_post( $page_id ) : $element;
+				$page    = ( ($element->ID !== $page_id) || $is_aioseo ) ? get_post( $page_id ) : $element;
 
 				// Alternative title
 				if ( $current_filter == 'wpseo_breadcrumb_links' ) {
@@ -826,16 +848,36 @@ class Permalink_Manager_Third_Parties {
 
 				$title = ( ! empty( $alt_title ) ) ? $alt_title : $page->post_title;
 
-				$breadcrumbs[] = array(
-					'text' => wp_strip_all_tags( $title ),
-					'url'  => get_permalink( $page->ID ),
-				);
+				if ( $is_aioseo ) {
+					$breadcrumbs[] = array(
+						'label'     => wp_strip_all_tags( $title ),
+						'link'      => get_permalink( $page->ID ),
+						'type'      => 'single',
+						'subType'   => '',
+						'reference' => $page
+					);
+				} else {
+					$breadcrumbs[] = array(
+						'text' => wp_strip_all_tags( $title ),
+						'url'  => get_permalink( $page->ID )
+					);
+				}
 			} // 2C. When the post archive is found, we can add it to the breadcrumbs
 			else if ( ! empty( $element->rewrite ) && ( ! empty( $element->labels->name ) ) ) {
-				$breadcrumbs[] = array(
-					'text' => apply_filters( 'post_type_archive_title', $element->labels->name, $element->name ),
-					'url'  => get_post_type_archive_link( $element->name ),
-				);
+				if ( $is_aioseo ) {
+					$breadcrumbs[] = array(
+						'label'     => apply_filters( 'post_type_archive_title', $element->labels->name, $element->name ),
+						'link'      => get_post_type_archive_link( $element->name ),
+						'type'      => 'postTypeArchive',
+						'subType'   => '',
+						'reference' => $element
+					);
+				} else {
+					$breadcrumbs[] = array(
+						'text' => apply_filters( 'post_type_archive_title', $element->labels->name, $element->name ),
+						'url'  => get_post_type_archive_link( $element->name )
+					);
+				}
 			}
 		}
 
@@ -845,8 +887,8 @@ class Permalink_Manager_Third_Parties {
 			$last_element  = end( $links );
 			$breadcrumbs   = ( ! empty( $breadcrumbs ) ) ? $breadcrumbs : array();
 
-			// Support RankMath/SEOPress/WooCommerce/Slim SEO breadcrumbs
-			if ( in_array( $current_filter, array( 'wpseo_breadcrumb_links', 'rank_math/frontend/breadcrumb/items', 'seopress_pro_breadcrumbs_crumbs', 'woocommerce_get_breadcrumb', 'slim_seo_breadcrumbs_links' ) ) ) {
+			// Support RankMath/SEOPress/WooCommerce/Slim SEO/AIOSEO breadcrumbs
+			if ( in_array( $current_filter, array( 'wpseo_breadcrumb_links', 'rank_math/frontend/breadcrumb/items', 'seopress_pro_breadcrumbs_crumbs', 'woocommerce_get_breadcrumb', 'slim_seo_breadcrumbs_links', 'aioseo_breadcrumbs_trail' ) ) ) {
 				foreach ( $breadcrumbs as &$breadcrumb ) {
 					if ( isset( $breadcrumb['text'] ) ) {
 						$breadcrumb[0] = $breadcrumb['text'];
@@ -854,7 +896,7 @@ class Permalink_Manager_Third_Parties {
 					}
 				}
 
-				if ( in_array( $current_filter, array( 'slim_seo_breadcrumbs_links' ) ) ) {
+				if ( $current_filter == 'slim_seo_breadcrumbs_links' ) {
 					$links = array_merge( array( $first_element ), $breadcrumbs );
 				} else {
 					$links = array_merge( array( $first_element ), $breadcrumbs, array( $last_element ) );
@@ -867,8 +909,10 @@ class Permalink_Manager_Third_Parties {
 					}
 				}
 
-				$links              = $breadcrumbs;
-				$links['trail_end'] = $last_element;
+				if ( ! empty( $breadcrumbs ) ) {
+					$links              = $breadcrumbs;
+					$links['trail_end'] = $last_element;
+				}
 			}
 		}
 
@@ -1159,10 +1203,19 @@ class Permalink_Manager_Third_Parties {
 			if ( ! empty( $permalink_manager_uris[ $id ] ) ) {
 				continue;
 			}
-			$permalink_manager_uris[ $id ] = Permalink_Manager_URI_Functions_Post::get_default_post_uri( $id );
+
+			$post_object = get_post( $id );
+
+			// Check if post is allowed
+			if ( empty( $post_object->post_type ) || Permalink_Manager_Helper_Functions::is_post_excluded( $post_object, true ) ) {
+				continue;
+			}
+
+			$default_uri = Permalink_Manager_URI_Functions_Post::get_default_post_uri( $id );
+			Permalink_Manager_URI_Functions::save_single_uri( $id, $default_uri, false, false );
 		}
 
-		update_option( 'permalink-manager-uris', $permalink_manager_uris );
+		Permalink_Manager_URI_Functions::save_all_uris();
 	}
 
 	/**
@@ -1578,12 +1631,12 @@ class Permalink_Manager_Third_Parties {
 			$kb_category = $query['knowledgebase_cat'];
 
 			$query = array(
-				'post_type' => 'knowledgebase',
+				'post_type'           => 'knowledgebase',
 				'knowledgebase_items' => $kb_category
 			);
 
 			// Disable the canonical redirect function included in BasePress
-			add_filter('basepress_canonical_redirect', '__return_false');
+			add_filter( 'basepress_canonical_redirect', '__return_false' );
 		} // B. Knowledgebase main page
 		else if ( ! empty( $knowledgebase_page ) && ! empty( $pm_query['id'] ) && $pm_query['id'] == $knowledgebase_page ) {
 			$query = array(
@@ -1640,7 +1693,7 @@ class Permalink_Manager_Third_Parties {
 	 *
 	 * @return string
 	 */
-	function fix_wcs_subscription_links( $permalink, $post, $old_permalink ) {
+	function wcs_fix_subscription_links( $permalink, $post, $old_permalink ) {
 		if ( ! empty( $post->post_type ) && $post->post_type == 'product' && strpos( $old_permalink, 'switch-subscription=' ) !== false ) {
 			$query_arg = parse_url( $old_permalink, PHP_URL_QUERY );
 			$permalink = "{$permalink}?{$query_arg}";
@@ -1650,7 +1703,32 @@ class Permalink_Manager_Third_Parties {
 	}
 
 	/**
-	 * 20. Regenerate the default permalink for the post after the custom permalink is imported by Store Locator - CSV Manager
+	 * 20. Excluding the LearnPress pages from Permalink Manager
+	 *
+	 * @param array $excluded_ids
+	 *
+	 * @return array
+	 */
+	function learnpress_exclude_pages( $excluded_ids ) {
+		if ( is_array( $excluded_ids ) && function_exists( 'learn_press_get_page_id' ) ) {
+			$learnpress_pages = array( 'profile', 'courses', 'checkout', 'become_a_teacher' );
+
+			foreach ( $learnpress_pages as $page ) {
+				$learnpress_page_id = learn_press_get_page_id( $page );
+
+				if ( empty( $learnpress_page_id ) || in_array( $learnpress_page_id, $excluded_ids ) ) {
+					continue;
+				}
+
+				$excluded_ids[] = $learnpress_page_id;
+			}
+		}
+
+		return $excluded_ids;
+	}
+
+	/**
+	 * 21. Regenerate the default permalink for the post after the custom permalink is imported by Store Locator - CSV Manager
 	 *
 	 * @param int $meta_id The ID of the metadata entry.
 	 * @param int $post_id The ID of the post that the metadata is for.

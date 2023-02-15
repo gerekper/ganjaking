@@ -1,7 +1,8 @@
 <?php
 if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 
-use \WordfenceLS\Controller_Settings;
+use WordfenceLS\Controller_Settings;
+use WordfenceLS\Text\Model_JavaScript;
 
 $states = array(
 	Controller_Settings::STATE_2FA_DISABLED => __('Disabled', 'wordfence-2fa'),
@@ -10,6 +11,7 @@ $states = array(
 );
 
 $gracePeriod = Controller_Settings::shared()->get_int(Controller_Settings::OPTION_REQUIRE_2FA_USER_GRACE_PERIOD, Controller_Settings::DEFAULT_REQUIRE_2FA_USER_GRACE_PERIOD);
+$woocommerceIntegrationEnabled = Controller_Settings::shared()->get_bool(\WordfenceLS\Controller_Settings::OPTION_ENABLE_WOOCOMMERCE_INTEGRATION);
 
 $requiredRoles = array();
 foreach ($options as $option) {
@@ -17,6 +19,8 @@ foreach ($options as $option) {
 		$requiredRoles[$option['role']] = $option['title'];
 	}
 }
+
+$customerRoleWarning = __('Requiring 2FA for customers is not recommended as some customers may experience difficulties setting up or using two-factor authentication. Instead, using the "Optional" mode for users with the customer role is recommended which will allow customers to enable 2FA, but will not require them to do so.', 'wordfence-2fa');
 
 ?>
 <ul class="wfls-option wfls-option-2fa-roles">
@@ -44,8 +48,9 @@ foreach ($options as $option) {
 		</li>
 		<?php endforeach ?>
 		</ul>
-		<?php if ($hasWoocommerce): ?>
-			<p><?php esc_html_e('By default, the customer role provided by WooCommerce does not have access to admin pages and therefore users in this role cannot configure two-factor authentication at this time. A 2FA setup process will be available for the customer role in an upcoming release.', 'wordfence-2fa') ?></p>
+		<p id="wfls-customer-2fa-required-warning" class="wfls-notice" style="display: none;"><?php echo esc_html($customerRoleWarning) ?></p>
+		<?php if ($hasWoocommerce && !$woocommerceIntegrationEnabled): ?>
+			<p class="wfls-woocommerce-customer-integration-message"><small><?php esc_html_e('In order to use 2FA with the WooCommerce customer role, you must either enable the "WooCommerce integration" option or use the "wordfence_2fa_management" shortcode to provide customers with access to the 2FA management interface. The default interface is only available through WordPress admin pages which are not accessible to users in the customer role.', 'wordfence-2fa') ?></small></p>
 		<?php endif ?>
 	</li>
 	<li class="wfls-2fa-grace-period-container">
@@ -60,13 +65,24 @@ foreach ($options as $option) {
 	</li>
 	<?php if (!empty($requiredRoles)): ?>
 	<li class="wfls-2fa-notification-action">
-		<select id="wfls-grace-period-notification-role">
-			<?php foreach ($requiredRoles as $role => $label): ?>
-			<option value="<?php echo esc_attr($role) ?>"><?php echo esc_html($label) ?></option>
-			<?php endforeach ?>
-		</select>
+		<h4><?php esc_html_e('2FA Notifications', 'wordfence-2fa') ?></h4>
+		<p>
+			<small><?php esc_html_e('Send an email to users with the selected role to notify them of the grace period for enabling 2FA. Select the desired role and optionally specify the URL to be sent in the email to setup 2FA. If left blank, the URL defaults to the standard wordpress login and Wordfence’s Two-Factor Authentication plugin page. For example, if using WooCommerce, input the relative URL of the account page.', 'wordfence-2fa') ?></small>
+			<a href="<?php echo \WordfenceLS\Controller_Support::esc_supportURL(\WordfenceLS\Controller_Support::ITEM_MODULE_LOGIN_SECURITY_2FA_NOTIFICATIONS) ?>" target="_blank" rel="noopener noreferrer" class="wfls-inline-help"><i class="<?php echo WORDFENCE_LS_FROM_CORE ? 'wf-fa wf-fa-question-circle-o' : 'wfls-fa wfls-fa-question-circle-o'; ?>" aria-hidden="true"></i></a>
+		</p>
+		<div>
+			<label><?php esc_html_e('2FA Role', 'wordfence-2fa') ?></label>
+			<select id="wfls-grace-period-notification-role">
+				<?php foreach ($requiredRoles as $role => $label): ?>
+				<option value="<?php echo esc_attr($role) ?>"><?php echo esc_html($label) ?></option>
+				<?php endforeach ?>
+			</select>
+		</div>
+		<div>
+			<label><?php esc_html_e('2FA Relative URL (optional)', 'wordfence-2fa') ?></label>
+			<input id="wfls-grace-period-notification-url" type="text" placeholder="ex: /my-account/">
+		</div>
 		<button class="wfls-btn wfls-btn-default wfls-btn-sm" id="wfls-send-grace-period-notification"><?php esc_html_e('Notify', 'wordfence-2fa') ?></button>
-		<small><?php esc_html_e('Send an email to users with the selected role to notify them of the grace period for enabling 2FA.', 'wordfence-2fa') ?></small>
 	</li>
 	<?php endif ?>
 </ul>
@@ -74,7 +90,8 @@ foreach ($options as $option) {
 	(function($) {
 		function sendGracePeriodNotification(notifyAll) {
 			var request = {
-				role: $('#wfls-grace-period-notification-role').val()
+				role: $('#wfls-grace-period-notification-role').val(),
+				url: $('#wfls-grace-period-notification-url').val(),
 			};
 			if (typeof notifyAll !== "undefined" && notifyAll)
 				request.notify_all = true;
@@ -129,5 +146,38 @@ foreach ($options as $option) {
 			}
 			$(this).val(value);
 		}).trigger('input');
+		var customerRoleInput = $('#wfls-2fa-role-enabled-roles\\.customer');
+		function isCustomerRoleRequired() {
+			return customerRoleInput.val() === 'required';
+		}
+		function toggleCustomerRoleWarning() {
+			$("#wfls-customer-2fa-required-warning").toggle(isCustomerRoleRequired());
+		}
+		toggleCustomerRoleWarning();
+		customerRoleInput.on('change', function(e) {
+			toggleCustomerRoleWarning();
+			if (isCustomerRoleRequired()) {
+				WFLS.displayModalMessage(
+					<?php Model_JavaScript::echo_string_literal(__('Not Recommended', 'wordfence-2fa')) ?>,
+					<?php Model_JavaScript::echo_string_literal($customerRoleWarning) ?>,
+					[
+						{
+							label: <?php Model_JavaScript::echo_string_literal(__('Make Optional', 'wordfence-2fa')) ?>,
+							id: 'wfls-customer-role-warning-revert',
+							type: 'primary'
+						},
+						{
+							label: <?php Model_JavaScript::echo_string_literal(__('Proceed', 'wordfence-2fa')) ?>,
+							id: 'wfls-generic-modal-close',
+							type: 'danger'
+						}
+					]
+				);
+			}
+		});
+		$('body').on('click', '#wfls-customer-role-warning-revert', function() {
+			customerRoleInput.val('optional').trigger('change');
+			$('#wfls-generic-modal-close').trigger('click');
+		});
 	})(jQuery);
 </script>

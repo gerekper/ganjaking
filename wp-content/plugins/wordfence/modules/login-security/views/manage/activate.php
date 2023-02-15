@@ -1,11 +1,10 @@
 <?php
 if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 /**
- * @var string $secret The TOTP secret in binary. Required.
- * @var string $base32Secret The base32-encoded TOTP secret. Required.
- * @var string[] $recovery The binary recovery codes. Required.
- * @var \WP_User $user The user being edited. Required.
+ * @var \WordfenceLS\Model_2faInitializationData $initializationData The initialization data for setting up 2FA for a specific user. Required.
  */
+$user = $initializationData->get_user();
+$recovery = $initializationData->get_recovery_codes();
 ?>
 <div class="wfls-block wfls-always-active wfls-flex-item-full-width">
 	<div class="wfls-block-header wfls-block-header-border-bottom">
@@ -39,7 +38,7 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 	</div>
 	<div class="wfls-block-footer">
 		<div class="wfls-block-footer-content">
-			<div class="wfls-block-title">
+			<div class="wfls-block-title" id="wfls-activation-help-link-container">
 				<a href="<?php echo \WordfenceLS\Controller_Support::esc_supportURL(\WordfenceLS\Controller_Support::ITEM_MODULE_LOGIN_SECURITY_2FA); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e('For help on setting up an app, visit our help article.', 'wordfence-2fa'); ?></a>
 			</div>
 			<div class="wfls-block-footer-action"><a href="#" id="wfls-activate" class="wfls-btn wfls-btn-default wfls-disabled"><?php esc_html_e('Activate', 'wordfence-2fa'); ?></a></div>
@@ -69,7 +68,7 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 				e.stopPropagation();
 				
 				var payload = {
-					secret: '<?php echo bin2hex($secret); ?>',
+					secret: '<?php echo bin2hex($initializationData->get_raw_secret()); ?>',
 					recovery: ['<?php echo implode('\', \'', array_map(function($c) { return bin2hex($c); }, $recovery)); ?>'],
 					code: $('#wfls-activate-field').val(),
 					user: <?php echo $user->ID; ?>,
@@ -92,7 +91,7 @@ if (!defined('WORDFENCE_LS_VERSION')) { exit; }
 							if (!WFLS.savedRecoveryCodes) {
 								var prompt = $('#wfls-tmpl-recovery-skipped-prompt').tmpl({});
 								var promptHTML = $("<div />").append(prompt).html();
-								WFLS.panelHTML((WFLS.screenSize(500) ? '300px' : '400px'), promptHTML, {overlayClose: false, closeButton: false, className: 'wfls-modal', onComplete: function() {
+								WFLS.panelHTML((WFLS.screenSize(500) ? '300px' : '400px'), promptHTML, { fixed: true, overlayClose: false, closeButton: false, className: 'wfls-modal', onComplete: function() {
 									$('#wfls-recovery-skipped-download').on('click', function(e) {
 										e.preventDefault();
 										e.stopPropagation();

@@ -600,23 +600,23 @@ class Permalink_Manager_Actions {
 			}
 
 			// Get items (try to get them from transient)
-			$items    = get_transient( "pm_{$uniq_id}" );
-			$progress = get_transient( "pm_{$uniq_id}_progress" );
+			$items = get_transient( "pm_{$uniq_id}" );
 
-			$chunk_size  = apply_filters( 'permalink_manager_chunk_size', 50 );
+			// Get the iteration count and chunk size
+			$iteration  = isset( $_POST['iteration'] ) ? intval( $_POST['iteration'] ) : 1;
+			$chunk_size = apply_filters( 'permalink_manager_chunk_size', 50 );
 
-			if ( empty( $items ) ) {
-				$items       = $class_name::get_items();
+			if ( empty( $items ) && ! empty ( $chunk_size ) ) {
+				$items = $class_name::get_items();
 
 				if ( ! empty( $items ) ) {
-					// Set stats (to display the progress)
+					// Count how many items need to be processed
 					$total = count( $items );
 
 					// Split items array into chunks and save them to transient
 					$items = array_chunk( $items, $chunk_size );
 
-					set_transient( "pm_{$uniq_id}_progress", 0, 300 );
-					set_transient( "pm_{$uniq_id}", $items, 300 );
+					set_transient( "pm_{$uniq_id}", $items, 600 );
 
 					// Check for MySQL errors
 					if ( ! empty( $wpdb->last_error ) ) {
@@ -635,9 +635,11 @@ class Permalink_Manager_Actions {
 			$new_string = ( ! empty( $_POST['old_string'] ) ) ? str_replace( $home_url, '', esc_sql( $_POST['new_string'] ) ) : '';
 
 			// Process only one subarray
-			if ( ! empty( $items[0] ) ) {
-				$chunk = array_shift( $items );
-				set_transient( "pm_{$uniq_id}", $items, 300 );
+			if ( ! empty( $items[ $iteration - 1 ] ) ) {
+				$chunk = $items[ $iteration - 1 ];
+
+				// Check how many iterations are needed
+				$total_iterations = count( $items );
 
 				// Check if posts or terms should be updated
 				if ( $function_name == 'find_and_replace' ) {
@@ -652,21 +654,19 @@ class Permalink_Manager_Actions {
 				}
 
 				// Send total number of processed items with a first chunk
-				if ( ! empty( $total ) ) {
+				if ( ! empty( $total ) && ! empty( $total_iterations ) && $iteration == 1 ) {
 					$return['total'] = $total;
+					$return['items'] = $items;
 				}
 
-				// Check if there are any chunks left
-				if ( count( $items ) > 0 ) {
-					// Update progress
-					$progress += $chunk_size;
-					set_transient( "pm_{$uniq_id}_progress", $progress, 300 );
+				$return['iteration']        = $iteration;
+				$return['total_iterations'] = $total_iterations;
+				$return['progress']         = $chunk_size * $iteration;
+				$return['chunk']            = $chunk;
 
-					$return['left_chunks'] = true;
-					$return['progress']    = $progress;
-				} else {
+				// After all chunks are processed remove the transient
+				if ( $iteration == $total_iterations ) {
 					delete_transient( "pm_{$uniq_id}" );
-					delete_transient( "pm_{$uniq_id}_progress" );
 				}
 			}
 

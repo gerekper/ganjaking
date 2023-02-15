@@ -190,7 +190,7 @@ class Permalink_Manager_Core_Functions {
 				$post_ids = $wpdb->get_col( "SELECT DISTINCT ID FROM {$wpdb->posts} AS p WHERE p.post_status = 'draft' ORDER BY ID DESC" );
 				if ( ! empty( $post_ids ) ) {
 					foreach ( $post_ids as $post_id ) {
-						unset( $permalink_manager_uris[ $post_id ] );
+						unset( $all_uris[ $post_id ] );
 					}
 				}
 			}
@@ -399,7 +399,21 @@ class Permalink_Manager_Core_Functions {
 						$query[ $endpoint_name ] = $endpoint_value;
 					}
 				} else if ( $endpoint == 'feed' ) {
-					$query[ $endpoint ] = 'feed';
+					$feed_rewrite = true;
+
+					// Check if /feed/ endpoint is allowed for selected post type or taxonomy
+					if ( ! empty( $post_type_object ) && empty( $post_type_object->rewrite['feeds'] ) ) {
+						$feed_rewrite = false;
+					}
+
+					if ( $feed_rewrite ) {
+						$query[ $endpoint ] = 'feed';
+					} else {
+						$element_id = '';
+						$query      = array(
+							'error' => 404
+						);
+					}
 				} else if ( $endpoint == 'embed' ) {
 					$query[ $endpoint ] = true;
 				} else if ( $endpoint == 'page' ) {
@@ -452,7 +466,7 @@ class Permalink_Manager_Core_Functions {
 			 * 6. Set global with detected item id
 			 */
 			if ( ! empty( $element_id ) && empty( $disabled ) ) {
-				$pm_query['id'] = $element_id;
+				$pm_query['id'] = ( ! empty( $term_taxonomy ) ) ? "tax-{$element_id}" : $element_id;
 
 				// Make the redirects more clever - see new_uri_redirect_and_404() method
 				$query['do_not_redirect'] = 1;

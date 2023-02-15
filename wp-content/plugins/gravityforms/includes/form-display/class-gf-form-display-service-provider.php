@@ -39,13 +39,8 @@ class GF_Form_Display_Service_Provider extends GF_Service_Provider {
 		require_once( plugin_dir_path( __FILE__ ) . '/block-styles/block-styles-handler.php' );
 
 		$container->add( self::FULL_SCREEN_HANDLER, function() use ( $container ) {
-
-			// Check the MySQL version to determine the correct query handler type.
-			if ( Full_Screen_Handler::db_supports_json_contains( GFCommon::get_db_version(), GFCommon::get_dbms_type() ) ) {
-				$handler = $container->get( GF_Query_Service_Provider::JSON_QUERY_HANDLER );
-			} else {
-				$handler = $container->get( GF_Query_Service_Provider::JSON_STRING_HANDLER );
-			}
+			// Use string handler for now to avoid JSON query issues on old platforms.
+			$handler = $container->get( GF_Query_Service_Provider::JSON_STRING_HANDLER );
 
 			return new Full_Screen_Handler( $handler );
 		});

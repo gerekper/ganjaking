@@ -377,11 +377,18 @@ class GFSettings {
 	 * @return array
 	 */
 	private static function plugin_settings_fields() {
+		$license_section_description = esc_html__( 'A valid license key is required for access to automatic plugin upgrades and product support.', 'gravityforms' );
+		$is_hidden                   = false;
+		if ( is_multisite() && ! is_main_site() && is_plugin_active_for_network( GF_PLUGIN_BASENAME ) ) {
+			$is_hidden                   = true;
+			$license_section_description = esc_html__( 'License key is managed by the administrator of this network', 'gravityforms' );
+		}
+
 		$fields = array(
 			'license_key'         => array(
 				'title'       => esc_html__( 'Support License Key', 'gravityforms' ),
 				'class'       => 'gform-settings-panel--full',
-				'description' => esc_html__( 'A valid license key is required for access to automatic plugin upgrades and product support.', 'gravityforms' ),
+				'description' => $license_section_description,
 				'fields'      => array(
 					array(
 						'name'                => 'license_key',
@@ -393,6 +400,7 @@ class GFSettings {
 						'callback'            => array( 'GFSettings', 'license_key_render_callback' ),
 						'class'               => 'gform-admin-input',
 						'validation_callback' => array( 'GFSettings', 'license_key_validation_callback' ),
+						'hidden'              => $is_hidden,
 						'after_input'         => function () {
 							/**
 							 * @var License\GF_License_API_Connector $license_connector
@@ -682,7 +690,7 @@ class GFSettings {
 						</p>
 					</td>
 					<td data-header="<?php _e( 'Purchase Date', 'gravityforms' ); ?>">
-						<p><?php echo '12th February 2023'; ?></p>
+						<p><?php echo '14th February 2023'; ?></p>
 					</td>
 					<td data-header="<?php _e( 'License Activations', 'gravityforms' ); ?>">
 						<p>

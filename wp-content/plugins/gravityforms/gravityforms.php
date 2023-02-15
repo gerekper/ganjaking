@@ -4,7 +4,7 @@ Plugin Name: Gravity Forms
 Plugin URI: https://gravityforms.com
 Secret Key: 83a5bb0e2ad5164690bc7a42ae592cf5
 Description: Easily create web forms and manage form entries within the WordPress admin.
-Version: 2.7.0.3
+Version: 2.7.1
 Requires at least: 4.0
 Requires PHP: 5.6
 Author: Gravity Forms
@@ -146,6 +146,16 @@ if ( ! defined( 'GRAVITY_MANAGER_URL' ) ) {
 	define( 'GRAVITY_MANAGER_URL', 'https://gravityapi.com/wp-content/plugins/gravitymanager' );
 }
 
+/**
+ * The name of the plugin extracted from its path.
+ *
+ * @since 2.7
+ *
+ * @var string
+ */
+define( 'GF_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+
+
 require_once GF_PLUGIN_DIR_PATH . 'includes/class-gf-service-container.php';
 require_once GF_PLUGIN_DIR_PATH . 'includes/class-gf-service-provider.php';
 require_once GF_PLUGIN_DIR_PATH . 'includes/transients/interface-gf-transient-strategy.php';
@@ -241,7 +251,7 @@ class GFForms {
 	 *
 	 * @var string $version The version number.
 	 */
-	public static $version = '2.7.0.3';
+	public static $version = '2.7.1';
 
 	/**
 	 * Handles background upgrade tasks.

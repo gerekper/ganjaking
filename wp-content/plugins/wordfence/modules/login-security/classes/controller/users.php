@@ -376,56 +376,62 @@ class Controller_Users {
 	public function detailed_user_counts() {
 		global $wpdb;
 		
-		//Base counts
-		$counts = count_users();
-		
-		//Adaptation of the source of the above call to get enabled counts
-		$site_id = get_current_blog_id();
-		$blog_prefix = $wpdb->get_blog_prefix($site_id);
-		$roles = new \WP_Roles();
-		if (is_multisite() && get_current_blog_id() != $site_id) {
-			switch_to_blog($site_id);
-			$avail_roles = $roles->get_names();
-			restore_current_blog();
-		}
-		else {
-			$avail_roles = $roles->get_names();
+		$blog_prefix = $wpdb->get_blog_prefix();
+		$wp_roles = new \WP_Roles();
+		$roles = $wp_roles->get_names();
+
+		$counts = array();
+		$groups = array('avail_roles' => 0, 'active_avail_roles' => 0);
+
+		foreach ($groups as $group => $count) {
+			$counts[$group] = array();
+			foreach ($roles as $role_key => $role_name) {
+				$counts[$group][$role_key] = 0;
+			}
 		}
 		
-		// Build a CPU-intensive query that will return concise information.
-		$select_count = array();
-		foreach ($avail_roles as $this_role => $name) {
-			if (!method_exists($wpdb, 'esc_like')) {
-				$like = addcslashes('"' . $this_role . '"', '_%\\'); //for WP < 4.0
+		$secrets_table = Controller_DB::shared()->secrets;
+		$results = $wpdb->get_results("
+			SELECT
+				um.meta_value AS serialized_roles,
+				s.user_id IS NULL AS two_factor_inactive,
+				COUNT(*) AS user_count
+			FROM {$wpdb->usermeta} um
+			INNER JOIN {$wpdb->users} u ON um.user_id = u.ID
+			LEFT JOIN {$secrets_table} s ON um.user_id = s.user_id
+			WHERE meta_key = '{$blog_prefix}capabilities'
+			GROUP BY serialized_roles, two_factor_inactive
+		", OBJECT);
+
+		foreach ($results as $row) {
+			if (version_compare(PHP_VERSION, '5.6', '<=')) {
+				$row_roles = unserialize($row->serialized_roles);
 			}
 			else {
-				$like = $wpdb->esc_like('"' . $this_role . '"');
+				$row_roles = unserialize($row->serialized_roles, array('allowed_classes' => false));
 			}
-			$select_count[] = $wpdb->prepare("COUNT(NULLIF(`meta_value` LIKE %s, false))", '%' . $like . '%');
-		}
-		$select_count[] = "COUNT(NULLIF(`meta_value` = 'a:0:{}', false))";
-		$select_count = implode(', ', $select_count);
-		
-		// Add the meta_value index to the selection list, then run the query.
-		$table = Controller_DB::shared()->secrets;
-		$row = $wpdb->get_row("
-			SELECT {$select_count}, COUNT(*)
-			FROM {$wpdb->usermeta} um
-			INNER JOIN {$table} tf ON um.user_id = tf.user_id
-			WHERE meta_key = '{$blog_prefix}capabilities'
-		", ARRAY_N);
-		
-		// Run the previous loop again to associate results with role names.
-		$col = 0;
-		$role_counts = array();
-		foreach ($avail_roles as $this_role => $name) {
-			$count = (int) $row[$col++];
-			if ($count > 0) {
-				$role_counts[$this_role] = $count;
+			if (!is_array($row_roles))
+				continue;
+			foreach ($row_roles as $row_role => $state) {
+				if ($state !== true || !is_string($row_role))
+					continue;
+				if (array_key_exists($row_role, $roles)) {
+					foreach ($groups as $group => &$group_count) {
+						if ($group === 'active_avail_roles' && $row->two_factor_inactive)
+							continue;
+						$counts[$group][$row_role] += $row->user_count;
+						$group_count += $row->user_count;
+					}
+				}
 			}
 		}
-		
-		$role_counts['none'] = (int) $row[$col++];
+
+		foreach ($roles as $role_key => $role_name) {
+			if ($counts['avail_roles'][$role_key] === 0 && $counts['active_avail_roles'][$role_key] === 0) {
+				unset($counts['avail_roles'][$role_key]);
+				unset($counts['active_avail_roles'][$role_key]);
+			}
+		}
 
 		// Separately add super admins for multisite
 		if (is_multisite()) {
@@ -439,14 +445,11 @@ class Controller_Users {
 				}
 			}
 			$counts['avail_roles']['super-admin'] = $superAdmins;
-			$role_counts['super-admin'] = $activeSuperAdmins;
+			$counts['active_avail_roles']['super-admin'] = $activeSuperAdmins;
 		}
 		
-		// Get the meta_value index from the end of the result set.
-		$total_users = (int) $row[$col];
-		
-		$counts['active_total_users'] = $total_users;
-		$counts['active_avail_roles'] =& $role_counts;
+		$counts['total_users'] = $groups['avail_roles'];
+		$counts['active_total_users'] = $groups['active_avail_roles'];
 
 		return $counts;
 	}

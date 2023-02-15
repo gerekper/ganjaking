@@ -58,19 +58,13 @@ $lockedOut = $requires2fa && !$enabled;
 </div>
 <div id="wfls-activation-controls" class="wfls-flex-row wfls-flex-row-xs-wrappable wfls-flex-row-equal-heights"<?php if ($enabled) { echo ' style="display: none;"'; } ?>>
 	<?php
-		$secret = \WordfenceLS\Model_Crypto::random_bytes(20);
-		$base32 = new \WordfenceLS\Crypto\Model_Base2n(5, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567', false, true, true);
-		$base32Secret = $base32->encode($secret);
-		$totpURL = "otpauth://totp/" . rawurlencode(preg_replace('~^https?://~i', '', home_url()) . ' (' . $user->user_login . ')') . '?secret=' . $base32Secret . '&algorithm=SHA1&digits=6&period=30&issuer=Wordfence';
-		$codes = \WordfenceLS\Controller_Users::shared()->regenerate_recovery_codes();
+		$initializationData = new \WordfenceLS\Model_2faInitializationData($user);
 	?>
 	<!-- begin qr code -->
 	<div class="wfls-flex-row wfls-flex-row-equal-heights wfls-col-sm-half-padding-right wfls-flex-item-xs-100 wfls-flex-item-sm-50">
 		<?php
 		echo \WordfenceLS\Model_View::create('manage/code', array(
-			'secret' => $secret,
-			'base32Secret' => $base32Secret,
-			'totpURL' => $totpURL,
+			'initializationData' => $initializationData
 		))->render();
 		?>
 	</div>
@@ -79,10 +73,7 @@ $lockedOut = $requires2fa && !$enabled;
 	<div class="wfls-flex-row wfls-flex-row-equal-heights wfls-col-sm-half-padding-left wfls-flex-item-xs-100 wfls-flex-item-sm-50">
 		<?php
 		echo \WordfenceLS\Model_View::create('manage/activate', array(
-			'secret' => $secret,
-			'base32Secret' => $base32Secret,
-			'recovery' => $codes,
-			'user' => $user,
+			'initializationData' => $initializationData
 		))->render();
 		?>
 	</div>

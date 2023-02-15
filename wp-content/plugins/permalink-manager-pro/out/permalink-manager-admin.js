@@ -117,7 +117,8 @@ jQuery(document).ready(function() {
 	});
 
 	jQuery('#permalink-manager').on('click', '.remove-redirect', function() {
-		var table = jQuery(this).closest('tr').remove();
+		jQuery(this).closest('tr').remove();
+
 		return false;
 	});
 
@@ -143,10 +144,9 @@ jQuery(document).ready(function() {
 		}
 	});
 
-	function permalink_manager_duplicate_check(custom_uri_input, multi) {
+	function permalink_manager_duplicate_check(custom_uri_input) {
 		// Set default values
 		custom_uri_input = typeof custom_uri_input !== 'undefined' ? custom_uri_input : false;
-  	multi = typeof multi !== 'undefined' ? multi : false;
 
 		var all_custom_uris_values = {};
 
@@ -207,9 +207,9 @@ jQuery(document).ready(function() {
 			clearTimeout(custom_uri_check_timeout);
 
 			// Wait until user finishes typing
-	    custom_uri_check_timeout = setTimeout(function() {
-				permalink_manager_duplicate_check(input);
-	    }, 500);
+			custom_uri_check_timeout = setTimeout(function() {
+					permalink_manager_duplicate_check(input);
+			}, 500);
 		});
 
 	});
@@ -218,7 +218,7 @@ jQuery(document).ready(function() {
 	 * Check if any of displayed custom URIs is not duplicated
 	 */
 	if(jQuery('#uri_editor .custom_uri').length > 0) {
-		permalink_manager_duplicate_check(false, true);
+		permalink_manager_duplicate_check(false);
 	}
 
 	/**
@@ -368,24 +368,27 @@ jQuery(document).ready(function() {
 	 * Reload the URI Editor in Gutenberg after the post is published or the title/slug is changed
 	 */
 	if(typeof wp !== 'undefined' && typeof wp.data !== 'undefined' && typeof wp.data.select !== 'undefined' && typeof wp.data.subscribe !== 'undefined' && wp.data.select('core/editor') != null && wp.data.select('core/edit-post') != null) {
-		const pm_unsubscribe = wp.data.subscribe(function() {
-			var isSavingPost = wp.data.select('core/editor').isSavingPost();
-			var isAutosavingPost = wp.data.select('core/editor').isAutosavingPost();
-			var didPostSaveRequestSucceed =  wp.data.select('core/editor').didPostSaveRequestSucceed();
-			var isSavingMetaBoxes = wp.data.select('core/edit-post').isSavingMetaBoxes();
+		wp.data.subscribe(function() {
+			try {
+				var isSavingPost = wp.data.select('core/editor').isSavingPost();
+				var isAutosavingPost = wp.data.select('core/editor').isAutosavingPost();
+				var isSavingMetaBoxes = wp.data.select('core/edit-post').isSavingMetaBoxes();
 
-			// Disable URI Editor until it is reloaded
-			if(isSavingPost && !isAutosavingPost) {
-				pm_gutenberg_loading_overlay();
-			}
+				// Disable URI Editor until it is reloaded
+				if(isSavingPost && !isAutosavingPost) {
+					pm_gutenberg_loading_overlay();
+				}
 
-			// Reload URI Editor only after metaboxes are saved
-			if(isSavingMetaBoxes) {
-				pm_container_reloading = true;
-			} else if(pm_container_reloading) {
-				pm_container_reloading = false;
+				// Reload URI Editor only after metaboxes are saved
+				if(isSavingMetaBoxes) {
+					pm_container_reloading = true;
+				} else if(pm_container_reloading) {
+					pm_container_reloading = false;
 
-				pm_gutenberg_reload();
+					pm_gutenberg_reload();
+				}
+			} catch (err) {
+				console.log('Permalink Manager', err);
 			}
 		});
 	}
@@ -448,10 +451,10 @@ jQuery(document).ready(function() {
 		}
 	}
 
-	jQuery('#permalink-manager #tools form.form-ajax').on('submit', function() {
-		var data = jQuery(this).serialize() + '&action=' + 'pm_bulk_tools';
-		var form = jQuery(this);
-		var updated_count = total = progress = 0;
+	jQuery('#permalink-manager #tools form.form-ajax').on('submit', function () {
+		var total_iterations = updated_count = total = progress = 0;
+		var iteration = 1;
+		var data = jQuery(this).serialize() + '&action=pm_bulk_tools&iteration=' + iteration;
 
 		// Hide alert & results table
 		jQuery('#permalink-manager .updated-slugs-table, .permalink-manager-notice.updated_slugs, #permalink-manager #updated-list').remove();
@@ -460,67 +463,71 @@ jQuery(document).ready(function() {
 			type: 'POST',
 			url: permalink_manager.ajax_url,
 			data: data,
-			beforeSend: function() {
+			beforeSend: function () {
 				// Show progress overlay
 				pm_show_progress("#permalink-manager #tools", progress);
 			},
-			success: function(data) {
+			success: function (data) {
 				var table_dom = jQuery('#permalink-manager .updated-slugs-table');
+				var ajax_request = this;
+
+				// The first AJAX request should return the total items & iterations count
+				if (data.hasOwnProperty('total_iterations') && data.hasOwnProperty('total')) {
+					total_iterations = parseInt(data.total_iterations);
+					total = parseInt(data.total);
+
+					// If prior requests were handled with errors, remove those alerts
+					jQuery('.permalink-manager-notice.updated_slugs.error').remove();
+
+					// Add the alert container with the status but do not display it yet
+					if (data.hasOwnProperty('alert')) {
+						jQuery('#plugin-name-heading').after(jQuery(data.alert).hide());
+					}
+				}
+				// Check if the iteration and total count were correctly set in the first AJAX request
+				else if (total_iterations === 0 || total === 0) {
+					console.log('No items have been processed.');
+					jQuery('#permalink-manager #tools').LoadingOverlay("hide", true);
+
+					return true;
+				}
 
 				// Display the table
-				if(data.hasOwnProperty('html')) {
+				if (data.hasOwnProperty('html')) {
 					var table = jQuery(data.html);
 
-					if(table_dom.length == 0) {
+					if (table_dom.length == 0) {
 						jQuery('#permalink-manager #tools').after(data.html);
 					} else {
 						jQuery(table_dom).append(jQuery(table).find('tbody').html());
 					}
 				}
 
-				// Hide error message
-				jQuery('.permalink-manager-notice.updated_slugs.error').remove();
-
-				// Display the alert (should be hidden at first)
-				if(data.hasOwnProperty('alert') && jQuery('.permalink-manager-notice.updated_slugs .updated_count').length == 0) {
-					var alert = jQuery(data.alert).hide();
-					jQuery('#plugin-name-heading').after(alert);
-				}
-
 				// Increase updated count
-				if(data.hasOwnProperty('updated_count')) {
-					if(jQuery(form).attr("data-updated_count")) {
-						updated_count = parseInt(jQuery(form).attr("data-updated_count")) + parseInt(data.updated_count);
-					} else {
-						updated_count = parseInt(data.updated_count);
-					}
+				if (data.hasOwnProperty('updated_count')) {
+					updated_count = updated_count + parseInt(data.updated_count);
 
-					jQuery(form).attr("data-updated_count", updated_count);
 					jQuery('.permalink-manager-notice.updated_slugs .updated_count').text(updated_count);
 				}
 
-				// Show total
-				if(data.hasOwnProperty('total')) {
-					total = parseInt(data.total);
+				// Repeat the AJAX request for the next chunk of items
+				if (iteration < total_iterations) {
+					// Update the progress
+					progress = Math.floor((iteration / total_iterations) * 100);
+					console.log(iteration + "/" + total_iterations + " = " + progress + "%");
 
-					jQuery(form).attr("data-total", total);
-				}
+					// Go to the next chunk
+					iteration++;
 
-				// Trigger again
-				if(data.hasOwnProperty('left_chunks') && (typeof total !== "undefined" && data.progress < total)) {
-					jQuery.ajax(this);
-
-					// Update progress
-					if(data.hasOwnProperty('progress')) {
-						progress = Math.floor((data.progress / total) * 100)
-						console.log(data.progress + "/" + total + " = " + progress + "%");
-					}
+					// Change the iteration number in the AJAX data
+					ajax_request.data = ajax_request.data.replace(/(&iteration=)([\d]+)/gm, "$1" + iteration);
+					jQuery.ajax(ajax_request);
 				} else {
-					// Display results
+					// Display the alert container and hide the loading overlay
 					jQuery('.permalink-manager-notice.updated_slugs').fadeIn();
 					jQuery('#permalink-manager #tools').LoadingOverlay("hide", true);
 
-					if(table_dom.length > 0) {
+					if (table_dom.length > 0) {
 						jQuery('html, body').animate({
 							scrollTop: table_dom.offset().top - 100
 						}, 2000);
@@ -528,13 +535,12 @@ jQuery(document).ready(function() {
 
 					// Reset progress & updated count
 					progress = updated_count = 0;
-					jQuery(form).attr("data-updated_count", 0);
 				}
 
 				return true;
-      },
-			error: function(xhr, status, error_data) {
-				alert('There was a problem running this tool and the process could not be completed. You can find more details in browser\'s console log.')
+			},
+			error: function (xhr, status, error_data) {
+				alert('There was a problem running this tool and the process could not be completed. You can find more details in browser\'s console log.');
 				console.log('Status: ' + status);
 				console.log('Please send the debug data to contact@permalinkmanager.pro:\n\n' + xhr.responseText);
 
@@ -594,36 +600,62 @@ jQuery(document).ready(function() {
 	/**
 	 * Quick Edit
 	 */
+	function pm_quick_edit(item, inlineEdit) {
+		// Get the item ID and type
+		let item_id = 0;
+		let item_uri_id = '';
+		let item_type = '';
+		let item_row = '';
+
+		if(typeof(item) == 'object') {
+			item_id = parseInt(inlineEdit.getId(item));
+			item_type = inlineEdit.type;
+		} else {
+			return;
+		}
+
+		// Get the edit row
+		let edit_row = jQuery('#edit-' + item_id);
+
+		// Get the post/term row
+		if(item_type === 'tag') {
+			item_row = jQuery('#tag-' + item_id);
+			item_uri_id = "tax-" + item_id;
+		} else if(item_type === 'post') {
+			item_row = jQuery('#post-' + item_id);
+			item_uri_id = item_id;
+		} else {
+			return;
+		}
+
+		if(item_id !== 0) {
+			// Get the row & "Custom URI" field
+			let custom_uri_field = edit_row.find('.custom_uri');
+
+			// Prepare the Custom URI
+			let custom_uri = item_row.find(".column-permalink-manager-col").text();
+
+			// Fill with the Custom URI
+			custom_uri_field.val(custom_uri);
+
+			// Get auto-update settings
+			let auto_update = item_row.find(".permalink-manager-col-uri").attr('data-disabled');
+
+			if(typeof auto_update !== "undefined" && (auto_update == 1 || auto_update == 2)) {
+				custom_uri_field.attr('disabled', 'disabled');
+			}
+
+			// Set the element ID
+			edit_row.find('.permalink-manager-edit-uri-element-id').val(item_uri_id);
+		}
+	}
+
 	if(typeof inlineEditPost !== "undefined") {
 		var inline_post_editor = inlineEditPost.edit;
 		inlineEditPost.edit = function(id) {
 			inline_post_editor.apply(this, arguments);
 
-			// Get the Post ID
-			var post_id = 0;
-			if(typeof(id) == 'object') {
-				post_id = parseInt(this.getId(id));
-			}
-
-			if(post_id != 0) {
-				// Get the row & "Custom URI" field
-				custom_uri_field = jQuery('#edit-' + post_id).find('.custom_uri');
-
-				// Prepare the Custom URI
-				custom_uri = jQuery("#post-" + post_id).find(".column-permalink-manager-col").text();
-
-				// Fill with the Custom URI
-				custom_uri_field.val(custom_uri);
-
-				// Get auto-update settings
-				auto_update = jQuery("#post-" + post_id).find(".permalink-manager-col-uri").attr('data-readonly');
-				if(typeof auto_update !== "undefined" && auto_update == 1) {
-					custom_uri_field.attr('readonly', 'readonly');
-				}
-
-				// Set the element ID
-				jQuery('#edit-' + post_id).find('.permalink-manager-edit-uri-element-id').val(post_id);
-			}
+			pm_quick_edit(id, this);
 		}
 	}
 
@@ -632,25 +664,7 @@ jQuery(document).ready(function() {
 		inlineEditTax.edit = function(id) {
 			inline_tax_editor.apply(this, arguments);
 
-			// Get the Post ID
-			var term_id = 0;
-			if(typeof(id) == 'object') {
-				term_id = parseInt(this.getId(id));
-			}
-
-			if(term_id != 0) {
-				// Get the row & "Custom URI" field
-				custom_uri_field = jQuery('#edit-' + term_id).find('.custom_uri');
-
-				// Prepare the Custom URI
-				custom_uri = jQuery("#tag-" + term_id).find(".column-permalink-manager-col").text();
-
-				// Fill with the Custom URI
-				custom_uri_field.val(custom_uri);
-
-				// Set the element ID
-				jQuery('#edit-' + term_id).find('.permalink-manager-edit-uri-element-id').val("tax-" + term_id);
-			}
+			pm_quick_edit(id, this);
 		}
 	}
 

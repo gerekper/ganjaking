@@ -1097,7 +1097,7 @@ class Permalink_Manager_Admin_Functions {
 			// Check if license is active
 			$exp_date = Permalink_Manager_Pro_Functions::get_expiration_date( true );
 
-			$is_pro = ( $exp_date > 2 ) ? false : true;
+			$is_pro = ( $exp_date > 1 ) ? false : true;
 		} else {
 			$is_pro = false;
 		}

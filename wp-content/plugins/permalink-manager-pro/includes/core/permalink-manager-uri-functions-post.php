@@ -16,7 +16,6 @@ class Permalink_Manager_URI_Functions_Post {
 
 		add_filter( 'permalink_manager_uris', array( $this, 'exclude_homepage' ), 99 );
 
-		// Support url_to_postid
 		add_filter( 'url_to_postid', array( $this, 'url_to_postid' ), 999 );
 
 		add_filter( 'get_sample_permalink_html', array( $this, 'edit_uri_box' ), 10, 5 );
@@ -396,7 +395,7 @@ class Permalink_Manager_URI_Functions_Post {
 	}
 
 	/**
-	 * Support url_to_postid
+	 * Support url_to_postid() function
 	 *
 	 * @param string $url
 	 *
@@ -406,7 +405,7 @@ class Permalink_Manager_URI_Functions_Post {
 		global $pm_query;
 
 		// Filter only defined URLs
-		if ( empty( $url ) || ! is_array( $pm_query ) ) {
+		if ( empty( $url ) ) {
 			return $url;
 		}
 
@@ -791,15 +790,15 @@ class Permalink_Manager_URI_Functions_Post {
 
 			// A. Disable the "Quick Edit" form for draft posts if "Exclude drafts" option is turned on
 			if ( $exclude_drafts && get_post_status( $post_id ) == 'draft' ) {
-				$readonly = 1;
+				$disabled = 1;
 			} // B. Get auto-update settings
 			else {
 				$auto_update_val = get_post_meta( $post_id, "auto_update_uri", true );
-				$readonly        = ( ! empty( $auto_update_val ) ) ? $auto_update_val : $permalink_manager_options["general"]["auto_update_uris"];
+				$disabled        = ( ! empty( $auto_update_val ) ) ? $auto_update_val : $permalink_manager_options["general"]["auto_update_uris"];
 			}
 
 			$uri = ( ! empty( $permalink_manager_uris[ $post_id ] ) ) ? rawurldecode( $permalink_manager_uris[ $post_id ] ) : self::get_post_uri( $post_id, true );
-			printf( '<span class="permalink-manager-col-uri" data-readonly="%s">%s</span>', intval( $readonly ), $uri );
+			printf( '<span class="permalink-manager-col-uri" data-disabled="%s">%s</span>', intval( $disabled ), $uri );
 		}
 	}
 
@@ -817,7 +816,7 @@ class Permalink_Manager_URI_Functions_Post {
 	}
 
 	/**
-	 * Set the custom permalink for new term item
+	 * Set the custom permalink for new post item
 	 *
 	 * @param int $post_id Term ID.
 	 */
@@ -844,30 +843,20 @@ class Permalink_Manager_URI_Functions_Post {
 			return;
 		}
 
-		// Do not do anything on in "Bulk Edit"
-		if ( ! empty( $_REQUEST['bulk_edit'] ) ) {
+		// Do not do anything if the custom permalink was generated before or 'custom_uri' field is present in the request
+		if ( isset( $permalink_manager_uris[ $post_id ] ) || ( isset( $_POST['custom_uri'] ) ) ) {
 			return;
 		}
 
-		// Hotfix
-		if ( isset( $_POST['custom_uri'] ) || isset( $_POST['permalink-manager-quick-edit'] ) || isset( $permalink_manager_uris[ $post_id ] ) ) {
+		// Do not do anything on in "Quick Edit" & "Bulk Edit"
+		if ( ( isset( $_POST['permalink-manager-quick-edit'] ) || ! empty( $_REQUEST['bulk_edit'] ) ) ) {
 			return;
 		}
 
 		$post_object = get_post( $post_id );
 
 		// Check if post is allowed
-		if ( empty( $post_object->post_type ) || Permalink_Manager_Helper_Functions::is_post_excluded( $post_object ) ) {
-			return;
-		}
-
-		// Exclude drafts
-		if ( ! empty( $permalink_manager_options["general"]["ignore_drafts"] ) && ! empty( $post_object->post_status ) && $post_object->post_status == 'draft' ) {
-			return;
-		}
-
-		// Ignore menu items
-		if ( $post_object->post_type == 'nav_menu_item' ) {
+		if ( empty( $post_object->post_type ) || Permalink_Manager_Helper_Functions::is_post_excluded( $post_object, true ) ) {
 			return;
 		}
 
@@ -936,12 +925,7 @@ class Permalink_Manager_URI_Functions_Post {
 		$post        = get_post( $post_id );
 
 		// Check if post is allowed
-		if ( empty( $post->post_type ) || Permalink_Manager_Helper_Functions::is_post_excluded( $post ) ) {
-			return;
-		}
-
-		// Exclude drafts
-		if ( ! empty( $permalink_manager_options["general"]["ignore_drafts"] ) && ! empty( $post->post_status ) && $post->post_status == 'draft' ) {
+		if ( empty( $post->post_type ) || Permalink_Manager_Helper_Functions::is_post_excluded( $post, true ) ) {
 			return;
 		}
 

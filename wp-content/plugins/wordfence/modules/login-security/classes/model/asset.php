@@ -3,6 +3,49 @@
 namespace WordfenceLS;
 
 abstract class Model_Asset {
+
+	protected $handle;
+	protected $source;
+	protected $dependencies;
+	protected $version;
+	protected $registered = false;
+
+	public function __construct($handle, $source = '', $dependencies = array(), $version = false) {
+		$this->handle = $handle;
+		$this->source = $source;
+		$this->dependencies = $dependencies;
+		$this->version = $version;
+	}
+
+	public function getSourceUrl() {
+		if (empty($this->source))
+			return null;
+		$url = $this->source;
+		if (is_string($this->version))
+			$url = add_query_arg('ver', $this->version, $this->source);
+		return $url;
+	}
+
+	public abstract function enqueue(); 
+
+	public abstract function isEnqueued();
+
+	public abstract function renderInline();
+
+	public function renderInlineIfNotEnqueued() {
+		if (!$this->isEnqueued())
+			$this->renderInline();
+	}
+
+	public function setRegistered() {
+		$this->registered = true;
+		return $this;
+	}
+
+	public function register() {
+		return $this->setRegistered();
+	}
+
 	public static function js($file) {
 		return self::_pluginBaseURL() . 'js/' . self::_versionedFileName($file);
 	}
@@ -29,4 +72,9 @@ abstract class Model_Asset {
 		
 		return $subpath;
 	}
+
+	public static function create($handle, $source = '', $dependencies = array(), $version = false) {
+		return new static($handle, $source, $dependencies, $version);
+	}
+
 }

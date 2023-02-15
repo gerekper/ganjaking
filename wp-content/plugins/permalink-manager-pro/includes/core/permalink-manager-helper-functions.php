@@ -320,10 +320,13 @@ class Permalink_Manager_Helper_Functions {
 	 * Check if specific post should be ignored by Permalink Manager
 	 *
 	 * @param WP_Post|int $post
+	 * @param bool $draft_check
 	 *
 	 * @return bool
 	 */
-	public static function is_post_excluded( $post = null ) {
+	public static function is_post_excluded( $post = null, $draft_check = false ) {
+		global $permalink_manager_options;
+
 		$post = ( is_integer( $post ) ) ? get_post( $post ) : $post;
 
 		// A. Check if post type is disabled
@@ -335,6 +338,11 @@ class Permalink_Manager_Helper_Functions {
 
 		// B. Check if post ID is excluded
 		if ( is_array( $excluded_post_ids ) && ! empty( $post->ID ) && in_array( $post->ID, $excluded_post_ids ) ) {
+			return true;
+		}
+
+		// C. Check if post is a draft
+		if ( $draft_check && ! empty( $permalink_manager_options["general"]["ignore_drafts"] ) && ! empty( $post->post_status ) && $post->post_status == 'draft' ) {
 			return true;
 		}
 
@@ -682,16 +690,11 @@ class Permalink_Manager_Helper_Functions {
 	 * @param string $native_slug
 	 * @param string $element
 	 * @param string $slug
-	 * @param string $native_uri
+	 * @param bool $native_uri
 	 *
 	 * @return string
 	 */
-	public static function replace_empty_placeholder_tags( $default_uri, $native_slug = "", $element = "", $slug = "", $native_uri = "" ) {
-		// Do not affect native URIs
-		if ( $native_uri ) {
-			return $default_uri;
-		}
-
+	public static function replace_empty_placeholder_tags( $default_uri, $native_slug = "", $element = "", $slug = "", $native_uri = false ) {
 		// Remove the BOM
 		$default_uri = str_replace( array( "\xEF\xBB\xBF", "%ef%bb%bf" ), '', $default_uri );
 
@@ -915,9 +918,9 @@ class Permalink_Manager_Helper_Functions {
 		global $permalink_manager_uris, $permalink_manager_redirects, $permalink_manager_external_redirects;
 
 		if ( function_exists( 'get_blog_option' ) ) {
-			$permalink_manager_uris               = get_blog_option( $new_blog_id, 'permalink-manager-uris' );
-			$permalink_manager_redirects          = get_blog_option( $new_blog_id, 'permalink-manager-redirects' );
-			$permalink_manager_external_redirects = get_blog_option( $new_blog_id, 'permalink-manager-external-redirects' );
+			$permalink_manager_uris               = get_blog_option( $new_blog_id, 'permalink-manager-uris', array() );
+			$permalink_manager_redirects          = get_blog_option( $new_blog_id, 'permalink-manager-redirects', array() );
+			$permalink_manager_external_redirects = get_blog_option( $new_blog_id, 'permalink-manager-external-redirects', array() );
 		}
 	}
 

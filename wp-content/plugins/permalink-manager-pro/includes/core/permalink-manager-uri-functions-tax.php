@@ -604,13 +604,18 @@ class Permalink_Manager_URI_Functions_Tax {
 	 * @return string
 	 */
 	function quick_edit_column_content( $content, $column_name, $term_id ) {
-		global $permalink_manager_uris;
+		global $permalink_manager_uris, $permalink_manager_options;
 
-		if ( $column_name != "permalink-manager-col" ) {
-			return $content;
+		if ( $column_name == "permalink-manager-col" ) {
+			$auto_update_val = get_term_meta( $term_id, "auto_update_uri", true );
+			$disabled        = ( ! empty( $auto_update_val ) ) ? $auto_update_val : $permalink_manager_options["general"]["auto_update_uris"];
+
+			$uri = ( ! empty( $permalink_manager_uris["tax-{$term_id}"] ) ) ? self::get_term_uri( $term_id ) : self::get_term_uri( $term_id, true );
+
+			$content = sprintf( '<span class="permalink-manager-col-uri" data-disabled="%s">%s</span>', intval( $disabled ), $uri );
 		}
 
-		return ( ! empty( $permalink_manager_uris["tax-{$term_id}"] ) ) ? self::get_term_uri( $term_id ) : self::get_term_uri( $term_id, true );
+		return $content;
 	}
 
 	/**
