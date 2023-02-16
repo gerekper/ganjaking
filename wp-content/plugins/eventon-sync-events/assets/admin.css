@@ -1,0 +1,262 @@
+/** 
+ * Event Sync Addon Styles for admin
+ * @version 1.1
+ */
+
+.evo_settings_box{position: relative; }
+.evo_settings_page_loader{
+	background-color: transparent;
+    height: 5px;
+    width: 100%;
+    border-radius: 10px;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+    display: none;
+    overflow: hidden;
+}
+.evo_settings_page_loader.show{display: block;}
+@keyframes fontbulger {
+  0% {  left: 0%;margin-left: -50px  }
+  100% {  left: 100%; margin-left: -50px }
+}
+.evo_settings_page_loader.show:before{
+	content: "";
+    width: 200px;
+    height: 100%;
+    display: block;
+    background-color: #f3c991;
+    position: absolute;
+    left: 0;
+    animation-name: fontbulger;
+    animation-duration: 0.7s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: none;
+    animation-delay: 0s;
+}
+
+.evo_diag {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding-left: 155px;
+}
+.evo_diag a { opacity: 0.3;}
+
+#evosy_fetched_events td{
+	border-bottom:1px solid #D9D7D7;	
+	cursor: pointer;
+	margin: 0;
+}
+#evosy_fetched_events tbody tr:hover{
+	background-color: #FDF0D2
+}
+#evosy_fetched_events tbody tr.ss{
+	background-color: #FDFAF3
+}
+
+#evosy_fetched_events span.status.ns{
+	display: block;
+	position: relative;
+	margin-top: 8px;
+	margin-left: 8px;
+}
+#evosy_fetched_events span.status.ns:before{
+	content:"";
+	position: absolute;
+	width: 18px;
+	height: 6px;
+	background-color: #EABB86;
+	left: 0px;
+	top: 0px;
+}
+
+#evosy_fetched_events span.status.ss,#evosy_fetched_events span.status.as{
+	display:inline-block;
+    width: 18px;
+    height:18px;
+    -ms-transform: rotate(45deg); /* IE 9 */
+    -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+    transform: rotate(45deg);
+    margin-left: 10px;
+    margin-top: 2px;
+}
+	#evosy_fetched_events span.status.ss:after, #evosy_fetched_events span.status.as:after{
+		content: "";
+ 		position: absolute;
+  		width: 6px;
+  		height: 6px;
+  		background-color: #EABB86;
+  		left: 0px;
+  		top: 12px;
+	}
+	#evosy_fetched_events span.status.ss:before, #evosy_fetched_events span.status.as:before{
+		content: "";
+	  	position: absolute;
+	  	width: 6px;
+	  	height: 18px;
+	  	background-color: #EABB86;
+	  	left: 6px;
+	  	top: 0px;
+	}
+	#evosy_fetched_events span.status.as:after, #evosy_fetched_events span.status.as:before{
+		background-color: #D5D5D5
+	}
+
+#evosy_fetched_events span.time{
+	margin-right: 10px;
+	background-color: #E5E5E5;
+	display: inline-block;
+  	padding: 0 5px;
+  	line-height: 23px;
+}
+#evosy_fetched_events table{
+	  -webkit-box-shadow: none;
+  	box-shadow: none;
+  	background-color: #fff;
+  	border: 1px solid #e5e5e5;
+  	border-spacing: 0;
+  	width: 100%;
+  	clear: both;
+  	margin: 0;
+}
+#evosy_fetched_events table td{
+	padding: 8px 10px;
+}
+.evo_settings_box .sync_msg{
+	background-color: #FFF4E8;
+	margin: -11px -12px 0;
+	padding: 10px;
+}
+
+#evosy_fetched_events_tb .fetched_other_data span{display: inline-block; padding-right: 10px;}
+.evo_settings_box #sync_imported {background-color:#F9CA8D }
+.evo_settings_box #sync_imported.NO {background-color:#fff }
+
+/* settings fetching */
+	#evosy_fetched_events_section.loading{
+		min-height: 75px;
+		width: 100%;
+		background:#f3c991 url("../../eventON/assets/images/evo-loader.gif") center center no-repeat;
+	}
+
+
+/* fetching process */
+
+	/* content toggle based on stage */
+	.inside.loading .evosy_fetched_events p.processing_msg{display: block;}
+	.inside.fetching .evosy_fetched_events p.fetchingdata_msg{display: block;}
+	.inside.gathering .evosy_fetched_events p.gathering_msg{display: block;}
+	.inside.fetchingcompleted .evosy_initiate_fetching{display: none;}
+	.inside.importing .status.progressive_status{opacity: 0.6;}
+	.inside.importingcompleted .status.progressive_status{opacity: 0.3;}
+	.inside.importingcompleted .import_status.progressive_status .information{background-color: #ffdd91}
+
+	.inside.manual_cron_complete h2, .inside.manual_cron_complete p.evosy_next_run, .inside.manual_cron_complete p.evosy_schedule_actions a{
+		display: none;
+	}
+
+	.evosy_fetched_events p.fetching_msg{display: none;}	
+	.evosy_fetched_events .progressive_status em{display: block;}
+	.evosy_fetched_events .progressive_status{padding-bottom: 15px;}
+
+	.evosy_fetched_events .progressive_status .detailed_status{
+		background-color: #e2ddd2;
+		border-radius: 5px;
+		padding: 10px;
+	}
+	.evosy_fetched_events .progressive_status p.information{
+		background-color: #ffeec8;
+		padding: 10px;
+		border-radius: 5px;
+		margin: 0;
+	}
+	.progressive_status p span b{
+		border: 1px solid #808080;
+    	border-radius: 8px;
+    	padding: 5px 8px;}
+	.evosy_fetched_events .evosy_action_buttons{padding-bottom: 10px;}
+	.evosy_fetched_events .progressive_status.final_status p.information{background-color: #9eeaa0}
+	
+	#fetched_events .column-status span.imported a{
+		border-radius: 5px;
+	    padding: 5px 8px;
+	    background-color: #82c372;
+	    text-decoration: none;
+	    color: #fff;
+	    display: inline-block;
+	    text-align: center;
+	    text-transform: uppercase;
+	    font-size: 11px;
+	    line-height: 1.3;
+	}
+	#fetched_events .column-status span.imported a:hover{opacity: 0.6;text-decoration: none;}
+	#fetched_events .column-status span.selected{
+		display: inline-block;
+	    width: 18px;
+	    height: 18px;
+	    -ms-transform: rotate(45deg);
+	    -webkit-transform: rotate(45deg);
+	    transform: rotate(45deg);
+	    margin-left: 10px;
+	    margin-top: 2px;
+	}
+	#fetched_events .column-status span.selected:hover{opacity: 0.6;}
+	#fetched_events .column-status span.selected:after, 
+	#fetched_events .column-status span.selected:before{
+		content: "";
+	    position: absolute;
+	    background-color: #f3c991;
+	    cursor: pointer;
+	}
+	#fetched_events .column-status span.selected:after{
+		width: 6px;
+	    height: 6px;	    
+	    left: 0px;
+	    top: 12px;
+   	}
+	#fetched_events .column-status span.selected:before{
+		width: 6px;
+	    height: 18px;
+	    left: 6px;
+	    top: 0px;
+	}
+	#fetched_events .column-status span.unselected{
+		display: block;
+	    position: relative;
+	    margin-top: 8px;
+	    margin-left: 8px;
+	    cursor: pointer;
+	}
+	#fetched_events .column-status span.unselected:before{
+		content: "";
+	    position: absolute;
+	    width: 18px;
+	    height: 6px;
+	    background-color: #f3c991;
+	    left: 0px;
+	    top: 0px;
+	}
+	#fetched_events td.column-other span{display: block;}
+
+	
+	#fetched_events tr.regular-row.done{background-color: #a8eca7}
+	#fetched_events tr.regular-row.skipped{background-color: #f5f3bd}
+	#fetched_events tr.regular-row.failed{background-color: #fda299}
+	.evosy_schedule_actions span{
+		display: flex;
+		padding: 70px;
+	    background-color: #86ce79;
+	    color:#fff;
+	    margin: -14px -12px -25px;
+	    position: relative;
+	    font-size: 18px;
+	    flex-direction: column;
+	    text-align: center;
+	    justify-content: center;
+	}
+	.evosy_schedule_actions span b{margin:0 auto 30px;}
+	.evosy_schedule_actions span.bad{background-color:#ff706a; }

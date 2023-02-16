@@ -1,0 +1,161 @@
+/* admin Styles */
+    .evobo_add_block_form p.message {   margin: 0 -30px -30px;}
+    .evobo_add_block_form p.information span {  display: inline-block;  width: 80px;    }
+    .evobo_add_block_form span.ajdeToolTip{display: inline-block;}
+    .evobo_add_block_form span.ajdeToolTip em{background-color: #6B6B6B;border-radius: 0}
+    .evobo_add_block_form em{vertical-align: top;}
+    .ajde_popup .ajde_popup_text .evobo_add_block_form input{display: inline-block; vertical-align: top; border-radius: 5px; margin-top: 0; }
+    .ajde_popup .ajde_popup_text .evobo_add_block_form input.full{width: 100%;}
+
+    .evobo_add_block_form span.evo_date_time_select{display: flex;
+        background-color: #f3c991;
+        padding: 5px 5px 2px;
+        border-radius: 25px;
+    }
+    .ajde_popup .ajde_popup_text .evobo_add_block_form .evo_date_edit{flex:1 0 auto; margin-right: 10px;}
+    .ajde_popup .ajde_popup_text .evobo_add_block_form input.evo_dpicker{border-radius: 20px; width:auto;}
+
+    .evobo_block_item.button_evo{
+        background-color: #007cba;
+        width: 100%;
+        box-sizing: border-box;
+        text-align: center;
+        padding: 10px;
+    }
+
+/* lightbox */
+    body.post-type-ajde_events .ui-timepicker-wrapper{z-index: 900000;}
+    .evobo_BE_body .evoboE_slots .editor_header{background-color: #ffc276;display: flex; justify-content: space-between;}
+    .evobo_BE_body .editor_header i{margin-left: 5px; cursor: pointer;}
+    .evobo_BE_body .editor_header i:hover, .evobo_BE_body .editor_header i.select{opacity: 0.7}
+/* new styles */ 
+    .evoboE_form_container.visible{width: 400px; padding-left: 20px;}
+    .evobo_editor{justify-content:center;}
+    .evobo_editor .evoboE_slots span.month,
+    .evobo_editor .evoboE_slots .date .day,
+    .evobo_editor .evoboE_slots .line,
+    .evobo_BE_body .editor_header
+    {
+        display: block;
+        padding: 5px 15px;
+        border-bottom: 1px solid #f5f5f5;
+        font-size: 16px; width: 100%; box-sizing: border-box;
+    }
+    .evobo_editor .evoboE_slots span.month{padding: 8px 15px;}
+    
+    .evobo_editor .evoboE_slots span.line_slots{display: block;}
+
+    .evobo_editor .evoboE_slots.compact span.line_slots{display: flex;flex-wrap: wrap;justify-content: flex-start;}
+    .evobo_editor .evoboE_slots.compact span.line_slots .line{flex:1;}
+
+    .evobo_editor .evoboE_slots .month{ font-weight: bold;  text-transform: uppercase;    }
+    .evobo_editor .evoboE_slots .date .day{font-size: 13px;font-weight: bold;}
+    .evobo_editor .evoboE_slots .day i{
+        display: inline-block; text-transform: uppercase; font-style: normal;opacity: 0.4
+    }
+    .evobo_editor .evoboE_slots .slot.select{background-color: #bbbbbb;color:#ffffff;}    
+    .evobo_editor .evoboE_slots .slot{
+        color:#9a9a9a;border:1px solid #dadada;
+        position: relative;
+        padding-left: 50px; cursor: pointer;
+        display: inline-block; flex-basis: 180px; text-align: center;
+        padding: 4px 15px;
+        border-radius: 20px;
+        font-size: 13px; font-style: normal;
+    }
+    .evobo_editor .evoboE_slots .slot:hover{background-color: #fff8dd;color:#6d6d6d;}
+    .evobo_editor .evoboE_slots .line{display: flex;align-items: center;font-size: 13px;box-sizing: border-box;position: relative;}
+    .evobo_editor .evoboE_slots .line:hover{background-color: #fffdf5;}
+    .evobo_editor .evoboE_slots .line .other span{margin-left: 20px;}
+    .evobo_editor .evoboE_slots .line .other span b{font-weight: bold;}
+    .evobo_editor .evoboE_slots .line .other {flex-grow:1;}
+    
+    .evobo_editor .evoboE_slots .line .other i.del,  .evobo_editor .evoboE_slots .line .other i.edit{
+        background-color: #f58585;
+        border-radius: 20px;
+        padding: 0px 10px;
+        color: #fff;
+        font-style: normal;
+        line-height: 1;
+        display: none;
+        align-items: center;
+        height: 20px;
+        cursor: pointer;
+        font-size: 12px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        margin: 8px 15px 0 0;
+    }
+    .evobo_editor .evoboE_slots .line .other i.edit{right:30px;background-color: #b1b1b1}
+    .evobo_editor .evoboE_slots .line:hover i.del,
+     .evobo_editor .evoboE_slots .line:hover .other i.edit
+    {display: flex;}
+    .evobo_editor .evoboE_slots .line .other span i{opacity: 0.5; font-style: normal;}
+    .evobo_customers .evotxVA_ticket{padding: 10px 0;}
+
+/* structure */
+    .evobo_BE_foot{    text-align: center;padding: 10px;background-color: #007cba;}
+
+/* generator */
+    .evobo_auto_date_selector, .evobo_auto_time_selector{
+        background-color: #f1c381;
+        display: flex;
+        padding: 10px;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 10px;
+    }
+    .evobo_auto_time_selector{
+        flex-direction: row;
+        justify-content: center;
+    }
+    .evobo_auto_time_selector .evo_date_time_select.start:after{
+        content:"";
+        background-color: #fff;
+        margin: 18px 15px 10px 10px;
+        height: 5px;
+        width: 20px;
+    }
+
+/* seats integration */
+    #evobo_for_seats_section .evobost_for_seats_block{position: relative;cursor: pointer;}
+    #evobo_for_seats_section .evobost_for_seats_block .fa:before{content: "\f111";opacity: 0.4;}
+    #evobo_for_seats_section .evobost_for_seats_block.select .fa:before{    content: "\f058";opacity: 1;}
+    #evobo_for_seats_section .evobost_for_seats_block span.fa{
+        display: inline-block;
+        width: 19px;
+        height: 19px;
+        margin: -3px 8px 0 0;
+        vertical-align: middle;
+        cursor: pointer;
+        font-size: 19px;
+        color: #9D9D9D;
+        font-style: normal;
+    }
+
+/* view attendees */
+    .evobo_admin_attendees_section{
+        background-color: #f7f7f7;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+    .evoboE_top_data{display: block;}
+    .evoboE_top_data .evoboED_top{
+        display:flex; justify-content:space-between;
+        color:#8a8a8a;
+    }
+    .evoboE_top_data .evoboED_top em{font-style: normal;}
+    .evoboE_top_data .evoboED_top b{color:#3d3d3d;font-size: 16px;}
+    .evoboE_top_data .evoboED_bar{
+        border-radius: 5px;
+        background-color: #e8e8e8;
+        display: block;
+        height: 8px;
+        width: 100%;
+        position: relative;
+        margin: 5px 0 20px;
+        overflow: hidden;
+    }
+    .evoboE_top_data .evoboED_bar em{background-color: #ff8f80;position: absolute;height: 100%;}

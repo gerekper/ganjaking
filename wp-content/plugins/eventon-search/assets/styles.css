@@ -1,0 +1,172 @@
+/**
+ * Styles for search
+ * @version 0.2
+ */
+.evo_cal_above span.evo-search{min-height:24px;}
+.evo_widget .evo_cal_above span.evo-search{min-height:auto;}
+.evo_cal_above .evo-search:before{
+	content:"\f002";
+	display: inline-block;
+	font-family: 'evo_FontAwesome';
+	font-style: normal;
+	font-weight: normal;
+	font-size: 12px;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	width: 12px;
+}
+.evo_cal_above .evo-search{
+	position: relative;
+}
+.evo_search_results #evcal_head{display: none;}
+
+.evo_search_results_count{
+	text-align: center;
+	margin: 0; padding: 8px 0;
+}
+.EVOSR_section .evosr_msg{
+	text-align: center;
+	font-style: italic;
+	padding: 8px 0;
+}
+.evo_search_bar{
+	height: 35px;
+	display: block;
+	overflow: hidden;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	position: relative;
+}
+.evo_search_bar.hidden{display: none;}
+.evo_search_bar_in{
+	position: absolute;	
+	bottom: 0;
+	width: 100%;
+	height: 35px;	
+}
+.evo_search_bar_in a.evosr_search_btn{
+	top: 4px; right: 10px;
+	height: 100%; font-size: 16px;
+}
+.evo_search_bar_in a.evosr_search_btn:hover{color: #cccccc;}
+.evo_search_bar input:focus{border:none;}
+.evo_search_bar input{
+	background-color: #F2F2F2;
+	border:1px solid #EDEDED;
+	width: 100%;
+	padding:8px 15px;
+	font: 14px arial;
+	line-height: normal;
+	border-radius: 15px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.EvcalWidget .evo_search_bar input{padding: 5px 10px;}
+.EvcalWidget .evo_search_bar a.evosr_search_btn{top: 1px;}
+.evo_search_entry{}
+.EVOSR_section .evosr_search_box{
+	position: relative;
+	overflow:hidden;
+	margin: 0; padding: 0;
+}
+.evosr_search_box  input{outline:none;}
+.EVOSR_section input{
+	width: 100%;
+	border:1px solid #EDEDED;
+	border-radius: 20px;
+	padding: 8px 15px;
+	background-color: #F2F2F2;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.EVOSR_section input:hover, .EVOSR_section input:focus,.EVOSR_section input:active, .evo_search_bar input:hover {border:1px solid #c5c5c5;outline:none;}
+.EVOSR_section a.evo_do_search, a.evosr_search_btn{
+	position: absolute;
+	right: 15px;
+	top: 5px;
+	cursor: pointer;
+	z-index: 10;
+}
+body .EVOSR_section a.evo_do_search, body a.evosr_search_btn, .evo_search_bar_in a.evosr_search_btn{color: #3d3d3d;}
+body .EVOSR_section a.evo_do_search:hover, body a.evosr_search_btn:hover, .evo_search_bar_in a.evosr_search_btn:hover{color: #bbbbbb;}
+.evosr_blur_text{
+	position: absolute;
+	width: 100%;
+	top: 0; text-align: center;padding-top: 5px;
+	opacity: 0;
+	z-index: 10;
+	pointer-events: none;
+	-webkit-transition: opacity 0.2s linear 0.2s;
+	-moz-transition: opacity 0.2s linear 0.2s;
+	transition: opacity 0.2s linear 0.2s;
+}
+.EVOSR_section.searching .evosr_blur_text{opacity: 1;}
+.evosr_blur{
+	position: absolute;
+	width: 5px;
+	height: 5px;
+	right: 18px; top: 15px;
+	background-color: #f9d789;
+	display: block;
+	border-radius: 20px;
+	opacity: 0;
+	-webkit-transition: all 0.15s;
+	-moz-transition: all 0.15s;
+	transition: all 0.15s;
+	z-index: 5;
+}
+.evosr_blur_process{
+	position: absolute;
+	background-color: #fff; 
+	border-radius: 20px;
+	width: 0%; opacity: 0;
+	height: 100%; top: 0; left: 50%;
+	z-index: 8;
+	display: block;
+}
+@keyframes searchprogress {
+    0% { opacity: 0; width:0%;left:50%;}
+    50% { opacity: 0.3; width:100%;left:0;}
+    70% { opacity: 0; width:100%;}
+}
+@-moz-keyframes searchprogress {
+    0% { opacity: 0; width:0%;}
+    50% { opacity: 0.3; width:100%;left:0;}
+    70% { opacity: 0; width:100%;}
+}@-webkit-keyframes searchprogress {
+    0% { opacity: 0; width:0%;}
+    50% { opacity: 0.3; width:100%;left:0;}
+    70% { opacity: 0; width:100%;}
+}@-o-keyframes searchprogress {
+    0% { opacity: 0; width:0%;}
+    50% { opacity: 0.3; width:100%;left:0;}
+    70% { opacity: 0; width:100%;}
+}
+.EVOSR_section.searching .evosr_blur_process{
+	animation: searchprogress 1.2s 0.2s infinite
+   -moz-animation: searchprogress 1.2s 0.2s infinite;
+	-webkit-animation: searchprogress 1.2s 0.2s infinite;
+     -o-animation: searchprogress 1.2s 0.2s infinite;
+}
+.EVOSR_section.searching .evosr_blur{
+	width: 100%;height: 100%;
+	right: 0;top: 0;
+	opacity: 1;
+}
+.evo_search_results_count span{
+	background-color: #d2d2d2; color:#fff;
+	border-radius: 8px;
+	padding: 5px 10px 7px;
+	display: inline-block;
+	text-align: center;
+	margin-right: 5px;
+	line-height: 100%;
+	font-style: italic;
+}
+/*-- Responsive --*/
+@media (max-width: 480px){
+	
+}	

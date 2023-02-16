@@ -1,5 +1,9 @@
 *** WooCommerce Subscriptions Changelog ***
 
+2023-02-01 - version 4.8.1
+* Fix: Fatal error when loading the Edit Subscription page with custom admin billing or shipping fields.
+* Dev: Update subscriptions-core to 5.3.1.
+
 2023-01-30 - version 4.8.0
 * Add: Highlight subscriptions with overdue payment in list view with red icon & tooltip.
 * Add: New wcs_set_order_address() helper function to set an array of address fields on an order or subscription.

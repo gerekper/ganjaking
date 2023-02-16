@@ -1,0 +1,30 @@
+Dynamic Pricing addon for EventON Plugin
+====================================
+v 0.6 (2020-8-28)
+FIXED: admin styles not loading right
+
+v 0.5 (2020-8-7)
+ADDED: Pluggable filter for enabling dynamic pricing on event edit
+ADDED: addon instance class
+FIXED: custom label not showing
+FIXED: strike through regular price option not working
+FIXED: admin script and styles loading over SSL error
+
+v 0.4 (2018-5-29)
+FIXED: guide was not showing correct information
+FIXED: compatibility with tickets 1.7
+FIXED: Text to show during dynamic price not working
+FIXED: strike through price not working
+UPDATED: event edit page styles to match eventON 2.6.6 styles
+
+v 0.3 (2017-11-17)
+FIXED: Compatibility with eventON 2.6.1
+FIXED: member price not showing
+UPDATED: use new EVO_Event object class
+
+v 0.2 (2017-10-19)
+FIXED: cart price not calculating correct for some users
+FIXED: Wc 3.2 compatibility 
+
+v 0.1 (2017-7-13)
+Initial release

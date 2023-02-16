@@ -1,0 +1,224 @@
+Daily View (DV) addon for EventON Plugin
+====================================
+v 2.0.5 (2022-6-1)
+ADDED: new shortcode parameter dv_scroll_style to set various scrolling styles
+
+v 2.0.4 (2022-5-10)
+FIXED: prev month via arrow moving to first of month instead of continuous
+FIXED: day stripe mobile swipe function interaction corrections
+
+v 2.0.3 (2022-2-16)
+FIXED: event dots more than 3 not appearing
+
+v 2.0.2 (2022-2-4)
+FIXED: day strip arrows switching month instead of scrolling
+FIXED: day strip previous day arrow switching to end of month date
+
+v 2.0.1 (2021-12-22)
+FIXED: clicking on date strip not loading events
+FIXED: all month events loading on load
+
+v 2.0 (2021-12-13)
+ADDED: compatibility with cal_init_nonajax='yes'
+ADDED: loading animation for grid
+FIXED: one day view showing the next all day event
+FIXED: prev day button not switching to last day of month
+FIXED: day strip showing all day events on previous date
+FIXED: all day events showing dash for end time
+UPDATED: Calendar styles
+UPDATED: dv_view_style shortcode value to change calendar view styles
+UPDATED: EventON 4.0 view switcher compatibility
+
+v 1.0.12 (2020-6-22)
+FIXED: font awesome arrow correct
+FIXED: minor arrow misalignment issues
+
+v 1.0.11 (2020-1-9)
+FIXED: JSON global value getting overridden by an error in code
+FIXED: End range time not set correct to 23:59:59
+
+v 1.0.10 (2019-12-6)
+FIXED: some timezones day switch stop working
+FIXED: day strip day name not switching correctly
+
+v 1.0.9 (2019-11-12)
+ADDED: event events passed on to page for correct translations
+ADDED: main evo ajax complete trigger hooks to js
+FIXED: with continuous scrolling filters switching focus day to end of month
+FIXED: Appreance current day styles getting overridden
+FIXED: https causing styles files to not load properly
+FIXED: widget event title styles
+FIXED: Scrollwheel day stripe scrolling not working
+UPDATED: addon initiation method using instance
+UPDAETD: compatibility with eventON 2.8
+
+v 1.0.8 (2018-1-30)
+FIXED: today event not working corret
+ADDED: continuous month scrolling from days stripe
+
+v 1.0.7 (2017-10-11)
+FIXED: mobile dailyview scroll of days strip skipping days
+FIXED: Addon iniating multiple times
+UPDATED: Loader bar animation to be compatible with evo 2.6
+
+v 1.0.6 (2017-7-7)
+FIXED: undefined $number_days_in_month error
+UPDATED: Compatibility with eventon 2.5.5 version
+UPDATED: new filter evodv_daily_view_list
+
+v 1.0.5 (2017-3-3)
+FIXED: Style not loading with new eventon version
+FIXED: mo1st changing days to 1st of month when using filters
+UPDATED: addon initiation setup
+UPDATED: Eventon requirement not meeting causing errors
+
+v 1.0.4 (2016-12-12)
+FIXED: left arrow not moving to previous date
+FIXED: font family update for eventon 2.5
+FIXED: php versions that doesnt support cal_days_in_month function alternative
+UPDATED: Font family pluggability
+
+v 1.0.3 (2016-11-23)
+ADDED: day strip arrows to also scroll day strip while switching months
+ADDED: Top days box arrows to also switch months
+FIXED: switch to first of month issues
+
+v 1.0.2 (2016-11-12)
+FIXED: Missing dailyview appearance
+FIXED: Styles for day section
+
+v 1.0.1 (2016-8-24)
+FIXED: Removed new jq mobile script that was altering website behavior
+UPDATED: Compatibility with eventON 2.4.5
+
+v 1.0 (2016-8-5)
+ADDED: compatibility with all month events
+ADDED: Day strip to show event tags with color and names upto 3
+ADDED: Prev and Next arrows to go to respective months from day strip
+ADDED: Tooltip style event names on day strip
+UPDATED: Day stip scrolling interactions
+UPDATED: Compatibility with checkbox style sort/filtering
+UPDATED: Mobile compatibility for days strip
+
+v 0.31 (2015-5-14)
+FIXED: Fixed day not working
+
+v 0.30 (2015-4-22)
+UPDATED: Compatibility to eventon 2.3.1
+UPDATED: Compatibility with go to today button
+FIXED: Filter JS not called for none DV calendars
+
+v 0.29 (2015-2-14)
+FIXED: Load 1st of month not working when switching months
+FIXED: Dailyview next day button going back
+
+v 0.28 (2015-2-6)
+FIXED: Click on previous day arrow breaking calendar
+
+v 0.27 (2015-1-28)
+FIXED: Month jumper not working
+
+v0.26 (2015-1-22)
+FIXED: Compatibility with eventon 2.2.22
+FIXED: Php template tags not working
+
+v0.25 (2014-9-18)
+FIXED: End of month day events not showing correct
+UPDATED: Addon Validation steps for compatibility with eventon 2.2.18
+
+v0.24 (2014-9-16)
+FIXED: Days strip not working
+
+v0.23 (2014-9-10)
+ADDED: Ability to create today only events calendar
+ADDED: Option to hide current focused date section
+ADDED: Events language translation
+ADDED: Switch months to go to 1st of month
+ADDED: Seperate class name for days past focus day on day strip for styling
+UPDATED: Shortcode variables
+UPDATED: Compatibility with eventon 2.2.17
+
+v0.22 (2014-8-22)
+FIXED: Day stripe going outside box
+
+v0.21 (2014-7-9)
+ADDED: New current date section for the dailyview
+ADDED: color customization for the dailyview calendar
+UPDATED: Days stripe arrows and faded corners
+UPDATED: Front-end UI for the dailyView look
+
+v0.20 (2014-6-1)
+ADDED: Event time to be highlighted instead of date on dailyview calendar
+UPDATED: Compatibility with eventON 2.2.12
+
+v0.19 (2014-5-20)
+UPDATED: Slowness on wp-admin pages
+
+v0.18 (2014-4-10)
+FIXED: language switching for L2 not working correct
+
+v0.17 (2014-4-4)
+FIXED: Languages other than L1 not working
+
+v0.16 (2014-3-26)
+UPDATED: compatibility with eventon 2.2.9
+
+v0.15 (2014-3-13)
+UPDATED: Compatibility with eventon 2.2.8
+
+v0.14 (2014-2-13)
+FIXED: EventON auto update error caused by addons and compatibility to eventON 2.2.7
+
+v0.13 (2014-1-30)
+FIXED: events panning across multiple months not showing correct on days strip
+FIXED: days strip width corrections - to avoid hiding days
+FIXED: days focus correctly when switching months
+
+v0.12(2014-1-27)
+FIXED: fixed month, and month incre variable errors
+FIXED: end days of a month getting dropped to a new line and dissappearring issue
+FIXED: last day of month with events not showing as days with events
+
+v0.11 (2013-12-6)
+FIXED: fixed_day shortcode variable malfunctionability
+FIXED: fixed_day value actually focusing on the day strip of calendar
+UPDATED: to use date_i18n() instead date() for better localized timing
+
+v 0.10 (2013-11-25)
+FIXED: php template code error
+
+v0.9 (2013-11-21)
+FIXED: JQuery delegate() => on()
+FIXED: interferance of code with full cal addon
+UPDATED: compatibility with eventon 2.2
+
+v0.8 (2013-8-6)
+FIXED: Multi filters are working again to filter those events
+TWEAKED: compatibility with eventON 2.1.14
+TWEAKED: javascript files are now loaded only when DV is active
+
+v0.7 (2013-6-26)
+ADDED: days can now be scrolled across with mouse wheel
+FIXED: multiday events starting in previous month now get shown correctly
+UPDATED: month switching animation
+
+v0.6
+FIXED: minor bugs
+
+v0.5
+FIXED: days with events highlight error on multi-day events
+TWEAK: this addon can now be installed as a regular WP plugin
+
+v0.4
+FIXED: compatibility with other addons
+
+v 0.3
+FIXED: sort bar for event type categories
+FIXED: styling for event list
+UPDATED: to match the new element class names on eventon version 2.1.5
+
+v 0.2
+FIXED: custom languages on date names
+
+v 0.1
+Initial release

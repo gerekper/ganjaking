@@ -1,0 +1,113 @@
+﻿Event Speakers and schedule (SS) addon for EventON Plugin
+====================================
+v 2.0.1 (2023-2-10)
+ADDED: company field for speaker
+FIXED: schedule description list getting duplicate styles
+FIXED: schedule order not saving correctly
+
+v 2.0 (2023-1-31)
+ADDED: html editor for schedule description
+ADDED: speakers and schedule in separate meta box that loads via ajax
+ADDED: support for no time restricted schedule items
+ADDED: support for schedule additional notes section
+ADDED: schedule speaker to open lightbox more information about speaker
+FIXED: EventON 4.3 compatibility
+FIXED: scripts and styles to only load on event edit page
+FIXED: list style disc override
+FIXED: when no end time in schedule hide duplicate times
+UPDATED: speakers editing to use eventon global taxonomy objects
+UPDATED: schedule editing to use global eventon functions
+UPDATED: frontend design and layout
+
+v 1.0.5 (2022-1-28)
+FIXED: quotation marks on speaker title
+
+v 1.0.4 (2021-12-27)
+ADDED: speaker and schedule anchor IDs on the event card boxes
+FIXED: if only one day in schedule not show day number
+FIXED: lightbox window speaker description not formatting content
+FIXED: speakers page formatting
+FIXED: schedule date month not translated
+UPDATED: POT file
+
+v 1.0.3 (2020-10-26)
+FIXED: image url not validated for loading
+FIXED: speaker flex wrap style - thanks Patrick R.
+FIXED: schedule saved in certain date format not showing date correct on eventcard
+UPDATED: minor eventcard styles refresh
+
+v 1.0.2 (2020-6-22)
+FIXED: schedule sorting not working
+FIXED: speaker image not centered
+
+v 1.0.1 (2020-6-19)
+ADDED: Ability to add custom day number for days
+FIXED: compatibility with font awesome 5.12 library
+
+v 1.0 (2018-12-11)
+ADDED: Speaker to have URL field that open in new window
+ADDED: Ability to sort the schedule blocks in order
+FIXED: eventcard speaker and schedule field loading errors
+UPDATED: Frontend schedule styles and layout design
+UPDATED: Addon initiation process
+UPDATED: Compatibility with eventON 2.8
+
+v 0.12 (2018-5-28)
+FIXED: showing empty row when schedule is deleted
+FIXED: empty schedule showing line in event edit sometimes
+
+v 0.11 (2018-3-30)
+FIXED: long job title eclipse not working right
+FIXED: speaker item alignement issues
+FIXED: eventon 2.6.6 styles fixes
+
+v 0.10 (2017-11-29)
+ADDED: speaker individual page
+ADDED: Compatibility with eventon lists and items addon
+FIXED: font awesome icons not working
+FIXED: filter name not translating
+FIXED: font awesome icons changes reflect on event edit page as well
+UPDATED: addon initiation process
+UDPATED: Compatibility with eventon 2.6.1
+
+v 0.9 (2017-6-1)
+FIXED: Truncated job title text to fit in space for speaker
+FIXED: Required fields with asterisk on edit event page
+FIXED: Only first schedule item to show the date for schedule
+UPDATED: concatenated style support for eventon 2.5
+
+v 0.8 (2017-3-6)
+ADDED: Support for filtering calendar events by event_speaker shortcode var
+FIXED: Schedule time be formatted based on wordpress date format
+FIXED: Missing translatable text
+
+v 0.7 (2017-1-20)
+ADDED: Schedule date format match wordpress date format
+FIXED: Missing comma for multiple speakers on schedule
+FIXED: Minor style mismatch
+UPDATED: Support for eventon 2.5 concatenated styles
+UPDATED: Font family for eventon 2.5
+
+v 0.6 (2016-11-28)
+FIXED: +- icons switched to match scenario
+FIXED: Speaker lightbox z value
+FIXED: RTL compatibility
+FIXED: Schedule days not staying in sequence
+UPDATED: Show hide class name getting override in themes
+
+v 0.5 (2016-11-18)
+FIXED: Repeat events date not showing for schedule dates
+
+v 0.4 (2016-11-15)
+ADDED: Support for repeating events
+FIXED: asort days order for schedule 
+
+v 0.3 (2016-11-14)
+FIXED: Add new speaker tag from wp-admin not saving meta values
+
+v 0.2 (2016-10-31)
+FIXED: function error when plugin activated
+FIXED: Missing language text on frontend
+
+v 0.1 (2016-10-18)
+Initial release

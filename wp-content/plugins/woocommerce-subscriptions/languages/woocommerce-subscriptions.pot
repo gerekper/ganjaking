@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the WooCommerce Subscriptions plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Subscriptions 4.8.0\n"
+"Project-Id-Version: WooCommerce Subscriptions 4.8.1\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/contact-us\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-30T02:15:09+00:00\n"
+"POT-Creation-Date: 2023-02-01T01:55:45+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: woocommerce-subscriptions\n"
@@ -1560,7 +1560,7 @@ msgstr ""
 
 #: includes/payment-retry/data-stores/class-wcs-retry-post-store.php:40
 #: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:156
-#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:249
+#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:254
 msgid "Edit"
 msgstr ""
 
@@ -2815,8 +2815,8 @@ msgstr ""
 
 #: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:166
 #: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:168
-#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:260
-#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:262
+#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:265
+#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:267
 msgid "Address"
 msgstr ""
 
@@ -2837,49 +2837,49 @@ msgctxt "The gateway ID displayed on the Edit Subscriptions screen when editing 
 msgid "Gateway ID: [%s]"
 msgstr ""
 
-#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:232
+#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:237
 msgid "Customer change payment method page &rarr;"
 msgstr ""
 
-#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:234
+#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:239
 msgid "Customer add payment method page &rarr;"
 msgstr ""
 
-#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:248
+#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:253
 #: vendor/woocommerce/subscriptions-core/includes/class-wc-subscriptions-extend-store-endpoint.php:287
 #: vendor/woocommerce/subscriptions-core/build/index.js:6
 msgid "Shipping"
 msgstr ""
 
-#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:251
+#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:256
 msgid "Load shipping address"
 msgstr ""
 
-#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:252
+#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:257
 msgid "Copy billing address"
 msgstr ""
 
-#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:262
+#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:267
 msgid "No shipping address set."
 msgstr ""
 
-#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:284
-#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:315
+#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:289
+#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:325
 msgid "Customer Provided Note"
 msgstr ""
 
-#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:316
+#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:326
 msgid "Customer's notes about the order"
 msgstr ""
 
 #. translators: %s: parent order number (linked to its details screen).
-#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:415
+#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:425
 msgctxt "subscription note after linking to a parent order"
 msgid "Subscription linked to parent order %s via admin."
 msgstr ""
 
 #. translators: placeholder is error message from the payment gateway or subscriptions when updating the status
-#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:430
+#: vendor/woocommerce/subscriptions-core/includes/admin/meta-boxes/class-wcs-meta-box-subscription-data.php:440
 msgid "Error updating some information: %s"
 msgstr ""
 

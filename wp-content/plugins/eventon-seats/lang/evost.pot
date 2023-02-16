@@ -1,0 +1,259 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Eventon v2.6.1\n"
+"POT-Creation-Date: 2018-05-08 21:35-0800\n"
+"PO-Revision-Date: 2018-05-08 21:35-0800\n"
+"Last-Translator: Ashan Perera <ashanster@gmail.com>\n"
+"Language-Team: AJDE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: eventon-seats.php:147
+msgid ""
+"Eventon Seats need Woocommerce plugin to function properly. Please install "
+"woocommerce"
+msgstr ""
+
+#: eventon-seats.php:150
+msgid ""
+"Eventon Seats require Event Tickets addon to function properly. Please "
+"install Event Tickets addon!"
+msgstr ""
+
+#: eventon-seats.php:153
+#, php-format
+msgid "EventON %s is NOT active! - "
+msgstr ""
+
+#: includes/class-ajax.php:135
+msgid "Seat successfully removed from cart!"
+msgstr ""
+
+#: includes/class-ajax.php:137
+msgid "Seat could not be removed from cart, please try later!"
+msgstr ""
+
+#: includes/class-integration-tickets.php:330
+msgid "Seat Number"
+msgstr ""
+
+#: includes/class-shortcode.php:137
+msgid "Lightbox popup window"
+msgstr ""
+
+#: includes/class-shortcode.php:138
+msgid "Do not interact"
+msgstr ""
+
+#: includes/admin/class-admin.php:94
+msgid "With Seats"
+msgstr ""
+
+#: includes/admin/class-post_meta.php:44
+msgid "Enable seat charts for this event"
+msgstr ""
+
+#: includes/admin/class-post_meta.php:51
+msgid "Set up seat chart with sections"
+msgstr ""
+
+#: includes/admin/class-post_meta.php:52
+msgid "Open Seat Map Editor"
+msgstr ""
+
+#: includes/admin/class-post_meta.php:62
+msgid ""
+"NOTE: Seat Charts are only available for simple ticket product with no "
+"repeat instances at the moment. The event ticket basic information must be "
+"saved first before adding seat charts."
+msgstr ""
+
+#: includes/admin/class-post_meta.php:92
+msgid "Seat Map Editor for Event"
+msgstr ""
+
+#: includes/admin/class-post_meta.php:100
+msgid "Seat Map Settings"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:290
+msgid "Select Section"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:291
+msgid "Select Rows"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:292
+msgid "Select Seats"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:294
+msgid "Edit"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:295
+msgid "Rotate Counter Clockwise"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:296
+msgid "Rotate Clockwise"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:297
+msgid "Duplicate"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:298
+msgid "View Attendees"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:304
+msgid "Total Seats"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:305
+msgid "Seats Sold"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:306
+msgid "Section ID"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:324
+msgid "Save Changes"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:364
+msgid "Section Index"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:366
+msgid "Reabable number or letter unique to this section"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:372
+msgid "Title"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:377
+msgid "Section Type"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:389
+msgid "Total capacity for unassigned seating"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:395
+msgid "Seats sold so far"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:404
+msgid "Icon"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:410
+msgid "Section area shape style"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:424
+msgid "Seat Alignment"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:435
+msgid "Rows"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:440
+msgid "Seats"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:447
+msgid ""
+"NOTE: In order to increase seats for existing rows, please edit each row."
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:455
+#: includes/admin/class-seat-map-editor.php:507
+msgid "Default Seat Price"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:462
+#: includes/admin/class-seat-map-editor.php:576
+msgid "Background Color"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:467
+msgid "Text Caption Color"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:471
+msgid "Transparent section background"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:475
+msgid "Remove section border"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:496
+msgid "Row Index Letter"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:499
+msgid "Changing this index will effect each seat number on this row"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:502
+msgid "Number of Seats"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:510
+msgid "Changing the price here will effect price of all seats in this row"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:530
+msgid "Unique Seat Number"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:535
+msgid "Seat Price"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:540
+msgid "Seat Status"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:551
+msgid "Seat Accessibility"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:570
+msgid "Select background image"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:572
+msgid ""
+"NOTE: You MUST upload an image with matching resolution to the seat map area "
+"selected below"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:581
+msgid "Seat Map Area Size (px)"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:592
+msgid "Seat Size (px)"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:704
+msgid "Change Icon"
+msgstr ""
+
+#: includes/admin/class-seat-map-editor.php:704
+msgid "Remove Icon"
+msgstr ""

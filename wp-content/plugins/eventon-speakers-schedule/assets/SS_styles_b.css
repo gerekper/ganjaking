@@ -1,0 +1,83 @@
+/**
+ * Speaker & Schedule Styles
+ * @version 0.1
+ */
+
+.evo_tax_list_terms_items{	padding: 10px 0;}
+.evo_tax_list_terms_items span b{
+	float:left; display: block;
+	cursor: pointer;
+	font-size: 22px;
+}
+.evo_tax_list_terms_items span b.fa-circle-o{opacity: 0.7;}
+.evo_tax_list_terms_items span b:hover{opacity: 0.4;}
+.evo_tax_list_terms .evo_tax_list_terms_items span{display: block; margin-bottom: 15px;}
+.evo_tax_list_terms_items span em{
+	padding-left: 8px;
+	display: inline-block; line-height: 20px
+}
+.evomb_body .evo_tax_saved_terms p{
+	display: block;
+	margin: 0 5px 5px 0;
+	background-color: #8e8e8e; color:#fff;
+	border-radius: 5px;
+	padding: 5px 40px 5px 10px;
+	cursor: pointer;
+	position: relative;
+	overflow: hidden;
+}
+.evomb_body .evo_tax_saved_terms p:hover{ background-color: #ffce71; color:#7b7a7a;}
+.evomb_body .evo_tax_saved_terms p:hover i{color: #fff}
+.evo_tax_list_terms{
+	padding: 20px 20px 10px;
+    margin: 5px 0; border-radius: 10px;
+    background-color: #696666;
+    color:#fff;
+}
+
+.evomb_body .evo_tax_list_terms_items{
+	max-height: 120px;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+    background-color: #757474;
+    padding: 10px 10px 0;
+    border-radius: 5px;
+}
+.evosch_blocks_list li i{
+	font-style: normal; margin: 0 5px;padding: 0;
+	cursor:pointer;
+}
+.evosch_blocks_list ul li p{display: flex;}
+.evosch_blocks_list ul li em{flex:1;
+	font-style: normal; 
+	color:var(--evo_color_1); font-size: 14px;
+}
+.evosch_blocks_list .evosch_nav li{
+	border:none;
+	display: inline-block;
+	border-radius: 5px;
+	border:none;
+	color:#3c3c3c;
+	padding: 3px 8px;
+	margin: 5px 2px;
+	cursor: pointer;
+}
+.evosch_blocks_list .evosch_nav li:hover{background-color: #3d3d3d;color:#fff;}
+.evosch_blocks_list .evosch_nav li.show{background-color: #afafaf;color:#fff;}
+.evosch_blocks_list li i:hover,.evosch_blocks_list li em:hover{opacity: 0.6;}
+.evosch_blocks_list ul.evosch_oneday_schedule {
+	display: none;border: 1px solid var(--evo_color_1);border-radius: 5px;
+	overflow: hidden;
+}
+.evosch_blocks_list ul.evosch_oneday_schedule.show {display: block;}
+.evosch_blocks_list .evosch_desc{
+	opacity: 0.7;font-size: 12px;
+}
+.evosch_blocks_list p.evosch_spks{padding: 0px; opacity: 0.5;}
+.evosch_blocks_list ul.evosch_nav{ padding: 0px;}
+.evosch_blocks_list ul li{
+	padding: 10px 10px 5px; margin:0;position: relative;
+	border-bottom: 1px solid var(--evo_color_1)
+}
+.evosch_blocks_list ul li:hover{background-color: #efefef}
+

@@ -1,0 +1,685 @@
+/**
+ * Eventon Action User form styles
+ * @verion 2.0.11
+ */
+/* general */
+	.eventon_actionuser_eventslist p{
+		-webkit-transition: all .2s ease;-moz-transition: all .2s ease;-ms-transition: all .2s ease;-o-transition: all .2s ease;transition: all .2s ease;}
+/* fonts */
+	.evoau_submission_form h2, 
+	.evoau_submission_form h3,
+	.evoau_submission_form p #evoau_submit, 
+	a.evoAU_form_trigger_btn, 
+	.evoau_submission_form .msub_row a, 
+	.row .enterNew,
+	.evoau_submission_form .formBtnS
+	{font-family: 'League Spartan','arial narrow';font-weight: 700;}
+
+	.evoau_submission_form p input, 
+	.evoau_submission_form p textarea, 
+	.evoau_submission_form p select, 
+	.evoau_submission_form p.dropdown_row select,
+	.evoau_cat_select_field,
+	.evoau_submission_form p select.evoau_location_select,
+	.evoau_submission_form p label,
+	.evoau_selectmul,
+	.row .evoau_img_preview span,
+	.evoau_file_field span.evoau_img_btn,
+	.eventon_au_form_section.overLay .closeForm,
+	.evoau_submission_form form
+	{font-family: 'Noto Sans','arial'}
+
+/* access code form */
+	.evoau_event_access{
+		width: 100%;
+		padding:20px;
+		background-color: #b9b9b9;
+		color:#fff;
+		border-radius: 5px;
+		text-align: center;
+	}
+	.evoau_event_access input{
+		border: none; box-shadow: none; border-radius: 5px; padding: 4px 10px;
+	}
+	.evoau_event_access label{margin-bottom: 10px;display: block;}
+	.evoau_event_access p.error{background-color: #ef6a6a;padding: 10px;    margin: 20px -20px -20px;
+    border-radius: 0 0 5px 5px;}
+
+/* form styles */
+	.evoau_submission_form{
+		background-color: #fff;
+		padding: 13px 20px;
+		border: 1px solid #d9d7d7;
+		border-bottom-width: 3px;
+		position: relative;
+		border-radius: 12px;
+		overflow: hidden;
+		/*z-index: 1000;*/
+		-webkit-transition: background-color 1s 0s;
+			-ms-transition: background-color 1s 0s;
+			-moz-transition: background-color 1s 0s;
+			transition: background-color 1s 0s;
+	}	
+	.evo_lightbox_body .evoau_submission_form{border:none;}
+	.evoau_submission_form form{margin:0;font-size: 13px; }
+	.evoau_lightbox.evo_lightbox .evo_lightbox_body{background-color: #fff}
+	.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-datepicker th, .ui-datepicker .ui-datepicker-title{
+		font-size:12px;
+	}
+	.ui-datepicker{width:220px;	}
+	.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next{
+		height:25px;
+	}
+	div#ui-datepicker-div, .ui-timepicker-wrapper, .evo_colorpicker.colorpicker
+	{	z-index: 950000!important;	}
+	.checkbox_row span{display: block;}
+	.evoau_submission_form p label, .evoau_submission_form p.evo_field_label{
+		font-size: 14px;
+		font-weight: bold;
+		color: #808080;
+		margin: 0;
+		padding-bottom: 5px;
+		display: block; width: 100%;
+	}
+	.evoau_submission_form h2, .evoau_submission_form h3{		
+		margin: 25px 0;
+		color:#808080;
+	}
+	.evoau_submission_form h2{text-transform: uppercase;}
+	.evoau_submission_form h2,
+	.evoau_submission_form h3,
+	.submit_row p, .event_post_status
+	{text-align: center;}
+	.evoau_submission_form .inner {width: 100%;}
+	.evoau_submission_form p .fullwidth{	width: 100%;}
+	
+	.evoau_submission_form .evoau_sh_row p.evoau_sh_label {padding:10px 20px;margin:0;}
+	.evoau_submission_form .evoau_sh_row p.evoau_sh_label span{margin-left: 15px;}
+	/* date */
+		.evo_date_time_select{display:flex;flex-wrap:wrap;}
+		.evo_date_time_select .evo_date_select{margin-bottom: 5px;}
+		.evoau_submission_form .row p input.evoau_dpicker{
+		    margin-right: 5px;
+		    width: 300px;
+		    background-color: #f5c485;
+		    color: #fff;
+		    font-size: 20px;
+		    font-weight: bold;
+		    line-height: 26px;
+		    border: none;
+		    box-sizing: border-box;
+    		text-align: center;  
+    		box-sizing: border-box;  		
+		}
+
+	/* time */
+		.evoau_submission_form .evoau_time_edit .time_select{display:inline-block;margin-right: 5px;}
+		.evoau_submission_form .evoau_time_edit .time_select select{
+			height: auto;
+		    font-size: 20px;
+		    font-weight: bold;
+		    line-height: 26px;
+		    color: #717171;
+		    cursor: pointer;
+		    margin: 0;
+		    border: none;
+		    background: transparent;
+		    -webkit-appearance: none;
+		    -moz-appearance: none;
+		    padding: 7px 10px;
+		    width: auto;
+		    background-color: #f9d29f;
+		    box-shadow: none;
+		}
+		.evoau_submission_form .evoau_time_edit .time_select select.ampm_sel{background-color: #ffebd1;}
+	.evoau_submission_form .event_post_status{text-transform: uppercase; font-size: 14px;opacity: 0.5;}
+	.evoau_submission_form .event_post_status b{
+	    display: inline-block;
+	    background-color: #e4e4e4;
+	    border-radius: 25px;
+	    padding: 3px 15px;
+	}
+	
+	.evoau_submission_form .evoau_dpicker{width: 200px; display: inline-block;}
+	.evoau_submission_form p #evoau_submit:hover, 
+	a.evoAU_form_trigger_btn:hover, 
+	.evoau_submission_form .msub_row a:hover
+	{opacity:0.7; color:#fff; box-shadow:none;}
+	.evoau_submission_form p #evoau_submit, 
+	a.evoAU_form_trigger_btn, 
+	.evoau_submission_form .msub_row a, 
+	.row .enterNew,
+	.evoau_submission_form .formBtnS{
+		border:none;
+		color: #ffffff;
+		background: #52b4e4;
+		text-transform: uppercase;
+		text-decoration: none;
+		border-radius: 20px;
+		border-bottom: none;
+		font-size: 14px;
+		display: inline-block;
+		padding: 8px 20px;
+		margin-top: 8px; margin-right: 5px;
+		cursor:pointer; box-shadow:none;
+		line-height: 1;
+	}
+	.evoau_submission_form p input[type=text], 
+	.evoau_submission_form p input[type=number], 
+	.evoau_submission_form p textarea, 
+	.evoau_submission_form p select, 
+	.evoau_submission_form p.dropdown_row select,
+	.evoau_cat_select_field,
+	.evoau_submission_form p select.evoau_location_select
+	{
+		font-size: 13px;
+		font-style: normal;
+		border: 1px solid #ddd;
+		box-shadow: none;
+		color: #666666;
+		border-radius: 20px;	
+		box-sizing:border-box;	
+		max-width: 100%;
+		float: none;
+		margin-right: 5px;
+		padding: 7px 10px;
+		background-color: #fff;
+	}
+	.evoau_submission_form p.evo_field_container input{width: 100%}
+	.evoau_submission_form p select{-webkit-appearance: none; -moz-appearance: none;
+		appearance: none; padding:6px 20px!important;}
+	.evoau_submission_form p input:focus, 
+	.evoau_submission_form p textarea:focus, 
+	.evoau_submission_form p select:focus{outline:none;} 
+	.evoau_submission_form span.evoau_selected_val{display: inline-block;margin-right: 10px;padding: 5px 15px;background-color: #dedede; border-radius: 20px}
+	.evoau_submission_form p input::-webkit-input-placeholder{color: #b5b4b4; font-style: italic;}
+	.evoau_submission_form p input::-moz-placeholder{color: #b5b4b4; font-style: italic;}
+	.evoau_submission_form p input::-ms-input-placeholder{color: #b5b4b4; font-style: italic;}
+	.evoau_submission_form p input::-moz-placeholder{color: #b5b4b4; font-style: italic;}
+	.evoau_submission_form p textarea::-webkit-input-placeholder{color: #b5b4b4; font-style: italic;}
+	.evoau_submission_form p textarea::-moz-placeholder{color: #b5b4b4; font-style: italic;}
+	.evoau_submission_form p textarea::-ms-input-placeholder{color: #b5b4b4; font-style: italic;}
+	.evoau_submission_form p textarea::-moz-placeholder{color: #b5b4b4; font-style: italic;}
+	.evoau_submission_form textarea, .evoau_submission_form p textarea {border-radius: 10px; }
+
+	.evoau_submission_form a, .evoau_submission_form a:hover{box-shadow:none; -webkit-box-shadow:none;}
+	.evoau_submission_form.loginneeded{text-align: center;	}
+	.evoau_submission_form .evcal_btn:hover{opacity: 0.6;color:#fff;box-shadow:none;}
+	.evoau_submission_form .evcal_btn{
+		font:bold 14px arial;
+		display:inline-block;
+		margin-top:4px;
+		text-transform:uppercase;
+		text-decoration: none;
+		border-radius: 20px;
+		border:none;
+		color: #ffffff;background: #52b4e4;line-height: 1;
+	}
+	.evoau_submission_form.loginneeded .evcal_btn{display: inline-block;}
+	.evoau_submission_form .evoau_table{margin: 0 -20px;}
+	.evoau_submission_form .evoau_table .submit_row.row{padding-top: 15px;background-color: transparent;}
+	.evoau_submission_form .evoau_table .submit_row.row:hover{background-color: transparent;}	
+	.evoau_submission_form .evoau_table .row.err{border-left:5px solid #FA938B;background-color: #FFF7F7}
+	.evoau_submission_form .evoau_table .row.err:hover{background-color: #FFEDEB}
+	
+	.evoau_submission_form .evoau_table .row.evoau_sub_child_formfield .sub_child_title{font-size: 16px;}
+	.evoau_submission_form .evoau_table .row{
+		padding: 8px 15px;
+		background-color: #ebf6fa;
+		margin: 0; display:block;
+		box-sizing: border-box;
+		margin:0 10px 10px;
+		border-radius: 12px;
+	}
+	.evoau_submission_form .row_2{background-color: #e8e8e8}
+	.evoau_submission_form .row .row{margin:0 0 10px; background-color:#e8e8e8 }
+	.evoau_submission_form .row .row .row{margin:0 0 10px; background-color:#dadada }
+
+	.evoau_submission_form .evoau_table .row p{margin: 0;padding-bottom: 4px; display: block!important}
+	.evoau_submission_form .evoau_table .row p.checkbox_field{position: relative;}
+	.evoau_submission_form .evoau_table .row p.checkbox_field input{position: absolute; top: 5px;}
+	.evoau_submission_form .evoau_table .row p.checkbox_field label{padding-left: 25px;	}
+	.evoau_submission_form .evoau_table .row p.label, 
+	.evoau_submission_form .evoau_table .row p label{text-align: left;box-sizing: border-box;}
+	.evoau_submission_form .evoau_table #evoau_repeat_data p label, .evoau_submission_form .evoau_table #evoau_repeat_data p input{
+		display: inline-block;
+	}
+	.evoau_submission_form .evoau_table .row p.checkbox_row span, 
+	.evoau_submission_form .evoau_table .row p.dropdown_row{
+		font:italic 13px 'open sans', arial;padding-bottom: 4px;
+	}
+	.evoau_submission_form .submit_row input{
+		text-transform: uppercase;
+	}
+	.edit_special{background-color: #c7c7c7; padding:10px 0 1px; margin-bottom: 10px;}
+	.evoau_selectmul{
+		width: 100%;
+		font-size: 13px;
+  		color: #666666;
+  		padding: 0px;
+  		border-radius: 0px;
+	}
+	.evoau_cat_select_field{width: 100%;overflow-y:auto;max-height: 140px;}
+	.evoau_submission_form .row p.checkbox_row .evoau_cat_select_field span{
+		padding: 7px 10px;
+	    background-color: #f3f3f3;
+	    margin: 5px;
+	    border-radius: 12px;
+	    display: flex;
+	    justify-content: left;
+	    align-items: center;
+	}
+	.evoau_submission_form .row p.checkbox_row .evoau_cat_select_field{border-radius: 10px;padding:0;}	
+	.evoau_submission_form .row p.checkbox_row .evoau_cat_select_field input{padding:0;margin-right: 7px;}	
+
+	/* repeat data section */
+		.evoau_submission_form .repeat_type{
+			border-radius: 20px;
+		    overflow: hidden;
+		    display: inline-block;
+		}
+		.evoau_submission_form .repeat_type .evo_repeat_type_val{
+			background-color: #d8d8d8;
+		    padding: 5px 15px;
+		    font-size: 14px;
+		    border-right: none;
+		    cursor: pointer;
+		    display: inline-block;
+		}
+		.evoau_submission_form .repeat_type .evo_repeat_type_val:hover{background-color: #fff}
+		.evoau_submission_form .repeat_type .evo_repeat_type_val.select{background-color: #f0b77f;color: #fff;}
+		.evoau_submission_form .evcal_rep_gap label,
+		.evoau_submission_form .evcal_rep_num label{width: auto;}
+
+		.evo_custom_repeat_settings{padding-top:10px;}
+		.evo_custom_repeat_list{
+			color: #fff;
+		    list-style-type: none; list-style:none;
+		    background-color: #8e8e8e;
+		    border-radius: 5px;
+		    overflow: hidden;
+		    border: none; margin:0 0 10px 0; font-size: 13px; font-family: 'open sans';
+		}
+		.evo_custom_repeat_list li.initial{background-color: #676666;}
+		.evo_custom_repeat_list li:hover {background-color: #9e9e9e;}
+		.evo_custom_repeat_list li{border-bottom: 1px solid #a7a7a7;margin: 0;padding: 7px 8px;}
+		.evo_custom_repeat_list li em {
+		    float: right;
+		    font-style: normal;
+		    text-transform: uppercase;
+		    opacity: 0.4;
+		    cursor: pointer;
+		    border: 1px solid #fff;
+		    border-radius: 50%;
+		    width: 20px;
+		    text-align: center;
+		    box-sizing: border-box;
+		    -webkit-box-sizing: border-box;
+		    font-size: 12px;
+		    height: 20px;
+		    line-height: 18px;
+		}
+		.evo_custom_repeat_list li dd {
+		    display: inline-block;
+		    margin: 0px;
+		    text-transform: uppercase;
+		    background-color: #f9d29f;
+		    padding: 1px 5px;
+		    margin-right: 5px;
+		    border-radius: 5px;
+		}
+		.evo_custom_repeat_list li span {
+		    text-transform: uppercase;
+		    color: #bdbdbd;
+		    display: inline-block;
+		    width: 55px;
+		}
+		.evo_custom_repeat_list li span.e { padding-left: 10px;}
+		.evo_repeat_interval_view_all {
+		    background-color: #5A5A5A;
+		    color: #fff;
+		    padding: 2px 8px;
+		    display: inline-block;
+		    border-radius: 5px;
+		    cursor: pointer;
+		}
+		.evo_repeat_interval_new{background-color: #f3f3f3;padding: 20px; border-radius: 12px;margin-bottom: 10px}
+
+	/* event status*/
+		.evoau_submission_form p.es_values span{display: flex;flex-wrap:wrap;}
+		.evoau_submission_form p.es_values span span{padding: 8px 15px;background-color: #efefef;cursor: pointer;line-height: 1}
+		.evoau_submission_form p.es_values span span:first-of-type{border-radius: 20px 0 0 20px;padding-left: 20px;}
+		.evoau_submission_form p.es_values span span:last-child{border-radius: 0 20px 20px 0px;padding-right: 20px;}
+		.evoau_submission_form p.es_values span span:hover{background-color: #e2e2e2;}
+		.evoau_submission_form p.es_values span span.select{    background-color: #f3c991;color: #fff;}
+		.evoau_submission_form .event_status textarea{height: 80px;}
+
+	/* success message */
+		.evoau_success_msg{text-align: left;}
+		.limitSubmission .evoau_success_msg p{color: #ffffff;}
+		.limitSubmission .evoau_success_msg p b:before{
+			content:"!";
+			-webkit-transform: rotate(0deg);
+  			-moz-transform: rotate(0deg);
+  			-ms-transform: rotate(0deg);
+  			-o-transform: rotate(0deg);
+  			transform: rotate(0deg);
+  			border:none;
+  			margin:0;
+  			top:auto; left: auto;
+  			height: auto;
+  			width: 40px;
+  			line-height: 120%;
+  			font-size: 32px;
+		}
+		body .evoau_success_msg p{color: #ffffff;
+			line-height: 45px;
+	  		margin: 0;
+	  		text-transform: uppercase;
+	  		font-size: 18px;
+	  		text-align: center;
+	  		padding-top: 20px;
+		}
+		.evoau_success_msg p b{
+			position: relative;
+	  		display: block;
+	  		width: 45px;
+	  		height: 45px;
+	  		border: 3px solid #ffffff;
+	  		border-radius: 50%;
+	  		margin: 0 auto;
+	  		box-sizing: border-box;
+		}
+		.evoau_success_msg p b:before{
+			content: '';
+	  		display: block;
+	  		position: absolute;
+	  		top: 50%;
+	  		left: 50%;
+	  		margin: -9px 0 0 -9px;
+	  		height: 10px;
+	 		width: 16px;
+	  		border: solid #ffffff;
+	  		border-width: 0 0 4px 4px;
+	  		-webkit-transform: rotate(-45deg);
+	  		-moz-transform: rotate(-45deg);
+	  		-ms-transform: rotate(-45deg);
+	  		-o-transform: rotate(-45deg);
+	  		transform: rotate(-45deg);
+		}
+	/* form error msg */
+		.formeMSG{
+			text-align: center;
+			margin: 0px;
+			padding:20px;
+			background-color:rgb(250, 147, 139);
+			color:#fff;
+		}
+	/* changing form effects */
+		.evoau_submission_form.loading{
+			opacity: 0.4;
+			position: relative;
+		}
+		.evoau_submission_form.loading:before{
+			content: "";
+	  		background: url(evo-loader.gif) center center no-repeat;
+	  		position: absolute;
+	  		top: 0;
+	  		left: 0;
+	  		width: 100%;
+	  		height: 100%;
+	  		z-index: 50;
+	  		display: block;
+		}
+		.evoau_submission_form.successForm{
+			background-color: #9BD28C;
+			padding:90px 0; border:none;
+		}
+		.evoau_submission_form.errorForm{background-color: #FFF6F5;}
+		.evoau_submission_form.limitSubmission{background-color: #E4897E;}
+
+/* form wyg styles */
+	#evoau_form .trumbowyg-fullscreen{padding-top: 30px;}
+/* general button styles */
+	.row .evoau_img_preview span,
+	.evoau_file_field span.evoau_img_btn
+	{
+		cursor: pointer;
+  		border-radius: 20px;
+  		border: none;
+  		font-size: 13px;
+  		padding: 5px 20px;
+	}
+	.evoau_table p .ajde_yn_btn{margin-top:2px;}
+/* image selector field */	
+	.row .evoau_img_preview img{max-width:100%;}
+	.row .evoau_img_preview span{		
+  		background: #E0E0E0;
+  		display: inline-block;
+  		margin-top: 10px;
+	}
+	.evoau_file_field span.file_holder{margin-left: 5px;}
+	.evoau_file_field span.evoau_img_btn{
+		background: #E0E0E0;
+	}
+	.evoau_file_field span.evoau_img_btn:hover{opacity: 0.5}
+	.evoau_submission_form .evoau_file_field input{
+		display:none; cursor: pointer;padding: 0; margin: 0;position: relative;
+	}
+/* color picker */
+	.color_circle{
+		float: left;
+		height: 30px;
+		width: 80px;
+		border-radius: 15px;
+		background-color: #8c8c8c;
+		cursor: pointer;
+		padding: 0!important;
+	}
+	.evoau_color_picker{padding: 2px 0 5px 100px;}
+	.evo_colorpicker.colorpicker{height: 165px;width: 314px;border:3px solid #4c4c4c; border-radius: 5px;}
+/* captcha verification */
+	.au_captcha span.verification{
+		width: 167px; height: 20px;display: block;font-size: 18px;line-height: 1.3;
+	}
+/* wysiwyg */
+	#event_descriptionau-html, #wp-event_descriptionau-editor-tools{display: none;}
+	body .mce-toolbar-grp, body .mce-tooltip{z-index: 999999;}
+	body #mceu_42-body, {display: none;}
+	body .evoau_editor_wysiwig .mce-toolbar-grp,
+	body .evoau_editor_wysiwig .mce-tooltip,
+	body .evoau_editor_wysiwig .mce-container-body.mce-stack-layout
+	{display: block;}
+
+/* elements overridings */
+	.evoau_submission_form .row .evo_elm_row.yesno_row,
+	.evoau_submission_form .row .evo_elm_row.yesno_row label.ajde_yn_btn_label
+	{padding-bottom: 0px}
+
+/* event Manager */
+	.evoau_manager_event{position: relative;    font-size: 14px;
+    color: #313131;}
+
+/* lightbox form */
+	html{overflow-y:initial;}
+	body.evoOverflowHide{overflow: hidden;}
+	.eventon_au_form_section.overLay.showForm{
+		opacity: 1;visibility: visible;
+	}
+	.eventon_au_form_section.overLay{
+		position: fixed;
+  		width: 100%;
+  		height: 100%;
+  		visibility: hidden;
+  		top: 0;
+  		left: 0;
+  		z-index: 1000;
+  		opacity: 0;
+  		background: rgba(24, 24, 24, 0.73);
+  		transition: all 0.3s;
+  		overflow: auto
+	}
+	.eventon_au_form_section.overLay .evoau_submission_form{
+		z-index: 2000;
+		position: relative;
+		width: 500px;
+		margin: 50px auto 30px;
+		border:none;
+		box-sizing:border-box;
+		-webkit-transition:-webkit-transform 0.5s;
+		transition:transform 0.5s;
+		-webkit-transform:translateY(50px);	
+		transform:translateY(50px);	
+	}
+	.eventon_au_form_section.overLay.showForm .evoau_table{display:block;}	
+	@media (max-width: 480px){
+		.eventon_au_form_section.overLay .evoau_submission_form{width:100%;}
+	}
+	.eventon_au_form_section.overLay.showForm .evoau_submission_form{
+		-webkit-transform:translateY(0px);transform:translateY(0px);	
+	}
+	.eventon_au_form_section .closeForm{display: none;}
+	.eventon_au_form_section.overLay .closeForm{
+		cursor: pointer;
+  		color: #fff;
+  		position: absolute;
+ 		top: 10px;
+  		right: 10px;
+  		font-size: 14px;
+  		border: 1px solid #fff;
+  		border-radius: 50%;
+  		height: 25px;
+  		width: 25px;
+  		text-align: center;
+  		padding-top:4px;
+  		background-color: #E7E7E7;
+  		display: block;
+  		line-height: 100%;
+  		z-index: 4000;
+  		box-sizing:border-box;
+	}
+	.eventon_au_form_section.overLay .closeForm:hover{
+		background-color: #C5C5C5;color: #fff;opacity: 1;text-decoration: none;
+  	}
+  	.eventon_au_form_section.overLay .successForm .closeForm{
+  		top: 20px;color: #9BD28C; background-color: #fff
+  	}
+
+/* Supportive */
+
+	/* purchase form */
+		.evoaup_purchase p{padding:10px 0;}
+		.evoaup_purchase_form .evoaup_purchase{
+			    background-color: #fff3dd;
+		    padding: 15px;
+		    border-radius: 12px;
+		    margin-top: 20px;
+		}
+	/* plus minus sign */
+		.evoaup_add_cart .quantity{display: inline-block;}
+		.evoaup_add_cart input.qty{
+			border-radius: 5px;
+		    padding: 4px;
+		    border: 2px solid #b7b7b7;
+		    font-family: inherit;
+		    padding: 5px;
+		    font-size: 100%;
+		    margin: 0;
+		    max-width: 70px;
+		    vertical-align: baseline;
+		    -webkit-box-sizing: border-box;
+		    -moz-box-sizing: border-box;
+		    box-sizing: border-box;
+		}
+		.evoaup_add_cart .evoaup_quantity span.label{
+			font-size: 18px;
+			font-style: italic;
+		}
+		.evoaup_add_cart .evoaup_quantity, .evoaup_purchase .evoaup_quantity{display: inline-block;}
+		.evoaup_add_cart .evoaup_quantity .qty b,
+		.evoaup_purchase .evoaup_quantity .qty b{
+			border-radius: 50%;
+			height: 30px; width: 30px;
+			color:#fff;
+			background-color: #c9c9c9;
+			display: inline-block;
+			line-height: 29px;
+		    text-align: center;
+		    font-size: 24px;
+		    font-weight: normal;
+		    cursor: pointer;
+		    position: relative;
+		}
+		.evoaup_add_cart .evoaup_quantity .qty b:hover,
+		.evoaup_purchase .evoaup_quantity .qty b:hover{opacity: 0.7;}
+		.evoaup_add_cart .evoaup_quantity .qty b.min,.evoaup_purchase .evoaup_quantity .qty b.min{line-height: 28px }
+		.evoaup_add_cart .evoaup_quantity .qty b.plu,.evoaup_purchase .evoaup_quantity .qty b.plu{background-color:#3091d4 }
+		.evoaup_add_cart .evoaup_quantity .qty em,.evoaup_purchase .evoaup_quantity .qty em{
+			font-style: normal;
+			font-size: 20px;
+			font-weight: bold;
+			padding: 5px;
+		}
+		.evoaup_add_cart .evoaup_quantity .qty,.evoaup_purchase .evoaup_quantity .qty{margin-left: 10px; margin-right: 0px;}
+		.evoaup_add_cart .evoaup_quantity, .evoaup_purchase .evoaup_quantity{
+			display: block;
+			padding: 10px 0;
+			-webkit-user-select: none; /* Chrome/Safari */        
+			-moz-user-select: none; /* Firefox */
+			-ms-user-select: none; /* IE10+ */
+			/* Rules below not implemented in browsers yet */
+			-o-user-select: none;
+			user-select: none;
+		}
+
+		.evoaup_purchase .brb{border-bottom: 1px solid #c1c1c1;}
+		.evoau_submission_form .evoau_table .row p.total, .evoaup_purchase p.total
+		{padding:10px 0;}
+
+		.evoau_submission_form .evoaup_purchase,
+		.evoau_submission_form .evoau_table .row.evoaup_purchase
+		{background-color: #fff3dd;}
+		.evoaup_purchase .evoaup_quantity,
+		.evoau_submission_form .evoau_table .row p.evoaup_quantity
+		{
+			padding: 10px 0;
+		    border-right: none;
+		    border-left: none;
+		    margin-bottom: 5px;
+		    display: flex!important;
+		    justify-content: space-between;
+		    align-items: center;
+		}
+		.evoaup_purchase p.total span{font-weight: bold}
+		.evoaup_purchase span.right{float:right; margin-left: 10px;}
+		.evoaup_purchase .addtocart{text-align: right;margin-bottom: 10px}
+
+	/* success */
+		.evoaup_msg{margin:0;}
+		.evoau_submission_form form .evoau_table p.evoaup_success, p.evoaup_success{
+			text-align: center;
+			padding: 40px;
+			margin: -10px -20px -10px;
+			background-color: #84c578;
+			color: #fff;
+			font-size: 20px;
+			line-height: 1.2;
+		}
+		.evoau_submission_form p.evoaup_success .evcal_btn, p.evoaup_success .evcal_btn{margin: 10px 0;}
+		.evoau_submission_form p.evoaup_success em, p.evoaup_success em{ 
+			font-size: 15px;
+			font-family: 'open sans';
+		}
+
+/* RTL */
+	.evoau_submission_form.evortl .row.start_date p,
+	.evoau_submission_form.evortl .row.end_date p,
+	.evoau_submission_form.evortl p .fullwidth,
+	.evoau_submission_form.evortl .evoau_repeating p,
+	.evoau_submission_form.evortl .selection,
+	.evoau_submission_form.evortl .evoau_table .row p
+	{text-align: right;}
+	.evoau_submission_form.evortl .ajde_yn_btn_label{padding-right: 80px; padding-left: 0px}
+	.evoau_submission_form.evortl .ajde_yn_btn{right:20px;}
+	.evoau_submission_form.evortl .evoau_table .row p.label, .evoau_submission_form.evortl .evoau_table .row p label{text-align: right}
+

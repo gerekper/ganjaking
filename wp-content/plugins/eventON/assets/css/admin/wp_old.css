@@ -1,0 +1,9 @@
+/** For wordpress versions  */
+#menu-posts-ajde_events .wp-menu-image{
+	background-image: none;
+}
+#menu-posts-ajde_events .wp-menu-image:before{
+	width: 100%;
+	text-align: center;
+	margin-top: 6px;
+}

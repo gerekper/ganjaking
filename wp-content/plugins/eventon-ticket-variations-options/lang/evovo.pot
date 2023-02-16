@@ -1,0 +1,299 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Event Variations & Options 1.0\n"
+"POT-Creation-Date: 2022-01-04 15:49-0800\n"
+"PO-Revision-Date: 2020-06-11 11:18-0700\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;esc_attr_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: eventon-ticket-variations-options.php:133
+#, php-format
+msgid ""
+"Eventon %s need Woocommerce plugin to function properly. Please install "
+"woocommerce"
+msgstr ""
+
+#: eventon-ticket-variations-options.php:136
+#, php-format
+msgid ""
+"Eventon %s require Event Tickets addon to function properly. Please install "
+"Event Tickets addon!"
+msgstr ""
+
+#: eventon-ticket-variations-options.php:139
+#, php-format
+msgid ""
+"Eventon %s require Event Tickets addon version %s or higher to fully "
+"function please update tickets addon!"
+msgstr ""
+
+#: eventon-ticket-variations-options.php:142
+#, php-format
+msgid "EventON %s is NOT active! - "
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:80
+#: includes/class-event-variations_options.php:1013
+msgid "All"
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:100
+msgid "You must add variation types first!"
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:104
+#, php-format
+msgid "Ticket Variation Price  (%s)"
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:117
+msgid "Ticket Variation Stock Quantity (Leave blank for unlimited)"
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:121
+msgid "Ticket Variation Stock Status"
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:124
+#: includes/admin/class-admin-ajax.php:180
+msgid "In Stock"
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:125
+#: includes/admin/class-admin-ajax.php:181
+msgid "Out of Stock"
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:132
+msgid "Who can purchase this variation"
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:135
+msgid "Everyone"
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:136
+msgid "Only loggedin members"
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:149
+msgid "Ticket Variation Name"
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:153
+msgid ""
+"Ticket Variation Options (separated by comma) Do not use - or , as part of a "
+"option value"
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:155
+msgid ""
+"If you change the ticket variation option values, you will need to re-create "
+"ticket variations."
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:165
+msgid "Ticket Price Option Name (DO not use ' aphostrophe sign)"
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:168
+#, php-format
+msgid "Ticket Option Price  (%s)"
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:170
+msgid "Ticket Option Description"
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:173
+msgid "Stock (Leave blank for unlimited)"
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:177
+msgid "Stock Status"
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:186
+msgid "Sold Style"
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:189
+msgid "Individually"
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:190
+msgid "Multiples"
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:347
+msgid "Successfully Updated!"
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:347
+msgid "Successfully Added!"
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:401
+msgid "Order Saved"
+msgstr ""
+
+#: includes/admin/class-admin-ajax.php:417
+msgid "Successfully Deleted!"
+msgstr ""
+
+#: includes/admin/class-post_meta.php:21
+msgid "Woocommerce product not associated with this event!"
+msgstr ""
+
+#: includes/admin/class-post_meta.php:24
+msgid "Variation options are not available for repeating events!"
+msgstr ""
+
+#: includes/admin/class-post_meta.php:43
+msgid "Enable ticket variations & options"
+msgstr ""
+
+#: includes/admin/class-post_meta.php:44
+msgid "Create ticket variations and options for this event."
+msgstr ""
+
+#: includes/admin/class-post_meta.php:64
+msgid ""
+"Sell Variations as separate ticket (Only when you have single variation type)"
+msgstr ""
+
+#: includes/admin/class-post_meta.php:65
+msgid ""
+"This will allow customers to add each variation type to cart as separate "
+"tickets, this is only available when there is only single variation type. "
+"When this is enabled price options will not display."
+msgstr ""
+
+#: includes/admin/class-post_meta.php:73
+msgid "Sell Price Options as Separate Tickets"
+msgstr ""
+
+#: includes/admin/class-post_meta.php:74
+msgid ""
+"This will enable you to sell price options as separate tickets instead of a "
+"single ticket. Variations will be disabled when this is active."
+msgstr ""
+
+#: includes/admin/class-post_meta.php:82
+msgid "Hide variations that are out of stock"
+msgstr ""
+
+#: includes/admin/class-post_meta.php:83
+msgid ""
+"This option will not show variations that are sold out, when page first "
+"loads."
+msgstr ""
+
+#: includes/admin/class-post_meta.php:87
+msgid "NOTE: "
+msgstr ""
+
+#: includes/admin/class-post_meta.php:98
+msgid "Ticket Options"
+msgstr ""
+
+#: includes/admin/class-post_meta.php:108
+msgid ""
+"NOTE: Ticket variations and options are not available based on other "
+"activated ticket options!"
+msgstr ""
+
+#: includes/class-ajax.php:90 includes/class-integration-tickets.php:462
+msgid "Item out of stock!"
+msgstr ""
+
+#: includes/class-event-variations_options.php:179
+#: includes/class-event-variations_options.php:873
+msgid "Variation Types"
+msgstr ""
+
+#: includes/class-event-variations_options.php:180
+#: includes/class-event-variations_options.php:874
+msgid "Variations"
+msgstr ""
+
+#: includes/class-event-variations_options.php:181
+#: includes/class-event-variations_options.php:875
+msgid "Price Options"
+msgstr ""
+
+#: includes/class-event-variations_options.php:925
+msgid "Add New Ticket Variations & Options"
+msgstr ""
+
+#: includes/class-event-variations_options.php:934
+msgid "Add New Variation Type"
+msgstr ""
+
+#: includes/class-event-variations_options.php:938
+msgid "Add New Variation"
+msgstr ""
+
+#: includes/class-event-variations_options.php:942
+msgid "Add New Price Option"
+msgstr ""
+
+#: includes/class-event-variations_options.php:1041
+msgid "Name"
+msgstr ""
+
+#: includes/class-event-variations_options.php:1045
+msgid "Out of stock"
+msgstr ""
+
+#: includes/class-event-variations_options.php:1047
+msgid "Sold out"
+msgstr ""
+
+#: includes/class-event-variations_options.php:1052
+#: includes/class-event-variations_options.php:1054
+#: includes/class-event-variations_options.php:1058
+msgid "Price"
+msgstr ""
+
+#: includes/class-event-variations_options.php:1066
+msgid "Fees"
+msgstr ""
+
+#: includes/class-event-variations_options.php:1070
+msgid "Stock"
+msgstr ""
+
+#: includes/class-event-variations_options.php:1073
+msgid "Member Only"
+msgstr ""
+
+#: includes/class-event-variations_options.php:1080
+msgid "Edit"
+msgstr ""
+
+#: includes/class-integration-booking.php:249
+msgid "Has Variations"
+msgstr ""
+
+#: includes/class-integration-booking.php:258
+msgid "Has Price Options"
+msgstr ""
+
+#: includes/class-integration-tickets.php:106
+msgid "Sales by Ticket Variations & Options"
+msgstr ""
+
+#: includes/class-integration-tickets.php:107
+msgid "Generated using ticket variations from variations and options addon"
+msgstr ""

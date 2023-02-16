@@ -1,0 +1,36 @@
+/**
+ * Styles for actionUser wp-admin backend
+ */
+.capabilities_list .yesno_row span.field_name{display: inline-block; padding-bottom: 8px;}
+.evoau_assign_users{
+	border-radius: 5px;
+	overflow: hidden; background-color: #f1f1f1
+}
+.evoau_assign_users h4{background-color: #F4F3F2; text-transform: uppercase;}
+.evoau_assign_users h4,.evoau_assign_users p{
+	padding: 5px 10px;
+	margin: 0;
+	border-bottom: 1px solid #E7E7E7;
+}
+.evoau_private_note span{
+	padding: 10px;
+  	background: #efefef;
+  	position: relative;
+  	display: block;
+}
+.evoau_private_note span:after{
+	content: "";
+  	display: block;
+  	position: absolute;
+  	bottom: -10px;
+  	left: 20px;
+  	width: 0;
+  	height: 0;
+  	border-width: 10px 10px 0 0;
+  	border-style: solid;
+  	border-color: #efefef transparent;
+}	
+.evoau_private_note em{
+	display: block;
+	font-weight: bold; text-transform: uppercase;
+}

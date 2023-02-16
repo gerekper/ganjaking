@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitba8350f2b5ef061acc8fc69240979925
+class ComposerStaticInit9c971515894622f861971e1e367ce1a7
 {
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
@@ -15,6 +15,7 @@ class ComposerStaticInitba8350f2b5ef061acc8fc69240979925
         'GFML\\Compatibility\\FeedAddon\\Value' => __DIR__ . '/../..' . '/classes/compatibility/feed_addon/Value.php',
         'GFML\\Compatibility\\UserRegistration\\Hooks' => __DIR__ . '/../..' . '/classes/compatibility/user_registration/Hooks.php',
         'GFML\\Compatibility\\Woocommerce\\Currency' => __DIR__ . '/../..' . '/classes/compatibility/woocommerce/class-gfml-currency.php',
+        'GFML\\Confirmation\\SaveAndContinue' => __DIR__ . '/../..' . '/classes/Confirmation/SaveAndContinue.php',
         'GFML\\Container\\Config' => __DIR__ . '/../..' . '/classes/Container/Config.php',
         'GFML\\Loader' => __DIR__ . '/../..' . '/classes/Loader.php',
         'GFML_Conditional_Logic' => __DIR__ . '/../..' . '/classes/class-gfml-conditional-logic.php',
@@ -39,7 +40,7 @@ class ComposerStaticInitba8350f2b5ef061acc8fc69240979925
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInitba8350f2b5ef061acc8fc69240979925::$classMap;
+            $loader->classMap = ComposerStaticInit9c971515894622f861971e1e367ce1a7::$classMap;
 
         }, null, ClassLoader::class);
     }

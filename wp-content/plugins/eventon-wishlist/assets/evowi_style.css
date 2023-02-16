@@ -1,0 +1,71 @@
+/**
+ * Styles for eventon wishlist
+ * @version 1.1
+ */
+
+.ajde_evcal_calendar.evoWI #evcal_head{display: none;}
+.eventon_events_list .eventon_list_event .evoet_cx span.evowi, 
+.evo_pop_body .evoet_cx span.evowi{
+	color:#808080;
+	display: flex;align-items: center;
+	font-size: 12px;
+	position: relative;
+	text-transform: uppercase;
+}
+.eventon_events_list .eventon_list_event .evoet_cx span.evowi_wi_area, 
+.evo_pop_body .evoet_cx span.evowi_wi_area{
+	color:#808080; display: inline-flex;align-items: center;
+	border-radius: 5px;
+	padding: 5px 8px 5px 0;
+	margin-right: 8px;
+}
+#evcal_list .eventon_list_event .evoet_cx span.evowi_wi_area em{margin:0;}
+
+
+/* COLOR */	
+	.ajde_evcal_calendar.color #evcal_list .eventon_list_event .evoet_cx span.evowi_wi_area,
+	.evo_pop_body.color .evoet_cx span.evowi_wi_area
+	{color:#fff;}
+	.ajde_evcal_calendar.color #evcal_list .eventon_list_event .evoet_cx span.evowi,
+	.evo_pop_body.color .evoet_cx span.evowi
+	{color:#fff;}
+
+/* other */
+.eventon_events_list .eventon_list_event .evoet_cx span.evowi.loading i:before, 
+.evo_pop_body .evoet_cx span.evowi.loading i:before{
+	content:""
+}
+.eventon_events_list .eventon_list_event .evoet_cx span.evowi.loading i, 
+.evo_pop_body .evoet_cx span.evowi.loading i{
+	background: url(spinner.gif) center center no-repeat;
+	height: 14px;
+    width: 14px;
+    opacity: 0.3;
+}
+
+.eventon_events_list .eventon_list_event .evoet_cx span.evowi.loading:before, 
+.evo_pop_body .evoet_cx span.evowi.loading:before{
+	position: absolute;
+	width: 100%;
+}
+.ajde_evcal_calendar .eventon_events_list .eventon_list_event .evoet_cx .notlisted span.evowi_wi_area i,
+.evo_pop_body .evoet_cx .notlisted span.evowi i
+{opacity: 0.5}
+.eventon_events_list .eventon_list_event .evoet_cx span.evowi i, 
+.eventon_events_list .eventon_list_event .evoet_cx .notlisted span.evowi i, 
+.evo_pop_body .evoet_cx span.evowi i{
+	margin-right: 8px;
+	cursor: pointer;
+	font-size: 20px
+}
+.eventon_events_list .eventon_list_event .evoet_cx span.evowi span.evowi_wi_area:hover i, 
+.evo_pop_body .evoet_cx span.evowi span.evowi_wi_area:hover i{
+	color:#ff6124; opacity: 1
+}
+.eventon_events_list .eventon_list_event .evoet_cx span.evowi em, 
+.evo_pop_body .evoet_cx span.evowi em{
+	float: none; display: inline-block;
+	font-style: normal;
+}
+.ajde_evcal_calendar.evoWI #evcal_list, .ajde_evcal_calendar.evoWI #evcal_list .evcal_month_line p{border:none;}
+

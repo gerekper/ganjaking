@@ -1,0 +1,180 @@
+/* Eventon Event Maps addon styles */
+.eventon_sorting_section .eventon_global_gmap{
+	margin-left:-13px;
+	height:500px;
+	display:none;
+	margin-top:5px;
+	border:1px solid #e5e5e5;
+}
+.eventon_geo_cal_filter .eventon_filter_dropdown p{
+	min-width:70%
+}
+.ajde_evcal_calendar .eventon_filter_line .eventon_geocal_filter .eventon_sf_field p{
+	background:url(../images/geo_cal_icon.png) left center no-repeat;
+	padding-left:13px;
+}
+.eventmap.ajde_evcal_calendar .calendar_header{margin-bottom: 10px;}
+
+/* event map */
+	.ajde_evcal_calendar.eventmap .evoGEO_map{
+		margin-top: 0px;
+		width:100%;
+		height:400px;
+		border-top: 1px solid #cdcdcd;
+		position: relative;
+		z-index: 0;
+		border-radius: 10px;
+	}
+	/*.ajde_evcal_calendar.eventmap .evoGEO_map.loading:before{
+		content:"";
+		background:  rgba(251, 251, 251, 0.65) url(images/evo-loader.gif) center center no-repeat;
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		z-index: 2;
+	}*/
+	.ajde_evcal_calendar.eventmap .evoEM_list{display: none;}
+	.ajde_evcal_calendar .evo_cal_above .evo-mapfocus{display: none;}
+	.ajde_evcal_calendar.eventmap .evo_cal_above .evo-mapfocus{display: inline-block;}
+	.ajde_evcal_calendar.eventmap .evomap_section{position: relative;margin-bottom: 10px}
+	.ajde_evcal_calendar.eventmap .evomap_section .evomap_noloc{
+		position: absolute;
+		background-color: rgba(251, 251, 251, 0.65);
+		display: block;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		font-size: 18px;
+		/* opacity: 0.4; */
+		text-align: center;
+		padding-top: 70px;
+		-webkit-box-sizing: border-box;
+	    -moz-box-sizing: border-box;
+	    box-sizing: border-box;
+	}
+	.ajde_evcal_calendar.eventmap .evomap_section .evomap_progress{display: none;}
+	.ajde_evcal_calendar.eventmap .evomap_section.loading .evomap_progress{
+		position: absolute;
+		height: 100%; width: 100%;
+		overflow: hidden;
+		background-color: rgba(251, 251, 251, 0.4);
+		z-index: 2;
+		display: block;
+	}
+	.ajde_evcal_calendar.eventmap .evomap_progress span{
+		background-color: #ffcb6c;
+		border-radius: 50%;
+		width: 1px;height: 1px;
+		position: absolute;
+		top: 50%; left: 50%;
+		opacity: 0;
+	}
+	.ajde_evcal_calendar.eventmap .evomap_section.loading .evomap_progress span{
+		animation: mapprogress 1.3s 0.2s infinite
+	   -moz-animation: mapprogress 1.3s 0.2s infinite;
+		-webkit-animation: mapprogress 1.3s 0.2s infinite;
+	     -o-animation: mapprogress 1.3s 0.2s infinite;
+	}
+
+	@keyframes mapprogress {
+	    0% { opacity: 0; }
+	    70% { opacity: 0.6; width: 500px; height: 500px;margin-left: -250px;margin-top: -250px;}
+	    100% { opacity: 0.1; width: 1500px; height: 1500px;margin-left: -750px;margin-top: -750px;}
+	}
+	@-moz-keyframes mapprogress {
+	    0% { opacity: 0; }
+	    70% { opacity: 0.6; width: 500px; height: 500px;margin-left: -250px;margin-top: -250px;}
+	    100% { opacity: 0.1; width: 1500px; height: 1500px;margin-left: -750px;margin-top: -750px;}
+	}@-webkit-keyframes mapprogress {
+	    0% { opacity: 0; }
+	    70% { opacity: 0.6; width: 500px; height: 500px;margin-left: -250px;margin-top: -250px;}
+	    100% { opacity: 0.1; width: 1500px; height: 1500px;margin-left: -750px;margin-top: -750px;}
+	}@-o-keyframes mapprogress {
+	   0% { opacity: 0; }
+	    70% { opacity: 0.6; width: 500px; height: 500px;margin-left: -250px;margin-top: -250px;}
+	    100% { opacity: 0.1; width: 1500px; height: 1500px;margin-left: -750px;margin-top: -750px;}
+	}
+
+	a.evo-mapfocus{
+		cursor: pointer;
+		padding: 5px 8px;
+		border-radius: 5px;
+		color: #fff;
+		background-color: #dedede;
+		display: inline-block;
+		margin-top: 10px;
+	}
+	a.evo-mapfocus:hover{text-decoration: none;opacity: 0.7; color:#fff;}
+
+/* gmaps info window */
+	.evoGEO_map .evoIWl, .evoIWr{
+		float: left;
+		width: 120px;
+	}
+	.evoGEO_map .evoIWl{
+		border-right: 1px solid #dedede;
+		margin-right: 10px;
+		width: 90px;
+	}
+	.evoIWr p{
+		padding: 0;
+		margin: 0;
+		font-weight: 700;
+		font-family: 'open sans';
+		font-style: italic;
+	}
+	.evoIWl p{
+		font-size: 30px;
+		font-weight: 700;
+		font-family: 'open sans';
+		padding: 0;
+		margin: 0;
+		line-height: 100%;
+	}
+	.evoIWl span{
+		font-family: 'open sans';
+		font-style: italic;
+	}
+/* light boc events */
+	.evoem_lightbox{
+		overflow-x: hidden;
+   	 	overflow-y: auto;
+   	 	background-color: rgba(61, 61, 61, 0.53);
+   	 	position: fixed;
+	    top: 0;
+	    right: 0;
+	    bottom: 0;
+	    left: 0;
+	    z-index: 1050;
+	    padding-right: 17px;
+	}
+	.evoem_content_in{
+		display: table;
+	    height: 100%;
+	    width: 100%;
+	}
+	.evoem_content_inin{
+		display: table-cell;
+	    vertical-align: middle;
+	    position: relative;
+	    width: 600px;
+	    margin: 40px auto;
+	}
+	.evoem_lightbox_content{
+		width: 100%;
+		margin: 60px auto;
+		max-width: 500px;
+		position: relative;
+	}
+	.evoEM_pop_body.evo_pop_body{
+		background-color: transparent;
+	}
+	.evoem_lightbox .evcal_cblock .evo_time{display: none;}
+	.evoem_lightbox .bordb{
+		border-bottom: 1px solid #cdcdcd;
+	}
+	.evoem_lightbox .evo_metarow_gmap{display: none;}
+	body.evoem_overflow{
+		overflow: hidden;
+	}
+	html{overflow-y:initial;}

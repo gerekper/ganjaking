@@ -1,0 +1,24 @@
+RSVP Event INVITEES (EVORSI) addon for EventON Plugin
+====================================
+v 0.5 (2021-8-4)
+FIXED: handlebar not loading on event edit page for invitees
+FIXED: invitees not adding to events
+
+v 0.4 (2020-1-9)
+ADDED: Option to resend invitation
+ADDED: Invitation id with link to edit page in Invitee lightbox
+ADDED: New invitee form validation for required fields
+
+v 0.3 (2019-6-28)
+FIXED: dynamic styles not returning values
+FIXED: Dynamic styles saving causing error in rest
+FIXED: is_invited on null error class-frontend.php 163
+FIXED: Notice on event edit page for repeating events
+UPDATED: to load invitee data only when needed on event clicks
+REQ: EventON 2.7
+
+v 0.2 (2019-1-16)
+FIXED: Addons setting inclusion
+
+v 0.1 (2018-12-27)
+Initial release

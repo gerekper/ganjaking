@@ -14,6 +14,7 @@ return array(
     'GFML\\Compatibility\\FeedAddon\\Value' => $baseDir . '/classes/compatibility/feed_addon/Value.php',
     'GFML\\Compatibility\\UserRegistration\\Hooks' => $baseDir . '/classes/compatibility/user_registration/Hooks.php',
     'GFML\\Compatibility\\Woocommerce\\Currency' => $baseDir . '/classes/compatibility/woocommerce/class-gfml-currency.php',
+    'GFML\\Confirmation\\SaveAndContinue' => $baseDir . '/classes/Confirmation/SaveAndContinue.php',
     'GFML\\Container\\Config' => $baseDir . '/classes/Container/Config.php',
     'GFML\\Loader' => $baseDir . '/classes/Loader.php',
     'GFML_Conditional_Logic' => $baseDir . '/classes/class-gfml-conditional-logic.php',

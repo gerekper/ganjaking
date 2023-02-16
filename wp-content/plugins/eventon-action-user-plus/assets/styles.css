@@ -1,0 +1,120 @@
+
+.evoaup_section{
+	padding: 20px;
+	border:1px solid #c3c3c3;
+	border-radius: 12px;
+	overflow: hidden;
+}
+.evo_lightbox_body .evoaup_section{border:none; text-align: center;}
+.evo_lightbox_body .evoaup_purchase_form, .evo_lightbox_body .evoau_submission_form {text-align: left;}
+.evoaup_section.hasform{padding: 0;border:none;}
+.evoaup_section h3{margin: 0; padding-bottom: 10px; font-weight: bold;}
+.evoaup_section p.evoaup_desc{	font-style: italic; font-size: 16px;}
+
+.evoaup_section .evoaup_price_line{	font-size: 18px;	margin: 0;}
+.evoaup_section .evoaup_price_line span{font-weight: bold; }
+
+.evoaup_section .evcal_btn{	text-decoration: none;color: #ffffff;background: #237ebd;line-height: 1;}
+.evoaup_section .evcal_btn:hover{opacity: 0.6;color:#fff;box-shadow:none;}
+
+/* general */
+	.evoaup_purchase_submissions a.evcal_btn, .evoaup_purchase_submissions a.evcal_btn:hover{box-shadow:none;}
+
+	.evoaup_slevel, .evoaup_submission_level_selection p{
+		-webkit-transition: all .2s ease;
+	-moz-transition: all .2s ease;
+	-ms-transition: all .2s ease;
+	-o-transition: all .2s ease;
+	transition: all .2s ease;
+	}
+/* fonts */
+	.evoaup_slevel .slevel_name, .evoaup_purchase_form,
+	.evoaup_purchase_form p{font-family: 'open sans';	}
+/* in the form */
+	.evoau_submission_form .evoaup_under_title{text-align: center;}
+	.evoau_submission_form .evoaup_under_title span{
+		margin-left: 10px;
+		background-color: #808080;
+	    border-radius: 12px;
+	    padding: 3px 13px;
+	    color: #fff;
+	}
+/* submission levels */
+	.evoaup_purchase_form{position: relative;margin: 0 -20px -20px; }	
+	.evoaup_slevel{
+		padding: 20px 25px;  border-bottom:1px solid #c3c3c3;
+		cursor: pointer;
+		position: relative;
+		border-left:4px solid #808080;
+	}
+	.evoaup_slevel:hover{border-left-width: 8px;}
+	.evoaup_slevel:hover, .evoaup_slevel.selected{background-color: #fffdf7;}
+	.evoaup_slevel i{display: none}
+	.evoaup_slevel.selected .evoaup_details{padding-left: 60px;}
+	.evoaup_slevel.selected i{
+		    content: "";
+	    position: absolute;
+	    border: 2px solid #808080;
+	    border-radius: 50%;
+	    height: 30px;
+	    width: 30px;
+	    display: flex;
+	    left: 30px;
+	    top: 25px;
+	    justify-content: center;
+	    align-items: center;
+	    color: #808080;
+	}
+	.evoaup_slevel:first-child{border-top:1px solid #c3c3c3;}
+	.evoaup_slevel:last-child{border-bottom:none}
+	.evoaup_slevel .slevel_name, .evoaup_slevel .slevel_price, .evoaup_slevel .slevel_details{
+		font-size: 18px; padding: 0;margin: 0;
+	}
+	.evoaup_slevel .fieldsincluded{
+		font-size: 14px;line-height: 38px;padding: 0;padding-bottom: 10px; margin: 0;
+	}
+	.evoaup_slevel .fieldsincluded span{display: flex;flex-wrap:wrap;	}
+	.evoaup_slevel .fieldsincluded span em{
+		text-transform: capitalize;
+	    line-height: 1.5;
+	    padding: 4px 13px;
+	    background-color: #c7c7c7;
+	    border-radius: 15px;
+	    color: #fff;
+	    display: inline-block;
+	    margin-right: 5px;margin-bottom: 5px;
+	}
+	.evoaup_slevel .slevel_details{font-size: 14px;}
+	.evoaup_slevel .slevel_details b{border-radius: 20px; background-color: #c7c7c7; padding: 4px 15px;color: #fff;margin-left: 10px;}
+	.evoaup_slevel .slevel_name{font-size: 24px;font-weight: bold }
+	.evoaup_slevel .slevel_price b{font-size: 20px;}
+	.evoaup_slevel .evoaup_purchase{padding: 15px 0;}
+	.evoaup_slevel .evoaup_purchase p{margin: 0;}
+	.evoaup_slevel .evoaup_purchase p.evoaup_quantity{padding-bottom: 5px;}
+	
+	.evoaup_submission_level_selection{margin: 0 -20px -20px; border-top:1px solid #c3c3c3;}
+	.evoaup_submission_level_selection p{
+		cursor: pointer; margin: 0; padding: 10px 20px;
+		border-bottom:1px solid #c3c3c3;
+		background-color: #fbfbfb;
+		font-size: 16px;
+		border-left: 4px solid #808080;
+		display: flex; justify-content: space-between;
+	}
+	.evoaup_submission_level_selection p:last-child{border-bottom:none;}
+	.evoaup_submission_level_selection p:hover{background-color:#eaeaea; border-left-width: 8px;}
+	.evoaup_submission_level_selection p span{
+		font-style: normal; margin-left: 10px;float:right;color:#ccc;}
+	.evoaup_submission_level_selection p span b{
+		background-color: #808080;
+	    color: #fff;
+	    padding: 3px 8px;
+	    border-radius: 12px;
+	    margin-left: 10px;
+	}
+	.evoaup_purchase_additionals{margin: 20px -20px -20px;
+	    border-top: 1px solid #c3c3c3;
+	    padding: 20px;}
+
+
+

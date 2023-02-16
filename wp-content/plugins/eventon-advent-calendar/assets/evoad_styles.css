@@ -1,0 +1,5 @@
+/**  All Front end styles --  @version 1.0  */
+.evo_metarow_evoad.unrevealed{background-color: #ff7070;color: #fff;}
+.evo_metarow_evoad.revealnow{background-color: #75e082;color: #fff;}
+.evo_metarow_evoad.pastreveal{background-color: #a9a9a9;color: #fff;}
+#evcal_list .eventon_list_event .evo_metarow_evoad p.evoad_row_content{color:#fff;}
