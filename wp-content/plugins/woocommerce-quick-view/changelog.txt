@@ -1,4 +1,23 @@
-*** WooCommerce Quick View Changelog ***
+*** WooCommerce Quick View Changelog ***		       	 	 
+   		      	   	      	 	      
+2023-02-13 - version 1.7.0
+* Tweak - Added links to the plugin settings, the documentation page, and to get support, in the plugin list.
+* Tweak - Declare compatibility with WooCommerce High-Performance Order Storage (HPOS).
+* Tweak - Changed plugin text domain to 'woocommerce-quick-view'.
+* Tweak - Updated plugin author.
+* Tweak - Tested compatibility up to WC 7.4.
+* Tweak - Tested compatibility with WP 6.1.
+* Dev - Implement the singleton pattern in the main plugin class.
+* Dev - Updated minimum requirements to WC 3.5, WP 4.7, PHP 5.4.
+
+2022-05-25 - version 1.6.0
+* Fix - Add `.nvmrc` file.
+* Fix - Add renovate bot configuration.
+* Fix - Add support to block themes, several shortcodes and the Related/Linked Products sections in the single product page.
+* Fix - Replace node-sass with sass package.
+* Fix - fix: composer 2.2 excludes handling.
+* Tweak - WC 6.5 compatibility.
+* Tweak - WP 6.0 compatibility.
 
 2021-08-10 - version 1.5.0
 * Fix - Add 'wc_quick_view_after_single_product' hook in quick-view.php.

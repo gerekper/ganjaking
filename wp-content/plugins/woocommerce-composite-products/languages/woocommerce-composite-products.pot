@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Composite Products 8.6.2\n"
+"Project-Id-Version: WooCommerce Composite Products 8.7.1\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-03T10:06:10+00:00\n"
+"POT-Creation-Date: 2023-02-16T10:09:08+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "language-team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -1509,10 +1509,11 @@ msgid "Foul!"
 msgstr ""
 
 #: includes/class-wc-cp-ajax.php:57
+#: includes/class-wc-cp-ajax.php:104
 msgid "Looks like something went wrong. Please refresh the page and try again."
 msgstr ""
 
-#: includes/class-wc-cp-ajax.php:135
+#: includes/class-wc-cp-ajax.php:147
 #: includes/class-wc-cp-component-view.php:320
 msgid "Please make sure that you have assigned a price to this product. WooCommerce does not allow products with a blank price to be purchased. This note cannot be viewed by customers."
 msgstr ""
@@ -1933,7 +1934,7 @@ msgid "This product cannot be purchased at the moment."
 msgstr ""
 
 #: includes/class-wc-cp-display.php:285
-msgid "Please choose an option to continue&hellip;"
+msgid "Please choose an option to continue."
 msgstr ""
 
 #: includes/class-wc-cp-display.php:286
@@ -1949,11 +1950,11 @@ msgid "The chosen product options are incompatible with your previous selections
 msgstr ""
 
 #: includes/class-wc-cp-display.php:289
-msgid "The selected option does not have enough stock. Please choose another option to continue&hellip;"
+msgid "The selected option does not have enough stock. Please choose another option to continue."
 msgstr ""
 
 #: includes/class-wc-cp-display.php:290
-msgid "Please choose product options to continue&hellip;"
+msgid "Please choose product options to continue."
 msgstr ""
 
 #: includes/class-wc-cp-display.php:291
@@ -1961,7 +1962,7 @@ msgid "Please choose product options."
 msgstr ""
 
 #: includes/class-wc-cp-display.php:292
-msgid "Please choose a valid quantity to continue&hellip;"
+msgid "Please choose a valid quantity to continue."
 msgstr ""
 
 #: includes/class-wc-cp-display.php:293
@@ -1969,7 +1970,7 @@ msgid "Please choose a valid quantity."
 msgstr ""
 
 #: includes/class-wc-cp-display.php:294
-msgid "Please configure all required product fields to continue&hellip;"
+msgid "Please configure all required product fields to continue."
 msgstr ""
 
 #: includes/class-wc-cp-display.php:295
@@ -1977,15 +1978,15 @@ msgid "Please configure all required product fields."
 msgstr ""
 
 #: includes/class-wc-cp-display.php:296
-msgid "Please ensure that all product fields match the required format to continue&hellip;"
+msgid "Please review product options to continue."
 msgstr ""
 
 #: includes/class-wc-cp-display.php:297
-msgid "Please ensure that all product fields match the required format."
+msgid "Please review product options."
 msgstr ""
 
 #: includes/class-wc-cp-display.php:298
-msgid "Please enter a valid amount to continue&hellip;"
+msgid "Please enter a valid amount to continue."
 msgstr ""
 
 #: includes/class-wc-cp-display.php:299
@@ -2325,7 +2326,7 @@ msgid "The <strong>Conditional Components</strong> mini-extension is now part of
 msgstr ""
 
 #: includes/compatibility/class-wc-cp-compatibility.php:378
-#: includes/compatibility/modules/class-wc-cp-addons-compatibility.php:176
+#: includes/compatibility/modules/class-wc-cp-addons-compatibility.php:194
 msgid "Product Add-Ons"
 msgstr ""
 
@@ -2341,12 +2342,12 @@ msgstr ""
 msgid "WooCommerce Min/Max Quantities"
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-cp-addons-compatibility.php:177
+#: includes/compatibility/modules/class-wc-cp-addons-compatibility.php:195
 msgid "Enable/disable Product Add-Ons of the selected option."
 msgstr ""
 
 #. translators: %1$s: Component title, %2$s: Message.
-#: includes/compatibility/modules/class-wc-cp-addons-compatibility.php:246
+#: includes/compatibility/modules/class-wc-cp-addons-compatibility.php:264
 #: includes/compatibility/modules/class-wc-cp-nyp-compatibility.php:138
 msgid "Please check your &quot;%1$s&quot; configuration: %2$s"
 msgstr ""

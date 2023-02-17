@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Order Delivery 2.4.0\n"
+"Project-Id-Version: WooCommerce Order Delivery 2.4.1\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-02-07T10:59:06+00:00\n"
+"POT-Creation-Date: 2023-02-16T11:44:04+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: woocommerce-order-delivery\n"
@@ -211,32 +211,32 @@ msgstr ""
 msgid "You must check at least one delivery day."
 msgstr ""
 
-#: includes/admin/class-wc-od-admin.php:123
+#: includes/admin/class-wc-od-admin.php:128
 msgctxt "aria-label: settings link"
 msgid "View WooCommerce Order Delivery settings"
 msgstr ""
 
-#: includes/admin/class-wc-od-admin.php:124
+#: includes/admin/class-wc-od-admin.php:129
 msgctxt "plugin action link"
 msgid "Settings"
 msgstr ""
 
-#: includes/admin/class-wc-od-admin.php:149
+#: includes/admin/class-wc-od-admin.php:154
 msgctxt "aria-label: documentation link"
 msgid "View WooCommerce Order Delivery documentation"
 msgstr ""
 
-#: includes/admin/class-wc-od-admin.php:150
+#: includes/admin/class-wc-od-admin.php:155
 msgctxt "plugin row link"
 msgid "Docs"
 msgstr ""
 
-#: includes/admin/class-wc-od-admin.php:156
+#: includes/admin/class-wc-od-admin.php:161
 msgctxt "aria-label: support link"
 msgid "Open a support ticket at WooCommerce.com"
 msgstr ""
 
-#: includes/admin/class-wc-od-admin.php:157
+#: includes/admin/class-wc-od-admin.php:162
 msgctxt "plugin row link"
 msgid "Support"
 msgstr ""
@@ -386,36 +386,36 @@ msgstr ""
 msgid "Calculate shipping date"
 msgstr ""
 
-#: includes/admin/list-table/class-wc-od-admin-list-table-orders.php:80
+#: includes/admin/list-table/class-wc-od-admin-list-table-orders.php:82
 msgid "Shipping Date"
 msgstr ""
 
-#: includes/admin/list-table/class-wc-od-admin-list-table-orders.php:81
+#: includes/admin/list-table/class-wc-od-admin-list-table-orders.php:83
 msgid "Delivery Date"
 msgstr ""
 
-#: includes/admin/list-table/class-wc-od-admin-list-table-orders.php:223
+#: includes/admin/list-table/class-wc-od-admin-list-table-orders.php:225
 msgctxt "shop order filter"
 msgid "Filter by shipping date"
 msgstr ""
 
-#: includes/admin/list-table/class-wc-od-admin-list-table-orders.php:224
+#: includes/admin/list-table/class-wc-od-admin-list-table-orders.php:226
 msgctxt "shop order filter"
 msgid "All shipping dates"
 msgstr ""
 
-#: includes/admin/list-table/class-wc-od-admin-list-table-orders.php:229
+#: includes/admin/list-table/class-wc-od-admin-list-table-orders.php:231
 msgctxt "shop order filter"
 msgid "Filter by delivery date"
 msgstr ""
 
-#: includes/admin/list-table/class-wc-od-admin-list-table-orders.php:230
+#: includes/admin/list-table/class-wc-od-admin-list-table-orders.php:232
 msgctxt "shop order filter"
 msgid "All delivery dates"
 msgstr ""
 
 #. translators: %d number of orders
-#: includes/admin/list-table/class-wc-od-admin-list-table-orders.php:345
+#: includes/admin/list-table/class-wc-od-admin-list-table-orders.php:347
 msgid "Updated the shipping date for %d order."
 msgid_plural "Updated the shipping date for %d orders."
 msgstr[0] ""

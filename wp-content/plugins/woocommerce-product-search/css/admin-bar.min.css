@@ -1,0 +1,19 @@
+/*!
+ * admin-bar.css
+ *
+ * Copyright (c) "kento" Karim Rahimpur www.itthinx.com
+ *
+ * This code is provided subject to the license granted.
+ * Unauthorized use and distribution is prohibited.
+ * See COPYRIGHT.txt and LICENSE.txt
+ *
+ * This code is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * This header and all notices must be kept intact.
+ *
+ * @author itthinx
+ * @package woocommerce-product-search
+ * @since 4.11.0
+ */.woocommerce-product-search-admin-bar-status .woocommerce-product-search-indexer-label,.woocommerce-product-search-admin-bar-status .woocommerce-product-search-indexer-status,.woocommerce-product-search-admin-bar-status .woocommerce-product-search-indexer-percent{padding:0 2px !important;margin:0 !important;display:inline-block}.woocommerce-product-search-admin-bar-status .woocommerce-product-search-indexer-status:before{font-family:dashicons;font-size:20px;font-weight:normal;line-height:100%;margin:0 2px 0 0;position:relative;top:5px}.woocommerce-product-search-admin-bar-status .woocommerce-product-search-indexer-status.status-running:before{content:"\f147";color:#0c0}.woocommerce-product-search-admin-bar-status .woocommerce-product-search-indexer-status.status-running.status-completed:before{content:"\f12a"}.woocommerce-product-search-admin-bar-status .woocommerce-product-search-indexer-status.status-stopped:before{top:6px;content:"\f158";color:#c00}.woocommerce-product-search-admin-bar-status .woocommerce-product-search-indexer-status.status-stopped.status-completed:before{color:#ccc}.woocommerce-product-search-admin-bar-status .woocommerce-product-search-indexer-status.status-warning:before{font-size:18px;content:"\f534";color:#fa3}

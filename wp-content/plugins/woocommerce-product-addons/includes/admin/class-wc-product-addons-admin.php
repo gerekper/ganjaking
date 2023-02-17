@@ -85,6 +85,8 @@ class WC_Product_Addons_Admin {
 		// Register compatibility with WooCommerce Importer/Exporter.
 		include( WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/admin/export/class-wc-product-addons-product-export.php' );
 		include( WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/admin/import/class-wc-product-addons-product-import.php' );
+
+		include( WC_PRODUCT_ADDONS_PLUGIN_PATH . '/includes/admin/class-wc-product-addons-admin-notices.php' );
 	}
 
 	/**
@@ -554,7 +556,8 @@ class WC_Product_Addons_Admin {
 		}
 
 		if ( ! empty( $_POST['import_product_addon'] ) ) {
-			$import_addons = maybe_unserialize( trim( wc_clean( wp_unslash( $_POST['import_product_addon'] ) ) ) );
+
+			$import_addons = maybe_unserialize( trim( wp_unslash( $_POST['import_product_addon'] ) ) );
 
 			if ( is_array( $import_addons ) && count( $import_addons ) > 0 ) {
 				$valid = true;

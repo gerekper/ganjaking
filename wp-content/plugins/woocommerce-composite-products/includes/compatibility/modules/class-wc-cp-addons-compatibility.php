@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Adds hooks for Product Add-Ons Compatibility.
  *
- * @version  8.4.2
+ * @version  8.7.0
  */
 class WC_CP_Addons_Compatibility {
 
@@ -24,6 +24,9 @@ class WC_CP_Addons_Compatibility {
 	private static $current_component = false;
 
 	public static function init() {
+
+		// Add Addons script as a dependency to the Composite Products script.
+		add_filter( 'woocommerce_composite_script_dependencies', array( __CLASS__, 'add_script_dependency' ), 10, 1 );
 
 		// Support for Product Addons.
 		add_action( 'woocommerce_composited_product_add_to_cart', array( __CLASS__, 'addons_display_support' ), 10, 3 );
@@ -134,6 +137,21 @@ class WC_CP_Addons_Compatibility {
 		}
 
 		return $has_addons;
+	}
+
+	/**
+	 * Add Addons script as a dependency to the Composite Products script.
+	 *
+	 * @since  8.7.0
+	 *
+	 * @param  array  add_script_dependency
+	 * @return array
+	 */
+	public static function add_script_dependency( $dependencies ) {
+
+		$dependencies[] = 'woocommerce-addons';
+
+		return $dependencies;
 	}
 
 	/**

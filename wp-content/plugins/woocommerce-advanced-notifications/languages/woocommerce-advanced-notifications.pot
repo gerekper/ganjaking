@@ -1,15 +1,15 @@
-# Copyright (C) 2022 WooCommerce
+# Copyright (C) 2023 WooCommerce
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Advanced Notifications 1.4.0\n"
+"Project-Id-Version: WooCommerce Advanced Notifications 1.4.1\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-advanced-notifications\n"
-"POT-Creation-Date: 2022-11-02 16:23:44+00:00\n"
+"POT-Creation-Date: 2023-02-14 19:03:54+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: node-wp-i18n 1.2.3\n"
@@ -197,69 +197,69 @@ msgstr ""
 msgid "[%s] New Order (%s)"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:413
+#: includes/class-wc-advanced-notifications.php:412
 msgid "Product low in stock"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:420
-#: includes/class-wc-advanced-notifications.php:469
+#: includes/class-wc-advanced-notifications.php:419
+#: includes/class-wc-advanced-notifications.php:468
 msgid "Variation #%s of %s"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:422
-#: includes/class-wc-advanced-notifications.php:537
+#: includes/class-wc-advanced-notifications.php:421
+#: includes/class-wc-advanced-notifications.php:536
 msgid "Product #%s - %s"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:426
-#: includes/class-wc-advanced-notifications.php:476
-#: includes/class-wc-advanced-notifications.php:542
+#: includes/class-wc-advanced-notifications.php:425
+#: includes/class-wc-advanced-notifications.php:475
+#: includes/class-wc-advanced-notifications.php:541
 #: templates/emails/new-order-plain.php:7 templates/emails/new-order.php:19
 #: templates/emails/refunds-plain.php:7 templates/emails/refunds.php:23
 msgid "Hi %s,"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:428
+#: includes/class-wc-advanced-notifications.php:427
 msgid "is low in stock."
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:462
+#: includes/class-wc-advanced-notifications.php:461
 msgid "Product out of stock"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:471
+#: includes/class-wc-advanced-notifications.php:470
 msgid "Product #%1$s - %2$s"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:478
+#: includes/class-wc-advanced-notifications.php:477
 msgid "is out of stock."
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:528
+#: includes/class-wc-advanced-notifications.php:527
 msgid "Product Backorder"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:535
+#: includes/class-wc-advanced-notifications.php:534
 msgid "Variation #%1$s of %2$s"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:544
+#: includes/class-wc-advanced-notifications.php:543
 msgid "%s units of %s have been backordered in order #%s."
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:608
+#: includes/class-wc-advanced-notifications.php:607
 msgid "[%s] Partial Order Refund (%s)"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:609
+#: includes/class-wc-advanced-notifications.php:608
 msgid "Customer Partial Refund"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:611
+#: includes/class-wc-advanced-notifications.php:610
 msgid "[%s] Order Refund (%s)"
 msgstr ""
 
-#: includes/class-wc-advanced-notifications.php:612
+#: includes/class-wc-advanced-notifications.php:611
 msgid "Customer Refund"
 msgstr ""
 

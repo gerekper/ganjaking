@@ -2,25 +2,28 @@
 /**
  * The Template for displaying radio button field.
  *
- * @version 3.0.0
+ * @version 6.0.0
  * @package woocommerce-product-addons
  *
  * phpcs:disable WordPress.Security.NonceVerification.Missing
  */
 
-$loop          = 0;
-$field_name    = ! empty( $addon['field_name'] ) ? $addon['field_name'] : '';
-$addon_key     = 'addon-' . sanitize_title( $field_name );
-$required      = ! empty( $addon['required'] ) ? $addon['required'] : '';
-$current_value = isset( $_POST[ $addon_key ], $_POST[ $addon_key ][0] ) ? wc_clean( wp_unslash( $_POST[ $addon_key ][0] ) ) : '';
+$loop             = 0;
+$field_name       = ! empty( $addon['field_name'] ) ? $addon['field_name'] : '';
+$addon_key        = 'addon-' . sanitize_title( $field_name );
+$required         = ! empty( $addon['required'] ) ? $addon['required'] : '';
+$restriction_data = WC_Product_Addons_Helper::get_restriction_data( $addon );
+$current_value    = isset( $_POST[ $addon_key ], $_POST[ $addon_key ][0] ) ? wc_clean( wp_unslash( $_POST[ $addon_key ][0] ) ) : '';
 ?>
 
+<div class="form-row form-row-wide wc-pao-addon-wrap">
+
 <?php if ( empty( $required ) ) { ?>
-	<p class="form-row form-row-wide wc-pao-addon-wrap wc-pao-addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>">
+	<div class="wc-pao-addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>">
 		<label>
 			<input type="radio" class="wc-pao-addon-field wc-pao-addon-radio" value="" name="addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>[]" />&nbsp;&nbsp;<?php esc_html_e( 'None', 'woocommerce-product-addons' ); ?>
 		</label>
-	</p>
+	</div>
 <?php } ?>
 
 <?php
@@ -59,7 +62,7 @@ foreach ( $addon['options'] as $i => $option ) {
 
 	$option_id = sanitize_title( $field_name ) . '-' . $i;
 	?>
-	<p class="form-row form-row-wide wc-pao-addon-wrap wc-pao-addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>">
+	<div class="wc-pao-addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>">
 		<input
 			type="radio"
 			id="<?php echo esc_attr( $option_id ); ?>"
@@ -70,11 +73,13 @@ foreach ( $addon['options'] as $i => $option ) {
 			data-price-type="<?php echo esc_attr( $price_type ); ?>"
 			value="<?php echo esc_attr( sanitize_title( $label ) ); ?>"
 			<?php checked( $current_value, 1 ); ?>
-			<?php echo WC_Product_Addons_Helper::is_addon_required( $addon ) ? 'required' : ''; ?>
+			data-restrictions="<?php echo esc_attr( json_encode( $restriction_data ) ); ?>"
 			data-label="<?php echo esc_attr( wptexturize( $label ) ); ?>"
 		/>
 		<label for="<?php echo esc_attr( $option_id ); ?>">
-			<?php echo wp_kses_post( wptexturize( $label . ' ' . $price_for_display ) ); ?>
+			<?php echo wp_kses_post( wptexturize( $label ) ); ?> <?php echo ! empty( $price_for_display ) ? '<span class="wc-pao-addon-price">' . wp_kses_post( $price_for_display ) . '</span>' : ''; ?>
 		</label>
-	</p>
-<?php }
+	</div>
+<?php } ?>
+
+</div>

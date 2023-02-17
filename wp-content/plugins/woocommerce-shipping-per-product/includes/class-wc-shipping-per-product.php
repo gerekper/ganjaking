@@ -107,7 +107,41 @@ class WC_Shipping_Per_Product extends WC_Shipping_Method {
 				'placeholder' => __( 'Disabled, Enter an amount, e.g. 2.50, or a percentage, e.g. 5%.', 'woocommerce-shipping-per-product' ),
 				'desc_tip'    => true,
 			),
+			'ignore_free_shipping' => array(
+				'title'       => __( 'Ignore Free Shipping', 'woocommerce-shipping-per-product' ),
+				'type'        => 'checkbox',
+				'description' => __( 'If "Free Shipping" shipping method is enabled in the same zone as this "Per Product" method, it will not be offered as shipping option in the same package if this option is checked.', 'woocommerce-shipping-per-product' ),
+				'default'     => '',
+				'label'       => __( 'Ignore', 'woocommerce-shipping-per-product' ),
+				'desc_tip'    => true,
+			),
+			'ignore_local_pickup' => array(
+				'title'       => __( 'Ignore Local Pickup', 'woocommerce-shipping-per-product' ),
+				'type'        => 'checkbox',
+				'description' => __( 'If "Local Pickup" shipping method is enabled in the same zone as this "Per Product" method, it will not be offered as shipping option in the same package if this option is checked.', 'woocommerce-shipping-per-product' ),
+				'default'     => '',
+				'label'       => __( 'Ignore', 'woocommerce-shipping-per-product' ),
+				'desc_tip'    => true,
+			),
 		);
+	}
+
+	/**
+	 * Check if the ignore_free_shipping option is checked or not.
+	 *
+	 * @return Boolean.
+	 */
+	public function is_free_shipping_ignored() {
+		return ( 'yes' === $this->get_option( 'ignore_free_shipping' ) ) ? true : false;
+	}
+
+	/**
+	 * Check if the ignore_local_pickup option is checked or not.
+	 *
+	 * @return Boolean.
+	 */
+	public function is_local_pickup_ignored() {
+		return ( 'yes' === $this->get_option( 'ignore_local_pickup' ) ) ? true : false;
 	}
 
 	/**

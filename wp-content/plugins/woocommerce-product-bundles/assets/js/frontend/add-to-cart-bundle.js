@@ -328,6 +328,11 @@ jQuery.fn.wc_get_bundle_script = function() {
 					this.$addons_totals.data( 'show-sub-total', 0 );
 					this.$bundle_price.after( this.$addons_totals );
 					this.show_addons_totals = true;
+
+					/**
+					 * Trigger addon totals to be re-rendered after changing the 'show-sub-total' data attribute.
+					 */
+					bundle.$bundle_data.trigger( 'woocommerce-product-addons-update' );
 				}
 
 			} else {
@@ -374,6 +379,13 @@ jQuery.fn.wc_get_bundle_script = function() {
 
 			if ( this.is_composited() ) {
 				this.init_composite();
+			}
+
+			/**
+			 * Init Product Add-Ons integration.
+			 */
+			if ( 'yes' === wc_bundle_params.is_pao_installed && typeof window.WC_PAO !== 'undefined' ) {
+				this.match_bundled_items_addons_forms();
 			}
 
 			/**
@@ -755,14 +767,6 @@ jQuery.fn.wc_get_bundle_script = function() {
 						event.preventDefault();
 						window.alert( wc_bundle_params.i18n_validation_alert );
 
-					} else {
-
-						$.each( bundle.bundled_items, function( index, bundled_item ) {
-
-							if ( bundled_item.has_required_addons() && bundled_item.is_optional() && false === bundled_item.is_selected() ) {
-								bundled_item.$required_addons.prop( 'required', false );
-							}
-						} );
 					}
 				} )
 
@@ -808,6 +812,27 @@ jQuery.fn.wc_get_bundle_script = function() {
 				bundle.bundled_items[ index ] = new WC_PB_Bundled_Item( bundle, $( this ), index );
 
 				bundle.bind_bundled_item_event_handlers( bundle.bundled_items[ index ] );
+			} );
+		};
+
+		/**
+		 * Match addon forms created by the Product Add-On scripts with bundled item forms.
+		 */
+		this.match_bundled_items_addons_forms = function() {
+
+			var initialized_addon_forms = window.WC_PAO.initialized_forms;
+
+			bundle.$bundled_items.each( function( index ) {
+
+				var bundled_item_cart_form = bundle.bundled_items[ index ].$bundled_item_cart
+
+				$.each( initialized_addon_forms, function() {
+					if ( this.$el[0] === bundled_item_cart_form[0] ) {
+						bundle.bundled_items[ index ].addons_form = this;
+						return false;
+					}
+				} );
+
 			} );
 		};
 
@@ -1154,6 +1179,8 @@ jQuery.fn.wc_get_bundle_script = function() {
 				validation_status          = false === bundle.is_initialized ? '' : bundle.api.get_bundle_validation_status(),
 				unset_count                = 0,
 				unset_titles               = [],
+				invalid_addons_count       = 0,
+				invalid_addons_titles      = [],
 				total_items_qty            = 0,
 				nyp_error_count            = 0,
 				nyp_error_titles           = [];
@@ -1183,6 +1210,24 @@ jQuery.fn.wc_get_bundle_script = function() {
 					}
 				}
 
+				// Check addons validity.
+				if ( bundled_item.addons_form && ! bundled_item.addons_form.validation.validate() ) {
+
+					if ( bundled_item.has_pending_required_addons() ) {
+
+						// Tip: If a Variable Product has required addons, it is already counted for. Do not re-count it.
+						if ( bundled_item.is_visible() && bundled_item.get_title( true ) && $.inArray( bundled_item.get_title( true ), unset_titles ) === -1 ) {
+							unset_count++;
+							unset_titles.push( bundled_item.get_title( true ) );
+						}
+					} else {
+						invalid_addons_count++;
+						if ( bundled_item.is_visible() && bundled_item.get_title( true ) ) {
+							invalid_addons_titles.push( bundled_item.get_title( true ) );
+						}
+					}
+				}
+
 				// Check NYP validity.
 				if( bundled_item.is_nyp() && ! bundled_item.is_nyp_valid() ) {
 					nyp_error_count++;
@@ -1198,7 +1243,7 @@ jQuery.fn.wc_get_bundle_script = function() {
 				var select_options_message = '';
 
 				if ( unset_count === unset_titles.length && unset_count < 5 ) {
-					select_options_message = wc_bundle_params.i18n_select_options_for.replace( '%s', wc_pb_format_list( unset_titles ) );
+					select_options_message = wc_bundle_params.i18n_validation_issues_for.replace( '%c', wc_pb_format_list( unset_titles ) ).replace( '%e', wc_bundle_params.i18n_select_options );
 				} else {
 					select_options_message = wc_bundle_params.i18n_select_options;
 				}
@@ -1206,12 +1251,25 @@ jQuery.fn.wc_get_bundle_script = function() {
 				bundle.add_validation_message( select_options_message );
 			}
 
+			if ( invalid_addons_count > 0 ) {
+
+				var review_addons_message = '';
+
+				if ( invalid_addons_count === invalid_addons_titles.length && invalid_addons_count < 5 ) {
+					review_addons_message = wc_bundle_params.i18n_validation_issues_for.replace( '%c', wc_pb_format_list( invalid_addons_titles ) ).replace( '%e', wc_bundle_params.i18n_review_product_addons );
+				} else {
+					review_addons_message = wc_bundle_params.i18n_select_options;
+				}
+
+				bundle.add_validation_message( review_addons_message );
+			}
+
 			if ( nyp_error_count > 0 ) {
 
 				var nyp_amount_message = '';
 
 				if ( nyp_error_count === nyp_error_titles.length && nyp_error_count < 5 ) {
-					nyp_amount_message = wc_bundle_params.i18n_enter_valid_price_for.replace( '%s', wc_pb_format_list( nyp_error_titles ) );
+					nyp_amount_message = wc_bundle_params.i18n_validation_issues_for.replace( '%c', wc_pb_format_list( nyp_error_titles ) ).replace( '%e', wc_bundle_params.i18n_enter_valid_price_for );
 				} else {
 					nyp_amount_message = wc_bundle_params.i18n_enter_valid_price;
 				}
@@ -2111,7 +2169,6 @@ jQuery.fn.wc_get_bundle_script = function() {
 			this.$bundled_item_qty              = $bundled_item.find( 'input.bundled_qty' );
 
 			this.$addons_totals                 = $bundled_item.find( '#product-addons-total' );
-			this.$required_addons               = false;
 			this.$nyp                           = $bundled_item.find( '.nyp' );
 
 			this.$attribute_select              = false;
@@ -2156,9 +2213,9 @@ jQuery.fn.wc_get_bundle_script = function() {
 					// Ensure addons ajax is not triggered at all, as we calculate tax on the client side.
 					this.$addons_totals.data( 'show-sub-total', 0 );
 					this.show_addons_totals = true;
-				}
 
-				this.$required_addons = this.$bundled_item_cart.find( '.wc-pao-required-addon [required]' );
+					this.$bundled_item_cart.trigger( 'woocommerce-product-addons-update' );
+				}
 
 			} else {
 				this.$addons_totals = false;
@@ -2426,8 +2483,27 @@ jQuery.fn.wc_get_bundle_script = function() {
 			return this.$addons_totals && this.$addons_totals.length > 0;
 		};
 
-		this.has_required_addons = function() {
-			return this.$required_addons && this.$required_addons.length > 0;
+		/**
+		 * Checks if the bundled item has required addons that are pending configuration.
+		 *
+		 * @returns boolean
+		 */
+		this.has_pending_required_addons = function() {
+			var valid       = false,
+				addons_form = this.addons_form;
+
+			if ( addons_form ) {
+				var validation_state = addons_form.validation.getValidationState();
+
+				$.each( validation_state, function() {
+					if ( ! this.validation && 'required' === this.reason ) {
+						valid = true;
+						return false;
+					}
+				});
+			}
+
+			return valid;
 		};
 
 		this.update_addons_prices = function() {

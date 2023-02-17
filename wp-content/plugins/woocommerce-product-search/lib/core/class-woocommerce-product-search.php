@@ -102,6 +102,9 @@ class WooCommerce_Product_Search {
 	const SERVICE_GET_TERMS_ARGS_APPLY         = 'service-get-terms-args-apply';
 	const SERVICE_GET_TERMS_ARGS_APPLY_DEFAULT = false;
 
+	const SHOW_IN_ADMIN_BAR         = 'show-in-admin-bar';
+	const SHOW_IN_ADMIN_BAR_DEFAULT = true;
+
 	/**
 	 * Collects messages to notify in admin.
 	 *
@@ -482,6 +485,7 @@ class WooCommerce_Product_Search {
 			require_once WOO_PS_VIEWS_LIB . '/class-woocommerce-product-search-thumbnail.php';
 			if ( is_admin() ) {
 				require_once WOO_PS_ADMIN_LIB . '/class-woocommerce-product-search-admin.php';
+				require_once WOO_PS_ADMIN_LIB . '/class-woocommerce-product-search-admin-bar.php';
 				require_once WOO_PS_ADMIN_LIB . '/class-woocommerce-product-search-admin-navigation.php';
 				require_once WOO_PS_ADMIN_LIB . '/class-woocommerce-product-search-admin-product.php';
 				require_once WOO_PS_ADMIN_LIB . '/class-woocommerce-product-search-admin-taxonomy.php';

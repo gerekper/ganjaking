@@ -2,7 +2,7 @@
 /**
  * The Template for displaying start of field.
  *
- * @version 3.0.0
+ * @version 6.0.0
  * @package woocommerce-product-addons
  */
 
@@ -11,6 +11,7 @@ global $product;
 $price_display          = '';
 $title_format           = ! empty( $addon['title_format'] ) ? $addon['title_format'] : '';
 $addon_type             = ! empty( $addon['type'] ) ? $addon['type'] : '';
+$addon_display          = ! empty( $addon['display'] ) ? $addon['display'] : '';
 $addon_price            = ! empty( $addon['price'] ) ? $addon['price'] : '';
 $addon_price_type       = ! empty( $addon['price_type'] ) ? $addon['price_type'] : '';
 $adjust_price           = ! empty( $addon['adjust_price'] ) ? $addon['adjust_price'] : '';
@@ -58,7 +59,7 @@ if ( 'checkbox' !== $addon_type && 'multiple_choice' !== $addon_type && 'custom_
 			switch ( $title_format ) {
 				case 'heading':
 					?>
-					<h2 class="wc-pao-addon-name" data-addon-name="<?php echo esc_attr( wptexturize( $name ) ); ?>" data-has-per-person-pricing="<?php echo esc_attr( $has_per_person_pricing ); ?>" data-has-per-block-pricing="<?php echo esc_attr( $has_per_block_pricing ); ?>"><?php echo wp_kses_post( wptexturize( $name ) ); ?> <?php echo $required ? '<em class="required" title="' . esc_attr__( 'Required field', 'woocommerce-product-addons' ) . '">*</em>&nbsp;' : ''; ?><?php echo wp_kses_post( $price_display ); ?></h2>
+					<h2 class="wc-pao-addon-name" data-addon-name="<?php echo esc_attr( wptexturize( $name ) ); ?>" data-has-per-person-pricing="<?php echo esc_attr( $has_per_person_pricing ); ?>" data-has-per-block-pricing="<?php echo esc_attr( $has_per_block_pricing ); ?>"><?php echo wp_kses_post( wptexturize( $name ) ); ?> <?php echo ! empty( $price_display ) ? '<span class="wc-pao-addon-price">' . wp_kses_post( $price_display ) . '</span>' : ''; ?> <?php echo $required ? '<em class="required" title="' . esc_attr__( 'Required field', 'woocommerce-product-addons' ) . '">*</em>' : ''; ?></h2>
 					<?php
 					break;
 				case 'hide':
@@ -68,8 +69,17 @@ if ( 'checkbox' !== $addon_type && 'multiple_choice' !== $addon_type && 'custom_
 					break;
 				case 'label':
 				default:
+
+					$for_html = '';
+					if (
+						( 'radiobutton' !== $addon_display || 'multiple_choice' !== $addon_type )
+						&& ( 'select' !== $addon_display || 'checkbox' !== $addon_type )
+					) {
+						$for_html = 'for="addon-' . esc_attr( wptexturize( $addon['field_name'] ) ) . '"';
+					}
+
 					?>
-					<label for="<?php echo 'addon-' . esc_attr( wptexturize( $addon['field_name'] ) ); ?>" class="wc-pao-addon-name" data-addon-name="<?php echo esc_attr( wptexturize( $name ) ); ?>" data-has-per-person-pricing="<?php echo esc_attr( $has_per_person_pricing ); ?>" data-has-per-block-pricing="<?php echo esc_attr( $has_per_block_pricing ); ?>"><?php echo wp_kses_post( wptexturize( $name ) ); ?> <?php echo $required ? '<em class="required" title="' . esc_attr__( 'Required field', 'woocommerce-product-addons' ) . '">*</em>&nbsp;' : ''; ?><?php echo wp_kses_post( $price_display ); ?></label>
+					<label <?php echo $for_html; ?> class="wc-pao-addon-name" data-addon-name="<?php echo esc_attr( wptexturize( $name ) ); ?>" data-has-per-person-pricing="<?php echo esc_attr( $has_per_person_pricing ); ?>" data-has-per-block-pricing="<?php echo esc_attr( $has_per_block_pricing ); ?>"><?php echo wp_kses_post( wptexturize( $name ) ); ?> <?php echo ! empty( $price_display ) ? '<span class="wc-pao-addon-price">' . wp_kses_post( $price_display ) . '</span>' : ''; ?> <?php echo $required ? '<em class="required" title="' . esc_attr__( 'Required field', 'woocommerce-product-addons' ) . '">*</em>' : ''; ?></label>
 					<?php
 					break;
 			}

@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composite Products display functions and filters.
  *
  * @class    WC_CP_Display
- * @version  8.6.0
+ * @version  8.7.0
  */
 class WC_CP_Display {
 
@@ -282,20 +282,20 @@ class WC_CP_Display {
 			'i18n_validation_issues'                   => __( 'Please resolve all pending issues before adding this product to your cart.', 'woocommerce-composite-products' ),
 			'i18n_item_unavailable_text'               => __( 'The selected item cannot be purchased at the moment.', 'woocommerce-composite-products' ),
 			'i18n_unavailable_text'                    => __( 'This product cannot be purchased at the moment.', 'woocommerce-composite-products' ),
-			'i18n_select_component_option'             => __( 'Please choose an option to continue&hellip;', 'woocommerce-composite-products' ),
+			'i18n_select_component_option'             => __( 'Please choose an option to continue.', 'woocommerce-composite-products' ),
 			'i18n_select_component_option_for'         => __( 'Please choose an option.', 'woocommerce-composite-products' ),
 			'i18n_selected_product_invalid'            => __( 'The chosen option is incompatible with your previous selections.', 'woocommerce-composite-products' ),
 			'i18n_selected_product_options_invalid'    => __( 'The chosen product options are incompatible with your previous selections.', 'woocommerce-composite-products' ),
-			'i18n_selected_product_stock_insufficient' => __( 'The selected option does not have enough stock. Please choose another option to continue&hellip;', 'woocommerce-composite-products' ),
-			'i18n_select_product_options'              => __( 'Please choose product options to continue&hellip;', 'woocommerce-composite-products' ),
+			'i18n_selected_product_stock_insufficient' => __( 'The selected option does not have enough stock. Please choose another option to continue.', 'woocommerce-composite-products' ),
+			'i18n_select_product_options'              => __( 'Please choose product options to continue.', 'woocommerce-composite-products' ),
 			'i18n_select_product_options_for'          => __( 'Please choose product options.', 'woocommerce-composite-products' ),
-			'i18n_select_product_quantity'             => __( 'Please choose a valid quantity to continue&hellip;', 'woocommerce-composite-products' ),
+			'i18n_select_product_quantity'             => __( 'Please choose a valid quantity to continue.', 'woocommerce-composite-products' ),
 			'i18n_select_product_quantity_for'         => __( 'Please choose a valid quantity.', 'woocommerce-composite-products' ),
-			'i18n_select_product_addons'               => __( 'Please configure all required product fields to continue&hellip;', 'woocommerce-composite-products' ),
+			'i18n_select_product_addons'               => __( 'Please configure all required product fields to continue.', 'woocommerce-composite-products' ),
 			'i18n_select_product_addons_for'           => __( 'Please configure all required product fields.', 'woocommerce-composite-products' ),
-			'i18n_review_product_addons'               => __( 'Please ensure that all product fields match the required format to continue&hellip;', 'woocommerce-composite-products' ),
-			'i18n_review_product_addons_for'           => __( 'Please ensure that all product fields match the required format.', 'woocommerce-composite-products' ),
-			'i18n_enter_valid_price'                   => __( 'Please enter a valid amount to continue&hellip;', 'woocommerce-composite-products' ),
+			'i18n_review_product_addons'               => __( 'Please review product options to continue.', 'woocommerce-composite-products' ),
+			'i18n_review_product_addons_for'           => __( 'Please review product options.', 'woocommerce-composite-products' ),
+			'i18n_enter_valid_price'                   => __( 'Please enter a valid amount to continue.', 'woocommerce-composite-products' ),
 			'i18n_enter_valid_price_for'               => __( 'Please enter a valid amount.', 'woocommerce-composite-products' ),
 			'i18n_summary_empty_component'             => _x( 'Select option', 'summary element configure action text singular', 'woocommerce-composite-products' ),
 			'i18n_summary_pending_component'           => _x( 'Select options', 'summary element configure action text plural', 'woocommerce-composite-products' ),

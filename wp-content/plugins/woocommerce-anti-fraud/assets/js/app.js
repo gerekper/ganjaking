@@ -214,4 +214,91 @@ jQuery(document).ready(function(){
         }
     })
 
+    /* Related to reCaptcha */
+
+    var url = new URL(document.URL).searchParams;
+    var tabname = url.get('section');
+    
+    if (tabname == 'minfraud_recaptcha_settings') {
+        
+        jQuery('#wc_af_enable_whitelist_payment_method').change(function(){
+            var isChecked = jQuery(this).is(':checked');
+            if(isChecked){
+                jQuery('#wc_settings_anti_fraud_whitelist_payment_method').attr('disabled', false);
+            } else {
+                jQuery('#wc_settings_anti_fraud_whitelist_payment_method').attr('disabled', 'disabled');
+            }
+        })
+
+        jQuery('#wc_af_enable_whitelist_user_roles').change(function(){
+            var isChecked = jQuery(this).is(':checked');
+            if(isChecked){
+                jQuery('#wc_af_whitelist_user_roles').attr('disabled', false);
+            } else {
+                jQuery('#wc_af_whitelist_user_roles').attr('disabled', 'disabled');
+            }
+        })
+
+        jQuery('#wc_af_fraud_update_state').change(function(){
+            var isChecked = jQuery(this).is(':checked');
+            if(isChecked){
+                jQuery('#wc_settings_anti_fraud_cancel_score').attr('disabled', false);
+                jQuery('#wc_settings_anti_fraud_hold_score').attr('disabled', false);
+            } else {
+                jQuery('#wc_settings_anti_fraud_cancel_score').attr('disabled', 'disabled');
+                jQuery('#wc_settings_anti_fraud_hold_score').attr('disabled', 'disabled');
+            }
+        })
+
+        jQuery('.form-table tr:nth-child(6)').css('display','none'); 
+        jQuery('.form-table tr:nth-child(7)').css('display','none'); 
+        jQuery('.form-table tr:nth-child(4)').css('display','none'); 
+        jQuery('.form-table tr:nth-child(5)').css('display','none');
+       
+        if(jQuery('#wc_af_enable_v2_recaptcha').is(':checked')) {
+            jQuery('.form-table tr:nth-child(6)').css('display','none'); 
+            jQuery('.form-table tr:nth-child(7)').css('display','none'); 
+            jQuery('.form-table tr:nth-child(4)').css('display','block'); 
+            jQuery('.form-table tr:nth-child(5)').css('display','block');
+            jQuery('.form-table tr:nth-child(4)').css('width','max-content'); 
+            jQuery('.form-table tr:nth-child(5)').css('width','max-content');
+        }
+
+        if (jQuery('#wc_af_enable_v3_recaptcha').is(':checked')) {
+            
+            jQuery('.form-table tr:nth-child(6)').css('display','block'); 
+            jQuery('.form-table tr:nth-child(7)').css('display','block'); 
+            jQuery('.form-table tr:nth-child(4)').css('display','none'); 
+            jQuery('.form-table tr:nth-child(5)').css('display','none');
+            jQuery('.form-table tr:nth-child(6)').css('width','max-content'); 
+            jQuery('.form-table tr:nth-child(7)').css('width','max-content');
+        
+        }
+
+
+       jQuery('#wc_af_enable_v2_recaptcha').on('change', function() {
+            
+            jQuery('#wc_af_enable_v3_recaptcha').not(this).prop('checked', false);
+            jQuery('.form-table tr:nth-child(6)').css('display','none'); 
+            jQuery('.form-table tr:nth-child(7)').css('display','none'); 
+            jQuery('.form-table tr:nth-child(4)').css('display','block'); 
+            jQuery('.form-table tr:nth-child(5)').css('display','block');
+            jQuery('.form-table tr:nth-child(4)').css('width','max-content'); 
+            jQuery('.form-table tr:nth-child(5)').css('width','max-content');
+
+        });
+        jQuery('#wc_af_enable_v3_recaptcha').on('change', function() {
+            
+            jQuery('#wc_af_enable_v2_recaptcha').not(this).prop('checked', false);  
+            jQuery('.form-table tr:nth-child(6)').css('display','block'); 
+            jQuery('.form-table tr:nth-child(7)').css('display','block'); 
+            jQuery('.form-table tr:nth-child(4)').css('display','none'); 
+            jQuery('.form-table tr:nth-child(5)').css('display','none');
+            jQuery('.form-table tr:nth-child(6)').css('width','max-content'); 
+            jQuery('.form-table tr:nth-child(7)').css('width','max-content');
+            
+        });
+    }
+    /* Related to reCaptcha End */
+
 })

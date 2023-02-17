@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'W3TC', true );
-define( 'W3TC_VERSION', '2.2.12' );
+define( 'W3TC_VERSION', '2.3.0' );
 define( 'W3TC_POWERED_BY', 'W3 Total Cache' );
 define( 'W3TC_EMAIL', 'w3tc@w3-edge.com' );
 define( 'W3TC_TEXT_DOMAIN', 'w3-total-cache' );
@@ -23,7 +23,7 @@ define( 'W3TC_NEWS_FEED_URL', 'https://api.w3-edge.com/v1/redirects/company-rss'
 define( 'W3TC_README_URL', 'https://api.w3-edge.com/v1/redirects/product-readme' );
 define( 'W3TC_SUPPORT_US_PRODUCT_URL', 'https://api.w3-edge.com/v1/redirects/product-directory' );
 define( 'W3TC_SUPPORT_US_RATE_URL', 'https://api.w3-edge.com/v1/redirects/support-ratings' );
-define( 'W3TC_SUPPORT_US_TWEET', 'YES! I optimized the user experience of my website with the W3 Total Cache #WordPress #plugin by @w3edge! http://bit.ly/TeSBL3' );
+define( 'W3TC_SUPPORT_US_TWEET', 'YES! I optimized the user experience of my website with the W3 Total Cache #WordPress #plugin by @boldgrid! http://bit.ly/TeSBL3' );
 define( 'W3TC_EDGE_TIMEOUT', 7 * 24 * 60 * 60 );
 define( 'W3TC_SUPPORT_REQUEST_URL', 'https://api.w3-edge.com/v1/support-request' );
 define( 'W3TC_SUPPORT_SERVICES_URL', 'https://api.w3-edge.com/v1/support-serviceinventory' );
@@ -32,8 +32,6 @@ define( 'W3TC_TERMS_URL', 'https://api.w3-edge.com/v1/redirects/policies-terms' 
 define( 'W3TC_TERMS_ACCEPT_URL', 'https://api.w3-edge.com/v1/redirects/policies-accept' );
 define( 'W3TC_MAILLINGLIST_SIGNUP_URL', 'https://api.w3-edge.com/v1/signup-newsletter' );
 define( 'W3TC_NEWRELIC_SIGNUP_URL', 'https://api.w3-edge.com/v1/redirects/newrelic/signup' );
-define( 'W3TC_MAXCDN_SIGNUP_URL', 'https://api.w3-edge.com/v1/redirects/maxcdn/signup' );
-define( 'W3TC_MAXCDN_AUTHORIZE_URL', 'https://api.w3-edge.com/v1/redirects/maxcdn/authorize' );
 define( 'W3TC_STACKPATH_SIGNUP_URL', 'https://api.w3-edge.com/v1/redirects/stackpath/signup' );
 define( 'W3TC_STACKPATH_AUTHORIZE_URL', 'https://api.w3-edge.com/v1/redirects/stackpath/authorize' );
 define( 'W3TC_STACKPATH2_AUTHORIZE_URL', 'https://api.w3-edge.com/v1/redirects/stackpath2/authorize' );
@@ -53,7 +51,7 @@ define( 'W3TC_PURCHASE_PRODUCT_NAME', 'W3 Total Cache Pro: Annual Subscription' 
 define( 'W3TC_WIN', ( strtoupper( substr( PHP_OS, 0, 3 ) ) === 'WIN' ) );
 
 if ( ! defined( 'W3TC_DIR' ) ) {
-	define( 'W3TC_DIR', realpath( dirname( __FILE__ ) ) );
+	define( 'W3TC_DIR', realpath( __DIR__ ) );
 }
 
 define( 'W3TC_FILE', 'w3-total-cache/w3-total-cache.php' );
@@ -121,7 +119,6 @@ define( 'W3TC_MARKER_BEGIN_PGCACHE_CORE', '# BEGIN W3TC Page Cache core' );
 define( 'W3TC_MARKER_BEGIN_PGCACHE_CACHE', '# BEGIN W3TC Page Cache cache' );
 define( 'W3TC_MARKER_BEGIN_PGCACHE_WPSC', '# BEGIN WPSuperCache' );
 define( 'W3TC_MARKER_BEGIN_BROWSERCACHE_CACHE', '# BEGIN W3TC Browser Cache' );
-define( 'W3TC_MARKER_BEGIN_BROWSERCACHE_NO404WP', '# BEGIN W3TC Skip 404 error handling by WordPress for static files' );
 define( 'W3TC_MARKER_BEGIN_MINIFY_CORE', '# BEGIN W3TC Minify core' );
 define( 'W3TC_MARKER_BEGIN_MINIFY_CACHE', '# BEGIN W3TC Minify cache' );
 define( 'W3TC_MARKER_BEGIN_MINIFY_LEGACY', '# BEGIN W3TC Minify' );
@@ -134,7 +131,6 @@ define( 'W3TC_MARKER_END_PGCACHE_CACHE', '# END W3TC Page Cache cache' );
 define( 'W3TC_MARKER_END_PGCACHE_LEGACY', '# END W3TC Page Cache' );
 define( 'W3TC_MARKER_END_PGCACHE_WPSC', '# END WPSuperCache' );
 define( 'W3TC_MARKER_END_BROWSERCACHE_CACHE', '# END W3TC Browser Cache' );
-define( 'W3TC_MARKER_END_BROWSERCACHE_NO404WP', '# END W3TC Skip 404 error handling by WordPress for static files' );
 define( 'W3TC_MARKER_END_MINIFY_CORE', '# END W3TC Minify core' );
 define( 'W3TC_MARKER_END_MINIFY_CACHE', '# END W3TC Minify cache' );
 define( 'W3TC_MARKER_END_MINIFY_LEGACY', '# END W3TC Minify' );
@@ -177,21 +173,19 @@ function w3tc_class_autoload( $class ) {
 		if ( file_exists( $filename ) ) {
 			require $filename;
 			return;
-		} else {
-			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-				echo esc_html(
-					sprintf(
-						// translators: 1 class name, 2 file name.
-						__(
-							'Attempt to create object of class %1$s has been made, but file %2$s doesnt exists',
-							'w3-total-cache'
-						),
-						$class,
-						$filename
-					)
-				);
-				debug_print_backtrace();
-			}
+		} elseif ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			echo esc_html(
+				sprintf(
+					// translators: 1 class name, 2 file name.
+					__(
+						'Attempt to create object of class %1$s has been made, but file %2$s doesnt exists',
+						'w3-total-cache'
+					),
+					$class,
+					$filename
+				)
+			);
+			debug_print_backtrace();
 		}
 	}
 
@@ -418,17 +412,6 @@ function w3tc_minify_style_group( $location ) {
 }
 
 /**
- * Deprecated.  Prints script tag for custom scripts.
- *
- * @param string|array $files    Files.
- * @param bool         $blocking Blocking.
- */
-function w3tc_minify_script_custom( $files, $blocking = true ) {
-	$o = \W3TC\Dispatcher::component( 'Minify_Plugin' );
-	echo esc_html( $o->get_script_custom( $files, $blocking ) );
-}
-
-/**
  * Deprecated.  Prints style tag for custom styles.
  *
  * @param string|array $files Files.
@@ -521,7 +504,7 @@ if ( defined( 'W3TC_CONFIG_HIDE' ) && W3TC_CONFIG_HIDE ) {
 	/**
 	 * Class: W3_Config
 	 */
-	class W3_Config {
+	class W3_Config { // phpcs:ignore
 		/**
 		 * Constructor.
 		 *
@@ -568,7 +551,7 @@ if ( defined( 'W3TC_CONFIG_HIDE' ) && W3TC_CONFIG_HIDE ) {
 	/**
 	 * Class: W3_Config.
 	 */
-	class W3_Config extends \W3TC\Config {
+	class W3_Config extends \W3TC\Config { // phpcs:ignore
 		/**
 		 * Constructor.
 		 *
@@ -590,7 +573,7 @@ if ( defined( 'W3TC_CONFIG_HIDE' ) && W3TC_CONFIG_HIDE ) {
  *
  * Deprecated. Retained for 3rd parties that use it. see w3tc_config().
  */
-class W3_ConfigWriter {
+class W3_ConfigWriter { // phpcs:ignore
 	/**
 	 * Constructor.
 	 *
@@ -664,9 +647,11 @@ function w3_instance( $class ) {
  * @param mixed  $default_value Default value.
  */
 function w3tc_e( $key, $default_value ) {
+	$content = w3tc_er( $key, $default_value );
+
 	echo wp_kses(
-		w3tc_er( $key, $default_value ),
-		\W3TC\Util_Ui::get_allowed_html_for_wp_kses_from_content( $default_value )
+		$content,
+		\W3TC\Util_Ui::get_allowed_html_for_wp_kses_from_content( $content )
 	);
 }
 

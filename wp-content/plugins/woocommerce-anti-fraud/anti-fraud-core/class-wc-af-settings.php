@@ -459,22 +459,7 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 							'desc'     => __( 'Click <a href="https://www.google.com/recaptcha/admin" target="_blank">here</a> to know more.<hr/>', 'woocommerce-anti-fraud' ),
 							'id'       => 'wc_af_recaptch_settings',
 						),
-						array(
-							'title'    => __( 'Site Key', 'woocommerce-anti-fraud' ),
-							'type'     => 'text',
-							'label'    => '',
-							'desc'    =>  __( 'Enter Site Key', 'woocommerce-anti-fraud' ),
-							'default'  => '',
-							'id'       => 'wc_af_recaptcha_site_key'
-						),
-						array(
-							'title'    => __( 'Secret Key', 'woocommerce-anti-fraud' ),
-							'type'     => 'text',
-							'label'    => '',
-							'desc'    =>  __( 'Enter Secret Key', 'woocommerce-anti-fraud' ),
-							'default'  => '',
-							'id'       => 'wc_af_recaptcha_secret_key'
-						),
+
 						array(
 							'title'       => __( 'Enable Re-Captcha', 'woocommerce-anti-fraud' ),
 							'type'        => 'checkbox',
@@ -483,6 +468,73 @@ if ( ! class_exists( 'WC_AF_Settings' ) ) :
 							'desc'        => __( 'Enable Re-Captcha on checkout page<br/>', 'woocommerce-anti-fraud' ),
 							'id'          => 'wc_af_enable_recaptcha_checkout',
 						),
+
+						array(
+							'title'       => __( 'Enable v2 Re-Captcha', 'woocommerce-anti-fraud' ),
+							'type'        => 'checkbox',
+							'label'       => '',
+							'default'     => 'no',
+							'desc'        => __( 'Enable v2 Re-Captcha<br/>', 'woocommerce-anti-fraud' ),
+							'id'          => 'wc_af_enable_v2_recaptcha',
+							'class' => 'enable_recaptcha'
+						),
+
+						array(
+							'title'       => __( 'Enable v3 Re-Captcha', 'woocommerce-anti-fraud' ),
+							'type'        => 'checkbox',
+							'label'       => '',
+							'default'     => 'no',
+							'desc'        => __( 'Enable v3 Re-Captcha<br/>', 'woocommerce-anti-fraud' ),
+							'id'          => 'wc_af_enable_v3_recaptcha',
+							'class' => 'enable_recaptcha'
+						),
+
+						array(
+							'title'    => __( 'v2 Site Key', 'woocommerce-anti-fraud' ),
+							'type'     => 'text',
+							'label'    => '',
+							'desc'    =>  __( 'Enter v2 Site Key', 'woocommerce-anti-fraud' ),
+							'default'  => '',
+							'id'       => 'wc_af_recaptcha_site_key'
+						),
+
+						array(
+							'title'    => __( 'v2 Secret Key', 'woocommerce-anti-fraud' ),
+							'type'     => 'text',
+							'label'    => '',
+							'desc'    =>  __( 'Enter v2 Secret Key', 'woocommerce-anti-fraud' ),
+							'default'  => '',
+							'id'       => 'wc_af_recaptcha_secret_key'
+						),
+
+						array(
+							'title'    => __( 'v3 Site Key', 'woocommerce-anti-fraud' ),
+							'type'     => 'text',
+							'label'    => '',
+							'desc'    =>  __( 'Enter v3 Site Key', 'woocommerce-anti-fraud' ),
+							'default'  => '',
+							'id'       => 'wc_af_v3_recaptcha_site_key'
+						),
+						
+						array(
+							'title'    => __( 'v3 Secret Key', 'woocommerce-anti-fraud' ),
+							'type'     => 'text',
+							'label'    => 'v3-recaptcha',
+							'desc'    =>  __( 'Enter v3 Secret Key', 'woocommerce-anti-fraud' ),
+							'default'  => '',
+							'id'       => 'wc_af_v3_recaptcha_secret_key',
+							'class' => 'enable_recaptcha'
+						),
+
+						/* array(
+							'title'       => __( 'Enable Re-Captcha', 'woocommerce-anti-fraud' ),
+							'type'        => 'checkbox',
+							'label'       => '',
+							'default'     => 'no',
+							'desc'        => __( 'Enable Re-Captcha on checkout page<br/>', 'woocommerce-anti-fraud' ),
+							'id'          => 'wc_af_enable_recaptcha_checkout',
+						), */
+
 						array(
 							'type' => 'sectionend',
 							'id'   => 'wc_af_recaptch_settings'

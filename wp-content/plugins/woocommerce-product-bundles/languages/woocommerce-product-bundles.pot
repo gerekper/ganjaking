@@ -2,14 +2,14 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Product Bundles 6.17.4\n"
+"Project-Id-Version: WooCommerce Product Bundles 6.18.1\n"
 "Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-23T13:03:02+00:00\n"
+"POT-Creation-Date: 2023-02-16T10:04:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "language-team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -417,7 +417,7 @@ msgstr ""
 #: includes/admin/class-wc-pb-admin.php:420
 #: includes/admin/meta-boxes/class-wc-pb-meta-box-product-data.php:1449
 #: includes/class-wc-bundled-item.php:2239
-#: includes/class-wc-pb-display.php:200
+#: includes/class-wc-pb-display.php:209
 #: includes/class-wc-product-bundle.php:1358
 #: tests/unit/test-wc-product-bundle.php:608
 msgid "Insufficient stock"
@@ -1276,14 +1276,14 @@ msgid "Foul!"
 msgstr ""
 
 #: includes/blocks/class-wc-pb-checkout-blocks-integration.php:122
-#: includes/class-wc-pb-display.php:240
-#: includes/class-wc-pb-display.php:1433
-#: includes/class-wc-pb-display.php:1444
+#: includes/class-wc-pb-display.php:250
+#: includes/class-wc-pb-display.php:1446
+#: includes/class-wc-pb-display.php:1457
 msgid "Includes"
 msgstr ""
 
 #: includes/class-wc-bundled-item.php:1901
-#: includes/class-wc-pb-display.php:239
+#: includes/class-wc-pb-display.php:249
 msgid "optional"
 msgstr ""
 
@@ -1373,7 +1373,7 @@ msgid "&quot;%s&quot; is missing some required options."
 msgstr ""
 
 #: includes/class-wc-pb-cart.php:783
-#: includes/class-wc-pb-display.php:247
+#: includes/class-wc-pb-display.php:259
 msgid "Please choose at least 1 item."
 msgstr ""
 
@@ -1410,169 +1410,178 @@ msgstr ""
 msgid "You have already added an identical &quot;%s&quot; to your cart. You cannot add another one."
 msgstr ""
 
-#: includes/class-wc-pb-display.php:209
+#: includes/class-wc-pb-display.php:218
 msgid "Total: "
 msgstr ""
 
-#: includes/class-wc-pb-display.php:210
+#: includes/class-wc-pb-display.php:219
 msgid "Subtotal: "
 msgstr ""
 
 #. translators: %1$s: "Total/Subtotal" string, %2$s: Price, %2$s: Price suffix
-#: includes/class-wc-pb-display.php:212
+#: includes/class-wc-pb-display.php:221
 msgctxt "\"Total/Subtotal\" string followed by price followed by price suffix"
 msgid "%1$s%2$s%3$s"
 msgstr ""
 
 #. translators: %1$s: Regular price, %2$s: Discounted price
-#: includes/class-wc-pb-display.php:214
+#: includes/class-wc-pb-display.php:223
 msgctxt "Sale/strikeout price"
 msgid "<del>%1$s</del> <ins>%2$s</ins>"
 msgstr ""
 
 #. translators: %1$s: Stock status, %2$s: List of bundled products
-#: includes/class-wc-pb-display.php:216
+#: includes/class-wc-pb-display.php:225
 msgctxt "insufficiently stocked items template"
 msgid "<p class=\"stock out-of-stock insufficient-stock\">%1$s &rarr; %2$s</p>"
 msgstr ""
 
 #. translators: %1$s: Backorder status, %2$s: List of bundled products
-#: includes/class-wc-pb-display.php:218
+#: includes/class-wc-pb-display.php:227
 msgctxt "backordered items template"
 msgid "<p class=\"stock available-on-backorder\">%1$s &rarr; %2$s</p>"
 msgstr ""
 
 #. translators: stock status
-#: includes/class-wc-pb-display.php:220
+#: includes/class-wc-pb-display.php:229
 msgctxt "insufficiently stocked item exists template"
 msgid "<p class=\"stock out-of-stock insufficient-stock\">%s</p>"
 msgstr ""
 
 #. translators: backorder stock status
-#: includes/class-wc-pb-display.php:222
+#: includes/class-wc-pb-display.php:231
 msgctxt "backordered item exists template"
 msgid "<p class=\"stock available-on-backorder\">%s</p>"
 msgstr ""
 
-#: includes/class-wc-pb-display.php:223
+#: includes/class-wc-pb-display.php:232
 msgid "Please choose product options."
 msgstr ""
 
 #. translators: Bundled product
-#: includes/class-wc-pb-display.php:225
+#: includes/class-wc-pb-display.php:234
 msgid "Please choose %s options."
 msgstr ""
 
-#: includes/class-wc-pb-display.php:226
+#: includes/class-wc-pb-display.php:235
+msgid "Please review product options."
+msgstr ""
+
+#: includes/class-wc-pb-display.php:236
 msgid "Please enter valid amounts."
 msgstr ""
 
 #. translators: Bundled product
-#: includes/class-wc-pb-display.php:228
+#: includes/class-wc-pb-display.php:238
 msgid "Please enter a valid %s amount."
 msgstr ""
 
 #. translators: Item name
-#: includes/class-wc-pb-display.php:230
+#: includes/class-wc-pb-display.php:240
 msgctxt "string list item"
 msgid "&quot;%s&quot;"
 msgstr ""
 
 #. translators: %1$s: Item before comma, %2$s: Item after comma
-#: includes/class-wc-pb-display.php:232
+#: includes/class-wc-pb-display.php:242
 #: includes/class-wc-pb-helpers.php:343
 msgctxt "string list item separator"
 msgid "%1$s, %2$s"
 msgstr ""
 
 #. translators: %1$s: Item before "and", %2$s: Item after "and"
-#: includes/class-wc-pb-display.php:234
+#: includes/class-wc-pb-display.php:244
 #: includes/class-wc-pb-helpers.php:341
 msgctxt "string list item last separator"
 msgid "%1$s and %2$s"
 msgstr ""
 
 #. translators: Quantity
-#: includes/class-wc-pb-display.php:236
+#: includes/class-wc-pb-display.php:246
 #: includes/class-wc-pb-helpers.php:304
 msgctxt "qty string"
 msgid " &times; %s"
 msgstr ""
 
 #. translators: Optional item suffix
-#: includes/class-wc-pb-display.php:238
+#: includes/class-wc-pb-display.php:248
 msgctxt "suffix"
 msgid " &mdash; %s"
 msgstr ""
 
 #. translators: %1$s: Product title, %2$s: Product meta
-#: includes/class-wc-pb-display.php:242
+#: includes/class-wc-pb-display.php:252
 msgctxt "title followed by meta"
 msgid "%1$s &ndash; %2$s"
 msgstr ""
 
 #. translators: %1$s: Product title, %2$s: Product quantity, %3$s: Product price, %4$s: Product suffix
-#: includes/class-wc-pb-display.php:244
+#: includes/class-wc-pb-display.php:254
 #: includes/class-wc-pb-helpers.php:318
 msgctxt "title, quantity, price, suffix"
 msgid "%1$s%2$s%3$s%4$s"
 msgstr ""
 
-#: includes/class-wc-pb-display.php:245
+#: includes/class-wc-pb-display.php:255
 #: includes/wc-pb-template-functions.php:92
 msgid "This product is currently unavailable."
 msgstr ""
 
-#: includes/class-wc-pb-display.php:246
+#. translators: %1$s: Product titles, %2$s: Resolution message
+#: includes/class-wc-pb-display.php:257
+msgid "<span class=\"msg-source\">%1$s</span> &rarr; <span class=\"msg-content\">%2$s</span>"
+msgstr ""
+
+#: includes/class-wc-pb-display.php:258
 msgid "Please resolve all pending issues before adding this product to your cart."
 msgstr ""
 
 #. translators: %1$s: Recurring price part before comma, %2$s: Recurring price part after comma
-#: includes/class-wc-pb-display.php:249
+#: includes/class-wc-pb-display.php:261
 #: includes/class-wc-product-bundle.php:1096
 msgctxt "subscription price html"
 msgid "%1$s,</br>%2$s"
 msgstr ""
 
 #. translators: %1$s: Recurring price part before end, %2$s: Recurring price part at end
-#: includes/class-wc-pb-display.php:251
+#: includes/class-wc-pb-display.php:263
 #: includes/class-wc-product-bundle.php:1091
 msgctxt "subscription price html"
 msgid "%1$s, and</br>%2$s"
 msgstr ""
 
 #. translators: %1$s: Bundle title
-#: includes/class-wc-pb-display.php:410
+#: includes/class-wc-pb-display.php:423
 msgid "You are currently editing &quot;%1$s&quot;. When finished, click the <strong>Update Cart</strong> button."
 msgstr ""
 
-#: includes/class-wc-pb-display.php:412
+#: includes/class-wc-pb-display.php:425
 msgid "You are currently editing this bundle. When finished, click the <strong>Update Cart</strong> button."
 msgstr ""
 
-#: includes/class-wc-pb-display.php:933
+#: includes/class-wc-pb-display.php:946
 msgid "Remove this bundle"
 msgstr ""
 
-#: includes/class-wc-pb-display.php:1019
-#: includes/class-wc-pb-display.php:1036
+#: includes/class-wc-pb-display.php:1032
+#: includes/class-wc-pb-display.php:1049
 msgctxt "edit in cart link text"
 msgid "Edit"
 msgstr ""
 
 #. translators: %1$s: Product title, %2$s: Edit in cart URL, %3$s: Edit in cart text
-#: includes/class-wc-pb-display.php:1021
+#: includes/class-wc-pb-display.php:1034
 msgctxt "edit in cart text"
 msgid "%1$s<br/><a class=\"edit_bundle_in_cart_text edit_in_cart_text\" rel=\"no-follow\" href=\"%2$s\"><small>%3$s</small></a>"
 msgstr ""
 
 #. translators: %1$s: Product title, %2$s: Edit in cart URL, %3$s: Edit in cart text
-#: includes/class-wc-pb-display.php:1038
+#: includes/class-wc-pb-display.php:1051
 msgctxt "edit in cart text"
 msgid "%1$s<br/><a class=\"edit_bundle_in_cart_text edit_in_cart_text\" href=\"%2$s\"><small>%3$s</small></a>"
 msgstr ""
 
-#: includes/class-wc-pb-display.php:1152
+#: includes/class-wc-pb-display.php:1165
 #: includes/class-wc-pb-order.php:1066
 msgid "Part of"
 msgstr ""
@@ -1818,11 +1827,11 @@ msgstr ""
 msgid "WooCommerce Min/Max Quantities"
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-pb-addons-compatibility.php:131
+#: includes/compatibility/modules/class-wc-pb-addons-compatibility.php:149
 msgid "Disable Add-Ons"
 msgstr ""
 
-#: includes/compatibility/modules/class-wc-pb-addons-compatibility.php:133
+#: includes/compatibility/modules/class-wc-pb-addons-compatibility.php:151
 msgid "Check this option to disable any Product Add-Ons associated with this bundled product."
 msgstr ""
 

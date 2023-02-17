@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Shipping Per Product v2
  * Plugin URI: https://woocommerce.com/products/per-product-shipping/
  * Description: Per product shipping allows you to define different shipping costs for products, based on customer location. These costs can be added to other shipping methods, or used as a standalone shipping method.
- * Version: 2.4.1
+ * Version: 2.5.0
  * Author: WooCommerce
  * Author URI: https://woocommerce.com
  * Requires at least: 3.3
@@ -44,7 +44,7 @@ function woocommerce_shipping_per_product_missing_wc_notice() {
 }
 
 if ( ! class_exists( 'WC_Shipping_Per_Product_Init' ) ) :
-	define( 'PER_PRODUCT_SHIPPING_VERSION', '2.4.1' ); // WRCS: DEFINED_VERSION.
+	define( 'PER_PRODUCT_SHIPPING_VERSION', '2.5.0' ); // WRCS: DEFINED_VERSION.
 	define( 'PER_PRODUCT_SHIPPING_FILE', __FILE__ );
 
 	/**
@@ -376,12 +376,24 @@ if ( ! class_exists( 'WC_Shipping_Per_Product_Init' ) ) :
 					$new_package['contents_cost'] = array_sum( wp_list_pluck( $new_package['contents'], 'line_total' ) );
 					$package['contents_cost']     = array_sum( wp_list_pluck( $package['contents'], 'line_total' ) );
 
+					$ship_via = array( WC_Shipping_Per_Product::METHOD_ID, 'free_shipping', 'local_pickup' );
+
+					if ( true === $per_product_shipping_method->is_free_shipping_ignored() ) {
+						$fs_key = array_search( 'free_shipping', $ship_via );
+						unset( $ship_via[ $fs_key ] );
+					}
+
+					if ( true === $per_product_shipping_method->is_local_pickup_ignored() ) {
+						$fs_key = array_search( 'local_pickup', $ship_via );
+						unset( $ship_via[ $fs_key ] );
+					}
+
 					// Copy field from original package.
 					$new_package['applied_coupons'] = $package['applied_coupons'];
 					$new_package['user']            = $package['user'];
 					$new_package['destination']     = $package['destination'];
 					$new_package['cart_subtotal']   = $package['cart_subtotal'];
-					$new_package['ship_via']        = apply_filters( 'woocommerce_per_product_shipping_ship_via', array( WC_Shipping_Per_Product::METHOD_ID, 'free_shipping', 'local_pickup' ) );
+					$new_package['ship_via']        = apply_filters( 'woocommerce_per_product_shipping_ship_via', $ship_via );
 
 					$new_packages[] = $new_package;
 

@@ -1,5 +1,15 @@
 *** WooCommerce Product Search ***
 
+2023.02.13 - version 4.11.0
+* WordPress 6.1 compatible.
+* WordPress 6.2-beta compatible.
+* WooCommerce 7.4 compatible.
+* Added index status information display to the Admin Bar while indexing is incomplete.
+* Added an option in the Index section to enable or disable the status information display in the Admin Bar.
+* Added the WPS_ADMIN_BAR_STATUS constant which can be set to true to always show status information in the Admin Bar.
+* Updated the translation template.
+* Updated the included translations.
+
 2022.12.30 - version 4.10.0
 * WordPress 6.1 compatible.
 * WooCommerce 7.2 compatible.

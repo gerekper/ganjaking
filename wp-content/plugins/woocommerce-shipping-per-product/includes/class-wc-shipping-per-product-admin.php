@@ -150,7 +150,7 @@ class WC_Shipping_Per_Product_Admin {
 					<tr>
 						<th>&nbsp;</th>
 						<th><?php _e( 'Country Code', 'woocommerce-shipping-per-product' ); ?>&nbsp;<a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'A 2 digit country code, e.g. US. Leave blank to apply to all.', 'woocommerce-shipping-per-product' ) ); ?>">[?]</a></th>
-						<th><?php _e( 'State/County Code', 'woocommerce-shipping-per-product' ); ?>&nbsp;<a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'A 2 digit state code, e.g. AL. Leave blank to apply to all.', 'woocommerce-shipping-per-product' ) ); ?>">[?]</a></th>
+						<th><?php _e( 'State/County Code', 'woocommerce-shipping-per-product' ); ?>&nbsp;<a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'A state code, e.g. AL. Leave blank to apply to all.', 'woocommerce-shipping-per-product' ) ); ?>">[?]</a></th>
 						<th><?php _e( 'Zip/Postal Code', 'woocommerce-shipping-per-product' ); ?>&nbsp;<a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Postcode for this rule. Wildcards (*) can be used. Leave blank to apply to all areas.', 'woocommerce-shipping-per-product' ) ); ?>">[?]</a></th>
 						<th class="cost"><?php _e( 'Line Cost (Excl. Tax)', 'woocommerce-shipping-per-product' ); ?>&nbsp;<a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Decimal cost for the line as a whole.', 'woocommerce-shipping-per-product' ) ); ?>">[?]</a></th>
 						<th class="item_cost"><?php _e( 'Item Cost (Excl. Tax)', 'woocommerce-shipping-per-product' ); ?>&nbsp;<a class="tips" data-tip="<?php echo wc_sanitize_tooltip( __( 'Decimal cost for the item (multiplied by qty).', 'woocommerce-shipping-per-product' ) ); ?>">[?]</a></th>
@@ -183,7 +183,7 @@ class WC_Shipping_Per_Product_Admin {
 							<tr>
 								<td class="sort">&nbsp;<input type="hidden" value="<?php echo esc_attr( $rule->rule_order ); ?>" name="per_product_order[<?php echo esc_attr( $post_id ); ?>][<?php echo esc_attr( $rule->rule_id ); ?>]" /></td>
 								<td class="country"><input type="text" class="wcspp_country_validation" maxlength="2" value="<?php echo esc_attr( $rule->rule_country ); ?>" placeholder="*" name="per_product_country[<?php echo esc_attr( $post_id ); ?>][<?php echo esc_attr( $rule->rule_id ); ?>]" /></td>
-								<td class="state"><input type="text" maxlength="2" value="<?php echo esc_attr( $rule->rule_state ); ?>" placeholder="*" name="per_product_state[<?php echo esc_attr( $post_id ); ?>][<?php echo esc_attr( $rule->rule_id ); ?>]" /></td>
+								<td class="state"><input type="text" maxlength="7" value="<?php echo esc_attr( $rule->rule_state ); ?>" placeholder="*" name="per_product_state[<?php echo esc_attr( $post_id ); ?>][<?php echo esc_attr( $rule->rule_id ); ?>]" /></td>
 								<td class="postcode"><input type="text" value="<?php echo esc_attr( $rule->rule_postcode ); ?>" placeholder="*" name="per_product_postcode[<?php echo esc_attr( $post_id ); ?>][<?php echo esc_attr( $rule->rule_id ); ?>]" /></td>
 								<td class="cost"><input type="text" class="wc_input_price input-text regular-input" value="<?php echo esc_attr( $rule->rule_cost ); ?>" placeholder="0.00" name="per_product_cost[<?php echo esc_attr( $post_id ); ?>][<?php echo esc_attr( $rule->rule_id ); ?>]" /></td>
 								<td class="item_cost"><input type="text" class="wc_input_price input-text regular-input" value="<?php echo esc_attr( $rule->rule_item_cost ); ?>" placeholder="0.00" name="per_product_item_cost[<?php echo esc_attr( $post_id ); ?>][<?php echo esc_attr( $rule->rule_id ); ?>]" /></td>

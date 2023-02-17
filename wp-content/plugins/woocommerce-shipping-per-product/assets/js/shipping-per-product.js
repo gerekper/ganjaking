@@ -143,7 +143,7 @@ jQuery(function($) {
 			var code = '<tr>\
 				<td class="sort">&nbsp;<input type="hidden" value="" name="per_product_order[' + postid + '][new][]" /></td>\
 				<td class="country"><input type="text" class="wcspp_country_validation" value="" maxlength="2" placeholder="*" name="per_product_country[' + postid + '][new][]" /></td>\
-				<td class="state"><input type="text" value="" maxlength="2" placeholder="*" name="per_product_state[' + postid + '][new][]" /></td>\
+				<td class="state"><input type="text" value="" maxlength="7" placeholder="*" name="per_product_state[' + postid + '][new][]" /></td>\
 				<td class="postcode"><input type="text" value="" placeholder="*" name="per_product_postcode[' + postid + '][new][]" /></td>\
 				<td class="cost"><input type="text" class="wc_input_price input-text regular-input" value="0.00" placeholder="0.00" name="per_product_cost[' + postid + '][new][]" /></td>\
 				<td class="item_cost"><input type="text" class="wc_input_price input-text regular-input" value="0.00" placeholder="0.00" name="per_product_item_cost[' + postid + '][new][]" /></td>\

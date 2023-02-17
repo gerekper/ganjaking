@@ -56,6 +56,10 @@ class WC_AF_Rule_Velocities extends WC_AF_Rule {
 		$order_id   = $pre_wc_30 ? $order->id : $order->get_id();
 		$order_date = $pre_wc_30 ? $order->order_date : ( $order->get_date_created() ? gmdate( 'Y-m-d H:i:s', $order->get_date_created()->getOffsetTimestamp() ) : '' );
 		$order_ip   = $pre_wc_30 ? get_post_meta( $order_id, '_customer_ip_address', true ) : $order->get_customer_ip_address();
+		$email = $pre_wc_30 ? get_post_meta( $order_id, '_billing_email', true ) : $order->get_billing_email();
+		$phone = $pre_wc_30 ? get_post_meta( $order_id, '_billing_phone', true ) : $order->get_billing_phone();
+
+		
 
 		if ( empty( $order_ip ) ) {
 			return false;
@@ -76,7 +80,7 @@ class WC_AF_Rule_Velocities extends WC_AF_Rule {
 		}
 
 		// Get the Same IP Orders
-		$velocities_orders = wc_get_orders(
+		$velocities_custmr_ip = wc_get_orders(
 			array(
 				'limit'               => -1,
 				'exclude'             => array( $order_id ),
@@ -86,14 +90,36 @@ class WC_AF_Rule_Velocities extends WC_AF_Rule {
 				'date_before'         => $this->end_datetime_string,
 			)
 		);
-		
+
+		$velocities_custmr_email = wc_get_orders(
+			array(
+				'limit'               => -1,
+				'exclude'             => array( $order_id ),
+				'_billing_email' => $email,
+				'type'                => wc_get_order_types( 'order-count' ),
+				'date_after'          => $this->start_datetime_string,
+				'date_before'         => $this->end_datetime_string,
+			)
+		);
+
+		$velocities_custmr_mob = wc_get_orders(
+			array(
+				'limit'               => -1,
+				'exclude'             => array( $order_id ),
+				'_billing_phone' => $phone,
+				'type'                => wc_get_order_types( 'order-count' ),
+				'date_after'          => $this->start_datetime_string,
+				'date_before'         => $this->end_datetime_string,
+			)
+		);
+
 		if ( $pre_wc_30 ) {
 			// Remove date range filter
 			remove_filter( 'posts_where', array( $this, 'date_range' ) );
 		}
 
 		// Check if there are orders with same IP
-		if ( count( $velocities_orders ) >= $this->max_orders ) {
+		if ( count( $velocities_custmr_ip ) >= $this->max_orders || count( $velocities_custmr_email ) >= $this->max_orders || count( $velocities_custmr_mob ) >= $this->max_orders ) {
 			$risk = true;
 		}
 		

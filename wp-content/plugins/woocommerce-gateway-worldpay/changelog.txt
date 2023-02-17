@@ -1,4 +1,9 @@
 *** WorldPay Changelog ***
+2023.02.16 - version 5.0.3
+ * WC 7.4
+ * Fix failure URL
+ * Add folder with example resultY and resultC
+
 2022.09.20 - version 5.0.2
  * Fix - undefined array for unsaved widget
  * Fix - PHP Fatal error:  Uncaught Error: Call to a member function add()

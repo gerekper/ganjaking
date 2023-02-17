@@ -340,7 +340,8 @@ class WC_Advanced_Notifications {
 			foreach ( $notifications as $notification ) {
 
 				// load the mailer class
-				$mailer = WC()->mailer();
+				$mailer   = WC()->mailer();
+				$wc_email = new WC_Email_New_Order();
 
 				// Buffer
 				ob_start();
@@ -360,7 +361,7 @@ class WC_Advanced_Notifications {
 						'sent_to_admin'       => false,
 						'show_download_links' => $order->is_download_permitted(),
 						'plain_text'          => $notification->notification_plain_text,
-						'email'               => $mailer,
+						'email'               => $wc_email,
 					),
 					'woocommerce-advanced-notifications/',
 					$this->plugin_path() . '/templates/'
@@ -368,8 +369,6 @@ class WC_Advanced_Notifications {
 
 				// Get contents
 				$message = ob_get_clean();
-
-				$wc_email = new WC_Email();
 
 				$formatted_message = $wc_email->style_inline( $mailer->wrap_message( $email_heading, $message ) );
 

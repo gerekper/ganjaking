@@ -1201,21 +1201,30 @@ function warranty_return_product_stock( $request_id ) {
 		return false;
 	}
 
-	$product      = wc_get_product( $request['product_id'] );
-	$manage_stock = get_post_meta( $request['product_id'], '_manage_stock', true );
+	if ( isset( $request['products'] ) && is_array( $request['products'] ) ) {
+		foreach ( $request['products'] as $item ) {
+			if ( ! isset( $item['product_id'] ) ) {
+				continue;
+			}
+			$product = wc_get_product( $item['product_id'] );
+			if ( ! $product ) {
+				continue;
+			}
+			if ( $product->managing_stock() && isset( $item['quantity'] ) ) {
+				wc_update_product_stock( $product, $item['quantity'], 'increase' );
+			}
+		}
+	} else {
+		$product = wc_get_product( $request['product_id'] );
+		if ( ! $product ) {
+			return false;
+		}
+		if ( $product->managing_stock() && isset( $request['qty'] ) ) {
+			wc_update_product_stock( $product, $request['qty'], 'increase' );
 
-	if ( $product && $product->is_type( 'variation' ) ) {
-		$stock = get_post_meta( $request['product_id'], '_stock', true );
-
-		if ( $stock > 0 ) {
-			$manage_stock = 'yes';
 		}
 	}
-
-	if ( 'yes' === $manage_stock ) {
-		wc_update_product_stock( $product, $request['qty'], 'increase' );
-		return true;
-	}
+	return true;
 }
 
 /**

@@ -1,5 +1,9 @@
 *** WooCommerce Order Delivery Changelog ***
 
+2023-02-16 - version 2.4.1
+* Fix - Fixed fatal error when loading the customizer.
+* Dev - Include the table columns parameter when filtering the position of the delivery columns in the order list table.
+
 2023-02-07 - version 2.4.0
 * Tweak - Include the tax amount in the time frame fee when displaying prices with tax included at checkout. 
 * Tweak - Display an admin notice when executing the 'Calculate shipping date' bulk action without affecting any orders.

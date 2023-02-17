@@ -1,5 +1,12 @@
 *** WooCommerce Product Bundles ***
 
+2023.02.16 - version 6.18.1
+* Fix - Fixed compatibility notices with Product Addons and Min/Max Quantities.
+
+2023.02.14 - version 6.18.0
+* New - Important: Product Bundles is now compatible with Product Add-Ons v6+.
+* Update - Updated single product validation messages.
+
 2023.01.23 - version 6.17.4
 * New - Introduced 'woocommerce_bundled_item_get_unfiltered_regular_price_start' and 'woocommerce_bundled_item_get_unfiltered_regular_price_end' action hooks.
 * Fix - Fixed a PHP warning that showed up when importing products without bundled items.

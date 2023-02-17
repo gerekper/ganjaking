@@ -13,6 +13,6 @@ echo apply_filters(
 		'<a href="#" title="%s" data-product_id="%s" class="quick-view-button button"><span></span>%s</a>',
 		esc_attr( $product->get_title() ),
 		$product->get_id(),
-		esc_html__( 'Quick View', 'wc_quick_view' )
+		esc_html__( 'Quick View', 'woocommerce-quick-view' )
 	)
 );

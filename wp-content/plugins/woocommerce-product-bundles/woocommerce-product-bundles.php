@@ -3,7 +3,7 @@
 * Plugin Name: WooCommerce Product Bundles
 * Plugin URI: https://woocommerce.com/products/product-bundles/
 * Description: Offer product bundles, bulk discount packages, and assembled products.
-* Version: 6.17.4
+* Version: 6.18.1
 * Author: WooCommerce
 * Author URI: https://somewherewarm.com/
 *
@@ -33,11 +33,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Main plugin class.
  *
  * @class    WC_Bundles
- * @version  6.17.4
+ * @version  6.18.1
  */
 class WC_Bundles {
 
-	public $version  = '6.17.4';
+	public $version  = '6.18.1';
 	public $required = '3.9.0';
 
 	/**

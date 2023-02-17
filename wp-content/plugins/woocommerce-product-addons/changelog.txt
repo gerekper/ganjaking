@@ -1,4 +1,21 @@
-*** Product Addons Changelog ***
+*** Product Addons Changelog ***		       	 	 	   
+	      	   	      	 	      
+2023-02-16 - version 6.0.2
+* Fix - Fixed an issue that made users select all options in required checkboxes.
+
+2023-02-15 - version 6.0.1
+* Fix - Fixed an issue that prevented addon totals from being updated when the product quantity changed.
+
+2023-02-14 - version 6.0.0
+* Update - Important: Updated the single product form validation for required and restricted addons.
+* Update - Important: Updated all frontend addon templates.
+* New - Product Add-Ons is now compatible with Product Bundles 6.18.0+.
+* New - Product Add-Ons is now compatible with Composite Products 8.7.0+.
+* Fix - Fixed an issue that required users to click away from the addons form in order for addon totals to show up.
+* Fix - Fixed an issue that prevented importing addons with descriptions that contained HTML.
+* Fix - Added image swatch labels in mobile views.
+* Fix - Resolved an issue that cleared the add-ons form when validation failed for multiple image add-ons.
+* Fix - Resolved an issue that changed the position of the Add to Cart button when a long text add-on was configured.
 
 2023-01-04 - version 5.0.3
 * Feature - Added compatibility with the core WooCommerce Importer/Exporter for importing/exporting product-level addons.

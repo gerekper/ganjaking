@@ -1,5 +1,11 @@
 *** Changelog ***
 
+2023-02-12 - version 2.41
+
+
+* Improvements on Jetpack Forms Captcha
+
+
 2023-02-05 - version 2.40
 
 * New feature jetpack forms captcha

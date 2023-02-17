@@ -526,6 +526,29 @@ class WC_Shipment_Tracking_Actions {
 	}
 
 	/**
+	 * List of excluded email classes.
+	 * Shipment tracking will not be added to emails that are instances of these email classes.
+	 *
+	 * @return Array.
+	 */
+	public function get_excluded_email_classes() {
+		return apply_filters(
+			'wc_shipment_tracking_excluded_email_classes',
+			array(
+				/**
+				 * Don't include tracking information in an order refund email.
+				 *
+				 * When the email instance is `WC_Email_Customer_Refunded_Order`, it may
+				 * be a full or partial refund.
+				 *
+				 * @see https://github.com/woocommerce/woocommerce-shipment-tracking/issues/61
+				 */
+				'WC_Email_Customer_Refunded_Order'
+			)
+		);
+	}
+
+	/**
 	 * Display shipment info in customer emails.
 	 *
 	 * @version 1.6.8
@@ -536,16 +559,12 @@ class WC_Shipment_Tracking_Actions {
 	 * @param WC_Email $email         Email object.
 	 */
 	public function email_display( $order, $sent_to_admin, $plain_text = null, $email = null ) {
-		/**
-		 * Don't include tracking information in refunded email.
-		 *
-		 * When email instance is `WC_Email_Customer_Refunded_Order`, it may
-		 * full or partial refund.
-		 *
-		 * @see https://github.com/woocommerce/woocommerce-shipment-tracking/issues/61
-		 */
-		if ( is_a( $email, 'WC_Email_Customer_Refunded_Order' ) ) {
-			return;
+		$excluded_email_classes = $this->get_excluded_email_classes();
+
+		foreach ( $excluded_email_classes as $email_class ) {
+			if ( is_a( $email, $email_class ) ) {
+				return;
+			}
 		}
 
 		if ( true === $plain_text ) {

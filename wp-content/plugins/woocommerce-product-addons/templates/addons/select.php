@@ -2,20 +2,20 @@
 /**
  * The Template for displaying select field.
  *
- * @version 3.0.0
+ * @version 6.0.0
  * @package woocommerce-product-addons
  */
 
-$loop       = 0;
-$field_name = ! empty( $addon['field_name'] ) ? $addon['field_name'] : '';
-$required   = ! empty( $addon['required'] ) ? $addon['required'] : '';
+$loop             = 0;
+$field_name       = ! empty( $addon['field_name'] ) ? $addon['field_name'] : '';
+$restriction_data = WC_Product_Addons_Helper::get_restriction_data( $addon );
 ?>
-<p class="form-row form-row-wide wc-pao-addon-wrap wc-pao-addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>">
+<div class="form-row form-row-wide wc-pao-addon-wrap wc-pao-addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>">
 	<select
 		class="wc-pao-addon-field wc-pao-addon-select"
 		name="addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>"
 		id="addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>"
-		<?php echo WC_Product_Addons_Helper::is_addon_required( $addon ) ? 'required' : ''; ?>
+		data-restrictions="<?php echo esc_attr( json_encode( $restriction_data ) ); ?>"
 		>
 
 		<?php if ( empty( $required ) ) { ?>
@@ -57,9 +57,9 @@ $required   = ! empty( $addon['required'] ) ? $addon['required'] : '';
 				$price_display = $price_raw;
 			}
 			?>
-			<option data-raw-price="<?php echo esc_attr( $price_raw ); ?>" data-price="<?php echo esc_attr( $price_display ); ?>" data-price-type="<?php echo esc_attr( $price_type ); ?>" value="<?php echo esc_attr( sanitize_title( $label ) ) . '-' . esc_attr( $loop ); ?>" data-label="<?php echo esc_attr( wptexturize( $label ) ); ?>">
+			<option data-raw-price="<?php echo esc_attr( $price_raw ); ?>" data-price="<?php echo esc_attr( $price_display ); ?>" data-price-type="<?php echo esc_attr( $price_type ); ?>" value="<?php echo esc_attr( sanitize_title( $label ) ) . '-' . esc_attr( $loop ); ?>"  data-label="<?php echo esc_attr( wptexturize( $label ) );  ?>">
 				<?php echo wp_kses_post( wptexturize( $label ) . ' ' . $price_for_display ); ?>
 			</option>
 		<?php } ?>
 	</select>
-</p>
+</div>

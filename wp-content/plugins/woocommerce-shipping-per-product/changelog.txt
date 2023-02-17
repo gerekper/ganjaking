@@ -1,5 +1,9 @@
 *** Shipping Per Product Changelog ***
 
+2023-02-14 - version 2.5.0
+* Add   - Option to ignore the free shipping and local pickup shipping method.
+* Tweak - Increase allowed state code max length.
+
 2023-02-02 - version 2.4.1
 * Add - Country code validation.
 

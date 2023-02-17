@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Product Bundle display functions and filters.
  *
  * @class    WC_PB_Display
- * @version  6.16.0
+ * @version  6.18.0
  */
 class WC_PB_Display {
 
@@ -186,7 +186,16 @@ class WC_PB_Display {
 
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		wp_register_script( 'wc-add-to-cart-bundle', WC_PB()->plugin_url() . '/assets/js/frontend/add-to-cart-bundle' . $suffix . '.js', array( 'jquery', 'wc-add-to-cart-variation' ), WC_PB()->version, true );
+		$dependencies = array( 'jquery', 'wc-add-to-cart-variation' );
+
+		/**
+		 * Filter to allow adding custom script dependencies here.
+		 *
+		 * @param  array  $dependencies
+		 */
+		$dependencies = apply_filters( 'woocommerce_pb_script_dependencies', $dependencies );
+
+		wp_register_script( 'wc-add-to-cart-bundle', WC_PB()->plugin_url() . '/assets/js/frontend/add-to-cart-bundle' . $suffix . '.js', $dependencies, WC_PB()->version, true );
 
 		wp_register_style( 'wc-bundle-css', WC_PB()->plugin_url() . '/assets/css/frontend/single-product.css', false, WC_PB()->version );
 		wp_style_add_data( 'wc-bundle-css', 'rtl', 'replace' );
@@ -223,6 +232,7 @@ class WC_PB_Display {
 			'i18n_select_options'            => __( 'Please choose product options.', 'woocommerce-product-bundles' ),
 			/* translators: Bundled product */
 			'i18n_select_options_for'        => __( 'Please choose %s options.', 'woocommerce-product-bundles' ),
+			'i18n_review_product_addons'     => __( 'Please review product options.', 'woocommerce-product-bundles' ),
 			'i18n_enter_valid_price'         => __( 'Please enter valid amounts.', 'woocommerce-product-bundles' ),
 			/* translators: Bundled product */
 			'i18n_enter_valid_price_for'     => __( 'Please enter a valid %s amount.', 'woocommerce-product-bundles' ),
@@ -243,6 +253,8 @@ class WC_PB_Display {
 			/* translators: %1$s: Product title, %2$s: Product quantity, %3$s: Product price, %4$s: Product suffix */
 			'i18n_title_string'              => sprintf( _x( '%1$s%2$s%3$s%4$s', 'title, quantity, price, suffix', 'woocommerce-product-bundles' ), '<span class="item_title">%t</span>', '<span class="item_qty">%q</span>', '', '<span class="item_suffix">%o</span>' ),
 			'i18n_unavailable_text'          => __( 'This product is currently unavailable.', 'woocommerce-product-bundles' ),
+			/* translators: %1$s: Product titles, %2$s: Resolution message */
+			'i18n_validation_issues_for'     => sprintf( __( '<span class="msg-source">%1$s</span> &rarr; <span class="msg-content">%2$s</span>', 'woocommerce-product-bundles' ), '%c', '%e' ),
 			'i18n_validation_alert'          => __( 'Please resolve all pending issues before adding this product to your cart.', 'woocommerce-product-bundles' ),
 			'i18n_zero_qty_error'            => __( 'Please choose at least 1 item.', 'woocommerce-product-bundles' ),
 			/* translators: %1$s: Recurring price part before comma, %2$s: Recurring price part after comma */
@@ -256,6 +268,7 @@ class WC_PB_Display {
 			'currency_format_decimal_sep'    => esc_attr( wc_get_price_decimal_separator() ),
 			'currency_format_thousand_sep'   => esc_attr( wc_get_price_thousand_separator() ),
 			'currency_format_trim_zeros'     => false === apply_filters( 'woocommerce_price_trim_zeros', false ) ? 'no' : 'yes',
+			'is_pao_installed'               => class_exists( 'WC_Product_Addons' ) && defined( 'WC_PRODUCT_ADDONS_VERSION' ) ? 'yes' : 'no',
 			'price_display_suffix'           => esc_attr( get_option( 'woocommerce_price_display_suffix' ) ),
 			'prices_include_tax'             => esc_attr( get_option( 'woocommerce_prices_include_tax' ) ),
 			'tax_display_shop'               => esc_attr( get_option( 'woocommerce_tax_display_shop' ) ),

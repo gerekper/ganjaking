@@ -2,21 +2,23 @@
 /**
  * The Template for displaying image swatches field.
  *
- * @version 3.0.0
+ * @version 6.0.0
  * @package woocommerce-product-addons
  *
  * phpcs:disable WordPress.Security.NonceVerification.Missing
  */
 
-$loop       = 0;
-$field_name = ! empty( $addon['field_name'] ) ? $addon['field_name'] : '';
-$required   = ! empty( $addon['required'] ) ? $addon['required'] : '';
+$loop             = 0;
+$field_name       = ! empty( $addon['field_name'] ) ? $addon['field_name'] : '';
+$required         = ! empty( $addon['required'] ) ? $addon['required'] : '';
+$restriction_data = WC_Product_Addons_Helper::get_restriction_data( $addon );
+
 ?>
 
-<p class="form-row form-row-wide wc-pao-addon-wrap wc-pao-addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>">
+<div class="form-row form-row-wide wc-pao-addon-wrap wc-pao-addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>">
 <?php if ( empty( $required ) ) { ?>
 	<a href="#" title="<?php echo esc_attr__( 'None', 'woocommerce-product-addons' ); ?>" class="wc-pao-addon-image-swatch" data-value="" data-price="">
-		<img src="<?php echo esc_url( WC_Product_Addons_Helper::no_image_select_placeholder_src() ); ?>" />
+		<img src="<?php echo esc_url( WC_Product_Addons_Helper::no_image_select_placeholder_src() ); ?>" alt="<?php echo esc_attr__( 'None', 'woocommerce-product-addons' ); ?>" />
 	</a>
 <?php } ?>
 
@@ -47,14 +49,19 @@ foreach ( $addon['options'] as $i => $option ) {
 			'image'
 		);
 	}
-	$image_src = wp_get_attachment_image_src( $option['image'], apply_filters( 'woocommerce_product_addons_image_swatch_size', 'thumbnail', $option ) );
+	$image_src   = wp_get_attachment_image_src( $option['image'], apply_filters( 'woocommerce_product_addons_image_swatch_size', 'thumbnail', $option ) );
+	$image_title = $option['label'] . ' ' . $price_tip;
 	?>
-		<a href="#" title="<?php echo esc_attr( $option['label'] . ' ' . $price_tip ); ?>" class="wc-pao-addon-image-swatch" data-value="<?php echo esc_attr( sanitize_title( $option['label'] ) . '-' . $loop ); ?>" data-price="<?php echo esc_attr( '<span class="wc-pao-addon-image-swatch-price">' . wptexturize( $option['label'] ) . ' ' . $price_display . '</span>' ); ?>">
-			<img src="<?php echo esc_url( $image_src[0] ? $image_src[0] : wc_placeholder_img_src() ); ?>" />
+		<a href="#" title="<?php echo esc_attr( $image_title ); ?>" class="wc-pao-addon-image-swatch" data-value="<?php echo esc_attr( sanitize_title( $option['label'] ) . '-' . $loop ); ?>" data-price="<?php echo esc_attr( ' <span class="wc-pao-addon-image-swatch-price">' . wptexturize( $option[ 'label' ] ) ); ?> <?php echo ! empty( $price_display ) ? esc_attr( '<span class="wc-pao-addon-price">' . wp_kses_post( $price_display ) . '</span>' ) : ''; ?>">
+			<img src="<?php echo esc_url( $image_src[0] ? $image_src[0] : wc_placeholder_img_src() ); ?>" alt="<?php echo wp_strip_all_tags( $image_title ); ?>" />
 		</a>
+
 <?php } ?>
 
-<select class="wc-pao-addon-image-swatch-select wc-pao-addon-field" name="addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>">
+<span class="wc-pao-addon-image-swatch-selected-swatch"></span>
+
+<select class="wc-pao-addon-image-swatch-select wc-pao-addon-field" name="addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>" id="addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>" data-restrictions="<?php echo esc_attr( json_encode( $restriction_data ) ); ?>"
+>
 	<?php if ( empty( $required ) ) { ?>
 		<option value=""><?php esc_html_e( 'None', 'woocommerce-product-addons' ); ?></option>
 	<?php } else { ?>
@@ -90,4 +97,4 @@ foreach ( $addon['options'] as $i => $option ) {
 	<?php } ?>
 
 </select>
-</p>
+</div>

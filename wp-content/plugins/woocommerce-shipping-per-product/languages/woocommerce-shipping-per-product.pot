@@ -2,10 +2,10 @@
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Shipping Per Product v2 2.4.1\n"
+"Project-Id-Version: WooCommerce Shipping Per Product v2 2.5.0\n"
 "Report-Msgid-Bugs-To: "
 "https://wordpress.org/support/plugin/woocommerce-shipping-per-product\n"
-"POT-Creation-Date: 2023-02-02 13:41:02+00:00\n"
+"POT-Creation-Date: 2023-02-14 18:57:22+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -174,7 +174,7 @@ msgid "A 2 digit country code, e.g. US. Leave blank to apply to all."
 msgstr ""
 
 #: includes/class-wc-shipping-per-product-admin.php:153
-msgid "A 2 digit state code, e.g. AL. Leave blank to apply to all."
+msgid "A state code, e.g. AL. Leave blank to apply to all."
 msgstr ""
 
 #: includes/class-wc-shipping-per-product-admin.php:154
@@ -334,6 +334,33 @@ msgstr ""
 #: includes/class-wc-shipping-per-product.php:99
 #: includes/class-wc-shipping-per-product.php:107
 msgid "Disabled, Enter an amount, e.g. 2.50, or a percentage, e.g. 5%."
+msgstr ""
+
+#: includes/class-wc-shipping-per-product.php:111
+msgid "Ignore Free Shipping"
+msgstr ""
+
+#: includes/class-wc-shipping-per-product.php:113
+msgid ""
+"If \"Free Shipping\" shipping method is enabled in the same zone as this "
+"\"Per Product\" method, it will not be offered as shipping option in the "
+"same package if this option is checked."
+msgstr ""
+
+#: includes/class-wc-shipping-per-product.php:115
+#: includes/class-wc-shipping-per-product.php:123
+msgid "Ignore"
+msgstr ""
+
+#: includes/class-wc-shipping-per-product.php:119
+msgid "Ignore Local Pickup"
+msgstr ""
+
+#: includes/class-wc-shipping-per-product.php:121
+msgid ""
+"If \"Local Pickup\" shipping method is enabled in the same zone as this "
+"\"Per Product\" method, it will not be offered as shipping option in the "
+"same package if this option is checked."
 msgstr ""
 
 #: woocommerce-shipping-per-product.php:43

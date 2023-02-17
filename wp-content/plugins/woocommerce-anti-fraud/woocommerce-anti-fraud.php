@@ -4,13 +4,13 @@
  * Plugin Name: WooCommerce Anti Fraud
  * Plugin URI: https://woocommerce.com/products/woocommerce-anti-fraud/
  * Description: Score each of your transactions, checking for possible fraud, using a set of advanced scoring rules.
- * Version: 5.0.0
+ * Version: 5.1.0
  * Author: OPMC Australia Pty Ltd
  * Author URI: https://opmc.biz/
  * Text Domain: woocommerce-anti-fraud
  * Domain Path: /languages
  * License: GPL v3
- * WC tested up to: 7.2
+ * WC tested up to: 7.3
  * WC requires at least: 2.6
  * Woo: 500217:955da0ce83ea5a44fc268eb185e46c41
  *
@@ -672,18 +672,135 @@ $loop->the_post();
 			require_once(dirname( __FILE__ ) . '/anti-fraud-core/class-wc-af-settings.php');
 		}
 		
+		/* Related to reCaptcha */
+
 		$wc_af_enable_recaptcha_checkout = get_option('wc_af_enable_recaptcha_checkout');
-		
+
+		$wc_af_enable_v2_recaptcha = get_option('wc_af_enable_v2_recaptcha');
 		$wc_af_recaptcha_site_key = get_option('wc_af_recaptcha_site_key');
-		
 		$wc_af_recaptcha_secret_key = get_option('wc_af_recaptcha_secret_key');
+
+		$wc_af_enable_v3_recaptcha = get_option('wc_af_enable_v3_recaptcha');
+		$wc_af_v3_recaptcha_site_key = get_option('wc_af_v3_recaptcha_site_key');
+		$wc_af_v3_recaptcha_secret_key = get_option('wc_af_v3_recaptcha_secret_key');
+
 		
-		if ( 'yes' == $wc_af_enable_recaptcha_checkout && !empty( $wc_af_recaptcha_site_key ) && !empty( $wc_af_recaptcha_secret_key ) ) {
+		if ( 'yes' == $wc_af_enable_recaptcha_checkout && 'yes' == $wc_af_enable_v2_recaptcha && !empty( $wc_af_recaptcha_site_key ) && !empty( $wc_af_recaptcha_secret_key ) ) {
 			
 			add_action('woocommerce_review_order_before_submit', array($this, 'wc_af_captcha_checkout_field'));
 			add_action('woocommerce_after_checkout_validation', array($this, 'wc_af_validate_captcha'), 10, 3);
+		
+		} else {
+
+			if ( 'yes' == $wc_af_enable_recaptcha_checkout && 'yes' == $wc_af_enable_v3_recaptcha &&  !empty( $wc_af_v3_recaptcha_site_key ) && !empty( $wc_af_v3_recaptcha_secret_key ) ) {
+
+				add_action('woocommerce_review_order_before_submit', array($this, 'recptcha_v3_request'));
+				add_action('woocommerce_after_checkout_validation', array($this, 'validate_v3_recaptcha'), 10, 3);
+				
+				add_action('wp_enqueue_scripts', array($this, 'wc_af_captcha_v3_script'), 9999);
+				add_action('login_enqueue_scripts', array($this, 'wc_af_captcha_v3_script'), 9999);
+			}
+		} /* Related to reCaptcha End */
+	}
+
+	public function wc_af_captcha_v3_script() {
+
+		$wc_af_enable_recaptcha_checkout = get_option('wc_af_enable_recaptcha_checkout');
+
+		$v3_site_key = get_option('wc_af_v3_recaptcha_site_key');
+		$v3_secret_key = get_option('wc_af_v3_recaptcha_secret_key');
+
+		$args = array(
+			'render' => $v3_site_key,
+		);
+		//$wc_af_recaptcha_site_key = get_option('wc_af_recaptcha_site_key');
+
+		//$wc_af_recaptcha_secret_key = get_option('wc_af_recaptcha_secret_key');
+
+		if ('yes' == $wc_af_enable_recaptcha_checkout && !empty($v3_site_key) && !empty($v3_secret_key) && is_checkout()) {
+		
+			wp_enqueue_script( 'wc-af-re-v3-captcha', add_query_arg( $args, 'https://www.google.com/recaptcha/api.js'), array(), '1.0' );
+			wp_enqueue_script('wc-af-re-v3-captcha');
 		}
 	}
+
+	/* Related to reCaptcha */
+	public function recptcha_v3_request() { 
+		$wc_af_v3_recaptcha_site_key = get_option('wc_af_v3_recaptcha_site_key');
+
+		?>
+			
+		<input type="hidden" name="googlerecaptchav3" id="wcafrecaptchav3checkout" class="g-recaptcha-response">
+
+		<script type="text/javascript">
+			var $n = jQuery.noConflict();
+			$n(document).ready(function() {
+			   $n(document).on('updated_checkout', function (e) {
+
+					e.preventDefault();
+					grecaptcha.ready(function() {
+						grecaptcha.execute('<?php echo esc_attr($wc_af_v3_recaptcha_site_key); ?>', {action: 'validate_v3_recaptcha'}).then(function(token) {
+							$n('#wcafrecaptchav3checkout').val(token);
+						});
+					});
+				});
+			});
+		</script>
+	<?php 
+	}
+
+	public function validate_v3_recaptcha( $fields, $validation_errors) {
+
+		$v3_secret_key = get_option('wc_af_v3_recaptcha_secret_key');
+		
+		if (wp_verify_nonce( isset($_REQUEST['_wpnonce']), 'my-nonce' ) ) {
+			return false;
+		}
+		$REMOTE_ADDR = '';
+		$captcha = '';
+		if (isset($_POST['googlerecaptchav3']) && !empty($_POST['googlerecaptchav3'])) {
+
+			$captcha = sanitize_text_field($_POST['googlerecaptchav3']);
+			
+			if (isset($_SERVER['REMOTE_ADDR']) && !empty($_POST['googlerecaptchav3'])) {
+
+				$REMOTE_ADDR = sanitize_text_field($_SERVER['REMOTE_ADDR']);
+			}
+
+			$response = file_get_contents(
+				'https://www.google.com/recaptcha/api/siteverify?secret=' . $v3_secret_key . '&response=' . $captcha . '&remoteip=' . $REMOTE_ADDR 
+			);
+
+			$response_data = json_decode($response, true);
+
+			if (is_array($response_data) && !is_wp_error($response_data) && isset($response_data['success'])) {
+
+				if (false == $response_data['success'] ) {
+					
+					$validation_errors->add('g-recaptcha_error', __('Invalid recaptcha.', 'woocommerce-anti-fraud'));
+				} else {
+
+		
+					if ($response_data['score'] <= 0.5) {
+						
+						$validation_errors->add('g-recaptcha_error', __('You are not a human, please refresh page.', 'woocommerce-anti-fraud'));
+					}
+
+					if (0!=3) {
+						
+						set_transient($nonce_value, 'yes', ( 3*60 ));
+					}
+				}
+
+			} else {
+				$validation_errors->add('g-recaptcha_error', __('Could not get response from recaptcha server, please refresh page.', 'woocommerce-anti-fraud'));
+			}
+		} else {
+			$validation_errors->add('g-recaptcha_error', __('Recaptcha not responding, please refresh page.', 'woocommerce-anti-fraud'));
+		}
+
+		return $validation_errors;
+	}	/* Related to reCaptcha End */
 
 	//Update order on paypal verification
 	public function paypal_verification() {
@@ -1123,6 +1240,32 @@ function max_order_same_ip( $fields, $errors) {
 				'date_before'         => $end_datetime_string,
 			)
 		);
+
+		$orders_count_email = wc_get_orders(
+			array(
+				'limit'               => -1,
+
+				'meta_key'      => '_billing_email', // Postmeta key field
+				'meta_value'    => isset($_POST[ 'billing_email' ]) ? sanitize_text_field($_POST['billing_email'] ) : '', // Postmeta value field
+				'meta_compare'  => '=', 
+				'type'                => wc_get_order_types( 'order-count' ),
+				'date_after'          => $start_datetime_string,
+				'date_before'         => $end_datetime_string,
+			)
+		);
+
+		$orders_count_phone = wc_get_orders(
+			array(
+				'limit'               => -1,
+				'meta_key'      => '_billing_phone', // Postmeta key field
+				'meta_value'    => isset($_POST[ 'billing_phone' ]) ? sanitize_text_field($_POST['billing_phone'] ) : '', // Postmeta value field
+				'meta_compare'  => '=',
+				'type'                => wc_get_order_types( 'order-count' ),
+				'date_after'          => $start_datetime_string,
+				'date_before'         => $end_datetime_string,
+			)
+		);
+
 		$order_count_user = wc_get_orders(
 			array(
 				'limit'               => -1,
@@ -1134,9 +1277,10 @@ function max_order_same_ip( $fields, $errors) {
 				'date_before'         => $end_datetime_string,
 			)
 		);
+
 		// Af_Logger::debug('Orders : '. print_r($orders_count, true));
 		Af_Logger::debug('Order Count : ' . count($orders_count_ip));
-		if (count($orders_count_ip) >= $max_orders || count($order_count_user) >= $max_orders) {
+		if (count($orders_count_ip) >= $max_orders || count($orders_count_email) >= $max_orders ||count($orders_count_phone) >= $max_orders) {
 			$errors->add( 'validation',
 			/* translators: %s: order time span */
 			 sprintf( esc_html__('You have reached maximum number of allowed orders in %d hours. Please try again later.', 'woocommerce-anti-fraud'), $time_stamp )

@@ -69,10 +69,12 @@ class WC_OD_Admin_List_Table_Orders extends WC_OD_Admin_List_Table {
 		 * Filters the position to add the delivery columns in the order list table.
 		 *
 		 * @since 2.4.0
+		 * @since 2.4.1 Add the table columns as a second argument.
 		 *
-		 * @param int $position The column position.
+		 * @param int   $position The column position.
+		 * @param array $columns  The table columns.
 		 */
-		$position = apply_filters( 'wc_od_admin_shop_order_columns_position', $position );
+		$position = apply_filters( 'wc_od_admin_shop_order_columns_position', $position, $columns );
 
 		return array_merge(
 			array_slice( $columns, 0, $position ),

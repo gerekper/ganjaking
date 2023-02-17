@@ -1,5 +1,12 @@
 *** WooCommerce Composite Products ***
 
+2023.02.16 - version 8.7.1
+* Fix - Fixed compatibility notices with Product Addons and Min/Max Quantities.
+
+2023.02.14 - version 8.7.0
+* Important - Composite Products is now compatible with Product Add-Ons v6+.
+* Fix - Fixed a fatal error that was triggered when displaying paged component options via AJAX.
+
 2023.01.03 - version 8.6.2
 * Feature - Supported importing/exporting of the Composite 'Aggregate Weight' option.
 

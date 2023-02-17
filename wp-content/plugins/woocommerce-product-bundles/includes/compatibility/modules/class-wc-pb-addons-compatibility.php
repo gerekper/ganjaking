@@ -14,11 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Product Addons Compatibility.
  *
- * @version  6.4.1
+ * @version  6.18.0
  */
 class WC_PB_Addons_Compatibility {
 
 	public static function init() {
+
+		// Add Addons script as a dependency to the Product Bundles script.
+		add_filter( 'woocommerce_pb_script_dependencies', array( __CLASS__, 'add_script_dependency' ), 10, 1 );
 
 		// Support for Product Addons.
 		add_action( 'woocommerce_bundled_product_add_to_cart', array( __CLASS__, 'addons_support' ), 10, 2 );
@@ -62,6 +65,21 @@ class WC_PB_Addons_Compatibility {
 			add_action( 'woocommerce_bundled_product_price_filters_added', array( __CLASS__, 'add_addon_price_zero_filter' ) );
 			add_action( 'woocommerce_bundled_product_price_filters_removed', array( __CLASS__, 'remove_addon_price_zero_filter' ) );
 		}
+	}
+
+	/**
+	 * Add Addons script as a dependency to the Product Bundles script.
+	 *
+	 * @since  6.16.0
+	 *
+	 * @param  array  add_script_dependency
+	 * @return array
+	 */
+	public static function add_script_dependency( $dependencies ) {
+
+		$dependencies[] = 'woocommerce-addons';
+		
+		return $dependencies;
 	}
 
 	/**

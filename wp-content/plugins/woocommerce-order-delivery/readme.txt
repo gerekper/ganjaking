@@ -4,7 +4,7 @@ Tags: woocommerce, delivery, date
 Requires PHP: 5.6
 Requires at least: 4.9
 Tested up to: 6.1
-Stable tag: 2.4.0
+Stable tag: 2.4.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 WC requires at least: 3.7
@@ -37,5 +37,5 @@ Visit our [Changelog](http://woocommerce.com/changelogs/woocommerce-order-delive
 
 == Upgrade Notice ==
 
-= 2.0 =
-2.0 is a major update. It is important that you make backups and ensure you have installed WC 3.5+, and optionally, WooCommerce Subscriptions 3.0+ before upgrading.
+= 2.4 =
+2.4 is a major update. It is important that you make backups and ensure you have installed WC 3.7+, and optionally, WooCommerce Subscriptions 3.0+ before upgrading.

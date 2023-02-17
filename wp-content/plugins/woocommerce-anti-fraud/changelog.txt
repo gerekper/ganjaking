@@ -1,5 +1,9 @@
 *** WooCommerce Anti Fraud ***
 
+2023-02-15 - version 5.1.0
+* Update: PLUGINS-1938 - Improve Too Many Order Attempts rule by checking other customer order details.
+* Add: PLUGINS-2003 - Add support for reCAPTCHA v3.
+
 2023-01-12 - version 5.0.0
 * Fix: PLUGINS-1954 - Large number of orders on website cause fatal error (memory limit).
 * New: PLUGINS-1971 - Check new orders only.

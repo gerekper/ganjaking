@@ -87,6 +87,11 @@ if ( ! class_exists( 'WC_OD_Admin', false ) ) {
 		 * @since 2.4.0
 		 */
 		public function setup_screen() {
+			// Not available in customizer.
+			if ( ! function_exists( 'wc_od_get_current_screen_id' ) ) {
+				include_once 'wc-od-admin-functions.php';
+			}
+
 			$screen_id = wc_od_get_current_screen_id();
 
 			if ( 'edit-shop_order' === $screen_id ) {

@@ -1,20 +1,71 @@
-# Copyright (C) 2021 WooCommerce
+# Copyright (C) 2023 Themesquad
 # This file is distributed under the GNU General Public License v3.0.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Quick View 1.5.0\n"
-"Report-Msgid-Bugs-To: "
-"https://wordpress.org/support/plugin/woocommerce-quick-view\n"
-"POT-Creation-Date: 2021-08-10 09:40:57+00:00\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"Project-Id-Version: WooCommerce Quick View 1.7.0\n"
+"Report-Msgid-Bugs-To: https://woocommerce.com/my-account/create-a-ticket/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: node-wp-i18n 1.2.3\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-02-13T11:42:20+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.7.1\n"
+"X-Domain: woocommerce-quick-view\n"
 
-#: templates/loop/quick-view-button.php:16 woocommerce-quick-view.php:85
+#. Plugin Name of the plugin
+msgid "WooCommerce Quick View"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://woocommerce.com/products/woocommerce-quick-view/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Let customers quick view products and add them to their cart from a lightbox. Supports variations."
+msgstr ""
+
+#. Author of the plugin
+msgid "Themesquad"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://themesquad.com/"
+msgstr ""
+
+#: src/Admin/Admin.php:39
+msgctxt "aria-label: settings link"
+msgid "View WooCommerce Quick View settings"
+msgstr ""
+
+#: src/Admin/Admin.php:40
+msgctxt "plugin action link"
+msgid "Settings"
+msgstr ""
+
+#: src/Admin/Admin.php:65
+msgctxt "aria-label: documentation link"
+msgid "View WooCommerce Quick View documentation"
+msgstr ""
+
+#: src/Admin/Admin.php:66
+msgctxt "plugin row link"
+msgid "Docs"
+msgstr ""
+
+#: src/Admin/Admin.php:72
+msgctxt "aria-label: support link"
+msgid "Open a support ticket at WooCommerce.com"
+msgstr ""
+
+#: src/Admin/Admin.php:73
+msgctxt "plugin row link"
+msgid "Support"
+msgstr ""
+
+#: templates/loop/quick-view-button.php:16
+#: woocommerce-quick-view.php:98
 msgid "Quick View"
 msgstr ""
 
@@ -22,55 +73,23 @@ msgstr ""
 msgid "View Full Details"
 msgstr ""
 
-#: woocommerce-quick-view.php:28
-#. translators: %s WC download URL link.
-msgid ""
-"Quick View requires WooCommerce to be installed and active. You can "
-"download %s here."
-msgstr ""
-
-#: woocommerce-quick-view.php:70
-msgid "Support"
-msgstr ""
-
-#: woocommerce-quick-view.php:71
-msgid "Docs"
-msgstr ""
-
-#: woocommerce-quick-view.php:93
+#: woocommerce-quick-view.php:106
 msgid "Quick View Trigger"
 msgstr ""
 
-#: woocommerce-quick-view.php:94
+#: woocommerce-quick-view.php:107
 msgid "Choose what event should trigger quick view"
 msgstr ""
 
-#: woocommerce-quick-view.php:97
+#: woocommerce-quick-view.php:110
 msgid "Quick View Button"
 msgstr ""
 
-#: woocommerce-quick-view.php:99
+#: woocommerce-quick-view.php:112
 msgid "Any non-ajax add to cart button"
 msgstr ""
 
-#. Plugin Name of the plugin/theme
-msgid "WooCommerce Quick View"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "https://woocommerce.com/products/woocommerce-quick-view/"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid ""
-"Let customers quick view products and add them to their cart from a "
-"lightbox. Supports variations."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "WooCommerce"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "https://woocommerce.com/"
+#. translators: %s WC download URL link.
+#: woocommerce-quick-view.php:287
+msgid "Quick View requires WooCommerce to be installed and active. You can download %s here."
 msgstr ""

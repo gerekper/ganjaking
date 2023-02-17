@@ -2,20 +2,18 @@
 /**
  * The Template for displaying checkbox field.
  *
- * @version 3.0.0
+ * @version 6.0.0
  * @package woocommerce-product-addons
  *
  * phpcs:disable WordPress.Security.NonceVerification.Missing
  */
 
 $addon_required = WC_Product_Addons_Helper::is_addon_required( $addon );
+?>
 
-if ( $addon_required ) {
-	?>
-	<div class="wc-pao-addon-checkbox-group-required">
-	<?php
-}
+<div class="form-row form-row-wide wc-pao-addon-wrap">
 
+<?php
 foreach ( $addon['options'] as $i => $option ) {
 	$option_price      = ! empty( $option['price'] ) ? $option['price'] : '';
 	$option_price_type = ! empty( $option['price_type'] ) ? $option['price_type'] : '';
@@ -25,6 +23,7 @@ foreach ( $addon['options'] as $i => $option ) {
 	$field_name        = ! empty( $addon['field_name'] ) ? $addon['field_name'] : '';
 	$option_label      = ( '0' === $option['label'] ) || ! empty( $option['label'] ) ? $option['label'] : '';
 	$price_display     = WC_Product_Addons_Helper::get_product_addon_price_for_display( $price_raw );
+	$restriction_data  = WC_Product_Addons_Helper::get_restriction_data( $addon );
 
 	if ( 'percentage_based' === $price_type ) {
 		$price_display     = $price_raw;
@@ -54,11 +53,11 @@ foreach ( $addon['options'] as $i => $option ) {
 	$option_id = sanitize_title( $field_name ) . '-' . $i;
 	?>
 
-	<p class="form-row form-row-wide wc-pao-addon-wrap wc-pao-addon-<?php echo esc_attr( sanitize_title( $field_name ) . '-' . $i ); ?>">
+	<div class="wc-pao-addon-<?php echo esc_attr( sanitize_title( $field_name ) . '-' . $i ); ?>">
 		<input
 			type="checkbox"
 			id="<?php echo esc_attr( $option_id ); ?>"
-			<?php echo $addon_required ? 'required' : ''; ?>
+			data-restrictions="<?php echo esc_attr( json_encode( $restriction_data ) ); ?>"
 			class="wc-pao-addon-field wc-pao-addon-checkbox"
 			name="addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>[]"
 			data-raw-price="<?php echo esc_attr( $price_raw ); ?>"
@@ -68,15 +67,9 @@ foreach ( $addon['options'] as $i => $option ) {
 			data-label="<?php echo esc_attr( wptexturize( $option_label ) ); ?>"
 		/>
 		<label for="<?php echo esc_attr( $option_id ); ?>">
-			<?php echo wp_kses_post( wptexturize( $option_label . ' ' . $price_for_display ) ); ?>
+			<?php echo wp_kses_post( wptexturize( $option_label ) ); ?> <?php echo ! empty( $price_for_display ) ? '<span class="wc-pao-addon-price">' . wp_kses_post( wptexturize( $price_for_display ) ) . '</span>' : ''; ?>
 		</label>
-	</p>
-	<?php
-}
-
-// div wc-pao-addon-checkbox-group-required.
-if ( $addon_required ) {
-	?>
 	</div>
-	<?php
-}
+<?php } ?>
+
+</div>

@@ -3,7 +3,7 @@
  * Plugin Name: reCaptcha for WooCommerce
  * Plugin URI: https://wordpress.org/plugins/woo-recpatcha
  * Description: Protect your eCommerce site with google recptcha.
- * Version: 2.40
+ * Version: 2.41
  * Author: I Thirteen Web Solution 
  * Author URI: https://www.i13websolution.com
  * WC requires at least: 3.2
@@ -405,9 +405,11 @@ class I13_Woo_Recpatcha {
 				if (isset($_POST) && is_array($_POST) && !empty($_POST) && isset($_POST[$contactFormHash])) {
 											
 						$form_err=sanitize_text_field(wp_unslash($_POST[$contactFormHash]));
+					if (''!=$form_err) {
 						$err_html .= "<div class='form-error'>\n<h3>" . __( 'Error!', 'jetpack' ) . "</h3>\n<ul class='form-errors'>\n";
-								$err_html .= "\t<li class='form-error-message'>" . esc_html( $form_err ) . "</li>\n";
+										$err_html .= "\t<li class='form-error-message'>" . esc_html( $form_err ) . "</li>\n";
 						$err_html .= "</ul>\n</div>\n\n";
+					}
 				}
 							
 				?>
@@ -420,11 +422,12 @@ class I13_Woo_Recpatcha {
 									/in/.test(document.readyState) ? setTimeout('intval_jetpack_froms_ready(' + f + ')', 9) : f()
 								 }
 
+														   var verifyCallback_jetpackform<?php echo esc_html($rand_char); ?>='';      
 							   var myCaptcha_jetpack_form<?php echo esc_html($rand_char); ?> = null;  
 							   intval_jetpack_froms_ready(function () { 
 
 														
-							var verifyCallback_jetpackform<?php echo esc_html($rand_char); ?> = function(response) {
+														   verifyCallback_jetpackform<?php echo esc_html($rand_char); ?> = function(response) {
 															
 																if(response.length!==0){
 																		   <?php if ('yes'==trim($disable_submit_btn)) : ?>
@@ -458,7 +461,7 @@ class I13_Woo_Recpatcha {
 											<?php 
 											if ('yes'!=$i13_recapcha_hide_label_woo_jetpack) :
 												?>
-												<label for="payment_method_captcha"><?php echo esc_html(__('Captcha', 'recaptcha-for-woocommerce')); ?>&nbsp;<span class="required">*</span></label>
+												<label for="g-recaptcha-jetpack-method"><?php echo esc_html(__('Captcha', 'recaptcha-for-woocommerce')); ?>&nbsp;<span class="required">*</span></label>
 												<?php 
 					endif; 
 											?>
@@ -469,7 +472,7 @@ class I13_Woo_Recpatcha {
 								<?php 
 								if ('yes'!=$i13_recapcha_hide_label_woo_jetpack) :
 									?>
-																		<label for="payment_method_captcha"><?php echo esc_html($captcha_lable); ?>&nbsp;<span class="required"></span></label>
+																		<label for="g-recaptcha-jetpack-method-<?php echo esc_html($rand_char); ?>"><?php echo esc_html($captcha_lable); ?>&nbsp;<span class="required"></span></label>
 									<?php 
 								endif; 
 								?>
@@ -585,9 +588,11 @@ class I13_Woo_Recpatcha {
 				if (isset($_POST) && is_array($_POST) && !empty($_POST) && isset($_POST[$_POST['contact-form-hash']])) {
 
 						$form_err=sanitize_text_field(wp_unslash($_POST[$contactFormHash]));
+					if (''!=$form_err) {
 						$err_html .= "<div class='form-error'>\n<h3>" . __( 'Error!', 'jetpack' ) . "</h3>\n<ul class='form-errors'>\n";
-								$err_html .= "\t<li class='form-error-message'>" . esc_html( $form_err ) . "</li>\n";
+										$err_html .= "\t<li class='form-error-message'>" . esc_html( $form_err ) . "</li>\n";
 						$err_html .= "</ul>\n</div>\n\n";
+					}
 				}
 				?>
 						
@@ -605,8 +610,11 @@ class I13_Woo_Recpatcha {
 
 																							grecaptcha.execute('<?php echo esc_html($site_key); ?>', { action: '<?php echo esc_html($i13_recapcha_action_v3); ?>' }).then(function (token) {
 
-																									var recaptchaResponse = document.getElementById('i13_recaptcha_jetpack_method_token');
-																									recaptchaResponse.value = token;
+																							  if(jQuery("[name=contact-form-hash][value=<?php echo esc_html($contactFormHash); ?>]").closest("form").find("#i13_recaptcha_jetpack_method_token").length >0){
+
+																																																jQuery("[name=contact-form-hash][value=<?php echo esc_html($contactFormHash); ?>]").closest("form").find("#i13_recaptcha_jetpack_method_token").val(token)
+																																															}
+
 																							}, function (reason) {
 
 																							});
@@ -619,8 +627,10 @@ class I13_Woo_Recpatcha {
 
 																												grecaptcha.execute('<?php echo esc_html($site_key); ?>', { action: '<?php echo esc_html($i13_recapcha_action_v3); ?>' }).then(function (token) {
 
-																												var recaptchaResponse = document.getElementById('i13_recaptcha_jetpack_method_token');
-																												recaptchaResponse.value = token;
+																																																									  if(jQuery("[name=contact-form-hash][value=<?php echo esc_html($contactFormHash); ?>]").closest("form").find("#i13_recaptcha_jetpack_method_token").length >0){
+
+																																																											jQuery("[name=contact-form-hash][value=<?php echo esc_html($contactFormHash); ?>]").closest("form").find("#i13_recaptcha_jetpack_method_token").val(token)
+																																																										}
 																												});
 
 																								  }, 40 * 1000); 
@@ -630,8 +640,12 @@ class I13_Woo_Recpatcha {
 																																 var frm = this;
 																																 e.preventDefault();
 																																 grecaptcha.execute('<?php echo esc_html($site_key); ?>', { action: '<?php echo esc_html($i13_recapcha_action_v3); ?>' }).then(function (token) {
-																																  var recaptchaResponse = document.getElementById('i13_recaptcha_jetpack_method_token');
-																																   recaptchaResponse.value = token;
+																																  
+																																																																	 if(jQuery("[name=contact-form-hash][value=<?php echo esc_html($contactFormHash); ?>]").closest("form").find("#i13_recaptcha_jetpack_method_token").length >0){
+
+																																																																			jQuery("[name=contact-form-hash][value=<?php echo esc_html($contactFormHash); ?>]").closest("form").find("#i13_recaptcha_jetpack_method_token").val(token)
+																																																																		}
+
 																																   frm.submit();
 																																 }, function (reason) {
 
@@ -817,7 +831,7 @@ class I13_Woo_Recpatcha {
 					<?php
 					if ('yes' != $i13_recapcha_hide_label_checkout) :
 						?>
-							<label for="reg_captcha"><?php echo esc_html(( '' == trim($captcha_lable) ) ? __('Captcha', 'recaptcha-for-woocommerce') : esc_html($captcha_lable)); ?>&nbsp;<span class="required">*</span></label>
+							<label for="g-recaptcha-checkout-i13"><?php echo esc_html(( '' == trim($captcha_lable) ) ? __('Captcha', 'recaptcha-for-woocommerce') : esc_html($captcha_lable)); ?>&nbsp;<span class="required">*</span></label>
 						<?php
 					endif;
 					?>
@@ -931,7 +945,7 @@ class I13_Woo_Recpatcha {
 					<?php
 					if ('yes' != $i13_recapcha_hide_label_checkout) :
 						?>
-							<label for="reg_captcha"><?php echo esc_html(( '' == trim($captcha_lable) ) ? __('Captcha', 'recaptcha-for-woocommerce') : esc_html($captcha_lable)); ?>&nbsp;<span class="required">*</span></label>
+							<label for="g-recaptcha-checkout-i13"><?php echo esc_html(( '' == trim($captcha_lable) ) ? __('Captcha', 'recaptcha-for-woocommerce') : esc_html($captcha_lable)); ?>&nbsp;<span class="required">*</span></label>
 						<?php
 					endif;
 					?>
@@ -1581,7 +1595,7 @@ class I13_Woo_Recpatcha {
 				<?php
 				if ('yes' != $i13_recapcha_hide_label_login) :
 					?>
-						<label for="comment_captcha"><?php echo esc_html(( '' == trim($captcha_lable) ) ? __('Captcha', 'recaptcha-for-woocommerce') : esc_html($captcha_lable)); ?>&nbsp;<span class="required">*</span></label>
+						<label for="g-recaptcha-comment-i13"><?php echo esc_html(( '' == trim($captcha_lable) ) ? __('Captcha', 'recaptcha-for-woocommerce') : esc_html($captcha_lable)); ?>&nbsp;<span class="required">*</span></label>
 					<?php
 				endif;
 				?>
@@ -1812,7 +1826,7 @@ class I13_Woo_Recpatcha {
 				<?php
 				if ('yes' != $i13_recapcha_hide_label_login) :
 					?>
-						<label for="review_captcha"><?php echo esc_html(( '' == trim($captcha_lable) ) ? __('Captcha', 'recaptcha-for-woocommerce') : esc_html($captcha_lable)); ?>&nbsp;<span class="required">*</span></label>
+						<label for="g-recaptcha-review-i13"><?php echo esc_html(( '' == trim($captcha_lable) ) ? __('Captcha', 'recaptcha-for-woocommerce') : esc_html($captcha_lable)); ?>&nbsp;<span class="required">*</span></label>
 					<?php
 				endif;
 				?>
@@ -3796,7 +3810,7 @@ class I13_Woo_Recpatcha {
 
 				<div class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">   
 				<?php if ('yes' != $i13_recapcha_hide_label_addpayment) : ?>
-						<label for="payment_method_captcha">
+						<label for="g-recaptcha-payment-method">
 					<?php echo esc_html(__('Captcha', 'recaptcha-for-woocommerce')); ?>&nbsp;<span class="required">*</span>
 						</label><?php endif; ?>
 					<div id="g-recaptcha-payment-method" name="g-recaptcha-payment-method"  data-callback="verifyCallback_add_payment_method" data-sitekey="<?php echo esc_html($site_key); ?>" data-theme="<?php echo esc_html($theme); ?>" data-size="<?php echo esc_html($size); ?>">
@@ -4077,7 +4091,7 @@ class I13_Woo_Recpatcha {
 						<?php
 						if ('yes' != $i13_recapcha_hide_label_addpayment) :
 							?>
-						<label for="payment_method_captcha"><?php echo esc_html(__('Captcha', 'recaptcha-for-woocommerce')); ?>&nbsp;<span class="required">*</span></label>
+						<label for="g-recaptcha-payment-method"><?php echo esc_html(__('Captcha', 'recaptcha-for-woocommerce')); ?>&nbsp;<span class="required">*</span></label>
 							<?php
 					endif;
 						?>
@@ -4087,7 +4101,7 @@ class I13_Woo_Recpatcha {
 						<?php
 						if ('yes' != $i13_recapcha_hide_label_addpayment) :
 							?>
-							<label for="payment_method_captcha"><?php echo esc_html($captcha_lable); ?>&nbsp;<span class="required">*</span></label>
+							<label for="g-recaptcha-payment-method"><?php echo esc_html($captcha_lable); ?>&nbsp;<span class="required">*</span></label>
 							<?php
 						endif;
 						?>
@@ -4492,7 +4506,7 @@ class I13_Woo_Recpatcha {
 					<?php
 					if ('yes' != $i13_recapcha_hide_label_signup) :
 						?>
-							<label for="reg_captcha"><?php echo esc_html(( '' == trim($captcha_lable) ) ? esc_html(__('Captcha', 'recaptcha-for-woocommerce')) : esc_html($captcha_lable)); ?>&nbsp;<span class="required">*</span></label>
+							<label for="<?php echo esc_html($unique_id); ?>"><?php echo esc_html(( '' == trim($captcha_lable) ) ? esc_html(__('Captcha', 'recaptcha-for-woocommerce')) : esc_html($captcha_lable)); ?>&nbsp;<span class="required">*</span></label>
 					<?php endif; ?>
 					<div id="<?php echo esc_html($unique_id); ?>" name="g-recaptcha-register-i13" class="g-recaptcha-register-i13" data-callback="verifyCallback_woo_signup" data-sitekey="<?php echo esc_html($site_key); ?>" data-theme="<?php echo esc_html($theme); ?>" data-size="<?php echo esc_html($size); ?>" ></div>
 					<input type="hidden" value="" name="i13_recaptcha_register_token_v2" id="i13_recaptcha_register_token_v2"  />
@@ -4504,7 +4518,7 @@ class I13_Woo_Recpatcha {
 
 							<legend id="field_captcha">
 					<?php if ('yes' != $i13_recapcha_hide_label_signup) : ?>
-									<label for="reg_captcha"><?php echo esc_html(( '' == trim($captcha_lable) ) ? esc_html(__('Captcha', 'recaptcha-for-woocommerce')) : esc_html($captcha_lable)); ?>&nbsp;<span class="required">*</span></label>
+									<label for="<?php echo esc_html($unique_id); ?>"><?php echo esc_html(( '' == trim($captcha_lable) ) ? esc_html(__('Captcha', 'recaptcha-for-woocommerce')) : esc_html($captcha_lable)); ?>&nbsp;<span class="required">*</span></label>
 					<?php endif; ?>				
 							</legend>
 							<div id="<?php echo esc_html($unique_id); ?>" name="g-recaptcha-register-i13" class="g-recaptcha-register-i13" data-callback="verifyCallback_woo_signup" data-sitekey="<?php echo esc_html($site_key); ?>" data-theme="<?php echo esc_html($theme); ?>" data-size="<?php echo esc_html($size); ?>" ></div>
@@ -4874,7 +4888,7 @@ class I13_Woo_Recpatcha {
 				<?php
 				if ('yes' != $i13_recapcha_hide_label_checkout) :
 					?>
-						<label for="reg_captcha"><?php echo esc_html(( '' == trim($captcha_lable) ) ? __('Captcha', 'recaptcha-for-woocommerce') : esc_html($captcha_lable)); ?>&nbsp;<span class="required">*</span></label>
+						<label for="g-recaptcha-checkout-i13"><?php echo esc_html(( '' == trim($captcha_lable) ) ? __('Captcha', 'recaptcha-for-woocommerce') : esc_html($captcha_lable)); ?>&nbsp;<span class="required">*</span></label>
 					<?php
 				endif;
 				?>
@@ -5031,7 +5045,7 @@ class I13_Woo_Recpatcha {
 				<?php
 				if ('yes' != $i13_recapcha_hide_label_checkout) :
 					?>
-						<label for="reg_captcha"><?php echo esc_html(( '' == trim($captcha_lable) ) ? __('Captcha', 'recaptcha-for-woocommerce') : esc_html($captcha_lable)); ?>&nbsp;<span class="required">*</span></label>
+						<label for="g-recaptcha-checkout-i13"><?php echo esc_html(( '' == trim($captcha_lable) ) ? __('Captcha', 'recaptcha-for-woocommerce') : esc_html($captcha_lable)); ?>&nbsp;<span class="required">*</span></label>
 					<?php
 				endif;
 				?>
@@ -5331,7 +5345,7 @@ class I13_Woo_Recpatcha {
 				<?php
 				if ('yes' != $i13_recapcha_hide_label_login) :
 					?>
-						<label for="login_captcha"><?php echo esc_html(( '' == trim($captcha_lable) ) ? __('Captcha', 'recaptcha-for-woocommerce') : esc_html($captcha_lable)); ?>&nbsp;<span class="required">*</span></label>
+						<label for="<?php echo esc_html($unique_id); ?>"><?php echo esc_html(( '' == trim($captcha_lable) ) ? __('Captcha', 'recaptcha-for-woocommerce') : esc_html($captcha_lable)); ?>&nbsp;<span class="required">*</span></label>
 					<?php
 				endif;
 				?>
@@ -5808,7 +5822,7 @@ class I13_Woo_Recpatcha {
 				<?php
 				if ('yes' != $i13_recapcha_hide_label_checkout) :
 					?>
-						<label for="reg_captcha"><?php echo esc_html(( '' == trim($captcha_lable) ) ? __('Captcha', 'recaptcha-for-woocommerce') : esc_html($captcha_lable)); ?>&nbsp;<span class="required">*</span></label>
+						<label for="g-recaptcha-checkout-i13"><?php echo esc_html(( '' == trim($captcha_lable) ) ? __('Captcha', 'recaptcha-for-woocommerce') : esc_html($captcha_lable)); ?>&nbsp;<span class="required">*</span></label>
 					<?php
 				endif;
 				?>
@@ -6083,11 +6097,11 @@ class I13_Woo_Recpatcha {
 				<?php
 				if ('yes' != $i13_recapcha_hide_label_lostpassword) :
 					?>
-						<label for="lostpassword_captcha"><?php echo esc_html(( '' == trim($captcha_lable) ) ? __('Captcha', 'recaptcha-for-woocommerce') : esc_html($captcha_lable)); ?>&nbsp;<span class="required">*</span></label>
+						<label for="g-recaptcha-lostpassword-i13"><?php echo esc_html(( '' == trim($captcha_lable) ) ? __('Captcha', 'recaptcha-for-woocommerce') : esc_html($captcha_lable)); ?>&nbsp;<span class="required">*</span></label>
 					<?php
 				endif;
 				?>
-				<div name="g-recaptcha-lostpassword-i13" class="g-recaptcha" data-callback="verifyCallback_woo_lostpassword"  data-sitekey="<?php echo esc_html($site_key); ?>" data-theme="<?php echo esc_html($theme); ?>" data-size="<?php echo esc_html($size); ?>"></div>
+				<div id="g-recaptcha-lostpassword-i13" name="g-recaptcha-lostpassword-i13" class="g-recaptcha" data-callback="verifyCallback_woo_lostpassword"  data-sitekey="<?php echo esc_html($site_key); ?>" data-theme="<?php echo esc_html($theme); ?>" data-size="<?php echo esc_html($size); ?>"></div>
 
 
 				</p>
@@ -6317,7 +6331,7 @@ class I13_Woo_Recpatcha {
 					<?php
 				endif;
 				?>
-				<div name="g-recaptcha-wp-login-i13" class="g-recaptcha" data-callback="verifyCallback_wp_login"  data-sitekey="<?php echo esc_html($site_key); ?>" data-theme="<?php echo esc_html($theme); ?>" data-size="<?php echo esc_html($size); ?>"></div>
+				<div id="g-recaptcha-wp-login-i13" name="g-recaptcha-wp-login-i13" class="g-recaptcha" data-callback="verifyCallback_wp_login"  data-sitekey="<?php echo esc_html($site_key); ?>" data-theme="<?php echo esc_html($theme); ?>" data-size="<?php echo esc_html($size); ?>"></div>
 				<br/>
 
 
@@ -6544,7 +6558,7 @@ class I13_Woo_Recpatcha {
 					<?php
 				endif;
 				?>
-				<div name="g-recaptcha-wp-lostpassword-i13" data-callback="verifyCallback_woo_lost_password"  class="g-recaptcha" data-sitekey="<?php echo esc_html($site_key); ?>" data-theme="<?php echo esc_html($theme); ?>" data-size="<?php echo esc_html($size); ?>"></div>
+				<div id="g-recaptcha-wp-lostpassword-i13" name="g-recaptcha-wp-lostpassword-i13" data-callback="verifyCallback_woo_lost_password"  class="g-recaptcha" data-sitekey="<?php echo esc_html($site_key); ?>" data-theme="<?php echo esc_html($theme); ?>" data-size="<?php echo esc_html($size); ?>"></div>
 				<br/>
 
 				</p>
@@ -6748,7 +6762,7 @@ class I13_Woo_Recpatcha {
 					<?php
 				endif;
 				?>
-				<div name="g-recaptcha-wp-register-i13" class="g-recaptcha" data-callback="verifyCallback_wp_register"  data-sitekey="<?php echo esc_html($site_key); ?>" data-theme="<?php echo esc_html($theme); ?>" data-size="<?php echo esc_html($size); ?>"></div>
+				<div id="g-recaptcha-wp-register-i13" name="g-recaptcha-wp-register-i13" class="g-recaptcha" data-callback="verifyCallback_wp_register"  data-sitekey="<?php echo esc_html($site_key); ?>" data-theme="<?php echo esc_html($theme); ?>" data-size="<?php echo esc_html($size); ?>"></div>
 				<br/>
 
 
@@ -7590,7 +7604,7 @@ class I13_Woo_Recpatcha {
 							<?php
 							if ('yes' != $i13_recapcha_hide_label_addpayment) :
 								?>
-								<label for="payment_method_captcha"><?php echo esc_html(__('Captcha', 'recaptcha-for-woocommerce')); ?>&nbsp;<span class="required">*</span></label>
+								<label for="g-recaptcha-order-track-method"><?php echo esc_html(__('Captcha', 'recaptcha-for-woocommerce')); ?>&nbsp;<span class="required">*</span></label>
 								<?php
 							endif;
 							?>
@@ -7600,7 +7614,7 @@ class I13_Woo_Recpatcha {
 								<?php
 								if ('yes' != $i13_recapcha_hide_label_addpayment) :
 									?>
-																																  <label for="tracking_method_captcha"><?php echo esc_html($captcha_lable); ?>&nbsp;<span class="required">*</span></label>
+																																  <label for="g-recaptcha-order-track-method"><?php echo esc_html($captcha_lable); ?>&nbsp;<span class="required">*</span></label>
 									<?php
 								endif;
 								?>

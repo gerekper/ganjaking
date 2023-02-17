@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Setup admin hooks.
  *
  * @class    WC_CP_Admin
- * @version  8.6.1
+ * @version  8.7.0
  */
 class WC_CP_Admin {
 
@@ -24,7 +24,7 @@ class WC_CP_Admin {
 	 *
 	 * @var string
 	 */
-	private static $bundled_selectsw_version = '1.2.0';
+	private static $bundled_selectsw_version = '1.2.1';
 
 	/**
 	 * Setup admin hooks.

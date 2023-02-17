@@ -1,4 +1,9 @@
 <?php 
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 class WorldPayHosted_Logo_Widget extends WP_Widget {
 
 	public function __construct() {

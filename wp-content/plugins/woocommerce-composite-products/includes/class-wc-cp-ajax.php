@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Composited Products AJAX Handlers.
  *
  * @class    WC_CP_AJAX
- * @version  8.1.4
+ * @version  8.7.0
  */
 class WC_CP_AJAX {
 
@@ -81,18 +81,30 @@ class WC_CP_AJAX {
 			$query_args[ 'options_in_scenarios' ] = wc_clean( $_POST[ 'options_in_scenarios' ] );
 		}
 
-		$component                 = $product->get_component( $component_id );
-		$component_options_data    = $component->view->get_options_data( $query_args );
-		$component_pagination_data = $component->view->get_pagination_data();
-		$component_scenario_data   = $product->get_current_scenario_data( array( $component_id ) );
+		$component = $product->get_component( $component_id );
 
-		wp_send_json( array(
-			'result'                   => 'success',
-			'options_data'             => $component_options_data,
-			'scenario_data'            => $component_scenario_data[ 'scenario_data' ][ $component_id ],
-			'conditional_options_data' => $component_scenario_data[ 'conditional_options_data' ][ $component_id ],
-			'pagination_data'          => $component_pagination_data
-		) );
+		if ( ! is_null( $component ) ) {
+
+			$component_options_data    = $component->view->get_options_data( $query_args );
+			$component_pagination_data = $component->view->get_pagination_data();
+			$component_scenario_data   = $product->get_current_scenario_data( array( $component_id ) );
+
+			wp_send_json( array(
+				'result'                   => 'success',
+				'options_data'             => $component_options_data,
+				'scenario_data'            => $component_scenario_data[ 'scenario_data' ][ $component_id ],
+				'conditional_options_data' => $component_scenario_data[ 'conditional_options_data' ][ $component_id ],
+				'pagination_data'          => $component_pagination_data
+			) );
+
+		} else {
+
+			wp_send_json( array(
+				'result'  => 'failure',
+				'message' => __( 'Looks like something went wrong. Please refresh the page and try again.', 'woocommerce-composite-products' )
+			) );
+		}
+
 	}
 
 	/**

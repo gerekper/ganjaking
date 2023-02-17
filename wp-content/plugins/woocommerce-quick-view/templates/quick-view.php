@@ -48,7 +48,7 @@ do_action( 'wc_quick_view_before_single_product' );
 			do_action( 'woocommerce_single_product_summary' );
 			?>
 		</div>
-		<a class="quick-view-detail-button button alt images" href="<?php echo esc_attr( get_permalink( $product->get_id() ) ); ?>"><?php esc_attr_e( 'View Full Details', 'wc_quick_view' ); ?></a>
+		<a class="quick-view-detail-button button alt images" href="<?php echo esc_attr( get_permalink( $product->get_id() ) ); ?>"><?php esc_attr_e( 'View Full Details', 'woocommerce-quick-view' ); ?></a>
 	</div>
 </div>
 

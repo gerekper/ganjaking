@@ -333,6 +333,42 @@ class WC_Product_Addons_Helper {
 	}
 
 	/**
+	 * Get addon restriction data
+	 *
+	 * @param array $addon Add-on field data.
+	 */
+	public static function get_restriction_data( $addon ) {
+
+		$restriction_data = array();
+
+		if ( isset( $addon[ 'required' ] ) && 1 === $addon[ 'required' ] ) {
+			$restriction_data[ 'required' ] = 'yes';
+		}
+
+		if ( isset( $addon[ 'restrictions_type' ] ) && 'any_text' !== $addon[ 'restrictions_type' ] ) {
+			$restriction_data[ 'content' ] = $addon[ 'restrictions_type' ];
+		}
+
+		if (  isset( $addon[ 'min' ] ) && '' !== $addon[ 'min' ] && $addon[ 'min' ] > 0 ) {
+			$restriction_data[ 'min' ] = $addon[ 'min' ];
+		}
+
+		if (  isset( $addon[ 'max' ] ) && '' !== $addon[ 'max' ] && $addon[ 'max' ] > 0 ) {
+			$restriction_data[ 'max' ] = $addon[ 'max' ];
+		}
+
+		/**
+		 * Use this filter to modify the addon restriction data.
+		 *
+		 * @since 6.0.0
+		 *
+		 * @param  array  $restriction_data
+		 * @param  array  $addon
+		 */
+		return apply_filters( 'wc_pao_restriction_data', $restriction_data, $addon );
+	}
+
+	/**
 	 * Checks WC version for backwards compatibility.
 	 *
 	 * @since 3.0.0

@@ -2,19 +2,19 @@
 /**
  * The Template for displaying custom price field.
  *
- * @version 3.0.0
+ * @version 6.0.0
  * @package woocommerce-product-addons
  */
 
 $field_name       = ! empty( $addon['field_name'] ) ? $addon['field_name'] : '';
 $addon_key        = 'addon-' . sanitize_title( $field_name );
-$is_required      = WC_Product_Addons_Helper::is_addon_required( $addon );
 $has_restrictions = ! empty( $addon['restrictions'] );
-$max              = ! empty( $addon['max'] ) ? $addon['max'] : '';
 $min              = $addon['min'] > 0 ? $addon['min'] : 0;
+$restriction_data = WC_Product_Addons_Helper::get_restriction_data( $addon );
+
 ?>
 
-<p class="form-row form-row-wide wc-pao-addon-wrap wc-pao-addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>">
+<div class="form-row form-row-wide wc-pao-addon-wrap wc-pao-addon-<?php echo esc_attr( sanitize_title( $field_name ) ); ?>">
 	<input
 		type="number"
 		step="any"
@@ -22,9 +22,6 @@ $min              = $addon['min'] > 0 ? $addon['min'] : 0;
 		name="<?php echo esc_attr( $addon_key ); ?>"
 		id="<?php echo esc_attr( $addon_key ); ?>"
 		data-price-type="flat_fee"
-		<?php echo $is_required ? 'required' : ''; ?>
-		<?php echo $has_restrictions && '' !== $max ? 'max="' . esc_attr( $max ) . '"' : ''; ?>
-		<?php echo $has_restrictions ? 'min="' . esc_attr( $min ) . '"' : ''; ?>
-		<?php echo $has_restrictions ? 'oninput="this.value = this.value < 0 ? Math.abs(this.value) : this.value"' : ''; ?>
+		data-restrictions="<?php echo esc_attr( json_encode( $restriction_data ) ) ?>"
 	/>
-</p>
+</div>

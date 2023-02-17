@@ -21,13 +21,14 @@ class WC_Product_Addons_Display {
 	public function __construct() {
 		// Styles.
 		add_action( 'wp_enqueue_scripts', array( $this, 'styles' ) );
-		add_action( 'wc_quick_view_enqueue_scripts', array( $this, 'addon_scripts' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'quick_view_single_compat' ) );
+		add_action( 'wc_quick_view_enqueue_scripts', array( $this, 'quick_view_single_compat' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'addon_scripts' ), 9 );
 
 		// Addon display.
 		add_action( 'woocommerce_before_add_to_cart_button', array( $this, 'display' ), 10 );
 		add_action( 'woocommerce_before_variations_form', array( $this, 'reposition_display_for_variable_product' ), 10 );
 		add_action( 'woocommerce_product_addons_end', array( $this, 'totals' ), 10 );
+		add_action( 'woocommerce_product_addons_end', array( $this, 'notices' ), 15 );
 
 		// Change buttons/cart urls.
 		add_filter( 'add_to_cart_text', array( $this, 'add_to_cart_text' ), 15 );
@@ -79,21 +80,33 @@ class WC_Product_Addons_Display {
 		wp_enqueue_script( 'woocommerce-addons', WC_PRODUCT_ADDONS_PLUGIN_URL . '/assets/js/frontend/addons' . $suffix . '.js', array( 'jquery', 'accounting' ), WC_PRODUCT_ADDONS_VERSION, true );
 
 		$params = array(
-			'price_display_suffix'         => esc_attr( get_option( 'woocommerce_price_display_suffix' ) ),
-			'tax_enabled'                  => wc_tax_enabled(),
-			'price_include_tax'            => 'yes' === esc_attr( get_option( 'woocommerce_prices_include_tax' ) ),
-			'display_include_tax'          => ( wc_tax_enabled() && 'incl' === esc_attr( get_option( 'woocommerce_tax_display_shop' ) ) ) ? true : false,
-			'ajax_url'                     => WC()->ajax_url(),
-			'i18n_sub_total'               => esc_attr__( 'Subtotal', 'woocommerce-product-addons' ),
-			'i18n_remaining'               => esc_attr( sprintf( __( '%s characters remaining', 'woocommerce-product-addons' ), '<span></span>' ) ),
-			'currency_format_num_decimals' => absint( get_option( 'woocommerce_price_num_decimals' ) ),
-			'currency_format_symbol'       => get_woocommerce_currency_symbol(),
-			'currency_format_decimal_sep'  => esc_attr( wp_unslash( get_option( 'woocommerce_price_decimal_sep' ) ) ),
-			'currency_format_thousand_sep' => esc_attr( wp_unslash( get_option( 'woocommerce_price_thousand_sep' ) ) ),
-			'trim_trailing_zeros'          => apply_filters( 'woocommerce_price_trim_zeros', false ),
-			'is_bookings'                  => class_exists( 'WC_Bookings' ),
-			'trim_user_input_characters'   => $this->show_num_chars,
-			'quantity_symbol'              => 'x ',
+			'price_display_suffix'                     => esc_attr( get_option( 'woocommerce_price_display_suffix' ) ),
+			'tax_enabled'                              => wc_tax_enabled(),
+			'price_include_tax'                        => 'yes' === esc_attr( get_option( 'woocommerce_prices_include_tax' ) ),
+			'display_include_tax'                      => ( wc_tax_enabled() && 'incl' === esc_attr( get_option( 'woocommerce_tax_display_shop' ) ) ) ? true : false,
+			'ajax_url'                                 => WC()->ajax_url(),
+			'i18n_validation_required_select'          => __( 'Please choose an option.', 'woocommerce-product-addons' ),
+			'i18n_validation_required_input'           => __( 'Please enter some text in this field.', 'woocommerce-product-addons' ),
+			'i18n_validation_required_number'          => __( 'Please enter a number in this field.', 'woocommerce-product-addons' ),
+			'i18n_validation_required_file'            => __( 'Please upload a file.', 'woocommerce-product-addons' ),
+			'i18n_validation_letters_only'             => __( 'Please enter letters only.', 'woocommerce-product-addons' ),
+			'i18n_validation_numbers_only'             => __( 'Please enter numbers only.', 'woocommerce-product-addons' ),
+			'i18n_validation_letters_and_numbers_only' => __( 'Please enter letters and numbers only.', 'woocommerce-product-addons' ),
+			'i18n_validation_email_only'               => __( 'Please enter a valid email address.', 'woocommerce-product-addons' ),
+			'i18n_validation_min_characters'           => sprintf( __( 'Please enter at least %1$s characters.', 'woocommerce-product-addons' ), '%c' ),
+			'i18n_validation_max_characters'           => sprintf( __( 'Please enter up to %1$s characters.', 'woocommerce-product-addons' ), '%c' ),
+			'i18n_validation_min_number'               => sprintf( __( 'Please enter %1$s or more.', 'woocommerce-product-addons' ), '%c' ),
+			'i18n_validation_max_number'               => sprintf( __( 'Please enter %1$s or less.', 'woocommerce-product-addons' ), '%c' ),
+			'i18n_sub_total'                           => esc_attr__( 'Subtotal', 'woocommerce-product-addons' ),
+			'i18n_remaining'                           => esc_attr( sprintf( __( '%s characters remaining', 'woocommerce-product-addons' ), '<span></span>' ) ),
+			'currency_format_num_decimals'             => absint( get_option( 'woocommerce_price_num_decimals' ) ),
+			'currency_format_symbol'                   => get_woocommerce_currency_symbol(),
+			'currency_format_decimal_sep'              => esc_attr( wp_unslash( get_option( 'woocommerce_price_decimal_sep' ) ) ),
+			'currency_format_thousand_sep'             => esc_attr( wp_unslash( get_option( 'woocommerce_price_thousand_sep' ) ) ),
+			'trim_trailing_zeros'                      => apply_filters( 'woocommerce_price_trim_zeros', false ),
+			'is_bookings'                              => class_exists( 'WC_Bookings' ),
+			'trim_user_input_characters'               => $this->show_num_chars,
+			'quantity_symbol'                          => 'x ',
 		);
 
 		// If the customer is tax exempt then always display prices excluding tax.
@@ -212,7 +225,7 @@ class WC_Product_Addons_Display {
 	}
 
 	/**
-	 * Update totals to include prduct add-ons.
+	 * Update totals to include product add-ons.
 	 *
 	 * @param int $post_id Post ID.
 	 */
@@ -244,6 +257,15 @@ class WC_Product_Addons_Display {
 		$show_incomplete_subtotal = isset(get_option('product_addons_options')['show-incomplete-subtotal']) ? get_option('product_addons_options')['show-incomplete-subtotal'] : '';
 
 		echo '<div id="product-addons-total" data-show-incomplete-sub-total="' . $show_incomplete_subtotal . '" data-show-sub-total="' . ( apply_filters( 'woocommerce_product_addons_show_grand_total', true, $the_product ) ? 1 : 0 ) . '" data-type="' . esc_attr( $the_product->get_type() ) . '" data-tax-mode="' . esc_attr( $tax_mode ) . '" data-tax-display-mode="' . esc_attr( $tax_display_mode ) . '" data-price="' . esc_attr( $display_price ) . '" data-raw-price="' . esc_attr( $raw_price ) . '" data-product-id="' . esc_attr( $post_id ) . '"></div>';
+	}
+
+	/**
+	 * Render placeholder for addons notices
+	 *
+	 * @param int $post_id Post ID.
+	 */
+	public function notices( $post_id ) {
+		echo '<div class="validation_message woocommerce-info" id="required_addons_validation_message"></div>';
 	}
 
 	/**

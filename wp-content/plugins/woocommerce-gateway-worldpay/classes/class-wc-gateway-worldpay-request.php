@@ -120,7 +120,7 @@ class WC_Gateway_WorldPay_Request extends WC_Gateway_Worldpay_Form {
 
 		// Setup the url for orders that are cancelled at WorldPay
 		$failureurl 		= str_replace( '&amp;', '&', $order->get_cancel_order_url() );
-		$failureurl 		= str_replace( 'https:', 'http:', $failureurl );
+		// $failureurl 		= str_replace( 'https:', 'http:', $failureurl );
 
 		// Add utm_nooverride if required
 		$failureurl   	= self::get_callback_url( $failureurl );

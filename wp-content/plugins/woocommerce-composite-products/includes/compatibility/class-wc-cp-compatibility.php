@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 3rd-party Extensions Compatibility.
  *
  * @class    WC_CP_Compatibility
- * @version  8.6.1
+ * @version  8.7.1
  */
 class WC_CP_Compatibility {
 
@@ -83,7 +83,7 @@ class WC_CP_Compatibility {
 		$this->required = array(
 			'pb'     => '6.14.0',
 			'ci'     => '1.2.4',
-			'pao'    => '3.0.14',
+			'pao'    => '6.0.0',
 			'blocks' => '7.2.0',
 			'mmq'    => '3.0.0'
 		);
@@ -369,11 +369,11 @@ class WC_CP_Compatibility {
 		}
 
 		// Addons version check.
-		if ( class_exists( 'WC_Product_Addons' ) ) {
+		if ( class_exists( 'WC_Product_Addons' ) && defined( 'WC_PRODUCT_ADDONS_VERSION' ) ) {
 
 			$required_version = $this->required[ 'pao' ];
 
-			if ( ! defined( 'WC_PRODUCT_ADDONS_VERSION' ) || version_compare( WC_PRODUCT_ADDONS_VERSION, $required_version ) < 0 ) {
+			if ( version_compare( WC_PRODUCT_ADDONS_VERSION, $required_version ) < 0 ) {
 
 				$extension      = __( 'Product Add-Ons', 'woocommerce-composite-products' );
 				$extension_full = __( 'WooCommerce Product Add-Ons', 'woocommerce-composite-products' );
@@ -385,9 +385,9 @@ class WC_CP_Compatibility {
 		}
 
 		// MMQ version check.
-		if ( class_exists( 'WC_Min_Max_Quantities' ) ) {
+		if ( class_exists( 'WC_Min_Max_Quantities' ) && defined( 'WC_MIN_MAX_QUANTITIES' ) ) {
 			$required_version = $this->required[ 'mmq' ];
-			if ( ! defined( 'WC_MIN_MAX_QUANTITIES' ) || version_compare( WC_MIN_MAX_QUANTITIES, $required_version ) < 0 ) {
+			if ( version_compare( WC_MIN_MAX_QUANTITIES, $required_version ) < 0 ) {
 				$extension      = __( 'Min/Max Quantities', 'woocommerce-composite-products' );
 				$extension_full = __( 'WooCommerce Min/Max Quantities', 'woocommerce-composite-products' );
 				$extension_url  = 'https://woocommerce.com/products/minmax-quantities/';

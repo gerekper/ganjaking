@@ -689,6 +689,10 @@ class WooCommerce_Product_Search_Admin {
 
 					case self::SECTION_INDEX :
 						if ( current_user_can( self::INDEXER_CONTROL_CAPABILITY ) ) {
+
+							$show_in_admin_bar = isset( $_POST[WooCommerce_Product_Search::SHOW_IN_ADMIN_BAR] );
+							$options[WooCommerce_Product_Search::SHOW_IN_ADMIN_BAR] = $show_in_admin_bar;
+
 							$work_cycle = isset( $_POST[WooCommerce_Product_Search_Worker::WORK_CYCLE] ) ? intval( $_POST[WooCommerce_Product_Search_Worker::WORK_CYCLE] ) : WooCommerce_Product_Search_Worker::get_work_cycle_default();
 							if ( $work_cycle <= 0 ) {
 								$work_cycle = WooCommerce_Product_Search_Worker::get_work_cycle_default();
@@ -1750,6 +1754,18 @@ class WooCommerce_Product_Search_Admin {
 				echo '</div>';
 
 				echo '</div>';
+
+				$show_in_admin_bar = isset( $options[WooCommerce_Product_Search::SHOW_IN_ADMIN_BAR] ) ? $options[WooCommerce_Product_Search::SHOW_IN_ADMIN_BAR] : WooCommerce_Product_Search::SHOW_IN_ADMIN_BAR_DEFAULT;
+				echo '<p>';
+				echo '<label>';
+				printf( '<input name="%s" type="checkbox" %s />', esc_attr( WooCommerce_Product_Search::SHOW_IN_ADMIN_BAR ), $show_in_admin_bar ? ' checked="checked" ' : '' );
+				echo ' ';
+				echo esc_html( __( 'Show the index status in the Admin Bar', 'woocommerce-product-search' ) );
+				echo '</label>';
+				echo '</p>';
+				echo '<p class="description">';
+				echo esc_html( __( 'If this option is enabled, status information is displayed in the Admin Bar until the index is completed.', 'woocommerce-product-search' ) );
+				echo '</p>';
 
 				$error = WooCommerce_Product_Search_Worker::cron_test();
 				if ( $error === null ) {

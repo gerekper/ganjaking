@@ -17,17 +17,19 @@
 		$futurePayId		  = '';
 		$futurePayStatusChange= '';
 
-		if ( (isset($_REQUEST["transId"]) && $_REQUEST["transStatus"]=='Y') || (isset($_REQUEST["futurePayId"]) && $_REQUEST["transStatus"]=='Y') ) {
-			global $wpdb, $woocommerce;
+		/**
+		 * Need to load wp-load.php so that we can use all of the
+		 * WordPress / WooCommerce / Subscriptions functions
+		 */
+		$rooturl = str_replace( 'wp-content/plugins/woocommerce-gateway-worldpay/wpcallback.php','',$_SERVER['SCRIPT_FILENAME'] );
+		// Bloody windows hosting!
+		$rooturl = str_replace( 'wp-content\plugins\woocommerce-gateway-worldpay\wpcallback.php','',$rooturl );
+		require( $rooturl . 'wp-load.php' );
 
-			/**
-			 * Need to load wp-load.php so that we can use all of the
-			 * WordPress / WooCommerce / Subscriptions functions
-			 */
-			$rooturl = str_replace( 'wp-content/plugins/woocommerce-gateway-worldpay/wpcallback.php','',$_SERVER['SCRIPT_FILENAME'] );
-			// Bloody windows hosting!
-			$rooturl = str_replace( 'wp-content\plugins\woocommerce-gateway-worldpay\wpcallback.php','',$rooturl );
-			require( $rooturl . 'wp-load.php' );
+		global $wpdb, $woocommerce;
+
+		if ( (isset($_REQUEST["transId"]) && $_REQUEST["transStatus"]=='Y') || (isset($_REQUEST["futurePayId"]) && $_REQUEST["transStatus"]=='Y') ) {
+			
 
 			$woocommerce_worldpay_settings 	= get_option( 'woocommerce_worldpay_settings' );
 			$settings_callbackPW			= $woocommerce_worldpay_settings['callbackPW'];
@@ -177,10 +179,23 @@
 			}
 			
 		} else {
-
-			$url = $_REQUEST["MC_FailureURL"];
-        	echo "<meta http-equiv='Refresh' content='1; Url=\"$url\"'>";
 			
+			$url 		= $_REQUEST["MC_FailureURL"];
+
+			$query_str 	= parse_url($url, PHP_URL_QUERY);
+			parse_str($query_str, $query_params);
+
+			$order 		= new WC_Order( (int) $query_params['order_id'] );
+			$order_key  = $order->get_order_key();
+
+			// Check if Order key from Worldpay matches Order key from Order object
+			if( $query_params['order'] == $order_key ) {
+				$cancel 		= $order->get_cancel_order_url();
+				echo "<meta http-equiv='Refresh' content='1; Url=\"$cancel\"'>";
+			} else {
+				exit;
+			}
+
 		}
 
 	// Added for debugging

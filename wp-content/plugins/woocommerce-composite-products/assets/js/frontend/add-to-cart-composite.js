@@ -3387,6 +3387,19 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 					return this.selected_product_data.addons_regular_price ? Number( this.selected_product_data.addons_regular_price ) : 0.0;
 				},
 
+				get_addons_form: function() {
+					return this.selected_product_data.addons_form;
+				},
+
+				set_addons_form: function( value ) {
+					this.selected_product_data.addons_form = value;
+
+					// Re-initialize addons every time a new form is created/set to re-trigger validation.
+					this.set( {
+						selected_addons: false,
+					} );
+				},
+
 				set_addons_price: function( value ) {
 					this.selected_product_data.addons_price = value;
 				},
@@ -4504,6 +4517,11 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 								this.show_addons_totals = true;
 
 								/**
+								 * Trigger addon totals to be re-rendered after changing the 'show-sub-total' data attribute.
+								 */
+								composite.$composite_data.trigger( 'woocommerce-product-addons-update' );
+
+								/**
 								 * Update addons grand totals with correct prices without triggering an ajax call.
 								 */
 								composite.$composite_data.on( 'updated_addons', { view: this }, this.updated_addons_handler );
@@ -4938,10 +4956,6 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 													} );
 												}
 											}
-										}
-
-										if ( has_addons ) {
-											step.$component_summary_content.find( '.wc-pao-required-addon [required]' ).prop( 'required', false );
 										}
 
 										if ( false === step.step_visibility_model.get( 'is_visible' ) ) {
@@ -8330,6 +8344,10 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 					 * Initialize prettyPhoto/phptoSwipe script when component selection scripts are initialized.
 					 */
 					self.$el.on( 'wc-composite-component-loaded', function() {
+
+						if ( self.has_addons() && typeof window.WC_PAO !== 'undefined' ) {
+							self.component_selection_model.set_addons_form( new window.WC_PAO.Form( self.$component_summary_content ) );
+						}
 
 						// Init PhotoSwipe if present.
 						if ( 'yes' === wc_composite_params.photoswipe_enabled && typeof PhotoSwipe !== 'undefined' ) {
@@ -12279,7 +12297,7 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 								if ( ! this.is_selected_variation_valid() ) {
 									this.add_validation_message( wc_composite_params.i18n_selected_product_options_invalid );
 									this.add_validation_message( wc_composite_params.i18n_selected_product_options_invalid, 'composite' );
-								} else {
+								} else if ( '' === this.component_selection_model.get( 'selected_variation' ) ) {
 									this.add_validation_message( wc_composite_params.i18n_select_product_options );
 									this.add_validation_message( wc_composite_params.i18n_select_product_options_for, 'composite' );
 								}
@@ -12290,20 +12308,22 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 								this.add_validation_message( wc_composite_params.i18n_select_product_quantity_for, 'composite' );
 							}
 
-							if ( this.has_required_addons() && ! this.has_valid_required_addons() ) {
-								this.add_validation_message( wc_composite_params.i18n_select_product_addons );
-								this.add_validation_message( wc_composite_params.i18n_select_product_addons_for, 'composite' );
-							}
-
-							if ( this.has_restricted_addons() && ! this.has_valid_restricted_addons() ) {
-								this.add_validation_message( wc_composite_params.i18n_review_product_addons );
-								this.add_validation_message( wc_composite_params.i18n_review_product_addons_for, 'composite' );
-							}
-
 							if ( this.is_nyp() && ! this.is_valid_nyp() ) {
 								this.add_validation_message( wc_composite_params.i18n_enter_valid_price );
 								this.add_validation_message( wc_composite_params.i18n_enter_valid_price_for, 'composite' );
 							}
+
+							// If the product has required addons that are not yet configured, display a notice.
+							if ( this.has_pending_required_addons() ) {
+								this.add_validation_message( wc_composite_params.i18n_select_product_addons );
+								this.add_validation_message( wc_composite_params.i18n_select_product_addons_for, 'composite' );
+
+							// If all required addons have been configured, but some of the product addons have invalid content, display a notice.
+							} else if ( ! this.has_valid_addons() ) {
+								this.add_validation_message( wc_composite_params.i18n_review_product_addons );
+								this.add_validation_message( wc_composite_params.i18n_review_product_addons_for, 'composite' );
+							}
+
 						}
 
 					} else {
@@ -12400,7 +12420,6 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 
 			this.component_addons_totals_html = '';
 			this.$component_addons_totals     = false;
-			this.$required_addons             = false;
 			this.$component_selection_gallery = false;
 
 			this.$component_variations_reset_wrapper = false;
@@ -12717,46 +12736,16 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 				valid = this.has_valid_quantity();
 			}
 
-			if ( valid && this.is_visible() && this.has_required_addons() ) {
-				valid = this.has_valid_required_addons();
-			}
-
-			if ( valid && this.is_visible() && this.has_restricted_addons() ) {
-				valid = this.has_valid_restricted_addons();
-			}
-
 			if ( valid && this.is_visible() && this.is_nyp() ) {
 				valid = this.is_valid_nyp();
 			}
 
+			if ( valid && this.is_visible() && this.has_addons() ) {
+				valid = this.has_valid_addons();
+			}
+
 			// Pass through 'component_is_valid' filter - @see WC_CP_Filters_Manager class.
 			return this.composite.filters.apply_filters( 'component_is_valid', [ valid, check_scenarios, this ] );
-		};
-
-		/**
-		 * Validates required addons.
-		 */
-		WC_CP_Component.prototype.has_valid_required_addons = function() {
-			var $addons = this.$component_summary_content.find( 'input, textarea, select' ).filter( '[required]' );
-			return $addons.filter( function() { return '' === this.value; } ).length === 0;
-		};
-
-		/**
-		 * Validates restricted addons.
-		 */
-		WC_CP_Component.prototype.has_valid_restricted_addons = function() {
-			var $addons = this.$component_summary_content.find( '.wc-pao-addon-custom-text' ).filter( '[pattern]' ),
-				valid   = true
-
-			if ( $addons.length > 0 ) {
-				$addons.each( function() {
-					if ( valid && ! this.checkValidity() && '' !== this.value ) {
-						this.reportValidity();
-						valid = false;
-					}
-				});
-			}
-			return valid;
 		};
 
 		/**
@@ -12774,6 +12763,41 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 					}
 				});
 			}
+			return valid;
+		};
+
+		/**
+		 * Validates restricted and required addons.
+		 */
+		WC_CP_Component.prototype.has_valid_addons = function() {
+			var valid       = true,
+				addons_form = this.component_selection_model.get_addons_form();
+
+			if ( addons_form ) {
+				valid = addons_form.validation.validate();
+			}
+
+			return valid;
+		};
+
+		/**
+		 * Checks if there are required addons that are not yet configured.
+		 */
+		WC_CP_Component.prototype.has_pending_required_addons = function() {
+			var valid       = false,
+				addons_form = this.component_selection_model.get_addons_form();
+
+			if ( addons_form ) {
+				var validation_state = addons_form.validation.getValidationState();
+
+				$.each( validation_state, function() {
+					if ( ! this.validation && 'required' === this.reason ) {
+						valid = true;
+						return false;
+					}
+				});
+			}
+
 			return valid;
 		};
 
@@ -12959,34 +12983,6 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 		};
 
 		/**
-		 * True if the selected option includes required addons.
-		 */
-		WC_CP_Component.prototype.has_required_addons = function() {
-
-			var product_data = this.component_options_model.get_option_data( this.get_selected_product() );
-
-			if ( product_data && product_data.has_required_addons ) {
-				return true;
-			}
-
-			return false;
-		};
-
-		/**
-		 * True if the selected option includes required addons.
-		 */
-		WC_CP_Component.prototype.has_restricted_addons = function() {
-
-			var product_data = this.component_options_model.get_option_data( this.get_selected_product() );
-
-			if ( product_data && product_data.has_restricted_addons ) {
-				return true;
-			}
-
-			return false;
-		};
-
-		/**
 		 * Initialize component scripts dependent on product type - called when selecting a new Component Option.
 		 * When called with init = false, no type-dependent scripts will be initialized.
 		 */
@@ -13001,7 +12997,6 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 			this.has_wc_core_gallery_class    = false;
 			this.component_addons_totals_html = '';
 			this.$component_addons_totals     = false;
-			this.$required_addons             = false;
 			this.show_addons_totals           = false;
 
 			if ( init ) {
@@ -13020,8 +13015,6 @@ jQuery.fn.wc_cp_animate_height = function( to, duration, callbacks ) {
 				}
 
 				if ( this.has_addons() ) {
-
-					this.$required_addons = $summary_content.find( '.wc-pao-required-addon, .required-product-addon' );
 
 					if ( 'bundle' === product_type ) {
 						this.$component_addons_totals = $summary_content.find( '.bundle_data #product-addons-total' );
